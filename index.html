@@ -94,23 +94,30 @@
     padding:9px 11px;margin:6px 0 12px;font-size:calc(12.5px*var(--co));line-height:1.45}
   .so-ten>div{display:flex;gap:8px;align-items:baseline}
   .so-ten .nhan{flex:0 0 58px;color:var(--chu-phu);font-size:calc(11px*var(--co))}
-  .so-ten .gt{flex:1;min-width:0;word-break:break-all;font-weight:600;color:var(--xanh-dam)}
+  .so-ten .gt{flex:1;min-width:0;word-break:normal;overflow-wrap:anywhere;font-weight:600;color:var(--xanh-dam)}
   .so-ten .gt.cu{font-weight:400;color:var(--chu)}
   .so-ten .phu{display:block;padding-left:66px;color:var(--chu-phu);font-size:calc(11px*var(--co))}
   .cot2{display:block}
   .cot2 .o label{display:block;text-align:left}
   .so-ten,.so-ten *{text-align:left}
-  .khung{border:1.3px solid var(--vien);border-radius:12px;padding:8px 12px 2px;margin-bottom:10px}
-  .khung>.kt{font-size:calc(10.5px*var(--co));font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+  .kh-form{border:1.3px solid var(--vien);border-radius:12px;padding:8px 12px 2px;margin-bottom:10px}
+  .kh-form>.kh-tit{font-size:calc(10.5px*var(--co));font-weight:700;letter-spacing:.4px;text-transform:uppercase;
     margin:0 0 6px;opacity:.85}
-  .khung.k-nd{background:var(--xanh-nhat);border-color:#C7D8EC} .khung.k-nd>.kt{color:var(--xanh-dam)}
-  .khung.k-pl{background:var(--luc-nen);border-color:#C4E3D0}   .khung.k-pl>.kt{color:var(--luc)}
-  .khung.k-qh{background:var(--vang-nen);border-color:#EED9A8}  .khung.k-qh>.kt{color:var(--vang)}
-  .khung.k-lt{background:var(--nen)}                             .khung.k-lt>.kt{color:var(--chu-phu)}
-  :root[data-theme="dark"] .khung{border-color:var(--vien)}
-  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .khung{border-color:var(--vien)} }
-  .khung .o{margin-bottom:8px}
-  .khung textarea{min-height:54px;height:54px}
+  .kh-form.k-nd{background:var(--xanh-nhat);border-color:#C7D8EC} .kh-form.k-nd>.kh-tit{color:var(--xanh-dam)}
+  .kh-form.k-pl{background:var(--luc-nen);border-color:#C4E3D0}   .kh-form.k-pl>.kh-tit{color:var(--luc)}
+  .kh-form.k-qh{background:var(--vang-nen);border-color:#EED9A8}  .kh-form.k-qh>.kh-tit{color:var(--vang)}
+  .kh-form.k-lt{background:var(--nen)}                             .kh-form.k-lt>.kh-tit{color:var(--chu-phu)}
+  :root[data-theme="dark"] .kh-form{border-color:var(--vien)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .kh-form{border-color:var(--vien)} }
+  .kh-form .o{margin-bottom:7px}
+  .kh-form>.kh-tit{text-align:left}
+  .kh-form .o label{margin-bottom:3px}
+  .kh-form .o input,.kh-form .o select{min-height:36px;padding-top:6px;padding-bottom:6px}
+  .kh-form .nho{min-height:34px;padding-top:5px;padding-bottom:5px}
+  .kh-form .huong-dan{margin-top:3px}
+  .kh-form .co-chu.nhom-gon button{min-height:30px;padding:4px 12px;font-size:calc(12px*var(--co))}
+  .nhan-lk{float:right;font-weight:400;cursor:pointer;text-decoration:underline;color:var(--xanh-dam)}
+  .kh-form .o textarea{min-height:44px;height:44px}
   .cot2 .chip-gon .the-loc{padding:4px 9px;min-height:28px;font-size:calc(11.5px*var(--co));background:var(--the)}
   .cot2 .chip-gon .the-loc.bat{background:var(--xanh-nhat)}
   .hang-mo{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
@@ -3042,7 +3049,7 @@ function napPhanLoai(){
 }
 
 function khung(loai, tieuDe, noiDung){
-  return noiDung ? '<section class="khung '+loai+'"><div class="kt">'+tieuDe+'</div>'+noiDung+'</section>' : '';
+  return noiDung ? '<div class="kh-form '+loai+'"><div class="kh-tit">'+tieuDe+'</div>'+noiDung+'</div>' : '';
 }
 function suaCho(id){
   var m = D.cho.find(function(c){ return c.id===id; }) || timMuc(id);
@@ -3095,8 +3102,9 @@ function suaCho(id){
 
     pl += oChonGon('Mảng nghiệp vụ','s-mang', dsMang(), m.mang?[m.mang]:[], true, 'mang');
     pl += oChonGon('Chương trình vay','s-ct', dsCTChon(), (m.ctrinh||[]).slice(0,1), true, 'ct');
-    pl += oChonGon('Tag','s-nv', dsTag('vanBan'), m.the||[], false, null,
-      '<div class="huong-dan"><b onclick="suaTagTab(\'vanBan\')" style="cursor:pointer;text-decoration:underline">Sửa danh sách tag</b></div>');
+    pl += oChonGon('Tag','s-nv', dsTag('vanBan'), m.the||[], false, null)
+      .replace('<label>Tag — chọn được nhiều</label>',
+        '<label>Tag — chọn được nhiều <span class="nhan-lk" onclick="suaTagTab(\'vanBan\')">Sửa danh sách tag</span></label>');
 
     var vt = vaiTroCua(m);
     var vbChinh = D.vanBan.filter(function(v){ return v.id!==m.id && vaiTroCua(v)==='VB chính'; });
@@ -3125,7 +3133,7 @@ function suaCho(id){
   }
 
   var duongHT = thuMucCua(m);
-  lt += '<div class="o"><label>Nơi lưu trên Drive</label>'+
+  lt += '<div class="o"><label title="Đổi năm, đổi nhóm hoặc sửa dòng này thì bấm Lưu sẽ dời file trên Drive theo">Nơi lưu trên Drive — Lưu là dời file theo</label>'+
     '<div style="display:flex;gap:7px"><input id="s-duong" style="flex:1" value="'+coChuHTML(duongHT)+
       '" data-dau="'+coChuHTML(duongHT)+'">'+
     '<button class="nho" style="flex:0 0 auto" onclick="traDuongMacDinh(\''+id+'\')">Mặc định</button></div>'+
@@ -3133,14 +3141,13 @@ function suaCho(id){
       '<button class="nho" onclick="chepDuongMay(gt(\'s-duong\'))" title="Chép đường dẫn ổ G, dán vào Explorer">📂 Chép đường dẫn ổ G</button>'+
       '<button class="nho" onclick="moThuMucMuc(\''+id+'\')">☁ Mở thư mục</button>'+
       (m.driveId?'<button class="nho" onclick="moTrenDrive(\''+id+'\')">↗ Mở file</button>':'')+
-    '</div>'+
-    '<div class="huong-dan">Đổi năm, đổi nhóm hoặc sửa dòng này thì bấm Lưu sẽ dời file trên Drive theo.</div></div>';
-  lt += '<div class="o"><label>Xếp vào nhóm</label><div class="co-chu" id="s-nhom">'+
+    '</div></div>';
+
+  nd = '<div class="o"><label>Xếp vào nhóm</label><div class="co-chu nhom-gon" id="s-nhom">'+
     ['vanBan','duLieu','ghiChu','khac'].map(function(k){
       return '<button'+((m.nhom||'vanBan')===k?' class="bat"':'')+
              ' onclick="doiNhom(\''+id+'\',\''+k+'\')">'+TEN_NHOM[k]+'</button>';
-    }).join('')+'</div></div>';
-
+    }).join('')+'</div></div>' + nd;
   var trai = khung('k-nd','Nhận dạng', nd) + khung('k-qh','Quan hệ, hiệu lực & ghi chú', qh);
   var phai = khung('k-pl','Phân loại', pl) + khung('k-lt','Lưu trữ', lt);
   var h = '<div class="hop-tit">Chi tiết tài liệu</div>'+
