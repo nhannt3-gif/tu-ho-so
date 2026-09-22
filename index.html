@@ -396,6 +396,23 @@
     .hop-in{max-height:92vh;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
     .hop-in .day-form,.hop-in .rac-chan{position:sticky;bottom:0;background:var(--the);padding-bottom:6px;z-index:4}
   }
+  /* 3.13: cột trái (lịch) đứng yên, cột phải (sổ ghi chú) cuộn riêng */
+  @media (min-width:900px){
+    .blv{align-items:start}
+    .blv-lich{position:sticky;top:8px}
+    .blv-nk .nk-trang{max-height:calc(100vh - 210px);overflow:auto;overscroll-behavior:contain}
+  }
+  .nt-doi{margin-left:auto;display:inline-flex;gap:4px;background:rgba(0,0,0,.05);border-radius:9px;padding:2px}
+  .nt-che{border:0;background:transparent;border-radius:7px;padding:3px 9px;font-size:calc(11.5px*var(--co));
+    cursor:pointer;color:#6b5a2a;opacity:.7}
+  .nt-che.bat{background:#fff;color:#3a3016;font-weight:700;opacity:1;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+  .nk-muc{display:flex;align-items:center;gap:6px}
+  .tgc-dong{display:flex;gap:8px;align-items:baseline;padding:6px 9px;border-radius:9px;margin-bottom:5px;cursor:pointer;
+    border:1px solid rgba(0,0,0,.12);font-size:calc(12.5px*var(--co))}
+  .tgc-dong:hover{filter:brightness(.97)}
+  .tgc-ngay{font-weight:700;color:#6b5a2a;flex:0 0 auto}
+  .tgc-chu{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#3a3016}
+  .tgc-dong small{color:var(--chu-phu);flex:0 0 auto}
   .chi-may{display:none}
   @media (min-width:900px){ .chi-may{display:inline-flex} }
   /* thanh báo đang xử lý (3.12) */
@@ -981,7 +998,7 @@
      <div class="blv">
       <div class="blv-lich"><div id="lich"></div></div>
       <div class="blv-nk"><div id="nhat-ky"></div></div>
-      <div class="blv-viec"><div id="ds-viec"></div></div>
+      <div class="blv-viec"><div id="tim-ghichu"></div><div id="ds-viec"></div></div>
       <div class="blv-gan"><div class="nhan-nhom">Vừa xem gần đây</div><div id="ds-ganday"></div></div>
      </div>
     </section>
@@ -1178,7 +1195,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.12', APP_LUC = '23/09/2026 03:48';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.13', APP_LUC = '23/09/2026 04:58';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MAC_DINH = {
   donvi: 'PGD NHCSXH Gò Dầu',
@@ -2185,23 +2202,42 @@ function ntData(){
   return L;
 }
 function ntCheDo(){ return D.cauHinh.nkChe==='note' ? 'note' : 'don'; }
+function ntDatChe(che){
+  if(ntCheDo()===che) return;
+  D.cauHinh.nkChe = che; luu(); veNhatKy();
+  bao(che==='note' ? 'Chế độ Note: mẩu giấy màu, ghim được. Chữ cũ vẫn còn nguyên.'
+                   : 'Chế độ Đơn giản: một ô ghi chép như trước.', 4);
+}
 function ntDoiChe(){
   D.cauHinh.nkChe = ntCheDo()==='note' ? 'don' : 'note'; luu(); veNhatKy();
   bao(ntCheDo()==='note' ? 'Chế độ Note: mẩu giấy màu, ghim được. Chữ cũ vẫn còn nguyên.'
                          : 'Chế độ Đơn giản: một ô ghi chép như trước.', 5);
 }
 function ntNgay(iso){
+  /* xếp ổn định: ghim trước, rồi theo thứ tự anh sắp (thuTu), rồi theo lúc tạo — KHÔNG theo lúc sửa
+     (nếu theo lúc sửa thì mẩu nhảy chỗ ngay khi đang gõ) */
   return ntData().note.filter(function(x){ return x.ngay===iso; })
-    .sort(function(a,b){ return (b.ghim?1:0)-(a.ghim?1:0) || (a.thuTu||0)-(b.thuTu||0) || (b.suaLuc||'').localeCompare(a.suaLuc||''); });
+    .sort(function(a,b){
+      return (b.ghim?1:0)-(a.ghim?1:0) ||
+             ((a.thuTu===undefined?9999:a.thuTu) - (b.thuTu===undefined?9999:b.thuTu)) ||
+             (a.taoLuc||'').localeCompare(b.taoLuc||'');
+    });
 }
 function ntGhim(){ return ntData().note.filter(function(x){ return x.ghim; })
   .sort(function(a,b){ return (b.suaLuc||'').localeCompare(a.suaLuc||''); }); }
-function ntChung(iso){
+/* mẩu "Ghi chép chung" của ngày — CHỈ tạo khi thật sự có chữ, để không đẻ mẩu rỗng */
+function ntChung(iso, tao){
   var L = ntData(), m = L.note.find(function(x){ return x.ngay===iso && x.chung; });
-  if(!m){ var t = new Date().toISOString();
+  if(!m && tao){ var t = new Date().toISOString();
     m = {id:idMoi(), ngay:iso, nd:'', mau:'trang', chung:true, ghim:false, taoLuc:t, suaLuc:t};
     L.note.push(m); }
-  return m;
+  return m || null;
+}
+/* gõ ở chế độ Đơn giản: tạo mẩu chung ngay lần gõ đầu */
+function ntGoChung(iso, el){
+  var m = ntChung(iso, true);
+  clearTimeout(NT_HEN[m.id]);
+  NT_HEN[m.id] = setTimeout(function(){ ntLuuO(m.id, el.value); }, 600);
 }
 function ntTim(id){ return ntData().note.find(function(x){ return x.id===id; }); }
 function ntLuuO(id, giaTri){
@@ -2309,22 +2345,24 @@ function veNhatKy(){
     '<button class="lc-nut" onclick="lcDoi()"'+(co?'':' disabled')+'>Dời ngày</button>'+
     '<button class="lc-nut" onclick="lcLuuY()"'+(co?'':' disabled')+'>'+(vChon&&vChon.luuY?'Bỏ lưu ý':'Lưu ý')+'</button>'+
     '<button class="lc-nut xau" onclick="lcXoa()"'+(co?'':' disabled')+'>Xóa</button></div>';
-  var che = ntCheDo(), chung = ntChung(c), ghim = ntGhim();
+  var che = ntCheDo(), chung = ntChung(c), ghim = ntGhim();   /* chung có thể là null khi chưa ghi gì */
   h += '<div class="nk-muc">Ghi chép'+
-    '<button class="nt-che" onclick="ntDoiChe()" title="Đổi cách ghi chú">'+
-      (che==='note'?'⬚ Note màu':'▤ Đơn giản')+'</button>'+
-    (che==='don'?'<span class="nk-luu" id="nk-luu">'+(chung.suaLuc?'đã lưu '+chung.suaLuc.slice(11,16):'')+'</span>':'')+'</div>';
+    '<span class="nt-doi">'+
+      '<button class="nt-che'+(che==='don'?' bat':'')+'" onclick="ntDatChe(\'don\')" title="Một ô ghi chép như cũ">▤ Đơn giản</button>'+
+      '<button class="nt-che'+(che==='note'?' bat':'')+'" onclick="ntDatChe(\'note\')" title="Lưới mẩu giấy màu, ghim được">⬚ Note màu</button>'+
+    '</span>'+
+    (che==='don'?'<span class="nk-luu" id="nk-luu">'+(chung&&chung.suaLuc?'đã lưu '+chung.suaLuc.slice(11,16):'')+'</span>':'')+'</div>';
   if(ghim.length) h += '<div class="nt-ghim-hang"><div class="nt-ghim-nhan">📌 Ghim</div><div class="nt-luoi">'+
     ghim.map(function(m){ return ntOHTML(m, true); }).join('')+'</div></div>';
   if(che==='don'){
     h += '<textarea id="nk-o" class="nk-giay" placeholder="Ghi lại việc đã làm, cuộc gọi, số liệu cần nhớ trong ngày…" '+
-      'oninput="ntGo(\''+chung.id+'\',this)">'+coChuHTML(chung.nd||'')+'</textarea>';
+      'oninput="ntGoChung(\''+c+'\',this)">'+coChuHTML(chung&&chung.nd||'')+'</textarea>';
     var le = ntNgay(c).filter(function(x){ return !x.chung && !x.ghim; });
     if(le.length) h += '<div class="nt-khac">Ngày này còn '+le.length+' mẩu Note: '+
       le.map(function(x){ return '<b>'+coChuHTML((x.nd||'(trống)').slice(0,26))+'</b>'; }).join(' · ')+
       ' — <a onclick="ntDoiChe()">xem dạng Note</a></div>';
   }else{
-    var ds = ntNgay(c).filter(function(x){ return !x.ghim; });
+    var ds = ntNgay(c).filter(function(x){ return !x.ghim && (!x.chung || (x.nd||'').trim()); });
     h += '<div class="nt-them-hang">'+Object.keys(NT_MAU).map(function(k){
         return '<button class="nt-them nt-'+k+'" onclick="ntThem(\''+k+'\')" title="Thêm mẩu '+NT_MAU[k]+'">+</button>';
       }).join('')+'<span class="nt-goi">Thêm mẩu: bấm màu tương ứng — đỏ việc gấp, cam quan trọng, xanh lưu ý</span></div>';
@@ -2580,7 +2618,34 @@ function taiLichTuDrive(){
   }).catch(function(e){ console.warn('Không tải được lịch', e); return 0; });
 }
 
+/* tìm trong mẩu ghi chú và việc trong lịch (3.13) — hiện ở tab Hôm nay */
+function timGhiChu(q){
+  if(!q || q.length<2) return [];
+  var qq = boDau(q), ra = [];
+  ntData().note.forEach(function(m){
+    if(boDau(m.nd||'').indexOf(qq)>=0 && (m.nd||'').trim())
+      ra.push({loai:'Ghi chú', ngay:m.ngay, chu:m.nd, mau:m.mau||'vang'});
+  });
+  lcData().viec.forEach(function(v){
+    if(boDau(v.ten||'').indexOf(qq)>=0) ra.push({loai:'Việc', ngay:v.ngay, chu:v.ten, mau:'trang'});
+  });
+  return ra.sort(function(a,b){ return (b.ngay||'').localeCompare(a.ngay||''); }).slice(0,10);
+}
+function veTimGhiChu(){
+  var e = document.getElementById('tim-ghichu'); if(!e) return;
+  var o = document.getElementById('otim');
+  var ds = timGhiChu(o ? o.value.trim() : '');
+  if(!ds.length){ e.innerHTML = ''; return; }
+  e.innerHTML = '<div class="nhan-nhom">Tìm thấy trong ghi chú &amp; lịch ('+ds.length+')</div>'+
+    ds.map(function(x){
+      return '<div class="tgc-dong nt-'+x.mau+'" onclick="lcChonNgay(\''+x.ngay+'\')">'+
+        '<span class="tgc-ngay">'+lcDM(x.ngay)+'</span>'+
+        '<span class="tgc-chu">'+coChuHTML((x.chu||'').slice(0,110))+'</span>'+
+        '<small>'+x.loai+'</small></div>';
+    }).join('');
+}
 function veHomNay(){
+  veTimGhiChu();
   var v = [];
   var nCK = demChoKhai();
   if(nCK){
@@ -5080,7 +5145,7 @@ function huongDanNhanh(){
   '<b>Kiểu xem</b><br>'+
   '☰ Danh sách · 🗂 Nhóm theo năm tháng · <b>▣ bật/tắt khung xem nhanh</b> (nhớ riêng từng tab; tab Hôm nay mặc định tắt) · '+
   '📂 chép đường dẫn thư mục ổ G (dán vào Explorer) · ☁ mở thư mục trên Drive. '+
-  'Lỡ kéo hỏng độ rộng 2 cột thì vào Cài đặt → Chung → <b>Đặt lại bố cục</b>. '+
+  'Khung xem không thấy? Bấm <b>▣</b>, hoặc Cài đặt → Chung → <b>Đặt lại bố cục</b> (app cũng tự sửa khi mở nếu độ rộng cột bị kéo hỏng). '+
   'Hàng Sắp xếp đổi theo Tên, Ngày, Loại, Dung lượng.<br><br>'+
   '<b>Thêm và khai file</b><br>'+
   'Nút Thêm ở mỗi tab. App đọc PDF lấy số hiệu, ngày, trích yếu. File nào <b>chưa đủ thông tin</b> — vừa thêm, mới quét từ Drive, '+
@@ -9572,6 +9637,15 @@ function khoiDong(){
   });
   document.addEventListener('drop', function(e){ e.preventDefault(); });
 
+  /* 3.13: giá trị kéo cột cũ có thể làm cột phải teo lại → kẹp về khoảng an toàn; bỏ cờ ẩn toàn cục đời cũ */
+  ['rongTrai','rongPhai'].forEach(function(k){
+    var v = parseFloat(D.cauHinh[k]);
+    if(D.cauHinh[k]!==undefined && (!isFinite(v) || v<0.62 || v>2.4)) delete D.cauHinh[k];
+  });
+  if(D.cauHinh.anPV!==undefined && D.cauHinh.anPVTab===undefined) delete D.cauHinh.anPV;
+  if(D.cauHinh.rongTrai) document.documentElement.style.setProperty('--rong-trai', D.cauHinh.rongTrai);
+  if(D.cauHinh.rongPhai) document.documentElement.style.setProperty('--rong-phai', D.cauHinh.rongPhai);
+  luu();
   setTimeout(apAnPV, 60);
   if(D.cauHinh.rongPV)
     document.documentElement.style.setProperty('--rong-pv', D.cauHinh.rongPV);
