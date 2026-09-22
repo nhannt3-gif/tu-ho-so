@@ -414,7 +414,14 @@
   .tgc-chu{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#3a3016}
   .tgc-dong small{color:var(--chu-phu);flex:0 0 auto}
   .chi-may{display:none}
-  @media (min-width:900px){ .chi-may{display:inline-flex} }
+  @media (min-width:760px){ .chi-may{display:inline-flex} }
+  /* 3.14: cửa sổ hẹp (760–899px) vẫn xem được — khung xem nằm dưới danh sách, không bị mất */
+  @media (min-width:760px) and (max-width:899px){
+    .cot-phai{display:block !important;margin-top:12px;border:1.3px solid var(--vien);border-radius:14px;
+      background:var(--the);max-height:70vh;overflow:hidden}
+    .than.an-preview .cot-phai{display:none !important}
+    .than .keo-cot{display:none}
+  }
   /* thanh báo đang xử lý (3.12) */
   .dang-lam{position:fixed;top:0;left:50%;transform:translate(-50%,-140%);z-index:95;display:flex;align-items:center;gap:9px;
     background:var(--xanh-dam);color:#fff;border-radius:0 0 12px 12px;padding:7px 14px;font-size:calc(12.5px*var(--co));
@@ -1195,7 +1202,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.13', APP_LUC = '23/09/2026 04:58';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.14', APP_LUC = '23/09/2026 06:04';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MAC_DINH = {
   donvi: 'PGD NHCSXH Gò Dầu',
@@ -1907,7 +1914,7 @@ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '
 function doiNgan(i, el){
   if(!window.__giuCK) CHO_KHAI = false;
   nganHienTai = i;
-  var th = document.querySelector('.than'); if(th) th.classList.toggle('ban-lv', i===0);
+  /* lớp ẩn cột phải ở tab Hôm nay do apAnPV() quyết định (còn phụ thuộc anh đã bật ▣ chưa) */
   for(var k=0;k<7;k++){
     var t = document.getElementById('tr'+k);
     if(t) t.classList.toggle('hien', k===i);
@@ -4887,8 +4894,10 @@ function veNoiCD(k){
       '<br>Địa chỉ app: <b>'+coChuHTML(location.origin+location.pathname)+'</b></div>'+
       o('Google Client ID','cd-cid',c.clientId||'','Để trống = dùng Client ID gắn sẵn của anh. Chỉ điền khi đổi sang Client ID khác.')+
       '<div class="hang-nut" style="margin:-4px 0 10px"><button class="nho" onclick="chepClientId()">Chép Client ID đang dùng</button></div>'+
-      '<h3>Bố cục</h3><div class="hang-nut"><button class="nho" onclick="datLaiBoCuc()">Đặt lại bố cục 2 cột</button></div>'+
-      '<div class="huong-dan">Đưa độ rộng 2 cột và khung xem nhanh của mọi tab về mặc định.</div>'+
+      '<h3>Bố cục</h3><div class="hang-nut">'+
+      '<button class="nho chinh" onclick="kiemTraKhungXem()">Kiểm tra &amp; sửa khung xem</button>'+
+      '<button class="nho" onclick="datLaiBoCuc()">Đặt lại bố cục 2 cột</button></div>'+
+      '<div class="huong-dan">Đưa độ rộng 2 cột và khung xem nhanh của mọi tab về mặc định.<br>'+chanDoanBoCuc()+'</div>'+
       o('Thư mục Drive trên máy (ổ G)','cd-gocmay',c.gocMay||'G:\\My Drive',
         'Dùng cho nút 📂 chép đường dẫn. Máy cài tiếng Việt có thể là G:\\Drive của tôi')+
       '<div class="hang-nut">'+
@@ -7025,6 +7034,7 @@ function moMenu(ev, id){
     (m.driveId ? '<button onclick="dongMenu();moTrenDrive(\''+id+'\')">Mở file trên Drive</button>' : '')+
     '<button onclick="dongMenu();moThuMucMuc(\''+id+'\')">Mở thư mục trên Drive</button>'+
     '<button onclick="dongMenu();chepDuongMay(thuMucCua(timMuc(\''+id+'\')))">Chép đường dẫn ổ G</button>'+
+    '<button onclick="dongMenu();batTatPV()">'+(anPVCua(tenTabPV())?'Bật':'Tắt')+' khung xem nhanh</button>'+
     '<button onclick="dongMenu();chepTen(\'' +id+ '\')">Sao chép tên file</button>'+
     '<div class="vach"></div>'+
     '<button class="xau" onclick="dongMenu();xoaVaoRac(\'' +id+ '\')">Xóa vào thùng rác</button>';
@@ -7369,9 +7379,52 @@ function datAnPV(tab, an){
 function apAnPV(){
   anPV = anPVCua(tenTabPV());
   var t = document.querySelector('.than');
-  if(t) t.classList.toggle('an-preview', anPV);
+  if(t){
+    t.classList.toggle('an-preview', anPV);
+    t.classList.toggle('ban-lv', nganHienTai===0 && anPV);   /* bàn làm việc chỉ dàn 2 ô khi đã tắt khung xem */
+  }
   var b = document.getElementById('btn-mo-preview');
   if(b) b.style.display = anPV ? '' : 'none';
+}
+/* tự kiểm tra và sửa khung xem — dùng khi anh thấy "mất" khung xem bên phải */
+function kiemTraKhungXem(){
+  var rong = window.innerWidth, t = document.querySelector('.than'), a = document.querySelector('.cot-phai');
+  var loi = [];
+  if(rong < 900) loi.push('Cửa sổ chỉ rộng '+rong+'px (dưới 900) nên app chuyển sang bố cục điện thoại — khung xem bên phải không hiện. '+
+    'Phóng to cửa sổ, hoặc giảm mức phóng của trình duyệt (Ctrl + dấu trừ).');
+  ['rongTrai','rongPhai'].forEach(function(k){
+    var v = parseFloat(D.cauHinh[k]);
+    if(D.cauHinh[k]!==undefined && (!isFinite(v) || v<0.62 || v>2.4)){ delete D.cauHinh[k]; loi.push('Độ rộng cột bị kéo hỏng → đã đặt lại.'); }
+  });
+  ['--rong-trai','--rong-phai','--rong-pv'].forEach(function(k){
+    var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(k));
+    if(isFinite(v) && (v<0.62 || v>2.4)){ document.documentElement.style.removeProperty(k); loi.push('Độ rộng cột đang áp bị lệch → đã bỏ.'); }
+  });
+  if(anPVCua(tenTabPV())){ datAnPV(tenTabPV(), false); loi.push('Tab này đang tắt khung xem → đã bật lại.'); }
+  if(D.cauHinh.anPV!==undefined){ delete D.cauHinh.anPV; loi.push('Còn cờ ẩn khung xem đời cũ → đã bỏ.'); }
+  luu(); apAnPV(); ve();
+  setTimeout(function(){
+    var an = a ? getComputedStyle(a).display==='none' : true;
+    var kq = 'Cửa sổ rộng '+rong+'px · khung xem hiện đang '+(an?'KHÔNG hiện':'HIỆN')+'.';
+    if(loi.length) kq += ' Đã sửa: '+loi.join(' ');
+    else if(!an) kq += ' Mọi thứ bình thường.';
+    moHop('<div class="hop-tit">Kiểm tra khung xem</div><div class="hop-phu">'+coChuHTML(kq)+'</div>'+
+      '<div class="huong-dan">Khung xem chỉ hiện khi cửa sổ rộng từ 900px. Bấm nút <b>▣</b> trên thanh danh sách để bật/tắt cho từng tab.</div>'+
+      '<div class="hang-nut"><button class="nho" onclick="datLaiBoCuc();dongHop()">Đặt lại toàn bộ bố cục</button>'+
+      '<button class="nho chinh" onclick="dongHop()">Xong</button></div>');
+  }, 80);
+}
+/* dòng tự chẩn đoán: vì sao khung xem không hiện */
+function chanDoanBoCuc(){
+  var w = window.innerWidth, ds = [];
+  ds.push('Bề ngang cửa sổ: <b>'+w+'px</b>');
+  ds.push(w>=900 ? 'khung xem nằm <b>bên phải</b>'
+        : (w>=760 ? 'cửa sổ hẹp — khung xem nằm <b>dưới danh sách</b>'
+                  : '<b>quá hẹp (dưới 760px)</b> — app chạy kiểu điện thoại, khung xem tắt; bấm Ctrl và dấu trừ để thu nhỏ, hoặc mở rộng cửa sổ'));
+  ds.push('Tab này: khung xem đang <b>'+(anPVCua(tenTabPV())?'TẮT — bấm ▣ để bật':'BẬT')+'</b>');
+  var t = D.cauHinh.rongTrai, p = D.cauHinh.rongPhai;
+  if(t||p) ds.push('Độ rộng đã kéo: trái '+(t||'mặc định')+' · phải '+(p||'mặc định'));
+  return ds.join(' · ');
 }
 function datLaiBoCuc(){
   ['rongTrai','rongPhai','rongPV','anPV','anPVTab'].forEach(function(k){ delete D.cauHinh[k]; });
@@ -7384,7 +7437,8 @@ function batTatPV(){
   datAnPV(tab, an); apAnPV();
   if(!an && mucDangXem) xemBenPhai(mucDangXem.id);
   ve();
-  bao(an ? 'Đã tắt khung xem nhanh ở tab này. Bấm ▣ để bật lại.' : 'Đã bật khung xem nhanh ở tab này.', 4);
+  bao((an ? 'Đã tắt khung xem nhanh ở tab này. Bấm ▣ để bật lại.' : 'Đã bật khung xem nhanh ở tab này.')+
+    ' · '+chanDoanBoCuc().replace(/<[^>]+>/g,''), 7);
 }
 /* kéo mép trái khung xem để chỉnh rộng hẹp */
 function ganKeoRong(){
