@@ -566,7 +566,8 @@
     cursor:pointer;padding:0}
   .xem.to .xem-hop{top:0;bottom:0;left:0;right:0;max-width:100%;border-radius:0}
   .keo{width:38px;height:4px;border-radius:2px;background:var(--vien);margin:0 auto 9px}
-  .xem-ten{font-size:calc(13.5px*var(--co));font-weight:600;word-break:break-all}
+  .xem-ten{font-size:calc(13.5px*var(--co));font-weight:600;overflow-wrap:anywhere;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .xem-phu{font-size:calc(11.5px*var(--co));color:var(--chu-phu);margin-top:2px}
   .xem-than{flex:1;overflow:auto;padding:12px;background:var(--nen);
     font-size:calc(12.5px*var(--co));color:var(--chu-phu);-webkit-overflow-scrolling:touch}
@@ -668,11 +669,12 @@
       gap:18px;padding:16px 8px 78px;align-items:start}
     .than.an-preview{grid-template-columns:minmax(0,1fr) !important}
     .than.an-preview .cot-phai{display:none !important}
-    .cot-phai{display:flex !important;flex-direction:column;position:sticky;top:150px;position:sticky;
+    .cot-phai{display:flex !important;flex-direction:column;position:sticky;top:96px;
       background:var(--the);border:1.3px solid var(--vien);border-radius:16px;overflow:hidden;
-      max-height:calc(100vh - 240px)}
+      /* 3.16: cao đúng phần màn còn lại (trừ thanh trên + dải đáy) để không bị ngắn */
+      height:calc(100vh - 178px);max-height:calc(100vh - 178px);min-height:320px}
     .cot-phai .dau-p{padding:12px 15px;border-bottom:1px solid var(--vien);flex:0 0 auto}
-    .cot-phai .than-p{padding:12px;overflow:auto;flex:1;min-height:280px;background:var(--nen)}
+    .cot-phai .than-p{padding:12px;overflow:auto;flex:1 1 auto;min-height:0;background:var(--nen);-webkit-overflow-scrolling:touch}
     .cot-phai .than-p canvas,.cot-phai .than-p img{width:100%;display:block;margin-bottom:9px;
       border-radius:8px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12)}
     .cot-phai .day-p{display:flex;gap:7px;padding:11px 14px;border-top:1px solid var(--vien);flex:0 0 auto}
@@ -1202,7 +1204,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.15', APP_LUC = '23/09/2026 06:12';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.16', APP_LUC = '23/09/2026 17:02';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MAC_DINH = {
   donvi: 'PGD NHCSXH Gò Dầu',
