@@ -241,9 +241,28 @@
   .nk-trang{position:relative;border-radius:6px 14px 14px 6px;padding:16px 18px 14px 34px;
     background:#F5EACB;background-image:linear-gradient(90deg,rgba(0,0,0,.035) 0,rgba(0,0,0,0) 8%,rgba(0,0,0,0) 92%,rgba(0,0,0,.05) 100%);
     border:1px solid #D9C79C;box-shadow:0 1px 2px rgba(80,60,20,.18),3px 4px 12px rgba(80,60,20,.12);
-    color:#4A3A1E;font-family:Georgia,'Times New Roman',serif}
+    color:#40331A;font-family:var(--font-so,"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Cambria,"Times New Roman",serif);
+    font-weight:400;letter-spacing:.008em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+  .nk-trang b,.nk-trang strong{font-weight:600}
   .nk-trang::before{content:'';position:absolute;top:0;bottom:0;left:22px;border-left:1.5px solid rgba(190,70,55,.45)}
-  .nk-dau{border-bottom:1.5px solid rgba(120,90,40,.35);padding-bottom:8px;margin-bottom:10px}
+  .nk-dau{border-bottom:1.5px solid rgba(120,90,40,.35);padding-bottom:8px;margin-bottom:10px;
+    display:flex;gap:14px;align-items:flex-start}
+  .nk-dau-trai{flex:0 0 auto}
+  .oq{margin-left:auto;text-align:right;max-width:52%;border-left:2px solid rgba(120,90,40,.28);padding-left:10px}
+  .oq-d1{font-size:calc(11px*var(--co));color:#7A6232;line-height:1.45}
+  .oq-d1 b{color:#8A6A2E}
+  .oq-d2{font-size:calc(12px*var(--co));font-style:italic;color:#4A3A1E;line-height:1.5;margin-top:3px}
+  .oq-tg{color:#8A7A52;font-style:normal;font-size:calc(10.5px*var(--co))}
+  .oq-nut{display:inline-block;border:1px solid #D4BF8E;border-radius:7px;padding:0 6px;cursor:pointer;
+    font-style:normal;color:#7A6232;background:rgba(255,255,255,.5)}
+  @media (max-width:899px){ .oq{max-width:100%;margin:8px 0 0;border-left:0;padding-left:0;text-align:left}
+    .nk-dau{flex-direction:column} .oq-d1{display:none} }
+  .thao-tac{margin-left:auto;display:inline-flex;gap:5px}
+  .thao-tac button{border:1px solid #D4BF8E;background:rgba(255,255,255,.6);border-radius:7px;padding:2px 9px;
+    font:inherit;font-size:calc(11px*var(--co));color:#5A4520;cursor:pointer;text-transform:none;letter-spacing:0}
+  .thao-tac button.xau{color:var(--do);border-color:#E5C3BD}
+  .nk-goi{margin-left:auto;font-size:calc(10.5px*var(--co));color:#9A8458;font-style:italic;
+    text-transform:none;letter-spacing:0;font-weight:400}
   .nk-thu{font-size:calc(13px*var(--co));letter-spacing:.5px;text-transform:uppercase;color:#8A6A2E}
   .nk-hn{font-size:calc(10.5px*var(--co));background:#B8452F;color:#fff;border-radius:6px;padding:1px 6px;letter-spacing:0;text-transform:none;vertical-align:2px}
   .nk-ngay{font-size:calc(24px*var(--co));font-weight:700;line-height:1.2}
@@ -400,7 +419,10 @@
   @media (min-width:900px){
     .blv{align-items:start}
     .blv-lich{position:sticky;top:8px}
-    .blv-nk .nk-trang{max-height:calc(100vh - 210px);overflow:auto;overscroll-behavior:contain}
+    .blv-nk{min-height:0}
+    .blv-nk .nk-trang{height:calc(100vh - 150px);max-height:calc(100vh - 150px);display:flex;flex-direction:column}
+    .blv-nk .nk-than{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;padding-right:4px}
+    .blv-nk .nt-luoi{align-content:start}
   }
   .nt-doi{margin-left:auto;display:inline-flex;gap:4px;background:rgba(0,0,0,.05);border-radius:9px;padding:2px}
   .nt-che{border:0;background:transparent;border-radius:7px;padding:3px 9px;font-size:calc(11.5px*var(--co));
@@ -413,6 +435,8 @@
   .tgc-ngay{font-weight:700;color:#6b5a2a;flex:0 0 auto}
   .tgc-chu{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#3a3016}
   .tgc-dong small{color:var(--chu-phu);flex:0 0 auto}
+  .mau-json{display:block;background:var(--nen);border:1px solid var(--vien);border-radius:9px;padding:9px 11px;
+    margin:6px 0;font-family:Consolas,"Courier New",monospace;font-size:calc(11.5px*var(--co));line-height:1.55;color:var(--xanh-dam)}
   .chi-may{display:none}
   @media (min-width:760px){ .chi-may{display:inline-flex} }
   /* 3.14: cửa sổ hẹp (760–899px) vẫn xem được — khung xem nằm dưới danh sách, không bị mất */
@@ -1204,8 +1228,9 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.16', APP_LUC = '23/09/2026 17:02';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.17', APP_LUC = '23/09/2026 18:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
+var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
   donvi: 'PGD NHCSXH Gò Dầu',
   thumuc: 'Tủ hồ sơ',
@@ -1351,6 +1376,7 @@ function nap(){
       D.ghiChu = j.ghiChu||[]; D.ganDay = j.ganDay||[]; D.cho = j.cho||[]; D.bieuMau = j.bieuMau||[]; D.rac = j.rac||[]; D.scan = j.scan||j.cauHinh&&j.cauHinh.hsDS||[];
       D.lich = j.lich||{viec:[], daXoa:[]};
       D.daXoaHan = j.daXoaHan||[];
+      D.nguonCau = j.nguonCau||{cauChu:[], ngayXua:{}};
       D.cauHinh = j.cauHinh||{};
     }
   }catch(e){ console.warn('Không đọc được dữ liệu cũ', e); }
@@ -1361,7 +1387,7 @@ function luu(){
   try{
     localStorage.setItem(KHOA, JSON.stringify({
       phienBan:PHIEN_BAN, cauHinh:D.cauHinh, vanBan:D.vanBan,
-      duLieu:D.duLieu, ghiChu:D.ghiChu, ganDay:D.ganDay, cho:D.cho, bieuMau:D.bieuMau, rac:D.rac, scan:D.scan, lich:D.lich, daXoaHan:D.daXoaHan||[]
+      duLieu:D.duLieu, ghiChu:D.ghiChu, ganDay:D.ganDay, cho:D.cho, bieuMau:D.bieuMau, rac:D.rac, scan:D.scan, lich:D.lich, daXoaHan:D.daXoaHan||[], nguonCau:D.nguonCau||null
     }));
     if(typeof henDongBoChiMuc==='function') henDongBoChiMuc();
     return true;
@@ -2326,17 +2352,257 @@ function ntOHTML(m, ghimRieng){
     '</div>'+
     '<textarea placeholder="Ghi ở đây…" oninput="ntGo(\''+m.id+'\',this)">'+coChuHTML(m.nd||'')+'</textarea></div>';
 }
+/* ==========================================================
+   CÂU CHỮ & NGÀY NÀY NĂM XƯA (3.17) — gói sẵn trong app, không cần mạng
+   Anh bổ sung thêm bằng file Drive: Tủ hồ sơ/_Hệ thống/nguon-cau.json
+   Nhóm câu chữ: cadao (ca dao · tục ngữ · thành ngữ) · danhngon (có tác giả) · kienthuc
+   ========================================================== */
+var CAU_GOI = [
+  /* --- ca dao, tục ngữ, thành ngữ --- */
+  {c:'Có công mài sắt, có ngày nên kim.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Muốn biết phải hỏi, muốn giỏi phải học.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Một cây làm chẳng nên non, ba cây chụm lại nên hòn núi cao.', t:'Ca dao Việt Nam', n:'cadao'},
+  {c:'Ăn cỗ đi trước, lội nước theo sau.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Đi một ngày đàng, học một sàng khôn.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Nói lời phải giữ lấy lời, đừng như con bướm đậu rồi lại bay.', t:'Ca dao Việt Nam', n:'cadao'},
+  {c:'Tốt gỗ hơn tốt nước sơn.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Chớ thấy sóng cả mà ngã tay chèo.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Kiến tha lâu cũng đầy tổ.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Giấy rách phải giữ lấy lề.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Của bền tại người.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Việc hôm nay chớ để ngày mai.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Thua keo này ta bày keo khác.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Ăn quả nhớ kẻ trồng cây.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Bầu ơi thương lấy bí cùng, tuy rằng khác giống nhưng chung một giàn.', t:'Ca dao Việt Nam', n:'cadao'},
+  {c:'Lá lành đùm lá rách.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Một miếng khi đói bằng một gói khi no.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Nhất nước, nhì phân, tam cần, tứ giống.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Tháng bảy kiến bò, chỉ lo lại lụt.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Chuồn chuồn bay thấp thì mưa, bay cao thì nắng, bay vừa thì râm.', t:'Ca dao Việt Nam', n:'cadao'},
+  {c:'Đói cho sạch, rách cho thơm.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Học ăn, học nói, học gói, học mở.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Gần mực thì đen, gần đèn thì rạng.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Có chí thì nên.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Thất bại là mẹ thành công.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Trăm hay không bằng tay quen.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Một lời nói dối, sám hối bảy ngày.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Tiền vào nhà khó như gió vào nhà trống.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Khéo ăn thì no, khéo co thì ấm.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Buôn tàu bán bè không bằng ăn dè hà tiện.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Làm khi lành để dành khi đau.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Của làm ra để trên gác, của cờ bạc để ngoài sân.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Ăn kỹ no lâu, cày sâu tốt lúa.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Được mùa chớ phụ ngô khoai.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Nước chảy đá mòn.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Dục tốc bất đạt.', t:'Thành ngữ Hán Việt', n:'cadao'},
+  {c:'Cẩn tắc vô ưu.', t:'Thành ngữ Hán Việt', n:'cadao'},
+  {c:'Có thực mới vực được đạo.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Một sự nhịn, chín sự lành.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Nói phải củ cải cũng nghe.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Chim khôn kêu tiếng rảnh rang, người khôn nói tiếng dịu dàng dễ nghe.', t:'Ca dao Việt Nam', n:'cadao'},
+  {c:'Ở hiền gặp lành.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Uống nước nhớ nguồn.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Thuận vợ thuận chồng, tát biển Đông cũng cạn.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Anh em như thể tay chân.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Bán anh em xa, mua láng giềng gần.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Tay làm hàm nhai, tay quai miệng trễ.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Cái khó ló cái khôn.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Đất lành chim đậu.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Giấy trắng mực đen.', t:'Thành ngữ Việt Nam', n:'cadao'},
+  {c:'Nói có sách, mách có chứng.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Sai một li đi một dặm.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Chậm mà chắc.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Tích tiểu thành đại.', t:'Thành ngữ Hán Việt', n:'cadao'},
+  {c:'Đồng tiền đi trước là đồng tiền khôn.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Trăm nghe không bằng một thấy.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Đầu xuôi đuôi lọt.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Cần cù bù thông minh.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Việc nhà thì nhác, việc chú bác thì siêng.', t:'Tục ngữ Việt Nam', n:'cadao'},
+  {c:'Nhất nghệ tinh, nhất thân vinh.', t:'Thành ngữ Hán Việt', n:'cadao'},
+
+  /* --- danh ngôn có tác giả --- */
+  {c:'Không có việc gì khó, chỉ sợ lòng không bền. Đào núi và lấp biển, quyết chí ắt làm nên.', t:'Hồ Chí Minh', n:'danhngon'},
+  {c:'Vì lợi ích mười năm thì phải trồng cây, vì lợi ích trăm năm thì phải trồng người.', t:'Hồ Chí Minh', n:'danhngon'},
+  {c:'Học để làm việc, làm người, làm cán bộ.', t:'Hồ Chí Minh', n:'danhngon'},
+  {c:'Việc gì có lợi cho dân phải hết sức làm, việc gì có hại cho dân phải hết sức tránh.', t:'Hồ Chí Minh', n:'danhngon'},
+  {c:'Cần, kiệm, liêm, chính, chí công vô tư.', t:'Hồ Chí Minh', n:'danhngon'},
+  {c:'Dân ta phải biết sử ta, cho tường gốc tích nước nhà Việt Nam.', t:'Hồ Chí Minh', n:'danhngon'},
+  {c:'Một dân tộc dốt là một dân tộc yếu.', t:'Hồ Chí Minh', n:'danhngon'},
+  {c:'Đoàn kết, đoàn kết, đại đoàn kết. Thành công, thành công, đại thành công.', t:'Hồ Chí Minh', n:'danhngon'},
+  {c:'Hiền tài là nguyên khí của quốc gia.', t:'Thân Nhân Trung', n:'danhngon'},
+  {c:'Việc nhân nghĩa cốt ở yên dân.', t:'Nguyễn Trãi — Bình Ngô đại cáo', n:'danhngon'},
+  {c:'Đem đại nghĩa để thắng hung tàn, lấy chí nhân để thay cường bạo.', t:'Nguyễn Trãi', n:'danhngon'},
+  {c:'Sông núi nước Nam vua Nam ở.', t:'Nam quốc sơn hà', n:'danhngon'},
+  {c:'Ta thà làm quỷ nước Nam, chứ không thèm làm vương đất Bắc.', t:'Trần Bình Trọng', n:'danhngon'},
+  {c:'Đầu thần chưa rơi xuống đất, xin bệ hạ đừng lo.', t:'Trần Thủ Độ', n:'danhngon'},
+  {c:'Tôi muốn cưỡi cơn gió mạnh, đạp luồng sóng dữ.', t:'Bà Triệu', n:'danhngon'},
+  {c:'Thà một phút huy hoàng rồi chợt tối, còn hơn buồn le lói suốt trăm năm.', t:'Xuân Diệu', n:'danhngon'},
+  {c:'Nơi hầm tối là nơi sáng nhất.', t:'Dương Hương Ly', n:'danhngon'},
+  {c:'Sống là cho, đâu chỉ nhận riêng mình.', t:'Tố Hữu', n:'danhngon'},
+  {c:'Thiên tài là một phần trăm cảm hứng và chín mươi chín phần trăm mồ hôi.', t:'Thomas Edison', n:'danhngon'},
+  {c:'Điều quan trọng không phải là đi nhanh, mà là không dừng lại.', t:'Khổng Tử', n:'danhngon'},
+  {c:'Học mà không suy nghĩ thì phí công, suy nghĩ mà không học thì nguy hiểm.', t:'Khổng Tử', n:'danhngon'},
+  {c:'Người quân tử cầu ở mình, kẻ tiểu nhân cầu ở người.', t:'Khổng Tử', n:'danhngon'},
+  {c:'Biết thì nói là biết, không biết thì nói là không biết, ấy là biết vậy.', t:'Khổng Tử', n:'danhngon'},
+  {c:'Hành trình vạn dặm bắt đầu từ một bước chân.', t:'Lão Tử', n:'danhngon'},
+  {c:'Kẻ thù lớn nhất của đời người là chính mình.', t:'Phật giáo', n:'danhngon'},
+  {c:'Đừng đếm những gì bạn đã mất, hãy quý những gì bạn đang có.', t:'Ngạn ngữ', n:'danhngon'},
+  {c:'Thành công là đi từ thất bại này đến thất bại khác mà không mất đi nhiệt huyết.', t:'Winston Churchill', n:'danhngon'},
+  {c:'Cách tốt nhất để dự đoán tương lai là tạo ra nó.', t:'Peter Drucker', n:'danhngon'},
+  {c:'Cái gì không đo được thì không quản được.', t:'Peter Drucker', n:'danhngon'},
+  {c:'Kỷ luật là cầu nối giữa mục tiêu và thành quả.', t:'Jim Rohn', n:'danhngon'},
+
+  /* --- kiến thức lịch sử, địa lý, đời sống --- */
+  {c:'Việt Nam có 63 tỉnh, thành phố trực thuộc trung ương; Tây Ninh giáp Campuchia với đường biên giới dài khoảng 240 km.', t:'Địa lý Việt Nam', n:'kienthuc'},
+  {c:'Sông Vàm Cỏ Đông chảy qua Tây Ninh, là nguồn nước chính cho sản xuất nông nghiệp của tỉnh.', t:'Địa lý Việt Nam', n:'kienthuc'},
+  {c:'Núi Bà Đen cao 986 m, là ngọn núi cao nhất Nam Bộ.', t:'Địa lý Việt Nam', n:'kienthuc'},
+  {c:'Hồ Dầu Tiếng là một trong những hồ nhân tạo lớn nhất Việt Nam, tưới cho Tây Ninh và các tỉnh lân cận.', t:'Địa lý Việt Nam', n:'kienthuc'},
+  {c:'Việt Nam có đường bờ biển dài khoảng 3.260 km, không kể các đảo.', t:'Địa lý Việt Nam', n:'kienthuc'},
+  {c:'Đỉnh Fansipan cao 3.147 m, cao nhất Đông Dương.', t:'Địa lý Việt Nam', n:'kienthuc'},
+  {c:'Đồng bằng sông Cửu Long là vựa lúa lớn nhất nước, chiếm hơn một nửa sản lượng lúa cả nước.', t:'Địa lý Việt Nam', n:'kienthuc'},
+  {c:'Âm lịch Việt Nam tính theo múi giờ +7, nên đôi khi lệch một ngày so với lịch Trung Quốc.', t:'Kiến thức lịch', n:'kienthuc'},
+  {c:'Tháng âm lịch có 29 hoặc 30 ngày; năm nhuận âm lịch có 13 tháng.', t:'Kiến thức lịch', n:'kienthuc'},
+  {c:'Tiết Thanh minh thường rơi vào khoảng 4–5 tháng 4 dương lịch.', t:'Kiến thức lịch', n:'kienthuc'},
+  {c:'Một năm có 52 tuần lẻ 1 ngày; năm nhuận lẻ 2 ngày, nên ngày trong tuần lùi dần mỗi năm.', t:'Kiến thức lịch', n:'kienthuc'},
+  {c:'Mười hai con giáp bắt đầu từ Tý và kết thúc ở Hợi, lặp lại theo chu kỳ 12 năm.', t:'Văn hóa Việt Nam', n:'kienthuc'},
+  {c:'Can Chi ghép 10 thiên can với 12 địa chi, tạo thành chu kỳ 60 năm gọi là một hoa giáp.', t:'Văn hóa Việt Nam', n:'kienthuc'},
+  {c:'Trống đồng Đông Sơn là hiện vật tiêu biểu của nền văn minh Việt cổ, cách nay khoảng 2.500 năm.', t:'Lịch sử Việt Nam', n:'kienthuc'},
+  {c:'Văn Miếu – Quốc Tử Giám được coi là trường đại học đầu tiên của Việt Nam.', t:'Lịch sử Việt Nam', n:'kienthuc'},
+  {c:'Chữ Quốc ngữ hình thành từ thế kỷ 17, gắn với công lao của nhiều giáo sĩ và người Việt cộng tác.', t:'Lịch sử Việt Nam', n:'kienthuc'},
+  {c:'Kinh thành Huế được xây dựng dưới triều Nguyễn, nay là Di sản văn hóa thế giới.', t:'Lịch sử Việt Nam', n:'kienthuc'},
+  {c:'Vịnh Hạ Long được UNESCO công nhận là Di sản thiên nhiên thế giới năm 1994.', t:'Địa lý Việt Nam', n:'kienthuc'},
+  {c:'Phong Nha – Kẻ Bàng có hệ thống hang động lớn bậc nhất thế giới, trong đó có hang Sơn Đoòng.', t:'Địa lý Việt Nam', n:'kienthuc'},
+  {c:'Cà phê Việt Nam xuất khẩu đứng nhóm đầu thế giới, chủ yếu là cà phê vối (robusta).', t:'Kinh tế Việt Nam', n:'kienthuc'}
+];
+
+/* Ngày này năm xưa — chỉ giữ những mốc phổ biến, dễ kiểm chứng.
+   Ngày nào không có dữ liệu thì app chỉ hiện câu chữ. */
+var NGAY_XUA = {
+  '01-01':[{y:1959,c:'Cuba: cách mạng thành công, chính quyền Batista sụp đổ',v:0}],
+  '03-02':[{y:1930,c:'Thành lập Đảng Cộng sản Việt Nam',v:1}],
+  '27-02':[{y:1955,c:'Ngày Thầy thuốc Việt Nam (Bác Hồ gửi thư cho ngành y tế)',v:1}],
+  '08-03':[{y:1910,c:'Ngày Quốc tế Phụ nữ được đề xướng',v:0}],
+  '26-03':[{y:1931,c:'Thành lập Đoàn Thanh niên Cộng sản Hồ Chí Minh',v:1}],
+  '30-04':[{y:1975,c:'Giải phóng miền Nam, thống nhất đất nước',v:1}],
+  '01-05':[{y:1886,c:'Ngày Quốc tế Lao động bắt nguồn từ cuộc đấu tranh ở Chicago',v:0}],
+  '07-05':[{y:1954,c:'Chiến thắng Điện Biên Phủ',v:1}],
+  '15-05':[{y:1941,c:'Thành lập Đội Thiếu niên Tiền phong Hồ Chí Minh',v:1}],
+  '19-05':[{y:1890,c:'Ngày sinh Chủ tịch Hồ Chí Minh',v:1}],
+  '05-06':[{y:1911,c:'Nguyễn Tất Thành ra đi tìm đường cứu nước từ bến Nhà Rồng',v:1}],
+  '21-06':[{y:1925,c:'Ngày Báo chí Cách mạng Việt Nam (báo Thanh Niên ra số đầu)',v:1}],
+  '20-07':[{y:1969,c:'Con người lần đầu đặt chân lên Mặt Trăng (Apollo 11)',v:0}],
+  '27-07':[{y:1947,c:'Ngày Thương binh – Liệt sĩ',v:1}],
+  '06-08':[{y:1945,c:'Bom nguyên tử ném xuống Hiroshima',v:0}],
+  '19-08':[{y:1945,c:'Cách mạng Tháng Tám thành công ở Hà Nội',v:1}],
+  '02-09':[{y:1945,c:'Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập tại Quảng trường Ba Đình',v:1}],
+  '23-09':[{y:1945,c:'Ngày Nam Bộ kháng chiến',v:1},{y:1846,c:'Phát hiện Hải Vương tinh',v:0}],
+  '10-10':[{y:1954,c:'Giải phóng Thủ đô Hà Nội',v:1}],
+  '20-10':[{y:1930,c:'Ngày thành lập Hội Liên hiệp Phụ nữ Việt Nam',v:1}],
+  '04-10':[{y:2002,c:'Thành lập Ngân hàng Chính sách xã hội theo Nghị định 78/2002/NĐ-CP',v:1}],
+  '09-11':[{y:1989,c:'Bức tường Berlin sụp đổ',v:0}],
+  '20-11':[{y:1982,c:'Ngày Nhà giáo Việt Nam lần đầu được tổ chức',v:1}],
+  '23-11':[{y:1940,c:'Khởi nghĩa Nam Kỳ',v:1}],
+  '22-12':[{y:1944,c:'Thành lập Đội Việt Nam Tuyên truyền Giải phóng quân',v:1}],
+  '19-12':[{y:1946,c:'Toàn quốc kháng chiến',v:1}],
+  '25-12':[{y:1642,c:'Ngày sinh Isaac Newton (theo lịch Julius)',v:0}],
+  '12-04':[{y:1961,c:'Yuri Gagarin bay vào vũ trụ — người đầu tiên',v:0}],
+  '18-05':[{y:1980,c:'Núi lửa St. Helens phun trào',v:0}],
+  '14-07':[{y:1789,c:'Phá ngục Bastille, mở đầu Cách mạng Pháp',v:0}],
+  '24-04':[{y:1990,c:'Kính viễn vọng Hubble được phóng lên quỹ đạo',v:0}],
+  '31-10':[{y:1517,c:'Martin Luther công bố 95 luận đề',v:0}],
+  '29-11':[{y:1947,c:'Liên Hợp Quốc thông qua kế hoạch phân chia Palestine',v:0}],
+  '17-12':[{y:1903,c:'Anh em nhà Wright thực hiện chuyến bay đầu tiên',v:0}],
+  '11-02':[{y:1847,c:'Ngày sinh Thomas Edison',v:0}],
+  '14-03':[{y:1879,c:'Ngày sinh Albert Einstein',v:0}]
+};
+
+/* ---- nguồn thêm của anh trên Drive: Tủ hồ sơ/_Hệ thống/nguon-cau.json ---- */
+function nguonCau(){ D.nguonCau = D.nguonCau || {cauChu:[], ngayXua:{}}; return D.nguonCau; }
+function dsCauChu(){
+  var nhom = D.cauHinh.nhomCau || {cadao:true, danhngon:true, kienthuc:true};
+  var tuAnh = (nguonCau().cauChu||[]).map(function(x){
+    return (typeof x==='string') ? {c:x, t:'', n:'cadao'} : {c:x.c||x.chu||'', t:x.t||x.tacGia||'', n:x.n||x.nhom||'cadao'};
+  });
+  return CAU_GOI.concat(tuAnh).filter(function(x){ return x.c && nhom[x.n]!==false; });
+}
+function dsNgayXua(iso){
+  var k = iso.slice(8,10)+'-'+iso.slice(5,7);
+  return (NGAY_XUA[k]||[]).concat((nguonCau().ngayXua||{})[k]||[]);
+}
+/* số thứ tự cố định theo ngày — 2 máy cùng ngày ra cùng câu */
+function soTuNgay(iso){
+  var n = 0; for(var i=0;i<iso.length;i++) n = (n*31 + iso.charCodeAt(i)) % 100000;
+  return n;
+}
+var CAU_LECH = 0;   /* bấm ⟳ thì cộng thêm */
+function cheCau(){ return D.cauHinh.cheCau || 'ngay'; }   /* ngay | moi | bam | tat */
+function cauHomNay(iso){
+  var ds = dsCauChu(); if(!ds.length) return null;
+  var i;
+  if(cheCau()==='moi') i = (soTuNgay(iso)+MO_APP_LAN+CAU_LECH) % ds.length;
+  else i = (soTuNgay(iso)+CAU_LECH) % ds.length;
+  return ds[i];
+}
+function doiCau(){ CAU_LECH++; veNhatKy(); }
+function khoiCauHTML(iso){
+  if(cheCau()==='tat') return '';
+  var xua = dsNgayXua(iso), cau = cauHomNay(iso);
+  if(!xua.length && !cau) return '';
+  var h = '<div class="oq">';
+  if(xua.length) h += '<div class="oq-d1"><b>Ngày này năm xưa</b> · '+
+    xua.slice(0,2).map(function(x){ return x.y+' — '+coChuHTML(x.c); }).join(' <span class="oq-tg">·</span> ')+'</div>';
+  if(cau) h += '<div class="oq-d2">“'+coChuHTML(cau.c)+'”'+(cau.t?' <span class="oq-tg">— '+coChuHTML(cau.t)+'</span>':'')+
+    ' <span class="oq-nut" onclick="doiCau()" title="Đổi câu khác">⟳</span></div>';
+  return h+'</div>';
+}
+/* tải nguồn của anh từ Drive */
+function taiNguonCauTuDrive(){
+  if(!coTheNoiDrive()) return Promise.resolve(0);
+  var duong = D.cauHinh.thumuc+'/_Hệ thống';
+  return baoDamDuong(duong).then(function(idTM){ return timFileTrong('nguon-cau.json', idTM); })
+  .then(function(f){
+    if(!f) return 0;
+    return goiDrive('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media').then(function(r){
+      if(!r) return 0;
+      D.nguonCau = {cauChu:r.cauChu||r.cau||[], ngayXua:r.ngayXua||r.ngay||{}};
+      luu(); veNhatKy();
+      return (D.nguonCau.cauChu||[]).length;
+    });
+  }).catch(function(e){ console.warn('Không tải được nguồn câu', e); return 0; });
+}
+/* ---- phông chữ cuốn sổ ---- */
+var PHONG_SO = {
+  codien:{ten:'Cổ điển', css:'"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Cambria,"Times New Roman",serif'},
+  viettay:{ten:'Viết tay', css:'"Segoe Print","Bradley Hand",Noteworthy,"Comic Sans MS","Palatino Linotype",cursive,serif'},
+  maychu:{ten:'Máy chữ', css:'Consolas,"Courier New","Lucida Console",monospace'}
+};
+function apPhongSo(){
+  var k = D.cauHinh.phongSo || 'codien';
+  document.documentElement.style.setProperty('--font-so', (PHONG_SO[k]||PHONG_SO.codien).css);
+}
+function datPhongSo(k){ D.cauHinh.phongSo = k; luu(); apPhongSo(); veNhatKy(); }
+/* 3 nút thao tác thu nhỏ, nằm cuối dòng "Việc trong ngày" — chỉ hiện khi đã chọn một việc */
+function thaoTacViecHTML(c, vsC){
+  var co = !!(LICH.viecChon && vsC.some(function(v){ return v.id===LICH.viecChon; }));
+  if(!co) return '<span class="nk-goi">bấm một việc để dời ngày, lưu ý, xóa</span>';
+  var v = lcTim(LICH.viecChon);
+  return '<span class="thao-tac">'+
+    '<button onclick="lcDoi()">Dời ngày</button>'+
+    '<button onclick="lcLuuY()">'+(v&&v.luuY?'Bỏ lưu ý':'Lưu ý')+'</button>'+
+    '<button class="xau" onclick="lcXoa()">Xóa</button></span>';
+}
 function veNhatKy(){
   var e = document.getElementById('nhat-ky'); if(!e) return;
   var c = LICH.chon, dc = lcNgay(c), vsC = lcViecNgay(c), L = lcData();
   var nk = (L.nhatKy||{})[c] || {};
   var hn = lcISO(nay());
-  var h = '<div class="nk-trang"><div class="nk-dau">'+
+  var h = '<div class="nk-trang"><div class="nk-dau"><div class="nk-dau-trai">'+
       '<div class="nk-thu">'+LC_THU[dc.getDay()]+(c===hn?' <span class="nk-hn">hôm nay</span>':'')+'</div>'+
       '<div class="nk-ngay">'+lcDMY(c)+'</div>'+
       '<div class="nk-am">Âm lịch '+lcAmChu(c)+' · tuần '+lcTuan(c)+
         (nhanNgayAm(c).length?' · <b class="nk-chay">'+coChuHTML(nhanNgayAm(c).join(' · '))+'</b>':'')+'</div></div>'+
-    '<div class="nk-muc">Việc trong ngày</div>'+
+    khoiCauHTML(c)+'</div>'+'<div class="nk-than">'+
+    '<div class="nk-muc">Việc trong ngày'+thaoTacViecHTML(c, vsC)+'</div>'+
     '<div class="lc-ds nk-ds">'+(vsC.length ? vsC.map(function(v){
       var xg = lcXongNgay(v, c);
       return '<div class="lc-viec'+(v.id===LICH.viecChon?' chon':'')+(xg?' xong':'')+(v.luuY?' luuy':'')+
@@ -2348,12 +2614,6 @@ function veNhatKy(){
     '<div class="lc-them"><input id="lc-o" placeholder="Việc cần làm…" onkeydown="if(event.key===\'Enter\')lcThem()">'+
       '<select id="lc-lap">'+Object.keys(LC_LAP).map(function(k){ return '<option value="'+k+'">'+LC_LAP[k]+'</option>'; }).join('')+'</select>'+
       '<button class="lc-nut chinh" onclick="lcThem()">Thêm</button></div>';
-  var co = !!(LICH.viecChon && vsC.some(function(v){ return v.id===LICH.viecChon; }));
-  var vChon = co ? L.viec.find(function(v){ return v.id===LICH.viecChon; }) : null;
-  h += '<div class="lc-hanh">'+
-    '<button class="lc-nut" onclick="lcDoi()"'+(co?'':' disabled')+'>Dời ngày</button>'+
-    '<button class="lc-nut" onclick="lcLuuY()"'+(co?'':' disabled')+'>'+(vChon&&vChon.luuY?'Bỏ lưu ý':'Lưu ý')+'</button>'+
-    '<button class="lc-nut xau" onclick="lcXoa()"'+(co?'':' disabled')+'>Xóa</button></div>';
   var che = ntCheDo(), chung = ntChung(c), ghim = ntGhim();   /* chung có thể là null khi chưa ghi gì */
   h += '<div class="nk-muc">Ghi chép'+
     '<span class="nt-doi">'+
@@ -2378,7 +2638,7 @@ function veNhatKy(){
     h += '<div class="nt-luoi" id="nt-luoi">'+(ds.length ? ds.map(function(m){ return ntOHTML(m, false); }).join('')
       : '<div class="lc-rong">Chưa có mẩu nào cho ngày này — bấm một màu ở trên để thêm</div>')+'</div>';
   }
-  h += '</div>';
+  h += '</div></div>';   /* đóng .nk-than và .nk-trang */
   e.innerHTML = h;
 }
 var NK_HEN = null;
@@ -4946,6 +5206,29 @@ function veNoiCD(k){
       }).join('')+'</select>'+
       '<div class="huong-dan">Theo Cao Đài Tự Điển (Tòa Thánh Tây Ninh). Phật giáo tính lục trai khác '+
       '(8, 14, 15, 23, 29, 30) — app dùng bản Cao Đài. App tự biết tháng âm thiếu hay đủ để đổi ngày thay thế.</div></div>'+
+      '<h3>Cuốn sổ ghi chép</h3>'+
+      '<div class="o"><label>Kiểu chữ</label><div class="co-chu">'+
+        Object.keys(PHONG_SO).map(function(k){
+          return '<button'+((D.cauHinh.phongSo||'codien')===k?' class="bat"':'')+' onclick="datPhongSo(\''+k+'\')">'+PHONG_SO[k].ten+'</button>';
+        }).join('')+'</div>'+
+      '<div class="huong-dan">Cả ba kiểu đều dùng phông có sẵn trong máy và đủ dấu tiếng Việt.</div></div>'+
+      '<h3>Câu chữ trên cuốn sổ</h3>'+
+      '<div class="o"><label>Khi nào đổi câu</label><select id="cd-checau">'+
+        [['ngay','Cố định theo ngày — cả 2 máy giống nhau'],['moi','Đổi mỗi lần mở app'],
+         ['bam','Chỉ đổi khi bấm nút ⟳'],['tat','Tắt, không hiện']].map(function(x){
+          return '<option value="'+x[0]+'"'+(cheCau()===x[0]?' selected':'')+'>'+coChuHTML(x[1])+'</option>';
+        }).join('')+'</select></div>'+
+      '<div class="o"><label>Nhóm câu chữ</label>'+
+        [['cadao','Ca dao · tục ngữ · thành ngữ'],['danhngon','Danh ngôn có tác giả'],['kienthuc','Kiến thức lịch sử, địa lý']]
+          .map(function(x){
+            var b = (D.cauHinh.nhomCau||{})[x[0]]!==false;
+            return '<label class="dt-dong"><input type="checkbox" class="cd-nhomcau" value="'+x[0]+'"'+(b?' checked':'')+'> '+x[1]+'</label>';
+          }).join('')+
+      '<div class="huong-dan">“Ngày này năm xưa” chạy riêng, luôn hiện nếu ngày đó có sự kiện. '+
+      'App gói sẵn '+CAU_GOI.length+' câu và '+Object.keys(NGAY_XUA).length+' ngày có sự kiện'+
+      ((nguonCau().cauChu||[]).length?', cộng '+nguonCau().cauChu.length+' câu của anh trên Drive':'')+'.</div></div>'+
+      '<div class="hang-nut"><button class="nho" onclick="taiNguonCauTuDrive().then(function(n){ bao(n?(\'Đã nạp \'+n+\' câu từ Drive.\'):\'Chưa thấy file nguon-cau.json trên Drive.\',5); })">Nạp nguồn của anh từ Drive</button></div>'+
+      '<div class="huong-dan">Bỏ file <b>nguon-cau.json</b> vào <b>Tủ hồ sơ/_Hệ thống/</b> trên Drive (xem mẫu trong Hướng dẫn).</div>'+
       '<h3>Ngày lễ âm</h3><div class="huong-dan">App tự ghi: Tết, Rằm tháng Giêng, Giỗ Tổ, Phật đản, Đoan ngọ, Vu lan, Trung thu, Trùng cửu, Ông Táo, Giao thừa.</div>';
   }
 
@@ -5169,6 +5452,23 @@ function huongDanNhanh(){
   'tự lưu theo từng ngày, đồng bộ giữa các máy. Ngày có ghi chép có chấm nâu trên lịch.<br>'+
   'Ghi chép có <b>2 chế độ</b>, đổi bằng nút ở dòng “Ghi chép”, chữ không mất: <b>Đơn giản</b> một ô như cũ · '+
   '<b>Note màu</b> lưới mẩu giấy (đỏ việc gấp, cam quan trọng, xanh lưu ý), <b>📌 ghim</b> thì mẩu luôn hiện dù đổi ngày.<br><br>'+
+  '<b>Câu chữ trên cuốn sổ</b><br>'+
+  'Góc trên phải sổ có <b>Ngày này năm xưa</b> (lịch sử Việt Nam và thế giới) và một <b>câu ca dao, tục ngữ, danh ngôn</b> kèm tác giả. '+
+  'Bấm <b>⟳</b> để đổi câu. Cài đặt → Lịch & ngày chay: chọn khi nào đổi câu (theo ngày · mỗi lần mở app · chỉ khi bấm · tắt) và bật/tắt từng nhóm.<br>'+
+  '<b>Anh tự thêm câu:</b> tạo file <b>nguon-cau.json</b> bỏ vào <b>Tủ hồ sơ / _Hệ thống /</b> trên Drive (hoặc ổ G), rồi bấm '+
+  '<b>Nạp nguồn của anh từ Drive</b>. Mẫu nội dung:<br>'+
+  '<code class="mau-json">{<br>'+
+  '&nbsp;"cauChu": [<br>'+
+  '&nbsp;&nbsp;{"c": "Có công mài sắt, có ngày nên kim.", "t": "Tục ngữ Việt Nam", "n": "cadao"},<br>'+
+  '&nbsp;&nbsp;{"c": "Học để làm việc, làm người, làm cán bộ.", "t": "Hồ Chí Minh", "n": "danhngon"},<br>'+
+  '&nbsp;&nbsp;"Câu ngắn gọn không cần tác giả cũng được"<br>'+
+  '&nbsp;],<br>'+
+  '&nbsp;"ngayXua": {<br>'+
+  '&nbsp;&nbsp;"23-09": [{"y": 1977, "c": "Việt Nam gia nhập Liên Hợp Quốc"}],<br>'+
+  '&nbsp;&nbsp;"04-10": [{"y": 2002, "c": "Thành lập Ngân hàng Chính sách xã hội"}]<br>'+
+  '&nbsp;}<br>}</code>'+
+  '<b>c</b> = câu · <b>t</b> = tác giả (bỏ trống được) · <b>n</b> = nhóm: <b>cadao</b> · <b>danhngon</b> · <b>kienthuc</b>. '+
+  'Khóa của <b>ngayXua</b> là <b>ngày-tháng</b> dạng <b>23-09</b>; <b>y</b> = năm. Gõ file bằng Notepad, lưu kiểu UTF-8.<br><br>'+
   '<b>Lịch</b><br>'+
   'Ngày chay theo đạo Cao Đài: mặc định <b>thập trai</b> (1, 8, 14, 15, 18, 23, 24, 28, 29, 30; tháng thiếu ăn 27 thay 30), '+
   'đổi sang lục trai hoặc chỉ mùng 1 & rằm ở Cài đặt → Lịch & ngày chay. Ngày chay hiện số âm màu vàng đất; app tự biết tháng âm thiếu hay đủ. '+
@@ -5243,6 +5543,11 @@ function luuCaiDat(noiLuon){
   if(co('cd-cid')) c.clientId = (gt('cd-cid')===CLIENT_ID_MAC_DINH) ? '' : gt('cd-cid');
   if(co('cd-gocmay')) c.gocMay = gt('cd-gocmay') || 'G:\\My Drive';
   if(co('cd-chay')) c.cheChay = gt('cd-chay');
+  if(co('cd-checau')) c.cheCau = gt('cd-checau');
+  if(document.querySelector('.cd-nhomcau')){
+    c.nhomCau = {};
+    Array.prototype.forEach.call(document.querySelectorAll('.cd-nhomcau'), function(x){ c.nhomCau[x.value] = x.checked; });
+  }
   if(co('cd-sotrang')){
     var n = parseInt(gt('cd-sotrang'),10);
     c.soTrangDoc = (n>=1 && n<=8) ? n : 2;
@@ -5512,7 +5817,7 @@ function noiDrive(imLang){
     if(DR.hangCho.length) chayHangCho();
     chayDongBoCho();
     if(!DR.daKeoCM){ DR.daKeoCM = true; taiChiMucTuDrive(true); }
-    if(!DR.daKeoLich){ DR.daKeoLich = true; taiLichTuDrive(); }
+    if(!DR.daKeoLich){ DR.daKeoLich = true; taiLichTuDrive(); taiNguonCauTuDrive(); }
     return true;
   }).catch(function(e){
     DR.dangNoi = false; DR.sanSang = false;
@@ -9709,7 +10014,7 @@ function khoiDong(){
   document.addEventListener('drop', function(e){ e.preventDefault(); });
 
   /* 3.13: giá trị kéo cột cũ có thể làm cột phải teo lại → kẹp về khoảng an toàn; bỏ cờ ẩn toàn cục đời cũ */
-  suaRongCot();
+  suaRongCot(); apPhongSo();
   if(D.cauHinh.anPV!==undefined && D.cauHinh.anPVTab===undefined) delete D.cauHinh.anPV;
   if(D.cauHinh.rongTrai) document.documentElement.style.setProperty('--rong-trai', D.cauHinh.rongTrai);
   if(D.cauHinh.rongPhai) document.documentElement.style.setProperty('--rong-phai', D.cauHinh.rongPhai);
