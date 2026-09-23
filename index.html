@@ -1202,7 +1202,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.14', APP_LUC = '23/09/2026 06:04';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.15', APP_LUC = '23/09/2026 06:12';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MAC_DINH = {
   donvi: 'PGD NHCSXH Gò Dầu',
@@ -7415,6 +7415,21 @@ function kiemTraKhungXem(){
   }, 80);
 }
 /* dòng tự chẩn đoán: vì sao khung xem không hiện */
+/* 3.15: độ rộng cột phải có đơn vị 'fr'. Số trần (vd "1.35") làm CSS bỏ cả quy tắc chia cột
+   → danh sách, thanh kéo và khung xem xếp chồng dọc (khung xem "biến mất") */
+function suaRongCot(){
+  var doi = false;
+  ['rongTrai','rongPhai'].forEach(function(k){
+    var v0 = D.cauHinh[k];
+    if(v0===undefined) return;
+    var v = parseFloat(v0);
+    if(!isFinite(v) || v<0.62 || v>2.4){ delete D.cauHinh[k]; doi = true; return; }
+    var chuan = v+'fr';
+    if(String(v0).trim()!==chuan){ D.cauHinh[k] = chuan; doi = true; }
+  });
+  if(doi) luu();
+  return doi;
+}
 function chanDoanBoCuc(){
   var w = window.innerWidth, ds = [];
   ds.push('Bề ngang cửa sổ: <b>'+w+'px</b>');
@@ -7502,8 +7517,8 @@ function ganKeoCot(){
     /* 3.12: chặn kéo quá tay — mỗi cột giữ trong khoảng 30%..70% */
     var t = Math.max(.62, Math.min(2.4, t0 + dx));
     var pp = Math.max(.62, Math.min(2.4, p0 - dx));
-    document.documentElement.style.setProperty('--rong-trai', t);
-    document.documentElement.style.setProperty('--rong-phai', pp);
+    document.documentElement.style.setProperty('--rong-trai', t+'fr');
+    document.documentElement.style.setProperty('--rong-phai', pp+'fr');
   }
   function thoi(){
     if(!dang) return;
@@ -7522,8 +7537,8 @@ function ganKeoCot(){
     if(dang) keo(e.touches[0].clientX); }, {passive:true});
   document.addEventListener('touchend', thoi);
   v.addEventListener('dblclick', function(){
-    document.documentElement.style.setProperty('--rong-trai', 1);
-    document.documentElement.style.setProperty('--rong-phai', 1.25);
+    document.documentElement.style.setProperty('--rong-trai', '1fr');
+    document.documentElement.style.setProperty('--rong-phai', '1.25fr');
     D.cauHinh.rongTrai = '1'; D.cauHinh.rongPhai = '1.25'; luu();
     if(XEM.phai.pdf) veTrang('phai');
     bao('Đã trả về rộng mặc định.', 3);
@@ -9692,10 +9707,7 @@ function khoiDong(){
   document.addEventListener('drop', function(e){ e.preventDefault(); });
 
   /* 3.13: giá trị kéo cột cũ có thể làm cột phải teo lại → kẹp về khoảng an toàn; bỏ cờ ẩn toàn cục đời cũ */
-  ['rongTrai','rongPhai'].forEach(function(k){
-    var v = parseFloat(D.cauHinh[k]);
-    if(D.cauHinh[k]!==undefined && (!isFinite(v) || v<0.62 || v>2.4)) delete D.cauHinh[k];
-  });
+  suaRongCot();
   if(D.cauHinh.anPV!==undefined && D.cauHinh.anPVTab===undefined) delete D.cauHinh.anPV;
   if(D.cauHinh.rongTrai) document.documentElement.style.setProperty('--rong-trai', D.cauHinh.rongTrai);
   if(D.cauHinh.rongPhai) document.documentElement.style.setProperty('--rong-phai', D.cauHinh.rongPhai);
