@@ -228,15 +228,20 @@
     .dau-hang .tim{margin-top:0;padding:7px 12px}
     .dau-hang .gio{margin-left:0}
   }
-  .blv{display:grid;grid-template-columns:1fr;gap:12px;grid-template-areas:"lich" "nk" "viec" "gan"}
-  .blv-lich{grid-area:lich} .blv-nk{grid-area:nk} .blv-viec{grid-area:viec} .blv-gan{grid-area:gan}
+  .blv{display:grid;grid-template-columns:1fr;gap:12px}
+  .blv-trai{display:flex;flex-direction:column;gap:12px;min-width:0}
+  .blv-duoi{display:flex;flex-direction:column;gap:12px;min-width:0}
+  .cxl-gon{font-size:calc(12px*var(--co));color:var(--luc);background:var(--luc-nen);border:1px solid #C4E3D0;
+    border-radius:9px;padding:5px 10px;display:inline-block}
   .blv-viec .nhan-nhom:first-child,.blv-gan .nhan-nhom:first-child{margin-top:0}
   @media (min-width:900px){
     .than.ban-lv{grid-template-columns:1fr !important}
     .than.ban-lv .keo-cot,.than.ban-lv .cot-phai{display:none !important}
-    .blv{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start;
-      grid-template-areas:"lich nk" "viec nk" "gan nk"}
+    .blv{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
     .blv-nk{position:sticky;top:12px}
+    /* 3.18: cột trái — lịch đứng yên trên cùng, phần dưới cuộn riêng khi dài quá màn */
+    .blv-trai{height:calc(100vh - 200px);min-height:0}
+    .blv-duoi{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;padding-right:4px}
   }
   .nk-trang{position:relative;border-radius:6px 14px 14px 6px;padding:16px 18px 14px 34px;
     background:#F5EACB;background-image:linear-gradient(90deg,rgba(0,0,0,.035) 0,rgba(0,0,0,0) 8%,rgba(0,0,0,0) 92%,rgba(0,0,0,.05) 100%);
@@ -420,7 +425,7 @@
     .blv{align-items:start}
     .blv-lich{position:sticky;top:8px}
     .blv-nk{min-height:0}
-    .blv-nk .nk-trang{height:calc(100vh - 150px);max-height:calc(100vh - 150px);display:flex;flex-direction:column}
+    .blv-nk .nk-trang{height:calc(100vh - 200px);max-height:calc(100vh - 200px);display:flex;flex-direction:column}
     .blv-nk .nk-than{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;padding-right:4px}
     .blv-nk .nt-luoi{align-content:start}
   }
@@ -437,6 +442,48 @@
   .tgc-dong small{color:var(--chu-phu);flex:0 0 auto}
   .mau-json{display:block;background:var(--nen);border:1px solid var(--vien);border-radius:9px;padding:9px 11px;
     margin:6px 0;font-family:Consolas,"Courier New",monospace;font-size:calc(11.5px*var(--co));line-height:1.55;color:var(--xanh-dam)}
+  /* ---- 3.18: sổ gạch dòng · nhãn Anh–Việt · chip xanh lá ---- */
+  .nk-viet{font-weight:400;text-transform:none;letter-spacing:0;font-style:italic;
+    font-size:calc(11px*var(--co));color:#8A7A52;margin-left:7px}
+  .nk-muc{color:#2E2410}                       /* chữ nhãn đậm màu hơn */
+  .nk-thu,.nk-ngay{color:#2E2410}
+  .nk-am{color:#6B5730}
+  .nk-tot{margin-top:4px;font-size:calc(11.5px*var(--co));color:#6B5730;cursor:pointer;
+    display:inline-block;border-bottom:1px dotted #C9B07A}
+  .nk-tot.hd{color:#1A6E3F}
+  .nk-tot .nk-gio{color:#8A7A52}
+  .nk-nhac{display:flex;align-items:center;gap:9px;background:var(--luc-nen);border:1px solid #BFE0CB;
+    border-radius:10px;padding:6px 10px;margin-bottom:8px;font-size:calc(12.5px*var(--co));color:var(--luc)}
+  .nk-nhac .nho{border-color:#9FD0B3;color:var(--luc);background:#fff}
+  .dong-ds{display:flex;flex-direction:column;gap:4px}
+  .dong-o{display:flex;align-items:flex-start;gap:8px;border:1px solid rgba(0,0,0,.12);border-radius:9px;
+    padding:5px 8px;background:rgba(255,255,255,.55)}
+  .dong-o.nt-do{background:#FADCD7}.dong-o.nt-cam{background:#FBE7C6}
+  .dong-o.nt-xanh{background:#DCEBDD}.dong-o.nt-vang{background:#FBF3DC}
+  .dong-tick{flex:0 0 auto;width:19px;height:19px;border:1.5px solid #C9B07A;border-radius:6px;background:#FFFBEF;
+    display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;cursor:pointer;margin-top:1px}
+  .dong-tick.trong{border-style:dashed;color:#B5A075;background:transparent;cursor:default}
+  .dong-o.xong .dong-tick{background:var(--luc);border-color:var(--luc)}
+  .dong-chu{flex:1;min-width:0;border:0;background:transparent;resize:none;overflow:hidden;outline:none;
+    font:inherit;font-size:calc(13px*var(--co));line-height:1.5;color:#3A2E14;padding:1px 0}
+  .dong-o.xong .dong-chu{text-decoration:line-through;color:#8A7A52}
+  .dong-gio{flex:0 0 auto;font-size:calc(10.5px*var(--co));color:#9A8458;margin-top:2px}
+  .dong-menu{flex:0 0 auto;cursor:pointer;color:#8A7A52;padding:0 3px;font-size:15px;line-height:1}
+  .dong-menu:hover{color:#3A2E14}
+  .dong-moi{display:flex;align-items:center;gap:8px;border:1.3px dashed #D4BF8E;border-radius:9px;
+    padding:5px 8px;margin-top:6px;background:rgba(255,255,255,.4)}
+  .dong-moi input{flex:1;border:0;background:transparent;outline:none;font:inherit;
+    font-size:calc(13px*var(--co));color:#3A2E14}
+  .dong-dem{margin-top:6px;font-size:calc(11px*var(--co));color:#8A7A52;text-align:right}
+  .nt-phong{margin-left:6px}
+  .nt-phong .nt-che{padding:3px 8px;font-size:calc(13px*var(--co));line-height:1}
+  .tot-o{border:1px solid var(--vien);border-radius:10px;padding:8px 10px;font-size:calc(12.5px*var(--co));line-height:1.55}
+  .tot-o.hd{background:var(--luc-nen);border-color:#BFE0CB}
+  .tot-gio{display:flex;flex-wrap:wrap;gap:6px}
+  .tot-gio span{border:1px solid var(--vien);border-radius:9px;padding:4px 9px;font-size:calc(12px*var(--co));background:var(--the)}
+  .tot-gio b{color:var(--xanh-dam);margin-right:5px}
+  /* chip thông báo dạng xanh lá */
+  .chip.luc,.chip-bao{background:var(--luc-nen);color:var(--luc)}
   .chi-may{display:none}
   @media (min-width:760px){ .chi-may{display:inline-flex} }
   /* 3.14: cửa sổ hẹp (760–899px) vẫn xem được — khung xem nằm dưới danh sách, không bị mất */
@@ -1029,10 +1076,14 @@
     <!-- 0 HÔM NAY -->
     <section class="trang hien" id="tr0">
      <div class="blv">
-      <div class="blv-lich"><div id="lich"></div></div>
+      <div class="blv-trai">
+        <div class="blv-lich"><div id="lich"></div></div>
+        <div class="blv-duoi">
+          <div class="blv-viec"><div id="tim-ghichu"></div><div id="ds-viec"></div></div>
+          <div class="blv-gan"><div class="nhan-nhom">Vừa xem gần đây</div><div id="ds-ganday"></div></div>
+        </div>
+      </div>
       <div class="blv-nk"><div id="nhat-ky"></div></div>
-      <div class="blv-viec"><div id="tim-ghichu"></div><div id="ds-viec"></div></div>
-      <div class="blv-gan"><div class="nhan-nhom">Vừa xem gần đây</div><div id="ds-ganday"></div></div>
      </div>
     </section>
 
@@ -1228,7 +1279,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.17', APP_LUC = '23/09/2026 18:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.18', APP_LUC = '24/09/2026 11:50';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -2236,7 +2287,146 @@ function ntData(){
   });
   return L;
 }
+/* ==========================================================
+   SỔ GẠCH DÒNG (3.18) — chế độ 'don' nay là TO-DO LIST tuần tự:
+   mỗi dòng một mục, Enter xuống dòng mới, tick xong, đổi màu, xóa, đưa lên SCHEDULE
+   Dùng chung kho với Note màu: mẩu có kieu:'dong'
+   ========================================================== */
+function dsDong(iso){
+  return ntData().note.filter(function(x){ return x.ngay===iso && x.kieu==='dong'; })
+    .sort(function(a,b){
+      return ((a.thuTu===undefined?9999:a.thuTu) - (b.thuTu===undefined?9999:b.thuTu)) ||
+             (a.taoLuc||'').localeCompare(b.taoLuc||'');
+    });
+}
+/* ghi chép cũ (một khối chữ dài) → tách theo dòng xuống hàng thành các mục, không mất chữ */
+function tachChungThanhDong(iso){
+  var m = ntChung(iso); if(!m || !(m.nd||'').trim()) return 0;
+  var L = ntData(), t = new Date().toISOString(), n = 0, i = 0;
+  (m.nd||'').split('\n').forEach(function(d){
+    if(!d.trim()) return;
+    L.note.push({id:idMoi(), ngay:iso, nd:d.trim(), mau:'trang', kieu:'dong', xong:'',
+      thuTu:i++, taoLuc:t, suaLuc:t});
+    n++;
+  });
+  L.note = L.note.filter(function(x){ return x.id!==m.id; });
+  L.noteXoa.push({id:m.id, luc:t});
+  /* xóa chữ ở kho cũ để lần vẽ sau không dựng lại mẩu chung rồi tách thêm lần nữa */
+  L.nhatKy = L.nhatKy || {};
+  if(L.nhatKy[iso]) L.nhatKy[iso] = {text:'', suaLuc:t};
+  if(n) luu();
+  return n;
+}
+function dongThem(iso, chu, mau){
+  if(!(chu||'').trim()) return null;
+  var t = new Date().toISOString(), ds = dsDong(iso);
+  var m = {id:idMoi(), ngay:iso, nd:chu.trim(), mau:mau||'trang', kieu:'dong', xong:'',
+    thuTu:(ds.length?(ds[ds.length-1].thuTu||ds.length-1)+1:0), taoLuc:t, suaLuc:t};
+  ntData().note.push(m); luu(); henDongBoLich();
+  return m;
+}
+function dongGoThem(el, iso){
+  if(event.key!=='Enter') return;
+  event.preventDefault();
+  var m = dongThem(iso, el.value); if(!m) return;
+  el.value = '';
+  veNhatKy();
+  var o = document.getElementById('nk-dong-moi'); if(o) o.focus();
+}
+function dongXong(id){
+  var m = ntTim(id); if(!m) return;
+  m.xong = m.xong ? '' : new Date().toISOString();
+  m.suaLuc = new Date().toISOString(); luu(); henDongBoLich(); veNhatKy();
+}
+function menuDong(id, ev){
+  ev && ev.stopPropagation();
+  var m = ntTim(id); if(!m) return;
+  moHop('<div class="hop-tit">Dòng ghi chép</div>'+
+    '<div class="hop-phu">'+coChuHTML((m.nd||'').slice(0,90))+'</div>'+
+    '<div class="o"><label>Màu dòng</label><div class="chip-gon mo" style="gap:7px">'+
+      Object.keys(NT_MAU).map(function(k){
+        return '<span class="the-loc nt-'+k+(m.mau===k?' bat':'')+'" onclick="dongDoiMau(\''+id+'\',\''+k+'\')">'+NT_MAU[k]+'</span>';
+      }).join('')+'</div></div>'+
+    '<div class="hang-nut">'+
+      '<button class="nho" onclick="dongLenLich(\''+id+'\')">🕘 Đưa lên SCHEDULE</button>'+
+      '<button class="nho" onclick="dongChuyen(\''+id+'\',-1)">↑ Lên trên</button>'+
+      '<button class="nho" onclick="dongChuyen(\''+id+'\',1)">↓ Xuống dưới</button></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+      '<button class="nho xau" onclick="dongXoa(\''+id+'\')">Xóa dòng</button></div>');
+}
+function dongDoiMau(id, mau){
+  var m = ntTim(id); if(!m) return;
+  m.mau = mau; m.suaLuc = new Date().toISOString(); luu(); henDongBoLich(); dongHop(); veNhatKy();
+}
+function dongXoa(id){
+  var L = ntData();
+  L.note = L.note.filter(function(x){ return x.id!==id; });
+  L.noteXoa.push({id:id, luc:new Date().toISOString()});
+  luu(); henDongBoLich(); dongHop(); veNhatKy(); veLich();
+}
+function dongChuyen(id, huong){
+  var m = ntTim(id); if(!m) return;
+  var ds = dsDong(m.ngay), i = ds.findIndex(function(x){ return x.id===id; }), j = i+huong;
+  if(i<0 || j<0 || j>=ds.length) return;
+  ds.forEach(function(x,k){ x.thuTu = k; });
+  var tmp = ds[i].thuTu; ds[i].thuTu = ds[j].thuTu; ds[j].thuTu = tmp;
+  ds[i].suaLuc = ds[j].suaLuc = new Date().toISOString();
+  luu(); henDongBoLich(); dongHop(); veNhatKy();
+}
+/* đưa một dòng lên SCHEDULE (việc theo lịch) */
+function dongLenLich(id){
+  var m = ntTim(id); if(!m) return;
+  dongHop();
+  moHop('<div class="hop-tit">Đưa lên SCHEDULE</div>'+
+    '<div class="hop-phu">'+coChuHTML(m.nd||'')+'</div>'+
+    '<div class="hai"><div class="o"><label>Ngày</label><input id="dl-ngay" inputmode="numeric" '+
+      'value="'+ngayVN(m.ngay)+'" oninput="gonNgay(this)"></div>'+
+    '<div class="o"><label>Lặp lại</label><select id="dl-lap">'+
+      Object.keys(LC_LAP).map(function(k){ return '<option value="'+k+'">'+LC_LAP[k]+'</option>'; }).join('')+
+      '</select></div></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+      '<button class="nho chinh" onclick="dongLenLichOK(\''+id+'\')">Đưa lên</button></div>');
+}
+function dongLenLichOK(id){
+  var m = ntTim(id); if(!m) return;
+  var iso = ngayISOo(gt('dl-ngay'));
+  if(!iso) return baoLoi('Ngày chưa đúng, gõ dạng dd/mm/yyyy.');
+  var t = new Date().toISOString();
+  lcData().viec.push({id:idMoi(), ten:m.nd, ngay:iso, lap:gt('dl-lap')||'mot', luuY:false,
+    xong:false, xongNgay:{}, bo:[], taoLuc:t, suaLuc:t});
+  var L = ntData();
+  L.note = L.note.filter(function(x){ return x.id!==id; });
+  L.noteXoa.push({id:id, luc:t});
+  luu(); henDongBoLich(); dongHop(); veLich(); veNhatKy();
+  bao('Đã đưa lên SCHEDULE ngày '+lcDMY(iso)+'.', 5);
+}
+/* việc hôm qua chưa xong → chuyển sang hôm nay */
+function dongChuaXongHomQua(iso){
+  return dsDong(lcCong(iso,-1)).filter(function(x){ return !x.xong; });
+}
+function dongChuyenHomQua(iso){
+  var ds = dongChuaXongHomQua(iso), t = new Date().toISOString();
+  ds.forEach(function(m){ m.ngay = iso; m.suaLuc = t; });
+  luu(); henDongBoLich(); veNhatKy(); veLich();
+  bao('Đã chuyển '+ds.length+' việc chưa xong sang hôm nay.', 4);
+}
 function ntCheDo(){ return D.cauHinh.nkChe==='note' ? 'note' : 'don'; }
+/* Enter ở giữa danh sách = thêm dòng mới ngay dưới; ô rỗng + Backspace = xóa dòng */
+function dongPhim(ev, id, iso){
+  if(ev.key==='Enter'){
+    ev.preventDefault();
+    var m = ntTim(id), ds = dsDong(iso);
+    ds.forEach(function(x,k){ if(x.thuTu===undefined) x.thuTu = k; });
+    var moi = dongThem(iso, ' ');
+    if(moi && m){ moi.thuTu = (m.thuTu||0)+0.5; moi.nd=''; luu(); }
+    veNhatKy();
+    var o = document.querySelectorAll('.dong-o .dong-chu');
+    for(var i=0;i<o.length;i++) if(!o[i].value.trim()){ o[i].focus(); break; }
+  }else if(ev.key==='Backspace' && !ev.target.value){
+    ev.preventDefault(); dongXoa(id);
+  }
+}
+function dongCaoTuDong(el){ el.style.height='auto'; el.style.height=(el.scrollHeight)+'px'; }
 function ntDatChe(che){
   if(ntCheDo()===che) return;
   D.cauHinh.nkChe = che; luu(); veNhatKy();
@@ -2275,18 +2465,34 @@ function ntGoChung(iso, el){
   NT_HEN[m.id] = setTimeout(function(){ ntLuuO(m.id, el.value); }, 600);
 }
 function ntTim(id){ return ntData().note.find(function(x){ return x.id===id; }); }
+/* 3.18: lưu KHÔNG vẽ lại gì — trước đây vẽ lại lịch + sổ nên ô đang gõ bị thay,
+   mất chỗ nhập, phải bấm lại mỗi chữ */
 function ntLuuO(id, giaTri){
   var m = ntTim(id); if(!m) return;
   m.nd = giaTri; m.suaLuc = new Date().toISOString();
-  luu(); henDongBoLich();
+  luu();
   var t = document.getElementById('nt-luu-'+id) || document.getElementById('nk-luu');
   if(t) t.textContent = 'đã lưu '+m.suaLuc.slice(11,16);
-  capNhatChamLich();
+  capNhatChamNgay(m.ngay);     /* chỉ sửa đúng 1 ô ngày trên lịch */
 }
+/* đổi chấm của một ngày trên lịch mà không vẽ lại cả lịch */
+function capNhatChamNgay(iso){
+  var o = document.querySelector('.lc-o[data-iso="'+iso+'"]'); if(!o) return;
+  var vs = lcViecNgay(iso), co = vs.length || ntData().note.some(function(x){ return x.ngay===iso && (x.nd||'').trim(); });
+  var mau = vs.some(function(v){ return v.luuY; }) ? 'cam' : (vs.length ? 'xanh' : 'nau');
+  var i = o.querySelector('.lc-cham');
+  if(!co){ if(i) i.remove(); return; }
+  if(!i){ i = document.createElement('i'); o.appendChild(i); }
+  i.className = 'lc-cham '+mau;
+}
+/* rời ô mới đẩy lên Drive — gõ tới đâu đồng bộ tới đó là thừa */
+function ntRoiO(id){ henDongBoLich(); }
 var NT_HEN = {};
 function ntGo(id, el){
+  var t = document.getElementById('nt-luu-'+id) || document.getElementById('nk-luu');
+  if(t) t.textContent = 'đang gõ…';
   clearTimeout(NT_HEN[id]);
-  NT_HEN[id] = setTimeout(function(){ ntLuuO(id, el.value); }, 600);
+  NT_HEN[id] = setTimeout(function(){ ntLuuO(id, el.value); }, 400);
 }
 function ntThem(mau){
   var t = new Date().toISOString();
@@ -2334,7 +2540,7 @@ function ntKeoTha(id){
     a.suaLuc = b.suaLuc = new Date().toISOString(); luu(); henDongBoLich(); veNhatKy(); }
   NT_KEO = null;
 }
-function capNhatChamLich(){ veLich(); }
+function capNhatChamLich(){ veLich(); }   /* chỉ dùng khi thêm/xóa mẩu, KHÔNG dùng lúc gõ */
 function ntOHTML(m, ghimRieng){
   var mau = Object.keys(NT_MAU).map(function(k){
     return '<span class="nt-cham nt-'+k+(m.mau===k?' chon':'')+'" title="'+NT_MAU[k]+'" onclick="ntDoiMau(\''+m.id+'\',\''+k+'\')"></span>';
@@ -2350,7 +2556,7 @@ function ntOHTML(m, ghimRieng){
       '<button class="nt-nut chi-may" onclick="ntChuyen(\''+m.id+'\',1)" title="Xuống sau">↓</button>')+
       '<button class="nt-nut xau" onclick="ntXoa(\''+m.id+'\')" title="Xóa mẩu">✕</button>'+
     '</div>'+
-    '<textarea placeholder="Ghi ở đây…" oninput="ntGo(\''+m.id+'\',this)">'+coChuHTML(m.nd||'')+'</textarea></div>';
+    '<textarea placeholder="Ghi ở đây…" oninput="ntGo(\''+m.id+'\',this)" onblur="ntRoiO(\''+m.id+'\')">'+coChuHTML(m.nd||'')+'</textarea></div>';
 }
 /* ==========================================================
    CÂU CHỮ & NGÀY NÀY NĂM XƯA (3.17) — gói sẵn trong app, không cần mạng
@@ -2516,6 +2722,78 @@ var NGAY_XUA = {
   '14-03':[{y:1879,c:'Ngày sinh Albert Einstein',v:0}]
 };
 
+/* ==========================================================
+   CAN CHI · NGÀY HOÀNG ĐẠO · GIỜ HOÀNG ĐẠO (3.18)
+   Cách tính phổ thông, giống các quyển lịch Việt:
+   - Can chi ngày tính từ số ngày Julius
+   - Ngày hoàng đạo: 12 trực thần khởi theo tháng âm, 6 sao tốt là hoàng đạo
+   - Giờ hoàng đạo: tra theo chi của ngày, 6 giờ tốt trong 12 canh giờ
+   Chỉ để tham khảo — mỗi sách có thể chép khác nhau đôi chút.
+   ========================================================== */
+var CAN = ['Giáp','Ất','Bính','Đinh','Mậu','Kỷ','Canh','Tân','Nhâm','Quý'];
+var CHI = ['Tý','Sửu','Dần','Mão','Thìn','Tỵ','Ngọ','Mùi','Thân','Dậu','Tuất','Hợi'];
+var GIO_CHI = ['23–1','1–3','3–5','5–7','7–9','9–11','11–13','13–15','15–17','17–19','19–21','21–23'];
+/* 12 trực thần theo thứ tự; sao hoàng đạo (tốt) đánh dấu 1 */
+var SAO_12 = [
+  {t:'Thanh Long', tot:1}, {t:'Minh Đường', tot:1}, {t:'Thiên Hình', tot:0}, {t:'Chu Tước', tot:0},
+  {t:'Kim Quỹ', tot:1},    {t:'Bảo Quang', tot:1},  {t:'Bạch Hổ', tot:0},   {t:'Ngọc Đường', tot:1},
+  {t:'Thiên Lao', tot:0},  {t:'Nguyên Vũ', tot:0},  {t:'Tư Mệnh', tot:1},   {t:'Câu Trận', tot:0}
+];
+/* tháng âm 1&7 khởi Thanh Long tại Tý; 2&8 tại Dần; 3&9 Thìn; 4&10 Ngọ; 5&11 Thân; 6&12 Tuất */
+var KHOI_SAO = {1:0, 7:0, 2:2, 8:2, 3:4, 9:4, 4:6, 10:6, 5:8, 11:8, 6:10, 12:10};
+/* giờ hoàng đạo theo chi NGÀY — chỉ số chi của các giờ tốt */
+var GIO_TOT = {
+  0:[0,1,3,6,8,9],  6:[0,1,3,6,8,9],      /* ngày Tý, Ngọ */
+  1:[2,3,5,8,10,11], 7:[2,3,5,8,10,11],   /* Sửu, Mùi */
+  2:[0,1,4,5,7,10],  8:[0,1,4,5,7,10],    /* Dần, Thân */
+  3:[0,2,3,6,7,9],   9:[0,2,3,6,7,9],     /* Mão, Dậu */
+  4:[2,4,5,8,9,11], 10:[2,4,5,8,9,11],    /* Thìn, Tuất */
+  5:[1,4,6,7,10,11],11:[1,4,6,7,10,11]    /* Tỵ, Hợi */
+};
+function canChiNgay(iso){
+  var p = iso.split('-').map(Number), jd = jdTuNgay(p[2], p[1], p[0]);
+  var ic = (jd+9) % 10, ich = (jd+1) % 12;
+  return {can:CAN[ic], chi:CHI[ich], iChi:ich, ten:CAN[ic]+' '+CHI[ich]};
+}
+function canChiThangNam(iso){
+  var a = lcAm(iso);
+  var namC = (a.nam+6) % 10, namCh = (a.nam+8) % 12;
+  var thC = ((a.nam*12 + a.thang + 3) % 10 + 10) % 10;
+  return {thang:CAN[thC]+' '+CHI[(a.thang+1)%12], nam:CAN[namC]+' '+CHI[namCh]};
+}
+/* sao trực của ngày + hoàng đạo hay hắc đạo */
+function saoNgay(iso){
+  var a = lcAm(iso), cc = canChiNgay(iso);
+  var khoi = KHOI_SAO[a.thang] === undefined ? 0 : KHOI_SAO[a.thang];
+  var i = ((cc.iChi - khoi) % 12 + 12) % 12;
+  var s = SAO_12[i];
+  return {ten:s.t, hoangDao:!!s.tot};
+}
+function gioHoangDao(iso){
+  var cc = canChiNgay(iso), ds = GIO_TOT[cc.iChi] || [];
+  return ds.map(function(i){ return {chi:CHI[i], gio:GIO_CHI[i]}; });
+}
+/* dòng tóm tắt hiện trong sổ */
+function moNgayTot(iso){
+  var cc = canChiNgay(iso), s = saoNgay(iso), tn = canChiThangNam(iso), a = lcAm(iso);
+  moHop('<div class="hop-tit">'+LC_THU[lcNgay(iso).getDay()]+' '+lcDMY(iso)+'</div>'+
+    '<div class="hop-phu">Âm lịch '+lcAmChu(iso)+' · ngày <b>'+cc.ten+'</b> · tháng '+tn.thang+' · năm '+tn.nam+'</div>'+
+    '<div class="nhan-nhom">Ngày '+(s.hoangDao?'hoàng đạo':'hắc đạo')+'</div>'+
+    '<div class="tot-o'+(s.hoangDao?' hd':'')+'">Trực thần: <b>'+s.ten+'</b> — '+
+      (s.hoangDao?'ngày tốt, hợp việc lớn như khai trương, ký kết, khởi công.'
+                 :'ngày thường, nên tránh việc trọng đại; việc thường vẫn làm bình thường.')+'</div>'+
+    '<div class="nhan-nhom">Giờ hoàng đạo</div><div class="tot-gio">'+
+      gioHoangDao(iso).map(function(x){ return '<span><b>'+x.chi+'</b>'+x.gio+'</span>'; }).join('')+'</div>'+
+    (nhanNgayAm(iso).length?'<div class="nhan-nhom">Ngày âm</div><div class="tot-o">'+coChuHTML(nhanNgayAm(iso).join(' · '))+'</div>':'')+
+    '<div class="huong-dan">Tính theo cách phổ thông của lịch Việt (12 trực thần khởi theo tháng âm, giờ tốt tra theo chi ngày). '+
+    'Mỗi sách có thể chép khác đôi chút — chỉ để tham khảo.</div>'+
+    '<div class="hang-nut"><button class="nho chinh" onclick="dongHop()">Đóng</button></div>');
+}
+function tomTatNgayTot(iso){
+  var cc = canChiNgay(iso), s = saoNgay(iso);
+  return 'Ngày '+cc.ten+' · '+(s.hoangDao?'hoàng đạo':'hắc đạo')+' ('+s.ten+')';
+}
+
 /* ---- nguồn thêm của anh trên Drive: Tủ hồ sơ/_Hệ thống/nguon-cau.json ---- */
 function nguonCau(){ D.nguonCau = D.nguonCau || {cauChu:[], ngayXua:{}}; return D.nguonCau; }
 function dsCauChu(){
@@ -2600,9 +2878,12 @@ function veNhatKy(){
       '<div class="nk-thu">'+LC_THU[dc.getDay()]+(c===hn?' <span class="nk-hn">hôm nay</span>':'')+'</div>'+
       '<div class="nk-ngay">'+lcDMY(c)+'</div>'+
       '<div class="nk-am">Âm lịch '+lcAmChu(c)+' · tuần '+lcTuan(c)+
-        (nhanNgayAm(c).length?' · <b class="nk-chay">'+coChuHTML(nhanNgayAm(c).join(' · '))+'</b>':'')+'</div></div>'+
+        (nhanNgayAm(c).length?' · <b class="nk-chay">'+coChuHTML(nhanNgayAm(c).join(' · '))+'</b>':'')+'</div>'+
+      '<div class="nk-tot'+(saoNgay(c).hoangDao?' hd':'')+'" onclick="moNgayTot(\''+c+'\')" title="Bấm xem giờ hoàng đạo">'+
+        coChuHTML(tomTatNgayTot(c))+' · <span class="nk-gio">giờ tốt: '+
+        gioHoangDao(c).slice(0,3).map(function(x){ return x.chi; }).join(', ')+'…</span></div></div>'+
     khoiCauHTML(c)+'</div>'+'<div class="nk-than">'+
-    '<div class="nk-muc">Việc trong ngày'+thaoTacViecHTML(c, vsC)+'</div>'+
+    '<div class="nk-muc">SCHEDULE<span class="nk-viet">Việc theo lịch</span>'+thaoTacViecHTML(c, vsC)+'</div>'+
     '<div class="lc-ds nk-ds">'+(vsC.length ? vsC.map(function(v){
       var xg = lcXongNgay(v, c);
       return '<div class="lc-viec'+(v.id===LICH.viecChon?' chon':'')+(xg?' xong':'')+(v.luuY?' luuy':'')+
@@ -2615,21 +2896,36 @@ function veNhatKy(){
       '<select id="lc-lap">'+Object.keys(LC_LAP).map(function(k){ return '<option value="'+k+'">'+LC_LAP[k]+'</option>'; }).join('')+'</select>'+
       '<button class="lc-nut chinh" onclick="lcThem()">Thêm</button></div>';
   var che = ntCheDo(), chung = ntChung(c), ghim = ntGhim();   /* chung có thể là null khi chưa ghi gì */
-  h += '<div class="nk-muc">Ghi chép'+
+  h += '<div class="nk-muc">'+(che==='don'?'TO-DO LIST<span class="nk-viet">Ghi chép trong ngày</span>':'GHI CHÉP<span class="nk-viet">Mẩu giấy màu</span>')+
     '<span class="nt-doi">'+
-      '<button class="nt-che'+(che==='don'?' bat':'')+'" onclick="ntDatChe(\'don\')" title="Một ô ghi chép như cũ">▤ Đơn giản</button>'+
+      '<button class="nt-che'+(che==='don'?' bat':'')+'" onclick="ntDatChe(\'don\')" title="Danh sách gạch dòng, tick xong">▤ Dòng</button>'+
       '<button class="nt-che'+(che==='note'?' bat':'')+'" onclick="ntDatChe(\'note\')" title="Lưới mẩu giấy màu, ghim được">⬚ Note màu</button>'+
     '</span>'+
+    '<span class="nt-doi nt-phong">'+Object.keys(PHONG_SO).map(function(k){
+      return '<button class="nt-che'+((D.cauHinh.phongSo||'codien')===k?' bat':'')+'" onclick="datPhongSo(\''+k+'\')" '+
+        'title="Kiểu chữ '+PHONG_SO[k].ten+'" style="font-family:'+PHONG_SO[k].css.replace(/"/g,"\'")+'">A</button>';
+    }).join('')+'</span>'+
     (che==='don'?'<span class="nk-luu" id="nk-luu">'+(chung&&chung.suaLuc?'đã lưu '+chung.suaLuc.slice(11,16):'')+'</span>':'')+'</div>';
   if(ghim.length) h += '<div class="nt-ghim-hang"><div class="nt-ghim-nhan">📌 Ghim</div><div class="nt-luoi">'+
     ghim.map(function(m){ return ntOHTML(m, true); }).join('')+'</div></div>';
   if(che==='don'){
-    h += '<textarea id="nk-o" class="nk-giay" placeholder="Ghi lại việc đã làm, cuộc gọi, số liệu cần nhớ trong ngày…" '+
-      'oninput="ntGoChung(\''+c+'\',this)">'+coChuHTML(chung&&chung.nd||'')+'</textarea>';
-    var le = ntNgay(c).filter(function(x){ return !x.chung && !x.ghim; });
-    if(le.length) h += '<div class="nt-khac">Ngày này còn '+le.length+' mẩu Note: '+
-      le.map(function(x){ return '<b>'+coChuHTML((x.nd||'(trống)').slice(0,26))+'</b>'; }).join(' · ')+
-      ' — <a onclick="ntDoiChe()">xem dạng Note</a></div>';
+    if(chung && (chung.nd||'').trim()) tachChungThanhDong(c);   /* ghi chép cũ → tách thành dòng */
+    var dd = dsDong(c), xong = dd.filter(function(x){ return x.xong; }).length;
+    var hq = dongChuaXongHomQua(c);
+    if(hq.length) h += '<div class="nk-nhac">Hôm qua còn <b>'+hq.length+'</b> việc chưa xong '+
+      '<button class="nho" onclick="dongChuyenHomQua(\''+c+'\')">Chuyển sang hôm nay</button></div>';
+    h += '<div class="dong-ds">'+(dd.length ? dd.map(function(m){
+        return '<div class="dong-o nt-'+(m.mau||'trang')+(m.xong?' xong':'')+'">'+
+          '<span class="dong-tick" onclick="dongXong(\''+m.id+'\')" title="'+(m.xong?'Bỏ đánh dấu':'Đánh dấu xong')+'">'+(m.xong?'✓':'')+'</span>'+
+          '<textarea rows="1" class="dong-chu" oninput="ntGo(\''+m.id+'\',this);dongCaoTuDong(this)" '+
+            'onblur="ntRoiO(\''+m.id+'\')" onkeydown="dongPhim(event,\''+m.id+'\',\''+c+'\')">'+coChuHTML(m.nd||'')+'</textarea>'+
+          '<span class="dong-gio">'+(m.xong ? 'xong '+m.xong.slice(11,16) : (m.taoLuc||'').slice(11,16))+'</span>'+
+          '<span class="dong-menu" onclick="menuDong(\''+m.id+'\',event)" title="Màu, xóa, đưa lên SCHEDULE">⋯</span>'+
+          '<span class="nt-luu" id="nt-luu-'+m.id+'"></span></div>';
+      }).join('') : '<div class="lc-rong">Chưa có việc nào — gõ vào dòng dưới rồi bấm Enter</div>')+'</div>';
+    h += '<div class="dong-moi"><span class="dong-tick trong">✎</span>'+
+      '<input id="nk-dong-moi" placeholder="Gõ việc rồi bấm Enter…" onkeydown="dongGoThem(this,\''+c+'\',event)"></div>';
+    if(dd.length) h += '<div class="dong-dem">'+xong+'/'+dd.length+' xong</div>';
   }else{
     var ds = ntNgay(c).filter(function(x){ return !x.ghim && (!x.chung || (x.nd||'').trim()); });
     h += '<div class="nt-them-hang">'+Object.keys(NT_MAU).map(function(k){
@@ -2942,8 +3238,8 @@ function veHomNay(){
            '</div><div class="p">'+coChuHTML(x.p)+'</div></div><div class="mui">›</div></div>';
     });
   }else{
-    h += '<div class="nhan-nhom">Cần xử lý</div>'+
-         '<div class="rong">Không có việc nào đang chờ.<br>Mọi thứ đã gọn gàng.</div>';
+    /* 3.18: trống thì chỉ một dòng mảnh, nhường chỗ cho "Vừa xem gần đây" */
+    h += '<div class="cxl-gon">✓ Không có việc nào đang chờ</div>';
   }
   document.getElementById('ds-viec').innerHTML = h;
 
