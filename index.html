@@ -448,8 +448,8 @@
   .nk-muc{color:#2E2410}                       /* chữ nhãn đậm màu hơn */
   .nk-thu,.nk-ngay{color:#2E2410}
   .nk-am{color:#6B5730}
-  .nk-tot{margin-top:4px;font-size:calc(11.5px*var(--co));color:#6B5730;cursor:pointer;
-    display:inline-block;border-bottom:1px dotted #C9B07A}
+  .nk-tot{margin-top:4px;font-size:calc(11.5px*var(--co));color:#7A6232;cursor:pointer;display:inline-block;border-bottom:0}
+  .nk-tot:hover{color:#5A4520;background:rgba(255,255,255,.45);border-radius:6px}
   .nk-tot.hd{color:#1A6E3F}
   .nk-tot .nk-gio{color:#8A7A52}
   .nk-nhac{display:flex;align-items:center;gap:9px;background:var(--luc-nen);border:1px solid #BFE0CB;
@@ -484,6 +484,46 @@
   .tot-gio b{color:var(--xanh-dam);margin-right:5px}
   /* chip thông báo dạng xanh lá */
   .chip.luc,.chip-bao{background:var(--luc-nen);color:var(--luc)}
+  /* 3.19 — thao tác trực quan trên dòng, chọn nhiều, ô gõ đáy sổ, danh sách phông */
+  .dong-o{position:relative}
+  .dong-thaotac{display:flex;align-items:center;gap:3px;opacity:0;transition:opacity .12s;flex:0 0 auto}
+  .dong-o:hover .dong-thaotac,.dong-o:focus-within .dong-thaotac,.dong-o.dang-chon .dong-thaotac{opacity:1}
+  @media (max-width:899px){ .dong-thaotac{opacity:.85} }
+  .dcham{width:12px;height:12px;border-radius:50%;border:1.2px solid rgba(0,0,0,.28);display:inline-block;cursor:pointer}
+  .dcham.bat{outline:2px solid rgba(0,0,0,.4);outline-offset:1px}
+  .dong-thaotac button{border:0;background:transparent;cursor:pointer;font-size:12.5px;opacity:.7;padding:1px 3px;border-radius:6px;color:#5A4520}
+  .dong-thaotac button:hover{opacity:1;background:rgba(0,0,0,.08)}
+  .dong-thaotac button.xau{color:var(--do)}
+  .dong-chon{flex:0 0 auto;width:17px;height:17px;border:1.3px solid #C3AE79;border-radius:5px;background:rgba(255,255,255,.6);
+    cursor:pointer;font-size:12px;line-height:15px;text-align:center;color:var(--luc);font-weight:700}
+  .dong-chon.bat{background:var(--luc-nen);border-color:var(--luc)}
+  .dong-o.dang-chon{background:var(--luc-nen) !important;outline:1.5px solid #9CC9AE}
+  .dong-o.xong .dong-chu{color:#6E8A76}
+  .dong-nhom{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;padding:6px 10px;border-radius:10px;
+    background:var(--luc-nen);border:1px solid #BFE0CC;font-size:calc(12.5px*var(--co));color:#1A5C36}
+  .dn-mau{display:flex;gap:5px;margin-left:4px}
+  .dong-nhom .nho{flex:0 0 auto;min-height:30px;padding:3px 12px}
+  .dong-nhom b{margin:0 2px}
+  .dong-dem{display:flex;align-items:center;gap:10px}
+  .dong-dem .ht{margin-left:auto}
+  .sch-gon{font-size:calc(11.5px*var(--co));color:#8A7A52;font-style:italic;padding:2px 0}
+  .o-go{display:flex;align-items:center;gap:8px;margin-top:8px;padding:7px 10px;border-radius:12px;
+    background:rgba(255,255,255,.72);border:1.4px solid #D4BF8E;box-shadow:0 -1px 6px rgba(120,90,40,.08)}
+  .o-go .og-but{color:#9A8458;flex:0 0 auto}
+  .o-go input{flex:1;min-width:0;border:0;background:transparent;outline:none;font:inherit;font-size:calc(13.5px*var(--co));color:#40331A}
+  .o-go .og-them{flex:0 0 auto;background:var(--xanh);color:#fff;border:0;border-radius:9px;padding:5px 13px;
+    font-size:calc(12px*var(--co));font-weight:600;cursor:pointer;font-family:'Segoe UI',system-ui,sans-serif}
+  .ds-phong{max-height:60vh;overflow:auto;display:grid;gap:9px}
+  .mot-phong{border:1.3px solid var(--vien);border-radius:11px;padding:9px 12px;cursor:pointer;background:var(--the);text-align:left}
+  .mot-phong:hover{border-color:var(--xanh)}
+  .mot-phong.bat{border-color:var(--luc);background:var(--luc-nen)}
+  .mp-ten{font-size:calc(15px*var(--co));font-weight:600}
+  .mp-dang{font-size:calc(10.5px*var(--co));color:var(--luc);border:1px solid #BFE0CC;border-radius:6px;padding:0 6px;font-weight:400}
+  .mp-mota{font-size:calc(12px*var(--co));color:var(--chu-phu);margin:1px 0 4px;font-family:'Segoe UI',system-ui,sans-serif}
+  .mp-thu{font-size:calc(13px*var(--co))}
+  .nt-che.mui{font-weight:700}
+  /* câu trích + ngày này năm xưa: luôn Constantia, không đổi theo kiểu chữ đang chọn */
+  .oq,.oq *{font-family:Constantia,'Hoefler Text','Palatino Linotype',serif !important}
   .chi-may{display:none}
   @media (min-width:760px){ .chi-may{display:inline-flex} }
   /* 3.14: cửa sổ hẹp (760–899px) vẫn xem được — khung xem nằm dưới danh sách, không bị mất */
@@ -1279,7 +1319,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.18', APP_LUC = '24/09/2026 11:50';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.19', APP_LUC = '24/09/2026 22:57';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -2197,7 +2237,7 @@ function nhanNgayAm(iso){
   var a = lcAm(iso), t = [];
   if(a.ngay===1) t.push('mùng 1 (sóc)');
   else if(a.ngay===15) t.push('rằm (vọng)');
-  if(laNgayChay(iso)) t.push('ngày chay · '+tenCheChay());
+  if(laNgayChay(iso)) t.push('ngày chay');
   var le = LE_AM[a.ngay+'-'+a.thang];
   if(le && !a.nhuan) t.push(le);
   return t;
@@ -2333,10 +2373,33 @@ function dongGoThem(el, iso){
   veNhatKy();
   var o = document.getElementById('nk-dong-moi'); if(o) o.focus();
 }
+/* ==========================================================
+   HOÀN TÁC (3.19) — giữ 20 bước gần nhất trong phiên: xóa dòng, xóa nhiều,
+   tick xong, đổi màu, đưa lên SCHEDULE. Ctrl+Z hoặc nút ↶ ở đáy sổ.
+   Dòng đã xóa vẫn nằm trong thùng rác của Lịch 30 ngày (lớp an toàn thứ hai).
+   ========================================================== */
+var HOAN_TAC = [];
+function ghiHoanTac(ten, ham){
+  HOAN_TAC.push({ten:ten, ham:ham, luc:Date.now()});
+  if(HOAN_TAC.length > 20) HOAN_TAC.shift();
+}
+function hoanTac(){
+  var b = HOAN_TAC.pop();
+  if(!b) return bao('Không còn bước nào để hoàn tác.', 3);
+  try{ b.ham(); }catch(e){ console.warn(e); return baoLoi('Không hoàn tác được bước này.'); }
+  luu(); henDongBoLich(); veLich();
+  bao('Đã hoàn tác: '+b.ten+(HOAN_TAC.length?' · còn '+HOAN_TAC.length+' bước':''), 4);
+}
+function soHoanTac(){ return HOAN_TAC.length; }
 function dongXong(id){
   var m = ntTim(id); if(!m) return;
+  var cu = m.xong;
   m.xong = m.xong ? '' : new Date().toISOString();
-  m.suaLuc = new Date().toISOString(); luu(); henDongBoLich(); veNhatKy();
+  m.suaLuc = new Date().toISOString();
+  ghiHoanTac(m.xong?'đánh dấu xong':'bỏ đánh dấu xong', function(){
+    var x = ntTim(id); if(x) x.xong = cu;
+  });
+  luu(); henDongBoLich(); veNhatKy();
 }
 function menuDong(id, ev){
   ev && ev.stopPropagation();
@@ -2355,14 +2418,47 @@ function menuDong(id, ev){
       '<button class="nho xau" onclick="dongXoa(\''+id+'\')">Xóa dòng</button></div>');
 }
 function dongDoiMau(id, mau){
+  (function(){ var m0 = ntTim(id); if(m0) ghiHoanTac('đổi màu dòng', (function(cu){ return function(){ var x = ntTim(id); if(x) x.mau = cu; }; })(m0.mau)); })();
   var m = ntTim(id); if(!m) return;
   m.mau = mau; m.suaLuc = new Date().toISOString(); luu(); henDongBoLich(); dongHop(); veNhatKy();
 }
-function dongXoa(id){
-  var L = ntData();
-  L.note = L.note.filter(function(x){ return x.id!==id; });
-  L.noteXoa.push({id:id, luc:new Date().toISOString()});
+/* xóa NGAY, không hỏi — có hoàn tác (anh chốt: ghi chú xóa thường xuyên, hỏi hoài rất rối) */
+function dongXoa(ids){
+  var L = ntData(), ds = (typeof ids==='string') ? [ids] : (ids||[]);
+  var giu = L.note.filter(function(x){ return ds.indexOf(x.id)>=0; });
+  if(!giu.length) return;
+  L.note = L.note.filter(function(x){ return ds.indexOf(x.id)<0; });
+  var luc = new Date().toISOString();
+  giu.forEach(function(m){ L.noteXoa.push({id:m.id, luc:luc}); });
+  ghiHoanTac('xóa '+giu.length+' dòng', function(){
+    var K = ntData();
+    giu.forEach(function(m){ if(!K.note.some(function(x){ return x.id===m.id; })) K.note.push(m); });
+    K.noteXoa = K.noteXoa.filter(function(x){ return ds.indexOf(x.id)<0; });
+  });
+  DONG_CHON = DONG_CHON.filter(function(x){ return ds.indexOf(x)<0; });
   luu(); henDongBoLich(); dongHop(); veNhatKy(); veLich();
+  bao('Đã xóa '+giu.length+' dòng · bấm ↶ hoặc Ctrl+Z để lấy lại', 6);
+}
+/* chọn nhiều dòng bằng ô tick sẵn ở mỗi dòng */
+var DONG_CHON = [];
+function dongChon(id){
+  var i = DONG_CHON.indexOf(id);
+  if(i>=0) DONG_CHON.splice(i,1); else DONG_CHON.push(id);
+  veNhatKy();
+}
+function dongChonHet(iso){
+  var ds = dsDong(iso).map(function(m){ return m.id; });
+  DONG_CHON = (DONG_CHON.length===ds.length) ? [] : ds;
+  veNhatKy();
+}
+function dongBoChon(){ DONG_CHON = []; veNhatKy(); }
+function dongMauNhieu(mau){
+  var luc = new Date().toISOString(), cu = [];
+  DONG_CHON.forEach(function(id){ var m = ntTim(id); if(m){ cu.push({id:id, mau:m.mau}); m.mau = mau; m.suaLuc = luc; } });
+  ghiHoanTac('đổi màu '+cu.length+' dòng', function(){
+    cu.forEach(function(x){ var m = ntTim(x.id); if(m) m.mau = x.mau; });
+  });
+  luu(); henDongBoLich(); veNhatKy();
 }
 function dongChuyen(id, huong){
   var m = ntTim(id); if(!m) return;
@@ -2850,15 +2946,56 @@ function taiNguonCauTuDrive(){
 }
 /* ---- phông chữ cuốn sổ ---- */
 var PHONG_SO = {
-  codien:{ten:'Cổ điển', css:'"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Cambria,"Times New Roman",serif'},
-  viettay:{ten:'Viết tay', css:'"Segoe Print","Bradley Hand",Noteworthy,"Comic Sans MS","Palatino Linotype",cursive,serif'},
-  maychu:{ten:'Máy chữ', css:'Consolas,"Courier New","Lucida Console",monospace'}
+  constantia:{ten:'Constantia', mota:'Nét thanh, dấu chuẩn — đọc lâu không mỏi',
+    css:"Constantia,'Hoefler Text','Palatino Linotype',serif"},
+  cambria:{ten:'Cambria', mota:'Kiểu sách, chữ chắc, rõ trên màn nhỏ',
+    css:"Cambria,Charter,'Bitstream Charter',serif"},
+  times:{ten:'Times New Roman', mota:'Quen thuộc như văn bản hành chính',
+    css:"'Times New Roman',Times,serif"},
+  georgia:{ten:'Georgia', mota:'Chữ số dáng cổ rất đẹp; chữ có dấu đôi khi bị rời',
+    css:"Georgia,'Times New Roman',serif"},
+  segoe:{ten:'Segoe UI', mota:'Hiện đại, gọn gàng, không chân',
+    css:"'Segoe UI','SF Pro Text',system-ui,sans-serif"},
+  candara:{ten:'Candara', mota:'Mềm mại, hơi ngả viết tay, vẫn dễ đọc',
+    css:"Candara,Optima,'Gill Sans',sans-serif"},
+  viettay:{ten:'Segoe Print', mota:'Viết tay, hợp ghi chú nhanh',
+    css:"'Segoe Print','Bradley Hand',Noteworthy,cursive"},
+  maychu:{ten:'Consolas', mota:'Máy chữ, đều nét — số liệu tự thẳng cột',
+    css:"Consolas,Menlo,'Courier New',monospace"}
 };
-function apPhongSo(){
-  var k = D.cauHinh.phongSo || 'codien';
-  document.documentElement.style.setProperty('--font-so', (PHONG_SO[k]||PHONG_SO.codien).css);
+function phongHienTai(){ return PHONG_SO[D.cauHinh.phongSo] ? D.cauHinh.phongSo : 'constantia'; }
+/* 3 kiểu hay dùng nhất, kiểu mới chọn đẩy kiểu ít dùng ra */
+function phongNhanh(){
+  var ds = (D.cauHinh.phongGanDay||[]).filter(function(k){ return PHONG_SO[k]; });
+  ['constantia','georgia','maychu'].forEach(function(k){ if(ds.indexOf(k)<0 && ds.length<3) ds.push(k); });
+  var ht = phongHienTai();
+  if(ds.indexOf(ht)<0){ ds.unshift(ht); ds = ds.slice(0,3); }
+  return ds.slice(0,3);
 }
-function datPhongSo(k){ D.cauHinh.phongSo = k; luu(); apPhongSo(); veNhatKy(); }
+function moDsPhong(){
+  var ht = phongHienTai();
+  moHop('<div class="hop-tit">Kiểu chữ cuốn sổ</div>'+
+    '<div class="hop-phu">Mỗi dòng hiện bằng chính kiểu chữ đó. Kiểu vừa chọn sẽ vào nhóm 3 nút nhanh trên sổ.</div>'+
+    '<div class="ds-phong">'+Object.keys(PHONG_SO).map(function(k){
+      var p = PHONG_SO[k];
+      return '<div class="mot-phong'+(k===ht?' bat':'')+'" onclick="datPhongSo(\''+k+'\');dongHop()" '+
+        'style="font-family:'+p.css+'">'+
+        '<div class="mp-ten">'+coChuHTML(p.ten)+(k===ht?' <span class="mp-dang">đang dùng</span>':'')+'</div>'+
+        '<div class="mp-mota">'+coChuHTML(p.mota)+'</div>'+
+        '<div class="mp-thu">25/09/2026 · Gọi tổ trưởng Bùi Văn Tám — 2.237 tổ viên</div></div>';
+    }).join('')+'</div>'+
+    '<div class="hang-nut"><button class="nho chinh" onclick="dongHop()">Đóng</button></div>', true);
+}
+function apPhongSo(){
+  document.documentElement.style.setProperty('--font-so', PHONG_SO[phongHienTai()].css);
+}
+function datPhongSo(k){
+  if(!PHONG_SO[k]) return;
+  D.cauHinh.phongSo = k;
+  var ds = (D.cauHinh.phongGanDay||[]).filter(function(x){ return x!==k && PHONG_SO[x]; });
+  ds.unshift(k); D.cauHinh.phongGanDay = ds.slice(0,3);
+  luu(); apPhongSo(); veNhatKy();
+}
 /* 3 nút thao tác thu nhỏ, nằm cuối dòng "Việc trong ngày" — chỉ hiện khi đã chọn một việc */
 function thaoTacViecHTML(c, vsC){
   var co = !!(LICH.viecChon && vsC.some(function(v){ return v.id===LICH.viecChon; }));
@@ -2891,20 +3028,18 @@ function veNhatKy(){
         '<span class="lc-tick" onclick="event.stopPropagation();lcXong(\''+v.id+'\')" title="Đánh dấu xong">'+(xg?'✓':'')+'</span>'+
         '<span class="lc-vten">'+(v.luuY?'⚑ ':'')+coChuHTML(v.ten)+'</span>'+
         (v.lap&&v.lap!=='mot'?'<small>'+LC_LAP[v.lap]+'</small>':'')+'</div>';
-    }).join('') : '<div class="lc-rong">Chưa có việc nào — gõ vào ô dưới rồi bấm Thêm</div>')+'</div>'+
-    '<div class="lc-them"><input id="lc-o" placeholder="Việc cần làm…" onkeydown="if(event.key===\'Enter\')lcThem()">'+
-      '<select id="lc-lap">'+Object.keys(LC_LAP).map(function(k){ return '<option value="'+k+'">'+LC_LAP[k]+'</option>'; }).join('')+'</select>'+
-      '<button class="lc-nut chinh" onclick="lcThem()">Thêm</button></div>';
+    }).join('') : '<div class="sch-gon">Chưa có việc theo lịch — gõ ở ô dưới cùng, cần nhắc lại thì bấm 🕘 đưa lên đây</div>')+'</div>'+
+    '';   /* 3.19: bỏ ô nhập của SCHEDULE — gõ ở ô đáy sổ, cần nhắc lại thì bấm 🕘 đưa lên */
   var che = ntCheDo(), chung = ntChung(c), ghim = ntGhim();   /* chung có thể là null khi chưa ghi gì */
   h += '<div class="nk-muc">'+(che==='don'?'TO-DO LIST<span class="nk-viet">Ghi chép trong ngày</span>':'GHI CHÉP<span class="nk-viet">Mẩu giấy màu</span>')+
     '<span class="nt-doi">'+
       '<button class="nt-che'+(che==='don'?' bat':'')+'" onclick="ntDatChe(\'don\')" title="Danh sách gạch dòng, tick xong">▤ Dòng</button>'+
       '<button class="nt-che'+(che==='note'?' bat':'')+'" onclick="ntDatChe(\'note\')" title="Lưới mẩu giấy màu, ghim được">⬚ Note màu</button>'+
     '</span>'+
-    '<span class="nt-doi nt-phong">'+Object.keys(PHONG_SO).map(function(k){
-      return '<button class="nt-che'+((D.cauHinh.phongSo||'codien')===k?' bat':'')+'" onclick="datPhongSo(\''+k+'\')" '+
-        'title="Kiểu chữ '+PHONG_SO[k].ten+'" style="font-family:'+PHONG_SO[k].css.replace(/"/g,"\'")+'">A</button>';
-    }).join('')+'</span>'+
+    '<span class="nt-doi nt-phong">'+phongNhanh().map(function(k){
+      return '<button class="nt-che'+(phongHienTai()===k?' bat':'')+'" onclick="datPhongSo(\''+k+'\')" '+
+        'title="'+coChuHTML(PHONG_SO[k].ten+' — '+PHONG_SO[k].mota)+'" style="font-family:'+PHONG_SO[k].css+'">A</button>';
+    }).join('')+'<button class="nt-che mui" onclick="moDsPhong()" title="Xem đủ 8 kiểu chữ">▾</button></span>'+
     (che==='don'?'<span class="nk-luu" id="nk-luu">'+(chung&&chung.suaLuc?'đã lưu '+chung.suaLuc.slice(11,16):'')+'</span>':'')+'</div>';
   if(ghim.length) h += '<div class="nt-ghim-hang"><div class="nt-ghim-nhan">📌 Ghim</div><div class="nt-luoi">'+
     ghim.map(function(m){ return ntOHTML(m, true); }).join('')+'</div></div>';
@@ -2915,17 +3050,32 @@ function veNhatKy(){
     if(hq.length) h += '<div class="nk-nhac">Hôm qua còn <b>'+hq.length+'</b> việc chưa xong '+
       '<button class="nho" onclick="dongChuyenHomQua(\''+c+'\')">Chuyển sang hôm nay</button></div>';
     h += '<div class="dong-ds">'+(dd.length ? dd.map(function(m){
-        return '<div class="dong-o nt-'+(m.mau||'trang')+(m.xong?' xong':'')+'">'+
-          '<span class="dong-tick" onclick="dongXong(\''+m.id+'\')" title="'+(m.xong?'Bỏ đánh dấu':'Đánh dấu xong')+'">'+(m.xong?'✓':'')+'</span>'+
+        var chon = DONG_CHON.indexOf(m.id)>=0;
+        return '<div class="dong-o nt-'+(m.mau||'trang')+(m.xong?' xong':'')+(chon?' dang-chon':'')+'">'+
+          '<span class="dong-tick" onclick="dongXong(\''+m.id+'\')" title="'+(m.xong?'Bỏ đánh dấu xong':'Đánh dấu xong')+'">'+(m.xong?'✓':'')+'</span>'+
           '<textarea rows="1" class="dong-chu" oninput="ntGo(\''+m.id+'\',this);dongCaoTuDong(this)" '+
             'onblur="ntRoiO(\''+m.id+'\')" onkeydown="dongPhim(event,\''+m.id+'\',\''+c+'\')">'+coChuHTML(m.nd||'')+'</textarea>'+
           '<span class="dong-gio">'+(m.xong ? 'xong '+m.xong.slice(11,16) : (m.taoLuc||'').slice(11,16))+'</span>'+
-          '<span class="dong-menu" onclick="menuDong(\''+m.id+'\',event)" title="Màu, xóa, đưa lên SCHEDULE">⋯</span>'+
+          '<span class="dong-thaotac">'+
+            Object.keys(NT_MAU).map(function(k){
+              return '<i class="dcham nt-'+k+(m.mau===k?' bat':'')+'" title="'+NT_MAU[k]+'" onclick="dongDoiMau(\''+m.id+'\',\''+k+'\')"></i>';
+            }).join('')+
+            '<button title="Đưa lên SCHEDULE" onclick="dongLenLich(\''+m.id+'\')">🕘</button>'+
+            '<button title="Lên trên" onclick="dongChuyen(\''+m.id+'\',-1)">↑</button>'+
+            '<button title="Xuống dưới" onclick="dongChuyen(\''+m.id+'\',1)">↓</button>'+
+            '<button class="xau" title="Xóa dòng (lấy lại được bằng ↶)" onclick="dongXoa(\''+m.id+'\')">✕</button>'+
+          '</span>'+
+          '<span class="dong-chon'+(chon?' bat':'')+'" onclick="dongChon(\''+m.id+'\')" title="Chọn để xóa nhiều dòng">'+(chon?'✓':'')+'</span>'+
           '<span class="nt-luu" id="nt-luu-'+m.id+'"></span></div>';
-      }).join('') : '<div class="lc-rong">Chưa có việc nào — gõ vào dòng dưới rồi bấm Enter</div>')+'</div>';
-    h += '<div class="dong-moi"><span class="dong-tick trong">✎</span>'+
-      '<input id="nk-dong-moi" placeholder="Gõ việc rồi bấm Enter…" onkeydown="dongGoThem(this,\''+c+'\',event)"></div>';
-    if(dd.length) h += '<div class="dong-dem">'+xong+'/'+dd.length+' xong</div>';
+      }).join('') : '<div class="lc-rong">Chưa có việc nào — gõ vào ô dưới cùng rồi bấm Enter</div>')+'</div>';
+    if(DONG_CHON.length) h += '<div class="dong-nhom">Đã chọn <b>'+DONG_CHON.length+'</b> dòng'+
+      '<span class="dn-mau">'+Object.keys(NT_MAU).map(function(k){
+        return '<i class="dcham nt-'+k+'" title="Đổi màu '+NT_MAU[k]+'" onclick="dongMauNhieu(\''+k+'\')"></i>'; }).join('')+'</span>'+
+      '<button class="nho" onclick="dongChonHet(\''+c+'\')">Chọn hết</button>'+
+      '<button class="nho" onclick="dongBoChon()">Bỏ chọn</button>'+
+      '<button class="nho xau" onclick="dongXoa(DONG_CHON.slice())">Xóa '+DONG_CHON.length+' dòng</button></div>';
+    if(dd.length) h += '<div class="dong-dem">'+xong+'/'+dd.length+' xong'+
+      (soHoanTac()?'<button class="nho ht" onclick="hoanTac()" title="Ctrl+Z">↶ Hoàn tác ('+soHoanTac()+')</button>':'')+'</div>';
   }else{
     var ds = ntNgay(c).filter(function(x){ return !x.ghim && (!x.chung || (x.nd||'').trim()); });
     h += '<div class="nt-them-hang">'+Object.keys(NT_MAU).map(function(k){
@@ -2934,7 +3084,11 @@ function veNhatKy(){
     h += '<div class="nt-luoi" id="nt-luoi">'+(ds.length ? ds.map(function(m){ return ntOHTML(m, false); }).join('')
       : '<div class="lc-rong">Chưa có mẩu nào cho ngày này — bấm một màu ở trên để thêm</div>')+'</div>';
   }
-  h += '</div></div>';   /* đóng .nk-than và .nk-trang */
+  h += '</div>';   /* đóng .nk-than */
+  if(che==='don') h += '<div class="o-go"><span class="og-but">✎</span>'+
+    '<input id="nk-dong-moi" placeholder="Gõ việc rồi bấm Enter…" onkeydown="dongGoThem(this,\''+c+'\',event)">'+
+    '<button class="og-them" onclick="dongGoThem(document.getElementById(\'nk-dong-moi\'),\''+c+'\',{key:\'Enter\'})">Thêm</button></div>';
+  h += '</div>';   /* đóng .nk-trang */
   e.innerHTML = h;
 }
 var NK_HEN = null;
@@ -2972,6 +3126,15 @@ function lcChonNgay(iso){
   LICH.nam = d.getFullYear(); LICH.thang = d.getMonth(); veLich();
 }
 function lcChonViec(id){ LICH.viecChon = (LICH.viecChon===id) ? '' : id; veLich(); }
+/* thêm việc theo lịch không cần ô nhập (ô nhập của SCHEDULE đã bỏ ở 3.19) */
+function lcThemNhanh(ten, lap, iso){
+  ten = (ten||'').trim(); if(!ten) return null;
+  var t = new Date().toISOString();
+  var v = {id:idMoi(), ten:ten, ngay:iso||LICH.chon, lap:lap||'mot', luuY:false,
+           xong:false, xongNgay:{}, bo:[], taoLuc:t, suaLuc:t};
+  lcData().viec.push(v); lcDoiLich();
+  return v;
+}
 function lcThem(){
   var e = document.getElementById('lc-o'), ten = (e && e.value || '').trim();
   if(!ten){ if(e) e.focus(); return bao('Gõ việc cần làm vào ô rồi bấm Thêm.', 3); }
@@ -10283,6 +10446,10 @@ function khoiDong(){
     }, 200);
   });
   oTim.addEventListener('blur', function(){ setTimeout(dongGoiY, 180); });
+  document.addEventListener('keydown', function(e){   /* 3.19: Ctrl+Z hoàn tác ở bàn làm việc */
+    if((e.ctrlKey||e.metaKey) && (e.key==='z'||e.key==='Z') && !e.shiftKey && nganHienTai===0 &&
+       !/^(INPUT|TEXTAREA)$/.test(e.target.tagName||'')){ e.preventDefault(); hoanTac(); }
+  });
   oTim.addEventListener('keydown', function(e){
     if(e.key==='Enter'){
       e.preventDefault();
