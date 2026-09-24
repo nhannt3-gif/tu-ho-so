@@ -524,26 +524,48 @@
   .nt-che.mui{font-weight:700}
   /* câu trích + ngày này năm xưa: luôn Constantia, không đổi theo kiểu chữ đang chọn */
   .oq,.oq *{font-family:Constantia,'Hoefler Text','Palatino Linotype',serif !important}
-  /* 3.20 — bảng đối chiếu tab Tháng */
+  /* 3.21 — ma trận tháng: màn chính của tab Tháng */
   .bdc{border:1.3px solid var(--vien);border-radius:14px;background:var(--the);padding:9px 11px;margin-bottom:12px}
-  .bdc-dau{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:8px;font-size:calc(13px*var(--co))}
-  .bdc-cap,.bdc-ky{display:flex;gap:4px}
-  .bdc-dau .nho{min-height:28px;padding:2px 10px;font-size:calc(11.5px*var(--co))}
+  .bdc-dau{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:calc(13px*var(--co))}
+  .bdc-dau .nho{flex:0 0 auto;min-height:28px;padding:2px 10px;font-size:calc(11.5px*var(--co))}
   .bdc-dau .nho.bat{background:var(--xanh-nhat);border-color:var(--xanh);color:var(--xanh-dam);font-weight:600}
-  .bdc-dau>button:last-child{margin-left:auto;flex:0 0 auto;width:34px}
-  .bdc-dau .nho{flex:0 0 auto}
-  .bdc-cuon{overflow:auto;max-height:42vh}
+  .bdc-dau>button:last-child{margin-left:auto;width:34px;padding:2px 0;flex:0 0 34px}
+  .bdc-dau{flex-wrap:nowrap;overflow:auto}
+  @media (max-width:899px){ .bdc-dau{flex-wrap:wrap} }
+  .bdc-ky-chon{display:flex;align-items:center;gap:5px}
+  .bdc-ky-ten{min-width:74px;text-align:center;font-size:calc(13.5px*var(--co))}
+  .bdc-cuon{overflow:auto;max-height:52vh}
   .bdc-bang{border-collapse:separate;border-spacing:3px;font-size:calc(12px*var(--co))}
-  .bdc-bang th{font-weight:600;color:var(--chu-phu);font-size:calc(11px*var(--co));padding:2px 5px;text-align:center;white-space:nowrap}
-  .bdc-goc{text-align:left !important;position:sticky;left:0;background:var(--the);z-index:2}
-  .bdc-ten{text-align:left;white-space:nowrap;padding-right:9px;position:sticky;left:0;background:var(--the);z-index:1}
-  .bdc-o{width:34px;height:28px;text-align:center;border-radius:8px;cursor:pointer;font-weight:700;position:relative}
+  .bdc-bang th{font-weight:600;color:var(--chu-phu);font-size:calc(11px*var(--co));padding:3px 6px;text-align:center;white-space:nowrap}
+  .bdc-bang th.xa,.bdc-bang th.diem{cursor:pointer;border-radius:7px}
+  .bdc-bang th.xa:hover{background:var(--xanh-nhat);color:var(--xanh-dam)}
+  .bdc-bang th.xa.mo{background:var(--xanh-nhat);color:var(--xanh-dam)}
+  .bdc-bang th.pgd{color:var(--xanh-dam);font-weight:700}
+  .bdc-bang th.diem{font-weight:400;font-size:calc(10.5px*var(--co));color:#6B7A8C;background:var(--nen);border-radius:7px}
+  .bdc-o.diem{background-clip:padding-box}
+  .bdc-bang th.xa.mo,.bdc-bang th.diem{box-shadow:inset 0 -2px 0 var(--xanh)}
+  .bdc-bang th.bdc-cu{color:#8A7A52;border-left:2px solid var(--vien)}
+  .bdc-bang th.dau-cu,.bdc-o.cu.dau-cu{border-left:2px solid var(--vien)}
+  .bdc-goc{text-align:left !important;position:sticky;left:0;background:var(--the);z-index:3}
+  .bdc-ten{text-align:left;white-space:nowrap;padding-right:10px;position:sticky;left:0;background:var(--the);z-index:2;
+    font-size:calc(12.5px*var(--co))}
+  .bdc-o{width:36px;height:28px;text-align:center;border-radius:8px;cursor:pointer;font-weight:700;position:relative}
   .bdc-o.du{background:var(--luc-nen);color:var(--luc);border:1px solid #BFE0CC}
   .bdc-o.phu{background:var(--vang-nen);color:var(--vang);border:1px solid #EED9A8}
-  .bdc-o.thieu{background:var(--do-nen,#FCEDEC);color:var(--do);border:1px dashed #E5B4AE}
-  .bdc-o:hover{filter:brightness(.96)}
+  .bdc-o.thieu{background:#FCEDEC;color:var(--do);border:1px dashed #E5B4AE}
+  .bdc-o.pgd{outline:1px solid #C7D8EC}
+  .bdc-o.diem{opacity:.92;width:32px}
+  .bdc-o.cu{opacity:.75}
+  .bdc-o:hover{filter:brightness(.95)}
   .bdc-o i{position:absolute;top:0;right:3px;font-size:9px;font-style:normal;opacity:.75}
-  .bdc-ky-cot{color:var(--chu-phu);font-size:calc(11px*var(--co));white-space:nowrap;padding-left:6px}
+  .bdc-sua{white-space:nowrap;text-align:center}
+  .bdc-sua button{border:1px solid var(--vien);background:var(--the);border-radius:7px;cursor:pointer;
+    padding:1px 6px;font-size:11.5px;margin:0 1px}
+  .bdc-sua button:disabled{opacity:.35;cursor:default}
+  .bdc-sua button.xau{color:var(--do);border-color:#E5C3BD}
+  .bdc-them-hang td{padding-top:8px}
+  .bdc-them-hang input{border:1.3px solid var(--vien);border-radius:9px;padding:5px 10px;min-width:220px;
+    font:inherit;font-size:calc(12.5px*var(--co));margin-right:6px}
   .bdc-chan{margin-top:7px;font-size:calc(12px*var(--co));display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .bdc-du{color:var(--luc)} .bdc-phu{color:var(--vang)} .bdc-thieu{color:var(--do)}
   .bdc-chu{margin-left:auto;color:var(--chu-phu);font-size:calc(11px*var(--co))}
@@ -1353,7 +1375,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.20', APP_LUC = '25/09/2026 04:21';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.21', APP_LUC = '25/09/2026 04:43';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -3725,51 +3747,132 @@ function dsKyGanDay(n){
 function mauApDung(cap){
   return (D.cauHinh.mauBaoCao||[]).filter(function(m){ return mauApCap(m, cap); });
 }
+/* ---------- MA TRẬN THÁNG (3.21) — màn chính của tab Tháng ----------
+   Cột: Báo cáo | PGD | 5 xã (bấm xã → bung các điểm giao dịch của xã đó)
+   Nối thêm kỳ cuối năm trước để đối chiếu đầu năm.
+   Danh mục báo cáo thêm, bớt, đổi thứ tự ngay trên bảng.
+   ------------------------------------------------------------------ */
+function kyBang(){
+  if(D.cauHinh.kyBang) return D.cauHinh.kyBang;
+  var ky = D.duLieu.map(function(x){ return x.ky; }).filter(Boolean).sort();
+  return ky.length ? ky[ky.length-1] : ngayISO(nay()).slice(0,7);
+}
+function datKyBang(k){ D.cauHinh.kyBang = k; luu(); veThang(); }
+function doiKyBang(n){
+  var p = kyBang().split('-'), d = new Date(+p[0], +p[1]-1+n, 1);
+  datKyBang(d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2));
+}
+function kyCuoiNamTruoc(){ return (+kyBang().slice(0,4) - 1)+'-12'; }
+function keoNamTruoc(){ return D.cauHinh.anNamTruoc !== true; }
+function batNamTruoc(){ D.cauHinh.anNamTruoc = keoNamTruoc(); luu(); veThang(); }
+function diemCuaXa(xa){
+  var x = (D.cauHinh.diaBan||[]).find(function(y){ return y.xa===xa; });
+  return x ? (x.diem||[]).map(function(d){ return d.ten; }) : [];
+}
+function xaDangMo(xa){ return !!(D.cauHinh.xaMo||{})[xa]; }
+function moXa(xa){
+  D.cauHinh.xaMo = D.cauHinh.xaMo || {};
+  D.cauHinh.xaMo[xa] = !D.cauHinh.xaMo[xa]; luu(); veThang();
+}
+function suaDanhMuc(){ D.cauHinh.suaDM = !D.cauHinh.suaDM; luu(); veThang(); }
+/* thêm, bớt, đổi thứ tự báo cáo ngay trên bảng */
+function themBaoCao(){
+  var e = document.getElementById('bdc-them'), ten = (e && e.value || '').trim();
+  if(!ten) return bao('Gõ tên báo cáo rồi bấm Thêm.', 3);
+  var mau = D.cauHinh.mauBaoCao = D.cauHinh.mauBaoCao || [];
+  var ma = slug(ten, 4).toUpperCase().replace(/_/g,'-');
+  if(mau.some(function(m){ return m.ma===ma; })) ma += '-' + (mau.length+1);
+  mau.push({ten:ten, ma:ma, tuKhoa:[boDau(ten)], cap:[]});
+  luu(); veThang();
+  bao('Đã thêm “'+ten+'”. Vào Cài đặt → Dữ liệu tháng để khai từ khóa nhận dạng và cấp áp dụng.', 7);
+}
+function boBaoCao(ma){
+  var mau = D.cauHinh.mauBaoCao || [], m = mau.find(function(x){ return x.ma===ma; });
+  if(!m) return;
+  var so = D.duLieu.filter(function(x){ return (x.maLoai||'')===ma; }).length;
+  hoi('Bỏ báo cáo "'+m.ten+'" khỏi danh mục?',
+    so ? (so+' file đã lưu vẫn còn nguyên, chỉ không tính vào bộ đủ thiếu nữa.')
+       : 'Chưa có file nào thuộc loại này.', 'Bỏ khỏi danh mục', function(){
+    D.cauHinh.mauBaoCao = mau.filter(function(x){ return x.ma!==ma; });
+    luu(); veThang();
+  });
+}
+function chuyenBaoCao(ma, huong){
+  var mau = D.cauHinh.mauBaoCao || [], i = mau.findIndex(function(x){ return x.ma===ma; });
+  var j = i + huong;
+  if(i<0 || j<0 || j>=mau.length) return;
+  var t = mau[i]; mau[i] = mau[j]; mau[j] = t;
+  luu(); veThang();
+}
 function bangDoiChieuHTML(){
   if(D.cauHinh.anBangDC)
     return '<div class="bdc-gon"><b>📊 Bảng đối chiếu</b> đang thu gọn '+
       '<button class="nho" onclick="gonBang()">Mở ra</button></div>';
-  var cap = capDang(), dv = dsDonVi(cap), ky = dsKyGanDay(soKyBang()), mau = mauApDung(cap);
-  if(!mau.length) return '<div class="bdc-gon">Chưa khai danh mục báo cáo cho cấp này — vào Cài đặt → Dữ liệu tháng.</div>';
-  var thieu = 0, du = 0, phu = 0;
-  var h = '<div class="bdc"><div class="bdc-dau">'+
-    '<b>📊 Bảng đối chiếu</b>'+
-    '<span class="bdc-cap">'+dsCap().map(function(c){
-      return '<button class="nho'+(cap===c[0]?' bat':'')+'" onclick="datCap(\''+c[0]+'\')">'+c[1]+'</button>';
-    }).join('')+'</span>'+
-    '<span class="bdc-ky">'+[6,12].map(function(n){
-      return '<button class="nho'+(soKyBang()===n?' bat':'')+'" onclick="datSoKy('+n+')">'+n+' kỳ</button>';
-    }).join('')+'</span>'+
-    '<button class="nho" onclick="gonBang()" title="Thu gọn bảng">▴</button></div>';
-  h += '<div class="bdc-cuon"><table class="bdc-bang"><thead><tr><th class="bdc-goc">Báo cáo</th>'+
-    (cap==='pgd' ? '' : dv.map(function(x){ return '<th title="'+coChuHTML(x)+'">'+coChuHTML(vietTatDV(x))+'</th>'; }).join(''))+
-    (cap==='pgd' ? ky.map(function(k){ return '<th>'+kyVN(k)+'</th>'; }).join('') : '<th class="bdc-ky-cot">Kỳ</th>')+
-    '</tr></thead><tbody>';
-  var kyHien = ky[ky.length-1];
-  mau.forEach(function(m){
-    if(cap==='pgd'){
-      h += '<tr><td class="bdc-ten">'+coChuHTML(m.ten)+'</td>';
-      ky.forEach(function(k){
-        var o = oDoiChieu(k, m.ma, 'Toàn PGD');
-        if(o.tt==='du') du++; else if(o.tt==='phu') phu++; else thieu++;
-        h += oHTML(o, k, m, 'Toàn PGD');
-      });
-      h += '</tr>';
-    }else{
-      h += '<tr><td class="bdc-ten">'+coChuHTML(m.ten)+'</td>';
-      dv.forEach(function(x){
-        var o = oDoiChieu(kyHien, m.ma, x);
-        if(o.tt==='du') du++; else if(o.tt==='phu') phu++; else thieu++;
-        h += oHTML(o, kyHien, m, x);
-      });
-      h += '<td class="bdc-ky-cot">'+kyVN(kyHien)+'</td></tr>';
-    }
+  var mau = D.cauHinh.mauBaoCao || [];
+  if(!mau.length) return '<div class="bdc-gon">Chưa khai danh mục báo cáo — bấm '+
+    '<button class="nho" onclick="suaDanhMuc()">Sửa danh mục</button> để thêm.</div>';
+  var ky = kyBang(), kyT = kyCuoiNamTruoc(), xas = dsDonVi('xa'), sua = !!D.cauHinh.suaDM;
+
+  /* ---- cột ---- */
+  var cot = [{ma:'Toàn PGD', ten:'PGD', lop:'pgd'}];
+  xas.forEach(function(xa){
+    var mo = xaDangMo(xa), dm = diemCuaXa(xa);
+    cot.push({ma:xa, ten:vietTatDV(xa), lop:'xa'+(mo?' mo':''), xa:xa, co:dm.length});
+    if(mo) dm.forEach(function(d){ cot.push({ma:d, ten:vietTatDV(d), lop:'diem', xa:xa}); });
   });
+
+  var du=0, phu=0, thieu=0;
+  var h = '<div class="bdc"><div class="bdc-dau">'+
+    '<b>📊 Bộ dữ liệu</b>'+
+    '<span class="bdc-ky-chon">'+
+      '<button class="nho" onclick="doiKyBang(-1)" title="Kỳ trước">‹</button>'+
+      '<b class="bdc-ky-ten">'+kyVN(ky)+'</b>'+
+      '<button class="nho" onclick="doiKyBang(1)" title="Kỳ sau">›</button>'+
+    '</span>'+
+    '<button class="nho'+(keoNamTruoc()?' bat':'')+'" onclick="batNamTruoc()" title="Nối thêm kỳ cuối năm trước để đối chiếu đầu năm">+ '+kyVN(kyT)+'</button>'+
+    '<button class="nho'+(sua?' bat':'')+'" onclick="suaDanhMuc()" title="Thêm, bớt, đổi thứ tự báo cáo">✎ Danh mục</button>'+
+    '<button class="nho" onclick="gonBang()" title="Thu gọn bảng">▴</button></div>';
+
+  h += '<div class="bdc-cuon"><table class="bdc-bang"><thead><tr>'+
+    '<th class="bdc-goc">Báo cáo</th>'+
+    cot.map(function(c){
+      if(c.lop.indexOf('xa')===0)
+        return '<th class="'+c.lop+'" onclick="moXa(\''+c.xa+'\')" title="'+coChuHTML(c.xa)+' — bấm để '+
+          (xaDangMo(c.xa)?'gộp lại':'tách '+c.co+' điểm giao dịch')+'">'+
+          (xaDangMo(c.xa)?'▾ ':'▸ ')+coChuHTML(c.ten)+'</th>';
+      return '<th class="'+c.lop+'" title="'+coChuHTML(c.ma)+'">'+coChuHTML(c.ten)+'</th>';
+    }).join('')+
+    (keoNamTruoc()? '<th class="bdc-cu dau-cu" title="Kỳ cuối năm trước — để đối chiếu đầu năm">'+kyVN(kyT)+' · PGD</th>'+
+      xas.map(function(x){ return '<th class="bdc-cu" title="'+coChuHTML(kyVN(kyT)+' · '+x)+'">'+coChuHTML(vietTatDV(x))+'</th>'; }).join('') : '')+
+    (sua?'<th class="bdc-sua">Sửa</th>':'')+'</tr></thead><tbody>';
+
+  mau.forEach(function(m, i){
+    h += '<tr><td class="bdc-ten" title="'+coChuHTML(m.ma)+'">'+coChuHTML(m.ten)+'</td>';
+    cot.forEach(function(c){
+      var o = oDoiChieu(ky, m.ma, c.ma);
+      if(o.tt==='du') du++; else if(o.tt==='phu') phu++; else thieu++;
+      h += oHTML(o, ky, m, c.ma, c.lop);
+    });
+    if(keoNamTruoc()){
+      h += oHTML(oDoiChieu(kyT, m.ma, 'Toàn PGD'), kyT, m, 'Toàn PGD', 'cu dau-cu');
+      xas.forEach(function(x){ h += oHTML(oDoiChieu(kyT, m.ma, x), kyT, m, x, 'cu'); });
+    }
+    if(sua) h += '<td class="bdc-sua">'+
+      '<button onclick="chuyenBaoCao(\''+m.ma+'\',-1)" title="Lên trên"'+(i===0?' disabled':'')+'>↑</button>'+
+      '<button onclick="chuyenBaoCao(\''+m.ma+'\',1)" title="Xuống dưới"'+(i===mau.length-1?' disabled':'')+'>↓</button>'+
+      '<button class="xau" onclick="boBaoCao(\''+m.ma+'\')" title="Bỏ khỏi danh mục">✕</button></td>';
+    h += '</tr>';
+  });
+  if(sua) h += '<tr class="bdc-them-hang"><td colspan="'+(cot.length+1+(keoNamTruoc()?xas.length+1:0)+1)+'">'+
+    '<input id="bdc-them" placeholder="Tên báo cáo mới…" onkeydown="if(event.key===\'Enter\')themBaoCao()">'+
+    '<button class="nho chinh" onclick="themBaoCao()">+ Thêm báo cáo</button>'+
+    '<span class="bdc-chu">Thêm xong vào Cài đặt → Dữ liệu tháng để khai từ khóa nhận dạng và cấp áp dụng</span></td></tr>';
   h += '</tbody></table></div>';
-  h += '<div class="bdc-chan">'+(cap==='pgd'?'':kyVN(kyHien)+' · ')+
-    '<b class="bdc-du">'+du+' đủ</b>'+(phu?' · <b class="bdc-phu">'+phu+' mới có dữ liệu phụ</b>':'')+
+
+  h += '<div class="bdc-chan">'+kyVN(ky)+' · <b class="bdc-du">'+du+' đủ</b>'+
+    (phu?' · <b class="bdc-phu">'+phu+' mới có dữ liệu phụ</b>':'')+
     (thieu?' · <b class="bdc-thieu">'+thieu+' thiếu</b>':' · <b class="bdc-du">không thiếu gì</b>')+
-    '<span class="bdc-chu">Bấm ô thiếu để thêm file · ô xanh để mở file</span></div></div>';
+    '<span class="bdc-chu">Bấm ô thiếu để thêm file · ô xanh để mở file · bấm tên xã để tách điểm giao dịch</span></div></div>';
   return h;
 }
 /* gom theo đơn vị (phạm vi) */
@@ -3790,7 +3893,6 @@ function nhomTheoDonVi(ds){
 /* dạng cây: Năm → Tháng → Đơn vị → file */
 function moGap(k, macDinh){
   D.cauHinh.cayMo = D.cauHinh.cayMo || {};
-  /* lấy trạng thái ĐANG hiện (mặc định là mở) rồi đảo — nếu không, bấm lần đầu không gập được */
   D.cauHinh.cayMo[k] = !dangMo(k, macDinh===undefined ? true : macDinh);
   luu(); veThang();
 }
@@ -3808,8 +3910,8 @@ function cayDuLieu(ds){
   });
   var h = '<div class="cay">';
   Object.keys(cay).sort().reverse().forEach(function(nam){
-    var kN = 'n'+nam, moN = dangMo(kN, true);
-    var soN = 0; Object.keys(cay[nam]).forEach(function(t){ Object.keys(cay[nam][t]).forEach(function(d){ soN += cay[nam][t][d].length; }); });
+    var kN = 'n'+nam, moN = dangMo(kN, true), soN = 0;
+    Object.keys(cay[nam]).forEach(function(t){ Object.keys(cay[nam][t]).forEach(function(d){ soN += cay[nam][t][d].length; }); });
     h += '<div class="cay-nhanh"><div class="cay-dau" onclick="moGap(\''+kN+'\')">'+
       '<span class="cay-mui">'+(moN?'▾':'▸')+'</span>📅 Năm '+nam+'<small>'+soN+' file</small></div>';
     if(moN) Object.keys(cay[nam]).sort().reverse().forEach(function(thang){
@@ -3833,14 +3935,15 @@ function cayDuLieu(ds){
 function vietTatDV(x){
   return x.replace(/^(Phường|Xã|Thị trấn)\s+/i,'').replace(/Điểm giao dịch\s*/i,'');
 }
-function oHTML(o, ky, mau, dv){
+function oHTML(o, ky, mau, dv, lop){
+  var l = 'bdc-o '+(lop||'');
   if(o.tt==='du')
-    return '<td class="bdc-o du" title="'+coChuHTML(o.ds[0].tenMoi||'')+'" onclick="moXem(\''+o.ds[0].id+'\')">✓'+
+    return '<td class="'+l+' du" title="'+coChuHTML(o.ds[0].tenMoi||'')+'" onclick="moXem(\''+o.ds[0].id+'\')">✓'+
       (o.ds.length>1?'<i>'+o.ds.length+'</i>':'')+'</td>';
   if(o.tt==='phu')
-    return '<td class="bdc-o phu" title="Mới có dữ liệu phụ, chưa có bản cuối tháng" '+
+    return '<td class="'+l+' phu" title="Mới có dữ liệu phụ, chưa có bản cuối tháng" '+
       'onclick="themChoO(\''+ky+'\',\''+mau.ma+'\',\''+dv.replace(/'/g,"")+'\')">⚠</td>';
-  return '<td class="bdc-o thieu" title="Chưa có — bấm để thêm file" '+
+  return '<td class="'+l+' thieu" title="Chưa có — bấm để thêm file" '+
     'onclick="themChoO(\''+ky+'\',\''+mau.ma+'\',\''+dv.replace(/'/g,"")+'\')">+</td>';
 }
 /* bấm ô thiếu → mở màn thêm file, nhớ sẵn kỳ + loại + phạm vi để điền cho file vừa thêm */
