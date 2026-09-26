@@ -293,6 +293,17 @@
   /* 3.36: sổ luôn là giấy vàng dù máy để chế độ tối (anh Nhân: đổi sang nâu sậm rất khó coi — nền tối mà chữ, ô bên trong vẫn màu giấy vàng).
      color-scheme:light để ô gõ, thanh cuộn trong sổ cũng giữ kiểu sáng */
   .nk-trang{color-scheme:light}
+  /* 3.38: nền tối thì giấy vàng dịu lại một chút (vàng sẫm nhẹ) cho đỡ chói — vẫn là giấy vàng, không đổi sang nâu sậm */
+  :root[data-theme="dark"] .nk-trang{background-color:#D8CBA6;border-color:#A89868;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+  :root[data-theme="dark"] .nk-trang .lc-viec:not(.xong) .lc-tick,:root[data-theme="dark"] .nk-trang .lc-them input,:root[data-theme="dark"] .nk-trang .lc-them select,:root[data-theme="dark"] .nk-trang .lc-nut{background:#E6DBBE}
+  :root[data-theme="dark"] .nk-trang .thao-tac button,:root[data-theme="dark"] .nk-trang .oq-nut{background:rgba(255,255,255,.28)}
+  :root[data-theme="dark"] .nk-trang .lc-viec.chon{background:rgba(255,255,255,.3)}
+  :root[data-theme="dark"] .nk-trang .o-go{background:#E6DBBE}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .nk-trang{background-color:#D8CBA6;border-color:#A89868;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+    :root:not([data-theme="light"]) .nk-trang .lc-viec:not(.xong) .lc-tick,:root:not([data-theme="light"]) .nk-trang .lc-them input,:root:not([data-theme="light"]) .nk-trang .lc-them select,:root:not([data-theme="light"]) .nk-trang .lc-nut{background:#E6DBBE}
+    :root:not([data-theme="light"]) .nk-trang .thao-tac button,:root:not([data-theme="light"]) .nk-trang .oq-nut{background:rgba(255,255,255,.28)}
+    :root:not([data-theme="light"]) .nk-trang .lc-viec.chon{background:rgba(255,255,255,.3)}
+  :root:not([data-theme="light"]) .nk-trang .o-go{background:#E6DBBE} }
   .dai-ck{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:9px 12px;margin-bottom:10px;border-radius:12px;
     background:var(--vang-nen);border:1.3px solid #EED9A8;color:var(--vang);cursor:pointer;font-size:calc(12.5px*var(--co))}
   .dai-ck span{background:rgba(255,255,255,.6);border-radius:7px;padding:1px 8px}
@@ -1583,7 +1594,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.37', APP_LUC = '27/09/2026 04:50';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.38', APP_LUC = '27/09/2026 10:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -11175,17 +11186,30 @@ function chonPDFHang(){
      dấu cắt ở 4 góc mỗi thẻ (vạch mảnh nằm ngoài thẻ) để cắt ra các mép đều nhau.
    dsCap = [{truoc:id ảnh, sau:id ảnh, nhan:'chữ không dấu'}] */
 function dungPDFThe(dsCap, tieuDe){
+  /* 3.38: thẻ 92 × 58 mm (to hơn thẻ thật), 2 mặt sát nhau (khe giữa 6 mm), 4 người/A4 xếp từ trên xuống,
+     khe giữa các người ≈ 15 mm để cắt và ghi tên. Dấu cắt: mỗi đường cắt chỉ 1 vạch ở đầu, giữa, cuối (nằm ngoài thẻ) */
   var mm = 2.834645669, A4 = {r:210*mm, c:297*mm}, MOI = 4;
-  var le = 10*mm, khe = 14*mm, tl = THE_MM.rong/THE_MM.cao;
-  var tR = Math.min((A4.r - 2*le - khe)/2, ((A4.c - 2*le - (MOI-1)*khe)/MOI)*tl), tC = tR/tl;   /* 88 × 55,5 mm */
-  var xT = (A4.r - (2*tR + khe))/2, xam = PDFLib.rgb(.55,.55,.55);
-  function dauCat(tg, x, y){
-    /* 8 vạch 3,5 mm, cách góc thẻ 1 mm, nằm trong khe/lề — cắt theo vạch là đúng mép thẻ */
-    var d = 1*mm, dai = 3.5*mm, w = .35;
-    [[x, y], [x+tR, y], [x, y+tC], [x+tR, y+tC]].forEach(function(g, i){
-      var sx = (i%2===0) ? -1 : 1, sy = (i<2) ? -1 : 1;
-      tg.drawLine({start:{x:g[0]+sx*d, y:g[1]}, end:{x:g[0]+sx*(d+dai), y:g[1]}, thickness:w, color:xam});
-      tg.drawLine({start:{x:g[0], y:g[1]+sy*d}, end:{x:g[0], y:g[1]+sy*(d+dai)}, thickness:w, color:xam});
+  var le = 10*mm, kheGiua = 6*mm, tl = THE_MM.rong/THE_MM.cao;
+  var tR = (A4.r - 2*le - kheGiua)/2, tC = tR/tl;
+  var khe = Math.max(10*mm, (A4.c - 2*le - MOI*tC)/(MOI-1));
+  if(MOI*tC + (MOI-1)*khe > A4.c - 2*le){ tC = (A4.c - 2*le - (MOI-1)*khe)/MOI; tR = tC*tl; }
+  var xT = (A4.r - (2*tR + kheGiua))/2, xam = PDFLib.rgb(.5,.5,.5), dai = 3.5*mm, cach = 1.2*mm, w = .4;
+  function vachNgang(tg, x, y){ tg.drawLine({start:{x:x, y:y}, end:{x:x+dai, y:y}, thickness:w, color:xam}); }
+  function vachDoc(tg, x, y){ tg.drawLine({start:{x:x, y:y}, end:{x:x, y:y+dai}, thickness:w, color:xam}); }
+  /* hàng thẻ ở đáy y: đường cắt ngang (mép trên, mép dưới) → vạch ở lề trái, khe giữa 2 mặt, lề phải */
+  function dauHang(tg, y){
+    [y, y+tC].forEach(function(yy){
+      vachNgang(tg, xT - cach - dai, yy);
+      vachNgang(tg, xT + tR + (kheGiua - dai)/2, yy);
+      vachNgang(tg, xT + 2*tR + kheGiua + cach, yy);
+    });
+  }
+  /* đường cắt dọc (4 mép trái/phải của 2 cột) → vạch ở lề trên, giữa trang (khe giữa hàng 2–3), lề dưới */
+  function dauCot(tg, yTren, yDuoi, yGiua){
+    [xT, xT+tR, xT+tR+kheGiua, xT+2*tR+kheGiua].forEach(function(x){
+      vachDoc(tg, x, yTren + cach);
+      vachDoc(tg, x, yDuoi - cach - dai);
+      if(yGiua!=null) vachDoc(tg, x, yGiua - dai/2);
     });
   }
   return PDFLib.PDFDocument.create().then(function(pdf){
@@ -11204,16 +11228,20 @@ function dungPDFThe(dsCap, tieuDe){
               return pp.then(function(){
                 if(!b) return;
                 return b.arrayBuffer().then(function(buf){ return pdf.embedJpg(buf); }).then(function(im){
-                  var x = xT + k*(tR + khe);
+                  var x = xT + k*(tR + kheGiua);
                   tg.drawImage(im, {x:x, y:y, width:tR, height:tC});
                   tg.drawRectangle({x:x, y:y, width:tR, height:tC, borderColor:PDFLib.rgb(.8,.8,.8), borderWidth:.25});
-                  dauCat(tg, x, y);
                 });
               });
             }, Promise.resolve());
           }).then(function(){
             /* tên khách nằm giữa khe dưới cặp thẻ, lệch vào trong để không đè dấu cắt */
-            if(cap.nhan) tg.drawText(cap.nhan, {x:xT+7*mm, y:y-8*mm, size:7.5, font:font, color:PDFLib.rgb(.3,.3,.3)});
+            if(cap.nhan) tg.drawText(cap.nhan, {x:xT+7*mm, y:y-khe/2-1*mm, size:7.5, font:font, color:PDFLib.rgb(.3,.3,.3)});
+            dauHang(tg, y);
+            /* người cuối của trang → vạch dọc theo số hàng thực có */
+            var cuoi = (hang===MOI-1) || (i===dsCap.length-1);
+            if(cuoi){ var yTren = A4.c - le, yDuoi = y, yGiua = hang>=2 ? A4.c - le - 2*tC - 1.5*khe : null;
+              dauCot(tg, yTren, yDuoi, yGiua); }
           });
         });
       }, Promise.resolve()).then(function(){ return pdf.save(); });

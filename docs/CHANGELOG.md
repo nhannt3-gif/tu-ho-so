@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.38 — 27/09/2026 10:00 — sổ ghi chú dịu lại khi nền tối, in CCCD thẻ to hơn, dấu cắt gọn
+
+- **Sổ ghi chú ở chế độ tối:** giấy vàng dịu xuống một chút (vàng sẫm nhẹ #D8CBA6) cho đỡ chói; ô gõ, nút bên trong dịu theo. Vẫn là giấy vàng, không đổi sang nâu sậm như trước 3.36. Chế độ sáng giữ nguyên.
+- **In CCCD (4 người/A4, xếp từ trên xuống):**
+  - Thẻ to hơn: 92 × 58 mm (trước 88 × 55,5 mm).
+  - 2 mặt của một người sát nhau hơn: khe giữa 6 mm (trước 14 mm).
+  - Khe giữa các người ≈ 15 mm để cắt và ghi tên; lề 10 mm.
+  - **Dấu cắt:** bỏ dấu 4 góc từng thẻ; mỗi đường cắt chỉ có 1 vạch ở đầu, giữa và cuối, nằm ngoài thẻ (lề trái – khe giữa 2 mặt – lề phải cho đường ngang; lề trên – giữa trang – lề dưới cho đường dọc).
+
 ## 3.37 — 27/09/2026 04:50 — hàng chờ Scan hiện ảnh gốc kèm viền cắt, nút màu hiện sẵn, khe cắt rộng hơn
 
 - **Mỗi ảnh ở hàng chờ hiện cả 2 bản:**
