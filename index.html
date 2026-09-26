@@ -290,8 +290,9 @@
     background-attachment:local}
   .nk-giay::placeholder{color:#A8966C;font-style:italic}
   .lc-cham.nau{background:#A37A3A}
-  :root[data-theme="dark"] .nk-trang{background:#3A3122;border-color:#5A4A2E;color:#EADBB8}
-  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .nk-trang{background:#3A3122;border-color:#5A4A2E;color:#EADBB8} }
+  /* 3.36: sổ luôn là giấy vàng dù máy để chế độ tối (anh Nhân: đổi sang nâu sậm rất khó coi — nền tối mà chữ, ô bên trong vẫn màu giấy vàng).
+     color-scheme:light để ô gõ, thanh cuộn trong sổ cũng giữ kiểu sáng */
+  .nk-trang{color-scheme:light}
   .dai-ck{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:9px 12px;margin-bottom:10px;border-radius:12px;
     background:var(--vang-nen);border:1.3px solid #EED9A8;color:var(--vang);cursor:pointer;font-size:calc(12.5px*var(--co))}
   .dai-ck span{background:rgba(255,255,255,.6);border-radius:7px;padding:1px 8px}
@@ -1571,7 +1572,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.35', APP_LUC = '27/09/2026 03:40';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.36', APP_LUC = '27/09/2026 04:10';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
