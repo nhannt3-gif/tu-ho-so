@@ -1571,7 +1571,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.35', APP_LUC = '27/09/2026 03:15';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.35', APP_LUC = '27/09/2026 03:40';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -10888,7 +10888,7 @@ function moHangCho(){
       '<button class="nho" onclick="luuSauHang()">Lưu tạm, khai sau</button>'+
       '<button class="nho chinh" onclick="khaiVaLuu()">Khai đầy đủ rồi lưu</button></div>'+
     '<div class="huong-dan">'+(laThe
-      ? 'In: mỗi trang A4 xếp 4 người × 2 mặt, thẻ phóng to vừa bề ngang trang cho dễ đọc, xếp từ trên xuống. '
+      ? 'In: mỗi trang A4 xếp 4 người × 2 mặt, thẻ in to hơn thẻ thật, khe cắt đều 8 mm, có dấu cắt ở góc. '
       : '')+
     'Lưu tạm thì app tự đặt tên theo ngày giờ quét, lúc rảnh vào tab Scan khai và lưu hàng loạt.</div>';
   moHop(h, true);
@@ -11125,40 +11125,51 @@ function chonPDFHang(){
 }
 
 /* ---- DỰNG PDF ----
-   Thẻ: mỗi A4 4 người × 2 mặt (trước | sau). Anh Nhân chốt: thẻ PHÓNG TO hết bề ngang trang cho dễ đọc
-   (CCCD thật nhỏ, không cần đúng cỡ thật), vẫn đủ 4 người mỗi trang, giữ đúng tỉ lệ thẻ;
-   xếp TỪ TRÊN XUỐNG (1 người thì nằm đầu trang, không căn giữa dọc).
+   Thẻ: mỗi A4 4 người × 2 mặt (trước | sau). Anh Nhân chốt:
+   - thẻ in to hơn thẻ thật cho dễ đọc, giữ đúng tỉ lệ; 4 người một trang là đủ; xếp từ trên xuống;
+   - chừa chỗ để CẮT: lề giấy 12 mm (máy in nào cũng in tới), khe giữa các thẻ đều 8 mm cả ngang lẫn dọc,
+     dấu cắt ở 4 góc mỗi thẻ (vạch mảnh nằm ngoài thẻ) để cắt ra các mép đều nhau.
    dsCap = [{truoc:id ảnh, sau:id ảnh, nhan:'chữ không dấu'}] */
 function dungPDFThe(dsCap, tieuDe){
   var mm = 2.834645669, A4 = {r:210*mm, c:297*mm}, MOI = 4;
-  var le = 8*mm, cachC = 4*mm, nhanC = 4.5*mm, cachH = 4*mm, tren = (tieuDe ? 13 : 9)*mm, duoi = 8*mm;
-  var tl = THE_MM.rong/THE_MM.cao;
-  /* cỡ thẻ lớn nhất vừa 2 cột và 4 hàng */
-  var tR = Math.min((A4.r - 2*le - cachC)/2, ((A4.c - tren - duoi - (MOI-1)*cachH)/MOI - nhanC)*tl), tC = tR/tl;
+  var le = 12*mm, khe = 8*mm, tl = THE_MM.rong/THE_MM.cao;
+  var tR = Math.min((A4.r - 2*le - khe)/2, ((A4.c - 2*le - (MOI-1)*khe)/MOI)*tl), tC = tR/tl;   /* 89 × 56,2 mm */
+  var xT = (A4.r - (2*tR + khe))/2, xam = PDFLib.rgb(.55,.55,.55);
+  function dauCat(tg, x, y){
+    /* 8 vạch 3,5 mm, cách góc thẻ 1 mm, nằm trong khe/lề — cắt theo vạch là đúng mép thẻ */
+    var d = 1*mm, dai = 3.5*mm, w = .35;
+    [[x, y], [x+tR, y], [x, y+tC], [x+tR, y+tC]].forEach(function(g, i){
+      var sx = (i%2===0) ? -1 : 1, sy = (i<2) ? -1 : 1;
+      tg.drawLine({start:{x:g[0]+sx*d, y:g[1]}, end:{x:g[0]+sx*(d+dai), y:g[1]}, thickness:w, color:xam});
+      tg.drawLine({start:{x:g[0], y:g[1]+sy*d}, end:{x:g[0], y:g[1]+sy*(d+dai)}, thickness:w, color:xam});
+    });
+  }
   return PDFLib.PDFDocument.create().then(function(pdf){
     return pdf.embedFont(PDFLib.StandardFonts.Helvetica).then(function(font){
-      var trang = null, xT = (A4.r - (2*tR + cachC))/2;
+      var trang = null;
       return dsCap.reduce(function(p, cap, i){
         return p.then(function(){
           var hang = i % MOI;
           if(hang===0){
             trang = pdf.addPage([A4.r, A4.c]);
-            if(tieuDe) trang.drawText(tieuDe, {x:le, y:A4.c-8*mm, size:7, font:font, color:PDFLib.rgb(.62,.62,.62)});
+            if(tieuDe) trang.drawText(tieuDe, {x:le, y:A4.c-6*mm, size:6.5, font:font, color:PDFLib.rgb(.62,.62,.62)});
           }
-          var y = A4.c - tren - hang*(tC+nhanC+cachH) - tC, tg = trang;
+          var y = A4.c - le - hang*(tC+khe) - tC, tg = trang;
           return Promise.all([cap.truoc ? docAnhHS(cap.truoc) : null, cap.sau ? docAnhHS(cap.sau) : null]).then(function(anh){
             return anh.reduce(function(pp, b, k){
               return pp.then(function(){
                 if(!b) return;
                 return b.arrayBuffer().then(function(buf){ return pdf.embedJpg(buf); }).then(function(im){
-                  var x = xT + k*(tR + cachC);
+                  var x = xT + k*(tR + khe);
                   tg.drawImage(im, {x:x, y:y, width:tR, height:tC});
-                  tg.drawRectangle({x:x, y:y, width:tR, height:tC, borderColor:PDFLib.rgb(.7,.7,.7), borderWidth:.4});
+                  tg.drawRectangle({x:x, y:y, width:tR, height:tC, borderColor:PDFLib.rgb(.8,.8,.8), borderWidth:.25});
+                  dauCat(tg, x, y);
                 });
               });
             }, Promise.resolve());
           }).then(function(){
-            if(cap.nhan) tg.drawText(cap.nhan, {x:xT, y:y-3.4*mm, size:8, font:font, color:PDFLib.rgb(.25,.25,.25)});
+            /* tên khách nằm giữa khe dưới cặp thẻ, lệch vào trong để không đè dấu cắt */
+            if(cap.nhan) tg.drawText(cap.nhan, {x:xT+7*mm, y:y-5*mm, size:7, font:font, color:PDFLib.rgb(.3,.3,.3)});
           });
         });
       }, Promise.resolve()).then(function(){ return pdf.save(); });

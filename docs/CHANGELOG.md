@@ -4,7 +4,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.35 — 27/09/2026 03:15 — tab Scan kiểu app scan chuyên nghiệp
+## 3.35 — 27/09/2026 03:40 — tab Scan kiểu app scan chuyên nghiệp
 
 - **Tự động trước, chỉnh tay khi còn sót** (xử lý ngay trong máy, ảnh không gửi đi đâu, không thêm thư viện):
   - **Tìm khung thẻ CCCD:** neo theo màu xanh ngọc của thẻ, dò 4 cạnh thẳng, chọn khung có tỉ lệ gần 1,585, cạnh song song. Bỏ qua mép bao nhựa, sọc vải.
@@ -28,7 +28,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - Ảnh gốc (thu còn 2000 px) giữ tới khi lưu nên chỉnh nhiều lần không giảm chất lượng; lưu xong thì xóa cho nhẹ máy.
 - **In CCCD** (theo ý anh Nhân: thẻ thật nhỏ, in to hơn cho dễ đọc):
   - Mỗi A4 xếp **4 người × 2 mặt**.
-  - Thẻ **phóng to hết bề ngang trang**: rộng 95 mm, thẻ thật 85,6 mm; giữ đúng tỉ lệ thẻ.
+  - Thẻ **in to hơn thẻ thật**: 89 × 56 mm, thẻ thật 85,6 × 54 mm; giữ đúng tỉ lệ.
+  - **Chừa chỗ cắt:**
+    - Lề giấy 12 mm, máy in nào cũng in tới.
+    - Khe giữa các thẻ **đều 8 mm cả ngang lẫn dọc**.
+    - **Dấu cắt** ở 4 góc mỗi thẻ (vạch mảnh nằm ngoài thẻ).
+    - Cắt ra các mép đều nhau.
   - **Xếp từ trên xuống**: 1 người thì nằm đầu trang, không căn giữa dọc.
   - Dùng chung cho "In ngay" và in hồ sơ đã lưu; tên khách ghi dưới mỗi cặp.
   - Nhắc chọn **"Kích thước thật / 100%"** khi in để trang in đúng bản xem trước.
