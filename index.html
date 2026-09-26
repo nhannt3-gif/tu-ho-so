@@ -1487,98 +1487,100 @@ var MAC_DINH = {
     'XKLĐ':'Cho vay người lao động đi làm việc ở nước ngoài theo hợp đồng'},
   loaiVB: ['Công văn','Quyết định','Kế hoạch','Hướng dẫn','Thông báo','Báo cáo','Tờ trình'],
   nhanGhiChu: ['Giao ban','Tập huấn','Hồ sơ - biểu mẫu','Cần xử lý','Lưu để nhớ'],
+  /* 3.31: danh sách tổ (mã tổ, tên tổ trưởng) KHÔNG để trong mã nguồn công khai —
+     anh nhập tay ở Cài đặt › Địa bàn › Sửa danh sách tổ; máy đã có dữ liệu thì giữ nguyên */
   diaBan: [
     {xa:'Phường Gò Dầu', ma:'540035', diem:[
       {ten:'Phường Gò Dầu', ma:'TXN0543502', ngay:'05', ap:[
-        {ten:'Thanh Bình',ma:'54003508',to:[{ma:'0026504',ten:'PHAN THANH HỒNG',ut:'12'},{ma:'0050377',ten:'NGUYỄN MINH HOÀNG',ut:'13'},{ma:'0050390',ten:'VƯƠNG CHÍNH NGHĨA',ut:'11'},{ma:'0050393',ten:'LÊ VĂN LỂ',ut:'11'},{ma:'0050418',ten:'Nguyễn Thị Tuyết',ut:'12'},{ma:'0050419',ten:'LÊ THỊ HUỆ',ut:'12'},{ma:'0062057',ten:'Nguyễn Văn Vạch',ut:'13'},{ma:'0062060',ten:'TRAN TRUNG HIEU',ut:'12'},{ma:'0074406',ten:'Phạm Văn Cường',ut:'11'},{ma:'0086484',ten:'NGO TAN THANH',ut:'13'},{ma:'0086522',ten:'Nguyễn Thị Gái',ut:'12'},{ma:'0086523',ten:'VÕ VĂN ANH',ut:'11'},{ma:'0098611',ten:'Ông TRUONG VAN HAI',ut:'11'},{ma:'0098709',ten:'Lê Văn Cỏ',ut:'11'},{ma:'0440688',ten:'LÊ THỊ QUẾ TÂN',ut:'12'}]},
-        {ten:'Nội Ô',ma:'54003511',to:[{ma:'0037578',ten:'NGUYỄN THỊ LIÊN',ut:'11'},{ma:'0050378',ten:'DU HAN QUANG',ut:'12'},{ma:'0062048',ten:'Ông TRAN MINH SON',ut:'11'},{ma:'0086537',ten:'Ông TRAN VAN SEN',ut:'11'}]},
-        {ten:'Rạch Sơn',ma:'54003510',to:[{ma:'0037605',ten:'NGUYỄN MINH NHỰT',ut:'14'},{ma:'0050340',ten:'Nguyễn Duy Thành',ut:'11'},{ma:'0086485',ten:'ĐẶNG LÊ QUỐC HUY',ut:'11'},{ma:'0098675',ten:'HUYNH MINH VU',ut:'11'},{ma:'0244430',ten:'HUYNH LY DANG TRIEU',ut:'11'}]},
-        {ten:'Thanh Hà',ma:'54003507',to:[{ma:'0050339',ten:'Trần Thị Hồng Loan',ut:'12'},{ma:'0050389',ten:'DƯƠNG VĂN ĐEN',ut:'11'},{ma:'0050454',ten:'ĐẶNG VĂN DỮNG',ut:'11'},{ma:'0062073',ten:'TO THANH TAM',ut:'11'},{ma:'0098620',ten:'PHAN THỊ KIM THANH',ut:'12'},{ma:'0112187',ten:'DANG THANH XUAN',ut:'11'}]}
+        {ten:'Thanh Bình',ma:'54003508',to:[]},
+        {ten:'Nội Ô',ma:'54003511',to:[]},
+        {ten:'Rạch Sơn',ma:'54003510',to:[]},
+        {ten:'Thanh Hà',ma:'54003507',to:[]}
       ]},
       {ten:'Gia Bình', ma:'TXN0543501', ngay:'12', ap:[
-        {ten:'Gia Bình',ma:'54003503',to:[{ma:'0020376',ten:'Đặng Văn Phết',ut:'11'},{ma:'0020387',ten:'Lê Văn Yên',ut:'11'},{ma:'0020460',ten:'Nguyễn Thanh Hùng',ut:'11'},{ma:'0026476',ten:'Nguyễn Văn Dững',ut:'11'},{ma:'0050335',ten:'NGUYEN VAN AN',ut:'11'},{ma:'0074398',ten:'HUYNH VAN NOP',ut:'13'},{ma:'0086465',ten:'Mai Thành Được',ut:'11'},{ma:'0086521',ten:'Mai Thị Mịnh',ut:'12'},{ma:'0098997',ten:'LE VAN MO',ut:'11'},{ma:'0099009',ten:'DANG VAN TRIEM',ut:'11'},{ma:'0106047',ten:'HUYNH THI TUY',ut:'13'},{ma:'0112189',ten:'DUONG TRUONG SON',ut:'13'},{ma:'0112204',ten:'PHẠM TRẦN MAI THẢO',ut:'12'}]},
-        {ten:'Bình Nguyên',ma:'54003505',to:[{ma:'0020380',ten:'Nguyễn Thành Sự',ut:'11'},{ma:'0050342',ten:'NGUYỄN MINH KHẢI',ut:'13'},{ma:'0062425',ten:'DUONG HOANG  BIA',ut:'11'},{ma:'0074462',ten:'NGUYEN TRIEU TIEN',ut:'11'},{ma:'0074463',ten:'LE VAN BANH',ut:'11'},{ma:'0074464',ten:'Lê Ngọc Bằng',ut:'11'},{ma:'0074472',ten:'Trần Văn Xa',ut:'11'},{ma:'0098990',ten:'VÕ TẤN QUỐC',ut:'11'},{ma:'0300617',ten:'NGUYEN THI HUONG',ut:'14'},{ma:'0337853',ten:'TRAN THI NEN',ut:'12'}]},
-        {ten:'Khu Phố Chánh',ma:'54003501',to:[{ma:'0050364',ten:'LE VAN THOI',ut:'13'},{ma:'0099010',ten:'NGUYỄN THỊ THU CÚC',ut:'14'}]}
+        {ten:'Gia Bình',ma:'54003503',to:[]},
+        {ten:'Bình Nguyên',ma:'54003505',to:[]},
+        {ten:'Khu Phố Chánh',ma:'54003501',to:[]}
       ]},
       {ten:'Thanh Phước', ma:'TXN0543503', ngay:'18', ap:[
-        {ten:'Thanh Phước',ma:'54003516',to:[{ma:'0020451',ten:'Nguyễn Văn Nu',ut:'11'},{ma:'0037607',ten:'Lê Minh Nghĩa',ut:'14'},{ma:'0062088',ten:'Lê Văn Long',ut:'11'},{ma:'0074430',ten:'Lưu Thị Yến Tuyết',ut:'12'},{ma:'0086472',ten:'Lê Thị Ngọc Yến',ut:'12'}]},
-        {ten:'Trâm Vàng',ma:'54003519',to:[{ma:'0026491',ten:'HUYNH THI MY HANG',ut:'11'},{ma:'0037597',ten:'NGUYỄN THỊ TIỂU LINH',ut:'12'},{ma:'0037598',ten:'LE THI CANH',ut:'12'},{ma:'0037638',ten:'VÕ THỊ THÌA',ut:'11'},{ma:'0074440',ten:'LE MINH PHUOC',ut:'11'},{ma:'0074470',ten:'NGUYỄN DUY PHƯỚC',ut:'12'},{ma:'0086544',ten:'Lê Phước Thọ',ut:'11'},{ma:'0112210',ten:'Thái Hoàng Vũ',ut:'14'}]},
-        {ten:'Cây Xoài',ma:'54003517',to:[{ma:'0050379',ten:'PHẠM VĂN CHẬN',ut:'11'},{ma:'0050442',ten:'NGUYỄN VĂN PHÀN',ut:'11'},{ma:'0098688',ten:'Lê Văn Mận',ut:'11'},{ma:'0112169',ten:'Nguyễn Thị Vân',ut:'12'},{ma:'0112202',ten:'PHAN QUỐC VIỆT',ut:'14'},{ma:'0444066',ten:'NGUYEN QUOC VIET',ut:'14'}]},
-        {ten:'Xóm Mới',ma:'54003518',to:[{ma:'0050394',ten:'NGUYỄN VĂN THUỐN',ut:'11'},{ma:'0062120',ten:'Nguyễn Văn Nhanh',ut:'13'},{ma:'0086487',ten:'NGUYEN THI THUY',ut:'12'},{ma:'0086497',ten:'BÙI VĂN CHÁNH',ut:'11'},{ma:'0086512',ten:'VÕ THỊ NIỆM',ut:'14'},{ma:'0086531',ten:'Huỳnh Văn ở',ut:'14'},{ma:'0112203',ten:'DO MINH TAN',ut:'12'},{ma:'0368548',ten:'PHUNG VAN DINH',ut:'11'},{ma:'0381973',ten:'LÊ THỊ KIM LOAN',ut:'12'},{ma:'0437079',ten:'TRẦN THỊ TỐ NHUNG',ut:'11'}]},
-        {ten:'Trâm Vàng 2',ma:'54003514',to:[{ma:'0062047',ten:'TRA VAN BI',ut:'14'}]}
+        {ten:'Thanh Phước',ma:'54003516',to:[]},
+        {ten:'Trâm Vàng',ma:'54003519',to:[]},
+        {ten:'Cây Xoài',ma:'54003517',to:[]},
+        {ten:'Xóm Mới',ma:'54003518',to:[]},
+        {ten:'Trâm Vàng 2',ma:'54003514',to:[]}
       ]}
     ]},
     {xa:'Xã Phước Thạnh', ma:'540079', diem:[
       {ten:'Phước Trạch', ma:'TXN0547901', ngay:'06', ap:[
-        {ten:'Bàu Vừng',ma:'54007901',to:[{ma:'0020411',ten:'Mai Thị Bên',ut:'12'},{ma:'0020422',ten:'NGÔ CHÂN THẠNH',ut:'11'},{ma:'0037593',ten:'Trần Văn Vọng',ut:'14'},{ma:'0062046',ten:'LÊ THANH TRUNG',ut:'11'},{ma:'0062117',ten:'Ngô Văn Phước',ut:'11'},{ma:'0086543',ten:'NGUYỄN NGỌC LINH',ut:'12'},{ma:'0098685',ten:'Trần Minh Châu',ut:'12'},{ma:'0098695',ten:'Lê Thị Thanh Hiếu',ut:'11'},{ma:'0238371',ten:'HUỲNH THỊ ÁNH TUYẾT',ut:'12'}]},
-        {ten:'Cây Nính',ma:'54007902',to:[{ma:'0026523',ten:'Trịnh Thị út',ut:'14'},{ma:'0037659',ten:'LƯU THỊ HOÀI',ut:'12'},{ma:'0050432',ten:'Phan Văn Màu',ut:'11'},{ma:'0062074',ten:'Nguyễn Thị Liên',ut:'12'},{ma:'0062132',ten:'TRẦN THANH THỦY',ut:'11'},{ma:'0074458',ten:'Nguyễn Văn Tốn',ut:'11'},{ma:'0098696',ten:'Trần Văn Sấm',ut:'13'}]},
-        {ten:'Xóm Mía',ma:'54007903',to:[{ma:'0037564',ten:'VO HA DUY ANH',ut:'12'},{ma:'0062113',ten:'Trần Văn Trừ',ut:'11'},{ma:'0062133',ten:'Nguyễn Văn Minh',ut:'11'},{ma:'0074401',ten:'TẠ VĂN BƯỚI',ut:'11'},{ma:'0074454',ten:'Nguyễn Huy Chương',ut:'12'},{ma:'0086510',ten:'Huỳnh Thị Đắc',ut:'12'},{ma:'0098643',ten:'TẠ QUỐC THANH',ut:'11'},{ma:'0098644',ten:'LÊ THỊ HỒNG',ut:'12'}]}
+        {ten:'Bàu Vừng',ma:'54007901',to:[]},
+        {ten:'Cây Nính',ma:'54007902',to:[]},
+        {ten:'Xóm Mía',ma:'54007903',to:[]}
       ]},
       {ten:'Phước Thạnh', ma:'TXN0547902', ngay:'10', ap:[
-        {ten:'Đá Hàng',ma:'54007907',to:[{ma:'0020361',ten:'NGUYỄN THỊ TUYẾT HOA',ut:'12'},{ma:'0020450',ten:'HUỲNH VƯƠNG QUỐC LƯU',ut:'12'},{ma:'0026460',ten:'Trần Thị Kim Cương',ut:'11'},{ma:'0050391',ten:'NGUYỄN THỊ THUẬN',ut:'11'},{ma:'0062118',ten:'Trần Thanh Minh',ut:'11'},{ma:'0086478',ten:'PHẠM VĂN THÂM',ut:'11'},{ma:'0098677',ten:'Võ Hồng Sơn',ut:'11'},{ma:'0106018',ten:'HỒ PHẠM HÙNG',ut:'14'},{ma:'0238910',ten:'VÕ THỊ MAI',ut:'12'}]},
-        {ten:'Xóm Bố',ma:'54007908',to:[{ma:'0037594',ten:'Võ Văn Đông',ut:'14'},{ma:'0037630',ten:'NGUYỄN THỊ NGỜ',ut:'12'},{ma:'0037636',ten:'Nguyễn Văn Cảm',ut:'13'},{ma:'0050406',ten:'ĐỖ DUY LINH',ut:'11'},{ma:'0062096',ten:'PHẠM THỊ NGỌC MAI',ut:'11'},{ma:'0074403',ten:'Võ Văn Phượng',ut:'12'},{ma:'0074467',ten:'Trần Thị Phước',ut:'12'}]},
-        {ten:'Giữa',ma:'54007906',to:[{ma:'0037595',ten:'TRẦN THỊ KIM CƯƠNG',ut:'14'},{ma:'0037642',ten:'VÕ THÀNH ĐỔI',ut:'11'},{ma:'0050371',ten:'Ngô Hồng Bửu',ut:'11'},{ma:'0050400',ten:'Trần Hải Hưng',ut:'11'},{ma:'0050405',ten:'Lê Thị Anh',ut:'12'},{ma:'0074402',ten:'Nguyễn Thị Huyên',ut:'12'},{ma:'0106014',ten:'Huỳnh Công Lý',ut:'13'}]},
-        {ten:'Tầm Lanh',ma:'54007909',to:[{ma:'0037654',ten:'PHẠM VĂN TÚ',ut:'11'},{ma:'0050372',ten:'LÊ VĂN ÚT',ut:'11'},{ma:'0050381',ten:'Nguyễn Kim Nê',ut:'12'},{ma:'0074428',ten:'PHẠM VĂN BAO',ut:'13'},{ma:'0112184',ten:'DANG  HUY HOANG',ut:'14'}]},
-        {ten:'Cây Da',ma:'54007904',to:[{ma:'0050455',ten:'Lê Thị Viên',ut:'12'},{ma:'0062095',ten:'PHẠM VĂN THỦY',ut:'11'},{ma:'0074455',ten:'LÂM QUỐC THẮNG',ut:'14'},{ma:'0086486',ten:'PHẠM VĂN HỎN',ut:'11'},{ma:'0098655',ten:'VÕ VĂN HƠN',ut:'11'},{ma:'0098662',ten:'Nguyễn Văn Chol',ut:'11'},{ma:'0106090',ten:'Hồ Minh Tiến',ut:'11'},{ma:'0238912',ten:'Phạm Thị Tô Châu',ut:'12'}]}
+        {ten:'Đá Hàng',ma:'54007907',to:[]},
+        {ten:'Xóm Bố',ma:'54007908',to:[]},
+        {ten:'Giữa',ma:'54007906',to:[]},
+        {ten:'Tầm Lanh',ma:'54007909',to:[]},
+        {ten:'Cây Da',ma:'54007904',to:[]}
       ]},
       {ten:'Phước Thạnh 2', ma:'TXN0547903', ngay:'21', ap:[
-        {ten:'Phước Đông',ma:'54007912',to:[{ma:'0020394',ten:'PHẠM THỊ KIM LOAN',ut:'14'},{ma:'0020407',ten:'NGUYỄN GIA BẢO',ut:'11'},{ma:'0020408',ten:'Nguyễn Văn Ngoan',ut:'11'},{ma:'0020412',ten:'Thái Thanh Bình',ut:'11'},{ma:'0050333',ten:'NGÔ THỊ LỆ QUYÊN',ut:'12'},{ma:'0050401',ten:'Nguyễn Văn Dậu',ut:'11'},{ma:'0074431',ten:'Trần Văn Mách',ut:'11'},{ma:'0098633',ten:'Nguyễn Minh Quang',ut:'14'},{ma:'0098634',ten:'Võ Thị Ngân',ut:'12'},{ma:'0098710',ten:'THÁI THANH ĐIỀN',ut:'11'},{ma:'0106066',ten:'Lê Thị Dẫn',ut:'12'}]},
-        {ten:'Phước Bình',ma:'54007914',to:[{ma:'0026497',ten:'HUỲNH THỊ ANH ĐÀO',ut:'14'},{ma:'0062050',ten:'Nguyễn Thị Phượng',ut:'12'},{ma:'0074407',ten:'Nguyễn Công Hường',ut:'11'},{ma:'0074408',ten:'Nguyễn Thị Thanh',ut:'12'},{ma:'0074433',ten:'Đoàn Văn Huy',ut:'14'},{ma:'0086513',ten:'PHẠM THỊ SƯƠNG',ut:'12'},{ma:'0098603',ten:'Đoàn Văn Kép',ut:'11'},{ma:'0098615',ten:'Võ Văn Hòa',ut:'11'},{ma:'0112221',ten:'Đặng Văn Huôl',ut:'11'}]},
-        {ten:'Phước Hội',ma:'54007910',to:[{ma:'0026525',ten:'Nguyễn Văn ỏn',ut:'11'},{ma:'0037579',ten:'Trần Văn Luông',ut:'13'},{ma:'0050433',ten:'HÀ THỊ CÚC',ut:'12'},{ma:'0074432',ten:'TRAN HOAI PHUONG',ut:'13'},{ma:'0086526',ten:'Đàm Văn Nhỏi',ut:'11'},{ma:'0098635',ten:'VÕ THÀNH CÔNG',ut:'11'},{ma:'0112220',ten:'Phan Văn Sơn',ut:'11'},{ma:'0234191',ten:'TRỊNH THỊ NGỌC YẾN',ut:'14'},{ma:'0356393',ten:'Huỳnh Thị Oanh Kha',ut:'12'},{ma:'0374045',ten:'Cao Thị Thu',ut:'13'}]},
-        {ten:'Phước Tây',ma:'54007916',to:[{ma:'0026539',ten:'Lê Thị Thu',ut:'12'},{ma:'0050359',ten:'NGÔ QUỐC BẢO',ut:'11'},{ma:'0050382',ten:'ĐOÀN THỊ YẾN NHI',ut:'11'},{ma:'0050443',ten:'Nguyễn Văn Thanh',ut:'14'},{ma:'0062063',ten:'Phạm Văn Cò',ut:'11'},{ma:'0062076',ten:'Nguyễn Văn Đực',ut:'11'},{ma:'0062141',ten:'Nguyễn Thị Bế',ut:'12'},{ma:'0074420',ten:'Ngô Thanh Tùng',ut:'14'}]}
+        {ten:'Phước Đông',ma:'54007912',to:[]},
+        {ten:'Phước Bình',ma:'54007914',to:[]},
+        {ten:'Phước Hội',ma:'54007910',to:[]},
+        {ten:'Phước Tây',ma:'54007916',to:[]}
       ]}
     ]},
     {xa:'Phường Gia Lộc', ma:'540034', diem:[
       {ten:'Gia Lộc 2', ma:'TXN0543404', ngay:'07', ap:[
-        {ten:'Gia Lâm',ma:'54003402',to:[{ma:'0026526',ten:'Võ Văn Trừ',ut:'11'},{ma:'0231790',ten:'LÊ THỊ NGỢI',ut:'12'},{ma:'0344215',ten:'BÙI THỊ NY',ut:'12'}]},
-        {ten:'Lộc Trát',ma:'54003403',to:[{ma:'0037856',ten:'Nguyễn Văn Cáo',ut:'11'},{ma:'0062354',ten:'Mai Văn Quang',ut:'11'},{ma:'0086525',ten:'Nguyễn Thị Xuân Dung',ut:'11'},{ma:'0086532',ten:'TRẦN PHƯƠNG DIỄM',ut:'12'}]},
-        {ten:'Lộc Khê',ma:'54003404',to:[{ma:'0037872',ten:'NGUYỄN VĂN HỌC',ut:'11'},{ma:'0062403',ten:'Nguyễn Thị Nối',ut:'13'},{ma:'0074436',ten:'Nguyễn Thị Chân',ut:'12'},{ma:'0098909',ten:'ĐẶNG VĂN DIỆU',ut:'11'},{ma:'0098943',ten:'Trương Anh Kiệt',ut:'11'}]},
-        {ten:'Gia Tân',ma:'54003401',to:[{ma:'0050451',ten:'BÙI THỊ THẺ',ut:'13'},{ma:'0106062',ten:'VÕ VĂN TẠO',ut:'11'},{ma:'0231094',ten:'PHẠM VŨ LINH',ut:'14'},{ma:'0342911',ten:'NGUYEN THI PHUONG',ut:'12'}]},
-        {ten:'Tân Lộc',ma:'54003405',to:[{ma:'0098942',ten:'NGUYỄN VĂN HẾT',ut:'11'},{ma:'0327488',ten:'Nguyễn Văn Ron',ut:'12'},{ma:'0344256',ten:'LÊ THÀNH NGẠI',ut:'11'}]}
+        {ten:'Gia Lâm',ma:'54003402',to:[]},
+        {ten:'Lộc Trát',ma:'54003403',to:[]},
+        {ten:'Lộc Khê',ma:'54003404',to:[]},
+        {ten:'Gia Tân',ma:'54003401',to:[]},
+        {ten:'Tân Lộc',ma:'54003405',to:[]}
       ]},
       {ten:'Gia Lộc', ma:'TXN0543405', ngay:'23', ap:[
-        {ten:'Phước Đức',ma:'54003407',to:[{ma:'0026452',ten:'LÊ QUỐC KHÁNH',ut:'13'},{ma:'0026529',ten:'Đỗ Văn Nếp',ut:'11'},{ma:'0037643',ten:'Phan Thị Kim Thương',ut:'12'},{ma:'0074409',ten:'TRẦN THỊ GIÀU',ut:'14'},{ma:'0098676',ten:'Nguyễn Thanh Mai',ut:'11'},{ma:'0106098',ten:'Tô Ngọc Điệp',ut:'12'},{ma:'0106104',ten:'Đặng Thị Liên',ut:'12'}]},
-        {ten:'Phước Lộc',ma:'54003408',to:[{ma:'0037646',ten:'Đặng Văn Pha',ut:'11'},{ma:'0050350',ten:'Dương Thị Thận',ut:'12'},{ma:'0050420',ten:'NGUYỄN VĂN THANH',ut:'11'},{ma:'0074459',ten:'Lê Thị Nương',ut:'12'},{ma:'0112158',ten:'Dương Thị Hồng',ut:'11'},{ma:'0365318',ten:'DANG THANH CONG',ut:'14'}]},
-        {ten:'Suối Cao',ma:'54003409',to:[{ma:'0050362',ten:'NGUYỄN THỊ ĐẸP',ut:'12'},{ma:'0074444',ten:'Trinh Minh Thanh',ut:'12'},{ma:'0074471',ten:'Bùi Văn Tám',ut:'11'},{ma:'0098711',ten:'Huỳnh Thị Lệ Diệu',ut:'11'},{ma:'0229012',ten:'TRẦN ĐỨC QUỐC',ut:'11'}]},
-        {ten:'Phước Đông',ma:'54003406',to:[{ma:'0062097',ten:'Nguyễn Thị Tuyết',ut:'12'},{ma:'0074486',ten:'Võ Văn Toàn',ut:'14'},{ma:'0086488',ten:'LƯU HỌC MẢN',ut:'11'},{ma:'0098664',ten:'Võ Văn Tuấn',ut:'11'},{ma:'0407378',ten:'NGUYEN THI MI',ut:'13'}]},
-        {ten:'Cây Trắc',ma:'54003410',to:[{ma:'0062101',ten:'Nguyễn Thị Kiều',ut:'12'},{ma:'0074451',ten:'Đặng Văn Thanh',ut:'11'},{ma:'0074460',ten:'Lê Thị Ngọc',ut:'12'},{ma:'0086461',ten:'Dương Văn Rum',ut:'11'},{ma:'0086514',ten:'Bùi Thị Thảo',ut:'11'},{ma:'0098680',ten:'Thân Văn Của',ut:'13'}]}
+        {ten:'Phước Đức',ma:'54003407',to:[]},
+        {ten:'Phước Lộc',ma:'54003408',to:[]},
+        {ten:'Suối Cao',ma:'54003409',to:[]},
+        {ten:'Phước Đông',ma:'54003406',to:[]},
+        {ten:'Cây Trắc',ma:'54003410',to:[]}
       ]}
     ]},
     {xa:'Xã Thạnh Đức', ma:'540082', diem:[
       {ten:'Thạnh Đức', ma:'TXN0548201', ngay:'13', ap:[
-        {ten:'Bông Trang',ma:'54008205',to:[{ma:'0026489',ten:'TRƯƠNG THỊ XUÂN THẢO',ut:'12'},{ma:'0050360',ten:'Nguyễn Kim Luyến',ut:'12'},{ma:'0062087',ten:'Nguyễn Thanh Lợi',ut:'11'},{ma:'0062098',ten:'NGUYỄN VĂN DỨT',ut:'11'},{ma:'0098612',ten:'Ngô Thị Ngọc Định',ut:'12'},{ma:'0098697',ten:'Hà Thị Ngọc Phú',ut:'12'}]},
-        {ten:'Bến Chò',ma:'54008208',to:[{ma:'0026490',ten:'Ông NGUYEN TAN DUC',ut:'14'},{ma:'0026524',ten:'VÕ THỊ BÍCH HIỀN',ut:'12'},{ma:'0098613',ten:'Lê Thị Cân',ut:'11'},{ma:'0363592',ten:'NGUYỄN CẨM THUÝ',ut:'12'}]},
-        {ten:'Bến Đình',ma:'54008203',to:[{ma:'0026506',ten:'NGUYỄN CÔNG MINH',ut:'11'},{ma:'0037601',ten:'Nguyễn Văn Hường',ut:'11'},{ma:'0050332',ten:'NGUYỄN THỊ TRƯNG',ut:'14'},{ma:'0106043',ten:'ĐOÀN MINH QUÍ',ut:'11'},{ma:'0240032',ten:'Nguyễn Thị Phú',ut:'12'}]},
-        {ten:'Đường Long',ma:'54008209',to:[{ma:'0026515',ten:'NGUYỄN THỊ NGỌC THƠM',ut:'12'},{ma:'0086470',ten:'Nguyễn Lê Đông',ut:'11'},{ma:'0098614',ten:'NGUYEN VAN DANG',ut:'13'},{ma:'0098645',ten:'Ông DO NGOC PHU',ut:'14'}]},
-        {ten:'Bến Mương',ma:'54008202',to:[{ma:'0037571',ten:'NGUYỄN CÔNG MẪN',ut:'11'},{ma:'0037622',ten:'Nguyễn Thị Phan',ut:'12'},{ma:'0062119',ten:'NGUYỄN THỊ NGỌC LOAN',ut:'12'},{ma:'0086520',ten:'Đặng Thành Nhân',ut:'14'},{ma:'0106072',ten:'Huỳnh Văn Sơn',ut:'11'},{ma:'0106073',ten:'NGUYỄN THÀNH NHÂN',ut:'11'},{ma:'0229158',ten:'LE VAN HIEU',ut:'13'}]},
-        {ten:'Rộc A',ma:'54008210',to:[{ma:'0037637',ten:'Lê Văn Long',ut:'11'},{ma:'0098687',ten:'Bà LE THI KIM CUONG',ut:'12'},{ma:'0106061',ten:'Nguyễn Thị Thùy',ut:'12'},{ma:'0298669',ten:'NGUYỄN VĂN CẮT',ut:'11'}]},
-        {ten:'Bến Rộng',ma:'54008206',to:[{ma:'0037655',ten:'Nguyễn Thị Tơ',ut:'12'},{ma:'0050392',ten:'ĐẶNG MINH CHẤN',ut:'12'},{ma:'0086511',ten:'Dương Văn Pha',ut:'11'},{ma:'0112193',ten:'Lê Thị Nhanh',ut:'12'},{ma:'0240011',ten:'LÊ ÂN',ut:'11'},{ma:'0254930',ten:'ĐỖ NGỌC TÚ',ut:'14'}]},
-        {ten:'Trà Võ',ma:'54008204',to:[{ma:'0037660',ten:'Nguyễn Văn Tấn',ut:'11'},{ma:'0074485',ten:'Lê Văn Phin',ut:'11'},{ma:'0098678',ten:'Nguyễn Thị Nhàn',ut:'12'},{ma:'0098686',ten:'Phạm Thị Hồng',ut:'12'},{ma:'0098703',ten:'Trần Thị Kim Huệ',ut:'12'},{ma:'0112214',ten:'Phan Kim Cương',ut:'12'},{ma:'0112219',ten:'Trịnh Văn Nhắn',ut:'14'}]},
-        {ten:'Rộc B',ma:'54008201',to:[{ma:'0050361',ten:'Nguyễn Văn Sương',ut:'11'},{ma:'0112201',ten:'LE THI LY',ut:'13'},{ma:'0293610',ten:'NGUYỄN DUY PHƯƠNG',ut:'11'},{ma:'0315126',ten:'NGUYỄN THỊ THU',ut:'12'},{ma:'0315991',ten:'ĐỖ VĂN NHẸ',ut:'14'}]}
+        {ten:'Bông Trang',ma:'54008205',to:[]},
+        {ten:'Bến Chò',ma:'54008208',to:[]},
+        {ten:'Bến Đình',ma:'54008203',to:[]},
+        {ten:'Đường Long',ma:'54008209',to:[]},
+        {ten:'Bến Mương',ma:'54008202',to:[]},
+        {ten:'Rộc A',ma:'54008210',to:[]},
+        {ten:'Bến Rộng',ma:'54008206',to:[]},
+        {ten:'Trà Võ',ma:'54008204',to:[]},
+        {ten:'Rộc B',ma:'54008201',to:[]}
       ]},
       {ten:'Cẩm Giang', ma:'TXN0548202', ngay:'15', ap:[
-        {ten:'Cẩm Bình',ma:'54008212',to:[{ma:'0020406',ten:'Võ Thị Kim Thu',ut:'12'},{ma:'0037606',ten:'BIỆN THỊ MỸ GIANG',ut:'12'},{ma:'0037623',ten:'PHẠM VĂN BÍCH',ut:'11'},{ma:'0050349',ten:'Nguyễn Thị Kim Thư',ut:'11'},{ma:'0050407',ten:'Đặng Thành Đức',ut:'13'},{ma:'0062114',ten:'Phan Văn Ngà',ut:'14'},{ma:'0106092',ten:'Nguyễn Thị Nương',ut:'12'},{ma:'0228763',ten:'Nguyễn Thị Mỵ',ut:'12'}]},
-        {ten:'Cẩm An',ma:'54008211',to:[{ma:'0020440',ten:'DOAN VAN THAO',ut:'13'},{ma:'0037614',ten:'Trần Văn Long',ut:'11'},{ma:'0050341',ten:'Nguyễn Mộng Sương',ut:'11'},{ma:'0074468',ten:'Nguyễn Thị Oanh',ut:'12'},{ma:'0098667',ten:'TRẦN BÁ KHÂM',ut:'11'},{ma:'0106015',ten:'Nguyễn Văn Viên',ut:'11'},{ma:'0115295',ten:'NGUYỄN THỊ KIM NGÀ',ut:'12'},{ma:'0235292',ten:'LÊ THỊ THUÝ KIỀU',ut:'12'},{ma:'0349490',ten:'Đoàn Thị Rớt',ut:'14'}]},
-        {ten:'Cẩm Long',ma:'54008213',to:[{ma:'0037596',ten:'Trần Thị Lo',ut:'12'},{ma:'0062062',ten:'Lê Văn Hùng',ut:'13'},{ma:'0074478',ten:'Võ Văn Duôn',ut:'11'},{ma:'0086479',ten:'HUỲNH ANH THƯ',ut:'11'},{ma:'0098632',ten:'NGUYEN THI LE TRINH',ut:'12'},{ma:'0106083',ten:'Nguyễn Thị Thanh',ut:'12'},{ma:'0228751',ten:'Võ Văn Nghì',ut:'11'},{ma:'0235330',ten:'PHẠM VĂN BÂN',ut:'14'}]},
-        {ten:'Cẩm Thắng',ma:'54008214',to:[{ma:'0050383',ten:'NGUYỄN VĂN THỪA',ut:'14'},{ma:'0050408',ten:'VO KIM PHUNG',ut:'12'},{ma:'0074429',ten:'BÙI THÙY LINH',ut:'12'},{ma:'0086471',ten:'NGUYỄN THỊ DIỄM CHÂU',ut:'11'},{ma:'0086548',ten:'Nguyễn Văn Trường',ut:'11'},{ma:'0106097',ten:'NGUYỄN NGỌC HOÀ',ut:'11'},{ma:'0115112',ten:'HO CHINH NGHIA',ut:'13'},{ma:'0228760',ten:'Nguyễn Thị Dương Vân Nga',ut:'12'}]}
+        {ten:'Cẩm Bình',ma:'54008212',to:[]},
+        {ten:'Cẩm An',ma:'54008211',to:[]},
+        {ten:'Cẩm Long',ma:'54008213',to:[]},
+        {ten:'Cẩm Thắng',ma:'54008214',to:[]}
       ]}
     ]},
     {xa:'Xã Truông Mít', ma:'540083', diem:[
       {ten:'Truông Mít 2', ma:'TXN0548301', ngay:'19', ap:[
-        {ten:'Thuận Tân',ma:'54008305',to:[{ma:'0020272',ten:'NGUYỄN QUỐC NHÃ',ut:'11'},{ma:'0050134',ten:'Võ Thị Lý',ut:'11'},{ma:'0074981',ten:'NGUYEN THI HONG HANH',ut:'11'},{ma:'0087136',ten:'Nguyễn Thị Hồng Nhung',ut:'12'},{ma:'0087170',ten:'TRẦN NHỈ KHANG',ut:'14'},{ma:'0099222',ten:'Dương Thị Gái',ut:'12'},{ma:'0115638',ten:'NGUYỄN VĂN HUYỆN',ut:'11'}]},
-        {ten:'Thuận Bình',ma:'54008303',to:[{ma:'0026417',ten:'Đặng Văn Hoành',ut:'11'},{ma:'0038185',ten:'Bà HUYNH THI LIEU',ut:'12'},{ma:'0075038',ten:'Nguyễn Hồng Cẩm',ut:'14'},{ma:'0099230',ten:'Phan Văn Nu',ut:'11'},{ma:'0099288',ten:'Nguyễn Văn Sanh',ut:'11'},{ma:'0112113',ten:'Trần Văn Triều',ut:'11'},{ma:'0112131',ten:'NGUYỄN THỊ TUYẾT TRINH',ut:'12'},{ma:'0114005',ten:'Nguyễn Văn Lập',ut:'13'}]},
-        {ten:'Thuận An',ma:'54008304',to:[{ma:'0026418',ten:'Đoàn Công Thái',ut:'11'},{ma:'0038184',ten:'Bà HUYNH KIM HUE',ut:'13'},{ma:'0038189',ten:'TRUONG VAN CO',ut:'11'},{ma:'0050133',ten:'Huỳnh Minh Chiến',ut:'11'},{ma:'0050188',ten:'Nguyễn Văn Thái',ut:'11'},{ma:'0062738',ten:'Nguyễn Văn Cần',ut:'11'},{ma:'0075037',ten:'Dương Trung Nghĩa',ut:'11'},{ma:'0087169',ten:'LE XUAN THUONG',ut:'11'},{ma:'0099257',ten:'Nguyễn Thị Rua',ut:'11'},{ma:'0099258',ten:'Trần Thị Huỳnh',ut:'12'},{ma:'0113991',ten:'Lê Thu Thủy',ut:'11'},{ma:'0430497',ten:'Huỳnh Văn Tùng',ut:'13'}]},
-        {ten:'Thuận Phước',ma:'54008302',to:[{ma:'0038173',ten:'HỒ VĂN CẬN',ut:'11'},{ma:'0062713',ten:'Bùi Thị Rí',ut:'12'},{ma:'0099304',ten:'HỒ VĂN TÁM',ut:'11'},{ma:'0112119',ten:'Võ Văn Dân',ut:'11'}]},
-        {ten:'Thuận Hòa',ma:'54008301',to:[{ma:'0038183',ten:'Nguyễn Văn Dũng',ut:'11'},{ma:'0062681',ten:'NGUYEN THANH THAO',ut:'12'},{ma:'0075049',ten:'Ngô Văn Đẹp',ut:'11'},{ma:'0099294',ten:'NGUYỄN VĂN TUẤN',ut:'11'},{ma:'0112120',ten:'Nguyễn Văn Quới',ut:'11'}]}
+        {ten:'Thuận Tân',ma:'54008305',to:[]},
+        {ten:'Thuận Bình',ma:'54008303',to:[]},
+        {ten:'Thuận An',ma:'54008304',to:[]},
+        {ten:'Thuận Phước',ma:'54008302',to:[]},
+        {ten:'Thuận Hòa',ma:'54008301',to:[]}
       ]},
       {ten:'Truông Mít', ma:'TXN0548302', ngay:'25', ap:[
-        {ten:'Ấp 6',ma:'54008311',to:[{ma:'0020373',ten:'NGUYỄN VĂN CẦN',ut:'11'},{ma:'0037580',ten:'TÔ QUỐC KHÁNH',ut:'14'},{ma:'0062109',ten:'HUỲNH QUỐC TRUNG',ut:'12'},{ma:'0289331',ten:'NGUYỄN THỊ KIM ANH',ut:'12'}]},
-        {ten:'Ấp 1',ma:'54008306',to:[{ma:'0020374',ten:'Nguyễn Thị Nào',ut:'11'},{ma:'0026468',ten:'VO VAN NGUY',ut:'11'},{ma:'0050351',ten:'Nguyễn Văn Nị',ut:'11'},{ma:'0106019',ten:'Phan Thị Ngon',ut:'12'}]},
-        {ten:'Ấp 2',ma:'54008307',to:[{ma:'0020445',ten:'Nguyễn Thị Nhanh',ut:'12'},{ma:'0074414',ten:'Ao Văn Le',ut:'11'},{ma:'0086462',ten:'HỒ THỊ THANH THẢO',ut:'11'},{ma:'0098604',ten:'Trần Văn Cuộc',ut:'11'},{ma:'0228332',ten:'Nguyễn Duy Lân',ut:'11'},{ma:'0382152',ten:'PHẠM CÔNG VUI',ut:'13'}]},
-        {ten:'Ấp 4',ma:'54008309',to:[{ma:'0026469',ten:'Phạm Văn Xưởng',ut:'11'},{ma:'0037661',ten:'Đoàn Ngọc Trung',ut:'13'},{ma:'0050434',ten:'NGÔ VĂN CHẤU',ut:'11'},{ma:'0098636',ten:'Lê Phong Nhã',ut:'14'}]},
-        {ten:'Ấp 7',ma:'54008312',to:[{ma:'0026480',ten:'Phạm Thị Bé',ut:'12'},{ma:'0112188',ten:'Lê Văn Mảnh',ut:'12'},{ma:'0438400',ten:'TRƯƠNG KHÁNH LINH',ut:'11'}]},
-        {ten:'Ấp 3',ma:'54008308',to:[{ma:'0037572',ten:'Nguyễn Thị Mấy',ut:'12'},{ma:'0050352',ten:'Trần Thị Yến',ut:'11'},{ma:'0050435',ten:'Phạm Văn Hên',ut:'11'},{ma:'0050444',ten:'Nguyễn Văn Mõng',ut:'14'}]},
-        {ten:'Ấp 5',ma:'54008310',to:[{ma:'0050449',ten:'Trần Thị Lệ Hồng',ut:'12'},{ma:'0062108',ten:'Lê Văn Chiến',ut:'13'},{ma:'0086463',ten:'Nguyễn Văn Tươi',ut:'11'},{ma:'0086464',ten:'Nguyễn Thị Hồng Thắm',ut:'12'},{ma:'0086524',ten:'LÊ THỊ DỊ',ut:'11'}]}
+        {ten:'Ấp 6',ma:'54008311',to:[]},
+        {ten:'Ấp 1',ma:'54008306',to:[]},
+        {ten:'Ấp 2',ma:'54008307',to:[]},
+        {ten:'Ấp 4',ma:'54008309',to:[]},
+        {ten:'Ấp 7',ma:'54008312',to:[]},
+        {ten:'Ấp 3',ma:'54008308',to:[]},
+        {ten:'Ấp 5',ma:'54008310',to:[]}
       ]}
     ]}
   ],
@@ -1864,7 +1866,7 @@ function docChuPDF(file, soTrang){
         }));
         Promise.all(ds).then(function(a){
           ok({chu:nenChu(a.join('\n')), trang:pdf.numPages});
-        });
+        }).catch(function(){ ok({chu:'', trang:pdf.numPages}); });   /* 3.31: trang lỗi không làm treo cả file */
       }).catch(function(){ ok({chu:'', trang:0}); });
     };
     fr.onerror = function(){ ok({chu:'', trang:0}); };
@@ -2397,7 +2399,14 @@ function lcTuan(iso){   /* số tuần ISO: tuần bắt đầu Thứ Hai */
    ========================================================== */
 var LE_AM = {'1-1':'Tết Nguyên đán','2-1':'Mùng 2 Tết','3-1':'Mùng 3 Tết','15-1':'Rằm tháng Giêng',
   '10-3':'Giỗ Tổ Hùng Vương','15-4':'Lễ Phật đản','5-5':'Tết Đoan ngọ','15-7':'Lễ Vu lan',
-  '15-8':'Tết Trung thu','9-9':'Tết Trùng cửu','23-12':'Đưa Ông Táo','30-12':'Giao thừa','29-12':'Giao thừa'};
+  '15-8':'Tết Trung thu','9-9':'Tết Trùng cửu','23-12':'Đưa Ông Táo','30-12':'Giao thừa'};   /* 3.31: 29 tháng Chạp chỉ là giao thừa khi tháng thiếu — xem leAmNgay() */
+/* tên lễ âm của một ngày; 29 tháng Chạp là Giao thừa khi tháng Chạp năm đó thiếu (chỉ 29 ngày) */
+function leAmNgay(iso, a){
+  a = a || lcAm(iso);
+  var le = LE_AM[a.ngay+'-'+a.thang];
+  if(!le && a.ngay===29 && a.thang===12 && !a.nhuan && lcSoNgayThangAm(iso)===29) le = 'Giao thừa';
+  return le || '';
+}
 /* tháng âm của ngày này có 29 hay 30 ngày */
 function lcSoNgayThangAm(iso){
   var a = lcAm(iso), d = lcNgay(iso);
@@ -2425,7 +2434,7 @@ function nhanNgayAm(iso){
   if(a.ngay===1) t.push('mùng 1 (sóc)');
   else if(a.ngay===15) t.push('rằm (vọng)');
   if(laNgayChay(iso)) t.push('ngày chay');
-  var le = LE_AM[a.ngay+'-'+a.thang];
+  var le = leAmNgay(iso, a);
   if(le && !a.nhuan) t.push(le);
   return t;
 }
@@ -2476,11 +2485,11 @@ function veLich(){
     for(var i=0;i<7;i++){
       var iso = lcCong(isoDau, i), d = lcNgay(iso), am = lcAm(iso);
       var vs = lcViecNgay(iso), cham = vs.length ? (vs.some(function(v){ return v.luuY; })?'cam':'xanh') : '';
-      var chay = laNgayChay(iso), leAm = LE_AM[am.ngay+'-'+am.thang] && !am.nhuan;
+      var chay = laNgayChay(iso), leAm = leAmNgay(iso, am) && !am.nhuan;
       if(!cham && ntData().note.some(function(x){ return x.ngay===iso && (x.nd||'').trim(); })) cham = 'nau';
       var lop = 'lc-o'+(d.getMonth()!==LICH.thang?' ngoai':'')+(i>4?' cuoi':'')+
         (iso===homNay?' hom':'')+(iso===LICH.chon?' chon':'');
-      h += '<button class="'+lop+(chay?' chay':'')+(leAm?' le':'')+'" onclick="lcChonNgay(\''+iso+'\')" title="'+
+      h += '<button class="'+lop+(chay?' chay':'')+(leAm?' le':'')+'" data-iso="'+iso+'" onclick="lcChonNgay(\''+iso+'\')" title="'+
         coChuHTML(LC_THU[d.getDay()]+' '+lcDMY(iso)+' · âm '+lcAmChu(iso)+
           (nhanNgayAm(iso).length?' · '+nhanNgayAm(iso).join(' · '):''))+'">'+
         '<span class="dl">'+d.getDate()+'</span>'+
@@ -2544,17 +2553,18 @@ function tachChungThanhDong(iso){
   if(n) luu();
   return n;
 }
-function dongThem(iso, chu, mau){
-  if(!(chu||'').trim()) return null;
+function dongThem(iso, chu, mau, choRong){
+  if(!choRong && !(chu||'').trim()) return null;   /* 3.31: choRong — Enter giữa danh sách tạo dòng trống để gõ tiếp */
   var t = new Date().toISOString(), ds = dsDong(iso);
   var m = {id:idMoi(), ngay:iso, nd:chu.trim(), mau:mau||'trang', kieu:'dong', xong:'',
     thuTu:(ds.length?(ds[ds.length-1].thuTu||ds.length-1)+1:0), taoLuc:t, suaLuc:t};
   ntData().note.push(m); luu(); henDongBoLich();
   return m;
 }
-function dongGoThem(el, iso){
-  if(event.key!=='Enter') return;
-  event.preventDefault();
+function dongGoThem(el, iso, ev){
+  ev = ev || window.event;   /* 3.31: nút Thêm truyền {key:'Enter'} — trước đây bị bỏ qua nên bấm nút không có tác dụng */
+  if(!ev || ev.key!=='Enter') return;
+  if(ev.preventDefault) ev.preventDefault();
   var m = dongThem(iso, el.value); if(!m) return;
   el.value = '';
   veNhatKy();
@@ -2700,7 +2710,7 @@ function dongPhim(ev, id, iso){
     ev.preventDefault();
     var m = ntTim(id), ds = dsDong(iso);
     ds.forEach(function(x,k){ if(x.thuTu===undefined) x.thuTu = k; });
-    var moi = dongThem(iso, ' ');
+    var moi = dongThem(iso, '', null, true);
     if(moi && m){ moi.thuTu = (m.thuTu||0)+0.5; moi.nd=''; luu(); }
     veNhatKy();
     var o = document.querySelectorAll('.dong-o .dong-chu');
@@ -2942,7 +2952,7 @@ var CAU_GOI = [
   {c:'Kỷ luật là cầu nối giữa mục tiêu và thành quả.', t:'Jim Rohn', n:'danhngon'},
 
   /* --- kiến thức lịch sử, địa lý, đời sống --- */
-  {c:'Việt Nam có 63 tỉnh, thành phố trực thuộc trung ương; Tây Ninh giáp Campuchia với đường biên giới dài khoảng 240 km.', t:'Địa lý Việt Nam', n:'kienthuc'},
+  {c:'Từ ngày 01/7/2025, Việt Nam có 34 tỉnh, thành phố trực thuộc trung ương; tỉnh Tây Ninh mới được hợp nhất từ Tây Ninh và Long An.', t:'Địa lý Việt Nam', n:'kienthuc'},
   {c:'Sông Vàm Cỏ Đông chảy qua Tây Ninh, là nguồn nước chính cho sản xuất nông nghiệp của tỉnh.', t:'Địa lý Việt Nam', n:'kienthuc'},
   {c:'Núi Bà Đen cao 986 m, là ngọn núi cao nhất Nam Bộ.', t:'Địa lý Việt Nam', n:'kienthuc'},
   {c:'Hồ Dầu Tiếng là một trong những hồ nhân tạo lớn nhất Việt Nam, tưới cho Tây Ninh và các tỉnh lân cận.', t:'Địa lý Việt Nam', n:'kienthuc'},
@@ -3169,7 +3179,7 @@ function moDsPhong(){
         'style="font-family:'+p.css+'">'+
         '<div class="mp-ten">'+coChuHTML(p.ten)+(k===ht?' <span class="mp-dang">đang dùng</span>':'')+'</div>'+
         '<div class="mp-mota">'+coChuHTML(p.mota)+'</div>'+
-        '<div class="mp-thu">25/09/2026 · Gọi tổ trưởng Bùi Văn Tám — 2.237 tổ viên</div></div>';
+        '<div class="mp-thu">25/09/2026 · Gọi tổ trưởng Nguyễn Văn A — 2.237 tổ viên</div></div>';
     }).join('')+'</div>'+
     '<div class="hang-nut"><button class="nho chinh" onclick="dongHop()">Đóng</button></div>', true);
 }
@@ -3308,7 +3318,6 @@ function lcThang(n){
 }
 function lcHomNay(){ LICH.chon = ''; LICH.viecChon = ''; lcDau(); veLich(); }
 function lcChonNgay(iso){
-  if(NK_HEN){ clearTimeout(NK_HEN); NK_HEN = null; nkLuu(); }
   var d = lcNgay(iso); LICH.chon = iso; LICH.viecChon = '';
   LICH.nam = d.getFullYear(); LICH.thang = d.getMonth(); veLich();
 }
@@ -3982,6 +3991,7 @@ function themBaoCao(){
   var ma = slug(ten, 4).toUpperCase().replace(/_/g,'-');
   if(mau.some(function(m){ return m.ma===ma; })) ma += '-' + (mau.length+1);
   mau.push({ten:ten, ma:ma, tuKhoa:[boDau(ten)], cap:[]});
+  boMaDaBo([ma]);
   luu(); veThang();
   bao('Đã thêm “'+ten+'”. Vào Cài đặt → Dữ liệu tháng để khai từ khóa nhận dạng và cấp áp dụng.', 7);
 }
@@ -4004,6 +4014,7 @@ function boBaoCao(ma){
     so ? (so+' file đã lưu vẫn còn nguyên, chỉ không tính vào bộ đủ thiếu nữa.')
        : 'Chưa có file nào thuộc loại này.', 'Bỏ khỏi danh mục', function(){
     D.cauHinh.mauBaoCao = mau.filter(function(x){ return x.ma!==ma; });
+    ghiMaDaBo([ma]);
     luu(); veThang();
   });
 }
@@ -4708,8 +4719,8 @@ function veThem(){
       (D.cho.length-kho)+' file nhận chắc chắn'+(kho?', '+kho+' file cần anh xem':'')+'</div>';
   }else if(coTheNoiDrive()){
     tt.innerHTML = '<div class="thanh-tt">Chưa có file nào chờ. '+
-      'Bấm <b>Nạp khay chờ</b> ở dưới để lấy file anh đã bỏ vào thư mục '+
-      '<b>_Chờ xử lý</b> trên Drive, hoặc chọn file từ máy.</div>';
+      'Chọn hoặc kéo file vào ô dưới. <b>Nạp khay chờ</b> lấy file trong thư mục <b>_Chờ xử lý</b> trên Drive — '+
+      'lưu ý Google chỉ cho app thấy file <b>do app đưa lên</b>; file anh tự chép vào ổ G thì kéo thả thẳng vào đây.</div>';
   }else{
     tt.innerHTML = '<div class="thanh-tt">Chưa có file nào chờ. Chọn hoặc kéo file vào ô dưới.</div>';
   }
@@ -4783,6 +4794,41 @@ function gioiThieuFile(dsFile){
   });
 }
 
+function laFileExcel(ten){ return /\.(xlsx|xls|xlsm|csv)$/i.test(ten||''); }
+/* nhận mẫu báo cáo từ TÊN file: ưu tiên mã ở đầu tên (SK_TD_ToanPGD_2026_09.xlsx), rồi tới từ khóa */
+function khopMauTenFile(ten){
+  var t = String(ten||'').replace(/\.[^.]+$/,'').toUpperCase(), ds = D.cauHinh.mauBaoCao||[], tot = null;
+  ds.forEach(function(m){
+    var ma = String(m.ma||'').toUpperCase();
+    if(ma && (t===ma || t.indexOf(ma+'_')===0 || t.indexOf(ma+'-')===0 || t.indexOf(ma+' ')===0) &&
+       (!tot || ma.length > tot.ma.length)) tot = m;
+  });
+  return tot || khopMau(String(ten||'').replace(/[_\-.]+/g,' '));
+}
+/* đọc kỳ (và ngày số liệu nếu có) trong tên file: 2026_09, 2026-09-25, T9-2026, 30.09.2026 */
+function kyTuTenFile(ten){
+  var t = String(ten||'').replace(/\.[^.]+$/,'');
+  var m = t.match(/(20\d{2})[_\-. ](\d{1,2})(?:[_\-. ](\d{1,2}))?(?!\d)/);
+  if(m && +m[2]>=1 && +m[2]<=12) return {ky:m[1]+'-'+hai(+m[2]), ngay:(m[3] && +m[3]<=31) ? m[1]+'-'+hai(+m[2])+'-'+hai(+m[3]) : ''};
+  m = t.match(/(\d{1,2})[_\-.\/](\d{1,2})[_\-.\/](20\d{2})/);
+  if(m && +m[2]>=1 && +m[2]<=12) return {ky:m[3]+'-'+hai(+m[2]), ngay:m[3]+'-'+hai(+m[2])+'-'+hai(+m[1])};
+  m = t.match(/\bT(?:hang)?\s*(\d{1,2})[_\-.\/ ](20\d{2})\b/i);
+  if(m && +m[1]>=1 && +m[1]<=12) return {ky:m[2]+'-'+hai(+m[1]), ngay:''};
+  return null;
+}
+/* mục Dữ liệu tháng dựng từ tên file (Excel không đọc nội dung khi thêm) — không đoán: thiếu gì thì để anh xem */
+function duLieuTuTenFile(id, van, f, duoi){
+  var mau = khopMauTenFile(f.name), kt = kyTuTenFile(f.name), pv = docPhamVi('', f.name);
+  if(mau && mau.thuanXLS && !pv) pv = 'Toàn PGD';
+  var d = {id:id, van:van, nhom:'duLieu', tenCu:f.name, duoi:duoi, co:f.size,
+    ky:kt ? kt.ky : ngayISO(nay()).slice(0,7), maLoai:mau ? mau.ma : 'KHAC', tenLoai:mau ? mau.ten : 'Khác',
+    phamVi:pv||'', nsl:kt ? kt.ngay : '', banPhu:false, ghiThem:'',
+    chac:!!(mau && kt && pv),
+    canCu:'File Excel — app lấy thông tin từ tên file'+(mau?' · khớp “'+mau.ten+'”':' · chưa nhận ra loại báo cáo')+
+      (kt?' · kỳ '+kyVN(kt.ky):' · KHÔNG đọc được kỳ trong tên — anh xem lại')};
+  d.tenMoi = tenDuLieu(d, duoi);
+  return d;
+}
 function xuLyMotFile(f){
   var duoi = duoiFile(f.name);
   var laAnh = /\.(jpg|jpeg|png|heic|webp)$/i.test(f.name);
@@ -4805,7 +4851,12 @@ function xuLyMotFile(f){
                ngay:ngayISO(nay()), moTa:'', the:[], chac:false,
                canCu:'Ảnh — hãy ghi một dòng mô tả để sau này dễ nhớ'};
       g.tenMoi = tenGhiChu(g, duoi);
-      D.cho.push(g); return;
+      D.cho.push(CHO_O ? apChoO(g, f.name) : g); return;
+    }
+    /* 3.31: file Excel/CSV — bấm ô ma trận, tên file khớp mẫu báo cáo, hoặc thêm từ tab Tháng
+       thì vào Dữ liệu tháng (trước đây mọi file không phải PDF đều bị xếp vào Văn bản) */
+    if(laFileExcel(f.name) && (CHO_O || khopMauTenFile(f.name) || TAB_TRUOC===2)){
+      D.cho.push(apChoO(duLieuTuTenFile(id, van, f, duoi), f.name)); return;
     }
     if(!laPDF){
       var tfw = tuTenFile(f.name);
@@ -4816,7 +4867,7 @@ function xuLyMotFile(f){
                trichYeu:tfw.trichYeu||f.name.replace(/\.[^.]+$/,''),
                canCu:'Không phải PDF — app lấy thông tin từ tên file'};
       v.tenMoi = tenVanBan(v, duoi);
-      D.cho.push(v); return;
+      D.cho.push(CHO_O ? apChoO(v, f.name) : v); return;
     }
     return docChuPDF(f, D.cauHinh.soTrangDoc||2).then(function(r){
       var chu = r.chu||'';
@@ -4883,7 +4934,7 @@ function xuLyMotFile(f){
       trichYeu:f.name.replace(/\.[^.]+$/,''),
       canCu:'Chưa đọc được nội dung ('+(e&&e.message||'lỗi')+') — anh nhập giúp'};
     v3.tenMoi = tenVanBan(v3, v3.duoi);
-    khoTam[id2] = f; D.cho.push(v3);
+    khoTam[id2] = f; D.cho.push(CHO_O ? apChoO(v3, f.name) : v3);
   });
 }
 
@@ -4959,10 +5010,18 @@ function duyetThat(id, imLang){
   luu(); ve();
   /* 3.27: khai xong file cuối thì tự quay về đúng tab chứa file vừa lưu */
   if(nganHienTai===6 && !D.cho.some(function(x){ return !x.deSau; })){
-    var dich = (c.nhom==='duLieu') ? 2 : (c.nhom==='ghiChu' ? 5 : 1);
-    setTimeout(function(){ doiNgan(dich); bao('Đã lưu vào '+({1:'Văn bản',2:'Dữ liệu tháng',5:'Ghi chú'}[dich])+' · '+c.tenMoi, 6); }, 120);
+    /* 3.31: ghi chú về tab Ghi chú (trước nhầm sang tab 5 = Biểu mẫu);
+       dữ liệu tháng thì ma trận nhảy tới đúng kỳ và báo rõ ô vừa lưu */
+    var dich = (c.nhom==='duLieu') ? 2 : (c.nhom==='ghiChu' ? 3 : 1);
+    if(dich===2 && c.ky) D.cauHinh.kyBang = c.ky;
+    setTimeout(function(){
+      doiNgan(dich);
+      bao(dich===2 ? ('Đã lưu vào ô '+kyVN(c.ky)+' · '+(c.tenLoai||'Khác')+' · '+(c.phamVi||'chưa rõ đơn vị')+' trên ma trận')
+                   : ('Đã lưu vào '+({1:'Văn bản',3:'Ghi chú'}[dich])+' · '+c.tenMoi), 7);
+    }, 120);
   }
   if(c.tuKhay){
+    if(imLang) return;   /* 3.31: "Duyệt tất cả" tự đổi tên lần lượt ở lamDuyetHet — không gọi 2 lần */
     doiTenTrenDrive(c).then(function(){
       ve(); if(!imLang) bao('Đã đổi tên và xếp chỗ ngay trên Drive · '+c.tenMoi, 5);
     }).catch(function(e){
@@ -6774,7 +6833,7 @@ function luuCDTab(k){
   var sv = layNutChon('cdt-sap'); if(sv) ct.sap = sv;
   var cv = layNutChon('cdt-che'); if(cv){ c.scanChe = cv; SC.che = cv; }
   if(document.getElementById('cdt-mau')){
-    c.mauBaoCao = gt('cdt-mau').split('\n').map(function(x){ return x.trim(); })
+    c.mauBaoCao = gopMauBaoCao(gt('cdt-mau').split('\n').map(function(x){ return x.trim(); })
       .filter(Boolean).map(function(d){
         var p = d.split('|').map(function(x){ return x.trim(); });
         var cap = (p[3]||'').toLowerCase().split(',').map(function(x){ return x.trim(); })
@@ -6782,7 +6841,7 @@ function luuCDTab(k){
         return {ten:p[0]||'Báo cáo', ma:(p[1]||slug(p[0]||'bao-cao',4)).toUpperCase(),
           tuKhoa:(p[2]||'').split(',').map(function(x){ return x.trim(); }).filter(Boolean),
           cap:cap};
-      });
+      }));
   }
   if(document.getElementById('cdt-hoi')){
     c.hoiDoanThe = gt('cdt-hoi').split('\n').map(function(x){ return x.trim(); }).filter(Boolean);
@@ -6888,7 +6947,7 @@ function huongDanNhanh(){
 
   '<b>Xóa an toàn</b><br>'+
   'Xóa là vào thùng rác chứ không mất, lấy lại được trong Cài đặt → Dữ liệu app. '+
-  'File gốc trên Drive không bao giờ bị đụng tới.'+
+  'File trên Drive dời vào thư mục _ThungRac và dời về chỗ cũ khi khôi phục. Chỉ khi bấm <b>Xóa hẳn</b> thì file trên Drive mới bị xóa vĩnh viễn.'+
   '</div>';
 }
 
@@ -7008,14 +7067,24 @@ function napDL(){
       try{
         var j = JSON.parse(fr.result);
         var dem = 0;
-        ['vanBan','duLieu','ghiChu'].forEach(function(k){
+        /* 3.31: nạp ĐỦ bản dự phòng — trước đây chỉ 3 tab, mất Biểu mẫu, Scan, Thùng rác, Lịch/sổ ghi chép.
+           Vẫn là GỘP: mục đã có (cùng id) giữ nguyên, không xóa gì của máy này */
+        ['vanBan','duLieu','ghiChu','bieuMau','scan','rac'].forEach(function(k){
+          D[k] = D[k] || [];
           (j[k]||[]).forEach(function(x){
             if(!D[k].some(function(y){ return y.id===x.id; })){ D[k].push(x); dem++; }
           });
         });
+        if((j.daXoaHan||[]).length){
+          var co = {}; (D.daXoaHan||[]).forEach(function(t){ co[t.id] = 1; });
+          D.daXoaHan = (D.daXoaHan||[]).concat(j.daXoaHan.filter(function(t){ return !co[t.id]; }));
+        }
+        if(j.lich && (j.lich.viec || j.lich.note || j.lich.nhatKy)) dem += gopLich(j.lich);
         if(j.cauHinh) for(var k in j.cauHinh) D.cauHinh[k] = j.cauHinh[k];
-        luu(); dongHop(); capNhatDau(); ve();
-        bao('Đã nạp thêm '+dem+' mục.', 4);
+        HS.ds = D.scan;
+        luu(); dongHop(); capNhatDau(); ve(); if(typeof veLich==='function') veLich();
+        bao('Đã nạp thêm '+dem+' mục (gồm cả lịch, ghi chép, biểu mẫu, scan, thùng rác nếu có). '+
+            'Ảnh CCCD không nằm trong file dự phòng.', 7);
       }catch(e){ baoLoi('File không đúng định dạng chỉ mục.'); }
     };
     fr.readAsText(i.files[0]);
@@ -7342,8 +7411,8 @@ function napKhayCho(){
   bao('Đang xem khay chờ trên Drive…', 4);
   baoDamDuong(duong).then(function(id){
     var q = "'"+id+"' in parents and trashed=false";
-    return goiDrive('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+
-                    '&fields=files(id,name,mimeType,size)&pageSize=200');
+    return layHetTrang('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+
+                    '&fields=nextPageToken,files(id,name,mimeType,size)&pageSize=200');
   }).then(function(kq){
     var ds = (kq.files||[]).filter(function(f){
       return f.mimeType!=='application/vnd.google-apps.folder'; });
@@ -7509,14 +7578,26 @@ function quetDrive(){
     ketQuet('Dừng vì lỗi: '+(e&&e.message||e));
   });
 }
+/* gọi danh sách file Drive và gom đủ mọi trang; trả {files:[…]} như một lần gọi */
+function layHetTrang(url){
+  var tat = [];
+  function trang(tok){
+    return goiDrive(url+(tok?'&pageToken='+encodeURIComponent(tok):'')).then(function(kq){
+      tat = tat.concat(kq.files||[]);
+      return (kq.nextPageToken && !QUET.dung) ? trang(kq.nextPageToken) : {files:tat};
+    });
+  }
+  return trang('');
+}
 function gomFile(idTM, gioiHan){
   var ra = [], hang = [idTM];
   function tiep(){
     if(!hang.length || ra.length>=gioiHan || QUET.dung) return Promise.resolve(ra);
     var id = hang.shift();
     var q = "'"+id+"' in parents and trashed=false";
-    return goiDrive('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+
-      '&fields=files(id,name,mimeType,size,modifiedTime,parents,description,appProperties)&pageSize=200')
+    /* 3.31: đọc đủ mọi trang (nextPageToken) — trước đây thư mục trên 200 file bị bỏ sót phần dư */
+    return layHetTrang('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+
+      '&fields=nextPageToken,files(id,name,mimeType,size,modifiedTime,parents,description,appProperties)&pageSize=200')
     .then(function(kq){
       (kq.files||[]).forEach(function(f){
         if(f.mimeType==='application/vnd.google-apps.folder'){
@@ -8244,6 +8325,9 @@ function xoaScanIm(id){
   if(m && m.trang) m.trang.forEach(function(t){ xoaFile('hs_'+t); });
   HS.ds = HS.ds.filter(function(x){ return x.id!==id; });
   D.scan = HS.ds;
+  /* 3.31: ghi dấu đã xóa để máy khác / chimuc.json cũ không đưa bản scan này quay lại */
+  D.daXoaHan = D.daXoaHan || [];
+  if(m && !D.daXoaHan.some(function(t){ return t.id===id; })) D.daXoaHan.push({id:id, driveId:'', luc:new Date().toISOString()});
   xoaFile('hs_'+id+'_matTruoc'); xoaFile('hs_'+id+'_matSau');
   if(HS.chon) delete HS.chon[id];
 }
@@ -8360,7 +8444,12 @@ function dungTrangThe(dsId, viec){
   if(!ids.length) return bao('Chưa chọn bản nào.', 3);
   var tl = ids.map(function(id){ return HS.ds.find(function(x){ return x.id===id; }); })
     .filter(function(m){ return m && m.che==='tailieu'; });
-  if(tl.length) return dungTaiLieu(tl, viec);
+  if(tl.length){
+    /* 3.31: chọn lẫn Thẻ + Tài liệu — trước đây bản Thẻ bị bỏ qua không báo */
+    if(tl.length < ids.length) setTimeout(function(){
+      bao('Đang dựng '+tl.length+' bản Tài liệu. '+(ids.length-tl.length)+' bản Thẻ (CCCD) khác khổ giấy — chọn riêng rồi bấm lại.', 8); }, 400);
+    return dungTaiLieu(tl, viec);
+  }
   if(!window.PDFLib) return baoLoi('Chưa tải được bộ tạo PDF. Có mạng một lần rồi thử lại.');
   var ds = ids.map(function(id){
     return HS.ds.find(function(x){ return x.id===id; }); }).filter(Boolean);
@@ -9308,14 +9397,25 @@ function kiemTraKhungXem(){
    → danh sách, thanh kéo và khung xem xếp chồng dọc (khung xem "biến mất") */
 /* 3.30: danh mục lưu trong máy từ bản cũ sẽ THIẾU loại mới thêm sau này —
    bổ sung theo mã, giữ nguyên mọi thứ anh đã tự sửa */
+/* 3.31: sửa 2 lỗi của bản 3.30
+   - báo cáo anh đã chủ động bỏ (ghi trong maDaBo) thì KHÔNG thêm lại
+   - mẫu có sẵn nhưng mất cờ (theoNgay, thuanXLS…) do lỗi lưu cài đặt cũ → điền lại cờ còn trống, không ghi đè cờ anh đã chỉnh */
+var CO_MAU = ['theoNgay','gopPGD','coExcel','thuanXLS','chuKy','cap'];
 function nangCapDanhMuc(){
   var goc = (MAC_DINH && MAC_DINH.mauBaoCao) || [];
   var co = D.cauHinh.mauBaoCao || [];
   if(!goc.length) return 0;
-  if(!co.length){ D.cauHinh.mauBaoCao = JSON.parse(JSON.stringify(goc)); luu(); return 0; }
-  var ma = {}; co.forEach(function(x){ ma[x.ma] = 1; });
-  var them = goc.filter(function(x){ return !ma[x.ma]; });
-  if(!them.length) return 0;
+  if(!co.length && !(D.cauHinh.maDaBo||[]).length){ D.cauHinh.mauBaoCao = JSON.parse(JSON.stringify(goc)); luu(); return 0; }
+  var daBo = D.cauHinh.maDaBo || [], ma = {}, doi = false;
+  co.forEach(function(x){ ma[x.ma] = x; });
+  goc.forEach(function(g){
+    var x = ma[g.ma]; if(!x) return;
+    CO_MAU.forEach(function(k){
+      if(x[k]===undefined && g[k]!==undefined){ x[k] = JSON.parse(JSON.stringify(g[k])); doi = true; }
+    });
+  });
+  var them = goc.filter(function(x){ return !ma[x.ma] && daBo.indexOf(x.ma)<0; });
+  if(!them.length){ if(doi) luu(); return 0; }
   D.cauHinh.mauBaoCao = co.concat(them.map(function(x){ return JSON.parse(JSON.stringify(x)); }));
   luu();
   setTimeout(function(){
@@ -9323,6 +9423,25 @@ function nangCapDanhMuc(){
       them.slice(0,4).map(function(x){ return x.ten; }).join(' · ')+(them.length>4?'…':''), 8);
   }, 900);
   return them.length;
+}
+/* ghi nhớ mã báo cáo anh đã bỏ khỏi danh mục, để nangCapDanhMuc không thêm lại */
+function ghiMaDaBo(ds){
+  var d = D.cauHinh.maDaBo = D.cauHinh.maDaBo || [];
+  (ds||[]).forEach(function(m){ if(m && d.indexOf(m)<0) d.push(m); });
+}
+function boMaDaBo(ds){
+  D.cauHinh.maDaBo = (D.cauHinh.maDaBo||[]).filter(function(m){ return (ds||[]).indexOf(m)<0; });
+}
+/* dựng lại danh mục từ ô chữ / Excel mà KHÔNG làm mất thuộc tính khác của mẫu cũ (theoNgay, thuanXLS, coExcel, an…)
+   mục nào không ghi cấp áp dụng (Excel) thì giữ cấp cũ */
+function gopMauBaoCao(dsMoi){
+  var cu = D.cauHinh.mauBaoCao || [], theoMa = {};
+  cu.forEach(function(x){ theoMa[x.ma] = x; });
+  var ra = dsMoi.map(function(m){ return Object.assign({}, theoMa[m.ma]||{}, m); });
+  var coMoi = ra.map(function(x){ return x.ma; });
+  ghiMaDaBo(cu.map(function(x){ return x.ma; }).filter(function(m){ return coMoi.indexOf(m)<0; }));
+  boMaDaBo(coMoi);
+  return ra;
 }
 function suaRongCot(){
   var doi = false;
@@ -10568,7 +10687,7 @@ function moNhoAI(){
     '<div class="huong-dan">Nhận cả file .csv, .txt hoặc .json. App ghép theo cột <b>ma</b>, '+
     'chỉ đổi số hiệu, ngày, trích yếu và thẻ; không đụng tới nội dung file.</div>'+
     '<div class="hang-nut" style="margin-top:14px">'+
-      '<button class="nho" onclick="dongHop();moCaiDat(\'cm\')">Đóng</button></div>', true);
+      '<button class="nho" onclick="dongHop();moCaiDat(\'chimuc\')">Đóng</button></div>', true);
 }
 
 function cauNhacAI(){
@@ -10577,9 +10696,9 @@ function cauNhacAI(){
   '- so_hieu: dạng đầy đủ như 4079/NHCS-TDNN hoặc 958/KH-NHCS\n'+
   '- ngay: dạng YYYY-MM-DD\n'+
   '- trich_yeu: viết đủ ý, có dấu tiếng Việt, bỏ chữ "V/v" ở đầu\n'+
-  '- nghiep_vu: chọn trong danh sách sau, nhiều mục cách nhau bằng dấu chấm phẩy:\n'+
+  '- nghiep_vu: chọn ĐÚNG MỘT mảng trong danh sách sau:\n'+
   '  '+(D.cauHinh.nghiepVu||[]).join('; ')+'\n'+
-  '- chuong_trinh: chọn trong danh sách sau, để trống nếu không gắn chương trình nào:\n'+
+  '- chuong_trinh: chọn MỘT trong danh sách sau; áp dụng từ 2 chương trình trở lên thì ghi Dùng chung; để trống nếu không gắn:\n'+
   '  '+(D.cauHinh.chuongTrinh||[]).join('; ')+'\n'+
   '- loai: một trong '+(D.cauHinh.loaiVB||[]).join(', ')+'\n\n'+
   'Trả về ĐÚNG định dạng CSV với các cột theo thứ tự:\n'+
@@ -10609,7 +10728,7 @@ function xuatChoAI(){
   var d = [['ma','ten_cu','so_hieu','ngay','loai','trich_yeu','nghiep_vu','chuong_trinh']];
   ds.forEach(function(m){
     d.push([m.id, m.tenCu||'', m.soHieu||'', m.ngay||'', m.loai||'',
-            m.trichYeu||m.moTa||'', (m.the||[]).join('; '), (m.ctrinh||[]).join('; ')]);
+            m.trichYeu||m.moTa||'', m.mang||'', (m.ctrinh||[]).join('; ')]);
   });
   var csv = '\ufeff' + d.map(function(r){ return r.map(csvO).join(','); }).join('\n');
   var a = document.createElement('a');
@@ -10667,16 +10786,20 @@ function napTuAI(){
           if(x.ngay && /^\d{4}-\d{2}-\d{2}$/.test(x.ngay)) m.ngay = x.ngay;
           if(x.loai) m.loai = x.loai;
           if(x.trich_yeu) m.trichYeu = x.trich_yeu;
-          if(x.nghiep_vu!==undefined && x.nghiep_vu!=='')
-            m.the = x.nghiep_vu.split(/[;,]/).map(function(z){ return z.trim(); }).filter(Boolean);
-          if(x.chuong_trinh!==undefined && x.chuong_trinh!=='')
-            m.ctrinh = x.chuong_trinh.split(/[;,]/).map(function(z){ return z.trim(); }).filter(Boolean);
-          m.tenMoi = tenVanBan(m, m.duoi);
-          m.chac = true;
+          /* 3.31: nghiệp vụ = Mảng (chọn một), không ghi vào Tag như trước */
+          if(x.nghiep_vu!==undefined && x.nghiep_vu!==''){
+            var mg = x.nghiep_vu.split(/[;,]/).map(function(z){ return z.trim(); }).filter(Boolean)[0];
+            if(mg && dsMang().indexOf(mg)>=0) m.mang = mg;
+          }
+          if(x.chuong_trinh!==undefined && x.chuong_trinh!==''){
+            var ct = x.chuong_trinh.split(/[;,]/).map(function(z){ return z.trim(); }).filter(Boolean);
+            m.ctrinh = ct.length>1 ? ['Dùng chung'] : ct;
+          }
+          apDoiTuAI(m);
           m.canCu = 'AI chuẩn hóa, anh đã nạp lại';
           xong++;
         });
-        luu(); dongHop(); ve();
+        luu(); dongHop(); ve(); if(DR.sanSang && DR.online) chayDongBoCho();
         bao('Đã cập nhật '+xong+' mục'+(khong?(', bỏ qua '+khong+' dòng không khớp'):'')+'.', 8);
       }catch(e){
         console.warn(e);
@@ -10698,6 +10821,15 @@ function napTuAI(){
    ========================================================== */
 var SS = [];   /* bảng so sánh */
 
+/* 3.31: sau khi nhận dữ liệu từ AI — đồng bộ Tên văn bản (tenVB) với trích yếu, đặt lại tên file,
+   và đánh dấu chờ cập nhật Drive để tên trên Drive đổi theo */
+function apDoiTuAI(m){
+  m.tenVB = m.trichYeu || m.tenVB || '';
+  m.tenMoi = tenVanBan({ngay:m.ngay, soHieu:m.soHieu, loai:m.loai, trichYeu:m.tenVB}, m.duoi);
+  m.chac = true;
+  m.suaLuc = new Date().toISOString();
+  if(m.driveId && !laFileHeThong(m) && D.cho.indexOf(m)<0) m.choDB = true;
+}
 function moDanAI(){
   moHop('<div class="hop-tit">Dán kết quả từ AI</div>'+
     '<div class="hop-phu">Chép nguyên đoạn Gemini (hay AI khác) trả về rồi dán vào đây. '+
@@ -10781,13 +10913,17 @@ function ghepMuc(x, kho){
   }
   /* 2. khớp theo số hiệu */
   if(x.soHieu){
-    var so = x.soHieu.split('/')[0];
-    var t3 = kho.find(function(m){
-      return (m.soHieu||'').split('/')[0] === so; });
+    /* 3.31: khớp ĐỦ số + ký hiệu trước; chỉ khớp phần số (958) thì chỉ nhận khi duy nhất, và đánh dấu khớp yếu */
+    var chuan = function(v){ return String(v||'').toUpperCase().replace(/\s+/g,'').replace(/Đ/g,'D'); };
+    var t3 = kho.find(function(m){ return m.soHieu && chuan(m.soHieu)===chuan(x.soHieu); });
     if(t3) return t3;
+    var so = x.soHieu.split('/')[0];
+    var ts = kho.filter(function(m){ return (m.soHieu||'').split('/')[0] === so; });
+    if(ts.length===1){ x._yeu = true; return ts[0]; }
+    if(ts.length>1) return null;
     var t4 = kho.find(function(m){
       return boDau(m.tenCu||'').indexOf(so) >= 0; });
-    if(t4) return t4;
+    if(t4){ x._yeu = true; return t4; }
   }
   /* 3. khớp theo ngày + vài chữ đầu trích yếu */
   if(x.ngay && x.trichYeu){
@@ -10809,7 +10945,7 @@ function docDanAI(){
   var kho = D.cho.concat(D.vanBan);
   SS = ds.map(function(x){
     var m = ghepMuc(x, kho);
-    return {ai:x, m:m, chon: m ? 'ai' : 'bo'};
+    return {ai:x, m:m, chon: m ? (x._yeu ? 'app' : 'ai') : 'bo'};
   });
   veSoSanh();
 }
@@ -10854,6 +10990,7 @@ function veSoSanh(){
         '<button class="nho'+(r.chon==='tron'?' chinh':'')+'" onclick="chonBen('+i+',\'tron\')">Trộn</button>'+
         '<button class="nho'+(r.chon==='bo'?' xau':'')+'" onclick="chonBen('+i+',\'bo\')">Bỏ qua</button>'+
       '</div>'+
+      (a._yeu?'<div class="cb-lech">⚠ Chỉ khớp phần số “'+coChuHTML((a.soHieu||'').split('/')[0])+'” — ký hiệu khác nhau, kiểm lại có đúng văn bản không rồi mới chọn Lấy AI.</div>':'')+
       '<div class="huong-dan">Trộn: lấy của AI những chỗ app còn trống, giữ phần app đã đọc được.</div>'+
       '</div>';
   });
@@ -10892,12 +11029,11 @@ function apSoSanh(){
          a.trichYeu.length > m.trichYeu.length + 8)) m.trichYeu = a.trichYeu;
     }
     m.loai = doanLoai(m.trichYeu+' '+(m.tenCu||''), m.soHieu);
-    m.tenMoi = tenVanBan(m, m.duoi);
-    m.chac = true;
+    apDoiTuAI(m);
     m.canCu = (r.chon==='ai' ? 'Lấy từ AI anh dán vào' : 'Trộn giữa app đọc và AI');
     xong++;
   });
-  luu(); dongHop(); ve();
+  luu(); dongHop(); ve(); if(DR.sanSang && DR.online) chayDongBoCho();
   bao('Đã cập nhật '+xong+' mục theo lựa chọn của anh.', 6);
 }
 </script>
@@ -11078,7 +11214,8 @@ function gopChiMuc(remote){
 function gopNhanh(local, remote){
   var co = {}; local.forEach(function(m){ co[m.id] = true; });
   (D.rac||[]).forEach(function(m){ co[m.id] = true; });
-  remote = (remote||[]).filter(function(m){ return !laFileHeThong(m); });
+  var daXoa = {}; (D.daXoaHan||[]).forEach(function(t){ daXoa[t.id] = 1; });
+  remote = (remote||[]).filter(function(m){ return !laFileHeThong(m) && !daXoa[m.id]; });
   var them = 0;
   (remote||[]).forEach(function(m){
     if(!co[m.id]){ local.push(m); them++; }
@@ -11100,6 +11237,12 @@ function taiChiMucTuDrive(imLang){
     CM_DANG_KEO = true;
     var tong = gopChiMuc(remote);
     D.scan = D.scan||[]; tong += gopNhanh(D.scan, remote.scan);
+    /* 3.31: bản scan đã xóa ở máy khác thì máy này bỏ theo (kèm ảnh trong máy) */
+    var tombS = {}; (D.daXoaHan||[]).forEach(function(t){ tombS[t.id] = 1; });
+    var truocS = D.scan.length;
+    D.scan.filter(function(k){ return tombS[k.id]; }).forEach(function(k){ xoaScanIm(k.id); });
+    D.scan = (D.scan||[]).filter(function(k){ return !tombS[k.id]; }); HS.ds = D.scan;
+    tong += truocS - D.scan.length;
     /* việc xóa ở máy khác thì máy này cũng chuyển vào rác, nếu còn giữ */
     var xoa = 0;
     D.rac = D.rac || [];
@@ -11194,6 +11337,18 @@ function keoCauHinh(imLang){
    20. CÁC HÀM CÀI ĐẶT — bản dựng lại
    ========================================================== */
 
+/* 3.31: hàm đếm địa bàn bị mất từ bản cũ — Cài đặt › Địa bàn, Nạp Excel, Nạp JSON, Lấy từ Drive đều gọi */
+function demDiaBan(){
+  var ra = {xa:0, diem:0, ap:0, to:0};
+  (D.cauHinh.diaBan||[]).forEach(function(x){
+    ra.xa++;
+    (x.diem||[]).forEach(function(z){
+      ra.diem++;
+      (z.ap||[]).forEach(function(a){ ra.ap++; ra.to += (a.to||[]).length; });
+    });
+  });
+  return ra;
+}
 function demDiaBan2(){ return demDiaBan(); }
 
 /* ---- bật/tắt nhanh ---- */
@@ -11226,7 +11381,7 @@ function xemCay(){
     '  Biểu mẫu/\n'+
     '  CCCD/<xã>/<điểm GD>/<ấp>/Tổ <n>/\n'+
     '  Khác/\n'+
-    '  _Chờ xử lý/  (điện thoại bỏ file vào đây, về máy tính xử lý)\n'+
+    '  _Chờ xử lý/  (file app đưa lên chờ duyệt — file chép tay vào ổ G app không thấy)\n'+
     '  _Hệ thống/   (cauhinh.json, chỉ mục xuất ra)';
   window.__cay = t;
   moHop('<div class="hop-tit">Bộ thư mục chuẩn</div>'+
@@ -11521,7 +11676,7 @@ function napExcel(){
             mau.push({ten:d2[0], ma:(d2[1]||slug(d2[0],4)).toUpperCase(),
               tuKhoa:(d2[2]||'').split(',').map(function(x){ return x.trim(); }).filter(Boolean)});
           }
-          if(mau.length){ D.cauHinh.mauBaoCao = mau; doi.push('mẫu báo cáo'); }
+          if(mau.length){ D.cauHinh.mauBaoCao = gopMauBaoCao(mau); doi.push('mẫu báo cáo'); }
         }
 
         var sd = wb.Sheets['Danh muc'];
@@ -11633,10 +11788,8 @@ function khoiDong(){
   ['dragleave','drop'].forEach(function(t){
     vt.addEventListener(t, function(e){ e.preventDefault(); vt.classList.remove('keo'); });
   });
-  vt.addEventListener('drop', function(e){
-    e.preventDefault();
-    if(e.dataTransfer && e.dataTransfer.files.length) gioiThieuFile(e.dataTransfer.files);
-  });
+  /* 3.31: thả vào ô này cũng nổi lên trình nhận chung của cả trang (bên dưới) —
+     trước đây xử lý ở cả hai nơi nên mỗi file vào khay 2 lần */
   /* 3.23: kéo file vào bất kỳ chỗ nào trong trang cũng nhận — phủ cả màn, ghi rõ sẽ xếp vào tab nào */
   var TEN_TAB_THA = ['Hôm nay','Văn bản','Dữ liệu tháng','Ghi chú','Scan','Biểu mẫu','Khay chờ duyệt'];
   var demKeo = 0;
