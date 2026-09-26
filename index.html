@@ -722,6 +722,16 @@
   .lien-quan{margin-top:6px;font-size:calc(11.5px*var(--co));line-height:1.6;color:var(--chu-phu)}
   .lien-quan .lk{color:var(--xanh-dam);cursor:pointer;text-decoration:underline}
   .lien-quan .het{color:var(--do)}
+  /* 3.31: chuỗi hiệu lực văn bản */
+  .cl-dai{margin:6px 0;padding:7px 10px;border-radius:8px;background:var(--do-nen);color:var(--do);
+    border-left:4px solid var(--do);font-weight:600;font-size:calc(12px*var(--co))}
+  .cl-dai .lk{color:var(--do)}
+  .cl-cay{margin-top:6px;padding:6px 9px;border:1px solid var(--vien);border-radius:8px;font-size:calc(11.5px*var(--co));line-height:1.7}
+  .cl-tit{font-weight:700;color:var(--chu-phu);font-size:calc(10.5px*var(--co));text-transform:uppercase;letter-spacing:.3px}
+  .cl-dong .lk{color:var(--xanh-dam);cursor:pointer;text-decoration:underline}
+  .cl-dong.cl-het{color:var(--chu-phu);opacity:.75}
+  .cl-dong.cl-het .lk,.cl-dong.cl-het b{text-decoration:line-through}
+  .cl-ngan{border-top:1px dashed var(--vien);margin:4px 0}
 
   .viec{background:var(--the);border:1.3px solid var(--vien);border-radius:13px;
     padding:12px 13px;margin-bottom:9px;display:flex;align-items:center;gap:11px;cursor:pointer}
@@ -1205,9 +1215,9 @@
   .tm-dau .dem{font-size:calc(11px*var(--co));color:var(--chu-phu);
     background:var(--nen);padding:2px 8px;border-radius:7px;flex:0 0 auto}
   .tm-dau .mui{color:var(--chu-phu);transition:transform .15s;flex:0 0 auto}
-  .tm.mo .tm-dau .mui{transform:rotate(90deg)}
+  .tm.mo > .tm-dau .mui{transform:rotate(90deg)}   /* 3.31: chỉ nhánh được mở, không lan xuống cấp con */
   .tm-than{display:none;border-top:1px solid var(--vien);padding:4px 10px 8px}
-  .tm.mo .tm-than{display:block}
+  .tm.mo > .tm-than{display:block}
   .tm-file{padding:9px 4px;border-bottom:1px solid var(--vien);cursor:pointer;
     font-size:calc(12.5px*var(--co));word-break:break-all;display:flex;gap:8px;align-items:center}
   .tm-file:last-child{border-bottom:none}
@@ -5805,29 +5815,50 @@ function chonGocVB(){
   datChipTheo('s-ct', (g.ctrinh||[])[0]);
 }
 /* các liên kết của một văn bản — hiện ở khung xem */
+/* 3.31 (mục 9 bàn giao): CHUỖI HIỆU LỰC — sơ đồ dọc VB gốc → VB sửa đổi → thay thế, dòng nào cũng bấm mở được;
+   văn bản hết hiệu lực có dải đỏ ở đầu. Chỉ vẽ từ dữ liệu có thật (goc, thayBoi, hetHieuLuc), không thêm gì vào kho. */
 function lienQuanHTML(m){
   if(!m || m.nhom!=='vanBan' && m.huongDan===undefined && !m.soHieu) return '';
-  var dong = [];
-  function lk(v){ return '<a class="lk" onclick="chonDong(\''+v.id+'\')">'+coChuHTML(tenNganVB(v))+'</a>'; }
+  function ten(v){ return coChuHTML(tenNganVB(v)); }
+  function lk(v){ return '<a class="lk" onclick="chonDong(\''+v.id+'\')">'+ten(v)+'</a>'; }
   if(m.huongDan!==undefined){
     var vb = m.vbKem && timMuc(m.vbKem);
-    if(vb) dong.push('Ban hành kèm: '+lk(vb));
-    return dong.length ? '<div class="lien-quan">'+dong.join('<br>')+'</div>' : '';
+    return vb ? '<div class="lien-quan">Ban hành kèm: '+lk(vb)+'</div>' : '';
   }
-  var goc = m.goc && timMuc(m.goc);
-  if(goc) dong.push('Sửa đổi cho: '+lk(goc));
-  var con = D.vanBan.filter(function(x){ return x.goc===m.id; })
-    .sort(function(a,b){ return (a.ngay||'')<(b.ngay||'')?-1:1; });
-  if(con.length) dong.push('VB sửa đổi, bổ sung: '+con.map(lk).join(' · '));
-  var bm = (D.bieuMau||[]).filter(function(x){ return x.vbKem===m.id; });
-  if(bm.length) dong.push('Biểu mẫu kèm: '+bm.map(function(b){
-    return '<a class="lk" onclick="chonDong(\''+b.id+'\')">'+coChuHTML((b.soHieu?b.soHieu+' ':'')+(b.ten||''))+'</a>';
-  }).join(' · '));
+  var h = '';
   var thay = m.thayBoi && timMuc(m.thayBoi);
-  if(m.hetHieuLuc) dong.push('<b class="het">Hết hiệu lực</b>'+(thay?' — thay thế bởi: '+lk(thay):''));
-  var cu = D.vanBan.filter(function(x){ return x.thayBoi===m.id; });
-  if(cu.length) dong.push('Thay thế cho: '+cu.map(lk).join(' · '));
-  return dong.length ? '<div class="lien-quan">'+dong.join('<br>')+'</div>' : '';
+  if(m.hetHieuLuc) h += '<div class="cl-dai">⛔ Văn bản này đã hết hiệu lực'+(thay?', thay bởi '+lk(thay):'')+'</div>';
+  /* dựng cây quanh văn bản đang xem: gốc của nó (nếu là VB sửa đổi) và các nhánh */
+  var goc = (m.goc && timMuc(m.goc)) || m;
+  var con = function(v){ return D.vanBan.filter(function(x){ return x.goc===v.id; })
+    .sort(function(a,b){ return (a.ngay||'')<(b.ngay||'')?-1:1; }); };
+  var dong = function(v, muc, nhan){
+    var tt = v.hetHieuLuc ? 'đã hết hiệu lực' : 'còn hiệu lực';
+    return '<div class="cl-dong'+(v.hetHieuLuc?' cl-het':'')+(v.id===m.id?' cl-dang':'')+'" style="padding-left:'+(muc*16)+'px">'+
+      (muc?'└─ ':'')+(nhan?'<small>'+nhan+':</small> ':'')+
+      (v.id===m.id ? '<b>'+ten(v)+'</b>' : lk(v))+' <small>('+
+      (muc||nhan ? (nhan?tt:'sửa đổi, bổ sung'+(v.hetHieuLuc?' — hết hiệu lực':'')) : 'văn bản gốc — '+tt)+')</small></div>';
+  };
+  var dsCon = con(goc), cu = D.vanBan.filter(function(x){ return x.thayBoi===goc.id; });
+  var thayGoc = goc.thayBoi && timMuc(goc.thayBoi);
+  var coQuanHe = dsCon.length || cu.length || thayGoc || goc!==m;
+  if(coQuanHe){
+    var c = '';
+    cu.forEach(function(v){ c += dong(v, 0, 'thay thế cho'); });
+    c += dong(goc, 0);
+    dsCon.forEach(function(v){
+      c += dong(v, 1);
+      var tv = v.thayBoi && timMuc(v.thayBoi);
+      if(tv) c += dong(tv, 2, 'thay bởi');
+    });
+    if(thayGoc) c += '<div class="cl-ngan"></div>' + dong(thayGoc, 1, 'thay bởi');
+    h += '<div class="cl-cay"><div class="cl-tit">Chuỗi hiệu lực</div>'+c+'</div>';
+  }
+  var bm = (D.bieuMau||[]).filter(function(x){ return x.vbKem===m.id; });
+  if(bm.length) h += '<div class="lien-quan">Biểu mẫu kèm: '+bm.map(function(b){
+    return '<a class="lk" onclick="chonDong(\''+b.id+'\')">'+coChuHTML((b.soHieu?b.soHieu+' ':'')+(b.ten||''))+'</a>';
+  }).join(' · ')+'</div>';
+  return h;
 }
 /* đổi danh mục một lần sang bộ phân loại mới (dữ liệu cũ là thử nghiệm) */
 function napPhanLoai(){
@@ -6824,7 +6855,8 @@ function veNoiCD(k){
       '<h3>Thùng rác</h3>'+
       '<div class="hang-nut"><button class="nho" onclick="moRac()">🗑 Mở thùng rác'+
       ((D.rac||[]).length?(' ('+D.rac.length+')'):'')+'</button>'+
-      '<button class="nho" onclick="moQuetDon()">🧹 Quét dọn rác</button></div>'+
+      '<button class="nho" onclick="moQuetDon()">🧹 Quét dọn rác</button>'+
+      '<button class="nho" onclick="moGomTrung()">🧬 Gom file trùng nội dung</button></div>'+
       '<div class="huong-dan">Nút 🗑 cũng có ở thanh trên cùng. Quét dọn tìm file thừa, file trùng, mục gãy, thư mục trống.</div>'+
       '<h3>Dọn dữ liệu, giữ cài đặt</h3>'+
       '<div class="hang-nut"><button class="nho" onclick="moDonThu()">Dọn dữ liệu thử nghiệm…</button></div>'+
@@ -7649,7 +7681,7 @@ function mucThieu(){
   }).concat(D.duLieu.filter(function(m){ return m.maLoai==='KHAC'; }));
 }
 function mucHong(){
-  var tat = D.vanBan.concat(D.duLieu, D.ghiChu);
+  var tat = D.vanBan.concat(D.duLieu, D.ghiChu, D.bieuMau||[]);
   var thay = {}, trung = [];
   tat.forEach(function(m){
     if(!m.van) return;
@@ -7963,26 +7995,64 @@ function docLai(){
 }
 
 /* --- 3. DỌN CHỈ MỤC --- */
-function donChiMuc(){
-  var h = mucHong();
-  if(!h.trung.length) { dongHop(); return bao('Chỉ mục đang sạch, không có gì để dọn.', 4); }
-  hoi('Dọn '+h.trung.length+' mục trùng?',
-      'App giữ lại mục đầu tiên của mỗi nhóm trùng và bỏ các bản sao trong chỉ mục. '+
-      'File gốc trên Drive không bị đụng tới.',
-      'Dọn', function(){
-    var bo = {}; h.trung.forEach(function(m){ bo[m.id]=1; });
-    ['vanBan','duLieu','ghiChu'].forEach(function(k){
-      D[k] = D[k].filter(function(m){
-        if(bo[m.id]){ xoaFile(m.id); return false; } return true; });
+/* 3.31 (mục 8 bàn giao): GOM FILE TRÙNG THEO DẤU VÂN (SHA-256, trường van)
+   Mỗi nhóm cùng nội dung một khối; anh chọn bản giữ lại (mặc định: tên đúng chuẩn nhất, rồi bản mới nhất);
+   bản còn lại vào THÙNG RÁC (khôi phục được), KHÔNG xóa hẳn. Thay cho nút "Dọn" cũ (xóa thẳng khỏi chỉ mục). */
+function nhomTrungVan(){
+  var nhom = {};
+  ['vanBan','duLieu','ghiChu','bieuMau'].forEach(function(k){
+    (D[k]||[]).forEach(function(m){ if(m.van && !laFileHeThong(m)) (nhom[m.van] = nhom[m.van]||[]).push({m:m, k:k}); });
+  });
+  return Object.keys(nhom).filter(function(v){ return nhom[v].length>1; }).map(function(v){
+    var ds = nhom[v].slice().sort(function(a,b){
+      return (tenDungChuan(b.m)?1:0)-(tenDungChuan(a.m)?1:0) ||
+             String(b.m.themLuc||b.m.suaLuc||'').localeCompare(String(a.m.themLuc||a.m.suaLuc||''));
     });
-    D.ganDay = D.ganDay.filter(function(id){ return !bo[id]; });
-    /* 3.10: ghi dấu đã xóa (không kèm file Drive — file vẫn thuộc mục được giữ) để máy khác bỏ theo */
-    var luc = new Date().toISOString(); D.daXoaHan = D.daXoaHan||[];
-    Object.keys(bo).forEach(function(id){ D.daXoaHan.push({id:id, driveId:'', luc:luc}); });
-    luu(); dongHop(); capNhatDau(); ve();
-    bao('Đã dọn '+h.trung.length+' mục trùng.', 5);
+    return {van:v, ds:ds};
   });
 }
+function moGomTrung(){
+  var g = nhomTrungVan();
+  if(!g.length){ dongHop(); return bao('Không có file nào trùng nội dung. Kho đang gọn.', 5); }
+  var tenKhoTab = {vanBan:'Văn bản', duLieu:'Dữ liệu tháng', ghiChu:'Ghi chú', bieuMau:'Biểu mẫu'};
+  moHop('<div class="hop-tit">Gom file trùng nội dung ('+g.length+' nhóm)</div>'+
+    '<div class="hop-phu">Các file dưới đây giống hệt nhau về nội dung (cùng dấu vân SHA-256). Chọn bản giữ lại; '+
+    'các bản còn lại chuyển vào <b>Thùng rác</b> — khôi phục được bất cứ lúc nào, không xóa hẳn.</div>'+
+    g.map(function(n, i){
+      return '<div class="gt-khoi"><div class="nhan-nhom">Nhóm '+(i+1)+' · dấu vân '+n.van.slice(0,10)+'… · '+n.ds.length+' bản</div>'+
+        n.ds.map(function(x, j){
+          var m = x.m;
+          return '<label class="rac-dong gt-dong"><input type="radio" name="gt-'+i+'" value="'+m.id+'"'+(j===0?' checked':'')+'>'+
+            '<span class="rac-ten">'+coChuHTML(m.tenMoi||m.ten||m.tenCu||'')+
+            '<small>'+tenKhoTab[x.k]+' · thêm '+ngayVN(String(m.themLuc||'').slice(0,10)||'')+
+            (tenDungChuan(m)?' · tên đúng chuẩn':'')+(m.driveId?' · có trên Drive':'')+'</small></span></label>';
+        }).join('')+'</div>';
+    }).join('')+
+    '<div class="hang-nut" style="margin-top:10px"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<button class="nho chinh" onclick="gomTrungLam()">Giữ bản đã chọn, đưa bản thừa vào thùng rác</button></div>', true);
+}
+function gomTrungLam(){
+  var g = nhomTrungVan(), bo = [];
+  g.forEach(function(n, i){
+    var c = document.querySelector('input[name="gt-'+i+'"]:checked'), giu = c ? c.value : n.ds[0].m.id;
+    var mGiu = n.ds.filter(function(x){ return x.m.id===giu; })[0];
+    n.ds.forEach(function(x){
+      if(x.m.id===giu) return;
+      /* bản thừa trỏ cùng file Drive với bản giữ → bỏ liên kết Drive để thùng rác không dời mất file của bản giữ */
+      if(mGiu && x.m.driveId && x.m.driveId===mGiu.m.driveId){ delete x.m.driveId; delete x.m.choDB; }
+      bo.push(x.m.id);
+    });
+  });
+  if(!bo.length) return dongHop();
+  var n = chuyenVaoRac(bo, 'Trùng nội dung với bản đã giữ');
+  dongHop(); capNhatDau(); ve();
+  moHop('<div class="hop-tit">Đã đưa '+n+' bản thừa vào thùng rác</div>'+
+    '<div class="hop-phu">Các bản này vẫn nằm trong 🗑 Thùng rác, khôi phục lúc nào cũng được.</div>'+
+    '<div class="hang-nut"><button class="nho" onclick="khoiPhucRac(['+bo.map(function(x){ return '\''+x+'\''; }).join(',')+']);dongHop();ve();bao(\'Đã hoàn tác — trả '+n+' bản về chỗ cũ.\',5)">↶ Hoàn tác</button>'+
+    '<button class="nho chinh" onclick="dongHop()">Xong</button></div>');
+}
+/* giữ tên cũ cho nút "Dọn" ở bảng Lập chỉ mục */
+function donChiMuc(){ moGomTrung(); }
 
 </script>
 <script>
@@ -11646,14 +11716,14 @@ function veCayDB(){
     var soAp = (x.diem||[]).reduce(function(a,z){ return a+(z.ap||[]).length; },0);
     var soTo = (x.diem||[]).reduce(function(a,z){
       return a+(z.ap||[]).reduce(function(b,p){ return b+(p.to||[]).length; },0); },0);
-    h += '<div class="tm'+(moX?' mo':'')+'">'+
+    h += '<div class="tm'+(moX?' mo':'')+'" id="db-'+idX+'">'+
       '<div class="tm-dau" onclick="batDB(\'' +idX+ '\')"><span class="mui">›</span>'+
       '<span class="ten">'+coChuHTML(x.xa)+'</span>'+
       '<span class="dem">'+(x.diem||[]).length+' điểm · '+soAp+' ấp · '+soTo+' tổ</span></div>'+
       '<div class="tm-than">';
     (x.diem||[]).forEach(function(z, iz){
       var idD = idX+'d'+iz, moD = moNhanh2[idD];
-      h += '<div class="tm'+(moD?' mo':'')+'" style="margin:6px 0">'+
+      h += '<div class="tm'+(moD?' mo':'')+'" id="db-'+idD+'" style="margin:6px 0">'+
         '<div class="tm-dau" onclick="batDB(\'' +idD+ '\')"><span class="mui">›</span>'+
         '<span class="ten">'+coChuHTML(z.ten)+
         (z.ngay?(' <span style="font-weight:400;color:var(--chu-phu)">· ngày '+z.ngay+'</span>'):'')+
@@ -11661,7 +11731,7 @@ function veCayDB(){
         '<div class="tm-than">';
       (z.ap||[]).forEach(function(a, ia){
         var idA = idD+'a'+ia, moA = moNhanh2[idA];
-        h += '<div class="tm'+(moA?' mo':'')+'" style="margin:5px 0">'+
+        h += '<div class="tm'+(moA?' mo':'')+'" id="db-'+idA+'" style="margin:5px 0">'+
           '<div class="tm-dau" onclick="batDB(\'' +idA+ '\')"><span class="mui">›</span>'+
           '<span class="ten" style="font-weight:500">'+coChuHTML(a.ten)+'</span>'+
           '<span class="dem">'+(a.to||[]).length+' tổ</span></div>'+
@@ -11690,7 +11760,12 @@ function veCayDB(){
   });
   e.innerHTML = h || '<div class="rong">Chưa khai địa bàn nào.</div>';
 }
-function batDB(id){ moNhanh2[id] = !moNhanh2[id]; veCayDB(); }
+/* 3.31 (mục 7 bàn giao): mở/đóng chỉ bật tắt class trên đúng nhánh — không dựng lại cả cây (trước giật trên iPhone) */
+function batDB(id){
+  moNhanh2[id] = !moNhanh2[id];
+  var e = document.getElementById('db-'+id);
+  if(e) e.classList.toggle('mo', moNhanh2[id]); else veCayDB();
+}
 function nutDB(ix, iz, ia){
   var x = D.cauHinh.diaBan[ix];
   if(iz===undefined) return x;
