@@ -4,6 +4,31 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.37 — 27/09/2026 04:50 — hàng chờ Scan hiện ảnh gốc kèm viền cắt, nút màu hiện sẵn, khe cắt rộng hơn
+
+- **Mỗi ảnh ở hàng chờ hiện cả 2 bản:**
+  - **Kết quả** app đã cắt.
+  - **Ảnh gốc có viền xanh** chỗ app cắt; phần bị bỏ tô mờ, chỉ hiện vùng quanh viền cho gọn.
+  - Nhìn là biết cắt đúng hay lệch. Bấm vào ảnh gốc (hoặc nút **✂ Chỉnh viền**) để kéo viền toàn màn hình, có kính lúp.
+- **Kiểu màu hiện sẵn thành nút:** Magic · Giấy trắng · Xám · Đen trắng · Gốc. Nút đang chọn tô xanh (trước là ô chọn thả xuống).
+- **Điện thoại:** mỗi mặt thẻ một hàng cho đủ chỗ.
+- **In CCCD:**
+  - Khe giữa các thẻ **nới từ 8 lên 14 mm**, đều cả ngang lẫn dọc, cho dễ cắt.
+  - Lề giấy 10 mm; thẻ 88 × 55,5 mm (vẫn to hơn thẻ thật); vẫn đủ 4 người mỗi A4.
+  - Dòng tiêu đề dời khỏi dấu cắt.
+- Kiểm thử: `kiem.py`, `hoiquy.js`, `hoiquy2.js`, t17, t19, t20 đạt; chụp màn hình máy tính và iPhone.
+
+---
+
+## 3.36 — 27/09/2026 04:10 — sổ ghi chú giữ giấy vàng ở chế độ tối
+
+- Máy để chế độ tối, sổ ghi chú ở tab Hôm nay trước đây đổi nền sang nâu sậm. Nhưng chữ và các ô bên trong vẫn giữ màu dành cho giấy vàng, nên nền tối, chữ tối, ô sáng lẫn lộn, rất khó coi.
+- Nay sổ **luôn là giấy vàng** như sổ thật. Phần còn lại của app vẫn sáng/tối theo máy như cũ.
+- Ô gõ và thanh cuộn trong sổ cũng giữ kiểu sáng (`color-scheme:light`).
+- Kiểm thử: `kiem.py` đạt; `hoiquy.js`, `hoiquy2.js` đạt; đã chụp chế độ tối trên máy tính và iPhone.
+
+---
+
 ## 3.35 — 27/09/2026 03:40 — tab Scan kiểu app scan chuyên nghiệp
 
 - **Tự động trước, chỉnh tay khi còn sót** (xử lý ngay trong máy, ảnh không gửi đi đâu, không thêm thư viện):

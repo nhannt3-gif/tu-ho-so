@@ -290,8 +290,9 @@
     background-attachment:local}
   .nk-giay::placeholder{color:#A8966C;font-style:italic}
   .lc-cham.nau{background:#A37A3A}
-  :root[data-theme="dark"] .nk-trang{background:#3A3122;border-color:#5A4A2E;color:#EADBB8}
-  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .nk-trang{background:#3A3122;border-color:#5A4A2E;color:#EADBB8} }
+  /* 3.36: sổ luôn là giấy vàng dù máy để chế độ tối (anh Nhân: đổi sang nâu sậm rất khó coi — nền tối mà chữ, ô bên trong vẫn màu giấy vàng).
+     color-scheme:light để ô gõ, thanh cuộn trong sổ cũng giữ kiểu sáng */
+  .nk-trang{color-scheme:light}
   .dai-ck{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:9px 12px;margin-bottom:10px;border-radius:12px;
     background:var(--vang-nen);border:1.3px solid #EED9A8;color:var(--vang);cursor:pointer;font-size:calc(12.5px*var(--co))}
   .dai-ck span{background:rgba(255,255,255,.6);border-radius:7px;padding:1px 8px}
@@ -1311,9 +1312,20 @@
   .hc-cu button:hover:not([disabled]){background:var(--xanh-nhat);border-color:var(--xanh)}
   .hc-cu button[disabled]{opacity:.35;cursor:default}
   .hc-cu button.xau{color:var(--do);border-color:var(--do-nen);margin-left:auto}
-  .hc-cu select{min-height:28px;border-radius:8px;border:1.3px solid var(--vien);background:var(--the);color:var(--chu);
-    font-size:calc(11.5px*var(--co));padding:0 4px;max-width:110px}
-  @media (max-width:520px){ .hc-luoi{grid-template-columns:1fr 1fr;gap:7px} .hc-cu button{min-width:28px;padding:2px 5px} .hc-cu select{max-width:92px} }
+  /* 3.37: kết quả + ảnh gốc có viền cạnh nhau; nút kiểu màu hiện sẵn */
+  .hc-hai{display:flex;gap:6px;align-items:flex-start}
+  .hc-kq{flex:3 1 0;min-width:0}
+  .hc-goc{flex:2 1 0;min-width:0;cursor:pointer}
+  .hc-kq img,.hc-goc canvas{width:100%;display:block;border-radius:7px;border:1px solid var(--vien);background:#fff}
+  .hc-goc canvas{background:#222}
+  .hc-goc:hover canvas{outline:2px solid var(--xanh)}
+  .hc-hai small{display:block;font-size:calc(10.5px*var(--co));color:var(--chu-phu);margin-top:2px;text-align:center}
+  .hc-loc{display:flex;flex-wrap:wrap;gap:3px}
+  .hc-loc button{min-height:26px;padding:1px 9px;border-radius:13px;border:1.3px solid var(--vien);background:var(--the);color:var(--chu-phu);
+    font-size:calc(11.5px*var(--co));cursor:pointer}
+  .hc-loc button.bat{background:var(--xanh);border-color:var(--xanh);color:#fff;font-weight:600}
+  @media (max-width:700px){ .hc-luoi.the{grid-template-columns:1fr} }
+  @media (max-width:520px){ .hc-luoi{grid-template-columns:1fr;gap:8px} .hc-cu button{min-width:28px;padding:2px 6px} }
   #cg{position:fixed;inset:0;z-index:9000;background:#0d1117;display:none;flex-direction:column;color:#fff}
   #cg.hien{display:flex}
   .cg-dau{padding:12px 16px;font-weight:600;font-size:14px}
@@ -1571,7 +1583,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.35', APP_LUC = '27/09/2026 03:40';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.37', APP_LUC = '27/09/2026 04:50';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -10873,9 +10885,10 @@ function moHangCho(){
   var laThe = SC.che==='the';
   var h = '<div class="hop-tit">Bản vừa quét ('+HANG.length+')</div>'+
     '<div class="hop-phu">'+(laThe
-      ? 'App đã tự cắt sát thẻ, nắn thẳng, tự lật và xếp <b>mặt trước | mặt sau</b> theo từng người. '+
-        'Bản có ⚠ nên bấm ✂ xem lại khung. ◀ ▶ dời chỗ · ⇄ đổi mặt · ⇅ lật ngược.'
-      : 'App đã tự tìm tờ giấy, nắn thẳng và làm trắng nền. ◀ ▶ đổi thứ tự trang · ⟲ xoay · ✂ chỉnh khung · ✕ bỏ trang.')+'</div>'+
+      ? 'App đã tự cắt, nắn thẳng, tự lật và xếp <b>mặt trước | mặt sau</b> theo từng người. '+
+        'Bên phải mỗi ảnh là <b>ảnh gốc có viền xanh</b> — cắt lệch thì bấm vào đó để kéo viền. ◀ ▶ dời chỗ · ⇄ đổi mặt · ⇅ lật ngược.'
+      : 'App đã tự tìm tờ giấy, nắn thẳng và làm trắng nền. Bên phải là <b>ảnh gốc có viền xanh</b> — bấm để kéo viền. '+
+        '◀ ▶ đổi thứ tự trang · ⟲ xoay · ✕ bỏ trang.')+'</div>'+
     '<div id="hc-anh" class="hc-luoi'+(laThe?' the':'')+'"></div>'+
     '<div class="hang-nut" style="margin-top:10px">'+
       '<button class="nho" onclick="dongHop();batDauScan()">+ Quét thêm</button>'+
@@ -10888,13 +10901,16 @@ function moHangCho(){
       '<button class="nho" onclick="luuSauHang()">Lưu tạm, khai sau</button>'+
       '<button class="nho chinh" onclick="khaiVaLuu()">Khai đầy đủ rồi lưu</button></div>'+
     '<div class="huong-dan">'+(laThe
-      ? 'In: mỗi trang A4 xếp 4 người × 2 mặt, thẻ in to hơn thẻ thật, khe cắt đều 8 mm, có dấu cắt ở góc. '
+      ? 'In: mỗi trang A4 xếp 4 người × 2 mặt, thẻ in to hơn thẻ thật, khe cắt rộng đều 14 mm, có dấu cắt ở góc. '
       : '')+
     'Lưu tạm thì app tự đặt tên theo ngày giờ quét, lúc rảnh vào tab Scan khai và lưu hàng loạt.</div>';
   moHop(h, true);
   veAnhHang();
 }
 var HC_URL = [];
+/* 3.37: mỗi ảnh hiện KẾT QUẢ + ẢNH GỐC có viền cắt (bấm ảnh gốc để kéo viền) + nút kiểu màu hiện sẵn */
+var TEN_LOC_NGAN = {magic:'Magic', giay:'Giấy trắng', xam:'Xám', dentrang:'Đen trắng', goc:'Gốc'};
+var GOC_NHO = {};   /* ảnh gốc đã giải mã, theo id — vẽ lại viền không phải đọc lại */
 function veAnhHang(){
   var e = document.getElementById('hc-anh'); if(!e) return;
   HC_URL.forEach(function(u){ URL.revokeObjectURL(u); }); HC_URL = [];
@@ -10910,23 +10926,51 @@ function veAnhHang(){
     if(canXemLai(x)) nhan = '⚠ xem lại · '+nhan;
     cu += '<button onclick="dichHang('+i+',-1)" title="Dời lên trước"'+(i===0?' disabled':'')+'>◀</button>'+
           '<button onclick="dichHang('+i+',1)" title="Dời ra sau"'+(i===HANG.length-1?' disabled':'')+'>▶</button>';
-    if(la) cu += '<button onclick="moChinhGoc('+i+')" title="Chỉnh khung: kéo 4 góc">✂</button>';
+    if(la) cu += '<button onclick="moChinhGoc('+i+')" title="Kéo viền cắt trên ảnh gốc">✂ Chỉnh viền</button>';
     if(laThe && la) cu += '<button onclick="doiMatHang('+i+')" title="Đổi mặt trước ↔ mặt sau trong cặp">⇄</button>';
     if(!laThe && x.kieu!=='file') cu += '<button onclick="xoayHang('+i+',90)" title="Xoay 90°">⟲</button>';
     if(x.kieu!=='file') cu += '<button onclick="xoayHang('+i+',180)" title="Lật ngược 180°">⇅</button>';
-    if(la) cu += '<select onchange="doiLocHang('+i+',this.value)" title="Kiểu lọc">'+
-      Object.keys(TEN_LOC).map(function(k){ return '<option value="'+k+'"'+(x.loc===k?' selected':'')+'>'+TEN_LOC[k]+'</option>'; }).join('')+'</select>';
     cu += '<button class="xau" onclick="boMotHang('+i+')" title="Bỏ bản này">✕</button>';
-    h += '<div class="hc-o'+(canXemLai(x)?' hc-canxem':'')+'"><div class="hc-nhan">'+nhan+'</div>'+
-      (x.kieu==='file' ? '<div class="cay">📄 '+coChuHTML(x.ten)+' · '+kichCo(x.co||0)+'<br><small>File Word không ghép vào PDF được</small></div>'
-                       : '<img id="hc-i-'+i+'" alt="">')+
+    var loc = (la && x.khung) ? '<div class="hc-loc">'+Object.keys(TEN_LOC_NGAN).map(function(k){
+        return '<button class="'+(x.loc===k?'bat':'')+'" onclick="doiLocHang('+i+',\''+k+'\')">'+TEN_LOC_NGAN[k]+'</button>'; }).join('')+'</div>' : '';
+    var than;
+    if(x.kieu==='file') than = '<div class="cay">📄 '+coChuHTML(x.ten)+' · '+kichCo(x.co||0)+'<br><small>File Word không ghép vào PDF được</small></div>';
+    else if(la && x.khung) than = '<div class="hc-hai"><div class="hc-kq"><img id="hc-i-'+i+'" alt=""><small>Kết quả</small></div>'+
+      '<div class="hc-goc" onclick="moChinhGoc('+i+')" title="Bấm để kéo viền cắt"><canvas id="hc-g-'+i+'"></canvas><small>Ảnh gốc · bấm để kéo viền</small></div></div>';
+    else than = '<img id="hc-i-'+i+'" alt="">';
+    h += '<div class="hc-o'+(canXemLai(x)?' hc-canxem':'')+'"><div class="hc-nhan">'+nhan+'</div>'+than+loc+
       '<div class="hc-cu">'+cu+'</div></div>';
   });
   e.innerHTML = h;
   HANG.forEach(function(x, i){
-    var im = document.getElementById('hc-i-'+i); if(!im) return;
-    if(x.kieu==='trang') anhTrangPDF(hangRaTrang(x), 360).then(function(u){ im.src = u; }).catch(function(){ im.alt = 'Không xem trước được trang PDF'; });
-    else docAnhHS(x.id).then(function(b){ if(b){ var u = URL.createObjectURL(b); HC_URL.push(u); im.src = u; } });
+    var im = document.getElementById('hc-i-'+i);
+    if(im){
+      if(x.kieu==='trang') anhTrangPDF(hangRaTrang(x), 360).then(function(u){ im.src = u; }).catch(function(){ im.alt = 'Không xem trước được trang PDF'; });
+      else docAnhHS(x.id).then(function(b){ if(b){ var u = URL.createObjectURL(b); HC_URL.push(u); im.src = u; } });
+    }
+    if(document.getElementById('hc-g-'+i)) veGocNho(x, i);
+  });
+}
+/* vẽ ảnh gốc quanh viền cắt (chừa rộng 40% mỗi phía để thấy mép thật) + tứ giác xanh, phần bị bỏ tô mờ */
+function veGocNho(x, i){
+  var lay = GOC_NHO[x.id] ? Promise.resolve(GOC_NHO[x.id])
+    : docAnhHS(x.id+'_goc').then(function(b){ if(!b) return null; return anhTuBlob(b); }).then(function(im){
+        if(!im) return null; GOC_NHO[x.id] = quaKhung(im); return GOC_NHO[x.id]; });
+  lay.then(function(g){
+    var cv = document.getElementById('hc-g-'+i); if(!g || !cv || HANG[i]!==x) return;
+    var q0 = xepGoc4(x.khung), xs = q0.map(function(p){ return p[0]; }), ys = q0.map(function(p){ return p[1]; });
+    var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+    var dw = (x1-x0)*0.4, dh = (y1-y0)*0.4;
+    x0 = Math.max(0, x0-dw); y0 = Math.max(0, y0-dh); x1 = Math.min(g.width, x1+dw); y1 = Math.min(g.height, y1+dh);
+    var k = Math.min(1, 480/Math.max(x1-x0, y1-y0));
+    cv.width = Math.max(1, Math.round((x1-x0)*k)); cv.height = Math.max(1, Math.round((y1-y0)*k));
+    var t = cv.getContext('2d'); t.drawImage(g, x0, y0, x1-x0, y1-y0, 0, 0, cv.width, cv.height);
+    var q = q0.map(function(p){ return [(p[0]-x0)*k, (p[1]-y0)*k]; });
+    t.fillStyle = 'rgba(0,0,0,.4)'; t.beginPath(); t.rect(0, 0, cv.width, cv.height);
+    q.forEach(function(p, j){ if(j) t.lineTo(p[0], p[1]); else t.moveTo(p[0], p[1]); }); t.closePath(); t.fill('evenodd');
+    t.strokeStyle = '#3B9BFF'; t.lineWidth = Math.max(2, cv.width/160); t.beginPath();
+    q.forEach(function(p, j){ if(j) t.lineTo(p[0], p[1]); else t.moveTo(p[0], p[1]); }); t.closePath(); t.stroke();
+    q.forEach(function(p){ t.beginPath(); t.arc(p[0], p[1], Math.max(4, cv.width/70), 0, Math.PI*2); t.fillStyle = '#fff'; t.fill(); t.strokeStyle = '#3B9BFF'; t.stroke(); });
   });
 }
 function dichHang(i, d){
@@ -10963,14 +11007,14 @@ function doiLocHang(i, v){
 }
 /* xóa file của một mục hàng chờ: ảnh + ảnh gốc; file PDF nguồn chỉ xóa khi không còn trang nào dùng */
 function xoaFileHang(x, conLai){
-  if(x.kieu==='anh'){ xoaFile('hs_'+x.id); xoaFile('hs_'+x.id+'_goc'); }
+  if(x.kieu==='anh'){ xoaFile('hs_'+x.id); xoaFile('hs_'+x.id+'_goc'); delete GOC_NHO[x.id]; }
   else if(x.kieu==='trang'){
     if(!(conLai||[]).some(function(y){ return y.kieu==='trang' && y.nguon===x.nguon; })){ xoaFile('hs_'+x.nguon); delete PDF_NHO[x.nguon]; }
   }
   else xoaFile(x.id);
 }
 /* lưu xong thì bỏ ảnh gốc cho nhẹ máy (bản đã xử lý vẫn giữ) */
-function donGocHang(){ HANG.forEach(function(x){ if(x.kieu==='anh') xoaFile('hs_'+x.id+'_goc'); }); }
+function donGocHang(){ HANG.forEach(function(x){ if(x.kieu==='anh'){ xoaFile('hs_'+x.id+'_goc'); delete GOC_NHO[x.id]; } }); }
 function boMotHang(i){
   var x = HANG.splice(i,1)[0];
   xoaFileHang(x, HANG);
@@ -11127,13 +11171,13 @@ function chonPDFHang(){
 /* ---- DỰNG PDF ----
    Thẻ: mỗi A4 4 người × 2 mặt (trước | sau). Anh Nhân chốt:
    - thẻ in to hơn thẻ thật cho dễ đọc, giữ đúng tỉ lệ; 4 người một trang là đủ; xếp từ trên xuống;
-   - chừa chỗ để CẮT: lề giấy 12 mm (máy in nào cũng in tới), khe giữa các thẻ đều 8 mm cả ngang lẫn dọc,
+   - chừa chỗ để CẮT: lề giấy 10 mm (máy in nào cũng in tới), khe giữa các thẻ đều 14 mm cả ngang lẫn dọc (3.37: nới từ 8 mm),
      dấu cắt ở 4 góc mỗi thẻ (vạch mảnh nằm ngoài thẻ) để cắt ra các mép đều nhau.
    dsCap = [{truoc:id ảnh, sau:id ảnh, nhan:'chữ không dấu'}] */
 function dungPDFThe(dsCap, tieuDe){
   var mm = 2.834645669, A4 = {r:210*mm, c:297*mm}, MOI = 4;
-  var le = 12*mm, khe = 8*mm, tl = THE_MM.rong/THE_MM.cao;
-  var tR = Math.min((A4.r - 2*le - khe)/2, ((A4.c - 2*le - (MOI-1)*khe)/MOI)*tl), tC = tR/tl;   /* 89 × 56,2 mm */
+  var le = 10*mm, khe = 14*mm, tl = THE_MM.rong/THE_MM.cao;
+  var tR = Math.min((A4.r - 2*le - khe)/2, ((A4.c - 2*le - (MOI-1)*khe)/MOI)*tl), tC = tR/tl;   /* 88 × 55,5 mm */
   var xT = (A4.r - (2*tR + khe))/2, xam = PDFLib.rgb(.55,.55,.55);
   function dauCat(tg, x, y){
     /* 8 vạch 3,5 mm, cách góc thẻ 1 mm, nằm trong khe/lề — cắt theo vạch là đúng mép thẻ */
@@ -11152,7 +11196,7 @@ function dungPDFThe(dsCap, tieuDe){
           var hang = i % MOI;
           if(hang===0){
             trang = pdf.addPage([A4.r, A4.c]);
-            if(tieuDe) trang.drawText(tieuDe, {x:le, y:A4.c-6*mm, size:6.5, font:font, color:PDFLib.rgb(.62,.62,.62)});
+            if(tieuDe) trang.drawText(tieuDe, {x:xT+6*mm, y:A4.c-5.5*mm, size:6.5, font:font, color:PDFLib.rgb(.62,.62,.62)});
           }
           var y = A4.c - le - hang*(tC+khe) - tC, tg = trang;
           return Promise.all([cap.truoc ? docAnhHS(cap.truoc) : null, cap.sau ? docAnhHS(cap.sau) : null]).then(function(anh){
@@ -11169,7 +11213,7 @@ function dungPDFThe(dsCap, tieuDe){
             }, Promise.resolve());
           }).then(function(){
             /* tên khách nằm giữa khe dưới cặp thẻ, lệch vào trong để không đè dấu cắt */
-            if(cap.nhan) tg.drawText(cap.nhan, {x:xT+7*mm, y:y-5*mm, size:7, font:font, color:PDFLib.rgb(.3,.3,.3)});
+            if(cap.nhan) tg.drawText(cap.nhan, {x:xT+7*mm, y:y-8*mm, size:7.5, font:font, color:PDFLib.rgb(.3,.3,.3)});
           });
         });
       }, Promise.resolve()).then(function(){ return pdf.save(); });
