@@ -532,6 +532,7 @@
   .bdc-dau>button:last-child{margin-left:auto;width:34px;padding:2px 0;flex:0 0 34px}
   .bdc-dau{flex-wrap:nowrap;overflow:auto}
   @media (max-width:899px){ .bdc-dau{flex-wrap:wrap} }
+  .bdc-dau > b:first-child{white-space:nowrap}   /* 3.31: chữ "Bộ dữ liệu" không gãy dòng */
   .bdc-ky-chon{display:flex;align-items:center;gap:5px}
   .bdc-ky-ten{min-width:74px;text-align:center;font-size:calc(13.5px*var(--co))}
   .bdc-cuon{overflow:auto;max-height:52vh}
@@ -635,6 +636,10 @@
     font-size:calc(12.5px*var(--co));width:170px;background:var(--the)}
   .bdc-ten-o:focus{border-color:var(--xanh);outline:none}
   .bdc-kieu{display:flex;gap:4px;margin-left:4px}
+  /* 3.31: ô không tính thiếu (ngoài địa bàn quản lý / không áp dụng cấp) · cột xã ngoài địa bàn · dòng chi tiết thiếu */
+  .bdc-o.khong-ap{background:transparent;color:var(--chu-phu);border:1px dashed var(--vien);font-weight:400;opacity:.7}
+  .bdc-bang th.ngoai-db{opacity:.6;font-style:italic}
+  .bdc-thieu-ct{color:var(--do);font-size:calc(11.5px*var(--co))}
   .chon-xa{display:grid;gap:4px;margin:6px 0}
   .chon-xa small{margin-left:auto;color:var(--chu-phu);font-size:calc(11px*var(--co))}
   .bdc-chan{margin-top:7px;font-size:calc(12px*var(--co));display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -1487,6 +1492,8 @@ var MAC_DINH = {
     'XKLĐ':'Cho vay người lao động đi làm việc ở nước ngoài theo hợp đồng'},
   loaiVB: ['Công văn','Quyết định','Kế hoạch','Hướng dẫn','Thông báo','Báo cáo','Tờ trình'],
   nhanGhiChu: ['Giao ban','Tập huấn','Hồ sơ - biểu mẫu','Cần xử lý','Lưu để nhớ'],
+  /* 3.31: địa bàn anh quản lý — ma trận mặc định chỉ hiện và chỉ báo thiếu cho các xã này (sửa ở Cài đặt › Địa bàn) */
+  xaQuanLy: ['Phường Gia Lộc','Xã Truông Mít'],
   /* 3.31: danh sách tổ (mã tổ, tên tổ trưởng) KHÔNG để trong mã nguồn công khai —
      anh nhập tay ở Cài đặt › Địa bàn › Sửa danh sách tổ; máy đã có dữ liệu thì giữ nguyên */
   diaBan: [
@@ -3584,8 +3591,9 @@ function veHomNay(){
   }
   var thieu = kyThieu();
   if(thieu.length){
-    v.push({so:thieu.length, tit:'Kỳ gần nhất còn thiếu báo cáo',
-      p:thieu.join(', '), gap:true, di:2});
+    var kg = kyGanNhat();
+    v.push({so:thieu.length, tit:kyVN(kg)+' còn thiếu báo cáo',
+      p:chuoiThieu(thieuTheoKy(kg)), gap:true, fn:'datKyBang(\''+kg+'\');doiNgan(2)'});
   }
   var canXL = D.ghiChu.filter(function(g){ return (g.the||[]).indexOf('Cần xử lý')>=0; });
   if(canXL.length){
@@ -3742,14 +3750,15 @@ function oDoiChieu(ky, maLoai, donVi, khongGop, chiExcel){
   }
   return {tt:'thieu', ds:[]};
 }
+/* kỳ gần nhất có dữ liệu còn thiếu gì — 3.31: dùng chung quy tắc với ma trận (cấp áp dụng, chu kỳ, xã quản lý) */
+function kyGanNhat(){
+  var ky = D.duLieu.map(function(x){ return x.ky; }).filter(Boolean).sort();
+  return ky[ky.length-1] || '';
+}
 function kyThieu(){
   var mau = D.cauHinh.mauBaoCao||[];
   if(!mau.length || !D.duLieu.length) return [];
-  var ky = D.duLieu.map(function(x){ return x.ky; }).sort();
-  var moi = ky[ky.length-1];
-  var co = {};
-  D.duLieu.forEach(function(x){ if(x.ky===moi) co[x.maLoai]=1; });
-  return mau.filter(function(m){ return !co[m.ma]; }).map(function(m){ return m.ten; });
+  return thieuTheoKy(kyGanNhat()).map(function(x){ return x.dv+': '+x.bc+(x.ghi?' ('+x.ghi+')':''); });
 }
 
 /* ----- ngăn 1: VĂN BẢN ----- */
@@ -3950,7 +3959,67 @@ function doiKyBang(n){
   datKyBang(d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2));
 }
 /* 3.22: kỳ cuối năm trước coi như một kỳ bình thường — bấm ‹ lùi tới là thấy */
-function xaHien(xa){ var m = D.cauHinh.xaHien||{}; return m[xa]!==false; }
+/* 3.31: xã hiện trên ma trận — anh bật/tắt ở nút 👁 thì theo anh; chưa chỉnh thì mặc định chỉ hiện xã quản lý */
+function xaHien(xa){
+  var m = D.cauHinh.xaHien||{};
+  if(m[xa]!==undefined) return m[xa]!==false;
+  var q = dsXaQuanLy();
+  return q.length ? q.indexOf(xa)>=0 : true;
+}
+function dsXaQuanLy(){
+  var tat = dsDonVi('xa');
+  return (D.cauHinh.xaQuanLy||[]).filter(function(x){ return tat.indexOf(x)>=0; });
+}
+function laXaQuanLy(xa){ var q = dsXaQuanLy(); return !q.length || q.indexOf(xa)>=0; }
+function datXaQuanLy(xa, bat){
+  var q = (D.cauHinh.xaQuanLy||[]).filter(function(x){ return x!==xa; });
+  if(bat) q.push(xa);
+  D.cauHinh.xaQuanLy = dsDonVi('xa').filter(function(x){ return q.indexOf(x)>=0; });   /* giữ thứ tự như cây địa bàn */
+  delete D.cauHinh.xaHien;   /* ma trận hiện lại theo địa bàn quản lý mới */
+  luu();
+  bao(D.cauHinh.xaQuanLy.length ? 'Địa bàn quản lý: '+D.cauHinh.xaQuanLy.map(vietTatDV).join(', ')+'. Ma trận chỉ báo thiếu cho các xã này.'
+                                : 'Chưa chọn xã nào — ma trận báo thiếu cho tất cả xã.', 6);
+}
+/* cấp của một cột ma trận */
+function capCot(c){ return c.lop==='pgd' ? 'pgd' : (c.lop.indexOf('xa')===0 ? 'xa' : 'diem'); }
+/* ô có được tính đủ/thiếu không: cấp áp dụng của báo cáo + cột thuộc PGD hoặc xã quản lý */
+function oTinhThieu(m, c){ return mauApCap(m, capCot(c)) && (c.lop==='pgd' || laXaQuanLy(c.xa)); }
+/* danh sách thiếu của một kỳ, theo đúng quy tắc của ma trận: PGD + xã quản lý (xã áp dụng cấp điểm thì xét từng điểm) */
+function thieuTheoKy(ky){
+  var ra = [];
+  (D.cauHinh.mauBaoCao||[]).forEach(function(m){
+    if(m.an || !toiKy(m, ky)) return;
+    var xet = function(dv, ten){
+      var o = oDoiChieu(ky, m.ma, dv);
+      if(o.tt!=='du' && o.tt!=='phu') ra.push({dv:ten, bc:m.ten, ghi:o.tt==='mot-phan'?o.chu+' điểm':''});
+    };
+    if(mauApCap(m,'pgd')) xet('Toàn PGD', 'PGD');
+    if(laThuanXLS(m)) return;
+    dsXaQuanLy().forEach(function(xa){
+      if(mauApCap(m,'xa')) xet(xa, vietTatDV(xa));
+      else if(mauApCap(m,'diem')) diemCuaXa(xa).forEach(function(d){ xet(d, vietTatDV(d)); });
+    });
+  });
+  return ra;
+}
+/* "Gia Lộc: Nợ quá hạn, Chấm điểm tổ · Truông Mít: Nợ đến hạn" */
+function chuoiThieu(ds){
+  var nhom = {}, thuTu = [];
+  ds.forEach(function(x){ if(!nhom[x.dv]){ nhom[x.dv] = []; thuTu.push(x.dv); } nhom[x.dv].push(x.bc+(x.ghi?' ('+x.ghi+')':'')); });
+  thuTu.sort(function(a,b){ return (b==='PGD')-(a==='PGD'); });   /* PGD đứng đầu, xã giữ thứ tự */
+  return thuTu.map(function(k){ return k+': '+nhom[k].join(', '); }).join(' · ');
+}
+function moThieuChiTiet(ky){
+  var ds = thieuTheoKy(ky), nhom = {}, thuTu = [];
+  ds.forEach(function(x){ if(!nhom[x.dv]){ nhom[x.dv] = []; thuTu.push(x.dv); } nhom[x.dv].push(x); });
+  moHop('<div class="hop-tit">'+kyVN(ky)+' · còn thiếu '+ds.length+' báo cáo</div>'+
+    '<div class="hop-phu">Chỉ tính cấp PGD và địa bàn quản lý: '+coChuHTML(dsXaQuanLy().map(vietTatDV).join(', ')||'tất cả xã')+'.</div>'+
+    thuTu.map(function(k){
+      return '<div class="nhan-nhom">'+coChuHTML(k)+' ('+nhom[k].length+')</div><div class="huong-dan">'+
+        nhom[k].map(function(x){ return coChuHTML(x.bc+(x.ghi?' ('+x.ghi+')':'')); }).join('<br>')+'</div>';
+    }).join('')+
+    '<div class="hang-nut"><button class="nho chinh" onclick="dongHop()">Đóng</button></div>');
+}
 function batXa(xa, hien){
   D.cauHinh.xaHien = D.cauHinh.xaHien || {};
   D.cauHinh.xaHien[xa] = !!hien; luu(); veThang();
@@ -4106,15 +4175,16 @@ function bangDoiChieuHTML(){
     '<button class="nho" onclick="suaDanhMuc()">Sửa danh mục</button> để thêm.</div>';
   var ky = kyBang(), xas = dsDonVi('xa').filter(xaHien), tatXa = dsDonVi('xa'), sua = !!D.cauHinh.suaDM;
 
-  /* ---- cột ---- */
+  /* ---- cột ---- 3.31: nút cấp Toàn PGD / Xã, phường / Điểm giao dịch */
+  var capMT = capDang();
   var cot = [{ma:'Toàn PGD', ten:'PGD', lop:'pgd'}];
-  xas.forEach(function(xa){
-    var mo = xaDangMo(xa), dm = diemCuaXa(xa);
+  if(capMT!=='pgd') xas.forEach(function(xa){
+    var mo = capMT==='diem' || xaDangMo(xa), dm = diemCuaXa(xa);
     cot.push({ma:xa, ten:vietTatDV(xa), lop:'xa'+(mo?' mo':''), xa:xa, co:dm.length});
     if(mo) dm.forEach(function(d){ cot.push({ma:d, ten:vietTatDV(d), lop:'diem', xa:xa}); });
   });
 
-  var du=0, phu=0, thieu=0;
+  var du=0, phu=0, thieu=0, dsThieu=[];
   var h = '<div class="bdc"><div class="bdc-dau">'+
     '<b>📊 Bộ dữ liệu</b>'+
     '<span class="bdc-ky-chon">'+
@@ -4123,8 +4193,9 @@ function bangDoiChieuHTML(){
       '<button class="nho" onclick="doiKyBang(1)" title="Kỳ sau">›</button>'+
     '</span>'+
     '<button class="nho" onclick="moChonXa()" title="Chọn xã, phường hiện trên bảng">👁 Xã ('+xas.length+'/'+tatXa.length+')</button>'+
-    '<span class="bdc-kieu">'+[['ky','Theo kỳ'],['donvi','Theo đơn vị'],['cay','Dạng cây']].map(function(x){
-      return '<button class="nho'+(kieuTh===x[0]?' bat':'')+'" onclick="datKieuTh(\''+x[0]+'\')">'+x[1]+'</button>';
+    /* 3.31: bỏ 3 nút Theo kỳ/Theo đơn vị/Dạng cây (trùng thanh kiểu xem bên dưới) → 3 nút chọn cấp */
+    '<span class="bdc-kieu bdc-cap">'+dsCap().map(function(x){
+      return '<button class="nho'+(capMT===x[0]?' bat':'')+'" onclick="datCap(\''+x[0]+'\')">'+x[1]+'</button>';
     }).join('')+'</span>'+
     '<button class="nho'+(sua?' bat':'')+'" onclick="suaDanhMuc()" title="Thêm, bớt, đổi thứ tự, sửa tên báo cáo">✎ Danh mục</button>'+
     (sua?'<button class="nho" onclick="moQuetDoiTen()" title="Đổi tên các file đã lưu cho khớp chuẩn hiện tại">🔤 Quét đổi tên</button>':'')+
@@ -4134,9 +4205,10 @@ function bangDoiChieuHTML(){
     '<th class="bdc-goc">Báo cáo</th>'+
     cot.map(function(c){
       if(c.lop.indexOf('xa')===0)
-        return '<th class="'+c.lop+'" onclick="moXa(\''+c.xa+'\')" title="'+coChuHTML(c.xa)+' — bấm để '+
-          (xaDangMo(c.xa)?'gộp lại':'tách '+c.co+' điểm giao dịch')+'">'+
-          (xaDangMo(c.xa)?'▾ ':'▸ ')+coChuHTML(c.ten)+'</th>';
+        return '<th class="'+c.lop+(laXaQuanLy(c.xa)?'':' ngoai-db')+'" onclick="moXa(\''+c.xa+'\')" title="'+coChuHTML(c.xa)+
+          (laXaQuanLy(c.xa)?'':' — ngoài địa bàn quản lý, không tính thiếu')+' — bấm để '+
+          (c.lop.indexOf(' mo')>0?'gộp lại':'tách '+c.co+' điểm giao dịch')+'">'+
+          (c.lop.indexOf(' mo')>0?'▾ ':'▸ ')+coChuHTML(c.ten)+'</th>';
       return '<th class="'+c.lop+'" title="'+coChuHTML(c.ma)+'">'+coChuHTML(c.ten)+'</th>';
     }).join('')+
     (sua?'<th class="bdc-sua">Sửa</th>':'')+'</tr></thead><tbody>';
@@ -4163,7 +4235,7 @@ function bangDoiChieuHTML(){
     if(laThuanXLS(m)){
       /* sao kê thuần Excel: một ô Toàn PGD, gộp hết bề ngang */
       var oX = oDoiChieu(ky, m.ma, 'Toàn PGD');
-      if(oX.tt==='du') du++; else if(oX.tt==='phu') phu++; else thieu++;
+      if(oX.tt==='du') du++; else if(oX.tt==='phu') phu++; else { thieu++; dsThieu.push({dv:'PGD', bc:m.ten}); }
       h += (oX.tt==='du'
         ? '<td class="bdc-o xls-thuan du" colspan="'+cot.length+'" title="'+coChuHTML(oX.ds[0].tenMoi||'')+'">'+
             '<span onclick="moXem(\''+oX.ds[0].id+'\')">✓ '+coChuHTML(oX.ds[0].tenMoi||'')+'</span>'+
@@ -4174,7 +4246,15 @@ function bangDoiChieuHTML(){
         ({quy:'theo quý',sau:'6 tháng',nam:'theo năm'}[chuKy(m)]||'')+' — kỳ này chưa tới hạn">— chưa tới kỳ</td>';
     } else cot.forEach(function(c){
       var o = oDoiChieu(ky, m.ma, c.ma);
-      if(o.tt==='du') du++; else if(o.tt==='phu') phu++; else thieu++;
+      /* 3.31: chỉ đếm ô thuộc PGD/xã quản lý và đúng cấp áp dụng của báo cáo; ô khác có file vẫn hiện, không có thì không tính thiếu */
+      if(!oTinhThieu(m, c)){
+        if(o.tt==='du' || o.tt==='phu' || o.tt==='mot-phan') h += oHTML(o, ky, m, c.ma, c.lop);
+        else h += '<td class="bdc-o khong-ap '+c.lop+'" title="'+(mauApCap(m, capCot(c)) ? 'Ngoài địa bàn quản lý' : 'Báo cáo này không áp dụng cấp này')+
+          ' — không tính thiếu. Bấm nếu vẫn muốn thêm file" onclick="themChoO(\''+ky+'\',\''+m.ma+'\',\''+String(c.ma).replace(/'/g,'')+'\')">·</td>';
+        return;
+      }
+      if(o.tt==='du') du++; else if(o.tt==='phu') phu++;
+      else { thieu++; dsThieu.push({dv:c.ten, bc:m.ten, ghi:o.tt==='mot-phan'?o.chu+' điểm':''}); }
       h += oHTML(o, ky, m, c.ma, c.lop);
     });
     if(sua) h += '<td class="bdc-sua">'+
@@ -4212,7 +4292,14 @@ function bangDoiChieuHTML(){
     (soAn()?' · <a class="bdc-an" onclick="hienHetAn()">Hiện lại '+soAn()+' báo cáo đã ẩn</a>':'')+
     (phu?' · <b class="bdc-phu">'+phu+' mới có dữ liệu phụ</b>':'')+
     (thieu?' · <b class="bdc-thieu">'+thieu+' thiếu</b>':' · <b class="bdc-du">không thiếu gì</b>')+
-    '<span class="bdc-chu">Bấm ô thiếu để thêm file · ô xanh để mở file · bấm tên xã để tách điểm giao dịch</span></div></div>';
+    (thieu ? (function(){
+      /* 3.31: ghi rõ đơn vị nào thiếu gì — dài quá thì rút gọn, bấm xem đủ */
+      var ct = chuoiThieu(dsThieu), gon = ct.length>150 ? ct.slice(0,150).replace(/[,·]?\s*\S*$/,'')+'…' : ct;
+      return ' <span class="bdc-thieu-ct">— '+coChuHTML(gon)+
+        (gon!==ct?' <a class="bdc-an" onclick="moThieuChiTiet(\''+ky+'\')">xem đủ</a>':'')+'</span>';
+    })() : '')+
+    '<span class="bdc-chu">Bấm ô thiếu để thêm file · ô xanh để mở file · bấm tên xã để tách điểm giao dịch'+
+      (dsXaQuanLy().length?' · chỉ tính thiếu cho PGD và '+coChuHTML(dsXaQuanLy().map(vietTatDV).join(', ')):'')+'</span></div></div>';
   return h;
 }
 /* gom theo đơn vị (phạm vi) */
@@ -6637,6 +6724,15 @@ function veNoiCD(k){
       '<div class="huong-dan" style="margin-bottom:9px">Đang có <b>'+dm.xa+'</b> xã/phường · <b>'+
       dm.diem+'</b> điểm giao dịch · <b>'+dm.ap+'</b> ấp/khu phố · <b>'+dm.to+'</b> tổ.</div>'+
       '<div class="hang-nut"><button class="nho chinh" onclick="moCayDB()">Mở cây địa bàn</button></div>'+
+      /* 3.31: địa bàn quản lý — ma trận tab Tháng mặc định chỉ hiện và chỉ báo thiếu cho các xã này */
+      '<h3>Địa bàn quản lý</h3>'+
+      '<div class="o">'+dsDonVi('xa').map(function(x){
+        return '<label class="dt-dong xql-dong"><input type="checkbox" value="'+coChuHTML(x)+'"'+
+          ((D.cauHinh.xaQuanLy||[]).indexOf(x)>=0?' checked':'')+' onchange="datXaQuanLy(this.value, this.checked)"> '+
+          coChuHTML(x)+' <small>'+diemCuaXa(x).length+' điểm giao dịch</small></label>';
+      }).join('')+
+      '<div class="huong-dan">Tick xã, phường anh phụ trách. Ma trận tab Tháng mặc định chỉ hiện các xã này và <b>chỉ báo thiếu</b> '+
+      'cho PGD và các xã này; xã khác có file vẫn hiện, không có thì bỏ qua. Nút 👁 trên ma trận vẫn bật thêm xã khác được.</div></div>'+
       '<div class="hang-nut" style="margin-top:7px">'+
         '<button class="nho" onclick="xuatExcel()">Xuất Excel</button>'+
         '<button class="nho" onclick="napExcel()">Nạp Excel</button>'+
@@ -11050,7 +11146,8 @@ function goiCauHinh(){
     soTrangDoc:D.cauHinh.soTrangDoc,
     /* 3.10: bổ sung phần trước đây chưa sao lưu */
     tagTab:D.cauHinh.tagTab, hoiDoanThe:D.cauHinh.hoiDoanThe, kieuTen:D.cauHinh.kieuTen,
-    tenCauTruc:D.cauHinh.tenCauTruc, gocMay:D.cauHinh.gocMay, clientId:D.cauHinh.clientId};
+    tenCauTruc:D.cauHinh.tenCauTruc, gocMay:D.cauHinh.gocMay, clientId:D.cauHinh.clientId,
+    /* 3.31 */ xaQuanLy:D.cauHinh.xaQuanLy, maDaBo:D.cauHinh.maDaBo, boMau:D.cauHinh.boMau};
 }
 
 function dayCauHinh(imLang){
@@ -11317,7 +11414,7 @@ function keoCauHinh(imLang){
   }).then(function(r){ return r.json(); })
   .then(function(j){
     ['donvi','thumuc','diaBan','mauBaoCao','nghiepVu','chuongTrinh','ctTen',
-     'loaiVB','nhanGhiChu','soTrangDoc','tagTab','hoiDoanThe','kieuTen','tenCauTruc','gocMay','clientId'].forEach(function(k){
+     'loaiVB','nhanGhiChu','soTrangDoc','tagTab','hoiDoanThe','kieuTen','tenCauTruc','gocMay','clientId','xaQuanLy','maDaBo','boMau'].forEach(function(k){
       if(j[k]!==undefined && j[k]!==null) D.cauHinh[k] = j[k];
     });
     luu(); tatChay(); capNhatDau(); ve();
@@ -11817,6 +11914,8 @@ function khoiDong(){
 
   /* 3.13: giá trị kéo cột cũ có thể làm cột phải teo lại → kẹp về khoảng an toàn; bỏ cờ ẩn toàn cục đời cũ */
   suaRongCot(); apPhongSo(); nangCapDanhMuc();
+  /* 3.31: lần đầu có "địa bàn quản lý" → bỏ lựa chọn xã hiện cũ để ma trận hiện theo địa bàn quản lý (một lần duy nhất) */
+  if(!D.cauHinh.xqlDaAp){ delete D.cauHinh.xaHien; D.cauHinh.xqlDaAp = true; }
   if(D.cauHinh.anPV!==undefined && D.cauHinh.anPVTab===undefined) delete D.cauHinh.anPV;
   if(D.cauHinh.rongTrai) document.documentElement.style.setProperty('--rong-trai', D.cauHinh.rongTrai);
   if(D.cauHinh.rongPhai) document.documentElement.style.setProperty('--rong-phai', D.cauHinh.rongPhai);
