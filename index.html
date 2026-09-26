@@ -1484,7 +1484,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.30', APP_LUC = '26/09/2026 20:58';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.31', APP_LUC = '26/09/2026 21:54';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -5021,9 +5021,18 @@ function kyTuTenFile(ten){
   if(m && +m[1]>=1 && +m[1]<=12) return {ky:m[2]+'-'+hai(+m[1]), ngay:''};
   return null;
 }
+/* đơn vị trong tên file: Phuong_Gia_Loc → Phường Gia Lộc, Gia_Loc_2 → Gia Lộc 2 (tên dài nhất khớp trước) */
+function phamViTuTenFile(ten){
+  var t = ' '+boDau(String(ten||'').replace(/\.[^.]+$/,'')).replace(/[^a-z0-9]+/g,' ')+' ';
+  if(/ toan ?pgd | toan don vi /.test(t)) return 'Toàn PGD';
+  var ds = dsDonVi('xa').concat(dsDonVi('diem')).map(function(x){ return {x:x, k:' '+boDau(x).replace(/[^a-z0-9]+/g,' ').trim()+' '}; })
+    .sort(function(a,b){ return b.k.length-a.k.length; });
+  for(var i=0;i<ds.length;i++) if(ds[i].k.trim() && t.indexOf(ds[i].k)>=0) return ds[i].x;
+  return '';
+}
 /* mục Dữ liệu tháng dựng từ tên file (Excel không đọc nội dung khi thêm) — không đoán: thiếu gì thì để anh xem */
 function duLieuTuTenFile(id, van, f, duoi){
-  var mau = khopMauTenFile(f.name), kt = kyTuTenFile(f.name), pv = docPhamVi('', f.name);
+  var mau = khopMauTenFile(f.name), kt = kyTuTenFile(f.name), pv = phamViTuTenFile(f.name);
   if(mau && mau.thuanXLS && !pv) pv = 'Toàn PGD';
   var d = {id:id, van:van, nhom:'duLieu', tenCu:f.name, duoi:duoi, co:f.size,
     ky:kt ? kt.ky : ngayISO(nay()).slice(0,7), maLoai:mau ? mau.ma : 'KHAC', tenLoai:mau ? mau.ten : 'Khác',

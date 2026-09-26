@@ -1,0 +1,72 @@
+# BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v1.2)
+
+**Bản hiện tại:** 3.31 · build 26/09/2026 21:54
+**Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
+**App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
+**Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
+
+---
+
+## 0. Ràng buộc bắt buộc (giữ nguyên từ v1.1)
+
+1. Giữ kiến trúc **một file HTML**. Không tách file, không thêm thư viện, không build, không npm. Mở được bằng nhấp đúp khi không có mạng.
+2. **Không phá** chức năng đang chạy.
+3. **Không xóa dữ liệu** người dùng; không đổi cấu trúc `D` theo cách làm mất dữ liệu cũ. Trường mới phải chịu được khi chưa có.
+4. Tên hàm, biến bằng tiếng Việt không dấu theo nếp cũ; chú thích bằng tiếng Việt.
+5. **Sau mỗi lần sửa, chạy 3 phép kiểm:** `Cú pháp OK · Trùng tên: không · Thiếu hàm: không`.
+   - ⚠ Phép "thiếu hàm" phải quét **mọi lời gọi hàm trong mã**, không chỉ `onclick=`. Bản cũ chỉ quét `onclick` nên bỏ sót lỗi `demDiaBan` (xem mục 3).
+6. `grep` tên lớp CSS và tên hàm mới trước khi đặt.
+7. Cập nhật `APP_BAN`, `APP_LUC` (hiện ở dòng 1487) mỗi bản.
+8. Giao lại đúng tên `index.html`. Làm trên nhánh mới + Pull Request.
+9. **Mới:** không đưa dữ liệu cá nhân (tên tổ trưởng, tên khách hàng…) vào mã nguồn — repo đang **công khai**.
+
+---
+
+## 1. Đã xong ở bản 3.31
+
+Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi tiết ở `docs/CHANGELOG.md`.
+
+**Quyết định đã chốt với anh Nhân:**
+- Bỏ danh sách tổ khỏi mã nguồn, giữ cây xã → điểm → ấp; tổ trưởng anh nhập tay. Thay tổ trưởng thì giữ mã tổ, sửa tên.
+- **Mục 2:** không sửa `dsDonVi('xa')`, vì hàm này còn dùng để nhận dạng phạm vi file. Chỉ đổi phần hiển thị và phần đếm của ma trận.
+- **Mục 1:** dùng lại `D.cauHinh.capThang`, không tạo thêm `capMaTran`.
+- **Mục 6:** "Dùng chung" là tag **suy từ nhóm** của biểu mẫu, không lưu thêm dữ liệu trùng.
+- **Mục 5 + 6:** ghim và Dùng chung đều "đứng đầu" → thứ tự là nhóm 📌 Đã ghim, rồi Dùng chung, rồi các chương trình.
+- **Mục 8:** thay hẳn nút Dọn cũ. Bản thừa vào thùng rác, không xóa hẳn.
+- **Mục 9:** mở rộng `lienQuanHTML` có sẵn. Không có hàm `veChiTiet`.
+- **Mục 7:** hàm cần sửa là `veCayDB` (cây địa bàn). `veCay` là mã chết.
+
+---
+
+## 2. Việc còn lại — chờ anh Nhân quyết
+
+| # | Việc | Vì sao chưa làm |
+|---|---|---|
+| A | **Xóa tên tổ trưởng khỏi lịch sử git** | Phải viết lại lịch sử repo, ghi đè `main`, không hoàn tác được |
+| B | Nhận nhầm công văn có cụm "Tổ TK&VV" thành báo cáo "Chất lượng Tổ TK&VV" | Đổi cách phân loại (thứ tự so từ khóa) — cần anh duyệt cách làm |
+| C | "Mã hóa" ảnh CCCD chỉ hình thức (khóa nằm cạnh ảnh) — REVIEW R2 | Chọn: đặt lại PIN (quên là mất ảnh) hay sửa lời mô tả |
+| D | Danh sách khách Scan có trong `chimuc.json` trên Drive — R3 | Chọn: bỏ khỏi đồng bộ hay ghi rõ trên giao diện |
+| E | "Xóa hẳn" xóa vĩnh viễn, không qua thùng rác Google — V1 | Đổi hành vi (giải phóng dung lượng chậm 30 ngày) |
+| F | Đồng bộ nhiều máy ghi đè cả file — L8 | Cần kế hoạch riêng (gộp trước khi ghi) |
+| G | Thư viện CDN không có SRI, bản cất không tự cập nhật — R5 | Nâng SheetJS, thêm SRI, cất theo phiên bản |
+| H | Cảnh báo dữ liệu khách khi bấm 📋 Chép sang AI — R4 | Nhỏ, làm được ngay khi anh đồng ý |
+| I | Scan tự điền địa bàn lần trước khi bỏ trống; `soTu` đọc sai số kiểu Anh | Nhỏ, đổi hành vi |
+
+## 3. Việc cần kiểm trên máy thật
+
+Đã chạy thử bằng Chromium giả lập. Các phần sau **chưa thử được** trong môi trường giả lập:
+- **Google Picker (mục 10):** cần API key thật. Với quyền `drive.file`, chưa chắc chọn **thư mục** thì app có đọc được file bên trong không. Nếu không đọc được, app đã báo và hướng dẫn chọn trực tiếp file.
+- **Mở biểu mẫu bằng Google Docs** (`docs.google.com/document/d/<id>/edit?rtpof=true`) với file `.docx` trên Drive của anh.
+- **Chép đường dẫn ổ G:** tên ổ đĩa đúng theo máy (Cài đặt › Google Drive › Thư mục Drive trên máy).
+- **Cây địa bàn trên iPhone thật:** trên giả lập đo dưới 10 ms mỗi lần bấm.
+
+## 4. Cách kiểm thử đã dùng cho 3.31
+
+- 3 phép kiểm mục 0.5 (bản quét mọi lời gọi hàm).
+- Chromium không giao diện, chạy cả khổ máy tính và iPhone 13, trên máy trắng và máy có dữ liệu cũ (dữ liệu dạng 3.29):
+  - Đi đủ 6 tab và 12 trang Cài đặt.
+  - Thêm file vào từng tab: PDF văn bản thật, Excel tab Tháng, biểu mẫu, ảnh ghi chú, scan 2 mặt.
+  - Xuất và nạp lại dự phòng.
+  - Tái hiện lại từng lỗi đã sửa để xác nhận đã hết.
+- Thư viện pdf.js 3.11.174, pdf-lib 1.17.1, SheetJS 0.18.5 lấy qua npm cùng phiên bản với CDN, định tuyến thay cdnjs khi chạy thử.
+- Các kịch bản thử hiện nằm ngoài repo (cần Playwright). Nếu anh đồng ý, có thể đưa vào thư mục `tests/`; việc này không ảnh hưởng app.
