@@ -1457,7 +1457,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.28', APP_LUC = '26/09/2026 18:08';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.29', APP_LUC = '26/09/2026 18:19';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -3554,14 +3554,10 @@ function veTimGhiChu(){
     }).join('');
 }
 function veHomNay(){
+  /* 3.29: tab Hôm nay là BÀN LÀM VIỆC — bỏ hẳn hàng nút thêm file, nhường chỗ cho sổ.
+     Thêm file: sang tab Văn bản · Thùng rác: nút 🗑 trên thanh trên cùng · Chờ khai: thẻ trong Cần xử lý */
   var dth = document.getElementById('dau-homnay');
-  if(dth) dth.innerHTML = '<div class="dau-tab">'+
-    '<button class="nut-them" onclick="nutChinh()" ondragover="event.preventDefault();this.classList.add(\'keo\')" '+
-      'ondragleave="this.classList.remove(\'keo\')" ondrop="this.classList.remove(\'keo\')" '+
-      'title="Bấm để chọn file, hoặc kéo thả file vào đây"><span class="cong">+</span> Thêm file</button>'+
-    (demChoKhai()?'<button class="phu co" onclick="moChoKhai()">📥 Chờ khai · '+demChoKhai()+'</button>':'')+
-    '<button class="phu" onclick="moRac()">🗑 Thùng rác'+((D.rac||[]).length?' · '+D.rac.length:'')+'</button>'+
-  '</div>';
+  if(dth) dth.innerHTML = '';
   veTimGhiChu();
   var v = [];
   var nCK = demChoKhai();
