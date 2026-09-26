@@ -4,6 +4,53 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.34 — 26/09/2026 23:50 — tab Tháng: thêm file, báo cáo tự thiết lập, thanh nút, hàng lọc
+
+- **Sửa lỗi "Tổng dư nợ theo chương trình vay" thêm file không vào ô.** Nguyên nhân đã tái hiện:
+  - Nút "+ Thêm file" ở tab Tháng không nhớ đang ở tab Tháng. Excel có tên không chứa từ khóa (ví dụ `TongDuNo_CTV.xlsx`) bị đưa sang **Văn bản**.
+    - Nay nút đi qua `nutChinh` (`TAB_TRUOC=2`).
+    - Kéo thả file vào tab Tháng cũng nhớ tab.
+  - Tên có từ khóa nhưng không có kỳ thì bị gán **tháng hiện tại** (T9), trong khi ma trận đang xem T8.
+    - Nay lấy **kỳ đang xem trên ma trận** (`kyBang()`) và ghi căn cứ "tạm lấy kỳ đang xem — anh xem lại".
+  - Excel không khớp mẫu nào → vẫn vào Dữ liệu tháng, loại "Khác", để anh chọn loại ở khay chờ.
+- **File trùng nội dung không còn bị bỏ qua lặng lẽ.** Đọc xong, app hiện hộp ghi rõ file đã nằm ở tab nào, kèm nút **Mở**.
+  - Nếu anh thêm từ một ô ma trận, hộp có thêm nút **"Chuyển vào ô …"**. Bấm vào thì mục cũ (ví dụ đang nằm nhầm ở Văn bản) dời hẳn sang ô đó.
+  - Mục được dời sẽ đặt lại tên chuẩn, và tên cùng thư mục trên Drive đổi theo. App không tạo bản sao.
+  - Hàm mới: `baoTrung`, `chuyenVaoO`, `tenTabMuc`, `timMucCaCho`.
+- **Mỗi báo cáo tự thiết lập trên giao diện, không cần sửa code** — nút **⚙** ở cột Sửa (✎ Danh mục trên ma trận). Hộp thiết lập gồm:
+  - Tên và từ khóa nhận dạng.
+  - Dạng hiển thị: **bảng theo đơn vị** hoặc **một ô Toàn PGD**.
+  - Cấp tính thiếu: PGD / Xã, phường / Điểm giao dịch.
+  - Chu kỳ: tháng / theo ngày / quý / 6 tháng / năm.
+  - Có hay không dòng Excel cấp PGD.
+  - Mã báo cáo giữ nguyên, vì file đã lưu gắn với mã.
+  - Thêm báo cáo mới xong, hộp ⚙ mở luôn.
+  - Hàm mới: `moThietLapBC`, `luuThietLapBC`.
+- **"Số liệu báo cáo họp giao ban" (SL_GB) chuyển sang bảng theo điểm giao dịch** (chỉ cấp điểm, như anh chốt).
+  - Chuyển **một lần** trên máy đang dùng, đánh dấu bằng cờ `slgbDaDoi`. Sau đó anh chỉnh gì app giữ nguyên.
+- **Thanh nút ma trận chia 2 dòng, nút gọn 28px, không còn bị che hay phải cuộn ngang:**
+  - Dòng 1: kỳ, Chốt kỳ, So 2 kỳ, ▴.
+  - Dòng 2: 👁 Xã, cấp, ✎ Danh mục.
+  - Hai nút ‹ › thu về 28px.
+  - Thanh Sắp xếp/Xem trên máy tính cũng gọn 28px.
+- **Hàng lọc nhanh hiện sẵn ở mọi tab** (kiểu Biểu mẫu). Mỗi nhóm một dòng, chip 22px; dòng dài thì vuốt ngang.
+  - Nhóm lọc theo tab:
+    - Văn bản: Năm · Mảng · CT vay · Tag.
+    - Tháng: Năm · Phạm vi · Hội.
+    - Biểu mẫu: Chương trình · Tag.
+    - Ghi chú: Năm · Nhãn.
+    - Scan: Xã (lọc mới) · Tag.
+  - Mảng, CT vay, Phạm vi, Hội, Xã chỉ hiện giá trị đang có file. Năm hiện khi có từ 2 năm trở lên.
+  - Chữ "ẩn ▴" cuối dòng đầu để ẩn hàng lọc; nút "Lọc nhanh ▾" để hiện lại. App nhớ riêng từng tab (`D.cauHinh.anLocNhanh`).
+  - Điện thoại cũng hiện, vuốt ngang.
+- Kiểm thử:
+  - `kiem.py` đạt.
+  - Bộ hồi quy cũ đạt hết: `hoiquy.js`, `hoiquy2.js`, t14–t17.
+  - Phép thử mới t18: đủ các ý (a0), (a), (b), (c), (e) trong kế hoạch.
+  - Đo thanh nút ma trận ở khổ 1024/1280/1440/iPhone: 0 nút bị che, không cuộn ngang.
+
+---
+
 ## 3.33 — 26/09/2026 22:42 — hoàn thiện tab Scan
 
 - **Mỗi hồ sơ một file PDF trên Drive, đúng thư mục:**

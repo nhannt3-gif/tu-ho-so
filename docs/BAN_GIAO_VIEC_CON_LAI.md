@@ -1,6 +1,6 @@
-# BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v1.4)
+# BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v1.5)
 
-**Bản hiện tại:** 3.33 · build 26/09/2026 22:42
+**Bản hiện tại:** 3.34 · build 26/09/2026 23:50
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -16,13 +16,13 @@
 5. **Sau mỗi lần sửa, chạy 3 phép kiểm:** `Cú pháp OK · Trùng tên: không · Thiếu hàm: không`.
    - ⚠ Phép "thiếu hàm" phải quét **mọi lời gọi hàm trong mã**, không chỉ `onclick=`. Bản cũ chỉ quét `onclick` nên bỏ sót lỗi `demDiaBan` (xem mục 3).
 6. `grep` tên lớp CSS và tên hàm mới trước khi đặt.
-7. Cập nhật `APP_BAN`, `APP_LUC` (hiện ở dòng 1515) mỗi bản.
+7. Cập nhật `APP_BAN`, `APP_LUC` (hiện ở dòng 1541) mỗi bản.
 8. Giao lại đúng tên `index.html`. Làm trên nhánh mới + Pull Request.
 9. **Mới:** không đưa dữ liệu cá nhân (tên tổ trưởng, tên khách hàng…) vào mã nguồn — repo đang **công khai**.
 
 ---
 
-## 1. Đã xong ở bản 3.31 → 3.33
+## 1. Đã xong ở bản 3.31 → 3.34
 
 Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi tiết ở `docs/CHANGELOG.md`.
 
@@ -43,6 +43,10 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - Mỗi hồ sơ một PDF trên Drive, lưu lại là cập nhật đè, đổi địa bàn là dời file.
   - Xóa hồ sơ thì PDF vào thùng rác Drive.
   - Để trống địa bàn thì giữ trống, không tự điền lần trước.
+- **3.34 — Báo cáo tự thiết lập:** mỗi báo cáo chỉnh bằng nút ⚙ (cấp, dạng bảng/một ô, chu kỳ, dòng Excel), không sửa code. Mã báo cáo không đổi trong hộp ⚙.
+- **3.34 — SL_GB:** chỉ cấp điểm giao dịch; chuyển một lần (`slgbDaDoi`).
+- **3.34 — Hàng lọc nhanh:** hiện ở mọi tab kể cả điện thoại (vuốt ngang), ẩn/hiện nhớ theo tab.
+- **3.34 — File trùng:** không lưu bản sao; thêm từ ô ma trận thì cho chuyển mục cũ vào ô.
 - **3.32 — Giao diện:** mọi nút mới dùng khối CSS "CHUẨN HÓA NÚT & BỐ CỤC" ở cuối `<style>`, không tự đặt cỡ hay màu riêng.
 
 ---
