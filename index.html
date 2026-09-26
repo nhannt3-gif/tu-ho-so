@@ -552,6 +552,11 @@
   .bdc-o{width:36px;height:28px;text-align:center;border-radius:8px;cursor:pointer;font-weight:700;position:relative}
   .bdc-o.du{background:var(--luc-nen);color:var(--luc);border:1px solid #BFE0CC}
   .bdc-o.phu{background:var(--vang-nen);color:var(--vang);border:1px solid #EED9A8}
+  .bm-cach{font-size:calc(11.5px*var(--co));color:#7A6232;background:var(--vang-nen);border-radius:8px;
+    padding:4px 9px;margin:5px 0 0}
+  .bm-cu{font-size:calc(11.5px*var(--co));color:var(--do);background:#FCEDEC;border-radius:8px;padding:4px 9px;margin:5px 0 0}
+  .d2 .tg.cam{background:var(--vang-nen);color:var(--vang)}
+  .bdc-o.mot-phan{background:#EAF2FA;color:var(--xanh-dam);border:1px solid #C7D8EC;font-size:calc(11px*var(--co))}
   .bdc-o.thieu{background:#FCEDEC;color:var(--do);border:1px dashed #E5B4AE}
   .bdc-o.pgd{outline:1px solid #C7D8EC}
   .bdc-o.diem{opacity:.92;width:32px}
@@ -1396,7 +1401,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.23', APP_LUC = '26/09/2026 05:18';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.24', APP_LUC = '26/09/2026 10:26';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -3602,7 +3607,22 @@ function mauApCap(m, cap){
   return c.indexOf(cap)>=0;
 }
 /* ---- bảng đối chiếu: trạng thái từng ô ---- */
-function oDoiChieu(ky, maLoai, donVi){
+/* 3.24: cột XÃ cộng dồn các điểm giao dịch bên trong —
+   file lưu ở cấp điểm (KQGD của Gia Lộc 2) thì cột xã hiện "1/2", không còn báo thiếu oan */
+function oDoiChieuXa(ky, maLoai, xa){
+  var dm = diemCuaXa(xa);
+  if(!dm.length) return null;
+  var co = 0, coPhu = 0, ds = [];
+  dm.forEach(function(d){
+    var o = oDoiChieu(ky, maLoai, d, true);
+    if(o.tt==='du'){ co++; ds = ds.concat(o.ds); }
+    else if(o.tt==='phu'){ coPhu++; ds = ds.concat(o.ds); }
+  });
+  if(!co && !coPhu) return null;
+  if(co===dm.length) return {tt:'du', ds:ds, chu:'✓'};
+  return {tt:'mot-phan', ds:ds, chu:co+'/'+dm.length, so:co, tong:dm.length};
+}
+function oDoiChieu(ky, maLoai, donVi, khongGop){
   var ds = D.duLieu.filter(function(x){
     return x.ky===ky && (x.maLoai||'KHAC')===maLoai &&
       ((donVi==='Toàn PGD') ? capCuaPhamVi(x.phamVi)==='pgd' : x.phamVi===donVi);
@@ -3610,6 +3630,11 @@ function oDoiChieu(ky, maLoai, donVi){
   var cuoi = ds.filter(function(x){ return !x.banPhu; });
   if(cuoi.length) return {tt:'du', ds:cuoi};
   if(ds.length)   return {tt:'phu', ds:ds};
+  /* chưa có file gắn thẳng cho đơn vị này — nếu là XÃ thì cộng dồn các điểm bên trong */
+  if(!khongGop && dsDonVi('xa').indexOf(donVi)>=0){
+    var gop = oDoiChieuXa(ky, maLoai, donVi);
+    if(gop) return gop;
+  }
   return {tt:'thieu', ds:[]};
 }
 function kyThieu(){
@@ -4025,6 +4050,9 @@ function vietTatDV(x){
 }
 function oHTML(o, ky, mau, dv, lop){
   var l = 'bdc-o '+(lop||'');
+  if(o.tt==='mot-phan')
+    return '<td class="'+l+' mot-phan" title="Đã có '+o.so+'/'+o.tong+' điểm giao dịch của '+coChuHTML(dv)+
+      ' — bấm tên xã để xem từng điểm" onclick="moXa(\''+dv+'\')">'+o.chu+'</td>';
   if(o.tt==='du')
     return '<td class="'+l+' du" title="'+coChuHTML(o.ds[0].tenMoi||'')+'" onclick="moXem(\''+o.ds[0].id+'\')">✓'+
       (o.ds.length>1?'<i>'+o.ds.length+'</i>':'')+'</td>';
@@ -8086,7 +8114,7 @@ function veBieuMau(){
 
   /* gom theo nhóm cho dễ nhìn */
   var gom = {};
-  ds.forEach(function(m){ (gom[m.nhom]=gom[m.nhom]||[]).push(m); });
+  bmSapXep(ds).forEach(function(m){ (gom[m.nhom]=gom[m.nhom]||[]).push(m); });
   Object.keys(gom).sort().forEach(function(n){
     if(!BM.locNhom) h += '<div class="nhan-nhom">'+coChuHTML(n)+'</div>';
     h += gom[n].map(function(m){
@@ -8097,16 +8125,25 @@ function veBieuMau(){
           '<span class="ten">'+toSang(m.ten, tuKhoa)+'</span>'+
           (m.ghi?'<span class="ty">'+coChuHTML(m.ghi)+'</span>':'')+'</div>'+
         '<div class="h2"><div class="the">'+
+          (m.ghim?'<span class="tg cam">📌 ghim</span>':'')+
           (m.soHieu?'<span class="tg">'+coChuHTML(m.soHieu)+'</span>':'')+
           '<span class="tg '+(m.huongDan?'phu':'xam')+'">'+
             (m.huongDan?'Mẫu hướng dẫn':'Mẫu trắng')+'</span>'+
           '<span class="tg ct">'+coChuHTML(m.nhom||'')+'</span>'+
-          (m.soTrang?'<span class="tg xam">'+m.soTrang+' trang</span>':'')+
+          (m.soLanDung?'<span class="tg xam">dùng '+m.soLanDung+' lần</span>':'')+
+          (m.vbKem && timMuc(m.vbKem) ? '<span class="tg" title="Văn bản ban hành mẫu này">📎 '+
+             coChuHTML((timMuc(m.vbKem).soHieu||'văn bản'))+'</span>' : '')+
         '</div><div class="nut">'+
+          '<button onclick="event.stopPropagation();bmMoWord(\''+m.id+'\')" title="Mở bằng Word trên máy">W</button>'+
+          '<button onclick="event.stopPropagation();bmMoDocs(\''+m.id+'\')" title="Mở trên Google Docs">G</button>'+
           '<button onclick="event.stopPropagation();inMotMau(\''+m.id+'\')" title="In">🖨</button>'+
-          '<button onclick="event.stopPropagation();suaBieuMau(\''+m.id+'\')" title="Sửa">✎</button>'+
+          '<button onclick="event.stopPropagation();bmGhim(\''+m.id+'\')" title="Ghim lên đầu">📌</button>'+
           '<button onclick="moMenu(event,\''+m.id+'\')" title="Thêm lệnh">⋯</button>'+
-        '</div></div></div>';
+        '</div></div>'+
+        (m.cachDung?'<div class="bm-cach">💡 '+coChuHTML(m.cachDung)+'</div>':'')+
+        (m.thayBoi && bmTim(m.thayBoi) ? '<div class="bm-cu">Đã thay bằng <b>'+coChuHTML(bmTim(m.thayBoi).ten)+'</b>'+
+          (m.hieuLucTu?' — hiệu lực từ '+ngayVN(m.hieuLucTu):'')+'</div>' : '')+
+        '</div>';
     }).join('');
   });
   h += '<p class="ghi">Biểu tượng 📝 là bản đã điền mẫu để hướng dẫn, 📄 là mẫu trắng. '+
@@ -8114,6 +8151,101 @@ function veBieuMau(){
   e.innerHTML = h;
 }
 function datNhomBM(t){ BM.locNhom = (BM.locNhom===t)?'':t; veBieuMau(); }
+/* ==========================================================
+   BIỂU MẪU 3.24 — như một thư mục: ghim · đếm lần dùng · ghi chú cách dùng ·
+   bản cũ ghi đã thay bằng bản mới (hiệu lực từ ngày) · gắn văn bản sinh ra mẫu ·
+   mở bằng Word trên máy hoặc Google Docs
+   ========================================================== */
+function bmTim(id){ return (D.bieuMau||[]).find(function(x){ return x.id===id; }); }
+function bmGhim(id){
+  var m = bmTim(id); if(!m) return;
+  m.ghim = !m.ghim; m.suaLuc = new Date().toISOString(); luu(); veBieuMau();
+  bao(m.ghim?'Đã ghim lên đầu.':'Đã bỏ ghim.', 3);
+}
+function bmDungThem(id){
+  var m = bmTim(id); if(!m) return;
+  m.soLanDung = (m.soLanDung||0) + 1; m.dungCuoi = new Date().toISOString(); luu();
+}
+function bmSapXep(ds){
+  return ds.slice().sort(function(a,b){
+    return (b.ghim?1:0)-(a.ghim?1:0) || (b.soLanDung||0)-(a.soLanDung||0) ||
+           (a.ten||'').localeCompare(b.ten||'');
+  });
+}
+function bmGhiChu(id){
+  var m = bmTim(id); if(!m) return;
+  moHop('<div class="hop-tit">Ghi chú cách dùng</div>'+
+    '<div class="hop-phu">'+coChuHTML(m.ten)+'</div>'+
+    '<div class="o"><textarea id="bm-gc" rows="3" placeholder="Ví dụ: điền phần II, tổ trưởng ký trước khi nộp">'+
+      coChuHTML(m.cachDung||'')+'</textarea></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<button class="nho chinh" onclick="bmLuuGhiChu(\''+id+'\')">Lưu</button></div>');
+}
+function bmLuuGhiChu(id){
+  var m = bmTim(id); if(!m) return;
+  m.cachDung = (gt('bm-gc')||'').trim(); m.suaLuc = new Date().toISOString();
+  luu(); dongHop(); veBieuMau();
+}
+/* đánh dấu bản cũ đã bị thay, ghi ngày hiệu lực của bản mới */
+function bmThayBan(id){
+  var m = bmTim(id); if(!m) return;
+  var khac = (D.bieuMau||[]).filter(function(x){ return x.id!==id; });
+  moHop('<div class="hop-tit">Bản mới thay cho mẫu này</div>'+
+    '<div class="hop-phu">'+coChuHTML(m.ten)+'</div>'+
+    '<div class="o"><label>Bản mới</label><select id="bm-moi">'+
+      '<option value="">— chọn biểu mẫu đã có —</option>'+
+      khac.map(function(x){ return '<option value="'+x.id+'"'+(m.thayBoi===x.id?' selected':'')+'>'+coChuHTML(x.ten)+'</option>'; }).join('')+
+    '</select></div>'+
+    '<div class="o"><label>Bản mới có hiệu lực từ ngày</label>'+
+      '<input id="bm-hl" inputmode="numeric" placeholder="dd/mm/yyyy" value="'+(m.hieuLucTu?ngayVN(m.hieuLucTu):'')+'" oninput="gonNgay(this)"></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    (m.thayBoi?'<button class="nho" onclick="bmBoThay(\''+id+'\')">Bỏ đánh dấu</button>':'')+
+    '<button class="nho chinh" onclick="bmLuuThay(\''+id+'\')">Lưu</button></div>');
+}
+function bmLuuThay(id){
+  var m = bmTim(id); if(!m) return;
+  m.thayBoi = gt('bm-moi') || '';
+  m.hieuLucTu = ngayISOo(gt('bm-hl')) || '';
+  m.suaLuc = new Date().toISOString(); luu(); dongHop(); veBieuMau();
+  bao(m.thayBoi?'Đã đánh dấu bản cũ, vẫn giữ để tra.':'Đã lưu.', 5);
+}
+function bmBoThay(id){
+  var m = bmTim(id); if(!m) return;
+  delete m.thayBoi; delete m.hieuLucTu; m.suaLuc = new Date().toISOString();
+  luu(); dongHop(); veBieuMau();
+}
+/* mở bằng Word trên máy (qua ổ G) hoặc Google Docs trên Drive */
+function bmMoWord(id){
+  var m = bmTim(id); if(!m) return;
+  bmDungThem(id);
+  var d = duongMay(thuMucCua(m)) + '\\' + (m.tenMoi || m.tenCu || m.ten);
+  chepChu(d, 'Đã chép đường dẫn — dán vào Windows Explorer hoặc ô Mở của Word là ra file.');
+}
+function bmMoDocs(id){
+  var m = bmTim(id); if(!m) return;
+  if(!m.driveId) return baoLoi('Mẫu này chưa có trên Drive — nối Drive rồi lưu lên trước.');
+  bmDungThem(id);
+  window.open('https://docs.google.com/document/d/'+m.driveId+'/edit', '_blank');
+}
+/* biểu mẫu sinh ra từ văn bản nào (dùng lại trường vbKem đã có) */
+function bmGanVB(id){
+  var m = bmTim(id); if(!m) return;
+  var vb = D.vanBan.filter(function(x){ return x.nhom==='vanBan'; })
+    .sort(function(a,b){ return (b.ngay||'').localeCompare(a.ngay||''); }).slice(0,60);
+  moHop('<div class="hop-tit">Văn bản ban hành mẫu này</div>'+
+    '<div class="hop-phu">'+coChuHTML(m.ten)+'</div>'+
+    '<div class="o"><select id="bm-vb2"><option value="">— không gắn —</option>'+
+      vb.map(function(x){ return '<option value="'+x.id+'"'+(m.vbKem===x.id?' selected':'')+'>'+
+        coChuHTML((x.soHieu?x.soHieu+' · ':'')+(x.tenVB||x.tenMoi||''))+'</option>'; }).join('')+
+    '</select></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<button class="nho chinh" onclick="bmLuuVB(\''+id+'\')">Lưu</button></div>');
+}
+function bmLuuVB(id){
+  var m = bmTim(id); if(!m) return;
+  m.vbKem = gt('bm-vb2') || ''; m.suaLuc = new Date().toISOString();
+  luu(); dongHop(); veBieuMau();
+}
 function datKieuBM(k){ BM.locKieu = k; veBieuMau(); }
 function doiChonBM(id){
   if(BM.chon[id]) delete BM.chon[id]; else BM.chon[id]=1;
@@ -8318,6 +8450,10 @@ function moMenu(ev, id){
     '<button onclick="dongMenu();batTatPV()">'+(anPVCua(tenTabPV())?'Bật':'Tắt')+' khung xem nhanh</button>'+
     '<button onclick="dongMenu();chepTen(\'' +id+ '\')">Sao chép tên file</button>'+
     '<div class="vach"></div>'+
+    (laBieuMau(timMuc(id)||bmTim(id)) ?
+      '<button onclick="dongMenu();bmGhiChu(\''+id+'\')">Ghi chú cách dùng</button>'+
+      '<button onclick="dongMenu();bmGanVB(\''+id+'\')">Gắn văn bản ban hành</button>'+
+      '<button onclick="dongMenu();bmThayBan(\''+id+'\')">Đánh dấu đã có bản mới</button>' : '')+
     '<button class="xau" onclick="dongMenu();xoaVaoRac(\'' +id+ '\')">Xóa vào thùng rác</button>';
   e.classList.add('hien');
   var x = Math.min(ev.clientX, window.innerWidth-200);
