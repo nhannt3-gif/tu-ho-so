@@ -3613,7 +3613,11 @@ function veHomNay(){
       gap:true, fn:'moChoKhai()'});
   }
   var thieu = kyThieu();
-  if(thieu.length){
+  var gbCon = ngayToiGiaoBan();
+  if(thieu.length && gbCon>=0){
+    v.push({so:gbCon, tit:(gbCon===0?'Hôm nay giao ban':'Còn '+gbCon+' ngày tới giao ban')+', thiếu '+thieu.length+' báo cáo',
+      p:chuoiThieu(thieuTheoKy(kyGanNhat())), gap:true, fn:'datKyBang(\''+kyGanNhat()+'\');doiNgan(2)'});
+  }else if(thieu.length){
     var kg = kyGanNhat();
     v.push({so:thieu.length, tit:kyVN(kg)+' còn thiếu báo cáo',
       p:chuoiThieu(thieuTheoKy(kg)), gap:true, fn:'datKyBang(\''+kg+'\');doiNgan(2)'});
@@ -4215,6 +4219,11 @@ function bangDoiChieuHTML(){
       '<b class="bdc-ky-ten">'+kyVN(ky)+'</b>'+
       '<button class="nho" onclick="doiKyBang(1)" title="Kỳ sau">›</button>'+
     '</span>'+
+    /* 3.31 (mục 11a, 11b) */
+    '<button class="nho'+(laKyChot(ky)?' bat':'')+'" onclick="batChotKy(\''+ky+'\')" title="'+
+      (laKyChot(ky)?'Kỳ đã chốt — bấm để mở chốt':'Chốt kỳ khi đã đủ bộ — thêm file sau đó phải xác nhận')+'">'+
+      (laKyChot(ky)?'🔒 Đã chốt':'Chốt kỳ '+kyVN(ky))+'</button>'+
+    '<button class="nho" onclick="moSoSanhKy(\''+ky+'\')" title="Chép 2 kỳ sang AI để so sánh">⇄ So 2 kỳ</button>'+
     '<button class="nho" onclick="moChonXa()" title="Chọn xã, phường hiện trên bảng">👁 Xã ('+xas.length+'/'+tatXa.length+')</button>'+
     /* 3.31: bỏ 3 nút Theo kỳ/Theo đơn vị/Dạng cây (trùng thanh kiểu xem bên dưới) → 3 nút chọn cấp */
     '<span class="bdc-kieu bdc-cap">'+dsCap().map(function(x){
@@ -4325,6 +4334,89 @@ function bangDoiChieuHTML(){
       (dsXaQuanLy().length?' · chỉ tính thiếu cho PGD và '+coChuHTML(dsXaQuanLy().map(vietTatDV).join(', ')):'')+'</span></div></div>';
   return h;
 }
+/* ==========================================================
+   3.31 (mục 11 bàn giao) — CHỐT KỲ · SO SÁNH 2 KỲ · NHẮC GIAO BAN
+   ========================================================== */
+function laKyChot(ky){ return !!ky && (D.cauHinh.kyChot||[]).indexOf(ky)>=0; }
+function batChotKy(ky){
+  if(laKyChot(ky))
+    return hoi('Mở chốt '+kyVN(ky)+'?', 'Mở chốt thì thêm file vào kỳ này không cần xác nhận nữa.', 'Mở chốt', function(){
+      D.cauHinh.kyChot = (D.cauHinh.kyChot||[]).filter(function(x){ return x!==ky; }); luu(); veThang();
+    });
+  var thieu = thieuTheoKy(ky);
+  var lam = function(){
+    D.cauHinh.kyChot = (D.cauHinh.kyChot||[]).concat([ky]); luu(); veThang();
+    bao('Đã chốt '+kyVN(ky)+'. Thêm file vào kỳ này sẽ phải xác nhận.', 5);
+  };
+  if(thieu.length) return hoi('Kỳ '+kyVN(ky)+' còn thiếu '+thieu.length+' báo cáo',
+    chuoiThieu(thieu).slice(0,300)+(chuoiThieu(thieu).length>300?'…':'')+' — vẫn chốt?', 'Vẫn chốt', lam);
+  lam();
+}
+/* kỳ lùi n tháng: '2026-08', -1 → '2026-07' */
+function kyLui(ky, n){ var p = String(ky).split('-'), d = new Date(+p[0], +p[1]-1+n, 1); return d.getFullYear()+'-'+hai(d.getMonth()+1); }
+function moSoSanhKy(ky){
+  var kys = {}; D.duLieu.forEach(function(x){ if(x.ky) kys[x.ky] = 1; }); kys[ky] = 1;
+  var dsKy = Object.keys(kys).sort().reverse();
+  var t = +ky.slice(5,7), dauQuy = kyLui(ky, -(((t-1)%3)+1)), dauNam = (+ky.slice(0,4)-1)+'-12';
+  var mauX = (D.cauHinh.mauBaoCao||[]).filter(function(m){
+    return D.duLieu.some(function(x){ return x.maLoai===m.ma && laExcel(x); }); });
+  var chonKy = function(id, gt0){ return '<select id="'+id+'">'+dsKy.concat(dsKy.indexOf(gt0)<0?[gt0]:[]).map(function(k){
+    return '<option value="'+k+'"'+(k===gt0?' selected':'')+'>'+kyVN(k)+'</option>'; }).join('')+'</select>'; };
+  moHop('<div class="hop-tit">So sánh 2 kỳ</div>'+
+    '<div class="hop-phu">Chép bảng Excel của hai kỳ sang AI dạng Markdown, kèm câu hỏi sẵn. Số liệu giữ nguyên, không sửa.</div>'+
+    '<div class="hai"><div class="o"><label>Kỳ gốc</label>'+chonKy('ss-ky1', ky)+'</div>'+
+    '<div class="o"><label>Kỳ so</label>'+chonKy('ss-ky2', kyLui(ky,-1))+'</div></div>'+
+    '<div class="hang-nut">'+
+      '<button class="nho" onclick="datSSKy(\''+kyLui(ky,-1)+'\')">So tháng trước</button>'+
+      '<button class="nho" onclick="datSSKy(\''+dauQuy+'\')">So đầu quý ('+kyVN(dauQuy)+')</button>'+
+      '<button class="nho" onclick="datSSKy(\''+dauNam+'\')">So đầu năm ('+kyVN(dauNam)+')</button></div>'+
+    '<div class="o"><label>Báo cáo (bản Excel)</label><select id="ss-mau">'+
+      (mauX.length ? mauX.map(function(m){ return '<option value="'+m.ma+'">'+coChuHTML(m.ten)+'</option>'; }).join('')
+                   : '<option value="">— chưa có báo cáo nào lưu bản Excel —</option>')+'</select></div>'+
+    '<div class="o"><label>Phạm vi</label><select id="ss-pham">'+dsPhamVi().map(function(x){
+      return '<option>'+coChuHTML(x)+'</option>'; }).join('')+'</select></div>'+
+    '<div class="huong-dan">Báo cáo sao kê có tên, số CCCD khách hàng — cân nhắc trước khi dán sang AI bên ngoài.</div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+      '<button class="nho chinh" onclick="chepSoSanh()">Chép sang AI</button></div>');
+}
+function datSSKy(k){
+  var e = document.getElementById('ss-ky2'); if(!e) return;
+  if(![].some.call(e.options, function(o){ return o.value===k; })){ var o = document.createElement('option'); o.value = k; o.textContent = kyVN(k); e.appendChild(o); }
+  e.value = k;
+}
+function chepSoSanh(){
+  var k1 = gt('ss-ky1'), k2 = gt('ss-ky2'), ma = gt('ss-mau'), pv = gt('ss-pham');
+  if(!ma) return baoLoi('Chưa có báo cáo nào lưu bản Excel để so.');
+  if(k1===k2) return baoLoi('Hai kỳ đang giống nhau.');
+  var tim = function(k){ var o = oDoiChieu(k, ma, pv, false, true); return (o.ds||[]).filter(laExcel)[0]; };
+  var f1 = tim(k1), f2 = tim(k2);
+  if(!f1 || !f2) return baoLoi('Thiếu bản Excel của '+(!f1?kyVN(k1):kyVN(k2))+' · '+pv+'.');
+  dangLam('Đang đọc 2 bảng…');
+  Promise.resolve(window.XLSX || napMotTV(THU_VIEN.find(function(x){ return x.ten==='xlsx'; }))).then(function(){
+    var XL = window.XLSX; if(!XL) throw new Error('Chưa tải được bộ đọc Excel — cần có mạng một lần');
+    var doc = function(m){ return layNoiDung(m).then(function(b){
+      if(!b) throw new Error('Chưa có nội dung file '+(m.tenMoi||''));
+      return b.arrayBuffer(); }).then(function(ab){
+        var wb = XL.read(new Uint8Array(ab), {type:'array'}); return bangTuSheet(wb.Sheets[wb.SheetNames[0]], XL); }); };
+    return Promise.all([doc(f1), doc(f2)]);
+  }).then(function(bs){
+    hetLam();
+    var t = 'So sánh hai kỳ, chỉ ra thay đổi lớn (tăng, giảm, chỉ tiêu bất thường) và nguyên nhân có thể.\n\n'+
+      '## Kỳ gốc — '+boiCanh(f1)+'\n\n'+sangMarkdown(bs[0])+'\n\n## Kỳ so — '+boiCanh(f2)+'\n\n'+sangMarkdown(bs[1]);
+    chepChu(t, 'Đã chép 2 bảng ('+kyVN(k1)+' và '+kyVN(k2)+') · ước '+uocToken(t)+' token. Dán thẳng vào cửa sổ AI.');
+    dongHop();
+  }).catch(function(e){ hetLam(); baoLoi('Không so được: '+(e&&e.message||e)); });
+}
+/* 11c: lần giao ban tới (việc lặp trong Lịch có chữ "giao ban") trong 7 ngày → số ngày còn lại, -1 nếu không có */
+function ngayToiGiaoBan(){
+  var hn = lcISO(nay());
+  var gb = lcData().viec.filter(function(v){ return boDau(v.ten||'').indexOf('giao ban')>=0; });
+  for(var i=0;i<=7;i++){
+    var iso = lcCong(hn, i);
+    if(gb.some(function(v){ return lcCo(v, iso) && !lcXongNgay(v, iso); })) return i;
+  }
+  return -1;
+}
 /* gom theo đơn vị (phạm vi) */
 function nhomTheoDonVi(ds){
   var nhom = {}, thuTu = [];
@@ -4420,7 +4512,10 @@ function oHTML(o, ky, mau, dv, lop){
 }
 /* bấm ô thiếu → mở màn thêm file, nhớ sẵn kỳ + loại + phạm vi để điền cho file vừa thêm */
 var CHO_O = null;
-function themChoO(ky, ma, dv){
+function themChoO(ky, ma, dv, daXacNhan){
+  if(laKyChot(ky) && !daXacNhan)
+    return hoi('Kỳ '+kyVN(ky)+' đã chốt', 'Kỳ này anh đã chốt đủ bộ. Vẫn thêm file vào ô này?', 'Vẫn thêm',
+      function(){ themChoO(ky, ma, dv, true); });
   TAB_TRUOC = 2;
   var mau = (D.cauHinh.mauBaoCao||[]).find(function(x){ return x.ma===ma; });
   CHO_O = {ky:ky, ma:ma, ten:(mau?mau.ten:ma), pham:(dv==='Toàn PGD'?'Toàn PGD':dv), luc:Date.now()};
@@ -4540,7 +4635,7 @@ function veChepAI(m, b, soSheet){
 var CHEP = null;
 function boiCanh(m){
   var mau = (D.cauHinh.mauBaoCao||[]).find(function(x){ return x.ma===m.maLoai; });
-  return (mau?mau.ten:(m.tenLoai||'Số liệu'))+' · '+(m.phamVi||'Toàn PGD')+' · PGD Gò Dầu'+
+  return (mau?mau.ten:(m.tenLoai||'Số liệu'))+' · '+(m.phamVi||'Toàn PGD')+' · '+(D.cauHinh.donvi||'PGD')+
     (m.ky?'\nSố liệu kỳ '+kyVN(m.ky):'')+(m.nsl?' (đến '+ngayVN(m.nsl)+')':'');
 }
 function chepAI(kieu){
@@ -5085,6 +5180,10 @@ function vanLuuBanPhu(id){
 }
 function duyet(id, imLang){
   var m0 = (D.cho||[]).find(function(x){ return x.id===id; });
+  /* 3.31 (mục 11a): kỳ đã chốt — thêm file phải xác nhận */
+  if(m0 && m0.nhom==='duLieu' && laKyChot(m0.ky) && !m0.xacNhanChot && !imLang)
+    return hoi('Kỳ '+kyVN(m0.ky)+' đã chốt', 'Kỳ này anh đã chốt đủ bộ. Vẫn lưu thêm “'+(m0.tenMoi||'')+'” vào kỳ này?',
+      'Vẫn lưu', function(){ m0.xacNhanChot = true; duyet(id); });
   /* 3.23: app KHÔNG còn chặn theo nội dung đọc được — chỉ gợi ý, anh quyết */
   if(m0 && m0.nhom==='duLieu' && !imLang && !m0.banPhu)
     return hoiTrungBanCuoi(m0, function(){ duyetThat(id, imLang); });
@@ -5154,6 +5253,10 @@ function duyetThat(id, imLang){
 function duyetTatCa(){
   var n = D.cho.length;
   if(!n) return;
+  var vaoChot = D.cho.filter(function(c){ return c.nhom==='duLieu' && laKyChot(c.ky) && !c.xacNhanChot; });
+  if(vaoChot.length) return hoi('Có '+vaoChot.length+' file vào kỳ đã chốt',
+    'Kỳ '+vaoChot.map(function(c){ return kyVN(c.ky); }).filter(function(x,i,a){ return a.indexOf(x)===i; }).join(', ')+
+    ' đã chốt. Vẫn duyệt hết?', 'Vẫn duyệt', function(){ vaoChot.forEach(function(c){ c.xacNhanChot = true; }); duyetTatCa(); });
   var kho = D.cho.filter(function(c){ return !c.chac; }).length;
   if(kho){
     hoi('Duyệt tất cả '+n+' file?',
@@ -6426,7 +6529,9 @@ function chuyenVaoRac(ids, lyDo){
   ['vanBan','duLieu','ghiChu','bieuMau','cho'].forEach(function(k){
     D[k] = (D[k]||[]).filter(function(m){
       if(ids.indexOf(m.id)<0) return true;
-      if(k==='cho'){ if(m.tuKhay){ m.driveId = m.tuKhay; delete m.tuKhay; } m.choKhai = true; }
+      if(k==='cho'){
+        /* 3.31: file lấy từ kho cũ bằng Picker (có tuKhayCha) chưa duyệt → không đụng file gốc trên Drive */
+        if(m.tuKhay && !m.tuKhayCha){ m.driveId = m.tuKhay; } delete m.tuKhay; delete m.tuKhayCha; m.choKhai = true; }
       m.khoCu = (k==='cho') ? khoCuaMuc(m) : k; m.xoaLuc = now; m.suaLuc = now; if(lyDo) m.lyDoXoa = lyDo;
       if(m.driveId && !laFileHeThong(m) && !m.driveMat) m.choDB = true;
       D.rac.push(m); n++; return false;
@@ -6746,6 +6851,13 @@ function veNoiCD(k){
         '<button class="nho chinh" onclick="luuCaiDat(1)">Lưu rồi nối Drive</button>'+
         '<button class="nho" onclick="taoBoThuMuc()">Tạo bộ thư mục</button>'+
         '<button class="nho" onclick="xemCay()">Xem cây</button></div>'+
+      /* 3.31 (mục 10 bàn giao): Google Picker — quét kho Drive cũ (quyền drive.file chỉ thấy file app tạo) */
+      '<h3>Quét kho Drive cũ (Google Picker)</h3>'+
+      o('API key của Google Picker','cd-apikey',c.apiKey||'','Tạo trong Google Cloud (cùng dự án với Client ID), bật Google Picker API, giới hạn key cho trang app. Chỉ lưu trong máy này.')+
+      '<div class="hang-nut" style="margin:-4px 0 6px"><button class="nho chinh" onclick="luuCaiDat();moPicker()">Chọn thư mục / file cũ trên Drive…</button></div>'+
+      '<div class="huong-dan">Anh tự chọn thư mục hoặc file trong kho cũ. App đọc nội dung, đề xuất tên chuẩn và đưa cả xấp vào <b>khay chờ</b>. '+
+      '<b>Không đổi tên, không dời file</b> nào cho tới khi anh bấm Duyệt. Nếu chọn thư mục mà app không đọc được bên trong, '+
+      'mở lại và chọn trực tiếp các file (giữ Ctrl/Shift để chọn nhiều).</div>'+
       '<h3>Khi duyệt file</h3>'+
       '<div class="o"><div class="co-chu" id="cd-len">'+
       [['Đưa thẳng lên Drive',true],['Chỉ lưu vào máy',false]].map(function(x){
@@ -7138,6 +7250,7 @@ function luuCaiDat(noiLuon){
   if(co('cd-thumuc')) c.thumuc = gt('cd-thumuc')||MAC_DINH.thumuc;
   if(co('cd-cid')) c.clientId = (gt('cd-cid')===CLIENT_ID_MAC_DINH) ? '' : gt('cd-cid');
   if(co('cd-gocmay')) c.gocMay = gt('cd-gocmay') || 'G:\\My Drive';
+  if(co('cd-apikey')) c.apiKey = gt('cd-apikey');
   if(co('cd-chay')) c.cheChay = gt('cd-chay');
   if(co('cd-checau')) c.cheCau = gt('cd-checau');
   if(document.querySelector('.cd-nhomcau')){
@@ -7568,8 +7681,10 @@ function napKhayCho(){
         .then(function(b){
           var file = new File([b], f.name, {type:f.mimeType});
           file.driveId = f.id;
+          var n0 = D.cho.length;
           return xuLyMotFile(file).then(function(){
-            var c = D.cho[D.cho.length-1];
+            /* 3.31: chỉ gắn khi file thật sự vào khay (file trùng bị bỏ qua thì trước đây gắn nhầm vào file trước đó) */
+            var c = D.cho.length>n0 ? D.cho[D.cho.length-1] : null;
             if(c) c.tuKhay = f.id;
           });
         }).catch(function(e){ console.warn('bỏ qua', f.name, e); });
@@ -7589,18 +7704,108 @@ function doiTenTrenDrive(m){
   if(!m.tuKhay) return Promise.resolve(false);
   return baoDamDuong(thuMucCua(m)).then(function(idMoi){
     var duong = D.cauHinh.thumuc+'/_Chờ xử lý';
-    var idCu = DR.thuMuc[duong];
+    var idCu = m.tuKhayCha || DR.thuMuc[duong];   /* 3.31: file chọn bằng Picker nằm ở thư mục cũ của nó */
     var u = 'https://www.googleapis.com/drive/v3/files/'+m.tuKhay+
             '?addParents='+idMoi+(idCu?('&removeParents='+idCu):'')+'&fields=id,name';
     var md = metaDrive(m, true); m.driveCha = idMoi;
     return goiDrive(u, {method:'PATCH', headers:{'Content-Type':'application/json'},
                         body: JSON.stringify({name:m.tenMoi, description:md.description, appProperties:md.appProperties})});
   }).then(function(){
-    m.driveId = m.tuKhay; m.daLenDrive = true; delete m.tuKhay; m.driveKy = kyDrive(m); luu();
+    m.driveId = m.tuKhay; m.daLenDrive = true; delete m.tuKhay; delete m.tuKhayCha; m.driveKy = kyDrive(m); luu();
     return true;
   });
 }
 
+/* ==========================================================
+   3.31 (mục 10 bàn giao) — GOOGLE PICKER: quét kho Drive cũ
+   Nạp thư viện Picker của Google khi anh bấm (không nạp sẵn). File chọn → tải về đọc → vào khay chờ,
+   gắn tuKhay + thư mục cũ (tuKhayCha); chỉ khi Duyệt mới đổi tên và dời vào đúng thư mục của tủ.
+   ========================================================== */
+function napPicker(){
+  if(window.google && google.picker) return Promise.resolve(true);
+  return new Promise(function(ok, loi){
+    var lay = function(){ gapi.load('picker', {callback:function(){ ok(true); }, onerror:function(){ loi(new Error('Không nạp được Google Picker')); }}); };
+    if(window.gapi) return lay();
+    var sc = document.createElement('script');
+    sc.src = 'https://apis.google.com/js/api.js';
+    sc.onload = lay; sc.onerror = function(){ loi(new Error('Không tải được thư viện Google (mất mạng?)')); };
+    document.head.appendChild(sc);
+  });
+}
+function moPicker(){
+  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Nối Drive trước ở mục này.');
+  var key = (D.cauHinh.apiKey||'').trim();
+  if(!key) return baoLoi('Chưa có API key của Google Picker — dán vào ô phía trên rồi bấm lại.');
+  canToken().then(function(co){
+    if(!co) throw new Error('Chưa nối được Drive');
+    return napPicker();
+  }).then(function(){
+    var P = google.picker;
+    var xem = new P.DocsView(P.ViewId.DOCS).setIncludeFolders(true).setSelectFolderEnabled(true).setMode(P.DocsViewMode.LIST);
+    new P.PickerBuilder().addView(xem).enableFeature(P.Feature.MULTISELECT_ENABLED)
+      .setOAuthToken(DR.token).setDeveloperKey(key).setAppId(layClientId().split('-')[0])
+      .setTitle('Chọn thư mục hoặc file trong kho cũ').setCallback(ketQuaPicker).build().setVisible(true);
+  }).catch(function(e){ baoLoi('Không mở được Google Picker: '+(e&&e.message||e)); });
+}
+function ketQuaPicker(data){
+  var P = google.picker;
+  if(data[P.Response.ACTION]!==P.Action.PICKED) return;
+  var ds = data[P.Response.DOCUMENTS]||[], THU_MUC = 'application/vnd.google-apps.folder';
+  var file = [], thuMuc = [];
+  ds.forEach(function(d){
+    var f = {id:d[P.Document.ID], name:d[P.Document.NAME], mimeType:d[P.Document.MIME_TYPE], cha:d[P.Document.PARENT_ID]||''};
+    if(f.mimeType===THU_MUC) thuMuc.push(f); else file.push(f);
+  });
+  dongHop(); batChay(true, 'Đang đọc danh sách file đã chọn…');
+  /* thư mục: gom file bên trong (đệ quy, tối đa 500 file) */
+  var gomTM = function(id, han){
+    var ra = [], hang = [id];
+    var tiep = function(){
+      if(!hang.length || ra.length>=han) return Promise.resolve(ra);
+      var cha = hang.shift();
+      return layHetTrang('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent("'"+cha+"' in parents and trashed=false")+
+        '&fields=nextPageToken,files(id,name,mimeType,size)&pageSize=200').then(function(kq){
+        (kq.files||[]).forEach(function(f){
+          if(f.mimeType===THU_MUC) hang.push(f.id); else if(ra.length<han) ra.push({id:f.id, name:f.name, mimeType:f.mimeType, cha:cha});
+        });
+        return tiep();
+      });
+    };
+    return tiep();
+  };
+  thuMuc.reduce(function(p, t){ return p.then(function(){ return gomTM(t.id, 500).then(function(r){ file = file.concat(r); }); }); }, Promise.resolve())
+  .then(function(){
+    var docDuoc = file.filter(function(f){ return !/^application\/vnd\.google-apps\./.test(f.mimeType||''); });
+    var boGoogle = file.length - docDuoc.length;
+    if(!docDuoc.length){
+      tatChay();
+      return baoLoi(thuMuc.length ? 'Google không cho app đọc bên trong thư mục đã chọn. Mở lại và chọn trực tiếp các file (giữ Ctrl/Shift để chọn nhiều).'
+                                  : 'Không có file nào đọc được (file Google Docs/Sheets gốc chưa hỗ trợ).');
+    }
+    var xong = 0, trung = 0;
+    return docDuoc.reduce(function(p, f){
+      return p.then(function(){
+        if(QUET.dung) return;
+        dangLamChu('Đang đọc '+(xong+1)+'/'+docDuoc.length+' · '+f.name);
+        return canToken().then(function(){
+          return fetch('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media', {headers:{'Authorization':'Bearer '+DR.token}});
+        }).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.blob(); })
+        .then(function(b){
+          var n0 = D.cho.length;
+          return xuLyMotFile(new File([b], f.name, {type:f.mimeType||b.type})).then(function(){
+            var c = D.cho.length>n0 ? D.cho[D.cho.length-1] : null;
+            if(c){ c.tuKhay = f.id; if(f.cha) c.tuKhayCha = f.cha; c.canCu = (c.canCu||'')+' · từ kho Drive cũ'; xong++; }
+            else trung++;
+          });
+        }).catch(function(e){ console.warn('bỏ qua', f.name, e); });
+      });
+    }, Promise.resolve()).then(function(){
+      tatChay(); luu(); doiNgan(6);
+      bao('Đã đưa '+xong+' file vào khay chờ'+(trung?' · bỏ '+trung+' file trùng':'')+(boGoogle?' · bỏ '+boGoogle+' file Google Docs gốc':'')+
+        '. Xem tên đề xuất rồi bấm Duyệt — lúc đó app mới đổi tên và dời file.', 9);
+    });
+  }).catch(function(e){ tatChay(); baoLoi('Không đọc được: '+(e&&e.message||e)); });
+}
 function capNhatChip(){
   var e = document.getElementById('chip-drive');
   if(!e) return;
