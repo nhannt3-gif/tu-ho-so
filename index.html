@@ -1235,6 +1235,34 @@
   .cay{background:var(--nen);border:1px solid var(--vien);border-radius:10px;
     padding:11px 13px;font-size:calc(12px*var(--co));line-height:1.7;
     white-space:pre;overflow-x:auto;color:var(--chu)}
+
+  /* ==========================================================
+     3.32 — CHUẨN HÓA NÚT & BỐ CỤC (một hệ thống cho mọi thanh công cụ)
+     Cỡ:  nút thanh công cụ cao 34px · bo góc 10px · viền 1.3px · chữ 12.5px đậm
+     Màu: thường = nền thẻ + viền xám · đang bật/đang lọc = nền xanh nhạt + viền xanh ·
+          nút chính (.chinh) = nền xanh chữ trắng · nguy hiểm (.xau) = chữ + viền đỏ
+     Khối này đặt cuối để thắng các quy tắc cũ; bỏ khối là trở về như 3.31.
+     ========================================================== */
+  :root{--nut-cao:34px;--nut-bo:10px}
+  .nut-them,.dau-tab .nut-them,.dau-tab .phu,.nut-phu,.sap button,.bdc-dau .nho{
+    min-height:var(--nut-cao);padding:5px 13px;border-radius:var(--nut-bo);border:1.3px solid var(--vien);
+    background:var(--the);color:var(--chu);font-weight:600;font-size:calc(12.5px*var(--co));line-height:1.2}
+  .nut-them:hover,.dau-tab .nut-them:hover,.dau-tab .phu:hover,.nut-phu:hover,.sap button:hover,.bdc-dau .nho:hover{
+    background:var(--xanh-nhat);border-color:var(--xanh);color:var(--xanh-dam)}
+  .dau-tab .phu.co,.dau-tab .phu.bat,.sap button.bat,.bdc-dau .nho.bat{
+    background:var(--xanh-nhat);border-color:var(--xanh);color:var(--xanh-dam)}
+  .dau-tab .phu.co-loc{background:var(--xanh);border-color:var(--xanh);color:#fff}
+  .nho{border-radius:var(--nut-bo);min-height:36px}
+  .sap .nhan-loc,.nam .nhan-loc{font-size:calc(11.5px*var(--co));color:var(--chu-phu);font-weight:600}
+  /* tab Văn bản: dải chờ khai + hàng nút + hàng lọc xếp DỌC (trước chen chung một hàng, chữ "Tag" đè nút) */
+  #nam-vb{display:block;overflow:visible}
+  #nam-vb .dai-ck{margin-bottom:8px}
+  /* thẻ "còn thiếu báo cáo" ở Hôm nay: tối đa 3 dòng, bấm vào để xem đủ trên ma trận */
+  .viec .p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  /* điện thoại: ẩn đồng hồ ở thanh trên để nút ⚙ không rớt xuống dòng riêng */
+  @media (max-width:520px){ .dau-hang .gio{display:none} }
+  /* điện thoại: thanh Sắp xếp/Xem một hàng, vuốt ngang — trước chiếm 3 hàng */
+  @media (max-width:899px){ .sap{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none} .sap > *{flex:0 0 auto} .sap span[style*="flex:1"]{display:none} }
 </style>
 </head>
 <body>
@@ -4881,8 +4909,6 @@ function veDay(){
                    '<button class="nut-phu" onclick="dongKhai()" title="Về tab trước (phím Esc)">✕ Đóng</button>';
   else if(nganHienTai===6 && coTheNoiDrive())
     ph.innerHTML = '<button class="nut-phu" onclick="napKhayCho()">Nạp khay chờ</button>';
-  else if(nganHienTai===2 && D.duLieu.length)
-    ph.innerHTML = '<button class="nut-phu" onclick="ghepKy()">Ghép để xem</button>';
   else ph.innerHTML = '';
 }
 /* ghép toàn bộ PDF của một kỳ thành 1 bản tạm để đọc liền mạch */
@@ -8978,11 +9004,10 @@ function veBieuMau(){
           '<span class="ten">'+toSang(m.ten, tuKhoa)+'</span>'+
           (m.ghi?'<span class="ty">'+coChuHTML(m.ghi)+'</span>':'')+'</div>'+
         '<div class="h2"><div class="the">'+
-          (m.ghim?'<span class="tg cam">📌 ghim</span>':'')+
+          /* 3.32: bỏ nhãn "ghim" (đã có nhóm 📌), tên nhóm (đã có tiêu đề nhóm), "Mẫu trắng" (mặc định) */
           (m.soHieu?'<span class="tg">'+coChuHTML(m.soHieu)+'</span>':'')+
-          '<span class="tg '+(m.huongDan?'phu':'xam')+'">'+
-            (m.huongDan?'Mẫu hướng dẫn':'Mẫu trắng')+'</span>'+
-          '<span class="tg ct">'+coChuHTML(m.nhom||'')+'</span>'+
+          (m.huongDan?'<span class="tg phu">Mẫu hướng dẫn</span>':'')+
+          (m.driveId?'':'<span class="tg xam" title="Chưa có trên Drive — bấm G hoặc W để đưa lên">chưa lên Drive</span>')+
           (m.soLanDung?'<span class="tg xam">dùng '+m.soLanDung+' lần</span>':'')+
           (m.vbKem && timMuc(m.vbKem) ? '<span class="tg" title="Văn bản ban hành mẫu này">📎 '+
              coChuHTML((timMuc(m.vbKem).soHieu||'văn bản'))+'</span>' : '')+
@@ -9703,19 +9728,22 @@ function dongHTML(m, q){
   var phu = m.nhom==='duLieu' ? (m.tenLoai||'') :
             (m.nhom==='ghiChu' ? (m.moTa||'') : (m.trichYeu||m.tenVB||''));
 
+  /* 3.32: bớt nhãn thừa — ngày/kỳ đã nằm trong tên file thì không lặp lại; bỏ nhãn "Drive" trên mọi dòng;
+     các cảnh báo thiếu phân loại gộp thành MỘT nhãn */
   var the = [];
+  var coTrongTen = function(iso){ return iso && (ten.indexOf(iso)>=0 || ten.indexOf(String(iso).replace(/-/g,'_'))>=0); };
   if(m.nhom==='duLieu'){
-    the.push(['xam', kyVN(m.ky)]);
+    if(!coTrongTen(m.ky)) the.push(['xam', kyVN(m.ky)]);
     if(m.maLoai==='KHAC') the.push(['phu','Chưa phân loại']);
   }else if(m.nhom==='ghiChu'){
-    the.push(['xam', ngayVN(m.ngay)]);
+    if(!coTrongTen(m.ngay)) the.push(['xam', ngayVN(m.ngay)]);
     (m.the||[]).forEach(function(t){ the.push(['', t]); });
   }else if(laBM){
     if(m.soHieu) the.push(['', m.soHieu]);
     the.push(['xam', m.nhom||'']);
     if(m.huongDan) the.push(['phu','Bản mẫu đã điền']);
   }else{
-    the.push(['xam', ngayVN(m.ngay)]);
+    if(!coTrongTen(m.ngay)) the.push(['xam', ngayVN(m.ngay)]);
     if(m.mang) the.push(['ct', m.mang]);
     (m.ctrinh||[]).slice(0,1).forEach(function(t){ the.push(['ct', t]); });
     (m.tag||m.the||[]).slice(0,2).forEach(function(t){ the.push(['', t]); });
@@ -9725,10 +9753,10 @@ function dongHTML(m, q){
     var con = D.vanBan.filter(function(x){ return x.goc===m.id; }).length;
     if(con) the.push(['ct', con+' VB sửa đổi']);
     if(m.hetHieuLuc) the.push(['phu','Hết hiệu lực']);
-    chuaPhanLoai(m).forEach(function(t){ the.push(['canh','⚠ '+t]); });
+    var cpl = chuaPhanLoai(m).map(function(t){ return t.replace(/^Chưa có /,''); });
+    if(cpl.length) the.push(['canh','⚠ Thiếu '+cpl.join(', ')]);
   }
-  if(m.chiMucThoi) the.push(['xam','Chỉ mục']);
-  if(m.daLenDrive) the.push(['ct','Drive']);
+  if(m.chiMucThoi) the.push(['xam','Chưa tải về máy']);
 
   return '<div class="d2'+(m.hetHieuLuc?' mo':'')+(CON_ID[m.id]?' con':'')+(mucDangXem&&mucDangXem.id===m.id?' chon':'')+
     '" onclick="chonDong(\'' +m.id+ '\')">'+
