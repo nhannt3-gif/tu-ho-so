@@ -4,6 +4,28 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.39 — 27/09/2026 14:00 — khung xem vừa đủ, điện thoại tối giản, sửa nhanh sau rà soát
+
+- **Khung xem bên phải (máy tính) — cố định, vừa đủ xem trước** (anh chốt không thu lại để bố cục không nhảy):
+  - Mặc định danh sách 60% · khung xem 40%; tab Tháng 65/35 để ma trận rộng. Khung xem tối thiểu 340px.
+  - Độ rộng nhớ **riêng từng tab**: kéo vạch ⠿ ở tab nào nhớ cho tab đó; bấm đúp vạch về mặc định.
+  - Độ rộng chung đời cũ được bỏ **một lần** để về mặc định mới.
+  - Chưa chọn mục: 3 nút Gửi cả file · In · Sửa mờ đi, không bấm nhầm.
+- **Điện thoại (dưới 700px) — tối giản, nhường màn cho nội dung:**
+  - Hàng lọc nhanh mặc định ẩn; bấm **Lọc nhanh ▾** mới hiện (nhớ riêng cho điện thoại, không đổi lựa chọn trên máy tính).
+  - Đầu trang gọn hơn (ẩn dòng đơn vị · số mục), hàng tab thấp hơn.
+  - Dải "file chờ khai" còn 1 dòng; hàng nút đầu tab 1 dòng vuốt ngang.
+  - Thanh nút ma trận tab Tháng: 2 dòng vuốt ngang (trước xuống 5 dòng).
+  - Thanh dưới cùng 1 dòng; ẩn dòng giải thích ở tab Scan.
+  - Tab Văn bản thấy khoảng 4 văn bản ngay khi mở (trước chưa tới 1).
+- **Sửa nhanh sau rà soát:**
+  - Số mục trên đầu trang đếm đủ 5 tab và luôn cập nhật (trước chỉ đếm 3 tab, chỉ cập nhật lúc mở app).
+  - Cài đặt: căn trái, rộng hơn; ô tick "Cấu trúc tên" hết bị phóng to.
+  - Hàng lọc nhanh: chữ "ẩn ▴" có chỗ riêng, không đè chip cuối.
+  - **Nhãn Ghi chú gộp một nguồn:** lúc sửa ghi chú và hàng lọc Nhãn dùng chung danh sách tag tab Ghi chú; nhãn cũ được gộp vào một lần, không mất.
+  - Nút "Kiểm tra khung xem / Đặt lại bố cục" dời từ trang Google Drive sang trang **Chung**.
+  - Cài đặt từng tab chỉ hiện tùy chọn có tác dụng: "Kiểu xem mặc định" chỉ ở tab Văn bản; tab Scan bỏ "Sắp xếp mặc định" (tab không có thanh sắp xếp). Kiểu xem lưu nhầm ở tab khác không còn lây sang Văn bản.
+
 ## 3.38 — 27/09/2026 10:00 — sổ ghi chú dịu lại khi nền tối, in CCCD thẻ to hơn, dấu cắt gọn
 
 - **Sổ ghi chú ở chế độ tối:** giấy vàng dịu xuống một chút (vàng sẫm nhẹ #D8CBA6) cho đỡ chói; ô gõ, nút bên trong dịu theo. Vẫn là giấy vàng, không đổi sang nâu sậm như trước 3.36. Chế độ sáng giữ nguyên.

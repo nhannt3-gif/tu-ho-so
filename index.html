@@ -900,6 +900,9 @@
   .cd-than h3{font-size:calc(13.5px*var(--co));color:var(--xanh-dam);
     margin:18px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--vien)}
   .cd-than h3:first-child{margin-top:0}
+  /* 3.39: Cài đặt căn trái (trước bị căn giữa theo hộp chung); ô tick không bị kéo rộng hết dòng */
+  .cd-khung{text-align:left}
+  .o input[type=checkbox],.o input[type=radio]{width:auto;flex:0 0 auto;min-height:0}
   @media (min-width:900px){
     .cd-khung{flex-direction:row}
     .cd-ben{width:230px;max-width:230px;flex-direction:column;flex-wrap:nowrap;
@@ -907,7 +910,7 @@
     .cd-ben .cd-nhan{display:block;font-size:calc(11px*var(--co));color:var(--chu-phu);
       padding:10px 6px 5px;text-transform:uppercase;letter-spacing:.4px}
     .cd-ben button{width:100%}
-    .cd-than{max-width:860px}
+    .cd-than{max-width:960px}
   }
   .hop-tit{font-size:calc(15.5px*var(--co));font-weight:700;margin-bottom:4px}
   .hop-phu{font-size:calc(12px*var(--co));color:var(--chu-phu);margin-bottom:14px;line-height:1.5}
@@ -978,8 +981,10 @@
   }
   .cot-phai{display:none}
   .keo-cot{display:none}
+  .cot-phai.pv-trong .day-p button{opacity:.38;pointer-events:none}
+  .cot-phai.pv-trong .zoom button:first-child{opacity:.38;pointer-events:none}
   @media (min-width:900px){
-    .than{grid-template-columns:minmax(0,var(--rong-trai,1fr)) 6px minmax(0,var(--rong-phai,1.25fr))}
+    .than{grid-template-columns:minmax(0,var(--rong-trai,1.5fr)) 6px minmax(340px,var(--rong-phai,1fr))}
     .keo-cot{display:block;align-self:stretch;background:var(--vien);
       border-radius:3px;cursor:col-resize;min-height:200px;position:sticky;top:150px;
       height:calc(100vh - 260px);position:relative}
@@ -991,7 +996,7 @@
     .than.an-preview .keo-cot{display:none}
   }
   @media (min-width:1500px){
-    .than{grid-template-columns:minmax(0,var(--rong-trai,1fr)) 6px minmax(0,var(--rong-phai,1.25fr))}
+    .than{grid-template-columns:minmax(0,var(--rong-trai,1.5fr)) 6px minmax(340px,var(--rong-phai,1fr))}
   }
 
   /* vuốt ngang */
@@ -1345,6 +1350,45 @@
   #cg-lup{position:absolute;top:8px;display:none;border-radius:50%;border:3px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,.5);pointer-events:none}
   .cg-nut{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
   .cg-nut .nho{flex:0 1 auto;min-width:0}
+  /* ==========================================================
+     3.39 — ĐIỆN THOẠI TỐI GIẢN (anh Nhân: điện thoại để xem và vuốt, thu nhỏ tối đa tùy chọn,
+     nhường màn cho nội dung chính; máy tính giữ đủ chi tiết). Chỉ áp dưới 700px.
+     ========================================================== */
+  /* hàng lọc nhanh: chữ "ẩn" có chỗ riêng, không đè chip cuối */
+  .loc-nhanh{position:relative}
+  .loc-nhanh .ln-hang:first-child{margin-right:44px}
+  .loc-nhanh .ln-an{position:absolute;top:2px;right:0;margin:0;background:none}
+  @media (max-width:699px){
+    .dau{padding:7px 12px 6px;padding-top:calc(7px + env(safe-area-inset-top,0px))}
+    .dong-phu{display:none}
+    .logo{width:28px;height:28px}
+    .nut-cd{width:32px;height:32px}
+    .tim{margin-top:6px;padding:6px 10px}
+    .ngan{padding-top:6px}
+    .ngan button{min-height:32px;padding:6px 10px}
+    .than{padding:8px 8px 58px}
+    /* dải chờ khai: một dòng */
+    .dai-ck{flex-wrap:nowrap;padding:6px 10px;margin-bottom:6px;white-space:nowrap}
+    .dai-ck span{display:none}
+    .dai-ck b{overflow:hidden;text-overflow:ellipsis;min-width:0}
+    /* hàng nút đầu tab: một dòng, nút thấp */
+    .dau-tab{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:6px;margin-bottom:6px}
+    .dau-tab::-webkit-scrollbar{display:none}
+    .dau-tab > *{flex:0 0 auto}
+    .dau-tab .phu,.nut-them{min-height:32px;padding:4px 11px;font-size:calc(12px*var(--co));border-radius:9px}
+    .sap button{min-height:30px;padding:3px 10px;font-size:calc(11.5px*var(--co))}
+    .nhan-nhom{margin:8px 2px 6px}
+    .tab-ghi-chu-scan{display:none}
+    /* thanh dưới: một dòng */
+    .day{padding:5px 10px;padding-bottom:calc(5px + env(safe-area-inset-bottom,0px))}
+    .so-lieu br{display:none}
+    .so-lieu .chip{margin:0 0 0 6px}
+    /* thanh nút ma trận tab Tháng: 2 dòng, mỗi dòng vuốt ngang (trước xuống 5 dòng) */
+    .bdc-hang{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+    .bdc-hang::-webkit-scrollbar{display:none}
+    .bdc-hang > *{flex:0 0 auto}
+    .bdc-dau .nho{min-height:30px}
+  }
 </style>
 </head>
 <body>
@@ -1594,7 +1638,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.38', APP_LUC = '27/09/2026 10:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.39', APP_LUC = '27/09/2026 14:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -2418,7 +2462,7 @@ function doiNgan(i, el){
   document.getElementById('otim').placeholder = ph[i];
   var tct = (D.cauHinh.tabCD||{})[tenTab()];
   if(tct){
-    if(tct.kieu) kieuXem = tct.kieu;
+    if(tct.kieu && tenTab()==='vanBan') kieuXem = tct.kieu;   /* 3.39: kiểu xem chỉ tab Văn bản dùng */
     if(tct.sap) SAP.cot = tct.sap;
   }
   /* 3.31: tab Biểu mẫu mặc định sắp theo số lần dùng (như trước); 2 cột riêng của biểu mẫu không mang sang tab khác */
@@ -2486,6 +2530,7 @@ function ve(){
   if(nganHienTai===4) veScan();
   if(nganHienTai===5) veBieuMau();
   if(nganHienTai===6) veThem();
+  if(typeof capNhatDau==='function') capNhatDau();   /* 3.39: số mục trên đầu luôn khớp (trước chỉ cập nhật lúc mở app) */
   veDay();
 }
 
@@ -5012,6 +5057,8 @@ function anDayKhiCuon(){
 }
 function veDay(){
   capNhatDemRac();
+  /* 3.39: khung xem cố định; chưa chọn mục thì 3 nút Gửi · In · Sửa mờ đi, không bấm nhầm */
+  var cpx = document.getElementById('cotphai'); if(cpx) cpx.classList.toggle('pv-trong', !mucDangXem);
   var s = document.getElementById('so-lieu');
   var chip = '<span class="chip" id="chip-drive" onclick="bamChip()">● Trong máy</span>';
   var btnPV = document.getElementById('btn-mo-preview');
@@ -6280,7 +6327,7 @@ function suaCho(id){
   }else if(m.nhom==='ghiChu'){
     nd += oNgay('Ngày','s-ngay',m.ngay||'');
     nd += ta('Mô tả — một dòng để sau này nhớ ra bối cảnh','s-mota',m.moTa||'');
-    pl += theChon('Nhãn','s-nhan',D.cauHinh.nhanGhiChu||[],m.the||[]);
+    pl += theChon('Nhãn','s-nhan',dsTag('ghiChu'),m.the||[]);   /* 3.39: một nguồn với hàng lọc Nhãn */
     qh += '<div class="o"><label>Gắn vào văn bản (không bắt buộc)</label><select id="s-goc">'+
       '<option value="">— không gắn —</option>'+
       D.vanBan.map(function(v){
@@ -7081,6 +7128,11 @@ function veNoiCD(k){
         return '<button'+(c.giaoDien===x[1]?' class="bat"':'')+
           ' onclick="datGiaoDien(\''+x[1]+'\',this)">'+x[0]+'</button>';
       }).join('')+'</div></div>'+
+      /* 3.39: dời từ trang Google Drive sang đây cho đúng chỗ */
+      '<h3>Bố cục</h3><div class="hang-nut">'+
+      '<button class="nho chinh" onclick="kiemTraKhungXem()">Kiểm tra &amp; sửa khung xem</button>'+
+      '<button class="nho" onclick="datLaiBoCuc()">Đặt lại bố cục 2 cột</button></div>'+
+      '<div class="huong-dan">Đưa độ rộng 2 cột và khung xem nhanh của mọi tab về mặc định (danh sách 60% · khung xem 40%, tab Tháng 65/35). Kéo vạch ⠿ giữa 2 cột để chỉnh, app nhớ riêng từng tab; bấm đúp vạch để trả về mặc định.<br>'+chanDoanBoCuc()+'</div>'+
       '<h3>Đơn vị</h3>'+
       o('Tên đơn vị','cd-donvi',c.donvi,'Hiện trên thanh tiêu đề')+
       o('Thư mục gốc trên Drive','cd-thumuc',c.thumuc,'App xếp file theo tên này')+
@@ -7121,10 +7173,6 @@ function veNoiCD(k){
       '<br>Địa chỉ app: <b>'+coChuHTML(location.origin+location.pathname)+'</b></div>'+
       o('Google Client ID','cd-cid',c.clientId||'','Để trống = dùng Client ID gắn sẵn của anh. Chỉ điền khi đổi sang Client ID khác.')+
       '<div class="hang-nut" style="margin:-4px 0 10px"><button class="nho" onclick="chepClientId()">Chép Client ID đang dùng</button></div>'+
-      '<h3>Bố cục</h3><div class="hang-nut">'+
-      '<button class="nho chinh" onclick="kiemTraKhungXem()">Kiểm tra &amp; sửa khung xem</button>'+
-      '<button class="nho" onclick="datLaiBoCuc()">Đặt lại bố cục 2 cột</button></div>'+
-      '<div class="huong-dan">Đưa độ rộng 2 cột và khung xem nhanh của mọi tab về mặc định.<br>'+chanDoanBoCuc()+'</div>'+
       o('Thư mục Drive trên máy (ổ G)','cd-gocmay',c.gocMay||'G:\\My Drive',
         'Dùng cho nút 📂 chép đường dẫn. Máy cài tiếng Việt có thể là G:\\Drive của tôi')+
       '<div class="hang-nut">'+
@@ -7290,14 +7338,15 @@ function veCDTab(t){
       ghiChu:'Chụp / thêm ghi chú', scan:'Quét bản mới', bieuMau:'Thêm biểu mẫu'}[k],
       'Chữ hiện trên nút Thêm ở đầu tab');
 
-  h += '<h3>Kiểu xem mặc định</h3>'+
+  /* 3.39: chỉ hiện tùy chọn có tác dụng — kiểu xem chỉ tab Văn bản dùng; tab Scan không có thanh sắp xếp */
+  if(k==='vanBan') h += '<h3>Kiểu xem mặc định</h3>'+
     '<div class="o"><div class="co-chu" id="cdt-kieu">'+
     [['Danh sách','ds'],['Năm · tháng','thang']].map(function(x){
       return '<button'+((ct.kieu||'ds')===x[1]?' class="bat"':'')+
         ' onclick="chonMotNut(this)" data-v="'+x[1]+'">'+x[0]+'</button>';
     }).join('')+'</div></div>';
 
-  h += '<h3>Sắp xếp mặc định</h3>'+
+  if(k!=='scan') h += '<h3>Sắp xếp mặc định</h3>'+
     '<div class="o"><div class="co-chu" id="cdt-sap">'+
     [['Ngày','ngay'],['Tên','ten'],['Loại','loai'],['Dung lượng','co']].map(function(x){
       return '<button'+((ct.sap||'ngay')===x[1]?' class="bat"':'')+
@@ -9925,6 +9974,7 @@ function xoaPreview(){
   var a = document.getElementById('cp-ten'), b = document.getElementById('cp-phu'),
       c = document.getElementById('cp-than'), d = document.getElementById('cp-dk');
   if(a) a.textContent = 'Chưa chọn mục nào';
+  var cpx = document.getElementById('cotphai'); if(cpx) cpx.classList.add('pv-trong');
   if(b) b.textContent = 'Bấm một mục bên trái để xem nội dung tại đây';
   if(c) c.innerHTML = '';
   if(d) d.innerHTML = '';
@@ -9939,6 +9989,7 @@ function chonDong(id){
 function xemBenPhai(id){
   var m = timMuc(id); if(!m) return;
   mucDangXem = m;
+  var cpx = document.getElementById('cotphai'); if(cpx) cpx.classList.remove('pv-trong');
   D.ganDay = [id].concat(D.ganDay.filter(function(x){ return x!==id; })).slice(0,8);
   luu();
   document.getElementById('cp-ten').textContent = m.tenMoi||m.tenCu||m.ten||'';
@@ -9966,6 +10017,7 @@ function datAnPV(tab, an){
 }
 function apAnPV(){
   anPV = anPVCua(tenTabPV());
+  apRongCot();
   var t = document.querySelector('.than');
   if(t){
     t.classList.toggle('an-preview', anPV);
@@ -10014,6 +10066,13 @@ var CO_MAU = ['theoNgay','gopPGD','coExcel','thuanXLS','chuKy','cap'];
 function nangCapDanhMuc(){
   var goc = (MAC_DINH && MAC_DINH.mauBaoCao) || [];
   var co = D.cauHinh.mauBaoCao || [];
+  /* 3.39: nhãn Ghi chú trước có 2 danh sách (nhanGhiChu lúc sửa, tag tab Ghi chú lúc lọc) — gộp MỘT lần vào tag tab Ghi chú */
+  if(!D.cauHinh.nhanGCDaGop){
+    D.cauHinh.nhanGCDaGop = true;
+    var tg = dsTag('ghiChu');
+    (D.cauHinh.nhanGhiChu||[]).forEach(function(x){ if(x && tg.indexOf(x)<0) tg.push(x); });
+    luu();
+  }
   /* 3.34: số liệu họp giao ban chia theo điểm giao dịch (anh Nhân chốt) — chuyển MỘT lần, sau đó anh tự chỉnh bằng nút ⚙ */
   if(!D.cauHinh.slgbDaDoi){
     D.cauHinh.slgbDaDoi = true;
@@ -10060,8 +10119,22 @@ function gopMauBaoCao(dsMoi){
   boMaDaBo(coMoi);
   return ra;
 }
+/* 3.39: độ rộng 2 cột nhớ RIÊNG từng tab (tỉ lệ trái/phải, phải = 1).
+   Mặc định danh sách 60% · khung xem 40%; tab Tháng 65/35 để ma trận rộng. Khung xem luôn cố định, không thu lại. */
+var RONG_MD = {duLieu:1.85};
+function tiLeCot(tab){
+  var v = parseFloat((D.cauHinh.rongTab||{})[tab]);
+  return (isFinite(v) && v>=0.5 && v<=3) ? v : (RONG_MD[tab] || 1.5);
+}
+function apRongCot(){
+  var r = document.documentElement.style;
+  r.setProperty('--rong-trai', tiLeCot(tenTabPV())+'fr');
+  r.setProperty('--rong-phai', '1fr');
+}
 function suaRongCot(){
   var doi = false;
+  /* 3.39: bỏ độ rộng chung đời cũ một lần — chuyển sang mặc định mới 60/40 theo từng tab (anh Nhân chốt khung xem vừa đủ) */
+  if(!D.cauHinh.rong339){ delete D.cauHinh.rongTrai; delete D.cauHinh.rongPhai; D.cauHinh.rong339 = true; doi = true; }
   ['rongTrai','rongPhai'].forEach(function(k){
     var v0 = D.cauHinh[k];
     if(v0===undefined) return;
@@ -10080,12 +10153,12 @@ function chanDoanBoCuc(){
         : (w>=760 ? 'cửa sổ hẹp — khung xem nằm <b>dưới danh sách</b>'
                   : '<b>quá hẹp (dưới 760px)</b> — app chạy kiểu điện thoại, khung xem tắt; bấm Ctrl và dấu trừ để thu nhỏ, hoặc mở rộng cửa sổ'));
   ds.push('Tab này: khung xem đang <b>'+(anPVCua(tenTabPV())?'TẮT — bấm ▣ để bật':'BẬT')+'</b>');
-  var t = D.cauHinh.rongTrai, p = D.cauHinh.rongPhai;
-  if(t||p) ds.push('Độ rộng đã kéo: trái '+(t||'mặc định')+' · phải '+(p||'mặc định'));
+  var tl = (D.cauHinh.rongTab||{})[tenTabPV()];
+  ds.push('Độ rộng tab này: '+(tl ? 'đã kéo (trái/phải = '+tl+')' : 'mặc định'));
   return ds.join(' · ');
 }
 function datLaiBoCuc(){
-  ['rongTrai','rongPhai','rongPV','anPV','anPVTab'].forEach(function(k){ delete D.cauHinh[k]; });
+  ['rongTrai','rongPhai','rongPV','anPV','anPVTab','rongTab'].forEach(function(k){ delete D.cauHinh[k]; });
   ['--rong-trai','--rong-phai','--rong-pv'].forEach(function(k){ document.documentElement.style.removeProperty(k); });
   luu(); apAnPV(); ve();
   bao('Đã đặt lại bố cục: độ rộng 2 cột và khung xem nhanh về mặc định.', 5);
@@ -10150,8 +10223,8 @@ function ganKeoCot(){
   function batDau(x){
     dang = true; x0 = x;
     var cs = getComputedStyle(document.documentElement);
-    t0 = parseFloat(cs.getPropertyValue('--rong-trai')) || 1;
-    p0 = parseFloat(cs.getPropertyValue('--rong-phai')) || 1.25;
+    t0 = parseFloat(cs.getPropertyValue('--rong-trai')) || 1.5;
+    p0 = parseFloat(cs.getPropertyValue('--rong-phai')) || 1;
     document.body.style.userSelect = 'none';
   }
   function keo(x){
@@ -10167,9 +10240,10 @@ function ganKeoCot(){
     if(!dang) return;
     dang = false; document.body.style.userSelect = '';
     var cs = getComputedStyle(document.documentElement);
-    D.cauHinh.rongTrai = cs.getPropertyValue('--rong-trai').trim();
-    D.cauHinh.rongPhai = cs.getPropertyValue('--rong-phai').trim();
-    luu();
+    var tl = parseFloat(cs.getPropertyValue('--rong-trai')) / (parseFloat(cs.getPropertyValue('--rong-phai')) || 1);
+    D.cauHinh.rongTab = D.cauHinh.rongTab || {};
+    D.cauHinh.rongTab[tenTabPV()] = Math.round(Math.max(.5, Math.min(3, tl))*100)/100;
+    luu(); apRongCot();
     if(XEM.phai.pdf) veTrang('phai');
   }
   v.addEventListener('mousedown', function(e){ e.preventDefault(); batDau(e.clientX); });
@@ -10180,9 +10254,8 @@ function ganKeoCot(){
     if(dang) keo(e.touches[0].clientX); }, {passive:true});
   document.addEventListener('touchend', thoi);
   v.addEventListener('dblclick', function(){
-    document.documentElement.style.setProperty('--rong-trai', '1fr');
-    document.documentElement.style.setProperty('--rong-phai', '1.25fr');
-    D.cauHinh.rongTrai = '1'; D.cauHinh.rongPhai = '1.25'; luu();
+    if(D.cauHinh.rongTab) delete D.cauHinh.rongTab[tenTabPV()];
+    luu(); apRongCot();
     if(XEM.phai.pdf) veTrang('phai');
     bao('Đã trả về rộng mặc định.', 3);
   });
@@ -10534,10 +10607,17 @@ function nhomLocNhanh(tab, kho){
   }
   return ra.filter(function(g){ return g[2].length; });
 }
-function anLocNhanh(tab){ return !!(D.cauHinh.anLocNhanh||{})[tab]; }
+/* 3.39: điện thoại (dưới 700px) mặc định GỌN — hàng lọc nhanh ẩn, bấm "Lọc nhanh ▾" mới hiện; nhớ riêng cho điện thoại
+   (D.cauHinh.moLocDT), không đụng lựa chọn ẩn/hiện của máy tính */
+function laDT(){ return !!(window.matchMedia && window.matchMedia('(max-width:699px)').matches); }
+function anLocNhanh(tab){
+  if(laDT()) return !(D.cauHinh.moLocDT||{})[tab];
+  return !!(D.cauHinh.anLocNhanh||{})[tab];
+}
 function batLocNhanh(tab){
-  D.cauHinh.anLocNhanh = D.cauHinh.anLocNhanh || {};
-  D.cauHinh.anLocNhanh[tab] = !D.cauHinh.anLocNhanh[tab];
+  var k = laDT() ? 'moLocDT' : 'anLocNhanh';
+  D.cauHinh[k] = D.cauHinh[k] || {};
+  D.cauHinh[k][tab] = !D.cauHinh[k][tab];
   luu(); ve();
 }
 /* nút "Lọc nhanh ▾" chỉ hiện khi anh đã ẩn hàng lọc (lúc đang hiện thì nút ẩn nằm cuối dòng lọc đầu) — đỡ tốn một nút */
@@ -10662,7 +10742,7 @@ function veScan(){
             (SC.che==='the'?'Thẻ':'Tài liệu')+'</button>'});
 
   /* 3.33: lời nhắc nhỏ thay khung vàng cảnh báo */
-  h += '<div class="huong-dan" style="margin:0 0 8px">Ảnh xử lý trong máy, không gửi tới AI · lưu hồ sơ là bản PDF lên Drive: '+
+  h += '<div class="huong-dan tab-ghi-chu-scan" style="margin:0 0 8px">Ảnh xử lý trong máy, không gửi tới AI · lưu hồ sơ là bản PDF lên Drive: '+
     '<b>Tủ hồ sơ/CCCD</b> (thẻ) và <b>Tủ hồ sơ/Hồ sơ scan</b> (tài liệu), chia theo xã › điểm › ấp › tổ.</div>';
 
   var ds = locTheoThe('scan', locChuan('scan', D.scan.slice()));
@@ -13197,7 +13277,7 @@ function napExcel(){
 /* ---------- KHỞI ĐỘNG ---------- */
 function capNhatDau(){
   document.getElementById('donvi').textContent =
-    D.cauHinh.donvi+' · '+(D.vanBan.length+D.duLieu.length+D.ghiChu.length)+' mục';
+    D.cauHinh.donvi+' · '+(D.vanBan.length+D.duLieu.length+D.ghiChu.length+(D.scan||[]).length+(D.bieuMau||[]).length)+' mục';   /* 3.39: đếm đủ 5 tab */
 }
 function capNhatGio(){
   var d = nay();
