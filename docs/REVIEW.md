@@ -10,15 +10,15 @@
 
 ---
 
-## 0. Tình trạng sau bản 3.31 (26/09/2026 21:54)
+## 0. Tình trạng sau bản 3.31 (26/09/2026 21:54) và 3.32 (22:17)
 
 Bản 3.31 đã xử lý phần lớn danh sách dưới đây. Số dòng trong các mục 2–3 vẫn tính theo **bản 3.30**. Chi tiết thay đổi xem `docs/CHANGELOG.md`.
 
 | Mục | Tình trạng ở 3.31 |
 |---|---|
 | R1 — danh sách tổ trưởng công khai | ✅ Đã bỏ khỏi mã nguồn (giữ cây xã/điểm/ấp). ⚠ **Lịch sử git vẫn còn** — xóa hẳn cần viết lại lịch sử repo, chờ anh quyết. |
-| R2 — "mã hóa" CCCD hình thức | ⏳ Chưa làm (cần anh chọn: đặt lại PIN hay sửa lời mô tả) |
-| R3 — danh sách khách Scan lên Drive | ⏳ Chưa làm (cần anh chọn) |
+| R2 — "mã hóa" CCCD hình thức | ✅ 3.32: anh chốt bỏ mã hóa; ảnh cũ vẫn đọc được |
+| R3 — danh sách khách Scan lên Drive | ✅ Anh chốt: Drive của anh là nơi lưu bảo mật — giữ nguyên |
 | R4 — chép sao kê sang AI | ◐ Có cảnh báo ở hộp So sánh 2 kỳ; nút 📋 Chép sang AI chưa có |
 | R5 — thư viện CDN không SRI/không cập nhật | ⏳ Chưa làm |
 | R6 — thoát ký tự onclick | ⏳ Chưa làm |
@@ -28,7 +28,7 @@ Bản 3.31 đã xử lý phần lớn danh sách dưới đây. Số dòng trong
 | L4 nút Thêm ở sổ · L5 Enter giữa danh sách | ✅ |
 | L6 Nhờ AI ghi nhầm Tag · `moCaiDat('cm')` | ✅ |
 | L7 ghép AI theo phần số | ✅ (khớp đủ số + ký hiệu; khớp yếu thì mặc định Giữ app, có cảnh báo) |
-| L8 đồng bộ ghi đè cả file | ⏳ Chưa làm (cần kế hoạch riêng) |
+| L8 đồng bộ ghi đè cả file | ⏸ Anh ít dùng nhiều máy cùng lúc → ưu tiên thấp |
 | L9 scan đã xóa sống lại | ✅ |
 | L10 nạp dự phòng thiếu phần | ✅ |
 | L11 quét Drive quá 200 file | ✅ |
@@ -37,13 +37,13 @@ Bản 3.31 đã xử lý phần lớn danh sách dưới đây. Số dòng trong
 | L14 lỗi nhỏ | ✅ data-iso, giao thừa, Thẻ/Tài liệu lẫn, đổi tên Drive lặp, 63 tỉnh, lời Hướng dẫn, `boiCanh`. ⏳ Còn: tự điền địa bàn lần trước ở Scan, `soTu` số kiểu Anh |
 | N1 báo cáo đã bỏ tự quay lại (3.30) | ✅ |
 | N2 cờ đã mất không được điền lại | ✅ |
-| N3 kiểu nút `.xem-lon` | ⏳ Chưa làm (chỉ ảnh hưởng giao diện) |
-| V1 Xóa hẳn vĩnh viễn | ⏳ Chưa làm (đổi hành vi, cần anh duyệt) |
+| N3 kiểu nút `.xem-lon` | ✅ 3.32: thay bằng khối chuẩn hóa nút |
+| V1 Xóa hẳn vĩnh viễn | ✅ 3.32: vào thùng rác Google Drive |
 | Đề xuất #24 tách module | ❌ Không áp dụng — bàn giao v1.1 yêu cầu giữ một file HTML |
 
 **Lỗi mới phát hiện khi làm 3.31 (đã sửa):** tab Biểu mẫu tô sáng nhầm nút Ghi chú · lọc chương trình vay ở tab Biểu mẫu luôn ra rỗng · cây địa bàn mở một xã là bung hết mọi cấp · file Excel/Word thêm từ ô ma trận bị xếp vào Văn bản · duyệt ghi chú nhảy sang tab Biểu mẫu · Nạp khay chờ gắn nhầm file Drive khi có file trùng.
 
-**Phát hiện, CHƯA sửa (chờ anh duyệt):** công văn có cụm "Tổ TK&VV" bị nhận nhầm thành báo cáo "Chất lượng Tổ TK&VV" (từ khóa mẫu báo cáo quá chung, app so từ khóa báo cáo trước khi đọc văn bản).
+**Công văn có cụm "Tổ TK&VV" bị nhận nhầm thành báo cáo:** ✅ 3.32 — phân biệt văn bản hành chính và bảng số liệu trước khi so từ khóa; khớp mẫu theo tiêu đề.
 
 ---
 

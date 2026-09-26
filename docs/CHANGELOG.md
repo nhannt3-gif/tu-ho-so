@@ -4,6 +4,47 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.32 — 26/09/2026 22:17
+
+Theo góp ý của anh Nhân sau khi xem 3.31.
+
+### Nhận dạng công văn và báo cáo
+- **Công văn không còn bị nhận nhầm thành báo cáo tháng.** Trước đây công văn nhắc tới "Tổ TK&VV", "nợ quá hạn", "giao ban"… đều bị coi là báo cáo. Nay app xét hai loại dấu hiệu **trước** khi so từ khóa:
+  - Dấu hiệu văn bản hành chính: quốc hiệu, tiêu ngữ, `Số: …/…`, V/v, Kính gửi, Nơi nhận, tên loại văn bản.
+  - Dấu hiệu bảng số liệu: STT, Đơn vị tính, Tổng cộng, Người lập biểu, "đến ngày", nhiều số tiền.
+  - Hàm: `diemVanBan`, `diemBangSoLieu`, `khopMauNoiDung`.
+- **Quét Drive theo tên file:** tên có số hiệu văn bản (958 KH-NHCS, 4079/NHCS-TDNN) thì là văn bản (`khopMauTenQuet`).
+- **Chọn mẫu báo cáo khớp nhất,** không lấy mẫu đứng đầu danh sách nữa. Thứ tự ưu tiên: từ khóa ở tiêu đề → khớp nhiều từ khóa hơn → xuất hiện sớm hơn → từ khóa dài hơn. Sửa được 2 lỗi cũ:
+  - "Chất lượng Tổ" có cột nợ quá hạn bị nhận thành Nợ quá hạn.
+  - "KQGD toàn phòng" bị nhận thành KQGD xã.
+- `rutNgay` đọc được ngày viết không dấu ("ngay 11 thang 9 nam 2026").
+
+### Ảnh CCCD — bỏ mã hóa
+- Ảnh mới lưu thẳng, không mã hóa. Bản PDF hồ sơ mặc định đưa lên Drive (`hsTuDrive` mặc định bật).
+- Ảnh cũ đã mã hóa vẫn mở được bằng khóa cũ. Mở lần đầu, ảnh tự lưu lại dạng thường.
+- Bỏ hộp cảnh báo "không mã hóa" khi lưu hoặc đưa PDF lên Drive.
+- Bỏ mã PIN và các hàm mã hóa không còn dùng.
+
+### Xóa hẳn → thùng rác Google Drive
+- "Xóa hẳn", "Dọn dữ liệu thử", xóa thư mục trống và dọn bản dự phòng cũ nay đều **chuyển file vào thùng rác Google Drive** (`trashed:true`), không xóa vĩnh viễn nữa.
+- Google giữ file 30 ngày rồi tự xóa; trong thời gian đó vẫn lấy lại được.
+- Sửa mọi lời nhắc trong app cho đúng.
+
+### Giao diện
+- **Chuẩn hóa nút** (một khối CSS cuối phần giao diện):
+  - Nút thanh công cụ cao 34px, bo góc 10px, viền 1.3px, chữ 12.5px đậm.
+  - Màu: thường · đang bật · nút chính · nguy hiểm dùng chung một bộ.
+- **Tab Văn bản:** dải chờ khai, hàng nút, hàng lọc xếp dọc. Trước đây chen chung một hàng và chữ "Tag" đè lên nút.
+- **Dòng danh sách:**
+  - Bỏ ngày/kỳ nếu tên file đã có; bỏ nhãn "Drive" trên mọi dòng.
+  - Gộp các cảnh báo thiếu phân loại thành một nhãn "⚠ Thiếu …"; nhãn "Chỉ mục" đổi thành "Chưa tải về máy".
+- **Thẻ biểu mẫu:** bỏ nhãn "ghim", tên nhóm, "Mẫu trắng" vì đã thể hiện ở chỗ khác; thêm nhãn "chưa lên Drive".
+- **Tab Hôm nay:** thẻ "còn thiếu báo cáo" tối đa 3 dòng.
+- **Tab Tháng:** bỏ nút "Ghép để xem" bị lặp ở dải đáy.
+- **Điện thoại:** ẩn đồng hồ để nút ⚙ không rớt xuống dòng riêng; thanh Sắp xếp gọn thành một hàng vuốt ngang.
+
+---
+
 ## 3.31 — 26/09/2026 21:54
 
 Làm theo `BAN_GIAO_VIEC_CON_LAI v1.1`: đợt 0 (lỗi nền) + mục 1–11. Giữ nguyên kiến trúc một file `index.html`, không thêm thư viện, không đổi cấu trúc `D`. Chỉ thêm trường mới; code vẫn chạy được khi dữ liệu cũ chưa có các trường này.
