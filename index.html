@@ -1909,7 +1909,8 @@ function rutSoHieu(chu){
 /* Rút NGÀY: "ngày 14 tháng 03 năm 2026" hoặc 14/03/2026 */
 function rutNgay(chu){
   if(!chu) return null;
-  var m = chu.match(/ngày\s+(\d{1,2})\s+tháng\s+(\d{1,2})\s+năm\s+(\d{4})/i);
+  /* 3.32: so trên chữ đã bỏ dấu — PDF mất dấu ("ngay 11 thang 9 nam 2026") vẫn đọc được */
+  var m = boDau(chu).match(/ngay\s+(\d{1,2})\s+thang\s+(\d{1,2})\s+nam\s+(\d{4})/);
   if(m) return m[3]+'-'+hai(+m[2])+'-'+hai(+m[1]);
   m = chu.match(/\b(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})\b/);
   if(m) return m[3]+'-'+hai(+m[2])+'-'+hai(+m[1]);
@@ -2036,17 +2037,63 @@ function goiYThe(chu, bang, danhSach){
   return ra.slice(0,3);
 }
 
+/* 3.32: PHÂN BIỆT CÔNG VĂN với BÁO CÁO SỐ LIỆU trước khi so từ khóa mẫu báo cáo.
+   Trước đây app so từ khóa trước — công văn nào nhắc "Tổ TK&VV", "nợ quá hạn", "giao ban"… đều bị coi là báo cáo tháng.
+   Dấu hiệu văn bản hành chính: quốc hiệu, tiêu ngữ, "Số: …/…", "V/v", "Kính gửi", "Nơi nhận", tên loại văn bản ở đầu.
+   Dấu hiệu bảng số liệu (báo cáo xuất từ hệ thống): STT, Đơn vị tính, Tổng cộng, Người lập biểu, Ngày in, số liệu đến ngày. */
+function diemVanBan(chu){
+  var c = boDau(chu||'').slice(0,3000), d = 0;
+  if(/cong hoa xa hoi chu nghia/.test(c)) d++;
+  if(/doc lap\s*-?\s*tu do\s*-?\s*hanh phuc/.test(c)) d++;
+  if(/\bso\s*:\s*\d{1,6}\s*\/\s*[a-z]/.test(c)) d++;
+  if(/\bv\/v\b|ve viec/.test(c)) d++;
+  if(/kinh gui|noi nhan/.test(c)) d++;
+  if(/^\s*(quyet dinh|ke hoach|huong dan|thong bao|to trinh|cong van)\s*$/m.test(c)) d++;
+  return d;
+}
+function diemBangSoLieu(chu){
+  var c = boDau(chu||'').slice(0,4000), d = 0;
+  if(/\bstt\b/.test(c)) d++;
+  if(/don vi tinh|\bdvt\b|dv tinh/.test(c)) d++;
+  if(/tong cong|cong chung/.test(c)) d++;
+  if(/nguoi lap bieu|ngay in|in luc/.test(c)) d++;
+  if(/(tinh )?den ngay\s*\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{4}/.test(c)) d++;
+  if((c.match(/\d{1,3}(\.\d{3})+/g)||[]).length >= 8) d++;   /* nhiều số tiền dạng 1.234.567 */
+  return d;
+}
+/* khớp mẫu báo cáo theo NỘI DUNG — rõ là văn bản hành chính thì không coi là báo cáo */
+function khopMauNoiDung(chu){
+  if(diemVanBan(chu)>=2 && diemBangSoLieu(chu)<2) return null;
+  return khopMau(chu);
+}
+/* khớp mẫu báo cáo theo TÊN file khi quét Drive — tên có số hiệu văn bản (958 KH-NHCS, 4079/NHCS-TDNN) thì là văn bản */
+function khopMauTenQuet(ten){
+  var tf = tuTenFile(ten);
+  if(tf.soHieu && /[\/]/.test(tf.soHieu)) return null;
+  return khopMau(ten);
+}
 /* Khớp MẪU BÁO CÁO tháng */
+/* 3.32: chọn mẫu KHỚP NHẤT thay vì mẫu đầu tiên trong danh sách:
+   từ khóa nằm ở tiêu đề (250 ký tự đầu) trước → khớp nhiều từ khóa ở tiêu đề hơn → xuất hiện sớm hơn → từ khóa dài hơn.
+   Trước đây "Chất lượng Tổ" có cột "nợ quá hạn" bị nhận là Nợ quá hạn; "KQGD toàn phòng" bị nhận là KQGD xã. */
 function khopMau(chu){
-  var c = boDau(chu||'').slice(0,2500);
-  var ds = D.cauHinh.mauBaoCao||[];
-  for(var i=0;i<ds.length;i++){
-    var m = ds[i];
-    for(var j=0;j<m.tuKhoa.length;j++){
-      if(c.indexOf(boDau(m.tuKhoa[j]))>=0) return m;
-    }
-  }
-  return null;
+  var c = boDau(chu||'').slice(0,2500), TIEU_DE = 250;
+  var tot = null;
+  (D.cauHinh.mauBaoCao||[]).forEach(function(m){
+    var dau = -1, soTD = 0, dai = 0;
+    (m.tuKhoa||[]).forEach(function(k){
+      var kk = boDau(k); if(!kk) return;
+      var i = c.indexOf(kk); if(i<0) return;
+      if(dau<0 || i<dau) dau = i;
+      if(i<TIEU_DE) soTD++;
+      if(kk.length>dai) dai = kk.length;
+    });
+    if(dau<0) return;
+    var d = {m:m, td:dau<TIEU_DE?0:1, soTD:soTD, dau:dau, dai:dai};
+    if(!tot || d.td<tot.td || (d.td===tot.td && (d.soTD>tot.soTD || (d.soTD===tot.soTD &&
+       (d.dau<tot.dau || (d.dau===tot.dau && d.dai>tot.dai)))))) tot = d;
+  });
+  return tot ? tot.m : null;
 }
 
 /* ---------- RÚT THÔNG TIN TỪ CHÍNH TÊN FILE ----------
@@ -5085,7 +5132,7 @@ function xuLyMotFile(f){
     }
     return docChuPDF(f, D.cauHinh.soTrangDoc||2).then(function(r){
       var chu = r.chu||'';
-      var mau = khopMau(chu);
+      var mau = khopMauNoiDung(chu);
       if(mau){
         /* 3.20: ngày số liệu quyết định bản cuối tháng hay dữ liệu phụ */
         var nsl = docNgaySoLieu(chu), xl = loaiBanThang(nsl, mau && mau.ma);
@@ -8003,7 +8050,7 @@ function napMotTuDrive(f, sau){
     var ng = rutNgay(ten) || (ten.match(/\b(20\d{2})-(\d{2})-(\d{2})\b/)
               ? ten.match(/\b20\d{2}-\d{2}-\d{2}\b/)[0] : null);
     var ky = ten.match(/\b(20\d{2})-(\d{2})\b/);
-    var mau = khopMau(ten);
+    var mau = khopMauTenQuet(f.name);
     if(mau || (ky && !ng)){
       var m = {id:idMoi(), nhom:'duLieu', ky: ky?(ky[1]+'-'+ky[2]):ngayISO(nay()).slice(0,7),
         maLoai: mau?mau.ma:'KHAC', tenLoai: mau?mau.ten:'Khác', ghiThem:'',
@@ -8031,7 +8078,7 @@ function napMotTuDrive(f, sau){
     return docChuPDF(file, D.cauHinh.soTrangDoc||2).then(function(kq){
       var chu = kq.chu||'';
       if(!chu){ tuTen(); return; }
-      var mau = khopMau(chu);
+      var mau = khopMauNoiDung(chu);
       if(mau){
         var m = {id:idMoi(), nhom:'duLieu', ky: rutKy(chu)||ngayISO(nay()).slice(0,7),
           maLoai:mau.ma, tenLoai:mau.ten, ghiThem:'', soTrang:kq.trang,
