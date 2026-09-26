@@ -4,6 +4,104 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.35 — 27/09/2026 03:40 — tab Scan kiểu app scan chuyên nghiệp
+
+- **Tự động trước, chỉnh tay khi còn sót** (xử lý ngay trong máy, ảnh không gửi đi đâu, không thêm thư viện):
+  - **Tìm khung thẻ CCCD:** neo theo màu xanh ngọc của thẻ, dò 4 cạnh thẳng, chọn khung có tỉ lệ gần 1,585, cạnh song song. Bỏ qua mép bao nhựa, sọc vải.
+  - **Tìm tờ giấy (tài liệu):** vùng sáng lớn nhất, lấy 4 góc.
+  - **Nắn phối cảnh** về đúng khổ: thẻ 85,6×54 mm (~300 dpi), tài liệu A4 (hoặc giữ tỉ lệ thật nếu không phải A4).
+  - **Tự lật khi thẻ ngược** và **tự nhận mặt trước/sau:**
+    - dấu đỏ luôn ở nửa trên;
+    - 3 dòng mã IDVNM ở dưới cùng (mặt sau thẻ mới);
+    - chip vàng lớn (mặt sau thẻ cũ).
+  - **Lọc làm đẹp**, không còn bị tối:
+    - **Magic màu** cho thẻ: khử bóng, kéo tương phản, tươi màu, làm nét.
+    - **Giấy trắng** cho tài liệu: nền trắng hẳn, khử ám vàng/xám, chữ đậm, dấu đỏ giữ màu.
+    - Thêm Xám, Đen trắng, Gốc.
+  - Ảnh tự tìm khung chưa chắc được gắn **⚠ xem lại**.
+- **Hàng chờ mới:**
+  - Thẻ xếp theo **Người 1, 2…** với cặp **Mặt trước | Mặt sau**. Chụp xen kẽ, hay chụp hết mặt trước rồi mới tới mặt sau, app đều tự xếp đúng cặp.
+  - Mỗi ảnh có nút: **◀ ▶** dời, **✂** chỉnh khung, **⇄** đổi mặt, **⇅** lật 180°, **⟲** xoay 90° (tài liệu), chọn kiểu lọc, **✕** bỏ.
+- **Màn chỉnh khung:**
+  - Kéo 4 chấm góc trên ảnh gốc, có **kính lúp** phóng to chỗ đang kéo (đặt phía đối diện ngón tay).
+  - Nút "Lấy cả ảnh" và "Tự tìm lại".
+  - Ảnh gốc (thu còn 2000 px) giữ tới khi lưu nên chỉnh nhiều lần không giảm chất lượng; lưu xong thì xóa cho nhẹ máy.
+- **In CCCD** (theo ý anh Nhân: thẻ thật nhỏ, in to hơn cho dễ đọc):
+  - Mỗi A4 xếp **4 người × 2 mặt**.
+  - Thẻ **in to hơn thẻ thật**: 89 × 56 mm, thẻ thật 85,6 × 54 mm; giữ đúng tỉ lệ.
+  - **Chừa chỗ cắt:**
+    - Lề giấy 12 mm, máy in nào cũng in tới.
+    - Khe giữa các thẻ **đều 8 mm cả ngang lẫn dọc**.
+    - **Dấu cắt** ở 4 góc mỗi thẻ (vạch mảnh nằm ngoài thẻ).
+    - Cắt ra các mép đều nhau.
+  - **Xếp từ trên xuống**: 1 người thì nằm đầu trang, không căn giữa dọc.
+  - Dùng chung cho "In ngay" và in hồ sơ đã lưu; tên khách ghi dưới mỗi cặp.
+  - Nhắc chọn **"Kích thước thật / 100%"** khi in để trang in đúng bản xem trước.
+- **PDF trong tab Scan (chế độ Tài liệu):**
+  - Tách từng trang để **dời, xoay, bỏ**. Nút **+ Thêm PDF** ở hàng chờ và **+ Chọn PDF** trong hộp sửa tài liệu (chèn vào cuối rồi dời tới chỗ cần).
+  - Khi dựng PDF, trang gốc được **chép nguyên**: chữ vẫn là chữ, không đổi thành ảnh.
+  - Trang lưu dạng tham chiếu `pdf:<nguồn>:<trang>:<xoay>`. Xóa hồ sơ thì file PDF nguồn cũng bị xóa.
+  - Ảnh ngang ra trang ngang.
+- **Sửa lỗi cũ:**
+  - PDF chọn từ nguồn "File" trong tab Scan trước đây **bị bỏ mất khi lưu**.
+  - "Khai đầy đủ rồi lưu" với nhiều hơn 2 ảnh thẻ trước đây chỉ lấy 2 ảnh đầu. Nay lưu tạm từng người rồi mở Khai hàng loạt.
+  - Hộp khai CCCD: chọn 2 ảnh mà app nhận ra lộn mặt thì tự đổi chỗ.
+- **Kết quả đo trên ảnh CCCD thật anh gửi** (4 ảnh × 4 hướng xoay, cả ảnh nén lại):
+  - Thẻ trên nền có màu (khăn sọc) và mặt sau thẻ cũ: khung khớp 94–98%.
+  - Thẻ nhạt màu trên bàn kính: khớp 71–91%. Có lúc cắt lệch nên nhận sai mặt; app gắn ⚠ để anh kéo góc và lật.
+  - Tự lật và nhận mặt: đúng 12/12 trường hợp khi khung đúng.
+  - Tài liệu: tìm tờ giấy lệch dưới 10 px, nền ra trắng 255 (thử với trang công văn 942 giả lập chụp điện thoại).
+- Kiểm thử: `kiem.py` đạt; `hoiquy.js`, `hoiquy2.js`, t14–t18 đạt; t17 (Scan → Drive) đạt sau khi cho chờ xử lý ảnh xong; phép thử mới t19 (toàn luồng thẻ + tài liệu + PDF) đạt. Chụp màn hình máy tính và iPhone.
+
+---
+
+## 3.34 — 26/09/2026 23:50 — tab Tháng: thêm file, báo cáo tự thiết lập, thanh nút, hàng lọc
+
+- **Sửa lỗi "Tổng dư nợ theo chương trình vay" thêm file không vào ô.** Nguyên nhân đã tái hiện:
+  - Nút "+ Thêm file" ở tab Tháng không nhớ đang ở tab Tháng. Excel có tên không chứa từ khóa (ví dụ `TongDuNo_CTV.xlsx`) bị đưa sang **Văn bản**.
+    - Nay nút đi qua `nutChinh` (`TAB_TRUOC=2`).
+    - Kéo thả file vào tab Tháng cũng nhớ tab.
+  - Tên có từ khóa nhưng không có kỳ thì bị gán **tháng hiện tại** (T9), trong khi ma trận đang xem T8.
+    - Nay lấy **kỳ đang xem trên ma trận** (`kyBang()`) và ghi căn cứ "tạm lấy kỳ đang xem — anh xem lại".
+  - Excel không khớp mẫu nào → vẫn vào Dữ liệu tháng, loại "Khác", để anh chọn loại ở khay chờ.
+- **File trùng nội dung không còn bị bỏ qua lặng lẽ.** Đọc xong, app hiện hộp ghi rõ file đã nằm ở tab nào, kèm nút **Mở**.
+  - Nếu anh thêm từ một ô ma trận, hộp có thêm nút **"Chuyển vào ô …"**. Bấm vào thì mục cũ (ví dụ đang nằm nhầm ở Văn bản) dời hẳn sang ô đó.
+  - Mục được dời sẽ đặt lại tên chuẩn, và tên cùng thư mục trên Drive đổi theo. App không tạo bản sao.
+  - Hàm mới: `baoTrung`, `chuyenVaoO`, `tenTabMuc`, `timMucCaCho`.
+- **Mỗi báo cáo tự thiết lập trên giao diện, không cần sửa code** — nút **⚙** ở cột Sửa (✎ Danh mục trên ma trận). Hộp thiết lập gồm:
+  - Tên và từ khóa nhận dạng.
+  - Dạng hiển thị: **bảng theo đơn vị** hoặc **một ô Toàn PGD**.
+  - Cấp tính thiếu: PGD / Xã, phường / Điểm giao dịch.
+  - Chu kỳ: tháng / theo ngày / quý / 6 tháng / năm.
+  - Có hay không dòng Excel cấp PGD.
+  - Mã báo cáo giữ nguyên, vì file đã lưu gắn với mã.
+  - Thêm báo cáo mới xong, hộp ⚙ mở luôn.
+  - Hàm mới: `moThietLapBC`, `luuThietLapBC`.
+- **"Số liệu báo cáo họp giao ban" (SL_GB) chuyển sang bảng theo điểm giao dịch** (chỉ cấp điểm, như anh chốt).
+  - Chuyển **một lần** trên máy đang dùng, đánh dấu bằng cờ `slgbDaDoi`. Sau đó anh chỉnh gì app giữ nguyên.
+- **Thanh nút ma trận chia 2 dòng, nút gọn 28px, không còn bị che hay phải cuộn ngang:**
+  - Dòng 1: kỳ, Chốt kỳ, So 2 kỳ, ▴.
+  - Dòng 2: 👁 Xã, cấp, ✎ Danh mục.
+  - Hai nút ‹ › thu về 28px.
+  - Thanh Sắp xếp/Xem trên máy tính cũng gọn 28px.
+- **Hàng lọc nhanh hiện sẵn ở mọi tab** (kiểu Biểu mẫu). Mỗi nhóm một dòng, chip 22px; dòng dài thì vuốt ngang.
+  - Nhóm lọc theo tab:
+    - Văn bản: Năm · Mảng · CT vay · Tag.
+    - Tháng: Năm · Phạm vi · Hội.
+    - Biểu mẫu: Chương trình · Tag.
+    - Ghi chú: Năm · Nhãn.
+    - Scan: Xã (lọc mới) · Tag.
+  - Mảng, CT vay, Phạm vi, Hội, Xã chỉ hiện giá trị đang có file. Năm hiện khi có từ 2 năm trở lên.
+  - Chữ "ẩn ▴" cuối dòng đầu để ẩn hàng lọc; nút "Lọc nhanh ▾" để hiện lại. App nhớ riêng từng tab (`D.cauHinh.anLocNhanh`).
+  - Điện thoại cũng hiện, vuốt ngang.
+- Kiểm thử:
+  - `kiem.py` đạt.
+  - Bộ hồi quy cũ đạt hết: `hoiquy.js`, `hoiquy2.js`, t14–t17.
+  - Phép thử mới t18: đủ các ý (a0), (a), (b), (c), (e) trong kế hoạch.
+  - Đo thanh nút ma trận ở khổ 1024/1280/1440/iPhone: 0 nút bị che, không cuộn ngang.
+
+---
+
 ## 3.33 — 26/09/2026 22:42 — hoàn thiện tab Scan
 
 - **Mỗi hồ sơ một file PDF trên Drive, đúng thư mục:**
