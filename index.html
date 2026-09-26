@@ -579,7 +579,8 @@
   .sap button,.dau-tab button{transition:background .12s,border-color .12s,transform .06s}
   .sap button:hover,.dau-tab button:hover{background:var(--xanh-nhat);border-color:var(--xanh);color:var(--xanh-dam)}
   .sap button:active,.dau-tab button:active{transform:translateY(1px)}
-  .nut-them:hover{filter:brightness(1.06)}
+
+  .ck-dich{background:var(--xanh-nhat);color:var(--xanh-dam);border-radius:6px;padding:1px 7px;font-weight:600}
   .o-diem{display:inline-block;margin-left:3px;font-style:normal;font-size:calc(9.5px*var(--co));
     padding:0 3px;border-radius:5px;background:#EAF2FA;color:var(--xanh-dam);border:1px solid #C7D8EC;cursor:pointer}
   .o-diem.du{background:var(--luc-nen);color:var(--luc);border-color:#BFE0CC}
@@ -587,6 +588,9 @@
   .bdc-o.co-diem{white-space:nowrap}
   .bdc-an{color:var(--xanh-dam);cursor:pointer;text-decoration:underline}
   /* nút trong khung xem trước dùng chung phong cách với mọi nơi */
+  .cot-phai .day-p button,.xem-lon .day-p button{background:var(--the);color:var(--chu);
+    border:1.3px solid var(--vien);border-radius:10px;font-weight:600}
+  .cot-phai .day-p button.chinh,.xem-lon .day-p button.chinh{background:var(--the);color:var(--xanh-dam);border-color:var(--xanh)}
   .cot-phai button:hover,.xem-lon button:hover,.hop button:hover{background:var(--xanh-nhat);
     border-color:var(--xanh);color:var(--xanh-dam)}
   .cot-phai button,.xem-lon button,.hop button{transition:background .12s,border-color .12s,transform .06s}
@@ -652,7 +656,7 @@
   .day.an-di{transform:translateY(110%)}
   @media (max-width:899px){ .day{padding:4px 10px;font-size:calc(11.5px*var(--co))} }
   /* 3.23: nút Thêm file thống nhất + lớp phủ kéo thả */
-  .nut-them.keo{background:var(--luc-nen);border-color:var(--luc);color:var(--luc)}
+  .nut-them.keo{background:var(--luc-nen);border-color:var(--luc);color:var(--luc);border-style:dashed}
   .phu-keo{position:fixed;inset:0;z-index:120;background:rgba(15,68,120,.28);backdrop-filter:blur(2px);
     display:none;align-items:center;justify-content:center;pointer-events:none}
   .phu-keo.hien{display:flex}
@@ -1085,11 +1089,13 @@
   table.ss tr:last-child td{border-bottom:none}
 
   .dau-tab{display:flex;gap:7px;margin-bottom:9px;flex-wrap:wrap}
-  .nut-them{flex:0 0 auto;min-width:0;background:var(--xanh);color:#fff;border:none;
-    border-radius:12px;padding:12px 16px;font:inherit;font-weight:600;
-    font-size:calc(13.5px*var(--co));cursor:pointer;min-height:46px;
+  .nut-them{flex:0 0 auto;min-width:0;background:var(--the);color:var(--chu);border:1.3px solid var(--vien);
+    border-radius:10px;padding:6px 14px;font:inherit;font-weight:600;
+    font-size:calc(12.5px*var(--co));cursor:pointer;min-height:34px;
     display:flex;align-items:center;justify-content:center;gap:7px}
-  .nut-them .cong{font-size:calc(17px*var(--co));line-height:1}
+  .nut-them .cong{font-size:calc(15px*var(--co));line-height:1;color:var(--xanh)}
+  .nut-them:hover{background:var(--xanh-nhat);border-color:var(--xanh);color:var(--xanh-dam)}
+  .nut-them.keo{background:var(--xanh-nhat);border-color:var(--xanh);border-style:dashed}
   .dau-tab .phu{background:var(--the);color:var(--xanh-dam);border:1.6px solid var(--xanh);
     border-radius:12px;padding:12px 14px;font:inherit;font-weight:600;
     font-size:calc(12.5px*var(--co));cursor:pointer;min-height:46px}
@@ -1457,7 +1463,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.29', APP_LUC = '26/09/2026 18:19';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.30', APP_LUC = '26/09/2026 20:58';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -6387,6 +6393,9 @@ function daiChoKhaiHTML(){
       return '<span>'+CK_TEN[k].split(' — ')[0]+' '+g[k].length+'</span>'; }).join('')+
     '<em>Mở danh sách ›</em></div>';
 }
+function tenKho(nhom){
+  return {vanBan:'Văn bản', duLieu:'Dữ liệu tháng', ghiChu:'Ghi chú', bieuMau:'Biểu mẫu', scan:'Scan'}[nhom] || 'Văn bản';
+}
 function veChoKhai(){
   var g = dsChoKhai(), n = Object.keys(g).reduce(function(a,k){ return a+g[k].length; }, 0);
   var h = '<div class="ck-dau"><button class="nho" onclick="dongChoKhai()">‹ Danh sách văn bản</button>'+
@@ -6399,8 +6408,10 @@ function veChoKhai(){
     h += '<div class="ck-nhom"><div class="nhan-nhom">'+CK_TEN[k]+' ('+g[k].length+')</div>'+
       g[k].map(function(x){
         var m = x.m, fn = k==='scan' ? 'themKhach' : (k==='bieuMau' ? 'suaBieuMau' : 'khaiTuDanhSach');
+        var dich = (k==='khay') ? tenKho(m.nhom) : CK_TEN[k].split(' — ')[0];
         return '<div class="ck-dong"><div class="ck-ten"><b>'+coChuHTML(m.tenMoi||m.ten||m.tenCu||'(chưa đặt tên)')+'</b>'+
-          '<small>'+coChuHTML(x.nguon)+(x.thieu.length?' · <span class="ck-thieu">thiếu '+coChuHTML(x.thieu.join(', '))+'</span>':' · cần xác nhận lại')+'</small></div>'+
+          '<small><span class="ck-dich">→ '+coChuHTML(dich)+'</span> · '+coChuHTML(x.nguon)+
+          (x.thieu.length?' · <span class="ck-thieu">thiếu '+coChuHTML(x.thieu.join(', '))+'</span>':' · cần xác nhận lại')+'</small></div>'+
           '<button class="nho chinh" onclick="'+fn+'(\''+m.id+'\')">Khai</button></div>';
       }).join('')+'</div>';
   });
@@ -9295,6 +9306,24 @@ function kiemTraKhungXem(){
 /* dòng tự chẩn đoán: vì sao khung xem không hiện */
 /* 3.15: độ rộng cột phải có đơn vị 'fr'. Số trần (vd "1.35") làm CSS bỏ cả quy tắc chia cột
    → danh sách, thanh kéo và khung xem xếp chồng dọc (khung xem "biến mất") */
+/* 3.30: danh mục lưu trong máy từ bản cũ sẽ THIẾU loại mới thêm sau này —
+   bổ sung theo mã, giữ nguyên mọi thứ anh đã tự sửa */
+function nangCapDanhMuc(){
+  var goc = (MAC_DINH && MAC_DINH.mauBaoCao) || [];
+  var co = D.cauHinh.mauBaoCao || [];
+  if(!goc.length) return 0;
+  if(!co.length){ D.cauHinh.mauBaoCao = JSON.parse(JSON.stringify(goc)); luu(); return 0; }
+  var ma = {}; co.forEach(function(x){ ma[x.ma] = 1; });
+  var them = goc.filter(function(x){ return !ma[x.ma]; });
+  if(!them.length) return 0;
+  D.cauHinh.mauBaoCao = co.concat(them.map(function(x){ return JSON.parse(JSON.stringify(x)); }));
+  luu();
+  setTimeout(function(){
+    bao('Đã bổ sung '+them.length+' loại báo cáo mới vào danh mục: '+
+      them.slice(0,4).map(function(x){ return x.ten; }).join(' · ')+(them.length>4?'…':''), 8);
+  }, 900);
+  return them.length;
+}
 function suaRongCot(){
   var doi = false;
   ['rongTrai','rongPhai'].forEach(function(k){
@@ -11634,7 +11663,7 @@ function khoiDong(){
   });
 
   /* 3.13: giá trị kéo cột cũ có thể làm cột phải teo lại → kẹp về khoảng an toàn; bỏ cờ ẩn toàn cục đời cũ */
-  suaRongCot(); apPhongSo();
+  suaRongCot(); apPhongSo(); nangCapDanhMuc();
   if(D.cauHinh.anPV!==undefined && D.cauHinh.anPVTab===undefined) delete D.cauHinh.anPV;
   if(D.cauHinh.rongTrai) document.documentElement.style.setProperty('--rong-trai', D.cauHinh.rongTrai);
   if(D.cauHinh.rongPhai) document.documentElement.style.setProperty('--rong-phai', D.cauHinh.rongPhai);
