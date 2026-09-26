@@ -8878,36 +8878,80 @@ function bmBoThay(id){
   delete m.thayBoi; delete m.hieuLucTu; m.suaLuc = new Date().toISOString();
   luu(); dongHop(); veBieuMau();
 }
-/* mở bằng Word trên máy (qua ổ G) hoặc Google Docs trên Drive */
-/* 3.28: mở thẳng bằng Word/Excel trên máy qua Office URI Scheme (anh gợi ý) */
+/* ==========================================================
+   3.31 — MỞ FILE WORD/EXCEL KHÔNG PHẢI TẢI VỀ (tránh rác trong thư mục Tải xuống)
+   1. Google Docs/Sheets trên web — sửa, in ngay; file .docx gốc trên Drive giữ nguyên định dạng
+   2. Máy có ổ G (Google Drive cho máy tính) — chép đường dẫn đúng file đang đồng bộ, dán vào Explorer là Word mở thẳng
+   3. Tải về — chỉ khi anh chọn, có báo rõ là sẽ tạo file trong Tải xuống
+   ========================================================== */
+function tenBieuMau(m){ return 'MAU_'+(m.soHieu?slug(m.soHieu,3)+'_':'')+slug(m.ten||'Bieu-mau',7)+(m.duoi||''); }
+/* bảo đảm mục đã có trên Drive — chưa có thì đưa lên (một lần) */
+function bmDamBaoDrive(m){
+  if(m.driveId) return Promise.resolve(m.driveId);
+  if(!coTheNoiDrive()) return Promise.reject(new Error('Chưa nối Drive'));
+  if(!m.tenMoi) m.tenMoi = laBieuMau(m) ? tenBieuMau(m) : (m.tenCu||'file');
+  bao('Đang đưa “'+m.tenMoi+'” lên Drive…', 4);
+  return dayLenDrive(m).then(function(){ ve(); return m.driveId; });
+}
+/* đường link mở trên web theo loại file */
+function linkMoDrive(m){
+  var t = (m.tenMoi||m.tenCu||'').toLowerCase();
+  if(/\.(docx?|rtf|odt)$/.test(t)) return 'https://docs.google.com/document/d/'+m.driveId+'/edit?rtpof=true';
+  if(/\.(xlsx?|xlsm|csv|ods)$/.test(t)) return 'https://docs.google.com/spreadsheets/d/'+m.driveId+'/edit?rtpof=true';
+  return 'https://drive.google.com/file/d/'+m.driveId+'/view';
+}
+/* đường dẫn file trên ổ G: G:\My Drive\Tủ hồ sơ\Biểu mẫu\HN\MAU_….docx */
+function duongFileMay(m){ return duongMay(thuMucCua(m)) + '\\' + (m.tenMoi||m.tenCu||''); }
+function timMucMo(id){ return timMuc(id) || bmTim(id) || (mucDangXem && mucDangXem.id===id ? mucDangXem : null); }
 function moBangOffice(id, ung){
-  var m = timMuc(id) || bmTim(id) || mucDangXem; if(!m) return;
-  if(typeof bmTim==='function' && bmTim(id)) bmDungThem(id);
+  var m = timMucMo(id); if(!m) return;
   var ten = (m.tenMoi || m.tenCu || '').toLowerCase();
   var ud = ung || (/\.(xlsx|xls|csv)$/.test(ten) ? 'excel' : 'word');
-  if(m.driveId){
-    var url = 'https://drive.google.com/uc?export=download&id=' + m.driveId;
-    window.location.href = 'ms-' + ud + ':ofe|u|' + url;
-    bao('Đang mở bằng ' + (ud==='excel'?'Excel':'Word') + ' trên máy… Trình duyệt sẽ hỏi cho phép mở ứng dụng. '+
-        'Nếu không mở được, bấm nút tải về rồi mở tay.', 8);
-    return;
+  var tenUD = ud==='excel' ? 'Excel' : 'Word';
+  moHop('<div class="hop-tit">Mở bằng '+tenUD+'</div>'+
+    '<div class="hop-phu">'+coChuHTML(m.tenMoi||m.tenCu||'')+'</div>'+
+    '<div class="hang-nut" style="flex-direction:column;align-items:stretch">'+
+      '<button class="nho chinh" onclick="dongHop();bmMoDocs(\''+id+'\')">☁ Mở trên Google '+(ud==='excel'?'Sheets':'Docs')+' — không tải về</button>'+
+      '<button class="nho" onclick="dongHop();moOfficeHop(\''+id+'\',\'may\')">📂 Mở bằng '+tenUD+' trên máy tính (ổ G) — chép đường dẫn</button>'+
+      '<button class="nho" onclick="dongHop();moOfficeHop(\''+id+'\',\'tai\')">⬇ Tải về máy (tạo file trong Tải xuống)</button>'+
+    '</div>'+
+    '<div class="huong-dan">Google Docs mở và in được ngay; file .docx gốc trên Drive giữ nguyên định dạng. '+
+    'Ổ G: dán đường dẫn vào thanh địa chỉ Explorer rồi Enter — '+tenUD+' mở thẳng file đang đồng bộ, sửa xong lưu là cập nhật lên Drive.</div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button></div>');
+}
+function moOfficeHop(id, cach){
+  var m = timMucMo(id); if(!m) return;
+  if(bmTim(id)) bmDungThem(id);
+  if(cach==='may'){
+    if(!m.driveId && coTheNoiDrive())
+      return bmDamBaoDrive(m).then(function(){
+        chepChu(duongFileMay(m), 'Đã đưa lên Drive và chép đường dẫn. Chờ ổ G đồng bộ vài giây rồi dán vào Explorer, Enter.');
+      }).catch(function(e){ baoLoi('Chưa đưa lên Drive được: '+(e&&e.message||e)); });
+    if(!m.driveId) return baoLoi('File chưa có trên Drive nên ổ G chưa có. Nối Drive rồi thử lại, hoặc chọn Tải về.');
+    return chepChu(duongFileMay(m), 'Đã chép: '+duongFileMay(m)+' — bấm vào thanh địa chỉ Explorer, Ctrl+V, Enter.');
   }
   docFile(m.id).then(function(b){
-    if(!b) return baoLoi('Chưa có bản sao file trong máy — mở file một lần hoặc nối Drive rồi thử lại.');
+    if(b) return b;
+    return layNoiDung(m);
+  }).then(function(b){
+    if(!b) return baoLoi('Chưa có bản sao file trong máy — nối Drive rồi thử lại.');
     var a = document.createElement('a');
     a.href = URL.createObjectURL(b);
     a.download = m.tenMoi || m.tenCu || 'tai_lieu';
     document.body.appendChild(a); a.click(); a.remove();
-    bao('Đã tải file về máy — mở bằng ' + (ud==='excel'?'Excel':'Word') + ' từ thư mục Tải xuống.', 6);
+    bao('Đã tải về thư mục Tải xuống. Dùng xong nên xóa để khỏi rác.', 6);
   }).catch(function(e){ baoLoi('Không mở được: '+(e&&e.message||e)); });
 }
 function bmMoWord(id){ moBangOffice(id, 'word'); }
 function bmMoExcel(id){ moBangOffice(id, 'excel'); }
 function bmMoDocs(id){
-  var m = bmTim(id); if(!m) return;
-  if(!m.driveId) return baoLoi('Mẫu này chưa có trên Drive — nối Drive rồi lưu lên trước.');
-  bmDungThem(id);
-  window.open('https://docs.google.com/document/d/'+m.driveId+'/edit', '_blank');
+  var m = timMucMo(id); if(!m) return;
+  if(bmTim(id)) bmDungThem(id);
+  if(m.driveId){ window.open(linkMoDrive(m), '_blank'); return; }
+  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive — vào Cài đặt › Google Drive để nối, hoặc chọn Tải về.');
+  var w = window.open('about:blank', '_blank');   /* mở trước để trình duyệt không chặn cửa sổ */
+  bmDamBaoDrive(m).then(function(){ if(w) w.location = linkMoDrive(m); else window.open(linkMoDrive(m), '_blank'); })
+    .catch(function(e){ if(w) w.close(); baoLoi('Chưa đưa lên Drive được: '+(e&&e.message||e)); });
 }
 /* biểu mẫu sinh ra từ văn bản nào (dùng lại trường vbKem đã có) */
 function bmGanVB(id){
@@ -8936,25 +8980,30 @@ function doiChonBM(id){
 
 function themBieuMau(){
   var i = document.createElement('input');
-  i.type='file'; i.multiple=true; i.accept='.pdf,.doc,.docx';
+  i.type='file'; i.multiple=true; i.accept='.pdf,.doc,.docx,.xls,.xlsx';
   i.onchange = function(){
     var fs = Array.prototype.slice.call(i.files);
     if(!fs.length) return;
     bao('Đang đưa '+fs.length+' mẫu vào kho…', 3);
+    var moi = [];
     fs.reduce(function(p, f){
       return p.then(function(){
         var id = idMoi();
         return luuFile(id, f).then(function(){
           D.bieuMau = D.bieuMau || [];
-          D.bieuMau.push({id:id, nhom:BM.locNhom||'Dùng chung cho mọi chương trình',
+          var m = {id:id, nhom:BM.locNhom||'Dùng chung cho mọi chương trình',
             ten:f.name.replace(/\.[^.]+$/,''), tenCu:f.name, duoi:duoiFile(f.name),
             co:f.size, soHieu:'', ghi:'', huongDan:false,
-            themLuc:new Date().toISOString()});
+            themLuc:new Date().toISOString()};
+          m.tenMoi = tenBieuMau(m);
+          D.bieuMau.push(m); moi.push(m);
         });
       });
     }, Promise.resolve()).then(function(){
       luu(); veBieuMau(); veDay();
       bao('Đã thêm '+fs.length+' mẫu. Bấm vào từng mẫu để đặt tên và xếp nhóm.', 6);
+      /* 3.31: biểu mẫu tự đưa lên Drive (Tủ hồ sơ/Biểu mẫu/<nhóm>) để mở thẳng bằng Google Docs hoặc ổ G, không phải tải về */
+      if(DR.sanSang && D.cauHinh.tuLenDrive!==false) dayLenNhieu(moi);
       if(D.bieuMau.length) suaBieuMau(D.bieuMau[D.bieuMau.length-1].id);
     });
   };
@@ -9013,7 +9062,7 @@ function luuBieuMau(id){
   ghiDung('mang', m.mang);
   var c = document.getElementById('bm-hd');
   m.huongDan = c ? c.checked : false;
-  m.tenMoi = 'MAU_'+(m.soHieu?slug(m.soHieu,3)+'_':'')+slug(m.ten,7)+(m.duoi||'');
+  m.tenMoi = tenBieuMau(m);
   luu(); dongHop(); veBieuMau();
   sauKhiLuu(m, false);
 }
