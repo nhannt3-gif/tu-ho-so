@@ -1571,7 +1571,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.35', APP_LUC = '27/09/2026 02:30';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.35', APP_LUC = '27/09/2026 03:15';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -7444,7 +7444,7 @@ function huongDanNhanh(){
   'Danh sách: việc quá hạn và sắp tới. Tính ngày: cộng trừ ngày, ngày làm việc.<br><br>'+
   '<b>Tab Scan — máy scan trong app</b><br>'+
   'Bấm Quét bản mới, chọn Camera / Photo / File. '+
-  'Chế độ <b>Thẻ</b> cắt đúng khổ CCCD 85,6 × 54 mm, in 4 khách một trang A4. '+
+  'Chế độ <b>Thẻ</b> cắt đúng tỉ lệ CCCD, in 4 khách một trang A4 (phóng to vừa trang). '+
   'Chế độ <b>Tài liệu</b> ghép nhiều trang thành một PDF A4.<br>'+
   'Quét xong có ba lối: <b>In ngay</b> không lưu · <b>Lưu tạm</b> để khai sau · '+
   '<b>Khai đầy đủ</b> rồi lưu. Bản lưu tạm tự đặt tên theo ngày giờ quét, '+
@@ -8969,7 +8969,7 @@ function dungTrangThe(dsId, viec){
     return HS.ds.find(function(x){ return x.id===id; }); }).filter(Boolean);
   if(viec!=='blob') bao('Đang dựng trang cho '+ds.length+' khách…', 4);
 
-  /* 3.35: dùng chung bộ dựng — 4 khách mỗi A4, trước | sau cạnh nhau, căn giữa trang, tên khách dưới mỗi cặp */
+  /* 3.35: dùng chung bộ dựng — 4 khách mỗi A4, trước | sau cạnh nhau, thẻ phóng to vừa trang, xếp từ trên xuống, tên khách dưới mỗi cặp */
   return dungPDFThe(ds.map(function(k){
     return {truoc:k.matTruoc ? k.id+'_matTruoc' : '', sau:k.matSau ? k.id+'_matSau' : '',
       nhan:boDau(k.ten).toUpperCase()+'   '+boDau([k.ap, k.to?('TO '+k.to):''].filter(Boolean).join(' - ')).toUpperCase()};
@@ -8983,7 +8983,7 @@ function dungTrangThe(dsId, viec){
     mucDangXem = null;
     if(viec==='in'){
       inBlob(bl, ten);
-      bao('Đã dựng '+ds.length+' khách, thẻ đúng khổ thật 85,6 × 54 mm. '+NHAC_IN_THE, 9);
+      bao('Đã dựng '+ds.length+' khách, 4 khách mỗi trang A4. '+NHAC_IN_THE, 9);
       return;
     }
     var f = new File([bl], ten, {type:'application/pdf'});
@@ -10761,7 +10761,7 @@ function chonCheScan(){
         'Tài liệu — giấy A4</button></div>'+
     '<div class="huong-dan" style="margin-top:10px">'+
     '<b>Thẻ</b>: chụp mặt trước và mặt sau, app cắt đúng khổ thật 85,6 × 54 mm, '+
-    'in ra cắt kẹp hồ sơ vừa khít. Một trang A4 xếp được 4 khách.<br><br>'+
+    'khi in phóng to vừa trang cho dễ đọc. Một trang A4 xếp được 4 khách.<br><br>'+
     '<b>Tài liệu</b>: chụp lần lượt từng trang, app nắn thẳng rồi ghép thành một PDF. '+
     'Dùng cho đơn vay đã ký, biên bản họp tổ, giấy tờ nhà đất.</div>'+
     '<div class="hang-nut" style="margin-top:12px">'+
@@ -10888,7 +10888,7 @@ function moHangCho(){
       '<button class="nho" onclick="luuSauHang()">Lưu tạm, khai sau</button>'+
       '<button class="nho chinh" onclick="khaiVaLuu()">Khai đầy đủ rồi lưu</button></div>'+
     '<div class="huong-dan">'+(laThe
-      ? 'In: mỗi trang A4 xếp 4 người × 2 mặt, đúng cỡ thật 85,6 × 54 mm, căn giữa trang. '
+      ? 'In: mỗi trang A4 xếp 4 người × 2 mặt, thẻ phóng to vừa bề ngang trang cho dễ đọc, xếp từ trên xuống. '
       : '')+
     'Lưu tạm thì app tự đặt tên theo ngày giờ quét, lúc rảnh vào tab Scan khai và lưu hàng loạt.</div>';
   moHop(h, true);
@@ -11125,22 +11125,25 @@ function chonPDFHang(){
 }
 
 /* ---- DỰNG PDF ----
-   Thẻ: mỗi A4 4 người × 2 mặt (trước | sau), đúng cỡ thật 85,6 × 54 mm, căn giữa cả ngang lẫn dọc (ít người cũng cân đối).
+   Thẻ: mỗi A4 4 người × 2 mặt (trước | sau). Anh Nhân chốt: thẻ PHÓNG TO hết bề ngang trang cho dễ đọc
+   (CCCD thật nhỏ, không cần đúng cỡ thật), vẫn đủ 4 người mỗi trang, giữ đúng tỉ lệ thẻ;
+   xếp TỪ TRÊN XUỐNG (1 người thì nằm đầu trang, không căn giữa dọc).
    dsCap = [{truoc:id ảnh, sau:id ảnh, nhan:'chữ không dấu'}] */
 function dungPDFThe(dsCap, tieuDe){
-  var mm = 2.834645669, A4 = {r:210*mm, c:297*mm}, tR = THE_MM.rong*mm, tC = THE_MM.cao*mm;
-  var cachC = 6*mm, nhanC = 5*mm, cachH = 6*mm, MOI = 4;
+  var mm = 2.834645669, A4 = {r:210*mm, c:297*mm}, MOI = 4;
+  var le = 8*mm, cachC = 4*mm, nhanC = 4.5*mm, cachH = 4*mm, tren = (tieuDe ? 13 : 9)*mm, duoi = 8*mm;
+  var tl = THE_MM.rong/THE_MM.cao;
+  /* cỡ thẻ lớn nhất vừa 2 cột và 4 hàng */
+  var tR = Math.min((A4.r - 2*le - cachC)/2, ((A4.c - tren - duoi - (MOI-1)*cachH)/MOI - nhanC)*tl), tC = tR/tl;
   return PDFLib.PDFDocument.create().then(function(pdf){
     return pdf.embedFont(PDFLib.StandardFonts.Helvetica).then(function(font){
-      var trang = null, xT = (A4.r - (2*tR + cachC))/2, tren = 0;
+      var trang = null, xT = (A4.r - (2*tR + cachC))/2;
       return dsCap.reduce(function(p, cap, i){
         return p.then(function(){
           var hang = i % MOI;
           if(hang===0){
             trang = pdf.addPage([A4.r, A4.c]);
-            var soHang = Math.min(MOI, dsCap.length - i), caoKhoi = soHang*(tC+nhanC) + (soHang-1)*cachH;
-            tren = Math.max(14*mm, (A4.c - caoKhoi)/2);
-            if(tieuDe) trang.drawText(tieuDe, {x:12*mm, y:A4.c-9*mm, size:7, font:font, color:PDFLib.rgb(.62,.62,.62)});
+            if(tieuDe) trang.drawText(tieuDe, {x:le, y:A4.c-8*mm, size:7, font:font, color:PDFLib.rgb(.62,.62,.62)});
           }
           var y = A4.c - tren - hang*(tC+nhanC+cachH) - tC, tg = trang;
           return Promise.all([cap.truoc ? docAnhHS(cap.truoc) : null, cap.sau ? docAnhHS(cap.sau) : null]).then(function(anh){
@@ -11155,7 +11158,7 @@ function dungPDFThe(dsCap, tieuDe){
               });
             }, Promise.resolve());
           }).then(function(){
-            if(cap.nhan) tg.drawText(cap.nhan, {x:xT, y:y-3.8*mm, size:8, font:font, color:PDFLib.rgb(.25,.25,.25)});
+            if(cap.nhan) tg.drawText(cap.nhan, {x:xT, y:y-3.4*mm, size:8, font:font, color:PDFLib.rgb(.25,.25,.25)});
           });
         });
       }, Promise.resolve()).then(function(){ return pdf.save(); });
@@ -11195,7 +11198,7 @@ function dungPDFTaiLieu(dsTrang){
     });
   });
 }
-var NHAC_IN_THE = 'Khi in chọn “Kích thước thật / 100%” (không chọn “Vừa trang”) để thẻ đúng cỡ 85,6 × 54 mm.';
+var NHAC_IN_THE = 'Khi in chọn “Kích thước thật / 100%” để trang in đúng như bản xem trước.';
 
 /* in ngay, không lưu gì */
 function capTuHang(){

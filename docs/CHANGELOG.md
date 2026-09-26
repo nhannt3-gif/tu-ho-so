@@ -4,7 +4,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.35 — 27/09/2026 02:30 — tab Scan kiểu app scan chuyên nghiệp
+## 3.35 — 27/09/2026 03:15 — tab Scan kiểu app scan chuyên nghiệp
 
 - **Tự động trước, chỉnh tay khi còn sót** (xử lý ngay trong máy, ảnh không gửi đi đâu, không thêm thư viện):
   - **Tìm khung thẻ CCCD:** neo theo màu xanh ngọc của thẻ, dò 4 cạnh thẳng, chọn khung có tỉ lệ gần 1,585, cạnh song song. Bỏ qua mép bao nhựa, sọc vải.
@@ -26,10 +26,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - Kéo 4 chấm góc trên ảnh gốc, có **kính lúp** phóng to chỗ đang kéo (đặt phía đối diện ngón tay).
   - Nút "Lấy cả ảnh" và "Tự tìm lại".
   - Ảnh gốc (thu còn 2000 px) giữ tới khi lưu nên chỉnh nhiều lần không giảm chất lượng; lưu xong thì xóa cho nhẹ máy.
-- **In CCCD:**
-  - Mỗi A4 xếp **4 người × 2 mặt**, đúng cỡ thật, **căn giữa trang** kể cả khi ít người.
+- **In CCCD** (theo ý anh Nhân: thẻ thật nhỏ, in to hơn cho dễ đọc):
+  - Mỗi A4 xếp **4 người × 2 mặt**.
+  - Thẻ **phóng to hết bề ngang trang**: rộng 95 mm, thẻ thật 85,6 mm; giữ đúng tỉ lệ thẻ.
+  - **Xếp từ trên xuống**: 1 người thì nằm đầu trang, không căn giữa dọc.
   - Dùng chung cho "In ngay" và in hồ sơ đã lưu; tên khách ghi dưới mỗi cặp.
-  - Có nhắc chọn **"Kích thước thật / 100%"** khi in.
+  - Nhắc chọn **"Kích thước thật / 100%"** khi in để trang in đúng bản xem trước.
 - **PDF trong tab Scan (chế độ Tài liệu):**
   - Tách từng trang để **dời, xoay, bỏ**. Nút **+ Thêm PDF** ở hàng chờ và **+ Chọn PDF** trong hộp sửa tài liệu (chèn vào cuối rồi dời tới chỗ cần).
   - Khi dựng PDF, trang gốc được **chép nguyên**: chữ vẫn là chữ, không đổi thành ảnh.
