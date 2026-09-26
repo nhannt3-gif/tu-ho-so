@@ -1493,6 +1493,7 @@ var MAC_DINH = {
   coChu: 1,
   tuTai: true,
   tuLenDrive: true,
+  hsTuDrive: true,   /* 3.32: lưu hồ sơ CCCD là đưa PDF lên Drive */
   clientId: '',
   giaoDien: 'auto',
   soTrangDoc: 2,
@@ -6562,7 +6563,7 @@ function noiLienKetSauQuet(){
    XÓA · THÙNG RÁC · XÓA HẲN (bản 3.10)
    Xóa 1 mục  → bỏ khỏi tủ, vào Thùng rác app; file Drive dời vào Tủ hồ sơ/_ThungRac
    Khôi phục  → về đúng tab cũ, file Drive dời về đúng thư mục cũ
-   Xóa hẳn    → xóa file Drive VĨNH VIỄN (giải phóng dung lượng), xóa bản sao trong máy,
+   Xóa hẳn    → 3.32: chuyển file Drive vào THÙNG RÁC GOOGLE DRIVE (Google tự xóa sau 30 ngày, lấy lại được), xóa bản sao trong máy,
                 ghi dấu daXoaHan (giữ 1 năm) để máy khác xóa theo, quét không hiện lại
    Mọi thao tác ghi suaLuc → gộp 2 máy: thao tác mới nhất thắng
    ========================================================== */
@@ -6628,12 +6629,14 @@ function khoiPhucRac(ids){
   if(DR.sanSang && DR.online) chayDongBoCho(); else capNhatChip();
   return n;
 }
-/* xóa file trên Drive VĨNH VIỄN (không qua thùng rác Google). 404 = đã mất sẵn → coi như xong */
+/* 3.32 (anh Nhân chốt): KHÔNG xóa vĩnh viễn nữa — chuyển vào thùng rác Google Drive (trashed:true).
+   Google giữ 30 ngày rồi tự xóa; cần lấy lại thì vào Thùng rác của Drive. 404 = đã mất sẵn → coi như xong */
 function xoaFileDrive(driveId){
   return canToken().then(function(co){
     if(!co) throw new Error('Chưa nối Drive');
-    return fetch('https://www.googleapis.com/drive/v3/files/'+driveId,
-      {method:'DELETE', headers:{'Authorization':'Bearer '+DR.token}});
+    return fetch('https://www.googleapis.com/drive/v3/files/'+driveId+'?fields=id',
+      {method:'PATCH', headers:{'Authorization':'Bearer '+DR.token, 'Content-Type':'application/json'},
+       body:JSON.stringify({trashed:true})});
   }).then(function(r){
     if(r.ok || r.status===204 || r.status===404) return true;
     throw new Error('Drive báo lỗi '+r.status);
@@ -6647,9 +6650,9 @@ function xoaHanRac(ids){
     return baoLoi('Cần nối Drive để xóa hẳn file trên Drive. Bấm chip Drive ở dải dưới để nối rồi làm lại.');
   var dl = ds.reduce(function(a,m){ return a+(+m.co||0); }, 0);
   moHop('<div class="hop-tit">Xóa hẳn '+ds.length+' mục?</div>'+
-    '<div class="hop-phu"><b>Không lấy lại được.</b> '+
-    (canDrive?'File trên Drive bị xóa vĩnh viễn — <b>giải phóng '+kichCo(dl)+'</b> dung lượng Drive. ':'')+
-    'Bản sao trong máy cũng xóa.</div>'+
+    '<div class="hop-phu">Mục bỏ khỏi app, bản sao trong máy cũng xóa. '+
+    (canDrive?'File trên Drive ('+kichCo(dl)+') chuyển vào <b>thùng rác Google Drive</b> — Google giữ 30 ngày rồi tự xóa, trong thời gian đó vẫn lấy lại được ở drive.google.com › Thùng rác. ':'')+
+    '</div>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
     '<button class="nho xau" onclick="thucHienXoaHan(['+ds.map(function(m){ return '\''+m.id+'\''; }).join(',')+'])">Xóa hẳn '+ds.length+' mục</button></div>');
 }
@@ -7093,8 +7096,8 @@ function veCDTab(t){
         return '<button'+((!!c.hsTuDrive)===x[1]?' class="bat"':'')+
           ' onclick="datHSDrive('+x[1]+',this)">'+x[0]+'</button>';
       }).join('')+'</div>'+
-      '<div class="huong-dan">Bản PDF trên Drive <b>không mã hóa</b>. '+
-      'Ảnh trong máy vẫn mã hóa. Ảnh CCCD không bao giờ gửi tới AI.</div></div>';
+      '<div class="huong-dan">Hồ sơ lưu trong máy và bản PDF đưa lên Drive của anh (Tủ hồ sơ/CCCD/xã/điểm/ấp/tổ). '+
+      'Ảnh CCCD không bao giờ gửi tới AI.</div></div>';
   }
 
   if(k==='duLieu'){
@@ -7175,7 +7178,7 @@ function soDoLuuTru(){
     nhanh('💻 Trong máy (mỗi trình duyệt một bản)', 'may', [
       nut('<b>Dữ liệu</b> — chỉ mục 4 tab · Scan · khay chờ duyệt · thùng rác · Lịch · vừa xem'),
       nut('<b>Cài đặt</b> — địa bàn (xã · điểm · ấp · tổ) · danh mục mảng / CT vay / loại / tag / hội · mẫu báo cáo · cách đặt tên · Client ID · giao diện'),
-      nut('<b>Bản sao file</b> — PDF, ảnh để xem nhanh không cần mạng · <b>ảnh CCCD mã hóa</b> (không bao giờ lên Drive)'),
+      nut('<b>Bản sao file</b> — PDF, ảnh để xem nhanh không cần mạng · ảnh CCCD (bản PDF hồ sơ lên Drive, không gửi tới AI)'),
       nut('<b>Thư viện đọc PDF</b> — tải 1 lần, không phải dữ liệu của anh','nhat')
     ])+
     nhanh('☁ Trên Drive — '+g, 'drive', [
@@ -7187,7 +7190,7 @@ function soDoLuuTru(){
     nhanh('🗑 Khi xóa', 'xoa', [
       nut('<b>1. Xóa</b> (🗑 trên dòng) → mục vào Thùng rác app, file Drive dời vào _ThungRac'),
       nut('<b>2. Khôi phục</b> → về đúng tab, đúng thư mục cũ'),
-      nut('<b>3. Xóa hẳn</b> (trong 🗑, chọn / cũ hơn 7-14-30 ngày) → xóa vĩnh viễn trên Drive, giải phóng dung lượng, <b>không lấy lại được</b>'),
+      nut('<b>3. Xóa hẳn</b> (trong 🗑, chọn / cũ hơn 7-14-30 ngày) → bỏ khỏi app, file Drive vào <b>thùng rác Google Drive</b> (Google giữ 30 ngày rồi tự xóa)'),
       nut('<b>🧹 Quét dọn</b> → tìm file thừa, trùng, mục gãy, thư mục trống → cho vào Thùng rác'),
       nut('<b>Cài đặt → Dữ liệu</b>: Dọn dữ liệu thử (giữ cài đặt) · Xóa sạch cả cài đặt trên máy này (Drive giữ nguyên)','nhat')
     ])+'</div></div>';
@@ -7256,7 +7259,7 @@ function huongDanNhanh(){
 
   '<b>Xóa an toàn</b><br>'+
   'Xóa là vào thùng rác chứ không mất, lấy lại được trong Cài đặt → Dữ liệu app. '+
-  'File trên Drive dời vào thư mục _ThungRac và dời về chỗ cũ khi khôi phục. Chỉ khi bấm <b>Xóa hẳn</b> thì file trên Drive mới bị xóa vĩnh viễn.'+
+  'File trên Drive dời vào thư mục _ThungRac và dời về chỗ cũ khi khôi phục. Bấm <b>Xóa hẳn</b> thì file chuyển vào thùng rác Google Drive, Google giữ 30 ngày rồi tự xóa.'+
   '</div>';
 }
 
@@ -7405,7 +7408,7 @@ function moDonThu(){
   var tong = D.vanBan.length+D.duLieu.length+D.ghiChu.length+(D.bieuMau||[]).length;
   moHop('<div class="hop-tit">Dọn dữ liệu thử nghiệm</div>'+
     '<div class="hop-phu">Mục chọn sẽ vào <b>Thùng rác</b> (khôi phục được), file Drive dời vào _ThungRac. '+
-    '<b>Cài đặt giữ nguyên.</b> Muốn xóa vĩnh viễn thì sau đó vào 🗑 bấm Xóa hẳn.</div>'+
+    '<b>Cài đặt giữ nguyên.</b> Muốn bỏ hẳn thì sau đó vào 🗑 bấm Xóa hẳn (file Drive vào thùng rác Google Drive).</div>'+
     '<div class="dt-2cot"><div class="o"><label>Phạm vi</label>'+
       '<label class="dt-dong"><input type="radio" name="dt-pv" value="tat" checked onchange="demDonThu()"> Tất cả ('+tong+' mục)</label>'+
       '<label class="dt-dong"><input type="radio" name="dt-pv" value="ngay" onchange="demDonThu()"> Thêm vào tủ trước ngày '+
@@ -7420,7 +7423,7 @@ function moDonThu(){
     '<label class="dt-dong"><input type="checkbox" id="dt-lich" onchange="demDonThu()"> <b>Lịch</b> ('+lcData().viec.length+' việc + nhật ký — xóa hẳn)</label></div>'+
     '</div>'+
     '<label class="dt-dong dt-han"><input type="checkbox" id="dt-han" onchange="demDonThu()"> <b>Xóa hẳn luôn</b>, không để trong thùng rác '+
-      '(xóa vĩnh viễn cả file trên Drive — dùng khi chắc chắn là dữ liệu thử; cần nối Drive)</label>'+
+      '(bỏ khỏi app, file Drive vào thùng rác Google Drive — dùng khi chắc chắn là dữ liệu thử; cần nối Drive)</label>'+
     '<div class="huong-dan">Muốn chọn từng mục: bấm 🗑 trên từng dòng ở các tab. Scan (ảnh CCCD) không nằm trong phần dọn này.</div>'+
     '<div class="dt-kq" id="dt-kq"></div>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
@@ -7463,7 +7466,7 @@ function thucHienDonThu(){
   if(canDrive && !(DR.sanSang && DR.online))
     return baoLoi('“Xóa hẳn luôn” cần nối Drive để xóa file trên Drive. Nối Drive (chip ở dải dưới) rồi làm lại, hoặc bỏ tích để chỉ đưa vào thùng rác.');
   hoi('Dọn dữ liệu thử?',
-    (han ? 'XÓA VĨNH VIỄN '+ids.length+' mục (cả file trên Drive) — không lấy lại được. '
+    (han ? 'XÓA HẲN '+ids.length+' mục khỏi app — file trên Drive vào thùng rác Google Drive (30 ngày). '
          : ids.length+' mục vào thùng rác, vẫn khôi phục được. ')+
     (scan?'Xóa hẳn '+(D.scan||[]).length+' bản scan. ':'')+(lich?'Xóa việc + nhật ký trong Lịch. ':'')+
     'Cài đặt giữ nguyên.', han?'Xóa hẳn':'Dọn', function(){
@@ -8319,47 +8322,29 @@ function donChiMuc(){ moGomTrung(); }
 <script>
 /* ==========================================================
    12. HỒ SƠ CCCD
-   - Chỉ lưu trong máy này, KHÔNG đồng bộ lên Drive
-   - Ảnh mã hóa bằng PIN của anh (AES-GCM)
-   - KHÔNG BAO GIỜ gửi ảnh tới AI hay bất kỳ máy chủ nào
+   - 3.32: KHÔNG mã hóa nữa (anh Nhân chốt: Drive của anh là nơi lưu bảo mật).
+     Ảnh mới lưu thẳng; ảnh cũ đã mã hóa vẫn đọc được bằng khóa cũ và tự chuyển sang không mã hóa khi mở.
+   - Bản PDF hồ sơ mặc định đưa lên Drive (Tủ hồ sơ/CCCD/…)
+   - KHÔNG BAO GIỜ gửi ảnh tới AI
    - Cắt nắn, tăng nét, ghép in đều chạy tại chỗ
    ========================================================== */
 var HS = {mo:false, khoa:null, ds:[], locXa:'', locAp:'', locTo:'', chon:{}};
 var THE_MM = {rong:85.6, cao:54};   /* kích thước thật của thẻ CCCD */
 
-/* ---- mã hóa ---- */
-function danKhoa(pin, muoi){
-  var e = new TextEncoder();
-  return crypto.subtle.importKey('raw', e.encode(pin), 'PBKDF2', false, ['deriveKey'])
-    .then(function(k){
-      return crypto.subtle.deriveKey(
-        {name:'PBKDF2', salt:e.encode(muoi), iterations:150000, hash:'SHA-256'},
-        k, {name:'AES-GCM', length:256}, false, ['encrypt','decrypt']);
-    });
-}
-function maHoa(khoa, buf){
-  var iv = crypto.getRandomValues(new Uint8Array(12));
-  return crypto.subtle.encrypt({name:'AES-GCM', iv:iv}, khoa, buf)
-    .then(function(ct){
-      var ra = new Uint8Array(12+ct.byteLength);
-      ra.set(iv, 0); ra.set(new Uint8Array(ct), 12);
-      return ra.buffer;
-    });
-}
+/* ---- giải mã ảnh cũ (bản trước 3.32 có mã hóa) ---- */
 function giaiMa(khoa, buf){
   var u = new Uint8Array(buf);
   return crypto.subtle.decrypt({name:'AES-GCM', iv:u.slice(0,12)}, khoa, u.slice(12));
 }
 
 /* ---- mở khóa ---- */
-/* Không còn mã PIN. App tự sinh một khóa mã hóa và giữ trong máy,
-   nên ảnh vẫn được mã hóa trong kho, nhưng anh không phải nhập gì. */
+/* 3.32: không mã hóa nữa — chỉ nạp khóa CŨ (nếu máy có) để đọc ảnh lưu từ bản trước */
 function moHoSo(){
   if(HS.mo) return veScan();
   return sanKhoaHS().then(function(){
     HS.mo = true; napHoSo();
   }).catch(function(e){
-    baoLoi('Không bật được mã hóa: '+(e&&e.message||e));
+    console.warn('Không nạp được khóa ảnh cũ', e);
     HS.mo = true; HS.khoa = null; napHoSo();
   });
 }
@@ -8372,56 +8357,9 @@ function sanKhoaHS(){
       {name:'AES-GCM'}, false, ['encrypt','decrypt']).then(function(k){
         HS.khoa = k; return k; });
   }
-  var b = crypto.getRandomValues(new Uint8Array(32));
-  D.cauHinh.hsKhoa = Array.from(b); luu();
-  return crypto.subtle.importKey('raw', b, {name:'AES-GCM'}, false,
-    ['encrypt','decrypt']).then(function(k){ HS.khoa = k; return k; });
+  return Promise.resolve(null);   /* máy chưa từng có khóa → không tạo khóa mới */
 }
 
-function moHoSoCu(){
-  var lanDau = !D.cauHinh.hsMuoi;
-  moHop('<div class="hop-tit">'+(lanDau?'Đặt mã PIN cho Hồ sơ':'Mở Hồ sơ')+'</div>'+
-    '<div class="hop-phu">'+(lanDau
-      ? 'Ngăn này giữ ảnh CCCD của khách nên được khóa riêng. Đặt một mã PIN 4–8 số. '+
-        'Ảnh sẽ được mã hóa bằng mã này và chỉ nằm trong máy, không đưa lên Drive, không gửi đi đâu. '+
-        'Quên PIN là không mở lại được — app không giữ bản sao nào của mã.'
-      : 'Nhập mã PIN để mở ngăn Hồ sơ.')+'</div>'+
-    '<div class="o"><label>Mã PIN</label>'+
-    '<input id="hs-pin" type="password" inputmode="numeric" autocomplete="off" '+
-    'placeholder="4–8 số"></div>'+
-    (lanDau?'<div class="o"><label>Nhập lại</label>'+
-      '<input id="hs-pin2" type="password" inputmode="numeric" autocomplete="off"></div>':'')+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
-    '<button class="nho chinh" onclick="'+(lanDau?'datPIN()':'kiemPIN()')+'">'+
-    (lanDau?'Đặt mã':'Mở')+'</button></div>');
-  setTimeout(function(){ var e=document.getElementById('hs-pin'); if(e) e.focus(); }, 250);
-}
-function datPIN(){
-  var a = gt('hs-pin'), b = gt('hs-pin2');
-  if(!/^\d{4,8}$/.test(a)) return baoLoi('PIN phải là 4 đến 8 chữ số.');
-  if(a!==b) return baoLoi('Hai lần nhập chưa giống nhau.');
-  var muoi = idMoi()+idMoi();
-  danKhoa(a, muoi).then(function(k){
-    return maHoa(k, new TextEncoder().encode('tuhoso-ok')).then(function(ct){
-      D.cauHinh.hsMuoi = muoi;
-      D.cauHinh.hsThu = Array.from(new Uint8Array(ct));
-      luu(); HS.khoa = k; HS.mo = true; dongHop(); veScan();
-      bao('Đã đặt PIN. Ngăn Hồ sơ mở rồi.', 4);
-    });
-  }).catch(function(e){ baoLoi('Máy không hỗ trợ mã hóa: '+(e&&e.message||e)); });
-}
-function kiemPIN(){
-  var a = gt('hs-pin');
-  danKhoa(a, D.cauHinh.hsMuoi).then(function(k){
-    return giaiMa(k, new Uint8Array(D.cauHinh.hsThu).buffer).then(function(){
-      HS.khoa = k; HS.mo = true; dongHop(); napHoSo();
-    });
-  }).catch(function(){ baoLoi('Mã PIN chưa đúng.'); });
-}
-function khoaHoSo(){
-  HS.mo = false; HS.khoa = null; HS.chon = {};
-  ve(); bao('Đã khóa ngăn Hồ sơ.', 3);
-}
 
 /* ---- kho hồ sơ (chỉ mục riêng, không xuất ra Drive) ---- */
 function napHoSo(){
@@ -8501,22 +8439,20 @@ function chuanThe(file){
   });
 }
 
-function luuAnhHS(id, blob){
-  if(!HS.khoa) return luuFile('hs_'+id, blob);
-  return blob.arrayBuffer().then(function(buf){
-    return maHoa(HS.khoa, buf);
-  }).then(function(ct){
-    return luuFile('hs_'+id, new Blob([ct]));
-  });
-}
+function luuAnhHS(id, blob){ return luuFile('hs_'+id, blob); }   /* 3.32: lưu thẳng, không mã hóa */
 function docAnhHS(id){
   return docFile('hs_'+id).then(function(b){
     if(!b) return null;
-    if(!HS.khoa) return b;
-    return b.arrayBuffer().then(function(buf){
-      return giaiMa(HS.khoa, buf);
-    }).then(function(pt){ return new Blob([pt], {type:'image/jpeg'}); })
-    .catch(function(){ return b; });   /* ảnh lưu từ trước khi bật mã hóa */
+    if(/^image\//.test(b.type||'')) return b;               /* ảnh lưu thẳng (3.32 trở đi) */
+    return sanKhoaHS().then(function(k){
+      if(!k) return b;
+      return b.arrayBuffer().then(function(buf){ return giaiMa(k, buf); })
+        .then(function(pt){
+          var anh = new Blob([pt], {type:'image/jpeg'});
+          luuFile('hs_'+id, anh);   /* 3.32: ảnh cũ mã hóa → lưu lại dạng thường, lần sau khỏi giải mã */
+          return anh;
+        }).catch(function(){ return b; });                 /* không phải ảnh mã hóa */
+    });
   }).catch(function(){ return null; });
 }
 </script>
@@ -8853,13 +8789,7 @@ function dungTaiLieu(ds, viec){
 function pdf0(ds){
   return ds.reduce(function(a,k){ return a + (k.trang||[]).length; }, 0);
 }
-function lenDriveThe(dsId){
-  if(D.cauHinh.hsTuDrive) return dungTrangThe(dsId, 'drive');
-  hoi('Đưa bản PDF lên Drive?',
-      'Bản PDF này KHÔNG mã hóa. Đưa lên Drive nghĩa là ảnh CCCD ra khỏi máy. '+
-      'Chỉ làm khi anh dùng tài khoản Drive của cơ quan và đúng quy định lưu trữ hồ sơ.',
-      'Vẫn đưa lên', function(){ dungTrangThe(dsId, 'drive'); });
-}
+function lenDriveThe(dsId){ return dungTrangThe(dsId, 'drive'); }   /* 3.32: Drive của anh là nơi lưu bảo mật — không hỏi lại */
 
 /* tên chuẩn và nơi lưu cho hồ sơ CCCD */
 function tenTheCCCD(k){
@@ -8872,12 +8802,7 @@ function duongTheCCCD(k){
           k.diem||'Chưa rõ điểm', k.ap||'Chưa rõ ấp',
           k.to?('Tổ '+k.to):'Chưa rõ tổ'].join(' / ');
 }
-function luuTheRaMay(dsId){
-  hoi('Lưu bản PDF ra máy?',
-      'Bản PDF này KHÔNG được mã hóa — ai mở máy cũng xem được, và nếu anh cất lên Drive '+
-      'thì nó ra khỏi máy. Chỉ nên làm khi thật cần, dùng xong nên xóa.',
-      'Vẫn lưu', function(){ dungTrangThe(dsId, 'luu'); });
-}
+function luuTheRaMay(dsId){ return dungTrangThe(dsId, 'luu'); }
 
 function dungTrangThe(dsId, viec){
   var ids = dsId || Object.keys(HS.chon);
@@ -9745,7 +9670,7 @@ function moRac(){
   var dl = ds.reduce(function(a,m){ return a+(+m.co||0); }, 0);
   var h = '<div class="hop-tit">🗑 Thùng rác</div>'+
     '<div class="hop-phu">'+ds.length+' mục · '+kichCo(dl)+'. File trên Drive đang nằm ở <b>_ThungRac</b>. '+
-    '<b>Khôi phục</b> trả về đúng chỗ cũ. <b>Xóa hẳn</b> xóa vĩnh viễn, giải phóng dung lượng Drive.</div>';
+    '<b>Khôi phục</b> trả về đúng chỗ cũ. <b>Xóa hẳn</b> bỏ khỏi app, file vào thùng rác Google Drive (Google giữ 30 ngày).</div>';
   if(!ds.length) h += '<div class="rong">Thùng rác đang trống.</div>';
   else {
     h += '<div class="rac-chonnhanh">Chọn: '+
@@ -10505,7 +10430,7 @@ function veScan(){
             (SC.che==='the'?'Thẻ':'Tài liệu')+'</button>'});
 
   h += '<div class="thanh-tt cho">Ảnh xử lý ngay trong máy, không gửi tới AI. '+
-    'Bản PDF đưa lên Drive thì không mã hóa — anh giữ gìn bảo mật.</div>';
+    'Bản PDF hồ sơ lưu vào Drive của anh (Tủ hồ sơ/CCCD).</div>';
 
   var ds = locTheoThe('scan', locChuan('scan', D.scan.slice()));
   if(tuKhoa) ds = ds.filter(function(m){
@@ -11731,7 +11656,8 @@ function donDuPhong(idTMKhongDung, duongDP){
     var f = (kq.files||[]).slice(7);
     return f.reduce(function(p, x){
       return p.then(function(){ return goiDrive(
-        'https://www.googleapis.com/drive/v3/files/'+x.id, {method:'DELETE'}); });
+        'https://www.googleapis.com/drive/v3/files/'+x.id+'?fields=id', {method:'PATCH',
+        headers:{'Content-Type':'application/json'}, body:JSON.stringify({trashed:true})}); });   /* 3.32: vào thùng rác Drive */
     }, Promise.resolve());
   }).catch(function(){});
 }
