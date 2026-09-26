@@ -640,6 +640,12 @@
   .bdc-o.khong-ap{background:transparent;color:var(--chu-phu);border:1px dashed var(--vien);font-weight:400;opacity:.7}
   .bdc-bang th.ngoai-db{opacity:.6;font-style:italic}
   .bdc-thieu-ct{color:var(--do);font-size:calc(11.5px*var(--co))}
+  /* 3.31: hàng lọc hiện sẵn */
+  .loc-nhanh{display:flex;flex-direction:column;gap:5px;margin:0 0 8px}
+  .ln-hang{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  .ln-nhan{font-size:calc(11px*var(--co));color:var(--chu-phu);min-width:80px;font-weight:600}
+  .loc-nhanh .the-loc{padding:2px 10px;min-height:0;font-size:calc(11.5px*var(--co))}
+  @media (max-width:899px){ .loc-nhanh{display:none} }
   .chon-xa{display:grid;gap:4px;margin:6px 0}
   .chon-xa small{margin-left:auto;color:var(--chu-phu);font-size:calc(11px*var(--co))}
   .bdc-chan{margin-top:7px;font-size:calc(12px*var(--co));display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -2235,7 +2241,9 @@ function doiNgan(i, el){
     if(t) t.classList.toggle('hien', k===i);
   }
   var b = document.getElementById('hangngan').children;
-  for(var k=0;k<b.length;k++) b[k].classList.toggle('chon', k===i);
+  /* 3.31: thứ tự nút tab (Hôm nay·Văn bản·Tháng·Biểu mẫu·Scan·Ghi chú) khác số tab — so theo lệnh của nút,
+     trước đây mở Biểu mẫu lại tô sáng nút Ghi chú */
+  for(var k=0;k<b.length;k++) b[k].classList.toggle('chon', (b[k].getAttribute('onclick')||'').indexOf('doiNgan('+i+',')===0);
   var ph = ['Gõ số văn bản, từ khóa, tháng…','Gõ số văn bản, trích yếu, ghi chú…',
             'Tìm báo cáo…','Tìm trong ghi chú…','Tìm tên khách, ấp, tổ…',
             'Tìm biểu mẫu, chương trình…','Tìm file chờ duyệt…'];
@@ -2244,6 +2252,11 @@ function doiNgan(i, el){
   if(tct){
     if(tct.kieu) kieuXem = tct.kieu;
     if(tct.sap) SAP.cot = tct.sap;
+  }
+  /* 3.31: tab Biểu mẫu mặc định sắp theo số lần dùng (như trước); 2 cột riêng của biểu mẫu không mang sang tab khác */
+  if(!(tct && tct.sap)){
+    if(i===5){ SAP.cot = 'dung'; SAP.xuoi = false; }
+    else if(SAP.cot==='dung' || SAP.cot==='namvb'){ SAP.cot = 'ngay'; SAP.xuoi = false; }
   }
   THE_LOC = []; dongGoiY();
   xoaPreview();
@@ -8694,9 +8707,13 @@ function veBieuMau(){
 
   /* gom theo nhóm cho dễ nhìn */
   var gom = {};
-  bmSapXep(ds).forEach(function(m){ (gom[m.nhom]=gom[m.nhom]||[]).push(m); });
-  Object.keys(gom).sort().forEach(function(n){
-    if(!BM.locNhom) h += '<div class="nhan-nhom">'+coChuHTML(n)+'</div>';
+  var GHIM = '\u0001ghim';   /* 3.31: mẫu ghim gom thành nhóm riêng trên cùng — ghim luôn đứng đầu, rồi tới Dùng chung */
+  bmSapXep(ds).forEach(function(m){ var k = m.ghim ? GHIM : m.nhom; (gom[k]=gom[k]||[]).push(m); });
+  /* 3.31: nhóm Dùng chung luôn hiện đầu (kể cả khi lọc theo một chương trình vay), mỗi nhóm có số mẫu */
+  Object.keys(gom).sort(function(a,b){
+    return (b===GHIM)-(a===GHIM) || (/^Dùng chung/.test(b)?1:0)-(/^Dùng chung/.test(a)?1:0) || a.localeCompare(b);
+  }).forEach(function(n){
+    h += '<div class="nhan-nhom bm-nhom-dau">'+coChuHTML(n===GHIM?'📌 Đã ghim':(/^Dùng chung/.test(n)?'Dùng chung':n))+' · '+gom[n].length+' mẫu</div>';
     h += gom[n].map(function(m){
       return '<div class="d2'+(BM.chon[m.id]?' chon':'')+'" onclick="chonDong(\''+m.id+'\')">'+
         '<div class="h1">'+
@@ -8800,10 +8817,23 @@ function bmDungThem(id){
   var m = bmTim(id); if(!m) return;
   m.soLanDung = (m.soLanDung||0) + 1; m.dungCuoi = new Date().toISOString(); luu();
 }
+/* 3.31: sắp theo thanh Sắp xếp (SAP) — mẫu ghim LUÔN đứng đầu bất kể sắp theo gì */
+function namVBGoc(m){ var v = m.vbKem && timMuc(m.vbKem); return v && v.ngay ? String(v.ngay).slice(0,4) : ''; }
 function bmSapXep(ds){
+  var d = SAP.xuoi ? 1 : -1;
+  var khoa = function(m){
+    if(SAP.cot==='ten')   return boDau(m.ten||m.tenMoi||'');
+    if(SAP.cot==='loai')  return (m.huongDan?'1':'0')+boDau(m.soHieu||'');
+    if(SAP.cot==='co')    return +m.co||0;
+    if(SAP.cot==='namvb') return namVBGoc(m);
+    if(SAP.cot==='ngay')  return String(m.themLuc||'');
+    return m.soLanDung||0;   /* 'dung' — mặc định */
+  };
   return ds.slice().sort(function(a,b){
-    return (b.ghim?1:0)-(a.ghim?1:0) || (b.soLanDung||0)-(a.soLanDung||0) ||
-           (a.ten||'').localeCompare(b.ten||'');
+    var g = (b.ghim?1:0)-(a.ghim?1:0); if(g) return g;
+    var x = khoa(a), y = khoa(b);
+    if(x<y) return -d; if(x>y) return d;
+    return (a.ten||'').localeCompare(b.ten||'');
   });
 }
 function bmGhiChu(id){
@@ -8951,6 +8981,8 @@ function suaBieuMau(id){
       }).join('')+'</select>'+
       '<div class="huong-dan">Mẫu dùng cho mọi chương trình thì chọn “Dùng chung”. '+
       'Mẫu cho một việc cụ thể như đổi tên người vay thì chọn “Theo nghiệp vụ”.</div></div>'+
+    oChonTag('bieuMau', (m.the||[]), 'bm-tag')+
+    '<div class="huong-dan" style="margin-top:-6px">Tag “Dùng chung”, “Mẫu trắng”, “Mẫu hướng dẫn” app tự suy từ nhóm và ô tích bên dưới — không cần chọn.</div>'+
     o('Ghi chú','bm-ghi',m.ghi||'','Ví dụ: in 2 bản, khách ký cả hai')+
     '<div class="o"><label><input type="checkbox" id="bm-hd" style="width:auto;min-height:0;margin-right:7px"'+
       (m.huongDan?' checked':'')+'>Đây là bản đã điền mẫu để hướng dẫn</label>'+
@@ -8973,6 +9005,10 @@ function luuBieuMau(id){
   m.ten = gt('bm-ten')||m.ten; m.soHieu = gt('bm-so');
   m.nhom = gt('bm-nhom'); m.ghi = gt('bm-ghi');
   m.vbKem = gt('bm-vb'); m.mang = layGon('bm-mang')[0] || ''; m.suaLuc = new Date().toISOString();
+  if(document.getElementById('bm-tag')){
+    m.the = layThe('bm-tag').filter(function(t){ return ['Dùng chung','Mẫu trắng','Mẫu hướng dẫn'].indexOf(t)<0; });
+    ghiTagGanDay('bieuMau', m.the);
+  }
   delete m.choKhai; delete m.lyDoKhai;
   ghiDung('mang', m.mang);
   var c = document.getElementById('bm-hd');
@@ -9738,7 +9774,7 @@ var TAG_MAC_DINH = {
   vanBan : ['Tổ TK&VV','Giao dịch xã','Xử lý rủi ro','Huy động vốn',
             'Đổi tên hộ vay','Đổi chữ ký CCCD','HS khoanh','HS quá hạn',
             'HS 3 tháng KHĐ','Sắp xếp tổ','Phân bổ vốn'],
-  bieuMau: ['Mẫu trắng','Mẫu hướng dẫn','Hồ sơ vay mới','Đổi tên hộ vay',
+  bieuMau: ['Dùng chung','Mẫu trắng','Mẫu hướng dẫn','Hồ sơ vay mới','Đổi tên hộ vay',
             'Đổi chữ ký CCCD','Xử lý rủi ro','Tổ TK&VV','Giao dịch xã'],
   duLieu : ['Cuối tháng','Cuối quý','Cuối năm','Đối chiếu'],
   ghiChu : ['Giao ban','Tập huấn','Hồ sơ - biểu mẫu','Cần xử lý','Lưu để nhớ'],
@@ -9755,6 +9791,11 @@ function locCua(tab){
 function dsTag(tab){
   D.cauHinh.tagTab = D.cauHinh.tagTab || {};
   if(!D.cauHinh.tagTab[tab]) D.cauHinh.tagTab[tab] = (TAG_MAC_DINH[tab]||[]).slice();
+  /* 3.31: bổ sung tag "Dùng chung" cho tab Biểu mẫu một lần (máy đã có danh sách tag cũ) */
+  if(tab==='bieuMau' && !D.cauHinh.tagDCDaAp){
+    D.cauHinh.tagDCDaAp = true;
+    if(D.cauHinh.tagTab.bieuMau.indexOf('Dùng chung')<0) D.cauHinh.tagTab.bieuMau.unshift('Dùng chung');
+  }
   return D.cauHinh.tagTab[tab];
 }
 function tagGanDay(tab){
@@ -9805,7 +9846,7 @@ function veDauTab(tab, opt){
     '<button class="phu'+(so?' co':'')+'" onclick="moBoLoc(\''+tab+'\')">'+
       'Bộ lọc'+(so?(' · '+so):'')+' ▾</button>'+
     (opt.themPhu||'')+(opt.nutThem||'')+
-  '</div>'+ dongDangLoc(tab);
+  '</div>'+ hangLocNhanh(tab) + dongDangLoc(tab);
 
   /* thẻ lọc đang bật hiện thành một hàng gọn */
   var chip = [];
@@ -9939,17 +9980,53 @@ function locChuan(tab, ds){
   var L = locCua(tab), kn = khoaNgay(tab);
   if(L.nam) ds = ds.filter(function(m){ return String(m[kn]||'').slice(0,4)===L.nam; });
   if(L.thang) ds = ds.filter(function(m){ return String(m[kn]||'').slice(5,7)===L.thang; });
-  if(L.ct) ds = ds.filter(function(m){ return (m.ctrinh||[]).indexOf(L.ct)>=0; });
+  if(L.ct) ds = ds.filter(function(m){
+    if(tab==='bieuMau'){
+      /* 3.31: biểu mẫu lưu chương trình ở m.nhom (trước lọc theo ctrinh nên luôn ra rỗng);
+         lọc một chương trình thì vẫn kèm nhóm Dùng chung */
+      if(L.ct==='Dùng chung') return laDungChungBM(m);
+      if(L.ct==='Theo nghiệp vụ') return m.nhom==='Theo nghiệp vụ';
+      return m.nhom===L.ct || laDungChungBM(m);
+    }
+    return (m.ctrinh||[]).indexOf(L.ct)>=0; });
   if(L.chua) ds = ds.filter(function(m){ return chuaPhanLoai(m).length>0; });
   if(tab==='vanBan' && !L.hl) ds = ds.filter(function(m){ return !m.hetHieuLuc; });
-  if(L.tag) ds = ds.filter(function(m){
-    return (m.tag||[]).indexOf(L.tag)>=0 || (m.the||[]).indexOf(L.tag)>=0; });
+  if(L.tag) ds = ds.filter(function(m){ return coTagLoc(tab, m, L.tag); });
   if(L.mang) ds = ds.filter(function(m){ return m.mang===L.mang; });
   if(L.pham) ds = ds.filter(function(m){ return m.phamVi===L.pham; });
   if(L.hoi) ds = ds.filter(function(m){ return (m.hoi||[]).indexOf(L.hoi)>=0; });
   return ds;
 }
 
+/* 3.31: tag của biểu mẫu có 3 tag "ảo" suy từ dữ liệu sẵn có, không cần gắn tay */
+function laDungChungBM(m){ return /^Dùng chung/.test(m.nhom||''); }
+function coTagLoc(tab, m, tg){
+  if(tab==='bieuMau'){
+    if(tg==='Dùng chung') return laDungChungBM(m);
+    if(tg==='Mẫu trắng') return !m.huongDan;
+    if(tg==='Mẫu hướng dẫn') return !!m.huongDan;
+  }
+  return (m.tag||[]).indexOf(tg)>=0 || (m.the||[]).indexOf(tg)>=0;
+}
+/* ---- 3.31: hàng lọc hiện sẵn (mục 4 bàn giao) ----
+   Biểu mẫu: hiện hết (chương trình vay + tag). Văn bản: chỉ hàng tag, tầng khác vẫn ở nút Bộ lọc ▾.
+   Dưới 900px thu hết vào nút Bộ lọc (CSS .loc-nhanh) */
+function hangLocNhanh(tab){
+  if(tab!=='vanBan' && tab!=='bieuMau') return '';
+  var L = locCua(tab);
+  var hang = function(nhan, khoa, ds, doiNhan){
+    return '<div class="ln-hang"><span class="ln-nhan">'+nhan+'</span>'+
+      '<span class="the-loc'+(L[khoa]?'':' bat')+'" onclick="datLoc(\''+tab+'\',\''+khoa+'\',\'\')">Tất cả</span>'+
+      ds.map(function(x){
+        return '<span class="the-loc'+(L[khoa]===x?' bat':'')+'" onclick="datLoc(\''+tab+'\',\''+khoa+'\',\''+
+          String(x).replace(/'/g,"\\'").replace(/"/g,'&quot;')+'\')">'+coChuHTML(doiNhan?doiNhan(x):x)+'</span>';
+      }).join('')+'</div>';
+  };
+  var h = '<div class="loc-nhanh">';
+  if(tab==='bieuMau') h += hang('Chương trình', 'ct', ['Dùng chung'].concat(D.cauHinh.chuongTrinh||[], ['Theo nghiệp vụ']));
+  h += hang('Tag', 'tag', dsTag(tab));
+  return h+'</div>';
+}
 /* ---- sửa danh sách tag của một tab ---- */
 function suaTagTab(tab){
   var ten = {vanBan:'Văn bản', duLieu:'Dữ liệu tháng', ghiChu:'Ghi chú',
@@ -10718,7 +10795,7 @@ function veThanhSap(tab, kieuRieng, dangChon, hamDoi){
         return '<button'+(dangChon===x[0]?' class="bat"':'')+' onclick="'+hamDoi+'(\''+x[0]+'\')">'+x[1]+'</button>';
       }).join('')+'<span class="sap-ngan"></span>' : '')+
     '<span class="nhan-loc">Sắp xếp</span>'+
-    COT_SAP.map(function(c){
+    (tab==='bieuMau' ? COT_SAP.concat(COT_SAP_BM) : COT_SAP).map(function(c){
       var dang = SAP.cot===c.ma;
       return '<button'+(dang?' class="bat"':'')+' onclick="doiSap(\'' +c.ma+ '\')">'+
         c.nhan+(dang?(SAP.xuoi?' ▲':' ▼'):'')+'</button>';
@@ -10735,6 +10812,8 @@ function veThanhSap(tab, kieuRieng, dangChon, hamDoi){
     '<button onclick="moThuMucDrive(thuMucTab(\''+tab+'\'))" title="Mở thư mục này trên Drive web bằng trình duyệt">☁ Drive</button>'+
     '</div>';
 }
+/* 3.31: 2 cột sắp riêng của tab Biểu mẫu */
+var COT_SAP_BM = [{ma:'dung', nhan:'Số lần dùng'}, {ma:'namvb', nhan:'Năm VB gốc'}];
 function doiSap(c){
   if(SAP.cot===c) SAP.xuoi = !SAP.xuoi;
   else { SAP.cot = c; SAP.xuoi = false; }
