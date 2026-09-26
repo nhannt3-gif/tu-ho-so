@@ -4,6 +4,32 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.33 — 26/09/2026 22:42 — hoàn thiện tab Scan
+
+- **Mỗi hồ sơ một file PDF trên Drive, đúng thư mục:**
+  - `Tủ hồ sơ/CCCD/xã/điểm/ấp/tổ` cho bản thẻ.
+  - `Tủ hồ sơ/Hồ sơ scan/…` cho bản tài liệu (mới).
+- **Lưu lại hồ sơ đã sửa → cập nhật đè đúng file cũ trên Drive**, không sinh file trùng như trước. Đổi địa bàn thì file tự dời sang thư mục mới. File trên Drive đã bị xóa tay thì app tải lên file mới.
+  - Hàm mới: `dayHoSoLenDrive`, `dayScanNhieu`, `taoPDFScan`, `duongScan`, `tenScanDrive`.
+- **Bản Tài liệu (đơn vay, biên bản…):**
+  - Bấm "Lên Drive" nay lên Drive thật (trước chỉ lưu ra máy).
+  - Lưu bản tài liệu cũng tự đưa lên Drive như bản thẻ.
+- **Chọn nhiều bản → Lên Drive:** từng bản vào đúng thư mục của mình. Trước đây gộp chung một file `_Nhieu-khach`.
+- **Khai hàng loạt xong:** các bản vừa khai tự lên Drive.
+- **Xóa hồ sơ:** bản PDF trên Drive vào thùng rác Google Drive (trước đây vẫn nằm lại trên Drive).
+- **Lưu mà để trống xã/ấp/tổ thì giữ trống**, không tự điền địa bàn lần trước nữa (dễ gắn sai khách). Hộp khai vẫn điền sẵn lần trước để anh sửa. Điểm giao dịch vẫn tự suy ra từ ấp.
+- **"Lưu tạm"** chờ chép ảnh xong mới lưu và báo; trước đây tắt app ngay lúc đó có thể mất ảnh.
+- **Hộp xem hồ sơ:**
+  - Bản Tài liệu hiện đủ các trang (trước đây để trống).
+  - Có dòng "Trên Drive: …", nút "☁ Mở trên Drive" và "Cập nhật Drive".
+  - Nút Sửa mở đúng hộp khai tài liệu.
+- **Giao diện tab Scan:**
+  - Khung vàng cảnh báo đổi thành lời nhắc nhỏ.
+  - Bỏ nhãn "CCCD" lặp; chỉ báo "thiếu mặt sau" khi thiếu; thêm "chưa lên Drive".
+  - Dải đáy hiện trạng thái Drive như các tab khác.
+
+---
+
 ## 3.32 — 26/09/2026 22:17
 
 Theo góp ý của anh Nhân sau khi xem 3.31.

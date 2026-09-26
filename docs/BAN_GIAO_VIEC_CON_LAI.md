@@ -1,6 +1,6 @@
-# BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v1.3)
+# BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v1.4)
 
-**Bản hiện tại:** 3.32 · build 26/09/2026 22:17
+**Bản hiện tại:** 3.33 · build 26/09/2026 22:42
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -22,7 +22,7 @@
 
 ---
 
-## 1. Đã xong ở bản 3.31 và 3.32
+## 1. Đã xong ở bản 3.31 → 3.33
 
 Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi tiết ở `docs/CHANGELOG.md`.
 
@@ -38,6 +38,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - **3.32 — Ảnh CCCD không mã hóa.** Anh Nhân coi Drive của anh là nơi lưu bảo mật; PDF hồ sơ mặc định lên Drive.
 - **3.32 — "Xóa hẳn" chuyển file vào thùng rác Google Drive,** không xóa vĩnh viễn.
 - **3.32 — Nhiều máy cùng lúc:** ít khi dùng, nên việc đồng bộ gộp trước khi ghi để ưu tiên thấp.
+- **Tên tổ trưởng ở các bản cũ trên GitHub:** anh chốt **để nguyên, không viết lại lịch sử**.
+- **3.33 — Scan:**
+  - Mỗi hồ sơ một PDF trên Drive, lưu lại là cập nhật đè, đổi địa bàn là dời file.
+  - Xóa hồ sơ thì PDF vào thùng rác Drive.
+  - Để trống địa bàn thì giữ trống, không tự điền lần trước.
 - **3.32 — Giao diện:** mọi nút mới dùng khối CSS "CHUẨN HÓA NÚT & BỐ CỤC" ở cuối `<style>`, không tự đặt cỡ hay màu riêng.
 
 ---
@@ -46,11 +51,10 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 | # | Việc | Vì sao chưa làm |
 |---|---|---|
-| A | **Xóa tên tổ trưởng khỏi lịch sử git** | Phải viết lại lịch sử repo, ghi đè `main`, không hoàn tác được |
 | F | Đồng bộ nhiều máy ghi đè cả file — L8 | Anh ít dùng nhiều máy cùng lúc → ưu tiên thấp |
 | G | Thư viện CDN không có SRI, bản cất không tự cập nhật — R5 | Nâng SheetJS, thêm SRI, cất theo phiên bản |
 | H | Cảnh báo dữ liệu khách khi bấm 📋 Chép sang AI — R4 | Nhỏ, làm được ngay khi anh đồng ý |
-| I | Scan tự điền địa bàn lần trước khi bỏ trống; `soTu` đọc sai số kiểu Anh | Nhỏ, đổi hành vi |
+| I | `soTu` đọc sai số viết kiểu Anh (1,234.5) khi cộng thử bảng Excel | Nhỏ |
 
 ## 3. Việc cần kiểm trên máy thật
 

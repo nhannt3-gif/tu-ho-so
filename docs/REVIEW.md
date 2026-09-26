@@ -16,7 +16,7 @@ Bản 3.31 đã xử lý phần lớn danh sách dưới đây. Số dòng trong
 
 | Mục | Tình trạng ở 3.31 |
 |---|---|
-| R1 — danh sách tổ trưởng công khai | ✅ Đã bỏ khỏi mã nguồn (giữ cây xã/điểm/ấp). ⚠ **Lịch sử git vẫn còn** — xóa hẳn cần viết lại lịch sử repo, chờ anh quyết. |
+| R1 — danh sách tổ trưởng công khai | ✅ Đã bỏ khỏi mã nguồn (giữ cây xã/điểm/ấp). Lịch sử git: anh chốt để nguyên. |
 | R2 — "mã hóa" CCCD hình thức | ✅ 3.32: anh chốt bỏ mã hóa; ảnh cũ vẫn đọc được |
 | R3 — danh sách khách Scan lên Drive | ✅ Anh chốt: Drive của anh là nơi lưu bảo mật — giữ nguyên |
 | R4 — chép sao kê sang AI | ◐ Có cảnh báo ở hộp So sánh 2 kỳ; nút 📋 Chép sang AI chưa có |
@@ -34,7 +34,7 @@ Bản 3.31 đã xử lý phần lớn danh sách dưới đây. Số dòng trong
 | L11 quét Drive quá 200 file | ✅ |
 | L12 hướng dẫn khay `_Chờ xử lý` | ✅ Sửa lời; quét kho cũ nay dùng Google Picker |
 | L13 `docChuPDF` treo | ✅ |
-| L14 lỗi nhỏ | ✅ data-iso, giao thừa, Thẻ/Tài liệu lẫn, đổi tên Drive lặp, 63 tỉnh, lời Hướng dẫn, `boiCanh`. ⏳ Còn: tự điền địa bàn lần trước ở Scan, `soTu` số kiểu Anh |
+| L14 lỗi nhỏ | ✅ data-iso, giao thừa, Thẻ/Tài liệu lẫn, đổi tên Drive lặp, 63 tỉnh, lời Hướng dẫn, `boiCanh`. ✅ 3.33: Scan không tự điền địa bàn lần trước. ⏳ Còn: `soTu` số kiểu Anh |
 | N1 báo cáo đã bỏ tự quay lại (3.30) | ✅ |
 | N2 cờ đã mất không được điền lại | ✅ |
 | N3 kiểu nút `.xem-lon` | ✅ 3.32: thay bằng khối chuẩn hóa nút |

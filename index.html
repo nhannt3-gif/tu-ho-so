@@ -1512,7 +1512,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.32', APP_LUC = '26/09/2026 22:17';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.33', APP_LUC = '26/09/2026 22:42';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -4888,8 +4888,7 @@ function veDay(){
            '<b>'+D.vanBan.length+'</b> văn bản<br>'+chip,
            '<b>'+D.duLieu.length+'</b> file dữ liệu<br>'+chip,
            '<b>'+D.ghiChu.length+'</b> ghi chú<br>'+chip,
-           ('<b>'+(D.scan||[]).length+'</b> bản quét<br>'+
-            '<span class="chip vang">● Dữ liệu cá nhân</span>'),
+           ('<b>'+(D.scan||[]).length+'</b> bản quét<br>'+chip),
            ('<b>'+(D.bieuMau||[]).length+'</b> biểu mẫu<br>'+chip),
            '<b>'+D.cho.length+'</b> file chờ duyệt<br>'+chip];
   if(nganHienTai===0){
@@ -8704,19 +8703,18 @@ function luuKhach(){
   k.ten = gt('k-ten'); k.xa = gt('k-xa'); k.diem = gt('k-diem');
   k.ap = gt('k-ap'); k.to = gt('k-to'); k.ghi = gt('k-ghi');
   if(!k.ten) return baoLoi('Chưa nhập tên khách.');
-  /* lưu nhanh: phần nào anh không chọn thì lấy lần trước hoặc để "Chưa rõ" */
-  if(!k.xa) k.xa = D.cauHinh.hsXaCuoi || '';
-  if(!k.diem) k.diem = k.xa ? (diemCuaAp(k.xa, k.ap) || (dsDiem(k.xa)[0]||'')) : '';
-  if(!k.ap) k.ap = D.cauHinh.hsApCuoi || '';
-  if(!k.to) k.to = D.cauHinh.hsToCuoi || '';
+  /* 3.33: KHÔNG tự điền địa bàn của lần trước khi để trống (dễ gắn sai khách) — hộp khai đã điền sẵn lần trước,
+     anh xóa trống là giữ trống. Chỉ suy điểm giao dịch từ ấp đã chọn (chắc chắn đúng). */
+  if(!k.diem && k.xa && k.ap) k.diem = diemCuaAp(k.xa, k.ap) || '';
+  delete k.chuaKhai;
   D.cauHinh.hsXaCuoi = k.xa; D.cauHinh.hsDiemCuoi = k.diem;
   D.cauHinh.hsApCuoi = k.ap; D.cauHinh.hsToCuoi = k.to;
   var i = HS.ds.findIndex(function(x){ return x.id===k.id; });
   if(i>=0) HS.ds[i] = k; else HS.ds.push(k);
   luuHoSo(); dongHop(); veScan();
-  if(D.cauHinh.hsTuDrive && k.matTruoc && k.matSau && coTheNoiDrive()){
+  if(D.cauHinh.hsTuDrive!==false && k.matTruoc && coTheNoiDrive()){
     bao('Đã lưu. Đang đưa bản PDF lên Drive…', 4);
-    dungTrangThe([k.id], 'drive');
+    dayScanNhieu([k.id]);
   }else{
     bao('Đã lưu hồ sơ '+k.ten+'.', 3);
   }
@@ -8734,27 +8732,52 @@ function xoaScanIm(id){
   if(HS.chon) delete HS.chon[id];
 }
 function xoaKhach(id){
-  hoi('Xóa hồ sơ này?','Ảnh CCCD của khách sẽ bị xóa khỏi máy, không khôi phục được.',
+  var k = (HS.ds||[]).find(function(x){ return x.id===id; });
+  var coDrive = !!(k && k.driveId);
+  hoi('Xóa hồ sơ này?', 'Ảnh trong máy bị xóa.'+(coDrive?' Bản PDF trên Drive chuyển vào thùng rác Google Drive (lấy lại được trong 30 ngày).':''),
       'Xóa', function(){
+    /* 3.33: xóa hồ sơ thì file PDF trên Drive cũng vào thùng rác Drive (trước đây còn nằm lại) */
+    var dId = coDrive ? k.driveId : '';
     xoaScanIm(id);
-    luuHoSo(); dongHop(); veScan(); bao('Đã xóa.', 3);
+    luuHoSo(); dongHop(); veScan();
+    if(dId && coTheNoiDrive()) xoaFileDrive(dId).then(function(){ bao('Đã xóa · bản PDF trên Drive đã vào thùng rác Drive.', 5); })
+      .catch(function(){ bao('Đã xóa trong app. Chưa chuyển được bản PDF trên Drive vào thùng rác — anh xóa tay trong Drive.', 7); });
+    else bao('Đã xóa.'+(dId?' Bản PDF trên Drive còn nằm lại vì chưa nối Drive.':''), 5);
   });
 }
 function xemHS(id){
   var k = HS.ds.find(function(x){ return x.id===id; });
   if(!k) return;
   window.__k = k;
+  var tl = k.che==='tailieu';
   moHop('<div class="hop-tit">'+coChuHTML(k.ten)+'</div>'+
-    '<div class="hop-phu">'+coChuHTML([k.xa,k.diem,k.ap,k.to?('Tổ '+k.to):''].filter(Boolean).join(' · '))+
-    (k.ghi?(' · '+coChuHTML(k.ghi)):'')+'</div>'+
+    '<div class="hop-phu">'+coChuHTML([k.xa,k.diem,k.ap,k.to?('Tổ '+k.to):''].filter(Boolean).join(' · ')||'Chưa khai địa bàn')+
+    (k.ghi?(' · '+coChuHTML(k.ghi)):'')+
+    /* 3.33: cho biết bản PDF đang nằm đâu trên Drive */
+    '<br><small>'+(k.driveId ? '☁ Trên Drive: '+coChuHTML(duongScan(k)) : 'Chưa lên Drive')+'</small></div>'+
     '<div id="k-xem"></div>'+
     '<div class="hang-nut" style="margin-top:14px">'+
-      '<button class="nho chinh" onclick="inGhep([\''+id+'\'])">In thẻ này</button>'+
+      '<button class="nho chinh" onclick="inGhep([\''+id+'\'])">'+(tl?'In':'In thẻ này')+'</button>'+
       '<button class="nho" onclick="luuTheRaMay([\''+id+'\'])">Lưu PDF</button>'+
-      '<button class="nho" onclick="lenDriveThe([\''+id+'\'])">Lên Drive</button>'+
-      '<button class="nho" onclick="themKhach(\''+id+'\')">Sửa</button>'+
+      (k.driveId ? '<button class="nho" onclick="window.open(\'https://drive.google.com/file/d/'+k.driveId+'/view\',\'_blank\')">☁ Mở trên Drive</button>'+
+                   '<button class="nho" onclick="lenDriveThe([\''+id+'\'])">Cập nhật Drive</button>'
+                 : '<button class="nho" onclick="lenDriveThe([\''+id+'\'])">Lên Drive</button>')+
+      '<button class="nho" onclick="'+(tl?'scanTaiLieu':'themKhach')+'(\''+id+'\')">Sửa</button>'+
       '<button class="nho" onclick="dongHop()">Đóng</button></div>');
-  veAnhKhach();
+  if(tl) veTrangXem(k); else veAnhKhach();
+}
+/* 3.33: xem các trang của bản Tài liệu (trước đây hộp xem trống vì chỉ hiện 2 mặt thẻ) */
+function veTrangXem(k){
+  var e = document.getElementById('k-xem'); if(!e) return;
+  e.innerHTML = '';
+  (k.trang||[]).forEach(function(idT, i){
+    var d = document.createElement('div'); d.style.cssText = 'margin-bottom:8px';
+    d.innerHTML = '<div class="huong-dan" style="margin:0 0 4px">Trang '+(i+1)+'/'+k.trang.length+'</div>';
+    var im = document.createElement('img');
+    im.style.cssText = 'width:100%;border-radius:9px;border:1px solid var(--vien)';
+    d.appendChild(im); e.appendChild(d);
+    docAnhHS(idT).then(function(b){ if(b) im.src = URL.createObjectURL(b); });
+  });
 }
 
 /* ---- IN GHÉP NHIỀU KHÁCH TRÊN MỘT TRANG A4 ---- */
@@ -8762,10 +8785,11 @@ function inGhep(dsId){ dungTrangThe(dsId, 'in'); }
 
 /* dựng PDF A4 từ các trang đã quét ở chế độ Tài liệu */
 function dungTaiLieu(ds, viec){
-  if(!window.PDFLib) return baoLoi('Chưa tải được bộ tạo PDF.');
+  if(!window.PDFLib){ if(viec==='blob') return Promise.reject(new Error('Chưa tải được bộ tạo PDF')); return baoLoi('Chưa tải được bộ tạo PDF.'); }
+  if(viec==='drive') return dayScanNhieu(ds.map(function(k){ return k.id; }));   /* 3.33: mỗi bản một file đúng thư mục */
   batChay(true);
   var mm = 2.834645669, A4 = {r:210*mm, c:297*mm}, le = 8*mm;
-  PDFLib.PDFDocument.create().then(function(pdf){
+  return PDFLib.PDFDocument.create().then(function(pdf){
     return ds.reduce(function(p, k){
       return p.then(function(){
         return (k.trang||[]).reduce(function(q, idT){
@@ -8795,6 +8819,7 @@ function dungTaiLieu(ds, viec){
   }).then(function(bytes){
     tatChay();
     var bl = new Blob([bytes], {type:'application/pdf'});
+    if(viec==='blob') return bl;
     var ten = (ds.length===1 ? sachTen(ds[0].ten||'Tai lieu') : 'Tai lieu quet')+
       ' '+ngayISO(nay())+'.pdf';
     if(viec==='in'){ inBlob(bl, ten); bao('Đã dựng '+pdf0(ds)+' trang A4.', 5); return; }
@@ -8809,6 +8834,7 @@ function dungTaiLieu(ds, viec){
     }
   }).catch(function(e){
     tatChay(); console.warn(e);
+    if(viec==='blob') throw e;
     baoLoi('Không dựng được: '+(e&&e.message||e));
   });
 }
@@ -8833,6 +8859,7 @@ function luuTheRaMay(dsId){ return dungTrangThe(dsId, 'luu'); }
 function dungTrangThe(dsId, viec){
   var ids = dsId || Object.keys(HS.chon);
   if(!ids.length) return bao('Chưa chọn bản nào.', 3);
+  if(viec==='drive') return dayScanNhieu(ids);   /* 3.33: mỗi hồ sơ một file, đúng thư mục xã/điểm/ấp/tổ */
   var tl = ids.map(function(id){ return HS.ds.find(function(x){ return x.id===id; }); })
     .filter(function(m){ return m && m.che==='tailieu'; });
   if(tl.length){
@@ -8841,10 +8868,10 @@ function dungTrangThe(dsId, viec){
       bao('Đang dựng '+tl.length+' bản Tài liệu. '+(ids.length-tl.length)+' bản Thẻ (CCCD) khác khổ giấy — chọn riêng rồi bấm lại.', 8); }, 400);
     return dungTaiLieu(tl, viec);
   }
-  if(!window.PDFLib) return baoLoi('Chưa tải được bộ tạo PDF. Có mạng một lần rồi thử lại.');
+  if(!window.PDFLib){ if(viec==='blob') return Promise.reject(new Error('Chưa tải được bộ tạo PDF')); return baoLoi('Chưa tải được bộ tạo PDF. Có mạng một lần rồi thử lại.'); }
   var ds = ids.map(function(id){
     return HS.ds.find(function(x){ return x.id===id; }); }).filter(Boolean);
-  bao('Đang dựng trang cho '+ds.length+' khách…', 4);
+  if(viec!=='blob') bao('Đang dựng trang cho '+ds.length+' khách…', 4);
 
   var mm = 2.834645669;              /* 1 mm = 2.8346 điểm in */
   var A4 = {r:210*mm, c:297*mm};
@@ -8855,7 +8882,7 @@ function dungTrangThe(dsId, viec){
   var caoHang = tC + cachH;
   var soHang = Math.floor((A4.c - leT - leB) / caoHang);
 
-  PDFLib.PDFDocument.create().then(function(pdf){
+  return PDFLib.PDFDocument.create().then(function(pdf){
     return pdf.embedFont(PDFLib.StandardFonts.Helvetica).then(function(font){
       var trang = null, hang = 0;
       return ds.reduce(function(p, k, idx){
@@ -8895,6 +8922,7 @@ function dungTrangThe(dsId, viec){
     });
   }).then(function(bytes){
     var bl = new Blob([bytes], {type:'application/pdf'});
+    if(viec==='blob') return bl;
     var mot = ds.length===1 ? ds[0] : null;
     var ten = mot ? tenTheCCCD(mot)
       : ('CCCD_'+(HS.locTo?('To-'+slug(HS.locTo,2)+'_'):'')+ngayISO(nay())+'.pdf');
@@ -8902,27 +8930,6 @@ function dungTrangThe(dsId, viec){
     if(viec==='in'){
       inBlob(bl, ten);
       bao('Đã dựng '+ds.length+' khách, thẻ đúng khổ thật 85,6 × 54 mm.', 6);
-      return;
-    }
-    if(viec==='drive'){
-      if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Khai Client ID trong Cài đặt trước.');
-      var duong = mot ? duongTheCCCD(mot)
-                      : [D.cauHinh.thumuc,'CCCD','_Nhieu-khach'].join(' / ');
-      var tenD = mot ? tenTheCCCD(mot) : ten;
-      bao('Đang đưa lên Drive…', 4);
-      baoDamDuong(duong).then(function(idTM){
-        var bien = '----tuhoso'+Date.now();
-        var dau = '--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+
-          JSON.stringify({name:tenD, parents:[idTM]})+'\r\n--'+bien+
-          '\r\nContent-Type: application/pdf\r\n\r\n';
-        var body = new Blob([dau, bl, '\r\n--'+bien+'--'],
-          {type:'multipart/related; boundary='+bien});
-        return goiDrive('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',
-          {method:'POST', headers:{'Content-Type':'multipart/related; boundary='+bien}, body:body});
-      }).then(function(){
-        if(mot){ mot.daLenDrive = true; luuHoSo(); veScan(); }
-        bao('Đã lưu lên Drive: '+tenD, 6);
-      }).catch(function(e){ baoLoi('Không đưa lên được: '+(e&&e.message||e)); });
       return;
     }
     var f = new File([bl], ten, {type:'application/pdf'});
@@ -8936,7 +8943,68 @@ function dungTrangThe(dsId, viec){
       bao('Đã lưu '+ten+' vào thư mục Tải về.', 6);
     }
   }).catch(function(e){
-    console.warn(e); baoLoi('Không dựng được trang: '+(e&&e.message||e));
+    console.warn(e);
+    if(viec==='blob') throw e;
+    baoLoi('Không dựng được trang: '+(e&&e.message||e));
+  });
+}
+/* ==========================================================
+   3.33 — ĐƯA HỒ SƠ SCAN LÊN DRIVE
+   - Mỗi hồ sơ một file PDF, đúng thư mục: Tủ hồ sơ/CCCD (thẻ) hoặc Tủ hồ sơ/Hồ sơ scan (tài liệu) / xã / điểm / ấp / tổ
+   - Đã có trên Drive (driveId) thì CẬP NHẬT ĐÈ file cũ (không sinh file trùng); đổi địa bàn thì dời file theo
+   - File Drive đã bị xóa tay (404) thì tải lên file mới
+   ========================================================== */
+function duongScan(k){
+  if(k.che!=='tailieu') return duongTheCCCD(k);
+  return [D.cauHinh.thumuc, 'Hồ sơ scan', k.xa||'Chưa rõ xã', k.diem||'Chưa rõ điểm', k.ap||'Chưa rõ ấp',
+          k.to?('Tổ '+k.to):'Chưa rõ tổ'].join(' / ');
+}
+function tenScanDrive(k){
+  if(k.che!=='tailieu') return tenTheCCCD(k);
+  return 'HS_'+slug(k.ten||'Tai-lieu',7)+(k.to?('_To-'+slug(k.to,2)):'')+(k.ap?('_'+slug(k.ap,3)):'')+'.pdf';
+}
+function taoPDFScan(k){ return k.che==='tailieu' ? dungTaiLieu([k], 'blob') : dungTrangThe([k.id], 'blob'); }
+function dayHoSoLenDrive(k, bl){
+  var duong = duongScan(k), ten = tenScanDrive(k);
+  return baoDamDuong(duong).then(function(idTM){
+    var bien = '----tuhoso'+Date.now();
+    var goiLen = function(moi){
+      var meta = moi ? {name:ten, parents:[idTM]} : {name:ten};
+      var dau = '--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+
+        '\r\n--'+bien+'\r\nContent-Type: application/pdf\r\n\r\n';
+      var body = new Blob([dau, bl, '\r\n--'+bien+'--'], {type:'multipart/related; boundary='+bien});
+      var u = moi ? 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,parents'
+                  : 'https://www.googleapis.com/upload/drive/v3/files/'+k.driveId+'?uploadType=multipart&fields=id,parents'+
+                    (k.driveCha && k.driveCha!==idTM ? '&addParents='+idTM+'&removeParents='+k.driveCha : '');
+      return goiDrive(u, {method:moi?'POST':'PATCH', headers:{'Content-Type':'multipart/related; boundary='+bien}, body:body});
+    };
+    return (k.driveId ? goiLen(false).catch(function(e){
+      if(/404/.test(e&&e.message||'')){ delete k.driveId; return goiLen(true); }   /* file cũ đã mất → tải mới */
+      throw e;
+    }) : goiLen(true)).then(function(r){
+      k.driveId = (r && r.id) || k.driveId; k.driveCha = idTM; k.daLenDrive = true; k.driveLuc = new Date().toISOString();
+      return ten;
+    });
+  });
+}
+/* đưa lần lượt nhiều hồ sơ — mỗi bản một file */
+function dayScanNhieu(ids){
+  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.');
+  var ds = ids.map(function(id){ return (HS.ds||D.scan||[]).find(function(x){ return x.id===id; }); })
+    .filter(function(k){ return k && !k.chuaKhai && (k.che==='tailieu' ? (k.trang||[]).length : k.matTruoc); });
+  var boQua = ids.length - ds.length;
+  if(!ds.length) return baoLoi('Chưa có bản nào đủ để đưa lên (bản lưu tạm cần khai tên, địa bàn trước).');
+  batChay(true, 'Đang đưa '+ds.length+' hồ sơ lên Drive…');
+  var xong = 0, loi = 0;
+  return ds.reduce(function(p, k){
+    return p.then(function(){
+      dangLamChu('Đang đưa lên Drive '+(xong+loi+1)+'/'+ds.length+' · '+(k.ten||''));
+      return taoPDFScan(k).then(function(bl){ return dayHoSoLenDrive(k, bl); })
+        .then(function(){ xong++; }).catch(function(e){ loi++; console.warn('Không đưa lên được', k.ten, e); });
+    });
+  }, Promise.resolve()).then(function(){
+    tatChay(); luuHoSo(); veScan();
+    bao('Đã lưu lên Drive '+xong+' hồ sơ'+(loi?' · lỗi '+loi:'')+(boQua?' · bỏ qua '+boQua+' bản chưa đủ':'')+'.', 6);
   });
 }
 </script>
@@ -10457,8 +10525,9 @@ function veScan(){
     themPhu:'<button class="phu" onclick="chonCheScan()">Chế độ: '+
             (SC.che==='the'?'Thẻ':'Tài liệu')+'</button>'});
 
-  h += '<div class="thanh-tt cho">Ảnh xử lý ngay trong máy, không gửi tới AI. '+
-    'Bản PDF hồ sơ lưu vào Drive của anh (Tủ hồ sơ/CCCD).</div>';
+  /* 3.33: lời nhắc nhỏ thay khung vàng cảnh báo */
+  h += '<div class="huong-dan" style="margin:0 0 8px">Ảnh xử lý trong máy, không gửi tới AI · lưu hồ sơ là bản PDF lên Drive: '+
+    '<b>Tủ hồ sơ/CCCD</b> (thẻ) và <b>Tủ hồ sơ/Hồ sơ scan</b> (tài liệu), chia theo xã › điểm › ấp › tổ.</div>';
 
   var ds = locTheoThe('scan', locChuan('scan', D.scan.slice()));
   if(tuKhoa) ds = ds.filter(function(m){
@@ -10486,8 +10555,9 @@ function veScan(){
   h += ds.length ? ds.sort(function(a,b){
       return (b.ngay+b.id).localeCompare(a.ngay+a.id); })
     .map(function(k){
+      /* 3.33: chỉ báo khi THIẾU mặt; tài liệu ghi số trang */
       var soTrang = k.che==='tailieu' ? ((k.trang||[]).length+' trang')
-                  : (k.matSau?'đủ 2 mặt':'thiếu mặt sau');
+                  : (k.matSau ? '' : (k.matTruoc ? 'thiếu mặt sau' : 'chưa có ảnh'));
       return '<div class="d2'+(HS.chon[k.id]?' chon':'')+'" onclick="xemHS(\''+k.id+'\')">'+
         '<div class="h1">'+
           '<span class="ico" onclick="event.stopPropagation();doiChonHS(\''+k.id+'\')">'+
@@ -10498,13 +10568,13 @@ function veScan(){
         '<div class="h2"><div class="the">'+
           '<span class="tg xam">'+ngayVN(k.ngay)+'</span>'+
           (k.xa?'<span class="tg">'+coChuHTML(k.xa)+'</span>':'')+
-          (k.tag||[]).slice(0,2).map(function(t){
+          (k.tag||[]).filter(function(t){ return !(t==='CCCD' && k.che!=='tailieu'); }).slice(0,2).map(function(t){
             return '<span class="tg">'+coChuHTML(t)+'</span>'; }).join('')+
           (k.ctrinh||[]).slice(0,1).map(function(t){
             return '<span class="tg ct">'+coChuHTML(t)+'</span>'; }).join('')+
-          '<span class="tg '+(k.matSau||k.che==='tailieu'?'xam':'phu')+'">'+soTrang+'</span>'+
+          (soTrang?'<span class="tg '+(k.che==='tailieu'?'xam':'phu')+'">'+soTrang+'</span>':'')+
           (k.chuaKhai?'<span class="tg phu">Chưa khai</span>':'')+
-          (k.daLenDrive?'<span class="tg ct">Drive</span>':'')+
+          (k.daLenDrive||k.chuaKhai?'':'<span class="tg xam" title="Bấm ✎ rồi Lưu, hoặc chọn rồi bấm Lên Drive">chưa lên Drive</span>')+
         '</div><div class="nut">'+
           '<button onclick="event.stopPropagation();inGhep([\''+k.id+'\'])" title="In">🖨</button>'+
           '<button onclick="event.stopPropagation();themKhach(\''+k.id+'\')" title="Sửa">✎</button>'+
@@ -10562,6 +10632,9 @@ function luuKhaiHangLoat(){
   ghiTagGanDay('scan', tag);
   luu(); dongHop(); veScan();
   bao('Đã khai xong '+xong+' bản'+((ds.length-xong)?(', còn '+(ds.length-xong)+' bản giữ tên tạm'):'')+'.', 6);
+  /* 3.33: bản vừa khai xong tự lên Drive như khi lưu từng bản */
+  var daKhai = ds.filter(function(k){ return !k.chuaKhai; }).map(function(k){ return k.id; });
+  if(daKhai.length && D.cauHinh.hsTuDrive!==false && coTheNoiDrive()) setTimeout(function(){ dayScanNhieu(daKhai); }, 600);
 }
 function doiDBKL(){ doiDB.apply(null, arguments); }
 
@@ -10772,35 +10845,44 @@ function luuSauHang(){
     taoLuc:d.toISOString()};
   if(SC.che==='the'){
     var anh = HANG.filter(function(x){ return x.kieu==='anh'; });
-    if(anh[0]) doiTenAnh(anh[0].id, k.id+'_matTruoc').then(function(){ k.matTruoc = true; });
-    if(anh[1]) doiTenAnh(anh[1].id, k.id+'_matSau').then(function(){ k.matSau = true; });
-    k.matTruoc = !!anh[0]; k.matSau = !!anh[1];
     if(anh.length>2){
       /* nhiều hơn 2 ảnh thì tách thành nhiều bản, mỗi bản 2 mặt */
       luuNhieuThe(anh); return;
     }
+    k.matTruoc = !!anh[0]; k.matSau = !!anh[1];
+    /* 3.33: chờ chép ảnh sang tên mới XONG rồi mới lưu và báo (trước đây báo xong trong khi ảnh còn đang chép) */
+    var ch = Promise.resolve();
+    if(anh[0]) ch = ch.then(function(){ return doiTenAnh(anh[0].id, k.id+'_matTruoc'); });
+    if(anh[1]) ch = ch.then(function(){ return doiTenAnh(anh[1].id, k.id+'_matSau'); });
+    return ch.then(function(){ ghiLuuTam([k], 'Đã lưu tạm. Vào tab Scan khai và lưu hàng loạt khi rảnh.'); })
+      .catch(function(e){ baoLoi('Chưa lưu được ảnh: '+(e&&e.message||e)); });
   }else{
     k.trang = HANG.filter(function(x){ return x.kieu==='anh'; }).map(function(x){ return x.id; });
   }
-  D.scan = D.scan || []; D.scan.push(k); HS.ds = D.scan;
+  ghiLuuTam([k], 'Đã lưu tạm. Vào tab Scan khai và lưu hàng loạt khi rảnh.');
+}
+function ghiLuuTam(ds, loiBao){
+  D.scan = D.scan || []; ds.forEach(function(k){ D.scan.push(k); }); HS.ds = D.scan;
   HANG = []; luu(); dongHop(); veScan();
-  bao('Đã lưu tạm. Vào tab Scan khai và lưu hàng loạt khi rảnh.', 7);
+  bao(loiBao, 7);
 }
 function luuNhieuThe(anh){
-  var d = nay();
+  var d = nay(), ds = [], ch = Promise.resolve();
   for(var i=0;i<anh.length;i+=2){
     var k = {id:idMoi(), che:'the', chuaKhai:true,
       ten:'Chưa khai '+ngayISO(d)+' '+hai(d.getHours())+'h'+hai(d.getMinutes())+'-'+(i/2+1),
       ngay:ngayISO(d), gioQuet:d.toISOString(),
       xa:'', diem:'', ap:'', to:'', ghi:'', tag:[], ctrinh:[],
       taoLuc:d.toISOString()};
-    doiTenAnh(anh[i].id, k.id+'_matTruoc');
-    k.matTruoc = true;
-    if(anh[i+1]){ doiTenAnh(anh[i+1].id, k.id+'_matSau'); k.matSau = true; }
-    D.scan = D.scan || []; D.scan.push(k);
+    (function(k, a, b){
+      ch = ch.then(function(){ return doiTenAnh(a.id, k.id+'_matTruoc'); })
+        .then(function(){ return b ? doiTenAnh(b.id, k.id+'_matSau') : null; });
+    })(k, anh[i], anh[i+1]);
+    k.matTruoc = true; k.matSau = !!anh[i+1];
+    ds.push(k);
   }
-  HS.ds = D.scan; HANG = []; luu(); dongHop(); veScan();
-  bao('Đã lưu tạm '+Math.ceil(anh.length/2)+' bản. Khai sau khi rảnh.', 7);
+  return ch.then(function(){ ghiLuuTam(ds, 'Đã lưu tạm '+ds.length+' bản. Khai sau khi rảnh.'); })
+    .catch(function(e){ baoLoi('Chưa lưu được ảnh: '+(e&&e.message||e)); });
 }
 function doiTenAnh(idCu, idMoiT){
   return docFile('hs_'+idCu).then(function(b){
@@ -10945,9 +11027,8 @@ function luuScanTL(){
   k.ctrinh = layThe('k-ct'); k.tag = layThe('k-tag');
   if(!k.ten) return baoLoi('Chưa đặt tên tài liệu.');
   if(!(k.trang||[]).length) return baoLoi('Chưa có trang nào.');
-  if(!k.xa) k.xa = D.cauHinh.hsXaCuoi||'';
-  if(!k.ap) k.ap = D.cauHinh.hsApCuoi||'';
-  if(!k.to) k.to = D.cauHinh.hsToCuoi||'';
+  if(!k.diem && k.xa && k.ap) k.diem = diemCuaAp(k.xa, k.ap) || '';   /* 3.33: không tự điền địa bàn lần trước */
+  delete k.chuaKhai;
   D.cauHinh.hsXaCuoi = k.xa; D.cauHinh.hsApCuoi = k.ap; D.cauHinh.hsToCuoi = k.to;
   ghiTagGanDay('scan', k.tag);
   D.scan = D.scan || [];
@@ -10955,6 +11036,7 @@ function luuScanTL(){
   if(i>=0) D.scan[i] = k; else D.scan.push(k);
   luu(); dongHop(); ve();
   bao('Đã lưu bản quét '+(k.trang||[]).length+' trang.', 4);
+  if(D.cauHinh.hsTuDrive!==false && coTheNoiDrive()) dayScanNhieu([k.id]);   /* 3.33: tài liệu cũng tự lên Drive */
 }
 
 /* ---- xoay ảnh 90° ---- */
