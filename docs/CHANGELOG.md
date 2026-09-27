@@ -4,6 +4,27 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.45 — 28/09/2026 01:00 — Camera trong app (tự chụp kiểu Lens, webcam máy bàn) · đường cắt đứt quãng có hình kéo · thư mục Chữ ký - CCCD
+
+- **PDF thẻ CCCD:** chỉ còn **đường ngang mỏng, đứt quãng nằm giữa khe giữa 2 người**, đầu trái có **hình cái kéo** (vẽ bằng nét). Bỏ đường dọc và đường ngoài cùng; 2 mặt của một người để liền.
+- **Camera trong app** (iPhone và máy bàn có webcam). Chọn kiểu chụp ở đầu tab Scan và ở màn Chữ ký · CCCD: **⚡ Tự động** / **✋ Thủ công**.
+  - **Tự động (như Lens):** dò khung thẻ hoặc tờ giấy khoảng 5 lần mỗi giây, **khung xanh bám theo**, vòng tròn đầy dần; **đứng yên khoảng 1 giây là tự chụp** (chớp sáng). Sau đó chờ cảnh đổi (lật mặt, đổi tờ) mới chụp tiếp, không chụp lặp.
+    - Thẻ: nhắc "mặt trước / lật mặt sau" theo từng người.
+    - Chữ ký: không có khung, chụp khi hình đứng yên.
+    - Áp dụng cho mọi chức năng quét: thẻ, tài liệu, chữ ký, CCCD.
+  - **Thủ công:** iPhone dùng **camera gốc của máy** (ảnh nét nhất). Máy bàn bấm nút tròn hoặc **phím cách**, Esc để xong.
+  - Máy bàn có nhiều camera thì chọn trong danh sách, app nhớ camera đã chọn. Không cho quyền camera thì app báo cách cho phép và quay về chọn ảnh.
+  - Chụp xong đi đúng luồng cũ:
+    - Scan: bấm **Xong** → hàng chờ.
+    - Chữ ký / CCCD: vào màn **cắt vừa** → lưu.
+  - Máy bàn: nút **📷 Webcam** ở đầu tab Scan. Nguồn "Camera" trong hộp Thêm file cũng mở webcam.
+  - Giới hạn trình duyệt: không điều khiển tiêu cự, đèn flash; ảnh kém camera gốc một chút.
+- **Chữ ký · CCCD** (đổi tên từ "Chữ ký · Ảnh KH"):
+  - Ảnh là **cả mặt trước CCCD**.
+  - **Tên file:** anh chỉ gõ tên khách, app thêm ngày ở đầu, CK/CCCD ở cuối: `2026-09-25 Nguyen Van A CK.jpg`, `2026-09-25 Nguyen Van A CCCD.jpg`. Trùng tên thì thêm (2).
+  - **Mỗi tháng một thư mục:** `Tủ hồ sơ / Chữ ký - CCCD / 2026-09`.
+  - **Phím tắt từ tab Scan:** nút 📁 (điện thoại) / "📁 Chữ ký · CCCD" (máy tính) → danh sách theo tháng, nút **☁ Mở thư mục tháng trên Drive**.
+
 ## 3.44 — 27/09/2026 23:59 — Scan: xóa hẳn bản hư, đường cắt giữa khe, chữ ký · ảnh khách hàng
 
 - **Xóa hẳn cho đỡ rác** (xóa khỏi máy, không vào thùng rác):
