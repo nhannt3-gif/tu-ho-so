@@ -4,6 +4,26 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.43 — 27/09/2026 23:55 — Scan điện thoại kiểu Lens · ma trận tab Tháng đồng nhất, canh trái
+
+**Scan trên iPhone** (anh duyệt, tham khảo cách làm của app scan Lens trên iOS; máy tính giữ nguyên màn cũ):
+- Đầu tab chỉ còn: nút lớn **📷 Quét** (vào thẳng camera, không hỏi nguồn mỗi lần) · công tắc **Thẻ | Tài liệu** · 🖼 lấy ảnh có sẵn · ☰ bộ lọc.
+- Hàng chờ có thanh dính dưới đáy: **✓ Xong — tạo PDF, xem trước, gửi** · 📷 Chụp tiếp. Các nút cũ (chỉnh viền, làm thẳng, kiểu màu, in ngay, khai đầy đủ, bỏ hết) vẫn còn.
+- Bấm Xong: app **lưu tạm** (tên "Scan ngày-tháng-năm giờ"), dựng PDF rồi mở **màn xem trước PDF thật** (đúng bản sẽ gửi/in):
+  - ô **Tên file** sửa ngay; đổi tên thì bản lưu tạm cũng đổi theo.
+  - **📤 Gửi — Zalo, Drive, Tệp…** mở bảng chia sẻ của iPhone. Web không gửi thẳng vào Zalo được, phải qua bảng chia sẻ.
+  - 🖨 In · ☁ Lên tủ Drive · ✎ Khai hồ sơ · Đóng.
+- Danh sách bản đã quét gọn một dòng; chạm là mở màn xem trước để gửi lại.
+
+**Ma trận tab Tháng** (anh chốt: mọi báo cáo hiện giống nhau):
+- Mọi báo cáo hiện **đủ các cột**. Bỏ ô gộp ngang của sao kê Excel và của dòng "chưa tới kỳ"; dòng chưa tới kỳ có nhãn nhỏ cạnh tên.
+- **Một quy tắc cho mọi ô:**
+  - Có file thì ✓; chưa có thì **+** (bấm để thêm).
+  - Ô xã: dấu chính là file riêng của xã. Báo cáo có tính ở cấp điểm thì kèm **n/n điểm**, còn báo cáo chỉ tính theo điểm thì ô xã hiện **n/n** như cũ. Trước đây ô xã chưa có file hiện "—", nay là "+".
+- **Ô không tính thiếu vẫn là dấu +** (thêm file được) nhưng **nhạt màu**: báo cáo không áp dụng cấp đó, xã ngoài địa bàn, chưa tới kỳ. Rê chuột vào ô để xem lý do. Số "thiếu" giữ nguyên cách tính.
+- Sao kê thuần Excel chưa khai cấp thì chỉ tính thiếu ở Toàn PGD. Hộp ⚙ đổi "Dạng hiển thị" thành "Nhóm trên ma trận".
+- **Canh trái:** cột tên báo cáo rộng vừa chữ, các ô nằm sát ngay sau tên. Trước đây bảng bị kéo giãn 100% nên ô dồn sát lề phải. Trên điện thoại, cột tên chiếm khoảng 40% màn hình.
+
 ## 3.42 — 27/09/2026 23:30 — trang "Bảo trì kho"
 
 - Cài đặt › **🧰 Bảo trì kho** (thay trang "Lập chỉ mục"): gom mọi việc quét / dọn / đồng bộ về một chỗ, mỗi việc một thẻ ghi rõ **làm gì** và nhãn màu **đụng tới gì** (Chỉ sửa chỉ mục · Đổi file khi anh duyệt · Vào thùng rác, khôi phục được):
