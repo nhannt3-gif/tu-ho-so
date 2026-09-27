@@ -4,6 +4,41 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.41 — 27/09/2026 22:00 — Scan: in không mất bản quét, kéo giữa cạnh, tự làm thẳng
+
+Anh Nhân thử trên điện thoại: xuất PDF bấm in mà không lưu thì mất luôn (điện thoại chưa nối máy in); muốn kéo cả cạnh cho nhanh; muốn tự chỉnh thẳng đứng. **Quy tắc chung (anh chốt): việc gì app tự làm cũng hiện kèm bản gốc, chưa vừa ý thì chỉnh tay.**
+
+- **In ngay hỏi trước** (trình duyệt không báo in được hay không, nên app không thể "báo khi in lỗi" — thay vào đó không để mất):
+  - 💾 **Lưu tạm rồi in** (mặc định) · 📤 **Lưu PDF / Gửi** (bảng chia sẻ: Lưu vào Tệp, Zalo, email; máy tính thì tải về) · 🖨 **Chỉ in, chưa lưu** (hàng chờ vẫn giữ) · Quay lại.
+  - Trước đây in xong hàng chờ đóng lại, không có nút mở lại → coi như mất.
+- **Hàng chờ không mất khi trang tải lại** (điện thoại hay tải lại khi chuyển qua bảng in / chia sẻ): tab Scan hiện dải "N bản vừa quét chưa lưu — Mở lại".
+- **Tên lưu tạm:** "Scan 27-09-2026 14h05m32" (ngày-tháng-năm giờ), trùng thì thêm (2), (3); nhiều người thì "… - người 1", "… - người 2". Trước là "Chưa khai 2026-09-27 14h05-32".
+- **Màn kéo viền: thêm 4 điểm giữa cạnh** (gạch ngắn) — kéo là cả cạnh dời song song, 2 góc hai đầu đi theo; có kính lúp như kéo góc.
+- **Tự làm thẳng:** dò độ nghiêng của dòng chữ (−15°…15°) rồi xoay cho thẳng đứng; tài liệu chụp ngang (chữ nằm dọc) thì tự xoay 90° (sai chiều bấm ⇅). Tài liệu bật sẵn; thẻ CCCD (đã nắn theo 4 góc) bật khi bấm. Nút 📐 trên từng ảnh ở hàng chờ để bật/tắt (rê chuột thấy đã chỉnh bao nhiêu độ); nút **📐 Làm thẳng** trong màn kéo viền. Ảnh gốc có viền vẫn hiện bên cạnh như trước.
+  - Đo trên công văn thật: nghiêng 3°, −5°, 8°, −12° đều về 0°, khoảng 0,2 giây mỗi ảnh; nhận đúng trang nằm ngang.
+
+## 3.40 — 27/09/2026 20:00 — Cài đặt viết lại: mọi danh mục sửa trên giao diện, tự lưu
+
+Anh chốt: tự lưu (1a) · bỏ ô "Nhãn nút Thêm" (2a) · "Dùng chung" của Biểu mẫu chỉ ở hàng Chương trình (3a).
+
+- **Bộ sửa danh mục dùng chung** (thay các ô gõ nhiều dòng): Mảng nghiệp vụ, Chương trình vay, Loại văn bản (trang Chung); Tag từng tab, Nhãn ghi chú, Hội đoàn thể (trang của tab).
+  - Mỗi dòng: tên · tên đầy đủ / viết tắt · từ khóa nhận dạng · số file đang dùng · ↑ ↓ ✕; ô "Thêm … mới" + "Lấy lại mặc định".
+  - **Đổi tên → file đang dùng đổi theo** (văn bản, biểu mẫu, scan, dữ liệu tháng, khay chờ); bộ lọc đang chọn tên cũ cũng theo.
+  - **Xóa mục đang có file** → hỏi ngay tại dòng: chuyển các file đó sang mục nào, hoặc để trống. Mục chưa file nào dùng thì xóa luôn.
+- **Từ khóa nhận dạng sửa được** (trước nằm trong code): Mảng, Chương trình vay, Tag văn bản. Mảng/CT/tag mới thêm giờ cũng được app tự nhận khi đọc văn bản. Gõ có dấu hay không dấu đều được.
+- **Viết tắt loại văn bản sửa được** (trước nằm trong code — loại mới thêm bị ghi "VB" trong tên file không dấu). Chỉ áp cho file lưu từ nay.
+- **Tự lưu:** mọi ô trong Cài đặt đổi là lưu ngay, báo "✓ Đã lưu"; đẩy cauhinh.json lên Drive gom sau 4 giây. Bỏ 3 nút Lưu, chỉ còn Đóng.
+- **Trang Dữ liệu tháng:** danh sách mẫu báo cáo, mỗi dòng nút ⚙ (mở hộp thiết lập, lưu xong quay lại Cài đặt) — bỏ ô gõ `Tên | MÃ | từ khóa | cấp` dễ sai. Thêm **Nhắc giao ban**: chữ nhận ra việc giao ban trên lịch và số ngày báo trước (mặc định "giao ban", 7 ngày).
+- **Trang Scan:** kiểu màu mặc định cho Thẻ và Tài liệu; **cỡ in CCCD** (bề ngang thẻ, khe 2 mặt) — app tự giới hạn để 4 người luôn vừa A4, hiện luôn cỡ thẻ và khe giữa các người.
+- Bỏ ô "Nhãn nút Thêm" (không có tác dụng). "Dùng chung" bỏ khỏi danh sách tag Biểu mẫu một lần (lọc y hệt nút ở hàng Chương trình). Tab Biểu mẫu có thêm lựa chọn sắp mặc định "Số lần dùng", "Năm VB gốc".
+- Đồng bộ Drive (cauhinh.json) thêm: từ khóa, viết tắt, nhắc giao ban, cỡ in, kiểu màu.
+- **Sửa lỗi anh báo (gộp vào 3.40):**
+  - **Thêm từ tab nào thì mặc định lưu vào tab đó** (anh chốt): bấm Thêm file hoặc thả file ở tab Văn bản → Văn bản, tab Tháng → Dữ liệu tháng, tab Ghi chú → Ghi chú; app không tự chuyển sang tab khác. App vẫn đọc nội dung để điền sẵn; thấy giống loại khác thì chỉ ghi chú "nội dung giống …", anh đổi nhóm ở Chi tiết / Sửa nếu cần. Thả thẳng vào khay chờ, quét Drive, Picker thì app tự xếp như cũ.
+  - **Khay chờ ghi rõ thuộc tab nào:** mỗi file có nhãn "→ Tab …" (duyệt là vào tab đó); đổi nhóm khác tab gốc thì thêm nhãn "thêm từ tab …". Danh sách chờ khai cũng ghi tab.
+  - (Nguyên nhân lỗi cũ) nút Thêm file của tab Văn bản sang khay chờ trước khi chọn file nên app nhớ tab trước đó (vd Tháng) → Excel vào Dữ liệu tháng.
+  - **Đọc tên file sai.** Viết lại bộ đọc tên: nhận ngày khi có gạch dưới (4079_NHCS-TDNN_07-09-2026), ngày viết liền (20260915, 15092026); số hiệu không còn ăn lan sang ngày/năm (trước ra 942/NHCS-KHNV-15, 25/HD-NHCS-2026); nhận CV942, TB_125, "Công văn 942", "Số 4079"; tiền tố TB/QĐ/KH… cho ra đúng loại; kiểu anh hay đặt **"11068 - cho vay LĐNN"** (số đứng đầu, gạch nối, nội dung) ra số 11068 · trích yếu "cho vay LĐNN" (số thứ tự "01 - …" và năm "2026 - …" đứng đầu không bị nhận là số); trích yếu bỏ chữ thừa (QD, V.v, Về việc, giờ chụp của file Scan_, năm đứng trơ).
+
+
 ## 3.39 — 27/09/2026 14:00 — khung xem vừa đủ, điện thoại tối giản, sửa nhanh sau rà soát
 
 - **Khung xem bên phải (máy tính) — cố định, vừa đủ xem trước** (anh chốt không thu lại để bố cục không nhảy):
