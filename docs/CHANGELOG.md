@@ -4,6 +4,47 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.46 — 28/09/2026 03:00 — Luồng 3 bước Chỉnh › Xem › Lưu & gửi · đồng bộ Drive · PDF nhanh + thanh chạy · đọc chữ PDF ảnh
+
+**A. Luồng 3 bước, giống nhau trên máy tính và điện thoại** (Scan và Chữ ký · CCCD). Thanh bước ở đầu màn: ① Chỉnh › ② Xem › ③ Lưu & gửi.
+- **① Chỉnh** (hàng chờ): máy tự cắt không chắc đúng 100%, anh duyệt qua.
+  - **Chạm 1 ảnh rồi chạm ảnh khác** là đổi chỗ, kể cả giữa 2 người, để ghép lại mặt trước / mặt sau bị lệch.
+  - **▲ ▼** dời cả người. Máy tính kéo thả được.
+  - Ảnh app đoán sai mặt hiện **⚠ đỏ**.
+  - Vẫn giữ: chỉnh viền, ⇄, ⇅, 📐, kiểu màu, ✕.
+- **② Xem**: đúng bản PDF sẽ lưu / in / gửi; chưa lưu gì.
+  - **‹ Chỉnh tiếp** quay lại. **Đạt — Tiếp ›** thì lưu tạm ngay.
+  - Chữ ký · CCCD: ảnh lớn, số KB, ô tên khách.
+- **③ Lưu & gửi**: tên file sửa được; nút 📤 Gửi (Zalo, Drive, Tệp) · 🖨 In · ☁ Lên Drive / Mở trên Drive · ✎ Khai đầy đủ (ngay hoặc sau) · 🗑 Xóa.
+  - Chạm một bản trong danh sách cũng mở màn này, trên cả máy tính.
+- **Bỏ** (anh duyệt): "In ngay, không lưu" và hộp hỏi khi in của 3.41 — muốn in phải qua ② ③, tức là đã lưu tạm, không còn mất bản quét. Nút "Khai đầy đủ" chuyển sang bước ③.
+
+**B. Đồng bộ Drive để không mất dữ liệu**
+- **Bản lưu tạm cũng lên Drive** vào `Hồ sơ scan / Chưa khai / yyyy-mm`. Khai đầy đủ sau thì app **dời file** sang đúng thư mục xã / điểm / ấp / tổ và đổi tên chuẩn (không tạo bản mới).
+- **Chữ ký · CCCD** bấm Tiếp là lên Drive liền.
+- **Mặc định tự đồng bộ:**
+  - khi mở app;
+  - khi rời app (chuyển app, khóa máy, đóng);
+  - ngay sau khi lưu.
+  - Tùy chọn thêm: mỗi 5 phút.
+  - Bật / tắt ở Cài đặt › Google Drive › Tự đồng bộ.
+- **Nút ☁ Đồng bộ ngay** ở Cài đặt; bấm chấm Drive ở chân màn hình cũng đồng bộ ngay. Chấm Drive đếm cả bản scan, chữ ký, CCCD còn chờ.
+- Mất mạng / chưa nối: bản nằm chờ, có mạng hoặc lần mở / rời app sau tự đẩy.
+- Rời app trên iPhone chỉ được vài giây: chỉ mục kịp lên; PDF lớn chưa xong thì lần sau đẩy tiếp.
+
+**C. PDF nhanh hơn + thanh chạy**
+- Ảnh đưa vào PDF thu về cỡ vừa in: thẻ khoảng 1000 px (≈270 dpi), trang A4 khoảng 1800 px (≈150 dpi), JPG 0,85. Nút **Chuẩn · nhẹ, nhanh / Nét cao** ở bước ②.
+- PDF dựng **một lần**, dùng chung cho Xem, Lưu, Gửi, In.
+- Xem trước **hiện trang 1 ngay**, trang sau vẽ khi cuộn tới.
+- **Thanh chạy có chữ và %** cho việc lâu: "Đang cắt, nắn ảnh 3/8…", "Đang dựng PDF · trang 2/4…", "Đang đưa lên Drive 1/3…", "Đang đọc chữ… 45%" (có nút Dừng).
+
+**D. PDF chụp không có chữ (mục K)**
+- Không tự điền ngày hôm nay nữa. Gắn nhãn "PDF ảnh — chưa đọc được chữ"; tên file không gắn ngày khi chưa có ngày.
+- Nút **🔍 Đọc chữ** chỉ hiện khi mục còn thiếu thông tin (ở khay chờ và menu ⋯):
+  - Đọc trang 1 ngay trong máy (Tesseract tiếng Việt), không gửi ra ngoài. Lần đầu tải bộ đọc khoảng 10–15 MB.
+  - Chữ đọc được hiện bên trái (sửa được, có nút ↻ Tách lại); số hiệu, ngày, trích yếu điền sẵn bên phải để anh xem rồi bấm Áp dụng.
+  - Thử: công văn chụp đọc đúng "942/NHCS-KHNV", ngày 15/09/2026, trích yếu.
+
 ## 3.45 — 28/09/2026 01:00 — Camera trong app (tự chụp kiểu Lens, webcam máy bàn) · đường cắt đứt quãng có hình kéo · thư mục Chữ ký - CCCD
 
 - **PDF thẻ CCCD:** chỉ còn **đường ngang mỏng, đứt quãng nằm giữa khe giữa 2 người**, đầu trái có **hình cái kéo** (vẽ bằng nét). Bỏ đường dọc và đường ngoài cùng; 2 mặt của một người để liền.

@@ -548,6 +548,34 @@
   .bdc-ky-chon{display:flex;align-items:center;gap:5px}
   .bdc-ky-ten{min-width:74px;text-align:center;font-size:calc(13.5px*var(--co))}
   .bdc-cuon{overflow:auto;max-height:52vh}
+  /* 3.46: đọc chữ OCR */
+  .ocr-hai{display:flex;gap:12px;flex-wrap:wrap}
+  .ocr-chu{flex:1 1 280px;display:flex;flex-direction:column;gap:6px}
+  .ocr-chu textarea{width:100%;box-sizing:border-box;font-size:calc(12px*var(--co));font-family:ui-monospace,monospace}
+  .ocr-o{flex:1 1 240px}
+  .ocr-chu button{align-self:flex-start;flex:0 0 auto}
+  /* 3.46: luồng 3 bước, chạm đổi chỗ */
+  .buoc{display:flex;align-items:center;justify-content:center;gap:4px;margin:0 0 8px;font-size:calc(11.5px*var(--co));color:var(--chu-phu);flex-wrap:wrap}
+  .buoc span{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:12px}
+  .buoc span b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--vien);color:var(--chu);font-size:11px}
+  .buoc span.dang{background:var(--xanh-nhat);color:var(--xanh-dam);font-weight:700}
+  .buoc span.dang b{background:var(--xanh);color:#fff}
+  .buoc span.qua b{background:var(--luc);color:#fff}
+  .buoc i{font-style:normal;opacity:.6}
+  .hc-o.hc-chon{border-color:var(--xanh);box-shadow:0 0 0 3px rgba(46,139,255,.35)}
+  .hc-chon-chu{color:var(--xanh-dam)}
+  .hc-o.hc-tha{border-style:dashed;border-color:var(--xanh);background:var(--xanh-nhat)}
+  .hc-o.hc-dangkeo{opacity:.5}
+  .hc-o[draggable="true"]{cursor:grab}
+  .hc-kq,.hc-o>img{cursor:pointer}
+  .hc-cap{display:flex;align-items:center;gap:8px}
+  .hc-cap-nut{display:inline-flex;gap:4px}
+  .hc-cap-nut button{border:1px solid var(--vien);background:var(--the);border-radius:7px;min-width:30px;height:26px;cursor:pointer;color:var(--chu)}
+  .hc-cap-nut button:disabled{opacity:.35;cursor:default}
+  .hc-o .hc-lech{color:var(--do);font-weight:700}
+  .ka-lon{background:repeating-conic-gradient(#eee 0 25%,#fff 0 50%) 0 0/14px 14px;border:1px solid var(--vien);border-radius:10px;padding:6px;margin:6px 0}
+  .ka-lon img{width:100%;display:block;max-height:52vh;object-fit:contain}
+  .sc-xong:disabled{opacity:.5}
   /* 3.45: camera trong app */
   #cam{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;color:#fff;touch-action:none}
   .cam-tren{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 8px) 12px 8px}
@@ -612,6 +640,7 @@
   .xp-ten input{font-size:calc(15px*var(--co))}
   .xp-trang{max-height:58vh;overflow:auto;background:var(--nen);border-radius:12px;padding:8px;margin:8px 0}
   .xp-o{margin-bottom:10px}
+  .xp-cho{background:#fff;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.12)}
   .xp-o canvas{width:100%;height:auto;display:block;background:#fff;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.18)}
   .xp-so{font-size:calc(11px*var(--co));color:var(--chu-phu);margin:0 0 4px}
   .xp-nut{display:flex;flex-direction:column;gap:8px;position:sticky;bottom:-1px;z-index:6;background:var(--the);padding:8px 0 10px;box-shadow:0 -6px 10px -6px rgba(0,0,0,.18)}
@@ -1785,7 +1814,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.45', APP_LUC = '28/09/2026 01:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.46', APP_LUC = '28/09/2026 03:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -2486,7 +2515,7 @@ function sachTen(t){
                 .replace(/\s{2,}/g,' ').trim();
 }
 function tenVanBan(v, duoi){
-  var ngay = v.ngay || ngayISO(nay());
+  var ngay = v.ngay || (v.anhPDF ? '' : ngayISO(nay()));   /* 3.46: PDF ảnh chưa có ngày → tên không gắn ngày hôm nay */
   if(D.cauHinh.kieuTen==='codau'){
     /* kiểu đọc được: 2026-09-07 4079-NHCS-TDNN Hướng dẫn quy trình rà soát */
     var so = sachTen(v.soHieu||'');
@@ -2499,7 +2528,7 @@ function tenVanBan(v, duoi){
     var tp = {ngay:ngay, so:so, ty:ty}, thuTu = tenCauTrucHienTai();
     return thuTu.map(function(k){ return tp[k]; }).filter(Boolean).join(' ') + (duoi||'.pdf');
   }
-  var p = [ngay];
+  var p = ngay ? [ngay] : [];
   var vt = vietTatLoai(v.loai);   /* 3.40: viết tắt sửa được ở Cài đặt */
   var s0 = (v.soHieu||'').split('/')[0] || 'x';
   p.push(vt+'-'+s0);
@@ -5364,10 +5393,7 @@ function lamGhep(){
 function bamChip(){
   if(!DR.online) return bao('Đang mất mạng. Việc đang chờ sẽ tự gửi khi có mạng lại.', 4);
   if(!coTheNoiDrive()) return moCaiDat();
-  if(DR.sanSang){
-    if(demChoDB().length){ chayDongBoCho(); return bao('Đang cập nhật các file chờ lên Drive…', 3); }
-    return bao('Drive đang nối bình thường.'+(DR.hangCho.length?' Đang gửi '+DR.hangCho.length+' việc chờ…':''), 3);
-  }
+  if(DR.sanSang) return dongBoNgay();
   noiDrive();
 }
 
@@ -5421,6 +5447,7 @@ function veThem(){
         '<button class="nho chinh" onclick="duyet(\''+c.id+'\')">Duyệt</button>'+
         '<button class="nho" onclick="suaCho(\''+c.id+'\')">Chi tiết / Sửa</button>'+
         '<button class="nho" onclick="xemCho(\''+c.id+'\')">Xem</button>'+
+        (canOCR(c) ? '<button class="nho" onclick="docChuOCR(\''+c.id+'\')" title="Đọc chữ trang 1 ngay trong máy">🔍 Đọc chữ</button>' : '')+
         '<button class="nho xau" onclick="boCho(\''+c.id+'\')">Bỏ</button>'+
       '</div></div>';
   }).join('');
@@ -5679,15 +5706,16 @@ function xuLyMotFile0(f, khoTab){
       }
       if(!chu){
         var tf0 = tuTenFile(f.name);
-        var x = {id:id, van:van, nhom:'vanBan', tenCu:f.name, duoi:duoi, co:f.size,
+        /* 3.46 (mục K): PDF chụp không có chữ — KHÔNG tự điền ngày hôm nay (dễ sai); gắn nhãn, thiếu gì thì bấm 🔍 Đọc chữ */
+        var x = {id:id, van:van, nhom:'vanBan', tenCu:f.name, duoi:duoi, co:f.size, anhPDF:true,
                  soTrang:r.trang, soHieu:tf0.soHieu||'',
-                 ngay:tf0.ngay||ngayISO(nay()),
+                 ngay:tf0.ngay||'',
                  loai:tf0.loai||doanLoai(f.name, tf0.soHieu),
                  the:[], ctrinh:[], chac:!!(tf0.soHieu && tf0.ngay && tf0.trichYeu),
                  trichYeu:tf0.trichYeu||f.name.replace(/\.[^.]+$/,''),
-                 canCu:'PDF là bản chụp không có chữ — app lấy thông tin từ tên file'+
+                 canCu:'PDF ảnh — chưa đọc được chữ. App lấy thông tin từ tên file'+
                        (tf0.soHieu?(': số '+tf0.soHieu):'')+
-                       (tf0.ngay?(', ngày '+ngayVN(tf0.ngay)):'')};
+                       (tf0.ngay?(', ngày '+ngayVN(tf0.ngay)):'')+(!(tf0.soHieu && tf0.ngay && tf0.trichYeu) ? ' · thiếu thì bấm 🔍 Đọc chữ' : '')};
         x.tenMoi = tenVanBan(x, duoi); D.cho.push(apChoO(x, chu)); return;
       }
       var so = rutSoHieu(chu), ng = rutNgay(chu);
@@ -7447,6 +7475,14 @@ function veNoiCD(k){
         '<button class="nho chinh" onclick="luuCaiDat(1)">Lưu rồi nối Drive</button>'+
         '<button class="nho" onclick="taoBoThuMuc()">Tạo bộ thư mục</button>'+
         '<button class="nho" onclick="xemCay()">Xem cây</button></div>'+
+      '<h3>Tự đồng bộ</h3>'+
+      '<div class="huong-dan" style="margin-bottom:6px">Đẩy bản scan, chữ ký, CCCD và chỉ mục lên Drive để không mất dữ liệu. Lúc nào cũng bấm được <b>☁ Đồng bộ ngay</b> (hoặc bấm chấm Drive ở chân màn hình).</div>'+
+      [['dbMoApp','Khi mở app',true],['dbRoiApp','Khi rời app (chuyển app khác, khóa máy, đóng)',true],
+       ['dbSauLuu','Ngay sau khi lưu',true],['db5p','Mỗi 5 phút khi app đang mở',false]].map(function(x){
+        var bat = x[2] ? c[x[0]]!==false : c[x[0]]===true;
+        return '<label class="tl-chon"><input type="checkbox"'+(bat?' checked':'')+' onchange="D.cauHinh.'+x[0]+'=this.checked;luu()"> '+x[1]+'</label>';
+      }).join('')+
+      '<div class="hang-nut" style="margin:6px 0 10px"><button class="nho chinh" onclick="dongBoNgay()">☁ Đồng bộ ngay</button></div>'+
       /* 3.31 (mục 10 bàn giao): Google Picker — quét kho Drive cũ (quyền drive.file chỉ thấy file app tạo) */
       '<h3>Quét kho Drive cũ (Google Picker)</h3>'+
       o('API key của Google Picker','cd-apikey',c.apiKey||'','Tạo trong Google Cloud (cùng dự án với Client ID), bật Google Picker API, giới hạn key cho trang app. Chỉ lưu trong máy này.')+
@@ -8172,6 +8208,7 @@ function noiDrive(imLang){
     if(DR.hangCho.length) chayHangCho();
     chayDongBoCho();
     if(!DR.daKeoCM){ DR.daKeoCM = true; taiChiMucTuDrive(true); }
+    if(D.cauHinh.dbMoApp!==false) setTimeout(function(){ dongBoScan(false); }, 1500);   /* 3.46: mở app → đẩy bản còn chờ */
     if(!DR.daKeoLich){ DR.daKeoLich = true; taiLichTuDrive(); taiNguonCauTuDrive(); }
     return true;
   }).catch(function(e){
@@ -8445,7 +8482,7 @@ function ketQuaPicker(data){
 function capNhatChip(){
   var e = document.getElementById('chip-drive');
   if(!e) return;
-  var nTen = (typeof demChoDB==='function') ? demChoDB().length : 0;
+  var nTen = ((typeof demChoDB==='function') ? demChoDB().length : 0) + scanCanDay().length + kaCanDay().length;
   var cho = (DR.hangCho.length ? ' · '+DR.hangCho.length+' việc chờ' : '')+
             (nTen ? ' · '+nTen+' mục chờ cập nhật Drive' : '');
   if(!DR.online){ e.textContent='🔴 Mất mạng · lưu tạm trong máy'+cho; e.className='chip do'; return; }
@@ -9386,11 +9423,14 @@ function dungTrangThe(dsId, viec){
    - File Drive đã bị xóa tay (404) thì tải lên file mới
    ========================================================== */
 function duongScan(k){
+  /* 3.46: bản lưu tạm (chưa khai) cũng lên Drive cho an toàn — thư mục chờ theo tháng; khai đầy đủ thì app dời về đúng xã, ấp, tổ */
+  if(k.chuaKhai) return [D.cauHinh.thumuc, 'Hồ sơ scan', 'Chưa khai', String(k.ngay||ngayISO(nay())).slice(0,7)].join(' / ');
   if(k.che!=='tailieu') return duongTheCCCD(k);
   return [D.cauHinh.thumuc, 'Hồ sơ scan', k.xa||'Chưa rõ xã', k.diem||'Chưa rõ điểm', k.ap||'Chưa rõ ấp',
           k.to?('Tổ '+k.to):'Chưa rõ tổ'].join(' / ');
 }
 function tenScanDrive(k){
+  if(k.chuaKhai) return sachTen(k.ten||'Scan')+'.pdf';
   if(k.che!=='tailieu') return tenTheCCCD(k);
   return 'HS_'+slug(k.ten||'Tai-lieu',7)+(k.to?('_To-'+slug(k.to,2)):'')+(k.ap?('_'+slug(k.ap,3)):'')+'.pdf';
 }
@@ -9420,21 +9460,21 @@ function dayHoSoLenDrive(k, bl){
 }
 /* đưa lần lượt nhiều hồ sơ — mỗi bản một file */
 function dayScanNhieu(ids){
-  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.');
+  if(!coTheNoiDrive()) return Promise.resolve(baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.'));
   var ds = ids.map(function(id){ return (HS.ds||D.scan||[]).find(function(x){ return x.id===id; }); })
-    .filter(function(k){ return k && !k.chuaKhai && (k.che==='tailieu' ? (k.trang||[]).length : k.matTruoc); });
+    .filter(function(k){ return k && (k.che==='tailieu' ? (k.trang||[]).length : k.matTruoc); });
   var boQua = ids.length - ds.length;
-  if(!ds.length) return baoLoi('Chưa có bản nào đủ để đưa lên (bản lưu tạm cần khai tên, địa bàn trước).');
+  if(!ds.length) return Promise.resolve(baoLoi('Chưa có bản nào đủ để đưa lên.'));
   batChay(true, 'Đang đưa '+ds.length+' hồ sơ lên Drive…');
   var xong = 0, loi = 0;
   return ds.reduce(function(p, k){
     return p.then(function(){
       dangLamChu('Đang đưa lên Drive '+(xong+loi+1)+'/'+ds.length+' · '+(k.ten||''));
       return taoPDFScan(k).then(function(bl){ return dayHoSoLenDrive(k, bl); })
-        .then(function(){ xong++; }).catch(function(e){ loi++; console.warn('Không đưa lên được', k.ten, e); });
+        .then(function(){ xong++; delete k.canDay; }).catch(function(e){ loi++; console.warn('Không đưa lên được', k.ten, e); });
     });
   }, Promise.resolve()).then(function(){
-    tatChay(); luuHoSo(); veScan();
+    tatChay(); luuHoSo(); veScan(); ghiDongBo();
     bao('Đã lưu lên Drive '+xong+' hồ sơ'+(loi?' · lỗi '+loi:'')+(boQua?' · bỏ qua '+boQua+' bản chưa đủ':'')+'.', 6);
   });
 }
@@ -9957,6 +9997,7 @@ function moMenu(ev, id){
   var laBM = m.huongDan!==undefined;
   e.innerHTML =
     '<button onclick="dongMenu();moXem(\'' +id+ '\')">Xem lớn</button>'+
+    (canOCR(m) ? '<button onclick="dongMenu();docChuOCR(\'' +id+ '\')">🔍 Đọc chữ (thiếu thông tin)</button>' : '')+
     '<button onclick="dongMenu();guiNhanh(\'' +id+ '\')">Gửi cả file</button>'+
     '<button onclick="dongMenu();inTheoId(\'' +id+ '\')">In</button>'+
     '<div class="vach"></div>'+
@@ -11086,7 +11127,7 @@ function veScan(){
       /* 3.33: chỉ báo khi THIẾU mặt; tài liệu ghi số trang */
       var soTrang = k.che==='tailieu' ? ((k.trang||[]).length+' trang')
                   : (k.matSau ? '' : (k.matTruoc ? 'thiếu mặt sau' : 'chưa có ảnh'));
-      return '<div class="d2'+(HS.chon[k.id]?' chon':'')+'" onclick="'+(laDT()?'moXemPDF([\''+k.id+'\'])':'xemHS(\''+k.id+'\')')+'">'+
+      return '<div class="d2'+(HS.chon[k.id]?' chon':'')+'" onclick="moXemPDF([\''+k.id+'\'])">'+
         '<div class="h1">'+
           '<span class="ico" onclick="event.stopPropagation();doiChonHS(\''+k.id+'\')">'+
             (HS.chon[k.id]?'✓':(k.che==='tailieu'?'📑':'🪪'))+'</span>'+
@@ -11228,10 +11269,11 @@ function chonNguon(n){
 var HANG = [];
 function nhanVaoScan(fs, nguon){
   var che = SC.che==='the' ? 'the' : 'tailieu', soPDFBo = 0, moi = [];
-  batChay(true);
-  bao('Đang cắt, nắn và làm đẹp '+fs.length+' file…', 4);
+  batChay(false, 'Đang cắt, nắn ảnh 0/'+fs.length+'…');
+  var dem = 0;
   fs.reduce(function(p, f){
     return p.then(function(){
+      dem++; dangLamChu('Đang cắt, nắn ảnh '+dem+'/'+fs.length+'…'); tienChay(Math.round((dem-1)/fs.length*100));
       var laAnh = /^image\//.test(f.type) || /\.(jpg|jpeg|png|heic|webp)$/i.test(f.name);
       var laPDF = f.type==='application/pdf' || /\.pdf$/i.test(f.name);
       var idT = 'q'+idMoi();
@@ -11288,33 +11330,86 @@ function moHangCho(){
   ghiHang();
   if(!HANG.length) return veScan();
   var laThe = SC.che==='the';
-  var h = '<div class="hop-tit">Bản vừa quét ('+HANG.length+')</div>'+
+  /* 3.46: luồng 3 bước giống nhau trên máy tính và điện thoại — ① Chỉnh › ② Xem › ③ Lưu & gửi (bỏ "in ngay không lưu") */
+  var h = buocHTML(1)+'<div class="hop-tit">Bản vừa quét ('+HANG.length+')</div>'+
     '<div class="hop-phu">'+(laThe
-      ? 'App đã tự cắt, nắn thẳng, tự lật và xếp <b>mặt trước | mặt sau</b> theo từng người. '+
-        'Bên phải mỗi ảnh là <b>ảnh gốc có viền xanh</b> — cắt lệch thì bấm vào đó để kéo viền. ◀ ▶ dời chỗ · ⇄ đổi mặt · ⇅ lật ngược.'
-      : 'App đã tự tìm tờ giấy, nắn thẳng và làm trắng nền. Bên phải là <b>ảnh gốc có viền xanh</b> — bấm để kéo viền. '+
-        '◀ ▶ đổi thứ tự trang · ⟲ xoay · ✕ bỏ trang.')+'</div>'+
+      ? 'App đã tự cắt, nắn và xếp <b>mặt trước | mặt sau</b> theo từng người — máy không chắc đúng 100%, anh duyệt qua. '+
+        '<b>Chạm 1 ảnh rồi chạm ảnh khác</b> để đổi chỗ (kể cả giữa 2 người)'+(laDT()?'':', hoặc kéo thả')+' · ▲▼ dời cả người · ⇄ đổi mặt · ảnh gốc bên phải: bấm để kéo viền.'
+      : 'App đã tự tìm tờ giấy, nắn thẳng và làm trắng nền. <b>Chạm 1 trang rồi chạm trang khác</b> để đổi chỗ'+(laDT()?'':', hoặc kéo thả')+
+        ' · ◀ ▶ dời trang · ⟲ xoay · ✕ bỏ trang · ảnh gốc bên phải: bấm để kéo viền.')+'</div>'+
     '<div id="hc-anh" class="hc-luoi'+(laThe?' the':'')+'"></div>'+
     '<div class="hang-nut" style="margin-top:10px">'+
-      '<button class="nho" onclick="dongHop();batDauScan()">+ Quét thêm</button>'+
+      '<button class="nho" onclick="quetThemHang()">+ Quét thêm</button>'+
       (laThe ? '' : '<button class="nho" onclick="chonPDFHang()">+ Thêm PDF</button>')+
-      '<button class="nho xau" onclick="boHangCho()">Bỏ hết</button></div>'+
-    (laDT() ? '<div class="hang-nut sc-xong-hang"><button class="nho chinh sc-xong" onclick="xongScan()">✓ Xong — tạo PDF, xem trước, gửi</button>'+
-      '<div class="hang-nut"><button class="nho" onclick="dongHop();chonNguon(\'camera\')">📷 Chụp tiếp</button>'+
-      '<button class="nho xau" onclick="boHangCho()">🗑 Bỏ hết</button></div></div>' : '')+
-    '<div class="nhan-nhom">Làm gì với '+HANG.length+' bản này</div>'+
-    '<div class="hang-nut">'+
-      '<button class="nho chinh" onclick="inNgayHang()">In ngay, không lưu</button></div>'+
-    '<div class="hang-nut" style="margin-top:7px">'+
-      '<button class="nho" onclick="luuSauHang()">Lưu tạm, khai sau</button>'+
-      '<button class="nho chinh" onclick="khaiVaLuu()">Khai đầy đủ rồi lưu</button></div>'+
-    '<div class="huong-dan">'+(laThe
-      ? 'In: mỗi trang A4 xếp 4 người × 2 mặt, thẻ in to hơn thẻ thật, có đường cắt mảnh theo mép thẻ, cắt theo đường là các thẻ đều nhau. '
-      : '')+
-    'Lưu tạm thì app tự đặt tên theo ngày giờ quét, lúc rảnh vào tab Scan khai và lưu hàng loạt.</div>';
+      '<button class="nho xau" onclick="boHangCho()">🗑 Bỏ hết</button></div>'+
+    '<div class="hang-nut sc-xong-hang"><button class="nho chinh sc-xong" onclick="xemTruocHang()">Xem trước ›</button></div>';
   moHop(h, true);
   veAnhHang();
 }
+function timScan(id){ return (D.scan||[]).find(function(x){ return x.id===id; }); }
+function trangThaiDriveScan(ds){
+  ds = (ds||[]).filter(Boolean); if(!ds.length) return '';
+  var len = ds.filter(function(k){ return k.driveId && !k.canDay; }).length;
+  if(len===ds.length) return '☁ Đã có trên Drive'+(ds[0].chuaKhai ? ' (thư mục Chưa khai — khai đầy đủ thì app dời về đúng xã, ấp, tổ)' : '')+'.';
+  if(!coTheNoiDrive()) return 'Chưa nối Drive — bản này đang nằm trong máy.';
+  return '☁ Đang chờ lên Drive'+(ds.length>1 ? ' ('+(ds.length-len)+'/'+ds.length+')' : '')+' — app tự đẩy khi có mạng.';
+}
+function quetThemHang(){ dongHop(); if(laDT()) quetNhanh(); else batDauScan(); }
+/* thanh bước ① Chỉnh › ② Xem › ③ Lưu & gửi */
+function buocHTML(n){
+  return '<div class="buoc">'+['Chỉnh','Xem','Lưu & gửi'].map(function(t, i){
+    return '<span class="'+(i+1===n?'dang':(i+1<n?'qua':''))+'"><b>'+(i+1)+'</b>'+t+'</span>'; }).join('<i>›</i>')+'</div>';
+}
+/* ② XEM — dựng PDF đúng bản sẽ lưu / in / gửi; chưa lưu gì. Không vừa ý thì quay lại chỉnh */
+var XH = null;
+function xemTruocHang(){
+  var ds = HANG.filter(function(x){ return x.kieu==='anh' || x.kieu==='trang'; });
+  if(!ds.length) return baoLoi('Chưa có ảnh hay trang nào.');
+  if(!window.PDFLib) return baoLoi('Chưa tải được bộ tạo PDF.');
+  var laThe = SC.che==='the', so = laThe ? Math.ceil(ds.length/2)+' người' : ds.length+' trang';
+  XH = {bl:null};
+  moHop(buocHTML(2)+'<div class="hop-tit">Xem trước · '+so+'</div>'+
+    '<div class="hop-phu">Đúng bản sẽ lưu, in và gửi. Chưa vừa ý thì bấm <b>‹ Chỉnh tiếp</b>; đạt thì bấm <b>Tiếp</b> — app lưu tạm ngay cho an toàn.</div>'+
+    '<div class="cam-kieu">Ảnh trong PDF: '+nutNetPDF('xemTruocHang()')+'</div>'+
+    '<div id="xp-trang" class="xp-trang"><div class="huong-dan">Đang dựng PDF…</div></div>'+
+    '<div class="xp-nut"><div class="hang-nut">'+
+      '<button class="nho" onclick="moHangCho()">‹ Chỉnh tiếp</button>'+
+      '<button class="nho chinh sc-xong" id="xh-tiep" onclick="tiepHang()" disabled>Đạt — Tiếp ›</button></div></div>', true);
+  batChay(false, 'Đang dựng PDF…');
+  dungPDFHang().then(function(bytes){
+    tatChay();
+    XH.bl = new Blob([bytes], {type:'application/pdf'});
+    var t = document.getElementById('xh-tiep'); if(t) t.disabled = false;
+    veTrangXP(XH.bl);
+  }).catch(function(e){ tatChay(); baoLoi('Không dựng được PDF: '+(e&&e.message||e)); });
+}
+/* ③ — lưu tạm (tên "Scan ngày giờ") rồi sang màn Lưu & gửi, dùng lại đúng bản PDF vừa xem (không dựng lại) */
+function tiepHang(){
+  var bl = XH && XH.bl;
+  SAU_LUU_TAM = function(ds){ moXemPDF(ds.map(function(k){ return k.id; }), true, bl); };
+  Promise.resolve(luuSauHang()).catch(function(){ SAU_LUU_TAM = null; });
+}
+/* chạm để đổi chỗ: chạm ảnh A (viền xanh) rồi chạm ảnh B ở bất kỳ đâu → 2 ảnh đổi chỗ */
+var HC_CHON = -1;
+function chamHang(i){
+  if(HC_CHON<0 || HC_CHON>=HANG.length){ HC_CHON = i; return veAnhHang(); }
+  if(HC_CHON===i){ HC_CHON = -1; return veAnhHang(); }
+  var a = HC_CHON; HC_CHON = -1; doiHaiHang(a, i);
+}
+function doiHaiHang(a, b){
+  if(a===b || !HANG[a] || !HANG[b]) return;
+  var t = HANG[a]; HANG[a] = HANG[b]; HANG[b] = t; veAnhHang();
+  bao('Đã đổi chỗ 2 ảnh.', 2);
+}
+/* ▲▼ dời cả người (cặp mặt trước + mặt sau) */
+function dichNguoi(p, d){
+  var anh = HANG.filter(function(x){ return x.kieu==='anh'; }), khac = HANG.filter(function(x){ return x.kieu!=='anh'; }), nhom = [];
+  for(var i=0;i<anh.length;i+=2) nhom.push(anh.slice(i, i+2));
+  var q = p+d; if(q<0 || q>=nhom.length) return;
+  var t = nhom[p]; nhom[p] = nhom[q]; nhom[q] = t;
+  HANG = [].concat.apply([], nhom).concat(khac); HC_CHON = -1; veAnhHang();
+}
+var HC_KEO = -1;
 var HC_URL = [];
 /* 3.37: mỗi ảnh hiện KẾT QUẢ + ẢNH GỐC có viền cắt (bấm ảnh gốc để kéo viền) + nút kiểu màu hiện sẵn */
 var TEN_LOC_NGAN = {magic:'Magic', giay:'Giấy trắng', xam:'Xám', dentrang:'Đen trắng', goc:'Gốc'};
@@ -11327,9 +11422,12 @@ function veAnhHang(){
   HANG.forEach(function(x, i){
     var nhan, cu = '', la = x.kieu==='anh';
     if(laThe && la){
-      if(vt%2===0) h += '<div class="hc-cap">Người '+(vt/2+1)+'</div>';
+      if(vt%2===0){ var pn = vt/2, soN = Math.ceil(HANG.filter(function(z){ return z.kieu==='anh'; }).length/2);
+        h += '<div class="hc-cap">Người '+(pn+1)+'<span class="hc-cap-nut">'+
+          '<button onclick="dichNguoi('+pn+',-1)" title="Dời cả người lên"'+(pn===0?' disabled':'')+'>▲</button>'+
+          '<button onclick="dichNguoi('+pn+',1)" title="Dời cả người xuống"'+(pn>=soN-1?' disabled':'')+'>▼</button></span></div>'; }
       nhan = vt%2===0 ? 'Mặt trước' : 'Mặt sau';
-      if(x.mat && x.mat!==(vt%2===0?'truoc':'sau')) nhan += ' · <span class="hc-lech">app đoán là mặt '+(x.mat==='truoc'?'trước':'sau')+'</span>';
+      if(x.mat && x.mat!==(vt%2===0?'truoc':'sau')) nhan += ' · <span class="hc-lech">⚠ ảnh này giống mặt '+(x.mat==='truoc'?'trước':'sau')+'</span>';
       vt++;
     } else nhan = x.kieu==='trang' ? ('Trang '+(i+1)+' · PDF') : (x.kieu==='file' ? 'File giữ nguyên' : 'Trang '+(i+1));
     if(canXemLai(x)) nhan = '⚠ xem lại · '+nhan;
@@ -11347,10 +11445,14 @@ function veAnhHang(){
         return '<button class="'+(x.loc===k?'bat':'')+'" onclick="doiLocHang('+i+',\''+k+'\')">'+TEN_LOC_NGAN[k]+'</button>'; }).join('')+'</div>' : '';
     var than;
     if(x.kieu==='file') than = '<div class="cay">📄 '+coChuHTML(x.ten)+' · '+kichCo(x.co||0)+'<br><small>File Word không ghép vào PDF được</small></div>';
-    else if(la && x.khung) than = '<div class="hc-hai"><div class="hc-kq"><img id="hc-i-'+i+'" alt=""><small>Kết quả</small></div>'+
+    else if(la && x.khung) than = '<div class="hc-hai"><div class="hc-kq" onclick="chamHang('+i+')" title="Chạm để chọn, chạm ảnh khác để đổi chỗ"><img id="hc-i-'+i+'" alt=""><small>Kết quả · chạm để đổi chỗ</small></div>'+
       '<div class="hc-goc" onclick="moChinhGoc('+i+')" title="Bấm để kéo viền cắt"><canvas id="hc-g-'+i+'"></canvas><small>Ảnh gốc · bấm để kéo viền</small></div></div>';
-    else than = '<img id="hc-i-'+i+'" alt="">';
-    h += '<div class="hc-o'+(canXemLai(x)?' hc-canxem':'')+'"><div class="hc-nhan">'+nhan+'</div>'+than+loc+
+    else than = '<img id="hc-i-'+i+'" alt="" onclick="chamHang('+i+')">';
+    var keo = laDT() ? '' : ' draggable="true" ondragstart="HC_KEO='+i+';this.classList.add(\'hc-dangkeo\')" ondragend="this.classList.remove(\'hc-dangkeo\')"'+
+      ' ondragover="event.preventDefault();this.classList.add(\'hc-tha\')" ondragleave="this.classList.remove(\'hc-tha\')"'+
+      ' ondrop="event.preventDefault();this.classList.remove(\'hc-tha\');doiHaiHang(HC_KEO,'+i+')"';
+    h += '<div class="hc-o'+(canXemLai(x)?' hc-canxem':'')+(HC_CHON===i?' hc-chon':'')+'"'+keo+'>'+
+      '<div class="hc-nhan" onclick="chamHang('+i+')">'+nhan+(HC_CHON===i?' <b class="hc-chon-chu">· chạm ảnh cần đổi</b>':'')+'</div>'+than+loc+
       '<div class="hc-cu">'+cu+'</div></div>';
   });
   e.innerHTML = h;
@@ -11655,7 +11757,9 @@ function dungPDFThe(dsCap, tieuDe){
             /* 3.44 (anh Nhân): PDF không in thêm chữ gì — bỏ dòng tiêu đề */
           }
           var y = A4.c - le - hang*(tC+khe) - tC, tg = trang;
-          return Promise.all([cap.truoc ? docAnhHS(cap.truoc) : null, cap.sau ? docAnhHS(cap.sau) : null]).then(function(anh){
+          dangLamChu('Đang dựng PDF · người '+(i+1)+'/'+dsCap.length+'…'); tienChay(Math.round(i/dsCap.length*100));
+          return Promise.all([cap.truoc ? docAnhHS(cap.truoc).then(function(b){ return thuChoPDF(b, cap.truoc, 1000); }) : null,
+                              cap.sau ? docAnhHS(cap.sau).then(function(b){ return thuChoPDF(b, cap.sau, 1000); }) : null]).then(function(anh){
             return anh.reduce(function(pp, b, k){
               return pp.then(function(){
                 if(!b) return;
@@ -11679,8 +11783,9 @@ function dungPDFThe(dsCap, tieuDe){
 function dungPDFTaiLieu(dsTrang){
   var mm = 2.834645669, A4 = {r:210*mm, c:297*mm}, le = 8*mm, nguon = {};
   return PDFLib.PDFDocument.create().then(function(pdf){
-    return dsTrang.reduce(function(p, t){
+    return dsTrang.reduce(function(p, t, iT){
       return p.then(function(){
+        dangLamChu('Đang dựng PDF · trang '+(iT+1)+'/'+dsTrang.length+'…'); tienChay(Math.round(iT/dsTrang.length*100));
         if(laTrangPDF(t)){
           var o = tachTrangPDF(t);
           if(!nguon[o.nguon]) nguon[o.nguon] = docFile('hs_'+o.nguon).then(function(b){
@@ -11692,7 +11797,7 @@ function dungPDFTaiLieu(dsTrang){
             pdf.addPage(pg);
           }).catch(function(e){ console.warn(e); });
         }
-        return docAnhHS(t).then(function(b){
+        return docAnhHS(t).then(function(b){ return thuChoPDF(b, t, 1800); }).then(function(b){
           if(!b) return;
           return b.arrayBuffer().then(function(buf){ return pdf.embedJpg(buf); }).then(function(im){
             var ngang = im.width > im.height*1.05, W = ngang ? A4.c : A4.r, H = ngang ? A4.r : A4.c;
@@ -11718,38 +11823,9 @@ function capTuHang(){
 }
 /* 3.41: điện thoại chưa nối máy in thì in không ra giấy — trình duyệt KHÔNG báo in được hay không.
    Nên hỏi trước: mặc định LƯU TẠM rồi mới in; "chỉ in" thì hàng chờ vẫn giữ nguyên để in lại hoặc lưu sau. */
-function inNgayHang(){
-  if(!window.PDFLib) return baoLoi('Chưa tải được bộ tạo PDF.');
-  var ds = HANG.filter(function(x){ return x.kieu==='anh' || x.kieu==='trang'; });
-  if(!ds.length) return baoLoi('Không có ảnh hay trang nào để in.');
-  moHop('<div class="hop-tit">In bản vừa quét</div>'+
-    '<div class="hop-phu">Điện thoại chưa nối máy in thì lệnh in sẽ không ra giấy, và app không biết được in thành công hay không. '+
-    '<b>Nên lưu tạm trước</b> để không mất bản vừa quét — tên tự đặt “Scan ngày-tháng-năm giờ”, khai lại tên sau.</div>'+
-    '<div class="hang-nut" style="flex-direction:column;align-items:stretch">'+
-      '<button class="nho chinh" onclick="inHang(\'luu\')">💾 Lưu tạm rồi in</button>'+
-      '<button class="nho" onclick="inHang(\'gui\')">📤 Lưu PDF / Gửi (Tệp, Zalo, email…)</button>'+
-      '<button class="nho" onclick="inHang(\'chi\')">🖨 Chỉ in, chưa lưu (hàng chờ vẫn giữ)</button>'+
-      '<button class="nho" onclick="moHangCho()">Quay lại</button></div>'+
-    (SC.che==='the' ? '<div class="huong-dan">'+NHAC_IN_THE+'</div>' : ''));
-}
 function dungPDFHang(){
   var ds = HANG.filter(function(x){ return x.kieu==='anh' || x.kieu==='trang'; });
   return SC.che==='the' ? dungPDFThe(capTuHang(), '') : dungPDFTaiLieu(ds.map(hangRaTrang));
-}
-function inHang(cach){
-  batChay(true);
-  var ten = tenLuuTam(nay())+'.pdf';
-  dungPDFHang().then(function(bytes){
-    tatChay();
-    var bl = new Blob([bytes], {type:'application/pdf'});
-    if(cach==='luu'){
-      dongHop();
-      return Promise.resolve(luuSauHang()).then(function(){ inBlob(bl, ten); });
-    }
-    if(cach==='gui'){ moHangCho(); return chiaSePDF(bl, ten); }
-    moHangCho(); inBlob(bl, ten);
-    bao('Đã mở hộp in. Hàng chờ vẫn còn — in lại, lưu tạm hoặc lưu hồ sơ khi xong.', 7);
-  }).catch(function(e){ tatChay(); baoLoi('Không dựng được: '+(e&&e.message||e)); });
 }
 /* điện thoại: bảng chia sẻ (Lưu vào Tệp, Zalo, email…); máy tính: tải file về */
 function chiaSePDF(bl, ten){
@@ -11804,20 +11880,17 @@ function quetNhanh(nguon){
   if(!nguon && camTuDong() && coCamera()) return moCamera({muc:'scan'});
   chonNguon(nguon||'camera');
 }
-function xongScan(){
-  if(!HANG.filter(function(x){ return x.kieu==='anh' || x.kieu==='trang'; }).length) return baoLoi('Chưa có ảnh nào.');
-  SAU_LUU_TAM = function(ds){ moXemPDF(ds.map(function(k){ return k.id; }), true); };
-  Promise.resolve(luuSauHang()).catch(function(){ SAU_LUU_TAM = null; });
-}
+function xongScan(){ xemTruocHang(); }
 /* màn xem trước PDF thật (dựng bằng đúng bộ tạo PDF khi gửi/in) + đổi tên + gửi */
-function moXemPDF(ids, moi){
+function moXemPDF(ids, moi, blSan){
   HS.ds = D.scan || [];
   var ds = ids.map(function(id){ return HS.ds.find(function(x){ return x.id===id; }); }).filter(Boolean);
   if(!ds.length) return;
   var k = ds[0], tl = k.che==='tailieu';
   var tenGoc = ds.length>1 ? String(k.ten||'').replace(/ - người \d+.*$/,'') : (k.ten||'');
   XP = {ids:ids, bl:null, ten:tenGoc};
-  moHop('<div class="hop-tit">'+(moi?'✓ Đã lưu tạm — xem trước':'Xem trước PDF')+'</div>'+
+  moHop(buocHTML(3)+'<div class="hop-tit">'+(moi?'✓ Đã lưu tạm':coChuHTML(tenGoc||'Bản quét'))+'</div>'+
+    '<div class="hop-phu" id="xp-drive">'+trangThaiDriveScan(ds)+'</div>'+
     '<div class="o xp-ten"><label>Tên file'+(ds.length>1?' ('+ds.length+' người)':'')+'</label>'+
       '<input id="xp-ten" value="'+coChuHTML(tenGoc)+'" onfocus="this.select()" onchange="doiTenXP(this.value)"></div>'+
     '<div id="xp-trang" class="xp-trang"><div class="huong-dan">Đang dựng PDF…</div></div>'+
@@ -11825,11 +11898,14 @@ function moXemPDF(ids, moi){
       '<button class="nho chinh" onclick="guiXP()">📤 Gửi — Zalo, Drive, Tệp…</button>'+
       '<div class="hang-nut">'+
         '<button class="nho" onclick="inXP()">🖨 In</button>'+
-        '<button class="nho" onclick="lenDriveThe(XP.ids)">☁ Lên tủ Drive</button>'+
-        (ds.length===1 ? '<button class="nho" onclick="dongHop();'+(tl?'scanTaiLieu':'themKhach')+'(\''+k.id+'\')">✎ Khai hồ sơ</button>' : '')+
+        (k.driveId && ds.length===1 ? '<button class="nho" onclick="window.open(\'https://drive.google.com/file/d/'+k.driveId+'/view\',\'_blank\')">☁ Mở trên Drive</button>'
+          : '<button class="nho" onclick="dayScanNhieu(XP.ids).then(function(){ var e=document.getElementById(\'xp-drive\'); if(e) e.innerHTML=trangThaiDriveScan(XP.ids.map(timScan)); })">☁ Lên Drive</button>')+
+        (ds.length===1 ? '<button class="nho" onclick="dongHop();'+(tl?'scanTaiLieu':'themKhach')+'(\''+k.id+'\')">✎ Khai đầy đủ</button>'
+          : '<button class="nho" onclick="dongHop();khaiHangLoat()">✎ Khai đầy đủ</button>')+
         '<button class="nho xau" onclick="xoaXP()">🗑 Xóa</button>'+
         '<button class="nho" onclick="dongHop();veScan()">Đóng</button></div></div>', true);
-  dungTrangThe(ids, 'blob').then(function(bl){
+  (blSan ? Promise.resolve(blSan) : (batChay(false, 'Đang dựng PDF…'), dungTrangThe(ids, 'blob').then(function(b){ tatChay(); return b; }, function(e){ tatChay(); throw e; })))
+  .then(function(bl){
     if(!XP || XP.ids!==ids) return;
     XP.bl = bl; veTrangXP(bl);
   }).catch(function(e){
@@ -11837,31 +11913,60 @@ function moXemPDF(ids, moi){
     if(e2) e2.innerHTML = '<div class="huong-dan">Không dựng được PDF: '+coChuHTML(e&&e.message||String(e))+'</div>';
   });
 }
+/* 3.46: ảnh đưa vào PDF thu về cỡ vừa in (thẻ ~1000px ≈ 270 dpi, trang A4 ~1800px ≈ 150 dpi) — PDF dựng nhanh, nhẹ hơn nhiều.
+   "Nét cao" giữ nguyên ảnh. Nhớ kết quả theo ảnh để dựng lại (xem → gửi → in) không phải thu lại */
+var PDF_THU = {};
+function thuChoPDF(b, id, canh){
+  if(!b || D.cauHinh.pdfNet) return Promise.resolve(b);
+  var khoa = id+'|'+b.size+'|'+canh;
+  if(PDF_THU[khoa]) return Promise.resolve(PDF_THU[khoa]);
+  return anhTuBlob(b).then(function(im){
+    var k = canh/Math.max(im.width, im.height);
+    if(k >= 1 && b.size < 400*1024) return b;
+    k = Math.min(1, k);
+    var c = document.createElement('canvas'); c.width = Math.round(im.width*k); c.height = Math.round(im.height*k);
+    var g = c.getContext('2d'); g.imageSmoothingQuality = 'high'; g.drawImage(im, 0, 0, c.width, c.height);
+    return canvasRaBlob(c, 0.85);
+  }).then(function(r){ PDF_THU[khoa] = r; return r; }).catch(function(){ return b; });
+}
+function nutNetPDF(veLai){
+  var net = !!D.cauHinh.pdfNet;
+  return '<button class="'+(!net?'bat':'')+'" onclick="D.cauHinh.pdfNet=false;luu();'+veLai+'">Chuẩn · nhẹ, nhanh</button>'+
+    '<button class="'+(net?'bat':'')+'" onclick="D.cauHinh.pdfNet=true;luu();'+veLai+'">Nét cao</button>';
+}
+/* xem trước: trang 1 hiện ngay, các trang sau vẽ khi cuộn tới */
 function veTrangXP(bl){
   var e = document.getElementById('xp-trang'); if(!e) return;
   if(!window.pdfjsLib){ e.innerHTML = '<div class="huong-dan">Chưa tải được bộ xem PDF — vẫn gửi, in được bình thường.</div>'; return; }
   bl.arrayBuffer().then(function(ab){ return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise; }).then(function(pdf){
     e.innerHTML = '';
-    var rong = Math.max(240, e.clientWidth || 320), tile = Math.min(2, window.devicePixelRatio||1);
-    var ch = Promise.resolve();
-    for(var i=1;i<=pdf.numPages;i++) (function(n){
-      ch = ch.then(function(){ return pdf.getPage(n); }).then(function(pg){
+    var rong = Math.max(240, e.clientWidth || 320), tile = Math.min(2, window.devicePixelRatio||1), N = pdf.numPages;
+    var ve = function(n, o){
+      if(o.daVe) return; o.daVe = true;
+      return pdf.getPage(n).then(function(pg){
         var vp0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:rong/vp0.width*tile});
         var c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
-        var d = document.createElement('div'); d.className = 'xp-o';
-        d.innerHTML = '<div class="xp-so">Trang '+n+'/'+pdf.numPages+'</div>';
-        d.appendChild(c); e.appendChild(d);
+        o.querySelector('.xp-cho').replaceWith(c);
         return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise;
       });
-    })(i);
-    return ch;
+    };
+    var ob = ('IntersectionObserver' in window) ? new IntersectionObserver(function(ds){
+      ds.forEach(function(d){ if(d.isIntersecting){ ob.unobserve(d.target); ve(+d.target.dataset.n, d.target); } });
+    }, {root:e.closest('.hop-in')||null, rootMargin:'400px'}) : null;
+    for(var n=1;n<=N;n++){
+      var o = document.createElement('div'); o.className = 'xp-o'; o.dataset.n = n;
+      o.innerHTML = '<div class="xp-so">Trang '+n+'/'+N+'</div><div class="xp-cho" style="aspect-ratio:210/297"></div>';
+      e.appendChild(o);
+      if(n===1 || !ob) ve(n, o); else ob.observe(o);
+    }
   }).catch(function(er){ e.innerHTML = '<div class="huong-dan">Không xem trước được ('+coChuHTML(er&&er.message||String(er))+') — vẫn gửi, in được.</div>'; });
 }
 function doiTenXP(v){
   v = String(v||'').trim(); if(!XP || !v) return;
   var ds = XP.ids.map(function(id){ return (D.scan||[]).find(function(x){ return x.id===id; }); }).filter(Boolean);
-  ds.forEach(function(k, i){ k.ten = ds.length>1 ? v+' - người '+(i+1) : v; });
+  ds.forEach(function(k, i){ k.ten = ds.length>1 ? v+' - người '+(i+1) : v; if(k.driveId) k.canDay = true; });
   XP.ten = v; luu(); veScan();
+  if(D.cauHinh.dbSauLuu!==false) henDongBoScan();
 }
 function tenFileXP(){
   var e = document.getElementById('xp-ten'); if(e && e.value.trim() && e.value.trim()!==XP.ten) doiTenXP(e.value);
@@ -11999,12 +12104,9 @@ function khungKy(c){
 }
 function veCatKA(){
   var ky = KA.loai==='ky', ten = tenKhachKA();
-  moHop('<div class="hop-tit">'+(ky?'✍ Cắt chữ ký':'🪪 CCCD mặt trước')+'</div>'+
+  moHop(buocHTML(1)+'<div class="hop-tit">'+(ky?'✍ Cắt chữ ký':'🪪 CCCD mặt trước')+'</div>'+
     '<div class="hop-phu">Kéo 4 góc, 4 cạnh hoặc kéo giữa khung để cắt vừa '+(ky?'chữ ký':'thẻ')+'.'+
       (!ky && KA.xl ? ' App đã tự tìm khung thẻ — chưa đúng thì bấm <b>Ảnh gốc</b> để cắt tay.' : '')+'</div>'+
-    '<div class="ka-ten-o"><input id="ka-ten2" value="'+coChuHTML(ten)+'" placeholder="Tên khách (đặt tên file)" '+
-      'oninput="KA.ten=this.value;KA.tenLuc=Date.now();document.getElementById(\'ka-tf\').textContent=\'→ \'+tenFileKA(KA.loai,this.value)">'+
-      '<span id="ka-tf">→ '+coChuHTML(tenFileKA(KA.loai, ten))+'</span></div>'+
     '<div class="ka-khung"><canvas id="ka-c"></canvas></div>'+
     '<div class="hang-nut ka-cong">'+
       '<button class="nho" onclick="KA.xoay=(KA.xoay+1)%4;datNguonKA(KA.dung)">⟳ Xoay</button>'+
@@ -12014,12 +12116,11 @@ function veCatKA(){
       (!ky ? '<span class="ka-muc">'+Object.keys(KA_MUC).map(function(m){
         return '<button class="nho'+(KA.muc===m?' bat':'')+'" onclick="KA.muc=\''+m+'\';D.cauHinh.kaMuc=\''+m+'\';luu();veCatKA()">'+KA_MUC[m].ten+'</button>'; }).join('')+'</span>' : '')+
     '</div>'+
-    '<div class="ka-kq"><div class="ka-kq-anh"><img id="ka-kq" alt=""></div><div id="ka-co" class="ka-co">Đang tính…</div></div>'+
-    '<div class="xp-nut"><button class="nho chinh" onclick="luuKA()">💾 Lưu + đưa lên Drive</button>'+
-      '<div class="hang-nut"><button class="nho" onclick="luuKA(\'gui\')">📤 Lưu + Gửi</button>'+
+    '<div class="xp-nut"><div class="hang-nut">'+
       '<button class="nho" onclick="chupKA(KA.loai===\'ky\'?\'ky\':\'anh\',\'camera\')">📷 Chụp lại</button>'+
-      '<button class="nho" onclick="moKyAnh()">Thôi</button></div></div>', true);
-  ganCatKA(); xemKA();
+      '<button class="nho" onclick="moKyAnh()">Thôi</button>'+
+      '<button class="nho chinh sc-xong" onclick="xemKA2()">Xem ›</button></div></div>', true);
+  ganCatKA();
 }
 /* ---- khung cắt kéo tay: 4 góc + 4 cạnh + kéo giữa để dời ---- */
 function veKhungKA(){
@@ -12117,6 +12218,39 @@ function xemKA(){
     co.innerHTML = '<b>'+Math.round(b.size/1024)+' KB</b> · JPG '+(b.size<=200*1024?'<span class="ka-dat">✓ dưới 200 KB</span>':'<span class="ka-qua">quá 200 KB</span>');
   });
 }
+/* ② XEM — ảnh kết quả cỡ lớn + dung lượng + tên khách; chưa lưu */
+function xemKA2(){
+  var ky = KA.loai==='ky', ten = tenKhachKA();
+  batChay(false, 'Đang nén ảnh…');
+  dungKA().then(function(b){
+    tatChay(); KA.bl = b;
+    if(KA_URL) URL.revokeObjectURL(KA_URL); KA_URL = URL.createObjectURL(b);
+    moHop(buocHTML(2)+'<div class="hop-tit">Xem '+(ky?'chữ ký':'CCCD')+'</div>'+
+      '<div class="ka-lon"><img src="'+KA_URL+'" alt=""></div>'+
+      '<div class="ka-co"><b>'+Math.round(b.size/1024)+' KB</b> · JPG '+(b.size<=200*1024?'<span class="ka-dat">✓ dưới 200 KB</span>':'<span class="ka-qua">quá 200 KB</span>')+'</div>'+
+      '<div class="ka-ten-o"><input id="ka-ten2" value="'+coChuHTML(ten)+'" placeholder="Tên khách (đặt tên file)" '+
+        'oninput="KA.ten=this.value;KA.tenLuc=Date.now();document.getElementById(\'ka-tf\').textContent=\'→ \'+tenFileKA(KA.loai,this.value)">'+
+        '<span id="ka-tf">→ '+coChuHTML(tenFileKA(KA.loai, ten))+'</span></div>'+
+      '<div class="xp-nut"><div class="hang-nut">'+
+        '<button class="nho" onclick="veCatKA()">‹ Cắt lại</button>'+
+        '<button class="nho chinh sc-xong" onclick="luuKA()">Đạt — Tiếp ›</button></div></div>', true);
+    var e = document.getElementById('ka-ten2'); if(e && !e.value) e.focus();
+  }).catch(function(e){ tatChay(); baoLoi('Không nén được ảnh: '+(e&&e.message||e)); });
+}
+/* ③ LƯU — đã lưu trong máy + đưa lên Drive liền (anh chốt) */
+function kaXong(k){
+  moHop(buocHTML(3)+'<div class="hop-tit">✓ Đã lưu</div>'+
+    '<div class="hop-phu"><b>'+coChuHTML(k.ten)+'</b> · '+Math.round((k.co||0)/1024)+' KB</div>'+
+    '<div class="hop-phu" id="ka-drive">'+(k.driveId ? '☁ Đã lên Drive.' : (coTheNoiDrive() ? '☁ Đang đưa lên Drive…' : 'Chưa nối Drive — ảnh đang nằm trong máy, nối Drive xong app tự đẩy.'))+'</div>'+
+    '<div class="xp-nut">'+
+      '<button class="nho chinh" onclick="guiKA(\''+k.id+'\')">📤 Gửi — Zalo, Drive, Tệp…</button>'+
+      '<div class="hang-nut">'+
+        '<button class="nho" onclick="chupKA(\'ky\',\'camera\')">✍ Chụp chữ ký</button>'+
+        '<button class="nho" onclick="chupKA(\'anh\',\'camera\')">🪪 Chụp CCCD</button>'+
+        '<button class="nho" onclick="moThuMucKA(\''+(k.ngay||'').slice(0,7)+'\')">☁ Mở thư mục</button>'+
+        '<button class="nho xau" onclick="xoaKA(\''+k.id+'\')">🗑 Xóa</button>'+
+        '<button class="nho" onclick="moKyAnh()">Xong</button></div></div>', true);
+}
 function luuKA(cach){
   var ten = (document.getElementById('ka-ten2')||{}).value || KA.ten;
   if(!String(ten).trim()) return baoLoi('Nhập tên khách để đặt tên file.');
@@ -12129,14 +12263,12 @@ function luuKA(cach){
     var goc = k.ten.replace(/\.jpg$/,''), n = 2; while(co[k.ten]){ k.ten = goc+' ('+n+').jpg'; n++; }
     return luuAnhHS(k.id, b).then(function(){
       D.kyAnh.push(k); luu();
-      if(cach==='gui') chiaSeAnh(b, k.ten);
-      moKyAnh();
-      if(coTheNoiDrive() && DR.sanSang) return dayKAMot(k.id);
-      bao('Đã lưu '+k.ten+' ('+Math.round(b.size/1024)+' KB) trong máy. '+(coTheNoiDrive()?'Drive chưa sẵn sàng — bấm ☁ sau.':'Chưa nối Drive — bấm 📤 để gửi.'), 7);
+      kaXong(k);
+      if(coTheNoiDrive()) return dayKAMot(k.id, true);
     });
   }).catch(function(e){ baoLoi('Chưa lưu được: '+(e&&e.message||e)); });
 }
-function dayKAMot(id){
+function dayKAMot(id, im){
   var k = (D.kyAnh||[]).find(function(x){ return x.id===id; }); if(!k) return;
   if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.');
   var thang = (k.ngay||ngayISO(nay())).slice(0,7), duong = duongKA(thang);
@@ -12149,10 +12281,14 @@ function dayKAMot(id){
     return goiDrive('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',
       {method:'POST', headers:{'Content-Type':'multipart/related; boundary='+bien}, body:new Blob([dau, bl, '\r\n--'+bien+'--'])});
   }).then(function(r){
-    k.driveId = r && r.id; luu();
-    bao('☁ Đã lên Drive: '+duong.replace(D.cauHinh.thumuc+' / ','')+' / '+k.ten, 6);
+    k.driveId = r && r.id; luu(); ghiDongBo();
+    var e = document.getElementById('ka-drive'); if(e) e.textContent = '☁ Đã lên Drive: '+duong.replace(D.cauHinh.thumuc+' / ','')+' / '+k.ten;
+    else if(!im) bao('☁ Đã lên Drive: '+k.ten, 5);
     if(document.getElementById('ka-ten')) moKyAnh();
-  }).catch(function(e){ baoLoi('Chưa đưa lên Drive được: '+(e&&e.message||e)+' — bấm ☁ để thử lại.'); });
+  }).catch(function(e){
+    var el = document.getElementById('ka-drive'); if(el) el.textContent = 'Chưa lên Drive được ('+(e&&e.message||e)+') — app tự thử lại khi mở / rời app, hoặc bấm ☁ Đồng bộ.';
+    else if(!im) baoLoi('Chưa đưa lên Drive được: '+(e&&e.message||e)+' — bấm ☁ để thử lại.');
+  });
 }
 function chiaSeAnh(b, ten){
   var f = new File([b], ten, {type:'image/jpeg'});
@@ -12362,6 +12498,143 @@ function phimCam(ev){
   else if(ev.key==='Escape'){ ev.preventDefault(); if(CAM.anh.length) xongCam(); else dongCam(); }
 }
 
+/* ==========================================================
+   3.46: ĐỒNG BỘ DRIVE — mặc định khi mở app, khi rời app, ngay sau khi lưu; tùy chọn mỗi 5 phút; nút ☁ Đồng bộ ngay.
+   Bản chưa lên được (mất mạng, chưa nối) nằm chờ, lần sau tự đẩy — không mất.
+   ========================================================== */
+function scanCanDay(){
+  return (D.scan||[]).filter(function(k){ return k && (k.che==='tailieu' ? (k.trang||[]).length : k.matTruoc) && (!k.driveId || k.canDay); });
+}
+function kaCanDay(){ return (D.kyAnh||[]).filter(function(k){ return !k.driveId; }); }
+function ghiDongBo(){ DR.dongBoLuc = hai(nay().getHours())+':'+hai(nay().getMinutes()); if(typeof capNhatChip==='function') capNhatChip(); }
+var DB_DANG = false, DB_HEN = null;
+function henDongBoScan(){ clearTimeout(DB_HEN); DB_HEN = setTimeout(function(){ dongBoScan(false); }, 800); }
+/* tuTay = anh bấm: có thanh chạy + báo kết quả; tự động: chạy lặng lẽ */
+function dongBoScan(tuTay){
+  if(!coTheNoiDrive()){ if(tuTay) baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.'); return Promise.resolve(false); }
+  if(!DR.sanSang){ if(tuTay) return noiDrive().then(function(ok){ return ok ? dongBoScan(true) : false; }); return Promise.resolve(false); }
+  if(DR.online===false){ if(tuTay) bao('Đang mất mạng — có mạng lại app tự đẩy.', 4); return Promise.resolve(false); }
+  if(DB_DANG) return Promise.resolve(false);
+  var sc = scanCanDay(), ka = kaCanDay(), tong = sc.length + ka.length, xong = 0, loi = 0;
+  if(!tong){ if(tuTay){ ghiDongBo(); } return Promise.resolve(true); }
+  DB_DANG = true;
+  if(tuTay) batChay(false, 'Đang đưa lên Drive 0/'+tong+'…');
+  var buoc = function(){ if(tuTay){ dangLamChu('Đang đưa lên Drive '+(xong+loi)+'/'+tong+'…'); tienChay(Math.round((xong+loi)/tong*100)); } };
+  return sc.reduce(function(p, k){
+    return p.then(function(){
+      return taoPDFScan(k).then(function(bl){ return dayHoSoLenDrive(k, bl); })
+        .then(function(){ xong++; delete k.canDay; buoc(); }, function(e){ loi++; buoc(); console.warn('Chưa đẩy được', k.ten, e); });
+    });
+  }, Promise.resolve()).then(function(){
+    return ka.reduce(function(p, k){ return p.then(function(){ return dayKAMot(k.id, true).then(function(){ if(k.driveId) xong++; else loi++; buoc(); }); }); }, Promise.resolve());
+  }).then(function(){
+    DB_DANG = false; if(tuTay) tatChay();
+    luuHoSo(); ghiDongBo();
+    var e = document.getElementById('xp-drive'); if(e && XP) e.innerHTML = trangThaiDriveScan(XP.ids.map(timScan));
+    if(nganHienTai===4) veScan();
+    if(tuTay) bao('☁ Đã đồng bộ '+xong+'/'+tong+(loi ? ' · '+loi+' bản chưa lên được, lần sau app thử lại' : '')+'.', 6);
+    return !loi;
+  });
+}
+function dongBoNgay(){
+  if(!coTheNoiDrive()) return moCaiDat('drive');
+  if(DR.sanSang){ dayChiMucLenDrive(); if(typeof chayDongBoCho==='function' && demChoDB().length) chayDongBoCho(); }
+  return dongBoScan(true);
+}
+/* rời app: iPhone chỉ cho vài giây — chỉ mục (nhỏ) kịp lên; PDF lớn chưa xong thì lần mở app sau đẩy tiếp */
+document.addEventListener('visibilitychange', function(){
+  if(document.visibilityState!=='hidden' || D.cauHinh.dbRoiApp===false || !DR.sanSang) return;
+  try{ dayChiMucLenDrive(); dongBoScan(false); }catch(e){}
+});
+window.addEventListener('online', function(){ if(DR.sanSang) setTimeout(function(){ dongBoScan(false); }, 2000); });
+setInterval(function(){ if(D.cauHinh && D.cauHinh.db5p===true && DR.sanSang && !document.hidden){ dayChiMucLenDrive(); dongBoScan(false); } }, 5*60000);
+
+/* ==========================================================
+   3.46 (mục K): ĐỌC CHỮ PDF ẢNH (OCR) — chỉ khi anh bấm, chỉ hiện nút khi mục còn thiếu thông tin.
+   Đọc trang 1 ngay trong máy (Tesseract, tiếng Việt), không gửi ra ngoài. Lần đầu tải bộ đọc ~10–15 MB rồi dùng lại.
+   Đọc xong: chữ đọc được bên trái để đối chiếu / sửa, ô số hiệu · ngày · trích yếu điền sẵn bên phải.
+   ========================================================== */
+function canOCR(m){
+  if(!m || !/pdf$/i.test(m.duoi||m.tenCu||'') || m.nhom!=='vanBan') return false;
+  return !!m.anhPDF && (!m.soHieu || !m.ngay || !m.trichYeu || !m.chac);
+}
+var OCR_LIB = null;
+function napOCR(){
+  if(window.Tesseract) return Promise.resolve(true);
+  if(OCR_LIB) return OCR_LIB;
+  OCR_LIB = new Promise(function(ok, loi){
+    var sc = document.createElement('script');
+    sc.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+    sc.onload = function(){ ok(true); }; sc.onerror = function(){ OCR_LIB = null; loi(new Error('Không tải được bộ đọc chữ (cần mạng lần đầu)')); };
+    document.head.appendChild(sc);
+  });
+  return OCR_LIB;
+}
+function docChuOCR(id){
+  var m = timMucCaCho(id) || timMuc(id); if(!m) return;
+  if(!window.pdfjsLib) return baoLoi('Chưa tải được bộ đọc PDF.');
+  QUET.dung = false;
+  var worker = null;
+  batChay(false, 'Đang chuẩn bị bộ đọc chữ…', true);
+  napOCR().then(function(){ return docFile(m.id); }).then(function(b){
+    if(!b) throw new Error('Không còn file trong máy');
+    return b.arrayBuffer();
+  }).then(function(ab){ return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise; })
+  .then(function(pdf){ return pdf.getPage(1); }).then(function(pg){
+    dangLamChu('Đang dựng ảnh trang 1…');
+    var vp0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(3, 2000/Math.max(vp0.width, vp0.height))});
+    var c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
+    return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise.then(function(){ return c; });
+  }).then(function(c){
+    return Tesseract.createWorker('vie', 1, {logger:function(l){
+      if(QUET.dung && worker){ worker.terminate(); worker = null; }
+      var pt = Math.round((l.progress||0)*100);
+      dangLamChu((/load|download|initializ/i.test(l.status||'') ? 'Đang tải bộ đọc chữ tiếng Việt' : 'Đang đọc chữ trang 1')+'… '+pt+'%');
+      tienChay(pt);
+    }}).then(function(w){
+      worker = w; if(QUET.dung){ w.terminate(); throw new Error('Đã dừng'); }
+      return w.recognize(c);
+    }).then(function(r){ var t = (r && r.data && r.data.text) || ''; if(worker){ worker.terminate(); worker = null; } return t; });
+  }).then(function(chu){
+    tatChay(); moKetQuaOCR(m, chu);
+  }).catch(function(e){
+    tatChay(); if(worker) try{ worker.terminate(); }catch(_){}
+    if(QUET.dung) return bao('Đã dừng đọc chữ.', 3);
+    baoLoi('Chưa đọc được chữ: '+(e&&e.message||e)+'. Có thể dùng "Chép sang AI" để đọc giúp.');
+  });
+}
+function moKetQuaOCR(m, chu){
+  chu = String(chu||'').replace(/[ \t]+\n/g,'\n').trim();
+  var t = phanTichOCR(chu, m);
+  moHop('<div class="hop-tit">🔍 Chữ đọc được — trang 1</div>'+
+    '<div class="hop-phu">Máy đọc không chắc đúng 100% — anh đối chiếu với chữ bên trái, sửa lại ô bên phải rồi bấm Áp dụng.</div>'+
+    '<div class="ocr-hai"><div class="ocr-chu"><label>Chữ đọc được (sửa được)</label><textarea id="ocr-chu" rows="14">'+coChuHTML(chu)+'</textarea>'+
+      '<button class="nho" onclick="var t=phanTichOCR(gt(\'ocr-chu\'), timMucCaCho(\''+m.id+'\')||timMuc(\''+m.id+'\'));'+
+        'document.getElementById(\'ocr-so\').value=t.so;document.getElementById(\'ocr-ngay\').value=t.ngay;document.getElementById(\'ocr-ty\').value=t.ty">↻ Tách lại từ chữ đã sửa</button></div>'+
+    '<div class="ocr-o">'+
+      '<div class="o"><label>Số hiệu</label><input id="ocr-so" value="'+coChuHTML(t.so)+'"></div>'+
+      '<div class="o"><label>Ngày ban hành</label><input id="ocr-ngay" type="date" value="'+coChuHTML(t.ngay)+'"></div>'+
+      '<div class="o"><label>Trích yếu</label><textarea id="ocr-ty" rows="4">'+coChuHTML(t.ty)+'</textarea></div></div></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+      '<button class="nho chinh" onclick="apDungOCR(\''+m.id+'\')">Áp dụng</button></div>', true);
+}
+function phanTichOCR(chu, m){
+  var so = '', ng = '', ty = '';
+  try{ so = rutSoHieu(chu) || ''; ng = rutNgay(chu) || ''; ty = rutTrichYeu(chu) || rutTieuDe(chu) || ''; }catch(e){}
+  return {so:so || (m&&m.soHieu) || '', ngay:ng || (m&&m.ngay) || '', ty:ty || (m&&m.trichYeu) || ''};
+}
+function apDungOCR(id){
+  var m = timMucCaCho(id) || timMuc(id); if(!m) return dongHop();
+  m.soHieu = gt('ocr-so'); m.ngay = gt('ocr-ngay'); m.trichYeu = gt('ocr-ty') || m.trichYeu;
+  if(m.soHieu || m.trichYeu) m.loai = doanLoai(m.trichYeu+' '+(m.tenCu||''), m.soHieu) || m.loai;
+  m.chac = !!(m.soHieu && m.ngay && m.trichYeu);
+  m.canCu = 'Đọc chữ (OCR) trang 1 — anh đã xem, sửa';
+  var tenCu = m.tenMoi; m.tenMoi = tenVanBan(m, m.duoi);
+  if(m.driveId && tenCu!==m.tenMoi) m.choDB = true;   /* mục đã lên Drive → đổi tên file theo */
+  luu(); dongHop(); ve();
+  bao('Đã điền thông tin từ chữ đọc được.', 4);
+}
+
 /* lưu tạm: tên tự đặt theo ngày giờ quét, khai sau */
 /* 3.41 (anh chốt): lưu tạm đặt tên "Scan ngày-tháng-năm giờ" để biết mà sửa tên lại; trùng thì thêm (2), (3)… */
 function tenLuuTam(d, hau){
@@ -12401,6 +12674,7 @@ function luuSauHang(){
 function ghiLuuTam(ds, loiBao){
   D.scan = D.scan || []; ds.forEach(function(k){ D.scan.push(k); }); HS.ds = D.scan;
   donGocHang(); HANG = []; luu(); dongHop(); veScan();
+  if(D.cauHinh.dbSauLuu!==false) henDongBoScan();   /* 3.46: lưu tạm xong đưa lên Drive liền (có mạng) */
   if(SAU_LUU_TAM){ var f = SAU_LUU_TAM; SAU_LUU_TAM = null; return f(ds); }
   bao(loiBao, 7);
 }
