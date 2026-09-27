@@ -548,6 +548,29 @@
   .bdc-ky-chon{display:flex;align-items:center;gap:5px}
   .bdc-ky-ten{min-width:74px;text-align:center;font-size:calc(13.5px*var(--co))}
   .bdc-cuon{overflow:auto;max-height:52vh}
+  /* 3.44: chữ ký · ảnh khách hàng */
+  .ka-nut{display:flex;gap:8px}
+  .ka-nut button{flex:1;min-height:64px;font-size:calc(14px*var(--co))}
+  .ka-nut small{font-weight:400;opacity:.85}
+  .ka-dong{display:flex;align-items:center;gap:6px;padding:7px 0;border-bottom:1px solid var(--vien)}
+  .ka-ic{font-size:18px}
+  .ka-ten{flex:1;min-width:0;font-size:calc(12.5px*var(--co));word-break:break-all}
+  .ka-ten small{display:block;color:var(--chu-phu);font-size:calc(11px*var(--co))}
+  .ka-dong button{border:1px solid var(--vien);background:var(--the);border-radius:8px;min-width:34px;min-height:32px;cursor:pointer}
+  .ka-dong button.xau{color:var(--do)}
+  .ka-khung{background:#222;border-radius:10px;display:flex;justify-content:center;padding:6px;touch-action:none}
+  .ka-khung canvas{max-width:100%;touch-action:none;cursor:crosshair}
+  .ka-cong{margin-top:8px;flex-wrap:wrap}
+  .ka-cong .bat{background:var(--xanh-nhat);border-color:var(--xanh);color:var(--xanh-dam);font-weight:600}
+  .ka-muc{display:inline-flex;gap:4px}
+  .ka-kq{display:flex;gap:10px;align-items:center;margin:10px 0}
+  .ka-ten-o{margin:0 0 8px}
+  .ka-ten-o input{width:100%;box-sizing:border-box;font-size:calc(15px*var(--co));padding:9px 12px;border:1.3px solid var(--vien);border-radius:10px;background:var(--the);color:var(--chu)}
+  .ka-ten-o span{display:block;font-size:calc(11.5px*var(--co));color:var(--chu-phu);margin-top:3px}
+  .ka-kq-anh{flex:0 0 34%;background:repeating-conic-gradient(#eee 0 25%,#fff 0 50%) 0 0/12px 12px;border:1px solid var(--vien);border-radius:8px;padding:4px}
+  .ka-kq-anh img{width:100%;display:block}
+  .ka-co{font-size:calc(13px*var(--co))}
+  .ka-dat{color:var(--luc);font-weight:600} .ka-qua{color:var(--do);font-weight:600}
   /* 3.43: Scan điện thoại kiểu Lens */
   .sc-dt{display:flex;gap:7px;align-items:stretch;margin:2px 0 10px}
   .sc-quet{flex:1 1 auto;min-height:50px;border:0;border-radius:14px;background:var(--xanh);color:#fff;
@@ -10997,7 +11020,8 @@ function veScan(){
   var h = laDT() ? dauScanDT() : veDauTab('scan', {kho:D.scan, nhanThem:'Quét bản mới',
     hamThem:'batDauScan()',
     themPhu:'<button class="phu" onclick="chonCheScan()">Chế độ: '+
-            (SC.che==='the'?'Thẻ':'Tài liệu')+'</button>'});
+            (SC.che==='the'?'Thẻ':'Tài liệu')+'</button>'+
+            '<button class="phu" onclick="moKyAnh()">✍ Chữ ký · Ảnh KH</button>'});
 
   /* 3.33: lời nhắc nhỏ thay khung vàng cảnh báo */
   h += '<div class="huong-dan tab-ghi-chu-scan" style="margin:0 0 8px">Ảnh xử lý trong máy, không gửi tới AI · lưu hồ sơ là bản PDF lên Drive: '+
@@ -11575,8 +11599,10 @@ function dungPDFThe(dsCap, tieuDe){
   var mm = 2.834645669, A4 = {r:210*mm, c:297*mm}, MOI = 4, ch = cauHinhInThe();   /* 3.40: cỡ thẻ, khe chỉnh ở Cài đặt › Scan */
   var le = 10*mm, kheGiua = ch.khe*mm, tl = THE_MM.rong/THE_MM.cao;
   var tR = ch.rong*mm, tC = tR/tl;
-  var khe = Math.max(10*mm, (A4.c - 2*le - MOI*tC)/(MOI-1));
-  if(MOI*tC + (MOI-1)*khe > A4.c - 2*le){ tC = (A4.c - 2*le - (MOI-1)*khe)/MOI; tR = tC*tl; }
+  /* 3.44: khe giữa các người 12 mm, cả khối căn giữa trang → đường cắt ngoài cùng cách mép giấy ≈ 8 mm (máy in in tới được) */
+  var khe = 12*mm;
+  le = (A4.c - MOI*tC - (MOI-1)*khe)/2;
+  if(le < 14*mm){ le = 14*mm; tC = (A4.c - 2*le - (MOI-1)*khe)/MOI; tR = tC*tl; }
   var xT = (A4.r - (2*tR + kheGiua))/2;
   var bien = 4*mm, mau = PDFLib.rgb(.72,.72,.72);
   function duongCat(tg, a, b){ tg.drawLine({start:a, end:b, thickness:.3, color:mau}); }
@@ -11602,13 +11628,15 @@ function dungPDFThe(dsCap, tieuDe){
               });
             }, Promise.resolve());
           }).then(function(){
-            /* 3.44 (anh Nhân): bỏ tên khách và các vạch góc — chỉ còn ĐƯỜNG CẮT MẢNH chạy suốt theo mép thẻ.
-               Ngang: mép trên + mép dưới mỗi hàng, chạy hết bề ngang. Dọc: 4 mép của 2 cột, chạy hết chiều cao.
-               Thẻ thẳng hàng thẳng cột nên đường cắt không đè lên ảnh; cắt theo đường là các thẻ đều nhau. */
-            [y, y+tC].forEach(function(yy){ duongCat(tg, {x:bien, y:yy}, {x:A4.r-bien, y:yy}); });
+            /* 3.44 (anh Nhân chỉnh lại): không chữ, không vạch góc — chỉ ĐƯỜNG MỎNG NẰM GIỮA KHE giữa 2 thẻ làm dấu cắt kéo.
+               Ngang: giữa khe trên + khe dưới mỗi hàng (chạy hết bề ngang). Dọc: giữa khe 2 mặt + 2 đường ngoài cách mép thẻ
+               đúng nửa khe, chạy từ đường ngang đầu tới đường ngang cuối → cắt theo đường là các miếng thẻ bằng nhau. */
+            if(hang===0) duongCat(tg, {x:bien, y:y+tC+khe/2}, {x:A4.r-bien, y:y+tC+khe/2});
+            duongCat(tg, {x:bien, y:y-khe/2}, {x:A4.r-bien, y:y-khe/2});
             var cuoi = (hang===MOI-1) || (i===dsCap.length-1);
-            if(cuoi) [xT, xT+tR, xT+tR+kheGiua, xT+2*tR+kheGiua].forEach(function(x){
-              duongCat(tg, {x:x, y:hang===MOI-1 ? bien : Math.max(bien, y-6*mm)}, {x:x, y:A4.c-bien}); });   /* trang chưa đủ 4 người → dừng ngay dưới hàng cuối */
+            if(cuoi){ var yT = A4.c - le + khe/2, yD = y - khe/2;
+              [xT - kheGiua/2, xT + tR + kheGiua/2, xT + 2*tR + kheGiua*1.5].forEach(function(x){
+                duongCat(tg, {x:x, y:yD}, {x:x, y:yT}); }); }
           });
         });
       }, Promise.resolve()).then(function(){ return pdf.save(); });
@@ -11733,6 +11761,7 @@ function dauScanDT(){
     '<div class="sc-che">'+
       '<button class="'+(SC.che==='the'?'bat':'')+'" onclick="datChe(\'the\')">Thẻ</button>'+
       '<button class="'+(SC.che!=='the'?'bat':'')+'" onclick="datChe(\'tailieu\')">Tài liệu</button></div>'+
+    '<button class="sc-nho" onclick="moKyAnh()" title="Chữ ký · Ảnh khách hàng">✍</button>'+
     '<button class="sc-nho" onclick="quetNhanh(\'photo\')" title="Lấy ảnh có sẵn trong máy">🖼</button>'+
     '<button class="sc-nho'+(so?' co':'')+'" onclick="moBoLoc(\'scan\')" title="Bộ lọc">☰'+(so?'<i>'+so+'</i>':'')+'</button>'+
   '</div>'+dongDangLoc('scan');
@@ -11826,6 +11855,268 @@ function guiXP(){
 function inXP(){
   if(!XP || !XP.bl) return bao('PDF đang dựng, chờ chút rồi bấm lại.', 3);
   inBlob(XP.bl, tenFileXP());
+}
+
+/* ==========================================================
+   3.44: CHỮ KÝ · ẢNH KHÁCH HÀNG — file ảnh nhỏ (dưới 200 KB, càng nhỏ càng tốt) để nhập lên hệ thống khi tạo hồ sơ.
+   - Chữ ký: chụp → kéo khung cắt vùng chữ ký tùy ý (như Zalo; app đoán sẵn khung quanh nét ký) → nền trắng, nét đậm → ~10–40 KB.
+   - Ảnh: chụp mặt trước CCCD → app tự tìm khung thẻ, nắn thẳng (ảnh gốc hiện bên cạnh, cắt tay được) → nén dưới 200 KB.
+   - Đặt tên nhanh theo tên khách (nhớ tên cho lần chụp kế tiếp) → lưu trong máy + đưa ngay lên Drive:
+     Tủ hồ sơ / Chữ ký - Ảnh KH / ngày — ngồi máy bàn mở Drive là lấy nhập hệ thống.
+   ========================================================== */
+var KA = {ten:'', tenLuc:0, loai:'ky', im:null, goc:null, r:null, xoay:0, muc:'vua', bl:null, dung:'xl'};
+var KA_MUC = {nho:{w:560, kb:50, ten:'Nhỏ'}, vua:{w:760, kb:90, ten:'Vừa'}, net:{w:1000, kb:190, ten:'Nét'}};
+function tenKhachKA(){ return (Date.now()-KA.tenLuc < 30*60000) ? KA.ten : ''; }
+function tenFileKA(loai, ten){
+  var t = String(ten||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D')
+    .replace(/[^A-Za-z0-9]+/g,'_').replace(/^_+|_+$/g,'');   /* bỏ dấu, giữ hoa thường: CK_Nguyen_Van_A.jpg */
+  return (loai==='ky'?'CK_':'ANH_')+(t||('khach_'+ngayISO(nay())))+'.jpg';
+}
+function moKyAnh(){
+  if(!HS.mo) return moHoSo();
+  D.kyAnh = D.kyAnh || [];
+  var ds = D.kyAnh.slice().sort(function(a,b){ return (b.luc||'').localeCompare(a.luc||''); }).slice(0,12);
+  moHop('<div class="hop-tit">✍ Chữ ký · Ảnh khách hàng</div>'+
+    '<div class="hop-phu">File JPG dưới 200 KB để nhập hệ thống khi tạo hồ sơ. Lưu xong tự đưa lên Drive: <b>'+
+      coChuHTML(D.cauHinh.thumuc||'Tủ hồ sơ')+' / Chữ ký - Ảnh KH / ngày</b>.</div>'+
+    '<div class="o"><label>Tên khách</label><input id="ka-ten" value="'+coChuHTML(tenKhachKA())+'" placeholder="Ví dụ: Nguyễn Văn A" '+
+      'oninput="KA.ten=this.value;KA.tenLuc=Date.now()"></div>'+
+    '<div class="ka-nut">'+
+      '<button class="nho chinh" onclick="chupKA(\'ky\',\'camera\')">✍ Chụp chữ ký</button>'+
+      '<button class="nho chinh" onclick="chupKA(\'anh\',\'camera\')">🪪 Chụp ảnh<br><small>mặt trước CCCD</small></button></div>'+
+    '<div class="hang-nut" style="margin-top:6px"><button class="nho" onclick="chupKA(\'ky\',\'photo\')">🖼 Chữ ký từ ảnh có sẵn</button>'+
+      '<button class="nho" onclick="chupKA(\'anh\',\'photo\')">🖼 Ảnh từ ảnh có sẵn</button></div>'+
+    (ds.length ? '<div class="nhan-nhom">Gần đây</div>'+ds.map(function(k){
+      return '<div class="ka-dong"><span class="ka-ic">'+(k.loai==='ky'?'✍':'🪪')+'</span>'+
+        '<span class="ka-ten">'+coChuHTML(k.ten)+'<small>'+Math.round((k.co||0)/1024)+' KB · '+ngayVN(k.ngay)+' · '+
+          (k.driveId?'☁ đã lên Drive':'chưa lên Drive')+'</small></span>'+
+        (k.driveId?'':'<button onclick="dayKAMot(\''+k.id+'\')" title="Đưa lên Drive">☁</button>')+
+        '<button onclick="guiKA(\''+k.id+'\')" title="Gửi">📤</button>'+
+        '<button class="xau" onclick="xoaKA(\''+k.id+'\')" title="Xóa hẳn">🗑</button></div>';
+    }).join('') : '')+
+    '<div class="hang-nut" style="margin-top:12px"><button class="nho" onclick="dongHop();veScan()">Đóng</button></div>', true);
+}
+function chupKA(loai, nguon){
+  var e = document.getElementById('ka-ten'); if(e){ KA.ten = e.value; KA.tenLuc = Date.now(); }
+  var i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*';
+  if(nguon==='camera') i.capture = 'environment';
+  i.onchange = function(){ var f = i.files && i.files[0]; if(f) nhanKA(loai, f); };
+  i.click();
+}
+function nhanKA(loai, f){
+  batChay(true, 'Đang xử lý ảnh…');
+  KA.loai = loai; KA.xoay = 0; KA.muc = D.cauHinh.kaMuc || 'vua'; KA.dung = 'xl'; KA.bl = null;
+  return thuGoc(f).then(anhTuBlob).then(function(im){
+    KA.goc = im;
+    if(loai==='anh'){
+      /* tìm khung thẻ bằng đúng bộ xử lý của chế độ Thẻ; không tìm được thì dùng ảnh gốc, cắt tay */
+      try{ var xx = {id:'ka', che:'the', xoay:0, loc:'goc'}, c = xuLyTuAnh(im, xx, true); KA.xl = c; if(!xx.tin) KA.dung = 'goc'; }catch(er){ KA.xl = null; }
+      if(!KA.xl) KA.dung = 'goc';
+    } else KA.xl = null;
+    datNguonKA(KA.dung, true);
+    tatChay(); veCatKA();
+  }).catch(function(er){ tatChay(); baoLoi('Không đọc được ảnh: '+(er&&er.message||er)); });
+}
+/* nguồn để cắt: ảnh app đã tìm khung (xl) hoặc ảnh gốc (goc) */
+function datNguonKA(k, dau){
+  KA.dung = (k==='xl' && KA.xl) ? 'xl' : 'goc';
+  var src = KA.dung==='xl' ? KA.xl : KA.goc;
+  var c = document.createElement('canvas'), q = KA.xoay%2;
+  var w = src.width, h = src.height;
+  c.width = q ? h : w; c.height = q ? w : h;
+  var g = c.getContext('2d'); g.translate(c.width/2, c.height/2); g.rotate(KA.xoay*Math.PI/2); g.drawImage(src, -w/2, -h/2);
+  KA.im = c;
+  KA.r = KA.loai==='ky' ? khungKy(c) : (KA.dung==='xl' ? {x:0, y:0, w:c.width, h:c.height} : {x:c.width*.1, y:c.height*.25, w:c.width*.8, h:c.width*.8/1.585});
+  if(!dau) veCatKA();
+}
+/* đoán khung chữ ký: vùng nét tối quanh tâm ảnh (bỏ mép ảnh), nới thêm lề */
+function khungKy(c){
+  var k = Math.min(1, 500/Math.max(c.width, c.height)), w = Math.max(1, Math.round(c.width*k)), h = Math.max(1, Math.round(c.height*k));
+  var t = document.createElement('canvas'); t.width = w; t.height = h; t.getContext('2d').drawImage(c, 0, 0, w, h);
+  var d = t.getContext('2d').getImageData(0, 0, w, h).data, xam = new Uint8Array(w*h), hs = new Uint32Array(256), i;
+  for(i=0;i<w*h;i++){ xam[i] = (d[i*4]*.3 + d[i*4+1]*.59 + d[i*4+2]*.11)|0; hs[xam[i]]++; }
+  var dem = 0, nen = 255; for(i=255;i>=0;i--){ dem += hs[i]; if(dem > w*h*0.5){ nen = i; break; } }
+  var x0 = w, y0 = h, x1 = -1, y1 = -1, bx = Math.round(w*.05), by = Math.round(h*.05);
+  for(var y=by;y<h-by;y++) for(var x=bx;x<w-bx;x++) if(xam[y*w+x] < nen-70){ if(x<x0)x0=x; if(x>x1)x1=x; if(y<y0)y0=y; if(y>y1)y1=y; }
+  if(x1<0 || (x1-x0)*(y1-y0) < w*h*0.003) return {x:c.width*.15, y:c.height*.3, w:c.width*.7, h:c.height*.4};
+  var l = Math.max(x1-x0, y1-y0)*0.08 + 6;
+  x0 = Math.max(0, x0-l); y0 = Math.max(0, y0-l); x1 = Math.min(w, x1+l); y1 = Math.min(h, y1+l);
+  return {x:x0/k, y:y0/k, w:(x1-x0)/k, h:(y1-y0)/k};
+}
+function veCatKA(){
+  var ky = KA.loai==='ky', ten = tenKhachKA();
+  moHop('<div class="hop-tit">'+(ky?'✍ Cắt chữ ký':'🪪 Ảnh khách hàng')+'</div>'+
+    '<div class="hop-phu">Kéo 4 góc, 4 cạnh hoặc kéo giữa khung để chọn vùng '+(ky?'chữ ký':'ảnh')+'.'+
+      (!ky && KA.xl ? ' App đã tự tìm khung thẻ — chưa đúng thì bấm <b>Ảnh gốc</b> để cắt tay.' : '')+'</div>'+
+    '<div class="ka-ten-o"><input id="ka-ten2" value="'+coChuHTML(ten)+'" placeholder="Tên khách (đặt tên file)" '+
+      'oninput="KA.ten=this.value;KA.tenLuc=Date.now();document.getElementById(\'ka-tf\').textContent=tenFileKA(KA.loai,this.value)">'+
+      '<span id="ka-tf">'+coChuHTML(tenFileKA(KA.loai, ten))+'</span></div>'+
+    '<div class="ka-khung"><canvas id="ka-c"></canvas></div>'+
+    '<div class="hang-nut ka-cong">'+
+      '<button class="nho" onclick="KA.xoay=(KA.xoay+1)%4;datNguonKA(KA.dung)">⟳ Xoay</button>'+
+      (!ky && KA.xl ? '<button class="nho'+(KA.dung==='xl'?' bat':'')+'" onclick="KA.xoay=0;datNguonKA(\'xl\')">App tự cắt</button>'+
+        '<button class="nho'+(KA.dung==='goc'?' bat':'')+'" onclick="KA.xoay=0;datNguonKA(\'goc\')">Ảnh gốc</button>' : '')+
+      (ky ? '<button class="nho" onclick="KA.r=khungKy(KA.im);veKhungKA();xemKA()">Tự tìm lại</button>' : '')+
+      (!ky ? '<span class="ka-muc">'+Object.keys(KA_MUC).map(function(m){
+        return '<button class="nho'+(KA.muc===m?' bat':'')+'" onclick="KA.muc=\''+m+'\';D.cauHinh.kaMuc=\''+m+'\';luu();veCatKA()">'+KA_MUC[m].ten+'</button>'; }).join('')+'</span>' : '')+
+    '</div>'+
+    '<div class="ka-kq"><div class="ka-kq-anh"><img id="ka-kq" alt=""></div><div id="ka-co" class="ka-co">Đang tính…</div></div>'+
+    '<div class="xp-nut"><button class="nho chinh" onclick="luuKA()">💾 Lưu + đưa lên Drive</button>'+
+      '<div class="hang-nut"><button class="nho" onclick="luuKA(\'gui\')">📤 Lưu + Gửi</button>'+
+      '<button class="nho" onclick="chupKA(KA.loai,\'camera\')">📷 Chụp lại</button>'+
+      '<button class="nho" onclick="moKyAnh()">Thôi</button></div></div>', true);
+  ganCatKA(); xemKA();
+}
+/* ---- khung cắt kéo tay: 4 góc + 4 cạnh + kéo giữa để dời ---- */
+function veKhungKA(){
+  var c = document.getElementById('ka-c'); if(!c || !KA.im) return;
+  var g = c.getContext('2d'), r = KA.r, s = c.width/KA.im.width;
+  g.clearRect(0, 0, c.width, c.height); g.drawImage(KA.im, 0, 0, c.width, c.height);
+  g.fillStyle = 'rgba(0,0,0,.45)';
+  g.fillRect(0, 0, c.width, r.y*s); g.fillRect(0, (r.y+r.h)*s, c.width, c.height-(r.y+r.h)*s);
+  g.fillRect(0, r.y*s, r.x*s, r.h*s); g.fillRect((r.x+r.w)*s, r.y*s, c.width-(r.x+r.w)*s, r.h*s);
+  g.strokeStyle = '#2E8BFF'; g.lineWidth = 2; g.strokeRect(r.x*s, r.y*s, r.w*s, r.h*s);
+  g.fillStyle = '#fff';
+  diemKA().forEach(function(p){ g.beginPath(); g.arc(p.x*s, p.y*s, 7, 0, 7); g.fill(); g.stroke(); });
+}
+function diemKA(){
+  var r = KA.r, cx = r.x+r.w/2, cy = r.y+r.h/2;
+  return [{x:r.x,y:r.y,k:'tl'},{x:r.x+r.w,y:r.y,k:'tr'},{x:r.x,y:r.y+r.h,k:'bl'},{x:r.x+r.w,y:r.y+r.h,k:'br'},
+          {x:cx,y:r.y,k:'t'},{x:cx,y:r.y+r.h,k:'b'},{x:r.x,y:cy,k:'l'},{x:r.x+r.w,y:cy,k:'r'}];
+}
+function ganCatKA(){
+  var c = document.getElementById('ka-c'); if(!c) return;
+  var khung = c.parentNode, rong = Math.min(khung.clientWidth || 320, 900);
+  var cao = Math.min(window.innerHeight*0.5, rong*KA.im.height/KA.im.width);
+  c.width = Math.round(cao*KA.im.width/KA.im.height); c.height = Math.round(cao);
+  veKhungKA();
+  var keo = null;
+  var toaDo = function(ev){ var b = c.getBoundingClientRect(), s = KA.im.width/b.width; return {x:(ev.clientX-b.left)*s, y:(ev.clientY-b.top)*s, s:s}; };
+  c.onpointerdown = function(ev){
+    var p = toaDo(ev), gan = 28*p.s, best = null, dmin = 1e9;
+    diemKA().forEach(function(d){ var dd = Math.hypot(d.x-p.x, d.y-p.y); if(dd<gan && dd<dmin){ dmin = dd; best = d.k; } });
+    var r = KA.r;
+    if(!best && p.x>r.x && p.x<r.x+r.w && p.y>r.y && p.y<r.y+r.h) best = 'giua';
+    if(!best) return;
+    keo = {k:best, p0:p, r0:{x:r.x, y:r.y, w:r.w, h:r.h}};
+    c.setPointerCapture(ev.pointerId); ev.preventDefault();
+  };
+  c.onpointermove = function(ev){
+    if(!keo) return;
+    var p = toaDo(ev), dx = p.x-keo.p0.x, dy = p.y-keo.p0.y, o = keo.r0, W = KA.im.width, H = KA.im.height, m = 20;
+    var x0 = o.x, y0 = o.y, x1 = o.x+o.w, y1 = o.y+o.h;
+    if(keo.k==='giua'){ var nx = Math.max(0, Math.min(W-o.w, o.x+dx)), ny = Math.max(0, Math.min(H-o.h, o.y+dy)); KA.r = {x:nx, y:ny, w:o.w, h:o.h}; }
+    else {
+      if(/l/.test(keo.k)) x0 = Math.max(0, Math.min(x1-m, o.x+dx));
+      if(/r/.test(keo.k)) x1 = Math.min(W, Math.max(x0+m, o.x+o.w+dx));
+      if(/t/.test(keo.k)) y0 = Math.max(0, Math.min(y1-m, o.y+dy));
+      if(/b/.test(keo.k)) y1 = Math.min(H, Math.max(y0+m, o.y+o.h+dy));
+      KA.r = {x:x0, y:y0, w:x1-x0, h:y1-y0};
+    }
+    veKhungKA(); ev.preventDefault();
+  };
+  c.onpointerup = c.onpointercancel = function(){ if(keo){ keo = null; xemKA(); } };
+}
+/* ---- dựng file kết quả + nén ---- */
+function dungKA(){
+  var r = KA.r, ky = KA.loai==='ky';
+  var wMax = ky ? 700 : KA_MUC[KA.muc].w, k = Math.min(1, wMax/r.w);
+  var c = document.createElement('canvas'); c.width = Math.max(1, Math.round(r.w*k)); c.height = Math.max(1, Math.round(r.h*k));
+  var g = c.getContext('2d'); g.imageSmoothingQuality = 'high';
+  g.drawImage(KA.im, r.x, r.y, r.w, r.h, 0, 0, c.width, c.height);
+  if(ky){
+    /* nền trắng tinh, nét đậm: nền = mức sáng phổ biến, mực = phần tối nhất; kéo giãn rồi đẩy phần sáng thành trắng */
+    var d = g.getImageData(0, 0, c.width, c.height), a = d.data, n = c.width*c.height, hs = new Uint32Array(256), xam = new Uint8Array(n), i;
+    for(i=0;i<n;i++){ xam[i] = (a[i*4]*.3 + a[i*4+1]*.59 + a[i*4+2]*.11)|0; hs[xam[i]]++; }
+    var dem = 0, nen = 255, muc = 0;
+    for(i=255;i>=0;i--){ dem += hs[i]; if(dem > n*0.4){ nen = i; break; } }
+    dem = 0; for(i=0;i<256;i++){ dem += hs[i]; if(dem > n*0.02){ muc = i; break; } }
+    var kc = Math.max(20, nen - muc);
+    for(i=0;i<n;i++){
+      var t = (xam[i]-muc)/kc; t = t<0 ? 0 : (t>1 ? 1 : t);
+      var v = t > 0.72 ? 255 : Math.round(255*Math.pow(t/0.72, 1.8)*0.85);
+      a[i*4] = a[i*4+1] = a[i*4+2] = v;
+    }
+    g.putImageData(d, 0, 0);
+  }
+  var tran = (ky ? 60 : KA_MUC[KA.muc].kb)*1024, gioiHan = 195*1024;
+  /* hạ chất lượng dần tới khi dưới mức đặt; vẫn quá 195 KB thì thu nhỏ ảnh */
+  var thu = function(cc, q){
+    return canvasRaBlob(cc, q).then(function(b){
+      if(b.size <= tran || (q <= 0.45 && b.size <= gioiHan)) return b;
+      if(q > 0.45) return thu(cc, Math.round((q-0.1)*100)/100);
+      var c2 = document.createElement('canvas'); c2.width = Math.round(cc.width*0.8); c2.height = Math.round(cc.height*0.8);
+      c2.getContext('2d').drawImage(cc, 0, 0, c2.width, c2.height);
+      return thu(c2, 0.7);
+    });
+  };
+  return thu(c, ky ? 0.85 : 0.82);
+}
+var KA_URL = '';
+function xemKA(){
+  var so = (KA.so = (KA.so||0)+1);
+  dungKA().then(function(b){
+    if(so!==KA.so) return;
+    KA.bl = b;
+    var im = document.getElementById('ka-kq'), co = document.getElementById('ka-co'); if(!im) return;
+    if(KA_URL) URL.revokeObjectURL(KA_URL); KA_URL = URL.createObjectURL(b); im.src = KA_URL;
+    co.innerHTML = '<b>'+Math.round(b.size/1024)+' KB</b> · JPG '+(b.size<=200*1024?'<span class="ka-dat">✓ dưới 200 KB</span>':'<span class="ka-qua">quá 200 KB</span>');
+  });
+}
+function luuKA(cach){
+  var ten = (document.getElementById('ka-ten2')||{}).value || KA.ten;
+  if(!String(ten).trim()) return baoLoi('Nhập tên khách để đặt tên file.');
+  KA.ten = ten; KA.tenLuc = Date.now();
+  (KA.bl ? Promise.resolve(KA.bl) : dungKA()).then(function(b){
+    var d = nay(), k = {id:'ka'+idMoi(), loai:KA.loai, ten:tenFileKA(KA.loai, ten), khach:String(ten).trim(), co:b.size, ngay:ngayISO(d), luc:d.toISOString()};
+    D.kyAnh = D.kyAnh || [];
+    /* trùng tên thì thêm _2, _3 */
+    var co = {}; D.kyAnh.forEach(function(x){ co[x.ten] = 1; });
+    var goc = k.ten.replace(/\.jpg$/,''), n = 2; while(co[k.ten]){ k.ten = goc+'_'+n+'.jpg'; n++; }
+    return luuAnhHS(k.id, b).then(function(){
+      D.kyAnh.push(k); luu();
+      if(cach==='gui') chiaSeAnh(b, k.ten);
+      moKyAnh();
+      if(coTheNoiDrive() && DR.sanSang) return dayKAMot(k.id);
+      bao('Đã lưu '+k.ten+' ('+Math.round(b.size/1024)+' KB) trong máy. '+(coTheNoiDrive()?'Drive chưa sẵn sàng — bấm ☁ sau.':'Chưa nối Drive — bấm 📤 để gửi.'), 7);
+    });
+  }).catch(function(e){ baoLoi('Chưa lưu được: '+(e&&e.message||e)); });
+}
+function dayKAMot(id){
+  var k = (D.kyAnh||[]).find(function(x){ return x.id===id; }); if(!k) return;
+  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.');
+  var duong = [D.cauHinh.thumuc, 'Chữ ký - Ảnh KH', k.ngay].join(' / ');
+  return Promise.all([docAnhHS(k.id), baoDamDuong(duong)]).then(function(r){
+    var bl = r[0], idTM = r[1]; if(!bl) throw new Error('Ảnh trong máy không còn');
+    var bien = '----tuhoso'+Date.now();
+    var dau = '--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify({name:k.ten, parents:[idTM]})+
+      '\r\n--'+bien+'\r\nContent-Type: image/jpeg\r\n\r\n';
+    return goiDrive('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',
+      {method:'POST', headers:{'Content-Type':'multipart/related; boundary='+bien}, body:new Blob([dau, bl, '\r\n--'+bien+'--'])});
+  }).then(function(r){
+    k.driveId = r && r.id; luu();
+    bao('☁ Đã lên Drive: '+duong.replace(D.cauHinh.thumuc+' / ','')+' / '+k.ten, 6);
+    if(document.getElementById('ka-ten')) moKyAnh();
+  }).catch(function(e){ baoLoi('Chưa đưa lên Drive được: '+(e&&e.message||e)+' — bấm ☁ để thử lại.'); });
+}
+function chiaSeAnh(b, ten){
+  var f = new File([b], ten, {type:'image/jpeg'});
+  if(navigator.canShare && navigator.canShare({files:[f]})) return navigator.share({files:[f], title:ten}).catch(function(){});
+  var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = ten;
+  document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); }, 1000);
+  bao('Đã tải về: '+ten, 5);
+}
+function guiKA(id){
+  var k = (D.kyAnh||[]).find(function(x){ return x.id===id; }); if(!k) return;
+  docAnhHS(k.id).then(function(b){ if(b) chiaSeAnh(b, k.ten); else baoLoi('Ảnh trong máy không còn.'); });
+}
+function xoaKA(id){
+  var k = (D.kyAnh||[]).find(function(x){ return x.id===id; }); if(!k) return;
+  hoi('Xóa hẳn '+k.ten+'?', 'Xóa khỏi máy, không vào thùng rác.'+(k.driveId?' Bản trên Drive chuyển vào thùng rác Google Drive.':''), 'Xóa hẳn', function(){
+    if(k.driveId && coTheNoiDrive()) xoaFileDrive(k.driveId).catch(function(){});
+    xoaFile('hs_'+k.id);
+    D.kyAnh = D.kyAnh.filter(function(x){ return x.id!==id; }); luu(); moKyAnh();
+  });
 }
 
 /* lưu tạm: tên tự đặt theo ngày giờ quét, khai sau */

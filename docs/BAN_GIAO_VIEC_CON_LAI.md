@@ -70,11 +70,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Tab Thư viện** (thay tên tab Ghi chú): 2 phần Ghi chú · Bảo trì kho (`tvPhan()`, `D.cauHinh.tvPhan`), dùng lại `veNoiCD('chimuc')`.
 
 - **3.44 — Scan:**
-  - Nút 🗑 xóa hẳn ở dòng bản quét trên điện thoại, ở màn xem trước và ở hàng chờ.
-  - PDF thẻ không in chữ, không vạch góc, chỉ đường cắt mảnh theo mép thẻ.
-  - **Đang tư vấn, chờ anh chốt:**
-    - Camera trong app tự nhận khung và tự chụp, kiểu Lens.
-    - Scan chữ ký và ảnh khách hàng, file dưới 200 KB.
+  - Xóa hẳn bản scan hư (dòng danh sách, màn xem trước, hàng chờ).
+  - PDF thẻ không in chữ; chỉ đường mỏng giữa khe giữa 2 thẻ.
+  - **Chữ ký · Ảnh KH:**
+    - Hàm `moKyAnh`, `nhanKA`, `veCatKA`, `dungKA`, `luuKA`, `dayKAMot`; dữ liệu `D.kyAnh`, ảnh lưu `hs_ka…`.
+    - Kéo khung cắt như Zalo; nén dưới 200 KB; đặt tên nhanh; lưu lên Drive `Chữ ký - Ảnh KH/ngày`.
+  - **Đang tư vấn, chờ anh chốt:** camera trong app (webcam máy bàn + tự chụp kiểu Lens trên điện thoại).
 
 ### Ghi chú kiểm thử
 - `hoiquy.js` thỉnh thoảng báo 1 lỗi rồi chạy lại thì đạt (7 lần liên tiếp sạch, cả khi chạy song song) — do thời gian chờ cố định trong kịch bản thử, không phải lỗi app. Lần sau nên đổi các chỗ chờ cố định sang chờ theo điều kiện.
