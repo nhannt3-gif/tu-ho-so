@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.42 — 27/09/2026 23:30 — trang "Bảo trì kho"
+
+- Cài đặt › **🧰 Bảo trì kho** (thay trang "Lập chỉ mục"): gom mọi việc quét / dọn / đồng bộ về một chỗ, mỗi việc một thẻ ghi rõ **làm gì** và nhãn màu **đụng tới gì** (Chỉ sửa chỉ mục · Đổi file khi anh duyệt · Vào thùng rác, khôi phục được):
+  - Tìm file mới: **Quét tủ** (vẫn giữ nút ở đầu tab Văn bản) · **Lấy file từ kho Drive cũ (Picker)** (chưa có API key thì có nút sang khai).
+  - Đồng bộ chỉ mục: **Đẩy chỉ mục lên Drive** · **Lấy chỉ mục từ Drive**.
+  - Dọn dẹp: **Quét dọn rác** · **Gom file trùng nội dung** · **Thùng rác**.
+  - Nâng cao: **Bảng lập chỉ mục** · **Nhờ AI chuẩn hóa** (xuất / dán kết quả).
+  - Việc cần Drive mà chưa nối thì nút mờ, ghi "cần nối Drive trước".
+- Trang Dữ liệu app: 2 nút Quét dọn rác / Gom file trùng thay bằng lối sang Bảo trì kho (không còn trùng hai nơi). Không bỏ chức năng nào.
+
 ## 3.41 — 27/09/2026 22:00 — Scan: in không mất bản quét, kéo giữa cạnh, tự làm thẳng
 
 Anh Nhân thử trên điện thoại: xuất PDF bấm in mà không lưu thì mất luôn (điện thoại chưa nối máy in); muốn kéo cả cạnh cho nhanh; muốn tự chỉnh thẳng đứng. **Quy tắc chung (anh chốt): việc gì app tự làm cũng hiện kèm bản gốc, chưa vừa ý thì chỉnh tay.**
