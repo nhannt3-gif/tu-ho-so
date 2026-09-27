@@ -21,7 +21,7 @@ Anh chốt: tự lưu (1a) · bỏ ô "Nhãn nút Thêm" (2a) · "Dùng chung" c
 - Đồng bộ Drive (cauhinh.json) thêm: từ khóa, viết tắt, nhắc giao ban, cỡ in, kiểu màu.
 - **Sửa lỗi anh báo (gộp vào 3.40):**
   - **Thêm file ở tab Văn bản mà vào Dữ liệu tháng.** Nguyên nhân: nút Thêm file của tab Văn bản chuyển sang khay chờ trước khi chọn file, nên app vẫn nhớ tab trước đó (vd vừa ở tab Tháng) → Excel bị xếp vào Dữ liệu tháng. Nay nhớ đúng tab Văn bản. Thêm nữa, thêm từ tab Văn bản thì: Excel chỉ sang Dữ liệu tháng khi tên **bắt đầu đúng mã báo cáo** (KQGD_…, NQH_…), không đoán theo chữ trong tên; PDF chỉ sang Dữ liệu tháng khi nội dung rõ là **bảng số liệu**.
-  - **Đọc tên file sai.** Viết lại bộ đọc tên: nhận ngày khi có gạch dưới (4079_NHCS-TDNN_07-09-2026), ngày viết liền (20260915, 15092026); số hiệu không còn ăn lan sang ngày/năm (trước ra 942/NHCS-KHNV-15, 25/HD-NHCS-2026); nhận CV942, TB_125, "Công văn 942", "Số 4079"; tiền tố TB/QĐ/KH… cho ra đúng loại; trích yếu bỏ chữ thừa (QD, V.v, Về việc, giờ chụp của file Scan_, năm đứng trơ).
+  - **Đọc tên file sai.** Viết lại bộ đọc tên: nhận ngày khi có gạch dưới (4079_NHCS-TDNN_07-09-2026), ngày viết liền (20260915, 15092026); số hiệu không còn ăn lan sang ngày/năm (trước ra 942/NHCS-KHNV-15, 25/HD-NHCS-2026); nhận CV942, TB_125, "Công văn 942", "Số 4079"; tiền tố TB/QĐ/KH… cho ra đúng loại; kiểu anh hay đặt **"11068 - cho vay LĐNN"** (số đứng đầu, gạch nối, nội dung) ra số 11068 · trích yếu "cho vay LĐNN" (số thứ tự "01 - …" và năm "2026 - …" đứng đầu không bị nhận là số); trích yếu bỏ chữ thừa (QD, V.v, Về việc, giờ chụp của file Scan_, năm đứng trơ).
 
 
 ## 3.39 — 27/09/2026 14:00 — khung xem vừa đủ, điện thoại tối giản, sửa nhanh sau rà soát

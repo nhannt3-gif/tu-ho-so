@@ -2328,7 +2328,8 @@ function tuTenFile(ten){
   /* 2. SỐ HIỆU: 4079/NHCS-TDNN · 70-QĐ-HĐQT · 958 KH-NHCS · CV942 NHCS-KHNV · TB 125 NHCS-TCCB · Số 4079
      phần ký hiệu = các cụm VIẾT HOA nối bằng gạch, cụm nào toàn số (năm, ngày) thì dừng */
   var HOA = 'A-ZĐ', cum = '['+HOA+']['+HOA+'0-9&]{0,11}';
-  var reSo = new RegExp('([^0-9A-Za-zÀ-ỹ])(\\d{1,6})\\s*[\\/.\\s-]\\s*('+cum+'(?:-'+cum+'){0,3})(?=[^A-Za-zÀ-ỹ0-9]|$)');
+  /* ngăn cách số với ký hiệu: "/" (có thể cách), "-" hay "." liền, hoặc một khoảng trắng — " - " có cách là kiểu "số - trích yếu" */
+  var reSo = new RegExp('([^0-9A-Za-zÀ-ỹ])(\\d{1,6})(?:\\s*\\/\\s*|[.-]| )('+cum+'(?:-'+cum+'){0,3})(?=[^A-Za-zÀ-ỹ0-9]|$)');
   m = t.match(reSo);
   var tienTo = t.match(/\s(CV|QĐ|QD|KH|TB|BC|HD|TTr|VB)\s?(\d{1,6})(?=[^0-9])/);
   if(m && !(tienTo && tienTo.index < m.index)){
@@ -2344,6 +2345,14 @@ function tuTenFile(ten){
     m = t.match(/\s(?:số|so|Số|So|SỐ|SO)\s*[:.]?\s*(\d{1,6})(?=[^0-9])/) ||
         t.match(/\s(?:công văn|cong van|quyết định|quyet dinh|kế hoạch|ke hoach|thông báo|thong bao|báo cáo|bao cao|hướng dẫn|huong dan|tờ trình|to trinh)\s+(\d{1,6})(?=[^0-9])/i);
     if(m){ ra.soHieu = m[1]; t = t.replace(m[0].replace(/^\s/,''), ' '); }
+    else{
+      /* kiểu anh hay đặt: "11068 - cho vay LĐNN" — số đứng đầu, gạch nối rồi tới nội dung.
+         Số bắt đầu bằng 0 (01, 02…) thường là số thứ tự nên không nhận */
+      m = t.match(/^\s([1-9]\d{0,5})\s*[-–.]\s*(?=[A-Za-zÀ-ỹĐđ])/);
+      if(m && !/^20\d{2}$/.test(m[1])){ ra.soHieu = m[1]; t = ' '+t.slice(m[0].length); }
+      else if(/^\s[1-9]\d{0,5}\s$/.test(t) && !/^\s20\d{2}\s$/.test(t)){ ra.soHieu = t.trim(); t = ' '; }   /* tên chỉ là số: 4079.pdf */
+      else t = t.replace(/^\s0\d{0,2}\s*[-–.]\s*/, ' ');   /* số thứ tự đứng đầu: "01 - Báo cáo…" */
+    }
   }
 
   /* 3. TRÍCH YẾU = phần còn lại, bỏ chữ dẫn đứng trơ (CV, QĐ, số, V/v…) và dấu thừa */
