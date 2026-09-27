@@ -4,6 +4,43 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.48 — 28/09/2026 08:00 — Cầu nối máy tính (mở file thật, chép file dán Zalo) · đọc lại theo bố cục + bảng so sánh · hàng đợi Drive
+
+**1. Cầu nối máy tính (Windows)** — Cài đặt › Google Drive › Cầu nối máy tính.
+- **Cài một lần mỗi máy:** Tải bộ cài → bấm đúp file `.reg` → Yes → OK → **Mở thử**. Không cần quyền quản trị; có file **Gỡ cầu nối**.
+- **Tự dò ổ Google Drive** (mọi ổ đĩa, thư mục "My Drive" hoặc "Drive của tôi" có chứa Tủ hồ sơ), nên máy khác ổ khác vẫn chạy.
+- **Các lệnh:**
+  - **📋 Chép file** — chép đúng file (PDF, ảnh…) vào bộ nhớ tạm của Windows; mở Zalo, email, thư mục bấm **Ctrl+V** là gửi.
+  - **👁 Xem nhanh** — chép ra thư mục tạm của Windows (chỉ đọc) rồi mở; bản tạm tự xóa sau 12 giờ.
+  - **🖥 Mở trên máy / 📝 Mở bằng Word, Excel** — mở file thật trên ổ G:, sửa xong Drive tự đồng bộ.
+  - **📂 Mở thư mục** — Explorer mở đúng thư mục, chọn sẵn file.
+- **Có ở:** bước ③ của Scan, Chữ ký · CCCD, menu ⋯ của văn bản, hộp "Mở bằng Word/Excel".
+- **An toàn:** chỉ file trong thư mục Tủ hồ sơ; chỉ PDF / Word / Excel / ảnh; không nhận "..", ký tự lạ, .exe. File chưa chép về máy thì báo "Drive đang chép về, chờ ít phút".
+- **Máy chưa cài cầu nối:** nút **👁 Xem trong tab** (PDF, ảnh mở trong trình duyệt, không lưu file); Word / Excel vẫn tải về.
+- Đã thử script bằng PowerShell 7 với ổ Drive giả: dò được cả "My Drive" và "Drive của tôi", chặn đường dẫn ngoài và file .exe, báo khi thiếu file.
+
+**2. Đọc lại & gợi ý tên — lấy đúng chỗ, so sánh rõ ràng**
+- **Đọc theo bố cục:** dựa vào vị trí dòng chữ, không đọc dồn cả trang.
+  - Công văn: dòng **"Số:"** cột trái + dòng **"V/v"** (in nghiêng) ngay dưới số hiệu, nối cả dòng thứ 2, bỏ qua dòng cột phải xen cùng độ cao.
+  - Quyết định / Kế hoạch / Báo cáo…: **tiêu đề in hoa giữa trang + dòng ngay dưới**.
+  - Ngày: dòng "ngày … tháng … năm …".
+  - Áp dụng cho cả PDF có chữ và PDF chụp / ảnh (OCR tách 2 cột).
+- **Bảng so sánh** — cột Hiện tại | Đọc được (sửa được) | Đổi (tích), kèm nơi lấy (ví dụ "dòng V/v ngay dưới số hiệu").
+  - Tự tích những mục đang trống hoặc giống tên file.
+  - **Tên file mới tính lại ngay**.
+  - Nút **Áp dụng mục đã chọn** / **Giữ nguyên** / **Xem chữ đọc được**.
+- Nút **🔍 Đọc lại & gợi ý tên** có ở khay chờ, màn Sửa, menu ⋯.
+- Thử công văn, quyết định, kế hoạch dựng giống thật và công văn chụp (OCR): số hiệu, ngày, loại, trích yếu đều đúng.
+
+**3. Bỏ "Kiểm tra bản PDF trắng"** (anh: thừa — 3.47 đã chặn tạo bản trắng từ gốc).
+
+**4. Lưu tạm và đẩy lên Drive**
+- **Tự nối Drive ở lần bấm đầu tiên** sau khi mở app, và khi bấm Tiếp ở bước ② (iPhone chỉ cho nối khi có thao tác tay).
+- **Hàng đợi Drive:** bấm chấm Drive khi còn bản chờ → từng bản với trạng thái (đang lên / chờ / lỗi + lý do + số lần thử) và nút **Thử lại tất cả**.
+  - Tự động thì bản lỗi thử lùi dần 1, 2, 4… tới 30 phút.
+- **Đẩy danh sách ngay** khi có bản vừa lên Drive (trước đợi 5 giây).
+- **Mỗi 1 phút** khi app đang mở, máy hỏi Drive danh sách có đổi không (rất nhẹ), đổi thì lấy về → điện thoại quét xong khoảng 1 phút máy tính thấy.
+
 ## 3.47 — 28/09/2026 05:00 — Sửa đồng bộ 2 máy (lệch danh sách, mở lên trắng) · Zalo trên máy tính · khai hàng loạt có chọn · Đọc lại & gợi ý tên
 
 **Lỗi anh báo:** danh sách lưu tạm điện thoại 6, máy tính 3; mở bản của máy kia lên trắng.
