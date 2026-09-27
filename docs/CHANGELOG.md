@@ -4,6 +4,25 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.44 — 27/09/2026 23:59 — Scan: xóa hẳn bản hư, đường cắt giữa khe, chữ ký · ảnh khách hàng
+
+- **Xóa hẳn cho đỡ rác** (xóa khỏi máy, không vào thùng rác):
+  - Mỗi dòng bản đã quét trên điện thoại có lại nút 🗑. Bản 3.43 lỡ ẩn cả nút này khi làm gọn dòng.
+  - Màn xem trước PDF có nút **🗑 Xóa**.
+  - Dải "N bản vừa quét chưa lưu" có nút **🗑 Bỏ**.
+  - Thanh Xong ở hàng chờ có nút **🗑 Bỏ hết**.
+  - Bản đã lên Drive thì PDF trên Drive chuyển vào thùng rác Google Drive.
+- **PDF thẻ CCCD** (anh chỉnh ý):
+  - Không in chữ gì (bỏ tiêu đề, bỏ tên khách), bỏ vạch góc và viền.
+  - Chỉ còn **đường mỏng nằm giữa khe giữa 2 thẻ** làm dấu cắt kéo: giữa khe 2 mặt, giữa khe các người, và 2 đường ngoài cách mép thẻ đúng nửa khe. Cắt theo đường là các miếng thẻ bằng nhau.
+  - Khe giữa các người 12 mm, cả khối căn giữa trang, nên đường ngoài cùng cách mép giấy khoảng 8 mm (máy in in tới được).
+- **Mới: ✍ Chữ ký · Ảnh khách hàng** (tab Scan: nút ✍ trên điện thoại, nút "✍ Chữ ký · Ảnh KH" trên máy tính). File JPG dưới 200 KB để nhập hệ thống khi tạo hồ sơ.
+  - **Chữ ký:** chụp → **kéo khung cắt tùy ý như Zalo** (4 góc, 4 cạnh, kéo giữa để dời; app đoán sẵn khung quanh nét ký, có nút Tự tìm lại, ⟳ Xoay) → nền trắng tinh, nét đậm. Thử: khoảng 15 KB.
+  - **Ảnh:** chụp mặt trước CCCD → app tự tìm khung thẻ, nắn thẳng. Có nút **Ảnh gốc** để cắt tay (theo quy tắc hiện bản gốc). Chọn mức nén **Nhỏ / Vừa / Nét**, thử được 29 / 45 / 64 KB; luôn giữ dưới 195 KB.
+  - **Đặt tên nhanh:** ô tên khách ở đầu màn; tên nhớ 30 phút cho lần chụp kế. File tên `CK_Nguyen_Van_A.jpg`, `ANH_Nguyen_Van_A.jpg` (bỏ dấu, trùng thì thêm _2).
+  - **Lưu nhanh lên Drive:** `Tủ hồ sơ / Chữ ký - Ảnh KH / yyyy-mm-dd`. Chưa nối Drive thì lưu trong máy, bấm ☁ sau.
+  - Danh sách "Gần đây" có ☁ đưa lên, 📤 gửi (Zalo, Tệp…), 🗑 xóa hẳn.
+
 ## 3.43 — 27/09/2026 23:55 — Scan điện thoại kiểu Lens · ma trận tab Tháng đồng nhất, canh trái · tab Thư viện
 
 **Scan trên iPhone** (anh duyệt, tham khảo cách làm của app scan Lens trên iOS; máy tính giữ nguyên màn cũ):
