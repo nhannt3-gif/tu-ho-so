@@ -1681,7 +1681,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.40', APP_LUC = '27/09/2026 18:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.40', APP_LUC = '27/09/2026 20:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -2297,40 +2297,66 @@ function khopMau(chu){
 /* ---------- RÚT THÔNG TIN TỪ CHÍNH TÊN FILE ----------
    Tên file anh đặt tay thường đã có đủ số hiệu, ngày và nội dung.
    Dùng làm lối dự phòng khi không đọc được chữ bên trong PDF. */
+/* 3.40: đọc tên file viết lại — trước đây gạch dưới (_) làm hỏng nhận ngày/số (4079_NHCS-TDNN_07-09-2026),
+   không nhận ngày viết liền (20260915), số hiệu ăn lan sang ngày/năm (942/NHCS-KHNV-15), trích yếu còn sót "QD", "V.v".
+   Không dùng lookbehind để chạy được trên iPhone đời cũ. */
+function ngayHopLe(y, m, d){
+  y = +y; m = +m; d = +d;
+  if(y<2000 || y>2099 || m<1 || m>12 || d<1 || d>31) return '';
+  return y+'-'+hai(m)+'-'+hai(d);
+}
 function tuTenFile(ten){
-  var t = (ten||'').replace(/\.[^.]+$/,'');
-  var ra = {}, boSo = null, boNgay = null;
+  var goc = (ten||'').replace(/\.[a-z0-9]{2,5}$/i,'');
+  /* gạch dưới, nhiều khoảng trắng → một khoảng trắng; đệm 2 đầu để so ranh giới bằng [^0-9] */
+  var t = ' '+goc.replace(/_+/g,' ').replace(/\s+/g,' ').trim()+' ';
+  var ra = {}, m;
 
-  /* số hiệu: "958 KH-NHCS", "958-KH-NHCS", "4079/NHCS-TDNN"
-     Phần chữ chỉ nhận cụm VIẾT HOA rõ ràng, không ăn lan sang chữ thường kế bên. */
-  var m = t.match(/\b(\d{1,6})\s*[\/_\s-]\s*([A-ZĐ]{2,10}(?:[\s-]+[A-ZĐ0-9]{2,10}){0,2})(?![a-zà-ỹ])/);
-  if(m){
-    ra.soHieu = m[1]+'/'+m[2].replace(/[\s-]+/g,'-');
-    boSo = m[0];
+  /* 1. NGÀY (bỏ khỏi chuỗi trước để số hiệu không ăn nhầm) */
+  var mauNgay = [
+    [/([^0-9])(20\d{2})[.\/-](\d{1,2})[.\/-](\d{1,2})(?=[^0-9])/, function(m){ return ngayHopLe(m[2],m[3],m[4]); }],
+    [/([^0-9])(\d{1,2})[.\/-](\d{1,2})[.\/-](20\d{2})(?=[^0-9])/, function(m){ return ngayHopLe(m[4],m[3],m[2]); }],
+    [/([^0-9])(20\d{2})(\d{2})(\d{2})(?=[^0-9])/,                function(m){ return ngayHopLe(m[2],m[3],m[4]); }],
+    [/([^0-9])(\d{2})(\d{2})(20\d{2})(?=[^0-9])/,                function(m){ return ngayHopLe(m[4],m[3],m[2]); }]
+  ];
+  for(var i=0;i<mauNgay.length && !ra.ngay;i++){
+    m = t.match(mauNgay[i][0]);
+    if(m){ var n = mauNgay[i][1](m); if(n){ ra.ngay = n; t = t.replace(m[0], m[1]+' '); } }
+  }
+  /* chữ "ngày"/"ngay" đứng trơ sau khi cắt ngày */
+  t = t.replace(/\s(ngày|ngay)\s/gi, ' ');
+
+  /* 2. SỐ HIỆU: 4079/NHCS-TDNN · 70-QĐ-HĐQT · 958 KH-NHCS · CV942 NHCS-KHNV · TB 125 NHCS-TCCB · Số 4079
+     phần ký hiệu = các cụm VIẾT HOA nối bằng gạch, cụm nào toàn số (năm, ngày) thì dừng */
+  var HOA = 'A-ZĐ', cum = '['+HOA+']['+HOA+'0-9&]{0,11}';
+  var reSo = new RegExp('([^0-9A-Za-zÀ-ỹ])(\\d{1,6})\\s*[\\/.\\s-]\\s*('+cum+'(?:-'+cum+'){0,3})(?=[^A-Za-zÀ-ỹ0-9]|$)');
+  m = t.match(reSo);
+  var tienTo = t.match(/\s(CV|QĐ|QD|KH|TB|BC|HD|TTr|VB)\s?(\d{1,6})(?=[^0-9])/);
+  if(m && !(tienTo && tienTo.index < m.index)){
+    ra.soHieu = m[2]+'/'+m[3];
+    t = t.replace(m[0], m[1]+' ');
+  }else if(tienTo){
+    /* CV942 NHCS-KHNV → 942/NHCS-KHNV; TB 125 NHCS-TCCB → 125/NHCS-TCCB */
+    var sau = t.slice(tienTo.index + tienTo[0].length).match(new RegExp('^\\s*[\\/-]?\\s*('+cum+'(?:-'+cum+'){0,3})(?=[^A-Za-zÀ-ỹ0-9]|$)'));
+    ra.soHieu = tienTo[2] + (sau ? '/'+sau[1] : '');
+    ra.loai = {CV:'Công văn', 'QĐ':'Quyết định', QD:'Quyết định', KH:'Kế hoạch', TB:'Thông báo', BC:'Báo cáo', HD:'Hướng dẫn', TTr:'Tờ trình'}[tienTo[1]] || '';
+    t = t.slice(0, tienTo.index) + ' ' + t.slice(tienTo.index + tienTo[0].length + (sau ? sau[0].length : 0));
   }else{
-    m = t.match(/\b(?:so|số)\s*[:._-]?\s*(\d{1,6})\b/i);
-    if(m){ ra.soHieu = m[1]; boSo = m[0]; }
+    m = t.match(/\s(?:số|so|Số|So|SỐ|SO)\s*[:.]?\s*(\d{1,6})(?=[^0-9])/) ||
+        t.match(/\s(?:công văn|cong van|quyết định|quyet dinh|kế hoạch|ke hoach|thông báo|thong bao|báo cáo|bao cao|hướng dẫn|huong dan|tờ trình|to trinh)\s+(\d{1,6})(?=[^0-9])/i);
+    if(m){ ra.soHieu = m[1]; t = t.replace(m[0].replace(/^\s/,''), ' '); }
   }
 
-  /* ngày: 2026-09-11 hoặc 11-09-2026 */
-  var n = t.match(/\b(20\d{2})[._-](\d{1,2})[._-](\d{1,2})\b/);
-  if(n){ ra.ngay = n[1]+'-'+hai(+n[2])+'-'+hai(+n[3]); boNgay = n[0]; }
-  else {
-    n = t.match(/\b(\d{1,2})[._\/-](\d{1,2})[._\/-](20\d{2})\b/);
-    if(n){ ra.ngay = n[3]+'-'+hai(+n[2])+'-'+hai(+n[1]); boNgay = n[0]; }
-  }
-
-  /* phần còn lại chính là nội dung — chỉ cắt đúng đoạn đã dùng, không quét toàn chuỗi */
-  var con = t;
-  if(boNgay) con = con.replace(boNgay, ' ');
-  if(boSo) con = con.replace(boSo, ' ');
-  /* bỏ các chữ dẫn chỉ khi đứng ngay trước chỗ vừa cắt */
-  con = con.replace(/(^|\s)(ngày|ngay|số|so|CV|VB)(?=\s|$)/gi, ' ')
-           .replace(/^[\s_\-.]+|[\s_\-.]+$/g,'')
-           .replace(/\s{2,}/g,' ');
-  /* chỉ đổi gạch dưới và gạch nối thành khoảng trắng khi cả chuỗi không có khoảng trắng */
-  if(!/\s/.test(con)) con = con.replace(/[_-]+/g,' ').trim();
-  if(con.length>=4) ra.trichYeu = con;
+  /* 3. TRÍCH YẾU = phần còn lại, bỏ chữ dẫn đứng trơ (CV, QĐ, số, V/v…) và dấu thừa */
+  var con = t.replace(/\s(CV|QĐ|QD|KH|TB|BC|HD|TTr|VB|số|so|Số|So)(?=\s)/g, ' ')
+    .replace(/\s(V\/v|V\.v|Vv|v\/v|v\.v|Về việc|về việc|Ve viec|ve viec)\.?(?=\s)/g, ' ')
+    .replace(/\s\d{6}(?=\s)/g, ' ')                       /* giờ chụp kiểu 143022 của file Scan_ */
+    .replace(/(^|\s)[.,;:\-]+(?=\s|$)/g, ' ')
+    .replace(/\s{2,}/g, ' ').trim()
+    .replace(/^[\s.,;:\-]+|[\s.,;:\-]+$/g, '');
+  /* tên cả chuỗi không có khoảng trắng (Huong-dan-ra-soat) → gạch nối thành khoảng trắng */
+  if(!/\s/.test(con)) con = con.replace(/-+/g, ' ').trim();
+  if(/^scan$/i.test(con) || /^[\d\s]+$/.test(con)) con = '';   /* chỉ còn số (năm, số trơ) thì không phải trích yếu */
+  if(con.length>=3) ra.trichYeu = con;
   return ra;
 }
 
@@ -4039,7 +4065,7 @@ function veVanBan(){
   document.getElementById('nam-vb').innerHTML =
     daiChoKhaiHTML() + veDauTab('vanBan', {kho:D.vanBan, 
       themPhu:'<button class="phu" onclick="quetTu()" title="Quét thư mục Tủ hồ sơ: tìm file mới, tên chưa chuẩn">🔍 Quét tủ</button>',
-                        hamThem:"doiNgan(6);document.getElementById('chon-file').click()"});
+                        hamThem:"TAB_TRUOC=1;doiNgan(6);document.getElementById('chon-file').click()"});   /* 3.40: nhớ đúng tab Văn bản — trước sang khay chờ trước nên giữ tab cũ (vd Tháng) → file vào Dữ liệu tháng */
   document.getElementById('loc-vb').innerHTML = '';
 
   if(kieuXem==='cay') kieuXem = 'ds';   /* kiểu xem cây đã bỏ (3.7) */
@@ -5357,14 +5383,17 @@ function chuyenVaoO(i){
   if(m.choDB && DR.sanSang && DR.online) dongBoMotLenDrive(m).then(function(){ capNhatChip(); });
 }
 /* nhận mẫu báo cáo từ TÊN file: ưu tiên mã ở đầu tên (SK_TD_ToanPGD_2026_09.xlsx), rồi tới từ khóa */
-function khopMauTenFile(ten){
+function khopMaTenFile(ten){
   var t = String(ten||'').replace(/\.[^.]+$/,'').toUpperCase(), ds = D.cauHinh.mauBaoCao||[], tot = null;
   ds.forEach(function(m){
     var ma = String(m.ma||'').toUpperCase();
     if(ma && (t===ma || t.indexOf(ma+'_')===0 || t.indexOf(ma+'-')===0 || t.indexOf(ma+' ')===0) &&
        (!tot || ma.length > tot.ma.length)) tot = m;
   });
-  return tot || khopMau(String(ten||'').replace(/[_\-.]+/g,' '));
+  return tot;
+}
+function khopMauTenFile(ten){
+  return khopMaTenFile(ten) || khopMau(String(ten||'').replace(/[_\-.]+/g,' '));
 }
 /* đọc kỳ (và ngày số liệu nếu có) trong tên file: 2026_09, 2026-09-25, T9-2026, 30.09.2026 */
 function kyTuTenFile(ten){
@@ -5431,14 +5460,17 @@ function xuLyMotFile(f){
     }
     /* 3.31: file Excel/CSV — bấm ô ma trận, tên file khớp mẫu báo cáo, hoặc thêm từ tab Tháng
        thì vào Dữ liệu tháng (trước đây mọi file không phải PDF đều bị xếp vào Văn bản) */
-    if(laFileExcel(f.name) && (CHO_O || khopMauTenFile(f.name) || TAB_TRUOC===2)){
+    /* 3.40: thêm từ tab Văn bản thì tôn trọng tab anh chọn — Excel chỉ sang Dữ liệu tháng khi tên bắt đầu đúng mã báo cáo
+       (KQGD_…, NQH_…), không đoán theo từ khóa trong tên (công văn có chữ "nợ quá hạn", "giao ban" bị xếp nhầm) */
+    var tuVB = (TAB_TRUOC===1 && !CHO_O);
+    if(laFileExcel(f.name) && (CHO_O || TAB_TRUOC===2 || (tuVB ? khopMaTenFile(f.name) : khopMauTenFile(f.name)))){
       D.cho.push(apChoO(duLieuTuTenFile(id, van, f, duoi), f.name)); return;
     }
     if(!laPDF){
       var tfw = tuTenFile(f.name);
       var v = {id:id, van:van, nhom:'vanBan', tenCu:f.name, duoi:duoi, co:f.size,
                soHieu:tfw.soHieu||'', ngay:tfw.ngay||ngayISO(nay()),
-               loai:doanLoai(f.name, tfw.soHieu), the:[], ctrinh:[],
+               loai:tfw.loai||doanLoai(f.name, tfw.soHieu), the:[], ctrinh:[],
                chac:!!(tfw.soHieu && tfw.ngay),
                trichYeu:tfw.trichYeu||f.name.replace(/\.[^.]+$/,''),
                canCu:'Không phải PDF — app lấy thông tin từ tên file'};
@@ -5448,6 +5480,8 @@ function xuLyMotFile(f){
     return docChuPDF(f, D.cauHinh.soTrangDoc||2).then(function(r){
       var chu = r.chu||'';
       var mau = khopMauNoiDung(chu);
+      /* 3.40: PDF thêm từ tab Văn bản chỉ sang Dữ liệu tháng khi nội dung rõ là BẢNG số liệu */
+      if(mau && TAB_TRUOC===1 && !CHO_O && diemBangSoLieu(chu)<2) mau = null;
       if(mau){
         /* 3.20: ngày số liệu quyết định bản cuối tháng hay dữ liệu phụ */
         var nsl = docNgaySoLieu(chu), xl = loaiBanThang(nsl, mau && mau.ma);
@@ -5470,7 +5504,7 @@ function xuLyMotFile(f){
         var x = {id:id, van:van, nhom:'vanBan', tenCu:f.name, duoi:duoi, co:f.size,
                  soTrang:r.trang, soHieu:tf0.soHieu||'',
                  ngay:tf0.ngay||ngayISO(nay()),
-                 loai:doanLoai(f.name, tf0.soHieu),
+                 loai:tf0.loai||doanLoai(f.name, tf0.soHieu),
                  the:[], ctrinh:[], chac:!!(tf0.soHieu && tf0.ngay && tf0.trichYeu),
                  trichYeu:tf0.trichYeu||f.name.replace(/\.[^.]+$/,''),
                  canCu:'PDF là bản chụp không có chữ — app lấy thông tin từ tên file'+

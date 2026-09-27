@@ -4,7 +4,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.40 — 27/09/2026 18:00 — Cài đặt viết lại: mọi danh mục sửa trên giao diện, tự lưu
+## 3.40 — 27/09/2026 20:00 — Cài đặt viết lại: mọi danh mục sửa trên giao diện, tự lưu
 
 Anh chốt: tự lưu (1a) · bỏ ô "Nhãn nút Thêm" (2a) · "Dùng chung" của Biểu mẫu chỉ ở hàng Chương trình (3a).
 
@@ -19,6 +19,10 @@ Anh chốt: tự lưu (1a) · bỏ ô "Nhãn nút Thêm" (2a) · "Dùng chung" c
 - **Trang Scan:** kiểu màu mặc định cho Thẻ và Tài liệu; **cỡ in CCCD** (bề ngang thẻ, khe 2 mặt) — app tự giới hạn để 4 người luôn vừa A4, hiện luôn cỡ thẻ và khe giữa các người.
 - Bỏ ô "Nhãn nút Thêm" (không có tác dụng). "Dùng chung" bỏ khỏi danh sách tag Biểu mẫu một lần (lọc y hệt nút ở hàng Chương trình). Tab Biểu mẫu có thêm lựa chọn sắp mặc định "Số lần dùng", "Năm VB gốc".
 - Đồng bộ Drive (cauhinh.json) thêm: từ khóa, viết tắt, nhắc giao ban, cỡ in, kiểu màu.
+- **Sửa lỗi anh báo (gộp vào 3.40):**
+  - **Thêm file ở tab Văn bản mà vào Dữ liệu tháng.** Nguyên nhân: nút Thêm file của tab Văn bản chuyển sang khay chờ trước khi chọn file, nên app vẫn nhớ tab trước đó (vd vừa ở tab Tháng) → Excel bị xếp vào Dữ liệu tháng. Nay nhớ đúng tab Văn bản. Thêm nữa, thêm từ tab Văn bản thì: Excel chỉ sang Dữ liệu tháng khi tên **bắt đầu đúng mã báo cáo** (KQGD_…, NQH_…), không đoán theo chữ trong tên; PDF chỉ sang Dữ liệu tháng khi nội dung rõ là **bảng số liệu**.
+  - **Đọc tên file sai.** Viết lại bộ đọc tên: nhận ngày khi có gạch dưới (4079_NHCS-TDNN_07-09-2026), ngày viết liền (20260915, 15092026); số hiệu không còn ăn lan sang ngày/năm (trước ra 942/NHCS-KHNV-15, 25/HD-NHCS-2026); nhận CV942, TB_125, "Công văn 942", "Số 4079"; tiền tố TB/QĐ/KH… cho ra đúng loại; trích yếu bỏ chữ thừa (QD, V.v, Về việc, giờ chụp của file Scan_, năm đứng trơ).
+
 
 ## 3.39 — 27/09/2026 14:00 — khung xem vừa đủ, điện thoại tối giản, sửa nhanh sau rà soát
 
