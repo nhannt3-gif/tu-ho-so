@@ -548,6 +548,31 @@
   .bdc-ky-chon{display:flex;align-items:center;gap:5px}
   .bdc-ky-ten{min-width:74px;text-align:center;font-size:calc(13.5px*var(--co))}
   .bdc-cuon{overflow:auto;max-height:52vh}
+  /* 3.45: camera trong app */
+  #cam{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;color:#fff;touch-action:none}
+  .cam-tren{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 8px) 12px 8px}
+  .cam-tren button{background:rgba(255,255,255,.15);border:0;color:#fff;font-size:20px;width:40px;height:40px;border-radius:20px;cursor:pointer}
+  .cam-tren span{flex:1;font-weight:600;font-size:15px}
+  .cam-tren select{max-width:45%;background:#222;color:#fff;border:1px solid #555;border-radius:8px;padding:5px}
+  .cam-khung{position:relative;flex:1;min-height:0}
+  .cam-khung video,.cam-khung canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+  #cam-loe{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+  #cam-loe.loe{animation:camLoe .35s ease-out}
+  @keyframes camLoe{from{opacity:.85}to{opacity:0}}
+  .cam-goi{text-align:center;font-size:14px;padding:6px 12px;min-height:22px;color:#E8F7EE}
+  .cam-duoi{display:flex;align-items:center;justify-content:space-between;padding:8px 22px calc(env(safe-area-inset-bottom) + 14px)}
+  .cam-chup{width:72px;height:72px;border-radius:50%;border:5px solid #fff;background:rgba(255,255,255,.25);cursor:pointer}
+  .cam-chup:active{background:#fff}
+  .cam-xong{min-width:84px;height:44px;border-radius:22px;border:0;background:#2ECC71;color:#06351b;font-weight:700;font-size:15px;cursor:pointer}
+  .cam-nho{width:84px;height:56px;position:relative}
+  .cam-nho img{width:56px;height:56px;object-fit:cover;border-radius:8px;border:2px solid #fff}
+  .cam-nho b{position:absolute;left:44px;top:-6px;background:#2ECC71;color:#06351b;border-radius:10px;padding:0 6px;font-size:12px}
+  .cam-kieu{display:flex;gap:6px;align-items:center;font-size:calc(12px*var(--co));color:var(--chu-phu);margin:0 0 8px;flex-wrap:wrap}
+  .cam-kieu button{border:1.3px solid var(--vien);background:var(--the);color:var(--chu);border-radius:14px;padding:4px 11px;font:inherit;font-size:calc(12px*var(--co));cursor:pointer}
+  .cam-kieu button.bat{background:var(--xanh-nhat);border-color:var(--xanh);color:var(--xanh-dam);font-weight:600}
+  #cam .cam-kieu-tren{justify-content:center;margin:0 0 6px;color:#ccc}
+  #cam .cam-kieu-tren button{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.3)}
+  #cam .cam-kieu-tren button.bat{background:#2ECC71;color:#06351b;border-color:#2ECC71}
   /* 3.44: chữ ký · ảnh khách hàng */
   .ka-nut{display:flex;gap:8px}
   .ka-nut button{flex:1;min-height:64px;font-size:calc(14px*var(--co))}
@@ -1760,7 +1785,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.44', APP_LUC = '27/09/2026 23:59';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.45', APP_LUC = '28/09/2026 01:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -11021,7 +11046,8 @@ function veScan(){
     hamThem:'batDauScan()',
     themPhu:'<button class="phu" onclick="chonCheScan()">Chế độ: '+
             (SC.che==='the'?'Thẻ':'Tài liệu')+'</button>'+
-            '<button class="phu" onclick="moKyAnh()">✍ Chữ ký · Ảnh KH</button>'});
+            (coCamera() ? '<button class="phu" onclick="moCamera({muc:\'scan\'})">📷 Webcam</button>' : '')+
+            '<button class="phu" onclick="moKyAnh()">📁 Chữ ký · CCCD</button>'});
 
   /* 3.33: lời nhắc nhỏ thay khung vàng cảnh báo */
   h += '<div class="huong-dan tab-ghi-chu-scan" style="margin:0 0 8px">Ảnh xử lý trong máy, không gửi tới AI · lưu hồ sơ là bản PDF lên Drive: '+
@@ -11182,6 +11208,7 @@ function batDauScan(){
 
 function chonNguon(n){
   D.cauHinh.scanNguon = n; luu(); dongHop();
+  if(n==='camera' && !laDT() && coCamera()) return moCamera({muc:'scan'});   /* 3.45: máy bàn — webcam trong app */
   var i = document.createElement('input');
   i.type = 'file';
   if(n==='file'){ i.accept = '.pdf,.doc,.docx'; i.multiple = true; }
@@ -11604,8 +11631,19 @@ function dungPDFThe(dsCap, tieuDe){
   le = (A4.c - MOI*tC - (MOI-1)*khe)/2;
   if(le < 14*mm){ le = 14*mm; tC = (A4.c - 2*le - (MOI-1)*khe)/MOI; tR = tC*tl; }
   var xT = (A4.r - (2*tR + kheGiua))/2;
-  var bien = 4*mm, mau = PDFLib.rgb(.72,.72,.72);
-  function duongCat(tg, a, b){ tg.drawLine({start:a, end:b, thickness:.3, color:mau}); }
+  var mau = PDFLib.rgb(.6,.6,.6);
+  /* hình cái kéo vẽ bằng nét (chữ ✂ không có trong phông PDF chuẩn): 2 vòng tay cầm + 2 lưỡi chéo */
+  function veKeo(tg, x, y){
+    var r = 1.1*mm;
+    tg.drawCircle({x:x+r, y:y+1.5*mm, size:r, borderColor:mau, borderWidth:.6});
+    tg.drawCircle({x:x+r, y:y-1.5*mm, size:r, borderColor:mau, borderWidth:.6});
+    tg.drawLine({start:{x:x+2*r, y:y+1.1*mm}, end:{x:x+7*mm, y:y-0.9*mm}, thickness:.7, color:mau});
+    tg.drawLine({start:{x:x+2*r, y:y-1.1*mm}, end:{x:x+7*mm, y:y+0.9*mm}, thickness:.7, color:mau});
+  }
+  function duongCat(tg, y){
+    veKeo(tg, 4*mm, y);
+    tg.drawLine({start:{x:12.5*mm, y:y}, end:{x:A4.r - 5*mm, y:y}, thickness:.4, color:mau, dashArray:[3, 2.5]});
+  }
   return PDFLib.PDFDocument.create().then(function(pdf){
     return pdf.embedFont(PDFLib.StandardFonts.Helvetica).then(function(font){
       var trang = null;
@@ -11628,15 +11666,9 @@ function dungPDFThe(dsCap, tieuDe){
               });
             }, Promise.resolve());
           }).then(function(){
-            /* 3.44 (anh Nhân chỉnh lại): không chữ, không vạch góc — chỉ ĐƯỜNG MỎNG NẰM GIỮA KHE giữa 2 thẻ làm dấu cắt kéo.
-               Ngang: giữa khe trên + khe dưới mỗi hàng (chạy hết bề ngang). Dọc: giữa khe 2 mặt + 2 đường ngoài cách mép thẻ
-               đúng nửa khe, chạy từ đường ngang đầu tới đường ngang cuối → cắt theo đường là các miếng thẻ bằng nhau. */
-            if(hang===0) duongCat(tg, {x:bien, y:y+tC+khe/2}, {x:A4.r-bien, y:y+tC+khe/2});
-            duongCat(tg, {x:bien, y:y-khe/2}, {x:A4.r-bien, y:y-khe/2});
-            var cuoi = (hang===MOI-1) || (i===dsCap.length-1);
-            if(cuoi){ var yT = A4.c - le + khe/2, yD = y - khe/2;
-              [xT - kheGiua/2, xT + tR + kheGiua/2, xT + 2*tR + kheGiua*1.5].forEach(function(x){
-                duongCat(tg, {x:x, y:yD}, {x:x, y:yT}); }); }
+            /* 3.45 (anh Nhân chốt): chỉ ĐƯỜNG NGANG ĐỨT QUÃNG nằm giữa khe giữa 2 người + hình cái kéo ở đầu trái.
+               Không đường dọc, không đường ngoài cùng; 2 mặt của một người để liền nhau. */
+            if(hang>0) duongCat(tg, y + tC + khe/2);
           });
         });
       }, Promise.resolve()).then(function(){ return pdf.save(); });
@@ -11761,14 +11793,15 @@ function dauScanDT(){
     '<div class="sc-che">'+
       '<button class="'+(SC.che==='the'?'bat':'')+'" onclick="datChe(\'the\')">Thẻ</button>'+
       '<button class="'+(SC.che!=='the'?'bat':'')+'" onclick="datChe(\'tailieu\')">Tài liệu</button></div>'+
-    '<button class="sc-nho" onclick="moKyAnh()" title="Chữ ký · Ảnh khách hàng">✍</button>'+
+    '<button class="sc-nho" onclick="moKyAnh()" title="Chữ ký · CCCD — thư mục riêng">📁</button>'+
     '<button class="sc-nho" onclick="quetNhanh(\'photo\')" title="Lấy ảnh có sẵn trong máy">🖼</button>'+
     '<button class="sc-nho'+(so?' co':'')+'" onclick="moBoLoc(\'scan\')" title="Bộ lọc">☰'+(so?'<i>'+so+'</i>':'')+'</button>'+
-  '</div>'+dongDangLoc('scan');
+  '</div><div class="cam-kieu">Chụp: '+nutKieuCam()+'</div>'+dongDangLoc('scan');
 }
 /* vào thẳng camera như Lens — không hỏi nguồn mỗi lần */
 function quetNhanh(nguon){
   if(!HS.mo) return moHoSo();
+  if(!nguon && camTuDong() && coCamera()) return moCamera({muc:'scan'});
   chonNguon(nguon||'camera');
 }
 function xongScan(){
@@ -11862,32 +11895,52 @@ function inXP(){
    - Chữ ký: chụp → kéo khung cắt vùng chữ ký tùy ý (như Zalo; app đoán sẵn khung quanh nét ký) → nền trắng, nét đậm → ~10–40 KB.
    - Ảnh: chụp mặt trước CCCD → app tự tìm khung thẻ, nắn thẳng (ảnh gốc hiện bên cạnh, cắt tay được) → nén dưới 200 KB.
    - Đặt tên nhanh theo tên khách (nhớ tên cho lần chụp kế tiếp) → lưu trong máy + đưa ngay lên Drive:
-     Tủ hồ sơ / Chữ ký - Ảnh KH / ngày — ngồi máy bàn mở Drive là lấy nhập hệ thống.
+     3.45: Tủ hồ sơ / Chữ ký - CCCD / yyyy-mm (mỗi tháng một thư mục), tên "2026-09-25 Nguyen Van A CK.jpg".
    ========================================================== */
 var KA = {ten:'', tenLuc:0, loai:'ky', im:null, goc:null, r:null, xoay:0, muc:'vua', bl:null, dung:'xl'};
 var KA_MUC = {nho:{w:560, kb:50, ten:'Nhỏ'}, vua:{w:760, kb:90, ten:'Vừa'}, net:{w:1000, kb:190, ten:'Nét'}};
 function tenKhachKA(){ return (Date.now()-KA.tenLuc < 30*60000) ? KA.ten : ''; }
-function tenFileKA(loai, ten){
+/* 3.45 (anh Nhân chốt): anh chỉ gõ tên khách — app thêm ngày ở đầu, CK/CCCD ở cuối: "2026-09-25 Nguyen Van A CK.jpg" */
+function tenFileKA(loai, ten, ngay){
   var t = String(ten||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D')
-    .replace(/[^A-Za-z0-9]+/g,'_').replace(/^_+|_+$/g,'');   /* bỏ dấu, giữ hoa thường: CK_Nguyen_Van_A.jpg */
-  return (loai==='ky'?'CK_':'ANH_')+(t||('khach_'+ngayISO(nay())))+'.jpg';
+    .replace(/[^A-Za-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();
+  return (ngay || ngayISO(nay()))+' '+(t || 'Khach')+' '+(loai==='ky'?'CK':'CCCD')+'.jpg';
+}
+/* mỗi tháng một thư mục cho dễ tìm: Tủ hồ sơ / Chữ ký - CCCD / 2026-09 */
+function duongKA(thang){ return [D.cauHinh.thumuc, 'Chữ ký - CCCD', thang].join(' / '); }
+function moThuMucKA(thang){
+  thang = thang || ngayISO(nay()).slice(0,7);
+  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.');
+  var tm = (D.cauHinh.kaTM||{})[thang], mo = function(id){ return 'https://drive.google.com/drive/folders/'+id; };
+  if(tm) return window.open(mo(tm), '_blank');
+  var w = window.open('about:blank', '_blank');   /* mở cửa sổ ngay lúc bấm, tránh bị chặn popup */
+  baoDamDuong(duongKA(thang)).then(function(id){
+    D.cauHinh.kaTM = D.cauHinh.kaTM || {}; D.cauHinh.kaTM[thang] = id; luu();
+    if(w) w.location = mo(id); else window.open(mo(id), '_blank');
+  }).catch(function(e){ if(w) w.close(); baoLoi('Chưa mở được thư mục: '+(e&&e.message||e)); });
 }
 function moKyAnh(){
   if(!HS.mo) return moHoSo();
   D.kyAnh = D.kyAnh || [];
-  var ds = D.kyAnh.slice().sort(function(a,b){ return (b.luc||'').localeCompare(a.luc||''); }).slice(0,12);
-  moHop('<div class="hop-tit">✍ Chữ ký · Ảnh khách hàng</div>'+
-    '<div class="hop-phu">File JPG dưới 200 KB để nhập hệ thống khi tạo hồ sơ. Lưu xong tự đưa lên Drive: <b>'+
-      coChuHTML(D.cauHinh.thumuc||'Tủ hồ sơ')+' / Chữ ký - Ảnh KH / ngày</b>.</div>'+
+  var ds = D.kyAnh.slice().sort(function(a,b){ return (b.luc||'').localeCompare(a.luc||''); }).slice(0,30);
+  var thang = ngayISO(nay()).slice(0,7), thangTruoc = '';
+  moHop('<div class="hop-tit">📁 Chữ ký · CCCD</div>'+
+    '<div class="hop-phu">JPG dưới 200 KB để nhập hệ thống khi tạo hồ sơ. Lưu xong tự đưa lên Drive, mỗi tháng một thư mục: <b>'+
+      coChuHTML(D.cauHinh.thumuc||'Tủ hồ sơ')+' / Chữ ký - CCCD / '+thang+'</b>.</div>'+
+    '<div class="hang-nut" style="margin:0 0 8px"><button class="nho" onclick="moThuMucKA()">☁ Mở thư mục tháng '+thang.slice(5)+'/'+thang.slice(0,4)+' trên Drive</button></div>'+
+    '<div class="cam-kieu">Chụp: '+nutKieuCam()+'</div>'+
     '<div class="o"><label>Tên khách</label><input id="ka-ten" value="'+coChuHTML(tenKhachKA())+'" placeholder="Ví dụ: Nguyễn Văn A" '+
       'oninput="KA.ten=this.value;KA.tenLuc=Date.now()"></div>'+
     '<div class="ka-nut">'+
       '<button class="nho chinh" onclick="chupKA(\'ky\',\'camera\')">✍ Chụp chữ ký</button>'+
-      '<button class="nho chinh" onclick="chupKA(\'anh\',\'camera\')">🪪 Chụp ảnh<br><small>mặt trước CCCD</small></button></div>'+
+      '<button class="nho chinh" onclick="chupKA(\'anh\',\'camera\')">🪪 Chụp CCCD<br><small>mặt trước</small></button></div>'+
     '<div class="hang-nut" style="margin-top:6px"><button class="nho" onclick="chupKA(\'ky\',\'photo\')">🖼 Chữ ký từ ảnh có sẵn</button>'+
-      '<button class="nho" onclick="chupKA(\'anh\',\'photo\')">🖼 Ảnh từ ảnh có sẵn</button></div>'+
-    (ds.length ? '<div class="nhan-nhom">Gần đây</div>'+ds.map(function(k){
-      return '<div class="ka-dong"><span class="ka-ic">'+(k.loai==='ky'?'✍':'🪪')+'</span>'+
+      '<button class="nho" onclick="chupKA(\'anh\',\'photo\')">🖼 CCCD từ ảnh có sẵn</button></div>'+
+    (ds.length ? ds.map(function(k){
+      var th = (k.ngay||'').slice(0,7), dau = '';
+      if(th!==thangTruoc){ thangTruoc = th; dau = '<div class="nhan-nhom">Tháng '+th.slice(5)+'/'+th.slice(0,4)+
+        ' <span class="xoa-loc" onclick="moThuMucKA(\''+th+'\')">☁ mở thư mục</span></div>'; }
+      return dau+'<div class="ka-dong"><span class="ka-ic">'+(k.loai==='ky'?'✍':'🪪')+'</span>'+
         '<span class="ka-ten">'+coChuHTML(k.ten)+'<small>'+Math.round((k.co||0)/1024)+' KB · '+ngayVN(k.ngay)+' · '+
           (k.driveId?'☁ đã lên Drive':'chưa lên Drive')+'</small></span>'+
         (k.driveId?'':'<button onclick="dayKAMot(\''+k.id+'\')" title="Đưa lên Drive">☁</button>')+
@@ -11898,6 +11951,7 @@ function moKyAnh(){
 }
 function chupKA(loai, nguon){
   var e = document.getElementById('ka-ten'); if(e){ KA.ten = e.value; KA.tenLuc = Date.now(); }
+  if(nguon==='camera' && coCamera() && (camTuDong() || !laDT())) return moCamera({muc:loai==='ky'?'ky':'cccd'});
   var i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*';
   if(nguon==='camera') i.capture = 'environment';
   i.onchange = function(){ var f = i.files && i.files[0]; if(f) nhanKA(loai, f); };
@@ -11945,12 +11999,12 @@ function khungKy(c){
 }
 function veCatKA(){
   var ky = KA.loai==='ky', ten = tenKhachKA();
-  moHop('<div class="hop-tit">'+(ky?'✍ Cắt chữ ký':'🪪 Ảnh khách hàng')+'</div>'+
-    '<div class="hop-phu">Kéo 4 góc, 4 cạnh hoặc kéo giữa khung để chọn vùng '+(ky?'chữ ký':'ảnh')+'.'+
+  moHop('<div class="hop-tit">'+(ky?'✍ Cắt chữ ký':'🪪 CCCD mặt trước')+'</div>'+
+    '<div class="hop-phu">Kéo 4 góc, 4 cạnh hoặc kéo giữa khung để cắt vừa '+(ky?'chữ ký':'thẻ')+'.'+
       (!ky && KA.xl ? ' App đã tự tìm khung thẻ — chưa đúng thì bấm <b>Ảnh gốc</b> để cắt tay.' : '')+'</div>'+
     '<div class="ka-ten-o"><input id="ka-ten2" value="'+coChuHTML(ten)+'" placeholder="Tên khách (đặt tên file)" '+
-      'oninput="KA.ten=this.value;KA.tenLuc=Date.now();document.getElementById(\'ka-tf\').textContent=tenFileKA(KA.loai,this.value)">'+
-      '<span id="ka-tf">'+coChuHTML(tenFileKA(KA.loai, ten))+'</span></div>'+
+      'oninput="KA.ten=this.value;KA.tenLuc=Date.now();document.getElementById(\'ka-tf\').textContent=\'→ \'+tenFileKA(KA.loai,this.value)">'+
+      '<span id="ka-tf">→ '+coChuHTML(tenFileKA(KA.loai, ten))+'</span></div>'+
     '<div class="ka-khung"><canvas id="ka-c"></canvas></div>'+
     '<div class="hang-nut ka-cong">'+
       '<button class="nho" onclick="KA.xoay=(KA.xoay+1)%4;datNguonKA(KA.dung)">⟳ Xoay</button>'+
@@ -11963,7 +12017,7 @@ function veCatKA(){
     '<div class="ka-kq"><div class="ka-kq-anh"><img id="ka-kq" alt=""></div><div id="ka-co" class="ka-co">Đang tính…</div></div>'+
     '<div class="xp-nut"><button class="nho chinh" onclick="luuKA()">💾 Lưu + đưa lên Drive</button>'+
       '<div class="hang-nut"><button class="nho" onclick="luuKA(\'gui\')">📤 Lưu + Gửi</button>'+
-      '<button class="nho" onclick="chupKA(KA.loai,\'camera\')">📷 Chụp lại</button>'+
+      '<button class="nho" onclick="chupKA(KA.loai===\'ky\'?\'ky\':\'anh\',\'camera\')">📷 Chụp lại</button>'+
       '<button class="nho" onclick="moKyAnh()">Thôi</button></div></div>', true);
   ganCatKA(); xemKA();
 }
@@ -12068,11 +12122,11 @@ function luuKA(cach){
   if(!String(ten).trim()) return baoLoi('Nhập tên khách để đặt tên file.');
   KA.ten = ten; KA.tenLuc = Date.now();
   (KA.bl ? Promise.resolve(KA.bl) : dungKA()).then(function(b){
-    var d = nay(), k = {id:'ka'+idMoi(), loai:KA.loai, ten:tenFileKA(KA.loai, ten), khach:String(ten).trim(), co:b.size, ngay:ngayISO(d), luc:d.toISOString()};
+    var d = nay(), k = {id:'ka'+idMoi(), loai:KA.loai, ten:tenFileKA(KA.loai, ten, ngayISO(d)), khach:String(ten).trim(), co:b.size, ngay:ngayISO(d), luc:d.toISOString()};
     D.kyAnh = D.kyAnh || [];
     /* trùng tên thì thêm _2, _3 */
     var co = {}; D.kyAnh.forEach(function(x){ co[x.ten] = 1; });
-    var goc = k.ten.replace(/\.jpg$/,''), n = 2; while(co[k.ten]){ k.ten = goc+'_'+n+'.jpg'; n++; }
+    var goc = k.ten.replace(/\.jpg$/,''), n = 2; while(co[k.ten]){ k.ten = goc+' ('+n+').jpg'; n++; }
     return luuAnhHS(k.id, b).then(function(){
       D.kyAnh.push(k); luu();
       if(cach==='gui') chiaSeAnh(b, k.ten);
@@ -12085,9 +12139,10 @@ function luuKA(cach){
 function dayKAMot(id){
   var k = (D.kyAnh||[]).find(function(x){ return x.id===id; }); if(!k) return;
   if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.');
-  var duong = [D.cauHinh.thumuc, 'Chữ ký - Ảnh KH', k.ngay].join(' / ');
+  var thang = (k.ngay||ngayISO(nay())).slice(0,7), duong = duongKA(thang);
   return Promise.all([docAnhHS(k.id), baoDamDuong(duong)]).then(function(r){
     var bl = r[0], idTM = r[1]; if(!bl) throw new Error('Ảnh trong máy không còn');
+    D.cauHinh.kaTM = D.cauHinh.kaTM || {}; D.cauHinh.kaTM[thang] = idTM;
     var bien = '----tuhoso'+Date.now();
     var dau = '--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify({name:k.ten, parents:[idTM]})+
       '\r\n--'+bien+'\r\nContent-Type: image/jpeg\r\n\r\n';
@@ -12117,6 +12172,194 @@ function xoaKA(id){
     xoaFile('hs_'+k.id);
     D.kyAnh = D.kyAnh.filter(function(x){ return x.id!==id; }); luu(); moKyAnh();
   });
+}
+
+/* ==========================================================
+   3.45: CAMERA TRONG APP — dùng chung iPhone và máy bàn có webcam.
+   - Tự động (như Lens): dò khung thẻ / tờ giấy ~5 lần mỗi giây, khung xanh bám theo; đứng yên ~1 giây là tự chụp,
+     rồi chờ cảnh thay đổi (lật mặt, đổi tờ) mới chụp tiếp. Chữ ký không có khung → chụp khi ảnh đứng yên.
+   - Thủ công: nút chụp (máy bàn thêm phím cách). iPhone: chế độ Thủ công dùng camera gốc của máy (ảnh nét nhất).
+   - Chụp xong đi tiếp đúng luồng cũ: Scan → hàng chờ; Chữ ký / CCCD → màn cắt vừa → lưu.
+   Giới hạn trình duyệt: không điều khiển tiêu cự, đèn flash; ảnh kém camera gốc một chút.
+   ========================================================== */
+var CAM = {on:false};
+function coCamera(){ return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia); }
+function camTuDong(){ return D.cauHinh.camTuDong!==false; }
+function nutKieuCam(){
+  var td = camTuDong();
+  return '<button class="'+(td?'bat':'')+'" onclick="datKieuCam(true)">⚡ Tự động</button>'+
+    '<button class="'+(!td?'bat':'')+'" onclick="datKieuCam(false)">✋ Thủ công'+(laDT()?' (camera máy)':'')+'</button>';
+}
+function datKieuCam(v){
+  D.cauHinh.camTuDong = !!v; luu();
+  document.querySelectorAll('.cam-kieu').forEach(function(e){ e.innerHTML = 'Chụp: '+nutKieuCam(); });
+  if(CAM.on){ CAM.tuDong = !!v; veThanhCam(); }
+}
+function moCamera(o){
+  if(!coCamera()) return baoLoi('Trình duyệt này không mở được camera trong app — dùng chụp bằng camera máy.');
+  if(!HS.mo) return moHoSo();
+  dongHop();
+  CAM = {on:true, muc:o.muc, che:o.muc==='scan' ? (SC.che==='the'?'the':'tailieu') : (o.muc==='cccd'?'the':'ky'),
+    tuDong:o.tuDong!==undefined ? o.tuDong : camTuDong(), anh:[], quad:null, yen:0, sanSang:true, tr:0, xam:null, dong:0};
+  var e = document.createElement('div'); e.id = 'cam';
+  e.innerHTML = '<div class="cam-tren"><button onclick="dongCam()">✕</button>'+
+      '<span id="cam-tieu"></span><select id="cam-chon" onchange="doiCamMay(this.value)" style="display:none"></select></div>'+
+    '<div class="cam-khung"><video id="cam-v" playsinline muted autoplay></video><canvas id="cam-o"></canvas><div id="cam-loe"></div></div>'+
+    '<div id="cam-goi" class="cam-goi"></div>'+
+    '<div class="cam-duoi"><div class="cam-nho" id="cam-nho"></div>'+
+      '<button class="cam-chup" onclick="chupCam()" title="Chụp (phím cách)"></button>'+
+      '<button class="cam-xong" id="cam-xong" onclick="xongCam()">Xong</button></div>'+
+    '<div class="cam-kieu cam-kieu-tren" id="cam-kieu"></div>';
+  document.body.appendChild(e);
+  document.addEventListener('keydown', phimCam);
+  veThanhCam(); batCam();
+}
+function veThanhCam(){
+  var t = document.getElementById('cam-tieu'); if(!t) return;
+  t.textContent = {scan:(CAM.che==='the'?'Quét thẻ':'Quét tài liệu'), ky:'Chụp chữ ký', cccd:'Chụp CCCD mặt trước'}[CAM.muc]+
+    (CAM.anh.length ? ' · '+CAM.anh.length+' ảnh' : '');
+  var k = document.getElementById('cam-kieu');
+  if(k) k.innerHTML = '<button class="'+(CAM.tuDong?'bat':'')+'" onclick="CAM.tuDong=true;D.cauHinh.camTuDong=true;luu();veThanhCam()">⚡ Tự động</button>'+
+    '<button class="'+(!CAM.tuDong?'bat':'')+'" onclick="doiThuCongCam()">✋ Thủ công</button>';
+  var x = document.getElementById('cam-xong'); if(x) x.style.visibility = (CAM.muc==='scan' && CAM.anh.length) ? 'visible' : 'hidden';
+  goiCam();
+}
+/* iPhone: Thủ công = camera gốc của máy (anh chốt); máy bàn: vẫn ở màn webcam, bấm nút chụp */
+function doiThuCongCam(){
+  D.cauHinh.camTuDong = false; luu();
+  if(laDT()){
+    var anh = CAM.anh.slice(), muc = CAM.muc; dongCam();
+    if(muc==='scan'){ if(anh.length) nhanVaoScan(anh, 'camera'); else chonNguon('camera'); }
+    else chupKA(muc==='ky'?'ky':'anh', 'camera');
+    return;
+  }
+  CAM.tuDong = false; veThanhCam();
+}
+function goiCam(txt){
+  var g = document.getElementById('cam-goi'); if(!g) return;
+  if(txt){ g.textContent = txt; return; }
+  var n = CAM.anh.length;
+  g.textContent = !CAM.tuDong ? 'Bấm nút tròn để chụp'+(laDT()?'':' (hoặc phím cách)')
+    : CAM.muc==='ky' ? 'Giữ yên máy trên chữ ký — tự chụp'
+    : CAM.che==='the' ? (CAM.muc==='cccd' ? 'Đưa mặt trước CCCD vào khung — tự chụp khi thấy khung xanh'
+                         : (n%2===0 ? 'Người '+(n/2+1)+': mặt trước — giữ yên khi khung xanh' : 'Lật mặt sau'))
+    : 'Trang '+(n+1)+': đặt tờ giấy trên nền tối — giữ yên khi khung xanh';
+}
+function batCam(id){
+  var v = document.getElementById('cam-v'); if(!v) return;
+  if(CAM.st) CAM.st.getTracks().forEach(function(t){ t.stop(); });
+  id = id || D.cauHinh.camId || '';
+  var rb = {width:{ideal:1920}, height:{ideal:1080}};
+  if(id) rb.deviceId = {exact:id}; else rb.facingMode = {ideal:'environment'};
+  navigator.mediaDevices.getUserMedia({video:rb, audio:false}).catch(function(e){
+    if(id){ D.cauHinh.camId = ''; return navigator.mediaDevices.getUserMedia({video:{width:{ideal:1920}, height:{ideal:1080}}, audio:false}); }
+    throw e;
+  }).then(function(st){
+    if(!CAM.on){ st.getTracks().forEach(function(t){ t.stop(); }); return; }
+    CAM.st = st; v.srcObject = st; var p = v.play(); if(p && p.catch) p.catch(function(){});
+    navigator.mediaDevices.enumerateDevices().then(function(ds){
+      var cam = ds.filter(function(d){ return d.kind==='videoinput'; }), sel = document.getElementById('cam-chon');
+      if(!sel || cam.length<2) return;
+      var dang = (st.getVideoTracks()[0].getSettings()||{}).deviceId;
+      sel.innerHTML = cam.map(function(d, i){ return '<option value="'+d.deviceId+'"'+(d.deviceId===dang?' selected':'')+'>'+
+        coChuHTML(d.label || ('Camera '+(i+1)))+'</option>'; }).join('');
+      sel.style.display = '';
+    }).catch(function(){});
+    clearTimeout(CAM.hen); vongCam();
+  }).catch(function(e){
+    dongCam();
+    var ly = /NotAllowed|Permission/i.test(e&&e.name||'') ? 'Chưa cho phép dùng camera — bấm biểu tượng camera trên thanh địa chỉ để cho phép.'
+      : /NotFound|Overconstrained/i.test(e&&e.name||'') ? 'Không thấy camera nào.' : ('Không mở được camera: '+(e&&e.message||e));
+    baoLoi(ly+' Tạm dùng chọn ảnh có sẵn.');
+  });
+}
+function doiCamMay(id){ D.cauHinh.camId = id; luu(); batCam(id); }
+function vongCam(){
+  if(!CAM.on) return;
+  var t0 = performance.now();
+  try{ khungCam(); }catch(e){ console.warn(e); }
+  var ton = performance.now()-t0;
+  CAM.hen = setTimeout(vongCam, Math.max(60, 200-ton));
+}
+function khungCam(){
+  var v = document.getElementById('cam-v'); if(!v || v.readyState<2 || !v.videoWidth) return;
+  var W = v.videoWidth, H = v.videoHeight, k = Math.min(1, 640/Math.max(W, H));
+  var c = CAM.nho || (CAM.nho = document.createElement('canvas')); c.width = Math.round(W*k); c.height = Math.round(H*k);
+  var g = c.getContext('2d'); g.drawImage(v, 0, 0, c.width, c.height);
+  /* chuyển động: so ảnh xám 48×36 với khung trước */
+  var t = CAM.tiny || (CAM.tiny = document.createElement('canvas')); t.width = 48; t.height = 36;
+  var tg = t.getContext('2d'); tg.drawImage(c, 0, 0, 48, 36);
+  var d = tg.getImageData(0, 0, 48, 36).data, xam = new Uint8Array(48*36), tong = 0;
+  for(var i=0;i<xam.length;i++){ xam[i] = (d[i*4]*.3+d[i*4+1]*.59+d[i*4+2]*.11)|0; if(CAM.xam) tong += Math.abs(xam[i]-CAM.xam[i]); }
+  CAM.dong = CAM.xam ? tong/xam.length : 99; CAM.xam = xam;
+  var bay = performance.now(), dt = CAM.tr ? bay-CAM.tr : 0; CAM.tr = bay;
+  var q = null;
+  if(CAM.che!=='ky'){
+    var r = CAM.che==='the' ? timKhungThe(c) : timKhungGiay(c);
+    if(r && r.goc && r.tin >= (CAM.che==='the' ? 0.5 : 0.6)){
+      q = r.goc.map(function(p){ return [p[0]/k, p[1]/k]; });
+      if(dienTich(q) < W*H*0.05) q = null;   /* quá nhỏ — đưa lại gần */
+    }
+  }
+  var dg = Math.hypot(W, H), yenQ = q && CAM.quad && q.every(function(p, j){ return Math.hypot(p[0]-CAM.quad[j][0], p[1]-CAM.quad[j][1]) < dg*0.025; });
+  var yen = CAM.che==='ky' ? CAM.dong < 3.5 : (yenQ && CAM.dong < 8);
+  CAM.yen = yen ? CAM.yen + dt : 0;
+  CAM.quad = q;
+  /* đã chụp → chờ cảnh đổi hẳn (lật mặt, đổi tờ, nhấc máy) mới cho chụp tiếp */
+  if(!CAM.sanSang && (CAM.dong > 14 || (CAM.che!=='ky' && !q))) CAM.sanSang = true;
+  veLopCam(W, H);
+  if(CAM.tuDong && CAM.sanSang && CAM.yen >= 1000 && (q || CAM.che==='ky')) chupCam(true);
+}
+function dienTich(q){ var s = 0; for(var i=0;i<4;i++){ var a = q[i], b = q[(i+1)%4]; s += a[0]*b[1]-b[0]*a[1]; } return Math.abs(s)/2; }
+function veLopCam(W, H){
+  var v = document.getElementById('cam-v'), o = document.getElementById('cam-o'); if(!v || !o) return;
+  var cw = v.clientWidth, ch = v.clientHeight;
+  if(o.width!==cw) o.width = cw; if(o.height!==ch) o.height = ch;
+  var g = o.getContext('2d'); g.clearRect(0, 0, cw, ch);
+  var s = Math.min(cw/W, ch/H), ox = (cw-W*s)/2, oy = (ch-H*s)/2;
+  var tienDo = Math.min(1, CAM.yen/1000);
+  if(CAM.quad){
+    g.beginPath(); CAM.quad.forEach(function(p, i){ var x = ox+p[0]*s, y = oy+p[1]*s; if(i) g.lineTo(x, y); else g.moveTo(x, y); }); g.closePath();
+    g.fillStyle = 'rgba(46,204,113,'+(0.15+0.25*tienDo)+')'; g.fill();
+    g.lineWidth = 3+2*tienDo; g.strokeStyle = CAM.sanSang ? '#2ECC71' : '#9BE7B8'; g.stroke();
+  }
+  if(CAM.tuDong && CAM.sanSang && tienDo>0 && (CAM.quad || CAM.che==='ky')){
+    g.beginPath(); g.arc(cw/2, ch/2, 26, -Math.PI/2, -Math.PI/2+tienDo*Math.PI*2);
+    g.lineWidth = 6; g.strokeStyle = '#2ECC71'; g.stroke();
+  }
+}
+function chupCam(tuDong){
+  var v = document.getElementById('cam-v'); if(!v || !v.videoWidth || CAM.dangChup) return;
+  CAM.dangChup = true;
+  var c = document.createElement('canvas'); c.width = v.videoWidth; c.height = v.videoHeight;
+  c.getContext('2d').drawImage(v, 0, 0);
+  var l = document.getElementById('cam-loe'); if(l){ l.classList.remove('loe'); void l.offsetWidth; l.classList.add('loe'); }
+  CAM.sanSang = false; CAM.yen = 0;
+  canvasRaBlob(c, 0.92).then(function(b){
+    CAM.dangChup = false;
+    var f = new File([b], 'cam_'+Date.now()+'.jpg', {type:'image/jpeg'});
+    if(CAM.muc!=='scan'){ var m = CAM.muc; dongCam(); return nhanKA(m==='ky'?'ky':'anh', f); }
+    CAM.anh.push(f);
+    var n = document.getElementById('cam-nho');
+    if(n){ var u = URL.createObjectURL(b); n.innerHTML = '<img src="'+u+'"><b>'+CAM.anh.length+'</b>'; }
+    veThanhCam();
+    if(navigator.vibrate) try{ navigator.vibrate(40); }catch(e){}
+  });
+}
+function xongCam(){
+  var anh = CAM.anh.slice(); dongCam();
+  if(anh.length) nhanVaoScan(anh, 'camera');
+}
+function dongCam(){
+  CAM.on = false; clearTimeout(CAM.hen);
+  if(CAM.st) CAM.st.getTracks().forEach(function(t){ t.stop(); });
+  document.removeEventListener('keydown', phimCam);
+  var e = document.getElementById('cam'); if(e) e.remove();
+}
+function phimCam(ev){
+  if(!CAM.on) return;
+  if(ev.key===' ' || ev.key==='Enter'){ ev.preventDefault(); chupCam(); }
+  else if(ev.key==='Escape'){ ev.preventDefault(); if(CAM.anh.length) xongCam(); else dongCam(); }
 }
 
 /* lưu tạm: tên tự đặt theo ngày giờ quét, khai sau */
