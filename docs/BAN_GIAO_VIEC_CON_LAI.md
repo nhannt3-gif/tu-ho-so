@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.46 · build 28/09/2026 03:00
+**Bản hiện tại:** 3.47 · build 28/09/2026 05:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -24,7 +24,7 @@
 
 ---
 
-## 1. Đã xong ở bản 3.31 → 3.46
+## 1. Đã xong ở bản 3.31 → 3.47
 
 Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi tiết ở `docs/CHANGELOG.md`.
 
@@ -101,6 +101,23 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Tùy chọn `D.cauHinh.dbMoApp`, `dbRoiApp`, `dbSauLuu`, `db5p`.
   - **PDF:** `thuChoPDF` (cache `PDF_THU`), `nutNetPDF` (`D.cauHinh.pdfNet`), `veTrangXP` vẽ dần.
   - **OCR:** `canOCR`, `docChuOCR` (Tesseract 5.1.1 từ jsdelivr), `moKetQuaOCR`, `apDungOCR`; cờ `m.anhPDF`.
+
+- **3.47 — Sửa đồng bộ 2 máy + tiện ích:**
+  - **Gộp chỉ mục:**
+    - Hàm `dayChiMucLenDrive` gộp trước khi ghi (`gopTuRemote`); `taiChiMucTuDrive` so `D.cauHinh.chiMucDriveTG` (giờ Drive).
+    - `gopTheoSua` gộp scan / kyAnh theo `suaLuc`; bản ghi có `may` = máy tạo.
+  - **Mở bản máy khác:** `coAnhTrongMay`, `taiPDFDrive`.
+  - **Gửi lên / dời file:** `dayMotScan` (có ảnh thì dựng PDF, không có thì `dayMetaScan` chỉ đổi tên / dời).
+  - **Khác:**
+    - Kiểm tra bản trắng: `kiemBanTrang`. Dải nối Drive: `capNhatDaiDrive`.
+    - Zalo máy tính: `coChiaSeFile`, `chepAnhKA`.
+    - Khai hàng loạt có chọn: `khaiHangLoat(chon)`, `demKL`.
+    - Đọc lại & gợi ý tên: `coTheDocLai`, `docLaiGoiY`, `apDungOCRSua`, `apGoiYSua`.
+  - Phép thử 2 máy dùng chung Drive giả: `t42.js` + `fakedrive.js` (thư mục nháp).
+- **Chờ anh quyết (mục 8):** nút 📝 **Mở bằng Word** trên máy tính.
+  - Cách 1: cầu nối `tuhoso:` gồm file .reg + script, mở file thật trên ổ G:.
+  - Cách 2: tải về, Chrome "luôn mở loại tệp này".
+  - Cần anh cho biết: máy cơ quan có chạy được .reg không; ổ G:\My Drive hay G:\Drive của tôi.
 
 ### Danh sách thử trên máy thật (3.46) — anh ghi Đạt / Chưa
 1. iPhone · tab Scan · ⚡ Tự động · Thẻ: quét 2 người (4 mặt) → ① chạm đổi chỗ 2 ảnh, ▲▼ dời người → Xem trước → Tiếp.

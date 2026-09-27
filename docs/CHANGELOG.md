@@ -4,6 +4,42 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.47 — 28/09/2026 05:00 — Sửa đồng bộ 2 máy (lệch danh sách, mở lên trắng) · Zalo trên máy tính · khai hàng loạt có chọn · Đọc lại & gợi ý tên
+
+**Lỗi anh báo:** danh sách lưu tạm điện thoại 6, máy tính 3; mở bản của máy kia lên trắng.
+- **Nguyên nhân 1:** gửi danh sách (chỉ mục) lên Drive là **ghi đè cả file** → máy gửi sau xóa mất phần máy kia vừa gửi.
+- **Nguyên nhân 2:** máy chỉ lấy danh sách về **1 lần khi mở app**, và so bằng giờ của máy (2 máy lệch giờ là bỏ sót).
+- **Nguyên nhân 3:** ảnh scan chỉ nằm trong máy đã quét → máy kia dựng PDF không có ảnh = trang trắng; tệ hơn, máy kia còn có thể **đẩy bản trắng lên Drive** hoặc **ghi đè file tốt** khi khai.
+
+**Sửa:**
+1. **Gộp rồi mới ghi:** trước khi gửi danh sách, app tải bản trên Drive về gộp với máy mình. So giờ theo **giờ của Drive**, không theo giờ máy. Bản scan và chữ ký gộp theo "sửa lúc" (bản sửa sau thắng), nên khai ở máy này thì máy kia thấy tên mới. Danh sách chữ ký · CCCD cũng đồng bộ giữa 2 máy.
+2. **Lấy về thường xuyên:** khi mở app, **khi quay lại app** (chuyển từ app khác về), và khi bấm **☁ Đồng bộ ngay**. Nút này giờ làm cả 2 chiều: lấy về → đẩy bản chờ → gửi danh sách đã gộp.
+3. **Mở bản của máy khác:**
+   - Máy không có ảnh thì **tải PDF trên Drive về** để xem, in, gửi.
+   - Bản chưa lên Drive thì báo rõ "quét ở máy khác, chưa lên Drive — mở máy kia bấm Đồng bộ ngay".
+   - Danh sách có nhãn **☁ trên Drive** / **📱 máy khác**.
+4. **Chặn bản trắng:**
+   - Chỉ máy có ảnh mới dựng PDF và gửi lên.
+   - Máy không có ảnh khai đầy đủ thì **chỉ đổi tên và dời thư mục** file trên Drive, không ghi đè nội dung.
+   - Bảo trì kho thêm **🪪 Kiểm tra bản PDF trắng**: tìm PDF thẻ dưới 15 KB trên Drive → chọn xóa → máy có ảnh gửi lại bản đúng.
+5. **Điện thoại đẩy lên ngay:**
+   - Chấm Drive **đỏ** kèm số bản chưa lên.
+   - Drive chưa nối mà còn bản chờ thì hiện **dải vàng "N bản chưa lên Drive — bấm để nối Drive và đẩy lên"** (iPhone cần anh bấm thì Google mới cho nối lại).
+
+**Thêm:**
+- **Máy tính gửi Zalo:**
+  - PDF: nút **📥 Tải về để gửi Zalo** kèm hướng dẫn (📎 chọn file / kéo thả từ thanh tải về) và link **Mở Zalo Web**.
+  - Chữ ký / CCCD: nút **📋 Chép ảnh**, mở Zalo PC bấm **Ctrl+V** là gửi.
+  - Không làm gửi link Drive, vì phải mở quyền xem cho người có link, lộ CCCD.
+- **Khai hàng loạt có tích chọn:**
+  - Mỗi bản có ô tích và ảnh nhỏ; có **Chọn tất cả** và "đã chọn 2/3".
+  - Địa bàn, CT vay, tag chỉ áp cho bản đã tích; bản không tích giữ nguyên.
+  - Từ màn ③ nhiều người thì mở sẵn đúng các bản đó.
+- **🔍 Đọc lại & gợi ý tên** trong màn **Chi tiết / Sửa** của mọi văn bản PDF / ảnh (cũ hay mới), và trong menu ⋯:
+  - PDF có lớp chữ thì đọc thẳng; PDF chụp hoặc ảnh thì OCR.
+  - Hiện số hiệu, ngày, trích yếu và **tên file chuẩn gợi ý**.
+  - Bấm Áp dụng thì điền vào màn Sửa (ô viền xanh là giá trị mới, giữ nguyên các ô anh đang gõ), **chưa lưu** — anh xem rồi bấm Lưu.
+
 ## 3.46 — 28/09/2026 03:00 — Luồng 3 bước Chỉnh › Xem › Lưu & gửi · đồng bộ Drive · PDF nhanh + thanh chạy · đọc chữ PDF ảnh
 
 **A. Luồng 3 bước, giống nhau trên máy tính và điện thoại** (Scan và Chữ ký · CCCD). Thanh bước ở đầu màn: ① Chỉnh › ② Xem › ③ Lưu & gửi.
