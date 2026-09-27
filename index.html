@@ -1467,6 +1467,16 @@
   }
 
   /* 3.42 — Bảo trì kho */
+  /* 3.43: tab Thư viện */
+  .tv-chon{display:flex;gap:0;border:1.3px solid var(--vien);border-radius:12px;overflow:hidden;background:var(--the);margin:0 0 10px;width:max-content;max-width:100%}
+  .tv-chon button{border:0;background:transparent;padding:8px 16px;font:inherit;font-size:calc(13px*var(--co));font-weight:600;color:var(--chu-phu);cursor:pointer}
+  .tv-chon button.bat{background:var(--xanh-nhat);color:var(--xanh-dam)}
+  .tv-chon small{font-weight:400;opacity:.8}
+  .tv-suckhoe{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+  .tv-suckhoe span{background:var(--the);border:1px solid var(--vien);border-radius:9px;padding:4px 10px;font-size:calc(12px*var(--co))}
+  .tv-suckhoe .vang{background:var(--vang-nen);color:var(--vang);border-color:#EED9A8}
+  .tv-suckhoe .luc{background:var(--luc-nen);color:var(--luc);border-color:#BFE0CC}
+  .tv-bt h3{font-size:calc(13.5px*var(--co));margin:12px 0 6px}
   .bt-the{border:1.3px solid var(--vien);border-radius:12px;background:var(--the);padding:10px 12px;margin-bottom:8px}
   .bt-dau{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .bt-ic{font-size:calc(16px*var(--co))}
@@ -1512,7 +1522,7 @@
       <button onclick="doiNgan(2,this)">Tháng</button>
       <button onclick="doiNgan(5,this)">Biểu mẫu</button>
       <button onclick="doiNgan(4,this)">Scan</button>
-      <button onclick="doiNgan(3,this)">Ghi chú</button>
+      <button onclick="doiNgan(3,this)">Thư viện</button>
     </div>
   </div>
 
@@ -5092,8 +5102,37 @@ function nhacKhac(){
 }
 
 /* ----- ngăn 3: GHI CHÚ ----- */
+/* 3.43 (anh duyệt phương án a): tab Ghi chú đổi thành THƯ VIỆN — 2 phần Ghi chú · Bảo trì kho.
+   Kho là thư viện dữ liệu, bảo trì chuẩn hóa làm thường xuyên nên để ngoài, không giấu trong Cài đặt (Cài đặt vẫn còn lối vào). */
+function tvPhan(){ return D.cauHinh.tvPhan==='bt' ? 'bt' : 'gc'; }
+function datTvPhan(k){ D.cauHinh.tvPhan = k; luu(); veGhiChu(); }
+function thanhTV(){
+  var p = tvPhan();
+  return '<div class="tv-chon">'+
+    '<button class="'+(p==='gc'?'bat':'')+'" onclick="datTvPhan(\'gc\')">🖼 Ghi chú <small>'+D.ghiChu.length+'</small></button>'+
+    '<button class="'+(p==='bt'?'bat':'')+'" onclick="datTvPhan(\'bt\')">🧰 Bảo trì kho</button></div>';
+}
+function veBaoTriTV(){
+  var tong = D.vanBan.length+D.duLieu.length+D.ghiChu.length+(D.scan||[]).length+(D.bieuMau||[]).length;
+  var chuaLen = [].concat(D.vanBan, D.duLieu, D.ghiChu, D.bieuMau||[]).filter(function(m){ return m && !m.driveId && !m.xoa; }).length;
+  var khac = D.duLieu.filter(function(x){ return x.maLoai==='KHAC'; }).length;
+  var tomTat = '<div class="tv-suckhoe">'+
+    '<span><b>'+tong+'</b> mục trong kho</span>'+
+    (!coTheNoiDrive() ? '<span class="vang">Chưa nối Drive</span>'
+      : (chuaLen ? '<span class="vang"><b>'+chuaLen+'</b> chưa có trên Drive</span>' : '<span class="luc">Đủ trên Drive</span>'))+
+    (khac ? '<span class="vang"><b>'+khac+'</b> dữ liệu tháng chưa phân loại</span>' : '')+
+    '<span><b>'+(D.rac||[]).length+'</b> trong thùng rác</span>'+
+    '<span>Chỉ mục đồng bộ: <b>'+(D.cauHinh.chiMucThoi ? coChuHTML(D.cauHinh.chiMucThoi.replace('T',' ').slice(0,16)) : 'chưa')+'</b></span></div>';
+  /* dùng lại đúng trang Bảo trì kho của Cài đặt — lối sang trang Cài đặt khác thì mở Cài đặt */
+  return '<div class="tv-bt">'+tomTat+veNoiCD('chimuc').replace('<h3>🧰 Bảo trì kho</h3>', '').replace(/doiCD\(/g, 'moCaiDat(')+'</div>';
+}
 function veGhiChu(){
-  document.getElementById('loc-gc').innerHTML =
+  if(tvPhan()==='bt'){
+    document.getElementById('loc-gc').innerHTML = thanhTV();
+    document.getElementById('ds-gc').innerHTML = veBaoTriTV();
+    return;
+  }
+  document.getElementById('loc-gc').innerHTML = thanhTV() +
     veDauTab('ghiChu', {kho:D.ghiChu, nhanThem:'Chụp / thêm ghi chú',
                         hamThem:'chonAnh()'});
   var ds = locTheoThe('ghiChu', locChuan('ghiChu', loc(D.ghiChu, tuKhoa)));
@@ -5720,6 +5759,7 @@ function duyetThat(id, imLang){
     var dich = (c.nhom==='duLieu') ? 2 : (c.nhom==='ghiChu' ? 3 : 1);
     if(dich===2 && c.ky) D.cauHinh.kyBang = c.ky;
     setTimeout(function(){
+      if(dich===3) D.cauHinh.tvPhan = 'gc';   /* 3.43: vừa lưu ghi chú → mở phần Ghi chú của tab Thư viện */
       doiNgan(dich);
       bao(dich===2 ? ('Đã lưu vào ô '+kyVN(c.ky)+' · '+(c.tenLoai||'Khác')+' · '+(c.phamVi||'chưa rõ đơn vị')+' trên ma trận')
                    : ('Đã lưu vào '+({1:'Văn bản',3:'Ghi chú'}[dich])+' · '+c.tenMoi), 7);

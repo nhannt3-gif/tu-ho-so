@@ -4,7 +4,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.43 — 27/09/2026 23:55 — Scan điện thoại kiểu Lens · ma trận tab Tháng đồng nhất, canh trái
+## 3.43 — 27/09/2026 23:55 — Scan điện thoại kiểu Lens · ma trận tab Tháng đồng nhất, canh trái · tab Thư viện
 
 **Scan trên iPhone** (anh duyệt, tham khảo cách làm của app scan Lens trên iOS; máy tính giữ nguyên màn cũ):
 - Đầu tab chỉ còn: nút lớn **📷 Quét** (vào thẳng camera, không hỏi nguồn mỗi lần) · công tắc **Thẻ | Tài liệu** · 🖼 lấy ảnh có sẵn · ☰ bộ lọc.
@@ -14,6 +14,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - **📤 Gửi — Zalo, Drive, Tệp…** mở bảng chia sẻ của iPhone. Web không gửi thẳng vào Zalo được, phải qua bảng chia sẻ.
   - 🖨 In · ☁ Lên tủ Drive · ✎ Khai hồ sơ · Đóng.
 - Danh sách bản đã quét gọn một dòng; chạm là mở màn xem trước để gửi lại.
+
+**Tab Ghi chú → tab Thư viện** (anh duyệt phương án a):
+- Gồm 2 phần chuyển qua lại: **🖼 Ghi chú** (giữ nguyên như cũ) · **🧰 Bảo trì kho** (chuyển ra từ Cài đặt, vì bảo trì chuẩn hóa làm thường xuyên).
+- Đầu phần Bảo trì có dòng tình trạng kho: số mục · chưa nối Drive / số mục chưa có trên Drive · dữ liệu tháng chưa phân loại · thùng rác · lần đồng bộ chỉ mục gần nhất.
+- Không mất dữ liệu ghi chú. Cài đặt › Bảo trì kho vẫn còn. Vừa lưu một ghi chú thì app tự mở phần Ghi chú.
 
 **Ma trận tab Tháng** (anh chốt: mọi báo cáo hiện giống nhau):
 - Mọi báo cáo hiện **đủ các cột**. Bỏ ô gộp ngang của sao kê Excel và của dòng "chưa tới kỳ"; dòng chưa tới kỳ có nhãn nhỏ cạnh tên.
