@@ -1,6 +1,6 @@
-# BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v1.9)
+# BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.0)
 
-**Bản hiện tại:** 3.40 · build 27/09/2026 20:00
+**Bản hiện tại:** 3.41 · build 27/09/2026 22:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -22,7 +22,7 @@
 
 ---
 
-## 1. Đã xong ở bản 3.31 → 3.40
+## 1. Đã xong ở bản 3.31 → 3.41
 
 Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi tiết ở `docs/CHANGELOG.md`.
 
@@ -58,8 +58,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - Sửa lỗi anh báo: thêm file ở tab Văn bản bị vào Dữ liệu tháng (nhớ sai tab trước); bộ đọc tên file viết lại (gạch dưới, ngày viết liền, số hiệu ăn lan sang ngày/năm).
   - Không làm cột "Ẩn" đã nêu trong đề xuất: xóa một mục vốn đã giữ nguyên tên trên file cũ (hoặc chuyển sang mục khác), nên "Ẩn" trùng việc với "Xóa".
 
+- **3.41 — Scan (anh thử trên điện thoại):** In ngay hỏi trước, mặc định lưu tạm rồi in; Lưu PDF / Gửi; hàng chờ giữ qua lần tải lại; tên lưu tạm "Scan dd-mm-yyyy HHhMMmSS" chống trùng; kéo giữa cạnh; tự làm thẳng (📐). **Quy tắc chung anh chốt: việc app tự làm luôn kèm bản gốc để chỉnh tay.**
+  - Giới hạn: trình duyệt không báo in thành công hay không → app không "báo khi in lỗi" được, thay bằng lưu trước.
+
 ### Kế hoạch tiếp theo (đã đề xuất, chờ anh chốt)
-- **3.41 — Trang "Bảo trì kho":** gom Quét tủ · Quét lại chỉ mục · Quét dọn rác · Quét kho Drive cũ, đặt tên rõ việc.
+- **3.42 — Trang "Bảo trì kho":** gom Quét tủ · Quét lại chỉ mục · Quét dọn rác · Quét kho Drive cũ, đặt tên rõ việc.
 - Khuyên KHÔNG mở tên thư mục chuẩn trên Drive (đổi là lệch chỉ mục).
 - **3.36 — Chế độ tối:** sổ ghi chú luôn giữ giấy vàng, không đổi theo máy.
 - **3.32 — Giao diện:** mọi nút mới dùng khối CSS "CHUẨN HÓA NÚT & BỐ CỤC" ở cuối `<style>`, không tự đặt cỡ hay màu riêng.

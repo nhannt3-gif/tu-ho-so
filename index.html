@@ -1681,7 +1681,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.40', APP_LUC = '27/09/2026 20:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.41', APP_LUC = '27/09/2026 22:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -10892,6 +10892,10 @@ function veScan(){
     return boDau(m.ten+' '+(m.xa||'')+' '+(m.ap||'')+' '+(m.to||'')+' '+(m.ghi||''))
       .indexOf(tuKhoa)>=0; });
 
+  ghiHang();
+  if(HANG.length) h += '<div class="thanh-chon" style="background:var(--vang-nen);border-color:var(--vang);color:var(--vang)">'+
+    '<span><b>'+HANG.length+'</b> bản vừa quét chưa lưu</span>'+
+    '<button onclick="moHangCho()">Mở lại</button></div>';
   var chuaKhai = D.scan.filter(function(k){ return k.chuaKhai; });
   if(chuaKhai.length) h += '<div class="thanh-chon" style="background:var(--vang-nen);'+
     'border-color:var(--vang);color:var(--vang)">'+
@@ -11114,6 +11118,7 @@ function xepCapThe(moi){
 
 /* hàng chờ: xem lại, chỉnh, sắp thứ tự, quét thêm, in ngay, lưu sau, hoặc lưu có khai đầy đủ */
 function moHangCho(){
+  ghiHang();
   if(!HANG.length) return veScan();
   var laThe = SC.che==='the';
   var h = '<div class="hop-tit">Bản vừa quét ('+HANG.length+')</div>'+
@@ -11145,6 +11150,7 @@ var HC_URL = [];
 var TEN_LOC_NGAN = {magic:'Magic', giay:'Giấy trắng', xam:'Xám', dentrang:'Đen trắng', goc:'Gốc'};
 var GOC_NHO = {};   /* ảnh gốc đã giải mã, theo id — vẽ lại viền không phải đọc lại */
 function veAnhHang(){
+  ghiHang();
   var e = document.getElementById('hc-anh'); if(!e) return;
   HC_URL.forEach(function(u){ URL.revokeObjectURL(u); }); HC_URL = [];
   var laThe = SC.che==='the', vt = 0, h = '';
@@ -11163,6 +11169,9 @@ function veAnhHang(){
     if(laThe && la) cu += '<button onclick="doiMatHang('+i+')" title="Đổi mặt trước ↔ mặt sau trong cặp">⇄</button>';
     if(!laThe && x.kieu!=='file') cu += '<button onclick="xoayHang('+i+',90)" title="Xoay 90°">⟲</button>';
     if(x.kieu!=='file') cu += '<button onclick="xoayHang('+i+',180)" title="Lật ngược 180°">⇅</button>';
+    if(la) cu += '<button onclick="batThangHang('+i+')"'+(thangBat(x)?' class="bat"':'')+
+      ' title="Tự làm thẳng (dò độ nghiêng chữ rồi xoay cho thẳng đứng) — bấm để bật / tắt'+
+      (x.nghieng?' · đã chỉnh '+(Math.round(x.nghieng*10)/10)+'°':'')+'">📐</button>';
     cu += '<button class="xau" onclick="boMotHang('+i+')" title="Bỏ bản này">✕</button>';
     var loc = (la && x.khung) ? '<div class="hc-loc">'+Object.keys(TEN_LOC_NGAN).map(function(k){
         return '<button class="'+(x.loc===k?'bat':'')+'" onclick="doiLocHang('+i+',\''+k+'\')">'+TEN_LOC_NGAN[k]+'</button>'; }).join('')+'</div>' : '';
@@ -11270,13 +11279,15 @@ function moChinhGoc(i){
     if(!b) throw new Error('ảnh gốc không còn');
     return anhTuBlob(b);
   }).then(function(im){
-    CG = {i:i, im:im, che:x.che, goc:(x.khung||khungMacDinh(im, x.che)).map(function(p){ return [p[0], p[1]]; }), keo:-1};
+    CG = {i:i, im:im, che:x.che, goc:xepGoc4((x.khung||khungMacDinh(im, x.che)).map(function(p){ return [p[0], p[1]]; })), keo:-1};
     var e = document.getElementById('cg');
     if(!e){ e = document.createElement('div'); e.id = 'cg'; document.body.appendChild(e); }
-    e.innerHTML = '<div class="cg-dau">Kéo 4 chấm xanh vào đúng 4 góc '+(x.che==='the'?'thẻ':'tờ giấy')+'</div>'+
+    e.innerHTML = '<div class="cg-dau">Kéo chấm tròn vào đúng 4 góc '+(x.che==='the'?'thẻ':'tờ giấy')+
+      ' · kéo gạch giữa cạnh để dời cả cạnh</div>'+
       '<div class="cg-khung" id="cg-khung"><canvas id="cg-c"></canvas><canvas id="cg-lup" width="132" height="132"></canvas></div>'+
       '<div class="cg-nut"><button class="nho" onclick="cgCaAnh()">Lấy cả ảnh</button>'+
       '<button class="nho" onclick="cgTuTim()">Tự tìm lại</button>'+
+      '<button class="nho" id="cg-thang" onclick="cgThang()" title="Tự dò độ nghiêng của chữ và xoay cho thẳng đứng">📐 Làm thẳng</button>'+
       '<button class="nho" onclick="dongChinhGoc()">Thôi</button>'+
       '<button class="nho chinh" onclick="xongChinhGoc()">Xong</button></div>';
     e.classList.add('hien');
@@ -11290,8 +11301,11 @@ function cgDung(){
   CG.s = s; c.width = Math.round(CG.im.width*s); c.height = Math.round(CG.im.height*s);
   c.onpointerdown = function(ev){
     var p = cgDiem(ev), b = -1, bd = 1e9;
-    CG.goc.forEach(function(g, j){ var d = Math.hypot(g[0]*CG.s-p[0], g[1]*CG.s-p[1]); if(d<bd){ bd = d; b = j; } });
-    if(bd<56){ CG.keo = b; try{ c.setPointerCapture(ev.pointerId); }catch(e){} cgKeo(ev); }
+    cgDiemKeo().forEach(function(g, j){ var d = Math.hypot(g[0]*CG.s-p[0], g[1]*CG.s-p[1]); if(d<bd){ bd = d; b = j; } });
+    if(bd<56){
+      CG.keo = b; CG.batDau = {p:p, goc:CG.goc.map(function(g){ return [g[0], g[1]]; })};
+      try{ c.setPointerCapture(ev.pointerId); }catch(e){} cgKeo(ev);
+    }
     ev.preventDefault();
   };
   c.onpointermove = function(ev){ if(CG && CG.keo>=0){ cgKeo(ev); ev.preventDefault(); } };
@@ -11299,9 +11313,24 @@ function cgDung(){
   cgVe();
 }
 function cgDiem(ev){ var r = document.getElementById('cg-c').getBoundingClientRect(); return [ev.clientX-r.left, ev.clientY-r.top]; }
+/* 8 điểm kéo: 0–3 góc, 4–7 giữa cạnh (cạnh j nối góc j và góc j+1) */
+function cgDiemKeo(){
+  var g = CG.goc;
+  return g.concat(g.map(function(a, j){ var b = g[(j+1)%4]; return [(a[0]+b[0])/2, (a[1]+b[1])/2]; }));
+}
 function cgKeo(ev){
-  var p = cgDiem(ev), s = CG.s;
-  CG.goc[CG.keo] = [Math.max(0, Math.min(CG.im.width, p[0]/s)), Math.max(0, Math.min(CG.im.height, p[1]/s))];
+  var p = cgDiem(ev), s = CG.s, W = CG.im.width, H = CG.im.height;
+  var kep = function(q){ return [Math.max(0, Math.min(W, q[0])), Math.max(0, Math.min(H, q[1]))]; };
+  if(CG.keo<4){
+    CG.goc[CG.keo] = kep([p[0]/s, p[1]/s]);
+  }else{
+    /* kéo giữa cạnh: cả cạnh dời song song (theo hướng vuông góc với cạnh), 2 góc hai đầu đi theo */
+    var j = CG.keo-4, g0 = CG.batDau.goc, a = g0[j], b = g0[(j+1)%4];
+    var ex = b[0]-a[0], ey = b[1]-a[1], dai = Math.hypot(ex, ey) || 1, nx = -ey/dai, ny = ex/dai;
+    var dx = (p[0]-CG.batDau.p[0])/s, dy = (p[1]-CG.batDau.p[1])/s, t = dx*nx + dy*ny;
+    CG.goc[j] = kep([a[0]+nx*t, a[1]+ny*t]);
+    CG.goc[(j+1)%4] = kep([b[0]+nx*t, b[1]+ny*t]);
+  }
   cgVe(); cgLup(p);
 }
 function cgVe(){
@@ -11314,11 +11343,19 @@ function cgVe(){
   g.forEach(function(p, j){ if(j) x.lineTo(p[0]*s, p[1]*s); else x.moveTo(p[0]*s, p[1]*s); }); x.closePath(); x.stroke();
   CG.goc.forEach(function(p){ x.beginPath(); x.arc(p[0]*s, p[1]*s, 12, 0, Math.PI*2); x.fillStyle = 'rgba(59,155,255,.35)'; x.fill();
     x.lineWidth = 2.5; x.strokeStyle = '#fff'; x.stroke(); });
+  /* điểm giữa cạnh: gạch ngắn nằm dọc theo cạnh */
+  cgDiemKeo().slice(4).forEach(function(m, j){
+    var a = CG.goc[j], b = CG.goc[(j+1)%4], gl = Math.atan2(b[1]-a[1], b[0]-a[0]);
+    x.save(); x.translate(m[0]*s, m[1]*s); x.rotate(gl);
+    x.fillStyle = 'rgba(59,155,255,.55)'; x.strokeStyle = '#fff'; x.lineWidth = 2.5;
+    x.beginPath(); if(x.roundRect) x.roundRect(-16, -6, 32, 12, 6); else x.rect(-16, -6, 32, 12);
+    x.fill(); x.stroke(); x.restore();
+  });
 }
 /* kính lúp: phóng ~2,5 lần vùng quanh góc đang kéo, đặt phía đối diện ngón tay để không bị che */
 function cgLup(p){
   var l = document.getElementById('cg-lup'), c = document.getElementById('cg-c'); if(!l) return;
-  var x = l.getContext('2d'), g = CG.goc[CG.keo], vung = 132/(CG.s*2.5);
+  var x = l.getContext('2d'), g = cgDiemKeo()[CG.keo], vung = 132/(CG.s*2.5);
   x.fillStyle = '#000'; x.fillRect(0, 0, 132, 132);
   x.drawImage(CG.im, g[0]-vung/2, g[1]-vung/2, vung, vung, 0, 0, 132, 132);
   x.strokeStyle = '#3B9BFF'; x.lineWidth = 1.5; x.beginPath(); x.moveTo(66, 50); x.lineTo(66, 82); x.moveTo(50, 66); x.lineTo(82, 66); x.stroke();
@@ -11334,6 +11371,12 @@ function cgTuTim(){
   CG.goc = k.goc.map(function(p){ return [p[0], p[1]]; }); cgVe();
 }
 function dongChinhGoc(){ var e = document.getElementById('cg'); if(e) e.classList.remove('hien'); CG = null; }
+/* nút 📐 trong màn kéo viền: bật tự làm thẳng cho ảnh này rồi cắt lại theo khung đang kéo */
+function cgThang(){
+  if(!CG) return;
+  var x = HANG[CG.i]; if(x) x.thang = true;
+  xongChinhGoc();
+}
 function xongChinhGoc(){
   if(!CG) return;
   var x = HANG[CG.i]; if(!x){ dongChinhGoc(); return; }
@@ -11511,27 +11554,84 @@ function capTuHang(){
   for(var i=0;i<anh.length;i+=2) ra.push({truoc:anh[i].id, sau:anh[i+1] ? anh[i+1].id : '', nhan:''});
   return ra;
 }
+/* 3.41: điện thoại chưa nối máy in thì in không ra giấy — trình duyệt KHÔNG báo in được hay không.
+   Nên hỏi trước: mặc định LƯU TẠM rồi mới in; "chỉ in" thì hàng chờ vẫn giữ nguyên để in lại hoặc lưu sau. */
 function inNgayHang(){
   if(!window.PDFLib) return baoLoi('Chưa tải được bộ tạo PDF.');
-  var laThe = SC.che==='the';
   var ds = HANG.filter(function(x){ return x.kieu==='anh' || x.kieu==='trang'; });
   if(!ds.length) return baoLoi('Không có ảnh hay trang nào để in.');
+  moHop('<div class="hop-tit">In bản vừa quét</div>'+
+    '<div class="hop-phu">Điện thoại chưa nối máy in thì lệnh in sẽ không ra giấy, và app không biết được in thành công hay không. '+
+    '<b>Nên lưu tạm trước</b> để không mất bản vừa quét — tên tự đặt “Scan ngày-tháng-năm giờ”, khai lại tên sau.</div>'+
+    '<div class="hang-nut" style="flex-direction:column;align-items:stretch">'+
+      '<button class="nho chinh" onclick="inHang(\'luu\')">💾 Lưu tạm rồi in</button>'+
+      '<button class="nho" onclick="inHang(\'gui\')">📤 Lưu PDF / Gửi (Tệp, Zalo, email…)</button>'+
+      '<button class="nho" onclick="inHang(\'chi\')">🖨 Chỉ in, chưa lưu (hàng chờ vẫn giữ)</button>'+
+      '<button class="nho" onclick="moHangCho()">Quay lại</button></div>'+
+    (SC.che==='the' ? '<div class="huong-dan">'+NHAC_IN_THE+'</div>' : ''));
+}
+function dungPDFHang(){
+  var ds = HANG.filter(function(x){ return x.kieu==='anh' || x.kieu==='trang'; });
+  return SC.che==='the' ? dungPDFThe(capTuHang(), '') : dungPDFTaiLieu(ds.map(hangRaTrang));
+}
+function inHang(cach){
   batChay(true);
-  (laThe ? dungPDFThe(capTuHang(), '') : dungPDFTaiLieu(ds.map(hangRaTrang))).then(function(bytes){
-    tatChay(); dongHop();
-    inBlob(new Blob([bytes],{type:'application/pdf'}), 'Quet nhanh '+ngayISO(nay())+'.pdf');
-    bao('Đã dựng trang in. Bản này không lưu vào tủ.'+(laThe ? ' '+NHAC_IN_THE : ''), 9);
-  }).catch(function(e){
-    tatChay(); baoLoi('Không dựng được: '+(e&&e.message||e));
-  });
+  var ten = tenLuuTam(nay())+'.pdf';
+  dungPDFHang().then(function(bytes){
+    tatChay();
+    var bl = new Blob([bytes], {type:'application/pdf'});
+    if(cach==='luu'){
+      dongHop();
+      return Promise.resolve(luuSauHang()).then(function(){ inBlob(bl, ten); });
+    }
+    if(cach==='gui'){ moHangCho(); return chiaSePDF(bl, ten); }
+    moHangCho(); inBlob(bl, ten);
+    bao('Đã mở hộp in. Hàng chờ vẫn còn — in lại, lưu tạm hoặc lưu hồ sơ khi xong.', 7);
+  }).catch(function(e){ tatChay(); baoLoi('Không dựng được: '+(e&&e.message||e)); });
+}
+/* điện thoại: bảng chia sẻ (Lưu vào Tệp, Zalo, email…); máy tính: tải file về */
+function chiaSePDF(bl, ten){
+  var f = new File([bl], ten, {type:'application/pdf'});
+  if(navigator.canShare && navigator.canShare({files:[f]}))
+    return navigator.share({files:[f], title:ten}).catch(function(){});
+  var a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = ten;
+  document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); }, 1000);
+  bao('Đã tải về: '+ten, 5);
 }
 
+/* ---- 3.41: hàng chờ không mất khi trang tải lại (điện thoại hay tải lại khi chuyển qua bảng in / chia sẻ).
+   Ảnh đã nằm trong máy (hs_<id>, hs_<id>_goc) — chỉ cần nhớ danh sách. ---- */
+var KHOA_HANG = 'tuhoso_hang';
+function ghiHang(){
+  try{
+    var ds = HANG.filter(function(x){ return x.kieu!=='file'; });
+    if(ds.length) localStorage.setItem(KHOA_HANG, JSON.stringify({che:SC.che, ds:ds}));
+    else localStorage.removeItem(KHOA_HANG);
+  }catch(e){}
+}
+function napHangCu(){
+  try{
+    var j = JSON.parse(localStorage.getItem(KHOA_HANG)||'null');
+    if(j && j.ds && j.ds.length && !HANG.length){ HANG = j.ds; if(j.che) SC.che = j.che; }
+  }catch(e){}
+}
+document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='hidden') ghiHang(); });
+window.addEventListener('pagehide', ghiHang);
+
 /* lưu tạm: tên tự đặt theo ngày giờ quét, khai sau */
+/* 3.41 (anh chốt): lưu tạm đặt tên "Scan ngày-tháng-năm giờ" để biết mà sửa tên lại; trùng thì thêm (2), (3)… */
+function tenLuuTam(d, hau){
+  var goc = 'Scan '+hai(d.getDate())+'-'+hai(d.getMonth()+1)+'-'+d.getFullYear()+' '+
+    hai(d.getHours())+'h'+hai(d.getMinutes())+'m'+hai(d.getSeconds())+(hau ? ' '+hau : '');
+  var co = {}; (D.scan||[]).forEach(function(k){ co[k.ten] = 1; });
+  var ten = goc, n = 2;
+  while(co[ten]){ ten = goc+' ('+n+')'; n++; }
+  return ten;
+}
 function luuSauHang(){
   var d = nay();
-  var gio = hai(d.getHours())+hai(d.getMinutes())+hai(d.getSeconds());
   var k = {id:idMoi(), che:SC.che, chuaKhai:true,
-    ten:'Chưa khai '+ngayISO(d)+' '+hai(d.getHours())+'h'+hai(d.getMinutes())+'-'+gio.slice(-2),
+    ten:tenLuuTam(d),
     ngay:ngayISO(d), gioQuet:d.toISOString(),
     xa:'', diem:'', ap:'', to:'', ghi:'', tag:[], ctrinh:[],
     taoLuc:d.toISOString()};
@@ -11563,7 +11663,7 @@ function luuNhieuThe(anh){
   var d = nay(), ds = [], ch = Promise.resolve();
   for(var i=0;i<anh.length;i+=2){
     var k = {id:idMoi(), che:'the', chuaKhai:true,
-      ten:'Chưa khai '+ngayISO(d)+' '+hai(d.getHours())+'h'+hai(d.getMinutes())+'-'+(i/2+1),
+      ten:tenLuuTam(d, '- người '+(i/2+1)),
       ngay:ngayISO(d), gioQuet:d.toISOString(),
       xa:'', diem:'', ap:'', to:'', ghi:'', tag:[], ctrinh:[],
       taoLuc:d.toISOString()};
@@ -12129,6 +12229,16 @@ function xuLyTuAnh(im, x, tuDong){
   var kr = khoRa(x.khung, x.che), c = nanPhoiCanh(im, kr.goc, kr.rong, kr.cao);
   if(x.che==='the' && !x.xoayTay){ var hg = huongThe(c); x.xoay = hg.lat ? 180 : 0; x.mat = hg.mat; x.tinHuong = hg.tin; }
   c = xoayCanvas(c, x.xoay||0);
+  /* 3.41: tự làm thẳng — tài liệu bật sẵn, thẻ bật khi anh bấm 📐 (thẻ đã nắn theo 4 góc nên thường đã thẳng) */
+  if(thangBat(x)){
+    var ng = doNghieng(c);
+    if(x.che!=='the' && !x.xoayTay && !x.xoayTuDong && ng.doc){
+      /* tài liệu chụp ngang, chữ nằm dọc → xoay 90° cho chữ đứng (sai chiều thì bấm ⇅) */
+      x.xoayTuDong = true; x.xoay = ((x.xoay||0)+90)%360; c = xoayCanvas(c, 90); ng = doNghieng(c);
+    }
+    x.nghieng = ng.goc;
+    if(Math.abs(ng.goc)>=0.3) c = xoayNho(c, -ng.goc);
+  }else x.nghieng = 0;
   if(!x.loc) x.loc = locMacDinh(x.che==='the' ? 'the' : 'tailieu');   /* 3.40: kiểu màu mặc định chỉnh ở Cài đặt › Scan */
   apLoc(c, x.loc, x.che);
   return c;
@@ -12141,6 +12251,54 @@ function xuLyAnhScan(x, tuDong){
   }).then(function(im){
     return canvasRaBlob(xuLyTuAnh(im, x, tuDong), 0.9);
   }).then(function(bl){ x.co = bl.size; return luuAnhHS(x.id, bl); }).then(function(){ return x; });
+}
+function thangBat(x){ return x.thang!==undefined ? !!x.thang : x.che!=='the'; }
+function batThangHang(i){
+  var x = HANG[i]; if(!x) return;
+  x.thang = !thangBat(x);
+  batChay(true);
+  xuLyAnhScan(x, false).then(function(){ tatChay(); veAnhHang();
+    bao(x.thang ? ('Đã bật tự làm thẳng'+(x.nghieng ? ' · xoay '+(Math.round(x.nghieng*10)/10)+'°' : ' · ảnh vốn đã thẳng')+'.') : 'Đã tắt tự làm thẳng.', 4); })
+    .catch(function(e){ tatChay(); baoLoi('Không xử lý lại được: '+(e&&e.message||e)); });
+}
+/* dò độ nghiêng: điểm tối (chữ, mép) chiếu lên trục vuông góc với dòng — góc nào cho các dòng "dồn" rõ nhất là góc nghiêng.
+   Thử −15°…15°, bước 0,5° rồi tinh chỉnh 0,1°. doc = chữ đang nằm dọc (ảnh chụp ngang) */
+function doNghieng(c){
+  var W = c.width, H = c.height, k = Math.min(1, 700/Math.max(W, H)), w = Math.max(1, Math.round(W*k)), h = Math.max(1, Math.round(H*k));
+  var t = document.createElement('canvas'); t.width = w; t.height = h; t.getContext('2d').drawImage(c, 0, 0, w, h);
+  var d = t.getContext('2d').getImageData(0, 0, w, h).data, n = w*h, xam = new Uint8Array(n), tong = 0, i;
+  for(i=0;i<n;i++){ xam[i] = (d[i*4]*.299 + d[i*4+1]*.587 + d[i*4+2]*.114)|0; tong += xam[i]; }
+  var tb = tong/n, bx = Math.round(w*0.04), by = Math.round(h*0.04), px = [], py = [];
+  for(var y=by;y<h-by;y++) for(var x=bx;x<w-bx;x++){ if(xam[y*w+x] < tb-45){ px.push(x); py.push(y); } }
+  if(px.length<150) return {goc:0, doc:false};
+  var buoc = Math.max(1, Math.floor(px.length/40000));
+  function diem(a, cot){
+    var r = a*Math.PI/180, cs = Math.cos(r), sn = Math.sin(r), bin = new Float32Array(w+h+4), s = 0;
+    for(var j=0;j<px.length;j+=buoc){
+      var v = cot ? (px[j]*cs + py[j]*sn) : (py[j]*cs - px[j]*sn + w);
+      bin[Math.round(v)+2]++;
+    }
+    for(var q=0;q<bin.length;q++) s += bin[q]*bin[q];
+    return s;
+  }
+  var tot = 0, dTot = -1;
+  for(var a=-15;a<=15.001;a+=0.5){ var v = diem(a, false); if(v>dTot){ dTot = v; tot = a; } }
+  var goc0 = tot;
+  for(var a2=goc0-0.5;a2<=goc0+0.5001;a2+=0.1){ var v2 = diem(a2, false); if(v2>dTot){ dTot = v2; tot = a2; } }
+  var cot = 0; for(var a3=-15;a3<=15.001;a3+=1){ var v3 = diem(a3, true); if(v3>cot) cot = v3; }
+  return {goc:Math.round(tot*10)/10, doc: cot > dTot*1.25};   /* trang đứng ≈ 0,5 · trang nằm ngang ≈ 2 (đo trên công văn thật) */
+}
+/* xoay nhỏ quanh tâm, phần góc hở tô màu nền (lấy trung bình 4 góc ảnh) */
+function xoayNho(c, deg){
+  var W = c.width, H = c.height, x0 = c.getContext('2d'), m = [0,0,0], so = 0;
+  [[2,2],[W-8,2],[2,H-8],[W-8,H-8]].forEach(function(p){
+    var dd = x0.getImageData(Math.max(0,p[0]), Math.max(0,p[1]), 6, 6).data;
+    for(var i=0;i<dd.length;i+=4){ m[0]+=dd[i]; m[1]+=dd[i+1]; m[2]+=dd[i+2]; so++; } });
+  var o = document.createElement('canvas'); o.width = W; o.height = H;
+  var x = o.getContext('2d');
+  x.fillStyle = 'rgb('+Math.round(m[0]/so)+','+Math.round(m[1]/so)+','+Math.round(m[2]/so)+')'; x.fillRect(0, 0, W, H);
+  x.translate(W/2, H/2); x.rotate(deg*Math.PI/180); x.drawImage(c, -W/2, -H/2);
+  return o;
 }
 function canXemLai(x){
   if(x.kieu!=='anh' || x.tin===undefined) return false;
@@ -13742,7 +13900,7 @@ function khoiDong(){
   if(D.cauHinh.rongPV)
     document.documentElement.style.setProperty('--rong-pv', D.cauHinh.rongPV);
   ganKeoRong();
-  napCheScan();
+  napCheScan(); napHangCu();
   if(D.cauHinh.rongTrai) document.documentElement.style.setProperty('--rong-trai', D.cauHinh.rongTrai);
   if(D.cauHinh.rongPhai) document.documentElement.style.setProperty('--rong-phai', D.cauHinh.rongPhai);
   ganKeoCot();
