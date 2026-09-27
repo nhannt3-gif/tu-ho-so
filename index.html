@@ -1432,6 +1432,19 @@
     .dm-cuoi{min-width:0}
     .cd-tuluu{display:none}
   }
+
+  /* 3.42 — Bảo trì kho */
+  .bt-the{border:1.3px solid var(--vien);border-radius:12px;background:var(--the);padding:10px 12px;margin-bottom:8px}
+  .bt-dau{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .bt-ic{font-size:calc(16px*var(--co))}
+  .bt-lam{font-size:calc(12px*var(--co));color:var(--chu-phu);margin:4px 0 6px;line-height:1.5}
+  .bt-the .hang-nut{margin:0}
+  .bt-the .nho:disabled{opacity:.45;cursor:default}
+  .bt-nhan{margin-left:auto;font-size:calc(10.5px*var(--co));border-radius:6px;padding:1px 7px;white-space:nowrap}
+  .bt-nhan.doc{background:var(--luc-nen);color:var(--luc)}
+  .bt-nhan.cm{background:var(--xanh-nhat);color:var(--xanh-dam)}
+  .bt-nhan.duyet{background:var(--vang-nen);color:var(--vang)}
+  .bt-nhan.rac{background:var(--do-nen);color:var(--do)}
 </style>
 </head>
 <body>
@@ -1681,7 +1694,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.41', APP_LUC = '27/09/2026 22:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.42', APP_LUC = '27/09/2026 23:30';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -7220,7 +7233,7 @@ function veMenuCD(){
   }).join('');
   var nhom2 = [
     ['chung','⚙','Chung'], ['drive','☁','Google Drive'],
-    ['diaban','🗺','Địa bàn'], ['chimuc','🔎','Lập chỉ mục'],
+    ['diaban','🗺','Địa bàn'], ['chimuc','🧰','Bảo trì kho'],
     ['lich','📅','Lịch & ngày chay'], ['dulieu','💾','Dữ liệu app'], ['hd','❓','Hướng dẫn']
   ].map(function(x){
     return '<button'+(CD_MO===x[0]?' class="bat"':'')+' onclick="doiCD(\''+x[0]+'\')">'+
@@ -7391,27 +7404,54 @@ function veNoiCD(k){
       '<h3>Ngày lễ âm</h3><div class="huong-dan">App tự ghi: Tết, Rằm tháng Giêng, Giỗ Tổ, Phật đản, Đoan ngọ, Vu lan, Trung thu, Trùng cửu, Ông Táo, Giao thừa.</div>';
   }
 
+  /* 3.42: BẢO TRÌ KHO — gom mọi việc quét / dọn / đồng bộ về một chỗ, mỗi việc ghi rõ làm gì và đụng tới gì */
   if(k==='chimuc'){
-    return '<h3>Đồng bộ chỉ mục qua Drive</h3>'+
-      '<div class="hang-nut">'+
-        '<button class="nho chinh" onclick="quetLaiChiMucToanBo()">Quét lại toàn bộ &amp; lưu lên Drive</button>'+
-        '<button class="nho" onclick="taiChiMucTuDrive()">Lấy chỉ mục từ Drive</button></div>'+
-      '<div class="huong-dan">Chỉ trong thư mục <b>'+coChuHTML(D.cauHinh.thumuc||'')+'</b>. '+
-      'Bình thường app tự làm: sửa gì thì 5 giây sau tự lưu lên <b>_Hệ thống/chimuc.json</b>; '+
-      'mở ở máy khác thì tự lấy phần mới về. Giữ 7 bản dự phòng theo ngày. '+
-      'Nút <b>Quét lại toàn bộ</b> dùng khi máy mới hoặc nghi lệch — quét xong tự lưu, '+
-      'và báo nếu thiếu thư mục chuẩn (app không tự tạo).'+
-      (D.cauHinh.chiMucThoi?'<br>Lần đồng bộ gần nhất: <b>'+coChuHTML(D.cauHinh.chiMucThoi.replace('T',' ').slice(0,16))+'</b>':'')+
-      '</div>'+
-      '<h3>Lập chỉ mục</h3>'+
-      '<div class="hang-nut">'+
-        '<button class="nho chinh" onclick="moChiMuc()">Mở bảng lập chỉ mục</button></div>'+
-      '<div class="huong-dan">Quét kho cũ trên Drive, đọc lại mục còn thiếu, dọn mục trùng. '+
-      'Chỉ đụng tới chỉ mục, không đổi tên hay dời file gốc.</div>'+
-      '<h3>Nhờ AI chuẩn hóa</h3>'+
-      '<div class="hang-nut">'+
-        '<button class="nho" onclick="moNhoAI()">Xuất file cho AI</button>'+
-        '<button class="nho chinh" onclick="moDanAI()">Dán kết quả từ AI</button></div>';
+    var noi = coTheNoiDrive() && DR.sanSang;
+    var the = function(ic, ten, lam, dung, canDrive, nut){
+      var mo = !canDrive || noi;
+      return '<div class="bt-the"><div class="bt-dau"><span class="bt-ic">'+ic+'</span><b>'+ten+'</b>'+
+        '<span class="bt-nhan '+dung[0]+'">'+dung[1]+'</span></div>'+
+        '<div class="bt-lam">'+lam+(canDrive && !noi ? ' <i>— cần nối Drive trước (Cài đặt › Google Drive).</i>' : '')+'</div>'+
+        '<div class="hang-nut">'+nut.map(function(n){
+          return '<button class="nho'+(n[2]?' chinh':'')+'"'+(mo||n[3]?'':' disabled')+' onclick="'+n[1]+'">'+n[0]+'</button>'; }).join('')+'</div></div>';
+    };
+    var DOC = ['doc','Chỉ đọc'], CM = ['cm','Chỉ sửa chỉ mục'], DUYET = ['duyet','Đổi file khi anh duyệt'], RAC = ['rac','Vào thùng rác, khôi phục được'];
+    return '<h3>🧰 Bảo trì kho</h3>'+
+      '<div class="huong-dan" style="margin-bottom:10px">Mọi việc quét, dọn, đồng bộ nằm ở đây. Chỉ trong thư mục <b>'+coChuHTML(D.cauHinh.thumuc||'')+
+      '</b>. Nhãn màu cho biết việc đó đụng tới gì — không việc nào xóa hẳn file của anh.</div>'+
+      '<h3>Tìm file mới</h3>'+
+      the('🔍','Quét tủ — tìm file mới, tên chưa chuẩn',
+        'Đi qua các thư mục của tủ trên Drive: file chưa có trong app thì đưa vào khay chờ, file tên lệch chuẩn thì báo. Cũng có nút này ở đầu tab Văn bản.',
+        DUYET, true, [['Quét tủ','dongCaiDat();quetTu()',1]])+
+      the('📂','Lấy file từ kho Drive cũ (Google Picker)',
+        'Anh tự chọn thư mục hoặc file ở kho cũ ngoài tủ; app đọc, đề xuất tên và đưa vào khay chờ. Chưa đổi tên, chưa dời gì cho tới khi anh Duyệt.'+
+        ((D.cauHinh.apiKey||'').trim() ? '' : ' <i>Cần API key — khai ở Cài đặt › Google Drive.</i>'),
+        DUYET, true, [['Chọn thư mục / file cũ…','moPicker()']].concat((D.cauHinh.apiKey||'').trim() ? [] : [['Khai API key','doiCD(\'drive\')',0,1]]))+
+      '<h3>Đồng bộ chỉ mục giữa các máy</h3>'+
+      the('☁','Đẩy chỉ mục lên Drive',
+        'Bình thường app tự làm (sửa gì 5 giây sau tự lưu lên <b>_Hệ thống/chimuc.json</b>, giữ 7 bản dự phòng). Bấm khi máy mới hoặc nghi lệch — app còn báo nếu thiếu thư mục chuẩn.'+
+        (D.cauHinh.chiMucThoi ? ' Lần gần nhất: <b>'+coChuHTML(D.cauHinh.chiMucThoi.replace('T',' ').slice(0,16))+'</b>.' : ''),
+        CM, true, [['Quét lại toàn bộ & lưu lên Drive','quetLaiChiMucToanBo()',1]])+
+      the('⬇','Lấy chỉ mục từ Drive về máy này',
+        'Gộp phần mới hơn trên Drive vào máy này (mở app ở máy khác thì app cũng tự lấy).',
+        CM, true, [['Lấy chỉ mục từ Drive','taiChiMucTuDrive()']])+
+      '<h3>Dọn dẹp</h3>'+
+      the('🧹','Quét dọn rác',
+        'Tìm file thừa (có trên Drive mà app không biết), file trùng, mục gãy (app có mà Drive mất), thư mục trống. Chỉ liệt kê — anh tick chọn mới dọn.',
+        RAC, true, [['Quét dọn rác','dongCaiDat();moQuetDon()']])+
+      the('🧬','Gom file trùng nội dung',
+        'So dấu vân của file đã có trong app (không cần mạng): cùng nội dung mà lưu nhiều lần thì gom lại, giữ một bản.',
+        RAC, false, [['Gom file trùng','dongCaiDat();moGomTrung()']])+
+      the('🗑','Thùng rác',
+        'Mục đã xóa nằm ở đây — khôi phục, hoặc xóa hẳn (file trên Drive chuyển vào thùng rác của Google).',
+        RAC, false, [['Mở thùng rác'+((D.rac||[]).length?(' ('+D.rac.length+')'):''),'dongCaiDat();moRac()']])+
+      '<h3>Nâng cao</h3>'+
+      the('🔎','Bảng lập chỉ mục',
+        'Quét kho cũ trên Drive, đọc lại mục còn thiếu thông tin, dọn mục hỏng / gộp mục trùng. Chỉ đụng tới chỉ mục, không đổi tên hay dời file gốc.',
+        CM, false, [['Mở bảng lập chỉ mục','moChiMuc()']])+
+      the('🤖','Nhờ AI chuẩn hóa',
+        'Xuất danh sách cho AI (Gemini, ChatGPT…) chuẩn lại tên, trích yếu; dán kết quả về để app cập nhật hàng loạt. Ảnh CCCD không bao giờ gửi đi.',
+        DUYET, false, [['Xuất file cho AI','moNhoAI()'],['Dán kết quả từ AI','moDanAI()']]);
   }
 
   if(k==='dulieu'){
@@ -7425,9 +7465,8 @@ function veNoiCD(k){
       '<h3>Thùng rác</h3>'+
       '<div class="hang-nut"><button class="nho" onclick="moRac()">🗑 Mở thùng rác'+
       ((D.rac||[]).length?(' ('+D.rac.length+')'):'')+'</button>'+
-      '<button class="nho" onclick="moQuetDon()">🧹 Quét dọn rác</button>'+
-      '<button class="nho" onclick="moGomTrung()">🧬 Gom file trùng nội dung</button></div>'+
-      '<div class="huong-dan">Nút 🗑 cũng có ở thanh trên cùng. Quét dọn tìm file thừa, file trùng, mục gãy, thư mục trống.</div>'+
+      '<button class="nho" onclick="doiCD(\'chimuc\')">🧰 Quét dọn, gom trùng… ở Bảo trì kho</button></div>'+
+      '<div class="huong-dan">Nút 🗑 cũng có ở thanh trên cùng. Quét dọn rác, gom file trùng, đồng bộ chỉ mục nằm chung ở <b>Bảo trì kho</b>.</div>'+
       '<h3>Dọn dữ liệu, giữ cài đặt</h3>'+
       '<div class="hang-nut"><button class="nho" onclick="moDonThu()">Dọn dữ liệu thử nghiệm…</button></div>'+
       '<div class="huong-dan">Chọn mục cần dọn → chuyển vào <b>Thùng rác</b> (vẫn khôi phục được). '+
