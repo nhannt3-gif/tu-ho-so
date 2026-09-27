@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.47 · build 28/09/2026 05:00
+**Bản hiện tại:** 3.48 · build 28/09/2026 08:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -24,7 +24,7 @@
 
 ---
 
-## 1. Đã xong ở bản 3.31 → 3.47
+## 1. Đã xong ở bản 3.31 → 3.48
 
 Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi tiết ở `docs/CHANGELOG.md`.
 
@@ -114,10 +114,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Khai hàng loạt có chọn: `khaiHangLoat(chon)`, `demKL`.
     - Đọc lại & gợi ý tên: `coTheDocLai`, `docLaiGoiY`, `apDungOCRSua`, `apGoiYSua`.
   - Phép thử 2 máy dùng chung Drive giả: `t42.js` + `fakedrive.js` (thư mục nháp).
-- **Chờ anh quyết (mục 8):** nút 📝 **Mở bằng Word** trên máy tính.
-  - Cách 1: cầu nối `tuhoso:` gồm file .reg + script, mở file thật trên ổ G:.
-  - Cách 2: tải về, Chrome "luôn mở loại tệp này".
-  - Cần anh cho biết: máy cơ quan có chạy được .reg không; ổ G:\My Drive hay G:\Drive của tôi.
+- **3.48 — Cầu nối máy tính + đọc theo bố cục + hàng đợi Drive:**
+  - **Cầu nối:**
+    - Hàm `scriptCauNoi` (PowerShell nhúng base64 trong `.reg`, lối mở `tuhoso:`), `taiBoCaiCauNoi`, `goiCauNoi`, `cnHanh`, `relCua`, `nutCauNoi`.
+    - Đánh dấu "đã cài" lưu theo từng máy (localStorage `tuhoso_caunoi`, không đồng bộ).
+    - Có sẵn PowerShell 7 Linux trong thư mục nháp để thử script (biến `TUHOSO_THU=1` in ra thay vì mở).
+  - **Đọc theo bố cục:** `docLaiGoiY` → `dongTuPDF` / `docDongOCR` → `phanTichBoCuc` → `moSoSanhGoiY` / `apDungSS`. Màn Sửa dùng `GOI_Y_SUA` + `apGoiYSua` (chỉ điền mục đã tích).
+  - **Hàng đợi Drive:** `moHangDoiDrive`; cờ `k.dbLoi` / `dbThu` / `dbLuc` / `dbDang`; nối ở lần bấm đầu (`DB_BAM_DAU`); kiểm tra chỉ mục mỗi 60 giây.
+  - **Đã bỏ:** `kiemBanTrang` / `xoaBanTrang`.
+  - **Máy anh:** ổ **G:\\My Drive**; máy cơ quan chạy được `.reg`.
 
 ### Danh sách thử trên máy thật (3.46) — anh ghi Đạt / Chưa
 1. iPhone · tab Scan · ⚡ Tự động · Thẻ: quét 2 người (4 mặt) → ① chạm đổi chỗ 2 ảnh, ▲▼ dời người → Xem trước → Tiếp.
