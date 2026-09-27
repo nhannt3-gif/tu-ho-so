@@ -2524,6 +2524,7 @@ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '
 
 function doiNgan(i, el){
   if(!window.__giuCK) CHO_KHAI = false;
+  THEM_TU = null;   /* 3.40: đổi tab là bỏ cờ "vừa bấm Thêm file ở tab…" (bấm Thêm rồi bỏ không chọn file) */
   nganHienTai = i;
   /* lớp ẩn cột phải ở tab Hôm nay do apAnPV() quyết định (còn phụ thuộc anh đã bật ▣ chưa) */
   for(var k=0;k<7;k++){
@@ -4074,7 +4075,7 @@ function veVanBan(){
   document.getElementById('nam-vb').innerHTML =
     daiChoKhaiHTML() + veDauTab('vanBan', {kho:D.vanBan, 
       themPhu:'<button class="phu" onclick="quetTu()" title="Quét thư mục Tủ hồ sơ: tìm file mới, tên chưa chuẩn">🔍 Quét tủ</button>',
-                        hamThem:"TAB_TRUOC=1;doiNgan(6);document.getElementById('chon-file').click()"});   /* 3.40: nhớ đúng tab Văn bản — trước sang khay chờ trước nên giữ tab cũ (vd Tháng) → file vào Dữ liệu tháng */
+                        hamThem:"TAB_TRUOC=1;doiNgan(6);THEM_TU=1;document.getElementById('chon-file').click()"});   /* 3.40: nhớ đúng tab Văn bản — trước sang khay chờ trước nên giữ tab cũ (vd Tháng) → file vào Dữ liệu tháng */
   document.getElementById('loc-vb').innerHTML = '';
 
   if(kieuXem==='cay') kieuXem = 'ds';   /* kiểu xem cây đã bỏ (3.7) */
@@ -5239,7 +5240,9 @@ function nutChinh(){
   if(nganHienTai===3) return chonAnh();
   if(nganHienTai===4){ if(!HS.mo) return moHoSo(); return batDauScan(); }
   if(nganHienTai===5) return themBieuMau();
+  var tu = TAB_KHO[nganHienTai] ? nganHienTai : null;
   doiNgan(6);
+  THEM_TU = tu;   /* 3.40: nhớ tab vừa bấm Thêm file (sau doiNgan vì doiNgan xóa cờ) */
   document.getElementById('chon-file').click();
 }
 </script>
@@ -5288,7 +5291,9 @@ function veThem(){
 
 /* tóm tắt thuộc tính hiện ngay trên hàng chờ */
 function thuocTinhHTML(c){
-  var t = ['<span class="mini ct">'+coChuHTML(TEN_NHOM[c.nhom]||'Văn bản')+'</span>'];
+  /* 3.40: ghi rõ file này thuộc tab nào (và thêm từ tab nào) — duyệt là vào đúng tab đó */
+  var t = ['<span class="mini ct" title="Duyệt là lưu vào tab này — đổi ở Chi tiết / Sửa › Nhóm">→ Tab '+coChuHTML(TEN_NHOM[c.nhom]||'Văn bản')+'</span>'];
+  if(c.tuTab && c.tuTab!==c.nhom) t.push('<span class="mini">thêm từ tab '+coChuHTML(TEN_NHOM[c.tuTab]||c.tuTab)+'</span>');
   if(c.nhom==='duLieu'){
     t.push('<span class="mini">'+coChuHTML(c.tenLoai||'Khác')+'</span>');
     t.push('<span class="mini">kỳ '+kyVN(c.ky)+'</span>');
@@ -5313,10 +5318,12 @@ function thuocTinhHTML(c){
 function gioiThieuFile(dsFile){
   if(!dsFile || !dsFile.length) return;
   if(nganHienTai!==6) TAB_TRUOC = nganHienTai;   /* 3.34: kéo thả vào tab Tháng cũng nhớ tab để xếp đúng */
+  var khoTab = TAB_KHO[nganHienTai!==6 ? nganHienTai : THEM_TU] || null;
+  THEM_TU = null;
   dangDoc = true; batChay(); doiNgan(6);
   var xong = 0, tong = dsFile.length;
   var lan = Array.prototype.slice.call(dsFile).map(function(f){
-    return xuLyMotFile(f).then(function(){
+    return xuLyMotFile(f, khoTab).then(function(){
       xong++;
       var i = document.getElementById('tienI');
       if(i) i.style.width = Math.round(xong/tong*100)+'%';
@@ -5440,7 +5447,32 @@ function duLieuTuTenFile(id, van, f, duoi){
   d.tenMoi = tenDuLieu(d, duoi);
   return d;
 }
-function xuLyMotFile(f){
+/* 3.40 (anh Nhân chốt): THÊM TỪ TAB NÀO THÌ MẶC ĐỊNH LƯU VÀO TAB ĐÓ — app không tự chuyển sang tab khác.
+   App vẫn đọc nội dung để điền sẵn; thấy giống loại khác thì chỉ ghi chú, anh đổi nhóm ở khay chờ nếu cần.
+   Thêm từ Hôm nay hoặc thả vào khay chờ thì app tự xếp như cũ. */
+var TAB_KHO = {1:'vanBan', 2:'duLieu', 3:'ghiChu'};
+var THEM_TU = null;   /* tab vừa bấm nút Thêm file (bấm xong mới sang khay chờ chọn file) */
+function theoTabGoc(dsMoi, kho){
+  dsMoi.forEach(function(m){
+    if(!m || m.nhom===kho) return;
+    var cu = m.nhom;
+    chuyenNhom(m, kho);
+    m.canCu = 'Thêm từ tab '+TEN_NHOM[kho]+' nên lưu vào '+TEN_NHOM[kho]+
+      ' (nội dung giống '+(TEN_NHOM[cu]||cu)+' — đổi nhóm ở trên nếu cần)'+(m.canCu?' · '+m.canCu:'');
+    m.chac = false;
+  });
+}
+function xuLyMotFile(f, khoTab){
+  /* khoTab: chỉ có khi anh bấm Thêm file / thả file ở một tab. Thả vào khay chờ, quét Drive, Picker thì app tự xếp như cũ */
+  var kho = !CHO_O && khoTab, truoc = D.cho.length;
+  if(kho) return xuLyMotFile0(f, kho).then(function(){
+    var moi = D.cho.slice(truoc);
+    theoTabGoc(moi, kho);
+    moi.forEach(function(m){ m.tuTab = kho; });
+  });
+  return xuLyMotFile0(f);
+}
+function xuLyMotFile0(f, khoTab){
   var duoi = duoiFile(f.name);
   var laAnh = /\.(jpg|jpeg|png|heic|webp)$/i.test(f.name);
   var laPDF = /\.pdf$/i.test(f.name);
@@ -5471,8 +5503,8 @@ function xuLyMotFile(f){
        thì vào Dữ liệu tháng (trước đây mọi file không phải PDF đều bị xếp vào Văn bản) */
     /* 3.40: thêm từ tab Văn bản thì tôn trọng tab anh chọn — Excel chỉ sang Dữ liệu tháng khi tên bắt đầu đúng mã báo cáo
        (KQGD_…, NQH_…), không đoán theo từ khóa trong tên (công văn có chữ "nợ quá hạn", "giao ban" bị xếp nhầm) */
-    var tuVB = (TAB_TRUOC===1 && !CHO_O);
-    if(laFileExcel(f.name) && (CHO_O || TAB_TRUOC===2 || (tuVB ? khopMaTenFile(f.name) : khopMauTenFile(f.name)))){
+    var tuVB = (khoTab==='vanBan');
+    if(laFileExcel(f.name) && !tuVB && (CHO_O || TAB_TRUOC===2 || khopMauTenFile(f.name))){
       D.cho.push(apChoO(duLieuTuTenFile(id, van, f, duoi), f.name)); return;
     }
     if(!laPDF){
@@ -5490,7 +5522,7 @@ function xuLyMotFile(f){
       var chu = r.chu||'';
       var mau = khopMauNoiDung(chu);
       /* 3.40: PDF thêm từ tab Văn bản chỉ sang Dữ liệu tháng khi nội dung rõ là BẢNG số liệu */
-      if(mau && TAB_TRUOC===1 && !CHO_O && diemBangSoLieu(chu)<2) mau = null;
+      if(mau && khoTab==='vanBan') mau = null;   /* thêm từ tab Văn bản → đọc như văn bản */
       if(mau){
         /* 3.20: ngày số liệu quyết định bản cuối tháng hay dữ liệu phụ */
         var nsl = docNgaySoLieu(chu), xl = loaiBanThang(nsl, mau && mau.ma);
@@ -6508,7 +6540,11 @@ function suaCho(id){
 function doiNhom(id, k){
   var m = D.cho.find(function(c){ return c.id===id; }) || timMuc(id);
   if(!m || m.nhom===k) return;
-  /* giữ lại những gì đang có, chỉ đổi nhóm và tính lại tên */
+  chuyenNhom(m, k);
+  doiNhomVe(id, k);
+}
+/* giữ lại những gì đang có, chỉ đổi nhóm và tính lại tên */
+function chuyenNhom(m, k){
   m.nhom = k;
   delete m.duongTuy;
   if(k==='duLieu'){
@@ -6525,6 +6561,8 @@ function doiNhom(id, k){
     if(!m.trichYeu) m.trichYeu = m.moTa||(m.tenCu||'').replace(/\.[^.]+$/,'');
     m.tenMoi = tenVanBan(m, m.duoi);
   }
+}
+function doiNhomVe(id, k){
   luu(); suaCho(id);
 }
 function traDuongMacDinh(id){
@@ -7075,7 +7113,8 @@ function thieuThongTin(m){
 }
 function dsChoKhai(){
   var g = {khay:[], vanBan:[], duLieu:[], ghiChu:[], bieuMau:[], scan:[]};
-  (D.cho||[]).forEach(function(m){ g.khay.push({m:m, thieu:thieuThongTin(m), nguon:'Thêm file — chưa vào tủ'}); });
+  (D.cho||[]).forEach(function(m){ g.khay.push({m:m, thieu:thieuThongTin(m),
+    nguon:'Thêm file — chưa vào tủ · thuộc tab '+(TEN_NHOM[m.nhom]||'Văn bản')+(m.tuTab && m.tuTab!==m.nhom ? ' (thêm từ tab '+(TEN_NHOM[m.tuTab]||m.tuTab)+')' : '')}); });
   ['vanBan','duLieu','ghiChu','bieuMau'].forEach(function(k){
     (D[k]||[]).forEach(function(m){
       if(laFileHeThong(m)) return;
