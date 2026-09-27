@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.44 — 27/09/2026 23:59 — Scan: xóa hẳn bản hư, PDF thẻ sạch
+
+- **Xóa hẳn cho đỡ rác** (xóa khỏi máy, không vào thùng rác):
+  - Mỗi dòng bản đã quét trên điện thoại có lại nút 🗑. Bản 3.43 lỡ ẩn cả nút này khi làm gọn dòng.
+  - Màn xem trước PDF có nút **🗑 Xóa**.
+  - Dải "N bản vừa quét chưa lưu" có nút **🗑 Bỏ**.
+  - Thanh Xong ở hàng chờ có nút **🗑 Bỏ hết**.
+  - Bản đã lên Drive thì file PDF trên Drive chuyển vào thùng rác Google Drive, như cũ.
+- **PDF thẻ CCCD không in thêm gì:**
+  - Bỏ dòng tiêu đề, bỏ tên khách dưới mỗi cặp thẻ, bỏ các vạch góc và viền quanh thẻ.
+  - Chỉ còn **đường cắt mảnh màu xám** chạy theo mép thẻ: đường ngang chạy hết bề ngang trang; đường dọc chạy từ đầu trang tới ngay dưới hàng thẻ cuối.
+  - Thẻ thẳng hàng, thẳng cột nên cắt theo đường là các thẻ đều nhau.
+
 ## 3.43 — 27/09/2026 23:55 — Scan điện thoại kiểu Lens · ma trận tab Tháng đồng nhất, canh trái · tab Thư viện
 
 **Scan trên iPhone** (anh duyệt, tham khảo cách làm của app scan Lens trên iOS; máy tính giữ nguyên màn cũ):
