@@ -1,6 +1,6 @@
-# BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v1.7)
+# BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v1.8)
 
-**Bản hiện tại:** 3.38 · build 27/09/2026 10:00
+**Bản hiện tại:** 3.39 · build 27/09/2026 14:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -16,13 +16,13 @@
 5. **Sau mỗi lần sửa, chạy 3 phép kiểm:** `Cú pháp OK · Trùng tên: không · Thiếu hàm: không`.
    - ⚠ Phép "thiếu hàm" phải quét **mọi lời gọi hàm trong mã**, không chỉ `onclick=`. Bản cũ chỉ quét `onclick` nên bỏ sót lỗi `demDiaBan` (xem mục 3).
 6. `grep` tên lớp CSS và tên hàm mới trước khi đặt.
-7. Cập nhật `APP_BAN`, `APP_LUC` (hiện ở dòng 1595) mỗi bản.
+7. Cập nhật `APP_BAN`, `APP_LUC` (hiện ở dòng 1641) mỗi bản.
 8. Giao lại đúng tên `index.html`. Làm trên nhánh mới + Pull Request.
 9. **Mới:** không đưa dữ liệu cá nhân (tên tổ trưởng, tên khách hàng…) vào mã nguồn — repo đang **công khai**.
 
 ---
 
-## 1. Đã xong ở bản 3.31 → 3.38
+## 1. Đã xong ở bản 3.31 → 3.39
 
 Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi tiết ở `docs/CHANGELOG.md`.
 
@@ -51,6 +51,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - **3.35 — Ảnh CCCD thật anh gửi** chỉ dùng để thử trong phiên làm việc, **không đưa vào repo**.
 - **3.37 — Hàng chờ Scan:** luôn hiện ảnh gốc kèm viền cắt để kéo chỉnh khi app cắt lệch; kiểu màu là nút bấm hiện sẵn.
 - **3.38:** sổ ghi chú nền tối dịu vàng (#D8CBA6), không sậm. In CCCD thẻ 92 × 58 mm, 2 mặt cách 6 mm, khe người ≈ 15 mm; dấu cắt chỉ 1 vạch đầu–giữa–cuối mỗi đường cắt (bỏ dấu 4 góc) — anh chốt.
+- **3.39 (sau rà soát bố cục):** khung xem cố định vừa đủ — 60/40, tab Tháng 65/35, nhớ riêng từng tab (anh chốt KHÔNG thu khung xem). Điện thoại tối giản: lọc nhanh ẩn mặc định, đầu trang/dải chờ khai/thanh nút gọn 1 dòng (anh chốt: điện thoại để xem và vuốt, máy tính hiện đủ chi tiết). Gộp nhãn Ghi chú một nguồn; số mục trên đầu đủ 5 tab; Cài đặt căn trái; ẩn tùy chọn không có tác dụng.
+
+### Kế hoạch tiếp theo (đã đề xuất, chờ anh chốt)
+- **3.40 — Cài đặt viết lại:** bộ sửa danh mục dùng chung (Tên · Viết tắt · Từ khóa · ↑↓ · Ẩn · Xóa) cho Mảng, CT vay, Loại VB, Tag từng tab, Nhãn ghi chú, Hội đoàn thể; đổi tên lan sang file cũ; xóa mục đang dùng thì báo số file và cho chuyển; mở từ khóa nhận Mảng/CT/Tag và viết tắt loại VB (đang nằm trong code); nhắc giao ban (chữ tìm, số ngày); cỡ in CCCD và kiểu màu Scan mặc định vào Cài đặt; mẫu báo cáo chỉ sửa qua hộp ⚙. Chờ anh chốt: tự lưu hay một nút Lưu; bỏ hay cho chạy "Nhãn nút Thêm"; "Dùng chung" ở Biểu mẫu giữ ở CT vay, bỏ khỏi Tag.
+- **3.41 — Trang "Bảo trì kho":** gom Quét tủ · Quét lại chỉ mục · Quét dọn rác · Quét kho Drive cũ, đặt tên rõ việc.
+- Khuyên KHÔNG mở tên thư mục chuẩn trên Drive (đổi là lệch chỉ mục).
 - **3.36 — Chế độ tối:** sổ ghi chú luôn giữ giấy vàng, không đổi theo máy.
 - **3.32 — Giao diện:** mọi nút mới dùng khối CSS "CHUẨN HÓA NÚT & BỐ CỤC" ở cuối `<style>`, không tự đặt cỡ hay màu riêng.
 
