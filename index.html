@@ -649,17 +649,12 @@
   .nk-lb-nut{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(255,255,255,.18);color:#fff;
     font-size:28px;width:40px;height:56px;border-radius:8px;cursor:pointer}
   .nk-lb-nut.trai{left:6px}.nk-lb-nut.phai{right:6px}
-  .nk-fab{display:none}
   /* điện thoại: hàng nút của dòng xuống dòng riêng — chữ việc không bị ép còn 1–2 chữ */
   @media (max-width:899px){
     .dong-o{flex-wrap:wrap;row-gap:2px}
     .dong-o .dong-thaotac{order:9;flex:1 1 100%;justify-content:flex-end;flex-wrap:wrap}
   }
-  @media (max-width:899px){
-    .nk-fab{display:flex;align-items:center;justify-content:center;position:fixed;right:16px;
-      bottom:calc(92px + env(safe-area-inset-bottom));z-index:40;width:56px;height:56px;border-radius:50%;border:0;
-      background:var(--xanh);color:#fff;font-size:24px;box-shadow:0 4px 14px rgba(0,0,0,.28);cursor:pointer}
-  }
+  @media (max-width:899px){ .o-go .og-cam{font-size:24px;padding:4px 8px} }   /* 3.52b: bỏ nút nổi (dễ chạm nhầm) — nút 📷 ở ô gõ to hơn */
   .ds-phong{max-height:60vh;overflow:auto;display:grid;gap:9px}
   .mot-phong{border:1.3px solid var(--vien);border-radius:11px;padding:9px 12px;cursor:pointer;background:var(--the);text-align:left}
   .mot-phong:hover{border-color:var(--xanh)}
@@ -2018,7 +2013,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.52', APP_LUC = '29/09/2026 18:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.52b', APP_LUC = '29/09/2026 20:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -4280,7 +4275,6 @@ function veNhatKy(){
   if(che==='don') h += '<div class="o-go"><button class="og-cam" onclick="nkChupNhanh()" title="Chụp ảnh — tự lưu thành một dòng của ngày này">📷</button>'+
     '<input id="nk-dong-moi" placeholder="Gõ việc rồi bấm Enter…" onkeydown="dongGoThem(this,\''+c+'\',event)">'+
     '<button class="og-them" onclick="dongGoThem(document.getElementById(\'nk-dong-moi\'),\''+c+'\',{key:\'Enter\'})">Thêm</button></div>';
-  h += '<button class="nk-fab" onclick="nkChupNhanh()" title="Chụp ảnh lưu vào ngày này">📷</button>';   /* 3.52: điện thoại — nút nổi */
   h += '</div>';   /* đóng .nk-trang */
   e.innerHTML = h;
   nkNapAnhNho();
@@ -8780,7 +8774,7 @@ function noiDungHD(p){
   if(p==='homNay') return '<h3>Tab Hôm nay — sổ việc trong ngày</h3>'+
     hdBuoc(['Bấm một ngày trên lịch. <b>SCHEDULE</b> là việc theo lịch (lặp tuần, tháng…); bấm một việc → '+hdNut('✎ Sửa')+' tên, ngày, lặp lại, lưu ý (nhấp đúp cũng mở).',
       '<b>TO-DO LIST</b>: gõ ở ô dưới cùng rồi Enter. Bấm vào chữ của dòng để sửa, tự lưu.',
-      hdNut('📷')+' <b>chụp nhanh</b> (ô dưới cùng, điện thoại có nút tròn nổi góc phải): mở camera, chụp xong tự thành dòng <i>📷 Ảnh 14:32</i> — thay vì gõ.',
+      hdNut('📷')+' <b>chụp nhanh</b> (nút 📷 ở ô gõ dưới cùng sổ): mở camera, chụp xong tự thành dòng <i>📷 Ảnh 14:32</i> — thay vì gõ.',
       hdNut('📎')+' trên mỗi dòng / mẩu: 📷 chụp thêm · 📁 chọn file trong máy · 🔗 gắn file có sẵn trong tủ (chỉ liên kết).',
       'Bấm ảnh nhỏ → xem lớn, vuốt / ‹ › qua lại, ⬇ Tải về. ✕ trên ảnh: file riêng vào thùng rác (ngăn 📅 Hôm nay), file liên kết chỉ gỡ.'])+
     '<p><b>Dung lượng:</b> ảnh tự thu nhỏ cạnh dài 1600 px (khoảng 200–400 KB), danh sách chỉ nạp ảnh nhỏ nên vẫn nhẹ. File trên 15 MB app hỏi trước. '+
@@ -8856,12 +8850,12 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.52', ds:[
-  ['📷 Tab Hôm nay: chụp nhanh một chạm — chụp xong tự thành một dòng của ngày đó, thay vì gõ', "dongHop();doiNgan(0)"],
+  ['📷 Tab Hôm nay: bấm 📷 ở ô gõ dưới cùng sổ — chụp xong tự thành một dòng của ngày đó, thay vì gõ', "dongHop();doiNgan(0)"],
   ['📎 Gắn ảnh, file trong máy hoặc file có sẵn trong tủ vào từng dòng To-do / mẩu Note', "moHuongDan('homNay')"],
   ['✎ Sửa việc SCHEDULE: tên, ngày, lặp lại, lưu ý (bấm việc → ✎ Sửa, hoặc nhấp đúp)', "dongHop();doiNgan(0)"],
   ['🪶 Ảnh tự thu nhỏ ~300 KB, danh sách chỉ nạp ảnh nhỏ — sổ vẫn nhẹ, 2 máy thấy nhau qua Drive (Tủ hồ sơ / Nhật ký)', "moHuongDan('homNay')"],
   ['🛠 Sửa lỗi: sau khi xóa file có hiện ↩ Hoàn tác, sổ Hôm nay có thể không tick xong / xóa dòng được', "dongHop();doiNgan(0)"]],
-  thu:['Điện thoại · tab Hôm nay: bấm nút 📷 tròn góc phải → chụp → có dòng "📷 Ảnh giờ:phút" kèm ảnh nhỏ.',
+  thu:['Điện thoại · tab Hôm nay: bấm 📷 ở ô gõ dưới cùng sổ → chụp → có dòng "📷 Ảnh giờ:phút" kèm ảnh nhỏ.',
     'Bấm ảnh nhỏ → xem lớn; chụp thêm ảnh thứ 2 bằng 📎 trên dòng → vuốt qua lại.',
     '📎 → 🔗 File có sẵn trong tủ → tìm một văn bản → Gắn → bấm tên để xem.',
     'Xóa dòng có ảnh → mở 🗑 thùng rác, ngăn 📅 Hôm nay → Khôi phục → dòng và ảnh về đúng ngày.',
