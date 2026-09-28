@@ -1881,7 +1881,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.49', APP_LUC = '28/09/2026 14:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.49b', APP_LUC = '28/09/2026 16:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -2724,7 +2724,8 @@ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '
 
 function doiNgan(i, el){
   if(!window.__giuCK) CHO_KHAI = false;
-  if(BOT.tab){ BOT = {tab:'', chon:{}}; document.body.classList.remove('dang-bot'); }   /* 3.49: đổi tab là thôi chọn bớt */
+  if(BOT.tab){ BOT = {tab:'', chon:{}}; document.body.classList.remove('dang-bot'); }   /* 3.49: đổi tab là thôi chọn xóa */
+  Array.prototype.forEach.call(document.querySelectorAll('.thanh-bot'), function(e){ e.remove(); });   /* 3.49b: bỏ thanh chọn còn sót ở tab cũ */
   THEM_TU = null;   /* 3.40: đổi tab là bỏ cờ "vừa bấm Thêm file ở tab…" (bấm Thêm rồi bỏ không chọn file) */
   nganHienTai = i;
   /* lớp ẩn cột phải ở tab Hôm nay do apAnPV() quyết định (còn phụ thuộc anh đã bật ▣ chưa) */
@@ -7708,7 +7709,7 @@ function veNoiCD(k){
       '<button class="nho" onclick="doiCD(\'chimuc\')">🧰 Quét dọn, gom trùng… ở Bảo trì kho</button></div>'+
       '<div class="huong-dan">Nút 🗑 cũng có ở thanh trên cùng. Quét rác, gom file trùng, đồng bộ chỉ mục nằm chung ở <b>Bảo trì kho</b>.</div>'+
       '<h3>Dọn dữ liệu, giữ cài đặt</h3>'+
-      '<div class="huong-dan">Bớt file khỏi tủ: bấm <b>− Bớt file</b> cạnh <b>+ Thêm file</b> ở từng tab (Chữ ký·CCCD: nút trong 📁) → tích file, '+
+      '<div class="huong-dan">Xóa nhiều file một lần: bấm <b>🗑 Xóa file</b> cạnh <b>+ Thêm file</b> ở từng tab (Chữ ký·CCCD: nút trong 📁) → tích file, '+
         'hoặc “Chọn tất cả đang lọc”, “Thêm vào tủ trước ngày…” → Vào thùng rác / Xóa hẳn.</div>'+
       '<div class="hang-nut"><button class="nho" onclick="moDonThu()">Dọn hàng loạt (khay chờ, Lịch)…</button></div>'+
       '<div class="huong-dan">Chọn mục cần dọn → chuyển vào <b>Thùng rác</b> (vẫn khôi phục được). '+
@@ -7885,7 +7886,7 @@ function soDoLuuTru(){
       nut('<b>2. Khôi phục</b> → về đúng tab, đúng thư mục cũ'),
       nut('<b>3. Xóa hẳn</b> (trong 🗑, chọn / cũ hơn 7-14-30 ngày) → bỏ khỏi app, file Drive vào <b>thùng rác Google Drive</b> (Google giữ 30 ngày rồi tự xóa)'),
       nut('<b>🧹 Quét dọn</b> → tìm file thừa, trùng, mục gãy, thư mục trống → cho vào Thùng rác'),
-      nut('<b>Cài đặt → Dữ liệu</b>: − Bớt file ở đầu mỗi tab (vào thùng rác hoặc xóa hẳn) · Dọn hàng loạt (khay chờ, Lịch) · Xóa sạch cả cài đặt trên máy này (Drive giữ nguyên)','nhat')
+      nut('<b>Cài đặt → Dữ liệu</b>: 🗑 Xóa file ở đầu mỗi tab (vào thùng rác hoặc xóa hẳn) · Dọn hàng loạt (khay chờ, Lịch) · Xóa sạch cả cài đặt trên máy này (Drive giữ nguyên)','nhat')
     ])+'</div></div>';
 }
 function huongDanNhanh(){
@@ -8099,7 +8100,7 @@ function napDL(){
   i.click();
 }
 /* ==========================================================
-   3.49: − BỚT FILE — tủ thư viện có thêm có bớt. Bấm "− Bớt file" ở đầu tab → tích dòng (hoặc chọn tất cả đang lọc,
+   3.49: XÓA NHIỀU FILE (lúc đầu tên "− Bớt file", 3.49b đổi tên theo anh). Bấm "🗑 Xóa file" ở đầu tab → tích dòng (hoặc chọn tất cả đang lọc,
    chọn theo ngày thêm vào tủ) → Bớt. Hai mức: Vào thùng rác (mặc định, khôi phục được, file Drive dời vào _ThungRac)
    và Xóa hẳn (file Drive vào thùng rác Google Drive, 30 ngày). Scan, Chữ ký·CCCD không có thùng rác app → chỉ Xóa hẳn.
    Xóa hẳn ghi dấu daXoaHan → máy kia bỏ theo khi đồng bộ.
@@ -8108,7 +8109,7 @@ var BOT = {tab:'', chon:{}}, BOT_DS = {};
 function botAt(id){ return BOT.tab ? ' data-bot="'+id+'"'+(BOT.chon[id]?' data-botc="1"':'') : ''; }
 function nutBot(tab){
   return '<button class="nut-bot'+(BOT.tab===tab?' bat':'')+'" onclick="'+(BOT.tab===tab?'thoiBot()':'batBot(\''+tab+'\')')+'" '+
-    'title="Chọn file để bớt khỏi tủ (vào thùng rác hoặc xóa hẳn)">− Bớt file</button>';
+    'title="Chọn nhiều file để xóa một lần (vào thùng rác hoặc xóa hẳn)">🗑 Xóa file</button>';
 }
 function batBot(tab){
   BOT = {tab:tab, chon:{}}; document.body.classList.add('dang-bot');
@@ -8138,21 +8139,24 @@ function thanhBot(tab){
   if(BOT.tab!==tab) return '';
   setTimeout(capNhatBot, 0);   /* danh sách đang lọc tính xong sau khi vẽ đầu tab */
   return '<div class="thanh-bot" id="thanh-bot">'+
-    '<b id="bot-dem">Chưa chọn file nào</b>'+
-    '<button onclick="botTatCa()" id="bot-tat">Chọn tất cả đang lọc</button>'+
-    '<span class="tb-nhom">Thêm vào tủ trước ngày <input id="bot-ngay" inputmode="numeric" placeholder="dd/mm/yyyy" oninput="gonNgay(this)">'+
-      '<button onclick="botTruocNgay()">Chọn</button></span>'+
+    '<b class="bot-dem">Chưa chọn file nào — bấm vào file để chọn</b>'+
+    '<button onclick="botTatCa()" class="bot-tat">Chọn tất cả đang lọc</button>'+
+    '<span class="tb-nhom">Thêm vào tủ trước ngày <input class="bot-ngay" inputmode="numeric" placeholder="dd/mm/yyyy" oninput="gonNgay(this)">'+
+      '<button onclick="botTruocNgay(this)">Chọn</button></span>'+
     '<button onclick="botBoChon()">Bỏ chọn</button>'+
-    '<button class="xau" id="bot-nut" onclick="botXacNhan()" disabled>Bớt 0 file</button>'+
+    '<button class="xau bot-nut" onclick="botXacNhan()" disabled>Xóa 0 file</button>'+
     '<button onclick="thoiBot()">Thôi</button></div>';
 }
 function capNhatBot(){
   var n = Object.keys(BOT.chon).length;
-  var d = document.getElementById('bot-dem'), b = document.getElementById('bot-nut');
-  if(d) d.textContent = n ? 'Đã chọn '+n+' file' : 'Chưa chọn file nào';
-  if(b){ b.textContent = 'Bớt '+n+' file'; b.disabled = !n; }
-  var t = document.getElementById('bot-tat');
-  if(t && BOT.tab) t.textContent = 'Chọn tất cả đang lọc ('+dsBotTab(BOT.tab).length+')';
+  /* 3.49b: cập nhật theo lớp, mọi thanh đang có — trước dùng id, thanh cũ còn ẩn ở tab trước "giành" mất nút → nút Xóa đứng ở 0 */
+  var tat = BOT.tab ? dsBotTab(BOT.tab).length : 0;
+  Array.prototype.forEach.call(document.querySelectorAll('.thanh-bot'), function(th){
+    var d = th.querySelector('.bot-dem'), b = th.querySelector('.bot-nut'), t = th.querySelector('.bot-tat');
+    if(d) d.textContent = n ? 'Đã chọn '+n+' file' : 'Chưa chọn file nào — bấm vào file để chọn';
+    if(b){ b.textContent = 'Xóa '+n+' file'; b.disabled = !n; }
+    if(t && BOT.tab) t.textContent = 'Chọn tất cả đang lọc ('+tat+')';
+  });
 }
 function apChonBot(){
   Array.prototype.forEach.call(document.querySelectorAll('[data-bot]'), function(el){
@@ -8162,8 +8166,9 @@ function apChonBot(){
 }
 function botTatCa(){ dsBotTab(BOT.tab).forEach(function(m){ BOT.chon[m.id] = 1; }); apChonBot(); }
 function botBoChon(){ BOT.chon = {}; apChonBot(); }
-function botTruocNgay(){
-  var han = ngayISOo(gt('bot-ngay'));
+function botTruocNgay(nut){
+  var o = nut && nut.parentNode ? nut.parentNode.querySelector('.bot-ngay') : document.querySelector('.thanh-bot .bot-ngay');
+  var han = ngayISOo(o ? o.value.trim() : '');
   if(!han) return bao('Gõ ngày dạng dd/mm/yyyy.', 3);
   var n = 0;
   dsBotTab(BOT.tab).forEach(function(m){ var l = lucThemBot(m); if(l && l < han){ BOT.chon[m.id] = 1; n++; } });
@@ -8184,10 +8189,10 @@ function botXacNhan(){
   var chiHan = tab==='scan' || tab==='kyAnh';
   var goc = ds.filter(laGocDrive).length, coDrive = ds.filter(function(m){ return m.driveId; }).length;
   var dl = ds.reduce(function(a,m){ return a+(+m.co||0); }, 0);
-  moHop('<div class="hop-tit">Bớt '+ds.length+' file khỏi tủ?</div>'+
+  moHop('<div class="hop-tit">Xóa '+ds.length+' file?</div>'+
     '<div class="bot-ds">'+ds.slice(0,40).map(function(m){ return '<div>• '+coChuHTML(m.tenMoi||m.ten||m.tenCu||'(chưa đặt tên)')+'</div>'; }).join('')+
       (ds.length>40?'<div>… và '+(ds.length-40)+' file nữa</div>':'')+'</div>'+
-    (goc ? '<div class="bot-canh">⚠ <b>'+goc+'</b> file vốn có sẵn trên Drive từ trước (Quét tủ / kho cũ). Bớt là dời/xóa <b>chính file gốc</b> đó trên Drive.</div>' : '')+
+    (goc ? '<div class="bot-canh">⚠ <b>'+goc+'</b> file vốn có sẵn trên Drive từ trước (Quét tủ / kho cũ). Xóa là dời/xóa <b>chính file gốc</b> đó trên Drive.</div>' : '')+
     (chiHan ? '' :
     '<label class="bot-muc"><input type="radio" name="bot-muc" value="rac" checked> <b>Vào thùng rác</b>'+
       '<small>Khôi phục được bất cứ lúc nào (🗑 trên cùng). '+(coDrive?'File trên Drive dời vào thư mục _ThungRac.':'')+'</small></label>')+
@@ -8195,7 +8200,7 @@ function botXacNhan(){
       '<small>Bỏ khỏi app và máy này'+(dl?' ('+kichCo(dl)+')':'')+'. '+(coDrive?'File trên Drive vào <b>thùng rác Google Drive</b> — Google giữ 30 ngày rồi tự xóa. ':'')+
       'Máy kia bỏ theo khi đồng bộ.'+(chiHan?' Bản quét / Chữ ký·CCCD không có thùng rác trong app.':'')+'</small></label>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
-    '<button class="nho xau" onclick="thucHienBot()">Bớt '+ds.length+' file</button></div>');
+    '<button class="nho xau" onclick="thucHienBot()">Xóa '+ds.length+' file</button></div>');
 }
 function thucHienBot(){
   var ids = Object.keys(BOT.chon), tab = BOT.tab;
@@ -8212,11 +8217,11 @@ function thucHienBot(){
     thoiBot();
     Promise.all(ph).then(function(kq){
       var loi = kq.filter(function(x){ return x===false; }).length;
-      bao('Đã bớt '+ds.length+' file'+(loi?' · '+loi+' bản trên Drive chưa đưa vào thùng rác được — anh xóa tay trong Drive':'')+'.', 6);
+      bao('Đã xóa '+ds.length+' file'+(loi?' · '+loi+' bản trên Drive chưa đưa vào thùng rác được — anh xóa tay trong Drive':'')+'.', 6);
     });
     return;
   }
-  var n = chuyenVaoRac(ds.map(function(m){ return m.id; }), 'Bớt file');
+  var n = chuyenVaoRac(ds.map(function(m){ return m.id; }), 'Xóa nhiều file');
   thoiBot();
   if(han) thucHienXoaHan(ds.map(function(m){ return m.id; }));
   else bao('Đã đưa '+n+' file vào thùng rác. Lấy lại: bấm 🗑 trên cùng › Khôi phục.', 6);
@@ -12324,7 +12329,7 @@ function dauScanDT(){
       '<button class="'+(SC.che==='the'?'bat':'')+'" onclick="datChe(\'the\')">Thẻ</button>'+
       '<button class="'+(SC.che!=='the'?'bat':'')+'" onclick="datChe(\'tailieu\')">Tài liệu</button></div>'+
     '<button class="sc-nho" onclick="moKyAnh()" title="Chữ ký · CCCD — thư mục riêng">📁</button>'+
-    '<button class="sc-nho'+(BOT.tab==='scan'?' co':'')+'" onclick="'+(BOT.tab==='scan'?'thoiBot()':'batBot(\'scan\')')+'" title="− Bớt file">−</button>'+
+    '<button class="sc-nho'+(BOT.tab==='scan'?' co':'')+'" onclick="'+(BOT.tab==='scan'?'thoiBot()':'batBot(\'scan\')')+'" title="Xóa nhiều file">🗑</button>'+
     '<button class="sc-nho" onclick="quetNhanh(\'photo\')" title="Lấy ảnh có sẵn trong máy">🖼</button>'+
     '<button class="sc-nho'+(so?' co':'')+'" onclick="moBoLoc(\'scan\')" title="Bộ lọc">☰'+(so?'<i>'+so+'</i>':'')+'</button>'+
   '</div><div class="cam-kieu">Chụp: '+nutKieuCam()+'</div>'+dongDangLoc('scan')+thanhBot('scan');
@@ -12350,7 +12355,7 @@ function moXemPDF(ids, moi, blSan){
       '<input id="xp-ten" value="'+coChuHTML(tenGoc)+'" onfocus="this.select()" onchange="doiTenXP(this.value)"></div>'+
     '<div id="xp-trang" class="xp-trang"><div class="huong-dan">Đang dựng PDF…</div></div>'+
     '<div class="xp-nut">'+
-      (coChiaSeFile() ? '<button class="nho chinh" onclick="guiXP()">📤 Gửi — Zalo, Drive, Tệp…</button>'
+      (!laMayBan() && coChiaSeFile() ? '<button class="nho chinh" onclick="guiXP()">📤 Gửi — Zalo, Drive, Tệp…</button>'
         /* 3.49: máy bàn — 💾 Lưu nhanh + 📋 Copy thay Gửi / Tải về */
         : '<div class="hang-nut"><button class="nho chinh" onclick="lnXP()" title="Ghi thẳng file PDF vào thư mục cố định trên máy">💾 Lưu nhanh</button>'+
           '<button class="nho chinh" onclick="copyXP()" title="'+(coCauNoi()?'Chép đúng file PDF — Ctrl+V vào Zalo':'Cần cầu nối để chép file PDF')+'">📋 Copy</button>'+
@@ -12483,7 +12488,14 @@ function chepAnhKA(id){
    ========================================================== */
 var LN_KHOA = 'tuhoso_ln';
 function coLuuNhanh(){ return typeof window.showDirectoryPicker==='function'; }
-function laMayBan(){ return !laDT() && !coChiaSeFile(); }
+/* 3.49b: máy bàn = không phải điện thoại / máy tính bảng. Trước dựa vào "không chia sẻ được file" nhưng Chrome/Edge trên Windows
+   CÓ bảng chia sẻ → máy bàn vẫn hiện nút Gửi, không thấy Lưu nhanh */
+function laMayBan(){
+  var ua = navigator.userAgent||'';
+  if(laDT() || /iPhone|iPad|iPod|Android|Mobile/i.test(ua)) return false;
+  if(/Macintosh/.test(ua) && navigator.maxTouchPoints>1) return false;   /* iPad báo là Mac */
+  return true;
+}
 function lnCai(loai){ var o = {}; try{ o = JSON.parse(localStorage.getItem(LN_KHOA)||'{}')||{}; }catch(e){} return o[loai] || {}; }
 function lnGhi(loai, k, v){
   var o = {}; try{ o = JSON.parse(localStorage.getItem(LN_KHOA)||'{}')||{}; }catch(e){}
@@ -12639,7 +12651,7 @@ function moKyAnh(){
         '<span class="ka-ten">'+coChuHTML(k.ten)+'<small>'+Math.round((k.co||0)/1024)+' KB · '+ngayVN(k.ngay)+' · '+
           (k.driveId?'☁ đã lên Drive':'chưa lên Drive')+'</small></span>'+
         (k.driveId?'':'<button onclick="dayKAMot(\''+k.id+'\')" title="Đưa lên Drive">☁</button>')+
-        (coChiaSeFile() ? '<button onclick="guiKA(\''+k.id+'\')" title="Gửi">📤</button>'
+        (!laMayBan() && coChiaSeFile() ? '<button onclick="guiKA(\''+k.id+'\')" title="Gửi">📤</button>'
           : '<button onclick="lnKA(\''+k.id+'\')" title="Lưu nhanh xuống máy">💾</button><button onclick="copyKA(\''+k.id+'\')" title="Copy — Ctrl+V vào Zalo">📋</button>')+
         '<button class="xau" onclick="xoaKA(\''+k.id+'\')" title="Xóa hẳn">🗑</button></div>';
     }).join('') : '')+
@@ -12834,7 +12846,7 @@ function kaXong(k){
     '<div class="hop-phu"><b>'+coChuHTML(k.ten)+'</b> · '+Math.round((k.co||0)/1024)+' KB</div>'+
     '<div class="hop-phu" id="ka-drive">'+(k.driveId ? '☁ Đã lên Drive.' : (coTheNoiDrive() ? '☁ Đang đưa lên Drive…' : 'Chưa nối Drive — ảnh đang nằm trong máy, nối Drive xong app tự đẩy.'))+'</div>'+
     '<div class="xp-nut">'+
-      (coChiaSeFile() ? '<button class="nho chinh" onclick="guiKA(\''+k.id+'\')">📤 Gửi — Zalo, Drive, Tệp…</button>'
+      (!laMayBan() && coChiaSeFile() ? '<button class="nho chinh" onclick="guiKA(\''+k.id+'\')">📤 Gửi — Zalo, Drive, Tệp…</button>'
         : '<div class="hang-nut"><button class="nho chinh" onclick="lnKA(\''+k.id+'\')" title="Ghi thẳng file JPG vào thư mục cố định trên máy">💾 Lưu nhanh</button>'+
           '<button class="nho chinh" onclick="copyKA(\''+k.id+'\')" title="'+(coCauNoi()?'Chép đúng file JPG — Ctrl+V vào Zalo / hệ thống':'Chép ảnh — Ctrl+V vào Zalo')+'">📋 Copy</button>'+
           (coCauNoi() && k.driveId ? '<button class="nho" onclick="cnHanh(\'thumuc\',\'ka\',\''+k.id+'\')">📂 Mở thư mục</button>' : '')+'</div>'+lnCaiHTML('ka'))+

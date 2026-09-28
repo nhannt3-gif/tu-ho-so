@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.49b — 28/09/2026 16:00 — Sửa lỗi 3.49 theo phản hồi của anh
+
+- **Nút Xóa nhiều file không có bước tiếp theo** (ví dụ tab Tháng: chọn được file nhưng nút vẫn "0 file", bấm không được).
+  - Nguyên nhân: thanh chọn của tab dùng trước còn nằm ẩn trong trang và "giành" nút.
+  - Sửa: đổi tab là xóa thanh cũ; mọi thanh cập nhật theo lớp, không dùng id.
+- **Đổi tên theo anh:** "− Bớt file" → **🗑 Xóa file**; nút dưới cùng "Xóa N file". Nút 🗑 kế bên từng file vẫn giữ để xóa lẻ.
+- **Máy bàn không thấy 💾 Lưu nhanh / 📋 Copy.**
+  - Nguyên nhân: Chrome/Edge trên Windows có bảng chia sẻ nên app tưởng là điện thoại, vẫn hiện nút Gửi.
+  - Sửa: nhận máy bàn theo loại thiết bị (không phải iPhone / iPad / Android, màn hình rộng).
+  - Điện thoại và iPad vẫn giữ 📤 Gửi.
+
+---
+
 ## 3.49 — 28/09/2026 14:00 — − Bớt file · Quét rác mở rộng · nút cầu nối ở khung xem · máy bàn: 💾 Lưu nhanh + 📋 Copy
 
 **1. − Bớt file** — nút cạnh **+ Thêm file** ở mọi tab (Văn bản, Tháng, Biểu mẫu, Thư viện, Scan; Chữ ký · CCCD: nút trong 📁).
