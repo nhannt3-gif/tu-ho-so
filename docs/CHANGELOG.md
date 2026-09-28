@@ -4,10 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.52b — 29/09/2026 20:00 — Bỏ nút 📷 nổi trên điện thoại
+- iPhone: nút tròn nổi ở góc phải đè lên nội dung. Chạm gần góc phải (✕, ô chọn, nút Thêm) là máy ảnh tự mở → **bỏ nút nổi** (anh báo).
+- Chụp nhanh dùng nút 📷 ở ô gõ dưới cùng sổ, trên điện thoại làm to hơn cho dễ bấm.
+
+---
+
 ## 3.52 — 29/09/2026 18:00 — Tab Hôm nay: 📷 chụp nhanh, 📎 gắn file vào việc, ✎ sửa việc SCHEDULE
 
 **1. 📷 Chụp nhanh một chạm**
-- Ô gõ đáy sổ có nút 📷. Điện thoại có thêm **nút tròn nổi** ở góc phải.
+- Ô gõ đáy sổ có nút 📷.
 - Bấm là mở camera sau. Chụp xong app tự tạo dòng "📷 Ảnh 14:32" của ngày đang chọn, kèm ảnh.
 - Muốn ghi thêm thì bấm vào chữ mà gõ.
 - Ở chế độ Note màu, ảnh thành một mẩu mới.
