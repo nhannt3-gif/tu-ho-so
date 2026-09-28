@@ -4,6 +4,46 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.51 — 29/09/2026 12:00 — Mở PDF nhanh · 📁 Bộ hồ sơ trong Thư viện · sửa Chữ ký·CCCD không lưu trong máy
+
+**1. Mở PDF nhanh hơn** (đo trên giả lập)
+- Mở lần đầu: 1,6 giây → 0,23 giây. Mở lại file vừa xem: 0,6 giây → 0,02 giây.
+- Cách làm:
+  - bộ đọc PDF khởi động sẵn sau 3 giây mở app;
+  - giữ 6 file vừa xem;
+  - rê chuột lên dòng là tải trước;
+  - vẽ từng trang nối nhau, trang 1 hiện trước;
+  - không vẽ lại cả danh sách khi chọn file.
+- File trên Drive chưa có trong máy: hiện "☁ Đang tải từ Drive…".
+
+**2. 📁 Bộ hồ sơ** — Thư viện thành nơi ghi chú tự do theo từng bộ (ví dụ "Rủi ro · Võ Văn Cường").
+- Mỗi bộ có:
+  - loại;
+  - khách;
+  - địa bàn Xã → Điểm GD → Ấp/KP → Tổ, còn **Hội tự lấy theo tổ**;
+  - ghi chú tự lưu;
+  - danh sách file.
+- **🔗 Gắn file có sẵn** (Văn bản, Dữ liệu, Biểu mẫu, Scan, Chữ ký·CCCD): chỉ liên kết, file gốc giữ chỗ cũ.
+- **📎 Thêm file mới** (giấy chứng tử, ảnh…): lên Drive ở `Tủ hồ sơ / Bộ hồ sơ / <tên bộ>`.
+- Mỗi file hiện đường dẫn thật và bấm để xem thử. Khi xem một file ở tab bất kỳ có dòng "📁 Thuộc bộ …" để mở bộ.
+- **Cây địa bàn** Xã › Điểm › Ấp › Tổ · Hội có đếm số bộ; bấm để lọc; có lọc theo Hội.
+- Xóa bộ hoặc file riêng → thùng rác ngăn **📁 Bộ hồ sơ**. Gỡ file gắn → chỉ bỏ liên kết, có ↩ Hoàn tác.
+- Đồng bộ 2 máy qua chỉ mục như các tab khác.
+
+**3. Thư viện bỏ phần Bảo trì kho** (trùng với 🧰 Dọn kho). Tóm tắt sức khỏe kho chuyển lên đầu trang Dọn kho. Cài đặt › Bảo trì kho vẫn còn lối dẫn sang Dọn kho.
+
+**4. Sửa lỗi:** Chữ ký·CCCD trước đây không lưu trong máy. Tải lại trang mà chưa đồng bộ Drive thì mất khỏi danh sách. Nay đã lưu.
+
+**5. Hướng dẫn ❓ Thư viện** viết lại theo Bộ hồ sơ; "Có gì mới" cập nhật.
+
+---
+
+## 3.50b — 28/09/2026 — Đường dẫn dưới mỗi dòng Scan và Chữ ký·CCCD
+- Mỗi bản scan và mỗi ảnh Chữ ký·CCCD hiện dòng "📂 Tủ hồ sơ / …" ghi nơi đang lưu thật.
+- Bấm vào dòng đó để mở thư mục Drive. Nếu chưa lên Drive, dòng ghi "chỉ trong máy".
+
+---
+
 ## 3.50 — 28/09/2026 22:00 — 🧰 Dọn kho · thùng rác chia ngăn · Lập chỉ mục theo thư mục · xem thử mọi file · Chữ ký·CCCD dùng màn chỉnh Scan · Esc/Lùi/Tiếp · ❓ Hướng dẫn
 
 **1. Xóa & Thùng rác — một quy tắc** (anh chốt)
