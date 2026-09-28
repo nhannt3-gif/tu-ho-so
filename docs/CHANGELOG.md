@@ -4,6 +4,88 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.50 — 28/09/2026 22:00 — 🧰 Dọn kho · thùng rác chia ngăn · Lập chỉ mục theo thư mục · xem thử mọi file · Chữ ký·CCCD dùng màn chỉnh Scan · Esc/Lùi/Tiếp · ❓ Hướng dẫn
+
+**1. Xóa & Thùng rác — một quy tắc** (anh chốt)
+- **Cứ xóa là vào thùng rác**, kể cả bản scan và Chữ ký · CCCD.
+  - Ảnh giữ trong máy tới khi xóa hẳn; file Drive dời vào `_ThungRac`, khôi phục thì dời về đúng thư mục cũ.
+- **Không hỏi mức nữa.** Xóa xong có nút **↩ Hoàn tác** trên thông báo.
+- Hai chỗ xóa: 🗑 cuối mỗi file · **🗑 Xóa file** ở đầu tab (xóa nhiều file một lần).
+- **Thùng rác chia ngăn** theo tab: Văn bản · Dữ liệu tháng · Biểu mẫu · Thư viện · Scan · Chữ ký·CCCD · Khác.
+  - Dòng đầu ghi rõ bao nhiêu file, ở ngăn nào.
+  - Khôi phục về đúng tab.
+  - **Làm trống ngăn** hoặc **Làm trống cả thùng**.
+  - Nút bật/tắt **Tự xóa hẳn rác cũ hơn 30 ngày** (mặc định tắt).
+- Đồng bộ 2 máy: xóa / khôi phục scan, Chữ ký·CCCD ở máy này thì máy kia theo (so giờ sửa).
+
+**2. 🧰 Dọn kho** — nút trên thanh trên cùng, cạnh 🗑. **Thay hẳn Bảo trì kho**: Cài đặt và Thư viện chỉ còn lối dẫn sang.
+- Trang nằm ở **cột trái**; bấm tên file bất kỳ là **xem thử ở khung phải**; điện thoại mở khung xem lớn.
+- 4 phần:
+  - **🗑 Thùng rác**;
+  - **🗂 Lập chỉ mục** (thay tên "Quét tủ");
+  - **🧹 Quét rác**;
+  - **⋯ Khác**: Picker kho cũ, đẩy / lấy chỉ mục, nhờ AI.
+- **Lập chỉ mục** xác định tab của file theo thứ tự: dấu app ghi trên file → **thư mục chứa file** → tên / nội dung.
+  - Thư mục được nhận: Văn bản · Dữ liệu tháng/năm/Tn (lấy **kỳ** từ thư mục) · Biểu mẫu/nhóm · Ghi chú · CCCD/xã/điểm/ấp/tổ (lấy **địa bàn**) · Hồ sơ scan/Chưa khai · Chữ ký - CCCD/tháng · `_ThungRac` → thùng rác.
+  - Chỗ khác → khay chờ (ghi "chưa rõ phần").
+  - Kết quả chia theo tab, có "nằm khác thư mục của tab" và "mất file".
+  - **Sửa lỗi:** trước đây file scan / Chữ ký·CCCD mất dấu bị nhận nhầm thành Văn bản.
+- **Quét rác** gộp "Gom file trùng nội dung" và "Bảng lập chỉ mục" (đọc lại mục thiếu, dọn mục trùng). Các nhóm:
+  - B. Không có dữ liệu;
+  - C. Thiếu thông tin: Sửa / Đọc lại / Đọc lại tất cả;
+  - D. Trùng: chọn bản giữ;
+  - E. Thư mục trống.
+  - File chưa có chỉ mục không còn tính là rác — app nhắc chạy Lập chỉ mục.
+  - Dọn là vào thùng rác, có ↩ Hoàn tác.
+
+**3. Đường dẫn thật + xem thử ở mọi danh sách** (Thùng rác, Chờ khai, Lập chỉ mục, Quét rác)
+- Dưới tên file luôn có đường dẫn:
+  - ☁ `Tủ hồ sơ / …`;
+  - 💻 chỉ trong máy;
+  - 📥 khay chờ (+ file gốc);
+  - ☁ `_ThungRac · trước ở …`.
+- **Sửa "Chờ khai có file không xem được":**
+  - dòng Chờ khai bấm được để xem;
+  - **Excel xem dạng bảng**, **Word (.docx) xem phần chữ**;
+  - file từ kho cũ (chỉ có trên Drive) tự tải về;
+  - nhận PDF theo nội dung, không chỉ theo đuôi tên.
+  - Word cũ `.doc` vẫn cần 🖥 Mở máy.
+
+**4. Chữ ký · CCCD dùng đúng màn chỉnh tay của Scan** (màn chỉnh bên Scan giữ nguyên)
+- Kéo 4 góc tự do có kính lúp, kéo cạnh, Tự tìm lại, Lấy cả ảnh, 📐 Làm thẳng, ⟲ Trái / ⟳ Phải / ⇅ Lật.
+- CCCD nắn về đúng tỉ lệ thẻ; chữ ký nắn theo khung anh kéo.
+- Giữ nguyên: tên nhanh, 3 mức nén (< 200 KB), chữ ký nền trắng nét đậm, Lưu nhanh / Copy / Gửi.
+
+**5. Lùi / Tiếp và phím Esc thống nhất**
+- Mọi bước Scan và Chữ ký·CCCD có thanh `‹ Lùi · ① ② ③ · Tiếp ›`; bấm số bước đã qua để quay lại.
+- **Esc = lùi 1 cấp** ở mọi nơi: màn kéo góc → hộp đang mở (bước ② về ①…) → khung xem lớn → chế độ chọn xóa → Chờ khai / Dọn kho.
+- **Enter = Tiếp** ở các bước Scan.
+
+**6. ❓ Hướng dẫn trực quan**
+- Nút ❓ trên thanh trên cùng; nút ❓ ở đầu mỗi tab, Dọn kho, 📁 Chữ ký·CCCD.
+- 11 phần: Tổng quan (sơ đồ luồng dữ liệu), Văn bản, Tháng, Biểu mẫu, Thư viện, Scan, Chữ ký·CCCD, Xóa & Thùng rác, Dọn kho, Phím & mẹo, Có gì mới.
+- **✨ Có gì mới** hiện 1 lần khi mở bản mới. Bấm dòng nào thì app dẫn tới đúng chỗ; kèm 6 bước thử nhanh.
+
+**7. 🔄 Reset dữ liệu thử** (Cài đặt › Dữ liệu; thay "Dọn hàng loạt")
+- Chọn nhóm: thêm Chữ ký·CCCD.
+- Chọn phạm vi: tất cả / trước ngày.
+- Chọn mức: vào thùng rác / xóa hẳn luôn.
+- Báo trước sẽ xóa bao nhiêu mục, bao nhiêu file trên Drive.
+
+**Bỏ (đã gộp chỗ khác):**
+- Các nút riêng "Gom file trùng", "Bảng lập chỉ mục";
+- màn cắt khung chữ nhật cũ của Chữ ký·CCCD;
+- hộp chọn 2 mức khi xóa.
+
+**Kiểm thử:**
+- `kiem.py` sạch; `hoiquy.js` + `hoiquy2.js` đạt 48/48.
+- `t25`–`t50` đạt. `t30`, `t33`, `t34`, `t36`, `t47` đã sửa theo hành vi mới đã chốt.
+- Phép thử mới:
+  - `t51`: Chữ ký·CCCD với màn chỉnh Scan, Esc / Enter;
+  - `t52`: thùng rác chia ngăn, dời file Drive vào / ra `_ThungRac`, đồng bộ 2 máy, tự xóa 30 ngày, Lập chỉ mục 9 loại thư mục, Quét rác trùng, xem Excel / Word, hướng dẫn, Reset.
+
+---
+
 ## 3.49b — 28/09/2026 16:00 — Sửa lỗi 3.49 theo phản hồi của anh
 
 - **Nút Xóa nhiều file không có bước tiếp theo** (ví dụ tab Tháng: chọn được file nhưng nút vẫn "0 file", bấm không được).
