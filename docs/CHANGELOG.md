@@ -4,6 +4,55 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.52 — 29/09/2026 18:00 — Tab Hôm nay: 📷 chụp nhanh, 📎 gắn file vào việc, ✎ sửa việc SCHEDULE
+
+**1. 📷 Chụp nhanh một chạm**
+- Ô gõ đáy sổ có nút 📷. Điện thoại có thêm **nút tròn nổi** ở góc phải.
+- Bấm là mở camera sau. Chụp xong app tự tạo dòng "📷 Ảnh 14:32" của ngày đang chọn, kèm ảnh.
+- Muốn ghi thêm thì bấm vào chữ mà gõ.
+- Ở chế độ Note màu, ảnh thành một mẩu mới.
+
+**2. 📎 Gắn file vào từng dòng To-do hoặc mẩu Note**
+- Ba cách gắn:
+  - 📷 chụp thêm;
+  - 📁 chọn file trong máy;
+  - 🔗 file có sẵn trong tủ (chỉ liên kết, file gốc giữ chỗ cũ).
+- Ảnh hiện thành ô nhỏ dưới dòng. Bấm vào để xem lớn, vuốt hoặc bấm ‹ › để qua lại, có ⬇ Tải về. File khác bấm vào để xem thử.
+- ✕ trên file:
+  - file liên kết chỉ gỡ, có ↩ Hoàn tác;
+  - file riêng vào thùng rác, ngăn **📅 Hôm nay**.
+
+**3. Dung lượng**
+- Ảnh tự thu nhỏ: cạnh dài 1600 px, JPEG. Đo giả lập: ảnh 1,7 MB còn khoảng 300 KB.
+- Danh sách chỉ nạp ảnh nhỏ (240 px).
+- File không phải ảnh mà trên 15 MB thì app hỏi trước khi gắn.
+- File lưu trong máy và lên Drive ở `Tủ hồ sơ / Nhật ký / YYYY-MM`.
+- `lich.json` chỉ ghi tên và mã file, nên vẫn nhẹ.
+- Máy thứ hai tải ảnh từ Drive một lần rồi giữ ảnh nhỏ trong máy.
+
+**4. Xóa**
+- Xóa dòng hoặc mẩu có ảnh: cả dòng lẫn ảnh vào thùng rác, ngăn 📅 Hôm nay.
+- Khôi phục thì về đúng ngày. ↶ Hoàn tác (Ctrl+Z) vẫn dùng được.
+- Xóa hẳn thì ảnh bị xóa trong máy và trên Drive.
+- Lập chỉ mục và Quét rác coi file `Nhật ký` là file của app, không báo nhầm là rác.
+
+**5. ✎ Sửa việc SCHEDULE**
+- Bấm một việc rồi chọn ✎ Sửa, hoặc nhấp đúp vào việc.
+- Sửa được tên, ngày, lặp lại, lưu ý. Có ↶ Hoàn tác.
+
+**6. Điện thoại:** hàng nút của dòng To-do (màu, 📎, 🕘, ↑↓, ✕) xuống dòng riêng. Trước đây chữ của việc bị ép chỉ còn 1–2 chữ.
+
+**7. Sửa lỗi có từ 3.50**
+- Biến hoàn tác của thông báo "↩ Hoàn tác" trùng tên với ngăn hoàn tác của sổ Hôm nay.
+- Hậu quả: sau khi xóa một file, tick xong hoặc xóa dòng ở Hôm nay có thể lỗi tới khi tải lại trang.
+- Đã tách riêng: `BAO_HT` và `HOAN_TAC`.
+
+**8. Hướng dẫn:** có thêm mục ❓ **📅 Hôm nay**. Đang ở tab Hôm nay bấm ❓ là mở đúng mục này. "Có gì mới" đã cập nhật.
+
+Cài đặt › Bảo trì kho giữ nguyên (anh chốt).
+
+---
+
 ## 3.51 — 29/09/2026 12:00 — Mở PDF nhanh · 📁 Bộ hồ sơ trong Thư viện · sửa Chữ ký·CCCD không lưu trong máy
 
 **1. Mở PDF nhanh hơn** (đo trên giả lập)

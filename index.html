@@ -620,6 +620,46 @@
   .o-go input{flex:1;min-width:0;border:0;background:transparent;outline:none;font:inherit;font-size:calc(13.5px*var(--co));color:#40331A}
   .o-go .og-them{flex:0 0 auto;background:var(--xanh);color:#fff;border:0;border-radius:9px;padding:5px 13px;
     font-size:calc(12px*var(--co));font-weight:600;cursor:pointer;font-family:'Segoe UI',system-ui,sans-serif}
+  /* 3.52 — ảnh / file đính kèm ở tab Hôm nay */
+  .o-go .og-cam{flex:0 0 auto;border:0;background:transparent;cursor:pointer;font-size:18px;line-height:1;padding:2px 4px;border-radius:8px}
+  .o-go .og-cam:hover{background:rgba(0,0,0,.07)}
+  .nk-dinh{display:flex;flex-wrap:wrap;gap:6px;margin:3px 0 4px 27px}
+  .nt-o .nk-dinh{margin:4px 0 0}
+  .nk-anh{position:relative;width:64px;height:64px;border-radius:8px;overflow:hidden;cursor:zoom-in;
+    background:#EFE6CC;border:1px solid rgba(0,0,0,.14);flex:0 0 auto}
+  .nk-anh img{width:100%;height:100%;object-fit:cover;display:block}
+  .nk-anh.mat::after{content:'☁';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#9A8458;font-size:20px}
+  .nk-tep{display:inline-flex;align-items:center;gap:5px;max-width:100%;padding:4px 8px;border-radius:8px;cursor:pointer;
+    background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.14);font-size:calc(12px*var(--co));color:#3A2E14}
+  .nk-tep span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px}
+  .nk-tep small{color:#8A7A52}
+  .nk-go{border:0;background:rgba(0,0,0,.45);color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;line-height:18px;
+    padding:0;cursor:pointer;flex:0 0 auto}
+  .nk-anh .nk-go{position:absolute;top:3px;right:3px;opacity:0;transition:opacity .12s}
+  .nk-tep .nk-go{background:transparent;color:#9A8458;opacity:0}
+  .nk-anh:hover .nk-go,.nk-tep:hover .nk-go{opacity:1}
+  @media (max-width:899px){ .nk-anh .nk-go,.nk-tep .nk-go{opacity:.9} }
+  .nk-cam-nho{font-size:14px;width:auto;padding:0 8px}
+  .nk-chon3{display:grid;gap:8px;margin:10px 0}
+  .nk-chon3 .nho{min-height:42px;font-size:14px}
+  .nk-tich{display:flex;align-items:center;gap:8px;margin:6px 0 10px;font-size:13px}
+  .nk-lb{position:relative;display:flex;align-items:center;justify-content:center;background:#111;border-radius:10px;
+    min-height:50vh;max-height:72vh;overflow:hidden;touch-action:pan-y}
+  .nk-lb img{max-width:100%;max-height:72vh;object-fit:contain;display:block}
+  .nk-lb-nut{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(255,255,255,.18);color:#fff;
+    font-size:28px;width:40px;height:56px;border-radius:8px;cursor:pointer}
+  .nk-lb-nut.trai{left:6px}.nk-lb-nut.phai{right:6px}
+  .nk-fab{display:none}
+  /* điện thoại: hàng nút của dòng xuống dòng riêng — chữ việc không bị ép còn 1–2 chữ */
+  @media (max-width:899px){
+    .dong-o{flex-wrap:wrap;row-gap:2px}
+    .dong-o .dong-thaotac{order:9;flex:1 1 100%;justify-content:flex-end;flex-wrap:wrap}
+  }
+  @media (max-width:899px){
+    .nk-fab{display:flex;align-items:center;justify-content:center;position:fixed;right:16px;
+      bottom:calc(92px + env(safe-area-inset-bottom));z-index:40;width:56px;height:56px;border-radius:50%;border:0;
+      background:var(--xanh);color:#fff;font-size:24px;box-shadow:0 4px 14px rgba(0,0,0,.28);cursor:pointer}
+  }
   .ds-phong{max-height:60vh;overflow:auto;display:grid;gap:9px}
   .mot-phong{border:1.3px solid var(--vien);border-radius:11px;padding:9px 12px;cursor:pointer;background:var(--the);text-align:left}
   .mot-phong:hover{border-color:var(--xanh)}
@@ -1978,7 +2018,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.51', APP_LUC = '29/09/2026 12:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.52', APP_LUC = '29/09/2026 18:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -2284,13 +2324,13 @@ function bao(t, giay){
 }
 function baoLoi(t){ bao(t, 6); }
 /* 3.50: báo kèm nút Hoàn tác (xóa vào thùng rác lỡ tay) */
-var HOAN_TAC = null;
+var BAO_HT = null;
 function baoHoanTac(t, ham, giay){
-  var e = document.getElementById('bao'); HOAN_TAC = ham;
-  e.innerHTML = coChuHTML(t)+' <button class="bao-ht" onclick="event.stopPropagation();var h=HOAN_TAC;HOAN_TAC=null;document.getElementById(\'bao\').classList.remove(\'hien\');if(h)h()">↩ Hoàn tác</button>';
+  var e = document.getElementById('bao'); BAO_HT = ham;
+  e.innerHTML = coChuHTML(t)+' <button class="bao-ht" onclick="event.stopPropagation();var h=BAO_HT;BAO_HT=null;document.getElementById(\'bao\').classList.remove(\'hien\');if(h)h()">↩ Hoàn tác</button>';
   e.classList.add('hien');
   clearTimeout(tBao);
-  tBao = setTimeout(function(){ e.classList.remove('hien'); HOAN_TAC = null; }, (giay||7)*1000);
+  tBao = setTimeout(function(){ e.classList.remove('hien'); BAO_HT = null; }, (giay||7)*1000);
 }
 
 function vanTay(file){
@@ -3251,8 +3291,10 @@ function dongXoa(ids){
   L.note = L.note.filter(function(x){ return ds.indexOf(x.id)<0; });
   var luc = new Date().toISOString();
   giu.forEach(function(m){ L.noteXoa.push({id:m.id, luc:luc}); });
+  var vaoRac = nkVaoRac(giu);   /* 3.52: dòng có ảnh / file riêng → thùng rác ngăn Hôm nay */
   ghiHoanTac('xóa '+giu.length+' dòng', function(){
     var K = ntData();
+    if(vaoRac.length){ D.rac = (D.rac||[]).filter(function(x){ return vaoRac.indexOf(x.id)<0; }); capNhatDemRac(); }
     giu.forEach(function(m){ if(!K.note.some(function(x){ return x.id===m.id; })) K.note.push(m); });
     K.noteXoa = K.noteXoa.filter(function(x){ return ds.indexOf(x.id)<0; });
   });
@@ -3430,10 +3472,11 @@ function ntDoiGhim(id){
 }
 function ntXoa(id){
   var m = ntTim(id); if(!m) return;
-  hoi('Xóa mẩu ghi chú này?', (m.nd||'').slice(0,80)||'(mẩu trống)', 'Xóa', function(){
+  hoi('Xóa mẩu ghi chú này?', ((m.nd||'').slice(0,80)||'(mẩu trống)')+((m.dinh||[]).some(function(f){ return f.k==='rieng'; }) ? ' — ảnh / file của mẩu vào thùng rác, khôi phục được' : ''), 'Xóa', function(){
     var L = ntData();
     L.note = L.note.filter(function(x){ return x.id!==id; });
     L.noteXoa.push({id:id, luc:new Date().toISOString()});
+    nkVaoRac([m]);
     luu(); henDongBoLich(); veNhatKy(); veLich();
   });
 }
@@ -3457,6 +3500,330 @@ function ntKeoTha(id){
     a.suaLuc = b.suaLuc = new Date().toISOString(); luu(); henDongBoLich(); veNhatKy(); }
   NT_KEO = null;
 }
+/* ==========================================================
+   ĐÍNH KÈM Ở TAB HÔM NAY (3.52) — 📷 chụp nhanh một chạm, 📎 gắn file vào dòng To-do / mẩu Note
+   m.dinh = [{k:'rieng'|'muc'|'scan'|'ka', id, ten, co, loai, anh, driveId, driveCha, may, themLuc}]
+   Ảnh chụp thu về cạnh dài 1600 px (JPEG ~300 KB) + ảnh nhỏ 240 px (id+'_nho') để danh sách nhẹ.
+   File riêng: IndexedDB 'nf…', lên Drive: Tủ hồ sơ / Nhật ký / YYYY-MM. lich.json chỉ giữ tên + mã file.
+   Xóa dòng có file riêng → thùng rác ngăn 📅 Hôm nay (khoCu:'homNay'), khôi phục về đúng ngày.
+   ========================================================== */
+var NK_CANH = 1600, NK_NHO = 240, NK_TRAN = 15*1024*1024, NK_URL = {}, NK_DANG = {};
+/* thu nhỏ ảnh: cạnh dài tối đa `canh`, nền trắng, JPEG chất lượng cl */
+function nkAnhRa(file, canh, cl){
+  return new Promise(function(ok, loi){
+    var u = URL.createObjectURL(file), im = new Image();
+    im.onload = function(){
+      var w = im.naturalWidth, h = im.naturalHeight, r = Math.min(1, canh/Math.max(w, h));
+      var c = document.createElement('canvas'); c.width = Math.max(1, Math.round(w*r)); c.height = Math.max(1, Math.round(h*r));
+      var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(im, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(u);
+      c.toBlob(function(b){ if(b) ok(b); else loi(new Error('Không nén được ảnh')); }, 'image/jpeg', cl);
+    };
+    im.onerror = function(){ URL.revokeObjectURL(u); loi(new Error('Không đọc được ảnh')); };
+    im.src = u;
+  });
+}
+function nkGioChu(d){ return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2); }
+function tenAnhNK(){
+  var d = new Date();
+  return lcDMY(lcISO(d)).replace(/\//g, '-')+' '+('0'+d.getHours()).slice(-2)+'h'+('0'+d.getMinutes()).slice(-2)+'m'+('0'+d.getSeconds()).slice(-2)+'.jpg';
+}
+/* lưu một file vào mục m (ảnh thì nén + làm ảnh nhỏ) */
+function nkLuuFile(m, file, chup){
+  var id = 'nf'+idMoi(), anh = /^image\//.test(file.type||'');
+  var buoc = anh ? nkAnhRa(file, NK_CANH, 0.72).then(function(b){
+      return (b.size >= file.size && /jpe?g/i.test(file.type)) ? file : b;   /* ảnh vốn đã nhẹ thì giữ bản gốc */
+    }).catch(function(){ return file; }) : Promise.resolve(file);
+  return buoc.then(function(b){
+    var viec = [luuFile(id, b)];
+    if(anh) viec.push(nkAnhRa(b, NK_NHO, 0.6).then(function(n){ return luuFile(id+'_nho', n); }).catch(function(){}));
+    return Promise.all(viec).then(function(){
+      var ten = chup ? tenAnhNK() : (file.name || tenAnhNK());
+      if(anh && b!==file) ten = /\.[a-z0-9]{2,5}$/i.test(ten) ? ten.replace(/\.[a-z0-9]{2,5}$/i, '.jpg') : ten+'.jpg';
+      m.dinh = m.dinh || [];
+      m.dinh.push({k:'rieng', id:id, ten:ten, co:b.size, loai:b.type||file.type||'', anh:anh, may:maMayCua(), themLuc:new Date().toISOString()});
+      return b.size;
+    });
+  });
+}
+/* mở camera (chup) hoặc hộp chọn file — phải gọi ngay trong lần bấm */
+function nkChonFile(chup, cb){
+  var i = document.createElement('input'); i.type = 'file';
+  if(chup){ i.accept = 'image/*'; i.capture = 'environment'; } else i.multiple = true;
+  i.onchange = function(){ var ds = Array.prototype.slice.call(i.files||[]); if(ds.length) cb(ds); };
+  i.click();
+}
+function nkThemVao(id, ds, chup){
+  var m = ntTim(id); if(!m) return Promise.resolve();
+  var nang = ds.filter(function(f){ return f.size > NK_TRAN && !/^image\//.test(f.type||''); });
+  var lam = function(){
+    bao(chup ? 'Đang lưu ảnh…' : 'Đang lưu '+ds.length+' file…', 2);
+    return ds.reduce(function(p, f){ return p.then(function(){ return nkLuuFile(m, f, chup); }); }, Promise.resolve()).then(function(){
+      m.suaLuc = new Date().toISOString(); luu(); henDongBoLich(); veLich();
+      var co = (m.dinh||[]).slice(-ds.length).reduce(function(a, f){ return a+(+f.co||0); }, 0);
+      bao((chup ? 'Đã lưu ảnh' : 'Đã gắn '+ds.length+' file')+' ('+kichCo(co)+')'+(coTheNoiDrive() ? ' · đang đưa lên Drive…' : '')+'.', 3);
+      dayFileNKCho();
+    }).catch(function(e){ baoLoi('Không lưu được: '+(e && e.message || e)); });
+  };
+  if(nang.length){
+    hoi('File nặng', nang.map(function(f){ return f.name+' ('+kichCo(f.size)+')'; }).join(', ')+
+      ' — trên 15 MB, lưu vào máy và đưa lên Drive sẽ lâu. Vẫn gắn?', 'Vẫn gắn', lam);
+    return Promise.resolve();
+  }
+  return lam();
+}
+/* 📷 một chạm: chụp xong tự tạo dòng "📷 Ảnh 14:32" (chế độ Note màu: một mẩu) của ngày đang chọn */
+function nkChupNhanh(){
+  nkChonFile(true, function(ds){ nkTaoDongAnh(ds, true); });
+}
+function nkTaoDongAnh(ds, chup){
+  lcDau();
+  var iso = LICH.chon || lcISO(nay()), nd = (chup ? '📷 Ảnh ' : '📎 File ')+nkGioChu(new Date()), m;
+  if(ntCheDo()==='note'){
+    var t = new Date().toISOString();
+    m = {id:idMoi(), ngay:iso, nd:nd, mau:'vang', ghim:false, taoLuc:t, suaLuc:t};
+    ntData().note.push(m);
+  } else m = dongThem(iso, nd);
+  return nkThemVao(m.id, ds, chup);
+}
+/* 📎 trên một dòng / mẩu: chụp thêm · chọn file trong máy · file có sẵn trong tủ */
+function nkMenuDinh(id){
+  var m = ntTim(id); if(!m) return;
+  moHop('<div class="hop-tit">📎 Gắn vào dòng này</div>'+
+    '<div class="hop-phu">'+coChuHTML((m.nd||'(dòng trống)').slice(0,90))+'</div>'+
+    '<div class="nk-chon3">'+
+      '<button class="nho chinh" onclick="dongHop();nkChonFile(true,function(d){nkThemVao(\''+id+'\',d,true)})">📷 Chụp ảnh</button>'+
+      '<button class="nho" onclick="dongHop();nkChonFile(false,function(d){nkThemVao(\''+id+'\',d,false)})">📁 Chọn file trong máy</button>'+
+      '<button class="nho" onclick="moGanFileNK(\''+id+'\')">🔗 File có sẵn trong tủ</button></div>'+
+    '<div class="hop-phu">Ảnh tự thu nhỏ (cạnh dài 1600 px, khoảng 200–400 KB) — vẫn đọc rõ giấy tờ. PDF, Word giữ nguyên. '+
+      'Có nối Drive thì file lên <i>'+coChuHTML(D.cauHinh.thumuc||'Tủ hồ sơ')+' / Nhật ký / tháng</i>.</div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button></div>');
+}
+function moGanFileNK(id){
+  GAN = {bo:'', nk:id, tim:''};
+  moHop('<div class="hop-tit">🔗 Gắn file có sẵn vào dòng</div>'+
+    '<div class="hop-phu">Chỉ liên kết — file vẫn nằm ở tab của nó. Tìm theo tên khách, số hiệu, tên file.</div>'+
+    '<div class="o"><input id="gan-tim" placeholder="Gõ để tìm…" oninput="GAN.tim=this.value;veGanDS()"></div>'+
+    '<div id="gan-ds" class="gan-ds"></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="xongGanFile()">Gắn các file đã tích</button></div>', true);
+  veGanDS();
+  setTimeout(function(){ var o = document.getElementById('gan-tim'); if(o) o.focus(); }, 30);
+}
+function tenFileNK(f){
+  if(f.k==='rieng') return f.ten||'';
+  var m = fileBoMuc(f);
+  return m ? (m.tenMoi||m.ten||m.tenCu||f.ten||'') : (f.ten||'(file)')+' — không còn';
+}
+function nkDinhHTML(m){
+  var ds = m.dinh||[]; if(!ds.length) return '';
+  return '<div class="nk-dinh">'+ds.map(function(f, i){
+    var go = '<button class="nk-go" title="'+(f.k==='rieng'?'Bỏ file này (vào thùng rác)':'Gỡ liên kết — file gốc giữ nguyên')+'" '+
+      'onclick="event.stopPropagation();nkGo(\''+m.id+'\','+i+')">✕</button>';
+    if(f.k==='rieng' && f.anh) return '<span class="nk-anh" onclick="nkXem(\''+m.id+'\','+i+')" title="'+coChuHTML(f.ten+(f.co?' · '+kichCo(f.co):''))+'">'+
+      '<img data-nk="'+f.id+'" alt="">'+go+'</span>';
+    var ic = f.k==='scan' ? '🪪' : f.k==='ka' ? '✍' : f.k==='rieng' ? '📎' : '📄';
+    return '<span class="nk-tep" onclick="nkXem(\''+m.id+'\','+i+')" title="Bấm để xem">'+ic+' <span>'+coChuHTML(tenFileNK(f))+'</span>'+
+      (f.co ? '<small>'+kichCo(f.co)+'</small>' : '')+go+'</span>';
+  }).join('')+'</div>';
+}
+function nkTimFile(fid){
+  var ra = null;
+  ntData().note.some(function(m){ return (m.dinh||[]).some(function(f){ if(f.id===fid){ ra = f; return true; } }); });
+  return ra;
+}
+/* ảnh nhỏ: có sẵn trong máy thì dùng; máy kia chưa có thì tải bản lớn từ Drive một lần rồi làm ảnh nhỏ */
+function nkLayAnhNho(fid){
+  if(NK_DANG[fid]) return NK_DANG[fid];
+  NK_DANG[fid] = docFile(fid+'_nho').then(function(b){
+    if(b) return b;
+    var f = nkTimFile(fid); if(!f) return null;
+    return layNoiDung({id:f.id, driveId:f.driveId, co:f.co}).then(function(to){
+      if(!to) return null;
+      return nkAnhRa(to, NK_NHO, 0.6).then(function(n){ luuFile(fid+'_nho', n); return n; }).catch(function(){ return to; });
+    });
+  }).then(function(b){
+    delete NK_DANG[fid];
+    if(b && !NK_URL[fid]) NK_URL[fid] = URL.createObjectURL(b);
+    return NK_URL[fid] || null;
+  }, function(){ delete NK_DANG[fid]; return null; });
+  return NK_DANG[fid];
+}
+function nkNapAnhNho(){
+  Array.prototype.forEach.call(document.querySelectorAll('img[data-nk]'), function(im){
+    var fid = im.getAttribute('data-nk');
+    if(NK_URL[fid]){ im.src = NK_URL[fid]; return; }
+    nkLayAnhNho(fid).then(function(u){
+      Array.prototype.forEach.call(document.querySelectorAll('img[data-nk="'+fid+'"]'), function(e){
+        if(u) e.src = u; else if(e.parentNode) e.parentNode.classList.add('mat');
+      });
+    });
+  });
+}
+/* xem: ảnh → khung xem lớn, vuốt / ‹ › qua lại; file khác → khung xem như các tab */
+var NK_XEM = {nid:'', ds:[], i:0, x0:null};
+function nkXem(nid, i){
+  var m = ntTim(nid), f = m && (m.dinh||[])[i]; if(!f) return;
+  if(f.k!=='rieng') return xemThu(f.k==='scan' ? 'scan' : f.k==='ka' ? 'ka' : 'muc', f.id);
+  if(!f.anh){
+    var t = {id:f.id, tenCu:f.ten, tenMoi:f.ten, duoi:duoiFile(f.ten), driveId:f.driveId, co:f.co, khoCu:'homNay'};
+    moXem(null, t);
+    document.getElementById('x-phu').innerHTML = coChuHTML(nkDuong(m, f)+(f.co?' · '+kichCo(f.co):''));
+    return;
+  }
+  var ds = []; (m.dinh||[]).forEach(function(x){ if(x.k==='rieng' && x.anh) ds.push(x); });
+  NK_XEM = {nid:nid, ds:ds, i:Math.max(0, ds.indexOf(f)), x0:null};
+  moHop('<div class="nk-lb" ontouchstart="NK_XEM.x0=event.touches[0].clientX" ontouchend="nkVuot(event)">'+
+      '<button class="nk-lb-nut trai" onclick="nkLat(-1)">‹</button><img id="nk-lb-anh" alt="">'+
+      '<button class="nk-lb-nut phai" onclick="nkLat(1)">›</button></div>'+
+    '<div class="hop-phu" id="nk-lb-ten"></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="nkTaiVe()">⬇ Tải về</button><button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button></div>', true);
+  nkVeLB();
+}
+function nkDuong(m, f){
+  return f.driveId ? '☁ '+(D.cauHinh.thumuc||'Tủ hồ sơ')+' / Nhật ký / '+(m.ngay||'').slice(0,7) : '💻 Chỉ trong máy này (chưa lên Drive)';
+}
+function nkVeLB(){
+  var f = NK_XEM.ds[NK_XEM.i], im = document.getElementById('nk-lb-anh'); if(!f || !im) return;
+  var m = ntTim(NK_XEM.nid) || {};
+  document.getElementById('nk-lb-ten').innerHTML = (NK_XEM.ds.length>1 ? '<b>'+(NK_XEM.i+1)+'/'+NK_XEM.ds.length+'</b> · ' : '')+
+    coChuHTML(f.ten+(f.co?' · '+kichCo(f.co):'')+' · '+nkDuong(m, f));
+  im.removeAttribute('src'); if(NK_URL[f.id]) im.src = NK_URL[f.id];   /* hiện ảnh nhỏ trước, bản lớn thay vào sau */
+  layNoiDung({id:f.id, driveId:f.driveId, co:f.co}).then(function(b){
+    if(!b || NK_XEM.ds[NK_XEM.i]!==f) return;
+    var u = URL.createObjectURL(b), e = document.getElementById('nk-lb-anh');
+    if(e){ e.onload = function(){ setTimeout(function(){ URL.revokeObjectURL(u); }, 1000); }; e.src = u; }
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.nk-lb-nut'), function(b){ b.style.visibility = NK_XEM.ds.length>1 ? '' : 'hidden'; });
+}
+function nkLat(n){
+  if(NK_XEM.ds.length<2) return;
+  NK_XEM.i = (NK_XEM.i + n + NK_XEM.ds.length) % NK_XEM.ds.length; nkVeLB();
+}
+function nkVuot(ev){
+  if(NK_XEM.x0===null) return;
+  var dx = ev.changedTouches[0].clientX - NK_XEM.x0; NK_XEM.x0 = null;
+  if(Math.abs(dx) > 40) nkLat(dx < 0 ? 1 : -1);
+}
+function nkTaiVe(){
+  var f = NK_XEM.ds[NK_XEM.i]; if(!f) return;
+  layNoiDung({id:f.id, driveId:f.driveId, co:f.co}).then(function(b){
+    if(!b) return baoLoi('Chưa lấy được ảnh.');
+    var a = document.createElement('a'), u = URL.createObjectURL(b);
+    a.href = u; a.download = f.ten; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(u); }, 3000);
+  });
+}
+/* ✕ trên một file: liên kết → chỉ gỡ (Hoàn tác); file riêng → thùng rác ngăn 📅 Hôm nay */
+function nkGo(nid, i){
+  var m = ntTim(nid), f = m && (m.dinh||[])[i]; if(!f) return;
+  var now = new Date().toISOString();
+  m.dinh.splice(i, 1); m.suaLuc = now;
+  var tra = function(){ var x = ntTim(nid); if(x){ x.dinh = x.dinh||[]; x.dinh.splice(Math.min(i, x.dinh.length), 0, f); x.suaLuc = new Date().toISOString(); } };
+  if(f.k!=='rieng'){
+    luu(); henDongBoLich(); veLich();
+    return baoHoanTac('Đã gỡ liên kết — file gốc vẫn ở chỗ cũ.', function(){ tra(); luu(); henDongBoLich(); veLich(); });
+  }
+  D.rac = D.rac||[];
+  D.rac.push(nkBanRac({id:f.id, ngay:m.ngay, nd:m.nd, nkNote:nid, nkFile:f, tenMoi:f.ten, co:f.co}, now));
+  luu(); henDongBoLich(); veLich(); capNhatDemRac();
+  baoHoanTac('Đã chuyển file vào thùng rác.', function(){
+    D.rac = D.rac.filter(function(x){ return x.id!==f.id; }); tra(); luu(); henDongBoLich(); veLich(); capNhatDemRac();
+  });
+}
+function nkBanRac(r, now){
+  r.khoCu = 'homNay'; r.nhom = 'homNay'; r.tenCu = r.tenCu || r.tenMoi; r.duoi = duoiFile(r.tenMoi||'');
+  r.xoaLuc = now; r.suaLuc = now; r.lyDoXoa = 'Xóa ở tab Hôm nay';
+  return r;
+}
+/* dòng / mẩu có file riêng bị xóa → một mục trong thùng rác giữ nguyên dòng + file để khôi phục */
+function nkVaoRac(ds){
+  var now = new Date().toISOString(), ids = [];
+  ds.forEach(function(m){
+    var co = (m.dinh||[]).filter(function(f){ return f.k==='rieng'; });
+    if(!co.length) return;
+    D.rac = D.rac||[];
+    D.rac.push(nkBanRac({id:m.id, ngay:m.ngay, nd:m.nd, note:JSON.parse(JSON.stringify(m)),
+      tenMoi:(m.nd||'Dòng ghi chép').slice(0,60)+' ('+co.length+' file)', co:co.reduce(function(a, f){ return a+(+f.co||0); }, 0)}, now));
+    ids.push(m.id);
+  });
+  if(ids.length) capNhatDemRac();
+  return ids;
+}
+function nkKhoiPhuc(r){
+  var L = ntData(), now = new Date().toISOString();
+  if(r.note){
+    var m = r.note; m.suaLuc = now;
+    if(!L.note.some(function(x){ return x.id===m.id; })) L.note.push(m);
+    L.noteXoa = L.noteXoa.filter(function(x){ return x.id!==m.id; });
+  } else if(r.nkFile){
+    var dich = ntTim(r.nkNote);
+    if(!dich){ dich = {id:idMoi(), ngay:r.ngay||lcISO(nay()), nd:'📎 '+(r.nkFile.ten||'File'), mau:'trang', kieu:'dong', xong:'', taoLuc:now}; L.note.push(dich); }
+    dich.dinh = dich.dinh||[]; dich.dinh.push(r.nkFile); dich.suaLuc = now;
+  }
+  henDongBoLich();
+}
+function nkFileCuaRac(r){ return r.note ? (r.note.dinh||[]) : (r.nkFile ? [r.nkFile] : []); }
+/* driveId các file riêng ở Hôm nay (kể cả đang ở thùng rác) — Lập chỉ mục / Quét rác coi là file của app */
+function nkDriveIds(){
+  var ra = [];
+  ntData().note.forEach(function(m){ (m.dinh||[]).forEach(function(f){ if(f.driveId) ra.push(f.driveId); }); });
+  (D.rac||[]).forEach(function(r){ if(r.khoCu==='homNay') nkFileCuaRac(r).forEach(function(f){ if(f.driveId) ra.push(f.driveId); }); });
+  return ra;
+}
+/* đưa file riêng lên Drive: Tủ hồ sơ / Nhật ký / YYYY-MM (chỉ máy đã tạo file mới đẩy) */
+function dayFileNKCho(){
+  if(!coTheNoiDrive() || !(DR.sanSang && DR.online) || dayFileNKCho.dang) return Promise.resolve();
+  var viec = [];
+  ntData().note.forEach(function(m){ (m.dinh||[]).forEach(function(f){
+    if(f.k==='rieng' && !f.driveId && !(f.may && f.may!==maMayCua())) viec.push([m, f]); }); });
+  if(!viec.length) return Promise.resolve();
+  dayFileNKCho.dang = true;
+  return viec.reduce(function(p, x){
+    return p.then(function(){
+      var m = x[0], f = x[1], duong = D.cauHinh.thumuc+' / Nhật ký / '+(m.ngay||lcISO(nay())).slice(0,7);
+      return Promise.all([docFile(f.id), baoDamDuong(duong)]).then(function(r){
+        if(!r[0]) return;
+        return dayBlobLenDrive(f.ten, f.loai, r[0], r[1]).then(function(r2){
+          if(!r2 || !r2.id) return;
+          f.driveId = r2.id; f.driveCha = r[1]; m.suaLuc = new Date().toISOString();
+        });
+      }).catch(function(e){ console.warn('Chưa đưa file Hôm nay lên Drive', f.ten, e); });
+    });
+  }, Promise.resolve()).then(function(){ dayFileNKCho.dang = false; luu(); henDongBoLich(); if(nganHienTai===0) veLich(); });
+}
+/* tải một blob lên thư mục Drive (multipart) — dùng chung cho file riêng của Bộ hồ sơ và Hôm nay */
+function dayBlobLenDrive(ten, loai, bl, idTM){
+  var bien = '----tuhoso'+Date.now();
+  var dau = '--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify({name:ten, parents:[idTM]})+
+    '\r\n--'+bien+'\r\nContent-Type: '+(loai||bl.type||'application/octet-stream')+'\r\n\r\n';
+  return goiDrive('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,parents',
+    {method:'POST', headers:{'Content-Type':'multipart/related; boundary='+bien}, body:new Blob([dau, bl, '\r\n--'+bien+'--'])});
+}
+/* ✎ Sửa việc SCHEDULE: tên, ngày, lặp lại, lưu ý */
+function lcSua(){
+  var v = lcTim(LICH.viecChon); if(!v) return;
+  moHop('<div class="hop-tit">✎ Sửa việc</div>'+
+    '<div class="o"><label>Việc</label><textarea id="lc-s-ten" rows="2">'+coChuHTML(v.ten||'')+'</textarea></div>'+
+    '<div class="o"><label>Ngày'+(v.lap && v.lap!=='mot' ? ' bắt đầu' : '')+'</label><input id="lc-s-ngay" inputmode="numeric" placeholder="dd/mm/yyyy" value="'+lcDMY(v.ngay)+'" oninput="gonNgay(this)"></div>'+
+    '<div class="o"><label>Lặp lại</label><select id="lc-s-lap">'+Object.keys(LC_LAP).map(function(k){
+      return '<option value="'+k+'"'+((v.lap||'mot')===k ? ' selected' : '')+'>'+LC_LAP[k]+'</option>'; }).join('')+'</select></div>'+
+    '<label class="nk-tich"><input type="checkbox" id="lc-s-luuy"'+(v.luuY ? ' checked' : '')+'> ⚑ Lưu ý (đưa lên đầu, tô đậm)</label>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="lcSuaXong()">Lưu</button></div>');
+  setTimeout(function(){ var o = document.getElementById('lc-s-ten'); if(o){ o.focus(); o.selectionStart = o.value.length; } }, 30);
+}
+function lcSuaXong(){
+  var v = lcTim(LICH.viecChon); if(!v) return;
+  var ten = gt('lc-s-ten'), iso = ngayISOo(gt('lc-s-ngay'));
+  if(!ten) return baoLoi('Tên việc đang trống.');
+  if(!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return baoLoi('Ngày chưa đúng, gõ dạng dd/mm/yyyy.');
+  var cu = JSON.parse(JSON.stringify(v));
+  v.ten = ten; v.ngay = iso; v.lap = gt('lc-s-lap') || 'mot';
+  v.luuY = !!(document.getElementById('lc-s-luuy')||{}).checked; v.suaLuc = new Date().toISOString();
+  ghiHoanTac('sửa việc', function(){ var x = lcTim(cu.id); if(x) Object.keys(cu).forEach(function(k){ x[k] = cu[k]; }); });
+  dongHop();
+  if(!lcCo(v, LICH.chon)){ var d = lcNgay(iso); LICH.chon = iso; LICH.nam = d.getFullYear(); LICH.thang = d.getMonth(); }
+  lcDoiLich(); bao('Đã sửa việc.', 3);
+}
 function capNhatChamLich(){ veLich(); }   /* chỉ dùng khi thêm/xóa mẩu, KHÔNG dùng lúc gõ */
 function ntOHTML(m, ghimRieng){
   var mau = Object.keys(NT_MAU).map(function(k){
@@ -3471,9 +3838,10 @@ function ntOHTML(m, ghimRieng){
       '<button class="nt-nut'+(m.ghim?' bat':'')+'" onclick="ntDoiGhim(\''+m.id+'\')" title="Ghim — luôn hiện dù đổi ngày">📌</button>'+
       (ghimRieng?'':'<button class="nt-nut chi-may" onclick="ntChuyen(\''+m.id+'\',-1)" title="Lên trước">↑</button>'+
       '<button class="nt-nut chi-may" onclick="ntChuyen(\''+m.id+'\',1)" title="Xuống sau">↓</button>')+
+      '<button class="nt-nut" onclick="nkMenuDinh(\''+m.id+'\')" title="Gắn ảnh / file">📎</button>'+
       '<button class="nt-nut xau" onclick="ntXoa(\''+m.id+'\')" title="Xóa mẩu">✕</button>'+
     '</div>'+
-    '<textarea placeholder="Ghi ở đây…" oninput="ntGo(\''+m.id+'\',this)" onblur="ntRoiO(\''+m.id+'\')">'+coChuHTML(m.nd||'')+'</textarea></div>';
+    '<textarea placeholder="Ghi ở đây…" oninput="ntGo(\''+m.id+'\',this)" onblur="ntRoiO(\''+m.id+'\')">'+coChuHTML(m.nd||'')+'</textarea>'+nkDinhHTML(m)+'</div>';
 }
 /* ==========================================================
    CÂU CHỮ & NGÀY NÀY NĂM XƯA (3.17) — gói sẵn trong app, không cần mạng
@@ -3820,9 +4188,10 @@ function datPhongSo(k){
 /* 3 nút thao tác thu nhỏ, nằm cuối dòng "Việc trong ngày" — chỉ hiện khi đã chọn một việc */
 function thaoTacViecHTML(c, vsC){
   var co = !!(LICH.viecChon && vsC.some(function(v){ return v.id===LICH.viecChon; }));
-  if(!co) return '<span class="nk-goi">bấm một việc để dời ngày, lưu ý, xóa</span>';
+  if(!co) return '<span class="nk-goi">bấm một việc để sửa, dời ngày, lưu ý, xóa</span>';
   var v = lcTim(LICH.viecChon);
   return '<span class="thao-tac">'+
+    '<button onclick="lcSua()">✎ Sửa</button>'+
     '<button onclick="lcDoi()">Dời ngày</button>'+
     '<button onclick="lcLuuY()">'+(v&&v.luuY?'Bỏ lưu ý':'Lưu ý')+'</button>'+
     '<button class="xau" onclick="lcXoa()">Xóa</button></span>';
@@ -3845,7 +4214,7 @@ function veNhatKy(){
     '<div class="lc-ds nk-ds">'+(vsC.length ? vsC.map(function(v){
       var xg = lcXongNgay(v, c);
       return '<div class="lc-viec'+(v.id===LICH.viecChon?' chon':'')+(xg?' xong':'')+(v.luuY?' luuy':'')+
-        '" onclick="lcChonViec(\''+v.id+'\')">'+
+        '" onclick="lcChonViec(\''+v.id+'\')" ondblclick="LICH.viecChon=\''+v.id+'\';lcSua()">'+
         '<span class="lc-tick" onclick="event.stopPropagation();lcXong(\''+v.id+'\')" title="Đánh dấu xong">'+(xg?'✓':'')+'</span>'+
         '<span class="lc-vten">'+(v.luuY?'⚑ ':'')+coChuHTML(v.ten)+'</span>'+
         (v.lap&&v.lap!=='mot'?'<small>'+LC_LAP[v.lap]+'</small>':'')+'</div>';
@@ -3881,13 +4250,14 @@ function veNhatKy(){
             Object.keys(NT_MAU).map(function(k){
               return '<i class="dcham nt-'+k+(m.mau===k?' bat':'')+'" title="'+NT_MAU[k]+'" onclick="dongDoiMau(\''+m.id+'\',\''+k+'\')"></i>';
             }).join('')+
+            '<button title="Gắn ảnh / file" onclick="nkMenuDinh(\''+m.id+'\')">📎</button>'+
             '<button title="Đưa lên SCHEDULE" onclick="dongLenLich(\''+m.id+'\')">🕘</button>'+
             '<button title="Lên trên" onclick="dongChuyen(\''+m.id+'\',-1)">↑</button>'+
             '<button title="Xuống dưới" onclick="dongChuyen(\''+m.id+'\',1)">↓</button>'+
             '<button class="xau" title="Xóa dòng (lấy lại được bằng ↶)" onclick="dongXoa(\''+m.id+'\')">✕</button>'+
           '</span>'+
           '<span class="dong-chon'+(chon?' bat':'')+'" onclick="dongChon(\''+m.id+'\')" title="Chọn để xóa nhiều dòng">'+(chon?'✓':'')+'</span>'+
-          '<span class="nt-luu" id="nt-luu-'+m.id+'"></span></div>';
+          '<span class="nt-luu" id="nt-luu-'+m.id+'"></span></div>'+nkDinhHTML(m);
       }).join('') : '<div class="lc-rong">Chưa có việc nào — gõ vào ô dưới cùng rồi bấm Enter</div>')+'</div>';
     if(DONG_CHON.length) h += '<div class="dong-nhom">Đã chọn <b>'+DONG_CHON.length+'</b> dòng'+
       '<span class="dn-mau">'+Object.keys(NT_MAU).map(function(k){
@@ -3901,16 +4271,19 @@ function veNhatKy(){
     var ds = ntNgay(c).filter(function(x){ return !x.ghim && (!x.chung || (x.nd||'').trim()); });
     h += '<div class="nt-them-hang">'+Object.keys(NT_MAU).map(function(k){
         return '<button class="nt-them nt-'+k+'" onclick="ntThem(\''+k+'\')" title="Thêm mẩu '+NT_MAU[k]+'">+</button>';
-      }).join('')+'<span class="nt-goi">Thêm mẩu: bấm màu tương ứng — đỏ việc gấp, cam quan trọng, xanh lưu ý</span></div>';
+      }).join('')+'<button class="nt-them nk-cam-nho" onclick="nkChupNhanh()" title="Chụp ảnh — tự lưu thành một mẩu">📷</button>'+
+      '<span class="nt-goi">Thêm mẩu: bấm màu tương ứng — đỏ việc gấp, cam quan trọng, xanh lưu ý</span></div>';
     h += '<div class="nt-luoi" id="nt-luoi">'+(ds.length ? ds.map(function(m){ return ntOHTML(m, false); }).join('')
       : '<div class="lc-rong">Chưa có mẩu nào cho ngày này — bấm một màu ở trên để thêm</div>')+'</div>';
   }
   h += '</div>';   /* đóng .nk-than */
-  if(che==='don') h += '<div class="o-go"><span class="og-but">✎</span>'+
+  if(che==='don') h += '<div class="o-go"><button class="og-cam" onclick="nkChupNhanh()" title="Chụp ảnh — tự lưu thành một dòng của ngày này">📷</button>'+
     '<input id="nk-dong-moi" placeholder="Gõ việc rồi bấm Enter…" onkeydown="dongGoThem(this,\''+c+'\',event)">'+
     '<button class="og-them" onclick="dongGoThem(document.getElementById(\'nk-dong-moi\'),\''+c+'\',{key:\'Enter\'})">Thêm</button></div>';
+  h += '<button class="nk-fab" onclick="nkChupNhanh()" title="Chụp ảnh lưu vào ngày này">📷</button>';   /* 3.52: điện thoại — nút nổi */
   h += '</div>';   /* đóng .nk-trang */
   e.innerHTML = h;
+  nkNapAnhNho();
 }
 var NK_HEN = null;
 function chayGanNhat(){
@@ -5547,10 +5920,15 @@ function xoaBoHS(id){
   xoaNhieuVaoRac([id], function(){ BO.mo = ''; veGhiChu(); });
 }
 /* ---- gắn file có sẵn ở mọi tab ---- */
-var GAN = {bo:'', tim:''};
+var GAN = {bo:'', nk:'', tim:''};
+/* 3.52: danh sách file đích của hộp Gắn file — một bộ hồ sơ hoặc một dòng ở Hôm nay */
+function ganDich(){
+  if(GAN.nk){ var m = ntTim(GAN.nk); if(!m) return null; m.dinh = m.dinh||[]; return m.dinh; }
+  var b = timBo(GAN.bo); return b ? b.file : null;
+}
 function moGanFileBo(bid){
   var b = timBo(bid); if(!b) return;
-  GAN = {bo:bid, tim:b.khach||''};
+  GAN = {bo:bid, nk:'', tim:b.khach||''};
   moHop('<div class="hop-tit">🔗 Gắn file có sẵn vào bộ</div>'+
     '<div class="hop-phu">Chỉ liên kết — file vẫn nằm ở tab của nó, không chép, không dời. Tìm theo tên khách, số hiệu, tên file.</div>'+
     '<div class="o"><input id="gan-tim" value="'+coChuHTML(GAN.tim)+'" placeholder="Gõ để tìm…" oninput="GAN.tim=this.value;veGanDS()"></div>'+
@@ -5567,16 +5945,25 @@ function dsGanDuoc(){
 }
 function veGanDS(){
   var e = document.getElementById('gan-ds'); if(!e) return;
-  var b = timBo(GAN.bo), co = {}; (b.file||[]).forEach(function(f){ co[f.k+':'+f.id] = 1; });
+  var co = {}; (ganDich()||[]).forEach(function(f){ co[f.k+':'+f.id] = 1; });
   var q = boDau(GAN.tim||'').trim(), tu = q ? q.split(/\s+/) : [];
   var ds = dsGanDuoc().filter(function(x){ var t = boDau(x.tim); return tu.every(function(w){ return t.indexOf(w)>=0; }); }).slice(0, 80);
   e.innerHTML = ds.length ? ds.map(function(x){
     var da = co[x.k+':'+x.id];
     return '<label class="rac-dong"><input type="checkbox" class="gan-o" value="'+x.k+':'+x.id+'"'+(da?' checked disabled':'')+'>'+
-      '<span class="rac-ten">'+coChuHTML(x.ten)+'<small>'+coChuHTML(x.phu)+(da?' · đã có trong bộ':'')+'</small></span></label>';
+      '<span class="rac-ten">'+coChuHTML(x.ten)+'<small>'+coChuHTML(x.phu)+(da?(GAN.nk?' · đã gắn':' · đã có trong bộ'):'')+'</small></span></label>';
   }).join('') : '<div class="huong-dan">Không thấy file nào khớp.</div>';
 }
 function xongGanFile(){
+  if(GAN.nk){   /* 3.52: gắn vào dòng ở Hôm nay — giữ kèm tên để máy kia / file đã xóa vẫn biết là file gì */
+    var dich = ganDich(), m = ntTim(GAN.nk), ten = {}, k = 0; if(!dich || !m) return;
+    dsGanDuoc().forEach(function(x){ ten[x.k+':'+x.id] = x.ten; });
+    Array.prototype.forEach.call(document.querySelectorAll('.gan-o:checked:not(:disabled)'), function(c){
+      var p = c.value.split(':'); dich.push({k:p[0], id:p.slice(1).join(':'), ten:ten[c.value]||''}); k++;
+    });
+    m.suaLuc = new Date().toISOString(); luu(); henDongBoLich(); dongHop(); veLich();
+    return bao(k ? 'Đã gắn '+k+' file vào dòng.' : 'Chưa tích file nào.', 3);
+  }
   var b = timBo(GAN.bo); if(!b) return;
   var n = 0;
   Array.prototype.forEach.call(document.querySelectorAll('.gan-o:checked:not(:disabled)'), function(c){
@@ -5613,11 +6000,7 @@ function dayFileBoCho(){
       var b = x[0], f = x[1], duong = D.cauHinh.thumuc+' / Bộ hồ sơ / '+sachTen(b.ten);
       return Promise.all([docFile(f.id), baoDamDuong(duong)]).then(function(r){
         var bl = r[0], idTM = r[1]; if(!bl) return;
-        var bien = '----tuhoso'+Date.now();
-        var dau = '--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify({name:f.ten, parents:[idTM]})+
-          '\r\n--'+bien+'\r\nContent-Type: '+(f.loai||bl.type||'application/octet-stream')+'\r\n\r\n';
-        return goiDrive('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,parents',
-          {method:'POST', headers:{'Content-Type':'multipart/related; boundary='+bien}, body:new Blob([dau, bl, '\r\n--'+bien+'--'])})
+        return dayBlobLenDrive(f.ten, f.loai, bl, idTM)
           .then(function(r2){ f.driveId = r2 && r2.id; f.driveCha = idTM; b.suaLuc = new Date().toISOString(); });
       }).catch(function(e){ console.warn('Chưa đưa file bộ lên Drive', f.ten, e); });
     });
@@ -7629,6 +8012,7 @@ function demChoDB(){
 /* nối Drive xong: đẩy lần lượt các mục đang chờ */
 function chayDongBoCho(){
   if(typeof dayFileBoCho==='function') setTimeout(dayFileBoCho, 500);   /* 3.51: file riêng của bộ hồ sơ */
+  if(typeof dayFileNKCho==='function') setTimeout(dayFileNKCho, 900);   /* 3.52: ảnh / file ở tab Hôm nay */
   var ds = demChoDB(); if(!ds.length) return;
   var ok = 0;
   ds.reduce(function(p, m){
@@ -7758,6 +8142,7 @@ function khoiPhucRac(ids){
   var now = new Date().toISOString(), n = 0;
   D.rac = (D.rac||[]).filter(function(m){
     if(ids.indexOf(m.id)<0) return true;
+    if(m.khoCu==='homNay'){ nkKhoiPhuc(m); n++; return false; }   /* 3.52: về đúng ngày ở tab Hôm nay */
     var k = m.khoCu || khoCuaMuc(m);
     delete m.xoaLuc; delete m.lyDoXoa; delete m.khoCu;
     m.suaLuc = now; m.khoiPhucLuc = now;
@@ -8372,7 +8757,7 @@ function soDoLuuTru(){
    Mở từ nút ❓ trên thanh trên cùng, nút ❓ ở đầu mỗi tab / Dọn kho, và hộp "Có gì mới".
    ========================================================== */
 var HD_PHAN = [
-  ['tong','🧭 Tổng quan'],['vanBan','📄 Văn bản'],['duLieu','📊 Tháng'],['bieuMau','📋 Biểu mẫu'],['ghiChu','🖼 Thư viện'],
+  ['tong','🧭 Tổng quan'],['homNay','📅 Hôm nay'],['vanBan','📄 Văn bản'],['duLieu','📊 Tháng'],['bieuMau','📋 Biểu mẫu'],['ghiChu','🖼 Thư viện'],
   ['scan','🪪 Scan'],['kyAnh','✍ Chữ ký·CCCD'],['xoa','🗑 Xóa & Thùng rác'],['donkho','🧰 Dọn kho'],['phim','⌨ Phím & mẹo'],['moi','✨ Có gì mới']];
 function hdNut(t, lop){ return '<span class="hd-nut'+(lop?' '+lop:'')+'">'+t+'</span>'; }
 function hdBuoc(ds){ return '<ol class="hd-buoc">'+ds.map(function(x){ return '<li>'+x+'</li>'; }).join('')+'</ol>'; }
@@ -8392,6 +8777,15 @@ function noiDungHD(p){
       'Bấm một dòng → xem ở khung bên phải. Nút dưới khung: '+hdNut('Gửi cả file')+hdNut('In')+hdNut('Sửa')+' và (máy đã cài cầu nối) '+hdNut('🖥 Mở máy')+hdNut('📋 Chép')+hdNut('📂')+'.',
       'Tên chưa chuẩn / thiếu thông tin: '+hdNut('Sửa')+' → '+hdNut('🔍 Đọc lại')+' để app đọc lại tiêu đề, số hiệu và đề xuất tên.'])+
     '<p>'+hdNut('🗂 Lập chỉ mục')+' ở đầu tab: đi hết thư mục Tủ hồ sơ, file nào chưa có trong app thì xếp vào đúng tab. '+hdNut('Bộ lọc ▾')+' và hàng lọc nhanh: năm, mảng, chương trình vay, tag.</p>';
+  if(p==='homNay') return '<h3>Tab Hôm nay — sổ việc trong ngày</h3>'+
+    hdBuoc(['Bấm một ngày trên lịch. <b>SCHEDULE</b> là việc theo lịch (lặp tuần, tháng…); bấm một việc → '+hdNut('✎ Sửa')+' tên, ngày, lặp lại, lưu ý (nhấp đúp cũng mở).',
+      '<b>TO-DO LIST</b>: gõ ở ô dưới cùng rồi Enter. Bấm vào chữ của dòng để sửa, tự lưu.',
+      hdNut('📷')+' <b>chụp nhanh</b> (ô dưới cùng, điện thoại có nút tròn nổi góc phải): mở camera, chụp xong tự thành dòng <i>📷 Ảnh 14:32</i> — thay vì gõ.',
+      hdNut('📎')+' trên mỗi dòng / mẩu: 📷 chụp thêm · 📁 chọn file trong máy · 🔗 gắn file có sẵn trong tủ (chỉ liên kết).',
+      'Bấm ảnh nhỏ → xem lớn, vuốt / ‹ › qua lại, ⬇ Tải về. ✕ trên ảnh: file riêng vào thùng rác (ngăn 📅 Hôm nay), file liên kết chỉ gỡ.'])+
+    '<p><b>Dung lượng:</b> ảnh tự thu nhỏ cạnh dài 1600 px (khoảng 200–400 KB), danh sách chỉ nạp ảnh nhỏ nên vẫn nhẹ. File trên 15 MB app hỏi trước. '+
+    'Có nối Drive thì file lên <i>'+coChuHTML(T)+' / Nhật ký / tháng</i>; máy kia thấy ảnh sau khi đồng bộ.</p>'+
+    '<p>Xóa dòng có ảnh → dòng và ảnh vào 🗑 thùng rác ngăn <b>📅 Hôm nay</b>, khôi phục về đúng ngày; lỡ tay thì ↶ Hoàn tác (Ctrl+Z).</p>';
   if(p==='duLieu') return '<h3>Tab Tháng — dữ liệu báo cáo hằng tháng</h3>'+
     hdBuoc(['<b>Ma trận</b>: mỗi hàng một báo cáo, mỗi cột một đơn vị (PGD / xã / điểm). Ô '+hdNut('+')+' = chưa có file → bấm để thêm đúng ô đó.',
       'Ô đủ hiện ✓; xã có 2 điểm thì hiện 2/2, 1/2…',
@@ -8451,7 +8845,7 @@ function noiDungHD(p){
   return '';
 }
 function moHuongDan(p){
-  p = p || 'tong';
+  p = p || (typeof nganHienTai!=='undefined' && nganHienTai===0 ? 'homNay' : 'tong');   /* 3.52: đang ở Hôm nay thì mở đúng phần */
   if(p==='scan' || p==='the') p = 'scan';
   var h = '<div class="hop-tit">❓ Hướng dẫn</div>'+
     '<div class="hd-nav">'+HD_PHAN.map(function(x){ return '<button class="'+(x[0]===p?'bat':'')+'" onclick="moHuongDan(\''+x[0]+'\')">'+x[1]+'</button>'; }).join('')+'</div>'+
@@ -8461,17 +8855,17 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.51', ds:[
-  ['📁 Thư viện › Bộ hồ sơ: gom ghi chú + file của một vụ việc (vd Rủi ro · Võ Văn Cường), cây Xã › Điểm › Ấp › Tổ · Hội', "dongHop();doiNgan(3);datTvPhan('bo')"],
-  ['⚡ Mở PDF nhanh hơn nhiều: lần đầu ~5 lần nhanh hơn, mở lại gần như tức thì; rê chuột lên dòng là app tải trước', "moHuongDan('phim')"],
-  ['🛠 Sửa lỗi: danh sách Chữ ký·CCCD nay lưu trong máy (trước chỉ lấy lại được khi có mạng)', "dongHop();doiNgan(4);moKyAnh()"],
-  ['📍 Tab Scan, 📁 Chữ ký·CCCD: mỗi dòng ghi rõ file đang nằm ở đâu, bấm mở thư mục', "dongHop();doiNgan(4)"],
-  ['🧰 Bảo trì kho trong Thư viện đã bỏ — dùng nút 🧰 Dọn kho trên thanh trên cùng', "dongHop();moDonKho()"]],
-  thu:['Thư viện › + Tạo bộ hồ sơ → Rủi ro · tên khách → chọn Xã, Điểm, Ấp, Tổ (xem Hội tự điền) → gõ ghi chú.',
-    '🔗 Gắn file có sẵn → gõ tên khách → tích biên bản, bản scan → Gắn → bấm tên file để xem thử.',
-    '📎 Thêm file mới (vd giấy chứng tử) → có nối Drive thì file lên Tủ hồ sơ / Bộ hồ sơ / tên bộ.',
-    'Bấm cây bên trái (xã / tổ / hội) → danh sách bộ lọc đúng.',
-    'Tab Văn bản: bấm liên tiếp vài file PDF — xem thời gian hiện trang 1, bấm lại file vừa xem.']};
+var CO_GI_MOI = {ban:'3.52', ds:[
+  ['📷 Tab Hôm nay: chụp nhanh một chạm — chụp xong tự thành một dòng của ngày đó, thay vì gõ', "dongHop();doiNgan(0)"],
+  ['📎 Gắn ảnh, file trong máy hoặc file có sẵn trong tủ vào từng dòng To-do / mẩu Note', "moHuongDan('homNay')"],
+  ['✎ Sửa việc SCHEDULE: tên, ngày, lặp lại, lưu ý (bấm việc → ✎ Sửa, hoặc nhấp đúp)', "dongHop();doiNgan(0)"],
+  ['🪶 Ảnh tự thu nhỏ ~300 KB, danh sách chỉ nạp ảnh nhỏ — sổ vẫn nhẹ, 2 máy thấy nhau qua Drive (Tủ hồ sơ / Nhật ký)', "moHuongDan('homNay')"],
+  ['🛠 Sửa lỗi: sau khi xóa file có hiện ↩ Hoàn tác, sổ Hôm nay có thể không tick xong / xóa dòng được', "dongHop();doiNgan(0)"]],
+  thu:['Điện thoại · tab Hôm nay: bấm nút 📷 tròn góc phải → chụp → có dòng "📷 Ảnh giờ:phút" kèm ảnh nhỏ.',
+    'Bấm ảnh nhỏ → xem lớn; chụp thêm ảnh thứ 2 bằng 📎 trên dòng → vuốt qua lại.',
+    '📎 → 🔗 File có sẵn trong tủ → tìm một văn bản → Gắn → bấm tên để xem.',
+    'Xóa dòng có ảnh → mở 🗑 thùng rác, ngăn 📅 Hôm nay → Khôi phục → dòng và ảnh về đúng ngày.',
+    'SCHEDULE: bấm một việc → ✎ Sửa → đổi tên / lặp lại → Lưu.']};
 function noiDungCoGiMoi(){
   return '<h3>Bản '+CO_GI_MOI.ban+' có gì mới</h3><div class="hd-moi">'+CO_GI_MOI.ds.map(function(x){
       return '<button class="hd-moi-dong" onclick="'+x[1]+'">'+coChuHTML(x[0])+' <span>›</span></button>'; }).join('')+'</div>'+
@@ -9354,6 +9748,7 @@ function lapChiMuc(){
   tu().concat(D.rac||[], D.scan||[], D.kyAnh||[]).forEach(function(m){ if(m.driveId) biet[m.driveId] = m; });
   (D.cho||[]).forEach(function(m){ if(m.driveId) biet[m.driveId] = m; if(m.tuKhay) biet[m.tuKhay] = m; });
   (D.boHS||[]).forEach(function(b){ (b.file||[]).forEach(function(f){ if(f.driveId) biet[f.driveId] = {boFile:true}; }); });
+  nkDriveIds().forEach(function(d){ biet[d] = {boFile:true}; });   /* 3.52: ảnh / file ở tab Hôm nay */
   (D.daXoaHan||[]).forEach(function(t){ if(t.driveId) biet[t.driveId] = {daXoa:true}; });
   timThuMucKhongTao(D.cauHinh.thumuc).then(function(id){
     if(!id) throw new Error('Chưa có thư mục '+D.cauHinh.thumuc+' trên Drive');
@@ -9912,6 +10307,11 @@ function luuKhach(){
 /* ảnh trong máy của bản scan / Chữ ký · CCCD (khi xóa hẳn) */
 function xoaAnhMayCua(m){
   if(!m) return;
+  if(m.khoCu==='homNay'){   /* 3.52: ảnh / file riêng của dòng ở Hôm nay — xóa trong máy và trên Drive */
+    nkFileCuaRac(m).forEach(function(f){ if(f.k!=='rieng') return; xoaFile(f.id); xoaFile(f.id+'_nho');
+      if(f.driveId && coTheNoiDrive()) xoaFileDrive(f.driveId).catch(function(){}); });
+    return;
+  }
   if(m.khoCu==='boHS'){   /* bộ hồ sơ: xóa hẳn cả file riêng của bộ (file gắn từ tab khác giữ nguyên) */
     (m.file||[]).forEach(function(f){ if(f.k!=='rieng') return; xoaFile(f.id); if(f.driveId && coTheNoiDrive()) xoaFileDrive(f.driveId).catch(function(){}); });
     return;
@@ -10942,6 +11342,7 @@ function phanLoaiDriveQD(g, kq){
   (D.scan||[]).concat(D.kyAnh||[]).forEach(function(m){ if(m.driveId) biet[m.driveId] = 1; });
   (D.cho||[]).forEach(function(m){ if(m.driveId) biet[m.driveId] = 1; if(m.tuKhay) biet[m.tuKhay] = 1; });
   (D.boHS||[]).forEach(function(b){ (b.file||[]).forEach(function(f){ if(f.driveId) biet[f.driveId] = 1; }); });
+  nkDriveIds().forEach(function(d){ biet[d] = 1; });
   QD.biet = biet;
   var co = {}; g.files.forEach(function(f){ co[f.id] = f; });
   g.files.forEach(function(f){
@@ -11168,7 +11569,7 @@ function moRac(){ moDonKho('rac'); }
    ========================================================== */
 var DK = {mo:false, phan:'rac', lcm:null, dong:{}};
 var NGAN_RAC = [['vanBan','📄 Văn bản'],['duLieu','📊 Dữ liệu tháng'],['bieuMau','📋 Biểu mẫu'],['ghiChu','🖼 Thư viện · Ghi chú'],
-                ['scan','🪪 Scan'],['kyAnh','✍ Chữ ký · CCCD'],['boHS','📁 Bộ hồ sơ'],['khac','📦 Khác (file lạc, trùng từ Quét rác)']];
+                ['scan','🪪 Scan'],['kyAnh','✍ Chữ ký · CCCD'],['boHS','📁 Bộ hồ sơ'],['homNay','📅 Hôm nay'],['khac','📦 Khác (file lạc, trùng từ Quét rác)']];
 function moDonKho(phan){
   DK.mo = true; if(phan) DK.phan = phan; CHO_KHAI = false;
   if(BOT.tab){ BOT = {tab:'', chon:{}}; document.body.classList.remove('dang-bot'); }
@@ -11200,6 +11601,7 @@ function veDonKho(){
 }
 /* ---- ngăn của một mục trong thùng rác ---- */
 function nganRac(m){
+  if(m.khoCu==='homNay') return 'homNay';
   if(m.khoCu==='boHS') return 'boHS';
   if(m.khoCu==='scan' || m.che) return 'scan';
   if(m.khoCu==='kyAnh' || (/^ka/.test(m.id||'') && m.loai)) return 'kyAnh';
@@ -11210,6 +11612,7 @@ function nganRac(m){
 function noiCu(m){
   var c = Object.assign({}, m); delete c.xoaLuc;
   if(c.khoCu==='boHS') return 'Thư viện › Bộ hồ sơ ('+(c.file||[]).length+' file)';
+  if(c.khoCu==='homNay') return 'Hôm nay › '+(c.ngay ? lcDMY(c.ngay) : '')+(c.nd ? ' · '+String(c.nd).slice(0,40) : '');
   if(c.khoCu==='scan' || c.che) return duongScan(c);
   if(c.khoCu==='kyAnh') return duongKA((c.ngay||'').slice(0,7));
   if(c.nhom==='khac') return '(không rõ — file lạc / trùng)';
@@ -11219,6 +11622,10 @@ function noiCu(m){
 function duongThat(m, loai){
   if(!m) return '';
   if(loai==='drive') return '☁ '+D.cauHinh.thumuc+(m.duong?' / '+m.duong:'');
+  if(m.xoaLuc && m.khoCu==='homNay'){   /* 3.52: file ở Hôm nay giữ nguyên chỗ trên Drive tới khi xóa hẳn */
+    var fs = nkFileCuaRac(m), len = fs.some(function(f){ return f.driveId; });
+    return (len ? '☁ '+D.cauHinh.thumuc+' / Nhật ký / '+(m.ngay||'').slice(0,7) : '💻 Chỉ trong máy này')+' · trước ở: '+noiCu(m);
+  }
   if(m.xoaLuc) return (m.driveId && !m.driveMat ? '☁ '+D.cauHinh.thumuc+' / _ThungRac' : '💻 Chỉ trong máy này')+' · trước ở: '+noiCu(m);
   if(loai==='cho') return '📥 Khay chờ — chưa vào tủ'+(m.tuKhay ? ' · file gốc ☁ '+(m.tuKhayDuong ? D.cauHinh.thumuc+' / '+m.tuKhayDuong : 'trên Drive (kho cũ)') : ' · 💻 file trong máy');
   var duong = m.che ? duongScan(m) : (loai==='ka' || (/^ka/.test(m.id||'') && m.loai)) ? duongKA((m.ngay||'').slice(0,7)) : thuMucCua(m);
