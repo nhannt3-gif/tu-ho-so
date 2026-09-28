@@ -363,6 +363,9 @@
   .xl-bang td{border:1px solid #ddd;padding:2px 6px;white-space:nowrap}
   .word-xem{background:#fff;color:#111;padding:16px 20px;border-radius:8px;line-height:1.55;font-size:13px}
   .word-xem p{margin:0 0 6px}
+  .duong-dong{display:block;font-size:calc(11px*var(--co));color:var(--chu-phu);margin:2px 0 3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
+  .duong-dong:hover{color:var(--xanh-dam);text-decoration:underline}
+  .ka-ten .duong-dong{margin:1px 0 0}
   .dk-dau{display:flex;align-items:center;gap:10px;margin:0 0 8px}
   .dk-dau b{font-size:calc(15px*var(--co));flex:1}
   .dk-dau button,.dk-dau button.nho{flex:0 0 auto !important;width:auto !important}
@@ -1947,7 +1950,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.50', APP_LUC = '28/09/2026 22:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.50b', APP_LUC = '29/09/2026 08:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -10889,6 +10892,18 @@ function duongThat(m, loai){
   if(!m.driveId) return '💻 Chỉ trong máy này (chưa lên Drive) · sẽ lưu vào: '+duong;
   return '☁ '+duong+((m.choDB||m.canDay) ? ' · đang chờ dời / cập nhật' : '');
 }
+/* 3.50b: dòng "đang nằm ở đâu" dưới mỗi file (tab Scan, 📁 Chữ ký·CCCD) — bấm là mở thư mục trên Drive */
+function duongDongHTML(k, loai){
+  return '<div class="duong-dong" onclick="event.stopPropagation();moNoiLuu(\''+loai+'\',\''+k.id+'\')" title="Bấm để mở thư mục này trên Drive">'+
+    coChuHTML(duongThat(k, loai==='ka'?'ka':''))+'</div>';
+}
+function moNoiLuu(loai, id){
+  var k = loai==='ka' ? (D.kyAnh||[]).find(function(x){ return x.id===id; }) : timScan(id);
+  if(!k) return;
+  if(!k.driveId) return bao('Bản này mới nằm trong máy này — app tự đưa lên Drive khi có mạng (hoặc bấm ☁ Đồng bộ ngay).', 5);
+  if(coCauNoi() && !laDT()) return cnHanh('thumuc', loai==='ka'?'ka':'scan', id);
+  window.open(k.driveCha ? 'https://drive.google.com/drive/folders/'+k.driveCha : 'https://drive.google.com/file/d/'+k.driveId+'/view', '_blank');
+}
 function veRacHTML(){
   D.rac = D.rac || [];
   var ngan = {}, tongCo = 0;
@@ -11822,6 +11837,7 @@ function veScan(){
           '<span class="ten">'+toSang(k.ten||'(chưa đặt tên)', tuKhoa)+'</span>'+
           '<span class="ty">'+coChuHTML([k.ap, k.to?('Tổ '+k.to):''].filter(Boolean).join(' · '))+
           '</span></div>'+
+        duongDongHTML(k, 'scan')+   /* 3.50b: anh cần thấy bản này đang nằm ở đâu */
         '<div class="h2"><div class="the">'+
           '<span class="tg xam">'+ngayVN(k.ngay)+'</span>'+
           (k.xa?'<span class="tg">'+coChuHTML(k.xa)+'</span>':'')+
@@ -12918,7 +12934,7 @@ function moKyAnh(){
         ' <span class="xoa-loc" onclick="moThuMucKA(\''+th+'\')">☁ mở thư mục</span></div>'; }
       return dau+'<div class="ka-dong"'+botAt(k.id)+'><span class="ka-ic">'+(k.loai==='ky'?'✍':'🪪')+'</span>'+
         '<span class="ka-ten">'+coChuHTML(k.ten)+'<small>'+Math.round((k.co||0)/1024)+' KB · '+ngayVN(k.ngay)+' · '+
-          (k.driveId?'☁ đã lên Drive':'chưa lên Drive')+'</small></span>'+
+          (k.driveId?'☁ đã lên Drive':'chưa lên Drive')+'</small>'+duongDongHTML(k, 'ka')+'</span>'+
         (k.driveId?'':'<button onclick="dayKAMot(\''+k.id+'\')" title="Đưa lên Drive">☁</button>')+
         (!laMayBan() && coChiaSeFile() ? '<button onclick="guiKA(\''+k.id+'\')" title="Gửi">📤</button>'
           : '<button onclick="lnKA(\''+k.id+'\')" title="Lưu nhanh xuống máy">💾</button><button onclick="copyKA(\''+k.id+'\')" title="Copy — Ctrl+V vào Zalo">📋</button>')+
