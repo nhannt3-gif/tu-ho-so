@@ -4,6 +4,69 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.49 — 28/09/2026 14:00 — − Bớt file · Quét rác mở rộng · nút cầu nối ở khung xem · máy bàn: 💾 Lưu nhanh + 📋 Copy
+
+**1. − Bớt file** — nút cạnh **+ Thêm file** ở mọi tab (Văn bản, Tháng, Biểu mẫu, Thư viện, Scan; Chữ ký · CCCD: nút trong 📁).
+- Bấm **− Bớt file** → mỗi dòng có ô tích; bấm dòng là tích/bỏ tích (không mở file).
+- Chọn nhanh: **Chọn tất cả đang lọc (N)** · **Thêm vào tủ trước ngày …** · Bỏ chọn · **Bớt N file** · Thôi. Đổi tab là thôi chọn.
+- **Hai mức**:
+  - **Vào thùng rác** (mặc định): khôi phục được; file Drive dời vào `_ThungRac`.
+  - **Xóa hẳn**: file Drive vào thùng rác Google Drive (30 ngày).
+- Bản scan, Chữ ký · CCCD không có thùng rác trong app nên **chỉ có Xóa hẳn**. Bản PDF/JPG trên Drive vào thùng rác Google Drive.
+- **Cảnh báo đỏ** khi file vốn có sẵn trên Drive từ trước (Quét tủ / kho cũ): bớt là dời/xóa chính file gốc.
+- Xóa hẳn ghi dấu để **máy kia bỏ theo** khi đồng bộ, gồm cả scan và Chữ ký · CCCD.
+- **Dọn dữ liệu thử nghiệm** (Cài đặt › Dữ liệu) thay bằng hướng dẫn dùng − Bớt file.
+  - Hộp cũ còn giữ với tên **Dọn hàng loạt (khay chờ, Lịch)…** vì − Bớt file chưa dọn được Lịch.
+  - Dọn scan trong hộp cũ giờ cũng đưa bản PDF trên Drive vào thùng rác Drive.
+
+**2. Quét rác** (Thư viện › Bảo trì kho, và nút 🧹 trong 🗑). Tìm file anh không biết. App **chỉ liệt kê, không tự xóa**.
+- **A. File lạc:** có trong Tủ hồ sơ trên Drive nhưng chưa có chỉ mục.
+  - Chọn **Đưa vào khay chờ** (lập chỉ mục, Duyệt thì app đổi tên và dời chính file đó) hoặc **Bỏ**.
+- **B. Không có dữ liệu:**
+  - File 0 byte.
+  - **🔎 Kiểm tra nội dung** (tùy chọn, chậm hơn): tải từng file PDF / Excel / ảnh về, báo PDF hỏng, Excel trống, ảnh hỏng.
+  - Mục gãy: có trong tủ nhưng file trên Drive đã mất.
+  - Bản scan / Chữ ký · CCCD không còn ảnh trong máy và chưa lên Drive.
+- **C. Không đủ thông tin:** nút **Sửa** (và **🔍 Đọc lại** với văn bản PDF/ảnh); tích nếu muốn bỏ.
+  - Văn bản thiếu số hiệu, ngày hoặc tên.
+  - Dữ liệu tháng thiếu kỳ hoặc chưa phân loại.
+  - Scan thiếu tên hoặc địa bàn.
+  - Lưu tạm chưa khai quá 30 ngày.
+  - Khay chờ quá 30 ngày.
+- **D. Khác:** giữ như cũ — file trùng, file lạc trong `_ThungRac`, thư mục trống.
+- Cùng **hai mức** Vào thùng rác / Xóa hẳn.
+- **Chưa nối Drive vẫn quét được** phần trong app (nhóm B phần scan và nhóm C).
+- **Sửa lỗi:** bản scan, Chữ ký · CCCD và file ở khay chờ trước đây bị báo nhầm là "file thừa".
+
+**3. Nút cầu nối ở khung xem**
+- Máy đã cài cầu nối: cạnh Gửi cả file · In · Sửa có thêm **🖥 Mở máy · 📋 Chép · 📂**.
+  - Có ở cả khung xem bên phải và khung xem lớn.
+  - File chưa lên Drive thì nút mờ; bấm sẽ báo cần đồng bộ trước.
+- Máy chưa cài: dòng gợi ý nhỏ "Cài cầu nối (1 lần)", bấm ✕ để ẩn.
+- **Mở thử** (Cài đặt › Google Drive): sau 2,5 giây app hỏi "Có thấy hộp Cầu nối đã chạy?". Bấm **Có** là tự bật "Máy này đã cài cầu nối".
+
+**4. Máy bàn: 💾 Lưu nhanh + 📋 Copy thay nút Gửi / Tải về** (Chữ ký · CCCD và bước ③ Scan). Điện thoại giữ 📤 Gửi. Drive vẫn là nơi lưu mặc định.
+- **💾 Lưu nhanh:**
+  - Lần đầu chọn thư mục cố định (vd `D:\Nhap may\CK-CCCD`); lần sau bấm là ghi thẳng file đúng tên, không hỏi.
+  - Chữ ký · CCCD và bản scan dùng hai thư mục riêng. Có **Đổi thư mục**.
+  - Tùy chọn **Chia thư mục theo tháng**.
+  - Tùy chọn **Tự lưu xuống máy mỗi lần lưu**.
+  - Trình duyệt không hỗ trợ (Firefox…) thì tải về thư mục Tải về.
+- **📋 Copy:**
+  - Có cầu nối và file đã lên Drive: chép đúng **file** (JPG giữ dưới 200 KB, PDF).
+  - Chữ ký · CCCD không có cầu nối: chép **ảnh** dán Zalo được, kèm nhắc có thể lớn hơn 200 KB khi dán vào hệ thống.
+  - PDF không có cầu nối: báo cách làm (cài cầu nối, hoặc Lưu nhanh rồi kéo file vào Zalo).
+- Thiết lập Lưu nhanh theo **từng máy** (không đồng bộ).
+
+**Kiểm thử:**
+- `kiem.py` sạch; hồi quy `hoiquy.js` + `hoiquy2.js` đạt 48/48; `t25`–`t46` chạy lại, chỉ khác ngày giờ và các nút mới.
+- Phép thử mới:
+  - `t47`: Bớt file máy tính + iPhone — chọn dòng, theo ngày, 2 mức, scan và CK·CCCD, dấu xóa, Drive.
+  - `t48`: Quét rác — không Drive / có Drive, kiểm tra nội dung, lạc → khay chờ.
+  - `t49`: Lưu nhanh, Copy, nút cầu nối, Mở thử.
+
+---
+
 ## 3.48 — 28/09/2026 08:00 — Cầu nối máy tính (mở file thật, chép file dán Zalo) · đọc lại theo bố cục + bảng so sánh · hàng đợi Drive
 
 **1. Cầu nối máy tính (Windows)** — Cài đặt › Google Drive › Cầu nối máy tính.
