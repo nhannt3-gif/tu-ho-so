@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.55 — 30/09/2026 16:00 — Nút ↶ Hoàn tác kiểu Word ở dòng tiêu đề sổ
+- **Nút ↶ Hoàn tác** chuyển lên cùng dòng tiêu đề "TO-DO LIST", dạng nút biểu tượng như Word, có số bước nhỏ (↶¹).
+  - Không còn gì để hoàn tác thì nút mờ đi.
+  - Ctrl+Z vẫn dùng được.
+  - Chế độ Note màu cũng có nút này.
+- **Số "1/3 xong"** chuyển lên cùng dòng tiêu đề (thay chữ "Ghi chép trong ngày"). Bỏ hẳn dòng dưới danh sách, nhường chỗ cho việc.
+- **Điện thoại:** tiêu đề sổ không còn gãy chữ "TO-DO / LIST". Các nút Dòng / Note màu / kiểu chữ xuống hàng thứ hai.
+- Rà các chỗ khác: nút Hoàn tác cố định chỉ có ở sổ Hôm nay. Chỗ khác dùng nút ↩ Hoàn tác trên thông báo (hiện 7 giây sau khi xóa) — giữ nguyên.
+
+---
+
 ## 3.54 — 30/09/2026 14:00 — Chờ khai thành chip bên phải dòng "+ Thêm file" · nút tab Văn bản cùng cỡ các tab
 - **Dải vàng Chờ khai bỏ.** Thay bằng chip vàng `📥 4 chờ khai ›` ở bên phải dòng "+ Thêm file", cạnh số đếm của tab.
   - Tab Văn bản đếm tất cả file chờ khai.
