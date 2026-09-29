@@ -368,7 +368,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 *✅ Anh chốt 02/10/2026:* (1) tính **theo tháng**; (2) hạn trùng đúng ngày GDX → **lùi 1 tháng** (chắc chắn không vượt thời hạn tối đa); (3) **tính thêm ngày trả đầu tiên + lịch các kỳ + số tiền trả mỗi kỳ**; (4) **không** đưa tại ngũ vào công cụ này; (5) **không** xét khoản vay trước 01/01/2025. Đã gửi ảnh demo bố cục.
 
 *Bố cục chốt theo cột Excel (ô mở dưới lịch):*
-- **Hàng nhập 1:** Ngày vay · Ngày ra trường · Điểm GD → ngày GDX (tự điền từ danh mục địa bàn, gõ tay được).
+- **Hàng nhập 1:** Ngày vay · Ngày ra trường · Ngày GDX (gõ tay 1–31, nhớ lần trước).
 - **Hàng nhập 2:** Thời gian học [Trên 12 tháng | Đến 12 tháng · Y khoa] (app tự gợi ý theo 2 ngày) · Số tiền vay.
 - **Bảng kết quả 1 dòng như Excel:** Phát tiền vay (tháng) · Ân hạn 12 tháng · Trả nợ tối đa (= TP hoặc 2×TP) · Hạn cuối · **Hạn cuối theo GDX** (ô đậm).
 - **Bảng kỳ trả:** Kỳ · Ngày trả (theo GDX) · Gốc phải trả — kỳ 1 (đầu tiên) tô nổi.
@@ -404,7 +404,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Có dấu ✓/⚠ tự kiểm: ngày vay + thời hạn cho vay phải ≤ hạn cuối; ngày ra trường phải sau ngày vay; ngày GDX 1–31.
 - Kiểm thử máy bắt buộc: khớp mọi số trong Sheet1, Sheet2 và ví dụ chia tiền ở trên.
 
-*Còn thiếu (không chặn việc code):* ngày GDX các điểm trong Cài đặt › Địa bàn — chưa khai thì gõ tay ngày GDX trong công cụ.
+*✅ Ngày GDX (anh chốt 02/10/2026): **gõ tay** một ô số (1–31) cho nhanh, không phụ thuộc danh mục địa bàn (ngày GDX xã có thể đổi). App nhớ số gõ lần trước để lần sau khỏi gõ lại. Bỏ ô chọn "Điểm GD" ở bố cục.*
 
 ## 3. Việc cần kiểm trên máy thật
 
