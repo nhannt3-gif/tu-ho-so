@@ -332,6 +332,27 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | V | Dòng danh sách (Văn bản, Scan, các tab khác) mỏng hơn — thấy nhiều file hơn trên 1 màn hình | Anh nêu 02/10/2026: đã 2 dòng/mục nhưng còn dày. **Yêu cầu:** vẫn đủ thông tin, **không mất chữ**. **Đề xuất:** đo chiều cao hiện tại mỗi mục rồi giảm khoảng 25–30%: bớt khoảng đệm trên/dưới, khoảng cách giữa 2 dòng, dòng 2 chữ nhỏ hơn một chút (11,5px), nút 24–26px canh giữa theo 2 dòng; biểu tượng file nhỏ lại; đường kẻ giữa các mục mảnh hơn. Không cắt chữ thêm so với hiện nay (tên vẫn dài hết dòng 1, rê chuột thấy đủ). Chụp màn hình trước/sau ở khổ 1366 và iPhone để anh so số file thấy được trên 1 màn hình. Áp cho mọi danh sách đã chuẩn 2 dòng ở mục Q. | — |
 | W | Tab Hôm nay: lịch thu 70% + cột **Công cụ** (gadget) bên phải — **đợt này chỉ làm bố cục** | Anh chốt 02/10/2026 (đã xem ảnh demo). **Bố cục:** lưới lịch rộng 70% (ô ≈ 43×34 ở 1366, không mất ngày âm, chấm việc); 30% còn lại là cột nút Công cụ xếp dọc, cao bằng lịch. Bấm một nút → **ô công cụ mở ngay dưới lịch** (không che sổ bên phải), có "Đóng (Esc)"; bấm nút khác thì thay ô; bấm lại nút đang mở thì đóng. Điện thoại: nút thành hàng biểu tượng vuốt ngang trên lịch, ô mở toàn màn.<br>**Khung dùng chung:** mỗi công cụ là 1 mục đăng ký (biểu tượng · tên · hàm vẽ ô) → thêm công cụ sau này không sửa bố cục. Đợt này đặt sẵn các ô **"Công cụ 1, 2, 3…"** (bấm vào hiện "Đang chuẩn bị"), trừ công cụ nào đã có nghiệp vụ.<br>**Thứ tự làm công cụ (từng bước, mỗi cái anh cung cấp đủ nghiệp vụ khi làm):** ① 🎓 **Tính ngày đến hạn HSSV** — làm đầu tiên, chờ anh gửi quy định; sau đó các công cụ khác (tính lãi, lãi suất các CT, nợ quá hạn, phân kỳ 12/24 tháng…) theo thứ tự anh chọn. **Nguyên tắc:** số liệu nghiệp vụ (lãi suất, tỷ lệ, quy định) do anh nhập / cung cấp, app không tự đặt số; kết quả luôn hiện công thức để đối chiếu, có 📋 Chép và 📝 Ghi vào to-do. | Chờ anh gửi nghiệp vụ HSSV khi bắt đầu công cụ ①. Chưa chốt: dời nút "Danh sách" / "Tính ngày" ở đầu lịch xuống cột Công cụ hay giữ nguyên. |
 
+**W① Công cụ 1 — 🎓 Tính ngày đến hạn HSSV (thiết kế nháp, chờ anh chốt các câu hỏi dưới; chưa code)**
+
+*Căn cứ anh gửi 02/10/2026:* Hướng dẫn nghiệp vụ cho vay HSSV của NHCSXH, ký tháng 12/2024, **hiệu lực 01/01/2025** (bản PDF là ảnh quét, em đọc qua lớp chữ nhận dạng nên số hiệu văn bản chưa đọc rõ — anh ghi giúp số hiệu). Các điểm dùng cho công cụ:
+- **9.1.1 Thời hạn phát tiền vay (TP):** từ ngày nhận vốn vay lần đầu đến ngày HSSV kết thúc khóa học (SV Y khoa: kết thúc thời gian thực hành), kể cả thời gian nghỉ học có thời hạn được bảo lưu.
+- **9.1.2 Thời hạn trả nợ (TTN) tối đa:** đào tạo **đến 1 năm** và **SV Y khoa sau tốt nghiệp** = **2 × TP**; đào tạo **trên 1 năm** = **TP**. Y khoa vay tiếp khi còn dư nợ: TP = TP trước + TP lần này; TTN tối đa = TP trước + 2 × TP lần này.
+- **9.1 Thời hạn cho vay** = TP + TTN (từ ngày nhận vốn đến ngày trả hết nợ).
+- **9.2 Nhập ngũ / nghĩa vụ công an:** thời hạn cho vay **cộng thêm thời gian tại ngũ** (từ ngày ghi trên Lệnh gọi nhập ngũ đến ngày QĐ xuất ngũ có hiệu lực); 14.4: kéo dài thời hạn trả nợ tương ứng.
+- **14.1 Kỳ hạn trả nợ gốc 12 tháng/lần**; **12 tháng kể từ ngày kết thúc khóa học** phải trả nợ gốc + lãi lần đầu (Y khoa: tính từ ngày kết thúc thực hành). Lãi trả hằng tháng trong thời hạn trả nợ.
+- **21.2 Chuyển tiếp:** khoản vay **phê duyệt trước 01/01/2025** vẫn theo văn bản 2162/NHCS-TD ngày 02/10/2007.
+- (Tham khảo, không dùng cho công cụ này) 8: lãi suất 0,55%/tháng, quá hạn 130% — theo văn bản tại thời điểm ban hành.
+
+*Ô nhập:* loại đào tạo (trên 1 năm / đến 1 năm / Y khoa sau TN) · ngày nhận vốn lần đầu · ngày kết thúc khóa học (thực hành) · ngày phê duyệt (để cảnh báo khoản vay trước 01/01/2025) · tổng số tiền vay (không bắt buộc) · kỳ hạn trả gốc (mặc định 12 tháng/lần) · ☐ có thời gian tại ngũ (từ ngày → đến ngày) · ☐ Y khoa vay tiếp (TP trước, tháng).
+*Kết quả:* TP (tháng) · TTN tối đa · thời hạn cho vay · **ngày trả nợ gốc + lãi lần đầu** · bảng các kỳ trả gốc (ngày, số tiền mỗi kỳ) · **hạn trả nợ cuối cùng** · dòng công thức + căn cứ điểm/khoản; nút 📋 Chép (dán Zalo) — ghi sẵn đúng các ô của mẫu 01/TD và phần phê duyệt ("Thời hạn cho vay … tháng; Kỳ hạn trả nợ … tháng/lần; Số tiền trả nợ … đồng/lần; Hạn trả nợ cuối cùng …").
+
+*Câu hỏi chờ anh chốt (em không tự đoán):*
+1. **Hạn trả nợ cuối cùng** tính cách nào? (a) = ngày nhận vốn lần đầu + TP + TTN (đúng chữ định nghĩa 9.1 — 12 tháng sau ra trường nằm trong TTN); hay (b) = ngày trả nợ lần đầu + TTN. Ví dụ nhận vốn 15/09/2025, ra trường 30/06/2029, đào tạo trên 1 năm, TP ≈ 45 tháng: (a) hạn cuối 15/03/2033, kỳ đầu 30/06/2030 → 4 kỳ (30/06/2030, 30/06/2031, 30/06/2032, 15/03/2033); (b) hạn cuối 30/03/2034. Thực tế PGD đang ghi theo cách nào?
+2. **Làm tròn tháng** khi TP lẻ ngày (ví dụ 45 tháng 15 ngày): làm tròn lên, xuống, hay tính theo tháng dương lịch?
+3. **Số tiền mỗi kỳ:** chia đều; phần lẻ dồn kỳ cuối hay kỳ đầu; làm tròn đến nghìn đồng?
+4. **Tại ngũ:** cộng số tháng tại ngũ vào hạn cuối và lùi tất cả các kỳ còn lại tương ứng — đúng cách PGD làm?
+5. Khoản vay trước 01/01/2025 (theo 2162): chỉ cảnh báo, hay cần công cụ tính luôn theo quy định cũ (khi đó anh gửi thêm 2162)?
+
 ## 3. Việc cần kiểm trên máy thật
 
 Đã chạy thử bằng Chromium giả lập. Các phần sau **chưa thử được** trong môi trường giả lập:
