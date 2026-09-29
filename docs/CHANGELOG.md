@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.58 — 30/09/2026 21:00 — In nhiều CCCD đơn giản hơn: tích ☐ ở danh sách
+- **Anh báo:** nút "＋ Chọn thêm CCCD" của 3.57 khó dùng. Đã bỏ khung chọn trong popup, thay bằng cách chọn ngay trên danh sách.
+- **Danh sách tab Scan:** mỗi dòng có ô ☐ rõ ràng (trước phải bấm vào biểu tượng 🪪 nhỏ).
+  - Tích nhiều người → thanh dính trên cùng: `Đã chọn 4 bản · 1 trang A4 [🖨 In 4 người] Lưu PDF · Lên Drive · Bỏ chọn`.
+  - Chưa đủ 4 người thì ghi "còn trống N chỗ".
+- **Đang mở 1 bản** (bước ③ hoặc bấm vào một dòng) → nút **＋ Chọn thêm người để in chung**.
+  - Bấm → về danh sách, bản đó đã tích sẵn → tích thêm → 🖨 In.
+- Lưu vẫn mỗi người một bản như cũ.
+
+---
+
 ## 3.57 — 30/09/2026 19:00 — In ghép CCCD cho đủ 4 người / trang A4
 - **Lưu vẫn từng người một bản** như trước (quét nhiều người thì tự tách mỗi người một bản).
 - **Bước ③ Lưu & gửi** (và khi mở một bản CCCD đã lưu) có thêm dòng: `🖨 Trang in: 1 người · trang cuối còn trống 3 chỗ [＋ Chọn thêm CCCD để in]`.

@@ -717,13 +717,14 @@
   .ck-nut{display:flex;gap:6px;flex:0 0 auto;align-items:center}
   /* 3.57 — in ghép CCCD cho đủ 4 người / A4 */
   .ghep-in{margin-top:10px;border-top:1px dashed var(--vien);padding-top:8px}
-  .ghep-dau{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:calc(12.5px*var(--co))}
-  .ghep-dau span{flex:1 1 auto;min-width:0}
-  .ghep-ds{max-height:36vh;overflow:auto;margin-top:6px}
-  .ghep-ds .rac-dong.mo{opacity:.55}
-  .ghep-in,.ghep-ds .rac-ten,.ghep-dau span{text-align:left}
-  .ghep-ds .rac-dong{display:flex;align-items:center;gap:10px;justify-content:flex-start}
-  .ghep-ds .rac-ten{flex:1 1 auto;display:flex;flex-direction:column}
+  /* 3.58 — ô tích chọn ở dòng Scan + thanh In dính trên cùng */
+  .o-chon{flex:0 0 auto;width:20px;height:20px;border:1.6px solid var(--vien);border-radius:5px;display:inline-flex;align-items:center;
+    justify-content:center;cursor:pointer;background:var(--the);color:#fff;font-size:13px;font-weight:700;margin-right:6px}
+  .o-chon:hover{border-color:var(--xanh)}
+  .o-chon.bat{background:var(--xanh);border-color:var(--xanh)}
+  .thanh-in{position:sticky;top:6px;z-index:5;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  .thanh-in .in-chinh{background:var(--xanh) !important;color:#fff !important;border-color:var(--xanh) !important;font-weight:700}
+  .ghep-in{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between}
   .ds-phong{max-height:60vh;overflow:auto;display:grid;gap:9px}
   .mot-phong{border:1.3px solid var(--vien);border-radius:11px;padding:9px 12px;cursor:pointer;background:var(--the);text-align:left}
   .mot-phong:hover{border-color:var(--xanh)}
@@ -2082,7 +2083,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.57', APP_LUC = '30/09/2026 19:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.58', APP_LUC = '30/09/2026 21:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -9132,8 +9133,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.57', ds:[
-  ['🖨 Scan CCCD: lúc in bấm ＋ Chọn thêm CCCD để ghép cho đủ 4 người / trang A4 (vẫn lưu từng người một bản)', "dongHop();doiNgan(4)"],
+var CO_GI_MOI = {ban:'3.58', ds:[
+  ['🖨 Scan: tích ☐ nhiều người ở danh sách → 🖨 In một lần (4 người / A4); đang mở 1 bản thì bấm ＋ Chọn thêm người để in chung', "dongHop();doiNgan(4)"],
   ['🗑 Chờ khai: mỗi file có thêm nút Xóa — không cần thì bỏ luôn (vào thùng rác, có ↩ Hoàn tác)', "dongHop();moChoKhai()"],
   ['↶ Hôm nay: nút Hoàn tác kiểu Word + số việc xong nằm trên dòng tiêu đề sổ — danh sách dài thêm một dòng', "dongHop();doiNgan(0)"],
   ['📥 Chờ khai: dải vàng thành chip gọn bên phải dòng + Thêm file — bấm là mở danh sách', "dongHop();doiNgan(1)"],
@@ -12843,8 +12844,11 @@ function veScan(){
     '<button onclick="khaiHangLoat()">Khai hàng loạt</button></div>';
 
   var soChon = Object.keys(HS.chon).length;
-  if(soChon) h += '<div class="thanh-chon"><span>Đã chọn '+soChon+' bản</span>'+
-    '<button onclick="inGhep()">In ghép A4</button>'+
+  /* 3.58 (anh chốt): tích ☐ ở từng dòng → in nhiều người một lần, 4 người / A4 */
+  var trongCuoi = (4 - soChon%4) % 4;
+  if(soChon) h += '<div class="thanh-chon thanh-in"><span>Đã chọn <b>'+soChon+'</b> bản · '+Math.ceil(soChon/4)+' trang A4'+
+      (trongCuoi ? ' · còn trống '+trongCuoi+' chỗ' : '')+'</span>'+
+    '<button class="in-chinh" onclick="inGhep()">🖨 In '+soChon+' người</button>'+
     '<button onclick="luuTheRaMay()">Lưu PDF</button>'+
     '<button onclick="lenDriveThe()">Lên Drive</button>'+
     '<button onclick="boChonHS()">Bỏ chọn</button></div>';
@@ -12862,8 +12866,8 @@ function veScan(){
                   : (k.matSau ? '' : (k.matTruoc ? 'thiếu mặt sau' : 'chưa có ảnh'));
       return '<div class="d2'+(HS.chon[k.id]?' chon':'')+'"'+botAt(k.id)+' onclick="moXemPDF([\''+k.id+'\'])">'+
         '<div class="h1">'+
-          '<span class="ico" onclick="event.stopPropagation();doiChonHS(\''+k.id+'\')">'+
-            (HS.chon[k.id]?'✓':(k.che==='tailieu'?'📑':'🪪'))+'</span>'+
+          '<span class="o-chon'+(HS.chon[k.id]?' bat':'')+'" onclick="event.stopPropagation();doiChonHS(\''+k.id+'\')" title="Tích để in chung nhiều người">'+(HS.chon[k.id]?'✓':'')+'</span>'+
+          '<span class="ico">'+(k.che==='tailieu'?'📑':'🪪')+'</span>'+
           '<span class="ten">'+toSang(k.ten||'(chưa đặt tên)', tuKhoa)+'</span>'+
           '<span class="ty">'+coChuHTML([k.ap, k.to?('Tổ '+k.to):''].filter(Boolean).join(' · '))+
           '</span></div>'+
@@ -13670,7 +13674,7 @@ function moXemPDF(ids, moi, blSan){
   if(!ds.length) return;
   var k = ds[0], tl = k.che==='tailieu';
   var tenGoc = ds.length>1 ? String(k.ten||'').replace(/ - người \d+.*$/,'') : (k.ten||'');
-  XP = {ids:ids, bl:null, ten:tenGoc, them:[]};
+  XP = {ids:ids, bl:null, ten:tenGoc};
   moHop(buocHTML(3, {lui:'dongHop();veScan()', luiNhan:'‹ Về danh sách'})+'<div class="hop-tit">'+(moi?'✓ Đã lưu tạm':coChuHTML(tenGoc||'Bản quét'))+'</div>'+
     '<div class="hop-phu" id="xp-drive">'+trangThaiDriveScan(ds)+'</div>'+
     '<div class="o xp-ten"><label>Tên file'+(ds.length>1?' ('+ds.length+' người)':'')+'</label>'+
@@ -13693,7 +13697,8 @@ function moXemPDF(ids, moi, blSan){
           : '<button class="nho" onclick="dongHop();khaiHangLoat(XP.ids)">✎ Khai đầy đủ</button>')+
         '<button class="nho xau" onclick="xoaXP()">🗑 Xóa</button>'+
         '<button class="nho" onclick="dongHop();veScan()">Đóng</button></div>'+
-      (tl ? '' : '<div class="ghep-in" id="xp-ghep">'+ghepInHTML()+'</div>')+'</div>', true);
+      (tl ? '' : '<div class="ghep-in"><span>🖨 In chung nhiều người (4 người / A4)?</span>'+
+        '<button class="nho chinh" onclick="chonThemDeIn()">＋ Chọn thêm người để in chung</button></div>')+'</div>', true);
   (blSan ? Promise.resolve(blSan) : Promise.all(ds.map(coAnhTrongMay)).then(function(co){
     if(co.every(Boolean)){ batChay(false, 'Đang dựng PDF…'); return dungTrangThe(ids, 'blob').then(function(b){ tatChay(); return b; }, function(e){ tatChay(); throw e; }); }
     /* 3.47: ảnh không nằm ở máy này (quét ở máy khác) → mở bản PDF trên Drive; chưa lên Drive thì báo rõ, không hiện trang trắng */
@@ -13906,67 +13911,17 @@ function guiXP(){
   if(!XP || !XP.bl) return bao('PDF đang dựng, chờ chút rồi bấm lại.', 3);
   chiaSePDF(XP.bl, tenFileXP());
 }
+/* 3.58: đang mở 1 bản → quay về danh sách, bản này tích sẵn, tích thêm người rồi bấm 🖨 In */
+function chonThemDeIn(){
+  var ids = (XP && XP.ids) || [];
+  ids.forEach(function(id){ HS.chon[id] = 1; });
+  dongHop(); if(nganHienTai!==4) doiNgan(4); else veScan();
+  window.scrollTo(0, 0);
+  bao('Đã tích sẵn '+ids.length+' bản. Tích ☐ thêm người rồi bấm 🖨 In ở thanh phía trên.', 6);
+}
 function inXP(){
-  if(XP && XP.them && XP.them.length) return inGhepXP();
   if(!XP || !XP.bl) return bao('PDF đang dựng, chờ chút rồi bấm lại.', 3);
   inBlob(XP.bl, tenFileXP());
-}
-/* ==========================================================
-   3.57 (anh chốt): IN GHÉP CCCD — lưu vẫn từng người một bản; lúc in chọn thêm CCCD đã lưu cho đủ 4 người / A4.
-   Chỉ ghép khi IN — Gửi, Lưu nhanh, Lên Drive, Xóa vẫn chỉ áp cho bản đang mở.
-   ========================================================== */
-var GHEP = {mo:false, tim:''};
-function ghepInHTML(){
-  if(!XP) return '';
-  var n = XP.ids.length + XP.them.length, trong = (4 - n%4) % 4;
-  var h = '<div class="ghep-dau"><span>🖨 Trang in: <b>'+n+'</b> người'+(XP.them.length?' (ghép thêm '+XP.them.length+')':'')+
-      (trong ? ' · trang cuối còn trống <b>'+trong+'</b> chỗ' : ' · đủ '+Math.ceil(n/4)+' trang A4')+'</span>'+
-    '<button class="nho'+(trong && !GHEP.mo ? ' chinh' : '')+'" onclick="GHEP.mo=!GHEP.mo;veGhepIn()">'+(GHEP.mo ? '▴ Thu lại' : '＋ Chọn thêm CCCD để in')+'</button>'+
-    (XP.them.length ? '<button class="nho chinh" onclick="inGhepXP()">🖨 In '+n+' người</button>' : '')+'</div>';
-  if(GHEP.mo) h += '<div class="o"><input id="ghep-tim" placeholder="Tìm tên khách, ấp, tổ…" value="'+coChuHTML(GHEP.tim)+'" oninput="GHEP.tim=this.value;veGhepDS()"></div><div id="ghep-ds" class="ghep-ds"></div>';
-  return h;
-}
-function veGhepIn(){ var e = document.getElementById('xp-ghep'); if(e){ e.innerHTML = ghepInHTML(); if(GHEP.mo) veGhepDS(); } }
-function dsGhepDuoc(){
-  var dau = XP ? timScan(XP.ids[0]) || {} : {}, co = {};
-  (XP ? XP.ids : []).forEach(function(i){ co[i] = 1; });
-  return (D.scan||[]).filter(function(k){ return k.che==='the' && !co[k.id] && (k.matTruoc || k.matSau) && !k.xoaLuc; })
-    .sort(function(a, b){
-      var ga = (a.to && a.to===dau.to && a.ap===dau.ap) ? 1 : 0, gb = (b.to && b.to===dau.to && b.ap===dau.ap) ? 1 : 0;
-      return (gb-ga) || String(b.gioQuet||b.taoLuc||b.ngay||'').localeCompare(String(a.gioQuet||a.taoLuc||a.ngay||''));
-    });
-}
-function veGhepDS(){
-  var e = document.getElementById('ghep-ds'); if(!e || !XP) return;
-  var dau = timScan(XP.ids[0]) || {}, q = boDau(GHEP.tim||'').trim(), tu = q ? q.split(/\s+/) : [];
-  var ds = dsGhepDuoc().filter(function(k){ var t = boDau([k.ten, k.xa, k.ap, k.to?('to '+k.to):''].join(' ')); return tu.every(function(w){ return t.indexOf(w)>=0; }); }).slice(0, 40);
-  if(!ds.length){ e.innerHTML = '<div class="huong-dan">Không còn CCCD nào khác đã lưu'+(q?' khớp "'+coChuHTML(GHEP.tim)+'"':'')+'.</div>'; return; }
-  e.innerHTML = ds.map(function(k){
-    var chon = XP.them.indexOf(k.id)>=0, cung = k.to && k.to===dau.to && k.ap===dau.ap;
-    return '<label class="rac-dong" id="gh-'+k.id+'"><input type="checkbox"'+(chon?' checked':'')+' onchange="chonGhep(\''+k.id+'\',this.checked)">'+
-      '<span class="rac-ten">'+coChuHTML(k.ten||'(chưa khai tên)')+'<small>'+coChuHTML([k.ap, k.to?'Tổ '+k.to:'', ngayVN(k.ngay||'')].filter(Boolean).join(' · '))+
-      (cung ? ' · <b>cùng tổ</b>' : '')+'</small></span></label>';
-  }).join('');
-  /* bản quét ở máy khác (ảnh không có trong máy này) thì không ghép được */
-  ds.forEach(function(k){ coAnhTrongMay(k).then(function(co){ if(co) return; var l = document.getElementById('gh-'+k.id); if(!l) return;
-    var c = l.querySelector('input'); c.disabled = true; c.checked = false; l.classList.add('mo');
-    l.querySelector('small').insertAdjacentHTML('beforeend', ' · ảnh ở máy khác'); }); });
-}
-function chonGhep(id, co){
-  if(!XP) return;
-  XP.them = XP.them.filter(function(x){ return x!==id; });
-  if(co) XP.them.push(id);
-  var e = document.querySelector('#xp-ghep .ghep-dau');
-  if(e){ var t = document.createElement('div'); t.innerHTML = ghepInHTML(); e.replaceWith(t.firstChild); }
-}
-function inGhepXP(){
-  if(!XP) return;
-  var ids = XP.ids.concat(XP.them);
-  bao('Đang dựng trang in '+ids.length+' người…', 3);
-  dungTrangThe(ids, 'blob').then(function(bl){
-    inBlob(bl, 'CCCD_in-ghep_'+ids.length+'-nguoi_'+ngayISO(nay())+'.pdf');
-    bao('Đã ghép '+ids.length+' người, 4 người mỗi trang A4. '+NHAC_IN_THE, 9);
-  }).catch(function(e){ baoLoi('Chưa dựng được trang in: '+(e&&e.message||e)); });
 }
 
 /* ==========================================================
