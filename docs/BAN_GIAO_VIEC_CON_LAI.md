@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.60 · build 01/10/2026 10:00
+**Bản hiện tại:** 3.61 · build 02/10/2026 08:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -221,6 +221,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.61) — anh ghi Đạt / Chưa
+1. Thêm lại hướng dẫn 4336/HD-NHCS và công văn 4339 → số, ngày, trích yếu đúng chưa.
+2. Tab Scan: dòng ✓ Đạt / ⚠ thiếu gì có đúng với từng bản không; ⚠ Chưa đạt; đổi Ngày / Tuần / Tháng; 🌳 Cây → bấm một tổ.
+3. Máy tính · tab Scan: bấm một bản → khung phải; ⛶ → Lưu & gửi; Gửi / In ở khung phải.
+4. Chờ khai › Khai: văn bản hiện bên phải hộp sửa — sửa tên theo văn bản.
+5. Biểu mẫu: tích 3 mẫu → điện thoại 📤 Gửi vào Zalo nhóm tổ; máy tính 🗜 Nén .zip → giải nén thử, tên file tiếng Việt đúng.
+6. Mở vài hộp → Esc đóng đúng như nút "Đóng (Esc)" / "Thôi (Esc)".
+
 ### Danh sách thử trên máy thật (3.53) — anh ghi Đạt / Chưa
 1. Thêm lại file quy chế Tổ TK&VV (bản PDF gốc) → thẻ chờ khai ra 70/QĐ-HĐQT · 24/07/2026 chưa.
 2. Thêm một công văn và một quyết định có dòng "Căn cứ…" → số, ngày đúng không.
@@ -298,6 +306,23 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | I | `soTu` đọc sai số viết kiểu Anh (1,234.5) khi cộng thử bảng Excel | Nhỏ |
 | J | Tìm khung CCCD nhạt màu trên nền sáng bóng (bàn kính) còn lệch 71–91% → phải kéo góc tay | Cần thêm ảnh thật nhiều kiểu nền để dò tiếp trọng số `TS_THE` |
 | K | PDF chụp scan không có chữ: ngày tự điền "hôm nay" khi thêm vào tab Văn bản | Đề xuất để trống ngày và nhắc dùng Chép sang AI — chờ anh duyệt |
+| L | **Thống nhất nút Đóng ↔ Esc toàn app** (anh chốt 01/10/2026): mọi hộp / màn có nút đóng ghi **"Đóng (Esc)"**, bấm nút và bấm Esc làm **cùng một việc**. Gộp các nút trùng việc (Xong, Thôi đóng hộp, ✕, ‹ Về danh sách…) cho khớp. | Anh dặn chưa cần làm liền — **làm luôn ở lần sửa kế tiếp** |
+
+### Kế hoạch gom — làm một lượt (anh chốt 01/10/2026: anh dùng thử, ghi thêm tinh chỉnh vào đây; gom đủ thì làm một lần)
+
+✅ **Đã làm hết L → T ở bản 3.61** (02/10/2026). M: không sửa cầu nối (máy tính dùng .zip), tên zip tự đặt. Việc mới anh nêu thì ghi tiếp dưới bảng này.
+
+| # | Việc | Nội dung đã thống nhất | Còn chờ anh chốt |
+|---|---|---|---|
+| L | Nút Đóng ↔ Esc toàn app | Mọi hộp / màn: nút ghi **"Đóng (Esc)"**, bấm nút = bấm Esc; gộp các nút trùng việc (Xong, Thôi đóng hộp, ✕, ‹ Về danh sách…) | — |
+| M | Biểu mẫu: gửi nhiều mẫu một lần | **1. Chọn:** ô ☐ rõ ở mỗi dòng (như tab Scan 3.58). Thanh dính trên cùng: `Đã chọn N mẫu (x MB) · 📤 Gửi N file · 🗜 Nén .zip · 🖨 In cả bộ · Bỏ chọn`. 📚 Bộ biểu mẫu tích sẵn mẫu của bộ → Gửi ngay.<br>**2. 📤 Gửi nhiều:** điện thoại mở bảng chia sẻ với cả N file (Zalo nhận đủ một lần, giữ tên chuẩn); máy tính có cầu nối: 📋 Copy N file → Ctrl+V vào Zalo PC; không cầu nối: dùng .zip.<br>**3. 🗜 Nén .zip:** app tự nén (không cần mạng / thư viện), tên tiếng Việt giữ đúng, ví dụ `Bieu mau - Ho so vay HN - 01-10-2026.zip`; điện thoại → chia sẻ, máy tính → Lưu nhanh / tải về.<br>**4.** Mẫu chỉ có trên Drive tự tải về trước, có tiến độ "Đang lấy 3/5…".<br>**Tư vấn:** gửi tổ trưởng / Hội → dùng Gửi nhiều file (mở trên điện thoại dễ); .zip cho người dùng máy tính hoặc > 10 file → Gửi là nút chính, Nén là nút phụ. | (1) Sửa cầu nối để Copy nhiều file — anh phải chạy lại file cài cầu nối 1 lần? (2) Tên .zip theo mẫu trên hay hỏi tên mỗi lần? |
+| N | Scan: trạng thái Đạt / Chưa đạt + 2 cách xem danh sách | **N1.** Dòng dưới tên mỗi bản: **✓ Đạt** (xanh) `✓ Đạt · Xã › Điểm › Ấp › Tổ · ☁ đã lên Drive`; hoặc **⚠ Chưa đạt** (vàng) ghi rõ thiếu gì trên một dòng (Tên tạm · Thiếu mặt sau · Chưa gán tổ · Chưa lên Drive). Đề xuất Đạt khi: tên là tên khách (không phải tên tạm) + đủ 2 mặt CCCD (tài liệu ≥ 1 trang) + đủ Xã › Điểm › Ấp › Tổ + đã lên Drive đúng thư mục tổ. Chip lọc nhanh `⚠ Chưa đạt (n)`.<br>**N2.** Nút chuyển kiểu xem (nhớ lựa chọn): **☰ Danh sách** nhóm theo Ngày / Tuần / Tháng (đầu nhóm: số bản · đạt · chưa); **🌳 Cây** Xã › Điểm GD › Ấp/KP › Tổ (đếm + số chưa đạt, bấm tổ để lọc, nhánh riêng "Chưa khai địa bàn"; dùng lại kiểu cây Bộ hồ sơ; điện thoại thu gọn). Ô ☐ in nhiều người vẫn dùng ở cả hai. | ✅ Anh chốt 01/10/2026: (1) tiêu chí Đạt giữ đúng 4 điều kiện trên, **không** thêm "đã in"; (2) mặc định mở tab: **☰ Danh sách, bản mới lưu lên trước** (nhóm theo ngày). |
+| O | Scan (và Chữ ký · CCCD): bấm vào file → xem ở khung preview bên phải trước | Theo đúng nguyên tắc tab Văn bản: **máy tính** bấm một dòng → PDF / ảnh hiện ở **khung xem bên phải** (tên, đường dẫn, trạng thái Đạt / thiếu gì), dưới khung có nút nhanh 🖨 In · 📋 Copy / 📤 Gửi · ✎ Khai · **⛶ Mở lớn** — cần chỉnh / lưu & gửi đầy đủ mới bấm Mở lớn (ra màn ③ Lưu & gửi như hiện nay). **Điện thoại** (không có khung phải) giữ như cũ: mở khung xem lớn. Rê chuột tải trước như PDF văn bản (3.51). | Anh nêu 01/10/2026 — chưa cần chốt thêm |
+| P | Scan: mỗi bản 2 dòng thay 3 (làm chung với N) | Hiện 3 dòng (tên · đường dẫn · nhãn + nút). Gom 2 dòng, không bớt thông tin: **Dòng 1** `☐ 🪪 Tên · Ấp · Tổ ······ ngày [🖨][✎][🗑]` (ngày + nút sang phải); **Dòng 2** trạng thái + nơi lưu gộp: `✓ Đạt · ☁ Xã › Điểm › Ấp › Tổ` hoặc `⚠ Thiếu mặt sau · Chưa khai tổ · 💻 chỉ trong máy`; đường dẫn rút từ cấp Xã (bỏ "Tủ hồ sơ / CCCD /"), rê chuột thấy đủ, bấm mở thư mục như 3.50b; tag / chương trình vay thành chip nhỏ cuối dòng 2, ghi chú hiện khi rê chuột. Điện thoại vẫn 2 dòng (ẩn 🖨 ✎ như nay). Đề xuất làm cùng kiểu cho danh sách Chữ ký · CCCD. | Anh nêu 01/10/2026 |
+| Q | Mọi danh sách toàn app: mỗi mục tối đa 2 dòng (mở rộng P) | **Quy tắc chung:** **Dòng 1** = ☐ · biểu tượng · **tên** · thông tin chính (trích yếu / kỳ / ấp-tổ, cắt "…" khi dài) · ngày bên phải; **Dòng 2** = trạng thái (✓ đủ / ⚠ thiếu gì) · nơi lưu rút gọn (bấm mở thư mục, rê chuột thấy đủ) · chip nhãn nhỏ · **nút nhỏ 28px** bên phải (hiện nay nút 34px làm dòng 2 dày). Áp cho: Văn bản, Tháng (danh sách), Biểu mẫu, Thư viện (Bộ hồ sơ, Ghi chú ảnh), Scan, Chữ ký·CCCD, **Chờ khai** (nay 3 dòng: tên / nhãn / đường dẫn), Thùng rác, Dọn kho (Lập chỉ mục, Quét rác), Hôm nay › Vừa xem gần đây. Kèm: thanh "Sắp xếp · Danh sách / Nhóm · Khung xem · Ổ G · Drive" đang xuống 2 hàng ở khổ 1366 → gọn 1 hàng (nút nhỏ, vuốt ngang khi hẹp). Điện thoại: vẫn 2 dòng, nút phụ ẩn như nay. **Thêm (anh nêu):** chữ mờ sau tên file ở tab Văn bản là trích yếu — bỏ khi trích yếu đã nằm trong tên (đa số), chỉ hiện khi tên khác trích yếu (file chưa đổi tên chuẩn / tên bị cắt); rê chuột vào tên thấy đủ tên + trích yếu; tên dài được cả dòng 1. | Anh nêu 01/10/2026 |
+| R | Chi tiết / Sửa văn bản: khung xem văn bản ngay bên cạnh | Máy tính: hộp sửa chia đôi — trái là ô số hiệu, ngày, trích yếu, loại + tên chuẩn đề xuất (cập nhật khi gõ); phải là khung xem văn bản mở sẵn trang 1 (lật trang, phóng to). Điện thoại: văn bản ở trên (thu gọn được), ô sửa ở dưới. 🔍 Đọc lại & gợi ý tên / bảng so sánh cũng kèm khung xem. Áp cho thẻ Chờ khai, khay chờ duyệt, ✎ Sửa ở tab Văn bản. | Anh nêu 01/10/2026 |
+| S | **Lỗi đọc tên (do 3.53)** — đề xuất sửa riêng ngay | (1) Luật "ban hành kèm theo Quyết định số … ngày …" chỉ áp khi tiêu đề là QUY CHẾ / QUY ĐỊNH / ĐIỀU LỆ — hướng dẫn 4336/HD-NHCS bị lấy nhầm 70/QĐ-HĐQT. (2) Không lấy ngày trong dòng V/v (4339 bị lấy ngày 27/8 của QĐ được nhắc) — ưu tiên dòng "…, ngày … tháng … năm …". (3) Nhận ra lớp chữ PDF lỗi font ("NQI DUNG… LA4P… DO!") → không dùng, lấy trích yếu theo tên file + ghi "chữ PDF lỗi font — kiểm tra bằng khung xem". Thêm 3 mẫu này vào t58. | Chờ anh: sửa riêng ngay hay gom |
+| T | Mọi ô nhập có mẫu gợi ý | Mỗi ô nhập có **chữ mờ mẫu** trong ô + **1 dòng nhỏ hướng dẫn** ngay dưới (hiện khi bấm vào ô). Ví dụ: Số hiệu `4339/NHCS-TDNN · 70/QĐ-HĐQT · 125/TB-NHCS` (số / loại-cơ quan; không cần gõ dấu, app tự thêm Đ); Ngày `dd/mm/yyyy — gõ 150926 tự thành 15/09/2026`; Trích yếu `Viết như dòng V/v, không ghi "V/v", không dấu chấm cuối`; Kỳ `08/2026`; Tên khách `Họ tên đầy đủ, có dấu`; Tổ `05 — Nguyễn Văn A`. Áp cho: Khai / Sửa văn bản, Dữ liệu tháng, Biểu mẫu, Scan (khai khách), Chữ ký·CCCD, Bộ hồ sơ, Lịch (sửa việc), Cài đặt. Rà ô nào chưa có thì thêm, ô đã có thì thống nhất cách ghi. | Anh nêu 01/10/2026 |
 
 ## 3. Việc cần kiểm trên máy thật
 
