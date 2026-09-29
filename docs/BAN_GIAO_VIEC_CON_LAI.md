@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.61 · build 02/10/2026 08:00
+**Bản hiện tại:** 3.62 · build 03/10/2026 06:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -221,6 +221,30 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.62) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Hôm nay (máy tính) | Lịch chiếm ~70%, bên phải cột 🧰: Hạn trả HSSV · Địa bàn · Công cụ 3–5 | |
+| 2 | 🎓 Hạn trả HSSV: 25092026 · 28022029 · GDX 25 · tiền 40 | 29 tháng · 70 tháng · hạn cuối 04/08/2032 → **25/07/2032** · lần 1 25/02/2030 · 10.000.000 đ/lần | |
+| 3 | Đổi thử hồ sơ thật đã duyệt (anh tự so) | Khớp hồ sơ; nếu lệch ghi lại để em xem | |
+| 4 | Bấm câu chốt → dán vào Word / Zalo | Dán đúng câu | |
+| 5 | Nhánh "Đến 12 tháng · Y khoa" (khi có hồ sơ) | Anh kiểm kỹ — PGD chưa cho vay trường hợp này | |
+| 6 | 🗺 Địa bàn: gõ tên 1 ấp/KP mới gộp/tách | Ra đúng điểm GD, xã, kèm mã; bấm mã → chép | |
+| 7 | Điện thoại · Hôm nay | Hàng nút công cụ trên lịch; bấm → hộp công cụ | |
+| 8 | Tab Scan (máy tính): bấm 1 bản CCCD | Khung phải hiện 2 mặt thẻ to, kéo sát đáy màn hình | |
+| 9 | Văn bản: đếm số dòng thấy trên 1 màn | Nhiều hơn trước (~6 dòng ở 1366, 13 ở 1920), không mất chữ | |
+| 10 | Máy chưa cài cầu nối: bấm 🖥 Mở máy ở khung xem | Hiện hộp "chưa cài cầu nối"; "Để sau" → không nhắc nữa, nút ẩn | |
+
+**Ghi chú kỹ thuật 3.62 (cho người tiếp tục):**
+- **Công cụ:** mảng `CONG_CU` ({id, ico, ten, tit, ve, nut}); `ccCotHTML` (vẽ trong `veLich`, bọc `.lc-ben`), `ccMo`, `ccDong`, `veCC`, `ccVeThan`, `ccVuaMan` (cao tới đáy). Ô nằm ở `#cc-o` **ngoài** `#lich` để `veLich` vẽ lại không mất chữ đang gõ. Điện thoại: `moHop`, `CC.hop`. Esc: `phimChung` → `ccDong` khi ở tab Hôm nay.
+  - Thêm công cụ mới: thêm 1 mục vào `CONG_CU` với `ve()` trả HTML; không phải sửa bố cục.
+- **HSSV:** `hsTinh(v)` (thuần, dễ thử) · `hsEdate` (EDATE), `hsThang` (DATEDIF "M"), `hsVeGD` (cột I Excel, trùng ngày lùi 1 tháng, ngày 29–31 lấy cuối tháng), `hsNgayGD`, `hsDoc` (dd/mm/yyyy, dd/mm/yy, 6/8 số). Giao diện `ccHSSVHTML`, `hsKetQuaHTML`, `hsChep`, `hsGhiTodo`; ngày GDX nhớ ở localStorage `tuhoso_gdx`.
+- **Địa bàn:** `ccDiaBanHTML`, `dbCayHTML` (lọc theo `CC.db.tim`, `boDau`), `dbSoMa` (so mã kiểu số), `dbChepBang` (TSV).
+- **Khung xem:** `veVaoKhung` → scan thẻ có ảnh trong máy hiện `.the-xem` (2 ảnh `docAnhHS`), còn lại `veVaoKhungPDF` (phần cũ). `veDieuKhien`/`veTrang`: 1 trang bỏ lật trang, ô tích, nhãn trang.
+- **Cầu nối:** `cnDaBoQua()`, `hoiCaiCauNoi(duPhong)`; `veNutCN` không còn dòng `#cp-cnmeo`.
+- **CSS 3.62** nằm cuối thẻ `<style>` (khối "3.62 — việc U/V/W") để đè quy tắc cũ.
+- **Phép thử mới:** `t73.js` (HSSV khớp Excel, giao diện, Esc, Địa bàn, điện thoại); đo dòng bằng `dem.js`.
+
 ### Danh sách thử trên máy thật (3.61) — anh ghi Đạt / Chưa
 1. Thêm lại hướng dẫn 4336/HD-NHCS và công văn 4339 → số, ngày, trích yếu đúng chưa.
 2. Tab Scan: dòng ✓ Đạt / ⚠ thiếu gì có đúng với từng bản không; ⚠ Chưa đạt; đổi Ngày / Tuần / Tháng; 🌳 Cây → bấm một tổ.
@@ -324,7 +348,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | S | **Lỗi đọc tên (do 3.53)** — đề xuất sửa riêng ngay | (1) Luật "ban hành kèm theo Quyết định số … ngày …" chỉ áp khi tiêu đề là QUY CHẾ / QUY ĐỊNH / ĐIỀU LỆ — hướng dẫn 4336/HD-NHCS bị lấy nhầm 70/QĐ-HĐQT. (2) Không lấy ngày trong dòng V/v (4339 bị lấy ngày 27/8 của QĐ được nhắc) — ưu tiên dòng "…, ngày … tháng … năm …". (3) Nhận ra lớp chữ PDF lỗi font ("NQI DUNG… LA4P… DO!") → không dùng, lấy trích yếu theo tên file + ghi "chữ PDF lỗi font — kiểm tra bằng khung xem". Thêm 3 mẫu này vào t58. | Chờ anh: sửa riêng ngay hay gom |
 | T | Mọi ô nhập có mẫu gợi ý | Mỗi ô nhập có **chữ mờ mẫu** trong ô + **1 dòng nhỏ hướng dẫn** ngay dưới (hiện khi bấm vào ô). Ví dụ: Số hiệu `4339/NHCS-TDNN · 70/QĐ-HĐQT · 125/TB-NHCS` (số / loại-cơ quan; không cần gõ dấu, app tự thêm Đ); Ngày `dd/mm/yyyy — gõ 150926 tự thành 15/09/2026`; Trích yếu `Viết như dòng V/v, không ghi "V/v", không dấu chấm cuối`; Kỳ `08/2026`; Tên khách `Họ tên đầy đủ, có dấu`; Tổ `05 — Nguyễn Văn A`. Áp cho: Khai / Sửa văn bản, Dữ liệu tháng, Biểu mẫu, Scan (khai khách), Chữ ký·CCCD, Bộ hồ sơ, Lịch (sửa việc), Cài đặt. Rà ô nào chưa có thì thêm, ô đã có thì thống nhất cách ghi. | Anh nêu 01/10/2026 |
 
-#### Đợt gom tiếp theo (sau 3.61) — ghi nhận, chưa làm
+#### Đợt gom sau 3.61 — ✅ đã làm hết U · V · W · W① · W② ở bản 3.62 (03/10/2026). Việc mới anh nêu thì ghi tiếp bên dưới.
 
 | # | Việc | Nội dung đã thống nhất | Còn chờ anh chốt |
 |---|---|---|---|

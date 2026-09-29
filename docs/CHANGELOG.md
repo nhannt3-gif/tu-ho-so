@@ -4,6 +4,36 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.62 — 03/10/2026 06:00 — Gói U · V · W (khung xem, danh sách mỏng, cột Công cụ)
+**U. Khung xem rộng tối đa**
+- Khung xem bên phải (máy tính) kéo sát dải trạng thái dưới cùng; đầu khung, thanh công cụ, hàng nút Gửi cả file · In · Sửa thấp lại.
+- File 1 trang: bỏ cụm lật trang (⏮ ‹ 1/1 › ⏭), bỏ ô tích chọn trang và nhãn "Trang 1/1".
+- Bản scan CCCD (thẻ): hiện thẳng **2 mặt thẻ vừa khung** thay cho cả trang A4 (thẻ to hơn nhiều). Không có ảnh trong máy thì vẫn xem bản PDF như cũ.
+- **Cầu nối:** bỏ dòng nhắc "Mở thẳng file trên máy… Cài cầu nối" dưới khung xem. Máy tính chưa cài chỉ còn nút nhỏ 🖥 Mở máy; bấm (hoặc 📋 Copy bản scan) mới hiện hộp "Máy này chưa cài cầu nối" [⬇ Tải bộ cài · Mở thử · Để sau (không nhắc nữa) · Đóng (Esc)]. Cài rồi (Mở thử → "Có, đã thấy") hoặc "Để sau" thì không nhắc gì nữa. Trình duyệt không cho tự dò máy đã cài hay chưa, nên dựa vào lần xác nhận Mở thử (như 3.49).
+
+**V. Dòng danh sách mỏng hơn, không bớt chữ** (máy tính)
+- Đo khổ 1366×768: Văn bản 76,8 → 53,9 px/dòng (−30%), thấy 4 → 6 dòng; Scan 75,2 → 56,4 px/dòng (−25%), thấy 5 → 7 dòng. Khổ 1920×1080: 9 → 13 dòng.
+- Bớt khoảng đệm, nút dòng 22 px, nhãn gọn.
+- Tên file không còn bị cắt ở 56% bề ngang khi đã ẩn chữ mờ trích yếu → tên dài hiện đủ hơn.
+- Điện thoại giữ như cũ.
+
+**W. Tab Hôm nay: lịch 70% + cột 🧰 Công cụ**
+- Lưới lịch thu còn 70% (ô gần vuông, vẫn đủ ngày âm, chấm việc); 30% còn lại là cột nút Công cụ. Bấm → ô công cụ mở ngay dưới lịch, cao vừa tới đáy màn hình; Đóng (Esc) / bấm lại để đóng. Điện thoại: hàng nút trên lịch, ô mở thành hộp.
+- Khung dùng chung: mỗi công cụ là một mục đăng ký → thêm công cụ sau không sửa bố cục. Công cụ 3, 4, 5 để sẵn ("đang chuẩn bị").
+- **① 🎓 Hạn trả HSSV** — đúng công thức file Excel Sheet2 anh dùng (Phòng Tin học gửi PGD):
+  - Trên 12 tháng: hạn cuối = EDATE(ra trường + số ngày phát tiền vay, 12); đến 12 tháng / Y khoa: EDATE(ra trường, tháng × 2 + 12). Tháng = DATEDIF "M".
+  - Hạn cuối theo ngày GDX: hạn ≤ ngày GDX cùng tháng → ngày GDX tháng trước (trùng ngày thì lùi 1 tháng — anh chốt); ngày GDX 29–31 ở tháng thiếu → ngày cuối tháng (Excel nhảy sang tháng sau, có thể vượt hạn).
+  - Thời hạn cho vay (tháng, tính từ món vay đầu) = tháng × 2 + 12 (trên 12 tháng) · × 3 + 12 (đến 12 tháng / Y khoa).
+  - Kỳ trả 12 tháng/lần: kỳ đầu = ra trường + 12 tháng; kỳ cuối = hạn cuối theo GDX; mọi ngày đưa về ngày GDX. Tiền anh gõ theo triệu, chia đều, làm tròn xuống trăm nghìn, dư dồn kỳ cuối.
+  - Bảng 1 dòng giống cột Excel + **câu chốt** ("Số tiền vay … đồng, thời hạn … tháng, hạn cuối …, trả … đồng/lần, lần 1: …") bấm là chép; 📝 ghi vào to-do; ▸ Các kỳ trả; ▸ Cách tính từng bước có số thật + tự kiểm ✓/⚠.
+  - Ngày GDX gõ tay, app nhớ lần trước. Không xét tại ngũ, không xét khoản vay trước 01/01/2025 (anh chốt).
+  - Kiểm: khớp mọi số Sheet1, Sheet2 (04/08/2032 → 25/07/2032, 70 tháng; 15/09/2024 → 10/09/2024; 20/04/2019 → 10/04/2019).
+- **② 🗺 Địa bàn** — cây Xã (mã) › Điểm GD (mã · ngày GD) › Ấp/KP (mã · số tổ), xếp theo mã; ô tìm tên / mã không dấu; bấm mã để chép; 📋 Chép bảng (dán Excel); ✎ Sửa danh mục → Cài đặt › Địa bàn. Lấy đúng danh mục đã khai, không thêm dữ liệu.
+
+**Rà lại**
+- Thanh Sắp xếp · Danh sách/Nhóm · Khung xem · Ổ G · Drive (tab Văn bản) vẫn xuống 2 hàng ở khổ 1366 dù 3.61 đã sửa (quy tắc CSS khác đè) → nay 1 hàng, hẹp thì vuốt ngang.
+- Rà mọi lời gọi phần tử theo id: các chỗ còn lại đều có kiểm tra tồn tại, không gây lỗi.
+
 ## 3.61 — 02/10/2026 08:00 — Gói tinh chỉnh L–T (anh dùng thử, gom một lượt)
 **S. Sửa 3 lỗi đọc tên (do 3.53)**
 - Luật "ban hành kèm theo Quyết định số … ngày …" chỉ áp khi tiêu đề là QUY CHẾ / QUY ĐỊNH / ĐIỀU LỆ. Trước: hướng dẫn 4336/HD-NHCS bị lấy nhầm số 70/QĐ-HĐQT.
