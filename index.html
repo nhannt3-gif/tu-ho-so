@@ -714,6 +714,7 @@
     .nk-muc .nk-viet{white-space:nowrap}
     .nk-muc .nt-doi{margin-left:auto}
   }
+  .ck-nut{display:flex;gap:6px;flex:0 0 auto;align-items:center}
   .ds-phong{max-height:60vh;overflow:auto;display:grid;gap:9px}
   .mot-phong{border:1.3px solid var(--vien);border-radius:11px;padding:9px 12px;cursor:pointer;background:var(--the);text-align:left}
   .mot-phong:hover{border-color:var(--xanh)}
@@ -2072,7 +2073,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.55', APP_LUC = '30/09/2026 16:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.56', APP_LUC = '30/09/2026 17:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -8514,6 +8515,18 @@ function moChoKhai(){
   window.scrollTo(0,0);
 }
 function dongChoKhai(){ CHO_KHAI = false; ve(); }
+function xoaChoKhai(id){
+  var m0 = (D.cho||[]).find(function(x){ return x.id===id; });
+  if(!m0) return xoaNhieuVaoRac([id], function(){ if(CHO_KHAI) ve(); });
+  /* file ở khay (chưa vào tủ): Hoàn tác trả về đúng khay — khôi phục thường từ thùng rác thì vào tab như cũ */
+  var goc = JSON.parse(JSON.stringify(m0));
+  chuyenVaoRac([id], 'Anh xóa ở Chờ khai'); ve(); capNhatDemRac();
+  baoHoanTac('Đã chuyển vào thùng rác.', function(){
+    D.rac = (D.rac||[]).filter(function(x){ return x.id!==id; });
+    if(!D.cho.some(function(x){ return x.id===id; })) D.cho.push(goc);
+    luu(); capNhatDemRac(); ve(); bao('Đã hoàn tác — file về lại khay chờ.', 3);
+  });
+}
 /* 3.54 (anh chốt): cảnh báo chờ khai thành chip vàng gọn bên phải dòng "+ Thêm file" — tab Văn bản đếm tất cả,
    tab khác đếm phần của tab đó; bấm mở danh sách Chờ khai */
 function chipChoKhai(tab){
@@ -8553,7 +8566,9 @@ function veChoKhai(){
           '<small><span class="ck-dich">→ '+coChuHTML(dich)+'</span> · '+coChuHTML(x.nguon)+
           (x.thieu.length?' · <span class="ck-thieu">thiếu '+coChuHTML(x.thieu.join(', '))+'</span>':' · cần xác nhận lại')+'</small>'+
           '<small>'+coChuHTML(duongThat(m, k==='khay'?'cho':''))+'</small></div>'+
-          '<button class="nho chinh" onclick="'+fn+'(\''+m.id+'\')">Khai</button></div>';
+          '<span class="ck-nut"><button class="nho chinh" onclick="'+fn+'(\''+m.id+'\')">Khai</button>'+
+          /* 3.56 (anh chốt): không cần thì bỏ luôn — theo quy tắc chung: vào thùng rác, có ↩ Hoàn tác */
+          '<button class="nho xau" onclick="xoaChoKhai(\''+m.id+'\')" title="Không cần — bỏ vào thùng rác (có ↩ Hoàn tác)">🗑 Xóa</button></span></div>';
       }).join('')+'</div>';
   });
   return h;
@@ -9108,7 +9123,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.55', ds:[
+var CO_GI_MOI = {ban:'3.56', ds:[
+  ['🗑 Chờ khai: mỗi file có thêm nút Xóa — không cần thì bỏ luôn (vào thùng rác, có ↩ Hoàn tác)', "dongHop();moChoKhai()"],
   ['↶ Hôm nay: nút Hoàn tác kiểu Word + số việc xong nằm trên dòng tiêu đề sổ — danh sách dài thêm một dòng', "dongHop();doiNgan(0)"],
   ['📥 Chờ khai: dải vàng thành chip gọn bên phải dòng + Thêm file — bấm là mở danh sách', "dongHop();doiNgan(1)"],
   ['📄 Đọc văn bản: số hiệu, ngày chỉ lấy ở phần đầu (dòng "Số:", "…, ngày … tháng … năm …") — không lấy nhầm dòng "Căn cứ…"', "dongHop();doiNgan(1)"],
