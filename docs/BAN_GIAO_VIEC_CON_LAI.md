@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.52b · build 29/09/2026 20:00
+**Bản hiện tại:** 3.53 · build 30/09/2026 10:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -25,7 +25,7 @@
 
 ---
 
-## 1. Đã xong ở bản 3.31 → 3.52
+## 1. Đã xong ở bản 3.31 → 3.53
 
 Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi tiết ở `docs/CHANGELOG.md`.
 
@@ -202,6 +202,32 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Thùng rác:** mục `khoCu:'homNay'` giữ `note` (cả dòng) hoặc `nkFile` + `nkNote` (một file). `khoiPhucRac` gọi `nkKhoiPhuc`; `xoaAnhMayCua` xóa file riêng.
   - **Sửa lỗi trùng biến:** `HOAN_TAC` là ngăn hoàn tác của sổ; biến của `baoHoanTac` đổi thành `BAO_HT`. ⚠ `kiem.py` chỉ bắt trùng tên hàm, không bắt trùng biến `var` → khi thêm biến toàn cục phải `grep` trước.
   - **Phép thử mới:** `t56.js` (máy tính + iPhone: chụp, nén, xem, gắn, gỡ, rác, Drive, tải lại), `t57.js` (máy thứ hai lấy ảnh từ Drive).
+
+- **3.53 — Đọc phần đầu văn bản · Hôm nay gọn · chip hệ thống · bộ nhớ máy:**
+  - **Đọc văn bản:**
+    - Nhận tiêu đề và thân: `RE_TIEU_DE_VB`, `RE_THAN_VB`, `laTieuDeVB`.
+    - Phần đầu: `vungDauVB` (các dòng trước tiêu đề / "Căn cứ"), `docDauVB` (số, ngày, dòng "ban hành kèm theo").
+    - Trích yếu: `rutTyVB` (V/v → tiêu đề + dòng dưới → cách cũ).
+    - So số hiệu: `chuanSoHieu`.
+    - `phanTichBoCuc` giới hạn `yThan` và bỏ tìm cả trang.
+    - ⚠ Regex tiếng Việt: không dùng `\b` sau chữ có dấu (JS coi "Ế" không phải ký tự chữ) → dùng `(?![A-Za-zÀ-ỹĐđ])`.
+  - **Hôm nay:**
+    - `datGon(k)` với cờ `D.cauHinh.moCXL` / `moGanDay`; lớp CSS `.gon-dong`, `.gon-chip`.
+    - Chấm màu tách ra `.dong-mau` (hiện khi `:focus-within` / `:hover`).
+  - **Thanh đáy và bộ nhớ:**
+    - `capNhatChip` chỉ báo trạng thái nối; thêm `#chip-chua`, `#chip-loi`, `#chip-bn`.
+    - `capNhatDaiDrive` không tạo dải vàng nữa.
+    - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
+  - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
+  - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.53) — anh ghi Đạt / Chưa
+1. Thêm lại file quy chế Tổ TK&VV (bản PDF gốc) → thẻ chờ khai ra 70/QĐ-HĐQT · 24/07/2026 chưa.
+2. Thêm một công văn và một quyết định có dòng "Căn cứ…" → số, ngày đúng không.
+3. Hôm nay (iPhone): Cần xử lý, Vừa xem gần đây 1 dòng; bấm chip 📥 đi thẳng Chờ khai.
+4. Chạm dòng To-do → hiện chấm màu → đổi màu → chạm ra ngoài thu lại.
+5. Chip 💾 → số MB có hợp lý không; bấm 🔒 Xin giữ dữ liệu (iPhone cần Thêm vào MH chính trước).
+6. Tắt mạng chụp 1 ảnh ở Hôm nay → thanh đáy có "☁ 1 chưa lên Drive" không; bật mạng → mất đi.
 
 ### Danh sách thử trên máy thật (3.52) — anh ghi Đạt / Chưa
 1. iPhone · tab Hôm nay: bấm 📷 ở ô gõ dưới cùng sổ → chụp → có dòng "📷 Ảnh giờ:phút" với ảnh nhỏ; thời gian từ bấm chụp tới lúc thấy ảnh.
