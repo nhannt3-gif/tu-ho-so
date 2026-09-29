@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.57 — 30/09/2026 19:00 — In ghép CCCD cho đủ 4 người / trang A4
+- **Lưu vẫn từng người một bản** như trước (quét nhiều người thì tự tách mỗi người một bản).
+- **Bước ③ Lưu & gửi** (và khi mở một bản CCCD đã lưu) có thêm dòng: `🖨 Trang in: 1 người · trang cuối còn trống 3 chỗ [＋ Chọn thêm CCCD để in]`.
+  - Bấm → danh sách CCCD đã lưu. **Cùng tổ, cùng ấp** lên đầu, rồi mới nhất trước. Có ô tìm theo tên, ấp, tổ.
+  - Tích thêm người → dòng đếm cập nhật, ví dụ "4 người (ghép thêm 3) · đủ 1 trang A4".
+  - Bấm **🖨 In 4 người** (hoặc nút 🖨 In) → dựng trang in chung, 4 người mỗi A4.
+  - Bản quét ở máy khác (ảnh không có trong máy này) hiện mờ, không chọn được.
+- **Chỉ ghép khi IN.** Gửi, Lưu nhanh, Copy, Lên Drive, Khai, Xóa vẫn chỉ áp cho bản đang mở — không đụng bản ghép thêm.
+- Cách cũ vẫn dùng được: ở danh sách tab Scan chọn nhiều bản rồi bấm In ghép A4.
+
+---
+
 ## 3.56 — 30/09/2026 17:00 — Nút 🗑 Xóa trong danh sách Chờ khai
 - Mỗi file trong **Chờ khai** có thêm nút **🗑 Xóa** cạnh nút Khai. File không cần thì bỏ luôn, không phải khai.
 - Theo quy tắc chung: file vào thùng rác, có ↩ Hoàn tác.
