@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.61 · build 02/10/2026 08:00
+**Bản hiện tại:** 3.62 · build 03/10/2026 06:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -221,6 +221,30 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.62) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Hôm nay (máy tính) | Lịch chiếm ~70%, bên phải cột 🧰: Hạn trả HSSV · Địa bàn · Công cụ 3–5 | |
+| 2 | 🎓 Hạn trả HSSV: 25092026 · 28022029 · GDX 25 · tiền 40 | 29 tháng · 70 tháng · hạn cuối 04/08/2032 → **25/07/2032** · lần 1 25/02/2030 · 10.000.000 đ/lần | |
+| 3 | Đổi thử hồ sơ thật đã duyệt (anh tự so) | Khớp hồ sơ; nếu lệch ghi lại để em xem | |
+| 4 | Bấm câu chốt → dán vào Word / Zalo | Dán đúng câu | |
+| 5 | Nhánh "Đến 12 tháng · Y khoa" (khi có hồ sơ) | Anh kiểm kỹ — PGD chưa cho vay trường hợp này | |
+| 6 | 🗺 Địa bàn: gõ tên 1 ấp/KP mới gộp/tách | Ra đúng điểm GD, xã, kèm mã; bấm mã → chép | |
+| 7 | Điện thoại · Hôm nay | Hàng nút công cụ trên lịch; bấm → hộp công cụ | |
+| 8 | Tab Scan (máy tính): bấm 1 bản CCCD | Khung phải hiện 2 mặt thẻ to, kéo sát đáy màn hình | |
+| 9 | Văn bản: đếm số dòng thấy trên 1 màn | Nhiều hơn trước (~6 dòng ở 1366, 13 ở 1920), không mất chữ | |
+| 10 | Máy chưa cài cầu nối: bấm 🖥 Mở máy ở khung xem | Hiện hộp "chưa cài cầu nối"; "Để sau" → không nhắc nữa, nút ẩn | |
+
+**Ghi chú kỹ thuật 3.62 (cho người tiếp tục):**
+- **Công cụ:** mảng `CONG_CU` ({id, ico, ten, tit, ve, nut}); `ccCotHTML` (vẽ trong `veLich`, bọc `.lc-ben`), `ccMo`, `ccDong`, `veCC`, `ccVeThan`, `ccVuaMan` (cao tới đáy). Ô nằm ở `#cc-o` **ngoài** `#lich` để `veLich` vẽ lại không mất chữ đang gõ. Điện thoại: `moHop`, `CC.hop`. Esc: `phimChung` → `ccDong` khi ở tab Hôm nay.
+  - Thêm công cụ mới: thêm 1 mục vào `CONG_CU` với `ve()` trả HTML; không phải sửa bố cục.
+- **HSSV:** `hsTinh(v)` (thuần, dễ thử) · `hsEdate` (EDATE), `hsThang` (DATEDIF "M"), `hsVeGD` (cột I Excel, trùng ngày lùi 1 tháng, ngày 29–31 lấy cuối tháng), `hsNgayGD`, `hsDoc` (dd/mm/yyyy, dd/mm/yy, 6/8 số). Giao diện `ccHSSVHTML`, `hsKetQuaHTML`, `hsChep`, `hsGhiTodo`; ngày GDX nhớ ở localStorage `tuhoso_gdx`.
+- **Địa bàn:** `ccDiaBanHTML`, `dbCayHTML` (lọc theo `CC.db.tim`, `boDau`), `dbSoMa` (so mã kiểu số), `dbChepBang` (TSV).
+- **Khung xem:** `veVaoKhung` → scan thẻ có ảnh trong máy hiện `.the-xem` (2 ảnh `docAnhHS`), còn lại `veVaoKhungPDF` (phần cũ). `veDieuKhien`/`veTrang`: 1 trang bỏ lật trang, ô tích, nhãn trang.
+- **Cầu nối:** `cnDaBoQua()`, `hoiCaiCauNoi(duPhong)`; `veNutCN` không còn dòng `#cp-cnmeo`.
+- **CSS 3.62** nằm cuối thẻ `<style>` (khối "3.62 — việc U/V/W") để đè quy tắc cũ.
+- **Phép thử mới:** `t73.js` (HSSV khớp Excel, giao diện, Esc, Địa bàn, điện thoại); đo dòng bằng `dem.js`.
+
 ### Danh sách thử trên máy thật (3.61) — anh ghi Đạt / Chưa
 1. Thêm lại hướng dẫn 4336/HD-NHCS và công văn 4339 → số, ngày, trích yếu đúng chưa.
 2. Tab Scan: dòng ✓ Đạt / ⚠ thiếu gì có đúng với từng bản không; ⚠ Chưa đạt; đổi Ngày / Tuần / Tháng; 🌳 Cây → bấm một tổ.
@@ -323,6 +347,101 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | R | Chi tiết / Sửa văn bản: khung xem văn bản ngay bên cạnh | Máy tính: hộp sửa chia đôi — trái là ô số hiệu, ngày, trích yếu, loại + tên chuẩn đề xuất (cập nhật khi gõ); phải là khung xem văn bản mở sẵn trang 1 (lật trang, phóng to). Điện thoại: văn bản ở trên (thu gọn được), ô sửa ở dưới. 🔍 Đọc lại & gợi ý tên / bảng so sánh cũng kèm khung xem. Áp cho thẻ Chờ khai, khay chờ duyệt, ✎ Sửa ở tab Văn bản. | Anh nêu 01/10/2026 |
 | S | **Lỗi đọc tên (do 3.53)** — đề xuất sửa riêng ngay | (1) Luật "ban hành kèm theo Quyết định số … ngày …" chỉ áp khi tiêu đề là QUY CHẾ / QUY ĐỊNH / ĐIỀU LỆ — hướng dẫn 4336/HD-NHCS bị lấy nhầm 70/QĐ-HĐQT. (2) Không lấy ngày trong dòng V/v (4339 bị lấy ngày 27/8 của QĐ được nhắc) — ưu tiên dòng "…, ngày … tháng … năm …". (3) Nhận ra lớp chữ PDF lỗi font ("NQI DUNG… LA4P… DO!") → không dùng, lấy trích yếu theo tên file + ghi "chữ PDF lỗi font — kiểm tra bằng khung xem". Thêm 3 mẫu này vào t58. | Chờ anh: sửa riêng ngay hay gom |
 | T | Mọi ô nhập có mẫu gợi ý | Mỗi ô nhập có **chữ mờ mẫu** trong ô + **1 dòng nhỏ hướng dẫn** ngay dưới (hiện khi bấm vào ô). Ví dụ: Số hiệu `4339/NHCS-TDNN · 70/QĐ-HĐQT · 125/TB-NHCS` (số / loại-cơ quan; không cần gõ dấu, app tự thêm Đ); Ngày `dd/mm/yyyy — gõ 150926 tự thành 15/09/2026`; Trích yếu `Viết như dòng V/v, không ghi "V/v", không dấu chấm cuối`; Kỳ `08/2026`; Tên khách `Họ tên đầy đủ, có dấu`; Tổ `05 — Nguyễn Văn A`. Áp cho: Khai / Sửa văn bản, Dữ liệu tháng, Biểu mẫu, Scan (khai khách), Chữ ký·CCCD, Bộ hồ sơ, Lịch (sửa việc), Cài đặt. Rà ô nào chưa có thì thêm, ô đã có thì thống nhất cách ghi. | Anh nêu 01/10/2026 |
+
+#### Đợt gom sau 3.61 — ✅ đã làm hết U · V · W · W① · W② ở bản 3.62 (03/10/2026). Việc mới anh nêu thì ghi tiếp bên dưới.
+
+| # | Việc | Nội dung đã thống nhất | Còn chờ anh chốt |
+|---|---|---|---|
+| U | Khung xem file (PDF văn bản, scan CCCD…): vùng xem rộng tối đa, kéo chạm đáy màn hình | Anh nêu 02/10/2026 (ảnh khung xem scan "Đạt"): nút đang chiếm nhiều chỗ, khung xem chưa chạm dòng cuối. **Đề xuất:** (1) Hộp xem cao gần hết màn hình, vùng trang tự giãn kéo tới sát hàng nút dưới cùng, không để khoảng trắng thừa. (2) Thanh công cụ (⏮ ‹ trang › ⏭ · − % + · ↔ · ⊡ · ↗) gọn còn 1 dòng nút 28px, gộp lên cùng dòng tiêu đề khi đủ chỗ; file chỉ 1 trang thì ẩn cụm lật trang. (3) Hàng nút dưới (Gửi cả file · In · Sửa) thấp lại khoảng 34px, giữ đủ 3 nút và chữ. (4) **Bỏ hẳn dòng nhắc "Mở thẳng file trên máy… Cài cầu nối" khỏi khung xem, không thêm chip thường trực** (anh chốt lại 02/10/2026: việc cài chỉ làm 1 lần). Chỉ báo khi cần: trên máy tính **chưa xác nhận cài**, lần đầu anh bấm việc cần cầu nối (🖥 Mở trên máy · 📋 Copy file · 📂 Mở thư mục) → hiện hộp "Máy này chưa cài cầu nối" với [Tải bộ cài · Mở thử · Để sau]; Mở thử thấy hộp "Cầu nối đã chạy" → bấm "Có, đã thấy" → app nhớ theo máy, **từ đó không nhắc gì nữa**. "Để sau" → dùng cách dự phòng như hiện nay (tải file / chép ảnh), không nhắc lại mỗi lần. Máy đã cài → bỏ qua hoàn toàn. Điện thoại không liên quan. **Giới hạn kỹ thuật:** trình duyệt không cho trang web tự dò lối mở `tuhoso:` đã cài hay chưa và không báo khi mở thất bại, nên "đã cài" dựa trên lần xác nhận Mở thử (như 3.49). Nếu sau này gỡ / cài lại: Cài đặt › Cầu nối vẫn có ô "Máy này đã cài cầu nối" + nút Mở thử. (5) Scan CCCD mở sẵn chế độ "vừa khung" để 2 mặt thẻ to nhất có thể. Áp chung cho khung xem lớn và khung xem bên phải. | ✅ Anh chốt: chỉ báo khi chưa cài, cài rồi bỏ qua (02/10/2026) |
+| V | Dòng danh sách (Văn bản, Scan, các tab khác) mỏng hơn — thấy nhiều file hơn trên 1 màn hình | Anh nêu 02/10/2026: đã 2 dòng/mục nhưng còn dày. **Yêu cầu:** vẫn đủ thông tin, **không mất chữ**. **Đề xuất:** đo chiều cao hiện tại mỗi mục rồi giảm khoảng 25–30%: bớt khoảng đệm trên/dưới, khoảng cách giữa 2 dòng, dòng 2 chữ nhỏ hơn một chút (11,5px), nút 24–26px canh giữa theo 2 dòng; biểu tượng file nhỏ lại; đường kẻ giữa các mục mảnh hơn. Không cắt chữ thêm so với hiện nay (tên vẫn dài hết dòng 1, rê chuột thấy đủ). Chụp màn hình trước/sau ở khổ 1366 và iPhone để anh so số file thấy được trên 1 màn hình. Áp cho mọi danh sách đã chuẩn 2 dòng ở mục Q. | — |
+| W | Tab Hôm nay: lịch thu 70% + cột **Công cụ** (gadget) bên phải — **đợt này chỉ làm bố cục** | Anh chốt 02/10/2026 (đã xem ảnh demo). **Bố cục:** lưới lịch rộng 70% (ô ≈ 43×34 ở 1366, không mất ngày âm, chấm việc); 30% còn lại là cột nút Công cụ xếp dọc, cao bằng lịch. Bấm một nút → **ô công cụ mở ngay dưới lịch** (không che sổ bên phải), có "Đóng (Esc)"; bấm nút khác thì thay ô; bấm lại nút đang mở thì đóng. Điện thoại: nút thành hàng biểu tượng vuốt ngang trên lịch, ô mở toàn màn.<br>**Khung dùng chung:** mỗi công cụ là 1 mục đăng ký (biểu tượng · tên · hàm vẽ ô) → thêm công cụ sau này không sửa bố cục. **Tên (anh chốt 02/10/2026):** cột **🧰 Công cụ**; Công cụ 1 nút **"🎓 Hạn trả HSSV"** (nút hẹp thì rút còn "🎓 HSSV"), tiêu đề khi mở "Tính hạn trả nợ HSSV"; Công cụ 2 nút **"🗺 Địa bàn"**, tiêu đề "Cây địa bàn — mã xã, điểm GD, ấp/KP"; công cụ sau đặt tên kiểu biểu tượng + 2–3 chữ; còn lại đặt sẵn ô **"Công cụ 3, 4…"** (bấm vào hiện "Đang chuẩn bị"), trừ công cụ nào đã có nghiệp vụ.<br>**Thứ tự làm công cụ (từng bước, mỗi cái anh cung cấp đủ nghiệp vụ khi làm):** ① 🎓 **Tính ngày đến hạn HSSV** — làm đầu tiên, chờ anh gửi quy định; sau đó các công cụ khác (tính lãi, lãi suất các CT, nợ quá hạn, phân kỳ 12/24 tháng…) theo thứ tự anh chọn. **Nguyên tắc:** số liệu nghiệp vụ (lãi suất, tỷ lệ, quy định) do anh nhập / cung cấp, app không tự đặt số; kết quả luôn hiện công thức để đối chiếu, có 📋 Chép và 📝 Ghi vào to-do. | Chờ anh gửi nghiệp vụ HSSV khi bắt đầu công cụ ①. Chưa chốt: dời nút "Danh sách" / "Tính ngày" ở đầu lịch xuống cột Công cụ hay giữ nguyên. |
+
+**W① Công cụ 1 — 🎓 Tính ngày đến hạn HSSV (thiết kế nháp, chờ anh chốt các câu hỏi dưới; chưa code)**
+
+*Căn cứ anh gửi 02/10/2026:* Hướng dẫn nghiệp vụ cho vay HSSV của NHCSXH, ký tháng 12/2024, **hiệu lực 01/01/2025** (bản PDF là ảnh quét, em đọc qua lớp chữ nhận dạng nên số hiệu văn bản chưa đọc rõ — anh ghi giúp số hiệu). Các điểm dùng cho công cụ:
+- **9.1.1 Thời hạn phát tiền vay (TP):** từ ngày nhận vốn vay lần đầu đến ngày HSSV kết thúc khóa học (SV Y khoa: kết thúc thời gian thực hành), kể cả thời gian nghỉ học có thời hạn được bảo lưu.
+- **9.1.2 Thời hạn trả nợ (TTN) tối đa:** đào tạo **đến 1 năm** và **SV Y khoa sau tốt nghiệp** = **2 × TP**; đào tạo **trên 1 năm** = **TP**. Y khoa vay tiếp khi còn dư nợ: TP = TP trước + TP lần này; TTN tối đa = TP trước + 2 × TP lần này.
+- **9.1 Thời hạn cho vay** = TP + TTN (từ ngày nhận vốn đến ngày trả hết nợ).
+- **9.2 Nhập ngũ / nghĩa vụ công an:** thời hạn cho vay **cộng thêm thời gian tại ngũ** (từ ngày ghi trên Lệnh gọi nhập ngũ đến ngày QĐ xuất ngũ có hiệu lực); 14.4: kéo dài thời hạn trả nợ tương ứng.
+- **14.1 Kỳ hạn trả nợ gốc 12 tháng/lần**; **12 tháng kể từ ngày kết thúc khóa học** phải trả nợ gốc + lãi lần đầu (Y khoa: tính từ ngày kết thúc thực hành). Lãi trả hằng tháng trong thời hạn trả nợ.
+- **21.2 Chuyển tiếp:** khoản vay **phê duyệt trước 01/01/2025** vẫn theo văn bản 2162/NHCS-TD ngày 02/10/2007.
+- (Tham khảo, không dùng cho công cụ này) 8: lãi suất 0,55%/tháng, quá hạn 130% — theo văn bản tại thời điểm ban hành.
+
+*Ô nhập:* loại đào tạo (trên 1 năm / đến 1 năm / Y khoa sau TN) · ngày nhận vốn lần đầu · ngày kết thúc khóa học (thực hành) · ngày phê duyệt (để cảnh báo khoản vay trước 01/01/2025) · tổng số tiền vay (không bắt buộc) · kỳ hạn trả gốc (mặc định 12 tháng/lần) · ☐ có thời gian tại ngũ (từ ngày → đến ngày) · ☐ Y khoa vay tiếp (TP trước, tháng).
+*Kết quả:* TP (tháng) · TTN tối đa · thời hạn cho vay · **ngày trả nợ gốc + lãi lần đầu** · bảng các kỳ trả gốc (ngày, số tiền mỗi kỳ) · **hạn trả nợ cuối cùng** · dòng công thức + căn cứ điểm/khoản; nút 📋 Chép (dán Zalo) — ghi sẵn đúng các ô của mẫu 01/TD và phần phê duyệt ("Thời hạn cho vay … tháng; Kỳ hạn trả nợ … tháng/lần; Số tiền trả nợ … đồng/lần; Hạn trả nợ cuối cùng …").
+
+*Bảng Excel "Công thức tính hạn trả nợ HSSV" anh gửi 02/10/2026 (Phòng Tin học xây dựng, gửi PGD tham khảo) — em đã rà từng công thức:*
+- **Hạn trả nợ cuối** (cột H):
+  - Học **trên 12 tháng**: `= EDATE(ngày ra trường + (ngày ra trường − ngày vay), 12)` → ra trường + **số ngày phát tiền vay** + **12 tháng ân hạn**. (Dòng ghi "số tháng" nhưng công thức thực ra cộng số **ngày**; cột E "47 tháng" chỉ để xem, không dùng.)
+  - Học **dưới 12 tháng**: `= EDATE(ngày ra trường, số tháng × 2 + 12)`, số tháng = DATEDIF "M" (bỏ ngày lẻ).
+  - Cách "số ngày": `ra trường + số ngày (×2 nếu dưới 12 tháng) + 365`.
+- **Hạn trả nợ cuối theo ngày GDX** (cột I): đưa về **ngày giao dịch xã gần nhất trước hạn cuối**: nếu hạn cuối ≤ ngày GDX của cùng tháng → ngày GDX tháng trước; nếu không → ngày GDX tháng đó. Ví dụ Sheet2: vay 25/09/2026, ra trường 28/02/2029, GDX 25 → hạn cuối 04/08/2032 → **25/07/2032**.
+- ⇒ Trả lời câu hỏi 1 ở trên: PGD tính theo **cách (b)** — 12 tháng ân hạn **tính riêng**, cộng thêm ngoài thời hạn trả nợ (TTN = TP hoặc 2 × TP).
+- **Điểm em thấy cần anh lưu ý (không tự sửa, chờ anh quyết):**
+  1. Học dưới 12 tháng: cách "tháng" và cách "ngày" lệch nhau tới **52 ngày** (ví dụ mẫu: 20/04/2019 so với 11/06/2019) vì DATEDIF "M" bỏ 26 ngày lẻ rồi nhân 2. Học trên 12 tháng thì 2 cách chỉ lệch 1 ngày (năm nhuận). → PGD dùng dòng nào làm chuẩn?
+  2. Hạn cuối **trùng đúng** ngày GDX (ví dụ hạn 10/09, GDX 10) → công thức lùi về 10/08 (dấu ≤). Có đúng ý không, hay giữ 10/09?
+  3. Ngày GDX 29–31 rơi vào tháng thiếu ngày (tháng 2…) → Excel tự nhảy sang tháng sau. App sẽ lấy ngày cuối tháng — anh xác nhận.
+  4. Sheet2 ô I6 gõ nhầm `YEAR(I10)` (ô trống) — không ảnh hưởng kết quả mẫu nhưng sai nếu đổi số; Sheet1 đúng.
+  5. Excel chỉ ra hạn cuối, **chưa có lịch các kỳ trả gốc 12 tháng/lần** và số tiền mỗi kỳ — app có thể làm thêm nếu anh cần (hỏi ở dưới).
+
+*Thiết kế công cụ theo Excel (thay phần ô nhập/kết quả ở trên):*
+- **Ô nhập:** ngày vay (nhận vốn lần đầu) · ngày ra trường (Y khoa: kết thúc thực hành) · thời gian học: *trên 12 tháng / đến 12 tháng / Y khoa sau TN* (app tự gợi ý theo 2 ngày, anh đổi được) · **điểm giao dịch** (chọn từ danh mục địa bàn → tự điền ngày GDX đã khai trong Cài đặt; hoặc gõ ngày) · ☐ thời gian tại ngũ (từ → đến) · ngày phê duyệt (cảnh báo khoản trước 01/01/2025).
+- **Kết quả:** thời hạn phát tiền vay (ngày · tháng) · ân hạn 12 tháng · thời hạn trả nợ · **ngày trả nợ lần đầu** · **hạn trả nợ cuối** · **hạn cuối theo ngày GDX** (dòng đậm, dùng ghi hồ sơ) · công thức từng bước + căn cứ · 📋 Chép (dán Zalo / ghi vào mẫu 01/TD).
+- **Kiểm thử bắt buộc:** app phải ra **đúng từng số** trong 2 sheet mẫu (15/09/2024 → 10/09/2024; 14/09/2024; 20/04/2019 → 10/04/2019; 11/06/2019 → 10/06/2019; 04/08/2032 → 25/07/2032).
+
+*✅ Anh chốt 02/10/2026:* (1) tính **theo tháng**; (2) hạn trùng đúng ngày GDX → **lùi 1 tháng** (chắc chắn không vượt thời hạn tối đa); (3) **tính thêm ngày trả đầu tiên + lịch các kỳ + số tiền trả mỗi kỳ**; (4) **không** đưa tại ngũ vào công cụ này; (5) **không** xét khoản vay trước 01/01/2025. Đã gửi ảnh demo bố cục.
+
+*Bố cục chốt theo cột Excel (ô mở dưới lịch):*
+- **Hàng nhập 1:** Ngày vay · Ngày ra trường · Ngày GDX (gõ tay 1–31, nhớ lần trước).
+- **Hàng nhập 2:** Thời gian học [Trên 12 tháng | Đến 12 tháng · Y khoa] (app tự gợi ý theo 2 ngày) · Số tiền vay.
+- **Bảng kết quả 1 dòng như Excel:** Phát tiền vay (tháng) · Ân hạn 12 tháng · Trả nợ tối đa (= TP hoặc 2×TP) · Hạn cuối · **Hạn cuối theo GDX** (ô đậm).
+- **Bảng kỳ trả:** Kỳ · Ngày trả (theo GDX) · Gốc phải trả — kỳ 1 (đầu tiên) tô nổi.
+- Dòng công thức · 📋 Chép · 📝 Ghi vào to-do. Đổi ô nào tính lại ngay, không cần bấm.
+
+*Công thức chốt = đúng Sheet2 anh đang dùng (02/10/2026; "theo tháng" = các dòng "Thời hạn phát tiền vay là số tháng"):*
+- **Trên 12 tháng (Sheet2 dòng 2):** Hạn cuối = EDATE(ngày ra trường + (ngày ra trường − ngày vay), 12) — tức ra trường + số ngày phát tiền vay + 12 tháng ân hạn. Hiện thêm TP = DATEDIF "M" để xem.
+- **Đến 12 tháng / Y khoa (dòng 5):** Hạn cuối = EDATE(ngày ra trường, DATEDIF "M" × 2 + 12).
+- **Tổng thời hạn cho vay (tháng, ghi hồ sơ / mẫu 01/TD), tính từ ngày nhận món vay đầu tiên:** trên 12 tháng = TP × 2 + 12 (như J2); đến 12 tháng / Y khoa = TP × 3 + 12 (TP + ân hạn 12 + trả nợ 2 × TP) — anh xác nhận thêm công thức cho trường hợp đến 12 tháng.
+- **Theo GDX (cột I):** hạn ≤ ngày GDX cùng tháng → ngày GDX tháng trước; ngược lại → ngày GDX tháng đó. Áp cho mọi ngày trả (kỳ đầu, các kỳ, hạn cuối). Kỳ đầu = ra trường + 12 tháng; các kỳ sau cách 12 tháng; kỳ cuối = hạn cuối theo GDX.
+- Đã chạy thử lại bằng máy đúng công thức trên: ra **đúng từng số** trong file (Sheet2 dòng 2: 04/08/2032 → 25/07/2032; dòng 5: 20/04/2019 → 10/04/2019; Sheet1: 15/09/2024 → 10/09/2024).
+
+*Lỗi nhỏ trong Sheet2 (anh sửa file Excel nếu còn dùng; app sẽ tránh):*
+- **Dòng 3** ("số ngày", trên 12 tháng): trống công thức — E3, H3, I3 không có gì, D3 = 0.
+- **Ô I6** (dòng 6): gõ nhầm `YEAR(I10)` (ô trống → năm 1900). Kết quả mẫu đúng do tình cờ; nếu hạn cuối rơi trước hoặc đúng ngày GDX thì I6 ra ngày GDX **sau** hạn cuối (vượt hạn). Sửa: `YEAR(H6)`.
+- ~~Ô J2 và E10 sai~~ — **em nhận định nhầm, đã sửa:** J2/E10 = 70 là **tổng thời hạn cho vay (tháng) tính từ ngày nhận món vay đầu tiên** = TP 29 + ân hạn 12 + trả nợ 29 (anh xác nhận 02/10/2026). Kiểm: 25/09/2026 + 70 tháng = 25/07/2032, khớp hạn cuối theo GDX.
+- **Ngày GDX 29–31:** tháng thiếu ngày thì Excel nhảy sang đầu tháng sau, có thể **vượt** hạn cuối (ví dụ hạn 01/03/2032, GDX 31 → ra 02/03/2032). App lấy ngày cuối tháng để không vượt.
+
+*✅ Anh chốt thêm 02/10/2026:*
+- Tổng thời hạn cho vay: trên 12 tháng = TP × 2 + 12; **đến 12 tháng / Y khoa = TP × 3 + 12** (đúng). Anh sẽ tự thử kỹ nhánh đến 12 tháng / Y khoa khi có hồ sơ thật (PGD chưa cho vay trường hợp này).
+- **Số tiền vay: anh tự gõ**, đơn vị **triệu đồng** (gõ `40` = 40.000.000 đ).
+- **Phân kỳ: chia đều, làm tròn xuống hàng trăm nghìn, phần dư dồn kỳ cuối.** Ví dụ 40 triệu / 3 kỳ → 13.300.000 · 13.300.000 · **13.400.000**. (Em hiểu "hàng trăm" là hàng trăm nghìn đồng — nếu anh muốn khác thì báo.)
+- Kỳ đầu = ra trường + 12 tháng (điểm 14.1 hướng dẫn), đưa về ngày GDX; các kỳ sau cách 12 tháng; kỳ cuối = hạn cuối theo GDX — anh kiểm lúc thử.
+
+*Hiện công thức để kiểm chứng (anh yêu cầu "càng trực quan càng tốt"):* dưới bảng kết quả có khung **"Cách tính"** ghi từng bước **có thay số thật**, giống cột Excel, ví dụ:
+1. Thời gian phát tiền vay = DATEDIF(25/09/2026 → 28/02/2029, tháng) = **29 tháng** (887 ngày)
+2. Hạn cuối = 28/02/2029 + 887 ngày = 04/08/2031 → + 12 tháng ân hạn = **04/08/2032**
+3. Theo ngày GDX 25: 04/08/2032 ≤ 25/08/2032 → lùi về **25/07/2032**
+4. Thời hạn cho vay = 29 × 2 + 12 = **70 tháng** (kiểm: 25/09/2026 + 70 tháng = 25/07/2032 ✓)
+5. Kỳ đầu = 28/02/2029 + 12 tháng = 28/02/2030 → GDX **25/02/2030**; …
+6. Mỗi kỳ = 40.000.000 ÷ 4 = 10.000.000 (làm tròn trăm nghìn) · kỳ cuối nhận phần dư
+- Nhánh đến 12 tháng / Y khoa hiện đúng các bước tương ứng (× 2, × 3) để anh đối chiếu khi thử.
+- Có dấu ✓/⚠ tự kiểm: ngày vay + thời hạn cho vay phải ≤ hạn cuối; ngày ra trường phải sau ngày vay; ngày GDX 1–31.
+- Kiểm thử máy bắt buộc: khớp mọi số trong Sheet1, Sheet2 và ví dụ chia tiền ở trên.
+
+*✅ Ngày GDX (anh chốt 02/10/2026): **gõ tay** một ô số (1–31) cho nhanh, không phụ thuộc danh mục địa bàn (ngày GDX xã có thể đổi). App nhớ số gõ lần trước để lần sau khỏi gõ lại. Bỏ ô chọn "Điểm GD" ở bố cục.*
+
+*✅ Hiển thị (anh chốt 02/10/2026):* **giữ đúng bố cục ảnh demo** (bảng 1 dòng giống cột Excel: Phát tiền vay · Ân hạn · Trả nợ tối đa · **Thời hạn cho vay (tháng)** (như cột "THÁNG" J2 của Excel, anh chốt thêm) · Hạn cuối · Hạn cuối theo GDX; bảng kỳ trả; dòng công thức), gói trong 1 màn hình (bảng kỳ trả / Cách tính dài thì thu gọn ▸, đủ chỗ thì mở sẵn). **Thêm "Câu chốt"** ô chữ đậm ngay dưới bảng Excel, bấm là chép, đúng mẫu anh dùng ghi hồ sơ:
+`Số tiền vay 160.000.000 đồng, thời hạn 104 tháng, hạn cuối 25/07/2032, trả 10.000.000 đồng/lần, lần 1: 25/06/2029`
+(câu anh gửi chỉ là **mẫu cách ghi** — số trong câu tự lấy từ kết quả; kỳ hạn giữ 12 tháng/lần, không thêm ô kỳ hạn: số tiền anh gõ · thời hạn cho vay · hạn cuối theo GDX · số tiền mỗi kỳ · ngày trả kỳ đầu; kỳ cuối khác số thì thêm ", lần cuối …đồng").
+
+**W② Công cụ 2 — 🗺 Cây địa bàn (anh nêu 02/10/2026; chưa code)**
+- Nút ở cột Công cụ → ô mở dưới lịch (cùng kiểu W①), gói trong 1 màn hình, cuộn bên trong nếu dài.
+- **Cây:** Xã/phường (mã xã) → Điểm giao dịch (mã điểm · ngày GD) → Ấp/KP (mã ấp) → số tổ. **Sắp theo thứ tự mã** ở mọi cấp. Mặc định mở cấp Xã → Điểm, bấm để xổ ấp.
+- Ví dụ một dòng: `540035 Phường Gò Dầu` → `TXN0543502 Phường Gò Dầu · GD ngày 05` → `54003507 Thanh Hà`.
+- **Ô tìm nhanh** trên cùng: gõ tên hoặc mã ấp/KP (không dấu cũng được) → hiện đúng nhánh Xã › Điểm › Ấp kèm mã — tiện khi ấp/KP mới gộp, tách chưa nhớ.
+- **Bấm vào mã để chép** (dán vào hệ thống / Excel). Nút 📋 chép cả cây dạng bảng (mã xã · xã · mã điểm · điểm · ngày GD · mã ấp · ấp) để dán Excel.
+- **Nguồn dữ liệu:** đúng danh mục đã khai ở Cài đặt › Địa bàn (app đã có sẵn mã xã, mã điểm, ngày GD, mã ấp). Không thêm dữ liệu mới; ấp/KP gộp, tách thì sửa ở Cài đặt, cây tự cập nhật. Có nút "✎ Sửa danh mục" dẫn tới Cài đặt › Địa bàn.
+- Ô nào thiếu mã → hiện "chưa có mã" màu nhạt để anh biết mà bổ sung.
 
 ## 3. Việc cần kiểm trên máy thật
 

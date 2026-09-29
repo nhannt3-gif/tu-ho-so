@@ -1915,6 +1915,116 @@
   .bt-nhan.cm{background:var(--xanh-nhat);color:var(--xanh-dam)}
   .bt-nhan.duyet{background:var(--vang-nen);color:var(--vang)}
   .bt-nhan.rac{background:var(--do-nen);color:var(--do)}
+
+  /* ===== 3.62 — việc U: khung xem rộng tối đa, nút gọn ===== */
+  .the-xem{display:flex;flex-direction:column;gap:10px}
+  .the-xem figure{margin:0;background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.12);padding:6px}
+  .the-xem img{width:100%;display:block;border-radius:6px;margin:0 !important;box-shadow:none !important}
+  .the-xem figcaption{font-size:calc(10.5px*var(--co));color:var(--chu-phu);text-align:center;margin-top:3px}
+  @media (min-width:900px){
+    /* khung phải kéo sát dải trạng thái dưới cùng */
+    .cot-phai{height:calc(100vh - 156px);max-height:calc(100vh - 156px)}
+    .cot-phai .dau-p{padding:8px 12px}
+    .cot-phai .xem-phu{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .cot-phai .than-p{padding:8px}
+    .cot-phai .day-p{padding:6px 10px;gap:6px}
+    .cot-phai .day-p button{padding:6px 3px;border-radius:9px}
+    .cot-phai .zoom button{width:30px;height:30px}
+    .xem-day{padding:6px 10px;gap:6px}
+    .xem-day button{padding:7px 3px;border-radius:9px}
+    .xem-dau{padding-top:8px !important;padding-bottom:8px !important}
+    .xem-than{padding:8px}
+  }
+  .dk{padding:4px 8px;gap:3px}
+  .dk button{min-width:28px;height:28px;padding:0 6px;font-size:calc(12.5px*var(--co))}
+  .dk .so-trang input{padding:3px 3px;width:38px}
+  /* ===== 3.62 — việc V: dòng danh sách mỏng hơn (không bớt chữ) ===== */
+  /* rà lại 3.61 (việc Q): thanh Sắp xếp · Danh sách/Nhóm · Khung xem · Ổ G · Drive vẫn xuống 2 hàng ở khổ 1366 do quy tắc khác đè → ép 1 hàng, hẹp thì vuốt ngang */
+  @media (min-width:900px){
+    .sap{flex-wrap:nowrap !important;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+    .sap>*{flex:0 0 auto}
+    .sap button{min-height:28px;padding:3px 9px}
+  }
+  /* không còn chữ mờ trích yếu bên cạnh → tên được dùng hết dòng 1, không bị cắt sớm ở 56% */
+  .d2 .h1 .ten:last-child{max-width:none;flex:1 1 auto;min-width:0}
+  @media (min-width:900px){
+    .d2{padding:4px 9px;margin-bottom:3px;border-radius:9px}
+    .d2 .h2{margin-top:2px}
+    .d2 .nut{gap:2px}
+    .d2 .nut button,.sc-d .nut button{width:22px;height:22px;border-radius:6px;font-size:calc(11.5px*var(--co))}
+    .d2 .tg{padding:1px 6px}
+    .sc-d .h1 .o-chon{width:17px;height:17px}
+    .sc-tt{margin-top:1px}
+    .d2 .h1{line-height:1.3}
+  }
+
+  /* ===== 3.62 — việc W: lịch 70% + cột 🧰 Công cụ ===== */
+  .lc-ben{display:flex;gap:8px;align-items:stretch}
+  .lc-ben .lc-luoi{flex:0 0 70%;min-width:0}
+  .cc-cot{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:5px}
+  .cc-nut{flex:1 1 0;display:flex;align-items:center;gap:6px;min-height:30px;padding:3px 8px;border:1.3px solid var(--vien);border-radius:9px;
+    background:var(--the);color:var(--xanh-dam);font:inherit;font-size:calc(12px*var(--co));font-weight:600;cursor:pointer;text-align:left;min-width:0}
+  .cc-nut i{font-style:normal;font-size:15px;flex:0 0 auto}
+  .cc-nut span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .cc-nut:hover{border-color:var(--xanh)}
+  .cc-nut.bat{background:var(--xanh);border-color:var(--xanh);color:#fff}
+  .cc-nut.cho{color:var(--chu-phu);font-weight:500;border-style:dashed}
+  @media (max-width:899px){
+    .lc-ben{flex-direction:column}
+    .lc-ben .lc-luoi{flex:1 1 auto}
+    .cc-cot{order:-1;flex:0 0 auto;flex-direction:row;overflow-x:auto;gap:5px;scrollbar-width:none}
+    .hs-nhap{grid-template-columns:1fr 1fr}
+    .hs-hoc{flex-wrap:wrap}
+    .hs-seg{flex-wrap:wrap}
+    .cc-nut{flex:0 0 auto;min-height:32px}
+    .cc-nut.cho{display:none}
+  }
+  #cc-o:empty{display:none}
+  #cc-o{background:var(--the);border:1.5px solid var(--xanh);border-radius:12px;padding:8px 10px;margin:-4px 0 12px;
+    overflow:auto}
+  .cc-dau{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .cc-dau b{color:var(--xanh-dam);font-size:calc(13px*var(--co));flex:1}
+  .cc-dau .nho{flex:0 0 auto;min-height:26px;padding:2px 9px;margin:0}
+  .cc-dau{gap:5px}
+  .hs-nhap{display:grid;grid-template-columns:1fr 1fr .55fr .75fr;gap:4px 7px}
+  .hs-hoc{grid-column:1 / -1;display:flex;align-items:center;gap:8px}
+  .hs-hoc label{margin:0;flex:0 0 auto}
+  .hs-hoc .hs-seg{flex:1}
+  .hs-seg button.tu{flex:0 0 auto;padding:4px 10px}
+  .hs-o label{display:block;font-size:calc(10.5px*var(--co));color:var(--chu-phu);margin-bottom:1px}
+  .hs-o input{width:100%;box-sizing:border-box;min-height:28px;height:28px;padding:2px 7px;font-size:calc(13px*var(--co))}
+  .hs-seg{display:flex;border:1.3px solid var(--vien);border-radius:8px;overflow:hidden}
+  .hs-seg button{flex:1 1 auto;border:0;background:var(--the);color:var(--chu);font:inherit;font-size:calc(11.5px*var(--co));padding:4px 4px;cursor:pointer;white-space:nowrap}
+  .hs-seg button+button{border-left:1px solid var(--vien)}
+  .hs-seg button.bat{background:var(--xanh);color:#fff}
+  .hs-bang,.hs-ky{width:100%;border-collapse:collapse;margin-top:7px;font-size:calc(11.5px*var(--co))}
+  .hs-bang th,.hs-ky th{background:var(--xanh-nhat);color:var(--xanh-dam);font-weight:600;font-size:calc(10.5px*var(--co));padding:3px;border:1px solid var(--vien)}
+  .hs-bang td,.hs-ky td{padding:3px;border:1px solid var(--vien);text-align:center}
+  .hs-bang td small{display:block;color:var(--chu-phu);font-size:calc(10px*var(--co))}
+  .hs-bang td.dam{background:#1d6b2c;color:#fff;font-weight:700;cursor:pointer}
+  .hs-ky tr.dau td{background:var(--vang-nen);font-weight:700}
+  .hs-cau{margin-top:6px;padding:5px 9px;border-radius:8px;background:var(--luc-nen);color:var(--luc);font-weight:700;font-size:calc(12.5px*var(--co));cursor:pointer;line-height:1.4}
+  .hs-cau:hover{outline:1.5px solid var(--luc)}
+  .hs-ct{margin-top:6px}
+  .hs-ct summary{cursor:pointer;font-size:calc(12px*var(--co));color:var(--xanh-dam);font-weight:600}
+  .hs-buoc{margin:4px 0 0 18px;padding:0;font-size:calc(11.5px*var(--co));line-height:1.5}
+  .hs-loi{margin-top:8px;color:var(--vang);font-weight:600;font-size:calc(12px*var(--co))}
+  .db-tren{display:flex;gap:6px;align-items:center;margin-bottom:6px}
+  .db-tren input{flex:1;min-width:0;min-height:30px;padding:3px 8px}
+  .db-tren .nho{flex:0 0 auto;min-height:30px;padding:2px 9px}
+  .db-cay{font-size:calc(12.5px*var(--co))}
+  .db-cay details summary{cursor:pointer;list-style:none;padding:2px 0}
+  .db-cay details summary::-webkit-details-marker{display:none}
+  .db-cay details summary::before{content:'▸ ';color:var(--chu-phu)}
+  .db-cay details[open]>summary::before{content:'▾ '}
+  .db-d{margin-left:14px}
+  .db-ap{margin-left:32px;padding:1px 0}
+  .db-ma{font-family:ui-monospace,Consolas,monospace;font-size:calc(11.5px*var(--co));background:var(--nen);border:1px solid var(--vien);border-radius:5px;padding:0 4px;cursor:pointer;color:var(--xanh-dam)}
+  .db-ma:hover{border-color:var(--xanh)}
+  .db-ma.trong{color:var(--chu-phu);opacity:.7;cursor:default;font-family:inherit}
+  .db-gd{color:var(--luc);font-size:calc(11px*var(--co))}
+  .db-cay small{color:var(--chu-phu)}
+  .cc-hop .cc-than{max-height:none}
 </style>
 </head>
 <body>
@@ -1964,7 +2074,7 @@
      <div id="dau-homnay"></div>
      <div class="blv">
       <div class="blv-trai">
-        <div class="blv-lich"><div id="lich"></div></div>
+        <div class="blv-lich"><div id="lich"></div><div id="cc-o"></div></div>
         <div class="blv-duoi">
           <div class="blv-viec"><div id="tim-ghichu"></div><div id="ds-viec"></div></div>
           <div class="blv-gan"><div id="gan-dau"></div><div id="ds-ganday"></div></div>
@@ -2169,7 +2279,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.61', APP_LUC = '02/10/2026 08:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.62', APP_LUC = '03/10/2026 06:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -3384,7 +3494,7 @@ function veLich(){
     '<button class="lc-nut" onclick="lcHomNay()">Hôm nay</button>'+
     '<button class="lc-nut" onclick="lcDanhSach()">Danh sách</button>'+
     '<button class="lc-nut chinh" onclick="lcTinhNgay()">Tính ngày</button></div>';
-  h += '<div class="lc-luoi"><div class="lc-th tuan">Tuần</div>'+
+  h += '<div class="lc-ben"><div class="lc-luoi"><div class="lc-th tuan">Tuần</div>'+
     ['T2','T3','T4','T5','T6','T7','CN'].map(function(t,i){ return '<div class="lc-th'+(i>4?' cuoi':'')+'">'+t+'</div>'; }).join('');
   for(var w=0; w<6; w++){
     var isoDau = lcCong(lcISO(bd), w*7);
@@ -3404,10 +3514,243 @@ function veLich(){
         (cham?'<i class="lc-cham '+cham+'"></i>':'')+'</button>';
     }
   }
-  h += '</div>';
+  h += '</div>'+ccCotHTML()+'</div>';   /* 3.62 (việc W): lịch 70% + cột 🧰 Công cụ bên phải */
   h += '<div class="lc-sap"><span class="lc-nhan-sap">Sắp tới</span>'+lcSapToi()+'</div>';
   e.innerHTML = h;
   veNhatKy();
+}
+/* ==========================================================
+   3.62 — VIỆC W: CỘT 🧰 CÔNG CỤ cạnh lịch (anh chốt 02/10/2026)
+   Mỗi công cụ là một mục đăng ký {id, ico, ten, tit, ve} → thêm công cụ sau này không phải sửa bố cục.
+   Máy tính: ô công cụ mở ngay dưới lịch (#cc-o); điện thoại: mở thành hộp.
+   ========================================================== */
+var CC = {mo:'', hop:'', hs:null, db:{tim:''}};
+var CONG_CU = [
+  {id:'hssv',   ico:'🎓', ten:'Hạn trả HSSV', tit:'Tính hạn trả nợ HSSV', ve:function(){ return ccHSSVHTML(); },
+    nut:'<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt để dán vào hồ sơ">📋 Chép</button><button class="nho" onclick="hsGhiTodo()" title="Ghi câu chốt vào to-do hôm nay">📝 To-do</button>'},
+  {id:'diaban', ico:'🗺', ten:'Địa bàn',      tit:'Cây địa bàn — mã xã, điểm GD, ấp/KP', ve:function(){ return ccDiaBanHTML(); }},
+  {id:'cc3',    ico:'🧰', ten:'Công cụ 3'},
+  {id:'cc4',    ico:'🧰', ten:'Công cụ 4'},
+  {id:'cc5',    ico:'🧰', ten:'Công cụ 5'}
+];
+function ccCotHTML(){
+  return '<div class="cc-cot" title="🧰 Công cụ">'+CONG_CU.map(function(c){
+    return '<button class="cc-nut'+(CC.mo===c.id?' bat':'')+(c.ve?'':' cho')+'" onclick="ccMo(\''+c.id+'\')" title="'+coChuHTML(c.tit||c.ten)+'">'+
+      '<i>'+c.ico+'</i><span>'+coChuHTML(c.ten)+'</span></button>';
+  }).join('')+'</div>';
+}
+function ccTim(id){ return CONG_CU.find(function(c){ return c.id===id; }); }
+function ccMo(id){
+  CC.mo = CC.mo===id ? '' : id;
+  Array.prototype.forEach.call(document.querySelectorAll('.cc-nut'), function(b){
+    b.classList.toggle('bat', b.getAttribute('onclick')==='ccMo(\''+CC.mo+'\')' && !!CC.mo); });
+  veCC();
+}
+function ccDong(){ CC.mo = ''; Array.prototype.forEach.call(document.querySelectorAll('.cc-nut.bat'), function(b){ b.classList.remove('bat'); }); veCC(); if(document.getElementById('hop').classList.contains('hien') && document.querySelector('#hop-in .cc-hop')) dongHop(); }
+function ccHopHTML(c){
+  return '<div class="cc-hop" data-cc="'+c.id+'"><div class="cc-dau"><b>'+c.ico+' '+coChuHTML(c.tit||c.ten)+'</b>'+
+    (c.nut||'')+'<button class="nho" onclick="ccDong()">Đóng (Esc)</button></div>'+
+    '<div class="cc-than" id="cc-than">'+(c.ve ? c.ve() : '<div class="huong-dan">Công cụ này <b>đang chuẩn bị</b> — anh gửi nghiệp vụ là em làm tiếp.</div>')+'</div></div>';
+}
+function veCC(){
+  var o = document.getElementById('cc-o'); if(!o) return;
+  var c = ccTim(CC.mo);
+  if(!c){ o.innerHTML = ''; return; }
+  if(window.matchMedia && !window.matchMedia('(min-width:900px)').matches){
+    /* điện thoại: mở thành hộp, không giữ trạng thái "đang mở" trên nút (đóng hộp kiểu nào cũng được) */
+    o.innerHTML = ''; CC.hop = c.id; CC.mo = '';
+    Array.prototype.forEach.call(document.querySelectorAll('.cc-nut.bat'), function(b){ b.classList.remove('bat'); });
+    moHop(ccHopHTML(c));
+    return;
+  }
+  o.innerHTML = ccHopHTML(c);
+  ccVuaMan();
+}
+/* ô công cụ gói trong màn hình: cao tới sát dải trạng thái dưới cùng, dài hơn thì cuộn bên trong */
+function ccVuaMan(){
+  var o = document.getElementById('cc-o'); if(!o || !o.firstChild) return;
+  var day = document.querySelector('.day'), dayTop = day ? day.getBoundingClientRect().top : window.innerHeight;
+  o.style.maxHeight = Math.max(200, Math.round(dayTop - o.getBoundingClientRect().top - 8))+'px';
+}
+window.addEventListener('resize', function(){ if(CC.mo) ccVuaMan(); });
+/* vẽ lại riêng phần thân (giữ ô đang gõ) */
+function ccVeThan(){
+  var c = ccTim(CC.mo || CC.hop), t = document.getElementById('cc-than');
+  if(c && c.ve && t) t.innerHTML = c.ve();
+}
+function ccChep(t, bx){ chepChu(t, bx||('📋 Đã chép: '+t)); }
+
+/* ---------- W① HẠN TRẢ NỢ HSSV — đúng công thức file Excel Sheet2 anh đang dùng ---------- */
+function hsDoc(v){   /* dd/mm/yyyy · dd/mm/yy · ddmmyyyy → Date (giữa trưa, tránh lệch múi giờ) */
+  var m = String(v||'').trim().match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2}|\d{4})$/);
+  if(!m){ var so = String(v||'').replace(/\D/g,''); if(so.length===8) m = [0, so.slice(0,2), so.slice(2,4), so.slice(4)]; else if(so.length===6) m = [0, so.slice(0,2), so.slice(2,4), so.slice(4)]; }
+  if(!m) return null;
+  var y = +m[3]; if(y<100) y += 2000;
+  var d = new Date(y, +m[2]-1, +m[1], 12);
+  return (d.getDate()===+m[1] && d.getMonth()===+m[2]-1) ? d : null;
+}
+function hsNgay(d){ return d ? hai(d.getDate())+'/'+hai(d.getMonth()+1)+'/'+d.getFullYear() : ''; }
+function hsCuoiThang(y, th){ return new Date(y, th+1, 0, 12).getDate(); }
+/* EDATE của Excel: cộng n tháng, ngày lớn hơn cuối tháng thì lấy ngày cuối tháng */
+function hsEdate(d, n){ var y = d.getFullYear(), th = d.getMonth()+n; var yy = y + Math.floor(th/12), mm = ((th%12)+12)%12;
+  return new Date(yy, mm, Math.min(d.getDate(), hsCuoiThang(yy, mm)), 12); }
+/* DATEDIF(…,"M"): số tháng tròn, bỏ ngày lẻ */
+function hsThang(a, b){ var m = (b.getFullYear()-a.getFullYear())*12 + b.getMonth()-a.getMonth(); if(b.getDate()<a.getDate()) m--; return m; }
+function hsCongNgay(d, n){ var x = new Date(d.getTime()); x.setDate(x.getDate()+n); x.setHours(12); return x; }
+function hsSoNgay(a, b){ return Math.round((Date.UTC(b.getFullYear(),b.getMonth(),b.getDate()) - Date.UTC(a.getFullYear(),a.getMonth(),a.getDate()))/864e5); }
+/* ngày GDX tháng (y, th); tháng không có ngày đó thì lấy ngày cuối tháng (Excel nhảy sang tháng sau → có thể vượt hạn) */
+function hsNgayGD(y, th, g){ var yy = y + Math.floor(th/12), mm = ((th%12)+12)%12; return new Date(yy, mm, Math.min(g, hsCuoiThang(yy, mm)), 12); }
+/* cột I Excel: hạn ≤ ngày GDX cùng tháng → ngày GDX tháng trước; ngược lại ngày GDX tháng đó (anh chốt: trùng ngày thì lùi 1 tháng) */
+function hsVeGD(h, g){ var cur = hsNgayGD(h.getFullYear(), h.getMonth(), g);
+  return hsSoNgay(cur, h) <= 0 ? hsNgayGD(h.getFullYear(), h.getMonth()-1, g) : cur; }
+function hsTien(so){ return Math.round(so).toLocaleString('vi-VN').replace(/,/g,'.'); }
+function hsTinh(v){
+  var kq = {loi:[]};
+  var vay = hsDoc(v.vay), rt = hsDoc(v.rt), g = +v.gdx;
+  if(!vay) kq.loi.push('Ngày vay chưa đúng (dd/mm/yyyy)');
+  if(!rt) kq.loi.push('Ngày ra trường chưa đúng (dd/mm/yyyy)');
+  if(!(g>=1 && g<=31)) kq.loi.push('Ngày GDX phải từ 1 đến 31');
+  if(vay && rt && hsSoNgay(vay, rt)<=0) kq.loi.push('Ngày ra trường phải sau ngày vay');
+  if(kq.loi.length) return kq;
+  var tp = hsThang(vay, rt), soNgay = hsSoNgay(vay, rt);
+  var loai = v.loai || (tp<=12 ? 'duoi' : 'tren');
+  kq.tp = tp; kq.soNgay = soNgay; kq.loai = loai; kq.vay = vay; kq.rt = rt; kq.g = g;
+  if(loai==='tren'){
+    kq.moc = hsCongNgay(rt, soNgay);                 /* ra trường + số ngày phát tiền vay */
+    kq.hc = hsEdate(kq.moc, 12);                    /* + 12 tháng ân hạn (Excel dòng 2) */
+    kq.ttn = tp; kq.thoiHan = tp*2 + 12;
+  } else {
+    kq.hc = hsEdate(rt, tp*2 + 12);                 /* Excel dòng 5 */
+    kq.ttn = tp*2; kq.thoiHan = tp*3 + 12;
+  }
+  kq.hcGD = hsVeGD(kq.hc, g);
+  /* kỳ trả gốc 12 tháng/lần từ ra trường + 12 tháng; kỳ cuối = hạn cuối theo GDX */
+  kq.ky = [];
+  for(var k=1; k<60; k++){
+    var r = hsEdate(rt, 12*k); if(hsSoNgay(r, kq.hc)<=0) break;
+    var gd = hsVeGD(r, g); if(hsSoNgay(gd, kq.hcGD)<=0) break;
+    kq.ky.push({goc:r, ngay:gd});
+  }
+  kq.ky.push({goc:kq.hc, ngay:kq.hcGD, cuoi:true});
+  var tien = parseFloat(String(v.tien||'').replace(',', '.'));
+  if(tien>0){
+    var T = Math.round(tien*1e6), n = kq.ky.length, moi = Math.floor(T/n/1e5)*1e5;
+    if(moi<=0) moi = Math.floor(T/n);
+    kq.T = T; kq.ky.forEach(function(x, i){ x.tien = i<n-1 ? moi : T - moi*(n-1); });
+    kq.moi = moi; kq.cuoiTien = T - moi*(n-1);
+  }
+  /* tự kiểm: ngày vay + thời hạn cho vay không vượt hạn cuối; mọi kỳ không vượt hạn cuối */
+  kq.kiem = hsSoNgay(hsEdate(vay, kq.thoiHan), kq.hc) >= 0;
+  var cau = (kq.T ? 'Số tiền vay '+hsTien(kq.T)+' đồng, ' : '')+'thời hạn '+kq.thoiHan+' tháng, hạn cuối '+hsNgay(kq.hcGD)+
+    (kq.T ? ', trả '+hsTien(kq.moi)+' đồng/lần' : '')+', lần 1: '+hsNgay(kq.ky[0].ngay)+
+    (kq.T && kq.cuoiTien!==kq.moi ? ', lần cuối '+hsTien(kq.cuoiTien)+' đồng' : '');
+  kq.cau = cau.charAt(0).toUpperCase()+cau.slice(1);
+  return kq;
+}
+function hsGT(){
+  if(!CC.hs){ var g = ''; try{ g = localStorage.getItem('tuhoso_gdx')||''; }catch(e){}
+    CC.hs = {vay:'', rt:'', gdx:g, tien:'', loai:''}; }
+  return CC.hs;
+}
+function hsDat(k, el){
+  var v = hsGT();
+  if(k==='vay' || k==='rt') goNgay(el);
+  v[k] = el.value;
+  if(k==='gdx'){ try{ localStorage.setItem('tuhoso_gdx', el.value); }catch(e){} }
+  var kq = document.getElementById('hs-kq'); if(kq) kq.innerHTML = hsKetQuaHTML();
+}
+function hsLoai(l){ hsGT().loai = l; ccVeThan(); }
+function ccHSSVHTML(){
+  var v = hsGT();
+  var o = function(k, nhan, goiY, rong){ return '<div class="hs-o"'+(rong?' style="grid-column:span '+rong+'"':'')+'><label>'+nhan+'</label>'+
+    '<input id="hs-'+k+'" value="'+coChuHTML(v[k]||'')+'" inputmode="numeric" placeholder="'+goiY+'" oninput="hsDat(\''+k+'\',this)"></div>'; };
+  return '<div class="hs-nhap">'+o('vay','Ngày vay (món đầu)','dd/mm/yyyy')+o('rt','Ngày ra trường','dd/mm/yyyy')+o('gdx','Ngày GDX','1–31')+o('tien','Tiền vay (triệu)','vd 40')+
+    '<div class="hs-o hs-hoc"><label>Thời gian học</label><div class="hs-seg">'+
+      ['tren','duoi'].map(function(l){ return '<button class="'+((v.loai||'')===l?'bat':'')+'" onclick="hsLoai(\''+l+'\')">'+(l==='tren'?'Trên 12 tháng':'Đến 12 tháng · Y khoa')+'</button>'; }).join('')+
+      '<button class="tu'+(!v.loai?' bat':'')+'" onclick="hsLoai(\'\')" title="App tự chọn theo số tháng phát tiền vay">Tự chọn</button></div></div></div>'+
+    '<div id="hs-kq">'+hsKetQuaHTML()+'</div>';
+}
+function hsKetQuaHTML(){
+  var v = hsGT();
+  if(!v.vay && !v.rt) return '<div class="huong-dan">Gõ ngày vay, ngày ra trường và ngày GDX — kết quả hiện ngay, đúng công thức file Excel (Sheet2).</div>';
+  var kq = hsTinh(v);
+  if(kq.loi.length) return '<div class="hs-loi">⚠ '+kq.loi.join(' · ')+'</div>';
+  var mo = window.innerHeight>=950 ? ' open' : '';
+  var h = '<table class="hs-bang"><tr><th>Phát tiền vay</th><th>Ân hạn</th><th>Trả nợ tối đa</th><th>Thời hạn cho vay</th><th>Hạn cuối</th><th>Hạn cuối theo GDX</th></tr>'+
+    '<tr><td>'+kq.tp+' tháng<small>'+kq.soNgay+' ngày</small></td><td>12 tháng</td><td>'+kq.ttn+' tháng</td><td><b>'+kq.thoiHan+' tháng</b></td><td>'+hsNgay(kq.hc)+'</td>'+
+    '<td class="dam" onclick="ccChep(\''+hsNgay(kq.hcGD)+'\')" title="Bấm để chép">'+hsNgay(kq.hcGD)+'</td></tr></table>';
+  h += '<div class="hs-cau" onclick="ccChep(this.textContent,\'📋 Đã chép câu chốt — dán vào hồ sơ.\')" title="Bấm để chép">'+coChuHTML(kq.cau)+'</div>';
+  h += '<details class="hs-ct"'+mo+'><summary>Các kỳ trả ('+kq.ky.length+' kỳ · 12 tháng/lần)</summary><table class="hs-ky"><tr><th>Kỳ</th><th>Ngày trả (theo GDX)</th><th>Gốc phải trả</th></tr>'+
+    kq.ky.map(function(x, i){ return '<tr'+(i===0?' class="dau"':'')+'><td>'+(i+1)+(i===0?' · đầu tiên':(x.cuoi?' · cuối':''))+'</td><td>'+hsNgay(x.ngay)+'</td><td>'+(x.tien!==undefined?hsTien(x.tien):'—')+'</td></tr>'; }).join('')+
+    '</table></details>';
+  var tren = kq.loai==='tren';
+  h += '<details class="hs-ct"'+mo+'><summary>Cách tính (để kiểm chứng)</summary><ol class="hs-buoc">'+
+    '<li>Phát tiền vay = DATEDIF('+hsNgay(kq.vay)+' → '+hsNgay(kq.rt)+', tháng) = <b>'+kq.tp+' tháng</b> ('+kq.soNgay+' ngày) → '+(tren?'trên':'đến')+' 12 tháng'+(v.loai?' (anh chọn)':' (tự chọn)')+'</li>'+
+    (tren
+      ? '<li>Hạn cuối = ra trường '+hsNgay(kq.rt)+' + '+kq.soNgay+' ngày = '+hsNgay(kq.moc)+' → + 12 tháng ân hạn = <b>'+hsNgay(kq.hc)+'</b></li>'
+      : '<li>Hạn cuối = ra trường '+hsNgay(kq.rt)+' + ('+kq.tp+' × 2 + 12) = '+(kq.tp*2+12)+' tháng = <b>'+hsNgay(kq.hc)+'</b></li>')+
+    '<li>Theo ngày GDX '+kq.g+': '+hsNgay(kq.hc)+(hsSoNgay(hsNgayGD(kq.hc.getFullYear(),kq.hc.getMonth(),kq.g),kq.hc)<=0?' ≤ ':' > ')+hsNgay(hsNgayGD(kq.hc.getFullYear(),kq.hc.getMonth(),kq.g))+' → <b>'+hsNgay(kq.hcGD)+'</b></li>'+
+    '<li>Thời hạn cho vay = '+kq.tp+' × '+(tren?2:3)+' + 12 = <b>'+kq.thoiHan+' tháng</b> (kiểm: '+hsNgay(kq.vay)+' + '+kq.thoiHan+' tháng = '+hsNgay(hsEdate(kq.vay,kq.thoiHan))+' '+(kq.kiem?'✓ không vượt hạn cuối':'⚠ vượt hạn cuối — kiểm lại')+')</li>'+
+    '<li>Kỳ đầu = ra trường + 12 tháng = '+hsNgay(kq.ky[0].goc)+' → GDX <b>'+hsNgay(kq.ky[0].ngay)+'</b>; các kỳ sau cách 12 tháng; kỳ cuối = hạn cuối theo GDX</li>'+
+    (kq.T ? '<li>Mỗi kỳ = '+hsTien(kq.T)+' ÷ '+kq.ky.length+' kỳ, làm tròn xuống trăm nghìn = <b>'+hsTien(kq.moi)+'</b>; kỳ cuối nhận phần dư = <b>'+hsTien(kq.cuoiTien)+'</b></li>' : '<li>Gõ số tiền vay (triệu) để chia tiền các kỳ.</li>')+
+    '</ol></details>';
+  return h;
+}
+function hsChep(){
+  var kq = hsTinh(hsGT()); if(kq.loi.length) return bao('Chưa đủ số liệu: '+kq.loi.join(' · '), 4);
+  ccChep(kq.cau, '📋 Đã chép câu chốt — dán vào hồ sơ.');
+}
+function hsGhiTodo(){
+  var kq = hsTinh(hsGT()); if(kq.loi.length) return bao('Chưa đủ số liệu: '+kq.loi.join(' · '), 4);
+  dongThem(lcISO(nay()), '🎓 HSSV: '+kq.cau);
+  veNhatKy(); bao('📝 Đã ghi vào to-do hôm nay.', 3);
+}
+
+/* ---------- W② CÂY ĐỊA BÀN — mã xã · mã điểm GD · mã ấp/KP, xếp theo mã ---------- */
+function dbSoMa(a, b){ var x = String(a.ma||''), y = String(b.ma||'');
+  if(!x && !y) return String(a.xa||a.ten||'').localeCompare(String(b.xa||b.ten||''), 'vi');
+  if(!x) return 1; if(!y) return -1; return x.localeCompare(y, 'vi', {numeric:true}); }
+function dbMa(ma){ return ma ? '<code class="db-ma" onclick="event.stopPropagation();event.preventDefault();ccChep(\''+coChuHTML(ma)+'\')" title="Bấm để chép mã">'+coChuHTML(ma)+'</code>' : '<code class="db-ma trong">chưa có mã</code>'; }
+function dbTim(el){ CC.db.tim = el.value; var t = document.getElementById('db-cay'); if(t) t.innerHTML = dbCayHTML(); }
+function dbCayHTML(){
+  var q = boDau(String(CC.db.tim||'')).toLowerCase().trim();
+  var khop = function(){ if(!q) return true; for(var i=0;i<arguments.length;i++){ if(boDau(String(arguments[i]||'')).toLowerCase().indexOf(q)>=0) return true; } return false; };
+  var ds = (D.cauHinh.diaBan||[]).slice().sort(dbSoMa), h = '', n = 0;
+  ds.forEach(function(x){
+    var diem = (x.diem||[]).slice().sort(dbSoMa), hx = '', coX = khop(x.xa, x.ma);
+    diem.forEach(function(d){
+      var ap = (d.ap||[]).slice().sort(dbSoMa), coD = coX || khop(d.ten, d.ma), ha = '';
+      ap.forEach(function(a){
+        if(!(coD || khop(a.ten, a.ma))) return;
+        n++;
+        ha += '<div class="db-ap">'+dbMa(a.ma)+' '+coChuHTML(a.ten)+((a.to||[]).length?' <small>· '+a.to.length+' tổ</small>':'')+'</div>';
+      });
+      if(!ha && !coD) return;
+      hx += '<details class="db-d"'+(q?' open':'')+'><summary>'+dbMa(d.ma)+' <b>'+coChuHTML(d.ten)+'</b>'+(d.ngay?' <span class="db-gd">GD ngày '+coChuHTML(d.ngay)+'</span>':'')+' <small>· '+ap.length+' ấp/KP</small></summary>'+ha+'</details>';
+    });
+    if(!hx && !coX) return;
+    h += '<details class="db-x" open><summary>'+dbMa(x.ma)+' <b>'+coChuHTML(x.xa)+'</b> <small>· '+(x.diem||[]).length+' điểm GD</small></summary>'+hx+'</details>';
+  });
+  if(!ds.length) return '<div class="huong-dan">Chưa có danh mục địa bàn — khai ở ⚙ Cài đặt › Địa bàn.</div>';
+  if(!h) return '<div class="huong-dan">Không thấy "'+coChuHTML(CC.db.tim)+'" trong danh mục.</div>';
+  return h + (q ? '<div class="huong-dan">'+n+' ấp/KP khớp.</div>' : '');
+}
+function ccDiaBanHTML(){
+  return '<div class="db-tren"><input id="db-tim" value="'+coChuHTML(CC.db.tim||'')+'" placeholder="Tìm tên / mã ấp, KP, điểm, xã (không dấu cũng được)" oninput="dbTim(this)">'+
+    '<button class="nho" onclick="dbChepBang()" title="Chép cả danh mục dạng bảng — dán vào Excel">📋 Chép bảng</button>'+
+    '<button class="nho" onclick="ccDong();moCaiDat(\'diaban\')" title="Ấp/KP gộp, tách: sửa ở Cài đặt, cây tự cập nhật">✎ Sửa danh mục</button></div>'+
+    '<div class="db-cay" id="db-cay">'+dbCayHTML()+'</div>';
+}
+function dbChepBang(){
+  var dong = [['Mã xã','Xã/phường','Mã điểm GD','Điểm GD','Ngày GD','Mã ấp/KP','Ấp/KP','Số tổ'].join('\t')];
+  (D.cauHinh.diaBan||[]).slice().sort(dbSoMa).forEach(function(x){
+    (x.diem||[]).slice().sort(dbSoMa).forEach(function(d){
+      var ap = (d.ap||[]).slice().sort(dbSoMa);
+      if(!ap.length) dong.push([x.ma||'', x.xa, d.ma||'', d.ten, d.ngay||'', '', '', ''].join('\t'));
+      ap.forEach(function(a){ dong.push([x.ma||'', x.xa, d.ma||'', d.ten, d.ngay||'', a.ma||'', a.ten, (a.to||[]).length].join('\t')); });
+    });
+  });
+  chepChu(dong.join('\n'), '📋 Đã chép bảng địa bàn ('+(dong.length-1)+' dòng) — dán vào Excel.');
 }
 /* ---------- trang NHẬT KÝ CÔNG VIỆC (giấy vàng) của ngày đang chọn ---------- */
 /* ==========================================================
@@ -7242,6 +7585,19 @@ function veVaoKhung(m, n){
   S.m = m; S.pdf = null; S.trang = 1; S.tong = 1; S.tyLe = 1; S.khung = null;
   o.innerHTML = '<div class="rong">Đang mở…</div>';
   veDieuKhien(n);
+  /* 3.62 (việc U): bản scan CCCD (thẻ) → hiện thẳng 2 mặt thẻ vừa khung, to hơn nhiều so với cả trang A4 */
+  if(n!=='sua' && m.che==='the' && m.matTruoc && laScanMuc(m)){
+    Promise.all([docAnhHS(m.id+'_matTruoc'), m.matSau ? docAnhHS(m.id+'_matSau') : null]).then(function(a){
+      if(S.m!==m) return;
+      if(!a[0]) return veVaoKhungPDF(m, n, S, o);
+      o.innerHTML = '<div class="the-xem">'+a.filter(Boolean).map(function(b, i){
+        return '<figure><img src="'+URL.createObjectURL(b)+'" alt=""><figcaption>'+(i?'Mặt sau':'Mặt trước')+'</figcaption></figure>'; }).join('')+'</div>';
+    }).catch(function(){ if(S.m===m) veVaoKhungPDF(m, n, S, o); });
+    return;
+  }
+  veVaoKhungPDF(m, n, S, o);
+}
+function veVaoKhungPDF(m, n, S, o){
 
   layNoiDung(m).then(function(b){
     if(!b){
@@ -7367,13 +7723,15 @@ function veTrang(n){
     box.dataset.trang = i;
     if(trangChon[i]) box.classList.add('chon');
     box.style.minHeight = Math.round((o.clientWidth||520) * 1.414 * tyLeCS) + 'px';
-    var tk = document.createElement('div');
-    tk.className = 'tick'; tk.textContent = '✓';
-    (function(b, k){ tk.onclick = function(ev){ ev.stopPropagation(); doiChonTrang(b, k); }; })(box, i);
-    box.appendChild(tk);
-    var st = document.createElement('div');
-    st.className = 'stt'; st.textContent = 'Trang '+i+' / '+S.tong;
-    box.appendChild(st);
+    if(S.tong>1){   /* 3.62: 1 trang thì không cần ô tích chọn trang / nhãn "Trang 1/1" */
+      var tk = document.createElement('div');
+      tk.className = 'tick'; tk.textContent = '✓';
+      (function(b, k){ tk.onclick = function(ev){ ev.stopPropagation(); doiChonTrang(b, k); }; })(box, i);
+      box.appendChild(tk);
+      var st = document.createElement('div');
+      st.className = 'stt'; st.textContent = 'Trang '+i+' / '+S.tong;
+      box.appendChild(st);
+    }
     o.appendChild(box);
     S.khung.push(box);
   }
@@ -7451,7 +7809,8 @@ function veDieuKhien(n){
   var e = document.getElementById(S.dk);
   if(!e) return;
   if(!S.pdf){ e.innerHTML = ''; return; }
-  e.innerHTML =
+  /* 3.62 (việc U): file 1 trang thì bỏ cụm lật trang cho gọn */
+  e.innerHTML = (S.tong>1 ?
     '<button onclick="diTrang(\'' +n+ '\',\'dau\')" title="Trang đầu">⏮</button>'+
     '<button onclick="diTrang(\'' +n+ '\',-1)" title="Trang trước">‹</button>'+
     '<span class="so-trang">'+
@@ -7459,7 +7818,7 @@ function veDieuKhien(n){
       'onchange="nhayTrang(\'' +n+ '\',this.value)"> / '+S.tong+'</span>'+
     '<button onclick="diTrang(\'' +n+ '\',1)" title="Trang sau">›</button>'+
     '<button onclick="diTrang(\'' +n+ '\',\'cuoi\')" title="Trang cuối">⏭</button>'+
-    '<span class="ngan-cach"></span>'+
+    '<span class="ngan-cach"></span>' : '<span class="so-trang">1 trang</span>')+
     '<button onclick="zoomKhung(\'' +n+ '\',-1)" title="Thu nhỏ">−</button>'+
     '<span class="tl">'+Math.round(S.tyLe*100)+'%</span>'+
     '<button onclick="zoomKhung(\'' +n+ '\',1)" title="Phóng to">+</button>'+
@@ -9270,7 +9629,15 @@ function noiDungHD(p){
       'Bấm ảnh nhỏ → xem lớn, vuốt / ‹ › qua lại, ⬇ Tải về. ✕ trên ảnh: file riêng vào thùng rác (ngăn 📅 Hôm nay), file liên kết chỉ gỡ.'])+
     '<p><b>Dung lượng:</b> ảnh tự thu nhỏ cạnh dài 1600 px (khoảng 200–400 KB), danh sách chỉ nạp ảnh nhỏ nên vẫn nhẹ. File trên 15 MB app hỏi trước. '+
     'Có nối Drive thì file lên <i>'+coChuHTML(T)+' / Nhật ký / tháng</i>; máy kia thấy ảnh sau khi đồng bộ.</p>'+
-    '<p>Xóa dòng có ảnh → dòng và ảnh vào 🗑 thùng rác ngăn <b>📅 Hôm nay</b>, khôi phục về đúng ngày; lỡ tay thì ↶ Hoàn tác (Ctrl+Z).</p>';
+    '<p>Xóa dòng có ảnh → dòng và ảnh vào 🗑 thùng rác ngăn <b>📅 Hôm nay</b>, khôi phục về đúng ngày; lỡ tay thì ↶ Hoàn tác (Ctrl+Z).</p>'+
+    '<h3>🧰 Công cụ (cột bên phải lịch)</h3>'+
+    hdBuoc(['Bấm một nút → ô công cụ mở ngay dưới lịch; bấm lại hoặc Esc / Đóng (Esc) để đóng. Điện thoại: hàng nút trên lịch, ô mở thành hộp.',
+      '<b>🎓 Hạn trả HSSV</b> — tính đúng như file Excel (Sheet2): gõ ngày vay (món đầu), ngày ra trường, ngày GDX, số tiền (triệu). App tự chọn "Trên 12 tháng" / "Đến 12 tháng · Y khoa" theo số tháng phát tiền vay, anh đổi được. '+
+        'Trên 12 tháng: hạn cuối = ra trường + số ngày phát tiền vay + 12 tháng; đến 12 tháng / Y khoa: ra trường + (tháng × 2 + 12). Mọi ngày trả đưa về <b>ngày GDX trước đó</b> (trùng ngày GDX thì lùi 1 tháng). '+
+        'Thời hạn cho vay = tháng × 2 + 12 (trên 12 tháng) hoặc × 3 + 12. Kỳ trả 12 tháng/lần từ ra trường + 12 tháng; tiền chia đều, làm tròn xuống trăm nghìn, dư dồn kỳ cuối. '+
+        'Bấm dòng <b>câu chốt</b> (hoặc 📋 Chép) để dán hồ sơ; ▸ Cách tính ghi từng bước có số thật để kiểm.',
+      '<b>🗺 Địa bàn</b> — cây Xã › Điểm GD (ngày GD) › Ấp/KP kèm mã, xếp theo mã. Gõ tên / mã (không dấu) để tìm; bấm mã để chép; 📋 Chép bảng dán Excel; ấp/KP gộp, tách thì ✎ Sửa danh mục (Cài đặt › Địa bàn).',
+      'Công cụ 3, 4, 5 đang chờ — anh gửi nghiệp vụ là làm tiếp.']);
   if(p==='duLieu') return '<h3>Tab Tháng — dữ liệu báo cáo hằng tháng</h3>'+
     hdBuoc(['<b>Ma trận</b>: mỗi hàng một báo cáo, mỗi cột một đơn vị (PGD / xã / điểm). Ô '+hdNut('+')+' = chưa có file → bấm để thêm đúng ô đó.',
       'Ô đủ hiện ✓; xã có 2 điểm thì hiện 2/2, 1/2…',
@@ -9343,20 +9710,18 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.61', ds:[
-  ['🪪 Scan: mỗi bản 2 dòng, ghi rõ ✓ Đạt hoặc ⚠ thiếu gì; chip ⚠ Chưa đạt để lọc', "dongHop();doiNgan(4)"],
-  ['📅 Scan: xem ☰ Danh sách (mới lưu lên trước, nhóm Ngày / Tuần / Tháng) hoặc 🌳 Cây Xã › Điểm › Ấp › Tổ', "dongHop();doiNgan(4)"],
-  ['👁 Scan (máy tính): bấm một bản → xem ở khung bên phải trước; ⛶ để mở lớn, lưu & gửi đủ', "dongHop();doiNgan(4)"],
-  ['✎ Chi tiết / Sửa văn bản: văn bản hiện ngay bên cạnh — vừa nhìn vừa chuẩn hóa tên', "dongHop();doiNgan(1)"],
-  ['📋 Biểu mẫu: tích ☐ nhiều mẫu → 📤 Gửi N file một lần (Zalo) hoặc 🗜 Nén .zip; 📚 Bộ biểu mẫu › Chọn cả bộ để gửi', "dongHop();doiNgan(5)"],
-  ['⌨ Nút "Đóng (Esc)" / "Thôi (Esc)" — bấm Esc làm đúng việc của nút', "moHuongDan('phim')"],
-  ['💡 Bấm vào ô nhập hiện mẫu cách ghi (số hiệu, ngày, trích yếu, tên khách…)', "dongHop();doiNgan(1)"],
-  ['🛠 Sửa đọc tên: không lấy số của QĐ được nhắc trong hướng dẫn, không lấy ngày trong dòng V/v, bỏ chữ PDF lỗi font', "dongHop();doiNgan(1)"]],
-  thu:['Tab Scan: xem dòng ✓ Đạt / ⚠ thiếu gì; bấm ⚠ Chưa đạt; đổi Ngày → Tuần → Tháng; 🌳 Cây → bấm một tổ.',
-    'Máy tính · tab Scan: bấm một bản → khung phải hiện CCCD; bấm ⛶ → màn Lưu & gửi.',
-    'Tab Văn bản › Chờ khai › Khai (hoặc ✎ Sửa): văn bản hiện bên phải hộp sửa.',
-    'Tab Biểu mẫu: tích 3 mẫu → 🗜 Nén .zip (máy tính) hoặc 📤 Gửi (điện thoại) → gửi Zalo.',
-    'Mở một hộp bất kỳ → bấm Esc = bấm nút Đóng (Esc) / Thôi (Esc).']};
+var CO_GI_MOI = {ban:'3.62', ds:[
+  ['🧰 Tab Hôm nay: lịch gọn lại (70%), bên phải là cột Công cụ — bấm để mở ngay dưới lịch', "dongHop();doiNgan(0)"],
+  ['🎓 Công cụ Hạn trả HSSV: đúng công thức file Excel (Sheet2) — hạn cuối theo ngày GDX, thời hạn cho vay (tháng), kỳ đầu, số tiền mỗi kỳ, câu chốt bấm là chép', "dongHop();doiNgan(0);ccMo('hssv')"],
+  ['🗺 Công cụ Địa bàn: cây Xã › Điểm GD › Ấp/KP kèm mã, xếp theo mã; gõ tìm ấp/KP (không dấu); bấm mã để chép', "dongHop();doiNgan(0);ccMo('diaban')"],
+  ['👁 Khung xem kéo sát đáy màn hình, nút gọn lại; file 1 trang bỏ nút lật trang; CCCD hiện 2 mặt thẻ to vừa khung', "dongHop();doiNgan(4)"],
+  ['🖥 Bỏ dòng nhắc cầu nối dưới khung xem — máy chưa cài chỉ hỏi khi anh bấm 🖥 Mở máy / 📋 Copy; "Để sau" thì không nhắc nữa', "dongHop();doiNgan(1)"],
+  ['📄 Dòng danh sách mỏng hơn ~25–30% (Văn bản, Scan, các tab): thấy nhiều file hơn, tên dài hiện đủ hơn', "dongHop();doiNgan(1)"]],
+  thu:['Tab Hôm nay › 🎓 Hạn trả HSSV: gõ 25092026 · 28022029 · GDX 25 · tiền 40 → hạn cuối 25/07/2032, 70 tháng, lần 1 25/02/2030, 10.000.000/lần.',
+    'Bấm dòng câu chốt (xanh) → dán vào hồ sơ; mở ▸ Cách tính để đối chiếu từng bước.',
+    'Tab Hôm nay › 🗺 Địa bàn: gõ tên một ấp → thấy ngay thuộc điểm GD, xã nào, kèm mã.',
+    'Tab Scan (máy tính): bấm một bản → khung phải hiện 2 mặt thẻ to, sát đáy màn hình.',
+    'Tab Văn bản: đếm số dòng thấy được trên một màn hình so với trước.']};
 function noiDungCoGiMoi(){
   return '<h3>Bản '+CO_GI_MOI.ban+' có gì mới</h3><div class="hd-moi">'+CO_GI_MOI.ds.map(function(x){
       return '<button class="hd-moi-dong" onclick="'+x[1]+'">'+coChuHTML(x[0])+' <span>›</span></button>'; }).join('')+'</div>'+
@@ -11861,6 +12226,7 @@ function phimChung(e){
   if(BOT.tab){ e.preventDefault(); thoiBot(); return; }
   if(typeof DK!=='undefined' && DK.mo){ e.preventDefault(); dongDonKho(); return; }
   if(CHO_KHAI){ e.preventDefault(); dongChoKhai(); return; }
+  if(CC.mo && nganHienTai===0){ e.preventDefault(); ccDong(); return; }   /* 3.62: ô 🧰 Công cụ */
 }
 
 document.addEventListener('click', function(e){
@@ -14320,8 +14686,8 @@ function copyXP(){
     if(!k) return baoLoi('Copy file chỉ làm từng bản một — mở từng bản rồi Copy, hoặc 💾 Lưu nhanh cả bản ghép.');
     return bao('Bản này đang lên Drive — lên xong (vài giây tới 1–2 phút ổ G chép về) bấm 📋 Copy lại. Cần ngay thì bấm 💾 Lưu nhanh.', 7);
   }
-  baoLoi('Trình duyệt không tự chép được file PDF. Cài cầu nối (Cài đặt › Google Drive) để 📋 Copy chép đúng file rồi Ctrl+V vào Zalo — '+
-    'hoặc bấm 💾 Lưu nhanh rồi kéo file từ thư mục vào ô chat.');
+  hoiCaiCauNoi(function(){ baoLoi('Trình duyệt không tự chép được file PDF. Cài cầu nối (Cài đặt › Google Drive) để 📋 Copy chép đúng file rồi Ctrl+V vào Zalo — '+
+    'hoặc bấm 💾 Lưu nhanh rồi kéo file từ thư mục vào ô chat.'); });
 }
 function guiXP(){
   if(!XP || !XP.bl) return bao('PDF đang dựng, chờ chút rồi bấm lại.', 3);
@@ -15331,13 +15697,28 @@ function veNutCN(m){
           '<button'+nhat+' onclick="'+goi('chep')+'" title="Chép file — Ctrl+V vào Zalo'+tip+'">📋 Chép</button>'+
           '<button'+nhat+' onclick="'+goi('thumuc')+'" title="Mở thư mục chứa file'+tip+'">📂</button>';
     } else {
-      var an = false; try{ an = localStorage.getItem('tuhoso_cn_an')==='1'; }catch(e){}
-      if(!an) meo = '🖥 Mở thẳng file trên máy, chép file dán vào Zalo? <a onclick="moCaiDat(\'drive\')">Cài cầu nối (1 lần)</a>'+
-        '<b class="x" title="Ẩn gợi ý này" onclick="try{localStorage.setItem(\'tuhoso_cn_an\',\'1\')}catch(e){};this.parentNode.innerHTML=\'\'">✕</b>';
+      /* 3.62 (việc U, anh chốt): bỏ dòng nhắc dưới khung xem — chỉ một nút nhỏ; bấm lần đầu mới hỏi cài, "Để sau" thì thôi hẳn */
+      if(!cnDaBoQua()) h = '<button onclick="hoiCaiCauNoi(function(){ bao(\'Chưa cài cầu nối: dùng Gửi cả file để mở / tải file.\', 5); })" title="Mở thẳng file trên máy (cần cầu nối — cài 1 lần)">🖥 Mở máy</button>';
     }
   }
   ['cp-cn','x-cn'].forEach(function(id){ var e = document.getElementById(id); if(e) e.innerHTML = h; });
   var e2 = document.getElementById('cp-cnmeo'); if(e2) e2.innerHTML = meo;
+}
+/* 3.62 (việc U): máy tính chưa xác nhận cài cầu nối → chỉ hỏi khi anh bấm việc cần cầu nối; cài rồi / "Để sau" thì không nhắc nữa */
+function cnDaBoQua(){ try{ return localStorage.getItem('tuhoso_cn_an')==='1'; }catch(e){ return false; } }
+function hoiCaiCauNoi(duPhong){
+  duPhong = duPhong || function(){};
+  if(laDT() || coCauNoi() || cnDaBoQua()) return duPhong();
+  window.__cnDuPhong = duPhong;
+  moHop('<h3>🖥 Máy này chưa cài cầu nối</h3>'+
+    '<div class="huong-dan">Cầu nối giúp <b>mở thẳng file trên máy</b> (Word / Excel / PDF), <b>chép đúng file</b> để Ctrl+V vào Zalo và <b>mở thư mục</b> chứa file. Chỉ cài <b>1 lần</b> cho mỗi máy tính.</div>'+
+    '<ol class="huong-dan" style="margin:6px 0 0 18px;padding:0"><li>Bấm <b>⬇ Tải bộ cài</b> → mở file .reg vừa tải → Yes → OK.</li><li>Bấm <b>Mở thử</b> — thấy hộp "Cầu nối đã chạy" là xong, app nhớ cho máy này.</li></ol>'+
+    '<div class="hang-nut" style="margin-top:12px">'+
+      '<button class="nho chinh" onclick="taiBoCaiCauNoi()">⬇ Tải bộ cài</button>'+
+      '<button class="nho" onclick="dongHop();moThuCauNoi()">Mở thử</button>'+
+      '<button class="nho" onclick="try{localStorage.setItem(\'tuhoso_cn_an\',\'1\')}catch(e){};dongHop();if(mucDangXem)veNutCN(mucDangXem);(window.__cnDuPhong||function(){})()">Để sau (không nhắc nữa)</button>'+
+      '<button class="nho" onclick="dongHop()">Đóng (Esc)</button>'+
+    '</div>');
 }
 /* các nút cầu nối (chỉ máy tính đã cài) */
 function nutCauNoi(loai, id, it){
