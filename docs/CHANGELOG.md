@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.53b — 30/09/2026 11:00 — Sổ ghi chú kéo dài sát thanh đáy
+- Máy tính: sổ ghi chú (và cột lịch bên trái) kéo dài xuống sát thanh đáy mới — dùng phần chỗ vừa tiết kiệm được. Khổ 1366×850 sổ cao thêm khoảng 40 px.
+- Chiều cao tính theo màn hình thật (`canCaoSo`), tự chỉnh khi đổi cỡ cửa sổ.
+
+---
+
 ## 3.53 — 30/09/2026 10:00 — Đọc số hiệu đúng phần đầu văn bản · Hôm nay gọn · thanh đáy chỉ còn chip hệ thống · 💾 bộ nhớ máy
 
 **1. Đọc văn bản (anh chốt quy tắc)**
