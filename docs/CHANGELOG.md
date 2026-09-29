@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.54 — 30/09/2026 14:00 — Chờ khai thành chip bên phải dòng "+ Thêm file" · nút tab Văn bản cùng cỡ các tab
+- **Dải vàng Chờ khai bỏ.** Thay bằng chip vàng `📥 4 chờ khai ›` ở bên phải dòng "+ Thêm file", cạnh số đếm của tab.
+  - Tab Văn bản đếm tất cả file chờ khai.
+  - Tab Tháng, Biểu mẫu, Scan chỉ đếm phần của tab đó.
+  - Bấm chip → mở danh sách Chờ khai. Rê chuột lên chip → xem chia theo nhóm.
+- **Điện thoại:** chip ghim ở mép phải dòng nút (dòng vuốt ngang vẫn thấy chip). Số đếm ẩn trên điện thoại cho gọn.
+- **Nút tab Văn bản** trước cao 38 px (quy tắc CSS cũ `.nam button`), nay 34 px, cùng chữ đậm như các tab khác.
+
+---
+
 ## 3.53b — 30/09/2026 11:00 — Sổ ghi chú kéo dài sát thanh đáy
 - Máy tính: sổ ghi chú (và cột lịch bên trái) kéo dài xuống sát thanh đáy mới — dùng phần chỗ vừa tiết kiệm được. Khổ 1366×850 sổ cao thêm khoảng 40 px.
 - Chiều cao tính theo màn hình thật (`canCaoSo`), tự chỉnh khi đổi cỡ cửa sổ.
