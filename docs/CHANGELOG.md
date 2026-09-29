@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.56 — 30/09/2026 17:00 — Nút 🗑 Xóa trong danh sách Chờ khai
+- Mỗi file trong **Chờ khai** có thêm nút **🗑 Xóa** cạnh nút Khai. File không cần thì bỏ luôn, không phải khai.
+- Theo quy tắc chung: file vào thùng rác, có ↩ Hoàn tác.
+  - File ở **khay** (chưa vào tủ): Hoàn tác trả về đúng khay.
+  - Khôi phục từ thùng rác thì vẫn vào tab như cũ.
+
+---
+
 ## 3.55 — 30/09/2026 16:00 — Nút ↶ Hoàn tác kiểu Word ở dòng tiêu đề sổ
 - **Nút ↶ Hoàn tác** chuyển lên cùng dòng tiêu đề "TO-DO LIST", dạng nút biểu tượng như Word, có số bước nhỏ (↶¹).
   - Không còn gì để hoàn tác thì nút mờ đi.
