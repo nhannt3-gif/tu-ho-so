@@ -365,12 +365,26 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - **Kết quả:** thời hạn phát tiền vay (ngày · tháng) · ân hạn 12 tháng · thời hạn trả nợ · **ngày trả nợ lần đầu** · **hạn trả nợ cuối** · **hạn cuối theo ngày GDX** (dòng đậm, dùng ghi hồ sơ) · công thức từng bước + căn cứ · 📋 Chép (dán Zalo / ghi vào mẫu 01/TD).
 - **Kiểm thử bắt buộc:** app phải ra **đúng từng số** trong 2 sheet mẫu (15/09/2024 → 10/09/2024; 14/09/2024; 20/04/2019 → 10/04/2019; 11/06/2019 → 10/06/2019; 04/08/2032 → 25/07/2032).
 
-*Câu hỏi còn chờ anh chốt:*
-1. Học dưới 12 tháng: chuẩn là cách **tháng** (Excel dòng 5) hay **ngày** (dòng 6)? Học trên 12 tháng: dùng dòng "tháng" (cộng số ngày + 12 tháng) như Excel?
-2. Hạn cuối trùng đúng ngày GDX: lùi 1 tháng (như Excel) hay giữ nguyên?
-3. Có cần thêm **lịch các kỳ trả gốc** (12 tháng/lần) và **số tiền mỗi kỳ** không, hay chỉ cần hạn cuối như Excel?
-4. Tại ngũ: cộng số ngày tại ngũ vào hạn cuối (trước khi đưa về ngày GDX) — đúng cách PGD làm?
-5. Khoản vay trước 01/01/2025 (theo 2162): chỉ cảnh báo, hay tính cùng công thức này?
+*✅ Anh chốt 02/10/2026:* (1) tính **theo tháng**; (2) hạn trùng đúng ngày GDX → **lùi 1 tháng** (chắc chắn không vượt thời hạn tối đa); (3) **tính thêm ngày trả đầu tiên + lịch các kỳ + số tiền trả mỗi kỳ**; (4) **không** đưa tại ngũ vào công cụ này; (5) **không** xét khoản vay trước 01/01/2025. Đã gửi ảnh demo bố cục.
+
+*Bố cục chốt theo cột Excel (ô mở dưới lịch):*
+- **Hàng nhập 1:** Ngày vay · Ngày ra trường · Điểm GD → ngày GDX (tự điền từ danh mục địa bàn, gõ tay được).
+- **Hàng nhập 2:** Thời gian học [Trên 12 tháng | Đến 12 tháng · Y khoa] (app tự gợi ý theo 2 ngày) · Số tiền vay.
+- **Bảng kết quả 1 dòng như Excel:** Phát tiền vay (tháng) · Ân hạn 12 tháng · Trả nợ tối đa (= TP hoặc 2×TP) · Hạn cuối · **Hạn cuối theo GDX** (ô đậm).
+- **Bảng kỳ trả:** Kỳ · Ngày trả (theo GDX) · Gốc phải trả — kỳ 1 (đầu tiên) tô nổi.
+- Dòng công thức · 📋 Chép · 📝 Ghi vào to-do. Đổi ô nào tính lại ngay, không cần bấm.
+
+*Công thức dự kiến (theo tháng):* TP = DATEDIF(ngày vay, ngày ra trường, "M") (bỏ ngày lẻ); Hạn cuối = EDATE(ngày ra trường, TP + 12) nếu trên 12 tháng, EDATE(ngày ra trường, 2×TP + 12) nếu đến 12 tháng / Y khoa; mọi ngày trả (kỳ đầu, các kỳ, hạn cuối) đều đưa về **ngày GDX gần nhất trước đó** (trùng ngày GDX thì lùi 1 tháng; tháng không có ngày GDX thì lấy ngày cuối tháng). Kỳ đầu = ra trường + 12 tháng; các kỳ sau cách 12 tháng; kỳ cuối = hạn cuối.
+
+*⚠ Khác Excel cần anh xác nhận:* dòng "Trên 12 tháng — số tháng" của Excel thực ra cộng **số ngày** phát tiền vay (không phải số tháng). Tính theo tháng đúng nghĩa thì ví dụ Sheet1 (vay 25/09/2015, ra trường 20/09/2019, GDX 10): Excel ra **10/09/2024**, theo tháng ra **10/08/2024** (sớm 1 tháng vì bỏ 26 ngày lẻ). Ví dụ Sheet2 hai cách cùng ra 25/07/2032.
+
+*Thông tin cần anh cung cấp trước khi code:*
+1. Xác nhận cách "theo tháng" ở trên (chấp nhận Sheet1 ra 10/08/2024 thay vì 10/09/2024).
+2. **Số tiền vay** nhập là: tổng số tiền được duyệt (mức vay/tháng × số tháng) hay tổng số đã giải ngân thực tế? Có cần ô "mức vay/tháng × số tháng" để app tự nhân?
+3. **Chia tiền các kỳ:** chia đều? làm tròn đến đơn vị nào (nghìn / trăm nghìn)? phần lẻ dồn kỳ cuối hay kỳ đầu? Nếu PGD đang chia khác (ví dụ kỳ cuối ngắn hơn 12 tháng thì trả ít hơn) anh cho em quy tắc.
+4. Kỳ đầu tiên có đúng là **ra trường + 12 tháng** (lùi về GDX) không, và các kỳ sau cách nhau đúng 12 tháng?
+5. 1–2 **hồ sơ thật đã duyệt** (che tên) có ghi ngày trả từng kỳ và số tiền, để em kiểm app ra đúng từng số.
+6. Ngày GDX của các điểm đã khai đủ trong Cài đặt › Địa bàn chưa (app lấy từ đó).
 
 ## 3. Việc cần kiểm trên máy thật
 
