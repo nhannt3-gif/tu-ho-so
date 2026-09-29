@@ -387,13 +387,24 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - ~~Ô J2 và E10 sai~~ — **em nhận định nhầm, đã sửa:** J2/E10 = 70 là **tổng thời hạn cho vay (tháng) tính từ ngày nhận món vay đầu tiên** = TP 29 + ân hạn 12 + trả nợ 29 (anh xác nhận 02/10/2026). Kiểm: 25/09/2026 + 70 tháng = 25/07/2032, khớp hạn cuối theo GDX.
 - **Ngày GDX 29–31:** tháng thiếu ngày thì Excel nhảy sang đầu tháng sau, có thể **vượt** hạn cuối (ví dụ hạn 01/03/2032, GDX 31 → ra 02/03/2032). App lấy ngày cuối tháng để không vượt.
 
-*Thông tin cần anh cung cấp trước khi code:*
-1. ~~Xác nhận cách tính~~ → đã chốt đúng Sheet2.
-2. **Số tiền vay** nhập là: tổng số tiền được duyệt (mức vay/tháng × số tháng) hay tổng số đã giải ngân thực tế? Có cần ô "mức vay/tháng × số tháng" để app tự nhân?
-3. **Chia tiền các kỳ:** chia đều? làm tròn đến đơn vị nào (nghìn / trăm nghìn)? phần lẻ dồn kỳ cuối hay kỳ đầu? Nếu PGD đang chia khác (ví dụ kỳ cuối ngắn hơn 12 tháng thì trả ít hơn) anh cho em quy tắc.
-4. Kỳ đầu tiên có đúng là **ra trường + 12 tháng** (lùi về GDX) không, và các kỳ sau cách nhau đúng 12 tháng?
-5. 1–2 **hồ sơ thật đã duyệt** (che tên) có ghi ngày trả từng kỳ và số tiền, để em kiểm app ra đúng từng số.
-6. Ngày GDX của các điểm đã khai đủ trong Cài đặt › Địa bàn chưa (app lấy từ đó).
+*✅ Anh chốt thêm 02/10/2026:*
+- Tổng thời hạn cho vay: trên 12 tháng = TP × 2 + 12; **đến 12 tháng / Y khoa = TP × 3 + 12** (đúng). Anh sẽ tự thử kỹ nhánh đến 12 tháng / Y khoa khi có hồ sơ thật (PGD chưa cho vay trường hợp này).
+- **Số tiền vay: anh tự gõ**, đơn vị **triệu đồng** (gõ `40` = 40.000.000 đ).
+- **Phân kỳ: chia đều, làm tròn xuống hàng trăm nghìn, phần dư dồn kỳ cuối.** Ví dụ 40 triệu / 3 kỳ → 13.300.000 · 13.300.000 · **13.400.000**. (Em hiểu "hàng trăm" là hàng trăm nghìn đồng — nếu anh muốn khác thì báo.)
+- Kỳ đầu = ra trường + 12 tháng (điểm 14.1 hướng dẫn), đưa về ngày GDX; các kỳ sau cách 12 tháng; kỳ cuối = hạn cuối theo GDX — anh kiểm lúc thử.
+
+*Hiện công thức để kiểm chứng (anh yêu cầu "càng trực quan càng tốt"):* dưới bảng kết quả có khung **"Cách tính"** ghi từng bước **có thay số thật**, giống cột Excel, ví dụ:
+1. Thời gian phát tiền vay = DATEDIF(25/09/2026 → 28/02/2029, tháng) = **29 tháng** (887 ngày)
+2. Hạn cuối = 28/02/2029 + 887 ngày = 04/08/2031 → + 12 tháng ân hạn = **04/08/2032**
+3. Theo ngày GDX 25: 04/08/2032 ≤ 25/08/2032 → lùi về **25/07/2032**
+4. Thời hạn cho vay = 29 × 2 + 12 = **70 tháng** (kiểm: 25/09/2026 + 70 tháng = 25/07/2032 ✓)
+5. Kỳ đầu = 28/02/2029 + 12 tháng = 28/02/2030 → GDX **25/02/2030**; …
+6. Mỗi kỳ = 40.000.000 ÷ 4 = 10.000.000 (làm tròn trăm nghìn) · kỳ cuối nhận phần dư
+- Nhánh đến 12 tháng / Y khoa hiện đúng các bước tương ứng (× 2, × 3) để anh đối chiếu khi thử.
+- Có dấu ✓/⚠ tự kiểm: ngày vay + thời hạn cho vay phải ≤ hạn cuối; ngày ra trường phải sau ngày vay; ngày GDX 1–31.
+- Kiểm thử máy bắt buộc: khớp mọi số trong Sheet1, Sheet2 và ví dụ chia tiền ở trên.
+
+*Còn thiếu (không chặn việc code):* ngày GDX các điểm trong Cài đặt › Địa bàn — chưa khai thì gõ tay ngày GDX trong công cụ.
 
 ## 3. Việc cần kiểm trên máy thật
 
