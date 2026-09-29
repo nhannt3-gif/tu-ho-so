@@ -346,12 +346,31 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 *Ô nhập:* loại đào tạo (trên 1 năm / đến 1 năm / Y khoa sau TN) · ngày nhận vốn lần đầu · ngày kết thúc khóa học (thực hành) · ngày phê duyệt (để cảnh báo khoản vay trước 01/01/2025) · tổng số tiền vay (không bắt buộc) · kỳ hạn trả gốc (mặc định 12 tháng/lần) · ☐ có thời gian tại ngũ (từ ngày → đến ngày) · ☐ Y khoa vay tiếp (TP trước, tháng).
 *Kết quả:* TP (tháng) · TTN tối đa · thời hạn cho vay · **ngày trả nợ gốc + lãi lần đầu** · bảng các kỳ trả gốc (ngày, số tiền mỗi kỳ) · **hạn trả nợ cuối cùng** · dòng công thức + căn cứ điểm/khoản; nút 📋 Chép (dán Zalo) — ghi sẵn đúng các ô của mẫu 01/TD và phần phê duyệt ("Thời hạn cho vay … tháng; Kỳ hạn trả nợ … tháng/lần; Số tiền trả nợ … đồng/lần; Hạn trả nợ cuối cùng …").
 
-*Câu hỏi chờ anh chốt (em không tự đoán):*
-1. **Hạn trả nợ cuối cùng** tính cách nào? (a) = ngày nhận vốn lần đầu + TP + TTN (đúng chữ định nghĩa 9.1 — 12 tháng sau ra trường nằm trong TTN); hay (b) = ngày trả nợ lần đầu + TTN. Ví dụ nhận vốn 15/09/2025, ra trường 30/06/2029, đào tạo trên 1 năm, TP ≈ 45 tháng: (a) hạn cuối 15/03/2033, kỳ đầu 30/06/2030 → 4 kỳ (30/06/2030, 30/06/2031, 30/06/2032, 15/03/2033); (b) hạn cuối 30/03/2034. Thực tế PGD đang ghi theo cách nào?
-2. **Làm tròn tháng** khi TP lẻ ngày (ví dụ 45 tháng 15 ngày): làm tròn lên, xuống, hay tính theo tháng dương lịch?
-3. **Số tiền mỗi kỳ:** chia đều; phần lẻ dồn kỳ cuối hay kỳ đầu; làm tròn đến nghìn đồng?
-4. **Tại ngũ:** cộng số tháng tại ngũ vào hạn cuối và lùi tất cả các kỳ còn lại tương ứng — đúng cách PGD làm?
-5. Khoản vay trước 01/01/2025 (theo 2162): chỉ cảnh báo, hay cần công cụ tính luôn theo quy định cũ (khi đó anh gửi thêm 2162)?
+*Bảng Excel "Công thức tính hạn trả nợ HSSV" anh gửi 02/10/2026 (Phòng Tin học xây dựng, gửi PGD tham khảo) — em đã rà từng công thức:*
+- **Hạn trả nợ cuối** (cột H):
+  - Học **trên 12 tháng**: `= EDATE(ngày ra trường + (ngày ra trường − ngày vay), 12)` → ra trường + **số ngày phát tiền vay** + **12 tháng ân hạn**. (Dòng ghi "số tháng" nhưng công thức thực ra cộng số **ngày**; cột E "47 tháng" chỉ để xem, không dùng.)
+  - Học **dưới 12 tháng**: `= EDATE(ngày ra trường, số tháng × 2 + 12)`, số tháng = DATEDIF "M" (bỏ ngày lẻ).
+  - Cách "số ngày": `ra trường + số ngày (×2 nếu dưới 12 tháng) + 365`.
+- **Hạn trả nợ cuối theo ngày GDX** (cột I): đưa về **ngày giao dịch xã gần nhất trước hạn cuối**: nếu hạn cuối ≤ ngày GDX của cùng tháng → ngày GDX tháng trước; nếu không → ngày GDX tháng đó. Ví dụ Sheet2: vay 25/09/2026, ra trường 28/02/2029, GDX 25 → hạn cuối 04/08/2032 → **25/07/2032**.
+- ⇒ Trả lời câu hỏi 1 ở trên: PGD tính theo **cách (b)** — 12 tháng ân hạn **tính riêng**, cộng thêm ngoài thời hạn trả nợ (TTN = TP hoặc 2 × TP).
+- **Điểm em thấy cần anh lưu ý (không tự sửa, chờ anh quyết):**
+  1. Học dưới 12 tháng: cách "tháng" và cách "ngày" lệch nhau tới **52 ngày** (ví dụ mẫu: 20/04/2019 so với 11/06/2019) vì DATEDIF "M" bỏ 26 ngày lẻ rồi nhân 2. Học trên 12 tháng thì 2 cách chỉ lệch 1 ngày (năm nhuận). → PGD dùng dòng nào làm chuẩn?
+  2. Hạn cuối **trùng đúng** ngày GDX (ví dụ hạn 10/09, GDX 10) → công thức lùi về 10/08 (dấu ≤). Có đúng ý không, hay giữ 10/09?
+  3. Ngày GDX 29–31 rơi vào tháng thiếu ngày (tháng 2…) → Excel tự nhảy sang tháng sau. App sẽ lấy ngày cuối tháng — anh xác nhận.
+  4. Sheet2 ô I6 gõ nhầm `YEAR(I10)` (ô trống) — không ảnh hưởng kết quả mẫu nhưng sai nếu đổi số; Sheet1 đúng.
+  5. Excel chỉ ra hạn cuối, **chưa có lịch các kỳ trả gốc 12 tháng/lần** và số tiền mỗi kỳ — app có thể làm thêm nếu anh cần (hỏi ở dưới).
+
+*Thiết kế công cụ theo Excel (thay phần ô nhập/kết quả ở trên):*
+- **Ô nhập:** ngày vay (nhận vốn lần đầu) · ngày ra trường (Y khoa: kết thúc thực hành) · thời gian học: *trên 12 tháng / đến 12 tháng / Y khoa sau TN* (app tự gợi ý theo 2 ngày, anh đổi được) · **điểm giao dịch** (chọn từ danh mục địa bàn → tự điền ngày GDX đã khai trong Cài đặt; hoặc gõ ngày) · ☐ thời gian tại ngũ (từ → đến) · ngày phê duyệt (cảnh báo khoản trước 01/01/2025).
+- **Kết quả:** thời hạn phát tiền vay (ngày · tháng) · ân hạn 12 tháng · thời hạn trả nợ · **ngày trả nợ lần đầu** · **hạn trả nợ cuối** · **hạn cuối theo ngày GDX** (dòng đậm, dùng ghi hồ sơ) · công thức từng bước + căn cứ · 📋 Chép (dán Zalo / ghi vào mẫu 01/TD).
+- **Kiểm thử bắt buộc:** app phải ra **đúng từng số** trong 2 sheet mẫu (15/09/2024 → 10/09/2024; 14/09/2024; 20/04/2019 → 10/04/2019; 11/06/2019 → 10/06/2019; 04/08/2032 → 25/07/2032).
+
+*Câu hỏi còn chờ anh chốt:*
+1. Học dưới 12 tháng: chuẩn là cách **tháng** (Excel dòng 5) hay **ngày** (dòng 6)? Học trên 12 tháng: dùng dòng "tháng" (cộng số ngày + 12 tháng) như Excel?
+2. Hạn cuối trùng đúng ngày GDX: lùi 1 tháng (như Excel) hay giữ nguyên?
+3. Có cần thêm **lịch các kỳ trả gốc** (12 tháng/lần) và **số tiền mỗi kỳ** không, hay chỉ cần hạn cuối như Excel?
+4. Tại ngũ: cộng số ngày tại ngũ vào hạn cuối (trước khi đưa về ngày GDX) — đúng cách PGD làm?
+5. Khoản vay trước 01/01/2025 (theo 2162): chỉ cảnh báo, hay tính cùng công thức này?
 
 ## 3. Việc cần kiểm trên máy thật
 
