@@ -884,6 +884,29 @@
   .xp-nut{display:flex;flex-direction:column;gap:8px;position:sticky;bottom:-1px;z-index:6;background:var(--the);padding:8px 0 10px;box-shadow:0 -6px 10px -6px rgba(0,0,0,.18)}
   .xp-trang{max-height:none}
   .xp-nut>.chinh{min-height:48px;font-size:calc(15px*var(--co))}
+  /* 3.59 — khung Lưu & gửi gọn: 1 dòng đầu, vùng xem lớn, 1 hàng nút; việc ít dùng trong ⋯ */
+  .xp-dau{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:2px 0 6px}
+  .xp-tit{font-size:calc(14px*var(--co));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40%}
+  .xp-dr{font-size:calc(11.5px*var(--co));color:var(--chu-phu);flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .xp-ten{display:flex;align-items:center;gap:6px;font-size:calc(11.5px*var(--co));color:var(--chu-phu);flex:1 1 260px;margin:0}
+  .xp-ten input{flex:1 1 auto;min-width:0;padding:5px 9px;min-height:32px;font-size:calc(13px*var(--co)) !important}
+  .xp-gon{padding:6px 0 8px !important;gap:6px !important}
+  .xp-hang{display:flex;gap:6px;align-items:center}
+  .xp-hang .nho{flex:1 1 0;min-height:40px;white-space:nowrap}
+  .xp-hang .xp-them-nut{flex:0 0 44px;font-size:18px;font-weight:700}
+  .xp-them{display:none}
+  .xp-them.mo{display:block}
+  .xp-them .hang-nut{flex-wrap:wrap}
+  .xp-them .hang-nut .nho{flex:1 1 auto}
+  @media (max-width:699px){
+    .xp-dau{gap:4px 8px;margin-bottom:4px}
+    .xp-tit{max-width:none;flex:1 1 auto;min-width:0}
+    .xp-dr{flex:1 1 100%;order:3;text-align:left;font-size:calc(11px*var(--co))}
+    .xp-ten{flex:1 1 100%;order:2}
+    .xp-hang{gap:4px}
+    .xp-hang .nho{min-width:0;padding:4px 6px;font-size:calc(12px*var(--co));overflow:hidden;text-overflow:ellipsis}
+    .xp-hang .xp-them-nut{flex:0 0 38px}
+  }
   @media (max-width:699px){
     #tr4 .tab-ghi-chu-scan{display:none}
     #tr4 .d2 .nut button:not(.xoa-dt){display:none}
@@ -2083,7 +2106,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.58', APP_LUC = '30/09/2026 21:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.59', APP_LUC = '01/10/2026 08:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -9133,7 +9156,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.58', ds:[
+var CO_GI_MOI = {ban:'3.59', ds:[
+  ['🖼 Scan · Lưu & gửi: vùng xem CCCD lớn hơn; nút chính một hàng (In · Copy/Gửi · Lưu nhanh · In chung), việc khác trong ⋯', "dongHop();doiNgan(4)"],
   ['🖨 Scan: tích ☐ nhiều người ở danh sách → 🖨 In một lần (4 người / A4); đang mở 1 bản thì bấm ＋ Chọn thêm người để in chung', "dongHop();doiNgan(4)"],
   ['🗑 Chờ khai: mỗi file có thêm nút Xóa — không cần thì bỏ luôn (vào thùng rác, có ↩ Hoàn tác)', "dongHop();moChoKhai()"],
   ['↶ Hôm nay: nút Hoàn tác kiểu Word + số việc xong nằm trên dòng tiêu đề sổ — danh sách dài thêm một dòng', "dongHop();doiNgan(0)"],
@@ -13675,30 +13699,36 @@ function moXemPDF(ids, moi, blSan){
   var k = ds[0], tl = k.che==='tailieu';
   var tenGoc = ds.length>1 ? String(k.ten||'').replace(/ - người \d+.*$/,'') : (k.ten||'');
   XP = {ids:ids, bl:null, ten:tenGoc};
-  moHop(buocHTML(3, {lui:'dongHop();veScan()', luiNhan:'‹ Về danh sách'})+'<div class="hop-tit">'+(moi?'✓ Đã lưu tạm':coChuHTML(tenGoc||'Bản quét'))+'</div>'+
-    '<div class="hop-phu" id="xp-drive">'+trangThaiDriveScan(ds)+'</div>'+
-    '<div class="o xp-ten"><label>Tên file'+(ds.length>1?' ('+ds.length+' người)':'')+'</label>'+
-      '<input id="xp-ten" value="'+coChuHTML(tenGoc)+'" onfocus="this.select()" onchange="doiTenXP(this.value)"></div>'+
+  /* 3.59 (anh chốt): sắp theo luồng, vùng xem trước rộng nhất — 1 dòng đầu (tên · Drive · tên file), 1 hàng nút chính
+     (🖨 In · 📋 Copy / 📤 Gửi · 💾 Lưu nhanh · ＋ In chung · ⋯), việc ít dùng gom vào ⋯. Bỏ nút "Đóng" (trùng ‹ Về danh sách / Esc) */
+  var mayBan = laMayBan() || !coChiaSeFile();
+  var them = [];
+  if(mayBan){
+    if(coCauNoi() && ds.length===1 && k.driveId){
+      them.push('<button class="nho" onclick="cnHanh(\'xem\',\'scan\',\''+k.id+'\')">👁 Xem nhanh</button>');
+      them.push('<button class="nho" onclick="cnHanh(\'thumuc\',\'scan\',\''+k.id+'\')">📂 Mở thư mục</button>');
+    } else them.push('<button class="nho" onclick="if(XP&&XP.bl) xemTrongTab(XP.bl, tenFileXP())">👁 Xem trong tab</button>');
+  }
+  them.push(k.driveId && ds.length===1 ? '<button class="nho" onclick="window.open(\'https://drive.google.com/file/d/'+k.driveId+'/view\',\'_blank\')">☁ Mở trên Drive</button>'
+    : '<button class="nho" onclick="dayScanNhieu(XP.ids).then(function(){ var e=document.getElementById(\'xp-drive\'); if(e) e.innerHTML=trangThaiDriveScan(XP.ids.map(timScan)); })">☁ Lên Drive</button>');
+  them.push(ds.length===1 ? '<button class="nho" onclick="dongHop();'+(tl?'scanTaiLieu':'themKhach')+'(\''+k.id+'\')">✎ Khai đầy đủ</button>'
+    : '<button class="nho" onclick="dongHop();khaiHangLoat(XP.ids)">✎ Khai đầy đủ</button>');
+  them.push('<button class="nho xau" onclick="xoaXP()">🗑 Xóa</button>');
+  moHop(buocHTML(3, {lui:'dongHop();veScan()', luiNhan:'‹ Về danh sách'})+
+    '<div class="xp-dau"><b class="xp-tit">'+(moi?'✓ Đã lưu tạm · ':'')+coChuHTML(tenGoc||'Bản quét')+'</b>'+
+      '<span class="xp-dr" id="xp-drive">'+trangThaiDriveScan(ds)+'</span>'+
+      '<label class="xp-ten">Tên file'+(ds.length>1?' ('+ds.length+' người)':'')+
+        '<input id="xp-ten" value="'+coChuHTML(tenGoc)+'" onfocus="this.select()" onchange="doiTenXP(this.value)"></label></div>'+
     '<div id="xp-trang" class="xp-trang"><div class="huong-dan">Đang dựng PDF…</div></div>'+
-    '<div class="xp-nut">'+
-      (!laMayBan() && coChiaSeFile() ? '<button class="nho chinh" onclick="guiXP()">📤 Gửi — Zalo, Drive, Tệp…</button>'
-        /* 3.49: máy bàn — 💾 Lưu nhanh + 📋 Copy thay Gửi / Tải về */
-        : '<div class="hang-nut"><button class="nho chinh" onclick="lnXP()" title="Ghi thẳng file PDF vào thư mục cố định trên máy">💾 Lưu nhanh</button>'+
-          '<button class="nho chinh" onclick="copyXP()" title="'+(coCauNoi()?'Chép đúng file PDF — Ctrl+V vào Zalo':'Cần cầu nối để chép file PDF')+'">📋 Copy</button>'+
-          (coCauNoi() && ds.length===1 && k.driveId
-            ? '<button class="nho" onclick="cnHanh(\'xem\',\'scan\',\''+k.id+'\')">👁 Xem nhanh</button><button class="nho" onclick="cnHanh(\'thumuc\',\'scan\',\''+k.id+'\')">📂 Mở thư mục</button>'
-            : '<button class="nho" onclick="if(XP&&XP.bl) xemTrongTab(XP.bl, tenFileXP())">👁 Xem trong tab</button>')+'</div>'+
-          lnCaiHTML('scan'))+
-      '<div class="hang-nut">'+
-        '<button class="nho" onclick="inXP()">🖨 In</button>'+
-        (k.driveId && ds.length===1 ? '<button class="nho" onclick="window.open(\'https://drive.google.com/file/d/'+k.driveId+'/view\',\'_blank\')">☁ Mở trên Drive</button>'
-          : '<button class="nho" onclick="dayScanNhieu(XP.ids).then(function(){ var e=document.getElementById(\'xp-drive\'); if(e) e.innerHTML=trangThaiDriveScan(XP.ids.map(timScan)); })">☁ Lên Drive</button>')+
-        (ds.length===1 ? '<button class="nho" onclick="dongHop();'+(tl?'scanTaiLieu':'themKhach')+'(\''+k.id+'\')">✎ Khai đầy đủ</button>'
-          : '<button class="nho" onclick="dongHop();khaiHangLoat(XP.ids)">✎ Khai đầy đủ</button>')+
-        '<button class="nho xau" onclick="xoaXP()">🗑 Xóa</button>'+
-        '<button class="nho" onclick="dongHop();veScan()">Đóng</button></div>'+
-      (tl ? '' : '<div class="ghep-in"><span>🖨 In chung nhiều người (4 người / A4)?</span>'+
-        '<button class="nho chinh" onclick="chonThemDeIn()">＋ Chọn thêm người để in chung</button></div>')+'</div>', true);
+    '<div class="xp-nut xp-gon"><div class="xp-hang">'+
+      '<button class="nho chinh" onclick="inXP()">🖨 In</button>'+
+      (mayBan
+        ? '<button class="nho chinh" onclick="copyXP()" title="'+(coCauNoi()?'Chép đúng file PDF — Ctrl+V vào Zalo':'Cần cầu nối để chép file PDF')+'">📋 Copy</button>'+
+          '<button class="nho" onclick="lnXP()" title="Ghi thẳng file PDF vào thư mục cố định trên máy">💾 Lưu nhanh</button>'
+        : '<button class="nho chinh" onclick="guiXP()">📤 Gửi</button>')+
+      (tl ? '' : '<button class="nho" onclick="chonThemDeIn()" title="Về danh sách, bản này tích sẵn — tích thêm người rồi in chung 4 người / A4">＋ In chung</button>')+
+      '<button class="nho xp-them-nut" onclick="document.getElementById(\'xp-them\').classList.toggle(\'mo\')" title="Xem trong tab, Drive, Khai đầy đủ, Xóa, cài đặt Lưu nhanh">⋯</button></div>'+
+      '<div class="xp-them" id="xp-them"><div class="hang-nut">'+them.join('')+'</div>'+(mayBan ? lnCaiHTML('scan') : '')+'</div></div>', true);
   (blSan ? Promise.resolve(blSan) : Promise.all(ds.map(coAnhTrongMay)).then(function(co){
     if(co.every(Boolean)){ batChay(false, 'Đang dựng PDF…'); return dungTrangThe(ids, 'blob').then(function(b){ tatChay(); return b; }, function(e){ tatChay(); throw e; }); }
     /* 3.47: ảnh không nằm ở máy này (quét ở máy khác) → mở bản PDF trên Drive; chưa lên Drive thì báo rõ, không hiện trang trắng */
