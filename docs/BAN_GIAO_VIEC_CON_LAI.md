@@ -377,13 +377,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 *Công thức chốt = đúng Sheet2 anh đang dùng (02/10/2026; "theo tháng" = các dòng "Thời hạn phát tiền vay là số tháng"):*
 - **Trên 12 tháng (Sheet2 dòng 2):** Hạn cuối = EDATE(ngày ra trường + (ngày ra trường − ngày vay), 12) — tức ra trường + số ngày phát tiền vay + 12 tháng ân hạn. Hiện thêm TP = DATEDIF "M" để xem.
 - **Đến 12 tháng / Y khoa (dòng 5):** Hạn cuối = EDATE(ngày ra trường, DATEDIF "M" × 2 + 12).
+- **Tổng thời hạn cho vay (tháng, ghi hồ sơ / mẫu 01/TD), tính từ ngày nhận món vay đầu tiên:** trên 12 tháng = TP × 2 + 12 (như J2); đến 12 tháng / Y khoa = TP × 3 + 12 (TP + ân hạn 12 + trả nợ 2 × TP) — anh xác nhận thêm công thức cho trường hợp đến 12 tháng.
 - **Theo GDX (cột I):** hạn ≤ ngày GDX cùng tháng → ngày GDX tháng trước; ngược lại → ngày GDX tháng đó. Áp cho mọi ngày trả (kỳ đầu, các kỳ, hạn cuối). Kỳ đầu = ra trường + 12 tháng; các kỳ sau cách 12 tháng; kỳ cuối = hạn cuối theo GDX.
 - Đã chạy thử lại bằng máy đúng công thức trên: ra **đúng từng số** trong file (Sheet2 dòng 2: 04/08/2032 → 25/07/2032; dòng 5: 20/04/2019 → 10/04/2019; Sheet1: 15/09/2024 → 10/09/2024).
 
 *Lỗi nhỏ trong Sheet2 (anh sửa file Excel nếu còn dùng; app sẽ tránh):*
 - **Dòng 3** ("số ngày", trên 12 tháng): trống công thức — E3, H3, I3 không có gì, D3 = 0.
 - **Ô I6** (dòng 6): gõ nhầm `YEAR(I10)` (ô trống → năm 1900). Kết quả mẫu đúng do tình cờ; nếu hạn cuối rơi trước hoặc đúng ngày GDX thì I6 ra ngày GDX **sau** hạn cuối (vượt hạn). Sửa: `YEAR(H6)`.
-- **Ô J2 và E10** ("THÁNG" = E2×2+12 = 70): là công thức của trường hợp **đến 12 tháng** đặt cạnh dòng **trên 12 tháng** — nếu dùng số 70 cho hồ sơ học trên 12 tháng là sai (đúng: 29 + 12 = 41 tháng tính từ ra trường). Không ảnh hưởng cột H/I.
+- ~~Ô J2 và E10 sai~~ — **em nhận định nhầm, đã sửa:** J2/E10 = 70 là **tổng thời hạn cho vay (tháng) tính từ ngày nhận món vay đầu tiên** = TP 29 + ân hạn 12 + trả nợ 29 (anh xác nhận 02/10/2026). Kiểm: 25/09/2026 + 70 tháng = 25/07/2032, khớp hạn cuối theo GDX.
 - **Ngày GDX 29–31:** tháng thiếu ngày thì Excel nhảy sang đầu tháng sau, có thể **vượt** hạn cuối (ví dụ hạn 01/03/2032, GDX 31 → ra 02/03/2032). App lấy ngày cuối tháng để không vượt.
 
 *Thông tin cần anh cung cấp trước khi code:*
