@@ -691,6 +691,18 @@
   .bn-bang td:last-child{text-align:right;white-space:nowrap;font-weight:600}
   .bn-canh{background:var(--vang-nen);color:var(--vang);border-radius:9px;padding:8px 10px;margin:6px 0;font-size:13px}
   .bn-canh .nho{margin-left:6px}
+  /* 3.54 — bên phải dòng "+ Thêm file": chip chờ khai + số đếm; nút tab Văn bản cùng cỡ các tab khác */
+  .dau-phai{margin-left:auto;display:flex;align-items:center;gap:8px;flex:0 0 auto;align-self:center}
+  .dau-phai .dem-tab{margin-left:0}
+  .chip-ck{border:1.3px solid #E8D29A !important;background:var(--vang-nen) !important;color:var(--vang) !important;border-radius:999px !important;
+    padding:3px 11px !important;min-height:28px !important;font-weight:600;font-size:calc(12px*var(--co)) !important;cursor:pointer;white-space:nowrap}
+  .chip-ck:hover{filter:brightness(.97)}
+  #nam-vb .dau-tab button{min-height:var(--nut-cao);line-height:1.2;padding:5px 13px;font-weight:600;color:var(--chu)}
+  #nam-vb .dau-tab .nut-them{padding:5px 13px}
+  @media (max-width:899px){
+    .dau-phai{position:sticky;right:0;background:var(--nen);padding-left:6px;box-shadow:-8px 0 8px -6px rgba(0,0,0,.12);z-index:1}
+    .dau-phai .dem-tab{display:none}
+  }
   .ds-phong{max-height:60vh;overflow:auto;display:grid;gap:9px}
   .mot-phong{border:1.3px solid var(--vien);border-radius:11px;padding:9px 12px;cursor:pointer;background:var(--the);text-align:left}
   .mot-phong:hover{border-color:var(--xanh)}
@@ -2049,7 +2061,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.53b', APP_LUC = '30/09/2026 11:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.54', APP_LUC = '30/09/2026 14:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -4955,7 +4967,7 @@ function kyThieu(){
 /* ----- ngăn 1: VĂN BẢN ----- */
 function veVanBan(){
   document.getElementById('nam-vb').innerHTML =
-    daiChoKhaiHTML() + veDauTab('vanBan', {kho:D.vanBan, 
+    veDauTab('vanBan', {kho:D.vanBan, 
       themPhu:'<button class="phu" onclick="lapChiMuc()" title="Lập chỉ mục: đi hết thư mục Tủ hồ sơ, file nào chưa có trong app thì xếp vào đúng tab">🗂 Lập chỉ mục</button>',
                         hamThem:"TAB_TRUOC=1;doiNgan(6);THEM_TU=1;document.getElementById('chon-file').click()"});   /* 3.40: nhớ đúng tab Văn bản — trước sang khay chờ trước nên giữ tab cũ (vd Tháng) → file vào Dữ liệu tháng */
   document.getElementById('loc-vb').innerHTML = '';
@@ -8490,6 +8502,15 @@ function moChoKhai(){
   window.scrollTo(0,0);
 }
 function dongChoKhai(){ CHO_KHAI = false; ve(); }
+/* 3.54 (anh chốt): cảnh báo chờ khai thành chip vàng gọn bên phải dòng "+ Thêm file" — tab Văn bản đếm tất cả,
+   tab khác đếm phần của tab đó; bấm mở danh sách Chờ khai */
+function chipChoKhai(tab){
+  if(CHO_KHAI) return '';
+  var g = dsChoKhai(), n = tab==='vanBan' ? Object.keys(g).reduce(function(a,k){ return a+g[k].length; }, 0) : (g[tab]||[]).length;
+  if(!n) return '';
+  var ct = Object.keys(g).filter(function(k){ return g[k].length; }).map(function(k){ return CK_TEN[k].split(' — ')[0]+' '+g[k].length; }).join(' · ');
+  return '<button class="chip-ck" onclick="moChoKhai()" title="File chờ khai thông tin: '+coChuHTML(ct)+' — bấm mở danh sách">📥 '+n+' chờ khai ›</button>';
+}
 function daiChoKhaiHTML(){
   var g = dsChoKhai(), n = Object.keys(g).reduce(function(a,k){ return a+g[k].length; }, 0);
   if(!n || CHO_KHAI) return '';
@@ -9075,7 +9096,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.53', ds:[
+var CO_GI_MOI = {ban:'3.54', ds:[
+  ['📥 Chờ khai: dải vàng thành chip gọn bên phải dòng + Thêm file — bấm là mở danh sách', "dongHop();doiNgan(1)"],
   ['📄 Đọc văn bản: số hiệu, ngày chỉ lấy ở phần đầu (dòng "Số:", "…, ngày … tháng … năm …") — không lấy nhầm dòng "Căn cứ…"', "dongHop();doiNgan(1)"],
   ['📥 Không đọc được phần đầu thì lấy số, ngày theo tên file; khác tên file thì thẻ chờ khai ghi rõ để anh xem', "dongHop();doiNgan(1)"],
   ['📅 Hôm nay: Cần xử lý và Vừa xem gần đây gom 1 dòng — bấm ▾ mở, ▴ thu', "dongHop();doiNgan(0)"],
@@ -12421,7 +12443,7 @@ function veDauTab(tab, opt){
       'Bộ lọc'+(so?(' · '+so):'')+' ▾</button>'+
     nutLocNhanh(tab, opt.kho||[])+(opt.themPhu||'')+(opt.nutThem||'')+
     '<button class="phu nut-hd" onclick="moHuongDan(\''+tab+'\')" title="Hướng dẫn tab này">❓</button>'+
-    '<span class="dem-tab" data-tab="'+tab+'"></span>'+
+    '<span class="dau-phai">'+chipChoKhai(tab)+'<span class="dem-tab" data-tab="'+tab+'"></span></span>'+
   '</div>'+ hangLocNhanh(tab, opt.kho||[]) + dongDangLoc(tab) + thanhBot(tab);
 
   /* thẻ lọc đang bật hiện thành một hàng gọn */
