@@ -298,6 +298,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | I | `soTu` đọc sai số viết kiểu Anh (1,234.5) khi cộng thử bảng Excel | Nhỏ |
 | J | Tìm khung CCCD nhạt màu trên nền sáng bóng (bàn kính) còn lệch 71–91% → phải kéo góc tay | Cần thêm ảnh thật nhiều kiểu nền để dò tiếp trọng số `TS_THE` |
 | K | PDF chụp scan không có chữ: ngày tự điền "hôm nay" khi thêm vào tab Văn bản | Đề xuất để trống ngày và nhắc dùng Chép sang AI — chờ anh duyệt |
+| L | **Thống nhất nút Đóng ↔ Esc toàn app** (anh chốt 01/10/2026): mọi hộp / màn có nút đóng ghi **"Đóng (Esc)"**, bấm nút và bấm Esc làm **cùng một việc**. Gộp các nút trùng việc (Xong, Thôi đóng hộp, ✕, ‹ Về danh sách…) cho khớp. | Anh dặn chưa cần làm liền — **làm luôn ở lần sửa kế tiếp** |
 
 ## 3. Việc cần kiểm trên máy thật
 
