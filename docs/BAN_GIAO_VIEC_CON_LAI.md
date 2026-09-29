@@ -406,7 +406,9 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 *✅ Ngày GDX (anh chốt 02/10/2026): **gõ tay** một ô số (1–31) cho nhanh, không phụ thuộc danh mục địa bàn (ngày GDX xã có thể đổi). App nhớ số gõ lần trước để lần sau khỏi gõ lại. Bỏ ô chọn "Điểm GD" ở bố cục.*
 
-*✅ Hiển thị (anh chốt 02/10/2026):* ô công cụ **gói gọn trong 1 màn hình**, không cuộn. Phần kết quả **tóm tắt** chỉ cần ghi hồ sơ: **Số tiền mỗi kỳ** · **Ngày trả kỳ đầu** · Hạn cuối theo GDX · Thời hạn cho vay (tháng) — chữ to, bấm vào số để chép. Bảng đủ các kỳ và khung "Cách tính" **thu gọn** (▸ bấm mở); màn đủ cao (máy tính 1080 trở lên) thì mở sẵn. Ví dụ tóm tắt: `Mỗi kỳ 10.000.000 đ (kỳ cuối 10.000.000) · Kỳ đầu 25/02/2030 · Hạn cuối 25/07/2032 · 70 tháng`.
+*✅ Hiển thị (anh chốt 02/10/2026):* **giữ đúng bố cục ảnh demo** (bảng 1 dòng giống cột Excel: Phát tiền vay · Ân hạn · Trả nợ tối đa · Hạn cuối · Hạn cuối theo GDX; bảng kỳ trả; dòng công thức), gói trong 1 màn hình (bảng kỳ trả / Cách tính dài thì thu gọn ▸, đủ chỗ thì mở sẵn). **Thêm "Câu chốt"** ô chữ đậm ngay dưới bảng Excel, bấm là chép, đúng mẫu anh dùng ghi hồ sơ:
+`Số tiền vay 160.000.000 đồng, thời hạn 104 tháng, hạn cuối 25/07/2032, trả 10.000.000 đồng/lần, lần 1: 25/06/2029`
+(số trong câu tự lấy từ kết quả: số tiền anh gõ · thời hạn cho vay · hạn cuối theo GDX · số tiền mỗi kỳ · ngày trả kỳ đầu; kỳ cuối khác số thì thêm ", lần cuối …đồng").
 
 **W② Công cụ 2 — 🗺 Cây địa bàn (anh nêu 02/10/2026; chưa code)**
 - Nút ở cột Công cụ → ô mở dưới lịch (cùng kiểu W①), gói trong 1 màn hình, cuộn bên trong nếu dài.
