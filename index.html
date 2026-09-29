@@ -898,6 +898,9 @@
   .xp-them.mo{display:block}
   .xp-them .hang-nut{flex-wrap:wrap}
   .xp-them .hang-nut .nho{flex:1 1 auto}
+  .xp-hang .xp-dong{flex:0 0 auto;padding-left:14px;padding-right:14px}
+  .ka-xem{display:flex;align-items:center;justify-content:center;min-height:40vh}
+  .ka-xem img{max-width:100%;max-height:60vh;object-fit:contain;background:#fff;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.18)}
   @media (max-width:699px){
     .xp-dau{gap:4px 8px;margin-bottom:4px}
     .xp-tit{max-width:none;flex:1 1 auto;min-width:0}
@@ -2106,7 +2109,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.59', APP_LUC = '01/10/2026 08:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.60', APP_LUC = '01/10/2026 10:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -9156,7 +9159,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.59', ds:[
+var CO_GI_MOI = {ban:'3.60', ds:[
+  ['✍ Chữ ký · CCCD · bước Lưu: cùng bố cục với Scan — ảnh xem lớn, 1 hàng nút, việc ít dùng trong ⋯; giữ nút Đóng', "dongHop();doiNgan(4);moKyAnh()"],
   ['🖼 Scan · Lưu & gửi: vùng xem CCCD lớn hơn; nút chính một hàng (In · Copy/Gửi · Lưu nhanh · In chung), việc khác trong ⋯', "dongHop();doiNgan(4)"],
   ['🖨 Scan: tích ☐ nhiều người ở danh sách → 🖨 In một lần (4 người / A4); đang mở 1 bản thì bấm ＋ Chọn thêm người để in chung', "dongHop();doiNgan(4)"],
   ['🗑 Chờ khai: mỗi file có thêm nút Xóa — không cần thì bỏ luôn (vào thùng rác, có ↩ Hoàn tác)', "dongHop();moChoKhai()"],
@@ -13700,7 +13704,7 @@ function moXemPDF(ids, moi, blSan){
   var tenGoc = ds.length>1 ? String(k.ten||'').replace(/ - người \d+.*$/,'') : (k.ten||'');
   XP = {ids:ids, bl:null, ten:tenGoc};
   /* 3.59 (anh chốt): sắp theo luồng, vùng xem trước rộng nhất — 1 dòng đầu (tên · Drive · tên file), 1 hàng nút chính
-     (🖨 In · 📋 Copy / 📤 Gửi · 💾 Lưu nhanh · ＋ In chung · ⋯), việc ít dùng gom vào ⋯. Bỏ nút "Đóng" (trùng ‹ Về danh sách / Esc) */
+     (🖨 In · 📋 Copy / 📤 Gửi · 💾 Lưu nhanh · ＋ In chung · ⋯ · Đóng), việc ít dùng gom vào ⋯ (anh chốt giữ nút Đóng) */
   var mayBan = laMayBan() || !coChiaSeFile();
   var them = [];
   if(mayBan){
@@ -13727,7 +13731,8 @@ function moXemPDF(ids, moi, blSan){
           '<button class="nho" onclick="lnXP()" title="Ghi thẳng file PDF vào thư mục cố định trên máy">💾 Lưu nhanh</button>'
         : '<button class="nho chinh" onclick="guiXP()">📤 Gửi</button>')+
       (tl ? '' : '<button class="nho" onclick="chonThemDeIn()" title="Về danh sách, bản này tích sẵn — tích thêm người rồi in chung 4 người / A4">＋ In chung</button>')+
-      '<button class="nho xp-them-nut" onclick="document.getElementById(\'xp-them\').classList.toggle(\'mo\')" title="Xem trong tab, Drive, Khai đầy đủ, Xóa, cài đặt Lưu nhanh">⋯</button></div>'+
+      '<button class="nho xp-them-nut" onclick="document.getElementById(\'xp-them\').classList.toggle(\'mo\')" title="Xem trong tab, Drive, Khai đầy đủ, Xóa, cài đặt Lưu nhanh">⋯</button>'+
+      '<button class="nho xp-dong" onclick="dongHop();veScan()">Đóng</button></div>'+
       '<div class="xp-them" id="xp-them"><div class="hang-nut">'+them.join('')+'</div>'+(mayBan ? lnCaiHTML('scan') : '')+'</div></div>', true);
   (blSan ? Promise.resolve(blSan) : Promise.all(ds.map(coAnhTrongMay)).then(function(co){
     if(co.every(Boolean)){ batChay(false, 'Đang dựng PDF…'); return dungTrangThe(ids, 'blob').then(function(b){ tatChay(); return b; }, function(e){ tatChay(); throw e; }); }
@@ -14166,20 +14171,27 @@ function xemKA2(){
 }
 /* ③ LƯU — đã lưu trong máy + đưa lên Drive liền (anh chốt) */
 function kaXong(k){
-  moHop(buocHTML(3, {lui:'moKyAnh()', luiNhan:'‹ Về danh sách'})+'<div class="hop-tit">✓ Đã lưu</div>'+
-    '<div class="hop-phu"><b>'+coChuHTML(k.ten)+'</b> · '+Math.round((k.co||0)/1024)+' KB</div>'+
-    '<div class="hop-phu" id="ka-drive">'+(k.driveId ? '☁ Đã lên Drive.' : (coTheNoiDrive() ? '☁ Đang đưa lên Drive…' : 'Chưa nối Drive — ảnh đang nằm trong máy, nối Drive xong app tự đẩy.'))+'</div>'+
-    '<div class="xp-nut">'+
-      (!laMayBan() && coChiaSeFile() ? '<button class="nho chinh" onclick="guiKA(\''+k.id+'\')">📤 Gửi — Zalo, Drive, Tệp…</button>'
-        : '<div class="hang-nut"><button class="nho chinh" onclick="lnKA(\''+k.id+'\')" title="Ghi thẳng file JPG vào thư mục cố định trên máy">💾 Lưu nhanh</button>'+
-          '<button class="nho chinh" onclick="copyKA(\''+k.id+'\')" title="'+(coCauNoi()?'Chép đúng file JPG — Ctrl+V vào Zalo / hệ thống':'Chép ảnh — Ctrl+V vào Zalo')+'">📋 Copy</button>'+
-          (coCauNoi() && k.driveId ? '<button class="nho" onclick="cnHanh(\'thumuc\',\'ka\',\''+k.id+'\')">📂 Mở thư mục</button>' : '')+'</div>'+lnCaiHTML('ka'))+
-      '<div class="hang-nut">'+
-        '<button class="nho" onclick="chupKA(\'ky\',\'camera\')">✍ Chụp chữ ký</button>'+
-        '<button class="nho" onclick="chupKA(\'anh\',\'camera\')">🪪 Chụp CCCD</button>'+
-        '<button class="nho" onclick="moThuMucKA(\''+(k.ngay||'').slice(0,7)+'\')">☁ Mở thư mục</button>'+
-        '<button class="nho xau" onclick="xoaKA(\''+k.id+'\')">🗑 Xóa</button>'+
-        '<button class="nho" onclick="moKyAnh()">Xong</button></div></div>', true);
+  /* 3.60 (anh chốt): cùng bố cục với Scan · Lưu & gửi — 1 dòng đầu, ảnh xem lớn, 1 hàng nút chính, việc ít dùng trong ⋯ */
+  var mayBan = laMayBan() || !coChiaSeFile();
+  var them = [];
+  if(mayBan && coCauNoi() && k.driveId) them.push('<button class="nho" onclick="cnHanh(\'thumuc\',\'ka\',\''+k.id+'\')">📂 Mở thư mục (máy)</button>');
+  them.push('<button class="nho" onclick="moThuMucKA(\''+(k.ngay||'').slice(0,7)+'\')">☁ Mở thư mục Drive</button>');
+  them.push('<button class="nho xau" onclick="xoaKA(\''+k.id+'\')">🗑 Xóa</button>');
+  moHop(buocHTML(3, {lui:'moKyAnh()', luiNhan:'‹ Về danh sách'})+
+    '<div class="xp-dau"><b class="xp-tit">✓ Đã lưu · '+coChuHTML(k.ten)+'</b>'+
+      '<span class="xp-dr" id="ka-drive">'+Math.round((k.co||0)/1024)+' KB · '+(k.driveId ? '☁ Đã lên Drive.' : (coTheNoiDrive() ? '☁ Đang đưa lên Drive…' : 'Chưa nối Drive — ảnh đang nằm trong máy, nối Drive xong app tự đẩy.'))+'</span></div>'+
+    '<div class="xp-trang ka-xem"><img id="ka-xem-anh" alt=""></div>'+
+    '<div class="xp-nut xp-gon"><div class="xp-hang">'+
+      (mayBan
+        ? '<button class="nho chinh" onclick="copyKA(\''+k.id+'\')" title="'+(coCauNoi()?'Chép đúng file JPG — Ctrl+V vào Zalo / hệ thống':'Chép ảnh — Ctrl+V vào Zalo')+'">📋 Copy</button>'+
+          '<button class="nho" onclick="lnKA(\''+k.id+'\')" title="Ghi thẳng file JPG vào thư mục cố định trên máy">💾 Lưu nhanh</button>'
+        : '<button class="nho chinh" onclick="guiKA(\''+k.id+'\')">📤 Gửi</button>')+
+      '<button class="nho" onclick="chupKA(\'ky\',\'camera\')" title="Chụp tiếp chữ ký khách khác">✍ Chữ ký</button>'+
+      '<button class="nho" onclick="chupKA(\'anh\',\'camera\')" title="Chụp tiếp CCCD khách khác">🪪 CCCD</button>'+
+      '<button class="nho xp-them-nut" onclick="document.getElementById(\'ka-them\').classList.toggle(\'mo\')" title="Mở thư mục, Xóa, cài đặt Lưu nhanh">⋯</button>'+
+      '<button class="nho xp-dong" onclick="moKyAnh()">Đóng</button></div>'+
+      '<div class="xp-them" id="ka-them"><div class="hang-nut">'+them.join('')+'</div>'+(mayBan ? lnCaiHTML('ka') : '')+'</div></div>', true);
+  layAnhKA(k).then(function(b){ var im = document.getElementById('ka-xem-anh'); if(b && im){ var u = URL.createObjectURL(b); im.onload = function(){ setTimeout(function(){ URL.revokeObjectURL(u); }, 1000); }; im.src = u; } }).catch(function(){});
 }
 function luuKA(cach){
   var ten = (document.getElementById('ka-ten2')||{}).value || KA.ten;

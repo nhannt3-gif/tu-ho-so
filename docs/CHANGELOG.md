@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.60 — 01/10/2026 10:00 — Giữ nút Đóng · Chữ ký·CCCD bước Lưu cùng bố cục với Scan
+- **Scan · Lưu & gửi:** trả lại nút **Đóng** ở cuối hàng nút chính (anh chốt giữ).
+- **Chữ ký · CCCD · bước ③ Lưu** làm cùng kiểu với Scan:
+  - **Dòng đầu:** tên file · dung lượng · trạng thái Drive, gộp một hàng.
+  - **Ảnh vừa lưu** hiện lớn ở giữa. Trước bước này không có ảnh xem lại.
+  - **Một hàng nút:** 📋 Copy + 💾 Lưu nhanh (máy tính) / 📤 Gửi (điện thoại) · ✍ Chữ ký · 🪪 CCCD (chụp tiếp khách khác) · ⋯ · Đóng.
+  - **⋯ gom:** 📂 Mở thư mục trên máy (có cầu nối) · ☁ Mở thư mục Drive · 🗑 Xóa · cài đặt Lưu nhanh.
+  - Nút "Xong" đổi tên thành **Đóng** cho thống nhất (vẫn về danh sách Chữ ký · CCCD).
+
+---
+
 ## 3.59 — 01/10/2026 08:00 — Scan · Lưu & gửi: sắp nút theo luồng, vùng xem CCCD lớn nhất
 - **Dòng đầu gộp một hàng:** tên người · trạng thái Drive · ô tên file. Trước chiếm 3 dòng: tiêu đề, trạng thái, nhãn + ô tên file.
 - **Vùng xem trước** chiếm toàn bộ phần còn lại.
