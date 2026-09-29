@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.59 — 01/10/2026 08:00 — Scan · Lưu & gửi: sắp nút theo luồng, vùng xem CCCD lớn nhất
+- **Dòng đầu gộp một hàng:** tên người · trạng thái Drive · ô tên file. Trước chiếm 3 dòng: tiêu đề, trạng thái, nhãn + ô tên file.
+- **Vùng xem trước** chiếm toàn bộ phần còn lại.
+- **Một hàng nút chính** dính dưới đáy, theo luồng: **🖨 In · 📋 Copy (máy tính) / 📤 Gửi (điện thoại) · 💾 Lưu nhanh (máy tính) · ＋ In chung · ⋯**.
+  - Trước là 3 hàng: Lưu nhanh / Copy / Xem trong tab → dòng cài đặt Lưu nhanh → In / Drive / Khai / Xóa / Đóng → dòng In chung.
+- **⋯ gom việc ít dùng:** 👁 Xem trong tab (hoặc Xem nhanh · Mở thư mục khi có cầu nối) · ☁ Lên Drive / Mở trên Drive · ✎ Khai đầy đủ · 🗑 Xóa · cài đặt Lưu nhanh (thư mục, chia theo tháng, tự lưu).
+- **Bỏ nút "Đóng"** — trùng với "‹ Về danh sách" và phím Esc.
+- Không bỏ chức năng nào khác; chỉ dời vào ⋯.
+
+---
+
 ## 3.58 — 30/09/2026 21:00 — In nhiều CCCD đơn giản hơn: tích ☐ ở danh sách
 - **Anh báo:** nút "＋ Chọn thêm CCCD" của 3.57 khó dùng. Đã bỏ khung chọn trong popup, thay bằng cách chọn ngay trên danh sách.
 - **Danh sách tab Scan:** mỗi dòng có ô ☐ rõ ràng (trước phải bấm vào biểu tượng 🪪 nhỏ).
