@@ -4,6 +4,56 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.61 — 02/10/2026 08:00 — Gói tinh chỉnh L–T (anh dùng thử, gom một lượt)
+**S. Sửa 3 lỗi đọc tên (do 3.53)**
+- Luật "ban hành kèm theo Quyết định số … ngày …" chỉ áp khi tiêu đề là QUY CHẾ / QUY ĐỊNH / ĐIỀU LỆ. Trước: hướng dẫn 4336/HD-NHCS bị lấy nhầm số 70/QĐ-HĐQT.
+- Số hiệu, ngày chỉ tìm ở các dòng **trước dòng V/v**. Trước: công văn 4339 bị lấy ngày 27/8 của QĐ được nhắc trong V/v.
+  - Dòng V/v dính chung dòng địa danh-ngày ("… Gò Dầu, 11-09-2026") → vẫn lấy đúng ngày có dấu phẩy địa danh; trích yếu bỏ phần địa danh-ngày.
+- Trích yếu V/v dài 2–3 dòng được nối đủ.
+- Nhận ra lớp chữ PDF **lỗi font** ("NQI DUNG… LA4P… DO!") → không dùng làm trích yếu, lấy theo tên file, ghi "⚠ chữ trong PDF bị lỗi font". Viết tắt QĐ, HĐQT không bị nhận nhầm là lỗi.
+
+**L. Nút "Đóng (Esc)" / "Thôi (Esc)" toàn app** — bấm Esc làm đúng việc của nút đó.
+- Nút đóng trong mọi hộp tự ghi "(Esc)".
+- Màn có thanh bước (‹ Lùi) thì Esc = Lùi, chỉ gắn nhãn cho nút cùng việc.
+- Cài đặt, khung xem lớn: "Đóng (Esc)".
+
+**N · P. Tab Scan**
+- **Mỗi bản 2 dòng:**
+  - Dòng 1: ☐ · tên · ấp · tổ ······ ngày · nút 🖨 ✎ 🗑.
+  - Dòng 2: **✓ Đạt** hoặc **⚠ thiếu gì** · nơi lưu rút gọn từ cấp Xã (bấm mở thư mục, rê chuột thấy đủ) · nhãn.
+- **Đạt** (anh chốt) khi đủ 4 điều: tên khách (không phải tên tạm) · đủ 2 mặt (tài liệu ≥ 1 trang) · đủ Xã › Điểm › Ấp › Tổ · đã lên Drive đúng thư mục tổ.
+- Chip **⚠ Chưa đạt (n)** để lọc.
+- **☰ Danh sách** (mặc định, mới lưu lên trước), nhóm **Ngày / Tuần / Tháng**, đầu nhóm ghi số bản · đạt · chưa.
+- **🌳 Cây địa bàn** Xã › Điểm › Ấp › Tổ có đếm và số chưa đạt; bấm nhánh để lọc; nhánh riêng "Chưa khai địa bàn".
+
+**O. Scan (máy tính): bấm một bản → xem ở khung bên phải trước** (ghi trạng thái Đạt / thiếu gì).
+- ⛶ mở màn Lưu & gửi đầy đủ.
+- Các nút Gửi / In / Sửa dưới khung làm đúng cho bản quét.
+- Điện thoại vẫn mở khung lớn.
+
+**Q. Danh sách gọn ở mọi tab**
+- Nút cuối dòng 28px.
+- Chữ mờ sau tên (trích yếu) bỏ khi đã nằm trong tên, rê chuột vẫn thấy.
+- Chờ khai: đường dẫn gộp vào dòng 2 (từ 3 dòng còn 2).
+- Thanh Sắp xếp một hàng (máy tính).
+
+**R. Chi tiết / Sửa văn bản: văn bản hiện ngay bên cạnh.**
+- Máy tính: trái là ô nhập (một cột), phải là văn bản — lật trang, phóng to.
+- Điện thoại: văn bản ở trên, thu gọn được.
+- Bảng so sánh "🔍 Đọc lại" cũng vậy.
+
+**T. Mẫu gợi ý ô nhập:** chữ mờ mẫu trong ô + dòng 💡 hướng dẫn khi bấm vào ô (số hiệu, ngày, trích yếu, kỳ, tên khách, biểu mẫu, việc lịch…).
+
+**M. Biểu mẫu: gửi nhiều mẫu một lần**
+- Ô ☐ ở mỗi dòng.
+- Thanh dính trên cùng: `Đã chọn N mẫu (bộ …) · 📤 Gửi N file · 🗜 Nén .zip · 🖨 In cả bộ · Bỏ chọn`.
+- Điện thoại: chia sẻ cả N file một lần (Zalo). Máy tính: Nén .zip.
+- 📚 Bộ biểu mẫu › **📤 Chọn cả bộ để gửi**.
+- Tên zip `Bieu mau - <tên bộ> - dd-mm-yyyy.zip`; tên tiếng Việt bên trong giữ đúng; trùng tên tự thêm (2).
+- **Không sửa cầu nối** (không phải cài lại): máy tính gửi nhiều file bằng .zip.
+
+---
+
 ## 3.60 — 01/10/2026 10:00 — Giữ nút Đóng · Chữ ký·CCCD bước Lưu cùng bố cục với Scan
 - **Scan · Lưu & gửi:** trả lại nút **Đóng** ở cuối hàng nút chính (anh chốt giữ).
 - **Chữ ký · CCCD · bước ③ Lưu** làm cùng kiểu với Scan:
