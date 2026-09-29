@@ -4,6 +4,44 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.53 — 30/09/2026 10:00 — Đọc số hiệu đúng phần đầu văn bản · Hôm nay gọn · thanh đáy chỉ còn chip hệ thống · 💾 bộ nhớ máy
+
+**1. Đọc văn bản (anh chốt quy tắc)**
+- **Lỗi:** thẻ chờ khai quy chế Tổ TK&VV ra `2002/NĐ-CP · 04/10/2002`. App lấy nhầm từ dòng *"Căn cứ Nghị định số 78/2002/NĐ-CP ngày 04/10/2002"*, trong khi tên file đúng là `70 QĐ-HĐQT · 24/07/2026`.
+- **Số hiệu, ngày chỉ lấy ở phần đầu** — các dòng trước tiêu đề (QUYẾT ĐỊNH, QUY CHẾ…), trước "Căn cứ / Kính gửi / Điều 1":
+  - ưu tiên dòng "Số: …";
+  - ngày lấy theo dòng "…, ngày … tháng … năm …".
+  - Bỏ hẳn bước "tìm trên cả trang".
+- **Văn bản ban hành kèm** (quy chế, quy định, điều lệ): số, ngày lấy ở dòng *"(Ban hành kèm theo Quyết định số … ngày …)"* ngay dưới tiêu đề.
+- **Trích yếu:** dòng V/v (công văn) → tiêu đề + dòng ngay dưới (quyết định, quy chế). Không còn lấy nhầm dòng in hoa như "HỘI ĐỒNG QUẢN TRỊ".
+- **Phần đầu không đọc được** → lấy theo tên file, thẻ đánh dấu chưa chắc. **Khác tên file** → thẻ ghi "⚠ tên file ghi số …".
+- Áp dụng cho: thêm file, 🔍 Đọc lại & gợi ý tên, đọc lại mục thiếu.
+
+**2. Tab Hôm nay gọn hơn**
+- **Cần xử lý** gom 1 dòng: `⚠ Cần xử lý 📥 1 chờ khai · 📊 Thiếu 3 BC · còn 2 ngày GB ▾`.
+  - Bấm chip thì đi thẳng tới việc đó. Bấm ▾ mở thẻ đầy đủ, ▴ thu lại. App nhớ trạng thái mở / thu.
+- **Vừa xem gần đây** thu 1 dòng, bấm để mở.
+- **"Hôm qua còn N việc"** thành 1 dòng mảnh, có nút "→ Hôm nay".
+- **Dòng To-do** chỉ 1 dòng (chữ dài bị cắt).
+  - Chạm vào dòng: hiện đủ chữ và dòng 2 có chấm màu. Máy tính rê chuột cũng hiện chấm màu.
+  - Các nút 📎 🕘 ↑ ↓ ✕ hiện sẵn.
+  - Điện thoại ẩn giờ khi chưa chạm.
+
+**3. Thanh đáy**: 1 dòng thấp (~27 px), chỉ chip hệ thống, nhiều thì vuốt ngang.
+- **Drive:** 🟢 đã nối · giờ đồng bộ / 🟡 bấm nối lại / 🔴 mất mạng / ⚪ chưa cài.
+- **☁ N chưa lên Drive:** thay dải vàng nổi trên cùng. Bấm → hàng đợi, hoặc nối Drive rồi đẩy lên.
+- **⚠ N lỗi đẩy lên:** bấm → hàng đợi.
+- **💾 Bộ nhớ máy** (luôn hiện, xanh / vàng / đỏ theo mức 60% / 80%). Bấm vào xem:
+  - dung lượng chia theo loại;
+  - số file chưa lên Drive, kèm ☁ Đồng bộ ngay;
+  - 🔒 Xin giữ dữ liệu lâu dài;
+  - Thùng rác, Dọn kho.
+- Bỏ "N việc cần xử lý" khỏi thanh đáy.
+
+**4. Số đếm của tab** chuyển lên cùng dòng nút "+ Thêm file", ví dụ `123 văn bản`. Đang lọc thì ghi `12 / 123 văn bản`. Khay chờ duyệt giữ số ở thanh đáy.
+
+---
+
 ## 3.52b — 29/09/2026 20:00 — Bỏ nút 📷 nổi trên điện thoại
 - iPhone: nút tròn nổi ở góc phải đè lên nội dung. Chạm gần góc phải (✕, ô chọn, nút Thêm) là máy ảnh tự mở → **bỏ nút nổi** (anh báo).
 - Chụp nhanh dùng nút 📷 ở ô gõ dưới cùng sổ, trên điện thoại làm to hơn cho dễ bấm.
