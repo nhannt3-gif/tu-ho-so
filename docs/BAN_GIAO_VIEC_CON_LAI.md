@@ -548,6 +548,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - (c) Danh mục **trạng thái** và **hình thức làm việc** anh hay ghi (em có đề xuất sẵn, anh sửa).
 - (d) ✅ Theo dõi riêng 3 loại (anh chốt). Chờ anh: dòng nhắc chéo + dùng chung hồ sơ gốc / định vị theo mã KH?
 
+#### Đợt gom sau 3.64 — ghi nhận, chưa làm
+
+| # | Việc | Nội dung | Chờ anh chốt |
+|---|---|---|---|
+| AA | **Chọn VB chính không chạy** (anh báo 03/10/2026, khi thêm 4336/HD-NHCS hướng dẫn QĐ 70/QĐ-HĐQT) | **Nguyên nhân (đã xem code):** ô "Sửa đổi cho VB chính" chỉ liệt kê văn bản **đã được đánh dấu "VB chính"**; kho chưa có văn bản nào đánh dấu → ô trống, chỉ hiện "Chưa có VB nào đánh dấu là VB chính", không chọn được. Muốn chọn phải mở QĐ 70 đổi vai trò trước — vòng vèo. **Đề xuất sửa:** (1) ô chọn liệt kê **mọi văn bản trong kho** (VB chính lên đầu), có **ô tìm** theo số hiệu / tên; chọn xong văn bản đó **tự được đánh dấu VB chính**; (2) app **tự gợi ý** VB chính từ số hiệu văn bản được nhắc ở phần căn cứ / "thực hiện…" (ví dụ thấy "Quyết định số 70/QĐ-HĐQT" và kho có 70/QĐ-HĐQT → gợi ý sẵn, anh bấm nhận); (3) cân nhắc thêm vai trò **"VB hướng dẫn thực hiện"** (hướng dẫn thực hiện một QĐ, khác với "sửa đổi, bổ sung") — hiện vai trò bị đoán thành "VB sửa đổi, bổ sung" là chưa đúng bản chất. | (3) có thêm vai trò "VB hướng dẫn thực hiện" không |
+| AB | Hộp Khai / Sửa văn bản — các điểm em thấy trên ảnh (chờ anh xác nhận) | (1) Tên file mới bị cắt dở "…Quy chế hoạt động **của.pdf**" trong khi tên văn bản đủ "…của Tổ TK&VV"; (2) chữ hoa giữa câu "Hướng dẫn **Thực** hiện…" → "thực"; (3) ô Trích yếu để trống dù có dòng tiêu đề; (4) ô "NHÓM" chiếm cả khung chỉ để 4 nút → thu 1 dòng. | Anh xác nhận / bổ sung |
+
 ## 3. Việc cần kiểm trên máy thật
 
 Đã chạy thử bằng Chromium giả lập. Các phần sau **chưa thử được** trong môi trường giả lập:
