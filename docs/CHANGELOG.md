@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.67 — 04/10/2026 11:00 — AH 🖨 Danh sách chi tiết + tổng hợp theo xã, điểm GD
+**Theo dõi nợ › 🖨 Danh sách** — hộp 2 lựa chọn, xem trước rồi **🖨 In** (A4 ngang, tiêu đề cột lặp mỗi trang) hoặc **📊 Xuất Excel**.
+- **☰ Chi tiết** (danh sách đang xem, đúng lọc: loại · Đang có / Đã ra / Tất cả · nhánh 🌳 · ô tìm): gom **Xã › Điểm GD › Ấp** có dòng cộng từng nhóm + TỔNG CỘNG; trong ấp xếp theo tổ, tên. Cột: STT · Họ tên · Mã KH · Số khế ước · Tổ trưởng · Chương trình · số tiền (dư nợ / dư nợ quá hạn / dư nợ khoanh) · mốc (ngày GD gần nhất + số tháng / ngày chuyển QH + số ngày / ngày hết hạn khoanh) · Trạng thái làm việc · Ghi chú (trống để ghi tay). Excel thêm cột Xã, Điểm, Ấp, Mã tổ để lọc.
+- **Σ Tổng hợp theo xã, điểm GD** (anh bổ sung): 3 danh sách cạnh nhau — món · số tiền · chưa làm việc — theo xã, từng điểm GD, tổng PGD; món đang có ở kỳ mới nhất, không theo lọc.
+
 ## 3.66 — 04/10/2026 09:00 — AI 🧾 Phiếu thông tin món vay
 **Theo dõi nợ › thẻ món › 🧾 In phiếu** — "sơ yếu lý lịch" món nợ xấu, xem trước trong hộp rồi **🖨 In** (A4) hoặc **📄 Ra Word**.
 - **Trang đầu tóm tắt (đọc 30 giây):** tên, mã KH, địa chỉ, tổ; ô số chính (dư nợ · quá hạn · khoanh · lãi tồn, ghi kỳ số liệu); nhãn tình trạng (QUÁ HẠN n ngày/tháng · NỢ KHOANH đến … · n THÁNG KHÔNG GIAO DỊCH · đã ra DS · ↻ phát sinh lại · Thất hứa x/y lần); khả năng thu hồi; hướng xử lý; **▶ Việc tiếp theo** (cam kết chưa đánh giá gần nhất → phương án có hạn → lần làm việc gần nhất).
