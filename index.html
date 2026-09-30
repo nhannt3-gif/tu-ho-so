@@ -2086,6 +2086,29 @@
   .tdn-xt-ds .tg{font-size:calc(11.5px*var(--co));padding:2px 7px;border-radius:6px;background:var(--xanh-nhat);color:var(--xanh-dam)}
   .tdn-xt-ds .tg.ct{background:var(--luc-nen);color:var(--luc)}.tdn-xt-ds .tg.phu{background:var(--vang-nen);color:var(--vang)}.tdn-xt-ds .tg.xam{background:var(--nen);color:var(--chu-phu)}
   @media (max-width:699px){ .tdn-3{flex-direction:column} .tdn-o small{white-space:normal} }
+
+  /* ===== 3.65 — AA ô tìm văn bản theo số hiệu · AC dấu sao ===== */
+  .tvb{position:relative}
+  .tvb-o{display:flex;gap:6px}.tvb-o input{flex:1;min-width:0}.tvb-o .nho{flex:0 0 auto;min-width:0;width:auto;margin:0}
+  .tvb-ds{position:absolute;left:0;right:0;z-index:30;background:var(--the);border:1.3px solid var(--vien);border-radius:9px;box-shadow:0 6px 18px rgba(0,0,0,.18);max-height:260px;overflow:auto}
+  .tvb-ds:empty{display:none}
+  .tvb-dong{padding:6px 9px;cursor:pointer;font-size:calc(12.5px*var(--co));border-bottom:1px solid var(--vien)}
+  .tvb-dong:hover{background:var(--xanh-nhat)}
+  .tvb-dong small{color:var(--chu-phu)}
+  .tvb-dong.rong-tvb{cursor:default;color:var(--chu-phu)}
+
+  /* 3.65 — AB: ô Nhóm gọn 1 dòng dưới tên, không chiếm cả khung */
+  .dau-sua{flex-direction:column !important;gap:6px !important}
+  .dau-nhom{flex-direction:row !important;align-items:center !important;justify-content:flex-start !important;gap:8px !important;padding:0 !important;border:0 !important;background:none !important}
+  .dau-nhom .co-chu{display:flex;flex-wrap:wrap;gap:4px}
+  .dau-nhom .co-chu button{min-height:26px !important;padding:2px 10px !important}
+
+  .sao{flex:0 0 auto;cursor:pointer;color:var(--chu-phu);font-size:calc(14px*var(--co));line-height:1;opacity:.45;padding:0 1px}
+  .sao:hover{opacity:1;color:#d99a00}
+  .sao.bat{color:#e0a800;opacity:1}
+  .sao-nut.bat{color:#b07d00;border-color:#e0a800}
+  .dau-sua .so-ten>div[style*="margin-top"]{display:inline-block;margin-right:6px}
+  .dau-sua .so-ten .nho{width:auto !important;min-width:0 !important}
 </style>
 </head>
 <body>
@@ -2340,7 +2363,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.64', APP_LUC = '03/10/2026 12:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.65', APP_LUC = '03/10/2026 16:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -3153,8 +3176,8 @@ function tenVanBan(v, duoi){
     var ty = (v.trichYeu||'')
       .replace(/^\s*(V\/v\.?|Về\s+việc|VỀ\s+VIỆC)\s*:?\s*/i,'')
       .replace(/\s+/g,' ').trim();
-    ty = sachTen(ty);
-    if(ty.length>60) ty = ty.slice(0,60).replace(/\s+\S*$/,'');
+    ty = sachTen(chuanTenVB(ty, v.loai));
+    if(ty.length>110) ty = catTenGon(ty, 110);   /* 3.65 (việc AB): trước cắt ở 60 ký tự → "…hoạt động của.pdf" */
     var tp = {ngay:ngay, so:so, ty:ty}, thuTu = tenCauTrucHienTai();
     return thuTu.map(function(k){ return tp[k]; }).filter(Boolean).join(' ') + (duoi||'.pdf');
   }
@@ -3166,6 +3189,32 @@ function tenVanBan(v, duoi){
   return p.join('_') + (duoi||'.pdf');
 }
 
+/* 3.65 (việc AB): trích yếu để tìm — mở rộng viết tắt của tên (TK&VV → Tiết kiệm và vay vốn…); giống hệt tên thì để trống (khỏi thừa) */
+var MO_VIET_TAT = [[/\bTổ TK&VV\b/g,'Tổ Tiết kiệm và vay vốn'],[/\bTK&VV\b/g,'Tiết kiệm và vay vốn'],[/\bNHCSXH\b/g,'Ngân hàng Chính sách xã hội'],
+  [/\bHĐQT\b/g,'Hội đồng quản trị'],[/\bHĐĐD\b/g,'Hội đồng đại diện'],[/\bBĐD\b/g,'Ban đại diện'],[/\bUBND\b/g,'Ủy ban nhân dân'],[/\bHSSV\b/g,'học sinh, sinh viên'],
+  [/\bGQVL\b/g,'giải quyết việc làm'],[/\bNSVSMT\b/g,'nước sạch và vệ sinh môi trường'],[/\bSXKD\b/g,'sản xuất kinh doanh']];
+function tyDayDu(t){
+  var t0 = chuanTenVB(String(t||'')), r = t0; MO_VIET_TAT.forEach(function(x){ r = r.replace(x[0], x[1]); });
+  return r===t0 ? '' : r;
+}
+/* 3.65 (việc AB): cắt tên dài ở ranh giới từ, không để treo từ nối cuối câu ("của", "và", "về"…) */
+function catTenGon(t, n){
+  t = String(t||'').slice(0, n).replace(/\s+\S*$/, '');
+  var NOI = /\s+(của|và|về|cho|các|trong|tại|theo|với|đối|trên|dưới|đến|từ|thực|một|số|những|là|được|để|năm|ngày|tháng|thuộc|tổ|ban|hội|quy)$/i;
+  for(var i=0;i<4 && NOI.test(t);i++) t = t.replace(NOI, '');
+  return t.trim();
+}
+/* 3.65 (việc AB): "Hướng dẫn Thực hiện…" → "Hướng dẫn thực hiện…" — chữ đầu sau tên loại văn bản viết thường,
+   trừ tên riêng / viết tắt (Tổ, Hội, Ngân hàng, UBND, NHCSXH, Nghị định…) */
+var GIU_HOA = /^(Tổ|Hội|Ngân|Nhà|Nghị|Quyết|Thông tư|Luật|Chính|Ủy|Uỷ|Đảng|Đoàn|Chi|Phòng|Bộ|Hội đồng|Tỉnh|Huyện|Xã|Phường|Việt)(?![A-Za-zÀ-ỹĐđ])/;
+function chuanTenVB(t, loai){
+  t = String(t||'');
+  var m = t.match(/^(Hướng dẫn|Kế hoạch|Quyết định|Thông báo|Báo cáo|Tờ trình|Công văn|Quy chế|Quy định|Chương trình|Biên bản)\s+(\S+)/);
+  if(!m) return t;
+  var w = m[2];
+  if(w.length<2 || w!==w.charAt(0)+w.slice(1).toLowerCase() || /[0-9&]/.test(w) || w===w.toUpperCase() || GIU_HOA.test(t.slice(m[1].length).trim())) return t;
+  return m[1]+' '+w.charAt(0).toLowerCase()+w.slice(1)+t.slice(m[0].length);
+}
 /* Cấu trúc tên file (kiểu có dấu) — bật/tắt + đổi thứ tự 3 thành phần gốc */
 var TEN_CT_NHAN = {ngay:'Ngày ban hành', so:'Số hiệu', ty:'Tên văn bản'};
 function tenCauTrucHienTai(){
@@ -9108,17 +9157,46 @@ function goiYLoaiTuSo(){
   if((D.cauHinh.loaiVB||[]).indexOf(l)>=0) e.value = l;
 }
 /* ---- quan hệ văn bản ---- */
-var VAI_TRO = ['VB độc lập','VB chính','VB sửa đổi, bổ sung'];
+var VAI_TRO = ['VB độc lập','VB chính','VB sửa đổi, bổ sung','VB hướng dẫn thực hiện'];   /* 3.65: thêm "hướng dẫn thực hiện" */
 function vaiTroCua(m){
   if(VAI_TRO.indexOf(m.vaiTro)>=0) return m.vaiTro;
   return m.goc ? 'VB sửa đổi, bổ sung' : 'VB độc lập';
+}
+function laVaiTroCon(vt){ return vt==='VB sửa đổi, bổ sung' || vt==='VB hướng dẫn thực hiện'; }
+/* 3.65 (việc AA, anh chốt): chọn văn bản liên quan bằng cách GÕ SỐ HIỆU — tìm trong mọi văn bản của app (mọi loại);
+   chọn xong văn bản kia tự thành "VB chính"; app không tự đoán */
+function oTimVB(id, nhan, gtri, boQua){
+  var v = gtri && timMuc(gtri);
+  return '<div class="o tvb"><label>'+nhan+'</label><div class="tvb-o"><input id="'+id+'-tim" autocomplete="off" placeholder="Gõ số hiệu, vd 70/QĐ" value="'+coChuHTML(v?tenNganVB(v):'')+'" '+
+    'oninput="tvbGoi(\''+id+'\',\''+(boQua||'')+'\')" onfocus="tvbGoi(\''+id+'\',\''+(boQua||'')+'\')">'+
+    '<button class="nho" type="button" title="Bỏ chọn" onclick="tvbChon(\''+id+'\',\'\')">✕</button></div>'+
+    '<input type="hidden" id="'+id+'" value="'+coChuHTML(v?v.id:'')+'"><div class="tvb-ds" id="'+id+'-ds"></div></div>';
+}
+function tvbSo(t){ return boDau(String(t||'')).replace(/[^a-z0-9]/g,''); }
+function tvbGoi(id, boQua){
+  var e = document.getElementById(id+'-tim'), ds = document.getElementById(id+'-ds'); if(!e || !ds) return;
+  var q = tvbSo(e.value), qc = boDau(e.value||'').trim();
+  if(!q){ ds.innerHTML = ''; return; }
+  var kq = D.vanBan.filter(function(v){ return v.id!==boQua && (tvbSo(v.soHieu).indexOf(q)>=0 || (qc.length>=3 && boDau(tenNganVB(v)).indexOf(qc)>=0)); })
+    .sort(function(a,b){ var x = tvbSo(a.soHieu).indexOf(q)===0, y = tvbSo(b.soHieu).indexOf(q)===0; return (y-x) || (b.ngay||'').localeCompare(a.ngay||''); }).slice(0, 8);
+  ds.innerHTML = kq.length ? kq.map(function(v){
+    return '<div class="tvb-dong" onmousedown="event.preventDefault();tvbChon(\''+id+'\',\''+v.id+'\')"><b>'+coChuHTML(v.soHieu||'(chưa có số)')+'</b> '+coChuHTML((v.tenVB||v.trichYeu||v.tenMoi||'').slice(0,80))+
+      ' <small>'+ngayVN(v.ngay||'')+(vaiTroCua(v)==='VB chính'?' · VB chính':'')+'</small></div>'; }).join('')
+    : '<div class="tvb-dong rong-tvb">Không thấy văn bản số "'+coChuHTML(e.value)+'" trong app.</div>';
+}
+function tvbChon(id, vid){
+  var h = document.getElementById(id), e = document.getElementById(id+'-tim'), ds = document.getElementById(id+'-ds');
+  var v = vid && timMuc(vid);
+  if(h) h.value = v ? v.id : ''; if(e) e.value = v ? tenNganVB(v) : ''; if(ds) ds.innerHTML = '';
+  if(id==='s-goc' && v) chonGocVB();
 }
 function tenNganVB(v){
   return ((v.soHieu||'')+(v.soHieu?' — ':'')+(v.tenVB||v.trichYeu||v.tenMoi||'')).slice(0,70);
 }
 function doiVaiTro(){
   var v = gt('s-vt'), r = document.getElementById('hang-goc');
-  if(r) r.style.display = (v==='VB sửa đổi, bổ sung') ? '' : 'none';
+  if(r) r.style.display = laVaiTroCon(v) ? '' : 'none';
+  var lb = r && r.querySelector('label'); if(lb) lb.textContent = v==='VB hướng dẫn thực hiện' ? 'Hướng dẫn thực hiện văn bản số…' : 'Sửa đổi, bổ sung cho văn bản số…';
 }
 function doiHieuLuc(){
   var r = document.getElementById('hang-thay');
@@ -9160,7 +9238,7 @@ function lienQuanHTML(m){
     return '<div class="cl-dong'+(v.hetHieuLuc?' cl-het':'')+(v.id===m.id?' cl-dang':'')+'" style="padding-left:'+(muc*16)+'px">'+
       (muc?'└─ ':'')+(nhan?'<small>'+nhan+':</small> ':'')+
       (v.id===m.id ? '<b>'+ten(v)+'</b>' : lk(v))+' <small>('+
-      (muc||nhan ? (nhan?tt:'sửa đổi, bổ sung'+(v.hetHieuLuc?' — hết hiệu lực':'')) : 'văn bản gốc — '+tt)+')</small></div>';
+      (muc||nhan ? (nhan?tt:(vaiTroCua(v)==='VB hướng dẫn thực hiện'?'hướng dẫn thực hiện':'sửa đổi, bổ sung')+(v.hetHieuLuc?' — hết hiệu lực':'')) : 'văn bản gốc — '+tt)+')</small></div>';
   };
   var dsCon = con(goc), cu = D.vanBan.filter(function(x){ return x.thayBoi===goc.id; });
   var thayGoc = goc.thayBoi && timMuc(goc.thayBoi);
@@ -9245,7 +9323,7 @@ function suaCho(id){
     nd += '<div class="o"><label>Tên văn bản — vào tên file</label><input id="s-ty" value="'+
       coChuHTML(m.tenVB||m.trichYeu||'')+'" placeholder="Hướng dẫn rà soát hộ nghèo…" oninput="xemTenTruoc()"></div>';
     nd += '<div id="canh-trung"></div>';
-    nd += ta('Trích yếu — nội dung đầy đủ, dùng để tìm','s-tom',m.tomTat||'');
+    nd += ta('Trích yếu — nội dung đầy đủ, dùng để tìm','s-tom',m.tomTat||tyDayDu(m.tenVB||m.trichYeu||''));
 
     pl += oChonGon('Mảng nghiệp vụ','s-mang', dsMang(), m.mang?[m.mang]:[], true, 'mang');
     pl += oChonGon('Chương trình vay','s-ct', dsCTChon(), (m.ctrinh||[]).slice(0,1), true, 'ct');
@@ -9254,8 +9332,6 @@ function suaCho(id){
         '<label>Tag — chọn được nhiều <span class="nhan-lk" onclick="suaTagTab(\'vanBan\')">Sửa danh sách tag</span></label>');
 
     var vt = vaiTroCua(m);
-    var vbChinh = D.vanBan.filter(function(v){ return v.id!==m.id && vaiTroCua(v)==='VB chính'; });
-    var vbKhac = D.vanBan.filter(function(v){ return v.id!==m.id; });
     qh += '<div class="hai">'+
       '<div class="o"><label>Vai trò</label><select id="s-vt" onchange="doiVaiTro()">'+
         VAI_TRO.map(function(x){ return '<option'+(vt===x?' selected':'')+'>'+x+'</option>'; }).join('')+
@@ -9263,19 +9339,10 @@ function suaCho(id){
       '<div class="o"><label>Hiệu lực</label><select id="s-het" onchange="doiHieuLuc()">'+
         '<option value="">Còn hiệu lực</option>'+
         '<option value="1"'+(m.hetHieuLuc?' selected':'')+'>Hết hiệu lực</option></select></div></div>';
-    qh += '<div class="o" id="hang-goc"'+(vt==='VB sửa đổi, bổ sung'?'':' style="display:none"')+'>'+
-      '<label>Sửa đổi cho VB chính</label><select id="s-goc" onchange="chonGocVB()">'+
-      '<option value="">— chọn VB chính —</option>'+
-      vbChinh.map(function(v){
-        return '<option value="'+v.id+'"'+(m.goc===v.id?' selected':'')+'>'+coChuHTML(tenNganVB(v))+'</option>';
-      }).join('')+'</select>'+
-      (vbChinh.length?'':'<div class="huong-dan">Chưa có VB nào đánh dấu là VB chính.</div>')+'</div>';
-    qh += '<div class="o" id="hang-thay"'+(m.hetHieuLuc?'':' style="display:none"')+'>'+
-      '<label>Được thay thế bởi</label><select id="s-thay">'+
-      '<option value="">— chưa có / không rõ —</option>'+
-      vbKhac.map(function(v){
-        return '<option value="'+v.id+'"'+(m.thayBoi===v.id?' selected':'')+'>'+coChuHTML(tenNganVB(v))+'</option>';
-      }).join('')+'</select></div>';
+    qh += '<div id="hang-goc"'+(laVaiTroCon(vt)?'':' style="display:none"')+'>'+
+      oTimVB('s-goc', vt==='VB hướng dẫn thực hiện' ? 'Hướng dẫn thực hiện văn bản số…' : 'Sửa đổi, bổ sung cho văn bản số…', m.goc, m.id)+
+      '<div class="huong-dan">Chọn xong, văn bản kia tự thành <b>VB chính</b>.</div></div>';
+    qh += '<div id="hang-thay"'+(m.hetHieuLuc?'':' style="display:none"')+'>'+oTimVB('s-thay', 'Được thay thế bởi văn bản số…', m.thayBoi, m.id)+'</div>';
     qh += ta('Ghi chú riêng — chỉ trong app, không đưa lên Drive','s-ghi',m.ghiChu||'');
   }
 
@@ -9301,6 +9368,7 @@ function suaCho(id){
       '<div><span class="nhan">Tên mới</span><span class="gt" id="ten-truoc">'+coChuHTML(m.tenMoi||'')+'</span></div>'+
       '<div class="phu" id="ten-dai">'+(m.co?kichCo(m.co):'')+(m.soTrang?(' · '+m.soTrang+' trang'):'')+
         (m.driveId?' · trên Drive':' · chưa có trên Drive')+(m.choDB?' · đang chờ cập nhật Drive':'')+'</div>'+
+      ((m.nhom==='vanBan' && !laCho) ? '<div style="margin-top:6px">'+saoSuaHTML(m)+'</div>' : '')+
       (coTheDocLai(m) ? '<div style="margin-top:6px"><button class="nho" onclick="docLaiGoiY(\''+id+'\', true)" title="Đọc chữ trang 1 (lớp chữ của PDF, hoặc OCR nếu là PDF chụp / ảnh) để gợi ý số hiệu, ngày, trích yếu và tên file chuẩn">🔍 Đọc lại &amp; gợi ý tên</button></div>' : '')+
     '</div><div class="dau-nhom"><span>Nhóm</span>'+nhomHTML+'</div></div>'+
     '<div class="cot2"><div class="cot-a">'+trai+'</div><div class="cot-b">'+phai+'</div></div>'+
@@ -9532,14 +9600,16 @@ function luuSua(id){
     m.soHieu = gt('s-so');
     m.ngay = ngayISOo(gt('s-ngay')) || m.ngay;
     m.loai = gt('s-loai');
-    m.tenVB = gt('s-ty');              /* phần vào tên file */
+    m.tenVB = chuanTenVB(gt('s-ty'), gt('s-loai'));   /* phần vào tên file · 3.65: chữ đầu sau tên loại viết thường */
     m.trichYeu = m.tenVB;              /* giữ tương thích: thẻ, tìm kiếm, tên file cũ */
     m.tomTat = gt('s-tom');            /* trích yếu đầy đủ — chỉ để tìm */
     m.mang = layGon('s-mang')[0] || '';
     m.ctrinh = layGon('s-ct').slice(0,1);
     m.the = layGon('s-nv');
     m.vaiTro = gt('s-vt') || 'VB độc lập';
-    m.goc = (m.vaiTro==='VB sửa đổi, bổ sung') ? gt('s-goc') : '';
+    m.goc = laVaiTroCon(m.vaiTro) ? gt('s-goc') : '';
+    var vGoc = m.goc && timMuc(m.goc);   /* 3.65: văn bản được chọn làm gốc tự thành VB chính */
+    if(vGoc && vaiTroCua(vGoc)==='VB độc lập'){ vGoc.vaiTro = 'VB chính'; vGoc.suaLuc = new Date().toISOString(); }
     m.ghiChu = gt('s-ghi');
     m.hetHieuLuc = !!gt('s-het');
     m.thayBoi = m.hetHieuLuc ? gt('s-thay') : '';
@@ -9554,7 +9624,7 @@ function luuSua(id){
     if(conHL.length){
       setTimeout(function(){
         hoi('VB sửa đổi kèm theo cũng hết hiệu lực?',
-          'VB chính vừa đánh dấu hết hiệu lực. Còn '+conHL.length+' VB sửa đổi, bổ sung đang còn hiệu lực. '+
+          'VB chính vừa đánh dấu hết hiệu lực. Còn '+conHL.length+' VB sửa đổi, bổ sung / hướng dẫn thực hiện đang còn hiệu lực. '+
           'Anh muốn đánh dấu hết hiệu lực luôn không? Nếu có VB vẫn còn giá trị riêng thì bấm Thôi và sửa từng cái.',
           'Hết hiệu lực cả '+conHL.length, function(){
             conHL.forEach(function(x){ x.hetHieuLuc = true; if(m.thayBoi) x.thayBoi = m.thayBoi; });
@@ -10586,7 +10656,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.64', ds:[
+var CO_GI_MOI = {ban:'3.65', ds:[
+  ['🔗 Quan hệ văn bản: thêm vai trò "VB hướng dẫn thực hiện"; ô "Của văn bản số…" gõ số hiệu để tìm trong mọi văn bản — chọn xong văn bản kia tự thành VB chính', "dongHop();doiNgan(1)"],
+  ['★ Đánh dấu văn bản / biểu mẫu quan trọng (bấm ☆ trên dòng) — chip lọc "★ Quan trọng"; ở Biểu mẫu thay cho nút 📌 ghim', "dongHop();doiNgan(1)"],
+  ['✎ Hộp khai văn bản: tên file không còn cắt dở ("…của.pdf"), "Hướng dẫn thực hiện…" viết thường đúng, trích yếu tự mở rộng viết tắt, ô Nhóm gọn 1 dòng', "dongHop();doiNgan(1)"],
   ['⚠ Thư viện › Theo dõi nợ: 3 danh sách riêng ⏳ 3 tháng KHD · 🔴 Nợ quá hạn · 🔒 Nợ khoanh — mỗi tháng 📥 Cập nhật từ file sao kê, không bao giờ xóa, món quay lại ghi ↻ phát sinh lại', "dongHop();doiNgan(3);D.cauHinh.tvPhan='no';veGhiChu()"],
   ['🗂 Hồ sơ hộ vay: người vay & hộ, thừa kế, thực trạng, tài sản, sử dụng vốn, nguyên nhân, phương án — có lịch sử thay đổi', "dongHop();doiNgan(3);D.cauHinh.tvPhan='no';veGhiChu()"],
   ['📝 Ghi lần làm việc → Biên bản Word điền sẵn theo mẫu PGD; cam kết trả nợ tự lên lịch Hôm nay; 📍 vị trí nhà + chỉ đường', "dongHop();doiNgan(3);D.cauHinh.tvPhan='no';veGhiChu()"],
@@ -12472,12 +12545,12 @@ function veBieuMau(){
   Object.keys(gom).sort(function(a,b){
     return (b===GHIM)-(a===GHIM) || (/^Dùng chung/.test(b)?1:0)-(/^Dùng chung/.test(a)?1:0) || a.localeCompare(b);
   }).forEach(function(n){
-    h += '<div class="nhan-nhom bm-nhom-dau">'+coChuHTML(n===GHIM?'📌 Đã ghim':(/^Dùng chung/.test(n)?'Dùng chung':n))+' · '+gom[n].length+' mẫu</div>';
+    h += '<div class="nhan-nhom bm-nhom-dau">'+coChuHTML(n===GHIM?'★ Quan trọng':(/^Dùng chung/.test(n)?'Dùng chung':n))+' · '+gom[n].length+' mẫu</div>';
     h += gom[n].map(function(m){
       return '<div class="d2'+(BM.chon[m.id]?' chon':'')+'"'+botAt(m.id)+' onclick="chonDong(\''+m.id+'\')">'+
         '<div class="h1">'+
           '<span class="o-chon'+(BM.chon[m.id]?' bat':'')+'" onclick="event.stopPropagation();doiChonBM(\''+m.id+'\')" title="Tích để gửi / nén / in nhiều mẫu một lần">'+(BM.chon[m.id]?'✓':'')+'</span>'+
-          '<span class="ico">'+(m.huongDan?'📝':'📄')+'</span>'+
+          saoHTML(m)+'<span class="ico">'+(m.huongDan?'📝':'📄')+'</span>'+
           '<span class="ten">'+toSang(m.ten, tuKhoa)+'</span>'+
           (m.ghi?'<span class="ty">'+coChuHTML(m.ghi)+'</span>':'')+'</div>'+
         '<div class="h2"><div class="the">'+
@@ -12492,7 +12565,6 @@ function veBieuMau(){
           '<button onclick="event.stopPropagation();moBangOffice(\''+m.id+'\')" title="Mở thẳng bằng Word hoặc Excel trên máy tính">W</button>'+
           '<button onclick="event.stopPropagation();bmMoDocs(\''+m.id+'\')" title="Mở trên Google Docs">G</button>'+
           '<button onclick="event.stopPropagation();inMotMau(\''+m.id+'\')" title="In">🖨</button>'+
-          '<button onclick="event.stopPropagation();bmGhim(\''+m.id+'\')" title="Ghim lên đầu">📌</button>'+
           '<button onclick="moMenu(event,\''+m.id+'\')" title="Thêm lệnh">⋯</button>'+
         '</div></div>'+
         (m.cachDung?'<div class="bm-cach">💡 '+coChuHTML(m.cachDung)+'</div>':'')+
@@ -12577,7 +12649,7 @@ function inBo(i){
 function bmGhim(id){
   var m = bmTim(id); if(!m) return;
   m.ghim = !m.ghim; m.suaLuc = new Date().toISOString(); luu(); veBieuMau();
-  bao(m.ghim?'Đã ghim lên đầu.':'Đã bỏ ghim.', 3);
+  bao(m.ghim?'Đã đánh dấu ★ quan trọng — lên đầu danh sách.':'Đã bỏ dấu ★.', 3);
 }
 function bmDungThem(id){
   var m = bmTim(id); if(!m) return;
@@ -13679,6 +13751,7 @@ function dongHTML(m, q){
     var vtr = vaiTroCua(m);
     if(vtr==='VB chính') the.push(['chinh','VB chính']);
     if(vtr==='VB sửa đổi, bổ sung') the.push(['phu','Sửa đổi']);
+    if(vtr==='VB hướng dẫn thực hiện') the.push(['phu','Hướng dẫn TH']);
     var con = D.vanBan.filter(function(x){ return x.goc===m.id; }).length;
     if(con) the.push(['ct', con+' VB sửa đổi']);
     if(m.hetHieuLuc) the.push(['phu','Hết hiệu lực']);
@@ -13689,8 +13762,8 @@ function dongHTML(m, q){
 
   return '<div class="d2'+(m.hetHieuLuc?' mo':'')+(CON_ID[m.id]?' con':'')+(mucDangXem&&mucDangXem.id===m.id?' chon':'')+
     '"'+botAt(m.id)+' onclick="chonDong(\'' +m.id+ '\')">'+
-    '<div class="h1"><span class="ico">'+ico+'</span>'+
-      '<span class="ten" title="'+coChuHTML(ten+(phuDu && !phu ? '\n'+phuDu : ''))+'">'+toSang(ten, q)+'</span>'+
+    '<div class="h1">'+(laBM||m.nhom==='vanBan'?saoHTML(m):'')+'<span class="ico">'+ico+'</span>'+
+      '<span class="ten" title="'+coChuHTML(ten)+'">'+toSang(ten, q)+'</span>'+
       (phu?'<span class="ty">'+toSang(phu, q)+'</span>':'')+'</div>'+
     '<div class="h2"><div class="the">'+
       the.map(function(t){ return '<span class="tg '+t[0]+'">'+coChuHTML(t[1])+'</span>'; }).join('')+
@@ -14295,6 +14368,7 @@ function locChuan(tab, ds){
   if(tab==='vanBan' && !L.hl) ds = ds.filter(function(m){ return !m.hetHieuLuc; });
   if(L.tag) ds = ds.filter(function(m){ return coTagLoc(tab, m, L.tag); });
   if(L.mang) ds = ds.filter(function(m){ return m.mang===L.mang; });
+  if(L.sao) ds = ds.filter(laSao);   /* 3.65 (việc AC): chỉ văn bản / mẫu đánh dấu ⭐ */
   if(L.pham) ds = ds.filter(function(m){ return m.phamVi===L.pham; });
   if(L.hoi) ds = ds.filter(function(m){ return (m.hoi||[]).indexOf(L.hoi)>=0; });
   if(L.xa) ds = ds.filter(function(m){ return m.xa===L.xa; });
@@ -14367,11 +14441,24 @@ function nutLocNhanh(tab, kho){
   if(!anLocNhanh(tab) || !nhomLocNhanh(tab, kho).length) return '';
   return '<button class="phu" onclick="batLocNhanh(\''+tab+'\')" title="Hiện hàng lọc nhanh — app nhớ riêng cho tab này">Lọc nhanh ▾</button>';
 }
+/* 3.65 (việc AC, anh chốt): ⭐ đánh dấu văn bản / biểu mẫu quan trọng — không cần quan tâm nữa thì bỏ sao.
+   Biểu mẫu dùng chung cờ "ghim" có sẵn (khỏi 2 nút cùng việc) */
+function laSao(m){ return !!(m && (m.huongDan!==undefined ? m.ghim : m.sao)); }
+function saoHTML(m){ var b = laSao(m); return '<span class="sao'+(b?' bat':'')+'" onclick="event.stopPropagation();doiSao(\''+m.id+'\')" title="'+(b?'Bỏ đánh dấu quan trọng':'Đánh dấu quan trọng')+'">'+(b?'★':'☆')+'</span>'; }
+function doiSao(id){
+  var m = timMuc(id) || (typeof bmTim==='function' && bmTim(id)); if(!m) return;
+  if(m.huongDan!==undefined) m.ghim = !m.ghim; else m.sao = !m.sao;
+  m.suaLuc = new Date().toISOString(); luu(); ve();
+  var e = document.getElementById('sao-sua'); if(e) e.outerHTML = saoSuaHTML(m);
+}
+function saoSuaHTML(m){ var b = laSao(m); return '<button class="nho sao-nut'+(b?' bat':'')+'" id="sao-sua" onclick="doiSao(\''+m.id+'\')">'+(b?'★ Quan trọng':'☆ Đánh dấu quan trọng')+'</button>'; }
 function hangLocNhanh(tab, kho){
   if(anLocNhanh(tab)) return '';
   var nhom = nhomLocNhanh(tab, kho||[]);
-  if(!nhom.length) return '';
   var L = locCua(tab);
+  var soSao = (tab==='vanBan'||tab==='bieuMau') ? (kho||[]).filter(laSao).length : 0;
+  var hangSao = (soSao || L.sao) ? '<div class="ln-hang"><span class="ln-nhan">Đánh dấu</span><span class="the-loc'+(L.sao?' bat':'')+'" onclick="datLoc(\''+tab+'\',\'sao\',\'1\')">★ Quan trọng · '+soSao+'</span></div>' : '';
+  if(!nhom.length) return hangSao ? '<div class="loc-nhanh">'+hangSao+'</div>' : '';
   var hang = function(nhan, khoa, ds, doiNhan){
     return '<div class="ln-hang"><span class="ln-nhan">'+nhan+'</span>'+
       '<span class="the-loc'+(L[khoa]?'':' bat')+'" onclick="datLoc(\''+tab+'\',\''+khoa+'\',\'\')">Tất cả</span>'+
@@ -14384,7 +14471,7 @@ function hangLocNhanh(tab, kho){
   return '<div class="loc-nhanh">'+nhom.map(function(g, i){
     var x = hang(g[0], g[1], g[2]);
     return i===0 ? x.replace(/<\/div>$/, anNut+'</div>') : x;
-  }).join('')+'</div>';
+  }).join('')+hangSao+'</div>';
 }
 /* ---- sửa danh sách tag của một tab ---- */
 function suaTagTab(tab){

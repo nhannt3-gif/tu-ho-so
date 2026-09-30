@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.64 · build 03/10/2026 12:00
+**Bản hiện tại:** 3.65 · build 03/10/2026 16:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -548,12 +548,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - (c) Danh mục **trạng thái** và **hình thức làm việc** anh hay ghi (em có đề xuất sẵn, anh sửa).
 - (d) ✅ Theo dõi riêng 3 loại (anh chốt). Chờ anh: dòng nhắc chéo + dùng chung hồ sơ gốc / định vị theo mã KH?
 
-#### Đợt gom sau 3.64 — ghi nhận, chưa làm
+#### Đợt gom sau 3.64 — ✅ AA · AB · AC đã làm ở bản 3.65 (03/10/2026). Việc mới ghi tiếp bên dưới.
 
 | # | Việc | Nội dung | Chờ anh chốt |
 |---|---|---|---|
-| AA | **Chọn VB chính không chạy** (anh báo 03/10/2026, khi thêm 4336/HD-NHCS hướng dẫn QĐ 70/QĐ-HĐQT) | **Nguyên nhân (đã xem code):** ô "Sửa đổi cho VB chính" chỉ liệt kê văn bản **đã được đánh dấu "VB chính"**; kho chưa có văn bản nào đánh dấu → ô trống, chỉ hiện "Chưa có VB nào đánh dấu là VB chính", không chọn được. Muốn chọn phải mở QĐ 70 đổi vai trò trước — vòng vèo. **Đề xuất sửa:** (1) ô chọn liệt kê **mọi văn bản trong kho** (VB chính lên đầu), có **ô tìm** theo số hiệu / tên; chọn xong văn bản đó **tự được đánh dấu VB chính**; (2) app **tự gợi ý** VB chính từ số hiệu văn bản được nhắc ở phần căn cứ / "thực hiện…" (ví dụ thấy "Quyết định số 70/QĐ-HĐQT" và kho có 70/QĐ-HĐQT → gợi ý sẵn, anh bấm nhận); (3) cân nhắc thêm vai trò **"VB hướng dẫn thực hiện"** (hướng dẫn thực hiện một QĐ, khác với "sửa đổi, bổ sung") — hiện vai trò bị đoán thành "VB sửa đổi, bổ sung" là chưa đúng bản chất. | (3) có thêm vai trò "VB hướng dẫn thực hiện" không |
-| AB | Hộp Khai / Sửa văn bản — các điểm em thấy trên ảnh (chờ anh xác nhận) | (1) Tên file mới bị cắt dở "…Quy chế hoạt động **của.pdf**" trong khi tên văn bản đủ "…của Tổ TK&VV"; (2) chữ hoa giữa câu "Hướng dẫn **Thực** hiện…" → "thực"; (3) ô Trích yếu để trống dù có dòng tiêu đề; (4) ô "NHÓM" chiếm cả khung chỉ để 4 nút → thu 1 dòng. | Anh xác nhận / bổ sung |
+| AA | **Quan hệ văn bản — chọn VB chính bằng số hiệu** (anh báo chọn VB chính không chạy, 03/10/2026) | **Nguyên nhân:** ô chọn chỉ liệt kê văn bản đã đánh dấu "VB chính" → kho chưa có → trống. **✅ Anh chốt (đã nghĩ lại):** (1) **giữ khái niệm "VB chính"**; (2) vai trò: VB độc lập · VB chính · VB sửa đổi, bổ sung · **VB hướng dẫn thực hiện** (thêm mới); (3) chọn "sửa đổi" hoặc "hướng dẫn" → ô **"Của văn bản số…"**: **gõ số hiệu để tìm trong TẤT CẢ văn bản của app, mọi loại** (QĐ, HD, CV, TB…), hiện gọn số hiệu + tên; chọn xong văn bản kia **tự thành "VB chính"** (không phải đánh dấu trước); (4) **không tự đoán / tự gợi ý** — anh chọn tay. Ô "Được thay thế bởi" cũng tìm theo số hiệu. Khi VB chính hết hiệu lực vẫn hỏi có cho các VB sửa đổi / hướng dẫn của nó hết theo không. | — |
+| AC | **⭐ Đánh dấu sao văn bản quan trọng** (anh nêu 03/10/2026) — **tách riêng với VB chính** | Nút ☆/⭐ trên dòng văn bản (cạnh tên) và trong hộp Sửa — bấm bật/tắt; **không cần quan tâm nữa thì bỏ sao**; chip lọc **"⭐ Quan trọng"** ở hàng lọc tab Văn bản; đồng bộ các máy. **Áp cả tab Biểu mẫu** (mẫu hay dùng) — anh đồng ý. | — |
+| AB | Hộp Khai / Sửa văn bản + dòng văn bản (✅ anh đồng ý 03/10/2026) | (1) Tên file mới bị cắt dở "…Quy chế hoạt động **của.pdf**" trong khi tên văn bản đủ "…của Tổ TK&VV" → không cắt giữa chừng, cắt thì cắt ở ranh giới cụm từ và báo độ dài; (2) chữ hoa giữa câu "Hướng dẫn **Thực** hiện…" → "thực"; (3) ô Trích yếu để trống dù có dòng tiêu đề → điền từ tiêu đề; (4) ô "NHÓM" chiếm cả khung chỉ để 4 nút → thu 1 dòng; (5) **rê / nhấp vào tên văn bản ở danh sách, dòng gợi ý lặp lại tên + trích yếu gần như y hệt → thừa**: trích yếu đã nằm trong tên thì chỉ hiện tên đầy đủ (bỏ phần lặp). | — |
 
 ## 3. Việc cần kiểm trên máy thật
 
