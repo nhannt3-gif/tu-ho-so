@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.62 · build 03/10/2026 06:00
+**Bản hiện tại:** 3.63 · build 03/10/2026 09:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -443,11 +443,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - **Nguồn dữ liệu:** đúng danh mục đã khai ở Cài đặt › Địa bàn (app đã có sẵn mã xã, mã điểm, ngày GD, mã ấp). Không thêm dữ liệu mới; ấp/KP gộp, tách thì sửa ở Cài đặt, cây tự cập nhật. Có nút "✎ Sửa danh mục" dẫn tới Cài đặt › Địa bàn.
 - Ô nào thiếu mã → hiện "chưa có mã" màu nhạt để anh biết mà bổ sung.
 
-#### Đợt gom sau 3.62 — ghi nhận, chưa làm
+#### Đợt gom sau 3.62 — ✅ X đã làm ở bản 3.63 (03/10/2026). Việc mới ghi tiếp bên dưới.
 
 | # | Việc | Đề xuất | Chờ anh chốt |
 |---|---|---|---|
-| X | 🎓 Hạn trả HSSV: gọn phần "Thời gian học" | Anh nêu 03/10/2026: nút "Tự chọn" thừa; thường chỉ cho vay trên 12 tháng; đưa lên dòng trên cùng, nhỏ lại, tránh bấm nhầm. **✅ Anh chốt 03/10/2026:** (1) bỏ nút "Tự chọn", bỏ dòng "Thời gian học"; (2) **ô chọn (danh sách thả xuống) nhỏ** trên dòng tiêu đề: `🎓 Hạn trả HSSV [Trên 12 tháng ▾] ······ 📋 Chép 📝 To-do Đóng (Esc)`, **mặc định Trên 12 tháng**, lựa chọn còn lại "Đến 12 tháng · Y khoa"; (3) chọn "Đến 12 tháng · Y khoa" → ô chọn **đổi màu cam** + dòng lưu ý nhỏ màu cam ngay dưới tiêu đề ("Đang tính theo đến 12 tháng / Y khoa: trả nợ = 2 × phát tiền vay") — **không bật hộp / cửa sổ**; (4) nếu số tháng phát tiền vay ≤ 12 mà đang để Trên 12 tháng → chỉ hiện dòng lưu ý cam trong ô kết quả: "Phát tiền vay chỉ N tháng — nếu **khóa học** dài trên 1 năm (vay ở năm cuối) thì giữ nguyên; khóa học đến 1 năm / Y khoa thì đổi ô chọn", không bật hộp. **Lý do bỏ "Tự chọn":** nó đoán theo số tháng phát tiền vay (từ ngày vay đến ra trường), nhưng hướng dẫn phân loại theo **thời gian khóa đào tạo** — SV học 4 năm, vay năm cuối (phát tiền vay 10 tháng) sẽ bị đoán nhầm "đến 12 tháng" → thời hạn trả nợ gấp đôi, sai.; (5) mở lại công cụ thì về mặc định Trên 12 tháng. Bớt 1 dòng cho phần kết quả. | Chờ "code" hoặc gom |
+| X | 🎓 Hạn trả HSSV: gọn phần "Thời gian học" | Anh nêu 03/10/2026: nút "Tự chọn" thừa; thường chỉ cho vay trên 12 tháng; đưa lên dòng trên cùng, nhỏ lại, tránh bấm nhầm. **✅ Anh chốt 03/10/2026:** (1) bỏ nút "Tự chọn", bỏ dòng "Thời gian học"; (2) **ô chọn (danh sách thả xuống) nhỏ** trên dòng tiêu đề: `🎓 Hạn trả HSSV [Trên 12 tháng ▾] ······ 📋 Chép 📝 To-do Đóng (Esc)`, **mặc định Trên 12 tháng**, lựa chọn còn lại "Đến 12 tháng · Y khoa"; (3) chọn "Đến 12 tháng · Y khoa" → ô chọn **đổi màu cam** + dòng lưu ý nhỏ màu cam ngay dưới tiêu đề ("Đang tính theo đến 12 tháng / Y khoa: trả nợ = 2 × phát tiền vay") — **không bật hộp / cửa sổ**; (4) nếu số tháng phát tiền vay ≤ 12 mà đang để Trên 12 tháng → chỉ hiện dòng lưu ý cam trong ô kết quả: "Phát tiền vay chỉ N tháng — nếu **khóa học** dài trên 1 năm (vay ở năm cuối) thì giữ nguyên; khóa học đến 1 năm / Y khoa thì đổi ô chọn", không bật hộp. **Lý do bỏ "Tự chọn":** nó đoán theo số tháng phát tiền vay (từ ngày vay đến ra trường), nhưng hướng dẫn phân loại theo **thời gian khóa đào tạo** — SV học 4 năm, vay năm cuối (phát tiền vay 10 tháng) sẽ bị đoán nhầm "đến 12 tháng" → thời hạn trả nợ gấp đôi, sai.; (5) mở lại công cụ thì về mặc định Trên 12 tháng. Bớt 1 dòng cho phần kết quả. | ✅ Làm ở 3.63 |
 
 ## 3. Việc cần kiểm trên máy thật
 

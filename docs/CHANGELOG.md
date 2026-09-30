@@ -4,7 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.62 — 03/10/2026 06:00 — Gói U · V · W (khung xem, danh sách mỏng, cột Công cụ)
+## 3.63 — 03/10/2026 09:00 — Việc X: gọn phần thời gian học (🎓 Hạn trả HSSV)
+- Bỏ nút **Tự chọn** và dòng "Thời gian học". Lý do: nút đoán theo số tháng phát tiền vay, nhưng hướng dẫn phân loại theo **thời gian khóa đào tạo** — SV học 4 năm vay năm cuối (phát tiền vay ~10 tháng) sẽ bị đoán nhầm "đến 12 tháng", thời hạn trả nợ gấp đôi.
+- **Ô chọn nhỏ trên dòng tiêu đề**: `🎓 Hạn trả HSSV [Trên 12 tháng ▾] … 📋 Chép · 📝 · Đóng (Esc)`; mặc định Trên 12 tháng, mỗi lần mở lại công cụ về mặc định.
+- Chọn **Đến 12 th · Y khoa** → ô đổi **màu cam** + dòng lưu ý cam dưới tiêu đề; **không bật hộp**.
+- Để Trên 12 tháng mà phát tiền vay ≤ 12 tháng → chỉ hiện dòng lưu ý cam trong kết quả ("nếu khóa học dài trên 1 năm thì giữ nguyên…").
+- Nút ghi to-do rút còn 📝 để tiêu đề vừa 1 dòng; phần kết quả thêm ~30 px.
+
+ — 03/10/2026 06:00 — Gói U · V · W (khung xem, danh sách mỏng, cột Công cụ)
 **U. Khung xem rộng tối đa**
 - Khung xem bên phải (máy tính) kéo sát dải trạng thái dưới cùng; đầu khung, thanh công cụ, hàng nút Gửi cả file · In · Sửa thấp lại.
 - File 1 trang: bỏ cụm lật trang (⏮ ‹ 1/1 › ⏭), bỏ ô tích chọn trang và nhãn "Trang 1/1".

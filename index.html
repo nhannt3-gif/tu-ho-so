@@ -2025,6 +2025,17 @@
   .db-gd{color:var(--luc);font-size:calc(11px*var(--co))}
   .db-cay small{color:var(--chu-phu)}
   .cc-hop .cc-than{max-height:none}
+
+  /* 3.63 — việc X: ô chọn thời gian học trên dòng tiêu đề */
+  .cc-dau{flex-wrap:wrap}
+  .cc-dau b{flex:0 1 auto !important}
+  .cc-gian{flex:1}
+  .cc-dau .nho{min-width:0 !important;width:auto !important}
+  .hs-loai{max-width:134px !important}
+  .hs-loai{min-height:26px;height:26px;padding:1px 4px;font-size:calc(11.5px*var(--co));border:1.3px solid var(--vien);border-radius:7px;background:var(--the);color:var(--chu);max-width:170px}
+  .hs-loai.cam{background:var(--vang-nen);border-color:var(--vang);color:var(--vang);font-weight:700}
+  .hs-luuy{color:var(--vang);font-size:calc(11.5px*var(--co));margin:2px 0 4px;line-height:1.35}
+  .hs-luuy:empty{display:none}
 </style>
 </head>
 <body>
@@ -2279,7 +2290,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.62', APP_LUC = '03/10/2026 06:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.63', APP_LUC = '03/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -3526,8 +3537,9 @@ function veLich(){
    ========================================================== */
 var CC = {mo:'', hop:'', hs:null, db:{tim:''}};
 var CONG_CU = [
-  {id:'hssv',   ico:'🎓', ten:'Hạn trả HSSV', tit:'Tính hạn trả nợ HSSV', ve:function(){ return ccHSSVHTML(); },
-    nut:'<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt để dán vào hồ sơ">📋 Chép</button><button class="nho" onclick="hsGhiTodo()" title="Ghi câu chốt vào to-do hôm nay">📝 To-do</button>'},
+  {id:'hssv',   ico:'🎓', ten:'Hạn trả HSSV', tit:'Hạn trả HSSV', ve:function(){ return ccHSSVHTML(); },
+    dau:function(){ return hsChonLoaiHTML(); },
+    nut:'<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt để dán vào hồ sơ">📋 Chép</button><button class="nho" onclick="hsGhiTodo()" title="Ghi câu chốt vào to-do hôm nay">📝</button>'},
   {id:'diaban', ico:'🗺', ten:'Địa bàn',      tit:'Cây địa bàn — mã xã, điểm GD, ấp/KP', ve:function(){ return ccDiaBanHTML(); }},
   {id:'cc3',    ico:'🧰', ten:'Công cụ 3'},
   {id:'cc4',    ico:'🧰', ten:'Công cụ 4'},
@@ -3542,6 +3554,7 @@ function ccCotHTML(){
 function ccTim(id){ return CONG_CU.find(function(c){ return c.id===id; }); }
 function ccMo(id){
   CC.mo = CC.mo===id ? '' : id;
+  if(CC.mo==='hssv' && CC.hs) CC.hs.loai = 'tren';   /* 3.63 (việc X): mỗi lần mở là Trên 12 tháng */
   Array.prototype.forEach.call(document.querySelectorAll('.cc-nut'), function(b){
     b.classList.toggle('bat', b.getAttribute('onclick')==='ccMo(\''+CC.mo+'\')' && !!CC.mo); });
   veCC();
@@ -3549,6 +3562,7 @@ function ccMo(id){
 function ccDong(){ CC.mo = ''; Array.prototype.forEach.call(document.querySelectorAll('.cc-nut.bat'), function(b){ b.classList.remove('bat'); }); veCC(); if(document.getElementById('hop').classList.contains('hien') && document.querySelector('#hop-in .cc-hop')) dongHop(); }
 function ccHopHTML(c){
   return '<div class="cc-hop" data-cc="'+c.id+'"><div class="cc-dau"><b>'+c.ico+' '+coChuHTML(c.tit||c.ten)+'</b>'+
+    (c.dau ? c.dau() : '')+'<span class="cc-gian"></span>'+
     (c.nut||'')+'<button class="nho" onclick="ccDong()">Đóng (Esc)</button></div>'+
     '<div class="cc-than" id="cc-than">'+(c.ve ? c.ve() : '<div class="huong-dan">Công cụ này <b>đang chuẩn bị</b> — anh gửi nghiệp vụ là em làm tiếp.</div>')+'</div></div>';
 }
@@ -3613,7 +3627,7 @@ function hsTinh(v){
   if(vay && rt && hsSoNgay(vay, rt)<=0) kq.loi.push('Ngày ra trường phải sau ngày vay');
   if(kq.loi.length) return kq;
   var tp = hsThang(vay, rt), soNgay = hsSoNgay(vay, rt);
-  var loai = v.loai || (tp<=12 ? 'duoi' : 'tren');
+  var loai = v.loai==='duoi' ? 'duoi' : 'tren';   /* 3.63 (việc X): bỏ "Tự chọn" — phân loại theo khóa học, anh chọn; mặc định Trên 12 tháng */
   kq.tp = tp; kq.soNgay = soNgay; kq.loai = loai; kq.vay = vay; kq.rt = rt; kq.g = g;
   if(loai==='tren'){
     kq.moc = hsCongNgay(rt, soNgay);                 /* ra trường + số ngày phát tiền vay */
@@ -3649,7 +3663,7 @@ function hsTinh(v){
 }
 function hsGT(){
   if(!CC.hs){ var g = ''; try{ g = localStorage.getItem('tuhoso_gdx')||''; }catch(e){}
-    CC.hs = {vay:'', rt:'', gdx:g, tien:'', loai:''}; }
+    CC.hs = {vay:'', rt:'', gdx:g, tien:'', loai:'tren'}; }
   return CC.hs;
 }
 function hsDat(k, el){
@@ -3659,15 +3673,27 @@ function hsDat(k, el){
   if(k==='gdx'){ try{ localStorage.setItem('tuhoso_gdx', el.value); }catch(e){} }
   var kq = document.getElementById('hs-kq'); if(kq) kq.innerHTML = hsKetQuaHTML();
 }
-function hsLoai(l){ hsGT().loai = l; ccVeThan(); }
+function hsLoai(l){
+  hsGT().loai = l==='duoi' ? 'duoi' : 'tren';
+  var e = document.getElementById('hs-loai'); if(e){ e.value = hsGT().loai; e.classList.toggle('cam', hsGT().loai==='duoi'); }
+  var n = document.getElementById('hs-luuy'); if(n) n.innerHTML = hsLuuYHTML();
+  var kq = document.getElementById('hs-kq'); if(kq) kq.innerHTML = hsKetQuaHTML();
+}
+/* 3.63 (việc X, anh chốt): ô chọn nhỏ trên dòng tiêu đề; chọn "Đến 12 tháng · Y khoa" thì ô đổi màu cam + dòng lưu ý — không bật hộp */
+function hsChonLoaiHTML(){
+  var d = hsGT().loai==='duoi';
+  return '<select id="hs-loai" class="hs-loai'+(d?' cam':'')+'" onchange="hsLoai(this.value)" title="Phân loại theo thời gian khóa đào tạo">'+
+    '<option value="tren"'+(d?'':' selected')+'>Trên 12 tháng</option><option value="duoi"'+(d?' selected':'')+' title="Đến 12 tháng · SV Y khoa">Đến 12 th · Y khoa</option></select>';
+}
+function hsLuuYHTML(){
+  return hsGT().loai==='duoi' ? '⚠ Đang tính theo khóa học <b>đến 12 tháng / SV Y khoa</b>: trả nợ tối đa = 2 × phát tiền vay.' : '';
+}
 function ccHSSVHTML(){
   var v = hsGT();
   var o = function(k, nhan, goiY, rong){ return '<div class="hs-o"'+(rong?' style="grid-column:span '+rong+'"':'')+'><label>'+nhan+'</label>'+
     '<input id="hs-'+k+'" value="'+coChuHTML(v[k]||'')+'" inputmode="numeric" placeholder="'+goiY+'" oninput="hsDat(\''+k+'\',this)"></div>'; };
-  return '<div class="hs-nhap">'+o('vay','Ngày vay (món đầu)','dd/mm/yyyy')+o('rt','Ngày ra trường','dd/mm/yyyy')+o('gdx','Ngày GDX','1–31')+o('tien','Tiền vay (triệu)','vd 40')+
-    '<div class="hs-o hs-hoc"><label>Thời gian học</label><div class="hs-seg">'+
-      ['tren','duoi'].map(function(l){ return '<button class="'+((v.loai||'')===l?'bat':'')+'" onclick="hsLoai(\''+l+'\')">'+(l==='tren'?'Trên 12 tháng':'Đến 12 tháng · Y khoa')+'</button>'; }).join('')+
-      '<button class="tu'+(!v.loai?' bat':'')+'" onclick="hsLoai(\'\')" title="App tự chọn theo số tháng phát tiền vay">Tự chọn</button></div></div></div>'+
+  return '<div class="hs-luuy" id="hs-luuy">'+hsLuuYHTML()+'</div><div class="hs-nhap">'+o('vay','Ngày vay (món đầu)','dd/mm/yyyy')+o('rt','Ngày ra trường','dd/mm/yyyy')+o('gdx','Ngày GDX','1–31')+o('tien','Tiền vay (triệu)','vd 40')+
+    '</div>'+
     '<div id="hs-kq">'+hsKetQuaHTML()+'</div>';
 }
 function hsKetQuaHTML(){
@@ -3679,13 +3705,14 @@ function hsKetQuaHTML(){
   var h = '<table class="hs-bang"><tr><th>Phát tiền vay</th><th>Ân hạn</th><th>Trả nợ tối đa</th><th>Thời hạn cho vay</th><th>Hạn cuối</th><th>Hạn cuối theo GDX</th></tr>'+
     '<tr><td>'+kq.tp+' tháng<small>'+kq.soNgay+' ngày</small></td><td>12 tháng</td><td>'+kq.ttn+' tháng</td><td><b>'+kq.thoiHan+' tháng</b></td><td>'+hsNgay(kq.hc)+'</td>'+
     '<td class="dam" onclick="ccChep(\''+hsNgay(kq.hcGD)+'\')" title="Bấm để chép">'+hsNgay(kq.hcGD)+'</td></tr></table>';
+  if(kq.loai==='tren' && kq.tp<=12) h += '<div class="hs-luuy">⚠ Phát tiền vay chỉ '+kq.tp+' tháng — nếu <b>khóa học</b> dài trên 1 năm (vay năm cuối) thì giữ nguyên; khóa học đến 1 năm / Y khoa thì đổi ô chọn trên tiêu đề.</div>';
   h += '<div class="hs-cau" onclick="ccChep(this.textContent,\'📋 Đã chép câu chốt — dán vào hồ sơ.\')" title="Bấm để chép">'+coChuHTML(kq.cau)+'</div>';
   h += '<details class="hs-ct"'+mo+'><summary>Các kỳ trả ('+kq.ky.length+' kỳ · 12 tháng/lần)</summary><table class="hs-ky"><tr><th>Kỳ</th><th>Ngày trả (theo GDX)</th><th>Gốc phải trả</th></tr>'+
     kq.ky.map(function(x, i){ return '<tr'+(i===0?' class="dau"':'')+'><td>'+(i+1)+(i===0?' · đầu tiên':(x.cuoi?' · cuối':''))+'</td><td>'+hsNgay(x.ngay)+'</td><td>'+(x.tien!==undefined?hsTien(x.tien):'—')+'</td></tr>'; }).join('')+
     '</table></details>';
   var tren = kq.loai==='tren';
   h += '<details class="hs-ct"'+mo+'><summary>Cách tính (để kiểm chứng)</summary><ol class="hs-buoc">'+
-    '<li>Phát tiền vay = DATEDIF('+hsNgay(kq.vay)+' → '+hsNgay(kq.rt)+', tháng) = <b>'+kq.tp+' tháng</b> ('+kq.soNgay+' ngày) → '+(tren?'trên':'đến')+' 12 tháng'+(v.loai?' (anh chọn)':' (tự chọn)')+'</li>'+
+    '<li>Phát tiền vay = DATEDIF('+hsNgay(kq.vay)+' → '+hsNgay(kq.rt)+', tháng) = <b>'+kq.tp+' tháng</b> ('+kq.soNgay+' ngày) → '+(tren?'trên':'đến')+' 12 tháng (ô chọn trên tiêu đề)</li>'+
     (tren
       ? '<li>Hạn cuối = ra trường '+hsNgay(kq.rt)+' + '+kq.soNgay+' ngày = '+hsNgay(kq.moc)+' → + 12 tháng ân hạn = <b>'+hsNgay(kq.hc)+'</b></li>'
       : '<li>Hạn cuối = ra trường '+hsNgay(kq.rt)+' + ('+kq.tp+' × 2 + 12) = '+(kq.tp*2+12)+' tháng = <b>'+hsNgay(kq.hc)+'</b></li>')+
@@ -9632,7 +9659,7 @@ function noiDungHD(p){
     '<p>Xóa dòng có ảnh → dòng và ảnh vào 🗑 thùng rác ngăn <b>📅 Hôm nay</b>, khôi phục về đúng ngày; lỡ tay thì ↶ Hoàn tác (Ctrl+Z).</p>'+
     '<h3>🧰 Công cụ (cột bên phải lịch)</h3>'+
     hdBuoc(['Bấm một nút → ô công cụ mở ngay dưới lịch; bấm lại hoặc Esc / Đóng (Esc) để đóng. Điện thoại: hàng nút trên lịch, ô mở thành hộp.',
-      '<b>🎓 Hạn trả HSSV</b> — tính đúng như file Excel (Sheet2): gõ ngày vay (món đầu), ngày ra trường, ngày GDX, số tiền (triệu). App tự chọn "Trên 12 tháng" / "Đến 12 tháng · Y khoa" theo số tháng phát tiền vay, anh đổi được. '+
+      '<b>🎓 Hạn trả HSSV</b> — tính đúng như file Excel (Sheet2): gõ ngày vay (món đầu), ngày ra trường, ngày GDX, số tiền (triệu). Mặc định <b>Trên 12 tháng</b>; khóa học đến 1 năm / SV Y khoa thì đổi ô chọn trên tiêu đề (ô đổi màu cam) — phân loại theo thời gian khóa học, không theo thời gian phát tiền vay. '+
         'Trên 12 tháng: hạn cuối = ra trường + số ngày phát tiền vay + 12 tháng; đến 12 tháng / Y khoa: ra trường + (tháng × 2 + 12). Mọi ngày trả đưa về <b>ngày GDX trước đó</b> (trùng ngày GDX thì lùi 1 tháng). '+
         'Thời hạn cho vay = tháng × 2 + 12 (trên 12 tháng) hoặc × 3 + 12. Kỳ trả 12 tháng/lần từ ra trường + 12 tháng; tiền chia đều, làm tròn xuống trăm nghìn, dư dồn kỳ cuối. '+
         'Bấm dòng <b>câu chốt</b> (hoặc 📋 Chép) để dán hồ sơ; ▸ Cách tính ghi từng bước có số thật để kiểm.',
@@ -9710,7 +9737,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.62', ds:[
+var CO_GI_MOI = {ban:'3.63', ds:[
+  ['🎓 Hạn trả HSSV: bỏ nút Tự chọn; ô chọn nhỏ trên tiêu đề, mặc định Trên 12 tháng; chọn Đến 12 tháng · Y khoa thì ô đổi màu cam kèm lưu ý (không bật hộp)', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['🧰 Tab Hôm nay: lịch gọn lại (70%), bên phải là cột Công cụ — bấm để mở ngay dưới lịch', "dongHop();doiNgan(0)"],
   ['🎓 Công cụ Hạn trả HSSV: đúng công thức file Excel (Sheet2) — hạn cuối theo ngày GDX, thời hạn cho vay (tháng), kỳ đầu, số tiền mỗi kỳ, câu chốt bấm là chép', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['🗺 Công cụ Địa bàn: cây Xã › Điểm GD › Ấp/KP kèm mã, xếp theo mã; gõ tìm ấp/KP (không dấu); bấm mã để chép', "dongHop();doiNgan(0);ccMo('diaban')"],
