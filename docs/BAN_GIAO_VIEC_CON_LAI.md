@@ -450,16 +450,27 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | X | 🎓 Hạn trả HSSV: gọn phần "Thời gian học" | Anh nêu 03/10/2026: nút "Tự chọn" thừa; thường chỉ cho vay trên 12 tháng; đưa lên dòng trên cùng, nhỏ lại, tránh bấm nhầm. **✅ Anh chốt 03/10/2026:** (1) bỏ nút "Tự chọn", bỏ dòng "Thời gian học"; (2) **ô chọn (danh sách thả xuống) nhỏ** trên dòng tiêu đề: `🎓 Hạn trả HSSV [Trên 12 tháng ▾] ······ 📋 Chép 📝 To-do Đóng (Esc)`, **mặc định Trên 12 tháng**, lựa chọn còn lại "Đến 12 tháng · Y khoa"; (3) chọn "Đến 12 tháng · Y khoa" → ô chọn **đổi màu cam** + dòng lưu ý nhỏ màu cam ngay dưới tiêu đề ("Đang tính theo đến 12 tháng / Y khoa: trả nợ = 2 × phát tiền vay") — **không bật hộp / cửa sổ**; (4) nếu số tháng phát tiền vay ≤ 12 mà đang để Trên 12 tháng → chỉ hiện dòng lưu ý cam trong ô kết quả: "Phát tiền vay chỉ N tháng — nếu **khóa học** dài trên 1 năm (vay ở năm cuối) thì giữ nguyên; khóa học đến 1 năm / Y khoa thì đổi ô chọn", không bật hộp. **Lý do bỏ "Tự chọn":** nó đoán theo số tháng phát tiền vay (từ ngày vay đến ra trường), nhưng hướng dẫn phân loại theo **thời gian khóa đào tạo** — SV học 4 năm, vay năm cuối (phát tiền vay 10 tháng) sẽ bị đoán nhầm "đến 12 tháng" → thời hạn trả nợ gấp đôi, sai.; (5) mở lại công cụ thì về mặc định Trên 12 tháng. Bớt 1 dòng cho phần kết quả. | ✅ Làm ở 3.63 |
 | Y | Bỏ chữ nhắc "file Excel (Sheet2)" trên giao diện | Anh nêu 03/10/2026: nhìn kỳ. Bỏ ở 3 chỗ anh thấy được: (1) dòng hướng dẫn trong ô Hạn trả HSSV "Gõ ngày vay, ngày ra trường và ngày GDX — kết quả hiện ngay~~, đúng công thức file Excel (Sheet2)~~"; (2) mục Hướng dẫn › Hôm nay "tính đúng như file Excel (Sheet2)"; (3) Có gì mới "đúng công thức file Excel (Sheet2)". Chú thích trong code và tài liệu bàn giao giữ nguyên để người sau biết nguồn công thức. | Làm ở lượt sau |
 
-**Z. Theo dõi món vay có vấn đề — Nợ quá hạn · Nợ khoanh · 3 tháng không hoạt động (anh nêu 03/10/2026; bản nháp, chưa code)**
-- *Hiện có:* tab Tháng lưu **báo cáo / sao kê hằng tháng** (NQH, NK, 3TKHD, SK_NQH, SK_NK) — chỉ là file theo kỳ, **chưa theo dõi từng món vay**.
-- *Cần:* mỗi món vay có vấn đề là **một hồ sơ theo dõi** ghi được quá trình làm việc + biên bản kèm theo.
-- *Đề xuất bản nháp:*
-  1. **Thẻ món vay:** khách hàng · địa bàn Xã › Điểm › Ấp › Tổ (dùng lại danh mục) · chương trình vay · ngày vay, số tiền, dư nợ · **loại** (Quá hạn / Khoanh / 3 tháng KHD — có thể nhiều) · ngày phát sinh · số tiền quá hạn/khoanh · nguyên nhân · **trạng thái** (Đang theo dõi / Đã thu hồi / Đã gia hạn-điều chỉnh / Đề nghị khoanh / Đề nghị xóa…).
-  2. **Nhật ký làm việc** (dòng thời gian): ngày · hình thức (đến nhà / mời lên UBND xã / họp Tổ / điện thoại) · thành phần · nội dung · kết quả · **cam kết trả** (số tiền, hạn) · số tiền thu được. Hạn cam kết tự đưa vào SCHEDULE tab Hôm nay để nhắc.
-  3. **Biên bản kèm theo:** chụp bằng máy ảnh (dùng lại bộ quét Scan → PDF) hoặc thêm file; gắn vào đúng lần làm việc; lên Drive `Tủ hồ sơ/Theo dõi nợ/<Xã>/<Tên khách>/`.
-  4. **Danh sách:** lọc theo loại · xã/điểm/ấp · trạng thái; nhãn "đến hạn cam kết", "chưa làm việc > 30 ngày"; số đếm đưa lên dòng ⚠ Cần xử lý ở Hôm nay.
-  5. *(Đợt 2)* **Nhập từ sao kê** tháng (SK_NQH, SK_NK, 3TKHD) để tự tạo / cập nhật thẻ; **xuất bảng tổng hợp** theo dõi (Excel) cho giao ban.
-- *Chờ anh chốt:* (a) chỗ đặt (tab mới hay trong Thư viện); (b) 1 file sao kê mẫu che tên để biết các cột (mã món vay / số khế ước?); (c) danh mục trạng thái, hình thức làm việc anh dùng; (d) mẫu biên bản làm việc (có cần app điền sẵn để in ký không); (e) đợt 1 gồm những phần nào.
+**Z. Theo dõi món vay có vấn đề — Nợ quá hạn · Nợ khoanh · 3 tháng không hoạt động (anh nêu 03/10/2026; thiết kế nháp, chưa code)**
+
+*✅ Anh chốt 03/10/2026:*
+- **Chỗ đặt:** trong tab **Thư viện** — ngăn mới "⚠ Theo dõi nợ" (cạnh Bộ hồ sơ, Ghi chú ảnh).
+- **Nguồn danh sách:** anh có danh sách 3 tháng KHD, nợ quá hạn, nợ khoanh **theo tháng**. Mỗi tháng anh chỉ file → app đọc vào, **cập nhật số dư** của món đã có, thêm món mới.
+- **Hai cách xem:** ☰ Danh sách và 🌳 Cây địa bàn Xã › Điểm › Ấp › **Tổ** (như tab Scan).
+- **Khi cần làm việc / bổ sung một món:** mở món đó lên để: 📎 thêm bản scan **hồ sơ gốc**; 📍 **định vị nhà**; 📝 **xuất biên bản làm việc theo mẫu**; 📈 **theo dõi tiến độ làm việc**.
+
+*Thiết kế đề xuất:*
+1. **Cập nhật hằng tháng** (nút 📥 Cập nhật tháng): chọn file sao kê tháng — lấy từ file đã lưu ở tab Tháng (NQH, NK, 3TKHD, SK_NQH, SK_NK) hoặc chọn file mới → app đọc Excel, nhận từng món bằng **mã món vay / số khế ước** (nếu sao kê có), không có thì theo tên + ấp/tổ + chương trình → màn **xem trước** trước khi ghi: `+ 5 món mới · 12 món cập nhật số dư · 3 món không còn trong danh sách`. Món không còn trong sao kê **không xóa** — chuyển trạng thái "Đã ra khỏi danh sách tháng MM/YYYY" (thu hồi xong / hết quá hạn), vẫn giữ lịch sử. Mỗi món lưu **lịch sử số dư theo tháng** (xem biến động).
+2. **Dòng danh sách (2 dòng):** tên khách · ấp · tổ · chương trình ······ dư nợ / số quá hạn · **nhãn loại** (QH / Khoanh / 3T KHD) · ngày làm việc gần nhất · ⚠ "chưa làm việc > 30 ngày" / "đến hạn cam kết". Lọc theo loại, trạng thái, địa bàn; đầu cây có đếm số món + tổng dư nợ từng nhánh.
+3. **Mở một món** (khung phải trên máy tính, toàn màn trên điện thoại): thông tin món vay (từ sao kê, không sửa tay số liệu gốc) · lịch sử số dư · **nhật ký làm việc** (ngày, hình thức, thành phần, nội dung, kết quả, cam kết trả số tiền + hạn → tự lên lịch Hôm nay, số thu được) · **tài liệu**: hồ sơ gốc (dùng lại bộ quét Scan → PDF), biên bản đã ký (chụp lại), ảnh nhà · **📍 vị trí**: điện thoại bấm "Lấy vị trí tại đây" khi đứng ở nhà khách (GPS) hoặc dán link Google Maps → nút "Chỉ đường".
+4. **📝 Xuất biên bản theo mẫu:** anh đưa file Word mẫu có chỗ trống đánh dấu (ví dụ `{Họ tên}`, `{Địa chỉ}`, `{Dư nợ}`, `{Số quá hạn}`, `{Ngày}`…) → app điền thông tin món vay + lần làm việc, tạo file Word để sửa / in / ký; bản ký xong chụp lại gắn vào lần làm việc.
+5. **Lưu trữ:** Drive `Tủ hồ sơ/Theo dõi nợ/<Xã>/<Điểm>/<Ấp>/<Tổ>/<Tên khách>/`; dữ liệu khách chỉ nằm trên máy + Drive của anh (không đưa lên kho mã nguồn).
+6. **Tổng hợp:** số món / dư nợ theo loại, theo xã; "cần làm việc tuần này" lên dòng ⚠ Cần xử lý ở Hôm nay. *(Đợt sau: xuất Excel theo dõi cho giao ban.)*
+
+*Cần anh gửi trước khi code (che tên khách):*
+- (a) **3 file mẫu** 1 tháng: danh sách 3 tháng KHD, nợ quá hạn, nợ khoanh — để em biết cột (có mã món vay / số khế ước không, cột dư nợ, số quá hạn, ngày quá hạn, tổ…).
+- (b) **Mẫu biên bản làm việc** (Word) PGD đang dùng.
+- (c) Danh mục **trạng thái** và **hình thức làm việc** anh hay ghi (em có đề xuất sẵn, anh sửa).
+- (d) Một món thuộc cả 2 danh sách (vừa quá hạn vừa 3 tháng KHD) → gộp 1 thẻ nhiều nhãn (em đề xuất) hay tách?
 
 ## 3. Việc cần kiểm trên máy thật
 
