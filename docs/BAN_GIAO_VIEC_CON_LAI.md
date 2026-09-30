@@ -556,6 +556,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | AC | **⭐ Đánh dấu sao văn bản quan trọng** (anh nêu 03/10/2026) — **tách riêng với VB chính** | Nút ☆/⭐ trên dòng văn bản (cạnh tên) và trong hộp Sửa — bấm bật/tắt; **không cần quan tâm nữa thì bỏ sao**; chip lọc **"⭐ Quan trọng"** ở hàng lọc tab Văn bản; đồng bộ các máy. **Áp cả tab Biểu mẫu** (mẫu hay dùng) — anh đồng ý. | — |
 | AB | Hộp Khai / Sửa văn bản + dòng văn bản (✅ anh đồng ý 03/10/2026) | (1) Tên file mới bị cắt dở "…Quy chế hoạt động **của.pdf**" trong khi tên văn bản đủ "…của Tổ TK&VV" → không cắt giữa chừng, cắt thì cắt ở ranh giới cụm từ và báo độ dài; (2) chữ hoa giữa câu "Hướng dẫn **Thực** hiện…" → "thực"; (3) ô Trích yếu để trống dù có dòng tiêu đề → điền từ tiêu đề; (4) ô "NHÓM" chiếm cả khung chỉ để 4 nút → thu 1 dòng; (5) **rê / nhấp vào tên văn bản ở danh sách, dòng gợi ý lặp lại tên + trích yếu gần như y hệt → thừa**: trích yếu đã nằm trong tên thì chỉ hiện tên đầy đủ (bỏ phần lặp). | — |
 
+#### Đợt gom sau 3.65 — ghi nhận, chưa làm (anh nêu 03/10/2026)
+
+| # | Việc | Đề xuất | Chờ anh chốt |
+|---|---|---|---|
+| AD | Hộp sửa văn bản: lỡ nhấp ra ngoài là thoát, mất công | **Hộp có ô nhập** (sửa văn bản, khai, ghi lần làm việc, hồ sơ hộ, lịch…) **không đóng khi nhấp ra ngoài** — chỉ đóng bằng nút Đóng / Thôi (Esc) hoặc Lưu. **Nút Lưu + Đóng dính ở đáy hộp**, luôn thấy, không phải cuộn xuống cuối. Hộp chỉ để xem / thông báo vẫn nhấp ra ngoài là đóng như cũ. Có sửa mà bấm Đóng / Esc → hỏi "Bỏ các thay đổi?" để khỏi mất chữ. | Hỏi khi bỏ thay đổi: có / không? |
+| AE | Gỡ file khỏi dòng (Hôm nay) → khung báo Hoàn tác hiện rất lâu, khó chịu | Khung báo có nút ↩ Hoàn tác **hiện 3 giây** (nay 7 giây), nhỏ gọn ở góc, không che nội dung; lỡ tay sau đó vẫn hoàn tác được bằng nút ↶ trên đầu sổ / Ctrl+Z (đã có). Áp cho mọi khung báo Hoàn tác trong app. | Áp chung toàn app? |
+| AF | Thêm quan hệ **"VB có liên quan"** | Ô riêng **"Văn bản liên quan"** trong hộp sửa (không phải vai trò, vì một văn bản liên quan được **nhiều** văn bản): gõ số hiệu để tìm (như AA), thêm được nhiều; hai chiều — mở văn bản kia cũng thấy; khung xem hiện "🔗 Liên quan: 4079/NHCS-TDNN · 70/QĐ-HĐQT…" bấm để mở. | Ô riêng chọn nhiều (đề xuất) hay thêm vào danh sách vai trò? |
+| AG | Nút **Hôm nay · Danh sách · Tính ngày** (đầu lịch) rê chuột không đổi màu; đang ở hôm nay thì nút Hôm nay nên chìm | Rê chuột: đổi nền / viền như các nút khác. **Đang xem đúng hôm nay → nút "Hôm nay" mờ, không bấm được**; chuyển sang ngày / tháng khác → nút sáng lên (nổi) để bấm quay về. | — |
+| AH | Theo dõi nợ: **in danh sách** gom theo Xã › Điểm › Ấp › Tổ, vài cột cơ bản | Nút **🖨 In danh sách** ở từng danh sách (in theo đúng lọc đang xem: loại, Đang có / Đã ra, nhánh cây đang chọn). Bảng A4 ngang, tiêu đề "DANH SÁCH … ĐẾN NGÀY …", gom theo **Xã › Điểm GD › Ấp › Tổ** có dòng cộng từng nhóm + tổng cộng. **Cột:** STT · Họ tên KH · Mã KH · Số khế ước · Tổ trưởng · Chương trình · số tiền chính (dư nợ / quá hạn / khoanh) · cột mốc (ngày GD gần nhất / ngày chuyển QH / ngày hết hạn khoanh) · Trạng thái làm việc · Ghi chú (để trống ghi tay). Kèm nút **Xuất Excel** cùng bảng (tiện chỉnh, gửi). | Cột có đủ chưa; có cần Xuất Excel? |
+
 ## 3. Việc cần kiểm trên máy thật
 
 Đã chạy thử bằng Chromium giả lập. Các phần sau **chưa thử được** trong môi trường giả lập:
