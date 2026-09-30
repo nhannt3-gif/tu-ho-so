@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.70 — 05/10/2026 14:00 — AM văn bản liên quan: số hiệu bấm đi tới
+- Dòng danh sách: chip "🔗 1" đổi thành **số hiệu văn bản liên quan** (tối đa 2, dư "+n"; chưa có số thì tên ngắn), rê chuột thấy tên đầy đủ + ngày.
+- **Bấm số hiệu → đi tới văn bản đó** (chọn dòng, cuộn tới, mở khung xem). Văn bản đang bị lọc ẩn thì vẫn mở ở khung xem, báo kèm nút **Bỏ lọc**.
+- Khung xem: nút **‹ Quay lại** văn bản vừa xem (nhớ 20 bước); link trong dòng thời gian cũng nhớ để quay lại.
+- Hộp sửa: chip liên quan rê chuột thấy tên đầy đủ; nút **↗** mở văn bản đó ở khung xem cạnh hộp (hộp giữ nguyên), **↩ Về văn bản đang sửa**.
+
 ## 3.69 — 05/10/2026 09:00 — AJ hộp sửa văn bản gọn, hàng lọc gọn
 **Hộp sửa / khai văn bản — vừa 1 màn hình máy tính, nhập nhanh theo bước**
 - Đầu hộp 2 dòng: **Tên cũ** (gạch mờ, kèm dung lượng · số trang · trạng thái Drive) và **Tên mới** đổi theo từng chữ gõ; nút nhỏ ☆ và 🔍 (đọc lại & gợi ý) luôn có sẵn.
