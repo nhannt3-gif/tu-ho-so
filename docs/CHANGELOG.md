@@ -4,7 +4,24 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.63 — 03/10/2026 09:00 — Việc X: gọn phần thời gian học (🎓 Hạn trả HSSV)
+## 3.64 — 03/10/2026 12:00 — ⚠ Theo dõi nợ (đợt 1) + Y
+**Thư viện › ⚠ Theo dõi nợ** — 3 danh sách riêng: ⏳ 3 tháng KHD · 🔴 Nợ quá hạn · 🔒 Nợ khoanh.
+- **📥 Cập nhật tháng:** chọn file sao kê xuất từ hệ thống (trên máy, hoặc file đã lưu ở tab Tháng; chọn được cả 3 file một lần). App tìm bảng có cột "Số khế ước", tự nhận loại theo cột, kỳ theo cột "Ngày báo cáo" hoặc ngày trong tên file / tiêu đề (không đọc được thì hỏi).
+  - **Màn xem trước:** số món, tổng tiền · món mới · phát sinh lại · tăng · giảm · giữ nguyên · ra khỏi DS; cảnh báo file cũ hơn kỳ đã nhập; báo nhập lại cùng kỳ.
+  - **Lưu vết, không bao giờ xóa:** món nhận theo số khế ước, hộ theo mã khách hàng; lưu số liệu từng tháng; món vắng mặt chuyển "Đã ra khỏi DS", quay lại ghi **↻ phát sinh lại**; nhập lại cùng kỳ thì thay số liệu kỳ đó; file cũ hơn chỉ bổ sung lịch sử.
+  - Thử bằng 3 file thật kỳ 31/08/2026 (chỉ trong máy thử, không lưu vào repo): 327 + 54 + 55 món → 393 món, 354 hộ, kỳ nhận đúng.
+- **Danh sách** xếp theo nghiệp vụ: 3T KHD theo số tháng không giao dịch (3–6 · 6–12 · trên 12 tháng), lãi tồn, sắp đến hạn; quá hạn — 🆕 mới phát sinh lên đầu, số ngày quá hạn, TK105; khoanh — ⏰ sắp hết hạn khoanh (≤ 6 tháng). Lọc Đang có / Đã ra khỏi DS / Tất cả; tìm tên, mã KH, số KƯ; **🌳 Cây địa bàn** Xã › Điểm › Ấp › Tổ có số món + tổng tiền (địa bàn theo mã trong Cài đặt; nợ khoanh không có cột ấp → suy theo mã tổ).
+- **Thẻ món:** số liệu sao kê, lịch sử từng tháng, món này ở danh sách khác, món khác cùng hộ.
+- **🗂 Hồ sơ hộ vay** (dùng chung 3 danh sách): người vay & hộ · thừa kế / người trả nợ thay · thực trạng kinh tế · tài sản · sử dụng vốn · nguyên nhân · phương án — chọn nhanh + ghi thêm; ngày cập nhật, nguồn, **lịch sử thay đổi**.
+- **Nhật ký làm việc:** ngày, địa điểm (mặc định ấp của khách), hình thức, thành phần, mục 2–5 đúng biên bản (điền sẵn từ hồ sơ hộ), cam kết (số tiền, hạn → **tự lên lịch Hôm nay**), số đã thu, trạng thái.
+- **📝 Biên bản Word (.docx)** theo mẫu "Biên bản làm việc" của PGD: điền sẵn tên, địa chỉ, chương trình, ngày vay / đến hạn, nợ gốc / lãi, mục 2–5, ô ký Hội đoàn thể; thành phần để trống. Danh mục mẫu biên bản để thêm mẫu khác sau.
+- **Tài liệu của hộ:** 📎 chụp / chọn file (hồ sơ gốc, biên bản đã ký, ảnh, giấy tờ) lên Drive `Theo dõi nợ/<Xã>/<Tên KH – mã KH>`; 🔗 gắn file có sẵn (bản scan ở tab Scan…). **📍 Vị trí nhà:** lấy GPS tại nhà khách hoặc dán link Google Maps → 🧭 Chỉ đường.
+- **Hôm nay › ⚠ Cần xử lý:** "Theo dõi nợ: n cam kết đến hạn · n sắp hết hạn khoanh".
+- **Lưu trữ:** IndexedDB (không chiếm chỗ localStorage) + đồng bộ Drive `_Hệ thống/theodoino.json` (bản sửa sau thắng, số liệu tháng gộp cả hai máy).
+
+**Y.** Bỏ chữ "đúng công thức file Excel (Sheet2)" ở công cụ Hạn trả HSSV, Hướng dẫn, Có gì mới.
+
+ — 03/10/2026 09:00 — Việc X: gọn phần thời gian học (🎓 Hạn trả HSSV)
 - Bỏ nút **Tự chọn** và dòng "Thời gian học". Lý do: nút đoán theo số tháng phát tiền vay, nhưng hướng dẫn phân loại theo **thời gian khóa đào tạo** — SV học 4 năm vay năm cuối (phát tiền vay ~10 tháng) sẽ bị đoán nhầm "đến 12 tháng", thời hạn trả nợ gấp đôi.
 - **Ô chọn nhỏ trên dòng tiêu đề**: `🎓 Hạn trả HSSV [Trên 12 tháng ▾] … 📋 Chép · 📝 · Đóng (Esc)`; mặc định Trên 12 tháng, mỗi lần mở lại công cụ về mặc định.
 - Chọn **Đến 12 th · Y khoa** → ô đổi **màu cam** + dòng lưu ý cam dưới tiêu đề; **không bật hộp**.
