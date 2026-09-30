@@ -2094,6 +2094,17 @@
 
 
 
+  /* ===== 3.72 — tag chip hiện sẵn · gợi ý trên ô ===== */
+  .sua-gon .tg-hang{display:flex;flex-wrap:wrap;gap:4px;align-items:center;max-height:108px;overflow:auto;padding:1px 0}
+  .sua-gon .tg-hang .tg-c{padding:0 8px !important;min-height:22px !important;line-height:20px;font-size:calc(11.5px*var(--co)) !important;margin:0 !important}
+  .sua-gon .tg-hang .tg-c.goi{border-style:dashed;border-color:#6BB88A;color:var(--luc)}
+  .sua-gon .tg-hang input{flex:0 0 110px;width:110px;min-height:22px !important;height:22px !important;padding:0 6px !important;font-size:calc(11.5px*var(--co)) !important;border-radius:11px}
+  .sua-gon .sua-trai{position:relative}
+  .sg-bong{position:absolute;z-index:8;max-width:min(520px,92%);background:var(--chu);color:var(--the);font-size:calc(11.5px*var(--co));line-height:1.35;
+    padding:4px 9px;border-radius:7px;box-shadow:0 4px 12px rgba(0,0,0,.25);pointer-events:none}
+  .sg-bong::after{content:"";position:absolute;left:16px;bottom:-5px;border:5px solid transparent;border-bottom:0;border-top-color:var(--chu)}
+  .sg-bong .sg-vd{color:#9FCBF0}
+
   /* ===== 3.71 — 📋 Chương trình vay ===== */
   .ctv{display:flex;flex-direction:column;gap:6px}
   .ctv-tim{min-height:30px;padding:3px 9px}
@@ -2143,7 +2154,7 @@
   /* ===== 3.69 — AJ hộp sửa gọn 1 màn hình ===== */
   .sua-gon .goi-y-o{display:none !important}
   .sua-gon .sg-dau{display:flex;gap:6px;align-items:center;min-width:0}
-  .sua-gon .sg-ten{flex:1;min-width:0;display:grid;gap:1px}
+  .sua-gon .sg-ten{flex:1;min-width:0;display:grid;gap:1px;text-align:left}
   .sua-gon .sg-ten > div{display:flex;gap:6px;align-items:baseline;min-width:0}
   .sua-gon .sg-ten .ic{flex:0 0 62px;white-space:nowrap;color:var(--chu-phu);font-size:calc(10px*var(--co));text-transform:uppercase;letter-spacing:.4px;font-weight:700}
   .sua-gon .sg-ten i,.sua-gon .sg-ten b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:calc(12.5px*var(--co))}
@@ -2484,7 +2495,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.71', APP_LUC = '05/10/2026 17:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.72', APP_LUC = '06/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -9577,7 +9588,7 @@ function moHop(html, rong){
 /* 3.61 (việc T, anh chốt): mỗi ô nhập có chữ mờ mẫu + 1 dòng hướng dẫn nhỏ hiện khi bấm vào ô */
 var NGAY_GY = ['dd/mm/yyyy', 'Ngày / tháng / năm — gõ liền 15092026, app tự thêm dấu /'];
 var GOI_Y_O = {
-  's-so':   ['4339/NHCS-TDNN', 'Số / loại-cơ quan ban hành. Ví dụ: 4339/NHCS-TDNN · 70/QĐ-HĐQT · 125/TB-NHCS'],
+  's-so':   ['4339/NHCS-TDNN', 'Số / loại-cơ quan ban hành — gõ 4339nhcs tdnn app tự thành 4339/NHCS-TDNN. Ví dụ: 70/QĐ-HĐQT · 125/TB-NHCS'],
   's-ngay': NGAY_GY, 'lc-s-ngay': NGAY_GY, 'lc-doi': NGAY_GY, 'dt-ngay': NGAY_GY, 'bm-hl': NGAY_GY,
   's-ty':   ['Triển khai thực hiện Quyết định 70/QĐ-HĐQT', 'Viết như dòng V/v — không ghi chữ "V/v", không dấu chấm cuối. Phần này vào tên file'],
   's-tom':  ['vd: thành lập, củng cố Tổ; bình xét cho vay', 'Không bắt buộc, không cần chép lại tên — chỉ ghi thêm ý chính để tìm'],
@@ -9918,6 +9929,32 @@ function tgThem(t){
   go.value = ''; var ds = document.getElementById('s-tag-goi'); if(ds) ds.innerHTML = '';
   tgHd(); go.focus();
 }
+/* 3.72 (anh chốt): hộp còn chỗ → hiện sẵn MỌI tag dạng chip nhỏ; đang chọn xanh đứng đầu, rồi dùng nhiều; gợi ý theo nội dung viền xanh lá đứt */
+function tgHangHTML(chon, chu){
+  var dem = tgDem(), goi = goiYThe(chu||'', tuKhoaCua('tag'), dsTag('vanBan'));
+  var tat = chon.concat(dsTag('vanBan'), Object.keys(dem)).filter(function(x, i, a){ return x && a.indexOf(x)===i; });
+  tat.sort(function(a, b){ return ((chon.indexOf(b)>=0)-(chon.indexOf(a)>=0)) || ((goi.indexOf(b)>=0)-(goi.indexOf(a)>=0)) || ((dem[b]||0)-(dem[a]||0)) || a.localeCompare(b, 'vi'); });
+  return tat.map(function(t){ return tgC(t, chon.indexOf(t)>=0, goi.indexOf(t)>=0, dem[t]||0); }).join('');
+}
+function tgC(t, bat, goi, so){
+  return '<span class="the-loc tg-c'+(bat?' bat':'')+(goi && !bat?' goi':'')+'" data-v="'+coChuHTML(t)+'" title="'+(goi?'Gợi ý theo nội dung · ':'')+so+' văn bản đang dùng" '+
+    'onclick="this.classList.toggle(\'bat\');this.classList.remove(\'goi\')">'+coChuHTML(t)+'</span>';
+}
+function tgLoc(){
+  var go = document.getElementById('s-tag-go'); if(!go) return;
+  var q = boDau(go.value.trim());
+  Array.prototype.forEach.call(document.querySelectorAll('#s-nv .tg-c'), function(c){
+    c.style.display = (!q || c.classList.contains('bat') || boDau(c.getAttribute('data-v')).indexOf(q)>=0) ? '' : 'none'; });
+}
+function tgEnter(){   /* Enter ở ô ＋: khớp đúng 1 chip → chọn; không khớp → tạo tag mới */
+  var go = document.getElementById('s-tag-go'), t = go.value.trim(); if(!t) return false;
+  var q = boDau(t), ds = Array.prototype.filter.call(document.querySelectorAll('#s-nv .tg-c'), function(c){ return !c.classList.contains('bat'); });
+  var dung = ds.filter(function(c){ return boDau(c.getAttribute('data-v'))===q; })[0], gan = ds.filter(function(c){ return boDau(c.getAttribute('data-v')).indexOf(q)>=0; });
+  var c = dung || (gan.length===1 ? gan[0] : null);
+  if(c) c.classList.add('bat');
+  else if(!Array.prototype.some.call(document.querySelectorAll('#s-nv .tg-c'), function(x){ return boDau(x.getAttribute('data-v'))===q; })) go.insertAdjacentHTML('beforebegin', tgC(t, true, false, 0));
+  go.value = ''; tgLoc(); return true;
+}
 /* dòng 💡 khi đứng ở ô Tag: gợi ý bấm được (theo nội dung + gần đây) */
 function tgGoiY(){
   var co = layGon('s-nv'), chu = [gt('s-ty'), gt('s-tom'), gt('s-so')].join(' ');
@@ -9929,6 +9966,14 @@ function tgHd(){
   var g = tgGoiY();
   e.innerHTML = '💡 <b>Tag</b> — '+(g.length ? 'gợi ý: '+g.map(function(t){ return '<button type="button" class="sg-goi-nhanh" data-v="'+coChuHTML(t)+'" onmousedown="event.preventDefault();tgThem(this.getAttribute(\'data-v\'))">＋ '+coChuHTML(t)+'</button>'; }).join(' ') : 'gõ vài chữ để tìm')+
     ' <span class="sg-vd">· <kbd>↓</kbd> xem cả '+dsTag('vanBan').length+' tag đã có · ô trống Enter sang ô kế</span>';
+}
+/* 3.72 (anh chốt): gõ số hiệu nhanh — 4336hd → 4336/HD, "nhcs tdnn" sau dấu / → NHCS-TDNN */
+function soHieuGo(el){
+  var v = el.value, cu = v, cuoi = el.selectionStart===cu.length;
+  if(v.indexOf('/')<0) v = v.replace(/^(\d+)\s*([A-Za-zÀ-ỹĐđ])/, '$1/$2');
+  var i = v.indexOf('/');
+  if(i>=0) v = v.slice(0, i+1)+v.slice(i+1).replace(/\s+/g, '-').toUpperCase();
+  if(v!==cu){ el.value = v; if(cuoi) el.setSelectionRange(v.length, v.length); }
 }
 function sgSuaDuong(){ var e = document.getElementById('s-duong'); if(!e) return; e.readOnly = false; e.focus(); e.select(); }
 /* hướng dẫn từng ô — hiện ở 1 dòng 💡 dưới cùng (thay dòng dưới từng ô) */
@@ -9942,10 +9987,27 @@ var SG_HD = {
   's-ghi':['Chỉ lưu trong app, không đưa lên Drive.','Đã phổ biến ở giao ban tháng 10'],
   's-duong':['Sửa dòng này thì bấm Lưu sẽ dời file trên Drive theo.','Tủ hồ sơ / Văn bản / 2026']
 };
+/* 3.72 (anh chốt): hướng dẫn + ví dụ hiện ngay trên ô đang gõ */
+function sgBong(el){
+  var cu = document.getElementById('sg-bong'); if(cu) cu.remove();
+  var r = el && el.closest && el.closest('.sua-trai'); if(!r || !el.id) return;
+  var g = SG_HD[el.id] || GOI_Y_O[el.id], nd = '';
+  if(el.id==='s-tag-go'){ var gy = tgGoiY(); nd = 'Bấm chip để chọn / bỏ · gõ để lọc · Enter tạo tag mới'+(gy.length?' · <span class="sg-vd">gợi ý: '+gy.map(coChuHTML).join(', ')+'</span>':''); }
+  else if(g) nd = coChuHTML(SG_HD[el.id] ? g[0] : (g[1]||g[0]))+(SG_HD[el.id] && g[1] ? ' · <span class="sg-vd">Ví dụ: '+coChuHTML(g[1])+'</span>' : (!SG_HD[el.id] && g[0] && !/Ví dụ|vd:/i.test(g[1]||'') ? ' · <span class="sg-vd">Mẫu: '+coChuHTML(g[0])+'</span>' : ''));
+  if(!nd) return;
+  var b = document.createElement('div'); b.id = 'sg-bong'; b.className = 'sg-bong'; b.innerHTML = '💡 '+nd;
+  r.appendChild(b);
+  var o = el.closest('.chip-o, .tg-hang') || el, ro = o.getBoundingClientRect(), rr = r.getBoundingClientRect();
+  var trai = Math.max(4, Math.min(ro.left - rr.left, rr.width - b.offsetWidth - 6));
+  b.style.left = trai+'px'; b.style.top = (ro.top - rr.top + r.scrollTop - b.offsetHeight - 6)+'px';
+}
 function sgHd(el){
+  sgBong(el);
   var e = document.getElementById('sg-hd'); if(!e) return;
   if(!el || !el.id){ e.innerHTML = ''; return; }
-  if(el.id==='s-tag-go') return tgHd();
+  var lb0 = el.closest('.o') && el.closest('.o').querySelector('label'), ten0 = lb0 ? lb0.childNodes[0].textContent.trim() : '';
+  e.innerHTML = '⌨ <b>'+coChuHTML(ten0||'Ô đang gõ')+'</b> · Enter / Tab sang ô kế · Shift lùi ô trước · ↑ ↓ chọn · Ctrl+Enter Lưu · Esc đóng';
+  return;
   var g = SG_HD[el.id] || GOI_Y_O[el.id], lb = el.closest('.o') && el.closest('.o').querySelector('label');
   var ten = lb ? lb.childNodes[0].textContent.trim() : '';
   e.innerHTML = g ? '💡 <b>'+coChuHTML(ten)+'</b> — '+coChuHTML(g[1]||g[0])+(SG_HD[el.id] && g[1] ? ' <span class="sg-vd">Ví dụ: '+coChuHTML(g[1])+'</span>' : '')
@@ -9975,7 +10037,8 @@ function sgPhim(e){
   if(e.key==='Enter' && (e.ctrlKey||e.metaKey)){ e.preventDefault(); e.stopPropagation(); var b = document.querySelector('#hop-in .day-form .chinh'); if(b) b.click(); return; }
   if(e.shiftKey && (e.key==='Enter'||e.key==='Tab') && t.matches && t.matches('.day-form .chinh')){   /* ở nút Lưu: lùi về ô cuối, không lưu */
     e.preventDefault(); e.stopPropagation(); var os = sgO(); if(os.length) os[os.length-1].focus(); return; }
-  var ds = t.id==='s-tag-go' ? document.getElementById('s-tag-goi') : t.id==='s-lq-tim' ? document.getElementById('s-lq-ds') : null;
+  if(t.id==='s-tag-go' && e.key==='Enter' && !e.shiftKey && t.value.trim()){ e.preventDefault(); e.stopPropagation(); tgEnter(); return; }   /* 3.72 */
+  var ds = t.id==='s-lq-tim' ? document.getElementById('s-lq-ds') : null;
   var mo = ds ? ds.querySelectorAll('.tvb-dong:not(.rong-tvb)') : [];
   if(ds && (e.key==='ArrowDown'||e.key==='ArrowUp')){
     if(!mo.length && e.key==='ArrowDown' && t.id==='s-tag-go'){ e.preventDefault(); tgGoi(true); return; }
@@ -9993,7 +10056,6 @@ function sgPhim(e){
     else bao('Không thấy văn bản số "'+t.value+'" trong tủ.', 3);
     return;
   }
-  if(e.key==='Backspace' && t.id==='s-tag-go' && !t.value){ var ch = document.querySelectorAll('#s-nv .sg-chip'); if(ch.length){ ch[ch.length-1].remove(); tgHd(); } return; }
   if(t.tagName==='SELECT' && (e.key==='ArrowDown'||e.key==='ArrowUp') && !e.altKey){
     e.preventDefault(); var n = t.selectedIndex + (e.key==='ArrowDown'?1:-1);
     if(n>=0 && n<t.options.length){ t.selectedIndex = n; if(t.onchange) t.onchange(); }
@@ -10004,6 +10066,7 @@ function sgPhim(e){
   }
 }
 document.addEventListener('keydown', sgPhim, true);
+document.addEventListener('focusout', function(e){ if(e.target && e.target.closest && e.target.closest('#hop-in.sua-gon')) setTimeout(function(){ var a = document.activeElement; if(!(a && a.closest && a.closest('#hop-in.sua-gon') && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName))){ var b = document.getElementById('sg-bong'); if(b) b.remove(); } }, 0); });
 document.addEventListener('focusin', function(e){
   var t = e.target; if(!t || !t.closest || !t.closest('#hop-in.sua-gon')) return;
   if(/^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName)) sgHd(t);
@@ -10117,7 +10180,7 @@ function suaCho(id){
     var loaiDS = D.cauHinh.loaiVB||[];
     nd += '<div class="sg-3">'+
       '<div class="o"><label>Số, ký hiệu</label><input id="s-so" autocomplete="off" value="'+coChuHTML(m.soHieu||'')+
-        '" placeholder="4339/NHCS-TDNN" oninput="goiYLoaiTuSo();xemTenTruoc()"></div>'+
+        '" placeholder="4339/NHCS-TDNN" oninput="soHieuGo(this);goiYLoaiTuSo();xemTenTruoc()"></div>'+
       '<div class="o"><label>Ngày ban hành</label><input id="s-ngay" inputmode="numeric" autocomplete="off" '+
         'placeholder="25/09/2026" value="'+ngayVN(m.ngay||'')+'" oninput="gonNgay(this)"></div>'+
       '<div class="o"><label>Loại</label><select id="s-loai" onchange="LOAI_TAY=true;xemTenTruoc()">'+
@@ -10134,11 +10197,10 @@ function suaCho(id){
       sgChon('Chương trình vay', 's-ct', xepTheoDung('ct', dsCTChon()), (m.ctrinh||[])[0]||'', '— chọn CT vay —', true)+
       '<div class="o"><label>Hiệu lực</label><select id="s-het"><option value="">Còn hiệu lực</option>'+
         '<option value="1"'+(m.hetHieuLuc?' selected':'')+'>Hết hiệu lực</option></select></div></div>';
-    pl += '<div class="o"><label>Tag <small>— gõ vài chữ, Enter thêm · <kbd>↓</kbd> xem tất cả · '+
+    pl += '<div class="o"><label>Tag <small>— bấm chip để chọn / bỏ · ô ＋ gõ để lọc, Enter tạo tag mới · '+
         '<span class="nhan-lk" onclick="suaTagTab(\'vanBan\')">Sửa danh sách tag</span></small></label>'+
-      '<div class="chip-o tvb" id="s-nv">'+(m.the||[]).map(tgChipHTML).join('')+
-        '<input id="s-tag-go" autocomplete="off" placeholder="vd: họp tổ, bình xét" oninput="tgGoi()" onblur="setTimeout(function(){ var d = document.getElementById(\'s-tag-goi\'); if(d) d.innerHTML = \'\'; }, 150)">'+
-        '<div class="tvb-ds" id="s-tag-goi"></div></div></div>';
+      '<div class="tg-hang" id="s-nv">'+tgHangHTML(m.the||[], [m.tenVB||m.trichYeu||'', m.tomTat||'', m.soHieu||''].join(' '))+
+        '<input id="s-tag-go" autocomplete="off" placeholder="＋ tag / lọc" oninput="tgLoc()"></div></div>';
 
     LQ_SUA = {id:m.id, ds:lqCua(m).map(function(v){ return v.id; })};
     qh += '<div class="o"><label>🔗 Văn bản liên quan <small>— gõ số hiệu, Enter thêm · liên kết 2 chiều</small></label>'+
@@ -10448,7 +10510,7 @@ function luuSua(id){
   var laCho = !!D.cho.find(function(c){ return c.id===id; });
   var tuDS = window.__tuChoKhai===id; window.__tuChoKhai = null;
   luu(); nhapXong(); dongHop();
-  if(laCho && tuDS){ duyet(id); ve(); return; }   /* khai từ danh sách Chờ khai: Lưu = vào tủ */
+  if(laCho){ duyet(id); ve(); return; }   /* 3.72 (anh chốt): file đang chờ duyệt — sửa xong bấm Lưu là duyệt vào tủ luôn */
   ve();
   sauKhiLuu(m, laCho);
 }
@@ -11458,7 +11520,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.71', ds:[
+var CO_GI_MOI = {ban:'3.72', ds:[
+  ['📥 File trong khay chờ: sửa xong bấm Lưu là vào tủ luôn · gõ số hiệu 4336hd nhcs tự thành 4336/HD-NHCS', "dongHop();doiNgan(1)"],
+  ['🏷 Hộp sửa: tag hiện sẵn dạng chip nhỏ, bấm chọn / bỏ · gợi ý hiện ngay trên ô đang gõ', "dongHop();doiNgan(1)"],
   ['📋 Công cụ CT vay: tóm tắt 9 chương trình đang cho vay (lãi suất, thời hạn, mức vay, đối tượng, kỳ hạn trả nợ) và danh mục 32 mã chương trình', "dongHop();doiNgan(0);ccMo('ctvay')"],
   ['🔗 Văn bản liên quan hiện số hiệu ngay trên dòng — bấm là đi tới, có ‹ Quay lại; trong hộp sửa bấm ↗ để xem bên cạnh', "dongHop();doiNgan(1)"],
   ['✎ Hộp sửa văn bản gọn 1 màn hình: Enter / Tab sang ô kế, Shift lùi lại, ↑ ↓ chọn, Ctrl+Enter Lưu; tên cũ / tên mới 2 dòng; trích yếu không chép lại tên', "dongHop();doiNgan(1)"],
