@@ -477,9 +477,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Mã ĐVUT: 11 Hội Nông dân · 12 Hội Phụ nữ · 13 Hội CCB · 14 Đoàn TN. Mã chương trình → tên viết tắt theo bảng mã (HONGHEO, GQVL, NSVSMT…).
 - *Đề xuất thêm:* 3T KHD nhiều món (327) → mặc định lọc hiện món **quá hạn / khoanh + 3T KHD lâu nhất** (xếp theo ngày giao dịch gần nhất cũ nhất), có ô tìm tên / mã KH / số khế ước.
 
+*Mẫu biên bản làm việc anh gửi (BIEN_BAN_LAM_VIEC_Go_Dau.doc, 1 trang — Word đời cũ .doc; không đưa vào repo):* Tiêu đề Quốc hiệu · "BIÊN BẢN LÀM VIỆC" · Hôm nay ngày …, tại … tỉnh Tây Ninh · **Chúng tôi gồm** 4 người (1–2 đại diện …, 3 đại diện Tổ TK&VV, 4 khách hàng vay vốn) · xác minh khoản nợ của ông (bà) … · Địa chỉ · **Thông tin món vay** (chương trình, số tiền vay, mục đích, ngày vay, ngày đến hạn, tổng nợ đến ngày …: nợ gốc, nợ lãi) · **2. Nguyên nhân không trả được nợ · 3. Thực trạng kinh tế và khả năng trả nợ · 4. Cam kết của khách hàng (hoặc người trả nợ thay) · 5. Kiến nghị biện pháp xử lý nợ** · ký: KH vay vốn · Tổ TK&VV · Đại diện … · Đại diện ….
+- *Đề xuất:* app **dựng sẵn biên bản đúng bố cục mẫu này thành file Word (.docx)** để sửa / in / ký — anh không phải chuẩn bị gì thêm. (App không ghi được .doc đời cũ; .docx mở bằng Word bình thường.)
+- **Ô nhập "Lần làm việc" đặt theo đúng 4 mục 2–5 của biên bản** (nguyên nhân · thực trạng · cam kết · kiến nghị) + ngày, địa điểm, thành phần → ghi nhật ký xong là có biên bản.
+- **Điền sẵn từ file sao kê:** tên KH, địa chỉ (ấp, xã), chương trình, tổ trưởng (thành phần 3), Hội đoàn thể theo ĐVUT (thành phần 2 + ô ký), dư nợ (nợ gốc), nợ lãi = lãi tồn (DS 3T KHD), ngày vay / ngày đến hạn (DS 3T KHD có; DS quá hạn không có → để chấm cho anh ghi tay), ngày tổng nợ = ngày sao kê. Mục đích sử dụng vốn, số tiền vay ban đầu không có trong sao kê → để trống (hoặc anh nhập 1 lần ở thẻ món vay).
+- Chờ anh: thành phần 1 (cán bộ NHCSXH — tên, chức vụ mặc định?), địa điểm mặc định ("nhà khách hàng, ấp …, xã …"?), có cần dòng đầu "NGÂN HÀNG CSXH TỈNH TÂY NINH · PGD GÒ DẦU" bên trái không.
+- *Danh mục đề xuất (anh sửa):* **Hình thức:** Đến nhà khách hàng · Mời lên điểm giao dịch / UBND xã · Họp Tổ TK&VV · Điện thoại / Zalo · Cùng Hội đoàn thể. **Trạng thái:** Chưa làm việc · Đang làm việc · KH cam kết trả · Đã thu một phần · Đã thu hồi hết · Đề nghị gia hạn / điều chỉnh kỳ hạn · Đề nghị khoanh · Đề nghị xử lý rủi ro · KH vắng mặt / bỏ địa phương.
+
 *Cần anh gửi trước khi code (che tên khách):*
 - (a) ✅ Đã nhận 3 file mẫu kỳ 31/08/2026 (xem phần rà ở trên).
-- (b) **Mẫu biên bản làm việc** (Word) PGD đang dùng.
+- (b) ✅ Đã nhận mẫu biên bản (xem trên).
 - (c) Danh mục **trạng thái** và **hình thức làm việc** anh hay ghi (em có đề xuất sẵn, anh sửa).
 - (d) ✅ Theo dõi riêng 3 loại (anh chốt). Chờ anh: dòng nhắc chéo + dùng chung hồ sơ gốc / định vị theo mã KH?
 
