@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.72 — 06/10/2026 09:00 — Khay chờ: Lưu = duyệt · tag hiện sẵn · gợi ý trên ô · số hiệu tự thêm /
+- **File trong khay chờ:** bấm ✎ Sửa, sửa xong **Lưu là duyệt vào tủ luôn** (trước chỉ khi mở từ danh sách Chờ khai).
+- **Tag hiện sẵn toàn bộ dạng chip nhỏ** (hộp còn chỗ): đang chọn xanh đứng đầu, tag gợi ý theo nội dung viền xanh lá đứt, rồi tag dùng nhiều; bấm chip chọn / bỏ; ô **＋** cuối hàng gõ để lọc (không dấu), Enter chọn chip khớp hoặc tạo tag mới; Enter khi ô trống sang ô kế.
+- **Gợi ý hiện ngay trên ô đang gõ** (bong bóng nhỏ: hướng dẫn + ví dụ); dòng dưới cùng chỉ còn phím tắt.
+- **Số hiệu gõ nhanh:** `4336hd nhcs` → `4336/HD-NHCS`, `70qđ hđqt` → `70/QĐ-HĐQT` (tự thêm "/", in hoa, khoảng trắng sau "/" thành "-").
+
 ## 3.71 — 05/10/2026 17:00 — 🧰 📋 Chương trình vay + thống nhất danh mục CT
 - **Công cụ mới 📋 CT vay** (tab Hôm nay › cột Công cụ):
   - **Đang cho vay (9):** Hộ nghèo, Hộ cận nghèo, Hộ mới thoát nghèo, HSSV, Hỗ trợ tạo việc làm, XKLĐ, NS&VSMT, Nhà ở xã hội, Người chấp hành xong án phạt tù — mỗi dòng: viết tắt · mã · lãi suất · thời hạn · mức cho vay; bấm mở đối tượng, lãi suất theo nhóm, kỳ hạn trả nợ (VB 2174); 📋 Chép tóm tắt. Chép nguyên file "Tóm tắt các chương trình tín dụng chính sách tại PGD Gò Dầu (2025)".
