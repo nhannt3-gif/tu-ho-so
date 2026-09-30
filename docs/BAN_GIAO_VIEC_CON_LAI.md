@@ -466,11 +466,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 5. **Lưu trữ:** Drive `Tủ hồ sơ/Theo dõi nợ/<Xã>/<Điểm>/<Ấp>/<Tổ>/<Tên khách>/`; dữ liệu khách chỉ nằm trên máy + Drive của anh (không đưa lên kho mã nguồn).
 6. **Tổng hợp:** số món / dư nợ theo loại, theo xã; "cần làm việc tuần này" lên dòng ⚠ Cần xử lý ở Hôm nay. *(Đợt sau: xuất Excel theo dõi cho giao ban.)*
 
+*Đã rà 3 file mẫu anh gửi (kỳ 31/08/2026 — file thật có tên khách, **không đưa vào repo**, phép thử sẽ dùng dữ liệu giả cùng cấu trúc):*
+- Cả 3 file xuất từ hệ thống, trang **BCQUERY**, dòng tiêu đề cột ở **dòng 5** (B5), dữ liệu từ dòng 6. File 3 tháng KHD còn các trang "BC <điểm>" anh tự lập và trang bảng mã chương trình — app chỉ đọc BCQUERY.
+- **Khóa nhận món vay: "Số khế ước"** (có ở cả 3 file, không trùng) + "Mã khách hàng".
+- **3 tháng KHD** ("14. Sao kê món vay N tháng không hoạt động"): mã ấp · mã/tên điểm GDX · ĐVUT · mã tổ · tổ trưởng · mã/tên KH · số khế ước · mã sản phẩm · ngày đăng ký, giải ngân, đến hạn (gốc, GH, GDX) · chương trình (mã) · tổng dư nợ, trong hạn, quá hạn, khoanh · **ngày giao dịch gần nhất** · lãi đã thu · lãi tồn. Không có cột mã xã (suy từ mã ấp / điểm).
+- **Nợ khoanh** ("13. Danh sách nợ khoanh"): ngày GDX · mã/tên điểm · mã/tên xã · KH · mã tổ · tổ trưởng · số khế ước · ĐVUT · **dư nợ khoanh** · ngày hiệu lực · **ngày hết hạn khoanh** · chương trình · **nguyên nhân**. **Không có cột ấp** → app suy ấp theo mã tổ (từ 2 file kia / danh mục): kỳ này 41/55 món suy được, 14 món hiện "chưa rõ ấp" để anh gán 1 lần, app nhớ.
+- **Nợ quá hạn** ("2. Sao kê danh sách nợ quá hạn"): mã/tên xã · mã ấp (cột Thôn) · điểm · tổ · ĐVUT · KH · số khế ước · **dư nợ quá hạn** · chuyển QH trong tháng · **ngày chuyển quá hạn** · chương trình · số dư TK105 · ngày báo cáo.
+- **Số lượng kỳ 31/08/2026:** 3T KHD 327 món · khoanh 55 · quá hạn 54 → **393 món khác nhau** (43 món vừa quá hạn vừa 3T KHD; khoanh không trùng 2 loại kia) → **gộp 1 thẻ / món, nhiều nhãn**.
+- Mã ĐVUT: 11 Hội Nông dân · 12 Hội Phụ nữ · 13 Hội CCB · 14 Đoàn TN. Mã chương trình → tên viết tắt theo bảng mã (HONGHEO, GQVL, NSVSMT…).
+- *Đề xuất thêm:* 3T KHD nhiều món (327) → mặc định lọc hiện món **quá hạn / khoanh + 3T KHD lâu nhất** (xếp theo ngày giao dịch gần nhất cũ nhất), có ô tìm tên / mã KH / số khế ước.
+
 *Cần anh gửi trước khi code (che tên khách):*
-- (a) **3 file mẫu** 1 tháng: danh sách 3 tháng KHD, nợ quá hạn, nợ khoanh — để em biết cột (có mã món vay / số khế ước không, cột dư nợ, số quá hạn, ngày quá hạn, tổ…).
+- (a) ✅ Đã nhận 3 file mẫu kỳ 31/08/2026 (xem phần rà ở trên).
 - (b) **Mẫu biên bản làm việc** (Word) PGD đang dùng.
 - (c) Danh mục **trạng thái** và **hình thức làm việc** anh hay ghi (em có đề xuất sẵn, anh sửa).
-- (d) Một món thuộc cả 2 danh sách (vừa quá hạn vừa 3 tháng KHD) → gộp 1 thẻ nhiều nhãn (em đề xuất) hay tách?
+- (d) Món thuộc 2 danh sách (43 món vừa quá hạn vừa 3T KHD) → em đề xuất gộp 1 thẻ nhiều nhãn — anh xác nhận.
 
 ## 3. Việc cần kiểm trên máy thật
 
