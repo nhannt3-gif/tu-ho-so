@@ -484,6 +484,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Chờ anh: thành phần 1 (cán bộ NHCSXH — tên, chức vụ mặc định?), địa điểm mặc định ("nhà khách hàng, ấp …, xã …"?), có cần dòng đầu "NGÂN HÀNG CSXH TỈNH TÂY NINH · PGD GÒ DẦU" bên trái không.
 - *Danh mục đề xuất (anh sửa):* **Hình thức:** Đến nhà khách hàng · Mời lên điểm giao dịch / UBND xã · Họp Tổ TK&VV · Điện thoại / Zalo · Cùng Hội đoàn thể. **Trạng thái:** Chưa làm việc · Đang làm việc · KH cam kết trả · Đã thu một phần · Đã thu hồi hết · Đề nghị gia hạn / điều chỉnh kỳ hạn · Đề nghị khoanh · Đề nghị xử lý rủi ro · KH vắng mặt / bỏ địa phương.
 
+*✅ Anh chốt 03/10/2026 về biên bản:* (1) các dòng **thành phần để trống** cho linh hoạt; (2) **địa điểm mặc định = ấp của khách** ("ấp …, xã/phường …", sửa được); (3) chưa cần dòng tên đơn vị bên trái; (4) **sau này sẽ có nhiều dạng biên bản** cho các mục đích kiểm tra khác nhau → làm **danh mục mẫu biên bản** (như cột Công cụ): mỗi mẫu là 1 mục đăng ký (tên, các ô cần nhập, cách dựng file Word); đợt đầu có 1 mẫu "Biên bản làm việc — xác minh khoản nợ"; thêm mẫu sau không sửa phần khác. Các vấn đề còn lại anh giao em tư vấn theo nghiệp vụ (bên dưới) — anh xem, không hợp thì bỏ.
+
+*Tư vấn theo nghiệp vụ (em đề xuất, anh duyệt ở ảnh demo):*
+- **⏳ 3 tháng KHD** — mục tiêu: không để chuyển quá hạn, đôn đốc trả lãi. Xếp mặc định theo **số tháng không giao dịch** (tính từ "ngày giao dịch gần nhất" tới ngày sao kê), nhóm 3–6 tháng / 6–12 tháng / trên 12 tháng; nhãn **"sắp đến hạn"** khi ngày đến hạn (hoặc hạn GDX) còn ≤ 3 tháng; hiện **lãi tồn**. Tháng sau món biến mất khỏi danh sách → ghi "đã giao dịch lại".
+- **🔴 Nợ quá hạn** — mục tiêu: thu hồi, xác định nguyên nhân. Tính **số ngày quá hạn** từ "ngày chuyển quá hạn"; nhãn **"mới phát sinh tháng này"** (cột Chuyển QH trong tháng > 0) xếp lên đầu; nhóm theo thời gian quá hạn; hiện **số dư TK105** của khách để anh cân nhắc khi làm việc; so với tháng trước: tăng / giảm / đã thu hết.
+- **🔒 Nợ khoanh** — mục tiêu: rà soát trước khi hết thời hạn khoanh. Nhãn **"sắp hết hạn khoanh"** khi ngày hết hạn khoanh còn ≤ 6 tháng (lên dòng ⚠ Cần xử lý ở Hôm nay); hiện **nguyên nhân khoanh** từ sao kê; theo dõi số đã thu trong thời gian khoanh.
+- **Chung cả 3:** dòng nhắc chéo khi món có ở danh sách khác (không gộp); **hồ sơ gốc scan + định vị nhà dùng chung theo mã khách hàng**; nhắc "chưa làm việc > 30 ngày" (số ngày đổi được); **tiến độ** = mỗi tháng: số món, dư nợ, số món đã làm việc, số tiền thu được, so tháng trước; hạn cam kết của khách tự lên SCHEDULE Hôm nay.
+- **Mẫu biên bản sau này** (ví dụ): kiểm tra sử dụng vốn vay (tham chiếu Phiếu kiểm tra sử dụng vốn vay mẫu 06/TD), xác minh khách vắng mặt / bỏ địa phương, đề nghị xử lý rủi ro — anh gửi mẫu khi cần.
+- **Bảo mật:** danh sách khách chỉ lưu trên máy + Drive của anh; khi chia sẻ biên bản qua Zalo chỉ gửi đúng file đó.
+
 *Cần anh gửi trước khi code (che tên khách):*
 - (a) ✅ Đã nhận 3 file mẫu kỳ 31/08/2026 (xem phần rà ở trên).
 - (b) ✅ Đã nhận mẫu biên bản (xem trên).
