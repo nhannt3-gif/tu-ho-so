@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.71 — 05/10/2026 17:00 — 🧰 📋 Chương trình vay + thống nhất danh mục CT
+- **Công cụ mới 📋 CT vay** (tab Hôm nay › cột Công cụ):
+  - **Đang cho vay (9):** Hộ nghèo, Hộ cận nghèo, Hộ mới thoát nghèo, HSSV, Hỗ trợ tạo việc làm, XKLĐ, NS&VSMT, Nhà ở xã hội, Người chấp hành xong án phạt tù — mỗi dòng: viết tắt · mã · lãi suất · thời hạn · mức cho vay; bấm mở đối tượng, lãi suất theo nhóm, kỳ hạn trả nợ (VB 2174); 📋 Chép tóm tắt. Chép nguyên file "Tóm tắt các chương trình tín dụng chính sách tại PGD Gò Dầu (2025)".
+  - **Danh mục mã (32):** mã CT · viết tắt hệ thống · viết tắt app · tên chương trình; chương trình đang cho vay tô xanh; bấm mã để chép. Theo file "Danh mục chương trình vay".
+  - Gõ tìm không dấu theo tên, viết tắt, mã, đối tượng, lãi suất.
+- **Thống nhất dữ liệu:** bổ sung chương trình còn thiếu **NCHXAPT — Cho vay người chấp hành xong án phạt tù** vào danh mục CT vay (một lần, không sửa mục anh đã có) + từ khóa nhận dạng; Theo dõi nợ nhận đủ **32 mã** chương trình hệ thống (trước 15 mã), tên chuẩn theo danh mục hệ thống; ghép viết tắt app ↔ mã hệ thống.
+
 ## 3.70 — 05/10/2026 14:00 — AM văn bản liên quan: số hiệu bấm đi tới
 - Dòng danh sách: chip "🔗 1" đổi thành **số hiệu văn bản liên quan** (tối đa 2, dư "+n"; chưa có số thì tên ngắn), rê chuột thấy tên đầy đủ + ngày.
 - **Bấm số hiệu → đi tới văn bản đó** (chọn dòng, cuộn tới, mở khung xem). Văn bản đang bị lọc ẩn thì vẫn mở ở khung xem, báo kèm nút **Bỏ lọc**.
