@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.66 — 04/10/2026 09:00 — AI 🧾 Phiếu thông tin món vay
+**Theo dõi nợ › thẻ món › 🧾 In phiếu** — "sơ yếu lý lịch" món nợ xấu, xem trước trong hộp rồi **🖨 In** (A4) hoặc **📄 Ra Word**.
+- **Trang đầu tóm tắt (đọc 30 giây):** tên, mã KH, địa chỉ, tổ; ô số chính (dư nợ · quá hạn · khoanh · lãi tồn, ghi kỳ số liệu); nhãn tình trạng (QUÁ HẠN n ngày/tháng · NỢ KHOANH đến … · n THÁNG KHÔNG GIAO DỊCH · đã ra DS · ↻ phát sinh lại · Thất hứa x/y lần); khả năng thu hồi; hướng xử lý; **▶ Việc tiếp theo** (cam kết chưa đánh giá gần nhất → phương án có hạn → lần làm việc gần nhất).
+- **Dòng thời gian:** giải ngân, đến hạn, giao dịch gần nhất, vào / ra / phát sinh lại từng danh sách, chuyển quá hạn, khoanh, các lần làm việc, hạn cam kết (✓/✗/chờ) — chỉ dựng từ dữ liệu đã có.
+- **I–VI chi tiết:** khách hàng · món vay (+ tình trạng ở 3 danh sách, bảng số dư 12 kỳ gần nhất) · hồ sơ hộ (kèm ngày cập nhật) · quá trình làm việc + tổng đã thu · tài liệu đã có · món khác cùng hộ · nhận xét, đề xuất + ô ký Người lập. Mục trống in "chưa có".
+- **🧾 In phiếu (n)** ở thanh Theo dõi nợ: in cả nhánh — các món đang hiện (theo lọc, nhánh 🌳 cây, ô tìm), mỗi món sang trang mới, xếp Xã › Điểm › Ấp › Tổ; trên 40 phiếu thì nhắc chọn nhánh nhỏ hơn.
+- **Cam kết giữ / thất hứa:** mỗi lần làm việc có cam kết có nút ✓ Giữ đúng / ✗ Thất hứa (bấm lại để bỏ); nhật ký ghi "Thất hứa x/y lần"; cam kết đã đánh dấu thì Hôm nay thôi nhắc.
+- **Hồ sơ hộ thêm mục ⚖ Khả năng thu hồi** (chọn 1: có khả năng / khó / không còn khả năng; bỏ chọn = chưa đánh giá), có lịch sử như các mục khác. *Hướng xử lý* lấy từ mục **Phương án đề xuất** có sẵn (không thêm ô trùng).
+- Để sau: danh mục hồ sơ ✓/✗ (% đầy đủ) — chờ anh gửi danh mục giấy tờ chuẩn.
+
 ## 3.65 — 03/10/2026 16:00 — AA · AB · AC (quan hệ văn bản, hộp khai, dấu sao)
 **AA. Quan hệ văn bản** (anh báo chọn VB chính không chạy — ô chỉ liệt kê văn bản đã đánh dấu "VB chính", kho chưa có nên trống)
 - Giữ "VB chính"; thêm vai trò **"VB hướng dẫn thực hiện"** (hướng dẫn thực hiện một QĐ — khác "sửa đổi, bổ sung").
@@ -17,7 +27,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - Rê chuột vào tên văn bản: chỉ hiện tên đầy đủ, không lặp thêm trích yếu.
 **AC. ★ Đánh dấu quan trọng** — bấm ☆ trên dòng văn bản / biểu mẫu (hoặc nút trong hộp sửa); chip lọc "★ Quan trọng · n" ở hàng lọc. Biểu mẫu dùng chung cờ ghim cũ (nhóm "★ Quan trọng" trên cùng) — bỏ nút 📌 trùng việc.
 
- — 03/10/2026 12:00 — ⚠ Theo dõi nợ (đợt 1) + Y
+## 3.64 — 03/10/2026 12:00 — ⚠ Theo dõi nợ (đợt 1) + Y
 **Thư viện › ⚠ Theo dõi nợ** — 3 danh sách riêng: ⏳ 3 tháng KHD · 🔴 Nợ quá hạn · 🔒 Nợ khoanh.
 - **📥 Cập nhật tháng:** chọn file sao kê xuất từ hệ thống (trên máy, hoặc file đã lưu ở tab Tháng; chọn được cả 3 file một lần). App tìm bảng có cột "Số khế ước", tự nhận loại theo cột, kỳ theo cột "Ngày báo cáo" hoặc ngày trong tên file / tiêu đề (không đọc được thì hỏi).
   - **Màn xem trước:** số món, tổng tiền · món mới · phát sinh lại · tăng · giảm · giữ nguyên · ra khỏi DS; cảnh báo file cũ hơn kỳ đã nhập; báo nhập lại cùng kỳ.
