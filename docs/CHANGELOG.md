@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.68 — 04/10/2026 15:00 — AF · AD · AE · AG (gom hết tồn đọng)
+**AF. Văn bản liên quan** (thay cho vai trò VB chính / sửa đổi / hướng dẫn)
+- Bỏ ô Vai trò và nhãn "VB chính", "Sửa đổi", "Hướng dẫn TH"; bỏ ô "Được thay thế bởi". Giữ **Hết hiệu lực**.
+- Hộp sửa có mục **🔗 Văn bản liên quan**: gõ số hiệu để thêm (nhiều văn bản), ✕ để gỡ; **liên kết 2 chiều** — văn bản kia tự thấy văn bản này. Văn bản chưa có Mảng / CT vay thì lấy theo văn bản liên quan đầu tiên.
+- Khung xem: **🕘 Dòng thời gian** = văn bản đang xem + văn bản liên kết **trực tiếp** (không bắt cầu), xếp theo ngày ban hành; đang xem tô nền, hết hiệu lực gạch ngang; bấm dòng nào mở dòng đó. Văn bản hết hiệu lực: dải đỏ kèm văn bản mới hơn còn hiệu lực trong nhóm liên quan. Sửa luôn lỗi khung xem cắt còn 2 dòng.
+- Dòng danh sách: chip **🔗 n**. Danh sách không còn xếp "VB treo dưới VB chính".
+- Dữ liệu cũ tự chuyển (khi mở app, khi nhận từ máy khác, khi khôi phục từ Drive): sửa đổi / hướng dẫn / thay thế → liên kết; không mất quan hệ nào. Thuộc tính dự phòng trên Drive: `lq`.
+**AD. Hộp nhập** — hộp có ô nhập **không đóng khi lỡ nhấp ra ngoài** (nút Đóng nháy, nhắc); **nút Lưu / Đóng dính đáy hộp**. Bấm Đóng / Esc khi đang điền dở → **giữ nguyên**, mở lại đúng hộp đó còn nguyên (sửa văn bản / khai, hồ sơ hộ, lần làm việc, sửa việc lịch); Lưu thì bỏ nháp. Hộp chỉ xem / thông báo vẫn nhấp ngoài là đóng.
+**AE. Hoàn tác** — khung "↩ Hoàn tác" nhỏ ở góc (máy tính), tự tắt sau **3 giây** trên toàn app.
+**AG. Nút đầu lịch** — Hôm nay · Danh sách · Tính ngày đổi màu khi rê chuột; nút **Hôm nay mờ khi đang xem hôm nay**, nổi lên khi sang ngày / tháng khác.
+
 ## 3.67 — 04/10/2026 11:00 — AH 🖨 Danh sách chi tiết + tổng hợp theo xã, điểm GD
 **Theo dõi nợ › 🖨 Danh sách** — hộp 2 lựa chọn, xem trước rồi **🖨 In** (A4 ngang, tiêu đề cột lặp mỗi trang) hoặc **📊 Xuất Excel**.
 - **☰ Chi tiết** (danh sách đang xem, đúng lọc: loại · Đang có / Đã ra / Tất cả · nhánh 🌳 · ô tìm): gom **Xã › Điểm GD › Ấp** có dòng cộng từng nhóm + TỔNG CỘNG; trong ấp xếp theo tổ, tên. Cột: STT · Họ tên · Mã KH · Số khế ước · Tổ trưởng · Chương trình · số tiền (dư nợ / dư nợ quá hạn / dư nợ khoanh) · mốc (ngày GD gần nhất + số tháng / ngày chuyển QH + số ngày / ngày hết hạn khoanh) · Trạng thái làm việc · Ghi chú (trống để ghi tay). Excel thêm cột Xã, Điểm, Ấp, Mã tổ để lọc.
