@@ -443,6 +443,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - **Nguồn dữ liệu:** đúng danh mục đã khai ở Cài đặt › Địa bàn (app đã có sẵn mã xã, mã điểm, ngày GD, mã ấp). Không thêm dữ liệu mới; ấp/KP gộp, tách thì sửa ở Cài đặt, cây tự cập nhật. Có nút "✎ Sửa danh mục" dẫn tới Cài đặt › Địa bàn.
 - Ô nào thiếu mã → hiện "chưa có mã" màu nhạt để anh biết mà bổ sung.
 
+#### Đợt gom sau 3.62 — ghi nhận, chưa làm
+
+| # | Việc | Đề xuất | Chờ anh chốt |
+|---|---|---|---|
+| X | 🎓 Hạn trả HSSV: gọn phần "Thời gian học" | Anh nêu 03/10/2026: nút "Tự chọn" thừa; thường chỉ cho vay trên 12 tháng, ít đổi; đưa lên dòng trên cùng, nhỏ lại, tránh bấm nhầm. **Đề xuất:** (1) bỏ nút "Tự chọn" và bỏ cả dòng "Thời gian học"; (2) mặc định luôn **Trên 12 tháng**; (3) dòng tiêu đề: `🎓 Hạn trả HSSV  ☐ Đến 12 tháng · Y khoa ······ 📋 Chép  📝 To-do  Đóng (Esc)` — một ô tích nhỏ, không tích = trên 12 tháng; (4) **chặn tính nhầm:** nếu số tháng phát tiền vay ≤ 12 mà chưa tích → dòng vàng "⚠ Phát tiền vay chỉ 10 tháng — hồ sơ đến 12 tháng / Y khoa? [Tích]"; ngược lại đã tích mà > 12 tháng cũng nhắc; (5) ô tích không nhớ sang lần sau (mỗi lần mở là trên 12 tháng). Lợi: bớt 1 dòng (~30 px) cho phần kết quả. | Chốt đề xuất; làm ngay hay gom |
+
 ## 3. Việc cần kiểm trên máy thật
 
 Đã chạy thử bằng Chromium giả lập. Các phần sau **chưa thử được** trong môi trường giả lập:
