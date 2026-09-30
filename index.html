@@ -2093,6 +2093,31 @@
   @media (max-width:699px){ .tdn-3{flex-direction:column} .tdn-o small{white-space:normal} }
 
 
+
+  /* ===== 3.71 — 📋 Chương trình vay ===== */
+  .ctv{display:flex;flex-direction:column;gap:6px}
+  .ctv-tim{min-height:30px;padding:3px 9px}
+  .ctv-seg button{padding:3px 9px}
+  .ctv-the{border:1.3px solid var(--vien);border-radius:9px;background:var(--the)}
+  .ctv-the.mo{border-color:var(--xanh)}
+  .ctv-dau{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;padding:5px 9px;cursor:pointer}
+  .ctv-dau b{font-size:calc(12.5px*var(--co))}
+  .ctv-vt{font-size:calc(11px*var(--co));color:var(--xanh-dam);background:var(--xanh-nhat);border-radius:5px;padding:0 5px}
+  .ctv-so{margin-left:auto;display:flex;gap:6px;font-size:calc(11.5px*var(--co));color:var(--chu-phu)}
+  .ctv-so span:first-child{color:var(--luc);font-weight:700}
+  .ctv-ct{width:100%;border-collapse:collapse;font-size:calc(12px*var(--co));border-top:1px dashed var(--vien)}
+  .ctv-ct td{padding:4px 9px;vertical-align:top;border-bottom:1px dashed var(--vien);text-align:left}
+  .ctv-ct td:first-child{width:28%;color:var(--chu-phu)}
+  .ctv-ct ol{margin:0;padding-left:18px}
+  .ctv-nhom{margin-bottom:4px}
+  .ctv-the .hang-nut{padding:4px 9px}
+  .ctv-bang{width:100%;border-collapse:collapse;font-size:calc(12px*var(--co))}
+  .ctv-bang th,.ctv-bang td{border-bottom:1px solid var(--vien);padding:3px 6px;text-align:left;vertical-align:top}
+  .ctv-bang th{color:var(--chu-phu);font-weight:600;position:sticky;top:0;background:var(--the)}
+  .ctv-bang tr.dang td{background:var(--luc-nen)}
+  .ctv-ma{font-weight:700;color:var(--xanh-dam);cursor:pointer;text-decoration:underline dotted}
+  .ctv-nhan{font-size:10.5px;color:var(--luc);border:1px solid #C4E3D0;border-radius:8px;padding:0 5px;white-space:nowrap}
+  .ctv-nguon{font-size:calc(11px*var(--co));color:var(--chu-phu)}
   /* ===== 3.70 — AM văn bản liên quan: số hiệu bấm đi tới ===== */
   .tg.lq-tg{max-width:320px;overflow:hidden;text-overflow:ellipsis}
   .lq-lk{color:inherit;text-decoration:underline;text-decoration-style:dotted;cursor:pointer;font-weight:600}
@@ -2459,7 +2484,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.70', APP_LUC = '05/10/2026 14:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.71', APP_LUC = '05/10/2026 17:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -2475,13 +2500,14 @@ var MAC_DINH = {
   kieuTen: 'codau',
   nghiepVu: ['Tín dụng','Kế hoạch - Nguồn vốn','Kế toán - Ngân quỹ','Kiểm tra - Giám sát',
              'Hành chính - Tổ chức','Tin học','Khác'],
-  chuongTrinh: ['HN','HCN','HMTN','NS&VSMT','GQVL','HSSV','NO-HN','NOXH','SXKD-VKK','XKLĐ'],
+  chuongTrinh: ['HN','HCN','HMTN','NS&VSMT','GQVL','HSSV','NO-HN','NOXH','SXKD-VKK','XKLĐ','NCHXAPT'],
   ctTen: {'HN':'Cho vay hộ nghèo','HCN':'Cho vay hộ cận nghèo','HMTN':'Cho vay hộ mới thoát nghèo',
     'NS&VSMT':'Cho vay nước sạch và vệ sinh môi trường nông thôn',
     'GQVL':'Cho vay giải quyết việc làm, duy trì và mở rộng việc làm',
     'HSSV':'Cho vay học sinh, sinh viên có hoàn cảnh khó khăn','NO-HN':'Cho vay hộ nghèo về nhà ở',
     'NOXH':'Cho vay nhà ở xã hội','SXKD-VKK':'Cho vay hộ gia đình sản xuất, kinh doanh tại vùng khó khăn',
-    'XKLĐ':'Cho vay người lao động đi làm việc ở nước ngoài theo hợp đồng'},
+    'XKLĐ':'Cho vay người lao động đi làm việc ở nước ngoài theo hợp đồng',
+    'NCHXAPT':'Cho vay người chấp hành xong án phạt tù'},
   loaiVB: ['Công văn','Quyết định','Kế hoạch','Hướng dẫn','Thông báo','Báo cáo','Tờ trình'],
   nhanGhiChu: ['Giao ban','Tập huấn','Hồ sơ - biểu mẫu','Cần xử lý','Lưu để nhớ'],
   /* 3.31: địa bàn anh quản lý — ma trận mặc định chỉ hiện và chỉ báo thiếu cho các xã này (sửa ở Cài đặt › Địa bàn) */
@@ -3103,7 +3129,8 @@ var TU_KHOA_CT = {
   'GQVL':['giai quyet viec lam','gqvl'], 'HSSV':['hoc sinh sinh vien','hssv'],
   'NO-HN':['ho ngheo ve nha o'], 'NOXH':['nha o xa hoi','noxh'],
   'SXKD-VKK':['san xuat kinh doanh','vung kho khan'],
-  'XKLĐ':['xuat khau lao dong','xkld','lam viec o nuoc ngoai']
+  'XKLĐ':['xuat khau lao dong','xkld','lam viec o nuoc ngoai'],
+  'NCHXAPT':['chap hanh xong an phat tu','nchxapt']
 };
 function goiYThe(chu, bang, danhSach){
   var c = boDau(chu||''), ra = [];
@@ -3740,10 +3767,94 @@ var CONG_CU = [
     dau:function(){ return hsChonLoaiHTML(); },
     nut:'<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt để dán vào hồ sơ">📋 Chép</button><button class="nho" onclick="hsGhiTodo()" title="Ghi câu chốt vào to-do hôm nay">📝</button>'},
   {id:'diaban', ico:'🗺', ten:'Địa bàn',      tit:'Cây địa bàn — mã xã, điểm GD, ấp/KP', ve:function(){ return ccDiaBanHTML(); }},
-  {id:'cc3',    ico:'🧰', ten:'Công cụ 3'},
+  {id:'ctvay',  ico:'📋', ten:'CT vay', tit:'Chương trình vay — tóm tắt đang cho vay · danh mục mã', ve:function(){ return ccCTVHTML(); },
+    dau:function(){ return ctvChonHTML(); }},
   {id:'cc4',    ico:'🧰', ten:'Công cụ 4'},
   {id:'cc5',    ico:'🧰', ten:'Công cụ 5'}
 ];
+/* ==========================================================
+   3.71 — 🧰 CÔNG CỤ: 📋 CHƯƠNG TRÌNH VAY
+   (1) Đang cho vay: tóm tắt 9 chương trình tại PGD — đối tượng, thời hạn, lãi suất, kỳ hạn trả nợ (VB 2174), mức cho vay
+       Nguồn: "Tóm tắt các chương trình tín dụng chính sách tại PGD Gò Dầu" (2025) anh gửi — chép nguyên nội dung, không tự sửa số
+   (2) Danh mục mã: mã CT · tên viết tắt hệ thống · viết tắt dùng trong app · tên chương trình (file Danh mục chương trình vay)
+   ========================================================== */
+var CTV_PK = '12 tháng: phân kỳ 12 tháng/lần · trên 12–60 tháng: 24 tháng/lần · trên 60 tháng: 36 tháng/lần';
+var CTV_DS = [
+  {ten:'Hộ nghèo', vt:'HN', dt:['Hộ nghèo theo chuẩn quốc gia'], th:'10 năm', ls:'6,6', ky:CTV_PK, muc:'100 triệu đồng/hộ'},
+  {ten:'Hộ cận nghèo', vt:'HCN', dt:['Hộ cận nghèo theo chuẩn nghèo quốc gia'], th:'10 năm', ls:'7,92', ky:CTV_PK, muc:'100 triệu đồng/hộ'},
+  {ten:'Hộ mới thoát nghèo', vt:'HMTN', dt:['Hộ mới thoát nghèo từng là hộ nghèo, hộ cận nghèo đã ra khỏi danh sách tối đa 03 năm'], th:'5 năm', ls:'8,25',
+    ky:'12 tháng: phân kỳ 12 tháng/lần · trên 12–60 tháng: 24 tháng/lần', muc:'100 triệu đồng/hộ'},
+  {ten:'Học sinh, sinh viên có hoàn cảnh khó khăn', vt:'HSSV', dt:['Học sinh, sinh viên mồ côi; hộ nghèo, hộ cận nghèo; hộ có mức sống trung bình; hộ gặp khó khăn về tài chính; lao động nông thôn học nghề và bộ đội xuất ngũ học nghề; người lao động bị thu hồi đất; sinh viên y khoa sau khi đã tốt nghiệp có hoàn cảnh khó khăn đang trong thời gian thực hành tại cơ sở khám chữa bệnh'],
+    th:'Thời hạn phát tiền vay + 12 tháng + thời gian trả nợ', thGon:'theo khóa học', ls:'6,6', ky:'12 tháng/lần', muc:'4 triệu đồng/tháng/SV (40 triệu đồng/năm)'},
+  {ten:'Hỗ trợ tạo việc làm, duy trì và mở rộng việc làm', vt:'GQVL', th:'10 năm', ky:CTV_PK, nhom:[
+    {dt:'Người khuyết tật, dân tộc thiểu số', ls:'3,96', muc:'100 triệu đồng/lao động'},
+    {dt:'Người lao động', ls:'7,92', muc:'100 triệu đồng/lao động'},
+    {dt:'Cơ sở SXKD: hộ kinh doanh, tổ hợp tác, hợp tác xã, doanh nghiệp nhỏ và vừa', ls:'7,92', muc:'02 tỷ đồng/dự án, không quá 100 triệu/lao động được tạo việc làm, duy trì và mở rộng việc làm; từ 100 triệu đồng trở lên phải có tài sản bảo đảm'},
+    {dt:'Cơ sở SXKD sử dụng từ 30% trở lên lao động là người khuyết tật, dân tộc thiểu số', ls:'3,96', muc:'02 tỷ đồng/dự án, không quá 100 triệu/lao động; từ 100 triệu đồng trở lên phải có tài sản bảo đảm'}]},
+  {ten:'Người lao động đi làm việc ở nước ngoài theo hợp đồng', vt:'XKLĐ', th:'Không vượt quá thời hạn làm việc ở nước ngoài của người lao động', thGon:'theo hợp đồng', ky:'Tối đa 12 tháng/lần', nhom:[
+    {dt:'Nguồn vốn trung ương: người lao động thuộc hộ nghèo, hộ cận nghèo theo chuẩn quốc gia; người dân tộc thiểu số; thân nhân người có công với cách mạng; thuộc hộ gia đình, cá nhân bị thu hồi đất; người thường trú tại huyện nghèo', ls:'6,6', muc:'100% chi phí; từ 100 triệu đồng trở lên phải có tài sản bảo đảm'},
+    {dt:'Nguồn vốn địa phương — Nhóm 1: người lao động thuộc hộ nghèo, hộ cận nghèo theo chuẩn quốc gia; người dân tộc thiểu số; thân nhân người có công với cách mạng; thuộc hộ gia đình, cá nhân bị thu hồi đất', ls:'6,6', muc:'100% chi phí; không vượt quá 50 triệu đồng/người, không bảo đảm tiền vay'},
+    {dt:'Nguồn vốn địa phương — Nhóm 2: người lao động là bộ đội, công an phục viên, xuất ngũ; người lao động thuộc hộ khó khăn về kinh tế được UBND xã bình xét và xác nhận', ls:'8,58', muc:'100% chi phí; không vượt quá 150 triệu đồng/người, không bảo đảm tiền vay'}]},
+  {ten:'Cấp nước sạch và vệ sinh môi trường nông thôn', vt:'NS&VSMT', dt:['Hộ gia đình cư trú tại vùng nông thôn chưa có công trình nước sạch và vệ sinh môi trường hoặc đã có nhưng chưa đạt tiêu chuẩn quốc gia về nước sạch và chưa đảm bảo vệ sinh môi trường'],
+    th:'5 năm', ls:'9', ky:'12 tháng/lần', muc:'25 triệu đồng/công trình'},
+  {ten:'Mua, thuê mua nhà ở xã hội; xây dựng, cải tạo, sửa chữa nhà để ở', vt:'NOXH', dt:['Người có công với cách mạng, thân nhân liệt sĩ thuộc trường hợp được hỗ trợ cải thiện nhà ở theo Pháp lệnh Ưu đãi người có công với cách mạng',
+      'Hộ gia đình nghèo, cận nghèo tại khu vực nông thôn','Hộ gia đình nghèo, cận nghèo tại khu vực nông thôn thuộc vùng thường xuyên bị ảnh hưởng bởi thiên tai, biến đổi khí hậu',
+      'Hộ gia đình nghèo, cận nghèo tại khu vực đô thị','Người thu nhập thấp tại khu vực đô thị','Công nhân, người lao động đang làm việc tại doanh nghiệp, hợp tác xã, liên hiệp hợp tác xã trong và ngoài khu công nghiệp',
+      'Sĩ quan, quân nhân chuyên nghiệp, hạ sĩ quan thuộc lực lượng vũ trang nhân dân, công nhân công an, công chức, công nhân và viên chức quốc phòng đang phục vụ tại ngũ; người làm công tác cơ yếu, người làm công tác khác trong tổ chức cơ yếu hưởng lương từ ngân sách nhà nước đang công tác',
+      'Cán bộ, công chức, viên chức theo quy định của pháp luật về cán bộ, công chức, viên chức'],
+    th:'25 năm', ls:'6,6', ky:'…… tháng/lần (tài liệu gốc để trống số tháng)', muc:'Mua, thuê mua NOXH: tối đa 80% giá trị hợp đồng. Xây dựng, cải tạo, sửa chữa: tối đa 70% giá trị dự toán / phương án, không quá 01 tỷ đồng và không vượt 70% giá trị tài sản bảo đảm. Mức cụ thể do NHCSXH nơi cho vay xem xét theo nguồn vốn, khả năng trả nợ, phương án sử dụng vốn'},
+  {ten:'Người chấp hành xong án phạt tù (QĐ 22/2023/QĐ-TTg)', vt:'NCHXAPT', dt:['Người chấp hành xong án phạt tù (NCHXAPT): đã được cấp giấy chứng nhận chấp hành xong án phạt tù (Luật Thi hành án hình sự) hoặc giấy chứng nhận đặc xá (Luật Đặc xá)',
+      'Cơ sở SXKD: doanh nghiệp nhỏ và vừa, hợp tác xã, tổ hợp tác, hộ kinh doanh có sử dụng lao động là NCHXAPT'],
+    th:'10 năm', ls:'6,6', ky:CTV_PK, muc:'Đào tạo nghề: tối đa 04 triệu đồng/tháng/NCHXAPT. SXKD, tạo việc làm: NCHXAPT tối đa 100 triệu đồng; cơ sở SXKD tối đa 02 tỷ đồng/dự án và không quá 100 triệu đồng/người lao động'}
+];
+var CTV = {xem:'dang', tim:'', mo:-1};
+function ctvChonHTML(){
+  return '<span class="tdn-seg ctv-seg">'+[['dang','Đang cho vay ('+CTV_DS.length+')'],['ma','Danh mục mã ('+Object.keys(TDN_CT).length+')']].map(function(x){
+    return '<button class="'+(CTV.xem===x[0]?'bat':'')+'" onclick="CTV.xem=\''+x[0]+'\';veCC()">'+x[1]+'</button>'; }).join('')+'</span>';
+}
+function ctvLS(c){ return c.nhom ? c.nhom.map(function(n){ return n.ls; }).filter(function(x, i, a){ return a.indexOf(x)===i; }).join(' · ') : c.ls; }
+function ctvMucGon(c){ return c.nhom ? (c.nhom.length+' nhóm đối tượng') : c.muc.split('. ')[0]; }
+function ccCTVHTML(){
+  var q = boDau(CTV.tim||'').trim(), e = coChuHTML;
+  var h = '<div class="ctv"><input class="ctv-tim" placeholder="Gõ để tìm: tên, viết tắt, mã, đối tượng…" value="'+e(CTV.tim)+'" oninput="CTV.tim=this.value;ctvVeDS()">'+
+    '<div id="ctv-ds">'+ctvDSHTML(q)+'</div>'+
+    '<div class="ctv-nguon">Nguồn: '+(CTV.xem==='dang' ? 'Tóm tắt các chương trình tín dụng chính sách tại PGD Gò Dầu (2025); kỳ hạn trả nợ theo VB 2174. Lãi suất, mức cho vay thay đổi theo văn bản mới — đối chiếu văn bản gốc khi tư vấn.' : 'Danh mục chương trình vay của hệ thống (MACT · TENVT · TENCT). Cột "App" là viết tắt dùng để phân loại văn bản, biểu mẫu trong app.')+'</div></div>';
+  return h;
+}
+function ctvVeDS(){ var e = document.getElementById('ctv-ds'); if(e) e.innerHTML = ctvDSHTML(boDau(CTV.tim||'').trim()); }
+function ctvDSHTML(q){
+  var e = coChuHTML;
+  if(CTV.xem==='ma'){
+    var ds = Object.keys(TDN_CT).sort().map(function(ma){ var vt = ctVTAppCua(ma); return {ma:ma, ht:TDN_CT[ma][0], ten:TDN_CT[ma][1], app:vt, dang:CTV_DS.some(function(c){ return c.vt===vt; })}; })
+      .filter(function(x){ return !q || boDau([x.ma, x.ht, x.ten, x.app].join(' ')).indexOf(q)>=0; });
+    return '<table class="ctv-bang"><tr><th>Mã</th><th>Viết tắt hệ thống</th><th>App</th><th>Tên chương trình</th></tr>'+ds.map(function(x){
+      return '<tr class="'+(x.dang?'dang':'')+'"><td><span class="ctv-ma" title="Bấm để chép mã" onclick="ctvChep(\''+x.ma+'\')">'+x.ma+'</span></td><td>'+e(x.ht)+'</td><td>'+e(x.app)+'</td><td>'+e(x.ten)+(x.dang?' <span class="ctv-nhan">đang cho vay</span>':'')+'</td></tr>'; }).join('')+
+      (ds.length?'':'<tr><td colspan="4">Không có mã nào khớp.</td></tr>')+'</table>';
+  }
+  var ds2 = CTV_DS.map(function(c, i){ return {c:c, i:i}; }).filter(function(x){ var c = x.c;
+    return !q || boDau([c.ten, c.vt, ctMaCua(c.vt), c.ls||'', c.th, (c.dt||[]).join(' '), (c.nhom||[]).map(function(n){ return n.dt+' '+n.ls+' '+n.muc; }).join(' '), c.muc||''].join(' ')).indexOf(q)>=0; });
+  if(!ds2.length) return '<div class="rong">Không có chương trình nào khớp.</div>';
+  return ds2.map(function(x){
+    var c = x.c, mo = CTV.mo===x.i || !!q, ma = ctMaCua(c.vt);
+    var h = '<div class="ctv-the'+(mo?' mo':'')+'"><div class="ctv-dau" onclick="CTV.mo=(CTV.mo==='+x.i+'?-1:'+x.i+');ctvVeDS()">'+
+      '<b>'+(x.i+1)+'. '+e(c.ten)+'</b><span class="ctv-vt">'+e(c.vt)+(ma?' · mã '+ma:'')+'</span>'+
+      '<span class="ctv-so"><span title="Lãi suất %/năm">'+e(ctvLS(c))+'%</span><span title="Thời hạn tối đa">'+e(c.thGon||c.th)+'</span><span title="Mức cho vay tối đa">'+e(ctvMucGon(c))+'</span></span></div>';
+    if(mo){
+      h += '<table class="ctv-ct">'+(c.nhom ? '<tr><td>Đối tượng · lãi suất · mức cho vay</td><td>'+c.nhom.map(function(n){ return '<div class="ctv-nhom"><b>'+e(n.ls)+'%/năm</b> — '+e(n.dt)+'<br><i>Mức: '+e(n.muc)+'</i></div>'; }).join('')+'</td></tr>'
+          : '<tr><td>Đối tượng</td><td>'+(c.dt.length>1 ? '<ol>'+c.dt.map(function(d){ return '<li>'+e(d)+'</li>'; }).join('')+'</ol>' : e(c.dt[0]))+'</td></tr><tr><td>Lãi suất</td><td><b>'+e(c.ls)+'%/năm</b></td></tr><tr><td>Mức cho vay tối đa</td><td>'+e(c.muc)+'</td></tr>')+
+        '<tr><td>Thời hạn tối đa</td><td>'+e(c.th)+'</td></tr><tr><td>Kỳ hạn trả nợ (VB 2174)</td><td>'+e(c.ky)+'</td></tr></table>'+
+        '<div class="hang-nut"><button class="nho" onclick="ctvChepCT('+x.i+')">📋 Chép tóm tắt</button></div>';
+    }
+    return h+'</div>';
+  }).join('');
+}
+function ctvChuCT(c){
+  var d = c.nhom ? c.nhom.map(function(n){ return '- '+n.dt+': lãi suất '+n.ls+'%/năm; mức cho vay: '+n.muc; }).join('\n')
+    : 'Đối tượng: '+c.dt.join('; ')+'\nLãi suất: '+c.ls+'%/năm\nMức cho vay tối đa: '+c.muc;
+  return 'Chương trình cho vay '+c.ten+' ('+c.vt+(ctMaCua(c.vt)?', mã '+ctMaCua(c.vt):'')+')\n'+d+'\nThời hạn tối đa: '+c.th+'\nKỳ hạn trả nợ: '+c.ky;
+}
+function ctvChepCT(i){ chepChu(ctvChuCT(CTV_DS[i]), 'Đã chép tóm tắt chương trình.'); }
+function ctvChep(ma){ chepChu(ma, 'Đã chép mã '+ma+'.'); }
 function ccCotHTML(){
   return '<div class="cc-cot" title="🧰 Công cụ">'+CONG_CU.map(function(c){
     return '<button class="cc-nut'+(CC.mo===c.id?' bat':'')+(c.ve?'':' cho')+'" onclick="ccMo(\''+c.id+'\')" title="'+coChuHTML(c.tit||c.ten)+'">'+
@@ -6956,13 +7067,26 @@ var TDN_LOAI = {
   nk: {ten:'Nợ khoanh',   ico:'🔒', dai:'Nợ khoanh'}
 };
 var TDN_DVUT = {'11':'Hội Nông dân','12':'Hội Phụ nữ','13':'Hội Cựu chiến binh','14':'Đoàn Thanh niên'};
+/* 3.71: đủ danh mục mã chương trình theo hệ thống (MACT · TENVT · TENCT) — nguồn: Danh mục chương trình vay (xls) anh gửi */
 var TDN_CT = {'01':['HONGHEO','Cho vay ưu đãi hộ nghèo'],'02':['HSSV','Cho vay học sinh, sinh viên có hoàn cảnh khó khăn'],
-  '03':['GQVL','Cho vay giải quyết việc làm'],'04':['XKLD','Cho vay đi lao động có thời hạn ở nước ngoài'],
-  '06':['NSVSMT','Cho vay nước sạch và vệ sinh môi trường nông thôn'],'07':['HN_QD167','Cho vay hộ nghèo về nhà ở'],
-  '09':['MOI_TNGHEO','Cho vay hộ mới thoát nghèo'],'10':['HSXVKK','Cho vay hộ gia đình SXKD tại vùng khó khăn'],
-  '11':['DTTS_DBKK','Cho vay hộ dân tộc thiểu số đặc biệt khó khăn'],'12':['CVNHA100','Cho vay nhà ở xã hội'],
-  '19':['HCN_QD15','Cho vay hộ cận nghèo'],'22':['CV_TNXP','Cho vay thanh niên xung phong'],
-  '26':['NCHXAPT','Cho vay người chấp hành xong án phạt tù'],'99':['KHAC','Cho vay khác']};
+  '03':['GQVL','Cho vay giải quyết việc làm'],'04':['XKLD','Cho vay ĐTCS đi lao động có thời hạn ở nước ngoài'],
+  '05':['NVLSCL','Cho vay trả chậm nhà ở cho hộ dân ĐB sông Cửu Long và Tây Nguyên'],'06':['NSVSMT','Cho vay nước sạch và vệ sinh môi trường nông thôn'],
+  '07':['HN_QD167','Cho vay hộ nghèo về nhà ở'],'08':['KFW','Cho vay doanh nghiệp vừa và nhỏ (KFW)'],'09':['MOI_TNGHEO','Cho vay hộ mới thoát nghèo theo QĐ 28'],
+  '10':['HSXVKK','Cho vay hộ gia đình SXKD tại vùng khó khăn'],'11':['DTTS_DBKK','Cho vay hộ dân tộc thiểu số đặc biệt khó khăn theo QĐ 32, QĐ 54'],
+  '12':['CVNHA100','Cho vay nhà ở xã hội theo Nghị định số 100'],'13':['SDLDCN','Cho vay hộ, cơ sở SX sử dụng lao động sau cai nghiện ma túy'],
+  '14':['DTTSNSCL','Cho vay hộ dân tộc thiểu số nghèo ĐB sông Cửu Long theo QĐ 74, QĐ 29'],'15':['T.NHAN_VKK','Cho vay thương nhân vùng khó khăn'],
+  '16':['XKLD_QD71','Cho vay người lao động thuộc huyện nghèo đi XKLĐ'],'17':['DTTSQD1592','Cho vay hộ đồng bào DTTS nghèo, đời sống khó khăn theo QĐ 755'],
+  '18':['HNXDCHOI','Cho vay hộ nghèo xây dựng chòi tránh lũ, lụt theo QĐ 716, QĐ 48'],'19':['HCN_QD15','Cho vay hộ cận nghèo theo QĐ 15'],
+  '20':['CVPTTRCN','Cho vay trồng rừng sản xuất, phát triển chăn nuôi theo Nghị định số 75'],'21':['DTTS_2085','Cho vay hộ Dân tộc thiểu số QĐ 2085/2016'],
+  '22':['CV_TNXP','Cho vay đối với thanh niên xung phong'],'23':['NSDLDTLNVNLD','Cho vay người sử dụng lao động để trả lương ngừng việc đối với người lao động do Covid-19'],
+  '24':['CVCSGDMNTHNCL','Cho vay cơ sở giáo dục mầm non, tiểu học ngoài công lập'],'25':['CVDTTSMN','Cho vay vùng dân tộc thiểu số và miền núi'],
+  '26':['NCHXAPT','Cho vay người chấp hành xong án phạt tù'],'91':['DAPTLNWB','Cho vay theo chương trình dự án phát triển Lâm nghiệp (WB)'],
+  '92':['IFAD','Cho vay theo dự án IFAD'],'93':['RIDP','Cho vay theo dự án RIDP'],'94':['CWPD','Cho vay theo dự án CWDP'],
+  '96':['NIPPON','Cho vay theo dự án NIPPON'],'99':['KHAC','Cho vay khác']};
+/* viết tắt dùng trong app (phân loại văn bản, biểu mẫu) ↔ mã chương trình hệ thống — giữ viết tắt cũ để không đổi dữ liệu đã lưu */
+var CT_APP_MA = {'HN':'01','HCN':'19','HMTN':'09','NS&VSMT':'06','GQVL':'03','HSSV':'02','NO-HN':'07','NOXH':'12','SXKD-VKK':'10','XKLĐ':'04','NCHXAPT':'26'};
+function ctMaCua(vt){ return CT_APP_MA[vt] || ''; }
+function ctVTAppCua(ma){ for(var k in CT_APP_MA) if(CT_APP_MA[k]===ma) return k; return ''; }
 /* 8 mục hồ sơ hộ vay (3.66 thêm Khả năng thu hồi) — mỗi mục: chọn nhanh (chip) + các ô + ghi thêm; lưu ngày cập nhật + lịch sử */
 var TDN_MUC = [
   {k:'nguoiVay', ten:'👤 Người vay & hộ', chon:['Bình thường','Ốm đau / tai nạn','Đã chết','Mất tích','Bỏ khỏi địa phương','Đi làm ăn xa','Đang chấp hành án'],
@@ -11334,7 +11458,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.70', ds:[
+var CO_GI_MOI = {ban:'3.71', ds:[
+  ['📋 Công cụ CT vay: tóm tắt 9 chương trình đang cho vay (lãi suất, thời hạn, mức vay, đối tượng, kỳ hạn trả nợ) và danh mục 32 mã chương trình', "dongHop();doiNgan(0);ccMo('ctvay')"],
   ['🔗 Văn bản liên quan hiện số hiệu ngay trên dòng — bấm là đi tới, có ‹ Quay lại; trong hộp sửa bấm ↗ để xem bên cạnh', "dongHop();doiNgan(1)"],
   ['✎ Hộp sửa văn bản gọn 1 màn hình: Enter / Tab sang ô kế, Shift lùi lại, ↑ ↓ chọn, Ctrl+Enter Lưu; tên cũ / tên mới 2 dòng; trích yếu không chép lại tên', "dongHop();doiNgan(1)"],
   ['🏷 Tag có gợi ý: đứng ở ô Tag thấy gợi ý bấm được, ↓ xem cả danh sách tag đã có, gõ không dấu vẫn ra', "dongHop();doiNgan(1)"],
@@ -14599,6 +14724,15 @@ function nangCapDanhMuc(){
     D.cauHinh.nhanGCDaGop = true;
     var tg = dsTag('ghiChu');
     (D.cauHinh.nhanGhiChu||[]).forEach(function(x){ if(x && tg.indexOf(x)<0) tg.push(x); });
+    luu();
+  }
+  /* 3.71: bổ sung chương trình đang cho vay còn thiếu (NCHXAPT — QĐ 22/2023/QĐ-TTg) — MỘT lần, chỉ thêm, không sửa mục đã có */
+  if(!D.cauHinh.ctNCHXAPT){
+    D.cauHinh.ctNCHXAPT = true;
+    D.cauHinh.chuongTrinh = D.cauHinh.chuongTrinh || [];
+    if(D.cauHinh.chuongTrinh.indexOf('NCHXAPT')<0) D.cauHinh.chuongTrinh.push('NCHXAPT');
+    D.cauHinh.ctTen = D.cauHinh.ctTen || {};
+    if(!D.cauHinh.ctTen.NCHXAPT) D.cauHinh.ctTen.NCHXAPT = 'Cho vay người chấp hành xong án phạt tù';
     luu();
   }
   /* 3.34: số liệu họp giao ban chia theo điểm giao dịch (anh Nhân chốt) — chuyển MỘT lần, sau đó anh tự chỉnh bằng nút ⚙ */

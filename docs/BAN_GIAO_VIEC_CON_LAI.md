@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.70 · build 05/10/2026 14:00
+**Bản hiện tại:** 3.71 · build 05/10/2026 17:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.71) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hôm nay › 🧰 📋 CT vay › Đang cho vay | 9 chương trình: lãi suất · thời hạn · mức cho vay trên 1 dòng; bấm mở đối tượng, kỳ hạn trả nợ; 📋 Chép tóm tắt | |
+| 2 | Gõ tìm: "3,96", "khuyết tật", "HSSV", "26" | Ra đúng chương trình | |
+| 3 | Danh mục mã | 32 mã hệ thống, cột viết tắt app, 9 dòng tô xanh "đang cho vay"; bấm mã là chép | |
+| 4 | Cài đặt › danh mục Chương trình vay | Có thêm NCHXAPT; các mục anh đã sửa giữ nguyên | |
+| 5 | Theo dõi nợ: món có mã CT ít gặp (05, 13, 14…) | Hiện đúng tên chương trình | |
+| 6 | Đối chiếu số liệu bảng với văn bản gốc (lãi suất, mức cho vay) | Đúng như file tóm tắt 2025 | |
+
+**Ghi chú kỹ thuật 3.71:** `TDN_CT` đủ 32 mã hệ thống (MACT → [TENVT, TENCT]); `CT_APP_MA` viết tắt app ↔ mã, `ctMaCua`, `ctVTAppCua`; công cụ `CONG_CU` id `ctvay` — `CTV_DS` (9 CT, chép nguyên file tóm tắt 2025), `CTV`, `ccCTVHTML`, `ctvChonHTML`, `ctvDSHTML`, `ctvVeDS`, `ctvChuCT`, `ctvChepCT`, `ctvChep` (dùng `chepChu` có sẵn); bổ sung một lần `D.cauHinh.ctNCHXAPT` (chỉ thêm NCHXAPT nếu thiếu, không sửa mục cũ); `TU_KHOA_CT.NCHXAPT`. Phép thử `t82.js`.
 
 ### Danh sách thử trên máy thật (3.70) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
