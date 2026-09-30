@@ -494,6 +494,32 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - **Mẫu biên bản sau này** (ví dụ): kiểm tra sử dụng vốn vay (tham chiếu Phiếu kiểm tra sử dụng vốn vay mẫu 06/TD), xác minh khách vắng mặt / bỏ địa phương, đề nghị xử lý rủi ro — anh gửi mẫu khi cần.
 - **Bảo mật:** danh sách khách chỉ lưu trên máy + Drive của anh; khi chia sẻ biên bản qua Zalo chỉ gửi đúng file đó.
 
+*✅ Anh chốt 03/10/2026 — trọng tâm & lưu vết:*
+- **Quan trọng nhất là phần bổ sung thông tin hộ vay:** thừa kế / người trả nợ thay · thực trạng hộ · tài sản · tình hình sử dụng vốn · nguyên nhân.
+- **Lưu vết:** danh sách tháng mới sẽ thay đổi; món 3T KHD tháng này không có nhưng tháng sau có thể **phát sinh lại** → **không bao giờ xóa**, lần sau chỉ **cập nhật số liệu**, thông tin đã bổ sung giữ nguyên.
+
+*Thiết kế dữ liệu đề xuất (3 lớp):*
+1. **Hồ sơ hộ vay** — khóa **Mã khách hàng**, dùng chung cho cả 3 danh sách, **không bao giờ xóa**. Chứa toàn bộ phần anh bổ sung (mục dưới) + hồ sơ gốc scan + vị trí nhà + SĐT. Một hộ có thể có nhiều món (kỳ 31/08 đã thấy hộ 2–3 khế ước).
+2. **Món vay** — khóa **Số khế ước**, thuộc 1 hộ. Mỗi tháng nhập file → lưu **bản số liệu của tháng đó** theo từng danh sách (dư nợ, quá hạn, khoanh, lãi tồn, ngày GD gần nhất…). Có **dòng thời gian xuất hiện**: tháng nào có trong DS nào, "ra khỏi DS tháng 09/2026", "**phát sinh lại** tháng 11/2026 (lần 2)".
+3. **Nhật ký làm việc** — mỗi lần gắn với hộ + món + loại danh sách; xem được ở cả thẻ món và hồ sơ hộ.
+
+*Phần bổ sung thông tin hộ vay (tư vấn nghiệp vụ — anh sửa):* mỗi mục có **ngày cập nhật + nguồn** (lần làm việc nào / anh gõ tay) và **lịch sử các lần thay đổi** (không ghi đè mất cũ).
+- **Người vay & hộ:** tình trạng người vay (bình thường · ốm đau / tai nạn · đã chết · mất tích · bỏ khỏi địa phương · đi làm ăn xa · đang chấp hành án…); thành viên hộ, số lao động; SĐT liên hệ (người vay, người thân).
+- **Thừa kế / người trả nợ thay:** họ tên · quan hệ với người vay · năm sinh · SĐT · nơi ở · đồng ý trả nợ thay không · cam kết (số tiền, thời hạn) · giấy tờ kèm theo (giấy chứng tử, xác nhận của UBND xã…, scan gắn vào).
+- **Thực trạng kinh tế:** nghề / nguồn thu nhập chính · thu nhập ước tính tháng · hoàn cảnh đặc biệt (hộ nghèo, cận nghèo, ốm đau dài ngày…) · đánh giá **khả năng trả nợ**: có khả năng / khó khăn tạm thời / không có khả năng.
+- **Tài sản:** danh sách (đất ở / đất sản xuất · nhà · vật nuôi · phương tiện · khác) + ước giá trị + ghi chú; tổng tài sản ước tính.
+- **Tình hình sử dụng vốn:** mục đích vay (đối tượng đầu tư: bò, heo, giếng, nhà vệ sinh…) · sử dụng **đúng / sai mục đích (một phần · toàn bộ)** · **hiện trạng vốn** (còn · đã bán · chết / mất · hư hỏng) + giá trị còn lại · ảnh chụp hiện trạng · tham chiếu Phiếu kiểm tra sử dụng vốn vay (mẫu 06/TD).
+- **Nguyên nhân không trả được nợ:** tích nhiều — *khách quan:* thiên tai · dịch bệnh vật nuôi / cây trồng · ốm đau, tai nạn · người vay chết / mất tích · giá cả, thị trường; *chủ quan:* sử dụng vốn sai mục đích · làm ăn thua lỗ · chây ỳ · bỏ khỏi địa phương · khác + ghi rõ. (Nợ khoanh đã có sẵn nguyên nhân từ sao kê → điền sẵn để đối chiếu.)
+- **Phương án đề xuất:** đôn đốc thu hồi · người thừa kế trả thay · gia hạn / điều chỉnh kỳ hạn · đề nghị khoanh · đề nghị xử lý rủi ro · phối hợp chính quyền, Hội đoàn thể — kèm hạn thực hiện.
+- Các mục trên **điền sẵn vào biên bản** (mục 2 Nguyên nhân, 3 Thực trạng, 4 Cam kết, 5 Kiến nghị) → anh chỉ sửa câu chữ.
+- Nhập nhanh trên điện thoại khi đi thực địa: chọn bằng nút (chip) + ô ghi thêm; không có mạng vẫn ghi, có mạng tự lên Drive.
+
+*Quy tắc cập nhật danh sách tháng (lưu vết):*
+- Món **có trong file**: lưu số liệu tháng đó; nếu trước đó đã ra khỏi DS → ghi "**phát sinh lại**" (đếm số lần); thông tin hộ, nhật ký giữ nguyên.
+- Món **không có trong file** tháng này: giữ nguyên, ghi "không có trong DS từ tháng …" (số liệu tháng cuối còn xem được); mặc định ẩn khỏi danh sách "Đang có", xem ở bộ lọc "Đã ra khỏi DS".
+- **Nhập lại cùng tháng** (file sửa lại): thay số liệu tháng đó, không nhân đôi. File **cũ hơn** tháng đã nhập: cảnh báo, chỉ bổ sung lịch sử, không đè số mới.
+- Màn **xem trước** trước khi ghi: món mới · phát sinh lại · cập nhật số dư (tăng / giảm) · ra khỏi DS.
+
 *Cần anh gửi trước khi code (che tên khách):*
 - (a) ✅ Đã nhận 3 file mẫu kỳ 31/08/2026 (xem phần rà ở trên).
 - (b) ✅ Đã nhận mẫu biên bản (xem trên).
