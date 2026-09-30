@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.73 — 06/10/2026 11:00 — Bung / thu cây · chế độ gọn
+- Hàng Sắp xếp: khi xem **🗂 Nhóm** (năm › tháng) có **⊞** bung hết và **⊟** thu hết.
+- **▤ Gọn:** ẩn dòng 2 (tag, CT vay) — mỗi file 1 dòng, nút ✎ 🗑 ⋯ dồn lên cùng dòng, thấy được nhiều file nhất; bấm lại để hiện; app nhớ lựa chọn (mọi tab danh sách file, trừ Theo dõi nợ).
+
 ## 3.72 — 06/10/2026 09:00 — Khay chờ: Lưu = duyệt · tag hiện sẵn · gợi ý trên ô · số hiệu tự thêm /
 - **File trong khay chờ:** bấm ✎ Sửa, sửa xong **Lưu là duyệt vào tủ luôn** (trước chỉ khi mở từ danh sách Chờ khai).
 - **Tag hiện sẵn toàn bộ dạng chip nhỏ** (hộp còn chỗ): đang chọn xanh đứng đầu, tag gợi ý theo nội dung viền xanh lá đứt, rồi tag dùng nhiều; bấm chip chọn / bỏ; ô **＋** cuối hàng gõ để lọc (không dấu), Enter chọn chip khớp hoặc tạo tag mới; Enter khi ô trống sang ô kế.

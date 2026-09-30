@@ -2094,6 +2094,14 @@
 
 
 
+  /* ===== 3.73 — chế độ gọn 1 dòng / file ===== */
+  .sap button.sap-ico{padding-left:8px !important;padding-right:8px !important;min-width:0 !important;font-size:15px}
+  .dong-gon .d2:not(.tdn-d){display:flex;align-items:center;gap:6px}
+  .dong-gon .d2:not(.tdn-d) .h1{flex:1;min-width:0}
+  .dong-gon .d2:not(.tdn-d) .h1 .ten{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dong-gon .d2:not(.tdn-d) .h2{flex:0 0 auto;margin-top:0}
+  .dong-gon .d2:not(.tdn-d) .h2 .the{display:none}
+
   /* ===== 3.72 — tag chip hiện sẵn · gợi ý trên ô ===== */
   .sua-gon .tg-hang{display:flex;flex-wrap:wrap;gap:4px;align-items:center;max-height:108px;overflow:auto;padding:1px 0}
   .sua-gon .tg-hang .tg-c{padding:0 8px !important;min-height:22px !important;line-height:20px;font-size:calc(11.5px*var(--co)) !important;margin:0 !important}
@@ -2495,7 +2503,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.72', APP_LUC = '06/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.73', APP_LUC = '06/10/2026 11:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -11520,7 +11528,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.72', ds:[
+var CO_GI_MOI = {ban:'3.73', ds:[
+  ['▤ Gọn: mỗi file 1 dòng (ẩn tag, CT vay) · 🗂 Nhóm có ⊞ bung hết / ⊟ thu hết — nút nằm trên hàng Sắp xếp', "dongHop();doiNgan(1)"],
   ['📥 File trong khay chờ: sửa xong bấm Lưu là vào tủ luôn · gõ số hiệu 4336hd nhcs tự thành 4336/HD-NHCS', "dongHop();doiNgan(1)"],
   ['🏷 Hộp sửa: tag hiện sẵn dạng chip nhỏ, bấm chọn / bỏ · gợi ý hiện ngay trên ô đang gõ', "dongHop();doiNgan(1)"],
   ['📋 Công cụ CT vay: tóm tắt 9 chương trình đang cho vay (lãi suất, thời hạn, mức vay, đối tượng, kỳ hạn trả nợ) và danh mục 32 mã chương trình', "dongHop();doiNgan(0);ccMo('ctvay')"],
@@ -15005,6 +15014,13 @@ function batNhom(id){
   var e = document.getElementById('g-'+id);
   if(e) e.classList.toggle('mo', moNhom[id]);
 }
+/* 3.73: bung / thu hết cây năm › tháng */
+function bungNhom(mo){
+  Array.prototype.forEach.call(document.querySelectorAll('.g[id^="g-"]'), function(e){ moNhom[e.id.slice(2)] = mo; e.classList.toggle('mo', mo); });
+}
+/* 3.73: chế độ gọn — ẩn dòng 2 (tag, CT vay) của mỗi dòng file, nút thao tác dồn lên dòng 1 */
+function batDongGon(){ D.cauHinh.dongGon = !D.cauHinh.dongGon; luu(); apDongGon(); ve(); }
+function apDongGon(){ document.body.classList.toggle('dong-gon', !!D.cauHinh.dongGon); }
 function nhomTheoThang(ds, khoaNgay){
   var nam = {};
   ds.forEach(function(m){
@@ -18483,6 +18499,8 @@ function veThanhSap(tab, kieuRieng, dangChon, hamDoi){
       ' title="Xem dạng danh sách, mỗi file một dòng">☰ Danh sách</button>'+
     '<button onclick="datKieu(\'thang\')"'+(kieuXem==='thang'?' class="bat"':'')+
       ' title="Gom file theo năm rồi theo tháng">🗂 Nhóm</button>'+
+    (kieuXem==='thang' ? '<button class="sap-ico" onclick="bungNhom(true)" title="Bung hết các năm, tháng">⊞</button><button class="sap-ico" onclick="bungNhom(false)" title="Thu gọn hết các năm, tháng">⊟</button>' : '')+
+    '<button onclick="batDongGon()"'+(D.cauHinh.dongGon?' class="bat"':'')+' title="'+(D.cauHinh.dongGon?'Đang gọn: mỗi file 1 dòng — bấm để hiện lại dòng tag, CT vay':'Gọn: ẩn dòng tag, CT vay — mỗi file 1 dòng, thấy được nhiều file hơn')+'">▤ Gọn</button>'+
     '<button class="chi-may'+(anPVCua(tenTabPV())?'':' bat')+'" onclick="batTatPV()" title="'+
       (anPVCua(tenTabPV())?'Bật khung xem nhanh bên phải để đọc file ngay':'Tắt khung xem nhanh cho danh sách rộng hơn')+
       ' — nhớ riêng cho tab này">▣ Khung xem</button>'+
@@ -19868,6 +19886,7 @@ function khoiDong(){
   var eb = document.getElementById('ban-goc'); if(eb) eb.textContent = 'v'+APP_BAN;
   napPhanLoai();
   donFileHeThong();
+  apDongGon();   /* 3.73 */
   if(chuyenLienQuan()) luu();   /* 3.68 (AF) */
   document.documentElement.style.setProperty('--co', D.cauHinh.coChu||1);
   apGiaoDien();
