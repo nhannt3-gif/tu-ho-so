@@ -4,6 +4,20 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.69 — 05/10/2026 09:00 — AJ hộp sửa văn bản gọn, hàng lọc gọn
+**Hộp sửa / khai văn bản — vừa 1 màn hình máy tính, nhập nhanh theo bước**
+- Đầu hộp 2 dòng: **Tên cũ** (gạch mờ, kèm dung lượng · số trang · trạng thái Drive) và **Tên mới** đổi theo từng chữ gõ; nút nhỏ ☆ và 🔍 (đọc lại & gợi ý) luôn có sẵn.
+- Thanh **① Nhận dạng · ② Phân loại · ③ Liên quan & lưu** sáng theo ô đang gõ, khối đang gõ viền xanh.
+- ① Số · Ngày · Loại 1 hàng; Tên văn bản; **Trích yếu để trống, không chép lại tên** (chỉ ghi thêm ý chính để tìm; trích yếu cũ giữ nguyên).
+- ② **Mảng · CT vay · Hiệu lực là ô chọn chung 1 hàng** (CT vay hiện cả tên đầy đủ); **Tag = chip + ô gõ**: đứng vào ô thì dòng 💡 hiện gợi ý bấm được (theo nội dung + gần đây), **↓ mở cả danh sách tag** (dùng nhiều trước, kèm số văn bản), gõ không dấu vẫn ra, "＋ Tạo tag mới"; link Sửa danh sách tag.
+- ③ Văn bản liên quan = chip + ô gõ số hiệu; Ghi chú riêng 1 dòng; **Nơi lưu 1 dòng** đủ ✎ · Mặc định · 📂 · ☁ · ↗.
+- **Phím:** Enter / Tab sang ô kế · Shift+Enter / Shift+Tab ô trước · ↑ ↓ đổi lựa chọn tại ô và chọn trong gợi ý · **Ctrl+Enter Lưu** · Esc đóng (giữ phần đang điền). Mở hộp: con trỏ ở ô trống đầu tiên.
+- Hướng dẫn từng ô gom về **1 dòng 💡** dưới cùng; trong ô có chữ mờ là ví dụ thật. Nhóm Dữ liệu tháng / Ghi chú / Khác cùng đầu hộp, phím, dòng 💡, nơi lưu 1 dòng.
+- Sửa lỗi 3.68: đang có nháp mà bấm 🔍 chọn gợi ý thì gợi ý không được điền.
+**Hàng lọc — vẫn chip nhưng gọn:** 4 dòng → 2 dòng (Năm · Mảng · CT vay chung 1 dòng, Tag 1 dòng); **bỏ chip "Tất cả"** — bấm chip để lọc (xanh có ✕), bấm lại để bỏ, **✕ Bỏ lọc (n)**; chip kèm số mục; ★ Quan trọng và ẩn ▴ nằm cuối dòng 1; dòng "Đang lọc" không nhắc lại lọc đã thấy trên hàng lọc.
+**"Dùng chung" → "Tất cả CT"** ở mọi chỗ hiển thị (hàng lọc, dòng văn bản, hộp sửa, Biểu mẫu, Cài đặt); giá trị lưu và thư mục Drive giữ tên cũ.
+**Tìm hiểu viết tắt:** gõ "tiết kiệm và vay vốn" vẫn ra văn bản ghi TK&VV.
+
 ## 3.68 — 04/10/2026 15:00 — AF · AD · AE · AG (gom hết tồn đọng)
 **AF. Văn bản liên quan** (thay cho vai trò VB chính / sửa đổi / hướng dẫn)
 - Bỏ ô Vai trò và nhãn "VB chính", "Sửa đổi", "Hướng dẫn TH"; bỏ ô "Được thay thế bởi". Giữ **Hết hiệu lực**.
