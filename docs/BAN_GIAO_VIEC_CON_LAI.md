@@ -472,7 +472,8 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - **3 tháng KHD** ("14. Sao kê món vay N tháng không hoạt động"): mã ấp · mã/tên điểm GDX · ĐVUT · mã tổ · tổ trưởng · mã/tên KH · số khế ước · mã sản phẩm · ngày đăng ký, giải ngân, đến hạn (gốc, GH, GDX) · chương trình (mã) · tổng dư nợ, trong hạn, quá hạn, khoanh · **ngày giao dịch gần nhất** · lãi đã thu · lãi tồn. Không có cột mã xã (suy từ mã ấp / điểm).
 - **Nợ khoanh** ("13. Danh sách nợ khoanh"): ngày GDX · mã/tên điểm · mã/tên xã · KH · mã tổ · tổ trưởng · số khế ước · ĐVUT · **dư nợ khoanh** · ngày hiệu lực · **ngày hết hạn khoanh** · chương trình · **nguyên nhân**. **Không có cột ấp** → app suy ấp theo mã tổ (từ 2 file kia / danh mục): kỳ này 41/55 món suy được, 14 món hiện "chưa rõ ấp" để anh gán 1 lần, app nhớ.
 - **Nợ quá hạn** ("2. Sao kê danh sách nợ quá hạn"): mã/tên xã · mã ấp (cột Thôn) · điểm · tổ · ĐVUT · KH · số khế ước · **dư nợ quá hạn** · chuyển QH trong tháng · **ngày chuyển quá hạn** · chương trình · số dư TK105 · ngày báo cáo.
-- **Số lượng kỳ 31/08/2026:** 3T KHD 327 món · khoanh 55 · quá hạn 54 → **393 món khác nhau** (43 món vừa quá hạn vừa 3T KHD; khoanh không trùng 2 loại kia) → **gộp 1 thẻ / món, nhiều nhãn**.
+- **Số lượng kỳ 31/08/2026:** 3T KHD 327 món · khoanh 55 · quá hạn 54 (43 món có mặt ở cả DS quá hạn và DS 3T KHD).
+- **✅ Anh chốt 03/10/2026: 3 loại theo dõi RIÊNG, không gộp.** Ngăn "⚠ Theo dõi nợ" chia 3 mục con: **⏳ 3 tháng KHD · 🔴 Nợ quá hạn · 🔒 Nợ khoanh** — mỗi mục có danh sách + cây địa bàn riêng, nhập file tháng riêng, cột riêng theo đúng file, nhật ký làm việc / biên bản / tiến độ riêng. *Đề xuất nhỏ (chờ anh):* món có mặt ở 2 danh sách chỉ hiện dòng nhắc nhỏ "cũng có trong DS quá hạn" (bấm để mở), không gộp; hồ sơ gốc scan và định vị nhà gắn theo **khách hàng** (mã KH) để khỏi nhập lại ở từng danh sách.
 - Mã ĐVUT: 11 Hội Nông dân · 12 Hội Phụ nữ · 13 Hội CCB · 14 Đoàn TN. Mã chương trình → tên viết tắt theo bảng mã (HONGHEO, GQVL, NSVSMT…).
 - *Đề xuất thêm:* 3T KHD nhiều món (327) → mặc định lọc hiện món **quá hạn / khoanh + 3T KHD lâu nhất** (xếp theo ngày giao dịch gần nhất cũ nhất), có ô tìm tên / mã KH / số khế ước.
 
@@ -480,7 +481,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - (a) ✅ Đã nhận 3 file mẫu kỳ 31/08/2026 (xem phần rà ở trên).
 - (b) **Mẫu biên bản làm việc** (Word) PGD đang dùng.
 - (c) Danh mục **trạng thái** và **hình thức làm việc** anh hay ghi (em có đề xuất sẵn, anh sửa).
-- (d) Món thuộc 2 danh sách (43 món vừa quá hạn vừa 3T KHD) → em đề xuất gộp 1 thẻ nhiều nhãn — anh xác nhận.
+- (d) ✅ Theo dõi riêng 3 loại (anh chốt). Chờ anh: dòng nhắc chéo + dùng chung hồ sơ gốc / định vị theo mã KH?
 
 ## 3. Việc cần kiểm trên máy thật
 
