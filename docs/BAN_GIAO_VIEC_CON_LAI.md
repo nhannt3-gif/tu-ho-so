@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.63 · build 03/10/2026 09:00
+**Bản hiện tại:** 3.64 · build 03/10/2026 12:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.64) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Thư viện › ⚠ Theo dõi nợ › 📥 Cập nhật tháng: chọn 3 file tháng 8 | Xem trước: 327 · 54 · 55 món, kỳ 08/2026 → Cập nhật | |
+| 2 | Tháng 9: cập nhật file mới | Món mới / phát sinh lại / ra khỏi DS đúng thực tế; thông tin đã bổ sung còn nguyên | |
+| 3 | 🌳 Cây địa bàn | Xã › Điểm › Ấp › Tổ đúng; món "Chưa rõ ấp" / "Ấp <mã>" → bổ sung mã ấp trong Cài đặt › Địa bàn | |
+| 4 | Mở 1 món → ✎ bổ sung 7 mục hồ sơ hộ | Lưu, sửa lại thấy 🕘 lịch sử | |
+| 5 | ➕ Ghi lần làm việc có hạn cam kết | Việc "💰 Cam kết trả nợ" lên lịch Hôm nay đúng ngày | |
+| 6 | 📝 Biên bản | File Word mở được trên máy tính và điện thoại, đúng bố cục mẫu, số liệu đúng | |
+| 7 | 📎 Chụp hồ sơ gốc trên điện thoại | Ảnh lưu vào hộ, lên Drive Theo dõi nợ/<Xã>/<Tên KH – mã> | |
+| 8 | 📍 Lấy vị trí tại nhà khách → 🧭 Chỉ đường | Google Maps mở đúng chỗ | |
+| 9 | Máy thứ 2 nối Drive | Thấy đủ danh sách, hồ sơ hộ, nhật ký | |
+
+**Ghi chú kỹ thuật 3.64:** biến `NO` (IndexedDB khóa `tdn_du_lieu`; `napNo`, `luuNo`, `dayNoLenDrive`, `taiNoTuDrive`, `gopNo`) · đọc file `tdnDocFile` → `tdnPhanTich` (bảng cột `TDN_COT`, nhận loại theo cột) → `tdnSoSanh` → `tdnXemTruoc` → `tdnGhi` · giao diện `veTheoDoiNo`, `tdnDSLoai`, `tdnNhom`, `tdnDongHTML`, `tdnCayHTML`, `tdnTheHTML` · hồ sơ hộ `TDN_MUC` (7 mục; thêm mục = thêm 1 dòng), `tdnSuaMuc`/`tdnLuuMuc` (lịch sử `ho.ls`) · lần làm việc `tdnLanMoi`/`tdnLuuLan` (cam kết → `lcData().viec`, trường `tdn`) · biên bản `MAU_BB` (danh mục mẫu), `bbXacMinhNo`, `taoDocx` (dựng .docx bằng `taoZip` có sẵn) · tài liệu `tdnThemFile`, `dayFileNoCho`, gắn file qua `GAN.tdn` · địa bàn theo mã `tdnDiaBan`, ấp của nợ khoanh suy theo `NO.toAp`. Phép thử: `t74.js` (dữ liệu giả 4 tháng, hồ sơ, lần làm việc, biên bản, Hôm nay, tải lại trang), `t75.js` (2 máy qua Drive), `that.js` (đọc file thật — chỉ chạy trong máy thử).
 
 ### Danh sách thử trên máy thật (3.62) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
@@ -448,6 +463,97 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | # | Việc | Đề xuất | Chờ anh chốt |
 |---|---|---|---|
 | X | 🎓 Hạn trả HSSV: gọn phần "Thời gian học" | Anh nêu 03/10/2026: nút "Tự chọn" thừa; thường chỉ cho vay trên 12 tháng; đưa lên dòng trên cùng, nhỏ lại, tránh bấm nhầm. **✅ Anh chốt 03/10/2026:** (1) bỏ nút "Tự chọn", bỏ dòng "Thời gian học"; (2) **ô chọn (danh sách thả xuống) nhỏ** trên dòng tiêu đề: `🎓 Hạn trả HSSV [Trên 12 tháng ▾] ······ 📋 Chép 📝 To-do Đóng (Esc)`, **mặc định Trên 12 tháng**, lựa chọn còn lại "Đến 12 tháng · Y khoa"; (3) chọn "Đến 12 tháng · Y khoa" → ô chọn **đổi màu cam** + dòng lưu ý nhỏ màu cam ngay dưới tiêu đề ("Đang tính theo đến 12 tháng / Y khoa: trả nợ = 2 × phát tiền vay") — **không bật hộp / cửa sổ**; (4) nếu số tháng phát tiền vay ≤ 12 mà đang để Trên 12 tháng → chỉ hiện dòng lưu ý cam trong ô kết quả: "Phát tiền vay chỉ N tháng — nếu **khóa học** dài trên 1 năm (vay ở năm cuối) thì giữ nguyên; khóa học đến 1 năm / Y khoa thì đổi ô chọn", không bật hộp. **Lý do bỏ "Tự chọn":** nó đoán theo số tháng phát tiền vay (từ ngày vay đến ra trường), nhưng hướng dẫn phân loại theo **thời gian khóa đào tạo** — SV học 4 năm, vay năm cuối (phát tiền vay 10 tháng) sẽ bị đoán nhầm "đến 12 tháng" → thời hạn trả nợ gấp đôi, sai.; (5) mở lại công cụ thì về mặc định Trên 12 tháng. Bớt 1 dòng cho phần kết quả. | ✅ Làm ở 3.63 |
+| Y | Bỏ chữ nhắc "file Excel (Sheet2)" trên giao diện | Anh nêu 03/10/2026: nhìn kỳ. Bỏ ở 3 chỗ anh thấy được: (1) dòng hướng dẫn trong ô Hạn trả HSSV "Gõ ngày vay, ngày ra trường và ngày GDX — kết quả hiện ngay~~, đúng công thức file Excel (Sheet2)~~"; (2) mục Hướng dẫn › Hôm nay "tính đúng như file Excel (Sheet2)"; (3) Có gì mới "đúng công thức file Excel (Sheet2)". Chú thích trong code và tài liệu bàn giao giữ nguyên để người sau biết nguồn công thức. | ✅ Làm ở 3.64 |
+
+**Z. Theo dõi món vay có vấn đề — Nợ quá hạn · Nợ khoanh · 3 tháng không hoạt động (anh nêu 03/10/2026; thiết kế nháp, chưa code)**
+
+*✅ Anh chốt 03/10/2026:*
+- **Chỗ đặt:** trong tab **Thư viện** — ngăn mới "⚠ Theo dõi nợ" (cạnh Bộ hồ sơ, Ghi chú ảnh).
+- **Nguồn danh sách:** anh có danh sách 3 tháng KHD, nợ quá hạn, nợ khoanh **theo tháng**. Mỗi tháng anh chỉ file → app đọc vào, **cập nhật số dư** của món đã có, thêm món mới.
+- **Hai cách xem:** ☰ Danh sách và 🌳 Cây địa bàn Xã › Điểm › Ấp › **Tổ** (như tab Scan).
+- **Khi cần làm việc / bổ sung một món:** mở món đó lên để: 📎 thêm bản scan **hồ sơ gốc**; 📍 **định vị nhà**; 📝 **xuất biên bản làm việc theo mẫu**; 📈 **theo dõi tiến độ làm việc**.
+
+*Thiết kế đề xuất:*
+1. **Cập nhật hằng tháng** (nút 📥 Cập nhật tháng): chọn file sao kê tháng — lấy từ file đã lưu ở tab Tháng (NQH, NK, 3TKHD, SK_NQH, SK_NK) hoặc chọn file mới → app đọc Excel, nhận từng món bằng **mã món vay / số khế ước** (nếu sao kê có), không có thì theo tên + ấp/tổ + chương trình → màn **xem trước** trước khi ghi: `+ 5 món mới · 12 món cập nhật số dư · 3 món không còn trong danh sách`. Món không còn trong sao kê **không xóa** — chuyển trạng thái "Đã ra khỏi danh sách tháng MM/YYYY" (thu hồi xong / hết quá hạn), vẫn giữ lịch sử. Mỗi món lưu **lịch sử số dư theo tháng** (xem biến động).
+2. **Dòng danh sách (2 dòng):** tên khách · ấp · tổ · chương trình ······ dư nợ / số quá hạn · **nhãn loại** (QH / Khoanh / 3T KHD) · ngày làm việc gần nhất · ⚠ "chưa làm việc > 30 ngày" / "đến hạn cam kết". Lọc theo loại, trạng thái, địa bàn; đầu cây có đếm số món + tổng dư nợ từng nhánh.
+3. **Mở một món** (khung phải trên máy tính, toàn màn trên điện thoại): thông tin món vay (từ sao kê, không sửa tay số liệu gốc) · lịch sử số dư · **nhật ký làm việc** (ngày, hình thức, thành phần, nội dung, kết quả, cam kết trả số tiền + hạn → tự lên lịch Hôm nay, số thu được) · **tài liệu**: hồ sơ gốc (dùng lại bộ quét Scan → PDF), biên bản đã ký (chụp lại), ảnh nhà · **📍 vị trí**: điện thoại bấm "Lấy vị trí tại đây" khi đứng ở nhà khách (GPS) hoặc dán link Google Maps → nút "Chỉ đường".
+4. **📝 Xuất biên bản theo mẫu:** anh đưa file Word mẫu có chỗ trống đánh dấu (ví dụ `{Họ tên}`, `{Địa chỉ}`, `{Dư nợ}`, `{Số quá hạn}`, `{Ngày}`…) → app điền thông tin món vay + lần làm việc, tạo file Word để sửa / in / ký; bản ký xong chụp lại gắn vào lần làm việc.
+5. **Lưu trữ:** Drive `Tủ hồ sơ/Theo dõi nợ/<Xã>/<Điểm>/<Ấp>/<Tổ>/<Tên khách>/`; dữ liệu khách chỉ nằm trên máy + Drive của anh (không đưa lên kho mã nguồn).
+6. **Tổng hợp:** số món / dư nợ theo loại, theo xã; "cần làm việc tuần này" lên dòng ⚠ Cần xử lý ở Hôm nay. *(Đợt sau: xuất Excel theo dõi cho giao ban.)*
+
+*Đã rà 3 file mẫu anh gửi (kỳ 31/08/2026 — file thật có tên khách, **không đưa vào repo**, phép thử sẽ dùng dữ liệu giả cùng cấu trúc):*
+- Cả 3 file xuất từ hệ thống, trang **BCQUERY**, dòng tiêu đề cột ở **dòng 5** (B5), dữ liệu từ dòng 6. File 3 tháng KHD còn các trang "BC <điểm>" anh tự lập và trang bảng mã chương trình — app chỉ đọc BCQUERY.
+- **Khóa nhận món vay: "Số khế ước"** (có ở cả 3 file, không trùng) + "Mã khách hàng".
+- **3 tháng KHD** ("14. Sao kê món vay N tháng không hoạt động"): mã ấp · mã/tên điểm GDX · ĐVUT · mã tổ · tổ trưởng · mã/tên KH · số khế ước · mã sản phẩm · ngày đăng ký, giải ngân, đến hạn (gốc, GH, GDX) · chương trình (mã) · tổng dư nợ, trong hạn, quá hạn, khoanh · **ngày giao dịch gần nhất** · lãi đã thu · lãi tồn. Không có cột mã xã (suy từ mã ấp / điểm).
+- **Nợ khoanh** ("13. Danh sách nợ khoanh"): ngày GDX · mã/tên điểm · mã/tên xã · KH · mã tổ · tổ trưởng · số khế ước · ĐVUT · **dư nợ khoanh** · ngày hiệu lực · **ngày hết hạn khoanh** · chương trình · **nguyên nhân**. **Không có cột ấp** → app suy ấp theo mã tổ (từ 2 file kia / danh mục): kỳ này 41/55 món suy được, 14 món hiện "chưa rõ ấp" để anh gán 1 lần, app nhớ.
+- **Nợ quá hạn** ("2. Sao kê danh sách nợ quá hạn"): mã/tên xã · mã ấp (cột Thôn) · điểm · tổ · ĐVUT · KH · số khế ước · **dư nợ quá hạn** · chuyển QH trong tháng · **ngày chuyển quá hạn** · chương trình · số dư TK105 · ngày báo cáo.
+- **Số lượng kỳ 31/08/2026:** 3T KHD 327 món · khoanh 55 · quá hạn 54 (43 món có mặt ở cả DS quá hạn và DS 3T KHD).
+- **✅ Anh chốt 03/10/2026: 3 loại theo dõi RIÊNG, không gộp.** Ngăn "⚠ Theo dõi nợ" chia 3 mục con: **⏳ 3 tháng KHD · 🔴 Nợ quá hạn · 🔒 Nợ khoanh** — mỗi mục có danh sách + cây địa bàn riêng, nhập file tháng riêng, cột riêng theo đúng file, nhật ký làm việc / biên bản / tiến độ riêng. *Đề xuất nhỏ (chờ anh):* món có mặt ở 2 danh sách chỉ hiện dòng nhắc nhỏ "cũng có trong DS quá hạn" (bấm để mở), không gộp; hồ sơ gốc scan và định vị nhà gắn theo **khách hàng** (mã KH) để khỏi nhập lại ở từng danh sách.
+- Mã ĐVUT: 11 Hội Nông dân · 12 Hội Phụ nữ · 13 Hội CCB · 14 Đoàn TN. Mã chương trình → tên viết tắt theo bảng mã (HONGHEO, GQVL, NSVSMT…).
+- *Đề xuất thêm:* 3T KHD nhiều món (327) → mặc định lọc hiện món **quá hạn / khoanh + 3T KHD lâu nhất** (xếp theo ngày giao dịch gần nhất cũ nhất), có ô tìm tên / mã KH / số khế ước.
+
+*Mẫu biên bản làm việc anh gửi (BIEN_BAN_LAM_VIEC_Go_Dau.doc, 1 trang — Word đời cũ .doc; không đưa vào repo):* Tiêu đề Quốc hiệu · "BIÊN BẢN LÀM VIỆC" · Hôm nay ngày …, tại … tỉnh Tây Ninh · **Chúng tôi gồm** 4 người (1–2 đại diện …, 3 đại diện Tổ TK&VV, 4 khách hàng vay vốn) · xác minh khoản nợ của ông (bà) … · Địa chỉ · **Thông tin món vay** (chương trình, số tiền vay, mục đích, ngày vay, ngày đến hạn, tổng nợ đến ngày …: nợ gốc, nợ lãi) · **2. Nguyên nhân không trả được nợ · 3. Thực trạng kinh tế và khả năng trả nợ · 4. Cam kết của khách hàng (hoặc người trả nợ thay) · 5. Kiến nghị biện pháp xử lý nợ** · ký: KH vay vốn · Tổ TK&VV · Đại diện … · Đại diện ….
+- *Đề xuất:* app **dựng sẵn biên bản đúng bố cục mẫu này thành file Word (.docx)** để sửa / in / ký — anh không phải chuẩn bị gì thêm. (App không ghi được .doc đời cũ; .docx mở bằng Word bình thường.)
+- **Ô nhập "Lần làm việc" đặt theo đúng 4 mục 2–5 của biên bản** (nguyên nhân · thực trạng · cam kết · kiến nghị) + ngày, địa điểm, thành phần → ghi nhật ký xong là có biên bản.
+- **Điền sẵn từ file sao kê:** tên KH, địa chỉ (ấp, xã), chương trình, tổ trưởng (thành phần 3), Hội đoàn thể theo ĐVUT (thành phần 2 + ô ký), dư nợ (nợ gốc), nợ lãi = lãi tồn (DS 3T KHD), ngày vay / ngày đến hạn (DS 3T KHD có; DS quá hạn không có → để chấm cho anh ghi tay), ngày tổng nợ = ngày sao kê. Mục đích sử dụng vốn, số tiền vay ban đầu không có trong sao kê → để trống (hoặc anh nhập 1 lần ở thẻ món vay).
+- Chờ anh: thành phần 1 (cán bộ NHCSXH — tên, chức vụ mặc định?), địa điểm mặc định ("nhà khách hàng, ấp …, xã …"?), có cần dòng đầu "NGÂN HÀNG CSXH TỈNH TÂY NINH · PGD GÒ DẦU" bên trái không.
+- *Danh mục đề xuất (anh sửa):* **Hình thức:** Đến nhà khách hàng · Mời lên điểm giao dịch / UBND xã · Họp Tổ TK&VV · Điện thoại / Zalo · Cùng Hội đoàn thể. **Trạng thái:** Chưa làm việc · Đang làm việc · KH cam kết trả · Đã thu một phần · Đã thu hồi hết · Đề nghị gia hạn / điều chỉnh kỳ hạn · Đề nghị khoanh · Đề nghị xử lý rủi ro · KH vắng mặt / bỏ địa phương.
+
+*✅ Anh chốt 03/10/2026 về biên bản:* (1) các dòng **thành phần để trống** cho linh hoạt; (2) **địa điểm mặc định = ấp của khách** ("ấp …, xã/phường …", sửa được); (3) chưa cần dòng tên đơn vị bên trái; (4) **sau này sẽ có nhiều dạng biên bản** cho các mục đích kiểm tra khác nhau → làm **danh mục mẫu biên bản** (như cột Công cụ): mỗi mẫu là 1 mục đăng ký (tên, các ô cần nhập, cách dựng file Word); đợt đầu có 1 mẫu "Biên bản làm việc — xác minh khoản nợ"; thêm mẫu sau không sửa phần khác. Các vấn đề còn lại anh giao em tư vấn theo nghiệp vụ (bên dưới) — anh xem, không hợp thì bỏ.
+
+*Tư vấn theo nghiệp vụ (em đề xuất, anh duyệt ở ảnh demo):*
+- **⏳ 3 tháng KHD** — mục tiêu: không để chuyển quá hạn, đôn đốc trả lãi. Xếp mặc định theo **số tháng không giao dịch** (tính từ "ngày giao dịch gần nhất" tới ngày sao kê), nhóm 3–6 tháng / 6–12 tháng / trên 12 tháng; nhãn **"sắp đến hạn"** khi ngày đến hạn (hoặc hạn GDX) còn ≤ 3 tháng; hiện **lãi tồn**. Tháng sau món biến mất khỏi danh sách → ghi "đã giao dịch lại".
+- **🔴 Nợ quá hạn** — mục tiêu: thu hồi, xác định nguyên nhân. Tính **số ngày quá hạn** từ "ngày chuyển quá hạn"; nhãn **"mới phát sinh tháng này"** (cột Chuyển QH trong tháng > 0) xếp lên đầu; nhóm theo thời gian quá hạn; hiện **số dư TK105** của khách để anh cân nhắc khi làm việc; so với tháng trước: tăng / giảm / đã thu hết.
+- **🔒 Nợ khoanh** — mục tiêu: rà soát trước khi hết thời hạn khoanh. Nhãn **"sắp hết hạn khoanh"** khi ngày hết hạn khoanh còn ≤ 6 tháng (lên dòng ⚠ Cần xử lý ở Hôm nay); hiện **nguyên nhân khoanh** từ sao kê; theo dõi số đã thu trong thời gian khoanh.
+- **Chung cả 3:** dòng nhắc chéo khi món có ở danh sách khác (không gộp); **hồ sơ gốc scan + định vị nhà dùng chung theo mã khách hàng**; nhắc "chưa làm việc > 30 ngày" (số ngày đổi được); **tiến độ** = mỗi tháng: số món, dư nợ, số món đã làm việc, số tiền thu được, so tháng trước; hạn cam kết của khách tự lên SCHEDULE Hôm nay.
+- **Mẫu biên bản sau này** (ví dụ): kiểm tra sử dụng vốn vay (tham chiếu Phiếu kiểm tra sử dụng vốn vay mẫu 06/TD), xác minh khách vắng mặt / bỏ địa phương, đề nghị xử lý rủi ro — anh gửi mẫu khi cần.
+- **Bảo mật:** danh sách khách chỉ lưu trên máy + Drive của anh; khi chia sẻ biên bản qua Zalo chỉ gửi đúng file đó.
+
+*✅ Anh chốt 03/10/2026 — trọng tâm & lưu vết:*
+- **Quan trọng nhất là phần bổ sung thông tin hộ vay:** thừa kế / người trả nợ thay · thực trạng hộ · tài sản · tình hình sử dụng vốn · nguyên nhân.
+- **Lưu vết:** danh sách tháng mới sẽ thay đổi; món 3T KHD tháng này không có nhưng tháng sau có thể **phát sinh lại** → **không bao giờ xóa**, lần sau chỉ **cập nhật số liệu**, thông tin đã bổ sung giữ nguyên.
+
+*Thiết kế dữ liệu đề xuất (3 lớp):*
+1. **Hồ sơ hộ vay** — khóa **Mã khách hàng**, dùng chung cho cả 3 danh sách, **không bao giờ xóa**. Chứa toàn bộ phần anh bổ sung (mục dưới) + hồ sơ gốc scan + vị trí nhà + SĐT. Một hộ có thể có nhiều món (kỳ 31/08 đã thấy hộ 2–3 khế ước).
+2. **Món vay** — khóa **Số khế ước**, thuộc 1 hộ. Mỗi tháng nhập file → lưu **bản số liệu của tháng đó** theo từng danh sách (dư nợ, quá hạn, khoanh, lãi tồn, ngày GD gần nhất…). Có **dòng thời gian xuất hiện**: tháng nào có trong DS nào, "ra khỏi DS tháng 09/2026", "**phát sinh lại** tháng 11/2026 (lần 2)".
+3. **Nhật ký làm việc** — mỗi lần gắn với hộ + món + loại danh sách; xem được ở cả thẻ món và hồ sơ hộ.
+
+*Phần bổ sung thông tin hộ vay (tư vấn nghiệp vụ — anh sửa):* mỗi mục có **ngày cập nhật + nguồn** (lần làm việc nào / anh gõ tay) và **lịch sử các lần thay đổi** (không ghi đè mất cũ).
+- **Người vay & hộ:** tình trạng người vay (bình thường · ốm đau / tai nạn · đã chết · mất tích · bỏ khỏi địa phương · đi làm ăn xa · đang chấp hành án…); thành viên hộ, số lao động; SĐT liên hệ (người vay, người thân).
+- **Thừa kế / người trả nợ thay:** họ tên · quan hệ với người vay · năm sinh · SĐT · nơi ở · đồng ý trả nợ thay không · cam kết (số tiền, thời hạn) · giấy tờ kèm theo (giấy chứng tử, xác nhận của UBND xã…, scan gắn vào).
+- **Thực trạng kinh tế:** nghề / nguồn thu nhập chính · thu nhập ước tính tháng · hoàn cảnh đặc biệt (hộ nghèo, cận nghèo, ốm đau dài ngày…) · đánh giá **khả năng trả nợ**: có khả năng / khó khăn tạm thời / không có khả năng.
+- **Tài sản:** danh sách (đất ở / đất sản xuất · nhà · vật nuôi · phương tiện · khác) + ước giá trị + ghi chú; tổng tài sản ước tính.
+- **Tình hình sử dụng vốn:** mục đích vay (đối tượng đầu tư: bò, heo, giếng, nhà vệ sinh…) · sử dụng **đúng / sai mục đích (một phần · toàn bộ)** · **hiện trạng vốn** (còn · đã bán · chết / mất · hư hỏng) + giá trị còn lại · ảnh chụp hiện trạng · tham chiếu Phiếu kiểm tra sử dụng vốn vay (mẫu 06/TD).
+- **Nguyên nhân không trả được nợ:** tích nhiều — *khách quan:* thiên tai · dịch bệnh vật nuôi / cây trồng · ốm đau, tai nạn · người vay chết / mất tích · giá cả, thị trường; *chủ quan:* sử dụng vốn sai mục đích · làm ăn thua lỗ · chây ỳ · bỏ khỏi địa phương · khác + ghi rõ. (Nợ khoanh đã có sẵn nguyên nhân từ sao kê → điền sẵn để đối chiếu.)
+- **Phương án đề xuất:** đôn đốc thu hồi · người thừa kế trả thay · gia hạn / điều chỉnh kỳ hạn · đề nghị khoanh · đề nghị xử lý rủi ro · phối hợp chính quyền, Hội đoàn thể — kèm hạn thực hiện.
+- Các mục trên **điền sẵn vào biên bản** (mục 2 Nguyên nhân, 3 Thực trạng, 4 Cam kết, 5 Kiến nghị) → anh chỉ sửa câu chữ.
+- Nhập nhanh trên điện thoại khi đi thực địa: chọn bằng nút (chip) + ô ghi thêm; không có mạng vẫn ghi, có mạng tự lên Drive.
+
+*Quy tắc cập nhật danh sách tháng (lưu vết):*
+- Món **có trong file**: lưu số liệu tháng đó; nếu trước đó đã ra khỏi DS → ghi "**phát sinh lại**" (đếm số lần); thông tin hộ, nhật ký giữ nguyên.
+- Món **không có trong file** tháng này: giữ nguyên, ghi "không có trong DS từ tháng …" (số liệu tháng cuối còn xem được); mặc định ẩn khỏi danh sách "Đang có", xem ở bộ lọc "Đã ra khỏi DS".
+- **Nhập lại cùng tháng** (file sửa lại): thay số liệu tháng đó, không nhân đôi. File **cũ hơn** tháng đã nhập: cảnh báo, chỉ bổ sung lịch sử, không đè số mới.
+- Màn **xem trước** trước khi ghi: món mới · phát sinh lại · cập nhật số dư (tăng / giảm) · ra khỏi DS.
+
+*🛠 KẾ HOẠCH CODE ĐỢT 1 — bản 3.64 (anh bảo "lên KH vào code" 03/10/2026) — ✅ ĐÃ LÀM ở 3.64:*
+- **Z1 · Dữ liệu:** biến `NO` = {ho (theo mã KH), mon (theo số khế ước, số liệu từng tháng từng loại), lan (lần làm việc), nhap (kỳ đã nhập từng loại), toAp (mã tổ → mã ấp học được)} — lưu **IndexedDB** (không chiếm chỗ localStorage), đồng bộ Drive `_Hệ thống/theodoino.json` (gộp theo thời điểm sửa, như lịch). **Đọc sao kê**: tự tìm trang có cột "Số khế ước", tự nhận loại theo cột (khoanh / quá hạn / 3T KHD), kỳ theo cột "Ngày báo cáo" hoặc ngày trong tên file (hỏi nếu không rõ); chọn file từ máy hoặc từ file đã lưu ở tab Tháng. **Màn xem trước** rồi mới ghi; quy tắc lưu vết như trên.
+- **Z2 · Giao diện:** Thư viện › **⚠ Theo dõi nợ** · 3 ô ⏳ / 🔴 / 🔒 · ☰ Danh sách (nhóm theo nghiệp vụ từng loại) / 🌳 Cây Xã › Điểm › Ấp › Tổ (đếm + tổng tiền) · lọc Đang có / Đã ra khỏi DS · tìm tên, mã KH, số KƯ · bấm món → **thẻ món**: số liệu, lịch sử tháng, danh sách khác có món này, món khác cùng hộ · **Hồ sơ hộ vay** 7 mục (người vay & hộ, thừa kế, thực trạng, tài sản, sử dụng vốn, nguyên nhân, phương án) — mỗi mục có ngày cập nhật + lịch sử · **Nhật ký làm việc** · **Tài liệu** (thêm file / chụp, gắn file có sẵn; lên Drive `Theo dõi nợ/<Xã>/<Tên KH – mã KH>`) · **📍 Vị trí** (lấy GPS / dán link, chỉ đường).
+- **Z3 · Biên bản & nhắc việc:** danh mục mẫu biên bản (đợt 1: "Biên bản làm việc — xác minh khoản nợ" theo mẫu PGD) → tạo **file Word .docx** điền sẵn; cam kết trả (số tiền + hạn) tự lên lịch Hôm nay; dòng ⚠ Cần xử lý có "Theo dõi nợ: n việc" (cam kết đến hạn, sắp hết hạn khoanh). Kèm **Y** (bỏ chữ "file Excel (Sheet2)").
+- **Kiểm thử:** file sao kê **giả** cùng cấu trúc (không dùng file thật); nhập 2 tháng liên tiếp để thử phát sinh lại / ra khỏi DS / nhập lại cùng tháng / file cũ hơn; biên bản mở được (kiểm cấu trúc docx); hồi quy toàn bộ.
+- **Đợt 2 (sau):** xuất Excel theo dõi cho giao ban, thống kê tiến độ theo tháng, thêm mẫu biên bản khác.
+
+*Cần anh gửi trước khi code (che tên khách):*
+- (a) ✅ Đã nhận 3 file mẫu kỳ 31/08/2026 (xem phần rà ở trên).
+- (b) ✅ Đã nhận mẫu biên bản (xem trên).
+- (c) Danh mục **trạng thái** và **hình thức làm việc** anh hay ghi (em có đề xuất sẵn, anh sửa).
+- (d) ✅ Theo dõi riêng 3 loại (anh chốt). Chờ anh: dòng nhắc chéo + dùng chung hồ sơ gốc / định vị theo mã KH?
+
+#### Đợt gom sau 3.64 — ghi nhận, chưa làm
+
+| # | Việc | Nội dung | Chờ anh chốt |
+|---|---|---|---|
+| AA | **Chọn VB chính không chạy** (anh báo 03/10/2026, khi thêm 4336/HD-NHCS hướng dẫn QĐ 70/QĐ-HĐQT) | **Nguyên nhân (đã xem code):** ô "Sửa đổi cho VB chính" chỉ liệt kê văn bản **đã được đánh dấu "VB chính"**; kho chưa có văn bản nào đánh dấu → ô trống, chỉ hiện "Chưa có VB nào đánh dấu là VB chính", không chọn được. Muốn chọn phải mở QĐ 70 đổi vai trò trước — vòng vèo. **Đề xuất sửa:** (1) ô chọn liệt kê **mọi văn bản trong kho** (VB chính lên đầu), có **ô tìm** theo số hiệu / tên; chọn xong văn bản đó **tự được đánh dấu VB chính**; (2) app **tự gợi ý** VB chính từ số hiệu văn bản được nhắc ở phần căn cứ / "thực hiện…" (ví dụ thấy "Quyết định số 70/QĐ-HĐQT" và kho có 70/QĐ-HĐQT → gợi ý sẵn, anh bấm nhận); (3) cân nhắc thêm vai trò **"VB hướng dẫn thực hiện"** (hướng dẫn thực hiện một QĐ, khác với "sửa đổi, bổ sung") — hiện vai trò bị đoán thành "VB sửa đổi, bổ sung" là chưa đúng bản chất. | (3) có thêm vai trò "VB hướng dẫn thực hiện" không |
+| AB | Hộp Khai / Sửa văn bản — các điểm em thấy trên ảnh (chờ anh xác nhận) | (1) Tên file mới bị cắt dở "…Quy chế hoạt động **của.pdf**" trong khi tên văn bản đủ "…của Tổ TK&VV"; (2) chữ hoa giữa câu "Hướng dẫn **Thực** hiện…" → "thực"; (3) ô Trích yếu để trống dù có dòng tiêu đề; (4) ô "NHÓM" chiếm cả khung chỉ để 4 nút → thu 1 dòng. | Anh xác nhận / bổ sung |
 
 ## 3. Việc cần kiểm trên máy thật
 
