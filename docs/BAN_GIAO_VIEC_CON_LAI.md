@@ -520,6 +520,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - **Nhập lại cùng tháng** (file sửa lại): thay số liệu tháng đó, không nhân đôi. File **cũ hơn** tháng đã nhập: cảnh báo, chỉ bổ sung lịch sử, không đè số mới.
 - Màn **xem trước** trước khi ghi: món mới · phát sinh lại · cập nhật số dư (tăng / giảm) · ra khỏi DS.
 
+*🛠 KẾ HOẠCH CODE ĐỢT 1 — bản 3.64 (anh bảo "lên KH vào code" 03/10/2026):*
+- **Z1 · Dữ liệu:** biến `NO` = {ho (theo mã KH), mon (theo số khế ước, số liệu từng tháng từng loại), lan (lần làm việc), nhap (kỳ đã nhập từng loại), toAp (mã tổ → mã ấp học được)} — lưu **IndexedDB** (không chiếm chỗ localStorage), đồng bộ Drive `_Hệ thống/theodoino.json` (gộp theo thời điểm sửa, như lịch). **Đọc sao kê**: tự tìm trang có cột "Số khế ước", tự nhận loại theo cột (khoanh / quá hạn / 3T KHD), kỳ theo cột "Ngày báo cáo" hoặc ngày trong tên file (hỏi nếu không rõ); chọn file từ máy hoặc từ file đã lưu ở tab Tháng. **Màn xem trước** rồi mới ghi; quy tắc lưu vết như trên.
+- **Z2 · Giao diện:** Thư viện › **⚠ Theo dõi nợ** · 3 ô ⏳ / 🔴 / 🔒 · ☰ Danh sách (nhóm theo nghiệp vụ từng loại) / 🌳 Cây Xã › Điểm › Ấp › Tổ (đếm + tổng tiền) · lọc Đang có / Đã ra khỏi DS · tìm tên, mã KH, số KƯ · bấm món → **thẻ món**: số liệu, lịch sử tháng, danh sách khác có món này, món khác cùng hộ · **Hồ sơ hộ vay** 7 mục (người vay & hộ, thừa kế, thực trạng, tài sản, sử dụng vốn, nguyên nhân, phương án) — mỗi mục có ngày cập nhật + lịch sử · **Nhật ký làm việc** · **Tài liệu** (thêm file / chụp, gắn file có sẵn; lên Drive `Theo dõi nợ/<Xã>/<Tên KH – mã KH>`) · **📍 Vị trí** (lấy GPS / dán link, chỉ đường).
+- **Z3 · Biên bản & nhắc việc:** danh mục mẫu biên bản (đợt 1: "Biên bản làm việc — xác minh khoản nợ" theo mẫu PGD) → tạo **file Word .docx** điền sẵn; cam kết trả (số tiền + hạn) tự lên lịch Hôm nay; dòng ⚠ Cần xử lý có "Theo dõi nợ: n việc" (cam kết đến hạn, sắp hết hạn khoanh). Kèm **Y** (bỏ chữ "file Excel (Sheet2)").
+- **Kiểm thử:** file sao kê **giả** cùng cấu trúc (không dùng file thật); nhập 2 tháng liên tiếp để thử phát sinh lại / ra khỏi DS / nhập lại cùng tháng / file cũ hơn; biên bản mở được (kiểm cấu trúc docx); hồi quy toàn bộ.
+- **Đợt 2 (sau):** xuất Excel theo dõi cho giao ban, thống kê tiến độ theo tháng, thêm mẫu biên bản khác.
+
 *Cần anh gửi trước khi code (che tên khách):*
 - (a) ✅ Đã nhận 3 file mẫu kỳ 31/08/2026 (xem phần rà ở trên).
 - (b) ✅ Đã nhận mẫu biên bản (xem trên).
