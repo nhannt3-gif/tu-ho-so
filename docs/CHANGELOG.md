@@ -4,7 +4,20 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.64 — 03/10/2026 12:00 — ⚠ Theo dõi nợ (đợt 1) + Y
+## 3.65 — 03/10/2026 16:00 — AA · AB · AC (quan hệ văn bản, hộp khai, dấu sao)
+**AA. Quan hệ văn bản** (anh báo chọn VB chính không chạy — ô chỉ liệt kê văn bản đã đánh dấu "VB chính", kho chưa có nên trống)
+- Giữ "VB chính"; thêm vai trò **"VB hướng dẫn thực hiện"** (hướng dẫn thực hiện một QĐ — khác "sửa đổi, bổ sung").
+- Ô **"Sửa đổi, bổ sung cho / Hướng dẫn thực hiện văn bản số…"**: gõ số hiệu (vd "70/QĐ") → tìm trong **mọi văn bản của app, mọi loại**; chọn xong văn bản kia **tự thành VB chính**. App không tự đoán.
+- Ô "Được thay thế bởi" cũng tìm theo số hiệu. Chuỗi hiệu lực ghi "(hướng dẫn thực hiện)"; dòng danh sách có nhãn "Hướng dẫn TH".
+**AB. Hộp khai / sửa văn bản**
+- Tên file không còn cắt dở ở 60 ký tự ("…hoạt động của.pdf") → tối đa 110 ký tự, cắt ở ranh giới từ, bỏ từ nối treo cuối (của, và, về…).
+- "Hướng dẫn **T**hực hiện…" → "Hướng dẫn thực hiện…": chữ đầu sau tên loại văn bản viết thường (trừ tên riêng, viết tắt: Tổ, Hội, Ngân hàng, UBND, NHCSXH…).
+- Ô Trích yếu trống → điền sẵn bản **mở rộng viết tắt** (Tổ TK&VV → Tổ Tiết kiệm và vay vốn, NHCSXH, HĐQT, UBND…) để tìm; giống hệt tên thì để trống.
+- Ô Nhóm gọn 1 dòng dưới tên (trước chiếm cả khung).
+- Rê chuột vào tên văn bản: chỉ hiện tên đầy đủ, không lặp thêm trích yếu.
+**AC. ★ Đánh dấu quan trọng** — bấm ☆ trên dòng văn bản / biểu mẫu (hoặc nút trong hộp sửa); chip lọc "★ Quan trọng · n" ở hàng lọc. Biểu mẫu dùng chung cờ ghim cũ (nhóm "★ Quan trọng" trên cùng) — bỏ nút 📌 trùng việc.
+
+ — 03/10/2026 12:00 — ⚠ Theo dõi nợ (đợt 1) + Y
 **Thư viện › ⚠ Theo dõi nợ** — 3 danh sách riêng: ⏳ 3 tháng KHD · 🔴 Nợ quá hạn · 🔒 Nợ khoanh.
 - **📥 Cập nhật tháng:** chọn file sao kê xuất từ hệ thống (trên máy, hoặc file đã lưu ở tab Tháng; chọn được cả 3 file một lần). App tìm bảng có cột "Số khế ước", tự nhận loại theo cột, kỳ theo cột "Ngày báo cáo" hoặc ngày trong tên file / tiêu đề (không đọc được thì hỏi).
   - **Màn xem trước:** số món, tổng tiền · món mới · phát sinh lại · tăng · giảm · giữ nguyên · ra khỏi DS; cảnh báo file cũ hơn kỳ đã nhập; báo nhập lại cùng kỳ.

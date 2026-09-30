@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.64 · build 03/10/2026 12:00
+**Bản hiện tại:** 3.65 · build 03/10/2026 16:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -548,7 +548,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - (c) Danh mục **trạng thái** và **hình thức làm việc** anh hay ghi (em có đề xuất sẵn, anh sửa).
 - (d) ✅ Theo dõi riêng 3 loại (anh chốt). Chờ anh: dòng nhắc chéo + dùng chung hồ sơ gốc / định vị theo mã KH?
 
-#### Đợt gom sau 3.64 — ghi nhận, chưa làm
+#### Đợt gom sau 3.64 — ✅ AA · AB · AC đã làm ở bản 3.65 (03/10/2026). Việc mới ghi tiếp bên dưới.
 
 | # | Việc | Nội dung | Chờ anh chốt |
 |---|---|---|---|
