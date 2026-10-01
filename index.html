@@ -2563,7 +2563,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.75', APP_LUC = '07/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.76', APP_LUC = '07/10/2026 10:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -10214,7 +10214,7 @@ function sgHd(el){
   var e = document.getElementById('sg-hd'); if(!e) return;
   if(!el || !el.id){ e.innerHTML = ''; return; }
   var lb0 = el.closest('.o') && el.closest('.o').querySelector('label'), ten0 = lb0 ? lb0.childNodes[0].textContent.trim() : '';
-  e.innerHTML = '⌨ <b>'+coChuHTML(ten0||'Ô đang gõ')+'</b> · Enter / Tab / → sang ô kế · Shift / ← lùi ô trước · ↑ ↓ chọn · Ctrl+Enter Lưu · Esc đóng';
+  e.innerHTML = '⌨ <b>'+coChuHTML(ten0||'Ô đang gõ')+'</b> · Enter / Tab sang ô kế · Shift lùi ô trước'+(el.tagName==='SELECT' ? ' · ← → qua lại ô · ↑ ↓ chọn' : ' · ← → di chuyển trong ô')+' · Ctrl+Enter Lưu · Esc đóng';
   return;
   var g = SG_HD[el.id] || GOI_Y_O[el.id], lb = el.closest('.o') && el.closest('.o').querySelector('label');
   var ten = lb ? lb.childNodes[0].textContent.trim() : '';
@@ -10275,15 +10275,11 @@ function sgPhim(e){
     if(n>=0 && n<t.options.length){ t.selectedIndex = n; if(t.onchange) t.onchange(); }
     return;
   }
-  /* 3.75 (AP — quy tắc phím chung): → ← tiến / lùi 1 ô. Ô chữ: chỉ khi con trỏ ở cuối / đầu chữ (hoặc đang bôi hết) để vẫn sửa chữ được */
+  /* 3.75 (AP — quy tắc phím chung): → ← tiến / lùi 1 ô — CHỈ ở ô chọn.
+     3.76 (anh chốt): ô gõ chữ thì ← → chỉ di con trỏ trong ô, không nhảy ô (an toàn khi sửa chữ) */
   if((e.key==='ArrowRight'||e.key==='ArrowLeft') && !e.shiftKey && !e.altKey && !e.ctrlKey && !e.metaKey &&
-     /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName) && sgO().indexOf(t)>=0){
-    var lui = e.key==='ArrowLeft', bien = true;
-    if(t.tagName!=='SELECT'){
-      try{ var a0 = t.selectionStart, b0 = t.selectionEnd, n0 = t.value.length;
-        bien = (a0===b0 && (lui ? a0===0 : a0===n0)) || (n0>0 && a0===0 && b0===n0); }catch(x){ bien = false; }
-    }
-    if(bien){ e.preventDefault(); e.stopPropagation(); sgSang(t, lui); }
+     t.tagName==='SELECT' && sgO().indexOf(t)>=0){
+    e.preventDefault(); e.stopPropagation(); sgSang(t, e.key==='ArrowLeft');
     return;
   }
   if((e.key==='Enter' || e.key==='Tab') && /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName) && sgO().indexOf(t)>=0){
@@ -10469,7 +10465,7 @@ function suaCho(id){
     '</div>'+
     '<div class="dau-nhom sg-nhom"><span>Nhóm</span>'+nhomHTML+'</div>'+
     than+
-    '<div class="sg-hd" id="sg-hd">⌨ <b>Enter</b> / <b>Tab</b> / <b>→</b> sang ô kế · <b>Shift</b> / <b>←</b> ô trước · <b>↑ ↓</b> chọn trong ô chọn và gợi ý · <b>Ctrl+Enter</b> Lưu · <b>Esc</b> đóng (giữ phần đang điền)</div>'+
+    '<div class="sg-hd" id="sg-hd">⌨ <b>Enter</b> / <b>Tab</b> sang ô kế · <b>Shift</b> ô trước · ô chọn: <b>← →</b> qua lại ô, <b>↑ ↓</b> chọn · <b>Ctrl+Enter</b> Lưu · <b>Esc</b> đóng (giữ phần đang điền)</div>'+
     '<div class="day-form">'+
       (laCho?'':'<a class="xoa-nho" onclick="xoaMuc(\''+id+'\')">Xóa khỏi tủ</a>')+
       '<button class="nho" onclick="dongHop()">Thôi</button>'+
@@ -11745,10 +11741,11 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.75', ds:[
+var CO_GI_MOI = {ban:'3.76', ds:[
+  ['⌨ Ô gõ chữ: ← → chỉ di chuyển trong ô (không nhảy ô) · ô chọn (Xã, Ấp, Tổ…) vẫn ← → qua lại ô', "dongHop();doiNgan(4)"],
   ['📷 Tự chụp nhanh hơn: giữ yên 0,5 giây (trước 1 giây), đỡ run tay; app lấy khung hình nét nhất · nút ⏱ đổi Nhanh / Vừa / Chắc', "dongHop();doiNgan(4)"],
   ['🪪 Hộp sửa bản quét gọn 1 màn hình: trái ô nhập, phải xem bản quét — giống hộp sửa văn bản', "dongHop();doiNgan(4)"],
-  ['⌨ Phím chung: Enter / Tab / → sang ô kế, Shift / ← lùi, ↑ ↓ chọn; Xã / Điểm / Ấp còn trống thì báo, chưa cho sang ô con', "dongHop();doiNgan(4)"],
+  ['⌨ Phím chung: Enter / Tab sang ô kế, Shift lùi, ↑ ↓ chọn; Xã / Điểm / Ấp còn trống thì báo, chưa cho sang ô con', "dongHop();doiNgan(4)"],
   ['📋 Khung xem PDF: bôi đen, Ctrl+C chép chữ được như PDF thường · nút 📋 chép cả trang · trang ảnh có 🔍 Đọc chữ (OCR)', "dongHop();doiNgan(1)"],
   ['↑ Danh sách lên cao hơn: số kết quả nằm đầu hàng Sắp xếp, bỏ khoảng trống dưới hàng lọc · 📂 Ổ G / ☁ Drive thành nút nhỏ', "dongHop();doiNgan(1)"],
   ['🔒 Chép sang AI: bảng có họ tên / CCCD / điện thoại thì cảnh báo và che sẵn (KH1, KH2…, ***), số tiền giữ nguyên · cộng thử đọc đúng số kiểu 1,234,567', "dongHop();doiNgan(2)"],
