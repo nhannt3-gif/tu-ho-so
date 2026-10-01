@@ -2137,6 +2137,32 @@
   .ctv-ma{font-weight:700;color:var(--xanh-dam);cursor:pointer;text-decoration:underline dotted}
   .ctv-nhan{font-size:10.5px;color:var(--luc);border:1px solid #C4E3D0;border-radius:8px;padding:0 5px;white-space:nowrap}
   .ctv-nguon{font-size:calc(11px*var(--co));color:var(--chu-phu)}
+  /* ===== 3.74 — AL lớp chữ PDF: bôi đen / chép được ===== */
+  .o-trang .lop-chu{position:absolute;overflow:hidden;line-height:1;text-align:initial;opacity:1;z-index:1;-webkit-text-size-adjust:none;text-size-adjust:none;forced-color-adjust:none}
+  .o-trang .lop-chu span,.o-trang .lop-chu br{color:transparent;position:absolute;white-space:pre;cursor:text;transform-origin:0 0}
+  .o-trang .lop-chu span.markedContent{top:0;height:0}
+  .o-trang .lop-chu ::selection{background:rgba(0,100,255,.28)}
+  .o-trang .lop-chu br::selection{background:transparent}
+  .o-trang .lop-chu .endOfContent{display:block;position:absolute;inset:100% 0 0;z-index:-1;cursor:default;user-select:none}
+  .o-trang .lop-chu .endOfContent.active{top:0}
+  .o-trang .tick,.o-trang .stt{z-index:2}
+  .o-trang .trang-anh{position:absolute;left:8px;bottom:14px;z-index:2;background:rgba(255,255,255,.93);border:1px solid var(--vien);border-radius:7px;padding:2px 8px;font-size:11px;color:var(--chu-phu)}
+  .o-trang .trang-anh a{color:var(--xanh-dam);cursor:pointer;font-weight:600}
+
+  /* ===== 3.74 — H cảnh báo dữ liệu khách khi Chép sang AI ===== */
+  .ca-khach{line-height:1.45}
+  .ca-khach .ca-che{display:flex;gap:6px;align-items:flex-start;margin-top:5px;font-weight:600;cursor:pointer}
+  .ca-khach .ca-che input{margin-top:2px}
+
+  /* ===== 3.74 — AK-2: số kết quả đầu hàng Sắp xếp, bỏ khoảng trống dưới hàng lọc ===== */
+  .sap .sap-dem{flex:0 0 auto;white-space:nowrap;font-size:calc(11.5px*var(--co));color:var(--chu-phu);margin-right:4px;padding-right:7px;border-right:1px solid var(--vien)}
+  .sap .sap-dem b{color:var(--chu)}
+  .sap .sap-dem .xoa-loc{margin-left:0}
+  #dem-vb:empty,#tit-thang:empty{display:none}
+  @media (min-width:900px){ .sap{gap:3px} .sap button{padding-left:6px !important;padding-right:6px !important} .sap button.sap-ico{padding-left:6px !important;padding-right:6px !important;font-size:14px} .sap .nhan-loc{margin-right:1px} }
+  .loc-nhanh.gon{margin-bottom:6px !important}
+  #nam-vb{margin-bottom:0}
+
   /* ===== 3.70 — AM văn bản liên quan: số hiệu bấm đi tới ===== */
   .tg.lq-tg{max-width:320px;overflow:hidden;text-overflow:ellipsis}
   .lq-lk{color:inherit;text-decoration:underline;text-decoration-style:dotted;cursor:pointer;font-weight:600}
@@ -2503,7 +2529,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.73', APP_LUC = '06/10/2026 11:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.74', APP_LUC = '06/10/2026 16:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -5861,14 +5887,12 @@ function veVanBan(){
     L0.hl = '';
   }
 
-  var dk = dangLoc('vanBan');
-  document.getElementById('dem-vb').innerHTML =
-    (ds.length ? ds.length+' kết quả' : 'Không có kết quả')+
-    (anHet ? ' · <span class="xoa-loc" style="color:var(--chu-phu)" onclick="datLocGiu(\'vanBan\',\'hl\',\'1\');dongHop()">ẩn '+anHet+' VB hết hiệu lực</span>' : '')+
-    (dk.length ? ' · '+coChuHTML(dk.join(' · '))+
-      ' <span class="xoa-loc" onclick="boLoc(\'vanBan\')">bỏ lọc</span>' : '');
+  var demVB = (ds.length ? '<b>'+ds.length+'</b> kết quả' : 'Không có kết quả')+
+    (anHet ? ' · <span class="xoa-loc" style="color:var(--chu-phu)" onclick="datLocGiu(\'vanBan\',\'hl\',\'1\');dongHop()" title="Bấm để hiện cả văn bản hết hiệu lực">ẩn '+anHet+' hết HL</span>' : '')+
+    chuDemLoc('vanBan');
+  document.getElementById('dem-vb').innerHTML = '';
 
-  document.getElementById('ds-vb').innerHTML = veThanhSap('vanBan') + (ds.length
+  document.getElementById('ds-vb').innerHTML = veThanhSap('vanBan', null, null, null, demVB) + (ds.length
     ? (kieuXem==='thang' ? nhomTheoThang(ds,'ngay')
        : ds.map(function(m){ return dongHTML(m, tuKhoa); }).join(''))
     : '<div class="rong">'+(D.vanBan.length
@@ -6642,10 +6666,21 @@ function bangTuSheet(ws, XL){
   return a.map(function(r){ return giu.map(function(c){ return String(r[c]===undefined?'':r[c]).trim(); }); });
 }
 function demO(b){ var n=0; b.forEach(function(r){ r.forEach(function(c){ if(c!=='') n++; }); }); return n; }
+/* 3.74 (việc I): đọc được cả số kiểu Việt (1.234.567,5) và kiểu Anh (1,234,567.5 — bộ đọc Excel hay trả về kiểu này).
+   Có cả chấm và phẩy → dấu đứng sau cùng là thập phân; chỉ một loại dấu mà lặp nhiều lần → ngăn nghìn;
+   một dấu (chấm hoặc phẩy) + đúng 3 chữ số sau → ngăn nghìn (3,000 · 1.234); còn lại → thập phân (12,5 · 12.5) */
 function soTu(x){
   var t = String(x||'').replace(/[^\d,.\-]/g,'');
-  if(!t) return null;
-  t = t.replace(/\./g,'').replace(/,/g,'.');       /* kiểu Việt: chấm ngăn nghìn, phẩy thập phân */
+  if(!t || !/\d/.test(t)) return null;
+  var c = t.lastIndexOf(','), d = t.lastIndexOf('.');
+  if(c>=0 && d>=0){
+    if(c>d) t = t.replace(/\./g,'').replace(',', '.');
+    else t = t.replace(/,/g,'');
+  } else if(c>=0){
+    t = (t.split(',').length>2 || /^-?\d{1,3},\d{3}$/.test(t)) ? t.replace(/,/g,'') : t.replace(',', '.');
+  } else if(d>=0){
+    if(t.split('.').length>2 || /^-?\d{1,3}\.\d{3}$/.test(t)) t = t.replace(/\./g,'');
+  }
   var v = parseFloat(t); return isFinite(v) ? v : null;
 }
 /* cộng thử: dòng có chữ "tổng cộng" phải bằng tổng các dòng con của cùng cột */
@@ -6689,9 +6724,41 @@ function moChepAI(id){
     });
   }).catch(function(e){ hetLam(); baoLoi('Không đọc được bảng: '+(e&&e.message||e)); });
 }
+/* 3.74 (việc H — R4): dò dữ liệu khách trong bảng trước khi chép sang AI
+   (cột họ tên / CCCD / điện thoại / địa chỉ, hoặc ô có số CCCD 12 số, CMND 9 số bắt đầu 0, số điện thoại 10 số) */
+var KHACH_COT = [
+  ['ten', /họ\s*(và)?\s*tên|tên\s*(khách|hộ|người)|chủ\s*hộ|người\s*vay|khách\s*hàng|ho\s*(va)?\s*ten|chu\s*ho|nguoi\s*vay/i],
+  ['so', /cccd|cmnd|căn\s*cước|can\s*cuoc|chứng\s*minh|số\s*định\s*danh|định\s*danh|điện\s*thoại|dien\s*thoai|\bsđt\b|\bsdt\b|số\s*đt/i],
+  ['dc', /địa\s*chỉ|dia\s*chi|nơi\s*ở|thường\s*trú/i]
+];
+var SO_KHACH = /(^|[^\d])0\d{9}(\d{2})?(?!\d)/;
+function doKhach(b){
+  var cot = {}, soO = 0, dauBang = -1;
+  b.slice(0, 8).forEach(function(r, i){
+    r.forEach(function(c, j){ KHACH_COT.forEach(function(k){ if(String(c).length<40 && k[1].test(c)){ cot[j] = k[0]; if(dauBang<0 || i<dauBang) dauBang = i; } }); });
+  });
+  b.forEach(function(r){ r.forEach(function(c){ if(SO_KHACH.test(String(c).replace(/[\s.]/g,''))) soO++; }); });
+  var loai = {}; Object.keys(cot).forEach(function(j){ loai[cot[j]] = 1; });
+  return {cot:cot, dau:dauBang, soO:soO, co: !!(Object.keys(cot).length || soO),
+    ten: [loai.ten?'họ tên':'', loai.so||soO?'CCCD / số điện thoại':'', loai.dc?'địa chỉ':''].filter(Boolean).join(', ')};
+}
+/* che: họ tên → KH1, KH2…; CCCD / điện thoại → ***; địa chỉ → (đã che) — giữ nguyên mọi số liệu tiền */
+function cheKhach(b, k){
+  var stt = {}, n = 0;
+  return b.map(function(r, i){ return r.map(function(c, j){
+    if(c==='' || i<=k.dau) return c;
+    var l = k.cot[j];
+    if(/^(tổng|cộng|tong|cong)\b/i.test(String(c).trim())) return c;   /* dòng Tổng cộng */
+    if((k.cot[j]==='ten' || k.cot[j]==='dc') && !/[A-Za-zÀ-ỹĐđ]/.test(c)) return c;   /* ô số trong cột tên / địa chỉ */
+    if(l==='ten'){ var kh = boDau(c); if(!stt[kh]) stt[kh] = 'KH'+(++n); return stt[kh]; }
+    if(l==='so') return '***';
+    if(l==='dc') return '(đã che)';
+    return String(c).replace(/0\d{9}(\d{2})?(?!\d)/g, '***');
+  }); });
+}
 function veChepAI(m, b, soSheet){
-  CHEP = {m:m, b:b};
-  var kiem = congThu(b), md = boiCanh(m)+'\n\n'+sangMarkdown(b);
+  CHEP = {m:m, b:b, khach:doKhach(b)};
+  var kh = CHEP.khach, kiem = congThu(b), md = boiCanh(m)+'\n\n'+sangMarkdown(kh.co ? cheKhach(b, kh) : b);
   moHop('<div class="hop-tit">Chép sang AI</div>'+
     '<div class="hop-phu">'+coChuHTML(m.tenMoi||m.tenCu||'')+' · '+b.length+' dòng · '+
       (b[0]||[]).length+' cột · '+demO(b)+' ô có số liệu'+(soSheet>1?' · lấy sheet đầu':'')+'</div>'+
@@ -6699,6 +6766,9 @@ function veChepAI(m, b, soSheet){
       (kiem.co ? (kiem.khop ? '✓ Đã cộng thử: các cột khớp dòng Tổng cộng'
                             : '⚠ Cộng thử lệch ở '+kiem.lech.join(', ')+' — kiểm lại file gốc trước khi dùng')
                : 'Không thấy dòng Tổng cộng để cộng thử — số liệu chép nguyên, không sửa gì')+'</div>'+
+    (kh.co ? '<div class="ca-kiem canh ca-khach">⚠ Bảng có <b>dữ liệu khách</b> ('+kh.ten+(kh.soO?' · '+kh.soO+' ô có số CCCD / điện thoại':'')+'). '+
+      'Chỉ dán vào công cụ AI được phép dùng dữ liệu khách hàng. '+
+      '<label class="ca-che"><input type="checkbox" id="ca-che" checked onchange="xemChepAI()"> Che dữ liệu khách khi chép (họ tên → KH1, KH2…; CCCD, điện thoại → ***; số liệu tiền giữ nguyên)</label></div>' : '')+
     '<div class="o"><label>Xem trước (Markdown) · ước '+uocToken(md)+' token</label>'+
       '<textarea id="ca-xem" rows="9" readonly>'+coChuHTML(md)+'</textarea></div>'+
     '<div class="huong-dan">Số giữ nguyên như trong file, chỉ bỏ dòng và cột trống. Hai dòng đầu ghi bối cảnh để AI hiểu đang đọc gì.</div>'+
@@ -6712,10 +6782,18 @@ function boiCanh(m){
   return (mau?mau.ten:(m.tenLoai||'Số liệu'))+' · '+(m.phamVi||'Toàn PGD')+' · '+(D.cauHinh.donvi||'PGD')+
     (m.ky?'\nSố liệu kỳ '+kyVN(m.ky):'')+(m.nsl?' (đến '+ngayVN(m.nsl)+')':'');
 }
+function bangChepAI(){
+  var o = document.getElementById('ca-che');
+  return (CHEP.khach && CHEP.khach.co && (!o || o.checked)) ? cheKhach(CHEP.b, CHEP.khach) : CHEP.b;
+}
+function xemChepAI(){
+  var e = document.getElementById('ca-xem'); if(e && CHEP) e.value = boiCanh(CHEP.m)+'\n\n'+sangMarkdown(bangChepAI());
+}
 function chepAI(kieu){
   if(!CHEP) return;
-  var t = boiCanh(CHEP.m)+'\n\n'+(kieu==='md' ? sangMarkdown(CHEP.b) : sangNguyenBan(CHEP.b));
-  chepChu(t, 'Đã chép '+(kieu==='md'?'dạng Markdown':'nguyên bản')+' · '+CHEP.b.length+' dòng · ước '+uocToken(t)+' token. Dán thẳng vào cửa sổ AI.');
+  var b = bangChepAI(), che = b!==CHEP.b;
+  var t = boiCanh(CHEP.m)+'\n\n'+(kieu==='md' ? sangMarkdown(b) : sangNguyenBan(b));
+  chepChu(t, 'Đã chép '+(kieu==='md'?'dạng Markdown':'nguyên bản')+(che?' (đã che dữ liệu khách)':'')+' · '+b.length+' dòng · ước '+uocToken(t)+' token. Dán thẳng vào cửa sổ AI.');
   dongHop();
 }
 function veThang(){
@@ -6726,7 +6804,7 @@ function veThang(){
     themPhu: D.duLieu.length?'<button class="phu" onclick="ghepKy()">Ghép để xem</button>':''});
   var ds = locTheoThe('duLieu', locChuan('duLieu', loc(D.duLieu, tuKhoa))); BOT_DS.duLieu = ds;
   /* 3.27: hàng 2 của tab Tháng gộp đủ như các tab khác — kiểu xem + sắp xếp + khung xem + ổ G */
-  var thanhXem = veThanhSap('duLieu', [['ky','Theo kỳ'],['donvi','Theo đơn vị'],['cay','Dạng cây']], kieuTh, 'datKieuTh');
+  var thanhXem = veThanhSap('duLieu', [['ky','Theo kỳ'],['donvi','Theo đơn vị'],['cay','Dạng cây']], kieuTh, 'datKieuTh', '<b>'+ds.length+'</b> file'+chuDemLoc('duLieu'));
   if(!ds.length){
     document.getElementById('tit-thang').textContent = 'Chưa có dữ liệu';
     document.getElementById('bang-thang').innerHTML = bangDoiChieuHTML()+
@@ -6734,7 +6812,7 @@ function veThang(){
     return;
   }
   if(kieuTh!=='bang'){
-    document.getElementById('tit-thang').textContent = ds.length+' file dữ liệu';
+    document.getElementById('tit-thang').textContent = '';   /* 3.74: số file nằm đầu hàng Sắp xếp */
     var than = (kieuTh==='donvi') ? nhomTheoDonVi(ds) : (kieuTh==='cay' ? cayDuLieu(ds) : nhomTheoThang(ds,'ky'));
     document.getElementById('bang-thang').innerHTML = bangDoiChieuHTML() + thanhXem + than;
     return;
@@ -8266,7 +8344,7 @@ function veGhiChu(){
                         hamThem:'chonAnh()'});
   var ds = locTheoThe('ghiChu', locChuan('ghiChu', loc(D.ghiChu, tuKhoa))); BOT_DS.ghiChu = ds;
   ds.sort(function(a,b){ return (b.ngay+b.id).localeCompare(a.ngay+a.id); });
-  document.getElementById('loc-gc').innerHTML += veThanhSap('ghiChu');   /* 3.27: hàng 2 như các tab khác */
+  document.getElementById('loc-gc').innerHTML += veThanhSap('ghiChu', null, null, null, '<b>'+ds.length+'</b> ghi chú'+chuDemLoc('ghiChu'));   /* 3.27: hàng 2 như các tab khác · 3.74: kèm số */
 
   if(!ds.length){
     document.getElementById('ds-gc').innerHTML =
@@ -9115,7 +9193,7 @@ function veVaoKhung(m, n){
   var S = XEM[n];
   var o = document.getElementById(S.id);
   if(!o) return;
-  S.m = m; S.pdf = null; S.trang = 1; S.tong = 1; S.tyLe = 1; S.khung = null;
+  S.m = m; S.pdf = null; S.trang = 1; S.tong = 1; S.tyLe = 1; S.khung = null; S.chuTrang = null;
   o.innerHTML = '<div class="rong">Đang mở…</div>';
   veDieuKhien(n);
   /* 3.62 (việc U): bản scan CCCD (thẻ) → hiện thẳng 2 mặt thẻ vừa khung, to hơn nhiều so với cả trang A4 */
@@ -9316,8 +9394,86 @@ function veTamNhin(n){
       var ctx = c.getContext('2d');
       ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
       if(dpr !== 1) ctx.scale(dpr, dpr);
-      return pg.render({canvasContext:ctx, viewport:vp}).promise;
+      return pg.render({canvasContext:ctx, viewport:vp}).promise.then(function(){ return lopChuTrang(S, pdfNay, pg, vp, box, c, i, n); });
     }); }).catch(function(){ box.dataset.xong = ''; });
+  });
+}
+/* 3.74 (AL): lớp chữ trong suốt đè lên trang PDF → bôi đen, Ctrl+C, chuột phải Chép như mở PDF thường.
+   Trang không có chữ (bản chụp / ảnh) → nhãn nhỏ "Trang ảnh · 🔍 Đọc chữ" (OCR). */
+function lopChuTrang(S, pdfNay, pg, vp, box, c, i, n){
+  return pg.getTextContent().then(function(tc){
+    if(S.pdf!==pdfNay || !box.isConnected) return;
+    S.chuTrang = S.chuTrang || {};
+    var chu = ghepDong(tc.items).trim();
+    S.chuTrang[i] = chu;
+    var cu = box.querySelector('.lop-chu, .trang-anh'); if(cu) cu.remove();
+    if(chu.replace(/\s+/g,'').length < 20){
+      var a = document.createElement('div'); a.className = 'trang-anh';
+      a.innerHTML = 'Trang ảnh — không có lớp chữ · <a onclick="event.stopPropagation();ocrTrang(\''+n+'\','+i+')">🔍 Đọc chữ</a>';
+      box.appendChild(a); return;
+    }
+    if(!pdfjsLib.renderTextLayer) return;
+    var l = document.createElement('div'); l.className = 'lop-chu textLayer';
+    l.style.left = c.offsetLeft+'px'; l.style.top = c.offsetTop+'px';
+    l.style.width = Math.round(vp.width)+'px'; l.style.height = Math.round(vp.height)+'px';
+    l.style.setProperty('--scale-factor', vp.scale);
+    box.appendChild(l);
+    try{ return pdfjsLib.renderTextLayer({textContentSource:tc, container:l, viewport:vp, textDivs:[]}).promise.catch(function(){}); }
+    catch(e){ l.remove(); }
+  }).catch(function(){});
+}
+/* 📋 chép chữ cả trang đang xem */
+function chepChuTrang(n){
+  var S = XEM[n]; if(!S || !S.pdf) return;
+  var t = S.trang, chu = S.chuTrang && S.chuTrang[t];
+  var xong = function(chu){
+    if(chu.replace(/\s+/g,'').length < 20) return hoiOCRTrang(n, t);
+    chepHoacHien(chu, 'Đã chép chữ trang '+t+(S.tong>1?' / '+S.tong:'')+' · '+chu.length+' ký tự'+
+      (chuLoiFont(chu) ? ' — ⚠ PDF gõ bằng font cũ (TCVN3 / VNI), chữ dán ra có thể sai dấu' : ''), 'Chữ trang '+t);
+  };
+  if(chu!=null) return xong(chu);   /* có sẵn → chép ngay trong lần bấm (iPhone cần) */
+  S.pdf.getPage(t).then(function(pg){ return pg.getTextContent(); }).then(function(tc){
+    var c2 = ghepDong(tc.items).trim(); (S.chuTrang = S.chuTrang || {})[t] = c2; xong(c2);
+  }).catch(function(){ baoLoi('Không đọc được chữ trang này.'); });
+}
+/* chép vào bộ nhớ tạm; trình duyệt chặn (iPhone sau khi chờ) → hiện hộp chữ để bôi đen / bấm Chép */
+function chepHoacHien(t, baoXong, tieuDe){
+  var hien = function(){
+    moHop('<div class="hop-tit">'+coChuHTML(tieuDe||'Chữ đã đọc')+'</div>'+
+      '<div class="o"><textarea id="chep-o" rows="14" style="width:100%;font-size:13px">'+coChuHTML(t)+'</textarea></div>'+
+      '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button>'+
+      '<button class="nho chinh" onclick="var o=document.getElementById(\'chep-o\');chepChu(o.value,\'Đã chép \'+o.value.length+\' ký tự\')">📋 Chép</button></div>');
+    var o = document.getElementById('chep-o'); if(o){ o.focus(); o.select(); }
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function(){ bao(baoXong, 6); }, hien);
+  else hien();
+}
+function hoiOCRTrang(n, t){
+  moHop('<div class="hop-tit">Trang '+t+' là ảnh</div>'+
+    '<div class="hop-phu">Trang này là bản chụp / scan — không có lớp chữ để chép. Bấm <b>🔍 Đọc chữ</b> để app nhận chữ từ ảnh (OCR; lần đầu cần mạng để tải bộ đọc tiếng Việt), đọc xong anh xem lại rồi chép.</div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="dongHop();ocrTrang(\''+n+'\','+t+')">🔍 Đọc chữ</button></div>');
+}
+/* OCR 1 trang PDF → hộp chữ để xem lại và chép (OCR có thể sai vài chữ) */
+function ocrTrang(n, t){
+  var S = XEM[n]; if(!S || !S.pdf) return;
+  QUET.dung = false;
+  batChay(true, 'Đang dựng ảnh trang '+t+'…', true);
+  S.pdf.getPage(t).then(function(pg){
+    var vp0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(3, 2200/Math.max(vp0.width, vp0.height))});
+    var c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
+    return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise.then(function(){ return docDongOCR(c); });
+  }).then(function(r){
+    tatChay();
+    var chu = String(r && r.chu || '').trim();
+    if(!chu) return bao('Không nhận ra chữ nào trên trang '+t+'.', 4);
+    (S.chuTrang = S.chuTrang || {})[t] = chu;
+    var a = S.khung && S.khung[t-1] && S.khung[t-1].querySelector('.trang-anh');
+    if(a) a.innerHTML = 'Đã đọc chữ (OCR) · <a onclick="event.stopPropagation();chepChuTrang(\''+n+'\')">📋 Chép</a>';
+    chepHoacHien(chu, 'Đã chép chữ đọc được trang '+t+' (OCR — anh soát lại vài chữ có thể sai)', 'Chữ đọc từ ảnh trang '+t+' (OCR — soát lại trước khi dùng)');
+  }).catch(function(e){
+    tatChay();
+    if(QUET.dung) return bao('Đã dừng đọc chữ.', 3);
+    baoLoi('Chưa đọc được chữ: '+(e&&e.message||e)+' — cần mạng lần đầu để tải bộ đọc tiếng Việt.');
   });
 }
 /* ô số trang chạy theo chỗ đang cuộn */
@@ -9360,6 +9516,7 @@ function veDieuKhien(n){
     '<button'+(S.che==='trang'?' class="bat"':'')+
       ' onclick="datChe2(\'' +n+ '\',\'trang\')" title="Vừa trang">⊡</button>'+
     '<span class="ngan-cach"></span>'+
+    '<button onclick="chepChuTrang(\'' +n+ '\')" title="Chép chữ cả trang đang xem (bôi đen từng đoạn rồi Ctrl+C cũng được). Trang ảnh thì đọc chữ (OCR)">📋</button>'+
     '<button onclick="moBangMay()" title="Mở bằng trình xem của máy">↗</button>';
 }
 function diTrang(n, h){
@@ -11528,7 +11685,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.73', ds:[
+var CO_GI_MOI = {ban:'3.74', ds:[
+  ['📋 Khung xem PDF: bôi đen, Ctrl+C chép chữ được như PDF thường · nút 📋 chép cả trang · trang ảnh có 🔍 Đọc chữ (OCR)', "dongHop();doiNgan(1)"],
+  ['↑ Danh sách lên cao hơn: số kết quả nằm đầu hàng Sắp xếp, bỏ khoảng trống dưới hàng lọc · 📂 Ổ G / ☁ Drive thành nút nhỏ', "dongHop();doiNgan(1)"],
+  ['🔒 Chép sang AI: bảng có họ tên / CCCD / điện thoại thì cảnh báo và che sẵn (KH1, KH2…, ***), số tiền giữ nguyên · cộng thử đọc đúng số kiểu 1,234,567', "dongHop();doiNgan(2)"],
   ['▤ Gọn: mỗi file 1 dòng (ẩn tag, CT vay) · 🗂 Nhóm có ⊞ bung hết / ⊟ thu hết — nút nằm trên hàng Sắp xếp', "dongHop();doiNgan(1)"],
   ['📥 File trong khay chờ: sửa xong bấm Lưu là vào tủ luôn · gõ số hiệu 4336hd nhcs tự thành 4336/HD-NHCS', "dongHop();doiNgan(1)"],
   ['🏷 Hộp sửa: tag hiện sẵn dạng chip nhỏ, bấm chọn / bỏ · gợi ý hiện ngay trên ô đang gõ', "dongHop();doiNgan(1)"],
@@ -13402,7 +13562,7 @@ function veBieuMau(){
 
   var h = veDauTab('bieuMau', {kho:D.bieuMau, hamThem:'themBieuMau()',
     nutThem:'<button class="phu" onclick="moDsBo()">📚 Bộ biểu mẫu'+(dsBo().length?' · '+dsBo().length:'')+'</button>'});
-  h += veThanhSap('bieuMau');
+  h += veThanhSap('bieuMau', null, null, null, '<b>'+ds.length+'</b> biểu mẫu'+chuDemLoc('bieuMau'));
 
   var soChon = Object.keys(BM.chon).length;
   /* 3.61 (việc M, anh chốt): tích ☐ nhiều mẫu → 📤 Gửi N file một lần (Zalo…) · 🗜 Nén .zip · 🖨 In cả bộ */
@@ -13415,10 +13575,6 @@ function veBieuMau(){
       '<button onclick="BM.chon={};BM.boTen=\'\';veBieuMau()">Bỏ chọn</button></div>';
   }
 
-  var dkb = dangLoc('bieuMau');
-  h += '<div class="nhan-nhom">'+ds.length+' biểu mẫu'+
-    (dkb.length?(' · '+coChuHTML(dkb.join(' · '))+
-      ' <span class="xoa-loc" onclick="boLoc(\'bieuMau\')">bỏ lọc</span>'):'')+'</div>';
 
   if(!ds.length){
     h += '<div class="rong">'+(D.bieuMau.length
@@ -15120,6 +15276,10 @@ function khoaNgay(tab){
 
 /* ---- vẽ vùng đầu chuẩn: nút Thêm + ba dòng lọc ---- */
 /* 3.27: dòng ghi rõ đang lọc theo gì — khỏi mở bộ lọc mới biết */
+function chuDemLoc(tab){
+  var dk = anLocNhanh(tab) ? dangLoc(tab) : [];
+  return dk.length ? ' · '+coChuHTML(dk.join(' · '))+' <span class="xoa-loc" onclick="boLoc(\''+tab+'\')">bỏ lọc</span>' : '';
+}
 function dongDangLoc(tab, kho){
   var L = locCua(tab), ch = [], boQua = khoaTrenHangLoc(tab, kho);   /* 3.69 */
   var ten = {nam:'Năm', thang:'Tháng', mang:'Mảng', ct:'CT vay', tag:'Tag', pham:'Phạm vi', hoi:'Hội', xa:'Xã', chua:'Chưa khai', hl:'Hiệu lực'};
@@ -18483,8 +18643,9 @@ var COT_SAP = [
   {ma:'loai', nhan:'Loại'},
   {ma:'co',   nhan:'Dung lượng'}
 ];
-function veThanhSap(tab, kieuRieng, dangChon, hamDoi){
-  return '<div class="sap">'+
+/* 3.74 (AK-2): "n kết quả" nằm đầu hàng Sắp xếp — bỏ dòng đếm riêng, danh sách lên cao hơn */
+function veThanhSap(tab, kieuRieng, dangChon, hamDoi, dem){
+  return '<div class="sap">'+(dem ? '<span class="sap-dem">'+dem+'</span>' : '')+
     (kieuRieng ? '<span class="nhan-loc">Xem</span>'+kieuRieng.map(function(x){
         return '<button'+(dangChon===x[0]?' class="bat"':'')+' onclick="'+hamDoi+'(\''+x[0]+'\')">'+x[1]+'</button>';
       }).join('')+'<span class="sap-ngan"></span>' : '')+
@@ -18504,8 +18665,8 @@ function veThanhSap(tab, kieuRieng, dangChon, hamDoi){
     '<button class="chi-may'+(anPVCua(tenTabPV())?'':' bat')+'" onclick="batTatPV()" title="'+
       (anPVCua(tenTabPV())?'Bật khung xem nhanh bên phải để đọc file ngay':'Tắt khung xem nhanh cho danh sách rộng hơn')+
       ' — nhớ riêng cho tab này">▣ Khung xem</button>'+
-    '<button onclick="chepDuongMay(thuMucTab(\''+tab+'\'))" title="Chép đường dẫn thư mục trên ổ G — dán vào Explorer là mở đúng thư mục">📂 Ổ G</button>'+
-    '<button onclick="moThuMucDrive(thuMucTab(\''+tab+'\'))" title="Mở thư mục này trên Drive web bằng trình duyệt">☁ Drive</button>'+
+    '<button class="sap-ico" onclick="chepDuongMay(thuMucTab(\''+tab+'\'))" title="Ổ G — chép đường dẫn thư mục trên ổ G, dán vào Explorer là mở đúng thư mục">📂</button>'+
+    '<button class="sap-ico" onclick="moThuMucDrive(thuMucTab(\''+tab+'\'))" title="Drive — mở thư mục này trên Drive web bằng trình duyệt">☁</button>'+
     '</div>';
 }
 /* 3.31: 2 cột sắp riêng của tab Biểu mẫu */
