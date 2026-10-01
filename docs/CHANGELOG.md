@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.74 — 06/10/2026 16:00 — Gom tồn đọng: chép chữ PDF · danh sách lên cao · che dữ liệu khách khi chép sang AI
+- **AL — Khung xem PDF chép chữ được:** thêm lớp chữ trong suốt đè lên trang (khung xem bên phải, khung xem lớn, khung cạnh hộp sửa) → **bôi đen, Ctrl+C, chuột phải Chép** như mở PDF thường. Nút **📋** trên thanh khung xem chép cả trang đang xem (nối dòng như chức năng đọc tên). Trang không có chữ (bản chụp / scan) hiện nhãn nhỏ **"Trang ảnh · 🔍 Đọc chữ"** → OCR trang đó, hiện hộp chữ để soát rồi chép. PDF gõ font cũ (TCVN3 / VNI) → báo "chữ dán ra có thể sai dấu". Trình duyệt chặn chép (iPhone sau khi chờ) → hiện hộp chữ để bôi đen / bấm 📋 Chép.
+- **AK phần 2 — danh sách lên cao:** bỏ dòng "n kết quả" riêng và khoảng trống dưới hàng lọc; **số kết quả nằm đầu hàng Sắp xếp** (Văn bản, Biểu mẫu, Ghi chú, Tháng dạng danh sách). Chữ "đang lọc …" chỉ hiện khi hàng lọc đang ẩn (hàng lọc đã có ✕ Bỏ lọc). 📂 Ổ G và ☁ Drive thành nút biểu tượng (rê chuột thấy tên), nút hàng Sắp xếp sát lại → khổ 1366 không còn bị che nút Drive. Máy tính lên thêm ~46px, điện thoại ~70px.
+- **H (R4) — Chép sang AI có dữ liệu khách:** bảng Excel có cột họ tên / CCCD / điện thoại / địa chỉ hoặc ô có số CCCD, số điện thoại → khung **⚠ cảnh báo** + ô **"Che dữ liệu khách khi chép"** (bật sẵn): họ tên → KH1, KH2…; CCCD, điện thoại → ***; địa chỉ → (đã che); **số tiền, dòng Tổng cộng giữ nguyên**. Bỏ tích thì chép nguyên.
+- **I — Cộng thử đọc đúng số kiểu Anh:** `1,234,567` · `1,234,567.5` · `3,000` (bộ đọc Excel hay trả kiểu này) — trước bị đọc thành 1,234 → báo lệch sai. Kiểu Việt `1.234.567,5` vẫn đúng.
+
 ## 3.73 — 06/10/2026 11:00 — Bung / thu cây · chế độ gọn
 - Hàng Sắp xếp: khi xem **🗂 Nhóm** (năm › tháng) có **⊞** bung hết và **⊟** thu hết.
 - **▤ Gọn:** ẩn dòng 2 (tag, CT vay) — mỗi file 1 dòng, nút ✎ 🗑 ⋯ dồn lên cùng dòng, thấy được nhiều file nhất; bấm lại để hiện; app nhớ lựa chọn (mọi tab danh sách file, trừ Theo dõi nợ).
