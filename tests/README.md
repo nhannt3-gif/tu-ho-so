@@ -29,6 +29,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t98.js` | 2 máy qua Drive giả (`fakedrive.js`): đẩy / kéo / thay file / xóa ô. |
 | `node tests/t100.js` | 3.86 Mẫu 31: nhận đúng loại, gộp khế ước trùng, món tất toán, khách chỉ gửi TK, công thức dư nợ 2 tháng, tab con Tra cứu KH (SĐT, khế ước), ô tìm chung ở tab Số liệu. |
 | `node tests/t101.js [index.html bản 3.86]` | 3.87: Mẫu 10 theo ngày (dòng lặp do nhiều sổ 105 giữ riêng, 105 lấy 1 lần mỗi khách), Mẫu 7 + ngày xuất, đối chiếu tạm bằng Mẫu 10 cuối tháng, đổi ngày, nạp từng file theo ngày. Có tham số (bản cũ, vd `git show <commit 3.86>:index.html > /tmp/cu.html`) thì thử thêm **chuyển dữ liệu 3.86 → 3.87** qua Drive giả và máy thứ 2. |
+| `node tests/t102.js` | 3.88: tab Số liệu theo tháng (file của tháng, ② Kiểm tra lưu kết quả, dữ liệu đổi → kiểm lại, thu gọn bảng nhiều tháng) · tab 👥 Tổ TK&VV (phím chung ở cây chọn tổ, chip, gõ tên, 3 báo cáo Xem / In / Excel) — bộ `gia31`, máy tính + điện thoại. |
 | `node tests/t99.js` | Chuyển tiếp tab Tháng: bỏ 7 dòng thuần Excel, ô XLS không tính thiếu, ô "đọc file cũ". |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).

@@ -14,10 +14,10 @@ const fs=require('fs'), path=require('path');
  console.log('đọc bộ', ((Date.now()-t0)/1000).toFixed(1)+'s');
  (await p.evaluate(()=>SL_NAP.map(k=>[k.ten, k.loai, k.ky, k.mau31?'mẫu31':'', k.rows&&k.rows.length, JSON.stringify(k.bo), slTrangThai(k).chu.slice(0,70)].join(' | ')))).forEach(x=>console.log('  ',x));
  await p.evaluate(()=>slGhiDaTich());
- await p.waitForFunction(()=>Object.keys(SLM.bang).length>=7 && document.querySelector('#sl-ky .sl-dc'), null, {timeout:120000});
+ await p.waitForFunction(()=>Object.keys(SLM.bang).length>=7 && document.querySelector('#sl-ky .sl-tom'), null, {timeout:120000});   // 3.88: đối chiếu nằm trong ② Kiểm tra
  const r = await p.evaluate(async()=>{ const o={}; const w=t=>new Promise(r=>setTimeout(r,t));
    const t = SLM.bang['hstd|2026-08'].tong; o.tong = 'món '+t.mon+' · tất toán '+t.tatToan+' · chỉ TK '+t.chiTK+' · dn '+tdnTien(t.dn)+' · GN tháng '+tdnTien(t.gnT)+' ('+t.monGN+')';
-   o.dc = Array.from(document.querySelectorAll('.sl-dc-dong')).map(x=>x.textContent.slice(0,110)).join('\n      ');
+   o.dc = slDoiChieu(await slBo('2026-08')).map(x=>(x.ok?'✅':'⚠')+x.ten+' — '+(x.chu||'').slice(0,90)).join('\n      ');
    // tab con Tra cứu KH
    slDoiTab('tra'); await w(200);
    const c0 = Object.keys(SL_DB.kh).map(k=>[k,SL_DB.kh[k]]).find(x=>x[1].sdt);

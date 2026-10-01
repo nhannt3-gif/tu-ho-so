@@ -51,6 +51,12 @@ Lệch thì app **báo, chỉ ra nguyên nhân / dòng lệch, không sửa dữ
 - KH có nhiều khế ước (1 sổ): 105 chỉ ghi ở 1 dòng, các dòng khác trống. So "105 đầu tháng" từng sổ với "105 Ngày BC" thấy được sổ thừa đã rút / đóng trong tháng (dùng cho danh sách theo dõi sổ thừa).
 - Đối chiếu với Mẫu 7 (xuất 02/09, cùng ngày 31/08): quá hạn, khoanh khớp; tổng dư nợ Mẫu 7 hơn 3.681.500.000 (16 tổ, ~20 KH, số tròn — có thể món giải ngân sau thời điểm xuất Mẫu 10 / Mẫu 7 lẫn phát sinh sau chốt, **chưa kiểm**); lãi tồn và 105 không khớp (Mẫu 7 tính cả tổ viên chỉ gửi TK: "số tổ viên còn 105" 18.728 > "số tổ viên" 17.756). Cần Mẫu 31 ngày 31/08 để kết luận.
 
+## Mẫu 31 — kiểm thêm cho báo cáo TK 105 (file 31/07/2026)
+- Dòng món đã tất toán (CLOSE) 3.206, **3.197 có mã tổ**; dòng khách chỉ gửi tiết kiệm 2.423, 1.600 có mã tổ (còn lại phần lớn thôn 48200000 "chưa gắn thôn").
+- Theo khách: còn dư nợ 17.827 · **tất nợ (dư nợ 0, lãi tồn TH + QH = 0) còn 105: 830** · tất nợ hết 105: 63 · dư nợ 0 còn lãi tồn: 36 · chỉ gửi TK có tổ 1.270 · chỉ gửi TK **không có tổ 820** (để sau, tab chuẩn hóa số liệu).
+- Mẫu 31 không có cột "Lãi tồn" tổng → lãi tồn = Lãi tồn TH + Lãi tồn QH. Báo cáo TK 105 lấy nguồn **Mẫu 31** (Mẫu 10 gần như không có khách đã tất nợ: file 31/08 chỉ 5 KH dư nợ 0 + lãi tồn 0).
+- **Khách mới kết nạp** (anh chốt): có dư nợ tháng này mà tháng trước không có trong tổ. Thử so Mẫu 10 31/08 với Mẫu 31 31/07 (khác loại — chỉ thử cách làm): 80 KH, 12 KH chưa có số TK 105.
+
 ## Lưu trữ
 - Máy: IndexedDB `sl_b_<loại>_<kỳ>` (dạng theo cột; kỳ theo ngày vd `sl_b_m10_2026-08-31`; dòng lặp khế ước ở `b.lap`), `sl_meta`, `sl_danhba`.
 - Drive: `Tủ hồ sơ/Số liệu/<tháng>/<ngày> <Tên loại>.xlsx` (file gốc) · `Tủ hồ sơ/_Hệ thống/so_lieu/<tháng>/<loại>.json.gz` (loại theo ngày: `m10_<yyyy-mm-dd>.json.gz`) · `_Hệ thống/so_lieu/meta.json` · `_Hệ thống/so_lieu/khach_hang.json.gz`.

@@ -42,9 +42,8 @@ const TAO = () => {   // chạy trong trang: dựng 2 file Excel giả
    slGhiDaTich(); for(let i=0;i<40 && !document.querySelector('#sl-ky .sl-tom');i++) await w(250);
    o.khoa = Object.keys(SLM.bang).sort().join(', ');
    o.o = Array.from(document.querySelectorAll('.sl-bang tbody tr')).filter(tr=>/✓|⚠/.test(tr.textContent)).map(tr=>tr.cells[0].textContent+': '+Array.from(tr.cells).slice(1).map(c=>c.textContent).filter(x=>x!=='+').join(' | '));
-   for(let i=0;i<20 && !document.querySelector('#sl-ky .sl-dc');i++) await w(250);
    o.tom = Array.from(document.querySelectorAll('#sl-ky .sl-tom-dong')).map(x=>x.textContent.slice(0,230));
-   o.dc = Array.from(document.querySelectorAll('.sl-dc-dong')).map(x=>x.textContent.slice(0,120));
+   o.dc = slDoiChieu(await slBo('2026-08')).map(x=>(x.ok?'✅':'⚠')+x.ten+' — '+(x.chu||'').slice(0,100));   // 3.88: đối chiếu nằm trong ② Kiểm tra
    const b = await slDocBang('m10','2026-08-31'); o.luu = 'bảng '+b.n+' dòng · lặp '+(b.lap?b.lap.n:0)+' dòng · sổ ở dòng lặp: '+slMoLap(b).map(x=>x.stk||'(trống)').join(',');
    const c = SL_DB.kh['4800000002']; o.danhBa = 'B: ky '+c.ky+' · sổ '+c.stk+' · 105 '+c.t105+' · món '+c.mon+' | C: sổ '+SL_DB.kh['4800000003'].stk+' · 105 '+SL_DB.kh['4800000003'].t105+' | D món '+SL_DB.kh['4800000004'].mon;
    slTheKH('4800000002'); for(let i=0;i<20 && !document.querySelector('.kh-mon tbody tr');i++) await w(200);
