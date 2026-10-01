@@ -1,5 +1,5 @@
 // 3.88 — tab Số liệu: luồng theo tháng (file của tháng, ② Kiểm tra lưu kết quả, dữ liệu đổi → báo kiểm lại, bảng nhiều tháng thu gọn)
-//        tab 👥 Tổ TK&VV: cây xã → điểm GD → hội → tổ (phím chung + chip), gõ tên tổ, 3 báo cáo (Danh sách hộ vay · Nợ cần xử lý · TK 105) → Xem → In / Excel
+//        tab con 👥 Tổ TK&VV (trong Số liệu): cây xã → điểm GD → hội → tổ (phím chung + chip), gõ tên tổ, 3 báo cáo (Danh sách hộ vay · Nợ cần xử lý · TK 105) → Xem → In / Excel
 // Bộ GIẢ: tests/gia31 (taogia.py 25000 tests/gia31 m31)
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
@@ -24,7 +24,7 @@ const fs=require('fs'), path=require('path');
    // thu gọn bảng nhiều tháng
    const d = document.querySelector('details.sl-tq'); d.open = false; d.dispatchEvent(new Event('toggle')); await w(50); o.tq = 'thu gọn nhớ: '+(D.cauHinh.slTQ===false);
    // tab Tổ
-   doiNgan(8); for(let i=0;i<60 && !document.getElementById('to-cay');i++) await w(250);
+   slDoiTab('to'); for(let i=0;i<60 && !document.getElementById('to-cay');i++) await w(250);
    o.ky = toDsKy().map(x=>x.chu).join(' / '); o.soTo = Object.keys(TO_K.to).length;
    // phím: Enter ở ô Xã trống → báo, đứng lại; chọn xã bằng ↓ rồi Enter → sang ô Điểm GD
    const xa = document.getElementById('to-xa'); xa.focus();
@@ -51,6 +51,6 @@ const fs=require('fs'), path=require('path');
  console.log('=== '+ten); for(const k in r) console.log(k.padEnd(10), typeof r[k]==='object' ? JSON.stringify(r[k]) : r[k]);
  await p.screenshot({path:__dirname+'/t102_'+ten+'_xem.png'});
  await p.evaluate(()=>dongHop()); await p.screenshot({path:__dirname+'/t102_'+ten+'_to.png', fullPage:true});
- await p.evaluate(()=>doiNgan(7)); await p.waitForTimeout(800); await p.screenshot({path:__dirname+'/t102_'+ten+'_sl.png', fullPage:true});
+ await p.evaluate(()=>slDoiTab('nap')); await p.waitForTimeout(800); await p.screenshot({path:__dirname+'/t102_'+ten+'_sl.png', fullPage:true});
  await p.close(); }
  console.log('lỗi', loi); await b.close(); })();
