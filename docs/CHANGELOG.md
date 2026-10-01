@@ -4,6 +4,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.76 — 07/10/2026 10:00 — Ô gõ chữ: ← → chỉ di chuyển trong ô
+- Anh chốt cho an toàn: trong **ô gõ chữ** (tên, ghi chú, số hiệu, trích yếu…) phím **← →** chỉ di con trỏ trong ô, **không nhảy ô** nữa. **Ô chọn** (Xã, Điểm, Ấp, Tổ, Mảng, CT vay…) vẫn dùng ← → qua lại ô, ↑ ↓ chọn. Enter / Tab / Shift giữ nguyên.
+
 ## 3.75 — 07/10/2026 09:00 — AP: tự chụp nhanh hơn · hộp sửa bản quét gọn · quy tắc phím chung
 - **Tự chụp nhanh, đỡ run tay:** giữ yên **0,5 giây** là chụp (trước 1 giây); app dò khung **10 lần/giây** (trước 5); nới ngưỡng rung tay (lệch khung 2,5% → 4%). Trong lúc giữ yên app nhớ **khung hình nét nhất** để lưu, không lấy khung lúc tay vừa run. Máy hỗ trợ thì bật lấy nét liên tục. Nút **⏱** trên màn chụp đổi **⚡ Nhanh 0,5s / Vừa 0,8s / Chắc 1,2s** (nhớ theo máy).
 - **Hộp Sửa bản quét (CCCD và tài liệu) theo kiểu hộp sửa văn bản:** máy tính chia đôi — **trái** ô nhập gọn (Tên · Xã/Điểm/Ấp/Tổ 2 cột · Ghi chú · CT vay và Tag dạng chip nhỏ), nút 📷 Chụp / 🖼 Ảnh nhỏ một hàng; **phải** khung xem bản quét (2 mặt thẻ / các trang, vẫn bỏ · xoay · dời trang được). Lưu + Đóng dính đáy, vừa 1 màn hình. Hướng dẫn dài chuyển thành bong bóng gợi ý trên ô và chữ khi rê chuột vào tiêu đề. Điện thoại: xem ở trên, ô ở dưới.
