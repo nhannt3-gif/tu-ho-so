@@ -27,7 +27,7 @@ const THU = process.argv[2] || 'gia';
    const c=SL_DB.kh[kq[0].m]; t=performance.now(); const k2=slTimKH(c.cccd.slice(-6)); o.timCCCD=k2.length+' kq, đầu: '+(k2[0]&&k2[0].m===kq[0].m)+' '+(performance.now()-t).toFixed(1)+'ms';
    o.timMa=slTimKH(kq[0].m).length; o.timNS=slTimKH(c.ns.slice(8)+'/'+c.ns.slice(5,7)+'/'+c.ns.slice(0,4)).length;
    o.soKH=Object.keys(SL_DB.kh).length;
-   document.getElementById('otim').value='nguyen gia'; veGoiY('vanBan', D.vanBan); o.goiY=document.querySelectorAll('#goiy button').length+' nút, KH: '+Array.from(document.querySelectorAll('#goiy .gy-dau')).map(x=>x.textContent).join(',');
+   document.getElementById('otim').value='nguyen gia'; veGoiY('vanBan', D.vanBan); o.goiY='ô tìm chung (3.86) còn nhóm KH? '+/Khách hàng/.test(document.getElementById('goiy').textContent)+' · '+Array.from(document.querySelectorAll('#goiy .gy-dau')).map(x=>x.textContent).join(',');
    dongGoiY(); document.getElementById('otim').value='';
    slTheKH(kq[0].m); await new Promise(r=>setTimeout(r,1500));
    o.the=document.querySelector('.hop-tit').textContent+' · ô '+document.querySelectorAll('.kh-o').length+' · món '+document.querySelectorAll('.kh-mon tbody tr').length;

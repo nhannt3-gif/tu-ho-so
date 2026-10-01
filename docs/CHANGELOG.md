@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.86 — 08/10/2026 14:00 — Số liệu: Mẫu 31 thay Mẫu 10 · tab con Tra cứu KH độc lập
+- **Mẫu 31 "Tạo hồ sơ tín dụng chi tiết theo kỳ số liệu"** (175 cột, ~22 MB) được nhận vào ô **Hồ sơ tín dụng chi tiết**, thay Mẫu 10 (Mẫu 10 vẫn đọc được). Kỳ lấy theo cột **Ngày số liệu**. **Sửa lỗi 3.85:** file có cột "Tình trạng món vay" không còn bị nhận nhầm là KHĐ / Nợ quá hạn / Nợ khoanh.
+- **Giữ đủ 175 cột** (cột chưa dùng lưu dạng `c_<tên cột>`, gồm cả nhóm XKLĐ, HSSV, hiệu quả đầu tư…) — không phải nạp lại khi cần cột mới. Nén ~3 MB/tháng (file 31/07 thật).
+- **Gộp khế ước trùng:** khách có 2 sổ 105 → hệ thống xuất 2 dòng cùng khế ước; app gộp, cộng số dư 105, **không cộng trùng dư nợ** (file 31/07: 12 khế ước, tránh thừa 493 triệu). Lưu cả **món đã tất toán (CLOSE)** và **khách chỉ gửi tiết kiệm** (không có món).
+- **Đọc nhẹ hơn:** bỏ phần định dạng khi đọc Excel — file 31/07 thật đọc ~24 giây (3.85: ~47 giây), màn hình không treo.
+- **Tóm tắt kỳ:** món đang vay / đã tất toán / khách chỉ gửi TK, giải ngân và thu nợ trong tháng (số hệ thống). **Đối chiếu mới:** dư nợ tháng trước + giải ngân − đảo khoản − thu nợ − gốc xóa = dư nợ tháng này. Kiểm mã thôn bỏ qua khách chỉ gửi TK (thôn 48200000).
+- **Tab Số liệu chia 2 tab con:** **📥 Nạp số liệu** (như 3.85) · **👤 Tra cứu KH** với **ô tìm riêng**: tên không dấu, CCCD, mã KH, **SĐT**, **số khế ước (kể cả món đã tất toán, kỳ cũ)**, ngày sinh. Thẻ khách hàng thêm SĐT, vợ/chồng, giới tính, dân tộc; món: ngày đến hạn, lãi suất, **đã tất toán**, thông tin XKLĐ / HSSV.
+- **Ô tìm chung không còn tra khách hàng** (tránh chồng chéo). Đang ở tab Số liệu mà gõ ô tìm chung → gợi ý **tab có kết quả** (Văn bản, Tháng, Thư viện, Scan, Biểu mẫu) với số kết quả, bấm là sang tab đó.
+
 ## 3.85 — 08/10/2026 09:00 — 📈 Tab Số liệu: nạp bộ Excel hằng tháng · tra khách hàng
 - **Tab mới 📈 Số liệu** (sau tab Tháng): ma trận **7 loại file × 6 kỳ** — Hồ sơ tín dụng chi tiết · Sao kê khách hàng · Món vay 3 tháng KHĐ · Nợ quá hạn · Nợ khoanh · Tổng dư nợ theo CT · Thông tin tổ trưởng. Ô có số liệu ghi ✓ + số dòng + tổng; ô trống bấm **+** để nạp đúng ô đó.
 - **2 cách nạp:** **📥 Nạp cả bộ** (chọn hoặc kéo thả nhiều file — app tự nhận loại + kỳ, xem trước rồi tích file ghi nhận) · **📄 Nạp từng file** (anh chọn loại + kỳ, app vẫn đọc nội dung kiểm lần cuối: sai loại thì chặn, ngày trong file khác kỳ thì báo cho anh chọn).
