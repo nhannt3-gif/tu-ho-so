@@ -2150,6 +2150,17 @@
   .sua-gon .q-chip .the-loc{min-height:19px !important;line-height:17px !important;padding:0 6px !important;font-size:calc(11px*var(--co)) !important}
   .sua-gon .q-chip .goi-y{max-height:68px !important;gap:3px !important}
 
+  /* ===== 3.80 — văn bản liên quan gọn ===== */
+  .sua-gon .sg-2{display:grid;grid-template-columns:1.3fr 1fr;gap:8px;align-items:start}
+  .sua-gon .sg-2 .o{margin-bottom:0 !important;min-width:0}
+  .sua-gon .sg-2 .chip-o{flex-wrap:nowrap;overflow:hidden}
+  .sua-gon .sg-2 .chip-o .lq-ds{display:flex;flex-wrap:nowrap;gap:3px;overflow-x:auto;scrollbar-width:none;flex:0 1 auto;min-width:0}
+  .sua-gon .sg-2 .chip-o input{flex:1 0 70px;min-width:70px}
+  .sua-gon .lq-chip{white-space:nowrap;flex:0 0 auto;padding:0 2px 0 7px !important;min-height:20px;font-size:calc(11.5px*var(--co))}
+  .sua-gon .sg-khoi textarea#s-tom{min-height:29px !important;height:29px !important;resize:vertical;padding-top:4px}
+  .sua-gon .sg-hd{line-height:1.25 !important;font-size:calc(11px*var(--co)) !important}
+  @media (max-width:899px){ .sua-gon .sg-2{grid-template-columns:1fr} }
+
   /* ===== 3.77 — lọc không sót + văn bản trùng ===== */
   .the-loc.loc-trong{font-style:italic;border-style:dashed !important}
   @media (min-width:900px){ .loc-nhanh.gon .ln-hang:first-child{flex-wrap:wrap;overflow:visible;row-gap:3px} }   /* nhóm ngắn được xuống dòng — không nhóm nào bị che */
@@ -2606,7 +2617,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.79.1', APP_LUC = '07/10/2026 19:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.80', APP_LUC = '07/10/2026 20:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -10114,7 +10125,7 @@ function tvbChon(id, vid){
 var LQ_SUA = {id:'', ds:[]};
 function lqSuaHTML(){
   var ds = LQ_SUA.ds.map(timMuc).filter(Boolean).sort(function(a, b){ return (a.ngay||'').localeCompare(b.ngay||''); });
-  return ds.length ? ds.map(function(v){ return '<span class="lq-chip'+(v.hetHieuLuc?' het':'')+'" title="'+coChuHTML((v.soHieu?v.soHieu+' — ':'')+(v.tenVB||v.trichYeu||v.tenMoi||'')+(v.ngay?' · '+ngayVN(v.ngay):''))+'">'+coChuHTML(tenNganVB(v))+' <small>'+ngayVN(v.ngay||'')+'</small>'+
+  return ds.length ? ds.map(function(v){ return '<span class="lq-chip'+(v.hetHieuLuc?' het':'')+'" title="'+coChuHTML((v.soHieu?v.soHieu+' — ':'')+(v.tenVB||v.trichYeu||v.tenMoi||'')+(v.ngay?' · '+ngayVN(v.ngay):''))+'">'+coChuHTML(v.soHieu || tenNganVB(v).slice(0, 24))+   /* 3.80: chip chỉ số hiệu — rê chuột thấy tên + ngày */
     '<button type="button" tabindex="-1" title="Xem văn bản này ở khung bên cạnh (không đóng hộp)" onclick="lqXemBen(\''+v.id+'\')">↗</button>'+
     '<button type="button" tabindex="-1" title="Gỡ liên kết" onclick="lqBoSua(\''+v.id+'\')">✕</button></span>'; }).join('') : '';
 }
@@ -10276,7 +10287,7 @@ function sgHd(el){
   var lb0 = el.closest('.o') && el.closest('.o').querySelector('label'), ten0 = lb0 ? lb0.childNodes[0].textContent.trim() : '';
   var nd = sgNoiDungHd(el);
   e.innerHTML = '<span class="sg-goi">💡 <b>'+coChuHTML(ten0||'Ô đang gõ')+'</b>'+(nd ? ' — '+nd : '')+'</span>'+
-    '<span class="sg-phim">⌨ Enter / Tab ô kế · Shift lùi'+(el.tagName==='SELECT' ? ' · ← → qua ô · ↑ ↓ chọn' : '')+' · Ctrl+Enter Lưu</span>';
+    (nd ? '' : '<span class="sg-phim">⌨ Enter / Tab ô kế · Shift lùi'+(el.tagName==='SELECT' ? ' · ← → qua ô · ↑ ↓ chọn' : '')+' · Ctrl+Enter Lưu</span>');   /* 3.80: có hướng dẫn thì bỏ phím tắt cho đủ chỗ */
   return;
   var g = SG_HD[el.id] || GOI_Y_O[el.id], lb = el.closest('.o') && el.closest('.o').querySelector('label');
   var ten = lb ? lb.childNodes[0].textContent.trim() : '';
@@ -10473,7 +10484,7 @@ function suaCho(id){
     nd += '<div class="o"><label>Tên văn bản <small>— vào tên file</small></label><input id="s-ty" autocomplete="off" value="'+
       coChuHTML(m.tenVB||m.trichYeu||'')+'" placeholder="Triển khai thực hiện Quyết định 70/QĐ-HĐQT" oninput="xemTenTruoc()"></div>';
     nd += '<div class="o"><label>Trích yếu <small>— không bắt buộc, chỉ ghi thêm ý chính để tìm (không lặp lại tên)</small></label>'+
-      '<textarea id="s-tom" rows="2" placeholder="vd: thành lập, củng cố Tổ; bình xét cho vay">'+coChuHTML(m.tomTat||'')+'</textarea></div>';
+      '<textarea id="s-tom" rows="1" placeholder="vd: thành lập, củng cố Tổ; bình xét cho vay">'+coChuHTML(m.tomTat||'')+'</textarea></div>';
 
     pl += '<div class="sg-3">'+
       sgChon('Mảng nghiệp vụ', 's-mang', xepTheoDung('mang', dsMang()), m.mang||'', '— chọn mảng —')+
@@ -10486,13 +10497,13 @@ function suaCho(id){
         '<input id="s-tag-go" autocomplete="off" placeholder="＋ tag / lọc" oninput="tgLoc()"></div></div>';
 
     LQ_SUA = {id:m.id, ds:lqCua(m).map(function(v){ return v.id; })};
-    qh += '<div class="o"><label>🔗 Văn bản liên quan <small>— gõ số hiệu, Enter thêm · liên kết 2 chiều</small></label>'+
+    qh += '<div class="sg-2"><div class="o"><label>🔗 Văn bản liên quan <small>— gõ số hiệu, Enter thêm</small></label>'+   /* 3.80: liên quan + ghi chú chung 1 hàng */
       '<div class="chip-o tvb" id="lq-o"><span class="lq-ds" id="lq-ds">'+lqSuaHTML()+'</span>'+
         '<input id="s-lq-tim" autocomplete="off" placeholder="vd: 70/QĐ" oninput="tvbGoi(\'s-lq\',\''+m.id+'\')" onfocus="tvbGoi(\'s-lq\',\''+m.id+'\')" '+
           'onblur="setTimeout(function(){ var d = document.getElementById(\'s-lq-ds\'); if(d) d.innerHTML = \'\'; }, 150)">'+
         '<input type="hidden" id="s-lq"><div class="tvb-ds" id="s-lq-ds"></div></div></div>';
-    qh += '<div class="o"><label>Ghi chú riêng <small>— chỉ trong app, không đưa lên Drive</small></label>'+
-      '<input id="s-ghi" autocomplete="off" value="'+coChuHTML(m.ghiChu||'')+'" placeholder="vd: Đã phổ biến ở giao ban tháng 10"></div>';
+    qh += '<div class="o"><label>Ghi chú riêng <small>— chỉ trong app</small></label>'+
+      '<input id="s-ghi" autocomplete="off" value="'+coChuHTML(m.ghiChu||'')+'" placeholder="vd: Đã phổ biến ở giao ban tháng 10"></div></div>';
   }
 
   var duongHT = thuMucCua(m);   /* 3.69: 1 dòng, đủ 5 nút; ✎ mới cho sửa */
@@ -10526,7 +10537,7 @@ function suaCho(id){
       (coTheDocLai(m) ? '<button class="nho sg-ico" type="button" onclick="docLaiGoiY(\''+id+'\', true)" title="Đọc lại &amp; gợi ý tên — đọc chữ trang 1 (lớp chữ của PDF, hoặc OCR nếu là PDF chụp / ảnh) để gợi ý số hiệu, ngày, tên văn bản">🔍</button>' : '')+
     '</div>'+
     '<div class="dau-nhom sg-nhom"><span>Nhóm</span>'+nhomHTML+'</div>'+
-    '<div class="sg-hd" id="sg-hd"><span class="sg-goi">💡 Bấm vào ô để xem hướng dẫn và ví dụ</span><span class="sg-phim">⌨ Enter / Tab ô kế · Shift lùi · Ctrl+Enter Lưu · Esc đóng</span></div>'+
+    '<div class="sg-hd" id="sg-hd"><span class="sg-goi">💡 Bấm vào ô để xem hướng dẫn · <span class="sg-vd">⌨ Enter / Tab ô kế · Shift lùi · Ctrl+Enter Lưu · Esc đóng</span></span></div>'+
     than+
     '<div class="day-form">'+
       (laCho?'':'<a class="xoa-nho" onclick="xoaMuc(\''+id+'\')">Xóa khỏi tủ</a>')+
@@ -11806,7 +11817,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.79.1', ds:[
+var CO_GI_MOI = {ban:'3.80', ds:[
+  ['🔗 Hộp sửa: văn bản liên quan chỉ ghi số hiệu (rê chuột thấy tên), chung 1 hàng với Ghi chú riêng; Trích yếu 1 dòng — vừa 1 khung cả màn 1280', "dongHop();doiNgan(1)"],
   ['🛠 Sửa lỗi mất danh sách Scan (xóa / gộp văn bản trước khi mở tab Scan) · tab Scan có nút ♻ Khôi phục từ ảnh còn trong máy', "dongHop();doiNgan(4)"],
   ['▭ Hộp sửa gọn trong 1 khung: chip tag nhỏ (3 hàng, cuộn trong khối), ô ＋ tag đứng đầu, hàng nút Lưu / Thôi thấp lại', "dongHop();doiNgan(1)"],
   ['💡 Hộp sửa: hướng dẫn + ví dụ hiện ở dải chip xanh cố định đầu hộp — không còn bong bóng che ô', "dongHop();doiNgan(1)"],
