@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.80 · build 07/10/2026 20:00
+**Bản hiện tại:** 3.80.1 · build 07/10/2026 21:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.80.1) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Scan: các bản tài liệu có ☁ đường dẫn Drive | Không còn "⚠ Chưa có trang"; chip "☁ PDF trên Drive"; bấm xem mở được PDF | |
+| 2 | Nếu còn thanh đỏ ♻ Khôi phục → bấm | Gắn ảnh vào đúng bản đã có, không sinh bản trùng | |
+
+**Ghi chú kỹ thuật 3.80.1:** `ttScan` bỏ "Chưa có trang" khi có `driveId`; chip trang ở dòng Scan; `lapScanKhoiPhuc` trả `{gan:muc, trang|matTruoc|matSau}` cho mã đã có (không sửa dữ liệu khi chỉ đếm), `khoiPhucScan` mới gắn. Phép thử `t92.js`.
 
 ### Danh sách thử trên máy thật (3.80) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
