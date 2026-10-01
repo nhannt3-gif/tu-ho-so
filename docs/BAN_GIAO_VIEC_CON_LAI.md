@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.81 · build 07/10/2026 22:00
+**Bản hiện tại:** 3.82 · build 07/10/2026 23:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.82) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Gõ tên 1 khách đang nợ ở ô tìm | Có dòng 🏠 Hồ sơ hộ; bấm → 1 trang đủ CCCD, hồ sơ, món vay, lần làm việc | |
+| 2 | Tab Scan → 🏠 trên 1 dòng | Mở hồ sơ hộ của khách đó; không lẫn người trùng tên khác tổ | |
+| 3 | 🖨 In / gửi bộ giấy tờ | Ghép CCCD + hồ sơ quét thành 1 file để in / gửi | |
+
+**Ghi chú kỹ thuật 3.82:** `tenChuanHo`, `khopTenHo` (tên hộ nằm trọn trong tên kia, ≥ 2 chữ), `maToTu`, `thuThapHo(q)` ({maKH} hoặc {ten, maTo}), `moHoSoHo`, `moHoSoTuScan`, `timHo` (gợi ý ô tìm, `HO_GY`). Nút trên `tdnTheHTML`, `dongScanHTML`; `veGoiY` thêm nhóm 🏠. Phép thử `t94.js` (tên giả).
 
 ### Danh sách thử trên máy thật (3.81) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
