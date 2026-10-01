@@ -2789,7 +2789,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.88', APP_LUC = '01/10/2026 21:52';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.88.1', APP_LUC = '01/10/2026 22:18';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12273,7 +12273,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.88', ds:[
+var CO_GI_MOI = {ban:'3.88.1', ds:[
+  ['🛠 Tổ TK&VV: máy chưa có bảng số liệu (lưu trên Drive, chưa tải về) thì cây tổ vẫn hiện (lấy từ danh bạ) và báo rõ, có nút ☁ Nối Drive và tải / ⟳ Thử lại — trước đây cây trống, không báo', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['👥 Số liệu có thêm tab con Tổ TK&VV (cạnh Tra cứu KH): chọn tổ theo cây Xã → Điểm GD → Hội → Tổ (phím như các hộp khác, chip chọn nhanh) hoặc gõ tên tổ trưởng; tích báo cáo → Xem → In / Excel: Danh sách hộ vay · Nợ cần xử lý (quá hạn, khoanh, KHĐ trên 1 trang A4) · TK 105 của tổ', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['📈 Số liệu theo tháng: chọn tháng → ① file của tháng (đủ / thiếu, nạp ngay) → ② 🔍 Kiểm tra (đủ file, toàn vẹn, khớp giữa các file, với tháng trước, Mẫu 31 ↔ Mẫu 10, theo từng tổ với Mẫu 7) — kết quả lưu lại, dữ liệu đổi thì báo kiểm lại; bảng nhiều tháng thu gọn được', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['📈 Số liệu: tách Mẫu 31 (chốt tháng) và Mẫu 10 (dư nợ theo ngày, nạp ngày nào cũng được) — app tự nhận loại theo cột, tự đọc ngày số liệu; Mẫu 10 đã nạp trước đây tự chuyển sang dòng mới, không mất dữ liệu', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
@@ -22514,11 +22515,18 @@ function toNap(ky){
     K.hs = Bm.co.hstd || []; K.lap = Bm.lap || []; K.hsTen = Bm.hsTen==='Mẫu 31' ? 'Mẫu 31 '+kyVN(ky) : Bm.hsTen;
   }).then(function(){
     K.B = Bm; var T = {}, KH = {};
+    /* 3.88.1: bảng món vay chưa có trong máy (nằm trên Drive, chưa tải được) → vẫn dựng cây tổ từ danh bạ, báo rõ để anh nối Drive */
+    var eHS = ky.length>7 ? SLM.bang[slKhoa('m10', ky)] : (SLM.bang[slKhoa('hstd', ky)] || SLM.bang[slKhoa('m10', tdnCuoiKy(ky))]);
+    K.thieuBang = !K.hs.length && !!eHS && (eHS.soDong||0) > 0;
     var lay = function(ma){ return T[ma] = T[ma] || {ma:ma}; };
     var chung = [['xa','xa'],['tenXa','tenXa'],['thon','thon'],['tenThon','tenThon'],['dv','dv'],['ten','toTen']];
     K.hs.forEach(function(o){ if(!o.to) return; toDien(lay(o.to), o, chung); (KH[o.to] = KH[o.to] || []).push(o); });
     (Bm.co.kttk||[]).forEach(function(o){ var t = lay(o.to); t.k7 = o; toDien(t, o, chung.concat([['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD']])); });
     (Bm.co.tt||[]).forEach(function(o){ var t = lay(o.to); t.tt = o; toDien(t, o, chung.concat([['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD'],['sdt','sdt'],['pho','phoTen']])); });
+    if(K.thieuBang && SL_DB){
+      Object.keys(SL_DB.kh||{}).forEach(function(m){ var c = SL_DB.kh[m]; if(c.to) toDien(lay(c.to), c, chung); });
+      Object.keys(SL_DB.to||{}).forEach(function(ma){ var c = SL_DB.to[ma], t = T[ma]; if(t) toDien(t, c, [['ten','ten'],['sdt','sdt'],['pho','pho'],['tenDiem','diem'],['ngayGD','ngayGD']]); });
+    }
     K.to = T; K.kh = KH;
     /* tổ chưa có điểm GD (tháng này chưa nạp Thông tin tổ trưởng / Mẫu 7) → lấy thông tin tổ ở tháng gần nhất có file (thông tin tổ ít đổi) */
     var thieu = function(){ return Object.keys(T).some(function(ma){ return !T[ma].diem; }); };
@@ -22539,8 +22547,12 @@ function veToTK(){
   var C = toCH(), dsKy = toDsKy();
   if(!dsKy.length){ e.innerHTML = slTabConHTML()+'<div class="rong">Chưa có số liệu món vay. Nạp Mẫu 31 hoặc Mẫu 10 ở tab <b>📈 Số liệu</b> trước.</div>'; return; }
   if(!dsKy.some(function(x){ return x.ky===C.ky; })) C.ky = dsKy[0].ky;
-  e.innerHTML = slTabConHTML()+'<div class="rong">Đang mở số liệu '+slKyChu(C.ky)+'…</div>';
-  toNap(C.ky).then(function(K){ if(nganHienTai===7 && D.cauHinh.slTab==='to') toVe(K, dsKy); });
+  e.innerHTML = slTabConHTML()+'<div class="rong">Đang mở số liệu '+slKyChu(C.ky)+'… (bảng chưa có trong máy thì tải từ Drive)</div>';
+  toNap(C.ky).then(function(K){ if(nganHienTai===7 && D.cauHinh.slTab==='to') toVe(K, dsKy); })
+    .catch(function(er){ var o = document.getElementById('tr7'); if(o && D.cauHinh.slTab==='to') o.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" onclick="toThuLai()">⟳ Thử lại</button></div>'; });
+}
+function toThuLai(){ TO_K = null; SL_BO = {}; veToTK(); }
+function toNoiDrive(){ noiDrive(false).then(function(co){ if(co) toThuLai(); }).catch(function(er){ baoLoi('Chưa nối được Drive: '+(er && er.message || er)); });
 }
 function toDoiKy(ky){ toCH().ky = ky; luu(); veToTK(); }
 function toVe(K, dsKy){
@@ -22548,6 +22560,8 @@ function toVe(K, dsKy){
   var C = toCH();
   e.innerHTML = slTabConHTML()+'<div class="to-dau"><label>Số liệu <select onchange="toDoiKy(this.value)">'+dsKy.map(function(x){ return '<option value="'+x.ky+'"'+(x.ky===C.ky ? ' selected' : '')+'>'+coChuHTML(x.chu)+'</option>'; }).join('')+'</select></label></div>'+
     '<div class="to-tim"><span>🔎</span><input id="to-tim" autocomplete="off" value="'+coChuHTML(TO_Q)+'" placeholder="Gõ tên tổ trưởng, mã tổ, tên ấp…" oninput="TO_Q=this.value;toTim()" onkeydown="if(event.key===\'Enter\'){var b=document.querySelector(\'#to-gy button\');if(b){event.preventDefault();b.click();}}"></div><div id="to-gy"></div>'+
+    (K.thieuBang ? '<div class="sl-bao vang">⚠ Bảng số liệu '+coChuHTML(slKyChu(C.ky))+' <b>chưa có trên máy này</b> (lưu trên Drive nhưng chưa tải về — Drive chưa nối hoặc hết phiên). Cây tổ đang lấy tạm từ danh bạ; báo cáo cần bảng số liệu.'+
+      '<div class="hang-nut"><button class="nho chinh" onclick="toNoiDrive()">☁ Nối Drive và tải</button><button class="nho" onclick="toThuLai()">⟳ Thử lại</button></div></div>' : '')+
     '<div id="to-cay" class="to-cay"></div><div id="to-the"></div>';
   toVeCay(); if(TO_Q) toTim();
 }
@@ -22783,6 +22797,7 @@ var TO_IN_CSS = '@page{size:A4 portrait;margin:9mm 8mm 10mm 12mm}body{font-famil
 var TO_XEM = [];
 function toXem(){
   var C = toCH(), t = TO_K && TO_K.to[C.to]; if(!t) return bao('Chọn tổ trước.', 3);
+  if(TO_K.thieuBang) return bao('Bảng số liệu chưa có trên máy này — bấm ☁ Nối Drive và tải (hoặc nạp lại file) rồi xem báo cáo.', 6);
   var ds = TO_BC.filter(function(b){ return C.bc && C.bc[b.k]; }); if(!ds.length) return bao('Tích ít nhất 1 báo cáo.', 3);
   batChay(true, 'Đang lập báo cáo…');
   ds.reduce(function(p, b){ return p.then(function(ra){ return Promise.resolve(toBaoCao(b.k, t)).then(function(x){ ra.push(x); return ra; }); }); }, Promise.resolve([])).then(function(R){

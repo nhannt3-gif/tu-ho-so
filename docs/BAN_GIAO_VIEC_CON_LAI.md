@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.88 · build 01/10/2026 21:52
+**Bản hiện tại:** 3.88.1 · build 01/10/2026 22:18
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.88.1) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu › 👥 Tổ TK&VV trên máy đang báo cây trống | Cây có xã / điểm / hội / tổ; nếu máy chưa có bảng thì có cảnh báo vàng + nút ☁ Nối Drive và tải → bấm, đăng nhập → cảnh báo mất, xem được báo cáo | |
+
+**Ghi chú kỹ thuật 3.88.1:** `toNap` đặt `K.thieuBang` (có ô số liệu trong chỉ mục nhưng bảng không mở được) → dựng cây từ `SL_DB.kh` / `SL_DB.to`; `toVe` hiện cảnh báo + `toNoiDrive` (`noiDrive(false)` rồi `toThuLai`), `toThuLai` (xóa `TO_K`, `SL_BO`); `veToTK` có `.catch`; `toXem` chặn khi `thieuBang`. Phép thử `tests/t103.js`.
 
 ### Danh sách thử trên máy thật (3.88) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

@@ -4,6 +4,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.88.1 — 01/10/2026 22:18 — Sửa: cây tổ trống khi máy chưa có bảng số liệu
+- Máy chưa có bảng số liệu (lưu trên Drive nhưng chưa tải về — Drive chưa nối / hết phiên; thường là máy khác máy đã nạp): tab con Tổ TK&VV ra cây trống, không báo. Nay: cây tổ dựng tạm từ danh bạ khách hàng, có cảnh báo vàng + nút **☁ Nối Drive và tải** / **⟳ Thử lại**; nối được thì tải bảng, hết cảnh báo. Lỗi khi mở số liệu → báo lỗi + Thử lại (trước đây đứng ở "Đang mở…"). Xem báo cáo khi chưa có bảng → nhắc nối Drive.
+
 ## 3.88 — 01/10/2026 21:52 — 👥 Tab con Tổ TK&VV (3 báo cáo của tổ) · Số liệu: luồng theo tháng + nút Kiểm tra
 - **Tab con mới 👥 Tổ TK&VV** trong tab Số liệu, cạnh 👤 Tra cứu KH (anh chốt; chỉ ĐỌC số liệu): chọn **kỳ số liệu** (Mẫu 31 theo tháng / Mẫu 10 theo ngày) → chọn tổ theo cây **Xã → Điểm GD → Hội → Tổ** (ô chọn theo **phím chung**: Enter / Tab sang 1 ô, Shift lùi, ← → ↑ ↓ ở ô chọn, ô cha trống thì báo; đủ chỗ thì có thêm **chip** bấm nhanh; cấp chỉ có 1 lựa chọn tự chọn) hoặc **gõ tên tổ trưởng / mã tổ / ấp**. Thẻ tổ: địa chỉ, điểm GD (ngày GD), hội, tổ phó, SĐT, chỉ tiêu nhanh (tổ viên, còn dư nợ, dư nợ, tỷ lệ quá hạn, khoanh, 105, xếp loại Mẫu 7). Tháng chưa nạp Thông tin tổ trưởng / Mẫu 7 → thông tin tổ lấy ở tháng gần nhất có file.
 - **3 báo cáo** (tích → 👁 Xem → 🖨 In / PDF hoặc 📊 Excel; chỉ là thông tin để xem, in; A4 dọc; cuối trang để trống):
