@@ -2137,6 +2137,21 @@
   .ctv-ma{font-weight:700;color:var(--xanh-dam);cursor:pointer;text-decoration:underline dotted}
   .ctv-nhan{font-size:10.5px;color:var(--luc);border:1px solid #C4E3D0;border-radius:8px;padding:0 5px;white-space:nowrap}
   .ctv-nguon{font-size:calc(11px*var(--co));color:var(--chu-phu)}
+  /* ===== 3.77 — lọc không sót + văn bản trùng ===== */
+  .the-loc.loc-trong{font-style:italic;border-style:dashed !important}
+  @media (min-width:900px){ .loc-nhanh.gon .ln-hang:first-child{flex-wrap:wrap;overflow:visible;row-gap:3px} }   /* nhóm ngắn được xuống dòng — không nhóm nào bị che */
+  .the-loc.loc-trung{color:var(--do);border-color:#E5B4AE !important}
+  .the-loc.loc-trung.bat{background:#FCEDEC;color:var(--do)}
+  .tg.trung{background:#FCEDEC;color:var(--do);font-weight:600}
+  .tg.trung a{color:inherit;cursor:pointer;text-decoration:underline dotted}
+  .gop-ds{display:grid;gap:6px;margin:8px 0}
+  .gop-dong{display:flex;gap:9px;align-items:flex-start;border:1.3px solid var(--vien);border-radius:9px;padding:7px 9px;cursor:pointer}
+  .gop-dong:has(input:checked){border-color:var(--xanh);background:var(--xanh-nhat)}
+  .gop-dong input{margin-top:3px}
+  .gop-nd{flex:1;min-width:0;display:grid;gap:2px}
+  .gop-nd b{font-size:calc(12.5px*var(--co));word-break:break-word}
+  .gop-nd small{color:var(--chu-phu);font-size:calc(11.5px*var(--co))}
+
   /* ===== 3.75 — AP hộp sửa bản quét gọn 1 màn hình + khung xem bên cạnh ===== */
   .quet-gon .hop-tit{text-align:left;margin-bottom:4px;cursor:help}
   .quet-gon .q-db{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px}
@@ -2563,7 +2578,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.76', APP_LUC = '07/10/2026 10:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.77', APP_LUC = '07/10/2026 14:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -5883,6 +5898,7 @@ function kyThieu(){
 
 /* ----- ngăn 1: VĂN BẢN ----- */
 function veVanBan(){
+  tinhTrungSH();   /* 3.77 */
   document.getElementById('nam-vb').innerHTML =
     veDauTab('vanBan', {kho:D.vanBan, 
       themPhu:'<button class="phu" onclick="lapChiMuc()" title="Lập chỉ mục: đi hết thư mục Tủ hồ sơ, file nào chưa có trong app thì xếp vào đúng tab">🗂 Lập chỉ mục</button>',
@@ -5910,7 +5926,9 @@ function veVanBan(){
     return;
   }
   var ds = locTheoThe('vanBan', locChuan('vanBan', loc(D.vanBan, tuKhoa)));
-  ds = sapXep(ds, 'vanBan'); BOT_DS.vanBan = ds;
+  ds = sapXep(ds, 'vanBan');
+  if(locCua('vanBan').trung) ds = ds.slice().sort(function(a, b){ return khoaTrungVB(a).localeCompare(khoaTrungVB(b)); });   /* 3.77: các bản trùng đứng cạnh nhau */
+  BOT_DS.vanBan = ds;
   if(kieuXem==='ds') ds = xepChaCon(ds); else CON_ID = {};
   /* đếm VB hết hiệu lực đang bị ẩn (cùng điều kiện lọc, tạm bật "hiện cả hết hiệu lực") */
   var L0 = locCua('vanBan'), anHet = 0;
@@ -8981,6 +8999,10 @@ function duyet(id, imLang){
   if(m0 && m0.nhom==='duLieu' && laKyChot(m0.ky) && !m0.xacNhanChot && !imLang)
     return hoi('Kỳ '+kyVN(m0.ky)+' đã chốt', 'Kỳ này anh đã chốt đủ bộ. Vẫn lưu thêm “'+(m0.tenMoi||'')+'” vào kỳ này?',
       'Vẫn lưu', function(){ m0.xacNhanChot = true; duyet(id); });
+  /* 3.77: văn bản trùng số hiệu + năm với bản đã có → hỏi Giữ cả 2 / Bỏ file mới / Lưu rồi gộp */
+  if(m0 && m0.nhom!=='duLieu' && m0.nhom!=='ghiChu' && !imLang && !m0.xacNhanTrung){
+    var trVB = vbTrungVoi(m0); if(trVB.length) return hoiTrungVB(m0, trVB);
+  }
   /* 3.23: app KHÔNG còn chặn theo nội dung đọc được — chỉ gợi ý, anh quyết */
   if(m0 && m0.nhom==='duLieu' && !imLang && !m0.banPhu)
     return hoiTrungBanCuoi(m0, function(){ duyetThat(id, imLang); });
@@ -11741,7 +11763,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.76', ds:[
+var CO_GI_MOI = {ban:'3.77', ds:[
+  ['⚠ Văn bản trùng số hiệu: chip ⚠ trùng trên dòng + chip lọc "Trùng số hiệu"; bấm để Gộp (giữ 1 bản, gộp liên quan, tag, ⭐; bản kia vào thùng rác)', "dongHop();doiNgan(1)"],
+  ['📥 Lưu file mới trùng số hiệu + năm với văn bản đã có → hỏi Bỏ file mới / Giữ cả 2 / Lưu rồi gộp', "dongHop();doiNgan(1)"],
+  ['🔎 Lọc không sót: mỗi nhóm có chip Chưa gắn… (chưa có ngày, mảng, CT, tag); lọc 1 CT ra cả văn bản Tất cả CT', "dongHop();doiNgan(1)"],
   ['⌨ Ô gõ chữ: ← → chỉ di chuyển trong ô (không nhảy ô) · ô chọn (Xã, Ấp, Tổ…) vẫn ← → qua lại ô', "dongHop();doiNgan(4)"],
   ['📷 Tự chụp nhanh hơn: giữ yên 0,5 giây (trước 1 giây), đỡ run tay; app lấy khung hình nét nhất · nút ⏱ đổi Nhanh / Vừa / Chắc', "dongHop();doiNgan(4)"],
   ['🪪 Hộp sửa bản quét gọn 1 màn hình: trái ô nhập, phải xem bản quét — giống hộp sửa văn bản', "dongHop();doiNgan(4)"],
@@ -14827,6 +14852,89 @@ function tuDonRac(){
   if(ids.length){ TU_DON_RAC = true; thucHienXoaHan(ids, true); }
 }
 var TU_DON_RAC = false;
+/* ==========================================================
+   3.77 — VĂN BẢN TRÙNG: cùng số hiệu (bỏ dấu, khoảng trắng, gạch) + cùng năm ban hành
+   (trước chỉ bắt trùng khi nội dung file giống hệt từng byte → cùng văn bản tải 2 nguồn thì lọt)
+   ========================================================== */
+var TRUNG_SH = {};
+function khoaTrungVB(m){
+  var so = boDau(m && m.soHieu || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if(!so || !/\d/.test(so) || !/[A-Z]/.test(so)) return '';
+  return so+'|'+String(m.ngay||'').slice(0, 4);
+}
+function tinhTrungSH(){
+  var g = {}; TRUNG_SH = {};
+  (D.vanBan||[]).forEach(function(m){ var k = khoaTrungVB(m); if(k) (g[k] = g[k] || []).push(m.id); });
+  Object.keys(g).forEach(function(k){ if(g[k].length>1) g[k].forEach(function(id){ TRUNG_SH[id] = g[k]; }); });
+  return TRUNG_SH;
+}
+function vbTrungVoi(m){
+  var k = khoaTrungVB(m); if(!k) return [];
+  return (D.vanBan||[]).filter(function(v){ return v.id!==m.id && khoaTrungVB(v)===k; });
+}
+/* hộp gộp: chọn bản giữ lại — bản kia gộp liên kết, tag, CT, sao, ghi chú sang rồi vào Thùng rác (hoàn tác được) */
+var GOP_TRUNG = null;
+function moGopTrung(id){
+  tinhTrungSH();
+  var ds = (TRUNG_SH[id]||[]).map(timMuc).filter(Boolean);
+  if(ds.length<2) return bao('Văn bản này không còn bản trùng.', 3);
+  var diem = function(m){ return (m.lienQuan||[]).length*3 + (m.tag||m.the||[]).length + (m.ctrinh||[]).length + (m.driveId?4:0) + (laSao(m)?2:0) + (m.tomTat?1:0) + (m.ghi?1:0); };
+  var giu = ds.slice().sort(function(a, b){ return diem(b)-diem(a) || String(a.themLuc||a.taoLuc||'').localeCompare(String(b.themLuc||b.taoLuc||'')); })[0];
+  GOP_TRUNG = {ids:ds.map(function(m){ return m.id; }), giu:giu.id};
+  moHop('<div class="hop-tit">Gộp văn bản trùng · '+coChuHTML(ds[0].soHieu||'')+'</div>'+
+    '<div class="hop-phu">'+ds.length+' bản cùng số hiệu, cùng năm. Chọn <b>bản giữ lại</b> — các bản kia gộp hết <b>văn bản liên quan, tag, CT vay, mảng, ⭐, ghi chú</b> sang bản giữ, rồi vào <b>Thùng rác</b> (lấy lại được 30 ngày).</div>'+
+    '<div class="gop-ds">'+ds.map(function(m){
+      var lq = lqCua(m);
+      return '<label class="gop-dong"><input type="radio" name="gop-giu" value="'+m.id+'"'+(m.id===giu.id?' checked':'')+' onchange="GOP_TRUNG.giu=this.value">'+
+        '<span class="gop-nd"><b>'+coChuHTML(m.tenMoi||m.tenCu||'')+'</b>'+
+        '<small>'+[m.themLuc||m.taoLuc ? 'thêm '+ngayVN(String(m.themLuc||m.taoLuc).slice(0,10)) : '', m.co ? kichCo(m.co) : '', m.driveId ? '☁ có trên Drive' : '💻 chỉ trong máy',
+          lq.length ? '🔗 '+lq.map(function(v){ return v.soHieu || tenNganVB(v); }).join(', ') : 'chưa có liên quan',
+          (m.tag||m.the||[]).length ? '🏷 '+(m.tag||m.the).join(', ') : '', laSao(m) ? '⭐' : ''].filter(Boolean).map(coChuHTML).join(' · ')+'</small></span>'+
+        '<button type="button" class="nho sg-ico" onclick="event.preventDefault();xemBanTrung(\''+m.id+'\')" title="Xem bản này ở khung bên phải">↗ Xem</button></label>';
+    }).join('')+'</div>'+
+    '<div class="day-form"><button class="nho" onclick="dongHop()">Đóng (Esc)</button>'+
+    '<button class="nho chinh" onclick="gopTrung()">Gộp, giữ bản đã chọn</button></div>');
+}
+function xemBanTrung(id){ dongHop(); chonDong(id); baoNut('Đang xem 1 bản trùng.', 'Mở lại hộp gộp', function(){ moGopTrung(id); }); }
+function gopTrung(){
+  if(!GOP_TRUNG) return;
+  var giu = timMuc(GOP_TRUNG.giu); if(!giu) return;
+  var bo = GOP_TRUNG.ids.filter(function(x){ return x!==giu.id; }).map(timMuc).filter(Boolean);
+  var now = new Date().toISOString(), hop = function(a, b){ (b||[]).forEach(function(x){ if(x && a.indexOf(x)<0) a.push(x); }); return a; };
+  bo.forEach(function(b){
+    (b.lienQuan||[]).slice().forEach(function(id2){ var v = timMuc(id2); if(v) lqGo(b, v, now); if(v && v.id!==giu.id) lqNoi(giu, v, now); });
+    if((b.tag||[]).length) giu.tag = hop(giu.tag||[], b.tag);
+    if((b.the||[]).length) giu.the = hop(giu.the||[], b.the);
+    if((b.ctrinh||[]).length) giu.ctrinh = hop(giu.ctrinh||[], b.ctrinh);
+    if(!giu.mang && b.mang) giu.mang = b.mang;
+    if(!giu.loai && b.loai) giu.loai = b.loai;
+    if(!giu.trichYeu && b.trichYeu) giu.trichYeu = b.trichYeu;
+    if((b.tomTat||'').length > (giu.tomTat||'').length) giu.tomTat = b.tomTat;
+    if(b.ghi && (giu.ghi||'').indexOf(b.ghi)<0) giu.ghi = (giu.ghi ? giu.ghi+' · ' : '')+b.ghi;
+    if(laSao(b) && !laSao(giu)) giu.sao = true;
+  });
+  giu.suaLuc = now; GOP_TRUNG = null;
+  luu(); dongHop();
+  xoaNhieuVaoRac(bo.map(function(b){ return b.id; }), function(){ tinhTrungSH(); });
+  bao('Đã gộp '+(bo.length+1)+' bản trùng — giữ: '+(giu.tenMoi||giu.soHieu||''), 5);
+}
+/* khi lưu file mới (khay chờ) trùng số hiệu + năm với văn bản đã có → hỏi */
+function hoiTrungVB(m0, tr){
+  moHop('<div class="hop-tit">⚠ Văn bản này đã có trong tủ</div>'+
+    '<div class="hop-phu">File mới <b>'+coChuHTML(m0.tenMoi||m0.tenCu||'')+'</b> cùng số hiệu <b>'+coChuHTML(m0.soHieu||'')+'</b>, cùng năm với:</div>'+
+    '<div class="gop-ds">'+tr.map(function(v){ return '<div class="gop-dong"><span class="gop-nd"><b>'+coChuHTML(v.tenMoi||v.tenCu||'')+'</b><small>'+
+      coChuHTML([v.driveId?'☁ có trên Drive':'💻 chỉ trong máy', lqCua(v).length ? '🔗 '+lqCua(v).length+' văn bản liên quan' : ''].filter(Boolean).join(' · '))+'</small></span></div>'; }).join('')+'</div>'+
+    '<div class="day-form">'+
+      '<button class="nho" onclick="dongHop();boCho(\''+m0.id+'\')" title="Không đưa file mới vào tủ">Bỏ file mới</button>'+
+      '<button class="nho" onclick="dongHop();var c=(D.cho||[]).find(function(x){return x.id===\''+m0.id+'\'});if(c){c.xacNhanTrung=true;duyet(c.id);}" title="Lưu cả 2 bản (ví dụ 2 bản khác nhau thật)">Giữ cả 2</button>'+
+      '<button class="nho chinh" onclick="dongHop();luuRoiGop(\''+m0.id+'\')" title="Lưu file mới rồi mở hộp gộp để chọn bản giữ lại">Lưu rồi gộp</button></div>');
+}
+function luuRoiGop(id){
+  var c = (D.cho||[]).find(function(x){ return x.id===id; }); if(!c) return;
+  c.xacNhanTrung = true; duyet(id);
+  setTimeout(function(){ if(timMuc(id)) moGopTrung(id); }, 300);
+}
+
 /* ---- DÒNG VĂN BẢN GỌN 2 HÀNG ---- */
 function dongHTML(m, q){
   var laBM = m.huongDan!==undefined;
@@ -14854,10 +14962,11 @@ function dongHTML(m, q){
     the.push(['xam', m.nhom||'']);
     if(m.huongDan) the.push(['phu','Bản mẫu đã điền']);
   }else{
-    if(!coTrongTen(m.ngay)) the.push(['xam', ngayVN(m.ngay)]);
+    if(m.ngay && !coTrongTen(m.ngay)) the.push(['xam', ngayVN(m.ngay)]);   /* 3.77: không ngày thì không hiện chip rỗng */
     if(m.mang) the.push(['ct', m.mang]);
     (m.ctrinh||[]).slice(0,1).forEach(function(t){ the.push(['ct', hienCT(t)]); });
     (m.tag||m.the||[]).slice(0,2).forEach(function(t){ the.push(['', t]); });
+    if(TRUNG_SH[m.id]) the.unshift(['trung', '', '<a onclick="event.stopPropagation();moGopTrung(\''+m.id+'\')" title="Văn bản này có '+(TRUNG_SH[m.id].length-1)+' bản khác cùng số hiệu, cùng năm — bấm để so và gộp">⚠ trùng '+(TRUNG_SH[m.id].length-1)+' bản</a>']);   /* 3.77 */
     var dsLQ = lqCua(m).sort(function(a, b){ return (a.ngay||'').localeCompare(b.ngay||''); });   /* 3.70 (AM): hiện số hiệu, bấm đi tới */
     if(dsLQ.length) the.push(['ct lq-tg', '', '🔗 '+dsLQ.slice(0, 2).map(function(v){
       return '<a class="lq-lk" onclick="event.stopPropagation();diToiVB(\''+v.id+'\')" title="'+coChuHTML(tenNganVB(v)+(v.ngay?' · '+ngayVN(v.ngay):'')+(v.hetHieuLuc?' · hết hiệu lực':'')+' — bấm để đi tới')+'">'+
@@ -15304,8 +15413,24 @@ var TAG_MAC_DINH = {
 /* trạng thái lọc riêng cho từng tab */
 var LOC = {};
 function locCua(tab){
-  if(!LOC[tab]) LOC[tab] = {nam:'', thang:'', ct:'', tag:'', mang:'', pham:'', hoi:'', xa:'', chua:'', hl:''};
+  if(!LOC[tab]) LOC[tab] = {nam:'', thang:'', ct:'', tag:'', mang:'', pham:'', hoi:'', xa:'', chua:'', hl:'', trung:''};
   return LOC[tab];
+}
+/* 3.77 (anh chốt: tối ưu nhưng KHÔNG để sót văn bản nào lọc không ra):
+   mỗi nhóm lọc có chip "(chưa có)" gom các mục để trống thuộc tính đó; giá trị lạ (không còn trong danh mục) vẫn hiện chip */
+var LOC_TRONG = '(chưa có)';
+var NHAN_TRONG = {nam:'Chưa có ngày', mang:'Chưa gắn mảng', ct:'Chưa gắn CT', tag:'Chưa có tag', pham:'Chưa ghi', hoi:'Chưa ghi', xa:'Chưa khai xã'};
+function locTrong(m, khoa, kn){
+  switch(khoa){
+    case 'nam':  return String(m[kn]||'').length<4;
+    case 'mang': return !m.mang;
+    case 'ct':   return !(m.ctrinh||[]).length;
+    case 'tag':  return !(m.tag||[]).length && !(m.the||[]).length;
+    case 'pham': return !m.phamVi;
+    case 'hoi':  return !(m.hoi||[]).length;
+    case 'xa':   return !m.xa;
+  }
+  return false;
 }
 function dsTag(tab){
   D.cauHinh.tagTab = D.cauHinh.tagTab || {};
@@ -15358,7 +15483,7 @@ function boMotLoc(tab, k){ var L = locCua(tab); L[k] = ''; ve(); }
 function veDauTab(tab, opt){
   opt = opt || {};
   var L = locCua(tab);
-  var so = ['nam','thang','mang','ct','tag','pham','hoi','xa','chua','hl']
+  var so = ['nam','thang','mang','ct','tag','pham','hoi','xa','chua','hl','trung']
     .filter(function(k){ return !!L[k]; }).length;
 
   /* một hàng gọn: nút Thêm + nút Bộ lọc + nút phụ */
@@ -15488,7 +15613,7 @@ function datLoc(tab, khoa, gt){
   ve();
 }
 function boLoc(tab){
-  LOC[tab] = {nam:'', thang:'', ct:'', tag:'', mang:'', pham:'', hoi:'', xa:'', chua:'', hl:''};
+  LOC[tab] = {nam:'', thang:'', ct:'', tag:'', mang:'', pham:'', hoi:'', xa:'', chua:'', hl:'', trung:''};
   ve();
 }
 function dangLoc(tab){
@@ -15503,14 +15628,19 @@ function dangLoc(tab){
   if(L.xa) d.push(L.xa);
   if(L.chua) d.push('chưa phân loại');
   if(L.hl) d.push('gồm cả hết hiệu lực');
+  if(L.trung) d.push('trùng số hiệu');
   return d;
 }
 /* áp bộ lọc chuẩn lên một danh sách */
 function locChuan(tab, ds){
   var L = locCua(tab), kn = khoaNgay(tab);
-  if(L.nam) ds = ds.filter(function(m){ return String(m[kn]||'').slice(0,4)===L.nam; });
+  ['nam','mang','ct','tag','pham','hoi','xa'].forEach(function(k){   /* 3.77: chip "(chưa có)" */
+    if(L[k]===LOC_TRONG && !(tab==='bieuMau' && (k==='ct' || k==='tag'))) ds = ds.filter(function(m){ return locTrong(m, k, kn); });
+  });
+  if(L.trung) ds = ds.filter(function(m){ return !!TRUNG_SH[m.id]; });   /* 3.77: văn bản trùng số hiệu */
+  if(L.nam && L.nam!==LOC_TRONG) ds = ds.filter(function(m){ return String(m[kn]||'').slice(0,4)===L.nam; });
   if(L.thang) ds = ds.filter(function(m){ return String(m[kn]||'').slice(5,7)===L.thang; });
-  if(L.ct) ds = ds.filter(function(m){
+  if(L.ct && (L.ct!==LOC_TRONG || tab==='bieuMau')) ds = ds.filter(function(m){
     if(tab==='bieuMau'){
       /* 3.31: biểu mẫu lưu chương trình ở m.nhom (trước lọc theo ctrinh nên luôn ra rỗng);
          lọc một chương trình thì vẫn kèm nhóm Dùng chung */
@@ -15518,15 +15648,16 @@ function locChuan(tab, ds){
       if(L.ct==='Theo nghiệp vụ') return m.nhom==='Theo nghiệp vụ';
       return m.nhom===L.ct || laDungChungBM(m);
     }
-    return (m.ctrinh||[]).indexOf(L.ct)>=0; });
+    /* 3.77: lọc 1 chương trình thì kèm văn bản "Tất cả CT" (áp dụng cho mọi CT) */
+    return (m.ctrinh||[]).indexOf(L.ct)>=0 || (L.ct!=='Dùng chung' && (m.ctrinh||[]).indexOf('Dùng chung')>=0); });
   if(L.chua) ds = ds.filter(function(m){ return chuaPhanLoai(m).length>0; });
   if(tab==='vanBan' && !L.hl) ds = ds.filter(function(m){ return !m.hetHieuLuc; });
-  if(L.tag) ds = ds.filter(function(m){ return coTagLoc(tab, m, L.tag); });
-  if(L.mang) ds = ds.filter(function(m){ return m.mang===L.mang; });
+  if(L.tag && L.tag!==LOC_TRONG) ds = ds.filter(function(m){ return coTagLoc(tab, m, L.tag); });
+  if(L.mang && L.mang!==LOC_TRONG) ds = ds.filter(function(m){ return m.mang===L.mang; });
   if(L.sao) ds = ds.filter(laSao);   /* 3.65 (việc AC): chỉ văn bản / mẫu đánh dấu ⭐ */
-  if(L.pham) ds = ds.filter(function(m){ return m.phamVi===L.pham; });
-  if(L.hoi) ds = ds.filter(function(m){ return (m.hoi||[]).indexOf(L.hoi)>=0; });
-  if(L.xa) ds = ds.filter(function(m){ return m.xa===L.xa; });
+  if(L.pham && L.pham!==LOC_TRONG) ds = ds.filter(function(m){ return m.phamVi===L.pham; });
+  if(L.hoi && L.hoi!==LOC_TRONG) ds = ds.filter(function(m){ return (m.hoi||[]).indexOf(L.hoi)>=0; });
+  if(L.xa && L.xa!==LOC_TRONG) ds = ds.filter(function(m){ return m.xa===L.xa; });
   return ds;
 }
 
@@ -15550,18 +15681,24 @@ function nhomLocNhanh(tab, kho){
   var L = locCua(tab), kn = khoaNgay(tab), ra = [];
   var coDung = function(ds, khoa, lay){
     var co = {}; kho.forEach(function(m){ [].concat(lay(m)||[]).forEach(function(v){ if(v) co[v] = 1; }); });
-    return ds.filter(function(x){ return co[x] || L[khoa]===x; });
+    /* 3.77: giá trị đang có trên file nhưng không còn trong danh mục vẫn hiện chip — không để file bị lạc */
+    return ds.filter(function(x){ return co[x] || L[khoa]===x; }).concat(Object.keys(co).filter(function(x){ return ds.indexOf(x)<0; }));
   };
   var nam = function(){
     var n = {}; kho.forEach(function(m){ var d = String(m[kn]||''); if(d.length>=4) n[d.slice(0,4)] = 1; });
     var ds = Object.keys(n).sort().reverse();
-    if(ds.length>1 || L.nam) ra.push(['Năm','nam',ds]);
+    var thieu = kho.some(function(m){ return locTrong(m, 'nam', kn); });
+    if(ds.length>1 || L.nam || (ds.length && thieu)) ra.push(['Năm','nam',ds]);
+  };
+  var tagCo = function(ds){   /* tag đang gắn trên file mà không có trong danh sách tag */
+    var co = {}; kho.forEach(function(m){ (m.tag||[]).concat(m.the||[]).forEach(function(v){ if(v) co[v] = 1; }); });
+    return ds.concat(Object.keys(co).filter(function(x){ return ds.indexOf(x)<0; }));
   };
   if(tab==='vanBan'){
     nam();
     ra.push(['Mảng','mang', coDung(dsMang(), 'mang', function(m){ return m.mang; })]);
     ra.push(['CT vay','ct', coDung(dsCTChon(), 'ct', function(m){ return m.ctrinh; })]);
-    ra.push(['Tag','tag', dsTag(tab)]);
+    ra.push(['Tag','tag', tagCo(dsTag(tab))]);
   }else if(tab==='duLieu'){
     nam();
     ra.push(['Phạm vi','pham', coDung(dsPhamVi(), 'pham', function(m){ return m.phamVi; })]);
@@ -15571,11 +15708,17 @@ function nhomLocNhanh(tab, kho){
     ra.push(['Tag','tag', dsTag(tab)]);
   }else if(tab==='ghiChu'){
     nam();
-    ra.push(['Nhãn','tag', dsTag(tab)]);
+    ra.push(['Nhãn','tag', tagCo(dsTag(tab))]);
   }else if(tab==='scan'){
     ra.push(['Xã','xa', coDung(dsDonVi('xa'), 'xa', function(m){ return m.xa; })]);
-    ra.push(['Tag','tag', dsTag(tab)]);
+    ra.push(['Tag','tag', tagCo(dsTag(tab))]);
   }
+  /* 3.77: chip "(chưa có)" cuối mỗi nhóm khi có mục để trống — mọi mục đều lọc ra được */
+  ra.forEach(function(g){
+    if(tab==='bieuMau' && (g[1]==='ct' || g[1]==='tag')) return;
+    if(L[g[1]]===LOC_TRONG || kho.some(function(m){ return locTrong(m, g[1], kn); }))
+      g[2] = g[1]==='tag' ? [LOC_TRONG].concat(g[2]) : g[2].concat([LOC_TRONG]);   /* hàng tag dài, cuộn ngang → để chip "Chưa có tag" lên đầu cho thấy */
+  });
   return ra.filter(function(g){ return g[2].length; });
 }
 /* 3.39: điện thoại (dưới 700px) mặc định GỌN — hàng lọc nhanh ẩn, bấm "Lọc nhanh ▾" mới hiện; nhớ riêng cho điện thoại
@@ -15615,21 +15758,23 @@ function hangLocNhanh(tab, kho){
   var nhom = nhomLocNhanh(tab, kho);
   var L = locCua(tab);
   var soSao = (tab==='vanBan'||tab==='bieuMau') ? kho.filter(laSao).length : 0;
-  if(!nhom.length && !soSao && !L.sao) return '';
+  if(!nhom.length && !soSao && !L.sao && !(tab==='vanBan' && D.vanBan.some(function(m){ return TRUNG_SH[m.id]; })) && !L.trung) return '';
   var dem = function(khoa, x){   /* số mục nếu chọn chip này (giữ các lọc khác) */
     var cu = L[khoa]; L[khoa] = x;
     var n = locTheoThe(tab, locChuan(tab, kho)).length; L[khoa] = cu; return n;
   };
   var chip = function(khoa, x, nhan, so){
-    return '<span class="the-loc'+(L[khoa]===x?' bat':'')+(so===0 && L[khoa]!==x?' rong':'')+'" onclick="datLoc(\''+tab+'\',\''+khoa+'\',\''+
+    return '<span class="the-loc'+(L[khoa]===x?' bat':'')+(so===0 && L[khoa]!==x?' rong':'')+(x===LOC_TRONG?' loc-trong':'')+(khoa==='trung'?' loc-trung':'')+'" onclick="datLoc(\''+tab+'\',\''+khoa+'\',\''+
       String(x).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')+'\')" title="'+(L[khoa]===x?'Bấm để bỏ lọc này':'Lọc theo '+coChuHTML(nhan))+'">'+
       coChuHTML(nhan)+(so!=null?' <small>'+so+'</small>':'')+'</span>';
   };
   var nhomHTML = function(g){ return '<span class="ln-nhan">'+g[0]+'</span>'+g[2].map(function(x){
-    return chip(g[1], x, g[1]==='ct' ? hienCT(x) : x, dem(g[1], x)); }).join(''); };
+    return chip(g[1], x, x===LOC_TRONG ? (NHAN_TRONG[g[1]]||'Chưa có') : (g[1]==='ct' ? hienCT(x) : x), dem(g[1], x)); }).join(''); };
   var ngan = nhom.filter(function(g){ return g[1]!=='tag'; }), dai = nhom.filter(function(g){ return g[1]==='tag'; });
-  var so = ['nam','thang','mang','ct','tag','pham','hoi','xa','chua','hl','sao'].filter(function(k){ return !!L[k]; }).length;
+  var so = ['nam','thang','mang','ct','tag','pham','hoi','xa','chua','hl','sao','trung'].filter(function(k){ return !!L[k]; }).length;
+  var soTrung = tab==='vanBan' ? kho.filter(function(m){ return !!TRUNG_SH[m.id]; }).length : 0;
   var phai = '<span class="ln-phai">'+(so ? '<span class="ln-bo" onclick="boLoc(\''+tab+'\')" title="Bỏ hết các lọc đang bật">✕ Bỏ lọc ('+so+')</span>' : '')+
+    ((soTrung || L.trung) ? chip('trung', '1', '⚠ Trùng số hiệu', soTrung) : '')+   /* 3.77 */
     ((soSao || L.sao) ? chip('sao', '1', '★ Quan trọng', soSao) : '')+
     '<span class="ln-an" onclick="batLocNhanh(\''+tab+'\')" title="Ẩn hàng lọc nhanh của tab này — bấm Lọc nhanh ▾ để hiện lại">ẩn ▴</span></span>';
   var h1 = ngan.map(nhomHTML).join('<span class="ln-gach"></span>');
@@ -15641,7 +15786,7 @@ function hangLocNhanh(tab, kho){
 /* khóa lọc đang có chip trên hàng lọc nhanh — dòng "Đang lọc" không nhắc lại */
 function khoaTrenHangLoc(tab, kho){
   if(anLocNhanh(tab)) return [];
-  return nhomLocNhanh(tab, kho||[]).map(function(g){ return g[1]; }).concat(['sao']);
+  return nhomLocNhanh(tab, kho||[]).map(function(g){ return g[1]; }).concat(['sao', 'trung']);
 }
 /* ---- sửa danh sách tag của một tab ---- */
 function suaTagTab(tab){
@@ -18681,7 +18826,7 @@ function locTheoThe(tab, ds){
     ds = ds.filter(function(m){
       switch(t.loai){
         case 'nghiepvu':    return m.mang===t.gt;
-        case 'chuongtrinh': return (m.ctrinh||[]).indexOf(t.gt)>=0;
+        case 'chuongtrinh': return (m.ctrinh||[]).indexOf(t.gt)>=0 || (t.gt!=='Dùng chung' && (m.ctrinh||[]).indexOf('Dùng chung')>=0);   /* 3.77 */
         case 'tag':         return (m.tag||[]).indexOf(t.gt)>=0 || (m.the||[]).indexOf(t.gt)>=0;
         case 'nam':         return String(m[kn]||'').slice(0,4)===t.gt;
         case 'thang':       return String(m[kn]||'').slice(5,7)===t.gt;
