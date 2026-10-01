@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.79 — 07/10/2026 17:00 — Hộp sửa gọn trong 1 khung
+- Hộp sửa văn bản (và hộp sửa bản quét) **vừa 1 khung, không phải cuộn** dù nhiều tag (đo ở 1366×768: trước tràn 69px).
+- **Chip tag nhỏ lại** (cao 19px, chữ 11px), khối tag tối đa 3 hàng — nhiều hơn thì cuộn trong khối; tag đang chọn vẫn đứng đầu; ô **＋ tag / lọc** đứng đầu khối (không bị khuất).
+- **Hàng nút đáy thấp lại** (Xóa · Thôi · Lưu một hàng 32px, trước 61px); ô Trích yếu 1 dòng (kéo giãn được); dải gợi ý xanh thấp hơn.
+
 ## 3.78 — 07/10/2026 16:00 — Gợi ý ô nhập thành dải chip cố định · văn bản liên quan 1 dòng
 - **Hộp sửa văn bản / sửa bản quét:** bỏ bong bóng đen nổi (che các ô phía trên). Hướng dẫn + ví dụ của ô đang gõ hiện ở **dải chip xanh lá cố định** ngay đầu hộp (dưới hàng Nhóm / tiêu đề); dải giữ chỗ sẵn nên các ô không bị xô; phím tắt chữ nhỏ cuối dải (điện thoại ẩn phím tắt). Gợi ý tag (＋ tag) vẫn hiện trong dải.
 - **Khung xem văn bản:** bỏ khối "🕘 Dòng thời gian" (tốn chỗ). Văn bản liên quan gọn thành **1 dòng chip số hiệu xanh lá** dưới tên file, xếp theo ngày; rê chuột thấy ngày + tên đầy đủ, bấm là đi tới; văn bản hết hiệu lực gạch ngang; "‹ số hiệu" (quay lại văn bản vừa xem) đứng đầu dòng. Cảnh báo ⛔ hết hiệu lực giữ nguyên.
