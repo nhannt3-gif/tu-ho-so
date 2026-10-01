@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.85 · build 08/10/2026 09:00
+**Bản hiện tại:** 3.86 · build 08/10/2026 14:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.86) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📥 Nạp số liệu › Nạp cả bộ T8 (hoặc T9) với **Mẫu 31** thay Mẫu 10 | Mẫu 31 vào ô **Hồ sơ tín dụng chi tiết** (không vào KHĐ); kỳ theo "Ngày số liệu"; báo "dòng trùng khế ước (đã gộp)"; đọc khoảng 25–40 giây trên máy tính | |
+| 2 | Tóm tắt kỳ | Món đang vay / đã tất toán / khách chỉ gửi TK; giải ngân, thu nợ tháng đúng số hệ thống | |
+| 3 | Đối chiếu (khi có 2 tháng Mẫu 31 liền nhau) | Dư nợ tháng trước + phát sinh = dư nợ tháng này ✅ | |
+| 4 | 👤 Tra cứu KH: gõ SĐT, số khế ước đã tất toán, tên không dấu | Ra đúng khách; thẻ có SĐT, vợ/chồng; món ghi đến hạn, lãi suất, "đã tất toán"; món XKLĐ T9 hiện thông tin lao động | |
+| 5 | Ô tìm chung khi đang ở tab Số liệu | Không ra khách hàng; ra "Tìm ở tab khác" kèm số kết quả, bấm sang đúng tab | |
+
+**Ghi chú kỹ thuật 3.86:** `SL_LOAI` hstd thêm `cac` (chữ ký Mẫu 31: Số khế ước + Mã KH + Tình trạng món vay + Tổng dư nợ), `khoaPhu:'kh'` (dòng chỉ có KH), `giuHet:true` (giữ mọi cột: `slLayDong` thêm trường `c_<tên>` vào `kq.them`, kiểu số / chữ dò theo dữ liệu, `slNen.them` khi nén); khd / nqh / nk thêm `khong:['tinh trang mon vay']`; `slKhopLoai` nhận `cac`. Gộp khế ước trùng trong `slLayDong` (`bo.trung`). `SL_TRUONG` thêm bí danh Mẫu 31 + trường `ttMon ls thoiHan mucVay voChong danToc ngdg gnT dkT tnTH tnQH tnK xoaT`. `SL_XLSX_CH` (dense, bỏ định dạng). `slTong` hstd: `mon tatToan chiTK gnT…`. Danh bạ thêm `sdt voChong danToc ku[]` (mọi khế ước, kể cả kỳ cũ); `slTimKH` tìm SĐT, khế ước. Tab con: `D.cauHinh.slTab` ('nap' / 'tra'), `slDoiTab`, `slTabConHTML`, `slTraHTML`, `slTraTim` (`SL_TRA_Q`). Ô tìm chung: `veGoiY` bỏ nhóm KH, tab 7 dùng `slNhayTabHTML`. Phép thử `tests/t100.js` (bộ giả `taogia.py 25000 tests/gia31 m31`: 2 tháng Mẫu 31, trùng khế ước, món tất toán, khách chỉ gửi TK, món XKLĐ).
 
 ### Danh sách thử trên máy thật (3.85) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

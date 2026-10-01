@@ -12,8 +12,9 @@ cd ../..
 # bộ file Excel GIẢ cho tab Số liệu (cùng cấu trúc hệ thống)
 python3 tests/taogia.py 25000 tests/gia      # bộ lớn (đo tốc độ)
 python3 tests/taogia.py 300 tests/gianho     # bộ nhỏ (giao diện, đồng bộ)
+python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) thay Mẫu 10 — cho t100.js
 ```
-`tests/lib`, `tests/gia*`, `tests/*.png` nằm trong `.gitignore`.
+`tests/lib`, `tests/gia*` (gồm `gia31`), `tests/*.png` nằm trong `.gitignore`.
 
 ## Chạy (từ thư mục gốc repo)
 | Lệnh | Kiểm gì |
@@ -26,6 +27,7 @@ python3 tests/taogia.py 300 tests/gianho     # bộ nhỏ (giao diện, đồng 
 | `node tests/t97m.js` | Ảnh giao diện tab Số liệu máy tính + điện thoại (bộ `gianho`). |
 | `node tests/t97w.js` | Đọc Excel ở Worker không làm treo màn hình. |
 | `node tests/t98.js` | 2 máy qua Drive giả (`fakedrive.js`): đẩy / kéo / thay file / xóa ô. |
+| `node tests/t100.js` | 3.86 Mẫu 31: nhận đúng loại, gộp khế ước trùng, món tất toán, khách chỉ gửi TK, công thức dư nợ 2 tháng, tab con Tra cứu KH (SĐT, khế ước), ô tìm chung ở tab Số liệu. |
 | `node tests/t99.js` | Chuyển tiếp tab Tháng: bỏ 7 dòng thuần Excel, ô XLS không tính thiếu, ô "đọc file cũ". |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).

@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 01/10/2026, bản 3.85)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 01/10/2026, bản 3.86)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -65,11 +65,19 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - Hộp thoại `moHop(html, rong)` / `dongHop()`; lớp `sua-gon` (hộp sửa gọn), `co-xem-ben` (xem cạnh), `quet-gon`, `phim-chung`.
 - **Phím chung** (3.75–3.84): Enter / Tab ghi nhận và sang **đúng 1 ô**; Shift lùi; ô gõ chữ thì ← → chỉ di con trỏ, ô chọn (SELECT) thì ← → sang ô; ↑ ↓ cuộn lựa chọn; ô cha của cây (Xã / Điểm / Ấp) trống thì cảnh báo, không cho sang ô con; ô tự do được để trống; Ctrl+Enter lưu; textarea trong `phim-chung` Enter = xuống dòng. Hàm: `sgPhim`, `sgO`, `sgSang`, `SG_CAY`, `SG_HD`.
 - Gợi ý / cảnh báo: dải chip xanh cố định (`#sg-hd`), không bong bóng nổi.
-- Ô tìm trên cùng: gợi ý `veGoiY` gồm Lọc nhanh · 🏠 Hồ sơ hộ (`timHo`) · 👤 Khách hàng (`slKHGoiYHTML`, 3.85).
+- Ô tìm trên cùng: gợi ý `veGoiY` gồm Lọc nhanh · 🏠 Hồ sơ hộ (`timHo`); ở tab Số liệu: "Tìm ở tab khác" (`slNhayTabHTML`, 3.86). Khách hàng chỉ tra trong tab con Tra cứu KH.
 
 ---
 
-## 4. Tab 📈 Số liệu (3.85) — phần mới nhất, sẽ phát triển tiếp
+## 4. Tab 📈 Số liệu (3.85 → 3.86) — phần mới nhất, sẽ phát triển tiếp
+
+**3.86 (mới nhất):**
+- **Mẫu 31** "Tạo hồ sơ tín dụng chi tiết theo kỳ số liệu" (175 cột, ~22 MB) **thay Mẫu 10** trong ô Hồ sơ tín dụng chi tiết — anh chốt: hằng tháng xuất Mẫu 31; các file khác của bộ vẫn nạp như cũ (KHĐ, Nợ quá hạn, Nợ khoanh, Tổng dư nợ theo CT, Thông tin tổ trưởng, Sao kê KH khi có). Giữ **đủ 175 cột** (trường `c_<tên cột>` cho cột chưa khai báo — tháng 9 có món **XKLĐ** đầu tiên, cột XKLĐ phải còn). Gộp khế ước trùng (khách 2 sổ 105), lưu món **đã tất toán** và khách **chỉ gửi tiết kiệm**. Chi tiết cột: `docs/DU_LIEU_THANG.md`.
+- **Tab con:** `D.cauHinh.slTab` = 'nap' (📥 Nạp số liệu) / 'tra' (👤 Tra cứu KH, ô tìm **riêng** `#sl-tim`). Anh chốt: phần Số liệu chạy **độc lập như một app riêng**, không nối các tab khác. **Ô tìm chung không tra khách hàng**; đang ở tab Số liệu thì ô tìm chung gợi ý tab có kết quả (Văn bản, Scan…) và nhảy sang (`slNhayTabHTML`).
+- **Chi tiết tra cứu (lọc, xuất, truy vấn) anh sẽ bàn kỹ sau khi dữ liệu hoàn chỉnh** — không tự làm thêm.
+- Đo file 31/07 thật: đọc ~24 giây (máy thử), 27.391 dòng (24.968 khế ước sau gộp, 3.205 tất toán, 2.423 khách chỉ gửi TK), dư nợ 735.955.328.485 — khớp tính tay.
+
+**3.85 (nền):**
 
 Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống**, app đọc đúng, lưu theo kỳ, đối chiếu, sau này **truy vấn / trích xuất đa chiều**; tra **CCCD, ngày sinh, địa chỉ** nhanh khi làm việc.
 
@@ -80,7 +88,7 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 - **Lưu:** `slGhi` → IDB `sl_b_<loại>_<kỳ>` (dạng cột + từ điển: `slNen` / `slMoBang`), file gốc tạm `sl_g_…` (xóa sau khi lên Drive), `sl_meta` (`SLM = {bang:{'loại|kỳ':{…tong, luc, goc, dl, choDay}}, xoa, ndt, dbLuc}`), `sl_danhba` (`SL_DB = {kh:{maKH:{ten, ns, cccd, ncap, noiCap, dc, thon, to, stk, t105, ky…}}, to:{…}}`, mỗi KH giữ bản kỳ mới nhất; `slVaoDanhBa`, `slDungDanhBa`, chỉ mục tìm `SL_TIM`).
 - **Drive:** `slDay` (gốc → `Số liệu/<kỳ>/<ngày> <Tên loại>.xlsx`; dữ liệu → `_Hệ thống/so_lieu/<kỳ>/<loại>.json.gz`; danh bạ `khach_hang.json.gz`; `slDayMeta` tải `meta.json` gộp `slGopMeta` rồi ghi), `slTaiTuDrive` (gọi khi nối Drive), `slDocBang` tải bảng khi cần. Mỗi ô (loại × kỳ): bản ghi nhận sau thắng; xóa có dấu `xoa`. Thay file → bản cũ vào thùng rác Drive.
 - **Bộ kỳ + đối chiếu:** `slBo(ky)` (mon theo số khế ước, theoKH, nqh / nk / khd theo khế ước, to, tdn) · `slDoiChieu` (chỉ báo). **Khóa nối: Số khế ước = Mã món vay (16 số)** — anh xác nhận "món vay theo mã món vay, 1 KH nhiều mã món vay".
-- **Tra KH:** `slTimKH` (tên không dấu mọi thứ tự, CCCD đủ / số cuối, mã KH, năm / ngày sinh) · `slTheKH` (thẻ có nút chép, món vay kỳ đó, tổ trưởng) · `slChepKH`.
+- **Tra KH (tab con 👤, 3.86):** `slTraHTML` / `slTraTim` → `slTimKH` (tên không dấu mọi thứ tự, CCCD đủ / số cuối, mã KH, SĐT, số khế ước kể cả đã tất toán — danh bạ giữ `ku[]` mọi kỳ, năm / ngày sinh) · `slTheKH` (thẻ có nút chép; SĐT, vợ/chồng, giới, dân tộc; món: đến hạn, lãi suất, đã tất toán, XKLĐ / HSSV) · `slChepKH`.
 - **Tab Tháng sau 3.85:** 7 mã cũ `SL_MA_CU` (`laMaSoLieu`) ẩn khỏi ma trận, tính thiếu, Cài đặt; dòng XLS (`coExcel`) ô trống lớp `trong`, không tính thiếu; các dòng báo cáo theo xã / điểm (Nợ quá hạn, Nợ khoanh, 3 tháng KHĐ — file XLS / PDF theo điểm) **giữ ở tab Tháng** (anh chốt).
 - **Đo (dữ liệu giả):** 25.000 món ~10 giây đọc, màn hình không treo; tra < 10 ms. File T7 thật ~22 MB → có thể 40–60 giây.
 
@@ -116,8 +124,9 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 | # | Việc | Trạng thái / cần gì |
 |---|---|---|
 | 1 | **Anh thử 3.81 → 3.85 trên máy thật** (bảng thử trong `BAN_GIAO_VIEC_CON_LAI.md`) | Chờ anh báo Đạt / Chưa → sửa |
+| 1b | **Anh thử 3.86** (Mẫu 31 T8/T9, tab con Tra cứu KH) | Bảng thử 3.86 trong `BAN_GIAO_VIEC_CON_LAI.md`. Tháng 9 có món XKLĐ đầu tiên — kiểm thẻ khách hàng hiện thông tin XKLĐ (tên cột thật có thể khác file giả → nếu không hiện, xem trường `c_…` trong bảng hstd và sửa `slTheKH`). |
 | 2 | **Sao kê khách hàng** — đọc file | Anh sẽ gửi mẫu ("giống HS tín dụng nhưng không có dư nợ, khế ước"). Ô đã có; chữ ký nhận dạng tạm: có Mã KH + CCCD, không có Mã món vay / Số khế ước / Tổng dư nợ. Kiểm cột thật, bổ sung bí danh, gộp vào danh bạ (`slVaoDanhBa` đã hỗ trợ loại kh). |
-| 3 | **3.86 Truy vấn đa chiều trên tab Số liệu** | **Bàn kế hoạch với anh trước.** Đề xuất đã nêu: chọn Hàng (xã → điểm → thôn → tổ → hộ), Cột (CT / nguồn / kỳ), Chỉ tiêu (dư nợ, số món, số hộ không trùng, QH, khoanh, lãi tồn, 105, giải ngân), Lọc; bấm số → danh sách món / hộ; xuất Excel (SheetJS `XLSX.writeFile`), chép Zalo / Word; lưu truy vấn hay dùng; so 2 kỳ (món mới, tất toán = có kỳ trước không có kỳ này, mới chuyển QH). Dùng `slBo` + `slMoBang`; danh sách việc: HSSV đã ra trường, gia hạn, tổ tỷ lệ QH cao, hộ chưa có TK 105. **Không có cột ngày đến hạn trong HS tín dụng** (chỉ file KHĐ có). |
+| 3 | **Tra cứu / truy vấn đa chiều trên tab Số liệu** (tab con Tra cứu KH + có thể tab con Truy vấn) | **Anh nói bàn kỹ sau khi dữ liệu hoàn chỉnh — hỏi anh trước, không tự làm.** Đề xuất đã nêu: chọn Hàng (xã → điểm → thôn → tổ → hộ), Cột (CT / nguồn / kỳ), Chỉ tiêu (dư nợ, số món, số hộ không trùng, QH, khoanh, lãi tồn, 105, giải ngân), Lọc; bấm số → danh sách món / hộ; xuất Excel (SheetJS `XLSX.writeFile`), chép Zalo / Word; lưu truy vấn hay dùng; so 2 kỳ (món mới, tất toán = có kỳ trước không có kỳ này, mới chuyển QH). Dùng `slBo` + `slMoBang`; danh sách việc: HSSV đã ra trường, gia hạn, tổ tỷ lệ QH cao, hộ chưa có TK 105. Mẫu 31 **đã có** ngày đến hạn, phát sinh tháng / quý / năm, tình trạng OPEN / CLOSE → doanh số cho vay, thu nợ, đến hạn, tất toán lấy thẳng. |
 | 4 | **Theo dõi nợ + chức năng liên quan** | Anh: làm tiếp **khi có đủ số liệu tháng 30/09**. Hướng: nối Theo dõi nợ / Giao ban / Buổi GD / Hồ sơ hộ với bộ dữ liệu Số liệu (khóa số khế ước, Mã KH) — anh duyệt trước. |
 | 5 | **Ảnh / file mồ côi** | Đã đề xuất (chưa code): nhóm "🧩 Không thuộc mục nào" trong Dọn kho › Quét rác (ảnh gốc / thu nhỏ còn sót, ảnh chữ ký·CCCD lẻ, file trên Drive không có trong chỉ mục), mỗi mục: 📥 Đưa vào Chờ khai · 🔗 Gắn vào bản có sẵn · 🗑 Vào thùng rác; thanh nhắc khi mở app. Anh đồng ý hướng "không để rác không quản lý" — **xác nhận lại phạm vi rồi code**. |
 | 6 | Thôn **54003520** (Phường Gò Dầu) có dư nợ nhưng thiếu tên / điểm, không có trong danh sách tổ; app có thôn 54003501 Khu Phố Chánh không có dư nợ | Anh kiểm trên hệ thống |
@@ -128,4 +137,5 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 - Tab Số liệu cần trình duyệt có `CompressionStream` (Chrome 80+, Safari 16.4+); thiếu thì lưu JSON không nén (vẫn chạy).
 - Máy mới chưa có bảng trong máy → mở kỳ / thẻ KH tải bảng từ Drive (cần đã nối Drive).
 - `tenTab()` của tab 7 trả `'duLieu'` (cho an toàn với mã cũ dùng `D[tenTab()]`); `tenTabPV()` trả `'soLieu'` (khung xem ẩn mặc định).
+- Mẫu 31 đọc ~24 giây / 320 MB bộ nhớ trên máy tính; **nạp file gốc nên làm trên máy tính**, điện thoại chỉ tải dữ liệu đã đọc (~3 MB / tháng). Nếu sau này chậm hơn nữa: phương án tự đọc XML theo dòng trong Worker (chưa làm).
 - Theo dõi nợ có bộ đọc sao kê riêng (`tdnDocFile`, nạp ở Thư viện › Theo dõi nợ) — **chưa** dùng chung với tab Số liệu (anh chọn tách lần này).
