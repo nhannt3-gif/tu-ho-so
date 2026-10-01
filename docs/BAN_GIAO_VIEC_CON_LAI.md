@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.80.1 · build 07/10/2026 21:00
+**Bản hiện tại:** 3.81 · build 07/10/2026 22:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.81) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🧰 Dọn kho › 🛟 Sao lưu | Thấy bản 💻 trong máy hôm nay (+ bản ☁ Drive nếu đã nối), số mục, "không thiếu" | |
+| 2 | Bấm So sánh ở bản Drive cũ nhất | Hiện thiếu gì (nếu có) theo từng tab; ♻ Lấy lại chỉ thêm mục thiếu | |
+| 3 | Dùng app bình thường cả ngày, máy 2 cùng dùng | Không mất mục nào; mục xóa ở máy này không sống lại ở máy kia | |
+
+**Ghi chú kỹ thuật 3.81:** `dayChiMucLenDrive` luôn tải + `gopTuRemote` trước khi ghi; `demChiMuc`, `KHO_SAO_LUU`; chặn khi `soRemote>=3 && demChiMuc(goi)===0`; dự phòng Drive chỉ ghi khi chưa có file ngày đó. `saoLuuTrongMay` (khóa IDB `saoluu_YYYY-MM-DD`, giữ 7, gọi 4 giây sau khởi động, `D.cauHinh.saoLuuNgay`), `dsSaoLuuMay`, `dsSaoLuuDrive`, `docSaoLuu`, `mucThieuTuSaoLuu`, `veSaoLuuHTML`, `napDsSaoLuu`, `xemSaoLuu`, `layLaiSaoLuu`; Dọn kho ngăn `saoluu`. `luuNo` chờ `NO_SAN`; `dayNoLenDrive` không ghi bản trống. Phép thử `t93.js` (Drive giả).
 
 ### Danh sách thử trên máy thật (3.80.1) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
