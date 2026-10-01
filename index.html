@@ -2150,6 +2150,14 @@
   .sua-gon .q-chip .the-loc{min-height:19px !important;line-height:17px !important;padding:0 6px !important;font-size:calc(11px*var(--co)) !important}
   .sua-gon .q-chip .goi-y{max-height:68px !important;gap:3px !important}
 
+  /* ===== 3.81 — sao lưu & khôi phục ===== */
+  .sl-ds{display:grid;gap:5px;margin:4px 0 10px}
+  .sl-dong{display:flex;align-items:center;gap:10px;border:1px solid var(--vien);border-radius:9px;padding:5px 10px;font-size:calc(12.5px*var(--co))}
+  .sl-dong .sl-so{flex:1;color:var(--chu-phu)}
+  .sl-thieu{color:var(--do)} .sl-du{color:var(--luc)}
+  .sl-ct{border:1.3px solid var(--xanh);border-radius:10px;padding:9px 12px;background:var(--xanh-nhat);font-size:calc(12.5px*var(--co))}
+  .sl-kho{margin-top:5px}
+
   /* ===== 3.80 — văn bản liên quan gọn ===== */
   .sua-gon .sg-2{display:grid;grid-template-columns:1.3fr 1fr;gap:8px;align-items:start}
   .sua-gon .sg-2 .o{margin-bottom:0 !important;min-width:0}
@@ -2617,7 +2625,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.80.1', APP_LUC = '07/10/2026 21:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.81', APP_LUC = '07/10/2026 22:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -7311,6 +7319,8 @@ function tdnChuan(j){
 }
 var NO_HEN = null;
 function luuNo(){
+  /* 3.81: chưa nạp xong dữ liệu nợ trong máy thì không ghi (tránh ghi đè bằng dữ liệu trống) — đợi nạp xong rồi lưu */
+  if(typeof NO_SAN!=='undefined' && !NO_SAN){ setTimeout(luuNo, 600); return Promise.resolve(false); }
   NO.suaLuc = new Date().toISOString();
   var p = luuFile('tdn_du_lieu', JSON.stringify(NO));
   if(coTheNoiDrive() && DR.sanSang){ clearTimeout(NO_HEN); NO_HEN = setTimeout(dayNoLenDrive, 5000); }
@@ -7320,6 +7330,7 @@ function dayNoLenDrive(){
   var duong = D.cauHinh.thumuc+'/_Hệ thống';
   return baoDamDuong(duong).then(function(idTM){
     return timFileTrong('theodoino.json', idTM).then(function(cu){
+      if(cu && !Object.keys(NO.mon||{}).length && !Object.keys(NO.ho||{}).length){ console.warn('Chặn ghi Theo dõi nợ trống lên Drive'); return null; }   /* 3.81 */
       return ghiJSONLenDrive('theodoino.json', idTM, {xuatLuc:new Date().toISOString(), may:maMayCua(), no:NO}, cu);
     });
   }).then(function(){ dayFileNoCho(); }).catch(function(e){ console.warn('Không đẩy được Theo dõi nợ', e); });
@@ -11499,6 +11510,7 @@ function veNoiCD(k){
       loi('🗑','Thùng rác','File anh đã xóa, chia ngăn theo tab — khôi phục về đúng chỗ, làm trống từng ngăn hoặc cả thùng, tự xóa sau 30 ngày (tùy chọn).','rac')+
       loi('🗂','Lập chỉ mục','Đi hết thư mục Tủ hồ sơ trên Drive, file nào chưa có trong app thì xếp vào đúng tab theo thư mục chứa file.','lcm')+
       loi('🧹','Quét rác','Tìm file hỏng, rỗng, trùng, thiếu thông tin, thư mục trống — anh tích rồi mới dọn.','quet')+
+      loi('🛟','Sao lưu & khôi phục','7 bản gần nhất trong máy và trên Drive — so với máy hiện tại, lấy lại mục bị thiếu (không ghi đè).','saoluu')+
       loi('⋯','Khác','Lấy file từ kho Drive cũ (Picker) · đẩy / lấy chỉ mục giữa các máy · nhờ AI chuẩn hóa.','khac');
   }
 
@@ -11817,7 +11829,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.80.1', ds:[
+var CO_GI_MOI = {ban:'3.81', ds:[
+  ['🛟 An toàn dữ liệu: luôn gộp với Drive trước khi ghi, chặn ghi trống, giữ bản dự phòng đầu ngày · Dọn kho › 🛟 Sao lưu: 7 bản trong máy + Drive, lấy lại mục bị thiếu', "dongHop();moDonKho('saoluu')"],
   ['☁ Bản scan tài liệu có PDF trên Drive không còn báo nhầm "Chưa có trang" · ♻ Khôi phục gắn ảnh vào đúng bản đã có, không tạo trùng', "dongHop();doiNgan(4)"],
   ['🔗 Hộp sửa: văn bản liên quan chỉ ghi số hiệu (rê chuột thấy tên), chung 1 hàng với Ghi chú riêng; Trích yếu 1 dòng — vừa 1 khung cả màn 1280', "dongHop();doiNgan(1)"],
   ['🛠 Sửa lỗi mất danh sách Scan (xóa / gộp văn bản trước khi mở tab Scan) · tab Scan có nút ♻ Khôi phục từ ảnh còn trong máy', "dongHop();doiNgan(4)"],
@@ -14909,7 +14922,7 @@ function dongDonKho(){ DK.mo = false; ve(); }
 function doiPhanDK(p){ DK.phan = p; ve(); if(p==='rac') setTimeout(tuDonRac, 200); }
 function veDonKho(){
   var nRac = (D.rac||[]).length;
-  var nav = [['rac','🗑 Thùng rác'+(nRac?' ('+nRac+')':'')],['lcm','🗂 Lập chỉ mục'],['quet','🧹 Quét rác'],['khac','⋯ Khác']];
+  var nav = [['rac','🗑 Thùng rác'+(nRac?' ('+nRac+')':'')],['lcm','🗂 Lập chỉ mục'],['quet','🧹 Quét rác'],['saoluu','🛟 Sao lưu'],['khac','⋯ Khác']];
   var h = '<div class="dk-dau"><button class="nho" onclick="dongDonKho()">‹ Về danh sách</button><b>🧰 Dọn kho</b>'+
     '<button class="nho" onclick="moHuongDan(\'donkho\')" title="Hướng dẫn phần này">❓</button></div>'+
     '<div class="dk-nav">'+nav.map(function(x){ return '<button class="'+(DK.phan===x[0]?'bat':'')+'" onclick="doiPhanDK(\''+x[0]+'\')">'+x[1]+'</button>'; }).join('')+'</div>';
@@ -14923,6 +14936,7 @@ function veDonKho(){
   if(DK.phan==='rac') h += veRacHTML();
   else if(DK.phan==='lcm') h += veLapChiMucHTML();
   else if(DK.phan==='quet') h += veQuetRacHTML();
+  else if(DK.phan==='saoluu') h += veSaoLuuHTML();   /* 3.81 */
   else h += veKhacDKHTML();
   return h;
 }
@@ -19569,6 +19583,111 @@ function henDongBoChiMuc(){
   clearTimeout(CM_HEN);
   CM_HEN = setTimeout(function(){ dayChiMucLenDrive(); }, 5000);
 }
+/* ==========================================================
+   3.81 — SAO LƯU & KHÔI PHỤC
+   - Trong máy: mỗi ngày 1 bản (trạng thái lúc mở app đầu ngày) trong IndexedDB, giữ 7 ngày — có cả Theo dõi nợ
+   - Trên Drive: _Hệ thống/du_phong/chimuc_YYYY-MM-DD.json (bản đầu ngày, giữ 7)
+   - Khôi phục = LẤY LẠI MỤC BỊ THIẾU (chỉ thêm vào, không ghi đè, không đụng mục đang có / trong thùng rác / đã xóa hẳn)
+   ========================================================== */
+function saoLuuTrongMay(){
+  var ngay = ngayISO(nay()), khoa = 'saoluu_'+ngay;
+  if(D.cauHinh.saoLuuNgay===ngay) return Promise.resolve(false);
+  var goi = goiChiMuc();
+  if(!demChiMuc(goi) && !Object.keys(NO.mon||{}).length) return Promise.resolve(false);   /* máy trống — không ghi bản rỗng */
+  goi.no = (typeof NO_SAN==='undefined' || NO_SAN) ? NO : null;
+  return luuFile(khoa, JSON.stringify(goi)).then(function(){
+    D.cauHinh.saoLuuNgay = ngay; luu();
+    return dsSaoLuuMay().then(function(ds){ return Promise.all(ds.slice(7).map(function(x){ return xoaFile(x.khoa); })); });
+  }).catch(function(e){ console.warn('Không sao lưu được trong máy', e); return false; });
+}
+function dsSaoLuuMay(){
+  return moKho().then(function(db){
+    return new Promise(function(ok){
+      var ds = [];
+      try{
+        var r = db.transaction('f','readonly').objectStore('f').openCursor();
+        r.onsuccess = function(ev){ var c = ev.target.result; if(!c){ ds.sort(function(a, b){ return b.ngay.localeCompare(a.ngay); }); ok(ds); return; }
+          var k = String(c.key), m = k.match(/^saoluu[_](\d{4}-\d{2}-\d{2})$/); if(m) ds.push({khoa:k, ngay:m[1], noi:'may'}); c.continue(); };
+        r.onerror = function(){ ok(ds); };
+      }catch(e){ ok(ds); }
+    });
+  }).catch(function(){ return []; });
+}
+function dsSaoLuuDrive(){
+  if(!(typeof coTheNoiDrive==='function' && coTheNoiDrive() && DR.sanSang)) return Promise.resolve([]);
+  return baoDamDuong(D.cauHinh.thumuc+'/_Hệ thống/du_phong').then(function(idDP){
+    return goiDrive('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent("'"+idDP+"' in parents and trashed=false")+'&fields=files(id,name)&orderBy=name desc&pageSize=20');
+  }).then(function(kq){
+    return (kq.files||[]).map(function(f){ var m = f.name.match(/(\d{4}-\d{2}-\d{2})/); return m ? {id:f.id, ngay:m[1], noi:'drive'} : null; }).filter(Boolean);
+  }).catch(function(){ return []; });
+}
+function docSaoLuu(x){
+  if(x.noi==='may') return docFile(x.khoa).then(function(s){ return typeof s==='string' ? JSON.parse(s) : null; });
+  return goiDrive('https://www.googleapis.com/drive/v3/files/'+x.id+'?alt=media');
+}
+/* các mục có trong bản sao lưu mà máy này đang THIẾU (không tính mục đang ở thùng rác hoặc đã xóa hẳn) */
+function mucThieuTuSaoLuu(j){
+  var co = {}, ra = {};
+  KHO_SAO_LUU.concat([['rac','']]).forEach(function(k){ (D[k[0]]||[]).forEach(function(m){ co[m.id] = 1; }); });
+  (D.daXoaHan||[]).forEach(function(t){ co[t.id] = 1; });
+  KHO_SAO_LUU.forEach(function(k){ ra[k[0]] = ((j && j[k[0]])||[]).filter(function(m){ return m && m.id && !co[m.id] && !laFileHeThong(m); }); });
+  ra.no = 0;
+  if(j && j.no && j.no.mon){ ra.noMon = Object.keys(j.no.mon).filter(function(id){ return !(NO.mon||{})[id]; }); ra.no = ra.noMon.length; }
+  return ra;
+}
+var SL_DS = [], SL_CHON = null;
+function veSaoLuuHTML(){
+  setTimeout(napDsSaoLuu, 30);
+  return '<div class="huong-dan" style="margin:6px 0 10px">App giữ <b>7 bản sao lưu gần nhất</b> trong máy (mỗi ngày 1 bản, lúc mở app đầu ngày) và 7 bản trên Drive (nếu đã nối). '+
+    '<b>Lấy lại</b> chỉ <b>thêm các mục đang bị thiếu</b> — không ghi đè, không đụng mục đang có, mục trong thùng rác hay đã xóa hẳn.</div>'+
+    '<div class="hang-nut" style="justify-content:flex-start"><button class="nho" onclick="D.cauHinh.saoLuuNgay=\'\';saoLuuTrongMay().then(napDsSaoLuu);bao(\'Đã sao lưu trong máy (bản hôm nay).\',4)">💾 Sao lưu ngay</button></div>'+
+    '<div id="sl-ds"><div class="rong">Đang đọc các bản sao lưu…</div></div>';
+}
+function napDsSaoLuu(){
+  var e = document.getElementById('sl-ds'); if(!e) return;
+  Promise.all([dsSaoLuuMay(), dsSaoLuuDrive()]).then(function(a){
+    SL_DS = a[0].concat(a[1]);
+    if(!SL_DS.length){ e.innerHTML = '<div class="rong">Chưa có bản sao lưu nào. Bản đầu tiên tự tạo khi mở app ngày mai, hoặc bấm 💾 Sao lưu ngay.</div>'; return; }
+    e.innerHTML = '<div class="sl-ds">'+SL_DS.map(function(x, i){
+      return '<div class="sl-dong"><span>'+(x.noi==='may'?'💻 Trong máy':'☁ Drive')+' · <b>'+lcDMY(x.ngay)+'</b></span><span class="sl-so" id="sl-so-'+i+'">…</span>'+
+        '<button class="nho" onclick="xemSaoLuu('+i+')">So sánh</button></div>'; }).join('')+'</div><div id="sl-ct"></div>';
+    SL_DS.forEach(function(x, i){ docSaoLuu(x).then(function(j){ x.j = j; var t = document.getElementById('sl-so-'+i); if(!t) return;
+      var th = mucThieuTuSaoLuu(j), n = KHO_SAO_LUU.reduce(function(s, k){ return s + th[k[0]].length; }, 0) + (th.no||0);
+      t.innerHTML = demChiMuc(j)+' mục'+(n ? ' · <b class="sl-thieu">máy đang thiếu '+n+'</b>' : ' · <span class="sl-du">không thiếu</span>'); })
+      .catch(function(){ var t = document.getElementById('sl-so-'+i); if(t) t.textContent = 'không đọc được'; }); });
+  });
+}
+function xemSaoLuu(i){
+  var x = SL_DS[i], e = document.getElementById('sl-ct'); if(!x || !e) return;
+  var chay = x.j ? Promise.resolve(x.j) : docSaoLuu(x);
+  chay.then(function(j){
+    x.j = j; SL_CHON = x;
+    var th = mucThieuTuSaoLuu(j), dong = KHO_SAO_LUU.filter(function(k){ return th[k[0]].length; });
+    var n = dong.reduce(function(s, k){ return s + th[k[0]].length; }, 0) + (th.no||0);
+    e.innerHTML = '<div class="sl-ct"><b>Bản '+(x.noi==='may'?'trong máy':'trên Drive')+' ngày '+lcDMY(x.ngay)+'</b> · '+demChiMuc(j)+' mục'+
+      (n ? dong.map(function(k){ return '<div class="sl-kho"><b>'+k[1]+'</b> — thiếu '+th[k[0]].length+': <small>'+
+          th[k[0]].slice(0, 8).map(function(m){ return coChuHTML(m.tenMoi||m.ten||m.tenCu||m.soHieu||m.id); }).join(' · ')+(th[k[0]].length>8?' …':'')+'</small></div>'; }).join('')+
+        (th.no ? '<div class="sl-kho"><b>Theo dõi nợ</b> — thiếu '+th.no+' món vay</div>' : '')+
+        '<div class="hang-nut"><button class="nho chinh" onclick="layLaiSaoLuu()">♻ Lấy lại '+n+' mục thiếu</button></div>'
+      : '<div class="huong-dan">Máy này không thiếu mục nào so với bản này.</div>')+'</div>';
+  }).catch(function(err){ e.innerHTML = '<div class="rong">Không đọc được bản sao lưu: '+coChuHTML(err&&err.message||String(err))+'</div>'; });
+}
+function layLaiSaoLuu(){
+  var x = SL_CHON; if(!x || !x.j) return;
+  var th = mucThieuTuSaoLuu(x.j), n = 0, bay = new Date().toISOString();
+  KHO_SAO_LUU.forEach(function(k){ D[k[0]] = D[k[0]] || []; th[k[0]].forEach(function(m){ m.suaLuc = bay; D[k[0]].push(m); n++; }); });
+  if(typeof HS!=='undefined') HS.ds = D.scan;
+  if(th.no && x.j.no){
+    th.noMon.forEach(function(id){ NO.mon[id] = x.j.no.mon[id]; var mh = x.j.no.mon[id] && x.j.no.mon[id].ma; if(mh && x.j.no.ho && x.j.no.ho[mh] && !NO.ho[mh]) NO.ho[mh] = x.j.no.ho[mh]; n++; });
+    luuNo();
+  }
+  luu(); ve(); napDsSaoLuu();
+  bao('Đã lấy lại '+n+' mục từ bản sao lưu ngày '+lcDMY(x.ngay)+'.', 6);
+}
+
+/* 3.81: đếm số mục trong 1 bản chỉ mục (để chặn ghi trống / hiện ở danh sách sao lưu) */
+var KHO_SAO_LUU = [['vanBan','Văn bản'],['duLieu','Dữ liệu tháng'],['ghiChu','Ghi chú'],['bieuMau','Biểu mẫu'],['scan','Scan'],['kyAnh','Chữ ký·CCCD'],['boHS','Bộ hồ sơ']];
+function demChiMuc(j){ return KHO_SAO_LUU.reduce(function(t, k){ return t + ((j && j[k[0]]) || []).length; }, 0); }
 function goiChiMuc(){
   return {
     xuatLuc: new Date().toISOString(), may: maMayCua(),
@@ -19608,23 +19727,29 @@ function dayChiMucLenDrive(){
   if(!coTheNoiDrive()) return Promise.resolve(false);
   var duong = D.cauHinh.thumuc+'/_Hệ thống';
   return baoDamDuong(duong).then(function(idTM){
+    var soRemote = 0;
     return timFileTrong('chimuc.json', idTM).then(function(cu){
-      /* 3.47: Drive có bản mới hơn lần mình đọc/ghi gần nhất (máy khác vừa gửi) → tải về gộp trước, KHÔNG ghi đè */
-      if(cu && cu.modifiedTime && cu.modifiedTime!==D.cauHinh.chiMucDriveTG)
+      /* 3.81 (việc F): LUÔN tải bản trên Drive về gộp trước rồi mới ghi — trước chỉ gộp khi máy khác vừa gửi,
+         nên máy này lỡ mất danh sách (lỗi Scan 3.79) là ghi đè luôn bản tốt trên Drive. Gộp có dấu xóa + thùng rác nên không làm sống lại mục đã xóa. */
+      if(cu)
         return goiDrive('https://www.googleapis.com/drive/v3/files/'+cu.id+'?alt=media').then(function(remote){
-          if(remote && typeof remote==='object'){ CM_DANG_KEO = true; try{ gopTuRemote(remote); } finally{ CM_DANG_KEO = false; } }
+          if(remote && typeof remote==='object'){ soRemote = demChiMuc(remote); CM_DANG_KEO = true; try{ gopTuRemote(remote); } finally{ CM_DANG_KEO = false; } }
           return cu;
         });
       return cu;
     }).then(function(cu){
       var goi = goiChiMuc();
+      /* 3.81: chặn ghi trống — Drive đang có dữ liệu mà bản sắp ghi trống trơn thì KHÔNG ghi đè */
+      if(cu && soRemote >= 3 && demChiMuc(goi) === 0){ console.warn('Chặn ghi chỉ mục trống lên Drive'); baoLoi('Không ghi chỉ mục trống lên Drive (Drive đang có '+soRemote+' mục). Vào 🧰 Dọn kho › 🛟 Sao lưu để kiểm tra.'); return false; }
       return ghiJSONLenDrive('chimuc.json', idTM, goi, cu).then(function(r){
         D.cauHinh.chiMucThoi = goi.xuatLuc; if(r && r.modifiedTime) D.cauHinh.chiMucDriveTG = r.modifiedTime; luu();
         return baoDamDuong(duong+'/du_phong');
       }).then(function(idDP){
         var tenDP = 'chimuc_'+ngayISO(nay())+'.json';
         return timFileTrong(tenDP, idDP).then(function(cuDP){
-          return ghiJSONLenDrive(tenDP, idDP, goi, cuDP);
+          /* 3.81: giữ bản ĐẦU NGÀY — đã có bản hôm nay thì không ghi đè (sự cố giữa ngày không xóa mất bản dự phòng của ngày) */
+          if(cuDP) return null;
+          return ghiJSONLenDrive(tenDP, idDP, goi, null);
         });
       }).then(function(){ return donDuPhong(idTM, duong+'/du_phong'); });
     });
@@ -20466,6 +20591,7 @@ function capNhatGio(){
 function khoiDong(){
   nap();
   napNo();   /* 3.64: dữ liệu Theo dõi nợ nằm ở IndexedDB */
+  setTimeout(function(){ saoLuuTrongMay(); }, 4000);   /* 3.81: bản sao lưu trong máy của hôm nay (lúc mở app, trước khi làm gì) */
   var eb = document.getElementById('ban-goc'); if(eb) eb.textContent = 'v'+APP_BAN;
   napPhanLoai();
   donFileHeThong();

@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.81 — 07/10/2026 22:00 — An toàn dữ liệu: luôn gộp, chặn ghi trống, sao lưu & khôi phục
+- **Luôn gộp trước khi ghi chỉ mục lên Drive** (việc F): trước chỉ gộp khi máy khác vừa gửi, nên máy này lỡ mất danh sách (lỗi Scan 3.79) là ghi đè luôn bản tốt trên Drive. Nay mỗi lần ghi đều tải bản trên Drive về gộp trước (gộp có dấu xóa + thùng rác nên không làm sống lại mục đã xóa).
+- **Chặn ghi trống:** Drive đang có dữ liệu mà bản sắp ghi trống trơn → không ghi, báo đỏ.
+- **Bản dự phòng đầu ngày trên Drive** (`_Hệ thống/du_phong`, 7 ngày): không còn ghi đè trong ngày → sự cố giữa ngày không xóa mất bản dự phòng của ngày đó.
+- **Sao lưu trong máy mỗi ngày** (IndexedDB, giữ 7 bản, gồm cả Theo dõi nợ) — máy chưa nối Drive vẫn có bản sao lưu.
+- **🧰 Dọn kho › 🛟 Sao lưu:** danh sách các bản (trong máy / Drive) với số mục và **"máy đang thiếu n"**; bấm **So sánh** xem thiếu gì theo từng tab; **♻ Lấy lại** chỉ **thêm mục bị thiếu** — không ghi đè, không đụng mục đang có, mục trong thùng rác hay đã xóa hẳn. Nút 💾 Sao lưu ngay.
+- **Theo dõi nợ:** không lưu khi dữ liệu nợ chưa nạp xong (tránh ghi đè trống); không ghi file nợ trống lên Drive.
+- Rà các danh sách khác có cùng kiểu lỗi Scan: Chữ ký·CCCD, Bộ hồ sơ không dùng danh sách trung gian → không dính; Theo dõi nợ đã chặn như trên.
+
 ## 3.80.1 — 07/10/2026 21:00 — Scan: bản có PDF trên Drive không báo nhầm · khôi phục không tạo trùng
 - Bản scan tài liệu **đã có PDF trên Drive** nhưng máy này không còn ảnh từng trang (lấy về từ Drive / máy khác) không còn báo nhầm **"⚠ Chưa có trang · 0 trang"** — chip ghi **☁ PDF trên Drive**; xem / in / gửi dùng file PDF trên Drive như trước.
 - **♻ Khôi phục:** ảnh trang / mặt thẻ còn trong máy mà **cùng mã với bản đã có trong danh sách** → gắn vào bản đó (không tạo bản trùng); việc đếm để hiện thanh nhắc không còn sửa dữ liệu — chỉ khi anh bấm Khôi phục mới gắn.
