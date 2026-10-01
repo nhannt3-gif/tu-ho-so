@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 01/10/2026, bản 3.86)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 01/10/2026, bản 3.87)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -69,10 +69,24 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 
 ---
 
-## 4. Tab 📈 Số liệu (3.85 → 3.86) — phần mới nhất, sẽ phát triển tiếp
+## 4. Tab 📈 Số liệu (3.85 → 3.87) — phần mới nhất, sẽ phát triển tiếp
 
-**3.86 (mới nhất):**
-- **Mẫu 31** "Tạo hồ sơ tín dụng chi tiết theo kỳ số liệu" (175 cột, ~22 MB) **thay Mẫu 10** trong ô Hồ sơ tín dụng chi tiết — anh chốt: hằng tháng xuất Mẫu 31; các file khác của bộ vẫn nạp như cũ (KHĐ, Nợ quá hạn, Nợ khoanh, Tổng dư nợ theo CT, Thông tin tổ trưởng, Sao kê KH khi có). Giữ **đủ 175 cột** (trường `c_<tên cột>` cho cột chưa khai báo — tháng 9 có món **XKLĐ** đầu tiên, cột XKLĐ phải còn). Gộp khế ước trùng (khách 2 sổ 105), lưu món **đã tất toán** và khách **chỉ gửi tiết kiệm**. Chi tiết cột: `docs/DU_LIEU_THANG.md`.
+**Nguyên tắc anh chốt 01/10/2026 (bắt buộc cho mọi bản sau):**
+- **Luồng một chiều:** tab Số liệu là **nguồn** — chỉ nhận dữ liệu từ file Excel hệ thống, không lấy từ tab khác. Các tab khác (Theo dõi nợ, Giao ban, Buổi GD, Hồ sơ hộ…) khi cần thì **chỉ đọc** từ Số liệu, không ghi ngược.
+- **Lỗi logic / dữ liệu:** app phải **báo + chỉ ra nguyên nhân** (file nào, dòng / món / thôn / tổ nào, lệch bao nhiêu), **tuyệt đối không sửa dữ liệu nguồn**; có thể lập danh sách, đề xuất hướng xử lý, ghi nhận để ghi chú / bổ sung ở báo cáo đầu ra. Ví dụ: khách có 2 sổ 105 → danh sách theo xã → điểm GD → ấp → tổ để theo dõi đóng sổ thừa (kỳ sau mới biết đã đóng chưa).
+- **Thứ bậc tin cậy:** Mẫu 31 (chốt tháng) > Mẫu 10 cùng ngày > file tổng hợp (Mẫu 7…). File xuất sau ngày chốt có thể không chuẩn. Lệch thì không tự kết luận file nào sai.
+- **Dữ liệu theo ngày:** Mẫu 31 xuất cuối tháng; **Mẫu 10 và Sao kê KH xuất / nạp bất kỳ ngày nào** (không đều — thường dùng cuối tháng trước, khi cần thì lấy mới nhất). Muốn biết dư nợ hiện tại → Mẫu 10 ngày mới nhất. Khách đã nhập máy chưa có dư nợ chỉ có ở Sao kê KH.
+- **Sau khi nạp phải có bước đánh giá đa chiều → chốt số liệu → báo cáo dạng checklist** (nhiều kỳ, làm khoa học). **Anh nói: phần dữ liệu và tổ chức là quan trọng nhất; đánh giá / chốt làm khi đủ dữ liệu** (kế hoạch: trạng thái kỳ Đang nạp → Đã đánh giá → Đã chốt; checklist 6 nhóm: đủ file · toàn vẹn · khớp ngang · khớp dọc · Mẫu 31 ↔ Mẫu 10 cuối tháng · bất thường nghiệp vụ; mỗi mục lệch có nguyên nhân, danh sách, hướng xử lý, ghi nhận của anh).
+- **"105 Ngày BC" = tổng 105 của khách** (anh xác nhận) — cộng 105 thì lấy 1 lần mỗi khách.
+
+**3.87 (mới nhất):**
+- Tách **Mẫu 31 · HS tín dụng (chốt tháng)** (hstd, kỳ tháng) và **Mẫu 10 · Sao kê chi tiết (theo ngày)** (m10, kỳ `yyyy-mm-dd`); Sao kê KH cũng theo ngày. Tự nhận loại theo cột; Mẫu 10 không ghi ngày bên trong → ngày theo tên file (ghi rõ). Mẫu 10 nạp ở 3.85–3.86 (nằm ở hstd theo tháng) **tự chuyển** sang m10 (`slChuyenMau10`, `slDoiKhoa`), không mất dữ liệu.
+- Khế ước lặp dòng do khách nhiều sổ 105: **giữ nguyên ở bảng riêng** (`b.lap`), dư nợ 1 lần / khế ước, 105 một lần / khách (sửa lỗi 3.86 cộng thừa).
+- Loại mới **Mẫu 7 · Kiểm tra Tổ TK&VV** (kttk, khóa mã tổ). Ngày xuất file (`slNgayXuat`) → cảnh báo xuất sau ngày số liệu.
+- Tháng chưa có Mẫu 31 → đối chiếu tạm bằng Mẫu 10 ngày cuối tháng (ghi tên nguồn).
+
+**3.86:**
+- **Mẫu 31** "Tạo hồ sơ tín dụng chi tiết theo kỳ số liệu" (175 cột, ~22 MB) **thay Mẫu 10** trong ô Hồ sơ tín dụng chi tiết (3.87: Mẫu 10 tách thành loại riêng theo ngày) — anh chốt: hằng tháng xuất Mẫu 31; các file khác của bộ vẫn nạp như cũ (KHĐ, Nợ quá hạn, Nợ khoanh, Tổng dư nợ theo CT, Thông tin tổ trưởng, Sao kê KH khi có). Giữ **đủ 175 cột** (trường `c_<tên cột>` cho cột chưa khai báo — tháng 9 có món **XKLĐ** đầu tiên, cột XKLĐ phải còn). Gộp khế ước trùng (khách 2 sổ 105 — **3.87 bỏ gộp**, giữ dòng lặp riêng), lưu món **đã tất toán** và khách **chỉ gửi tiết kiệm**. Chi tiết cột: `docs/DU_LIEU_THANG.md`.
 - **Tab con:** `D.cauHinh.slTab` = 'nap' (📥 Nạp số liệu) / 'tra' (👤 Tra cứu KH, ô tìm **riêng** `#sl-tim`). Anh chốt: phần Số liệu chạy **độc lập như một app riêng**, không nối các tab khác. **Ô tìm chung không tra khách hàng**; đang ở tab Số liệu thì ô tìm chung gợi ý tab có kết quả (Văn bản, Scan…) và nhảy sang (`slNhayTabHTML`).
 - **Chi tiết tra cứu (lọc, xuất, truy vấn) anh sẽ bàn kỹ sau khi dữ liệu hoàn chỉnh** — không tự làm thêm.
 - Đo file 31/07 thật: đọc ~24 giây (máy thử), 27.391 dòng (24.968 khế ước sau gộp, 3.205 tất toán, 2.423 khách chỉ gửi TK), dư nợ 735.955.328.485 — khớp tính tay.
@@ -124,12 +138,16 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 | # | Việc | Trạng thái / cần gì |
 |---|---|---|
 | 1 | **Anh thử 3.81 → 3.85 trên máy thật** (bảng thử trong `BAN_GIAO_VIEC_CON_LAI.md`) | Chờ anh báo Đạt / Chưa → sửa |
+| 1a | **Anh thử 3.87** (Mẫu 10 tự chuyển sang dòng theo ngày; nạp lại Mẫu 10 31/08 để sửa 105; Mẫu 7; nạp Mẫu 31 T8, T9) | Bảng thử 3.87 trong `BAN_GIAO_VIEC_CON_LAI.md`. **Anh cần nạp Mẫu 31 T8 + T9 vào app** (máy thật mới có Mẫu 10) — cần cho đối chiếu chuẩn và danh sách 2 sổ 105. |
 | 1b | **Anh thử 3.86** (Mẫu 31 T8/T9, tab con Tra cứu KH) | Bảng thử 3.86 trong `BAN_GIAO_VIEC_CON_LAI.md`. Tháng 9 có món XKLĐ đầu tiên — kiểm thẻ khách hàng hiện thông tin XKLĐ (tên cột thật có thể khác file giả → nếu không hiện, xem trường `c_…` trong bảng hstd và sửa `slTheKH`). |
-| 2 | **Sao kê khách hàng** — đọc file | Anh sẽ gửi mẫu ("giống HS tín dụng nhưng không có dư nợ, khế ước"). Ô đã có; chữ ký nhận dạng tạm: có Mã KH + CCCD, không có Mã món vay / Số khế ước / Tổng dư nợ. Kiểm cột thật, bổ sung bí danh, gộp vào danh bạ (`slVaoDanhBa` đã hỗ trợ loại kh). |
+| 1c | **3.88 — Danh sách hộ vay theo tổ** (anh đã duyệt, làm tiếp ngay sau 3.87) | Ở tab con Tra cứu KH. Chọn tổ: gõ tên tổ trưởng / mã tổ / ấp, hoặc xã → điểm GD → ấp → tổ. Nguồn: Mẫu 31 hoặc Mẫu 10 (mặc định mới nhất, ghi rõ ngày). Đầu: tổ trưởng, tổ phó, địa chỉ, điểm GD, hội quản lý (Mẫu 7 + Thông tin tổ trưởng; thiếu thì trống). Bảng: STT · Mã KH · Họ tên · Số KU · Dư nợ KU · Số dư 105 · Lãi tồn; KH nhiều KU có dòng cộng khách (105 ghi 1 lần); KH đã tất toán (dư nợ 0) vẫn hiện; dòng tổng tổ. **In PDF: A4 dọc, gom vừa khổ, dư chỗ thì thêm cột (Chương trình → Ngày vay → Dư nợ QH), tiêu đề "DANH SÁCH HỘ VAY" + "Số liệu đến ngày…", sắp theo Mã KH, cuối trang để trống**; xuất Excel. |
+| 1d | **Danh sách khách 2 sổ 105** (theo xã → điểm GD → ấp → tổ, theo dõi đóng sổ thừa qua các kỳ) | Cần ≥ 2 kỳ Mẫu 31. Hướng xử lý chuẩn: **chờ anh cung cấp** (không tự viết). |
+| 1e | **Đánh giá → chốt số liệu → checklist** (mục 4) | Làm khi đủ dữ liệu; anh bổ sung danh sách lỗi cần bắt. File Mẫu 7 anh gửi để đối chiếu: cần Mẫu 31 ngày 31/08 để kết luận phần lệch (ghi chú ở `DU_LIEU_THANG.md`). |
+| 2 | **Sao kê khách hàng** — đọc file | Anh sẽ gửi mẫu ("giống HS tín dụng nhưng không có dư nợ, khế ước"; 01/10 anh chưa xuất được). Có cả **khách đã nhập máy chưa có dư nợ**. Từ 3.87 lưu theo **ngày**. Ô đã có; chữ ký nhận dạng tạm: có Mã KH + CCCD, không có Mã món vay / Số khế ước / Tổng dư nợ. Kiểm cột thật, bổ sung bí danh, gộp vào danh bạ (`slVaoDanhBa` đã hỗ trợ loại kh). |
 | 3 | **Tra cứu / truy vấn đa chiều trên tab Số liệu** (tab con Tra cứu KH + có thể tab con Truy vấn) | **Anh nói bàn kỹ sau khi dữ liệu hoàn chỉnh — hỏi anh trước, không tự làm.** Đề xuất đã nêu: chọn Hàng (xã → điểm → thôn → tổ → hộ), Cột (CT / nguồn / kỳ), Chỉ tiêu (dư nợ, số món, số hộ không trùng, QH, khoanh, lãi tồn, 105, giải ngân), Lọc; bấm số → danh sách món / hộ; xuất Excel (SheetJS `XLSX.writeFile`), chép Zalo / Word; lưu truy vấn hay dùng; so 2 kỳ (món mới, tất toán = có kỳ trước không có kỳ này, mới chuyển QH). Dùng `slBo` + `slMoBang`; danh sách việc: HSSV đã ra trường, gia hạn, tổ tỷ lệ QH cao, hộ chưa có TK 105. Mẫu 31 **đã có** ngày đến hạn, phát sinh tháng / quý / năm, tình trạng OPEN / CLOSE → doanh số cho vay, thu nợ, đến hạn, tất toán lấy thẳng. |
-| 4 | **Theo dõi nợ + chức năng liên quan** | Anh: làm tiếp **khi có đủ số liệu tháng 30/09**. Hướng: nối Theo dõi nợ / Giao ban / Buổi GD / Hồ sơ hộ với bộ dữ liệu Số liệu (khóa số khế ước, Mã KH) — anh duyệt trước. |
+| 4 | **Theo dõi nợ + chức năng liên quan** | Anh: làm tiếp **khi có đủ số liệu tháng 30/09**. Hướng: Theo dõi nợ / Giao ban / Buổi GD / Hồ sơ hộ **chỉ đọc** từ Số liệu (luồng một chiều, khóa số khế ước, Mã KH) — anh duyệt trước. |
 | 5 | **Ảnh / file mồ côi** | Đã đề xuất (chưa code): nhóm "🧩 Không thuộc mục nào" trong Dọn kho › Quét rác (ảnh gốc / thu nhỏ còn sót, ảnh chữ ký·CCCD lẻ, file trên Drive không có trong chỉ mục), mỗi mục: 📥 Đưa vào Chờ khai · 🔗 Gắn vào bản có sẵn · 🗑 Vào thùng rác; thanh nhắc khi mở app. Anh đồng ý hướng "không để rác không quản lý" — **xác nhận lại phạm vi rồi code**. |
-| 6 | Thôn **54003520** (Phường Gò Dầu) có dư nợ nhưng thiếu tên / điểm, không có trong danh sách tổ; app có thôn 54003501 Khu Phố Chánh không có dư nợ | Anh kiểm trên hệ thống |
+| 6 | ~~Thôn **54003520**~~ | **Đã rõ (01/10/2026):** lỗi dữ liệu hệ thống, thôn không còn; dữ liệu hệ thống còn lỗi chưa chỉnh hết → app chỉ báo. |
 | 7 | Backlog cũ chờ anh chốt | G thư viện offline / SRI · J tìm khung CCCD trên nền kính (cần ảnh thật) · ô bắt buộc · NOXH kỳ hạn / "phục viên" · danh mục Theo dõi nợ · dời nút Danh sách / Tính ngày · tìm theo nội dung văn bản · con số "N thiếu" của ma trận đếm theo danh sách chốt kỳ |
 
 **Lưu ý / rủi ro đã biết:**

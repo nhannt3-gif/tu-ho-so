@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.86 · build 08/10/2026 14:00
+**Bản hiện tại:** 3.87 · build 01/10/2026 21:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.87) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app (máy đã nạp Mẫu 10 ở bản 3.86) → tab 📈 Số liệu | Báo "đã chuyển n bản Mẫu 10…"; dòng **Mẫu 10 · Sao kê chi tiết (theo ngày)** ô T8 ghi "1 ngày · mới 31/08"; dòng Mẫu 31 trống; tóm tắt có cảnh báo "nạp ở bản cũ… nạp lại file" nếu file có khách nhiều sổ | |
+| 2 | Nạp lại file Mẫu 10 ngày 31/08 (Nạp cả bộ hoặc bấm ô → Nạp ngày khác) | Xem trước: loại Mẫu 10, ô **ngày** 31/08/2026 "theo tên file", báo "n dòng lặp khế ước… giữ nguyên"; ghi nhận → TK 105 = 62.930.852.589, "149 KH có từ 2 sổ 105", dư nợ không cộng trùng | |
+| 3 | Nạp file Mẫu 7 (QUERY…02092026…31-08-2026) | Nhận "Mẫu 7 · Kiểm tra Tổ TK&VV", kỳ T8/2026 theo cột Ngày dữ liệu; cảnh báo "xuất ngày 02/09/2026, sau ngày số liệu" | |
+| 4 | Nạp Mẫu 31 tháng 8 (và 9) | Vào dòng **Mẫu 31** (không vào Mẫu 10); đối chiếu ghi "Mẫu 31" | |
+| 5 | Ô Mẫu 10 → danh sách ngày → mở 1 ngày → 📅 Đổi ngày | Đổi được ngày, dữ liệu giữ nguyên; trùng ngày đã có thì báo | |
+| 6 | 👤 Tra cứu KH: khách có 2 sổ | Thẻ ghi "TK 105 (nhiều sổ)" kèm các số sổ, số dư 105 một lần; dòng "theo số liệu ngày 31/08/2026" | |
+| 7 | Máy thứ 2 nối Drive | Có dòng Mẫu 10 ngày 31/08, mở được; Drive: `_Hệ thống/so_lieu/2026-08/m10_2026-08-31.json.gz` | |
+
+**Ghi chú kỹ thuật 3.87:** `SL_LOAI`: hstd chỉ còn chữ ký Mẫu 31; loại mới `m10` (Mẫu 10, `ngay:true`, `khong:['tinh trang mon vay']`), `kttk` (Mẫu 7, khóa `to`); `kh` thêm `ngay:true`. Kỳ loại theo ngày = `yyyy-mm-dd` (khóa `m10|2026-08-31`, IDB `sl_b_m10_2026-08-31`), theo tháng = `yyyy-mm`. Tiện ích: `slLaNgay`, `slLaHS` (hstd/m10), `slThang`, `slKyChu`, `slThuTu` (so cũ/mới, cùng ngày Mẫu 31 thắng), `slKyHopLe`, `slNgayMacDinh`, `slCacNgay`, `slHSMoi`. Dòng lặp khế ước: `slLayDong` trả `lap` (không gộp), lưu `b.lap` (`slMoLap`), `slTong(loai, rows, lap)` tính `t105` = max mỗi KH, `khNhieuSo`, `lap`; danh bạ `slVaoDanhBa(loai, ky, rows, lap)` gom sổ ở cả dòng lặp, 105 = max; giữ SĐT / CCCD… đã biết khi file mới thiếu cột. `slNgayXuat` (ngày lớn nhất trong tên file > ngày số liệu) → `e.ngayXuat`; `e.ban` = bản app lúc nạp (thiếu → dữ liệu bản cũ). Chuyển dữ liệu: `slDoiKhoa(loaiCu, kyCu, loaiMoi, kyMoi, them)` (dời IDB + chỉ mục, dấu `xoa` khóa cũ, đẩy lại dữ liệu đọc nhanh theo tên mới, bản cũ vào `cuDl`), `slChuyenMau10` (hstd không có `tong.gnT` → m10; gọi sau `slNap` và `slTaiTuDrive`). Drive: thư mục theo tháng `slThang(e.ky)`, tên dữ liệu `m10_<ngày>.json.gz`; `slDay` chỉ đẩy dữ liệu khi chưa có `e.dl`. Giao diện: ô loại theo ngày (`slMoNgay`, `slDoiNgay`, `slDoiNgayGhi`), `slTomDong` (một dòng tóm tắt, dùng cho kỳ / ngày / hộp ô), `SL_BO_CHU`, ô kỳ `date` ở xem trước và nạp từng file (`slNapMotLoai`, `slDoiKy`, `slKiemMot`, `slGhiMot`). `slBo(tháng)` không có Mẫu 31 → lấy Mẫu 10 ngày cuối tháng (`B.hsTen`), `slDoiChieu` ghi tên nguồn. `SL_TRUONG`: dn thêm 'du no' (đứng sau 'tong du no'), nbc thêm 'ngay du lieu', tenDiem thêm 'ten diem giao dich', trường Mẫu 7 `stv stvDn stv105 stvKNL stvKGT tlQH tlKN tgbq diemTo xepLoai`. Phép thử `tests/t101.js` (dữ liệu giả dựng trong trang; tham số = đường dẫn index.html bản 3.86 để thử chuyển dữ liệu + Drive giả).
 
 ### Danh sách thử trên máy thật (3.86) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

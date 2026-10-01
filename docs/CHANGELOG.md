@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.87 — 01/10/2026 21:00 — Số liệu: tách Mẫu 31 (chốt tháng) / Mẫu 10 (theo ngày) · khách nhiều sổ 105 · Mẫu 7
+- **Hai loại file riêng:** **Mẫu 31 · HS tín dụng (chốt tháng)** lưu theo tháng, là **số chuẩn**. **Mẫu 10 · Sao kê chi tiết (theo ngày)** lưu theo **ngày**: nạp ngày nào cũng được, mỗi ngày một bản riêng. Ô tháng của Mẫu 10 ghi số ngày đã nạp và ngày mới nhất; bấm vào là ra danh sách ngày, mở từng ngày, **📅 Đổi ngày** nếu cần. **Sao kê khách hàng** cũng lưu theo ngày (chưa có mẫu file).
+- **Tự nhận loại theo bộ cột** (Mẫu 10 không có cột "Tình trạng món vay", Mẫu 31 có), không dựa vào tên file. **Ngày số liệu:** cột ngày trong file → tiêu đề → tên file (Mẫu 10 không ghi ngày bên trong nên lấy theo tên file, app ghi rõ). Nạp từng file: Mẫu 10 / Sao kê KH chọn **ngày**, các loại khác chọn tháng.
+- **Chuyển dữ liệu cũ, không mất gì:** Mẫu 10 đã nạp ở bản 3.85–3.86 (đang nằm ở ô "Hồ sơ tín dụng chi tiết" theo tháng) **tự chuyển** sang dòng Mẫu 10 theo ngày khi mở app. Dữ liệu đã đọc giữ nguyên, file gốc trên Drive giữ nguyên, bản dữ liệu đọc nhanh trên Drive đổi tên theo ngày (bản cũ vào thùng rác Drive). Danh bạ khách hàng cập nhật theo.
+- **Khách có nhiều sổ 105 — giữ nguyên như file, sửa lỗi cộng thừa 105:** hệ thống xuất 2–3 dòng cùng một khế ước khi khách có nhiều sổ. 3.86 gộp các dòng và **cộng số dư 105 → thừa** (file Mẫu 10 ngày 31/08 thật: thừa 603.650.349 đ). Từ 3.87: dòng lặp **giữ nguyên ở bảng riêng** (đủ từng sổ, "105 đầu tháng" từng sổ), dư nợ đếm mỗi khế ước 1 lần, **số dư 105 lấy 1 lần mỗi khách** (anh xác nhận cột "105 Ngày BC" là tổng 105 của khách). Tóm tắt ghi "n KH có từ 2 sổ 105"; thẻ khách hàng ghi "TK 105 (nhiều sổ)". Dữ liệu nạp ở bản cũ có dòng lặp → tóm tắt cảnh báo "nạp lại file để tính đúng".
+- **Loại mới Mẫu 7 · Kiểm tra Tổ TK&VV** (file tổng hợp theo tổ: tổ viên, dư nợ, quá hạn, khoanh, lãi tồn, 105, điểm, xếp loại; ngày lấy theo cột "Ngày dữ liệu"). Lưu để đối chiếu và dùng cho danh sách theo tổ (bản sau).
+- **Ngày xuất file:** tên file có 2 ngày (vd `QUERY…_02092026_…_31-08-2026`) → app nhận ngày xuất; file theo tháng xuất **sau** ngày số liệu thì cảnh báo "có thể lẫn phát sinh sau ngày chốt (lệch thì lấy Mẫu 31 làm chuẩn)".
+- **Đối chiếu tháng:** chưa có Mẫu 31 thì tạm dùng **Mẫu 10 của ngày cuối tháng** (ghi rõ "Mẫu 10 ngày 31/08/2026") — giữ các phép đối chiếu cũ khi máy mới chỉ có Mẫu 10.
+
 ## 3.86 — 08/10/2026 14:00 — Số liệu: Mẫu 31 thay Mẫu 10 · tab con Tra cứu KH độc lập
 - **Mẫu 31 "Tạo hồ sơ tín dụng chi tiết theo kỳ số liệu"** (175 cột, ~22 MB) được nhận vào ô **Hồ sơ tín dụng chi tiết**, thay Mẫu 10 (Mẫu 10 vẫn đọc được). Kỳ lấy theo cột **Ngày số liệu**. **Sửa lỗi 3.85:** file có cột "Tình trạng món vay" không còn bị nhận nhầm là KHĐ / Nợ quá hạn / Nợ khoanh.
 - **Giữ đủ 175 cột** (cột chưa dùng lưu dạng `c_<tên cột>`, gồm cả nhóm XKLĐ, HSSV, hiệu quả đầu tư…) — không phải nạp lại khi cần cột mới. Nén ~3 MB/tháng (file 31/07 thật).
