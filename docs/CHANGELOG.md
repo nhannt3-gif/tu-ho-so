@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.77 — 07/10/2026 14:00 — Văn bản trùng: báo + gộp · lọc không sót
+- **Vì sao trước không báo trùng:** app chỉ coi là trùng khi nội dung file giống hệt từng byte — cùng văn bản tải 2 nguồn (Zalo, Drive, email…) là lọt; file vào bằng Lập chỉ mục / đồng bộ máy khác không qua kiểm tra trùng.
+- **Trùng = cùng số hiệu + cùng năm ban hành** (so không dấu, bỏ khoảng trắng, gạch; khác năm là văn bản khác):
+  - Dòng danh sách có chip đỏ **⚠ trùng n bản**; hàng lọc có chip **⚠ Trùng số hiệu** (lọc ra các bản trùng, xếp cạnh nhau).
+  - Bấm chip → hộp **Gộp văn bản trùng**: chọn bản giữ lại (app chọn sẵn bản nhiều thông tin nhất), ↗ Xem từng bản; **Gộp** → bản kia chuyển hết văn bản liên quan, tag, CT vay, mảng, ⭐, ghi chú, tóm tắt sang bản giữ rồi vào **Thùng rác** (hoàn tác / lấy lại 30 ngày).
+  - **Lưu file mới** (khay chờ) trùng với văn bản đã có → hỏi **Bỏ file mới / Giữ cả 2 / Lưu rồi gộp**. ("Duyệt tất cả" không hỏi từng file — trùng vẫn hiện chip ⚠ trên danh sách.)
+- **Lọc không sót (anh chốt: tối ưu nhưng không để văn bản nào lọc không ra):**
+  - Mỗi nhóm lọc có chip nét đứt **Chưa có ngày · Chưa gắn mảng · Chưa gắn CT · Chưa có tag** (tab Tháng: Chưa ghi phạm vi / hội; Scan: Chưa khai xã) — chỉ hiện khi có mục để trống.
+  - Giá trị đang gắn trên file nhưng không còn trong danh mục (mảng, CT, tag cũ) vẫn hiện chip để lọc.
+  - **Lọc 1 chương trình (vd HN) ra cả văn bản "Tất cả CT"** (áp dụng mọi CT). Văn bản để trống CT không lẫn vào — xem bằng chip Chưa gắn CT.
+  - Hàng lọc nhóm ngắn được xuống dòng — không nhóm nào bị che; chip Chưa có tag đứng đầu hàng tag.
+- Sửa nhỏ: văn bản không có ngày không còn hiện chip rỗng trên dòng.
+
 ## 3.76 — 07/10/2026 10:00 — Ô gõ chữ: ← → chỉ di chuyển trong ô
 - Anh chốt cho an toàn: trong **ô gõ chữ** (tên, ghi chú, số hiệu, trích yếu…) phím **← →** chỉ di con trỏ trong ô, **không nhảy ô** nữa. **Ô chọn** (Xã, Điểm, Ấp, Tổ, Mảng, CT vay…) vẫn dùng ← → qua lại ô, ↑ ↓ chọn. Enter / Tab / Shift giữ nguyên.
 

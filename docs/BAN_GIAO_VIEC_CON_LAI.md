@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.76 · build 07/10/2026 10:00
+**Bản hiện tại:** 3.77 · build 07/10/2026 14:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,20 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.77) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Văn bản: 2 dòng QĐ 70/QĐ-HĐQT | Mỗi dòng có chip đỏ ⚠ trùng 1 bản; hàng lọc có ⚠ Trùng số hiệu | |
+| 2 | Bấm ⚠ trùng → chọn bản giữ → Gộp | Còn 1 dòng, đủ liên quan 1006/TB-LN, 4336, 4339; bản kia ở Thùng rác | |
+| 3 | Thêm lại file QĐ 70 → khai → Lưu | Hỏi Bỏ file mới / Giữ cả 2 / Lưu rồi gộp | |
+| 4 | Hàng lọc: bấm Chưa gắn CT / Chưa gắn mảng / Chưa có tag | Ra đúng các văn bản để trống mục đó | |
+| 5 | Lọc CT vay HN | Ra văn bản gắn HN + văn bản Tất cả CT | |
+
+**Ghi chú kỹ thuật 3.77:**
+- **Trùng:** `khoaTrungVB(m)` = số hiệu (bỏ dấu, chỉ chữ + số) + "|" + năm; `tinhTrungSH()` → `TRUNG_SH[id] = [ids]` (gọi đầu `veVanBan`; tên `TRUNG` cũ là việc khác); `vbTrungVoi`, `moGopTrung`, `xemBanTrung`, `gopTrung` (dời `lienQuan` qua `lqGo`/`lqNoi`, gộp tag/the/ctrinh, rồi `xoaNhieuVaoRac`), `hoiTrungVB`, `luuRoiGop`; `duyet()` hỏi khi `!imLang && !m0.xacNhanTrung`. Bộ lọc `L.trung`.
+- **Lọc không sót:** `LOC_TRONG = '(chưa có)'`, `NHAN_TRONG`, `locTrong(m, khoa, kn)`; `locChuan` xử lý giá trị `LOC_TRONG` + CT kèm "Dùng chung"; `nhomLocNhanh`: `coDung` thêm giá trị lạ, `tagCo`, chip `LOC_TRONG` (tag đứng đầu); `locTheoThe` chuongtrinh kèm Dùng chung.
+- Phép thử `t88.js` (dữ liệu giả: kiểm tra mọi văn bản lọc ra được ở mọi nhóm, gộp, hỏi khi lưu).
 
 ### Danh sách thử trên máy thật (3.76) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
