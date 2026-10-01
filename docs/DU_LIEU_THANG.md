@@ -57,6 +57,13 @@ Lệch thì app **báo, chỉ ra nguyên nhân / dòng lệch, không sửa dữ
 - Mẫu 31 không có cột "Lãi tồn" tổng → lãi tồn = Lãi tồn TH + Lãi tồn QH. Báo cáo TK 105 lấy nguồn **Mẫu 31** (Mẫu 10 gần như không có khách đã tất nợ: file 31/08 chỉ 5 KH dư nợ 0 + lãi tồn 0).
 - **Khách mới kết nạp** (anh chốt): có dư nợ tháng này mà tháng trước không có trong tổ. Thử so Mẫu 10 31/08 với Mẫu 31 31/07 (khác loại — chỉ thử cách làm): 80 KH, 12 KH chưa có số TK 105.
 
+## Mẫu 31 — cột dùng cho Sao kê / Tra cứu (kiểm file 31/07/2026)
+- **SĐT** (cột "Số điện thoại", chỉ Mẫu 31): 20.846 KH — 18.776 di động 10 số, **1.965 trống**, 105 không chuẩn, 7 số dùng chung ≥ 3 KH. Quy tắc anh chốt: đạt = đúng 10 chữ số, bắt đầu bằng 0.
+- **Người thừa kế = vợ/chồng** (anh xác nhận): Mẫu 31 chỉ có **Tên vợ/chồng** (không có số giấy tờ) → tìm theo tên. **CMND HSSV** + Tên HSSV có. Không file nào có cột CCCD người thừa kế.
+- **Đến hạn:** Ngày ĐH theo hợp đồng / theo gia hạn / theo GDXA (anh chốt lọc theo GDXA — căn cứ chuyển quá hạn). Món OPEN đến hạn trong T8/2026: HĐ 19 · gia hạn 28 · GDXA 35. Không có lịch trả gốc từng kỳ (chỉ "Gốc đến hạn LK") → sao kê là món **đáo hạn**.
+- **Gia hạn:** "Thời hạn vay" chỉ ghi Ngắn / Trung / Dài hạn. Các cột Số lần đã gia hạn, Số tháng đã GH, Tổng gia hạn nợ, ngày ĐH gia hạn **không luôn khớp nhau** (vd 0 lần nhưng ĐH gia hạn dài hơn HĐ 29 tháng; 245 món có tiền gia hạn nhưng 113 món có số lần > 0) → app ghi ⚠ khi lệch. **Anh chốt:** thời hạn cho vay = ngày vay → ngày đến hạn đầu tiên (ĐH hợp đồng); gia hạn tối đa ½ thời hạn; đã gia hạn thì còn = ½ thời hạn − (ĐH gia hạn − ĐH hợp đồng).
+- **Phát sinh tháng:** Giải ngân trong tháng (T7: 134 món, 6.682.000.000; ngày lấy cột "Ngày GN cuối cùng"), 2.059 món có thay đổi dư nợ, 5 KH giải ngân chưa có sổ 105.
+
 ## Lưu trữ
 - Máy: IndexedDB `sl_b_<loại>_<kỳ>` (dạng theo cột; kỳ theo ngày vd `sl_b_m10_2026-08-31`; dòng lặp khế ước ở `b.lap`), `sl_meta`, `sl_danhba`.
 - Drive: `Tủ hồ sơ/Số liệu/<tháng>/<ngày> <Tên loại>.xlsx` (file gốc) · `Tủ hồ sơ/_Hệ thống/so_lieu/<tháng>/<loại>.json.gz` (loại theo ngày: `m10_<yyyy-mm-dd>.json.gz`) · `_Hệ thống/so_lieu/meta.json` · `_Hệ thống/so_lieu/khach_hang.json.gz`.

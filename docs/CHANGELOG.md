@@ -4,6 +4,20 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.89 — 01/10/2026 23:20 — Bộ chọn phạm vi chung · Tra cứu kiểm trùng · tab con 📑 Sao kê (8 báo cáo)
+- **Bộ chọn phạm vi dùng chung** (anh chốt: mọi tra cứu / in): Xã → Điểm GD → Hội (lọc, bỏ trống = mọi hội) → Tổ; dừng ở cấp nào lấy phạm vi cấp đó; ô chọn theo phím chung + chip chọn nhanh (bấm lại chip = bỏ chọn); mỗi nơi nhớ phạm vi riêng; báo cáo ghi "Phạm vi: …" trên đầu. Dùng cho Tra cứu KH, Tổ TK&VV (bắt buộc đến tổ), Sao kê.
+- **👤 Tra cứu KH — kiểm trùng trước khi nhập máy:** gõ **CCCD / CMND (9–12 số)** → rà CCCD khách + **CMND HSSV** trên **toàn PGD**: ✅ "Không trùng — chưa dây vốn, có thể nhập máy" / ⚠ "Trùng — đang dây vốn: …" (chủ hộ hoặc HSSV của ai, món, dư nợ, xã · ấp · tổ) / ⓘ "đã tất nợ / chỉ gửi TK — không tính dây vốn"; luôn ghi "theo số liệu ngày …". **Gõ tên** → chỉ khớp tên người (không còn khớp tên tổ trưởng / ấp), tìm cả **tên vợ/chồng (người thừa kế)** và **tên HSSV** (Mẫu 31), hiện hết (tối đa 300 dòng mỗi nhóm, nhắc thu hẹp), mỗi dòng có xã · ấp · tổ · tình trạng (đang vay n món / đã tất nợ / chỉ gửi TK). Ô **📍 Phạm vi tìm** để thu hẹp. CCCD người thừa kế: chưa có báo cáo nào có cột này — anh sẽ tìm.
+- **Tab con mới 📑 Sao kê** (Số liệu, cạnh Tổ TK&VV): chọn kỳ + phạm vi → tích → Xem → In / Excel; phạm vi từ xã trở lên thì bảng **chia theo tổ, có dòng cộng tổ**:
+  1–3. **Nợ quá hạn · Nợ khoanh · Món vay 3 tháng KHĐ** (từ 3 file tháng).
+  4. **Số điện thoại khách hàng** (khách đang vay): SĐT **đạt = đúng 10 chữ số, bắt đầu bằng 0**; chưa có số → ô trống tô nền "Chưa có SĐT — bổ sung"; không đạt → in số + "SĐT không đạt yêu cầu"; dòng đầu tóm tắt số đạt / trống / không đạt.
+  5. **Nợ đến hạn từ ngày … đến ngày …** (mặc định tháng sau ngày số liệu): lọc theo **ngày ĐH theo GDXA**, kèm ngày ĐH hợp đồng, ngày ĐH gia hạn, số tháng đã gia hạn, **còn được gia hạn** (= ½ thời hạn cho vay − đã gia hạn; cột gia hạn trong file không khớp nhau thì ghi "⚠ kiểm trên hệ thống").
+  6. **Giải ngân trong tháng** · 7. **Món vay có thay đổi dư nợ** (dư nợ đầu tháng, giải ngân, thu nợ, khác, dư nợ cuối tháng) · 8. **Khách giải ngân cần mở TK 105**.
+  Báo cáo 4–8 cần **Mẫu 31** (Mẫu 10 không có các cột này) — thiếu thì báo rõ.
+- Gồm luôn **3.88.1** (cây tổ khi máy chưa có bảng số liệu). Hàng tab con của Số liệu nằm 1 hàng, điện thoại vuốt ngang, tự cuộn tới tab đang mở.
+
+## 3.88.1 — 01/10/2026 22:18 — Sửa: cây tổ trống khi máy chưa có bảng số liệu
+- Máy chưa có bảng số liệu (lưu trên Drive nhưng chưa tải về — Drive chưa nối / hết phiên; thường là máy khác máy đã nạp): tab con Tổ TK&VV ra cây trống, không báo. Nay: cây tổ dựng tạm từ danh bạ khách hàng, có cảnh báo vàng + nút **☁ Nối Drive và tải** / **⟳ Thử lại**; nối được thì tải bảng, hết cảnh báo. Lỗi khi mở số liệu → báo lỗi + Thử lại (trước đây đứng ở "Đang mở…"). Xem báo cáo khi chưa có bảng → nhắc nối Drive.
+
 ## 3.88 — 01/10/2026 21:52 — 👥 Tab con Tổ TK&VV (3 báo cáo của tổ) · Số liệu: luồng theo tháng + nút Kiểm tra
 - **Tab con mới 👥 Tổ TK&VV** trong tab Số liệu, cạnh 👤 Tra cứu KH (anh chốt; chỉ ĐỌC số liệu): chọn **kỳ số liệu** (Mẫu 31 theo tháng / Mẫu 10 theo ngày) → chọn tổ theo cây **Xã → Điểm GD → Hội → Tổ** (ô chọn theo **phím chung**: Enter / Tab sang 1 ô, Shift lùi, ← → ↑ ↓ ở ô chọn, ô cha trống thì báo; đủ chỗ thì có thêm **chip** bấm nhanh; cấp chỉ có 1 lựa chọn tự chọn) hoặc **gõ tên tổ trưởng / mã tổ / ấp**. Thẻ tổ: địa chỉ, điểm GD (ngày GD), hội, tổ phó, SĐT, chỉ tiêu nhanh (tổ viên, còn dư nợ, dư nợ, tỷ lệ quá hạn, khoanh, 105, xếp loại Mẫu 7). Tháng chưa nạp Thông tin tổ trưởng / Mẫu 7 → thông tin tổ lấy ở tháng gần nhất có file.
 - **3 báo cáo** (tích → 👁 Xem → 🖨 In / PDF hoặc 📊 Excel; chỉ là thông tin để xem, in; A4 dọc; cuối trang để trống):

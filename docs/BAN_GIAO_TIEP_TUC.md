@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 01/10/2026, bản 3.88)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 01/10/2026, bản 3.89)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -49,7 +49,7 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 | 0 | Hôm nay (lịch, việc, 🧰 Công cụ: Giao ban, Buổi GD, HSSV, Địa bàn…) | `veHomNay`, `CONG_CU`, `ccMo` |
 | 1 | Văn bản | `veVanBan` |
 | 2 | Tháng (ma trận báo cáo tháng theo PGD / xã / điểm) | `veThang`, `bangDoiChieuHTML` |
-| 7 | **Số liệu** (3.85, bộ Excel hệ thống; 3.88 theo tháng + Kiểm tra) — 3 tab con: 📥 Nạp số liệu · 👤 Tra cứu KH · 👥 Tổ TK&VV (3.88) | `veSoLieu`, `slTraHTML`, `veToTK` |
+| 7 | **Số liệu** (3.85, bộ Excel hệ thống; 3.88 theo tháng + Kiểm tra) — 4 tab con: 📥 Nạp số liệu · 👤 Tra cứu KH · 👥 Tổ TK&VV (3.88) · 📑 Sao kê (3.89) | `veSoLieu`, `slTraHTML`, `veToTK`, `veSaoKe` |
 | 5 | Biểu mẫu | `veBieuMau` |
 | 4 | Scan (hồ sơ quét, CCCD) | `veScan` |
 | 3 | Thư viện = Ghi chú · Theo dõi nợ · Bộ hồ sơ (`tvPhan()` = gc / no / bo) | `veGhiChu` |
@@ -80,9 +80,18 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **"105 Ngày BC" = tổng 105 của khách** (anh xác nhận) — cộng 105 thì lấy 1 lần mỗi khách.
 - **Phân vai tab (anh chốt 01/10/2026):** tab con **👤 Tra cứu KH chỉ để tra cứu khách hàng** (bố cục tra cứu sẽ thiết kế lại sau cho tiện nhất — không đặt báo cáo vào đây). **👥 Tổ TK&VV chỉ là báo cáo của 1 tổ.** Khách có 2 sổ 105 → **tab kiểm tra / chuẩn hóa số liệu** (làm sau), không ở tab Tổ.
 - **Báo cáo của tổ là thông tin thuần để xem / in** (không thêm cột làm việc, ô ghi tay…). Bố cục theo chuẩn ngân hàng hiện đại: dải chỉ tiêu trên cùng, xếp theo mức nghiêm trọng, có tuổi nợ. A4 dọc, cuối trang để trống, sắp theo Mã KH. Chương trình ghi mã + tên ngắn (`CT_NGAN`).
+- **Cách làm việc (anh chốt 01/10/2026):** anh hay dùng **điện thoại** → **gom nhiều ý rồi làm một lần**, kiên nhẫn; mỗi bản mở PR, **chờ anh nhắn "gộp" mới gộp** (không tự gộp).
+- **Quy tắc phạm vi chung:** mọi tra cứu / in đều chọn xã → điểm GD → hội (lọc) → tổ; báo cáo ghi phạm vi, chia và cộng theo tổ.
+- **Kiểm trùng trước khi nhập máy:** dùng CCCD là chính; rà CCCD khách đang dư nợ + CMND HSSV (+ CCCD người thừa kế khi có báo cáo). Không trùng = chưa dây vốn, có thể nhập máy. Khách tất nợ vẫn hiện, ghi rõ. Người thừa kế = vợ/chồng (Mẫu 31 chỉ có tên) → tìm theo tên, hiện hết kèm xã / tổ để anh tự chọn.
+- **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.88 (mới nhất):**
+**3.89 (mới nhất):**
+- **Bộ chọn phạm vi chung** `pvVeCay(p)` (xã → điểm GD → hội lọc → tổ) — **mọi tra cứu / báo cáo mới phải dùng bộ này** (anh chốt). Thêm nơi dùng = thêm `PV_DUNG[p]` + `<div id="p-cay" class="to-cay pv-cay">`.
+- **Tra cứu KH:** gõ CCCD = kiểm trùng toàn PGD (khách + CMND HSSV); gõ tên = khách / vợ-chồng / HSSV, hiện hết kèm xã · ấp · tổ · tình trạng; 📍 phạm vi.
+- **Tab con 📑 Sao kê:** 8 báo cáo (QH, khoanh, KHĐ, SĐT, nợ đến hạn + còn được gia hạn, giải ngân, thay đổi dư nợ, cần mở 105), chia theo tổ.
+
+**3.88:**
 - **Tab Số liệu theo tháng:** chọn tháng → ① file của tháng (đủ / thiếu, nạp ngay; file theo ngày là chip) → ② **🔍 Kiểm tra** (6 nhóm: đủ file · toàn vẹn · khớp giữa các file + Mẫu 7 từng tổ · với tháng trước · Mẫu 31 ↔ Mẫu 10 cuối tháng · bất thường). Kết quả lưu `SLM.kt[tháng]` (lên Drive cùng meta), không chạy lại; file đổi → "kiểm lại" (`slDauKy`). ③ Chốt để sau. Bảng nhiều tháng thu gọn được.
 - **Tab con 👥 Tổ TK&VV** (trong Số liệu, cạnh Tra cứu KH): chọn kỳ số liệu → cây Xã → Điểm GD → Hội → Tổ (phím chung + chip) hoặc gõ tên → thẻ tổ → tích báo cáo → Xem → In / Excel. 3 báo cáo: **Danh sách hộ vay**, **Nợ cần xử lý** (3 khung QH / khoanh / KHĐ, 1 mặt A4), **TK 105 của tổ** (nguồn Mẫu 31: tất nợ còn 105 kèm số TK; khách mới chưa mở 105).
 
@@ -150,6 +159,9 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 | 1c | ~~3.88 — Danh sách hộ vay theo tổ~~ **ĐÃ LÀM ở 3.88 (tab con 👥 Tổ TK&VV của Số liệu)** — anh thử theo bảng 3.88; ghi chú cũ: | Ở tab con Tra cứu KH. Chọn tổ: gõ tên tổ trưởng / mã tổ / ấp, hoặc xã → điểm GD → ấp → tổ. Nguồn: Mẫu 31 hoặc Mẫu 10 (mặc định mới nhất, ghi rõ ngày). Đầu: tổ trưởng, tổ phó, địa chỉ, điểm GD, hội quản lý (Mẫu 7 + Thông tin tổ trưởng; thiếu thì trống). Bảng: STT · Mã KH · Họ tên · Số KU · Dư nợ KU · Số dư 105 · Lãi tồn; KH nhiều KU có dòng cộng khách (105 ghi 1 lần); KH đã tất toán (dư nợ 0) vẫn hiện; dòng tổng tổ. **In PDF: A4 dọc, gom vừa khổ, dư chỗ thì thêm cột (Chương trình → Ngày vay → Dư nợ QH), tiêu đề "DANH SÁCH HỘ VAY" + "Số liệu đến ngày…", sắp theo Mã KH, cuối trang để trống**; xuất Excel. |
 | 1d | **Tab kiểm tra / chuẩn hóa số liệu** — danh sách khách 2 sổ 105 (theo xã → điểm GD → ấp → tổ, theo dõi đóng sổ thừa qua các kỳ), 820 khách chỉ gửi TK không có tổ… | Cần ≥ 2 kỳ Mẫu 31. Hướng xử lý chuẩn: **chờ anh cung cấp** (không tự viết). Bàn bố cục với anh trước. |
 | 1e | **Chốt số liệu (bước ③)** + ghi nhận của anh cho mục lệch, hướng xử lý — bước ② Kiểm tra đã có ở 3.88 (mục 4) | Làm khi đủ dữ liệu; anh bổ sung danh sách lỗi cần bắt. File Mẫu 7 anh gửi để đối chiếu: cần Mẫu 31 ngày 31/08 để kết luận phần lệch (ghi chú ở `DU_LIEU_THANG.md`). |
+| 1h | **Phát triển tab Tổ TK&VV theo văn bản thành lập / củng cố tổ** | Anh sẽ gửi văn bản → đọc, lên kế hoạch, anh duyệt. |
+| 1i | ~~Xác nhận "thời hạn cho vay"~~ | **Anh chốt:** thời hạn cho vay = ngày vay → ngày đến hạn đầu tiên; gia hạn tối đa ½; đã gia hạn thì còn = phần còn lại (3.89 tính theo ngày, hiện tháng + ngày). |
+| 1j | **CCCD người thừa kế** cho kiểm trùng | Anh tìm báo cáo hệ thống có cột này. |
 | 1f | **Tài liệu tìm hiểu báo cáo của ngân hàng / tổ chức tài chính vi mô nước ngoài** (PAR30, chia tuổi nợ, phiếu họp nhóm Grameen, watch list…) | Em đã đề nghị làm tài liệu có trích nguồn — **chờ anh đồng ý**. |
 | 1g | **Thiết kế lại bố cục 👤 Tra cứu KH** cho tiện nhất | Anh nói bàn sau. |
 | 2 | **Sao kê khách hàng** — đọc file | Anh sẽ gửi mẫu ("giống HS tín dụng nhưng không có dư nợ, khế ước"; 01/10 anh chưa xuất được). Có cả **khách đã nhập máy chưa có dư nợ**. Từ 3.87 lưu theo **ngày**. Ô đã có; chữ ký nhận dạng tạm: có Mã KH + CCCD, không có Mã món vay / Số khế ước / Tổng dư nợ. Kiểm cột thật, bổ sung bí danh, gộp vào danh bạ (`slVaoDanhBa` đã hỗ trợ loại kh). |
