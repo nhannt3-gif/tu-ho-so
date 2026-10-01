@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.80.1 — 07/10/2026 21:00 — Scan: bản có PDF trên Drive không báo nhầm · khôi phục không tạo trùng
+- Bản scan tài liệu **đã có PDF trên Drive** nhưng máy này không còn ảnh từng trang (lấy về từ Drive / máy khác) không còn báo nhầm **"⚠ Chưa có trang · 0 trang"** — chip ghi **☁ PDF trên Drive**; xem / in / gửi dùng file PDF trên Drive như trước.
+- **♻ Khôi phục:** ảnh trang / mặt thẻ còn trong máy mà **cùng mã với bản đã có trong danh sách** → gắn vào bản đó (không tạo bản trùng); việc đếm để hiện thanh nhắc không còn sửa dữ liệu — chỉ khi anh bấm Khôi phục mới gắn.
+
 ## 3.80 — 07/10/2026 20:00 — Hộp sửa: văn bản liên quan gọn
 - Chip văn bản liên quan trong hộp sửa **chỉ ghi số hiệu** (rê chuột thấy tên đầy đủ + ngày; ↗ xem bên cạnh, ✕ gỡ vẫn có) — ô gõ số hiệu nằm cùng hàng, không bị đẩy xuống dòng.
 - **Văn bản liên quan + Ghi chú riêng chung 1 hàng** (điện thoại vẫn 2 hàng).
