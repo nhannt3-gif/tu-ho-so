@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.82 — 07/10/2026 23:00 — 🏠 Hồ sơ hộ một trang
+- **Gom mọi thứ của 1 hộ đang nằm rải ở nhiều tab** vào một trang: 🪪 CCCD (ảnh mặt trước) · 📑 hồ sơ đã quét · ✍ Chữ ký·CCCD · 📁 Bộ hồ sơ · 💰 mọi món vay đang theo dõi (CT, danh sách, số tiền, trạng thái) · 📈 3 lần làm việc gần nhất (cam kết, hạn, giữ đúng / thất hứa) · 🗂 tóm tắt hồ sơ hộ 8 mục · SĐT.
+- Bấm vào từng dòng là mở đúng chỗ (bản quét, thẻ món vay, bộ hồ sơ); nút **🖨 In / gửi bộ giấy tờ** ghép CCCD + hồ sơ quét thành 1 file; **🧾 Phiếu món vay**.
+- **Mở từ:** gõ tên khách ở ô tìm (gợi ý **🏠 Hồ sơ hộ**) · nút **🏠** trên dòng Scan · nút **🏠 Hồ sơ 1 trang** trên thẻ món vay.
+- **Ghép theo tên (không dấu) + mã tổ** khi cả 2 bên có — trùng tên khác tổ không bị gộp nhầm; tên file kèm đuôi ("Vo Van Cuong Hdtd") vẫn nhận. Chỉ đọc, không sửa / không gắn gì vào dữ liệu.
+
 ## 3.81 — 07/10/2026 22:00 — An toàn dữ liệu: luôn gộp, chặn ghi trống, sao lưu & khôi phục
 - **Luôn gộp trước khi ghi chỉ mục lên Drive** (việc F): trước chỉ gộp khi máy khác vừa gửi, nên máy này lỡ mất danh sách (lỗi Scan 3.79) là ghi đè luôn bản tốt trên Drive. Nay mỗi lần ghi đều tải bản trên Drive về gộp trước (gộp có dấu xóa + thùng rác nên không làm sống lại mục đã xóa).
 - **Chặn ghi trống:** Drive đang có dữ liệu mà bản sắp ghi trống trơn → không ghi, báo đỏ.
