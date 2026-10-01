@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.84 · build 08/10/2026 01:30
+**Bản hiện tại:** 3.85 · build 08/10/2026 09:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.85) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab 📈 Số liệu › 📥 Nạp cả bộ — chọn đủ bộ T8 (HS tín dụng chi tiết 20 MB, KHĐ, Nợ QH, Nợ khoanh, Tổng dư nợ, Tổ trưởng) | Màn hình không treo; bảng xem trước đúng loại, kỳ 08/2026, số dòng lấy / bỏ, tổng | |
+| 2 | Ghi nhận | Ô T8 đủ ✓; tóm tắt kỳ; đối chiếu: tổng dư nợ, QH, khoanh khớp; món QH / khoanh / KHĐ tìm thấy trong HS tín dụng; báo thôn 54003520 | |
+| 3 | 📄 Nạp từng file: chọn sai loại (vd file Nợ khoanh mà chọn Nợ quá hạn) / chọn sai kỳ | Sai loại bị chặn, có nút đổi loại; lệch kỳ báo vàng cho chọn | |
+| 4 | Ô tìm: gõ tên không dấu / 6 số cuối CCCD / mã KH / năm sinh | Nhóm 👤 Khách hàng; bấm → thẻ có CCCD, ngày cấp, địa chỉ, 📋 chép, món vay, tổ trưởng | |
+| 5 | Máy thứ 2 (điện thoại) mở app, nối Drive | Tab Số liệu có ô T8; tra khách hàng được; mở kỳ tải số liệu về | |
+| 6 | Drive | Có `Tủ hồ sơ/Số liệu/2026-08/` (file gốc) và `_Hệ thống/so_lieu/` | |
+| 7 | Tab Tháng | Không còn 7 dòng sao kê thuần Excel; dòng XLS ô xám, không báo thiếu | |
+
+**Ghi chú kỹ thuật 3.85:** khối `<script>` cuối file. Hằng: `SL_MA_CU` (7 mã cũ, `laMaSoLieu`), `SL_NGUON`, `SL_TRUONG` (trường + tên cột chuẩn hóa bỏ dấu `slChuan` + kiểu n/d/s + độ dài mã), `SL_LOAI` (can / mot / khong / khoa / cu / tenFile), `SL_KHOA_DUNG`. Đọc: `slDocSheet` (Worker từ mã xlsx đã cache `tvDoc('xlsx')`, dự phòng đọc trực tiếp) → `slTimDau` → `slLayDong` (bỏ trống / tiêu đề lặp / tổng / phần ký / sai mã) → `slTimKy` (`slNgayTrongChu`) → `slTong`; `slDocFile`, `slPhanTich(kq, loaiChon)`. Lưu: `slNen` / `slMoBang` (theo cột + từ điển), IDB `sl_b_<loại>_<kỳ>`, gốc tạm `sl_g_…` (xóa sau khi lên Drive), `sl_meta` (`SLM` = bang / xoa / ndt / dbLuc), `sl_danhba` (`SL_DB` kh + to, `slVaoDanhBa`, `slDungDanhBa`, `slDungTim`). Drive: `slDay` (gốc → `Số liệu/<kỳ>/`, `slGZ` → `_Hệ thống/so_lieu/<kỳ>/<loại>.json.gz`, danh bạ `khach_hang.json.gz`, `slDayMeta` gộp `slGopMeta` trước khi ghi `meta.json`), `slTaiTuDrive` (gọi khi nối Drive), `slDocBang` tải bảng khi cần. Bộ kỳ: `slBo`, `slDoiChieu`. Giao diện: `veSoLieu` (tab 7, `tr7`), `slKyHTML`, `slDanhMucHTML`, `slMoO`, `slNapBo`/`slDocNhieu`/`slXemTruoc`/`slGhiDaTich`, `slNapMot`/`slKiemMot`/`slGhiMot`, `slDocMucCu`. Tra: `slTimKH`, `slKHGoiYHTML` (gắn vào `veGoiY`), `slTheKH`, `slChepKH`. Tab Tháng: `bangDoiChieuHTML`, `thieuTheoKy`, `mauApDung`, `dsMauCDHTML` lọc `laMaSoLieu`; ô XLS lớp `trong`. `gomTatCaDon` bỏ qua thư mục `Số liệu`. Phép thử: `t97.js` (bộ giả 25.000 món), `t97m.js` (giao diện máy / điện thoại), `t98.js` (2 máy qua Drive giả), `t99.js` (chuyển tiếp tab Tháng); `taogia.py` sinh bộ file giả. Từ điển dữ liệu: `docs/DU_LIEU_THANG.md`.
 
 ### Danh sách thử trên máy thật (3.84) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
