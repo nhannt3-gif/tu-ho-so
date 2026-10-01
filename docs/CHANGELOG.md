@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.79.1 — 07/10/2026 19:00 — SỬA KHẨN: mất danh sách Scan
+- **Lỗi (có từ 3.50, lộ ra khi dùng nút Gộp 3.77):** khi mở app, danh sách Scan của tab Scan chỉ nạp khi bấm vào tab; trước đó nếu **xóa / gộp văn bản** (đưa vào thùng rác) hoặc **app tự đẩy bản scan lên Drive** thì app lấy nhầm danh sách trống của tab Scan ghi đè danh sách thật → tab Scan báo 0 bản. **Ảnh trong máy không mất** — chỉ mất danh sách (tên, địa bàn).
+- **Sửa gốc:** `chuyenVaoRac`, `luuHoSo`, `xoaScanIm` không bao giờ thay danh sách thật bằng danh sách của tab Scan chưa mở; tab Scan và dữ liệu dùng chung 1 danh sách ngay khi mở app.
+- **Khôi phục:** tab Scan hiện thanh đỏ "⚠ Còn n bản scan có ảnh trong máy nhưng không có trong danh sách" + nút **♻ Khôi phục**:
+  - có Drive: kéo lại chỉ mục trên Drive trước (bản nào còn trên Drive lấy lại đủ tên, địa bàn);
+  - còn lại dựng từ ảnh trong máy: thẻ CCCD theo mặt trước / sau; tài liệu gom các trang theo mã bản quét (đúng thứ tự trang); ảnh / PDF lẻ gom theo giờ tạo (≤ 15 phút = 1 bản);
+  - bản khôi phục để **chưa khai** (tên trống, ghi chú "Khôi phục từ ảnh còn trong máy") → bấm **Khai hàng loạt** ghi lại tên, địa bàn. Không xóa gì.
+
 ## 3.79 — 07/10/2026 17:00 — Hộp sửa gọn trong 1 khung
 - Hộp sửa văn bản (và hộp sửa bản quét) **vừa 1 khung, không phải cuộn** dù nhiều tag (đo ở 1366×768: trước tràn 69px).
 - **Chip tag nhỏ lại** (cao 19px, chữ 11px), khối tag tối đa 3 hàng — nhiều hơn thì cuộn trong khối; tag đang chọn vẫn đứng đầu; ô **＋ tag / lọc** đứng đầu khối (không bị khuất).

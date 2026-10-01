@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.79 · build 07/10/2026 17:00
+**Bản hiện tại:** 3.79.1 · build 07/10/2026 19:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.79.1 — sửa khẩn) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở tab Scan trên máy bị mất danh sách | Thanh đỏ "Còn n bản scan…" + nút ♻ Khôi phục | |
+| 2 | Bấm ♻ Khôi phục | Danh sách hiện lại (bản từ Drive có tên; bản dựng từ ảnh để chưa khai) → Khai hàng loạt | |
+| 3 | Mở app, xóa 1 văn bản ở tab Văn bản rồi mới vào tab Scan | Danh sách Scan còn nguyên | |
+
+**Ghi chú kỹ thuật 3.79.1:** gốc lỗi: `HS.ds` khởi tạo `[]`, chỉ gán `= D.scan` trong `napHoSo` (khi mở tab Scan); `chuyenVaoRac` (`D.scan = HS.ds`), `luuHoSo` (gọi cả từ `dongBoScan` lúc mở app), `xoaScanIm` dùng `HS.ds` cũ → ghi đè `D.scan = []`. Sửa: chỉ lấy `HS.ds` khi `HS.mo`; `luuHoSo` chỉ thêm mục thiếu khi chưa mở; `nap()` và `khoiDong` gán `HS.ds = D.scan`. Khôi phục: `timAnhScanMoCoi` (duyệt khóa `hs_*` IndexedDB trừ đã có / thùng rác / hàng chờ / `hs_ka` / `_goc` / `_nho`), `lapScanKhoiPhuc`, `khoiPhucScan` (kéo chỉ mục Drive trước), `demScanKhoiPhuc` + thanh nhắc. Phép thử `t91.js` (tái hiện lỗi trên bản cũ → 0; bản sửa → giữ nguyên; khôi phục 4 bản).
 
 ### Danh sách thử trên máy thật (3.79) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

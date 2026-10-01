@@ -2606,7 +2606,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.79', APP_LUC = '07/10/2026 17:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.79.1', APP_LUC = '07/10/2026 19:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -2776,6 +2776,7 @@ function nap(){
       var j = JSON.parse(s);
       D.vanBan = j.vanBan||[]; D.duLieu = j.duLieu||[];
       D.ghiChu = j.ghiChu||[]; D.ganDay = j.ganDay||[]; D.cho = j.cho||[]; D.bieuMau = j.bieuMau||[]; D.rac = j.rac||[]; D.scan = j.scan||j.cauHinh&&j.cauHinh.hsDS||[];
+      if(typeof HS!=='undefined') HS.ds = D.scan;   /* 3.79.1 */
       D.lich = j.lich||{viec:[], daXoa:[]};
       D.daXoaHan = j.daXoaHan||[];
       D.kyAnh = j.kyAnh||[];   /* 3.51: sửa lỗi — trước đây danh sách Chữ ký·CCCD không lưu trong máy (chỉ lấy lại qua Drive) */
@@ -11007,8 +11008,11 @@ function lienKetDen(id){
 }
 function chuyenVaoRac(ids, lyDo){
   var now = new Date().toISOString(), n = 0; D.rac = D.rac || [];
-  if(typeof HS!=='undefined' && HS.ds && HS.ds!==D.scan) D.scan = HS.ds;
+  /* 3.79.1 (SỬA LỖI MẤT DANH SÁCH SCAN): trước gán D.scan = HS.ds kể cả khi tab Scan CHƯA mở (HS.ds = [] lúc khởi động)
+     → xóa / gộp văn bản trước khi vào tab Scan là danh sách Scan bị thay bằng danh sách trống. Nay chỉ lấy HS.ds khi tab đã mở. */
+  if(typeof HS!=='undefined' && HS.mo && HS.ds && HS.ds!==D.scan) D.scan = HS.ds;
   /* 3.50 (anh chốt): cứ xóa là vào thùng rác — cả bản scan và Chữ ký · CCCD (ảnh giữ trong máy tới khi xóa hẳn) */
+  setTimeout(function(){ if(typeof HS!=='undefined') HS.ds = D.scan; }, 0);   /* 3.79.1 */
   ['vanBan','duLieu','ghiChu','bieuMau','cho','scan','kyAnh','boHS'].forEach(function(k){
     D[k] = (D[k]||[]).filter(function(m){
       if(ids.indexOf(m.id)<0) return true;
@@ -11802,7 +11806,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.79', ds:[
+var CO_GI_MOI = {ban:'3.79.1', ds:[
+  ['🛠 Sửa lỗi mất danh sách Scan (xóa / gộp văn bản trước khi mở tab Scan) · tab Scan có nút ♻ Khôi phục từ ảnh còn trong máy', "dongHop();doiNgan(4)"],
   ['▭ Hộp sửa gọn trong 1 khung: chip tag nhỏ (3 hàng, cuộn trong khối), ô ＋ tag đứng đầu, hàng nút Lưu / Thôi thấp lại', "dongHop();doiNgan(1)"],
   ['💡 Hộp sửa: hướng dẫn + ví dụ hiện ở dải chip xanh cố định đầu hộp — không còn bong bóng che ô', "dongHop();doiNgan(1)"],
   ['🔗 Khung xem: văn bản liên quan gọn 1 dòng chip số hiệu dưới tên (bỏ khối dòng thời gian)', "dongHop();doiNgan(1)"],
@@ -13015,13 +13020,119 @@ function sanKhoaHS(){
 }
 
 
+/* ==========================================================
+   3.79.1 — KHÔI PHỤC DANH SÁCH SCAN TỪ ẢNH CÒN TRONG MÁY
+   (lỗi cũ làm mất DANH SÁCH, ảnh vẫn còn trong IndexedDB):
+   - thẻ CCCD: hs_<id>_matTruoc / _matSau → 1 bản thẻ
+   - tài liệu: hs_<id>_t<n>_<x> → gom theo <id>, xếp theo n → 1 bản tài liệu
+   - ảnh / PDF lẻ khác (quét bằng webcam, PDF chọn vào) → gom theo giờ tạo (cách nhau ≤ 15 phút = 1 bản)
+   Mục khôi phục để "chưa khai" (tên trống) → anh khai lại bằng Khai hàng loạt. Không xóa gì.
+   ========================================================== */
+function timAnhScanMoCoi(){
+  var biet = {};
+  var danh = function(t){ if(t) biet['hs_'+t] = 1; };
+  (D.scan||[]).concat((D.rac||[]).filter(function(m){ return m.khoCu==='scan' || m.che; })).forEach(function(k){
+    danh(k.id+'_matTruoc'); danh(k.id+'_matSau');
+    (k.trang||[]).forEach(function(t){ danh(laTrangPDF(t) ? tachTrangPDF(t).nguon : t); });
+  });
+  (typeof HANG!=='undefined' ? HANG : []).forEach(function(x){ danh(x.id); if(x.nguon) danh(x.nguon); });
+  try{ var hj = JSON.parse(localStorage.getItem(KHOA_HANG)||'null'); ((hj&&hj.ds)||[]).forEach(function(x){ danh(x.id); if(x.nguon) danh(x.nguon); }); }catch(e){}
+  return moKho().then(function(db){
+    return new Promise(function(ok){
+      var ds = [];
+      try{
+        var st = db.transaction('f','readonly').objectStore('f');
+        var r = st.openCursor();
+        r.onsuccess = function(ev){
+          var c = ev.target.result; if(!c){ ok(ds); return; }
+          var k = String(c.key);
+          if(/^hs_/.test(k) && !/^hs_ka/.test(k) && !/[_](goc|nho)$/.test(k) && !biet[k]) ds.push({k:k, pdf:!!(c.value && /pdf/.test(c.value.type||''))});
+          c.continue();
+        };
+        r.onerror = function(){ ok(ds); };
+      }catch(e){ ok(ds); }
+    });
+  }).catch(function(){ return []; });
+}
+function tgTuId(id){ var t = parseInt(String(id).slice(0, 8), 36); return (t > 1.5e12 && t < 4e12) ? t : 0; }
+function lapScanKhoiPhuc(keys){
+  var the = {}, tl = {}, le = [];
+  keys.forEach(function(x){
+    var k = x.k.slice(3), m;
+    if((m = k.match(/^(.+)[_](matTruoc|matSau)$/))) (the[m[1]] = the[m[1]] || {})[m[2]] = true;
+    else if((m = k.match(/^(.+)[_]t(\d+)[_][a-z0-9]+$/))) (tl[m[1]] = tl[m[1]] || []).push({id:k, n:+m[2]});
+    else le.push({id:k, pdf:x.pdf, tg:tgTuId(k)});
+  });
+  var ra = [], ngayCua = function(id){ var t = tgTuId(id); return t ? ngayISO(new Date(t)) : ngayISO(nay()); };
+  var khung = function(id, che){ return {id:id, che:che, ten:'', ngay:ngayCua(id), xa:'', diem:'', ap:'', to:'', ghi:'Khôi phục từ ảnh còn trong máy', tag:che==='the'?['CCCD']:[], ctrinh:[],
+    taoLuc:new Date(tgTuId(id)||Date.now()).toISOString(), chuaKhai:true, khoiPhuc:true}; };
+  Object.keys(the).forEach(function(id){ if(!the[id].matTruoc) return; var k = khung(id, 'the'); k.matTruoc = true; k.matSau = !!the[id].matSau; ra.push(k); });
+  Object.keys(tl).forEach(function(id){ var k = khung(id, 'tailieu'); k.trang = tl[id].sort(function(a, b){ return a.n-b.n; }).map(function(x){ return x.id; }); ra.push(k); });
+  le.sort(function(a, b){ return a.tg-b.tg; });
+  var nhom = null;
+  le.forEach(function(x){
+    if(!nhom || !x.tg || !nhom.tg || x.tg - nhom.tg > 15*60000){ nhom = khung(x.id, 'tailieu'); nhom.id = 'kp'+idMoi(); nhom.ngay = ngayCua(x.id); nhom.trang = []; nhom.tg = x.tg; nhom.pdf = []; ra.push(nhom); }
+    if(x.pdf) nhom.pdf.push(x.id); else nhom.trang.push(x.id);
+    nhom.tg = x.tg || nhom.tg;
+  });
+  return ra;
+}
+function khoiPhucScan(){
+  batChay(true, 'Đang tìm ảnh scan còn trong máy…');
+  /* có Drive: kéo chỉ mục về trước (bắt buộc tải lại) — bản nào còn trên Drive thì lấy lại đủ tên, địa bàn */
+  var keo = (typeof coTheNoiDrive==='function' && coTheNoiDrive() && DR.sanSang)
+    ? (D.cauHinh.chiMucDriveTG = '', D.cauHinh.chiMucThoi = '', taiChiMucTuDrive(true).catch(function(){}))
+    : Promise.resolve();
+  var truoc = (D.scan||[]).length;
+  Promise.resolve(keo).then(function(){ return timAnhScanMoCoi(); }).then(function(keys){
+    var tuDrive = (D.scan||[]).length - truoc; if(tuDrive > 0) bao('Lấy lại '+tuDrive+' bản scan từ chỉ mục trên Drive.', 5);
+    var ds = lapScanKhoiPhuc(keys);
+    /* PDF chọn vào: đếm số trang để dựng lại từng trang */
+    return ds.reduce(function(p, k){
+      return p.then(function(){
+        if(!k.pdf || !k.pdf.length) return;
+        return k.pdf.reduce(function(p2, nguon){
+          return p2.then(function(){
+            if(!sanSangPDF()){ k.trang.push(ghepTrangPDF({nguon:nguon, so:0})); return; }
+            return moPDFNguon(nguon).then(function(pdf){ for(var i=0;i<pdf.numPages;i++) k.trang.push(ghepTrangPDF({nguon:nguon, so:i})); })
+              .catch(function(){ k.trang.push(ghepTrangPDF({nguon:nguon, so:0})); });
+          });
+        }, Promise.resolve());
+      });
+    }, Promise.resolve()).then(function(){ return ds; });
+  }).then(function(ds){
+    tatChay();
+    ds = ds.filter(function(k){ delete k.pdf; delete k.tg; return k.che==='the' || (k.trang||[]).length; });
+    if(!ds.length) return bao('Không còn ảnh scan nào chưa có trong danh sách.', 5);
+    D.scan = D.scan || []; ds.forEach(function(k){ D.scan.push(k); }); HS.ds = D.scan; luu(); KP_DEM = null;
+    if(nganHienTai===4) veScan();
+    bao('Đã khôi phục '+ds.length+' bản scan từ ảnh còn trong máy ('+ds.filter(function(k){ return k.che==='the'; }).length+' thẻ, '+
+      ds.filter(function(k){ return k.che!=='the'; }).length+' tài liệu). Bấm Khai hàng loạt để ghi lại tên, địa bàn.', 10);
+  }).catch(function(e){ tatChay(); baoLoi('Chưa khôi phục được: '+(e&&e.message||e)); });
+}
+/* tab Scan: danh sách trống / ít hơn ảnh trong máy → hiện thanh nhắc khôi phục */
+var KP_DEM = null;
+function demScanKhoiPhuc(){
+  if(KP_DEM!==null) return;
+  KP_DEM = 0;
+  timAnhScanMoCoi().then(function(keys){ KP_DEM = lapScanKhoiPhuc(keys).length; if(KP_DEM && nganHienTai===4) veScan(); });
+}
+
 /* ---- kho hồ sơ (chỉ mục riêng, không xuất ra Drive) ---- */
 function napHoSo(){
   D.scan = D.scan || D.cauHinh.hsDS || [];
   HS.ds = D.scan;
   veScan();
 }
-function luuHoSo(){ D.scan = HS.ds; luu(); }
+/* 3.79.1: không bao giờ ghi đè D.scan bằng danh sách trống của tab Scan chưa mở — chỉ thêm mục còn thiếu */
+function luuHoSo(){
+  D.scan = D.scan || [];
+  if(HS.ds && HS.ds!==D.scan){
+    if(HS.mo) D.scan = HS.ds;
+    else { var co = {}; D.scan.forEach(function(k){ co[k.id] = 1; }); HS.ds.forEach(function(k){ if(k && !co[k.id]) D.scan.push(k); }); }
+  }
+  HS.ds = D.scan; luu();
+}
 
 /* ---- cắt nắn & làm đẹp ảnh ----
    3.35: thay bộ cũ (chỉ cắt giữa ảnh theo tỉ lệ thẻ + kéo giãn sáng tối nên ảnh hay tối, dính mặt bàn)
@@ -13419,7 +13530,7 @@ function xoaAnhMayCua(m){
   }
 }
 function xoaScanIm(id){
-  HS.ds = HS.ds || D.scan || [];
+  HS.ds = (HS.mo && HS.ds) ? HS.ds : (D.scan || []);   /* 3.79.1: tab Scan chưa mở thì làm trên D.scan, không trên [] */
   var m = HS.ds.find(function(x){ return x.id===id; });
   if(m && m.trang) m.trang.forEach(function(t){ xoaFile('hs_'+(laTrangPDF(t) ? tachTrangPDF(t).nguon : t)); });
   HS.ds = HS.ds.filter(function(x){ return x.id!==id; });
@@ -15943,6 +16054,10 @@ function veScan(){
   if(HANG.length) h += '<div class="thanh-chon" style="background:var(--vang-nen);border-color:var(--vang);color:var(--vang)">'+
     '<span><b>'+HANG.length+'</b> bản vừa quét chưa lưu</span>'+
     '<button onclick="moHangCho()">Mở lại</button><button onclick="boHangCho()">🗑 Bỏ</button></div>';
+  demScanKhoiPhuc();   /* 3.79.1 */
+  if(KP_DEM) h += '<div class="thanh-chon" style="background:var(--do-nen);border-color:var(--do);color:var(--do)">'+
+    '<span>⚠ Còn <b>'+KP_DEM+'</b> bản scan có ảnh trong máy nhưng không có trong danh sách (do lỗi cũ làm mất danh sách)</span>'+
+    '<button onclick="KP_DEM=null;khoiPhucScan()">♻ Khôi phục</button></div>';
   var chuaKhai = D.scan.filter(function(k){ return k.chuaKhai; });
   if(chuaKhai.length) h += '<div class="thanh-chon" style="background:var(--vang-nen);'+
     'border-color:var(--vang);color:var(--vang)">'+
@@ -20333,6 +20448,7 @@ function khoiDong(){
   napPhanLoai();
   donFileHeThong();
   apDongGon();   /* 3.73 */
+  if(typeof HS!=='undefined') HS.ds = D.scan = D.scan || [];   /* 3.79.1: tab Scan và D.scan dùng chung 1 danh sách ngay từ khi mở app */
   if(chuyenLienQuan()) luu();   /* 3.68 (AF) */
   document.documentElement.style.setProperty('--co', D.cauHinh.coChu||1);
   apGiaoDien();
