@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.78 · build 07/10/2026 16:00
+**Bản hiện tại:** 3.79 · build 07/10/2026 17:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.79) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ✎ Sửa văn bản có nhiều tag (máy 1366) | Cả hộp vừa 1 khung, không cuộn; tag 3 hàng, cuộn trong khối; ô ＋ tag ở đầu | |
+
+**Ghi chú kỹ thuật 3.79:** chỉ CSS (khối "3.79 — hộp sửa gọn trong 1 khung"): `.sua-gon .tg-hang` max-height 64px, chip 19px, `input{order:-1}`; `.hop-in.sua-gon .day-form` nút 32px; textarea 30px; `.sg-hd` 30px. Phép thử đo `t89.js` (24 tag giả).
 
 ### Danh sách thử trên máy thật (3.78) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
