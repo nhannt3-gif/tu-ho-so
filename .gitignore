@@ -1,0 +1,5 @@
+tests/lib/
+tests/gia/
+tests/gianho/
+tests/*.png
+tests/node_modules/

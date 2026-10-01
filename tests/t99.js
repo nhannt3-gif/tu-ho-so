@@ -1,0 +1,20 @@
+// 3.85 — chuyển tiếp: file sao kê cũ ở tab Tháng → ô "đọc file cũ" ở Số liệu; ma trận Tháng bỏ 7 dòng; dòng XLS không tính thiếu (dữ liệu giả)
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+(async()=>{ const b=await chromium.launch(); const p=await b.newPage({viewport:{width:1366,height:800}}); const loi=[]; p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+require('path').resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ const r = await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){} const o={}; const w=t=>new Promise(r=>setTimeout(r,t));
+   D.duLieu.push({id:'d1',nhom:'duLieu',maLoai:'SK_TD',ky:'2026-07',tenMoi:'SK_TD_ToanPGD_2026_07.xlsx',ngay:'2026-07-31'});
+   const m = D.cauHinh.mauBaoCao.find(x=>x.ma==='THHD_AP'); if(m) m.coExcel = true;
+   const thieuTruoc = thieuTheoKy('2026-07').filter(x=>/Sao kê|Tổng dư nợ theo chương trình|Thông tin tổ trưởng/.test(x.bc)).length;
+   o.thieuSaoKe = thieuTruoc;
+   doiNgan(2); await w(300);
+   o.xlsTrong = document.querySelectorAll('.bdc-o.xls.trong').length+' ô xám · đỏ: '+document.querySelectorAll('.bdc-o.xls.thieu').length;
+   o.coTK10 = D.cauHinh.mauBaoCao.some(x=>x.ma==='SK_TK10')+' (máy mới không có) · Cài đặt list ẩn: '+!/Sao kê tín dụng chi tiết/.test(dsMauCDHTML());
+   SL_LECH=0; doiNgan(7); await w(500);
+   SL_LECH = 3; veSoLieu(); await w(200);
+   o.oCu = Array.from(document.querySelectorAll('.sl-o.cu')).map(x=>x.textContent).join(',');
+   return o; });
+ for(const k in r) console.log(k.padEnd(9), r[k]);
+ await p.evaluate(()=>{ doiNgan(2); }); await p.waitForTimeout(400); await p.screenshot({path:__dirname+'/t99.png'});
+ console.log('lỗi', loi); await b.close(); })();

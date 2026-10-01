@@ -1,0 +1,53 @@
+// 3.85 — tab Số liệu với bộ file GIẢ (gia/): nạp cả bộ, ghi nhận, đối chiếu, tra KH, kiểm từng file, tải lại
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs=require('fs'), path=require('path');
+const THU = process.argv[2] || 'gia';
+(async()=>{ const b=await chromium.launch(); const ctx=await b.newContext({viewport:{width:1366,height:800}}); const p=await ctx.newPage(); const loi=[]; p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+require('path').resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ const files = fs.readdirSync(path.join(__dirname,THU)).map(n=>({n, b:fs.readFileSync(path.join(__dirname,THU,n)).toString('base64')}));
+ await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){}
+   window.__F = files.map(f=>{ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return new File([u], f.n, {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}); });
+ }, files);
+ const t0=Date.now();
+ await p.evaluate(()=>{ doiNgan(7); slDocNhieu(window.__F); });
+ await p.waitForSelector('.sl-xt', {timeout:180000});
+ console.log('đọc bộ', ((Date.now()-t0)/1000).toFixed(1)+'s');
+ const xt = await p.evaluate(()=>SL_NAP.map(k=>[k.ten, k.loai, k.ky, k.nguonKy, k.rows&&k.rows.length, JSON.stringify(k.bo), slTrangThai(k).chu.slice(0,90)].join(' | ')));
+ xt.forEach(x=>console.log('  ', x));
+ await p.screenshot({path:__dirname+'/t97a.png'});
+ const t1=Date.now();
+ await p.evaluate(()=>slGhiDaTich());
+ await p.waitForFunction(()=>Object.keys(SLM.bang).length>=6 && document.querySelector('#sl-ky .sl-tom'), null, {timeout:120000});
+ console.log('ghi nhận + mở bộ', ((Date.now()-t1)/1000).toFixed(1)+'s');
+ const r = await p.evaluate(async()=>{ const o={};
+   o.o = Array.from(document.querySelectorAll('.sl-bang tbody tr')).map(tr=>tr.cells[0].textContent+': '+Array.from(tr.cells).slice(1).map(c=>c.textContent).join(' | ')).join('\n      ');
+   o.dc = Array.from(document.querySelectorAll('.sl-dc-dong')).map(x=>x.textContent).join('\n      ');
+   let t=performance.now(); const kq=slTimKH('nguyen gia'); o.timTen=kq.length+' kq '+(performance.now()-t).toFixed(1)+'ms';
+   const c=SL_DB.kh[kq[0].m]; t=performance.now(); const k2=slTimKH(c.cccd.slice(-6)); o.timCCCD=k2.length+' kq, đầu: '+(k2[0]&&k2[0].m===kq[0].m)+' '+(performance.now()-t).toFixed(1)+'ms';
+   o.timMa=slTimKH(kq[0].m).length; o.timNS=slTimKH(c.ns.slice(8)+'/'+c.ns.slice(5,7)+'/'+c.ns.slice(0,4)).length;
+   o.soKH=Object.keys(SL_DB.kh).length;
+   document.getElementById('otim').value='nguyen gia'; veGoiY('vanBan', D.vanBan); o.goiY=document.querySelectorAll('#goiy button').length+' nút, KH: '+Array.from(document.querySelectorAll('#goiy .gy-dau')).map(x=>x.textContent).join(',');
+   dongGoiY(); document.getElementById('otim').value='';
+   slTheKH(kq[0].m); await new Promise(r=>setTimeout(r,1500));
+   o.the=document.querySelector('.hop-tit').textContent+' · ô '+document.querySelectorAll('.kh-o').length+' · món '+document.querySelectorAll('.kh-mon tbody tr').length;
+   return o; });
+ for(const k in r) console.log(k.padEnd(8), r[k]);
+ await p.screenshot({path:__dirname+'/t97b.png'});
+ await p.evaluate(()=>dongHop());
+ await p.screenshot({path:__dirname+'/t97c.png', fullPage:true});
+ // kiểm từng file: sai loại, lệch kỳ
+ const r2 = await p.evaluate(async()=>{ const o={};
+   const nk = window.__F.find(f=>/Khoanh/.test(f.name)), nqh = window.__F.find(f=>/qua han/.test(f.name));
+   const a = await slDocFile(nk, 'nqh'); o.saiLoai = a.loi;
+   const b2 = await slDocFile(nqh, 'nqh'); slKiemMot(b2, 'nqh', '2026-09'); o.lechKy = document.querySelector('.sl-bao.vang') && document.querySelector('.sl-bao.vang').textContent; dongHop();
+   const c = await slDocFile(nk, 'nk'); slKiemMot(c, 'nk', '2026-08'); o.nkKhop = !!document.querySelector('.hop-in .chinh') && !document.querySelector('.sl-bao.do') ? 'ok, đã có → '+(!!document.querySelector('.sl-bao.vang')) : 'lỗi'; dongHop();
+   doiNgan(2); await new Promise(r=>setTimeout(r,300));
+   o.thang = 'còn dòng Sao kê: '+/Sao kê|Thông tin tổ trưởng|Tổng dư nợ theo chương trình/.test(document.getElementById('bang-thang').textContent)+' · khối thuần Excel: '+/Sao kê thuần Excel/.test(document.getElementById('bang-thang').textContent);
+   return o; });
+ for(const k in r2) console.log(k.padEnd(8), r2[k]);
+ // tải lại trang: dữ liệu còn, tra được
+ await p.reload(); await p.waitForTimeout(2500);
+ const r3 = await p.evaluate(async()=>{ await new Promise(r=>setTimeout(r,800)); return 'sau tải lại: bảng '+Object.keys(SLM.bang).length+' · KH '+SL_TIM.length+' · tìm '+slTimKH('nguyen gia').length; });
+ console.log(r3); console.log('lỗi', loi);
+ await b.close(); })();

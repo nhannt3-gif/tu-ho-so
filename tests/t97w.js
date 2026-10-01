@@ -1,0 +1,11 @@
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs=require('fs');
+(async()=>{ const b=await chromium.launch(); const p=await b.newPage(); const loi=[]; p.on('pageerror',e=>loi.push(e.message)); p.on('console',m=>console.log('console:',m.text()));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+require('path').resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ const b64=fs.readFileSync(__dirname+'/gia/Ho so tin dung chi tiet 31-08-2026.xlsx').toString('base64');
+ const r=await p.evaluate(async(b64)=>{ await xongTV; const bin=atob(b64),u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+   const src = await tvDoc('xlsx'); let tick=0, maxGap=0, last=performance.now(); const iv=setInterval(()=>{const n=performance.now(); maxGap=Math.max(maxGap,n-last); last=n; tick++;},50);
+   const t=performance.now(); const s=await slDocSheet(u.buffer); clearInterval(iv);
+   return {coMa:!!src, ms:Math.round(performance.now()-t), maxGap:Math.round(maxGap), sheets:s.length, rows:s[0].rows.length}; }, b64);
+ console.log(r, loi); await b.close(); })();
