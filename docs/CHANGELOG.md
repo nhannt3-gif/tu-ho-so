@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.80 — 07/10/2026 20:00 — Hộp sửa: văn bản liên quan gọn
+- Chip văn bản liên quan trong hộp sửa **chỉ ghi số hiệu** (rê chuột thấy tên đầy đủ + ngày; ↗ xem bên cạnh, ✕ gỡ vẫn có) — ô gõ số hiệu nằm cùng hàng, không bị đẩy xuống dòng.
+- **Văn bản liên quan + Ghi chú riêng chung 1 hàng** (điện thoại vẫn 2 hàng).
+- Ô Trích yếu thật sự 1 dòng (kéo giãn được); dải gợi ý: khi có hướng dẫn của ô thì bỏ phần phím tắt cho đủ chỗ, dòng mở đầu gọn 1 dòng.
+- Đo ở màn 1280×720 (giống máy anh): hộp vừa 1 khung, không cuộn.
+
 ## 3.79.1 — 07/10/2026 19:00 — SỬA KHẨN: mất danh sách Scan
 - **Lỗi (có từ 3.50, lộ ra khi dùng nút Gộp 3.77):** khi mở app, danh sách Scan của tab Scan chỉ nạp khi bấm vào tab; trước đó nếu **xóa / gộp văn bản** (đưa vào thùng rác) hoặc **app tự đẩy bản scan lên Drive** thì app lấy nhầm danh sách trống của tab Scan ghi đè danh sách thật → tab Scan báo 0 bản. **Ảnh trong máy không mất** — chỉ mất danh sách (tên, địa bàn).
 - **Sửa gốc:** `chuyenVaoRac`, `luuHoSo`, `xoaScanIm` không bao giờ thay danh sách thật bằng danh sách của tab Scan chưa mở; tab Scan và dữ liệu dùng chung 1 danh sách ngay khi mở app.
