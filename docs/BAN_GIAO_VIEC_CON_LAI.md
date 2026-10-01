@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.83 · build 08/10/2026 00:30
+**Bản hiện tại:** 3.84 · build 08/10/2026 01:30
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.84) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Scan (đã nạp Theo dõi nợ) có bản tên không dấu | Thanh "✍ n bản scan tên không dấu" → Xem & đổi: tên đề xuất đúng khách, đuôi "Hdtd" giữ; bỏ tích bản nào thì bản đó giữ nguyên | |
+| 2 | Bản đã lên Drive được đổi tên | Sau đồng bộ, tên file trên Drive đổi theo | |
+| 3 | Theo dõi nợ › thẻ món › ✚ Lần làm việc / sửa mục hồ sơ hộ; Lịch › sửa | Enter / Tab sang 1 ô, Shift lùi, ô nhiều dòng Enter xuống dòng, ô cuối Enter → nút Lưu, Ctrl+Enter lưu | |
+| 4 | Điện thoại: tab có file chờ khai | Chip chỉ "📥 n", không đè nút | |
+
+**Ghi chú kỹ thuật 3.84:** `coDauViet`, `goiYTenCoDau` (khớp tiền tố 6→2 từ của `tenChuanHo`, lọc `maToTu`, chỉ nhận khi đúng 1 tên), `TDAU`, `moTenCoDau`, `apTenCoDau` (đặt `suaLuc`, `canDay` nếu có `driveId`, `henDongBoScan`); thanh nhắc trong `veScan` (chỉ khi `NO_SAN`). Lớp `phim-chung` gắn sau `nhapDat('lc:…' / 'muc:…' / 'lan:…')`, `moHop` gỡ lớp; `sgPhim` / `sgO` / `sgSang` nhận `#hop-in.phim-chung` và nút `.hang-nut .chinh`; TEXTAREA trong phim-chung giữ Enter. Chip: `<span class="ck-chu">` ẩn khi ≤ 699px. Phép thử `t96.js`.
 
 ### Danh sách thử trên máy thật (3.83) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

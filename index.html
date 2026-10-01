@@ -2150,6 +2150,13 @@
   .sua-gon .q-chip .the-loc{min-height:19px !important;line-height:17px !important;padding:0 6px !important;font-size:calc(11px*var(--co)) !important}
   .sua-gon .q-chip .goi-y{max-height:68px !important;gap:3px !important}
 
+  /* ===== 3.84 — việc nhỏ ===== */
+  @media (max-width:699px){ .chip-ck .ck-chu{display:none} .chip-ck{padding:2px 8px !important} }   /* điện thoại: chỉ 📥 n — không đè nút */
+  .ten-dau-ds{display:grid;gap:4px;max-height:55vh;overflow:auto;margin:8px 0}
+  .ten-dau-ds label{display:flex;gap:8px;align-items:center;border:1px solid var(--vien);border-radius:8px;padding:5px 9px;font-size:calc(12.5px*var(--co));cursor:pointer}
+  .ten-dau-ds label:has(input:checked){border-color:var(--xanh);background:var(--xanh-nhat)}
+  .ten-dau-ds s{color:var(--chu-phu)}
+
   /* ===== 3.83 — giao ban · buổi giao dịch ===== */
   .gb-khoi{margin-bottom:12px;text-align:left}
   .cc-hop .gb-nd,.cc-hop .gb-to,.cc-hop .bgd-dong,.cc-hop .hop-phu{text-align:left}
@@ -2659,7 +2666,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.83', APP_LUC = '08/10/2026 00:30';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.84', APP_LUC = '08/10/2026 01:30';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -5062,7 +5069,7 @@ function lcSua(){
       return '<option value="'+k+'"'+((v.lap||'mot')===k ? ' selected' : '')+'>'+LC_LAP[k]+'</option>'; }).join('')+'</select></div>'+
     '<label class="nk-tich"><input type="checkbox" id="lc-s-luuy"'+(v.luuY ? ' checked' : '')+'> ⚑ Lưu ý (đưa lên đầu, tô đậm)</label>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="lcSuaXong()">Lưu</button></div>');
-  nhapDat('lc:'+v.id);
+  nhapDat('lc:'+v.id);  document.getElementById('hop-in').classList.add('phim-chung');   /* 3.84: phím chung Enter / Tab / Shift / ↑ ↓ */
   setTimeout(function(){ var o = document.getElementById('lc-s-ten'); if(o){ o.focus(); o.selectionStart = o.value.length; } }, 30);
 }
 function lcSuaXong(){
@@ -7950,6 +7957,43 @@ function moHoSoHo(q){
   moHop(h, true);
   the.forEach(function(k){ docAnhHS(k.id+'_matTruoc').then(function(b){ var i = document.getElementById('h1a-'+k.id); if(i && b) i.src = URL.createObjectURL(b); else if(i) i.replaceWith(Object.assign(document.createElement('div'), {className:'h1-khong', textContent:k.driveId ? '☁ ảnh trên Drive' : 'chưa có ảnh'})); }).catch(function(){}); });
 }
+/* 3.84: bản scan tên KHÔNG dấu (vd lấy từ tên file khi Lập chỉ mục) → đề xuất tên có dấu theo danh sách khách Theo dõi nợ.
+   Khớp: tên không dấu bắt đầu bằng tên khách (đuôi như "Hdtd" giữ nguyên) + cùng mã tổ nếu cả 2 có. Anh tích rồi mới đổi. */
+function coDauViet(t){ return /[À-ỹĐđ]/.test(String(t||'').normalize('NFC').replace(/[A-Za-z0-9\s\-_.,()]/g, '')); }
+function goiYTenCoDau(){
+  var khach = {}; Object.keys(NO.mon||{}).forEach(function(k){ var m = NO.mon[k]; if(coDauViet(m.ten)) (khach[tenChuanHo(m.ten)] = khach[tenChuanHo(m.ten)] || []).push(m); });
+  var ra = [];
+  (D.scan||[]).forEach(function(k){
+    if(!k.ten || coDauViet(k.ten)) return;
+    var tu = String(k.ten).trim().split(/\s+/), a = tenChuanHo(k.ten).split(' ');
+    for(var n = Math.min(a.length, 6); n >= 2; n--){
+      var ds = (khach[a.slice(0, n).join(' ')] || []).filter(function(m){ var t = maToTu(k.to); return !t || !m.maTo || m.maTo===t; });
+      var ten = ds.map(function(m){ return m.ten; }).filter(function(x, i, b){ return b.indexOf(x)===i; });
+      if(ten.length===1){ ra.push({k:k, moi:[ten[0]].concat(tu.slice(n)).join(' ')}); return; }
+      if(ten.length > 1) return;   /* nhiều người cùng tên → không đoán */
+    }
+  });
+  return ra;
+}
+var TDAU = [];
+function moTenCoDau(){
+  TDAU = goiYTenCoDau();
+  if(!TDAU.length) return bao('Không có bản scan nào cần đổi tên có dấu.', 3);
+  moHop('<div class="hop-tit">✍ Đổi tên có dấu cho bản scan</div>'+
+    '<div class="hop-phu">Tên lấy theo danh sách khách hàng trong Theo dõi nợ (khớp tên không dấu, cùng tổ nếu có). Anh tích bản muốn đổi — bản đã lên Drive sẽ đổi tên file trên Drive theo.</div>'+
+    '<div class="ten-dau-ds">'+TDAU.map(function(x, i){ return '<label><input type="checkbox" class="tdau" value="'+i+'" checked> <s>'+coChuHTML(x.k.ten)+'</s> → <b>'+coChuHTML(x.moi)+'</b> <small>'+coChuHTML([x.k.ap, x.k.to?'Tổ '+x.k.to:''].filter(Boolean).join(' · '))+'</small></label>'; }).join('')+'</div>'+
+    '<div class="day-form"><button class="nho" onclick="dongHop()">Đóng (Esc)</button><button class="nho chinh" onclick="apTenCoDau()">Đổi tên các bản đã tích</button></div>', true);
+}
+function apTenCoDau(){
+  var bay = new Date().toISOString(), n = 0;
+  Array.prototype.forEach.call(document.querySelectorAll('.tdau:checked'), function(c){
+    var x = TDAU[+c.value]; if(!x) return;
+    x.k.ten = x.moi; x.k.suaLuc = bay; if(x.k.driveId) x.k.canDay = true; n++;
+  });
+  HS.ds = D.scan; luu(); dongHop(); veScan();
+  if(n && typeof henDongBoScan==='function') henDongBoScan();
+  bao('Đã đổi tên có dấu cho '+n+' bản scan.', 5);
+}
 function moHoSoTuScan(id){ var k = (D.scan||[]).find(function(x){ return x.id===id; }); if(k) moHoSoHo({ten:k.ten, maTo:maToTu(k.to)}); }
 /* các hộ khớp với chữ đang gõ — dùng cho ô tìm (gợi ý) */
 function timHo(q){
@@ -8034,7 +8078,7 @@ function tdnSuaMuc(maKH, k){
     M.o.map(function(o){ return '<div class="o"><label>'+o[1]+'</label><input id="tdn-o-'+o[0]+'" value="'+coChuHTML(v[o[0]]||'')+'"></div>'; }).join('')+
     '<div class="o"><label>Ghi thêm</label><textarea id="tdn-o-ghi" rows="4">'+coChuHTML(v.ghi||'')+'</textarea></div>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi (Esc)</button><button class="nho chinh" onclick="tdnLuuMuc(\''+maKH+'\',\''+k+'\')">✓ Lưu</button></div>', true);
-  nhapDat('muc:'+maKH+':'+k);
+  nhapDat('muc:'+maKH+':'+k);  document.getElementById('hop-in').classList.add('phim-chung');   /* 3.84: phím chung Enter / Tab / Shift / ↑ ↓ */
 }
 function tdnLuuMuc(maKH, k, nguon){
   var ho = NO.ho[maKH], M = TDN_MUC.find(function(x){ return x.k===k; }); if(!ho || !M) return;
@@ -8084,7 +8128,7 @@ function tdnLanMoi(kuoc, id){
     '<label class="tl-chon"><input type="checkbox" id="tl-capNhat" checked> Cập nhật "Nguyên nhân", "Phương án" vào hồ sơ hộ nếu hồ sơ còn trống</label>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi (Esc)</button><button class="nho chinh" onclick="tdnLuuLan(\''+kuoc+'\',\''+(id||'')+'\')">✓ Lưu</button>'+
     '<button class="nho" onclick="tdnLuuLan(\''+kuoc+'\',\''+(id||'')+'\',true)">✓ Lưu &amp; 📝 Biên bản</button></div>', true);
-  nhapDat('lan:'+kuoc+':'+(id||''));
+  nhapDat('lan:'+kuoc+':'+(id||''));  document.getElementById('hop-in').classList.add('phim-chung');   /* 3.84: phím chung Enter / Tab / Shift / ↑ ↓ */
 }
 function tdnLuuLan(kuoc, id, bb){
   var m = NO.mon[kuoc]; if(!m) return;
@@ -10120,7 +10164,7 @@ function moHop(html, rong){
   nhapGiu();   /* 3.68 (AD): đang điền dở mà mở hộp khác (vd Sửa danh sách tag) → giữ nháp */
   if(!/cd-dau/.test(html)) document.getElementById('hop').classList.remove('trang');
   var e = document.getElementById('hop-in');
-  e.classList.remove('co-xem-ben', 'sua-gon', 'quet-gon', 'q-the', 'q-tl');
+  e.classList.remove('co-xem-ben', 'sua-gon', 'quet-gon', 'q-the', 'q-tl', 'phim-chung');
   e.innerHTML = html;
   e.classList.toggle('rong', !!rong);
   document.getElementById('hop').classList.add('hien');
@@ -10577,7 +10621,7 @@ function sgHd(el){
   if(SG_HD[el.id]) e.innerHTML = '💡 <b>'+coChuHTML(ten)+'</b> — '+coChuHTML(SG_HD[el.id][0])+' <span class="sg-vd">Ví dụ: '+coChuHTML(SG_HD[el.id][1])+'</span>';
 }
 function sgO(){   /* các ô nhập theo thứ tự gõ */
-  var r = document.querySelector('#hop-in.sua-gon .sua-trai') || document.querySelector('#hop-in.sua-gon'); if(!r) return [];
+  var r = document.querySelector('#hop-in.sua-gon .sua-trai') || document.querySelector('#hop-in.sua-gon') || document.querySelector('#hop-in.phim-chung'); if(!r) return [];
   return Array.prototype.filter.call(r.querySelectorAll('input,select,textarea'), function(x){
     return x.type!=='hidden' && x.type!=='checkbox' && x.type!=='radio' && !x.readOnly && !x.disabled && x.offsetParent!==null; });
 }
@@ -10590,7 +10634,7 @@ function sgSang(t, lui){
     return;
   }
   if(j<0) return;
-  if(j>=ds.length){ var b = document.querySelector('#hop-in .day-form .chinh'); if(b) b.focus();
+  if(j>=ds.length){ var b = document.querySelector('#hop-in .day-form .chinh, #hop-in .hang-nut .chinh'); if(b) b.focus();
     var e = document.getElementById('sg-hd'); if(e) e.innerHTML = '✅ Đã tới ô cuối — <b>Enter</b> hoặc <b>Ctrl+Enter</b> để Lưu · Shift+Tab quay lại'; return; }
   ds[j].focus(); if(ds[j].select && ds[j].tagName==='INPUT') ds[j].select();
 }
@@ -10600,9 +10644,11 @@ function sgMoDau(){   /* mở hộp: con trỏ ở ô đầu tiên còn trống 
   if(o) o.focus();
 }
 function sgPhim(e){
-  var t = e.target; if(!t || !t.closest || !t.closest('#hop-in.sua-gon')) return;
-  if(e.key==='Enter' && (e.ctrlKey||e.metaKey)){ e.preventDefault(); e.stopPropagation(); var b = document.querySelector('#hop-in .day-form .chinh'); if(b) b.click(); return; }
-  if(e.shiftKey && (e.key==='Enter'||e.key==='Tab') && t.matches && t.matches('.day-form .chinh')){   /* ở nút Lưu: lùi về ô cuối, không lưu */
+  var t = e.target; if(!t || !t.closest || !t.closest('#hop-in.sua-gon, #hop-in.phim-chung')) return;
+  /* 3.84: hộp phim-chung (hồ sơ hộ, lần làm việc, lịch) — ô nhiều dòng giữ Enter để xuống dòng (Tab vẫn sang ô kế) */
+  if(t.tagName==='TEXTAREA' && e.key==='Enter' && !e.ctrlKey && !e.metaKey && !e.shiftKey && !t.closest('#hop-in.sua-gon')) return;
+  if(e.key==='Enter' && (e.ctrlKey||e.metaKey)){ e.preventDefault(); e.stopPropagation(); var b = document.querySelector('#hop-in .day-form .chinh, #hop-in .hang-nut .chinh'); if(b) b.click(); return; }
+  if(e.shiftKey && (e.key==='Enter'||e.key==='Tab') && t.matches && t.matches('.day-form .chinh, .hang-nut .chinh')){   /* ở nút Lưu: lùi về ô cuối, không lưu */
     e.preventDefault(); e.stopPropagation(); var os = sgO(); if(os.length) os[os.length-1].focus(); return; }
   if(t.id==='s-tag-go' && e.key==='Enter' && !e.shiftKey && t.value.trim()){ e.preventDefault(); e.stopPropagation(); tgEnter(); return; }   /* 3.72 */
   var ds = t.id==='s-lq-tim' ? document.getElementById('s-lq-ds') : null;
@@ -11488,7 +11534,7 @@ function chipChoKhai(tab){
   var g = dsChoKhai(), n = tab==='vanBan' ? Object.keys(g).reduce(function(a,k){ return a+g[k].length; }, 0) : (g[tab]||[]).length;
   if(!n) return '';
   var ct = Object.keys(g).filter(function(k){ return g[k].length; }).map(function(k){ return CK_TEN[k].split(' — ')[0]+' '+g[k].length; }).join(' · ');
-  return '<button class="chip-ck" onclick="moChoKhai()" title="File chờ khai thông tin: '+coChuHTML(ct)+' — bấm mở danh sách">📥 '+n+' chờ khai ›</button>';
+  return '<button class="chip-ck" onclick="moChoKhai()" title="File chờ khai thông tin: '+coChuHTML(ct)+' — bấm mở danh sách">📥 '+n+'<span class="ck-chu"> chờ khai ›</span></button>';
 }
 function daiChoKhaiHTML(){
   var g = dsChoKhai(), n = Object.keys(g).reduce(function(a,k){ return a+g[k].length; }, 0);
@@ -12099,7 +12145,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.83', ds:[
+var CO_GI_MOI = {ban:'3.84', ds:[
+  ['✍ Tab Scan: bản tên không dấu (từ Lập chỉ mục) → đề xuất tên có dấu theo khách Theo dõi nợ, anh tích rồi mới đổi · ⌨ phím chung cho hộp hồ sơ hộ, lần làm việc, lịch · 📥 chip chờ khai gọn trên điện thoại', "dongHop();doiNgan(4)"],
   ['📊 Công cụ Giao ban: Theo dõi nợ kỳ này so kỳ trước theo xã, điểm GD, tổ tăng / giảm, món mới vào / đã ra + nhận định gợi ý · 📅 Buổi GD: cam kết đến hạn, món cần đôn đốc, hồ sơ thiếu ở điểm — In / Chép gửi Zalo', "dongHop();doiNgan(0);ccMo('giaoban')"],
   ['🏠 Hồ sơ hộ 1 trang: CCCD, hồ sơ quét, Chữ ký·CCCD, bộ hồ sơ, mọi món vay, lần làm việc, tóm tắt hồ sơ hộ — gõ tên ở ô tìm, nút 🏠 trên dòng Scan hoặc thẻ món vay', "dongHop();doiNgan(4)"],
   ['🛟 An toàn dữ liệu: luôn gộp với Drive trước khi ghi, chặn ghi trống, giữ bản dự phòng đầu ngày · Dọn kho › 🛟 Sao lưu: 7 bản trong máy + Drive, lấy lại mục bị thiếu', "dongHop();moDonKho('saoluu')"],
@@ -16364,6 +16411,8 @@ function veScan(){
     '<span><b>'+HANG.length+'</b> bản vừa quét chưa lưu</span>'+
     '<button onclick="moHangCho()">Mở lại</button><button onclick="boHangCho()">🗑 Bỏ</button></div>';
   demScanKhoiPhuc();   /* 3.79.1 */
+  var nTD = (typeof NO_SAN==='undefined' || NO_SAN) ? goiYTenCoDau().length : 0;   /* 3.84 */
+  if(nTD) h += '<div class="thanh-chon"><span>✍ <b>'+nTD+'</b> bản scan tên không dấu — có thể đổi theo tên khách trong Theo dõi nợ</span><button onclick="moTenCoDau()">Xem & đổi</button></div>';
   if(KP_DEM) h += '<div class="thanh-chon" style="background:var(--do-nen);border-color:var(--do);color:var(--do)">'+
     '<span>⚠ Còn <b>'+KP_DEM+'</b> bản scan có ảnh trong máy chưa gắn vào danh sách (do lỗi cũ làm mất danh sách) — bấm Khôi phục để gắn lại</span>'+
     '<button onclick="KP_DEM=null;khoiPhucScan()">♻ Khôi phục</button></div>';
