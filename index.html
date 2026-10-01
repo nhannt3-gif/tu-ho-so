@@ -23025,12 +23025,14 @@ function skBaoCao(k){
     var C = skCH(), tu = C.tu, den = C.den;
     var ds = rows.filter(function(o){ return o.ku && o.ttMon!=='CLOSE' && (o.dn||0)>0 && o.dhgd && o.dhgd>=tu && o.dhgd<=den; }).sort(function(a, b){ return a.dhgd<b.dhgd ? -1 : a.dhgd>b.dhgd ? 1 : (a.kh<b.kh ? -1 : 1); });
     var r = skBang(['STT','Mã KH','Họ tên','Số KU','Chương trình','Dư nợ','Ngày ĐH GDXA','Ngày ĐH hợp đồng','Ngày ĐH gia hạn','Đã gia hạn (tháng)','Còn được gia hạn'], ds, function(o, i){
-      var T = skSoThang(o.nv, o.dhg), chenh = (o.dhgh && o.dhg && o.dhgh>o.dhg) ? skSoThang(o.dhg, o.dhgh) : 0, ghi = o.c_so_thang_da_gh||0, G = Math.max(ghi, chenh), con = Math.floor(T/2) - G;
-      var lech = (ghi>0) !== (chenh>0) || ((o.ghT||0)>0 && !G);
-      var chu = !T ? '?' : (con>0 ? 'Còn '+con+' tháng' : 'Hết gia hạn')+(lech ? ' ⚠ kiểm trên hệ thống' : '');
+      /* anh chốt: thời hạn cho vay = ngày vay → ngày đến hạn đầu tiên (ĐH hợp đồng); gia hạn tối đa ½ thời hạn; đã gia hạn (có ngày ĐH gia hạn) thì còn = phần còn lại */
+      var tN = (o.nv && o.dhg) ? tdnSoNgay(o.nv, o.dhg) : 0, daN = (o.dhgh && o.dhg && o.dhgh>o.dhg) ? tdnSoNgay(o.dhg, o.dhgh) : 0, ghi = o.c_so_thang_da_gh||0;
+      var dungN = Math.max(daN, Math.round(ghi*30.4375)), conN = Math.floor(tN/2) - dungN, G = dungN ? Math.round(dungN/30.4375) : 0;
+      var lech = (ghi>0) !== (daN>0) || ((o.ghT||0)>0 && !dungN);
+      var chu = !tN ? '?' : (conN>0 ? 'Còn '+Math.floor(conN/30.4375)+' tháng ('+conN+' ngày)' : 'Hết gia hạn')+(lech ? ' ⚠ kiểm trên hệ thống' : '');
       return [i, o.kh||'', o.ten||'', o.ku||'', ctNgan(o.ct), o.dn||0, ngayVNsl(o.dhgd), ngayVNsl(o.dhg), o.dhgh && o.dhgh!==o.dhg ? ngayVNsl(o.dhgh) : '', G || '', chu]; }, [5]);
     return {ten:'No den han', tieuDe:'SAO KÊ NỢ ĐẾN HẠN TỪ '+ngayVNsl(tu)+' ĐẾN '+ngayVNsl(den), ngay:ngay, aoa:r.aoa,
-      html:r.html+'<div class="bc-ghi">Lọc theo ngày đến hạn theo GDXA (căn cứ chuyển nợ quá hạn). Còn được gia hạn = ½ thời hạn cho vay (ngày vay → ngày ĐH hợp đồng) − số tháng đã gia hạn (số lớn hơn giữa "Số tháng đã GH" và chênh ngày ĐH gia hạn − ngày ĐH hợp đồng). Các cột gia hạn trong file không khớp nhau thì ghi ⚠.</div>'};
+      html:r.html+'<div class="bc-ghi">Lọc theo ngày đến hạn theo GDXA (căn cứ chuyển nợ quá hạn). Thời hạn cho vay = ngày vay → ngày đến hạn đầu tiên (ĐH hợp đồng); gia hạn tối đa ½ thời hạn cho vay; còn được gia hạn = ½ thời hạn − thời gian đã gia hạn (ngày ĐH gia hạn − ngày ĐH hợp đồng; lấy "Số tháng đã GH" nếu lớn hơn). Các cột gia hạn trong file không khớp nhau thì ghi ⚠.</div>'};
   }
   if(k==='gn' || k==='m105'){
     var ds = rows.filter(function(o){ return o.ku && (o.gnT||0)>0; });

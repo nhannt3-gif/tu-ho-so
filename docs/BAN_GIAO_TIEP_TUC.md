@@ -160,7 +160,7 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 | 1d | **Tab kiểm tra / chuẩn hóa số liệu** — danh sách khách 2 sổ 105 (theo xã → điểm GD → ấp → tổ, theo dõi đóng sổ thừa qua các kỳ), 820 khách chỉ gửi TK không có tổ… | Cần ≥ 2 kỳ Mẫu 31. Hướng xử lý chuẩn: **chờ anh cung cấp** (không tự viết). Bàn bố cục với anh trước. |
 | 1e | **Chốt số liệu (bước ③)** + ghi nhận của anh cho mục lệch, hướng xử lý — bước ② Kiểm tra đã có ở 3.88 (mục 4) | Làm khi đủ dữ liệu; anh bổ sung danh sách lỗi cần bắt. File Mẫu 7 anh gửi để đối chiếu: cần Mẫu 31 ngày 31/08 để kết luận phần lệch (ghi chú ở `DU_LIEU_THANG.md`). |
 | 1h | **Phát triển tab Tổ TK&VV theo văn bản thành lập / củng cố tổ** | Anh sẽ gửi văn bản → đọc, lên kế hoạch, anh duyệt. |
-| 1i | **Xác nhận "thời hạn cho vay"** (cột còn được gia hạn) = ngày vay → ngày ĐH hợp đồng ban đầu? | 3.89 đang tính như vậy, ghi ⚠ khi các cột gia hạn lệch. |
+| 1i | ~~Xác nhận "thời hạn cho vay"~~ | **Anh chốt:** thời hạn cho vay = ngày vay → ngày đến hạn đầu tiên; gia hạn tối đa ½; đã gia hạn thì còn = phần còn lại (3.89 tính theo ngày, hiện tháng + ngày). |
 | 1j | **CCCD người thừa kế** cho kiểm trùng | Anh tìm báo cáo hệ thống có cột này. |
 | 1f | **Tài liệu tìm hiểu báo cáo của ngân hàng / tổ chức tài chính vi mô nước ngoài** (PAR30, chia tuổi nợ, phiếu họp nhóm Grameen, watch list…) | Em đã đề nghị làm tài liệu có trích nguồn — **chờ anh đồng ý**. |
 | 1g | **Thiết kế lại bố cục 👤 Tra cứu KH** cho tiện nhất | Anh nói bàn sau. |
