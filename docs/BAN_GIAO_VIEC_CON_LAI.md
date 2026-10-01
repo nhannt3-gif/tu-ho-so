@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.82 · build 07/10/2026 23:00
+**Bản hiện tại:** 3.83 · build 08/10/2026 00:30
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.83) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hôm nay › 🧰 📊 Giao ban (đã nạp ≥ 2 kỳ sao kê) | Bảng xã › điểm kỳ này / kỳ trước / ±; tổ tăng; món mới vào / ra; nhận định đúng số | |
+| 2 | 🖨 In · 📋 Chép nhận định | Bản in A4 ngang; nhận định dán được vào Word / Zalo | |
+| 3 | 📅 Buổi GD → chọn điểm | Cam kết đến hạn, món cần đôn đốc, hồ sơ thiếu đúng điểm; 📋 Chép dán Zalo gọn | |
+
+**Ghi chú kỹ thuật 3.83:** `CONG_CU` thêm `giaoban`, `buoigd` (cờ `hop:true` → `veCC` mở `moHop(…, true)` cả trên máy tính; `ccVeLai`). Giao ban: `gbKyTruoc`, `gbTinh(L)`, `gbLech`, `gbNhanDinh`, `gbBangHTML`, `gbTatCa`, `ccGBHTML`, `gbChep`, `gbIn`. Buổi GD: `BGD`, `bgdDsDiem` (ngày GD từ `diaBan[].diem[].ngay`), `bgdChon`, `bgdChonHTML`, `bgdTinh`, `ccBGDHTML`, `bgdChuTho`, `bgdChep`, `bgdIn`. Phép thử `t95.js`.
 
 ### Danh sách thử trên máy thật (3.82) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

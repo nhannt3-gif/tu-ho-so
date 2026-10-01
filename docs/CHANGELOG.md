@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.83 — 08/10/2026 00:30 — 📊 Số liệu giao ban · 📅 Chuẩn bị buổi giao dịch
+- **🧰 Công cụ › 📊 Giao ban** (tab Hôm nay; mở hộp rộng): từ Theo dõi nợ, mỗi danh sách (quá hạn · 3 tháng KHD · khoanh) **kỳ mới nhất so với kỳ trước** theo xã › điểm GD: số món, số tiền, ± món, ± tiền (tăng đỏ, giảm xanh); **tổ tăng / giảm nhiều nhất**; **món mới vào / đã ra khỏi danh sách** (bấm tên mở 🏠 hồ sơ hộ); **💡 nhận định gợi ý** tính từ số liệu (không tự đặt số, anh sửa câu chữ). 🖨 In (A4 ngang) · 📋 Chép nhận định.
+- **🧰 Công cụ › 📅 Buổi GD:** chọn điểm giao dịch (mặc định điểm có ngày GD gần nhất theo danh mục địa bàn) → **cam kết đến hạn trước / đúng buổi**, **món đang theo dõi ở điểm** (theo ấp, tổ, trạng thái), **hồ sơ scan còn thiếu ở điểm**. 🖨 In · 📋 Chép (dán Zalo gửi tổ trưởng).
+- Cần nạp ít nhất 2 kỳ sao kê liên tiếp để có số so sánh; 1 kỳ thì chỉ hiện số kỳ hiện tại.
+
 ## 3.82 — 07/10/2026 23:00 — 🏠 Hồ sơ hộ một trang
 - **Gom mọi thứ của 1 hộ đang nằm rải ở nhiều tab** vào một trang: 🪪 CCCD (ảnh mặt trước) · 📑 hồ sơ đã quét · ✍ Chữ ký·CCCD · 📁 Bộ hồ sơ · 💰 mọi món vay đang theo dõi (CT, danh sách, số tiền, trạng thái) · 📈 3 lần làm việc gần nhất (cam kết, hạn, giữ đúng / thất hứa) · 🗂 tóm tắt hồ sơ hộ 8 mục · SĐT.
 - Bấm vào từng dòng là mở đúng chỗ (bản quét, thẻ món vay, bộ hồ sơ); nút **🖨 In / gửi bộ giấy tờ** ghép CCCD + hồ sơ quét thành 1 file; **🧾 Phiếu món vay**.
