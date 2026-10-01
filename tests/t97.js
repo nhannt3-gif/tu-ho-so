@@ -22,7 +22,7 @@ const THU = process.argv[2] || 'gia';
  console.log('ghi nhận + mở bộ', ((Date.now()-t1)/1000).toFixed(1)+'s');
  const r = await p.evaluate(async()=>{ const o={};
    o.o = Array.from(document.querySelectorAll('.sl-bang tbody tr')).map(tr=>tr.cells[0].textContent+': '+Array.from(tr.cells).slice(1).map(c=>c.textContent).join(' | ')).join('\n      ');
-   o.dc = Array.from(document.querySelectorAll('.sl-dc-dong')).map(x=>x.textContent).join('\n      ');
+   o.dc = slDoiChieu(await slBo('2026-08')).map(x=>(x.ok?'✅':'⚠')+x.ten+' — '+x.chu).join('\n      ');   // 3.88: đối chiếu nằm trong ② Kiểm tra
    let t=performance.now(); const kq=slTimKH('nguyen gia'); o.timTen=kq.length+' kq '+(performance.now()-t).toFixed(1)+'ms';
    const c=SL_DB.kh[kq[0].m]; t=performance.now(); const k2=slTimKH(c.cccd.slice(-6)); o.timCCCD=k2.length+' kq, đầu: '+(k2[0]&&k2[0].m===kq[0].m)+' '+(performance.now()-t).toFixed(1)+'ms';
    o.timMa=slTimKH(kq[0].m).length; o.timNS=slTimKH(c.ns.slice(8)+'/'+c.ns.slice(5,7)+'/'+c.ns.slice(0,4)).length;

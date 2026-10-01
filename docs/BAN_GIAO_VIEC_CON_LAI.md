@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.87 · build 01/10/2026 21:00
+**Bản hiện tại:** 3.88 · build 01/10/2026 21:52
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.88) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab 📈 Số liệu: chọn T8/2026 | ① liệt kê từng loại file, ✗ loại chưa nạp kèm nút + Nạp; Mẫu 10 hiện chip "31/08" | |
+| 2 | Bấm 🔍 Kiểm tra tháng | Ra các nhóm 1–6; mục lệch bấm mở bảng chi tiết (vd Mẫu 7 so từng tổ: 16 tổ lệch dư nợ); tải lại trang vẫn còn kết quả, không chạy lại | |
+| 3 | Nạp / thay 1 file của tháng đã kiểm | Hiện "dữ liệu đã đổi — kiểm lại", bước ② vàng | |
+| 4 | Thu gọn "📊 Tổng quan nhiều tháng", mở lại app | Vẫn thu gọn | |
+| 5 | Tab Số liệu › tab con 👥 Tổ TK&VV: chọn bằng phím (Tab / Enter / ↑ ↓) và bằng chip; thử Enter ở ô Xã trống | Ô cha trống thì báo, không sang ô kế; chọn đủ 4 cấp ra thẻ tổ | |
+| 6 | Gõ tên tổ trưởng ở ô tìm tổ | Ra gợi ý, bấm là chọn đủ cây | |
+| 7 | Tích 3 báo cáo → Xem → In / PDF, Excel | A4 dọc; Danh sách hộ vay đúng cột, sắp theo mã KH; Nợ cần xử lý 1 trang 3 khung; TK 105 (cần Mẫu 31) có mục A, B | |
+
+**Ghi chú kỹ thuật 3.88:** Tổ TK&VV là **tab con thứ 3 của Số liệu** (`D.cauHinh.slTab = 'to'`, `slTabConHTML`, `veSoLieu` → `veToTK` vẽ vào `tr7`; anh chốt: nằm cạnh Tra cứu KH, không phải tab chính). Tổ: `TO_K` (bộ số liệu đã nạp: `hs`, `lap`, `B` bộ tháng, `to` {mã tổ → thông tin}, `kh` {mã tổ → dòng}), `toNap` (Mẫu 31 hoặc Mẫu 10 + Thông tin tổ trưởng / Mẫu 7; thiếu điểm GD thì lấy tt / kttk tháng gần nhất), `toDien`, `D.cauHinh.toTK` {ky, xa, diem, hoi, to, bc}, `toDsKy`, `toVe`, `toLuaChon`, `TO_CAP`, `toVeCay` (ô chọn + chip khi ≤ 18 lựa chọn máy tính / ≤ 6 điện thoại; tự chọn cấp 1 lựa chọn), `toChon`, `toChonTo`, `toTim`, `toVeThe`, `toDiaChi`, `toKhach` (gom theo khách; 105 = max kể cả dòng lặp), `toChiTieu`. Báo cáo: `TO_BC`, `toBaoCao` → `toBCDanhSach`, `toBCNo` (`coChu` thu nhỏ chữ theo số dòng), `toBCTK105` (Promise; Mẫu 31 tháng này + tháng trước); mỗi báo cáo trả {ten, tieuDe, ngay, html, aoa}; `toXem` (iframe `srcdoc` = đúng bản in), `toHTMLIn` + `TO_IN_CSS` (A4 dọc), `toIn` (`inBlob`), `toExcel` (mỗi báo cáo 1 sheet, `taiXuongBlob`). `CT_NGAN` + `ctNgan`, `laiTon` (Mẫu 10: Lãi tồn; Mẫu 31: TH + QH). Phím chung: `sgO(t)` nhận ô trong `#to-cay`, `sgPhim` gồm `#to-cay`, Ctrl+Enter chỉ trong `#hop-in`, `SG_CAY` thêm to-xa / to-diem / to-hoi. Số liệu: `veSoLieu` viết lại (tháng `SL_KY`, `slChonThang`), `SL_BAT_BUOC`, `slBuocHTML`, `slFileThangHTML`, `slKTHTML`, `slKiemTra(ky)` → `SLM.kt[ky]` = {luc, ban, dau, kq[{nhom, ten, kq ok/lech/canh/bo, chu, chi, cot, ds ≤ 200, n}], dem}, `slDauKy` (dấu vân tay: `luc` các file tháng + Mẫu 10 cuối tháng + Mẫu 31 tháng trước), `slKTCu`, `SL_KT_NHOM`; `slChuanMeta` / `slGopMeta` thêm `kt` (lần kiểm sau thắng); `slKyHTML` bỏ phần đối chiếu (đã vào Kiểm tra); bảng nhiều tháng trong `details.sl-tq` (`D.cauHinh.slTQ`). CSS khối 3.88 (`.to-*`, `.sl-buoc`, `.sl-ft*`, `.sl-kt*`, `.sl-tq`, `.sl-phu`). Phép thử `tests/t102.js` (bộ `gia31`, máy tính + điện thoại); `t97` / `t100` / `t101` đọc đối chiếu qua `slDoiChieu`.
 
 ### Danh sách thử trên máy thật (3.87) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
