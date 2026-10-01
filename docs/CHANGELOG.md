@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.84 — 08/10/2026 01:30 — Việc nhỏ: tên có dấu cho Scan · phím chung · chip chờ khai
+- **✍ Tab Scan — tên có dấu:** bản scan tên không dấu (thường do Lập chỉ mục lấy từ tên file, vd "Nguyen Van A Hdtd") → thanh nhắc "✍ n bản scan tên không dấu" + **Xem & đổi**: đề xuất tên có dấu theo danh sách khách Theo dõi nợ (khớp tên không dấu + cùng tổ nếu cả 2 có; đuôi như "Hdtd" giữ nguyên). **Nhiều khách cùng tên → không đoán.** Anh tích bản muốn đổi rồi mới đổi; bản đã lên Drive tự đổi tên file trên Drive theo.
+- **⌨ Phím chung** (Enter / Tab sang 1 ô, Shift lùi, ↑ ↓ ở ô chọn, Ctrl+Enter lưu) áp thêm cho hộp **sửa mục hồ sơ hộ**, **lần làm việc** (Theo dõi nợ) và **sửa lịch**. Ô nhiều dòng (ghi thêm, diễn biến…) vẫn dùng Enter để xuống dòng — dùng Tab để sang ô kế.
+- **📥 Chip chờ khai trên điện thoại** chỉ còn "📥 n" → không đè các nút bên cạnh (máy tính giữ nguyên chữ).
+
 ## 3.83 — 08/10/2026 00:30 — 📊 Số liệu giao ban · 📅 Chuẩn bị buổi giao dịch
 - **🧰 Công cụ › 📊 Giao ban** (tab Hôm nay; mở hộp rộng): từ Theo dõi nợ, mỗi danh sách (quá hạn · 3 tháng KHD · khoanh) **kỳ mới nhất so với kỳ trước** theo xã › điểm GD: số món, số tiền, ± món, ± tiền (tăng đỏ, giảm xanh); **tổ tăng / giảm nhiều nhất**; **món mới vào / đã ra khỏi danh sách** (bấm tên mở 🏠 hồ sơ hộ); **💡 nhận định gợi ý** tính từ số liệu (không tự đặt số, anh sửa câu chữ). 🖨 In (A4 ngang) · 📋 Chép nhận định.
 - **🧰 Công cụ › 📅 Buổi GD:** chọn điểm giao dịch (mặc định điểm có ngày GD gần nhất theo danh mục địa bàn) → **cam kết đến hạn trước / đúng buổi**, **món đang theo dõi ở điểm** (theo ấp, tổ, trạng thái), **hồ sơ scan còn thiếu ở điểm**. 🖨 In · 📋 Chép (dán Zalo gửi tổ trưởng).
