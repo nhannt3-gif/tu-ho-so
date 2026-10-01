@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.88.1 · build 01/10/2026 22:18
+**Bản hiện tại:** 3.89 · build 01/10/2026 23:20
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.89) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu KH: gõ CCCD một khách đang vay | ⚠ Trùng — đang dây vốn, có tên, xã · ấp · tổ | |
+| 2 | Gõ một CCCD chưa có | ✅ Không trùng — chưa dây vốn, có thể nhập máy (ghi ngày số liệu) | |
+| 3 | Gõ CMND của một HSSV (cần Mẫu 31) | ⚠ "HSSV của …", món, dư nợ | |
+| 4 | Gõ tên (vd tên vợ/chồng của một khách) | Ra cả dòng 👫 vợ/chồng, 🎓 HSSV; mỗi dòng có xã · ấp · tổ; không còn ra khách chỉ vì tên tổ trưởng trùng | |
+| 5 | 📍 Phạm vi tìm: chọn 1 xã | Kết quả chỉ trong xã đó | |
+| 6 | 📑 Sao kê: chọn xã → tích 8 báo cáo → Xem → In / Excel | Mỗi báo cáo 1 trang riêng, chia theo tổ có dòng cộng; SĐT tô nền số trống / ghi chú không đạt; nợ đến hạn có ngày GDXA, hợp đồng, còn được gia hạn | |
+| 7 | Sao kê theo 1 tổ | Không chia nhóm, ghi "Phạm vi: … · Tổ …" | |
+| 8 | Điện thoại: hàng tab con Số liệu | 4 tab trên 1 hàng, vuốt ngang; tab đang mở luôn thấy | |
+| 9 | (3.88.1) Tổ TK&VV trên điện thoại | Cây có xã / tổ; nếu chưa có bảng: cảnh báo + ☁ Nối Drive và tải | |
+
+**Ghi chú kỹ thuật 3.89:** Bộ chọn chung: `PV_CAP`, `PV_DUNG[p]` = {S: trạng thái, K: bộ số liệu, sau, toBatBuoc} với p = 'to' / 'tc' / 'sk'; `pvLuaChon(T, S, cap)`, `pvCha`, `pvVeCay(p)` (vẽ vào `#<p>-cay.pv-cay`, chip ≤ 18 / ≤ 6, bấm lại chip = bỏ), `pvChon(p, cap, v, chip)`, `pvLoc(S, tổ)`, `pvChu(S, K)`; phím chung nhận `.pv-cay` (`sgO`, `sgSang`, `sgPhim`); tab Tổ dùng `pvVeCay('to')` (bỏ `toLuaChon` / `TO_CAP` / `toChon`). Bộ số liệu nhiều kỳ: `TO_KS[ky]` (giữ 3), `TO_K` = bộ của tab Tổ. Tra cứu: `tcCH` (`D.cauHinh.tcPV`), `TC_K`, `tcNap` (cây + `SL_PHU` = vợ/chồng `voChong`, HSSV `c_ten_hssv` / `c_cmnd_hssv` từ Mẫu 31 mới nhất `slMau31Moi`, `SL_PHU_KY`), `tcKiemTrung(so)`, `tcTinhTrang`, `tcNoiO`, `tcTrongPV`; `slTraTim` viết lại (tên chỉ khớp `r.ten`, tối đa 300 dòng mỗi nhóm). Sao kê: `slTab='sk'`, `SK_BC`, `skCH` (`D.cauHinh.skTK` {ky, xa, diem, hoi, to, bc, tu, den}), `SK_K`, `veSaoKe`, `skBang(cot, ds, dong, so, lop)` (chia theo tổ khi phạm vi chưa đến tổ, dòng cộng tổ + tổng), `skBaoCao(k)`, `skMau31`, `skCan31`, `skSoThang` (ngày/30,4375), `skXem`, `skHTMLIn` (dùng `TO_IN_CSS`), `skIn`, `skExcel` (mỗi báo cáo 1 sheet). Còn được gia hạn: T = tháng(ngày vay → ĐH hợp đồng), G = max(`c_so_thang_da_gh`, tháng(ĐH HĐ → ĐH gia hạn)), còn = ⌊T/2⌋ − G; ⚠ khi (`c_so_thang_da_gh` > 0) ≠ (chênh > 0) hoặc `ghT` > 0 mà G = 0. `.sl-con` cuộn ngang + tự cuộn tới tab `.bat`. Phép thử `tests/t104.js`.
 
 ### Danh sách thử trên máy thật (3.88.1) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
