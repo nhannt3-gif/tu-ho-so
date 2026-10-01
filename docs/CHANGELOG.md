@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.78 — 07/10/2026 16:00 — Gợi ý ô nhập thành dải chip cố định · văn bản liên quan 1 dòng
+- **Hộp sửa văn bản / sửa bản quét:** bỏ bong bóng đen nổi (che các ô phía trên). Hướng dẫn + ví dụ của ô đang gõ hiện ở **dải chip xanh lá cố định** ngay đầu hộp (dưới hàng Nhóm / tiêu đề); dải giữ chỗ sẵn nên các ô không bị xô; phím tắt chữ nhỏ cuối dải (điện thoại ẩn phím tắt). Gợi ý tag (＋ tag) vẫn hiện trong dải.
+- **Khung xem văn bản:** bỏ khối "🕘 Dòng thời gian" (tốn chỗ). Văn bản liên quan gọn thành **1 dòng chip số hiệu xanh lá** dưới tên file, xếp theo ngày; rê chuột thấy ngày + tên đầy đủ, bấm là đi tới; văn bản hết hiệu lực gạch ngang; "‹ số hiệu" (quay lại văn bản vừa xem) đứng đầu dòng. Cảnh báo ⛔ hết hiệu lực giữ nguyên.
+
 ## 3.77 — 07/10/2026 14:00 — Văn bản trùng: báo + gộp · lọc không sót
 - **Vì sao trước không báo trùng:** app chỉ coi là trùng khi nội dung file giống hệt từng byte — cùng văn bản tải 2 nguồn (Zalo, Drive, email…) là lọt; file vào bằng Lập chỉ mục / đồng bộ máy khác không qua kiểm tra trùng.
 - **Trùng = cùng số hiệu + cùng năm ban hành** (so không dấu, bỏ khoảng trắng, gạch; khác năm là văn bản khác):

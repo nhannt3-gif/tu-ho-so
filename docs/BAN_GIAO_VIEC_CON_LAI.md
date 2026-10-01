@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.77 · build 07/10/2026 14:00
+**Bản hiện tại:** 3.78 · build 07/10/2026 16:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -220,6 +220,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.78) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở ✎ Sửa văn bản, bấm lần lượt các ô | Dải xanh đầu hộp đổi theo ô (hướng dẫn + ví dụ); không bong bóng nào che ô | |
+| 2 | Bấm 1 văn bản có liên quan | Dưới tên file 1 dòng chip số hiệu; bấm chip đi tới văn bản đó; không còn khối Dòng thời gian | |
+
+**Ghi chú kỹ thuật 3.78:** `sgBong` thành rỗng (giữ tên); `sgNoiDungHd(el)` lấy hướng dẫn từ `SG_HD` / `GOI_Y_O`; `sgHd` vẽ `.sg-goi` + `.sg-phim` vào `#sg-hd` (dời lên đầu hộp sửa văn bản và hộp sửa bản quét, chiều cao cố định). `lienQuanHTML`: bỏ `.cl-cay`, thay `.lq-mot` (chip `.lq-c`, quay lại `.lq-lui`). `t81.js` sửa theo dòng chip mới.
 
 ### Danh sách thử trên máy thật (3.77) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
