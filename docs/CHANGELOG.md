@@ -4,6 +4,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.91.1 — 04/10/2026 09:00 — Sửa kiểm tra tháng trống
+- **Kiểm tra tháng:** tháng chưa có file nào (vd T10/2026) vẫn hiện kết quả kiểm cũ "Đã kiểm 02/10 07:15 · 2 đạt · 1 lệch" (lưu từ bản trước khi có chặn tháng trống) → nay tháng chưa có file nhóm Ⓐ chuẩn TW / Ⓑ chi tiết thì **không kiểm, ẩn kết quả cũ**, bước 2 "Đã kiểm tra" không sáng; tháng chỉ có file phụ / theo ngày (vd file Nợ đến hạn phân kỳ ngày 01/10) cũng chưa kiểm.
+
 ## 3.91 — 03/10/2026 21:00 — Nợ đến hạn theo hạn HĐ + kỳ GDXA · nợ đến hạn kỳ con (phân kỳ) · kiểm tra & chốt khóa tháng · ma trận nhóm sổ / gọn · viết tắt chương trình
 - **Sao kê nợ đến hạn — tính đúng quy tắc anh chốt:** món chuyển quá hạn ở **kỳ giao dịch xã đầu tiên sau ngày đến hạn** (vd hạn HĐ 22/10, GDXA định kỳ ngày 07 → chuyển QH 07/11). Lấy theo ngày đến hạn hiệu lực (gia hạn nếu có, không thì hợp đồng), chỉ món trong hạn (không QH, không khoanh), chia **3 khung**: ① đã quá hạn HĐ (đến ngày số liệu) mà chưa chuyển QH — tra soát · ② đến hạn, chuyển QH trong kỳ · ③ đến hạn, chuyển QH kỳ sau. Bản trước chỉ lọc theo ngày GDXA nên sót món hạn HĐ trong tháng mà kỳ GDXA sang tháng sau (T10/2026: 48 món). Số thật T9: tháng 10 = 117 món (15 · 54 · 48), đến hết năm = 630 món.
   - Cột: STT · Mã KH · Họ tên / Số KU · **SĐT** (tô nền nếu trống / không đạt) · CT · **NV** (TW / ĐP) · Dư nợ · **Lãi tồn** · **Số dư 105** (1 lần mỗi khách) · Ngày ĐH (dòng GH nếu gia hạn) · Chuyển QH · Còn GH; chia theo tổ, cộng tổ; đầu báo cáo tóm tắt + bảng theo xã, khoảng > 1 tháng có thêm bảng theo tháng. Excel tách đủ 15 cột.

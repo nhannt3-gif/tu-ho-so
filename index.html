@@ -2871,7 +2871,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.91', APP_LUC = '03/10/2026 21:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.91.1', APP_LUC = '04/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12355,7 +12355,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.91', ds:[
+var CO_GI_MOI = {ban:'3.91.1', ds:[
+  ['🔍 Kiểm tra tháng: tháng chưa có file Ⓐ chuẩn TW / Ⓑ chi tiết nào thì không kiểm, không còn hiện kết quả kiểm cũ (lưu từ bản trước)', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['🏠 Sao kê nợ đến hạn kỳ con (CV 597): nhà ở xã hội + cho vay trực tiếp + ủy thác vay từ 01/03/2026 — kỳ đã đến hạn chưa trả, kỳ tới, hạn nộp 08/TD; danh sách nợ gốc đến hạn phân kỳ theo tổ gửi tổ trưởng; nạp file “Nợ đến hạn phân kỳ” để có đúng số tiền kỳ', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
   ['🛠 Scan: bản chỉ có PDF trên Drive (quét ở máy khác) đổi tên không còn báo “Chưa lên Drive” / “không có trang” — app chỉ đổi tên, dời file trên Drive', "dongHop();doiNgan(4)"],
   ['📅 Nợ đến hạn tính đúng theo hạn hợp đồng + kỳ GDXA chuyển quá hạn, chia 3 khung (quá hạn HĐ chưa chuyển QH · chuyển QH trong kỳ · chuyển QH kỳ sau), có Mã KH, SĐT, NV, lãi tồn, số dư 105, nút chọn nhanh Tháng sau / Đến cuối quý / Đến hết năm, in A4 dọc', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
@@ -22273,12 +22274,15 @@ function slDauKy(ky){
   return ds.join('|');
 }
 function slKTCu(ky){ var k = SLM.kt[ky]; return !!k && k.dau!==slDauKy(ky); }
+function slCoFileChinh(ky){ return SL_LOAI.some(function(L){ return (L.nhom==='A' || L.nhom==='B') && SLM.bang[slKhoa(L.k, ky)]; }); }   /* 3.91: tháng có ít nhất 1 file nhóm Ⓐ / Ⓑ mới kiểm (chỉ file phụ / theo ngày thì chưa) */
 var SL_KT_NHOM = ['', 'Đủ file', 'Toàn vẹn từng file', 'Khớp giữa các file chi tiết cùng tháng', 'Khớp với tháng trước', 'Mẫu 31 ↔ Mẫu 10 cuối tháng', 'Bất thường dữ liệu',
   'Số chuẩn TW khớp nhau (BCDHTD · LEN_31 · B32)', 'Mẫu 31 ↔ số chuẩn TW'];   /* 3.90: thêm nhóm 7, 8 (giữ số nhóm cũ để kết quả đã lưu vẫn đọc đúng) */
 var SL_KT_THU = [1, 2, 7, 8, 3, 4, 5, 6];   /* thứ tự hiện */
 var SL_KT_TOI_DA = 200;   /* mỗi mục giữ tối đa 200 dòng chi tiết (đủ để xem, chỉ mục không nặng) */
 function slKTHTML(ky){
   var k = SLM.kt[ky];
+  if(!slCoFileChinh(ky)) return '<div class="sl-kt-dau"><span class="sl-phu">Tháng '+kyVN(ky)+' chưa có file Ⓐ chuẩn TW / Ⓑ chi tiết nào — chưa kiểm. Nạp file rồi bấm Kiểm tra.</span></div>'+
+    (k ? '<div class="sl-bao vang">Kết quả kiểm cũ ('+ngayVNsl(k.luc.slice(0,10))+' '+k.luc.slice(11,16)+') không còn file tương ứng — đã ẩn.</div>' : '');   /* 3.91: không hiện kết quả cũ của tháng trống */
   if(!k) return '<div class="sl-kt-dau"><button class="nho chinh" onclick="slKiemTra(\''+ky+'\')">🔍 Kiểm tra tháng '+kyVN(ky)+'</button><span class="sl-phu">Chưa kiểm. App so các file chuẩn TW với nhau, Mẫu 31 với số chuẩn TW (từng xã, nguồn vốn, từng tổ), KHĐ, tổ trưởng, tháng trước, Mẫu 10 cuối tháng — chỉ báo, không sửa số.</span></div>';
   var cu = slKTCu(ky), h = '<div class="sl-kt-dau"><span>Đã kiểm '+ngayVNsl(k.luc.slice(0,10))+' '+k.luc.slice(11,16)+' · ✅ '+k.dem.ok+' đạt · ⚠ '+k.dem.lech+' lệch · ⓘ '+k.dem.canh+' lưu ý</span>'+
     '<button class="nho'+(cu ? ' chinh' : '')+'" onclick="slKiemTra(\''+ky+'\')">🔍 Kiểm lại</button></div>';
@@ -22297,7 +22301,7 @@ function slKTHTML(ky){
    bước: Đủ file (10 file bắt buộc) → Đã kiểm tra → Đạt → Đã chốt 🔒. Chốt = khóa tháng: không nạp đè / thay / xóa; mở khóa có xác nhận, ghi lại */
 function slChot(ky){ var c = SLM.chot && SLM.chot[slThang(ky)]; return !!(c && c.khoa); }
 function slKTDauHTML(ky){
-  var duFile = SL_BAT_BUOC.every(function(k){ return SLM.bang[slKhoa(k, ky)]; }), kt = SLM.kt[ky], daKiem = !!kt && !slKTCu(ky), khoa = slChot(ky), c = (SLM.chot||{})[ky];
+  var duFile = SL_BAT_BUOC.every(function(k){ return SLM.bang[slKhoa(k, ky)]; }), kt = slCoFileChinh(ky) ? SLM.kt[ky] : null, daKiem = !!kt && !slKTCu(ky), khoa = slChot(ky), c = (SLM.chot||{})[ky];
   var buoc = [['Đủ file', duFile], ['Đã kiểm tra', daKiem], ['Đạt', duFile && daKiem], ['Đã chốt', khoa]], dang = !duFile ? 0 : !daKiem ? 1 : !khoa ? 2 : 3;
   var h = '<div class="sl-kt-thang"><span>Đang kiểm tra:</span><b>'+kyVN(ky)+(khoa ? ' 🔒' : '')+'</b><span class="sl-kt-thang-nut"><button class="nho" onclick="slChonThang(-1)" title="Tháng trước">‹</button><button class="nho" onclick="slChonThangHop()">Chọn tháng</button><button class="nho" onclick="slChonThang(1)" title="Tháng sau">›</button></span></div>'+
     '<div class="sl-4buoc">'+buoc.map(function(b, i){ return '<span class="'+(i===3 && b[1] ? 'khoa' : b[1] ? 'xong' : (i===dang ? 'dang' : ''))+'">'+(i+1)+'. '+b[0]+'</span>'; }).join('')+'</div>';
@@ -22420,7 +22424,7 @@ function slDCChi(ky, f, ng){
 }
 /* chạy kiểm tra 1 tháng — chỉ đọc, không sửa dữ liệu; lưu kết quả vào SLM.kt[ky] (lên Drive cùng chỉ mục) */
 function slKiemTra(ky){
-  if(!Object.keys(SLM.bang).some(function(k){ return slThang(SLM.bang[k].ky)===ky; })) return bao('Tháng '+kyVN(ky)+' chưa có file nào — nạp file trước rồi kiểm.', 5);   /* 3.90.1 */
+  if(!slCoFileChinh(ky)) return bao('Tháng '+kyVN(ky)+' chưa có file Ⓐ chuẩn TW / Ⓑ chi tiết nào — nạp file trước rồi kiểm.', 5);   /* 3.90.1 · 3.91: file phụ / theo ngày chưa đủ để kiểm */
   batChay(true, 'Đang kiểm tra tháng '+kyVN(ky)+'…');
   delete SL_BO[ky];
   var kq = [], them = function(nhom, ten, ok, chu, chi, cot, ds, muc){

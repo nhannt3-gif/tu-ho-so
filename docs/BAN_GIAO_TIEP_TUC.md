@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 03/10/2026, bản 3.91)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 04/10/2026, bản 3.91.1)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -86,7 +86,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.91 (mới nhất):** **Nợ đến hạn** theo hạn HĐ (gia hạn) + **kỳ GDXA chuyển quá hạn** (anh chốt: hạn HĐ 22/10, GDXA ngày 07 → chuyển QH 07/11; tháng nào cũng phải tra soát món đã quá hạn HĐ chưa chuyển) — 3 khung, cột Mã KH · SĐT · NV · Lãi tồn · Số dư 105, A4 dọc (sao kê để xem: tràn thì thu lề). **Kiểm tra & chốt tháng** — chỉ để biết và chốt, không sửa số; chốt = khóa tháng. Ma trận nhóm sổ / gọn, chọn tháng chữ Việt, 2 cột / vuốt ngang. **Viết tắt chương trình thống nhất** theo mã (03 = GQVL mọi món; HSSV STEM riêng). **Sao kê nợ đến hạn kỳ con** (CV 597/NHCS-TDNN): NOXH + cho vay trực tiếp (không mã tổ) + ủy thác qua tổ vay từ 01/03/2026; vay trước 01/03/2026 (trừ NOXH) không chuyển QH kỳ con; kỳ tới theo file **Nợ đến hạn phân kỳ** (loại phụ mới) hoặc ước tính ≈; **Danh sách nợ gốc đến hạn phân kỳ theo tổ** gửi tổ trưởng. Sửa lỗi scan chỉ có PDF trên Drive đổi tên báo "Chưa lên Drive".
+**3.91.1 (mới nhất):** sửa kiểm tra tháng chưa có file vẫn hiện kết quả cũ.
+
+**3.91:** **Nợ đến hạn** theo hạn HĐ (gia hạn) + **kỳ GDXA chuyển quá hạn** (anh chốt: hạn HĐ 22/10, GDXA ngày 07 → chuyển QH 07/11; tháng nào cũng phải tra soát món đã quá hạn HĐ chưa chuyển) — 3 khung, cột Mã KH · SĐT · NV · Lãi tồn · Số dư 105, A4 dọc (sao kê để xem: tràn thì thu lề). **Kiểm tra & chốt tháng** — chỉ để biết và chốt, không sửa số; chốt = khóa tháng. Ma trận nhóm sổ / gọn, chọn tháng chữ Việt, 2 cột / vuốt ngang. **Viết tắt chương trình thống nhất** theo mã (03 = GQVL mọi món; HSSV STEM riêng). **Sao kê nợ đến hạn kỳ con** (CV 597/NHCS-TDNN): NOXH + cho vay trực tiếp (không mã tổ) + ủy thác qua tổ vay từ 01/03/2026; vay trước 01/03/2026 (trừ NOXH) không chuyển QH kỳ con; kỳ tới theo file **Nợ đến hạn phân kỳ** (loại phụ mới) hoặc ước tính ≈; **Danh sách nợ gốc đến hạn phân kỳ theo tổ** gửi tổ trưởng. Sửa lỗi scan chỉ có PDF trên Drive đổi tên báo "Chưa lên Drive".
 
 **3.90.1:** màn 📥 gọn: dòng ① + **ma trận file theo tháng là màn chính** (anh chốt: gọn như cũ, vẫn đủ chức năng) + ② **bảng đối chiếu chéo** (chỉ tiêu × nguồn, toàn PGD / từng xã, bấm ô xem chi tiết) + **⬇ tải file gốc** (bản sao để dùng việc khác) + **🧹 tìm file rác của Số liệu**. **Anh chốt: phần Số liệu tách biệt với phần Văn bản, chạy độc lập; dọn rác cũng làm riêng** (Dọn kho chung bỏ qua `Số liệu/`, `_Hệ thống/`).
 
