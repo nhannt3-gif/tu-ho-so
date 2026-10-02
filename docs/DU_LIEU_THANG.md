@@ -2,6 +2,29 @@
 
 Nguồn: báo cáo xuất từ hệ thống (sheet `BCQUERY`, dòng 2 = tên báo cáo, dòng 5 = tên cột, dữ liệu từ dòng 6, cột A trống). App **tự dò** dòng tên cột, không cố định số dòng. Tên cột được so sau khi bỏ dấu, chữ thường.
 
+## 3.90 — 7 file tổng hợp chuẩn TW (nhóm Ⓐ, mỗi tháng, bắt buộc)
+Anh chốt: **số chính thức của TW, chuẩn nhất**. File dạng **biểu** (không phải bảng BCQUERY): tiêu đề + hàng tên cột 2 tầng + **hàng mốc cột (1) (2) (3)…** (lặp ở đầu mỗi trang) + dòng số liệu + dòng TỔNG CỘNG + phần ký. App đọc theo hàng mốc; ngày lấy dòng "Ngày … tháng … năm …" ở tiêu đề; dòng "…, ngày … tháng … năm …" sau bảng là **ngày lập biểu**.
+| Mã | File (tên khi xuất) | Mẫu / tiêu đề | Đơn vị | Dòng | Mốc cột |
+|---|---|---|---|---|---|
+| bx | `4820_BCDHTD_01.1_<ddmmyyyy>_…` | 01.1/BCTD · Báo cáo kết quả cho vay HN&ĐTCS — theo xã | triệu đồng (6 số lẻ) | xã (STT số) + TỔNG CỘNG | (3) cho vay tháng (4) lũy kế năm (5) thu nợ tháng (6) lũy kế (7) xóa nợ tháng (8) lũy kế (9) tổng dư nợ (10) trong hạn (11) quá hạn (12) khoanh (13) ngắn (14) trung (15) dài hạn (16) số KH dư nợ (17) số lượt KH vay |
+| bc | `4820_BCDHTD_01.2_…` | 01.2/BCTD — theo chương trình (tên CT theo TW, không có mã) | như trên | CT + TỔNG CỘNG (số KH dòng tổng = cộng theo CT) | như 01.1 |
+| b32 | `4820_B32_…` | 13/BC · Báo cáo kết quả hoạt động tín dụng | triệu đồng (2 số lẻ), hộ | mục I cho vay · II thu nợ · III tổng dư nợ · IV quá hạn; mỗi mục Nguồn trung ương / Nguồn địa phương → dòng PGD + các xã | cặp (3,4) Tổng số hộ / tiền, (5,6) HONGHEO, (7,8) HSSV, … KHAC — tên nhóm ở hàng tên cột |
+| lx | `4820_LEN_31_XAPUONG_…` | Tổng hợp số liệu tín dụng — theo xã | đồng | xã (STT số) + Tổng cộng | (3) số tổ (4) số hộ (5) dư nợ (6) trong hạn (7) quá hạn (8) khoanh (9) dư tiền gửi (10) cho vay (11) thu nợ (12) thu lãi (13) thu TK (14) chi TK — doanh số tháng |
+| lh | `…_DONVIUT_…` | theo hội | đồng | xã (STT chữ A, B…) → hội (STT số; "Trực tiếp" = vay trực tiếp) | như XAPUONG |
+| lc | `…_CHTRINH_…` | theo chương trình | đồng | xã (STT trống) → hội (STT trống) → chương trình (STT số; tên = "Tên chương trình" của Mẫu 31; có dòng "Không vay vốn, có tiết kiệm") | như XAPUONG (số hộ, số tổ cộng theo CT) |
+| lt | `…_TO_TRUONG_…` | theo tổ trưởng | đồng | xã (STT chữ) → tổ (STT số, **chỉ có tên tổ trưởng**, không mã tổ, tên có thể bị cắt; "Vay trực tiếp") | như XAPUONG |
+
+**Quy tắc đã kiểm trên file thật 30/09/2026:**
+- **BCDHTD 01.1 = Mẫu 31 tuyệt đối từng xã**: dư nợ, trong hạn, quá hạn, khoanh; **cho vay = Giải ngân trong tháng − Đảo khoản GN tháng** (lũy kế: Giải ngân Năm − Đảo khoản GN Năm); **thu nợ = Thu nợ TH + QH + khoanh** (tháng / năm); xóa nợ lũy kế = Xóa trong Năm; **số KH dư nợ = số khách có dư nợ > 0**. Thời hạn: Mẫu 31 cột "Thời hạn vay" ghi Ngắn / Trung / Dài hạn. Số lượt KH vay: chưa rõ cách tính (không so).
+- **LEN_31:** dư nợ / quá hạn / khoanh khớp BCDHTD; **cho vay LEN_31 = giải ngân gồm cả đảo khoản** (T9: hơn BCDHTD 40.000.000 = 1 món đảo khoản); **thu nợ LEN_31 thấp hơn BCDHTD 71.999.298** (12 tổ, chưa rõ nguyên nhân — app báo lưu ý, chuẩn là BCDHTD); tiền gửi LEN_31 khác số dư 105 Mẫu 31 vài triệu mỗi xã. 4 biểu LEN_31 khớp nhau; dòng con cộng = dòng xã. **TO_TRUONG gộp các tổ trùng tên tổ trưởng trong 1 xã thành 1 dòng** (T9: 1 dòng = 2 tổ); số hộ của tổ không trùng cách đếm nào của Mẫu 31 (chỉ để xem).
+- **B32:** dư nợ, quá hạn khớp (làm tròn 0,01 triệu); **cho vay B32 gồm cả đảo khoản**; **"thu nợ" B32 = thu nợ thực + cho vay trong tháng** (app tính dòng "thu nợ thực"); số hộ thu nợ đúng số tháng.
+- Ghép tổ LEN_31 ↔ mã tổ: cùng xã, tên đủ trùng → tên LEN là phần đầu tên tổ; nhiều tổ khớp tên → theo dư nợ, không thì cả nhóm nếu tổng dư nợ bằng (T9: 369 / 370 dòng ghép được, khớp dư nợ / quá hạn / khoanh / cho vay).
+
+## 3.90 — các file khác
+- **Món vay 3 tháng KHĐ: chỉ dùng mẫu 14** "Sao kê món vay N tháng không hoạt động (DL Tháng)". File mẫu **08/KTNB** ("DS khoản vay trên N tháng không hoạt động", cột Mã món vay, Địa chỉ, Tên xã, Mô tả) **cùng số y hệt** nhưng thiếu điểm GD xã, ngày đến hạn GDXA → app không nhận. Quy tắc của hệ thống (kiểm T9): món còn dư nợ, ngày GD gần nhất **trước** ngày cùng kỳ 3 tháng trước (30/06 cho số 30/09; GD đúng ngày 30/06 không tính); **không đưa món khoanh, món HSSV**; 3 món vay mới năm 2026 cũng không có (chưa rõ lý do — app báo lưu ý). File 0 dòng → báo xuất lại.
+- **Thông tin tổ trưởng: nạp mỗi tháng** (anh chốt, để kiểm). **Nợ quá hạn, Nợ khoanh, Tổng dư nợ theo CT: phụ** (không bắt buộc, có thì đối chiếu thêm). **Bỏ:** Mẫu 7 (khỏi tham chiếu), Sao kê khách hàng (không xuất được nữa).
+- **Kỳ:** file TW và Mẫu 31 xuất ngày cuối tháng → ô tháng; xuất giữa tháng → ô theo ngày (kỳ `yyyy-mm-dd`). Doanh số tháng của bản giữa tháng: suy luận là lũy kế từ ngày 01 đến ngày xuất (LEN_31 ghi "Doanh số phát sinh từ ngày 01/… đến ngày …") — **chờ file thật để kiểm**.
+
 ## Nhận dạng loại (theo cột, không theo tên file)
 | Loại | Mã | Tên báo cáo trong file | Cột bắt buộc | Không được có | Khóa dòng | Ngày (kỳ) |
 |---|---|---|---|---|---|---|
@@ -18,8 +41,8 @@ Nguồn: báo cáo xuất từ hệ thống (sheet `BCQUERY`, dòng 2 = tên bá
 Kỳ: cột Ngày báo cáo → ngày ở phần tiêu đề → tên file (`31-08-2026`, `2026-08-31`, `31082026`, `T8 2026`) → anh chọn. Loại theo NGÀY (Mẫu 10, Sao kê KH) giữ cả ngày; loại khác lấy tháng.
 **Ngày xuất (3.87):** tên file có 2 ngày (vd `QUERY0112021190__02092026_8787_31-08-2026`: xuất 02/09, số liệu 31/08) → file theo tháng xuất sau ngày số liệu thì cảnh báo có thể lẫn phát sinh sau chốt.
 
-## Thứ bậc tin cậy (anh chốt 01/10/2026)
-1. **Mẫu 31** (số chốt tháng) là chuẩn. 2. **Mẫu 10** cùng ngày. 3. File tổng hợp (Mẫu 7…) chỉ để đối chiếu — Mẫu 7 xuất sau ngày chốt có thể không chuẩn.
+## Thứ bậc tin cậy (anh chốt 01/10/2026, sửa 02/10/2026 — bản 3.90)
+**BCDHTD (01.1, 01.2) > LEN_31, B32 > Mẫu 31 > Mẫu 10.** Báo cáo cấp PGD / xã lấy thẳng số chuẩn TW; lọc sâu hơn tính từ Mẫu 31, ghi "tham khảo" và tự đối chiếu với số chuẩn của xã. (Trước 3.90: Mẫu 31 > Mẫu 10 > file tổng hợp; Mẫu 7 nay bỏ khỏi tham chiếu.)
 Lệch thì app **báo, chỉ ra nguyên nhân / dòng lệch, không sửa dữ liệu nguồn**; ghi nhận để ghi chú hoặc bổ sung ở báo cáo đầu ra. Số liệu là nguồn một chiều: tab Số liệu chỉ nhận từ file hệ thống, các tab khác chỉ đọc từ Số liệu.
 
 ## Liên kết
