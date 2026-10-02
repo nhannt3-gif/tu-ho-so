@@ -151,6 +151,12 @@ const fs=require('fs'), path=require('path');
    o.ctVT = (/bc-ghi">Chương trình: /.test(skHTMLIn(SK_XEM)) ? 'có dòng chú thích' : 'THIẾU chú thích')+' · ô CT: '+((dd.querySelector('.bc-khung tbody tr:not(.nhom):not(.tong) td:nth-child(5)')||{}).textContent||'');
    o.ctChu = SK_XEM[0].ctChu; const ex = SK_XEM[0].aoa; o.dhExcel = ex[0].length+' cột Excel: '+ex[0].slice(0, 6).join(',');
    dongHop();
+   /* 3.91: sao kê NOXH — sửa tạm 2 món giả trong bộ nhớ thành CT 12 (1 món gốc ĐH chưa trả 5 tr) */
+   const mv = SK_K.B.co.hstd.filter(x=>x.ku && x.dn>0).slice(0, 2);
+   mv.forEach((x, i)=>{ x.ct='12'; x.c_goc_den_han_lk = i ? 20000000 : 10000000; x.c_goc_da_tra = i ? 15000000 : 10000000; x.c_tong_chuyen_no_qh = i ? 3000000 : 0; x.c_ngay_b_dau_tra_goc='07/10/2026'; });
+   K2.bc = {noxh:true}; skXem(); await w(1200); const dn = document.getElementById('sk-khung').contentDocument;
+   o.noxh = SK_XEM[0].tieuDe+' · '+dn.querySelectorAll('tbody tr:not(.tong)').length+' món · tô nền '+dn.querySelectorAll('tr.nb').length+' · ngang '+!!dn.querySelector('.trang.ngang')+' · Excel '+SK_XEM[0].aoa[0].length+' cột · '+(dn.querySelector('.bc-tom').textContent.match(/gốc đến hạn chưa trả [\d.]+/)||[''])[0]+' · chú thích NOXH '+/NOXH = /.test(SK_XEM[0].ctChu||'');
+   dongHop();
    /* xóa cả bộ tháng 8 · làm mới toàn bộ */
    const truoc = Object.keys(SLM.bang).filter(k=>/\|2026-08/.test(k)).length;
    slXoaThang('2026-08'); for(let i=0;i<40 && Object.keys(SLM.bang).some(k=>/\|2026-08/.test(k));i++) await w(250); await w(500);

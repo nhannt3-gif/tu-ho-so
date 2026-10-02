@@ -2871,7 +2871,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.91', APP_LUC = '03/10/2026 10:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.91', APP_LUC = '03/10/2026 15:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12356,6 +12356,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.91', ds:[
+  ['🏠 Sao kê cho vay nhà ở xã hội (NOXH): mỗi món 1 dòng theo xã — dư nợ, gốc đến hạn lũy kế / đã trả / chưa trả, lãi tồn, số dư 105, ngày bắt đầu trả gốc, tổng đã chuyển quá hạn; món cần lưu ý tô nền, lên đầu', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
   ['📅 Nợ đến hạn tính đúng theo hạn hợp đồng + kỳ GDXA chuyển quá hạn, chia 3 khung (quá hạn HĐ chưa chuyển QH · chuyển QH trong kỳ · chuyển QH kỳ sau), có Mã KH, SĐT, NV, lãi tồn, số dư 105, nút chọn nhanh Tháng sau / Đến cuối quý / Đến hết năm, in A4 dọc', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
   ['🔒 Kiểm tra & chốt tháng: đủ file + đã kiểm = Đạt → Chốt (khóa, không nạp đè / thay / xóa; mở khóa có xác nhận) — chỉ để biết và chốt, không sửa số', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['📋 Ma trận: mỗi nhóm Ⓐ Ⓑ Ⓒ Ⓓ bấm sổ / gọn, thu gọn thì hiện chip 7/7 ✓; chọn tháng bằng chữ Việt; máy tính chia 2 cột, điện thoại vuốt ngang 2 khung', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
@@ -23234,6 +23235,7 @@ function tcKiemTrung(so){
    ========================================================== */
 var SK_BC = [{k:'qh', ten:'Sao kê nợ quá hạn'}, {k:'kh', ten:'Sao kê nợ khoanh'}, {k:'khd', ten:'Sao kê món vay 3 tháng không hoạt động'},
   {k:'sdt', ten:'Sao kê số điện thoại khách hàng (đánh dấu số trống / không đạt)'}, {k:'dh', ten:'Sao kê nợ đến hạn (hạn hợp đồng + kỳ GDXA chuyển quá hạn)'},
+  {k:'noxh', ten:'Sao kê cho vay nhà ở xã hội (NOXH — trả gốc phân kỳ)'},
   {k:'gn', ten:'Sao kê giải ngân trong tháng'}, {k:'ddn', ten:'Sao kê món vay có thay đổi dư nợ trong tháng'}, {k:'m105', ten:'Sao kê khách giải ngân cần mở TK 105'}];
 var SK_K = null, SK_XEM = [];
 function skCH(){ var C = D.cauHinh.skTK = D.cauHinh.skTK || {ky:'', xa:'', diem:'', hoi:'', to:'', bc:{qh:true}, tu:'', den:''}; C.bc = C.bc || {}; return C; }
@@ -23316,6 +23318,7 @@ function skBaoCao(k){
       html:'<div class="bc-tom">'+dsK.length+' khách đang vay · SĐT đạt '+(dsK.length-nTrong-nSai)+' · <b>chưa có '+nTrong+'</b> · <b>không đạt '+nSai+'</b> (dòng tô nền cần bổ sung; SĐT đạt = đúng 10 chữ số, bắt đầu bằng 0)</div>'+r.html};
   }
   if(k==='dh') return skBCDH(rows, lapKH, M, e31, ngay);   /* 3.91 */
+  if(k==='noxh') return skBCNOXH(rows, M, ngay);   /* 3.91 */
   if(k==='gn' || k==='m105'){
     var ds = rows.filter(function(o){ return o.ku && (o.gnT||0)>0; });
     if(k==='gn'){
@@ -23389,6 +23392,44 @@ function skBCDH(rows, lapKH, M, e31, ngay){
   return {ten:'No den han', tieuDe:'SAO KÊ NỢ ĐẾN HẠN TỪ '+ngayVNsl(tu)+' ĐẾN '+ngayVNsl(den), ngay:ngay, aoa:aoa,
     html:dau+h+'<div class="bc-ghi">Ngày ĐH = ngày đến hạn theo hợp đồng (dòng "GH" = ngày đến hạn gia hạn, dùng ngày này nếu có). Chuyển QH = kỳ giao dịch xã đầu tiên sau ngày đến hạn (ngày ĐH theo GDXA) — đến kỳ này chưa trả thì chuyển quá hạn. Chỉ lấy món trong hạn (không quá hạn, không khoanh). Còn GH = còn được gia hạn (tối đa ½ thời hạn cho vay); ⚠ = các cột gia hạn trong file không khớp nhau. Số dư 105 ghi 1 lần mỗi khách. SĐT tô nền = trống / không đủ 10 số.</div>'};
 }
+/* ---------- 3.91: CHO VAY NHÀ Ở XÃ HỘI (CT 12) — trả gốc phân kỳ, chuyển quá hạn theo kỳ con, không ủy thác thu lãi qua tổ (anh Nhân) ----------
+   lấy đúng số trong Mẫu 31: Gốc đến hạn LK, Gốc đã trả, Ngày B đầu trả gốc, Tổng chuyển nợ QH, Ngày CNQH gần nhất. Gốc ĐH chưa trả = LK − đã trả.
+   Mẫu 31 không có lịch trả từng kỳ → chưa tính kỳ tới (chờ anh chốt cách tính). Xếp theo xã, món cần lưu ý (QH / gốc ĐH chưa trả / lãi tồn) lên đầu, tô nền */
+function skNOXHCan(o){ return (o.qh||0)>0 || skNOXHChua(o)>0 || laiTon(o)>0; }
+function skNOXHChua(o){ return Math.max(0, (slSo(o.c_goc_den_han_lk)||0)-(slSo(o.c_goc_da_tra)||0)); }
+function skBCNOXH(rows, M){
+  var ngay = arguments[2];
+  var s105 = {}; (M.co.hstd||[]).concat(M.lap||[]).forEach(function(o){ if(o.kh && (o.t105||0) > (s105[o.kh]||0)) s105[o.kh] = o.t105; });
+  var ds = rows.filter(function(o){ return o.ku && String(o.ct)==='12' && ((o.dn||0)>0 || laiTon(o)>0); });
+  ds.sort(function(a, b){ var x = skNOXHCan(a) ? 0 : 1, y = skNOXHCan(b) ? 0 : 1; return x-y || String(a.tenXa||'').localeCompare(String(b.tenXa||''), 'vi') || (a.kh<b.kh ? -1 : a.kh>b.kh ? 1 : 0); });
+  var da105 = {}, T = {dn:0, qh:0, lk:0, tra:0, chua:0, lt:0, t105:0, cqh:0}, nCan = 0, nCQH = 0, kh = {}, h = '';
+  var aoa = [['STT','Mã KH','Họ tên','Số KU','SĐT','Xã / phường','Đơn vị nhận ủy thác','Ngày vay','Hạn cuối','Số tiền vay','Dư nợ','Trong đó quá hạn','Gốc đến hạn lũy kế','Gốc đã trả','Gốc đến hạn chưa trả','Lãi tồn','Số dư 105','Ngày bắt đầu trả gốc','Lãi suất (%)','Tổng đã chuyển QH','Ngày CNQH gần nhất','Ngày GD gần nhất']];
+  ds.forEach(function(o, i){
+    var lk = slSo(o.c_goc_den_han_lk)||0, tra = slSo(o.c_goc_da_tra)||0, chua = skNOXHChua(o), lt = laiTon(o), cqh = slSo(o.c_tong_chuyen_no_qh)||0;
+    var t1 = !da105[o.kh] ? (s105[o.kh]||0) : 0; da105[o.kh] = 1; kh[o.kh] = 1;
+    var can = skNOXHCan(o); if(can) nCan++; if(cqh>0) nCQH++;
+    T.dn += o.dn||0; T.qh += o.qh||0; T.lk += lk; T.tra += tra; T.chua += chua; T.lt += lt; T.t105 += t1; T.cqh += cqh;
+    var hc = o.dhgh || o.dhg, ncq = String(o.c_ngay_cnqh_gan_nhat||'').trim(), bd = String(o.c_ngay_b_dau_tra_goc||'').trim(), dv = o.tenDv || o.dv || '';
+    aoa.push([i+1, o.kh||'', o.ten||'', o.ku||'', o.sdt||'', o.tenXa||'', dv, ngayVNsl(o.nv), ngayVNsl(hc), o.gn||o.mucVay||0, o.dn||0, o.qh||0, lk, tra, chua, lt, t1 || '', bd, o.ls||'', cqh, ncq, ngayVNsl(o.ngdg)]);
+    var tien = function(v){ return '<td class="s">'+(v ? tdnTien(v) : '')+'</td>'; };
+    h += '<tr'+(can ? ' class="nb"' : '')+'><td class="c">'+(i+1)+'</td><td>'+coChuHTML(o.kh||'')+'</td><td>'+coChuHTML(o.ten||'')+'<br><small>'+coChuHTML(o.ku||'')+'</small></td><td>'+coChuHTML(o.sdt||'')+'</td>'+
+      '<td>'+coChuHTML(o.tenXa||'')+'<br><small>'+coChuHTML(dv)+'</small></td><td>'+ngayVNsl(o.nv)+'<br><small>'+ngayVNsl(hc)+'</small></td>'+tien(o.gn||o.mucVay||0)+
+      '<td class="s">'+tdnTien(o.dn||0)+((o.qh||0)>0 ? '<br><small>QH '+tdnTien(o.qh)+'</small>' : '')+'</td>'+
+      '<td class="s">'+tdnTien(lk)+'<br><small>'+tdnTien(tra)+'</small></td>'+tien(chua)+tien(lt)+tien(t1)+'<td>'+coChuHTML(bd)+'</td>'+
+      '<td class="s">'+(cqh ? tdnTien(cqh) : '')+(ncq ? '<br><small>'+coChuHTML(ncq)+'</small>' : '')+'</td><td>'+ngayVNsl(o.ngdg)+'</td></tr>';
+  });
+  if(!ds.length) return {ten:'NOXH', tieuDe:'SAO KÊ CHO VAY NHÀ Ở XÃ HỘI', ngay:ngay, aoa:[['Không có']], html:'<div class="bc-rong">Không có món cho vay nhà ở xã hội (chương trình 12) đang còn dư nợ trong phạm vi.</div>'};
+  var td = function(v){ return '<td class="s"><b>'+(v ? tdnTien(v) : '')+'</b></td>'; };
+  h += '<tr class="tong"><td></td><td></td><td><b>TỔNG CỘNG ('+ds.length+')</b></td><td></td><td></td><td></td><td></td>'+td(T.dn)+td(T.lk)+td(T.chua)+td(T.lt)+td(T.t105)+'<td></td>'+td(T.cqh)+'<td></td></tr>';
+  aoa.push(['', '', 'TỔNG CỘNG', '', '', '', '', '', '', '', T.dn, T.qh, T.lk, T.tra, T.chua, T.lt, T.t105, '', '', T.cqh, '', '']);
+  ctNgan('12');   /* ghi NOXH vào dòng chú thích */
+  return {ten:'NOXH', tieuDe:'SAO KÊ CHO VAY NHÀ Ở XÃ HỘI', ngay:ngay, aoa:aoa, ngang:true,
+    html:'<div class="bc-tom">'+ds.length+' món · '+Object.keys(kh).length+' KH · dư nợ <b>'+tdnTien(T.dn)+'</b>'+(T.qh ? ' (quá hạn <b>'+tdnTien(T.qh)+'</b>)' : ' · không có nợ quá hạn')+
+      ' · gốc đến hạn chưa trả <b>'+tdnTien(T.chua)+'</b> · lãi tồn <b>'+tdnTien(T.lt)+'</b> · số dư 105 <b>'+tdnTien(T.t105)+'</b> · '+nCan+' món cần lưu ý (tô nền) · '+nCQH+' món từng chuyển quá hạn</div>'+
+      '<table class="bc-bang"><thead><tr><th>STT</th><th>Mã KH</th><th>Họ tên<br><small>Số KU</small></th><th>SĐT</th><th>Xã<br><small>ĐVUT</small></th><th>Ngày vay<br><small>Hạn cuối</small></th><th>Số tiền vay</th><th>Dư nợ</th>'+
+      '<th>Gốc ĐH LK<br><small>Gốc đã trả</small></th><th>Gốc ĐH chưa trả</th><th>Lãi tồn</th><th>Số dư 105</th><th>Bắt đầu trả gốc</th><th>Đã chuyển QH<br><small>Ngày gần nhất</small></th><th>GD gần nhất</th></tr></thead><tbody>'+h+'</tbody></table>'+
+      '<div class="bc-ghi">Số liệu lấy nguyên từ Mẫu 31: Gốc ĐH LK = gốc đến hạn lũy kế; Gốc ĐH chưa trả = Gốc ĐH LK − Gốc đã trả; Đã chuyển QH = tổng chuyển nợ quá hạn lũy kế (các kỳ con đã từng chuyển). Dòng tô nền = có nợ quá hạn / gốc đến hạn chưa trả / lãi tồn. Mẫu 31 không có lịch trả từng kỳ nên chưa tính kỳ trả tới. Số dư 105 ghi 1 lần mỗi khách. Hạn cuối = ngày đến hạn (gia hạn nếu có).</div>'};
+}
 function skDatNgay(kieu){   /* nút chọn nhanh: Tháng sau · Đến cuối quý · Đến hết năm (tính từ tháng sau kỳ số liệu) */
   var C = skCH(), sau = kyLui(SK_K.thang, 1), m = +sau.slice(5,7), y = sau.slice(0,4);
   C.tu = sau+'-01';
@@ -23409,13 +23450,15 @@ function skXem(){
 }
 function skHTMLIn(R){
   return '<!doctype html><html><head><meta charset="utf-8"><title>Sao ke</title><style>'+TO_IN_CSS+'</style></head><body>'+R.map(function(x){
-    return '<div class="trang"><div class="bc-dau"><div>'+coChuHTML(D.cauHinh.donvi||'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI')+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
-      '<h1>'+coChuHTML(x.tieuDe)+'</h1><div class="bc-to">Phạm vi: <b>'+coChuHTML(x.pv)+'</b></div>'+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_TU+'</body></html>';
+    return '<div class="trang'+(x.ngang ? ' ngang' : '')+'"><div class="bc-dau"><div>'+coChuHTML(D.cauHinh.donvi||'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI')+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
+      '<h1>'+coChuHTML(x.tieuDe)+'</h1><div class="bc-to">Phạm vi: <b>'+coChuHTML(x.pv)+'</b></div>'+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+SK_IN_TU+'</body></html>';
 }
 /* 3.91: đoạn mã chạy trong trang in sao kê — đo bảng theo khổ in (rộng 16 cm), tràn thì lề 1,5 cm (18 cm), vẫn tràn thì chữ 8,5 pt */
 var SK_IN_TU = '<style id="sk-kho">@media screen{.trang{width:160mm;margin:0 auto 10mm}}</style><script>(function(){var t=document.querySelectorAll(".trang"),k=document.getElementById("sk-kho"),'+
   'tran=function(){return Array.prototype.some.call(t,function(x){return x.scrollWidth>x.clientWidth+2;});};'+
   'if(tran()){k.textContent="@page{margin:15mm}@media screen{.trang{width:180mm;margin:0 auto 10mm}}";if(tran()){document.body.style.fontSize="8.5pt";}}})();<\/script>';
+/* 3.91: báo cáo nhiều cột (NOXH) in A4 ngang — trang tên "ngang" (các báo cáo khác vẫn A4 dọc) */
+var SK_IN_NGANG = '<style>@page ngang{size:A4 landscape}.trang.ngang{page:ngang}@media screen{.trang.ngang{width:247mm!important}}</style>';
 function skIn(){ if(SK_XEM.length) inBlob(new Blob([skHTMLIn(SK_XEM)], {type:'text/html'}), 'Sao ke.html'); }
 function skExcel(){
   if(!SK_XEM.length) return;
