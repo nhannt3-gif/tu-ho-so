@@ -82,7 +82,7 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **Báo cáo của tổ là thông tin thuần để xem / in** (không thêm cột làm việc, ô ghi tay…). Bố cục theo chuẩn ngân hàng hiện đại: dải chỉ tiêu trên cùng, xếp theo mức nghiêm trọng, có tuổi nợ. A4 dọc, cuối trang để trống, sắp theo Mã KH. Chương trình ghi mã + tên ngắn (`CT_NGAN`).
 - **Cách làm việc (anh chốt 01/10/2026):** anh hay dùng **điện thoại** → **gom nhiều ý rồi làm một lần**, kiên nhẫn; mỗi bản mở PR, **chờ anh nhắn "gộp" mới gộp** (không tự gộp).
 - **Quy tắc phạm vi chung:** mọi tra cứu / in đều chọn xã → điểm GD → hội (lọc) → tổ; báo cáo ghi phạm vi, chia và cộng theo tổ.
-- **Kiểm trùng trước khi nhập máy:** dùng CCCD là chính; rà CCCD khách đang dư nợ + CMND HSSV (+ CCCD người thừa kế khi có báo cáo). Không trùng = chưa dây vốn, có thể nhập máy. Khách tất nợ vẫn hiện, ghi rõ. Người thừa kế = vợ/chồng (Mẫu 31 chỉ có tên) → tìm theo tên, hiện hết kèm xã / tổ để anh tự chọn.
+- **Kiểm trùng trước khi nhập máy:** dùng CCCD là chính; rà CCCD khách đang dư nợ + CMND HSSV (+ CCCD người thừa kế khi có báo cáo). Không trùng = chưa vay vốn, có thể nhập máy. Khách tất nợ vẫn hiện, ghi rõ. Người thừa kế = vợ/chồng (Mẫu 31 chỉ có tên) → tìm theo tên, hiện hết kèm xã / tổ để anh tự chọn.
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 

@@ -126,6 +126,10 @@ const fs=require('fs'), path=require('path');
    /* thẻ tổ: chỉ tiêu LEN_31 */
    toCH().ky = '2026-07'; slDoiTab('to'); for(let i=0;i<80 && !(TO_K && TO_K.ky==='2026-07' && document.getElementById('to-cay'));i++) await w(250);
    const ma = Object.keys(TO_K.to).find(m=>TO_K.to[m].len); toChonTo(ma); await w(300);
+   { const t = TO_K.to[ma], ds = (TO_K.kh[ma]||[]).filter(x=>x.ku), m0 = ds[0], giu = {dn:m0.dn, tt:m0.ttMon, lt:m0.ltTH, lq:m0.ltQH, qh:m0.qh};
+     m0.dn = 0; m0.ttMon = 'CLOSE'; m0.ltTH = 0; m0.ltQH = 0; m0.qh = 0;   /* 3.91.1: giả 1 món đã tất toán */
+     const r = toBaoCao('ds', t); o.dsTatToan = 'món tất toán '+(r.html.indexOf(m0.ku)>=0 ? 'hiện' : 'BỊ ẨN')+' · ghi (đã TT) '+(/đã TT\)/.test(r.html) ? 'có' : 'KHÔNG');
+     m0.dn = giu.dn; m0.ttMon = giu.tt; m0.ltTH = giu.lt; m0.ltQH = giu.lq; m0.qh = giu.qh; }
    o.theTo = Object.keys(TO_K.to).filter(m=>TO_K.to[m].len).length+'/'+Object.keys(TO_K.to).length+' tổ có LEN_31 · '+Array.from(document.querySelectorAll('.to-kpi div')).map(x=>x.textContent).filter(t=>/LEN/.test(t)).join(' | ');
    /* 3.91: nhóm ma trận sổ / gọn + chip · chọn tháng chữ Việt · kiểm tra & chốt khóa */
    slDoiTab('nap'); SL_KY = '2026-07'; D.cauHinh.slMo = {}; veSoLieu(); await w(500);
