@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.89 · build 01/10/2026 23:20
+**Bản hiện tại:** 3.90 · build 02/10/2026 18:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,23 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.90) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Anh đã xóa tay dữ liệu cũ → 📥 Nạp nhiều file: chọn cả bộ tháng 9 (7 file TW + Mẫu 31 + Thông tin tổ trưởng + KHĐ mẫu 14 + Mẫu 10) | Bảng xem trước nhận đúng 11 loại, kỳ T9/2026 (Mẫu 10 ngày 30/09); file KTNB nếu kéo vào → báo "dùng file mẫu 14" | |
+| 2 | Nạp 1 loại nhiều tháng (vd 3 file BCDHTD 01.1 của 31/12/2025, T8, T9) | Mỗi file vào đúng ô tháng của nó | |
+| 3 | ① File tháng | Nhóm Ⓐ 7/7 · Ⓑ 3/3 · Ⓒ · Ⓓ; ô thiếu báo đỏ; dưới cùng có 🗑 Xóa cả bộ tháng | |
+| 4 | ② 🔍 Kiểm tra tháng 9 | Nhóm "Số chuẩn TW khớp nhau" và "Mẫu 31 ↔ số chuẩn TW" toàn ✅ (trừ các ⓘ lưu ý: thu nợ LEN_31, tiền gửi); bấm mục mở bảng chi tiết | |
+| 5 | Bấm 1 ô → 🔁 Thay file bằng file khác tháng | Báo "File này là số liệu …, không phải ô … — không thay" | |
+| 6 | 📊 Tổng hợp: tích hết 9 báo cáo → Xem → In / Lưu PDF | A4 ngang, lề 2/2/3/2 cm, có số trang, cuối mỗi báo cáo "PGD NHCSXH GÒ DẦU"; số theo xã = BCDHTD | |
+| 7 | Tổng hợp: chọn 1 xã → 1 điểm GD → chương trình → Xem | Báo cáo theo xã ghi "chỉ chia đến xã"; báo cáo Lọc sâu (tham khảo) có dòng ✅ / ⚠ đối chiếu số chuẩn | |
+| 8 | Tổ TK&VV: chọn 1 tổ | Thẻ tổ có thêm "LEN_31 (chuẩn TW)", tiền gửi, cho vay · thu nợ tháng | |
+| 9 | In báo cáo tổ / sao kê | Lề mới, có "PGD NHCSXH GÒ DẦU" cuối báo cáo; Nợ cần xử lý vẫn 1 trang (nhiều món thì chữ nhỏ lại) | |
+| 10 | (khi có) Nạp Mẫu 31 hoặc LEN_31 xuất giữa tháng (vd ngày 15) | Vào chip ngày 15 của tháng, không đè ô tháng; ô ma trận ghi "+ 1 ngày". **Anh gửi em 1 file giữa tháng** để kiểm cách tính doanh số trong tháng | |
+| 11 | 🧹 Quản lý dữ liệu → ♻ Làm mới toàn bộ (chỉ khi cần) | Phải gõ XOA + xác nhận lần 2; chỉ mất phần Số liệu | |
+
+**Ghi chú kỹ thuật 3.90:** `SL_LOAI` thêm `nhom` (A/B/C/D/X), `tw` (biểu TW), `tuy` (kỳ tháng nếu ngày cuối tháng, khác thì kỳ ngày — `bx bc b32 lx lh lc lt hstd`), `bo` (lý do đã bỏ — `kh kttk khd08`); `SL_NHOM`; `slTuy`, `slChonNgay` (ô nhập là ngày), `slKyTu(L, ngay)`, `slKyHopLe` nhận cả 2 dạng với loại `tuy`; `slGhi` chuẩn hóa kỳ loại `tuy`; `slCacNgay` chỉ lấy kỳ ngày; `slTimDau` bỏ loại `tw`. Biểu TW: `slDocTW(sheets, tenFile)` (hàng mốc `twMoc`, ngày `twNgay`, cột `TW_COT.bc` / `.len`, `TW_DEM`, B32 cặp mốc hộ / tiền + tên nhóm ở hàng tên cột, dòng mục I–IV + nguồn TW / ĐP + PGD / xã; LEN: STT chữ = xã, số = hội / tổ / CT, trống = xã / hội của CHTRINH, `twHoi`), `slPhanTichTW`, `slTongTW`, `slTomTatTW`; dòng lưu: BCDHTD {cap xa/ct/tong, cvT cvN tnT tnN xoaT xoaN dn th qh kn ngan trung dai khDn sluot}, B32 {phan cv/tn/dn/qh, nguon TW/ĐP, cap pgd/xa, ten, nhom, ho, tien}, LEN {cap xa/hoi/ct/to/tong, xa, dv, ten, soTo ho dn th qh kn tg cv tn tl ttk ctk}; tiền lưu **đồng**. Ghép tổ: `twGhepTo(dòng LEN, T)` (2 lượt: tên đủ → tên LEN là phần đầu; trùng thì theo dư nợ, không thì cả nhóm nếu tổng dư nợ bằng), `twToTu`. Gom Mẫu 31 kiểu BCDHTD: `twTinh31(rows, lap, khoa)` (cột năm `c_giai_ngan_nam`, `c_dao_khoan_gn_nam`, `c_thu_no_*_nam`, `c_xoa_trong_nam` qua `slSo`). Kiểm tra: `SL_KT_NHOM` thêm 7, 8 (giữ số cũ), `SL_KT_THU` thứ tự hiện, `slKTTW(ky, B, them)`; bỏ phép so Mẫu 7. Nạp: `slOMT` (ô ma trận), `slFileThangHTML` / `slBuocHTML` theo nhóm, `slThayO`, `slXoaCacO`, `slXoaThang`, `slLamMoi` / `slLamMoiGhi`, `slCoDL`. Tổng hợp: `slTab='th'`, `TH_BC`, `thCH` (`D.cauHinh.thTK` {ky, xa, diem, hoi, to, bc, ct, nguon}), `PV_DUNG.th`, `thDsKy`, `thNap` (`TH_K` = {ky, B, K, hs, G}), `veTongHop`, `thBaoCao(k)`, `thBang2` / `thAoa2` (ô `{dem:n}` = số đếm), `thToTrongPV`, `thDiemCua`, `thXem`, `thHTMLIn`, `thIn`, `thExcel`. In: `TO_IN_CSS` lề 20/20/20/30 mm + `@bottom-right` số trang, `bcCSS(ngang)`, `bcKy()` / `BC_KY`. Thẻ tổ: `toNap` gắn `t.len`, `t.lenGop`; `toDsKy` có Mẫu 31 theo ngày; `slBo` ưu tiên Mẫu 31 hơn Mẫu 10 cùng ngày. Phép thử `tests/t105.js` (dựng 7 file TW giả từ Mẫu 31 giả); `t101.js` sửa: Mẫu 7 nay báo đã bỏ.
 
 ### Danh sách thử trên máy thật (3.89) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

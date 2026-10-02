@@ -35,10 +35,10 @@ const TAO = () => {   // chạy trong trang: dựng 2 file Excel giả
  const {p, ctx} = await mo(MOI);
  const r = await p.evaluate(async(TAO)=>{ const o={}, w=t=>new Promise(r=>setTimeout(r,t)); const F = eval('('+TAO+')')();
    doiNgan(7); slDocNhieu(F); for(let i=0;i<40 && !document.querySelector('.sl-xt');i++) await w(250);
-   o.xemTruoc = SL_NAP.map(k=>[k.loai, k.ky, k.nguonKy, k.rows.length+'+'+(k.lap||[]).length+' lặp', slTrangThai(k).chu].join(' | '));
+   o.xemTruoc = SL_NAP.map(k=>k.loi ? 'LỖI (đúng ý — 3.90 bỏ Mẫu 7): '+k.loi.slice(0,60) : [k.loai, k.ky, k.nguonKy, k.rows.length+'+'+(k.lap||[]).length+' lặp', slTrangThai(k).chu].join(' | '));
    o.oNgay = document.querySelector('.sl-xt input[type=date]') ? 'có ô chọn ngày' : 'KHÔNG có ô ngày';
    const t = SL_NAP[0].tong; o.tong10 = 'dn '+t.dn+' · 105 '+t.t105+' · KH nhiều sổ '+t.khNhieuSo+' · món '+t.mon+' · lặp '+t.lap;
-   const t7 = SL_NAP[1].tong; o.tong7 = 'tổ '+t7.n+' · tổ viên '+t7.stv+' · dn '+t7.dn+' · 105 '+t7.t105;
+   o.tong7 = SL_NAP[1].loi ? 'Mẫu 7 không nạp nữa (3.90)' : 'Mẫu 7 VẪN NẠP — SAI';
    slGhiDaTich(); for(let i=0;i<40 && !document.querySelector('#sl-ky .sl-tom');i++) await w(250);
    o.khoa = Object.keys(SLM.bang).sort().join(', ');
    o.o = Array.from(document.querySelectorAll('.sl-bang tbody tr')).filter(tr=>/✓|⚠/.test(tr.textContent)).map(tr=>tr.cells[0].textContent+': '+Array.from(tr.cells).slice(1).map(c=>c.textContent).filter(x=>x!=='+').join(' | '));
