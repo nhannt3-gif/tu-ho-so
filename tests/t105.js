@@ -130,7 +130,11 @@ const fs=require('fs'), path=require('path');
      m0.dn = 0; m0.ttMon = 'CLOSE'; m0.ltTH = 0; m0.ltQH = 0; m0.qh = 0;   /* 3.91.1: giả 1 món đã tất toán */
      const r = toBaoCao('ds', t); o.dsTatToan = 'KU tất toán '+(r.html.indexOf(m0.ku)>=0 ? 'VẪN HIỆN' : 'bỏ')+' · khách '+(r.html.indexOf(m0.kh)>=0 ? 'vẫn hiện' : 'BỊ MẤT');
      m0.dn = giu.dn; m0.ttMon = giu.tt; m0.ltTH = giu.lt; m0.ltQH = giu.lq; m0.qh = giu.qh; }
-   o.theTo = Object.keys(TO_K.to).filter(m=>TO_K.to[m].len).length+'/'+Object.keys(TO_K.to).length+' tổ có LEN_31 · '+Array.from(document.querySelectorAll('.to-kpi div')).map(x=>x.textContent).filter(t=>/LEN/.test(t)).join(' | ');
+   o.theTo = Object.keys(TO_K.to).filter(m=>TO_K.to[m].len).length+'/'+Object.keys(TO_K.to).length+' tổ có LEN_31 · '+((document.querySelector('.to-the-so')||{}).textContent||'').split('│').filter(t=>/LEN/.test(t)).join('');
+   /* 3.92: tab Tổ — danh sách tổ viên + nút lọc + CCCD; bảng các tổ khi chưa chọn tổ */
+   o.tv392 = document.querySelectorAll('#to-the .to-bang tbody tr').length+' tổ viên · nút lọc '+document.querySelectorAll('.to-loc').length+' · cột '+Array.from(document.querySelectorAll('#to-the .to-bang thead th')).map(x=>x.textContent).join(',');
+   { const C = toCH(), giu = C.to; C.to = ''; toVeThe(); await w(800); o.bangTo = document.querySelectorAll('#to-the .to-bang.chon tbody tr').length+' dòng bảng tổ (gồm dòng cộng) · '+((document.querySelector('#to-the .to-bang.chon thead')||{}).textContent||'').slice(0,60); C.to = giu; toVeThe(); }
+   o.cccd = [toCCCDHan('123456789','1980-01-01','2015-01-01').kq, toCCCDHan('079085000001','1985-03-10','2021-01-01').kq+' '+toCCCDHan('079085000001','1985-03-10','2021-01-01').chu, toCCCDHan('079085000001','1985-03-10','2024-01-01').kq, toCCCDHan('079050000001','1950-05-05','2021-06-01').kq, toCCCDHan('079085000001','','').kq].join(' | ');
    /* 3.91: nhóm ma trận sổ / gọn + chip · chọn tháng chữ Việt · kiểm tra & chốt khóa */
    slDoiTab('nap'); SL_KY = '2026-07'; D.cauHinh.slMo = {}; veSoLieu(); await w(500);
    o.nhom = Array.from(document.querySelectorAll('.sl-nh-dong')).map(tr=>tr.cells[0].textContent.trim()+(tr.classList.contains('mo') ? '(sổ)' : '')+': '+Array.from(tr.querySelectorAll('.sl-chipn')).map(x=>x.textContent).filter(t=>t!=='—').join(' ')).join(' / ');
@@ -170,6 +174,21 @@ const fs=require('fs'), path=require('path');
    skXem(); await w(1500); dn = document.getElementById('sk-khung').contentDocument;
    o.pkCo = (SK_PK ? 'file '+SK_PK.ky+' hạn '+SK_PK.han : 'KHÔNG NẠP ĐƯỢC FILE')+' · kỳ tới món 1: '+(skPKKy(mv[0], ns31).toiNgay+' '+skPKKy(mv[0], ns31).toiTien)+' · ① '+(dn.querySelector('.bc-khung-ten')||{}).textContent;
    dongHop();
+   /* 3.92: vay trực tiếp vào cây (món không mã tổ → mục TT ở đúng xã / điểm theo ngày GDXA) */
+   { TO_KS = {}; const K7 = await toNap('2026-07'); const tv = Object.keys(K7.to).map(m=>K7.to[m]).find(t=>t.diem && t.ngayGD);
+     const r0 = K7.hs.find(x=>x.ku && x.to===tv.ma); const gia = Object.assign({}, r0, {to:'', ku:'6600000999999901', kh:'7000009999', _tt:undefined}); K7.hs.push(gia); delete K7.to['TT'];
+     toGanTrucTiep(K7, K7.B); const tt = Object.keys(K7.to).map(m=>K7.to[m]).filter(t=>t.trucTiep);
+     o.trucTiep = tt.length+' mục TT · '+(tt[0] ? (+tt[0].ngayGD===+gia.ngayGD && tt[0].xa===gia.xa ? 'đúng xã + ngày GD của điểm' : 'SAI ĐIỂM')+' · hội '+tt[0].dv+' · '+tt[0].soMon+' món · _tt '+(gia._tt===tt[0].ma) : 'KHÔNG CÓ') + ' · gốc o.to giữ "'+gia.to+'"';
+     K7.hs.pop(); TO_KS = {}; }
+   /* 3.92: sao kê in 2 khổ — dọc bỏ Số KU (có CT), ngang đủ */
+   { slDoiTab('sk'); for(let i=0;i<80 && !document.getElementById('sk-cay');i++) await w(250); await w(400);
+     const C = skCH(); C.xa=''; C.diem=''; C.hoi=''; C.to=''; skChonBC('dh'); await w(800); C.tu='2029-01-01'; C.den='2029-03-31';
+     const kq = []; for(const kho of ['ngang','doc']){ skDoiKho(kho); skXem(); await w(1500); const d = document.getElementById('sk-khung').contentDocument;
+       kq.push(kho+': '+Array.from(d.querySelectorAll('.bc-khung thead th')).slice(0,14).map(x=>x.textContent).join(',')+' · lớp trang '+d.querySelector('.trang').className); dongHop(); await w(200); }
+     o.kho = kq.join(' // '); o.nhomSK = document.querySelectorAll('.sk-nhom').length+' nhóm · '+document.querySelectorAll('.sk-bc input[type=radio]').length+' nút chọn'; }
+   /* 3.92: tổng hợp tiêu đề 2 tầng + hàng số cột */
+   { const h = thBang2(['TT','Tên','Doanh số cho vay|Trong tháng','Doanh số cho vay|Lũy kế năm','Tổng dư nợ'], [{o:[1,'A',1e6,2e6,3e6]}], function(v){ return thTr(v,2); });
+     o.th2tang = (h.match(/<tr/g)||[]).length+' hàng · colspan '+/colspan="2"/.test(h)+' · số cột (5) '+/\(5\)/.test(h)+' · '+/1,00/.test(h); }
    /* xóa cả bộ tháng 8 · làm mới toàn bộ */
    const truoc = Object.keys(SLM.bang).filter(k=>/\|2026-08/.test(k)).length;
    slXoaThang('2026-08'); for(let i=0;i<40 && Object.keys(SLM.bang).some(k=>/\|2026-08/.test(k));i++) await w(250); await w(500);

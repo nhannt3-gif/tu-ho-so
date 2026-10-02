@@ -2150,6 +2150,49 @@
   .sua-gon .q-chip .the-loc{min-height:19px !important;line-height:17px !important;padding:0 6px !important;font-size:calc(11px*var(--co)) !important}
   .sua-gon .q-chip .goi-y{max-height:68px !important;gap:3px !important}
 
+  /* ===== 3.92 — Tra cứu KH 2 cột (≥ 900 px): trái tìm + danh sách gọn, phải chi tiết ===== */
+  .tc-2cot{display:block}
+  @media(min-width:900px){ .tc-2cot{display:grid;grid-template-columns:minmax(320px,420px) 1fr;gap:12px;align-items:start}
+    .tc-phai{display:block;position:sticky;top:6px;max-height:calc(100vh - 120px);overflow:auto;border:1px solid var(--vien);border-radius:10px;padding:8px 12px;background:var(--the)}
+    .tc-trai #sl-kq{max-height:calc(100vh - 260px);overflow:auto} }
+  @media(max-width:899px){ .tc-phai{display:none} }
+  .tc-trai .sl-kq-dong{padding:4px 8px;margin:2px 0}.tc-trai .sl-kq-dong b{font-size:calc(13.5px*var(--co))}.tc-trai .sl-kq-dong .tc-tt{font-size:calc(11.5px*var(--co))}.tc-trai .sl-kq-dong small{font-size:calc(11px*var(--co))}
+  .sl-kq-dong.chon{border-color:var(--xanh);background:var(--nen);box-shadow:inset 3px 0 0 var(--xanh)}
+  .tc-ct-tit{font-size:calc(16px*var(--co));font-weight:700}.tc-ct-phu{color:var(--chu-phu);font-size:calc(12px*var(--co));margin-bottom:6px}
+  .tc-phai .kh-luoi{gap:4px 10px}.tc-phai table.kh-mon{font-size:calc(12px*var(--co))}
+  /* ===== 3.92 — Sao kê: thanh trên (số liệu · khổ · Xem) · chọn 1 báo cáo, nhóm 2 cột · khung xem trước rộng ===== */
+  .sk-thanh{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;position:sticky;top:0;z-index:3;background:var(--nen);padding:6px 0;border-bottom:1px solid var(--vien);margin-bottom:6px}
+  .sk-thanh select{font:inherit;font-size:calc(13px*var(--co));padding:3px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu)}
+  .sk-kho{display:inline-flex;align-items:center;gap:4px;font-size:calc(12.5px*var(--co));color:var(--chu-phu)}.sk-kho button.bat{background:var(--xanh);border-color:var(--xanh);color:#fff}
+  .sk-thanh .sk-xem{margin-left:auto;min-width:120px}
+  .sk-luoi{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:900px){.sk-luoi{grid-template-columns:1fr 1fr}}
+  .sk-nhom{border:1px solid var(--vien);border-radius:8px;padding:6px 10px;background:var(--the);min-width:0}
+  .sk-nhom-ten{font-size:calc(11px*var(--co));text-transform:uppercase;letter-spacing:.04em;color:var(--chu-phu);font-weight:600;margin-bottom:2px}
+  .sk-bc{display:flex;gap:6px;align-items:flex-start;padding:2px 4px;border-radius:6px;cursor:pointer;font-size:calc(13px*var(--co))}.sk-bc:hover{background:var(--nen)}.sk-bc input{margin-top:3px}.sk-bc small{color:var(--chu-phu)}
+  #tr7 .sk-ngay1{margin:6px 0;padding:5px 8px;border-radius:8px;background:var(--nen)}
+  #hop-in.xem-rong{max-width:min(1600px,97vw);width:97vw}#hop-in.xem-rong .to-khung{height:80vh}
+  /* ===== 3.92 — Tổ TK&VV gọn: ô tìm cùng hàng · chip nhỏ · thẻ tổ 2 dòng · danh sách tổ viên có lọc · bảng các tổ (tiền tố #tr7 để thắng khối 3.88 phía sau) ===== */
+  #tr7 .to-dau{gap:8px;margin-bottom:6px}#tr7 .to-dau .to-tim{flex:1;min-width:220px;padding:3px 10px;border-width:1px;border-radius:8px}
+  #tr7 .to-dau .to-tim input{font-size:calc(13.5px*var(--co))}
+  #tr7 .to-cay{gap:3px;margin:6px 0}#tr7 .to-cap{grid-template-columns:90px minmax(0,240px) 1fr;gap:6px}
+  #tr7 .to-cap label{font-size:calc(12.5px*var(--co));padding-top:3px}#tr7 .to-cap select{font-size:calc(12px*var(--co));padding:2px 6px;border-radius:6px}
+  #tr7 .to-chips{gap:3px}#tr7 .to-chip{font-size:calc(11.5px*var(--co));padding:1px 8px;border-radius:11px;line-height:1.5}
+  #tr7 .to-the{border-width:1px;border-radius:8px;padding:5px 10px;margin:6px 0}
+  #tr7 .to-the-ten{font-size:calc(13.5px*var(--co))}#tr7 .to-the-ten .to-the-phu{font-size:calc(12px*var(--co));margin:0}
+  .to-the-so{font-size:calc(12px*var(--co));color:var(--chu-phu);margin-top:2px;font-variant-numeric:tabular-nums}.to-the-so b{color:var(--chu)}
+  .to-the-so b.do,.to-bang b.do,.to-bang .do{color:#c0392b}
+  .to-loc-hang{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+  .to-loc{border:1px solid var(--vien);background:var(--the);color:var(--chu);border-radius:11px;padding:1px 9px;font:inherit;font-size:calc(11.5px*var(--co));cursor:pointer}
+  .to-loc.vang{border-color:#e0b84a;background:#fff6dc}.to-loc.do{border-color:#e39a8f;background:#fdecea}.to-loc.bat{outline:2px solid var(--xanh);font-weight:600}
+  .to-bang-cuon{overflow-x:auto;border:1px solid var(--vien);border-radius:8px;background:var(--the)}
+  .to-bang{border-collapse:collapse;width:100%;font-size:calc(12px*var(--co));font-variant-numeric:tabular-nums}
+  .to-bang th,.to-bang td{padding:3px 7px;border-bottom:1px solid var(--vien);white-space:nowrap;text-align:left}
+  .to-bang th{font-size:calc(11px*var(--co));color:var(--chu-phu);background:var(--nen);position:sticky;top:0}
+  .to-bang td.s{text-align:right}.to-bang td.c{text-align:center;width:1%}.to-bang tr.to-ra td{background:#fdecea}.to-bang tr.tong td{font-weight:600;background:var(--nen)}
+  .to-bang.chon tbody tr:not(.tong){cursor:pointer}.to-bang.chon tbody tr:not(.tong):hover td{background:var(--nen)}
+  .to-cc{border-radius:9px;padding:0 6px;font-size:calc(11px*var(--co))}.to-cc.ok{background:#e6f4ea;color:#2c7a46}.to-cc.het{background:#fdecea;color:#b23b2e}
+  #tr7 .to-bc{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;margin-top:8px}#tr7 .to-bc .to-bc-dong{display:inline-block;padding:2px}
+  #tr7 .to-bc .nhan-nhom{margin:0}
   /* ===== 3.91 — nhóm ma trận sổ / gọn · chọn tháng chữ Việt · 2 khung · kiểm tra & chốt · nợ đến hạn ===== */
   .sl-thang-ten{min-width:92px;font-weight:700}
   .sl-nam{display:flex;gap:10px;align-items:center;justify-content:center;margin:6px 0}
@@ -2871,7 +2914,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.91.1', APP_LUC = '04/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.92', APP_LUC = '04/10/2026 15:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -10373,7 +10416,7 @@ function moHop(html, rong){
   nhapGiu();   /* 3.68 (AD): đang điền dở mà mở hộp khác (vd Sửa danh sách tag) → giữ nháp */
   if(!/cd-dau/.test(html)) document.getElementById('hop').classList.remove('trang');
   var e = document.getElementById('hop-in');
-  e.classList.remove('co-xem-ben', 'sua-gon', 'quet-gon', 'q-the', 'q-tl', 'phim-chung');
+  e.classList.remove('co-xem-ben', 'sua-gon', 'quet-gon', 'q-the', 'q-tl', 'phim-chung', 'xem-rong');
   e.innerHTML = html;
   e.classList.toggle('rong', !!rong);
   document.getElementById('hop').classList.add('hien');
@@ -12355,7 +12398,11 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.91.1', ds:[
+var CO_GI_MOI = {ban:'3.92', ds:[
+  ['📑 Sao kê bố cục mới: chọn 1 báo cáo (2 cột theo nhóm), thanh trên có Khổ Ngang / Dọc + 👁 Xem; in mỗi món 1 dòng, dọc bỏ Số KU, tràn thì bỏ SĐT rồi co chữ', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
+  ['👥 Tổ TK&VV: chọn tổ hiện ngay toàn bộ tổ viên (Mã KH, dư nợ, 105, số TK 105, CCCD còn / hết hạn) + nút lọc Đề xuất cho ra · Không dư nợ còn 105…; chưa chọn tổ thì ra bảng các tổ (tổ viên, mới vào, cho ra, KQGD tháng)', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
+  ['🏷 Vay trực tiếp (không qua tổ) nằm đúng xã / điểm GD, hội “Trực tiếp”; bỏ chip xã giả', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
+  ['📊 Tổng hợp in theo khuôn 01.1: A4 ngang lề 7 mm, tiêu đề 2 tầng, hàng số cột, triệu đồng 2 số lẻ · 👤 Tra cứu KH 2 cột (trái danh sách, phải chi tiết + hạn CCCD)', "dongHop();D.cauHinh.slTab='th';doiNgan(7)"],
   ['👤 Kiểm trùng CCCD ghi rõ “Chưa vay vốn, có thể nhập máy” / “Trùng — đang vay vốn”', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
   ['🔍 Kiểm tra tháng: tháng chưa có file Ⓐ chuẩn TW / Ⓑ chi tiết nào thì không kiểm, không còn hiện kết quả kiểm cũ (lưu từ bản trước)', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['🏠 Sao kê nợ đến hạn kỳ con (CV 597): nhà ở xã hội + cho vay trực tiếp + ủy thác vay từ 01/03/2026 — kỳ đã đến hạn chưa trả, kỳ tới, hạn nộp 08/TD; danh sách nợ gốc đến hạn phân kỳ theo tổ gửi tổ trưởng; nạp file “Nợ đến hạn phân kỳ” để có đúng số tiền kỳ', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
@@ -22085,13 +22132,16 @@ function slTabConHTML(){
 /* 3.86: tab con Tra cứu KH — ô tìm RIÊNG, độc lập với ô tìm chung của app */
 function slTraHTML(){
   var n = SL_TIM.length, ky = slHSMoi();
-  return '<div class="sl-tra"><details class="sl-tq tc-pv"'+(tcCH().xa ? ' open' : '')+'><summary>📍 Phạm vi tìm: <b id="tc-pv-chu">'+coChuHTML(pvChu(tcCH(), TC_K))+'</b></summary><div id="tc-cay" class="to-cay pv-cay"></div></details>'+
+  return '<div class="tc-2cot"><div class="tc-trai"><div class="sl-tra"><details class="sl-tq tc-pv"'+(tcCH().xa ? ' open' : '')+'><summary>📍 Phạm vi tìm: <b id="tc-pv-chu">'+coChuHTML(pvChu(tcCH(), TC_K))+'</b></summary><div id="tc-cay" class="to-cay pv-cay"></div></details>'+
     '<div class="sl-tra-o"><span>🔎</span><input id="sl-tim" autocomplete="off" value="'+coChuHTML(SL_TRA_Q)+'" placeholder="CCCD (kiểm trùng), tên khách / vợ-chồng / HSSV, mã KH, SĐT, số khế ước…" '+
     'oninput="SL_TRA_Q=this.value;slTraTim()" onkeydown="if(event.key===\'Enter\'){var b=document.querySelector(\'#sl-kq .sl-kq-dong\');if(b)b.click();}">'+
     (SL_TRA_Q ? '<button class="sap-ico" onclick="SL_TRA_Q=\'\';veSoLieu();slDoiTab(\'tra\')" title="Xóa">✕</button>' : '')+'</div>'+
     '<div class="ghi">'+(n ? n.toLocaleString('vi-VN')+' khách hàng trong danh bạ'+(ky ? ' · số liệu mới nhất: '+slKyChu(ky) : '') : 'Chưa có danh bạ — nạp Mẫu 31 hoặc Mẫu 10 ở tab con 📥 Nạp số liệu.')+'</div>'+
-    '<div id="sl-kq"></div></div>';
+    '<div id="sl-kq"></div></div></div>'+
+    '<div class="tc-phai" id="tc-ct"><div class="rong">Chọn 1 khách ở danh sách bên trái để xem chi tiết (thông tin, CCCD, tổ, các món vay, TK 105).</div></div></div>';   /* 3.92: 2 cột — trái tìm + danh sách, phải chi tiết */
 }
+function tcHaiCot(){ return window.innerWidth>=900 && !!document.getElementById('tc-ct'); }
+function tcChonDong(el){ var c = el && el.parentNode; if(c) Array.prototype.forEach.call(c.querySelectorAll('.sl-kq-dong.chon'), function(x){ x.classList.remove('chon'); }); if(el) el.classList.add('chon'); }
 function slTraTim(){
   var e = document.getElementById('sl-kq'); if(!e) return;
   var pc = document.getElementById('tc-pv-chu'); if(pc) pc.textContent = pvChu(tcCH(), TC_K);
@@ -22107,19 +22157,20 @@ function slTraTim(){
   var h = laSo ? tcKiemTrung(so) : '';
   h += ds.map(function(r, i){
     var c = SL_DB.kh[r.m]||{};
-    return '<div class="sl-kq-dong'+(c.mon ? '' : ' tat')+'" onclick="slTheKH(KH_GY['+i+'].m)"><b>'+coChuHTML(c.ten||'')+'</b> <span class="tc-tt">'+coChuHTML(tcTinhTrang(c))+'</span>'+
+    return '<div class="sl-kq-dong'+(c.mon ? '' : ' tat')+'" onclick="tcChonDong(this);slTheKH(KH_GY['+i+'].m)"><b>'+coChuHTML(c.ten||'')+'</b> <span class="tc-tt">'+coChuHTML(tcTinhTrang(c))+'</span>'+
       '<small>'+coChuHTML([tcNoiO(c), c.ns ? ngayVNsl(c.ns) : '', c.cccd ? 'CCCD '+c.cccd : '', c.sdt ? '☎ '+c.sdt : '', 'mã '+r.m].filter(Boolean).join(' · '))+'</small></div>';
   }).join('');
   var tongPhu = phu.length; phu = phu.slice(0, TOI_DA);
   h += phu.map(function(p){
     var c = SL_DB.kh[p.kh]||{};
-    return '<div class="sl-kq-dong phu" onclick="slTheKH(\''+p.kh+'\')"><b>'+(p.loai==='vc' ? '👫 ' : '🎓 ')+coChuHTML(p.ten)+'</b> <span class="tc-tt">'+(p.loai==='vc' ? 'vợ/chồng' : 'HSSV'+(p.so ? ' · CMND '+p.so : ''))+' của '+coChuHTML(c.ten||p.kh)+'</span>'+
+    return '<div class="sl-kq-dong phu" onclick="tcChonDong(this);slTheKH(\''+p.kh+'\')"><b>'+(p.loai==='vc' ? '👫 ' : '🎓 ')+coChuHTML(p.ten)+'</b> <span class="tc-tt">'+(p.loai==='vc' ? 'vợ/chồng' : 'HSSV'+(p.so ? ' · CMND '+p.so : ''))+' của '+coChuHTML(c.ten||p.kh)+'</span>'+
       '<small>'+coChuHTML([tcNoiO(c), p.loai==='hs' ? 'món '+p.ku+' '+(p.xong ? 'đã tất toán' : 'dư nợ '+tdnTien(p.dn)) : tcTinhTrang(c), 'mã '+p.kh].filter(Boolean).join(' · '))+'</small></div>';
   }).join('');
   if(!ds.length && !phu.length && !laSo) h = '<div class="rong">Không thấy khách hàng khớp “'+coChuHTML(q)+'”'+(tcCH().xa ? ' trong phạm vi '+coChuHTML(pvChu(tcCH(), TC_K)) : '')+'.</div>';
   if(!laSo && (tong+tongPhu)>8) h = '<div class="ghi">'+tong+' khách'+(tongPhu ? ' · '+tongPhu+' vợ/chồng, HSSV' : '')+' — anh xem xã, ấp, tổ để chọn đúng người'+(tong>TOI_DA || tongPhu>TOI_DA ? '. <b>Nhiều quá: đang hiện '+TOI_DA+' dòng đầu mỗi nhóm — gõ thêm tên hoặc chọn 📍 phạm vi để thu hẹp.</b>' : '.')+'</div>'+h;
   if(!SL_PHU_KY && !laSo) h += '<div class="ghi">Chưa có Mẫu 31 nên chưa tìm được theo tên vợ/chồng, HSSV.</div>';
   e.innerHTML = h;
+  if(tcHaiCot() && ds.length===1 && !phu.length){ var d1 = e.querySelector('.sl-kq-dong'); tcChonDong(d1); slTheKH(ds[0].m); }   /* 3.92: chỉ 1 kết quả → mở luôn bên phải */
 }
 /* 3.88: luồng nạp theo THÁNG — chọn tháng → ① file của tháng (trạng thái từng loại) → ② Kiểm tra (kết quả lưu, không chạy lại) → ③ Chốt (sau)
    bảng nhiều tháng giữ nguyên, thu gọn được (D.cauHinh.slTQ) để lấy chỗ cho kết quả kiểm tra */
@@ -22744,7 +22795,7 @@ function slTheKH(ma){
   var h = '<div class="hop-tit">👤 '+coChuHTML(c.ten||'')+'</div>'+
     '<div class="hop-phu">Mã KH '+coChuHTML(ma)+(dbChu ? ' · '+coChuHTML(dbChu) : '')+' · theo số liệu '+slKyChu(c.ky)+'</div>'+
     '<div class="kh-luoi">'+o('Họ tên', c.ten, 'kh-ten')+o('Ngày sinh', ngayVNsl(c.ns), 'kh-ns')+o('CCCD', c.cccd, 'kh-cccd')+
-    o('Ngày cấp', ngayVNsl(c.ncap), 'kh-nc')+o('Nơi cấp', c.noiCap, 'kh-noi')+o('Địa chỉ', c.dc, 'kh-dc')+
+    o('Ngày cấp', ngayVNsl(c.ncap), 'kh-nc')+(c.cccd ? (function(){ var h = toCCCDHan(c.cccd, c.ns, c.ncap); return o('Hạn CCCD', (h.kq==='het' ? '⚠ Hết hạn — ' : h.kq==='ok' ? 'Còn hạn — ' : '')+h.chu, 'kh-han'); })() : '')+   /* 3.92 */o('Nơi cấp', c.noiCap, 'kh-noi')+o('Địa chỉ', c.dc, 'kh-dc')+
     o('Mã KH', ma, 'kh-ma')+(c.stk ? o('TK 105'+(String(c.stk).indexOf(', ')>0 ? ' (nhiều sổ)' : ''), c.stk+(c.t105 ? ' · '+tdnTien(c.t105) : ''), 'kh-tk') : '')+
     (c.sdt ? o('SĐT', c.sdt, 'kh-sdt') : '')+(c.voChong ? o('Vợ/chồng', c.voChong, 'kh-vc') : '')+
     (c.gt || c.danToc ? o('Giới · DT', [{'01':'Nam','02':'Nữ'}[c.gt]||c.gt, c.danToc].filter(Boolean).join(' · '), 'kh-gt') : '')+'</div>'+
@@ -22753,7 +22804,9 @@ function slTheKH(ma){
     '<div class="hang-nut"><button class="nho" onclick="slChepKH(\''+ma+'\')">📋 Chép cả khối</button>'+
     '<button class="nho" onclick="dongHop();moHoSoHo({ten:\''+String(c.ten||'').replace(/'/g,"\\'")+'\',maTo:\''+(c.to||'')+'\'})">🏠 Hồ sơ hộ</button>'+
     '<button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button></div>';
-  moHop(h, true);
+  if(D.cauHinh.slTab==='tra' && nganHienTai===7 && tcHaiCot()){   /* 3.92: Tra cứu KH trên màn rộng → chi tiết ở cột phải, không mở hộp */
+    document.getElementById('tc-ct').innerHTML = h.replace('<div class="hop-tit">', '<div class="tc-ct-tit">').replace('<div class="hop-phu">', '<div class="tc-ct-phu">').replace('<button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button>', '');
+  } else moHop(h, true);
   slBo(c.ky).then(function(B){
     var e = document.getElementById('kh-mon'); if(!e) return;
     var ds = B.theoKH[ma]||[];
@@ -22846,7 +22899,7 @@ function toNap(ky){
     K.thieuBang = !K.hs.length && !!eHS && (eHS.soDong||0) > 0;
     var lay = function(ma){ return T[ma] = T[ma] || {ma:ma}; };
     var chung = [['xa','xa'],['tenXa','tenXa'],['thon','thon'],['tenThon','tenThon'],['dv','dv'],['ten','toTen']];
-    K.hs.forEach(function(o){ if(!o.to) return; toDien(lay(o.to), o, chung); (KH[o.to] = KH[o.to] || []).push(o); });
+    K.hs.forEach(function(o){ if(!o.to || o.to===TO_GIA) return; toDien(lay(o.to), o, chung); (KH[o.to] = KH[o.to] || []).push(o); });   /* 3.92: tổ 0000000 = khách chỉ gửi TK (xã giả 482000), không lên cây */
     (Bm.co.kttk||[]).forEach(function(o){ var t = lay(o.to); t.k7 = o; toDien(t, o, chung.concat([['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD']])); });
     (Bm.co.tt||[]).forEach(function(o){ var t = lay(o.to); t.tt = o; toDien(t, o, chung.concat([['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD'],['sdt','sdt'],['pho','phoTen']])); });
     if(K.thieuBang && SL_DB){
@@ -22862,6 +22915,7 @@ function toNap(ky){
       if(!b) return; slMoBang(b).forEach(function(o){ var t = T[o.to]; if(t && !t.diem) toDien(t, o, [['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD'],['sdt','sdt'],['pho','phoTen'],['dv','dv'],['tenThon','tenThon'],['tenXa','tenXa']]); }); }); }); }, Promise.resolve());
   }).then(function(){
     var T = K.to;
+    toGanTrucTiep(K, Bm);   /* 3.92: món vay trực tiếp (không mã tổ) → mục "Vay trực tiếp" ở đúng xã / điểm GD */
     Object.keys(T).forEach(function(ma){ var t = T[ma]; t.tenDiemDu = t.tenDiem ? String(t.tenDiem).trim()+(t.ngayGD ? ' · ngày '+t.ngayGD : '') : '(chưa rõ điểm GD)'; t.khoaDiem = t.diem || t.tenDiemDu; });
     /* 3.90: chỉ tiêu chuẩn TW của tổ — dòng LEN_31 TO_TRUONG cùng kỳ (ghép theo tên tổ trưởng trong xã) */
     var ltR = ky.length>7 ? (K.Bd && K.Bd.co.lt) : (Bm && Bm.co.lt);
@@ -22888,8 +22942,8 @@ function toDoiKy(ky){ toCH().ky = ky; luu(); veToTK(); }
 function toVe(K, dsKy){
   var e = document.getElementById('tr7'); if(!e) return;
   var C = toCH();
-  e.innerHTML = slTabConHTML()+'<div class="to-dau"><label>Số liệu <select onchange="toDoiKy(this.value)">'+dsKy.map(function(x){ return '<option value="'+x.ky+'"'+(x.ky===C.ky ? ' selected' : '')+'>'+coChuHTML(x.chu)+'</option>'; }).join('')+'</select></label></div>'+
-    '<div class="to-tim"><span>🔎</span><input id="to-tim" autocomplete="off" value="'+coChuHTML(TO_Q)+'" placeholder="Gõ tên tổ trưởng, mã tổ, tên ấp…" oninput="TO_Q=this.value;toTim()" onkeydown="if(event.key===\'Enter\'){var b=document.querySelector(\'#to-gy button\');if(b){event.preventDefault();b.click();}}"></div><div id="to-gy"></div>'+
+  e.innerHTML = slTabConHTML()+'<div class="to-dau"><label>Số liệu <select onchange="toDoiKy(this.value)">'+dsKy.map(function(x){ return '<option value="'+x.ky+'"'+(x.ky===C.ky ? ' selected' : '')+'>'+coChuHTML(x.chu)+'</option>'; }).join('')+'</select></label>'+
+    '<div class="to-tim"><span>🔎</span><input id="to-tim" autocomplete="off" value="'+coChuHTML(TO_Q)+'" placeholder="Gõ tên tổ trưởng, mã tổ, tên ấp…" oninput="TO_Q=this.value;toTim()" onkeydown="if(event.key===\'Enter\'){var b=document.querySelector(\'#to-gy button\');if(b){event.preventDefault();b.click();}}"></div></div><div id="to-gy"></div>'+
     (K.thieuBang ? '<div class="sl-bao vang">⚠ Bảng số liệu '+coChuHTML(slKyChu(C.ky))+' <b>chưa có trên máy này</b> (lưu trên Drive nhưng chưa tải về — Drive chưa nối hoặc hết phiên). Cây tổ đang lấy tạm từ danh bạ; báo cáo cần bảng số liệu.'+
       '<div class="hang-nut"><button class="nho chinh" onclick="toNoiDrive()">☁ Nối Drive và tải</button><button class="nho" onclick="toThuLai()">⟳ Thử lại</button></div></div>' : '')+
     '<div id="to-cay" class="to-cay pv-cay"></div><div id="to-the"></div>';
@@ -22909,7 +22963,7 @@ function pvLuaChon(T, S, cap){
     if((cap==='hoi' || cap==='to') && t.khoaDiem!==S.diem) return;
     if(cap==='to' && S.hoi && String(t.dv||'')!==S.hoi) return;
     var k = cap==='xa' ? t.xa : cap==='diem' ? t.khoaDiem : cap==='hoi' ? String(t.dv||'') : t.ma;
-    var chu = cap==='xa' ? (t.tenXa||t.xa) : cap==='diem' ? t.tenDiemDu : cap==='hoi' ? (tdnHoi(t.dv)||'(chưa rõ hội)') : (t.ten||'Tổ '+t.ma)+(t.tenThon ? ' · '+t.tenThon : '');
+    var chu = cap==='xa' ? (t.tenXa||t.xa) : cap==='diem' ? t.tenDiemDu : cap==='hoi' ? (String(t.dv)==='99' ? 'Trực tiếp' : (tdnHoi(t.dv)||'(chưa rõ hội)')) : (t.ten||'Tổ '+t.ma)+(t.trucTiep ? ' · '+t.soMon+' món' : (t.tenThon ? ' · '+t.tenThon : ''));
     if(k===undefined || k===null) return;
     if(!ra[k]) ra[k] = {k:k, chu:String(chu), n:0}; ra[k].n++;
   });
@@ -22925,7 +22979,7 @@ function pvVeCay(p){
     if(pvCha(S, c[0]) && !S[c[0]] && ds.length===1 && (c[0]==='xa' || c[0]==='diem') && (bb || c[0]==='diem')) S[c[0]] = String(ds[0].k);
     if(S[c[0]] && !ds.some(function(x){ return String(x.k)===S[c[0]]; })) S[c[0]] = '';
   });
-  var trong = bb ? {xa:'— chọn xã / phường —', diem:'— chọn điểm GD —', hoi:'— tất cả hội —', to:'— chọn tổ —'}
+  var trong = bb ? {xa:'— chọn xã / phường —', diem:'— chọn điểm GD —', hoi:'— tất cả hội —', to:'— tất cả tổ (bảng các tổ) —'}
                  : {xa:'Toàn PGD (mọi xã)', diem:'— cả xã —', hoi:'— tất cả hội —', to:'— cả điểm GD —'};
   PV_CAP.forEach(function(c){
     var ds = pvLuaChon(T, S, c[0]), cha = pvCha(S, c[0]), chon = S[c[0]], chip = cha && ds.length && ds.length <= (rong ? 18 : 6);
@@ -22962,6 +23016,25 @@ function pvChu(S, K){
 }
 SG_CAY['to-xa'] = 'Xã / phường'; SG_CAY['to-diem'] = 'Điểm giao dịch';
 PV_DUNG.to = {S:function(){ return toCH(); }, K:function(){ return TO_K; }, sau:function(){ toVeThe(); }, toBatBuoc:true};
+/* ---------- 3.92: VAY TRỰC TIẾP (anh Nhân: món không mã tổ — GQVL hội người mù, XKLD… — vẫn có xã, điểm GD cụ thể) ----------
+   mỗi xã + điểm GD có món trực tiếp → 1 mục giả trong cây (mã TT…, hội 99 "Trực tiếp", tên "Vay trực tiếp (không qua tổ)");
+   điểm GD suy từ XÃ + NGÀY GDXA (mỗi điểm trong xã có ngày GD riêng; thôn không dùng được vì 19/59 thôn có tổ thuộc 2 điểm).
+   Không đổi o.to của dữ liệu (kiểm tra vẫn thấy món không tổ) — chỉ gắn o._tt; tra tổ của 1 dòng dùng toMaCua(o). */
+var TO_GIA = '0000000';
+function toMaCua(o){ return (o && o.to && o.to!==TO_GIA) ? o.to : ((o && o._tt) || ''); }
+function toLaTT(t){ return !!(t && t.trucTiep); }
+function toGanTrucTiep(K, Bm){
+  var T = K.to, KH = K.kh, diem = {}, ku = {};
+  Object.keys(T).forEach(function(m){ var t = T[m]; if(t.xa && t.ngayGD && (t.diem || t.tenDiem)){ var k = t.xa+'|'+(+t.ngayGD); if(!diem[k]) diem[k] = t; } });
+  (K.hs||[]).forEach(function(o){
+    if(o.to || !o.ku || !o.xa) return;
+    var d = diem[o.xa+'|'+(+(o.ngayGD||0))], ma = 'TT'+o.xa+'_'+(d ? String(d.diem||d.tenDiem) : 'd'+(o.ngayGD||''));
+    var t = T[ma] = T[ma] || {ma:ma, trucTiep:true, xa:o.xa, tenXa:o.tenXa||'', dv:'99', ten:'Vay trực tiếp (không qua tổ)', diem:d ? d.diem : '', tenDiem:d ? d.tenDiem : '', ngayGD:d ? d.ngayGD : (o.ngayGD||''), soMon:0};
+    if((o.dn||0)>0 || (o.qh||0)>0 || laiTon(o)>0) t.soMon++;   /* món còn lãi = chưa tất toán (anh chốt) */
+    (KH[ma] = KH[ma] || []).push(o); o._tt = ma; ku[o.ku] = ma;
+  });
+  ['nqh','nk','khd'].forEach(function(L){ ((Bm && Bm.co[L])||[]).forEach(function(o){ if(!o.to && ku[o.ku]) o._tt = ku[o.ku]; }); });
+}
 function toVeCay(){ pvVeCay('to'); }
 function toChonTo(ma){
   var t = TO_K && TO_K.to[ma]; if(!t) return;
@@ -22978,20 +23051,157 @@ function toTim(){
   g.innerHTML = ds.length ? ds.map(function(t){ return '<button onclick="toChonTo(\''+t.ma+'\')"><b>'+coChuHTML(t.ten||('Tổ '+t.ma))+'</b> <small>'+coChuHTML([t.ma, t.tenThon, t.tenXa, tdnHoi(t.dv)].filter(Boolean).join(' · '))+'</small></button>'; }).join('')
     : '<div class="rong">Không thấy tổ khớp “'+coChuHTML(TO_Q)+'”.</div>';
 }
-/* thông tin + chỉ tiêu nhanh của tổ đang chọn, và danh sách báo cáo để tích */
+/* 3.92: tổ đang chọn → thẻ gọn + danh sách tổ viên có lọc + báo cáo; chưa chọn tổ (đã chọn xã) → bảng các tổ trong phạm vi */
 function toVeThe(){
   var o = document.getElementById('to-the'); if(!o) return;
   var C = toCH(), t = TO_K && TO_K.to[C.to];
-  if(!t){ o.innerHTML = '<div class="rong">Chọn tổ ở trên (hoặc gõ tên tổ trưởng) để xem báo cáo của tổ.</div>'; return; }
-  var c = toChiTieu(t);
-  o.innerHTML = '<div class="to-the"><div class="to-the-ten">Tổ <b>'+coChuHTML(t.ten||'')+'</b> ('+t.ma+')</div><div class="to-the-phu">'+coChuHTML(toDiaChi(t))+'</div>'+
-    '<div class="to-kpi">'+c.map(function(x){ return '<div><small>'+x[0]+'</small><b>'+x[1]+'</b></div>'; }).join('')+'</div></div>'+
-    '<div class="to-bc"><div class="nhan-nhom">Báo cáo của tổ — tích báo cáo cần xem</div>'+TO_BC.map(function(b){
+  if(!t){
+    if(!C.xa){ o.innerHTML = '<div class="rong">Chọn xã / điểm GD / hội để xem bảng các tổ, hoặc chọn 1 tổ (gõ tên tổ trưởng) để xem tổ viên.</div>'; return; }
+    o.innerHTML = toBangToHTML(C);
+    toTruocNap().then(function(){ var x = document.getElementById('to-the'), C2 = toCH(); if(x && !C2.to && C2.xa) x.innerHTML = toBangToHTML(C2); });
+    return;
+  }
+  var tv = toTV(t);
+  o.innerHTML = toTheHTML(t, tv)+toDsTVHTML(t, tv)+
+    '<div class="to-bc"><span class="nhan-nhom">Báo cáo của tổ</span>'+TO_BC.map(function(b){
       return '<label class="to-bc-dong"><input type="checkbox"'+(C.bc && C.bc[b.k] ? ' checked' : '')+' onchange="toCH().bc[\''+b.k+'\']=this.checked;luu()"> '+coChuHTML(b.ten)+'</label>'; }).join('')+
-    '<div class="hang-nut"><button class="nho chinh" onclick="toXem()">👁 Xem</button></div></div>';
+    '<button class="nho chinh" onclick="toXem()">👁 Xem</button></div>';
 }
+/* ---------- 3.92: TAB TỔ — mục đích (anh Nhân): biết số tổ viên để KẾT NẠP thêm hoặc CHO RA khỏi tổ, căn cứ dư nợ và số dư 105 ----------
+   chọn 1 tổ → mặc định hiện toàn bộ tổ viên (Mã KH · Họ tên · CT vay · Dư nợ · 105 · Số TK 105 · CCCD) + hàng nút lọc;
+   chưa chọn tổ (tất cả tổ của xã / điểm / hội) → bảng các tổ: số tổ viên, mới vào, đề xuất cho ra, kết quả giao dịch tháng */
+var TO_LOC = [
+  ['tat', 'Tất cả', function(){ return true; }, ''],
+  ['co', 'Có dư nợ', function(k){ return k.conNo; }, ''],
+  ['ko', 'Không dư nợ', function(k){ return !k.conNo; }, ''],
+  ['ko105', 'Không dư nợ · còn 105', function(k){ return !k.conNo && k.t105>0; }, 'vang'],
+  ['ra', 'Đề xuất cho ra (không dư nợ, 105 = 0)', function(k){ return !k.conNo && !(k.t105>0); }, 'do'],
+  ['cccd', 'CCCD hết hạn', function(k){ return k.cc.kq==='het'; }, 'do'],
+  ['sdt', 'Thiếu / sai SĐT', function(k){ return !k.sdtDat; }, 'vang'],
+  ['xl', 'Có nợ cần xử lý (QH · khoanh · KHĐ)', function(k){ return k.qh>0 || k.kn>0 || k.khd; }, 'do'],
+  ['dh', 'Đến hạn tháng sau', function(k){ return k.dhSau; }, 'vang']
+];
+var TO_LOC_MO = 'tat', TO_TRUOC = null;   /* TO_TRUOC: số tháng trước (để tính mới vào / 105 tăng giảm) */
+/* hạn CCCD (Luật Căn cước 2023): đổi khi đủ 14, 25, 40, 60 tuổi; cấp trong 2 năm trước mốc thì dùng đến mốc kế; từ 60 tuổi không hết hạn.
+   CMND 9 số hết hiệu lực từ 01/01/2025. Thiếu ngày sinh / ngày cấp → chưa rõ. */
+function toCCCDHan(so, ns, ncap){
+  so = String(so||'').replace(/\D/g, ''); var hn = ngayISO(nay());
+  if(!so) return {kq:'?', chu:'chưa có số'};
+  if(so.length===9) return {kq:hn>='2025-01-01' ? 'het' : 'ok', chu:'CMND 9 số — hết hiệu lực từ 01/01/2025'};
+  if(!ns || !ncap) return {kq:'?', chu:'thiếu ngày sinh / ngày cấp'};
+  var y = +ns.slice(0,4), md = ns.slice(4), moc = [14, 25, 40, 60];
+  for(var i=0;i<moc.length;i++){
+    var den = (y+moc[i])+md, truoc2 = (y+moc[i]-2)+md;
+    if(ncap < truoc2) return den<=hn ? {kq:'het', chu:'hết hạn từ '+ngayVNsl(den)+' (mốc '+moc[i]+' tuổi)'} : {kq:'ok', chu:'còn hạn đến '+ngayVNsl(den)};
+  }
+  return {kq:'ok', chu:'không thời hạn (cấp sau 58 tuổi)'};
+}
+/* tổ viên của tổ: gom theo khách + món còn nợ (gốc hoặc lãi) + cờ để lọc */
+function toTV(t){
+  var K = TO_K, ns = K.ngay, sau = kyLui(K.thang, 1), tu = sau+'-01', den = tdnCuoiKy(sau);
+  var khd = {}; ((K.B && K.B.co.khd)||[]).forEach(function(o){ khd[o.ku] = 1; });
+  var dat = function(s){ return /^0\d{9}$/.test(String(s||'').replace(/[\s.\-]/g, '')); };
+  return toKhach(t).map(function(k){
+    var rows = (K.kh[t.ma]||[]).filter(function(o){ return o.kh===k.kh; }), r0 = rows.find(function(o){ return o.cccd; }) || rows[0] || {};
+    var mon = k.mon.filter(function(m){ return (m.dn||0)>0 || (m.qh||0)>0 || (m.kn||0)>0 || laiTon(m)>0; });
+    var ct = []; mon.forEach(function(m){ var c = ctNgan(m.ct, m); if(ct.indexOf(c)<0) ct.push(c); });
+    var sdt = (rows.find(function(o){ return o.sdt; })||{}).sdt || '';
+    return {kh:k.kh, ten:k.ten, mon:mon, ct:ct.join(' · '), dn:k.dn, qh:k.qh, kn:k.kn, lt:k.lt, t105:k.t105, stk:k.stk, conNo:mon.length>0,
+      cccd:r0.cccd||'', cc:toCCCDHan(r0.cccd, r0.ns, r0.ncap), sdt:sdt, sdtDat:dat(sdt),
+      khd:mon.some(function(m){ return khd[m.ku]; }), dhSau:mon.some(function(m){ return !(m.qh>0) && skNhomDH(m, tu, den, ns)>0; })};
+  });
+}
+function toGoiY(k){ return k.conNo ? '' : (k.t105>0 ? 'Vận động vay / tất toán 105 rồi cho ra' : 'Cho ra khỏi tổ'); }
+function toTheHTML(t, tv){
+  var dn = 0, qh = 0, kn = 0, t105 = 0, co = 0;
+  tv.forEach(function(k){ dn += k.dn; qh += k.qh; kn += k.kn; t105 += k.t105; if(k.conNo) co++; });
+  var dem = function(f){ return tv.filter(f).length; }, N = toNguong();
+  var len = '';
+  if(t.len){ var L1 = t.len; len = ' │ LEN_31: '+tdnTien(L1.ho||0)+' hộ · '+tdnTr(L1.dn)+' · tiền gửi '+tdnTr(L1.tg)+' · cho vay / thu nợ '+tdnTr(L1.cv)+' / '+tdnTr(L1.tn)+' · thu lãi '+tdnTr(L1.tl)+(t.lenGop>1 ? ' (gộp '+t.lenGop+' tổ trùng tên)' : ''); }
+  return '<div class="to-the">'+
+    '<div class="to-the-ten">'+(toLaTT(t) ? '<b>Vay trực tiếp (không qua tổ)</b>' : 'Tổ <b>'+coChuHTML(t.ten||'')+'</b> (mã '+t.ma+')')+' <span class="to-the-phu">· '+coChuHTML(toDiaChi(t))+'</span></div>'+
+    '<div class="to-the-so"><b>'+tv.length+'</b> '+(toLaTT(t) ? 'khách' : 'tổ viên')+': <b>'+co+'</b> có dư nợ · <b>'+dem(TO_LOC[3][2])+'</b> không dư nợ còn 105 · <b class="do">'+dem(TO_LOC[4][2])+'</b> đề xuất cho ra · <b class="do">'+dem(TO_LOC[5][2])+'</b> CCCD hết hạn'+
+      ' │ dư nợ <b>'+tdnTr(dn)+'</b> · QH <b>'+(qh ? tdnTr(qh) : 0)+'</b> · khoanh <b>'+(kn ? tdnTr(kn) : 0)+'</b> · 105 <b>'+tdnTr(t105)+'</b>'+
+      (N.max && !toLaTT(t) ? ' │ còn nhận thêm <b>'+Math.max(0, N.max-tv.length)+'</b> tổ viên (tối đa '+N.max+')' : '')+coChuHTML(len)+'</div></div>';
+}
+function toNguong(){ var n = D.cauHinh.toNguong || {}; return {min:+n.min||0, max:+n.max||0}; }
+function toDatNguong(){
+  var N = toNguong();
+  moHop('<div class="hop-tit">⚙ Ngưỡng tổ viên của tổ TK&VV</div><div class="hop-phu">Dùng để tô tổ quá ít / quá đông và tính "còn nhận thêm". Để trống = không dùng.</div>'+
+    '<div class="hang-nut"><label>Tối thiểu <input id="tn-min" type="number" min="0" style="width:70px" value="'+(N.min||'')+'"></label><label>Tối đa <input id="tn-max" type="number" min="0" style="width:70px" value="'+(N.max||'')+'"></label></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="D.cauHinh.toNguong={min:document.getElementById(\'tn-min\').value,max:document.getElementById(\'tn-max\').value};luu();dongHop();toVeThe()">Lưu</button></div>', true);
+}
+function toDsTVHTML(t, tv){
+  var f = (TO_LOC.find(function(l){ return l[0]===TO_LOC_MO; }) || TO_LOC[0])[2], ds = tv.filter(f);
+  var nut = TO_LOC.map(function(l){ var n = tv.filter(l[2]).length; if(!n && l[0]!=='tat' && l[0]!==TO_LOC_MO) return '';
+    return '<button class="to-loc '+l[3]+(l[0]===TO_LOC_MO ? ' bat' : '')+'" onclick="TO_LOC_MO=\''+l[0]+'\';toVeThe()">'+coChuHTML(l[1])+' <b>'+n+'</b></button>'; }).join('');
+  var h = ds.map(function(k, i){ var g = toGoiY(k);
+    return '<tr'+(!k.conNo && !(k.t105>0) ? ' class="to-ra"' : '')+'><td class="c">'+(i+1)+'</td><td>'+k.kh+'</td><td class="to-ten">'+coChuHTML(k.ten)+'</td><td>'+coChuHTML(k.ct || '—')+'</td><td class="s">'+tdnTien(k.dn)+(k.qh ? ' <small class="do">QH</small>' : '')+'</td>'+
+      '<td class="s">'+tdnTien(k.t105)+'</td><td>'+coChuHTML(k.stk.join(', '))+'</td><td>'+coChuHTML(k.sdt)+'</td>'+
+      '<td><span class="to-cc '+(k.cc.kq==='het' ? 'het' : k.cc.kq==='ok' ? 'ok' : '')+'" title="'+coChuHTML(k.cccd+' — '+k.cc.chu)+'">'+(k.cc.kq==='het' ? 'Hết hạn' : k.cc.kq==='ok' ? 'Còn hạn' : 'Chưa rõ')+'</span></td><td>'+(g ? (g==='Cho ra khỏi tổ' ? '<b class="do">'+g+'</b>' : coChuHTML(g)) : '')+'</td></tr>'; }).join('');
+  return '<div class="to-loc-hang">'+nut+'</div>'+
+    '<div class="to-bang-cuon"><table class="to-bang"><thead><tr><th>STT</th><th>Mã KH</th><th>Họ tên</th><th>CT vay</th><th>Dư nợ</th><th>Số dư 105</th><th>Số TK 105</th><th>SĐT</th><th>CCCD</th><th>Gợi ý</th></tr></thead><tbody>'+
+    (h || '<tr><td colspan="10" class="rong">Không có tổ viên nào trong bộ lọc này.</td></tr>')+'</tbody></table></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="toInDS()">🖨 In danh sách đang lọc</button><button class="nho" onclick="toExcelDS()">📊 Excel</button><button class="nho" onclick="toDatNguong()" title="Ngưỡng số tổ viên">⚙ Ngưỡng</button></div>';
+}
+/* danh sách đang lọc → báo cáo in / Excel (cùng khuôn báo cáo tổ) */
+function toBCDS(t){
+  var tv = toTV(t), l = TO_LOC.find(function(x){ return x[0]===TO_LOC_MO; }) || TO_LOC[0], ds = tv.filter(l[2]);
+  var aoa = [['STT','Mã KH','Họ tên','CT vay','Dư nợ','Số dư 105','Số TK 105','SĐT','CCCD','Hạn CCCD','Gợi ý']], h = '', T = {dn:0, t105:0};
+  ds.forEach(function(k, i){ T.dn += k.dn; T.t105 += k.t105; var g = toGoiY(k), cc = k.cc.kq==='het' ? 'Hết hạn' : k.cc.kq==='ok' ? 'Còn hạn' : 'Chưa rõ';
+    aoa.push([i+1, k.kh, k.ten, k.ct, k.dn, k.t105, k.stk.join(', '), k.sdt, k.cccd, cc+' — '+k.cc.chu, g]);
+    h += '<tr'+(!k.conNo && !(k.t105>0) ? ' class="nb"' : '')+'>'+toO(i+1,'c')+toO(k.kh)+toO(coChuHTML(k.ten))+toO(coChuHTML(k.ct))+toO(tdnTien(k.dn),'s')+toO(tdnTien(k.t105),'s')+toO(coChuHTML(k.stk.join(', ')))+toO(coChuHTML(k.sdt))+toO(cc)+toO(coChuHTML(g))+'</tr>'; });
+  h += '<tr class="tong">'+toO('')+toO('')+toO('<b>Cộng '+ds.length+' người</b>')+toO('')+toO(tdnTien(T.dn),'s')+toO(tdnTien(T.t105),'s')+toO('')+toO('')+toO('')+toO('')+'</tr>';
+  aoa.push(['', '', 'Cộng '+ds.length+' người', '', T.dn, T.t105, '', '', '', '', '']);
+  return {ten:'Danh sach to vien', tieuDe:'DANH SÁCH TỔ VIÊN'+(l[0]!=='tat' ? ' — '+l[1].toUpperCase() : ''), ngay:toNgayChu(), ngang:true, aoa:aoa,
+    html:'<table class="bc-bang"><thead><tr><th>STT</th><th>Mã KH</th><th>Họ tên</th><th>CT vay</th><th>Dư nợ</th><th>Số dư 105</th><th>Số TK 105</th><th>SĐT</th><th>CCCD</th><th>Gợi ý</th></tr></thead><tbody>'+h+'</tbody></table>'+
+      '<div class="bc-ghi">Có dư nợ = còn món chưa tất toán (còn gốc hoặc còn lãi). Đề xuất cho ra = không còn món vay và số dư 105 = 0. Hạn CCCD theo Luật Căn cước 2023 (đổi ở tuổi 14, 25, 40, 60; CMND 9 số hết hiệu lực từ 01/01/2025), tính từ ngày sinh + ngày cấp trong Mẫu 31.</div>'};
+}
+function toInDS(){ var C = toCH(), t = TO_K && TO_K.to[C.to]; if(!t) return; CT_DUNG = {}; var x = toBCDS(t); x.ctChu = ctChuThich(); CT_DUNG = null; inBlob(new Blob([toHTMLIn([x], t)], {type:'text/html'}), 'Danh sach to vien '+t.ma+'.html'); }
+function toExcelDS(){ var C = toCH(), t = TO_K && TO_K.to[C.to]; if(!t) return; CT_DUNG = {}; var x = toBCDS(t); x.ctChu = ctChuThich(); CT_DUNG = null; TO_XEM = [x]; toExcel(); }
+/* bảng các tổ trong phạm vi (xã / điểm / hội) — chưa chọn tổ */
+function toTruocNap(){
+  var K = TO_K, tr = kyLui(K.thang, -1);
+  if(TO_TRUOC && TO_TRUOC.ky===tr) return Promise.resolve(TO_TRUOC);
+  if(!SLM.bang[slKhoa('hstd', tr)]) return Promise.resolve(TO_TRUOC = {ky:tr, co:false});
+  return slBo(tr).then(function(B){
+    var kh = {}, t105 = {};
+    (B.co.hstd||[]).concat(B.lap||[]).forEach(function(o){ var m = toMaCua(o); if(!o.kh || !m) return; kh[o.kh] = m; var k = m+'|'+o.kh; if((o.t105||0) > (t105[k]||0)) t105[k] = o.t105; });
+    var tong = {}; Object.keys(t105).forEach(function(k){ var m = k.split('|')[0]; tong[m] = (tong[m]||0)+t105[k]; });
+    return TO_TRUOC = {ky:tr, co:true, kh:kh, t105:tong};
+  }).catch(function(){ return TO_TRUOC = {ky:tr, co:false}; });
+}
+function toBangToHTML(C){
+  var K = TO_K, T = K.to, N = toNguong(), P = TO_TRUOC && TO_TRUOC.ky===kyLui(K.thang, -1) ? TO_TRUOC : null;
+  var ds = Object.keys(T).map(function(m){ return T[m]; }).filter(function(t){ return pvLoc(C, t); })
+    .sort(function(a, b){ return ((a.tenDiemDu||'')+'|'+(toLaTT(a)?'~':'')+(a.ten||'')).localeCompare((b.tenDiemDu||'')+'|'+(toLaTT(b)?'~':'')+(b.ten||''), 'vi'); });
+  if(!ds.length) return '<div class="rong">Không có tổ trong phạm vi.</div>';
+  var tong = {tv:0, co:0, moi:0, ra:0, dn:0, qh:0, kn:0, tn:0, tl:0, t105:0, d105:0}, coMoi = P && P.co;
+  var h = ds.map(function(t, i){
+    var ks = toKhach(t), co = 0, ra = 0, moi = 0, dn = 0, qh = 0, kn = 0, t105 = 0, tn = 0, tl = 0;
+    ks.forEach(function(k){ var no = k.mon.some(function(m){ return (m.dn||0)>0 || (m.qh||0)>0 || (m.kn||0)>0 || laiTon(m)>0; });
+      if(no) co++; else if(!(k.t105>0)) ra++; dn += k.dn; qh += k.qh; kn += k.kn; t105 += k.t105;
+      if(coMoi && P.kh[k.kh]!==t.ma) moi++;
+      k.mon.forEach(function(m){ tn += (m.tnTH||0)+(m.tnQH||0)+(m.tnK||0); tl += (slSo(m.c_thu_lai_th_thang)||0)+(slSo(m.c_thu_lai_qh_thang)||0); }); });
+    var d105 = coMoi ? t105-(P.t105[t.ma]||0) : null;
+    tong.tv += ks.length; tong.co += co; tong.moi += moi; tong.ra += ra; tong.dn += dn; tong.qh += qh; tong.kn += kn; tong.tn += tn; tong.tl += tl; tong.t105 += t105; if(d105!==null) tong.d105 += d105;
+    var lech = !toLaTT(t) && ((N.min && ks.length<N.min) || (N.max && ks.length>N.max));
+    return '<tr onclick="toChonTo(\''+t.ma+'\')" title="Bấm để mở tổ"><td class="c">'+(i+1)+'</td><td>'+(toLaTT(t) ? '—' : t.ma)+'</td><td class="to-ten"><b>'+coChuHTML(toLaTT(t) ? 'Vay trực tiếp' : (t.ten||''))+'</b></td><td>'+coChuHTML(t.tenThon||'')+'</td><td>'+coChuHTML(String(t.dv)==='99' ? 'Trực tiếp' : (tdnHoi(t.dv)||''))+'</td>'+
+      '<td class="s">'+(lech ? '<span class="to-cc het" title="ngoài ngưỡng '+(N.min||'')+'–'+(N.max||'')+'">'+ks.length+'</span>' : ks.length)+'</td><td class="s">'+co+'</td><td class="s">'+(coMoi ? (moi||'') : '·')+'</td><td class="s">'+(ra ? '<b class="do">'+ra+'</b>' : '')+'</td>'+
+      (N.max ? '<td class="s">'+(toLaTT(t) ? '' : Math.max(0, N.max-ks.length))+'</td>' : '')+
+      '<td class="s">'+tdnTr(dn)+'</td><td class="s">'+(qh ? tdnTr(qh) : '')+'</td><td class="s">'+(kn ? tdnTr(kn) : '')+'</td><td class="s">'+(tn ? tdnTr(tn) : '')+'</td><td class="s">'+(tl ? tdnTr(tl) : '')+'</td><td class="s">'+tdnTr(t105)+'</td><td class="s">'+(d105===null ? '·' : (d105>0 ? '+' : d105<0 ? '−' : '')+tdnTr(Math.abs(d105)))+'</td></tr>';
+  }).join('');
+  var td = function(v){ return '<td class="s"><b>'+v+'</b></td>'; };
+  h += '<tr class="tong"><td></td><td></td><td><b>Cộng '+ds.length+' tổ</b></td><td></td><td></td>'+td(tong.tv)+td(tong.co)+td(coMoi ? tong.moi : '·')+td(tong.ra)+(N.max ? '<td></td>' : '')+td(tdnTr(tong.dn))+td(tong.qh ? tdnTr(tong.qh) : '')+td(tong.kn ? tdnTr(tong.kn) : '')+td(tdnTr(tong.tn))+td(tdnTr(tong.tl))+td(tdnTr(tong.t105))+td(coMoi ? (tong.d105<0 ? '−' : '+')+tdnTr(Math.abs(tong.d105)) : '·')+'</tr>';
+  return '<div class="to-the"><div class="to-the-ten"><b>'+ds.length+'</b> tổ · '+coChuHTML(pvChu(C, K))+'</div><div class="to-the-so">Kết quả giao dịch tháng '+kyVN(K.thang)+' (Mẫu 31) · bấm 1 dòng để mở tổ'+(coMoi ? ' · mới vào / 105 tăng giảm so với '+kyVN(P.ky) : ' · chưa có Mẫu 31 tháng trước nên chưa tính mới vào / 105 tăng giảm')+'</div></div>'+
+    '<div class="to-bang-cuon"><table class="to-bang chon"><thead><tr><th>STT</th><th>Mã tổ</th><th>Tổ trưởng</th><th>Ấp</th><th>Hội</th><th>Tổ viên</th><th>Có dư nợ</th><th>Mới vào</th><th>Đề xuất cho ra</th>'+(N.max ? '<th>Còn nhận</th>' : '')+
+    '<th>Dư nợ</th><th>Quá hạn</th><th>Khoanh</th><th>Thu nợ tháng</th><th>Thu lãi tháng</th><th>Số dư 105</th><th>105 tăng/giảm</th></tr></thead><tbody>'+h+'</tbody></table></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="toDatNguong()">⚙ Ngưỡng tổ viên'+(N.min || N.max ? ' ('+(N.min||'')+'–'+(N.max||'')+')' : '')+'</button></div>'+
+    '<p class="ghi">Tổ viên = khách trong tổ theo Mẫu 31 (kể cả khách chỉ gửi 105). Có dư nợ = còn món chưa tất toán (còn gốc hoặc còn lãi). Đề xuất cho ra = không còn món vay và 105 = 0. Mới vào = khách có trong tổ tháng này mà tháng trước chưa ở tổ này.</p>';
+}
+
 function toDiaChi(t){
-  return [t.tenThon ? 'Ấp '+String(t.tenThon).replace(/^(ấp|ap|khu phố|kp)\s+/i, '') : '', t.tenXa||'', t.tenDiem ? 'Điểm GD '+String(t.tenDiem).trim()+(t.ngayGD ? ' (ngày '+t.ngayGD+')' : '') : '', tdnHoi(t.dv),
+  return [t.tenThon ? 'Ấp '+String(t.tenThon).replace(/^(ấp|ap|khu phố|kp)\s+/i, '') : '', t.tenXa||'', t.tenDiem ? 'Điểm GD '+String(t.tenDiem).trim()+(t.ngayGD ? ' (ngày '+t.ngayGD+')' : '') : '', String(t.dv)==='99' ? '' : tdnHoi(t.dv),
     t.pho ? 'Tổ phó '+t.pho : '', t.sdt ? '☎ '+t.sdt : ''].filter(Boolean).join(' · ');
 }
 /* gom số theo khách của tổ (món theo dòng chính, 105 = số lớn nhất mỗi khách kể cả dòng lặp) */
@@ -23045,7 +23255,7 @@ function toBCDanhSach(t){
     }
     mon.forEach(function(m, i){
       tong.mon++;
-      var tt = m.ttMon==='CLOSE' ? ' <small>(đã TT, còn lãi)</small>' : '';
+      var tt = '';   /* 3.92 (anh chốt): món còn lãi tồn là món chưa tất toán — không ghi chú gì */
       h += '<tr>'+toO(i ? '' : stt,'c')+toO(i ? '' : k.kh)+toO(i ? '' : coChuHTML(k.ten))+toO(coChuHTML(m.ku)+tt)+toO(coChuHTML(ctNgan(m.ct, m)))+toO(ngayVNsl(m.nv||m.ngn))+
         toO(toSo(m.dn),'s')+toO(m.qh ? tdnTien(m.qh) : '','s')+toO(i ? '' : toSo(k.t105),'s')+toO(toSo(laiTon(m)),'s')+'</tr>';
       aoa.push([i ? '' : stt, i ? '' : k.kh, i ? '' : k.ten, m.ku, ctNgan(m.ct, m), ngayVNsl(m.nv||m.ngn), m.dn||0, m.qh||0, i ? '' : k.t105, laiTon(m)]);
@@ -23174,12 +23384,13 @@ function toXem(){
       (qua.length ? '<div class="sl-bao vang">“'+qua.map(function(x){ return x.tieuDe; }).join(', ')+'” nhiều món, chữ đã thu nhỏ nhưng có thể sang trang 2.</div>' : '')+
       '<iframe id="to-khung" class="to-khung" title="Xem trước"></iframe>'+
       '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button><button class="nho" onclick="toExcel()">📊 Excel</button><button class="nho chinh" onclick="toIn()">🖨 In / PDF</button></div>', true);
+    var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
     var f = document.getElementById('to-khung'); if(f) f.srcdoc = html;
   }).catch(function(er){ tatChay(); baoLoi('Lập báo cáo lỗi: '+(er && er.message || er)); });
 }
 function toHTMLIn(R, t){
   return '<!doctype html><html><head><meta charset="utf-8"><title>Bao cao to '+t.ma+'</title><style>'+TO_IN_CSS+'</style></head><body>'+R.map(function(x){
-    return '<div class="trang"'+(x.coChu ? ' style="font-size:'+x.coChu+'pt"' : '')+'>'+toDauBC(t, x.tieuDe, x.ngay)+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+'</body></html>';
+    return '<div class="trang'+(x.ngang ? ' ngang' : '')+'"'+(x.coChu ? ' style="font-size:'+x.coChu+'pt"' : '')+'>'+toDauBC(t, x.tieuDe, x.ngay)+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+SK_IN_TU+'</body></html>';   /* 3.92: 1 dòng mỗi món, tự co */
 }
 function toIn(){
   var C = toCH(), t = TO_K && TO_K.to[C.to]; if(!t || !TO_XEM.length) return;
@@ -23247,11 +23458,20 @@ function tcKiemTrung(so){
    3.89 — 📑 TAB CON SAO KÊ (trong Số liệu, cạnh Tổ TK&VV): chọn kỳ + phạm vi (bộ chọn chung) → tích → Xem → In / Excel
    phạm vi từ xã trở lên: bảng chia theo tổ, có dòng cộng từng tổ
    ========================================================== */
-var SK_BC = [{k:'qh', ten:'Sao kê nợ quá hạn'}, {k:'kh', ten:'Sao kê nợ khoanh'}, {k:'khd', ten:'Sao kê món vay 3 tháng không hoạt động'},
-  {k:'sdt', ten:'Sao kê số điện thoại khách hàng (đánh dấu số trống / không đạt)'}, {k:'dh', ten:'Sao kê nợ đến hạn (hạn hợp đồng + kỳ GDXA chuyển quá hạn)'},
-  {k:'noxh', ten:'Sao kê nợ đến hạn kỳ con — món vay trả gốc phân kỳ (NOXH · cho vay trực tiếp · ủy thác vay từ 01/03/2026)'},
-  {k:'pkto', ten:'Danh sách nợ gốc đến hạn phân kỳ theo tổ — gửi tổ trưởng (CV 597)'},
-  {k:'gn', ten:'Sao kê giải ngân trong tháng'}, {k:'ddn', ten:'Sao kê món vay có thay đổi dư nợ trong tháng'}, {k:'m105', ten:'Sao kê khách giải ngân cần mở TK 105'}];
+/* 3.92 (anh chốt): chọn 1 báo cáo mỗi lần, xếp theo nhóm 2 cột (chừa chỗ mẫu mới); kho = khổ in mặc định; ngay = cần khoảng ngày */
+var SK_NHOM = [{k:'xl', ten:'Nợ cần xử lý'}, {k:'dh', ten:'Nợ đến hạn'}, {k:'ps', ten:'Phát sinh tháng'}, {k:'kh', ten:'Khách hàng'}];
+var SK_BC = [{k:'qh', ten:'Sao kê nợ quá hạn', nhom:'xl', kho:'doc'}, {k:'kh', ten:'Sao kê nợ khoanh', nhom:'xl', kho:'doc'}, {k:'khd', ten:'Sao kê món vay 3 tháng không hoạt động', nhom:'xl', kho:'doc'},
+  {k:'dh', ten:'Sao kê nợ đến hạn (hạn hợp đồng + kỳ GDXA chuyển quá hạn)', nhom:'dh', kho:'ngang', ngay:1},
+  {k:'noxh', ten:'Sao kê nợ đến hạn kỳ con — món vay trả gốc phân kỳ (NOXH · cho vay trực tiếp · ủy thác vay từ 01/03/2026)', nhom:'dh', kho:'ngang', ngay:1},
+  {k:'pkto', ten:'Danh sách nợ gốc đến hạn phân kỳ theo tổ — gửi tổ trưởng (CV 597)', nhom:'dh', kho:'doc', ngay:1},
+  {k:'gn', ten:'Sao kê giải ngân trong tháng', nhom:'ps', kho:'doc'}, {k:'ddn', ten:'Sao kê món vay có thay đổi dư nợ trong tháng', nhom:'ps', kho:'ngang'},
+  {k:'m105', ten:'Sao kê khách giải ngân cần mở TK 105', nhom:'ps', kho:'doc'},
+  {k:'sdt', ten:'Sao kê số điện thoại khách hàng (đánh dấu số trống / không đạt)', nhom:'kh', kho:'doc'}];
+function skChon(){ var C = skCH(); if(!C.chon || !SK_BC.some(function(b){ return b.k===C.chon; })){ var c = SK_BC.find(function(b){ return C.bc[b.k]; }); C.chon = c ? c.k : 'qh'; } return C.chon; }
+function skKhoCua(k){ var C = skCH(), b = SK_BC.find(function(x){ return x.k===k; }) || {}; return (C.kho && C.kho[k]) || b.kho || 'doc'; }
+function skChonBC(k){ var C = skCH(); C.chon = k; C.bc = {}; C.bc[k] = true; luu(); veSaoKe(); }
+function skDoiKho(v){ var C = skCH(), k = skChon(); C.kho = C.kho || {}; C.kho[k] = v; luu();
+  ['ngang','doc'].forEach(function(x){ var b = document.getElementById('sk-kho-'+x); if(b) b.classList.toggle('bat', x===v); }); }
 var SK_K = null, SK_XEM = [];
 function skCH(){ var C = D.cauHinh.skTK = D.cauHinh.skTK || {ky:'', xa:'', diem:'', hoi:'', to:'', bc:{qh:true}, tu:'', den:''}; C.bc = C.bc || {}; return C; }
 PV_DUNG.sk = {S:function(){ return skCH(); }, K:function(){ return SK_K; }};
@@ -23265,40 +23485,59 @@ function veSaoKe(){
     SK_K = K; if(!(nganHienTai===7 && D.cauHinh.slTab==='sk')) return;
     var th = K.thang, sau = kyLui(th, 1);
     if(!C.tu || !C.den){ C.tu = sau+'-01'; C.den = tdnCuoiKy(sau); }
-    e.innerHTML = slTabConHTML()+'<div class="to-dau"><label>Số liệu <select onchange="skCH().ky=this.value;skCH().tu=\'\';skCH().den=\'\';luu();veSaoKe()">'+dsKy.map(function(x){ return '<option value="'+x.ky+'"'+(x.ky===C.ky ? ' selected' : '')+'>'+coChuHTML(x.chu)+'</option>'; }).join('')+'</select></label></div>'+
+    var k = skChon(), bc = SK_BC.find(function(b){ return b.k===k; }), kho = skKhoCua(k);
+    e.innerHTML = slTabConHTML()+'<div class="sk-thanh"><label>Số liệu <select onchange="skCH().ky=this.value;skCH().tu=\'\';skCH().den=\'\';luu();veSaoKe()">'+dsKy.map(function(x){ return '<option value="'+x.ky+'"'+(x.ky===C.ky ? ' selected' : '')+'>'+coChuHTML(x.chu)+'</option>'; }).join('')+'</select></label>'+
+      '<span class="sk-kho" role="group" aria-label="Khổ in">Khổ <button id="sk-kho-ngang" class="nho'+(kho==='ngang' ? ' bat' : '')+'" onclick="skDoiKho(\'ngang\')" title="A4 ngang — đủ cột">Ngang</button><button id="sk-kho-doc" class="nho'+(kho==='doc' ? ' bat' : '')+'" onclick="skDoiKho(\'doc\')" title="A4 dọc — gọn cột (bỏ Số KU khi có cột CT; tràn thì bỏ SĐT, co chữ)">Dọc</button></span>'+
+      '<button class="nho chinh sk-xem" onclick="skXem()">👁 Xem</button></div>'+
       (K.thieuBang ? '<div class="sl-bao vang">⚠ Bảng số liệu chưa có trên máy này (lưu trên Drive, chưa tải về).<div class="hang-nut"><button class="nho chinh" onclick="toNoiDrive()">☁ Nối Drive và tải</button><button class="nho" onclick="toThuLai()">⟳ Thử lại</button></div></div>' : '')+
-      '<div class="nhan-nhom">Phạm vi</div><div id="sk-cay" class="to-cay pv-cay"></div>'+
-      '<div class="nhan-nhom">Báo cáo — tích báo cáo cần xem</div><div class="to-bc">'+SK_BC.map(function(b){
-        return '<label class="to-bc-dong"><input type="checkbox"'+(C.bc[b.k] ? ' checked' : '')+' onchange="skCH().bc[\''+b.k+'\']=this.checked;luu()"> '+coChuHTML(b.ten)+'</label>'+
-          ((b.k==='dh' || b.k==='noxh' || b.k==='pkto') ? '<div class="sk-ngay">từ <input type="date" value="'+C.tu+'" onchange="skCH().tu=this.value;luu()"> đến <input type="date" value="'+C.den+'" onchange="skCH().den=this.value;luu()">'+
-            ' <button class="nho" onclick="skDatNgay(\'thang\')">Tháng sau</button><button class="nho" onclick="skDatNgay(\'quy\')">Đến cuối quý</button><button class="nho" onclick="skDatNgay(\'nam\')">Đến hết năm</button></div>' : ''); }).join('')+
-      '<p class="ghi">Báo cáo nợ quá hạn, khoanh, KHĐ lấy từ 3 file tháng '+kyVN(th)+'; các báo cáo còn lại cần <b>Mẫu 31 tháng '+kyVN(th)+'</b> (số điện thoại, ngày đến hạn, phát sinh trong tháng chỉ có ở Mẫu 31).</p>'+
-      '<div class="hang-nut"><button class="nho chinh" onclick="skXem()">👁 Xem</button></div></div>';
+      '<div id="sk-cay" class="to-cay pv-cay"></div>'+
+      (bc && bc.ngay ? '<div class="sk-ngay sk-ngay1">Khoảng ngày: từ <input type="date" value="'+C.tu+'" onchange="skCH().tu=this.value;luu()"> đến <input type="date" value="'+C.den+'" onchange="skCH().den=this.value;luu()">'+
+        ' <button class="nho" onclick="skDatNgay(\'thang\')">Tháng sau</button><button class="nho" onclick="skDatNgay(\'quy\')">Đến cuối quý</button><button class="nho" onclick="skDatNgay(\'nam\')">Đến hết năm</button></div>' : '')+
+      '<div class="sk-luoi">'+SK_NHOM.map(function(n){ return '<div class="sk-nhom"><div class="sk-nhom-ten">'+n.ten+'</div>'+SK_BC.filter(function(b){ return b.nhom===n.k; }).map(function(b){
+        return '<label class="sk-bc"><input type="radio" name="sk-bc"'+(b.k===k ? ' checked' : '')+' onchange="skChonBC(\''+b.k+'\')"> <span>'+coChuHTML(b.ten)+' <small>· '+(b.kho==='ngang' ? 'ngang' : 'dọc')+'</small></span></label>'; }).join('')+'</div>'; }).join('')+'</div>'+
+      '<p class="ghi">Nợ quá hạn, khoanh, KHĐ lấy từ 3 file tháng '+kyVN(th)+'; các sao kê còn lại cần <b>Mẫu 31 tháng '+kyVN(th)+'</b>. In: mỗi món 1 dòng; khổ dọc bỏ Số KU (đã có cột CT), tràn thì bỏ SĐT rồi co chữ; Excel luôn đủ cột.</p>';
     pvVeCay('sk');
   }).catch(function(er){ e.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" onclick="toThuLai()">⟳ Thử lại</button></div>'; });
 }
 /* bảng có chia theo tổ: cot = tên cột, ds = dòng (có .to), dong(x, stt) → mảng ô, so = chỉ số cột cộng tiền, lop(x) = lớp dòng (vd nổi bật) */
+/* 3.92: in 2 khổ (anh chốt) — SK_KHO 'ngang' đủ cột · 'doc' gọn: bảng có cột CT thì bỏ cột Số KU (khách 2 món cùng CT ghi thêm 6 số cuối KU);
+   cột SĐT gắn lớp c-sdt để khi in dọc tràn thì app bỏ cột này trước rồi mới co chữ. Excel (aoa) luôn đủ cột. */
+var SK_KHO = 'ngang';
+function skNg(d){ var v = ngayVNsl(d); return SK_KHO==='doc' && /^\d{2}\/\d{2}\/\d{4}$/.test(v) ? v.slice(0,6)+v.slice(8) : v; }
 function skBang(cot, ds, dong, so, lop){
   var K = SK_K, theoTo = !skCH().to, nhom = {}, thu = [];
-  ds.forEach(function(x){ var k = x.to||''; if(!nhom[k]){ nhom[k] = []; thu.push(k); } nhom[k].push(x); });
+  ds.forEach(function(x){ var k = toMaCua(x); if(!nhom[k]){ nhom[k] = []; thu.push(k); } nhom[k].push(x); });
   var tTo = function(k){ return (K.to||{})[k] || {}; }, khoa = function(k){ var t = tTo(k); return [t.tenXa||'', t.tenDiemDu||'', t.ten||'', k].join('|'); };
   thu.sort(function(a, b){ return khoa(a).localeCompare(khoa(b), 'vi'); });
-  var h = '', aoa = [cot], tong = cot.map(function(){ return 0; }), stt = 0;
-  var o = function(v, j){ if(v && typeof v==='object' && v.h!==undefined) return '<td'+(v.lop ? ' class="'+v.lop+'"' : '')+'>'+v.h+'</td>';   /* 3.91: ô tự dựng HTML */
-    return '<td class="'+(typeof v==='number' ? 's' : (j===0 ? 'c' : ''))+'">'+(typeof v==='number' ? tdnTien(v) : coChuHTML(String(v==null ? '' : v)))+'</td>'; };
-  var cong = function(nhan, t){ return '<tr class="tong">'+cot.map(function(c, j){ return j===2 ? '<td><b>'+nhan+'</b></td>' : (so.indexOf(j)>=0 ? '<td class="s">'+tdnTien(t[j])+'</td>' : '<td></td>'); }).join('')+'</tr>'; };
+  var doc = SK_KHO==='doc', iKU = cot.indexOf('Số KU'), iCT = cot.indexOf('Chương trình'); if(iCT<0) iCT = cot.indexOf('CT');
+  var iSDT = cot.indexOf('SĐT'); if(iSDT<0) iSDT = cot.indexOf('Số điện thoại');
+  var an = {}; if(doc && iKU>=0 && iCT>=0) an[iKU] = 1;
+  var hien = cot.map(function(c, j){ return !an[j]; }), soCot = hien.filter(Boolean).length;
+  var stt = 0, ds2 = [];
+  thu.forEach(function(k){ nhom[k].forEach(function(x){ ds2.push({k:k, x:x, r:dong(x, ++stt)}); }); });   /* gọi dong đúng 1 lần mỗi dòng */
+  var trung = {};
+  if(an[iKU]){ var dem = {}; ds2.forEach(function(d){ var q = d.r[1]+'|'+String(d.r[iCT]); dem[q] = (dem[q]||0)+1; }); ds2.forEach(function(d){ if(dem[d.r[1]+'|'+String(d.r[iCT])]>1) trung[d.r[iKU]] = 1; }); }
+  var h = '', aoa = [cot], tong = cot.map(function(){ return 0; });
+  var lopO = function(j, co){ var l = []; if(co) l.push(co); if(j===iSDT && doc) l.push('c-sdt'); return l.length ? ' class="'+l.join(' ')+'"' : ''; };
+  var o = function(v, j, r){ if(an[j]) return '';
+    if(v && typeof v==='object' && v.h!==undefined) return '<td'+lopO(j, v.lop)+'>'+v.h+'</td>';   /* 3.91: ô tự dựng HTML */
+    var chu = typeof v==='number' ? tdnTien(v) : coChuHTML(String(v==null ? '' : v));
+    if(j===iCT && an[iKU] && trung[r[iKU]]) chu += ' <small>·'+coChuHTML(String(r[iKU]).slice(-6))+'</small>';
+    return '<td'+lopO(j, typeof v==='number' ? 's' : (j===0 ? 'c' : ''))+'>'+chu+'</td>'; };
+  var cong = function(nhan, t){ return '<tr class="tong">'+cot.map(function(c, j){ if(an[j]) return ''; return j===2 ? '<td><b>'+nhan+'</b></td>' : (so.indexOf(j)>=0 ? '<td class="s">'+tdnTien(t[j])+'</td>' : '<td'+lopO(j)+'></td>'); }).join('')+'</tr>'; };
   thu.forEach(function(k){
     var t = tTo(k), tn = cot.map(function(){ return 0; });
-    if(theoTo){ var chu = k ? 'Tổ '+(t.ten||k)+' ('+k+')'+[t.tenThon ? ' · ấp '+t.tenThon : '', t.tenXa ? ' · '+t.tenXa : '', t.tenDiem ? ' · điểm '+String(t.tenDiem).trim() : ''].join('') : 'Chưa gắn tổ';
-      h += '<tr class="nhom"><td colspan="'+cot.length+'">'+coChuHTML(chu)+' — '+nhom[k].length+' dòng</td></tr>'; aoa.push([chu]); }
-    nhom[k].forEach(function(x){ var r = dong(x, ++stt); so.forEach(function(j){ tn[j] += r[j]||0; tong[j] += r[j]||0; }); h += '<tr'+(lop && lop(x) ? ' class="'+lop(x)+'"' : '')+'>'+r.map(o).join('')+'</tr>'; aoa.push(r); });
+    if(theoTo){ var chu = t.trucTiep ? 'Vay trực tiếp (không qua tổ)'+[t.tenXa ? ' · '+t.tenXa : '', t.tenDiem ? ' · điểm '+String(t.tenDiem).trim() : ''].join('') : k ? 'Tổ '+(t.ten||k)+' ('+k+')'+[t.tenThon ? ' · ấp '+t.tenThon : '', t.tenXa ? ' · '+t.tenXa : '', t.tenDiem ? ' · điểm '+String(t.tenDiem).trim() : ''].join('') : 'Chưa gắn tổ';
+      h += '<tr class="nhom"><td colspan="'+soCot+'">'+coChuHTML(chu)+' — '+nhom[k].length+' dòng</td></tr>'; aoa.push([chu]); }
+    ds2.forEach(function(d){ if(d.k!==k) return; var r = d.r, x = d.x; so.forEach(function(j){ tn[j] += r[j]||0; tong[j] += r[j]||0; });
+      h += '<tr'+(lop && lop(x) ? ' class="'+lop(x)+'"' : '')+'>'+r.map(function(v, j){ return o(v, j, r); }).join('')+'</tr>'; aoa.push(r.map(function(v){ return v && typeof v==='object' && v.h!==undefined ? String(v.h).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() : v; })); });
     if(theoTo && so.length && thu.length>1){ h += cong('Cộng tổ', tn); aoa.push(cot.map(function(c, j){ return j===2 ? 'Cộng tổ' : (so.indexOf(j)>=0 ? tn[j] : ''); })); }
   });
   if(so.length){ h += cong('TỔNG CỘNG ('+stt+')', tong); aoa.push(cot.map(function(c, j){ return j===2 ? 'TỔNG CỘNG' : (so.indexOf(j)>=0 ? tong[j] : ''); })); }
   if(!stt) return {html:'<div class="bc-rong">Không có.</div>', aoa:[['Không có']], n:0};
-  return {html:'<table class="bc-bang"><thead><tr>'+cot.map(function(c){ return '<th>'+c+'</th>'; }).join('')+'</tr></thead><tbody>'+h+'</tbody></table>', aoa:aoa, n:stt};
+  return {html:'<table class="bc-bang"><thead><tr>'+cot.map(function(c, j){ return an[j] ? '' : '<th'+(j===iSDT && doc ? ' class="c-sdt"' : '')+'>'+c+'</th>'; }).join('')+'</tr></thead><tbody>'+h+'</tbody></table>', aoa:aoa, n:stt};
 }
-function skTrongPV(o){ return pvLoc(skCH(), SK_K.to[o.to]); }
+function skTrongPV(o){ return pvLoc(skCH(), SK_K.to[toMaCua(o)]); }   /* 3.92: món trực tiếp theo mục TT của xã / điểm */
 function skMau31(){ return SK_K.B && SK_K.B.hsTen==='Mẫu 31' ? SK_K.B : null; }
 function skCan31(ten){ return {ten:ten.slice(0, 31), tieuDe:ten.toUpperCase(), ngay:'Tháng '+kyVN(SK_K.thang), aoa:[['Cần Mẫu 31 tháng '+kyVN(SK_K.thang)]],
   html:'<div class="bc-rong">Báo cáo này cần <b>Mẫu 31 tháng '+kyVN(SK_K.thang)+'</b> (Mẫu 10 không có cột này). Nạp Mẫu 31 ở tab con 📥 Nạp số liệu.</div>'}; }
@@ -23380,7 +23619,9 @@ function skBCDH(rows, lapKH, M, e31, ngay){
   var nh = {1:[], 2:[], 3:[]};
   ds.forEach(function(o){ var n = skNhomDH(o, tu, den, ns); if(n) nh[n].push(o); });
   var da105 = {}, sdtDat = function(s){ return /^0\d{9}$/.test(String(s||'').replace(/[\s.\-]/g, '')); };
-  var cot = ['STT','Mã KH','Họ tên<br><small>Số KU</small>','SĐT','CT','NV','Dư nợ','Lãi tồn','Số dư 105','Ngày ĐH','Chuyển QH','Còn GH'];
+  var doc = SK_KHO==='doc';   /* 3.92: ngang đủ cột (KU, ngày GH, chuyển QH riêng); dọc gọn — bỏ KU (có CT), bỏ Chuyển QH (khung ① ② ③ đã theo kỳ chuyển QH), ngày GH thay ngày ĐH kèm "GH" */
+  var cot = doc ? ['STT','Mã KH','Họ tên','Số KU','SĐT','CT','NV','Dư nợ','Lãi tồn','Số dư 105','Ngày ĐH','Còn GH']
+                : ['STT','Mã KH','Họ tên','Số KU','SĐT','CT','NV','Dư nợ','Lãi tồn','Số dư 105','Ngày ĐH','Ngày GH','Chuyển QH','Còn GH'];
   var aoa = [['Nhóm','STT','Mã KH','Họ tên','Số KU','SĐT','Chương trình','Nguồn vốn','Dư nợ','Lãi tồn','Số dư 105','Ngày ĐH hợp đồng','Ngày ĐH gia hạn','Ngày chuyển QH (GDXA)','Còn được gia hạn']];
   var TEN = {1:'① ĐÃ QUÁ HẠN HỢP ĐỒNG, CHƯA CHUYỂN QUÁ HẠN — tra soát, thu trước kỳ GDXA', 2:'② ĐẾN HẠN — CHUYỂN QUÁ HẠN TRONG KỲ (kỳ GDXA trong khoảng ngày)', 3:'③ ĐẾN HẠN — CHUYỂN QUÁ HẠN KỲ SAU (kỳ GDXA sau ngày '+ngayVNsl(den)+')'};
   var h = '', tong = {mon:0, kh:{}, dn:0, lt:0, t105:0};
@@ -23388,10 +23629,11 @@ function skBCDH(rows, lapKH, M, e31, ngay){
     var ls = nh[n].sort(function(a, b){ var x = skHL(a), y = skHL(b); return x<y ? -1 : x>y ? 1 : (a.kh<b.kh ? -1 : 1); });
     var r = skBang(cot, ls, function(o, i){
       var t1 = !da105[o.kh] ? (s105[o.kh]||0) : '', ok = sdtDat(o.sdt); da105[o.kh] = 1;
-      var dh = ngayVNsl(o.dhg)+(o.dhgh && o.dhgh!==o.dhg ? '<br><small>GH '+ngayVNsl(o.dhgh)+'</small>' : '');
+      var coGH = o.dhgh && o.dhgh!==o.dhg;
       aoa.push([n, i, o.kh||'', o.ten||'', o.ku||'', o.sdt||'', ctNgan(o.ct, o), SL_NGUON[o.nguon]||o.nguon||'', o.dn||0, laiTon(o), t1, ngayVNsl(o.dhg), o.dhgh && o.dhgh!==o.dhg ? ngayVNsl(o.dhgh) : '', ngayVNsl(o.dhgd), skConGH(o)]);
-      return [i, o.kh||'', {h:coChuHTML(o.ten||'')+'<br><small>'+coChuHTML(o.ku||'')+'</small>'}, {h:coChuHTML(o.sdt||''), lop:ok ? '' : 'nb'}, ctNgan(o.ct, o), SL_NGUON[o.nguon]||o.nguon||'',
-        o.dn||0, laiTon(o), t1, {h:dh}, o.dhgd ? ngayVNsl(o.dhgd) : '(chưa có)', skConGH(o)]; }, [6, 7, 8]);
+      var dau = [i, o.kh||'', o.ten||'', o.ku||'', {h:coChuHTML(o.sdt||''), lop:ok ? '' : 'nb'}, ctNgan(o.ct, o), SL_NGUON[o.nguon]||o.nguon||'', o.dn||0, laiTon(o), t1];
+      return doc ? dau.concat([coGH ? skNg(o.dhgh)+' GH' : skNg(o.dhg), skConGH(o)])
+                 : dau.concat([ngayVNsl(o.dhg), coGH ? ngayVNsl(o.dhgh) : '', o.dhgd ? ngayVNsl(o.dhgd) : '(chưa có)', skConGH(o)]); }, [7, 8, 9]);
     ls.forEach(function(o){ tong.mon++; tong.kh[o.kh] = 1; tong.dn += o.dn||0; tong.lt += laiTon(o); });
     h += '<div class="bc-khung"><div class="bc-khung-ten">'+TEN[n]+' — '+ls.length+' món</div>'+r.html+'</div>';
   });
@@ -23406,7 +23648,7 @@ function skBCDH(rows, lapKH, M, e31, ngay){
   var dau = '<div class="bc-tom">'+tong.mon+' món · '+Object.keys(tong.kh).length+' KH · dư nợ <b>'+tdnTien(tong.dn)+'</b> · lãi tồn <b>'+tdnTien(tong.lt)+'</b> · số dư 105 <b>'+tdnTien(tong.t105)+'</b> (105 tính 1 lần mỗi khách)</div>'+
     (tdnSoNgay(tu, den)>31 ? bang('Kỳ', theoThang) : '')+bang('Xã / phường', theoXa);
   return {ten:'No den han', tieuDe:'SAO KÊ NỢ ĐẾN HẠN TỪ '+ngayVNsl(tu)+' ĐẾN '+ngayVNsl(den), ngay:ngay, aoa:aoa,
-    html:dau+h+'<div class="bc-ghi">Ngày ĐH = ngày đến hạn theo hợp đồng (dòng "GH" = ngày đến hạn gia hạn, dùng ngày này nếu có). Chuyển QH = kỳ giao dịch xã đầu tiên sau ngày đến hạn (ngày ĐH theo GDXA) — đến kỳ này chưa trả thì chuyển quá hạn. Chỉ lấy món trong hạn (không quá hạn, không khoanh). Còn GH = còn được gia hạn (tối đa ½ thời hạn cho vay); ⚠ = các cột gia hạn trong file không khớp nhau. Số dư 105 ghi 1 lần mỗi khách. SĐT tô nền = trống / không đủ 10 số.</div>'};
+    html:dau+h+'<div class="bc-ghi">Ngày ĐH = ngày đến hạn theo hợp đồng'+(SK_KHO==='doc' ? ' (có chữ "GH" = ngày đến hạn gia hạn, dùng ngày này)' : '; Ngày GH = ngày đến hạn gia hạn (dùng ngày này nếu có)')+'. Chuyển QH = kỳ giao dịch xã đầu tiên sau ngày đến hạn (ngày ĐH theo GDXA) — đến kỳ này chưa trả thì chuyển quá hạn. Chỉ lấy món trong hạn (không quá hạn, không khoanh). Còn GH = còn được gia hạn (tối đa ½ thời hạn cho vay); ⚠ = các cột gia hạn trong file không khớp nhau. Số dư 105 ghi 1 lần mỗi khách. SĐT tô nền = trống / không đủ 10 số.</div>'};
 }
 /* ---------- 3.91: MÓN VAY TRẢ GỐC PHÂN KỲ — NỢ ĐẾN HẠN KỲ CON (anh Nhân; Công văn 597/NHCS-TDNN 30/01/2026) ----------
    gồm: nhà ở xã hội (CT 12, quy định riêng — chuyển QH kỳ con) · cho vay trực tiếp (không mã tổ: GQVL hội người mù, XKLD…)
@@ -23480,8 +23722,12 @@ function skPKKy(o, ns){   /* → {quaNgay, quaUoc, toiNgay, toiTien (null = chư
 }
 function skPVTrucTiep(o){ var C = skCH(); return !C.xa || (String(o.xa||'')===String(C.xa) && !C.diem && !C.hoi && !C.to); }
 function skPKTinh(M, ns){   /* danh sách món phân kỳ trong phạm vi, kèm kỳ */
-  return (M.co.hstd||[]).filter(function(o){ return o.ku && (o.dn||0)>0 && skLaPK(o) && (o.to ? skTrongPV(o) : skPVTrucTiep(o)); })
+  return (M.co.hstd||[]).filter(function(o){ return o.ku && (o.dn||0)>0 && skLaPK(o) && (toMaCua(o) ? skTrongPV(o) : skPVTrucTiep(o)); })
     .map(function(o){ o._loai = skPKLoai(o); o._pk = skPKKy(o, ns); o._chua = skNOXHChua(o); o._h08 = (o._loai==='moi' && o._pk.toiNgay) ? skHan08(o._pk.toiNgay) : ''; return o; });
+}
+function skHoiNgan(o){   /* 3.92: tên hội viết tắt cho bảng in nhiều cột */
+  if(!o.to) return 'Trực tiếp';
+  var c = slChuan(o.tenDv||tdnHoi(o.dv)||''); return /nong dan/.test(c) ? 'HND' : /phu nu/.test(c) ? 'HPN' : /cuu chien binh/.test(c) ? 'HCCB' : /thanh nien/.test(c) ? 'ĐTN' : (o.tenDv||'');
 }
 function skPKTien(p){ return !p.toiNgay ? '' : p.toiTien===null ? '(cần file phân kỳ)' : (p.uoc ? '≈ ' : '')+tdnTien(p.toiTien); }
 function skBCNOXH(rows, M, ngay, e31){
@@ -23494,6 +23740,13 @@ function skBCNOXH(rows, M, ngay, e31){
   var aoa = [['Nhóm','STT','Mã KH','Họ tên','Số KU','SĐT','Chương trình','Hình thức','Xã / phường','Dư nợ','Trong đó quá hạn','Gốc đến hạn lũy kế','Gốc đã trả','Kỳ đến hạn chưa trả — ngày','Kỳ đến hạn chưa trả — số tiền','Kỳ tới — ngày','Kỳ tới — số tiền','Nguồn kỳ tới','Hạn nộp 08/TD','Lãi tồn','Số dư 105','Tổng đã chuyển QH','Ngày GD gần nhất','Ngày vay','Hạn cuối','Ngày bắt đầu trả gốc','Chuyển QH kỳ con']];
   var TEN = {1:'① KỲ CON ĐÃ ĐẾN HẠN CHƯA TRẢ — đôn đốc thu ngay', 2:'② KỲ CON ĐẾN HẠN TỪ SAU NGÀY SỐ LIỆU ĐẾN '+ngayVNsl(den), 3:'③ KỲ TỚI SAU NGÀY '+ngayVNsl(den)};
   var tien = function(v, b){ return '<td class="s">'+(v ? (b ? '<b>'+tdnTien(v)+'</b>' : tdnTien(v)) : '')+'</td>'; };
+  /* 3.92: cột theo khổ in — ngang đủ cột; dọc gọn (bỏ KU, hình thức, xã, đã chuyển QH, GD gần nhất); mỗi món 1 dòng, ghi chú dài thành dấu * */
+  var C_ = function(k, t, l){ return {k:k, t:t, l:l||''}; }, doc = SK_KHO==='doc';
+  var COT = doc ? [C_('stt','STT','c'), C_('kh','Mã KH'), C_('ten','Họ tên'), C_('sdt','SĐT','c-sdt'), C_('ct','CT'), C_('dn','Dư nợ','s'), C_('qua','Kỳ ĐH chưa trả'), C_('chua','Số tiền chưa trả','s'),
+                  C_('toi','Kỳ tới'), C_('toiT','Số tiền kỳ tới','s'), C_('h08','Hạn 08/TD'), C_('lt','Lãi tồn','s'), C_('t105','Số dư 105','s')]
+                : [C_('stt','STT','c'), C_('kh','Mã KH'), C_('ten','Họ tên'), C_('ku','Số KU'), C_('sdt','SĐT'), C_('ct','CT'), C_('hinh','Hình thức'), C_('xa','Xã'), C_('dn','Dư nợ','s'), C_('qua','Kỳ ĐH chưa trả'), C_('chua','Số tiền chưa trả','s'),
+                  C_('toi','Kỳ tới'), C_('toiT','Số tiền kỳ tới','s'), C_('h08','Hạn 08/TD'), C_('lt','Lãi tồn','s'), C_('t105','Số dư 105','s'), C_('cqh','Đã chuyển QH (LK)','s'), C_('gd','GD gần nhất')];
+  var trungKU = {}, demKU = {}; ds.forEach(function(o){ var q = o.kh+'|'+o.ct; demKU[q] = (demKU[q]||0)+1; }); Object.keys(demKU).forEach(function(q){ if(demKU[q]>1) trungKU[q] = 1; });
   var h = '';
   [1, 2, 3].forEach(function(n){
     var ls = nh[n].sort(xep); if(!ls.length) return;
@@ -23507,12 +23760,11 @@ function skBCNOXH(rows, M, ngay, e31){
       aoa.push([n, i+1, o.kh||'', o.ten||'', o.ku||'', o.sdt||'', ctNgan(o.ct, o), hinh, o.tenXa||'', o.dn||0, o.qh||0, slSo(o.c_goc_den_han_lk)||0, slSo(o.c_goc_da_tra)||0, ngayVNsl(p.quaNgay), o._chua,
         ngayVNsl(p.toiNgay), p.toiTien===null ? '' : toiTien, !p.toiNgay ? '' : p.toiTien===null ? 'cần file phân kỳ' : p.uoc ? 'ước tính' : 'theo file phân kỳ', ngayVNsl(o._h08), lt, t1||'', cqh, ngayVNsl(o.ngdg), ngayVNsl(o.nv), ngayVNsl(skHL(o)), String(o.c_ngay_b_dau_tra_goc||''), skPKGhi(o)]);
       if(gon) return;
-      b += '<tr'+(n===1 && !kcq ? ' class="nb"' : '')+'><td class="c">'+(i+1)+'</td><td>'+coChuHTML(o.kh||'')+'</td><td>'+coChuHTML(o.ten||'')+'<br><small>'+coChuHTML(o.ku||'')+'</small></td><td>'+coChuHTML(o.sdt||'')+'</td>'+
-        '<td>'+coChuHTML(ctNgan(o.ct, o))+'<br><small>'+coChuHTML(hinh)+'</small></td><td>'+coChuHTML(o.tenXa||'')+'</td>'+
-        '<td class="s">'+tdnTien(o.dn||0)+((o.qh||0)>0 ? '<br><small>QH '+tdnTien(o.qh)+'</small>' : '')+'</td>'+
-        '<td>'+(o._chua ? (p.quaUoc ? '≈ ' : '')+ngayVNsl(p.quaNgay)+'<br><small>'+(kcq ? 'không chuyển QH kỳ con' : 'phải chuyển QH nếu không ĐC')+'</small>' : '')+'</td>'+tien(o._chua, true)+
-        '<td>'+(p.toiNgay ? (p.uoc ? '≈ ' : '')+ngayVNsl(p.toiNgay) : '')+(p.uoc && p.khongDen ? '<br><small>file: không ĐH đến '+ngayVNsl(p.khongDen)+'</small>' : '')+'</td><td class="s">'+skPKTien(p)+'</td>'+
-        '<td>'+ngayVNsl(o._h08)+'</td>'+tien(lt)+tien(t1)+'<td class="s">'+(cqh ? tdnTien(cqh) : '')+'</td><td>'+ngayVNsl(o.ngdg)+'</td></tr>';
+      var r = {stt:i+1, kh:coChuHTML(o.kh||''), ten:coChuHTML(o.ten||''), ku:coChuHTML(o.ku||''), sdt:coChuHTML(o.sdt||''), ct:coChuHTML(ctNgan(o.ct, o))+(SK_KHO==='doc' && trungKU[o.kh+'|'+o.ct] ? ' <small>·'+coChuHTML(String(o.ku||'').slice(-6))+'</small>' : ''),
+        hinh:coChuHTML(skHoiNgan(o)), xa:coChuHTML(String(o.tenXa||'').replace(/^(Phường|Xã|Thị trấn)\s+/i, '')), dn:tdnTien(o.dn||0)+((o.qh||0)>0 ? ' <small>QH '+tdnTien(o.qh)+'</small>' : ''),
+        qua:o._chua ? (p.quaUoc ? '≈ ' : '')+skNg(p.quaNgay)+(kcq ? ' *' : '') : '', chua:o._chua ? '<b>'+tdnTien(o._chua)+'</b>' : '',
+        toi:p.toiNgay ? (p.uoc ? '≈ ' : '')+skNg(p.toiNgay) : '', toiT:skPKTien(p), h08:skNg(o._h08), lt:lt ? tdnTien(lt) : '', t105:t1 ? tdnTien(t1) : '', cqh:cqh ? tdnTien(cqh) : '', gd:skNg(o.ngdg)};
+      b += '<tr'+(n===1 && !kcq ? ' class="nb"' : '')+'>'+COT.map(function(c){ return '<td'+(c.l ? ' class="'+c.l+'"' : '')+'>'+r[c.k]+'</td>'; }).join('')+'</tr>';
     });
     if(gon){
       var g = {}; ls.forEach(function(o){ var k = ctNgan(o.ct, o)+' · '+(o._loai==='moi' ? 'ủy thác vay từ 01/03/2026' : o._loai==='tt' ? 'trực tiếp' : 'NOXH'), x = g[k] = g[k] || {mon:0, dn:0, dau:'9'}; x.mon++; x.dn += o.dn||0; if(o._pk.toiNgay && o._pk.toiNgay<x.dau) x.dau = o._pk.toiNgay; });
@@ -23521,9 +23773,9 @@ function skBCNOXH(rows, M, ngay, e31){
         '<tr class="tong"><td><b>Cộng</b></td><td class="s"><b>'+ls.length+'</b></td><td class="s"><b>'+tdnTien(t.dn)+'</b></td><td></td></tr></tbody></table></div>';
       return;
     }
-    b += '<tr class="tong"><td></td><td></td><td><b>Cộng ('+ls.length+')</b></td><td></td><td></td><td></td>'+tien(t.dn, true)+'<td></td>'+tien(t.chua, true)+'<td></td>'+tien(n===2 ? t.toi : 0, true)+'<td></td><td></td><td></td><td></td><td></td></tr>';
-    h += '<div class="bc-khung"><div class="bc-khung-ten">'+TEN[n]+' — '+ls.length+' món</div><table class="bc-bang"><thead><tr><th>STT</th><th>Mã KH</th><th>Họ tên<br><small>Số KU</small></th><th>SĐT</th><th>CT<br><small>Hình thức</small></th><th>Xã</th><th>Dư nợ</th>'+
-      '<th>Kỳ ĐH chưa trả</th><th>Số tiền chưa trả</th><th>Kỳ tới</th><th>Số tiền kỳ tới</th><th>Hạn nộp 08/TD</th><th>Lãi tồn</th><th>Số dư 105</th><th>Đã chuyển QH (LK)</th><th>GD gần nhất</th></tr></thead><tbody>'+b+'</tbody></table></div>';
+    var tg = {dn:tien(t.dn, true), chua:tien(t.chua, true), toiT:tien(n===2 ? t.toi : 0, true)};
+    b += '<tr class="tong">'+COT.map(function(c){ return c.k==='ten' ? '<td><b>Cộng ('+ls.length+')</b></td>' : (tg[c.k] || '<td'+(c.l ? ' class="'+c.l+'"' : '')+'></td>'); }).join('')+'</tr>';
+    h += '<div class="bc-khung"><div class="bc-khung-ten">'+TEN[n]+' — '+ls.length+' món</div><table class="bc-bang"><thead><tr>'+COT.map(function(c){ return '<th'+(c.l==='c-sdt' ? ' class="c-sdt"' : '')+'>'+c.t+'</th>'; }).join('')+'</tr></thead><tbody>'+b+'</tbody></table></div>';
   });
   var ten = 'SAO KÊ NỢ ĐẾN HẠN KỲ CON — MÓN VAY TRẢ GỐC PHÂN KỲ';
   if(!T.mon) return {ten:'Phan ky', tieuDe:ten, ngay:ngay, aoa:[['Không có']], ngang:true, html:'<div class="bc-rong">Không có món vay trả gốc phân kỳ (NOXH, cho vay trực tiếp, ủy thác vay từ 01/03/2026) còn dư nợ trong phạm vi.</div>'};
@@ -23531,7 +23783,7 @@ function skBCNOXH(rows, M, ngay, e31){
   return {ten:'Phan ky', tieuDe:ten, ngay:ngay, aoa:aoa, ngang:true,
     html:'<div class="bc-tom">'+T.mon+' món (NOXH '+dem.noxh+' · cho vay trực tiếp '+dem.tt+' · ủy thác vay từ 01/03/2026 '+dem.moi+') · dư nợ <b>'+tdnTien(T.dn)+'</b> · ① kỳ đã đến hạn chưa trả <b>'+nh[1].length+' món / '+tdnTien(T.chua)+'</b>'+
       (nKhong ? ' (trong đó '+nKhong+' món vay trước 01/03/2026 — không chuyển QH kỳ con)' : '')+' · ② kỳ đến hạn đến '+ngayVNsl(den)+' <b>'+T.nToi+' món / '+tdnTien(T.toi)+'</b>'+(nCan ? ' (+ '+nCan+' món chưa biết số tiền kỳ — cần file phân kỳ)' : '')+' · '+nguon+(nUoc ? ' · '+nUoc+' món kỳ tới ước tính ≈' : '')+'</div>'+h+
-      '<div class="bc-ghi">Món trả gốc phân kỳ = nhà ở xã hội (CT 12) + cho vay trực tiếp (không có mã tổ) + cho vay ủy thác qua tổ vay từ 01/03/2026 (Công văn 597/NHCS-TDNN; trừ HSSV STEM). Không trả đúng kỳ và không được điều chỉnh kỳ hạn (Mẫu 08/TD) → chuyển phần dư nợ của kỳ sang nợ quá hạn (Mẫu 14/TD); vay trước 01/03/2026 theo hợp đồng đã ký — không chuyển QH kỳ con (NOXH theo quy định riêng: có chuyển). Kỳ ĐH chưa trả = Gốc đến hạn lũy kế − gốc đã trả (Mẫu 31; đã trả lấy số lớn hơn giữa cột Gốc đã trả và tổng giải ngân − dư nợ). Kỳ tới: theo file Nợ đến hạn phân kỳ (số còn phải trả của kỳ); ≈ = app ước tính khi không có file (NOXH 6 tháng/kỳ, trực tiếp 12 tháng/kỳ, ngày theo GDXA, số tiền = (dư nợ − kỳ chưa trả) ÷ số kỳ còn lại, tròn xuống 100.000); ủy thác mới chỉ biết ngày kỳ đầu (ngày bắt đầu trả gốc). Hạn nộp 08/TD = ngày kỳ lùi 3 ngày làm việc (chưa trừ ngày lễ; hoặc chậm nhất ngày GDX cố định). Khoảng ngày ② theo ô "đến". Số dư 105 ghi 1 lần mỗi khách.</div>'};
+      '<div class="bc-ghi">Món trả gốc phân kỳ = nhà ở xã hội (CT 12) + cho vay trực tiếp (không có mã tổ) + cho vay ủy thác qua tổ vay từ 01/03/2026 (Công văn 597/NHCS-TDNN; trừ HSSV STEM). Không trả đúng kỳ và không được điều chỉnh kỳ hạn (Mẫu 08/TD) → chuyển phần dư nợ của kỳ sang nợ quá hạn (Mẫu 14/TD); vay trước 01/03/2026 theo hợp đồng đã ký — không chuyển QH kỳ con (NOXH theo quy định riêng: có chuyển). Kỳ ĐH chưa trả = Gốc đến hạn lũy kế − gốc đã trả (Mẫu 31; đã trả lấy số lớn hơn giữa cột Gốc đã trả và tổng giải ngân − dư nợ). Kỳ tới: theo file Nợ đến hạn phân kỳ (số còn phải trả của kỳ); ≈ = app ước tính khi không có file (NOXH 6 tháng/kỳ, trực tiếp 12 tháng/kỳ, ngày theo GDXA, số tiền = (dư nợ − kỳ chưa trả) ÷ số kỳ còn lại, tròn xuống 100.000); ủy thác mới chỉ biết ngày kỳ đầu (ngày bắt đầu trả gốc). Hạn nộp 08/TD = ngày kỳ lùi 3 ngày làm việc (chưa trừ ngày lễ; hoặc chậm nhất ngày GDX cố định). * ở cột Kỳ ĐH chưa trả = vay trước 01/03/2026, không chuyển QH kỳ con (vẫn phải thu). Khoảng ngày ② theo ô "đến". Số dư 105 ghi 1 lần mỗi khách.</div>'};
 }
 /* D. danh sách nợ gốc đến hạn phân kỳ theo tổ — CBTD gửi tổ trưởng trước 30 ngày để thông báo khách (CV 597 mục I.3a) */
 function skBCPKTo(M, ngay, e31){
@@ -23555,28 +23807,35 @@ function skDatNgay(kieu){   /* nút chọn nhanh: Tháng sau · Đến cuối qu
 function skXem(){
   var C = skCH(); if(!SK_K) return;
   if(SK_K.thieuBang) return bao('Bảng số liệu chưa có trên máy này — bấm ☁ Nối Drive và tải trước.', 5);
-  var ds = SK_BC.filter(function(b){ return C.bc[b.k]; }); if(!ds.length) return bao('Tích ít nhất 1 báo cáo.', 3);
+  var ds = SK_BC.filter(function(b){ return C.bc[b.k]; }); if(!ds.length) return bao('Chọn 1 báo cáo.', 3);
   if(C.bc.dh && (!C.tu || !C.den || C.tu > C.den)) return bao('Chọn khoảng ngày đến hạn (từ ngày ≤ đến ngày).', 4);
   if((C.bc.noxh || C.bc.pkto) && !skXem.daNap){ var M = skMau31(), e = M && SLM.bang[slKhoa('hstd', SK_K.thang)];   /* 3.91: nạp trước file phân kỳ */
     if(e) return skPKNap(e.ngay).then(function(){ skXem.daNap = true; try{ skXem(); } finally { skXem.daNap = false; } }); }
   var pv = pvChu(C, SK_K);
-  try{ SK_XEM = ds.map(function(b){ CT_DUNG = {}; var x = skBaoCao(b.k); x.pv = pv; x.ctChu = ctChuThich(); CT_DUNG = null; return x; }); }
-  catch(er){ CT_DUNG = null; return baoLoi('Lập báo cáo lỗi: '+(er && er.message || er)); }
+  try{ SK_XEM = ds.map(function(b){ CT_DUNG = {}; SK_KHO = skKhoCua(b.k); var x = skBaoCao(b.k); x.pv = pv; x.ctChu = ctChuThich(); x.ngang = SK_KHO==='ngang'; CT_DUNG = null; return x; }); SK_KHO = 'ngang'; }
+  catch(er){ CT_DUNG = null; SK_KHO = 'ngang'; return baoLoi('Lập báo cáo lỗi: '+(er && er.message || er)); }
   moHop('<div class="hop-tit">👁 Xem sao kê — '+coChuHTML(pv)+'</div><iframe id="sk-khung" class="to-khung" title="Xem trước"></iframe>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button><button class="nho" onclick="skExcel()">📊 Excel</button><button class="nho chinh" onclick="skIn()">🖨 In / PDF</button></div>', true);
+  var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');   /* 3.92: khung xem trước rộng */
   var f = document.getElementById('sk-khung'); if(f) f.srcdoc = skHTMLIn(SK_XEM);
 }
 function skHTMLIn(R){
   return '<!doctype html><html><head><meta charset="utf-8"><title>Sao ke</title><style>'+TO_IN_CSS+'</style></head><body>'+R.map(function(x){
-    return '<div class="trang'+(x.ngang ? ' ngang' : '')+'"><div class="bc-dau"><div>'+coChuHTML(D.cauHinh.donvi||'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI')+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
+    return '<div class="trang'+(x.ngang ? ' ngang' : ' doc')+'"><div class="bc-dau"><div>'+coChuHTML(D.cauHinh.donvi||'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI')+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
       '<h1>'+coChuHTML(x.tieuDe)+'</h1><div class="bc-to">Phạm vi: <b>'+coChuHTML(x.pv)+'</b></div>'+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+SK_IN_TU+'</body></html>';
 }
-/* 3.91: đoạn mã chạy trong trang in sao kê — đo bảng theo khổ in (rộng 16 cm), tràn thì lề 1,5 cm (18 cm), vẫn tràn thì chữ 8,5 pt */
-var SK_IN_TU = '<style id="sk-kho">@media screen{.trang{width:160mm;margin:0 auto 10mm}}</style><script>(function(){var t=document.querySelectorAll(".trang"),k=document.getElementById("sk-kho"),'+
-  'tran=function(){return Array.prototype.some.call(t,function(x){return x.scrollWidth>x.clientWidth+2;});};'+
-  'if(tran()){k.textContent="@page{margin:15mm}@media screen{.trang{width:180mm;margin:0 auto 10mm}}";if(tran()){document.body.style.fontSize="8.5pt";}}})();<\/script>';
-/* 3.91: báo cáo nhiều cột (NOXH) in A4 ngang — trang tên "ngang" (các báo cáo khác vẫn A4 dọc) */
-var SK_IN_NGANG = '<style>@page ngang{size:A4 landscape}.trang.ngang{page:ngang}@media screen{.trang.ngang{width:247mm!important}}</style>';
+/* 3.92 (anh chốt): mỗi món 1 dòng (ô không xuống dòng); đo từng trang theo khổ (dọc 16 cm, ngang 24,7 cm với lề chuẩn), tràn thì lần lượt:
+   lề 15 mm → lề 10 mm → bỏ cột SĐT (.c-sdt, chỉ bảng khổ dọc) → chữ 9 → 8,5 → 8 pt; dừng ở bậc đầu tiên vừa */
+function skInTu(le){   /* le = lề bắt đầu ('7mm' cho tổng hợp khuôn 01.1; mặc định lề chuẩn 20/20/20/30) */
+  var B = le ? [[le, 210-2*parseFloat(le), 297-2*parseFloat(le), 0, ''], [le, 210-2*parseFloat(le), 297-2*parseFloat(le), 0, '9pt'], [le, 210-2*parseFloat(le), 297-2*parseFloat(le), 0, '8.5pt'], [le, 210-2*parseFloat(le), 297-2*parseFloat(le), 0, '8pt']]
+             : [['20mm 20mm 20mm 30mm',160,247,0,''],['15mm',180,267,0,''],['10mm',190,277,0,''],['10mm',190,277,1,''],['10mm',190,277,1,'9pt'],['10mm',190,277,1,'8.5pt'],['10mm',190,277,1,'8pt']];
+  return '<style>.trang td{white-space:nowrap}.trang.doc{font-size:9pt}</style><style id="sk-kho"></style><script>(function(){var t=document.querySelectorAll(".trang"),k=document.getElementById("sk-kho"),'+
+    'tran=function(){return Array.prototype.some.call(t,function(x){return x.scrollWidth>x.clientWidth+2;});},B='+JSON.stringify(B)+';'+
+    'for(var i=0;i<B.length;i++){var b=B[i];k.textContent="@page{margin:"+b[0]+"}@page ngang{size:A4 landscape;margin:"+b[0]+"}@media screen{.trang{width:"+b[1]+"mm;margin:0 auto 10mm}.trang.ngang{width:"+b[2]+"mm}}"+(b[3]?".c-sdt{display:none}":"")+(b[4]?".trang,.trang.doc{font-size:"+b[4]+"}":"");if(!tran())break;}})();<\/script>';
+}
+var SK_IN_TU = skInTu();
+/* 3.91: báo cáo nhiều cột in A4 ngang — trang tên "ngang" (khổ / lề do SK_IN_TU đặt) */
+var SK_IN_NGANG = '<style>@page ngang{size:A4 landscape}.trang.ngang{page:ngang}</style>';
 function skIn(){ if(SK_XEM.length) inBlob(new Blob([skHTMLIn(SK_XEM)], {type:'text/html'}), 'Sao ke.html'); }
 function skExcel(){
   if(!SK_XEM.length) return;
@@ -23972,25 +24231,34 @@ function thToTrongPV(TK, S){
   });
 }
 function thDiemCua(TK, g){ var t = g.ma.length ? (TK.K.to||{})[g.ma[0]] : null; return g.tt ? 'Vay trực tiếp' : (t ? t.tenDiemDu : '(chưa ghép được tổ)'); }
-var TH_COT_BC = ['TT','Tên','Cho vay tháng','Cho vay lũy kế năm','Thu nợ tháng','Thu nợ lũy kế năm','Xóa nợ tháng','Xóa nợ lũy kế','Tổng dư nợ','Nợ trong hạn','Nợ quá hạn','Nợ khoanh','Ngắn hạn','Trung hạn','Dài hạn','Số KH dư nợ','Số lượt KH vay'];
+var TH_COT_BC = ['TT','Tên','Doanh số cho vay|Trong tháng','Doanh số cho vay|Lũy kế năm','Doanh số thu nợ|Trong tháng','Doanh số thu nợ|Lũy kế năm','Doanh số xóa nợ|Trong tháng','Doanh số xóa nợ|Lũy kế năm','Tổng dư nợ','Phân theo tính chất nợ|Trong hạn','Phân theo tính chất nợ|Quá hạn','Phân theo tính chất nợ|Khoanh','Phân theo thời hạn|Ngắn hạn','Phân theo thời hạn|Trung hạn','Phân theo thời hạn|Dài hạn','Số KH dư nợ','Số lượt KH vay'];   /* 3.92: "Nhóm|Cột" = tiêu đề 2 tầng như 01.1 */
 function thDongBC(o, lop){ return {lop:lop||'', o:[o.stt||'', o.ten, o.cvT||0, o.cvN||0, o.tnT||0, o.tnN||0, o.xoaT||0, o.xoaN||0, o.dn||0, o.th||0, o.qh||0, o.kn||0, o.ngan||0, o.trung||0, o.dai||0, {dem:o.khDn||0}, {dem:o.sluot||0}]}; }
-var TH_COT_LEN = ['Số tổ','Số hộ','Dư nợ','Trong hạn','Quá hạn','Khoanh','Dư tiền gửi','Cho vay','Thu nợ','Thu lãi','Thu TK','Chi TK'];
+var TH_COT_LEN = ['Số tổ','Số hộ','Dư nợ|Tổng','Dư nợ|Trong hạn','Dư nợ|Quá hạn','Dư nợ|Khoanh','Dư tiền gửi','Trong tháng|Cho vay','Trong tháng|Thu nợ','Trong tháng|Thu lãi','Trong tháng|Thu TK','Trong tháng|Chi TK'];
 function thSoLEN(o){ return [{dem:o.soTo||0}, {dem:o.ho||0}, o.dn||0, o.th||0, o.qh||0, o.kn||0, o.tg||0, o.cv||0, o.tn||0, o.tl||0, o.ttk||0, o.ctk||0]; }
 function thCongLEN(ds){ var c = {soTo:0, ho:0, dn:0, th:0, qh:0, kn:0, tg:0, cv:0, tn:0, tl:0, ttk:0, ctk:0}; ds.forEach(function(o){ Object.keys(c).forEach(function(f){ c[f] += o[f]||0; }); }); return c; }
 /* ô {dem:n} = số đếm (không đổi đơn vị) */
 function thO(v, dv){ return (v && typeof v==='object' && v.dem!==undefined) ? tdnTien(v.dem) : dv(v); }
+/* 3.92 (khuôn 01.1): tiêu đề 2 tầng (cột "Nhóm|Cột" gộp nhóm liền nhau), hàng đánh số cột (1) (2) …, mỗi dòng 1 hàng (không xuống dòng khi in) */
 function thBang2(cot, dong, dv){
   var o = function(v, j){ var so = typeof v==='number' || (v && typeof v==='object'); return '<td class="'+(so ? 's' : (j===0 ? 'c' : ''))+'">'+(so ? thO(v, dv) : coChuHTML(String(v==null ? '' : v)))+'</td>'; };
-  return '<table class="bc-bang th-bang"><thead><tr>'+cot.map(function(c){ return '<th>'+c+'</th>'; }).join('')+'</tr></thead><tbody>'+
+  var hai = cot.some(function(c){ return c.indexOf('|')>=0; }), h1 = '', h2 = '';
+  for(var j=0;j<cot.length;j++){
+    var p = cot[j].split('|');
+    if(p.length<2){ h1 += '<th'+(hai ? ' rowspan="2"' : '')+'>'+p[0]+'</th>'; continue; }
+    var n = 1; while(j+n<cot.length && cot[j+n].split('|')[0]===p[0] && cot[j+n].indexOf('|')>=0) n++;
+    h1 += '<th colspan="'+n+'">'+p[0]+'</th>'; for(var q=0;q<n;q++) h2 += '<th>'+cot[j+q].split('|')[1]+'</th>'; j += n-1;
+  }
+  var so = '<tr class="th-so">'+cot.map(function(c, j){ return '<td>('+(j+1)+')</td>'; }).join('')+'</tr>';
+  return '<table class="bc-bang th-bang"><thead><tr>'+h1+'</tr>'+(hai ? '<tr>'+h2+'</tr>' : '')+so+'</thead><tbody>'+
     dong.map(function(r){ return '<tr'+(r.lop ? ' class="'+r.lop+'"' : '')+'>'+r.o.map(o).join('')+'</tr>'; }).join('')+'</tbody></table>';
 }
-function thAoa2(cot, dong, chia){ return [cot].concat(dong.map(function(r){ return r.o.map(function(v){ return (v && typeof v==='object') ? v.dem : (typeof v==='number' && chia ? v/chia : v); }); })); }
+function thAoa2(cot, dong, chia){ return [cot.map(function(c){ return c.replace('|', ' — '); })].concat(dong.map(function(r){ return r.o.map(function(v){ return (v && typeof v==='object') ? v.dem : (typeof v==='number' && chia ? v/chia : v); }); })); }
 function thBaoCao(k){
   var TK = TH_K, B = TK.B, K = TK.K, S = thCH(), xa = slChuan(thTenXa(S, K)), sau = !!(S.diem || S.hoi || S.to), loc = !!(S.ct || S.nguon);
   var e = function(L){ return SLM.bang[slKhoa(L, TK.ky)]; }, ngayCua = function(L){ var x = e(L); return x ? 'Số liệu ngày '+ngayVNsl(x.ngay)+' · nguồn '+slLoai(L).ten : ''; };
   var thieu = function(ten, L){ return {ten:ten.slice(0, 31), tieuDe:ten.toUpperCase(), ngay:slKyChu(TK.ky), html:'<div class="bc-rong">Chưa nạp '+coChuHTML(L.map(function(x){ return slLoai(x).ten; }).join(' / '))+' của '+coChuHTML(slKyChu(TK.ky))+'.</div>', aoa:[['Chưa nạp file']]}; };
   var ghiSau = function(){ return (sau || loc) ? '<div class="bc-ghi">Biểu TW này chỉ chia đến cấp '+(k==='ct' ? 'PGD' : 'xã')+'; phạm vi / chương trình / nguồn chi tiết hơn xem báo cáo “Lọc sâu … (tham khảo)”.</div>' : ''; };
-  var tr = function(v){ return thTr(v); }, dong = function(v){ return tdnTien(v); };
+  var tr = function(v){ return thTr(v, 2); }, dong = tr;   /* 3.92 (anh chốt, khuôn 01.1): mọi bảng tổng hợp in triệu đồng 2 số lẻ */
   if(k==='xa' || k==='ct'){
     var L = k==='xa' ? 'bx' : 'bc', rows = B.co[L]; if(!rows) return thieu(k==='xa' ? 'Ket qua cho vay theo xa' : 'Ket qua cho vay theo CT', [L]);
     var ds = rows.filter(function(o){ return o.cap!=='tong' && (k==='ct' || !xa || slChuan(o.ten)===xa); }).map(function(o){ return thDongBC(o); });
@@ -24011,8 +24279,8 @@ function thBaoCao(k){
       thToTrongPV(TK, S).filter(function(g){ return slChuan(g.o.xa)===slChuan(x.ten); }).forEach(function(g){ var d = thDiemCua(TK, g); if(!theo[d]){ theo[d] = []; thu.push(d); } theo[d].push(g.o); });
       thu.sort(function(a, b){ return a.localeCompare(b, 'vi'); }).forEach(function(d){ var c = thCongLEN(theo[d]); c.soTo = theo[d].filter(function(o){ return o.dv!=='99'; }).length; dsD.push({o:['   Điểm GD '+d].concat(thSoLEN(c))}); });
     });
-    return {ten:'Don vi hanh chinh', tieuDe:'TỔNG HỢP SỐ LIỆU TÍN DỤNG THEO ĐƠN VỊ HÀNH CHÍNH', ngay:ngayCua('lx'), dv:'Đơn vị: đồng, hộ',
-      html:thBang2(cotD, dsD, dong)+'<div class="bc-ghi">Dòng xã: LEN_31 XAPUONG. Dòng điểm GD: cộng các dòng tổ của LEN_31 TO_TRUONG (ghép tổ → điểm GD theo Thông tin tổ trưởng)'+(sau ? '; đang lọc theo phạm vi nên dòng xã là số cả xã' : '')+'.</div>', aoa:thAoa2(cotD, dsD)};
+    return {ten:'Don vi hanh chinh', tieuDe:'TỔNG HỢP SỐ LIỆU TÍN DỤNG THEO ĐƠN VỊ HÀNH CHÍNH', ngay:ngayCua('lx'), dv:'Đơn vị: triệu đồng, hộ',
+      html:thBang2(cotD, dsD, dong)+'<div class="bc-ghi">Dòng xã: LEN_31 XAPUONG. Dòng điểm GD: cộng các dòng tổ của LEN_31 TO_TRUONG (ghép tổ → điểm GD theo Thông tin tổ trưởng)'+(sau ? '; đang lọc theo phạm vi nên dòng xã là số cả xã' : '')+'.</div>', aoa:thAoa2(cotD, dsD, 1e6)};
   }
   if(k==='hoi' || k==='tg'){
     var tgOnly = k==='tg', cotH = tgOnly ? ['Đơn vị','Số hộ','Dư tiền gửi','Thu TK trong tháng','Chi TK trong tháng','Tăng (giảm) trong tháng','Bình quân / hộ'] : ['Đơn vị'].concat(TH_COT_LEN);
@@ -24032,8 +24300,8 @@ function thBaoCao(k){
         dsH.push(o.cap==='xa' ? {lop:'nhom', o:[o.ten].concat(soH(o))} : {o:['   '+twTenHoi(o.dv)].concat(soH(o))});
       });
     }
-    return {ten:tgOnly ? 'Tien gui to vien' : 'Theo hoi', tieuDe:tgOnly ? 'TỔNG HỢP TIỀN GỬI CỦA TỔ VIÊN TỔ TK&VV' : 'TỔNG HỢP SỐ LIỆU TÍN DỤNG THEO HỘI ĐOÀN THỂ NHẬN ỦY THÁC', ngay:ngayCua(sau ? 'lt' : 'lh'), dv:'Đơn vị: đồng, hộ',
-      html:thBang2(cotH, dsH, dong)+(sau ? '<div class="bc-ghi">Phạm vi dưới cấp xã: cộng các dòng tổ của LEN_31 TO_TRUONG.</div>' : ''), aoa:thAoa2(cotH, dsH)};
+    return {ten:tgOnly ? 'Tien gui to vien' : 'Theo hoi', tieuDe:tgOnly ? 'TỔNG HỢP TIỀN GỬI CỦA TỔ VIÊN TỔ TK&VV' : 'TỔNG HỢP SỐ LIỆU TÍN DỤNG THEO HỘI ĐOÀN THỂ NHẬN ỦY THÁC', ngay:ngayCua(sau ? 'lt' : 'lh'), dv:'Đơn vị: triệu đồng, hộ',
+      html:thBang2(cotH, dsH, dong)+(sau ? '<div class="bc-ghi">Phạm vi dưới cấp xã: cộng các dòng tổ của LEN_31 TO_TRUONG.</div>' : ''), aoa:thAoa2(cotH, dsH, 1e6)};
   }
   if(k==='ctx'){
     if(!B.co.lc) return thieu('Theo chuong trinh', ['lc']);
@@ -24048,8 +24316,8 @@ function thBaoCao(k){
       if(S.ct && ten2ma[slChuan(o.ten)]!==S.ct) return;
       dsC.push({o:['     '+o.ten].concat(thSoLEN(o))});
     });
-    return {ten:'Theo chuong trinh', tieuDe:'TỔNG HỢP SỐ LIỆU TÍN DỤNG THEO CHƯƠNG TRÌNH — TỪNG XÃ, HỘI', ngay:ngayCua('lc'), dv:'Đơn vị: đồng, hộ',
-      html:thBang2(cotC, dsC, dong)+(S.ct && !Object.keys(ten2ma).length ? '<div class="bc-ghi">Chưa có Mẫu 31 cùng kỳ để nhận mã chương trình — chưa lọc theo chương trình.</div>' : '')+(S.diem || S.to ? '<div class="bc-ghi">Biểu CHTRINH chia đến hội của xã; điểm GD / tổ xem “Lọc sâu … (tham khảo)”.</div>' : ''), aoa:thAoa2(cotC, dsC)};
+    return {ten:'Theo chuong trinh', tieuDe:'TỔNG HỢP SỐ LIỆU TÍN DỤNG THEO CHƯƠNG TRÌNH — TỪNG XÃ, HỘI', ngay:ngayCua('lc'), dv:'Đơn vị: triệu đồng, hộ',
+      html:thBang2(cotC, dsC, dong)+(S.ct && !Object.keys(ten2ma).length ? '<div class="bc-ghi">Chưa có Mẫu 31 cùng kỳ để nhận mã chương trình — chưa lọc theo chương trình.</div>' : '')+(S.diem || S.to ? '<div class="bc-ghi">Biểu CHTRINH chia đến hội của xã; điểm GD / tổ xem “Lọc sâu … (tham khảo)”.</div>' : ''), aoa:thAoa2(cotC, dsC, 1e6)};
   }
   if(k==='to'){
     if(!B.co.lt) return thieu('Theo to truong', ['lt']);
@@ -24064,8 +24332,8 @@ function thBaoCao(k){
       });
     });
     var cT = thCongLEN(tAll); dsT.push({lop:'tong', o:['', 'Cộng '+stt+' dòng', '', '', '', {dem:cT.ho}, cT.dn, cT.qh, cT.kn, cT.tg, cT.cv, cT.tn, cT.tl]});
-    return {ten:'Theo to truong', tieuDe:'TỔNG HỢP SỐ LIỆU TÍN DỤNG THEO TỔ TRƯỞNG', ngay:ngayCua('lt'), dv:'Đơn vị: đồng, hộ',
-      html:thBang2(cotT, dsT, dong)+'<div class="bc-ghi">LEN_31 không có mã tổ: app ghép theo tên tổ trưởng trong xã (mã tổ có 2 số = 2 tổ trùng tên tổ trưởng, LEN_31 gộp 1 dòng; “?” = chưa ghép được).</div>', aoa:thAoa2(cotT, dsT)};
+    return {ten:'Theo to truong', tieuDe:'TỔNG HỢP SỐ LIỆU TÍN DỤNG THEO TỔ TRƯỞNG', ngay:ngayCua('lt'), dv:'Đơn vị: triệu đồng, hộ',
+      html:thBang2(cotT, dsT, dong)+'<div class="bc-ghi">LEN_31 không có mã tổ: app ghép theo tên tổ trưởng trong xã (mã tổ có 2 số = 2 tổ trùng tên tổ trưởng, LEN_31 gộp 1 dòng; “?” = chưa ghép được).</div>', aoa:thAoa2(cotT, dsT, 1e6)};
   }
   if(k==='nv'){
     if(!B.co.b32) return thieu('Nguon von', ['b32']);
@@ -24092,9 +24360,9 @@ function thBaoCao(k){
     var hs = TK.hs || (B.co.hstd || null);
     if(!hs) return thieu('Loc sau (tham khao)', ['hstd']);
     var cap = !S.xa ? 'xa' : !S.diem ? 'diem' : !S.hoi && !S.to ? 'hoi' : !S.to ? 'to' : 'ct', Tt = K.to||{};
-    var trong = function(o){ if(!pvLoc(S, Tt[o.to])) return false; if(S.ct && String(o.ct)!==S.ct) return false; if(S.nguon && String(o.nguon)!==S.nguon) return false; return true; };
+    var trong = function(o){ if(!pvLoc(S, Tt[toMaCua(o)])) return false; if(S.ct && String(o.ct)!==S.ct) return false; if(S.nguon && String(o.nguon)!==S.nguon) return false; return true; };
     var nhan = {xa:'Xã / phường', diem:'Điểm GD', hoi:'Hội', to:'Tổ', ct:'Chương trình'}[cap];
-    var khoa = function(o){ if(!trong(o)) return null; var t = Tt[o.to]||{};
+    var khoa = function(o){ if(!trong(o)) return null; var t = Tt[toMaCua(o)]||{};
       return cap==='xa' ? (o.tenXa||'?') : cap==='diem' ? (t.tenDiemDu||'(chưa rõ điểm)') : cap==='hoi' ? (tdnHoi(o.dv||t.dv)||'Không hội / trực tiếp') : cap==='to' ? ((t.ten||o.toTen||'')+' ('+(o.to||'—')+')') : ctNgan(o.ct, o); };
     var R = twTinh31(hs, B.lap, khoa), cotK = [nhan,'Cho vay tháng','Cho vay lũy kế năm','Thu nợ tháng','Thu nợ lũy kế năm','Tổng dư nợ','Nợ trong hạn','Nợ quá hạn','Nợ khoanh','Số KH dư nợ','Tiền gửi 105','Lãi tồn'];
     var soK = function(x){ return [x.cvT, x.cvN, x.tnT, x.tnN, x.dn, x.th, x.qh, x.kn, {dem:x.khDn}, x.tg, x.lt]; }, dsK = [], cg = {cvT:0, cvN:0, tnT:0, tnN:0, dn:0, th:0, qh:0, kn:0, khDn:0, tg:0, lt:0};
@@ -24124,12 +24392,13 @@ function thXem(){
   catch(er){ CT_DUNG = null; return baoLoi('Lập báo cáo lỗi: '+(er && er.message || er)); }
   moHop('<div class="hop-tit">👁 Xem tổng hợp — '+coChuHTML(pv)+'</div><iframe id="th-khung" class="to-khung" title="Xem trước"></iframe>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button><button class="nho" onclick="thExcel()">📊 Excel</button><button class="nho chinh" onclick="thIn()">🖨 In / PDF</button></div>', true);
+  var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
   var f = document.getElementById('th-khung'); if(f) f.srcdoc = thHTMLIn(TH_XEM);
 }
-function thHTMLIn(R){
-  return '<!doctype html><html><head><meta charset="utf-8"><title>Tong hop</title><style>'+bcCSS(true)+'</style></head><body>'+R.map(function(x){
-    return '<div class="trang"><div class="bc-dau"><div>'+coChuHTML(D.cauHinh.donvi||'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI')+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
-      '<h1>'+coChuHTML(x.tieuDe)+'</h1><div class="bc-to">Phạm vi: <b>'+coChuHTML(x.pv)+'</b>'+(x.dv ? ' · <i>'+coChuHTML(x.dv)+'</i>' : '')+'</div>'+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+'</body></html>';
+function thHTMLIn(R){   /* 3.92: khuôn 01.1 — A4 ngang, lề 7 mm, chữ 9,5 pt, "Đơn vị" canh phải, mỗi dòng 1 hàng; tràn thì tự co */
+  return '<!doctype html><html><head><meta charset="utf-8"><title>Tong hop</title><style>'+bcCSS(true)+'body{font-size:9.5pt}.th-bang th{vertical-align:middle;text-align:center}tr.th-so td{text-align:center;font-style:italic;font-size:.85em;background:#f7f9fb}.th-dv{text-align:right;font-style:italic;font-size:9pt;margin:-2px 0 2px}</style></head><body>'+R.map(function(x){
+    return '<div class="trang ngang"><div class="bc-dau"><div>'+coChuHTML(D.cauHinh.donvi||'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI')+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
+      '<h1>'+coChuHTML(x.tieuDe)+'</h1><div class="bc-to">Phạm vi: <b>'+coChuHTML(x.pv)+'</b></div>'+(x.dv ? '<div class="th-dv">'+coChuHTML(x.dv)+'</div>' : '')+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+skInTu('7mm')+'</body></html>';
 }
 function thIn(){ if(TH_XEM.length) inBlob(new Blob([thHTMLIn(TH_XEM)], {type:'text/html'}), 'Tong hop.html'); }
 function thExcel(){
