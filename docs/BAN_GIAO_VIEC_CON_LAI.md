@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.91 · build 03/10/2026 21:00
+**Bản hiện tại:** 3.92 · build 04/10/2026 15:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,29 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.92) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê → chọn **Nợ đến hạn** · Khổ **Ngang** → 👁 Xem | Mỗi món 1 dòng, có Số KU, Ngày GH, Chuyển QH riêng; khung xem rộng | |
+| 2 | Cùng báo cáo · Khổ **Dọc** | Không có Số KU, không Chuyển QH; ngày dd/mm/yy; vẫn 1 dòng (tràn thì bỏ SĐT / co chữ) | |
+| 3 | Sao kê kỳ con · Ngang / Dọc | 1 dòng mỗi món; * ở kỳ chưa trả của món vay trước 01/03/2026 | |
+| 4 | Tổ TK&VV → chọn xã + điểm (không chọn tổ) | Bảng các tổ + dòng "Vay trực tiếp"; bấm 1 dòng mở tổ | |
+| 5 | Chọn 1 tổ | Hiện toàn bộ tổ viên; bấm nút lọc "Đề xuất cho ra", "CCCD hết hạn"; 🖨 In danh sách đang lọc | |
+| 6 | ⚙ Ngưỡng tổ viên (vd 5–60) | Tổ ngoài ngưỡng tô đỏ, có cột "Còn nhận" | |
+| 7 | Tổng hợp → Kết quả cho vay theo xã → Xem / In | A4 ngang lề 7 mm, tiêu đề 2 tầng, hàng (1)(2)…, triệu đồng 2 số lẻ | |
+| 8 | Tra cứu KH (máy tính) → gõ tên → bấm 1 dòng | Chi tiết hiện cột phải (có Hạn CCCD); điện thoại vẫn mở hộp | |
+
+**Ghi chú kỹ thuật 3.92:** In: `SK_KHO` ('ngang'/'doc') đặt trong `skXem` theo `skKhoCua(k)` (mặc định `SK_BC[].kho`, anh đổi lưu `skCH().kho[k]`); `skBang` gọi `dong` 1 lần mỗi dòng, ẩn cột 'Số KU' khi dọc + có cột CT (trùng KH+CT ghi 6 số cuối), cột SĐT gắn `c-sdt`; `skNg` ngày ngắn khi dọc; `skBCDH` / `skBCNOXH` có bộ cột theo khổ (`COT`); `skInTu(le)` sinh đoạn mã tự co (bậc lề → bỏ .c-sdt → cỡ chữ), `SK_IN_TU = skInTu()`, tổng hợp `skInTu('7mm')`; `toHTMLIn` cũng tự co. Sao kê: `SK_NHOM`, `skChon`, `skChonBC`, `skDoiKho`, lớp `.sk-thanh` / `.sk-luoi`; xem trước `#hop-in.xem-rong`. Vay trực tiếp: `TO_GIA` ('0000000' bỏ khỏi cây), `toGanTrucTiep(K, Bm)` (khóa điểm `xã|ngày GD`, mã `TT<xã>_<điểm>`, `trucTiep:true`, `dv:'99'`), `toMaCua(o)` (o.to hoặc o._tt) dùng ở `skTrongPV`, `skBang`, tổng hợp lọc sâu. Tổ: `toTV`, `TO_LOC` (+`TO_LOC_MO`), `toCCCDHan(so, ns, ncap)`, `toTheHTML`, `toDsTVHTML`, `toBCDS` / `toInDS` / `toExcelDS`, `toBangToHTML` (+ `toTruocNap` Mẫu 31 tháng trước), `toNguong` / `toDatNguong` (`D.cauHinh.toNguong`). Tổng hợp: `thBang2` cột "Nhóm|Cột" → 2 tầng + hàng số cột, `thAoa2` thay "|" bằng " — ", `tr = dong = thTr(v, 2)`. Tra cứu: `.tc-2cot`, `tcHaiCot`, `tcChonDong`, `slTheKH` vẽ vào `#tc-ct` khi màn rộng.
+
+### Danh sách thử trên máy thật (3.91.1)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 3 | Tổ TK&VV → 1 tổ → Danh sách hộ vay | Không còn KU đã tất toán; khách tất toán hết vẫn có dòng mã KH + 105 ("không còn món vay") | |
+| 2 | Tra cứu KH → gõ 1 CCCD chưa có | ✅ "Không trùng … **Chưa vay vốn**, có thể nhập máy" | |
+| 1 | Số liệu → Đang kiểm tra: chọn **T10/2026** (chưa nạp file) | Báo "chưa có file Ⓐ / Ⓑ nào — chưa kiểm", không hiện "2 đạt · 1 lệch"; bấm Kiểm tra → báo, không chạy | |
+
+**Ghi chú kỹ thuật 3.91.1:** `toBCDanhSach` lọc món `daTT` (CLOSE hoặc dư nợ 0, không QH, không lãi tồn); khách vẫn giữ dòng. `slCoFileChinh(ky)` (có file nhóm A / B); `slKTHTML`, `slKiemTra`, `slKTDauHTML` dùng để bỏ qua kết quả cũ của tháng trống (`SLM.kt` cũ vẫn giữ, chỉ ẩn).
 
 ### Danh sách thử trên máy thật (3.91) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

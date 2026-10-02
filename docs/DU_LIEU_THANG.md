@@ -96,6 +96,11 @@ Lệch thì app **báo, chỉ ra nguyên nhân / dòng lệch, không sửa dữ
 - File phân kỳ: DUNO = gốc phải trả của kỳ · GOCDTRA = đã trả của kỳ · NODENHAN = DUNO − GOCDTRA · NGAYDENHAN = ngày kỳ (theo ngày GDXA) · TDUNO = tổng dư nợ · SODUTK = số dư TK. Món không có trong file = không có kỳ đến hạn tới ngày ghi ở tên file.
 - Nội suy khi không có file: **NOXH 6 tháng/kỳ, trực tiếp 12 tháng/kỳ** từ Ngày bắt đầu trả gốc, ngày = ngày GDXA → **ngày kỳ khớp 14/14** dòng file. Số tiền kỳ = (dư nợ − kỳ chưa trả) ÷ số kỳ còn lại, tròn xuống 100.000 → **khớp 4/7 món NOXH** (3 món lệch do lịch riêng / trả trước). Không có file thì 4 món NOXH trả trước bị ước tính có kỳ T10–T12 (106,4 tr thay vì 81,8 tr) → **nên nạp file phân kỳ**.
 
+## Cây xã → điểm GD → hội → tổ (kiểm 30/09/2026, bản 3.92)
+- **Tổ 0000000** trong Mẫu 31 = **khách chỉ gửi tiết kiệm** (1.402 dòng, không món vay, xã giả **482000** tên "Vay trực tiếp") → app không đưa lên cây (trước hiện thành chip xã giả).
+- **Vay trực tiếp** = món **không mã tổ** (Mẫu 31 "Hình thức vay" = 1, ĐVUT 99): có mã xã, thôn, **ngày GDXA** nhưng không có mã điểm GD → app suy điểm theo **xã + ngày GDXA** (mỗi điểm trong xã có ngày GD riêng); không dùng thôn vì 19/59 thôn có tổ thuộc 2 điểm. Khớp mã điểm trong file Nợ đến hạn phân kỳ (MADGD / TENDGD).
+- **Hạn CCCD** (Luật Căn cước 2023): đổi khi đủ 14, 25, 40, 60 tuổi; cấp / đổi trong 2 năm trước mốc thì dùng đến mốc kế; từ 60 tuổi không hết hạn; **CMND 9 số hết hiệu lực từ 01/01/2025**. Tính từ "Ngày sinh" + "Ngày cấp" Mẫu 31 (khách sinh chỉ có năm → hệ thống ghi 01/01).
+
 ## Lưu trữ
 - Máy: IndexedDB `sl_b_<loại>_<kỳ>` (dạng theo cột; kỳ theo ngày vd `sl_b_m10_2026-08-31`; dòng lặp khế ước ở `b.lap`), `sl_meta`, `sl_danhba`.
 - Drive: `Tủ hồ sơ/Số liệu/<tháng>/<ngày> <Tên loại>.xlsx` (file gốc) · `Tủ hồ sơ/_Hệ thống/so_lieu/<tháng>/<loại>.json.gz` (loại theo ngày: `m10_<yyyy-mm-dd>.json.gz`) · `_Hệ thống/so_lieu/meta.json` · `_Hệ thống/so_lieu/khach_hang.json.gz`.
