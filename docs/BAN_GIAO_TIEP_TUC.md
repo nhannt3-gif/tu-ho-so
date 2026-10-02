@@ -164,7 +164,7 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 
 | # | Việc | Trạng thái / cần gì |
 |---|---|---|
-| 0a | **Phân kỳ — anh kiểm tra** 7 món GQVL trực tiếp kỳ đến hạn 05/2026 còn 59,68 tr mà Mẫu 31 vẫn ghi trong hạn (gia hạn kỳ? hệ thống chưa chuyển?) | Ước tính số tiền kỳ tới chỉ khớp 4/7 NOXH → khuyên nạp file phân kỳ mỗi tháng. |
+| 0a | **Phân kỳ** — ước tính số tiền kỳ tới chỉ khớp 4/7 NOXH | Khuyên nạp file Nợ đến hạn phân kỳ mỗi tháng. (Đã rõ: GQVL trực tiếp vay trước 03/2026 không chuyển QH kỳ con — anh Nhân 03/10.) |
 | 0 | **Anh thử 3.90** (anh đã xóa tay dữ liệu cũ, sẽ nạp lại 31/12/2025, T8, T9 — nên nạp thêm Mẫu 31 T7 để T8 so được khách mới) | Bảng thử 3.90 trong `BAN_GIAO_VIEC_CON_LAI.md`. **Mẫu 31 chỉ xuất được theo tháng** (anh kiểm) → số theo ngày dùng Mẫu 10. **Chờ anh thử xuất BCDHTD / LEN_31 / B32 theo ngày** (app đã nhận sẵn vào ô theo ngày): kiểm ngày trong file, doanh số lũy kế hay theo ngày, khớp Mẫu 10 cùng ngày → nếu được thì thêm đối chiếu + bảng đối chiếu chéo cho kỳ theo ngày. Lưu ý còn mở (số thật T9): thu nợ LEN_31 thấp hơn BCDHTD 71.999.298 (12 tổ), 3 món vay mới năm 2026 không có trong KHĐ, 19 tổ có dư nợ chưa có trong Thông tin tổ trưởng — anh kiểm trên hệ thống. |
 | 1 | **Anh thử 3.81 → 3.85 trên máy thật** (bảng thử trong `BAN_GIAO_VIEC_CON_LAI.md`) | Chờ anh báo Đạt / Chưa → sửa |
 | 1a | **Anh thử 3.87** (Mẫu 10 tự chuyển sang dòng theo ngày; nạp lại Mẫu 10 31/08 để sửa 105; Mẫu 7; nạp Mẫu 31 T8, T9) | Bảng thử 3.87 trong `BAN_GIAO_VIEC_CON_LAI.md`. **Anh cần nạp Mẫu 31 T8 + T9 vào app** (máy thật mới có Mẫu 10) — cần cho đối chiếu chuẩn và danh sách 2 sổ 105. |

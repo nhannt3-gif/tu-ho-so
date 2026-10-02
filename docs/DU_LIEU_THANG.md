@@ -91,7 +91,7 @@ Lệch thì app **báo, chỉ ra nguyên nhân / dòng lệch, không sửa dữ
 
 ## Món vay trả gốc phân kỳ — nợ đến hạn kỳ con (kiểm 30/09/2026 + file phân kỳ 01/10/2026, bản 3.91)
 - Gồm **cho vay nhà ở xã hội (CT 12)** và **cho vay trực tiếp** = món **không có mã tổ** (anh Nhân: GQVL do Hội người mù quản lý, XKLD). Mẫu 31 cột "Hình thức vay" = 1 ở các món này; NOXH = 3 (vẫn gắn tổ / ĐVUT).
-- **Kỳ đã đến hạn chưa trả = Gốc đến hạn LK − Gốc đã trả** (Mẫu 31) — khớp đúng cột NODENHAN file phân kỳ (7 món GQVL trực tiếp đến hạn 15–25/05/2026 còn 59.681.715, Mẫu 31 vẫn ghi trong hạn). Ở món trả 1 lần qua tổ cột này không mang nghĩa kỳ (14.594 món LK > đã trả) → chỉ dùng cho món phân kỳ.
+- **Kỳ đã đến hạn chưa trả = Gốc đến hạn LK − Gốc đã trả** (Mẫu 31) — khớp đúng cột NODENHAN file phân kỳ (7 món GQVL trực tiếp đến hạn 15–25/05/2026 còn 59.681.715, Mẫu 31 vẫn ghi trong hạn — **đúng quy định: GQVL cho vay trực tiếp vay trước 03/2026 không chuyển nợ quá hạn kỳ con**, anh Nhân 03/10/2026; báo cáo ghi chú ở dòng đó). Ở món trả 1 lần qua tổ cột này không mang nghĩa kỳ (14.594 món LK > đã trả) → chỉ dùng cho món phân kỳ.
 - File phân kỳ: DUNO = gốc phải trả của kỳ · GOCDTRA = đã trả của kỳ · NODENHAN = DUNO − GOCDTRA · NGAYDENHAN = ngày kỳ (theo ngày GDXA) · TDUNO = tổng dư nợ · SODUTK = số dư TK. Món không có trong file = không có kỳ đến hạn tới ngày ghi ở tên file.
 - Nội suy khi không có file: **NOXH 6 tháng/kỳ, trực tiếp 12 tháng/kỳ** từ Ngày bắt đầu trả gốc, ngày = ngày GDXA → **ngày kỳ khớp 14/14** dòng file. Số tiền kỳ = (dư nợ − kỳ chưa trả) ÷ số kỳ còn lại, tròn xuống 100.000 → **khớp 4/7 món NOXH** (3 món lệch do lịch riêng / trả trước). Không có file thì 4 món NOXH trả trước bị ước tính có kỳ T10–T12 (106,4 tr thay vì 81,8 tr) → **nên nạp file phân kỳ**.
 

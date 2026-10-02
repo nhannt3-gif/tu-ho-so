@@ -23416,6 +23416,7 @@ function skPKNap(ns){
   }).catch(function(){ SK_PK = null; });
 }
 function skLaPK(o){ return String(o.ct)==='12' || !o.to; }
+function skKhongCQH(o){ return !o.to && String(o.ct)==='03' && !!o.nv && o.nv<'2026-03-01'; }   /* anh Nhân: GQVL cho vay trực tiếp vay trước 03/2026 không chuyển nợ quá hạn kỳ con */
 function skNOXHChua(o){ return Math.max(0, (slSo(o.c_goc_den_han_lk)||0)-(slSo(o.c_goc_da_tra)||0)); }
 function skNgayVN2ISO(v){ var m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(String(v||'').trim()); return m ? m[3]+'-'+hai(+m[2])+'-'+hai(+m[1]) : (/^\d{4}-\d{2}-\d{2}/.test(String(v||'')) ? String(v).slice(0,10) : ''); }
 function skCongThang(iso, n, ngay){ var y = +iso.slice(0,4), m = +iso.slice(5,7)-1+n, d = new Date(y, m, 1), ky = d.getFullYear()+'-'+hai(d.getMonth()+1), cuoi = +tdnCuoiKy(ky).slice(8); return ky+'-'+hai(Math.min(ngay, cuoi)); }
@@ -23449,8 +23450,8 @@ function skBCNOXH(rows, M, ngay, e31){
   var nh = {1:[], 2:[], 3:[]};
   ds.forEach(function(o){ o._pk = skPKKy(o, ns); o._chua = skNOXHChua(o); nh[o._chua>0 ? 1 : (o._pk.toiNgay && o._pk.toiNgay<=den ? 2 : 3)].push(o); });
   var xep = function(a, b){ var x = a._pk.quaNgay||a._pk.toiNgay||'9', y = b._pk.quaNgay||b._pk.toiNgay||'9'; return x<y ? -1 : x>y ? 1 : (a.kh<b.kh ? -1 : 1); };
-  var da105 = {}, nUoc = 0, T = {mon:0, dn:0, chua:0, toi:0, nToi:0};
-  var aoa = [['Nhóm','STT','Mã KH','Họ tên','Số KU','SĐT','Chương trình','Hình thức','Xã / phường','Dư nợ','Trong đó quá hạn','Gốc đến hạn lũy kế','Gốc đã trả','Kỳ đến hạn chưa trả — ngày','Kỳ đến hạn chưa trả — số tiền','Kỳ tới — ngày','Kỳ tới — số tiền','Kỳ tới ước tính','Lãi tồn','Số dư 105','Tổng đã chuyển QH','Ngày GD gần nhất','Ngày vay','Hạn cuối','Ngày bắt đầu trả gốc']];
+  var da105 = {}, nUoc = 0, nKhong = 0, T = {mon:0, dn:0, chua:0, toi:0, nToi:0};
+  var aoa = [['Nhóm','STT','Mã KH','Họ tên','Số KU','SĐT','Chương trình','Hình thức','Xã / phường','Dư nợ','Trong đó quá hạn','Gốc đến hạn lũy kế','Gốc đã trả','Kỳ đến hạn chưa trả — ngày','Kỳ đến hạn chưa trả — số tiền','Kỳ tới — ngày','Kỳ tới — số tiền','Kỳ tới ước tính','Lãi tồn','Số dư 105','Tổng đã chuyển QH','Ngày GD gần nhất','Ngày vay','Hạn cuối','Ngày bắt đầu trả gốc','Ghi chú']];
   var TEN = {1:'① KỲ CON ĐÃ ĐẾN HẠN CHƯA TRẢ — đôn đốc thu ngay', 2:'② KỲ CON ĐẾN HẠN TỪ SAU NGÀY SỐ LIỆU ĐẾN '+ngayVNsl(den), 3:'③ KỲ TỚI SAU NGÀY '+ngayVNsl(den)};
   var tien = function(v, b){ return '<td class="s">'+(v ? (b ? '<b>'+tdnTien(v)+'</b>' : tdnTien(v)) : '')+'</td>'; };
   var h = '';
@@ -23459,15 +23460,15 @@ function skBCNOXH(rows, M, ngay, e31){
     var t = {dn:0, chua:0, toi:0}, b = '';
     ls.forEach(function(o, i){
       var p = o._pk, lt = laiTon(o), cqh = slSo(o.c_tong_chuyen_no_qh)||0, t1 = !da105[o.kh] ? (s105[o.kh]||0) : 0; da105[o.kh] = 1;
-      var hinh = o.to ? (o.tenDv || 'Qua tổ') : 'Trực tiếp', toiTien = p.toiTien||0; if(p.uoc && p.toiNgay) nUoc++;
+      var hinh = o.to ? (o.tenDv || 'Qua tổ') : 'Trực tiếp', toiTien = p.toiTien||0, kcq = skKhongCQH(o); if(kcq && o._chua) nKhong++; if(p.uoc && p.toiNgay) nUoc++;
       t.dn += o.dn||0; t.chua += o._chua; T.mon++; T.dn += o.dn||0; T.chua += o._chua;
       if(p.toiNgay && p.toiNgay<=den){ t.toi += toiTien; T.toi += toiTien; T.nToi++; }
       aoa.push([n, i+1, o.kh||'', o.ten||'', o.ku||'', o.sdt||'', ctNgan(o.ct, o), hinh, o.tenXa||'', o.dn||0, o.qh||0, slSo(o.c_goc_den_han_lk)||0, slSo(o.c_goc_da_tra)||0, ngayVNsl(p.quaNgay), o._chua,
-        ngayVNsl(p.toiNgay), toiTien, p.uoc ? 'ước tính' : (p.toiNgay ? 'theo file phân kỳ' : ''), lt, t1||'', cqh, ngayVNsl(o.ngdg), ngayVNsl(o.nv), ngayVNsl(skHL(o)), String(o.c_ngay_b_dau_tra_goc||'')]);
+        ngayVNsl(p.toiNgay), toiTien, p.uoc ? 'ước tính' : (p.toiNgay ? 'theo file phân kỳ' : ''), lt, t1||'', cqh, ngayVNsl(o.ngdg), ngayVNsl(o.nv), ngayVNsl(skHL(o)), String(o.c_ngay_b_dau_tra_goc||''), kcq && o._chua ? 'GQVL trực tiếp vay trước 03/2026 — không chuyển QH kỳ con' : '']);
       b += '<tr'+(n===1 ? ' class="nb"' : '')+'><td class="c">'+(i+1)+'</td><td>'+coChuHTML(o.kh||'')+'</td><td>'+coChuHTML(o.ten||'')+'<br><small>'+coChuHTML(o.ku||'')+'</small></td><td>'+coChuHTML(o.sdt||'')+'</td>'+
         '<td>'+coChuHTML(ctNgan(o.ct, o))+'<br><small>'+coChuHTML(hinh)+'</small></td><td>'+coChuHTML(o.tenXa||'')+'</td>'+
         '<td class="s">'+tdnTien(o.dn||0)+((o.qh||0)>0 ? '<br><small>QH '+tdnTien(o.qh)+'</small>' : '')+'</td>'+
-        '<td>'+(o._chua ? (p.quaUoc ? '≈ ' : '')+ngayVNsl(p.quaNgay) : '')+'</td>'+tien(o._chua, true)+
+        '<td>'+(o._chua ? (p.quaUoc ? '≈ ' : '')+ngayVNsl(p.quaNgay)+(kcq ? '<br><small>không chuyển QH kỳ con</small>' : '') : '')+'</td>'+tien(o._chua, true)+
         '<td>'+(p.toiNgay ? (p.uoc ? '≈ ' : '')+ngayVNsl(p.toiNgay) : '')+(p.uoc && p.khongDen ? '<br><small>file: không ĐH đến '+ngayVNsl(p.khongDen)+'</small>' : '')+'</td><td class="s">'+(p.toiNgay ? (p.uoc ? '≈ ' : '')+tdnTien(toiTien) : '')+'</td>'+
         tien(lt)+tien(t1)+'<td class="s">'+(cqh ? tdnTien(cqh) : '')+'</td><td>'+ngayVNsl(o.ngdg)+'</td></tr>';
     });
@@ -23479,8 +23480,8 @@ function skBCNOXH(rows, M, ngay, e31){
   if(!T.mon) return {ten:'Phan ky', tieuDe:ten, ngay:ngay, aoa:[['Không có']], ngang:true, html:'<div class="bc-rong">Không có món vay nhà ở xã hội / cho vay trực tiếp còn dư nợ trong phạm vi.</div>'};
   var nguon = SK_PK ? 'kỳ tới theo <b>file Nợ đến hạn phân kỳ ngày '+ngayVNsl(SK_PK.ngay)+'</b>'+' (liệt kê kỳ đến hạn tới '+ngayVNsl(SK_PK.han)+')'+(nUoc ? ' · '+nUoc+' món không có kỳ trong file → kỳ sau ngày đó là ước tính ≈' : '') : '<b>chưa nạp file Nợ đến hạn phân kỳ</b> → kỳ tới là ước tính (≈)';
   return {ten:'Phan ky', tieuDe:ten, ngay:ngay, aoa:aoa, ngang:true,
-    html:'<div class="bc-tom">'+T.mon+' món · dư nợ <b>'+tdnTien(T.dn)+'</b> · ① kỳ đã đến hạn chưa trả <b>'+nh[1].length+' món / '+tdnTien(T.chua)+'</b> · ② kỳ đến hạn đến '+ngayVNsl(den)+' <b>'+T.nToi+' món / '+tdnTien(T.toi)+'</b> · '+nguon+'</div>'+h+
-      '<div class="bc-ghi">Món trả gốc phân kỳ = cho vay nhà ở xã hội (CT 12) và cho vay trực tiếp (không có mã tổ). Kỳ ĐH chưa trả = Gốc đến hạn lũy kế − Gốc đã trả (Mẫu 31). Kỳ tới: theo file Nợ đến hạn phân kỳ (số còn phải trả của kỳ); dấu ≈ = app ước tính khi không có file: NOXH 6 tháng/kỳ, cho vay trực tiếp 12 tháng/kỳ, tính từ ngày bắt đầu trả gốc, ngày theo GDXA, số tiền = (dư nợ − kỳ chưa trả) ÷ số kỳ còn lại, tròn xuống 100.000 — chỉ để tham khảo. Đã chuyển QH = tổng chuyển nợ quá hạn lũy kế các kỳ con. Khoảng ngày ② theo ô "đến" (chung với báo cáo nợ đến hạn). Số dư 105 ghi 1 lần mỗi khách.</div>'};
+    html:'<div class="bc-tom">'+T.mon+' món · dư nợ <b>'+tdnTien(T.dn)+'</b> · ① kỳ đã đến hạn chưa trả <b>'+nh[1].length+' món / '+tdnTien(T.chua)+'</b>'+(nKhong ? ' (trong đó '+nKhong+' món GQVL trực tiếp vay trước 03/2026 — không chuyển QH kỳ con)' : '')+' · ② kỳ đến hạn đến '+ngayVNsl(den)+' <b>'+T.nToi+' món / '+tdnTien(T.toi)+'</b> · '+nguon+'</div>'+h+
+      '<div class="bc-ghi">Món trả gốc phân kỳ = cho vay nhà ở xã hội (CT 12) và cho vay trực tiếp (không có mã tổ). Kỳ ĐH chưa trả = Gốc đến hạn lũy kế − Gốc đã trả (Mẫu 31). Kỳ tới: theo file Nợ đến hạn phân kỳ (số còn phải trả của kỳ); dấu ≈ = app ước tính khi không có file: NOXH 6 tháng/kỳ, cho vay trực tiếp 12 tháng/kỳ, tính từ ngày bắt đầu trả gốc, ngày theo GDXA, số tiền = (dư nợ − kỳ chưa trả) ÷ số kỳ còn lại, tròn xuống 100.000 — chỉ để tham khảo. Đã chuyển QH = tổng chuyển nợ quá hạn lũy kế các kỳ con; GQVL cho vay trực tiếp vay trước 03/2026 không chuyển QH kỳ con (vẫn phải thu). Khoảng ngày ② theo ô "đến" (chung với báo cáo nợ đến hạn). Số dư 105 ghi 1 lần mỗi khách.</div>'};
 }
 function skDatNgay(kieu){   /* nút chọn nhanh: Tháng sau · Đến cuối quý · Đến hết năm (tính từ tháng sau kỳ số liệu) */
   var C = skCH(), sau = kyLui(SK_K.thang, 1), m = +sau.slice(5,7), y = sau.slice(0,4);
