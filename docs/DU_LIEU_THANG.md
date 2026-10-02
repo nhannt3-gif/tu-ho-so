@@ -23,6 +23,7 @@ Anh chốt: **số chính thức của TW, chuẩn nhất**. File dạng **biể
 ## 3.90 — các file khác
 - **Món vay 3 tháng KHĐ: chỉ dùng mẫu 14** "Sao kê món vay N tháng không hoạt động (DL Tháng)". File mẫu **08/KTNB** ("DS khoản vay trên N tháng không hoạt động", cột Mã món vay, Địa chỉ, Tên xã, Mô tả) **cùng số y hệt** nhưng thiếu điểm GD xã, ngày đến hạn GDXA → app không nhận. Quy tắc của hệ thống (kiểm T9): món còn dư nợ, ngày GD gần nhất **trước** ngày cùng kỳ 3 tháng trước (30/06 cho số 30/09; GD đúng ngày 30/06 không tính); **không đưa món khoanh, món HSSV**; 3 món vay mới năm 2026 cũng không có (chưa rõ lý do — app báo lưu ý). File 0 dòng → báo xuất lại.
 - **Thông tin tổ trưởng: nạp mỗi tháng** (anh chốt, để kiểm). **Nợ quá hạn, Nợ khoanh, Tổng dư nợ theo CT: phụ** (không bắt buộc, có thì đối chiếu thêm). **Bỏ:** Mẫu 7 (khỏi tham chiếu), Sao kê khách hàng (không xuất được nữa).
+- **Mẫu 31 chỉ xuất được số chốt tháng** (anh kiểm 02/10/2026) → số theo ngày vẫn lấy **Mẫu 10**. File TW xuất theo ngày: anh chưa thử — app đã sẵn sàng (xem dưới); khi có file thật kiểm ngày trong file, doanh số lũy kế hay theo ngày, khớp Mẫu 10 cùng ngày.
 - **Kỳ:** file TW và Mẫu 31 xuất ngày cuối tháng → ô tháng; xuất giữa tháng → ô theo ngày (kỳ `yyyy-mm-dd`). Doanh số tháng của bản giữa tháng: suy luận là lũy kế từ ngày 01 đến ngày xuất (LEN_31 ghi "Doanh số phát sinh từ ngày 01/… đến ngày …") — **chờ file thật để kiểm**.
 
 ## Nhận dạng loại (theo cột, không theo tên file)

@@ -83,7 +83,29 @@ const fs=require('fs'), path=require('path');
    o.thay = 'sai kỳ: '+hop.slice(0, 60)+' | đúng kỳ: '+(SLM.bang['bx|2026-07'].luc!==luc0 ? 'đã thay' : 'CHƯA THAY'); slChonFile = cu;
    /* giao diện nạp: nhóm Ⓐ Ⓑ Ⓒ Ⓓ, ma trận theo nhóm */
    doiNgan(7); slDoiTab('nap'); SL_KY = '2026-07'; veSoLieu(); await w(800);
-   o.nap = Array.from(document.querySelectorAll('.sl-ft-nhom')).map(x=>x.textContent).join(' / ')+' · ma trận '+document.querySelectorAll('.sl-nhom-dong').length+' dòng nhóm · bước: '+document.querySelector('.sl-buoc span small').textContent;
+   o.nap = '① '+document.querySelector('.sl-tt').textContent.replace(/\s+/g,' ').slice(0, 90)+' · ma trận '+document.querySelectorAll('.sl-bang tbody tr').length+' dòng, chấm nhóm '+document.querySelectorAll('.sl-bang .sl-nh').length+', dòng tiêu đề nhóm '+document.querySelectorAll('.sl-nhom-dong').length;
+   /* 3.90.1: bảng đối chiếu chéo (sau lần kiểm cuối) */
+   const dcb = document.querySelector('.sl-dc-bang');
+   o.dc = dcb ? dcb.querySelectorAll('tbody tr').length+' chỉ tiêu × '+(dcb.querySelectorAll('thead th').length-1)+' nguồn · ô khớp '+dcb.querySelectorAll('td.k').length+' · lệch '+dcb.querySelectorAll('td.l').length+' · chip phạm vi '+document.querySelectorAll('.sl-dc-pv .to-chip').length : 'KHÔNG CÓ BẢNG';
+   document.querySelectorAll('.sl-dc-pv .to-chip')[1].click(); await w(200);
+   o.dcXa = SL_DC_PV+' · '+document.querySelectorAll('.sl-dc-bang tbody tr').length+' chỉ tiêu';
+   o.datGom = (document.querySelector('details.sl-kt-muc.ok summary')||{}).textContent;
+   /* làm lệch lại để bấm ô đỏ */
+   await ghi(fLX(1000000)); await slKiemTra('2026-07'); veSoLieu(); await w(400); SL_DC_PV=''; document.getElementById('sl-kt').innerHTML = slKTHTML('2026-07');
+   const oL = document.querySelector('.sl-dc-bang td.l'); if(oL) oL.click(); await w(200);
+   o.dcLech = (oL ? 'ô đỏ '+oL.textContent+' → ' : 'không có ô đỏ → ')+(document.querySelector('#sl-dc-chi summary')||{textContent:'(không mở)'}).textContent.slice(0, 60);
+   await ghi(fLX(0)); await slKiemTra('2026-07');
+   /* tháng trống: không kiểm */
+   const truocKT = Object.keys(SLM.kt).length; await slKiemTra('2026-11'); o.thangTrong = 'kiểm tháng trống: '+(Object.keys(SLM.kt).length===truocKT && !SLM.kt['2026-11'] ? 'không chạy, có báo' : 'VẪN CHẠY');
+   /* tải file gốc: bắt tên file */
+   const tai = []; const cuTai = taiXuongBlob; taiXuongBlob = (bl, ten)=>tai.push(ten+' '+bl.size+'B');
+   slTaiGoc('bx', '2026-07'); await w(800); slTaiGocThang('2026-07'); for(let i=0;i<40 && tai.length<9;i++) await w(300);
+   o.taiGoc = tai.length+' file: '+tai.slice(0, 2).join(' | '); taiXuongBlob = cuTai;
+   /* file rác: tạo 1 bảng mồ côi trong máy → tìm thấy → xóa */
+   await luuFile('sl_b_lx_2025-01', {cot:{}, n:0}); slTimRac(); for(let i=0;i<40 && !document.querySelector('.sl-rac, .hop-in .sl-bao.xanh');i++) await w(250);
+   const nRac = document.querySelectorAll('.sl-rac-tich').length, coMoCoi = /LEN_31 XAPUONG.*T1\/2025/.test((document.querySelector('.sl-rac')||{}).textContent||'');
+   document.querySelectorAll('.sl-rac-tich').forEach(c=>{ if(/T1\/2025/.test(c.parentNode.textContent)) c.checked = true; }); slXoaRac(); await w(800);
+   o.rac = nRac+' mục rác · thấy bảng mồ côi: '+coMoCoi+' · sau xóa còn trong máy: '+!!(await docFile('sl_b_lx_2025-01'));
    o.tab = Array.from(document.querySelectorAll('.sl-con button')).map(x=>x.textContent).join(' | ');
    /* Tổng hợp */
    slDoiTab('th'); for(let i=0;i<120 && !document.getElementById('th-cay');i++) await w(250);

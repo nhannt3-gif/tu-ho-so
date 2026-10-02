@@ -12,8 +12,8 @@ const fs=require('fs'), path=require('path');
  const r = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o={}, w=t=>new Promise(r=>setTimeout(r,t));
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); await slGhi(await slDocFile(new File([u], f.n))); }
    doiNgan(7); SL_KY='2026-08'; veSoLieu(); await w(400);
-   o.buoc = Array.from(document.querySelectorAll('.sl-buoc span')).map(x=>x.textContent).join(' | ');
-   o.file = document.querySelectorAll('.sl-ft-dong.co').length+' có · '+document.querySelectorAll('.sl-ft-dong.thieu').length+' thiếu';
+   o.buoc = document.querySelector('.sl-tt').textContent;   /* 3.90.1: ① 1 dòng */
+   o.file = document.querySelectorAll('.sl-bang tbody tr').length+' dòng ma trận · '+document.querySelectorAll('.sl-tt .sl-lk').length+' file thiếu';
    o.chuaKiem = /Chưa kiểm/.test(document.getElementById('sl-kt').textContent);
    await slKiemTra('2026-08'); await w(300);
    const k = SLM.kt['2026-08']; o.kiem = k.dem; o.muc = k.kq.map(x=>x.nhom+'.'+x.kq+' '+x.ten);

@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.90.1 — 02/10/2026 21:00 — Số liệu gọn: ma trận như cũ · bảng đối chiếu chéo · tải file gốc · tìm file rác
+- **Ma trận file theo tháng là màn chính, gọn như trước** (anh chọn phương án a): mỗi loại file 1 dòng (tên ngắn, chấm tròn A/B/C/D = nhóm, tên đủ khi rê chuột), ô chỉ ✓ + số ngắn (dư nợ / số tổ / số ngày), bản giữa tháng "+ n ngày"; bỏ các dòng tiêu đề nhóm; ma trận không còn khung cuộn dọc.
+- **① tình trạng tháng còn 1 dòng:** Ⓐ TW x/7 · Ⓑ chi tiết y/3 · tên file thiếu (bấm để nạp) · tình trạng kiểm tra · ⬇ Tải file gốc cả tháng · 🗑 Xóa cả bộ tháng. Danh sách file tháng dài (3.90) bỏ; tóm tắt chi tiết từng file vẫn còn, thu gọn ở cuối ("📄 Tóm tắt chi tiết các file tháng").
+- **② Bảng đối chiếu chéo** (đầu phần kiểm tra, lưu cùng kết quả kiểm): chỉ tiêu (dư nợ, quá hạn, khoanh, cho vay tháng, thu nợ tháng, tiền gửi, số KH dư nợ) × nguồn (BCDHTD số chuẩn · LEN_31 · B32 · Mẫu 31 · Mẫu 10 cuối tháng), triệu đồng; ô xanh = khớp số chuẩn (cho vay LEN_31 / B32 ghi "gồm … đảo khoản"), đỏ = lệch (ghi số chênh), vàng = lưu ý đã biết (thu nợ LEN_31, tiền gửi Mẫu 31); chip **Toàn PGD / từng xã**; bấm ô đỏ / vàng → mở mục kiểm tra chi tiết (lọc theo xã). Danh sách kiểm tra: các mục đạt gom 1 dòng "✅ n mục đạt"; số nhóm đánh liền 1, 2, 3…
+- **Sửa:** tháng chưa có file nào mà bấm Kiểm tra vẫn chạy → nay báo "chưa có file nào — nạp file trước rồi kiểm"; số nhóm kiểm tra bị nhảy (1, 2, 8).
+- **⬇ Tải file gốc** (bản sao Excel để dùng việc khác): nút trong ô ma trận và "tải cả tháng" ở dòng ①; file còn trong máy thì lấy ngay, không thì tải từ Drive (cần nối Drive); tên file giữ như lúc nạp.
+- **🧹 Tìm file rác của Số liệu** (trong "Quản lý dữ liệu Số liệu" — phần Số liệu chạy riêng, dọn rác riêng, không đụng văn bản, hồ sơ, scan; Dọn kho chung của app vẫn bỏ qua thư mục Số liệu): liệt kê bảng / file gốc trong máy không còn ô nào dùng (hoặc file gốc đã lên Drive mà bản trong máy còn), file trên Drive (`Số liệu/`, `_Hệ thống/so_lieu/`) app không còn dùng, ô của loại đã bỏ; mỗi mục có nơi nằm + dung lượng; anh tích → Xóa (Drive vào Thùng rác, 30 ngày). App không tự xóa.
+- Điện thoại: số bản dài không đẩy nút ⚙ xuống dòng.
+
 ## 3.90 — 02/10/2026 18:00 — 7 file chuẩn TW · tab con 📊 Tổng hợp · kiểm tra chéo với số chuẩn · nạp theo nhóm · chuẩn in
 - **Nạp thêm 7 file tổng hợp chuẩn TW mỗi tháng** (anh chốt: số chính thức, chuẩn nhất): **BCDHTD 01.1** (kết quả cho vay theo xã) · **BCDHTD 01.2** (theo chương trình) · **B32** (Mẫu 13/BC, theo nguồn vốn TW / ĐP) · **LEN_31 XAPUONG / DONVIUT / CHTRINH / TO_TRUONG** (theo xã, hội, chương trình, tổ trưởng). App đọc file biểu theo **hàng mốc cột (1) (2) (3)…** (mốc lặp ở đầu mỗi trang cũng đọc lại), nhận loại theo tiêu đề / mẫu biểu, ngày theo dòng "Ngày … tháng … năm …" trong file; BCDHTD, B32 tính **triệu đồng** → app lưu ra **đồng**; LEN_31 tính đồng.
 - **Thứ bậc tin cậy (anh chốt):** BCDHTD > LEN_31, B32 > Mẫu 31 > Mẫu 10. Lệch thì báo, không sửa nguồn.

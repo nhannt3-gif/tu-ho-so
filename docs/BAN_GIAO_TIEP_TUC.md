@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 02/10/2026, bản 3.90)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 02/10/2026, bản 3.90.1)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -86,7 +86,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.90 (mới nhất):**
+**3.90.1 (mới nhất):** màn 📥 gọn: dòng ① + **ma trận file theo tháng là màn chính** (anh chốt: gọn như cũ, vẫn đủ chức năng) + ② **bảng đối chiếu chéo** (chỉ tiêu × nguồn, toàn PGD / từng xã, bấm ô xem chi tiết) + **⬇ tải file gốc** (bản sao để dùng việc khác) + **🧹 tìm file rác của Số liệu**. **Anh chốt: phần Số liệu tách biệt với phần Văn bản, chạy độc lập; dọn rác cũng làm riêng** (Dọn kho chung bỏ qua `Số liệu/`, `_Hệ thống/`).
+
+**3.90:**
 - **Bộ file mỗi tháng (anh chốt):** Ⓐ 7 file chuẩn TW — BCDHTD 01.1, 01.2 · B32 · LEN_31 XAPUONG / DONVIUT / CHTRINH / TO_TRUONG (bắt buộc) · Ⓑ Mẫu 31, Thông tin tổ trưởng (nạp mỗi tháng), KHĐ **mẫu 14** (bắt buộc) · Ⓒ Mẫu 10 theo ngày · Ⓓ phụ: Nợ quá hạn, Nợ khoanh, Tổng dư nợ theo CT (có thì đối chiếu thêm). **Bỏ:** Mẫu 7, Sao kê KH, KHĐ mẫu 08/KTNB. Cấu trúc biểu TW + quy tắc đã kiểm: `docs/DU_LIEU_THANG.md`.
 - **Kỳ:** Mẫu 31 / file TW xuất cuối tháng → ô tháng, giữa tháng → ô theo ngày (app tự đọc ngày trong file). Nạp nhiều file: 1 bộ 1 tháng hay 1 loại nhiều tháng đều được. 🔁 Thay file 1 ô (đúng loại, đúng kỳ), 🗑 xóa cả bộ tháng, ♻ làm mới toàn bộ (chỉ phần Số liệu).
 - **② Kiểm tra** thêm: số chuẩn TW khớp nhau, Mẫu 31 ↔ số chuẩn TW (từng xã, nguồn, từng tổ LEN_31), KHĐ ↔ Mẫu 31, tổ trưởng ↔ LEN_31.
@@ -160,7 +162,7 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 
 | # | Việc | Trạng thái / cần gì |
 |---|---|---|
-| 0 | **Anh thử 3.90** (anh đã xóa tay dữ liệu cũ, sẽ nạp lại 31/12/2025, T8, T9 — nên nạp thêm Mẫu 31 T7 để T8 so được khách mới) | Bảng thử 3.90 trong `BAN_GIAO_VIEC_CON_LAI.md`. **Chờ anh gửi 1 file Mẫu 31 / LEN_31 xuất giữa tháng** để kiểm doanh số trong tháng của bản giữa tháng. Lưu ý còn mở (số thật T9): thu nợ LEN_31 thấp hơn BCDHTD 71.999.298 (12 tổ), 3 món vay mới năm 2026 không có trong KHĐ, 19 tổ có dư nợ chưa có trong Thông tin tổ trưởng — anh kiểm trên hệ thống. |
+| 0 | **Anh thử 3.90** (anh đã xóa tay dữ liệu cũ, sẽ nạp lại 31/12/2025, T8, T9 — nên nạp thêm Mẫu 31 T7 để T8 so được khách mới) | Bảng thử 3.90 trong `BAN_GIAO_VIEC_CON_LAI.md`. **Mẫu 31 chỉ xuất được theo tháng** (anh kiểm) → số theo ngày dùng Mẫu 10. **Chờ anh thử xuất BCDHTD / LEN_31 / B32 theo ngày** (app đã nhận sẵn vào ô theo ngày): kiểm ngày trong file, doanh số lũy kế hay theo ngày, khớp Mẫu 10 cùng ngày → nếu được thì thêm đối chiếu + bảng đối chiếu chéo cho kỳ theo ngày. Lưu ý còn mở (số thật T9): thu nợ LEN_31 thấp hơn BCDHTD 71.999.298 (12 tổ), 3 món vay mới năm 2026 không có trong KHĐ, 19 tổ có dư nợ chưa có trong Thông tin tổ trưởng — anh kiểm trên hệ thống. |
 | 1 | **Anh thử 3.81 → 3.85 trên máy thật** (bảng thử trong `BAN_GIAO_VIEC_CON_LAI.md`) | Chờ anh báo Đạt / Chưa → sửa |
 | 1a | **Anh thử 3.87** (Mẫu 10 tự chuyển sang dòng theo ngày; nạp lại Mẫu 10 31/08 để sửa 105; Mẫu 7; nạp Mẫu 31 T8, T9) | Bảng thử 3.87 trong `BAN_GIAO_VIEC_CON_LAI.md`. **Anh cần nạp Mẫu 31 T8 + T9 vào app** (máy thật mới có Mẫu 10) — cần cho đối chiếu chuẩn và danh sách 2 sổ 105. |
 | 1b | **Anh thử 3.86** (Mẫu 31 T8/T9, tab con Tra cứu KH) | Bảng thử 3.86 trong `BAN_GIAO_VIEC_CON_LAI.md`. Tháng 9 có món XKLĐ đầu tiên — kiểm thẻ khách hàng hiện thông tin XKLĐ (tên cột thật có thể khác file giả → nếu không hiện, xem trường `c_…` trong bảng hstd và sửa `slTheKH`). |

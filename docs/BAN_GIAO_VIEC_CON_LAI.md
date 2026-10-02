@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.90 · build 02/10/2026 18:00
+**Bản hiện tại:** 3.90.1 · build 02/10/2026 21:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.90.1) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở Số liệu (điện thoại + máy tính) | Dòng ① gọn 1 dòng; ma trận mỗi loại 1 dòng, chấm A/B/C/D, không có dòng tiêu đề nhóm, thấy hết các dòng | |
+| 2 | Bấm tên file thiếu ở dòng ① | Mở hộp nạp đúng loại, đúng tháng | |
+| 3 | Kiểm tra tháng 9 | Bảng đối chiếu chéo: xanh / đỏ / vàng; bấm chip từng xã đổi bảng; bấm ô đỏ / vàng ra chi tiết; "✅ n mục đạt" gom 1 dòng; số nhóm liền | |
+| 4 | Bấm Kiểm tra ở tháng chưa nạp file | Báo "chưa có file nào", không chạy | |
+| 5 | Bấm ô ✓ → ⬇ Tải file gốc; dòng ① → ⬇ Tải file gốc cả tháng | Tải về đúng file Excel gốc (tên như lúc nạp); file chỉ còn trên Drive thì cần nối Drive | |
+| 6 | Quản lý dữ liệu Số liệu → 🧹 Tìm file rác | Danh sách (hoặc "không có file rác"), tích → Xóa; văn bản / hồ sơ không bị đụng | |
+
+**Ghi chú kỹ thuật 3.90.1:** `veSoLieu` mới: `slTTHTML(ky)` (dòng ①, thay `slBuocHTML` + `slFileThangHTML` đã bỏ) → ma trận (`.sl-mt-cuon`, tên ngắn `L.ten.split(' · ')[0]`, `.sl-nh`, `slNgan` số ngắn trong ô) → `#sl-kt` (`slKTHTML`) → `details.sl-tq` = tóm tắt chi tiết (`slKyHTML`, chỉ dựng khi mở; `D.cauHinh.slTQ`) → Quản lý dữ liệu. Kiểm tra: tháng không có ô nào thì `slKiemTra` báo và thôi; `SLM.kt[ky].dc = slDCTinh(B, M10)` = {thu, nhan, v[phạm vi][chỉ tiêu][nguồn], tt[…] = [c/k/l/v, ghi]} (chuẩn BCDHTD, tiền gửi LEN_31; cho vay LEN_31 / B32 cộng đảo khoản Mẫu 31; B32 thu nợ = thu nợ − cho vay); `slDCHTML(ky)`, `SL_DC_PV` (phạm vi đang xem), `slDCChi(ky, f, ng)` → mục kiểm tra theo `DC_MUC` (lọc dòng theo xã); `slKTMuc(x, loc, mo)`; mục đạt gom 1 `details`. Tải gốc: `slLayGoc(e)` (IDB `sl_g_…` → Drive `e.goc`), `slTaiGoc`, `slTaiGocThang` (cách nhau 0,7 giây). Rác: `slTimRac` (ô loại `bo` · IDB `sl_b_` / `sl_g_` không có ô hoặc file gốc đã lên Drive · Drive `Số liệu/` + `_Hệ thống/so_lieu/` không phải `e.goc` / `e.dl` / meta.json / khach_hang.json), `slKhoaIDB` (getAllKeys + `khoTam`), `slDSDrive`, `SL_RAC`, `slXoaRac`. Phép thử: `t105.js` thêm bảng đối chiếu, ô đỏ → chi tiết, tháng trống, tải gốc, file rác; `t102.js` đổi chọn phần tử theo màn mới.
 
 ### Danh sách thử trên máy thật (3.90) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
