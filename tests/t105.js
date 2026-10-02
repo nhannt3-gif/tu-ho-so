@@ -125,6 +125,32 @@ const fs=require('fs'), path=require('path');
    toCH().ky = '2026-07'; slDoiTab('to'); for(let i=0;i<80 && !(TO_K && TO_K.ky==='2026-07' && document.getElementById('to-cay'));i++) await w(250);
    const ma = Object.keys(TO_K.to).find(m=>TO_K.to[m].len); toChonTo(ma); await w(300);
    o.theTo = Object.keys(TO_K.to).filter(m=>TO_K.to[m].len).length+'/'+Object.keys(TO_K.to).length+' tổ có LEN_31 · '+Array.from(document.querySelectorAll('.to-kpi div')).map(x=>x.textContent).filter(t=>/LEN/.test(t)).join(' | ');
+   /* 3.91: nhóm ma trận sổ / gọn + chip · chọn tháng chữ Việt · kiểm tra & chốt khóa */
+   slDoiTab('nap'); SL_KY = '2026-07'; D.cauHinh.slMo = {}; veSoLieu(); await w(500);
+   o.nhom = Array.from(document.querySelectorAll('.sl-nh-dong')).map(tr=>tr.cells[0].textContent.trim()+(tr.classList.contains('mo') ? '(sổ)' : '')+': '+Array.from(tr.querySelectorAll('.sl-chipn')).map(x=>x.textContent).filter(t=>t!=='—').join(' ')).join(' / ');
+   slMoNhom('A'); await w(300); o.soA = document.querySelectorAll('.sl-bang tbody tr').length+' dòng khi sổ Ⓐ';
+   o.thangVN = document.querySelector('.sl-thang-ten').textContent+' · ô month: '+document.querySelectorAll('.sl-dau input[type=month]').length;
+   slChonThangHop(2026); await w(200); o.hopThang = document.querySelectorAll('.sl-luoi-thang button').length+' nút tháng'; dongHop();
+   o.buocKT = document.querySelector('.sl-4buoc').textContent;
+   slChotHop('2026-07'); await w(200); const chuaDat = slChot('2026-07') ? 'CHỐT ĐƯỢC KHI CHƯA ĐẠT' : 'chưa Đạt → không chốt';
+   const bbCu = SL_BAT_BUOC; SL_BAT_BUOC = bbCu.filter(k=>k!=='tt' && k!=='khd'); await slKiemTra('2026-07'); veSoLieu(); await w(300);   /* bộ giả T7 chỉ có Mẫu 31 ở nhóm Ⓑ */
+   slChotHop('2026-07'); await w(200); slChotGhi('2026-07'); await w(200); const chuaTich = slChot('2026-07');
+   document.getElementById('sl-da-xem').checked = true; slChotGhi('2026-07'); await w(400);
+   let chan = []; try{ await slGhi(await doc(fBX)); chan.push('ghi: VẪN GHI'); }catch(e){ chan.push('ghi: chặn'); }
+   const nBang = Object.keys(SLM.bang).length; slXoa('bx','2026-07'); slXoaThang('2026-07'); await w(300); chan.push('xóa: '+(Object.keys(SLM.bang).length===nBang ? 'chặn' : 'VẪN XÓA'));
+   o.chot = chuaDat+' · chưa tích → '+chuaTich+' · tích → '+slChot('2026-07')+' · '+chan.join(' · ')+' · ô khóa '+document.querySelectorAll('.sl-o.khoa').length+' · tiêu đề cột 🔒 '+document.querySelectorAll('.sl-bang th.khoa').length;
+   slMoKhoa('2026-07'); await w(300); o.moKhoa = slChot('2026-07')+' · lịch sử: '+!!SLM.chot['2026-07'].chotCu; SL_BAT_BUOC = bbCu;
+   /* 3.91: nợ đến hạn 3 khung + viết tắt CT */
+   slDoiTab('sk'); for(let i=0;i<80 && !document.getElementById('sk-cay');i++) await w(250);
+   const K2 = skCH(); K2.ky = '2026-07'; K2.xa=''; K2.diem=''; K2.hoi=''; K2.to=''; veSaoKe(); for(let i=0;i<80 && !(SK_K && SK_K.ky==='2026-07' && document.getElementById('sk-cay'));i++) await w(250);
+   K2.bc = {dh:true}; skDatNgay('nam'); for(let i=0;i<40 && !document.getElementById('sk-cay');i++) await w(250); await w(400); o.nutNam = K2.tu+'→'+K2.den; skDatNgay('quy'); await w(600); o.nutNam += ' · quý '+K2.tu+'→'+K2.den;
+   K2.tu = '2029-01-01'; K2.den = '2029-03-31';   /* bộ giả: hạn trả năm 2029 */
+   skXem(); await w(1500); const dd = document.getElementById('sk-khung').contentDocument;
+   o.dh = K2.tu+'→'+K2.den+' · '+Array.from(dd.querySelectorAll('.bc-khung-ten')).map(x=>x.textContent.slice(0, 2)+' '+x.textContent.split('— ').pop()).join(' | ')+' · cột: '+Array.from(dd.querySelectorAll('.bc-khung th')).slice(0, 12).map(x=>x.textContent).join(',');
+   K2.den = '2029-04-30'; CT_DUNG = {}; const r2 = skBaoCao('dh'); CT_DUNG = null; o.dhDenT4 = (r2.html.match(/bc-khung-ten">[^<]*/g)||[]).map(x=>x.slice(14,15)+' '+x.split('— ').pop()).join(' | ')+' (hạn HĐ 20/03, GDXA 19/04 → trong kỳ)';
+   o.ctVT = (/bc-ghi">Chương trình: /.test(skHTMLIn(SK_XEM)) ? 'có dòng chú thích' : 'THIẾU chú thích')+' · ô CT: '+((dd.querySelector('.bc-khung tbody tr:not(.nhom):not(.tong) td:nth-child(5)')||{}).textContent||'');
+   o.ctChu = SK_XEM[0].ctChu; const ex = SK_XEM[0].aoa; o.dhExcel = ex[0].length+' cột Excel: '+ex[0].slice(0, 6).join(',');
+   dongHop();
    /* xóa cả bộ tháng 8 · làm mới toàn bộ */
    const truoc = Object.keys(SLM.bang).filter(k=>/\|2026-08/.test(k)).length;
    slXoaThang('2026-08'); for(let i=0;i<40 && Object.keys(SLM.bang).some(k=>/\|2026-08/.test(k));i++) await w(250); await w(500);

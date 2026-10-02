@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.91 — 03/10/2026 10:00 — Nợ đến hạn theo hạn HĐ + kỳ GDXA · kiểm tra & chốt khóa tháng · ma trận nhóm sổ / gọn · viết tắt chương trình
+- **Sao kê nợ đến hạn — tính đúng quy tắc anh chốt:** món chuyển quá hạn ở **kỳ giao dịch xã đầu tiên sau ngày đến hạn** (vd hạn HĐ 22/10, GDXA định kỳ ngày 07 → chuyển QH 07/11). Lấy theo ngày đến hạn hiệu lực (gia hạn nếu có, không thì hợp đồng), chỉ món trong hạn (không QH, không khoanh), chia **3 khung**: ① đã quá hạn HĐ (đến ngày số liệu) mà chưa chuyển QH — tra soát · ② đến hạn, chuyển QH trong kỳ · ③ đến hạn, chuyển QH kỳ sau. Bản trước chỉ lọc theo ngày GDXA nên sót món hạn HĐ trong tháng mà kỳ GDXA sang tháng sau (T10/2026: 48 món). Số thật T9: tháng 10 = 117 món (15 · 54 · 48), đến hết năm = 630 món.
+  - Cột: STT · Mã KH · Họ tên / Số KU · **SĐT** (tô nền nếu trống / không đạt) · CT · **NV** (TW / ĐP) · Dư nợ · **Lãi tồn** · **Số dư 105** (1 lần mỗi khách) · Ngày ĐH (dòng GH nếu gia hạn) · Chuyển QH · Còn GH; chia theo tổ, cộng tổ; đầu báo cáo tóm tắt + bảng theo xã, khoảng > 1 tháng có thêm bảng theo tháng. Excel tách đủ 15 cột.
+  - Nút chọn nhanh **Tháng sau · Đến cuối quý · Đến hết năm** (tính từ tháng sau kỳ số liệu).
+  - In **A4 dọc**; sao kê (để xem) tràn thì app tự thu lề còn 1,5 cm, vẫn tràn thì chữ 8,5 pt (anh chốt).
+- **Kiểm tra & chốt tháng** (chỉ để biết và chốt, không sửa số liệu — anh chốt): khung "Đang kiểm tra: T…" có ‹ › chọn tháng; 4 bước Đủ file → Đã kiểm tra → **Đạt** → **🔒 Đã chốt**. Đạt = đủ 10 file bắt buộc + đã kiểm (còn mục lệch vẫn chốt được, ghi vào biên bản). Chốt: tích "đã xem các mục lệch" → tháng **khóa**: không nạp đè / thay / xóa ô / xóa cả tháng (nạp nhiều file tự bỏ file của tháng chốt); vẫn xem, kiểm lại, tải file gốc, in. **🔓 Mở khóa** có xác nhận, ghi lại lần mở. Trạng thái chốt lên Drive cùng chỉ mục.
+- **Ma trận:** mỗi nhóm Ⓐ Ⓑ Ⓒ Ⓓ 1 dòng đầu bấm **sổ / gọn** (nhớ lựa chọn; mặc định Ⓑ sổ, nhóm khác gọn); thu gọn thì mỗi tháng là **chip** 7/7 ✓ (xanh) / 5/7 (đỏ, rê xem file thiếu), Ⓒ số ngày, Ⓓ số file phụ; tháng chốt có 🔒, ô khóa màu tím.
+- **Chọn tháng bằng chữ Việt** (ô tháng của trình duyệt hiện tiếng Anh): nút ‹ T9/2026 ▾ ›, bấm tên tháng mở lưới 12 tháng theo năm (✓ có file, 🔒 đã chốt); chọn tháng ngoài 6 cột thì ma trận tự dời.
+- **Bố cục:** máy tính (≥ 1100 px) chia **2 cột** — trái: dòng ① + ma trận · phải: kiểm tra & chốt + bảng đối chiếu chéo; điện thoại: **2 khung vuốt ngang**, nút "📋 Ma trận file / 🔍 Kiểm tra & chốt".
+- **Chương trình ghi tên viết tắt thống nhất** (mọi báo cáo): 01 HN · 02 HSSV (riêng Mã Quyết định 43 = HSSVSTEM) · 03 GQVL (mọi món mã 03) · 04 XKLD · 06 NSVSMT · 07 NOHN · 09 MTN · 12 NOXH · 13 SCN · 19 HCN · 26 APT · 99 KHAC; cuối mỗi báo cáo có dòng chú thích các tên viết tắt dùng trong báo cáo (bản in + Excel).
+
 ## 3.90.1 — 02/10/2026 21:00 — Số liệu gọn: ma trận như cũ · bảng đối chiếu chéo · tải file gốc · tìm file rác
 - **Ma trận file theo tháng là màn chính, gọn như trước** (anh chọn phương án a): mỗi loại file 1 dòng (tên ngắn, chấm tròn A/B/C/D = nhóm, tên đủ khi rê chuột), ô chỉ ✓ + số ngắn (dư nợ / số tổ / số ngày), bản giữa tháng "+ n ngày"; bỏ các dòng tiêu đề nhóm; ma trận không còn khung cuộn dọc.
 - **① tình trạng tháng còn 1 dòng:** Ⓐ TW x/7 · Ⓑ chi tiết y/3 · tên file thiếu (bấm để nạp) · tình trạng kiểm tra · ⬇ Tải file gốc cả tháng · 🗑 Xóa cả bộ tháng. Danh sách file tháng dài (3.90) bỏ; tóm tắt chi tiết từng file vẫn còn, thu gọn ở cuối ("📄 Tóm tắt chi tiết các file tháng").
