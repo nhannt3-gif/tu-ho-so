@@ -225,10 +225,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 ### Danh sách thử trên máy thật (3.91.1)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
+| 3 | Tổ TK&VV → 1 tổ → Danh sách hộ vay | Không còn KU đã tất toán; khách tất toán hết vẫn có dòng mã KH + 105 ("không còn món vay") | |
 | 2 | Tra cứu KH → gõ 1 CCCD chưa có | ✅ "Không trùng … **Chưa vay vốn**, có thể nhập máy" | |
 | 1 | Số liệu → Đang kiểm tra: chọn **T10/2026** (chưa nạp file) | Báo "chưa có file Ⓐ / Ⓑ nào — chưa kiểm", không hiện "2 đạt · 1 lệch"; bấm Kiểm tra → báo, không chạy | |
 
-**Ghi chú kỹ thuật 3.91.1:** `slCoFileChinh(ky)` (có file nhóm A / B); `slKTHTML`, `slKiemTra`, `slKTDauHTML` dùng để bỏ qua kết quả cũ của tháng trống (`SLM.kt` cũ vẫn giữ, chỉ ẩn).
+**Ghi chú kỹ thuật 3.91.1:** `toBCDanhSach` lọc món `daTT` (CLOSE hoặc dư nợ 0, không QH, không lãi tồn); khách vẫn giữ dòng. `slCoFileChinh(ky)` (có file nhóm A / B); `slKTHTML`, `slKiemTra`, `slKTDauHTML` dùng để bỏ qua kết quả cũ của tháng trống (`SLM.kt` cũ vẫn giữ, chỉ ẩn).
 
 ### Danh sách thử trên máy thật (3.91) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

@@ -6,7 +6,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ## 3.91.1 — 04/10/2026 09:00 — Sửa kiểm tra tháng trống · chữ "Chưa vay vốn"
 - **Tra cứu KH › kiểm trùng CCCD:** đổi chữ "chưa dây vốn / đang dây vốn" thành **"Chưa vay vốn, có thể nhập máy" / "Trùng — đang vay vốn"** (anh Nhân: "dây vốn" dễ đọc nhầm).
-- Danh sách hộ vay của tổ giữ nguyên: hiện đủ mọi món trong tổ, kể cả món đã tất toán (ghi "(đã TT)") — anh chốt.
+- **Tổ TK&VV › Danh sách hộ vay** (anh chốt): món đã tất toán **bỏ khỏi danh sách món vay** (KU không còn trong tổ); **khách còn trong tổ vẫn hiện mã KH + TK 105** (kể cả 105 = 0), ghi "không còn món vay"; món đã đóng mà còn lãi tồn vẫn hiện, ghi "(đã TT, còn lãi)".
 - **Kiểm tra tháng:** tháng chưa có file nào (vd T10/2026) vẫn hiện kết quả kiểm cũ "Đã kiểm 02/10 07:15 · 2 đạt · 1 lệch" (lưu từ bản trước khi có chặn tháng trống) → nay tháng chưa có file nhóm Ⓐ chuẩn TW / Ⓑ chi tiết thì **không kiểm, ẩn kết quả cũ**, bước 2 "Đã kiểm tra" không sáng; tháng chỉ có file phụ / theo ngày (vd file Nợ đến hạn phân kỳ ngày 01/10) cũng chưa kiểm.
 
 ## 3.91 — 03/10/2026 21:00 — Nợ đến hạn theo hạn HĐ + kỳ GDXA · nợ đến hạn kỳ con (phân kỳ) · kiểm tra & chốt khóa tháng · ma trận nhóm sổ / gọn · viết tắt chương trình

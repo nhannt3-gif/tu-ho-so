@@ -23036,14 +23036,16 @@ function toBCDanhSach(t){
   var ks = toKhach(t), stt = 0, h = '', aoa = [['STT','Mã KH','Họ tên','Số KU','Chương trình','Ngày vay','Dư nợ','Dư nợ QH','Số dư 105','Lãi tồn']], tong = {dn:0, qh:0, t105:0, lt:0, mon:0};
   ks.forEach(function(k){
     stt++; tong.t105 += k.t105; tong.lt += k.lt; tong.dn += k.dn; tong.qh += k.qh;
-    var mon = k.mon.slice().sort(function(a, b){ return (a.ku<b.ku ? -1 : 1); });
-    if(!mon.length){   /* khách trong tổ không có món (chỉ gửi tiết kiệm) */
-      h += '<tr>'+toO(stt,'c')+toO(k.kh)+toO(coChuHTML(k.ten))+toO('<i>không có món vay</i>')+toO('')+toO('')+toO('0','s')+toO('','s')+toO(toSo(k.t105),'s')+toO('','s')+'</tr>';
+    /* 3.91.1 (anh Nhân): món đã tất toán bỏ khỏi danh sách món vay (KU không còn trong tổ); khách còn trong tổ vẫn hiện mã KH + TK 105 (kể cả 105 = 0) */
+    var daTT = function(m){ return (m.ttMon==='CLOSE' || !(m.dn>0)) && !(m.qh>0) && !(laiTon(m)>0); };
+    var mon = k.mon.filter(function(m){ return !daTT(m); }).sort(function(a, b){ return (a.ku<b.ku ? -1 : 1); });
+    if(!mon.length){   /* khách trong tổ không còn món vay (chỉ gửi tiết kiệm / đã tất toán hết) */
+      h += '<tr>'+toO(stt,'c')+toO(k.kh)+toO(coChuHTML(k.ten))+toO('<i>không còn món vay</i>')+toO('')+toO('')+toO('0','s')+toO('','s')+toO(toSo(k.t105),'s')+toO('','s')+'</tr>';
       aoa.push([stt, k.kh, k.ten, '', '', '', 0, 0, k.t105, 0]); return;
     }
     mon.forEach(function(m, i){
       tong.mon++;
-      var tt = m.ttMon==='CLOSE' || (!m.ttMon && !(m.dn>0)) ? ' <small>(đã TT)</small>' : '';   /* anh Nhân: món còn trong tổ hiện hết, kể cả đã tất toán */
+      var tt = m.ttMon==='CLOSE' ? ' <small>(đã TT, còn lãi)</small>' : '';
       h += '<tr>'+toO(i ? '' : stt,'c')+toO(i ? '' : k.kh)+toO(i ? '' : coChuHTML(k.ten))+toO(coChuHTML(m.ku)+tt)+toO(coChuHTML(ctNgan(m.ct, m)))+toO(ngayVNsl(m.nv||m.ngn))+
         toO(toSo(m.dn),'s')+toO(m.qh ? tdnTien(m.qh) : '','s')+toO(i ? '' : toSo(k.t105),'s')+toO(toSo(laiTon(m)),'s')+'</tr>';
       aoa.push([i ? '' : stt, i ? '' : k.kh, i ? '' : k.ten, m.ku, ctNgan(m.ct, m), ngayVNsl(m.nv||m.ngn), m.dn||0, m.qh||0, i ? '' : k.t105, laiTon(m)]);
