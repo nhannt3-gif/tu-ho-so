@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.90.1 · build 02/10/2026 21:00
+**Bản hiện tại:** 3.91 · build 03/10/2026 21:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,24 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.91) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📑 Sao kê → Nợ đến hạn → **Tháng sau** → Xem | 3 khung ① ② ③; T10/2026 (số T9): 117 món = 15 · 54 · 48; cột Mã KH, SĐT, NV, Lãi tồn, Số dư 105; chú thích chương trình cuối trang | |
+| 2 | Nút **Đến hết năm** → Xem | 630 món; có bảng tóm tắt theo tháng + theo xã | |
+| 3 | In / Lưu PDF nợ đến hạn | A4 dọc, không tràn (lề tự thu 1,5 cm nếu cần) | |
+| 3b | Số liệu → nạp file **Nợ đến hạn phân kỳ** → Sao kê → tích **Sao kê nợ đến hạn kỳ con** → Xem / In | 1.910 món (NOXH 19 · trực tiếp 9 · ủy thác mới 1.882); ① 10 món / 102.181.715; ② đến 31/12: 7 món / 81.800.000; ③ gom theo CT; in A4 ngang | |
+| 3c | Sao kê → tích **Danh sách nợ gốc đến hạn phân kỳ theo tổ** · từ 01/10 đến 31/10 | Chia theo tổ, có Hạn nộp 08/TD; kỳ trước chưa trả tô nền | |
+| 3d | Scan: bản tài liệu quét ở điện thoại, mở ở máy tính → đổi tên → ☁ Đồng bộ | Hết "Chưa lên Drive" / "không có trang"; file trên Drive đổi tên theo | |
+| 4 | Số liệu → nút **T9/2026 ▾** | Lưới 12 tháng chữ Việt, ✓ / 🔒 | |
+| 5 | Ma trận: bấm dòng Ⓐ / Ⓒ / Ⓓ | Sổ ra / thu gọn; thu gọn thấy chip 7/7 ✓ | |
+| 6 | Tháng 9 đủ file + đã kiểm → 🔒 Chốt tháng (tích đã xem) | Bước 4 "Đã chốt"; ô tím 🔒; thử thay / xóa / nạp đè → báo đã chốt | |
+| 7 | 🔓 Mở khóa | Có xác nhận; mở xong nạp / thay được | |
+| 8 | Máy tính màn rộng / iPhone | 2 cột / 2 khung vuốt ngang | |
+| 9 | Các báo cáo khác (Tổ, Sao kê, Tổng hợp) | Chương trình ghi GQVL, NSVSMT, HSSVSTEM…; dòng chú thích cuối | |
+
+**Ghi chú kỹ thuật 3.91:** Viết tắt: `CT_VT`, `CT_VT_TEN`, `ctNgan(ma, o)` (o.c_ma_quyet_dinh 43 → HSSVSTEM), `CT_DUNG` gom khi lập từng báo cáo (`toXem` / `skXem` / `thXem`) → `x.ctChu = ctChuThich()` → `bcCT(x)` + dòng Excel. Nợ đến hạn: `skBCDH(rows, lapKH, M, e31, ngay)` (`skHL` = ĐH gia hạn || HĐ, `skNhomDH(o, tu, den, ns)`: 1 = hl ≤ ns < gd ≥ tu · 2 = hl trong kỳ và (gd ≤ den hoặc chưa có gd) · 3 = hl trong kỳ, gd > den; `skConGH`), `skDatNgay('thang'|'quy'|'nam')`; `skBang` nhận ô `{h, lop}` (HTML tự dựng); in sao kê `SK_IN_TU` (đo `.trang` rộng 160 mm → 180 mm + `@page{margin:15mm}` → chữ 8,5 pt). Chốt: `SLM.chot[tháng]` = {khoa, luc, may, ban, dem, dau, lech[], truoc} / mở khóa {khoa:false, moLuc, chotCu}; gộp Drive theo `luc`; `slChot(ky)`, `slDatChot`, `slKTDauHTML`, `slChotHop`, `slChotGhi`, `slMoKhoaHop`, `slMoKhoa`, `slKhoaBao`; chặn ở `slGhi` (reject), `slXoa`, `slXoaThang`, `slThayO`, `slNapMot`, `slDoiNgay`, `slTrangThai`, `slGhiDaTich`, `slMoO`, `slOMT` (ô `.khoa`); `slLamMoi` xóa cả `SLM.chot`. Ma trận: `slNhomMo` / `slMoNhom` (`D.cauHinh.slMo`), `slChipNhom(N, dsL, k)`. Tháng: `slChonThangHop(nam)`, `slChonThang` dời `SL_LECH`. Bố cục: `.sl-hai` (2 cột ≥ 1100 px, vuốt < 900 px), `slKhung(i)`, `slKhungCuon`. Phân kỳ: loại `pk` (nhóm D, `ngay:true`, trường `pkNgay/pkTien/pkDa/pkCon/pkTK/pkTong`, bí danh viết liền `soku/makh/tenkh/sodt/ngaybc`); `skPKNap(ns)` → `SK_PK` {ky, ngay, han, theoKU} (skXem chờ nạp khi tích noxh / pkto); `SK_PK_MOC` = 2026-03-01; `skPKLoai` (noxh · tt · moi; HSSV STEM = CT 02 + QĐ 43 loại ra), `skKhongCQH`, `skPKGhi`, `skNOXHChua` (đã trả = max(Gốc đã trả, GN − DN)), `skPKLich(o, ns, tu)` (P = 6 NOXH / 12 trực tiếp / 0 ủy thác mới → chỉ kỳ đầu), `skPKKy` (toiTien null = cần file), `skHan08` (lùi 3 ngày làm việc), `skPKTinh`, `skBCNOXH` (③ > 40 món gom theo CT), `skBCPKTo` (theo tổ, dùng `skBang`); chip nhóm Ⓓ đếm cả loại theo ngày. Scan: `dayMotScan` dựng PDF lỗi mà có driveId → `dayMetaScan`; `scanCanDay` / `dayScanNhieu` nhận bản chỉ có driveId. In ngang: báo cáo trả `ngang:true` → `.trang.ngang` + `SK_IN_NGANG` (`@page ngang{size:A4 landscape}`). Phép thử `t105.js` thêm phần 3.91.
 
 ### Danh sách thử trên máy thật (3.90.1) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

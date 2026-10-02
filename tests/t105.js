@@ -125,6 +125,45 @@ const fs=require('fs'), path=require('path');
    toCH().ky = '2026-07'; slDoiTab('to'); for(let i=0;i<80 && !(TO_K && TO_K.ky==='2026-07' && document.getElementById('to-cay'));i++) await w(250);
    const ma = Object.keys(TO_K.to).find(m=>TO_K.to[m].len); toChonTo(ma); await w(300);
    o.theTo = Object.keys(TO_K.to).filter(m=>TO_K.to[m].len).length+'/'+Object.keys(TO_K.to).length+' tổ có LEN_31 · '+Array.from(document.querySelectorAll('.to-kpi div')).map(x=>x.textContent).filter(t=>/LEN/.test(t)).join(' | ');
+   /* 3.91: nhóm ma trận sổ / gọn + chip · chọn tháng chữ Việt · kiểm tra & chốt khóa */
+   slDoiTab('nap'); SL_KY = '2026-07'; D.cauHinh.slMo = {}; veSoLieu(); await w(500);
+   o.nhom = Array.from(document.querySelectorAll('.sl-nh-dong')).map(tr=>tr.cells[0].textContent.trim()+(tr.classList.contains('mo') ? '(sổ)' : '')+': '+Array.from(tr.querySelectorAll('.sl-chipn')).map(x=>x.textContent).filter(t=>t!=='—').join(' ')).join(' / ');
+   slMoNhom('A'); await w(300); o.soA = document.querySelectorAll('.sl-bang tbody tr').length+' dòng khi sổ Ⓐ';
+   o.thangVN = document.querySelector('.sl-thang-ten').textContent+' · ô month: '+document.querySelectorAll('.sl-dau input[type=month]').length;
+   slChonThangHop(2026); await w(200); o.hopThang = document.querySelectorAll('.sl-luoi-thang button').length+' nút tháng'; dongHop();
+   o.buocKT = document.querySelector('.sl-4buoc').textContent;
+   slChotHop('2026-07'); await w(200); const chuaDat = slChot('2026-07') ? 'CHỐT ĐƯỢC KHI CHƯA ĐẠT' : 'chưa Đạt → không chốt';
+   const bbCu = SL_BAT_BUOC; SL_BAT_BUOC = bbCu.filter(k=>k!=='tt' && k!=='khd'); await slKiemTra('2026-07'); veSoLieu(); await w(300);   /* bộ giả T7 chỉ có Mẫu 31 ở nhóm Ⓑ */
+   slChotHop('2026-07'); await w(200); slChotGhi('2026-07'); await w(200); const chuaTich = slChot('2026-07');
+   document.getElementById('sl-da-xem').checked = true; slChotGhi('2026-07'); await w(400);
+   let chan = []; try{ await slGhi(await doc(fBX)); chan.push('ghi: VẪN GHI'); }catch(e){ chan.push('ghi: chặn'); }
+   const nBang = Object.keys(SLM.bang).length; slXoa('bx','2026-07'); slXoaThang('2026-07'); await w(300); chan.push('xóa: '+(Object.keys(SLM.bang).length===nBang ? 'chặn' : 'VẪN XÓA'));
+   o.chot = chuaDat+' · chưa tích → '+chuaTich+' · tích → '+slChot('2026-07')+' · '+chan.join(' · ')+' · ô khóa '+document.querySelectorAll('.sl-o.khoa').length+' · tiêu đề cột 🔒 '+document.querySelectorAll('.sl-bang th.khoa').length;
+   slMoKhoa('2026-07'); await w(300); o.moKhoa = slChot('2026-07')+' · lịch sử: '+!!SLM.chot['2026-07'].chotCu; SL_BAT_BUOC = bbCu;
+   /* 3.91: nợ đến hạn 3 khung + viết tắt CT */
+   slDoiTab('sk'); for(let i=0;i<80 && !document.getElementById('sk-cay');i++) await w(250);
+   const K2 = skCH(); K2.ky = '2026-07'; K2.xa=''; K2.diem=''; K2.hoi=''; K2.to=''; veSaoKe(); for(let i=0;i<80 && !(SK_K && SK_K.ky==='2026-07' && document.getElementById('sk-cay'));i++) await w(250);
+   K2.bc = {dh:true}; skDatNgay('nam'); for(let i=0;i<40 && !document.getElementById('sk-cay');i++) await w(250); await w(400); o.nutNam = K2.tu+'→'+K2.den; skDatNgay('quy'); await w(600); o.nutNam += ' · quý '+K2.tu+'→'+K2.den;
+   K2.tu = '2029-01-01'; K2.den = '2029-03-31';   /* bộ giả: hạn trả năm 2029 */
+   skXem(); await w(1500); const dd = document.getElementById('sk-khung').contentDocument;
+   o.dh = K2.tu+'→'+K2.den+' · '+Array.from(dd.querySelectorAll('.bc-khung-ten')).map(x=>x.textContent.slice(0, 2)+' '+x.textContent.split('— ').pop()).join(' | ')+' · cột: '+Array.from(dd.querySelectorAll('.bc-khung th')).slice(0, 12).map(x=>x.textContent).join(',');
+   K2.den = '2029-04-30'; CT_DUNG = {}; const r2 = skBaoCao('dh'); CT_DUNG = null; o.dhDenT4 = (r2.html.match(/bc-khung-ten">[^<]*/g)||[]).map(x=>x.slice(14,15)+' '+x.split('— ').pop()).join(' | ')+' (hạn HĐ 20/03, GDXA 19/04 → trong kỳ)';
+   o.ctVT = (/bc-ghi">Chương trình: /.test(skHTMLIn(SK_XEM)) ? 'có dòng chú thích' : 'THIẾU chú thích')+' · ô CT: '+((dd.querySelector('.bc-khung tbody tr:not(.nhom):not(.tong) td:nth-child(5)')||{}).textContent||'');
+   o.ctChu = SK_XEM[0].ctChu; const ex = SK_XEM[0].aoa; o.dhExcel = ex[0].length+' cột Excel: '+ex[0].slice(0, 6).join(',');
+   dongHop();
+   /* 3.91: sao kê nợ đến hạn kỳ con (phân kỳ) — sửa tạm 2 món giả thành CT 12 + 1 món cho vay trực tiếp (không tổ); nạp file phân kỳ giả */
+   const mv = SK_K.B.co.hstd.filter(x=>x.ku && x.dn>0 && x.to).slice(0, 3);
+   mv.forEach((x, i)=>{ x.ct = i<2 ? '12' : '03'; if(i===2) x.to=''; x.c_goc_den_han_lk = i ? 20000000 : 10000000; x.c_goc_da_tra = i===1 ? 15000000 : (i ? 20000000 : 10000000); x.c_tong_chuyen_no_qh = i===1 ? 3000000 : 0; x.c_ngay_b_dau_tra_goc = '07/01/2027'; });
+   const ns31 = SLM.bang[slKhoa('hstd', SK_K.thang)].ngay;
+   K2.bc = {noxh:true}; K2.den = '2027-12-31'; SK_PK = null; skXem(); await w(1500); let dn = document.getElementById('sk-khung').contentDocument;
+   o.noxh = SK_XEM[0].tieuDe.slice(0, 30)+' · '+Array.from(dn.querySelectorAll('.bc-khung-ten')).map(x=>x.textContent.slice(0,1)+' '+x.textContent.split('— ').pop()).join(' | ')+' · ngang '+!!dn.querySelector('.trang.ngang')+' · Excel '+SK_XEM[0].aoa[0].length+' cột · ước tính ≈ '+(dn.body.textContent.match(/≈/g)||[]).length+' · chú thích NOXH '+/NOXH = /.test(SK_XEM[0].ctChu||'');
+   dongHop();
+   const pkF = tep([['NGAYBC','SOKU','MAKH','TENKH','CTVT','DUNO','TDUNO','NGAYDENHAN','GOCDTRA','NODENHAN'],
+     ['01/08/2026', mv[0].ku, mv[0].kh, 'Khach gia', 'CVNHA100', 4000000, mv[0].dn, '15/10/2026', '0', 4000000]], 'No_den_han_phan_ky_den_31-12-2026.xlsx');
+   const kpk = await doc(pkF); o.pkDoc = kpk.loai+' · kỳ '+kpk.ky+' · '+(kpk.rows||[]).length+' dòng'; if(!kpk.loi) await slGhi(kpk); await w(300);
+   skXem(); await w(1500); dn = document.getElementById('sk-khung').contentDocument;
+   o.pkCo = (SK_PK ? 'file '+SK_PK.ky+' hạn '+SK_PK.han : 'KHÔNG NẠP ĐƯỢC FILE')+' · kỳ tới món 1: '+(skPKKy(mv[0], ns31).toiNgay+' '+skPKKy(mv[0], ns31).toiTien)+' · ① '+(dn.querySelector('.bc-khung-ten')||{}).textContent;
+   dongHop();
    /* xóa cả bộ tháng 8 · làm mới toàn bộ */
    const truoc = Object.keys(SLM.bang).filter(k=>/\|2026-08/.test(k)).length;
    slXoaThang('2026-08'); for(let i=0;i<40 && Object.keys(SLM.bang).some(k=>/\|2026-08/.test(k));i++) await w(250); await w(500);
@@ -132,6 +171,13 @@ const fs=require('fs'), path=require('path');
    const vb = (D.vanBan||[]).length;
    slLamMoi(); await w(200); document.getElementById('sl-lm').value = 'xoa'; slLamMoiGhi(); for(let i=0;i<40 && Object.keys(SLM.bang).length;i++) await w(250); await w(500);
    o.lamMoi = Object.keys(SLM.bang).length+' ô · danh bạ '+Object.keys(SL_DB.kh).length+' KH · kiểm tra '+Object.keys(SLM.kt).length+' · văn bản giữ '+(D.vanBan||[]).length+'/'+vb+' · màn hình: '+(document.querySelector('#tr7 .rong')||{}).textContent.slice(0, 40);
+   /* 3.91: bản scan chỉ có PDF trên Drive (quét ở máy khác) đổi tên → vẫn vào hàng đẩy, chỉ đổi tên / dời (không dựng lại PDF) */
+   { const k = {id:'scgia1', che:'tailieu', ten:'Khach gia Hdtd', trang:[], driveId:'drgia1', driveCha:'chagia', canDay:true, xa:'x', diem:'d', ap:'a', to:'t'};
+     D.scan = (D.scan||[]).concat([k]); const goc = {g:window.goiDrive, b:window.baoDamDuong}; let goi = '';
+     window.baoDamDuong = () => Promise.resolve('chagia2'); window.goiDrive = (u, opt) => { goi += opt.method+' '+(/upload/.test(u) ? 'UPLOAD' : 'META')+' '; return Promise.resolve({id:'drgia1'}); };
+     const trongHang = scanCanDay().indexOf(k)>=0; let kq = ''; try{ await dayMotScan(k); kq = 'ok'; }catch(e){ kq = 'LỖI '+e.message; }
+     window.goiDrive = goc.g; window.baoDamDuong = goc.b; D.scan = D.scan.filter(x=>x!==k);
+     o.scanDoiTen = 'vào hàng đẩy '+trongHang+' · '+kq+' · gọi Drive: '+goi.trim()+' · còn canDay '+!!k.canDay+' · trạng thái '+(ttScan(k).dat ? 'Đạt' : ttScan(k).thieu.join(',')); }
    return o; }, files);
  for(const k in r) console.log(k.padEnd(9), r[k]);
  await p.setViewportSize({width:390, height:844});
