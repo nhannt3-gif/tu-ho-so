@@ -171,6 +171,13 @@ const fs=require('fs'), path=require('path');
    const vb = (D.vanBan||[]).length;
    slLamMoi(); await w(200); document.getElementById('sl-lm').value = 'xoa'; slLamMoiGhi(); for(let i=0;i<40 && Object.keys(SLM.bang).length;i++) await w(250); await w(500);
    o.lamMoi = Object.keys(SLM.bang).length+' ô · danh bạ '+Object.keys(SL_DB.kh).length+' KH · kiểm tra '+Object.keys(SLM.kt).length+' · văn bản giữ '+(D.vanBan||[]).length+'/'+vb+' · màn hình: '+(document.querySelector('#tr7 .rong')||{}).textContent.slice(0, 40);
+   /* 3.91: bản scan chỉ có PDF trên Drive (quét ở máy khác) đổi tên → vẫn vào hàng đẩy, chỉ đổi tên / dời (không dựng lại PDF) */
+   { const k = {id:'scgia1', che:'tailieu', ten:'Khach gia Hdtd', trang:[], driveId:'drgia1', driveCha:'chagia', canDay:true, xa:'x', diem:'d', ap:'a', to:'t'};
+     D.scan = (D.scan||[]).concat([k]); const goc = {g:window.goiDrive, b:window.baoDamDuong}; let goi = '';
+     window.baoDamDuong = () => Promise.resolve('chagia2'); window.goiDrive = (u, opt) => { goi += opt.method+' '+(/upload/.test(u) ? 'UPLOAD' : 'META')+' '; return Promise.resolve({id:'drgia1'}); };
+     const trongHang = scanCanDay().indexOf(k)>=0; let kq = ''; try{ await dayMotScan(k); kq = 'ok'; }catch(e){ kq = 'LỖI '+e.message; }
+     window.goiDrive = goc.g; window.baoDamDuong = goc.b; D.scan = D.scan.filter(x=>x!==k);
+     o.scanDoiTen = 'vào hàng đẩy '+trongHang+' · '+kq+' · gọi Drive: '+goi.trim()+' · còn canDay '+!!k.canDay+' · trạng thái '+(ttScan(k).dat ? 'Đạt' : ttScan(k).thieu.join(',')); }
    return o; }, files);
  for(const k in r) console.log(k.padEnd(9), r[k]);
  await p.setViewportSize({width:390, height:844});
