@@ -36,6 +36,7 @@ Anh chốt: **số chính thức của TW, chuẩn nhất**. File dạng **biể
 | Món vay 3 tháng KHĐ | khd | 14. Sao kê món vay N tháng không hoạt động (DL Tháng) | Số khế ước, Ngày giao dịch gần nhất | Tình trạng món vay | Số khế ước | tên file |
 | Nợ quá hạn | nqh | 2. SAO KÊ DANH SÁCH NỢ QUÁ HẠN | Số khế ước, Dư nợ quá hạn, (Ngày chuyển quá hạn hoặc Chuyển QH trong tháng) | Ngày giao dịch gần nhất | Số khế ước | cột Ngày báo cáo |
 | Nợ khoanh | nk | 13. Danh sách nợ khoanh (DL Tháng) | Số khế ước, Dư nợ khoanh, Ngày hết hạn khoanh | Ngày giao dịch gần nhất | Số khế ước | tên file |
+| **Nợ đến hạn phân kỳ (từ 3.91, phụ, theo NGÀY)** | pk | Nợ đến hạn NOXH phân kỳ đến dd-mm-yyyy (32 cột, tên cột viết liền) — mỗi dòng 1 kỳ gốc chưa trả xong | SOKU, NGAYDENHAN, NODENHAN | | Số KU (1 món có thể nhiều dòng = nhiều kỳ) | cột NGAYBC |
 | Tổng dư nợ theo CT | tdn | 1. TỔNG DƯ NỢ THEO CHƯƠNG TRÌNH | Chương trình, Tổng dư nợ, Số KH, Mã thôn | Mã món vay, Số khế ước, Mã khách hàng | Mã thôn (8 số) | cột Ngày báo cáo |
 | Thông tin tổ trưởng | tt | 12. THÔNG TIN TỔ TRƯỞNG | Mã tổ trưởng, Tên tổ trưởng | | Mã tổ (7 số) | tên file |
 
@@ -87,6 +88,12 @@ Lệch thì app **báo, chỉ ra nguyên nhân / dòng lệch, không sửa dữ
 - **Đến hạn:** Ngày ĐH theo hợp đồng / theo gia hạn / theo GDXA (anh chốt lọc theo GDXA — căn cứ chuyển quá hạn). Món OPEN đến hạn trong T8/2026: HĐ 19 · gia hạn 28 · GDXA 35. Không có lịch trả gốc từng kỳ (chỉ "Gốc đến hạn LK") → sao kê là món **đáo hạn**.
 - **Gia hạn:** "Thời hạn vay" chỉ ghi Ngắn / Trung / Dài hạn. Các cột Số lần đã gia hạn, Số tháng đã GH, Tổng gia hạn nợ, ngày ĐH gia hạn **không luôn khớp nhau** (vd 0 lần nhưng ĐH gia hạn dài hơn HĐ 29 tháng; 245 món có tiền gia hạn nhưng 113 món có số lần > 0) → app ghi ⚠ khi lệch. **Anh chốt:** thời hạn cho vay = ngày vay → ngày đến hạn đầu tiên (ĐH hợp đồng); gia hạn tối đa ½ thời hạn; đã gia hạn thì còn = ½ thời hạn − (ĐH gia hạn − ĐH hợp đồng).
 - **Phát sinh tháng:** Giải ngân trong tháng (T7: 134 món, 6.682.000.000; ngày lấy cột "Ngày GN cuối cùng"), 2.059 món có thay đổi dư nợ, 5 KH giải ngân chưa có sổ 105.
+
+## Món vay trả gốc phân kỳ — nợ đến hạn kỳ con (kiểm 30/09/2026 + file phân kỳ 01/10/2026, bản 3.91)
+- Gồm **cho vay nhà ở xã hội (CT 12)** và **cho vay trực tiếp** = món **không có mã tổ** (anh Nhân: GQVL do Hội người mù quản lý, XKLD). Mẫu 31 cột "Hình thức vay" = 1 ở các món này; NOXH = 3 (vẫn gắn tổ / ĐVUT).
+- **Kỳ đã đến hạn chưa trả = Gốc đến hạn LK − Gốc đã trả** (Mẫu 31) — khớp đúng cột NODENHAN file phân kỳ (7 món GQVL trực tiếp đến hạn 15–25/05/2026 còn 59.681.715, Mẫu 31 vẫn ghi trong hạn). Ở món trả 1 lần qua tổ cột này không mang nghĩa kỳ (14.594 món LK > đã trả) → chỉ dùng cho món phân kỳ.
+- File phân kỳ: DUNO = gốc phải trả của kỳ · GOCDTRA = đã trả của kỳ · NODENHAN = DUNO − GOCDTRA · NGAYDENHAN = ngày kỳ (theo ngày GDXA) · TDUNO = tổng dư nợ · SODUTK = số dư TK. Món không có trong file = không có kỳ đến hạn tới ngày ghi ở tên file.
+- Nội suy khi không có file: **NOXH 6 tháng/kỳ, trực tiếp 12 tháng/kỳ** từ Ngày bắt đầu trả gốc, ngày = ngày GDXA → **ngày kỳ khớp 14/14** dòng file. Số tiền kỳ = (dư nợ − kỳ chưa trả) ÷ số kỳ còn lại, tròn xuống 100.000 → **khớp 4/7 món NOXH** (3 món lệch do lịch riêng / trả trước). Không có file thì 4 món NOXH trả trước bị ước tính có kỳ T10–T12 (106,4 tr thay vì 81,8 tr) → **nên nạp file phân kỳ**.
 
 ## Lưu trữ
 - Máy: IndexedDB `sl_b_<loại>_<kỳ>` (dạng theo cột; kỳ theo ngày vd `sl_b_m10_2026-08-31`; dòng lặp khế ước ở `b.lap`), `sl_meta`, `sl_danhba`.

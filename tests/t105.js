@@ -151,11 +151,18 @@ const fs=require('fs'), path=require('path');
    o.ctVT = (/bc-ghi">Chương trình: /.test(skHTMLIn(SK_XEM)) ? 'có dòng chú thích' : 'THIẾU chú thích')+' · ô CT: '+((dd.querySelector('.bc-khung tbody tr:not(.nhom):not(.tong) td:nth-child(5)')||{}).textContent||'');
    o.ctChu = SK_XEM[0].ctChu; const ex = SK_XEM[0].aoa; o.dhExcel = ex[0].length+' cột Excel: '+ex[0].slice(0, 6).join(',');
    dongHop();
-   /* 3.91: sao kê NOXH — sửa tạm 2 món giả trong bộ nhớ thành CT 12 (1 món gốc ĐH chưa trả 5 tr) */
-   const mv = SK_K.B.co.hstd.filter(x=>x.ku && x.dn>0).slice(0, 2);
-   mv.forEach((x, i)=>{ x.ct='12'; x.c_goc_den_han_lk = i ? 20000000 : 10000000; x.c_goc_da_tra = i ? 15000000 : 10000000; x.c_tong_chuyen_no_qh = i ? 3000000 : 0; x.c_ngay_b_dau_tra_goc='07/10/2026'; });
-   K2.bc = {noxh:true}; skXem(); await w(1200); const dn = document.getElementById('sk-khung').contentDocument;
-   o.noxh = SK_XEM[0].tieuDe+' · '+dn.querySelectorAll('tbody tr:not(.tong)').length+' món · tô nền '+dn.querySelectorAll('tr.nb').length+' · ngang '+!!dn.querySelector('.trang.ngang')+' · Excel '+SK_XEM[0].aoa[0].length+' cột · '+(dn.querySelector('.bc-tom').textContent.match(/gốc đến hạn chưa trả [\d.]+/)||[''])[0]+' · chú thích NOXH '+/NOXH = /.test(SK_XEM[0].ctChu||'');
+   /* 3.91: sao kê nợ đến hạn kỳ con (phân kỳ) — sửa tạm 2 món giả thành CT 12 + 1 món cho vay trực tiếp (không tổ); nạp file phân kỳ giả */
+   const mv = SK_K.B.co.hstd.filter(x=>x.ku && x.dn>0 && x.to).slice(0, 3);
+   mv.forEach((x, i)=>{ x.ct = i<2 ? '12' : '03'; if(i===2) x.to=''; x.c_goc_den_han_lk = i ? 20000000 : 10000000; x.c_goc_da_tra = i===1 ? 15000000 : (i ? 20000000 : 10000000); x.c_tong_chuyen_no_qh = i===1 ? 3000000 : 0; x.c_ngay_b_dau_tra_goc = '07/01/2027'; });
+   const ns31 = SLM.bang[slKhoa('hstd', SK_K.thang)].ngay;
+   K2.bc = {noxh:true}; K2.den = '2027-12-31'; SK_PK = null; skXem(); await w(1500); let dn = document.getElementById('sk-khung').contentDocument;
+   o.noxh = SK_XEM[0].tieuDe.slice(0, 30)+' · '+Array.from(dn.querySelectorAll('.bc-khung-ten')).map(x=>x.textContent.slice(0,1)+' '+x.textContent.split('— ').pop()).join(' | ')+' · ngang '+!!dn.querySelector('.trang.ngang')+' · Excel '+SK_XEM[0].aoa[0].length+' cột · ước tính ≈ '+(dn.body.textContent.match(/≈/g)||[]).length+' · chú thích NOXH '+/NOXH = /.test(SK_XEM[0].ctChu||'');
+   dongHop();
+   const pkF = tep([['NGAYBC','SOKU','MAKH','TENKH','CTVT','DUNO','TDUNO','NGAYDENHAN','GOCDTRA','NODENHAN'],
+     ['01/08/2026', mv[0].ku, mv[0].kh, 'Khach gia', 'CVNHA100', 4000000, mv[0].dn, '15/10/2026', '0', 4000000]], 'No_den_han_phan_ky_den_31-12-2026.xlsx');
+   const kpk = await doc(pkF); o.pkDoc = kpk.loai+' · kỳ '+kpk.ky+' · '+(kpk.rows||[]).length+' dòng'; if(!kpk.loi) await slGhi(kpk); await w(300);
+   skXem(); await w(1500); dn = document.getElementById('sk-khung').contentDocument;
+   o.pkCo = (SK_PK ? 'file '+SK_PK.ky+' hạn '+SK_PK.han : 'KHÔNG NẠP ĐƯỢC FILE')+' · kỳ tới món 1: '+(skPKKy(mv[0], ns31).toiNgay+' '+skPKKy(mv[0], ns31).toiTien)+' · ① '+(dn.querySelector('.bc-khung-ten')||{}).textContent;
    dongHop();
    /* xóa cả bộ tháng 8 · làm mới toàn bộ */
    const truoc = Object.keys(SLM.bang).filter(k=>/\|2026-08/.test(k)).length;
