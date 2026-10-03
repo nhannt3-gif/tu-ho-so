@@ -2170,6 +2170,10 @@
   @media(max-width:600px){ #kt-cay .to-cap{grid-template-columns:84px 1fr} #kt-cay .to-cap .to-chips{grid-column:1/-1} }
   .kt-kb{display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;margin:5px 0;font-size:calc(13px*var(--co))}
   .kt-kb input{font:inherit;padding:4px 8px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu);width:100%;box-sizing:border-box}
+  #tr7 .kt-nap{margin:6px 0}#tr7 .kt-nap>summary b.xanh{color:#2c7a46}#tr7 .kt-nap>summary b.do{color:#c0392b}#tr7 .kt-nap>summary b.vang{color:#a86f00}
+  #tr7 .kt-nap .hang-nut button{flex:0 0 auto;width:auto;min-height:30px;padding:3px 12px}.kt-kt{margin-top:6px}#tr7 .kt-nap .hang-nut{align-items:center;gap:8px}
+  .kt-muc{border:1px solid var(--vien);border-radius:8px;margin:4px 0;padding:3px 8px;background:var(--the)}.kt-muc>summary{cursor:pointer;font-size:calc(12.5px*var(--co))}.kt-muc>summary small{color:var(--chu-phu)}
+  .kt-muc.c>summary b{color:#2c7a46}.kt-muc.k{border-color:#e39a8f}.kt-muc.k>summary b{color:#c0392b}.kt-muc.v{border-color:#e0b84a}.kt-muc.v>summary b{color:#a86f00}.kt-muc .to-bang-cuon{margin:4px 0;max-height:320px;overflow:auto}
   .kt-kq div{padding:3px 0;font-size:calc(13px*var(--co))}.kt-kq .xanh{color:#2c7a46}.kt-kq .do{color:#c0392b}
   /* ===== 3.92 — Tra cứu KH 2 cột (≥ 900 px): trái tìm + danh sách gọn, phải chi tiết ===== */
   .tc-2cot{display:block}
@@ -12420,9 +12424,9 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.93', ds:[
-  ['🛡 Số liệu có tab con mới KTGS Hội: nạp BC0437 (tổ TK&VV do HĐT quản lý) + BC0438 (ủy thác theo xã · hội) ngay trong tab; xếp loại tổ tự tính theo công thức của file khi cột Xếp loại = 0; bảng các tổ có điểm, xếp loại, ngày kiểm tra gần nhất', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
+  ['🛡 Số liệu có tab con mới KTGS Hội: nạp BC0437 (tổ TK&VV do HĐT quản lý) + BC0438 (ủy thác theo xã · hội) theo chuẩn tab Nạp — ma trận loại × tháng, nạp nhiều file (xem trước → ghi nhận), 🔍 kiểm tra BC0437 ↔ BC0438 ↔ Mẫu 31 ↔ KHĐ; xếp loại tổ tự tính theo công thức của file khi cột = 0; bảng các tổ có điểm, xếp loại', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🧾 Chọn hộ kiểm tra đột xuất (Mẫu 06): gợi ý 6–8 hộ theo số tổ viên · Hộ tốt / Cần quan tâm / Trung hòa (6 tốt + 2 KHĐ) · bỏ hộ quá hạn, khoanh · có HSSV thì ≥ 1 món · món giải ngân dưới 30 ngày tự vào · tích thêm / bỏ được, có lý do từng hộ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📄 Mẫu 06/TD Phiếu kiểm tra sử dụng vốn vay + Mẫu 16/TD Biên bản kiểm tra tổ: Word đúng 100% khuôn mẫu gốc (chỉ điền số liệu có sẵn, thiếu thì giữ dòng chấm; ngày + đoàn khai khi in), In / PDF cùng bố cục, sang trang lặp tiêu đề bảng', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
+  ['📄 Mẫu 06/TD Phiếu kiểm tra sử dụng vốn vay + Mẫu 16/TD Biên bản kiểm tra tổ: Word đúng 100% khuôn mẫu gốc (chỉ điền số liệu có sẵn, thiếu thì giữ dòng chấm; ngày + đoàn khai khi in; cột Mục đích chọn Để trống / In ngành kinh tế rút gọn), In / PDF cùng bố cục, sang trang lặp tiêu đề bảng', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📑 Sao kê bố cục mới: chọn 1 báo cáo (2 cột theo nhóm), thanh trên có Khổ Ngang / Dọc + 👁 Xem; in mỗi món 1 dòng, dọc bỏ Số KU, tràn thì bỏ SĐT rồi co chữ', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
   ['👥 Tổ TK&VV: chọn tổ hiện ngay toàn bộ tổ viên (Mã KH, dư nợ, 105, số TK 105, CCCD còn / hết hạn) + nút lọc Đề xuất cho ra · Không dư nợ còn 105…; chưa chọn tổ thì ra bảng các tổ (tổ viên, mới vào, cho ra, KQGD tháng)', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🏷 Vay trực tiếp (không qua tổ) nằm đúng xã / điểm GD, hội “Trực tiếp”; bỏ chip xã giả', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
@@ -21777,7 +21781,7 @@ var SLM = {bang:{}, xoa:{}, ndt:{}, kt:{}, chot:{}, dbLuc:'', suaLuc:''};
 var SL_SAN = false, SL_DB = null, SL_TIM = [], SL_BO = {}, SL_KY = '', SL_LECH = 0;
 function slKhoa(loai, ky){ return loai+'|'+ky; }
 function slIDB(loai, ky){ return 'sl_b_'+loai+'_'+ky; }
-function slChuanMeta(j){ j = j||{}; return {bang:j.bang||{}, xoa:j.xoa||{}, ndt:j.ndt||{}, kt:j.kt||{}, chot:j.chot||{}, dbLuc:j.dbLuc||'', suaLuc:j.suaLuc||''}; }   /* 3.91: chot = chốt / mở khóa theo tháng */   /* 3.88: kt = kết quả kiểm tra theo tháng */
+function slChuanMeta(j){ j = j||{}; return {bang:j.bang||{}, xoa:j.xoa||{}, ndt:j.ndt||{}, kt:j.kt||{}, ktg:j.ktg||{}, chot:j.chot||{}, dbLuc:j.dbLuc||'', suaLuc:j.suaLuc||''}; }   /* 3.91: chot = chốt / mở khóa theo tháng */   /* 3.88: kt = kết quả kiểm tra theo tháng */
 function slNap(){
   return docFile('sl_meta').then(function(s){
     if(s){ try{ SLM = slChuanMeta(typeof s==='string' ? JSON.parse(s) : s); }catch(e){ console.warn('sl_meta hỏng', e); } }
@@ -22017,6 +22021,7 @@ function slGopMeta(r){
   Object.keys(SLM.xoa).forEach(function(k){ var a = SLM.bang[k]; if(a && (a.luc||'') < SLM.xoa[k]){ delete SLM.bang[k]; xoaFile(slIDB(a.loai, a.ky)); doi++; } });
   Object.keys(r.ndt).forEach(function(k){ if(!SLM.ndt[k]) SLM.ndt[k] = r.ndt[k]; });
   Object.keys(r.kt).forEach(function(k){ if(!SLM.kt[k] || (r.kt[k].luc||'') > (SLM.kt[k].luc||'')){ SLM.kt[k] = r.kt[k]; doi++; } });
+  SLM.ktg = SLM.ktg || {}; Object.keys(r.ktg||{}).forEach(function(k){ if(!SLM.ktg[k] || (r.ktg[k].luc||'') > (SLM.ktg[k].luc||'')){ SLM.ktg[k] = r.ktg[k]; doi++; } });   /* 3.93: kiểm tra KTGS */
   SLM.chot = SLM.chot || {}; Object.keys(r.chot).forEach(function(k){ if(!SLM.chot[k] || (r.chot[k].luc||'') > (SLM.chot[k].luc||'')){ SLM.chot[k] = r.chot[k]; doi++; } });   /* 3.91: chốt / mở khóa — lần sau thắng */   /* 3.88: kết quả kiểm tra — lần kiểm sau thắng */
   return doi;
 }
@@ -22276,29 +22281,106 @@ function veKTGS(){
     .catch(function(er){ var o = document.getElementById('tr7'); if(o && D.cauHinh.slTab==='kt') o.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" onclick="toThuLai()">⟳ Thử lại</button></div>'; });
 }
 function ktDauHTML(C, dsKy){
-  var bc = function(L, ten){ var x = KT_BC && KT_BC[L]; return x ? '<span class="kt-bc co" title="'+coChuHTML(x.e.tenFile||'')+'">'+ten+' '+coChuHTML(slKyChu(x.e.ky))+' ✓</span>' : '<span class="kt-bc">'+ten+' chưa nạp</span>'; };
   return '<div class="to-dau kt-dau">'+(C && dsKy.length ? '<label>Số liệu <select onchange="ktCH().ky=this.value;luu();KT_CHON=null;veKTGS()">'+dsKy.map(function(x){ return '<option value="'+x.ky+'"'+(x.ky===C.ky ? ' selected' : '')+'>'+coChuHTML(x.chu)+'</option>'; }).join('')+'</select></label>' : '')+
-    bc('k37', 'BC0437')+bc('k38', 'BC0438')+'<button class="nho chinh" onclick="ktNapFile()" title="Chọn file BC0437 (thông tin tổ TK&amp;VV do HĐT quản lý) và / hoặc BC0438 (thông tin ủy thác) — .xls xuất từ hệ thống">📥 Nạp BC0437 / BC0438</button></div>';
+    '<span class="kt-bc'+(KT_BC && KT_BC.k37 ? ' co' : '')+'">BC0437 '+(KT_BC && KT_BC.k37 ? coChuHTML(slKyChu(KT_BC.k37.e.ky))+' ✓' : 'chưa nạp')+'</span>'+
+    '<span class="kt-bc'+(KT_BC && KT_BC.k38 ? ' co' : '')+'">BC0438 '+(KT_BC && KT_BC.k38 ? coChuHTML(slKyChu(KT_BC.k38.e.ky))+' ✓' : 'chưa nạp')+'</span></div>'+ktNapHTML();
 }
-function ktNapFile(){
-  var i = document.createElement('input'); i.type = 'file'; i.multiple = true; i.accept = '.xls,.xlsx';
-  i.onchange = function(){
-    var fs = Array.prototype.slice.call(i.files||[]); if(!fs.length) return;
-    batChay(true, 'Đang đọc '+fs.length+' file…');
-    var kq = [];
-    fs.reduce(function(p, f){ return p.then(function(){ return slDocFile(f).then(function(x){
-      if(x.loi){ kq.push('✗ '+f.name+': '+x.loi); return; }
-      if(x.loai!=='k37' && x.loai!=='k38'){ kq.push('✗ '+f.name+': đây là “'+slLoai(x.loai).ten+'” — nạp ở tab con 📥 Nạp & Kiểm tra.'); return; }
-      var cu = SLM.bang[slKhoa(x.loai, x.ky)];
-      return slGhi(x).then(function(ten){ kq.push('✓ '+(cu ? 'Thay ' : '')+ten+' — '+ktTomTat(x.loai, x.tong)+(x.canhBao.length ? ' · '+x.canhBao.join(' · ') : '')); })
-        .catch(function(er){ kq.push('✗ '+f.name+': '+(er && er.message || er)); });
-    }); }); }, Promise.resolve()).then(function(){
-      tatChay(); KT_BC = null;
-      moHop('<div class="hop-tit">📥 Nạp BC0437 / BC0438</div><div class="kt-kq">'+kq.map(function(x){ return '<div class="'+(x.charAt(0)==='✓' ? 'xanh' : 'do')+'">'+coChuHTML(x)+'</div>'; }).join('')+'</div><div class="hang-nut"><button class="nho chinh" onclick="dongHop()">Xong</button></div>', true);
-      if(nganHienTai===7 && D.cauHinh.slTab==='kt') veKTGS();
-    });
-  };
-  i.click();
+/* ---------- nạp + kiểm tra theo chuẩn tab Nạp & Kiểm tra (anh chốt): ma trận loại × tháng · 📥 nạp nhiều file (xem trước, xác nhận) · 🔍 kiểm tra lưu kết quả ---------- */
+var KT_KY_KT = '';   /* tháng đang xem kiểm tra */
+function ktKyKT(){
+  if(KT_KY_KT) return KT_KY_KT;
+  var ds = ktDsBC('k37').concat(ktDsBC('k38')).map(function(e){ return slThang(e.ky); }).sort();
+  return ds.pop() || SL_KY || ngayISO(nay()).slice(0,7);
+}
+function ktNapHTML(){
+  var ky = slDsKy(), kx = ktKyKT(), L37 = slLoai('k37'), L38 = slLoai('k38'), co = !!(ktDsBC('k37').length || ktDsBC('k38').length), kq = SLM.ktg && SLM.ktg[kx], cu = kq && ktKTCu(kx);
+  var tom = kq ? (cu ? '⟳ dữ liệu đã đổi — kiểm lại' : (kq.dem.k ? '✗ '+kq.dem.k+' mục lệch' : '✓ khớp')+(kq.dem.v ? ' · '+kq.dem.v+' lưu ý' : '')) : (co ? 'chưa kiểm tra' : 'chưa nạp file');
+  return '<details class="sl-tq kt-nap"'+(!co || D.cauHinh.ktNapMo ? ' open' : '')+' ontoggle="D.cauHinh.ktNapMo=this.open;luu()"><summary>📥 File BC0437 / BC0438 · 🔍 Kiểm tra '+kyVN(kx)+': <b class="'+(kq && !cu ? (kq.dem.k ? 'do' : 'xanh') : 'vang')+'">'+tom+'</b></summary>'+
+    '<div class="hang-nut kt-nap-nut"><button class="nho chinh" onclick="slNapBo()" title="Chọn nhiều file (BC0437, BC0438 của 1 hay nhiều tháng) — app tự nhận loại và kỳ, xem trước rồi mới ghi nhận">📥 Nạp nhiều file</button>'+
+      '<button class="nho" onclick="SL_LECH++;veSoLieu()">‹ cũ hơn</button><button class="nho" onclick="SL_LECH=Math.max(0,SL_LECH-1);veSoLieu()">mới hơn ›</button></div>'+
+    '<div class="bdc-cuon sl-mt-cuon"><table class="bdc-bang sl-bang"><thead><tr><th class="bdc-goc">Loại file</th>'+
+      ky.map(function(k){ var x = SLM.ktg && SLM.ktg[k]; return '<th class="'+(k===kx ? 'sl-chon' : '')+(slChot(k) ? ' khoa' : '')+'" onclick="KT_KY_KT=\''+k+'\';veSoLieu()" title="Xem kiểm tra tháng '+kyVN(k)+'">'+kyVN(k)+(slChot(k) ? ' 🔒' : (x ? (ktKTCu(k) ? ' ⟳' : (x.dem.k ? ' ✗' : ' ✔')) : ''))+'</th>'; }).join('')+'</tr></thead><tbody>'+
+      [L37, L38].map(function(L){ return '<tr><td class="bdc-ten sl-con-ten" title="'+coChuHTML(L.ten)+'">'+coChuHTML(L.ten.split(' · ')[0])+'</td>'+ky.map(function(k){ return slOMT(L, k); }).join('')+'</tr>'; }).join('')+
+    '</tbody></table></div>'+
+    '<div class="sl-phu">Bấm ô ✓: xem · 🔁 thay · ⬇ tải file gốc · 🗑 xóa — ô trống: nạp · bấm tên tháng để xem kiểm tra tháng đó. Tháng đã chốt 🔒 thì khóa như các file khác.</div>'+
+    '<div class="kt-kt">'+ktKTHTML(kx)+'</div></details>';
+}
+/* dấu dữ liệu dùng để kiểm: đổi file nào thì kết quả cũ thành "kiểm lại" */
+function ktDauKy(ky){ return ['k37','k38','hstd','khd'].map(function(L){ var e = SLM.bang[slKhoa(L, ky)]; return L+':'+(e ? e.luc||'' : ''); }).join('|'); }
+function ktKTCu(ky){ var k = SLM.ktg && SLM.ktg[ky]; return !!k && k.dau!==ktDauKy(ky); }
+function ktKTHTML(ky){
+  var co37 = !!SLM.bang[slKhoa('k37', ky)], co38 = !!SLM.bang[slKhoa('k38', ky)], k = SLM.ktg && SLM.ktg[ky];
+  var nut = (co37 || co38) ? '<button class="nho chinh" onclick="ktKiemTra(\''+ky+'\')">🔍 '+(k ? 'Kiểm tra lại' : 'Kiểm tra')+' tháng '+kyVN(ky)+'</button>' : '';
+  if(!co37 && !co38) return '<div class="rong">Tháng '+kyVN(ky)+' chưa có BC0437 / BC0438.</div>';
+  var h = '<div class="hang-nut">'+nut+(k ? '<span class="sl-phu">Đã kiểm '+ngayVNsl(k.luc.slice(0,10))+' '+k.luc.slice(11,16)+(ktKTCu(ky) ? ' · <b class="vang">dữ liệu đã đổi sau lần kiểm — bấm kiểm lại</b>' : '')+'</span>' : '')+'</div>';
+  if(!k) return h+'<p class="ghi">Kiểm tra: BC0437 ↔ BC0438 (số tổ, dư nợ, tiết kiệm, chấm điểm theo xã × hội) · BC0437 ↔ Mẫu 31 từng tổ · BC0438 ↔ Mẫu 31 + KHĐ mẫu 14 theo chương trình. Chỉ báo, không sửa số.</p>';
+  var dau = {c:'✓', k:'✗', v:'⚠', l:'·'};
+  return h+'<div class="kt-kt-ds">'+k.muc.map(function(m){
+    return '<details class="kt-muc '+m.tt+'"'+(m.tt==='k' ? ' open' : '')+'><summary><b>'+dau[m.tt]+'</b> '+coChuHTML(m.ten)+' <small>'+coChuHTML(m.ghi||'')+'</small></summary>'+
+      (m.ds && m.ds.length ? '<div class="to-bang-cuon"><table class="to-bang"><thead><tr>'+m.cot.map(function(c){ return '<th>'+coChuHTML(c)+'</th>'; }).join('')+'</tr></thead><tbody>'+
+        m.ds.map(function(r){ return '<tr>'+r.map(function(v, i){ return '<td'+(i && typeof v==='number' ? ' class="s"' : '')+'>'+(typeof v==='number' ? tdnTien(v) : coChuHTML(v))+'</td>'; }).join('')+'</tr>'; }).join('')+'</tbody></table></div>' : '')+'</details>';
+  }).join('')+'</div><p class="ghi">✓ khớp · ✗ lệch · ⚠ lưu ý (định nghĩa có thể khác giữa 2 báo cáo) · · không đủ file để so. BC0437 tính triệu đồng đã làm tròn: lệch dưới 1 triệu mỗi tổ coi là khớp (cộng theo hội: dưới 0,5 triệu × số tổ). Chỉ báo, không sửa số.</p>';
+}
+function ktKiemTra(ky){
+  batChay(true, 'Đang kiểm tra BC0437 / BC0438 tháng '+kyVN(ky)+'…');
+  slBo(ky).then(function(B){
+    var r37 = B.co.k37 || null, r38 = B.co.k38 || null, hs = B.co.hstd || null, lap = B.lap || [], muc = [];
+    var tr = function(v){ return Math.round((v||0)/1e4)/100; }, M = 1e6;
+    var tenX = function(xa){ var o = (r37||[]).find(function(x){ return x.xa===xa; }) || (r38||[]).find(function(x){ return x.xa===xa; }); return o ? o.tenXa : xa; };
+    var hoi = function(dv){ return tdnHoi(dv).replace(/^Hội /, ''); };
+    var them = function(ten, tt, ghi, cot, ds){ muc.push({ten:ten, tt:tt, ghi:ghi, cot:cot||[], ds:(ds||[]).slice(0, 300)}); };
+    /* 1. BC0437 ↔ BC0438 theo xã × hội */
+    if(r37 && r38){
+      var g = {}; r37.forEach(function(b){ var k = b.xa+'|'+b.dv, a = g[k] = g[k] || {to:0, dn:0, tg:0, xl:{}}; a.to++; a.dn += b.dn||0; a.tg += b.tg||0; a.xl[b.xepLoai] = (a.xl[b.xepLoai]||0)+1; });
+      var l1 = [], l2 = [], n1 = 0, n2 = 0;
+      r38.filter(function(x){ return x.phan==='ut'; }).forEach(function(x){ var a = g[x.xa+'|'+x.dv] || {to:0, dn:0, tg:0}; n1++; var tol = 0.5*M*Math.max(1, a.to);
+        if(a.to!==x.soTo || Math.abs(a.dn-x.dn)>tol || Math.abs(a.tg-x.tg)>tol) l1.push([tenX(x.xa), hoi(x.dv), x.soTo, a.to, tr(x.dn), tr(a.dn), tr(x.tg), tr(a.tg)]); });
+      them('BC0437 ↔ BC0438 ① số tổ, dư nợ, tiết kiệm theo xã × hội', l1.length ? 'k' : 'c', l1.length ? l1.length+'/'+n1+' dòng lệch' : n1+' dòng khớp', ['Xã','Hội','Số tổ 0438','Số tổ 0437','Dư nợ 0438 (tr)','Cộng 0437 (tr)','TK 0438 (tr)','Cộng 0437 (tr)'], l1);
+      r38.filter(function(x){ return x.phan==='cd'; }).forEach(function(x){ var a = (g[x.xa+'|'+x.dv] || {}).xl || {}; n2++;
+        if(x.tot!==(a['Tốt']||0) || x.kha!==(a['Khá']||0) || x.tb!==(a['Trung bình']||0) || x.yeu!==(a['Yếu']||0)) l2.push([tenX(x.xa), hoi(x.dv), x.tot+' / '+x.kha+' / '+x.tb+' / '+x.yeu, (a['Tốt']||0)+' / '+(a['Khá']||0)+' / '+(a['Trung bình']||0)+' / '+(a['Yếu']||0)]); });
+      them('BC0437 ↔ BC0438 ② chấm điểm tổ (Tốt / Khá / TB / Yếu)', l2.length ? 'k' : 'c', l2.length ? l2.length+'/'+n2+' dòng lệch' : n2+' dòng khớp', ['Xã','Hội','BC0438','Xếp loại BC0437'], l2);
+    } else them('BC0437 ↔ BC0438', 'l', 'thiếu '+(r37 ? 'BC0438' : 'BC0437')+' tháng này');
+    /* 2. BC0437 ↔ Mẫu 31 từng tổ */
+    if(r37 && hs){
+      var T = {}, sk = {};
+      hs.forEach(function(x){ var t = x.to; if(!t || t===TO_GIA) return; var a = T[t] = T[t] || {dn:0, qh:0, kn:0, lt:0, khDn:{}, t105:{}};
+        if((x.t105||0) > (a.t105[x.kh]||0)) a.t105[x.kh] = x.t105;
+        if(!x.ku || sk[x.ku]) return; sk[x.ku] = 1; a.dn += x.dn||0; a.qh += x.qh||0; a.kn += x.kn||0; a.lt += laiTon(x); if((x.dn||0)>0) a.khDn[x.kh] = 1; });
+      lap.forEach(function(x){ var a = T[x.to]; if(a && (x.t105||0) > (a.t105[x.kh]||0)) a.t105[x.kh] = x.t105; });
+      var lD = [], lL = [], thieu = [];
+      r37.forEach(function(b){ var a = T[b.to]; if(!a){ thieu.push([b.to, b.toTen, tenX(b.xa), hoi(b.dv), 'chỉ có ở BC0437']); return; }
+        var tg = Object.keys(a.t105).reduce(function(s, k){ return s+a.t105[k]; }, 0), nd = Object.keys(a.khDn).length;
+        if(Math.abs((b.dn||0)-a.dn)>=M || Math.abs((b.qh||0)-a.qh)>=M || Math.abs((b.kn||0)-a.kn)>=M || Math.abs((b.tg||0)-tg)>=M || (b.stvDn!=='' && b.stvDn!==undefined && b.stvDn!==nd))
+          lD.push([b.to, b.toTen, tenX(b.xa), b.stvDn+' / '+nd, tr(b.dn)+' / '+tr(a.dn), tr(b.qh)+' / '+tr(a.qh), tr(b.kn)+' / '+tr(a.kn), tr(b.tg)+' / '+tr(tg)]);
+        else if(Math.abs((b.lt||0)-a.lt)>=M) lL.push([b.to, b.toTen, tenX(b.xa), tr(b.lt), tr(a.lt)]); });
+      var co37 = {}; r37.forEach(function(b){ co37[b.to] = 1; });
+      Object.keys(T).forEach(function(t){ if(!co37[t] && T[t].dn>0){ var o = hs.find(function(x){ return x.to===t; }) || {}; thieu.push([t, o.toTen||'', tenX(o.xa), hoi(o.dv), 'chỉ có ở Mẫu 31 · dư nợ '+tr(T[t].dn)+' tr']); } });
+      them('BC0437 ↔ Mẫu 31 từng tổ: tổ viên còn dư nợ, dư nợ, QH, khoanh, tiết kiệm', lD.length ? 'k' : 'c', lD.length ? lD.length+'/'+r37.length+' tổ lệch (BC0437 / Mẫu 31, triệu đồng)' : r37.length+' tổ khớp', ['Mã tổ','Tổ trưởng','Xã','TV dư nợ','Dư nợ','QH','Khoanh','Tiết kiệm'], lD);
+      them('BC0437 ↔ Mẫu 31 lãi tồn từng tổ', lL.length ? 'v' : 'c', lL.length ? lL.length+' tổ lệch ≥ 1 triệu (cách tính lãi tồn 2 báo cáo có thể khác)' : 'khớp', ['Mã tổ','Tổ trưởng','Xã','BC0437 (tr)','Mẫu 31 (tr)'], lL);
+      them('Tổ có ở 1 bên', thieu.length ? 'v' : 'c', thieu.length ? thieu.length+' tổ' : 'không có', ['Mã tổ','Tổ trưởng','Xã','Hội','Ghi chú'], thieu);
+    } else if(r37) them('BC0437 ↔ Mẫu 31', 'l', 'tháng này chưa có Mẫu 31');
+    /* 3. BC0438 ③ ↔ Mẫu 31 + KHĐ theo chương trình (ghép theo tên quyết định) */
+    var ct38 = r38 ? r38.filter(function(x){ return x.phan==='ct'; }) : [];
+    if(ct38.length && hs){
+      var khd = {}, coKHD = !!(B.co.khd||[]).length; (B.co.khd||[]).forEach(function(x){ khd[x.ku] = 1; });
+      var C = {}, sk2 = {};
+      hs.forEach(function(x){ if(!x.ku || sk2[x.ku] || !x.to || x.to===TO_GIA) return; sk2[x.ku] = 1; var k = x.xa+'|'+x.dv+'|'+slChuan(x.c_ten_quyet_dinh), a = C[k] = C[k] || {kh:{}, dn:0, qh:0, kn:0, lt:0, khd:0};
+        if((x.dn||0)>0 || laiTon(x)>0) a.kh[x.kh] = 1; a.dn += x.dn||0; a.qh += x.qh||0; a.kn += x.kn||0; a.lt += laiTon(x); if(khd[x.ku]) a.khd++; });
+      var lC = [], lV = [], co38 = {}, ghep = 0;
+      ct38.forEach(function(x){ var k = x.xa+'|'+x.dv+'|'+slChuan(x.ctTen), a = C[k]; co38[k] = 1;
+        if(!a){ if(x.dn || x.soKH) lV.push([tenX(x.xa), hoi(x.dv), x.ctTen, 'chỉ có ở BC0438']); return; }
+        var nk = Object.keys(a.kh).length; ghep++;
+        if(Math.abs(x.dn-a.dn)>1 || Math.abs(x.qh-a.qh)>1 || Math.abs(x.kn-a.kn)>1 || (coKHD && x.khd!==a.khd)) lC.push([tenX(x.xa), hoi(x.dv), x.ctTen, tr(x.dn)+' / '+tr(a.dn), tr(x.qh)+' / '+tr(a.qh), tr(x.kn)+' / '+tr(a.kn), coKHD ? x.khd+' / '+a.khd : x.khd+' / —']);
+        else if(x.soKH!==nk || Math.abs(x.lt-a.lt)>1) lV.push([tenX(x.xa), hoi(x.dv), x.ctTen, 'khách '+x.soKH+' / '+nk+' · lãi tồn '+tdnTien(x.lt)+' / '+tdnTien(a.lt)]); });
+      Object.keys(C).forEach(function(k){ if(!co38[k] && C[k].dn>0){ var p = k.split('|'); lV.push([tenX(p[0]), hoi(p[1]), p[2], 'chỉ có ở Mẫu 31 · dư nợ '+tr(C[k].dn)+' tr']); } });
+      them('BC0438 ③ ↔ Mẫu 31'+(coKHD ? ' + KHĐ mẫu 14' : '')+' theo chương trình: dư nợ, QH, khoanh'+(coKHD ? ', số món KHĐ' : ''), lC.length ? 'k' : (ghep ? 'c' : 'l'), lC.length ? lC.length+'/'+ghep+' dòng lệch (BC0438 / Mẫu 31)' : (ghep ? ghep+'/'+ct38.length+' dòng khớp' : 'không ghép được tên chương trình nào với Mẫu 31 (cột Tên quyết định)')+(coKHD ? '' : ' (chưa có KHĐ mẫu 14 tháng này — chưa so số món KHĐ)'), ['Xã','Hội','Chương trình','Dư nợ (tr)','QH (tr)','Khoanh (tr)','Món KHĐ'], lC);
+      them('BC0438 ③ ↔ Mẫu 31: số khách, lãi tồn, chương trình có ở 1 bên', lV.length ? 'v' : 'c', lV.length ? lV.length+' dòng (cách đếm khách / tính lãi tồn có thể khác)' : 'khớp', ['Xã','Hội','Chương trình','BC0438 / Mẫu 31'], lV);
+    } else if(ct38.length) them('BC0438 ↔ Mẫu 31', 'l', 'tháng này chưa có Mẫu 31');
+    var dem = {k:0, v:0}; muc.forEach(function(m){ if(m.tt==='k') dem.k++; if(m.tt==='v') dem.v++; });
+    SLM.ktg = SLM.ktg || {}; SLM.ktg[ky] = {luc:new Date().toISOString(), dau:ktDauKy(ky), dem:dem, muc:muc};
+    return slLuuMeta();
+  }).then(function(){ tatChay(); KT_KY_KT = ky; D.cauHinh.ktNapMo = true; veSoLieu(); var k = SLM.ktg[ky]; bao('Kiểm tra '+kyVN(ky)+': '+(k.dem.k ? k.dem.k+' mục lệch' : 'khớp')+(k.dem.v ? ', '+k.dem.v+' lưu ý' : '')+'.', 5); })
+    .catch(function(er){ tatChay(); baoLoi('Kiểm tra lỗi: '+(er && er.message || er)); });
 }
 function ktVe(dsKy){
   var e = document.getElementById('tr7'); if(!e) return;
@@ -22496,10 +22578,13 @@ function ktKhaiBao(mau){
     '<div class="hop-phu">Khai báo khi in — để trống thì giữ dòng chấm của mẫu để ghi tay. App chỉ điền thông tin có sẵn, không đổi chữ của mẫu.</div>'+
     '<label class="kt-kb"><span>Ngày kiểm tra</span><input id="kb-ngay" type="date" value="'+coChuHTML(v.ngay||'')+'"></label>'+
     (mau==='m06' ? o('dv', 'Đơn vị kiểm tra') : o('doan', 'Đoàn kiểm tra'))+
+    (mau==='m06' ? '<label class="kt-kb"><span>Cột Mục đích</span><select id="kb-md"><option value="">Để trống (ghi tay theo hồ sơ)</option><option value="nganh"'+((v.md!==undefined ? v.md : D.cauHinh.ktMucDich)==='nganh' ? ' selected' : '')+'>In ngành kinh tế (rút gọn)</option></select></label>' : '')+
     o('cb1', 'Ông (bà) 1')+o('cv1', 'Chức vụ 1')+o('cb2', 'Ông (bà) 2')+o('cv2', 'Chức vụ 2')+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho" onclick="ktXuat(\''+mau+'\',\'in\')">🖨 In / PDF</button><button class="nho chinh" onclick="ktXuat(\''+mau+'\',\'word\')">📄 Word (.docx)</button></div>', true);
 }
-function ktDocKB(){ ['ngay','dv','doan','cb1','cv1','cb2','cv2'].forEach(function(k){ var e = document.getElementById('kb-'+k); if(e) KT_KB[k] = String(e.value||'').trim(); }); return KT_KB; }
+function ktDocKB(){ ['ngay','dv','doan','cb1','cv1','cb2','cv2','md'].forEach(function(k){ var e = document.getElementById('kb-'+k); if(e) KT_KB[k] = String(e.value||'').trim(); });
+  if(document.getElementById('kb-md')){ D.cauHinh.ktMucDich = KT_KB.md; luu(); }   /* nhớ lựa chọn cột mục đích lần sau */
+  return KT_KB; }
 function ktGhiLS(t, dc){   /* lịch sử kiểm tra theo tổ (lưu trong máy / Drive của anh, không vào repo) */
   var LS = D.cauHinh.ktgsLS = D.cauHinh.ktgsLS || {};   /* trong Cài đặt (lưu máy + Drive cùng cấu hình) */
   var L = LS[t.ma] = LS[t.ma] || [], hn = ngayISO(nay()), ngay = KT_KB.ngay || hn;
@@ -22521,10 +22606,19 @@ function ktXuat(mau, cach){
 }
 function ktNgayP(iso){ var p = String(iso||'').split('-'); return iso ? {d:p[2], m:p[1], y:p[0], y2:p[0].slice(2)} : {d:'', m:'', y:'', y2:''}; }
 function ktBoTien(x, re){ return String(x||'').replace(re, '').trim(); }
+/* 3.93: cột "Mục đích" Mẫu 06 — anh chọn khi in: để trống (ghi tay theo hồ sơ) hoặc in NGÀNH KINH TẾ (Tên PNKT51 của Mẫu 31, rút gọn).
+   Mẫu 31 / Mẫu 10 không có cột mục đích vay; PNKT51 là ngành kinh tế của món. Bảng rút gọn theo mã (176 ngành có trong số liệu 30/09/2026, anh góp ý sửa);
+   ngành mới chưa có trong bảng → tự rút gọn (bỏ phần trong ngoặc, "chưa được phân vào đâu", "còn lại"…). */
+var KT_PNKT = {"36000":"Nước sạch","01412":"Nuôi trâu, bò","85410":"Học đại học","01213":"Trồng cam, quýt, bưởi","01215":"Trồng nhãn, chôm chôm","01250":"Trồng cao su","39000":"Nhà vệ sinh, xử lý chất thải","85330":"Học cao đẳng","56302":"Quán cà phê, giải khát","46900":"Mua bán tạp hóa","01110":"Trồng lúa","56290":"Dịch vụ ăn uống","46326":"Buôn đường, sữa, bánh kẹo","01212":"Trồng cây ăn quả","01219":"Trồng cây ăn quả khác","56101":"Quán ăn","01411":"Nuôi trâu, bò giống","96310":"Cắt tóc, làm đầu","46203":"Buôn gia súc, gia cầm","01299":"Trồng cây lâu năm","46413":"Buôn quần áo","46310":"Buôn gạo, ngũ cốc","46202":"Buôn hoa, cây cảnh","46329":"Buôn thực phẩm","01490":"Chăn nuôi khác","45420":"Sửa xe máy","96390":"Dịch vụ cá nhân","41010":"Xây nhà ở","25920":"Gia công cơ khí","01452":"Nuôi heo","45200":"Sửa ô tô","85320":"Học trung cấp","01442":"Nuôi dê, cừu","46324":"Buôn cà phê","47822":"Bán quần áo tại chợ","46332":"Buôn nước giải khát","43900":"Xây dựng chuyên dụng","47817":"Bán rau quả tại chợ","46204":"Buôn thức ăn chăn nuôi","47224":"Bán đường, sữa, bánh kẹo","46209":"Buôn nông, lâm sản","01214":"Trồng mận, táo","01320":"Ươm cây giống lâu năm","46201":"Buôn lúa, bắp","56309":"Quán nước","46697":"Mua bán phế liệu","14100":"May quần áo","10710":"Làm bánh","46323":"Buôn rau, quả","47990":"Bán lẻ khác","01220":"Trồng dừa, cây có dầu","97000":"Làm thuê việc nhà","96330":"Dịch vụ cưới hỏi","01462":"Nuôi gà","01291":"Trồng cây cảnh","47815":"Bán thịt tại chợ","03221":"Nuôi cá","46499":"Buôn đồ gia dụng","92001":"Bán vé số","01130":"Trồng khoai mì, củ","47818":"Bán đồ ăn chín tại chợ","25910":"Rèn, dập kim loại","31001":"Đóng giường, tủ, bàn ghế","10790":"Chế biến thực phẩm","45301":"Buôn phụ tùng ô tô","46495":"Buôn đồ điện gia dụng","56109":"Ăn uống lưu động","01181":"Trồng rau","49333":"Chở hàng bằng xe","46631":"Buôn tre, gỗ","47591":"Bán đồ điện gia dụng","01630":"Dịch vụ sau thu hoạch","46694":"Buôn mủ cao su","03223":"Nuôi thủy sản","46497":"Buôn sách, văn phòng phẩm","01282":"Trồng cây dược liệu","01120":"Trồng bắp","68101":"Mua nhà, đất ở","01281":"Trồng cây gia vị","98100":"Tự sản xuất tiêu dùng","18110":"In ấn","46321":"Buôn thịt","47221":"Bán thịt","49313":"Chở khách xe máy, xe","02400":"Dịch vụ lâm nghiệp","46591":"Buôn máy xây dựng","47229":"Bán thực phẩm","46331":"Buôn rượu, bia","01199":"Trồng cây hàng năm","45431":"Buôn phụ tùng xe máy","43300":"Hoàn thiện công trình","10620":"Làm tinh bột","95220":"Sửa đồ gia dụng","38110":"Thu gom rác","47411":"Bán máy vi tính","46622":"Buôn sắt, thép","25930":"Làm dao kéo, đồ kim loại","98200":"Tự làm dịch vụ tiêu dùng","46639":"Buôn vật liệu xây dựng","46496":"Buôn đồ nội thất","01500":"Trồng trọt, chăn nuôi","47230":"Bán đồ uống","46520":"Buôn đồ điện tử","93290":"Vui chơi giải trí","01451":"Nuôi heo giống","77210":"Cho thuê đồ vui chơi","01469":"Nuôi gia cầm","96100":"Xông hơi, massage","01441":"Nuôi dê, cừu giống","46492":"Buôn thuốc, dụng cụ y tế","46414":"Buôn giày dép","45432":"Bán phụ tùng xe máy","47592":"Bán đồ nội thất","33120":"Sửa máy móc","01610":"Dịch vụ trồng trọt","47898":"Bán đồ cũ tại chợ","01230":"Trồng điều","95290":"Sửa đồ dùng cá nhân","46493":"Buôn mỹ phẩm","56210":"Nấu đám, tiệc","46613":"Buôn xăng dầu","95240":"Sửa đồ nội thất","43290":"Lắp đặt công trình","47899":"Bán hàng tại chợ","01191":"Trồng gia vị hàng năm","46592":"Buôn thiết bị điện","03213":"Nuôi thủy sản","47412":"Bán điện thoại","46699":"Buôn bán khác","11041":"Sản xuất nước đóng chai","47891":"Bán mỹ phẩm tại chợ","01463":"Nuôi vịt, ngan, ngỗng","35201":"Sản xuất khí đốt","38301":"Tái chế phế liệu","47843":"Bán đồ gia dụng tại chợ","47819":"Bán thực phẩm tại chợ","47722":"Bán mỹ phẩm","41020":"Xây nhà không để ở","95110":"Sửa máy vi tính","17021":"Làm bao bì giấy","47191":"Bán lẻ siêu thị","25999":"Làm đồ kim loại","13930":"Làm thảm, chăn, nệm","55104":"Nhà trọ","63990":"Dịch vụ thông tin","56301":"Quán nhậu, bia","47119":"Tạp hóa","90000":"Nghệ thuật, giải trí","46530":"Buôn máy nông nghiệp","49319":"Chở khách","01140":"Trồng mía","47711":"Bán quần áo","46325":"Buôn chè","61909":"Dịch vụ viễn thông","24310":"Đúc sắt thép","46634":"Buôn kính xây dựng","49312":"Chạy taxi","82191":"Photo tài liệu","46637":"Buôn đồ ngũ kim","01310":"Ươm cây giống","47199":"Bán lẻ tổng hợp","47894":"Bán vàng bạc tại chợ","32900":"Sản xuất khác","46322":"Buôn thủy sản","47812":"Bán bánh kẹo tại chợ","87909":"Chăm sóc tập trung","45411":"Buôn xe máy","42990":"Xây công trình dân dụng","02102":"Trồng tre","47821":"Bán vải tại chợ","47511":"Bán vải","03211":"Nuôi cá","33150":"Sửa phương tiện vận tải","01182":"Trồng đậu","46691":"Buôn phân bón, thuốc BVTV","28291":"Làm máy vật liệu XD"};
+function ktNganh(m){
+  var ma = String(m.c_ma_pnkt51||'').trim(), ten = String(m.c_ten_pnkt51||'').trim();
+  if(KT_PNKT[ma]) return KT_PNKT[ma];
+  return ten.replace(/\s*\([^)]*\)/g, '').replace(/ chưa được phân vào đâu| còn lại| trong các cửa hàng chuyên doanh/g, '').replace(/ lưu động hoặc tại chợ/g, ' tại chợ').replace(/^Hoạt động /, '').trim();
+}
 function ktGiaTri06(t, dc, v){
   var n = ktNgayP(v.ngay), rows = [], tgn = 0, tdn = 0;
   dc.forEach(function(h){ h.mon.forEach(function(m){ tgn += m.gn||0; tdn += m.dn||0;
-    rows.push({R1:String(rows.length+1), R2:h.ten, R3:m._ma, R4:ctNgan(m.ct, m), R5:ktTr(m.gn, 3), R6:ktTr(m.dn, 3), R7:''});   /* mục đích: Mẫu 31 chỉ có ngành kinh tế (PNKT), không phải mục đích ghi trong hồ sơ → để trống ghi tay */ }); });
+    rows.push({R1:String(rows.length+1), R2:h.ten, R3:m._ma, R4:ctNgan(m.ct, m), R5:ktTr(m.gn, 3), R6:ktTr(m.dn, 3), R7:v.md==='nganh' ? ktNganh(m) : ''});   /* mục đích: anh chọn để trống / in ngành kinh tế */ }); });
   var ap = t.tenThon ? 'Ấp '+ktBoTien(t.tenThon, /^(ấp|ap)\s+/i)+', ' : '';
   return {f:{DV:v.dv, CB1:v.cb1, CV1:v.cv1, CB2:v.cb2, CV2:v.cv2, TD:v.ngay ? ngayVNsl(v.ngay) : '', DB:ap+(t.tenXa||''), TO:t.ten||'',
     ND:n.d, NM:n.m, NY:n.y, TGN:rows.length ? ktTr(tgn, 3) : '', TDN:rows.length ? ktTr(tdn, 3) : ''}, rows:rows};
@@ -22846,7 +22940,7 @@ function slTTHTML(ky){
 }
 /* dấu vân tay dữ liệu dùng để kiểm 1 tháng: đổi file (nạp / thay / xóa) → khác dấu → kết quả cũ cần kiểm lại */
 function slDauKy(ky){
-  var ds = SL_LOAI.filter(function(L){ return !L.ngay; }).map(function(L){ var e = SLM.bang[slKhoa(L.k, ky)]; return L.k+':'+(e ? e.luc||'' : ''); });
+  var ds = SL_LOAI.filter(function(L){ return !L.ngay && !L.kt; }).map(function(L){ var e = SLM.bang[slKhoa(L.k, ky)]; return L.k+':'+(e ? e.luc||'' : ''); });   /* 3.93: BC0437/0438 có kiểm tra riêng ở tab KTGS */
   var m = SLM.bang[slKhoa('m10', tdnCuoiKy(ky))], t = SLM.bang[slKhoa('hstd', kyLui(ky, -1))];
   ds.push('m10:'+(m ? m.luc||'' : '')); ds.push('truoc:'+(t ? t.luc||'' : ''));
   return ds.join('|');
