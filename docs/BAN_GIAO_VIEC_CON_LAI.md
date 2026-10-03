@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.93.1) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS Hội → **📅 Sau giải ngân (30 ngày)** → tháng T9/2026 → chọn xã | Bảng các tổ có món giải ngân trong tháng (số món, GN trong tháng), "x phiếu Mẫu 06" | |
+| 2 | Chọn đến 1 tổ | Hiện từng món (KH, mã KV, CT, GN tháng, tổng GN, tổng dư nợ, ngày GN), bỏ tích 1 món → số món giảm | |
+| 3 | 👁 Xem → khai báo ngày / cán bộ / mục đích → Xem | Khung xem trước đủ phiếu; ‹ Sửa khai báo quay lại | |
+| 4 | 📄 Word (chọn cả xã) → mở bằng Word | 1 file, mỗi tổ 1 phiếu, mỗi phiếu trang mới, không báo lỗi khi mở | |
+| 5 | Chọn từ tháng → đến tháng (khi đã có Mẫu 31 nhiều tháng) + 1 tổ | Mỗi tháng 1 phiếu riêng cho tổ đó | |
+| 6 | ⚙ Bảng ngành kinh tế | Ngành nhiều món ở trên, ngành dưới 10 món ẩn, nút Hiện thêm / Thu gọn | |
+
+**Ghi chú kỹ thuật 3.93.1:** `ktCheDo()` (`ktCH().che` 'dx' | 'gn'), `ktDoiCheDo`, `ktCheDoHTML`; `ktVeThe` → `ktGNVe(o)` khi 'gn'. Sau giải ngân: `ktThangHS()` (tháng có hstd), `ktGNKhoang()` (`ktCH().gnTu/gnDen`, ≤ 24 tháng), `ktGNNap()` → `KT_GN` {khoa, thang, thieu, ds[tháng][mã tổ] = {t, mon}} (món gnT > 0, có tổ, ≠ TO_GIA, `ktMaKV` theo tổ), `ktGNTrongPV` (pvLoc với tổ trên cây kỳ đang mở, không có thì xét xã / hội), `ktGNChon()`, `KT_GN_BO` (bỏ tích 'tháng|KU'), `ktGNDsHTML`, `ktGNTich`, `ktGNGiaTri(v)` (gom món theo khách → `ktGiaTri06`), `ktGNKhaiBao`, `ktGNXem` (`KT_GN_XEM`), `ktGNIn` (ghi `D.cauHinh.ktgsGN['tháng|KU'] = ngày`). `ktDocx(mau, gt|[gt])` nhiều phiếu: nối bằng đoạn ngắt trang, đánh lại `wp:docPr id`, bỏ `w14:paraId/textId`; `ktHTML06([…])` ghép thân, `break-before:page`. `ktDongBu(rows)` dòng trống bù theo khung 2,4 cm. Bảng ngành: `KT_NG_HET`, `KT_NG_NGUONG` = 10. `veKTGS` đặt `KT_GN = null`.
+
 ### Danh sách thử trên máy thật (3.93) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
