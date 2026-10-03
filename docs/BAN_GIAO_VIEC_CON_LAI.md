@@ -222,6 +222,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.95) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS Hội → **📋 Báo cáo tổng hợp · Mẫu 04** → chọn tháng đã lập phiếu | Bảng các tổ có phiếu trong tháng, tích sẵn, có ngày kiểm tra, số phiếu 06, Biên bản 16 ✓ / "chưa thấy" | |
+| 2 | Chọn 1 xã (hoặc hội) ở cây | Chỉ còn tổ của xã đó + dòng "Tổ khác trong phạm vi" chưa tích; tích thêm 1 tổ, sửa ngày | |
+| 3 | ⚙ Khai báo Hội → khai Đoàn kiểm tra (mỗi người 1 dòng), số HĐUT… → Xong | Đóng mở lại vẫn còn; đổi máy (Drive) vẫn còn | |
+| 4 | 👁 Xem → 📄 Word → mở bằng **Word thật** | Đúng khuôn mẫu gốc, không còn khung MẪU THAM KHẢO; đơn vị in hoa; đoàn đủ dòng; bảng mục II mỗi tổ 1 dòng; dòng chấm III / IV đủ chỗ ghi; VI.1 có số phiếu; khối Nơi nhận + Trưởng đoàn không bị tách trang; không báo lỗi khi mở | |
+| 5 | Chọn tổ của 2 Hội khác nhau → Word | 2 báo cáo trong 1 file, báo cáo thứ 2 sang trang mới | |
+| 6 | 🖨 In / PDF | A4 dọc, bố cục như Word | |
+| 7 | Lập Biên bản 16 cho 1 tổ (kiểm tra đột xuất) rồi mở lại Mẫu 04 tháng đó | Tổ hiện trong danh sách, cột Biên bản 16 ✓ | |
+
+**Ghi chú kỹ thuật 3.95:** Khối "3.95: 📋 MẪU 04/BC-TH" (trước khuôn Word 3.93): `KT_BC_CHON` / `KT_BC_NGAY` (tích / ngày anh sửa, trong phiên), `ktGhiNK(t, mau, ngay, th)` → `D.cauHinh.ktgsNK[mã tổ]` = [{ngay, mau:'16'|'06gn', th, ten, thon, tenXa, xa, dv, luc}] (≤ 40 / tổ; gọi trong `ktXuat('m16')` và `ktGNIn`), `ktBCNguon(th)` gộp `ktgsLS` (Mẫu 06 đột xuất) + `ktgsNK` theo tháng của ngày → {ngay[], p06, pgn, bb16}, `ktBCDs` (tổ có phiếu lọc theo phạm vi cây khi đã chọn xã + tổ khác trong phạm vi + tổ đã tích), `ktBCNhom` (theo `xã|hội`), `ktBCGiaTri` → [{k, ten, f:{DV, SP}, doan[], rows[{C1..C4}]}], `ktBCXem` / `ktBCIn`, `ktBung04(K, g)` bung `{{@DOAN}}` (dòng `K.chu` + `K.cham` cho đủ 4), `{{@CHAMn}}`, `{{@DONG}}` (`K.dong`, trống → 2 dòng) rồi `ktDien`; `ktHTML04` (In, nhiều báo cáo `break-before:page`). `ktCheDo` thêm 'bc'. Khai báo Hội: `ktHoiDs`, `ktHoiKBHop(tuXem)`, `ktHoiKBSua(k, ô, v)` → `D.cauHinh.ktHoiKB['xã|hội']` = {ten, hd, hdNgay, kh, khNgay, doan (xuống dòng), ky}; `ktHoiTen` / `ktHoiTenTD` / `ktXaChu`. Khuôn: `KT_KHUON.m04` = {mo, than, dong, cham, chu, sect, styles, settings, fontTable, theme, header, footnotes, endnotes} dựng bằng `python3 tools/khuon_docx.py m04 <Mau04.docx>`; dòng chấm = đoạn có tab phải dẫn chấm ở 9213 twip (bề rộng vùng chữ), cao 22 pt. Phép thử `tests/t108.js`.
+
 ### Danh sách thử trên máy thật (3.94) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
