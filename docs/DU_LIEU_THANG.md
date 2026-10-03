@@ -106,6 +106,11 @@ Lệch thì app **báo, chỉ ra nguyên nhân / dòng lệch, không sửa dữ
 - **BC0438** "THÔNG TIN ỦY THÁC XÃ … ĐẾN NGÀY …": 3 phần nối tiếp, mỗi phần có hàng tên cột riêng, dòng "Tổng cộng" = 0 (công thức): ① Dư nợ nhận ủy thác theo xã × hội: số ấp có dư nợ do HĐT quản lý / số ấp trên địa bàn, số tổ, số khách, dư nợ, số dư TK (đồng) · ② Chấm điểm: Tổng số (= 0) · Tốt · Khá · Trung bình · Yếu (số tổ) · ③ theo chương trình: số khách, dư nợ, QH (tiền, tỷ lệ), khoanh (tiền, tỷ lệ), lãi tồn, số món 3 tháng KHĐ.
 - Văn bản **727/HD-NHCS 11/02/2026** (phương pháp, quy trình KTGS ủy thác): 100% món mới trong 30 ngày sau giải ngân; 100% món không phát sinh giao dịch ≥ 3 tháng; 100% tổ / năm; mỗi tổ kiểm tra sử dụng vốn ≥ 90% món giải ngân các năm trước (75% vùng khó khăn — PGD Gò Dầu không thuộc, anh chốt 90%); báo cáo Chủ tịch hội trong 3 ngày làm việc, gửi NHCSXH ở phiên giao dịch gần nhất.
 
+## Danh sách giải ngân (sao kê "1. Sao kê danh sách giải ngân Từ ngày - Đến ngày", file 30/09/2026, bản 3.93.1)
+- 29 cột: … Mã tổ, Mã KH, CCCD, ĐVUT, Dư nợ, Lãi suất, Ngày vay, Số khế ước, Số tiền giải ngân, Giải ngân trong tháng, Giải ngân trong năm, Ngày vay đầu tiên, Ngày giải ngân mới, Ngày đến hạn 1, Mã sản phẩm, Chương trình, Nguồn vốn, **Mục đích vay vốn**. 3.355 dòng / 3.340 khế ước (15 dòng lặp).
+- Đối chiếu Mẫu 31 cùng ngày: 3.340 / 3.340 khế ước có ở Mẫu 31; giải ngân tháng, năm, dư nợ khớp 100%; "Ngày vay đầu tiên" = Ngày GN đầu tiên, "Ngày giải ngân mới" = Ngày GN cuối cùng; **"Mục đích vay vốn" = "Tên PNKT51"**. Danh sách **bỏ món đã tất toán** (Mẫu 31 có thêm 16 món giải ngân trong năm đã đóng). Mẫu 31 có 51 món ghi ngày GN đầu tiên nhưng **Tổng giải ngân = 0** (chưa giải ngân thực) → lọc theo số tiền, không theo ngày.
+- → **Không cần nạp danh sách giải ngân**; kiểm tra sau giải ngân lấy từ Mẫu 31 tháng ("Giải ngân trong tháng" > 0, kể cả HSSV các lần sau — anh chốt).
+
 ## Lưu trữ
 - Máy: IndexedDB `sl_b_<loại>_<kỳ>` (dạng theo cột; kỳ theo ngày vd `sl_b_m10_2026-08-31`; dòng lặp khế ước ở `b.lap`), `sl_meta`, `sl_danhba`.
 - Drive: `Tủ hồ sơ/Số liệu/<tháng>/<ngày> <Tên loại>.xlsx` (file gốc) · `Tủ hồ sơ/_Hệ thống/so_lieu/<tháng>/<loại>.json.gz` (loại theo ngày: `m10_<yyyy-mm-dd>.json.gz`) · `_Hệ thống/so_lieu/meta.json` · `_Hệ thống/so_lieu/khach_hang.json.gz`.
