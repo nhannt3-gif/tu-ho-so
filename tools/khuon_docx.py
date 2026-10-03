@@ -167,6 +167,21 @@ def m16(path):
     T[34][1] = re.sub(r'<w:tr[ >].*?</w:tr>', lambda m: them_trpr(m.group(0), '<w:cantSplit/>'), T[34][1], flags=re.S)
     return dict(mo=mo, than=''.join(t[1] for t in T), sect=sect, **phan_phu(f))
 
+def khong_vien(tbl):
+    """3.97: bảng đầu trang / chữ ký: ghi rõ KHÔNG viền (Word không hiện đường kẻ khung) — chèn tblBorders đúng thứ tự lược đồ"""
+    tb = '<w:tblBorders>' + ''.join('<w:%s w:val="nil"/>' % k for k in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV')) + '</w:tblBorders>'
+    a = tbl.index('<w:tblPr>'); b = tbl.index('</w:tblPr>', a)
+    pr = re.sub(r'<w:tblBorders>.*?</w:tblBorders>', '', tbl[a:b], flags=re.S)
+    m = re.search(r'<w:shd |<w:tblLayout|<w:tblCellMar|<w:tblLook|$', pr)
+    pr = pr[:m.start()] + tb + pr[m.start():]
+    return tbl[:a] + pr + tbl[b:]
+
+def doi_cot(tbl, cu, moi):
+    """đổi bề rộng 2 cột của bảng đầu trang (gridCol + tcW) — cột phải đủ chỗ cho Quốc hiệu cỡ 13 không rớt dòng"""
+    for c, m in zip(cu, moi):
+        tbl = tbl.replace('<w:gridCol w:w="%d"/>' % c, '<w:gridCol w:w="%d"/>' % m).replace('<w:tcW w:w="%d" w:type="dxa"/>' % c, '<w:tcW w:w="%d" w:type="dxa"/>' % m)
+    return tbl
+
 # ---------- 3.95: Mẫu 04/BC-TH (Báo cáo tổng hợp kết quả kiểm tra hoạt động nhận ủy thác cho vay) ----------
 # Từ file mẫu gốc anh gửi (mẫu trắng). Giữ chữ / phông / lề / bảng / khung "Mẫu số 04/BC-TH" / đường kẻ của mẫu; chỉ:
 #  - bỏ khung "MẪU THAM KHẢO";
@@ -201,7 +216,7 @@ def m04(path):
             o(L, [pc('ĐƠN VỊ KIỂM TRA'), pc('{{DV|........................................}}')]) +
             o(R, [pc('CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM'), pc('Độc lập - Tự do - Hạnh phúc', '27')]) + '</w:tr></w:tbl>')
     assert 'ĐƠN VỊ KIỂM TRA' in tx(T[1][1]) and 'Độc lập' in tx(T[2][1])
-    T[1][1] = bang; T[2][1] = ''
+    T[1][1] = khong_vien(bang); T[2][1] = ''   # 3.97: ghi rõ không viền
     C = cham04()
     chu = re.sub(r'<w:r>.*</w:r>', '<w:r><w:rPr><w:bCs/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t xml:space="preserve">{{X|}}</w:t></w:r>', T[7][1], flags=re.S)
     chu = re.sub(r' w14:(paraId|textId)="[^"]*"', '', chu)
@@ -287,7 +302,7 @@ def m01(path):
     h = h[:ps[iHX].start()] + pHX + h[ps[iHX].end():ps[iSo].start()] + pSo + h[ps[iSo].end():]
     h = thay(h, [('HỘI………TỈNH TÂY NINH', '{{HT|HỘI………TỈNH TÂY NINH}}'), ('HỘI………XÃ……….', '{{HX|HỘI………XÃ……….}}'),
                  ('   …………, ngày     tháng  01  năm 2026', '   {{NOI|…………}}, ngày      tháng      năm {{NAM|2026}}')])
-    T[0][1] = h
+    T[0][1] = khong_vien(doi_cot(h, (4381, 5656), (4081, 5956)))   # 3.97
     T[3][1] = thay(T[3][1], [('CỦA HỘI…………XÃ………. TỈNH TÂY NINH NĂM 2026', 'CỦA {{HX|HỘI…………XÃ……….}} TỈNH TÂY NINH NĂM {{NAM|2026}}')])
     T[5][1] = thay(T[5][1], [('hướng dẫn 10566/HD-NHCS ngày 29/12/2022 của Tổng Giám đốc NHCSXH về việc hướng dẫn quy trình, phương pháp kiểm tra, giám sát hoạt động ủy thác cho vay;',
                               'văn bản số 727/HD-NHCS ngày 11/02/2026 của Tổng Giám đốc NHCSXH hướng dẫn phương pháp, quy trình kiểm tra, giám sát hoạt động ủy thác;')])
@@ -324,12 +339,83 @@ def m01(path):
     c2m = c2[:ps[i_ct].end()] + trong*4 + ky + c2[ps[-1].end():]
     k = k[:cells[1].start()] + c2m + k[cells[1].end():]
     k = re.sub(r'<w:tr>', '<w:tr><w:trPr><w:cantSplit/></w:trPr>', k, count=1) if '<w:trPr>' not in k else re.sub(r'(<w:tr>)<w:trPr>', r'\1<w:trPr><w:cantSplit/>', k, count=1)
-    T[74][1] = k
+    T[74][1] = khong_vien(k)   # 3.97
     T[73][1] = them_ppr(T[73][1], '<w:keepNext/>')
     than = ''.join(t[1] for t in T)
     return dict(mo=mo, than=than, dong=d, chu=chu, cham=cham, sect=sect,
                 styles=clean(f['word/styles.xml']), settings=f['word/settings.xml'], fontTable=clean(f['word/fontTable.xml']),
                 theme=f['word/theme/theme1.xml'], footer=clean(f['word/footer1.xml']), header=None, footnotes=None, endnotes=None)
+
+# ---------- 3.97: Kế hoạch KTGS năm — khuôn ② theo bản kế hoạch mẫu của một Hội cấp xã anh gửi (4 trang, gọn) ----------
+# Giữ câu chữ / bố cục / "TM. BAN THƯỜNG VỤ – CHỦ TỊCH" của bản gốc; XÓA mọi tên riêng (tổ trưởng, ấp, xã, Hội) → dấu {{…}} để app điền.
+# Bảng "Stt · Thời gian · Kiểm tra tại các tổ · Ghi chú" → 1 dòng khuôn {{@LICH}} (L1..L4). Bản gốc ghi "ủy nhiệm" ở vài chỗ — giữ nguyên (anh sửa trong Word nếu cần).
+# tên riêng cần xóa lấy TỰ ĐỘNG từ chính file gốc (ô bảng lịch, tên xã ở đầu trang) — không ghi tên thật vào mã
+def thay_het(p, cu, moi):
+    """thay mọi lần xuất hiện của chuỗi cu trong chữ nối của đoạn (moi không được chứa lại cu)"""
+    tx = lambda x: ''.join(re.findall(r'<w:t[^>]*>([^<]*)</w:t>', x))
+    n = tx(p).count(cu)
+    for _ in range(n): p = thay(p, [(cu, moi)])
+    return p
+
+def m01b(path):
+    f, mo, body = goi(path)
+    T = top(body); tx = lambda x: ''.join(re.findall(r'<w:t[^>]*>([^<]*)</w:t>', x))
+    assert 'KẾ HOẠCH' == tx(T[2][1]) and T[40][0] == 'w:tbl' and 'Kiểm tra tại' in tx(T[40][1]), 'không đúng khuôn kế hoạch mẫu (bản Hội cấp xã)'
+    sect = T[-1][1].replace('r:id="rId8"', 'r:id="rId11"'); T = T[:-1]
+    # đầu trang: đường kẻ dưới tên Hội xã dời xuống trên dòng "Số:" (tên Hội dài 2 dòng vẫn kẻ đúng); cột phải rộng hơn cho Quốc hiệu
+    h = T[0][1]
+    ps = list(re.finditer(r'<w:p[ >].*?</w:p>', h, re.S)); iHX = [i for i, m in enumerate(ps) if 'XÃ TRUÔNG MÍT' in tx(m.group(0))][0]; iSo = iHX+1
+    ke = re.search(r'<w:r>(?:(?!</w:r>).)*?<w:drawing>.*?</w:drawing></w:r>', ps[iHX].group(0), re.S).group(0)
+    ke2 = re.sub(r'(<wp:positionV relativeFrom="paragraph"><wp:posOffset>)-?\d+', r'\g<1>10000', ke)
+    pHX = ps[iHX].group(0).replace(ke, ''); pSo = re.sub(r'(<w:p[ >].*?</w:pPr>)', lambda m: m.group(1)+ke2, ps[iSo].group(0), count=1, flags=re.S)
+    h = h[:ps[iHX].start()] + pHX + h[ps[iHX].end():ps[iSo].start()] + pSo + h[ps[iSo].end():]
+    h = thay(h, [('HỘI CCB TỈNH TÂY NINH', '{{HT|HỘI………TỈNH TÂY NINH}}'), ('HỘI CCB XÃ TRUÔNG MÍT', '{{HX|HỘI………XÃ……….}}'), ('/KH- CCB', '/KH-{{VT|……}}')])
+    S0 = tx(h); a = S0.index('Truông Mít, ngày'); b2 = S0.index('năm 2026', a) + len('năm 2026')
+    h = thay(h, [(S0[a:b2], '{{NOI|…………}}, ngày      tháng      năm {{NAM|20……}}')])
+    T[0][1] = khong_vien(doi_cot(h, (4500, 5761), (4300, 5961)))
+    for i in range(1, len(T)):
+        if T[i][0] != 'w:p' and i not in (67,): continue
+        x = T[i][1]
+        if i == 67:   # nơi nhận + ký
+            x = thay(x, [('NHCSXH Gò Dầu;', 'NHCSXH {{NH|…………}};'), ('Hội Cựu chiến binh tỉnh;', '{{HL|Hội…………}} tỉnh;'), ('CHỦ TỊCH', '{{CT|CHỦ TỊCH}}')])
+            cells = list(re.finditer(r'<w:tc>.*?</w:tc>', x, re.S)); c2 = cells[1].group(0)
+            pp = list(re.finditer(r'<w:p[ >].*?</w:p>', c2, re.S)); trong = pp[-1].group(0)
+            ky = re.sub(r'</w:pPr>', '</w:pPr><w:r><w:rPr><w:b/><w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr><w:t xml:space="preserve">{{KY|}}</w:t></w:r>', trong, count=1)
+            c2 = c2[:pp[-1].end()] + trong + ky + c2[pp[-1].end():]
+            x = khong_vien(x[:cells[1].start()] + c2 + x[cells[1].end():])
+            x = re.sub(r'(<w:tr[ >][^>]*>)(?!<w:trPr>)', r'\1<w:trPr><w:cantSplit/></w:trPr>', x, count=1)
+            T[i][1] = x; continue
+        S = tx(x)
+        for cu, moi in (('Hội Cựu chiến binh xã Truông Mít', '{{HXT|Hội……xã……}}'), ('Hội Cựu chiến binh xã', '{{HL|Hội……}} xã'), ('Hội Cựu chiến binh', '{{HL|Hội……}}'),
+                        ('Hội CCB', '{{HL|Hội……}}'), ('Gò Dầu', '{{NH|…………}}'), ('năm 2026', 'năm {{NAM|20……}}'), ('năm 202 6', 'năm {{NAM|20……}}'), ('Năm 2025', 'Năm {{NT|20……}}')):
+            if cu in tx(x): x = thay_het(x, cu, moi)
+        if 'từ tháng 4 đến tháng 10' in tx(x): x = thay(x, [('từ tháng 4 đến tháng 10', 'từ tháng {{TU|……}} đến tháng {{DEN|……}}')])
+        T[i][1] = x
+    # bảng lịch
+    tb = T[40][1]; rows = list(re.finditer(r'<w:tr[ >].*?</w:tr>', tb, re.S))
+    hd = them_trpr(rows[0].group(0), '<w:cantSplit/><w:tblHeader/>')
+    d = rows[1].group(0)
+    c3 = tx(re.findall(r'<w:tc>.*?</w:tc>', d, re.S)[2])   # chữ ô "Kiểm tra tại các tổ" của dòng mẫu đầu (lấy từ file, không ghi tên vào mã)
+    d = thay(d, [('1', '{{L1|}}'), ('Tháng 4', '{{L2|}}'), (c3, '{{L3|}}')])
+    cs = list(re.finditer(r'<w:tc>.*?</w:tc>', d, re.S)); d = d[:cs[3].start()] + o_trong(cs[3].group(0), 'L4') + d[cs[3].end():]
+    d = them_trpr(d, '<w:cantSplit/>').replace('<w:jc w:val="both"/>', '<w:jc w:val="left"/>')
+    T[40][1] = tb[:rows[0].start()] + hd + '{{@LICH}}' + tb[rows[-1].end():]
+    T[65][1] = them_ppr(T[65][1], '<w:keepNext/>')
+    than = ''.join(t[1] for t in T)
+    than = re.sub(r' w14:(paraId|textId)="[^"]*"', '', than); d = re.sub(r' w14:(paraId|textId)="[^"]*"', '', d)
+    rieng = set()
+    for r0 in rows[1:]:   # ô "Kiểm tra tại các tổ" của các dòng mẫu: tên tổ trưởng (ấp)
+        cs0 = re.findall(r'<w:tc>.*?</w:tc>', r0.group(0), re.S)
+        if len(cs0) >= 3:
+            for phan in re.split(r'[,()]', tx(cs0[2])):
+                if len(phan.strip()) >= 4: rieng.add(phan.strip())
+    m0 = re.search(r'XÃ\s+([^\n]+)$', tx(ps[iHX].group(0))); xa0 = m0.group(1).strip() if m0 else ''
+    if xa0: rieng |= {xa0, xa0.title()}
+    for ten in rieng: assert ten not in than and ten not in d, 'còn tên riêng trong khuôn'
+    st = clean(f['word/styles.xml']); st = re.sub(r'<w:latentStyles.*?</w:latentStyles>', '', st, flags=re.S)
+    se = clean(f['word/settings.xml']); se = re.sub(r'<w:rsids>.*?</w:rsids>', '', se, flags=re.S); se = re.sub(r'<w:attachedTemplate[^>]*/>', '', se)
+    return dict(mo=mo, than=than, dong=d, sect=sect, styles=st, settings=se, fontTable=clean(f['word/fontTable.xml']), theme=f['word/theme/theme1.xml'],
+                footer=clean(f['word/footer1.xml']), footnotes=clean(f['word/footnotes.xml']), endnotes=clean(f['word/endnotes.xml']), header=None)
 
 if __name__ == '__main__':
     if sys.argv[1] == 'm04':   # 3.95: python3 tools/khuon_docx.py m04 <Mau04.docx> → khối JS KT_KHUON.m04 = {...};
@@ -339,6 +425,10 @@ if __name__ == '__main__':
     if sys.argv[1] == 'm01':   # 3.96: python3 tools/khuon_docx.py m01 <Du_thao_KH.docx> (bản .doc → .docx bằng LibreOffice) → KT_KHUON.m01 = {...};
         print('/* 3.96: khuôn Word Kế hoạch KTGS năm (01/KH) — dựng từ dự thảo HĐT cấp xã bằng tools/khuon_docx.py m01 (mẫu trắng, không có dữ liệu thật) */')
         print('KT_KHUON.m01 = ' + json.dumps(m01(sys.argv[2]), ensure_ascii=False, separators=(',', ':')) + ';')
+        sys.exit(0)
+    if sys.argv[1] == 'm01b':   # 3.97: python3 tools/khuon_docx.py m01b <kế hoạch mẫu Hội xã .docx> → KT_KHUON.m01b = {...};  (file gốc có tên thật — chỉ đọc ở máy làm việc)
+        print('/* 3.97: khuôn Word Kế hoạch KTGS năm ② — dựng từ bản kế hoạch mẫu của một Hội cấp xã bằng tools/khuon_docx.py m01b (đã xóa mọi tên riêng) */')
+        print('KT_KHUON.m01b = ' + json.dumps(m01b(sys.argv[2]), ensure_ascii=False, separators=(',', ':')) + ';')
         sys.exit(0)
     K = {'m06': m06(sys.argv[1]), 'm16': m16(sys.argv[2])}
     chung = {}
