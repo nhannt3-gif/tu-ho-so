@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.96 — 03/10/2026 17:00 — 🗓 Kế hoạch KTGS năm của Hội cấp xã (01/KH)
+- **KTGS Hội › 🗓 Kế hoạch năm · 01/KH** (chế độ thứ 4) — anh chốt: chọn **năm** → **xã** (cây) → **hội** (chip hội của xã, không cần chọn điểm GD) → app lấy **100% tổ của Hội tại xã** (mọi điểm GD), gom theo **ấp**.
+  - **Mặc định app xếp sẵn** tổ vào các tháng **02 → 10** (chia đều theo thứ tự ấp; ấp nhiều tổ tự tràn sang tháng kế bên); đổi **từ tháng / đến tháng** thì xếp lại trong khoảng; **đổi tháng cả ấp** hoặc **từng tổ**; ↺ Xếp lại tự động.
+  - Đổi là **lưu** theo năm + xã + hội (`D.cauHinh.ktKH`); tổ chưa xếp tháng (tổ mới, hoặc anh bỏ tháng) → **nhắc chưa đủ 100% tổ** (727).
+  - **Không ghi số hộ cụ thể** (anh chốt — số món thay đổi hàng tháng): cột cuối ghi "Tối thiểu 90% món vay"; dòng Cộng "n tổ (100% tổ do Hội quản lý)".
+- **Khuôn Word = dự thảo HĐT cấp xã anh gửi** (`tools/khuon_docx.py m01`, .doc → .docx bằng LibreOffice, mẫu trắng): **căn cứ đổi sang 727/HD-NHCS ngày 11/02/2026** (dự thảo còn ghi HD 10566/2022), **chỉ ghi mức 90%** (bỏ câu 75% vùng khó khăn), **bỏ khung "MẪU THAM KHẢO HĐT CẤP XÃ"**, ngày lập để trống, **khổ A4** (dự thảo khổ Letter), chữ đỏ / tô vàng của dự thảo → chữ đen; giữ nguyên toàn bộ mục I–III (nội dung kiểm tra tại Tổ, tại khách hàng), chân trang số trang.
+  - App điền: HỘI … TỈNH TÂY NINH / HỘI … XÃ … (in hoa), nơi lập (tên xã), năm, năm trước (thời hiệu), từ tháng / đến tháng, tên Hội ở mọi chỗ "Hội……xã……", NHCSXH Gò Dầu; **số / ngày Hợp đồng ủy thác** (tự thêm "/HĐUT"), **số / ngày Kế hoạch Hội tỉnh**, **thành phần đoàn** (đủ 3 dòng, thiếu thì dòng chấm), **người ký** — theo ⚙ Khai báo Hội; trống giữ dòng chấm.
+  - Bảng lịch: mỗi tháng có tổ 1 dòng "Ấp …: tổ trưởng, …" (xuống dòng trong ô), tiêu đề lặp khi sang trang. Đường kẻ dưới tên Hội dời xuống trên dòng "Số:" để tên Hội dài 2 dòng vẫn kẻ đúng. LibreOffice: 12 tổ ≈ 7 trang.
+  - Bản In / PDF đọc lại chính tài liệu Word đã điền (`ktXmlHTML`) nên cùng nội dung.
+- Tên ấp: dữ liệu đã có "Ấp / Thôn / Khu phố…" thì giữ, không thêm "Ấp" lần nữa (áp dụng cả Mẫu 04 mục II).
+- `ktDocx` dựng phần phụ theo khuôn (đầu trang / chú thích / chân trang có mới đưa vào) — Mẫu 06 / 16 / 04 không đổi; `ktDien` đổi xuống dòng thành ngắt dòng trong ô.
+- Phép thử mới `tests/t109.js` (24 phép).
+
 ## 3.95 — 03/10/2026 15:30 — 📋 Mẫu 04/BC-TH Báo cáo tổng hợp kết quả kiểm tra · ⚙ Khai báo Hội
 - **KTGS Hội › 📋 Báo cáo tổng hợp · Mẫu 04** (chế độ thứ 3, cạnh Kiểm tra đột xuất / Sau giải ngân) — anh chốt: chọn tháng kiểm tra → app liệt kê **các tổ đã lập phiếu trong tháng** (Mẫu 06 đột xuất · Biên bản 16 · Mẫu 06 sau giải ngân), **tích sẵn**, ngày kiểm tra theo lịch sử (sửa được từng tổ).
   - Phạm vi: Toàn PGD = mọi tổ có phiếu trong tháng; chọn xã / hội ở cây = chỉ tổ trong phạm vi + hiện thêm **tổ khác chưa có phiếu (chưa tích) để thêm tay**; tổ đã tích vẫn giữ khi đổi phạm vi.
