@@ -19,6 +19,8 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 7. Mỗi bản quan trọng: trạng thái, quyết định, changelog, backlog, tài liệu bàn giao / hướng dẫn thử.
 8. Anh thường giao **"làm tuần tự tất cả"** rồi thử một lượt → làm từng bản, mỗi bản PR riêng, cuối cùng gửi một tổng kết + danh sách thử.
 
+**Đăng web (GitHub Pages):** repo có file `.nojekyll` (thêm 03/10/2026) — Pages đăng nguyên file, không qua Jekyll. Từ 3.93 tài liệu có `{{…}}` (dấu chèn khuôn Word) làm Jekyll báo lỗi → Pages kẹt ở 3.92 suốt 3.93–3.96. **Không xóa `.nojekyll`.** Gộp xong nên xem Actions › "pages build and deployment" xanh.
+
 **Bảo mật dữ liệu (rất quan trọng):** repo **công khai** (GitHub Pages). **Không bao giờ** commit tên khách, CCCD, tên tổ trưởng, file / ảnh anh gửi. File thật anh gửi (ví dụ các file Excel mẫu) chỉ đọc trong thư mục nháp của phiên. Phép thử dùng dữ liệu giả (`tests/taogia.py`). Anh đã chốt: Drive của anh là nơi lưu bảo mật (CCCD không mã hóa, 3.32); dữ liệu khách chỉ nằm trong máy + Drive của anh.
 
 ---

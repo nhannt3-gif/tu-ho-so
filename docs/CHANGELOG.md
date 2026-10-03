@@ -4,6 +4,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.96.1 — 03/10/2026 17:30 — sửa đăng web
+- GitHub Pages kẹt ở bản 3.92 từ 3.93 (Jekyll lỗi vì tài liệu có `{{…}}`) → thêm `.nojekyll`, Pages đăng nguyên file. Không đổi mã app.
+
 ## 3.96 — 03/10/2026 17:00 — 🗓 Kế hoạch KTGS năm của Hội cấp xã (01/KH)
 - **KTGS Hội › 🗓 Kế hoạch năm · 01/KH** (chế độ thứ 4) — anh chốt: chọn **năm** → **xã** (cây) → **hội** (chip hội của xã, không cần chọn điểm GD) → app lấy **100% tổ của Hội tại xã** (mọi điểm GD), gom theo **ấp**.
   - **Mặc định app xếp sẵn** tổ vào các tháng **02 → 10** (chia đều theo thứ tự ấp; ấp nhiều tổ tự tràn sang tháng kế bên); đổi **từ tháng / đến tháng** thì xếp lại trong khoảng; **đổi tháng cả ấp** hoặc **từng tổ**; ↺ Xếp lại tự động.
