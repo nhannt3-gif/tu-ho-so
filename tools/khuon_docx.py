@@ -167,7 +167,79 @@ def m16(path):
     T[34][1] = re.sub(r'<w:tr[ >].*?</w:tr>', lambda m: them_trpr(m.group(0), '<w:cantSplit/>'), T[34][1], flags=re.S)
     return dict(mo=mo, than=''.join(t[1] for t in T), sect=sect, **phan_phu(f))
 
+# ---------- 3.95: Mẫu 04/BC-TH (Báo cáo tổng hợp kết quả kiểm tra hoạt động nhận ủy thác cho vay) ----------
+# Từ file mẫu gốc anh gửi (mẫu trắng). Giữ chữ / phông / lề / bảng / khung "Mẫu số 04/BC-TH" / đường kẻ của mẫu; chỉ:
+#  - bỏ khung "MẪU THAM KHẢO";
+#  - 2 dòng đầu (ĐƠN VỊ KIỂM TRA ↔ Quốc hiệu, căn bằng dấu cách) → bảng 2 cột không viền cùng vị trí, để điền tên đơn vị không xô dòng
+#    (cột phải canh giữa đúng tâm đường kẻ dưới Quốc hiệu của mẫu);
+#  - chèn dấu {{@...}} cho app bung: dòng chấm ghi tay (tab dẫn chấm hết dòng), dòng Đoàn kiểm tra, các dòng bảng mục II;
+#  - VI.1 số phiếu → {{SP|chấm}}; hàng tiêu đề bảng lặp khi sang trang; khối Nơi nhận / Trưởng đoàn đi liền nhau.
+W04 = 9213   # bề rộng vùng chữ (twip) = 11907 - 1560 - 1134
+
+def cham04(rpr_sz='24'):
+    return ('<w:p><w:pPr><w:tabs><w:tab w:val="right" w:leader="dot" w:pos="%d"/></w:tabs><w:spacing w:before="0" w:after="0" w:line="440" w:lineRule="exact"/>'
+            '<w:rPr><w:sz w:val="%s"/><w:szCs w:val="%s"/></w:rPr></w:pPr><w:r><w:rPr><w:sz w:val="%s"/><w:szCs w:val="%s"/></w:rPr><w:tab/></w:r></w:p>') % (W04, rpr_sz, rpr_sz, rpr_sz, rpr_sz)
+
+def m04(path):
+    f, mo, body = goi(path); T = top(body)
+    tx = lambda x: ''.join(re.findall(r'<w:t[^>]*>([^<]*)</w:t>', x))
+    assert 'Mẫu số 04/BC' in tx(T[0][1]) and 'BÁO CÁO TỔNG HỢP' in tx(T[4][1]) and T[10][0] == 'w:tbl', 'không đúng khuôn Mẫu 04/BC-TH'
+    sect = T[-1][1]; T = T[:-1]
+    # bỏ khung MẪU THAM KHẢO (run có drawing chứa chữ đó)
+    T[3][1] = re.sub(r'<w:r>(?:(?!</w:r>).)*?<w:drawing>.*?</w:drawing></w:r>', lambda m: '' if 'MẪU THAM KHẢO' in m.group(0) else m.group(0), T[3][1], flags=re.S)
+    assert 'MẪU THAM KHẢO' not in T[3][1]
+    # 2 dòng đầu → bảng 2 cột (trái 3341 twip: tâm cột phải = tâm đường kẻ dưới Quốc hiệu 4650 + 3255/2 ≈ 6277)
+    L = 3341; R = W04 - L
+    def o(w, ps):
+        return '<w:tc><w:tcPr><w:tcW w:w="%d" w:type="dxa"/></w:tcPr>%s</w:tc>' % (w, ''.join(ps))
+    def pc(txt, sz='26', b=True):
+        rp = '<w:rPr>' + ('<w:b/><w:bCs/>' if b else '') + '<w:sz w:val="%s"/><w:szCs w:val="%s"/></w:rPr>' % (sz, sz)
+        return '<w:p><w:pPr><w:spacing w:before="0" w:after="0"/><w:jc w:val="center"/>' + rp + '</w:pPr><w:r>' + rp + '<w:t xml:space="preserve">' + txt + '</w:t></w:r></w:p>'
+    bang = ('<w:tbl><w:tblPr><w:tblW w:w="%d" w:type="dxa"/><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="0" w:type="dxa"/><w:right w:w="0" w:type="dxa"/></w:tblCellMar>'
+            '<w:tblLook w:val="0000" w:firstRow="0" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:noHBand="0" w:noVBand="0"/></w:tblPr>'
+            '<w:tblGrid><w:gridCol w:w="%d"/><w:gridCol w:w="%d"/></w:tblGrid><w:tr>' % (W04, L, R) +
+            o(L, [pc('ĐƠN VỊ KIỂM TRA'), pc('{{DV|........................................}}')]) +
+            o(R, [pc('CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM'), pc('Độc lập - Tự do - Hạnh phúc', '27')]) + '</w:tr></w:tbl>')
+    assert 'ĐƠN VỊ KIỂM TRA' in tx(T[1][1]) and 'Độc lập' in tx(T[2][1])
+    T[1][1] = bang; T[2][1] = ''
+    C = cham04()
+    chu = re.sub(r'<w:r>.*</w:r>', '<w:r><w:rPr><w:bCs/><w:sz w:val="27"/><w:szCs w:val="27"/></w:rPr><w:t xml:space="preserve">{{X|}}</w:t></w:r>', T[7][1], flags=re.S)
+    chu = re.sub(r' w14:(paraId|textId)="[^"]*"', '', chu)
+    T[7][1] += '{{@DOAN}}'          # I.1 Đoàn kiểm tra: các dòng khai báo + dòng chấm cho đủ 4
+    T[8][1] += '{{@CHAM2}}'         # I.2 Cấp ủy, chính quyền: 2 dòng
+    # bảng II: tiêu đề lặp khi sang trang; 2 dòng trống mẫu → 1 dòng khuôn {{@DONG}}
+    tb = T[10][1]; rows = list(re.finditer(r'<w:tr[ >].*?</w:tr>', tb, re.S))
+    hd = them_trpr(rows[0].group(0), '<w:cantSplit/><w:tblHeader/>')
+    d = rows[1].group(0); cells = list(re.finditer(r'<w:tc>.*?</w:tc>', d, re.S))
+    dd = d[:cells[0].start()]; last = cells[0].start()
+    for c, m in enumerate(cells):
+        x = m.group(0).replace('<w:jc w:val="both"/>', '<w:jc w:val="%s"/>' % ('center' if c < 2 else 'left')).replace('w:val="27"', 'w:val="26"')
+        dd += d[last:m.start()] + o_trong(x, 'C%d' % (c+1)); last = m.end()
+    dd = them_trpr(dd + d[last:], '<w:cantSplit/>').replace('<w:trHeight w:val="275"/>', '<w:trHeight w:val="567" w:hRule="atLeast"/>')
+    T[10][1] = tb[:rows[0].start()] + hd + '{{@DONG}}' + tb[rows[-1].end():]
+    DONG = dd
+    # III: 1… 2… + 2 dòng chấm (4 dòng)
+    for k, so in ((12, '1.'), (13, '2.')):
+        T[k][1] = re.sub(r'<w:pPr>', '<w:pPr><w:tabs><w:tab w:val="right" w:leader="dot" w:pos="%d"/></w:tabs>' % W04, T[k][1], count=1)
+        T[k][1] = re.sub(r'<w:t>%s\.+</w:t>' % re.escape(so[0]), '<w:t>%s</w:t></w:r><w:r><w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr><w:tab/>' % so, T[k][1])
+        assert '<w:tab/>' in T[k][1], k
+    T[14][1] = '{{@CHAM2}}'
+    # IV: mỗi mục a) b) … 3 dòng chấm
+    for k in list(range(17, 20)) + list(range(21, 26)) + [27, 28]:
+        assert re.match(r'^[a-dđ]\)', tx(T[k][1])), (k, tx(T[k][1]))
+        T[k][1] += '{{@CHAM3}}'
+    # VI.1 số phiếu
+    T[30][1] = dien(T[30][1], [(r'/TD\):', 'SP', r'\.+')])
+    for k in range(29, 34): T[k][1] = them_ppr(T[k][1], '<w:keepNext/>')
+    than = ''.join(t[1] for t in T)
+    than = re.sub(r' w14:(paraId|textId)="[^"]*"', '', than)
+    return dict(mo=mo, than=than, dong=DONG, cham=C, chu=chu, sect=sect, **phan_phu(f))
+
 if __name__ == '__main__':
+    if sys.argv[1] == 'm04':   # 3.95: python3 tools/khuon_docx.py m04 <Mau04.docx> → khối JS KT_KHUON.m04 = {...};
+        print('/* 3.95: khuôn Word Mẫu 04/BC-TH — dựng từ file mẫu gốc bằng tools/khuon_docx.py m04 (mẫu trắng, không có dữ liệu thật) */')
+        print('KT_KHUON.m04 = ' + json.dumps(m04(sys.argv[2]), ensure_ascii=False, separators=(',', ':')) + ';')
+        sys.exit(0)
     K = {'m06': m06(sys.argv[1]), 'm16': m16(sys.argv[2])}
     chung = {}
     for k in list(K['m06'].keys()):   # phần giống hệt nhau giữa 2 mẫu thì dùng chung

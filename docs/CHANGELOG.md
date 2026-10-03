@@ -4,6 +4,20 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.95 — 03/10/2026 15:30 — 📋 Mẫu 04/BC-TH Báo cáo tổng hợp kết quả kiểm tra · ⚙ Khai báo Hội
+- **KTGS Hội › 📋 Báo cáo tổng hợp · Mẫu 04** (chế độ thứ 3, cạnh Kiểm tra đột xuất / Sau giải ngân) — anh chốt: chọn tháng kiểm tra → app liệt kê **các tổ đã lập phiếu trong tháng** (Mẫu 06 đột xuất · Biên bản 16 · Mẫu 06 sau giải ngân), **tích sẵn**, ngày kiểm tra theo lịch sử (sửa được từng tổ).
+  - Phạm vi: Toàn PGD = mọi tổ có phiếu trong tháng; chọn xã / hội ở cây = chỉ tổ trong phạm vi + hiện thêm **tổ khác chưa có phiếu (chưa tích) để thêm tay**; tổ đã tích vẫn giữ khi đổi phạm vi.
+  - **Mỗi Hội – xã 1 báo cáo** (Đơn vị kiểm tra = Hội cấp xã); nhiều Hội – xã → 1 file Word, mỗi báo cáo sang trang mới.
+  - Nhắc theo 727: tổ chưa thấy **Biên bản 16** trong app → cảnh báo "Mẫu 04 chỉ lập khi kiểm tra hoạt động của Tổ" (chỉ nhắc, không chặn).
+  - 👁 Xem trước → 🖨 In / PDF · 📄 Word (.docx) để sửa.
+- **Word đúng khuôn file mẫu gốc anh gửi** (`tools/khuon_docx.py m04`, mẫu trắng): giữ khung "Mẫu số 04/BC-TH · 01 liên lưu…", Quốc hiệu, đường kẻ, bảng mục II; **bỏ khung "MẪU THAM KHẢO"**; 2 dòng đầu (căn bằng dấu cách) đổi thành bảng 2 cột không viền cùng vị trí để điền tên đơn vị không xô dòng.
+  - App điền: **Đơn vị kiểm tra** (in hoa), **Đoàn kiểm tra** (theo ⚙ Khai báo Hội), **bảng mục II** mỗi tổ 1 dòng (Stt · ngày · "Tổ TK&VV [tổ trưởng] (mã tổ)" · "Tây Ninh, xã …, ấp …"), **VI.1 số phiếu Mẫu 06** theo lịch sử lập phiếu trong app.
+  - **Dòng chấm ghi tay** (tab dẫn chấm hết dòng — sửa trong Word không vỡ): I.1 Đoàn kiểm tra đủ **4 dòng**, I.2 **2 dòng**, III **4 dòng** (1… 2… + 2), **mỗi mục a) b) … của IV: 3 dòng** (anh chốt 3–4 dòng). Ngày lập, Nơi nhận NHCSXH, VI.2 số danh sách 15/TD để chấm.
+  - Hàng tiêu đề bảng lặp khi sang trang, dòng tổ không cắt, khối VI + Nơi nhận + Trưởng đoàn đi liền. LibreOffice: 1 báo cáo 1 tổ ≈ 2 trang, 3 tổ + 2 dòng đoàn ≈ 3 trang.
+- **⚙ Khai báo Hội** (mỗi Hội – xã 1 khối, lọc theo xã đang chọn ở cây): tên đơn vị (mặc định tự sinh "Hội … xã …"), số / ngày Hợp đồng ủy thác, số / ngày Kế hoạch KTGS của Hội tỉnh, Đoàn kiểm tra (mỗi người 1 dòng), người ký — lưu `D.cauHinh.ktHoiKB` (máy + Drive cùng cấu hình), dùng chung cho Mẫu 04 và Kế hoạch 01/KH (bản sau). Ô trống → dòng chấm.
+- **Nhật ký lập phiếu theo tổ** `D.cauHinh.ktgsNK` (mới): xuất Biên bản 16 và Mẫu 06 sau giải ngân giờ ghi tổ + ngày (trước chỉ Mẫu 06 đột xuất ghi `ktgsLS`; sau giải ngân chỉ ghi món). Phiếu / biên bản lập **trước 3.95** chưa có tổ → thêm tay bằng cây.
+- Phép thử mới `tests/t108.js` (28 phép).
+
 ## 3.94 — 03/10/2026 14:00 — 👤 Tra cứu KH gọn, chia nhóm khoa học · kiểm trùng CCCD + tên vợ/chồng (người thừa kế)
 - **Cột trái:** ô tìm + chip 📍 phạm vi cùng hàng; **danh sách 2 dòng/khách** (tên + nhãn đang vay n món / tất nợ / chỉ gửi TK · mã KH · CCCD · xã · ấp · tổ); ↑ ↓ chọn, Enter mở; điện thoại hiện 50 dòng + **Xem thêm 50** (trước: 300 dòng, trang dài ~47.000 px).
 - **Cột phải (thẻ khách) chia nhóm:** đầu thẻ (tên, mã KH, nhãn CCCD hết hạn / sắp hết hạn / SĐT không đạt / quá hạn / khoanh / KHĐ) · **5 ô số tóm tắt** (tổng dư nợ, quá hạn, khoanh, lãi tồn, số dư 105) · **Nhân thân** (CCCD + ngày cấp + nơi cấp, **hạn CCCD** xanh / vàng < 6 tháng / đỏ hết hạn, sinh · giới · DT, vợ/chồng = người thừa kế) · **Liên hệ & địa bàn** (SĐT đạt / không, địa chỉ bỏ dấu thừa "- -", tổ trưởng ☎, hội, điểm GD) · **Tiết kiệm 105** (mọi sổ) · **Món vay** (CT viết tắt, khế ước, vay → đến hạn, giải ngân, dư nợ, lãi tồn, **mục đích vay vốn** rút gọn theo ⚙ bảng ngành, tình trạng; dòng cộng; món đã tất toán thu gọn).
