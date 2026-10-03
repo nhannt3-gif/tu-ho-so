@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 03/10/2026, bản 3.95)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 03/10/2026, bản 3.96)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -86,7 +86,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.95 (mới nhất):** KTGS › **📋 Báo cáo tổng hợp · Mẫu 04/BC-TH** — chọn tháng → tổ đã lập phiếu trong tháng tích sẵn (thêm tổ bằng cây, sửa ngày), mỗi Hội – xã 1 báo cáo, Word đúng khuôn mẫu gốc (bỏ khung MẪU THAM KHẢO; dòng chấm: I.1 4, I.2 2, III 4, mỗi mục IV 3; app điền đơn vị, đoàn, bảng mục II, số phiếu 06). **⚙ Khai báo Hội** (số HĐUT, KH Hội tỉnh, đoàn, người ký) dùng chung cho 01/KH. Nhật ký lập phiếu theo tổ `ktgsNK` (Biên bản 16, Mẫu 06 sau GN).
+**3.96 (mới nhất):** KTGS › **🗓 Kế hoạch năm · 01/KH** — năm → xã → hội → 100% tổ của Hội gom theo ấp, xếp sẵn tháng 02 → 10 (đổi cả ấp / từng tổ, lưu theo năm + xã + hội, nhắc tổ chưa xếp); Word theo **dự thảo HĐT cấp xã** (căn cứ 727, chỉ 90%, bỏ MẪU THAM KHẢO, A4, không ghi số hộ); số HĐUT / KH Hội tỉnh / đoàn / người ký từ ⚙ Khai báo Hội.
+
+**3.95:** KTGS › **📋 Báo cáo tổng hợp · Mẫu 04/BC-TH** — chọn tháng → tổ đã lập phiếu trong tháng tích sẵn (thêm tổ bằng cây, sửa ngày), mỗi Hội – xã 1 báo cáo, Word đúng khuôn mẫu gốc (bỏ khung MẪU THAM KHẢO; dòng chấm: I.1 4, I.2 2, III 4, mỗi mục IV 3; app điền đơn vị, đoàn, bảng mục II, số phiếu 06). **⚙ Khai báo Hội** (số HĐUT, KH Hội tỉnh, đoàn, người ký) dùng chung cho 01/KH. Nhật ký lập phiếu theo tổ `ktgsNK` (Biên bản 16, Mẫu 06 sau GN).
 
 **3.94:** 👤 Tra cứu KH gọn — danh sách 2 dòng, thẻ chia nhóm (số tóm tắt, nhân thân + hạn CCCD, liên hệ, tiết kiệm, món vay có mục đích, HSSV đủ trường / hệ / ngành / khóa), bấm giá trị để chép, bỏ nút Hồ sơ hộ ở thẻ; **kiểm trùng 2 ô CCCD + họ tên**: CCCD người vay, CCCD HSSV, **tên vợ/chồng của người đang vay = người thừa kế** (anh chốt quan trọng; chỉ so được theo tên), cùng họ tên. **Chờ / làm sau:** Mẫu 15/TD, 03/BB-CX, 06A/TD, liên kết scan.
 
@@ -176,7 +178,7 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 
 | # | Việc | Trạng thái / cần gì |
 |---|---|---|
-| 0k | **KTGS Hội — anh thử bảng 3.93 → 3.95**; **tiếp ngay: 3.96 Kế hoạch 01/KH** (đã duyệt: khuôn = dự thảo HĐT cấp xã anh gửi, căn cứ đổi sang **727/HD-NHCS 11/02/2026**, chỉ ghi **90%**, bỏ khung MẪU THAM KHẢO, ngày lập để chấm; không ghi số hộ cụ thể; lịch tháng ↔ ấp/tổ mặc định app xếp sẵn tháng 02 → 10, anh đổi được, lưu theo năm + Hội + xã, nhắc nếu chưa đủ 100% tổ; số HĐUT / KH Hội tỉnh / đoàn / người ký lấy từ ⚙ Khai báo Hội). Sau đó: Mẫu 15/TD (đúng khuôn), 03/BB-CX (tự tính I.1 từ BC0438 / BC0437, I.2 chấm điểm tổ), 06A/TD, bảng tiến độ 727 | Lên kế hoạch → anh duyệt → "code". Phân trang Word kiểm bằng LibreOffice; anh kiểm lại trên Word thật. |
+| 0k | **KTGS Hội — anh thử bảng 3.93 → 3.96** (Mẫu 04, 01/KH: mở Word thật kiểm bố cục). Tiếp: Mẫu 15/TD (đúng khuôn), 03/BB-CX (tự tính I.1 từ BC0438 / BC0437, I.2 chấm điểm tổ), 06A/TD, bảng tiến độ 727 (có thể nối lịch 01/KH: tháng này đến lượt tổ nào → đã kiểm chưa) | Lên kế hoạch → anh duyệt → "code". Phân trang Word kiểm bằng LibreOffice; anh kiểm lại trên Word thật. |
 | 0s | **Liên kết scan / thêm PDF → tự chuẩn hóa tên + gắn dữ liệu** (sau KTGS) | Chờ anh trả lời: dạng tên file, đổi tên scan cũ, iPhone / Android, chia giai đoạn. |
 | 0a | **Phân kỳ** — 3 món GQVL qua tổ vay 03–04/2026 có kỳ 05/2026 · 09/2026 chưa trả mà Mẫu 31 chưa chuyển QH (theo CV 597 phải chuyển nếu không được điều chỉnh) — anh kiểm | Ước tính số tiền kỳ chỉ khớp 4/7 NOXH; ủy thác mới cần file phân kỳ để biết số tiền kỳ → nạp file mỗi tháng (kỳ đầu đa số từ T3/2027). |
 | 0 | **Anh thử 3.90** (anh đã xóa tay dữ liệu cũ, sẽ nạp lại 31/12/2025, T8, T9 — nên nạp thêm Mẫu 31 T7 để T8 so được khách mới) | Bảng thử 3.90 trong `BAN_GIAO_VIEC_CON_LAI.md`. **Mẫu 31 chỉ xuất được theo tháng** (anh kiểm) → số theo ngày dùng Mẫu 10. **Chờ anh thử xuất BCDHTD / LEN_31 / B32 theo ngày** (app đã nhận sẵn vào ô theo ngày): kiểm ngày trong file, doanh số lũy kế hay theo ngày, khớp Mẫu 10 cùng ngày → nếu được thì thêm đối chiếu + bảng đối chiếu chéo cho kỳ theo ngày. Lưu ý còn mở (số thật T9): thu nợ LEN_31 thấp hơn BCDHTD 71.999.298 (12 tổ), 3 món vay mới năm 2026 không có trong KHĐ, 19 tổ có dư nợ chưa có trong Thông tin tổ trưởng — anh kiểm trên hệ thống. |

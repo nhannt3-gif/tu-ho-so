@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.96) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS Hội → **🗓 Kế hoạch năm · 01/KH** → chọn xã ở cây → bấm chip 1 hội | Bảng 100% tổ của Hội tại xã, gom theo ấp, mỗi tổ đã có tháng (02 → 10), dòng "Lịch: T2 n tổ · …" | |
+| 2 | Đổi tháng ở dòng ấp, rồi đổi 1 tổ | Cả ấp sang tháng mới; tổ đổi riêng; mở lại app vẫn giữ | |
+| 3 | Đổi "từ tháng / đến tháng" (vd 03 → 08) | Tổ xếp lại trong khoảng mới | |
+| 4 | ⚙ Khai báo Hội: số HĐUT, ngày, số KH Hội tỉnh, đoàn (mỗi người 1 dòng), người ký → 👁 Xem → 📄 Word → mở bằng **Word thật** | Đầu trang HỘI … TỈNH / HỘI … XÃ đúng, căn cứ 727, chỉ 90%, không khung MẪU THAM KHẢO, bảng lịch đúng tháng – ấp – tổ, phần III giữ nguyên, ký CHỦ TỊCH + tên; số trang ở chân trang; không báo lỗi khi mở | |
+| 5 | 🖨 In / PDF | Cùng nội dung bản Word | |
+
+**Ghi chú kỹ thuật 3.96:** Khối "3.96: 🗓 KẾ HOẠCH KTGS NĂM" (sau khối 3.95): `ktKHNam` (C.khNam), `ktKHHoi` (C.hoi theo cây, hoặc C.khHoi = chip hội — cây cần điểm GD mới chọn được hội), `ktKHDsTo` (tổ của Hội tại xã, mọi điểm GD, theo `ktKHAp` rồi tên), `ktApChu` (giữ "Ấp / Thôn / Khu phố…" có sẵn), `ktKHMacDinh(ds, tu, den)` = tháng tu + ⌊i·M/N⌋, `ktKHLich` → {tu, den, gan, thieu, ds, luu} từ `D.cauHinh.ktKH['năm|xã|hội']` = {tu, den, to:{mã: tháng}, luc}, `ktKHDoiThang(mã, tháng, ấp)`, `ktKHDoiKhoang`, `ktKHXepLai`, `ktKHVe`, `ktKHGiaTri` → {nam, ten, doan[], rows[{L1, L2, L3}], f:{HT, HX, NOI, NAM, NT, TU, DEN, KH, KHN, HOIT, HD, HDN, NH, HXT, HOI1, CT, KY}}, `ktBung01` (bung `{{@DOAN}}` đủ 3 dòng, `{{@LICH}}`), `ktKHXem` / `ktKHIn`, `ktHTML01` + `ktXmlHTML` (Word đã điền → HTML: đoạn, đậm / nghiêng, canh lề, thụt dòng, bảng, tab dẫn chấm). `ktCheDo` thêm 'kh'; `ktHoiKBHop(2)` → Xong mở lại xem Kế hoạch. `ktDocx`: phần phụ `phu` lọc theo khuôn (header rId8 · endnotes rId7 · footnotes rId6 · footer rId11), `lay(k)` = null → không có phần đó. Khuôn `KT_KHUON.m01` = {mo, than, dong, chu, cham, sect, styles, settings, fontTable, theme, footer, header:null, footnotes:null, endnotes:null} dựng bằng `python3 tools/khuon_docx.py m01 <dự thảo .docx>` (hàm `thay` thay chuỗi trên chữ nối các run). Phép thử `tests/t109.js`.
+
 ### Danh sách thử trên máy thật (3.95) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
