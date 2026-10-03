@@ -141,6 +141,13 @@ const fs=require('fs'), path=require('path');
    ktGNKhaiBao(); await w(50); ktGNXem(); await w(200); ktGNIn('in'); await w(300);
    const hG = await H[Object.keys(H).find(n=>/sau giai ngan/.test(n))].text(); ok('In / PDF nhiều phiếu: mỗi phiếu trang mới', (hG.match(/break-before:page/g)||[]).length===nP-1);
    C2.che = 'dx';
+   /* 3.93.1: dán file (Ctrl+V) → nhận như kéo thả */
+   const goc = gioiThieuFile; let nhan = null; gioiThieuFile = function(fs){ nhan = fs; };
+   const dt = new DataTransfer(); dt.items.add(new File(['x'], 'CV 123 thu.pdf', {type:'application/pdf'}));
+   const ev = new ClipboardEvent('paste', {clipboardData:dt, bubbles:true, cancelable:true}); document.body.dispatchEvent(ev);
+   const dt2 = new DataTransfer(); dt2.setData('text/plain', 'chữ'); let nhan2 = null; gioiThieuFile = function(fs){ nhan2 = fs; }; document.body.dispatchEvent(new ClipboardEvent('paste', {clipboardData:dt2, bubbles:true, cancelable:true}));
+   gioiThieuFile = goc;
+   ok('dán file (Ctrl+V) → nhận như kéo thả; dán chữ không ảnh hưởng', !!nhan && nhan.length===1 && nhan[0].name==='CV 123 thu.pdf' && ev.defaultPrevented && nhan2===null);
    /* điện thoại */
    return o; }, files).catch(e=>['✗ LỖI '+e.message]);
  r.forEach(x=>console.log(x)); await p.screenshot({path:path.join(__dirname,'t106.png'), fullPage:true});

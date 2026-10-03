@@ -2781,7 +2781,7 @@
       <div id="tt-them"></div>
       <div class="tha" id="vung-tha">
         <b>Bấm để chọn file</b><br>
-        hoặc kéo thả file / cả thư mục vào đây<br>
+        hoặc kéo thả file / cả thư mục vào đây · hoặc copy file rồi dán (Ctrl+V)<br>
         <span style="font-size:.88em">Trên iPhone: ở Zalo hay Drive bấm Chia sẻ → Tủ hồ sơ</span>
       </div>
       <input type="file" id="chon-file" multiple accept="*/*" style="display:none">
@@ -12428,6 +12428,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.93.1', ds:[
+  ['📋 Thêm file bằng cách dán: copy file (vd văn bản cũ trong thư mục) rồi bấm Ctrl+V trong app — nhận như kéo thả, xếp vào tab đang mở', "dongHop();doiNgan(1)"],
   ['📅 KTGS Hội › Sau giải ngân (30 ngày): chọn tháng (hoặc từ tháng → đến tháng) → chọn địa bàn → 👁 Xem → In / Word Mẫu 06 — mỗi tổ, mỗi tháng 1 phiếu (gồm cả HSSV nhận tiền lần 2 trở đi); chọn đến tổ thì tích / bỏ tích từng món', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['⚙ Bảng ngành kinh tế gọn: ngành nhiều món lên trên, ẩn ngành dưới 10 món (nút Hiện thêm / Thu gọn); cột Mục đích ghi “In mục đích vay vốn (theo hệ thống, rút gọn)”', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🛡 Số liệu có tab con mới KTGS Hội: nạp BC0437 (tổ TK&VV do HĐT quản lý) + BC0438 (ủy thác theo xã · hội) theo chuẩn tab Nạp — ma trận loại × tháng, nạp nhiều file (xem trước → ghi nhận), 🔍 kiểm tra BC0437 ↔ BC0438 ↔ Mẫu 31 ↔ KHĐ; xếp loại tổ tự tính theo công thức của file khi cột = 0; bảng các tổ có điểm, xếp loại', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -16319,7 +16320,7 @@ function veDauTab(tab, opt){
   var h = '<div class="dau-tab">'+
     '<button class="nut-them" id="nut-them-'+tab+'" onclick="'+(opt.hamThem||'nutChinh()')+'" '+
       'ondragover="event.preventDefault();this.classList.add(\'keo\')" ondragleave="this.classList.remove(\'keo\')" '+
-      'ondrop="this.classList.remove(\'keo\')" title="Bấm để chọn file, hoặc kéo thả file vào đây">'+
+      'ondrop="this.classList.remove(\'keo\')" title="Bấm để chọn file, kéo thả file vào đây, hoặc copy file rồi dán (Ctrl+V)">'+
       '<span class="cong">+</span> Thêm file</button>'+nutBot(tab)+
     '<button class="phu'+(so?' co':'')+'" onclick="moBoLoc(\''+tab+'\')">'+
       'Bộ lọc'+(so?(' · '+so):'')+' ▾</button>'+
@@ -21312,6 +21313,13 @@ function khoiDong(){
   document.addEventListener('drop', function(e){
     e.preventDefault(); demKeo = 0; phuKeo(false);
     if(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) gioiThieuFile(e.dataTransfer.files);
+  });
+  /* 3.93.1: dán file (copy file văn bản cũ ở thư mục → Ctrl+V trong app) — nhận như kéo thả; dán chữ vào ô nhập vẫn bình thường */
+  document.addEventListener('paste', function(e){
+    var cd = e.clipboardData, fs = cd && cd.files ? Array.prototype.slice.call(cd.files) : [];
+    if(!fs.length && cd && cd.items) Array.prototype.forEach.call(cd.items, function(it){ if(it.kind==='file'){ var f = it.getAsFile(); if(f) fs.push(f); } });
+    if(!fs.length) return;
+    e.preventDefault(); gioiThieuFile(fs);
   });
 
   /* 3.13: giá trị kéo cột cũ có thể làm cột phải teo lại → kẹp về khoảng an toàn; bỏ cờ ẩn toàn cục đời cũ */
