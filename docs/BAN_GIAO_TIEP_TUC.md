@@ -182,7 +182,7 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 
 | # | Việc | Trạng thái / cần gì |
 |---|---|---|
-| 0k | **KTGS Hội — anh thử bảng 3.93 → 3.96** (Mẫu 04, 01/KH: mở Word thật kiểm bố cục). Tiếp: Mẫu 15/TD (đúng khuôn), 03/BB-CX (tự tính I.1 từ BC0438 / BC0437, I.2 chấm điểm tổ), 06A/TD, bảng tiến độ 727 (có thể nối lịch 01/KH: tháng này đến lượt tổ nào → đã kiểm chưa) | Lên kế hoạch → anh duyệt → "code". Phân trang Word kiểm bằng LibreOffice; anh kiểm lại trên Word thật. |
+| 0k | **ĐANG CHỜ: anh test bố cục 3.97 (Word thật) → góp ý → làm 1 bản 3.98** gồm việc đã thống nhất ở mục **7a** bên dưới + góp ý của anh. Sau đó: Mẫu 15/TD (đúng khuôn), 03/BB-CX (tự tính I.1 từ BC0438 / BC0437, I.2 chấm điểm tổ), 06A/TD, bảng tiến độ 727 (nối lịch 01/KH: tháng này đến lượt tổ nào → đã kiểm chưa) | **Chưa code 3.98** — chờ anh test xong + nhắn "code". Anh còn 2 câu chưa trả lời (mục 7a). |
 | 0s | **Liên kết scan / thêm PDF → tự chuẩn hóa tên + gắn dữ liệu** (sau KTGS) | Chờ anh trả lời: dạng tên file, đổi tên scan cũ, iPhone / Android, chia giai đoạn. |
 | 0a | **Phân kỳ** — 3 món GQVL qua tổ vay 03–04/2026 có kỳ 05/2026 · 09/2026 chưa trả mà Mẫu 31 chưa chuyển QH (theo CV 597 phải chuyển nếu không được điều chỉnh) — anh kiểm | Ước tính số tiền kỳ chỉ khớp 4/7 NOXH; ủy thác mới cần file phân kỳ để biết số tiền kỳ → nạp file mỗi tháng (kỳ đầu đa số từ T3/2027). |
 | 0 | **Anh thử 3.90** (anh đã xóa tay dữ liệu cũ, sẽ nạp lại 31/12/2025, T8, T9 — nên nạp thêm Mẫu 31 T7 để T8 so được khách mới) | Bảng thử 3.90 trong `BAN_GIAO_VIEC_CON_LAI.md`. **Mẫu 31 chỉ xuất được theo tháng** (anh kiểm) → số theo ngày dùng Mẫu 10. **Chờ anh thử xuất BCDHTD / LEN_31 / B32 theo ngày** (app đã nhận sẵn vào ô theo ngày): kiểm ngày trong file, doanh số lũy kế hay theo ngày, khớp Mẫu 10 cùng ngày → nếu được thì thêm đối chiếu + bảng đối chiếu chéo cho kỳ theo ngày. Lưu ý còn mở (số thật T9): thu nợ LEN_31 thấp hơn BCDHTD 71.999.298 (12 tổ), 3 món vay mới năm 2026 không có trong KHĐ, 19 tổ có dư nợ chưa có trong Thông tin tổ trưởng — anh kiểm trên hệ thống. |
@@ -211,3 +211,42 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 - `tenTab()` của tab 7 trả `'duLieu'` (cho an toàn với mã cũ dùng `D[tenTab()]`); `tenTabPV()` trả `'soLieu'` (khung xem ẩn mặc định).
 - Mẫu 31 đọc ~24 giây / 320 MB bộ nhớ trên máy tính; **nạp file gốc nên làm trên máy tính**, điện thoại chỉ tải dữ liệu đã đọc (~3 MB / tháng). Nếu sau này chậm hơn nữa: phương án tự đọc XML theo dòng trong Worker (chưa làm).
 - Theo dõi nợ có bộ đọc sao kê riêng (`tdnDocFile`, nạp ở Thư viện › Theo dõi nợ) — **chưa** dùng chung với tab Số liệu (anh chọn tách lần này).
+
+
+## 7a. Bản 3.98 — ĐÃ THỐNG NHẤT, CHỜ ANH TEST 3.97 RỒI MỚI CODE (ghi 03/10/2026 tối)
+
+Anh chốt: **anh test đầy đủ bố cục 3.97 trước, góp ý 1 lần → làm 1 bản**. Không tự code trước khi anh nhắn "code".
+
+**A. Chữ đặc thù xã / phường, Hội / Đoàn Thanh niên trong Word** (rà 03/10/2026 — khoảng 20 chỗ):
+
+| Mẫu | Chỗ | Hiện | Cần |
+|---|---|---|---|
+| Mẫu 06, Mẫu 04 | địa bàn, đơn vị | lấy theo dữ liệu (Xã… / Phường…) | đã đúng |
+| Mẫu 16 (1) | "Tổ thuộc Hội …" (`ktGiaTri16` HOI) | Đoàn ra "Hội Đoàn Thanh niên" ❌ | Đoàn → "Tổ thuộc Đoàn Thanh niên …" (chữ "Hội" in sẵn trong khuôn → cần dấu chèn mới) |
+| Mẫu 16 | "thôn/tổ dân phố", "xã/phường/đặc khu" | chữ in sẵn của mẫu | giữ nguyên |
+| Kế hoạch ① (6) | đầu trang Hội tỉnh | Đoàn ra "ĐOÀN THANH NIÊN TỈNH TÂY NINH" | "TỈNH ĐOÀN TÂY NINH" |
+| | "HĐT xã" ×3 (thành phần; báo cáo Chủ tịch HĐT xã; báo cáo cho HĐT xã) | | phường → "HĐT phường" |
+| | "do hội mình quản lý"; Nơi nhận "do Hội quản lý" | | Đoàn → "Đoàn" |
+| Kế hoạch ② (13) | "{{HL}} xã" ×9 | | phường → "phường" |
+| | "Chủ tịch, phó Chủ tịch, Ủy viên BTV"; "Phó chủ tịch … Chủ tịch" (phân công giám sát) | | Đoàn → "Bí thư, Phó Bí thư…" |
+| | "Hội cấp trên" ×2; Nơi nhận "{{HL}} tỉnh" | | Đoàn → "Đoàn cấp trên", "Tỉnh Đoàn" |
+| | "Văn phòng ấp"; "Trưởng ấp" ×2 | | phường → "khu phố" (chờ anh xác nhận) |
+| | "TM. BAN THƯỜNG VỤ" | | Đoàn → "TM. BAN CHẤP HÀNH"? (chờ anh xác nhận) |
+
+Cách làm đề xuất: **tự nhận** xã / phường từ tên xã trong dữ liệu (`tenXa` bắt đầu "Phường"), Hội / Đoàn từ mã ĐVUT (14 = Đoàn); **⚙ Khai báo Hội** thêm ô đặc thù để anh sửa khi cần (chức danh người ký, tên ban lãnh đạo, tên đơn vị cấp trên, "ấp" / "khu phố"); ô trống = giá trị tự nhận. Anh nói sau khi test sẽ chỉnh 1 lần các thông tin đặc thù này.
+
+**B. Mẫu 16 — tự gợi ý đánh giá, nhận xét theo tình hình tổ** (căn cứ nhiệm vụ ủy nhiệm của Tổ, khoản 3 Phụ lục I văn bản 727):
+- Nguồn: BC0437 cùng tháng (điểm, xếp loại, tổ viên, QH, khoanh, lãi tồn, tiền gửi, tổ viên nộp lãi / gửi TK 3 tháng) · Mẫu 31 · file món 3 tháng KHĐ · hộ đã chọn ở Mẫu 06.
+- **Bảng II cột "Kết quả kiểm tra":** chỉ điền dòng có số liệu (số tổ viên so 05–60; số tổ viên lãi tồn / QH + số tiền); dòng định tính (sinh hoạt, bình xét, giữ sổ…) để trống ghi tay.
+- **III.1 Ưu điểm** (chỉ khi số liệu tốt): không QH, không lãi tồn, tỷ lệ tổ viên gửi TK, xếp loại Tốt / Khá + điểm.
+- **III.2 Tồn tại** (có số): QH n món / tiền / tỷ lệ; khoanh; lãi tồn n hộ / tiền; n món KHĐ ≥ 3 tháng; tổ viên > 60 hoặc < 5; xếp loại TB / Yếu.
+- **III.3 Kiến nghị** đi theo từng tồn tại: đôn đốc thu hồi QH + phối hợp chính quyền; thu lãi tồn; rà soát xử lý món KHĐ; vận động gửi TK đều; kiện toàn / sắp xếp lại tổ; lưu giữ hồ sơ.
+- Khi in có lựa chọn **"Gợi ý nhận xét: In theo số liệu / Để trống"**; mọi câu là gợi ý, có số kèm theo, anh sửa trong Word.
+- **Chờ anh gửi lại "Mẫu 16 bản điền mẫu"** (anh nói đã gửi nhưng trong phiên chỉ có Mẫu 16 trắng; bản "mẫu tham khảo cách ghi chép" chỉ có của Mẫu 06). Không có thì soạn theo 727 như trên.
+
+**C. Hai câu anh chưa trả lời:** (1) Đoàn Thanh niên ký "TM. BAN CHẤP HÀNH / BÍ THƯ" hay giữ "TM. BAN THƯỜNG VỤ"? (2) Phường ghi "khu phố" thay "ấp"?
+
+**D. Lưu ý cho phiên làm tiếp (tài khoản khác):**
+- Khuôn Word (Mẫu 04, Kế hoạch ① ②) **đã nằm sẵn trong `index.html`** — sửa chữ đặc thù làm trực tiếp bằng dấu chèn mới trong khuôn + `ktKHGiaTri` / `ktGiaTri16`, **không cần file gốc**. Chỉ khi phải dựng lại khuôn từ đầu mới cần anh gửi lại file gốc (Mẫu 04 .docx, dự thảo KH HĐT xã .doc → LibreOffice ra .docx, bản kế hoạch mẫu của Hội xã — **có tên thật, không đưa vào repo**; `tools/khuon_docx.py m01b` tự lấy tên riêng từ file để kiểm, không ghi tên vào mã).
+- Đăng web: repo có `.nojekyll` (đừng xóa); gộp xong xem Actions "pages build and deployment" xanh.
+- Quy trình mỗi bản: `python3 tests/kiem.py` sạch + hồi quy hoiquy, hoiquy2, t101–t110 (`hoiquy` có 1 phép chập chờn "Báo cáo đã bỏ…" — chạy lại) + APP_BAN / APP_LUC / CO_GI_MOI + CHANGELOG + BAN_GIAO_VIEC_CON_LAI (bảng thử + ghi chú kỹ thuật) + file này + tests/README; `sed -i "s/3\.97/3.98/g" tests/hoiquy2.js`.
