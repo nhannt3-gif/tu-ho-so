@@ -222,6 +222,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.97) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở tab Tổ TK&VV / Sao kê / KTGS | Ô Số liệu đang chọn **Mẫu 31 cuối tháng gần nhất**; số liệu theo ngày nằm nhóm "Theo ngày — khi cần" | |
+| 2 | KTGS → **🗓 Định kỳ theo lịch**, số liệu T9/2026 | Ghi "Số liệu đến 30/09/2026 → kiểm tra tháng 10/2026"; tổ có lịch T10 trong Kế hoạch tích sẵn | |
+| 3 | Bấm ▾ Chọn hộ 1 tổ | Hộ có món giải ngân các năm trước, tích sẵn; hộ QH / khoanh đỏ, không tích; bỏ tích vài hộ → tỷ lệ dưới 90% đỏ | |
+| 4 | 👁 Xem → Word 06, Word 16 → mở bằng **Word thật** | Mẫu 06 "Thời điểm kiểm tra …../10/2026", "Ngày … tháng 10 năm 2026"; Mẫu 16 "ngày … tháng 10 năm 2026", số liệu đến 30/09/2026; mỗi tổ trang mới | |
+| 5 | 📋 Mẫu 04 tháng 10 | Các tổ vừa lập định kỳ hiện sẵn, Biên bản 16 ✓, thời gian "…../10/2026" | |
+| 6 | Tháng đã chốt 🔒 → bên KTGS nạp BC0437 tháng đó | Nạp được (file số liệu chính tháng đó vẫn khóa) | |
+| 7 | Kiểm tra đột xuất → bấm **↺ Gợi ý lại** 2–3 lần | Mỗi lần ra hộ khác, hộ giải ngân < 30 ngày vẫn giữ | |
+| 8 | Kế hoạch năm → chọn **② Mẫu gọn** → Word | Giống bản kế hoạch mẫu anh gửi (4 trang), tên Hội / tổ đúng của Hội đang chọn, TM. BAN THƯỜNG VỤ | |
+| 9 | Mở Word Mẫu 04, Kế hoạch ① ② | Không có đường kẻ khung bảng đầu trang / chữ ký; Quốc hiệu, tiêu ngữ 1 dòng | |
+
+**Ghi chú kỹ thuật 3.97:** Khối "3.97: 🗓 KIỂM TRA ĐỊNH KỲ" (sau khối 3.96): `KT_DK_CHON / KT_DK_BO / KT_DK_THEM` (tổ / hộ bỏ / hộ QH-khoanh tích thêm, theo phiên), `ktDKThang` (= kyLui(C.ky, 1), chỉ khi C.ky là tháng), `ktDKLich(th)` (đọc `D.cauHinh.ktKH` năm của th), `ktDKHo(t)` (ktHo → món có ngày GN < 01/01 năm kiểm tra; cache `KT_DK_CACHE`), `ktDKCo`, `ktDKTyLe` (hộ / món, bỏ QH-khoanh khỏi mẫu số), `ktDKDs`, `ktDKVe`, `ktDKHoHTML`, `ktDKKhaiBao`, `ktDKGiaTri` (ktGiaTri06 / 16 rồi đặt TD "…../mm/yyyy", ND '', NM, NY; `KT_SO_CUNG` để `ktSoTo` chỉ dùng BC0437 cùng tháng), `ktDKXem(che)`, `ktDKIn(cách, '06'|'16')` (ghi `ktGhiNK(t, '06dk'|'16dk', '', th, [mã KH])`). `ktBCNguon` / `ktBCThang` / `ktBCGiaTri` đọc mau *dk theo `th`. `ktHTML16` nhận mảng. Số liệu mặc định: `toDsKy` (tháng trước, ngày sau), `KY_PHIEN`, `toKyMacDinh(C, dsKy, tab)`, `toKyOpt` (optgroup) dùng ở `veToTK`, `veSaoKe`, `veKTGS`. Khóa: `slKhoaO(loai, kỳ)` = slChot trừ k37 / k38 (slOMT, slXoa, slThayO, slDoiNgay, slNapMot, slTrangThai, slGhiDaTich, đọc file). Gợi ý: `ktGoiY(t, kiểu, số, tranh)` xếp hộ trong `tranh` + hộ kiểm lần trước xuống cuối, `KT_CHON.daGoi`, `ktGoiYLai` quay vòng. Kế hoạch: `ktKHMau` / `ktKHDoiMau` (`ktHoiKB[k].mauKH`='2'), `ktKHGiaTri` theo khuôn (② dùng L1..L4, VT, HL), `ktBung01` không có `K.chu` thì chỉ bung lịch; `KT_KHUON.m01b` (`tools/khuon_docx.py m01b`, có footer + chú thích, không header; `TEN_RIENG_KH2` kiểm không còn tên riêng). `tools/khuon_docx.py`: `khong_vien`, `doi_cot`. Phép thử `tests/t110.js`.
+
 ### Danh sách thử trên máy thật (3.96) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

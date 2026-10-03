@@ -4,6 +4,21 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.97 — 03/10/2026 20:00 — 🗓 Kiểm tra định kỳ theo lịch (Mẫu 06 + 16) · số liệu mặc định cuối tháng · khuôn Kế hoạch ② · gợi ý lại
+- **KTGS Hội › 🗓 Định kỳ theo lịch · Mẫu 06 + 16** (anh chốt — 4 loại kiểm tra: ① sau giải ngân 30 ngày Mẫu 06 · ② đột xuất 6–8 hộ Mẫu 06 + 16 · ③ **định kỳ theo lịch** Mẫu 06 + 16 · ④ Mẫu 04 tổng hợp):
+  - anh chọn **số liệu cuối tháng** ở ô Số liệu (vd Mẫu 31 chốt 30/09/2026) → **tháng kiểm tra = tháng sau** (10/2026); trên mẫu "ngày …… tháng 10 năm 2026" (**ngày để trống**), Mẫu 06 "Thời điểm kiểm tra: …../10/2026"; Mẫu 16 mục I "đến thời điểm 30/09/2026" (BC0437 chỉ dùng khi cùng tháng số liệu, không thì tính từ Mẫu 31). Số liệu theo ngày không dùng cho định kỳ.
+  - **Tổ:** gợi ý (tích sẵn) các tổ có lịch tháng đó trong **Kế hoạch 01/KH**; chọn xã / hội ở cây → thêm tổ ngoài lịch — kế hoạch có thể đổi, chọn độc lập. Lập Kế hoạch (Word / In) là lưu lịch.
+  - **Mẫu 06 mỗi tổ:** hộ còn dư nợ có **món giải ngân từ các năm trước** (trước 01/01 năm kiểm tra), chỉ in các món đó; **tích sẵn 100%**, bỏ tích hộ không kiểm; tỷ lệ **theo hộ** ≥ 90% (đỏ nếu thiếu) kèm tỷ lệ món; **hộ quá hạn / khoanh không tích** (kiểm tra riêng), anh tích tay khi cần (không tính vào tỷ lệ).
+  - Khai báo 1 lần theo thứ tự mẫu (Mẫu 06: đơn vị → cán bộ → cột mục đích; Mẫu 16: đoàn) → 👁 Xem (chuyển 06 / 16) → **Word 06** (mọi tổ 1 file, mỗi phiếu trang mới) · **Word 16** · In.
+  - Nhật ký `ktgsNK` mau `06dk` / `16dk` (ngày trống, `th` = tháng kiểm tra, danh sách hộ) → **Mẫu 04** tháng đó tự hiện tổ (Biên bản 16 ✓, 1 phiếu 06, thời gian "…../10/2026").
+- **Ô Số liệu mặc định Mẫu 31 cuối tháng gần nhất** (Tổ TK&VV, Sao kê, KTGS — anh chốt); số liệu theo ngày nằm nhóm "Theo ngày — khi cần", **chỉ giữ trong lần mở app anh chọn** (mở lại → về cuối tháng). Tra cứu KH giữ số liệu mới nhất (kiểm trùng cần số mới).
+- **BC0437 / BC0438 (KTGS) không theo khóa tháng 🔒** của số liệu (anh chốt): tháng đã chốt vẫn nạp / thay / xóa; file số liệu chính vẫn khóa như cũ (`slKhoaO`).
+- **↺ Gợi ý lại** (kiểm tra đột xuất): trước đây tính lại y hệt (thứ tự cố định) nên như "không chạy" → nay **mỗi lần ra lượt hộ khác** (tránh hộ đã gợi ý các lượt trước, giữ hộ bắt buộc: giải ngân < 30 ngày, ≥ 1 HSSV), hết thì quay vòng; luôn **ưu tiên hộ chưa kiểm lần trước**; dòng "Tổ có n hộ tốt · m hộ cần quan tâm…" + lý do khi kiểu ra trùng (vd tổ ít hộ tốt).
+- **Kế hoạch 01/KH khuôn ② "mẫu gọn"** theo bản kế hoạch mẫu của Hội cấp xã anh gửi (4 trang, "TM. BAN THƯỜNG VỤ / CHỦ TỊCH", bảng Stt · Thời gian · Kiểm tra tại các tổ · Ghi chú): `tools/khuon_docx.py m01b`, **đã xóa mọi tên riêng** (tổ trưởng, ấp, xã, Hội) — app điền tên Hội, ký hiệu KH-HND/HPN/CCB/ĐTN, năm, thời hiệu, tháng giám sát, bảng "Tháng n · tổ trưởng… (ấp)". Chọn ① / ② trên màn Kế hoạch, nhớ theo Hội; giữ chữ "ủy nhiệm" như bản gốc.
+- **Khai báo theo thứ tự trên mẫu:** Mẫu 06 (đột xuất, sau giải ngân): Đơn vị → Cán bộ 1, 2 → Thời điểm → cột Mục đích; Mẫu 16: Ngày → Đoàn → Cán bộ; ⚙ Khai báo Hội theo sườn Kế hoạch: Tên → KH Hội tỉnh → HĐUT → Thành phần đoàn → Người ký.
+- **Rà bố cục Word:** bảng đầu trang / chữ ký (Mẫu 04, Kế hoạch ①, ②) ghi rõ **không viền**; cột Quốc hiệu Kế hoạch ① 5656 → 5956 twip, ② 5761 → 5961 (Quốc hiệu cỡ 13 cần ≈ 5424 twip — đo bằng phông Liberation Serif cùng số đo Times New Roman) để không rớt dòng; lề giữ theo file gốc (đúng khoảng Nghị định 30).
+- Phép thử mới `tests/t110.js` (38 phép).
+
 ## 3.96.1 — 03/10/2026 17:30 — sửa đăng web
 - GitHub Pages kẹt ở bản 3.92 từ 3.93 (Jekyll lỗi vì tài liệu có `{{…}}`) → thêm `.nojekyll`, Pages đăng nguyên file. Không đổi mã app.
 
