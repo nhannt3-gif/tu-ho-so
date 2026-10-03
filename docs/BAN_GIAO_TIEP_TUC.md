@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 03/10/2026, bản 3.93.1)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 03/10/2026, bản 3.94)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -86,7 +86,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.93.1 (mới nhất):** KTGS › **📅 Sau giải ngân (30 ngày) · Mẫu 06**: chọn tháng / từ tháng → đến tháng → địa bàn → Xem → In / Word; mỗi tổ mỗi tháng 1 phiếu; món = mọi lần giải ngân trong tháng (cả HSSV lần 2+); dư nợ = tổng dư nợ cuối tháng. Bảng ngành gọn (ẩn < 10 món). Danh sách giải ngân hệ thống **không cần nạp** — Mẫu 31 đủ (khớp 100%, "Mục đích vay vốn" = Tên PNKT51).
+**3.94 (mới nhất):** 👤 Tra cứu KH gọn — danh sách 2 dòng, thẻ chia nhóm (số tóm tắt, nhân thân + hạn CCCD, liên hệ, tiết kiệm, món vay có mục đích, HSSV đủ trường / hệ / ngành / khóa), bấm giá trị để chép, bỏ nút Hồ sơ hộ ở thẻ; **kiểm trùng 2 ô CCCD + họ tên**: CCCD người vay, CCCD HSSV, **tên vợ/chồng của người đang vay = người thừa kế** (anh chốt quan trọng; chỉ so được theo tên), cùng họ tên. **Chờ / làm sau:** Mẫu 15/TD, 03/BB-CX, 06A/TD, liên kết scan.
+
+**3.93.1:** KTGS › **📅 Sau giải ngân (30 ngày) · Mẫu 06**: chọn tháng / từ tháng → đến tháng → địa bàn → Xem → In / Word; mỗi tổ mỗi tháng 1 phiếu; món = mọi lần giải ngân trong tháng (cả HSSV lần 2+); dư nợ = tổng dư nợ cuối tháng. Bảng ngành gọn (ẩn < 10 món). Danh sách giải ngân hệ thống **không cần nạp** — Mẫu 31 đủ (khớp 100%, "Mục đích vay vốn" = Tên PNKT51).
 
 **3.93:** tab con **🛡 KTGS Hội** — nạp **BC0437 / BC0438** trong tab (xếp loại tổ tính theo công thức của file khi cột = 0), bảng tổ có điểm / xếp loại, **chọn hộ kiểm tra đột xuất** (6–8 hộ theo tổ viên; Hộ tốt / Cần quan tâm / **Trung hòa = 6 tốt + 2 KHĐ**; bỏ QH / khoanh; ≥ 1 HSSV; giải ngân < 30 ngày tự vào), xuất **Mẫu 06/TD + 16/TD Word đúng 100% khuôn gốc** (chỉ điền thông tin có sẵn, thiếu giữ dòng chấm; ngày + đoàn khai khi in, mặc định trống; không ghi tổ phó; cột mục đích anh chọn Để trống / In ngành kinh tế rút gọn) + In / PDF. Nạp BC0437 / BC0438 **theo chuẩn tab Nạp**: ma trận loại × tháng, nạp nhiều file (xem trước → ghi nhận), 🔍 kiểm tra BC0437 ↔ BC0438 ↔ Mẫu 31 ↔ KHĐ (lưu kết quả). **Chờ anh góp ý bảng tên ngành rút gọn** (`KT_PNKT`). Anh chốt (03/10): áp mức **90%** (xã không thuộc vùng khó khăn). **Chờ / làm sau:** Mẫu 15/TD (đối chiếu — làm đúng khuôn), 03/BB-CX (app tự tính I.1, I.2), 06A/TD, 01/KH (anh gửi mẫu tham khảo), bảng tiến độ 727, liên kết scan.
 

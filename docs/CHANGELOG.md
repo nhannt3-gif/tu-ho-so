@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.94 — 03/10/2026 14:00 — 👤 Tra cứu KH gọn, chia nhóm khoa học · kiểm trùng CCCD + tên vợ/chồng (người thừa kế)
+- **Cột trái:** ô tìm + chip 📍 phạm vi cùng hàng; **danh sách 2 dòng/khách** (tên + nhãn đang vay n món / tất nợ / chỉ gửi TK · mã KH · CCCD · xã · ấp · tổ); ↑ ↓ chọn, Enter mở; điện thoại hiện 50 dòng + **Xem thêm 50** (trước: 300 dòng, trang dài ~47.000 px).
+- **Cột phải (thẻ khách) chia nhóm:** đầu thẻ (tên, mã KH, nhãn CCCD hết hạn / sắp hết hạn / SĐT không đạt / quá hạn / khoanh / KHĐ) · **5 ô số tóm tắt** (tổng dư nợ, quá hạn, khoanh, lãi tồn, số dư 105) · **Nhân thân** (CCCD + ngày cấp + nơi cấp, **hạn CCCD** xanh / vàng < 6 tháng / đỏ hết hạn, sinh · giới · DT, vợ/chồng = người thừa kế) · **Liên hệ & địa bàn** (SĐT đạt / không, địa chỉ bỏ dấu thừa "- -", tổ trưởng ☎, hội, điểm GD) · **Tiết kiệm 105** (mọi sổ) · **Món vay** (CT viết tắt, khế ước, vay → đến hạn, giải ngân, dư nợ, lãi tồn, **mục đích vay vốn** rút gọn theo ⚙ bảng ngành, tình trạng; dòng cộng; món đã tất toán thu gọn).
+  - **Món HSSV:** dòng 🎓 ngay dưới — tên SV, CCCD SV, trường, hệ, ngành, **khóa năm nhập học–năm ra trường** (Mẫu 31 không có cột lớp / khoa), đối tượng học phí.
+  - **Bấm vào giá trị là chép** (CCCD, mã KH, SĐT, khế ước, số TK 105, tên / CCCD HSSV, địa chỉ…) — bỏ 12 nút 📋 (anh duyệt). **Bỏ nút 🏠 Hồ sơ hộ** ở thẻ này (anh chốt); thêm **👥 Mở tổ**. Chép cả khối thêm vợ/chồng, TK 105, tổ.
+  - Điện thoại: thẻ mở trong hộp, cùng bố cục 1 cột.
+- **🔍 Kiểm trùng 2 ô (CCCD/CMND + họ tên)** — báo rõ trùng ở đâu, với ai: 🔴 trùng CCCD người vay · 🔴 trùng CCCD HSSV (của món HSSV người vay nào) · 🟠 **trùng tên vợ/chồng của người đang vay = người thừa kế** (anh chốt: quan trọng; Mẫu 31 chỉ có tên vợ/chồng → so trọn họ tên, bỏ dấu / hoa thường, cần đối chiếu) · 🟡 cùng họ tên người vay / HSSV khác. Mỗi thẻ: mã KH, sinh, CCCD + ngày cấp, địa bàn, các món đang vay (CT, mã KV, dư nợ, ngày vay, mục đích) + nút Mở khách này; khớp cùng xã đang chọn xếp trên. Kết luận: 🔴 trùng đang vay / 🟠 có thể trùng người thừa kế / 🟢 có thể nhập máy. Màn rộng: chi tiết sang cột phải. Gõ CCCD ở ô tìm vẫn tự kiểm trùng.
+- Phép thử mới `tests/t107.js` (19 phép); `t104.js` đọc kết quả kiểm trùng ở khung mới, `t101.js` đọc thẻ khách mới.
+
 ## 3.93.1 — 03/10/2026 11:00 — Mẫu 06 kiểm tra sau giải ngân (30 ngày) · bảng ngành gọn
 - **KTGS Hội › 📅 Sau giải ngân (30 ngày) · Mẫu 06** (văn bản 727: kiểm tra sử dụng vốn trong 30 ngày kể từ giải ngân) — anh chốt làm đơn giản: chọn **tháng** (hoặc **từ tháng → đến tháng**) → chọn **địa bàn** ở cây Xã → Điểm GD → Hội → Tổ → **👁 Xem** → **🖨 In / 📄 Word**.
   - Món = **mọi lần giải ngân trong tháng** ("Giải ngân trong tháng" > 0 của Mẫu 31 tháng đó), **kể cả HSSV nhận tiền lần 2 trở đi** (anh chốt); chỉ món qua tổ (bỏ vay trực tiếp). Số thật T9/2026: 185 tổ · 419 món (285 HSSV).

@@ -47,7 +47,7 @@ const TAO = () => {   // chạy trong trang: dựng 2 file Excel giả
    const b = await slDocBang('m10','2026-08-31'); o.luu = 'bảng '+b.n+' dòng · lặp '+(b.lap?b.lap.n:0)+' dòng · sổ ở dòng lặp: '+slMoLap(b).map(x=>x.stk||'(trống)').join(',');
    const c = SL_DB.kh['4800000002']; o.danhBa = 'B: ky '+c.ky+' · sổ '+c.stk+' · 105 '+c.t105+' · món '+c.mon+' | C: sổ '+SL_DB.kh['4800000003'].stk+' · 105 '+SL_DB.kh['4800000003'].t105+' | D món '+SL_DB.kh['4800000004'].mon;
    slTheKH('4800000002'); for(let i=0;i<20 && !document.querySelector('.kh-mon tbody tr');i++) await w(200);
-   o.the = document.querySelector('.hop-phu').textContent.slice(-40)+' · '+Array.from(document.querySelectorAll('.kh-o')).map(x=>x.textContent).filter(x=>/105/.test(x)).join('')+' · món '+document.querySelectorAll('.kh-mon tbody tr').length; dongHop();
+   o.the = (document.querySelector('.tc-the .tc-ct-tit, .tc-the .hop-tit')||{textContent:''}).textContent.slice(-40)+' · '+Array.from(document.querySelectorAll('.tc-the .tc-nhom')).map(x=>x.textContent).filter(x=>/Tiết kiệm 105/.test(x)).join('')+' · món '+document.querySelectorAll('.tc-mon tbody:not([hidden]) tr:not(.tc-hs):not(.tc-cong)').length; dongHop();   /* 3.94: thẻ khách mới */
    // ô ma trận Mẫu 10 → danh sách ngày → mở ngày → đổi ngày
    slMoNgay('m10','2026-08'); o.dsNgay = document.querySelectorAll('.sl-ngay-dong').length+' ngày'; dongHop();
    slDoiNgay('m10','2026-08-31'); document.getElementById('sl-dn').value='2026-08-30'; slDoiNgayGhi('m10','2026-08-31');
