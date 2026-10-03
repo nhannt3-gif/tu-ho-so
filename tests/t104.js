@@ -14,8 +14,8 @@ const fs=require('fs'), path=require('path');
    o.phu = SL_PHU.filter(x=>x.loai==='vc').length+' vợ/chồng · '+SL_PHU.filter(x=>x.loai==='hs').length+' HSSV';
    const tim = q => { SL_TRA_Q=q; document.getElementById('sl-tim').value=q; slTraTim(); return document.getElementById('sl-kq'); };
    const c = SL_DB.kh[Object.keys(SL_DB.kh).find(m=>SL_DB.kh[m].mon && SL_DB.kh[m].cccd)];
-   o.trung = tim(c.cccd).querySelector('.sl-bao').textContent.slice(0,40);
-   o.khongTrung = tim('079999999999').querySelector('.sl-bao').textContent.slice(0,60);
+   tim(c.cccd); o.trung = document.getElementById('tc-kt-kq').querySelector('.sl-bao').textContent.slice(0,40);   // 3.94: kiểm trùng ở khung riêng (2 ô)
+   tim('079999999999'); o.khongTrung = document.getElementById('tc-kt-kq').querySelector('.sl-bao').textContent.slice(0,60);
    o.tenVC = tim('vo chong gia').querySelectorAll('.sl-kq-dong.phu').length+' dòng vợ/chồng';
    o.tenHS = tim('sinh vien gia').querySelectorAll('.sl-kq-dong.phu').length+' dòng HSSV';
    o.khongKhopTo = tim('to truong').querySelectorAll('.sl-kq-dong').length+' (tên tổ trưởng không làm khớp khách)';

@@ -222,6 +222,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.94) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu KH (máy tính) → gõ tên | Danh sách 2 dòng/khách, thấy ~14 khách 1 màn; ↑ ↓ Enter chọn | |
+| 2 | Bấm 1 khách | Thẻ phải: 5 ô số · Nhân thân (CCCD + cấp, hạn CCCD màu) · Liên hệ · Tiết kiệm · Món vay có cột Mục đích; không còn nút Hồ sơ hộ | |
+| 3 | Khách có món HSSV | Dòng 🎓 tên SV, CCCD SV, trường, hệ, ngành, khóa | |
+| 4 | Bấm vào CCCD / khế ước / SĐT | Báo "Đã chép …", dán ra đúng số | |
+| 5 | 🔍 Kiểm trùng: nhập CCCD khách đang vay | 🔴 Trùng — đang vay vốn, thẻ ghi rõ khách, món, dư nợ, địa bàn (chi tiết ở cột phải) | |
+| 6 | Kiểm trùng: nhập **họ tên vợ/chồng** của 1 khách đang vay | 🟠 Có thể trùng người thừa kế — ghi rõ là vợ/chồng của ai, đang vay gì | |
+| 7 | Điện thoại: gõ "nguyen" | 50 dòng + nút Xem thêm 50; bấm khách mở hộp thẻ 1 cột | |
+
+**Ghi chú kỹ thuật 3.94:** Khối "3.94 — TRA CỨU KH GỌN" (trước `tcHaiCot`): `TC_KT` {so, ten}, `TC_SL` (giới hạn dòng điện thoại), `SL_KHMON[mã KH]` = [{ct, ku, dn, nv, md, xong, truong, raTruong}] dựng trong `tcNap` từ Mẫu 31 mới nhất (cùng lúc `SL_PHU`). Hàm: `tcChep(el)` / `tcC(v, ten, hien)` (span `.tc-chep` data-chep), `tcDiaChi`, `tcSdtDat`, `tcHan(c)` (het / sap < 183 ngày / ok), `tcNoiGon`, `slTraHTML` (mới: `.tc394`, `.tc-hang`, details `.tc-kt`), `tcPhim` (↑ ↓ Enter), `tcDongHTML`, `slTraTim` (gõ CCCD → điền `#tc-kt-so` + `tcKTVe`), `tcMonGon`, `tcTheTrung`, `tcMoKH`, `tcUuXa`, `tcKiemTrung2(so, ten)` (g1 CCCD chủ hộ · g2 CCCD HSSV · g3 `SL_PHU` vc trùng `slChuan` trọn tên · g4 cùng tên khác CCCD / HSSV), `tcKTVe` (màn rộng: trái kết luận, phải chi tiết), `tcKiemTrung(so)` giữ tên cũ; `slTheKH(ma)` viết lại (`.tc-the`, `#tc-so`, `#tc-nhan`, `#kh-mon` bảng `.tc-mon`, dòng `tr.tc-hs` dùng `c_ten_hssv`, `c_cmnd_hssv`, `c_ten_truong`, `c_ten_he_dt`, `c_ten_nganh_dt`, `nhapHoc`, `raTruong`, `c_ten_dt_hoc_phi`; món tất toán `#tc-xong` hidden), `tcMoTo(to)`, `slChepKH` thêm vợ/chồng, TK 105, tổ. CSS khối "3.94 — Tra cứu KH gọn". `tests/t100.js` lỗi sẵn từ trước (chờ `#sl-ky .sl-tom` của bố cục cũ) — không thuộc bộ hồi quy.
+
 ### Danh sách thử trên máy thật (3.93.1) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
