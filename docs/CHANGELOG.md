@@ -4,6 +4,23 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.93 — 03/10/2026 09:30 — Tab con 🛡 KTGS Hội: BC0437 / BC0438 · chọn hộ kiểm tra đột xuất · Mẫu 06/TD + 16/TD đúng khuôn Word
+- **Tab con mới 🛡 KTGS Hội** (Số liệu, cạnh Tổ TK&VV). **Nạp BC0437** (Thông tin tổ TK&VV do HĐT quản lý) **+ BC0438** (Thông tin ủy thác theo xã × hội: dư nợ ủy thác, chấm điểm, theo chương trình) **ngay trong tab** (nút 📥; không hiện ở ma trận Nạp; lưu máy + Drive như file số liệu khác; tháng đã chốt thì chặn như cũ).
+  - File .xls hệ thống: cột **Xếp loại = 0** (Excel xuất mất kết quả công thức) → app tính lại đúng công thức của file `=IF(điểm<50;"Yếu";IF(<70;"Trung bình";IF(<85;"Khá";"Tốt")))`; **dòng tổ lặp y hệt** chỉ lấy 1 lần (T9: 380 dòng → 369 tổ; 314 Tốt · 51 Khá · 4 TB). BC0438: dòng "Tổng số" / "Tổng cộng" = 0 (công thức) → app tự cộng.
+- **Chọn tổ** bằng cây chuẩn Xã → Điểm GD → Hội → Tổ (hoặc gõ tên tổ trưởng). Chưa chọn tổ → **bảng các tổ**: tổ viên, dư nợ, QH, lãi tồn, tiết kiệm (BC0437, triệu đồng), **điểm, xếp loại**, ngày kiểm tra gần nhất + dòng BC0438 theo hội (số tổ tại x/y ấp, khách, dư nợ, chấm điểm). Không có BC0437 thì số tổ tính từ Mẫu 31 (ghi rõ nguồn).
+- **Chọn hộ kiểm tra đột xuất (Mẫu 06)** — anh chốt:
+  - gợi ý **6–8 hộ** theo số tổ viên (≤ 20 → 6 · 21–40 → 7 · > 40 → 8), nút − / + đổi số;
+  - 3 kiểu: **Hộ tốt** (món giải ngân trong 12 tháng, số dư 105 tăng so với tháng trước — chưa có tháng trước thì xét có 105, không lãi tồn, không món KHĐ) · **Hộ cần quan tâm** (món KHĐ ≥ 3 tháng theo file mẫu 14 — chưa nạp thì xét ngày GD gần nhất, lãi tồn, không gửi TK đều) · **Trung hòa = 6 hộ tốt + 2 hộ có món KHĐ ≥ 3 tháng** (thiếu KHĐ thì lãi tồn, không gửi TK, rồi hộ tốt);
+  - **bỏ hộ có quá hạn / khoanh** (kiểm tra riêng) — vẫn tích tay được; tổ có HSSV thì **≥ 1 món HSSV**; **món giải ngân dưới 30 ngày tự vào** (727: kiểm tra 100%);
+  - mỗi hộ ghi **lý do chọn**, nhóm (Tốt / Cần quan tâm), các món (mã · CT · dư nợ · ngày GN), 105 tăng / giảm; đánh dấu hộ đã kiểm ở lần trước.
+- **Mẫu 06/TD Phiếu kiểm tra sử dụng vốn vay · Mẫu 16/TD Biên bản kiểm tra hoạt động tổ — Word (.docx) đúng 100% khuôn mẫu gốc** (khuôn dựng từ file mẫu trắng anh gửi bằng `tools/khuon_docx.py`, giữ chữ, bảng, phông, lề, đường kẻ dạng shape dưới tên cơ quan / tiêu ngữ; bỏ trang "Mẫu tham khảo cách ghi chép"):
+  - chỉ điền thông tin có sẵn vào đúng dòng chấm; thiếu thì **giữ nguyên dòng chấm** để ghi tay; **ngày kiểm tra + đơn vị / đoàn + cán bộ khai khi in, mặc định trống**; **không ghi tổ phó**;
+  - Mẫu 06: mỗi món 1 dòng (STT, họ tên, **mã khoản vay 2 số đầu - 4 số cuối**, trùng 4 số trong phiếu thì 6 số; CT; giải ngân; dư nợ — triệu đồng) + dòng Cộng; **mục đích để trống** (Mẫu 31 chỉ có ngành kinh tế PNKT, không phải mục đích ghi trong hồ sơ); phần thực tế, nợ lãi, nhận xét để trống; ít hơn 3 món thì giữ dòng trống của mẫu;
+  - Mẫu 16: ngày, thôn, xã, tỉnh, hội, tổ trưởng · mục I từ BC0437 (dư nợ, tổ viên, QH, khoanh + tỷ lệ, lãi tồn, tiền gửi, **điểm + xếp loại + tháng**) · số khách thực tế + "01 Phiếu" theo số hộ đã chọn;
+  - **sang trang**: hàng tiêu đề bảng lặp lại, không cắt đôi dòng, dòng cuối + Cộng + nhận xét + chữ ký đi liền; dòng có số liệu cao theo chữ (mẫu cố định 0,8 cm cho ghi tay), chữ 11.
+- **In / PDF** cùng bố cục (Mẫu 06 A4 ngang, Mẫu 16 A4 dọc), trống = dòng chấm. **Lịch sử kiểm tra** theo tổ (ngày, kiểu, hộ) lưu trong Cài đặt (máy + Drive của anh) khi xuất Mẫu 06.
+- Phép thử mới `tests/t106.js` (BC0437 / BC0438 giả, 34 phép).
+
 ## 3.92 — 04/10/2026 15:00 — Sao kê bố cục mới + in 2 khổ · Tổ TK&VV: tổ viên / kết nạp / cho ra · vay trực tiếp vào xã–điểm · Tổng hợp khuôn 01.1 · Tra cứu 2 cột
 (gồm cả các sửa của 3.91.1 chưa phát hành — mục dưới)
 - **A. In 2 khổ, mỗi món 1 dòng** (anh chốt): sao kê chọn **Khổ Ngang** (đủ cột) / **Dọc** (gọn) ngay trên thanh; mỗi báo cáo có khổ mặc định (nợ đến hạn, kỳ con, thay đổi dư nợ: ngang; còn lại: dọc), đổi được, nhớ theo báo cáo. Ô **không xuống dòng**; bỏ xếp 2 tầng trong ô (Số KU, ngày GH thành cột riêng).

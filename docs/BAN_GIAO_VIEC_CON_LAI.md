@@ -222,6 +222,20 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.93) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu → **🛡 KTGS Hội** → 📥 Nạp BC0437 + BC0438 (.xls 30/09) | Báo ✓ 369 tổ (bỏ 11 dòng lặp, xếp loại tính lại), BC0438 5 xã; thanh trên hiện 2 chip xanh | |
+| 2 | Chọn xã + điểm + hội (không chọn tổ) | Bảng các tổ có Điểm, Xếp loại; dòng BC0438 theo hội | |
+| 3 | Chọn 1 tổ → kiểu **Trung hòa** | Gợi ý 6–8 hộ (theo tổ viên), 2 hộ KHĐ + hộ tốt, có lý do; không có hộ QH / khoanh; có HSSV nếu tổ có | |
+| 4 | Đổi Hộ tốt / Cần quan tâm, − / + số hộ, tích thêm / bỏ | Danh sách đổi theo; "Tất cả hộ còn dư nợ" để tích tay | |
+| 5 | 📄 Mẫu 06 → khai ngày + cán bộ → **Word** → mở bằng Word | Đúng khuôn mẫu gốc; ô không khai giữ dòng chấm; sang trang lặp tiêu đề, dòng cuối + Cộng + nhận xét + ký đi liền | |
+| 6 | 📄 Mẫu 06 → **🖨 In / PDF** (điện thoại) | A4 ngang, cùng bố cục | |
+| 7 | 📄 Mẫu 16 → Word / In | Mục I đúng số BC0437 (điểm + xếp loại), không ghi tổ phó, "thực tế tại 0x khách hàng", "01 Phiếu" | |
+| 8 | Mở lại tổ đã xuất phiếu | Thẻ tổ ghi "kiểm tra gần nhất …"; hộ đã kiểm có dấu ↺ (khi làm ngày khác) | |
+
+**Ghi chú kỹ thuật 3.93:** Loại mới `k37`, `k38` (`nhom:'K'`, `kt:true`, `tuy:true`) — không thuộc `SL_NHOM` nên không lên ma trận; `slTimDau` bỏ loại `kt`; `slPhanTich` gọi `ktDocBC(sheets)` trước `slDocTW` → `ktPhanTich(kq, kt)`; `slTomTat` → `ktTomTat`. BC0437: cột theo `KT_COT37` (tên cột chuẩn hóa), tiền triệu ×1e6 (`KT_TRIEU`), `ktXepLoai(d)` khi `xepLoai` rỗng / '0', bỏ dòng trùng mã tổ; BC0438: 3 phần `phan` = ut / cd / ct (nhận theo hàng tên cột), `tong` = tổng 4 loại khi 0. Tab: `slTab='kt'`, `veKTGS` (toNap → `KT_K` = `TO_K`; `ktNapBC(ky)` chọn BC cùng kỳ / cùng tháng / mới nhất → `KT_BC`; `ktTruocNap` 105 từng khách tháng trước — Mẫu 31 hoặc Mẫu 10 cuối tháng), `ktDauHTML`, `ktNapFile` (slDocFile + slGhi, chỉ nhận k37/k38), `ktVe`, `ktTim`, `ktChonTo`, `PV_DUNG.kt` (khai báo cạnh `PV_DUNG.to` — PV_DUNG định nghĩa sau khối KTGS), `ktCH()` = `D.cauHinh.ktgs`. Bảng: `ktSoTo(t)` (BC0437 hoặc Mẫu 31), `ktBangToHTML`, `ktHoi38`, `ktTheHTML`. Chọn hộ: `ktHo(t)` (món dư nợ > 0; loai = QH/khoanh; moi30 / moi12 theo `ngn||nv`; khd theo `K.B.co.khd` hoặc `ngdg ≤ ns − 3 tháng`; hssv = CT 02; tkOK theo 105 tháng trước; tot / xau / uu), `ktMaKV` (2-4, trùng → 6), `ktSoGoiY`, `ktGoiY(t, kieu, so)` → `KT_CHON` {to, kieu, so, goiY, chon{kh:{ly, bb}}, ds}, `ktDoiKieu`, `ktDoiSo`, `ktGoiYLai`, `ktTich`, `ktDaChon`, `ktChonHTML` (`KT_LOC` goi/tat). Xuất: `ktKhaiBao(mau)` → `KT_KB` (phiên, mặc định trống) → `ktXuat(mau, 'word'|'in')`, `ktGiaTri06` / `ktGiaTri16`, `ktGhiLS` (`D.cauHinh.ktgsLS[mã tổ]`, ≤ 20 lần). Word: `KT_KHUON` (dựng bằng `python3 tools/khuon_docx.py <Mẫu 06.docx> <Mẫu 16.docx>`, dán thay khối `var KT_KHUON`) = {m06:{truoc, dong, dongKN, sau, sect, …}, m16:{than, sect, …}, chung:{mo, styles, theme, header}}; dấu `{{KHOA|chấm}}` / `{{KHOA~|chấm}}` (phần chấm ở run sau), `ktDien` (R3 → `<w:noBreakHyphen/>`), `ktDongCo` (dòng có số: hRule atLeast, chữ 11, canh trái), `ktDocx` (taoZip 11 phần, rId giữ như mẫu). In: `ktHTML06` / `ktHTML16`, `KT_IN_CSS`. CSS khối "3.93 — KTGS". Phép thử `tests/t106.js`.
+
 ### Danh sách thử trên máy thật (3.92) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
