@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.105 — 05/10/2026 10:00 — Kế hoạch KTGS: gạch đầu dòng chuẩn
+- Anh gửi ảnh mục "2. Ban quản lý Tổ TK&VV" (khuôn ②): dòng gạch đầu dòng thụt bằng dấu cách, không đều. Sửa **một lần cho cả 2 khuôn** (`KT_KHUON.m01`, `m01b`): mọi đoạn thân văn (căn đều) bắt đầu bằng "-" / "+" → bỏ khoảng trắng đầu dòng, chuẩn "- " / "+ " (một dấu cách), thụt đầu dòng thống nhất (① 720, ② 567 twip; trước lẫn 426 / 562 / 567 / 680 / không thụt). Phần Nơi nhận giữ nguyên. Chữ khuôn không đổi (đã so).
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t111 không lỗi.
+
+---
+
 ## 3.104 + HanTraHSSV.exe 1.2.1 — 05/10/2026 09:00 — tên tác giả
 - Anh chốt: ghi **"NhanNT"** (chữ xanh lá nhỏ, **không số điện thoại** vì repo công khai) ở: dải trạng thái dưới cùng (sau ô Drive / bộ nhớ), dòng số bản trong Cài đặt và Hướng dẫn, cuối cửa sổ 📌 Nổi (ẩn ở mức thu nhỏ), cuối cửa sổ exe + thông tin file (Company / Copyright: NhanNT). Không gắn vào biểu mẫu in, Word, PDF.
 - Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t111 không lỗi; app ↔ exe khớp.
