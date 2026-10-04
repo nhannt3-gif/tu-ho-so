@@ -4,6 +4,20 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.103 + HanTraHSSV.exe 1.2.0 — 04/10/2026 23:00 — HSSV: 3 mức thu nhỏ / thu gọn / chi tiết · nền sáng / tối
+- **Cửa sổ 📌 Nổi** (anh chốt):
+  - Mặc định **thu gọn**: dòng trên, ô nhập, 5 khối, câu chốt.
+  - Nút **▾ Chi tiết / ▴ Thu gọn** hiện / ẩn bảng phát tiền vay, các kỳ trả, cách tính.
+  - Nút **▁** thu nhỏ còn 1 dải: ô ra trường, tiền vay và 1 dòng kết quả "104 th · hạn … · 32.000.000 × 5 kỳ · lần đầu …" (bấm là chép câu chốt). Nút **▢** mở ra lại.
+  - Cửa sổ tự co / giãn chiều cao theo mức (`resizeTo`, cần anh bấm / gõ — trình duyệt không cho thì giữ nguyên cỡ).
+  - Nút **☀ / 🌙** đổi nền riêng cửa sổ nổi, nhớ lựa chọn (`tuhoso_hs_noi_mau`).
+- **Khối HSSV ở nền tối** (cả trong app): 3 khối lớn nền xanh lá đậm chữ xanh sáng, 2 khối nhỏ nền xanh dương đậm — hết cảnh khối sáng trên nền tối.
+- **🔎 Tra cứu KH** (anh góp ý): cột trái / phải đổi sang **40 / 60** (`minmax(320px,2fr) minmax(0,3fr)`) — danh sách bên trái không còn mất chữ. Dòng HSSV dưới món vay tô màu: **tên trường** chữ xanh đậm, **khóa học + nhập học → ra trường** khung cam (`.hs-truong`, `.hs-khoa`, có màu nền tối) — đối chiếu nhanh khi cho vay năm mới.
+- **Exe 1.2.0:** cùng 3 mức (nút **Thu nhỏ / Mở ra** trên thanh đầu, nút **Chi tiết ▼ / Thu gọn ▲** dưới câu chốt), cửa sổ tự co giãn chiều cao; nút **Nền tối / Nền sáng** (mặc định sáng); nhớ mức + nền trong `hssv.ini`.
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t110 không lỗi; `t111` 77/77; app ↔ exe 1010/1010 ca khớp. Exe chạy thử bằng mono trên màn hình ảo (3 mức × 2 nền).
+
+---
+
 ## HanTraHSSV.exe 1.1.0 — 04/10/2026 — gợi ý trong ô + giao diện rõ màu · sửa bố cục trên Windows
 - **Gợi ý trong ô** (anh góp ý — như bản web): chữ xám `1–31` / `dd/mm/yyyy` / `vd 40` khi ô trống (EM_SETCUEBANNER), rê chuột hiện chú thích từng ô / khối, dòng hướng dẫn "Mỗi món: ngày ra trường → Enter → tiền vay → Enter…" luôn hiện dưới ô nhập.
 - **Giao diện** (anh: "sơ sài, nhợt nhạt"): thanh đầu xanh #185FA5 như app (tên, loại khóa học, GDX, nút Ghim: Bật/Tắt, Chép câu chốt nền trắng chữ xanh); nền xám xanh, thẻ nhập nền trắng có viền; ô đang gõ nền vàng nhạt; 3 khối lớn nền xanh lá viền đậm 2px, số 15pt; 2 khối nhỏ xanh dương viền rõ; câu chốt nền xanh lá đậm chữ trắng; bảng kỳ trả: kỳ đầu tô xanh, kỳ cuối in đậm; báo lỗi / lưu ý nền cam nhạt.

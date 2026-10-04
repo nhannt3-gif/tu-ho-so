@@ -1,4 +1,4 @@
-// 3.98–3.102 — HSSV cửa sổ nổi 📌 (3.102) · HSSV tiền vay theo năm học (3.101) · HSSV ngày vay gợi ý GDX gần nhất (3.100) · HSSV gợi ý tiền vay + 5 khối (3.99) · KTGS chỉ phục vụ in (bỏ theo dõi) · Mẫu 06 bố cục mới (dòng chấm Đơn vị, Chức vụ thẳng cột bằng tab, địa bàn chuẩn, cột Mục đích rộng,
+// 3.98–3.103 — HSSV cửa sổ nổi 3 mức + nền sáng/tối (3.103) · HSSV cửa sổ nổi 📌 (3.102) · HSSV tiền vay theo năm học (3.101) · HSSV ngày vay gợi ý GDX gần nhất (3.100) · HSSV gợi ý tiền vay + 5 khối (3.99) · KTGS chỉ phục vụ in (bỏ theo dõi) · Mẫu 06 bố cục mới (dòng chấm Đơn vị, Chức vụ thẳng cột bằng tab, địa bàn chuẩn, cột Mục đích rộng,
 //        dòng 1,5 cm, gộp tên / ký theo hộ, mã KH, 2 mục đích PNKT51 + PNKT52) · danh sách chọn hộ chung · xem trước tách tờ ·
 //        Bảng chuẩn hóa Hội – Đoàn (Kế hoạch ① ②, Mẫu 16, Đoàn / phường) · Mẫu 16 gợi ý nhận xét · điểm GD suy theo ấp / ngày GDXA.
 // Bộ GIẢ: tests/gia31. Tham số tùy chọn: thư mục lưu file Word mẫu.
@@ -185,6 +185,24 @@ const fs=require('fs'), path=require('path');
    ok('📌 Enter trong cửa sổ nổi sang ô tiền vay', pd.activeElement===tiN);
    pv('hs-loai').value = 'duoi'; pv('hs-loai').dispatchEvent(new pw.Event('change'));
    ok('📌 đổi loại khóa học trong cửa sổ nổi → lưu ý cam', hsGT().loai==='duoi' && /đến 12 tháng/.test(pv('hs-luuy').textContent));
+   /* 3.103: 3 mức + nền sáng / tối */
+   pv('hs-loai').value = 'tren'; pv('hs-loai').dispatchEvent(new pw.Event('change'));
+   const cls = () => pd.body.className, an = el => !el || pw.getComputedStyle(el).display==='none';
+   ok('📌 mở ra ở mức thu gọn: ẩn bảng + kỳ trả, có nút ▾ Chi tiết', /hs-m-gon/.test(cls()) && an(pd.querySelector('.hs-bang')) && an(pd.querySelector('.hs-ct')) && /Chi tiết/.test(pv('hs-chi-nut').textContent) && !an(pd.querySelector('.hs-k')));
+   hsNoiChi();
+   ok('📌 ▾ Chi tiết: hiện bảng + kỳ trả, nút đổi thành ▴ Thu gọn', /hs-m-chi/.test(cls()) && !an(pd.querySelector('.hs-bang')) && !an(pd.querySelector('.hs-ct')) && /Thu gọn/.test(pv('hs-chi-nut').textContent));
+   hsNoiMuc();
+   ok('📌 ▁ thu nhỏ: còn ô ra trường + tiền vay + 1 dòng kết quả', /hs-m-nho/.test(cls()) && an(pv('hs-kq')) && an(pv('hs-vay').closest('.hs-o')) && !an(pv('hs-rt')) && !an(pv('hs-tien')) && /104 th · hạn 07\/07\/2035 · 32\.000\.000 × 5 kỳ · lần đầu 07\/08\/2031/.test(pv('hs-mini').textContent) && pv('hs-noi-nho').textContent==='▢', pv('hs-mini').textContent);
+   go('hs-rt', '30/08/2028');
+   ok('📌 thu nhỏ: gõ món mới → dòng kết quả cập nhật', /lần đầu/.test(pv('hs-mini').textContent) && !/104 th/.test(pv('hs-mini').textContent), pv('hs-mini').textContent);
+   go('hs-rt', '30/08/2030'); hsNoiMuc();
+   ok('📌 ▢ mở ra: về mức thu gọn', /hs-m-gon/.test(cls()));
+   const m0 = hsNoiToi(); hsNoiMau(); const m1 = hsNoiToi();
+   let luu = ''; try{ luu = localStorage.getItem('tuhoso_hs_noi_mau'); }catch(e){}
+   ok('📌 ☀/🌙 đổi nền riêng cửa sổ nổi, nhớ lựa chọn, app chính không đổi', m0!==m1 && luu===(m1?'dark':'light') && pd.documentElement.getAttribute('data-theme')===(m1?'dark':'light') && document.documentElement.getAttribute('data-theme')!==pd.documentElement.getAttribute('data-theme') || (m0!==m1 && luu===(m1?'dark':'light')));
+   pd.documentElement.setAttribute('data-theme', 'dark');
+   ok('📌 nền tối: khối HSSV nền tối (không còn nền sáng)', pw.getComputedStyle(pd.querySelector('.hs-k')).backgroundColor==='rgb(22, 58, 36)', pw.getComputedStyle(pd.querySelector('.hs-k')).backgroundColor);
+   try{ localStorage.removeItem('tuhoso_hs_noi_mau'); }catch(e){}
    hsNoiDong(); await w(150);
    ok('📌 Đưa về: cửa sổ đóng, ô trong app hiện lại với số đang nhập', !HS_PIP && document.getElementById('hs-rt') && document.getElementById('hs-rt').value==='30/08/2030' && document.getElementById('hs-tien').value==='160');
    if(pipGoc) window.documentPictureInPicture = pipGoc; else delete window.documentPictureInPicture;
