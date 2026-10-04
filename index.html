@@ -23144,7 +23144,7 @@ var KT_CHUAN = {
   '11':{ten:'Hội Nông dân', gon:'Hội Nông dân', ngan:'Hội', tinh:'HỘI NÔNG DÂN TỈNH TÂY NINH', nnTinh:'Hội ND tỉnh', dauXa:'HỘI NÔNG DÂN {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', cap:'Hội cấp trên', vt:'HND'},
   '12':{ten:'Hội Liên hiệp Phụ nữ', gon:'Hội LHPN', ngan:'Hội', tinh:'HỘI LHPN TỈNH TÂY NINH', nnTinh:'Hội LHPN tỉnh', dauXa:'HỘI LHPN {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', cap:'Hội cấp trên', vt:'HPN'},
   '13':{ten:'Hội Cựu chiến binh', gon:'Hội CCB', ngan:'Hội', tinh:'HỘI CỰU CHIẾN BINH TỈNH TÂY NINH', nnTinh:'Hội CCB tỉnh', dauXa:'HỘI CỰU CHIẾN BINH {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', cap:'Hội cấp trên', vt:'CCB'},
-  '14':{ten:'Đoàn Thanh niên', gon:'Đoàn Thanh niên', ngan:'Đoàn', tinh:'TỈNH ĐOÀN TÂY NINH', nnTinh:'Tỉnh Đoàn', dauXa:'ĐTN {xa}', tm:'BAN THƯỜNG VỤ {xa} ĐOÀN', ky:'Bí thư', pho:'Phó Bí thư', cap:'Đoàn cấp trên', vt:'ĐTN'}};
+  '14':{ten:'Đoàn Thanh niên', gon:'Đoàn Thanh niên', ngan:'Đoàn', tinh:'TỈNH ĐOÀN TÂY NINH', nnTinh:'Tỉnh Đoàn', dauXa:'ĐTN {xa}', tm:'BAN THƯỜNG VỤ', ky:'Bí thư', pho:'Phó Bí thư', cap:'Đoàn cấp trên', vt:'ĐTN'}};
 function ktChuanGoc(dv){ dv = String(dv||''); return KT_CHUAN[dv] || {ten:tdnHoi(dv), gon:tdnHoi(dv), ngan:'Hội', tinh:(tdnHoi(dv)+' tỉnh '+KT_TINH).toUpperCase(), nnTinh:tdnHoi(dv)+' tỉnh', dauXa:tdnHoi(dv).toUpperCase()+' {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', cap:'Hội cấp trên', vt:''}; }
 function ktChuan(t){   /* chữ đặc thù của 1 Hội – xã: bảng chuẩn (đã sửa) + khai báo riêng + xã / phường */
   var dv = String(t.dv||''), g = ktChuanGoc(dv), s = (D.cauHinh.ktChuan || {})[dv] || {}, kb = t.xa ? ktHoiKB(ktHoiKhoa(t)) : {}, r = {};
