@@ -234,6 +234,7 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 | 5 | **Ảnh / file mồ côi** | Đã đề xuất (chưa code): nhóm "🧩 Không thuộc mục nào" trong Dọn kho › Quét rác (ảnh gốc / thu nhỏ còn sót, ảnh chữ ký·CCCD lẻ, file trên Drive không có trong chỉ mục), mỗi mục: 📥 Đưa vào Chờ khai · 🔗 Gắn vào bản có sẵn · 🗑 Vào thùng rác; thanh nhắc khi mở app. Anh đồng ý hướng "không để rác không quản lý" — **xác nhận lại phạm vi rồi code**. |
 | 6 | ~~Thôn **54003520**~~ | **Đã rõ (01/10/2026):** lỗi dữ liệu hệ thống, thôn không còn; dữ liệu hệ thống còn lỗi chưa chỉnh hết → app chỉ báo. |
 | 7 | Backlog cũ chờ anh chốt | G thư viện offline / SRI · J tìm khung CCCD trên nền kính (cần ảnh thật) · ô bắt buộc · NOXH kỳ hạn / "phục viên" · danh mục Theo dõi nợ · dời nút Danh sách / Tính ngày · tìm theo nội dung văn bản · con số "N thiếu" của ma trận đếm theo danh sách chốt kỳ |
+| 8 | **Ngày ảnh scan khôi phục sai (vd "Chưa khai / 2036-02")** — anh chốt **sửa kèm bản sau** | `tgTuId(id)` đoán ngày từ 8 ký tự đầu mã ảnh; mã không theo dạng thời gian ra ngày vô nghĩa. Sửa: ngày rơi vào tương lai (> hôm nay + 1 ngày) hoặc trước 2020 → lấy hôm nay (cả `ngay` / `taoLuc` của mục khôi phục). 2 mục anh thấy 06/10/2026 anh đã xóa hẳn. |
 
 **Lưu ý / rủi ro đã biết:**
 - `tests/hoiquy.js` đôi khi 27/28 do chờ cố định → chạy lại (nên đổi sang chờ theo điều kiện).
