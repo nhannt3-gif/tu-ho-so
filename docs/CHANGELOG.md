@@ -16,7 +16,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - Tên cơ quan dài bị xuống dòng: nới cột trái (② 4300 → 4560, ① 4081 → 4380; cột phải vẫn đủ cho "CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM") + `ktHXCo(hx, rộng)` đo chữ (canvas, Times New Roman đậm): vừa cỡ 13 thì giữ, không thì cỡ 12, vẫn dài thì 2 dòng ngắt trước "XÃ / PHƯỜNG / THỊ TRẤN" (cỡ chữ qua `{{HXZ|26}}`). Đường gạch dời theo cột mới (giữ canh giữa như cũ).
   - Khuôn ②: bỏ "- " trước câu "Hội … xây dựng kế hoạch …".
   - Lịch kiểm tra trong Kế hoạch dùng tên tổ trưởng đã chuẩn (`toTenChuan`).
-- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t113 không lỗi (t113 mới, 33 phép).
+- **⚙ Bảng khai báo Hội – xã (anh gửi ảnh):** dòng "In ra:" tràn đè sang ô bên cạnh (bảng `white-space:nowrap`) → xuống dòng trong ô, tối đa 3 dòng, rê chuột xem đủ (`title`). Số KH "06-KH/HNDT" bị nhắc cam nhầm (đòi "/KH") → chỉ cần có chữ "KH".
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t113 không lỗi (t113 mới, 35 phép).
 
 ---
 

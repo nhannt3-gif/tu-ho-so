@@ -2237,7 +2237,7 @@
   .tc-trai .sl-kq-dong{padding:4px 8px;margin:2px 0}.tc-trai .sl-kq-dong b{font-size:calc(13.5px*var(--co))}.tc-trai .sl-kq-dong .tc-tt{font-size:calc(11.5px*var(--co))}.tc-trai .sl-kq-dong small{font-size:calc(11px*var(--co))}
   .sl-kq-dong.chon{border-color:var(--xanh);background:var(--nen);box-shadow:inset 3px 0 0 var(--xanh)}
   .tc-ct-tit{font-size:calc(16px*var(--co));font-weight:700}
-  .hkb-in{font-size:calc(10.5px*var(--co));line-height:1.3;margin-top:2px;max-width:260px;display:flex;gap:4px;align-items:flex-start}.hkb-in .tu{color:var(--chu-phu)}.hkb-in .da{color:#2e7d4f;font-weight:600}.hkb-in .cam{color:#b45309;font-weight:600}.hkb-ve{flex:0 0 auto;min-height:0;padding:0 5px;font-size:11px;line-height:16px}   /* 3.106 */
+  .hkb-in{font-size:calc(10.5px*var(--co));line-height:1.3;margin-top:2px;max-width:260px;min-width:170px;display:flex;gap:4px;align-items:flex-start;white-space:normal}.hkb-in>span{min-width:0;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.hkb-in .tu{color:var(--chu-phu)}.hkb-in .da{color:#2e7d4f;font-weight:600}.hkb-in .cam{color:#b45309;font-weight:600}.hkb-ve{flex:0 0 auto;min-height:0;padding:0 5px;font-size:11px;line-height:16px}   /* 3.106 */
   /* 3.103 (anh chốt): tên hộ vay + mã KH luôn nổi bật khi tra cứu */
   .tc-ten{color:var(--xanh-dam)}.tc-ten.to{font-size:calc(19px*var(--co));font-weight:800;letter-spacing:.2px}.tc-ten.to *{color:inherit}.tc-ma{display:inline-block;background:var(--xanh-nhat);color:var(--xanh-dam);border:1px solid var(--xanh);border-radius:6px;padding:0 6px;font-weight:700;font-size:calc(12.5px*var(--co));font-variant-numeric:tabular-nums;white-space:nowrap}.tc-ma.to{font-size:calc(15px*var(--co));padding:1px 8px}.tc-ma.to *{color:inherit}.tc-ct-phu{color:var(--chu-phu);font-size:calc(12px*var(--co));margin-bottom:6px}
   .tc-phai .kh-luoi{gap:4px 10px}.tc-phai table.kh-mon{font-size:calc(12px*var(--co))}
@@ -12639,6 +12639,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.108', ds:[
+  ['⚙ Bảng khai báo Hội – xã: dòng "In ra" xuống dòng gọn trong ô (không đè ô bên), rê chuột xem đủ; số KH dạng 06-KH/HNDT không còn bị nhắc cam', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🗓 Kế hoạch KTGS ② (và ①): gạch dưới tên cơ quan màu đen, xích lên; gạch dưới tiêu ngữ xích xuống; tên Hội dài tự xuống cỡ 12 (quá dài thì 2 dòng gọn trước "PHƯỜNG / XÃ"); bỏ gạch đầu dòng câu "Hội … xây dựng kế hoạch"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Nạp thêm "Danh sách tổ TK&VV" (file …_DSTO.xlsx, loại phụ) cùng Thông tin tổ trưởng: tổ thiếu trong file tổ trưởng lấy điểm GD theo DSTO; ② Kiểm tra đối chiếu 2 danh sách với Mẫu 31 (tổ thiếu, tổ không còn món, lệch điểm GD, Hội, tổ trưởng / SĐT)', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['✍ Tên tổ trưởng / tổ phó hiện và in "Nguyễn Văn A": bỏ "Ông / Bà" đầu tên, tên không dấu lấy lại tên có dấu theo Mẫu 31, viết hoa chữ đầu mỗi từ — tên hộ vay giữ nguyên như hệ thống', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
@@ -23650,13 +23651,13 @@ function ktHkbIn(t, kb, o, id){
     if(/^h[ộo]i\s+h[ộo]i\b/i.test(v)) canh = 'Lặp chữ "Hội"'; }
   else if(o==='cb' || o==='cbcv'){ chu = 'Mẫu 06 / 16 / 04: - Ông (bà): '+(kb.cb || cham)+'  Chức vụ: '+(kb.cbcv || cham); }
   else if(o==='kh' || o==='khNgay'){ chu = 'Căn cứ Kế hoạch … số '+(kb.kh || cham)+', ngày '+(kb.khNgay || cham)+' của '+capTinh+';';
-    if(o==='kh' && v && !/\/KH/i.test(v)) canh = 'Số kế hoạch thường có "/KH" (vd 06-KH/HNDT)';
+    if(o==='kh' && v && !/KH/i.test(v)) canh = 'Số kế hoạch thường có chữ "KH" (vd 06-KH/HNDT)';   /* 3.108: "06-KH/HNDT" không có "/KH" vẫn đúng */
     if(o==='khNgay' && v && !ngay.test(v)) canh = 'Ngày nên dạng dd/mm/yyyy'; }
   else if(o==='hd' || o==='hdNgay'){ chu = 'Căn cứ Hợp đồng ủy thác số '+(hd || cham)+' ngày '+(kb.hdNgay || cham)+' …';
     if(o==='hdNgay' && v && !ngay.test(v)) canh = 'Ngày nên dạng dd/mm/yyyy'; }
   else if(o==='ky'){ chu = 'Ký: TM. '+c.tm.replace('{xa}', c.xa).toUpperCase()+' / '+c.ky.toUpperCase()+' / '+(v || '(để trống, ký tay)'); }
   var ve = v ? '<button class="hkb-ve" onclick="ktHkbVe(\''+ktHoiKhoa(t)+'\',\''+o+'\',\''+id+'\')" title="Xóa chữ đã gõ, về giá trị chuẩn / dòng chấm">↺</button>' : '';
-  return '<span class="'+(canh ? 'cam' : (v ? 'da' : 'tu'))+'">In ra: '+(v ? '' : '<i>(tự lấy)</i> ')+coChuHTML(chu)+(canh ? ' — ⚠ '+coChuHTML(canh) : '')+'</span>'+ve;
+  return '<span class="'+(canh ? 'cam' : (v ? 'da' : 'tu'))+'" title="'+coChuHTML('In ra: '+chu+(canh ? ' — ⚠ '+canh : ''))+'">In ra: '+(v ? '' : '<i>(tự lấy)</i> ')+coChuHTML(chu)+(canh ? ' — ⚠ '+coChuHTML(canh) : '')+'</span>'+ve;
 }
 function ktHkbXem(k, id){   /* gõ tới đâu cập nhật dòng "In ra" của cả dòng Hội – xã tới đó (chưa lưu — lưu khi rời ô như cũ) */
   var x = ktHoiDs().find(function(z){ return z.k===k; }); if(!x) return;

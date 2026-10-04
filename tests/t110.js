@@ -85,7 +85,7 @@ const fs=require('fs'), path=require('path');
    ok('khuôn ②: điền tên Hội xã, ký hiệu KH, năm, chân trang số trang', cK.indexOf(ktChuanDauXa(t0))>=0 && /\/KH-(HND|HPN|CCB|ĐTN)/.test(cK) && /năm 2026/.test(cK) && !!zK.g('word/footer1.xml') && !zK.g('word/header1.xml'));
    const vien = x => (x.match(/<w:tblBorders><w:top w:val="nil"\/>/g)||[]).length;
    ok('bảng đầu trang / chữ ký không viền (04: 1 · KH ①: 2 · KH ②: 2); bảng số liệu giữ viền', vien(KT_KHUON.m04.than)===1 && vien(KT_KHUON.m01.than)===2 && vien(KT_KHUON.m01b.than)===2 && /w:val="single"/.test(KT_KHUON.m01b.than));
-   ok('Quốc hiệu đủ chỗ: cột phải bảng đầu trang KH ① 5956, ② 5961 twip', /<w:gridCol w:w="5956"\/>/.test(KT_KHUON.m01.than) && /<w:gridCol w:w="5961"\/>/.test(KT_KHUON.m01b.than));
+   ok('Quốc hiệu đủ chỗ: cột phải bảng đầu trang KH ① 5657, ② 5701 twip (3.108: nới cột trái; Quốc hiệu đậm 13 cần ≈ 5386 + lề 216)', /<w:gridCol w:w="5657"\/>/.test(KT_KHUON.m01.than) && /<w:gridCol w:w="5701"\/>/.test(KT_KHUON.m01b.than) && ktDoRong('CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM', 26)+216 <= 5657);
    ktKHDoiMau('1'); await w(100); ktKHXem(); await w(300); ktKHIn('word'); await w(1200);
    const fK1 = Object.keys(F).filter(n=>/Ke hoach KTGS/.test(n)).pop(); const zK1 = await moZip(F[fK1]); ok('khuôn ① vẫn chạy (căn cứ 727)', hopLe(zK1.doc) && /727\/HD-NHCS/.test(zK1.doc));
    ktKHDoiMau('2'); ktKHXem(); await w(300); ktKHIn('in'); await w(300);

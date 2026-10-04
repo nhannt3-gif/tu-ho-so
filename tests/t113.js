@@ -86,6 +86,10 @@ const fs=require('fs'), path=require('path');
    const d1 = await docKH('m01', 'HỘI NÔNG DÂN PHƯỜNG GIA LỘC'), dau1 = d1.slice(0, d1.indexOf('</w:tbl>'));
    ok('① cùng cách đo: cỡ 12, cột trái 4380, gạch dưới vẫn đen', /<w:sz w:val="24"\/><w:szCs w:val="24"\/><\/w:rPr><w:t xml:space="preserve">HỘI NÔNG DÂN PHƯỜNG GIA LỘC/.test(dau1) && /<w:gridCol w:w="4380"\/><w:gridCol w:w="5657"\/>/.test(dau1) && (dau1.match(/<a:srgbClr val="000000"\/>/g)||[]).length===2);
    ok('Word ① ② hợp lệ, hết dấu {{', [d1, d2, d3].every(x=>!new DOMParser().parseFromString(x, 'application/xml').getElementsByTagName('parsererror').length && x.indexOf('{{')<0));
+   /* 7. bảng khai báo Hội – xã: dòng "In ra" không tràn ô; số KH dạng 06-KH/HNDT không bị nhắc */
+   const tK = K.to[boTT[0]];
+   ok('số KH "06-KH/HNDT" không nhắc cam; "06" vẫn nhắc', !/⚠/.test(ktHkbIn(tK, {kh:'06-KH/HNDT'}, 'kh', 'x')) && /⚠/.test(ktHkbIn(tK, {kh:'06'}, 'kh', 'x')));
+   ok('dòng "In ra" xuống dòng trong ô (tối đa 3 dòng, rê chuột xem đủ)', /\.hkb-in\{[^}]*white-space:normal/.test(document.documentElement.innerHTML) && /-webkit-line-clamp:3/.test(document.documentElement.innerHTML) && /title="In ra: /.test(ktHkbIn(tK, {}, 'kh', 'x')));
    return o;
  }, files);
  R.concat(loi.map(e=>'✗ lỗi trang: '+e)).forEach(x=>console.log(x));
