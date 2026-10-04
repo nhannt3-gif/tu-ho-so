@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 04/10/2026, bản 3.100)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 04/10/2026, bản 3.101)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,7 +88,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.100 (mới nhất):** HSSV: ngày vay gợi ý = GDX gần nhất từ hôm nay; tiền vay gợi ý làm tròn gần nhất theo nửa năm (26 tháng = 2 năm = 80 tr).
+**3.101 (mới nhất):** HSSV tiền vay gợi ý theo năm học từ tháng 9 (ra 6–8 tròn năm, 1–5 nửa năm, 9–12 tính năm trước; vay 1–5 nửa năm, 6–8 từ năm sau).
+
+**3.100:** HSSV: ngày vay gợi ý = GDX gần nhất từ hôm nay; tiền vay gợi ý làm tròn gần nhất theo nửa năm (26 tháng = 2 năm = 80 tr).
 
 **3.99:** 🎓 Hạn trả HSSV tự gợi ý tiền vay (mỗi nửa năm phát tiền vay, làm tròn lên = 5 tháng = 20 tr), ô Tiền vay điền sẵn (gõ đè được); kết quả 3 khối lớn (tiền vay + số tháng vay, thời hạn, hạn cuối) + 2 khối nhỏ (trả mỗi lần, lần đầu).
 
@@ -188,6 +190,7 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 
 | # | Việc | Trạng thái / cần gì |
 |---|---|---|
+| 0h | **3.101 ĐÃ CODE (PR chờ anh "gộp")** — HSSV tiền vay theo năm học (CHANGELOG 3.101). | Chờ anh thử + "gộp". |
 | 0i | **3.100 ĐÃ GỘP** — HSSV ngày vay gợi ý GDX gần nhất + sửa làm tròn tiền vay (CHANGELOG 3.100). | Chờ anh thử máy thật. |
 | 0j | **3.99 ĐÃ GỘP** — HSSV gợi ý tiền vay + 5 khối (xem CHANGELOG 3.99). | Chờ anh thử + nhắn "gộp". |
 | 0k | **3.98 ĐÃ GỘP** — gồm mục **7a** + góp ý của anh 03–04/10 (xem CHANGELOG 3.98). Việc tiếp: anh thử bảng 3.98 trên máy thật (nhất là **phiếu Mẫu 06 có từ 3 món** có chịu sang trang 2 không; đầu trang theo 2 bản kế hoạch thật anh gửi: Đoàn "ĐTN XÃ …", Hội LHPN "HỘI LHPN XÃ …"; Hội Nông dân khớp bản thật (nơi nhận "Hội ND tỉnh"); Hội CCB chưa có bản thật — sửa ở 📖 Bảng chuẩn hóa nếu khác). Đơn vị kiểm tra Mẫu 06 / 16 tự điền Hội cấp xã của tổ.. Sau đó: Mẫu 15/TD (đúng khuôn), 03/BB-CX (tự tính I.1 từ BC0438 / BC0437, I.2 chấm điểm tổ), 06A/TD, bảng tiến độ 727 (nối lịch 01/KH: tháng này đến lượt tổ nào → đã kiểm chưa) | Chờ anh thử 3.98 + nhắn "gộp". |
@@ -259,4 +262,4 @@ Cách làm đề xuất: **tự nhận** xã / phường từ tên xã trong d�
 **D. Lưu ý cho phiên làm tiếp (tài khoản khác):**
 - Khuôn Word (Mẫu 04, Kế hoạch ① ②) **đã nằm sẵn trong `index.html`** — sửa chữ đặc thù làm trực tiếp bằng dấu chèn mới trong khuôn + `ktKHGiaTri` / `ktGiaTri16`, **không cần file gốc**. Chỉ khi phải dựng lại khuôn từ đầu mới cần anh gửi lại file gốc (Mẫu 04 .docx, dự thảo KH HĐT xã .doc → LibreOffice ra .docx, bản kế hoạch mẫu của Hội xã — **có tên thật, không đưa vào repo**; `tools/khuon_docx.py m01b` tự lấy tên riêng từ file để kiểm, không ghi tên vào mã).
 - Đăng web: repo có `.nojekyll` (đừng xóa); gộp xong xem Actions "pages build and deployment" xanh.
-- Quy trình mỗi bản: `python3 tests/kiem.py` sạch + hồi quy hoiquy, hoiquy2, t101–t110 (`hoiquy` có 1 phép chập chờn "Báo cáo đã bỏ…" — chạy lại) + APP_BAN / APP_LUC / CO_GI_MOI + CHANGELOG + BAN_GIAO_VIEC_CON_LAI (bảng thử + ghi chú kỹ thuật) + file này + tests/README; `sed -i "s/3\.99'/3.100'/g" tests/hoiquy2.js`.
+- Quy trình mỗi bản: `python3 tests/kiem.py` sạch + hồi quy hoiquy, hoiquy2, t101–t110 (`hoiquy` có 1 phép chập chờn "Báo cáo đã bỏ…" — chạy lại) + APP_BAN / APP_LUC / CO_GI_MOI + CHANGELOG + BAN_GIAO_VIEC_CON_LAI (bảng thử + ghi chú kỹ thuật) + file này + tests/README; `sed -i "s/3\.100'/3.101'/g" tests/hoiquy2.js`.
