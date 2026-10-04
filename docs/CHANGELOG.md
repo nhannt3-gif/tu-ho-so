@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.107 — 05/10/2026 18:00 — tổ thiếu trong file Thông tin tổ trưởng · vay trực tiếp theo ấp · KTGS bỏ mục trực tiếp · Mẫu 16 Đoàn kiểm tra
+- **Rà số liệu thật T9/2026 (anh nhờ, chỉ đọc):** file Thông tin tổ trưởng T9 xuất **thiếu 26 tổ** so với T8 (352 / 378); 18 tổ vẫn còn món (993 món, ≈ 40,3 tỷ). Hội (mã ĐVUT món) khớp 100% bảng tổ; mỗi ấp chỉ thuộc 1 điểm GD → suy theo ấp đúng như bảng T8. Chip "(chưa rõ điểm GD)" ở Gia Lộc = 1 món vay trực tiếp không trùng ngày GDXA tổ nào.
+- **B. Điểm GD tổ thiếu:** bảng tổ tháng khác chỉ lấy bảng **chốt tháng** (bỏ bảng theo ngày), **tháng gần kỳ đang xem nhất trước**, tối đa 6 bảng (trước chỉ 4 bảng "mới nhất", có thể toàn bảng theo ngày); ghi căn cứ `t.diemTu`. Không mở được bảng → **danh bạ tổ** (`SL_DB.to`, chỉ nhận khi đối được ra mã điểm GD của tổ cùng xã — `toDanhBaDiem`) → suy ấp / ngày GDXA như cũ.
+- **A. Vay trực tiếp:** điểm GD theo **ấp của món** (danh mục địa bàn / tổ cùng ấp) → ngày GDXA trùng tổ cùng xã → xã chỉ 1 điểm GD; không xếp được vẫn để "chưa rõ" (không đoán).
+- **C. Dòng báo vàng KTGS:** "File Thông tin tổ trưởng T9/2026 thiếu n tổ (có trong Mẫu 31) — đã xếp điểm GD: tháng trước a · danh bạ tổ b · theo ấp c · ngày GDXA d"; bấm ra bảng từng tổ (xã, ấp, Hội, điểm GD + căn cứ, món còn dư nợ); chưa nạp file kỳ này thì báo "Chưa nạp …".
+- **E. KTGS Hội:** cây chọn bỏ mục "Trực tiếp" / "Vay trực tiếp" (`PV_DUNG.kt.boTT`, `pvBoTT`); tab Tổ TK&VV, Tra cứu KH, Sao kê giữ nguyên.
+- **D. Mẫu 16:** "ĐOÀN KIỂM TRA:" = tên Hội cấp xã của tổ theo Bảng chuẩn hóa (`ktHoiTenTD`), trực tiếp → dòng chấm; bỏ ô khai "Đoàn kiểm tra"; dọn `ktKBLuu.doan` khi mở app.
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t112 không lỗi (t112 mới, 23 phép).
+
+---
+
 ## 3.106 — 05/10/2026 14:00 — Mẫu 04 theo ý anh · Kế hoạch ① ② · dòng "In ra" ở bảng khai báo · chép file hàng loạt · dọn dữ liệu rác
 - **Mẫu 04/BC-TH** (anh chốt, văn bản 727):
   - I.1 Đoàn kiểm tra = **cán bộ kiểm tra khai cho Mẫu 06 / 16** (cán bộ của Hội – xã + "Ông (bà) 2" ở khung ✎ Khai báo), dạng "- Ông (bà): … ⇥ Chức vụ: …" + **2 dòng in sẵn** "- Ông (bà): …… Chức vụ: ……" để ghi tay (`ktDoan04`). I.2 cấp ủy: 2 dòng chấm.

@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.106 · build 05/10/2026 14:00
+**Bản hiện tại:** 3.107 · build 05/10/2026 18:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.107) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu T9 › KTGS Hội (đã nạp Thông tin tổ trưởng T8 + T9) | Dòng vàng "File Thông tin tổ trưởng T9/2026 thiếu … tổ — đã xếp điểm GD: tháng trước …"; bấm ra bảng từng tổ, điểm GD đúng như T8 | |
+| 2 | KTGS Hội › Phường Gia Lộc | Không còn chip "(chưa rõ điểm GD)", "Trực tiếp", "Vay trực tiếp" | |
+| 3 | Tổ TK&VV › Phường Gia Lộc | Vay trực tiếp nằm trong đúng điểm GD (theo ấp của món) | |
+| 4 | Mẫu 16 Word (tổ Hội Nông dân, tổ Đoàn) | "ĐOÀN KIỂM TRA: Hội Nông dân phường …" / "Đoàn Thanh niên …"; khung ✎ Khai báo không còn ô Đoàn kiểm tra | |
+
+**Ghi chú kỹ thuật 3.107:** `toNap`: bảng tổ tháng khác lọc `ky.length===7`, xếp theo khoảng cách tháng (`cach`), 6 bảng, chỉ nhận dòng có `diem`, ghi `t.diemTu`; `toDanhBaDiem(K)` (danh bạ `SL_DB.to` → mã điểm qua tổ cùng xã cùng tên điểm) chạy trước `toSuyDiem`. `toGanTrucTiep`: `theoAp` (danh mục địa bàn / đa số tổ cùng `xa|thon`) → `diem[xa|ngày]` → xã 1 điểm. `ktSuyHTML(K)`: tổ không có `t.tt` mà có `diemTu`/`diemSuy` (thiếu) hoặc không `diem` (chưa rõ), bảng `.kt-suy`. `PV_DUNG.kt.boTT` + `pvBoTT(T)` trong `pvVeCay`. Mẫu 16: `DOAN` = `ktHoiTenTD(t)` (dv ≠ 99), bỏ `doan` khỏi `KT_KB_LUU` / `ktDocKB` / khung; dọn `ktKBLuu.doan` ở khối dọn rác 3.106.
 
 ### Danh sách thử trên máy thật (3.106) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
