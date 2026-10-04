@@ -1,4 +1,4 @@
-// 3.98–3.99 — HSSV gợi ý tiền vay + 5 khối (3.99) · KTGS chỉ phục vụ in (bỏ theo dõi) · Mẫu 06 bố cục mới (dòng chấm Đơn vị, Chức vụ thẳng cột bằng tab, địa bàn chuẩn, cột Mục đích rộng,
+// 3.98–3.100 — HSSV ngày vay gợi ý GDX gần nhất (3.100) · HSSV gợi ý tiền vay + 5 khối (3.99) · KTGS chỉ phục vụ in (bỏ theo dõi) · Mẫu 06 bố cục mới (dòng chấm Đơn vị, Chức vụ thẳng cột bằng tab, địa bàn chuẩn, cột Mục đích rộng,
 //        dòng 1,5 cm, gộp tên / ký theo hộ, mã KH, 2 mục đích PNKT51 + PNKT52) · danh sách chọn hộ chung · xem trước tách tờ ·
 //        Bảng chuẩn hóa Hội – Đoàn (Kế hoạch ① ②, Mẫu 16, Đoàn / phường) · Mẫu 16 gợi ý nhận xét · điểm GD suy theo ấp / ngày GDXA.
 // Bộ GIẢ: tests/gia31. Tham số tùy chọn: thư mục lưu file Word mẫu.
@@ -136,9 +136,9 @@ const fs=require('fs'), path=require('path');
    ok('HSSV: Enter sang ô sau, Enter ở tiền vay về ngày ra trường (món kế), Shift+Enter lùi', b1 && b2 && b3 && b4, [b1,b2,b3,b4].join(','));
    rt.value = '30/06/2026'; rt.focus(); ok('HSSV: bấm vào ô là bôi đen số cũ (gõ là thay)', rt.selectionStart===0 && rt.selectionEnd===rt.value.length);
    /* 3.99: tiền vay gợi ý theo nửa năm phát tiền vay (làm tròn lên) */
-   const gyc = [['01/09/2026','01/09/2030',8,40,160],['01/09/2026','01/02/2030',7,35,140],['01/09/2026','01/03/2030',7,35,140],['01/09/2026','01/04/2030',8,40,160],['07/10/2026','30/08/2030',8,40,160],['01/09/2026','01/11/2026',1,5,20]];
+   const gyc = [['01/09/2026','01/09/2030',8,40,160],['01/09/2026','01/02/2030',7,35,140],['01/09/2026','01/03/2030',7,35,140],['01/09/2026','01/04/2030',7,35,140],['07/10/2026','30/12/2028',4,20,80],['01/09/2026','01/12/2029',7,35,140],['07/10/2026','30/08/2030',8,40,160],['01/09/2026','01/11/2026',1,5,20]];
    const gys = gyc.map(c=>{ const g = hsGoiY({vay:c[0], rt:c[1]}); return g && g.nua===c[2] && g.thang===c[3] && g.trieu===c[4]; });
-   ok('HSSV: gợi ý tiền vay theo nửa năm (48→160, 41→140, 42→140, 43→160, 46→160, 2→20)', gys.every(Boolean), gys.join(','));
+   ok('HSSV: gợi ý tiền vay theo nửa năm (48→160, 41→140, 42→140, 43→140, 26→80, 39→140, 46→160, 2→20)', gys.every(Boolean), gys.join(','));
    gd.value = '7'; gd.dispatchEvent(new Event('input'));
    const vy = document.getElementById('hs-vay'); vy.value = '01/09/2026'; vy.dispatchEvent(new Event('input'));
    rt.value = '01/02/2030'; rt.dispatchEvent(new Event('input'));
@@ -149,6 +149,20 @@ const fs=require('fs'), path=require('path');
    ok('HSSV: gõ đè tiền → dùng số anh gõ, ghi "Gợi ý: 35 tháng = 140 tr"', /100\.000\.000/.test(ks[0].textContent) && /Gợi ý: 35 tháng = 140 tr/.test(ks[0].textContent) && /Số tiền vay 100\.000\.000/.test(hsTinh(hsGT()).cau));
    rt.value = '01/09/2030'; rt.dispatchEvent(new Event('input'));
    ok('HSSV: món kế (đổi ngày ra trường) → tiền tự điền lại 160', ti.value==='160' && hsGT().tien==='160');
+   /* 3.100: ngày vay gợi ý = GDX gần nhất kể từ hôm nay */
+   const nay0 = nay; nay = () => new Date(2026, 9, 4, 9);
+   const vg = [hsVayGoiY(7)==='07/10/2026', hsVayGoiY(3)==='03/11/2026', hsVayGoiY(4)==='04/10/2026', hsVayGoiY(31)==='31/10/2026', hsVayGoiY('')===''];
+   nay = () => new Date(2026, 10, 30, 9); vg.push(hsVayGoiY(31)==='30/11/2026'); nay = () => new Date(2026, 1, 15, 9); vg.push(hsVayGoiY(10)==='10/03/2026', hsVayGoiY(30)==='28/02/2026');
+   ok('HSSV: ngày vay gợi ý = GDX gần nhất từ hôm nay (07→07/10, 03→03/11, hôm nay 04→04/10, 31 cuối tháng)', vg.every(Boolean), vg.join(','));
+   nay = () => new Date(2026, 9, 4, 9);
+   CC.hs = null; dv.innerHTML = hsChonLoaiHTML()+ccHSSVHTML();
+   const g2 = document.getElementById('hs-gdx'), v2 = document.getElementById('hs-vay');
+   g2.value = '15'; g2.dispatchEvent(new Event('input'));
+   const t1 = v2.value==='15/10/2026' && /GDX gần nhất/.test(document.getElementById('hs-vgy').textContent);
+   v2.value = '20/10/2026'; v2.dispatchEvent(new Event('input')); g2.value = '07'; g2.dispatchEvent(new Event('input'));
+   const t2 = v2.value==='20/10/2026' && hsGT().vay==='20/10/2026' && !/GDX gần nhất/.test(document.getElementById('hs-vgy').textContent);
+   ok('HSSV: đổi GDX → ngày vay gợi ý lại; đã gõ tay thì giữ nguyên', t1 && t2, [t1,t2].join(','));
+   nay = nay0; CC.hs = null;
    dv.remove();
    C.che = 'dx'; C.xa = ''; C.hoi = ''; C.to = '';
    var ra = {d06:await b64(await ktDocx('m06', g)), d16:await b64(F[f16])};

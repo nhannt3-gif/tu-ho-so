@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.100 — 04/10/2026 16:00 — Hạn trả HSSV: ngày vay gợi ý GDX gần nhất · sửa làm tròn tiền vay
+- **Ngày vay (giải ngân) tự gợi ý** = ngày giao dịch (số GDX ở dòng trên) **gần nhất kể từ hôm nay**; hôm nay đúng ngày GDX thì lấy hôm nay; tháng thiếu ngày (31, 30/02) lấy ngày cuối tháng. Đổi GDX (xã khác) thì gợi ý lại, trừ khi anh đã gõ tay. Nhãn "Ngày vay · GDX gần nhất".
+- **Sửa làm tròn tiền vay gợi ý** (anh chốt — ca 26 tháng chỉ tính 2 năm = 80 tr): làm tròn **gần nhất** theo nửa năm thay cho làm tròn lên — phần dư trong nửa năm 1–2 tháng bỏ, 3–5 tháng tính thêm nửa năm (tối thiểu nửa năm). Ví dụ: 26 → 80 tr; 39 → 140; 41 → 140; 43 → 140 (3.99 ra 160); 46 → 160; 48 → 160.
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t110 không lỗi; `t111` 61/61.
+
+---
+
 ## 3.99 — 04/10/2026 14:00 — Hạn trả HSSV: tự gợi ý tiền vay · 5 khối kết quả
 - **Tự gợi ý số tiền vay** (anh chốt): theo thời gian phát tiền vay (ngày vay → ra trường), mỗi **nửa năm** (làm tròn lên, không tính lẻ) = 5 tháng vay = **20 triệu**; 1 năm = 10 tháng = 40 triệu. Ví dụ 48 tháng → 160 tr; 41 tháng (3 năm rưỡi) → 140 tr; 46 tháng → 160 tr.
 - Ô **Tiền vay điền sẵn** số gợi ý (đang bôi đen khi Enter tới), anh gõ đè nếu cần; đổi ngày vay / ra trường (món mới) thì điền lại. Nhãn ô ghi "gợi ý 40 th = 160".

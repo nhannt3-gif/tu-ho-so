@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.99 · build 04/10/2026 14:00
+**Bản hiện tại:** 3.100 · build 04/10/2026 16:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.100) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở 🎓 Hạn trả HSSV, gõ GDX của xã | Ô Ngày vay tự điền ngày GDX gần nhất từ hôm nay (nhãn "GDX gần nhất"); hôm nay đúng GDX thì là hôm nay | |
+| 2 | Đổi GDX sang số khác | Ngày vay đổi theo; nếu đã gõ tay ngày vay thì giữ nguyên | |
+| 3 | Ngày vay 07/10/2026, ra trường 30/12/2028 (26 tháng) | Tiền vay gợi ý **80** (20 tháng, 2 năm) | |
+
+**Ghi chú kỹ thuật 3.100:** `hsVayGoiY(g)` (dùng `nay()`, `hsNgayGD`; ngày < hôm nay → tháng sau), cờ `CC.hs.vayTay`, nhãn `hsVayNhan()` → `#hs-vgy`; `hsDat('gdx')` gợi ý lại ngày vay khi chưa gõ tay rồi tính lại tiền. `hsGoiY`: `nua = max(1, round(tp/6))` (3.99 là `ceil`).
 
 ### Danh sách thử trên máy thật (3.99) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
