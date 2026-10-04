@@ -19,56 +19,54 @@ const fs=require('fs'), path=require('path');
    ok('có nút chế độ 📋 Mẫu 04', /Báo cáo tổng hợp · Mẫu 04/.test(document.querySelector('.kt-che').textContent));
    const ds = Object.keys(KT_K.to).map(m=>KT_K.to[m]).filter(t=>!toLaTT(t) && t.dv && String(t.dv)!=='99');
    const A = ds[0], A2 = ds.find(t=>t.xa===A.xa && String(t.dv)===String(A.dv) && t.ma!==A.ma), B = ds.find(t=>ktHoiKhoa(t)!==ktHoiKhoa(A));
-   /* lập Biên bản 16 qua đường thật (ghi nhật ký) */
+   const B2 = ds.find(t=>t.xa===A.xa && String(t.dv)!==String(A.dv)) || B;
+   /* 3.98: không theo dõi — xuất 16 / 06 không ghi nhật ký, lịch sử */
    ktChonTo(A.ma); await w(300); KT_KB = {ngay:'2026-09-05'}; ktKhaiBao('m16'); await w(50); ktXuat('m16', 'word'); await w(600);
-   ok('xuất Biên bản 16 → ghi nhật ký tổ (ktgsNK)', ((D.cauHinh.ktgsNK||{})[A.ma]||[]).some(x=>x.mau==='16' && x.ngay==='2026-09-05'));
    ktKhaiBao('m06'); await w(50); ktXuat('m06', 'in'); await w(300);
-   ok('xuất Mẫu 06 đột xuất → lịch sử ktgsLS', ((D.cauHinh.ktgsLS||{})[A.ma]||[]).some(x=>x.ngay==='2026-09-05'));
-   ktGhiNK(A2, '16', '2026-09-12'); ktGhiNK(B, '06gn', '2026-09-20', '2026-08'); ktGhiNK(B, '06gn', '2026-09-20', '2026-08'); ktGhiNK(ds[5], '16', '2026-08-30');
-   ok('nhật ký không trùng (cùng tổ, mẫu, ngày, tháng GN)', D.cauHinh.ktgsNK[B.ma].length===1);
-   /* màn Mẫu 04 */
-   C.xa=''; C.diem=''; C.hoi=''; C.to=''; C.bcTh = '2026-09'; KT_BC_CHON = {}; KT_BC_NGAY = {}; ktDoiCheDo('bc'); await w(300);
-   const hang = () => [...document.querySelectorAll('#kt-the .kt-bc-bang tbody tr')].filter(tr=>tr.querySelector('input[type=checkbox]'));
-   ok('tháng 09/2026: 3 tổ có phiếu, tích sẵn (không lấy tổ tháng khác)', hang().length===3 && hang().every(tr=>tr.querySelector('input[type=checkbox]').checked), hang().length+' tổ');
-   ok('ngày kiểm tra theo lịch sử, cột phiếu 06 + Biên bản 16', ktBCDs().find(r=>r.t.ma===A.ma).ngay==='2026-09-05' && ktBCNguon('2026-09')[A.ma].p06===1 && ktBCNguon('2026-09')[A.ma].bb16 && ktBCNguon('2026-09')[B.ma].pgn===1);
-   ok('cảnh báo tổ chưa thấy Biên bản 16 (727: Mẫu 04 chỉ khi kiểm tra hoạt động Tổ)', /1 tổ chưa thấy Biên bản 16/.test(document.getElementById('kt-the').textContent));
-   ok('mỗi Hội – xã 1 báo cáo', ktBCNhom(ktBCDs()).length===2 && /→ 2 báo cáo/.test(document.getElementById('kt-the').textContent));
-   /* thêm tổ trong phạm vi */
-   C.xa = A.xa; C.hoi = String(A.dv); pvVeCay('kt'); await w(300);
-   const them = ds.find(t=>t.xa===A.xa && String(t.dv)===String(A.dv) && t.ma!==A.ma && t.ma!==A2.ma && pvLoc(C, t));
-   ok('chọn phạm vi → hiện thêm tổ chưa có phiếu (chưa tích)', !!them && /Tổ khác trong phạm vi/.test(document.getElementById('kt-the').textContent) && ktBCDs().find(r=>r.t.ma===them.ma).chon===false);
-   ktBCTich(them.ma, true); ktBCNgay(them.ma, '2026-09-18'); await w(100);
-   ok('tích thêm tổ + sửa ngày', ktBCDs().find(r=>r.t.ma===them.ma).chon && ktBCDs().find(r=>r.t.ma===them.ma).ngay==='2026-09-18');
-   ok('phạm vi xã/hội → chỉ tổ trong phạm vi (tổ Hội khác ẩn)', !ktBCDs().some(r=>r.t.ma===B.ma) && ktBCNhom(ktBCDs()).length===1);
-   C.xa=''; C.diem=''; C.hoi=''; C.to=''; pvVeCay('kt'); await w(300);
-   ok('về Toàn PGD: tổ có phiếu + tổ đã tích thêm vẫn giữ', ktBCDs().some(r=>r.t.ma===B.ma) && ktBCDs().find(r=>r.t.ma===them.ma).chon && ktBCNhom(ktBCDs()).length===2);
-   C.xa = A.xa; C.hoi = String(A.dv); pvVeCay('kt'); await w(200);
+   ok('3.98: xuất Biên bản 16 / Mẫu 06 không ghi nhật ký, lịch sử', !((D.cauHinh.ktgsNK||{})[A.ma]||[]).length && !((D.cauHinh.ktgsLS||{})[A.ma]||[]).length);
+   /* màn Mẫu 04 ① — chọn theo cây địa bàn */
+   C.xa=''; C.diem=''; C.hoi=''; C.to=''; KT_BC_CHON = {}; KT_BC_NGAY = {}; ktDoiCheDo('bc'); await w(300);
+   ok('Toàn PGD: nhắc chọn xã, chưa có tổ', !ktBCDs().length && /Chọn xã/.test(document.getElementById('kt-the').textContent));
+   C.xa = A.xa; pvVeCay('kt'); await w(300);
+   const hang = () => [...document.querySelectorAll('#kt-the .kt-bc-bang tbody tr:not(.kt-kh-ap)')].filter(tr=>tr.querySelector('input[type=checkbox]'));
+   ok('chọn xã: tổ của xã chia nhóm theo ấp, chưa tích tổ nào', hang().length===ktBCDs().length && hang().length>0 && hang().every(tr=>!tr.querySelector('input[type=checkbox]').checked) && document.querySelectorAll('#kt-the tr.kt-kh-ap').length>0 && ktBCDs().every(r=>r.t.xa===A.xa), hang().length+' tổ');
+   const apA = ktKHAp(A); ktBCTichAp(KT_BC_AP.indexOf(apA), true); await w(100);
+   const cuaAp = ktBCDs().filter(r=>ktKHAp(r.t)===apA);
+   ok('tích dòng ấp → chọn mọi tổ của ấp', cuaAp.length>0 && cuaAp.every(r=>r.chon) && ktBCDs().filter(r=>r.chon).length===cuaAp.length, cuaAp.length+' tổ');
+   ktBCTichAp(KT_BC_AP.indexOf(apA), false); await w(50); ok('bỏ tích dòng ấp → bỏ cả ấp', !ktBCDs().some(r=>r.chon));
+   [A, A2, B2].forEach(t=>ktBCTich(t.ma, true)); ktBCNgay(A.ma, '2026-09-05'); await w(100);
+   ok('tích từng tổ + ngày (tùy chọn)', ktBCDs().find(r=>r.t.ma===A.ma).chon && ktBCDs().find(r=>r.t.ma===A.ma).ngay==='2026-09-05' && ktBCDs().find(r=>r.t.ma===A2.ma).chon);
+   const nhom = ktBCNhom(ktBCDs()).length; ok('mỗi Hội – xã 1 báo cáo', nhom===(String(B2.dv)!==String(A.dv) && B2.xa===A.xa ? 2 : 1) && new RegExp('→ '+nhom+' báo cáo').test(document.getElementById('kt-the').textContent), nhom+' báo cáo');
+   C.hoi = String(A.dv); pvVeCay('kt'); await w(200);
+   ok('chọn đến hội → chỉ tổ của hội', ktBCDs().every(r=>String(r.t.dv)===String(A.dv)));
+   C.hoi = ''; pvVeCay('kt'); await w(200);
    /* khai báo Hội */
-   ktHoiKBHop(); await w(150); ok('⚙ Khai báo Hội: lọc theo xã đã chọn, đủ ô', document.querySelectorAll('.kt-hkb').length===ktHoiDs().length && ktHoiDs().every(x=>x.t.xa===A.xa) && document.querySelectorAll('.kt-hkb textarea').length===ktHoiDs().length);
+   ktHoiKBHop(); await w(150); ok('⚙ Khai báo Hội: lọc theo xã đã chọn, đủ ô + nút Bảng chuẩn hóa', document.querySelectorAll('#hop-in .kt-hkb').length===ktHoiDs().length && ktHoiDs().every(x=>x.t.xa===A.xa) && document.querySelectorAll('#hop-in .kt-hkb textarea').length===ktHoiDs().length && /Bảng chuẩn hóa/.test(document.getElementById('hop-in').textContent));
    const kA = ktHoiKhoa(A); ktHoiKBSua(kA, 'doan', 'Ông Giả Văn Một – Chủ tịch Hội, Trưởng đoàn\n  \nBà Giả Thị Hai – Phó Chủ tịch'); ktHoiKBSua(kA, 'hd', ' 12/HĐUT '); dongHop();
    ok('lưu khai báo (bỏ dòng trống, gọn khoảng trắng)', D.cauHinh.ktHoiKB[kA].doan.split('\n').length===2 && D.cauHinh.ktHoiKB[kA].hd==='12/HĐUT');
    ok('tên đơn vị tự sinh Hội … xã …', /^(Hội|Đoàn)/.test(ktHoiTen(A)) && /(xã|phường) /i.test(ktHoiTen(A)), ktHoiTen(A));
    /* xem + Word */
-   C.xa=''; C.diem=''; C.hoi=''; C.to=''; ktVeThe(); await w(200); ktBCXem(); await w(400);
+   ktVeThe(); await w(200); ktBCXem(); await w(400);
    const G = KT_BC_XEM.gts, gA = G.find(g=>g.k===kA);
-   ok('👁 xem trước: 2 báo cáo, Hội A có 3 tổ', !!document.getElementById('kt-bc-khung') && G.length===2 && gA.rows.length===3, G.map(g=>g.ten+':'+g.rows.length).join(' · '));
-   ok('dòng mục II: ngày · Tổ TK&VV … · Tây Ninh, xã, ấp', gA.rows[0].C2==='05/09/2026' && gA.rows[0].C3.indexOf('Tổ TK&VV '+A.ten)===0 && /^Tây Ninh, (xã|phường) /i.test(gA.rows[0].C4), JSON.stringify(gA.rows[0]));
-   ok('VI.1: số phiếu Mẫu 06 theo lịch sử (Hội A: 1 · Hội B: 1)', gA.f.SP===' 01' && G.find(g=>g.k!==kA).f.SP===' 01');
+   ok('👁 xem trước: '+nhom+' báo cáo, Hội A có 2 tổ', !!document.getElementById('kt-bc-khung') && G.length===nhom && gA.rows.length===2, G.map(g=>g.ten+':'+g.rows.length).join(' · '));
+   ok('dòng mục II: ngày · Tổ TK&VV … · Tây Ninh, xã, ấp (tổ không nhập ngày → trống)', gA.rows[0].C2==='05/09/2026' && gA.rows[0].C3.indexOf('Tổ TK&VV '+A.ten)===0 && /^Tây Ninh, (xã|phường) /i.test(gA.rows[0].C4) && gA.rows[1].C2==='', JSON.stringify(gA.rows));
+   ok('VI.1: số phiếu Mẫu 06 để dòng chấm (không theo dõi)', G.every(g=>g.f.SP===''));
+   const them = A2;
    ktBCIn('word'); await w(1200);
    const fn = Object.keys(F).find(n=>/Mau 04/.test(n)); const z = await moZip(F[fn]); const doc = z.doc, chu = doc.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
    ok('Word: XML hợp lệ, hết dấu {{', hopLe(doc) && doc.indexOf('{{')<0, fn);
    ok('Word: bỏ khung MẪU THAM KHẢO, giữ Mẫu số 04/BC-TH + đường kẻ', doc.indexOf('MẪU THAM KHẢO')<0 && /Mẫu số 04\/BC/.test(chu) && /prst="line"/.test(doc));
-   ok('Word: 2 báo cáo, ngắt trang, id hình không trùng', (doc.match(/w:type="page"/g)||[]).length===1 && (chu.match(/BÁO CÁO TỔNG HỢP/g)||[]).length===2 && (()=>{ const ids = doc.match(/<wp:docPr id="\d+"/g)||[]; return new Set(ids).size===ids.length; })());
+   ok('Word: '+nhom+' báo cáo, ngắt trang, id hình không trùng', (doc.match(/w:type="page"/g)||[]).length===nhom-1 && (chu.match(/BÁO CÁO TỔNG HỢP/g)||[]).length===nhom && (()=>{ const ids = doc.match(/<wp:docPr id="\d+"/g)||[]; return new Set(ids).size===ids.length; })());
    ok('Word: đơn vị in hoa + đoàn kiểm tra khai báo', chu.indexOf(ktHoiTen(A).toUpperCase())>=0 && chu.indexOf('Ông Giả Văn Một – Chủ tịch Hội, Trưởng đoàn')>=0);
    ok('Word: dòng chấm ghi tay (tab dẫn chấm): I.1 đủ 4 dòng, I.2 2, III 4, mỗi mục IV 3', (doc.match(/w:leader="dot"/g)||[]).length===(2+2+4+30)+(4+2+4+30), (doc.match(/w:leader="dot"/g)||[]).length+' dòng');
    ok('Word: bảng mục II lặp tiêu đề, dòng tổ không cắt', (doc.match(/<w:tblHeader\/>/g)||[]).length===2 && chu.indexOf('Tổ TK&VV '+them.ten)>=0);
-   ok('Word: khối VI + Nơi nhận + Trưởng đoàn đi liền', /keepNext/.test(doc) && /TRƯỞNG ĐOÀN KIỂM TRA/.test(chu) && /:01phiếu/.test(chu.replace(/\s/g, '')));
+   ok('Word: khối VI + Nơi nhận + Trưởng đoàn đi liền', /keepNext/.test(doc) && /TRƯỞNG ĐOÀN KIỂM TRA/.test(chu) && /\(mẫu06\/TD,06A\/TD\):\.{5,}phiếu/.test(chu.replace(/\s/g, '')));
    ok('Word: đủ phần (styles, header, theme…)', ['word/styles.xml','word/settings.xml','word/header1.xml','word/theme/theme1.xml','word/footnotes.xml'].every(n=>XLSX.CFB.find(z.z, n) || XLSX.CFB.find(z.z, '/'+n)));
    ktBCXem(); await w(200); ktBCIn('in'); await w(300);
    const hh = await H[Object.keys(H).find(n=>/Mau 04/.test(n))].text();
-   ok('In / PDF: A4 dọc, 2 báo cáo trang mới, có bảng + dòng chấm', /size:A4;/.test(hh) && (hh.match(/break-before:page/g)||[]).length===1 && /kt-ch/.test(hh) && hh.indexOf(A.ten)>=0);
+   ok('In / PDF: A4 dọc, 2 báo cáo trang mới, có bảng + dòng chấm', /size:A4;/.test(hh) && (hh.match(/break-before:page/g)||[]).length===nhom-1 && /kt-ch/.test(hh) && hh.indexOf(A.ten)>=0);
    /* 1 tổ không khai báo Hội → giữ dòng chấm */
-   KT_BC_CHON = {}; KT_BC_NGAY = {}; KT_BC_CHON[A.ma] = false; KT_BC_CHON[A2.ma] = false; KT_BC_CHON[them.ma] = false; ktVeThe(); ktBCXem(); await w(200); ktBCIn('word'); await w(900);
+   KT_BC_CHON = {}; KT_BC_NGAY = {}; KT_BC_CHON[B2.ma] = true; ktVeThe(); ktBCXem(); await w(200); ktBCIn('word'); await w(900);
    const fn2 = Object.keys(F).filter(n=>/Mau 04/.test(n)).pop(); const z2 = await moZip(F[fn2]);
    ok('Hội chưa khai báo: đơn vị tự sinh, Đoàn kiểm tra 4 dòng chấm', hopLe(z2.doc) && KT_BC_XEM.gts.length===1 && KT_BC_XEM.gts[0].doan.length===0 && (z2.doc.match(/w:leader="dot"/g)||[]).length===4+2+4+30);
    var ra = {doc:await (async()=>{ const a = new Uint8Array(await F[fn].arrayBuffer()); let s=''; for(let i=0;i<a.length;i++) s+=String.fromCharCode(a[i]); return btoa(s); })()};

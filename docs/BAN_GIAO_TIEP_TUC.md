@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 03/10/2026, bản 3.97)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 04/10/2026, bản 3.98)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,7 +88,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.97 (mới nhất):** KTGS có **4 loại kiểm tra** (anh chốt): ① sau giải ngân 30 ngày (Mẫu 06) · ② đột xuất 6–8 hộ (06 + 16) · ③ **định kỳ theo lịch** (06 + 16: số liệu cuối tháng → tháng sau, ngày trống, tổ theo lịch 01/KH, hộ có món các năm trước ≥ 90%, QH / khoanh kiểm riêng) · ④ Mẫu 04 tổng hợp. Số liệu mặc định cuối tháng; BC0437 / 0438 không theo khóa tháng; Gợi ý lại xoay vòng; Kế hoạch khuôn ② mẫu gọn; khai báo theo thứ tự mẫu; bảng đầu trang / ký không viền.
+**3.98 (mới nhất):** KTGS **chỉ phục vụ in mẫu — bỏ hết phần theo dõi** (đã lập phiếu, lịch sử / lần kiểm tra trước, nhật ký sang Mẫu 04; dữ liệu cũ giữ, không dùng). Mẫu 06 bố cục mới (bỏ dòng chấm Đơn vị khi đã điền, Chức vụ thẳng cột bằng tab, địa bàn "ấp / khu phố …, xã / phường …, tỉnh Tây Ninh", Mục đích ~3,7 cm, dòng 1,5 cm, 1 khách nhiều KU gộp tên / ký, theo mã KH, in đủ PNKT51 + PNKT52). Sau giải ngân mỗi tổ 1 phiếu; xem trước mỗi phiếu 1 tờ. Danh sách chọn hộ chung 3 màn. Mẫu 04 hai chỗ chọn (① cây → ấp / tổ · ② theo tháng trong Kế hoạch). **📖 Bảng chuẩn hóa Hội – Đoàn** (Đoàn: Tỉnh Đoàn / Bí thư; luôn TM. BAN THƯỜNG VỤ; phường → phường / khu phố trong Kế hoạch, Mẫu 16). Mẫu 16: chữ địa danh đúng, tên Hội đầy đủ, gợi ý nhận xét theo số liệu. Tổ thiếu điểm GD → suy theo ấp / ngày GDXA.
+
+**3.97:** KTGS có **4 loại kiểm tra** (anh chốt): ① sau giải ngân 30 ngày (Mẫu 06) · ② đột xuất 6–8 hộ (06 + 16) · ③ **định kỳ theo lịch** (06 + 16: số liệu cuối tháng → tháng sau, ngày trống, tổ theo lịch 01/KH, hộ có món các năm trước ≥ 90%, QH / khoanh kiểm riêng) · ④ Mẫu 04 tổng hợp. Số liệu mặc định cuối tháng; BC0437 / 0438 không theo khóa tháng; Gợi ý lại xoay vòng; Kế hoạch khuôn ② mẫu gọn; khai báo theo thứ tự mẫu; bảng đầu trang / ký không viền.
 
 **3.96:** KTGS › **🗓 Kế hoạch năm · 01/KH** — năm → xã → hội → 100% tổ của Hội gom theo ấp, xếp sẵn tháng 02 → 10 (đổi cả ấp / từng tổ, lưu theo năm + xã + hội, nhắc tổ chưa xếp); Word theo **dự thảo HĐT cấp xã** (căn cứ 727, chỉ 90%, bỏ MẪU THAM KHẢO, A4, không ghi số hộ); số HĐUT / KH Hội tỉnh / đoàn / người ký từ ⚙ Khai báo Hội.
 
@@ -182,7 +184,7 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 
 | # | Việc | Trạng thái / cần gì |
 |---|---|---|
-| 0k | **ĐANG CHỜ: anh test bố cục 3.97 (Word thật) → góp ý → làm 1 bản 3.98** gồm việc đã thống nhất ở mục **7a** bên dưới + góp ý của anh. Sau đó: Mẫu 15/TD (đúng khuôn), 03/BB-CX (tự tính I.1 từ BC0438 / BC0437, I.2 chấm điểm tổ), 06A/TD, bảng tiến độ 727 (nối lịch 01/KH: tháng này đến lượt tổ nào → đã kiểm chưa) | **Chưa code 3.98** — chờ anh test xong + nhắn "code". Anh còn 2 câu chưa trả lời (mục 7a). |
+| 0k | **3.98 ĐÃ CODE (PR chờ anh "gộp")** — gồm mục **7a** + góp ý của anh 03–04/10 (xem CHANGELOG 3.98). Việc tiếp: anh thử bảng 3.98 trên máy thật (nhất là **phiếu Mẫu 06 có từ 3 món** có chịu sang trang 2 không; đầu trang theo 2 bản kế hoạch thật anh gửi: Đoàn "ĐTN XÃ …", Hội LHPN "HỘI LHPN XÃ …"; Hội Nông dân khớp bản thật (nơi nhận "Hội ND tỉnh"); Hội CCB chưa có bản thật — sửa ở 📖 Bảng chuẩn hóa nếu khác). Đơn vị kiểm tra Mẫu 06 / 16 tự điền Hội cấp xã của tổ.. Sau đó: Mẫu 15/TD (đúng khuôn), 03/BB-CX (tự tính I.1 từ BC0438 / BC0437, I.2 chấm điểm tổ), 06A/TD, bảng tiến độ 727 (nối lịch 01/KH: tháng này đến lượt tổ nào → đã kiểm chưa) | Chờ anh thử 3.98 + nhắn "gộp". |
 | 0s | **Liên kết scan / thêm PDF → tự chuẩn hóa tên + gắn dữ liệu** (sau KTGS) | Chờ anh trả lời: dạng tên file, đổi tên scan cũ, iPhone / Android, chia giai đoạn. |
 | 0a | **Phân kỳ** — 3 món GQVL qua tổ vay 03–04/2026 có kỳ 05/2026 · 09/2026 chưa trả mà Mẫu 31 chưa chuyển QH (theo CV 597 phải chuyển nếu không được điều chỉnh) — anh kiểm | Ước tính số tiền kỳ chỉ khớp 4/7 NOXH; ủy thác mới cần file phân kỳ để biết số tiền kỳ → nạp file mỗi tháng (kỳ đầu đa số từ T3/2027). |
 | 0 | **Anh thử 3.90** (anh đã xóa tay dữ liệu cũ, sẽ nạp lại 31/12/2025, T8, T9 — nên nạp thêm Mẫu 31 T7 để T8 so được khách mới) | Bảng thử 3.90 trong `BAN_GIAO_VIEC_CON_LAI.md`. **Mẫu 31 chỉ xuất được theo tháng** (anh kiểm) → số theo ngày dùng Mẫu 10. **Chờ anh thử xuất BCDHTD / LEN_31 / B32 theo ngày** (app đã nhận sẵn vào ô theo ngày): kiểm ngày trong file, doanh số lũy kế hay theo ngày, khớp Mẫu 10 cùng ngày → nếu được thì thêm đối chiếu + bảng đối chiếu chéo cho kỳ theo ngày. Lưu ý còn mở (số thật T9): thu nợ LEN_31 thấp hơn BCDHTD 71.999.298 (12 tổ), 3 món vay mới năm 2026 không có trong KHĐ, 19 tổ có dư nợ chưa có trong Thông tin tổ trưởng — anh kiểm trên hệ thống. |
@@ -213,7 +215,9 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 - Theo dõi nợ có bộ đọc sao kê riêng (`tdnDocFile`, nạp ở Thư viện › Theo dõi nợ) — **chưa** dùng chung với tab Số liệu (anh chọn tách lần này).
 
 
-## 7a. Bản 3.98 — ĐÃ THỐNG NHẤT, CHỜ ANH TEST 3.97 RỒI MỚI CODE (ghi 03/10/2026 tối)
+## 7a. Bản 3.98 — ĐÃ CODE 04/10/2026 (giữ lại để tra cứu quyết định)
+
+**Anh chốt thêm 03–04/10:** bỏ theo dõi (chỉ in mẫu) · Mẫu 06: bỏ dòng chấm dưới Đơn vị khi đã điền, 2 dòng họ tên cân đối, cột gọn / tiền gọn, Mục đích rộng, dòng đủ 3 dòng, **không chấm sẵn trong ô**, sau tên đã điền là khoảng trắng · 1 KH nhiều KU chỉ 1 tên · danh sách hộ theo mã KH, đủ mã KH / số KU / lãi tồn / 105 / ghi chú · địa danh: xã → ấp, phường → **khu phố** (viết đủ), trong câu viết thường, "tỉnh Tây Ninh" · Kế hoạch là mẫu của NH → giữ quốc hiệu theo mẫu · món 2 mục đích (PNKT52) in đủ, áp cả Tra cứu KH · 1 lần kiểm tra 1 tổ = 1 phiếu, xem trước tách tờ · Mẫu 04: ① chọn cây (ấp / tổ) ② gắn Kế hoạch theo tháng. Câu C (Đoàn ký / khu phố) đã giải quyết: Hội cấp xã (cả Đoàn) đều có Ban Thường vụ → TM. BAN THƯỜNG VỤ; phường → khu phố.
 
 Anh chốt: **anh test đầy đủ bố cục 3.97 trước, góp ý 1 lần → làm 1 bản**. Không tự code trước khi anh nhắn "code".
 
