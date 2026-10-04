@@ -14,8 +14,8 @@ using System.Windows.Forms;
 
 [assembly: AssemblyTitle("Hạn trả HSSV")]
 [assembly: AssemblyProduct("Tủ hồ sơ — công cụ Hạn trả HSSV")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
 
 namespace TuHoSo
 {
@@ -233,10 +233,10 @@ namespace TuHoSo
             bChep.FlatAppearance.BorderSize = 0;
             bChep.Click += (s, e) => { var kq = Hs.Tinh(V); if (kq.Loi.Count > 0) Bao("Chưa đủ số liệu: " + string.Join(" · ", kq.Loi)); else Chep(kq.Cau, "Đã chép câu chốt — dán vào hồ sơ."); };
             tren.Controls.AddRange(new Control[] { cbLoai, lG, tGdx, ckNoi, bChep });
-            goc.Controls.Add(tren);
+            goc.Controls.Add(tren, 0, 0);   /* 1.0.1: gán cố định hàng — Windows dồn ô khi dòng trên ẩn, khung kết quả bị co */
 
             lLuuY = new Label { AutoSize = true, ForeColor = Cam, Visible = false, Margin = new Padding(0, 0, 0, 4), MaximumSize = new Size(900, 0) };
-            goc.Controls.Add(lLuuY);
+            goc.Controls.Add(lLuuY, 0, 1);
 
             /* dòng nhập: ngày vay · ngày ra trường · tiền vay */
             var nhap = new TableLayoutPanel { Dock = DockStyle.Fill, AutoSize = true, ColumnCount = 3, RowCount = 2, Margin = new Padding(0, 0, 0, 6) };
@@ -246,10 +246,10 @@ namespace TuHoSo
             foreach (var t in new[] { tVay, tRt, tTien }) { t.Dock = DockStyle.Fill; t.Margin = new Padding(0, 0, 6, 0); }
             nhap.Controls.Add(lVay, 0, 0); nhap.Controls.Add(lRt, 1, 0); nhap.Controls.Add(lTien, 2, 0);
             nhap.Controls.Add(tVay, 0, 1); nhap.Controls.Add(tRt, 1, 1); nhap.Controls.Add(tTien, 2, 1);
-            goc.Controls.Add(nhap);
+            goc.Controls.Add(nhap, 0, 2);
 
             lLoi = new Label { AutoSize = true, ForeColor = Cam, Visible = false, Margin = new Padding(0, 0, 0, 4), MaximumSize = new Size(900, 0) };
-            goc.Controls.Add(lLoi);
+            goc.Controls.Add(lLoi, 0, 3);
 
             /* kết quả: 3 khối lớn + 2 khối nhỏ, câu chốt, chi tiết, các kỳ trả */
             pKq = new Panel { Dock = DockStyle.Fill, AutoScroll = true };
@@ -276,10 +276,10 @@ namespace TuHoSo
             lvKy.DoubleClick += (s, e) => { if (lvKy.SelectedItems.Count > 0) { var t = lvKy.SelectedItems[0].SubItems[1].Text; Chep(t, "Đã chép: " + t); } };
             pKq.Controls.Add(lCau); pKq.Controls.Add(lChiTiet); pKq.Controls.Add(lvKy);
             pKq.Resize += (s, e) => XepKq();
-            goc.Controls.Add(pKq);
+            goc.Controls.Add(pKq, 0, 4);
 
             lBao = new Label { Dock = DockStyle.Fill, AutoSize = true, ForeColor = Color.White, BackColor = XanhChu, Padding = new Padding(6, 4, 6, 4), Visible = false };
-            goc.Controls.Add(lBao);
+            goc.Controls.Add(lBao, 0, 5);
             tBao.Tick += (s, e) => { lBao.Visible = false; tBao.Stop(); };
 
             /* thứ tự Enter: GDX → ngày vay → ra trường → tiền vay → (về ra trường cho món kế) */
