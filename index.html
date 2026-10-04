@@ -2987,7 +2987,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.101', APP_LUC = '04/10/2026 18:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.102', APP_LUC = '04/10/2026 21:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -4269,7 +4269,7 @@ var CC = {mo:'', hop:'', hs:null, db:{tim:''}};
 var CONG_CU = [
   {id:'hssv',   ico:'🎓', ten:'Hạn trả HSSV', tit:'Hạn trả HSSV', ve:function(){ return ccHSSVHTML(); },
     dau:function(){ return hsChonLoaiHTML(); },
-    nut:'<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt để dán vào hồ sơ">📋 Chép</button><button class="nho" onclick="hsGhiTodo()" title="Ghi câu chốt vào to-do hôm nay">📝</button>'},
+    nut:'<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt để dán vào hồ sơ">📋 Chép</button><button class="nho" onclick="hsGhiTodo()" title="Ghi câu chốt vào to-do hôm nay">📝</button><button class="nho" onclick="hsNoi()" title="Cửa sổ nổi luôn nằm trên trình duyệt / chương trình khác (Chrome, Edge)">📌 Nổi</button>'},
   {id:'diaban', ico:'🗺', ten:'Địa bàn',      tit:'Cây địa bàn — mã xã, điểm GD, ấp/KP', ve:function(){ return ccDiaBanHTML(); }},
   {id:'ctvay',  ico:'📋', ten:'CT vay', tit:'Chương trình vay — tóm tắt đang cho vay · danh mục mã', ve:function(){ return ccCTVHTML(); },
     dau:function(){ return ctvChonHTML(); }},
@@ -4559,7 +4559,14 @@ function ccVeThan(){
   var c = ccTim(CC.mo || CC.hop), t = document.getElementById('cc-than');
   if(c && c.ve && t) t.innerHTML = c.ve();
 }
-function ccChep(t, bx){ chepChu(t, bx||('📋 Đã chép: '+t)); }
+function ccChep(t, bx){
+  if(HS_PIP && HS_PIP.navigator.clipboard){   /* 3.102: đang gõ trong cửa sổ nổi → chép bằng clipboard của cửa sổ đó (cửa sổ chính không có tiêu điểm) */
+    var m = bx||('📋 Đã chép: '+t);
+    HS_PIP.navigator.clipboard.writeText(t).then(function(){ hsNoiBao(m); }).catch(function(){ hsNoiBao('⚠ Không chép được — bôi đen rồi Ctrl+C'); });
+    return;
+  }
+  chepChu(t, bx||('📋 Đã chép: '+t));
+}
 
 /* ---------- W① HẠN TRẢ NỢ HSSV — đúng công thức file Excel Sheet2 anh đang dùng ---------- */
 function hsDoc(v){   /* dd/mm/yyyy · dd/mm/yy · ddmmyyyy → Date (giữa trưa, tránh lệch múi giờ) */
@@ -4657,6 +4664,8 @@ function hsGT(){
   if(CC.hs.tien==='' && !CC.hs.tienTay){ var gy = hsGoiY(CC.hs); if(gy) CC.hs.tien = String(gy.trieu); }
   return CC.hs;
 }
+var HS_PIP = null;   /* 3.102: cửa sổ nổi (Document Picture-in-Picture) — khi mở, các ô HSSV nằm trong cửa sổ đó */
+function hsEl(id){ return (HS_PIP ? HS_PIP.document : document).getElementById(id); }
 function hsDat(k, el){
   var v = hsGT();
   if(k==='vay' || k==='rt') goNgay(el);
@@ -4665,24 +4674,25 @@ function hsDat(k, el){
   if(k==='tien') v.tienTay = true;
   if(k==='vay') v.vayTay = el.value!=='';
   if(k==='gdx' && !v.vayTay){   /* 3.100: đổi GDX (xã khác) → ngày vay gợi ý lại, trừ khi anh đã gõ tay */
-    v.vay = hsVayGoiY(v.gdx); var ov = document.getElementById('hs-vay'); if(ov) ov.value = v.vay;
+    v.vay = hsVayGoiY(v.gdx); var ov = hsEl('hs-vay'); if(ov) ov.value = v.vay;
   }
-  var nv = document.getElementById('hs-vgy'); if(nv) nv.innerHTML = hsVayNhan();
+  var nv = hsEl('hs-vgy'); if(nv) nv.innerHTML = hsVayNhan();
   if(k==='vay' || k==='rt' || (k==='gdx' && !v.vayTay)){   /* 3.99: đổi ngày → món mới, tự điền lại tiền vay gợi ý (anh gõ đè được) */
     var gy = hsGoiY(v); v.tienTay = false; v.tien = gy ? String(gy.trieu) : '';
-    var o = document.getElementById('hs-tien'); if(o) o.value = v.tien;
+    var o = hsEl('hs-tien'); if(o) o.value = v.tien;
   }
-  var nh = document.getElementById('hs-goiy'); if(nh) nh.innerHTML = hsGoiYNhan();
-  var kq = document.getElementById('hs-kq'); if(kq) kq.innerHTML = hsKetQuaHTML();
+  var nh = hsEl('hs-goiy'); if(nh) nh.innerHTML = hsGoiYNhan();
+  var kq = hsEl('hs-kq'); if(kq) kq.innerHTML = hsKetQuaHTML();
 }
 function hsLoai(l){
   hsGT().loai = l==='duoi' ? 'duoi' : 'tren';
-  var e = document.getElementById('hs-loai'); if(e){ e.value = hsGT().loai; e.classList.toggle('cam', hsGT().loai==='duoi'); }
-  var n = document.getElementById('hs-luuy'); if(n) n.innerHTML = hsLuuYHTML();
-  var kq = document.getElementById('hs-kq'); if(kq) kq.innerHTML = hsKetQuaHTML();
+  var e = hsEl('hs-loai'); if(e){ e.value = hsGT().loai; e.classList.toggle('cam', hsGT().loai==='duoi'); }
+  var n = hsEl('hs-luuy'); if(n) n.innerHTML = hsLuuYHTML();
+  var kq = hsEl('hs-kq'); if(kq) kq.innerHTML = hsKetQuaHTML();
 }
 /* 3.63 (việc X, anh chốt): ô chọn nhỏ trên dòng tiêu đề; chọn "Đến 12 tháng · Y khoa" thì ô đổi màu cam + dòng lưu ý — không bật hộp */
-function hsChonLoaiHTML(){   /* 3.98 (anh chốt): dòng trên = các ô giữ nguyên trong 1 đợt nhập (loại khóa học, ngày GDX, ngày vay) */
+function hsChonLoaiHTML(){
+  if(HS_PIP && !HS_VE_NOI) return '';   /* 3.98 (anh chốt): dòng trên = các ô giữ nguyên trong 1 đợt nhập (loại khóa học, ngày GDX, ngày vay) */
   var d = hsGT().loai==='duoi';
   return '<span class="hs-dau"><select id="hs-loai" class="hs-loai'+(d?' cam':'')+'" onchange="hsLoai(this.value)" title="Phân loại theo thời gian khóa đào tạo">'+
     '<option value="tren"'+(d?'':' selected')+'>Trên 12 tháng</option><option value="duoi"'+(d?' selected':'')+' title="Đến 12 tháng · SV Y khoa">Đến 12 th · Y khoa</option></select>'+
@@ -4700,7 +4710,7 @@ function hsPhim(e, k, el){
   if(!di) return;
   e.preventDefault();
   var j = k==='tien' && di>0 ? HS_THU.indexOf('rt') : Math.max(0, Math.min(HS_THU.length-1, i+di));   /* Enter ở Tiền vay → về Ngày ra trường để nhập món kế tiếp */
-  var n = document.getElementById('hs-'+HS_THU[j]); if(n){ n.focus(); n.select(); }
+  var n = hsEl('hs-'+HS_THU[j]); if(n){ n.focus(); n.select(); }
 }
 function hsVayNhan(){ var v = hsGT(); return !v.vayTay && v.vay && v.vay===hsVayGoiY(v.gdx) ? ' · GDX gần nhất' : ''; }
 function hsGoiYNhan(){ var gy = hsGoiY(hsGT()); return gy ? ' · gợi ý '+gy.thang+' th = '+gy.trieu : ''; }
@@ -4709,6 +4719,7 @@ function hsLuuYHTML(){
 }
 function ccHSSVHTML(){
   var v = hsGT();
+  if(HS_PIP && !HS_VE_NOI) return '<div class="huong-dan">📌 Đang mở ở <b>cửa sổ nổi</b> (luôn nằm trên các cửa sổ khác). <button class="nho" onclick="hsNoiDong()">Đưa về đây</button></div>';
   return '<div class="hs-luuy" id="hs-luuy">'+hsLuuYHTML()+'</div><div class="hs-nhap hs-nhap2">'+hsO('vay','Ngày vay<span id="hs-vgy">'+hsVayNhan()+'</span>','dd/mm/yyyy')+hsO('rt','Ngày ra trường','dd/mm/yyyy')+hsO('tien','Tiền vay (triệu)<span id="hs-goiy">'+hsGoiYNhan()+'</span>','vd 40')+
     '</div>'+
     '<div id="hs-kq">'+hsKetQuaHTML()+'</div>';
@@ -4755,10 +4766,44 @@ function hsChep(){
   ccChep(kq.cau, '📋 Đã chép câu chốt — dán vào hồ sơ.');
 }
 function hsGhiTodo(){
-  var kq = hsTinh(hsGT()); if(kq.loi.length) return bao('Chưa đủ số liệu: '+kq.loi.join(' · '), 4);
+  var kq = hsTinh(hsGT()); if(kq.loi.length) return HS_PIP ? hsNoiBao('Chưa đủ số liệu: '+kq.loi.join(' · ')) : bao('Chưa đủ số liệu: '+kq.loi.join(' · '), 4);
   dongThem(lcISO(nay()), '🎓 HSSV: '+kq.cau);
-  veNhatKy(); bao('📝 Đã ghi vào to-do hôm nay.', 3);
+  veNhatKy(); if(HS_PIP) hsNoiBao('📝 Đã ghi vào to-do hôm nay.'); else bao('📝 Đã ghi vào to-do hôm nay.', 3);
 }
+/* 3.102 (anh chốt): 📌 cửa sổ nổi — Chrome / Edge 116+ (Document Picture-in-Picture), luôn nằm trên mọi cửa sổ; dùng chung số liệu + công thức với app */
+var HS_VE_NOI = false, HS_NOI_HAM = ['hsDat', 'hsPhim', 'hsLoai', 'hsChep', 'hsGhiTodo', 'ccChep', 'hsNoiDong'];
+function hsNoiHTML(){
+  HS_VE_NOI = true;
+  try{
+    return '<div class="cc-hop hs-noi"><div class="cc-dau"><b>🎓 HSSV</b>'+hsChonLoaiHTML()+'<span class="cc-gian"></span>'+
+      '<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt">📋 Chép</button><button class="nho" onclick="hsGhiTodo()" title="Ghi vào to-do hôm nay">📝</button>'+
+      '<button class="nho" onclick="hsNoiDong()" title="Đưa về ô trong app">↩</button></div>'+
+      '<div class="cc-than">'+ccHSSVHTML()+'</div><div id="hs-noi-bao" class="hs-noi-bao"></div></div>';
+  } finally { HS_VE_NOI = false; }
+}
+function hsNoiBao(t){ var e = hsEl('hs-noi-bao'); if(!e) return; e.textContent = t; e.classList.add('hien'); clearTimeout(hsNoiBao.t); hsNoiBao.t = setTimeout(function(){ e.classList.remove('hien'); }, 3000); }
+function hsNoi(){
+  if(HS_PIP){ try{ HS_PIP.focus(); }catch(e){} return; }
+  if(!window.documentPictureInPicture || !documentPictureInPicture.requestWindow) return bao('📌 Cửa sổ nổi cần Chrome hoặc Edge bản mới (từ 116) — trình duyệt này chưa hỗ trợ. Có thể dùng công cụ HanTraHSSV.exe (thư mục tools/hssv).', 7);
+  documentPictureInPicture.requestWindow({width:460, height:620}).then(function(w){
+    var d = w.document, goc = document.documentElement;
+    Array.prototype.forEach.call(goc.attributes, function(a){ if(a.name!=='class' || a.value) d.documentElement.setAttribute(a.name, a.value); });
+    Array.prototype.forEach.call(document.querySelectorAll('style'), function(st){ d.head.appendChild(st.cloneNode(true)); });
+    var them = d.createElement('style');
+    them.textContent = 'body{margin:0;padding:8px;background:var(--nen,#fff);overflow:auto}.hs-noi{border:0;box-shadow:none;margin:0}.hs-noi .cc-dau{flex-wrap:wrap}'+
+      '.hs-noi-bao{position:fixed;left:8px;right:8px;bottom:8px;background:#1e6a33;color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}.hs-noi-bao.hien{opacity:1}';
+    d.head.appendChild(them);
+    d.title = '🎓 Hạn trả HSSV';
+    d.body.className = document.body.className;
+    HS_NOI_HAM.forEach(function(n){ w[n] = function(){ return window[n].apply(window, arguments); }; });
+    HS_PIP = w;
+    d.body.innerHTML = hsNoiHTML();
+    w.addEventListener('pagehide', function(){ HS_PIP = null; if(ccTim('hssv') && (CC.mo==='hssv' || CC.hop==='hssv')) ccVeLai('hssv'); });
+    if(CC.mo==='hssv' || CC.hop==='hssv') ccVeLai('hssv');
+    var o = hsEl('hs-rt'); if(o){ o.focus(); o.select(); }
+  }).catch(function(e){ bao('📌 Không mở được cửa sổ nổi: '+(e && e.message || e), 6); });
+}
+function hsNoiDong(){ var w = HS_PIP; if(!w) return; HS_PIP = null; try{ w.close(); }catch(e){} if(CC.mo==='hssv' || CC.hop==='hssv') ccVeLai('hssv'); }
 
 /* ---------- W② CÂY ĐỊA BÀN — mã xã · mã điểm GD · mã ấp/KP, xếp theo mã ---------- */
 function dbSoMa(a, b){ var x = String(a.ma||''), y = String(b.ma||'');
@@ -12531,7 +12576,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.101', ds:[
+var CO_GI_MOI = {ban:'3.102', ds:[
+  ['📌 Hạn trả HSSV có nút Nổi: cửa sổ nhỏ luôn nằm trên trình duyệt / chương trình nghiệp vụ (Chrome, Edge) để vừa nhìn vừa nhập; dùng chung số liệu với ô trong app, ↩ đưa về. Máy không dùng được thì có công cụ riêng HanTraHSSV.exe (thư mục tools/hssv)', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['🎓 Hạn trả HSSV: tiền vay gợi ý tính theo năm học (từ tháng 9) — ra trường tháng 6–8 tròn năm, tháng 2–5 nửa năm, tháng 9 – tháng 1 tính vào năm trước; vay tháng 1–5 năm đầu tính nửa năm; ô Cách tính liệt kê từng năm học', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['🎓 Hạn trả HSSV: ô Ngày vay tự gợi ý ngày giải ngân = ngày giao dịch (GDX) gần nhất kể từ hôm nay (hôm nay đúng GDX thì lấy hôm nay); đổi GDX thì gợi ý lại; gõ đè nếu khác', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['🎓 Hạn trả HSSV: app tự gợi ý tiền vay theo thời gian phát tiền vay (mỗi nửa năm = 5 tháng = 20 triệu, năm = 40 triệu, không tính lẻ) — ô Tiền vay điền sẵn, gõ đè nếu cần; kết quả 3 khối lớn (số tiền vay + số tháng vay, thời hạn, hạn cuối) + 2 khối phụ nhỏ (trả mỗi lần, lần đầu)', "dongHop();doiNgan(0);ccMo('hssv')"],

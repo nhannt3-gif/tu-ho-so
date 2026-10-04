@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.102 — 04/10/2026 21:00 — Hạn trả HSSV: 📌 cửa sổ nổi + công cụ riêng HanTraHSSV.exe
+- **📌 Nổi** (anh chốt): nút trên ô Hạn trả HSSV mở cửa sổ nhỏ **luôn nằm trên mọi cửa sổ** (Document Picture-in-Picture — Chrome / Edge 116+). Đủ ô nhập (loại, GDX, ngày vay, ra trường, tiền), 5 khối, câu chốt, Chép, 📝, Enter qua ô; dùng chung số liệu + công thức với app; ô trong app hiện "Đang mở ở cửa sổ nổi" (không trùng ô); **↩** / đóng cửa sổ thì ô trong app hiện lại với số đang nhập. Chép trong cửa sổ nổi dùng clipboard của chính cửa sổ đó, báo ngay trong cửa sổ. Trình duyệt chưa hỗ trợ → báo cần Chrome / Edge, gợi ý dùng exe.
+- **Công cụ riêng `tools/hssv/HanTraHSSV.exe`** (C# WinForms, .NET Framework 4.x có sẵn trên Windows 10/11, ~30 KB, không cài): ghim trên cùng (bật sẵn), cùng bố cục 3 khối lớn + 2 khối nhỏ, câu chốt, chi tiết + dòng năm học, bảng kỳ trả; ngày vay gợi ý GDX gần nhất, tiền vay gợi ý theo năm học; gõ ngày tự thêm "/"; Enter / Shift+Enter / mũi tên; bấm khối là chép; nhớ GDX, ghim, vị trí cửa sổ (`%APPDATA%\TuHoSo\hssv.ini`). Mã nguồn `HanTraHSSV.cs`, dựng bằng `tools/hssv/dung.sh`; hướng dẫn `tools/hssv/README.md`.
+- **So công thức app ↔ exe:** `node tests/hssv_exe.js` — 3010/3010 ca khớp (ca anh chốt + ngẫu nhiên + ca lỗi / biên).
+- Chưa kiểm được: exe chưa chạy trên **Windows thật** (máy làm việc là Linux, chạy thử bằng mono trên màn hình ảo — bố cục và số đúng); cửa sổ nổi thật cần Chrome / Edge có giao diện (phép thử giả bằng cửa sổ phụ).
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t110 không lỗi; `t111` 70/70.
+
+---
+
 ## 3.101 — 04/10/2026 18:00 — Hạn trả HSSV: tiền vay gợi ý theo năm học
 - **Tiền vay gợi ý tính theo năm học** (bắt đầu tháng 9; anh chốt), thay cho đếm tháng phát tiền vay: mỗi năm học 10 tháng vay = 40 tr, nửa năm 5 tháng = 20 tr.
   - Năm cuối theo **tháng ra trường**: 6–8 → tròn năm · **2–5** → nửa năm · 9–12 và **tháng 1** → tính vào năm học trước (0) — anh chốt: tháng 1 thường chưa đủ 6 tháng từ lúc nhận tiền.
