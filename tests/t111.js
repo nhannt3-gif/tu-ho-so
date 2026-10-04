@@ -1,6 +1,6 @@
 // 3.98 — KTGS chỉ phục vụ in (bỏ theo dõi) · Mẫu 06 bố cục mới (dòng chấm Đơn vị, Chức vụ thẳng cột bằng tab, địa bàn chuẩn, cột Mục đích rộng,
 //        dòng 1,5 cm, gộp tên / ký theo hộ, mã KH, 2 mục đích PNKT51 + PNKT52) · danh sách chọn hộ chung · xem trước tách tờ ·
-//        Bảng chuẩn hóa Hội – Đoàn (Kế hoạch ① ②, Mẫu 16, Đoàn / phường / không BTV) · Mẫu 16 gợi ý nhận xét · điểm GD suy theo ấp / ngày GDXA.
+//        Bảng chuẩn hóa Hội – Đoàn (Kế hoạch ① ②, Mẫu 16, Đoàn / phường) · Mẫu 16 gợi ý nhận xét · điểm GD suy theo ấp / ngày GDXA.
 // Bộ GIẢ: tests/gia31. Tham số tùy chọn: thư mục lưu file Word mẫu.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
@@ -85,11 +85,10 @@ const fs=require('fs'), path=require('path');
    const g16b = ktGiaTri16(best, ktDaChon(), {nx:''}); const c16b = chu((await moZip(await ktDocx('m16', g16b))).doc);
    ok('chọn "Để trống" → III giữ dòng chấm, ô kết quả trống', !g16b.nx.kq1 && /1\. Ưu điểm: \.{20,}/.test(c16b));
    ok('khai báo Mẫu 16 có chọn gợi ý nhận xét (nhớ lựa chọn)', D.cauHinh.ktNhanXet!==undefined && /Gợi ý theo số liệu/.test(KT_NX_CHON));
-   /* 7. Bảng chuẩn hóa + Kế hoạch ② cho Đoàn ở phường, không BTV */
-   ktChuanHop(); await w(100); ok('📖 Bảng chuẩn hóa: 4 Hội × 10 mục sửa được', document.querySelectorAll('.kt-chuan tbody input').length===40); dongHop();
+   /* 7. Bảng chuẩn hóa + Kế hoạch ② cho Đoàn ở phường */
+   ktChuanHop(); await w(100); ok('📖 Bảng chuẩn hóa: 4 Hội × 11 mục sửa được', document.querySelectorAll('.kt-chuan tbody input').length===44); dongHop();
    const tD = Object.assign({}, best, {dv:'14', tenXa:'Phường Gia Lộc', tenThon:'Ấp Lộc Khê'}); const kD = ktHoiKhoa(tD);
-   ktHoiKBSua(kD, 'btv', 'khong');
-   const cD = ktChuan(tD); ok('Đoàn: Bí thư, Tỉnh Đoàn, Đoàn cấp trên, không BTV → Ban Chấp hành, phường → khu phố', cD.ky==='Bí thư' && cD.tinh==='TỈNH ĐOÀN TÂY NINH' && cD.cap==='Đoàn cấp trên' && cD.ld==='Ban Chấp hành' && cD.xa==='phường' && cD.ap==='khu phố');
+   const cD = ktChuan(tD); ok('Đoàn: Bí thư, Tỉnh Đoàn, Đoàn cấp trên, Ban Thường vụ, phường → khu phố', cD.ky==='Bí thư' && cD.tinh==='TỈNH ĐOÀN TÂY NINH' && cD.cap==='Đoàn cấp trên' && cD.ld==='Ban Thường vụ' && cD.xa==='phường' && cD.ap==='khu phố');
    ktChuanSua('12', 'ten', 'Hội LHPN thử'); ok('sửa bảng → tên đơn vị đổi theo', ktHoiTenTD({dv:'12', tenXa:'Xã A'})==='Hội LHPN thử xã A'); ktChuanSua('12', 'ten', '');
    ok('mặc định Hội Phụ nữ = Hội Liên hiệp Phụ nữ', ktHoiTenTD({dv:'12', tenXa:'Xã A'})==='Hội Liên hiệp Phụ nữ xã A');
    const goc = KT_K.to[best.ma]; KT_K.to[best.ma] = tD;
@@ -97,7 +96,7 @@ const fs=require('fs'), path=require('path');
    const L = ktKHLich(); if(!L.ds.length){ KT_K.to[best.ma] = tD; }
    const dsKH = ktKHDsTo(); dsKH.forEach(t=>{ t.tenXa = 'Phường Gia Lộc'; });
    ktHoiKBSua(kD, 'mauKH', '2'); const gK = ktKHGiaTri(); const cK = chu((await moZip(await ktDocx('m01b', gK))).doc);
-   ok('Kế hoạch ② Đoàn: đầu trang TỈNH ĐOÀN, ĐTN PHƯỜNG, Bí thư, Tỉnh Đoàn, TM. BAN CHẤP HÀNH', /TỈNH ĐOÀN TÂY NINH/.test(cK) && /ĐTN PHƯỜNG GIA LỘC/.test(cK) && /TM\. BAN CHẤP HÀNH/.test(cK) && /BÍ THƯ/.test(cK) && /Tỉnh Đoàn;/.test(cK) && /Bí thư, phó Bí thư/.test(cK) && /Đoàn cấp trên/.test(cK) && /Văn phòng khu phố/.test(cK) && /Trưởng khu phố/.test(cK) && !/thôn(?!g)|tổ dân phố|xóm/.test(cK) && /Ủy viên BCH/.test(cK) && /Quyết định của BCH/.test(cK) && /Đoàn Thanh niên phường/.test(cK) && !/Hội cấp trên/.test(cK), [/Trưởng khu phố/, /thôn(?!g)|tổ dân phố|xóm/, /Ủy viên BCH/, /Quyết định của BCH/, /Tỉnh Đoàn;/].map(r=>r+':'+((cK.match(r)||[''])[0] ? 'có' : 'không')).join(' ')+' · '+((cK.match(/.{30}(thôn(?!g)|tổ dân phố|xóm).{20}/)||[''])[0]));
+   ok('Kế hoạch ② Đoàn: đầu trang TỈNH ĐOÀN, ĐTN PHƯỜNG, Bí thư, Tỉnh Đoàn, TM. BAN THƯỜNG VỤ', /TỈNH ĐOÀN TÂY NINH/.test(cK) && /ĐTN PHƯỜNG GIA LỘC/.test(cK) && /TM\. BAN THƯỜNG VỤ PHƯỜNG ĐOÀN/.test(cK) && /BÍ THƯ/.test(cK) && /Tỉnh Đoàn;/.test(cK) && /Bí thư, phó Bí thư/.test(cK) && /Đoàn cấp trên/.test(cK) && /Văn phòng khu phố/.test(cK) && /Trưởng khu phố/.test(cK) && !/thôn(?!g)|tổ dân phố|xóm/.test(cK) && /Ủy viên BTV/.test(cK) && /Quyết định của BTV/.test(cK) && /Đoàn Thanh niên phường/.test(cK) && !/Hội cấp trên/.test(cK), [/Trưởng khu phố/, /thôn(?!g)|tổ dân phố|xóm/, /Ủy viên BTV/, /Quyết định của BTV/, /Tỉnh Đoàn;/].map(r=>r+':'+((cK.match(r)||[''])[0] ? 'có' : 'không')).join(' ')+' · '+((cK.match(/.{30}(thôn(?!g)|tổ dân phố|xóm).{20}/)||[''])[0]));
    ktHoiKBSua(kD, 'mauKH', ''); const cK1 = chu((await moZip(await ktDocx('m01', ktKHGiaTri()))).doc);
    ok('Kế hoạch ① Đoàn ở phường: HĐT phường, do Đoàn mình quản lý', /HĐT phường/.test(cK1) && !/HĐT xã/.test(cK1) && /do Đoàn mình quản lý/.test(cK1) && /do Đoàn quản lý/.test(cK1));
    KT_K.to[best.ma] = goc;
