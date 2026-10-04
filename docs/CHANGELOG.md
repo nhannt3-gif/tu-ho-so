@@ -4,6 +4,49 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.98 — 04/10/2026 10:00 — KTGS chỉ phục vụ in · Mẫu 06 bố cục mới · Mẫu 04 hai chỗ chọn · Bảng chuẩn hóa Hội – Đoàn · Mẫu 16 gợi ý nhận xét · điểm GD suy
+- **Bỏ phần theo dõi** (anh chốt — "tạm không theo dõi, chỉ phục vụ in lấy mẫu, khi cần sẽ có quy tắc khoa học hơn"):
+  - Mẫu 06 sau giải ngân: bỏ cột "Đã lập phiếu", dấu "↺ đã lập", không ghi `ktgsGN`.
+  - Đột xuất: bỏ lịch sử / "lần kiểm tra trước" (`ktGhiLS`, `ktLanTruoc`, cột "KT gần nhất"); gợi ý hộ không còn né hộ đã kiểm.
+  - Bỏ nhật ký `ktGhiNK` (06gn / 06dk / 16 / 16dk) gửi sang Mẫu 04.
+  - Dữ liệu cũ `ktgsLS / ktgsNK / ktgsGN` **giữ nguyên trong cấu hình, không dùng** (không xóa).
+- **Mẫu 06 (Word + In / PDF):**
+  - Đơn vị kiểm tra đã điền → **bỏ dòng chấm thứ 2**; để trống → giữ 2 dòng chấm.
+  - 4 dòng đầu dựng bằng **điểm dừng tab** (`ktCB06`): "Chức vụ" 2 dòng cán bộ **thẳng cột**; ô có chữ → khoảng trắng, trống → chấm.
+  - Địa bàn: "**ấp / khu phố …, xã / phường …, tỉnh Tây Ninh**" (xã → ấp, phường → khu phố, trong câu viết thường), tab rồi "Tổ TK&VV: …".
+  - "Thời điểm kiểm tra" cùng dòng "Đơn vị tính: triệu đồng".
+  - Cột: Stt 1,0 → 0,8 cm · Chương trình, Tổng GN, Dư nợ 2,0 → 1,5 cm · **Mục đích 2,0 → 3,7 cm**; cột ghi tay giữ nguyên. Số tiền triệu, bỏ số 0 thừa.
+  - Mọi dòng bảng cao ≥ **1,5 cm** (3 dòng chữ ở cột Mục đích); bù cho đủ 2 dòng.
+  - **1 khách nhiều khế ước** → Stt, Họ tên, ô Ký gộp dọc (Word `vMerge`, In `rowspan`); Stt đếm theo hộ.
+  - Hộ xếp theo **mã KH**.
+  - Cột Mục đích: món có **Mã PNKT52** khác PNKT51 (vd nước sạch 36000 + vệ sinh 39000) → in cả 2; ⚙ Bảng ngành đếm cả PNKT52. Tra cứu KH cũng hiện đủ 2 mục đích.
+  - Không đo được trang Word bằng LibreOffice trong máy làm việc (thiếu Writer); đo bản In: 1–2 dòng vừa 1 trang, từ 3 dòng sang trang 2 (tiêu đề bảng lặp lại).
+- **Sau giải ngân: mỗi tổ 1 phiếu** cho cả lần kiểm tra (gom các tháng đã chọn; 1 khế ước GN nhiều tháng lấy tháng mới nhất).
+- **Xem trước nhiều phiếu / biên bản / báo cáo: mỗi bản 1 tờ riêng** có nhãn (`ktGhepTo`); khi in mỗi bản sang trang mới.
+- **Danh sách chọn hộ chung 3 màn** (đột xuất, sau giải ngân, định kỳ — `ktHoDongHTML`): Chọn · STT · Mã KH · Họ tên · Món vay (mã KV, số KU, CT, dư nợ, ngày GN) · Lãi tồn · Số dư 105 · Ghi chú tình trạng; xếp theo mã KH. Sau giải ngân: tích theo hộ, nhiều món thì tích từng món.
+- **Mẫu 04 hai chỗ lập:**
+  - ① tab con 📋 Mẫu 04: chọn xã / hội ở cây → tổ chia nhóm theo ấp, **tích cả ấp hoặc từng tổ**, mặc định không tích; ngày tùy chọn (trống = dòng chấm); số phiếu VI.1 để dòng chấm.
+  - ② trong 🗓 Kế hoạch năm: chọn tháng có lịch → Mẫu 04 lấy đúng tổ của tháng (thời gian "…../mm/yyyy"), mỗi tháng 1 báo cáo; nút **In Kế hoạch + Mẫu 04** (1 lần in); Word vẫn 2 file riêng.
+- **📖 Bảng chuẩn hóa Hội – Đoàn** (`KT_CHUAN`, sửa trong app → `D.cauHinh.ktChuan`): tên trong câu, gọi tắt, đầu trang tỉnh / xã, nơi nhận cấp tỉnh, chức danh ký, cấp phó, cấp trên, viết tắt số văn bản.
+  - Đoàn: "TỈNH ĐOÀN TÂY NINH", "BCH ĐOÀN XÃ / PHƯỜNG …", Bí thư, "Tỉnh Đoàn", "Đoàn cấp trên".
+  - Hội Phụ nữ mặc định "**Hội Liên hiệp Phụ nữ**".
+  - ⚙ Khai báo Hội thêm "Ban Thường vụ: có / không" → không có thì ký "**TM. BAN CHẤP HÀNH**".
+  - Khuôn Kế hoạch ① ② có dấu chèn mới: "HĐT xã" → xã / phường, "{Hội} xã" → phường, "do hội mình / do Hội quản lý" → Đoàn, "Chủ tịch, phó Chủ tịch", "Hội cấp trên", "Văn phòng ấp", "trưởng ấp", "Ban Thường vụ", "{Hội} tỉnh" (nơi nhận), "TM. BAN THƯỜNG VỤ".
+  - Quốc hiệu giữ đúng mẫu Ngân hàng (anh chốt).
+- **Mẫu 16:**
+  - Chữ in sẵn "thôn/tổ dân phố", "xã/phường/đặc khu", "tỉnh/thành phố" → đúng chữ (ấp / khu phố, xã / phường, tỉnh); trống thì giữ chữ mẫu.
+  - "Tổ thuộc" + **tên Hội đầy đủ** (hết lỗi "Hội Đoàn Thanh niên").
+  - 4 dòng Ông (bà) theo tab, Chức vụ thẳng cột.
+  - **Gợi ý nhận xét theo số liệu** (727 khoản 3 Phụ lục I), chọn khi in "Gợi ý theo số liệu / Để trống" (nhớ lựa chọn):
+    - ô kết quả "Số lượng tổ viên (05–60)" và "Số tổ viên lãi tồn, quá hạn";
+    - III. ưu điểm (khi số liệu tốt), tồn tại (có số), kiến nghị đi theo từng tồn tại.
+- **Điểm GD suy** (`toSuyDiem`): tổ không có trong Thông tin tổ trưởng / Mẫu 7 (tháng này + 4 tháng gần nhất — thường là tổ mới / tách) → suy điểm GD theo:
+  - danh mục địa bàn (mã ấp);
+  - rồi tổ cùng ấp;
+  - rồi tổ cùng xã cùng ngày GDXA.
+  - Đánh dấu `diemSuy`; KTGS hiện dòng báo (tổ suy / tổ vẫn chưa rõ). Không sửa số liệu gốc.
+- Phép thử: mới `tests/t111.js` (39 phép); cập nhật `t106` (dòng 1,5 cm, không lịch sử, mỗi tổ 1 phiếu), `t108` (Mẫu 04 chọn theo cây / ấp), `t110` (ô Nhận xét, Mẫu 04 ① ②, đầu trang theo Bảng chuẩn hóa).
+
 ## 3.97 — 03/10/2026 20:00 — 🗓 Kiểm tra định kỳ theo lịch (Mẫu 06 + 16) · số liệu mặc định cuối tháng · khuôn Kế hoạch ② · gợi ý lại
 - **KTGS Hội › 🗓 Định kỳ theo lịch · Mẫu 06 + 16** (anh chốt — 4 loại kiểm tra: ① sau giải ngân 30 ngày Mẫu 06 · ② đột xuất 6–8 hộ Mẫu 06 + 16 · ③ **định kỳ theo lịch** Mẫu 06 + 16 · ④ Mẫu 04 tổng hợp):
   - anh chọn **số liệu cuối tháng** ở ô Số liệu (vd Mẫu 31 chốt 30/09/2026) → **tháng kiểm tra = tháng sau** (10/2026); trên mẫu "ngày …… tháng 10 năm 2026" (**ngày để trống**), Mẫu 06 "Thời điểm kiểm tra: …../10/2026"; Mẫu 16 mục I "đến thời điểm 30/09/2026" (BC0437 chỉ dùng khi cùng tháng số liệu, không thì tính từ Mẫu 31). Số liệu theo ngày không dùng cho định kỳ.

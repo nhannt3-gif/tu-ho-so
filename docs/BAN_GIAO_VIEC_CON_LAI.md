@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.92 · build 04/10/2026 15:00
+**Bản hiện tại:** 3.98 · build 04/10/2026 10:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,22 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.98) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Kiểm tra đột xuất 1 tổ → Mẫu 06 Word (điền Đơn vị, 1 cán bộ) → mở **Word thật** | Không còn dòng chấm dưới Đơn vị; "Chức vụ" dòng 1 thẳng dòng 2; "Địa bàn kiểm tra: ấp/khu phố …, xã/phường …, tỉnh Tây Ninh" rồi khoảng cách tới Tổ TK&VV | |
+| 2 | Cùng phiếu đó | Cột Mục đích rộng, dòng cao đủ ghi 3 dòng; khách 2 khế ước chỉ 1 tên, 1 ô ký; hộ theo mã KH; **phiếu 1–2 món vừa 1 trang** (anh xem giúp phiếu 3+ món) | |
+| 3 | Khách vay nước sạch 50 tr (cột Mục đích "In mục đích") | In đủ 2 mục đích (nếu cột Mã PNKT52 = 39000) | |
+| 4 | Sau giải ngân chọn 2 tháng, đến xã → 👁 Xem | Mỗi tổ 1 phiếu, xem trước mỗi phiếu 1 tờ riêng có nhãn; không còn cột "Đã lập phiếu" | |
+| 5 | Danh sách chọn hộ (đột xuất / sau GN / định kỳ) | Có Mã KH, số KU, lãi tồn, số dư 105, ghi chú; xếp theo mã KH | |
+| 6 | 📋 Mẫu 04 → chọn xã → tích 1 ấp → Xem | Tổ chưa tích sẵn; tích ấp chọn đủ tổ ấp đó; ngày trống = dòng chấm | |
+| 7 | 🗓 Kế hoạch → chọn T3, T4 ở "Mẫu 04 theo kế hoạch" → Xem / In Kế hoạch + Mẫu 04 | Mỗi tháng 1 báo cáo đúng tổ của tháng, thời gian "…../03/2026" | |
+| 8 | ⚙ Khai báo Hội → 📖 Bảng chuẩn hóa; Hội – xã Đoàn ở phường, chọn "không có BTV" → Kế hoạch ② | "TỈNH ĐOÀN TÂY NINH", "Bí thư", "Tỉnh Đoàn", "TM. BAN CHẤP HÀNH", "phường", "khu phố" | |
+| 9 | Mẫu 16 Word (chọn "Gợi ý theo số liệu") | "(Tổ) ấp/khu phố …, xã/phường …, tỉnh Tây Ninh"; "Tổ thuộc Hội … xã …"; ô kết quả số tổ viên, lãi tồn; III có gợi ý — sửa được trong Word | |
+| 10 | KTGS tab Kế hoạch / cây: Phường Gia Lộc | Không còn "(chưa rõ điểm GD)" nếu ấp có trong danh mục / có tổ cùng ấp; có dòng báo vàng "điểm GD suy" | |
+
+**Ghi chú kỹ thuật 3.98:** bỏ `ktGhiLS / ktLanTruoc / ktGhiNK / ktBCNguon / ktBCThang / ktBCTh / ktBCTo` (dữ liệu cũ giữ). Địa danh chung: `KT_TINH`, `ktLaPhuong`, `ktXaTen`, `ktApTen`, `ktCapAp`, `ktApChu(th, tenXa, hoa)` (đổi chữ ký — `ktKHAp` gọi kèm tenXa), `ktDiaBan`, `ktTheoKH`. Mẫu 06: khuôn `KT_KHUON.m06` đổi lưới cột (454,1276,992,850,850,850,2099,…), dấu `{{@DV2}}` (đoạn gốc ở `m06.dv2`) + `{{@CB}}` (`ktCB06`, `KT_TAB06` = 3600/9356/10773/14600/6237 twip), `ktDongCo` 850 atLeast, `ktDongBu` tối thiểu 2 dòng, `ktGopO` (vMerge cột 0/1/14, dòng `gop: dau|tiep`, `n`), bản In `ktCB06HTML` + rowspan. PNKT52: `ktNganh` → `ktNganh1` × 2, `ktMa52`, `ktCoNganh`. Xem trước: `ktGhepTo(ds, rộng mm, nhãn)` gom CSS từng loại + cỡ chữ riêng (dùng cho Kế hoạch + Mẫu 04). Sau GN: `ktGNTo` (gom tháng theo tổ, `o._th`), `ktGNHo`, `ktGNTichHo`, `ktGNVeLai`. Danh sách hộ: `KT_HO_TH`, `ktMonDong`, `ktHoDongHTML`, `ktGhiHo`. Mẫu 04: `ktBCDs` (cây), `KT_BC_AP`, `ktBCTichAp`, `ktBC04(ds, th)`, `ktBCHop`, `KT_BC_XEM.tu/tenFile`; Kế hoạch: `KT_KH_M04`, `ktKH04`, `ktKH04Xem`, `ktKHInCa`. Chuẩn hóa: `KT_CHUAN_O`, `KT_CHUAN`, `ktChuanGoc`, `ktChuan(t)` (btv từ `ktHoiKB.btv==='khong'`), `ktChuanDauXa`, `ktChuanHop`, `ktChuanSua`; khuôn m01: `{{CXA}}`, `{{HLN}}`, `{{HLH}}`; m01b: `{{CXA}} {{LDC}} {{PCT}} {{CTN}} {{CAP}} {{CAPA}} {{LDB}} {{HLT}} {{TMB}}`. Mẫu 16: khuôn `{{CAPA}} {{CAPX}} {{CAPT}}` (+ dạng `~`), `{{HOI|Hội ....}}` (giá trị = `ktHoiTen`), 4 đoạn Ông (bà) tab 5954 / 9213 với leader `{{LCB1|dot}}…` (giá trị 'none' khi có chữ), `{{KQ1}} {{KQ2}}`, `{{@UD}} {{@TT}} {{@KN}}` (đoạn gốc `m16.ud/tt/kn`), `ktNhanXet16`, `ktNxDoan`, `KT_NX_CHON`, `D.cauHinh.ktNhanXet`. Điểm GD: `toSuyDiem(K)` gọi trong `toNap` trước `toGanTrucTiep`, `t.diemSuy`; báo `ktSuyHTML`.
 
 ### Danh sách thử trên máy thật (3.97) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
