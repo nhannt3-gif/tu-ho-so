@@ -1992,7 +1992,7 @@
   .cc-dau .nho{flex:0 0 auto;min-height:26px;padding:2px 9px;margin:0}
   .cc-dau{gap:5px}
   .hs-nhap{display:grid;grid-template-columns:1fr 1fr .55fr .75fr;gap:4px 7px}.hs-nhap.hs-nhap2{grid-template-columns:1fr 1fr .8fr}
-  .hs-khoi{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:6px 0}.hs-k{border:1px solid #9cc3a4;background:#eef8f0;border-radius:8px;padding:5px 8px;cursor:pointer;text-align:center}.hs-k small{display:block;font-size:calc(10.5px*var(--co));color:var(--chu-phu)}.hs-k b{display:block;font-size:calc(19px*var(--co));color:#1e6a33;line-height:1.25}.hs-k i{display:block;font-style:normal;font-size:calc(10.5px*var(--co));color:var(--chu-phu)}
+  .hs-khoi{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin:6px 0}.hs-k{grid-column:span 2}.hs-k.phu{grid-column:span 3;border-color:#b9c8d6;background:#f1f5f9;padding:3px 8px}.hs-k.phu b{font-size:calc(15px*var(--co));color:#33506b}.hs-k i b{display:inline;font-size:inherit;color:#1e6a33}#hs-goiy{color:#1e6a33;font-weight:600}.hs-nhap.hs-nhap2{align-items:end}.hs-k{border:1px solid #9cc3a4;background:#eef8f0;border-radius:8px;padding:5px 8px;cursor:pointer;text-align:center}.hs-k small{display:block;font-size:calc(10.5px*var(--co));color:var(--chu-phu)}.hs-k b{display:block;font-size:calc(19px*var(--co));color:#1e6a33;line-height:1.25}.hs-k i{display:block;font-style:normal;font-size:calc(10.5px*var(--co));color:var(--chu-phu)}@media(max-width:600px){.hs-k{padding:4px 4px}.hs-k b{font-size:calc(14px*var(--co))}.hs-k.phu b{font-size:calc(13px*var(--co))}.hs-k small,.hs-k i{font-size:calc(9.5px*var(--co))}}
   .hs-dau{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}.hs-o-gon{display:inline-flex;align-items:center;gap:3px;font-size:calc(11px*var(--co));color:var(--chu-phu);margin:0}.hs-o-gon input{height:26px;min-height:26px;padding:1px 5px;font-size:calc(12.5px*var(--co))}#hs-gdx{width:44px}
   .hs-hoc{grid-column:1 / -1;display:flex;align-items:center;gap:8px}
   .hs-hoc label{margin:0;flex:0 0 auto}
@@ -2987,7 +2987,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.98', APP_LUC = '04/10/2026 10:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.99', APP_LUC = '04/10/2026 14:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -4585,6 +4585,12 @@ function hsNgayGD(y, th, g){ var yy = y + Math.floor(th/12), mm = ((th%12)+12)%1
 function hsVeGD(h, g){ var cur = hsNgayGD(h.getFullYear(), h.getMonth(), g);
   return hsSoNgay(cur, h) <= 0 ? hsNgayGD(h.getFullYear(), h.getMonth()-1, g) : cur; }
 function hsTien(so){ return Math.round(so).toLocaleString('vi-VN').replace(/,/g,'.'); }
+function hsGoiY(v){   /* 3.99 (anh chốt): tiền vay gợi ý — mỗi nửa năm phát tiền vay (làm tròn lên, không tính lẻ) = 5 tháng vay = 20 triệu; 1 năm = 10 tháng = 40 triệu */
+  var a = hsDoc(v.vay), b = hsDoc(v.rt); if(!a || !b || hsSoNgay(a, b)<=0) return null;
+  var tp = hsThang(a, b); if(tp<=0) return null;
+  var nua = Math.ceil(tp/6), nam = Math.floor(nua/2);
+  return {nua:nua, thang:nua*5, trieu:nua*20, nam:(nam ? nam+' năm' : '')+(nua%2 ? (nam ? ' rưỡi' : 'nửa năm') : '')};
+}
 function hsTinh(v){
   var kq = {loi:[]};
   var vay = hsDoc(v.vay), rt = hsDoc(v.rt), g = +v.gdx;
@@ -4613,6 +4619,7 @@ function hsTinh(v){
     kq.ky.push({goc:r, ngay:gd});
   }
   kq.ky.push({goc:kq.hc, ngay:kq.hcGD, cuoi:true});
+  kq.goiY = hsGoiY(v);
   var tien = parseFloat(String(v.tien||'').replace(',', '.'));
   if(tien>0){
     var T = Math.round(tien*1e6), n = kq.ky.length, moi = Math.floor(T/n/1e5)*1e5;
@@ -4631,6 +4638,7 @@ function hsTinh(v){
 function hsGT(){
   if(!CC.hs){ var g = ''; try{ g = localStorage.getItem('tuhoso_gdx')||''; }catch(e){}
     CC.hs = {vay:'', rt:'', gdx:g, tien:'', loai:'tren'}; }
+  if(CC.hs.tien==='' && !CC.hs.tienTay){ var gy = hsGoiY(CC.hs); if(gy) CC.hs.tien = String(gy.trieu); }
   return CC.hs;
 }
 function hsDat(k, el){
@@ -4638,6 +4646,12 @@ function hsDat(k, el){
   if(k==='vay' || k==='rt') goNgay(el);
   v[k] = el.value;
   if(k==='gdx'){ try{ localStorage.setItem('tuhoso_gdx', el.value); }catch(e){} }
+  if(k==='tien') v.tienTay = true;
+  if(k==='vay' || k==='rt'){   /* 3.99: đổi ngày → món mới, tự điền lại tiền vay gợi ý (anh gõ đè được) */
+    var gy = hsGoiY(v); v.tienTay = false; v.tien = gy ? String(gy.trieu) : '';
+    var o = document.getElementById('hs-tien'); if(o) o.value = v.tien;
+  }
+  var nh = document.getElementById('hs-goiy'); if(nh) nh.innerHTML = hsGoiYNhan();
   var kq = document.getElementById('hs-kq'); if(kq) kq.innerHTML = hsKetQuaHTML();
 }
 function hsLoai(l){
@@ -4667,26 +4681,31 @@ function hsPhim(e, k, el){
   var j = k==='tien' && di>0 ? HS_THU.indexOf('rt') : Math.max(0, Math.min(HS_THU.length-1, i+di));   /* Enter ở Tiền vay → về Ngày ra trường để nhập món kế tiếp */
   var n = document.getElementById('hs-'+HS_THU[j]); if(n){ n.focus(); n.select(); }
 }
+function hsGoiYNhan(){ var gy = hsGoiY(hsGT()); return gy ? ' · gợi ý '+gy.thang+' th = '+gy.trieu : ''; }
 function hsLuuYHTML(){
   return hsGT().loai==='duoi' ? '⚠ Đang tính theo khóa học <b>đến 12 tháng / SV Y khoa</b>: trả nợ tối đa = 2 × phát tiền vay.' : '';
 }
 function ccHSSVHTML(){
   var v = hsGT();
-  return '<div class="hs-luuy" id="hs-luuy">'+hsLuuYHTML()+'</div><div class="hs-nhap hs-nhap2">'+hsO('vay','Ngày vay','dd/mm/yyyy')+hsO('rt','Ngày ra trường','dd/mm/yyyy')+hsO('tien','Tiền vay (triệu)','vd 40')+
+  return '<div class="hs-luuy" id="hs-luuy">'+hsLuuYHTML()+'</div><div class="hs-nhap hs-nhap2">'+hsO('vay','Ngày vay','dd/mm/yyyy')+hsO('rt','Ngày ra trường','dd/mm/yyyy')+hsO('tien','Tiền vay (triệu)<span id="hs-goiy">'+hsGoiYNhan()+'</span>','vd 40')+
     '</div>'+
     '<div id="hs-kq">'+hsKetQuaHTML()+'</div>';
 }
 function hsKetQuaHTML(){
   var v = hsGT();
-  if(!v.vay && !v.rt) return '<div class="huong-dan">Dòng trên (giữ cả đợt nhập): loại khóa học · ngày GDX. Ngày vay nằm đầu dòng nhập (gõ một lần, giữ cho các món sau). Mỗi món: bấm ô ngày ra trường, gõ → Enter → tiền vay → Enter (về ô ngày ra trường cho món kế tiếp). Bấm vào ô là bôi đen số cũ, gõ là thay.</div>';
+  if(!v.vay && !v.rt) return '<div class="huong-dan">Dòng trên (giữ cả đợt nhập): loại khóa học · ngày GDX. Ngày vay nằm đầu dòng nhập (gõ một lần, giữ cho các món sau). Mỗi món: bấm ô ngày ra trường, gõ → Enter → tiền vay (đã điền sẵn số gợi ý, gõ đè nếu cần) → Enter (về ô ngày ra trường cho món kế tiếp). Bấm vào ô là bôi đen số cũ, gõ là thay.</div>';
   var kq = hsTinh(v);
   if(kq.loi.length) return '<div class="hs-loi">⚠ '+kq.loi.join(' · ')+'</div>';
   var mo = window.innerHeight>=950 ? ' open' : '';
-  var khoi = function(nhan, so, phu, chep){ return '<div class="hs-k" onclick="ccChep(\''+chep+'\')" title="Bấm để chép"><small>'+nhan+'</small><b>'+so+'</b>'+(phu ? '<i>'+phu+'</i>' : '')+'</div>'; };
-  var h = '<div class="hs-khoi">'+khoi('Thời hạn cho vay', kq.thoiHan+' tháng', 'phát tiền vay '+kq.tp+' th', kq.thoiHan+' tháng')+   /* 3.98 (anh chốt): số chính khối to, nhìn nhanh */
+  var khoi = function(nhan, so, phu, chep, lop){ return '<div class="hs-k'+(lop ? ' '+lop : '')+'" onclick="ccChep(\''+chep+'\')" title="Bấm để chép"><small>'+nhan+'</small><b>'+so+'</b>'+(phu ? '<i>'+phu+'</i>' : '')+'</div>'; };
+  var gy = kq.goiY, gyChu = gy ? gy.thang+' tháng vay ('+gy.nam+') × 4 tr' : '';
+  var tienPhu = !kq.T ? (gy ? 'Gợi ý: '+gy.thang+' tháng = '+gy.trieu+' tr' : 'gõ tiền vay') : (gy && kq.T!==gy.trieu*1e6 ? 'Gợi ý: '+gy.thang+' tháng = '+gy.trieu+' tr' : '<b>'+gyChu+'</b>');
+  /* 3.99 (anh chốt): hàng 1 — 3 khối lớn (tiền vay, thời hạn, hạn cuối); hàng 2 — 2 khối phụ nhỏ (trả mỗi lần, lần đầu) */
+  var h = '<div class="hs-khoi">'+khoi('Số tiền vay', kq.T ? hsTien(kq.T) : '—', tienPhu, kq.T ? hsTien(kq.T) : '')+
+    khoi('Thời hạn cho vay', kq.thoiHan+' tháng', 'phát tiền vay '+kq.tp+' th', kq.thoiHan+' tháng')+
     khoi('Hạn cuối (theo GDX)', hsNgay(kq.hcGD), '', hsNgay(kq.hcGD))+
-    khoi('Trả mỗi lần', kq.moi ? hsTien(kq.moi) : '—', kq.moi ? kq.ky.length+' kỳ'+(kq.cuoiTien!==kq.moi ? ' · lần cuối '+hsTien(kq.cuoiTien) : '') : 'gõ tiền vay', kq.moi ? hsTien(kq.moi) : '')+
-    khoi('Lần đầu', hsNgay(kq.ky[0].ngay), '', hsNgay(kq.ky[0].ngay))+'</div>'+
+    khoi('Trả mỗi lần', kq.moi ? hsTien(kq.moi) : '—', kq.moi ? kq.ky.length+' kỳ'+(kq.cuoiTien!==kq.moi ? ' · lần cuối '+hsTien(kq.cuoiTien) : '') : '', kq.moi ? hsTien(kq.moi) : '', 'phu')+
+    khoi('Lần đầu', hsNgay(kq.ky[0].ngay), '', hsNgay(kq.ky[0].ngay), 'phu')+'</div>'+
     '<table class="hs-bang"><tr><th>Phát tiền vay</th><th>Ân hạn</th><th>Trả nợ tối đa</th><th>Thời hạn cho vay</th><th>Hạn cuối</th><th>Hạn cuối theo GDX</th></tr>'+
     '<tr><td>'+kq.tp+' tháng<small>'+kq.soNgay+' ngày</small></td><td>12 tháng</td><td>'+kq.ttn+' tháng</td><td><b>'+kq.thoiHan+' tháng</b></td><td>'+hsNgay(kq.hc)+'</td>'+
     '<td class="dam" onclick="ccChep(\''+hsNgay(kq.hcGD)+'\')" title="Bấm để chép">'+hsNgay(kq.hcGD)+'</td></tr></table>';
@@ -12489,7 +12508,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.98', ds:[
+var CO_GI_MOI = {ban:'3.99', ds:[
+  ['🎓 Hạn trả HSSV: app tự gợi ý tiền vay theo thời gian phát tiền vay (mỗi nửa năm = 5 tháng = 20 triệu, năm = 40 triệu, không tính lẻ) — ô Tiền vay điền sẵn, gõ đè nếu cần; kết quả 3 khối lớn (số tiền vay + số tháng vay, thời hạn, hạn cuối) + 2 khối phụ nhỏ (trả mỗi lần, lần đầu)', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['📄 Mẫu 06 gọn hơn: đã điền Đơn vị thì bỏ dòng chấm thứ 2; chữ “Chức vụ” 2 dòng cán bộ thẳng cột; địa bàn “ấp / khu phố …, xã / phường …, tỉnh Tây Ninh” rồi Tổ TK&VV; cột Mục đích rộng (~3,7 cm), dòng cao 1,5 cm (ghi được 3 dòng); 1 khách nhiều khế ước chỉ ghi tên, ô ký 1 lần; hộ xếp theo mã KH; món có 2 mục đích (PNKT52, vd nước sạch + vệ sinh) in đủ cả 2', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🧹 KTGS chỉ phục vụ in mẫu: bỏ theo dõi “đã lập phiếu”, lịch sử / lần kiểm tra trước, nhật ký gửi sang Mẫu 04 (dữ liệu cũ vẫn giữ, không dùng)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 04 có 2 chỗ lập: ① chọn xã / hội ở cây → tích cả ấp hoặc từng tổ (không tích sẵn, ngày tùy chọn) · ② trong 🗓 Kế hoạch năm: chọn tháng có lịch → Mẫu 04 theo đúng tổ của tháng đó, in cùng Kế hoạch', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -12497,7 +12517,6 @@ var CO_GI_MOI = {ban:'3.98', ds:[
   ['👥 Danh sách chọn hộ (đột xuất, sau giải ngân, định kỳ) chung 1 kiểu: mã KH, món (mã KV, số KU, CT, dư nợ, ngày GN), lãi tồn, số dư 105, ghi chú tình trạng — xếp theo mã KH', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📖 Bảng chuẩn hóa Hội – Đoàn (trong khung ✎ Khai báo của Kế hoạch / Mẫu 04): tên, đầu trang, chức danh ký, cấp trên… sửa 1 chỗ cho mọi mẫu; Đoàn: Tỉnh Đoàn, Bí thư; ký TM. BAN THƯỜNG VỤ; phường → “phường”, “khu phố” trong Kế hoạch, Mẫu 16', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['✎ KTGS: khai báo nằm ngay trong tab của mẫu (khung thu gọn được, không còn hộp bật lên); cán bộ kiểm tra khai 1 bảng theo Hội – xã (4 người / xã), phiếu tự lấy đúng người của Hội phụ trách tổ — khi in chọn "Để trống" nếu muốn điền tay; khai báo được nhớ lần sau', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🎓 Hạn trả HSSV: ngày GDX lên dòng trên (giữ cả đợt), ngày vay giữ chỗ cũ; mỗi món chỉ gõ ngày ra trường → Enter → tiền vay → Enter sang món kế; bấm vào ô là bôi đen số cũ', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['📄 Văn bản không liên quan chương trình vay không còn bị kẹt ở Chờ khai (CT vay không bắt buộc); sắp xếp thêm kiểu "Vừa thêm" — file mới đưa vào tủ lên đầu', "dongHop();doiNgan(1)"],
   ['🏷 Đơn vị kiểm tra Mẫu 06 / 16 tự điền Hội cấp xã của từng tổ (Hội Nông dân xã …, Hội Liên hiệp Phụ nữ phường …, Đoàn Thanh niên xã …) — đủ chỗ viết đủ, thiếu chỗ viết gọn; gõ "-" để chừa dòng chấm. Đầu trang Kế hoạch: Đoàn "ĐTN XÃ …", Hội LHPN "HỘI LHPN XÃ …"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📝 Mẫu 16: chữ in sẵn “thôn/tổ dân phố, xã/phường/đặc khu” thành đúng chữ; tên Hội đầy đủ (hết lỗi “Hội Đoàn Thanh niên”); Chức vụ thẳng cột; gợi ý nhận xét theo số liệu (ô kết quả số tổ viên / lãi tồn / quá hạn, ưu điểm – tồn tại – kiến nghị) — chọn “Để trống” nếu muốn ghi tay', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],

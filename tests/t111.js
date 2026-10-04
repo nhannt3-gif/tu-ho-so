@@ -1,4 +1,4 @@
-// 3.98 — KTGS chỉ phục vụ in (bỏ theo dõi) · Mẫu 06 bố cục mới (dòng chấm Đơn vị, Chức vụ thẳng cột bằng tab, địa bàn chuẩn, cột Mục đích rộng,
+// 3.98–3.99 — HSSV gợi ý tiền vay + 5 khối (3.99) · KTGS chỉ phục vụ in (bỏ theo dõi) · Mẫu 06 bố cục mới (dòng chấm Đơn vị, Chức vụ thẳng cột bằng tab, địa bàn chuẩn, cột Mục đích rộng,
 //        dòng 1,5 cm, gộp tên / ký theo hộ, mã KH, 2 mục đích PNKT51 + PNKT52) · danh sách chọn hộ chung · xem trước tách tờ ·
 //        Bảng chuẩn hóa Hội – Đoàn (Kế hoạch ① ②, Mẫu 16, Đoàn / phường) · Mẫu 16 gợi ý nhận xét · điểm GD suy theo ấp / ngày GDXA.
 // Bộ GIẢ: tests/gia31. Tham số tùy chọn: thư mục lưu file Word mẫu.
@@ -135,6 +135,20 @@ const fs=require('fs'), path=require('path');
    gd.focus(); ev(gd, 'Enter'); const b4 = document.activeElement.id==='hs-vay';
    ok('HSSV: Enter sang ô sau, Enter ở tiền vay về ngày ra trường (món kế), Shift+Enter lùi', b1 && b2 && b3 && b4, [b1,b2,b3,b4].join(','));
    rt.value = '30/06/2026'; rt.focus(); ok('HSSV: bấm vào ô là bôi đen số cũ (gõ là thay)', rt.selectionStart===0 && rt.selectionEnd===rt.value.length);
+   /* 3.99: tiền vay gợi ý theo nửa năm phát tiền vay (làm tròn lên) */
+   const gyc = [['01/09/2026','01/09/2030',8,40,160],['01/09/2026','01/02/2030',7,35,140],['01/09/2026','01/03/2030',7,35,140],['01/09/2026','01/04/2030',8,40,160],['07/10/2026','30/08/2030',8,40,160],['01/09/2026','01/11/2026',1,5,20]];
+   const gys = gyc.map(c=>{ const g = hsGoiY({vay:c[0], rt:c[1]}); return g && g.nua===c[2] && g.thang===c[3] && g.trieu===c[4]; });
+   ok('HSSV: gợi ý tiền vay theo nửa năm (48→160, 41→140, 42→140, 43→160, 46→160, 2→20)', gys.every(Boolean), gys.join(','));
+   gd.value = '7'; gd.dispatchEvent(new Event('input'));
+   const vy = document.getElementById('hs-vay'); vy.value = '01/09/2026'; vy.dispatchEvent(new Event('input'));
+   rt.value = '01/02/2030'; rt.dispatchEvent(new Event('input'));
+   ok('HSSV: gõ ngày ra trường → ô tiền tự điền 140, nhãn gợi ý 35 th', ti.value==='140' && /gợi ý 35 th = 140/.test(document.getElementById('hs-goiy').textContent), ti.value);
+   let kq = document.getElementById('hs-kq'), ks = kq.querySelectorAll('.hs-k');
+   ok('HSSV: 5 khối — 3 lớn (tiền vay, thời hạn, hạn cuối) + 2 phụ (trả mỗi lần, lần đầu)', ks.length===5 && kq.querySelectorAll('.hs-k.phu').length===2 && /Số tiền vay/.test(ks[0].textContent) && /140\.000\.000/.test(ks[0].textContent) && /35 tháng vay \(3 năm rưỡi\)/.test(ks[0].textContent) && /Trả mỗi lần/.test(ks[3].className+ks[3].textContent) && ks[3].classList.contains('phu'), ks[0].textContent);
+   ti.value = '100'; ti.dispatchEvent(new Event('input')); ks = document.querySelectorAll('#hs-kq .hs-k');
+   ok('HSSV: gõ đè tiền → dùng số anh gõ, ghi "Gợi ý: 35 tháng = 140 tr"', /100\.000\.000/.test(ks[0].textContent) && /Gợi ý: 35 tháng = 140 tr/.test(ks[0].textContent) && /Số tiền vay 100\.000\.000/.test(hsTinh(hsGT()).cau));
+   rt.value = '01/09/2030'; rt.dispatchEvent(new Event('input'));
+   ok('HSSV: món kế (đổi ngày ra trường) → tiền tự điền lại 160', ti.value==='160' && hsGT().tien==='160');
    dv.remove();
    C.che = 'dx'; C.xa = ''; C.hoi = ''; C.to = '';
    var ra = {d06:await b64(await ktDocx('m06', g)), d16:await b64(F[f16])};
