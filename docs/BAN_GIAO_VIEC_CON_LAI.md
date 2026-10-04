@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.98 · build 04/10/2026 10:00
+**Bản hiện tại:** 3.99 · build 04/10/2026 14:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.99) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hôm nay → 🎓 Hạn trả HSSV: GDX 07, ngày vay 07/10/2026, ra trường 30/08/2030 | Ô Tiền vay tự điền **160**, nhãn "gợi ý 40 th = 160"; ô Số tiền vay 160.000.000, dòng "40 tháng vay (4 năm) × 4 tr" | |
+| 2 | Đổi ra trường 01/02/2030 (vay 01/09/2026) | Tự điền **140** (35 tháng, 3 năm rưỡi) | |
+| 3 | Gõ đè tiền 100 | Kết quả dùng 100 tr; ô Số tiền vay ghi "Gợi ý: 35 tháng = 140 tr"; câu chép "Số tiền vay 100.000.000…" | |
+| 4 | Nhập món kế (gõ ngày ra trường mới) | Tiền tự điền lại theo món mới | |
+| 5 | Nhìn kết quả (máy tính + điện thoại) | Hàng 1: 3 khối lớn xanh (tiền vay, thời hạn, hạn cuối); hàng 2: 2 khối nhỏ xám xanh (trả mỗi lần, lần đầu); bấm khối là chép | |
+
+**Ghi chú kỹ thuật 3.99:** `hsGoiY(v)` → {nua = ⌈tháng phát tiền vay / 6⌉, thang = nua × 5, trieu = nua × 20, nam} (tháng lấy `hsThang`, cùng số "phát tiền vay" đang hiện); `hsGoiYNhan()` → nhãn `#hs-goiy`; `hsDat`: đổi ngày vay / ra trường → `v.tien` = gợi ý, `tienTay=false`, cập nhật ô `#hs-tien`; gõ tiền → `tienTay=true`; `hsGT` lần đầu tự điền nếu trống. `hsTinh` thêm `kq.goiY`. Khối: `.hs-khoi` lưới 6 cột, `.hs-k` span 2 (3 lớn), `.hs-k.phu` span 3 (2 nhỏ); màn ≤ 600px chữ nhỏ lại. Mức 4 tr/tháng cố định trong `hsGoiY` (đổi mức thì sửa 1 chỗ).
 
 ### Danh sách thử trên máy thật (3.98) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

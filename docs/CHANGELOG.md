@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.99 — 04/10/2026 14:00 — Hạn trả HSSV: tự gợi ý tiền vay · 5 khối kết quả
+- **Tự gợi ý số tiền vay** (anh chốt): theo thời gian phát tiền vay (ngày vay → ra trường), mỗi **nửa năm** (làm tròn lên, không tính lẻ) = 5 tháng vay = **20 triệu**; 1 năm = 10 tháng = 40 triệu. Ví dụ 48 tháng → 160 tr; 41 tháng (3 năm rưỡi) → 140 tr; 46 tháng → 160 tr.
+- Ô **Tiền vay điền sẵn** số gợi ý (đang bôi đen khi Enter tới), anh gõ đè nếu cần; đổi ngày vay / ra trường (món mới) thì điền lại. Nhãn ô ghi "gợi ý 40 th = 160".
+- **5 khối kết quả:** hàng 1 — 3 khối lớn xanh: **Số tiền vay** (dòng dưới "40 tháng vay (4 năm) × 4 tr", hoặc "Gợi ý: … tr" khi anh gõ khác) · Thời hạn cho vay · Hạn cuối theo GDX; hàng 2 — 2 khối **nhỏ, nền xám xanh** (ưu tiên thấp): Trả mỗi lần · Lần đầu. Điện thoại chữ nhỏ lại cho vừa.
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t110 không lỗi; `t111` 59/59 (thêm 5 phép HSSV).
+
+---
+
 ## 3.98 — 04/10/2026 10:00 — KTGS chỉ phục vụ in · Mẫu 06 bố cục mới · Mẫu 04 hai chỗ chọn · Bảng chuẩn hóa Hội – Đoàn · Mẫu 16 gợi ý nhận xét · điểm GD suy
 - **Bỏ phần theo dõi** (anh chốt — "tạm không theo dõi, chỉ phục vụ in lấy mẫu, khi cần sẽ có quy tắc khoa học hơn"):
   - Mẫu 06 sau giải ngân: bỏ cột "Đã lập phiếu", dấu "↺ đã lập", không ghi `ktgsGN`.
