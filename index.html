@@ -2995,7 +2995,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.105', APP_LUC = '05/10/2026 10:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.106', APP_LUC = '05/10/2026 14:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12637,7 +12637,11 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.105', ds:[
+var CO_GI_MOI = {ban:'3.106', ds:[
+  ['📋 Chép file: nút 📋 trên từng dòng văn bản (1 file) · ☑ Chọn chép nhiều file rồi Ctrl+V một lần vào Zalo / email / thư mục (tối đa 20 file mỗi lần, có Chép tiếp) — cần cài lại cầu nối 1 lần (bản 2)', "dongHop();doiNgan(1)"],
+  ['📋 Mẫu 04: Đoàn kiểm tra lấy cán bộ Mẫu 06 / 16 + 2 dòng Ông (bà) in sẵn; thời gian "Tháng mm/yyyy" (tháng sau số liệu); địa điểm ấp, xã, tỉnh; nhận xét từng tổ theo số liệu (văn bản 727); kiến nghị để ghi tay; thêm dòng ghi tài liệu', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
+  ['🗓 Kế hoạch ①: thành phần ghi chung "… thành lập đoàn kiểm tra gồm: Các đồng chí Chủ tịch, Phó Chủ tịch, Ủy viên Ban Thường vụ …" · Kế hoạch ②: đủ 3 căn cứ như ① (chưa khai thì để chấm)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
+  ['⚙ Bảng khai báo Hội – xã: dưới mỗi ô có dòng "In ra:" (chữ sẽ in, tự lấy / đã gõ, ↺ về chuẩn, nhắc cam khi nghi gõ sai); bỏ ô Đoàn kiểm tra; dọn dữ liệu cũ không dùng', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🗓 Kế hoạch KTGS ① ②: gạch đầu dòng chuẩn — mọi dòng "- …" / "+ …" thụt đầu dòng đều nhau, bỏ dấu cách thừa (mục Ban quản lý Tổ TK&VV…)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['✍ Ghi tên tác giả NhanNT (chữ xanh lá nhỏ) ở dải trạng thái dưới cùng, Cài đặt, Hướng dẫn, cửa sổ nổi HSSV và HanTraHSSV.exe — không gắn vào biểu mẫu in', "dongHop()"],
   ['🔎 Tra cứu KH: tên hộ vay + mã KH luôn nổi bật (danh sách và đầu thẻ)', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
@@ -12993,16 +12997,22 @@ function napDL(){
    ========================================================== */
 var BOT = {tab:'', chon:{}}, BOT_DS = {};
 function botAt(id){ return BOT.tab ? ' data-bot="'+id+'"'+(BOT.chon[id]?' data-botc="1"':'') : ''; }
+function nutChepNhieu(tab){   /* 3.106: chọn nhiều file để chép (cầu nối) */
+  if(!coCauNoi() || laDT()) return '';
+  var bat = BOT.tab===tab && BOT.muc==='chep';
+  return '<button class="nut-bot'+(bat?' bat':'')+'" onclick="'+(bat?'thoiBot()':'batBot(\''+tab+'\',\'chep\')')+'" title="Chọn nhiều file rồi chép một lần — Ctrl+V vào Zalo / email / thư mục">☑ Chọn chép</button>';
+}
 function nutBot(tab){
-  return '<button class="nut-bot'+(BOT.tab===tab?' bat':'')+'" onclick="'+(BOT.tab===tab?'thoiBot()':'batBot(\''+tab+'\')')+'" '+
+  var bat = BOT.tab===tab && BOT.muc!=='chep';
+  return '<button class="nut-bot'+(bat?' bat':'')+'" onclick="'+(bat?'thoiBot()':'batBot(\''+tab+'\')')+'" '+
     'title="Chọn nhiều file để xóa một lần (vào thùng rác hoặc xóa hẳn)">🗑 Xóa file</button>';
 }
-function batBot(tab){
-  BOT = {tab:tab, chon:{}}; document.body.classList.add('dang-bot');
+function batBot(tab, muc){
+  BOT = {tab:tab, chon:{}, muc:muc==='chep' ? 'chep' : 'xoa'}; CN_CHEP_CON = []; document.body.classList.add('dang-bot');
   if(tab==='kyAnh') moKyAnh(); else ve();
 }
 function thoiBot(){
-  var t = BOT.tab; BOT = {tab:'', chon:{}}; document.body.classList.remove('dang-bot');
+  var t = BOT.tab; BOT = {tab:'', chon:{}}; CN_CHEP_CON = []; document.body.classList.remove('dang-bot');
   if(t==='kyAnh'){ if(document.querySelector('.ka-nut')) moKyAnh(); } else ve();
 }
 /* bấm vào dòng khi đang chọn: chỉ tích/bỏ tích, không mở file (chặn ở pha capture — mọi onclick bên trong đều bỏ qua) */
@@ -13024,6 +13034,13 @@ function lucThemBot(m){ return String(m.themLuc || m.taoLuc || m.luc || m.ngay |
 function thanhBot(tab){
   if(BOT.tab!==tab) return '';
   setTimeout(capNhatBot, 0);   /* danh sách đang lọc tính xong sau khi vẽ đầu tab */
+  if(BOT.muc==='chep') return '<div class="thanh-bot" id="thanh-bot">'+   /* 3.106: thanh chọn để chép */
+    '<b class="bot-dem">Chưa chọn file nào — bấm vào file để chọn</b>'+
+    '<button onclick="botTatCa()" class="bot-tat">Chọn tất cả đang lọc</button>'+
+    '<button onclick="botBoChon()">Bỏ chọn</button>'+
+    '<button class="chinh bot-nut" onclick="botXacNhan()" disabled>📋 Chép 0 file</button>'+
+    '<button class="bot-tiep" onclick="chepTiep()" style="display:none">📋 Chép tiếp</button>'+
+    '<button onclick="thoiBot()">Thôi</button></div>';
   return '<div class="thanh-bot" id="thanh-bot">'+
     '<b class="bot-dem">Chưa chọn file nào — bấm vào file để chọn</b>'+
     '<button onclick="botTatCa()" class="bot-tat">Chọn tất cả đang lọc</button>'+
@@ -13040,7 +13057,8 @@ function capNhatBot(){
   Array.prototype.forEach.call(document.querySelectorAll('.thanh-bot'), function(th){
     var d = th.querySelector('.bot-dem'), b = th.querySelector('.bot-nut'), t = th.querySelector('.bot-tat');
     if(d) d.textContent = n ? 'Đã chọn '+n+' file' : 'Chưa chọn file nào — bấm vào file để chọn';
-    if(b){ b.textContent = 'Xóa '+n+' file'; b.disabled = !n; }
+    if(b){ b.textContent = BOT.muc==='chep' ? '📋 Chép '+Math.min(n, 20)+' file'+(n>20 ? ' đầu' : '') : 'Xóa '+n+' file'; b.disabled = !n; }
+    var tp = th.querySelector('.bot-tiep'); if(tp){ tp.style.display = CN_CHEP_CON.length ? '' : 'none'; tp.textContent = '📋 Chép tiếp '+Math.min(CN_CHEP_CON.length, 20)+' file'; }
     if(t && BOT.tab) t.textContent = 'Chọn tất cả đang lọc ('+tat+')';
   });
 }
@@ -13067,7 +13085,7 @@ function mucBot(id){
   return timMuc(id) || (D.bieuMau||[]).find(function(x){ return x.id===id; });
 }
 /* 3.50 (anh chốt): Xóa N file → vào thùng rác ngay, không hỏi mức; có ↩ Hoàn tác. Xóa hẳn làm trong Thùng rác */
-function botXacNhan(){ thucHienBot(); }
+function botXacNhan(){ if(BOT.muc==='chep') return chepNhieu(Object.keys(BOT.chon).map(mucBot).filter(Boolean)); thucHienBot(); }
 function thucHienBot(){
   var ids = Object.keys(BOT.chon), tab = BOT.tab;
   var ds = ids.map(mucBot).filter(Boolean);
@@ -16058,6 +16076,7 @@ function dongHTML(m, q){
     '<div class="h2"><div class="the">'+
       the.map(function(t){ return '<span class="tg '+t[0]+'">'+(t[2] || coChuHTML(t[1]))+'</span>'; }).join('')+
     '</div><div class="nut">'+
+      (coCauNoi() && !laDT() ? '<button onclick="event.stopPropagation();chepMot(\'' +m.id+ '\')" title="Chép file — Ctrl+V vào Zalo / email / thư mục">📋</button>' : '')+   /* 3.106 */
       '<button onclick="event.stopPropagation();'+
         (laBM?'suaBieuMau':'suaCho')+'(\'' +m.id+ '\')" title="Sửa">✎</button>'+
       '<button onclick="event.stopPropagation();xoaVaoRac(\'' +m.id+ '\')" title="Xóa vào thùng rác">🗑</button>'+
@@ -16570,7 +16589,7 @@ function veDauTab(tab, opt){
     '<button class="nut-them" id="nut-them-'+tab+'" onclick="'+(opt.hamThem||'nutChinh()')+'" '+
       'ondragover="event.preventDefault();this.classList.add(\'keo\')" ondragleave="this.classList.remove(\'keo\')" '+
       'ondrop="this.classList.remove(\'keo\')" title="Bấm để chọn file, kéo thả file vào đây, hoặc copy file rồi dán (Ctrl+V)">'+
-      '<span class="cong">+</span> Thêm file</button>'+nutBot(tab)+
+      '<span class="cong">+</span> Thêm file</button>'+nutBot(tab)+nutChepNhieu(tab)+
     '<button class="phu'+(so?' co':'')+'" onclick="moBoLoc(\''+tab+'\')">'+
       'Bộ lọc'+(so?(' · '+so):'')+' ▾</button>'+
     nutLocNhanh(tab, opt.kho||[])+(opt.themPhu||'')+(opt.nutThem||'')+
@@ -19009,7 +19028,18 @@ function scriptCauNoi(){
 "   if(Test-Path -LiteralPath (Join-Path $p $goc)){ $root = $p; break } }",
 "  if($root){ break } }",
 " if(-not $root){ Bao (\"Chưa thấy thư mục '\"+$goc+\"' trong ổ Google Drive (My Drive). Mở Google Drive cho máy tính rồi thử lại.\"); exit }",
-" if($hanh -eq 'thu'){ Bao (\"Cầu nối đã chạy.`nThư mục Drive: \"+$root); exit }",
+" if($hanh -eq 'thu'){ Bao (\"Cầu nối đã chạy (bản 2).`nThư mục Drive: \"+$root); exit }",
+" if($hanh -eq 'chepn'){",
+"  $b = $rel.Replace('-','+').Replace('_','/'); while($b.Length % 4){ $b += '=' }",
+"  $ds = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($b)) -split \"`n\"",
+"  $c = New-Object System.Collections.Specialized.StringCollection; $thieu = @()",
+"  foreach($r in $ds){ $pp = @($r -split '/' | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' })",
+"   if($pp.Count -lt 2 -or $pp[0] -ne $goc -or @($pp | Where-Object { $_ -eq '..' -or $_ -eq '.' -or $_ -match '[\\\\:*?\"<>|]' }).Count -gt 0){ continue }",
+"   $f = Join-Path $root ($pp -join [IO.Path]::DirectorySeparatorChar); if(Test-Path -LiteralPath $f){ [void]$c.Add($f) } else { $thieu += $pp[-1] } }",
+"  if($env:TUHOSO_THU){ Write-Output ('chepn|'+$c.Count+'|'+$thieu.Count); exit }",
+"  if($c.Count){ Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.Clipboard]::SetFileDropList($c) }",
+"  if($thieu.Count){ Bao (\"Đã chép \"+$c.Count+\" file.`nChưa thấy \"+$thieu.Count+\" file trên máy (Google Drive có thể đang chép về):`n\"+($thieu -join \"`n\")) }",
+"  exit }",
 " $parts = @($rel -split '/' | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' })",
 " if($parts.Count -lt 2 -or $parts[0] -ne $goc -or @($parts | Where-Object { $_ -eq '..' -or $_ -eq '.' -or $_ -match '[\\\\:*?\"<>|]' }).Count -gt 0){ Bao 'Đường dẫn không hợp lệ.'; exit }",
 " $path = Join-Path $root ($parts -join [IO.Path]::DirectorySeparatorChar)",
@@ -19055,6 +19085,43 @@ function goiCauNoi(hanh, rel){
   setTimeout(function(){ f.remove(); }, 3000);
   if(hanh==='chep') bao('📋 Đã chép file — mở Zalo (hoặc email, thư mục), bấm vào ô chat rồi Ctrl+V.', 7);
 }
+/* 3.106 (anh chốt): 📋 chép 1 file từ dòng danh sách · chép nhiều file một lần (cầu nối bản 2, lệnh chepn — danh sách gói base64url UTF-8 cho gọn đường dẫn) */
+var CN_CHEP_CON = [];
+function cnBan2(){ try{ return localStorage.getItem('tuhoso_cn_ban')==='2'; }catch(e){ return false; } }
+function chepMot(id){
+  var x = timMuc(id) || (D.bieuMau||[]).find(function(z){ return z.id===id; }) || timScan(id);
+  if(!x) return;
+  if(!coCauNoi()) return hoiCaiCauNoi(function(){ bao('Chưa cài cầu nối: dùng Gửi cả file để tải file.', 5); });
+  var rel = relCua(x); if(!rel) return baoLoi('File này chưa lên Drive nên ổ G chưa có — bấm ☁ Đồng bộ ngay rồi thử lại sau ít phút.');
+  goiCauNoi('chep', rel);
+}
+function b64url(t){ var u = unescape(encodeURIComponent(t)); return btoa(u).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+function chepNhieu(ds){   /* ds = [mục] → chép tối đa 20 file / lần (ít hơn nếu tên dài — giới hạn độ dài lệnh Windows); còn lại → "Chép tiếp" */
+  if(!coCauNoi()) return hoiCaiCauNoi(function(){ bao('Chưa cài cầu nối: chép nhiều file cần cầu nối.', 5); });
+  if(!cnBan2()) return hoiCauNoiBan2(function(){ chepNhieu(ds); });
+  var co = [], chua = [];
+  ds.forEach(function(x){ var r = relCua(x); if(r) co.push(r); else chua.push(x.tenMoi||x.tenCu||x.ten||'file'); });
+  if(!co.length) return baoLoi('Các file đã chọn chưa lên Drive nên ổ G chưa có — bấm ☁ Đồng bộ ngay rồi thử lại sau ít phút.');
+  var lo = [];
+  while(co.length && lo.length<20 && b64url(lo.concat([co[0]]).join('\n')).length<=1800) lo.push(co.shift());
+  if(!lo.length) lo.push(co.shift());
+  CN_CHEP_CON = co;
+  goiCauNoi('chepn', b64url(lo.join('\n')));
+  bao('📋 Đã chép '+lo.length+' file — mở Zalo / email / thư mục, bấm Ctrl+V một lần là dán hết.'+(chua.length ? ' · '+chua.length+' file chưa lên Drive nên bỏ qua.' : '')+(co.length ? ' · Còn '+co.length+' file: dán xong bấm "📋 Chép tiếp".' : ''), 9);
+  capNhatBot();
+}
+function chepTiep(){ if(!CN_CHEP_CON.length) return; var con = CN_CHEP_CON; CN_CHEP_CON = []; chepNhieuRel(con); }
+function chepNhieuRel(co){ var lo = []; while(co.length && lo.length<20 && b64url(lo.concat([co[0]]).join('\n')).length<=1800) lo.push(co.shift()); if(!lo.length) lo.push(co.shift());
+  CN_CHEP_CON = co; goiCauNoi('chepn', b64url(lo.join('\n'))); bao('📋 Đã chép thêm '+lo.length+' file — Ctrl+V để dán.'+(co.length ? ' Còn '+co.length+' file.' : ''), 8); capNhatBot(); }
+function hoiCauNoiBan2(sau){
+  window.__cnSau = sau;
+  moHop('<h3>📋 Chép nhiều file cần cầu nối bản mới</h3>'+
+    '<div class="huong-dan">Cầu nối đang cài trên máy chỉ chép được <b>1 file</b>. Cài lại <b>1 lần</b> để chép nhiều file: bấm <b>⬇ Tải bộ cài mới</b> → mở file .reg → Yes → OK, rồi bấm <b>Mở thử</b> — hộp hiện chữ <b>“bản 2”</b> là xong.</div>'+
+    '<div class="hang-nut" style="margin-top:12px"><button class="nho chinh" onclick="taiBoCaiCauNoi()">⬇ Tải bộ cài mới</button>'+
+    '<button class="nho" onclick="dongHop();moThuCauNoi()">Mở thử</button>'+
+    '<button class="nho" onclick="try{localStorage.setItem(\'tuhoso_cn_ban\',\'2\')}catch(e){};dongHop();(window.__cnSau||function(){})()">Đã cài bản mới — chép luôn</button>'+
+    '<button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>');
+}
 function relDrive(duong, ten){ return String(duong||'').split('/').map(function(x){ return x.trim(); }).filter(Boolean).concat([ten]).join('/'); }
 /* đường dẫn trong Drive của một mục bất kỳ (văn bản, biểu mẫu, bản scan, chữ ký · CCCD) — '' nếu chưa lên Drive */
 function relCua(x){
@@ -19075,7 +19142,7 @@ function moThuCauNoi(){
   setTimeout(function(){
     hoi('Có thấy hộp “Cầu nối đã chạy”?', 'Có hộp đó hiện lên là máy này đã cài xong — app bật các nút 🖥 Mở trên máy · 📋 Chép file · 📂 Thư mục ở khung xem. '+
       'Không thấy gì thì tải lại bộ cài, bấm đúp file .reg → Yes → OK rồi Mở thử lại.', 'Có, đã thấy', function(){
-      datCauNoi(true); try{ localStorage.removeItem('tuhoso_cn_an'); }catch(e){}
+      datCauNoi(true); try{ localStorage.removeItem('tuhoso_cn_an'); localStorage.setItem('tuhoso_cn_ban', '2'); }catch(e){}   /* 3.106: bộ cài hiện tại là bản 2 (chép nhiều file) */
       if(mucDangXem) veNutCN(mucDangXem);
       bao('Đã bật cầu nối cho máy này.', 4);
     });

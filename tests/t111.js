@@ -106,6 +106,7 @@ const fs=require('fs'), path=require('path');
    ['kh','khNgay','hd','hdNgay'].forEach(o=>ktHoiKBSua(kD, o, ''));
    ktHoiKBSua(kD, 'mauKH', ''); const cK1 = chu((await moZip(await ktDocx('m01', ktKHGiaTri()))).doc);
    ok('Kế hoạch ① Đoàn ở phường: HĐT phường, do Đoàn mình quản lý, TM. BAN THƯỜNG VỤ / BÍ THƯ', /HĐT phường/.test(cK1) && !/HĐT xã/.test(cK1) && /do Đoàn mình quản lý/.test(cK1) && /do Đoàn quản lý/.test(cK1) && /TM\. BAN THƯỜNG VỤ\s*BÍ THƯ/.test(cK1));
+   ok('3.106 Kế hoạch ① thành phần: 1 câu chung theo Bảng chuẩn hóa (Đoàn: Bí thư, Phó Bí thư, Ủy viên Ban Thường vụ)', /thành lập đoàn kiểm tra gồm: Các đồng chí Bí thư, Phó Bí thư, Ủy viên Ban Thường vụ Đoàn Thanh niên phường Gia Lộc\./.test(cK1), (cK1.match(/[^.]*thành lập đoàn kiểm tra[^.]*\./)||[''])[0]);
    KT_K.to[best.ma] = goc;
    /* 7a. khung khai báo trong tab (không hộp bật lên) + Văn bản: CT vay không bắt buộc, sắp xếp Vừa thêm */
    C.che = 'dx'; C.xa = best.xa; C.to = best.ma; ktVeThe(); await w(200);
@@ -208,6 +209,33 @@ const fs=require('fs'), path=require('path');
    if(pipGoc) window.documentPictureInPicture = pipGoc; else delete window.documentPictureInPicture;
    CC.mo = 'hssv'; ccMo('hssv');
    nay = nay0; CC.hs = null;
+   /* 3.106: bảng khai báo Hội – xã — dòng "In ra", bỏ ô Đoàn; Mẫu 04 nhận xét từng tổ; dọn dữ liệu rác; chép file */
+   C.xa = best.xa; ktHoiKBHop(); await w(150);
+   const hin = document.querySelector('#hop-in .hkb-in');
+   ok('3.106 bảng khai báo: không còn cột Đoàn kiểm tra; dưới mỗi ô có dòng "In ra" (trống = tự lấy)', !document.querySelector('#hop-in .kt-hkb-doan') && !!hin && /In ra: \(tự lấy\)/.test(hin.textContent));
+   const kB = ktHoiKhoa(best), idB = kB.replace(/[^0-9a-z]/gi, '_'), oKH = document.getElementById('hkb-'+idB+'-kh');
+   if(oKH){ oKH.value = '06'; oKH.dispatchEvent(new Event('input')); }
+   const inKH = (document.getElementById('hkbi-'+idB+'-kh')||{}).textContent||'';
+   ok('3.106 gõ số KH → dòng In ra đổi ngay, thiếu "/KH" thì nhắc cam', /Căn cứ Kế hoạch … số 06/.test(inKH) && /⚠/.test(inKH), inKH);
+   if(oKH){ oKH.value = ''; oKH.dispatchEvent(new Event('input')); } dongHop();
+   D.cauHinh.ktgsLS = {x:1}; D.cauHinh.ktgsNK = [1]; ktHoiKBSua(kB, 'doan', 'Rác'); ktHoiKBSua(kB, 'cb', 'Giả Cán Bộ');
+   ok('3.106 Mẫu 04: Đoàn kiểm tra lấy cán bộ Mẫu 06 / 16, nhận xét từng tổ có dư nợ', (()=>{ const g = ktBC04([{t:best}])[0]; return g.doan.length>=1 && g.doan[0].cb==='Giả Cán Bộ' && /^- Tổ TK&VV .+: dư nợ [\d.,]+ triệu đồng/.test(g.nx[0]); })());
+   ktHoiKBSua(kB, 'cb', '');
+   /* dọn rác: chạy lại đoạn dọn (khởi động) */
+   (function(){ var ch = D.cauHinh; ['ktgsLS', 'ktgsNK', 'ktgsGN'].forEach(function(k){ delete ch[k]; }); Object.keys(ch.ktHoiKB || {}).forEach(function(k){ if(ch.ktHoiKB[k]) delete ch.ktHoiKB[k].doan; }); })();
+   ok('3.106 code dọn dữ liệu rác có trong app (ktgsLS / NK / GN, ô doan)', /\['ktgsLS', 'ktgsNK', 'ktgsGN'\]\.forEach/.test(document.documentElement.innerHTML) && D.cauHinh.ktgsLS===undefined && !(D.cauHinh.ktHoiKB[kB]||{}).doan);
+   /* chép file: giả cầu nối */
+   const goi0 = goiCauNoi, goiDS = []; goiCauNoi = (h, r) => goiDS.push([h, r]);
+   const coCN0 = coCauNoi; coCauNoi = () => true; try{ localStorage.setItem('tuhoso_cn_ban', '2'); }catch(e){}
+   const giaMuc = n => ({id:'gia'+n, driveId:'d'+n, nhom:'vanBan', tenMoi:'Văn bản thử số '+n+' dài dài dài.pdf', duong:'Văn bản/2026'});
+   const rel0 = relCua(giaMuc(0));
+   chepNhieu(Array.from({length:25}, (x, i)=>giaMuc(i)));
+   const c1 = goiDS[0], ds1 = c1 ? decodeURIComponent(escape(atob(c1[1].replace(/-/g,'+').replace(/_/g,'/')))).split('\n') : [];
+   ok('3.106 chép nhiều file: 1 lệnh chepn, tối đa 20 file / lần, còn lại để "Chép tiếp"', !!rel0 && c1 && c1[0]==='chepn' && ds1.length>0 && ds1.length<=20 && ds1[0]===rel0 && CN_CHEP_CON.length===25-ds1.length, ds1.length+' + '+CN_CHEP_CON.length);
+   chepTiep(); ok('3.106 Chép tiếp: gửi đợt kế', goiDS.length===2 && goiDS[1][0]==='chepn');
+   try{ localStorage.removeItem('tuhoso_cn_ban'); }catch(e){}
+   goiDS.length = 0; chepNhieu([giaMuc(1)]); ok('3.106 cầu nối cũ (chưa bản 2) → hỏi cài bản mới, không gửi lệnh', goiDS.length===0 && /cầu nối bản mới/.test(document.getElementById('hop-in').textContent)); dongHop();
+   goiCauNoi = goi0; coCauNoi = coCN0; CN_CHEP_CON = [];
    C.che = 'dx'; C.xa = ''; C.hoi = ''; C.to = '';
    var ra = {d06:await b64(await ktDocx('m06', g)), d16:await b64(F[f16])};
    return {o, ra}; }, files).catch(e=>({o:['✗ LỖI '+e.message]}));

@@ -4,6 +4,20 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.106 — 05/10/2026 14:00 — Mẫu 04 theo ý anh · Kế hoạch ① ② · dòng "In ra" ở bảng khai báo · chép file hàng loạt · dọn dữ liệu rác
+- **Mẫu 04/BC-TH** (anh chốt, văn bản 727):
+  - I.1 Đoàn kiểm tra = **cán bộ kiểm tra khai cho Mẫu 06 / 16** (cán bộ của Hội – xã + "Ông (bà) 2" ở khung ✎ Khai báo), dạng "- Ông (bà): … ⇥ Chức vụ: …" + **2 dòng in sẵn** "- Ông (bà): …… Chức vụ: ……" để ghi tay (`ktDoan04`). I.2 cấp ủy: 2 dòng chấm.
+  - II. Thời gian: **"Tháng mm/yyyy"** — mặc định tháng sau tháng số liệu (`ktThangKT`), không ghi ngày. Địa điểm: **ấp, xã, tỉnh** (dài quá 40 ký tự bỏ tỉnh — `ktDiaDiem04`); tiêu đề cột in sẵn của mẫu giữ nguyên.
+  - IV.1: **bỏ ý a) và c)**; "Đối với Tổ TK&VV:" ghi tự động từng tổ: dư nợ, nợ quá hạn (số tổ viên), nợ khoanh, món vay không giao dịch từ 3 tháng — có tồn tại thì "Đề nghị Ban quản lý Tổ phối hợp … đôn đốc, có kế hoạch xử lý" (`ktNxTo04`). Mục 2, 3 kiến nghị để trống ghi tay. VI: thêm 2 dòng chấm ghi tài liệu khác. Khuôn `KT_KHUON.m04`: bỏ đoạn a)/c) mục IV.1, dấu `{{@NXTO}}`, thêm `{{@CHAM2}}` sau "2. Danh sách đối chiếu".
+- **Kế hoạch ①:** mục thành phần ghi 1 câu chung theo Bảng chuẩn hóa: "… thành lập đoàn kiểm tra gồm: Các đồng chí Chủ tịch, Phó Chủ tịch, Ủy viên Ban Thường vụ …" (Đoàn: Bí thư, Phó Bí thư), bỏ dòng chấm. **Kế hoạch ②:** đủ 3 căn cứ như ① (727 · KH Hội tỉnh · Hợp đồng ủy thác) — số / ngày chưa khai để chấm (bỏ câu gọn `{{@KHT}}` / "Thực hiện một số nội dung…").
+- **⚙ Bảng khai báo Hội – xã:** dưới mỗi ô dòng **"In ra:"** đúng chữ sẽ in (đầu trang / trong câu, căn cứ KH, căn cứ HĐ, cán bộ, người ký); trống = "(tự lấy)" nghiêng; đã gõ = đậm + nút **↺** về chuẩn; nghi sai (thiếu "/KH", ngày sai dạng, lặp "Hội") = cam. **Bỏ ô Đoàn kiểm tra** (không mẫu nào dùng nữa); khung Mẫu 04 trong tab hiện cán bộ kiểm tra thay vào. Ô Đoàn kiểm tra ở khung ✎ của tab kiểm tra ghi rõ "chỉ in Mẫu 16".
+- **Dọn dữ liệu rác** (anh chốt): `ktgsLS`, `ktgsNK`, `ktgsGN` (bỏ từ 3.98), `ktHoiKB[…].doan` — xóa mỗi lần mở app (bản cũ trên Drive gộp lại vẫn bị dọn); dự phòng đầu ngày vẫn có.
+- **📋 Chép file** (anh chốt): nút 📋 trên từng dòng văn bản (cầu nối, 1 file). **☑ Chọn chép** ở đầu tab → bấm chọn nhiều file → "📋 Chép n file" — cầu nối đặt cả danh sách vào bộ nhớ tạm Windows, Ctrl+V một lần là dán hết; tối đa 20 file / lần (ít hơn nếu tên dài — giới hạn độ dài lệnh), còn lại "📋 Chép tiếp"; file chưa lên Drive bỏ qua và báo. Cầu nối **bản 2** (lệnh `chepn`, danh sách gói base64url UTF-8): máy đã cài bản cũ thì lần đầu chép nhiều app hỏi cài lại 1 lần; "Mở thử" hiện "bản 2".
+- Gộp luôn 3.105 (gạch đầu dòng Kế hoạch).
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t111 không lỗi (t108 / t110 / t111 cập nhật theo quy tắc mới; t111 thêm 8 phép 3.106).
+
+---
+
 ## 3.105 — 05/10/2026 10:00 — Kế hoạch KTGS: gạch đầu dòng chuẩn
 - Anh gửi ảnh mục "2. Ban quản lý Tổ TK&VV" (khuôn ②): dòng gạch đầu dòng thụt bằng dấu cách, không đều. Sửa **một lần cho cả 2 khuôn** (`KT_KHUON.m01`, `m01b`): mọi đoạn thân văn (căn đều) bắt đầu bằng "-" / "+" → bỏ khoảng trắng đầu dòng, chuẩn "- " / "+ " (một dấu cách), thụt đầu dòng thống nhất (① 720, ② 567 twip; trước lẫn 426 / 562 / 567 / 680 / không thụt). Phần Nơi nhận giữ nguyên. Chữ khuôn không đổi (đã so).
 - Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t111 không lỗi.
