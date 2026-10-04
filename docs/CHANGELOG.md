@@ -12,7 +12,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - IV.2 kiến nghị (`ktKN04`) — a) chỉ đạo Ban quản lý Tổ đôn đốc; b) theo từng tổ "đề nghị Ban quản lý Tổ phối hợp đôn đốc các hộ: + Món vay không có giao dịch từ 3 tháng trở lên: … + Còn lãi tồn trên 6 tháng lãi: …"; c) tổ viên. d), đ), mục 3 giữ dòng chấm. (Thay quy tắc 3.106 "kiến nghị để trống".)
 - **Lãi tồn cao** (anh chốt): lãi tồn món (trong hạn + quá hạn, không tính ân hạn) > 6 × lãi 1 tháng; lãi 1 tháng = dư nợ × lãi suất (cột Lãi suất Mẫu 31, %/năm ÷ 12; ≤ 2 coi là %/tháng — suy luận, chưa thấy Mẫu 31 thật). Không có lãi suất (chỉ Mẫu 10) → không xét. Mỗi tổ tối đa 10 hộ + "và n hộ khác" (`KT_DS_TOI`, `ktDsDon`, `ktDsKHD`, `ktDsLTC`).
 - **Mẫu 16/TD:** chưa khai ngày kiểm tra → tháng / năm theo tháng kiểm tra, ngày ghi tay; III. Tồn tại / Kiến nghị ghi tên hộ (món không giao dịch từ 3 tháng, lãi tồn trên 6 tháng lãi), kiến nghị "Đề nghị Ban quản lý Tổ phối hợp đôn đốc …".
-- Kiểm tra: `kiem.py` sạch; t114 mới (19 phép); t108 cập nhật số dòng chấm (III và a b c đã ghi sẵn).
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t114 không lỗi (t114 mới, 19 phép; t108 cập nhật số dòng chấm vì III và a b c đã ghi sẵn).
 
 ---
 
