@@ -12,6 +12,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - Cửa sổ tự co / giãn chiều cao theo mức (`resizeTo`, cần anh bấm / gõ — trình duyệt không cho thì giữ nguyên cỡ).
   - Nút **☀ / 🌙** đổi nền riêng cửa sổ nổi, nhớ lựa chọn (`tuhoso_hs_noi_mau`).
 - **Khối HSSV ở nền tối** (cả trong app): 3 khối lớn nền xanh lá đậm chữ xanh sáng, 2 khối nhỏ nền xanh dương đậm — hết cảnh khối sáng trên nền tối.
+- **🔎 Tra cứu KH** (anh góp ý): cột trái / phải đổi sang **40 / 60** (`minmax(320px,2fr) minmax(0,3fr)`) — danh sách bên trái không còn mất chữ. Dòng HSSV dưới món vay tô màu: **tên trường** chữ xanh đậm, **khóa học + nhập học → ra trường** khung cam (`.hs-truong`, `.hs-khoa`, có màu nền tối) — đối chiếu nhanh khi cho vay năm mới.
 - **Exe 1.2.0:** cùng 3 mức (nút **Thu nhỏ / Mở ra** trên thanh đầu, nút **Chi tiết ▼ / Thu gọn ▲** dưới câu chốt), cửa sổ tự co giãn chiều cao; nút **Nền tối / Nền sáng** (mặc định sáng); nhớ mức + nền trong `hssv.ini`.
 - Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t110 không lỗi; `t111` 77/77; app ↔ exe 1010/1010 ca khớp. Exe chạy thử bằng mono trên màn hình ảo (3 mức × 2 nền).
 

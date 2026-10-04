@@ -229,6 +229,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 2 | Bấm ▾ Chi tiết rồi ▴ Thu gọn | Hiện / ẩn bảng + kỳ trả + cách tính; cửa sổ dài ra / ngắn lại | |
 | 3 | Bấm ▁ | Còn 1 dải: ô ra trường, tiền vay, 1 dòng kết quả; gõ món mới dòng đổi theo; bấm dòng là chép; ▢ mở lại | |
 | 4 | Bấm ☀ / 🌙 | Đổi nền sáng / tối riêng cửa sổ nổi; mở lại vẫn nhớ; khối kết quả ở nền tối không còn nền sáng | |
+| 4b | Số liệu → 🔎 Tra cứu KH: chọn khách có món HSSV | Cột trái rộng ~40% (tên, mã, CCCD đủ chữ); dòng HSSV: tên trường xanh đậm, khóa + nhập học → ra trường khung cam | |
 | 5 | Exe 1.2.0 (Releases): Thu nhỏ / Mở ra, Chi tiết ▼, Nền tối | Như cửa sổ nổi; cửa sổ tự co giãn; đóng mở lại nhớ mức + nền | |
 
 **Ghi chú kỹ thuật 3.103:** cửa sổ nổi: `HS_NOI_MUC` (nho / gon / chi, mỗi lần mở = gon), lớp `hs-m-<mức>` trên `<body>` PiP + CSS trong `hsNoi` (ẩn `.hs-bang` / `.hs-ct` ở gon; ở nho ẩn `#hs-kq`, ô ngày vay, loại, GDX…), `hsMiniHTML` (`#hs-mini`), `hsNoiVe` (vẽ nút + gọi `hsNoiCoVua` → `w.resizeTo`), `hsNoiMuc`, `hsNoiChi`, `hsNoiMau` + `hsNoiToi` (data-theme riêng PiP, `localStorage.tuhoso_hs_noi_mau`); `hsDat` / `hsLoai` gọi `hsNoiVe` khi đang nổi. CSS nền tối `.hs-k` / `.hs-k.phu` (cả `prefers-color-scheme`). Exe 1.2.0: bảng màu `DatMau()` (sáng / tối) + `ApMau()`, `DatMuc(m)` + `CoVua()` (tính chiều cao theo phần đang hiện), `lMini`, `bChiTiet`, ini thêm `toi=`, `muc=` (vị trí chỉ lấy x, y, rộng).

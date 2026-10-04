@@ -2169,7 +2169,7 @@
   @media(max-width:600px){ .kt-hkb .kt-kb{grid-template-columns:1fr;gap:2px} }
 
   /* ===== 3.94 — 👤 Tra cứu KH gọn: danh sách 2 dòng · kiểm trùng 2 ô · thẻ chia nhóm · bấm giá trị để chép (tiền tố .tc394 / .tc-the để thắng khối cũ) ===== */
-  @media(min-width:900px){ .tc394.tc-2cot{grid-template-columns:minmax(300px,380px) 1fr} }
+  @media(min-width:900px){ .tc394.tc-2cot{grid-template-columns:minmax(320px,2fr) minmax(0,3fr)} }   /* 3.103 (anh chốt): trái / phải 40 / 60 — cột trái không còn mất chữ */
   .tc394 .tc-hang{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.tc394 .tc-hang .sl-tra-o{flex:1 1 220px;margin:0}.tc394 .tc-pv{margin:0;flex:0 1 auto}.tc394 .tc-pv>summary{font-size:calc(12px*var(--co))}
   .tc394 .tc-pv[open]{flex-basis:100%}
   .tc394 .sl-kq-dong{padding:3px 8px;margin:2px 0;border-radius:7px}.tc394 .sl-kq-dong small{font-size:calc(11px*var(--co));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -2195,7 +2195,7 @@
   .tc-dl{display:flex;gap:8px;font-size:calc(12.5px*var(--co));padding:1px 0;min-width:0}.tc-dl>span{flex:0 0 92px;color:var(--chu-phu)}.tc-dl>div{flex:1;min-width:0;word-break:break-word}
   .tc-dl b.xanh{color:#2c7a46}.tc-dl b.vang{color:#a86f00}.tc-dl b.do{color:#c0392b}
   .tc-mon-cuon{overflow-x:auto}.tc-the table.tc-mon{font-size:calc(12px*var(--co));width:100%}.tc-the table.tc-mon td,.tc-the table.tc-mon th{padding:3px 6px;vertical-align:top}
-  .tc-the table.tc-mon small{display:block;color:var(--chu-phu)}.tc-mon tr.tc-hs td{background:var(--nen);font-size:calc(11.5px*var(--co));padding-left:14px}.tc-mon tr.tc-xong td{color:var(--chu-phu)}.tc-mon tr.tc-cong td{font-weight:600;border-top:1px solid var(--vien)}
+  .tc-the table.tc-mon small{display:block;color:var(--chu-phu)}.tc-mon tr.tc-hs td{background:var(--nen);font-size:calc(11.5px*var(--co));padding-left:14px}.tc-hs .hs-truong{color:#1f5c99}.tc-hs .hs-khoa{color:#9a4a00;background:#fff1dc;border:1px solid #f0c48a;border-radius:5px;padding:0 5px;white-space:nowrap}:root[data-theme="dark"] .tc-hs .hs-truong{color:#8cc4f5}:root[data-theme="dark"] .tc-hs .hs-khoa{color:#ffc27a;background:#3a2a16;border-color:#7a5320}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tc-hs .hs-truong{color:#8cc4f5}:root:not([data-theme="light"]) .tc-hs .hs-khoa{color:#ffc27a;background:#3a2a16;border-color:#7a5320}}.tc-mon tr.tc-xong td{color:var(--chu-phu)}.tc-mon tr.tc-cong td{font-weight:600;border-top:1px solid var(--vien)}
   /* ===== 3.93 — 🛡 KTGS Hội đoàn thể: thanh BC0437 / BC0438 · bảng tổ có xếp loại · chọn hộ Mẫu 06 · hộp khai báo khi in ===== */
   #tr7 .kt-dau{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
   .kt-bc{font-size:calc(12px*var(--co));border:1px dashed var(--vien);border-radius:11px;padding:1px 9px;color:var(--chu-phu)}.kt-bc.co{border-style:solid;border-color:#7cc49a;background:#e6f4ea;color:#2c7a46}
@@ -12633,6 +12633,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.103', ds:[
+  ['🔎 Tra cứu KH: cột trái / phải 40 / 60 (danh sách không còn mất chữ); dòng HSSV tô màu tên trường + khóa học, ngày nhập học → ra trường để đối chiếu khi cho vay năm mới', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
   ['📌 Cửa sổ nổi HSSV: mặc định thu gọn (5 khối + câu chốt), ▾ Chi tiết mới hiện bảng / kỳ trả / cách tính, ▁ thu nhỏ còn 1 dải (ô ra trường, tiền vay, 1 dòng kết quả); nút ☀ / 🌙 đổi nền sáng / tối riêng cửa sổ nổi; khối HSSV đẹp hơn ở nền tối', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['📌 Hạn trả HSSV có nút Nổi: cửa sổ nhỏ luôn nằm trên trình duyệt / chương trình nghiệp vụ (Chrome, Edge) để vừa nhìn vừa nhập; dùng chung số liệu với ô trong app, ↩ đưa về. Máy không dùng được thì có công cụ riêng HanTraHSSV.exe (thư mục tools/hssv)', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['🎓 Hạn trả HSSV: tiền vay gợi ý tính theo năm học (từ tháng 9) — ra trường tháng 6–8 tròn năm, tháng 2–5 nửa năm, tháng 9 – tháng 1 tính vào năm trước; vay tháng 1–5 năm đầu tính nửa năm; ô Cách tính liệt kê từng năm học', "dongHop();doiNgan(0);ccMo('hssv')"],
@@ -23992,9 +23993,9 @@ function slTheKH(ma){
       var hs = '';
       if(m.c_ten_hssv || String(m.ct)==='02'){
         var nh = m.nhapHoc || ngayISOTuVN(m.c_ngay_nhap_hoc||''), rt = m.raTruong || ngayISOTuVN(m.c_ngay_ra_truong||'');
-        hs = '<tr class="tc-hs"><td colspan="8">🎓 '+[m.c_ten_hssv ? tcC(m.c_ten_hssv, 'tên HSSV') : '', m.c_cmnd_hssv ? 'CCCD '+tcC(m.c_cmnd_hssv, 'CCCD HSSV') : '', m.c_ten_truong ? coChuHTML(m.c_ten_truong) : '',
+        hs = '<tr class="tc-hs"><td colspan="8">🎓 '+[m.c_ten_hssv ? tcC(m.c_ten_hssv, 'tên HSSV') : '', m.c_cmnd_hssv ? 'CCCD '+tcC(m.c_cmnd_hssv, 'CCCD HSSV') : '', m.c_ten_truong ? '<b class="hs-truong">'+coChuHTML(m.c_ten_truong)+'</b>' : '',
           m.c_ten_he_dt ? coChuHTML(m.c_ten_he_dt) : '', m.c_ten_nganh_dt ? 'ngành '+coChuHTML(m.c_ten_nganh_dt) : '',
-          (nh || rt) ? 'khóa '+(nh ? nh.slice(0,4) : '?')+'–'+(rt ? rt.slice(0,4) : '?')+' (nhập học '+(nh ? ngayVNsl(nh) : '?')+' → ra trường '+(rt ? ngayVNsl(rt) : '?')+')' : '',
+          (nh || rt) ? '<b class="hs-khoa">khóa '+(nh ? nh.slice(0,4) : '?')+'–'+(rt ? rt.slice(0,4) : '?')+' · nhập học '+(nh ? ngayVNsl(nh) : '?')+' → ra trường '+(rt ? ngayVNsl(rt) : '?')+'</b>' : '',   /* 3.103: tô màu để đối chiếu khi cho vay năm mới */
           m.c_ten_dt_hoc_phi ? coChuHTML(m.c_ten_dt_hoc_phi) : ''].filter(Boolean).join(' · ')+'</td></tr>';
       }
       return '<tr class="'+(daTT(m) ? 'tc-xong' : '')+'"><td title="'+coChuHTML((m.ctTen||tdnCT({ct:m.ct})||'').trim())+'"><b>'+coChuHTML(ctNgan(m.ct, m))+'</b></td><td>'+tcC(m.ku, 'khế ước')+'</td>'+
