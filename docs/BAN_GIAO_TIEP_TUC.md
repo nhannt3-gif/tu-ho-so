@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 06/10/2026, bản 3.110)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 06/10/2026, bản 3.111)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,7 +88,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.110 (mới nhất):** sửa 10 chỗ chữ dính trong khuôn Kế hoạch ① ② (lỗi từ 3.105 xóa ô chỉ có dấu cách).
+**3.111 (mới nhất):** Mẫu 06 theo mẫu gốc (dòng đầu Thời điểm · Địa bàn · Tổ, Đơn vị tính riêng, tên hoa đầu từ, 1 món 2 dòng, cột tiền thực tế gọn / Vào việc rộng, CT / mục đích dài cỡ 10, Nợ lãi = lãi tồn + tổng); Mẫu 16 đầu trang canh giữa + Bảng II điền sẵn 727 (chọn để trống); ngày ảnh scan khôi phục không vượt hôm nay.
+
+**3.110:** sửa 10 chỗ chữ dính trong khuôn Kế hoạch ① ② (lỗi từ 3.105 xóa ô chỉ có dấu cách).
 
 **3.109:** Mẫu 04 ngày theo tháng kiểm tra, III nội dung ghi sẵn (727), kiến nghị a/b/c ghi sẵn liệt kê hộ (món KHĐ 3 tháng, lãi tồn > 6 tháng lãi, ≤ 10 hộ/tổ); Mẫu 16 tháng theo tháng kiểm tra + tên hộ ở Tồn tại / Kiến nghị.
 
@@ -234,6 +236,7 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 | 5 | **Ảnh / file mồ côi** | Đã đề xuất (chưa code): nhóm "🧩 Không thuộc mục nào" trong Dọn kho › Quét rác (ảnh gốc / thu nhỏ còn sót, ảnh chữ ký·CCCD lẻ, file trên Drive không có trong chỉ mục), mỗi mục: 📥 Đưa vào Chờ khai · 🔗 Gắn vào bản có sẵn · 🗑 Vào thùng rác; thanh nhắc khi mở app. Anh đồng ý hướng "không để rác không quản lý" — **xác nhận lại phạm vi rồi code**. |
 | 6 | ~~Thôn **54003520**~~ | **Đã rõ (01/10/2026):** lỗi dữ liệu hệ thống, thôn không còn; dữ liệu hệ thống còn lỗi chưa chỉnh hết → app chỉ báo. |
 | 7 | Backlog cũ chờ anh chốt | G thư viện offline / SRI · J tìm khung CCCD trên nền kính (cần ảnh thật) · ô bắt buộc · NOXH kỳ hạn / "phục viên" · danh mục Theo dõi nợ · dời nút Danh sách / Tính ngày · tìm theo nội dung văn bản · con số "N thiếu" của ma trận đếm theo danh sách chốt kỳ |
+| 8 | ✅ **3.111 đã sửa** — **Ngày ảnh scan khôi phục sai (vd "Chưa khai / 2036-02")** | `tgTuId(id)` đoán ngày từ 8 ký tự đầu mã ảnh; mã không theo dạng thời gian ra ngày vô nghĩa. Sửa: ngày rơi vào tương lai (> hôm nay + 1 ngày) hoặc trước 2020 → lấy hôm nay (cả `ngay` / `taoLuc` của mục khôi phục). 2 mục anh thấy 06/10/2026 anh đã xóa hẳn. |
 
 **Lưu ý / rủi ro đã biết:**
 - `tests/hoiquy.js` đôi khi 27/28 do chờ cố định → chạy lại (nên đổi sang chờ theo điều kiện).

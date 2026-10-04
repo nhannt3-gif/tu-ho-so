@@ -101,7 +101,7 @@ const fs=require('fs'), path=require('path');
    ok('Mẫu 06: tổ trưởng + mã khoản vay (gạch không ngắt)', z06.doc.indexOf(xmlEsc(best.ten))>=0 && /66<\/w:t><w:noBreakHyphen\/>/.test(z06.doc));
    ok('Mẫu 06: số dòng = số món (tối thiểu 3)', (z06.doc.match(/<w:tr[ >]/g)||[]).length >= Math.max(3, soMon)+4, soMon+' món');
    ok('Mẫu 06: trống giữ dòng chấm (đơn vị, cán bộ, ngày)', /Đơn vị kiểm tra: <\/w:t>/.test(z06.doc) && /\.{20,}/.test(z06.doc) && /Ngày \.{5,}/.test(z06.doc.replace(/<[^>]+>/g, '')));
-   ok('Mẫu 06: dòng cao tối thiểu 1,5 cm (3.98), chữ tự xuống dòng', /<w:trHeight w:val="850" w:hRule="atLeast"\/>/.test(z06.doc) && !/<w:noWrap\/>/.test(z06.doc));
+   ok('Mẫu 06: dòng cao tối thiểu 1,0 cm (3.111: 1 món 2 dòng), chữ tự xuống dòng', /<w:trHeight w:val="567" w:hRule="atLeast"\/>/.test(z06.doc) && !/<w:noWrap\/>/.test(z06.doc));
    ok('Mẫu 06: lặp tiêu đề bảng + không cắt dòng + giữ liền chữ ký', (z06.doc.match(/<w:tblHeader\/>/g)||[]).length===3 && /<w:cantSplit\/>/.test(z06.doc) && /<w:keepNext\/>/.test(z06.doc));
    ok('Mẫu 06: không có trang mẫu tham khảo', z06.doc.indexOf('MẪU THAM KHẢO')<0 && z06.doc.indexOf('Vũ Văn Nam')<0);
    ok('Mẫu 06: đường kẻ dạng shape giữ nguyên', /prst="line"/.test(z06.doc));

@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.111 — 06/10/2026 14:00 — Mẫu 06 theo mẫu gốc · Mẫu 16 Bảng II điền sẵn · ngày ảnh scan khôi phục
+- **Mẫu 06/TD** (anh duyệt):
+  - Dòng đầu theo mẫu gốc: "Đơn vị kiểm tra" canh trái; "Chức vụ" không dấu hai chấm; "Thời điểm kiểm tra ⇥ Địa bàn kiểm tra ⇥ Tổ TK&VV" cùng dòng, đo chữ thấy dài thì Tổ xuống dòng (`ktDong3_06`); "Đơn vị tính: triệu đồng" dòng riêng. Tiêu đề PHIẾU KIỂM TRA cách trên 10 pt.
+  - Cột: CT 1360, tiền theo sổ 992, tiền thực tế 850, Vào việc 1476 (twip). Dòng món cao tối thiểu 567 (≈ 1,0 cm, 2 dòng chữ), chữ 11; cột Chương trình cỡ 10; tên / mục đích đo thấy quá 2 dòng thì cỡ 10 (`ktDai2`, không cắt chữ).
+  - Tên người vay viết hoa đầu từ trong mọi mẫu in (`tenHoaDau`, cả danh sách hộ Mẫu 04 / 16); app vẫn hiện như hệ thống.
+  - Cột Nợ lãi (kiểm tra thực tế) = lãi tồn món (trong hạn + quá hạn, không ân hạn), triệu đồng; dòng Cộng có tổng (`TNL`); tổng giải ngân / dư nợ cỡ 11 không rớt chữ.
+- **Mẫu 16/TD:** "ĐƠN VỊ KIỂM TRA" và tên đơn vị canh giữa bằng điểm dừng tab (1800 / 6350); Bảng II điền sẵn theo 727 (`KT_B16`: x việc phải làm, "Không" điều cấm, "Định kỳ theo quý"), khung khai báo có chọn "Để trống (ghi tay)", nhớ lần sau (`D.cauHinh.ktBang16`).
+- **Ảnh scan khôi phục:** `tgTuId` chỉ nhận ngày từ 01/01/2020 đến hôm nay + 1 ngày; ngoài khoảng → hôm nay (hết "2036-02").
+- Kiểm tra: `kiem.py` sạch; t115 mới (21 phép); t106 / t110 / t111 cập nhật theo bố cục mới; hoiquy, hoiquy2, t101–t115 không lỗi.
+
+---
+
 ## 3.110 — 06/10/2026 10:00 — Kế hoạch KTGS: sửa chữ dính
 - Anh gửi ảnh khuôn ②: "Địa điểm:Văn phòng", "phườnggiao". Nguyên nhân: bản 3.105 (chuẩn gạch đầu dòng) xóa nhầm các ô chữ chỉ có dấu cách nằm giữa câu. Đối chiếu từng đoạn với khuôn 3.104 và chèn lại đúng dấu cách: khuôn ① 7 chỗ ("hạn. Thực", "giữ hồ", "nghệ, đào", "không? Có", "giữ sổ"…), khuôn ② 3 chỗ ("Hội nhận", "Địa điểm: Văn", "xã giao"). Dấu cách 3.105 cố ý thêm sau "+" giữ nguyên.
 - Kiểm tra: `kiem.py` sạch; t114 thêm phép chống tái phát (20 phép); hồi quy Kế hoạch t109 / t110 / t111 / t113.
