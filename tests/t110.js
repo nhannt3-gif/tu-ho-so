@@ -38,11 +38,10 @@ const fs=require('fs'), path=require('path');
    ok('gợi ý lại vẫn giữ hộ bắt buộc, không gợi ý QH / khoanh', bb.every(k=>KT_CHON.chon[k]) && !ktDaChon().some(h=>h.loai && !KT_CHON.chon[h.kh].bb));
    ok('hiện số hộ theo nhóm (giải thích khi kiểu ra trùng)', /hộ tốt · .* hộ cần quan tâm/.test(document.querySelector('.kt-nhom-so').textContent));
    /* 4. khai báo theo thứ tự mẫu */
-   KT_KB = {}; ktKhaiBao('m06'); await w(80); const id06 = [...document.querySelectorAll('#hop-in [id^=kb-]')].map(e=>e.id.slice(3)).join(','); dongHop();
-   ktKhaiBao('m16'); await w(80); const id16 = [...document.querySelectorAll('#hop-in [id^=kb-]')].map(e=>e.id.slice(3)).join(','); dongHop();
-   ok('khai báo Mẫu 06 theo thứ tự mẫu: đơn vị → cán bộ → thời điểm → mục đích', id06==='dv,cb1,cv1,cb2,cv2,ngay,md', id06);
-   ok('khai báo Mẫu 16 theo thứ tự mẫu: ngày → đoàn → cán bộ', id16==='ngay,doan,cb1,cv1,cb2,cv2,nx', id16);
-   ok('⚙ Khai báo Hội theo sườn kế hoạch: tên → KH Hội tỉnh → HĐUT → đoàn → ký', KT_HKB_O.map(x=>x[0]).join(',')==='ten,kh,khNgay,hd,hdNgay,doan,ky');
+   KT_KB = {}; ktKhaiBao('m06'); await w(80); const id06 = [...document.querySelectorAll('.kt-kb-khung [id^=kb-]')].map(e=>e.id.slice(3)).join(',');
+   ok('3.98: khai báo nằm trong tab (không hộp bật lên), theo thứ tự mẫu: Mẫu 06 (đơn vị → cán bộ → ngày → mục đích) rồi Mẫu 16 (đoàn → nhận xét)', !document.getElementById('hop-in') || !document.querySelector('#hop-in [id^=kb-]'), id06);
+   ok('khung đột xuất đủ ô theo thứ tự', id06==='dv,cbtu,cb2,cv2,ngay,md,doan,nx', id06);
+   ok('⚙ Khai báo Hội: tên → cán bộ → KH Hội tỉnh → HĐUT → đoàn → ký', KT_HKB_O.map(x=>x[0]).join(',')==='ten,cb,cbcv,kh,khNgay,hd,hdNgay,doan,ky');
    /* 5. định kỳ theo lịch */
    const t0 = best; C.xa = t0.xa; C.diem = ''; C.hoi = String(t0.dv); C.to = '';
    const kKH = '2026|'+t0.xa+'|'+t0.dv; D.cauHinh.ktKH = D.cauHinh.ktKH || {}; const lich = {}; lich[t0.ma] = 9; D.cauHinh.ktKH[kKH] = {tu:2, den:10, to:lich};
@@ -55,8 +54,8 @@ const fs=require('fs'), path=require('path');
    const dung = ho.filter(y=>!y.h.loai); dung.slice(0, Math.ceil(dung.length*0.2)).forEach(y=>{ KT_DK_BO[t0.ma+'|'+y.h.kh] = 1; }); ktVeThe(); await w(150);
    ok('bỏ tích → tỷ lệ < 90% báo đỏ', ktDKTyLe(t0).pt<90 && !!document.querySelector('.kt-dk-bang b.do'));
    KT_DK_BO = {}; const qh = ho.find(y=>y.h.loai); if(qh){ ktDKHoTich(t0.ma, qh.h.kh, 1, true); await w(100); ok('tích tay hộ QH / khoanh → thêm vào, không tính vào tỷ lệ', ktDKCo(t0.ma, qh) && ktDKTyLe(t0).pt===100 && ktDKTyLe(t0).nTong===ktDKTyLe(t0).nChon+1); }
-   KT_KB = {}; ktDKKhaiBao(); await w(80); const idDK = [...document.querySelectorAll('#hop-in [id^=kb-]')].map(e=>e.id.slice(3)).join(',');
-   ok('khai báo định kỳ theo thứ tự: Mẫu 06 (đơn vị → cán bộ → mục đích) rồi Mẫu 16 (đoàn); không hỏi ngày', idDK==='dv,cb1,cv1,cb2,cv2,md,doan,nx', idDK);
+   KT_KB = {}; ktDKKhaiBao(); await w(80); const idDK = [...document.querySelectorAll('.kt-kb-khung [id^=kb-]')].map(e=>e.id.slice(3)).join(',');
+   ok('khung định kỳ: Mẫu 06 (đơn vị → cán bộ → mục đích) rồi Mẫu 16 (đoàn); không hỏi ngày', idDK==='dv,cbtu,cb2,cv2,md,doan,nx', idDK);
    ktDKXem(); await w(400); const X = KT_DK_XEM;
    ok('Mẫu 06: thời điểm "…../09/2026", ngày trống, tháng 09 năm 2026', X.g06[0].f.TD==='…../09/2026' && X.g06[0].f.ND==='' && X.g06[0].f.NM==='09' && X.g06[0].f.NY==='2026');
    ok('Mẫu 16: ngày trống, tháng 09 năm 26; số liệu đến 31/08/2026; số khách = số hộ chọn', X.g16[0].f.ND==='' && X.g16[0].f.NM==='09' && X.g16[0].f.NY==='26' && X.g16[0].f.SD==='31' && X.g16[0].f.SM==='08' && +X.g16[0].f.SKH===X.g06[0].dc.length);

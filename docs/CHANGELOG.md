@@ -36,6 +36,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - Hội cấp xã (cả Đoàn) đều có Ban Thường vụ (anh chốt) → ghi chung "TM. BAN THƯỜNG VỤ" cho mọi Hội và Đoàn, cả khuôn ① (thêm dòng trên chức danh ký); chức danh: Hội "CHỦ TỊCH", Đoàn "BÍ THƯ" (anh chốt; sửa được ở mục "Ký thay mặt" trong bảng), "Ủy viên BTV", "Quyết định của BTV".
   - Khuôn Kế hoạch ① ② có dấu chèn mới: "HĐT xã" → xã / phường, "{Hội} xã" → phường, "do hội mình / do Hội quản lý" → Đoàn, "Chủ tịch, phó Chủ tịch", "Hội cấp trên", "Văn phòng ấp", "trưởng ấp", "Ban Thường vụ", "{Hội} tỉnh" (nơi nhận), "TM. BAN THƯỜNG VỤ".
   - Quốc hiệu giữ đúng mẫu Ngân hàng (anh chốt).
+- **Khai báo nằm ngay trong tab của mẫu** (anh chốt — "mẫu nào cần khai báo thì kèm ngay tab của mẫu đó"): bỏ các hộp bật lên khi in; mỗi tab có khung **✎ Khai báo khi in** (thu gọn được, nhớ theo tab):
+  - Đột xuất (06 + 16), Sau giải ngân (06), Định kỳ (06 + 16, không ngày): đơn vị (trống = Hội của tổ, "-" = chấm), **cán bộ kiểm tra: Theo bảng / Để trống (điền tay)**, ông (bà) 2, ngày, cột mục đích, đoàn kiểm tra, gợi ý nhận xét; nút In / Word ngay dưới khung.
+  - **Bảng cán bộ kiểm tra theo Hội – xã** (mỗi Hội 1 người, 4 người / xã) ngay trong khung; phiếu tự lấy cán bộ của Hội phụ trách tổ.
+  - Mẫu 04: bảng tên đơn vị + đoàn kiểm tra; Kế hoạch: bảng của Hội đang chọn (tên, căn cứ, đoàn, người ký) + nút bảng tất cả Hội – xã (chép kế hoạch Hội tỉnh).
+  - Khai báo được nhớ lần sau (trừ ngày kiểm tra).
+- **Văn bản:** CT vay **không còn bắt buộc** để rời "Chờ khai" (văn bản chung như quy chế, chức năng nhiệm vụ, hướng dẫn 727 không thuộc chương trình vay — lọc "Chưa gắn CT" vẫn tìm được); sắp xếp thêm kiểu **"Vừa thêm"** (file mới đưa vào tủ lên đầu).
 - **⚙ Khai báo Hội thành 1 bảng** (anh chốt): mỗi dòng 1 Hội – xã, cột: tên đơn vị · số / ngày KH Hội tỉnh · số / ngày HĐ ủy thác · đoàn kiểm tra · người ký; nút "⇩ cùng Hội" chép số / ngày KH Hội tỉnh xuống các xã cùng Hội (khi xem nhiều xã). Cùng chỗ lưu, dữ liệu cũ giữ nguyên. Kế hoạch ① ghi đủ căn cứ (số / ngày KH Hội tỉnh, HĐUT); ② căn cứ gọn khi chưa khai, **đã khai đủ thì ② cũng in đủ** (thêm dòng căn cứ KH Hội tỉnh, "hợp đồng ủy thác số … ngày …"). Đoàn: "của Tỉnh Đoàn Tây Ninh".
 - **Mẫu 16:**
   - Chữ in sẵn "thôn/tổ dân phố", "xã/phường/đặc khu", "tỉnh/thành phố" → đúng chữ (ấp / khu phố, xã / phường, tỉnh); trống thì giữ chữ mẫu.
