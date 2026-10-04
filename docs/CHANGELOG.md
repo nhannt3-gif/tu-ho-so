@@ -4,7 +4,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## HanTraHSSV.exe 1.0.1 — 04/10/2026 — sửa bố cục trên Windows
+## HanTraHSSV.exe 1.1.0 — 04/10/2026 — gợi ý trong ô + giao diện rõ màu · sửa bố cục trên Windows
+- **Gợi ý trong ô** (anh góp ý — như bản web): chữ xám `1–31` / `dd/mm/yyyy` / `vd 40` khi ô trống (EM_SETCUEBANNER), rê chuột hiện chú thích từng ô / khối, dòng hướng dẫn "Mỗi món: ngày ra trường → Enter → tiền vay → Enter…" luôn hiện dưới ô nhập.
+- **Giao diện** (anh: "sơ sài, nhợt nhạt"): thanh đầu xanh #185FA5 như app (tên, loại khóa học, GDX, nút Ghim: Bật/Tắt, Chép câu chốt nền trắng chữ xanh); nền xám xanh, thẻ nhập nền trắng có viền; ô đang gõ nền vàng nhạt; 3 khối lớn nền xanh lá viền đậm 2px, số 15pt; 2 khối nhỏ xanh dương viền rõ; câu chốt nền xanh lá đậm chữ trắng; bảng kỳ trả: kỳ đầu tô xanh, kỳ cuối in đậm; báo lỗi / lưu ý nền cam nhạt.
 - Anh thử trên Windows thật: khung kết quả bị co thành ô nhỏ có thanh cuộn, phần dưới trống. Nguyên nhân: `TableLayoutPanel` của Windows dồn ô khi dòng lưu ý / dòng lỗi đang ẩn → khung kết quả rơi vào hàng tự co (mono trên Linux không dồn nên không thấy). Sửa: gán cố định hàng cho từng phần (`goc.Controls.Add(x, 0, hàng)`). App không đổi. So app ↔ exe vẫn khớp.
 
 ---

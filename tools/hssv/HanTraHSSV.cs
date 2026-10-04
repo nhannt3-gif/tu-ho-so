@@ -8,14 +8,15 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 [assembly: AssemblyTitle("Hạn trả HSSV")]
 [assembly: AssemblyProduct("Tủ hồ sơ — công cụ Hạn trả HSSV")]
-[assembly: AssemblyVersion("1.0.1.0")]
-[assembly: AssemblyFileVersion("1.0.1.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
 
 namespace TuHoSo
 {
@@ -185,9 +186,11 @@ namespace TuHoSo
     // ===================== GIAO DIỆN =====================
     public class FormHs : Form
     {
-        static readonly Color XanhNen = Color.FromArgb(0xEE, 0xF8, 0xF0), XanhVien = Color.FromArgb(0x9C, 0xC3, 0xA4), XanhChu = Color.FromArgb(0x1E, 0x6A, 0x33);
-        static readonly Color XamNen = Color.FromArgb(0xF1, 0xF5, 0xF9), XamVien = Color.FromArgb(0xB9, 0xC8, 0xD6), XamChu = Color.FromArgb(0x33, 0x50, 0x6B);
-        static readonly Color ChuPhu = Color.FromArgb(0x66, 0x70, 0x7A), Cam = Color.FromArgb(0xC2, 0x5E, 0x00), XanhDam = Color.FromArgb(0x1F, 0x5C, 0x99);
+        /* 1.1: tông màu theo app Tủ hồ sơ (thanh đầu xanh #185FA5), khối kết quả đậm hơn, ô có chữ gợi ý */
+        static readonly Color Dau = Color.FromArgb(0x18, 0x5F, 0xA5), DauDam = Color.FromArgb(0x0F, 0x44, 0x78), Nen = Color.FromArgb(0xEC, 0xF1, 0xF7);
+        static readonly Color XanhNen = Color.FromArgb(0xE3, 0xF4, 0xE8), XanhVien = Color.FromArgb(0x3C, 0x9A, 0x5F), XanhChu = Color.FromArgb(0x14, 0x55, 0x2A), XanhLa = Color.FromArgb(0x1E, 0x6A, 0x33);
+        static readonly Color XamNen = Color.FromArgb(0xE6, 0xEE, 0xF7), XamVien = Color.FromArgb(0x7F, 0x9D, 0xBF), XamChu = Color.FromArgb(0x23, 0x46, 0x6E);
+        static readonly Color ChuPhu = Color.FromArgb(0x5A, 0x65, 0x70), Cam = Color.FromArgb(0xB4, 0x53, 0x09), CamNen = Color.FromArgb(0xFF, 0xF1, 0xE0), VangO = Color.FromArgb(0xFF, 0xF8, 0xD6), VienThe = Color.FromArgb(0xC9, 0xD6, 0xE3);
 
         ComboBox cbLoai; TextBox tGdx, tVay, tRt, tTien; CheckBox ckNoi; Button bChep;
         Label lVay, lTien, lLuuY, lLoi, lCau, lChiTiet, lBao; ListView lvKy; Panel pKq;
@@ -196,89 +199,115 @@ namespace TuHoSo
         bool vayTay, dangDat, chuotBam;
         readonly string tepCH = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TuHoSo", "hssv.ini");
         Timer tBao = new Timer { Interval = 2500 };
+        ToolTip goiY = new ToolTip { AutoPopDelay = 8000, InitialDelay = 400 };
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, string lParam);
+        /* chữ gợi ý xám trong ô trống (EM_SETCUEBANNER) — máy không phải Windows thì bỏ qua */
+        static void ChuMo(TextBox t, string chu)
+        {
+            EventHandler dat = (s, e) => { try { SendMessage(t.Handle, 0x1501, (IntPtr)1, chu); } catch { } };
+            if (t.IsHandleCreated) dat(t, EventArgs.Empty); else t.HandleCreated += dat;
+        }
+        static void VeVien(Control c, Color mau, int day)
+        {
+            c.Paint += (s, e) => { using (var pen = new Pen(mau, day)) { int n = day / 2; e.Graphics.DrawRectangle(pen, n, n, c.Width - day, c.Height - day); } };
+            c.Resize += (s, e) => c.Invalidate();
+        }
 
         public FormHs()
         {
             Text = "Hạn trả HSSV — Tủ hồ sơ";
             Font = new Font("Segoe UI", 10f);
-            BackColor = Color.White;
+            BackColor = Nen;
             StartPosition = FormStartPosition.Manual;
-            ClientSize = new Size(480, 640);
-            MinimumSize = new Size(420, 520);
+            ClientSize = new Size(500, 680);
+            MinimumSize = new Size(440, 560);
             TopMost = true;
             KeyPreview = true;
-            Padding = new Padding(10);
 
-            var goc = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 6 };
+            var goc = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 6, BackColor = Nen };
             goc.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));   /* cột co theo cửa sổ, không giãn theo chữ */
-            goc.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            goc.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            goc.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            goc.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            for (int r = 0; r < 4; r++) goc.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             goc.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
             goc.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             Controls.Add(goc);
 
-            /* dòng trên: loại khóa học · GDX · ghim · chép */
-            var tren = new FlowLayoutPanel { AutoSize = true, Dock = DockStyle.Fill, WrapContents = true, Margin = new Padding(0, 0, 0, 6) };
-            cbLoai = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Width = 150, Margin = new Padding(0, 3, 8, 0) };
+            /* thanh đầu xanh: tên · loại khóa học · GDX · ghim · chép */
+            var tren = new FlowLayoutPanel { AutoSize = true, Dock = DockStyle.Fill, WrapContents = true, BackColor = Dau, Margin = new Padding(0), Padding = new Padding(10, 8, 10, 8) };
+            var lTen = new Label { Text = "Hạn trả HSSV", AutoSize = true, ForeColor = Color.White, Font = new Font("Segoe UI", 12f, FontStyle.Bold), Margin = new Padding(0, 4, 12, 0) };
+            cbLoai = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Width = 150, Margin = new Padding(0, 4, 10, 0), FlatStyle = FlatStyle.Flat };
             cbLoai.Items.AddRange(new object[] { "Trên 12 tháng", "Đến 12 th · Y khoa" }); cbLoai.SelectedIndex = 0;
-            cbLoai.SelectedIndexChanged += (s, e) => { V.Loai = cbLoai.SelectedIndex == 1 ? "duoi" : "tren"; cbLoai.BackColor = V.Loai == "duoi" ? Color.FromArgb(0xFF, 0xE8, 0xCC) : SystemColors.Window; VeKq(); };
-            var lG = new Label { Text = "GDX", AutoSize = true, ForeColor = ChuPhu, Margin = new Padding(0, 7, 3, 0) };
-            tGdx = O(46); tGdx.Margin = new Padding(0, 3, 10, 0); tGdx.TextAlign = HorizontalAlignment.Center;
-            ckNoi = new CheckBox { Text = "Ghim trên cùng", Appearance = Appearance.Button, AutoSize = true, Checked = true, FlatStyle = FlatStyle.Flat, Margin = new Padding(0, 2, 6, 0) };
-            ckNoi.FlatAppearance.CheckedBackColor = Color.FromArgb(0xDD, 0xEB, 0xF7);
-            ckNoi.CheckedChanged += (s, e) => { TopMost = ckNoi.Checked; };
-            bChep = new Button { Text = "Chép câu chốt", AutoSize = true, FlatStyle = FlatStyle.Flat, BackColor = XanhDam, ForeColor = Color.White, Margin = new Padding(0, 2, 0, 0) };
+            cbLoai.SelectedIndexChanged += (s, e) => { V.Loai = cbLoai.SelectedIndex == 1 ? "duoi" : "tren"; cbLoai.BackColor = V.Loai == "duoi" ? Color.FromArgb(0xFF, 0xD8, 0xA8) : SystemColors.Window; VeKq(); };
+            var lG = new Label { Text = "GDX", AutoSize = true, ForeColor = Color.White, Margin = new Padding(0, 8, 4, 0) };
+            tGdx = O(48); tGdx.Margin = new Padding(0, 3, 12, 0); tGdx.TextAlign = HorizontalAlignment.Center;
+            ckNoi = new CheckBox { Text = "Ghim: Bật", Appearance = Appearance.Button, AutoSize = true, Checked = true, FlatStyle = FlatStyle.Flat, ForeColor = Color.White, BackColor = DauDam, Margin = new Padding(0, 3, 8, 0), Padding = new Padding(4, 0, 4, 0), Cursor = Cursors.Hand };
+            ckNoi.FlatAppearance.BorderColor = Color.White; ckNoi.FlatAppearance.CheckedBackColor = Color.FromArgb(0x3B, 0x8E, 0xD8);
+            ckNoi.CheckedChanged += (s, e) => { TopMost = ckNoi.Checked; ckNoi.Text = ckNoi.Checked ? "Ghim: Bật" : "Ghim: Tắt"; };
+            bChep = new Button { Text = "Chép câu chốt", AutoSize = true, FlatStyle = FlatStyle.Flat, BackColor = Color.White, ForeColor = Dau, Font = new Font("Segoe UI", 10f, FontStyle.Bold), Margin = new Padding(0, 3, 0, 0), Cursor = Cursors.Hand };
             bChep.FlatAppearance.BorderSize = 0;
             bChep.Click += (s, e) => { var kq = Hs.Tinh(V); if (kq.Loi.Count > 0) Bao("Chưa đủ số liệu: " + string.Join(" · ", kq.Loi)); else Chep(kq.Cau, "Đã chép câu chốt — dán vào hồ sơ."); };
-            tren.Controls.AddRange(new Control[] { cbLoai, lG, tGdx, ckNoi, bChep });
-            goc.Controls.Add(tren, 0, 0);   /* 1.0.1: gán cố định hàng — Windows dồn ô khi dòng trên ẩn, khung kết quả bị co */
+            tren.Controls.AddRange(new Control[] { lTen, cbLoai, lG, tGdx, ckNoi, bChep });
+            goc.Controls.Add(tren, 0, 0);   /* 1.0.1: gán cố định hàng — Windows dồn ô khi dòng ẩn, khung kết quả bị co */
+            goiY.SetToolTip(tGdx, "Ngày giao dịch của xã (1–31) — app nhớ cho lần mở sau");
+            goiY.SetToolTip(cbLoai, "Phân loại theo thời gian khóa đào tạo");
+            goiY.SetToolTip(ckNoi, "Bật: cửa sổ luôn nằm trên các cửa sổ khác");
 
-            lLuuY = new Label { AutoSize = true, ForeColor = Cam, Visible = false, Margin = new Padding(0, 0, 0, 4), MaximumSize = new Size(900, 0) };
+            lLuuY = new Label { AutoSize = true, ForeColor = Cam, BackColor = CamNen, Visible = false, Padding = new Padding(8, 5, 8, 5), Margin = new Padding(10, 8, 10, 0), MaximumSize = new Size(900, 0) };
             goc.Controls.Add(lLuuY, 0, 1);
 
-            /* dòng nhập: ngày vay · ngày ra trường · tiền vay */
-            var nhap = new TableLayoutPanel { Dock = DockStyle.Fill, AutoSize = true, ColumnCount = 3, RowCount = 2, Margin = new Padding(0, 0, 0, 6) };
+            /* thẻ nhập: ngày vay · ngày ra trường · tiền vay + dòng hướng dẫn */
+            var nhap = new TableLayoutPanel { Dock = DockStyle.Fill, AutoSize = true, ColumnCount = 3, RowCount = 3, BackColor = Color.White, Margin = new Padding(10, 8, 10, 6), Padding = new Padding(10, 8, 10, 8) };
+            VeVien(nhap, VienThe, 1);
             nhap.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33)); nhap.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31)); nhap.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36));
             lVay = NhanO("Ngày vay"); var lRt = NhanO("Ngày ra trường"); lTien = NhanO("Tiền vay (triệu)");
             tVay = O(0); tRt = O(0); tTien = O(0);
-            foreach (var t in new[] { tVay, tRt, tTien }) { t.Dock = DockStyle.Fill; t.Margin = new Padding(0, 0, 6, 0); }
+            foreach (var t in new[] { tVay, tRt, tTien }) { t.Dock = DockStyle.Fill; t.Margin = new Padding(0, 0, 8, 0); }
             nhap.Controls.Add(lVay, 0, 0); nhap.Controls.Add(lRt, 1, 0); nhap.Controls.Add(lTien, 2, 0);
             nhap.Controls.Add(tVay, 0, 1); nhap.Controls.Add(tRt, 1, 1); nhap.Controls.Add(tTien, 2, 1);
+            var lHd = new Label { Text = "Mỗi món: ngày ra trường → Enter → tiền vay → Enter sang món kế · bấm khối kết quả để chép", AutoSize = true, ForeColor = ChuPhu, Font = new Font("Segoe UI", 8.5f), Margin = new Padding(0, 6, 0, 0), MaximumSize = new Size(900, 0) };
+            nhap.Controls.Add(lHd, 0, 2); nhap.SetColumnSpan(lHd, 3);
+            nhap.Resize += (s, e) => { lHd.MaximumSize = new Size(Math.Max(200, nhap.ClientSize.Width - 24), 0); };
             goc.Controls.Add(nhap, 0, 2);
+            ChuMo(tGdx, "1–31"); ChuMo(tVay, "dd/mm/yyyy"); ChuMo(tRt, "dd/mm/yyyy"); ChuMo(tTien, "vd 40");
+            goiY.SetToolTip(tVay, "Ngày giải ngân — tự gợi ý ngày GDX gần nhất kể từ hôm nay; gõ đè nếu khác");
+            goiY.SetToolTip(tRt, "Gõ số liền, vd 30082030 — tự thêm dấu /");
+            goiY.SetToolTip(tTien, "Tự điền gợi ý theo năm học (từ tháng 9); gõ đè nếu hộ vay ít hơn");
 
-            lLoi = new Label { AutoSize = true, ForeColor = Cam, Visible = false, Margin = new Padding(0, 0, 0, 4), MaximumSize = new Size(900, 0) };
+            lLoi = new Label { AutoSize = true, ForeColor = Cam, BackColor = CamNen, Visible = false, Padding = new Padding(8, 6, 8, 6), Margin = new Padding(10, 0, 10, 6), MaximumSize = new Size(900, 0) };
             goc.Controls.Add(lLoi, 0, 3);
 
             /* kết quả: 3 khối lớn + 2 khối nhỏ, câu chốt, chi tiết, các kỳ trả */
-            pKq = new Panel { Dock = DockStyle.Fill, AutoScroll = true };
+            pKq = new Panel { Dock = DockStyle.Fill, AutoScroll = true, BackColor = Nen, Margin = new Padding(10, 0, 4, 6) };
             /* bố cục tay (tính theo độ rộng khung) — không để bảng tự giãn tràn ngang */
             for (int i = 0; i < 5; i++)
             {
                 bool phu = i >= 3;
-                var p = new Panel { BackColor = phu ? XamNen : XanhNen, Padding = new Padding(4, 3, 4, 4), Height = phu ? 58 : 76, Cursor = Cursors.Hand };
-                int idx = i; Color vien = phu ? XamVien : XanhVien;
-                p.Paint += (s, e) => { using (var pen = new Pen(vien)) e.Graphics.DrawRectangle(pen, 0, 0, ((Panel)s).Width - 1, ((Panel)s).Height - 1); };
-                oNhan[i] = new Label { Dock = DockStyle.Top, Height = 18, TextAlign = ContentAlignment.MiddleCenter, ForeColor = ChuPhu, Font = new Font("Segoe UI", 8.5f), AutoEllipsis = true };
-                oSo[i] = new Label { Dock = DockStyle.Top, Height = phu ? 22 : 28, TextAlign = ContentAlignment.MiddleCenter, ForeColor = phu ? XamChu : XanhChu, Font = new Font("Segoe UI", phu ? 11.5f : 14f, FontStyle.Bold) };
-                oPhu[i] = new Label { Dock = DockStyle.Fill, TextAlign = ContentAlignment.TopCenter, ForeColor = i == 0 ? XanhChu : ChuPhu, Font = new Font("Segoe UI", 8f, i == 0 ? FontStyle.Bold : FontStyle.Regular) };
+                var p = new Panel { BackColor = phu ? XamNen : XanhNen, Padding = new Padding(5, 4, 5, 4), Height = phu ? 60 : 82, Cursor = Cursors.Hand };
+                int idx = i;
+                VeVien(p, phu ? XamVien : XanhVien, 2);
+                oNhan[i] = new Label { Dock = DockStyle.Top, Height = 19, TextAlign = ContentAlignment.MiddleCenter, ForeColor = phu ? XamChu : XanhChu, Font = new Font("Segoe UI", 8.5f), AutoEllipsis = true, BackColor = Color.Transparent };
+                oSo[i] = new Label { Dock = DockStyle.Top, Height = phu ? 23 : 31, TextAlign = ContentAlignment.MiddleCenter, ForeColor = phu ? XamChu : XanhChu, Font = new Font("Segoe UI", phu ? 12f : 15f, FontStyle.Bold), BackColor = Color.Transparent };
+                oPhu[i] = new Label { Dock = DockStyle.Fill, TextAlign = ContentAlignment.TopCenter, ForeColor = i == 0 ? XanhLa : ChuPhu, Font = new Font("Segoe UI", 8f, i == 0 ? FontStyle.Bold : FontStyle.Regular), BackColor = Color.Transparent };
                 p.Controls.Add(oPhu[i]); p.Controls.Add(oSo[i]); p.Controls.Add(oNhan[i]);
                 EventHandler bam = (s, e) => { if (!string.IsNullOrEmpty(oChep[idx])) Chep(oChep[idx], "Đã chép: " + oChep[idx]); };
                 p.Click += bam; oNhan[i].Click += bam; oSo[i].Click += bam; oPhu[i].Click += bam;
+                goiY.SetToolTip(p, "Bấm để chép"); goiY.SetToolTip(oSo[i], "Bấm để chép");
                 oKhoi[i] = p; pKq.Controls.Add(p);
             }
-            lCau = new Label { AutoSize = false, BackColor = XanhNen, ForeColor = XanhChu, Font = new Font("Segoe UI", 10f, FontStyle.Bold), Padding = new Padding(8, 6, 8, 6), Cursor = Cursors.Hand };
+            lCau = new Label { AutoSize = false, BackColor = XanhLa, ForeColor = Color.White, Font = new Font("Segoe UI", 10f, FontStyle.Bold), Padding = new Padding(10, 7, 10, 7), Cursor = Cursors.Hand };
             lCau.Click += (s, e) => { if (lCau.Text != "") Chep(lCau.Text, "Đã chép câu chốt — dán vào hồ sơ."); };
-            lChiTiet = new Label { AutoSize = false, ForeColor = ChuPhu, Font = new Font("Segoe UI", 8.5f) };
-            lvKy = new ListView { View = View.Details, FullRowSelect = true, GridLines = true, HeaderStyle = ColumnHeaderStyle.Nonclickable, Height = 150, Font = new Font("Segoe UI", 9f) };
-            lvKy.Columns.Add("Kỳ", 110); lvKy.Columns.Add("Ngày trả (GDX)", 120); lvKy.Columns.Add("Gốc phải trả", 130, HorizontalAlignment.Right);
+            goiY.SetToolTip(lCau, "Bấm để chép câu chốt");
+            lChiTiet = new Label { AutoSize = false, ForeColor = ChuPhu, BackColor = Color.White, Font = new Font("Segoe UI", 8.5f), Padding = new Padding(8, 5, 8, 5) };
+            lvKy = new ListView { View = View.Details, FullRowSelect = true, GridLines = true, HeaderStyle = ColumnHeaderStyle.Nonclickable, Height = 150, Font = new Font("Segoe UI", 9.5f), BorderStyle = BorderStyle.FixedSingle };
+            lvKy.Columns.Add("Kỳ trả", 110); lvKy.Columns.Add("Ngày trả (GDX)", 120); lvKy.Columns.Add("Gốc phải trả", 130, HorizontalAlignment.Right);
             lvKy.DoubleClick += (s, e) => { if (lvKy.SelectedItems.Count > 0) { var t = lvKy.SelectedItems[0].SubItems[1].Text; Chep(t, "Đã chép: " + t); } };
+            goiY.SetToolTip(lvKy, "Bấm đúp một dòng để chép ngày trả");
             pKq.Controls.Add(lCau); pKq.Controls.Add(lChiTiet); pKq.Controls.Add(lvKy);
             pKq.Resize += (s, e) => XepKq();
             goc.Controls.Add(pKq, 0, 4);
 
-            lBao = new Label { Dock = DockStyle.Fill, AutoSize = true, ForeColor = Color.White, BackColor = XanhChu, Padding = new Padding(6, 4, 6, 4), Visible = false };
+            lBao = new Label { Dock = DockStyle.Fill, AutoSize = true, ForeColor = Color.White, BackColor = XanhLa, Font = new Font("Segoe UI", 9.5f, FontStyle.Bold), Padding = new Padding(10, 6, 10, 6), Margin = new Padding(0), Visible = false };
             goc.Controls.Add(lBao, 0, 5);
             tBao.Tick += (s, e) => { lBao.Visible = false; tBao.Stop(); };
 
@@ -313,15 +342,16 @@ namespace TuHoSo
 
         TextBox O(int rong)
         {
-            var t = new TextBox { BorderStyle = BorderStyle.FixedSingle, Font = new Font("Segoe UI", 11f) };
+            var t = new TextBox { BorderStyle = BorderStyle.FixedSingle, Font = new Font("Segoe UI", 12f) };
             if (rong > 0) t.Width = rong;
-            /* bấm vào ô là bôi đen số cũ (gõ là thay) */
-            t.Enter += (s, e) => { if (!chuotBam) t.SelectAll(); };
+            /* bấm vào ô là bôi đen số cũ (gõ là thay); ô đang gõ nền vàng nhạt */
+            t.Enter += (s, e) => { t.BackColor = VangO; if (!chuotBam) t.SelectAll(); };
+            t.Leave += (s, e) => { t.BackColor = SystemColors.Window; };
             t.MouseDown += (s, e) => { if (!t.Focused) chuotBam = true; };
             t.MouseUp += (s, e) => { if (chuotBam) { t.SelectAll(); chuotBam = false; } };
             return t;
         }
-        Label NhanO(string t) { return new Label { Text = t, AutoSize = false, AutoEllipsis = true, Dock = DockStyle.Fill, Height = 18, ForeColor = ChuPhu, Font = new Font("Segoe UI", 8.5f), Margin = new Padding(0, 0, 6, 2) }; }
+        Label NhanO(string t) { return new Label { Text = t, AutoSize = false, AutoEllipsis = true, Dock = DockStyle.Fill, Height = 19, ForeColor = ChuPhu, Font = new Font("Segoe UI", 8.5f, FontStyle.Bold), Margin = new Padding(0, 0, 8, 3) }; }
 
         /* ô ngày: gõ số tự chèn dấu / (như app) */
         static string GoNgay(string s)
@@ -369,8 +399,8 @@ namespace TuHoSo
             {
                 lLoi.Visible = !trong; lLoi.Text = "⚠ " + string.Join(" · ", kq.Loi);
                 pKq.Visible = false;
-                if (trong) { lLoi.Visible = true; lLoi.ForeColor = ChuPhu; lLoi.Text = "Gõ GDX của xã → ngày vay tự gợi ý. Mỗi món: ngày ra trường → Enter → tiền vay (điền sẵn gợi ý) → Enter sang món kế."; }
-                else lLoi.ForeColor = Cam;
+                if (trong) { lLoi.Visible = true; lLoi.ForeColor = XamChu; lLoi.BackColor = Color.White; lLoi.Text = "Gõ GDX của xã ở thanh trên → ngày vay tự gợi ý. Rồi gõ ngày ra trường — kết quả hiện ngay."; }
+                else { lLoi.ForeColor = Cam; lLoi.BackColor = CamNen; }
                 return;
             }
             lLoi.Visible = false; pKq.Visible = true;
@@ -395,7 +425,8 @@ namespace TuHoSo
                 var x = kq.Ky[i];
                 var it = new ListViewItem((i + 1) + (i == 0 ? " · đầu tiên" : (x.Cuoi ? " · cuối" : "")));
                 it.SubItems.Add(Hs.Ngay(x.Ngay)); it.SubItems.Add(x.Tien.HasValue ? Hs.Tien(x.Tien.Value) : "—");
-                if (i == 0) it.BackColor = XanhNen;
+                if (i == 0) { it.BackColor = XanhNen; it.ForeColor = XanhChu; }
+                if (x.Cuoi) it.Font = new Font(lvKy.Font, FontStyle.Bold);
                 lvKy.Items.Add(it);
             }
             lvKy.EndUpdate();
