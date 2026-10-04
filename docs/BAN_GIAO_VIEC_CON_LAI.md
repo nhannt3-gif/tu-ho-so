@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.110 · build 06/10/2026 10:00
+**Bản hiện tại:** 3.111 · build 06/10/2026 14:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.111) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › Mẫu 06 → Word | Dòng đầu như mẫu gốc (Thời điểm · Địa bàn · Tổ; Đơn vị tính dòng riêng); tên hoa đầu từ; 1 món 2 dòng; NSVSMTNT không rớt chữ; Nợ lãi có lãi tồn, Cộng có tổng | |
+| 2 | Mẫu 06 địa bàn dài (phường) | Tổ TK&VV xuống dòng thẳng cột Địa bàn, không tràn lề | |
+| 3 | Mẫu 16 → Word | "ĐƠN VỊ KIỂM TRA" canh giữa tên đơn vị; Bảng II có x / Không / Định kỳ theo quý; chọn "Để trống" → bảng trống | |
+| 4 | Scan › khôi phục ảnh | Không còn ngày 2036 | |
+
+**Ghi chú kỹ thuật 3.111:** khuôn `m06`: lưới bảng `[454,1276,992,1360,992,992,2099,850,850,1476,850,850,851,850,1134]` (đầu bảng, `dong`, `dongKN`, dòng Cộng); ô 13 `{{R8|}}`, Cộng `{{TNL|}}`; `ktDongCo` → trHeight 567, ô CT cỡ 20; `ktOSz(x, ix, sz)` đổi cỡ ô; `ktDai2` đo chữ thường (`ktDoRong(x, sz, thuong)`) so 2 dòng × 90% bề rộng `KT_06_O`. `ktCB06` / `ktCB06HTML` dùng `ktDong3_06` (a, b twip, `mot`). Khuôn `m16`: đầu trang tab giữa 1800 / 6350; 14 ô `{{B1|}}…{{B14|}}`, `ktGiaTri16` → `b2`, `ktB16Mac`. `tgTuId` giới hạn 2020 … hôm nay + 1 ngày.
 
 ### Danh sách thử trên máy thật (3.110) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
