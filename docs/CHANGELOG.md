@@ -29,6 +29,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - ② trong 🗓 Kế hoạch năm: chọn tháng có lịch → Mẫu 04 lấy đúng tổ của tháng (thời gian "…../mm/yyyy"), mỗi tháng 1 báo cáo; nút **In Kế hoạch + Mẫu 04** (1 lần in); Word vẫn 2 file riêng.
 - **📖 Bảng chuẩn hóa Hội – Đoàn** (`KT_CHUAN`, sửa trong app → `D.cauHinh.ktChuan`): tên trong câu, gọi tắt, đầu trang tỉnh / xã, nơi nhận cấp tỉnh, chức danh ký, cấp phó, cấp trên, viết tắt số văn bản.
   - Đầu trang theo bản kế hoạch thật anh gửi: Đoàn "TỈNH ĐOÀN TÂY NINH" / "**ĐTN XÃ …**"; Hội LHPN "**HỘI LHPN TỈNH TÂY NINH**" / "**HỘI LHPN XÃ …**" (ký hiệu /KH-HPN). Đoàn: Bí thư, "Tỉnh Đoàn", "Đoàn cấp trên".
+  - Nơi nhận cấp tỉnh viết gọn như bản thật: "Hội ND tỉnh", "Hội LHPN tỉnh", "Hội CCB tỉnh", "Tỉnh Đoàn". Hội Nông dân giữ đầu trang đủ "HỘI NÔNG DÂN TỈNH TÂY NINH / HỘI NÔNG DÂN XÃ …" (đúng bản thật).
+  - Kế hoạch ② bỏ chữ cố định phải sửa tay: "Trưởng thôn", "thôn", "ở xóm" → ấp / khu phố (cả ①), bỏ "tổ trưởng tổ dân phố"; "Ủy viên BTV", "Quyết định của BTV" → BCH khi Hội – xã không có Ban Thường vụ.
   - Hội Phụ nữ trong câu: "**Hội Liên hiệp Phụ nữ**"; tên gọn khi thiếu chỗ: "Hội LHPN", "Hội CCB" (mục "Tên gọn" trong bảng).
   - **Đơn vị kiểm tra tự điền** (anh chốt): Mẫu 06 ô "Đơn vị kiểm tra" và Mẫu 16 đầu trang "ĐƠN VỊ KIỂM TRA" = Hội cấp xã của từng tổ ("Hội Nông dân xã …", "Hội Liên hiệp Phụ nữ phường …", "Đoàn Thanh niên xã …"), viết đủ nếu đủ chỗ, thiếu chỗ thì tên gọn; anh gõ ở khai báo thì dùng chữ anh gõ, gõ "-" để chừa dòng chấm. Mẫu 16: chữ hoa, dài thì xuống dòng trước "XÃ / PHƯỜNG …"; tiêu ngữ canh bằng tab (không lệch khi tên dài).
   - ⚙ Khai báo Hội thêm "Ban Thường vụ: có / không" → không có thì ký "**TM. BAN CHẤP HÀNH**".
