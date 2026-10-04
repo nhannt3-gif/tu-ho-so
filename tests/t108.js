@@ -41,9 +41,9 @@ const fs=require('fs'), path=require('path');
    ok('chọn đến hội → chỉ tổ của hội', ktBCDs().every(r=>String(r.t.dv)===String(A.dv)));
    C.hoi = ''; pvVeCay('kt'); await w(200);
    /* khai báo Hội */
-   ktHoiKBHop(); await w(150); ok('⚙ Khai báo Hội: lọc theo xã đã chọn, đủ ô + nút Bảng chuẩn hóa', document.querySelectorAll('#hop-in .kt-hkb').length===ktHoiDs().length && ktHoiDs().every(x=>x.t.xa===A.xa) && document.querySelectorAll('#hop-in .kt-hkb textarea').length===ktHoiDs().length && /Bảng chuẩn hóa/.test(document.getElementById('hop-in').textContent));
-   const kA = ktHoiKhoa(A); ktHoiKBSua(kA, 'doan', 'Ông Giả Văn Một – Chủ tịch Hội, Trưởng đoàn\n  \nBà Giả Thị Hai – Phó Chủ tịch'); ktHoiKBSua(kA, 'hd', ' 12/HĐUT '); dongHop();
-   ok('lưu khai báo (bỏ dòng trống, gọn khoảng trắng)', D.cauHinh.ktHoiKB[kA].doan.split('\n').length===2 && D.cauHinh.ktHoiKB[kA].hd==='12/HĐUT');
+   ktHoiKBHop(); await w(150); ok('⚙ Khai báo Hội: lọc theo xã đã chọn, đủ ô + nút Bảng chuẩn hóa', document.querySelectorAll('#hop-in .kt-hkb').length===ktHoiDs().length && ktHoiDs().every(x=>x.t.xa===A.xa) && !document.querySelector('#hop-in .kt-hkb textarea') && document.querySelectorAll('#hop-in .kt-hkb .hkb-in').length===ktHoiDs().length*KT_HKB_O.length && /Bảng chuẩn hóa/.test(document.getElementById('hop-in').textContent));
+   const kA = ktHoiKhoa(A); ktHoiKBSua(kA, 'cb', '  Giả Văn   Một '); ktHoiKBSua(kA, 'cbcv', 'Chủ tịch Hội'); ktHoiKBSua(kA, 'hd', ' 12/HĐUT '); dongHop();
+   ok('lưu khai báo (gọn khoảng trắng); 3.106: không còn ô Đoàn kiểm tra', D.cauHinh.ktHoiKB[kA].doan===undefined && D.cauHinh.ktHoiKB[kA].cb==='Giả Văn Một' && D.cauHinh.ktHoiKB[kA].hd==='12/HĐUT');
    ok('tên đơn vị tự sinh Hội … xã …', /^(Hội|Đoàn)/.test(ktHoiTen(A)) && /(xã|phường) /i.test(ktHoiTen(A)), ktHoiTen(A));
    /* xem + Word */
    ktVeThe(); await w(200); ktBCXem(); await w(400);
