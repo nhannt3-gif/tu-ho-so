@@ -28,8 +28,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - ① tab con 📋 Mẫu 04: chọn xã / hội ở cây → tổ chia nhóm theo ấp, **tích cả ấp hoặc từng tổ**, mặc định không tích; ngày tùy chọn (trống = dòng chấm); số phiếu VI.1 để dòng chấm.
   - ② trong 🗓 Kế hoạch năm: chọn tháng có lịch → Mẫu 04 lấy đúng tổ của tháng (thời gian "…../mm/yyyy"), mỗi tháng 1 báo cáo; nút **In Kế hoạch + Mẫu 04** (1 lần in); Word vẫn 2 file riêng.
 - **📖 Bảng chuẩn hóa Hội – Đoàn** (`KT_CHUAN`, sửa trong app → `D.cauHinh.ktChuan`): tên trong câu, gọi tắt, đầu trang tỉnh / xã, nơi nhận cấp tỉnh, chức danh ký, cấp phó, cấp trên, viết tắt số văn bản.
-  - Đoàn: "TỈNH ĐOÀN TÂY NINH", "BCH ĐOÀN XÃ / PHƯỜNG …", Bí thư, "Tỉnh Đoàn", "Đoàn cấp trên".
-  - Hội Phụ nữ mặc định "**Hội Liên hiệp Phụ nữ**".
+  - Đầu trang theo bản kế hoạch thật anh gửi: Đoàn "TỈNH ĐOÀN TÂY NINH" / "**ĐTN XÃ …**"; Hội LHPN "**HỘI LHPN TỈNH TÂY NINH**" / "**HỘI LHPN XÃ …**" (ký hiệu /KH-HPN). Đoàn: Bí thư, "Tỉnh Đoàn", "Đoàn cấp trên".
+  - Hội Phụ nữ trong câu: "**Hội Liên hiệp Phụ nữ**"; tên gọn khi thiếu chỗ: "Hội LHPN", "Hội CCB" (mục "Tên gọn" trong bảng).
+  - **Đơn vị kiểm tra tự điền** (anh chốt): Mẫu 06 ô "Đơn vị kiểm tra" và Mẫu 16 đầu trang "ĐƠN VỊ KIỂM TRA" = Hội cấp xã của từng tổ ("Hội Nông dân xã …", "Hội Liên hiệp Phụ nữ phường …", "Đoàn Thanh niên xã …"), viết đủ nếu đủ chỗ, thiếu chỗ thì tên gọn; anh gõ ở khai báo thì dùng chữ anh gõ, gõ "-" để chừa dòng chấm. Mẫu 16: chữ hoa, dài thì xuống dòng trước "XÃ / PHƯỜNG …"; tiêu ngữ canh bằng tab (không lệch khi tên dài).
   - ⚙ Khai báo Hội thêm "Ban Thường vụ: có / không" → không có thì ký "**TM. BAN CHẤP HÀNH**".
   - Khuôn Kế hoạch ① ② có dấu chèn mới: "HĐT xã" → xã / phường, "{Hội} xã" → phường, "do hội mình / do Hội quản lý" → Đoàn, "Chủ tịch, phó Chủ tịch", "Hội cấp trên", "Văn phòng ấp", "trưởng ấp", "Ban Thường vụ", "{Hội} tỉnh" (nơi nhận), "TM. BAN THƯỜNG VỤ".
   - Quốc hiệu giữ đúng mẫu Ngân hàng (anh chốt).
@@ -45,7 +46,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - rồi tổ cùng ấp;
   - rồi tổ cùng xã cùng ngày GDXA.
   - Đánh dấu `diemSuy`; KTGS hiện dòng báo (tổ suy / tổ vẫn chưa rõ). Không sửa số liệu gốc.
-- Phép thử: mới `tests/t111.js` (39 phép); cập nhật `t106` (dòng 1,5 cm, không lịch sử, mỗi tổ 1 phiếu), `t108` (Mẫu 04 chọn theo cây / ấp), `t110` (ô Nhận xét, Mẫu 04 ① ②, đầu trang theo Bảng chuẩn hóa).
+- Phép thử: mới `tests/t111.js` (43 phép); cập nhật `t106` (dòng 1,5 cm, không lịch sử, mỗi tổ 1 phiếu), `t108` (Mẫu 04 chọn theo cây / ấp), `t110` (ô Nhận xét, Mẫu 04 ① ②, đầu trang theo Bảng chuẩn hóa).
 
 ## 3.97 — 03/10/2026 20:00 — 🗓 Kiểm tra định kỳ theo lịch (Mẫu 06 + 16) · số liệu mặc định cuối tháng · khuôn Kế hoạch ② · gợi ý lại
 - **KTGS Hội › 🗓 Định kỳ theo lịch · Mẫu 06 + 16** (anh chốt — 4 loại kiểm tra: ① sau giải ngân 30 ngày Mẫu 06 · ② đột xuất 6–8 hộ Mẫu 06 + 16 · ③ **định kỳ theo lịch** Mẫu 06 + 16 · ④ Mẫu 04 tổng hợp):
