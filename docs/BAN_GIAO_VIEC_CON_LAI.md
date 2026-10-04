@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.102 · build 04/10/2026 21:00
+**Bản hiện tại:** 3.103 · build 04/10/2026 23:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.103 + exe 1.2.0) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📌 Nổi → gõ 1 món | Mở ở mức thu gọn (không có bảng / kỳ trả); cửa sổ vừa nội dung | |
+| 2 | Bấm ▾ Chi tiết rồi ▴ Thu gọn | Hiện / ẩn bảng + kỳ trả + cách tính; cửa sổ dài ra / ngắn lại | |
+| 3 | Bấm ▁ | Còn 1 dải: ô ra trường, tiền vay, 1 dòng kết quả; gõ món mới dòng đổi theo; bấm dòng là chép; ▢ mở lại | |
+| 4 | Bấm ☀ / 🌙 | Đổi nền sáng / tối riêng cửa sổ nổi; mở lại vẫn nhớ; khối kết quả ở nền tối không còn nền sáng | |
+| 5 | Exe 1.2.0 (Releases): Thu nhỏ / Mở ra, Chi tiết ▼, Nền tối | Như cửa sổ nổi; cửa sổ tự co giãn; đóng mở lại nhớ mức + nền | |
+
+**Ghi chú kỹ thuật 3.103:** cửa sổ nổi: `HS_NOI_MUC` (nho / gon / chi, mỗi lần mở = gon), lớp `hs-m-<mức>` trên `<body>` PiP + CSS trong `hsNoi` (ẩn `.hs-bang` / `.hs-ct` ở gon; ở nho ẩn `#hs-kq`, ô ngày vay, loại, GDX…), `hsMiniHTML` (`#hs-mini`), `hsNoiVe` (vẽ nút + gọi `hsNoiCoVua` → `w.resizeTo`), `hsNoiMuc`, `hsNoiChi`, `hsNoiMau` + `hsNoiToi` (data-theme riêng PiP, `localStorage.tuhoso_hs_noi_mau`); `hsDat` / `hsLoai` gọi `hsNoiVe` khi đang nổi. CSS nền tối `.hs-k` / `.hs-k.phu` (cả `prefers-color-scheme`). Exe 1.2.0: bảng màu `DatMau()` (sáng / tối) + `ApMau()`, `DatMuc(m)` + `CoVua()` (tính chiều cao theo phần đang hiện), `lMini`, `bChiTiet`, ini thêm `toi=`, `muc=` (vị trí chỉ lấy x, y, rộng).
 
 ### Danh sách thử trên máy thật (3.102) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

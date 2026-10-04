@@ -8,6 +8,7 @@ Cửa sổ nhỏ **luôn nằm trên** trình duyệt / chương trình nghiệp
 3. Cần **.NET Framework 4.x** — có sẵn trên Windows 10 / 11 (Windows 7 / 8 cần cài .NET Framework 4.8).
 
 ## Nhập
+- **3 mức:** *Thu nhỏ* (1 dải: ra trường, tiền vay, 1 dòng kết quả — bấm là chép) · *thu gọn* (mặc định: 5 khối + câu chốt) · *Chi tiết ▼* (thêm dòng chi tiết + bảng kỳ trả). Cửa sổ tự co giãn. Nút **Nền tối / Nền sáng**. App nhớ mức + nền.
 - Dòng trên: loại khóa học (Trên 12 tháng / Đến 12 th · Y khoa) · **GDX** của xã (nhớ cho lần mở sau) · nút **Ghim: Bật / Tắt** (bật sẵn = luôn trên cùng) · **Chép câu chốt**.
 - **Ngày vay** tự gợi ý = ngày GDX gần nhất kể từ hôm nay (gõ đè nếu khác).
 - Mỗi món: gõ **ngày ra trường** (gõ số, tự thêm dấu /) → Enter → **tiền vay** (điền sẵn gợi ý theo năm học, gõ đè nếu khác) → Enter về ô ngày ra trường cho món kế.

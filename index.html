@@ -1993,6 +1993,9 @@
   .cc-dau{gap:5px}
   .hs-nhap{display:grid;grid-template-columns:1fr 1fr .55fr .75fr;gap:4px 7px}.hs-nhap.hs-nhap2{grid-template-columns:1fr 1fr .8fr}
   .hs-khoi{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin:6px 0}.hs-k{grid-column:span 2}.hs-k.phu{grid-column:span 3;border-color:#b9c8d6;background:#f1f5f9;padding:3px 8px}.hs-k.phu b{font-size:calc(15px*var(--co));color:#33506b}.hs-k i b{display:inline;font-size:inherit;color:#1e6a33}#hs-goiy,#hs-vgy{color:#1e6a33;font-weight:600}.hs-nhap.hs-nhap2{align-items:end}.hs-k{border:1px solid #9cc3a4;background:#eef8f0;border-radius:8px;padding:5px 8px;cursor:pointer;text-align:center}.hs-k small{display:block;font-size:calc(10.5px*var(--co));color:var(--chu-phu)}.hs-k b{display:block;font-size:calc(19px*var(--co));color:#1e6a33;line-height:1.25}.hs-k i{display:block;font-style:normal;font-size:calc(10.5px*var(--co));color:var(--chu-phu)}@media(max-width:600px){.hs-k{padding:4px 4px}.hs-k b{font-size:calc(14px*var(--co))}.hs-k.phu b{font-size:calc(13px*var(--co))}.hs-k small,.hs-k i{font-size:calc(9.5px*var(--co))}}
+  /* 3.103: khối HSSV ở nền tối */
+  :root[data-theme="dark"] .hs-k{background:#163a24;border-color:#3faf6a}:root[data-theme="dark"] .hs-k b,:root[data-theme="dark"] .hs-k i b,:root[data-theme="dark"] #hs-goiy,:root[data-theme="dark"] #hs-vgy{color:#9be3b4}:root[data-theme="dark"] .hs-k.phu{background:#1c2e44;border-color:#4f78a6}:root[data-theme="dark"] .hs-k.phu b{color:#b7d3f2}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hs-k{background:#163a24;border-color:#3faf6a}:root:not([data-theme="light"]) .hs-k b,:root:not([data-theme="light"]) .hs-k i b,:root:not([data-theme="light"]) #hs-goiy,:root:not([data-theme="light"]) #hs-vgy{color:#9be3b4}:root:not([data-theme="light"]) .hs-k.phu{background:#1c2e44;border-color:#4f78a6}:root:not([data-theme="light"]) .hs-k.phu b{color:#b7d3f2}}
   .hs-dau{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}.hs-o-gon{display:inline-flex;align-items:center;gap:3px;font-size:calc(11px*var(--co));color:var(--chu-phu);margin:0}.hs-o-gon input{height:26px;min-height:26px;padding:1px 5px;font-size:calc(12.5px*var(--co))}#hs-gdx{width:44px}
   .hs-hoc{grid-column:1 / -1;display:flex;align-items:center;gap:8px}
   .hs-hoc label{margin:0;flex:0 0 auto}
@@ -2987,7 +2990,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.102', APP_LUC = '04/10/2026 21:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.103', APP_LUC = '04/10/2026 23:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -4683,12 +4686,14 @@ function hsDat(k, el){
   }
   var nh = hsEl('hs-goiy'); if(nh) nh.innerHTML = hsGoiYNhan();
   var kq = hsEl('hs-kq'); if(kq) kq.innerHTML = hsKetQuaHTML();
+  if(HS_PIP) hsNoiVe();
 }
 function hsLoai(l){
   hsGT().loai = l==='duoi' ? 'duoi' : 'tren';
   var e = hsEl('hs-loai'); if(e){ e.value = hsGT().loai; e.classList.toggle('cam', hsGT().loai==='duoi'); }
   var n = hsEl('hs-luuy'); if(n) n.innerHTML = hsLuuYHTML();
   var kq = hsEl('hs-kq'); if(kq) kq.innerHTML = hsKetQuaHTML();
+  if(HS_PIP) hsNoiVe();
 }
 /* 3.63 (việc X, anh chốt): ô chọn nhỏ trên dòng tiêu đề; chọn "Đến 12 tháng · Y khoa" thì ô đổi màu cam + dòng lưu ý — không bật hộp */
 function hsChonLoaiHTML(){
@@ -4714,6 +4719,11 @@ function hsPhim(e, k, el){
 }
 function hsVayNhan(){ var v = hsGT(); return !v.vayTay && v.vay && v.vay===hsVayGoiY(v.gdx) ? ' · GDX gần nhất' : ''; }
 function hsGoiYNhan(){ var gy = hsGoiY(hsGT()); return gy ? ' · gợi ý '+gy.thang+' th = '+gy.trieu : ''; }
+function hsMiniHTML(){   /* 3.103: mức thu nhỏ của cửa sổ nổi — 1 dòng kết quả */
+  var v = hsGT(); if(!v.vay && !v.rt) return 'Gõ ngày ra trường';
+  var kq = hsTinh(v); if(kq.loi.length) return '⚠ '+coChuHTML(kq.loi[0]);
+  return kq.thoiHan+' th · hạn '+hsNgay(kq.hcGD)+(kq.moi ? ' · '+hsTien(kq.moi)+' × '+kq.ky.length+' kỳ' : '')+' · lần đầu '+hsNgay(kq.ky[0].ngay);
+}
 function hsLuuYHTML(){
   return hsGT().loai==='duoi' ? '⚠ Đang tính theo khóa học <b>đến 12 tháng / SV Y khoa</b>: trả nợ tối đa = 2 × phát tiền vay.' : '';
 }
@@ -4771,37 +4781,83 @@ function hsGhiTodo(){
   veNhatKy(); if(HS_PIP) hsNoiBao('📝 Đã ghi vào to-do hôm nay.'); else bao('📝 Đã ghi vào to-do hôm nay.', 3);
 }
 /* 3.102 (anh chốt): 📌 cửa sổ nổi — Chrome / Edge 116+ (Document Picture-in-Picture), luôn nằm trên mọi cửa sổ; dùng chung số liệu + công thức với app */
-var HS_VE_NOI = false, HS_NOI_HAM = ['hsDat', 'hsPhim', 'hsLoai', 'hsChep', 'hsGhiTodo', 'ccChep', 'hsNoiDong'];
+var HS_VE_NOI = false, HS_NOI_MUC = 'gon', HS_NOI_HAM = ['hsDat', 'hsPhim', 'hsLoai', 'hsChep', 'hsGhiTodo', 'ccChep', 'hsNoiDong', 'hsNoiMau', 'hsNoiMuc', 'hsNoiChi'];
 function hsNoiHTML(){
   HS_VE_NOI = true;
   try{
     return '<div class="cc-hop hs-noi"><div class="cc-dau"><b>🎓 HSSV</b>'+hsChonLoaiHTML()+'<span class="cc-gian"></span>'+
-      '<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt">📋 Chép</button><button class="nho" onclick="hsGhiTodo()" title="Ghi vào to-do hôm nay">📝</button>'+
+      '<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt">📋 Chép</button><button class="nho hs-noi-todo" onclick="hsGhiTodo()" title="Ghi vào to-do hôm nay">📝</button>'+
+      '<button class="nho" id="hs-noi-mau" onclick="hsNoiMau()" title="Đổi nền sáng / tối (riêng cửa sổ nổi)"></button>'+
+      '<button class="nho" id="hs-noi-nho" onclick="hsNoiMuc()" title="Thu nhỏ còn 1 dải / mở ra"></button>'+
       '<button class="nho" onclick="hsNoiDong()" title="Đưa về ô trong app">↩</button></div>'+
-      '<div class="cc-than">'+ccHSSVHTML()+'</div><div id="hs-noi-bao" class="hs-noi-bao"></div></div>';
+      '<div class="cc-than">'+ccHSSVHTML()+'</div>'+
+      '<div id="hs-mini" class="hs-mini" onclick="hsChep()" title="Bấm để chép câu chốt">'+hsMiniHTML()+'</div>'+
+      '<button class="nho hs-chi-nut" id="hs-chi-nut" onclick="hsNoiChi()"></button>'+
+      '<div id="hs-noi-bao" class="hs-noi-bao"></div></div>';
   } finally { HS_VE_NOI = false; }
 }
 function hsNoiBao(t){ var e = hsEl('hs-noi-bao'); if(!e) return; e.textContent = t; e.classList.add('hien'); clearTimeout(hsNoiBao.t); hsNoiBao.t = setTimeout(function(){ e.classList.remove('hien'); }, 3000); }
 function hsNoi(){
   if(HS_PIP){ try{ HS_PIP.focus(); }catch(e){} return; }
   if(!window.documentPictureInPicture || !documentPictureInPicture.requestWindow) return bao('📌 Cửa sổ nổi cần Chrome hoặc Edge bản mới (từ 116) — trình duyệt này chưa hỗ trợ. Có thể dùng công cụ HanTraHSSV.exe (thư mục tools/hssv).', 7);
-  documentPictureInPicture.requestWindow({width:460, height:620}).then(function(w){
+  HS_NOI_MUC = 'gon';   /* 3.103: mỗi lần mở bắt đầu ở mức thu gọn */
+  documentPictureInPicture.requestWindow({width:460, height:380}).then(function(w){
     var d = w.document, goc = document.documentElement;
     Array.prototype.forEach.call(goc.attributes, function(a){ if(a.name!=='class' || a.value) d.documentElement.setAttribute(a.name, a.value); });
     Array.prototype.forEach.call(document.querySelectorAll('style'), function(st){ d.head.appendChild(st.cloneNode(true)); });
     var them = d.createElement('style');
     them.textContent = 'body{margin:0;padding:8px;background:var(--nen,#fff);overflow:auto}.hs-noi{border:0;box-shadow:none;margin:0}.hs-noi .cc-dau{flex-wrap:wrap}'+
-      '.hs-noi-bao{position:fixed;left:8px;right:8px;bottom:8px;background:#1e6a33;color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}.hs-noi-bao.hien{opacity:1}';
+      '.hs-noi-bao{position:fixed;left:8px;right:8px;bottom:8px;background:#1e6a33;color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}.hs-noi-bao.hien{opacity:1}'+
+      /* 3.103: 3 mức — nho (1 dải) · gon (5 khối + câu chốt) · chi (thêm bảng, kỳ trả, cách tính) */
+      '.hs-mini{display:none}.hs-chi-nut{display:block;width:100%;margin:6px 0 0}'+
+      '.hs-m-gon .hs-bang,.hs-m-gon .hs-ct{display:none}'+
+      '.hs-m-nho #hs-kq,.hs-m-nho .hs-luuy,.hs-m-nho .hs-loai,.hs-m-nho .hs-o-gon,.hs-m-nho .hs-nhap .hs-o:first-child,.hs-m-nho .hs-chi-nut,.hs-m-nho #hs-noi-mau,.hs-m-nho .hs-noi-todo{display:none}'+
+      '.hs-m-nho .hs-nhap.hs-nhap2{grid-template-columns:1fr .8fr}'+
+      '.hs-m-nho .hs-mini{display:block;margin-top:6px;padding:7px 10px;border-radius:8px;background:#1e6a33;color:#fff;font-weight:700;font-size:13px;cursor:pointer;line-height:1.35}';
     d.head.appendChild(them);
     d.title = '🎓 Hạn trả HSSV';
     d.body.className = document.body.className;
     HS_NOI_HAM.forEach(function(n){ w[n] = function(){ return window[n].apply(window, arguments); }; });
     HS_PIP = w;
     d.body.innerHTML = hsNoiHTML();
+    var mau = ''; try{ mau = localStorage.getItem('tuhoso_hs_noi_mau')||''; }catch(e){}
+    if(mau) d.documentElement.setAttribute('data-theme', mau);
+    hsNoiVe();
     w.addEventListener('pagehide', function(){ HS_PIP = null; if(ccTim('hssv') && (CC.mo==='hssv' || CC.hop==='hssv')) ccVeLai('hssv'); });
     if(CC.mo==='hssv' || CC.hop==='hssv') ccVeLai('hssv');
     var o = hsEl('hs-rt'); if(o){ o.focus(); o.select(); }
   }).catch(function(e){ bao('📌 Không mở được cửa sổ nổi: '+(e && e.message || e), 6); });
+}
+function hsNoiToi(){ var d = HS_PIP.document, t = d.documentElement.getAttribute('data-theme');
+  return t ? t==='dark' : !!(HS_PIP.matchMedia && HS_PIP.matchMedia('(prefers-color-scheme: dark)').matches); }
+/* vẽ lại phần riêng của cửa sổ nổi theo mức + nền, rồi co giãn chiều cao cho vừa */
+function hsNoiVe(){
+  if(!HS_PIP) return;
+  var d = HS_PIP.document;
+  d.body.className = String(d.body.className||'').replace(/\s*hs-m-\w+/g, '')+' hs-m-'+HS_NOI_MUC;
+  var mi = hsEl('hs-mini'); if(mi) mi.innerHTML = hsMiniHTML();
+  var bn = hsEl('hs-noi-nho'); if(bn) bn.textContent = HS_NOI_MUC==='nho' ? '▢' : '▁';
+  var bc = hsEl('hs-chi-nut'); if(bc) bc.textContent = HS_NOI_MUC==='chi' ? '▴ Thu gọn' : '▾ Chi tiết';
+  var bm = hsEl('hs-noi-mau'); if(bm) bm.textContent = hsNoiToi() ? '☀' : '🌙';
+  hsNoiCoVua();
+}
+function hsNoiCoVua(){
+  var w = HS_PIP; if(!w) return;
+  try{
+    var hop = w.document.querySelector('.hs-noi'); if(!hop) return;
+    var can = Math.ceil(hop.getBoundingClientRect().height + 16 + (w.outerHeight - w.innerHeight));
+    can = Math.min(can, (w.screen && w.screen.availHeight || 900) - 40);
+    if(Math.abs(can - w.outerHeight) > 8) w.resizeTo(w.outerWidth, can);   /* cần thao tác người dùng (bấm / gõ) — không được thì bỏ qua */
+  }catch(e){}
+}
+function hsNoiMuc(){ HS_NOI_MUC = HS_NOI_MUC==='nho' ? 'gon' : 'nho'; hsNoiVe(); var o = hsEl('hs-rt'); if(o) o.focus(); }
+function hsNoiChi(){ HS_NOI_MUC = HS_NOI_MUC==='chi' ? 'gon' : 'chi'; hsNoiVe(); }
+function hsNoiMau(){
+  if(!HS_PIP) return;
+  var m = hsNoiToi() ? 'light' : 'dark';
+  HS_PIP.document.documentElement.setAttribute('data-theme', m);
+  try{ localStorage.setItem('tuhoso_hs_noi_mau', m); }catch(e){}
+  hsNoiVe();
 }
 function hsNoiDong(){ var w = HS_PIP; if(!w) return; HS_PIP = null; try{ w.close(); }catch(e){} if(CC.mo==='hssv' || CC.hop==='hssv') ccVeLai('hssv'); }
 
@@ -12576,7 +12632,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.102', ds:[
+var CO_GI_MOI = {ban:'3.103', ds:[
+  ['📌 Cửa sổ nổi HSSV: mặc định thu gọn (5 khối + câu chốt), ▾ Chi tiết mới hiện bảng / kỳ trả / cách tính, ▁ thu nhỏ còn 1 dải (ô ra trường, tiền vay, 1 dòng kết quả); nút ☀ / 🌙 đổi nền sáng / tối riêng cửa sổ nổi; khối HSSV đẹp hơn ở nền tối', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['📌 Hạn trả HSSV có nút Nổi: cửa sổ nhỏ luôn nằm trên trình duyệt / chương trình nghiệp vụ (Chrome, Edge) để vừa nhìn vừa nhập; dùng chung số liệu với ô trong app, ↩ đưa về. Máy không dùng được thì có công cụ riêng HanTraHSSV.exe (thư mục tools/hssv)', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['🎓 Hạn trả HSSV: tiền vay gợi ý tính theo năm học (từ tháng 9) — ra trường tháng 6–8 tròn năm, tháng 2–5 nửa năm, tháng 9 – tháng 1 tính vào năm trước; vay tháng 1–5 năm đầu tính nửa năm; ô Cách tính liệt kê từng năm học', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['🎓 Hạn trả HSSV: ô Ngày vay tự gợi ý ngày giải ngân = ngày giao dịch (GDX) gần nhất kể từ hôm nay (hôm nay đúng GDX thì lấy hôm nay); đổi GDX thì gợi ý lại; gõ đè nếu khác', "dongHop();doiNgan(0);ccMo('hssv')"],
