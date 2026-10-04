@@ -33,7 +33,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - Kế hoạch ② bỏ chữ cố định phải sửa tay: "Trưởng thôn", "thôn", "ở xóm" → ấp / khu phố (cả ①), bỏ "tổ trưởng tổ dân phố"; "Ủy viên BTV", "Quyết định của BTV" giữ (dấu chèn sẵn nếu sau này cần đổi).
   - Hội Phụ nữ trong câu: "**Hội Liên hiệp Phụ nữ**"; tên gọn khi thiếu chỗ: "Hội LHPN", "Hội CCB" (mục "Tên gọn" trong bảng).
   - **Đơn vị kiểm tra tự điền** (anh chốt): Mẫu 06 ô "Đơn vị kiểm tra" và Mẫu 16 đầu trang "ĐƠN VỊ KIỂM TRA" = Hội cấp xã của từng tổ ("Hội Nông dân xã …", "Hội Liên hiệp Phụ nữ phường …", "Đoàn Thanh niên xã …"), viết đủ nếu đủ chỗ, thiếu chỗ thì tên gọn; anh gõ ở khai báo thì dùng chữ anh gõ, gõ "-" để chừa dòng chấm. Mẫu 16: chữ hoa, dài thì xuống dòng trước "XÃ / PHƯỜNG …"; tiêu ngữ canh bằng tab (không lệch khi tên dài).
-  - Hội cấp xã (cả Đoàn) đều có Ban Thường vụ (anh chốt) → ghi chung "TM. BAN THƯỜNG VỤ" cho mọi Hội và Đoàn (anh chốt; sửa được ở mục "Ký thay mặt" trong bảng), "Ủy viên BTV", "Quyết định của BTV".
+  - Hội cấp xã (cả Đoàn) đều có Ban Thường vụ (anh chốt) → ghi chung "TM. BAN THƯỜNG VỤ" cho mọi Hội và Đoàn, cả khuôn ① (thêm dòng trên chức danh ký); chức danh: Hội "CHỦ TỊCH", Đoàn "BÍ THƯ" (anh chốt; sửa được ở mục "Ký thay mặt" trong bảng), "Ủy viên BTV", "Quyết định của BTV".
   - Khuôn Kế hoạch ① ② có dấu chèn mới: "HĐT xã" → xã / phường, "{Hội} xã" → phường, "do hội mình / do Hội quản lý" → Đoàn, "Chủ tịch, phó Chủ tịch", "Hội cấp trên", "Văn phòng ấp", "trưởng ấp", "Ban Thường vụ", "{Hội} tỉnh" (nơi nhận), "TM. BAN THƯỜNG VỤ".
   - Quốc hiệu giữ đúng mẫu Ngân hàng (anh chốt).
 - **Mẫu 16:**
