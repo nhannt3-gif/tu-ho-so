@@ -41,6 +41,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - **Bảng cán bộ kiểm tra theo Hội – xã** (mỗi Hội 1 người, 4 người / xã) ngay trong khung; phiếu tự lấy cán bộ của Hội phụ trách tổ.
   - Mẫu 04: bảng tên đơn vị + đoàn kiểm tra; Kế hoạch: bảng của Hội đang chọn (tên, căn cứ, đoàn, người ký) + nút bảng tất cả Hội – xã (chép kế hoạch Hội tỉnh).
   - Khai báo được nhớ lần sau (trừ ngày kiểm tra).
+- **🎓 Hạn trả HSSV** (anh chốt): dòng trên (giữ cả đợt nhập) = loại khóa học · **ngày GDX** · **ngày vay**; mỗi món chỉ nhập **ngày ra trường → tiền vay**; **Enter / →** sang ô sau, **Shift+Enter / ←** lùi, Enter ở tiền vay về ô ngày ra trường cho món kế tiếp; bấm vào ô là bôi đen số cũ (gõ là thay).
 - **Văn bản:** CT vay **không còn bắt buộc** để rời "Chờ khai" (văn bản chung như quy chế, chức năng nhiệm vụ, hướng dẫn 727 không thuộc chương trình vay — lọc "Chưa gắn CT" vẫn tìm được); sắp xếp thêm kiểu **"Vừa thêm"** (file mới đưa vào tủ lên đầu).
 - **⚙ Khai báo Hội thành 1 bảng** (anh chốt): mỗi dòng 1 Hội – xã, cột: tên đơn vị · số / ngày KH Hội tỉnh · số / ngày HĐ ủy thác · đoàn kiểm tra · người ký; nút "⇩ cùng Hội" chép số / ngày KH Hội tỉnh xuống các xã cùng Hội (khi xem nhiều xã). Cùng chỗ lưu, dữ liệu cũ giữ nguyên. Kế hoạch ① ghi đủ căn cứ (số / ngày KH Hội tỉnh, HĐUT); ② căn cứ gọn khi chưa khai, **đã khai đủ thì ② cũng in đủ** (thêm dòng căn cứ KH Hội tỉnh, "hợp đồng ủy thác số … ngày …"). Đoàn: "của Tỉnh Đoàn Tây Ninh".
 - **Mẫu 16:**

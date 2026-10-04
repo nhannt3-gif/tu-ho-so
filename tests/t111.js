@@ -126,6 +126,16 @@ const fs=require('fs'), path=require('path');
      ok('tổ thiếu điểm GD → suy theo tổ cùng ấp, đánh dấu', mau.diem===dg && /cùng ấp|địa bàn/.test(mau.diemSuy||''), mau.diemSuy);
      ok('báo tổ có điểm GD suy ở KTGS', /điểm GD suy theo ấp/.test(ktSuyHTML(K))); delete mau.diemSuy; }
    else ok('có tổ để thử suy điểm GD', false);
+   /* 9. 🎓 Hạn trả HSSV: dòng trên GDX + ngày vay; mỗi món chỉ ra trường + tiền; Enter qua ô; bấm vào bôi đen */
+   CC.hs = null; const dv = document.createElement('div'); dv.innerHTML = hsChonLoaiHTML()+ccHSSVHTML(); document.body.appendChild(dv);
+   ok('HSSV: dòng trên có loại + GDX + ngày vay; dòng nhập chỉ ngày ra trường + tiền vay', !!dv.querySelector('.hs-dau #hs-gdx') && !!dv.querySelector('.hs-dau #hs-vay') && [...dv.querySelectorAll('.hs-nhap input')].map(e=>e.id).join(',')==='hs-rt,hs-tien');
+   const ev = (el, k, sh) => el.dispatchEvent(new KeyboardEvent('keydown', {key:k, shiftKey:!!sh, bubbles:true, cancelable:true}));
+   const rt = document.getElementById('hs-rt'), ti = document.getElementById('hs-tien'), gd = document.getElementById('hs-gdx');
+   rt.focus(); ev(rt, 'Enter'); const b1 = document.activeElement===ti; ev(ti, 'Enter'); const b2 = document.activeElement===rt; ev(rt, 'Enter', true); const b3 = document.activeElement.id==='hs-vay';
+   gd.focus(); ev(gd, 'Enter'); const b4 = document.activeElement.id==='hs-vay';
+   ok('HSSV: Enter sang ô sau, Enter ở tiền vay về ngày ra trường (món kế), Shift+Enter lùi', b1 && b2 && b3 && b4, [b1,b2,b3,b4].join(','));
+   rt.value = '30/06/2026'; rt.focus(); ok('HSSV: bấm vào ô là bôi đen số cũ (gõ là thay)', rt.selectionStart===0 && rt.selectionEnd===rt.value.length);
+   dv.remove();
    C.che = 'dx'; C.xa = ''; C.hoi = ''; C.to = '';
    var ra = {d06:await b64(await ktDocx('m06', g)), d16:await b64(F[f16])};
    return {o, ra}; }, files).catch(e=>({o:['✗ LỖI '+e.message]}));

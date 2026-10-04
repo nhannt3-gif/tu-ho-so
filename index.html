@@ -1991,7 +1991,8 @@
   .cc-dau b{color:var(--xanh-dam);font-size:calc(13px*var(--co));flex:1}
   .cc-dau .nho{flex:0 0 auto;min-height:26px;padding:2px 9px;margin:0}
   .cc-dau{gap:5px}
-  .hs-nhap{display:grid;grid-template-columns:1fr 1fr .55fr .75fr;gap:4px 7px}
+  .hs-nhap{display:grid;grid-template-columns:1fr 1fr .55fr .75fr;gap:4px 7px}.hs-nhap.hs-nhap2{grid-template-columns:1fr 1fr}
+  .hs-dau{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}.hs-o-gon{display:inline-flex;align-items:center;gap:3px;font-size:calc(11px*var(--co));color:var(--chu-phu);margin:0}.hs-o-gon input{height:26px;min-height:26px;padding:1px 5px;font-size:calc(12.5px*var(--co))}#hs-gdx{width:44px}#hs-vay{width:92px}
   .hs-hoc{grid-column:1 / -1;display:flex;align-items:center;gap:8px}
   .hs-hoc label{margin:0;flex:0 0 auto}
   .hs-hoc .hs-seg{flex:1}
@@ -4645,25 +4646,38 @@ function hsLoai(l){
   var kq = document.getElementById('hs-kq'); if(kq) kq.innerHTML = hsKetQuaHTML();
 }
 /* 3.63 (việc X, anh chốt): ô chọn nhỏ trên dòng tiêu đề; chọn "Đến 12 tháng · Y khoa" thì ô đổi màu cam + dòng lưu ý — không bật hộp */
-function hsChonLoaiHTML(){
+function hsChonLoaiHTML(){   /* 3.98 (anh chốt): dòng trên = các ô giữ nguyên trong 1 đợt nhập (loại khóa học, ngày GDX, ngày vay) */
   var d = hsGT().loai==='duoi';
-  return '<select id="hs-loai" class="hs-loai'+(d?' cam':'')+'" onchange="hsLoai(this.value)" title="Phân loại theo thời gian khóa đào tạo">'+
-    '<option value="tren"'+(d?'':' selected')+'>Trên 12 tháng</option><option value="duoi"'+(d?' selected':'')+' title="Đến 12 tháng · SV Y khoa">Đến 12 th · Y khoa</option></select>';
+  return '<span class="hs-dau"><select id="hs-loai" class="hs-loai'+(d?' cam':'')+'" onchange="hsLoai(this.value)" title="Phân loại theo thời gian khóa đào tạo">'+
+    '<option value="tren"'+(d?'':' selected')+'>Trên 12 tháng</option><option value="duoi"'+(d?' selected':'')+' title="Đến 12 tháng · SV Y khoa">Đến 12 th · Y khoa</option></select>'+
+    hsO('gdx', 'GDX', '1–31', 1)+hsO('vay', 'Ngày vay', 'dd/mm/yyyy', 1)+'</span>';
+}
+var HS_THU = ['gdx', 'vay', 'rt', 'tien'];
+function hsO(k, nhan, goiY, gon){   /* ô nhập: bấm vào là bôi đen số cũ (gõ là thay), Enter / → sang ô sau, Shift+Enter / ← về ô trước */
+  var v = hsGT();
+  return (gon ? '<label class="hs-o-gon">'+nhan+' ' : '<div class="hs-o"><label>'+nhan+'</label>')+
+    '<input id="hs-'+k+'" value="'+coChuHTML(v[k]||'')+'" inputmode="numeric" placeholder="'+goiY+'" oninput="hsDat(\''+k+'\',this)" onfocus="this.select()" onmouseup="event.preventDefault()" onkeydown="hsPhim(event,\''+k+'\',this)">'+(gon ? '</label>' : '</div>');
+}
+function hsPhim(e, k, el){
+  var i = HS_THU.indexOf(k), di = 0, het = el.selectionStart===el.value.length && el.selectionEnd===el.value.length, dau = el.selectionStart===0 && el.selectionEnd===0;
+  if(e.key==='Enter') di = e.shiftKey ? -1 : 1; else if(e.key==='ArrowRight' && het) di = 1; else if(e.key==='ArrowLeft' && dau) di = -1;
+  if(!di) return;
+  e.preventDefault();
+  var j = k==='tien' && di>0 ? HS_THU.indexOf('rt') : Math.max(0, Math.min(HS_THU.length-1, i+di));   /* Enter ở Tiền vay → về Ngày ra trường để nhập món kế tiếp */
+  var n = document.getElementById('hs-'+HS_THU[j]); if(n){ n.focus(); n.select(); }
 }
 function hsLuuYHTML(){
   return hsGT().loai==='duoi' ? '⚠ Đang tính theo khóa học <b>đến 12 tháng / SV Y khoa</b>: trả nợ tối đa = 2 × phát tiền vay.' : '';
 }
 function ccHSSVHTML(){
   var v = hsGT();
-  var o = function(k, nhan, goiY, rong){ return '<div class="hs-o"'+(rong?' style="grid-column:span '+rong+'"':'')+'><label>'+nhan+'</label>'+
-    '<input id="hs-'+k+'" value="'+coChuHTML(v[k]||'')+'" inputmode="numeric" placeholder="'+goiY+'" oninput="hsDat(\''+k+'\',this)"></div>'; };
-  return '<div class="hs-luuy" id="hs-luuy">'+hsLuuYHTML()+'</div><div class="hs-nhap">'+o('vay','Ngày vay (món đầu)','dd/mm/yyyy')+o('rt','Ngày ra trường','dd/mm/yyyy')+o('gdx','Ngày GDX','1–31')+o('tien','Tiền vay (triệu)','vd 40')+
+  return '<div class="hs-luuy" id="hs-luuy">'+hsLuuYHTML()+'</div><div class="hs-nhap hs-nhap2">'+hsO('rt','Ngày ra trường','dd/mm/yyyy')+hsO('tien','Tiền vay (triệu)','vd 40')+
     '</div>'+
     '<div id="hs-kq">'+hsKetQuaHTML()+'</div>';
 }
 function hsKetQuaHTML(){
   var v = hsGT();
-  if(!v.vay && !v.rt) return '<div class="huong-dan">Gõ ngày vay, ngày ra trường và ngày GDX — kết quả hiện ngay.</div>';
+  if(!v.vay && !v.rt) return '<div class="huong-dan">Dòng trên (giữ cả đợt nhập): loại khóa học · ngày GDX · ngày vay. Mỗi món: gõ ngày ra trường → Enter → tiền vay → Enter (về ô ngày ra trường cho món kế tiếp). Bấm vào ô là bôi đen số cũ, gõ là thay.</div>';
   var kq = hsTinh(v);
   if(kq.loi.length) return '<div class="hs-loi">⚠ '+kq.loi.join(' · ')+'</div>';
   var mo = window.innerHeight>=950 ? ' open' : '';
@@ -12477,6 +12491,7 @@ var CO_GI_MOI = {ban:'3.98', ds:[
   ['👥 Danh sách chọn hộ (đột xuất, sau giải ngân, định kỳ) chung 1 kiểu: mã KH, món (mã KV, số KU, CT, dư nợ, ngày GN), lãi tồn, số dư 105, ghi chú tình trạng — xếp theo mã KH', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📖 Bảng chuẩn hóa Hội – Đoàn (trong khung ✎ Khai báo của Kế hoạch / Mẫu 04): tên, đầu trang, chức danh ký, cấp trên… sửa 1 chỗ cho mọi mẫu; Đoàn: Tỉnh Đoàn, Bí thư; ký TM. BAN THƯỜNG VỤ; phường → “phường”, “khu phố” trong Kế hoạch, Mẫu 16', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['✎ KTGS: khai báo nằm ngay trong tab của mẫu (khung thu gọn được, không còn hộp bật lên); cán bộ kiểm tra khai 1 bảng theo Hội – xã (4 người / xã), phiếu tự lấy đúng người của Hội phụ trách tổ — khi in chọn "Để trống" nếu muốn điền tay; khai báo được nhớ lần sau', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
+  ['🎓 Hạn trả HSSV: ngày GDX + ngày vay để ở dòng trên (giữ cả đợt), mỗi món chỉ gõ ngày ra trường → Enter → tiền vay → Enter sang món kế; bấm vào ô là bôi đen số cũ', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['📄 Văn bản không liên quan chương trình vay không còn bị kẹt ở Chờ khai (CT vay không bắt buộc); sắp xếp thêm kiểu "Vừa thêm" — file mới đưa vào tủ lên đầu', "dongHop();doiNgan(1)"],
   ['🏷 Đơn vị kiểm tra Mẫu 06 / 16 tự điền Hội cấp xã của từng tổ (Hội Nông dân xã …, Hội Liên hiệp Phụ nữ phường …, Đoàn Thanh niên xã …) — đủ chỗ viết đủ, thiếu chỗ viết gọn; gõ "-" để chừa dòng chấm. Đầu trang Kế hoạch: Đoàn "ĐTN XÃ …", Hội LHPN "HỘI LHPN XÃ …"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📝 Mẫu 16: chữ in sẵn “thôn/tổ dân phố, xã/phường/đặc khu” thành đúng chữ; tên Hội đầy đủ (hết lỗi “Hội Đoàn Thanh niên”); Chức vụ thẳng cột; gợi ý nhận xét theo số liệu (ô kết quả số tổ viên / lãi tồn / quá hạn, ưu điểm – tồn tại – kiến nghị) — chọn “Để trống” nếu muốn ghi tay', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
