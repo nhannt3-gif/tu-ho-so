@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## HanTraHSSV.exe 1.1.0 — 04/10/2026 — gợi ý trong ô + giao diện rõ màu · sửa bố cục trên Windows
+- **Gợi ý trong ô** (anh góp ý — như bản web): chữ xám `1–31` / `dd/mm/yyyy` / `vd 40` khi ô trống (EM_SETCUEBANNER), rê chuột hiện chú thích từng ô / khối, dòng hướng dẫn "Mỗi món: ngày ra trường → Enter → tiền vay → Enter…" luôn hiện dưới ô nhập.
+- **Giao diện** (anh: "sơ sài, nhợt nhạt"): thanh đầu xanh #185FA5 như app (tên, loại khóa học, GDX, nút Ghim: Bật/Tắt, Chép câu chốt nền trắng chữ xanh); nền xám xanh, thẻ nhập nền trắng có viền; ô đang gõ nền vàng nhạt; 3 khối lớn nền xanh lá viền đậm 2px, số 15pt; 2 khối nhỏ xanh dương viền rõ; câu chốt nền xanh lá đậm chữ trắng; bảng kỳ trả: kỳ đầu tô xanh, kỳ cuối in đậm; báo lỗi / lưu ý nền cam nhạt.
+- Anh thử trên Windows thật: khung kết quả bị co thành ô nhỏ có thanh cuộn, phần dưới trống. Nguyên nhân: `TableLayoutPanel` của Windows dồn ô khi dòng lưu ý / dòng lỗi đang ẩn → khung kết quả rơi vào hàng tự co (mono trên Linux không dồn nên không thấy). Sửa: gán cố định hàng cho từng phần (`goc.Controls.Add(x, 0, hàng)`). App không đổi. So app ↔ exe vẫn khớp.
+
+---
+
 ## 3.102 — 04/10/2026 21:00 — Hạn trả HSSV: 📌 cửa sổ nổi + công cụ riêng HanTraHSSV.exe
 - **📌 Nổi** (anh chốt): nút trên ô Hạn trả HSSV mở cửa sổ nhỏ **luôn nằm trên mọi cửa sổ** (Document Picture-in-Picture — Chrome / Edge 116+). Đủ ô nhập (loại, GDX, ngày vay, ra trường, tiền), 5 khối, câu chốt, Chép, 📝, Enter qua ô; dùng chung số liệu + công thức với app; ô trong app hiện "Đang mở ở cửa sổ nổi" (không trùng ô); **↩** / đóng cửa sổ thì ô trong app hiện lại với số đang nhập. Chép trong cửa sổ nổi dùng clipboard của chính cửa sổ đó, báo ngay trong cửa sổ. Trình duyệt chưa hỗ trợ → báo cần Chrome / Edge, gợi ý dùng exe.
 - **Công cụ riêng `tools/hssv/HanTraHSSV.exe`** (C# WinForms, .NET Framework 4.x có sẵn trên Windows 10/11, ~30 KB, không cài): ghim trên cùng (bật sẵn), cùng bố cục 3 khối lớn + 2 khối nhỏ, câu chốt, chi tiết + dòng năm học, bảng kỳ trả; ngày vay gợi ý GDX gần nhất, tiền vay gợi ý theo năm học; gõ ngày tự thêm "/"; Enter / Shift+Enter / mũi tên; bấm khối là chép; nhớ GDX, ghim, vị trí cửa sổ (`%APPDATA%\TuHoSo\hssv.ini`). Mã nguồn `HanTraHSSV.cs`, dựng bằng `tools/hssv/dung.sh`; hướng dẫn `tools/hssv/README.md`.
