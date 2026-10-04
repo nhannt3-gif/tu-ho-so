@@ -11,7 +11,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **C. Dòng báo vàng KTGS:** "File Thông tin tổ trưởng T9/2026 thiếu n tổ (có trong Mẫu 31) — đã xếp điểm GD: tháng trước a · danh bạ tổ b · theo ấp c · ngày GDXA d"; bấm ra bảng từng tổ (xã, ấp, Hội, điểm GD + căn cứ, món còn dư nợ); chưa nạp file kỳ này thì báo "Chưa nạp …".
 - **E. KTGS Hội:** cây chọn bỏ mục "Trực tiếp" / "Vay trực tiếp" (`PV_DUNG.kt.boTT`, `pvBoTT`); tab Tổ TK&VV, Tra cứu KH, Sao kê giữ nguyên.
 - **D. Mẫu 16:** "ĐOÀN KIỂM TRA:" = tên Hội cấp xã của tổ theo Bảng chuẩn hóa (`ktHoiTenTD`), trực tiếp → dòng chấm; bỏ ô khai "Đoàn kiểm tra"; dọn `ktKBLuu.doan` khi mở app.
-- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t112 không lỗi (t112 mới, 23 phép).
+- Kiểm tra: `kiem.py` sạch; hoiquy2, t101–t112 không lỗi (t112 mới 23 phép; t106 / t110 / t111 cập nhật theo quy tắc 3.107: bỏ ô Đoàn, dòng báo mới). hoiquy: 1 lần chạy cả bộ báo 1 ✗ không rõ phép, chạy lại 7 lần (cả khi chạy song song) đều sạch — ghi nhận chập chờn, chưa tái hiện.
 
 ---
 
