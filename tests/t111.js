@@ -1,4 +1,4 @@
-// 3.98–3.101 — HSSV tiền vay theo năm học (3.101) · HSSV ngày vay gợi ý GDX gần nhất (3.100) · HSSV gợi ý tiền vay + 5 khối (3.99) · KTGS chỉ phục vụ in (bỏ theo dõi) · Mẫu 06 bố cục mới (dòng chấm Đơn vị, Chức vụ thẳng cột bằng tab, địa bàn chuẩn, cột Mục đích rộng,
+// 3.98–3.102 — HSSV cửa sổ nổi 📌 (3.102) · HSSV tiền vay theo năm học (3.101) · HSSV ngày vay gợi ý GDX gần nhất (3.100) · HSSV gợi ý tiền vay + 5 khối (3.99) · KTGS chỉ phục vụ in (bỏ theo dõi) · Mẫu 06 bố cục mới (dòng chấm Đơn vị, Chức vụ thẳng cột bằng tab, địa bàn chuẩn, cột Mục đích rộng,
 //        dòng 1,5 cm, gộp tên / ký theo hộ, mã KH, 2 mục đích PNKT51 + PNKT52) · danh sách chọn hộ chung · xem trước tách tờ ·
 //        Bảng chuẩn hóa Hội – Đoàn (Kế hoạch ① ②, Mẫu 16, Đoàn / phường) · Mẫu 16 gợi ý nhận xét · điểm GD suy theo ấp / ngày GDXA.
 // Bộ GIẢ: tests/gia31. Tham số tùy chọn: thư mục lưu file Word mẫu.
@@ -163,8 +163,33 @@ const fs=require('fs'), path=require('path');
    v2.value = '20/10/2026'; v2.dispatchEvent(new Event('input')); g2.value = '07'; g2.dispatchEvent(new Event('input'));
    const t2 = v2.value==='20/10/2026' && hsGT().vay==='20/10/2026' && !/GDX gần nhất/.test(document.getElementById('hs-vgy').textContent);
    ok('HSSV: đổi GDX → ngày vay gợi ý lại; đã gõ tay thì giữ nguyên', t1 && t2, [t1,t2].join(','));
+   /* 3.102: 📌 cửa sổ nổi — giả Document PiP bằng window.open */
+   nay = () => new Date(2026, 9, 4, 9); CC.hs = null; dv.remove();
+   const pipGoc = window.documentPictureInPicture; delete window.documentPictureInPicture;
+   let baoMsg = ''; const bao0 = bao; bao = (t)=>{ baoMsg = t; };
+   hsNoi(); ok('📌 trình duyệt không hỗ trợ → báo cần Chrome / Edge, không lỗi', /Chrome hoặc Edge/.test(baoMsg) && !HS_PIP);
+   bao = bao0;
+   window.documentPictureInPicture = {requestWindow: () => Promise.resolve(window.open('', 'hsnoi', 'width=460,height=620'))};
+   CC.mo = ''; ccMo('hssv'); await w(100);
+   ok('📌 nút Nổi có trên ô HSSV', !!document.querySelector('#cc-o button[onclick="hsNoi()"]'));
+   hsNoi(); await w(400);
+   const pw = HS_PIP, pd = pw && pw.document;
+   ok('📌 mở cửa sổ nổi: có đủ ô (loại, GDX, ngày vay, ra trường, tiền) + kết quả', !!pd && ['hs-loai','hs-gdx','hs-vay','hs-rt','hs-tien','hs-kq'].every(id=>pd.getElementById(id)) && pd.querySelectorAll('style').length>=document.querySelectorAll('style').length+1);
+   ok('📌 ô trong app chuyển thành dòng "Đang mở ở cửa sổ nổi", không trùng ô', /cửa sổ nổi/.test(document.getElementById('cc-o').textContent) && !document.getElementById('hs-rt'));
+   const pv = id => pd.getElementById(id), go = (id, v) => { const e = pv(id); e.value = v; e.dispatchEvent(new pw.Event('input')); };
+   go('hs-gdx', '07'); const vayNoi = pv('hs-vay').value;
+   go('hs-rt', '30/08/2030');
+   const ksN = pd.querySelectorAll('#hs-kq .hs-k');
+   ok('📌 gõ trong cửa sổ nổi: ngày vay gợi ý 07/10/2026, tiền 160, 5 khối', vayNoi==='07/10/2026' && pv('hs-tien').value==='160' && ksN.length===5 && /160\.000\.000/.test(ksN[0].textContent), vayNoi+' '+pv('hs-tien').value);
+   const rtN = pv('hs-rt'), tiN = pv('hs-tien'); rtN.focus(); rtN.dispatchEvent(new pw.KeyboardEvent('keydown', {key:'Enter', bubbles:true, cancelable:true}));
+   ok('📌 Enter trong cửa sổ nổi sang ô tiền vay', pd.activeElement===tiN);
+   pv('hs-loai').value = 'duoi'; pv('hs-loai').dispatchEvent(new pw.Event('change'));
+   ok('📌 đổi loại khóa học trong cửa sổ nổi → lưu ý cam', hsGT().loai==='duoi' && /đến 12 tháng/.test(pv('hs-luuy').textContent));
+   hsNoiDong(); await w(150);
+   ok('📌 Đưa về: cửa sổ đóng, ô trong app hiện lại với số đang nhập', !HS_PIP && document.getElementById('hs-rt') && document.getElementById('hs-rt').value==='30/08/2030' && document.getElementById('hs-tien').value==='160');
+   if(pipGoc) window.documentPictureInPicture = pipGoc; else delete window.documentPictureInPicture;
+   CC.mo = 'hssv'; ccMo('hssv');
    nay = nay0; CC.hs = null;
-   dv.remove();
    C.che = 'dx'; C.xa = ''; C.hoi = ''; C.to = '';
    var ra = {d06:await b64(await ktDocx('m06', g)), d16:await b64(F[f16])};
    return {o, ra}; }, files).catch(e=>({o:['✗ LỖI '+e.message]}));

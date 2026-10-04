@@ -1,0 +1,71 @@
+# Tự dựng HanTraHSSV.exe trên Windows và đăng lên trang Releases.
+# Chạy khi: gộp vào main có sửa tools/hssv/HanTraHSSV.cs, hoặc bấm "Run workflow" ở tab Actions.
+# Số bản lấy từ AssemblyFileVersion trong HanTraHSSV.cs (vd 1.0.0.0 → tag hssv-v1.0.0.0); trùng tag thì thay file exe trong bản đó.
+name: Phát hành HanTraHSSV.exe
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['tools/hssv/HanTraHSSV.cs']
+
+permissions:
+  contents: write
+
+jobs:
+  kiem:
+    name: So công thức app ↔ exe
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Cài mono
+        run: sudo apt-get update -q && sudo apt-get install -y -q mono-mcs libmono-system-windows-forms4.0-cil
+      - name: Dựng + so 3000 ca
+        run: sh tools/hssv/dung.sh && node tests/hssv_exe.js
+
+  phat-hanh:
+    name: Dựng trên Windows + đăng Release
+    needs: kiem
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dựng bằng csc của .NET Framework
+        shell: pwsh
+        run: |
+          cd tools/hssv
+          & "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /nologo /target:winexe /optimize+ /codepage:65001 /r:System.Windows.Forms.dll /r:System.Drawing.dll /out:HanTraHSSV.exe HanTraHSSV.cs
+          if ($LASTEXITCODE) { exit 1 }
+          $ra = "07/10/2026|30/08/2030|07|160|tren|04/10/2026" | .\HanTraHSSV.exe --kiem | Out-String
+          Write-Output $ra
+          if ($ra -notmatch "07/07/2035") { Write-Error "exe tính sai ca mẫu"; exit 1 }
+      - name: Tạo / cập nhật Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $v = (Select-String -Path tools/hssv/HanTraHSSV.cs -Pattern 'AssemblyFileVersion\("([\d.]+)"\)').Matches[0].Groups[1].Value
+          $tag = "hssv-v$v"
+          $exe = "tools/hssv/HanTraHSSV.exe"
+          $hash = (Get-FileHash $exe -Algorithm SHA256).Hash.ToLower()
+          $notes = @"
+          Công cụ **Hạn trả HSSV**: cửa sổ nhỏ luôn nằm trên trình duyệt và chương trình nghiệp vụ, cùng công thức với app Tủ hồ sơ.
+
+          **Tải:** bấm ``HanTraHSSV.exe`` ở mục **Assets** bên dưới. Không cần cài. Chạy trên Windows 10/11 (.NET Framework 4.x có sẵn).
+          Lần đầu mở, Windows có thể báo SmartScreen: bấm **More info**, rồi **Run anyway**.
+
+          Hướng dẫn: [tools/hssv/README.md](https://github.com/$env:GITHUB_REPOSITORY/blob/main/tools/hssv/README.md)
+
+          Dựng tự động từ commit ``$env:GITHUB_SHA``. SHA-256: ``$hash``
+          "@
+          [IO.File]::WriteAllText("$env:RUNNER_TEMP\notes.md", $notes, [Text.UTF8Encoding]::new($false))
+          gh release view $tag --repo $env:GITHUB_REPOSITORY *> $null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $tag $exe --clobber --repo $env:GITHUB_REPOSITORY
+            gh release edit $tag --notes-file "$env:RUNNER_TEMP\notes.md" --repo $env:GITHUB_REPOSITORY
+          } else {
+            gh release create $tag $exe --repo $env:GITHUB_REPOSITORY --target $env:GITHUB_SHA --title "Hạn trả HSSV $v" --notes-file "$env:RUNNER_TEMP\notes.md"
+          }
+          if ($LASTEXITCODE) { exit 1 }
