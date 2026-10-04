@@ -467,7 +467,7 @@ namespace TuHoSo
             /* --kiem: đọc ca thử từ stdin (mỗi dòng: vay|rt|gdx|tien|loai|homnay), in kết quả — dùng cho tests/hssv_exe.js so với bản app */
             if (args.Length > 0 && args[0] == "--kiem")
             {
-                Console.OutputEncoding = new UTF8Encoding(false);
+                try { Console.OutputEncoding = new UTF8Encoding(false); } catch { }   /* exe dạng cửa sổ có thể không có console */
                 string dong;
                 while ((dong = Console.ReadLine()) != null)
                 {
