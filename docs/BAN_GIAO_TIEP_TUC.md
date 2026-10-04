@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 04/10/2026, bản 3.103)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 05/10/2026, bản 3.104)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,7 +88,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.103 (mới nhất):** cửa sổ nổi HSSV 3 mức (▁ thu nhỏ / thu gọn / ▾ chi tiết) + ☀/🌙 nền riêng; khối HSSV nền tối; exe 1.2.0 cùng 3 mức + Nền tối / sáng.
+**3.104 (mới nhất):** tên tác giả "NhanNT" (chỉ tên — anh không muốn đưa số điện thoại vì repo công khai) ở dải trạng thái, Cài đặt, Hướng dẫn, cửa sổ nổi, exe 1.2.1; không gắn vào mẫu in.
+
+**3.103:** cửa sổ nổi HSSV 3 mức (▁ thu nhỏ / thu gọn / ▾ chi tiết) + ☀/🌙 nền riêng; khối HSSV nền tối; exe 1.2.0 cùng 3 mức + Nền tối / sáng.
 
 **3.102:** 🎓 HSSV có 📌 cửa sổ nổi (Document PiP, Chrome / Edge) + công cụ riêng `tools/hssv/HanTraHSSV.exe` (C# WinForms, cùng công thức — **đổi công thức HSSV phải sửa cả hai, chạy `node tests/hssv_exe.js`**).
 

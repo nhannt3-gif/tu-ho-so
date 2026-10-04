@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.104 + HanTraHSSV.exe 1.2.1 — 05/10/2026 09:00 — tên tác giả
+- Anh chốt: ghi **"NhanNT"** (chữ xanh lá nhỏ, **không số điện thoại** vì repo công khai) ở: dải trạng thái dưới cùng (sau ô Drive / bộ nhớ), dòng số bản trong Cài đặt và Hướng dẫn, cuối cửa sổ 📌 Nổi (ẩn ở mức thu nhỏ), cuối cửa sổ exe + thông tin file (Company / Copyright: NhanNT). Không gắn vào biểu mẫu in, Word, PDF.
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t111 không lỗi; app ↔ exe khớp.
+
+---
+
 ## 3.103 (bổ sung) — 05/10/2026 — Tra cứu KH: tên hộ vay + mã KH nổi bật
 - Anh chốt: **tên hộ vay và mã khách hàng luôn nổi bật** khi tra cứu. Danh sách bên trái: tên chữ xanh đậm + mã KH trong khung xanh ngay cạnh tên (dòng nhỏ còn CCCD, địa bàn). Đầu thẻ chi tiết: tên 19px đậm xanh, mã KH khung xanh 15px (`.tc-ten`, `.tc-ma`, dùng biến màu nên nền tối tự đổi). `t107` cập nhật theo quy tắc mới.
 

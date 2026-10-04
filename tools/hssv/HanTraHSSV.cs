@@ -15,8 +15,10 @@ using System.Windows.Forms;
 
 [assembly: AssemblyTitle("Hạn trả HSSV")]
 [assembly: AssemblyProduct("Tủ hồ sơ — công cụ Hạn trả HSSV")]
-[assembly: AssemblyVersion("1.2.0.0")]
-[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyCompany("NhanNT")]
+[assembly: AssemblyCopyright("© NhanNT")]
+[assembly: AssemblyVersion("1.2.1.0")]
+[assembly: AssemblyFileVersion("1.2.1.0")]
 
 namespace TuHoSo
 {
@@ -212,7 +214,7 @@ namespace TuHoSo
 
         TableLayoutPanel goc, nhap; FlowLayoutPanel tren;
         ComboBox cbLoai; TextBox tGdx, tVay, tRt, tTien; CheckBox ckNoi; Button bChep, bNho, bMau, bChiTiet;
-        Label lTen, lG, lVay, lRt, lTien, lHd, lLuuY, lLoi, lMini, lCau, lChiTiet, lBao; ListView lvKy; Panel pKq;
+        Label lTacGia, lTen, lG, lVay, lRt, lTien, lHd, lLuuY, lLoi, lMini, lCau, lChiTiet, lBao; ListView lvKy; Panel pKq;
         Label[] oNhan = new Label[5], oSo = new Label[5], oPhu = new Label[5]; Panel[] oKhoi = new Panel[5]; string[] oChep = new string[5];
         readonly HsVao V = new HsVao();
         bool vayTay, dangDat, chuotBam, coKq; int kqCao;
@@ -251,10 +253,11 @@ namespace TuHoSo
             DocCauHinhMau();
             DatMau();
 
-            goc = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 7 };
+            goc = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 8 };
             goc.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));   /* cột co theo cửa sổ, không giãn theo chữ */
             for (int r = 0; r < 5; r++) goc.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             goc.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+            goc.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             goc.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             Controls.Add(goc);
 
@@ -344,6 +347,9 @@ namespace TuHoSo
 
             lBao = new Label { Dock = DockStyle.Fill, AutoSize = true, ForeColor = Color.White, Font = new Font("Segoe UI", 9.5f, FontStyle.Bold), Padding = new Padding(10, 6, 10, 6), Margin = new Padding(0), Visible = false };
             goc.Controls.Add(lBao, 0, 6);
+            /* 1.2.1: tên tác giả (chỉ tên) — dòng nhỏ xanh lá cuối cửa sổ */
+            lTacGia = new Label { Text = "NhanNT", AutoSize = true, Font = new Font("Segoe UI", 8f, FontStyle.Bold), Margin = new Padding(12, 0, 0, 4) };
+            goc.Controls.Add(lTacGia, 0, 7);
             tBao.Tick += (s, e) => { lBao.Visible = false; tBao.Stop(); };
 
             /* thứ tự Enter: GDX → ngày vay → ra trường → tiền vay → (về ra trường cho món kế) */
@@ -414,7 +420,7 @@ namespace TuHoSo
             bChiTiet.BackColor = The; bChiTiet.ForeColor = toi ? XamChu : Dau; bChiTiet.FlatAppearance.BorderColor = VienThe;
             lChiTiet.BackColor = The; lChiTiet.ForeColor = ChuPhu;
             lvKy.BackColor = The; lvKy.ForeColor = Chu;
-            lBao.BackColor = XanhLa;
+            lBao.BackColor = XanhLa; lTacGia.ForeColor = toi ? Color.FromArgb(0x6F, 0xCF, 0x97) : Color.FromArgb(0x2E, 0x8B, 0x57);
             nhap.Invalidate();
             VeNhan();
         }
@@ -439,7 +445,7 @@ namespace TuHoSo
             if (WindowState != FormWindowState.Normal) return;
             goc.PerformLayout();
             int w = goc.ClientSize.Width, h = 0;
-            foreach (Control c in new Control[] { tren, lLuuY, nhap, lLoi, lMini })
+            foreach (Control c in new Control[] { tren, lLuuY, nhap, lLoi, lMini, lTacGia })
                 if (c.Visible) h += c.GetPreferredSize(new Size(w - c.Margin.Horizontal, 0)).Height + c.Margin.Vertical;
             if (pKq.Visible) h += kqCao + pKq.Margin.Vertical + 4;
             var vung = Screen.FromControl(this).WorkingArea;
