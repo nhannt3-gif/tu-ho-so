@@ -11,7 +11,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **② Kiểm tra — đối chiếu 2 danh sách (`slKTDsTo`, nhóm 6, chỉ khi có DSTO):** tổ có món thiếu trong Thông tin tổ trưởng (lưu ý — app đã bù) / thiếu trong DSTO; tổ trong danh sách không còn món dư nợ; lệch điểm GD; lệch tổ trưởng / SĐT (không phân biệt hoa thường, bỏ Ông / Bà); lệch Hội (DSTO, Thông tin tổ trưởng ↔ ĐVUT món); tên không dấu chưa tìm được tên có dấu. **Không so dư nợ / số tổ viên / số khoản vay**: số thật T9 lệch 139 / 305 / 134 tổ (DSTO không cùng thời điểm với Mẫu 31). Có DSTO thì bỏ phép cũ "Tổ … có trong danh sách tổ trưởng" (không báo trùng).
 - **Tên tổ trưởng / tổ phó (anh chốt, `toTenChuan` — 1 lần mỗi kỳ khi dựng tổ):** bỏ "Ông / Bà / Ong / Ba" đầu tên (còn ≥ 2 chữ); tên không dấu → tên có dấu trên Mẫu 31 theo mã KH tổ trưởng (DSTO) hoặc thành viên tổ trùng tên (so không dấu); viết hoa chữ đầu mỗi từ (`tenHoaDau`); không tìm được thì giữ không dấu + `tenKhongDau`. Tên gốc giữ ở `t.tenGoc`. **Tên hộ vay giữ nguyên** như hệ thống. Thử số liệu thật T9 (chỉ đọc, không đưa vào repo): 179 tên đổi, 0 còn IN HOA / Ông / Bà, 13 tên không dấu chưa tìm được (dùng Mẫu 10; Mẫu 31 có thể tìm thêm).
 - Thử số liệu thật T9 (TT T8 + T9, DSTO, Mẫu 10 30/09): 370 tổ, 0 chưa rõ điểm GD, 18 tổ lấy điểm theo DSTO; đối chiếu điểm GD / Hội / tổ trưởng / SĐT khớp hết.
-- Kiểm tra: `kiem.py` sạch; t113 mới (25 phép).
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t113 không lỗi (t113 mới, 25 phép).
 
 ---
 
