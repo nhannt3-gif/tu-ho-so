@@ -70,6 +70,22 @@ const fs=require('fs'), path=require('path');
    ok('vay trực tiếp không đổi', t.G.ten==='Vay trực tiếp (không qua tổ)');
    ok('tổ trưởng trong app đã chuẩn (không còn IN HOA / Ông / Bà)', Object.values(K.to).filter(x=>!x.trucTiep && x.ten).every(x=>x.ten!==x.ten.toUpperCase() && !/^(ông|bà) /i.test(x.ten)));
    KT_K = K; TO_K = K; ok('Mẫu 16 in tên tổ trưởng đã chuẩn', ktGiaTri16(K.to[boTT[0]], [], {}).f.TT===K.to[boTT[0]].ten);
+   /* 6. Kế hoạch ① ② — đầu trang (anh góp ý ảnh khuôn ②) */
+   ok('tên cơ quan: vừa cỡ 13 thì giữ, dài thì cỡ 12, quá dài thì 2 dòng trước PHƯỜNG', ktHXCo('HỘI NÔNG DÂN XÃ TRUÔNG MÍT', 4344).HXZ==='26' && ktHXCo('HỘI NÔNG DÂN PHƯỜNG GIA LỘC', 4344).HXZ==='24' && ktHXCo('HỘI NÔNG DÂN PHƯỜNG GIA LỘC', 4164).HX.indexOf('\n')<0 && ktHXCo('HỘI LIÊN HIỆP PHỤ NỮ PHƯỜNG GIA LỘC', 4344).HX==='HỘI LIÊN HIỆP PHỤ NỮ\nPHƯỜNG GIA LỘC', JSON.stringify(ktHXCo('HỘI NÔNG DÂN PHƯỜNG GIA LỘC', 4344)));
+   const docKH = async (mau, hx) => { const h = ktHXCo(hx, mau==='m01b' ? 4344 : 4164);
+     const g = {mau:mau, nam:2026, ten:'Hội Nông dân phường Gia Lộc', doan:['Hội Nông dân phường Gia Lộc thành lập đoàn kiểm tra gồm: …'], rows:[{L1:'1', L2:'Tháng 2', L3:'Tổ Giả (Ấp Giả)', L4:''}, {L1:'', L2:'Cộng', L3:'1 tổ', L4:''}],
+       f:{HT:'HỘI NÔNG DÂN TỈNH TÂY NINH', HX:h.HX, HXZ:h.HXZ, HXT:'Hội Nông dân phường Gia Lộc', HOI1:'Hội Nông dân phường Gia Lộc', NOI:'Gia Lộc', NAM:'2026', VT:'HND'}};
+     const z = XLSX.CFB.read(new Uint8Array(await (await ktDocx(mau, g)).arrayBuffer()), {type:'array'}); return new TextDecoder().decode((XLSX.CFB.find(z, 'word/document.xml') || XLSX.CFB.find(z, '/word/document.xml')).content); };
+   const d2 = await docKH('m01b', 'HỘI NÔNG DÂN PHƯỜNG GIA LỘC'), dau2 = d2.slice(0, d2.indexOf('</w:tbl>'));
+   ok('② tên cơ quan cỡ 12, 1 dòng; cột trái 4560', /<w:sz w:val="24"\/><w:szCs w:val="24"\/><\/w:rPr><w:t xml:space="preserve">HỘI NÔNG DÂN PHƯỜNG GIA LỘC<\/w:t>/.test(dau2) && /<w:gridCol w:w="4560"\/><w:gridCol w:w="5701"\/>/.test(dau2));
+   ok('② gạch dưới tên cơ quan màu đen (không còn màu giao diện xanh), xích lên', !/schemeClr val="accent1"/.test(dau2) && (dau2.match(/<a:srgbClr val="000000"\/>/g)||[]).length===2 && /<wp:posOffset>-25400<\/wp:posOffset>/.test(dau2));
+   ok('② gạch dưới tiêu ngữ xích xuống', /<wp:posOffset>226695<\/wp:posOffset>/.test(dau2));
+   ok('② bỏ gạch đầu dòng "- Hội … xây dựng kế hoạch"', /Hội Nông dân phường Gia Lộc xây dựng kế hoạch/.test(d2.replace(/<[^>]+>/g, '')) && !/- Hội Nông dân phường Gia Lộc xây dựng/.test(d2.replace(/<[^>]+>/g, '')));
+   const d3 = await docKH('m01b', 'HỘI LIÊN HIỆP PHỤ NỮ PHƯỜNG GIA LỘC');
+   ok('② tên quá dài → 2 dòng (ngắt trước PHƯỜNG)', /HỘI LIÊN HIỆP PHỤ NỮ<\/w:t><w:br\/><w:t xml:space="preserve">PHƯỜNG GIA LỘC/.test(d3));
+   const d1 = await docKH('m01', 'HỘI NÔNG DÂN PHƯỜNG GIA LỘC'), dau1 = d1.slice(0, d1.indexOf('</w:tbl>'));
+   ok('① cùng cách đo: cỡ 12, cột trái 4380, gạch dưới vẫn đen', /<w:sz w:val="24"\/><w:szCs w:val="24"\/><\/w:rPr><w:t xml:space="preserve">HỘI NÔNG DÂN PHƯỜNG GIA LỘC/.test(dau1) && /<w:gridCol w:w="4380"\/><w:gridCol w:w="5657"\/>/.test(dau1) && (dau1.match(/<a:srgbClr val="000000"\/>/g)||[]).length===2);
+   ok('Word ① ② hợp lệ, hết dấu {{', [d1, d2, d3].every(x=>!new DOMParser().parseFromString(x, 'application/xml').getElementsByTagName('parsererror').length && x.indexOf('{{')<0));
    return o;
  }, files);
  R.concat(loi.map(e=>'✗ lỗi trang: '+e)).forEach(x=>console.log(x));

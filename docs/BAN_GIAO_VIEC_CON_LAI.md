@@ -229,8 +229,10 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 2 | ② Kiểm tra T9 | Mục 6: thiếu 18 tổ trong Thông tin tổ trưởng (lưu ý), DSTO đủ, điểm GD / Hội / tổ trưởng / SĐT khớp | |
 | 3 | KTGS Hội T9 | Dòng vàng "… thiếu 18 tổ … đã xếp điểm GD: Danh sách tổ (DSTO) 18" | |
 | 4 | Tổ TK&VV / Mẫu 06 / Mẫu 16 | Tên tổ trưởng "Nguyễn Văn A" (không IN HOA, không "Ông / Bà"); tên hộ vay giữ như hệ thống | |
+| 5 | Kế hoạch KTGS ② Word (Hội Nông dân phường Gia Lộc) | Tên cơ quan 1 dòng (cỡ 12); gạch dưới đen, sát tên hơn; gạch dưới tiêu ngữ thấp xuống chút; câu "Hội … xây dựng kế hoạch" không còn gạch đầu dòng; lịch ghi tên tổ trưởng chuẩn | |
+| 6 | Kế hoạch ② của Hội LHPN / Đoàn ở phường | Tên cơ quan 2 dòng gọn "HỘI LIÊN HIỆP PHỤ NỮ / PHƯỜNG …", gạch dưới nằm dưới dòng 2 | |
 
-**Ghi chú kỹ thuật 3.108:** `SL_LOAI` thêm `dsto` (nhóm D, `giuHet`, `khong` mã KH / KU); `SL_TRUONG` thêm `dvTen`, `ttKH`, `skv`, `tk`, alias tổ phó "hien tai". `slSuaRef(ws)` (đọc trực tiếp + chuỗi Worker qua `toString()`). `slLayDong`: `thu truong`, `ghi ro ho ten` → ký; dòng chỉ "con lai ton / con tiet kiem" → tiêu đề. `toNap`: vòng `Bm.co.dsto` sau `tt` (`t.ds`, `toDvTuTen`, `diemTu`), điền `ngayGD` theo mã điểm, `toTenChuan(K)` sau `twGhepTo` (tên gốc `tenGoc`). `slKTDsTo(B, them)` gọi sau `slKTTW`; `slDoiChieu` bỏ phép "có trong danh sách tổ trưởng" khi có `co.dsto`. `ktSuyHTML` nhóm "Danh sách tổ (DSTO)".
+**Ghi chú kỹ thuật 3.108:** `SL_LOAI` thêm `dsto` (nhóm D, `giuHet`, `khong` mã KH / KU); `SL_TRUONG` thêm `dvTen`, `ttKH`, `skv`, `tk`, alias tổ phó "hien tai". `slSuaRef(ws)` (đọc trực tiếp + chuỗi Worker qua `toString()`). `slLayDong`: `thu truong`, `ghi ro ho ten` → ký; dòng chỉ "con lai ton / con tiet kiem" → tiêu đề. `toNap`: vòng `Bm.co.dsto` sau `tt` (`t.ds`, `toDvTuTen`, `diemTu`), điền `ngayGD` theo mã điểm, `toTenChuan(K)` sau `twGhepTo` (tên gốc `tenGoc`). `slKTDsTo(B, them)` gọi sau `slKTTW`; Kế hoạch: `ktHXCo(hx, rộng)` + `ktDoRong` (canvas), khuôn `{{HXZ|26}}`, cột trái ② 4560 / ① 4380, gạch dưới ② đen (bỏ `wps:style` accent1); `slDoiChieu` bỏ phép "có trong danh sách tổ trưởng" khi có `co.dsto`. `ktSuyHTML` nhóm "Danh sách tổ (DSTO)".
 
 ### Danh sách thử trên máy thật (3.107) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
