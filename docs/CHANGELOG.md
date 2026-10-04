@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.110 — 06/10/2026 10:00 — Kế hoạch KTGS: sửa chữ dính
+- Anh gửi ảnh khuôn ②: "Địa điểm:Văn phòng", "phườnggiao". Nguyên nhân: bản 3.105 (chuẩn gạch đầu dòng) xóa nhầm các ô chữ chỉ có dấu cách nằm giữa câu. Đối chiếu từng đoạn với khuôn 3.104 và chèn lại đúng dấu cách: khuôn ① 7 chỗ ("hạn. Thực", "giữ hồ", "nghệ, đào", "không? Có", "giữ sổ"…), khuôn ② 3 chỗ ("Hội nhận", "Địa điểm: Văn", "xã giao"). Dấu cách 3.105 cố ý thêm sau "+" giữ nguyên.
+- Kiểm tra: `kiem.py` sạch; t114 thêm phép chống tái phát (20 phép); hồi quy Kế hoạch t109 / t110 / t111 / t113.
+
+---
+
 ## 3.109 — 06/10/2026 09:00 — Mẫu 04 / Mẫu 16: ngày theo tháng kiểm tra, nội dung kiểm tra, kiến nghị liệt kê hộ
 - **Mẫu 04/BC-TH** (anh duyệt):
   - Dòng ngày: "{xã}, ngày ....... tháng mm năm yyyy" — tháng kiểm tra (tháng kế hoạch, hoặc tháng ngày đã ghi, mặc định tháng sau số liệu); ngày ghi tay (`NOI04`, `TH04`, `NAM04`).
