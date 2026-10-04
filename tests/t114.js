@@ -48,6 +48,10 @@ const fs=require('fs'), path=require('path');
    const t2 = ds.find(x=>x!==t && !ktDsDon(x).khd.length && !ktDsDon(x).ltc.length);
    if(t2){ const g2 = ktBC04([{t:t2}])[0]; ok('tổ không có món KHĐ / lãi tồn cao: kiến nghị câu chung', /^- Tiếp tục chỉ đạo các Tổ TK&VV duy trì/.test(g2.kn.a[0]) && /^- Duy trì sinh hoạt Tổ định kỳ/.test(g2.kn.b[0])); }
    else ok('có tổ không vấn đề để thử', true, 'bỏ qua — dữ liệu giả không có');
+   /* 6. 3.110: khuôn Kế hoạch ① ② không còn chữ dính (3.105 xóa nhầm ô chỉ có dấu cách) */
+   const txtK = x => (x.match(/<w:t(?: [^>]*)?>[^<]*<\/w:t>/g)||[]).map(y=>y.replace(/<[^>]+>/g, '')).join('');
+   const k1 = txtK(KT_KHUON.m01.than), k2 = txtK(KT_KHUON.m01b.than);
+   ok('Kế hoạch ① ② không còn chữ dính (Địa điểm: Văn phòng, xã giao, Hội nhận, hạn. Thực, giữ hồ, nghệ, đào, không? Có, giữ sổ)', /Địa điểm: Văn phòng/.test(k2) && /\{\{CXA\|xã\}\} giao đồng chí/.test(k2) && /Hội nhận ủy thác/.test(k2) && !/Hộinhận|điểm:Văn|\}\}giao/.test(k2) && !/hạn\.Thực|giữhồ|nghệ,đào|không\?Có|giữsổ/.test(k1));
    return o;
  }, files);
  R.concat(loi.map(e=>'✗ lỗi trang: '+e)).forEach(x=>console.log(x));

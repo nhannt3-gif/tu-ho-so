@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 06/10/2026, bản 3.109)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 06/10/2026, bản 3.110)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,7 +88,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.109 (mới nhất):** Mẫu 04 ngày theo tháng kiểm tra, III nội dung ghi sẵn (727), kiến nghị a/b/c ghi sẵn liệt kê hộ (món KHĐ 3 tháng, lãi tồn > 6 tháng lãi, ≤ 10 hộ/tổ); Mẫu 16 tháng theo tháng kiểm tra + tên hộ ở Tồn tại / Kiến nghị.
+**3.110 (mới nhất):** sửa 10 chỗ chữ dính trong khuôn Kế hoạch ① ② (lỗi từ 3.105 xóa ô chỉ có dấu cách).
+
+**3.109:** Mẫu 04 ngày theo tháng kiểm tra, III nội dung ghi sẵn (727), kiến nghị a/b/c ghi sẵn liệt kê hộ (món KHĐ 3 tháng, lãi tồn > 6 tháng lãi, ≤ 10 hộ/tổ); Mẫu 16 tháng theo tháng kiểm tra + tên hộ ở Tồn tại / Kiến nghị.
 
 **3.108:** nạp thêm Danh sách tổ (DSTO, loại phụ) để đối chiếu với Thông tin tổ trưởng + Mẫu 31 (không so dư nợ / số tổ viên — DSTO khác thời điểm); tổ thiếu trong file tổ trưởng lấy điểm theo DSTO; đọc đủ file khai sai vùng dữ liệu; tên tổ trưởng / tổ phó chuẩn (bỏ Ông / Bà, lấy dấu theo Mẫu 31, hoa đầu từ — **tên hộ vay giữ nguyên**, anh chốt).
 
