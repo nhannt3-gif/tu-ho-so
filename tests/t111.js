@@ -128,7 +128,7 @@ const fs=require('fs'), path=require('path');
    else ok('có tổ để thử suy điểm GD', false);
    /* 9. 🎓 Hạn trả HSSV: dòng trên GDX + ngày vay; mỗi món chỉ ra trường + tiền; Enter qua ô; bấm vào bôi đen */
    CC.hs = null; const dv = document.createElement('div'); dv.innerHTML = hsChonLoaiHTML()+ccHSSVHTML(); document.body.appendChild(dv);
-   ok('HSSV: dòng trên có loại + GDX + ngày vay; dòng nhập chỉ ngày ra trường + tiền vay', !!dv.querySelector('.hs-dau #hs-gdx') && !!dv.querySelector('.hs-dau #hs-vay') && [...dv.querySelectorAll('.hs-nhap input')].map(e=>e.id).join(',')==='hs-rt,hs-tien');
+   ok('HSSV: dòng trên có loại + GDX; dòng nhập giữ ngày vay chỗ cũ + ngày ra trường + tiền vay', !!dv.querySelector('.hs-dau #hs-gdx') && !dv.querySelector('.hs-dau #hs-vay') && [...dv.querySelectorAll('.hs-nhap input')].map(e=>e.id).join(',')==='hs-vay,hs-rt,hs-tien');
    const ev = (el, k, sh) => el.dispatchEvent(new KeyboardEvent('keydown', {key:k, shiftKey:!!sh, bubbles:true, cancelable:true}));
    const rt = document.getElementById('hs-rt'), ti = document.getElementById('hs-tien'), gd = document.getElementById('hs-gdx');
    rt.focus(); ev(rt, 'Enter'); const b1 = document.activeElement===ti; ev(ti, 'Enter'); const b2 = document.activeElement===rt; ev(rt, 'Enter', true); const b3 = document.activeElement.id==='hs-vay';
