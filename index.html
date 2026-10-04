@@ -2234,7 +2234,9 @@
   @media(max-width:899px){ .tc-phai{display:none} }
   .tc-trai .sl-kq-dong{padding:4px 8px;margin:2px 0}.tc-trai .sl-kq-dong b{font-size:calc(13.5px*var(--co))}.tc-trai .sl-kq-dong .tc-tt{font-size:calc(11.5px*var(--co))}.tc-trai .sl-kq-dong small{font-size:calc(11px*var(--co))}
   .sl-kq-dong.chon{border-color:var(--xanh);background:var(--nen);box-shadow:inset 3px 0 0 var(--xanh)}
-  .tc-ct-tit{font-size:calc(16px*var(--co));font-weight:700}.tc-ct-phu{color:var(--chu-phu);font-size:calc(12px*var(--co));margin-bottom:6px}
+  .tc-ct-tit{font-size:calc(16px*var(--co));font-weight:700}
+  /* 3.103 (anh chốt): tên hộ vay + mã KH luôn nổi bật khi tra cứu */
+  .tc-ten{color:var(--xanh-dam)}.tc-ten.to{font-size:calc(19px*var(--co));font-weight:800;letter-spacing:.2px}.tc-ten.to *{color:inherit}.tc-ma{display:inline-block;background:var(--xanh-nhat);color:var(--xanh-dam);border:1px solid var(--xanh);border-radius:6px;padding:0 6px;font-weight:700;font-size:calc(12.5px*var(--co));font-variant-numeric:tabular-nums;white-space:nowrap}.tc-ma.to{font-size:calc(15px*var(--co));padding:1px 8px}.tc-ma.to *{color:inherit}.tc-ct-phu{color:var(--chu-phu);font-size:calc(12px*var(--co));margin-bottom:6px}
   .tc-phai .kh-luoi{gap:4px 10px}.tc-phai table.kh-mon{font-size:calc(12px*var(--co))}
   /* ===== 3.92 — Sao kê: thanh trên (số liệu · khổ · Xem) · chọn 1 báo cáo, nhóm 2 cột · khung xem trước rộng ===== */
   .sk-thanh{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;position:sticky;top:0;z-index:3;background:var(--nen);padding:6px 0;border-bottom:1px solid var(--vien);margin-bottom:6px}
@@ -12633,6 +12635,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.103', ds:[
+  ['🔎 Tra cứu KH: tên hộ vay + mã KH luôn nổi bật (danh sách và đầu thẻ)', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
   ['🔎 Tra cứu KH: cột trái / phải 40 / 60 (danh sách không còn mất chữ); dòng HSSV tô màu tên trường + khóa học, ngày nhập học → ra trường để đối chiếu khi cho vay năm mới', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
   ['📌 Cửa sổ nổi HSSV: mặc định thu gọn (5 khối + câu chốt), ▾ Chi tiết mới hiện bảng / kỳ trả / cách tính, ▁ thu nhỏ còn 1 dải (ô ra trường, tiền vay, 1 dòng kết quả); nút ☀ / 🌙 đổi nền sáng / tối riêng cửa sổ nổi; khối HSSV đẹp hơn ở nền tối', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['📌 Hạn trả HSSV có nút Nổi: cửa sổ nhỏ luôn nằm trên trình duyệt / chương trình nghiệp vụ (Chrome, Edge) để vừa nhìn vừa nhập; dùng chung số liệu với ô trong app, ↩ đưa về. Máy không dùng được thì có công cụ riêng HanTraHSSV.exe (thư mục tools/hssv)', "dongHop();doiNgan(0);ccMo('hssv')"],
@@ -23860,8 +23863,8 @@ function tcPhim(e){   /* ↑ ↓ chọn dòng, Enter mở */
 }
 function tcDongHTML(c, ma, i){
   var tt = c.mon ? '<span class="tc-nh xanh">đang vay '+c.mon+' món</span>' : ((c.ku||[]).length ? '<span class="tc-nh">tất nợ</span>' : '<span class="tc-nh">chỉ gửi TK</span>');
-  return '<div class="sl-kq-dong'+(c.mon ? '' : ' tat')+'" onclick="tcChonDong(this);slTheKH(KH_GY['+i+'].m)"><div class="tc-d1"><b>'+coChuHTML(c.ten||'')+'</b>'+tt+'</div>'+
-    '<small>'+coChuHTML(['mã '+ma, c.cccd ? 'CCCD '+c.cccd : '', tcNoiGon(c)].filter(Boolean).join(' · '))+'</small></div>';
+  return '<div class="sl-kq-dong'+(c.mon ? '' : ' tat')+'" onclick="tcChonDong(this);slTheKH(KH_GY['+i+'].m)"><div class="tc-d1"><b class="tc-ten">'+coChuHTML(c.ten||'')+'</b><b class="tc-ma">'+coChuHTML(ma)+'</b>'+tt+'</div>'+   /* 3.103: tên + mã KH nổi bật */
+    '<small>'+coChuHTML([c.cccd ? 'CCCD '+c.cccd : '', tcNoiGon(c)].filter(Boolean).join(' · '))+'</small></div>';
 }
 function slTraTim(){
   var e = document.getElementById('sl-kq'); if(!e) return;
@@ -23949,7 +23952,7 @@ function slTheKH(ma){
   var nh = []; if(han.kq==='het') nh.push('<span class="tc-nh do">CCCD hết hạn</span>'); if(han.kq==='sap') nh.push('<span class="tc-nh vang">CCCD sắp hết hạn</span>'); if(!tcSdtDat(c.sdt)) nh.push('<span class="tc-nh vang">'+(c.sdt ? 'SĐT không đạt' : 'thiếu SĐT')+'</span>');
   var dong = function(nhan, gt){ return '<div class="tc-dl"><span>'+nhan+'</span><div>'+gt+'</div></div>'; };
   var stk = String(c.stk||'').split(', ').filter(Boolean);
-  var h = '<div class="'+(hai ? 'tc-ct-tit' : 'hop-tit')+'">👤 '+tcC(c.ten, 'họ tên')+' <small>mã '+tcC(ma, 'mã KH')+'</small><span id="tc-nhan">'+nh.join('')+'</span></div>'+
+  var h = '<div class="'+(hai ? 'tc-ct-tit' : 'hop-tit')+'">👤 <span class="tc-ten to">'+tcC(c.ten, 'họ tên')+'</span> <span class="tc-ma to" title="Mã khách hàng">mã '+tcC(ma, 'mã KH')+'</span><span id="tc-nhan">'+nh.join('')+'</span></div>'+
     '<div class="tc-so" id="tc-so"></div>'+
     '<div class="tc-nhom"><div class="tc-nhom-tit">Nhân thân</div><div class="tc-luoi">'+
       dong('CCCD', tcC(c.cccd, 'CCCD')+(c.ncap ? ' · cấp '+ngayVNsl(c.ncap) : '')+(c.noiCap ? ' · '+coChuHTML(c.noiCap) : ''))+

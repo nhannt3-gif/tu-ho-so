@@ -18,7 +18,7 @@ const fs=require('fs'), path=require('path');
    const ma = Object.keys(SL_KHMON).find(k=>(SL_DB.kh[k]||{}).mon>0 && SL_DB.kh[k].cccd) ; const c = SL_DB.kh[ma];
    SL_TRA_Q = c.ten; document.getElementById('sl-tim').value = c.ten; slTraTim(); await w(200);
    const d0 = document.querySelector('#sl-kq .sl-kq-dong');
-   ok('dòng danh sách 2 dòng: tên + nhãn tình trạng · mã, CCCD, địa bàn', !!d0 && d0.querySelector('.tc-d1 .tc-nh') && /mã \d+/.test(d0.querySelector('small').textContent) && !/☎/.test(d0.querySelector('small').textContent));
+   ok('dòng danh sách 2 dòng: tên + mã KH nổi bật (3.103) + nhãn tình trạng · CCCD, địa bàn', !!d0 && d0.querySelector('.tc-d1 .tc-nh') && d0.querySelector('.tc-d1 .tc-ten') && /^\d+$/.test(d0.querySelector('.tc-d1 .tc-ma').textContent) && !/☎/.test(d0.querySelector('small').textContent));
    /* thẻ chi tiết */
    slTheKH(ma); await w(800); const the = document.getElementById('tc-ct');
    ok('thẻ chia nhóm: số tóm tắt + Nhân thân + Liên hệ + Tiết kiệm + Món vay', the.querySelectorAll('.tc-o').length===5 && ['Nhân thân','Liên hệ','Tiết kiệm 105','Món vay'].every(x=>the.textContent.indexOf(x)>=0));

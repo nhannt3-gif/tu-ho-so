@@ -229,6 +229,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 2 | Bấm ▾ Chi tiết rồi ▴ Thu gọn | Hiện / ẩn bảng + kỳ trả + cách tính; cửa sổ dài ra / ngắn lại | |
 | 3 | Bấm ▁ | Còn 1 dải: ô ra trường, tiền vay, 1 dòng kết quả; gõ món mới dòng đổi theo; bấm dòng là chép; ▢ mở lại | |
 | 4 | Bấm ☀ / 🌙 | Đổi nền sáng / tối riêng cửa sổ nổi; mở lại vẫn nhớ; khối kết quả ở nền tối không còn nền sáng | |
+| 4c | 🔎 Tra cứu KH: tìm theo tên | Danh sách: tên xanh đậm + mã KH khung xanh cạnh tên; đầu thẻ: tên to đậm + mã KH khung xanh | |
 | 4b | Số liệu → 🔎 Tra cứu KH: chọn khách có món HSSV | Cột trái rộng ~40% (tên, mã, CCCD đủ chữ); dòng HSSV: tên trường xanh đậm, khóa + nhập học → ra trường khung cam | |
 | 5 | Exe 1.2.0 (Releases): Thu nhỏ / Mở ra, Chi tiết ▼, Nền tối | Như cửa sổ nổi; cửa sổ tự co giãn; đóng mở lại nhớ mức + nền | |
 

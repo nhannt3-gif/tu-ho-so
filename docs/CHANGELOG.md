@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.103 (bổ sung) — 05/10/2026 — Tra cứu KH: tên hộ vay + mã KH nổi bật
+- Anh chốt: **tên hộ vay và mã khách hàng luôn nổi bật** khi tra cứu. Danh sách bên trái: tên chữ xanh đậm + mã KH trong khung xanh ngay cạnh tên (dòng nhỏ còn CCCD, địa bàn). Đầu thẻ chi tiết: tên 19px đậm xanh, mã KH khung xanh 15px (`.tc-ten`, `.tc-ma`, dùng biến màu nên nền tối tự đổi). `t107` cập nhật theo quy tắc mới.
+
+---
+
 ## 3.103 + HanTraHSSV.exe 1.2.0 — 04/10/2026 23:00 — HSSV: 3 mức thu nhỏ / thu gọn / chi tiết · nền sáng / tối
 - **Cửa sổ 📌 Nổi** (anh chốt):
   - Mặc định **thu gọn**: dòng trên, ô nhập, 5 khối, câu chốt.
