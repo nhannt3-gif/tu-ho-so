@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 05/10/2026, bản 3.104)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 05/10/2026, bản 3.106)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,7 +88,11 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.104 (mới nhất):** tên tác giả "NhanNT" (chỉ tên — anh không muốn đưa số điện thoại vì repo công khai) ở dải trạng thái, Cài đặt, Hướng dẫn, cửa sổ nổi, exe 1.2.1; không gắn vào mẫu in.
+**3.106 (mới nhất):** Mẫu 04 theo ý anh (đoàn = cán bộ 06/16 + 2 dòng in sẵn, "Tháng mm/yyyy", ấp-xã-tỉnh, IV.1 nhận xét từng tổ, kiến nghị ghi tay); Kế hoạch ① thành phần 1 câu chung, ② đủ căn cứ; bảng khai báo có dòng "In ra", bỏ ô Đoàn; dọn ktgsLS/NK/GN + doan; 📋 chép 1 / nhiều file (cầu nối bản 2).
+
+**3.105:** khuôn Kế hoạch ① ② chuẩn gạch đầu dòng (thụt đều, bỏ dấu cách thừa). Khi thêm đoạn mới vào khuôn: dùng `w:ind w:firstLine` (① 720 / ② 567), không thụt bằng dấu cách.
+
+**3.104:** tên tác giả "NhanNT" (chỉ tên — anh không muốn đưa số điện thoại vì repo công khai) ở dải trạng thái, Cài đặt, Hướng dẫn, cửa sổ nổi, exe 1.2.1; không gắn vào mẫu in.
 
 **3.103:** cửa sổ nổi HSSV 3 mức (▁ thu nhỏ / thu gọn / ▾ chi tiết) + ☀/🌙 nền riêng; khối HSSV nền tối; exe 1.2.0 cùng 3 mức + Nền tối / sáng.
 

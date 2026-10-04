@@ -41,7 +41,7 @@ const fs=require('fs'), path=require('path');
    KT_KB = {}; ktKhaiBao('m06'); await w(80); const id06 = [...document.querySelectorAll('.kt-kb-khung [id^=kb-]')].map(e=>e.id.slice(3)).join(',');
    ok('3.98: khai báo nằm trong tab (không hộp bật lên), theo thứ tự mẫu: Mẫu 06 (đơn vị → cán bộ → ngày → mục đích) rồi Mẫu 16 (đoàn → nhận xét)', !document.getElementById('hop-in') || !document.querySelector('#hop-in [id^=kb-]'), id06);
    ok('khung đột xuất đủ ô theo thứ tự', id06==='dv,cbtu,cb2,cv2,ngay,md,doan,nx', id06);
-   ok('⚙ Khai báo Hội: tên → cán bộ → KH Hội tỉnh → HĐUT → đoàn → ký', KT_HKB_O.map(x=>x[0]).join(',')==='ten,cb,cbcv,kh,khNgay,hd,hdNgay,doan,ky');
+   ok('⚙ Khai báo Hội: tên → cán bộ → KH Hội tỉnh → HĐUT → ký (3.106: bỏ ô đoàn)', KT_HKB_O.map(x=>x[0]).join(',')==='ten,cb,cbcv,kh,khNgay,hd,hdNgay,ky');
    /* 5. định kỳ theo lịch */
    const t0 = best; C.xa = t0.xa; C.diem = ''; C.hoi = String(t0.dv); C.to = '';
    const kKH = '2026|'+t0.xa+'|'+t0.dv; D.cauHinh.ktKH = D.cauHinh.ktKH || {}; const lich = {}; lich[t0.ma] = 9; D.cauHinh.ktKH[kKH] = {tu:2, den:10, to:lich};
@@ -70,12 +70,12 @@ const fs=require('fs'), path=require('path');
    ok('Mẫu 04 ① (3.98): chọn xã → chưa tích tổ nào, tổ chia nhóm theo ấp', ktBCGiaTri().length===0 && document.querySelectorAll('.kt-bc-bang tr.kt-kh-ap').length>0);
    ktBCTichAp(KT_BC_AP.indexOf(ktKHAp(t0)), true); await w(100);
    const g4 = ktBCGiaTri().find(g=>g.rows.some(r=>r.C3.indexOf(t0.ten)>=0));
-   ok('Mẫu 04 ①: tích cả ấp → mọi tổ của ấp; ngày trống = dòng chấm', !!g4 && ktBCDs().filter(r=>ktKHAp(r.t)===ktKHAp(t0)).every(r=>r.chon) && g4.rows.find(r=>r.C3.indexOf(t0.ten)>=0).C2==='' && g4.f.SP==='');
+   ok('Mẫu 04 ①: tích cả ấp → mọi tổ của ấp; thời gian = tháng sau tháng số liệu (3.106)', !!g4 && ktBCDs().filter(r=>ktKHAp(r.t)===ktKHAp(t0)).every(r=>r.chon) && g4.rows.find(r=>r.C3.indexOf(t0.ten)>=0).C2==='Tháng '+ktThangKT().slice(5)+'/'+ktThangKT().slice(0,4) && g4.f.SP==='');
    /* 6. Kế hoạch khuôn ② + không viền */
    C.che = 'kh'; C.khNam = 2026; C.xa = t0.xa; C.hoi = String(t0.dv); ktVeThe(); await w(200);
    ok('màn Kế hoạch có chọn khuôn ① / ②', /① Dự thảo HĐT cấp xã/.test(the()) && /② Mẫu gọn/.test(the()));
    KT_KH_M04 = {9:true}; const g4b = ktKH04();
-   ok('Mẫu 04 ② theo kế hoạch tháng 9: tổ có lịch tháng 9, thời gian "…../09/2026"', g4b.length>=1 && g4b.some(g=>g.rows.some(r=>r.C3.indexOf(t0.ten)>=0 && r.C2==='…../09/2026')) && /Mẫu 04 theo kế hoạch/.test(the()));
+   ok('Mẫu 04 ② theo kế hoạch tháng 9: tổ có lịch tháng 9, thời gian "Tháng 09/2026"', g4b.length>=1 && g4b.some(g=>g.rows.some(r=>r.C3.indexOf(t0.ten)>=0 && r.C2==='Tháng 09/2026')) && /Mẫu 04 theo kế hoạch/.test(the()));
    ktKHDoiMau('2'); await w(100); ok('chọn khuôn ② nhớ theo Hội', ktKHMau()==='m01b' && ktHoiKB(t0.xa+'|'+t0.dv).mauKH==='2');
    ktHoiKBSua(t0.xa+'|'+t0.dv, 'ky', 'Giả Văn Ký');
    ktKHXem(); await w(400); ktKHIn('word'); await w(1200);

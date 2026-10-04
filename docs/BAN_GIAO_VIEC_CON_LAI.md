@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.104 · build 05/10/2026 09:00
+**Bản hiện tại:** 3.106 · build 05/10/2026 14:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.106) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › Mẫu 04 (cây hoặc theo kế hoạch) → Word | Đoàn kiểm tra = cán bộ 06/16 + 2 dòng "- Ông (bà): … Chức vụ: …"; thời gian "Tháng 10/2026" (số liệu tháng 9); địa điểm "Ấp …, xã …, tỉnh Tây Ninh"; IV.1 chỉ "Đối với Tổ TK&VV:" + từng tổ có số; kiến nghị trống; VI có 2 dòng chấm | |
+| 2 | Kế hoạch ① Word | Mục thành phần 1 câu "… thành lập đoàn kiểm tra gồm: Các đồng chí Chủ tịch, Phó Chủ tịch, Ủy viên Ban Thường vụ …" | |
+| 3 | Kế hoạch ② Word (chưa khai số KH / HĐ) | Đủ 3 căn cứ như ①, số / ngày để chấm | |
+| 4 | ⚙ Bảng khai báo Hội – xã | Không còn cột Đoàn kiểm tra; dưới mỗi ô "In ra: …" đổi theo khi gõ; ↺ về chuẩn | |
+| 5 | Văn bản: bấm 📋 trên 1 dòng → Zalo Ctrl+V | Dán đúng file | |
+| 6 | ☑ Chọn chép → chọn 3 file → 📋 Chép 3 file (lần đầu: cài lại cầu nối, Mở thử thấy "bản 2") → Zalo / thư mục Ctrl+V | Dán cả 3 file một lần | |
+
+**Ghi chú kỹ thuật 3.106:** Mẫu 04: `ktBC04` → `{doan:[{cb,cv}], nx:[…], rows}`, `ktThangKT`, `ktDiaDiem04`, `ktDoan04`, `ktNxTo04`; `ktBung04` dựng đoạn Ông (bà) (tab 5670, dòng in sẵn tab dẫn chấm 5670 + phải 9213) + `{{@NXTO}}`; `ktHTML04` cùng bố cục. Kế hoạch: ① `doan:[câu thành phần]` (KT_CHUAN ky / pho / ld); ② căn cứ = 3 đoạn như ① (pPr đoạn 727), `f` thêm KH, KHN, HOIT, HD, HDN. Bảng khai báo: `KT_HKB_O` bỏ `doan`, `ktHkbIn(t, kb, ô, id)` / `ktHkbXem` / `ktHkbVe`, lớp `.hkb-in .tu/.da/.cam`. Dọn rác ở khối khởi động cạnh `slgbDaDoi`. Chép: `chepMot`, `chepNhieu` / `chepNhieuRel` / `chepTiep` (`CN_CHEP_CON`), `b64url`, `cnBan2` (`localStorage.tuhoso_cn_ban`), `hoiCauNoiBan2`; script cầu nối nhánh `chepn`; chế độ chọn `BOT.muc` ('xoa' / 'chep'), `nutChepNhieu`.
 
 ### Danh sách thử trên máy thật (3.103 + exe 1.2.0) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
