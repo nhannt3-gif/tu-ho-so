@@ -58,7 +58,7 @@ const fs=require('fs'), path=require('path');
    ok('Word: bỏ khung MẪU THAM KHẢO, giữ Mẫu số 04/BC-TH + đường kẻ', doc.indexOf('MẪU THAM KHẢO')<0 && /Mẫu số 04\/BC/.test(chu) && /prst="line"/.test(doc));
    ok('Word: '+nhom+' báo cáo, ngắt trang, id hình không trùng', (doc.match(/w:type="page"/g)||[]).length===nhom-1 && (chu.match(/BÁO CÁO TỔNG HỢP/g)||[]).length===nhom && (()=>{ const ids = doc.match(/<wp:docPr id="\d+"/g)||[]; return new Set(ids).size===ids.length; })());
    ok('Word: đơn vị in hoa + đoàn kiểm tra dạng "- Ông (bà): … Chức vụ: …" (3.106: 2 dòng in sẵn) + nhận xét từng tổ', chu.indexOf(ktHoiTen(A).toUpperCase())>=0 && (chu.match(/- Ông \(bà\): /g)||[]).length>=4 && /Đối với Tổ TK&VV:/.test(chu) && /- Tổ TK&VV [^:]+: dư nợ [\d.,]+ triệu đồng/.test(chu) && !/a\) Đối với tổ chức CT-XH được kiểm tra[\s\S]*b\) Đối với Tổ TK&VV[\s\S]*2\. Kiến nghị/.test(chu.slice(0, chu.indexOf('2. Kiến nghị')+12)));
-   ok('Word: dòng chấm ghi tay (3.106): I.1 2 dòng Ông (bà) × 2 chấm, I.2 2, III 4, kiến nghị 7 mục × 3, VI 2', (doc.match(/w:leader="dot"/g)||[]).length===2*(4+2+4+21+2), (doc.match(/w:leader="dot"/g)||[]).length+' dòng');
+   ok('Word: dòng chấm ghi tay (3.109): I.1 2 dòng Ông (bà) × 2 chấm, I.2 2, III 1 (nội dung ghi sẵn), kiến nghị d) đ) 3.a 3.b × 3 (a b c ghi sẵn), VI 2', (doc.match(/w:leader="dot"/g)||[]).length===2*(4+2+1+12+2), (doc.match(/w:leader="dot"/g)||[]).length+' dòng');
    ok('Word: bảng mục II lặp tiêu đề, dòng tổ không cắt', (doc.match(/<w:tblHeader\/>/g)||[]).length===2 && chu.indexOf('Tổ TK&VV '+them.ten)>=0);
    ok('Word: khối VI + Nơi nhận + Trưởng đoàn đi liền', /keepNext/.test(doc) && /TRƯỞNG ĐOÀN KIỂM TRA/.test(chu) && /\(mẫu06\/TD,06A\/TD\):\.{5,}phiếu/.test(chu.replace(/\s/g, '')));
    ok('Word: đủ phần (styles, header, theme…)', ['word/styles.xml','word/settings.xml','word/header1.xml','word/theme/theme1.xml','word/footnotes.xml'].every(n=>XLSX.CFB.find(z.z, n) || XLSX.CFB.find(z.z, '/'+n)));
@@ -68,7 +68,7 @@ const fs=require('fs'), path=require('path');
    /* 1 tổ không khai báo Hội → giữ dòng chấm */
    KT_BC_CHON = {}; KT_BC_NGAY = {}; KT_BC_CHON[B2.ma] = true; ktVeThe(); ktBCXem(); await w(200); ktBCIn('word'); await w(900);
    const fn2 = Object.keys(F).filter(n=>/Mau 04/.test(n)).pop(); const z2 = await moZip(F[fn2]);
-   ok('Hội chưa khai báo: đơn vị tự sinh, Đoàn kiểm tra chỉ 2 dòng in sẵn', hopLe(z2.doc) && KT_BC_XEM.gts.length===1 && KT_BC_XEM.gts[0].doan.length===0 && (z2.doc.match(/w:leader="dot"/g)||[]).length===4+2+4+21+2);
+   ok('Hội chưa khai báo: đơn vị tự sinh, Đoàn kiểm tra chỉ 2 dòng in sẵn', hopLe(z2.doc) && KT_BC_XEM.gts.length===1 && KT_BC_XEM.gts[0].doan.length===0 && (z2.doc.match(/w:leader="dot"/g)||[]).length===4+2+1+12+2);
    var ra = {doc:await (async()=>{ const a = new Uint8Array(await F[fn].arrayBuffer()); let s=''; for(let i=0;i<a.length;i++) s+=String.fromCharCode(a[i]); return btoa(s); })()};
    C.che = 'dx'; C.xa=''; C.hoi='';
    return {o, ra}; }, files).catch(e=>({o:['✗ LỖI '+e.message]}));

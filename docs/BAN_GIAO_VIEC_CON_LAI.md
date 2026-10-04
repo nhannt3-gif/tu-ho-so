@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.108 · build 05/10/2026 22:00
+**Bản hiện tại:** 3.109 · build 06/10/2026 09:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.109) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › Mẫu 04 (số liệu T9) → Word | "Gia Lộc, ngày ....... tháng 10 năm 2026"; III có 2 ý nội dung; IV.1 có lãi tồn; IV.2 a) b) c) ghi sẵn, b) liệt kê hộ theo tổ (≤ 10 hộ) | |
+| 2 | Kiểm lãi tồn cao 1 hộ trong danh sách | Lãi tồn > 6 tháng lãi (dư nợ × lãi suất ÷ 12 × 6) — nếu lãi suất Mẫu 31 không phải %/năm thì báo em | |
+| 3 | Mẫu 16 đột xuất, chưa khai ngày → Word | "Hôm nay, ngày … tháng 10 năm 2026"; Tồn tại / Kiến nghị có tên hộ | |
+
+**Ghi chú kỹ thuật 3.109:** khuôn `m04`: dòng ngày `{{NOI04}}…{{TH04}}…{{NAM04}}`, III `{{@ND}}{{@CHAM1}}`, IV.2 a/b/c `{{@KNA}}` `{{@KNB}}` `{{@KNC}}`; `ktBC04` → `f.NOI04/TH04/NAM04`, `nd`, `kn` (`ktKN04`); `ktBung04` / `ktHTML04` điền cùng nội dung. `ktLaiThang(m)`, `ktDsDon(t)` (dựa `ktHo`), `ktDsChu` / `ktDsKHD` / `ktDsLTC`, `KT_DS_TOI = 10`. `ktGiaTri16`: chưa khai ngày → `ktThangKT()`. `ktNhanXet16`: tt / kn có tên hộ.
 
 ### Danh sách thử trên máy thật (3.108) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

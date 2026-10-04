@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.109 — 06/10/2026 09:00 — Mẫu 04 / Mẫu 16: ngày theo tháng kiểm tra, nội dung kiểm tra, kiến nghị liệt kê hộ
+- **Mẫu 04/BC-TH** (anh duyệt):
+  - Dòng ngày: "{xã}, ngày ....... tháng mm năm yyyy" — tháng kiểm tra (tháng kế hoạch, hoặc tháng ngày đã ghi, mặc định tháng sau số liệu); ngày ghi tay (`NOI04`, `TH04`, `NAM04`).
+  - III. Nội dung kiểm tra: 2 ý ghi sẵn (`KT_ND04`) — hoạt động Tổ / Ban quản lý Tổ theo khoản 3 Phụ lục I văn bản 727; kiểm tra sử dụng vốn, đối chiếu dư nợ, lãi tồn, tiền gửi (mẫu 06/TD) + 1 dòng chấm.
+  - IV.1 nhận xét từng tổ thêm "n tổ viên còn lãi tồn … đồng, trong đó m hộ lãi tồn trên 6 tháng lãi".
+  - IV.2 kiến nghị (`ktKN04`) — a) chỉ đạo Ban quản lý Tổ đôn đốc; b) theo từng tổ "đề nghị Ban quản lý Tổ phối hợp đôn đốc các hộ: + Món vay không có giao dịch từ 3 tháng trở lên: … + Còn lãi tồn trên 6 tháng lãi: …"; c) tổ viên. d), đ), mục 3 giữ dòng chấm. (Thay quy tắc 3.106 "kiến nghị để trống".)
+- **Lãi tồn cao** (anh chốt): lãi tồn món (trong hạn + quá hạn, không tính ân hạn) > 6 × lãi 1 tháng; lãi 1 tháng = dư nợ × lãi suất (cột Lãi suất Mẫu 31, %/năm ÷ 12; ≤ 2 coi là %/tháng — suy luận, chưa thấy Mẫu 31 thật). Không có lãi suất (chỉ Mẫu 10) → không xét. Mỗi tổ tối đa 10 hộ + "và n hộ khác" (`KT_DS_TOI`, `ktDsDon`, `ktDsKHD`, `ktDsLTC`).
+- **Mẫu 16/TD:** chưa khai ngày kiểm tra → tháng / năm theo tháng kiểm tra, ngày ghi tay; III. Tồn tại / Kiến nghị ghi tên hộ (món không giao dịch từ 3 tháng, lãi tồn trên 6 tháng lãi), kiến nghị "Đề nghị Ban quản lý Tổ phối hợp đôn đốc …".
+- Kiểm tra: `kiem.py` sạch; hoiquy, hoiquy2, t101–t114 không lỗi (t114 mới, 19 phép; t108 cập nhật số dòng chấm vì III và a b c đã ghi sẵn).
+
+---
+
 ## 3.108 — 05/10/2026 22:00 — nạp Danh sách tổ (DSTO) đối chiếu với Thông tin tổ trưởng · tên tổ trưởng chuẩn
 - **Loại file mới `dsto`** (nhóm Ⓓ phụ, không bắt buộc) — "Danh sách tổ TK&VV" (…_DSTO.xlsx): nhận theo cột MÃ TỔ + MÃ ĐIỂM GDX + ĐƠN VỊ ỦY THÁC, kỳ theo tên file (`_30092026_` → T9). Trường mới: `dvTen` (Hội bằng chữ → mã qua `toDvTuTen` / `TW_HOI`), `ttKH` (mã KH tổ trưởng), `skv`, `tk`; tổ phó "(HIỆN TẠI)"; cột còn lại giữ `c_…` (xếp loại, năm sinh, tuổi — chưa dùng).
 - **Đọc đủ dòng:** file DSTO hệ thống khai `<dimension A1:AA14>` dù dữ liệu tới dòng 382 → SheetJS chỉ đọc 6 tổ. `slSuaRef` mở rộng `!ref` theo ô thật (cả đọc trực tiếp và Worker). Dòng tên cột phụ "CÒN LÃI TỒN / CÒN TIẾT KIỆM" → tiêu đề; "Thủ trưởng đơn vị", "(Ký, ghi rõ họ tên)" → phần ký.
