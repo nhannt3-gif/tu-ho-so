@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.108 — 05/10/2026 22:00 — nạp Danh sách tổ (DSTO) đối chiếu với Thông tin tổ trưởng · tên tổ trưởng chuẩn
+- **Loại file mới `dsto`** (nhóm Ⓓ phụ, không bắt buộc) — "Danh sách tổ TK&VV" (…_DSTO.xlsx): nhận theo cột MÃ TỔ + MÃ ĐIỂM GDX + ĐƠN VỊ ỦY THÁC, kỳ theo tên file (`_30092026_` → T9). Trường mới: `dvTen` (Hội bằng chữ → mã qua `toDvTuTen` / `TW_HOI`), `ttKH` (mã KH tổ trưởng), `skv`, `tk`; tổ phó "(HIỆN TẠI)"; cột còn lại giữ `c_…` (xếp loại, năm sinh, tuổi — chưa dùng).
+- **Đọc đủ dòng:** file DSTO hệ thống khai `<dimension A1:AA14>` dù dữ liệu tới dòng 382 → SheetJS chỉ đọc 6 tổ. `slSuaRef` mở rộng `!ref` theo ô thật (cả đọc trực tiếp và Worker). Dòng tên cột phụ "CÒN LÃI TỒN / CÒN TIẾT KIỆM" → tiêu đề; "Thủ trưởng đơn vị", "(Ký, ghi rõ họ tên)" → phần ký.
+- **Dựng tổ (`toNap`):** sau Thông tin tổ trưởng, DSTO cùng tháng bổ sung trường còn trống; tổ không có trong file tổ trưởng lấy điểm GD theo DSTO (`diemTu` = "Danh sách tổ T9/2026"), trước bảng tháng khác / danh bạ / suy. Ngày GDXA thiếu → theo mã điểm GD của tổ khác.
+- **② Kiểm tra — đối chiếu 2 danh sách (`slKTDsTo`, nhóm 6, chỉ khi có DSTO):** tổ có món thiếu trong Thông tin tổ trưởng (lưu ý — app đã bù) / thiếu trong DSTO; tổ trong danh sách không còn món dư nợ; lệch điểm GD; lệch tổ trưởng / SĐT (không phân biệt hoa thường, bỏ Ông / Bà); lệch Hội (DSTO, Thông tin tổ trưởng ↔ ĐVUT món); tên không dấu chưa tìm được tên có dấu. **Không so dư nợ / số tổ viên / số khoản vay**: số thật T9 lệch 139 / 305 / 134 tổ (DSTO không cùng thời điểm với Mẫu 31). Có DSTO thì bỏ phép cũ "Tổ … có trong danh sách tổ trưởng" (không báo trùng).
+- **Tên tổ trưởng / tổ phó (anh chốt, `toTenChuan` — 1 lần mỗi kỳ khi dựng tổ):** bỏ "Ông / Bà / Ong / Ba" đầu tên (còn ≥ 2 chữ); tên không dấu → tên có dấu trên Mẫu 31 theo mã KH tổ trưởng (DSTO) hoặc thành viên tổ trùng tên (so không dấu); viết hoa chữ đầu mỗi từ (`tenHoaDau`); không tìm được thì giữ không dấu + `tenKhongDau`. Tên gốc giữ ở `t.tenGoc`. **Tên hộ vay giữ nguyên** như hệ thống. Thử số liệu thật T9 (chỉ đọc, không đưa vào repo): 179 tên đổi, 0 còn IN HOA / Ông / Bà, 13 tên không dấu chưa tìm được (dùng Mẫu 10; Mẫu 31 có thể tìm thêm).
+- Thử số liệu thật T9 (TT T8 + T9, DSTO, Mẫu 10 30/09): 370 tổ, 0 chưa rõ điểm GD, 18 tổ lấy điểm theo DSTO; đối chiếu điểm GD / Hội / tổ trưởng / SĐT khớp hết.
+- Kiểm tra: `kiem.py` sạch; t113 mới (25 phép).
+
+---
+
 ## 3.107 — 05/10/2026 18:00 — tổ thiếu trong file Thông tin tổ trưởng · vay trực tiếp theo ấp · KTGS bỏ mục trực tiếp · Mẫu 16 Đoàn kiểm tra
 - **Rà số liệu thật T9/2026 (anh nhờ, chỉ đọc):** file Thông tin tổ trưởng T9 xuất **thiếu 26 tổ** so với T8 (352 / 378); 18 tổ vẫn còn món (993 món, ≈ 40,3 tỷ). Hội (mã ĐVUT món) khớp 100% bảng tổ; mỗi ấp chỉ thuộc 1 điểm GD → suy theo ấp đúng như bảng T8. Chip "(chưa rõ điểm GD)" ở Gia Lộc = 1 món vay trực tiếp không trùng ngày GDXA tổ nào.
 - **B. Điểm GD tổ thiếu:** bảng tổ tháng khác chỉ lấy bảng **chốt tháng** (bỏ bảng theo ngày), **tháng gần kỳ đang xem nhất trước**, tối đa 6 bảng (trước chỉ 4 bảng "mới nhất", có thể toàn bảng theo ngày); ghi căn cứ `t.diemTu`. Không mở được bảng → **danh bạ tổ** (`SL_DB.to`, chỉ nhận khi đối được ra mã điểm GD của tổ cùng xã — `toDanhBaDiem`) → suy ấp / ngày GDXA như cũ.

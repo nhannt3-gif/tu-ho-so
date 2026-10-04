@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.107 · build 05/10/2026 18:00
+**Bản hiện tại:** 3.108 · build 05/10/2026 22:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.108) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu › Nạp file `004820_30092026_DSTO.xlsx` | Nhận "Danh sách tổ TK&VV (DSTO)" kỳ T9/2026, **369 dòng** (không phải 6) | |
+| 2 | ② Kiểm tra T9 | Mục 6: thiếu 18 tổ trong Thông tin tổ trưởng (lưu ý), DSTO đủ, điểm GD / Hội / tổ trưởng / SĐT khớp | |
+| 3 | KTGS Hội T9 | Dòng vàng "… thiếu 18 tổ … đã xếp điểm GD: Danh sách tổ (DSTO) 18" | |
+| 4 | Tổ TK&VV / Mẫu 06 / Mẫu 16 | Tên tổ trưởng "Nguyễn Văn A" (không IN HOA, không "Ông / Bà"); tên hộ vay giữ như hệ thống | |
+
+**Ghi chú kỹ thuật 3.108:** `SL_LOAI` thêm `dsto` (nhóm D, `giuHet`, `khong` mã KH / KU); `SL_TRUONG` thêm `dvTen`, `ttKH`, `skv`, `tk`, alias tổ phó "hien tai". `slSuaRef(ws)` (đọc trực tiếp + chuỗi Worker qua `toString()`). `slLayDong`: `thu truong`, `ghi ro ho ten` → ký; dòng chỉ "con lai ton / con tiet kiem" → tiêu đề. `toNap`: vòng `Bm.co.dsto` sau `tt` (`t.ds`, `toDvTuTen`, `diemTu`), điền `ngayGD` theo mã điểm, `toTenChuan(K)` sau `twGhepTo` (tên gốc `tenGoc`). `slKTDsTo(B, them)` gọi sau `slKTTW`; `slDoiChieu` bỏ phép "có trong danh sách tổ trưởng" khi có `co.dsto`. `ktSuyHTML` nhóm "Danh sách tổ (DSTO)".
 
 ### Danh sách thử trên máy thật (3.107) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
