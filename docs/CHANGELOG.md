@@ -36,7 +36,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - Hội cấp xã (cả Đoàn) đều có Ban Thường vụ (anh chốt) → ghi chung "TM. BAN THƯỜNG VỤ" cho mọi Hội và Đoàn, cả khuôn ① (thêm dòng trên chức danh ký); chức danh: Hội "CHỦ TỊCH", Đoàn "BÍ THƯ" (anh chốt; sửa được ở mục "Ký thay mặt" trong bảng), "Ủy viên BTV", "Quyết định của BTV".
   - Khuôn Kế hoạch ① ② có dấu chèn mới: "HĐT xã" → xã / phường, "{Hội} xã" → phường, "do hội mình / do Hội quản lý" → Đoàn, "Chủ tịch, phó Chủ tịch", "Hội cấp trên", "Văn phòng ấp", "trưởng ấp", "Ban Thường vụ", "{Hội} tỉnh" (nơi nhận), "TM. BAN THƯỜNG VỤ".
   - Quốc hiệu giữ đúng mẫu Ngân hàng (anh chốt).
-- **⚙ Khai báo Hội thành 1 bảng** (anh chốt): mỗi dòng 1 Hội – xã, cột: tên đơn vị · số / ngày KH Hội tỉnh · số / ngày HĐ ủy thác · đoàn kiểm tra · người ký; nút "⇩ cùng Hội" chép số / ngày KH Hội tỉnh xuống các xã cùng Hội (khi xem nhiều xã). Cùng chỗ lưu, dữ liệu cũ giữ nguyên. Kế hoạch ② căn cứ đơn giản (727 + hợp đồng), ① ghi đủ số / ngày.
+- **⚙ Khai báo Hội thành 1 bảng** (anh chốt): mỗi dòng 1 Hội – xã, cột: tên đơn vị · số / ngày KH Hội tỉnh · số / ngày HĐ ủy thác · đoàn kiểm tra · người ký; nút "⇩ cùng Hội" chép số / ngày KH Hội tỉnh xuống các xã cùng Hội (khi xem nhiều xã). Cùng chỗ lưu, dữ liệu cũ giữ nguyên. Kế hoạch ① ghi đủ căn cứ (số / ngày KH Hội tỉnh, HĐUT); ② căn cứ gọn khi chưa khai, **đã khai đủ thì ② cũng in đủ** (thêm dòng căn cứ KH Hội tỉnh, "hợp đồng ủy thác số … ngày …"). Đoàn: "của Tỉnh Đoàn Tây Ninh".
 - **Mẫu 16:**
   - Chữ in sẵn "thôn/tổ dân phố", "xã/phường/đặc khu", "tỉnh/thành phố" → đúng chữ (ấp / khu phố, xã / phường, tỉnh); trống thì giữ chữ mẫu.
   - "Tổ thuộc" + **tên Hội đầy đủ** (hết lỗi "Hội Đoàn Thanh niên").
