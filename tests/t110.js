@@ -40,7 +40,7 @@ const fs=require('fs'), path=require('path');
    /* 4. khai báo theo thứ tự mẫu */
    KT_KB = {}; ktKhaiBao('m06'); await w(80); const id06 = [...document.querySelectorAll('.kt-kb-khung [id^=kb-]')].map(e=>e.id.slice(3)).join(',');
    ok('3.98: khai báo nằm trong tab (không hộp bật lên), theo thứ tự mẫu: Mẫu 06 (đơn vị → cán bộ → ngày → mục đích) rồi Mẫu 16 (đoàn → nhận xét)', !document.getElementById('hop-in') || !document.querySelector('#hop-in [id^=kb-]'), id06);
-   ok('khung đột xuất đủ ô theo thứ tự', id06==='dv,cbtu,cb2,cv2,ngay,md,doan,nx', id06);
+   ok('khung đột xuất đủ ô theo thứ tự', id06==='dv,cbtu,cb2,cv2,ngay,md,nx', id06);
    ok('⚙ Khai báo Hội: tên → cán bộ → KH Hội tỉnh → HĐUT → ký (3.106: bỏ ô đoàn)', KT_HKB_O.map(x=>x[0]).join(',')==='ten,cb,cbcv,kh,khNgay,hd,hdNgay,ky');
    /* 5. định kỳ theo lịch */
    const t0 = best; C.xa = t0.xa; C.diem = ''; C.hoi = String(t0.dv); C.to = '';
@@ -55,7 +55,7 @@ const fs=require('fs'), path=require('path');
    ok('bỏ tích → tỷ lệ < 90% báo đỏ', ktDKTyLe(t0).pt<90 && !!document.querySelector('.kt-dk-bang b.do'));
    KT_DK_BO = {}; const qh = ho.find(y=>y.h.loai); if(qh){ ktDKHoTich(t0.ma, qh.h.kh, 1, true); await w(100); ok('tích tay hộ QH / khoanh → thêm vào, không tính vào tỷ lệ', ktDKCo(t0.ma, qh) && ktDKTyLe(t0).pt===100 && ktDKTyLe(t0).nTong===ktDKTyLe(t0).nChon+1); }
    KT_KB = {}; ktDKKhaiBao(); await w(80); const idDK = [...document.querySelectorAll('.kt-kb-khung [id^=kb-]')].map(e=>e.id.slice(3)).join(',');
-   ok('khung định kỳ: Mẫu 06 (đơn vị → cán bộ → mục đích) rồi Mẫu 16 (đoàn); không hỏi ngày', idDK==='dv,cbtu,cb2,cv2,md,doan,nx', idDK);
+   ok('khung định kỳ: Mẫu 06 (đơn vị → cán bộ → mục đích) rồi Mẫu 16 (3.107: không còn ô đoàn); không hỏi ngày', idDK==='dv,cbtu,cb2,cv2,md,nx', idDK);
    ktDKXem(); await w(400); const X = KT_DK_XEM;
    ok('Mẫu 06: thời điểm "…../09/2026", ngày trống, tháng 09 năm 2026', X.g06[0].f.TD==='…../09/2026' && X.g06[0].f.ND==='' && X.g06[0].f.NM==='09' && X.g06[0].f.NY==='2026');
    ok('Mẫu 16: ngày trống, tháng 09 năm 26; số liệu đến 31/08/2026; số khách = số hộ chọn', X.g16[0].f.ND==='' && X.g16[0].f.NM==='09' && X.g16[0].f.NY==='26' && X.g16[0].f.SD==='31' && X.g16[0].f.SM==='08' && +X.g16[0].f.SKH===X.g06[0].dc.length);
@@ -85,7 +85,7 @@ const fs=require('fs'), path=require('path');
    ok('khuôn ②: điền tên Hội xã, ký hiệu KH, năm, chân trang số trang', cK.indexOf(ktChuanDauXa(t0))>=0 && /\/KH-(HND|HPN|CCB|ĐTN)/.test(cK) && /năm 2026/.test(cK) && !!zK.g('word/footer1.xml') && !zK.g('word/header1.xml'));
    const vien = x => (x.match(/<w:tblBorders><w:top w:val="nil"\/>/g)||[]).length;
    ok('bảng đầu trang / chữ ký không viền (04: 1 · KH ①: 2 · KH ②: 2); bảng số liệu giữ viền', vien(KT_KHUON.m04.than)===1 && vien(KT_KHUON.m01.than)===2 && vien(KT_KHUON.m01b.than)===2 && /w:val="single"/.test(KT_KHUON.m01b.than));
-   ok('Quốc hiệu đủ chỗ: cột phải bảng đầu trang KH ① 5956, ② 5961 twip', /<w:gridCol w:w="5956"\/>/.test(KT_KHUON.m01.than) && /<w:gridCol w:w="5961"\/>/.test(KT_KHUON.m01b.than));
+   ok('Quốc hiệu đủ chỗ: cột phải bảng đầu trang KH ① 5657, ② 5701 twip (3.108: nới cột trái; Quốc hiệu đậm 13 cần ≈ 5386 + lề 216)', /<w:gridCol w:w="5657"\/>/.test(KT_KHUON.m01.than) && /<w:gridCol w:w="5701"\/>/.test(KT_KHUON.m01b.than) && ktDoRong('CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM', 26)+216 <= 5657);
    ktKHDoiMau('1'); await w(100); ktKHXem(); await w(300); ktKHIn('word'); await w(1200);
    const fK1 = Object.keys(F).filter(n=>/Ke hoach KTGS/.test(n)).pop(); const zK1 = await moZip(F[fK1]); ok('khuôn ① vẫn chạy (căn cứ 727)', hopLe(zK1.doc) && /727\/HD-NHCS/.test(zK1.doc));
    ktKHDoiMau('2'); ktKHXem(); await w(300); ktKHIn('in'); await w(300);

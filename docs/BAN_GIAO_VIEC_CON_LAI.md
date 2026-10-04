@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.106 · build 05/10/2026 14:00
+**Bản hiện tại:** 3.108 · build 05/10/2026 22:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,28 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.108) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu › Nạp file `004820_30092026_DSTO.xlsx` | Nhận "Danh sách tổ TK&VV (DSTO)" kỳ T9/2026, **369 dòng** (không phải 6) | |
+| 2 | ② Kiểm tra T9 | Mục 6: thiếu 18 tổ trong Thông tin tổ trưởng (lưu ý), DSTO đủ, điểm GD / Hội / tổ trưởng / SĐT khớp | |
+| 3 | KTGS Hội T9 | Dòng vàng "… thiếu 18 tổ … đã xếp điểm GD: Danh sách tổ (DSTO) 18" | |
+| 4 | Tổ TK&VV / Mẫu 06 / Mẫu 16 | Tên tổ trưởng "Nguyễn Văn A" (không IN HOA, không "Ông / Bà"); tên hộ vay giữ như hệ thống | |
+| 5 | Kế hoạch KTGS ② Word (Hội Nông dân phường Gia Lộc) | Tên cơ quan 1 dòng (cỡ 12); gạch dưới đen, sát tên hơn; gạch dưới tiêu ngữ thấp xuống chút; câu "Hội … xây dựng kế hoạch" không còn gạch đầu dòng; lịch ghi tên tổ trưởng chuẩn | |
+| 6 | Kế hoạch ② của Hội LHPN / Đoàn ở phường | Tên cơ quan 2 dòng gọn "HỘI LIÊN HIỆP PHỤ NỮ / PHƯỜNG …", gạch dưới nằm dưới dòng 2 | |
+
+**Ghi chú kỹ thuật 3.108:** `SL_LOAI` thêm `dsto` (nhóm D, `giuHet`, `khong` mã KH / KU); `SL_TRUONG` thêm `dvTen`, `ttKH`, `skv`, `tk`, alias tổ phó "hien tai". `slSuaRef(ws)` (đọc trực tiếp + chuỗi Worker qua `toString()`). `slLayDong`: `thu truong`, `ghi ro ho ten` → ký; dòng chỉ "con lai ton / con tiet kiem" → tiêu đề. `toNap`: vòng `Bm.co.dsto` sau `tt` (`t.ds`, `toDvTuTen`, `diemTu`), điền `ngayGD` theo mã điểm, `toTenChuan(K)` sau `twGhepTo` (tên gốc `tenGoc`). `slKTDsTo(B, them)` gọi sau `slKTTW`; Kế hoạch: `ktHXCo(hx, rộng)` + `ktDoRong` (canvas), khuôn `{{HXZ|26}}`, cột trái ② 4560 / ① 4380, gạch dưới ② đen (bỏ `wps:style` accent1); `slDoiChieu` bỏ phép "có trong danh sách tổ trưởng" khi có `co.dsto`. `ktSuyHTML` nhóm "Danh sách tổ (DSTO)".
+
+### Danh sách thử trên máy thật (3.107) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu T9 › KTGS Hội (đã nạp Thông tin tổ trưởng T8 + T9) | Dòng vàng "File Thông tin tổ trưởng T9/2026 thiếu … tổ — đã xếp điểm GD: tháng trước …"; bấm ra bảng từng tổ, điểm GD đúng như T8 | |
+| 2 | KTGS Hội › Phường Gia Lộc | Không còn chip "(chưa rõ điểm GD)", "Trực tiếp", "Vay trực tiếp" | |
+| 3 | Tổ TK&VV › Phường Gia Lộc | Vay trực tiếp nằm trong đúng điểm GD (theo ấp của món) | |
+| 4 | Mẫu 16 Word (tổ Hội Nông dân, tổ Đoàn) | "ĐOÀN KIỂM TRA: Hội Nông dân phường …" / "Đoàn Thanh niên …"; khung ✎ Khai báo không còn ô Đoàn kiểm tra | |
+
+**Ghi chú kỹ thuật 3.107:** `toNap`: bảng tổ tháng khác lọc `ky.length===7`, xếp theo khoảng cách tháng (`cach`), 6 bảng, chỉ nhận dòng có `diem`, ghi `t.diemTu`; `toDanhBaDiem(K)` (danh bạ `SL_DB.to` → mã điểm qua tổ cùng xã cùng tên điểm) chạy trước `toSuyDiem`. `toGanTrucTiep`: `theoAp` (danh mục địa bàn / đa số tổ cùng `xa|thon`) → `diem[xa|ngày]` → xã 1 điểm. `ktSuyHTML(K)`: tổ không có `t.tt` mà có `diemTu`/`diemSuy` (thiếu) hoặc không `diem` (chưa rõ), bảng `.kt-suy`. `PV_DUNG.kt.boTT` + `pvBoTT(T)` trong `pvVeCay`. Mẫu 16: `DOAN` = `ktHoiTenTD(t)` (dv ≠ 99), bỏ `doan` khỏi `KT_KB_LUU` / `ktDocKB` / khung; dọn `ktKBLuu.doan` ở khối dọn rác 3.106.
 
 ### Danh sách thử trên máy thật (3.106) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
