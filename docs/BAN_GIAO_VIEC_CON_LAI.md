@@ -227,9 +227,10 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 |---|---|---|---|
 | 1 | 🎓 HSSV: vay 15/09/2026, ra 15/09/2030 · 15/02/2030 · 15/12/2028 | Gợi ý 160 / 140 / 80 tr (40 / 35 / 20 tháng vay) | |
 | 2 | Vay 15/02/2027 (giữa năm học), ra 15/06/2030 | 140 tr (năm đầu nửa năm) | |
+| 2b | Vay 15/09/2026, ra 15/01/2030 | 120 tr (tháng 1 tính vào năm trước) | |
 | 3 | Mở "Cách tính" | Có dòng liệt kê từng năm học: tròn năm / nửa năm / không tính | |
 
-**Ghi chú kỹ thuật 3.101:** `hsGoiY` viết lại theo năm học: `nh(d)` = năm bắt đầu năm học (tháng ≥ 9 → năm đó), `fa` (tháng vay: 9–12 → 1, 1–5 → ½, 6–8 → 0), `fb` (tháng ra: 6–8 → 1, 1–5 → ½, 9–12 → 0); khác năm học: fa + số năm giữa + fb; cùng năm học: fa + fb − 1; `nua = max(1, round(tổng × 2))`; trả thêm `ds` (chuỗi từng năm học) cho dòng Cách tính.
+**Ghi chú kỹ thuật 3.101:** `hsGoiY` viết lại theo năm học: `nh(d)` = năm bắt đầu năm học (tháng ≥ 9 → năm đó), `fa` (tháng vay: 9–12 → 1, 1–5 → ½, 6–8 → 0), `fb` (tháng ra: 6–8 → 1, 2–5 → ½, 9–12 và 1 → 0); khác năm học: fa + số năm giữa + fb; cùng năm học: fa + fb − 1; `nua = max(1, round(tổng × 2))`; trả thêm `ds` (chuỗi từng năm học) cho dòng Cách tính.
 
 ### Danh sách thử trên máy thật (3.100) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

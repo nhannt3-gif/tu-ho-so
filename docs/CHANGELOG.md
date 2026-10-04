@@ -6,7 +6,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ## 3.101 — 04/10/2026 18:00 — Hạn trả HSSV: tiền vay gợi ý theo năm học
 - **Tiền vay gợi ý tính theo năm học** (bắt đầu tháng 9; anh chốt), thay cho đếm tháng phát tiền vay: mỗi năm học 10 tháng vay = 40 tr, nửa năm 5 tháng = 20 tr.
-  - Năm cuối theo **tháng ra trường**: 6–8 → tròn năm · 1–5 → nửa năm · 9–12 → tính vào năm học trước (0).
+  - Năm cuối theo **tháng ra trường**: 6–8 → tròn năm · **2–5** → nửa năm · 9–12 và **tháng 1** → tính vào năm học trước (0) — anh chốt: tháng 1 thường chưa đủ 6 tháng từ lúc nhận tiền.
   - Năm đầu theo **tháng vay**: 9–12 → tròn năm · 1–5 → nửa năm · 6–8 (nghỉ hè) → bắt đầu từ năm học sau. Vay và ra trong cùng năm học: cộng hai phần trừ 1; tối thiểu nửa năm.
   - Ví dụ anh gửi: 15/09/2026 → 15/09/2030 = 40 tháng (160 tr); → 15/02/2030 = 35 tháng (140 tr); → 15/12/2028 = 20 tháng (80 tr).
 - Ô **Cách tính** thêm dòng liệt kê từng năm học (tròn năm / nửa năm / không tính).

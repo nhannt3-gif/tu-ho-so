@@ -88,7 +88,7 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.101 (mới nhất):** HSSV tiền vay gợi ý theo năm học từ tháng 9 (ra 6–8 tròn năm, 1–5 nửa năm, 9–12 tính năm trước; vay 1–5 nửa năm, 6–8 từ năm sau).
+**3.101 (mới nhất):** HSSV tiền vay gợi ý theo năm học từ tháng 9 (ra 6–8 tròn năm, 2–5 nửa năm, 9–12 và tháng 1 tính năm trước; vay 1–5 nửa năm, 6–8 từ năm sau).
 
 **3.100:** HSSV: ngày vay gợi ý = GDX gần nhất từ hôm nay; tiền vay gợi ý làm tròn gần nhất theo nửa năm (26 tháng = 2 năm = 80 tr).
 

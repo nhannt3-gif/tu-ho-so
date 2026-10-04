@@ -4593,12 +4593,12 @@ function hsVayGoiY(g){   /* 3.100 (anh chốt): ngày giải ngân gợi ý = ng
 }
 function hsGoiY(v){   /* 3.99 (anh chốt): tiền vay gợi ý — 1 năm học = 10 tháng vay = 40 triệu; nửa năm = 5 tháng = 20 triệu.
    3.101 (anh chốt): tính theo NĂM HỌC (bắt đầu tháng 9) thay cho đếm tháng.
-   Năm cuối theo tháng ra trường: 6–8 tròn năm · 1–5 nửa năm · 9–12 tính vào năm học trước (0).
+   Năm cuối theo tháng ra trường: 6–8 tròn năm · 2–5 nửa năm · 9–12 và tháng 1 tính vào năm học trước (0) — tháng 1 thường chưa đủ 6 tháng từ lúc nhận tiền.
    Năm đầu theo tháng vay: 9–12 tròn năm · 1–5 nửa năm · 6–8 (nghỉ hè) bắt đầu từ năm học sau. Tối thiểu nửa năm. */
   var a = hsDoc(v.vay), b = hsDoc(v.rt); if(!a || !b || hsSoNgay(a, b)<=0) return null;
   var nh = function(d){ return d.getMonth()>=8 ? d.getFullYear() : d.getFullYear()-1; };   /* năm học chứa ngày d (tính theo năm bắt đầu) */
   var ma = a.getMonth()+1, mb = b.getMonth()+1;
-  var fa = ma>=9 ? 1 : (ma<=5 ? 0.5 : 0), fb = (mb>=6 && mb<=8) ? 1 : (mb<=5 ? 0.5 : 0);
+  var fa = ma>=9 ? 1 : (ma<=5 ? 0.5 : 0), fb = (mb>=6 && mb<=8) ? 1 : (mb>=2 && mb<=5 ? 0.5 : 0);
   var na = nh(a), nb = nh(b), ds = [], tong;
   if(na===nb){ tong = fa+fb-1; ds.push([na, Math.max(0, tong)]); }
   else { tong = fa+(nb-na-1)+fb; ds.push([na, fa]); for(var y=na+1; y<nb; y++) ds.push([y, 1]); ds.push([nb, fb]); }
@@ -12532,7 +12532,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.101', ds:[
-  ['🎓 Hạn trả HSSV: tiền vay gợi ý tính theo năm học (từ tháng 9) — ra trường tháng 6–8 tròn năm, tháng 1–5 nửa năm, tháng 9–12 tính vào năm trước; vay tháng 1–5 năm đầu tính nửa năm; ô Cách tính liệt kê từng năm học', "dongHop();doiNgan(0);ccMo('hssv')"],
+  ['🎓 Hạn trả HSSV: tiền vay gợi ý tính theo năm học (từ tháng 9) — ra trường tháng 6–8 tròn năm, tháng 2–5 nửa năm, tháng 9 – tháng 1 tính vào năm trước; vay tháng 1–5 năm đầu tính nửa năm; ô Cách tính liệt kê từng năm học', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['🎓 Hạn trả HSSV: ô Ngày vay tự gợi ý ngày giải ngân = ngày giao dịch (GDX) gần nhất kể từ hôm nay (hôm nay đúng GDX thì lấy hôm nay); đổi GDX thì gợi ý lại; gõ đè nếu khác', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['🎓 Hạn trả HSSV: app tự gợi ý tiền vay theo thời gian phát tiền vay (mỗi nửa năm = 5 tháng = 20 triệu, năm = 40 triệu, không tính lẻ) — ô Tiền vay điền sẵn, gõ đè nếu cần; kết quả 3 khối lớn (số tiền vay + số tháng vay, thời hạn, hạn cuối) + 2 khối phụ nhỏ (trả mỗi lần, lần đầu)', "dongHop();doiNgan(0);ccMo('hssv')"],
   ['📄 Mẫu 06 gọn hơn: đã điền Đơn vị thì bỏ dòng chấm thứ 2; chữ “Chức vụ” 2 dòng cán bộ thẳng cột; địa bàn “ấp / khu phố …, xã / phường …, tỉnh Tây Ninh” rồi Tổ TK&VV; cột Mục đích rộng (~3,7 cm), dòng cao 1,5 cm (ghi được 3 dòng); 1 khách nhiều khế ước chỉ ghi tên, ô ký 1 lần; hộ xếp theo mã KH; món có 2 mục đích (PNKT52, vd nước sạch + vệ sinh) in đủ cả 2', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
