@@ -2157,7 +2157,7 @@
   .kt-bc-bang input[type=checkbox]{width:18px;height:18px;margin:0}#kt-the .kt-bc-bang td:first-child,#kt-the .kt-bc-bang th:first-child{width:auto;min-width:0}
   .kt-bc-bang input[type=date]{font:inherit;padding:1px 4px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu)}
   .kt-bc-bang small.vang{color:#a86f00}.kt-bc-bang td.kt-bc-tach{background:var(--nen,transparent);color:var(--chu-phu)}
-  .kt-hkb{border:1px solid var(--vien);border-radius:8px;padding:6px 10px;margin:6px 0;background:var(--the)}.kt-hkb>b{display:block;margin-bottom:4px}
+  .kt-hkb-bang input,.kt-hkb-bang textarea{font:inherit;padding:3px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu);width:100%;box-sizing:border-box;min-width:90px}.kt-hkb-bang .kt-hkb-ten input{min-width:150px}.kt-hkb-bang .kt-hkb-doan textarea{min-width:190px;resize:vertical}.kt-hkb-bang .kt-hkb-ky input{min-width:130px}.kt-hkb-bang .kt-hkb-khNgay input,.kt-hkb-bang .kt-hkb-hdNgay input{min-width:84px}.kt-hkb-bang td{vertical-align:top}
   .kt-hkb .kt-kb textarea{font:inherit;padding:4px 8px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu);width:100%;box-sizing:border-box;resize:vertical}
   .kt-hkb-ds{max-height:64vh;overflow:auto}
   @media(max-width:600px){ .kt-hkb .kt-kb{grid-template-columns:1fr;gap:2px} }
@@ -23288,24 +23288,34 @@ function ktHTML04(gt){
     '</body></html>';
 }
 /* ---------- ⚙ Khai báo Hội (mỗi Hội – xã 1 khối) ---------- */
-var KT_HKB_O = [['ten','Tên đơn vị (in đầu trang)'], ['kh','Số Kế hoạch KTGS của Hội tỉnh'], ['khNgay','Ngày kế hoạch Hội tỉnh'], ['hd','Số Hợp đồng ủy thác'], ['hdNgay','Ngày ký hợp đồng'], ['doan','Đoàn kiểm tra (thành phần)'], ['ky','Người ký (Chủ tịch Hội)']];   /* 3.97: theo thứ tự trên Kế hoạch: đầu trang → căn cứ (KH Hội tỉnh, HĐUT) → thành phần → ký */
+var KT_HKB_O = [['ten','Tên đơn vị (đầu trang)'], ['kh','Số KH Hội tỉnh'], ['khNgay','Ngày KH Hội tỉnh'], ['hd','Số HĐ ủy thác'], ['hdNgay','Ngày ký HĐ'], ['doan','Đoàn kiểm tra (mỗi người 1 dòng)'], ['ky','Người ký (Chủ tịch / Bí thư)']];   /* 3.97: theo thứ tự trên Kế hoạch: đầu trang → căn cứ (KH Hội tỉnh, HĐUT) → thành phần → ký */
 function ktHoiDs(){   /* các cặp Hội – xã có trong dữ liệu (bỏ vay trực tiếp) — theo phạm vi xã đang chọn nếu có */
   var C = ktCH(), g = {}; if(!KT_K) return [];
   Object.keys(KT_K.to).forEach(function(m){ var t = KT_K.to[m]; if(toLaTT(t) || !t.xa || !t.dv || String(t.dv)==='99') return; if(C.xa && t.xa!==C.xa) return;
     var k = ktHoiKhoa(t); if(!g[k]) g[k] = {k:k, t:t, n:0}; g[k].n++; });
   return Object.keys(g).map(function(k){ return g[k]; }).sort(function(a, b){ return ((a.t.tenXa||'')+'|'+a.t.dv).localeCompare((b.t.tenXa||'')+'|'+b.t.dv, 'vi'); });
 }
-function ktHoiKBHop(tuXem){
-  var ds = ktHoiDs(), C = ktCH();
+function ktHoiKBHop(tuXem){   /* 3.98 (anh chốt): bảng khai báo — mỗi dòng 1 Hội – xã, mỗi cột 1 thông số (cùng chỗ lưu D.cauHinh.ktHoiKB, không đổi dữ liệu cũ) */
+  var ds = ktHoiDs(), C = ktCH(); KT_HKB_TU = tuXem;
+  var ph = function(x, o){ return o==='ten' ? ktHoiTenTD(x.t) : (o==='doan' ? 'mỗi người 1 dòng: Ông … – Chủ tịch Hội, Trưởng đoàn' : (o==='khNgay' || o==='hdNgay' ? 'dd/mm/yyyy' : '…')); };
   var h = ds.map(function(x){ var kb = ktHoiKB(x.k), id = x.k.replace(/[^0-9a-z]/gi, '_');
-    return '<div class="kt-hkb"><b>'+coChuHTML(ktHoiTenTD(x.t))+' <small>('+x.n+' tổ)</small></b>'+
-      KT_HKB_O.map(function(o){
-      var v = coChuHTML(kb[o[0]]||''), on = ' onchange="ktHoiKBSua(\''+x.k+'\',\''+o[0]+'\',this.value)"', ph = o[0]==='ten' ? ktHoiTenTD(x.t)+' · đầu trang: '+ktChuanDauXa(x.t) : (o[0]==='doan' ? 'mỗi người 1 dòng, vd: Ông Nguyễn Văn A – Chủ tịch Hội, Trưởng đoàn' : 'để trống = dòng chấm');
-      return '<label class="kt-kb"><span>'+o[1]+'</span>'+(o[0]==='doan' ? '<textarea id="hkb-'+id+'-'+o[0]+'" rows="3" placeholder="'+coChuHTML(ph)+'"'+on+'>'+v+'</textarea>' : '<input id="hkb-'+id+'-'+o[0]+'" value="'+v+'" placeholder="'+coChuHTML(ph)+'"'+on+'>')+'</label>'; }).join('')+'</div>'; }).join('');
+    return '<tr class="kt-hkb"><td class="to-ten"><b>'+coChuHTML(ktHoiTenTD(x.t))+'</b><div><small>'+x.n+' tổ · đầu trang: '+coChuHTML(ktChuanDauXa(x.t))+'</small></div></td>'+
+      KT_HKB_O.map(function(o){ var v = coChuHTML(kb[o[0]]||''), on = ' onchange="ktHoiKBSua(\''+x.k+'\',\''+o[0]+'\',this.value)"', p = ' placeholder="'+coChuHTML(ph(x, o[0]))+'" aria-label="'+coChuHTML(o[1])+'"';
+        return '<td class="kt-hkb-'+o[0]+'">'+(o[0]==='doan' ? '<textarea id="hkb-'+id+'-'+o[0]+'" rows="2"'+p+on+'>'+v+'</textarea>' : '<input id="hkb-'+id+'-'+o[0]+'" value="'+v+'"'+p+on+'>')+'</td>'; }).join('')+'</tr>'; }).join('');
   moHop('<div class="hop-tit">⚙ Khai báo Hội — dùng cho Mẫu 04 và Kế hoạch 01/KH <button class="nho" onclick="ktChuanHop()">📖 Bảng chuẩn hóa Hội – Đoàn</button></div>'+
-    '<div class="hop-phu">Khai 1 lần, app lưu (máy + Drive cùng cấu hình). Ô trống in ra dòng chấm. '+(C.xa ? 'Đang lọc theo xã đã chọn ở cây.' : 'Chọn 1 xã ở cây để chỉ hiện Hội của xã đó.')+'</div>'+
-    '<div class="kt-hkb-ds">'+(h || '<div class="rong">Chưa có dữ liệu tổ — nạp Mẫu 31 trước.</div>')+'</div>'+
+    '<div class="hop-phu">Mỗi dòng 1 Hội – xã. Khai 1 lần, app lưu (máy + Drive cùng cấu hình); ô trống in ra dòng chấm. Tên đơn vị để trống = tên chuẩn. '+(C.xa ? 'Đang lọc theo xã đã chọn ở cây.' : 'Chọn 1 xã ở cây để chỉ hiện Hội của xã đó.')+'</div>'+
+    (h ? '<div class="kt-hkb-ds to-bang-cuon"><table class="to-bang kt-hkb-bang"><thead><tr><th>Hội – xã</th>'+KT_HKB_O.map(function(o){ return '<th>'+coChuHTML(o[1])+
+        (!C.xa && (o[0]==='kh' || o[0]==='khNgay') ? '<br><button class="nho" onclick="ktHoiKBChep(\''+o[0]+'\')" title="Chép xuống các xã cùng Hội còn trống (kế hoạch Hội tỉnh dùng chung)">⇩ cùng Hội</button>' : '')+'</th>'; }).join('')+'</tr></thead><tbody>'+h+'</tbody></table></div>'
+      : '<div class="rong">Chưa có dữ liệu tổ — nạp Mẫu 31 trước.</div>')+
     '<div class="hang-nut"><button class="nho chinh" onclick="dongHop();'+(tuXem===2 ? 'ktKHXem()' : tuXem ? (KT_BC_XEM && KT_BC_XEM.tu==='kh' ? 'ktKH04Xem()' : 'ktBCXem()') : 'ktVeThe()')+'">Xong</button></div>', true);
+  var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
+}
+var KT_HKB_TU = 0;
+function ktHoiKBChep(o){   /* chép số / ngày kế hoạch Hội tỉnh của dòng đã khai xuống các dòng cùng Hội (cùng mã ĐVUT) còn trống */
+  var ds = ktHoiDs(), goc = {}, n = 0;
+  ds.forEach(function(x){ var v = ktHoiKB(x.k)[o]; if(v && !goc[x.t.dv]) goc[x.t.dv] = v; });
+  ds.forEach(function(x){ var v = goc[x.t.dv]; if(v && !ktHoiKB(x.k)[o]){ ktHoiKBSua(x.k, o, v); n++; } });
+  bao(n ? 'Đã chép cho '+n+' dòng cùng Hội.' : 'Không có dòng trống cùng Hội để chép.', 3); ktHoiKBHop(KT_HKB_TU);
 }
 function ktHoiKBSua(k, o, v){
   var S = D.cauHinh.ktHoiKB = D.cauHinh.ktHoiKB || {}, x = S[k] = S[k] || {};

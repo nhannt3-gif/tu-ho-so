@@ -100,6 +100,13 @@ const fs=require('fs'), path=require('path');
    ktHoiKBSua(kD, 'mauKH', ''); const cK1 = chu((await moZip(await ktDocx('m01', ktKHGiaTri()))).doc);
    ok('Kế hoạch ① Đoàn ở phường: HĐT phường, do Đoàn mình quản lý, TM. BAN THƯỜNG VỤ / BÍ THƯ', /HĐT phường/.test(cK1) && !/HĐT xã/.test(cK1) && /do Đoàn mình quản lý/.test(cK1) && /do Đoàn quản lý/.test(cK1) && /TM\. BAN THƯỜNG VỤ\s*BÍ THƯ/.test(cK1));
    KT_K.to[best.ma] = goc;
+   /* 7b. ⚙ Khai báo Hội dạng bảng + chép kế hoạch Hội tỉnh cho các xã cùng Hội */
+   C.xa = ''; ktHoiKBHop(); await w(150); const hds = ktHoiDs();
+   ok('⚙ Khai báo Hội là 1 bảng: mỗi dòng 1 Hội – xã, đủ cột', document.querySelectorAll('.kt-hkb-bang tbody tr').length===hds.length && document.querySelectorAll('.kt-hkb-bang thead th').length===KT_HKB_O.length+1);
+   const dvc = hds.map(x=>String(x.t.dv)).find(dv=>hds.filter(x=>String(x.t.dv)===dv).length>=2), cung = hds.filter(x=>String(x.t.dv)===dvc);
+   cung.forEach(x=>{ ktHoiKBSua(x.k, 'kh', ''); }); ktHoiKBSua(cung[0].k, 'kh', '15/KH-THỬ'); ktHoiKBChep('kh'); await w(150);
+   ok('⇩ cùng Hội: chép số KH Hội tỉnh cho mọi xã cùng Hội, Hội khác không đổi', cung.every(x=>ktHoiKB(x.k).kh==='15/KH-THỬ') && hds.filter(x=>String(x.t.dv)!==dvc).every(x=>ktHoiKB(x.k).kh!=='15/KH-THỬ'), cung.length+' xã');
+   cung.forEach(x=>ktHoiKBSua(x.k, 'kh', '')); dongHop();
    /* 8. điểm GD suy */
    const K = KT_K, T = K.to, coD = Object.values(T).filter(t=>!t.trucTiep && t.diem && t.thon);
    const mau = coD.find(t=>coD.some(x=>x!==t && x.xa===t.xa && String(x.thon)===String(t.thon)));
