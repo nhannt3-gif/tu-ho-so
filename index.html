@@ -2222,6 +2222,7 @@
   .kt-ku{color:#77808a;font-size:.88em}.kt-mon+.kt-mon{border-top:1px dotted var(--vien)}
   .kt-bang small.vang{color:#a86f00}
   .kt-in{margin-top:8px}
+  .kt-hdt-pc{margin-left:6px;vertical-align:middle}
   #tr7 .kt-dau button,#tr7 .kt-kieu button,#tr7 .kt-loc button,#tr7 .kt-in button{flex:0 0 auto;width:auto}
   #tr7 .kt-so button{min-width:30px;min-height:28px;padding:0 8px}
   .kt-bang input[type=checkbox]{width:18px;height:18px;margin:0}#kt-the .to-bang td:first-child,#kt-the .to-bang th:first-child{width:36px;min-width:36px;text-align:center;position:static;border-right:0}
@@ -12649,7 +12650,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.117', ds:[
-  ['📄 Thông báo phân công nhiệm vụ Ban Thường vụ (Hội / Đoàn): ở 🏛 Khai báo Hội đoàn thể, mỗi thẻ có nút 📄 — tích ấp mỗi người phụ trách kiểm tra (hoặc ⇄ Gợi ý chia đều), kiêm kế toán / thủ quỹ; xuất Word hoặc In. Thẻ thêm ô Phó Chủ tịch 2, 3 và Nhiệm kỳ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
+  ['📄 Thông báo phân công nhiệm vụ Ban Thường vụ (Hội / Đoàn): ở 🏛 Khai báo Hội đoàn thể, nút 📄 Phân công BTV cạnh tên mỗi Hội — tích ấp mỗi người phụ trách kiểm tra (hoặc ⇄ Gợi ý chia đều), kiêm kế toán / thủ quỹ; xuất Word hoặc In. Thẻ thêm ô Phó Chủ tịch 2, 3 và Nhiệm kỳ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 06 phân trang: 1 mặt chứa tối đa 3 dòng khế ước (lề trên / dưới 1 cm); nhiều hơn thì 1 khách nhiều khế ước không bị cắt đôi, hộ cuối sang trang cùng dòng Cộng + nhận xét + ký (Word và bản In)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 16 Bảng II (khi chọn điền): bỏ chữ "đầy đủ" — ghi "Có thực hiện", "Có tham gia", "Đảm bảo đúng thành phần", "Có lưu giữ"; điều cấm vẫn ghi rõ "Không"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 06: dòng "Thời điểm · Địa bàn · Tổ TK&VV" không rớt dòng — thu khoảng cách, dài thì bỏ "tỉnh Tây Ninh", vẫn dài thì viết tắt KP / P. / X.; cột Chương trình canh giữa ô; tên cán bộ kiểm tra in dưới khối ký', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -23981,14 +23982,13 @@ function ktHdtThe(x){
   var o = function(k, nhan, ph, lop, khongIn){ return '<label class="kt-hdt-o'+(lop ? ' '+lop : '')+'"><span>'+coChuHTML(nhan)+'</span><input id="hkb-'+id+'-'+k+'" value="'+coChuHTML(kb[k]||'')+'" placeholder="'+coChuHTML(ph||'…')+'" aria-label="'+coChuHTML(nhan)+'"'+
     ' onchange="ktHoiKBSua(\''+x.k+'\',\''+k+'\',this.value)" oninput="ktHkbXem(\''+x.k+'\',\''+id+'\')">'+(khongIn ? '' : '<div class="hkb-in" id="hkbi-'+id+'-'+k+'">'+ktHkbIn(x.t, kb, k, id)+'</div>')+'</label>'; };
   var tinh = c.doan ? 'Tỉnh Đoàn '+KT_TINH : c.ten+' tỉnh '+KT_TINH;
-  return '<div class="kt-hdt-the"><div class="kt-hdt-dau"><b>'+coChuHTML(kb.ten || ktHoiTenTD(x.t))+'</b> <small>· '+x.n+' tổ · cấp tỉnh: '+coChuHTML(tinh)+' <a href="#" onclick="event.preventDefault();ktChuanHop()">sửa ở Chuẩn hóa</a></small></div>'+
+  return '<div class="kt-hdt-the"><div class="kt-hdt-dau"><b>'+coChuHTML(kb.ten || ktHoiTenTD(x.t))+'</b> <small>· '+x.n+' tổ · cấp tỉnh: '+coChuHTML(tinh)+' <a href="#" onclick="event.preventDefault();ktChuanHop()">sửa ở Chuẩn hóa</a></small> <button class="nho kt-hdt-pc" onclick="ktPCHop('+"'"+x.k+"'"+')" title="Thông báo phân công nhiệm vụ Ban Thường vụ (Word / In)">📄 Phân công BTV</button></div>'+
     '<div class="kt-hdt-nhom">Tên đơn vị</div><div class="kt-hdt-luoi">'+o('ten', 'Tên Hội cấp xã (trống = tên chuẩn)', ktHoiTenTD(x.t), 'kt-hdt-day')+'</div>'+
     '<div class="kt-hdt-nhom">Ban Thường vụ</div><div class="kt-hdt-luoi">'+o('ct', c.ky, 'Họ tên')+o('pct', c.pho, 'Họ tên')+o('pct2', c.pho+' 2', 'Họ tên (nếu có)', '', 1)+o('pct3', c.pho+' 3', 'Họ tên (nếu có)', '', 1)+o('nk', 'Nhiệm kỳ Ban Chấp hành', 'vd: 2025 – 2030', '', 1)+
       [1,2,3,4,5].map(function(i){ return o('uv'+i, 'Ủy viên BTV '+i, 'Họ tên (nếu có)', '', 1); }).join('')+'</div>'+
     '<div class="kt-hdt-nhom">Ủy thác</div><div class="kt-hdt-luoi">'+o('hd', 'Số HĐ ủy thác', '…/HĐUT')+o('hdNgay', 'Ngày ký HĐ', 'dd/mm/yyyy', '', 1)+o('kh', 'Số KH Hội tỉnh', 'vd: 06-KH/HNDT')+o('khNgay', 'Ngày KH Hội tỉnh', 'dd/mm/yyyy', '', 1)+'</div>'+
     '<div class="sl-phu kt-hdt-dung">Khi in: người kiểm tra (Mẫu 06 / 16 / 04) <b>'+coChuHTML(cb.cb ? cb.cb+' — '+cb.cv : 'dòng chấm')+'</b>'+(kb.pct || !kb.cb ? '' : ' <small>(khai trước đây — khai '+coChuHTML(c.pho)+' để thay)</small>')+
-      ' · người ký Kế hoạch <b>'+coChuHTML(kb.ct || kb.ky || 'để trống')+'</b></div>'+
-    '<div class="hang-nut kt-in"><button class="nho" onclick="ktPCHop(\''+x.k+'\')">📄 Phân công nhiệm vụ Ban Thường vụ</button></div></div>';   /* 3.117 */
+      ' · người ký Kế hoạch <b>'+coChuHTML(kb.ct || kb.ky || 'để trống')+'</b></div></div>';   /* 3.117: nút 📄 Phân công BTV ở dòng tiêu đề thẻ */
 }
 function ktHDTVe(o){
   var C = ktCH(), tab = C.hdtTab==='chuan' ? 'chuan' : 'hoi', ds = ktHoiDs();
