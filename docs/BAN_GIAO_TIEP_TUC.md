@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 09/10/2026, bản 3.117)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 09/10/2026, bản 3.118)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,7 +88,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.117 (mới nhất):** Mẫu 06 phân trang (1 mặt tối đa 3 dòng khế ước; nhiều hơn thì không cắt đôi hộ, hộ cuối đi cùng Cộng + ký); Thông báo phân công nhiệm vụ BTV (nút 📄 trên thẻ Hội – xã; tích ấp / chia đều, kế toán / thủ quỹ; Word + In; Hội và Đoàn); thẻ thêm PCT 2, 3 + Nhiệm kỳ. Mặc định em chọn khi anh chưa trả lời: tối đa 3 Phó, ấp tích tay + nút chia đều, sửa chữ sai của mẫu tham khảo, Đoàn ký BÍ THƯ — anh muốn khác thì báo.
+**3.118 (mới nhất):** rà mẫu chung 06 / 16 / 04 theo ảnh anh (Chức vụ:, cách sau dòng chấm, đơn vị dài xuống dòng trước xã, chức vụ dài viết tắt BTV, chứng kiến ngang kiểm tra, Cộng đậm, bỏ nhãn ĐƠN VỊ KIỂM TRA khi có tên, tỷ lệ 0%, nơi nhận 04 PGD NHCSXH); Phân công BTV đủ ấp theo cây, chia sẵn (Chủ tịch / Bí thư ít hơn — anh chốt), ô nhiệm kỳ / HĐUT trong hộp. **Nguyên tắc anh chốt:** chỉnh 1 mẫu thì rà chung mọi mẫu.
+
+**3.117:** Mẫu 06 phân trang (1 mặt tối đa 3 dòng khế ước; nhiều hơn thì không cắt đôi hộ, hộ cuối đi cùng Cộng + ký); Thông báo phân công nhiệm vụ BTV (nút 📄 trên thẻ Hội – xã; tích ấp / chia đều, kế toán / thủ quỹ; Word + In; Hội và Đoàn); thẻ thêm PCT 2, 3 + Nhiệm kỳ. Mặc định em chọn khi anh chưa trả lời: tối đa 3 Phó, ấp tích tay + nút chia đều, sửa chữ sai của mẫu tham khảo, Đoàn ký BÍ THƯ — anh muốn khác thì báo.
 
 **3.116:** Mẫu 16 Bảng II bỏ chữ "đầy đủ". **Nguyên tắc chữ ghi sẵn (anh chốt):** không khẳng định quá (bỏ "đầy đủ", dùng "Có thực hiện / Có tham gia / Đảm bảo đúng thành phần"); điều cấm ghi rõ "Không"; có số liệu dẫn chứng → ghi cụ thể.
 
