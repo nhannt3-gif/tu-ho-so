@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.116 · build 09/10/2026 11:00
+**Bản hiện tại:** 3.117 · build 09/10/2026 15:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.117) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mẫu 06 Word, 1 / 2 / 3 hộ (mỗi hộ 1 khế ước) | In 1 mặt | |
+| 2 | Mẫu 06 Word, ≥ 4 dòng hoặc khách nhiều khế ước | Khách nhiều khế ước không bị cắt; hộ cuối sang trang cùng dòng Cộng + nhận xét + ký; trang 2 có dòng tiêu đề bảng | |
+| 3 | 🏛 Khai báo Hội đoàn thể › 📄 Phân công BTV | Đủ người đã khai; tích ấp / ⇄ chia đều; Word mở được, chữ đúng mẫu | |
+| 4 | Phân công của Đoàn | Đầu: BCH ĐOÀN XÃ …, Số -TB/ĐTN; ký BÍ THƯ | |
+
+**Ghi chú kỹ thuật 3.117:** Word không có "không tách nhóm dòng" → dùng `keepNext` trên đoạn của các dòng (`KT_KHUON.m06` có `dongKN` = `dong` + keepNext); dòng cuối của mỗi hộ không giữ (trừ hộ cuối) để Word được ngắt giữa các hộ. Sức chứa đo bằng PDF Chromium của bản In (Word có thể lệch ± 1 dòng tùy máy in / phông). Phân công: `ktPCNoiDung(k)` dựng nội dung chung cho Word (`ktBungPC`, dùng gói A4 dọc của KH ②) và bản In (`ktHTMLPC`); câu nhiệm vụ ở `KT_PC_CT / PHO / UV / KT / TQ`, chỗ thay `{xa} {ten} {CT} {ap}…`.
 
 ### Danh sách thử trên máy thật (3.116) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

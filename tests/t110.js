@@ -42,7 +42,7 @@ const fs=require('fs'), path=require('path');
    ok('3.114: bấm In / Word Mẫu 06 → hộp chọn khi in (mục đích, người kiểm tra) + tùy chọn khác', id06==='m06-md,m06-ng1,dv,cb2,cv2' && !!document.querySelector('#hop-in .kt-in-luoi'), id06);
    ktXuat('m16', 'in'); await w(80); const id16 = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).join(',');
    ok('3.114: hộp Mẫu 16: nhận xét, Bảng II, người kiểm tra 1, 2', id16==='m16-nx,m16-b2,m16-ng1,m16-ng2,dv,cb2,cv2', id16); dongHop();
-   ok('3.113 Khai báo Hội: tên → Chủ tịch → Phó CT → 5 ủy viên BTV → HĐUT → KH Hội tỉnh', KT_HKB_O.map(x=>x[0]).join(',')==='ten,ct,pct,uv1,uv2,uv3,uv4,uv5,hd,hdNgay,kh,khNgay');
+   ok('3.113 Khai báo Hội: tên → Chủ tịch → Phó CT → 5 ủy viên BTV → HĐUT → KH Hội tỉnh', KT_HKB_O.map(x=>x[0]).join(',')==='ten,ct,pct,pct2,pct3,nk,uv1,uv2,uv3,uv4,uv5,hd,hdNgay,kh,khNgay');
    /* 5. định kỳ theo lịch */
    const t0 = best; C.xa = t0.xa; C.diem = ''; C.hoi = String(t0.dv); C.to = '';
    const kKH = '2026|'+t0.xa+'|'+t0.dv; D.cauHinh.ktKH = D.cauHinh.ktKH || {}; const lich = {}; lich[t0.ma] = 9; D.cauHinh.ktKH[kKH] = {tu:2, den:10, to:lich};
