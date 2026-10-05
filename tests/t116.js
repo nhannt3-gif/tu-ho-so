@@ -30,7 +30,7 @@ const fs=require('fs'), path=require('path');
      ok(ten+': bản In cùng căn cứ', ktHTML01(g1).indexOf('10566/HD-NHCS ngày 29/12/2022')>=0 && ktHTML01(g7).indexOf('727/HD-NHCS')>=0);
    }
    ok('nhớ lựa chọn theo Hội', ktHoiKB(t0.xa+'|'+t0.dv).ccKH==='10566' && ktKHCC()==='10566');
-   ktKHXem(); await w(300); ktKHIn('word'); await w(1200);
+   ktKHXem(1); await w(300); ktKHIn('word'); await w(1200);
    ok('tên file Word có "(can cu 10566)"', Object.keys(F).some(n=>/\(can cu 10566\)/.test(n)), Object.keys(F).join(' | '));
    ktKHDoiCC('727'); ok('về 727: xóa lựa chọn đã nhớ', !ktHoiKB(t0.xa+'|'+t0.dv).ccKH && ktKHCC()==='727');
    ktKHDoiMau('1'); C.che = 'dx'; C.xa=''; C.hoi='';

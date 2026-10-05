@@ -44,7 +44,7 @@ const fs=require('fs'), path=require('path');
    ok('số HĐUT tự thêm /HĐUT, NHCSXH Gò Dầu', g.f.HD==='07/HĐUT' && g.f.NH==='Gò Dầu', g.f.HD+' · '+g.f.NH);
    ok('bảng lịch: mỗi tháng có tổ 1 dòng "Ấp …: tổ…", không ghi số hộ, dòng Cộng 100%', g.rows.length>=2 && g.rows.slice(0, -1).every(r=>/^\d\d$/.test(r.L1) && /^(Ấp|Thôn|Khu phố|Tổ dân phố|\(chưa)/.test(r.L2) && r.L3==='Tối thiểu 90% món vay') && /100% tổ do Hội quản lý/.test(g.rows[g.rows.length-1].L2), g.rows.map(r=>r.L1).join(','));
    /* Word */
-   ktDoiCheDo('kh'); await w(100); ktKHXem(); await w(500); ok('👁 xem trước', !!document.getElementById('kt-kh-khung'));
+   ktDoiCheDo('kh'); await w(100); ktKHXem(1); await w(500); ok('👁 xem trước', !!document.getElementById('kt-kh-khung'));
    ktKHIn('word'); await w(1200);
    const fn = Object.keys(F).find(n=>/Ke hoach KTGS/.test(n)); const z = await moZip(F[fn]); const doc = z.doc, chu = doc.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
    ok('Word: XML hợp lệ, hết dấu {{', hopLe(doc) && doc.indexOf('{{')<0, fn);
@@ -56,7 +56,7 @@ const fs=require('fs'), path=require('path');
    ok('Word: phần III nội dung kiểm tra giữ nguyên dự thảo', /III\. NỘI DUNG KIỂM TRA, GIÁM SÁT/.test(chu) && /Kiểm tra tại khách hàng vay vốn/.test(chu) && /Có phải nộp lệ phí trong quá trình làm hồ sơ vay vốn không/.test(chu));
    /* Mẫu 06 / 16 / 04 vẫn đủ phần sau khi đổi ktDocx */
    const z4 = await moZip(await ktDocx('m04', [{f:{DV:'X', SP:''}, doan:[], rows:[]}])); ok('khuôn cũ (Mẫu 04) vẫn có đầu trang + chú thích, không chân trang', !!z4.g('word/header1.xml') && !!z4.g('word/footnotes.xml') && !z4.g('word/footer1.xml') && hopLe(z4.doc));
-   ktKHXem(); await w(300); ktKHIn('in'); await w(300);
+   ktKHXem(1); await w(300); ktKHIn('in'); await w(300);
    const hh = await H[Object.keys(H).find(n=>/Ke hoach KTGS/.test(n))].text();
    ok('In / PDF: A4, đủ chữ (căn cứ 727, bảng lịch, phần III, người ký)', /size:A4;/.test(hh) && /727\/HD-NHCS/.test(hh) && /Tối thiểu 90% món vay/.test(hh) && /Có phải nộp lệ phí/.test(hh) && hh.indexOf('Giả Văn Ký')>=0 && /<table/.test(hh));
    const xu = Object.keys(F).find(n=>/Ke hoach KTGS/.test(n)); var ra = await (async()=>{ const a = new Uint8Array(await F[xu].arrayBuffer()); let s=''; for(let i=0;i<a.length;i++) s+=String.fromCharCode(a[i]); return btoa(s); })();

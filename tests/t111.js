@@ -71,7 +71,7 @@ const fs=require('fs'), path=require('path');
    const hN = ktHTML06([g, gT, g]);
    ok('xem trước nhiều phiếu: mỗi phiếu 1 tờ có nhãn, in sang trang', (hN.match(/class="kt-to"/g)||[]).length===3 && /Phiếu 2\/3 · Tổ /.test(hN) && (hN.match(/break-before:page/g)||[]).length===2 && /@media print\{\.kt-to-nhan\{display:none\}/.test(hN));
    /* 5. không theo dõi */
-   KT_KB = {ngay:'2026-10-03'}; ktKhaiBao('m06'); await w(50); ktXuat('m06', 'word'); await w(600); ktKhaiBao('m16'); await w(50); ktXuat('m16', 'word'); await w(600);
+   KT_KB = {ngay:'2026-10-03'}; ktKhaiBao('m06'); await w(50); ktXuat('m06', 'word', 1); await w(600); ktKhaiBao('m16'); await w(50); ktXuat('m16', 'word', 1); await w(600);
    ok('xuất 06 / 16: không ghi lịch sử, nhật ký', !Object.keys(D.cauHinh.ktgsLS||{}).length && !Object.keys(D.cauHinh.ktgsNK||{}).length && !Object.keys(D.cauHinh.ktgsGN||{}).length);
    /* 6. Mẫu 16: địa danh đúng chữ, Hội đầy đủ, Chức vụ tab, gợi ý nhận xét */
    const f16 = Object.keys(F).find(n=>/Mau 16/.test(n)), z16 = await moZip(F[f16]), c16 = chu(z16.doc);
@@ -86,7 +86,7 @@ const fs=require('fs'), path=require('path');
    ok('gợi ý: III ưu điểm / tồn tại có số, kiến nghị đi theo tồn tại', (g16.nx.ud.length+g16.nx.tt.length)>0 && g16.nx.kn.length===g16.nx.tt.length && (g16.nx.tt.length ? c16.indexOf('- '+g16.nx.tt[0])>=0 : c16.indexOf('- '+g16.nx.ud[0])>=0), JSON.stringify(g16.nx).slice(0, 200));
    const g16b = ktGiaTri16(best, ktDaChon(), {nx:''}); const c16b = chu((await moZip(await ktDocx('m16', g16b))).doc);
    ok('chọn "Để trống" → III giữ dòng chấm, ô kết quả trống', !g16b.nx.kq1 && /1\. Ưu điểm: \.{20,}/.test(c16b));
-   ok('khai báo Mẫu 16 có chọn gợi ý nhận xét (nhớ lựa chọn)', D.cauHinh.ktNhanXet!==undefined && /Gợi ý theo số liệu/.test(KT_NX_CHON));
+   ok('khai báo Mẫu 16 có chọn gợi ý nhận xét (3.114: trong hộp chọn khi in, mặc định gợi ý)', ktInLay('m16').nx==='so' && /Gợi ý theo số liệu/.test(KT_NX_CHON));
    /* 7. Bảng chuẩn hóa + Kế hoạch ② cho Đoàn ở phường */
    const cheCu = ktCH().che; ktChuanHop(); await w(100); ok('📖 Bảng chuẩn hóa (3.113: tab nhỏ trong Khai báo Hội đoàn thể): 4 Hội × 12 mục sửa được', ktCH().hdtTab==='chuan' && document.querySelectorAll('#kt-the .kt-chuan tbody input').length===48); ktCH().hdtTab='hoi'; ktCH().che = cheCu; ktVeThe(); await w(100);
    const tD = Object.assign({}, best, {dv:'14', tenXa:'Phường Gia Lộc', tenThon:'Ấp Lộc Khê'}); const kD = ktHoiKhoa(tD);
@@ -110,7 +110,7 @@ const fs=require('fs'), path=require('path');
    KT_K.to[best.ma] = goc;
    /* 7a. khung khai báo trong tab (không hộp bật lên) + Văn bản: CT vay không bắt buộc, sắp xếp Vừa thêm */
    C.che = 'dx'; C.xa = best.xa; C.to = best.ma; ktVeThe(); await w(200);
-   ok('đột xuất: khung ✎ Khai báo trong tab có dòng nhắc khai báo Hội (3.113) + nút In / Word 06, 16', !!document.querySelector('#kt-the .kt-kb-khung .kt-hdt-nhac') && /Word Mẫu 06/.test(document.getElementById('kt-the').textContent) && /Word Mẫu 16/.test(document.getElementById('kt-the').textContent));
+   ok('đột xuất: dòng nhắc khai báo Hội (3.113) + ngày kiểm tra cạnh nút In (3.114) + nút In / Word 06, 16', !!document.querySelector('#kt-the .kt-hdt-nhac') && !!document.querySelector('#kt-the .kt-in #kb-ngay') && /Word Mẫu 06/.test(document.getElementById('kt-the').textContent) && /Word Mẫu 16/.test(document.getElementById('kt-the').textContent));
    ok('văn bản không gắn CT vay không còn bị chờ khai', thieuThongTin({nhom:'vanBan', ngay:'2026-01-15', tenVB:'Quy chế thử', mang:'Tín dụng', ctrinh:[]}).length===0);
    ok('sắp xếp văn bản có kiểu "Vừa thêm" (mới đưa vào tủ lên đầu)', COT_SAP.some(c=>c.ma==='them') && (()=>{ const o = SAP.cot; SAP.cot = 'them'; SAP.xuoi = false; const r = sapXep([{themLuc:'2026-01-01'}, {themLuc:'2026-10-04'}], 'vanBan'); SAP.cot = o; return r[0].themLuc==='2026-10-04'; })());
    /* 7b. ⚙ Khai báo Hội dạng bảng + chép kế hoạch Hội tỉnh cho các xã cùng Hội */
