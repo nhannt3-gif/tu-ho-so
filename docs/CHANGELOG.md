@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.115 — 09/10/2026 09:00 — Mẫu 06 không rớt dòng Tổ · tên dưới khối ký 06 / 16 · Bảng II Mẫu 16 như mẫu tham khảo · dính chữ KH ①
+- **Mẫu 06** (ảnh anh gửi: Tổ TK&VV rớt dòng): `ktDong3_06` thử lần lượt — Tổ thẳng cột Chức vụ → thu khoảng cách (Địa bàn sát Thời điểm, Tổ sát Địa bàn) → bỏ ", tỉnh Tây Ninh" → viết tắt KP / P. / X. / TT. (`ktDbGon`); vẫn không vừa mới cho Tổ xuống dòng. Địa bàn in ra = bản gọn đã chọn (Word + In).
+- Cột Chương trình canh giữa ngang + dọc (`ktOGiua`, bản In `td.giua`).
+- Tên người kiểm tra 1 in dưới "CÁN BỘ KIỂM TRA (Ký, ghi rõ họ tên)" (`ktKyTen`); chọn để trống thì không in.
+- **Mẫu 16:** tên Trưởng đoàn (người kiểm tra 1) và Tổ trưởng in dưới khối ký; **Bảng II** khi chọn điền ghi theo Mẫu 16 điền tham khảo anh gửi (`KT_B16`): Theo cụm dân cư liền kề · 02 người (Tổ trưởng, Tổ phó), có phân công cụ thể · Không · Không · Không · Tại văn phòng ấp / khu phố, định kỳ theo quý · Có thực hiện · Đảm bảo, thành phần tham dự đầy đủ · Tham gia đầy đủ · Không · Thực hiện đầy đủ · Thực hiện đầy đủ · Có phối hợp · Có lưu giữ đầy đủ.
+- **Rà soát dính chữ:** xuất mọi mẫu (06, 16, 04, KH ① ②) bằng dữ liệu giả, dò chữ ghép 2 âm tiết / dấu câu dính chữ — chỉ còn 2 chỗ ở KH ① (gốc khuôn): ")?Các" → ")? Các", "Lưu:VT" → "Lưu: VT".
+- Kiểm tra: `kiem.py` sạch; t120 mới (13 phép); t115 / t119 cập nhật chữ Bảng II; hoiquy, hoiquy2, t101–t120 không lỗi.
+
+---
+
 ## 3.114 — 08/10/2026 15:00 — Hộp chọn khi in · người kiểm tra theo vai trò · nhận xét nợ quá hạn, nợ khoanh
 - **Hộp chọn khi in** (`ktInHop`, anh duyệt): bấm In / Word / Xem của mẫu nào thì hỏi lựa chọn mẫu đó, nhớ lần sau (`D.cauHinh.ktIn[mẫu]`, đồng bộ Drive):
   - Mẫu 06: cột Mục đích để trống / in sẵn · người kiểm tra (dòng 2 để sau, vẫn gõ tay được ở "Tùy chọn khác").

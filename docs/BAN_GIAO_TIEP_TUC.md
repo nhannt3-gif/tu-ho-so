@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 08/10/2026, bản 3.114)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 09/10/2026, bản 3.115)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,7 +88,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.114 (mới nhất):** hộp chọn khi in từng mẫu (06: mục đích + người kiểm tra; 16: nhận xét, Bảng II trống mặc định, 2 người; 04: nhận xét, 2 người, tên Trưởng đoàn; KH: người ký, luôn ghi CHỦ TỊCH; ✚ Điền đầy đủ; nhớ lựa chọn); người kiểm tra theo vai trò; nhận xét 16 / 04 liệt kê hộ nợ quá hạn, nợ khoanh; ngày đột xuất cạnh nút In. Việc sau: Mẫu 06 dòng 2 chọn theo vai trò (anh: để sau);
+**3.115 (mới nhất):** Mẫu 06 dòng Tổ không rớt (thu khoảng / bỏ tỉnh / viết tắt), CT canh giữa, tên người kiểm tra dưới khối ký 06 / 16 (+ Tổ trưởng ở 16), Bảng II Mẫu 16 ghi như mẫu tham khảo, sửa 2 dính chữ KH ①. **Chờ anh trả lời (Phân công nhiệm vụ BTV, anh gửi mẫu tham khảo + bản Đoàn Truông Mít — không đưa lên repo):** tối đa 3 Phó? ấp phụ trách tích tay hay gợi ý chia đều? sửa lỗi gõ của mẫu? khối ký Đoàn "TM. BAN THƯỜNG VỤ ĐOÀN XÃ"?
+
+**3.114:** hộp chọn khi in từng mẫu (06: mục đích + người kiểm tra; 16: nhận xét, Bảng II trống mặc định, 2 người; 04: nhận xét, 2 người, tên Trưởng đoàn; KH: người ký, luôn ghi CHỦ TỊCH; ✚ Điền đầy đủ; nhớ lựa chọn); người kiểm tra theo vai trò; nhận xét 16 / 04 liệt kê hộ nợ quá hạn, nợ khoanh; ngày đột xuất cạnh nút In. Việc sau: Mẫu 06 dòng 2 chọn theo vai trò (anh: để sau);
 
 **3.113:** toàn bộ cài đặt lên Drive (trừ khóa riêng máy `CH_RIENG`, gộp theo dấu băm `chBam`, kéo trước đẩy sau); KTGS có tab 🏛 Khai báo Hội đoàn thể (CT, PCT, 5 ủy viên BTV, HĐUT, KH tỉnh) + tab nhỏ Chuẩn hóa; người kiểm tra = PCT, người ký KH = CT. Việc sau: bảng phân công nhiệm vụ quản lý TDCS (dùng danh sách lãnh đạo đã khai).
 
