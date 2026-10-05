@@ -55,7 +55,7 @@ const fs=require('fs'), path=require('path');
    ok('Mẫu 16 Bảng II: mặc định điền sẵn 14 ô theo 727; chọn "để trống" → không điền', g16.b2.length===14 && g16.b2.join('|')===KT_B16.map(x=>x.replace('{ấp}', ktCapAp(best.tenXa))).join('|') && g16t.b2.length===0);
    const d16 = await docx(await ktDocx('m16', g16)), c16 = chu(d16), d16t = await docx(await ktDocx('m16', g16t)), c16t = chu(d16t);
    ok('Word 16 hợp lệ, hết dấu {{ (cả 2 lựa chọn)', hopLe(d16) && hopLe(d16t) && d16.indexOf('{{')<0 && d16t.indexOf('{{')<0);
-   ok('Word 16 điền sẵn (3.115: ghi như mẫu tham khảo): định kỳ theo quý, 4 ô "Không", "Thực hiện đầy đủ"', /định kỳ theo quý/.test(c16) && (c16.match(/Không/g)||[]).length>=4 && /Thực hiện đầy đủ/.test(c16) && !/định kỳ theo quý/.test(c16t));
+   ok('Word 16 điền sẵn (3.116): định kỳ theo quý, 4 ô "Không", "Có thực hiện", không còn "đầy đủ"', /định kỳ theo quý/.test(c16) && (c16.match(/Không/g)||[]).length>=4 && /Có thực hiện/.test(c16) && !/định kỳ theo quý/.test(c16t));
    ok('Word 16 đầu trang: ĐƠN VỊ KIỂM TRA canh giữa bằng điểm dừng (1800 / 6350)', /<w:tab w:val="center" w:pos="1800"\/>/.test(d16) && /⇥ĐƠN VỊ KIỂM TRA⇥CỘNG HO/.test(c16));
    const h16 = ktHTML16(g16), h16t = ktHTML16(g16t);
    ok('bản In 16 cùng lựa chọn', /định kỳ theo quý/.test(h16) && !/định kỳ theo quý/.test(h16t));

@@ -36,7 +36,7 @@ const fs=require('fs'), path=require('path');
    /* 3. Mẫu 16 */
    const g16 = ktGiaTri16(t, ktDaChon(), Object.assign(ktInV('m16'), {b2:'dien'})), d16 = await docx(await ktDocx('m16', g16)), c16 = chu(d16);
    ok('Word 16 hợp lệ; tên Trưởng đoàn và Tổ trưởng dưới khối ký', hopLe(d16) && c16.lastIndexOf('Trần Thị Phó')>c16.indexOf('TRƯỞNG ĐOÀN KIỂM TRA') && c16.lastIndexOf(t.ten)>c16.indexOf('TỔ TRƯỞNG TỔ'));
-   ok('Bảng II ghi như mẫu tham khảo (theo cụm dân cư liền kề, văn phòng ấp / khu phố, thực hiện đầy đủ…)', /Theo cụm dân cư liền kề/.test(c16) && new RegExp('Tại văn phòng '+ktCapAp(t.tenXa)+', định kỳ theo quý').test(c16) && /Thực hiện đầy đủ/.test(c16) && !/\{ấp\}/.test(c16));
+   ok('Bảng II (3.116): như mẫu tham khảo, bỏ chữ "đầy đủ", điều cấm ghi "Không"', /Theo cụm dân cư liền kề/.test(c16) && new RegExp('Tại văn phòng '+ktCapAp(t.tenXa)+', định kỳ theo quý').test(c16) && g16.b2.filter(x=>x==='Không').length===4 && !g16.b2.some(x=>/đầy đủ/.test(x)) && g16.b2.indexOf('Đảm bảo đúng thành phần')>=0);
    const h16 = ktHTML16(g16); ok('bản In 16: tên Trưởng đoàn + Tổ trưởng', h16.indexOf('Trần Thị Phó</p>')>h16.indexOf('TRƯỞNG ĐOÀN KIỂM TRA') && h16.lastIndexOf(t.ten)>h16.indexOf('TỔ TRƯỞNG TỔ TK'));
    const g16t = ktGiaTri16(t, ktDaChon(), {ng1:'', nx:''}); ok('người kiểm tra để trống → không in tên dưới khối ký', chu(await docx(await ktDocx('m16', g16t))).indexOf('Trần Thị Phó')<0);
    /* 4. Kế hoạch ① */
