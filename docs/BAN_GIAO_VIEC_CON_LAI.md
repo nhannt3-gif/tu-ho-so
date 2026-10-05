@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.114 · build 08/10/2026 15:00
+**Bản hiện tại:** 3.115 · build 09/10/2026 09:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.115) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mẫu 06 tổ ở phường (địa bàn dài) | "Thời điểm · Địa bàn · Tổ TK&VV" 1 dòng (có thể bỏ tỉnh / viết tắt KP, P.) | |
+| 2 | Mẫu 06 cột Chương trình | Chữ giữa ô | |
+| 3 | Khối ký Mẫu 06 / 16 | Tên cán bộ kiểm tra; Mẫu 16 có thêm tên Tổ trưởng | |
+| 4 | Mẫu 16 ✚ Điền đầy đủ | Bảng II ghi chữ như mẫu tham khảo | |
+
+**Ghi chú kỹ thuật 3.115:** rà dính chữ bằng cách xuất bản đã điền rồi dò từ có ≥ 2 cụm nguyên âm (2 âm tiết dính) và dấu câu dính chữ — đổi `<w:tab/>`, `<w:br/>` thành khoảng trắng trước khi dò (không thì báo nhầm). `ktKyTen(xml, nhãn, tên)` chèn tên dưới đoạn "(Ký, ghi rõ họ tên" đầu tiên sau nhãn.
 
 ### Danh sách thử trên máy thật (3.114) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
