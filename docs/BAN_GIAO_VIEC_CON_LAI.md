@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.117 · build 09/10/2026 15:00
+**Bản hiện tại:** 3.118 · build 09/10/2026 17:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.118) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mẫu 06 Word tổ Đoàn | "Đơn vị kiểm tra: Đoàn Thanh niên" / "xã …" xuống dòng gọn; "Chức vụ:" có hai chấm; dòng chấm cách chữ; Cộng in đậm, số tổng dài không rớt dòng; Chứng kiến ngang Cán bộ kiểm tra | |
+| 2 | Mẫu 16 | Không còn dòng "ĐƠN VỊ KIỂM TRA" (khi có tên); "(tỷ lệ 0%)"; Ủy viên BTV đủ dòng | |
+| 3 | Mẫu 04 | Nơi nhận "- PGD NHCSXH Gò Dầu;"; đầu trang bỏ nhãn | |
+| 4 | Phân công BTV | Đủ ấp của xã; mở lần đầu đã chia sẵn, Chủ tịch ít hơn; sửa nhiệm kỳ trong hộp | |
+
+**Ghi chú kỹ thuật 3.118:** khuôn Word đổi bằng sửa JSON `KT_KHUON` (m06.sau: <w:b/> cho TGN/TDN/TNL, dời đoạn chấm 030FF9C2 ra trước bảng ký; m16.than: `{{DV0|ĐƠN VỊ KIỂM TRA}}`, " Chức vụ:", "(tỷ lệ {{TLKN}}%)"; m04.than: `{{DV0|…}}`, `{{NN04|NHCSXH ...}}`). Bản In: ô trong `.kt-bg` kế thừa `vertical-align:middle` → khối ký phải đặt `vertical-align:top`. Phân công: `x.chia` = đã chia sẵn (không chia đè lựa chọn tay).
 
 ### Danh sách thử trên máy thật (3.117) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

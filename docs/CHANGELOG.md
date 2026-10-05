@@ -4,6 +4,22 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.118 — 09/10/2026 17:00 — Rà mẫu chung 06 / 16 / 04 · Phân công BTV chia sẵn theo cây
+- **Rà mẫu theo ảnh anh gửi (áp chung các mẫu, Word + bản In):**
+  - "Chức vụ:" có hai chấm (Mẫu 06 trước ghi "Chức vụ ").
+  - Chữ đứng sau dòng chấm cách 1 khoảng (Địa bàn, Chức vụ, Tổ TK&VV ở 06; Chức vụ ở 16, 04); bản In `.kt-ld` thêm lề phải.
+  - Tên đơn vị kiểm tra dài (Mẫu 06) xuống dòng trước "xã / phường" (`ktTachDV`, đo bề rộng ô 4219 twip).
+  - Chức vụ không vừa chỗ → viết tắt "Ban Thường vụ" → BTV, "Ban Chấp hành" → BCH (`ktCVGon`; 06, 16, 04).
+  - Mẫu 06: Cán bộ chứng kiến ngang hàng Cán bộ kiểm tra (Word: dòng chấm thứ 2 ra ngoài bảng ký, ô trái thêm dòng trống như dòng "Ngày …"; bản In: ô ký canh trên — trước bị canh giữa dọc theo bảng); số tiền dòng Cộng in đậm.
+  - Mẫu 16 / 04: có tên đơn vị thì bỏ dòng "ĐƠN VỊ KIỂM TRA", tên lên dòng đầu (dài thì xuống dòng trước "XÃ / PHƯỜNG …"); để trống (ghi tay) thì giữ nhãn + dòng chấm (`{{DV0|ĐƠN VỊ KIỂM TRA}}`, `ktDV04`).
+  - Mẫu 16: "(tỷ lệ 0%)" thống nhất cả nợ quá hạn và nợ khoanh (trước "tỷ lệ0%" dính, "0 %" cách).
+  - Mẫu 06: số tiền dòng Cộng dài (vd 1.653,808) không còn rớt dòng — tự thu cỡ chữ cho vừa ô (`ktCoVua`, khuôn `{{SZTDN|22}}`), không làm tròn số.
+  - Mẫu 04: nơi nhận "- PGD NHCSXH <đơn vị trong Cài đặt>;" (`ktNoiNhanNH`).
+- **Phân công BTV:** ấp lấy đủ của xã (mọi tổ, mọi Hội) theo thứ tự cây (điểm GD → ấp); mở lần đầu tự chia sẵn (`ktPCChia`): Chủ tịch / Bí thư ≈ nửa phần (≥ 1 khi đủ ấp, ít ấp hơn số người thì không nhận), rồi Phó 1–3, Ủy viên 1–5, mỗi người 1 đoạn liền nhau, dư dồn người trước; Chủ tịch có ấp → thêm câu "Trực tiếp thực hiện kiểm tra tại …"; nút ⇄ Chia lại đều; hộp có ô Nhiệm kỳ, Số HĐ ủy thác, Ngày ký HĐ (lưu chung khai báo Hội).
+- Kiểm tra: `kiem.py` sạch; t122 mới (25 phép); t106, t108, t111, t115, t119 cập nhật theo cách ghi mới; hồi quy không lỗi.
+
+---
+
 ## 3.117 — 09/10/2026 15:00 — Mẫu 06 phân trang · Thông báo phân công nhiệm vụ Ban Thường vụ
 - **Mẫu 06** (anh yêu cầu rà 1 hộ → nhiều hộ, 1 mặt nếu được): lề trên / dưới 1 cm (Word `pgMar` 567, bản In `@page 10mm`), thu khoảng cách phần nhận xét. Đo bằng PDF Chromium: **1 mặt chứa tối đa 3 dòng khế ước** (1, 2, 3 hộ mỗi hộ 1 khế ước). Nhiều hơn: Word gắn "giữ với dòng sau" (`dongKN`) cho các dòng của 1 khách nhiều khế ước và cho hộ cuối → không cắt đôi hộ, hộ cuối sang trang cùng dòng Cộng + nhận xét + ký; bản In mỗi hộ 1 `<tbody class="kt-ho">` không tách trang, hộ cuối nằm trong khối `kt-giu`; tiêu đề bảng lặp lại ở trang 2.
 - **Thông báo phân công nhiệm vụ BTV** (theo mẫu tham khảo anh gửi): nút 📄 trên mỗi thẻ ở 🏛 Khai báo Hội đoàn thể → hộp tích ấp phụ trách kiểm tra từng người (⇄ Gợi ý chia đều cho Phó + ủy viên; Chủ tịch phụ trách chung), kiêm kế toán / thủ quỹ; xem trước, In / PDF, Word (A4 dọc, Times 14). Nội dung: căn cứ Điều lệ, HĐUT (số, ngày), Quy chế BCH nhiệm kỳ; Chủ tịch 10 nhiệm vụ, Phó 6, ủy viên 1 (+ kế toán / thủ quỹ nếu tích) + "nhiệm vụ khác"; nơi nhận; ký TM. BAN THƯỜNG VỤ / CHỦ TỊCH. Đoàn: BCH ĐOÀN XÃ …, Số -TB/ĐTN, ĐOÀN TNCS HỒ CHÍ MINH, ký BÍ THƯ. Lưu `D.cauHinh.ktPC` (lên Drive).
