@@ -225,7 +225,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 ### Danh sách thử trên máy thật (3.118) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
-| 1 | Mẫu 06 Word tổ Đoàn | "Đơn vị kiểm tra: Đoàn Thanh niên" / "xã …" xuống dòng gọn; "Chức vụ:" có hai chấm; dòng chấm cách chữ; Cộng in đậm; Chứng kiến ngang Cán bộ kiểm tra | |
+| 1 | Mẫu 06 Word tổ Đoàn | "Đơn vị kiểm tra: Đoàn Thanh niên" / "xã …" xuống dòng gọn; "Chức vụ:" có hai chấm; dòng chấm cách chữ; Cộng in đậm, số tổng dài không rớt dòng; Chứng kiến ngang Cán bộ kiểm tra | |
 | 2 | Mẫu 16 | Không còn dòng "ĐƠN VỊ KIỂM TRA" (khi có tên); "(tỷ lệ 0%)"; Ủy viên BTV đủ dòng | |
 | 3 | Mẫu 04 | Nơi nhận "- PGD NHCSXH Gò Dầu;"; đầu trang bỏ nhãn | |
 | 4 | Phân công BTV | Đủ ấp của xã; mở lần đầu đã chia sẵn, Chủ tịch ít hơn; sửa nhiệm kỳ trong hộp | |

@@ -13,6 +13,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - Mẫu 06: Cán bộ chứng kiến ngang hàng Cán bộ kiểm tra (Word: dòng chấm thứ 2 ra ngoài bảng ký, ô trái thêm dòng trống như dòng "Ngày …"; bản In: ô ký canh trên — trước bị canh giữa dọc theo bảng); số tiền dòng Cộng in đậm.
   - Mẫu 16 / 04: có tên đơn vị thì bỏ dòng "ĐƠN VỊ KIỂM TRA", tên lên dòng đầu (dài thì xuống dòng trước "XÃ / PHƯỜNG …"); để trống (ghi tay) thì giữ nhãn + dòng chấm (`{{DV0|ĐƠN VỊ KIỂM TRA}}`, `ktDV04`).
   - Mẫu 16: "(tỷ lệ 0%)" thống nhất cả nợ quá hạn và nợ khoanh (trước "tỷ lệ0%" dính, "0 %" cách).
+  - Mẫu 06: số tiền dòng Cộng dài (vd 1.653,808) không còn rớt dòng — tự thu cỡ chữ cho vừa ô (`ktCoVua`, khuôn `{{SZTDN|22}}`), không làm tròn số.
   - Mẫu 04: nơi nhận "- PGD NHCSXH <đơn vị trong Cài đặt>;" (`ktNoiNhanNH`).
 - **Phân công BTV:** ấp lấy đủ của xã (mọi tổ, mọi Hội) theo thứ tự cây (điểm GD → ấp); mở lần đầu tự chia sẵn (`ktPCChia`): Chủ tịch / Bí thư ≈ nửa phần (≥ 1 khi đủ ấp, ít ấp hơn số người thì không nhận), rồi Phó 1–3, Ủy viên 1–5, mỗi người 1 đoạn liền nhau, dư dồn người trước; Chủ tịch có ấp → thêm câu "Trực tiếp thực hiện kiểm tra tại …"; nút ⇄ Chia lại đều; hộp có ô Nhiệm kỳ, Số HĐ ủy thác, Ngày ký HĐ (lưu chung khai báo Hội).
 - Kiểm tra: `kiem.py` sạch; t122 mới (25 phép); t106, t108, t111, t115, t119 cập nhật theo cách ghi mới; hồi quy không lỗi.

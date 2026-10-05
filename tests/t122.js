@@ -29,6 +29,7 @@ const fs=require('fs'), path=require('path');
    ok('"Chức vụ:" có hai chấm; người 2 trống → " Chức vụ" cách dòng chấm', /⇥Chức vụ: /.test(c6) && /2\. Ông \(bà\): ⇥ Chức vụ: /.test(c6));
    ok('Thời điểm trống → " Địa bàn kiểm tra" cách dòng chấm', /Thời điểm kiểm tra: ⇥ Địa bàn kiểm tra: /.test(c6));
    ok('dòng Cộng: số tiền in đậm', ['TGN','TDN'].every(f=>!g6.f[f] || new RegExp('<w:b/><w:bCs/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr><w:t xml:space="preserve">'+g6.f[f].replace('.', '\\.')+'<').test(x6)));
+   ok('số Cộng dài (1.653,808) → thu cỡ chữ, không xuống dòng; số ngắn giữ cỡ 11', ktCoVua('1.653,808', 992)<22 && ktDoRong('1.653,808', ktCoVua('1.653,808', 992))<=776 && ktCoVua('980', 992)===22 && new RegExp('<w:sz w:val="'+g6.f.SZTDN+'"/><w:szCs w:val="'+g6.f.SZTDN+'"/></w:rPr><w:t xml:space="preserve">'+g6.f.TDN.replace('.', '\\.')).test(x6) && /white-space:nowrap;font-size:/.test(ktHTML06(Object.assign({}, g6, {f:Object.assign({}, g6.f, {TDN:'1.653,808', SZTDN:String(ktCoVua('1.653,808', 992))})}))));
    const ky = x6.slice(x6.lastIndexOf('<w:tbl>')), tcT = ky.match(/<w:tc>[\s\S]*?<\/w:tc>/g)[0];
    ok('Cán bộ chứng kiến ngang Cán bộ kiểm tra: ô trái dòng trống đầu (như "Ngày …"), dòng chấm ra ngoài bảng ký', /^<w:tc><w:tcPr>[\s\S]*?<\/w:tcPr><w:p><w:pPr><w:spacing w:before="60"\/>/.test(tcT) && tcT.indexOf('........')<0 && chu(x6.slice(0, x6.lastIndexOf('<w:tbl>'))).slice(-30).indexOf('.....')>=0);
    const h6 = ktHTML06(g6);
