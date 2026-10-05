@@ -4,6 +4,20 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.114 — 08/10/2026 15:00 — Hộp chọn khi in · người kiểm tra theo vai trò · nhận xét nợ quá hạn, nợ khoanh
+- **Hộp chọn khi in** (`ktInHop`, anh duyệt): bấm In / Word / Xem của mẫu nào thì hỏi lựa chọn mẫu đó, nhớ lần sau (`D.cauHinh.ktIn[mẫu]`, đồng bộ Drive):
+  - Mẫu 06: cột Mục đích để trống / in sẵn · người kiểm tra (dòng 2 để sau, vẫn gõ tay được ở "Tùy chọn khác").
+  - Mẫu 16: nhận xét gợi ý (mặc định) / trống · **Bảng II để trống (mặc định)** / theo 727 · người kiểm tra 1, 2.
+  - Mẫu 04: nhận xét + kiến nghị gợi ý (mặc định) / trống · người kiểm tra 1 (Trưởng đoàn), 2; **tên người 1 in dưới "TRƯỞNG ĐOÀN KIỂM TRA"** (Word + In).
+  - Kế hoạch: người ký Chủ tịch (mặc định) / Phó Chủ tịch / trống — chức danh luôn "CHỦ TỊCH" (anh tự thêm "P" khi phó ký).
+  - Định kỳ hỏi cả 06 + 16; Kế hoạch + Mẫu 04 in chung hỏi cả 2. Nút ✚ Điền đầy đủ (mục đích, gợi ý, Bảng II). "Tùy chọn khác": đơn vị kiểm tra, Ông (bà) 2 gõ tay.
+- **Người kiểm tra theo vai trò** (`ktNguoi`): Phó Chủ tịch (mặc định) / Chủ tịch / ủy viên BTV 1–5 / để trống; tên lấy theo Khai báo Hội của Hội phụ trách từng tổ (in nhiều tổ nhiều Hội vẫn đúng); vai trò chưa khai tên → in chức vụ, tên dòng chấm + nhắc cam trong hộp.
+- **Nhận xét** Mẫu 16 / 04 (`ktDsDon` + `qh`, `kn`): liệt kê hộ nợ quá hạn, nợ khoanh (≤ 10 hộ, tiền lớn trước) với đề xuất nhẹ nhàng; món không giao dịch từ 3 tháng: "đôn đốc duy trì trả lãi, gửi tiết kiệm đều đặn".
+- Đột xuất: ô Ngày kiểm tra cạnh nút In; các tab bỏ khung ✎ (chỉ còn dòng nhắc Khai báo Hội). Xem trước có nút "‹ Đổi lựa chọn in".
+- Kiểm tra: `kiem.py` sạch; t119 mới (22 phép); t106 / t108 / t109 / t110 / t111 / t112 / t116 cập nhật cách gọi (cờ "đã chọn") và hộp chọn; hoiquy, hoiquy2, t101–t119 không lỗi.
+
+---
+
 ## 3.113 — 08/10/2026 09:00 — Đồng bộ toàn bộ cài đặt qua Drive · 🏛 Khai báo Hội đoàn thể
 - **Nguyên nhân anh gặp:** bảng khai báo Hội khai ở máy cơ quan, mở laptop không thấy — `cauhinh.json` chỉ chứa ~30 mục chọn tay, không có phần KTGS; sửa bảng khai báo cũng không tự đẩy.
 - **Đồng bộ cài đặt (anh chốt: app cá nhân → lưu lên Drive hết):** `goiCauHinh` gửi mọi khóa `D.cauHinh` trừ `CH_RIENG` (độ rộng khung, cỡ chữ, camera, đang xem / đang chọn, khung mở – đóng, mốc đồng bộ / sao lưu). `chBam` (riêng máy) = dấu băm từng khóa lúc đồng bộ gần nhất: khóa máy này chưa sửa → theo Drive (cả phần đã xóa); đã sửa → gộp, máy này ưu tiên; lần đầu → gộp, Drive ưu tiên. `dongBoCauHinh('tu' | 'day' | 'lay')` luôn hỏi Drive trước rồi mới đẩy. Tự chạy khi nối Drive, khi quay lại app, và 4 giây sau mỗi lần `luu()` làm đổi phần cài đặt đồng bộ (`chTheoDoi`). Nút Lưu lên / Lấy từ Drive giữ nguyên.

@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.113 · build 08/10/2026 09:00
+**Bản hiện tại:** 3.114 · build 08/10/2026 15:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.114) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Đột xuất › Word Mẫu 06 | Hiện hộp chọn; mặc định Phó Chủ tịch; đổi Chủ tịch → phiếu ghi tên + chức vụ Chủ tịch | |
+| 2 | Word Mẫu 16 | Bảng II trống (mặc định); bấm ✚ Điền đầy đủ → có x / Không / Định kỳ theo quý; chọn người 2 → in 2 dòng | |
+| 3 | Mẫu 04 | Đoàn kiểm tra theo người 1, 2; tên người 1 dưới TRƯỞNG ĐOÀN KIỂM TRA; tổ có nợ quá hạn / khoanh → kiến nghị b) có tên hộ | |
+| 4 | Kế hoạch › Xem | Hỏi người ký; chọn Phó Chủ tịch → tên phó, chức danh vẫn CHỦ TỊCH | |
+| 5 | Mở lại app / máy khác | Lựa chọn lần trước được nhớ | |
+
+**Ghi chú kỹ thuật 3.114:** các hàm in nhận cờ "đã chọn": `ktXuat(mau, cach, 1)`, `ktGNXem(1)`, `ktDKXem('', 1)`, `ktBCXem(1)`, `ktKHXem(1)`, `ktKH04Xem(1)`, `ktKHInCa(1)` — không có cờ thì mở `ktInHop`. Lựa chọn lấy bằng `ktInV(mẫu)`; `ktCanBo(t, v)` theo `v.ng1` khi có. `ktBC04(ds, th, v)`, `ktKHGiaTri(v)`, `ktDKGiaTri(v06, v16)`. Ngày đột xuất ở ô `#kb-ngay` cạnh nút In (`ktDocKB`).
 
 ### Danh sách thử trên máy thật (3.113) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

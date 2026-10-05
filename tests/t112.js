@@ -68,7 +68,7 @@ const fs=require('fs'), path=require('path');
    ok('D: Đoàn kiểm tra = Hội Nông dân phường …', ktGiaTri16(tH, [], {}).f.DOAN==='Hội Nông dân phường Gia Lộc', ktGiaTri16(tH, [], {}).f.DOAN);
    ok('D: tổ Đoàn Thanh niên', ktGiaTri16(Object.assign({}, tH, {dv:'14'}), [], {}).f.DOAN==='Đoàn Thanh niên phường Gia Lộc', ktGiaTri16(Object.assign({}, tH, {dv:'14'}), [], {}).f.DOAN);
    ok('D: chữ cũ đã gõ không còn tác dụng; trực tiếp → dòng chấm', ktGiaTri16(tH, [], {doan:'Đoàn cũ'}).f.DOAN==='Hội Nông dân phường Gia Lộc' && ktGiaTri16(Object.assign({}, tH, {dv:'99'}), [], {}).f.DOAN==='');
-   ok('D: khung ✎ Khai báo không còn ô Đoàn kiểm tra', !/kb-doan/.test(ktKBKhung('dx', [])) && /tự in tên Hội cấp xã/.test(ktKBKhung('dx', [])) && KT_KB_LUU.indexOf('doan')<0);
+   ok('D: không còn ô Đoàn kiểm tra (3.114: hộp chọn khi in Mẫu 16 cũng không có)', !/doan/.test(ktKBKhung('dx', [])) && !/doan/.test(ktInPhan('m16', [])) && KT_KB_LUU.indexOf('doan')<0);
    ok('D: dọn ktKBLuu.doan khi mở app', /delete ch\.ktKBLuu\.doan/.test(document.documentElement.innerHTML));
    const z = await ktDocx('m16', ktGiaTri16(tH, [], {})); const zz = XLSX.CFB.read(new Uint8Array(await z.arrayBuffer()), {type:'array'});
    const doc = new TextDecoder().decode((XLSX.CFB.find(zz, 'word/document.xml') || XLSX.CFB.find(zz, '/word/document.xml')).content).replace(/<[^>]+>/g, '');
