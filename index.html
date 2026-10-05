@@ -3007,7 +3007,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.118', APP_LUC = '09/10/2026 17:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.119', APP_LUC = '09/10/2026 19:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12650,7 +12650,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.118', ds:[
+var CO_GI_MOI = {ban:'3.119', ds:[
+  ['📄 Phân công BTV: tên Hội dài ở đầu văn bản xuống dòng trước "XÃ / PHƯỜNG …" (như Kế hoạch), không còn ngắt giữa tên xã', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📄 Phân công BTV: lấy đủ ấp / khu phố của xã theo thứ tự cây, mở lần đầu tự chia sẵn (Chủ tịch / Bí thư ít hơn, rồi Phó, Ủy viên — mỗi người 1 đoạn liền nhau), nút ⇄ Chia lại đều; hộp có ô Nhiệm kỳ, Số HĐ ủy thác, Ngày ký HĐ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Rà mẫu chung 06 / 16 / 04: "Chức vụ:" có hai chấm; chữ sau dòng chấm cách 1 khoảng; tên đơn vị dài xuống dòng trước "xã / phường"; chức vụ dài viết tắt BTV / BCH; Mẫu 16 "(tỷ lệ 0%)" hết dính', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 06: Cán bộ chứng kiến ngang hàng Cán bộ kiểm tra, số tiền dòng Cộng in đậm, số dài tự thu chữ không rớt dòng · Mẫu 16 / 04: có tên đơn vị thì bỏ dòng "ĐƠN VỊ KIỂM TRA" · Mẫu 04: nơi nhận ghi "PGD NHCSXH Gò Dầu"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -23940,19 +23941,19 @@ function ktPCNoiDung(k){   /* → {t, c, kb, ten, dau:{…}, khoi:[{s, b, i, ind
   var nam = String(nay().getFullYear());
   return {t:t, c:c, kb:kb, ten:ten, khoi:khoi,
     dau:c.doan ? {a1:c.tinh, a2:'BCH ĐOÀN '+ktXaChu(t.tenXa).toUpperCase(), a3:'***', so:'Số:        -TB/ĐTN', b1:'ĐOÀN TNCS HỒ CHÍ MINH', b2:'', ngay:ktXaTen(t.tenXa)+', ngày       tháng       năm '+nam}
-      : {a1:(kb.ten ? kb.ten.toUpperCase() : ktChuanDauXa(t)), a2:'BAN THƯỜNG VỤ', a3:'', so:'Số:        /TB-BTV', b1:'CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM', b2:'Độc lập - Tự do - Hạnh phúc', ngay:ktXaTen(t.tenXa)+', ngày       tháng       năm '+nam},
+      : {a1:ktHXCo(kb.ten ? kb.ten.toUpperCase() : ktChuanDauXa(t), 4344).HX, a1z:ktHXCo(kb.ten ? kb.ten.toUpperCase() : ktChuanDauXa(t), 4344).HXZ, a2:'BAN THƯỜNG VỤ', a3:'', so:'Số:        /TB-BTV', b1:'CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM', b2:'Độc lập - Tự do - Hạnh phúc', ngay:ktXaTen(t.tenXa)+', ngày       tháng       năm '+nam},
     tieu:'Phân công nhiệm vụ của '+c.ky+', '+c.pho+', Ủy viên Ban Thường vụ '+ten+' trong tham gia thực hiện các nội dung ủy thác với Ngân hàng Chính sách xã hội',
     noiNhan:['- TT. Đảng ủy, HĐND '+c.xa+';', '- Chủ tịch, các PCT UBND '+c.xa+';', '- Chủ tịch UBMTTQ '+c.xa+';', '- PGD NHCSXH '+(nh || '……')+';', '- Các Tổ TK&VV;', '- Lưu: VT.'],
     ky:{tm:'TM. BAN THƯỜNG VỤ', cv:c.ky.toUpperCase(), ten:kb.ct || ''}};
 }
 function ktBungPC(g){   /* Word: A4 dọc, Times New Roman 14 */
-  var E = xmlEsc, rr = function(s, o){ o = o||{}; return '<w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>'+(o.b ? '<w:b/>' : '')+(o.i ? '<w:i/>' : '')+(o.u ? '<w:u w:val="single"/>' : '')+'<w:sz w:val="'+(o.sz||28)+'"/><w:szCs w:val="'+(o.sz||28)+'"/></w:rPr><w:t xml:space="preserve">'+E(s)+'</w:t></w:r>'; };
+  var E = xmlEsc, rr = function(s, o){ o = o||{}; return '<w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>'+(o.b ? '<w:b/>' : '')+(o.i ? '<w:i/>' : '')+(o.u ? '<w:u w:val="single"/>' : '')+'<w:sz w:val="'+(o.sz||28)+'"/><w:szCs w:val="'+(o.sz||28)+'"/></w:rPr><w:t xml:space="preserve">'+E(s).replace(/\n/g, '</w:t><w:br/><w:t xml:space="preserve">')+'</w:t></w:r>'; };
   var pp = function(s, o){ o = o||{}; return '<w:p><w:pPr><w:spacing w:before="'+(o.tr||0)+'" w:after="'+(o.sau!==undefined ? o.sau : 60)+'" w:line="'+(o.line||300)+'" w:lineRule="'+(o.line ? 'exact' : 'auto')+'"/>'+(o.ind ? '<w:ind w:firstLine="'+o.ind+'"/>' : '')+'<w:jc w:val="'+(o.jc||'both')+'"/></w:pPr>'+(s ? rr(s, o) : '')+'</w:p>'; };
   var tc = function(w, ps){ return '<w:tc><w:tcPr><w:tcW w:w="'+w+'" w:type="dxa"/></w:tcPr>'+ps+'</w:tc>'; };
   var bang = function(w1, w2, c1, c2){ return '<w:tbl><w:tblPr><w:tblW w:w="'+(w1+w2)+'" w:type="dxa"/><w:tblInd w:w="-612" w:type="dxa"/><w:tblBorders><w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/><w:insideH w:val="nil"/><w:insideV w:val="nil"/></w:tblBorders><w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid><w:gridCol w:w="'+w1+'"/><w:gridCol w:w="'+w2+'"/></w:tblGrid><w:tr>'+tc(w1, c1)+tc(w2, c2)+'</w:tr></w:tbl>'; };
   var d = g.dau, ca = {jc:'center', sau:0};
   var dau = bang(4560, 5701,
-    pp(d.a1, Object.assign({sz:26}, ca))+pp(d.a2, Object.assign({sz:26, b:1}, ca))+(d.a3 ? pp(d.a3, Object.assign({sz:26}, ca)) : pp('', Object.assign({line:120}, ca)))+pp(d.so, Object.assign({sz:26}, ca)),
+    pp(d.a1, Object.assign({sz:+d.a1z || 26}, ca))   /* 3.119: tên dài → cỡ 12, xuống dòng trước XÃ / PHƯỜNG (như Kế hoạch) */+pp(d.a2, Object.assign({sz:26, b:1}, ca))+(d.a3 ? pp(d.a3, Object.assign({sz:26}, ca)) : pp('', Object.assign({line:120}, ca)))+pp(d.so, Object.assign({sz:26}, ca)),
     pp(d.b1, Object.assign({sz:26, b:1, u:!d.b2}, ca))+(d.b2 ? pp(d.b2, Object.assign({sz:28, b:1, u:1}, ca)) : '')+pp('', Object.assign({line:120}, ca))+pp(d.ngay, Object.assign({i:1}, ca)));
   var than = pp('THÔNG BÁO', {b:1, jc:'center', tr:240, sau:0})+pp(g.tieu, {b:1, jc:'center', sau:240})+
     g.khoi.map(function(x){ return pp(x.gach ? '- '+x.s : x.s, {b:x.b, i:x.i, ind:x.ind}); }).join('');
@@ -23961,10 +23962,10 @@ function ktBungPC(g){   /* Word: A4 dọc, Times New Roman 14 */
   return dau+than+pp('', {sau:120})+ky;
 }
 function ktHTMLPC(g){
-  var h = function(s){ return coChuHTML(s); }, d = g.dau;
+  var h = function(s){ return coChuHTML(s).replace(/\n/g, '<br>'); }, d = g.dau;
   return '<!doctype html><html><head><meta charset="utf-8"><title>Phan cong nhiem vu BTV</title><style>@page{size:A4;margin:20mm 19.5mm 20mm 30mm}'+KT_IN_CSS+'body{font-size:14pt}.kt-c{text-align:center}.kt-b{font-weight:bold}.kt-i{font-style:italic}.kt-u{text-decoration:underline}'+
     'table{width:100%;border-collapse:collapse}td{vertical-align:top;padding:0}.kt-p{text-align:justify;text-indent:10mm;margin:0 0 3pt;line-height:1.3}</style></head><body>'+
-    '<table><tr><td class="kt-c" style="width:44%;font-size:13pt"><p>'+h(d.a1)+'</p><p class="kt-b">'+h(d.a2)+'</p><p>'+(d.a3 ? h(d.a3) : '&nbsp;')+'</p><p>'+h(d.so)+'</p></td>'+
+    '<table><tr><td class="kt-c" style="width:44%;font-size:13pt"><p'+(d.a1z ? ' style="font-size:'+(d.a1z/2)+'pt"' : '')+'>'+h(d.a1)+'</p><p class="kt-b">'+h(d.a2)+'</p><p>'+(d.a3 ? h(d.a3) : '&nbsp;')+'</p><p>'+h(d.so)+'</p></td>'+
     '<td class="kt-c" style="font-size:13pt"><p class="kt-b'+(d.b2 ? '' : ' kt-u')+'">'+h(d.b1)+'</p>'+(d.b2 ? '<p class="kt-b kt-u" style="font-size:14pt">'+h(d.b2)+'</p>' : '')+'<p class="kt-i" style="margin-top:6pt">'+h(d.ngay)+'</p></td></tr></table>'+
     '<p class="kt-c kt-b" style="margin-top:12pt">THÔNG BÁO</p><p class="kt-c kt-b" style="margin-bottom:12pt">'+h(g.tieu)+'</p>'+
     g.khoi.map(function(x){ return '<p class="kt-p'+(x.b ? ' kt-b' : '')+(x.i ? ' kt-i' : '')+'">'+h(x.gach ? '- '+x.s : x.s)+'</p>'; }).join('')+

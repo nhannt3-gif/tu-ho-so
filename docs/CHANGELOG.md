@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.119 — 09/10/2026 19:00 — Rà việc đã chốt: đầu văn bản Phân công
+- Rà lại các việc anh đã chốt (3.113 → 3.118): sót 1 chỗ — quy tắc "tên đơn vị dài xuống dòng trước XÃ / PHƯỜNG" chưa áp cho đầu văn bản Phân công BTV ("HỘI CỰU CHIẾN BINH XÃ / TRUÔNG MÍT" bị ngắt giữa tên). Nay dùng chung `ktHXCo` như Kế hoạch (vừa cỡ 13 thì giữ, không thì cỡ 12, vẫn dài thì xuống dòng trước XÃ / PHƯỜNG), Word + bản In.
+- Các việc khác đã chốt đều có trong 3.118 (đã đối chiếu); "nhớ người ký theo từng Hội" chưa làm — chờ anh xác nhận.
+- Kiểm tra: t122 thêm 1 phép (27/27); hồi quy không lỗi.
+
+---
+
 ## 3.118 — 09/10/2026 17:00 — Rà mẫu chung 06 / 16 / 04 · Phân công BTV chia sẵn theo cây
 - **Rà mẫu theo ảnh anh gửi (áp chung các mẫu, Word + bản In):**
   - "Chức vụ:" có hai chấm (Mẫu 06 trước ghi "Chức vụ ").
