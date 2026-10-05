@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.112 — 07/10/2026 09:00 — Kế hoạch KTGS: chọn căn cứ 727 / 10566
+- Anh gửi kế hoạch thật lập 15/01/2026 (trước văn bản 727) căn cứ hướng dẫn 10566/HD-NHCS ngày 29/12/2022. Anh chốt: áp cả khuôn ① ②, chỉ thay dòng căn cứ đầu, nội dung theo khuôn đã chuẩn hóa; chọn tay.
+- Màn Kế hoạch có hàng **Căn cứ: 727 (từ 11/02/2026) · 10566 (trước 727)**, nhớ theo Hội (`ktHoiKB(...).ccKH`, `ktKHCC` / `ktKHDoiCC`); `ktBung01` thay `KT_CC727` → `KT_CC10566` trong khuôn; bản In đọc lại Word nên cùng nội dung; tên file thêm "(can cu 10566)".
+- Mẫu 04 (lập kèm theo kế hoạch) giữ nội dung theo 727 như cũ.
+- Kiểm tra: `kiem.py` sạch; t116 mới (12 phép); hoiquy, hoiquy2, t109–t116 không lỗi.
+
+---
+
 ## 3.111 — 06/10/2026 14:00 — Mẫu 06 theo mẫu gốc · Mẫu 16 Bảng II điền sẵn · ngày ảnh scan khôi phục
 - **Mẫu 06/TD** (anh duyệt):
   - Dòng đầu theo mẫu gốc: "Đơn vị kiểm tra" canh trái; "Chức vụ" không dấu hai chấm; "Thời điểm kiểm tra ⇥ Địa bàn kiểm tra ⇥ Tổ TK&VV" cùng dòng, đo chữ thấy dài thì Tổ xuống dòng (`ktDong3_06`); "Đơn vị tính: triệu đồng" dòng riêng. Tiêu đề PHIẾU KIỂM TRA cách trên 10 pt.
