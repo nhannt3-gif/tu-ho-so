@@ -41,7 +41,7 @@ const fs=require('fs'), path=require('path');
    KT_KB = {}; ktKhaiBao('m06'); await w(80); const id06 = [...document.querySelectorAll('.kt-kb-khung [id^=kb-]')].map(e=>e.id.slice(3)).join(',');
    ok('3.98: khai báo nằm trong tab (không hộp bật lên), theo thứ tự mẫu: Mẫu 06 (đơn vị → cán bộ → ngày → mục đích) rồi Mẫu 16 (đoàn → nhận xét)', !document.getElementById('hop-in') || !document.querySelector('#hop-in [id^=kb-]'), id06);
    ok('khung đột xuất đủ ô theo thứ tự', id06==='dv,cbtu,cb2,cv2,ngay,md,b2,nx', id06);
-   ok('⚙ Khai báo Hội: tên → cán bộ → KH Hội tỉnh → HĐUT → ký (3.106: bỏ ô đoàn)', KT_HKB_O.map(x=>x[0]).join(',')==='ten,cb,cbcv,kh,khNgay,hd,hdNgay,ky');
+   ok('3.113 Khai báo Hội: tên → Chủ tịch → Phó CT → 5 ủy viên BTV → HĐUT → KH Hội tỉnh', KT_HKB_O.map(x=>x[0]).join(',')==='ten,ct,pct,uv1,uv2,uv3,uv4,uv5,hd,hdNgay,kh,khNgay');
    /* 5. định kỳ theo lịch */
    const t0 = best; C.xa = t0.xa; C.diem = ''; C.hoi = String(t0.dv); C.to = '';
    const kKH = '2026|'+t0.xa+'|'+t0.dv; D.cauHinh.ktKH = D.cauHinh.ktKH || {}; const lich = {}; lich[t0.ma] = 9; D.cauHinh.ktKH[kKH] = {tu:2, den:10, to:lich};

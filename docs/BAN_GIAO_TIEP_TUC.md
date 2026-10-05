@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 07/10/2026, bản 3.112)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 08/10/2026, bản 3.113)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,7 +88,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.112 (mới nhất):** Kế hoạch KTGS ① ② chọn căn cứ 727 / 10566 (kế hoạch lập trước 727), chỉ thay dòng căn cứ đầu, nhớ theo Hội.
+**3.113 (mới nhất):** toàn bộ cài đặt lên Drive (trừ khóa riêng máy `CH_RIENG`, gộp theo dấu băm `chBam`, kéo trước đẩy sau); KTGS có tab 🏛 Khai báo Hội đoàn thể (CT, PCT, 5 ủy viên BTV, HĐUT, KH tỉnh) + tab nhỏ Chuẩn hóa; người kiểm tra = PCT, người ký KH = CT. **Đang chờ 3.114 (anh đã duyệt):** hộp chọn khi in từng mẫu — 06: mục đích in / trống + người kiểm tra 1 (PCT mặc định / CT / ủy viên / trống), dòng 2 để sau; 16TD & 04: nhận xét gợi ý (mặc định) / trống, Bảng II 16 trống (mặc định) / theo 727, chọn 2 người kiểm tra (người 1 PCT, người 2 trống), Mẫu 04 in tên người 1 dưới TRƯỞNG ĐOÀN; nút Điền đầy đủ; nhận xét 16 / 04 liệt kê thêm nợ quá hạn, nợ khoanh (≤ 10 hộ, đề xuất nhẹ nhàng); KH chọn người ký CT / PCT / trống, luôn ghi CHỦ TỊCH; ngày kiểm tra đột xuất cạnh nút In; căn cứ 727 / 10566 + khuôn ① ② giữ nút ở tab KH. Việc sau: bảng phân công nhiệm vụ quản lý TDCS (dùng danh sách lãnh đạo đã khai).
+
+**3.112:** Kế hoạch KTGS ① ② chọn căn cứ 727 / 10566 (kế hoạch lập trước 727), chỉ thay dòng căn cứ đầu, nhớ theo Hội.
 
 **3.111:** Mẫu 06 theo mẫu gốc (dòng đầu Thời điểm · Địa bàn · Tổ, Đơn vị tính riêng, tên hoa đầu từ, 1 món 2 dòng, cột tiền thực tế gọn / Vào việc rộng, CT / mục đích dài cỡ 10, Nợ lãi = lãi tồn + tổng); Mẫu 16 đầu trang canh giữa + Bảng II điền sẵn 727 (chọn để trống); ngày ảnh scan khôi phục không vượt hôm nay.
 
