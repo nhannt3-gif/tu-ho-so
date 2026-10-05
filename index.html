@@ -3004,7 +3004,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.115', APP_LUC = '09/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.116', APP_LUC = '09/10/2026 11:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12647,7 +12647,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.115', ds:[
+var CO_GI_MOI = {ban:'3.116', ds:[
+  ['📋 Mẫu 16 Bảng II (khi chọn điền): bỏ chữ "đầy đủ" — ghi "Có thực hiện", "Có tham gia", "Đảm bảo đúng thành phần", "Có lưu giữ"; điều cấm vẫn ghi rõ "Không"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 06: dòng "Thời điểm · Địa bàn · Tổ TK&VV" không rớt dòng — thu khoảng cách, dài thì bỏ "tỉnh Tây Ninh", vẫn dài thì viết tắt KP / P. / X.; cột Chương trình canh giữa ô; tên cán bộ kiểm tra in dưới khối ký', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 16: tên Trưởng đoàn và Tổ trưởng in dưới khối ký; Bảng II (khi chọn điền) ghi như mẫu tham khảo: "Theo cụm dân cư liền kề", "Tại văn phòng ấp, định kỳ theo quý", "Thực hiện đầy đủ"…', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🗓 Kế hoạch ①: sửa 2 chỗ dính chữ (")? Các hình thức", "Lưu: VT")', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -23162,7 +23163,7 @@ function ktGiaTri16(t, dc, v){
     LT:ktTr(s.lt, le), TG:ktTr(s.tg, le), XM:thangCD && s.xl ? thangCD.m : '', XY:thangCD && s.xl ? thangCD.y2 : '', XL:s.xl ? String(s.diem).replace('.', ',')+' điểm, xếp loại '+s.xl : '',
     SKH:dc.length ? (dc.length<10 ? '0' : '')+dc.length : '', SPH:dc.length ? '01' : ''}, nx:ktNhanXet16(t, s, v), b2:ktB16Mac(v)==='dien' ? KT_B16.map(function(x){ return x.replace('{ấp}', ktCapAp(t.tenXa)); }) : []};
 }
-var KT_B16 = ['Theo cụm dân cư liền kề', '02 người (Tổ trưởng, Tổ phó), có phân công cụ thể', 'Không', 'Không', 'Không', 'Tại văn phòng {ấp}, định kỳ theo quý', 'Có thực hiện', 'Đảm bảo, thành phần tham dự đầy đủ', 'Tham gia đầy đủ', 'Không', 'Thực hiện đầy đủ', 'Thực hiện đầy đủ', 'Có phối hợp', 'Có lưu giữ đầy đủ'];   /* 3.115 (anh chốt): ghi như Mẫu 16 điền tham khảo */   /* 3.111 (anh chốt): Bảng II Mẫu 16 điền sẵn theo văn bản 727 — việc phải làm "x", điều cấm "Không", sinh hoạt Tổ định kỳ theo quý */
+var KT_B16 = ['Theo cụm dân cư liền kề', '02 người (Tổ trưởng, Tổ phó), có phân công cụ thể', 'Không', 'Không', 'Không', 'Tại văn phòng {ấp}, định kỳ theo quý', 'Có thực hiện', 'Đảm bảo đúng thành phần', 'Có tham gia', 'Không', 'Có thực hiện', 'Có tham gia', 'Có phối hợp', 'Có lưu giữ'];   /* 3.115 · 3.116 (anh chốt): như mẫu tham khảo, bỏ chữ "đầy đủ"; điều cấm ghi rõ "Không" */
 function ktB16Mac(v){ return (v && v.b2!==undefined) ? v.b2 : (D.cauHinh.ktBang16!==undefined ? D.cauHinh.ktBang16 : 'dien'); }
 var KT_NX_CHON = '<option value="so">Gợi ý theo số liệu (anh sửa trong Word)</option><option value="">Để trống (ghi tay)</option>';
 function ktNxMacDinh(v){ return v.nx!==undefined ? v.nx : (D.cauHinh.ktNhanXet!==undefined ? D.cauHinh.ktNhanXet : 'so'); }

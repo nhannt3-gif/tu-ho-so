@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.116 — 09/10/2026 11:00 — Mẫu 16 Bảng II bỏ chữ "đầy đủ"
+- Anh chốt: giữ cách ghi như 3.115, chỉ bỏ chữ "đầy đủ" (không khẳng định quá); điều cấm ghi rõ "Không".
+- `KT_B16`: Theo cụm dân cư liền kề · 02 người (Tổ trưởng, Tổ phó), có phân công cụ thể · Không ×3 · Tại văn phòng ấp / khu phố, định kỳ theo quý · Có thực hiện · **Đảm bảo đúng thành phần** · **Có tham gia** · Không · **Có thực hiện** · **Có tham gia** · Có phối hợp · **Có lưu giữ**.
+- Kiểm tra: `kiem.py` sạch; t115 / t120 cập nhật chữ; t106–t120, hoiquy2 không lỗi.
+
+---
+
 ## 3.115 — 09/10/2026 09:00 — Mẫu 06 không rớt dòng Tổ · tên dưới khối ký 06 / 16 · Bảng II Mẫu 16 như mẫu tham khảo · dính chữ KH ①
 - **Mẫu 06** (ảnh anh gửi: Tổ TK&VV rớt dòng): `ktDong3_06` thử lần lượt — Tổ thẳng cột Chức vụ → thu khoảng cách (Địa bàn sát Thời điểm, Tổ sát Địa bàn) → bỏ ", tỉnh Tây Ninh" → viết tắt KP / P. / X. / TT. (`ktDbGon`); vẫn không vừa mới cho Tổ xuống dòng. Địa bàn in ra = bản gọn đã chọn (Word + In).
 - Cột Chương trình canh giữa ngang + dọc (`ktOGiua`, bản In `td.giua`).
