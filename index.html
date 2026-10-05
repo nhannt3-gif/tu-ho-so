@@ -2168,6 +2168,12 @@
   .kt-kb-khung{border:1px solid var(--vien);border-radius:8px;padding:6px 10px;margin:8px 0;background:var(--the)}.kt-kb-khung>summary{cursor:pointer;font-weight:600}.kt-kb-khung>summary small{font-weight:normal;color:#6b7480}.kt-kb-luoi{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2px 18px}
   .kt-hkb .kt-kb textarea{font:inherit;padding:4px 8px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu);width:100%;box-sizing:border-box;resize:vertical}
   .kt-hkb-ds{max-height:64vh;overflow:auto}
+  .kt-hdt-ds{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:10px}.kt-hdt-the{border:1px solid var(--vien);border-radius:8px;padding:8px 12px;background:var(--the)}.kt-hdt-dau small{color:var(--chu-phu)}
+  .kt-hdt-nhom{font-weight:600;font-size:calc(12px*var(--co));margin:8px 0 2px;color:var(--chu-phu)}.kt-hdt-luoi{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:4px 12px}
+  .kt-hdt-o{display:flex;flex-direction:column;gap:1px;min-width:0}.kt-hdt-o>span{font-size:calc(11.5px*var(--co));color:var(--chu-phu)}.kt-hdt-o.kt-hdt-day{grid-column:1/-1}
+  .kt-hdt-o input{font:inherit;padding:3px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu);width:100%;box-sizing:border-box}.kt-hdt-o .hkb-in{max-width:none;min-width:0}
+  .kt-hdt-dung{margin-top:6px}.kt-hdt-nhac{margin:6px 0}.kt-chuan-o{display:flex;gap:3px;align-items:center}.kt-chuan-o input{flex:1;min-width:170px}.kt-chuan input.da{border-color:#2e7d4f;background:rgba(46,125,79,.08)}   /* 3.113 */
+  @media(max-width:600px){ .kt-hdt-ds{grid-template-columns:1fr} }
   @media(max-width:600px){ .kt-hkb .kt-kb{grid-template-columns:1fr;gap:2px} }
 
   /* ===== 3.94 — 👤 Tra cứu KH gọn: danh sách 2 dòng · kiểm trùng 2 ô · thẻ chia nhóm · bấm giá trị để chép (tiền tố .tc394 / .tc-the để thắng khối cũ) ===== */
@@ -2996,7 +3002,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.112', APP_LUC = '07/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.113', APP_LUC = '08/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -3185,6 +3191,7 @@ function luu(){
       kyAnh:D.kyAnh||[], boHS:D.boHS||[]
     }));
     if(typeof henDongBoChiMuc==='function') henDongBoChiMuc();
+    if(typeof chTheoDoi==='function') chTheoDoi();   /* 3.113: cài đặt đổi → tự đẩy lên Drive */
     return true;
   }catch(e){
     baoLoi('Không lưu được — bộ nhớ trình duyệt đã đầy. Vào Cài đặt xuất dữ liệu ra file để giải phóng.');
@@ -12242,8 +12249,8 @@ function veNoiCD(k){
       '<div class="hang-nut">'+
         '<button class="nho" onclick="dayCauHinh()">Lưu lên Drive</button>'+
         '<button class="nho" onclick="keoCauHinh()">Lấy từ Drive</button></div>'+
-      '<div class="huong-dan">Cất ở <b>_Hệ thống/cauhinh.json</b>. Máy khác nối Drive rồi '+
-      'bấm Lấy từ Drive là có đủ danh mục.'+
+      '<div class="huong-dan">Cất ở <b>_Hệ thống/cauhinh.json</b> — toàn bộ cài đặt (danh mục, khai báo Hội, chuẩn hóa, lịch kế hoạch, lựa chọn in…), trừ phần riêng từng máy (độ rộng khung, đang xem). '+
+      'Tự đồng bộ khi mở app, khi quay lại app và vài giây sau mỗi lần sửa; 2 máy cùng sửa thì gộp. Nút trên dùng khi cần làm ngay.'+
       (c.chGhiLuc?('<br>Lần lưu gần nhất: '+ngayVN(c.chGhiLuc.slice(0,10))+
         ' '+c.chGhiLuc.slice(11,16)):'')+'</div>';
   }
@@ -12638,7 +12645,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.112', ds:[
+var CO_GI_MOI = {ban:'3.113', ds:[
+  ['☁ Toàn bộ cài đặt lên Drive (bảng khai báo Hội, chuẩn hóa, lịch kế hoạch, bảng ngành, lựa chọn in…): mở app là tự lấy phần máy khác vừa sửa rồi mới đẩy phần máy này đổi; 2 máy cùng sửa thì gộp, không đè. Độ rộng khung, đang xem, camera… vẫn riêng từng máy', "dongHop();moCaiDat('drive')"],
+  ['🏛 KTGS Hội › Khai báo Hội đoàn thể — 1 nơi khai cho Mẫu 06, 16TD, 04, Kế hoạch: tên Hội cấp xã (trống = tên chuẩn), Chủ tịch, Phó Chủ tịch, tối đa 5 ủy viên BTV, số / ngày HĐUT, KH Hội tỉnh; tab nhỏ 📖 Chuẩn hóa quy tắc (ô đã sửa tô xanh, ↺ từng ô)', "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
+  ['👤 Người kiểm tra Mẫu 06 / 16 / 04 mặc định = Phó Chủ tịch; người ký Kế hoạch = Chủ tịch (khai báo cũ tự chuyển sang). Các tab mẫu chỉ còn dòng nhắc Hội nào chưa khai', "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
   ['🗓 Kế hoạch KTGS ① ②: chọn căn cứ 727 (từ 11/02/2026) hoặc hướng dẫn cũ 10566 (kế hoạch lập trước 727) — chỉ thay dòng căn cứ đầu, nội dung giữ nguyên; nhớ theo Hội', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 06 theo mẫu gốc: dòng "Thời điểm · Địa bàn · Tổ TK&VV" (dài thì Tổ xuống dòng), "Đơn vị tính" dòng riêng, "Đơn vị kiểm tra" canh trái; tiêu đề xích xuống; tên người vay viết hoa đầu từ; 1 món 2 dòng; cột tiền thực tế gọn, Vào việc rộng; chương trình / mục đích dài nhỏ 1 cỡ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 06: cột Nợ lãi (kiểm tra thực tế) điền sẵn lãi tồn (triệu đồng), dòng Cộng có tổng; tổng giải ngân / dư nợ không rớt chữ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -13287,6 +13297,7 @@ function noiDrive(imLang){
     if(DR.hangCho.length) chayHangCho();
     chayDongBoCho();
     if(!DR.daKeoCM){ DR.daKeoCM = true; taiChiMucTuDrive(true); }
+    if(!DR.daKeoCH){ DR.daKeoCH = true; setTimeout(function(){ dongBoCauHinh('tu'); }, 800); }   /* 3.113: mở app → lấy cài đặt máy khác vừa sửa, rồi đẩy phần máy này đổi */
     if(D.cauHinh.dbMoApp!==false) setTimeout(function(){ dongBoScan(false); }, 1500);   /* 3.46: mở app → đẩy bản còn chờ */
     if(!DR.daKeoLich){ DR.daKeoLich = true; taiLichTuDrive(); taiNguonCauTuDrive(); setTimeout(taiNoTuDrive, 2500); setTimeout(function(){ (SL_SAN ? Promise.resolve() : slNap()).then(slTaiTuDrive); }, 4000); }
     return true;
@@ -18724,7 +18735,7 @@ document.addEventListener('pointerdown', function(ev){
 }, true);
 /* rời app: iPhone chỉ cho vài giây — chỉ mục (nhỏ) kịp lên; PDF lớn chưa xong thì lần mở app sau đẩy tiếp */
 document.addEventListener('visibilitychange', function(){
-  if(document.visibilityState==='visible'){ if(DR.sanSang) taiChiMucTuDrive(true); return; }   /* 3.47: quay lại app → lấy về phần máy khác vừa gửi */
+  if(document.visibilityState==='visible'){ if(DR.sanSang){ taiChiMucTuDrive(true); dongBoCauHinh('tu'); } return; }   /* 3.113: + cài đặt */   /* 3.47: quay lại app → lấy về phần máy khác vừa gửi */
   if(D.cauHinh.dbRoiApp===false || !DR.sanSang) return;
   try{ dayChiMucLenDrive(); dongBoScan(false); }catch(e){}
 });
@@ -20493,59 +20504,84 @@ function apSoSanh(){
 </script>
 <script>
 /* ---------- ĐỒNG BỘ CÀI ĐẶT LÊN DRIVE ---------- */
-var TEN_CH = 'cauhinh.json';
-
-function goiCauHinh(){
-  return {loai:'cau-hinh-tu-ho-so', ghiLuc:new Date().toISOString(),
-    donvi:D.cauHinh.donvi, thumuc:D.cauHinh.thumuc,
-    diaBan:D.cauHinh.diaBan, mauBaoCao:D.cauHinh.mauBaoCao,
-    nghiepVu:D.cauHinh.nghiepVu, chuongTrinh:D.cauHinh.chuongTrinh, ctTen:D.cauHinh.ctTen,
-    loaiVB:D.cauHinh.loaiVB, nhanGhiChu:D.cauHinh.nhanGhiChu,
-    soTrangDoc:D.cauHinh.soTrangDoc,
-    /* 3.10: bổ sung phần trước đây chưa sao lưu */
-    tagTab:D.cauHinh.tagTab, hoiDoanThe:D.cauHinh.hoiDoanThe, kieuTen:D.cauHinh.kieuTen,
-    tenCauTruc:D.cauHinh.tenCauTruc, gocMay:D.cauHinh.gocMay, clientId:D.cauHinh.clientId,
-    /* 3.31 */ xaQuanLy:D.cauHinh.xaQuanLy, maDaBo:D.cauHinh.maDaBo, boMau:D.cauHinh.boMau,
-    /* 3.40 */ tuKhoa:D.cauHinh.tuKhoa, vtLoai:D.cauHinh.vtLoai, gbTuKhoa:D.cauHinh.gbTuKhoa, gbSoNgay:D.cauHinh.gbSoNgay,
-    inThe:D.cauHinh.inThe, scanLoc:D.cauHinh.scanLoc};
+/* 3.113 (anh chốt: app cá nhân → lưu lên Drive hết): đồng bộ TOÀN BỘ cài đặt qua _Hệ thống/cauhinh.json, trừ khóa riêng từng máy
+   (độ rộng khung, cỡ chữ, camera, đang xem / đang chọn, khung mở – đóng, mốc đồng bộ / sao lưu của máy).
+   chBam (riêng máy) = dấu băm từng khóa lúc đồng bộ gần nhất: khóa máy này chưa sửa → lấy theo Drive (cả phần đã xóa);
+   khóa máy này đã sửa → gộp, máy này ưu tiên, thêm phần chỉ Drive có; lần đầu (chưa có chBam) → gộp, Drive ưu tiên, giữ phần chỉ máy này có.
+   Mỗi lần đồng bộ: hỏi Drive trước (kéo nếu file mới hơn lần trước), rồi mới đẩy phần máy này đổi — không đè bản mới của máy khác. */
+var CH_RIENG = ['chGhiLuc','chKeoLuc','chBam','chiMucDriveTG','chiMucThoi','saoLuuNgay','camId','camGiu','camTuDong','rongPV','rongPhai','rongTrai','rongTab','rong339','coChu',
+  'cayMo','khoiMo','xaMo','ktKBMo','ktNapMo','slMo','dongGon','moCXL','moGanDay','moLocDT','anBangDC','suaDM','slTQ','slTab','ktgs','kyBang','tcPV','thTK','toTK','skTK',
+  'hsXaCuoi','hsApCuoi','hsToCuoi','hsDiemCuoi','scanXem'];
+var TEN_CH = 'cauhinh.json', CH_DANG = null, CH_CHU = null;
+function chRieng(k){ return CH_RIENG.indexOf(k)>=0; }
+function chBamChu(s){ var h = 5381; s = String(s); for(var i=0;i<s.length;i++) h = ((h<<5)+h+s.charCodeAt(i))|0; return (h>>>0).toString(36)+'.'+s.length; }
+function chKhoa(){ return Object.keys(D.cauHinh).filter(function(k){ return !chRieng(k) && D.cauHinh[k]!==undefined; }); }
+function chBamKhoa(k){ return chBamChu(JSON.stringify(D.cauHinh[k])); }
+function goiCauHinh(){ var o = {loai:'cau-hinh-tu-ho-so', ban:3, ghiLuc:new Date().toISOString()}; chKhoa().forEach(function(k){ o[k] = D.cauHinh[k]; }); return o; }
+function chLaDT(x){ return !!x && typeof x==='object' && !Array.isArray(x); }
+function chGop(a, b, sau){   /* gộp b vào a, b ưu tiên ở lá, sâu tối đa `sau` tầng — trả đối tượng mới */
+  if(!chLaDT(a) || !chLaDT(b)) return b;
+  var r = {}; Object.keys(a).forEach(function(k){ r[k] = a[k]; });
+  Object.keys(b).forEach(function(k){ r[k] = (sau>0 && chLaDT(a[k]) && chLaDT(b[k])) ? chGop(a[k], b[k], sau-1) : b[k]; });
+  return r;
 }
-
-function dayCauHinh(imLang){
-  if(!coTheNoiDrive()){
-    if(!imLang) baoLoi('Chưa nối Drive.');
-    return Promise.resolve(false);
-  }
-  batChay(true);
-  var duong = D.cauHinh.thumuc+'/_Hệ thống';
-  return baoDamDuong(duong).then(function(idTM){
-    var q = "name='"+TEN_CH+"' and trashed=false and '"+idTM+"' in parents";
-    return goiDrive('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+
-      '&fields=files(id)&pageSize=1').then(function(kq){
-      var noi = new Blob([JSON.stringify(goiCauHinh(), null, 1)],
-                         {type:'application/json'});
-      var cu = kq.files && kq.files[0];
-      var bien = '----tuhoso'+Date.now();
-      var meta = cu ? {} : {name:TEN_CH, parents:[idTM]};
-      var dau = '--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+
-        JSON.stringify(meta)+'\r\n--'+bien+
-        '\r\nContent-Type: application/json\r\n\r\n';
-      var body = new Blob([dau, noi, '\r\n--'+bien+'--'],
-        {type:'multipart/related; boundary='+bien});
-      var u = cu
-        ? 'https://www.googleapis.com/upload/drive/v3/files/'+cu.id+'?uploadType=multipart&fields=id'
-        : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id';
-      return goiDrive(u, {method: cu?'PATCH':'POST',
-        headers:{'Content-Type':'multipart/related; boundary='+bien}, body:body});
-    });
-  }).then(function(){
-    tatChay();
-    D.cauHinh.chGhiLuc = new Date().toISOString(); luu();
-    if(!imLang) bao('Đã lưu cài đặt lên Drive.', 4);
-    return true;
-  }).catch(function(e){
-    tatChay();
-    if(!imLang) baoLoi('Không lưu được lên Drive: '+(e&&e.message||e));
-    return false;
+function chApDrive(j, layHet){   /* áp file Drive vào máy này; layHet = anh bấm "Lấy từ Drive" (Drive ưu tiên mọi khóa) — trả số khóa đổi */
+  var bam = layHet ? null : D.cauHinh.chBam, lanDau = !chLaDT(bam), doi = 0;
+  Object.keys(j).forEach(function(k){
+    if(k==='loai' || k==='ban' || k==='ghiLuc' || chRieng(k) || j[k]===undefined || j[k]===null) return;
+    var cu = D.cauHinh[k], moi;
+    if(cu===undefined) moi = j[k];
+    else if(lanDau) moi = chGop(cu, j[k], 3);
+    else if(bam[k] && bam[k]===chBamKhoa(k)) moi = j[k];   /* máy này chưa sửa khóa này → theo Drive */
+    else moi = chGop(j[k], cu, 3);                         /* máy này đã sửa → gộp, máy này ưu tiên */
+    if(JSON.stringify(moi)!==JSON.stringify(cu)){ D.cauHinh[k] = moi; doi++; }
+  });
+  return doi;
+}
+function chDanhDau(){ var b = {}; chKhoa().forEach(function(k){ b[k] = chBamKhoa(k); }); D.cauHinh.chBam = b; }
+function chMayDoi(j){   /* máy này có khóa khác bản Drive (j = bản vừa tải) / khác lần đồng bộ trước (j trống) */
+  var b = D.cauHinh.chBam;
+  return chKhoa().some(function(k){ return j ? (j[k]===undefined || chBamChu(JSON.stringify(j[k]))!==chBamKhoa(k)) : (!chLaDT(b) || b[k]!==chBamKhoa(k)); });
+}
+function chChuHienTai(){ var o = {}; chKhoa().forEach(function(k){ o[k] = D.cauHinh[k]; }); return JSON.stringify(o); }
+function chTheoDoi(){   /* gọi sau mỗi lần lưu: cài đặt (phần đồng bộ) đổi → hẹn đẩy lên Drive sau 4 giây */
+  try { var s = chChuHienTai(); if(CH_CHU===null){ CH_CHU = s; return; } if(s!==CH_CHU){ CH_CHU = s; if(typeof henDayCauHinh==='function') henDayCauHinh(); } } catch(e){}
+}
+function dongBoCauHinh(cheDo){   /* cheDo: 'tu' (tự động: kéo nếu Drive mới hơn, đẩy nếu máy này có đổi) · 'day' (anh bấm Lưu lên Drive) · 'lay' (anh bấm Lấy từ Drive) */
+  if(!coTheNoiDrive()) return Promise.resolve({loi:'Chưa nối Drive.'});
+  if(CH_DANG) return CH_DANG.then(function(){ return dongBoCauHinh(cheDo); });
+  var idTM = '', f = null, doi = 0;
+  var xong = function(){ CH_DANG = null; };
+  CH_DANG = baoDamDuong(D.cauHinh.thumuc+'/_Hệ thống').then(function(id){
+    idTM = id; var q = "name='"+TEN_CH+"' and trashed=false and '"+idTM+"' in parents";
+    return goiDrive('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+'&fields=files(id,modifiedTime)&pageSize=1');
+  }).then(function(kq){
+    f = kq && kq.files && kq.files[0] || null;
+    var keo = !!f && (cheDo!=='tu' || !D.cauHinh.chKeoLuc || String(f.modifiedTime) > String(D.cauHinh.chKeoLuc));
+    if(!keo) return null;
+    return canToken().then(function(){ return fetch('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media', {headers:{'Authorization':'Bearer '+DR.token}}); })
+      .then(function(r){ if(!r.ok) throw new Error('Drive báo lỗi: '+r.status); return r.json(); });
+  }).then(function(j){
+    if(j && j.loai==='cau-hinh-tu-ho-so'){ doi = chApDrive(j, cheDo==='lay'); D.cauHinh.chKeoLuc = f.modifiedTime; } else j = null;
+    var canDay = !f || cheDo==='day' || chMayDoi(j);
+    if(!canDay){ chDanhDau(); CH_CHU = chChuHienTai(); luu(); return {doi:doi, day:false}; }
+    var noi = new Blob([JSON.stringify(goiCauHinh(), null, 1)], {type:'application/json'}), bien = '----tuhoso'+Date.now();
+    var dau = '--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(f ? {} : {name:TEN_CH, parents:[idTM]})+'\r\n--'+bien+'\r\nContent-Type: application/json\r\n\r\n';
+    var u = f ? 'https://www.googleapis.com/upload/drive/v3/files/'+f.id+'?uploadType=multipart&fields=id,modifiedTime' : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,modifiedTime';
+    return goiDrive(u, {method:f ? 'PATCH' : 'POST', headers:{'Content-Type':'multipart/related; boundary='+bien}, body:new Blob([dau, noi, '\r\n--'+bien+'--'], {type:'multipart/related; boundary='+bien})})
+      .then(function(r){ chDanhDau(); if(r && r.modifiedTime) D.cauHinh.chKeoLuc = r.modifiedTime; D.cauHinh.chGhiLuc = new Date().toISOString(); CH_CHU = chChuHienTai(); luu(); return {doi:doi, day:true}; });
+  }).then(function(kq){ xong();
+    if(kq.doi){ try{ capNhatDau(); ve(); if(D.cauHinh.slTab==='kt' && typeof ktVeThe==='function' && KT_K) ktVeThe(); }catch(e){} }
+    return kq;
+  }, function(e){ xong(); return {loi:(e && e.message) || String(e)}; });
+  return CH_DANG;
+}
+function dayCauHinh(imLang){   /* giữ tên cũ cho các chỗ gọi: tự động = im lặng; anh bấm "Lưu lên Drive" = đẩy luôn */
+  if(!coTheNoiDrive()){ if(!imLang) baoLoi('Chưa nối Drive.'); return Promise.resolve(false); }
+  if(!imLang) batChay(true);
+  return dongBoCauHinh(imLang ? 'tu' : 'day').then(function(kq){
+    if(!imLang){ tatChay(); if(kq.loi) baoLoi('Không lưu được lên Drive: '+kq.loi); else bao('Đã lưu cài đặt lên Drive'+(kq.doi ? ' (đã gộp '+kq.doi+' mục máy khác vừa sửa)' : '')+'.', 4); }
+    return !kq.loi;
   });
 }
 
@@ -20899,38 +20935,12 @@ function kiemTraCauTrucChuan(){
   }).catch(function(){ return []; });
 }
 
-function keoCauHinh(imLang){
-  if(!coTheNoiDrive()){
-    if(!imLang) baoLoi('Chưa nối Drive.');
-    return Promise.resolve(false);
-  }
-  batChay(true);
-  var duong = D.cauHinh.thumuc+'/_Hệ thống';
-  return baoDamDuong(duong).then(function(idTM){
-    var q = "name='"+TEN_CH+"' and trashed=false and '"+idTM+"' in parents";
-    return goiDrive('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+
-      '&fields=files(id,modifiedTime)&pageSize=1');
-  }).then(function(kq){
-    if(!kq.files || !kq.files.length) throw new Error('Trên Drive chưa có file cài đặt');
-    return canToken().then(function(){
-      return fetch('https://www.googleapis.com/drive/v3/files/'+kq.files[0].id+'?alt=media',
-        {headers:{'Authorization':'Bearer '+DR.token}});
-    });
-  }).then(function(r){ return r.json(); })
-  .then(function(j){
-    ['donvi','thumuc','diaBan','mauBaoCao','nghiepVu','chuongTrinh','ctTen',
-     'loaiVB','nhanGhiChu','soTrangDoc','tagTab','hoiDoanThe','kieuTen','tenCauTruc','gocMay','clientId','xaQuanLy','maDaBo','boMau',
-     'tuKhoa','vtLoai','gbTuKhoa','gbSoNgay','inThe','scanLoc'].forEach(function(k){
-      if(j[k]!==undefined && j[k]!==null) D.cauHinh[k] = j[k];
-    });
-    luu(); tatChay(); capNhatDau(); ve();
-    var m = demDiaBan();
-    if(!imLang) bao('Đã lấy cài đặt từ Drive · '+m.xa+' xã · '+m.ap+' ấp · '+m.to+' tổ.', 7);
-    return true;
-  }).catch(function(e){
-    tatChay();
-    if(!imLang) baoLoi('Không lấy được: '+(e&&e.message||e));
-    return false;
+function keoCauHinh(imLang){   /* 3.113: anh bấm "Lấy từ Drive" — Drive ưu tiên, giữ phần chỉ máy này có */
+  if(!coTheNoiDrive()){ if(!imLang) baoLoi('Chưa nối Drive.'); return Promise.resolve(false); }
+  if(!imLang) batChay(true);
+  return dongBoCauHinh('lay').then(function(kq){
+    if(!imLang){ tatChay(); if(kq.loi) baoLoi('Không lấy được: '+kq.loi); else { capNhatDau(); ve(); var m = demDiaBan(); bao('Đã lấy cài đặt từ Drive · '+m.xa+' xã · '+m.ap+' ấp · '+m.to+' tổ'+(kq.doi ? ' · '+kq.doi+' mục đổi' : '')+'.', 7); } }
+    return !kq.loi;
   });
 }
 
@@ -21526,7 +21536,7 @@ function dmMacDinh(loai){
 var H_DAY_CH = null;
 function henDayCauHinh(){
   clearTimeout(H_DAY_CH);
-  H_DAY_CH = setTimeout(function(){ if(DR.sanSang) dayCauHinh(true); }, 4000);
+  H_DAY_CH = setTimeout(function(){ if(DR.sanSang) dongBoCauHinh('tu'); }, 4000);
 }
 function baoDaLuu(){ bao('✓ Đã lưu', 1.6); }
 function ganTuLuuCD(){
@@ -22807,6 +22817,8 @@ function ktVeThe(){
   var o = document.getElementById('kt-the'); if(!o) return;
   var C = ktCH(), t = KT_K && KT_K.to[C.to];
   if(t && toLaTT(t)) t = null;
+  ktHdtChuyen();   /* 3.113: chuyển khai báo cũ (cán bộ / người ký) sang lãnh đạo Hội — 1 lần */
+  if(ktCheDo()==='hdt') return ktHDTVe(o);   /* 3.113: 🏛 Khai báo Hội đoàn thể */
   if(ktCheDo()==='gn') return ktGNVe(o);   /* 3.93.1: Mẫu 06 sau giải ngân */
   if(ktCheDo()==='bc') return ktBCVe(o);   /* 3.95: Mẫu 04/BC-TH */
   if(ktCheDo()==='kh') return ktKHVe(o);   /* 3.96: Kế hoạch 01/KH */
@@ -22972,26 +22984,22 @@ var KT_KB_LUU = ['dv','cbtu','cb2','cv2'];
 function ktKBGT(k){ return KT_KB[k]!==undefined ? KT_KB[k] : ((D.cauHinh.ktKBLuu || {})[k] || ''); }
 function ktCanBo(t, v){   /* cán bộ 1 Mẫu 06 / 16 = cán bộ của Hội – xã phụ trách tổ (bảng khai báo); "Để trống" → dòng chấm điền tay */
   var tu = v.cbtu!==undefined ? v.cbtu : ((D.cauHinh.ktKBLuu || {}).cbtu || ''); if(tu==='trong' || !t || !t.xa) return {cb:'', cv:''};
-  var kb = ktHoiKB(ktHoiKhoa(t)); return {cb:kb.cb || '', cv:kb.cbcv || ''};
+  var kb = ktHoiKB(ktHoiKhoa(t)); if(kb.pct) return {cb:kb.pct, cv:ktChuan(t).pho};   /* 3.113: mặc định Phó Chủ tịch (anh chốt) */
+  return {cb:kb.cb || '', cv:kb.cbcv || ''};   /* khai trước 3.113 (cán bộ không phải Phó CT) */
 }
 function ktKBKhung(loai, dsHoi){   /* loai: dx (06 + 16, có ngày) · gn (06) · dk (06 + 16, ngày để trống) */
   var co16 = loai!=='gn', md = (KT_KB.md!==undefined ? KT_KB.md : D.cauHinh.ktMucDich)==='nganh', tu = ktKBGT('cbtu')==='trong', dv = ktKBGT('dv');
   var o = function(id, nhan, ph, kieu){ return '<label class="kt-kb"><span>'+nhan+'</span><input id="kb-'+id+'"'+(kieu ? ' type="'+kieu+'"' : '')+' value="'+coChuHTML(id==='ngay' ? (KT_KB.ngay||'') : ktKBGT(id))+'" placeholder="'+coChuHTML(ph || 'trống = dòng chấm')+'" onchange="ktDocKB()"></label>'; };
-  var soCB = dsHoi.filter(function(x){ return ktHoiKB(x.k).cb; }).length, mo = (D.cauHinh.ktKBMo || {})[loai];
-  var tom = [dv==='-' ? 'đơn vị: dòng chấm' : (dv ? 'đơn vị: '+dv : 'đơn vị: Hội của tổ'), tu ? 'cán bộ: để trống' : 'cán bộ: theo bảng ('+soCB+'/'+dsHoi.length+' Hội – xã đã khai)', md ? 'in mục đích' : 'mục đích để trống'];
+  var soCB = dsHoi.filter(function(x){ return ktCanBo(x.t, {}).cb; }).length, mo = (D.cauHinh.ktKBMo || {})[loai];
+  var tom = [dv==='-' ? 'đơn vị: dòng chấm' : (dv ? 'đơn vị: '+dv : 'đơn vị: Hội của tổ'), tu ? 'cán bộ: để trống' : 'cán bộ: Phó Chủ tịch ('+soCB+'/'+dsHoi.length+' Hội – xã đã khai)', md ? 'in mục đích' : 'mục đích để trống'];
   return '<details class="kt-kb-khung"'+(mo===false ? '' : ' open')+' ontoggle="(D.cauHinh.ktKBMo=D.cauHinh.ktKBMo||{})[\''+loai+'\']=this.open;luu()"><summary>✎ Khai báo khi in <small>· '+coChuHTML(tom.join(' · '))+'</small></summary>'+
     '<div class="kt-kb-luoi"><div><div class="nhan-nhom">Mẫu 06/TD'+(co16 ? ' (và người kiểm tra Mẫu 16)' : '')+'</div>'+o('dv', 'Đơn vị kiểm tra', KT_DV_GOI)+
-      '<label class="kt-kb"><span>Cán bộ kiểm tra</span><select id="kb-cbtu" onchange="ktDocKB();ktVeThe()"><option value="">Theo bảng (cán bộ của Hội phụ trách tổ)</option><option value="trong"'+(tu ? ' selected' : '')+'>Để trống — điền tay</option></select></label>'+
+      '<label class="kt-kb"><span>Cán bộ kiểm tra</span><select id="kb-cbtu" onchange="ktDocKB();ktVeThe()"><option value="">Theo khai báo Hội (Phó Chủ tịch)</option><option value="trong"'+(tu ? ' selected' : '')+'>Để trống — điền tay</option></select></label>'+
       o('cb2', 'Ông (bà) 2', 'thường để trống')+o('cv2', 'Chức vụ 2')+(loai!=='dk' ? o('ngay', co16 ? 'Ngày kiểm tra' : 'Thời điểm kiểm tra', '', 'date') : '')+
       '<label class="kt-kb"><span>Cột Mục đích</span><select id="kb-md" onchange="ktDocKB()"><option value="">Để trống (ghi tay theo hồ sơ)</option><option value="nganh"'+(md ? ' selected' : '')+'>In mục đích vay vốn (theo hệ thống, rút gọn)</option></select></label>'+
       '<div class="sl-phu">Tên ngành rút gọn: <a href="#" onclick="event.preventDefault();ktNganhHop()">⚙ Bảng ngành kinh tế</a></div></div>'+
       (co16 ? '<div><div class="nhan-nhom">Mẫu 16/TD</div><div class="sl-phu">Đoàn kiểm tra: tự in tên Hội cấp xã của tổ</div><label class="kt-kb"><span>Bảng II (kết quả)</span><select id="kb-b2" onchange="ktDocKB()"><option value="dien">Điền sẵn theo 727 (x / Không / định kỳ theo quý)</option><option value=""'+(ktB16Mac(KT_KB)==='' ? ' selected' : '')+'>Để trống (ghi tay)</option></select></label><label class="kt-kb"><span>Nhận xét (II, III)</span><select id="kb-nx" onchange="ktDocKB()">'+KT_NX_CHON.replace('value="'+ktNxMacDinh(KT_KB)+'"', 'value="'+ktNxMacDinh(KT_KB)+'" selected')+'</select></label></div>' : '')+'</div>'+
-    (tu ? '' : '<div class="nhan-nhom">Cán bộ kiểm tra theo Hội – xã (mỗi Hội 1 người)</div>'+ktHoiKBBang(dsHoi, [['cb','Cán bộ kiểm tra'], ['cbcv','Chức vụ']]))+'</details>';
-}
-function ktKhungHoi(tit, dsHoi, cot, them){   /* khung khai báo Hội – xã cho Mẫu 04 / Kế hoạch */
-  var mo = (D.cauHinh.ktKBMo || {})[tit];
-  return '<details class="kt-kb-khung"'+(mo===false ? '' : ' open')+' ontoggle="(D.cauHinh.ktKBMo=D.cauHinh.ktKBMo||{})[\''+tit+'\']=this.open;luu()"><summary>✎ Khai báo khi in <small>· '+coChuHTML(cot.map(function(o){ return o[1]; }).join(', '))+'</small></summary>'+
-    ktHoiKBBang(dsHoi, cot)+'<div class="hang-nut kt-in"><button class="nho" onclick="ktChuanHop()">📖 Bảng chuẩn hóa Hội – Đoàn</button>'+(them||'')+'</div></details>';
+    (tu ? '' : ktHdtNhac(dsHoi, ['pct']))+'</details>';   /* 3.113: khai cán bộ ở 🏛 Khai báo Hội đoàn thể */
 }
 function ktDocKB(){ ['ngay','dv','cbtu','cb2','cv2','md','nx','b2'].forEach(function(k){ var e = document.getElementById('kb-'+k); if(e) KT_KB[k] = String(e.value||'').trim(); });
   var L = D.cauHinh.ktKBLuu = D.cauHinh.ktKBLuu || {}; KT_KB_LUU.forEach(function(k){ if(document.getElementById('kb-'+k)){ if(KT_KB[k]) L[k] = KT_KB[k]; else delete L[k]; } });
@@ -23211,11 +23219,12 @@ function ktDocx(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: m�
    - cột Dư nợ = TỔNG DƯ NỢ của món cuối tháng đó (anh chốt); Tổng số tiền giải ngân = tổng đã giải ngân của món (đúng tên cột mẫu)
    - tháng chưa nạp Mẫu 31 → báo thiếu, không in. 3.98: mỗi tổ 1 phiếu (gom các tháng); không ghi theo dõi đã lập phiếu */
 var KT_GN = null, KT_GN_BO = {};   /* KT_GN = {khoa, thang:[…], thieu:[…], ds:{tháng:{mã tổ:{t, mon:[…]}}}} · KT_GN_BO['tháng|KU'] = 1 → anh bỏ tích */
-function ktCheDo(){ var c = ktCH().che; return c==='gn' || c==='bc' || c==='kh' || c==='dk' ? c : 'dx'; }   /* 3.95: + 'bc' Mẫu 04 · 3.96: + 'kh' Kế hoạch 01/KH */
+function ktCheDo(){ var c = ktCH().che; return c==='gn' || c==='bc' || c==='kh' || c==='dk' || c==='hdt' ? c : 'dx'; }   /* 3.113: + 'hdt' Khai báo Hội đoàn thể */   /* 3.95: + 'bc' Mẫu 04 · 3.96: + 'kh' Kế hoạch 01/KH */
 function ktDoiCheDo(c){ ktCH().che = c; luu(); ktVeThe(); }
 function ktCheDoHTML(){
   var c = ktCheDo();
-  return '<div class="kt-che"><button class="to-loc'+(c==='dx' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'dx\')">🎯 Kiểm tra đột xuất</button>'+
+  return '<div class="kt-che"><button class="to-loc'+(c==='hdt' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'hdt\')">🏛 Khai báo Hội đoàn thể</button>'+
+    '<button class="to-loc'+(c==='dx' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'dx\')">🎯 Kiểm tra đột xuất</button>'+
     '<button class="to-loc'+(c==='gn' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'gn\')">📅 Sau giải ngân (30 ngày) · Mẫu 06</button>'+
     '<button class="to-loc'+(c==='dk' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'dk\')">🗓 Định kỳ theo lịch · Mẫu 06 + 16</button>'+
     '<button class="to-loc'+(c==='bc' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'bc\')">📋 Báo cáo tổng hợp · Mẫu 04</button>'+
@@ -23473,13 +23482,13 @@ function ktHoiTenTD(t){ var h = ktChuan(t).ten; return (h ? h+' ' : '')+ktXaChu(
    Mặc định theo cách viết thông dụng của các tổ chức CT-XH (Đoàn: hướng dẫn thể thức 29-HD/TWĐTN-VP); anh sửa trong app → D.cauHinh.ktChuan[mã ĐVUT][trường].
    Riêng từng Hội – xã (⚙ Khai báo Hội): tên đơn vị in đầu trang. Hội cấp xã đều có Ban Thường vụ (anh chốt) → luôn "TM. BAN THƯỜNG VỤ".
    Quy tắc chung (không sửa): xã → ấp, phường → khu phố; trong câu viết thường; luôn "tỉnh Tây Ninh". */
-var KT_CHUAN_O = [['ten','Tên trong câu'], ['gon','Tên gọn (khi thiếu chỗ)'], ['ngan','Gọi tắt trong câu'], ['tinh','Đầu trang cấp tỉnh'], ['nnTinh','Nơi nhận cấp tỉnh'], ['dauXa','Đầu trang cấp xã ({xa} = xã / phường …)'], ['tm','Ký thay mặt — dòng TM. ({xa} = XÃ / PHƯỜNG)'], ['ky','Chức danh người ký'], ['pho','Cấp phó'], ['cap','Cấp trên (trong câu)'], ['vt','Viết tắt số văn bản']];
+var KT_CHUAN_O = [['ten','Tên trong câu'], ['gon','Tên gọn (khi thiếu chỗ)'], ['ngan','Gọi tắt trong câu'], ['tinh','Đầu trang cấp tỉnh'], ['nnTinh','Nơi nhận cấp tỉnh'], ['dauXa','Đầu trang cấp xã ({xa} = xã / phường …)'], ['tm','Ký thay mặt — dòng TM. ({xa} = XÃ / PHƯỜNG)'], ['ky','Chức danh người ký'], ['pho','Cấp phó'], ['uv','Chức danh ủy viên'], ['cap','Cấp trên (trong câu)'], ['vt','Viết tắt số văn bản']];
 var KT_CHUAN = {
-  '11':{ten:'Hội Nông dân', gon:'Hội Nông dân', ngan:'Hội', tinh:'HỘI NÔNG DÂN TỈNH TÂY NINH', nnTinh:'Hội ND tỉnh', dauXa:'HỘI NÔNG DÂN {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', cap:'Hội cấp trên', vt:'HND'},
-  '12':{ten:'Hội Liên hiệp Phụ nữ', gon:'Hội LHPN', ngan:'Hội', tinh:'HỘI LHPN TỈNH TÂY NINH', nnTinh:'Hội LHPN tỉnh', dauXa:'HỘI LHPN {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', cap:'Hội cấp trên', vt:'HPN'},
-  '13':{ten:'Hội Cựu chiến binh', gon:'Hội CCB', ngan:'Hội', tinh:'HỘI CỰU CHIẾN BINH TỈNH TÂY NINH', nnTinh:'Hội CCB tỉnh', dauXa:'HỘI CỰU CHIẾN BINH {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', cap:'Hội cấp trên', vt:'CCB'},
-  '14':{ten:'Đoàn Thanh niên', gon:'Đoàn Thanh niên', ngan:'Đoàn', tinh:'TỈNH ĐOÀN TÂY NINH', nnTinh:'Tỉnh Đoàn', dauXa:'ĐTN {xa}', tm:'BAN THƯỜNG VỤ', ky:'Bí thư', pho:'Phó Bí thư', cap:'Đoàn cấp trên', vt:'ĐTN'}};
-function ktChuanGoc(dv){ dv = String(dv||''); return KT_CHUAN[dv] || {ten:tdnHoi(dv), gon:tdnHoi(dv), ngan:'Hội', tinh:(tdnHoi(dv)+' tỉnh '+KT_TINH).toUpperCase(), nnTinh:tdnHoi(dv)+' tỉnh', dauXa:tdnHoi(dv).toUpperCase()+' {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', cap:'Hội cấp trên', vt:''}; }
+  '11':{ten:'Hội Nông dân', gon:'Hội Nông dân', ngan:'Hội', tinh:'HỘI NÔNG DÂN TỈNH TÂY NINH', nnTinh:'Hội ND tỉnh', dauXa:'HỘI NÔNG DÂN {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', uv:'Ủy viên Ban Thường vụ', cap:'Hội cấp trên', vt:'HND'},
+  '12':{ten:'Hội Liên hiệp Phụ nữ', gon:'Hội LHPN', ngan:'Hội', tinh:'HỘI LHPN TỈNH TÂY NINH', nnTinh:'Hội LHPN tỉnh', dauXa:'HỘI LHPN {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', uv:'Ủy viên Ban Thường vụ', cap:'Hội cấp trên', vt:'HPN'},
+  '13':{ten:'Hội Cựu chiến binh', gon:'Hội CCB', ngan:'Hội', tinh:'HỘI CỰU CHIẾN BINH TỈNH TÂY NINH', nnTinh:'Hội CCB tỉnh', dauXa:'HỘI CỰU CHIẾN BINH {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', uv:'Ủy viên Ban Thường vụ', cap:'Hội cấp trên', vt:'CCB'},
+  '14':{ten:'Đoàn Thanh niên', gon:'Đoàn Thanh niên', ngan:'Đoàn', tinh:'TỈNH ĐOÀN TÂY NINH', nnTinh:'Tỉnh Đoàn', dauXa:'ĐTN {xa}', tm:'BAN THƯỜNG VỤ', ky:'Bí thư', pho:'Phó Bí thư', uv:'Ủy viên Ban Thường vụ', cap:'Đoàn cấp trên', vt:'ĐTN'}};
+function ktChuanGoc(dv){ dv = String(dv||''); return KT_CHUAN[dv] || {ten:tdnHoi(dv), gon:tdnHoi(dv), ngan:'Hội', tinh:(tdnHoi(dv)+' tỉnh '+KT_TINH).toUpperCase(), nnTinh:tdnHoi(dv)+' tỉnh', dauXa:tdnHoi(dv).toUpperCase()+' {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', uv:'Ủy viên Ban Thường vụ', cap:'Hội cấp trên', vt:''}; }
 function ktChuan(t){   /* chữ đặc thù của 1 Hội – xã: bảng chuẩn (đã sửa) + khai báo riêng + xã / phường */
   var dv = String(t.dv||''), g = ktChuanGoc(dv), s = (D.cauHinh.ktChuan || {})[dv] || {}, kb = t.xa ? ktHoiKB(ktHoiKhoa(t)) : {}, r = {};
   KT_CHUAN_O.forEach(function(o){ r[o[0]] = s[o[0]] || g[o[0]] || ''; });
@@ -23501,17 +23510,17 @@ function ktDonVi16(t, v){   /* đầu trang Mẫu 16 (chữ in hoa, cột trái 
   var g = ktDonVi(t, v, 1).toUpperCase(); return g.length<=24 ? {DVA:g, DVB:''} : (tach(g) || {DVA:g, DVB:''});
 }
 function ktChuanDauXa(t){ var c = ktChuan(t); return c.dauXa.replace('{xa}', ktXaChu(t.tenXa)).toUpperCase(); }
-function ktChuanHop(){
+function ktChuanHop(){ var C = ktCH(); C.che = 'hdt'; C.hdtTab = 'chuan'; luu(); try{ dongHop(); }catch(e){} if(KT_K) ktVeThe(); }   /* 3.113: thành tab nhỏ trong 🏛 Khai báo Hội đoàn thể */
+function ktChuanHTML(){   /* 3.113: ô đã sửa tô xanh + ↺ từng ô; ô trống = mặc định (chữ mờ) */
   var S = D.cauHinh.ktChuan || {}, dvs = ['11','12','13','14'];
-  moHop('<div class="hop-tit">📖 Bảng chuẩn hóa Hội – Đoàn</div>'+
-    '<div class="hop-phu">Chữ đặc thù dùng chung cho Mẫu 04, 06, 16 và Kế hoạch 01/KH — sửa 1 chỗ, mọi mẫu đổi theo. Ô trống = mặc định (chữ mờ). Lưu máy + Drive cùng cấu hình.</div>'+
+  return '<p class="ghi">Chữ đặc thù dùng chung cho Mẫu 04, 06, 16 và Kế hoạch — sửa 1 chỗ, mọi mẫu và mọi xã của Hội đó đổi theo (tên cấp tỉnh, đầu trang, chức danh…). Ô trống = mặc định (chữ mờ); ô đã sửa tô xanh, ↺ để về mặc định.</p>'+
     '<div class="to-bang-cuon"><table class="to-bang kt-chuan"><thead><tr><th>Mục</th>'+dvs.map(function(dv){ return '<th>'+coChuHTML(ktChuanGoc(dv).ten)+'</th>'; }).join('')+'</tr></thead><tbody>'+
     KT_CHUAN_O.map(function(o){ return '<tr><td>'+coChuHTML(o[1])+'</td>'+dvs.map(function(dv){ var v = (S[dv]||{})[o[0]]||'';
-      return '<td><input value="'+coChuHTML(v)+'" placeholder="'+coChuHTML(ktChuanGoc(dv)[o[0]])+'" onchange="ktChuanSua(\''+dv+'\',\''+o[0]+'\',this.value)" aria-label="'+coChuHTML(o[1])+'"></td>'; }).join('')+'</tr>'; }).join('')+
+      return '<td><div class="kt-chuan-o"><input class="'+(v ? 'da' : '')+'" value="'+coChuHTML(v)+'" placeholder="'+coChuHTML(ktChuanGoc(dv)[o[0]])+'" onchange="ktChuanSua(\''+dv+'\',\''+o[0]+'\',this.value);this.classList.toggle(\'da\',!!this.value.trim())" aria-label="'+coChuHTML(o[1])+'">'+
+        (v ? '<button class="hkb-ve" onclick="ktChuanSua(\''+dv+'\',\''+o[0]+'\',\'\');ktVeThe()" title="Về mặc định">↺</button>' : '')+'</div></td>'; }).join('')+'</tr>'; }).join('')+
     '</tbody></table></div>'+
     '<div class="sl-phu"><b>Quy tắc chung:</b> xã → <b>ấp</b>, phường → <b>khu phố</b> (tên gõ sẵn "Ấp…", "KP…", "Khu phố…" được bỏ tiền tố rồi ghép lại) · trong câu viết thường: "khu phố Lộc Khê, phường Gia Lộc, tỉnh Tây Ninh" · quốc hiệu giữ đúng mẫu của Ngân hàng.</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="if(confirm(\'Trả toàn bộ bảng về mặc định?\')){delete D.cauHinh.ktChuan;luu();ktChuanHop();}">↺ Mặc định</button><button class="nho chinh" onclick="dongHop();if(KT_K)ktVeThe()">Xong</button></div>', true);
-  var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
+    '<div class="hang-nut kt-in"><button class="nho" onclick="if(confirm(\'Trả toàn bộ bảng về mặc định?\')){delete D.cauHinh.ktChuan;luu();ktVeThe();}">↺ Cả bảng về mặc định</button></div>';
 }
 function ktChuanSua(dv, k, v){ var S = D.cauHinh.ktChuan = D.cauHinh.ktChuan || {}, x = S[dv] = S[dv] || {}; v = String(v||'').replace(/\s+/g, ' ').trim(); if(v) x[k] = v; else delete x[k]; if(!Object.keys(x).length) delete S[dv]; if(!Object.keys(S).length) delete D.cauHinh.ktChuan; luu(); }
 function ktHoiTen(t){ var kb = ktHoiKB(ktHoiKhoa(t)); return kb.ten || ktHoiTenTD(t); }
@@ -23542,11 +23551,11 @@ function ktBCVe(o){   /* 3.98 ①: chọn xã / hội ở cây → tổ chia nh�
       '<td class="to-ten">&nbsp;&nbsp;<b>'+coChuHTML(t.ten||'Tổ '+m)+'</b> ('+m+')</td><td>'+coChuHTML(t.tenXa||'')+'</td><td>'+coChuHTML(tdnHoi(t.dv))+'</td>'+
       '<td><input type="date" value="'+coChuHTML(r.ngay)+'" onchange="ktBCNgay(\''+m+'\',this.value)" aria-label="Ngày kiểm tra"></td></tr>'; });
   h += '</tbody></table></div>';
-  h += ktKhungHoi('bc', ktHoiDs(), [['ten','Tên đơn vị (đầu trang)'], ['cb','Cán bộ kiểm tra (Mẫu 06 / 16 / 04)'], ['cbcv','Chức vụ cán bộ']])+   /* 3.106: Đoàn kiểm tra Mẫu 04 = cán bộ kiểm tra 06 / 16 */
+  h += ktHdtNhac(ktHoiDs(), ['pct'])+   /* 3.113: khai ở 🏛 Khai báo Hội đoàn thể */   /* 3.106: Đoàn kiểm tra Mẫu 04 = cán bộ kiểm tra 06 / 16 */
     '<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktBCXem()"'+(nh.length ? '' : ' disabled')+'>👁 Xem '+nh.length+' báo cáo Mẫu 04</button></div>'+ktBCGhi();
   o.innerHTML = h;
 }
-function ktBCGhi(){ return '<p class="ghi">App điền: Đơn vị kiểm tra, Đoàn kiểm tra (theo khung ✎ Khai báo), bảng mục II (mỗi tổ 1 dòng: ngày · Tổ TK&amp;VV · Tây Ninh, xã / phường, ấp / khu phố). '+
+function ktBCGhi(){ return '<p class="ghi">App điền: Đơn vị kiểm tra, Đoàn kiểm tra (Phó Chủ tịch theo 🏛 Khai báo Hội đoàn thể), bảng mục II (mỗi tổ 1 dòng: ngày · Tổ TK&amp;VV · Tây Ninh, xã / phường, ấp / khu phố). '+
   'Ngày để trống = dòng chấm; số phiếu Mẫu 06 ở mục VI và các phần còn lại để dòng chấm ghi tay; xuất Word để sửa. App không theo dõi phiếu đã lập.</p>'; }
 function ktBCTich(m, v){ KT_BC_CHON[m] = !!v; ktVeThe(); }
 function ktBCTichAp(i, v){ var ap = KT_BC_AP[i]; ktBCDs().forEach(function(r){ if(ktKHAp(r.t)===ap) KT_BC_CHON[r.t.ma] = !!v; }); ktVeThe(); }
@@ -23687,7 +23696,8 @@ function ktHTML04(gt){
     '</body></html>';
 }
 /* ---------- ⚙ Khai báo Hội (mỗi Hội – xã 1 khối) ---------- */
-var KT_HKB_O = [['ten','Tên đơn vị (đầu trang)'], ['cb','Cán bộ kiểm tra'], ['cbcv','Chức vụ cán bộ'], ['kh','Số KH Hội tỉnh'], ['khNgay','Ngày KH Hội tỉnh'], ['hd','Số HĐ ủy thác'], ['hdNgay','Ngày ký HĐ'], ['ky','Người ký (Chủ tịch / Bí thư)']];   /* 3.97: theo thứ tự trên Kế hoạch: đầu trang → căn cứ (KH Hội tỉnh, HĐUT) → thành phần → ký */
+var KT_HKB_O = [['ten','Tên Hội cấp xã'], ['ct','Chủ tịch'], ['pct','Phó Chủ tịch'], ['uv1','Ủy viên BTV 1'], ['uv2','Ủy viên BTV 2'], ['uv3','Ủy viên BTV 3'], ['uv4','Ủy viên BTV 4'], ['uv5','Ủy viên BTV 5'],
+  ['hd','Số HĐ ủy thác'], ['hdNgay','Ngày ký HĐ'], ['kh','Số KH Hội tỉnh'], ['khNgay','Ngày KH Hội tỉnh']];   /* 3.113 (anh chốt): tên Hội cấp xã · lãnh đạo (1 CT, 1 PCT, tối đa 5 ủy viên BTV) · ủy thác */
 function ktHoiDs(){   /* các cặp Hội – xã có trong dữ liệu (bỏ vay trực tiếp) — theo phạm vi xã đang chọn nếu có */
   var C = ktCH(), g = {}; if(!KT_K) return [];
   Object.keys(KT_K.to).forEach(function(m){ var t = KT_K.to[m]; if(toLaTT(t) || !t.xa || !t.dv || String(t.dv)==='99') return; if(C.xa && t.xa!==C.xa) return;
@@ -23699,17 +23709,6 @@ function ktHoiDsXa(xas){   /* các cặp Hội – xã của những xã trong x
   Object.keys(KT_K.to).forEach(function(m){ var t = KT_K.to[m]; if(toLaTT(t) || !t.xa || !t.dv || String(t.dv)==='99' || !xas[t.xa]) return;
     var k = ktHoiKhoa(t); if(!g[k]) g[k] = {k:k, t:t, n:0}; g[k].n++; });
   return Object.keys(g).map(function(k){ return g[k]; }).sort(function(a, b){ return ((a.t.tenXa||'')+'|'+a.t.dv).localeCompare((b.t.tenXa||'')+'|'+b.t.dv, 'vi'); });
-}
-function ktHoiKBBang(ds, cot, chep){   /* 3.98: bảng khai báo Hội – xã dùng chung (khung trong tab + bảng đầy đủ); cùng chỗ lưu D.cauHinh.ktHoiKB */
-  if(!ds.length) return '<div class="rong">Chưa có dữ liệu tổ — nạp Mẫu 31 trước.</div>';
-  var ph = function(x, o){ return o==='ten' ? ktHoiTenTD(x.t) : (o==='khNgay' || o==='hdNgay' ? 'dd/mm/yyyy' : (o==='cbcv' ? 'vd: Chủ tịch' : '…')); };
-  return '<div class="kt-hkb-ds to-bang-cuon"><table class="to-bang kt-hkb-bang"><thead><tr><th>Hội – xã</th>'+cot.map(function(o){ return '<th>'+coChuHTML(o[1])+
-      (chep && (o[0]==='kh' || o[0]==='khNgay') ? '<br><button class="nho" onclick="ktHoiKBChep(\''+o[0]+'\')" title="Chép xuống các xã cùng Hội còn trống (kế hoạch Hội tỉnh dùng chung)">⇩ cùng Hội</button>' : '')+'</th>'; }).join('')+'</tr></thead><tbody>'+
-    ds.map(function(x){ var kb = ktHoiKB(x.k), id = x.k.replace(/[^0-9a-z]/gi, '_');
-      return '<tr class="kt-hkb"><td class="to-ten"><b>'+coChuHTML(ktHoiTenTD(x.t))+'</b><div><small>'+x.n+' tổ · đầu trang: '+coChuHTML(ktChuanDauXa(x.t))+'</small></div></td>'+
-        cot.map(function(o){ var v = coChuHTML(kb[o[0]]||''), on = ' onchange="ktHoiKBSua(\''+x.k+'\',\''+o[0]+'\',this.value)"', p = ' placeholder="'+coChuHTML(ph(x, o[0]))+'" aria-label="'+coChuHTML(o[1])+'"';
-          return '<td class="kt-hkb-'+o[0]+'"><input id="hkb-'+id+'-'+o[0]+'" value="'+v+'"'+p+on+' oninput="ktHkbXem(\''+x.k+'\',\''+id+'\')">'+
-            '<div class="hkb-in" id="hkbi-'+id+'-'+o[0]+'">'+ktHkbIn(x.t, kb, o[0], id)+'</div></td>'; }).join('')+'</tr>'; }).join('')+'</tbody></table></div>';
 }
 /* 3.106 (anh chốt): dưới mỗi ô — "In ra:" đúng chữ sẽ in (lấy cùng công thức tạo Word); trống = (tự lấy) nghiêng; đã gõ = đậm + ↺ về chuẩn; nghi sai = cam */
 function ktHkbIn(t, kb, o, id){
@@ -23723,7 +23722,9 @@ function ktHkbIn(t, kb, o, id){
     if(o==='khNgay' && v && !ngay.test(v)) canh = 'Ngày nên dạng dd/mm/yyyy'; }
   else if(o==='hd' || o==='hdNgay'){ chu = 'Căn cứ Hợp đồng ủy thác số '+(hd || cham)+' ngày '+(kb.hdNgay || cham)+' …';
     if(o==='hdNgay' && v && !ngay.test(v)) canh = 'Ngày nên dạng dd/mm/yyyy'; }
-  else if(o==='ky'){ chu = 'Ký: TM. '+c.tm.replace('{xa}', c.xa).toUpperCase()+' / '+c.ky.toUpperCase()+' / '+(v || '(để trống, ký tay)'); }
+  else if(o==='ky' || o==='ct'){ chu = 'Ký Kế hoạch: TM. '+c.tm.replace('{xa}', c.xa).toUpperCase()+' / '+c.ky.toUpperCase()+' / '+(v || '(để trống, ký tay)'); }
+  else if(o==='pct'){ chu = 'Người kiểm tra Mẫu 06 / 16 / 04: Ông (bà) '+(v || cham)+' — Chức vụ: '+c.pho; }
+  else if(/^uv\d$/.test(o)){ chu = v ? v+' — '+c.uv : c.uv+' (nếu có)'; }
   var ve = v ? '<button class="hkb-ve" onclick="ktHkbVe(\''+ktHoiKhoa(t)+'\',\''+o+'\',\''+id+'\')" title="Xóa chữ đã gõ, về giá trị chuẩn / dòng chấm">↺</button>' : '';
   return '<span class="'+(canh ? 'cam' : (v ? 'da' : 'tu'))+'" title="'+coChuHTML('In ra: '+chu+(canh ? ' — ⚠ '+canh : ''))+'">In ra: '+(v ? '' : '<i>(tự lấy)</i> ')+coChuHTML(chu)+(canh ? ' — ⚠ '+coChuHTML(canh) : '')+'</span>'+ve;
 }
@@ -23734,20 +23735,60 @@ function ktHkbXem(k, id){   /* gõ tới đâu cập nhật dòng "In ra" của 
   KT_HKB_O.forEach(function(o){ var e = document.getElementById('hkbi-'+id+'-'+o[0]); if(e) e.innerHTML = ktHkbIn(x.t, kb, o[0], id); });
 }
 function ktHkbVe(k, o, id){ ktHoiKBSua(k, o, ''); var e = document.getElementById('hkb-'+id+'-'+o); if(e) e.value = ''; ktHkbXem(k, id); }
-function ktHoiKBHop(tuXem){   /* bảng đầy đủ mọi Hội – xã trong phạm vi (để khai hàng loạt, chép kế hoạch Hội tỉnh) */
-  var ds = ktHoiDs(), C = ktCH(); KT_HKB_TU = tuXem;
-  moHop('<div class="hop-tit">⚙ Bảng khai báo Hội – xã <button class="nho" onclick="ktChuanHop()">📖 Bảng chuẩn hóa Hội – Đoàn</button></div>'+
-    '<div class="hop-phu">Mỗi dòng 1 Hội – xã. Khai 1 lần, app lưu (máy + Drive cùng cấu hình); ô trống in ra dòng chấm. Tên đơn vị để trống = tên chuẩn. '+(C.xa ? 'Đang lọc theo xã đã chọn ở cây.' : 'Chọn 1 xã ở cây để chỉ hiện Hội của xã đó.')+'</div>'+
-    ktHoiKBBang(ds, KT_HKB_O, !C.xa)+
-    '<div class="hang-nut"><button class="nho chinh" onclick="dongHop();ktVeThe()">Xong</button></div>', true);
-  var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
-}
-var KT_HKB_TU = 0;
-function ktHoiKBChep(o){   /* chép số / ngày kế hoạch Hội tỉnh của dòng đã khai xuống các dòng cùng Hội (cùng mã ĐVUT) còn trống */
+function ktHoiKBHop(){ var C = ktCH(); C.che = 'hdt'; C.hdtTab = 'hoi'; luu(); try{ dongHop(); }catch(e){} if(KT_K) ktVeThe(); }   /* 3.113: bảng khai báo → tab 🏛 Khai báo Hội đoàn thể */
+function ktHoiKBChep1(o){   /* chép số / ngày kế hoạch Hội tỉnh của dòng đã khai xuống các dòng cùng Hội (cùng mã ĐVUT) còn trống */
   var ds = ktHoiDs(), goc = {}, n = 0;
   ds.forEach(function(x){ var v = ktHoiKB(x.k)[o]; if(v && !goc[x.t.dv]) goc[x.t.dv] = v; });
   ds.forEach(function(x){ var v = goc[x.t.dv]; if(v && !ktHoiKB(x.k)[o]){ ktHoiKBSua(x.k, o, v); n++; } });
-  bao(n ? 'Đã chép cho '+n+' dòng cùng Hội.' : 'Không có dòng trống cùng Hội để chép.', 3); ktHoiKBHop(KT_HKB_TU);
+  return n;
+}
+function ktHoiKBChep(){ var n = ktHoiKBChep1('kh')+ktHoiKBChep1('khNgay'); bao(n ? 'Đã chép số / ngày KH Hội tỉnh cho '+n+' ô cùng Hội.' : 'Không có ô trống cùng Hội để chép.', 3); ktVeThe(); }
+/* ---------- 3.113 (anh chốt): 🏛 KHAI BÁO HỘI ĐOÀN THỂ — 1 nơi khai cho mọi mẫu (06, 16TD, 04, Kế hoạch); tab nhỏ Hội – xã · Chuẩn hóa quy tắc ----------
+   Hội – xã: tên Hội cấp xã (trống = tên chuẩn theo cây) · Chủ tịch · Phó Chủ tịch · tối đa 5 ủy viên BTV · số / ngày HĐUT · số / ngày KH Hội tỉnh.
+   Người kiểm tra mặc định = Phó Chủ tịch; người ký Kế hoạch = Chủ tịch (bản 3.114: chọn khi in). Tên Hội cấp tỉnh sửa ở Chuẩn hóa (chung mọi xã). */
+function ktHdtChuyen(){   /* chuyển khai báo cũ 1 lần: cán bộ kiểm tra (chức vụ Phó…) → Phó CT; Chủ tịch / Bí thư → CT; khác → ủy viên; người ký → CT */
+  if(D.cauHinh.ktHdtDoi) return; var S = D.cauHinh.ktHoiKB || {};
+  Object.keys(S).forEach(function(k){ var x = S[k];
+    if(x.cb){ var cv = String(x.cbcv||'').trim();
+      if(/^ph[óo]/i.test(cv)){ if(!x.pct) x.pct = x.cb; if(x.pct===x.cb){ delete x.cb; delete x.cbcv; } }
+      else if(/^(ch[ủu] t[ịi]ch|b[íi] th[ưu])/i.test(cv)){ if(!x.ct) x.ct = x.cb; }
+      else if([1,2,3,4,5].every(function(i){ return x['uv'+i]!==x.cb; })){ for(var i=1;i<=5;i++) if(!x['uv'+i]){ x['uv'+i] = x.cb; break; } } }
+    if(x.ky){ if(!x.ct) x.ct = x.ky; if(x.ct===x.ky) delete x.ky; } });
+  D.cauHinh.ktHdtDoi = 1; luu();
+}
+function ktHdtNhac(ds, can){   /* dòng nhắc trong tab mẫu: Hội – xã còn thiếu ô mẫu đó cần → cam; đủ → 1 dòng xanh; nút sang tab khai báo */
+  if(!ds || !ds.length) return '';
+  var nhan = {hd:'số HĐUT', hdNgay:'ngày HĐUT', kh:'số KH Hội tỉnh', khNgay:'ngày KH Hội tỉnh'};
+  var thieu = ds.map(function(x){ var kb = ktHoiKB(x.k), c = ktChuan(x.t);
+    var m = can.filter(function(k){ return !(k==='pct' ? (kb.pct || kb.cb) : k==='ct' ? (kb.ct || kb.ky) : kb[k]); }).map(function(k){ return k==='ct' ? c.ky : k==='pct' ? c.pho : nhan[k]; });
+    return m.length ? (kb.ten || ktHoiTenTD(x.t))+' ('+m.join(', ')+')' : ''; }).filter(Boolean);
+  var nut = ' <button class="nho" onclick="ktHoiKBHop()">🏛 Khai báo Hội đoàn thể</button>';
+  return thieu.length ? '<div class="sl-bao vang kt-hdt-nhac">⚠ Chưa khai: '+coChuHTML(thieu.slice(0, 4).join('; ')+(thieu.length>4 ? ' và '+(thieu.length-4)+' Hội – xã khác' : ''))+' — in ra dòng chấm.'+nut+'</div>'
+    : '<div class="sl-phu kt-hdt-nhac">✓ Đã khai báo đủ cho '+ds.length+' Hội – xã.'+nut+'</div>';
+}
+function ktHdtThe(x){
+  var kb = ktHoiKB(x.k), c = ktChuan(x.t), id = x.k.replace(/[^0-9a-z]/gi, '_'), cb = ktCanBo(x.t, {});
+  var o = function(k, nhan, ph, lop, khongIn){ return '<label class="kt-hdt-o'+(lop ? ' '+lop : '')+'"><span>'+coChuHTML(nhan)+'</span><input id="hkb-'+id+'-'+k+'" value="'+coChuHTML(kb[k]||'')+'" placeholder="'+coChuHTML(ph||'…')+'" aria-label="'+coChuHTML(nhan)+'"'+
+    ' onchange="ktHoiKBSua(\''+x.k+'\',\''+k+'\',this.value)" oninput="ktHkbXem(\''+x.k+'\',\''+id+'\')">'+(khongIn ? '' : '<div class="hkb-in" id="hkbi-'+id+'-'+k+'">'+ktHkbIn(x.t, kb, k, id)+'</div>')+'</label>'; };
+  var tinh = c.doan ? 'Tỉnh Đoàn '+KT_TINH : c.ten+' tỉnh '+KT_TINH;
+  return '<div class="kt-hdt-the"><div class="kt-hdt-dau"><b>'+coChuHTML(kb.ten || ktHoiTenTD(x.t))+'</b> <small>· '+x.n+' tổ · cấp tỉnh: '+coChuHTML(tinh)+' <a href="#" onclick="event.preventDefault();ktChuanHop()">sửa ở Chuẩn hóa</a></small></div>'+
+    '<div class="kt-hdt-nhom">Tên đơn vị</div><div class="kt-hdt-luoi">'+o('ten', 'Tên Hội cấp xã (trống = tên chuẩn)', ktHoiTenTD(x.t), 'kt-hdt-day')+'</div>'+
+    '<div class="kt-hdt-nhom">Ban Thường vụ</div><div class="kt-hdt-luoi">'+o('ct', c.ky, 'Họ tên')+o('pct', c.pho, 'Họ tên')+
+      [1,2,3,4,5].map(function(i){ return o('uv'+i, 'Ủy viên BTV '+i, 'Họ tên (nếu có)', '', 1); }).join('')+'</div>'+
+    '<div class="kt-hdt-nhom">Ủy thác</div><div class="kt-hdt-luoi">'+o('hd', 'Số HĐ ủy thác', '…/HĐUT')+o('hdNgay', 'Ngày ký HĐ', 'dd/mm/yyyy', '', 1)+o('kh', 'Số KH Hội tỉnh', 'vd: 06-KH/HNDT')+o('khNgay', 'Ngày KH Hội tỉnh', 'dd/mm/yyyy', '', 1)+'</div>'+
+    '<div class="sl-phu kt-hdt-dung">Khi in: người kiểm tra (Mẫu 06 / 16 / 04) <b>'+coChuHTML(cb.cb ? cb.cb+' — '+cb.cv : 'dòng chấm')+'</b>'+(kb.pct || !kb.cb ? '' : ' <small>(khai trước đây — khai '+coChuHTML(c.pho)+' để thay)</small>')+
+      ' · người ký Kế hoạch <b>'+coChuHTML(kb.ct || kb.ky || 'để trống')+'</b></div></div>';
+}
+function ktHDTVe(o){
+  var C = ktCH(), tab = C.hdtTab==='chuan' ? 'chuan' : 'hoi', ds = ktHoiDs();
+  var h = ktCheDoHTML()+'<div class="kt-che"><button class="to-loc'+(tab==='hoi' ? ' bat' : '')+'" onclick="ktCH().hdtTab=\'hoi\';luu();ktVeThe()">🏛 Hội – xã</button>'+
+    '<button class="to-loc'+(tab==='chuan' ? ' bat' : '')+'" onclick="ktCH().hdtTab=\'chuan\';luu();ktVeThe()">📖 Chuẩn hóa quy tắc</button></div>';
+  if(tab==='chuan') h += ktChuanHTML();
+  else h += '<p class="ghi">Khai 1 lần, dùng chung cho Mẫu 06, 16TD, 04 và Kế hoạch; lưu máy + Drive (máy khác tự lấy về). Ô trống: tên Hội lấy tên chuẩn theo cây, các ô khác in dòng chấm. '+
+      (C.xa ? 'Đang hiện Hội của xã chọn ở cây.' : 'Đang hiện mọi Hội – xã — chọn 1 xã ở cây để gọn hơn.')+'</p>'+
+    '<div class="hang-nut kt-in"><button class="nho" onclick="ktHoiKBChep()" title="Kế hoạch Hội tỉnh dùng chung: chép số / ngày đã khai ở 1 xã cho các xã cùng Hội còn trống">⇩ Chép số / ngày KH Hội tỉnh cho các xã cùng Hội</button></div>'+
+    (ds.length ? '<div class="kt-hdt-ds">'+ds.map(ktHdtThe).join('')+'</div>' : '<div class="rong">Chưa có dữ liệu tổ — nạp Mẫu 31 trước.</div>');
+  o.innerHTML = h;
 }
 function ktHoiKBSua(k, o, v){
   var S = D.cauHinh.ktHoiKB = D.cauHinh.ktHoiKB || {}, x = S[k] = S[k] || {};
@@ -23831,10 +23872,9 @@ function ktKHVe(o){
   var thCo = Object.keys(dem).map(Number).sort(function(a, b){ return a-b; }), n04 = thCo.filter(function(m){ return KT_KH_M04[m]; }).length;
   h += '</tbody></table></div><div class="kt-che kt-kh-04"><span class="sl-phu">📋 Mẫu 04 theo kế hoạch:</span>'+thCo.map(function(m){ return '<button class="to-loc'+(KT_KH_M04[m] ? ' bat' : '')+'" onclick="KT_KH_M04['+m+']=!KT_KH_M04['+m+'];ktVeThe()">T'+m+' <small>('+dem[m]+' tổ)</small></button>'; }).join('')+
     '<button class="nho" onclick="ktKH04Xem()"'+(n04 ? '' : ' disabled')+'>👁 Xem Mẫu 04'+(n04 ? ' ('+n04+' tháng)' : '')+'</button><button class="nho" onclick="ktKHInCa()"'+(n04 ? '' : ' disabled')+'>🖨 In Kế hoạch + Mẫu 04</button></div>'+
-    ktKhungHoi('kh', ktHoiDs().filter(function(x){ return String(x.t.dv)===String(hoi); }), [['ten','Tên đơn vị (đầu trang)'], ['kh','Số KH Hội tỉnh'], ['khNgay','Ngày KH Hội tỉnh'], ['hd','Số HĐ ủy thác'], ['hdNgay','Ngày ký HĐ'], ['ky','Người ký (Chủ tịch / Bí thư)']],
-      '<button class="nho" onclick="ktCH().xa=\'\';luu();ktHoiKBHop()" title="Khai hàng loạt mọi Hội – xã, chép số / ngày kế hoạch Hội tỉnh cho các xã cùng Hội">⚙ Bảng khai báo tất cả Hội – xã</button>')+
+    ktHdtNhac(ktHoiDs().filter(function(x){ return String(x.t.dv)===String(hoi); }), ['ct','hd','hdNgay','kh','khNgay'])+   /* 3.113 */
     '<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktKHXem()">👁 Xem Kế hoạch '+nam+'</button><button class="nho" onclick="ktKHXepLai()">↺ Xếp lại tự động</button></div>'+
-    '<p class="ghi">Khuôn theo dự thảo của Hội cấp tỉnh (HĐT cấp xã), căn cứ văn bản '+(ccK==='10566' ? '10566/HD-NHCS 29/12/2022 (trước 727)' : '727/HD-NHCS 11/02/2026')+', tỷ lệ tối thiểu 90% món vay các năm trước; không ghi số hộ cụ thể. Số hợp đồng ủy thác, kế hoạch Hội tỉnh, thành phần đoàn, người ký khai ở khung ✎ Khai báo phía trên — trống thì để dòng chấm. Xuất Word để sửa.</p>';
+    '<p class="ghi">Khuôn theo dự thảo của Hội cấp tỉnh (HĐT cấp xã), căn cứ văn bản '+(ccK==='10566' ? '10566/HD-NHCS 29/12/2022 (trước 727)' : '727/HD-NHCS 11/02/2026')+', tỷ lệ tối thiểu 90% món vay các năm trước; không ghi số hộ cụ thể. Số hợp đồng ủy thác, kế hoạch Hội tỉnh, người ký (Chủ tịch) khai ở 🏛 Khai báo Hội đoàn thể — trống thì để dòng chấm. Xuất Word để sửa.</p>';
   o.innerHTML = h;
 }
 function ktKHMau(){ var C = ktCH(), k = C.xa+'|'+ktKHHoi(), kb = ktHoiKB(k); return kb.mauKH==='2' ? 'm01b' : 'm01'; }   /* 3.97: ① dự thảo HĐT cấp xã · ② mẫu gọn (bản kế hoạch mẫu Hội cấp xã) — nhớ theo Hội */
@@ -23872,12 +23912,12 @@ function ktKHGiaTri(){
   rows.push(mau==='m01b' ? {L1:'', L2:'Cộng', L3:cong, L4:''} : {L1:'Cộng', L2:cong, L3:''});
   if(mau==='m01b') return {mau:mau, cc:ktKHCC(), nam:nam, ten:ten, doan:[], rows:rows,
     f:Object.assign({KHT:kb.kh ? '- Căn cứ Kế hoạch kiểm tra, giám sát hoạt động nhận ủy thác số '+kb.kh+(kb.khNgay ? ', ngày '+kb.khNgay : '')+' của '+capTinh+';' : '',
-      HDS:hd ? ' số '+hd+(kb.hdNgay ? ' ngày '+kb.hdNgay : '') : '', KH:kb.kh, KHN:kb.khNgay, HOIT:capTinh, HD:hd, HDN:kb.hdNgay, HT:c.tinh.toUpperCase(),   /* 3.106: căn cứ đầy đủ như ① */ HX:ktHXCo(hx, 4344).HX, HXZ:ktHXCo(hx, 4344).HXZ, VT:c.vt, NOI:xaTen, NAM:String(nam), NT:String(nam-1), TU:String(L.tu), DEN:String(L.den), NH:nh, HXT:ten, HL:loai, CT:c.ky.toUpperCase(), KY:kb.ky}, CH)};
+      HDS:hd ? ' số '+hd+(kb.hdNgay ? ' ngày '+kb.hdNgay : '') : '', KH:kb.kh, KHN:kb.khNgay, HOIT:capTinh, HD:hd, HDN:kb.hdNgay, HT:c.tinh.toUpperCase(),   /* 3.106: căn cứ đầy đủ như ① */ HX:ktHXCo(hx, 4344).HX, HXZ:ktHXCo(hx, 4344).HXZ, VT:c.vt, NOI:xaTen, NAM:String(nam), NT:String(nam-1), TU:String(L.tu), DEN:String(L.den), NH:nh, HXT:ten, HL:loai, CT:c.ky.toUpperCase(), KY:kb.ct || kb.ky}, CH)};
   /* 3.106 (anh chốt): thành phần ghi chung theo Bảng chuẩn hóa — không liệt kê từng người */
   var tp = ten+' thành lập đoàn kiểm tra gồm: Các đồng chí '+c.ky+', '+c.pho+', Ủy viên '+c.ld+' '+ten+'.';
   return {mau:mau, cc:ktKHCC(), nam:nam, ten:ten, doan:[tp], rows:rows,
     f:Object.assign({HT:c.tinh.toUpperCase(), HX:ktHXCo(hx, 4164).HX, HXZ:ktHXCo(hx, 4164).HXZ, NOI:xaTen, NAM:String(nam), NT:String(nam-1), TU:hai(L.tu)+'/'+nam, DEN:hai(L.den)+'/'+nam,
-      KH:kb.kh, KHN:kb.khNgay, HOIT:capTinh, HD:hd, HDN:kb.hdNgay, NH:nh, HXT:ten, HOI1:ten, CT:c.ky.toUpperCase(), KY:kb.ky}, CH)};
+      KH:kb.kh, KHN:kb.khNgay, HOIT:capTinh, HD:hd, HDN:kb.hdNgay, NH:nh, HXT:ten, HOI1:ten, CT:c.ky.toUpperCase(), KY:kb.ct || kb.ky}, CH)};
 }
 function ktBung01(K, g){
   if(g.cc==='10566') K = Object.assign({}, K, {than:K.than.replace(KT_CC727, KT_CC10566)});   /* 3.112: chỉ thay dòng căn cứ đầu */
@@ -23889,7 +23929,7 @@ function ktBung01(K, g){
 function ktKHXem(){
   var g = ktKHGiaTri(); KT_KH_XEM = g;
   moHop('<div class="hop-tit">👁 Kế hoạch KTGS năm '+g.nam+' — '+coChuHTML(g.ten)+'</div>'+
-    '<div class="hop-phu">'+(g.mau==='m01b' ? 'Khuôn ② mẫu gọn (bản kế hoạch mẫu Hội cấp xã)' : 'Khuôn ① dự thảo HĐT cấp xã · 90%')+' · căn cứ '+(g.cc==='10566' ? '10566 (trước 727)' : '727')+' · '+(g.rows.length-1)+' tháng có lịch. Số HĐUT, KH Hội tỉnh, đoàn, người ký theo khung ✎ Khai báo; trống = dòng chấm.</div>'+
+    '<div class="hop-phu">'+(g.mau==='m01b' ? 'Khuôn ② mẫu gọn (bản kế hoạch mẫu Hội cấp xã)' : 'Khuôn ① dự thảo HĐT cấp xã · 90%')+' · căn cứ '+(g.cc==='10566' ? '10566 (trước 727)' : '727')+' · '+(g.rows.length-1)+' tháng có lịch. Số HĐUT, KH Hội tỉnh, người ký theo 🏛 Khai báo Hội đoàn thể; trống = dòng chấm.</div>'+
     '<iframe id="kt-kh-khung" class="to-khung" title="Xem trước"></iframe>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button><button class="nho" onclick="ktKHIn(\'in\')">🖨 In / PDF</button><button class="nho chinh" onclick="ktKHIn(\'word\')">📄 Word (.docx)</button></div>', true);
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');

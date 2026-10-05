@@ -45,6 +45,8 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t114.js` | 3.109: Mẫu 04 dòng ngày theo tháng kiểm tra, III nội dung ghi sẵn, IV.1 lãi tồn, IV.2 a) b) c) liệt kê hộ (món KHĐ, lãi tồn > 6 tháng lãi, ≤ 10 hộ + "và n hộ khác"), Word + bản In; Mẫu 16 tháng theo tháng kiểm tra, tên hộ ở Tồn tại / Kiến nghị; lãi 1 tháng theo lãi suất — bộ `gia31` (cài lãi tồn giả trong phép thử). |
 | `node tests/t115.js` | 3.111: Mẫu 06 theo mẫu gốc (tên hoa đầu từ, Nợ lãi = lãi tồn + tổng, lưới cột mới, dòng 567, CT / mục đích dài cỡ 10, Thời điểm ⇥ Địa bàn ⇥ Tổ, Đơn vị tính riêng, tiêu đề cách trên), bản In; Mẫu 16 đầu trang tab giữa, Bảng II điền sẵn / để trống, nhớ lựa chọn; `tgTuId` chặn ngày tương lai / trước 2020 |
 | `node tests/t116.js` | 3.112: Kế hoạch ① ② chọn căn cứ 727 / 10566 — chỉ thay 1 dòng, Word hợp lệ, bản In, nhớ theo Hội, tên file |
+| `node tests/t117.js` | 3.113: đồng bộ toàn bộ cài đặt qua Drive — 3 máy giả: khóa riêng không lên, máy mới lấy về, 2 máy cùng sửa gộp đủ, xóa lan theo, không đổi thì không đẩy, lưu là tự hẹn đẩy, Lấy từ Drive bằng tay |
+| `node tests/t118.js` | 3.113: 🏛 Khai báo Hội đoàn thể — chuyển khai báo cũ, thẻ Hội – xã, Đoàn đổi chức danh, In ra, người kiểm tra = PCT / người ký KH = CT, dòng nhắc thiếu, chép KH tỉnh, tab nhỏ Chuẩn hóa (tô xanh, ↺) |
 | `node tests/t99.js` | Chuyển tiếp tab Tháng: bỏ 7 dòng thuần Excel, ô XLS không tính thiếu, ô "đọc file cũ". |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).

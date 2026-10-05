@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.113 — 08/10/2026 09:00 — Đồng bộ toàn bộ cài đặt qua Drive · 🏛 Khai báo Hội đoàn thể
+- **Nguyên nhân anh gặp:** bảng khai báo Hội khai ở máy cơ quan, mở laptop không thấy — `cauhinh.json` chỉ chứa ~30 mục chọn tay, không có phần KTGS; sửa bảng khai báo cũng không tự đẩy.
+- **Đồng bộ cài đặt (anh chốt: app cá nhân → lưu lên Drive hết):** `goiCauHinh` gửi mọi khóa `D.cauHinh` trừ `CH_RIENG` (độ rộng khung, cỡ chữ, camera, đang xem / đang chọn, khung mở – đóng, mốc đồng bộ / sao lưu). `chBam` (riêng máy) = dấu băm từng khóa lúc đồng bộ gần nhất: khóa máy này chưa sửa → theo Drive (cả phần đã xóa); đã sửa → gộp, máy này ưu tiên; lần đầu → gộp, Drive ưu tiên. `dongBoCauHinh('tu' | 'day' | 'lay')` luôn hỏi Drive trước rồi mới đẩy. Tự chạy khi nối Drive, khi quay lại app, và 4 giây sau mỗi lần `luu()` làm đổi phần cài đặt đồng bộ (`chTheoDoi`). Nút Lưu lên / Lấy từ Drive giữ nguyên.
+- **🏛 Khai báo Hội đoàn thể** (tab đầu hàng chọn loại KTGS, `che='hdt'`): mỗi Hội – xã 1 thẻ — tên Hội cấp xã (trống = tên chuẩn theo cây), Chủ tịch, Phó Chủ tịch, 5 ủy viên BTV, số / ngày HĐUT, số / ngày KH Hội tỉnh (⇩ chép cho xã cùng Hội), dòng "In ra" như cũ; tab nhỏ **📖 Chuẩn hóa quy tắc** (từ hộp bật lên; ô đã sửa tô xanh, ↺ từng ô / cả bảng; thêm "Chức danh ủy viên"). Tên Hội cấp tỉnh sửa ở Chuẩn hóa.
+- **Dùng khi in:** người kiểm tra Mẫu 06 / 16 / 04 = Phó Chủ tịch (chức vụ theo Chuẩn hóa); người ký Kế hoạch = Chủ tịch. Khai báo cũ chuyển 1 lần (`ktHdtChuyen`): cán bộ chức vụ "Phó…" → Phó CT, "Chủ tịch / Bí thư" → CT, khác → ủy viên (vẫn in như cũ khi chưa khai Phó CT); người ký → CT.
+- Các tab mẫu bỏ khung ✎ Hội – xã / bảng cán bộ, thay bằng dòng nhắc (`ktHdtNhac`) Hội nào còn thiếu ô mẫu đó cần + nút sang khai báo. Lựa chọn khi in (mục đích, Bảng II, nhận xét…) tạm giữ ở khung ✎ — bản 3.114 chuyển thành hộp chọn khi in.
+- Kiểm tra: `kiem.py` sạch; t117 mới (10 phép, 3 máy giả dùng chung Drive giả), t118 mới (22 phép); t108 / t110 / t111 cập nhật theo tab mới; hoiquy, hoiquy2, t101–t118 không lỗi.
+
+---
+
 ## 3.112 — 07/10/2026 09:00 — Kế hoạch KTGS: chọn căn cứ 727 / 10566
 - Anh gửi kế hoạch thật lập 15/01/2026 (trước văn bản 727) căn cứ hướng dẫn 10566/HD-NHCS ngày 29/12/2022. Anh chốt: áp cả khuôn ① ②, chỉ thay dòng căn cứ đầu, nội dung theo khuôn đã chuẩn hóa; chọn tay.
 - Màn Kế hoạch có hàng **Căn cứ: 727 (từ 11/02/2026) · 10566 (trước 727)**, nhớ theo Hội (`ktHoiKB(...).ccKH`, `ktKHCC` / `ktKHDoiCC`); `ktBung01` thay `KT_CC727` → `KT_CC10566` trong khuôn; bản In đọc lại Word nên cùng nội dung; tên file thêm "(can cu 10566)".

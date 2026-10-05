@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.112 · build 07/10/2026 09:00
+**Bản hiện tại:** 3.113 · build 08/10/2026 09:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.113) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Máy đã khai bảng Hội: mở app bản mới (đã nối Drive), đợi vài giây | Cài đặt › Drive: "Lần lưu gần nhất" cập nhật | |
+| 2 | Laptop: mở app, nối Drive | KTGS › 🏛 Khai báo Hội đoàn thể có đủ dữ liệu máy kia; độ rộng khung của laptop giữ nguyên | |
+| 3 | Khai báo cũ | Cán bộ chức vụ Phó Chủ tịch nằm ở ô Phó CT, người ký nằm ở ô Chủ tịch | |
+| 4 | Sửa 1 ô ở laptop → mở máy kia | Máy kia thấy ô mới, ô khác không mất | |
+| 5 | In Mẫu 06 / 16 / 04 / Kế hoạch | Người kiểm tra = Phó CT; người ký KH = Chủ tịch | |
+
+**Ghi chú kỹ thuật 3.113:** khóa cài đặt mới mặc định **đồng bộ**; khóa chỉ hợp từng máy (màn hình, đang xem, mở – đóng) phải thêm vào `CH_RIENG`. `chBam` không bao giờ lên Drive. Lãnh đạo Hội lưu trong `ktHoiKB['xã|hội']` = `{ten, ct, pct, uv1…uv5, hd, hdNgay, kh, khNgay}` (+ `cb`/`cbcv` khai cũ khi chưa có Phó CT). `ktChuanHop` / `ktHoiKBHop` giữ tên, giờ mở tab `hdt`.
 
 ### Danh sách thử trên máy thật (3.112) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
