@@ -28,7 +28,7 @@ const fs=require('fs'), path=require('path');
    C.xa = tA.xa; C.che = 'hdt'; ktVeThe(); await w(200);
    const the = document.getElementById('kt-the');
    ok('nút 🏛 Khai báo Hội đoàn thể đứng đầu hàng chọn loại', /^🏛 Khai báo Hội đoàn thể/.test(the.querySelector('.kt-che button').textContent.trim()) && the.querySelector('.kt-che button').classList.contains('bat'));
-   ok('mỗi Hội – xã của xã chọn 1 thẻ: tên, CT, PCT, 5 ủy viên, HĐUT, KH tỉnh', the.querySelectorAll('.kt-hdt-the').length===ktHoiDs().length && the.querySelectorAll('.kt-hdt-the input').length===ktHoiDs().length*12);
+   ok('mỗi Hội – xã của xã chọn 1 thẻ: tên, CT, PCT, 5 ủy viên, HĐUT, KH tỉnh', the.querySelectorAll('.kt-hdt-the').length===ktHoiDs().length && the.querySelectorAll('.kt-hdt-the input').length===ktHoiDs().length*15);
    ok('tên Hội cấp xã: trống = tên chuẩn theo cây (chữ mờ)', document.getElementById('hkb-'+kA.replace(/[^0-9a-z]/gi,'_')+'-ten').placeholder===ktHoiTenTD(tA));
    const tD = ds.find(t=>String(t.dv)==='14' && t.xa===tA.xa);
    if(tD){ const thD = [...the.querySelectorAll('.kt-hdt-the')].find(x=>/Đoàn/.test(x.querySelector('.kt-hdt-dau').textContent)); ok('Đoàn: Bí thư / Phó Bí thư', !!thD && /Bí thư/.test(thD.textContent) && /Phó Bí thư/.test(thD.textContent)); }

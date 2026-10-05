@@ -48,6 +48,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t117.js` | 3.113: đồng bộ toàn bộ cài đặt qua Drive — 3 máy giả: khóa riêng không lên, máy mới lấy về, 2 máy cùng sửa gộp đủ, xóa lan theo, không đổi thì không đẩy, lưu là tự hẹn đẩy, Lấy từ Drive bằng tay |
 | `node tests/t118.js` | 3.113: 🏛 Khai báo Hội đoàn thể — chuyển khai báo cũ, thẻ Hội – xã, Đoàn đổi chức danh, In ra, người kiểm tra = PCT / người ký KH = CT, dòng nhắc thiếu, chép KH tỉnh, tab nhỏ Chuẩn hóa (tô xanh, ↺) |
 | `node tests/t119.js` | 3.114: hộp chọn khi in — vai trò → tên / chức vụ, hộp hiện trước khi xuất, nhớ lựa chọn, Mẫu 06 / 16 / 04 / KH theo lựa chọn, ✚ Điền đầy đủ, tên Trưởng đoàn Mẫu 04, nhận xét nợ quá hạn / nợ khoanh có tên hộ, ngày đột xuất cạnh nút In |
+| `node tests/t121.js` | 3.117: Mẫu 06 phân trang (keepNext Word, khối hộ bản In, đếm trang PDF 1 / 2 / 3 / 4 / 6 hộ); Thông báo phân công BTV (hộp, chia đều, căn cứ, người, ấp, kế toán / thủ quỹ, Word, In, Đoàn) |
 | `node tests/t120.js` | 3.115: Mẫu 06 dòng Thời điểm · Địa bàn · Tổ (gọn dần cho vừa 1 dòng), CT canh giữa, tên cán bộ kiểm tra dưới khối ký; Mẫu 16 tên Trưởng đoàn + Tổ trưởng, Bảng II như mẫu tham khảo; KH ① hết dính chữ |
 | `node tests/t99.js` | Chuyển tiếp tab Tháng: bỏ 7 dòng thuần Excel, ô XLS không tính thiếu, ô "đọc file cũ". |
 

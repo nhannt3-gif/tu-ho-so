@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.117 — 09/10/2026 15:00 — Mẫu 06 phân trang · Thông báo phân công nhiệm vụ Ban Thường vụ
+- **Mẫu 06** (anh yêu cầu rà 1 hộ → nhiều hộ, 1 mặt nếu được): lề trên / dưới 1 cm (Word `pgMar` 567, bản In `@page 10mm`), thu khoảng cách phần nhận xét. Đo bằng PDF Chromium: **1 mặt chứa tối đa 3 dòng khế ước** (1, 2, 3 hộ mỗi hộ 1 khế ước). Nhiều hơn: Word gắn "giữ với dòng sau" (`dongKN`) cho các dòng của 1 khách nhiều khế ước và cho hộ cuối → không cắt đôi hộ, hộ cuối sang trang cùng dòng Cộng + nhận xét + ký; bản In mỗi hộ 1 `<tbody class="kt-ho">` không tách trang, hộ cuối nằm trong khối `kt-giu`; tiêu đề bảng lặp lại ở trang 2.
+- **Thông báo phân công nhiệm vụ BTV** (theo mẫu tham khảo anh gửi): nút 📄 trên mỗi thẻ ở 🏛 Khai báo Hội đoàn thể → hộp tích ấp phụ trách kiểm tra từng người (⇄ Gợi ý chia đều cho Phó + ủy viên; Chủ tịch phụ trách chung), kiêm kế toán / thủ quỹ; xem trước, In / PDF, Word (A4 dọc, Times 14). Nội dung: căn cứ Điều lệ, HĐUT (số, ngày), Quy chế BCH nhiệm kỳ; Chủ tịch 10 nhiệm vụ, Phó 6, ủy viên 1 (+ kế toán / thủ quỹ nếu tích) + "nhiệm vụ khác"; nơi nhận; ký TM. BAN THƯỜNG VỤ / CHỦ TỊCH. Đoàn: BCH ĐOÀN XÃ …, Số -TB/ĐTN, ĐOÀN TNCS HỒ CHÍ MINH, ký BÍ THƯ. Lưu `D.cauHinh.ktPC` (lên Drive).
+- Nút **📄 Phân công BTV** đặt ở dòng tiêu đề mỗi thẻ (anh duyệt — để cuối thẻ khó thấy).
+- Thẻ Hội – xã thêm ô **Phó Chủ tịch 2, 3** và **Nhiệm kỳ** (`KT_HKB_O` 15 ô); người kiểm tra / ký chọn được PCT 2, 3.
+- Mặc định em chọn (anh chưa trả lời 4 câu hỏi): tối đa 3 Phó; ấp tích tay + nút chia đều; sửa chữ sai trong mẫu tham khảo ("tháo gỡ", "các ban liên quan đến"); Đoàn ký BÍ THƯ.
+- Kiểm tra: `kiem.py` sạch; t121 mới (21 phép, có đếm trang PDF); t110 / t118 cập nhật số ô thẻ; hồi quy không lỗi.
+
+---
+
 ## 3.116 — 09/10/2026 11:00 — Mẫu 16 Bảng II bỏ chữ "đầy đủ"
 - Anh chốt: giữ cách ghi như 3.115, chỉ bỏ chữ "đầy đủ" (không khẳng định quá); điều cấm ghi rõ "Không".
 - `KT_B16`: Theo cụm dân cư liền kề · 02 người (Tổ trưởng, Tổ phó), có phân công cụ thể · Không ×3 · Tại văn phòng ấp / khu phố, định kỳ theo quý · Có thực hiện · **Đảm bảo đúng thành phần** · **Có tham gia** · Không · **Có thực hiện** · **Có tham gia** · Có phối hợp · **Có lưu giữ**.
