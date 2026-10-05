@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.111 · build 06/10/2026 14:00
+**Bản hiện tại:** 3.112 · build 07/10/2026 09:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.112) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › Kế hoạch › Căn cứ: 10566 → Word khuôn ② | Dòng căn cứ đầu "- Căn cứ hướng dẫn 10566/HD-NHCS ngày 29/12/2022 …"; phần còn lại như bản 727; tên file có "(can cu 10566)" | |
+| 2 | Cùng Hội, khuôn ① | Cũng căn cứ 10566; bấm lại 727 → về như cũ | |
+
+**Ghi chú kỹ thuật 3.112:** `KT_CC727` phải trùng đúng chữ dòng căn cứ trong khuôn `m01` / `m01b` (sửa khuôn thì sửa cả hằng này — t116 kiểm). Lựa chọn lưu `D.cauHinh.ktHoiKB['xã|hội'].ccKH = '10566'` (727 = xóa khóa).
 
 ### Danh sách thử trên máy thật (3.111) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

@@ -2996,7 +2996,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.111', APP_LUC = '06/10/2026 14:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.112', APP_LUC = '07/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12638,7 +12638,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.111', ds:[
+var CO_GI_MOI = {ban:'3.112', ds:[
+  ['🗓 Kế hoạch KTGS ① ②: chọn căn cứ 727 (từ 11/02/2026) hoặc hướng dẫn cũ 10566 (kế hoạch lập trước 727) — chỉ thay dòng căn cứ đầu, nội dung giữ nguyên; nhớ theo Hội', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 06 theo mẫu gốc: dòng "Thời điểm · Địa bàn · Tổ TK&VV" (dài thì Tổ xuống dòng), "Đơn vị tính" dòng riêng, "Đơn vị kiểm tra" canh trái; tiêu đề xích xuống; tên người vay viết hoa đầu từ; 1 món 2 dòng; cột tiền thực tế gọn, Vào việc rộng; chương trình / mục đích dài nhỏ 1 cỡ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 06: cột Nợ lãi (kiểm tra thực tế) điền sẵn lãi tồn (triệu đồng), dòng Cộng có tổng; tổng giải ngân / dư nợ không rớt chữ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📋 Mẫu 16: "ĐƠN VỊ KIỂM TRA" canh giữa; Bảng II điền sẵn theo 727 (x / Không / Định kỳ theo quý) — chọn "Để trống" ở khung khai báo nếu muốn ghi tay', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -23819,6 +23820,8 @@ function ktKHVe(o){
   if(L.thieu.length) h += '<div class="sl-bao vang">⚠ '+L.thieu.length+' tổ chưa xếp tháng ('+L.thieu.map(function(t){ return coChuHTML(t.ten||t.ma); }).join(', ')+') — 727: kiểm tra 100% tổ / năm. Chọn tháng cho tổ hoặc ↺ Xếp lại tự động.</div>';
   var mauK = ktKHMau();
   h += '<div class="kt-che"><span class="sl-phu">Khuôn kế hoạch:</span><button class="to-loc'+(mauK==='m01' ? ' bat' : '')+'" onclick="ktKHDoiMau(\'1\')">① Dự thảo HĐT cấp xã</button><button class="to-loc'+(mauK==='m01b' ? ' bat' : '')+'" onclick="ktKHDoiMau(\'2\')">② Mẫu gọn (bản Hội xã)</button></div>';
+  var ccK = ktKHCC();
+  h += '<div class="kt-che"><span class="sl-phu">Căn cứ:</span><button class="to-loc'+(ccK==='727' ? ' bat' : '')+'" onclick="ktKHDoiCC(\'727\')" title="Văn bản 727/HD-NHCS ngày 11/02/2026">727 (từ 11/02/2026)</button><button class="to-loc'+(ccK==='10566' ? ' bat' : '')+'" onclick="ktKHDoiCC(\'10566\')" title="Hướng dẫn 10566/HD-NHCS ngày 29/12/2022 — kế hoạch lập trước khi có 727">10566 (trước 727)</button></div>';
   h += '<div class="to-bang-cuon"><table class="to-bang kt-kh-bang"><thead><tr><th>Ấp / Tổ (mã)</th><th>Tháng kiểm tra</th></tr></thead><tbody>';
   var apTruoc = '';
   L.ds.forEach(function(t){ var ap = ktKHAp(t);
@@ -23831,11 +23834,16 @@ function ktKHVe(o){
     ktKhungHoi('kh', ktHoiDs().filter(function(x){ return String(x.t.dv)===String(hoi); }), [['ten','Tên đơn vị (đầu trang)'], ['kh','Số KH Hội tỉnh'], ['khNgay','Ngày KH Hội tỉnh'], ['hd','Số HĐ ủy thác'], ['hdNgay','Ngày ký HĐ'], ['ky','Người ký (Chủ tịch / Bí thư)']],
       '<button class="nho" onclick="ktCH().xa=\'\';luu();ktHoiKBHop()" title="Khai hàng loạt mọi Hội – xã, chép số / ngày kế hoạch Hội tỉnh cho các xã cùng Hội">⚙ Bảng khai báo tất cả Hội – xã</button>')+
     '<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktKHXem()">👁 Xem Kế hoạch '+nam+'</button><button class="nho" onclick="ktKHXepLai()">↺ Xếp lại tự động</button></div>'+
-    '<p class="ghi">Khuôn theo dự thảo của Hội cấp tỉnh (HĐT cấp xã), căn cứ văn bản 727/HD-NHCS 11/02/2026, tỷ lệ tối thiểu 90% món vay các năm trước; không ghi số hộ cụ thể. Số hợp đồng ủy thác, kế hoạch Hội tỉnh, thành phần đoàn, người ký khai ở khung ✎ Khai báo phía trên — trống thì để dòng chấm. Xuất Word để sửa.</p>';
+    '<p class="ghi">Khuôn theo dự thảo của Hội cấp tỉnh (HĐT cấp xã), căn cứ văn bản '+(ccK==='10566' ? '10566/HD-NHCS 29/12/2022 (trước 727)' : '727/HD-NHCS 11/02/2026')+', tỷ lệ tối thiểu 90% món vay các năm trước; không ghi số hộ cụ thể. Số hợp đồng ủy thác, kế hoạch Hội tỉnh, thành phần đoàn, người ký khai ở khung ✎ Khai báo phía trên — trống thì để dòng chấm. Xuất Word để sửa.</p>';
   o.innerHTML = h;
 }
 function ktKHMau(){ var C = ktCH(), k = C.xa+'|'+ktKHHoi(), kb = ktHoiKB(k); return kb.mauKH==='2' ? 'm01b' : 'm01'; }   /* 3.97: ① dự thảo HĐT cấp xã · ② mẫu gọn (bản kế hoạch mẫu Hội cấp xã) — nhớ theo Hội */
 function ktKHDoiMau(v){ var C = ktCH(); ktHoiKBSua(C.xa+'|'+ktKHHoi(), 'mauKH', v==='2' ? '2' : ''); ktVeThe(); }
+/* 3.112 (anh chốt): căn cứ kế hoạch — 727 (từ 11/02/2026, mặc định) hoặc hướng dẫn cũ 10566 (kế hoạch lập trước 727); áp cả khuôn ① ②, chỉ thay dòng căn cứ đầu, nhớ theo Hội */
+var KT_CC727 = '- Căn cứ văn bản số 727/HD-NHCS ngày 11/02/2026 của Tổng Giám đốc NHCSXH hướng dẫn phương pháp, quy trình kiểm tra, giám sát hoạt động ủy thác;';
+var KT_CC10566 = '- Căn cứ hướng dẫn 10566/HD-NHCS ngày 29/12/2022 của Tổng Giám đốc NHCSXH về việc hướng dẫn quy trình, phương pháp kiểm tra, giám sát hoạt động ủy thác cho vay;';
+function ktKHCC(){ var C = ktCH(); return ktHoiKB(C.xa+'|'+ktKHHoi()).ccKH==='10566' ? '10566' : '727'; }
+function ktKHDoiCC(v){ var C = ktCH(); ktHoiKBSua(C.xa+'|'+ktKHHoi(), 'ccKH', v==='10566' ? '10566' : ''); ktVeThe(); }
 var KT_DO_CHU = null;
 function ktDoRong(x, sz, thuong){   /* 3.108: bề rộng chữ Times New Roman (twip) ở cỡ sz (nửa điểm), mặc định in đậm (3.111: thuong = chữ thường) — canvas; không đo được thì ước theo số ký tự */
   try { if(!KT_DO_CHU) KT_DO_CHU = document.createElement('canvas').getContext('2d'); KT_DO_CHU.font = (thuong ? '' : 'bold ')+'260px "Times New Roman", "Liberation Serif", Tinos, serif';
@@ -23862,16 +23870,17 @@ function ktKHGiaTri(){
       : {L1:hai(m), L2:thu.map(function(a){ return a+': '+ap[a].join(', '); }).join('\n'), L3:'Tối thiểu 90% món vay'}); }
   var soXep = Object.keys(L.gan).length, cong = soXep+' tổ'+(soXep===L.ds.length ? ' (100% tổ do '+c.ngan+' quản lý)' : ' / '+L.ds.length+' tổ');
   rows.push(mau==='m01b' ? {L1:'', L2:'Cộng', L3:cong, L4:''} : {L1:'Cộng', L2:cong, L3:''});
-  if(mau==='m01b') return {mau:mau, nam:nam, ten:ten, doan:[], rows:rows,
+  if(mau==='m01b') return {mau:mau, cc:ktKHCC(), nam:nam, ten:ten, doan:[], rows:rows,
     f:Object.assign({KHT:kb.kh ? '- Căn cứ Kế hoạch kiểm tra, giám sát hoạt động nhận ủy thác số '+kb.kh+(kb.khNgay ? ', ngày '+kb.khNgay : '')+' của '+capTinh+';' : '',
       HDS:hd ? ' số '+hd+(kb.hdNgay ? ' ngày '+kb.hdNgay : '') : '', KH:kb.kh, KHN:kb.khNgay, HOIT:capTinh, HD:hd, HDN:kb.hdNgay, HT:c.tinh.toUpperCase(),   /* 3.106: căn cứ đầy đủ như ① */ HX:ktHXCo(hx, 4344).HX, HXZ:ktHXCo(hx, 4344).HXZ, VT:c.vt, NOI:xaTen, NAM:String(nam), NT:String(nam-1), TU:String(L.tu), DEN:String(L.den), NH:nh, HXT:ten, HL:loai, CT:c.ky.toUpperCase(), KY:kb.ky}, CH)};
   /* 3.106 (anh chốt): thành phần ghi chung theo Bảng chuẩn hóa — không liệt kê từng người */
   var tp = ten+' thành lập đoàn kiểm tra gồm: Các đồng chí '+c.ky+', '+c.pho+', Ủy viên '+c.ld+' '+ten+'.';
-  return {mau:mau, nam:nam, ten:ten, doan:[tp], rows:rows,
+  return {mau:mau, cc:ktKHCC(), nam:nam, ten:ten, doan:[tp], rows:rows,
     f:Object.assign({HT:c.tinh.toUpperCase(), HX:ktHXCo(hx, 4164).HX, HXZ:ktHXCo(hx, 4164).HXZ, NOI:xaTen, NAM:String(nam), NT:String(nam-1), TU:hai(L.tu)+'/'+nam, DEN:hai(L.den)+'/'+nam,
       KH:kb.kh, KHN:kb.khNgay, HOIT:capTinh, HD:hd, HDN:kb.hdNgay, NH:nh, HXT:ten, HOI1:ten, CT:c.ky.toUpperCase(), KY:kb.ky}, CH)};
 }
 function ktBung01(K, g){
+  if(g.cc==='10566') K = Object.assign({}, K, {than:K.than.replace(KT_CC727, KT_CC10566)});   /* 3.112: chỉ thay dòng căn cứ đầu */
   if(!K.chu) return ktDien(K.than.replace('{{@LICH}}', g.rows.map(function(r){ return ktDien(K.dong, r); }).join('')), g.f)   /* 3.97: khuôn ② không có thành phần đoàn */
     .replace('{{@KHT}}', function(){ return g.f.KHT ? '<w:p>'+(K.khtPPr||'')+'<w:r><w:t xml:space="preserve">'+xmlEsc(g.f.KHT)+'</w:t></w:r></w:p>' : ''; });   /* 3.98: đã khai KH Hội tỉnh → thêm dòng căn cứ */
   var doan = g.doan.map(function(s){ return ktDien(K.chu, {X:s}); }).join('');   /* 3.106: 1 câu thành phần chung, bỏ dòng chấm */
@@ -23880,7 +23889,7 @@ function ktBung01(K, g){
 function ktKHXem(){
   var g = ktKHGiaTri(); KT_KH_XEM = g;
   moHop('<div class="hop-tit">👁 Kế hoạch KTGS năm '+g.nam+' — '+coChuHTML(g.ten)+'</div>'+
-    '<div class="hop-phu">'+(g.mau==='m01b' ? 'Khuôn ② mẫu gọn (bản kế hoạch mẫu Hội cấp xã)' : 'Khuôn ① dự thảo HĐT cấp xã · căn cứ 727 · 90%')+' · '+(g.rows.length-1)+' tháng có lịch. Số HĐUT, KH Hội tỉnh, đoàn, người ký theo khung ✎ Khai báo; trống = dòng chấm.</div>'+
+    '<div class="hop-phu">'+(g.mau==='m01b' ? 'Khuôn ② mẫu gọn (bản kế hoạch mẫu Hội cấp xã)' : 'Khuôn ① dự thảo HĐT cấp xã · 90%')+' · căn cứ '+(g.cc==='10566' ? '10566 (trước 727)' : '727')+' · '+(g.rows.length-1)+' tháng có lịch. Số HĐUT, KH Hội tỉnh, đoàn, người ký theo khung ✎ Khai báo; trống = dòng chấm.</div>'+
     '<iframe id="kt-kh-khung" class="to-khung" title="Xem trước"></iframe>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button><button class="nho" onclick="ktKHIn(\'in\')">🖨 In / PDF</button><button class="nho chinh" onclick="ktKHIn(\'word\')">📄 Word (.docx)</button></div>', true);
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
@@ -23889,7 +23898,7 @@ function ktKHXem(){
 function ktKHIn(cach){
   var g = KT_KH_XEM; if(!g) return;
   var L0 = ktKHLich(); if(!L0.luu) ktKHGhi(L0);   /* 3.97: lập kế hoạch = lưu lịch → kiểm tra định kỳ gợi ý tổ theo lịch */
-  var ten = 'Ke hoach KTGS '+g.nam+(g.mau==='m01b' ? ' (mau gon)' : '')+' - '+boDauTen(g.ten).slice(0, 60);
+  var ten = 'Ke hoach KTGS '+g.nam+(g.mau==='m01b' ? ' (mau gon)' : '')+(g.cc==='10566' ? ' (can cu 10566)' : '')+' - '+boDauTen(g.ten).slice(0, 60);
   dongHop();
   if(cach==='word') return ktDocx(g.mau||'m01', g).then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+ten+'.docx — khuôn dự thảo HĐT cấp xã, chỉ lưu trên máy / Drive của anh.', 7); })
     .catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); });
