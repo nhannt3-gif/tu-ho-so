@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 11/10/2026, bản 3.124)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 11/10/2026, bản 3.125)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,7 +88,9 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.124 (mới nhất):** Mẫu 16 mục III bỏ số khách — ghi "kiểm tra thực tế tổ viên" (anh: số tổ viên và số khách kiểm tra không khớp); dòng chấm in mịn (cỡ ≈ 65%, đủ dài) mọi mẫu KTGS; **in 2 mặt mặc định bật** — xuất nhiều bản mỗi bản bắt đầu tờ mới (Word chắc chắn, In trình duyệt ước lượng).
+**3.125 (mới nhất):** giữ sẵn số liệu nhiều tháng trong phiên — máy tính 12 tháng (chọn "Tất cả" được), điện thoại tháng mới nhất; nạp ngầm khi vào tab Số liệu lần đầu; bỏ tháng lâu không xem. Chưa đo bộ nhớ với dữ liệu thật.
+
+**3.124:** Mẫu 16 mục III bỏ số khách — ghi "kiểm tra thực tế tổ viên" (anh: số tổ viên và số khách kiểm tra không khớp); dòng chấm in mịn (cỡ ≈ 65%, đủ dài) mọi mẫu KTGS; **in 2 mặt mặc định bật** — xuất nhiều bản mỗi bản bắt đầu tờ mới (Word chắc chắn, In trình duyệt ước lượng).
 
 **3.123:** Phân công BTV có cột tích "Phân công" — bỏ tích Chủ tịch = khuyết, chọn Phó đôn lên phụ trách (nhận đủ nhiệm vụ CT); không còn Phó → CT kiêm; không Ủy viên → Phó / người đứng đầu nhận; ô "Kiểm tra đủ nhiệm vụ"; chỗ ký **mặc định ghi chung CHỦ TỊCH / BÍ THƯ, để trống tên** (anh chốt: ai ký đóng dấu, Phó ghi thêm "P"), chọn người ký nếu muốn in tên (chỉ chọn, không gõ). Rà chính tả tên BTV ở Khai báo (chỉ gợi ý, anh bấm mới sửa). Kế hoạch: 2 cách chọn tháng (từ–đến như cũ / chip T1–T12 + Cuối quý, Tháng lẻ, Tháng chẵn, Bỏ hết), Xem / In là lưu kế hoạch, không khóa, có 🗑 Xóa kế hoạch; Báo cáo tổ (Mẫu 04) có hàng "Theo kế hoạch" bấm tháng tích sẵn tổ. **Chưa làm (anh chưa chốt):** nhớ người ký Kế hoạch / Biên bản theo khuyết.
 
