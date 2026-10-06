@@ -8,7 +8,7 @@ const kq=[]; function ok(t,d,g){ kq.push((d?'✓ ':'✗ ')+t+(g?' — '+g:'')); 
     const loi=[]; p.on('pageerror',e=>loi.push(e.message)); p.on('console',m=>{ if(m.type()==='error' && !/ERR_FAILED|net::/.test(m.text())) loi.push('console: '+m.text()); });
     await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
     await p.goto('file://'+require('path').resolve(__dirname,'..','index.html')); await p.waitForTimeout(2500);
-    ok(`[${may.ten}] bản 3.33, thư viện nạp đủ`, await p.evaluate(()=>APP_BAN==='3.125' && !!window.pdfjsLib && !!window.PDFLib && !!window.XLSX));
+    ok(`[${may.ten}] bản 3.33, thư viện nạp đủ`, await p.evaluate(()=>APP_BAN==='3.126' && !!window.pdfjsLib && !!window.PDFLib && !!window.XLSX));
     let tabs=''; for(const i of [0,1,2,5,4,3]){ tabs += await p.evaluate(async i=>{ doiNgan(i); await new Promise(r=>setTimeout(r,300)); var t=document.getElementById('tr'+i); return i+':'+(t&&t.innerHTML.length>50?'ok':'TRỐNG')+' '; }, i); }
     ok(`[${may.ten}] đi hết 6 tab`, !/TRỐNG/.test(tabs), tabs);
     const r = await p.evaluate(async()=>{

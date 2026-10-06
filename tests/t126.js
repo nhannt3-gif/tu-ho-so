@@ -32,6 +32,7 @@ const fs=require('fs'), path=require('path');
    const hKH = (()=>{ C.che='kh'; C.khHoi = String(t.dv); C.khNam = 2026; const g = ktKHGiaTri(ktInV('kh')); return ktHTML01(g); })();
    ok('bản In Kế hoạch (đọc từ Word) có đoạn chấm cỡ nhỏ, không bọc 2 lần', !/kt-cham/.test(hKH) || !/kt-cham">[^<]*<span class="kt-cham/.test(hKH));
    C.che='dx';
+   ok('3.126: gạch dưới tiêu ngữ / tên cơ quan mảnh 0,5 pt (Word + bản In)', !/a:ln w=\\?"(9525|9360)\\?"><a:solidFill><a:srgbClr val=\\?"000000/.test(d06) && /a:ln w="6350"><a:solidFill><a:srgbClr val="000000"/.test(d06) && /\.kt-gach\{border-top:\.5pt solid/.test(ktHTML16(g16)));
    /* 3. in 2 mặt */
    ok('mặc định bật in 2 mặt', ktHaiMat()===true);
    ktInHop(['m06']); await w(50); const cb = document.querySelector('.kt-hai-mat input');

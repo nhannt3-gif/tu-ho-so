@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.125 · build 11/10/2026 17:00
+**Bản hiện tại:** 3.126 · build 11/10/2026 18:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.126) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In / Word Mẫu 16, 06, Kế hoạch | Gạch dưới tiêu ngữ và tên cơ quan mảnh hơn | |
+| 2 | Tab Số liệu | Dòng "⚡ Đang giữ n tháng: …" đúng các tháng đã nạp; bấm ↻ Nạp lại → nạp lại ngầm | |
+
+**Ghi chú kỹ thuật 3.126:** khuôn: `a:ln w="9525|9360"` (màu 000000) → 6350; `KT_IN_CSS` `.kt-gach` .5pt + `.kt-u` text-decoration-thickness .5pt; `slGiuChu`, `slNapLai`, `#sl-giu-ds` (cập nhật trong `slNapSanChip`).
 
 ### Danh sách thử trên máy thật (3.125) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
