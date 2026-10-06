@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.120 — 10/10/2026 09:00 — Dòng "Dư nợ chi tiết" (tham chiếu TK 105 + điểm GD) · bỏ hẳn Mẫu 10
+- **Anh chốt:** từ nay chỉ xuất 2 file — **Mẫu 31** (số liệu chính) và **Dư nợ chi tiết** (cùng khuôn Mẫu 31, có thêm cột Sổ tiết kiệm 105 + Mã / Tên điểm giao dịch). File Dư nợ chi tiết **chỉ dùng tham chiếu số TK 105 và điểm giao dịch xã**; 2 dòng nạp riêng cho dễ nhận biết. **Bỏ hẳn Mẫu 10.**
+- **Nguyên nhân số TK 105 sai (dạng 1482…, 14 chữ số):** đến từ cột "Số TK" của **Mẫu 10** (số tài khoản hệ thống), app lấy theo file mới nhất nên đè lên. Số sổ 105 đúng là 10 chữ số (cùng dạng Mã KH).
+- **Loại mới `dnct`** (nhóm Ⓑ, không bắt buộc, `thamChieu`): nhận theo cột (Số khế ước, Mã KH, Tổng dư nợ, **Mã điểm giao dịch**, Sổ tiết kiệm 105); Mẫu 31 thêm `khong:['ma diem giao dich']` để 2 file không lẫn. Chỉ lưu cột tham chiếu (`L.chi`: ku, kh, tên, số sổ, điểm GD, ngày GDXA, tổ, thôn, xã) — nhẹ máy.
+- **Số TK 105:** `slStk` chỉ nhận số 10 chữ số; danh bạ lấy số sổ từ Dư nợ chi tiết (`stkNguon='dnct'`, Mẫu 31 nạp sau không đè; kỳ mới thay kỳ cũ); Tra cứu KH, Tổ TK&VV (`slStkKH`), sao kê "cần mở TK 105" (có số dư 105 hoặc có số sổ tham chiếu là đã có sổ). **Số dư 105 vẫn theo Mẫu 31** (nay không phụ thuộc có số sổ). Cột ưu tiên "Sổ tiết kiệm 105" trước "Số TK".
+- **Điểm GD xã:** tổ lấy thẳng Mã / Tên điểm giao dịch từ Dư nợ chi tiết cùng kỳ (ưu tiên trước Thông tin tổ trưởng / DSTO / suy theo ấp), ghi căn cứ "Dư nợ chi tiết T…".
+- **Bỏ Mẫu 10:** loại `m10` thành "đã bỏ" (thả file → báo không dùng nữa); `slLaHS` chỉ còn Mẫu 31; bỏ dùng tạm Mẫu 10 cuối tháng (bộ dữ liệu kỳ, KTGS tháng trước, cây tổ), bỏ phép so Mẫu 31 ↔ Mẫu 10 và cột Mẫu 10 ở bảng đối chiếu. **Dọn 1 lần khi mở app (`slBoMau10`):** bản Mẫu 10 đã nạp bỏ khỏi máy, đánh dấu xóa (máy khác cũng bỏ), file trên Drive vào Thùng rác (chưa nối Drive thì để hàng chờ `sl_rac_cho`); danh bạ dựng lại 1 lần (`SL_DB.b120`).
+- Kiểm tra: `kiem.py` sạch; t123 mới (17 phép, file Dư nợ chi tiết giả); t101 (phép Mẫu 10 cũ) chuyển thành kiểm "Mẫu 10 đã bỏ", bản cũ giữ ở `tests/t101_mau10_cu.js`; hồi quy không lỗi. Đọc thử file thật của anh (chỉ trên máy thử, không đưa vào repo): nhận đúng loại, kỳ 09/2026, 25.325 món, số sổ 10 chữ số.
+
+---
+
 ## 3.119 — 09/10/2026 19:00 — Rà việc đã chốt: đầu văn bản Phân công
 - Rà lại các việc anh đã chốt (3.113 → 3.118): sót 1 chỗ — quy tắc "tên đơn vị dài xuống dòng trước XÃ / PHƯỜNG" chưa áp cho đầu văn bản Phân công BTV ("HỘI CỰU CHIẾN BINH XÃ / TRUÔNG MÍT" bị ngắt giữa tên). Nay dùng chung `ktHXCo` như Kế hoạch (vừa cỡ 13 thì giữ, không thì cỡ 12, vẫn dài thì xuống dòng trước XÃ / PHƯỜNG), Word + bản In.
 - Các việc khác đã chốt đều có trong 3.118 (đã đối chiếu); "nhớ người ký theo từng Hội" chưa làm — chờ anh xác nhận.

@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.119 · build 09/10/2026 19:00
+**Bản hiện tại:** 3.120 · build 10/10/2026 09:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.120) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app bản mới | Báo đã bỏ N bản Mẫu 10; Nạp số liệu không còn dòng Mẫu 10 | |
+| 2 | Nạp lại **Mẫu 31 T9** (ô T9 hiện đang là file Dư nợ chi tiết anh chép đè) | Dòng Mẫu 31 T9 là Mẫu 31 | |
+| 3 | Nạp **Dư nợ chi tiết 30/09** | Tự vào dòng "Dư nợ chi tiết" T9 | |
+| 4 | Tra cứu KH / Tổ TK&VV | Số TK 105 dạng 10 chữ số (vd hộ Tuyết); số dư 105 như trước | |
+| 5 | Cây tổ (KTGS / Tổ TK&VV) | Điểm GD đúng theo file Dư nợ chi tiết | |
+
+**Ghi chú kỹ thuật 3.120:** loại `dnct` (L.chi = cột giữ lại; L.thamChieu); `slStk` (10 chữ số), `slStkDB`, `slStkKH`; danh bạ `c.stkNguon='dnct'`, `c.stkKy`; dựng lại danh bạ: dnct xếp sau Mẫu 31 cùng kỳ; `slBoMau10` chạy sau `slChuyenMau10` ở `slNap` và `slTaiTuDrive`. Khách không còn trong file Dư nợ chi tiết (đã hết dư nợ) giữ số sổ đã tham chiếu ở kỳ trước nếu có; chưa từng có thì "—". t97 / t100 (ngoài bộ hồi quy chuẩn) đang dừng do quá thời gian cả trên bản chính — lỗi có sẵn, chưa xử lý.
 
 ### Danh sách thử trên máy thật (3.119) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
