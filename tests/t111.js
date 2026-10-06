@@ -22,6 +22,7 @@ const fs=require('fs'), path=require('path');
    ok('xã → ấp, phường → khu phố; trong câu viết thường + tỉnh Tây Ninh', ktDiaBan({tenThon:'Ấp Lộc Khê', tenXa:'Phường Gia Lộc'})==='khu phố Lộc Khê, phường Gia Lộc, tỉnh Tây Ninh' && ktDiaBan({tenThon:'Bàu Đưng', tenXa:'Xã Phước Thạnh'})==='ấp Bàu Đưng, xã Phước Thạnh, tỉnh Tây Ninh', ktDiaBan({tenThon:'Ấp Lộc Khê', tenXa:'Phường Gia Lộc'}));
    ok('nhãn đầu dòng viết hoa chữ đầu', ktApChu('Lộc Khê', 'Phường Gia Lộc', 1)==='Khu phố Lộc Khê' && ktApChu('KP 2', 'Xã A', 1)==='Ấp 2');
    /* 2. mở KTGS, tổ nhiều hộ */
+   D.cauHinh.ktHaiMat = 0;   /* 3.124: phép này kiểm ngắt trang thường — in 2 mặt kiểm ở t126 */
    doiNgan(7); const C = ktCH(); C.ky='2026-08'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; C.che='dx'; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    const ds = Object.values(KT_K.to).filter(t=>!toLaTT(t)); let best = ds[0]; ds.forEach(t=>{ if(toKhach(t).length>toKhach(best).length) best = t; });
    ktChonTo(best.ma); await w(300);
@@ -99,7 +100,7 @@ const fs=require('fs'), path=require('path');
    const dsKH = ktKHDsTo(); dsKH.forEach(t=>{ t.tenXa = 'Phường Gia Lộc'; });
    ktHoiKBSua(kD, 'mauKH', '2'); const gK = ktKHGiaTri(); const cK = chu((await moZip(await ktDocx('m01b', gK))).doc);
    ok('Kế hoạch ② Đoàn: đầu trang TỈNH ĐOÀN, ĐTN PHƯỜNG, Bí thư, Tỉnh Đoàn, TM. BAN THƯỜNG VỤ', /TỈNH ĐOÀN TÂY NINH/.test(cK) && /ĐTN PHƯỜNG GIA LỘC/.test(cK) && /TM\. BAN THƯỜNG VỤ/.test(cK) && /BÍ THƯ/.test(cK) && /Tỉnh Đoàn;/.test(cK) && /Bí thư, phó Bí thư/.test(cK) && /Đoàn cấp trên/.test(cK) && /Văn phòng khu phố/.test(cK) && /Trưởng khu phố/.test(cK) && !/thôn(?!g)|tổ dân phố|xóm/.test(cK) && /Ủy viên BTV/.test(cK) && /Quyết định của BTV/.test(cK) && /Đoàn Thanh niên phường/.test(cK) && !/Hội cấp trên/.test(cK), [/Trưởng khu phố/, /thôn(?!g)|tổ dân phố|xóm/, /Ủy viên BTV/, /Quyết định của BTV/, /Tỉnh Đoàn;/].map(r=>r+':'+((cK.match(r)||[''])[0] ? 'có' : 'không')).join(' ')+' · '+((cK.match(/.{30}(thôn(?!g)|tổ dân phố|xóm).{20}/)||[''])[0]));
-   ok('Kế hoạch ② chưa khai căn cứ → vẫn đủ 3 căn cứ như ①, số / ngày để chấm (3.106)', /Căn cứ văn bản số 727\/HD-NHCS/.test(cK) && /Căn cứ Kế hoạch kiểm tra, giám sát hoạt động nhận ủy thác số …/.test(cK) && /Căn cứ Hợp đồng ủy thác số …/.test(cK), (cK.match(/Căn cứ Hợp đồng[^;]*;/)||[''])[0]);
+   ok('Kế hoạch ② chưa khai căn cứ → vẫn đủ 3 căn cứ như ①, số / ngày để chấm (3.106)', /Căn cứ văn bản số 727\/HD-NHCS/.test(cK) && /Căn cứ Kế hoạch kiểm tra, giám sát hoạt động nhận ủy thác số [.…]/.test(cK) && /Căn cứ Hợp đồng ủy thác số [.…]/.test(cK), (cK.match(/Căn cứ Hợp đồng[^;]*;/)||[''])[0]);
    ktHoiKBSua(kD, 'kh', '05/KH-THỬ'); ktHoiKBSua(kD, 'khNgay', '10/01/2026'); ktHoiKBSua(kD, 'hd', '07'); ktHoiKBSua(kD, 'hdNgay', '02/03/2020');
    const zK2 = await moZip(await ktDocx('m01b', ktKHGiaTri())), cK2 = chu(zK2.doc);
    ok('Kế hoạch ② đã khai căn cứ đủ → in đủ như khuôn ①', hopLe(zK2.doc) && zK2.doc.indexOf('{{')<0 && /Căn cứ Kế hoạch kiểm tra, giám sát hoạt động nhận ủy thác số 05\/KH-THỬ, ngày 10\/01\/2026 của Tỉnh Đoàn Tây Ninh;/.test(cK2) && /Hợp đồng ủy thác số 07\/HĐUT ngày 02\/03\/2020 giữa/.test(cK2), (cK2.match(/Căn cứ Kế hoạch[^;]*;/)||[''])[0]);

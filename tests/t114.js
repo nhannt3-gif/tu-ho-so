@@ -32,7 +32,7 @@ const fs=require('fs'), path=require('path');
    ok('IV.2 a) chỉ đạo đôn đốc; b) liệt kê hộ theo tổ; c) tổ viên', /Chỉ đạo Ban quản lý các Tổ TK&VV phối hợp đôn đốc/.test(g.kn.a[0]) && /đề nghị Ban quản lý Tổ phối hợp đôn đốc các hộ:$/.test(g.kn.b[0]) && g.kn.b.some(x=>/^\+ Còn lãi tồn trên 6 tháng lãi: .* và 2 hộ khác\.$/.test(x)) && /trả lãi hằng tháng đúng kỳ/.test(g.kn.c[0]), g.kn.b.length+' dòng b)');
    const d4 = await docx(await ktDocx('m04', g)), c4 = chu(d4);
    ok('Word 04 hợp lệ, hết dấu {{', !new DOMParser().parseFromString(d4, 'application/xml').getElementsByTagName('parsererror').length && d4.indexOf('{{')<0);
-   ok('Word 04: dòng ngày "… , ngày ....... tháng mm năm yyyy"', c4.indexOf(ktXaTen(t.tenXa)+', ngày ....... tháng '+th.slice(5)+' năm '+th.slice(0, 4))>=0);
+   ok('Word 04: dòng ngày "… , ngày ....... tháng mm năm yyyy"', new RegExp(ktXaTen(t.tenXa)+', ngày [.…]{4,} tháng '+th.slice(5)+' năm '+th.slice(0, 4)).test(c4)   /* 3.124: dòng chấm mịn (nhiều chấm hơn, cỡ nhỏ) */);
    ok('Word 04: III có nội dung, kiến nghị có danh sách hộ', /III\. NỘI DUNG KIỂM TRA1\. Kiểm tra hoạt động của Tổ TK&VV/.test(c4) && /Còn lãi tồn trên 6 tháng lãi: /.test(c4) && /d\) Đối với NHCSXH/.test(c4));
    const h4 = ktHTML04([g]);
    ok('bản In 04 cùng nội dung (ngày, III, kiến nghị)', h4.indexOf('tháng '+th.slice(5)+' năm '+th.slice(0, 4))>=0 && /Kiểm tra hoạt động của Tổ TK&amp;VV/.test(h4) && /Còn lãi tồn trên 6 tháng lãi/.test(h4));
