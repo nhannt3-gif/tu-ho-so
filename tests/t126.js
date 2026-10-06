@@ -33,6 +33,14 @@ const fs=require('fs'), path=require('path');
    ok('bản In Kế hoạch (đọc từ Word) có đoạn chấm cỡ nhỏ, không bọc 2 lần', !/kt-cham/.test(hKH) || !/kt-cham">[^<]*<span class="kt-cham/.test(hKH));
    C.che='dx';
    ok('3.126: gạch dưới tiêu ngữ / tên cơ quan mảnh 0,5 pt (Word + bản In)', !/a:ln w=\\?"(9525|9360)\\?"><a:solidFill><a:srgbClr val=\\?"000000/.test(d06) && /a:ln w="6350"><a:solidFill><a:srgbClr val="000000"/.test(d06) && /\.kt-gach\{border-top:\.5pt solid/.test(ktHTML16(g16)));
+   /* 3.127: ô chọn vai trò kèm tên đã khai */
+   const kH = ktHoiKhoa(t), kbCu = D.cauHinh.ktHoiKB; D.cauHinh.ktHoiKB = {}; D.cauHinh.ktHoiKB[kH] = {ct:'Nguyễn Văn Chủ', pct:'Trần Thị Phó', uv2:'Lê Văn Ủy'};
+   ktInHop(['m16', 'kh'], '', ktHoiCuaTo([t])); await w(50);
+   const opt = id => [...document.querySelectorAll('#'+id+' option')].map(x=>x.value+'='+x.textContent);
+   const o1 = opt('ki-m16-ng1'), oK = opt('ki-kh-ky'), cC = ktChuan(t);
+   ok('3.127: hộp chọn khi in — vai trò kèm tên đã khai', o1.indexOf('pct='+cC.pho+' — Trần Thị Phó')>=0 && o1.indexOf('ct='+cC.ky+' — Nguyễn Văn Chủ')>=0 && o1.some(x=>/^uv2=.*Lê Văn Ủy/.test(x)), o1.join(' | '));
+   ok('3.127: ô chưa khai ẩn (Phó 2, Ủy viên 1…), giữ "Để trống"; người ký KH cũng kèm tên', !o1.some(x=>/^pct2=|^uv1=/.test(x)) && o1.some(x=>/^=Để trống/.test(x)) && oK.indexOf('ct='+cC.ky+' — Nguyễn Văn Chủ')>=0, oK.join(' | '));
+   dongHop(); D.cauHinh.ktHoiKB = kbCu;
    /* 3. in 2 mặt */
    ok('mặc định bật in 2 mặt', ktHaiMat()===true);
    ktInHop(['m06']); await w(50); const cb = document.querySelector('.kt-hai-mat input');

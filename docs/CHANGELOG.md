@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.127 — 12/10/2026 08:00 — Hộp Chọn khi in hiện tên người
+- **Anh yêu cầu:** chỗ chọn chức danh người ký / người kiểm tra hiện kèm tên đã khai báo để dễ nhận biết.
+- Hộp "Chọn khi in" (Mẫu 06 / 16 / 04 / Kế hoạch): mỗi lựa chọn ghi "Chức danh — Tên" theo 🏛 Khai báo Hội – xã của các tổ đang in (Đoàn: Bí thư / Phó Bí thư); nhiều Hội khác tên → "theo từng Hội (n người)"; chưa khai → "chưa khai tên". Ô Phó 2–3, Ủy viên 1–5 không Hội nào khai thì ẩn (trừ ô đang chọn). Giá trị lưu không đổi (`ktInVTTen`).
+- Kiểm tra: `kiem.py` sạch; t126 (+2); t114, t118, t119 không lỗi.
+
+---
+
 ## 3.126 — 11/10/2026 18:00 — Gạch dưới mảnh · tab Số liệu báo tháng đang giữ
 - **Gạch dưới tiêu ngữ / tên cơ quan mảnh lại (anh yêu cầu):** Word — đường kẻ màu đen trong khuôn 06 / Kế hoạch ① ② từ 0,75 pt → 0,5 pt (các đường theo kiểu khuôn vốn 0,5 pt); bản In — `.kt-gach` 0,5 pt, gạch chân chữ (`.kt-u`, Phân công) dày 0,5 pt.
 - **Tab Số liệu (anh yêu cầu):** đầu tab hiện "⚡ Đang giữ n tháng: T9, T8, …" (đang nạp thì kèm tiến độ) + nút **↻ Nạp lại** (bỏ bản đang giữ, nạp lại ngầm — khi máy khác vừa đổi số liệu). Nạp ngầm lúc máy rảnh đã có từ 3.125.
