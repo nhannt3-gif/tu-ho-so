@@ -4,6 +4,24 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.123 — 11/10/2026 10:00 — Phân công khi khuyết CT / PCT · rà tên · Kế hoạch chọn tháng, lưu, xóa
+- **Anh yêu cầu:** Hội khuyết Chủ tịch / Phó (chuyển công tác, chưa kiện toàn) cần phân công lại — khuyết CT thì Phó đôn lên, khuyết PCT thì CT kiêm, nhiệm vụ phải đủ; không phải ai có tên cũng phân công.
+- **Phân công BTV:** cột tích "Phân công" (mặc định tích hết — Thông báo như cũ). Bỏ tích Chủ tịch = khuyết → chọn Phó đôn lên phụ trách ("Phó Chủ tịch phụ trách", đứng đầu, nhận đủ 10 nhiệm vụ CT; câu "tham mưu / theo sự phân công của…" chỉ người phụ trách; tiêu đề chỉ nêu chức danh có phân công). Không còn Phó → người đứng đầu kiêm 3 nhiệm vụ riêng của Phó (3 việc kia đã trùng nhiệm vụ CT). Không Ủy viên → Phó đầu tiên (hoặc người đứng đầu) nhận nhiệm vụ Ủy viên. Đổi người: chưa chỉnh ấp tay thì chia lại đều; đã chỉnh tay thì giữ, ô kiểm tra báo ấp thiếu.
+- **Ô "Kiểm tra đủ nhiệm vụ":** nhiệm vụ CT / Phó / Ủy viên đã có người nhận, ấp chưa ai nhận / giao trùng, Kế toán, Thủ quỹ, tên viết sai; còn ⚠ thì bấm Word / In hỏi lại ("Vẫn xuất").
+- **Chỗ ký (anh chốt):** mặc định ghi chung "TM. BAN THƯỜNG VỤ / CHỦ TỊCH" (Đoàn: BÍ THƯ), **để trống tên** — ai ký đóng dấu, Phó ký ghi thêm "P". Ô chọn "Người ký" (chỉ chọn CT / PCT, không gõ) để in chức vụ + tên khi cần. *Thay đổi so với trước:* trước đây tự in tên Chủ tịch.
+- **Rà chính tả tên** Ban Thường vụ ở thẻ Khai báo Hội – xã và ô kiểm tra Phân công: khoảng trắng thừa, viết hoa, chưa dấu, có số / ký tự lạ, một chữ 2 dấu thanh, chỉ 1 chữ, trùng tên 2 vai trò → ⚠ + nút "Sửa theo gợi ý" (không tự sửa); lưu tên tự chuẩn bảng mã dựng sẵn (NFC). Không biết được tên thật đúng hay sai.
+- **Kế hoạch năm:** 2 cách chọn tháng — "Từ tháng → đến tháng" (như cũ, mặc định) / "Chọn tháng" bằng chip T1–T12 (dưới chip số tổ) + Chọn nhanh Cuối quý, Tháng lẻ, Tháng chẵn, Bỏ hết; tổ chia đều theo thứ tự ấp vào các tháng chọn; đã chỉnh tháng tay thì hỏi trước khi chia lại. Xem / In / Mẫu 04 theo KH là **lưu kế hoạch** (ghi "💾 Đã lưu kế hoạch năm … · ngày …"); không khóa, sửa là tự lưu; ↺ Xếp lại hỏi trước; **🗑 Xóa kế hoạch** (hỏi trước, xóa cả trên Drive, về xếp tự động). Tổ không còn trong số liệu vẫn giữ trong kế hoạch + báo ⚠.
+- **Báo cáo tổ (Mẫu 04):** hàng "📅 Theo kế hoạch …" — bấm tháng → tích sẵn các tổ của tháng đó (tổ không còn trong số liệu không tích).
+- Kiểm tra: `kiem.py` sạch; t125 mới (54 phép); t121 (chỗ ký để trống), t109 (đổi khoảng khi đã chỉnh tay → xác nhận) sửa theo hành vi anh duyệt; hồi quy chạy lại.
+
+---
+
+## 3.122 — 10/10/2026 16:00 — DSTO báo số tổ
+- Ô Danh sách tổ TK&VV (DSTO) ở ma trận Nạp số liệu báo **số tổ** (mỗi dòng 1 tổ, trùng mã tổ đã tách riêng) thay cho "… dòng" — anh yêu cầu; dòng tóm tắt DSTO / Thông tin tổ trưởng thêm "N tổ".
+- Kiểm tra: t124 thêm 2 phép (10/10); hồi quy liên quan không lỗi.
+
+---
+
 ## 3.121 — 10/10/2026 14:00 — Đối chiếu Mẫu 31 ↔ Dư nợ chi tiết
 - **Anh yêu cầu:** cả 2 file báo số tiền, số dòng để biết có khớp không; thêm vào bảng đối chiếu ② Kiểm tra tháng.
 - File Dư nợ chi tiết lưu thêm cột số tiền **chỉ để đối chiếu** (dư nợ trong hạn / quá hạn / khoanh / tổng, giải ngân, đảo khoản, thu nợ TH / QH / khoanh, gốc xóa tháng, số dư 105, tình trạng món) và tách dòng lặp khế ước như Mẫu 31 (không cộng trùng). Số liệu chính vẫn là Mẫu 31.

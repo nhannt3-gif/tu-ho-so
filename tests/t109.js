@@ -34,8 +34,8 @@ const fs=require('fs'), path=require('path');
    ktKHDoiThang(tB.ma, ''); await w(100); const L3 = ktKHLich();
    ok('bỏ tháng 1 tổ → nhắc chưa đủ 100% tổ', L3.thieu.length===1 && L3.thieu[0].ma===tB.ma && /1 tổ chưa xếp tháng/.test(document.getElementById('kt-the').textContent));
    ktKHDoiThang(tB.ma, 9); await w(100);
-   ktKHDoiKhoang(3, 8); await w(100); const L4 = ktKHLich(); ok('đổi khoảng tháng 03 → 08: xếp lại trong khoảng', L4.tu===3 && L4.den===8 && Object.values(L4.gan).every(m=>m>=3 && m<=8) && Object.keys(L4.gan).length===N);
-   ktKHDoiKhoang(2, 10); await w(100);
+   ktKHDoiKhoang(3, 8, 1); await w(100);   /* 3.123: đã chỉnh tay → app hỏi trước; 1 = đồng ý */ const L4 = ktKHLich(); ok('đổi khoảng tháng 03 → 08: xếp lại trong khoảng', L4.tu===3 && L4.den===8 && Object.values(L4.gan).every(m=>m>=3 && m<=8) && Object.keys(L4.gan).length===N);
+   ktKHDoiKhoang(2, 10, 1); await w(100);
    C.khNam = 2027; ktVeThe(); await w(100); ok('năm khác = lịch riêng (chưa lưu)', !ktKHLich().luu); C.khNam = 2026; ktVeThe(); await w(100);
    /* khai báo Hội + giá trị */
    const k = xa+'|'+dv; ktHoiKBSua(k, 'hd', '07'); ktHoiKBSua(k, 'hdNgay', '15/01/2026'); ktHoiKBSua(k, 'kh', '05/KH-CCB'); ktHoiKBSua(k, 'doan', 'Ông Giả Một – Chủ tịch\nBà Giả Hai – Phó Chủ tịch'); ktHoiKBSua(k, 'ky', 'Giả Văn Ký');

@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.121 · build 10/10/2026 14:00
+**Bản hiện tại:** 3.123 · build 11/10/2026 10:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,26 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.123) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🏛 Khai báo Hội – xã → 📄 Phân công BTV của 1 Hội đủ người | Cột "Phân công" tích hết; Thông báo như cũ; chỗ ký "TM. BAN THƯỜNG VỤ / CHỦ TỊCH", **để trống tên** | |
+| 2 | Bỏ tích Chủ tịch (Hội khuyết CT) | Hiện "Khuyết Chủ tịch → Đôn lên phụ trách: [Phó ▾]"; Phó đó đứng đầu "Phó Chủ tịch phụ trách", nhận đủ nhiệm vụ CT; các câu "tham mưu cho…" ghi Phó Chủ tịch phụ trách | |
+| 3 | Bỏ tích hết Phó (khuyết PCT) | Chủ tịch kiêm thêm 3 nhiệm vụ riêng của Phó (nhận danh sách vay, giám sát Ban quản lý Tổ, báo rủi ro), không lặp | |
+| 4 | Ô "Kiểm tra đủ nhiệm vụ" | ✓ / ⚠ đúng: nhiệm vụ CT, Phó, Ủy viên, ấp thiếu / trùng, Kế toán, Thủ quỹ, tên viết sai; còn ⚠ bấm Word → hỏi "Vẫn xuất Word" | |
+| 5 | Người ký: chọn Phó Chủ tịch | Chỗ ký "PHÓ CHỦ TỊCH" + tên Phó; chọn lại "Để trống" → ghi chung | |
+| 6 | Khai báo: gõ tên "nguyễn  văn a" | ⚠ khoảng trắng thừa, viết hoa → nút "Sửa theo gợi ý" → "Nguyễn Văn A" | |
+| 7 | 🗓 Kế hoạch năm → "Chọn tháng" → tích T3, T5, T7 | Tổ chia đều vào 3 tháng, dưới chip có số tổ; Chọn nhanh Cuối quý / Tháng lẻ / Tháng chẵn / Bỏ hết chạy đúng | |
+| 8 | 👁 Xem Kế hoạch rồi đóng | Dòng "💾 Đã lưu kế hoạch năm 2026 · ngày …"; mở máy khác (Drive) thấy cùng lịch | |
+| 9 | 📋 Báo cáo tổng hợp · Mẫu 04 → chọn xã (+ hội) | Hàng "📅 Theo kế hoạch 2026": bấm T… → tích sẵn đúng tổ của tháng đó | |
+| 10 | 🗑 Xóa kế hoạch | Hỏi trước; xóa xong lịch về xếp tự động 02 → 10, không bị kéo lại từ Drive | |
+
+**Ghi chú kỹ thuật 3.123:**
+- **Phân công:** `ktPCLay(k)` thêm `chon:{vt:0}` (vắng = tích), `phuTrach`, `ky` (người ký; trống = ghi chung), `tay` (đã chỉnh ấp tay). `ktPCNguoi(k, t, tatCa)` lọc người được tích; khuyết CT → Phó (`ktPCPhuTrach`) thành `loai:'pt'`, đứng đầu. `ktPCNoiDung`: người đứng đầu nhận `KT_PC_CT`; không Phó → chèn `KT_PC_PHO[3..5]` trước "nhiệm vụ phát sinh khác"; không Ủy viên → Phó đầu tiên (không có thì người đứng đầu) nhận `KT_PC_UV`; `{CT}` = "Phó Chủ tịch phụ trách" khi khuyết, `{CTc}` (câu tập huấn) luôn = Chủ tịch. `ktPCKy`, `ktPCKiem` / `ktPCKiemHTML` (ô kiểm tra), `ktPCXuat(k, cach, ok)` hỏi khi còn ⚠. Bỏ tích 1 người → trả ấp của người đó; chưa chỉnh ấp tay → chia lại đều.
+- **Rà tên:** `ktTenKiem` (khoảng trắng, viết hoa, ký tự lạ, chưa dấu, 2 dấu thanh, 1 chữ), `ktTenLoiO` (+ trùng tên), `ktTenLoiDs`, `ktTenCanhHTML` / `ktTenVe` / `ktTenSua` ở thẻ Khai báo. `ktHoiKBSua` chuẩn NFC khi lưu.
+- **Kế hoạch:** `D.cauHinh.ktKH[năm|xã|hội]` thêm `v:2`, `cach:'chip'`, `thang:[…]`, `snap:{mã:{ten, ap}}`, `tay`; xóa = `{xoa:1, luc}` (giữ dấu để gộp cài đặt Drive không kéo lại). `ktKHThang`, `ktKHLuu`, `ktKHMacDinh(ds, th)`, `ktKHDatThang` (hỏi khi `tay`), `ktKHDoiCach`, `ktKHTichThang`, `ktKHNhanh`, `ktKHXoa`; kế hoạch bản cũ (không `v`) coi như đã chỉnh tay. `ktKHLich().mat` = tổ trong kế hoạch không còn trong số liệu (giữ khi lưu lại). Xem / Mẫu 04 theo KH tự lưu. Báo cáo tổ: `ktBCKH`, `ktBCTheoKHHTML`, `ktBCTheoKH`.
+- **Đổi hành vi đã duyệt:** chỗ ký Phân công mặc định không in tên (t121 sửa theo); đổi khoảng tháng khi đã chỉnh tay → hỏi trước (t109 truyền xác nhận).
 
 ### Danh sách thử trên máy thật (3.121) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

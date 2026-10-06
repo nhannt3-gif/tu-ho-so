@@ -44,13 +44,15 @@ const fs=require('fs'), path=require('path');
    ok('mỗi người: "Đồng chí … , chức vụ + tên Hội"', ['1. Đồng chí Nguyễn Văn Chủ, '+c.ky+' '+ten+':', '2. Đồng chí Trần Thị Phó, '+c.pho+' '+ten, '4. Đồng chí Phạm Thị Ủy, '+c.uv+' '+ten].every(s=>noi.indexOf(s)>=0));
    ok('ấp đã chia ghi vào nhiệm vụ kiểm tra của từng người', x.pct.ap.every(a=>noi.indexOf(a)>=0) && !/\{[a-zA-Z]+\}/.test(noi));
    ok('kế toán / thủ quỹ chỉ ghi cho người được tích', (noi.match(/Phụ trách kế toán/g)||[]).length===1 && (noi.match(/Làm cán bộ thủ quỹ/g)||[]).length===1 && noi.indexOf('Làm cán bộ thủ quỹ')>noi.indexOf('Đồng chí Phạm Thị Ủy'));
-   ok('ký: TM. BAN THƯỜNG VỤ / CHỦ TỊCH / tên Chủ tịch', g.ky.tm==='TM. BAN THƯỜNG VỤ' && g.ky.cv===c.ky.toUpperCase() && g.ky.ten==='Nguyễn Văn Chủ');
+   ok('ký (3.123 anh chốt): TM. BAN THƯỜNG VỤ / CHỦ TỊCH, mặc định để trống tên', g.ky.tm==='TM. BAN THƯỜNG VỤ' && g.ky.cv===c.ky.toUpperCase() && g.ky.ten==='');
+   ktPCDoiKy(k, 'ct'); const gK = ktPCNoiDung(k); ktPCDoiKy(k, ''); dongHop();
+   ok('chọn người ký = Chủ tịch → in tên Chủ tịch', gK.ky.cv===c.ky.toUpperCase() && gK.ky.ten==='Nguyễn Văn Chủ');
    ktPCLay(k).p.uv2.ap = []; const g2 = ktPCNoiDung(k);
    ok('người chưa tích ấp → "các ấp / khu phố do Hội quản lý"', g2.khoi.map(y=>y.s).join('\n').indexOf('các '+c.ap+' do '+ten+' quản lý')>=0);
    const dpc = await docx(await ktDocx('pc', g)); const cpc = chu(dpc);
    ok('Word phân công hợp lệ, đủ nội dung', hopLe(dpc) && cpc.indexOf('THÔNG BÁO')>=0 && cpc.indexOf('Đồng chí Võ Văn Viên')>=0 && cpc.indexOf('Nơi nhận:')>=0 && cpc.indexOf('{{')<0);
    const hpc = ktHTMLPC(g); window.__inPC = hpc;
-   ok('bản In phân công: đầu, tiêu đề, ký', /THÔNG BÁO/.test(hpc) && hpc.indexOf('TM. BAN THƯỜNG VỤ')>0 && hpc.indexOf('Nguyễn Văn Chủ</p></td>')>0);
+   ok('bản In phân công: đầu, tiêu đề, ký', /THÔNG BÁO/.test(hpc) && hpc.indexOf('TM. BAN THƯỜNG VỤ')>0 && hpc.indexOf(c.ky.toUpperCase()+'</p>')>0 && hpc.indexOf('Nguyễn Văn Chủ</p></td>')<0);   /* 3.123: mặc định không in tên người ký */
    /* Đoàn */
    const td = ds.find(y=>String(y.dv)==='14');
    if(td){ const kd = ktHoiKhoa(td); D.cauHinh.ktHoiKB[kd] = {ct:'Bí Thư Giả', pct:'Phó Bí Giả'}; const gd = ktPCNoiDung(kd);
