@@ -229,6 +229,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 **Việc chờ anh xác nhận:** nhớ người kiểm tra / người ký theo từng Hội – xã (hiện nhớ chung 1 lựa chọn mỗi mẫu).
 
+**Ghi nhận 06/10/2026 — Số TK 105 sai (làm ở bản sau, khi anh gửi file):**
+- Anh xác nhận: **Mẫu 31 (LEND_31) có số dư 105 nhưng KHÔNG có số TK 105.** App đang lấy cột "Số TK" (`SL_TRUONG.stk`, tên cột 'so tk' / 'so tiet kiem 105') ra số 14 chữ số (dạng 1482…) và gắn nhãn "Số TK 105" — **sai nhãn**. Số TK 105 đúng có dạng 10 chữ số giống Mã KH (dạng 48000…).
+- Số dư 105 (`t105`, cột '105 ngày BC' / 'số dư 105') đúng — giữ.
+- **Việc cần làm (anh chốt: bản sau):** (A) bỏ số 1482… khỏi mọi chỗ ghi "Số TK 105" (Tra cứu KH, Tổ TK&VV, Sao kê, Excel), không xóa dữ liệu đã nạp; (B) anh sẽ gửi file có số TK 105 → thêm loại file vào Nạp số liệu, ghép theo Mã KH. Chờ anh gửi tên file + dòng tiêu đề cột (không đưa số liệu thật vào repo).
+
 ### Danh sách thử trên máy thật (3.118) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
