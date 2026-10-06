@@ -231,7 +231,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 4 | Tra cứu KH / Tổ TK&VV | Số TK 105 dạng 10 chữ số (vd hộ Tuyết); số dư 105 như trước | |
 | 5 | Cây tổ (KTGS / Tổ TK&VV) | Điểm GD đúng theo file Dư nợ chi tiết | |
 
-**Ghi chú kỹ thuật 3.120:** loại `dnct` (L.chi = cột giữ lại; L.thamChieu); `slStk` (10 chữ số), `slStkDB`, `slStkKH`; danh bạ `c.stkNguon='dnct'`, `c.stkKy`; dựng lại danh bạ: dnct xếp sau Mẫu 31 cùng kỳ; `slBoMau10` chạy sau `slChuyenMau10` ở `slNap` và `slTaiTuDrive`. Khách không còn trong file Dư nợ chi tiết (đã hết dư nợ) giữ số sổ đã tham chiếu ở kỳ trước nếu có; chưa từng có thì "—". t97 / t100 (ngoài bộ hồi quy chuẩn) đang dừng do quá thời gian cả trên bản chính — lỗi có sẵn, chưa xử lý.
+**Ghi chú kỹ thuật 3.120:** loại `dnct` (L.chi = cột giữ lại; L.thamChieu); `slStk` (10 chữ số), `slStkDB`, `slStkKH`; danh bạ `c.stkNguon='dnct'`, `c.stkKy`; dựng lại danh bạ: dnct xếp sau Mẫu 31 cùng kỳ; `slBoMau10` chạy sau `slChuyenMau10` ở `slNap` và `slTaiTuDrive`; danh bạ chỉ làm sạch tại chỗ (không `slDungDanhBa` — máy chưa tải bảng sẽ làm rỗng danh bạ), danh bạ trống thì bỏ qua, không sửa gì thì không đổi mốc `dbLuc`. Khách không còn trong file Dư nợ chi tiết (đã hết dư nợ) giữ số sổ đã tham chiếu ở kỳ trước nếu có; chưa từng có thì "—". t97 / t100 (ngoài bộ hồi quy chuẩn) đang dừng do quá thời gian cả trên bản chính — lỗi có sẵn, chưa xử lý.
 
 ### Danh sách thử trên máy thật (3.119) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

@@ -22347,7 +22347,7 @@ function slDoiKhoa(loaiCu, kyCu, loaiMoi, kyMoi, them){
 /* 3.87: bản 3.85–3.86 để Mẫu 10 ở ô "Hồ sơ tín dụng chi tiết" theo THÁNG → chuyển sang loại Mẫu 10 theo NGÀY (một lần, không mất dữ liệu).
    Nhận Mẫu 10: tổng không có phát sinh tháng (gnT) — chỉ Mẫu 31 có. Ngày: theo tên file / ngày đã lưu; không chắc thì đánh dấu để anh kiểm. */
 /* 3.120 (anh chốt): bỏ hẳn Mẫu 10 — bản Mẫu 10 đã nạp: bỏ khỏi máy, file trên Drive vào Thùng rác Drive (lấy lại được 30 ngày);
-   danh bạ khách dựng lại 1 lần (bỏ số TK 105 sai lấy từ Mẫu 10, số sổ 105 tham chiếu Dư nợ chi tiết) */
+   danh bạ khách làm sạch 1 lần (bỏ số TK 105 sai lấy từ Mẫu 10; số sổ 105 đúng lấy khi nạp Dư nợ chi tiết) */
 var SL_BO10 = null;
 function slBoMau10(){
   if(SL_BO10) return SL_BO10;
@@ -22360,7 +22360,11 @@ function slBoMau10(){
     var cho = (Array.isArray(cu) ? cu : []).concat(ids);
     if(cho.length && coTheNoiDrive() && DR.sanSang){ cho.forEach(function(id){ xoaFileDrive(id).catch(function(){}); }); cho = []; }
     return luuFile('sl_rac_cho', cho);
-  }).then(function(){ return dung ? slDungDanhBa().then(function(){ SL_DB.b120 = 1; return slLuuDanhBa(); }) : null; })
+  }).then(function(){   /* làm sạch tại chỗ (không dựng lại từ bảng — máy chưa tải bảng thì dựng lại sẽ làm rỗng danh bạ): số sổ không đủ 10 chữ số (vd 1482… của Mẫu 10) bỏ */
+    if(!dung || !SL_DB || !SL_DB.kh || !Object.keys(SL_DB.kh).length) return null;   /* danh bạ trống (máy mới) → chờ kéo từ Drive, không ghi đè mốc giờ */
+    var doi = 0;
+    Object.keys(SL_DB.kh).forEach(function(ma){ var c = SL_DB.kh[ma]; if(!c.stk) return; var v = slStk(c.stk), m = v.join(', '); if(m===c.stk) return; doi++; if(v.length) c.stk = m; else { delete c.stk; delete c.stkKy; } });
+    SL_DB.b120 = 1; return doi ? slLuuDanhBa() : luuFile('sl_danhba', SL_DB); })   /* có sửa mới tính là danh bạ đổi (đẩy Drive) */
     .then(function(){ return ds.length ? slLuuMeta() : null; })
     .then(function(){ SL_BO10 = null; if(ds.length){ bao('📈 Số liệu: đã bỏ '+ds.length+' bản Mẫu 10 (không dùng nữa — file trên Drive vào Thùng rác). Dùng Mẫu 31 + Dư nợ chi tiết.', 7); if(nganHienTai===7) veSoLieu(); } return ds.length; })
     .catch(function(er){ SL_BO10 = null; console.warn('Bỏ Mẫu 10 lỗi', er); return 0; });

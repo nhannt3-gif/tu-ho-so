@@ -11,7 +11,8 @@ for p in xlsx@0.18.5 pdfjs-dist@3.11.174 pdf-lib@1.17.1; do n=${p%@*}; v=${p#*@}
 cd ../..
 # bộ file Excel GIẢ cho tab Số liệu (cùng cấu trúc hệ thống)
 python3 tests/taogia.py 25000 tests/gia      # bộ lớn (đo tốc độ)
-python3 tests/taogia.py 300 tests/gianho     # bộ nhỏ (giao diện, đồng bộ)
+python3 tests/taogia.py 300 tests/gianho     # bộ nhỏ (giao diện, đồng bộ) — có Mẫu 10 (đã bỏ từ 3.120)
+python3 tests/taogia.py 300 tests/gianho31 m31   # bộ nhỏ có Mẫu 31 — cho t103.js (3.120)
 python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) thay Mẫu 10 — cho t100.js
 ```
 `tests/lib`, `tests/gia*` (gồm `gia31`), `tests/*.png` nằm trong `.gitignore`.
