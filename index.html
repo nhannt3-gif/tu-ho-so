@@ -3007,7 +3007,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.121', APP_LUC = '10/10/2026 14:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.122', APP_LUC = '10/10/2026 16:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12650,7 +12650,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.121', ds:[
+var CO_GI_MOI = {ban:'3.122', ds:[
+  ['📥 Nạp số liệu: ô Danh sách tổ TK&VV (DSTO) báo số tổ (vd 369 tổ) thay cho số dòng', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['🔍 Kiểm tra tháng: bảng đối chiếu thêm cột “Dư nợ CT” (dư nợ, quá hạn, khoanh, cho vay / thu nợ tháng, tiền gửi 105, số KH) cạnh Mẫu 31; mục mới “Mẫu 31 ↔ Dư nợ chi tiết” báo khớp / lệch + danh sách món lệch (chỉ báo, không sửa). File Dư nợ chi tiết nạp ở 3.120 cần nạp lại 1 lần', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['📥 Nạp số liệu: thêm dòng riêng “Dư nợ chi tiết” ngay dưới Mẫu 31 — file này chỉ dùng tham chiếu số TK 105 (10 chữ số) và điểm giao dịch xã; mọi số dư nợ, lãi, số dư 105 vẫn lấy từ Mẫu 31. Thả file vào “Nạp nhiều file” app tự nhận dòng', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['🌳 Chọn tổ: chip và danh sách tổ xếp theo ấp (cùng ấp theo tên tổ trưởng), hết lộn xộn', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
@@ -24713,6 +24714,7 @@ function slKyHTML(B){
 var SL_BO_CHU = {trong:'trống', tieuDe:'tiêu đề lặp', tong:'dòng tổng', ky:'phần ký', sai:'sai mã', trung:'dòng lặp khế ước (nhiều sổ 105, giữ riêng)'};
 function slTomDong(L, e){
     var t = e.tong||{}, ct = [];
+    if(L.k==='dsto' || L.k==='tt') ct.push((e.soDong||0)+' tổ');   /* 3.122: danh sách tổ báo số tổ */
     if(t.dn!==undefined) ct.push('dư nợ '+tdnTien(t.dn));
     if(t.qh) ct.push('quá hạn '+tdnTien(t.qh));
     if(t.kn) ct.push('khoanh '+tdnTien(t.kn));
@@ -24739,7 +24741,7 @@ function slTomDong(L, e){
 }
 /* ---------- 3.88: ① FILE THÁNG · ② KIỂM TRA (kết quả lưu theo tháng, dữ liệu đổi thì báo kiểm lại) ---------- */
 /* 3.90.1: ① tình trạng tháng gọn 1 dòng — Ⓐ x/7 · Ⓑ y/3 · tên file thiếu (bấm để nạp) · tình trạng kiểm tra · tải file gốc / xóa cả tháng */
-function slNgan(L, t){ t = t||{}; if(L.k==='lt' || L.k==='tt') return (t.dong!==undefined ? t.dong : t.n||0)+' tổ'; if(t.dn!==undefined) return tdnTr(t.dn); if(t.qh!==undefined) return tdnTr(t.qh); if(t.kn!==undefined) return tdnTr(t.kn); return (t.n||0)+' dòng'; }
+function slNgan(L, t){ t = t||{}; if(L.k==='lt' || L.k==='tt' || L.k==='dsto') return (t.dong!==undefined ? t.dong : t.n||0)+' tổ'; if(t.dn!==undefined) return tdnTr(t.dn); if(t.qh!==undefined) return tdnTr(t.qh); if(t.kn!==undefined) return tdnTr(t.kn); return (t.n||0)+' dòng'; }
 function slTTHTML(ky){
   var dem = function(nh){ var ds = SL_BAT_BUOC.filter(function(k){ return slLoai(k).nhom===nh; }); return {n:ds.length, thieu:ds.filter(function(k){ return !SLM.bang[slKhoa(k, ky)]; })}; };
   var A = dem('A'), Bb = dem('B'), kt = SLM.kt[ky], cu = kt && slKTCu(ky), coFile = Object.keys(SLM.bang).some(function(k){ return slThang(SLM.bang[k].ky)===ky; });

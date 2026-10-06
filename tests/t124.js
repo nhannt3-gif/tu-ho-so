@@ -36,6 +36,8 @@ const fs=require('fs'), path=require('path');
    const b0 = await docFile(slIDB('dnct','2026-08')); const rows0 = slMoBang(b0).map(x=>({ku:x.ku, kh:x.kh, stk:x.stk})); slNen.them = {}; b0.cot = slNen(rows0, ['ku','kh','stk']); slNen.them = null; await luuFile(slIDB('dnct','2026-08'), b0); SL_BO = {};
    await slKiemTra('2026-08'); await w(200); m5 = SLM.kt['2026-08'].kq.find(x=>/Mẫu 31 ↔ Dư nợ chi tiết/.test(x.ten));
    ok('file nạp ở bản 3.120 (chưa có số tiền) → nhắc nạp lại, không báo lệch sai', m5 && m5.kq==='bo' && /nạp lại/.test(m5.chu));
+   ok('3.122: ô Danh sách tổ (DSTO) báo số tổ, không phải số dòng', slNgan(slLoai('dsto'), {n:369})==='369 tổ' && /369 tổ/.test(slTomDong(slLoai('dsto'), {soDong:369, tong:{n:369}})));
+   const eTT = SLM.bang[slKhoa('tt','2026-08')]; ok('tóm tắt Thông tin tổ trưởng không lặp chữ "tổ"', !eTT || (slTomDong(slLoai('tt'), eTT).match(/\d+ tổ/g)||[]).length===1, eTT && slTomDong(slLoai('tt'), eTT).replace(/<[^>]+>/g,' ').slice(0,160));
    return o;
  }, files);
  R.concat(loi.map(e=>'✗ lỗi trang: '+e)).forEach(x=>console.log(x));

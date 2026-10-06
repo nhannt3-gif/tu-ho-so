@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.122 — 10/10/2026 16:00 — DSTO báo số tổ
+- Ô Danh sách tổ TK&VV (DSTO) ở ma trận Nạp số liệu báo **số tổ** (mỗi dòng 1 tổ, trùng mã tổ đã tách riêng) thay cho "… dòng" — anh yêu cầu; dòng tóm tắt DSTO / Thông tin tổ trưởng thêm "N tổ".
+- Kiểm tra: t124 thêm 2 phép (10/10); hồi quy liên quan không lỗi.
+
+---
+
 ## 3.121 — 10/10/2026 14:00 — Đối chiếu Mẫu 31 ↔ Dư nợ chi tiết
 - **Anh yêu cầu:** cả 2 file báo số tiền, số dòng để biết có khớp không; thêm vào bảng đối chiếu ② Kiểm tra tháng.
 - File Dư nợ chi tiết lưu thêm cột số tiền **chỉ để đối chiếu** (dư nợ trong hạn / quá hạn / khoanh / tổng, giải ngân, đảo khoản, thu nợ TH / QH / khoanh, gốc xóa tháng, số dư 105, tình trạng món) và tách dòng lặp khế ước như Mẫu 31 (không cộng trùng). Số liệu chính vẫn là Mẫu 31.
