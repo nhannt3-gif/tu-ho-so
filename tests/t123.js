@@ -42,6 +42,9 @@ const fs=require('fs'), path=require('path');
    ok('điểm GD xã của tổ lấy thẳng từ Dư nợ chi tiết (ưu tiên)', t && t.diem==='TXNGIA0001' && /Điểm Giả Một/.test(t.tenDiemDu) && /Dư nợ chi tiết/.test(t.diemTu||''), t && (t.diem+' · '+t.diemTu));
    const ks = toKhach(t); ok('Tổ TK&VV: cột Số TK 105 có số từ Dư nợ chi tiết', ks.length && ks.every(k=>k.stk.join(', ')===soTK(k.kh)), ks.length+' khách');
    const dn31 = m=>hs.filter(x=>x.kh===m).reduce((a,x)=>a+(x.dn||0),0); ok('Tổ TK&VV: dư nợ, số dư 105 vẫn theo Mẫu 31 (không lấy số của file tham chiếu)', ks.every(k=>Math.abs(k.dn-dn31(k.kh))<1) && !ks.some(k=>k.t105===123456));
+   const demD = {}; Object.values(K.to).forEach(x=>{ const k = x.xa+'|'+x.khoaDiem; demD[k] = (demD[k]||0)+1; }); const dMax = Object.keys(demD).sort((a,b)=>demD[b]-demD[a])[0].split('|');
+   const S = {xa:dMax[0], diem:dMax[1], hoi:'', to:''}, dsTo = pvLuaChon(K.to, S, 'to'), apOf = k=>String((K.to[k.k]||{}).tenThon||'');
+   ok('chip / danh sách tổ xếp theo ấp (cùng ấp theo tên tổ trưởng)', dsTo.length>1 && dsTo.every((x,i)=>!i || !apOf(dsTo[i-1]) ? true : (!apOf(x) || ktApTen(apOf(dsTo[i-1])).localeCompare(ktApTen(apOf(x)), 'vi', {numeric:true})<=0)), dsTo.map(apOf).join(' | '));
    /* 5. bỏ Mẫu 10: dữ liệu cũ */
    const fake = {v:1, loai:'m10', ky:'2026-08-15', ngay:'2026-08-15', n:1, cot:slNen([{ku:'6600000000000001', kh:kh, stk:'14820000004812', dn:1}], ['ku','kh','stk','dn'])};
    await luuFile(slIDB('m10','2026-08-15'), fake); SLM.bang[slKhoa('m10','2026-08-15')] = {loai:'m10', ky:'2026-08-15', ngay:'2026-08-15', soDong:1, luc:new Date().toISOString(), tenFile:'mau10.xlsx'};

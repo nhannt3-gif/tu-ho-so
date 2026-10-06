@@ -12652,6 +12652,7 @@ function moHuongDan(p){
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.120', ds:[
   ['📥 Nạp số liệu: thêm dòng riêng “Dư nợ chi tiết” ngay dưới Mẫu 31 — file này chỉ dùng tham chiếu số TK 105 (10 chữ số) và điểm giao dịch xã; mọi số dư nợ, lãi, số dư 105 vẫn lấy từ Mẫu 31. Thả file vào “Nạp nhiều file” app tự nhận dòng', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
+  ['🌳 Chọn tổ: chip và danh sách tổ xếp theo ấp (cùng ấp theo tên tổ trưởng), hết lộn xộn', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🗑 Bỏ hẳn Mẫu 10: không nhận file Mẫu 10 nữa; bản Mẫu 10 đã nạp tự bỏ (file trên Drive vào Thùng rác, lấy lại được 30 ngày) — hết số TK 105 sai dạng 1482…', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['📄 Phân công BTV: tên Hội dài ở đầu văn bản xuống dòng trước "XÃ / PHƯỜNG …" (như Kế hoạch), không còn ngắt giữa tên xã', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📄 Phân công BTV: lấy đủ ấp / khu phố của xã theo thứ tự cây, mở lần đầu tự chia sẵn (Chủ tịch / Bí thư ít hơn, rồi Phó, Ủy viên — mỗi người 1 đoạn liền nhau), nút ⇄ Chia lại đều; hộp có ô Nhiệm kỳ, Số HĐ ủy thác, Ngày ký HĐ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -25451,9 +25452,11 @@ function pvLuaChon(T, S, cap){
     var k = cap==='xa' ? t.xa : cap==='diem' ? t.khoaDiem : cap==='hoi' ? String(t.dv||'') : t.ma;
     var chu = cap==='xa' ? (t.tenXa||t.xa) : cap==='diem' ? t.tenDiemDu : cap==='hoi' ? (String(t.dv)==='99' ? 'Trực tiếp' : (tdnHoi(t.dv)||'(chưa rõ hội)')) : (t.ten||'Tổ '+t.ma)+(t.trucTiep ? ' · '+t.soMon+' món' : (t.tenThon ? ' · '+t.tenThon : ''));
     if(k===undefined || k===null) return;
-    if(!ra[k]) ra[k] = {k:k, chu:String(chu), n:0}; ra[k].n++;
+    if(!ra[k]) ra[k] = {k:k, chu:String(chu), n:0, ap:cap==='to' ? String(t.tenThon||'') : ''}; ra[k].n++;
   });
-  return Object.keys(ra).map(function(k){ return ra[k]; }).sort(function(a, b){ return a.chu.localeCompare(b.chu, 'vi'); });
+  return Object.keys(ra).map(function(k){ return ra[k]; }).sort(function(a, b){   /* 3.120 (anh chốt): tổ xếp theo ấp (số / tên ấp), cùng ấp theo tên tổ trưởng; không có ấp (trực tiếp) xuống cuối */
+    if(cap==='to' && a.ap!==b.ap){ if(!a.ap) return 1; if(!b.ap) return -1; return ktApTen(a.ap).localeCompare(ktApTen(b.ap), 'vi', {numeric:true}); }
+    return a.chu.localeCompare(b.chu, 'vi'); });
 }
 function pvCha(S, cap){ return cap==='xa' ? true : cap==='diem' ? !!S.xa : !!S.diem; }   /* hội và tổ cần điểm GD */
 function pvVeCay(p){
