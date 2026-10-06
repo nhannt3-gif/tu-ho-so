@@ -7,7 +7,7 @@ const fs=require('fs'), path=require('path'); const drive=require('./fakedrive.j
    await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
    await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){} window.coTheNoiDrive=()=>true; DR.sanSang=true; DR.online=true; DR.token='x'; DR.hetHan=Date.now()+36e5; D.cauHinh.thumuc='Tủ hồ sơ'; });
    return p; };
- const dir=path.join(__dirname,'gianho'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const dir=path.join(__dirname,'gianho31'); /* 3.120: bộ nhỏ có Mẫu 31 (Mẫu 10 đã bỏ) */ const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const A = await mo(); await A.evaluate(async(files)=>{ for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); await slGhi(await slDocFile(new File([u], f.n))); } await slDay(); }, files);
  const B = await mo();
  const r = await B.evaluate(async()=>{ const w=t=>new Promise(r=>setTimeout(r,t)); await slNap(); await slTaiTuDrive();

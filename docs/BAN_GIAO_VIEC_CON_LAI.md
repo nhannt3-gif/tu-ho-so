@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.118 · build 09/10/2026 17:00
+**Bản hiện tại:** 3.120 · build 10/10/2026 09:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,30 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.120) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app bản mới | Báo đã bỏ N bản Mẫu 10; Nạp số liệu không còn dòng Mẫu 10 | |
+| 2 | Nạp lại **Mẫu 31 T9** (ô T9 hiện đang là file Dư nợ chi tiết anh chép đè) | Dòng Mẫu 31 T9 là Mẫu 31 | |
+| 3 | Nạp **Dư nợ chi tiết 30/09** | Tự vào dòng "Dư nợ chi tiết" T9 | |
+| 4 | Tra cứu KH / Tổ TK&VV | Số TK 105 dạng 10 chữ số (vd hộ Tuyết); số dư 105 như trước | |
+| 5 | Cây tổ (KTGS / Tổ TK&VV) | Điểm GD đúng theo file Dư nợ chi tiết; chip tổ xếp theo ấp | |
+
+**Ghi chú kỹ thuật 3.120:** loại `dnct` (L.chi = cột giữ lại; L.thamChieu); `slStk` (10 chữ số), `slStkDB`, `slStkKH`; danh bạ `c.stkNguon='dnct'`, `c.stkKy`; dựng lại danh bạ: dnct xếp sau Mẫu 31 cùng kỳ; `slBoMau10` chạy sau `slChuyenMau10` ở `slNap` và `slTaiTuDrive`; danh bạ chỉ làm sạch tại chỗ (không `slDungDanhBa` — máy chưa tải bảng sẽ làm rỗng danh bạ), danh bạ trống thì bỏ qua, không sửa gì thì không đổi mốc `dbLuc`. Khách không còn trong file Dư nợ chi tiết (đã hết dư nợ) giữ số sổ đã tham chiếu ở kỳ trước nếu có; chưa từng có thì "—". t97 / t100 (ngoài bộ hồi quy chuẩn) đang dừng do quá thời gian cả trên bản chính — lỗi có sẵn, chưa xử lý.
+
+### Danh sách thử trên máy thật (3.119) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Phân công BTV Hội CCB / LHPN (tên dài) | Đầu văn bản: tên Hội 1 dòng, hoặc xuống dòng đúng trước "XÃ / PHƯỜNG …" | |
+
+**Việc chờ anh xác nhận:** nhớ người kiểm tra / người ký theo từng Hội – xã (hiện nhớ chung 1 lựa chọn mỗi mẫu).
+
+**Ghi nhận 06/10/2026 — Số TK 105 sai (làm ở bản sau, khi anh gửi file):**
+- Anh xác nhận: **Mẫu 31 (LEND_31) có số dư 105 nhưng KHÔNG có số TK 105.** App đang lấy cột "Số TK" (`SL_TRUONG.stk`, tên cột 'so tk' / 'so tiet kiem 105') ra số 14 chữ số (dạng 1482…) và gắn nhãn "Số TK 105" — **sai nhãn**. Số TK 105 đúng có dạng 10 chữ số giống Mã KH (dạng 48000…).
+- Số dư 105 (`t105`, cột '105 ngày BC' / 'số dư 105') đúng — giữ.
+- **Cập nhật 06/10:** anh đã chép đè Mẫu 31 bản có số TK 105 đúng (cột cũ của file trước ra số 1482…). Cách đọc cột của app không đổi; chờ anh xác nhận Tra cứu hiện đúng. Nếu vẫn sai → kiểm tra file kỳ mới hơn (Mẫu 10 / Sao kê KH) đang đè danh bạ.
+- **Việc cần làm (nếu vẫn sai):** (A) bỏ số 1482… khỏi mọi chỗ ghi "Số TK 105" (Tra cứu KH, Tổ TK&VV, Sao kê, Excel), không xóa dữ liệu đã nạp; (B) anh sẽ gửi file có số TK 105 → thêm loại file vào Nạp số liệu, ghép theo Mã KH. Chờ anh gửi tên file + dòng tiêu đề cột (không đưa số liệu thật vào repo).
 
 ### Danh sách thử trên máy thật (3.118) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

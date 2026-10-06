@@ -62,6 +62,7 @@ const fs=require('fs'), path=require('path');
    ok('Chủ tịch có ấp → câu "Trực tiếp thực hiện kiểm tra tại …"', !x.p.ct.ap.length || noi.indexOf('Trực tiếp thực hiện kiểm tra tại '+x.p.ct.ap.join(', '))>=0);
    x.p.ct.ap = []; ok('bỏ hết ấp của Chủ tịch → không có câu đó', ktPCNoiDung(k).khoi.map(y=>y.s).join('\n').indexOf('Trực tiếp thực hiện kiểm tra tại')<0);
    x.p.pct.ap = ['x']; ktPCHop(k); await w(100); ok('mở lại không chia đè lựa chọn tay', ktPCLay(k).p.pct.ap[0]==='x');
+   const gd = ktPCNoiDung(k).dau; ok('3.119 đầu văn bản phân công: tên dài xuống dòng trước XÃ / PHƯỜNG (như Kế hoạch)', (gd.a1 ? !/\n/.test(gd.a1) || /\n(XÃ|PHƯỜNG) /.test(gd.a1) : true) && /\nPHƯỜNG NINH/.test(ktHXCo('HỘI LIÊN HIỆP PHỤ NỮ PHƯỜNG NINH THẠNH GIẢ ĐÔNG', 4344).HX) && /<w:br\/><w:t xml:space="preserve">PHƯỜNG/.test(ktBungPC(Object.assign({}, ktPCNoiDung(k), {dau:Object.assign({}, ktPCNoiDung(k).dau, {a1:'HỘI LIÊN HIỆP PHỤ NỮ\nPHƯỜNG GIẢ', a1z:'24'})}))));
    ok('Word phân công hợp lệ', hopLe(await docx(await ktDocx('pc', ktPCNoiDung(k)))));
    dongHop(); C.che='dx'; C.xa=''; C.to='';
    return o;
