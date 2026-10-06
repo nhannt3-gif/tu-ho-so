@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.126 — 11/10/2026 18:00 — Gạch dưới mảnh · tab Số liệu báo tháng đang giữ
+- **Gạch dưới tiêu ngữ / tên cơ quan mảnh lại (anh yêu cầu):** Word — đường kẻ màu đen trong khuôn 06 / Kế hoạch ① ② từ 0,75 pt → 0,5 pt (các đường theo kiểu khuôn vốn 0,5 pt); bản In — `.kt-gach` 0,5 pt, gạch chân chữ (`.kt-u`, Phân công) dày 0,5 pt.
+- **Tab Số liệu (anh yêu cầu):** đầu tab hiện "⚡ Đang giữ n tháng: T9, T8, …" (đang nạp thì kèm tiến độ) + nút **↻ Nạp lại** (bỏ bản đang giữ, nạp lại ngầm — khi máy khác vừa đổi số liệu). Nạp ngầm lúc máy rảnh đã có từ 3.125.
+- Kiểm tra: `kiem.py` sạch; t126 (+1), t127 (+3); hoiquy2, t106, t108, t111, t114, t115, t121, t122 không lỗi.
+
+---
+
 ## 3.125 — 11/10/2026 17:00 — Giữ sẵn số liệu nhiều tháng trong phiên
 - **Anh yêu cầu:** chuyển tháng phải nạp lại lâu → máy tính giữ hẳn 1 năm (hoặc tất cả), điện thoại chỉ tháng mới nhất.
 - Trước đây chỉ giữ 3 kỳ và bỏ kỳ nạp sớm nhất (kể cả kỳ vừa xem). Nay: máy tính giữ **12 tháng gần nhất** (đầu tab Số liệu chọn "⚡ Giữ sẵn 12 tháng / Tất cả"), điện thoại giữ tháng mới nhất + tháng đang xem; đầy thì bỏ tháng **lâu không xem nhất**, không bỏ tháng mới nhất.
