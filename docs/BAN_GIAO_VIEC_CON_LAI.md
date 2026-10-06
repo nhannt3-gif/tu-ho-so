@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.120 · build 10/10/2026 09:00
+**Bản hiện tại:** 3.121 · build 10/10/2026 14:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.121) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp lại Dư nợ chi tiết 30/09 | Dòng nạp hiện số món, dư nợ | |
+| 2 | ② Kiểm tra T9 → Kiểm lại | Bảng đối chiếu có cột "Dư nợ CT"; mục "Mẫu 31 ↔ Dư nợ chi tiết" khớp / lệch + danh sách món | |
+
+**Ghi chú kỹ thuật 3.121:** `dnct.chi` thêm cột số tiền; tách dòng lặp cho dnct (`L.giuHet || L.k==='dnct'`); `slTong` tính cho dnct; `slBo` giữ `B.lapDn`; `slDCTinh` cột `dnct` (bỏ qua nếu bảng chưa có `dn` — bản nạp 3.120); mục 5 `slKiemTra` chỉ so khách có món.
 
 ### Danh sách thử trên máy thật (3.120) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

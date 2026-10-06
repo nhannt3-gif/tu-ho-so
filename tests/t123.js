@@ -23,7 +23,7 @@ const fs=require('fs'), path=require('path');
    const fDn = new File([XLSX.write(wb, {type:'array', bookType:'xlsx'})], '004820_DU_NO_CHI_tiet_DEN_31-08-2026.xlsx');
    const kq = await slDocFile(fDn);
    ok('file Dư nợ chi tiết → tự vào dòng Dư nợ chi tiết, kỳ T8', kq.loai==='dnct' && kq.ky==='2026-08' && !kq.loi, kq.loi||kq.loai+' '+kq.ky);
-   ok('chỉ lưu cột tham chiếu (không lưu dư nợ / số dư)', kq.rows[0] && kq.rows[0].dn===undefined && kq.rows[0].t105===undefined && kq.rows[0].stk===soTK(kq.rows[0].kh) && kq.rows[0].ku);
+   ok('chỉ lưu cột tham chiếu + cột số tiền để đối chiếu (3.121), không lưu cột khác', kq.rows[0] && kq.rows[0].stk===soTK(kq.rows[0].kh) && kq.rows[0].ku && Object.keys(kq.rows[0]).every(f=>slLoai('dnct').chi.indexOf(f)>=0));
    const kh = hs[0].kh, t105Truoc = SL_DB.kh[kh] && SL_DB.kh[kh].t105;
    await slGhi(kq); await w(50);
    ok('2 dòng riêng: Mẫu 31 T8 vẫn nguyên, Dư nợ chi tiết T8 ghi riêng', !!SLM.bang[slKhoa('hstd','2026-08')] && !!SLM.bang[slKhoa('dnct','2026-08')]);

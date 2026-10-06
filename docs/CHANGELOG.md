@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.121 — 10/10/2026 14:00 — Đối chiếu Mẫu 31 ↔ Dư nợ chi tiết
+- **Anh yêu cầu:** cả 2 file báo số tiền, số dòng để biết có khớp không; thêm vào bảng đối chiếu ② Kiểm tra tháng.
+- File Dư nợ chi tiết lưu thêm cột số tiền **chỉ để đối chiếu** (dư nợ trong hạn / quá hạn / khoanh / tổng, giải ngân, đảo khoản, thu nợ TH / QH / khoanh, gốc xóa tháng, số dư 105, tình trạng món) và tách dòng lặp khế ước như Mẫu 31 (không cộng trùng). Số liệu chính vẫn là Mẫu 31.
+- Dòng nạp Dư nợ chi tiết hiện tóm tắt như Mẫu 31 (món đang vay / tất toán, dư nợ…).
+- **Bảng đối chiếu** thêm cột **"Dư nợ CT"** (dư nợ, quá hạn, khoanh, cho vay tháng, thu nợ tháng, tiền gửi 105, số KH dư nợ) so với số chuẩn BCDHTD / LEN_31 như các cột khác, theo từng xã.
+- **Mục kiểm tra 5 (thay Mẫu 10): "Mẫu 31 ↔ Dư nợ chi tiết"** — so số món, số khách có món, tổng dư nợ, số dư 105 (khách có món — Dư nợ chi tiết không có khách chỉ gửi tiết kiệm); lệch thì liệt kê món (chỉ có ở 1 file / dư nợ khác). Chỉ báo, không sửa. File nạp ở 3.120 (chưa có số tiền) → nhắc nạp lại, không báo lệch sai.
+- Đọc thử file thật của anh (chỉ trên máy thử): tổng dư nợ 743.685,283 tr — khớp Mẫu 31 T9 trên bảng đối chiếu anh gửi.
+- Kiểm tra: `kiem.py` sạch; t124 mới (8 phép); t123 cập nhật (lưu thêm cột đối chiếu); hồi quy không lỗi.
+
+---
+
 ## 3.120 — 10/10/2026 09:00 — Dòng "Dư nợ chi tiết" (tham chiếu TK 105 + điểm GD) · bỏ hẳn Mẫu 10
 - **Anh chốt:** từ nay chỉ xuất 2 file — **Mẫu 31** (số liệu chính) và **Dư nợ chi tiết** (cùng khuôn Mẫu 31, có thêm cột Sổ tiết kiệm 105 + Mã / Tên điểm giao dịch). File Dư nợ chi tiết **chỉ dùng tham chiếu số TK 105 và điểm giao dịch xã**; 2 dòng nạp riêng cho dễ nhận biết. **Bỏ hẳn Mẫu 10.**
 - **Nguyên nhân số TK 105 sai (dạng 1482…, 14 chữ số):** đến từ cột "Số TK" của **Mẫu 10** (số tài khoản hệ thống), app lấy theo file mới nhất nên đè lên. Số sổ 105 đúng là 10 chữ số (cùng dạng Mã KH).
