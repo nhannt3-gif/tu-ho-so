@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.125 — 11/10/2026 17:00 — Giữ sẵn số liệu nhiều tháng trong phiên
+- **Anh yêu cầu:** chuyển tháng phải nạp lại lâu → máy tính giữ hẳn 1 năm (hoặc tất cả), điện thoại chỉ tháng mới nhất.
+- Trước đây chỉ giữ 3 kỳ và bỏ kỳ nạp sớm nhất (kể cả kỳ vừa xem). Nay: máy tính giữ **12 tháng gần nhất** (đầu tab Số liệu chọn "⚡ Giữ sẵn 12 tháng / Tất cả"), điện thoại giữ tháng mới nhất + tháng đang xem; đầy thì bỏ tháng **lâu không xem nhất**, không bỏ tháng mới nhất.
+- Lần đầu vào tab Số liệu: app nạp ngầm từng tháng (mới nhất trước, nghỉ giữa các tháng cho máy không giật), chip "⚡ Đang nạp sẵn x/y tháng"; điện thoại chỉ nạp tháng mới nhất. Tháng còn trên Drive thì tải luôn.
+- Giữ cả phần đã tính theo tháng: bộ số liệu (`SL_BO`), cây tổ (`TO_KS`), tổng hợp (`TH_KS` mới). Nạp lại / xóa / kéo bảng của 1 tháng → bỏ bản đã dựng của tháng đó (`slBoXoa`), lần sau dựng theo file mới (trước đây cây tổ cũ có thể còn giữ).
+- Kiểm tra: `kiem.py` sạch; t127 mới (10 phép); hoiquy, hoiquy2, t103–t105, t110, t113, t123–t126 không lỗi. **Chưa đo bộ nhớ với dữ liệu thật** — anh để ý nếu máy chậm / trình duyệt tự tải lại thì chọn lại 12 tháng hoặc báo em.
+
+---
+
 ## 3.124 — 11/10/2026 14:00 — Mẫu 16 bỏ số khách ở mục III · dòng chấm mịn · in 2 mặt
 - **Dòng chấm mịn (anh chốt: chấm nhuyễn như dùng cỡ chữ nhỏ):** đoạn ……/....... (≥ 4 dấu) in cỡ ≈ 65% cỡ chữ, thêm chấm theo tỷ lệ để đủ dài như cũ; màu vẫn đen, chữ điền giữ cỡ. Áp chung Mẫu 06 / 16 / 04 / Kế hoạch / Phân công, cả Word (`ktChamMin` tách run) và bản In (`ktChamHTML`, `.kt-cham`); đường kẻ chấm `.kt-ld` mảnh .6pt.
 - **In 2 mặt (anh chốt, mặc định bật):** ô "In 2 mặt" trong hộp Chọn khi in (`D.cauHinh.ktHaiMat`, đồng bộ Drive). Xuất nhiều bản trong 1 file: Word dùng ngắt phần "sang trang lẻ" (Word tự thêm trang trắng khi bản trước lẻ trang); bản In từ trình duyệt (Chrome không hỗ trợ ngắt trang lẻ) đo chiều cao từng bản theo khổ giấy rồi chèn trang trắng — ước lượng, in số lượng lớn nên dùng Word.
