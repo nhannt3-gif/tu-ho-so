@@ -50,6 +50,7 @@ const fs=require('fs'), path=require('path');
    doiNgan(7); slDoiTab('nap'); SL_KY='2026-08'; veSoLieu(); await w(600);
    ok('ma trận Nạp không có BC0437/0438', !/BC0437|BC0438/.test(document.getElementById('tr7').textContent));
    /* tab KTGS */
+   D.cauHinh.ktHaiMat = 0;   /* 3.124: phép này kiểm ngắt trang thường — in 2 mặt kiểm ở t126 */
    const C = ktCH(); C.ky='2026-08'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    ok('thanh BC0437 / BC0438 ✓', document.querySelectorAll('.kt-bc.co').length===2, document.querySelector('.kt-dau').textContent);
    const mt = document.querySelectorAll('.kt-nap .sl-bang tbody tr');
@@ -111,7 +112,7 @@ const fs=require('fs'), path=require('path');
    ok('Mẫu 16 Word: XML hợp lệ, hết dấu {{', hopLe(z16.doc) && z16.doc.indexOf('{{')<0, f16);
    ok('Mẫu 16: ngày, đoàn (3.107: tên Hội cấp xã, bỏ ô khai), tổ trưởng, hội, số liệu BC0437, xếp loại', /ngày 05 tháng 09 năm 2026/.test(c16) && /ĐOÀN KIỂM TRA: ?(Hội|Đoàn Thanh niên) [^.]*(xã|phường)/.test(c16) && !/Đoàn giả/.test(c16) && c16.indexOf(best.ten)>=0 && /điểm, xếp loại (Tốt|Khá|Trung bình|Yếu)/.test(c16) && /đến thời điểm 31\/08\/2026/.test(c16), c16.slice(c16.indexOf('Tổng dư nợ'), c16.indexOf('Tổng dư nợ')+90));
    ok('Mẫu 16: tổ phó để trống (chấm bằng tab), Chức vụ thẳng cột', /Chức vụ: Tổ trưởng- Ông \(bà\):\s*Chức vụ: /.test(c16) && (z16.doc.match(/w:leader="dot" w:pos="5954"/g)||[]).length>=2);
-   ok('Mẫu 16: số khách + 01 phiếu kèm theo', new RegExp('thực tế tại 0?'+ktDaChon().length+' khách hàng').test(c16) && /là 01 Phiếu/.test(c16));
+   ok('Mẫu 16: 3.124 không ghi số khách (kiểm tra thực tế tổ viên) + 01 phiếu kèm theo', /Qua kiểm tra tại Tổ và kiểm tra thực tế tổ viên, Đoàn có nhận xét như sau:/.test(c16) && !/thực tế tại/.test(c16) && /là 01 Phiếu/.test(c16));
    ktKhaiBao('m06'); await w(50); ktXuat('m06', 'in', 1); await w(300); ktKhaiBao('m16'); await w(50); ktXuat('m16', 'in', 1); await w(300);
    const h06 = await H[Object.keys(H).find(n=>/Mau 06/.test(n))].text(), h16 = await H[Object.keys(H).find(n=>/Mau 16/.test(n))].text();
    ok('In / PDF: A4 ngang lặp tiêu đề, khối cuối giữ liền', /size:A4 landscape/.test(h06) && /table-header-group/.test(h06) && /kt-giu/.test(h06) && h06.indexOf(best.ten)>=0);
