@@ -3007,7 +3007,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.120', APP_LUC = '10/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.121', APP_LUC = '10/10/2026 14:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12650,7 +12650,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.120', ds:[
+var CO_GI_MOI = {ban:'3.121', ds:[
+  ['🔍 Kiểm tra tháng: bảng đối chiếu thêm cột “Dư nợ CT” (dư nợ, quá hạn, khoanh, cho vay / thu nợ tháng, tiền gửi 105, số KH) cạnh Mẫu 31; mục mới “Mẫu 31 ↔ Dư nợ chi tiết” báo khớp / lệch + danh sách món lệch (chỉ báo, không sửa). File Dư nợ chi tiết nạp ở 3.120 cần nạp lại 1 lần', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['📥 Nạp số liệu: thêm dòng riêng “Dư nợ chi tiết” ngay dưới Mẫu 31 — file này chỉ dùng tham chiếu số TK 105 (10 chữ số) và điểm giao dịch xã; mọi số dư nợ, lãi, số dư 105 vẫn lấy từ Mẫu 31. Thả file vào “Nạp nhiều file” app tự nhận dòng', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['🌳 Chọn tổ: chip và danh sách tổ xếp theo ấp (cùng ấp theo tên tổ trưởng), hết lộn xộn', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🗑 Bỏ hẳn Mẫu 10: không nhận file Mẫu 10 nữa; bản Mẫu 10 đã nạp tự bỏ (file trên Drive vào Thùng rác, lấy lại được 30 ngày) — hết số TK 105 sai dạng 1482…', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
@@ -21810,7 +21811,7 @@ var SL_LOAI = [
    khoa:'ku', khoaPhu:'kh', giuHet:true, tenFile:['tao ho so tin dung','mau 31','mau31']},
   /* 3.120 (anh chốt): Dư nợ chi tiết — cùng khuôn Mẫu 31, có thêm số TK 105 + điểm GD; Mẫu 31 là số liệu chính, file này CHỈ tham chiếu số TK 105 và điểm giao dịch xã */
   {k:'dnct', nhom:'B', tuy:true, thamChieu:true, ten:'Dư nợ chi tiết · tham chiếu TK 105 + điểm GD', can:['so khe uoc','ma kh','tong du no','ma diem giao dich'], mot:['so tiet kiem 105'],
-   khoa:'ku', khoaPhu:'kh', chi:['ku','kh','ten','stk','diem','tenDiem','ngayGD','to','thon','xa','tenXa'], tenFile:['du no chi tiet']},
+   khoa:'ku', khoaPhu:'kh', chi:['ku','kh','ten','stk','diem','tenDiem','ngayGD','to','thon','xa','tenXa','dn','th','qh','kn','gnT','dkT','tnTH','tnQH','tnK','xoaT','t105','ttMon'], tenFile:['du no chi tiet']},   /* 3.121: + cột số tiền — CHỈ để đối chiếu với Mẫu 31 */
   {k:'tt',   nhom:'B', ten:'Thông tin tổ trưởng', can:['ma to truong','ten to truong'], khoa:'to', cu:'TT_TO', tenFile:['to truong']},
   {k:'khd',  nhom:'B', ten:'Món vay 3 tháng KHĐ (mẫu 14)', can:['so khe uoc','ngay giao dich gan nhat'], khong:['tinh trang mon vay'], khoa:'ku', cu:'', tenFile:['khong hoat dong','3 thang','03 thang','khd']},
   /* Ⓒ theo ngày */
@@ -21977,7 +21978,7 @@ function slLayDong(sheet, r, co, L){
     var o = {};
     truong.forEach(function(f){ o[f] = slGiaTri(row[cot[f]], dinh(f)); });
     o[L.khoa] = chiKH ? '' : k;
-    if(!chiKH && L.giuHet && daCo[k]){   /* 3.87: khế ước lặp dòng (khách có nhiều sổ 105) → GIỮ NGUYÊN dòng lặp ở bảng riêng, không gộp, không cộng tiền */
+    if(!chiKH && (L.giuHet || L.k==='dnct') && daCo[k]){   /* 3.121: Dư nợ chi tiết cũng tách dòng lặp (cùng khuôn Mẫu 31) · 3.87: khế ước lặp dòng (khách có nhiều sổ 105) → GIỮ NGUYÊN dòng lặp ở bảng riêng, không gộp, không cộng tiền */
       bo.trung++; lap.push(o); continue;
     }
     if(!chiKH) daCo[k] = o;
@@ -22026,7 +22027,7 @@ function slTimKy(sheet, r, rows, tenFile){
 function slTong(loai, rows, lap){
   var t = {n:rows.length}, cong = function(f){ return rows.reduce(function(a, o){ return a+(o[f]||0); }, 0); };
   var dem = function(f){ var x = {}; rows.forEach(function(o){ if(o[f]) x[o[f]] = 1; }); return Object.keys(x).length; };
-  if(slLaHS(loai)){
+  if(slLaHS(loai) || loai==='dnct'){   /* 3.121: Dư nợ chi tiết tính tổng như Mẫu 31 để đối chiếu */
     t.kh = dem('kh'); ['dn','th','qh','kn','gn','lt'].forEach(function(f){ t[f] = cong(f); });   /* dòng lặp khế ước ở bảng riêng → dư nợ không cộng trùng */
     /* 3.87: '105 ngày BC' là TỔNG 105 của khách (anh Nhân xác nhận) → lấy 1 lần mỗi khách, không cộng theo dòng */
     var s105 = {}, so = {};
@@ -22509,6 +22510,7 @@ function slBo(ky){
         if(L.k==='nqh' || L.k==='nk' || L.k==='khd') rows.forEach(function(o){ B[L.k][o.ku] = o; });
         if(L.k==='tt') rows.forEach(function(o){ B.to[o.to] = o; });
         if(L.k==='tdn') B.tdn = rows;
+        if(L.k==='dnct') B.lapDn = slMoLap(b);   /* 3.121 */
         if(L.k==='kh') rows.forEach(function(o){ B.kh[o.kh] = o; });
       });
     });
@@ -24728,7 +24730,7 @@ function slTomDong(L, e){
     }
     if(L.bo) ct.unshift('⛔ loại đã bỏ — chỉ còn để xem / xóa');
     if(slLaHS(L.k) && e.bo && e.bo.trung && !e.ban) ct.push('⚠ nạp ở bản cũ: dòng lặp đã bị gộp, số dư 105 của các khách nhiều sổ có thể cộng thừa — nạp lại file để tính đúng');
-    if(t.mon!==undefined && slLaHS(L.k)) ct.unshift((t.mon-(t.tatToan||0))+' món đang vay'+(t.tatToan ? ' · '+t.tatToan+' món đã tất toán' : '')+(t.chiTK ? ' · '+t.chiTK+' KH chỉ gửi tiết kiệm' : ''));
+    if(t.mon!==undefined && (slLaHS(L.k) || L.k==='dnct')) ct.unshift((t.mon-(t.tatToan||0))+' món đang vay'+(t.tatToan ? ' · '+t.tatToan+' món đã tất toán' : '')+(t.chiTK ? ' · '+t.chiTK+' KH chỉ gửi tiết kiệm' : ''));
     if(t.gnT!==undefined) ct.push('giải ngân tháng '+tdnTien(t.gnT)+' ('+(t.monGN||0)+' món) · thu nợ tháng '+tdnTien((t.tnTH||0)+(t.tnQH||0)+(t.tnK||0)));
     var bo = e.bo||{}, boChu = ['trong','tieuDe','tong','ky','sai'].filter(function(k){ return bo[k]; }).map(function(k){ return bo[k]+' '+SL_BO_CHU[k]; }).join(', ');
     var lapChu = bo.trung ? bo.trung+' '+(e.ban ? SL_BO_CHU.trung : 'dòng lặp khế ước (bản cũ đã gộp)') : '';
@@ -24757,7 +24759,7 @@ function slDauKy(ky){
 }
 function slKTCu(ky){ var k = SLM.kt[ky]; return !!k && k.dau!==slDauKy(ky); }
 function slCoFileChinh(ky){ return SL_LOAI.some(function(L){ return (L.nhom==='A' || L.nhom==='B') && SLM.bang[slKhoa(L.k, ky)]; }); }   /* 3.91: tháng có ít nhất 1 file nhóm Ⓐ / Ⓑ mới kiểm (chỉ file phụ / theo ngày thì chưa) */
-var SL_KT_NHOM = ['', 'Đủ file', 'Toàn vẹn từng file', 'Khớp giữa các file chi tiết cùng tháng', 'Khớp với tháng trước', 'Mẫu 31 ↔ Mẫu 10 cuối tháng', 'Bất thường dữ liệu',
+var SL_KT_NHOM = ['', 'Đủ file', 'Toàn vẹn từng file', 'Khớp giữa các file chi tiết cùng tháng', 'Khớp với tháng trước', 'Mẫu 31 ↔ Dư nợ chi tiết', 'Bất thường dữ liệu',
   'Số chuẩn TW khớp nhau (BCDHTD · LEN_31 · B32)', 'Mẫu 31 ↔ số chuẩn TW'];   /* 3.90: thêm nhóm 7, 8 (giữ số nhóm cũ để kết quả đã lưu vẫn đọc đúng) */
 var SL_KT_THU = [1, 2, 7, 8, 3, 4, 5, 6];   /* thứ tự hiện */
 var SL_KT_TOI_DA = 200;   /* mỗi mục giữ tối đa 200 dòng chi tiết (đủ để xem, chỉ mục không nặng) */
@@ -24843,7 +24845,7 @@ function slKTMuc(x, loc, mo){
 /* ---------- 3.90.1: BẢNG ĐỐI CHIẾU CHÉO — chỉ tiêu × nguồn (BCDHTD chuẩn · LEN_31 · B32 · Mẫu 31 · Mẫu 10), toàn PGD và từng xã ----------
    ô: c = số chuẩn · k = khớp · l = lệch · v = lưu ý đã biết · không có = — ; bấm ô lệch / lưu ý → mục kiểm tra tương ứng (lọc theo xã) */
 var DC_CT = [['dn','Dư nợ'],['qh','Quá hạn'],['kn','Khoanh'],['cvT','Cho vay tháng'],['tnT','Thu nợ tháng'],['tg','Tiền gửi'],['khDn','Số KH dư nợ']];
-var DC_NG = [['bx','BCDHTD','số chuẩn'],['lx','LEN_31',''],['b32','B32',''],['m31','Mẫu 31','']];   /* 3.120: bỏ cột Mẫu 10 */
+var DC_NG = [['bx','BCDHTD','số chuẩn'],['lx','LEN_31',''],['b32','B32',''],['m31','Mẫu 31',''],['dnct','Dư nợ CT','đối chiếu']];   /* 3.120: bỏ cột Mẫu 10 · 3.121: + Dư nợ chi tiết */
 var SL_DC_PV = '';
 function slDCTinh(B, M10){
   var co = B.co, hs = B.hsTen==='Mẫu 31' ? co.hstd : null, V = {}, nhan = {'':'Toàn PGD'}, thu = [''];
@@ -24854,12 +24856,12 @@ function slDCTinh(B, M10){
   var b32 = {}; (co.b32||[]).forEach(function(o){ if(o.nhom!=='TONG') return; var pv = pvTW(o, 'xa'); if(pv===null) return; var x = b32[pv] = b32[pv] || {}; x[o.phan] = (x[o.phan]||0)+(o.tien||0); if(pv) nhan[pv] = nhan[pv]||o.ten; });
   Object.keys(b32).forEach(function(pv){ var x = b32[pv]; dat(pv, 'dn', 'b32', x.dn); dat(pv, 'qh', 'b32', x.qh); dat(pv, 'cvT', 'b32', x.cv); dat(pv, 'tnT', 'b32', (x.tn||0)-(x.cv||0)); });
   var DK = {};
-  [[hs, 'm31', B.lap], [M10, 'm10', null]].forEach(function(n){
+  [[hs, 'm31', B.lap], [co.dnct && co.dnct.length && co.dnct[0].dn!==undefined ? co.dnct : null, 'dnct', B.lapDn]].forEach(function(n){   /* 3.121: Dư nợ chi tiết (bản nạp ở 3.120 chưa có số tiền → bỏ qua) */
     if(!n[0]) return;
     var tinh = function(khoa){ return twTinh31(n[0], n[2], khoa); }, X = tinh(function(o){ return o.tenXa ? slChuan(o.tenXa) : null; }), T = tinh(function(){ return ''; });
     Object.keys(X).forEach(function(x){ if(X[x].mon) T[x] = X[x]; });
     Object.keys(T).forEach(function(pv){ var r = T[pv]; if(pv) nhan[pv] = nhan[pv]||pv;
-      (n[1]==='m31' ? ['dn','qh','kn','cvT','tnT','tg','khDn'] : ['dn','qh','kn','khDn']).forEach(function(f){ dat(pv, f, n[1], r[f]); });
+      ['dn','qh','kn','cvT','tnT','tg','khDn'].forEach(function(f){ dat(pv, f, n[1], r[f]); });
       if(n[1]==='m31') DK[pv] = (r.gnT||0)-(r.cvT||0); });
   });
   /* trạng thái từng ô so với số chuẩn: BCDHTD (tiền gửi: LEN_31) */
@@ -24873,14 +24875,14 @@ function slDCTinh(B, M10){
       if(f==='cvT' && (ng==='lx' || ng==='b32') && DK[pv]){ muc = c + DK[pv]; ghi = 'gồm '+tdnTr(DK[pv])+' đảo khoản'; }
       var ch = x[ng] - muc;
       if(Math.abs(ch)<=tol){ r[ng] = ['k', ghi]; return; }
-      var biet = (f==='tnT' && ng==='lx') || (f==='tg' && ng==='m31') || (f==='cvT' && (ng==='lx' || ng==='b32') && !hs);
+      var biet = (f==='tnT' && ng==='lx') || (f==='tg' && (ng==='m31' || ng==='dnct')) || (f==='cvT' && (ng==='lx' || ng==='b32') && !hs);
       r[ng] = [biet ? 'v' : 'l', (ch>0 ? '+' : '−')+tdnTr(Math.abs(ch))];
     });
   }); });
   return {thu:thu, nhan:nhan, v:V, tt:tt};
 }
 /* ô lệch / lưu ý → mục kiểm tra chứa chi tiết */
-var DC_MUC = {'lx':/01\.1 ↔ LEN_31 XAPUONG/, 'lx|cvT':/Cho vay tháng: LEN_31/, 'lx|tnT':/Thu nợ tháng: BCDHTD ↔ LEN_31/, 'b32':/B32 ↔ BCDHTD/, 'm31':/Mẫu 31 ↔ BCDHTD/, 'm31|tg':/Tiền gửi: LEN_31/, 'm10':/Mẫu 31 = Mẫu 10/};
+var DC_MUC = {'lx':/01\.1 ↔ LEN_31 XAPUONG/, 'lx|cvT':/Cho vay tháng: LEN_31/, 'lx|tnT':/Thu nợ tháng: BCDHTD ↔ LEN_31/, 'b32':/B32 ↔ BCDHTD/, 'm31':/Mẫu 31 ↔ BCDHTD/, 'm31|tg':/Tiền gửi: LEN_31/, 'm10':/Mẫu 31 = Mẫu 10/, 'dnct':/Mẫu 31 ↔ Dư nợ chi tiết/};
 function slDCHTML(ky){
   var k = SLM.kt[ky], d = k && k.dc; if(!d || !d.thu.length) return '';
   if(d.thu.indexOf(SL_DC_PV)<0) SL_DC_PV = '';
@@ -24902,7 +24904,7 @@ function slDCHTML(ky){
 function slDCChi(ky, f, ng){
   var k = SLM.kt[ky], o = document.getElementById('sl-dc-chi'); if(!k || !o) return;
   var re = DC_MUC[ng+'|'+f] || DC_MUC[ng], x = re && k.kq.find(function(m){ return re.test(m.ten); });
-  o.innerHTML = x ? slKTMuc(x, ng==='m10' ? '' : SL_DC_PV, true) : '<div class="sl-bao vang">Chưa có mục kiểm tra chi tiết cho ô này — bấm 🔍 Kiểm lại.</div>';
+  o.innerHTML = x ? slKTMuc(x, ng==='m10' || ng==='dnct' ? '' : SL_DC_PV, true) : '<div class="sl-bao vang">Chưa có mục kiểm tra chi tiết cho ô này — bấm 🔍 Kiểm lại.</div>';
   o.scrollIntoView({block:'nearest'});
 }
 /* chạy kiểm tra 1 tháng — chỉ đọc, không sửa dữ liệu; lưu kết quả vào SLM.kt[ky] (lên Drive cùng chỉ mục) */
@@ -24985,7 +24987,23 @@ function slKiemTra(ky){
       them(4, 'Món đang vay '+kyVN(truoc)+' còn có ở '+kyVN(ky), !mat.length, mat.length ? mat.length+' món không còn dòng nào (không có dòng tất toán)' : 'đủ', mat.length ? 'Mẫu 31 giữ cả món tất toán trong năm — món biến mất cần kiểm trên hệ thống (sang năm mới thì bình thường).' : '',
         ['Số KU', 'Mã KH', 'Họ tên', 'Dư nợ '+kyVN(truoc)], mat, mat.length ? 'canh' : '');
     } else if(SLM.bang[slKhoa('hstd', ky)]) them(4, 'So với tháng trước', true, 'chưa có Mẫu 31 '+kyVN(truoc)+' — bỏ qua', '', null, null, 'bo');
-    /* 5. Mẫu 31 ↔ Mẫu 10 ngày cuối tháng (cùng ngày số liệu) */
+    /* 5. 3.121: Mẫu 31 ↔ Dư nợ chi tiết cùng kỳ — số món, khách, dư nợ, số dư 105; danh sách món lệch (chỉ báo, không sửa) */
+    if(co.dnct && co.hstd && hs==='Mẫu 31'){
+      var DN = co.dnct;
+      if(!DN.length || DN[0].dn===undefined) them(5, 'Mẫu 31 ↔ Dư nợ chi tiết', true, 'file Dư nợ chi tiết nạp ở bản 3.120 chưa lưu số tiền — nạp lại file để đối chiếu', '', null, null, 'bo');
+      else {
+        var coMon = function(rows, lap){ var kh = {}; rows.forEach(function(o){ if(o.ku && o.kh) kh[o.kh] = 1; }); var r = rows.filter(function(o){ return kh[o.kh]; }), l = (lap||[]).filter(function(o){ return kh[o.kh]; }); return [r, l]; };   /* chỉ khách có món vay — Dư nợ chi tiết không có khách chỉ gửi tiết kiệm */
+        var xA = coMon(co.hstd, B.lap), xB = coMon(DN, B.lapDn), tA = slTong('hstd', xA[0], xA[1]), tB = slTong('dnct', xB[0], xB[1]), mA = {}, mB = {}, ds6 = [];
+        co.hstd.forEach(function(o){ if(o.ku) mA[o.ku] = o; }); DN.forEach(function(o){ if(o.ku) mB[o.ku] = o; });
+        Object.keys(mA).forEach(function(k){ var a = mA[k], x = mB[k]; if(!x){ if((a.dn||0)>0) ds6.push([k, a.kh||'', a.ten||'', a.dn||0, '(không có)', a.dn||0]); return; }
+          if(Math.abs((a.dn||0)-(x.dn||0))>0.5) ds6.push([k, a.kh||'', a.ten||'', a.dn||0, x.dn||0, (a.dn||0)-(x.dn||0)]); });
+        Object.keys(mB).forEach(function(k){ var x = mB[k]; if(!mA[k] && (x.dn||0)>0) ds6.push([k, x.kh||'', x.ten||'', '(không có)', x.dn||0, -(x.dn||0)]); });
+        var cs = [['món', tA.mon, tB.mon], ['khách có món', tA.kh, tB.kh], ['dư nợ', tA.dn, tB.dn], ['số dư 105 (khách có món)', tA.t105, tB.t105]], lch = cs.filter(function(c){ return Math.abs((c[1]||0)-(c[2]||0))>0.5; });
+        them(5, 'Mẫu 31 ↔ Dư nợ chi tiết '+kyVN(ky), !lch.length && !ds6.length,
+          cs.map(function(c){ var f = c[0]==='món' || c[0]==='khách có món' ? function(v){ return String(v||0); } : tdnTien; return c[0]+' '+f(c[1])+(Math.abs((c[1]||0)-(c[2]||0))>0.5 ? ' ≠ '+f(c[2]) : ' ✓'); }).join(' · ')+(ds6.length ? ' · '+ds6.length+' món lệch' : ''),
+          ds6.length || lch.length ? 'Số liệu chính là Mẫu 31; Dư nợ chi tiết chỉ tham chiếu số TK 105 + điểm GD — lệch thì xem lại 2 file có cùng ngày số liệu không.' : '', ['Số KU', 'Mã KH', 'Họ tên', 'Mẫu 31', 'Dư nợ CT', 'Chênh'], ds6);
+      }
+    }
     if(M10){
       var m10 = {}, d10 = 0, d31 = 0, ds5 = [];
       M10.forEach(function(o){ if(o.ku){ m10[o.ku] = o; d10 += o.dn||0; } });
