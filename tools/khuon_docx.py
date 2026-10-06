@@ -161,7 +161,7 @@ def m16(path):
     T[16][1] = dien(T[16][1], [(r'lãi tồn của Tổ: ', 'LT', CHAM)])
     T[17][1] = dien(T[17][1], [(r'của Tổ: ', 'TG', CHAM)])
     T[18][1] = dien(T[18][1], [(r'\(tháng ', 'XM', CHAM), (r'/20', 'XY', CHAM), (r'\): ', 'XL', CHAM)])
-    T[25][1] = dien(T[25][1], [(r'thực tế tại ', 'SKH', CHAM)])
+    T[25][1] = re.sub(r' và thực tế tại [^<]*', ' và kiểm tra thực tế tổ viên', T[25][1]); T[25][1] = re.sub(r'(<w:t[^>]*>)[^<]*khách hàng(</w:t>)', r'\1\2', T[25][1])   # 3.124 (anh chốt): bỏ số khách
     T[32][1] = dien(T[32][1], [(r'này là ', 'SPH', CHAM)])
     for k in (32, 33): T[k][1] = them_ppr(T[k][1], '<w:keepNext/>')
     T[34][1] = re.sub(r'<w:tr[ >].*?</w:tr>', lambda m: them_trpr(m.group(0), '<w:cantSplit/>'), T[34][1], flags=re.S)
