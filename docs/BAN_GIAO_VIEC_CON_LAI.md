@@ -226,8 +226,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 1 | In / Word Mẫu 16 của 1 tổ | Mục III: "Qua kiểm tra tại Tổ và kiểm tra thực tế tổ viên, Đoàn có nhận xét như sau:" — không còn số khách | |
+| 2 | In / Word Mẫu 16, 06, 04 | Dòng chấm nhỏ mịn, dài như cũ, không xuống dòng thừa | |
+| 3 | Định kỳ / Sau giải ngân xuất nhiều tổ → Word, in 2 mặt | Mỗi tổ bắt đầu tờ mới (tổ lẻ trang có 1 trang trắng) | |
+| 4 | Như trên nhưng 🖨 In / PDF | Mỗi tổ bắt đầu tờ mới; nếu lệch ở tổ sát mép trang → báo em | |
+| 5 | Hộp Chọn khi in → bỏ tích "In 2 mặt" | Không còn trang trắng chèn thêm | |
 
-**Ghi chú kỹ thuật 3.124:** khuôn `KT_KHUON.m16` bỏ run `{{SKH|…..}} khách hàng`, đổi " và thực tế tại " → " và kiểm tra thực tế tổ viên"; `ktHTML16` cùng câu; `f.SKH` vẫn tính (không dùng ở câu này); `tools/khuon_docx.py` T[25] sửa theo.
+**Ghi chú kỹ thuật 3.124:** khuôn `KT_KHUON.m16` bỏ run `{{SKH|…..}} khách hàng`, đổi " và thực tế tại " → " và kiểm tra thực tế tổ viên"; `ktHTML16` cùng câu; `f.SKH` vẫn tính (không dùng ở câu này); `tools/khuon_docx.py` T[25] sửa theo. Dòng chấm mịn: `KT_CHAM_TL`, `ktChamDai`, `ktChamMin` (Word: trong `ktDocx` và `ktHTML01`), `ktChamHTML` (bọc qua `ktHTML06/16/04/PC` → bản gốc đổi tên `…Goc`). In 2 mặt: `ktHaiMat()`, `ktSectLe` (sectPr thêm `w:type oddPage`, bỏ type cũ), `ktHaiMatJS` (script đo trong bản In do `ktGhepTo` dựng; `.kt-trang-trang`).
 
 ### Danh sách thử trên máy thật (3.123) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

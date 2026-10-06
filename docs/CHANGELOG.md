@@ -4,10 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.124 — 11/10/2026 14:00 — Mẫu 16 bỏ số khách ở mục III
+## 3.124 — 11/10/2026 14:00 — Mẫu 16 bỏ số khách ở mục III · dòng chấm mịn · in 2 mặt
+- **Dòng chấm mịn (anh chốt: chấm nhuyễn như dùng cỡ chữ nhỏ):** đoạn ……/....... (≥ 4 dấu) in cỡ ≈ 65% cỡ chữ, thêm chấm theo tỷ lệ để đủ dài như cũ; màu vẫn đen, chữ điền giữ cỡ. Áp chung Mẫu 06 / 16 / 04 / Kế hoạch / Phân công, cả Word (`ktChamMin` tách run) và bản In (`ktChamHTML`, `.kt-cham`); đường kẻ chấm `.kt-ld` mảnh .6pt.
+- **In 2 mặt (anh chốt, mặc định bật):** ô "In 2 mặt" trong hộp Chọn khi in (`D.cauHinh.ktHaiMat`, đồng bộ Drive). Xuất nhiều bản trong 1 file: Word dùng ngắt phần "sang trang lẻ" (Word tự thêm trang trắng khi bản trước lẻ trang); bản In từ trình duyệt (Chrome không hỗ trợ ngắt trang lẻ) đo chiều cao từng bản theo khổ giấy rồi chèn trang trắng — ước lượng, in số lượng lớn nên dùng Word.
 - **Anh yêu cầu:** tổ có 34 tổ viên nhưng kiểm tra thực tế 21 khách → câu "thực tế tại 21 khách hàng" gây hiểu nhầm không khớp; bỏ số lượng.
 - Mục III Mẫu 16 (Word + bản In) ghi: "Qua kiểm tra tại Tổ và kiểm tra thực tế tổ viên, Đoàn có nhận xét như sau:". Số phiếu kèm theo giữ nguyên. `tools/khuon_docx.py` sửa theo để dựng lại khuôn ra cùng chữ.
-- Kiểm tra: `kiem.py` sạch; t106 sửa phép số khách theo câu mới; t106, t114, t115, t119, t120, t122, hoiquy2 không lỗi.
+- Kiểm tra: `kiem.py` sạch; t106 sửa phép số khách theo câu mới; t126 mới (16 phép: chấm mịn Word / In, in 2 mặt Word + đếm trang PDF thật); hồi quy các phép mẫu in không lỗi.
 
 ---
 

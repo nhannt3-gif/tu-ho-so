@@ -2175,6 +2175,7 @@
   .kt-in-luoi{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:6px 20px}.kt-in-phan .kt-kb select,.kt-in-khac .kt-kb input{width:100%;min-width:0;max-width:100%;box-sizing:border-box}.kt-in-phan{min-width:0}.kt-in-phan{border:1px solid var(--vien);border-radius:8px;padding:6px 10px}.kt-in-cam{color:#b45309}.kt-in-khac{margin:8px 0}.kt-in-khac>summary{cursor:pointer}
   .kt-ngay-in{display:inline-flex;gap:6px;align-items:center;margin-right:8px}.kt-ngay-in input{font:inherit;padding:3px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu)}   /* 3.114 */
   .kt-pc-ap{display:flex;flex-wrap:wrap;gap:4px 10px}.kt-pc-chip{display:inline-flex;gap:3px;align-items:center;white-space:nowrap}.kt-pc-bang td{vertical-align:top}   /* 3.117 */
+  .kt-hai-mat{display:flex;gap:6px;align-items:flex-start;font-size:12.5px;margin:8px 0;text-align:left}   /* 3.124 */
   .kt-kh-cach{display:inline-flex;gap:4px}.kt-kh-chip{display:flex;flex-wrap:wrap;gap:4px;align-items:flex-end;margin:6px 0}.kt-kh-th{display:flex;flex-direction:column;align-items:center;min-width:44px;padding:3px 6px;border:1px solid var(--vien);border-radius:8px;background:var(--the);color:var(--chu);cursor:pointer;font:inherit;font-size:12px}.kt-kh-th small{font-size:10.5px;color:var(--chu-phu)}.kt-kh-th.bat{background:var(--xanh-nhat);border-color:var(--xanh);font-weight:600}.kt-kh-nhanh{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center;margin-left:6px;font-size:12px}.kt-kh-nhanh button{white-space:nowrap}   /* 3.123 */
   .kt-pc-vt{margin:4px 0;font-size:13px;text-align:left}.kt-pc-vt select{font:inherit;padding:3px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu);max-width:100%}.kt-pc-vt .do-chu{color:var(--do)}
   .kt-pc-kiem{margin:8px 0;padding:6px 10px;text-align:left;border:1px solid var(--vien);border-radius:8px;font-size:12.5px}.kt-pc-kiem.vang{background:var(--vang-nen)}.kt-pc-kiem ul{margin:4px 0 0;padding-left:18px}   /* 3.123 */
@@ -12655,6 +12656,8 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.124', ds:[
+  ['🖨 Mẫu 06 / 16 / 04 / Kế hoạch / Phân công: dòng chấm in mịn hơn (cỡ nhỏ, đủ dài như cũ) — cả Word và bản In', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
+  ['🖨 In 2 mặt (mặc định bật, ô trong hộp “Chọn khi in”): xuất nhiều tổ / nhiều bản — mỗi bản bắt đầu tờ mới, bản lẻ trang tự thêm 1 trang trắng (Word chắc chắn; In từ trình duyệt là ước lượng)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📝 Mẫu 16: mục III ghi “Qua kiểm tra tại Tổ và kiểm tra thực tế tổ viên, Đoàn có nhận xét như sau:” — bỏ số khách hàng (không khớp số tổ viên của tổ)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📄 Phân công BTV: tích chọn người phân công; bỏ tích Chủ tịch = khuyết → chọn Phó đôn lên phụ trách (nhận đủ nhiệm vụ CT); không còn Phó → Chủ tịch kiêm; ô “Kiểm tra đủ nhiệm vụ” (ấp thiếu / trùng, Kế toán, Thủ quỹ); chỗ ký mặc định ghi chung CHỦ TỊCH, chọn người ký nếu muốn in tên', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['✍ Khai báo Hội – xã: rà chính tả tên Ban Thường vụ (khoảng trắng, viết hoa, chưa dấu, 2 dấu thanh, trùng tên) — báo ⚠ + nút “Sửa theo gợi ý”, không tự sửa', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -23100,6 +23103,7 @@ function ktInHop(ds, nut, hoi){
   moHop('<div class="hop-tit">🖨 Chọn khi in</div><div class="hop-phu">Tên người kiểm tra / người ký lấy theo 🏛 Khai báo Hội đoàn thể của Hội phụ trách từng tổ. App nhớ lựa chọn cho lần sau.</div>'+
     '<div class="kt-in-luoi">'+ds.map(function(m){ return ktInPhan(m, KT_IN_X.hoi); }).join('')+'</div>'+
     (co0616 ? '<details class="kt-in-khac"'+mo+' ontoggle="if(KT_IN_X)KT_IN_X.mo=this.open"><summary>Tùy chọn khác</summary>'+o('dv', 'Đơn vị kiểm tra (Mẫu 06)', KT_DV_GOI)+o('cb2', 'Ông (bà) 2 — gõ tay', 'thường để trống')+o('cv2', 'Chức vụ 2', 'trống = dòng chấm')+'</details>' : '')+
+    '<label class="kt-hai-mat"><input type="checkbox"'+(ktHaiMat() ? ' checked' : '')+' onchange="D.cauHinh.ktHaiMat=this.checked?1:0;luu()"> In 2 mặt — xuất nhiều tổ / nhiều bản: mỗi bản bắt đầu tờ mới (bản lẻ trang tự thêm 1 trang trắng; Word chắc chắn, In từ trình duyệt là ước lượng)</label>'+   /* 3.124 */
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button>'+(ds.some(function(m){ return m!=='kh'; }) ? '<button class="nho" onclick="ktInDayDu()" title="In sẵn mục đích, gợi ý nhận xét, Bảng II theo 727">✚ Điền đầy đủ</button>' : '')+(nut||'')+'</div>', true);
 }
 function ktInDoc(){   /* đọc hộp chọn → lưu (đồng bộ Drive theo cài đặt) → vẽ lại dòng nhắc */
@@ -23322,6 +23326,7 @@ function ktKyTen(x, nhan, ten){   /* 3.115: in tên dưới "(Ký, ghi rõ họ 
   var pr = '<w:pPr><w:jc w:val="center"/></w:pPr>';
   return x.slice(0, e+6)+Array(4).join('<w:p>'+pr+'</w:p>')+'<w:p>'+pr+'<w:r><w:rPr><w:b/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:t xml:space="preserve">'+xmlEsc(ten)+'</w:t></w:r></w:p>'+x.slice(e+6);
 }
+function ktSectLe(sect){ sect = String(sect).replace(/<w:type w:val="[^"]*"\/>/, ''); return sect.replace(/<w:pgSz/, '<w:type w:val="oddPage"/><w:pgSz'); }
 function ktDocx(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: mỗi phiếu sang trang mới, cùng 1 file) */
   var K = mau==='pc' ? KT_KHUON.m01b : KT_KHUON[mau], G = KT_KHUON.chung, enc = function(t){ return new Blob([t], {type:'application/xml'}); };
   var mot = function(g){
@@ -23338,15 +23343,16 @@ function ktDocx(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: m�
         var nho = []; if(ktDai2(r.R2, KT_06_O.ten)) nho.push(1); if(ktDai2(r.R7, KT_06_O.md)) nho.push(6); if(nho.length) d = ktOSz(d, nho, 20);   /* 3.111: dòng dài quá 2 dòng → nhỏ 1 cỡ, không cắt chữ */
         return ktDien(d, r); }).join('')+ktKyTen(ktDien(K.sau, g.f), 'CÁN BỘ KIỂM TRA', g.f.CB1);   /* 3.115: tên cán bộ kiểm tra dưới khối ký */
   };
-  var than, ds = Array.isArray(gt) ? gt : [gt];
+  var than, le = '', ds = Array.isArray(gt) ? gt : [gt];
   if(ds.length===1) than = mot(ds[0]);
   else {   /* nhiều phiếu: ngắt trang giữa các phiếu; đánh lại id hình (đường kẻ) và bỏ mã đoạn trùng để Word không báo lỗi */
     var id = 100;
+    le = ktHaiMat() ? ktSectLe(K.sect) : '';   /* 3.124: in 2 mặt → ngắt phần "sang trang lẻ" (Word tự thêm trang trắng khi bản trước lẻ trang) */
     than = ds.map(function(g){ return mot(g).replace(/ w14:(paraId|textId)="[^"]*"/g, '').replace(/<wp:docPr id="\d+"/g, function(){ return '<wp:docPr id="'+(id++)+'"'; }); })
-      .join('<w:p><w:r><w:br w:type="page"/></w:r></w:p>');
+      .join(le ? '<w:p><w:pPr>'+le+'</w:pPr></w:p>' : '<w:p><w:r><w:br w:type="page"/></w:r></w:p>');
   }
   var lay = function(k){ return K[k]!==undefined ? K[k] : G[k]; };   /* null = khuôn không có phần đó (3.96: 01/KH có chân trang, không có đầu trang / chú thích) */
-  var doc = lay('mo')+than+K.sect+'</w:body></w:document>';
+  var doc = lay('mo')+ktChamMin(than)+(le ? le : K.sect)+'</w:body></w:document>';   /* 3.124: dòng chấm mịn */
   var ct = 'application/vnd.openxmlformats-officedocument.', P = function(p, t){ return '<Override PartName="/word/'+p+'" ContentType="'+ct+t+'+xml"/>'; };
   var phu = [['header','rId8','header','header1.xml','wordprocessingml.header'], ['endnotes','rId7','endnotes','endnotes.xml','wordprocessingml.endnotes'], ['footnotes','rId6','footnotes','footnotes.xml','wordprocessingml.footnotes'],
     ['footer','rId11','footer','footer1.xml','wordprocessingml.footer']].filter(function(x){ return lay(x[0]); });
@@ -23523,10 +23529,31 @@ function ktGNIn(cach){
 
 /* ---------- bản In / PDF — cùng bố cục mẫu (A4 ngang Mẫu 06, A4 dọc Mẫu 16); trống = dòng chấm ---------- */
 function ktC(v, n){ return v ? coChuHTML(v).replace(/\n/g, '<br>') : Array((n||20)+1).join('.'); }
-var KT_IN_CSS = 'body{margin:0;font-family:"Times New Roman",Times,serif;color:#000}p{margin:0}.kt-p{line-height:1.25}'+
+/* 3.124 (anh chốt): dòng chấm mịn — đoạn ……/....... in cỡ ≈ 65% cỡ chữ, thêm chấm theo tỷ lệ cho đủ dài như cũ (Word + bản In, mọi mẫu KTGS) */
+var KT_CHAM_TL = 0.65;
+function ktChamDai(seg, tl){   /* giữ bề dài: … ≈ 4 dấu chấm (Times New Roman) */
+  var e = (seg.match(/…/g) || []).length, d = seg.length-e, u = Math.floor((e*4+d)*tl);
+  return e>=d ? new Array(Math.floor(u/4)+1).join('…')+new Array(u%4+1).join('.') : new Array(u+1).join('.');
+}
+function ktChamMin(xml){   /* Word: tách đoạn chấm (≥ 4) thành run riêng, cỡ nhỏ hơn */
+  return String(xml).replace(/<w:r( [^>]*)?>(<w:rPr>(?:(?!<\/w:rPr>)[\s\S])*<\/w:rPr>)?<w:t( xml:space="preserve")?>([^<]*)<\/w:t><\/w:r>/g, function(m, at, rp, sp, t){
+    if(!/[.…]{4,}/.test(t)) return m; rp = rp || ''; var sz = +((rp.match(/<w:sz w:val="(\d+)"/) || [0, 26])[1]), nho = Math.max(14, Math.round(sz*KT_CHAM_TL));
+    var rpN = !rp ? '<w:rPr><w:sz w:val="'+nho+'"/><w:szCs w:val="'+nho+'"/></w:rPr>' : /<w:sz /.test(rp) ? rp.replace(/(<w:sz(?:Cs)? w:val=")\d+"/g, '$1'+nho+'"') :
+      rp.replace(/(<w:(?:highlight|u|effect|bdr|shd|fitText|vertAlign|rtl|cs|em|lang|eastAsianLayout|specVanish|oMath)[ \/>])|(<\/w:rPr>)/, function(x){ return '<w:sz w:val="'+nho+'"/><w:szCs w:val="'+nho+'"/>'+x; });
+    var r = function(pr, x){ return x ? '<w:r'+(at||'')+'>'+pr+'<w:t xml:space="preserve">'+x+'</w:t></w:r>' : ''; };
+    return t.split(/([.…]{4,})/).map(function(x, i){ return i%2 ? r(rpN, ktChamDai(x, sz/nho)) : r(rp, x); }).join('');
+  });
+}
+function ktChamHTML(h){   /* bản In: bọc đoạn chấm trong <span class="kt-cham"> (chỉ phần thân, không đụng CSS) */
+  var i = String(h).indexOf('<body'); if(i<0) return h;
+  return h.slice(0, i)+h.slice(i).replace(/>([^<>]*)</g, function(m, t){ return /[.…]{4,}/.test(t) ? '>'+t.replace(/[.…]{4,}/g, function(x){ return '<span class="kt-cham">'+ktChamDai(x, 1/KT_CHAM_TL)+'</span>'; })+'<' : m; });
+}
+function ktHaiMat(){ return D.cauHinh.ktHaiMat!==0; }   /* 3.124 (anh chốt, mặc định bật): in 2 mặt — mỗi bản bắt đầu tờ mới */
+var KT_IN_CSS = 'body{margin:0;font-family:"Times New Roman",Times,serif;color:#000}p{margin:0}.kt-p{line-height:1.25}.kt-cham{font-size:65%;letter-spacing:0}'+
   '.kt-dau{width:100%;border-collapse:collapse}.kt-dau td{vertical-align:top;padding:0}.kt-c{text-align:center}.kt-b{font-weight:bold}.kt-i{font-style:italic}'+
   '.kt-gach{border-top:1px solid #000;margin:2px auto 0;height:0}';
-function ktHTML06(gt){
+function ktHTML06(gt){ return Array.isArray(gt) ? ktHTML06Goc(gt) : ktChamHTML(ktHTML06Goc(gt)); }   /* 3.124: dòng chấm mịn */
+function ktHTML06Goc(gt){
   if(Array.isArray(gt)) return ktGhepTo(gt.map(function(g){ return ktHTML06(g); }), 297, gt.map(function(g, i){ return 'Phiếu '+(i+1)+'/'+gt.length+' · Tổ '+(g.f.TO||'')+(g.f.DB ? ' · '+g.f.DB : ''); }));   /* 3.93.1 · 3.98: xem trước mỗi phiếu 1 tờ */
   var f = gt.f, R = ktDongBu(gt.rows);
   var o = function(v, c, n){ return '<td'+(c ? ' class="'+c+'"' : '')+(n>1 ? ' rowspan="'+n+'"' : '')+'>'+(v ? coChuHTML(v) : '')+'</td>'; };
@@ -23537,7 +23564,7 @@ function ktHTML06(gt){
   for(var i=0;i<k;){ var n = R[i].gop==='dau' ? R[i].n : 1; than += '<tbody class="kt-ho">'+hang.slice(i, i+n).join('')+'</tbody>'; i += n; }   /* 3.117: các dòng của 1 hộ không tách trang */
   return '<!doctype html><html><head><meta charset="utf-8"><title>Mau 06/TD</title><style>@page{size:A4 landscape;margin:10mm 20mm 10mm 18mm}'+KT_IN_CSS+'.kt-ho{break-inside:avoid}'+   /* 3.117: lề trên / dưới 1 cm để 1 mặt chứa thêm 1 hộ */
     'body{font-size:13pt}.kt-bg{width:100%;border-collapse:collapse;font-size:11pt;margin-top:2pt}.kt-bg th,.kt-bg td{border:1px solid #000;padding:1pt 3pt;vertical-align:middle}.kt-bg th{font-weight:bold;text-align:center}'+
-    '.kt-bg td.c{text-align:center}.kt-bg td.giua{vertical-align:middle}.kt-bg td.s{text-align:right}.kt-bg tbody tr{height:28.35pt;break-inside:avoid}.kt-bg td.nho{font-size:10pt}.kt-dl{display:flex;align-items:baseline;line-height:18pt;white-space:nowrap}.kt-dl>span{display:flex;align-items:baseline;overflow:hidden}.kt-ld{flex:1;border-bottom:1px dotted #000;min-width:4mm;margin-left:1pt;margin-right:4pt}.kt-bg td{word-break:break-word}.kt-bg thead{display:table-header-group}.kt-giu{break-inside:avoid}.kt-bg td.kt-nx,.kt-bg .kt-dau td{border:0}</style></head><body>'+
+    '.kt-bg td.c{text-align:center}.kt-bg td.giua{vertical-align:middle}.kt-bg td.s{text-align:right}.kt-bg tbody tr{height:28.35pt;break-inside:avoid}.kt-bg td.nho{font-size:10pt}.kt-dl{display:flex;align-items:baseline;line-height:18pt;white-space:nowrap}.kt-dl>span{display:flex;align-items:baseline;overflow:hidden}.kt-ld{flex:1;border-bottom:.6pt dotted #000;min-width:4mm;margin-left:1pt;margin-right:4pt}.kt-bg td{word-break:break-word}.kt-bg thead{display:table-header-group}.kt-giu{break-inside:avoid}.kt-bg td.kt-nx,.kt-bg .kt-dau td{border:0}</style></head><body>'+
     '<table class="kt-dau"><tr><td style="width:27%"><p class="kt-b">Đơn vị kiểm tra: '+ktC(f.DV, 32)+'</p>'+(f.DV ? '' : '<p>'+Array(62).join('.')+'</p>')+'</td>'+
     '<td style="width:47%" class="kt-c"><p class="kt-b">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p><p class="kt-b">Độc lập - Tự do - Hạnh phúc</p><div class="kt-gach" style="width:52mm"></div><p class="kt-b" style="font-size:15pt;margin-top:13pt">PHIẾU KIỂM TRA SỬ DỤNG VỐN VAY</p></td>'+
     '<td style="width:26%;font-size:12pt"><p class="kt-b">&nbsp;&nbsp;&nbsp;&nbsp;Mẫu số 06/TD</p><p class="kt-i">&nbsp;&nbsp;&nbsp;&nbsp;Lập 02 liên:</p><p class="kt-i">- 01 liên chính lưu NH;</p><p class="kt-i">- 01 liên phô tô lưu Đ.v k.tra.</p></td></tr></table>'+
@@ -23571,19 +23598,31 @@ function ktGhepTo(ds, rong, nhan){   /* 3.98: nhiều phiếu / biên bản / b�
      Bản khác loại (Kế hoạch + Mẫu 04): gom CSS của các loại (bản đầu quyết định khổ giấy), cỡ chữ gốc giữ theo từng bản */
   var css = [], co = ds.map(function(h){ var st = (h.match(/<style>([\s\S]*?)<\/style>/) || [0, ''])[1], m = st.match(/body\{font-size:([\d.]+pt)/); if(css.indexOf(st)<0) css.push(st); return m ? m[1] : ''; });
   return ds[0].replace(/<style>[\s\S]*?<\/style>/, function(){ return '<style>'+css.slice().reverse().join('')+KT_TO_CSS+'@media screen{.kt-to{max-width:'+rong+'mm}}</style>'; }).replace(/<body>[\s\S]*<\/body>/, function(){ return '<body>'+ds.map(function(h, i){
-    return '<div class="kt-to" style="'+(co[i] ? 'font-size:'+co[i]+';' : '')+(i ? 'break-before:page' : '')+'"><div class="kt-to-nhan">'+coChuHTML(nhan[i]||'')+'</div>'+h.replace(/^[\s\S]*<body>|<\/body>[\s\S]*$/g, '')+'</div>'; }).join('')+'</body>'; });
+    return '<div class="kt-to" style="'+(co[i] ? 'font-size:'+co[i]+';' : '')+(i ? 'break-before:page' : '')+'"><div class="kt-to-nhan">'+coChuHTML(nhan[i]||'')+'</div>'+h.replace(/^[\s\S]*<body>|<\/body>[\s\S]*$/g, '')+'</div>'; }).join('')+(ds.length>1 && ktHaiMat() ? ktHaiMatJS(css[0] || '') : '')+'</body>'; });
+}
+function ktHaiMatJS(css){   /* 3.124 (anh chốt): in 2 mặt từ trình duyệt — Chrome không tự chèn trang trắng (break-before:right) → đo chiều cao từng bản theo khổ giấy,
+     bản lẻ trang thì chèn 1 trang trắng sau nó; là ước lượng (bản vừa sát mép trang có thể lệch) — in số lượng lớn nên dùng file Word */
+  var m = css.match(/@page\{size:A4( landscape)?[^;]*;margin:([\d.\smm]+)/), ngang = !!(m && m[1]), mg = (m ? m[2] : '20mm').trim().split(/\s+/).map(parseFloat);
+  mg = mg.length===1 ? [mg[0], mg[0], mg[0], mg[0]] : mg.length===2 ? [mg[0], mg[1], mg[0], mg[1]] : mg.length===3 ? [mg[0], mg[1], mg[2], mg[1]] : mg;   /* top right bottom left như CSS */
+  var W = (ngang ? 297 : 210)-mg[1]-mg[3], H = (ngang ? 210 : 297)-mg[0]-mg[2];
+  return '<style>.kt-trang-trang{break-before:page;height:1px}@media screen{.kt-trang-trang{display:none}}</style><script>(function(){var to=document.querySelectorAll(".kt-to");if(to.length<2)return;'+
+    'var d=document.createElement("div");d.style.cssText="position:absolute;left:-99999px;top:0;width:'+W+'mm;height:'+H+'mm";document.body.appendChild(d);var Wp=d.getBoundingClientRect().width,Hp=d.getBoundingClientRect().height;d.parentNode.removeChild(d);'+
+    'for(var i=0;i<to.length-1;i++){var c=to[i].cloneNode(true),n=c.querySelector(".kt-to-nhan");if(n)n.parentNode.removeChild(n);c.style.cssText+=";position:absolute;left:-99999px;top:0;width:"+Wp+"px;max-width:none;padding:0;margin:0;box-shadow:none;break-before:auto";'+
+    'document.body.appendChild(c);var h=c.getBoundingClientRect().height;c.parentNode.removeChild(c);var p=Math.max(1,Math.ceil(h/Hp-0.02));'+
+    'if(p%2){var b=document.createElement("div");b.className="kt-trang-trang";to[i].parentNode.insertBefore(b,to[i+1]);}}})();<\/script>';
 }
 function ktCB16HTML(ten, cv){   /* 3.98: Mẫu 16 bản In — "Chức vụ" thẳng cột (như tab Word: 10,5 cm từ lề) */
   var o = function(chu, gt, w){ return '<span style="'+(w ? 'width:'+w : 'flex:1')+'">'+chu+(gt ? coChuHTML(gt) : '<i class="kt-ld"></i>')+'</span>'; };
   return '<div class="kt-dl">'+o('- Ông (bà):&nbsp;', ten, '95mm')+o('Chức vụ:&nbsp;', cv, '')+'</div>';
 }
-function ktHTML16(gt){
+function ktHTML16(gt){ return Array.isArray(gt) ? ktHTML16Goc(gt) : ktChamHTML(ktHTML16Goc(gt)); }   /* 3.124: dòng chấm mịn */
+function ktHTML16Goc(gt){
   if(Array.isArray(gt)) return ktGhepTo(gt.map(function(g){ return ktHTML16(g); }), 210, gt.map(function(g, i){ return 'Biên bản '+(i+1)+'/'+gt.length+' · Tổ '+(g.f.TT||''); }));   /* 3.97 · 3.98 */
   var f = gt.f, nx = gt.nx || {}, B = gt.b2 || [], hang = function(nd, b, kq){ return '<tr><td'+(b ? ' class="kt-b"' : '')+'>'+nd+'</td><td class="kt-c">'+(kq ? coChuHTML(kq) : '')+'</td></tr>'; };
   var muc3 = function(nhan, ds, n1, n2){ return ds && ds.length ? '<p class="kt-p"><b>'+nhan+':</b></p>'+ds.map(function(x){ return '<p class="kt-p">- '+coChuHTML(x)+'</p>'; }).join('')+'<p>'+Array(n2).join('.')+'</p>' : '<p class="kt-p"><b>'+nhan+':</b> '+Array(n1).join('.')+'</p><p>'+Array(n2).join('.')+'</p>'; };
   var bang = function(ds){ return '<table class="kt-bg"><thead><tr><th style="width:62%">Nội dung</th><th>Kết quả kiểm tra</th></tr></thead><tbody>'+ds.map(function(x){ return hang(x[0], x[1], x[2]); }).join('')+'</tbody></table>'; };
   return '<!doctype html><html><head><meta charset="utf-8"><title>Mau 16/TD</title><style>@page{size:A4;margin:15mm 20mm 15mm 27.5mm}'+KT_IN_CSS+
-    'body{font-size:13pt}.kt-dl{display:flex;align-items:baseline;white-space:nowrap;margin:2pt 0;padding-left:10mm}.kt-dl>span{display:flex;align-items:baseline;overflow:hidden}.kt-ld{flex:1;border-bottom:1px dotted #000;min-width:4mm;margin-left:1pt;margin-right:4pt}.kt-p{text-align:justify;text-indent:10mm;margin:2pt 0}.kt-bg{width:100%;border-collapse:collapse;font-size:12.5pt;margin:3pt 0}.kt-bg th,.kt-bg td{border:1px solid #000;padding:1pt 4pt;vertical-align:top}.kt-bg tr{break-inside:avoid}.kt-bg thead{display:table-header-group}.kt-giu{break-inside:avoid}</style></head><body>'+
+    'body{font-size:13pt}.kt-dl{display:flex;align-items:baseline;white-space:nowrap;margin:2pt 0;padding-left:10mm}.kt-dl>span{display:flex;align-items:baseline;overflow:hidden}.kt-ld{flex:1;border-bottom:.6pt dotted #000;min-width:4mm;margin-left:1pt;margin-right:4pt}.kt-p{text-align:justify;text-indent:10mm;margin:2pt 0}.kt-bg{width:100%;border-collapse:collapse;font-size:12.5pt;margin:3pt 0}.kt-bg th,.kt-bg td{border:1px solid #000;padding:1pt 4pt;vertical-align:top}.kt-bg tr{break-inside:avoid}.kt-bg thead{display:table-header-group}.kt-giu{break-inside:avoid}</style></head><body>'+
     '<p class="kt-b kt-i" style="text-align:right;font-size:12pt">Mẫu số 16/TD</p>'+
     '<table class="kt-dau"><tr><td class="kt-c" style="width:40%">'+(f.DV0 ? '<p class="kt-b" style="font-size:13pt">'+coChuHTML(f.DV0)+(String(f.DVA||'').trim() ? '<br>'+coChuHTML(f.DVA) : '')+'</p>'   /* 3.118: có tên đơn vị → bỏ dòng "ĐƠN VỊ KIỂM TRA" */
       : '<p class="kt-b" style="font-size:13pt">ĐƠN VỊ KIỂM TRA</p><p class="kt-b">'+Array(41).join('.')+'</p>')+'<div class="kt-gach" style="width:30mm"></div></td>'+
@@ -23849,7 +23888,8 @@ function ktBung04(K, g){   /* khuôn Mẫu 04: bung dòng Đoàn kiểm tra, dò
       x = x.slice(0, e+6)+Array(4).join('<w:p><w:pPr><w:spacing w:after="0"/></w:pPr></w:p>')+'<w:p><w:pPr><w:keepNext/><w:tabs><w:tab w:val="center" w:pos="6150"/></w:tabs><w:spacing w:after="0"/></w:pPr><w:r>'+rr+'<w:tab/></w:r><w:r>'+rr+'<w:t xml:space="preserve">'+xmlEsc(g.f.TD04)+'</w:t></w:r></w:p>'+x.slice(e+6); } }
   return x;
 }
-function ktHTML04(gt){
+function ktHTML04(gt){ return Array.isArray(gt) ? ktHTML04Goc(gt) : ktChamHTML(ktHTML04Goc(gt)); }   /* 3.124: dòng chấm mịn */
+function ktHTML04Goc(gt){
   if(Array.isArray(gt)) return ktGhepTo(gt.map(function(g){ return ktHTML04(g); }), 210, gt.map(function(g, i){ return 'Báo cáo '+(i+1)+'/'+gt.length+' · '+(g.ten||'')+(g.nhan ? ' · '+g.nhan : ''); }));   /* 3.98 */
   var f = gt.f, c = function(n){ return Array(n+1).join('<div class="kt-ch"></div>'); };
   var muc = function(t, n){ return '<p class="kt-p">'+t+'</p>'+c(n); };
@@ -24069,7 +24109,8 @@ function ktBungPC(g){   /* Word: A4 dọc, Times New Roman 14 */
     pp(g.ky.tm, Object.assign({b:1}, ca))+pp(g.ky.cv, Object.assign({b:1}, ca))+Array(5).join(pp('', ca))+pp(g.ky.ten, Object.assign({b:1}, ca)));
   return dau+than+pp('', {sau:120})+ky;
 }
-function ktHTMLPC(g){
+function ktHTMLPC(g){ return ktChamHTML(ktHTMLPCGoc(g)); }   /* 3.124 */
+function ktHTMLPCGoc(g){
   var h = function(s){ return coChuHTML(s).replace(/\n/g, '<br>'); }, d = g.dau;
   return '<!doctype html><html><head><meta charset="utf-8"><title>Phan cong nhiem vu BTV</title><style>@page{size:A4;margin:20mm 19.5mm 20mm 30mm}'+KT_IN_CSS+'body{font-size:14pt}.kt-c{text-align:center}.kt-b{font-weight:bold}.kt-i{font-style:italic}.kt-u{text-decoration:underline}'+
     'table{width:100%;border-collapse:collapse}td{vertical-align:top;padding:0}.kt-p{text-align:justify;text-indent:10mm;margin:0 0 3pt;line-height:1.3}</style></head><body>'+
@@ -24389,7 +24430,7 @@ function ktKHIn(cach){
   inBlob(new Blob([ktHTML01(g)], {type:'text/html'}), ten+'.html');
 }
 function ktHTML01(g){   /* bản In: đọc lại chính tài liệu Word đã điền → HTML (đoạn, đậm / nghiêng, canh lề, thụt đầu dòng, bảng) */
-  var K = KT_KHUON[g.mau||'m01'], xml = K.mo+ktBung01(K, g)+K.sect+'</w:body></w:document>';
+  var K = KT_KHUON[g.mau||'m01'], xml = K.mo+ktChamMin(ktBung01(K, g))+K.sect+'</w:body></w:document>';   /* 3.124: dòng chấm mịn như Word */
   return '<!doctype html><html><head><meta charset="utf-8"><title>Ke hoach KTGS</title><style>@page{size:A4;margin:20mm 15mm 20mm 30mm}'+KT_IN_CSS+
     'body{font-size:14pt}p{margin:0}table{border-collapse:collapse}td{vertical-align:top;padding:1pt 4pt}tr{break-inside:avoid}thead{display:table-header-group}.kt-vien td{border:1px solid #000}</style></head><body>'+ktXmlHTML(xml)+'</body></html>';
 }
