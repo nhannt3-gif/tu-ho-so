@@ -19,7 +19,7 @@ const fs=require('fs'), path=require('path');
    const f1 = {TD:'…../10/2026', DB:'khu phố Suối Giả, phường Gia Giả, tỉnh Tây Ninh', TO:'Trần Đức Giả'}, d1 = ktDong3_06(f1);
    ok('địa bàn phường + tên tổ trưởng thường → 1 dòng', d1.mot, JSON.stringify(d1));
    const f2 = {TD:'…../10/2026', DB:'khu phố Ninh Thạnh Giả Đông, phường Gia Lộc Giả Trung, tỉnh Tây Ninh', TO:'Lê Thị Giả'}, d2 = ktDong3_06(f2);
-   ok('… và khi chỉ vừa sau khi gọn: in bản gọn (viết tắt KP / P.)', d2.mot && /^KP /.test(d2.db) && /P\. /.test(d2.db), d2.db+' · a='+d2.a+' b='+d2.b);
+   ok('… và khi chỉ vừa sau khi gọn: in bản gọn (viết tắt KP / P.) — 3.128 dòng dài hơn (lề 12 / 10 mm) thì vừa ngay bản đầy đủ', d2.mot && (/^KP /.test(d2.db) && /P\. /.test(d2.db) || d2.db.indexOf('khu phố')===0), d2.db+' · a='+d2.a+' b='+d2.b);
    const f3 = {TD:'…../10/2026', DB:f2.DB, TO:'Nguyễn Thị Giả Một Hai Ba Bốn Năm Sáu Bảy Tám Chín Mười'}, d3 = ktDong3_06(f3);
    ok('vẫn quá dài → Tổ xuống dòng, địa bàn giữ đủ', !d3.mot && d3.db===f3.DB);
    /* 2. Mẫu 06 Word */
