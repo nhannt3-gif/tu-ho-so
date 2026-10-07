@@ -29,13 +29,13 @@ const fs=require('fs'), path=require('path');
    o.kySK = SK_K.ky+' · '+SK_K.B.hsTen;
    const C = skCH(); C.bc = {qh:true,kh:true,khd:true,sdt:true,dh:true,gn:true,ddn:true,m105:true}; C.tu='2029-01-01'; C.den='2029-12-31';
    const x0 = pvLuaChon(SK_K.to, C, 'xa')[0].k; pvChon('sk','xa', x0); await w(50);
-   skXem(); let d; for(let i=0;i<60;i++){ await w(250); d = document.getElementById('sk-khung').contentDocument; if(d && d.readyState==='complete' && d.querySelectorAll('h1').length===8) break; }
+   skXem(); let d; for(let i=0;i<60;i++){ await w(250); d = new DOMParser().parseFromString(document.getElementById('sk-khung').trGoc||'', 'text/html'); if(d && d.readyState==='complete' && d.querySelectorAll('h1').length===8) break; }
    o.xa = d.querySelector('.bc-to').textContent+'\n    '+Array.from(d.querySelectorAll('.trang')).map(t=>t.querySelector('h1').textContent+': '+t.querySelectorAll('tbody tr:not(.nhom):not(.tong)').length+' dòng, '+t.querySelectorAll('tr.nhom').length+' tổ').join('\n    ');
    o.sdt = (d.querySelector('.bc-tom')||{}).textContent;
    dongHop();
    // theo tổ: không chia nhóm
    const d0 = pvLuaChon(SK_K.to, C, 'diem')[0].k; pvChon('sk','diem', d0); const t0 = pvLuaChon(SK_K.to, C, 'to')[0].k; pvChon('sk','to', t0);
-   skXem(); await w(1200); d = document.getElementById('sk-khung').contentDocument;
+   skXem(); await w(1200); d = new DOMParser().parseFromString(document.getElementById('sk-khung').trGoc||'', 'text/html');
    o.to = d.querySelector('.bc-to').textContent+' · nhóm tổ: '+d.querySelectorAll('tr.nhom').length;
    o.excel = typeof skExcel; dongHop();
    // Tổ TK&VV vẫn chạy sau khi đổi sang bộ chọn chung

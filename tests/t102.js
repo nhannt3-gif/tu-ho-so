@@ -41,7 +41,7 @@ const fs=require('fs'), path=require('path');
    o.the = document.querySelector('.to-the').textContent.replace(/\s+/g,' ').slice(0,160);
    toCH().bc = {ds:true, no:true, tk:true}; toVeThe(); toXem();
    for(let i=0;i<60 && !document.getElementById('to-khung');i++) await w(250); await w(1000);
-   const dd = document.getElementById('to-khung').contentDocument;
+   const dd = new DOMParser().parseFromString(document.getElementById('to-khung').trGoc||'', 'text/html');
    o.bc = Array.from(dd.querySelectorAll('h1')).map(x=>x.textContent).join(' / ')+' · dòng '+Array.from(dd.querySelectorAll('.trang')).map(x=>x.querySelectorAll('tbody tr').length).join(',');
    o.khung = Array.from(dd.querySelectorAll('.bc-khung-ten')).map(x=>x.textContent.slice(0,60)).join(' / ');
    o.tk105 = Array.from(dd.querySelectorAll('.bc-kpi')).pop().textContent.replace(/\s+/g,' ');

@@ -4,6 +4,47 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.128 — 12/10/2026 18:00 — Tổ TK&VV biến động thành viên · Mẫu 06 theo mẫu chuẩn · bộ in chuẩn + khung xem · số trang
+- **A. Tổ TK&VV (anh yêu cầu):**
+  - Chip mới "Có dư nợ · chưa có TK 105".
+  - Chip "Không dư nợ" có cột **Ngày tất nợ**: lấy ngày giao dịch gần nhất của món đã tất toán trong Mẫu 31; không có thì ghi "trước <năm>".
+  - Chip **Mới vào tổ** (so với Mẫu 31 tháng trước): ngày kết nạp ≈ ngày vay; ghi "từ tổ X" hoặc "kết nạp mới".
+  - Chip **Ra khỏi tổ**: ghi "sang tổ Y" hoặc "không còn trong Mẫu 31". Khách chuyển tổ được tính ở cả hai tổ, đúng như anh chốt.
+  - Dòng tóm tắt "Biến động T9: +n vào · −n ra".
+  - Nút **📅 Biến động cả năm**: bảng theo tháng, bấm ô để xem danh sách; In và Excel.
+- **B. Mẫu 06 theo mẫu chuẩn (anh yêu cầu):**
+  - Lề trái 12 mm, lề phải 10 mm.
+  - Cột Họ tên rộng hơn, ưu tiên tên nằm 1 dòng. Cột Mục đích hẹp lại, tối đa 2 dòng (dài hơn thì thu chữ). Cột Chương trình hẹp lại.
+  - "1. Ông (bà)" sát nhãn như mẫu chuẩn.
+  - Dòng chấm Nhận xét và Biện pháp xử lý chạy tới cuối dòng.
+  - Tên chương trình ghi theo **viết tắt của hệ thống** (cột TENVT trong danh mục anh gửi); HSSV QĐ43 ghi "HSSV_STEM". Chỉ Mẫu 06 (mẫu của hệ thống) dùng cách này; báo cáo app tự thiết kế vẫn ghi mã kèm tên viết tắt của app.
+- **C. Bộ in chuẩn + khung xem (anh yêu cầu):**
+  - Mọi bản In nhanh và mọi khung Xem trước đều do app tự chia trang A4, nên xem thế nào thì in ra đúng như vậy. Áp dụng cho Mẫu 06 / 16 / 04, Kế hoạch, Phân công, báo cáo tổ, sao kê, tổng hợp, danh sách Theo dõi nợ, phiếu thông tin món vay, số liệu giao ban, buổi giao dịch.
+  - Trình duyệt **không còn in dòng đầu / cuối trang** (ngày giờ, đường dẫn), vì lề trang của trình duyệt đặt bằng 0 và lề thật nằm trong từng trang.
+  - Chia trang:
+    - Tiêu đề bảng lặp lại ở mỗi trang.
+    - Không cắt ngang dòng; các dòng của 1 hộ không bị tách.
+    - Tiêu đề mục đi liền với nội dung phía dưới.
+    - Cột bảng giữ nguyên bề rộng ở mọi trang.
+  - Báo cáo nhanh tự chọn khổ theo thứ tự: A4 dọc → dọc gọn (bỏ cột SĐT, chữ 9) → A4 ngang. Lề dọc 20/15/20/30 mm, lề ngang 15/15/15/20 mm.
+  - Số trang (chữ nhỏ):
+    - Mẫu 06: "Trang x/y" ở mọi trang, đếm riêng từng tổ.
+    - Văn bản khác: số trang ở góc dưới phải, bắt đầu từ trang 2.
+  - In 2 mặt khi xuất nhiều bản: bản có số trang lẻ được thêm **đúng 1 trang trắng**, thay cho cách ước lượng của bản 3.124.
+  - Khung xem mới có các nút:
+    - Lật trang: ⏮ ‹ n/N › ⏭ (ô n gõ được số trang).
+    - Thu phóng: − % +, ↔ vừa ngang, ⊡ vừa trang.
+    - Khổ: Tự động / Dọc / Ngang (chỉ có ở báo cáo nhanh).
+    - 🖨 In, 💾 PDF (qua hộp in), 📄 Word (nếu mẫu đó có bản Word), ⤢ toàn màn hình.
+    - Phím PageUp / PageDown / Home / End.
+- **D. Số trang Word:**
+  - Mẫu 06: "Trang x/y" theo từng tổ.
+  - Kế hoạch, 04, 16, Phân công: số trang góc dưới phải, từ trang 2.
+  - Khi xuất nhiều bản, mỗi bản là 1 phần và đánh số lại từ 1.
+- Kiểm tra: `kiem.py` sạch; t128 mới (Tổ + bộ in, đếm trang PDF thật); các phép thử cũ đổi theo bố cục mới: t106, t108, t111, t115, t120, t126.
+
+---
+
 ## 3.127 — 12/10/2026 08:00 — Hộp Chọn khi in hiện tên người
 - **Anh yêu cầu:** chỗ chọn chức danh người ký / người kiểm tra hiện kèm tên đã khai báo để dễ nhận biết.
 - Hộp "Chọn khi in" (Mẫu 06 / 16 / 04 / Kế hoạch): mỗi lựa chọn ghi "Chức danh — Tên" theo 🏛 Khai báo Hội – xã của các tổ đang in (Đoàn: Bí thư / Phó Bí thư); nhiều Hội khác tên → "theo từng Hội (n người)"; chưa khai → "chưa khai tên". Ô Phó 2–3, Ủy viên 1–5 không Hội nào khai thì ẩn (trừ ô đang chọn). Giá trị lưu không đổi (`ktInVTTen`).

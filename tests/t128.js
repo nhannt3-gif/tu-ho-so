@@ -1,3 +1,4 @@
+// 3.128 — (C) bộ in chuẩn: chia trang A4, số trang, 2 mặt, khung xem (đếm trang PDF thật).
 // 3.128 — Tổ TK&VV: chip "Có dư nợ · chưa có TK 105", ngày tất nợ, Mới vào / Ra khỏi tổ (so Mẫu 31 tháng trước), biến động cả năm.
 // Bộ GIẢ: tests/gia31 (Mẫu 31 T7, T8 — số liệu giả); dựng thêm biến động bằng cách sửa bảng T8 trong bộ nhớ.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
@@ -56,6 +57,31 @@ const fs=require('fs'), path=require('path');
    dongHop();
    return o;
  }, files);
+ /* phần C — bộ in chuẩn: tự chia trang A4, @page lề 0 (không còn dòng đầu / cuối trang của trình duyệt), số trang, 2 mặt, khung xem */
+ const H = await p.evaluate(async()=>{ const w=t=>new Promise(r=>setTimeout(r,t));
+   const C = ktCH(); C.ky='2026-08'; C.che='dx'; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
+   const t = Object.values(KT_K.to).filter(x=>!toLaTT(x) && x.dv && String(x.dv)!=='99' && x.xa)[0]; C.xa = t.xa; ktChonTo(t.ma); await w(200);
+   const g06 = ktGiaTri06(t, ktDaChon(), ktInV('m06')), r0 = g06.rows.find(r=>r.gop!=='tiep') || g06.rows[0];
+   const dung = k => Object.assign({}, g06, {rows:Array.from({length:k}, (_, i)=>Object.assign({}, r0, {R1:String(i+1), R2:'Khách Giả '+(i+1), gop:'', n:1}))});
+   const o = {m06:inChuan(ktHTML06(dung(20))), mot:[1, 4, 1, 6, 2].map(k=>inChuan(ktHTML06(dung(k)))), ghep:inChuan(ktHTML06([1, 4, 1, 6, 2].map(dung))), m16:inChuan(ktHTML16(ktGiaTri16(t, ktDaChon(), ktInV('m16'))))};
+   o.xem = inChuan(ktHTML06([1, 4].map(dung)), 1); o.lai = inChuan(o.m06)===o.m06; return o; });
+ const mo = async (h, xem) => { const q = await b.newPage({viewport:{width:1100,height:800}}); q.on('pageerror',e=>loi.push(e.message)); await q.setContent(h); for(let i=0;i<60 && !(await q.evaluate(()=>window.TR_XONG));i++) await q.waitForTimeout(100); return q; };
+ const dem = async h => { const q = await mo(h); const so = await q.evaluate(()=>window.TR_SO), pdf = await q.pdf({preferCSSPageSize:true}); await q.close();
+   return {so, n:await p.evaluate(async a=>(await PDFLib.PDFDocument.load(new Uint8Array(a))).getPageCount(), Array.from(pdf))}; };
+ const ok2 = (ten, dk, chi) => R.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
+ ok2('bộ in chuẩn: @page lề 0 (bỏ dòng đầu / cuối trang trình duyệt), bỏ đoạn ước lượng 2 mặt cũ, không chuẩn hóa 2 lần', /@page\{size:A4 portrait;margin:0\}/.test(H.m06) && !/kt-trang-trang\{/.test(H.m06) && H.lai);
+ let q = await mo(H.m06); const x06 = await q.evaluate(()=>({so:[...document.querySelectorAll('.tr-so')].map(x=>x.textContent), tg:document.querySelectorAll('.tr-tg.ngang').length, lap:[...document.querySelectorAll('.tr-tg')].every(t=>t.querySelectorAll('.kt-bg thead').length===1), cot:[...document.querySelectorAll('.tr-tg')].map(t=>Math.round(t.querySelector('.kt-bg th[rowspan]').getBoundingClientRect().width)).join()})); await q.close();
+ ok2('Mẫu 06 20 hộ: chia trang A4 ngang, "Trang x/y" mọi trang, lặp tiêu đề bảng, cột giữ nguyên bề rộng', x06.tg>=2 && x06.so.join()===Array.from({length:x06.tg}, (_, i)=>'Trang '+(i+1)+'/'+x06.tg).join() && x06.lap && new Set(x06.cot.split(',')).size===1, JSON.stringify(x06));
+ const d06 = await dem(H.m06); ok2('Mẫu 06: số trang xem trước = số trang PDF thật', d06.so===d06.n, JSON.stringify(d06));
+ const so = []; for(const h of H.mot) so.push((await dem(h)).n);
+ const ky = so.reduce((a, n, i)=>a+(i<so.length-1 ? n+(n%2) : n), 0), dg = await dem(H.ghep);
+ ok2('In 2 mặt (PDF thật): bản lẻ trang thêm đúng 1 trang trắng → mỗi bản bắt đầu mặt trước', dg.n===ky && dg.so===dg.n, 'từng bản '+JSON.stringify(so)+' → ghép '+dg.n+' (mong đợi '+ky+')');
+ q = await mo(H.m16); const x16 = await q.evaluate(()=>({so:[...document.querySelectorAll('.tr-so')].map(x=>x.textContent).join(), n:window.TR_SO, mo:[...document.querySelectorAll('.tr-nd')].map(n=>{ const r = [...n.querySelectorAll('.kt-bg tr')].pop(); return r ? r.textContent.slice(0, 30) : ''; })})); await q.close();
+ ok2('Mẫu 16: số trang góc dưới phải từ trang 2; dòng tiêu đề mục không bị bỏ lại cuối trang', x16.so===Array.from({length:x16.n-1}, (_, i)=>String(i+2)).join() && !x16.mo.slice(0, -1).some(t=>/^\d\. /.test(t)), JSON.stringify(x16));
+ q = await mo(H.xem); const xv = await q.evaluate(async()=>{ const t = document.getElementById('tr-thanh'), n = document.getElementById('tr-n').textContent, b = l=>t.querySelector('[data-l="'+l+'"]');
+   b('cuoi').click(); await new Promise(r=>setTimeout(r, 100)); const cuoi = document.getElementById('tr-o').value; b('trang').click(); const pt = document.getElementById('tr-pt').textContent;
+   return {n, cuoi, pt, nut:[...t.querySelectorAll('button')].map(x=>x.textContent).join(' '), nhan:document.querySelectorAll('.tr-nhan').length, trang:document.querySelectorAll('.tr-trang-trang').length}; }); await q.close();
+ ok2('khung xem: ⏮ ‹ n/N › ⏭, − % +, ↔, ⊡, In, PDF, toàn màn hình; nhãn từng bản; trang trắng 2 mặt hiện mờ', /⏮.*‹.*›.*⏭.*−.*\+.*↔.*⊡.*In.*PDF.*⤢/.test(xv.nut) && xv.cuoi===xv.n && /%$/.test(xv.pt) && xv.nhan===2 && xv.trang===1, JSON.stringify(xv));
  R.concat(loi.map(e=>'✗ lỗi trang: '+e)).forEach(x=>console.log(x));
  const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log((R.length-sai+loi.length)+'/'+R.length+' đạt'+(sai ? ' · '+sai+' ✗' : ''));
  await b.close(); process.exit(sai ? 1 : 0);

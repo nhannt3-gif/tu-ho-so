@@ -56,13 +56,13 @@ const fs=require('fs'), path=require('path');
    /* bản In: dựng 06 với số hộ khác nhau để có bản 1 trang / 2 trang */
    const r0 = g06.rows.find(r=>r.gop!=='tiep') || g06.rows[0];
    const dung = k => Object.assign({}, g06, {rows:Array.from({length:k}, (_, i)=>Object.assign({}, r0, {R1:String(i+1), R2:'Khách Giả '+(i+1), gop:'', n:1}))});
-   window.__mot = [1, 4, 1, 6, 2].map(k=>ktHTML06(dung(k)));
-   window.__ghep = ktHTML06([1, 4, 1, 6, 2].map(dung));
-   ok('bản In nhiều phiếu: có đoạn đo + chèn trang trắng', /kt-trang-trang/.test(window.__ghep) && /<script>/.test(window.__ghep));
+   window.__mot = [1, 4, 1, 6, 2].map(k=>inChuan(ktHTML06(dung(k))));   /* 3.128: qua bộ in chuẩn (app tự chia trang, tự chèn trang trắng) */
+   window.__ghep = inChuan(ktHTML06([1, 4, 1, 6, 2].map(dung)));
+   ok('bản In nhiều phiếu: bỏ đoạn ước lượng cũ, bộ in chuẩn lo trang trắng (3.128)', !/kt-trang-trang\{/.test(ktHTML06([1, 2].map(dung))) && /TR_XONG/.test(window.__ghep));
    return o;
  }, files);
  /* đếm trang PDF thật: từng bản riêng → làm tròn lên số chẵn; bản ghép phải = tổng (trừ trang trắng cuối không cần) */
- const dem = async h => { const q = await b.newPage(); await q.setContent(h); await q.waitForTimeout(200); const pdf = await q.pdf({preferCSSPageSize:true}); await q.close(); return p.evaluate(async a=>(await PDFLib.PDFDocument.load(new Uint8Array(a))).getPageCount(), Array.from(pdf)); };
+ const dem = async h => { const q = await b.newPage(); await q.setContent(h); for(let i=0;i<60 && !(await q.evaluate(()=>window.TR_XONG));i++) await q.waitForTimeout(100); const pdf = await q.pdf({preferCSSPageSize:true}); await q.close(); return p.evaluate(async a=>(await PDFLib.PDFDocument.load(new Uint8Array(a))).getPageCount(), Array.from(pdf)); };
  const mot = await p.evaluate(()=>window.__mot), so = []; for(const h of mot) so.push(await dem(h));
  const ky = so.reduce((a, n, i)=>a+(i<so.length-1 ? n+(n%2) : n), 0), thuc = await dem(await p.evaluate(()=>window.__ghep));
  R.push((thuc===ky ? '✓ ' : '✗ ')+'In 2 mặt (PDF thật): từng bản '+JSON.stringify(so)+' trang → bản ghép '+thuc+' trang (mong đợi '+ky+'), mỗi bản bắt đầu trang lẻ');

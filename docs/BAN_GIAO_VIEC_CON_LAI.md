@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.127 · build 12/10/2026 08:00
+**Bản hiện tại:** 3.128 · build 12/10/2026 18:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,42 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.128) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tổ TK&VV, chọn 1 tổ: các chip Có dư nợ · chưa TK 105 / Không dư nợ / Mới vào tổ / Ra khỏi tổ | Đếm đúng; có cột Ngày tất nợ, Ngày kết nạp, Đi đâu | |
+| 2 | 📅 Biến động cả năm | Bảng T1…T9, bấm ô ra danh sách; In và Excel được | |
+| 3 | In Mẫu 06 (bản In và Word) | Tên 1 dòng; Mục đích tối đa 2 dòng; CT ghi viết tắt hệ thống; dòng chấm tới cuối dòng; "Trang x/y" chữ nhỏ | |
+| 4 | Xem trước bất kỳ mẫu (06, 16, 04, KH, báo cáo tổ, sao kê, tổng hợp) | Khung xem có lật trang, thu phóng, Khổ, In, PDF, Word, toàn màn hình; xem = in | |
+| 5 | In từ trình duyệt (Chrome / Edge) | Không còn ngày giờ / đường dẫn ở đầu, cuối trang; lề đúng; số trang góc dưới phải từ trang 2 | |
+| 6 | Xuất In nhiều tổ, in 2 mặt | Mỗi tổ bắt đầu mặt trước, không dính 2 tổ trên 1 tờ | |
+| 7 | Báo cáo nhanh nhiều cột (sao kê) | Tự sang dọc gọn / ngang khi không đủ chỗ; chọn Khổ Dọc / Ngang trong khung xem | |
+| 8 | iPhone: bấm In | Vẫn ra bảng chia sẻ / hộp in như trước | |
+
+**Ghi chú kỹ thuật 3.128:**
+- **Phần A (Tổ TK&VV):** `toMapKy(ky)` dựng bảng kh → {tổ, tên, dn, t105, nv} của 1 tháng Mẫu 31. `toBienDong(ma, Mn, Mp)` cho ra `{vao, ra}`. `TO_BD` là biến động của tháng đang xem; `TO_BDN` của cả năm (`toBDNam`, `toBDNamXuat`). `slBoXoa` xóa luôn `TO_MAP` và `TO_BD`.
+- **Phần B (Mẫu 06):**
+  - Khuôn Word: lưới cột `[397,1928,1020,1134,737,737,1644,737,737,2286,907,907,794,794,1117]`, `pgMar` trái 680, phải 567, tab có chấm dẫn đến 15500.
+  - Thu chữ theo ô: `ktCo06Ten`, `ktCo06Md`, `ktCo06CT`.
+  - `ctHT(ma)` lấy `TDN_CT[ma][0]`.
+- **Phần C (bộ in chuẩn):**
+  - `inChuan(html, xem)`:
+    - bỏ `<script>` cũ (`skInTu`, `ktHaiMatJS`);
+    - đọc khổ và lề từ `@page` đầu tiên (`trLe`);
+    - gắn `TR_CSS` và `trDan` vào cuối `<body>`.
+  - `trDan(C)` chạy trong trang in:
+    - Đơn vị chia trang: `.kt-to` → `.trang` → `.phieu`, nếu không có thì cả body.
+    - Rót từng nút vào `.tr-tg` / `.tr-nd` (cao cố định, đo `scrollHeight`).
+    - Tách theo cây: `xich` gồm vỏ tổ tiên được nhân bản, `lap` là thead / colgroup cần lặp.
+    - Bộ giữ: TR, `break-inside:avoid`, `kt-ho`, `kt-giu`. Nhóm dài hơn 1 trang thì buộc tách.
+    - Kéo tiêu đề đi liền nội dung: H1–H6, `.bc-khung-ten`, `p.kt-b`, TR có ô `.kt-b`.
+    - `coDinhCot` cố định bề rộng cột.
+    - Bậc khổ cho `.trang` nằm trong `bac()`.
+    - Khi xong đặt `window.TR_XONG` và `TR_SO`.
+  - `inBlob` đổi HTML qua `inChuan` và chờ `TR_XONG` rồi mới in. Khung xem dùng `xemChuan(f, html)`.
+  - Chrome không làm theo `break-before:right` → trang trắng 2 mặt do app tự chèn (`.tr-trang-trang`).
+- **Phần D (số trang Word):** `ktSectSo(sect, 'xy'|'so')` + `ktFtrSo`; footer rId11; `pgNumType start=1`.
 
 ### Danh sách thử trên máy thật (3.127) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
