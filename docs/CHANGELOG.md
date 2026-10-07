@@ -4,6 +4,30 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.132 — 13/10/2026 09:00 — Tổ TK&VV: tóm tắt + chip ở cấp Hội / điểm GD / xã / PGD · vay trực tiếp STT 0 · mới vào 3 nhóm
+- **Anh yêu cầu:** chọn tới Hội, xã hoặc PGD cũng có dòng tóm tắt và chip lọc như của tổ; các danh sách đã có giữ nguyên.
+- **Chưa chọn tổ:**
+  - Dòng tóm tắt của phạm vi: số tổ, tổ viên, có dư nợ, không dư nợ còn 105, đề xuất cho ra, CCCD hết hạn; dư nợ, quá hạn, khoanh, 105; biến động tháng.
+  - Chip lọc giống của tổ. Chip đầu "📋 Bảng" mặc định là bảng như trước.
+  - Bấm chip ra danh sách khách cả phạm vi, có cột Tổ (bấm để mở tổ) và cột Xã khi xem cả PGD. Màn hình hiện tối đa 800 dòng, In và Excel có đủ.
+  - 📅 Biến động cả năm cho cả phạm vi, cộng theo từng tổ.
+- **Hàng chip xã có chip PGD.** Tab Tổ xem được cả PGD; trước đây phải chọn xã.
+- **Bảng cấp PGD:** dòng **Cộng toàn PGD trên đầu** (bảng dài khỏi cuộn), rồi từng xã (dòng tổng), dưới là các điểm GD. Bấm dòng xã hoặc điểm GD thì xuống bảng các tổ. Có In và Excel.
+- **Vay trực tiếp không phải tổ:**
+  - Dòng vay trực tiếp ghi STT 0, nằm đầu nhóm điểm GD; các tổ đánh số từ 1.
+  - Số tổ (đầu bảng, dòng Cộng, ô chọn xã / điểm "(n tổ)") không tính vay trực tiếp; khách và số tiền vẫn cộng.
+  - Bảng các tổ thêm 🖨 In bảng và 📊 Excel.
+- **Mới vào tổ chia 3 nhóm** (anh lưu ý CIF cũ có thể dùng lại nên không kết luận chỉ bằng CIF):
+  - **hộ mới (CIF mới)**: CIF lớn hơn mọi CIF của Mẫu 31 tháng trước;
+  - **CIF cũ dùng lại**: CIF cũ nhưng tháng trước không có;
+  - **chuyển tổ**: tháng trước ở tổ khác.
+  - Ghi ở cột "từ đâu", ở dòng tóm tắt, và thành 3 hàng trong Biến động cả năm.
+  - Đã kiểm với file Dư nợ chi tiết thật 30/09: dãy CIF 71… tăng đều theo tháng; tháng 9/2026 có 98 khách vay lần đầu, trong đó 74 CIF mới và 24 CIF cũ.
+- Chuyển tổ trong cùng phạm vi vẫn tính vào / ra, để theo dõi biến động tổ (anh chốt).
+- Kiểm tra: `kiem.py` sạch; t128 37/37 (thêm 12 phép).
+
+---
+
 ## 3.131 — 12/10/2026 22:00 — Dư nợ chi tiết lấy kỳ theo "Ngày số liệu"
 - **Anh báo:** tên file Dư nợ chi tiết ghi theo ngày xuất (ngày tạo file), không phải ngày số liệu. Trong file có cột "Ngày số liệu" ở cuối, phải lấy theo cột đó.
 - **Nguyên nhân:** app đã có sẵn quy tắc ưu tiên cột ngày trong file. Nhưng riêng file Dư nợ chi tiết, bước gọn cột (chỉ giữ cột cần dùng) chạy **trước** bước tìm ngày, nên cột "Ngày số liệu" bị bỏ, app phải lấy ngày theo tên file. Đã kiểm với file thật đặt tên 07/10/2026: trước khi sửa vào kỳ 07/10/2026, sau khi sửa vào đúng 30/09/2026.

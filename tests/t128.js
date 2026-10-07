@@ -24,7 +24,7 @@ const fs=require('fs'), path=require('path');
    M8[kDi] = Object.assign({}, M8[kDi], {to:toKhac});                                             /* sang tổ khác */
    M8['4899999999'] = {to:t.ma, ten:'KHÁCH GIẢ MỚI', dn:10000000, t105:0, nv:'2026-08-12'};      /* kết nạp mới */
    const B = toBienDong(t.ma, M8, M7);
-   ok('Mới vào: kết nạp mới (ngày vay) + từ tổ khác', B.vao['4899999999'] && B.vao['4899999999'].tu==='kết nạp mới' && B.vao['4899999999'].ngay==='2026-08-12' && B.vao[kVao] && /^từ tổ /.test(B.vao[kVao].tu), JSON.stringify(B.vao[kVao]));
+   ok('Mới vào: hộ mới (CIF mới, ngày vay) + từ tổ khác — 3.132: chia nhóm', B.vao['4899999999'] && B.vao['4899999999'].tu==='hộ mới (CIF mới)' && B.vao['4899999999'].nhom==='moi' && B.vao[kVao].nhom==='chuyen' && B.vao['4899999999'].ngay==='2026-08-12' && B.vao[kVao] && /^từ tổ /.test(B.vao[kVao].tu), JSON.stringify(B.vao[kVao]));
    ok('Ra khỏi tổ: chuyển sang tổ khác ghi rõ', B.ra.some(r=>r.kh===kDi && /^sang tổ /.test(r.di)));
    delete M8['4899999999']; M8[kDi] = Object.assign({}, M8[kDi], {to:t.ma}); M8[kVao] = Object.assign({}, M8[kVao], {to:toKhac});
    const kMat = khT[1]; delete M8[kMat];
@@ -33,7 +33,7 @@ const fs=require('fs'), path=require('path');
    /* giao diện tổ */
    C.xa = t.xa; C.diem = t.khoaDiem; C.hoi = ''; C.to = t.ma; TO_LOC_MO = 'tat'; toVeThe(); await w(600);
    const the = document.getElementById('to-the');
-   ok('dòng tóm tắt tổ có "Biến động T8/2026: +n vào · −n ra"', /Biến động T0?8\/2026: \+\d+ vào · −\d+ ra/.test(the.textContent), (the.querySelector('.to-the-so')||{}).textContent);
+   ok('dòng tóm tắt tổ có "Biến động T8/2026: +n vào · −n ra"', /Biến động T0?8\/2026: \+\d+ vào( \([^)]*\))? · −\d+ ra/.test(the.textContent), (the.querySelector('.to-the-so')||{}).textContent);
    const chip = [...the.querySelectorAll('.to-loc')].map(x=>x.textContent);
    ok('nút 📅 Biến động cả năm', chip.some(x=>/Biến động cả năm/.test(x)));
    { const so = (the.querySelector('.to-the-so')||{}).textContent||'', tvx = toTV(t), d = m=>tvx.filter(toLocHam(m)).length, lay = re=>+((so.match(re)||[])[1]);
@@ -57,6 +57,35 @@ const fs=require('fs'), path=require('path');
    ok('Biến động cả năm: bảng T1 … T8, có hàng Vào / Ra, tháng thiếu ghi "—"', /T1/.test(hop.textContent) && /T8/.test(hop.textContent) && /Vào/.test(hop.textContent) && /—/.test(hop.textContent), TO_BDN.ds.map(x=>x.ky+':'+(x.bd ? 'có' : '—')).join(' '));
    ok('T8 so được với T7 (có số liệu)', !!TO_BDN.ds.find(x=>x.ky==='2026-08').bd);
    dongHop();
+   /* 3.132: cấp Hội / điểm / xã / PGD — tóm tắt + chip như của tổ; chip PGD; bảng PGD (Cộng trên đầu); vay trực tiếp STT 0 không tính số tổ; mới vào 3 nhóm */
+   { const M7b = await toMapKy('2026-07'), mx = toCifMax(M7b), cu = Object.keys(M7b)[0];
+     delete M7b[cu]; const vMoi = toVaoTu(String(mx+1), M7b), vCu = toVaoTu(cu, M7b), vChuyen = toVaoTu(Object.keys(M7b)[0], M7b);
+     ok('3.132: mới vào chia 3 nhóm — CIF lớn hơn mọi CIF tháng trước = hộ mới; CIF cũ không có tháng trước = CIF cũ dùng lại; tháng trước ở tổ khác = chuyển tổ', vMoi.nhom==='moi' && vCu.nhom==='cu' && vChuyen.nhom==='chuyen', [vMoi.tu, vCu.tu, vChuyen.tu].join(' / '));
+     TO_MAP = {}; TO_BD = null; TO_BDT = null; TO_PVC = null;
+     C.xa = ''; C.diem = ''; C.hoi = ''; C.to = ''; TO_LOC_PV = 'bang'; pvVeCay('to'); await w(1500);
+     const chipX = [...document.querySelectorAll('#to-cay .to-chip')].map(x=>x.textContent+(x.classList.contains('bat') ? '*' : ''));
+     ok('3.132: hàng chip xã có chip PGD (đang chọn khi chưa chọn xã)', chipX[0]==='PGD*', chipX.slice(0, 3).join(' | '));
+     const so = (document.querySelector('#to-the .to-the')||{}).textContent||'';
+     ok('3.132: cấp PGD có dòng tóm tắt (số tổ, tổ viên, đề xuất cho ra, CCCD, biến động) + chip như tổ', /Toàn PGD · \d+ tổ/.test(so) && /tổ viên: \d+ có dư nợ/.test(so) && /CCCD hết hạn/.test(so) && /Biến động T0?8\/2026/.test(so) && [...document.querySelectorAll('#to-the .to-loc')].some(x=>/Tất cả \d+/.test(x.textContent)), so.slice(0, 160));
+     const hp = [...document.querySelectorAll('.to-bang-pgd tbody tr')];
+     ok('3.132: bảng PGD — dòng Cộng toàn PGD trên đầu, rồi dòng xã, dưới là điểm GD', hp[0] && /CỘNG TOÀN PGD/.test(hp[0].textContent) && hp[1].classList.contains('nhom') && hp[2].classList.contains('diem'), hp.slice(0, 3).map(x=>x.className).join(','));
+     TO_LOC_PV = 'tat'; toVeThe(); await w(100);
+     ok('3.132: bấm chip ở cấp PGD → danh sách khách cả PGD có cột Tổ + Xã', /<th>Tổ<\/th><th>Xã<\/th>/.test(document.getElementById('to-the').innerHTML));
+     const bc = toBCDSPV(C); ok('3.132: In / Excel danh sách phạm vi (đầu báo cáo ghi Phạm vi)', bc.aoa[0][3]==='Tổ' && /Phạm vi: <b>Toàn PGD/.test(toHTMLIn([bc], toGiaPV(C))));
+     TO_LOC_PV = 'bang';
+     /* vay trực tiếp giả trong điểm của tổ t */
+     const K = TO_K, r0 = Object.assign({}, (K.kh[t.ma]||[])[0], {kh:'4811111111', to:'', ku:'TTGIA1', _tt:'TTGIA'}); K.to.TTGIA = {ma:'TTGIA', trucTiep:true, xa:t.xa, tenXa:t.tenXa, khoaDiem:t.khoaDiem, tenDiemDu:t.tenDiemDu, dv:'99', ten:'Vay trực tiếp (không qua tổ)', soMon:1}; K.kh.TTGIA = [r0];
+     TO_PVC = null; toChonPV(t.xa, t.khoaDiem); await w(600);
+     const nTo = Object.values(K.to).filter(x=>!x.trucTiep && x.xa===t.xa && x.khoaDiem===t.khoaDiem).length, rows = [...document.querySelectorAll('#to-the .to-bang.chon tbody tr')];
+     ok('3.132: vay trực tiếp STT 0, đầu nhóm điểm GD; tổ đánh số từ 1; "Cộng n tổ" không tính vay trực tiếp', rows[0] && rows[0].cells[0].textContent==='0' && /Vay trực tiếp/.test(rows[0].textContent) && rows[1].cells[0].textContent==='1' && new RegExp('Cộng '+nTo+' tổ').test(rows[rows.length-1].textContent), rows[0] && rows[0].textContent.slice(0, 40)+' · '+rows[rows.length-1].textContent.slice(0, 40));
+     ok('3.132: tóm tắt điểm GD đếm số tổ không tính vay trực tiếp, ghi riêng khách vay trực tiếp', new RegExp('· '+nTo+' tổ').test(document.querySelector('#to-the .to-the').textContent) && /vay trực tiếp 1 khách/.test(document.querySelector('#to-the .to-the').textContent));
+     ok('3.132: In / Excel bảng các tổ — dòng vay trực tiếp STT 0', TO_BANG_XUAT && TO_BANG_XUAT.aoa[0][0]===0 && /Cộng \d+ tổ/.test(TO_BANG_XUAT.tong[2]));
+     delete K.to.TTGIA; delete K.kh.TTGIA; TO_PVC = null;
+     C.hoi = String(t.dv); pvVeCay('to'); await w(600);
+     ok('3.132: cấp Hội có tóm tắt + chip', /Hội|Đoàn/.test((document.querySelector('#to-the .to-the-ten')||{}).textContent||'') && document.querySelectorAll('#to-the .to-loc').length>3, (document.querySelector('#to-the .to-the-ten')||{}).textContent);
+     toBDNam(); for(let i=0;i<40 && !(TO_BDN && TO_BDN.pv);i++) await w(200); await w(200);
+     ok('3.132: Biến động cả năm cho phạm vi — tách hộ mới / CIF cũ dùng lại / chuyển tổ', /hộ mới \(CIF mới\)/.test(document.getElementById('hop-in').textContent) && /CIF cũ dùng lại/.test(document.getElementById('hop-in').textContent) && TO_BDN.pv);
+     dongHop(); C.xa = t.xa; C.diem = t.khoaDiem; C.hoi = ''; C.to = t.ma; }
    /* sửa lỗi 3.127: số TK 105 (Dư nợ chi tiết) không hiện khi file này nạp TRƯỚC Mẫu 31 */
    { const f8 = files.find(f=>/31-08-2026\.XLSX$/.test(f.n)), mk = (b64, n)=>{ const bin=atob(b64), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return new File([u], n); };
      const k8 = await slDocFile(mk(f8.b, f8.n)), hs = k8.rows.filter(x=>x.ku && x.kh), soTK = kh=>'70'+String(kh).slice(-8);
