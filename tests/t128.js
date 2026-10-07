@@ -69,7 +69,14 @@ const fs=require('fs'), path=require('path');
      TO_KS = {}; const K = await toNap('2026-08'), tt = K.to[hs[0].to], x = tt && (()=>{ const g = TO_K; TO_K = K; const r = toTV(tt).find(z=>z.kh===kh); TO_K = g; return r; })();
      ok('danh sách Tổ TK&VV hiện số TK 105', !!x && x.stk.join()===soTK(kh), x && x.stk.join());
      xoaTK(); await slLuuDanhBa(); await slNapDanhBa();
-     ok('máy đã lỡ nạp sai thứ tự (danh bạ thiếu số TK) → mở app tự gắn lại', SL_DB.kh[kh].stk===soTK(kh)); }
+     ok('máy đã lỡ nạp sai thứ tự (danh bạ thiếu số TK) → mở app tự gắn lại', SL_DB.kh[kh].stk===soTK(kh));
+     /* 3.130: nạp Dư nợ chi tiết tháng cũ (12/2025) — khách nay đã tất nợ (file mới không ghi số sổ) lấy số của tháng cũ; khách còn vay giữ số mới */
+     const Y = hs.find(z=>z.kh!==kh).kh, dn = (ky, ten, tk)=>{ const w2 = XLSX.utils.aoa_to_sheet([H].concat(hs.map(z=>[z.xa, z.tenXa, z.thon, z.tenThon, '09', '', '', z.to, z.kh, z.ten, z.ku, tk(z.kh) ? 'OPEN' : 'CLOSE', 0, tk(z.kh)||'', 0, ky]))), b2 = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(b2, w2, 'Sheet 1'); return new File([XLSX.write(b2, {type:'array', bookType:'xlsx'})], ten); };
+     await slGhi(await slDocFile(dn('31/08/2026', '004820_DU_NO_CHI_tiet_DEN_31-08-2026.xlsx', m=>m===kh ? '' : '71'+m.slice(-8))));
+     await slGhi(await slDocFile(dn('31/12/2025', '004820_DU_NO_CHI_tiet_DEN_31-12-2025.xlsx', m=>(m===Y ? '79' : '70')+m.slice(-8))));
+     ok('3.130: Dư nợ chi tiết 12/2025 → khách đã tất nợ có số sổ tháng cũ, khách còn vay giữ số mới', SL_DB.kh[kh].stk==='70'+kh.slice(-8) && SL_DB.kh[Y].stk==='71'+Y.slice(-8), SL_DB.kh[kh].stk+' · '+SL_DB.kh[Y].stk);
+     await slDungDanhBa();
+     ok('3.130: dựng lại danh bạ (máy mới / tải từ Drive) vẫn giữ số sổ tháng cũ — Dư nợ chi tiết gắn sau mọi Mẫu 31', SL_DB.kh[kh].stk==='70'+kh.slice(-8) && SL_DB.kh[Y].stk==='71'+Y.slice(-8), SL_DB.kh[kh].stk+' · '+SL_DB.kh[Y].stk); }
    return o;
  }, files);
  /* phần C — bộ in chuẩn: tự chia trang A4, @page lề 0 (không còn dòng đầu / cuối trang của trình duyệt), số trang, 2 mặt, khung xem */

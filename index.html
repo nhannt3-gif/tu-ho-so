@@ -3015,7 +3015,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.129', APP_LUC = '12/10/2026 20:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.130', APP_LUC = '12/10/2026 21:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12829,7 +12829,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.129', ds:[
+var CO_GI_MOI = {ban:'3.130', ds:[
+  ['🔢 Số TK 105 khách đã tất nợ: nạp thêm file Dư nợ chi tiết các tháng trước (vd đến 31/12/2025) — app lấy số sổ của tháng khách còn vay; khách đang vay giữ số mới nhất', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['🔧 Tổ TK&VV: sửa dòng tóm tắt bị lệch số (“không dư nợ còn 105”, “đề xuất cho ra”, “CCCD hết hạn”) — nay khớp đúng với các chip', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🔧 Sửa: số TK 105 (theo file Dư nợ chi tiết) không hiện khi file này được nạp trước Mẫu 31 — nay tự gắn lại, máy đã nạp rồi cũng tự sửa khi mở app', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🖨 Bộ in chuẩn: mọi bản In / Xem trước do app tự chia trang A4 — xem sao in vậy; hết dòng ngày giờ, đường dẫn ở đầu / cuối trang; lặp tiêu đề bảng, không cắt dòng; báo cáo nhanh tự chọn dọc / dọc gọn / ngang', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
@@ -22467,11 +22468,11 @@ function slLuuDanhBa(){
 function slDungDanhBa(){
   SL_DB = {luc:'', kh:{}, to:{}};
   var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; })
-    .filter(function(e){ return slLaHS(e.loai) || e.loai==='kh' || e.loai==='tt' || e.loai==='dnct'; })
-    .sort(function(a,b){ var x = slThuTu(a.ky), y = slThuTu(b.ky); return x<y ? -1 : x>y ? 1 : (a.loai==='dnct')-(b.loai==='dnct'); });   /* 3.120: Dư nợ chi tiết sau Mẫu 31 cùng kỳ */
+    .filter(function(e){ return slLaHS(e.loai) || e.loai==='kh' || e.loai==='tt'; })
+    .sort(function(a,b){ var x = slThuTu(a.ky), y = slThuTu(b.ky); return x<y ? -1 : x>y ? 1 : 0; });
   return ds.reduce(function(p, e){
     return p.then(function(){ return slDocBang(e.loai, e.ky).then(function(b){ if(b) slVaoDanhBa(e.loai, e.ky, slMoBang(b), slMoLap(b)); }); });
-  }, Promise.resolve()).then(function(){ return slLuuDanhBa(); });
+  }, Promise.resolve()).then(slApDnct).then(function(){ return slLuuDanhBa(); });   /* 3.130: Dư nợ chi tiết gắn SAU mọi Mẫu 31 (kỳ cũ → mới) — file tháng cũ (vd 12/2025) vẫn giữ số sổ của khách nay đã tất nợ */
 }
 
 /* đọc 1 bảng: trong máy → không có thì tải từ Drive */
