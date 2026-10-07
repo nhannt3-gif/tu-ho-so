@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.130 — 12/10/2026 21:00 — Số TK 105 của khách đã tất nợ (nạp Dư nợ chi tiết tháng cũ)
+- **Anh cần:** muốn cho khách ra khỏi tổ thì phải biết số TK 105.
+- **Đã kiểm với file thật 30/09:** file Dư nợ chi tiết không ghi số sổ ở các món đã tất toán (3.662 món tất toán, cả 3.662 đều trống). Anh chốt: nạp thêm file Dư nợ chi tiết các tháng trước, đến 31/12/2025.
+- **Cách app ghép số TK khi có nhiều tháng:**
+  - Khách còn vay: lấy số sổ của tháng mới nhất.
+  - Khách đã tất nợ: tháng mới không có số, app giữ số của tháng gần nhất còn ghi số.
+- **Sửa lỗi:** khi dựng lại danh bạ (máy mới, tải từ Drive), file tháng cũ được đọc trước Mẫu 31, lúc đó khách chưa có trong danh bạ nên bị mất số. Nay `slDungDanhBa` gắn Dư nợ chi tiết sau mọi Mẫu 31 (`slApDnct`, kỳ cũ → mới).
+- Kiểm tra: `kiem.py` sạch; t128 thêm 2 phép.
+
+---
+
 ## 3.129 — 12/10/2026 20:00 — Sửa dòng tóm tắt tổ lệch số
 - **Anh báo (ảnh tổ Gia Tân):** dòng tóm tắt ghi "5 không dư nợ còn 105 · 0 đề xuất cho ra", trong khi 5 khách đều có số dư 105 = 0 và chip "Đề xuất cho ra" đếm 5.
 - **Nguyên nhân (lỗi của 3.128):** thêm chip "Có dư nợ · chưa có TK 105" làm thứ tự các chip lùi 1 nấc; dòng tóm tắt lấy chip theo vị trí nên đếm nhầm sang chip bên cạnh: "còn 105" ra số của "Không dư nợ", "đề xuất cho ra" ra số của "còn 105", "CCCD hết hạn" ra số của "Đề xuất cho ra".
