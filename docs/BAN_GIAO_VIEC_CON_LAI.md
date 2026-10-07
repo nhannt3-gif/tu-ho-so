@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.131 · build 12/10/2026 22:00
+**Bản hiện tại:** 3.132 · build 13/10/2026 09:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,33 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.132) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ, bấm chip PGD | Dòng tóm tắt toàn PGD; bảng có Cộng toàn PGD trên đầu, rồi xã → điểm GD | |
+| 2 | Bấm 1 dòng điểm GD | Xuống bảng các tổ của điểm; vay trực tiếp STT 0 ở đầu; "Cộng n tổ" không tính vay trực tiếp | |
+| 3 | Chọn xã / Hội, bấm chip Đề xuất cho ra | Danh sách khách cả phạm vi, có cột Tổ; In / Excel được | |
+| 4 | Chip Mới vào tổ | Cột "từ đâu" ghi hộ mới (CIF mới) / CIF cũ dùng lại / từ tổ X | |
+| 5 | 📅 Biến động cả năm ở cấp xã | Hàng Vào, 3 hàng nhóm, hàng Ra; bấm ô ra danh sách có cột Tổ | |
+| 6 | Máy chậm? | Cấp PGD với dữ liệu thật mở trong vài giây | |
+
+**Ghi chú kỹ thuật 3.132:**
+- **Phạm vi:**
+  - `toPVHTML(C)` gọi `toTVPV(C)`. Kết quả giữ trong `TO_PVC` theo khóa tháng|xã|điểm|hội|có biến động, gồm khách của mọi tổ trong phạm vi (`k.to` = tổ) và `B` = `toBienDong(toPVFn(C), Mn, Mp)`.
+  - `TO_BDT` = bản đồ khách → tổ của tháng đang xem và tháng trước (`toBDTNap`).
+  - Chip của phạm vi: `TO_LOC_PV` (mặc định `'bang'`); chip của tổ vẫn là `TO_LOC_MO`.
+- **Bảng:**
+  - `toBangPGDHTML` (cấp PGD), `toSoTo` / `toCongSo` / `toSoMoi` (chỉ tiêu tổ, tách từ `toBangToHTML`).
+  - `TO_BANG_XUAT` + `toBangXuat(cach)`: In / Excel bảng.
+  - `toGiaPV(C)` = tổ giả `{pv:true}` cho `toDauBC` / `toExcel(tp)`.
+- **Biến động:**
+  - `toBienDong(ma | hàm, Mn, Mp)`; `toVaoTu(kh, Mp)` cho ra nhóm `moi` / `cu` / `chuyen`; `toCifMax(M)` lưu `_mx` không liệt kê.
+  - `toBDDem`, `toBDChu(B)`; `toBDNam` dùng cho cả tổ lẫn phạm vi (`TO_BDN.pv`).
+- **Cây chọn:**
+  - `pvVeCay` thêm chip PGD cho tab `to` (dù `toBatBuoc`).
+  - `pvLuaChon` đếm `n` không tính vay trực tiếp.
+- Xóa `TO_BDT` / `TO_PVC` ở `slBoXoa`, `toThuLai`, `slApDnct`.
 
 ### Danh sách thử trên máy thật (3.131) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

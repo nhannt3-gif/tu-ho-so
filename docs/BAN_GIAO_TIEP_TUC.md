@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 12/10/2026, bản 3.131)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 13/10/2026, bản 3.132)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,13 +88,13 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.131 (mới nhất):** Dư nợ chi tiết lấy kỳ theo cột "Ngày số liệu" (tên file là ngày xuất).
-- **Đang chờ anh nhắn "code"** — kế hoạch 3.132, cấp Hội / Điểm / Xã / PGD:
-  - dòng tóm tắt và chip như của tổ;
-  - chip PGD đầu hàng xã;
-  - bảng PGD: Cộng ở trên đầu, rồi xã → điểm GD;
-  - vay trực tiếp ghi STT 0, không tính vào số tổ;
-  - mới vào tổ chia 3 nhóm: hộ mới (CIF mới), CIF cũ dùng lại, chuyển tổ. Anh lưu ý: CIF cũ có thể được dùng lại, nên không kết luận chỉ bằng CIF.
+**3.132 (mới nhất):** Tổ TK&VV ở cấp Hội / điểm / xã / PGD (chưa chọn tổ) có dòng tóm tắt và chip lọc như tổ.
+- Chip PGD đầu hàng xã.
+- Bảng PGD: Cộng ở trên đầu, rồi xã → điểm GD.
+- Vay trực tiếp STT 0, không tính vào số tổ.
+- Mới vào chia 3 nhóm: hộ mới (CIF mới) · CIF cũ dùng lại · chuyển tổ.
+
+**3.131:** Dư nợ chi tiết lấy kỳ theo cột "Ngày số liệu".
 
 **3.130:** số TK 105 của khách đã tất nợ lấy từ Dư nợ chi tiết tháng cũ. File hệ thống không ghi số sổ ở món tất toán; anh nạp lùi đến 31/12/2025. Dựng lại danh bạ thì gắn Dư nợ chi tiết sau mọi Mẫu 31.
 
