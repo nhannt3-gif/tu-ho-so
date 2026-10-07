@@ -75,6 +75,8 @@ const fs=require('fs'), path=require('path');
      await slGhi(await slDocFile(dn('31/08/2026', '004820_DU_NO_CHI_tiet_DEN_31-08-2026.xlsx', m=>m===kh ? '' : '71'+m.slice(-8))));
      await slGhi(await slDocFile(dn('31/12/2025', '004820_DU_NO_CHI_tiet_DEN_31-12-2025.xlsx', m=>(m===Y ? '79' : '70')+m.slice(-8))));
      ok('3.130: Dư nợ chi tiết 12/2025 → khách đã tất nợ có số sổ tháng cũ, khách còn vay giữ số mới', SL_DB.kh[kh].stk==='70'+kh.slice(-8) && SL_DB.kh[Y].stk==='71'+Y.slice(-8), SL_DB.kh[kh].stk+' · '+SL_DB.kh[Y].stk);
+     const kTen = await slDocFile(dn('31/12/2025', '004820_DU_NO_CHI_TIET_DEN_07-10-2026.xlsx', m=>'70'+m.slice(-8)));
+     ok('3.131: Dư nợ chi tiết lấy kỳ theo cột "Ngày số liệu" trong file, không theo ngày trên tên file', kTen.ky==='2025-12' && kTen.nguonKy==='cột ngày trong file', kTen.ky+' · '+kTen.nguonKy);
      await slDungDanhBa();
      ok('3.130: dựng lại danh bạ (máy mới / tải từ Drive) vẫn giữ số sổ tháng cũ — Dư nợ chi tiết gắn sau mọi Mẫu 31', SL_DB.kh[kh].stk==='70'+kh.slice(-8) && SL_DB.kh[Y].stk==='71'+Y.slice(-8), SL_DB.kh[kh].stk+' · '+SL_DB.kh[Y].stk); }
    return o;

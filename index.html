@@ -3015,7 +3015,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.130', APP_LUC = '12/10/2026 21:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.131', APP_LUC = '12/10/2026 22:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12829,7 +12829,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.130', ds:[
+var CO_GI_MOI = {ban:'3.131', ds:[
+  ['📅 Dư nợ chi tiết: lấy kỳ theo cột “Ngày số liệu” trong file (tên file ghi ngày xuất có thể khác) — file đã nạp sai ô tháng thì nạp lại', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['🔢 Số TK 105 khách đã tất nợ: nạp thêm file Dư nợ chi tiết các tháng trước (vd đến 31/12/2025) — app lấy số sổ của tháng khách còn vay; khách đang vay giữ số mới nhất', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['🔧 Tổ TK&VV: sửa dòng tóm tắt bị lệch số (“không dư nợ còn 105”, “đề xuất cho ra”, “CCCD hết hạn”) — nay khớp đúng với các chip', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🔧 Sửa: số TK 105 (theo file Dư nợ chi tiết) không hiện khi file này được nạp trước Mẫu 31 — nay tự gắn lại, máy đã nạp rồi cũng tự sửa khi mở app', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
@@ -22314,6 +22315,7 @@ function slPhanTich(kq, loaiChon){
   if(L.bo){ kq.loi = L.bo; return kq; }   /* 3.90: loại đã bỏ */
   kq.loai = L.k;
   var d = slLayDong(dau.sheet, dau.r, dau.co, L);
+  var ky = slTimKy(dau.sheet, dau.r, d.rows, kq.ten);   /* 3.131: đọc ngày TRƯỚC khi gọn cột — Dư nợ chi tiết lấy kỳ theo cột "Ngày số liệu" trong file, không theo tên file (tên ghi ngày xuất) */
   if(L.chi){ var gon = function(o){ var r = {}; L.chi.forEach(function(f){ if(o[f]!==undefined) r[f] = o[f]; }); return r; };   /* 3.120: file tham chiếu — chỉ lưu cột cần dùng */
     d.rows = d.rows.map(gon); d.lap = (d.lap||[]).map(gon); d.truong = d.truong.filter(function(f){ return L.chi.indexOf(f)>=0; }); d.them = {}; }
   kq.rows = d.rows; kq.lap = d.lap; kq.truong = d.truong; kq.bo = d.bo; kq.mauSai = d.mau; kq.them = d.them;
@@ -22321,7 +22323,6 @@ function slPhanTich(kq, loaiChon){
   kq.sheet = dau.sheet.ten; kq.hang = dau.r+1;
   if(!d.rows.length && L.k==='khd'){ kq.loi = 'File 3 tháng KHĐ không có dòng dữ liệu nào — anh xuất lại file mẫu 14 “Sao kê món vay N tháng không hoạt động (DL Tháng)”.'; return kq; }   /* 3.90 */
   if(!d.rows.length) kq.canhBao.push('File đúng mẫu “'+L.ten+'” nhưng không có dòng dữ liệu (0 dòng) — vẫn ghi nhận được, vd tháng không có món nào.');
-  var ky = slTimKy(dau.sheet, dau.r, d.rows, kq.ten);
   kq.ngay = ky.ngay; kq.nguonKy = ky.nguon; kq.trongFile = ky.trongFile;
   if(ky.nhieu) kq.canhBao.push('Cột Ngày báo cáo có '+ky.nhieu+' ngày khác nhau — lấy ngày nhiều nhất '+ngayVNsl(ky.ngay)+'.');
   if(ky.trongFile && ky.tuTen && ky.trongFile.slice(0,7)!==ky.tuTen.slice(0,7)) kq.canhBao.push('Tên file ghi '+ngayVNsl(ky.tuTen)+' nhưng trong file ghi '+ngayVNsl(ky.trongFile)+' — lấy theo trong file.');
