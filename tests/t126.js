@@ -47,7 +47,7 @@ const fs=require('fs'), path=require('path');
    ok('hộp chọn khi in có ô "In 2 mặt", đang tích', cb && cb.checked);
    cb.checked = false; cb.dispatchEvent(new Event('change')); ok('bỏ tích → nhớ (đồng bộ Drive)', D.cauHinh.ktHaiMat===0 && !ktHaiMat() && !chRieng('ktHaiMat'));
    const dTat = await docx(await ktDocx('m06', [g06, g06]));
-   ok('tắt: Word nhiều bản ngắt trang thường', !/oddPage/.test(dTat) && /<w:br w:type="page"\/>/.test(dTat));
+   ok('tắt: Word nhiều bản ngắt phần thường (3.128: mỗi bản đánh số trang riêng), không sang trang lẻ', !/oddPage/.test(dTat) && (dTat.match(/<w:sectPr/g)||[]).length===2 && /<w:pgNumType w:start="1"\/>/.test(dTat));
    cb.checked = true; cb.dispatchEvent(new Event('change')); dongHop();
    const dBat = await docx(await ktDocx('m06', [g06, g06, g06]));
    ok('bật: Word 3 bản → 3 phần "sang trang lẻ" (2 giữa + cuối), hợp lệ', (dBat.match(/<w:type w:val="oddPage"\/>/g)||[]).length===3 && hopLe(dBat) && !/<w:br w:type="page"\/>/.test(dBat.split('<w:body>')[1].split('<w:sectPr')[0].replace(/<w:tbl>[\s\S]*?<\/w:tbl>/g, '')));

@@ -23382,6 +23382,21 @@ function ktKyTen(x, nhan, ten){   /* 3.115: in tên dưới "(Ký, ghi rõ họ 
   var pr = '<w:pPr><w:jc w:val="center"/></w:pPr>';
   return x.slice(0, e+6)+Array(4).join('<w:p>'+pr+'</w:p>')+'<w:p>'+pr+'<w:r><w:rPr><w:b/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr><w:t xml:space="preserve">'+xmlEsc(ten)+'</w:t></w:r></w:p>'+x.slice(e+6);
 }
+function ktFtrSo(kieu){   /* 3.128: chân trang số trang cỡ nhỏ, góc dưới phải — 'xy' = "Trang x/y" (đếm trong phần = mỗi bản), 'so' = số trang (trang 1 không ghi) */
+  var r = function(x){ return '<w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:i/><w:sz w:val="'+(kieu==='xy' ? 16 : 18)+'"/><w:szCs w:val="'+(kieu==='xy' ? 16 : 18)+'"/></w:rPr>'+x+'</w:r>'; };
+  var f = function(ma){ return '<w:fldSimple w:instr=" '+ma+' ">'+r('<w:t>1</w:t>')+'</w:fldSimple>'; };
+  return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:ftr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><w:p><w:pPr><w:jc w:val="right"/><w:spacing w:before="0" w:after="0"/></w:pPr>'+
+    (kieu==='xy' ? r('<w:t xml:space="preserve">Trang </w:t>')+f('PAGE')+r('<w:t>/</w:t>')+f('SECTIONPAGES') : f('PAGE'))+'</w:p></w:ftr>';
+}
+function ktSectSo(sect, kieu){   /* 3.128: gắn chân trang số trang (rId11), đánh lại từ 1 mỗi phần; 'so' → trang 1 không số (titlePg) */
+  sect = String(sect).replace(/<w:footerReference [^>]*\/>/g, '');
+  sect = /<w:headerReference [^>]*\/>/.test(sect) ? sect.replace(/(<w:headerReference [^>]*\/>)(?![\s\S]*<w:headerReference)/, '$1<w:footerReference w:type="default" r:id="rId11"/>') : sect.replace(/<w:sectPr>/, '<w:sectPr><w:footerReference w:type="default" r:id="rId11"/>');
+  sect = /<w:pgNumType/.test(sect) ? sect.replace(/<w:pgNumType\b([^>]*?)\s*\/>/, function(m, a){ return '<w:pgNumType'+a.replace(/ w:start="\d+"/, '')+' w:start="1"/>'; })
+    : sect.replace(/(<w:cols|<w:formProt|<w:vAlign|<w:noEndnote|<w:titlePg|<w:textDirection|<w:bidi|<w:rtlGutter|<w:docGrid|<\/w:sectPr>)/, '<w:pgNumType w:start="1"/>$1');
+  if(kieu==='so' && !/<w:titlePg\/>/.test(sect)) sect = sect.replace(/(<w:textDirection|<w:bidi|<w:rtlGutter|<w:docGrid|<w:printerSettings|<\/w:sectPr>)/, '<w:titlePg/>$1');
+  if(kieu==='xy') sect = sect.replace(/ w:footer="\d+"/, ' w:footer="284"');
+  return sect;
+}
 function ktSectLe(sect){ sect = String(sect).replace(/<w:type w:val="[^"]*"\/>/, ''); return sect.replace(/<w:pgSz/, '<w:type w:val="oddPage"/><w:pgSz'); }
 function ktDocx(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: mỗi phiếu sang trang mới, cùng 1 file) */
   var K = mau==='pc' ? KT_KHUON.m01b : KT_KHUON[mau], G = KT_KHUON.chung, enc = function(t){ return new Blob([t], {type:'application/xml'}); };
@@ -23399,19 +23414,19 @@ function ktDocx(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: m�
         var m = {}; m[1] = ktCo06Ten(r.R2); m[3] = ktCo06CT(r.R4); m[6] = ktCo06Md(r.R7); if(m[1] || m[3] || m[6]) d = ktOSz2(d, m);   /* 3.128: tên ưu tiên 1 dòng, mục đích tối đa 2 dòng (thu chữ cho vừa) */
         return ktDien(d, r); }).join('')+ktKyTen(ktDien(K.sau, g.f), 'CÁN BỘ KIỂM TRA', g.f.CB1);   /* 3.115: tên cán bộ kiểm tra dưới khối ký */
   };
-  var than, le = '', ds = Array.isArray(gt) ? gt : [gt];
+  var than, le = '', ds = Array.isArray(gt) ? gt : [gt], soK = mau==='m06' ? 'xy' : 'so', sectS = ktSectSo(K.sect, soK);   /* 3.128 (anh chốt): số trang — Mẫu 06 "Trang x/y" mỗi tổ; văn bản khác góc dưới phải từ trang 2 */
   if(ds.length===1) than = mot(ds[0]);
   else {   /* nhiều phiếu: ngắt trang giữa các phiếu; đánh lại id hình (đường kẻ) và bỏ mã đoạn trùng để Word không báo lỗi */
     var id = 100;
-    le = ktHaiMat() ? ktSectLe(K.sect) : '';   /* 3.124: in 2 mặt → ngắt phần "sang trang lẻ" (Word tự thêm trang trắng khi bản trước lẻ trang) */
+    le = ktHaiMat() ? ktSectLe(sectS) : sectS.replace(/<w:type w:val="[^"]*"\/>/, '');   /* 3.124: in 2 mặt → ngắt phần "sang trang lẻ" · 3.128: không in 2 mặt vẫn ngắt phần (mỗi bản đánh số trang riêng) */
     than = ds.map(function(g){ return mot(g).replace(/ w14:(paraId|textId)="[^"]*"/g, '').replace(/<wp:docPr id="\d+"/g, function(){ return '<wp:docPr id="'+(id++)+'"'; }); })
-      .join(le ? '<w:p><w:pPr>'+le+'</w:pPr></w:p>' : '<w:p><w:r><w:br w:type="page"/></w:r></w:p>');
+      .join('<w:p><w:pPr>'+le+'</w:pPr></w:p>');
   }
   var lay = function(k){ return K[k]!==undefined ? K[k] : G[k]; };   /* null = khuôn không có phần đó (3.96: 01/KH có chân trang, không có đầu trang / chú thích) */
-  var doc = lay('mo')+ktChamMin(than)+(le ? le : K.sect)+'</w:body></w:document>';   /* 3.124: dòng chấm mịn */
+  var doc = lay('mo')+ktChamMin(than)+(le ? le : sectS)+'</w:body></w:document>';   /* 3.124: dòng chấm mịn */
   var ct = 'application/vnd.openxmlformats-officedocument.', P = function(p, t){ return '<Override PartName="/word/'+p+'" ContentType="'+ct+t+'+xml"/>'; };
   var phu = [['header','rId8','header','header1.xml','wordprocessingml.header'], ['endnotes','rId7','endnotes','endnotes.xml','wordprocessingml.endnotes'], ['footnotes','rId6','footnotes','footnotes.xml','wordprocessingml.footnotes'],
-    ['footer','rId11','footer','footer1.xml','wordprocessingml.footer']].filter(function(x){ return lay(x[0]); });
+    ['footer','rId11','footer','footer1.xml','wordprocessingml.footer']].filter(function(x){ return x[0]==='footer' || lay(x[0]); });   /* 3.128: chân trang số trang luôn có */
   return taoZip([
     {ten:'[Content_Types].xml', b:enc('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>'+
       P('document.xml', 'wordprocessingml.document.main')+P('styles.xml', 'wordprocessingml.styles')+P('settings.xml', 'wordprocessingml.settings')+P('fontTable.xml', 'wordprocessingml.fontTable')+
@@ -23422,7 +23437,7 @@ function ktDocx(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: m�
         .map(function(r){ return '<Relationship Id="'+r[0]+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/'+r[1]+'" Target="'+r[2]+'"/>'; }).join('')+'</Relationships>')},
     {ten:'word/document.xml', b:enc(doc)},
     {ten:'word/styles.xml', b:enc(lay('styles'))}, {ten:'word/settings.xml', b:enc(lay('settings'))}, {ten:'word/fontTable.xml', b:enc(lay('fontTable'))}, {ten:'word/theme/theme1.xml', b:enc(lay('theme'))}
-  ].concat(phu.map(function(x){ return {ten:'word/'+x[3], b:enc(lay(x[0]))}; }))).then(function(z){ return new Blob([z], {type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}); });
+  ].concat(phu.map(function(x){ return {ten:'word/'+x[3], b:enc(x[0]==='footer' ? ktFtrSo(soK) : lay(x[0]))}; }))).then(function(z){ return new Blob([z], {type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}); });
 }
 
 /* ---------- 3.93.1: Mẫu 06 KIỂM TRA SAU GIẢI NGÂN (727: kiểm tra sử dụng vốn trong 30 ngày) — anh chốt (làm đơn giản):

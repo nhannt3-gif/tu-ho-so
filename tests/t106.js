@@ -137,7 +137,7 @@ const fs=require('fs'), path=require('path');
    const gt0 = KT_GN_XEM.gts[0]; ok('cột Dư nợ = tổng dư nợ của món cuối tháng', gt0.rows[0].R6===ktTr(gt0.p.mon[0].dn, 3) && gt0.rows[0].R5===ktTr(gt0.p.mon[0].gn, 3));
    ktGNIn('word'); await w(1200);
    const fG = Object.keys(F).find(n=>/sau giai ngan/.test(n)); const zG = await moZip(F[fG]); const ids = (zG.doc.match(/<wp:docPr id="\d+"/g)||[]);
-   ok('Word nhiều phiếu: XML hợp lệ, ngắt trang giữa phiếu, id hình không trùng', hopLe(zG.doc) && zG.doc.indexOf('{{')<0 && (zG.doc.match(/w:type="page"/g)||[]).length===nP-1 && new Set(ids).size===ids.length && !/w14:paraId/.test(zG.doc), fG+' · '+nP+' phiếu');
+   ok('Word nhiều phiếu: XML hợp lệ, ngắt trang giữa phiếu, id hình không trùng', hopLe(zG.doc) && zG.doc.indexOf('{{')<0 && (zG.doc.match(/<w:sectPr/g)||[]).length===nP   /* 3.128: mỗi phiếu 1 phần (số trang riêng) */ && new Set(ids).size===ids.length && !/w14:paraId/.test(zG.doc), fG+' · '+nP+' phiếu');
    ok('3.98: không ghi nhận món đã lập phiếu', !Object.keys(D.cauHinh.ktgsGN||{}).length);
    ktGNKhaiBao(); await w(50); ktGNXem(1); await w(200); ktGNIn('in'); await w(300);
    const hG = await H[Object.keys(H).find(n=>/sau giai ngan/.test(n))].text(); ok('In / PDF nhiều phiếu: mỗi phiếu trang mới', (hG.match(/break-before:page/g)||[]).length===nP-1);
