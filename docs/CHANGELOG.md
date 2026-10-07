@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.131 — 12/10/2026 22:00 — Dư nợ chi tiết lấy kỳ theo "Ngày số liệu"
+- **Anh báo:** tên file Dư nợ chi tiết ghi theo ngày xuất (ngày tạo file), không phải ngày số liệu. Trong file có cột "Ngày số liệu" ở cuối, phải lấy theo cột đó.
+- **Nguyên nhân:** app đã có sẵn quy tắc ưu tiên cột ngày trong file. Nhưng riêng file Dư nợ chi tiết, bước gọn cột (chỉ giữ cột cần dùng) chạy **trước** bước tìm ngày, nên cột "Ngày số liệu" bị bỏ, app phải lấy ngày theo tên file. Đã kiểm với file thật đặt tên 07/10/2026: trước khi sửa vào kỳ 07/10/2026, sau khi sửa vào đúng 30/09/2026.
+- **Sửa:** đọc ngày trước khi gọn cột. Tên file khác ngày trong file thì app báo "lấy theo trong file".
+- **Lưu ý:** file Dư nợ chi tiết đã nạp mà vào sai ô (tên file khác ngày số liệu) thì anh nạp lại để vào đúng ô tháng. Ô sai xóa ở ma trận.
+- Kiểm tra: `kiem.py` sạch; t128 thêm 1 phép.
+
+---
+
 ## 3.130 — 12/10/2026 21:00 — Số TK 105 của khách đã tất nợ (nạp Dư nợ chi tiết tháng cũ)
 - **Anh cần:** muốn cho khách ra khỏi tổ thì phải biết số TK 105.
 - **Đã kiểm với file thật 30/09:** file Dư nợ chi tiết không ghi số sổ ở các món đã tất toán (3.662 món tất toán, cả 3.662 đều trống). Anh chốt: nạp thêm file Dư nợ chi tiết các tháng trước, đến 31/12/2025.
