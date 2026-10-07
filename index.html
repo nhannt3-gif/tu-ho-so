@@ -12830,6 +12830,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.128', ds:[
+  ['🔧 Sửa: số TK 105 (theo file Dư nợ chi tiết) không hiện khi file này được nạp trước Mẫu 31 — nay tự gắn lại, máy đã nạp rồi cũng tự sửa khi mở app', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🖨 Bộ in chuẩn: mọi bản In / Xem trước do app tự chia trang A4 — xem sao in vậy; hết dòng ngày giờ, đường dẫn ở đầu / cuối trang; lặp tiêu đề bảng, không cắt dòng; báo cáo nhanh tự chọn dọc / dọc gọn / ngang', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🔎 Khung xem trước mới: lật trang ⏮ ‹ n/N › ⏭, thu phóng − + ↔ ⊡, Khổ, In, PDF, Word, toàn màn hình', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🔢 Số trang: Mẫu 06 “Trang x/y” từng tổ; Kế hoạch, 04, 16, Phân công, báo cáo số trang góc dưới phải từ trang 2 (cả Word và bản In); in 2 mặt chèn trang trắng chính xác', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -22398,7 +22399,17 @@ function slNapDanhBa(){
     SL_DB = (db && db.kh) ? db : {luc:'', kh:{}};
     slDungTim();
     if(!Object.keys(SL_DB.kh).length && Object.keys(SLM.bang).some(function(k){ return /^(hstd|kh)\|/.test(k); })) return slDungDanhBa();
+    var kh = SL_DB.kh, ma = Object.keys(kh);   /* 3.128: máy đã nạp Dư nợ chi tiết TRƯỚC Mẫu 31 → số TK 105 chưa gắn → gắn lại 1 lần */
+    if(ma.length && Object.keys(SLM.bang).some(function(k){ return /^dnct\|/.test(k); }) && !ma.some(function(m){ return kh[m].stkNguon==='dnct'; })) return slApDnct().then(slLuuDanhBa);
   });
+}
+/* 3.128: gắn số TK 105 từ mọi bảng Dư nợ chi tiết đã nạp (kỳ cũ trước, kỳ mới thay) vào danh bạ — khách vào danh bạ sau file Dư nợ chi tiết vẫn có số TK */
+function slApDnct(){
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dnct'; })
+    .sort(function(a, b){ var x = slThuTu(a.ky), y = slThuTu(b.ky); return x<y ? -1 : x>y ? 1 : 0; });
+  if(!ds.length) return Promise.resolve();
+  return ds.reduce(function(p, e){ return p.then(function(){ return slDocBang('dnct', e.ky).then(function(b){ if(b) slVaoDanhBa('dnct', e.ky, slMoBang(b), slMoLap(b)); }); }); }, Promise.resolve())
+    .then(function(){ TO_KS = {}; TO_MAP = {}; TO_BD = null; });   /* cây tổ dựng trước đó chưa có số TK → dựng lại khi xem */
 }
 /* đưa dòng của 1 bảng (hstd / kh / tt) vào danh bạ: mỗi KH giữ thông tin của kỳ mới nhất */
 function slVaoDanhBa(loai, ky, rows, lap){
@@ -22498,7 +22509,7 @@ function slGhi(kq){
   return Promise.all([luuFile(slIDB(kq.loai, ky), b), luuFile('sl_g_'+kq.loai+'_'+ky, kq.file)]).then(function(){
     SLM.bang[k] = e; delete SLM.xoa[k];
     slBoXoa(ky);
-    if(slLaHS(kq.loai) || kq.loai==='kh' || kq.loai==='tt' || kq.loai==='dnct'){ slVaoDanhBa(kq.loai, ky, kq.rows, kq.lap); return slLuuDanhBa(); }
+    if(slLaHS(kq.loai) || kq.loai==='kh' || kq.loai==='tt' || kq.loai==='dnct'){ slVaoDanhBa(kq.loai, ky, kq.rows, kq.lap); return (kq.loai==='dnct' ? Promise.resolve() : slApDnct()).then(slLuuDanhBa); }   /* 3.128: nạp Mẫu 31 sau Dư nợ chi tiết → gắn lại số TK 105 */
   }).then(function(){ return slLuuMeta(); }).then(function(){ return L.ten+' '+slKyChu(ky); });
 }
 function slXoa(loai, ky){

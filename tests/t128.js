@@ -55,6 +55,19 @@ const fs=require('fs'), path=require('path');
    ok('Biến động cả năm: bảng T1 … T8, có hàng Vào / Ra, tháng thiếu ghi "—"', /T1/.test(hop.textContent) && /T8/.test(hop.textContent) && /Vào/.test(hop.textContent) && /—/.test(hop.textContent), TO_BDN.ds.map(x=>x.ky+':'+(x.bd ? 'có' : '—')).join(' '));
    ok('T8 so được với T7 (có số liệu)', !!TO_BDN.ds.find(x=>x.ky==='2026-08').bd);
    dongHop();
+   /* sửa lỗi 3.127: số TK 105 (Dư nợ chi tiết) không hiện khi file này nạp TRƯỚC Mẫu 31 */
+   { const f8 = files.find(f=>/31-08-2026\.XLSX$/.test(f.n)), mk = (b64, n)=>{ const bin=atob(b64), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return new File([u], n); };
+     const k8 = await slDocFile(mk(f8.b, f8.n)), hs = k8.rows.filter(x=>x.ku && x.kh), soTK = kh=>'70'+String(kh).slice(-8);
+     const H = ['Mã xã','Tên xã','Mã thôn','Tên thôn','Ngày GDXA','Mã điểm giao dịch','Tên điểm giao dịch','Mã tổ','Mã KH','Tên KH','Số khế ước','Tình trạng món vay','Tổng dư nợ','Sổ tiết kiệm 105','Số dư tiền gửi 105','Ngày số liệu'];
+     const ws = XLSX.utils.aoa_to_sheet([H].concat(hs.map(x=>[x.xa, x.tenXa, x.thon, x.tenThon, '09', '', '', x.to, x.kh, x.ten, x.ku, 'OPEN', 999999, soTK(x.kh), 123456, '31/08/2026']))), wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+     await slGhi(await slDocFile(new File([XLSX.write(wb, {type:'array', bookType:'xlsx'})], '004820_DU_NO_CHI_tiet_DEN_31-08-2026.xlsx')));
+     const kh = hs[0].kh, xoaTK = ()=>Object.values(SL_DB.kh).forEach(c=>{ delete c.stk; delete c.stkNguon; delete c.stkKy; });
+     xoaTK(); await slGhi(k8);
+     ok('nạp Mẫu 31 SAU Dư nợ chi tiết → số TK 105 vẫn gắn theo Dư nợ chi tiết', SL_DB.kh[kh].stk===soTK(kh) && SL_DB.kh[kh].stkNguon==='dnct', SL_DB.kh[kh].stk);
+     TO_KS = {}; const K = await toNap('2026-08'), tt = K.to[hs[0].to], x = tt && (()=>{ const g = TO_K; TO_K = K; const r = toTV(tt).find(z=>z.kh===kh); TO_K = g; return r; })();
+     ok('danh sách Tổ TK&VV hiện số TK 105', !!x && x.stk.join()===soTK(kh), x && x.stk.join());
+     xoaTK(); await slLuuDanhBa(); await slNapDanhBa();
+     ok('máy đã lỡ nạp sai thứ tự (danh bạ thiếu số TK) → mở app tự gắn lại', SL_DB.kh[kh].stk===soTK(kh)); }
    return o;
  }, files);
  /* phần C — bộ in chuẩn: tự chia trang A4, @page lề 0 (không còn dòng đầu / cuối trang của trình duyệt), số trang, 2 mặt, khung xem */

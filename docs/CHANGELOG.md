@@ -41,7 +41,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - Mẫu 06: "Trang x/y" theo từng tổ.
   - Kế hoạch, 04, 16, Phân công: số trang góc dưới phải, từ trang 2.
   - Khi xuất nhiều bản, mỗi bản là 1 phần và đánh số lại từ 1.
-- Kiểm tra: `kiem.py` sạch; t128 mới (Tổ + bộ in, đếm trang PDF thật); các phép thử cũ đổi theo bố cục mới: t106, t108, t111, t115, t120, t126.
+- **Sửa lỗi số TK 105 không hiện (anh báo trên 3.127):**
+  - Nguyên nhân: file Dư nợ chi tiết nạp **trước** Mẫu 31 (hoặc chạy trước trong cùng đợt) thì số sổ chỉ gắn được cho khách đã có trong danh bạ; khách vào sau thì không có số. Còn Mẫu 31 thật ghi số hệ thống 14 chữ số, app bỏ qua loại số này, nên ô TK 105 để trống.
+  - Sửa: mỗi lần nạp Mẫu 31, app gắn lại số TK từ mọi file Dư nợ chi tiết đã có (`slApDnct`). Máy đã lỡ nạp sai thứ tự thì lần mở app đầu tiên sau khi cập nhật tự gắn lại (`slNapDanhBa`).
+- Kiểm tra: `kiem.py` sạch; t128 mới (Tổ + bộ in, đếm trang PDF thật, số TK 105 khi nạp sai thứ tự); các phép thử cũ đổi theo bố cục mới: t106, t108, t111, t115, t120, t126.
 
 ---
 

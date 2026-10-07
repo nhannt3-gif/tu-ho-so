@@ -233,6 +233,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 6 | Xuất In nhiều tổ, in 2 mặt | Mỗi tổ bắt đầu mặt trước, không dính 2 tổ trên 1 tờ | |
 | 7 | Báo cáo nhanh nhiều cột (sao kê) | Tự sang dọc gọn / ngang khi không đủ chỗ; chọn Khổ Dọc / Ngang trong khung xem | |
 | 8 | iPhone: bấm In | Vẫn ra bảng chia sẻ / hộp in như trước | |
+| 9 | Mở app (đã nạp Dư nợ chi tiết) → Tổ TK&VV / Tra cứu KH | Cột / dòng Số TK 105 có số (10 chữ số) | |
 
 **Ghi chú kỹ thuật 3.128:**
 - **Phần A (Tổ TK&VV):** `toMapKy(ky)` dựng bảng kh → {tổ, tên, dn, t105, nv} của 1 tháng Mẫu 31. `toBienDong(ma, Mn, Mp)` cho ra `{vao, ra}`. `TO_BD` là biến động của tháng đang xem; `TO_BDN` của cả năm (`toBDNam`, `toBDNamXuat`). `slBoXoa` xóa luôn `TO_MAP` và `TO_BD`.
@@ -256,6 +257,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Khi xong đặt `window.TR_XONG` và `TR_SO`.
   - `inBlob` đổi HTML qua `inChuan` và chờ `TR_XONG` rồi mới in. Khung xem dùng `xemChuan(f, html)`.
   - Chrome không làm theo `break-before:right` → trang trắng 2 mặt do app tự chèn (`.tr-trang-trang`).
+- **Sửa số TK 105:** `slApDnct()` gắn lại số TK từ các bảng `dnct` (kỳ cũ → mới) sau mỗi lần nạp Mẫu 31 / Sao kê KH, rồi xóa `TO_KS` để cây tổ dựng lại. `slNapDanhBa` sửa 1 lần khi có bảng `dnct` mà danh bạ chưa khách nào có `stkNguon='dnct'`.
 - **Phần D (số trang Word):** `ktSectSo(sect, 'xy'|'so')` + `ktFtrSo`; footer rId11; `pgNumType start=1`.
 
 ### Danh sách thử trên máy thật (3.127) — anh ghi Đạt / Chưa
