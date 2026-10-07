@@ -3015,7 +3015,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.128', APP_LUC = '12/10/2026 18:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.129', APP_LUC = '12/10/2026 20:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12829,7 +12829,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.128', ds:[
+var CO_GI_MOI = {ban:'3.129', ds:[
+  ['🔧 Tổ TK&VV: sửa dòng tóm tắt bị lệch số (“không dư nợ còn 105”, “đề xuất cho ra”, “CCCD hết hạn”) — nay khớp đúng với các chip', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🔧 Sửa: số TK 105 (theo file Dư nợ chi tiết) không hiện khi file này được nạp trước Mẫu 31 — nay tự gắn lại, máy đã nạp rồi cũng tự sửa khi mở app', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🖨 Bộ in chuẩn: mọi bản In / Xem trước do app tự chia trang A4 — xem sao in vậy; hết dòng ngày giờ, đường dẫn ở đầu / cuối trang; lặp tiêu đề bảng, không cắt dòng; báo cáo nhanh tự chọn dọc / dọc gọn / ngang', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🔎 Khung xem trước mới: lật trang ⏮ ‹ n/N › ⏭, thu phóng − + ↔ ⊡, Khổ, In, PDF, Word, toàn màn hình', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -26054,6 +26055,7 @@ var TO_LOC = [
   ['rk', 'Ra khỏi tổ', function(){ return false; }, 'do']   /* 3.128: danh sách lấy từ tháng trước (không còn trong tổ tháng này) */
 ];
 var TO_LOC_MO = 'tat', TO_TRUOC = null, TO_MAP = {}, TO_BD = null;
+function toLocHam(ma){ var l = TO_LOC.find(function(x){ return x[0]===ma; }); return l ? l[2] : function(){ return false; }; }   /* 3.128.1: lấy chip theo mã, không theo vị trí (thêm chip không làm lệch số) */
 /* 3.128 (anh chốt): biến động tổ viên — so Mẫu 31 hai tháng liền nhau; khách → tổ của từng tháng (TO_MAP[kỳ] = {mã KH: {to, ten, dn, t105, nv}});
    ngày kết nạp = ngày vay sớm nhất của khách; chuyển tổ tính cả "mới vào" (từ tổ X) lẫn "ra khỏi tổ" (sang tổ Y) */
 function toMapKy(ky){
@@ -26162,7 +26164,7 @@ function toTheHTML(t, tv){
   if(t.len){ var L1 = t.len; len = ' │ LEN_31: '+tdnTien(L1.ho||0)+' hộ · '+tdnTr(L1.dn)+' · tiền gửi '+tdnTr(L1.tg)+' · cho vay / thu nợ '+tdnTr(L1.cv)+' / '+tdnTr(L1.tn)+' · thu lãi '+tdnTr(L1.tl)+(t.lenGop>1 ? ' (gộp '+t.lenGop+' tổ trùng tên)' : ''); }
   return '<div class="to-the">'+
     '<div class="to-the-ten">'+(toLaTT(t) ? '<b>Vay trực tiếp (không qua tổ)</b>' : 'Tổ <b>'+coChuHTML(t.ten||'')+'</b> (mã '+t.ma+')')+' <span class="to-the-phu">· '+coChuHTML(toDiaChi(t))+'</span></div>'+
-    '<div class="to-the-so"><b>'+tv.length+'</b> '+(toLaTT(t) ? 'khách' : 'tổ viên')+': <b>'+co+'</b> có dư nợ · <b>'+dem(TO_LOC[3][2])+'</b> không dư nợ còn 105 · <b class="do">'+dem(TO_LOC[4][2])+'</b> đề xuất cho ra · <b class="do">'+dem(TO_LOC[5][2])+'</b> CCCD hết hạn'+
+    '<div class="to-the-so"><b>'+tv.length+'</b> '+(toLaTT(t) ? 'khách' : 'tổ viên')+': <b>'+co+'</b> có dư nợ · <b>'+dem(toLocHam('ko105'))+'</b> không dư nợ còn 105 · <b class="do">'+dem(toLocHam('ra'))+'</b> đề xuất cho ra · <b class="do">'+dem(toLocHam('cccd'))+'</b> CCCD hết hạn'+
       ' │ dư nợ <b>'+tdnTr(dn)+'</b> · QH <b>'+(qh ? tdnTr(qh) : 0)+'</b> · khoanh <b>'+(kn ? tdnTr(kn) : 0)+'</b> · 105 <b>'+tdnTr(t105)+'</b>'+
       (N.max && !toLaTT(t) ? ' │ còn nhận thêm <b>'+Math.max(0, N.max-tv.length)+'</b> tổ viên (tối đa '+N.max+')' : '')+(toLaTT(t) ? '' : toBDChu())+coChuHTML(len)+'</div></div>';
 }

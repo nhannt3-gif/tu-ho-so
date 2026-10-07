@@ -36,6 +36,8 @@ const fs=require('fs'), path=require('path');
    ok('dòng tóm tắt tổ có "Biến động T8/2026: +n vào · −n ra"', /Biến động T0?8\/2026: \+\d+ vào · −\d+ ra/.test(the.textContent), (the.querySelector('.to-the-so')||{}).textContent);
    const chip = [...the.querySelectorAll('.to-loc')].map(x=>x.textContent);
    ok('nút 📅 Biến động cả năm', chip.some(x=>/Biến động cả năm/.test(x)));
+   { const so = (the.querySelector('.to-the-so')||{}).textContent||'', tvx = toTV(t), d = m=>tvx.filter(toLocHam(m)).length, lay = re=>+((so.match(re)||[])[1]);
+     ok('3.129: dòng tóm tắt khớp chip (không dư nợ còn 105 · đề xuất cho ra · CCCD hết hạn) — thêm chip không làm lệch số', lay(/(\d+) không dư nợ còn 105/)===d('ko105') && lay(/(\d+) đề xuất cho ra/)===d('ra') && lay(/(\d+) CCCD hết hạn/)===d('cccd'), [d('ko105'), d('ra'), d('cccd')].join('/')+' · '+so.slice(0, 120)); }
    const tv = toTV(t), nCTK = tv.filter(k=>k.conNo && !k.stk.length).length;
    ok('chip "Có dư nợ · chưa có TK 105" đếm đúng (có dư nợ, không số TK)', TO_LOC.some(l=>l[0]==='ctk') && (nCTK===0 || chip.some(x=>x.indexOf('Có dư nợ · chưa có TK 105 '+nCTK)>=0)), nCTK+' khách');
    /* ngày tất nợ: khách không còn dư nợ */

@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.129 — 12/10/2026 20:00 — Sửa dòng tóm tắt tổ lệch số
+- **Anh báo (ảnh tổ Gia Tân):** dòng tóm tắt ghi "5 không dư nợ còn 105 · 0 đề xuất cho ra", trong khi 5 khách đều có số dư 105 = 0 và chip "Đề xuất cho ra" đếm 5.
+- **Nguyên nhân (lỗi của 3.128):** thêm chip "Có dư nợ · chưa có TK 105" làm thứ tự các chip lùi 1 nấc; dòng tóm tắt lấy chip theo vị trí nên đếm nhầm sang chip bên cạnh: "còn 105" ra số của "Không dư nợ", "đề xuất cho ra" ra số của "còn 105", "CCCD hết hạn" ra số của "Đề xuất cho ra".
+- **Sửa:** dòng tóm tắt lấy chip theo mã (`toLocHam`); thêm chip về sau không làm lệch số nữa.
+- Kiểm tra: `kiem.py` sạch; t128 thêm 1 phép (23/23); hoiquy2.
+
+---
+
 ## 3.128 — 12/10/2026 18:00 — Tổ TK&VV biến động thành viên · Mẫu 06 theo mẫu chuẩn · bộ in chuẩn + khung xem · số trang
 - **A. Tổ TK&VV (anh yêu cầu):**
   - Chip mới "Có dư nợ · chưa có TK 105".
