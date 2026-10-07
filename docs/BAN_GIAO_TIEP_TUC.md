@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 12/10/2026, bản 3.127)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 12/10/2026, bản 3.128)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -88,7 +88,26 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 - **SĐT đạt** = đúng 10 chữ số, bắt đầu bằng 0. **Nợ đến hạn** lọc theo ngày ĐH GDXA (căn cứ chuyển QH), kèm ngày HĐ; gia hạn tối đa = ½ thời gian cho vay.
 - **Tất nợ = dư nợ 0 VÀ lãi tồn 0**; dư nợ 0 còn lãi tồn = chưa tất nợ. **Khách mới kết nạp** = có dư nợ tháng này mà tháng trước không có trong tổ.
 
-**3.127 (mới nhất):** hộp Chọn khi in hiện "Chức danh — Tên đã khai" cho người kiểm tra / người ký.
+**3.128 (mới nhất):**
+- Tổ TK&VV:
+  - chip "Có dư nợ · chưa TK 105";
+  - ngày tất nợ;
+  - Mới vào / Ra khỏi tổ so với tháng trước (ngày kết nạp ≈ ngày vay; chuyển tổ tính cả 2 tổ);
+  - 📅 Biến động cả năm.
+- Mẫu 06 theo mẫu chuẩn: lề 12/10 mm, Họ tên 1 dòng, Mục đích tối đa 2 dòng, CT viết tắt hệ thống (TENVT), chấm tới cuối dòng.
+- **Bộ in chuẩn:**
+  - App tự chia trang A4 (`inChuan` / `trDan`), xem = in.
+  - Không còn dòng đầu / cuối trang của trình duyệt.
+  - Báo cáo nhanh tự khổ: dọc → dọc gọn → ngang.
+  - Số trang: Mẫu 06 "Trang x/y"; văn bản khác từ trang 2, góc dưới phải.
+  - In 2 mặt chèn trang trắng chính xác.
+  - Khung xem kiểu Foxit.
+- Số trang trong file Word.
+- **Việc chờ:**
+  - Anh gửi văn bản củng cố / chia tách / sáp nhập tổ → nghiên cứu và tư vấn trước. Đó là chức năng riêng, gồm cả tổng hợp biến động tổ viên theo xã / điểm / Hội.
+  - Chưa chốt: nhớ người ký theo khuyết.
+
+**3.127:** hộp Chọn khi in hiện "Chức danh — Tên đã khai" cho người kiểm tra / người ký.
 
 **3.126:** gạch dưới tiêu ngữ / tên cơ quan mảnh 0,5 pt; tab Số liệu báo tháng đang giữ + nút ↻ Nạp lại.
 

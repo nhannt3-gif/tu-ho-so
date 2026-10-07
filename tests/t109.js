@@ -55,7 +55,7 @@ const fs=require('fs'), path=require('path');
    ok('Word: A4, chân trang số trang, không đầu trang / chú thích, không chữ đỏ / tô vàng', /w:w="11907" w:h="16840"/.test(doc) && !!z.g('word/footer1.xml') && !z.g('word/header1.xml') && /footer1\.xml/.test(z.g('word/_rels/document.xml.rels')) && /rId11/.test(doc) && !/w:highlight/.test(doc) && !/w:color w:val="(?!000000)/.test(doc));
    ok('Word: phần III nội dung kiểm tra giữ nguyên dự thảo', /III\. NỘI DUNG KIỂM TRA, GIÁM SÁT/.test(chu) && /Kiểm tra tại khách hàng vay vốn/.test(chu) && /Có phải nộp lệ phí trong quá trình làm hồ sơ vay vốn không/.test(chu));
    /* Mẫu 06 / 16 / 04 vẫn đủ phần sau khi đổi ktDocx */
-   const z4 = await moZip(await ktDocx('m04', [{f:{DV:'X', SP:''}, doan:[], rows:[]}])); ok('khuôn cũ (Mẫu 04) vẫn có đầu trang + chú thích, không chân trang', !!z4.g('word/header1.xml') && !!z4.g('word/footnotes.xml') && !z4.g('word/footer1.xml') && hopLe(z4.doc));
+   const z4 = await moZip(await ktDocx('m04', [{f:{DV:'X', SP:''}, doan:[], rows:[]}])); ok('khuôn cũ (Mẫu 04) vẫn có đầu trang + chú thích; 3.128: chân trang chỉ ghi số trang (PAGE)', !!z4.g('word/header1.xml') && !!z4.g('word/footnotes.xml') && /PAGE/.test(z4.g('word/footer1.xml')||'') && hopLe(z4.doc));
    ktKHXem(1); await w(300); ktKHIn('in'); await w(300);
    const hh = await H[Object.keys(H).find(n=>/Ke hoach KTGS/.test(n))].text();
    ok('In / PDF: A4, đủ chữ (căn cứ 727, bảng lịch, phần III, người ký)', /size:A4;/.test(hh) && /727\/HD-NHCS/.test(hh) && /Tối thiểu 90% món vay/.test(hh) && /Có phải nộp lệ phí/.test(hh) && hh.indexOf('Giả Văn Ký')>=0 && /<table/.test(hh));
