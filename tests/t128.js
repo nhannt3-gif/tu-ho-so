@@ -86,6 +86,33 @@ const fs=require('fs'), path=require('path');
      toBDNam(); for(let i=0;i<40 && !(TO_BDN && TO_BDN.pv);i++) await w(200); await w(200);
      ok('3.132: Biến động cả năm cho phạm vi — tách hộ mới / CIF cũ dùng lại / chuyển tổ', /hộ mới \(CIF mới\)/.test(document.getElementById('hop-in').textContent) && /CIF cũ dùng lại/.test(document.getElementById('hop-in').textContent) && TO_BDN.pv);
      dongHop(); C.xa = t.xa; C.diem = t.khoaDiem; C.hoi = ''; C.to = t.ma; }
+   /* 3.133: chọn đa chiều (chỉ tab Tổ) — Hội cả xã, Hội toàn PGD; đổi xã giữ Hội; tab KTGS không đổi */
+   { const h = String(t.dv), xa = t.xa, Tt = Object.values(TO_K.to);
+     C.xa = xa; C.diem = ''; C.hoi = h; C.to = ''; TO_LOC_PV = 'bang'; pvVeCay('to'); await w(600);
+     const oHoi = document.getElementById('to-hoi');
+     ok('3.133: tab Tổ chọn Hội khi chưa chọn điểm GD (cả xã)', oHoi && !oHoi.disabled && oHoi.value===h, oHoi && oHoi.value);
+     const nX = Tt.filter(x=>x.xa===xa && String(x.dv)===h && !x.trucTiep).length, ten = (document.querySelector('#to-the .to-the-ten')||{}).textContent||'';
+     ok('3.133: Xã + Hội (cả xã) → tóm tắt / bảng chỉ các tổ của Hội đó trong cả xã', /\(cả xã\)/.test(ten) && new RegExp('· '+nX+' tổ').test(ten) && toDsTo(C).every(x=>x.xa===xa && String(x.dv)===h), ten.slice(0, 120));
+     C.xa = ''; pvVeCay('to'); await w(600);
+     const nP = Tt.filter(x=>String(x.dv)===h && !x.trucTiep).length, hp = [...document.querySelectorAll('.to-bang-pgd tbody tr')];
+     ok('3.133: PGD + Hội → bảng PGD chỉ cộng tổ của Hội (Cộng trên đầu ghi tên Hội)', C.hoi===h && hp[0] && new RegExp('CỘNG TOÀN PGD · ').test(hp[0].textContent) && +hp[0].cells[1].textContent===nP, hp[0] && hp[0].textContent.slice(0, 80)+' / '+nP);
+     const xa2 = Tt.find(x=>x.xa!==xa && String(x.dv)===h); if(xa2){ pvChon('to', 'xa', xa2.xa, 1); await w(300); }
+     ok('3.133: đổi xã vẫn giữ Hội đang lọc', !xa2 || C.hoi===h);
+     ok('3.133: tab khác (KTGS) giữ như cũ — Hội cần điểm GD', pvCha({xa:'x', diem:''}, 'hoi')===false && pvCha({xa:'x', diem:''}, 'hoi', true)===true);
+     /* bảng chi tiết vào / ra (biến động giả T8 của tổ t) */
+     C.xa = t.xa; C.diem = t.khoaDiem; C.hoi = ''; C.to = t.ma; TO_MAP = {}; TO_BD = null;
+     const N8 = await toMapKy('2026-08'), N7 = await toMapKy('2026-07'), khT = Object.keys(N8).filter(k=>N8[k].to===t.ma), khK = Object.keys(N8).filter(k=>N8[k].to!==t.ma && N7[k] && N7[k].to===N8[k].to);
+     const kV = khK[0], kR = khT[0]; N8[kV] = Object.assign({}, N8[kV], {to:t.ma}); N8[kR] = Object.assign({}, N8[kR], {to:N8[khK[1]].to}); N7[kR] = Object.assign({}, N7[kR], {gd:'2026-07-20'});
+     toBDNam(); for(let i=0;i<40 && !(TO_BDN && TO_BDN.t===t);i++) await w(200); await w(200);
+     const B = toBDNamBang(), hop = document.getElementById('hop-in').innerHTML;
+     ok('3.133: bảng chi tiết cấp tổ — STT · Mã KH · Họ tên hộ vay · Vào (ngày) · Ra (ngày) · Ghi chú (không cột Tổ)', B.cot.join()==='STT,Mã KH,Họ tên hộ vay,Vào (ngày),Ra (ngày),Ghi chú' && /Bảng chi tiết vào \/ ra/.test(hop), B.cot.join());
+     const rV = B.aoa.find(r=>r[1]===kV), rR = B.aoa.find(r=>r[1]===kR);
+     ok('3.133: dòng vào (chuyển tổ: ghi tháng, ghi chú "Chuyển từ tổ …") và dòng ra (ghi chú "Chuyển sang tổ …")', rV && rV[3]==='T8/2026' && /^Chuyển từ tổ/.test(rV[5]) && rR && rR[4]==='T8/2026' && /^Chuyển sang tổ/.test(rR[5]), JSON.stringify([rV, rR]));
+     ok('3.133: dòng Cộng: n vào · m ra · chênh lệch', /^Cộng: \d+ vào · \d+ ra · chênh lệch/.test(B.tong), B.tong);
+     dongHop(); C.to = ''; C.hoi = ''; C.diem = ''; TO_BDN = null;
+     toBDNam(); for(let i=0;i<40 && !(TO_BDN && TO_BDN.pv);i++) await w(200); await w(200);
+     ok('3.133: cấp xã → thêm cột Điểm GD + Tổ', toBDNamBang().cot.join()==='STT,Mã KH,Họ tên hộ vay,Điểm GD,Tổ,Vào (ngày),Ra (ngày),Ghi chú', toBDNamBang().cot.join());
+     dongHop(); TO_MAP = {}; TO_BD = null; TO_BDT = null; TO_PVC = null; C.xa = t.xa; C.diem = t.khoaDiem; C.to = t.ma; }
    /* sửa lỗi 3.127: số TK 105 (Dư nợ chi tiết) không hiện khi file này nạp TRƯỚC Mẫu 31 */
    { const f8 = files.find(f=>/31-08-2026\.XLSX$/.test(f.n)), mk = (b64, n)=>{ const bin=atob(b64), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return new File([u], n); };
      const k8 = await slDocFile(mk(f8.b, f8.n)), hs = k8.rows.filter(x=>x.ku && x.kh), soTK = kh=>'70'+String(kh).slice(-8);

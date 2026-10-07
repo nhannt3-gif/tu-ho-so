@@ -4,6 +4,22 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.133 — 13/10/2026 11:00 — Tab Tổ chọn đa chiều · bảng chi tiết vào / ra kiểu báo cáo tổ
+- **Chọn đa chiều (anh chốt: chỉ tab Tổ trước):** Hội lọc độc lập với địa bàn.
+  - Xã + Hội (để trống điểm GD) → Hội đó **cả xã**.
+  - PGD + Hội → Hội đó **toàn PGD**; bảng PGD chỉ cộng tổ của Hội, dòng Cộng ghi tên Hội.
+  - Đổi xã / điểm vẫn giữ Hội đang lọc; Hội không có ở phạm vi mới thì tự bỏ.
+  - Ô tổ vẫn cần điểm GD. Tab KTGS Hội… giữ như cũ.
+- **Bảng chi tiết vào / ra cả năm (trong 📅 Biến động cả năm):** kiểu báo cáo tổ.
+  - Cột: STT · Mã KH · Họ tên hộ vay · Vào (ngày) · Ra (ngày) · Ghi chú diễn giải. Cấp Hội thêm cột Tổ; cấp xã thêm Điểm GD; cấp PGD thêm Xã.
+  - Xếp theo thời gian trong năm. Khách vào rồi ra trong năm (cùng tổ) ghi chung 1 dòng.
+  - Ngày vào = ngày vay đầu tiên; ngày ra ≈ ngày GD cuối trong Mẫu 31 tháng trước. Chuyển tổ không có ngày nên ghi tháng.
+  - Dòng Cộng: n vào · m ra · chênh lệch.
+  - Bảng tổng theo tháng (ô bấm được) giữ nguyên. In / Excel cả năm = bảng chi tiết + bảng tổng theo tháng, đầu báo cáo như báo cáo tổ.
+- Kiểm tra: `kiem.py` sạch; t128 46/46 (thêm 9 phép).
+
+---
+
 ## 3.132 — 13/10/2026 09:00 — Tổ TK&VV: tóm tắt + chip ở cấp Hội / điểm GD / xã / PGD · vay trực tiếp STT 0 · mới vào 3 nhóm
 - **Anh yêu cầu:** chọn tới Hội, xã hoặc PGD cũng có dòng tóm tắt và chip lọc như của tổ; các danh sách đã có giữ nguyên.
 - **Chưa chọn tổ:**
