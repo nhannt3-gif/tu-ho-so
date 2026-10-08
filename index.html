@@ -2756,6 +2756,8 @@
   .sao-nut.bat{color:#b07d00;border-color:#e0a800}
   .dau-sua .so-ten>div[style*="margin-top"]{display:inline-block;margin-right:6px}
   .dau-sua .so-ten .nho{width:auto !important;min-width:0 !important}
+  .ngay-gy{display:inline-block;font-size:11px;color:#555;margin:0 4px;white-space:nowrap;vertical-align:middle}
+  .ngay-gy b{color:#0b5394}
 </style>
 </head>
 <body>
@@ -3015,7 +3017,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.134', APP_LUC = '13/10/2026 15:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.135', APP_LUC = '13/10/2026 17:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -8078,10 +8080,11 @@ function taiNoTuDrive(){
 
 /* ---------- tiện ích ---------- */
 function tdnSo(v){ var n = typeof v==='number' ? v : parseFloat(String(v||'').replace(/[^\d.\-]/g,'')); return isFinite(n) ? n : 0; }
-function tdnNgay(v){   /* ô ngày Excel: dd/mm/yyyy hoặc số serial → yyyy-mm-dd */
+var TDN_MD = false;   /* 3.135: file đang đọc ghi ngày chữ kiểu tháng/ngày/năm (Mỹ) — slDocFile tự nhận rồi bật trong lúc đọc */
+function tdnNgay(v){   /* ô ngày Excel: dd/mm/yyyy (hoặc mm/dd/yyyy khi TDN_MD) hoặc số serial → yyyy-mm-dd */
   if(v===''||v==null) return '';
   if(typeof v==='number' && v>20000 && v<80000){ var d = new Date(Math.round((v-25569)*864e5)); return d.getUTCFullYear()+'-'+hai(d.getUTCMonth()+1)+'-'+hai(d.getUTCDate()); }
-  var m = String(v).trim().match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})/); if(m) return m[3]+'-'+hai(+m[2])+'-'+hai(+m[1]);
+  var m = String(v).trim().match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})/); if(m) return TDN_MD ? m[3]+'-'+hai(+m[1])+'-'+hai(+m[2]) : m[3]+'-'+hai(+m[2])+'-'+hai(+m[1]);
   m = String(v).trim().match(/^(\d{4})-(\d{2})-(\d{2})/); return m ? m[0] : '';
 }
 function tdnTien(n){ return Math.round(n||0).toLocaleString('vi-VN').replace(/,/g,'.'); }
@@ -12829,7 +12832,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.134', ds:[
+var CO_GI_MOI = {ban:'3.135', ds:[
+  ['📅 Mọi ô chọn ngày ghi rõ kiểu: cạnh ô có dòng “= 07/10/2026 (ngày/tháng/năm)”, đổi ngày là đổi theo — máy đặt tiếng Anh ô ngày hiện tháng trước, nhìn dòng này để khỏi nhầm', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
+  ['📅 Sửa: file ghi ngày kiểu Mỹ (tháng/ngày, vd “10/7/2026 12:00:00 AM”) bị đọc nhầm thành 10/07 — nay app tự nhận kiểu ngày của file. File đã vào nhầm ô tháng thì xóa ô đó rồi nạp lại', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['📄 Mẫu 06 trắng để ghi tay (nút cạnh “Xem phiếu Mẫu 06”): in 1 mặt (4 dòng hộ) hoặc 1 tờ 2 mặt (21 dòng hộ), dòng 0,8 cm — In / Word', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📝 Mẫu 06: mục đích sử dụng vốn cùng cỡ chữ nhỏ; cột đúng / sai mục đích hẹp lại, Hiệu quả đầu tư rộng ra; tên Hội không in đậm; “Mẫu số 06/TD” nhỏ, canh phải', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['📝 Mẫu 16 / 04: không ghi số tháng lãi — nhóm chung “Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao” (vẫn tính theo số tháng để xếp nặng nhẹ)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -21943,6 +21948,41 @@ if(document.readyState==='loading')
 else batDau();
 </script>
 <script>
+/* 3.135 — anh Nhân: mọi ô chọn ngày ghi rõ kiểu ngày/tháng/năm (trình duyệt tiếng Anh hiện tháng/ngày → dễ nhầm, gán sai kỳ) */
+function ngayGY(iso){ return iso && /^\d{4}-\d{2}-\d{2}$/.test(iso) ? iso.slice(8,10)+'/'+iso.slice(5,7)+'/'+iso.slice(0,4) : ''; }
+function ngayGYCapNhat(i){
+  var g = i._gy; if(!g) return;
+  var la = i.type==='date', h = la ? (i.value ? '= <b>'+ngayGY(i.value)+'</b> (ngày/tháng/năm)' : 'ngày/tháng/năm') : '';
+  if(g.innerHTML!==h) g.innerHTML = h;
+  g.style.display = la ? '' : 'none';
+}
+function ngayGYQuet(){
+  var ds = document.querySelectorAll('input[type=date]'), k;
+  for(k=0;k<ds.length;k++){
+    var i = ds[k];
+    if(!i._gy || !i._gy.parentNode){
+      var g = document.createElement('small'); g.className = 'ngay-gy';
+      i.parentNode.insertBefore(g, i.nextSibling); i._gy = g;
+    }
+    ngayGYCapNhat(i);
+  }
+  ds = document.querySelectorAll('small.ngay-gy');   /* ô đổi sang kiểu tháng thì ẩn dòng gợi ý */
+  for(k=0;k<ds.length;k++){ var t = ds[k].previousSibling; if(t && t._gy===ds[k]) ngayGYCapNhat(t); }
+}
+(function(){
+  var hen = 0;
+  function henQuet(){ if(hen) return; hen = setTimeout(function(){ hen = 0; ngayGYQuet(); }, 30); }
+  function suKien(e){ var i = e.target; if(i && i._gy) ngayGYCapNhat(i); }
+  function chay(){
+    document.addEventListener('input', suKien, true); document.addEventListener('change', suKien, true);
+    ngayGYQuet();
+    if(typeof MutationObserver!=='undefined')
+      new MutationObserver(henQuet).observe(document.body, {childList:true, subtree:true, attributes:true, attributeFilter:['type']});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', chay); else chay();
+})();
+</script>
+<script>
 /* ==========================================================
    3.85 — 📈 SỐ LIỆU: bộ file Excel hệ thống nạp hằng tháng
    - Nạp cả bộ (app tự nhận loại + kỳ) hoặc từng file (anh chọn loại + kỳ, app đọc nội dung kiểm lần cuối)
@@ -22196,6 +22236,17 @@ function slLayDong(sheet, r, co, L){
 }
 
 /* ---------- 3. KỲ (ngày chốt): cột ngày → ngày ở tiêu đề → tên file ---------- */
+/* 3.135: kiểu ghi ngày dạng chữ của file — có ô số sau > 12 (10/25/2026) = tháng/ngày; số trước > 12 = ngày/tháng; mơ hồ thì so ngày trên tên file → 'md' | 'dm' | '' */
+function slKieuNgay(sheet, r, tenFile){
+  var dm = 0, md = 0, mo = {}, rows = sheet.rows || [], het = Math.min(rows.length, r+4000);
+  for(var i=r+1;i<het;i++){ var row = rows[i]; if(!row) continue;
+    for(var j=0;j<row.length;j++){ var v = row[j]; if(typeof v!=='string') continue; var x = v.trim().match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})(?!\d)/); if(!x) continue;
+      var a = +x[1], b = +x[2]; if(a>12 && b<=12) dm++; else if(b>12 && a<=12) md++; else if(a<=12 && b<=12 && a!==b) mo[x[3]+'-'+hai(a)+'-'+hai(b)+'|'+x[3]+'-'+hai(b)+'-'+hai(a)] = 1; } }
+  if(md && !dm) return 'md'; if(dm) return 'dm';
+  var tn = slNgayTrongChu(tenFile); if(!tn) return '';
+  var k = Object.keys(mo); if(k.some(function(x){ return x.split('|')[0]===tn; }) && !k.some(function(x){ return x.split('|')[1]===tn; })) return 'md';   /* "10/07/2026" mà tên file ghi 07-10-2026 */
+  return '';
+}
 function slNgayTrongChu(t){
   t = String(t||'');
   var hl = function(y, m, d){ y = +y; m = +m; d = +d; return (y>2000 && y<2100 && m>=1 && m<=12 && d>=1 && d<=31) ? y+'-'+hai(m)+'-'+hai(d) : ''; };
@@ -22323,7 +22374,9 @@ function slPhanTich(kq, loaiChon){
   }
   if(L.bo){ kq.loi = L.bo; return kq; }   /* 3.90: loại đã bỏ */
   kq.loai = L.k;
-  var d = slLayDong(dau.sheet, dau.r, dau.co, L);
+  var kn = slKieuNgay(dau.sheet, dau.r, kq.ten), d;   /* 3.135: file ghi ngày kiểu tháng/ngày (Mỹ) → đọc đúng */
+  TDN_MD = kn==='md'; try { d = slLayDong(dau.sheet, dau.r, dau.co, L); } finally { TDN_MD = false; }
+  if(kn==='md') kq.canhBao.push('File ghi ngày dạng chữ kiểu tháng/ngày/năm (Mỹ) — app đã đọc theo kiểu này (vd 10/7/2026 = 07/10/2026).');
   var ky = slTimKy(dau.sheet, dau.r, d.rows, kq.ten);   /* 3.131: đọc ngày TRƯỚC khi gọn cột — Dư nợ chi tiết lấy kỳ theo cột "Ngày số liệu" trong file, không theo tên file (tên ghi ngày xuất) */
   if(L.chi){ var gon = function(o){ var r = {}; L.chi.forEach(function(f){ if(o[f]!==undefined) r[f] = o[f]; }); return r; };   /* 3.120: file tham chiếu — chỉ lưu cột cần dùng */
     d.rows = d.rows.map(gon); d.lap = (d.lap||[]).map(gon); d.truong = d.truong.filter(function(f){ return L.chi.indexOf(f)>=0; }); d.them = {}; }
@@ -25535,11 +25588,13 @@ function slMoO(loai, ky){
     (L.bo ? '<div class="sl-bao vang">⛔ '+coChuHTML(L.bo)+'</div>' : '')+
     (e.kiemNgay ? '<div class="sl-bao vang">⚠ Bản này chuyển từ bản cũ, ngày số liệu tạm lấy cuối tháng — anh kiểm, sai thì bấm 📅 Đổi ngày.</div>' : '')+
     '<div class="sl-tom">'+slTomDong(L, e)+'</div>'+
+    (function(){ if(!L.tuy || String(ky).length!==7) return ''; var nd = slCacNgay(loai, ky); if(!nd.length) return '';   /* 3.135: ô tháng còn bản theo ngày → mở / xóa từng bản riêng, không đụng bản cuối tháng */
+      return '<div class="nhan-nhom">Bản theo ngày trong tháng ('+nd.length+') — bấm để xem / xóa riêng</div><div class="sl-tom">'+nd.map(function(x){ return '<div class="sl-ngay-dong" onclick="dongHop();slMoO(\''+loai+'\',\''+x.ky+'\')">'+slTomDong(L, x)+'</div>'; }).join('')+'</div>'; })()+
     '<div class="hang-nut">'+(e.goc ? '<button class="nho" onclick="slMoGoc(\''+e.goc+'\')">☁ Mở file gốc trên Drive</button>' : '')+
     '<button class="nho" onclick="slTaiGoc(\''+loai+'\',\''+ky+'\')" title="Tải về máy bản sao file Excel gốc (để dùng việc khác)">⬇ Tải file gốc</button>'+   /* 3.90.1 */
     (L.ngay ? '<button class="nho" onclick="dongHop();slDoiNgay(\''+loai+'\',\''+ky+'\')">📅 Đổi ngày</button>' : '')+
     (L.bo || slKhoaO(loai, ky) ? '' : '<button class="nho" onclick="dongHop();slThayO(\''+loai+'\',\''+ky+'\')" title="Chọn file mới — phải đúng loại, đúng kỳ của ô này">🔁 Thay file</button>')+   /* 3.90 · 3.91: tháng chốt thì ẩn */
-    (slKhoaO(loai, ky) ? '<span class="sl-phu">🔒 Tháng đã chốt — chỉ xem / tải file gốc</span>' : '<button class="nho" onclick="dongHop();slXoa(\''+loai+'\',\''+ky+'\')">🗑 Xóa ô này</button>')+
+    (slKhoaO(loai, ky) ? '<span class="sl-phu">🔒 Tháng đã chốt — chỉ xem / tải file gốc</span>' : '<button class="nho" onclick="dongHop();slXoa(\''+loai+'\',\''+ky+'\')">🗑 Xóa '+(String(ky).length>7 ? 'bản ngày '+ngayVNsl(ky) : 'ô này')+'</button>')+
     '<button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button></div>', true);
 }
 function slMoGoc(id){ window.open('https://drive.google.com/file/d/'+id+'/view', '_blank'); }
@@ -25596,7 +25651,8 @@ function slTrangThai(kq){
   if(slKhoaO(kq.loai, kq.ky)) return {lop:'loi', chu:'🔒 Tháng '+kyVN(slThang(kq.ky))+' đã chốt — mở khóa trước khi nạp.', ghi:false};   /* 3.91 */
   var cu = SLM.bang[slKhoa(kq.loai, kq.ky)];
   var trung = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).find(function(e){ return e.hash && e.hash===kq.hash; });
-  if(trung) return {lop:'vang', chu:'File này đã nạp ('+slLoai(trung.loai).ten+' '+slKyChu(trung.ky)+') — tích nếu vẫn muốn nạp lại.', ghi:false};
+  if(trung) return {lop:'vang', chu:trung.ky!==kq.ky && trung.loai===kq.loai ? 'File này đã nạp trước đây vào ô KHÁC: '+slKyChu(trung.ky)+' (có thể vào nhầm do đọc sai ngày). Lần này đọc là '+slKyChu(kq.ky)+' — tích để nạp vào ô đúng, rồi xóa bản ở '+slKyChu(trung.ky)+'.'
+    : 'File này đã nạp ('+slLoai(trung.loai).ten+' '+slKyChu(trung.ky)+') — tích nếu vẫn muốn nạp lại.', ghi:false};   /* 3.135 */
   if(cu) return {lop:'vang', chu:'Ô '+slKyChu(kq.ky)+' đã có (nạp '+ngayVNsl((cu.luc||'').slice(0,10))+', '+cu.soDong+' dòng) — tích để THAY, bản cũ vào thùng rác Drive.', ghi:false};
   return {lop:'ok', chu:kq.canhBao.length ? kq.canhBao.join(' ') : 'Đọc đúng.', ghi:true};
 }

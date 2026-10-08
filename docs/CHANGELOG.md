@@ -4,6 +4,25 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.135 — 13/10/2026 17:00 — Đọc đúng ngày kiểu Mỹ (tháng/ngày)
+- **Anh báo:** nạp file Dư nợ chi tiết ngày 7/10/2026, app đọc thành 10/07/2026; file vào ô T7/2026 ("+ 1 ngày").
+- **Nguyên nhân (suy luận, chưa xem file thật):** ô ngày ghi dạng chữ kiểu Mỹ (tháng/ngày/năm, thường kèm giờ "12:00:00 AM"), trong khi app luôn hiểu ngày/tháng. Ô ngày thật của Excel (số ngày bên trong) không bị lỗi này.
+- **Sửa — app tự nhận kiểu ngày của từng file (`slKieuNgay`):**
+  - Có ô mà số đứng sau > 12 (vd 5/23/2026) → cả file là tháng/ngày; có ô mà số đứng trước > 12 → ngày/tháng.
+  - Mọi ô đều mơ hồ thì so với ngày trên tên file.
+  - Khi đọc kiểu Mỹ, màn hình nạp có dòng báo. File kiểu Việt Nam đọc như cũ.
+- **Hiển thị:**
+  - Ô "Kỳ" ở bảng nạp là ô chọn ngày của trình duyệt. Máy đặt tiếng Anh thì ô này hiện **tháng trước ngày** (10/07/2026 = 7 tháng 10); app không đổi được cách hiện của ô này.
+  - **Mọi ô chọn ngày trong app** (nạp số liệu, ngày số liệu, ngày kiểm tra KTGS, Mẫu 04, sao kê từ / đến, Số / Sao…) nay có dòng nhỏ ngay cạnh: "= 07/10/2026 (ngày/tháng/năm)", đổi ngày là cập nhật liền; ô trống ghi "ngày/tháng/năm". Ô đổi sang kiểu tháng thì dòng này ẩn.
+  - Dòng báo trùng file: nếu bản cũ nằm ở ô khác (vào nhầm do đọc sai ngày) thì ghi rõ "đã nạp vào ô KHÁC… tích để nạp vào ô đúng, rồi xóa bản ở …".
+- **Xóa riêng bản theo ngày (anh báo không xóa được):**
+  - Ô tháng vừa có bản cuối tháng vừa có bản theo ngày ("+ n ngày") thì trước đây bấm vào chỉ mở bản cuối tháng, không vào được bản ngày.
+  - Nay hộp của ô tháng liệt kê thêm "Bản theo ngày trong tháng", bấm từng bản để xem; nút ghi rõ "🗑 Xóa bản ngày dd/mm/yyyy", không đụng bản cuối tháng.
+- **Anh cần làm:** ô T7/2026 của dòng Dư nợ chi tiết đang có thêm "1 ngày" (file 7/10 vào nhầm) → xóa bản đó rồi nạp lại file.
+- Kiểm tra: `kiem.py` sạch; t129 thêm 3 phép (kiểu Mỹ có giờ, mơ hồ + tên file, kiểu Việt Nam).
+
+---
+
 ## 3.134 — 13/10/2026 15:00 — Mẫu 06 chỉnh theo mẫu chuẩn · Mẫu 06 trắng ghi tay · lời văn lãi tồn Mẫu 16 / 04
 - **Mẫu 06 (anh yêu cầu, cả Word và bản In):**
   - Mục đích sử dụng vốn: mọi dòng cùng cỡ chữ 8 pt cho thống nhất (trước đây to nhỏ theo độ dài).
