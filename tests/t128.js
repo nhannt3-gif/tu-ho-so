@@ -70,8 +70,8 @@ const fs=require('fs'), path=require('path');
      const hp = [...document.querySelectorAll('.to-bang-pgd tbody tr')];
      ok('3.132: bảng PGD — dòng Cộng toàn PGD trên đầu, rồi dòng xã, dưới là điểm GD', hp[0] && /CỘNG TOÀN PGD/.test(hp[0].textContent) && hp[1].classList.contains('nhom') && hp[2].classList.contains('diem'), hp.slice(0, 3).map(x=>x.className).join(','));
      TO_LOC_PV = 'tat'; toVeThe(); await w(100);
-     ok('3.132: bấm chip ở cấp PGD → danh sách khách cả PGD có cột Tổ + Xã', /<th>Tổ<\/th><th>Xã<\/th>/.test(document.getElementById('to-the').innerHTML));
-     const bc = toBCDSPV(C); ok('3.132: In / Excel danh sách phạm vi (đầu báo cáo ghi Phạm vi)', bc.aoa[0][3]==='Tổ' && /Phạm vi: <b>Toàn PGD/.test(toHTMLIn([bc], toGiaPV(C))));
+     ok('3.132: bấm chip ở cấp PGD → danh sách khách cả PGD có cột Tổ + Xã', /<th>Tổ<\/th><th>Họ tên<\/th><th>Xã<\/th>/.test(document.getElementById('to-the').innerHTML));
+     const bc = toBCDSPV(C); ok('3.132: In / Excel danh sách phạm vi (đầu báo cáo ghi Phạm vi)', bc.aoa[0][2]==='Tổ' && bc.aoa[0][3]==='Họ tên' && /Phạm vi: <b>Toàn PGD/.test(toHTMLIn([bc], toGiaPV(C))));
      TO_LOC_PV = 'bang';
      /* vay trực tiếp giả trong điểm của tổ t */
      const K = TO_K, r0 = Object.assign({}, (K.kh[t.ma]||[])[0], {kh:'4811111111', to:'', ku:'TTGIA1', _tt:'TTGIA'}); K.to.TTGIA = {ma:'TTGIA', trucTiep:true, xa:t.xa, tenXa:t.tenXa, khoaDiem:t.khoaDiem, tenDiemDu:t.tenDiemDu, dv:'99', ten:'Vay trực tiếp (không qua tổ)', soMon:1}; K.kh.TTGIA = [r0];
