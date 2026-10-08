@@ -23758,7 +23758,7 @@ function ktDocx(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: m�
     if(mau!=='m06') return ktDien(K.than, g.f);
     var R = ktDongBu(g.rows), kCuoi = R.length-1; while(kCuoi>0 && R[kCuoi].gop==='tiep') kCuoi--;
     /* 3.98: Đơn vị đã điền → bỏ dòng chấm thứ 2; 4 dòng cán bộ / địa bàn / thời điểm dựng theo tab; dòng cao 1,5 cm; gộp ô theo hộ */
-    var tr = ktDien(K.truoc.replace('<w:spacing  w:before="200"/>', '<w:spacing w:before="80"/>'), g.f).replace('{{@DV2}}', g.f.DV ? '' : ktDien(K.dv2, g.f)).replace('{{@CB}}', ktCB06(g.f)), iB = tr.indexOf('PHẦN GHI THEO');
+    var tr = ktDien(K.truoc, g.f).replace('{{@DV2}}', g.f.DV ? '' : ktDien(K.dv2, g.f)).replace('{{@CB}}', ktCB06(g.f)), iB = tr.indexOf('PHẦN GHI THEO');
     iB = iB>=0 ? tr.lastIndexOf('<w:tbl>', iB) : -1;
     if(iB>=0){ var bg = ktTieuDe06(tr.slice(iB));   /* 3.138: tiêu đề cột cỡ 11 (cột tiền hẹp cỡ 10) */
       tr = tr.slice(0, iB)+(g.trang ? ktLuoi06(bg, KT06_LUOI_TRANG) : bg); }
