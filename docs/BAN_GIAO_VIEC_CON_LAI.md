@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.135 · build 13/10/2026 17:00
+**Bản hiện tại:** 3.136 · build 14/10/2026 17:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,20 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.136) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp Mẫu 31 + Dư nợ chi tiết (+ KHĐ) ngày 7/10 | Ma trận: cột "📅 Theo ngày" có chip 07/10 ở các dòng đó; nếu còn ngày cũ app hỏi xóa | |
+| 2 | Tab Tổ → ô Số liệu chọn "ngày 07/10/2026 · Mẫu 31" | Dòng 📌 ghi Mẫu 31 / Dư nợ chi tiết / KHĐ: 07/10, loại còn lại "cuối T9" (tô vàng); dư nợ, TK 105 theo ngày | |
+| 3 | Chip Mới vào / Ra khỏi tổ khi chọn ngày | Ghi "Mới vào 07/10", so với cuối T9 | |
+| 4 | KTGS chọn kỳ ngày | Dòng cảnh báo đủ / thiếu trên màn hình; phiếu in không có ghi chú | |
+| 5 | KTGS › Sau giải ngân (30 ngày) | Có "T10/2026 (đến 07/10 — Mẫu 31 ngày)", lập được phiếu | |
+| 6 | 🗑 Xóa ngày cũ | Chỉ còn ngày mới nhất; bản cuối tháng nguyên | |
+| 7 | Đóng app mở lại, đợi vài giây | Chip ⚡ báo đang dựng từng kỳ rồi "sẵn sàng"; vào tab Tổ không phải chờ | |
+| 8 | 🧹 Làm sạch & nạp lại | Dựng lại từ file đã lưu, có tiến độ; không mất file | |
+
+**Ghi chú kỹ thuật 3.136:** `slKyDung(loai, ky)` — kỳ tháng: chỉ đúng bảng tháng; kỳ ngày: đúng ngày → bản ngày gần nhất trước đó trong tháng → cuối tháng trước. `slBo(ky)` dùng nó cho mọi loại, ghi `B.nguon[loai] = kỳ thật`. `toNap(ky ngày)` chỉ còn 1 bộ (`K.B` = bộ của ngày), `K.ky` = kỳ chọn, `K.thang` = tháng. Biến động (`toBDNap`, `toBDTNap`) so `TO_K.ky` với `kyLui(TO_K.thang, -1)`; `toMapKy(ngày)` cần Mẫu 31 đúng ngày. Ghi chú: `slNguonHTML(B[, kt])`, `slNguonChu(B)` (in), `toKyKQ(K)`. Loại mới tùy kỳ có cờ `tuyMoi` (ngày chỉ lấy từ tên file → về cuối tháng). Ma trận: `slDsNgay`, `slONgay`, `slChipNgay`, `slXoaNgayCu(giu)`, `slSauNap(ds)`. Dựng sẵn: `slNapSan(lai)` thêm ngày mới nhất, `SL_SAN_NAP.dang/ds/lai`, tự chạy 6 s sau khi mở app. `slBoXoa` bỏ mọi bộ theo ngày. Sau giải ngân: `ktThangHS` gồm tháng chỉ có Mẫu 31 ngày, `ktGNNgayCua(th)`, `ktGNThangChu(th)`, `KT_GN.ngay`.
 
 ### Danh sách thử trên máy thật (3.135) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

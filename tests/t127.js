@@ -39,7 +39,7 @@ const fs=require('fs'), path=require('path');
    D.cauHinh.slTab = 'nap'; veSoLieu(); await w(150);
    ok('đầu tab Số liệu (máy tính) có ô "⚡ Giữ sẵn 12 tháng / Tất cả"', !!document.querySelector('.sl-giu select'));
    TO_KS = {}; SL_BO = {}; SL_SAN_NAP.chay = false; await slNapSan(); veSoLieu(); await w(150);
-   ok('3.126: đầu tab Số liệu báo tháng đang giữ', /Đang giữ 4 tháng: T8, T7, T6, T5/.test((document.getElementById('sl-giu-ds')||{}).textContent||''), (document.getElementById('sl-giu-ds')||{}).textContent);
+   ok('3.126 / 3.136: đầu tab Số liệu báo kỳ đang dựng sẵn', /Sẵn dùng: T8, T7, T6, T5/.test((document.getElementById('sl-giu-ds')||{}).textContent||''), (document.getElementById('sl-giu-ds')||{}).textContent);
    slNapLai(); ok('3.126: ↻ Nạp lại → bỏ bản đang giữ rồi nạp lại ngầm', SL_SAN_NAP.chay && !TO_KS[thang[0]] && !!document.querySelector('button[onclick="slNapLai()"]'));
    for(let i=0;i<120 && SL_SAN_NAP.chay;i++) await w(250); ok('3.126: nạp lại xong đủ 4 tháng', thang.every(k=>!!TO_KS[k]));
    return o;
