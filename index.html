@@ -3025,7 +3025,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.139', APP_LUC = '09/10/2026 01:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.139.1', APP_LUC = '09/10/2026 08:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12840,7 +12840,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.139', ds:[
+var CO_GI_MOI = {ban:'3.139.1', ds:[
+  ['🔧 Sửa bản In / PDF Kế hoạch: bảng đầu trang không còn hiện khung kẻ; Quốc hiệu không bị xuống dòng', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['✂️ Tab Tổ TK&VV › báo cáo “Dự kiến chia tách tổ” (A4 ngang, tối đa 2 trang): mỗi hộ 1 dòng theo mã KH, cột Tổ mới (1/2/3) để tổ trưởng ghi, tên vợ/chồng, SĐT, QH / khoanh in đậm sau tên; dòng dự kiến chia tối đa 3 tổ; ký Tổ trưởng', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🏢 Các báo cáo app lập (Tổ, Sao kê, Tổng hợp): góc trên trái ghi “PGD NHCSXH GÒ DẦU” in đậm', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🔧 Sửa: “đã mở TK” chỉ ghi cho khách đang vay (còn dư nợ / nợ lãi) hoặc KU chưa giải ngân — khách đã tất nợ (kể cả trước 2026) không còn bị ghi nhầm', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
@@ -24975,8 +24976,9 @@ function ktXmlHTML(xml){
   var con = function(e, ten){ for(var c = e.firstChild; c; c = c.nextSibling) if(c.namespaceURI===W && c.localName===ten) return c; return null; };
   var gt = function(e, ten){ var x = e && con(e, ten); return x ? (x.getAttributeNS(W, 'val') || 'on') : ''; };
   var bat = function(v){ return v && v!=='false' && v!=='0'; };
-  var doan = function(p){
+  var doan = function(p, lien){   /* lien (3.138.2): đoạn ngắn trong bảng không kẻ (đầu trang, khối ký) không xuống dòng — như Word */
     var pp = con(p, 'pPr'), jc = gt(pp, 'jc'), ind = pp && con(pp, 'ind'), st = [];
+    if(lien && (p.textContent||'').length<=60) st.push('white-space:nowrap');
     var bd = pp && con(pp, 'pBdr');   /* 3.138: đoạn gạch (viền dưới) dưới tên cơ quan / Tiêu ngữ */
     if(bd && con(bd, 'bottom')){ var lt = ind ? +(ind.getAttributeNS(W, 'left')||0)/20 : 0, rt = ind ? +(ind.getAttributeNS(W, 'right')||0)/20 : 0; return '<div style="border-top:.6pt solid #000;margin:1.5pt '+rt+'pt 0 '+lt+'pt;height:0"></div>'; }
     if(jc) st.push('text-align:'+({both:'justify', end:'right', right:'right', center:'center'}[jc] || 'left'));
@@ -24994,11 +24996,11 @@ function ktXmlHTML(xml){
     return '<p style="'+st.join(';')+'">'+(h || '&nbsp;')+'</p>';
   };
   var bang = function(tb){
-    var vien = /w:val="single"/.test(new window.XMLSerializer().serializeToString(tb)), h = '<table class="'+(vien ? 'kt-vien' : '')+'" style="width:100%;margin:4pt 0">', dau = true;
+    var xs = new window.XMLSerializer(), tp = con(tb, 'tblPr'), vien = /<w:tblBorders>(?:(?!<\/w:tblBorders>)[\s\S])*w:val="single"/.test(tp ? xs.serializeToString(tp) : '') || [].some.call(tb.getElementsByTagNameNS(W, 'tcBorders'), function(b){ return /w:val="single"/.test(xs.serializeToString(b)); }),   /* 3.138.2: chỉ viền bảng / ô (không tính viền đoạn — gạch dưới tên cơ quan) */ h = '<table class="'+(vien ? 'kt-vien' : '')+'" style="width:100%;margin:4pt 0">', dau = true;
     Array.prototype.forEach.call(tb.childNodes, function(tr){ if(tr.localName!=='tr') return;
       var la = /tblHeader/.test(new window.XMLSerializer().serializeToString(con(tr, 'trPr') || tr.ownerDocument.createElement('x')));
       h += (la ? '<thead>' : '')+'<tr>'+Array.prototype.map.call(tr.childNodes, function(tc){ if(tc.localName!=='tc') return ''; var w = con(con(tc, 'tcPr') || tc, 'tcW');
-        return '<td'+(w ? ' style="width:'+(+w.getAttributeNS(W, 'w')/20)+'pt"' : '')+'>'+Array.prototype.map.call(tc.childNodes, function(x){ return x.localName==='p' ? doan(x) : x.localName==='tbl' ? bang(x) : ''; }).join('')+'</td>'; }).join('')+'</tr>'+(la ? '</thead>' : ''); dau = false; });
+        return '<td'+(w ? ' style="width:'+(+w.getAttributeNS(W, 'w')/20)+'pt"' : '')+'>'+Array.prototype.map.call(tc.childNodes, function(x){ return x.localName==='p' ? doan(x, !vien) : x.localName==='tbl' ? bang(x) : ''; }).join('')+'</td>'; }).join('')+'</tr>'+(la ? '</thead>' : ''); dau = false; });
     return h+'</table>';
   };
   var body = doc.getElementsByTagNameNS(W, 'body')[0]; if(!body) return '';

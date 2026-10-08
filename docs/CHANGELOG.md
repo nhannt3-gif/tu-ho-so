@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.139.1 — 09/10/2026 08:00 — Sửa bản In Kế hoạch
+- **Anh báo:** in Kế hoạch ra PDF bị lỗi đầu trang (Word không bị).
+- **Nguyên nhân:** gạch dưới tên cơ quan (3.138, viền dưới của đoạn) làm bản In nhận nhầm bảng đầu trang là bảng có kẻ khung; ô Quốc hiệu bản In hẹp hơn Word nên "CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM" xuống dòng.
+- **Sửa (`ktXmlHTML`):** chỉ coi là bảng có khung khi có viền bảng / viền ô; trong bảng không khung (đầu trang, khối ký) đoạn ngắn (≤ 60 ký tự) không xuống dòng.
+- **Kiểm tra:** t109, t110, t111, t113, t116, t125, t132, hoiquy2 đạt; xem ảnh bản In Kế hoạch ① ②.
+
 ## 3.139 — 09/10/2026 01:00 — Mẫu "Dự kiến chia tách tổ"; tên cơ quan góc trái báo cáo
 - **Anh yêu cầu / chốt:** mẫu chia tách tổ A4 ngang từ Danh sách hộ vay — bỏ Số KU thay bằng tên vợ/chồng, thêm SĐT, bỏ cột QH (QH / khoanh ghi ngay sau tên, in đậm), cột trống "Tổ mới dự kiến" cạnh tên; sắp theo mã KH (cùng ấp nên không cột ấp); dòng dự kiến 1 dòng, 1 tổ chia tối đa 3 tổ (ghi tên tổ trưởng); ký Tổ trưởng; tối đa 2 trang. Mọi báo cáo app lập ghi "PGD NHCSXH GÒ DẦU" in đậm góc trên trái.
 - **Đã làm:**
