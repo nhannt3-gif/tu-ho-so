@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.140) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › 🗓 Kế hoạch, chọn xã + Hội | Ấp xếp theo điểm GD → mã thôn; mỗi tháng trọn ấp; bảng chỉ chọn tháng cả ấp | |
+| 2 | ⇅ Sắp lại ấp → ▲ ▼ → ↺ Về mặc định | Thứ tự đổi và nhớ; về mặc định đúng | |
+| 3 | Kế hoạch đã lưu trước đây | Nếu có ấp chia nhiều tháng: cảnh báo vàng + Xếp lại theo ấp | |
+| 4 | Bấm T10 ở "In theo tháng kiểm tra" | Các tổ của T10, tỷ lệ món; 🖨 06 từng tổ; Mẫu 16 cả tháng; Mẫu 04 T10 | |
+| 5 | Bỏ bớt hộ cho dưới 90% rồi 🖨 06 | Hộp hỏi "Vẫn in" / "Chọn thêm hộ" | |
+| 6 | Chip Định kỳ · Mẫu 06 + 16 (chọn tự do) | Không tích sẵn tổ theo kế hoạch | |
+
+**Ghi chú kỹ thuật 3.140:** `ktKHDsTo` sắp theo `ktKHApThu`; `ktKHMacDinh` = chia dãy ấp liên tiếp (quy hoạch động tối thiểu max) vào `th`; `ktKHLich` gán tổ chưa xếp theo tháng ấp. Bảng KH: `KT_KH_SAP`, `ktKHApDoi(ap, ±1)`, `ktKHApMacDinhVe()`; cảnh báo `tach`. In theo tháng: `KT_KH_TH`, `KT_KH_DA`, `ktKHInThangHTML(L, dem)`, `ktKHIn06(ma, cach, ok)` (ok=2 bỏ qua hỏi 90%), `ktKHIn16`, `ktKHIn04T`; ép tháng kiểm tra `KT_DK_TH` (đọc ở `ktDKThang`), `ktDKGiaTri(v, v16, dsTo)`; ép 1 / 2 mặt: `KT_HAI_EP` (đọc ở `ktHaiMat`, Word) và `ktMat(h, v)` → `<meta name="kt-hai-mat">` (đọc ở `inChuan`). `ktDKDs` không còn dùng `ktDKLich` (hàm vẫn giữ).
+
 ### Danh sách thử trên máy thật (3.139) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

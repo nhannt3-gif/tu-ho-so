@@ -4,6 +4,21 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.140 — 09/10/2026 10:00 — Kế hoạch trọn ấp; thứ tự ấp; in theo tháng kiểm tra; Định kỳ chọn tự do
+- **Anh chốt:** kế hoạch kiểm tra 1 tháng phải trọn 1 ấp (không lẻ tổ của ấp); ấp xếp theo mã thôn / điểm GD, trong điểm GD theo tên, có tùy chỉnh và khôi phục mặc định; đổi tháng chỉ theo cả ấp (bỏ đổi từng tổ); in 1 bộ theo tháng kiểm tra trong chip Kế hoạch — Mẫu 06 in từng tổ 1 mặt (đảm bảo tối thiểu 90%), Mẫu 16 và 04 in 2 mặt; chip Định kỳ Mẫu 06 + 16 chọn tự do, không căn cứ kế hoạch.
+- **Đã làm:**
+  - **Thứ tự ấp** (`ktKHApMacDinh`, `ktKHApThu`): điểm GD (mã điểm) → mã thôn → tên ấp; nút "⇅ Sắp lại ấp" (▲ ▼ từng ấp, lưu `D.cauHinh.ktApThu[xã]`), "↺ Về mặc định".
+  - **Trọn ấp** (`ktKHMacDinh`): chia dãy ấp (theo thứ tự) vào các tháng, tối thiểu hóa tháng đông nhất, không tách ấp; tháng nhiều hơn ấp → báo tháng chưa có ấp. Tổ mới của ấp đã có tháng tự theo tháng của ấp. Bảng chỉ còn chọn tháng **cả ấp**; ấp đang chia nhiều tháng (kế hoạch cũ) → cảnh báo vàng + "↺ Xếp lại theo ấp".
+  - **In theo tháng kiểm tra** (chip 🗓 Kế hoạch → "🖨 In theo tháng kiểm tra" → bấm T…): bảng tổ của tháng (theo ấp) — tỷ lệ món / hộ kiểm tra (xanh ≥ 90%, đỏ dưới), "✎ Chọn hộ" ngay tại chỗ, 🖨 / 📄 Mẫu 06 từng tổ (1 mặt; dưới 90% hỏi "Vẫn in" / "Chọn thêm hộ"; ✓ đã in); 🖨 / 📄 Mẫu 16 cả tháng (2 mặt — mỗi biên bản tờ mới); 🖨 / 📄 Mẫu 04 tháng (2 mặt). Nhắc khi ô Số liệu không phải cuối tháng trước tháng kiểm tra. Hộ chọn sẵn như kiểm tra định kỳ (món giải ngân trước 01/01 năm kiểm tra).
+  - **Định kỳ · Mẫu 06 + 16 (chọn tự do)**: không còn tích sẵn tổ theo lịch kế hoạch.
+- **Phép thử:** `tests/t134.js` (20 phép).
+
+## 3.139.1 — 09/10/2026 08:00 — Sửa bản In Kế hoạch
+- **Anh báo:** in Kế hoạch ra PDF bị lỗi đầu trang (Word không bị).
+- **Nguyên nhân:** gạch dưới tên cơ quan (3.138, viền dưới của đoạn) làm bản In nhận nhầm bảng đầu trang là bảng có kẻ khung; ô Quốc hiệu bản In hẹp hơn Word nên "CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM" xuống dòng.
+- **Sửa (`ktXmlHTML`):** chỉ coi là bảng có khung khi có viền bảng / viền ô; trong bảng không khung (đầu trang, khối ký) đoạn ngắn (≤ 60 ký tự) không xuống dòng.
+- **Kiểm tra:** t109, t110, t111, t113, t116, t125, t132, hoiquy2 đạt; xem ảnh bản In Kế hoạch ① ②.
+
 ## 3.139 — 09/10/2026 01:00 — Mẫu "Dự kiến chia tách tổ"; tên cơ quan góc trái báo cáo
 - **Anh yêu cầu / chốt:** mẫu chia tách tổ A4 ngang từ Danh sách hộ vay — bỏ Số KU thay bằng tên vợ/chồng, thêm SĐT, bỏ cột QH (QH / khoanh ghi ngay sau tên, in đậm), cột trống "Tổ mới dự kiến" cạnh tên; sắp theo mã KH (cùng ấp nên không cột ấp); dòng dự kiến 1 dòng, 1 tổ chia tối đa 3 tổ (ghi tên tổ trưởng); ký Tổ trưởng; tối đa 2 trang. Mọi báo cáo app lập ghi "PGD NHCSXH GÒ DẦU" in đậm góc trên trái.
 - **Đã làm:**

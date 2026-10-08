@@ -124,7 +124,7 @@ const fs=require('fs'), path=require('path');
    ok('sau khi xóa: Báo cáo tổ không còn hàng Theo kế hoạch của Hội này', !ktBCKH().some(x=>x.dv===dv));
    /* 12. kế hoạch lưu ở bản cũ (chưa có v) vẫn đọc được, coi như đã chỉnh tay */
    D.cauHinh.ktKH['2026|'+xa+'|'+dv] = {tu:4, den:6, to:{[L.ds[0].ma]:5}, luc:'2026-03-01T00:00:00.000Z'}; L = ktKHLich();
-   ok('kế hoạch bản cũ: đọc đúng khoảng 04 → 06, tổ đã xếp giữ nguyên, tổ khác báo chưa xếp', L.cach==='khoang' && L.tu===4 && L.den===6 && L.gan[L.ds[0].ma]===5 && L.thieu.length===N-1 && L.tay);
+   ok('kế hoạch bản cũ: đọc đúng khoảng 04 → 06, tổ đã xếp giữ nguyên, tổ cùng ấp theo tháng ấp (3.140), tổ ấp khác báo chưa xếp', L.cach==='khoang' && L.tu===4 && L.den===6 && L.gan[L.ds[0].ma]===5 && L.thieu.length===L.ds.filter(t=>ktKHAp(t)!==ktKHAp(L.ds[0])).length && L.ds.filter(t=>ktKHAp(t)===ktKHAp(L.ds[0])).every(t=>L.gan[t.ma]===5) && L.tay);
    return o;
  }, files);
  R.concat(loi.map(e=>'✗ lỗi trang: '+e)).forEach(x=>console.log(x));
