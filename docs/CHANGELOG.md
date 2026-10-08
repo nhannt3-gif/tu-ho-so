@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.139 — 09/10/2026 01:00 — Mẫu "Dự kiến chia tách tổ"; tên cơ quan góc trái báo cáo
+- **Anh yêu cầu / chốt:** mẫu chia tách tổ A4 ngang từ Danh sách hộ vay — bỏ Số KU thay bằng tên vợ/chồng, thêm SĐT, bỏ cột QH (QH / khoanh ghi ngay sau tên, in đậm), cột trống "Tổ mới dự kiến" cạnh tên; sắp theo mã KH (cùng ấp nên không cột ấp); dòng dự kiến 1 dòng, 1 tổ chia tối đa 3 tổ (ghi tên tổ trưởng); ký Tổ trưởng; tối đa 2 trang. Mọi báo cáo app lập ghi "PGD NHCSXH GÒ DẦU" in đậm góc trên trái.
+- **Đã làm:**
+  - Tab Tổ TK&VV › chọn tổ › báo cáo **"Dự kiến chia tách tổ"** (Xem / In / Excel): mỗi hộ 1 dòng (gộp các món), cột STT · Mã KH · Họ tên người vay (QH / Khoanh in đậm) · **Tổ mới (1/2/3)** (để trống, viền đậm) · Tên vợ / chồng · SĐT · Chương trình · Dư nợ · Nợ lãi · Số dư 105 · Ghi chú; dòng Cộng; dòng "Tổ hiện có n tổ viên, m hộ còn dư nợ. Dự kiến chia tách: (1) … hộ sang tổ … · (2) … · (3) …"; khối ký "TỔ TRƯỞNG" (tên tổ trưởng in sẵn). Tổ trên 46 hộ cỡ 10, trên 56 hộ cỡ 9 → tổ 60 hộ vẫn 2 trang.
+  - Báo cáo tab Tổ, Sao kê, Tổng hợp: góc trên trái "**PGD NHCSXH GÒ DẦU**" (thay tên đơn vị trong Cài đặt). Mẫu quy định (06, 16, 04, Kế hoạch, Phân công) giữ tên đơn vị theo mẫu gốc.
+- **Phép thử:** `tests/t133.js` (11 phép, có đếm trang bản In tổ 50 / 60 hộ).
+
 ## 3.138.1 — 08/10/2026 23:30 — "Đã mở TK" chỉ khách đang vay; hộ đã ra khỏi tổ theo TK 105; Mẫu 06 ngắt trang tự nhiên
 - **Anh báo / chốt:**
   - Khách đã tất nợ trước năm 2026 cũng bị ghi "đã mở TK".

@@ -3025,7 +3025,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.138.1', APP_LUC = '08/10/2026 23:30';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.139', APP_LUC = '09/10/2026 01:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12840,7 +12840,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.138.1', ds:[
+var CO_GI_MOI = {ban:'3.139', ds:[
+  ['✂️ Tab Tổ TK&VV › báo cáo “Dự kiến chia tách tổ” (A4 ngang, tối đa 2 trang): mỗi hộ 1 dòng theo mã KH, cột Tổ mới (1/2/3) để tổ trưởng ghi, tên vợ/chồng, SĐT, QH / khoanh in đậm sau tên; dòng dự kiến chia tối đa 3 tổ; ký Tổ trưởng', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
+  ['🏢 Các báo cáo app lập (Tổ, Sao kê, Tổng hợp): góc trên trái ghi “PGD NHCSXH GÒ DẦU” in đậm', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🔧 Sửa: “đã mở TK” chỉ ghi cho khách đang vay (còn dư nợ / nợ lãi) hoặc KU chưa giải ngân — khách đã tất nợ (kể cả trước 2026) không còn bị ghi nhầm', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🚪 Tổ TK&VV: hộ đã tất nợ mà TK 105 không còn gắn tổ (tách dòng riêng hoặc đã đóng) = đã ra khỏi tổ trên hệ thống → không tính tổ viên, hiện ở chip “Ra khỏi tổ” kèm lý do; ② Kiểm tra số liệu ghi số hộ', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['📝 Mẫu 06: ngắt trang tự nhiên ở mọi phiếu — trang 1 đầy trước, chỉ “Biện pháp xử lý” + dòng ngày + chữ ký đi liền sang trang sau; kẻ trên dòng Cộng nét đen; mẫu trắng chừa thêm chỗ cho Word (giữ chú thích cuối trang)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -26081,7 +26083,7 @@ function ctNgan(ma, o){
 function ctChuThich(){ var ds = Object.keys(CT_DUNG||{}).sort(); return ds.length ? 'Chương trình: '+ds.map(function(k){ return k+' = '+CT_VT_TEN[k]; }).join('; ')+'.' : ''; }
 function bcCT(x){ return x && x.ctChu ? '<div class="bc-ghi">'+coChuHTML(x.ctChu)+'</div>' : ''; }
 function laiTon(o){ return (typeof o.lt==='number') ? o.lt : (o.ltTH||0)+(o.ltQH||0); }   /* Mẫu 10 có cột Lãi tồn; Mẫu 31 = lãi tồn TH + QH */
-var TO_BC = [{k:'ds', ten:'Danh sách hộ vay'}, {k:'no', ten:'Nợ cần xử lý (quá hạn · khoanh · KHĐ)'}, {k:'tk', ten:'TK 105 của tổ'}];
+var TO_BC = [{k:'ds', ten:'Danh sách hộ vay'}, {k:'no', ten:'Nợ cần xử lý (quá hạn · khoanh · KHĐ)'}, {k:'tk', ten:'TK 105 của tổ'}, {k:'ct', ten:'Dự kiến chia tách tổ'}];   /* 3.139 */
 var TO_K = null, TO_Q = '';
 function toCH(){ return D.cauHinh.toTK = D.cauHinh.toTK || {ky:'', xa:'', diem:'', hoi:'', to:'', bc:{ds:true}}; }
 /* các kỳ số liệu có bảng món vay: Mẫu 31 theo tháng, Mẫu 10 theo ngày — mới nhất trước */
@@ -26830,7 +26832,7 @@ function slNguonHTML(B, kt){
 }
 function toNgayChu(){ var m = slNguonChu(TO_K.B); return 'Số liệu đến ngày '+ngayVNsl(TO_K.ngay)+' ('+TO_K.hsTen+(m ? '; '+m : '')+')'; }
 function toDauBC(t, tieuDe, ngayChu){
-  return '<div class="bc-dau"><div>'+coChuHTML(D.cauHinh.donvi||'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI')+'</div><div class="bc-ngay">'+coChuHTML(ngayChu)+'</div></div>'+
+  return '<div class="bc-dau"><div>'+'<b>'+coChuHTML(BC_DV)+'</b>'+'</div><div class="bc-ngay">'+coChuHTML(ngayChu)+'</div></div>'+
     '<h1>'+tieuDe+'</h1><div class="bc-to">'+(t.pv ? 'Phạm vi: <b>'+coChuHTML(t.ten)+'</b>' : 'Tổ TK&VV: <b>'+coChuHTML(t.ten||'')+'</b> (mã '+t.ma+') · '+coChuHTML(toDiaChi(t)))+'</div>';
 }
 function toO(v, lop){ return '<td'+(lop ? ' class="'+lop+'"' : '')+'>'+v+'</td>'; }
@@ -26839,6 +26841,27 @@ function toBaoCao(k, t){
   if(k==='ds') return toBCDanhSach(t);
   if(k==='no') return toBCNo(t);
   if(k==='tk') return toBCTK105(t);
+  if(k==='ct') return toBCChiaTach(t);
+}
+/* 3.139 (anh chốt): DANH SÁCH DỰ KIẾN CHIA TÁCH TỔ — A4 ngang, tối đa 2 trang, mỗi hộ 1 dòng, sắp theo mã KH (cùng ấp nên không cột ấp);
+   QH / khoanh ghi sau tên, in đậm; cột "Tổ mới" để trống — tổ trưởng ghi 1 / 2 / 3 theo dòng dự kiến (1 tổ chia tối đa 3 tổ); ký Tổ trưởng */
+function toBCChiaTach(t){
+  var tv = toTV(t).slice().sort(function(a, b){ return a.kh<b.kh ? -1 : 1; }), rows = TO_K.kh[t.ma] || [], T = {dn:0, lt:0, t105:0}, h = '', ch = ' …………………… ';
+  var vc = function(kh){ var o = rows.find(function(x){ return x.kh===kh && x.voChong; }); return o ? String(o.voChong).trim() : ''; };
+  var aoa = [['STT','Mã KH','Họ tên người vay','Tổ mới (1/2/3)','Tên vợ / chồng','Số điện thoại','Chương trình','Dư nợ','Nợ lãi','Số dư 105','Ghi chú']];
+  tv.forEach(function(k, i){ T.dn += k.dn; T.lt += k.lt; T.t105 += k.t105;
+    var no = (k.qh>0 ? ' (QH)' : '')+(k.kn>0 ? ' (Khoanh)' : ''), ct = String(k.ct||'').split(' · ').filter(Boolean).join(', '), v = vc(k.kh);
+    aoa.push([i+1, k.kh, k.ten+no, '', v, k.sdt, ct, k.dn, k.lt||0, k.t105, '']);
+    h += '<tr>'+toO(i+1,'c')+toO(k.kh)+toO(no ? '<b>'+coChuHTML(k.ten+no)+'</b>' : coChuHTML(k.ten))+toO('','tm')+toO(coChuHTML(v))+toO(coChuHTML(k.sdt))+toO(coChuHTML(ct))+toO(k.dn ? tdnTien(k.dn) : '','s')+toO(k.lt>0 ? tdnTien(k.lt) : '','s')+toO(tdnTien(k.t105),'s')+toO('')+'</tr>'; });
+  h += '<tr class="tong">'+toO('')+toO('')+toO('<b>Cộng '+tv.length+' hộ</b>')+toO('')+toO('')+toO('')+toO('')+toO(tdnTien(T.dn),'s')+toO(tdnTien(T.lt),'s')+toO(tdnTien(T.t105),'s')+toO('')+'</tr>';
+  aoa.push(['', '', 'Cộng '+tv.length+' hộ', '', '', '', '', T.dn, T.lt, T.t105, '']);
+  var conNo = tv.filter(function(k){ return k.conNo; }).length;
+  var tom = 'Tổ hiện có '+tv.length+' tổ viên, '+conNo+' hộ còn dư nợ. Dự kiến chia tách: (1) …… hộ sang tổ'+ch+'· (2) …… hộ sang tổ'+ch+'· (3) …… hộ sang tổ'+ch;
+  aoa.splice(0, 0, [tom], []);
+  var co = tv.length>56 ? 9 : tv.length>46 ? 10 : 11;   /* tối đa 2 trang A4 ngang (tổ thường ≤ 60 hộ) */
+  return {ten:'Chia tach to', tieuDe:'DANH SÁCH HỘ VAY — DỰ KIẾN CHIA TÁCH TỔ', ngay:toNgayChu(), ngang:true, coChu:co, aoa:aoa.concat([[], ['', '', '', '', '', '', '', '', 'TỔ TRƯỞNG'], ['', '', '', '', '', '', '', '', '(Ký, ghi rõ họ tên)']]),
+    ky:'<table class="ct-ky"><tr><td></td><td><i>Ngày …… tháng …… năm 20……</i><br><b>TỔ TRƯỞNG</b><br><i>(Ký, ghi rõ họ tên)</i><div style="height:46pt"></div>'+(t.ten ? '<b>'+coChuHTML(t.ten)+'</b>' : '')+'</td></tr></table>',
+    html:'<div class="ct-tom">'+coChuHTML(tom)+'</div><table class="bc-bang ct"><thead><tr><th style="width:3%">STT</th><th style="width:8.5%">Mã KH</th><th style="width:17%">Họ tên người vay</th><th style="width:7%">Tổ mới<br>(1/2/3)</th><th style="width:14%">Tên vợ / chồng</th><th style="width:9%">Số điện thoại</th><th style="width:8%">Chương trình</th><th style="width:9%">Dư nợ</th><th style="width:7%">Nợ lãi</th><th style="width:7.5%">Số dư 105</th><th>Ghi chú</th></tr></thead><tbody>'+h+'</tbody></table>'};
 }
 /* 1. DANH SÁCH HỘ VAY — sắp theo mã KH; KH nhiều món: mỗi món 1 dòng + dòng cộng; 105 ghi 1 lần mỗi khách */
 function toBCDanhSach(t){
@@ -26963,7 +26986,7 @@ function toBCTK105(t){
   });
 }
 /* ---------- xem → in / Excel ---------- */
-var TO_IN_CSS = '@page{size:A4 portrait;margin:20mm 20mm 20mm 30mm;@bottom-right{content:"Trang " counter(page) "/" counter(pages);font-family:"Times New Roman",serif;font-size:8.5pt}}'+   /* 3.90: lề chuẩn anh chốt — trên 2, dưới 2, trái 3, phải 2 cm; số trang */
+var TO_IN_CSS = '.ct-tom{margin:2px 0 4px;font-size:.95em;white-space:nowrap;overflow:hidden}.bc-bang.ct td{padding:1px 3px;line-height:1.15}.bc-bang.ct th{line-height:1.1;padding:2px 2px}.bc-bang.ct td.tm{border-left:1.2px solid #000;border-right:1.2px solid #000}.ct-ky{width:100%;margin-top:6px;border:0}.ct-ky td{border:0;width:50%;text-align:center;vertical-align:top}'+'@page{size:A4 portrait;margin:20mm 20mm 20mm 30mm;@bottom-right{content:"Trang " counter(page) "/" counter(pages);font-family:"Times New Roman",serif;font-size:8.5pt}}'+   /* 3.90: lề chuẩn anh chốt — trên 2, dưới 2, trái 3, phải 2 cm; số trang */
   'body{font-family:"Times New Roman",serif;font-size:10pt;color:#000;margin:0;background:#fff}'+
   'td.nb{background:#fff1c7}.sk-tom{margin:3px 0 6px}.sk-tom td,.sk-tom th{padding:1px 4px}td small{font-size:.85em;color:#333}'+   /* 3.91 */
   '.bc-ky{text-align:right;font-weight:bold;margin-top:12px}.bc-canh{border:1px solid #b00;padding:2px 5px;margin:4px 0}.bc-dat{padding:2px 5px;margin:4px 0;font-style:italic}'+
@@ -26995,7 +27018,7 @@ function toXem(){
 }
 function toHTMLIn(R, t){
   return '<!doctype html><html><head><meta charset="utf-8"><title>Bao cao to '+t.ma+'</title><style>'+TO_IN_CSS+'</style></head><body>'+R.map(function(x){
-    return '<div class="trang'+(x.ngang ? ' ngang' : '')+'"'+(x.coChu ? ' style="font-size:'+x.coChu+'pt"' : '')+'>'+toDauBC(t, x.tieuDe, x.ngay)+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+SK_IN_TU+'</body></html>';   /* 3.92: 1 dòng mỗi món, tự co */
+    return '<div class="trang'+(x.ngang ? ' ngang' : '')+'"'+(x.coChu ? ' style="font-size:'+x.coChu+'pt"' : '')+'>'+toDauBC(t, x.tieuDe, x.ngay)+x.html+bcCT(x)+(x.ky || bcKy())+'</div>'; }).join('')+SK_IN_NGANG+SK_IN_TU+'</body></html>';   /* 3.139: báo cáo có khối ký riêng (Tổ trưởng) */   /* 3.92: 1 dòng mỗi món, tự co */
 }
 function toIn(){
   var C = toCH(), t = TO_K && TO_K.to[C.to]; if(!t || !TO_XEM.length) return;
@@ -27434,7 +27457,7 @@ function skXem(){
 }
 function skHTMLIn(R){
   return '<!doctype html><html><head><meta charset="utf-8"><title>Sao ke</title><style>'+TO_IN_CSS+'</style></head><body>'+R.map(function(x){
-    return '<div class="trang'+(x.ngang ? ' ngang' : ' doc')+'"><div class="bc-dau"><div>'+coChuHTML(D.cauHinh.donvi||'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI')+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
+    return '<div class="trang'+(x.ngang ? ' ngang' : ' doc')+'"><div class="bc-dau"><div>'+'<b>'+coChuHTML(BC_DV)+'</b>'+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
       '<h1>'+coChuHTML(x.tieuDe)+'</h1><div class="bc-to">Phạm vi: <b>'+coChuHTML(x.pv)+'</b></div>'+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+SK_IN_TU+'</body></html>';
 }
 /* 3.92 (anh chốt): mỗi món 1 dòng (ô không xuống dòng); đo từng trang theo khổ (dọc 16 cm, ngang 24,7 cm với lề chuẩn), tràn thì lần lượt:
@@ -27786,7 +27809,7 @@ var TH_BC = [
   {k:'nv',  ten:'Theo nguồn vốn Trung ương / Địa phương — B32', can:['b32']},
   {k:'tk',  ten:'Lọc sâu theo phạm vi, chương trình, nguồn — tính từ Mẫu 31 (tham khảo, có đối chiếu số chuẩn)', can:['hstd']}
 ];
-var TH_K = null, TH_KS = {}, TH_XEM = [], BC_KY = 'PGD NHCSXH GÒ DẦU';
+var TH_K = null, TH_KS = {}, TH_XEM = [], BC_KY = 'PGD NHCSXH GÒ DẦU', BC_DV = 'PGD NHCSXH GÒ DẦU';   /* 3.139 (anh chốt): góc trên trái mọi báo cáo app lập — in đậm */
 function thCH(){ var C = D.cauHinh.thTK = D.cauHinh.thTK || {ky:'', xa:'', diem:'', hoi:'', to:'', bc:{xa:true}, ct:'', nguon:''}; C.bc = C.bc || {}; return C; }
 PV_DUNG.th = {S:function(){ return thCH(); }, K:function(){ return TH_K && TH_K.K; }};
 function thDsKy(){
@@ -28011,7 +28034,7 @@ function thXem(){
 }
 function thHTMLIn(R){   /* 3.92: khuôn 01.1 — A4 ngang, lề 7 mm, chữ 9,5 pt, "Đơn vị" canh phải, mỗi dòng 1 hàng; tràn thì tự co */
   return '<!doctype html><html><head><meta charset="utf-8"><title>Tong hop</title><style>'+bcCSS(true)+'body{font-size:9.5pt}.th-bang th{vertical-align:middle;text-align:center}tr.th-so td{text-align:center;font-style:italic;font-size:.85em;background:#f7f9fb}.th-dv{text-align:right;font-style:italic;font-size:9pt;margin:-2px 0 2px}</style></head><body>'+R.map(function(x){
-    return '<div class="trang ngang"><div class="bc-dau"><div>'+coChuHTML(D.cauHinh.donvi||'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI')+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
+    return '<div class="trang ngang"><div class="bc-dau"><div>'+'<b>'+coChuHTML(BC_DV)+'</b>'+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
       '<h1>'+coChuHTML(x.tieuDe)+'</h1><div class="bc-to">Phạm vi: <b>'+coChuHTML(x.pv)+'</b></div>'+(x.dv ? '<div class="th-dv">'+coChuHTML(x.dv)+'</div>' : '')+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+skInTu('7mm')+'</body></html>';
 }
 function thIn(){ if(TH_XEM.length) inBlob(new Blob([thHTMLIn(TH_XEM)], {type:'text/html'}), 'Tong hop.html'); }
