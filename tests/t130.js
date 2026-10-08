@@ -57,6 +57,18 @@ const fs=require('fs'), path=require('path');
    slXoaNgayCu(); await w(100); const xn = [...document.querySelectorAll('#hop-in button')].find(b=>b.textContent.trim()==='Xóa'); if(xn) xn.click(); for(let i=0;i<40 && SLM.bang[slKhoa('hstd', '2026-09-10')];i++) await w(150); await w(300);
    ok('🗑 Xóa ngày cũ: bỏ 10/09, giữ 12/09 + mọi bản cuối tháng', !SLM.bang[slKhoa('hstd', '2026-09-10')] && !SLM.bang[slKhoa('khd', '2026-09-10')] && !!SLM.bang[slKhoa('dnct', '2026-09-12')] && !!SLM.bang[slKhoa('hstd', '2026-08')] && !!SLM.bang[slKhoa('khd', '2026-08')]);
    const K12b = await toNap('2026-09-12'); ok('sau khi xóa: ngày 12/09 mượn Mẫu 31 cuối T8', K12b.B.nguon.hstd==='2026-08', JSON.stringify(K12b.B.nguon));
+   /* 3.137: cột Nợ lãi cạnh Dư nợ; dư nợ 0 còn lãi = chưa tất nợ */
+   TO_K = await toNap('2026-08'); const t8 = Object.values(TO_K.to).filter(x=>!toLaTT(x)).sort((a, b)=>(TO_K.kh[b.ma]||[]).length-(TO_K.kh[a.ma]||[]).length)[0];
+   TO_LOC_MO = 'tat'; const bc = toBCDS(t8), bt = await toBCTK105(t8);
+   ok('3.137: danh sách tổ viên (In / Excel) có cột "Nợ lãi" ngay sau "Dư nợ"', /<th>Dư nợ<\/th><th>Nợ lãi<\/th><th>Số dư 105<\/th>/.test(bc.html) && bc.aoa[0].indexOf('Nợ lãi')===bc.aoa[0].indexOf('Dư nợ')+1);
+   TO_LOC_PV = 'tat'; const bp = toBCDSPV(Object.assign({}, toCH(), {xa:'', diem:'', hoi:'', to:''}));
+   ok('3.137: danh sách phạm vi — cột Tổ in trước Họ tên', bp.aoa[0].slice(0, 4).join()==='STT,Mã KH,Tổ,Họ tên' && /<th>Tổ<\/th><th>Họ tên<\/th>/.test(bp.html), bp.aoa[0].slice(0, 5).join());
+   ok('3.137: báo cáo TK 105 mục A có cột Dư nợ, Nợ lãi', /A\. KHÁCH ĐÃ TẤT NỢ/.test(bt.html) && (/<th>Dư nợ<\/th><th>Nợ lãi<\/th><th>Số TK 105<\/th>/.test(bt.html) || /A\. KHÁCH ĐÃ TẤT NỢ[^<]*— 0 khách/.test(bt.html)));
+   ok('3.137: dư nợ 0 còn lãi → gợi ý "chưa tất nợ", không đề xuất cho ra', toGoiY({conNo:true, dn:0, lt:50000, t105:0})==='Còn lãi — chưa tất nợ' && toGoiY({conNo:false, t105:0})==='Cho ra' && !toLocHam('ra')({conNo:true, dn:0, lt:50000, t105:0}));
+   ok('3.137: chip "Tất nợ · còn TK 105" thay "Không dư nợ"; ẩn chip "còn 105" và "Đề xuất cho ra"', toLocNhan(TO_LOC.find(l=>l[0]==='ko'))==='Tất nợ · còn TK 105' && TO_LOC.find(l=>l[0]==='ko105')[4] && TO_LOC.find(l=>l[0]==='ra')[4]);
+   ok('3.137: tất nợ còn 105 → "Chờ vay lại"; 105 > 100.000 đ in đậm số (không tô nền); còn nợ lãi không vào Tất nợ', toGoiY({conNo:false, t105:500000})==='Chờ vay lại' && /<b>/.test(to105({conNo:false, t105:150000}, true)) && !/<b>/.test(to105({conNo:false, t105:50000}, true)) && !toLocHam('ko')({conNo:true, dn:0, lt:1000}));
+   { const x = toXen([{to:'a'},{to:'a'},{to:'b'},{to:'c'}]); ok('3.137: nền nhạt xen kẽ theo tổ', x[0]==='' && x[1]==='' && /to-xen/.test(x[2]) && x[3]==='', JSON.stringify(x)); }
+   ok('3.137: cột "Ghi chú" (thay Gợi ý) để trống khi In / Excel', bc.aoa[0][bc.aoa[0].length-1]==='Ghi chú' && bc.aoa.slice(1, -1).every(r=>r[r.length-1]==='') && !/Gợi ý/.test(bc.html) && /Ghi chú<\/th>/.test(bp.html));
    try{ dongHop(); }catch(e){}
    return o;
  }, files);

@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.137 — 14/10/2026 20:00 — Cột Nợ lãi cạnh Dư nợ (Tổ TK&VV, TK 105)
+- **Anh yêu cầu (gấp):** ở các báo cáo TK 105 / cho ra khỏi tổ, hiện cột Nợ lãi ngay cạnh cột Dư nợ; hộ dư nợ = 0 mà còn nợ lãi vẫn coi là **chưa tất nợ**.
+- **Đã làm:**
+  - Danh sách tổ viên (cấp tổ và cấp Hội / điểm / xã / PGD — màn hình, In, Excel): thêm cột **Nợ lãi** sau Dư nợ (ô trống khi 0; dư nợ 0 còn lãi tô đỏ), dòng Cộng có tổng nợ lãi.
+  - Cột Gợi ý chữ ngắn (anh chốt): "Cho ra", "Vận động vay / tất 105", "Còn lãi — chưa tất nợ" (dư nợ 0 còn lãi); hộ không có gợi ý để trống.
+  - **Cột Tổ in trước Họ tên** (anh chốt): danh sách cấp Hội / điểm / xã / PGD, Ra khỏi tổ (Tổ cũ), bảng chi tiết vào / ra. Quy tắc lọc không đổi: "Có dư nợ" đã tính cả còn lãi; "Đề xuất cho ra" chỉ khi đã tất nợ (dư nợ 0, nợ lãi 0) và 105 = 0. Dòng ghi chú cuối báo cáo nói rõ.
+  - Ra khỏi tổ (màn hình, In, Excel): thêm cột **Nợ lãi** tháng trước.
+  - Báo cáo **TK 105 của tổ**: mục A thêm cột Dư nợ, Nợ lãi; thêm mục **A2 "Dư nợ 0 nhưng còn nợ lãi"** (khách còn 105) — chưa tất nợ, chưa xem xét cho ra.
+- **Chip (anh chốt sau khi xem):** bỏ 2 chip "Không dư nợ · còn 105" và "Đề xuất cho ra"; chip "Không dư nợ" đổi tên **"Tất nợ · còn TK 105"** (gồm 105 có số dư và = 0). Không tô màu sặc sỡ: bỏ nền vàng / đỏ, thay bằng **nền nhạt xen kẽ theo tổ** (danh sách cấp Hội / điểm / xã / PGD, màn hình + In) để phân biệt tổ; TK 105 **trên 100.000 đ** in đậm số. Gợi ý "Vận động vay…" đổi thành **"Chờ vay lại"**. Cột **Gợi ý đổi tên "Ghi chú"**: màn hình ghi chữ ngắn, **In / Excel để trống** để ghi tay. Hộ còn nợ lãi tính như còn dư nợ ở mọi chỗ đếm (cả bảng chỉ tiêu tổ / danh sách hộ vay).
+- Nợ lãi = lãi tồn trong hạn + quá hạn theo Mẫu 31 (`laiTon`).
+
 ## 3.136 — 14/10/2026 17:00 — Số liệu theo ngày: kỳ nào lấy kỳ đó
 - **Anh yêu cầu:** chọn file ngày thì số liệu phải cập nhật theo ngày. Mỗi lần nạp ngày anh nạp Mẫu 31 + Dư nợ chi tiết, có thể thêm KHĐ.
 - **Quy tắc (anh chốt):**

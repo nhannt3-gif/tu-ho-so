@@ -1,7 +1,36 @@
 # BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 14/10/2026, bản 3.136)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
-Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi mục 7 (việc đang dở). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
+Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi **mục 0 (trạng thái mới nhất)** và mục 7 (việc đang dở cũ). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
+
+---
+
+## 0. TRẠNG THÁI MỚI NHẤT — 14/10/2026 (đọc trước mục 7)
+
+**Bản đang chạy:** **3.136** (đã gộp `main`, PR #111); **3.137** (cột Nợ lãi cạnh Dư nợ ở danh sách tổ viên / ra khỏi tổ / TK 105 — dư nợ 0 còn lãi = chưa tất nợ) chờ anh "gộp". Nhánh làm việc `claude/html-app-review-ck346k` đã đặt lại về `origin/main` sau khi gộp. Anh đang thử 3.136 trên máy thật.
+
+**Chuỗi bản gần nhất (chi tiết ở `docs/CHANGELOG.md`):**
+- **3.128–3.133** — Tổ TK&VV: chip lọc (chưa TK105, tất nợ, mới vào 3 nhóm CIF mới / CIF cũ dùng lại / chuyển tổ, ra khỏi tổ), tóm tắt + chip ở mọi cấp (tổ / hội / điểm / xã / PGD), vay trực tiếp STT 0 không tính là tổ, chọn đa chiều (chỉ tab Tổ: Xã + Hội cả xã, PGD + Hội), bảng chi tiết vào / ra kiểu báo cáo tổ (cấp hội thêm cột Tổ, cấp xã thêm Điểm GD); bộ in chuẩn `inChuan` / `trDan`.
+- **3.130–3.131** — TK 105 của khách đã tất nợ: lấy từ mọi bảng Dư nợ chi tiết đã nạp (kỳ cũ → mới, `slApDnct`); ngày số liệu ưu tiên cột "Ngày số liệu" trong file.
+- **3.134** — Mẫu 06 theo mẫu chuẩn + Mẫu 06 trắng ghi tay (1 mặt 4 dòng / 2 mặt 21 dòng, dòng 0,8 cm); Mẫu 16 / 04 lời văn lãi tồn nhóm chung "Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao" (vẫn tính theo số tháng để xếp nặng nhẹ).
+- **3.135** — tự nhận ngày kiểu Mỹ (tháng/ngày) khi nạp; mọi ô chọn ngày có dòng "= dd/mm/yyyy (ngày/tháng/năm)"; xóa riêng bản theo ngày.
+- **3.136** — **Số liệu theo ngày, kỳ nào lấy kỳ đó** (quy tắc ở mục 4a dưới); mọi loại nạp được theo ngày; cột 📅 Theo ngày + 🗑 Xóa ngày cũ; dựng sẵn khi mở app có tiến độ; Sau giải ngân dùng Mẫu 31 ngày.
+
+**Việc chờ anh (không tự làm khi chưa có trả lời):**
+| # | Việc | Cần gì |
+|---|---|---|
+| A | Thử 3.136 (bảng 8 mục trong `BAN_GIAO_VIEC_CON_LAI.md`) | Anh báo Đạt / Chưa. **Riêng Sau giải ngân:** chưa thử với Mẫu 31 ngày thật — em giả định cột giải ngân trong tháng của file ngày là lũy kế từ đầu tháng; lọc thêm theo cột "ngày GN cuối cùng" nếu file có. Anh đối chiếu lần đầu. |
+| B | File chi tiết mới thay **Mẫu 31 + Dư nợ chi tiết** (chỉ thay 2 file này, các file khác giữ) | Anh gửi dòng tên cột của file mới. Đã gửi anh danh sách cột cần có (Dư nợ chi tiết thiếu 11 cột so Mẫu 31, quan trọng: Mã / Tên Quyết định, PNKT52; không có dòng khách chỉ có 105). |
+| C | Số TK 105 của khách **chỉ có 105** / tất nợ lâu | Cần nguồn file có số sổ (Dư nợ chi tiết không có dòng các khách này). Gợi ý ghi "chưa có số — cần nguồn" **chưa được duyệt**. |
+| D | Văn bản củng cố / chia tách / sáp nhập tổ | Anh gửi → đọc, lên kế hoạch phát triển tab Tổ. |
+| E | "Nhớ người ký theo khuyết" (KTGS) | Chưa xác nhận — hỏi lại. |
+| F | Mẫu 06 trắng 2 mặt mở bằng Word thật đúng 2 trang? | Anh kiểm. |
+| G | Bản Dư nợ chi tiết vào nhầm ô 10/07/2026 (lỗi ngày kiểu Mỹ trước 3.135) | Anh xóa ở cột 📅 Theo ngày / ô T7 rồi nạp lại file 7/10 (có thể đã làm). |
+
+**Lưu ý cho phiên mới:**
+- File thật anh gửi ở phiên trước nằm trong thư mục nháp của phiên đó — **phiên mới không có**; cần thì xin anh gửi lại. Không đưa vào repo (repo công khai).
+- `tests/t100.js` hỏng sẵn từ trước (không thuộc bộ hồi quy chuẩn).
+- Khi một phép thử đang chạy ngầm mà sửa `index.html` có thể ra lỗi giả → chạy lại phép thử đó.
 
 ---
 
@@ -27,12 +56,12 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 
 ## 2. Quy trình kỹ thuật
 
-- **Nhánh làm việc:** `claude/html-app-review-ck346k` (hoặc nhánh phiên mới được giao). Mỗi bản: sửa → kiểm → commit → push → PR vào `main` tiêu đề **"Tủ hồ sơ X.YZ"** → **squash merge** tiêu đề **"Tủ hồ sơ X.YZ (#N)"** → đặt lại nhánh về `origin/main` (`git checkout -B <nhánh> origin/main && git push -f`).
+- **Nhánh làm việc:** `claude/html-app-review-ck346k` (hoặc nhánh phiên mới được giao). Mỗi bản: kế hoạch → anh duyệt → anh nhắn **"code"** → sửa → kiểm → commit → push → PR vào `main` (tiêu đề dạng **"3.136: …"**, gần đây dùng merge thường) → **chỉ gộp khi anh nhắn "gộp"** (hoặc "code và gộp") → đặt lại nhánh: `git fetch -q origin main && git checkout -q -B claude/html-app-review-ck346k origin/main && git push -q -f -u origin claude/html-app-review-ck346k`.
 - **Mỗi bản phải:**
-  1. `python3 tests/kiem.py` → `Cú pháp OK · Trùng tên: không · Thiếu hàm: không` (bỏ qua CompressionStream / DecompressionStream / Response).
-  2. Hồi quy: `node tests/hoiquy.js` (28), `node tests/hoiquy2.js` (20, sửa chuỗi số bản trong file), các `tests/t8x–t99` liên quan; phép thử mới cho chức năng mới (dữ liệu giả); xem ảnh chụp máy tính 1366 + điện thoại 390.
+  1. `python3 tests/kiem.py` → `Cú pháp OK · Trùng tên: không · Thiếu hàm: CompressionStream, DecompressionStream, Response` là bình thường (hàm trình duyệt; danh sách hàm sẵn có ở dòng 19 của `kiem.py`).
+  2. Hồi quy chuẩn: `hoiquy`, `hoiquy2` (sửa chuỗi `APP_BAN==='3.xxx'` trong file) và **`t101` → `t130`** (chạy ngầm cả bộ ~1 giờ: `for t in hoiquy hoiquy2 $(seq -f 't%g' 101 130); do …`; dòng cuối "lỗi []" hoặc "n/n đạt" là sạch). Phép thử mới cho chức năng mới (dữ liệu giả `tests/gia31`); xem ảnh chụp máy tính 1366 + điện thoại 390.
   3. Tăng `APP_BAN`, `APP_LUC` (tìm `var APP_BAN`) và thêm dòng đầu `CO_GI_MOI` (hộp "Có gì mới", mỗi dòng: chữ + lệnh mở đúng chỗ).
-  4. `docs/CHANGELOG.md` (mục bản mới ở đầu), `docs/BAN_GIAO_VIEC_CON_LAI.md` (dòng "Bản hiện tại", bảng **Danh sách thử trên máy thật (X)** + **Ghi chú kỹ thuật X**).
+  4. `docs/CHANGELOG.md` (mục bản mới ở đầu), `docs/BAN_GIAO_VIEC_CON_LAI.md` (dòng "Bản hiện tại", bảng **Danh sách thử trên máy thật (X)** + **Ghi chú kỹ thuật X**), `docs/BAN_GIAO_TIEP_TUC.md` (mục 0), `tests/README.md` (dòng phép thử mới).
 - **Commit / PR:** không ghi tên hay mã model. Đuôi commit theo hướng dẫn attribution của phiên đang chạy.
 - **Cách sửa file lớn (~22.000 dòng):** viết script Python thay chuỗi có `assert s.count(a)==1` (mẫu cũ dùng `chen_xxx.py`), hoặc Edit; luôn `grep` tên hàm / lớp CSS trước khi đặt mới (tránh trùng).
 - **Nếp mã:** ES5 (`var`, `function`, Promise), tên tiếng Việt không dấu (`veSoLieu`, `slDocFile`…), chú thích tiếng Việt có ghi số bản (`/* 3.85: … */`). CSS mới đặt khối riêng `/* ===== X.YZ — … ===== */` trong `<style>` (khối mới chèn **trước** khối của bản trước). Màu dùng biến `--xanh --luc --vang --do --nen --the --vien --chu-phu` (+ `-nen`, `-nhat`), có chế độ tối.
@@ -256,6 +285,15 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 - **Tab Tháng sau 3.85:** 7 mã cũ `SL_MA_CU` (`laMaSoLieu`) ẩn khỏi ma trận, tính thiếu, Cài đặt; dòng XLS (`coExcel`) ô trống lớp `trong`, không tính thiếu; các dòng báo cáo theo xã / điểm (Nợ quá hạn, Nợ khoanh, 3 tháng KHĐ — file XLS / PDF theo điểm) **giữ ở tab Tháng** (anh chốt).
 - **Đo (dữ liệu giả):** 25.000 món ~10 giây đọc, màn hình không treo; tra < 10 ms. File T7 thật ~22 MB → có thể 40–60 giây.
 
+### 4a. Quy tắc kỳ số liệu (3.136, anh chốt 14/10/2026)
+- **Chọn cuối tháng → lấy đúng bảng cuối tháng.** **Chọn ngày → mỗi loại lấy bản đúng ngày → bản theo ngày gần nhất trước đó trong tháng → cuối tháng trước** (`slKyDung`; `slBo(ky)` ghi `B.nguon[loại]`). Không lấy bản sau ngày đang chọn.
+- Tab Tổ / Sao kê: dòng 📌 ghi căn cứ (`slNguonHTML`), bản in tab Tổ ghi loại mượn (`slNguonChu` trong `toNgayChu`). **KTGS: chỉ cảnh báo trên màn hình** (`slNguonHTML(B, true)`), Mẫu 06 / 16 / 04 in ra không ghi chú; KTGS không đặt nặng dư nợ khớp tuyệt đối.
+- Mới vào / Ra khỏi tổ / 105 tăng giảm khi chọn ngày: so **ngày đó với cuối tháng trước** (`TO_K.ky` vs `kyLui(TO_K.thang, -1)`). Biến động cả năm vẫn theo cuối tháng.
+- Mọi loại tùy kỳ (`tuy`): Mẫu 31, Dư nợ chi tiết, 7 file TW, BC0437/0438, + (3.136, cờ `tuyMoi`) KHĐ, QH, khoanh, Thông tin tổ trưởng, DSTO, Tổng dư nợ. Ngày cuối tháng → ô tháng; ngày khác → ô theo ngày. `tuyMoi` mà ngày chỉ có trên tên file → ô cuối tháng.
+- Ma trận: bản theo ngày ở cột **📅 Theo ngày**; anh xóa ngày cũ cho nhẹ máy (`slXoaNgayCu`), nạp ngày mới thì app hỏi.
+- Mỗi lần nạp ngày anh thường nạp **Mẫu 31 + Dư nợ chi tiết (+ KHĐ)**. Mẫu 31 là số chính; Dư nợ chi tiết chỉ tham chiếu số TK 105 + điểm GD.
+- Dựng sẵn: mở app 6 giây sau tự dựng tháng mới nhất + ngày mới nhất + các tháng giữ sẵn (`slNapSan`), chip ⚡ tiến độ; nút 🧹 Làm sạch & nạp lại (`slNapLai`, không xóa file). Không lưu bộ đã dựng vào máy (nặng) — dựng lại từ bảng đã lưu.
+
 ---
 
 ## 5. Các phần lớn khác (tóm tắt để định vị mã)
@@ -283,7 +321,7 @@ Mục tiêu anh đặt: mỗi tháng nạp **một bộ file Excel hệ thống*
 
 ---
 
-## 7. Việc đang dở / tiếp theo (theo ưu tiên)
+## 7. Việc đang dở / tiếp theo (bảng cũ đến ~3.111 — việc mới nhất xem mục 0)
 
 | # | Việc | Trạng thái / cần gì |
 |---|---|---|
