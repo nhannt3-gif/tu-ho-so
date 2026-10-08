@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.138.1 — 08/10/2026 23:30 — Sửa "đã mở TK" ghi nhầm cho khách đã tất nợ
+- **Anh báo:** khách đã tất nợ trước năm 2026 cũng bị ghi "đã mở TK".
+- **Nguyên nhân:** số tài khoản 105 hệ thống (14 số) có ở mọi khách từng mở 105, không riêng khách mới.
+- **Sửa:** chỉ ghi "đã mở TK" khi khách đang vay (còn dư nợ / nợ lãi) hoặc có KU đã nhập máy chưa giải ngân; khách đã tất nợ giữ như trước 3.138 (có số sổ thì hiện, không thì để trống). Chip "Có dư nợ · chưa có TK 105" không đổi.
+- **Phép thử:** `t131` thêm ca khách tất nợ có số TK 14 số → để trống (23/23).
+
 ## 3.138 — 08/10/2026 22:30 — Làm mới kỳ số liệu; TK 105 "đã mở TK"; KU hủy / chưa giải ngân; chip đến hạn 2 ngày; Mẫu 06 / 04 / Kế hoạch in gọn
 - **Anh yêu cầu / chốt:**
   - Chọn kỳ (vd ngày 7/10) mà màn hình còn kỳ cũ (cuối T9) → **nút ⟳ Làm mới cạnh ô "Số liệu"** + **chip "📌 Đang dùng: …"** cho biết máy đang nhận số liệu kỳ nào.

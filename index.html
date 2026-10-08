@@ -3025,7 +3025,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.138', APP_LUC = '08/10/2026 22:30';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.138.1', APP_LUC = '08/10/2026 23:30';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12840,7 +12840,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.138', ds:[
+var CO_GI_MOI = {ban:'3.138.1', ds:[
+  ['🔧 Sửa: “đã mở TK” chỉ ghi cho khách đang vay (còn dư nợ / nợ lãi) hoặc KU chưa giải ngân — khách đã tất nợ (kể cả trước 2026) không còn bị ghi nhầm', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['⟳ Cạnh ô “Số liệu” (Tổ TK&VV, Sao kê, KTGS) có nút ⟳ Làm mới — đọc lại theo kỳ đang chọn, cả 3 tab cùng dùng kỳ đó; chip “📌 Đang dùng: …” cho biết máy đang lấy số liệu kỳ nào (vàng = khác kỳ đã chọn, bấm Làm mới)', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🔢 TK 105: khách có số tài khoản 105 trên Mẫu 31 (kể cả số dư 0) không còn bị báo “chưa có TK 105”; ô Số TK 105 ghi “đã mở TK” khi chưa có số sổ', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['🚫 KU hủy / nhập nhầm tổ (Đã đóng, tổng giải ngân = 0) không còn tính vào tổ viên, tất nợ, mới vào / ra khỏi tổ; ② Kiểm tra số liệu ghi số KU đã loại', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
@@ -22544,7 +22545,7 @@ function slVaoDanhBa(loai, ky, rows, lap){
 }
 function slStk(v){ return String(v||'').split(/[,;\s]+/).filter(function(t){ return /^\d{10}$/.test(t); }); }   /* 3.120: số sổ TK 105 hợp lệ = 10 chữ số (bỏ số tài khoản hệ thống dạng 1482… của Mẫu 10) */
 function slCoTK(v){ return /(^|\D)\d{13,14}(?!\d)/.test(String(v||'')); }   /* 3.138 (anh chốt): Mẫu 31 có số tài khoản 105 hệ thống (13–14 số, kể cả số dư 0) = đã mở TK */
-function toStkChu(k){ return k.stk.length ? k.stk.join(', ') : (k.coTK ? 'đã mở TK' : ''); }   /* 3.138: chưa có số sổ 10 số nhưng đã có TK → "đã mở TK" */
+function toStkChu(k){ return k.stk.length ? k.stk.join(', ') : (k.coTK && (k.conNo || k.dn>0 || k.lt>0 || k.chuaGN) ? 'đã mở TK' : ''); }   /* 3.138: chưa có số sổ 10 số nhưng đã có TK → "đã mở TK" · 3.138.1 (anh chốt): chỉ khách đang vay / chưa giải ngân — khách đã tất nợ (kể cả trước 2026) không ghi */
 function slDungTim(){
   var to = (SL_DB && SL_DB.to) || {};
   SL_TIM = Object.keys((SL_DB && SL_DB.kh) || {}).map(function(ma){

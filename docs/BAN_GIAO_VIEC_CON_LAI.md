@@ -226,7 +226,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 1 | Tab Tổ (hoặc Sao kê / KTGS): ô Số liệu chọn ngày 07/10 → bấm **⟳ Làm mới** | Chip "📌 Đang dùng: ngày 07/10/2026 …"; sang Sao kê, KTGS cũng đang ở 07/10 | |
-| 2 | Khách có dư nợ, TK 105 số dư 0 (chưa có số sổ) | Không nằm trong chip "Có dư nợ · chưa có TK 105"; ô Số TK 105 ghi "đã mở TK" | |
+| 2 | Khách có dư nợ, TK 105 số dư 0 (chưa có số sổ) | Không nằm trong chip "Có dư nợ · chưa có TK 105"; ô Số TK 105 ghi "đã mở TK". **3.138.1:** khách đã tất nợ (kể cả trước 2026) không ghi "đã mở TK" | |
 | 3 | Tổ có KU nhập nhầm rồi đóng (ca tổ Cáo / tổ Quang) | Khách không còn trong tổ nhập nhầm (không ở Tất nợ / Mới vào / Ra khỏi tổ); ② Kiểm tra ghi "KU hủy / nhập nhầm … đã loại" | |
 | 4 | Sao kê › Nợ cần xử lý › **KU đã nhập máy chưa giải ngân** | Có các KU còn mở, giải ngân 0; KU quá 1 tháng tô nền, "Quá 1 tháng — cần đóng KU", xếp đầu; In / Excel được | |
 | 5 | Tab Tổ › chip "Đến hạn tháng sau" | 2 cột ĐH theo HĐ / ĐH theo GDXA có ghi chú "chưa chuyển QH do ngày GD xã" / "chuyển QH ngày …"; In / Excel đủ 2 cột | |
@@ -237,7 +237,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 **Ghi chú kỹ thuật 3.138:**
 - Làm mới: `kyLamMoiHTML(tab, K)` (nút + chip `.ky-chip`, `.lech` khi `K.ky` ≠ kỳ chọn), `kyLamMoi()` đọc `#tr7 select[data-ky]`, gán `ky` cho `toCH/skCH/ktCH` + `KY_PHIEN`, xóa `TO_K, TO_KS, SL_BO, TH_KS, TH_K, TO_MAP, TO_BD, TO_BDT, TO_PVC, KT_K, KT_CHON, KT_GN, SK_K` rồi `veSoLieu()`.
-- TK 105: `slCoTK(v)` (13–14 chữ số), `k.coTK` trong `toKhach` + báo cáo TK 105; `toStkChu(k)` thay mọi `k.stk.join(', ')`; chip `ctk` thêm `!k.coTK`.
+- TK 105: `slCoTK(v)` (13–14 chữ số), `k.coTK` (3.138.1: `toStkChu` chỉ ghi "đã mở TK" khi `conNo || dn>0 || lt>0 || chuaGN`) trong `toKhach` + báo cáo TK 105; `toStkChu(k)` thay mọi `k.stk.join(', ')`; chip `ctk` thêm `!k.coTK`.
 - KU hủy: `slKUHuy(o)` (CLOSE, `gn` có cột và = 0, không dư nợ, không lãi) — lọc trong `slBo` cho bảng món vay, giữ ở `B.huy`; dòng ở `slDoiChieu`. Bộ giả `taogia.py` có sẵn 1 món CLOSE giải ngân 0 (dòng mẫu) → cũng bị loại (t131 tính tương đối).
 - Chưa giải ngân: `slKUChuaGN(o)`; `toTV` → `k.chuaGN` (chỉ khi không còn món dư nợ); chip `ko`, `ko105`, `ra` thêm `!k.chuaGN`; `toGoiY` / `toNgayO`. Báo cáo `skBCChuaGN` (`SK_BC` k=`cgn`), `ngayThem1Thang`, `skQua1Thang`; `skBang(..., phang)` = bảng liền không chia nhóm tổ.
 - Chip đến hạn: `toDHMon(k)` dùng `skNhomDH` / `skHL`; cột ngày nay có thể nhiều cột: `toNgayCot` trả "A|B", `toNgayH`, `toNgayTh`, `toNgayGT(k, mo)` (mảng giá trị) ở 4 bảng (tổ / phạm vi, màn hình / In-Excel).
