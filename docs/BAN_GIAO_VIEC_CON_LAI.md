@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.132 · build 13/10/2026 09:00
+**Bản hiện tại:** 3.133 · build 13/10/2026 11:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,23 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.133) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ: chọn xã, để trống điểm, chọn Hội | Tóm tắt "… · Hội X (cả xã)", bảng chỉ các tổ của Hội đó trong xã | |
+| 2 | Chip PGD + chọn Hội | Bảng PGD chỉ cộng tổ của Hội, Cộng trên đầu ghi tên Hội | |
+| 3 | 📅 Biến động cả năm ở tổ / Hội / xã | Bảng chi tiết: STT, Mã KH, Họ tên, (Xã / Điểm GD / Tổ theo cấp), Vào, Ra, Ghi chú; In / Excel | |
+
+**Ghi chú kỹ thuật 3.133:**
+- **Chọn đa chiều:**
+  - `PV_DUNG.to.daChieu`: `pvLuaChon(T, S, cap, dc)` / `pvCha(S, cap, dc)` cho Hội không cần điểm.
+  - `pvChon` giữ Hội khi đổi xã / điểm.
+  - `pvLoc` khi chưa chọn xã vẫn lọc theo Hội; các tab khác không đặt được Hội khi chưa có xã nên không đổi.
+  - `pvChu` ghi "(cả xã)" và "Toàn PGD · Hội".
+- **Bảng chi tiết vào / ra:**
+  - `toBDNamBang()` + `toBDNamBangHTML(B, lớp)`; `toBDNamXuat` dùng bảng này kèm bảng tổng tháng.
+  - `toMapKy` lưu thêm `gd` (ngày GD cuối); `toBienDong` thêm `tuTo` (vào) và `gd` / `chuyen` (ra).
 
 ### Danh sách thử trên máy thật (3.132) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
