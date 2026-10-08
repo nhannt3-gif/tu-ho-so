@@ -4,6 +4,21 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.136 — 14/10/2026 17:00 — Số liệu theo ngày: kỳ nào lấy kỳ đó
+- **Anh yêu cầu:** chọn file ngày thì số liệu phải cập nhật theo ngày. Mỗi lần nạp ngày anh nạp Mẫu 31 + Dư nợ chi tiết, có thể thêm KHĐ.
+- **Quy tắc (anh chốt):**
+  - Chọn **cuối tháng** → lấy đúng bảng cuối tháng (như cũ).
+  - Chọn **ngày** → mỗi loại file lấy bản đúng ngày; thiếu thì lấy bản theo ngày gần nhất trước đó trong tháng, rồi đến cuối tháng trước.
+  - Tab Tổ / Sao kê: dòng ghi căn cứ "📌 Số liệu ngày 07/10/2026 · Mẫu 31: 07/10 · KHĐ: 07/10 · Quá hạn: cuối T9" (bản mượn tô vàng). Bản in / Excel tab Tổ ghi thêm loại mượn ở dòng "Số liệu đến ngày …".
+  - KTGS: chỉ cảnh báo trên màn hình (đủ / thiếu → lấy cuối tháng trước); Mẫu 06 / 16 / 04 in ra không ghi chú.
+  - Mới vào / Ra khỏi tổ / 105 tăng giảm khi chọn ngày: so **ngày đó với cuối tháng trước**; chip ghi "Mới vào 07/10". Biến động cả năm vẫn theo cuối tháng.
+- **Nạp theo ngày cho mọi loại:** thêm KHĐ, Nợ quá hạn, Nợ khoanh, Thông tin tổ trưởng, DSTO, Tổng dư nợ. Ngày cuối tháng vẫn vào ô tháng. Loại mới này nếu trong file không ghi ngày (chỉ có ngày trên tên file — thường là ngày xuất) thì vẫn vào ô cuối tháng như trước, có dòng báo.
+- **Ô "Số liệu":** ngày chỉ có Dư nợ chi tiết (chưa có Mẫu 31 ngày) cũng chọn được — món vay theo Mẫu 31 liền trước, ghi rõ.
+- **Ma trận:** cột "📅 Theo ngày" sau tháng mới nhất (bấm ngày để xem / xóa, "+" nạp thêm); ô tháng thôi hiện "+ n ngày". Nút **🗑 Xóa ngày cũ** (giữ ngày mới nhất, bản cuối tháng không đụng, Drive vào thùng rác). Nạp ngày mới mà còn ngày cũ → app hỏi xóa.
+- **Dựng sẵn:** mở app 6 giây sau tự dựng ngầm tháng mới nhất + ngày mới nhất + các tháng giữ sẵn; chip ⚡ báo tiến độ từng kỳ. Nạp file xong dựng lại ngay. Nút **🧹 Làm sạch & nạp lại** (thay "↻ Nạp lại", không xóa file). Nạp nhiều file có tiến độ từng file.
+- **Sau giải ngân (30 ngày):** tháng chưa có Mẫu 31 cuối tháng mà có Mẫu 31 ngày → hiện "T10/2026 (đến 07/10 — Mẫu 31 ngày)", lấy món giải ngân trong tháng đến ngày số liệu (lọc theo ngày GN cuối cùng nếu file có). Có Mẫu 31 cuối tháng thì tự theo bản cuối tháng.
+- **Kỹ thuật:** xem ghi chú 3.136 trong `docs/BAN_GIAO_VIEC_CON_LAI.md`. Phép thử mới `tests/t130.js`.
+
 ## 3.135 — 13/10/2026 17:00 — Đọc đúng ngày kiểu Mỹ (tháng/ngày)
 - **Anh báo:** nạp file Dư nợ chi tiết ngày 7/10/2026, app đọc thành 10/07/2026; file vào ô T7/2026 ("+ 1 ngày").
 - **Nguyên nhân (suy luận, chưa xem file thật):** ô ngày ghi dạng chữ kiểu Mỹ (tháng/ngày/năm, thường kèm giờ "12:00:00 AM"), trong khi app luôn hiểu ngày/tháng. Ô ngày thật của Excel (số ngày bên trong) không bị lỗi này.
