@@ -19,7 +19,7 @@ const fs=require('fs'), path=require('path');
    /* 1. nạp ngầm khi vào tab Số liệu */
    TO_KS = {}; SL_BO = {}; slNapSan.da = 0; D.cauHinh.slTab = 'nap'; doiNgan(7); await w(200);
    for(let i=0;i<120 && !(slNapSan.da && !SL_SAN_NAP.chay && SL_SAN_NAP.tong);i++) await w(250);
-   ok('vào tab Số liệu → nạp ngầm đủ 4 tháng, chip ⚡ báo tiến độ', thang.every(k=>!!TO_KS[k]) && SL_SAN_NAP.xong===4 && /nạp sẵn/.test((document.getElementById('sl-san')||{}).textContent||''), Object.keys(TO_KS).join(', '));
+   ok('vào tab Số liệu → nạp ngầm đủ 4 tháng, chip ⚡ báo tiến độ', thang.every(k=>!!TO_KS[k]) && SL_SAN_NAP.xong===4 && /dựng sẵn|sẵn sàng/.test((document.getElementById('sl-san')||{}).textContent||''), Object.keys(TO_KS).join(', '));
    /* 2. chuyển tháng không nạp lại */
    let doc = 0; const goc = slDocBang; slDocBang = function(){ doc++; return goc.apply(this, arguments); };
    const t0 = performance.now(); for(const k of thang){ await toNap(k); await slBo(k); } const ms = performance.now()-t0;
