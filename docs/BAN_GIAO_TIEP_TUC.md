@@ -1,4 +1,4 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 09/10/2026, bản 3.140)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 09/10/2026, bản 3.140.1)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi **mục 0 (trạng thái mới nhất)** và mục 7 (việc đang dở cũ). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
@@ -7,7 +7,7 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 
 ## 0. TRẠNG THÁI MỚI NHẤT — 08/10/2026 (đọc trước mục 7)
 
-**Bản đang chạy:** **3.139** (đã gộp, PR #115). **Chờ gộp:** 3.139.1 (sửa bản In Kế hoạch) + **3.140** (Kế hoạch trọn ấp, thứ tự ấp, in theo tháng kiểm tra, Định kỳ chọn tự do) — PR #116. Trước đó **3.138** (PR #113), **3.138.1** (PR #114: "đã mở TK" chỉ khách đang vay; hộ đã ra khỏi tổ theo TK 105; Mẫu 06 ngắt trang tự nhiên). 3.137 đã gộp (PR #112). Nhánh làm việc `claude/intelligent-albattani-a9n3kg`.
+**Bản đang chạy:** **3.140** (đã gộp PR #116 cùng 3.139.1). **Chờ gộp:** **3.140.1** (Mẫu 06 số tiền 2 số lẻ, canh phải, 1 dòng — sửa dòng Cộng xuống dòng). Trước đó **3.139** (PR #115), **3.138** (PR #113), **3.138.1** (PR #114). Nhánh làm việc `claude/intelligent-albattani-a9n3kg`.
 
 **3.138 gồm:** ⟳ Làm mới cạnh ô Số liệu + chip "Đang dùng: kỳ …" (Tổ / Sao kê / KTGS cùng kỳ); TK 105 "đã mở TK" (số TK hệ thống trên Mẫu 31, kể cả số dư 0); KU hủy / nhập nhầm tổ (CLOSE + giải ngân 0) bị loại; KU đã nhập máy chưa giải ngân (OPEN + giải ngân 0) không tính tất nợ + báo cáo Sao kê (quá 1 tháng lịch → "Cần đóng KU"); chip Đến hạn tháng sau 2 cột ĐH HĐ / ĐH GDXA; Mẫu 06 chấm nhạt, kẻ dòng mảnh, ngày ký lên dòng chấm, chỗ ký, mẫu trắng 1 / 2 mặt đúng trang; Mẫu 04 kiến nghị tùy chọn, bảng không tràn lề, Trưởng đoàn thẳng hàng, gạch tên đơn vị; Kế hoạch gạch dưới tên cơ quan theo độ dài tên. Bảng thử máy thật 9 mục ở `BAN_GIAO_VIEC_CON_LAI.md`.
 

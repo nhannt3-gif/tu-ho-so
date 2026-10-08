@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.140.1 — 09/10/2026 06:30 — Mẫu 06: số tiền 2 số lẻ, canh phải, 1 dòng
+- **Anh báo:** Mẫu 06 Word — ô "Dư nợ đến ngày kiểm tra" dòng Cộng xuống dòng (1.178,4 → "1.178," / "4"); số dòng hộ (65,556 · 0,417) sát mép, canh trái.
+- **Nguyên nhân:** cỡ chữ dòng Cộng (3.118, `ktCoVua(v, 992)`) tính theo ô cũ rộng 992 twip, trong khi cột số tiền hiện 737 twip (1,3 cm) trừ lề ô 2 × 108.
+- **Anh chốt:** canh phải; lấy 2 số lẻ; dòng Cộng tính từ số gốc rồi làm tròn (có thể lệch 0,01 so cộng tay); nợ lãi dưới 5.000 đ giữ 3 số lẻ.
+- **Đã làm:** `ktGiaTri06` dùng `ktTr(x, 2)` + `ktTr06Lai`; `ktCoTien06(v, o, dam)` đo theo đúng ô (`KT06_O_TIEN`: 737 / 737 / 794) với lề ô `KT06_LE_TIEN` = 30 twip; `ktOTien06` (canh phải + `tcMar`) cho 3 ô số tiền dòng hộ và dòng Cộng (`ktCong06`); bản In: ô số tiền `nowrap`, đệm 1,5 pt, cỡ theo `ktCoTien06`. Bố cục, độ rộng cột, tên hộ giữ nguyên.
+- **Kiểm tra:** `tests/t135.js` (16 phép) + LibreOffice dựng Word: 128,56 · 1.178,4 · 12.345,67 nằm 1 dòng, canh phải; t106, t115, t119, t122, t126, t129, t132, t134, hoiquy2.
+
 ## 3.140 — 09/10/2026 10:00 — Kế hoạch trọn ấp; thứ tự ấp; in theo tháng kiểm tra; Định kỳ chọn tự do
 - **Anh chốt:** kế hoạch kiểm tra 1 tháng phải trọn 1 ấp (không lẻ tổ của ấp); ấp xếp theo mã thôn / điểm GD, trong điểm GD theo tên, có tùy chỉnh và khôi phục mặc định; đổi tháng chỉ theo cả ấp (bỏ đổi từng tổ); in 1 bộ theo tháng kiểm tra trong chip Kế hoạch — Mẫu 06 in từng tổ 1 mặt (đảm bảo tối thiểu 90%), Mẫu 16 và 04 in 2 mặt; chip Định kỳ Mẫu 06 + 16 chọn tự do, không căn cứ kế hoạch.
 - **Đã làm:**
