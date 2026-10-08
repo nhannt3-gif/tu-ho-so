@@ -4,6 +4,26 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.138 — 08/10/2026 22:30 — Làm mới kỳ số liệu; TK 105 "đã mở TK"; KU hủy / chưa giải ngân; chip đến hạn 2 ngày; Mẫu 06 / 04 / Kế hoạch in gọn
+- **Anh yêu cầu / chốt:**
+  - Chọn kỳ (vd ngày 7/10) mà màn hình còn kỳ cũ (cuối T9) → **nút ⟳ Làm mới cạnh ô "Số liệu"** + **chip "📌 Đang dùng: …"** cho biết máy đang nhận số liệu kỳ nào.
+  - Khách có TK 105 nhưng số dư 0 (file chi tiết chưa có số sổ) bị báo nhầm "chưa có TK 105".
+  - KU đóng do nhập máy nhầm tổ rồi nhập lại tổ khác vẫn tính vào tổ cũ.
+  - KU đã nhập máy chưa giải ngân: xếp riêng, quá 1 tháng (tính theo tháng lịch) cần đóng KU — báo cáo riêng.
+  - Chip "Đến hạn tháng sau" phải hiện ngày ĐH theo HĐ và theo GDXA.
+  - Mẫu 06: chấm nhạt, kẻ dòng mảnh, phiếu ít hộ in gọn, mẫu trắng cân cột + đủ chỗ ký, mẫu trắng 2 mặt. Mẫu 04: kẻ lòi lề phải (PDF), tên Trưởng đoàn lệch, kiến nghị tùy chọn. Kế hoạch: gạch dưới tên cơ quan ngắn hơn tên, cách chữ vừa phải.
+- **Đã làm:**
+  - **⟳ Làm mới** (tab Tổ TK&VV, Sao kê, KTGS): áp kỳ đang chọn cho cả 3 tab, bỏ các bộ đã dựng sẵn, đọc lại; chip xanh "Đang dùng: ngày 07/10/2026 · Mẫu 31 …", vàng khi khác kỳ đã chọn.
+  - **TK 105:** Mẫu 31 có số tài khoản 105 hệ thống (13–14 số, kể cả số dư 0) = đã mở → không vào chip "Có dư nợ · chưa có TK 105"; ô Số TK 105 ghi **"đã mở TK"** khi chưa có số sổ 10 số (danh sách tổ viên, In / Excel, báo cáo TK 105).
+  - **KU hủy / nhập nhầm** = Tình trạng **CLOSE** + Tổng giải ngân = 0 (không dư nợ, không lãi): loại khỏi bảng món vay khi dựng số liệu → không tính tổ viên, tất nợ, mới vào / ra khỏi tổ, giải ngân. ② Kiểm tra số liệu có dòng "KU hủy / nhập nhầm … n KU — đã loại".
+  - **KU đã nhập máy chưa giải ngân** = còn mở (OPEN), Tổng giải ngân = 0, dư nợ = 0: không vào "Tất nợ" / "Đề xuất cho ra", ghi chú "Chưa giải ngân". **Sao kê › Nợ cần xử lý › "KU đã nhập máy chưa giải ngân"**: Tổ · Xã · Hội · Mã KH · Họ tên · Số KU · Chương trình · Mức vay · Ngày vay (nhập máy) · Số ngày · Ghi chú; **quá 1 tháng** (ngày vay + 1 tháng lịch, 31/01 → 28/02, so với ngày số liệu) tô nền, ghi "Quá 1 tháng — cần đóng KU", xếp đầu; Xem / In / Excel theo phạm vi.
+  - **Chip "Đến hạn tháng sau":** 2 cột "ĐH theo HĐ (gia hạn)" và "ĐH theo GDXA · ghi chú" từng món: "đã quá ĐH HĐ — chưa chuyển QH do ngày GD xã" / "ĐH HĐ T10, chuyển QH ngày 07/11" / "chuyển QH ngày …" (màn hình, In, Excel).
+  - **Mẫu 06** (Word + bản In): chấm / dòng chấm tab không đậm, xám nhạt; kẻ ngang giữa các dòng hộ mảnh, xám (khung, đường dọc, tiêu đề, dòng Cộng giữ 0,5 pt); bản In nét 0,5 pt như Word; tiêu đề cột cỡ 11 (ô cột tiền hẹp cỡ 10, lề trong ô hẹp lại; "Ký xác nhận…" bỏ phông "Times New Roman Bold"); "Biện pháp xử lý" 1 dòng rưỡi chấm, **"Ngày … tháng … năm" đưa lên nửa phải dòng chấm 2**; chừa 3 dòng ký khi không in sẵn tên; giãn dòng gọn hơn. Mẫu trắng: **Họ tên = Mục đích = Vào việc** (tổng 3 cột giữ nguyên, cột tiền không hẹp), nhận xét cỡ 12. Kết quả đo (LibreOffice + Chrome): phiếu 1 / 2 / 5 hộ = 1 trang; trắng 1 mặt (4 dòng) = 1 trang; trắng 2 mặt (21 dòng) = 2 trang. Phiếu nhiều hộ giữ cách ngắt trang cũ (khối cuối liền chữ ký).
+  - **Mẫu 04:** bảng mục II bản In không tràn lề phải (97,3% + lùi 2,7%); Trưởng đoàn: chức danh và tên cùng 1 điểm canh giữa (Word); gạch dưới tên đơn vị (1/3–1/2 dòng chữ, cân giữa); "Kết quả kiểm tra…" bỏ phông "Times New Roman Bold"; **kiến nghị 2d, 2đ, 3a, 3b** chọn ở hộp "Chọn khi in": không tích = **1 dòng chấm** (mặc định, gọn báo cáo), tích = in câu gợi ý (sửa được, app nhớ, ↺ về câu gợi ý). Báo cáo 1 tổ (giả) = 2 trang.
+  - **Kế hoạch ① ②:** bỏ 2 đường vẽ cố định ở đầu trang, thay bằng gạch theo độ dài chữ: dưới tên cơ quan 40% dòng chữ, cân giữa, sát chữ; dưới Tiêu ngữ dài bằng dòng chữ; dòng "Số:" và dòng ngày cách gạch 5 pt. Bản In Kế hoạch nay cũng có 2 gạch này.
+- **Phép thử:** `tests/t131.js` (22 phép, số liệu) + `tests/t132.js` (27 phép, in ấn — có đếm trang PDF bản In). Số trang Word đo bằng LibreOffice (dữ liệu giả): phiếu 1 / 2 / 5 hộ = 1 trang, trắng 1 mặt = 1, 2 mặt = 2, Mẫu 04 1 tổ = 2.
+- **Chưa làm / cần anh thử:** số trang trên **Word thật** (Word và LibreOffice dàn trang hơi khác; mẫu trắng 1 mặt còn dư rất ít — nếu Word đẩy chữ ký sang trang 2 anh báo để thu thêm).
+
 ## 3.137 — 14/10/2026 20:00 — Cột Nợ lãi cạnh Dư nợ (Tổ TK&VV, TK 105)
 - **Anh yêu cầu (gấp):** ở các báo cáo TK 105 / cho ra khỏi tổ, hiện cột Nợ lãi ngay cạnh cột Dư nợ; hộ dư nợ = 0 mà còn nợ lãi vẫn coi là **chưa tất nợ**.
 - **Đã làm:**

@@ -222,6 +222,30 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.138) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ (hoặc Sao kê / KTGS): ô Số liệu chọn ngày 07/10 → bấm **⟳ Làm mới** | Chip "📌 Đang dùng: ngày 07/10/2026 …"; sang Sao kê, KTGS cũng đang ở 07/10 | |
+| 2 | Khách có dư nợ, TK 105 số dư 0 (chưa có số sổ) | Không nằm trong chip "Có dư nợ · chưa có TK 105"; ô Số TK 105 ghi "đã mở TK" | |
+| 3 | Tổ có KU nhập nhầm rồi đóng (ca tổ Cáo / tổ Quang) | Khách không còn trong tổ nhập nhầm (không ở Tất nợ / Mới vào / Ra khỏi tổ); ② Kiểm tra ghi "KU hủy / nhập nhầm … đã loại" | |
+| 4 | Sao kê › Nợ cần xử lý › **KU đã nhập máy chưa giải ngân** | Có các KU còn mở, giải ngân 0; KU quá 1 tháng tô nền, "Quá 1 tháng — cần đóng KU", xếp đầu; In / Excel được | |
+| 5 | Tab Tổ › chip "Đến hạn tháng sau" | 2 cột ĐH theo HĐ / ĐH theo GDXA có ghi chú "chưa chuyển QH do ngày GD xã" / "chuyển QH ngày …"; In / Excel đủ 2 cột | |
+| 6 | Mẫu 06 phiếu 1–2 hộ (Word **và** In) | Gọn 1 trang; chấm nhạt; kẻ dòng hộ mảnh xám; ngày ký nằm cuối dòng chấm "Biện pháp" thứ 2; chữ ký không sát mép giấy | |
+| 7 | Mẫu 06 trắng 1 mặt / 2 mặt (Word **và** In) | 1 mặt đúng 1 trang (4 dòng hộ); 2 mặt đúng 2 trang; 3 cột Họ tên · Mục đích · Vào việc bằng nhau | |
+| 8 | Mẫu 04 (In / PDF và Word) | Không còn đường kẻ lòi lề phải; tên Trưởng đoàn thẳng giữa dưới chức danh; có gạch dưới tên đơn vị; kiến nghị 2d, 2đ, 3a, 3b mặc định 1 dòng chấm, tích ở hộp "Chọn khi in" thì in câu gợi ý | |
+| 9 | Kế hoạch ① ② (Word và In) | Gạch dưới tên cơ quan ngắn hơn tên (khoảng 1/3–1/2), cân giữa, không sát dòng "Số:"; gạch dưới Tiêu ngữ dài bằng chữ | |
+
+**Ghi chú kỹ thuật 3.138:**
+- Làm mới: `kyLamMoiHTML(tab, K)` (nút + chip `.ky-chip`, `.lech` khi `K.ky` ≠ kỳ chọn), `kyLamMoi()` đọc `#tr7 select[data-ky]`, gán `ky` cho `toCH/skCH/ktCH` + `KY_PHIEN`, xóa `TO_K, TO_KS, SL_BO, TH_KS, TH_K, TO_MAP, TO_BD, TO_BDT, TO_PVC, KT_K, KT_CHON, KT_GN, SK_K` rồi `veSoLieu()`.
+- TK 105: `slCoTK(v)` (13–14 chữ số), `k.coTK` trong `toKhach` + báo cáo TK 105; `toStkChu(k)` thay mọi `k.stk.join(', ')`; chip `ctk` thêm `!k.coTK`.
+- KU hủy: `slKUHuy(o)` (CLOSE, `gn` có cột và = 0, không dư nợ, không lãi) — lọc trong `slBo` cho bảng món vay, giữ ở `B.huy`; dòng ở `slDoiChieu`. Bộ giả `taogia.py` có sẵn 1 món CLOSE giải ngân 0 (dòng mẫu) → cũng bị loại (t131 tính tương đối).
+- Chưa giải ngân: `slKUChuaGN(o)`; `toTV` → `k.chuaGN` (chỉ khi không còn món dư nợ); chip `ko`, `ko105`, `ra` thêm `!k.chuaGN`; `toGoiY` / `toNgayO`. Báo cáo `skBCChuaGN` (`SK_BC` k=`cgn`), `ngayThem1Thang`, `skQua1Thang`; `skBang(..., phang)` = bảng liền không chia nhóm tổ.
+- Chip đến hạn: `toDHMon(k)` dùng `skNhomDH` / `skHL`; cột ngày nay có thể nhiều cột: `toNgayCot` trả "A|B", `toNgayH`, `toNgayTh`, `toNgayGT(k, mo)` (mảng giá trị) ở 4 bảng (tổ / phạm vi, màn hình / In-Excel).
+- Mẫu 06 Word: `ktTieuDe06` (cỡ 11, ô ≤ 900 twip cỡ 10, `tblCellMar` 45, bỏ "Times New Roman Bold" và giãn -16), `ktKeManh` (kẻ trên / dưới dòng hộ sz 2 màu A6A6A6), `ktLuoi06(x, KT06_LUOI_TRANG)` (đổi lưới + `tcW` theo `gridSpan`), `ktSau06` (đoạn chấm 2 = tab chấm 8600 + tab giữa 11805 + ngày; bỏ đoạn ngày trong bảng ký và đoạn trống đầu ô trái; dòng nhận xét 280), `ktChoKy06` (2 đoạn trống 14 pt sau "(Ký, ghi rõ họ tên)" khi không có tên), `ktChamNhat` (run chỉ chấm / chỉ tab → bỏ đậm, màu 808080) chạy sau `ktChamMin` cho riêng m06; dòng cán bộ `ktCB06` 16 pt; mẫu trắng nhận xét cỡ 12, dòng 13 pt. Bản In: lớp `kt-h` / `tbody.kt-ho` kẻ xám, `th.h` 10 pt, `.kt-nx2` (dòng chấm 2 + ngày), `W` (độ rộng 3 cột chữ).
+- Mẫu 04: `ktGach04` (sau `ktBung04`): gạch tên đơn vị, khối "Nơi nhận / TRƯỞNG ĐOÀN" dựng lại với tab giữa `KT04_TD = 6900` (tên cũng 6900); `KT_KN04`, `ktKNIn04()`, `ktKN04HTML()` (trong `ktInHop` khi có m04), `ktKN04Doi`, `ktKN04Chu`, lưu `D.cauHinh.ktKN04 = {d|dd|a3|b3: {bat, chu}}`; `ktBung04` thay đúng `{{@CHAM3}}` sau d), đ), 3a, 3b. Bản In: `mucKN`, `gachDV`, bảng 97,3%.
+- Kế hoạch: `ktBung01 = ktGachDau01(ktBung01Goc)`: xóa hình đường thẳng trong bảng đầu trang, `ktGachSau(x, chu, tỉ lệ, ô rộng, sau)` + `ktGachP(L, ô)` (đoạn 1 pt có viền dưới, thụt 2 bên), đo chữ `ktDoChu` (canvas, twip); `ktXmlHTML` vẽ đoạn có `pBdr/bottom` thành gạch.
+- Công cụ đo (không thuộc repo): xuất docx → LibreOffice → `pdfinfo`; bản In → `inChuan` → `page.pdf`.
+
 ### Danh sách thử trên máy thật (3.137) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
