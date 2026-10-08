@@ -23622,7 +23622,7 @@ function ktCB06(f){   /* 3.98: 4 dòng đầu Mẫu 06 dựng bằng điểm d�
   var r = function(x, i){ var pr = '<w:rPr>'+(i ? '<w:i/><w:iCs/>' : '')+'<w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr>';
     return x==='\t' ? '<w:r>'+pr+'<w:tab/></w:r>' : x ? '<w:r>'+pr+'<w:t xml:space="preserve">'+xmlEsc(x)+'</w:t></w:r>' : ''; };
   var p = function(tabs, runs, ind){ return '<w:p><w:pPr><w:tabs>'+tabs.map(function(t){ return '<w:tab w:val="'+(t[2]||'left')+'"'+(t[1] ? ' w:leader="dot"' : '')+' w:pos="'+t[0]+'"/>'; }).join('')+'</w:tabs>'+
-    '<w:spacing w:line="360" w:lineRule="exact"/>'+(ind||'')+'<w:rPr><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr>'+runs.join('')+'</w:p>'; };
+    '<w:spacing w:line="320" w:lineRule="exact"/>'+(ind||'')+'<w:rPr><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr>'+runs.join('')+'</w:p>'; };
   var cb = function(so, ten, cv){ return p([[ktTab0()], [KT_TAB06[1], !ten], [KT_TAB06[3], !cv]], [so==='1' ? r('Họ và tên cán bộ kiểm tra: ') : '', r('\t'), r(so+'. Ông (bà): '+(ten||'')), r('\t'), r((ten ? '' : ' ')+'Chức vụ: '+ktCVGon(cv, KT_TAB06[3]-KT_TAB06[1], 26)), cv ? '' : r('\t')]); };
   var d3 = ktDong3_06(f), l3 = [r('Thời điểm kiểm tra: '+(f.TD||'')), r('\t'), r((f.TD ? '' : ' ')+'Địa bàn kiểm tra: '+(d3.db||'')), f.DB ? '' : r('\t')], to = [r('\t'), r((d3.mot && !f.DB ? ' ' : '')+'Tổ TK&VV: '+(f.TO||'')), f.TO ? '' : r('\t')];   /* 3.118: chữ sau dòng chấm cách 1 khoảng */
   return cb('1', f.CB1, f.CV1)+cb('2', f.CB2, f.CV2)+   /* 3.111 (anh chốt, theo mẫu gốc): Thời điểm · Địa bàn · Tổ TK&VV cùng 1 dòng (dài thì Tổ xuống dòng); Đơn vị tính dòng riêng */
@@ -23668,6 +23668,52 @@ function ktCo06CT(x){ if(!x) return 0; var w = (1134-216)*0.97; return ktDoRong(
 function ktTab0(){ return Math.round(ktDoRong('Họ và tên cán bộ kiểm tra: ', 26, true)+70); }   /* 3.128 (anh chốt): "1. Ông (bà)" sát nhãn như mẫu chuẩn */
 function ktOSz2(x, m){ var k = -1; return x.replace(/<w:tc>[\s\S]*?<\/w:tc>/g, function(tc){ k++; var sz = m[k]; return !sz ? tc : tc.replace(/<w:sz w:val="\d+"\/><w:szCs w:val="\d+"\/>/g, '<w:sz w:val="'+sz+'"/><w:szCs w:val="'+sz+'"/>'); }); }   /* 3.111: bề rộng chữ (twip) ô Họ tên / Mục đích Mẫu 06 (ô trừ lề 216) */
 function ktDai2(x, rong){ return !!x && ktDoRong(String(x), 22, true) > rong*2*0.9; }   /* chữ cỡ 11 quá 2 dòng → in nhỏ 1 cỡ */
+/* ---------- 3.138 (anh chốt): Mẫu 06 gọn & nhạt ----------
+   chấm / dòng chấm tab không đậm, cỡ nhỏ, xám · kẻ ngang giữa các dòng hộ mảnh, xám (khung, đường dọc, tiêu đề, dòng Cộng giữ 0,5 pt đen) · tiêu đề cột cỡ 11
+   "Biện pháp xử lý" 1 dòng rưỡi chấm, "Ngày … tháng … năm" đưa lên nửa phải dòng chấm thứ 2 · chừa chỗ ký · mẫu trắng: Họ tên = Mục đích = Vào việc */
+var KT06_LUOI = [397, 1928, 1020, 1134, 737, 737, 1644, 737, 737, 2286, 807, 807, 994, 794, 1117];
+var KT06_LUOI_TRANG = [397, 1953, 1020, 1134, 737, 737, 1952, 737, 737, 1953, 807, 807, 994, 794, 1117];   /* tổng 3 cột chữ giữ nguyên → cột tiền không hẹp đi */
+function ktChamNhat(xml){   /* Word: run chỉ có chấm / chỉ có tab (dòng chấm tab) → bỏ đậm, xám nhạt */
+  var nhat = function(rp){ rp = (rp || '<w:rPr></w:rPr>').replace(/<w:b\/>|<w:bCs\/>|<w:color [^>]*\/>/g, ''); return rp.replace('</w:rPr>', '<w:color w:val="808080"/></w:rPr>'); };
+  return String(xml).replace(/<w:r>(<w:rPr>(?:(?!<\/w:rPr>)[\s\S])*<\/w:rPr>)?(<w:t xml:space="preserve">[.…  ]{4,}<\/w:t>|<w:tab\/>)<\/w:r>/g, function(m, rp, t){ return '<w:r>'+nhat(rp)+t+'</w:r>'; });
+}
+function ktKeManh(tr){   /* dòng hộ: kẻ trên / dưới mảnh, xám (chỗ giáp tiêu đề / dòng Cộng vẫn lấy nét đen 0,5 pt — nét đậm hơn được ưu tiên) */
+  return tr.replace(/<w:(top|bottom) w:val="\w+" w:sz="\d+" w:space="0" w:color="\w+"\/>/g, '<w:$1 w:val="single" w:sz="2" w:space="0" w:color="A6A6A6"/>');
+}
+function ktLuoi06(x, moi){   /* đổi độ rộng cột bảng hộ (tblGrid + tcW theo gridSpan) — chỉ phần bảng hộ */
+  x = x.replace(/<w:tblGrid>(?:<w:gridCol w:w="\d+"\/>){15}<\/w:tblGrid>/, '<w:tblGrid>'+moi.map(function(w){ return '<w:gridCol w:w="'+w+'"/>'; }).join('')+'</w:tblGrid>');
+  return x.replace(/<w:tr[ >][\s\S]*?<\/w:tr>/g, function(tr){ var c = 0;
+    return tr.replace(/<w:tc>[\s\S]*?<\/w:tc>/g, function(tc){ var n = +((tc.match(/<w:gridSpan w:val="(\d+)"/) || [0, 1])[1]), w = 0; for(var i=0;i<n;i++) w += moi[c+i] || 0; c += n;
+      return tc.replace(/<w:tcW w:w="\d+" w:type="dxa"\/>/, '<w:tcW w:w="'+w+'" w:type="dxa"/>'); }); });
+}
+var KT06_SAU = null;
+function ktSau06(sau){   /* khuôn phần cuối: Biện pháp 1 dòng rưỡi + ngày lên dòng chấm 2; bỏ dòng trống đầu khối ký (cũ để ngang hàng dòng ngày) */
+  if(KT06_SAU && KT06_SAU.goc===sau) return KT06_SAU.ra;
+  var x = sau, a = x.indexOf('Biện pháp xử lý:'), p2 = a>=0 ? x.indexOf('<w:p ', a) : -1, e2 = p2>=0 ? x.indexOf('</w:p>', p2)+6 : -1;
+  var nd = x.match(/<w:p [^>]*>(?:(?!<w:p[ >])[\s\S])*?Ngày \{\{ND[\s\S]*?<\/w:p>/), r = '<w:rPr><w:i/><w:iCs/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr>';
+  if(p2>=0 && nd){
+    var ngay = (nd[0].match(/Ngày \{\{ND\|[^}]*\}\} tháng \{\{NM\|[^}]*\}\} năm \{\{NY\|[^}]*\}\}/) || ['Ngày {{ND|.........}} tháng {{NM|........}} năm {{NY|..........}}'])[0];
+    var dong2 = '<w:p><w:pPr><w:keepNext/><w:tabs><w:tab w:val="right" w:leader="dot" w:pos="8600"/><w:tab w:val="center" w:pos="11805"/></w:tabs><w:spacing w:before="20" w:after="0" w:line="320" w:lineRule="exact"/><w:rPr><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr>'+
+      '<w:r><w:rPr><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr><w:tab/></w:r><w:r>'+r+'<w:tab/></w:r><w:r>'+r+'<w:t xml:space="preserve">'+ngay+'</w:t></w:r></w:p>';
+    x = x.slice(0, p2)+dong2+x.slice(e2);
+    x = x.replace(nd[0], '');
+    x = x.replace(/(<w:tcW w:w="8926" w:type="dxa"\/><\/w:tcPr>)<w:p><w:pPr><w:spacing w:before="60"\/>(?:(?!<\/w:p>)[\s\S])*?<\/w:p>/, '$1');
+    x = x.replace(/(<w:tcW w:w="5758" w:type="dxa"\/>(?:<w:hideMark\/>)?<\/w:tcPr>)/, '$1');
+  }
+  x = x.replace(/(<w:spacing w:before="20" w:after="0" w:line=")(300|320)(" w:lineRule="exact"\/>)/g, '$1280$3');   /* dòng nhận xét 14 pt (cũ 15–16 pt) */
+  KT06_SAU = {goc:sau, ra:x}; return x;
+}
+function ktTieuDe06(x){   /* tiêu đề bảng hộ: chữ cỡ 11; ô cột tiền hẹp (≤ 900) cỡ 10; lề trong ô hẹp lại → bớt 1–2 dòng chiều cao tiêu đề */
+  x = x.replace(/w:ascii="Times New Roman Bold" w:hAnsi="Times New Roman Bold"/g, 'w:ascii="Times New Roman" w:hAnsi="Times New Roman"').replace(/<w:spacing w:val="-16"\/>/g, '')   /* tên phông "… Bold" (máy khác ra phông khác) → Times New Roman + đậm */
+    .replace(/(<w:tblLayout w:type="fixed"\/>)/, '$1<w:tblCellMar><w:left w:w="45" w:type="dxa"/><w:right w:w="45" w:type="dxa"/></w:tblCellMar>');
+  x = x.replace(/<w:sz w:val="24"\/><w:szCs w:val="24"\/>/g, '<w:sz w:val="22"/><w:szCs w:val="22"/>');
+  var e = x.indexOf('</w:tr>', x.indexOf('Vào việc')); if(e<0) return x;
+  return x.slice(0, e).replace(/<w:tc>[\s\S]*?<\/w:tc>/g, function(tc){ var w = +((tc.match(/<w:tcW w:w="(\d+)"/) || [0, 9999])[1]); return w<=900 && !/>Stt</.test(tc) ? tc.replace(/<w:sz w:val="22"\/><w:szCs w:val="22"\/>/g, '<w:sz w:val="20"/><w:szCs w:val="20"/>') : tc; })+x.slice(e);
+}
+function ktChoKy06(x, coTen){   /* không in sẵn tên → chừa 3 dòng trống dưới "(Ký, ghi rõ họ tên)" ở cả 2 khối ký (đủ chỗ ký, không sát mép giấy) */
+  if(coTen) return x; var pr = '<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="280" w:lineRule="exact"/><w:jc w:val="center"/><w:rPr><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:pPr></w:p>';
+  return x.replace(/(\(Ký, ghi rõ họ tên\)<\/w:t><\/w:r><\/w:p>)/g, '$1'+Array(3).join(pr));   /* + 1 dòng trống sẵn của khuôn = 3 dòng ký */
+}
 function ktDongCo(x){ return ktOGiua(ktOSz(ktDongCo0(x), [3], 20), [3]); }
 function ktOGiua(x, ix){ var k = -1; return x.replace(/<w:tc>[\s\S]*?<\/w:tc>/g, function(tc){ k++; if(ix.indexOf(k)<0) return tc;   /* 3.115 (anh chốt): cột Chương trình canh giữa ô (ngang + dọc) */
   tc = tc.replace(/<w:jc w:val="(left|both)"\/>/g, '<w:jc w:val="center"/>'); return /<w:vAlign /.test(tc) ? tc.replace(/<w:vAlign w:val="\w+"\/>/, '<w:vAlign w:val="center"/>') : tc.replace('</w:tcPr>', '<w:vAlign w:val="center"/></w:tcPr>'); }); }   /* 3.111 (anh chốt): cột Chương trình nhỏ hơn 1 cỡ (NSVSMTNT 1 dòng) */
@@ -23704,11 +23750,17 @@ function ktDocx(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: m�
     if(mau!=='m06') return ktDien(K.than, g.f);
     var R = ktDongBu(g.rows), kCuoi = R.length-1; while(kCuoi>0 && R[kCuoi].gop==='tiep') kCuoi--;
     /* 3.98: Đơn vị đã điền → bỏ dòng chấm thứ 2; 4 dòng cán bộ / địa bàn / thời điểm dựng theo tab; dòng cao 1,5 cm; gộp ô theo hộ */
-    return ktDien(K.truoc, g.f).replace('{{@DV2}}', g.f.DV ? '' : ktDien(K.dv2, g.f)).replace('{{@CB}}', ktCB06(g.f))+
+    var tr = ktDien(K.truoc.replace('<w:spacing  w:before="200"/>', '<w:spacing w:before="80"/>'), g.f).replace('{{@DV2}}', g.f.DV ? '' : ktDien(K.dv2, g.f)).replace('{{@CB}}', ktCB06(g.f)), iB = tr.indexOf('PHẦN GHI THEO');
+    iB = iB>=0 ? tr.lastIndexOf('<w:tbl>', iB) : -1;
+    if(iB>=0){ var bg = ktTieuDe06(tr.slice(iB));   /* 3.138: tiêu đề cột cỡ 11 (cột tiền hẹp cỡ 10) */
+      tr = tr.slice(0, iB)+(g.trang ? ktLuoi06(bg, KT06_LUOI_TRANG) : bg); }
+    var sau = ktChoKy06(ktKyTen(ktDien(ktSau06(K.sau), g.f), 'CÁN BỘ KIỂM TRA', g.f.CB1), !!g.f.CB1);
+    if(g.trang) sau = ktLuoi06(sau, KT06_LUOI_TRANG).replace(/<w:sz w:val="26"\/><w:szCs w:val="26"\/>/g, '<w:sz w:val="24"/><w:szCs w:val="24"/>').replace(/(w:line=")280(" w:lineRule="exact")/g, '$1260$2');   /* mẫu trắng: nhận xét cỡ 12 (anh cho phép) để 1 mặt đủ 4 dòng hộ + chỗ ký */
+    return tr+
       R.map(function(r, i){ var d = ktDongCo(i>=kCuoi || (R[i+1] && R[i+1].gop==='tiep') ? K.dongKN : K.dong); if(r.gop) d = ktGopO(d, r.gop);   /* 3.117: các dòng của 1 hộ không tách trang; hộ cuối đi liền dòng Cộng + nhận xét + ký */
         var m = {}; m[1] = ktCo06Ten(r.R2); m[3] = ktCo06CT(r.R4); m[6] = ktCo06Md(r.R7); if(m[1] || m[3] || m[6]) d = ktOSz2(d, m);
-        if(g.trang) d = d.replace(/<w:trHeight w:val="567"/, '<w:trHeight w:val="454"');   /* 3.134: mẫu trắng — dòng 0,8 cm */   /* 3.128: tên ưu tiên 1 dòng, mục đích tối đa 2 dòng (thu chữ cho vừa) */
-        return ktDien(d, r); }).join('')+ktKyTen(ktDien(K.sau, g.f), 'CÁN BỘ KIỂM TRA', g.f.CB1);   /* 3.115: tên cán bộ kiểm tra dưới khối ký */
+        if(g.trang) d = ktLuoi06(d.replace(/<w:trHeight w:val="567"/, '<w:trHeight w:val="454"'), KT06_LUOI_TRANG);   /* 3.134: mẫu trắng — dòng 0,8 cm · 3.138: 3 cột chữ bằng nhau */   /* 3.128: tên ưu tiên 1 dòng, mục đích tối đa 2 dòng (thu chữ cho vừa) */
+        return ktDien(ktKeManh(d), r); }).join('')+sau;   /* 3.115: tên cán bộ kiểm tra dưới khối ký · 3.138: kẻ dòng hộ mảnh, xám */
   };
   var than, le = '', ds = Array.isArray(gt) ? gt : [gt], soK = mau==='m06' ? 'xy' : 'so', sectS = ktSectSo(K.sect, soK);   /* 3.128 (anh chốt): số trang — Mẫu 06 "Trang x/y" mỗi tổ; văn bản khác góc dưới phải từ trang 2 */
   if(ds.length===1) than = mot(ds[0]);
@@ -23719,7 +23771,7 @@ function ktDocx(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: m�
       .join('<w:p><w:pPr>'+le+'</w:pPr></w:p>');
   }
   var lay = function(k){ return K[k]!==undefined ? K[k] : G[k]; };   /* null = khuôn không có phần đó (3.96: 01/KH có chân trang, không có đầu trang / chú thích) */
-  var doc = lay('mo')+ktChamMin(than)+(le ? le : sectS)+'</w:body></w:document>';   /* 3.124: dòng chấm mịn */
+  var doc = lay('mo')+(mau==='m06' ? ktChamNhat(ktChamMin(than)) : ktChamMin(than))+(le ? le : sectS)+'</w:body></w:document>';   /* 3.138: Mẫu 06 chấm nhạt */   /* 3.124: dòng chấm mịn */
   var ct = 'application/vnd.openxmlformats-officedocument.', P = function(p, t){ return '<Override PartName="/word/'+p+'" ContentType="'+ct+t+'+xml"/>'; };
   var phu = [['header','rId8','header','header1.xml','wordprocessingml.header'], ['endnotes','rId7','endnotes','endnotes.xml','wordprocessingml.endnotes'], ['footnotes','rId6','footnotes','footnotes.xml','wordprocessingml.footnotes'],
     ['footer','rId11','footer','footer1.xml','wordprocessingml.footer']].filter(function(x){ return x[0]==='footer' || lay(x[0]); });   /* 3.128: chân trang số trang luôn có */
@@ -23929,34 +23981,35 @@ var KT_IN_CSS = 'body{margin:0;font-family:"Times New Roman",Times,serif;color:#
 function ktHTML06(gt){ return Array.isArray(gt) ? ktHTML06Goc(gt) : ktChamHTML(ktHTML06Goc(gt)); }   /* 3.124: dòng chấm mịn */
 function ktHTML06Goc(gt){
   if(Array.isArray(gt)) return ktGhepTo(gt.map(function(g){ return ktHTML06(g); }), 297, gt.map(function(g, i){ return 'Phiếu '+(i+1)+'/'+gt.length+' · Tổ '+(g.f.TO||'')+(g.f.DB ? ' · '+g.f.DB : ''); }));   /* 3.93.1 · 3.98: xem trước mỗi phiếu 1 tờ */
-  var f = gt.f, R = ktDongBu(gt.rows);
+  var f = gt.f, R = ktDongBu(gt.rows), tg = !!gt.trang, W = tg ? ['12.33%', '12.33%', '12.34%'] : ['12.1%', '10.4%', '14.5%'];   /* 3.138: mẫu trắng — Họ tên = Mục đích = Vào việc */
   var o = function(v, c, n){ return '<td'+(c ? ' class="'+c+'"' : '')+(n>1 ? ' rowspan="'+n+'"' : '')+'>'+(v ? coChuHTML(v) : '')+'</td>'; };
   var hang = R.map(function(r){ var tiep = r.gop==='tiep', n = r.gop ? r.n : 1;   /* 3.98: khách nhiều khế ước → gộp Stt, họ tên, ô ký */
     var sT = ktCo06Ten(r.R2), sM = ktCo06Md(r.R7);
     var oS = function(v, c, n, sz){ return '<td'+(c ? ' class="'+c+'"' : '')+(n>1 ? ' rowspan="'+n+'"' : '')+(sz ? ' style="font-size:'+(sz/2)+'pt"' : '')+'>'+(v ? coChuHTML(v) : '')+'</td>'; };   /* 3.128 */
-    return '<tr>'+(tiep ? '' : o(r.R1, 'c', n)+oS(r.R2, '', n, sT))+o(r.R3, 'c')+oS(r.R4, 'c nho giua', 1, ktCo06CT(r.R4))+o(r.R5, 's')+o(r.R6, 's')+oS(r.R7, '', 1, sM)+'<td></td><td></td><td></td><td></td><td></td><td></td>'+o(r.R8, 's')+(tiep ? '' : o('', '', n))+'</tr>'; });   /* 3.111: Nợ lãi, chữ nhỏ 1 cỡ (Chương trình; Họ tên / Mục đích dài) */
+    return '<tr class="kt-h">'+(tiep ? '' : o(r.R1, 'c', n)+oS(r.R2, '', n, sT))+o(r.R3, 'c')+oS(r.R4, 'c nho giua', 1, ktCo06CT(r.R4))+o(r.R5, 's')+o(r.R6, 's')+oS(r.R7, '', 1, sM)+'<td></td><td></td><td></td><td></td><td></td><td></td>'+o(r.R8, 's')+(tiep ? '' : o('', '', n))+'</tr>'; });   /* 3.111: Nợ lãi, chữ nhỏ 1 cỡ (Chương trình; Họ tên / Mục đích dài) */
   var k = R.length-1; while(k>0 && R[k].gop==='tiep') k--;   /* hộ cuối (cả các dòng gộp) đi liền dòng Cộng */
   var cuoi = hang.slice(k).join(''), than = '';
   for(var i=0;i<k;){ var n = R[i].gop==='dau' ? R[i].n : 1; than += '<tbody class="kt-ho">'+hang.slice(i, i+n).join('')+'</tbody>'; i += n; }   /* 3.117: các dòng của 1 hộ không tách trang */
   return '<!doctype html><html><head><meta charset="utf-8"><title>Mau 06/TD</title><style>@page{size:A4 landscape;margin:10mm 10mm 10mm 12mm}'+KT_IN_CSS+'.kt-ho{break-inside:avoid}'+   /* 3.117: lề trên / dưới 1 cm để 1 mặt chứa thêm 1 hộ */
-    'body{font-size:13pt}.kt-bg{width:100%;border-collapse:collapse;font-size:11pt;margin-top:2pt}.kt-bg th,.kt-bg td{border:1px solid #000;padding:1pt 3pt;vertical-align:middle}.kt-bg th{font-weight:bold;text-align:center}'+
-    '.kt-bg td.c{text-align:center}.kt-bg td.giua{vertical-align:middle}.kt-bg td.s{text-align:right}.kt-bg tbody tr{height:'+(gt.trang ? '22.7pt' : '28.35pt')+';break-inside:avoid}.kt-bg td.nho{font-size:10pt}.kt-dl{display:flex;align-items:baseline;line-height:18pt;white-space:nowrap}.kt-dl>span{display:flex;align-items:baseline;overflow:hidden}.kt-ld{flex:1;border-bottom:.6pt dotted #000;min-width:4mm;margin-left:1pt;margin-right:4pt}.kt-bg td{word-break:break-word}.kt-bg thead{display:table-header-group}.kt-giu{break-inside:avoid}.kt-bg td.kt-nx,.kt-bg .kt-dau td{border:0}</style></head><body>'+
+    'body{font-size:13pt}.kt-bg{width:100%;border-collapse:collapse;font-size:11pt;margin-top:2pt}.kt-bg th,.kt-bg td{border:.5pt solid #000;padding:1pt 3pt;vertical-align:middle}.kt-bg th{font-weight:bold;text-align:center;padding:1pt 1.5pt;line-height:1.1}.kt-bg th.h{font-size:10pt}'+
+    '.kt-bg tbody.kt-ho td,.kt-bg tr.kt-h td{border-top:.4pt solid #a6a6a6;border-bottom:.4pt solid #a6a6a6}.kt-cham{color:#777}.kt-nx2{display:flex;align-items:baseline;line-height:18pt}.kt-nx2 .kt-ld{flex:0 0 55%;margin-left:0}.kt-nx2 span{flex:1;text-align:center;font-style:italic}'+   /* 3.138: kẻ dòng hộ mảnh xám; chấm nhạt; dòng chấm 2 + ngày */
+    '.kt-bg td.c{text-align:center}.kt-bg td.giua{vertical-align:middle}.kt-bg td.s{text-align:right}.kt-bg tbody tr{height:'+(gt.trang ? '22.7pt' : '28.35pt')+';break-inside:avoid}.kt-bg td.nho{font-size:10pt}.kt-dl{display:flex;align-items:baseline;line-height:18pt;white-space:nowrap}.kt-dl>span{display:flex;align-items:baseline;overflow:hidden}.kt-ld{flex:1;border-bottom:1px dotted #8a8a8a;min-width:4mm;margin-left:1pt;margin-right:4pt}.kt-bg td{word-break:break-word}.kt-bg thead{display:table-header-group}.kt-giu{break-inside:avoid}.kt-bg td.kt-nx,.kt-bg .kt-dau td{border:0}</style></head><body>'+
     '<table class="kt-dau"><tr><td style="width:27%"><p><b>Đơn vị kiểm tra:</b> '+ktC(f.DV, 32)+'</p>'+(f.DV ? '' : '<p>'+Array(62).join('.')+'</p>')+'</td>'+
     '<td style="width:47%" class="kt-c"><p class="kt-b">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p><p class="kt-b">Độc lập - Tự do - Hạnh phúc</p><div class="kt-gach" style="width:52mm"></div><p class="kt-b" style="font-size:15pt;margin-top:13pt">PHIẾU KIỂM TRA SỬ DỤNG VỐN VAY</p></td>'+
     '<td style="width:26%;font-size:10pt;text-align:right"><p class="kt-b">Mẫu số 06/TD</p><p>Lập 02 liên:</p><p class="kt-i">- 01 liên chính lưu NH;</p><p class="kt-i">- 01 liên phô tô lưu Đ.v k.tra.</p></td></tr></table>'+
     ktCB06HTML(f)+
     '<table class="kt-bg"><thead><tr><th colspan="7">PHẦN GHI THEO HỒ SƠ CHO VAY</th><th colspan="8">PHẦN KIỂM TRA THỰC TẾ TẠI KHÁCH HÀNG</th></tr>'+
-    '<tr><th rowspan="2" style="width:2.5%">Stt</th><th rowspan="2" style="width:12.1%">Họ và tên<br>người vay</th><th rowspan="2" style="width:6.4%">Mã khoản vay</th><th rowspan="2" style="width:7.1%">Chương trình cho vay</th><th rowspan="2" style="width:4.6%">Tổng số tiền giải ngân</th><th rowspan="2" style="width:4.6%">Dư nợ đến ngày kiểm tra</th><th rowspan="2" style="width:10.4%">Mục đích sử dụng vốn vay</th>'+
-    '<th rowspan="2" style="width:4.6%">Tổng số tiền<br>thực nhận</th><th rowspan="2" style="width:4.6%">Dư nợ đến ngày kiểm tra</th><th colspan="3">Thực tế sử dụng</th><th rowspan="2" style="width:6.2%">Hiệu<br>quả đầu tư</th><th rowspan="2" style="width:5%">Nợ lãi</th><th rowspan="2" style="width:7%">Ký xác nhận của người vay</th></tr>'+
-    '<tr><th style="width:14.5%">Vào việc</th><th style="width:5.1%">Số tiền sử dụng đúng mục đích</th><th style="width:5.1%">Số tiền sử dụng sai mục đích</th></tr></thead>'+   /* 3.128 (anh chốt theo mẫu chuẩn): cột như khuôn Word */   /* 3.111: thu hẹp cột số tiền thực tế, nới Vào việc, Chương trình, cột tổng */   /* 3.98: cột theo khuôn Word mới (Mục đích rộng) */
-    than+'<tbody class="kt-giu">'+cuoi+'<tr style="height:22pt"><td></td><td class="c kt-b">Cộng</td>'+['','',f.TGN,f.TDN].map(function(v, i){ return '<td class="'+(i>1 ? 's kt-b' : '')+'" style="border:1px solid #000'+(i>1 ? ';white-space:nowrap;font-size:'+((+f[i===2 ? 'SZTGN' : 'SZTDN']||22)/2)+'pt' : '')+'">'+(v ? coChuHTML(v) : '')+'</td>'; }).join('')+Array(8).join('<td style="border:1px solid #000"></td>')+'<td class="s kt-b" style="border:1px solid #000;white-space:nowrap;font-size:'+((+f.SZTNL||22)/2)+'pt">'+(f.TNL ? coChuHTML(f.TNL) : '')+'</td><td style="border:1px solid #000"></td></tr>'+
-    '<tr><td colspan="15" class="kt-nx" style="padding:6pt 0 0;font-size:13pt"><p class="kt-b">Nhận xét: </p><p class="kt-dl">1. Tình hình thực hiện phương án vay vốn&nbsp;<i class="kt-ld"></i></p>'+
+    '<tr><th rowspan="2" style="width:2.5%">Stt</th><th rowspan="2" style="width:'+W[0]+'">Họ và tên<br>người vay</th><th rowspan="2" style="width:6.4%">Mã khoản vay</th><th rowspan="2" style="width:7.1%">Chương trình cho vay</th><th rowspan="2" class="h" style="width:4.6%">Tổng số tiền giải ngân</th><th rowspan="2" class="h" style="width:4.6%">Dư nợ đến ngày kiểm tra</th><th rowspan="2" style="width:'+W[1]+'">Mục đích sử dụng vốn vay</th>'+
+    '<th rowspan="2" class="h" style="width:4.6%">Tổng số tiền<br>thực nhận</th><th rowspan="2" class="h" style="width:4.6%">Dư nợ đến ngày kiểm tra</th><th colspan="3">Thực tế sử dụng</th><th rowspan="2" style="width:6.2%">Hiệu<br>quả đầu tư</th><th rowspan="2" style="width:5%">Nợ lãi</th><th rowspan="2" style="width:7%">Ký xác nhận của người vay</th></tr>'+
+    '<tr><th style="width:'+W[2]+'">Vào việc</th><th class="h" style="width:5.1%">Số tiền sử dụng đúng mục đích</th><th class="h" style="width:5.1%">Số tiền sử dụng sai mục đích</th></tr></thead>'+   /* 3.128 (anh chốt theo mẫu chuẩn): cột như khuôn Word */   /* 3.111: thu hẹp cột số tiền thực tế, nới Vào việc, Chương trình, cột tổng */   /* 3.98: cột theo khuôn Word mới (Mục đích rộng) */
+    than+'<tbody class="kt-giu">'+cuoi+'<tr style="height:22pt"><td></td><td class="c kt-b">Cộng</td>'+['','',f.TGN,f.TDN].map(function(v, i){ return '<td class="'+(i>1 ? 's kt-b' : '')+'" style="border:.5pt solid #000'+(i>1 ? ';white-space:nowrap;font-size:'+((+f[i===2 ? 'SZTGN' : 'SZTDN']||22)/2)+'pt' : '')+'">'+(v ? coChuHTML(v) : '')+'</td>'; }).join('')+Array(8).join('<td style="border:.5pt solid #000"></td>')+'<td class="s kt-b" style="border:.5pt solid #000;white-space:nowrap;font-size:'+((+f.SZTNL||22)/2)+'pt">'+(f.TNL ? coChuHTML(f.TNL) : '')+'</td><td style="border:.5pt solid #000"></td></tr>'+
+    '<tr><td colspan="15" class="kt-nx" style="padding:4pt 0 0;font-size:'+(tg ? '12pt' : '13pt')+'"><p class="kt-b">Nhận xét: </p><p class="kt-dl">1. Tình hình thực hiện phương án vay vốn&nbsp;<i class="kt-ld"></i></p>'+
     '<p>2. Kiểm tra, đối chiếu thực tế được ..................... khách hàng, số tiền ....................................... đồng. Trong đó:</p>'+
     '<p>- Số khách hàng sử dụng vốn vay đúng mục đích: ............. khách hàng, số tiền:.......................... đồng, tỷ trọng: ......... %.</p>'+
     '<p>- Số khách hàng sử dụng vốn vay sai mục đích: ................ khách hàng, số tiền:........................... đồng, tỷ trọng: ......... %.</p>'+
-    '<p class="kt-dl"><b>Biện pháp xử lý:</b>&nbsp;<i class="kt-ld"></i></p><p class="kt-dl"><i class="kt-ld" style="margin-left:0;height:14pt"></i></p>'+   /* 3.128: chấm tới hết dòng */
-    '<table class="kt-dau" style="margin-top:6pt"><tr><td class="kt-c" style="width:50%;vertical-align:top"><p class="kt-i">&nbsp;</p><p class="kt-b">CÁN BỘ CHỨNG KIẾN <span style="font-weight:normal">(nếu có)</span></p><p class="kt-i">(Ký, ghi rõ họ tên)</p></td>'+
-    '<td class="kt-c" style="vertical-align:top"><p class="kt-i">Ngày '+ktC(f.ND, 9)+' tháng '+ktC(f.NM, 8)+' năm '+ktC(f.NY, 10)+'</p><p class="kt-b">CÁN BỘ KIỂM TRA</p><p class="kt-i">(Ký, ghi rõ họ tên)</p>'+(f.CB1 ? '<p class="kt-b" style="margin-top:42pt">'+coChuHTML(f.CB1)+'</p>' : '')+'</td></tr></table></td></tr></tbody></table>'+
+    '<p class="kt-dl"><b>Biện pháp xử lý:</b>&nbsp;<i class="kt-ld"></i></p><p class="kt-nx2"><i class="kt-ld" style="height:14pt"></i><span>Ngày '+ktC(f.ND, 9)+' tháng '+ktC(f.NM, 8)+' năm '+ktC(f.NY, 10)+'</span></p>'+   /* 3.138 (anh chốt): 1 dòng rưỡi chấm, ngày đưa lên nửa phải dòng 2 */
+    '<table class="kt-dau" style="margin-top:2pt"><tr><td class="kt-c" style="width:50%;vertical-align:top"><p class="kt-b">CÁN BỘ CHỨNG KIẾN <span style="font-weight:normal">(nếu có)</span></p><p class="kt-i">(Ký, ghi rõ họ tên)</p>'+(f.CB1 ? '' : '<div style="height:40pt"></div>')+'</td>'+
+    '<td class="kt-c" style="vertical-align:top"><p class="kt-b">CÁN BỘ KIỂM TRA</p><p class="kt-i">(Ký, ghi rõ họ tên)</p>'+(f.CB1 ? '<p class="kt-b" style="margin-top:42pt">'+coChuHTML(f.CB1)+'</p>' : '')+'</td></tr></table></td></tr></tbody></table>'+   /* chừa chỗ ký (không sát mép giấy) */
     '</body></html>';
 }
 /* 3.134 (anh chốt): Mẫu 06 trắng để ghi tay — dòng hộ 0,8 cm (1 hộ có thể ghi 2 dòng); in 1 mặt: đủ phiếu trên 1 mặt; in 2 mặt: 1 tờ — mặt trước đầu phiếu + bảng, mặt sau bảng tiếp + nhận xét + ký */
