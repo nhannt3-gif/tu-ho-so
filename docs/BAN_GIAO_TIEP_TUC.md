@@ -7,7 +7,7 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 
 ## 0. TRẠNG THÁI MỚI NHẤT — 14/10/2026 (đọc trước mục 7)
 
-**Bản đang chạy:** **3.136** (đã gộp `main`, PR #111). Nhánh làm việc `claude/html-app-review-ck346k` đã đặt lại về `origin/main` sau khi gộp. Anh đang thử 3.136 trên máy thật.
+**Bản đang chạy:** **3.136** (đã gộp `main`, PR #111); **3.137** (cột Nợ lãi cạnh Dư nợ ở danh sách tổ viên / ra khỏi tổ / TK 105 — dư nợ 0 còn lãi = chưa tất nợ) chờ anh "gộp". Nhánh làm việc `claude/html-app-review-ck346k` đã đặt lại về `origin/main` sau khi gộp. Anh đang thử 3.136 trên máy thật.
 
 **Chuỗi bản gần nhất (chi tiết ở `docs/CHANGELOG.md`):**
 - **3.128–3.133** — Tổ TK&VV: chip lọc (chưa TK105, tất nợ, mới vào 3 nhóm CIF mới / CIF cũ dùng lại / chuyển tổ, ra khỏi tổ), tóm tắt + chip ở mọi cấp (tổ / hội / điểm / xã / PGD), vay trực tiếp STT 0 không tính là tổ, chọn đa chiều (chỉ tab Tổ: Xã + Hội cả xã, PGD + Hội), bảng chi tiết vào / ra kiểu báo cáo tổ (cấp hội thêm cột Tổ, cấp xã thêm Điểm GD); bộ in chuẩn `inChuan` / `trDan`.

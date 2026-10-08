@@ -57,6 +57,12 @@ const fs=require('fs'), path=require('path');
    slXoaNgayCu(); await w(100); const xn = [...document.querySelectorAll('#hop-in button')].find(b=>b.textContent.trim()==='Xóa'); if(xn) xn.click(); for(let i=0;i<40 && SLM.bang[slKhoa('hstd', '2026-09-10')];i++) await w(150); await w(300);
    ok('🗑 Xóa ngày cũ: bỏ 10/09, giữ 12/09 + mọi bản cuối tháng', !SLM.bang[slKhoa('hstd', '2026-09-10')] && !SLM.bang[slKhoa('khd', '2026-09-10')] && !!SLM.bang[slKhoa('dnct', '2026-09-12')] && !!SLM.bang[slKhoa('hstd', '2026-08')] && !!SLM.bang[slKhoa('khd', '2026-08')]);
    const K12b = await toNap('2026-09-12'); ok('sau khi xóa: ngày 12/09 mượn Mẫu 31 cuối T8', K12b.B.nguon.hstd==='2026-08', JSON.stringify(K12b.B.nguon));
+   /* 3.137: cột Nợ lãi cạnh Dư nợ; dư nợ 0 còn lãi = chưa tất nợ */
+   TO_K = await toNap('2026-08'); const t8 = Object.values(TO_K.to).filter(x=>!toLaTT(x)).sort((a, b)=>(TO_K.kh[b.ma]||[]).length-(TO_K.kh[a.ma]||[]).length)[0];
+   TO_LOC_MO = 'tat'; const bc = toBCDS(t8), bt = await toBCTK105(t8);
+   ok('3.137: danh sách tổ viên (In / Excel) có cột "Nợ lãi" ngay sau "Dư nợ"', /<th>Dư nợ<\/th><th>Nợ lãi<\/th><th>Số dư 105<\/th>/.test(bc.html) && bc.aoa[0].indexOf('Nợ lãi')===bc.aoa[0].indexOf('Dư nợ')+1);
+   ok('3.137: báo cáo TK 105 mục A có cột Dư nợ, Nợ lãi', /A\. KHÁCH ĐÃ TẤT NỢ/.test(bt.html) && (/<th>Dư nợ<\/th><th>Nợ lãi<\/th><th>Số TK 105<\/th>/.test(bt.html) || /A\. KHÁCH ĐÃ TẤT NỢ[^<]*— 0 khách/.test(bt.html)));
+   ok('3.137: dư nợ 0 còn lãi → gợi ý "chưa tất nợ", không đề xuất cho ra', toGoiY({conNo:true, dn:0, lt:50000, t105:0})==='Dư nợ 0, còn nợ lãi — chưa tất nợ' && !toLocHam('ra')({conNo:true, dn:0, lt:50000, t105:0}));
    try{ dongHop(); }catch(e){}
    return o;
  }, files);
