@@ -54,6 +54,12 @@ const fs=require('fs'), path=require('path');
    ok('🖨 Mẫu 16 cả tháng: đủ số tổ, đánh dấu in 2 mặt', /name="kt-hai-mat" content="1"/.test(h16) && (h16.match(/class="kt-to"/g)||[]).length===dsm.length, k16+' · '+(h16.match(/class="kt-to"/g)||[]).length);
    ktKHIn16('word', 1); await w(600); const k16w = Object.keys(F).find(k=>/^Mau 16/.test(k)), x16 = k16w ? await docx(F[k16w]) : '';
    ok('📄 Word 16 cả tháng: mỗi tổ sang trang lẻ (2 mặt)', dsm.length<2 || /<w:type w:val="oddPage"\/>/.test(x16));
+   /* 3.140.1: Mẫu 16 từng tổ trên dòng tổ */
+   ok('3.140.1 mỗi dòng tổ có 🖨 In / PDF 06 · 🖨 In / PDF 16 · 📄 Word 16', [...bang.querySelectorAll('tbody tr')].filter(r=>/In \/ PDF 06/.test(r.textContent) && /In \/ PDF 16/.test(r.textContent) && /Word 16/.test(r.textContent)).length===dsm.length);
+   ktKHIn16('in', 1, t0.ma); await w(150); const k16t = Object.keys(H).find(k=>/^Mau 16 .* - To /.test(k)), h16t = k16t ? await H[k16t].text() : '';
+   ok('3.140.1 🖨 Mẫu 16 1 tổ: đúng 1 biên bản, 2 mặt, tên file theo tổ', /name="kt-hai-mat" content="1"/.test(h16t) && (h16t.match(/class="kt-to"/g)||[]).length===1, k16t);
+   ktKHIn16('word', 1, t0.ma); await w(600); const k16tw = Object.keys(F).find(k=>/^Mau 16 .* - To .*\.docx$/.test(k)), x16t = k16tw ? await docx(F[k16tw]) : '';
+   ok('3.140.1 📄 Word 16 1 tổ', /<w:body>/.test(x16t) && !/<w:type w:val="oddPage"\/>/.test(x16t.replace(/<w:sectPr[\s\S]*$/, '')), k16tw);
    ktKHIn04T('in', 1); await w(150); const k04 = Object.keys(H).find(k=>/^Mau 04/.test(k)), h04 = k04 ? await H[k04].text() : '';
    ok('🖨 Mẫu 04 tháng: 2 mặt, có tháng kiểm tra', /name="kt-hai-mat" content="1"/.test(h04) && new RegExp('tháng '+hai(m)).test(h04), k04);
    ok('bộ in chuẩn đọc dấu 1 / 2 mặt', /"haiMat":false/.test(inChuan(h06)) && /"haiMat":true/.test(inChuan(h16)));
