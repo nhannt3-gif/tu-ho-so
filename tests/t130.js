@@ -65,6 +65,8 @@ const fs=require('fs'), path=require('path');
    ok('3.137: danh sách phạm vi — cột Tổ in trước Họ tên', bp.aoa[0].slice(0, 4).join()==='STT,Mã KH,Tổ,Họ tên' && /<th>Tổ<\/th><th>Họ tên<\/th>/.test(bp.html), bp.aoa[0].slice(0, 5).join());
    ok('3.137: báo cáo TK 105 mục A có cột Dư nợ, Nợ lãi', /A\. KHÁCH ĐÃ TẤT NỢ/.test(bt.html) && (/<th>Dư nợ<\/th><th>Nợ lãi<\/th><th>Số TK 105<\/th>/.test(bt.html) || /A\. KHÁCH ĐÃ TẤT NỢ[^<]*— 0 khách/.test(bt.html)));
    ok('3.137: dư nợ 0 còn lãi → gợi ý "chưa tất nợ", không đề xuất cho ra', toGoiY({conNo:true, dn:0, lt:50000, t105:0})==='Còn lãi — chưa tất nợ' && toGoiY({conNo:false, t105:0})==='Cho ra' && !toLocHam('ra')({conNo:true, dn:0, lt:50000, t105:0}));
+   ok('3.137: chip "Tất nợ · còn TK 105" thay "Không dư nợ"; ẩn chip "còn 105" và "Đề xuất cho ra"', toLocNhan(TO_LOC.find(l=>l[0]==='ko'))==='Tất nợ · còn TK 105' && TO_LOC.find(l=>l[0]==='ko105')[4] && TO_LOC.find(l=>l[0]==='ra')[4]);
+   ok('3.137: tất nợ còn 105 → "Chờ vay lại"; 105 > 100.000 đ tô màu cảnh báo; còn nợ lãi không vào Tất nợ', toGoiY({conNo:false, t105:500000})==='Chờ vay lại' && /to-105/.test(toLopDong({conNo:false, t105:150000})) && /to-ra/.test(toLopDong({conNo:false, t105:0})) && toLopDong({conNo:false, t105:50000})==='' && !toLocHam('ko')({conNo:true, dn:0, lt:1000}));
    try{ dongHop(); }catch(e){}
    return o;
  }, files);
