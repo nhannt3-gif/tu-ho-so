@@ -31,8 +31,8 @@ const fs=require('fs'), path=require('path');
    const ap0 = ktKHAp(L.ds[0]); ktKHDoiThang('', 7, ap0); await w(100);
    const L2 = ktKHLich(); ok('đổi tháng cả ấp → mọi tổ của ấp sang tháng 7, đã lưu', L2.luu && L2.ds.filter(t=>ktKHAp(t)===ap0).every(t=>L2.gan[t.ma]===7) && !!D.cauHinh.ktKH['2026|'+xa+'|'+dv]);
    const tB = L2.ds[N-1]; ktKHDoiThang(tB.ma, 3); await w(100); ok('đổi tháng 1 tổ', ktKHLich().gan[tB.ma]===3);
-   ktKHDoiThang(tB.ma, ''); await w(100); const L3 = ktKHLich();
-   ok('bỏ tháng 1 tổ → nhắc chưa đủ 100% tổ', L3.thieu.length===1 && L3.thieu[0].ma===tB.ma && /1 tổ chưa xếp tháng/.test(document.getElementById('kt-the').textContent));
+   const apB = ktKHAp(tB), nB = L2.ds.filter(t=>ktKHAp(t)===apB).length; ktKHDoiThang('', '', apB); await w(100); const L3 = ktKHLich();   /* 3.140: bỏ tháng theo cả ấp (tổ lẻ chưa xếp tự theo tháng ấp) */
+   ok('bỏ tháng cả ấp → nhắc chưa đủ 100% tổ', L3.thieu.length===nB && L3.thieu.every(t=>ktKHAp(t)===apB) && new RegExp(nB+' tổ chưa xếp tháng').test(document.getElementById('kt-the').textContent), nB+' tổ');
    ktKHDoiThang(tB.ma, 9); await w(100);
    ktKHDoiKhoang(3, 8, 1); await w(100);   /* 3.123: đã chỉnh tay → app hỏi trước; 1 = đồng ý */ const L4 = ktKHLich(); ok('đổi khoảng tháng 03 → 08: xếp lại trong khoảng', L4.tu===3 && L4.den===8 && Object.values(L4.gan).every(m=>m>=3 && m<=8) && Object.keys(L4.gan).length===N);
    ktKHDoiKhoang(2, 10, 1); await w(100);
