@@ -225,13 +225,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 ### Danh sách thử trên máy thật (3.137) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
-| 1 | Tab Tổ → chọn tổ → chip "Tất nợ · còn TK 105" | Không còn 2 chip "còn 105" / "Đề xuất cho ra"; dòng 105 > 100.000 đ tô vàng, 105 = 0 tô đỏ; cột Nợ lãi sau Dư nợ; gợi ý "Chờ vay lại" / "Cho ra" | |
+| 1 | Tab Tổ → chọn tổ → chip "Tất nợ · còn TK 105" | Không còn 2 chip "còn 105" / "Đề xuất cho ra"; không tô nền màu, 105 > 100.000 đ in đậm; cột Nợ lãi sau Dư nợ; cột Ghi chú (màn hình: "Chờ vay lại" / "Cho ra"; In / Excel để trống) | |
 | 2 | Hộ dư nợ 0 còn lãi | Nằm ở "Có dư nợ", Nợ lãi tô đỏ, gợi ý "Còn lãi — chưa tất nợ"; không vào "Đề xuất cho ra" | |
 | 2b | Danh sách cấp Hội / xã / PGD, bảng vào / ra | Cột Tổ đứng trước Họ tên; cột Gợi ý chữ ngắn | |
 | 3 | Báo cáo TK 105 của tổ | Mục A có cột Dư nợ, Nợ lãi; có mục A2 nếu có hộ dư nợ 0 còn lãi | |
 | 4 | Chip Ra khỏi tổ | Có cột Nợ lãi tháng trước | |
 
-**Ghi chú kỹ thuật 3.137:** cột `k.lt` (= Σ `laiTon` các món) trong `toDsTVHTML`, `toBCDS`, `toDsPVHTML`, `toBCDSPV`; `toGoiY` thêm ca dư nợ 0 còn lãi; chip ẩn bằng phần tử thứ 5 của `TO_LOC` (`ko105`, `ra` vẫn dùng cho dòng tóm tắt / bảng); `toLopDong(k)` + `TO_105_CB = 100000`; `TO_MAP[kỳ][kh].lt` → `toBienDong` ra `.lt` → các bảng Ra khỏi tổ; `toBCTK105` dùng hàm `bangA` cho mục A + A2 (`conLai` có 105).
+**Ghi chú kỹ thuật 3.137:** cột `k.lt` (= Σ `laiTon` các món) trong `toDsTVHTML`, `toBCDS`, `toDsPVHTML`, `toBCDSPV`; `toGoiY` thêm ca dư nợ 0 còn lãi; chip ẩn bằng phần tử thứ 5 của `TO_LOC` (`ko105`, `ra` vẫn dùng cho dòng tóm tắt / bảng); `toXen(ds)` (nền xen kẽ theo tổ, lớp `to-xen` / in `xen`), `to105(k, html)` + `TO_105_CB = 100000`; In / Excel cột Ghi chú để trống; `TO_MAP[kỳ][kh].lt` → `toBienDong` ra `.lt` → các bảng Ra khỏi tổ; `toBCTK105` dùng hàm `bangA` cho mục A + A2 (`conLai` có 105).
 
 ### Danh sách thử trên máy thật (3.136) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
