@@ -12841,6 +12841,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.140.1', ds:[
+  ['🖨 Kế hoạch › In theo tháng: mỗi dòng tổ thêm 🖨 In / PDF 16 · 📄 Word 16 (biên bản của riêng tổ, in 2 mặt); nút Mẫu 06 ghi rõ "In / PDF"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🔧 Mẫu 06: số tiền 2 số lẻ (nợ lãi dưới 5.000 đ giữ 3 số lẻ), canh phải, luôn nằm 1 dòng — dòng Cộng không còn bị xuống dòng (1.178,4)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🗓 Kế hoạch: mỗi tháng kiểm tra TRỌN ẤP (chia ấp vào tháng, số tổ gần đều); đổi tháng theo cả ấp; kế hoạch cũ bị tách ấp có cảnh báo + nút Xếp lại theo ấp', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['⇅ Thứ tự ấp mặc định theo điểm GD → mã thôn → tên; sắp lại ▲▼ (nhớ theo xã), ↺ về mặc định', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -24811,7 +24812,8 @@ function ktKHInThangHTML(L, dem){
     ds.forEach(function(t){ var x = ktDKTyLe(t), d = x.ptMon>=90 || !x.monD; if(d) dat++;
       h += '<tr><td>'+coChuHTML(ktKHAp(t))+'</td><td class="to-ten"><b>'+coChuHTML(t.ten||'Tổ '+t.ma)+'</b> ('+t.ma+')'+(KT_KH_DA[th+'|'+t.ma] ? ' <span class="xanh" title="Đã in Mẫu 06 trong phiên này">✓ đã in</span>' : '')+'</td>'+
         '<td><b class="'+(d ? 'xanh' : 'do')+'">'+x.monC+'/'+x.monD+' món = '+ktPT(x.ptMon)+'%</b> <small>· '+x.nChon+'/'+x.nDung+' hộ'+(x.nTong>x.nChon ? ' + '+(x.nTong-x.nChon)+' QH/khoanh' : '')+'</small></td>'+
-        '<td><button class="nho" onclick="ktDKMo(\''+t.ma+'\')">'+(KT_DK_MO===t.ma ? '▴ Thu gọn' : '✎ Chọn hộ')+'</button><button class="nho" onclick="ktKHIn06(\''+t.ma+'\',\'in\')">🖨 06</button><button class="nho" onclick="ktKHIn06(\''+t.ma+'\',\'word\')">📄 Word 06</button></td></tr>';
+        '<td><button class="nho" onclick="ktDKMo(\''+t.ma+'\')">'+(KT_DK_MO===t.ma ? '▴ Thu gọn' : '✎ Chọn hộ')+'</button><button class="nho" onclick="ktKHIn06(\''+t.ma+'\',\'in\')" title="Mở bản In — in thẳng hoặc chọn Lưu dưới dạng PDF">🖨 In / PDF 06</button><button class="nho" onclick="ktKHIn06(\''+t.ma+'\',\'word\')">📄 Word 06</button>'+
+        '<button class="nho" onclick="ktKHIn16(\'in\',0,\''+t.ma+'\')" title="Biên bản Mẫu 16 của riêng tổ này (in 2 mặt)">🖨 In / PDF 16</button><button class="nho" onclick="ktKHIn16(\'word\',0,\''+t.ma+'\')">📄 Word 16</button></td></tr>';   /* 3.140.1 (anh chốt): Mẫu 16 từng tổ cạnh Mẫu 06; nhãn In / PDF cho rõ */
       if(KT_DK_MO===t.ma) h += '<tr><td colspan="4">'+ktDKHoHTML(t, x)+'</td></tr>'; });
   } finally { KT_DK_TH = ''; }
   h += '</tbody></table></div><div class="to-the-so">T'+m+': '+ds.length+' tổ · Mẫu 06 đạt ≥ 90% món: <b class="'+(dat===ds.length ? 'xanh' : 'do')+'">'+dat+'/'+ds.length+' tổ</b></div>'+
@@ -24834,11 +24836,11 @@ function ktKHIn06(ma, cach, ok){
   if(cach==='word') return ktDocx('m06', g).then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+ten+'.docx.', 5); ktVeThe(); }).catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); });
   inBlob(new Blob([ktMat(ktHTML06(g), 0)], {type:'text/html'}), ten+'.html'); ktVeThe();
 }
-function ktKHIn16(cach, ok){
-  var ds = ktKHToThang(KT_KH_TH), th = ktKHThang7(KT_KH_TH); if(!ds.length) return;
-  if(!ok) return ktInHop(['m16'], '<button class="nho chinh" onclick="dongHop();ktKHIn16(\''+cach+'\',1)">'+(cach==='word' ? '📄 Xuất Word' : '🖨 In')+' Mẫu 16 ('+ds.length+' tổ)</button>', ktHoiCuaTo(ds));
+function ktKHIn16(cach, ok, ma){   /* ma: 3.140.1 — chỉ 1 tổ (nút trên dòng tổ); không có = cả tháng */
+  var ds = ma ? (KT_K && KT_K.to[ma] ? [KT_K.to[ma]] : []) : ktKHToThang(KT_KH_TH), th = ktKHThang7(KT_KH_TH); if(!ds.length) return;
+  if(!ok) return ktInHop(['m16'], '<button class="nho chinh" onclick="dongHop();ktKHIn16(\''+cach+'\',1'+(ma ? ',\''+ma+'\'' : '')+')">'+(cach==='word' ? '📄 Xuất Word' : '🖨 In')+' Mẫu 16 ('+(ma ? 'tổ '+coChuHTML(ds[0].ten||ma) : ds.length+' tổ')+')</button>', ktHoiCuaTo(ds));
   KT_DK_TH = th; var X; try { X = ktDKGiaTri(ktInV('m06'), ktInV('m16'), ds); } finally { KT_DK_TH = ''; }
-  var ten = 'Mau 16 '+kyVN(th).replace(/\//g, '-')+' - '+boDauTen(ktHoiTenTD(ds[0])).slice(0, 50)+' - '+ds.length+' to';
+  var ten = 'Mau 16 '+kyVN(th).replace(/\//g, '-')+' - '+(ma ? 'To '+boDauTen(ds[0].ten||ma) : boDauTen(ktHoiTenTD(ds[0])).slice(0, 50)+' - '+ds.length+' to');
   if(cach==='word'){ KT_HAI_EP = true; var p; try { p = ktDocx('m16', X.g16); } finally { KT_HAI_EP = null; } return p.then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+ten+'.docx (mỗi tổ bắt đầu tờ mới — in 2 mặt).', 6); }).catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); }); }
   inBlob(new Blob([ktMat(ktHTML16(X.g16), 1)], {type:'text/html'}), ten+'.html');
 }

@@ -228,8 +228,9 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 1 | Mẫu 06 Word tổ có tổng dư nợ dạng 1.178,4 | Dòng Cộng 1 dòng, số canh phải, in đậm | |
 | 2 | Mẫu 06 Word / In: dòng hộ | Số tiền 2 số lẻ (65,56), canh phải, không xuống dòng | |
 | 3 | Hộ có nợ lãi rất nhỏ (dưới 5.000 đ) | Ghi 3 số lẻ (vd 0,004), không thành 0 | |
+| 4 | Kế hoạch › In theo tháng › dòng tổ: 🖨 In / PDF 16 · 📄 Word 16 | Biên bản 16 của riêng tổ đó (2 mặt) | |
 
-**Ghi chú kỹ thuật 3.140.1:** `KT06_O_TIEN` (bề rộng ô số tiền: R5 / R6 / TGN / TDN 737, R8 / TNL 794), `KT06_LE_TIEN` = 30 (tcMar trái / phải). `ktCoTien06(v, o, dam)` = cỡ lớn nhất trong 22 / 20 / 18 / 16 vừa `(o − 2·30 − 20)·0,95`. `ktOTien06(x, [4, 5, 13])` canh phải + chèn `tcMar` trước `vAlign` / `hideMark`; dòng Cộng qua `ktCong06(ktSau06(K.sau))`. `ktTr06Lai(n)`: n < 5.000 đ → 3 số lẻ. `ktCoVua` (3.118) giữ cho t122, không còn dùng ở Mẫu 06.
+**Ghi chú kỹ thuật 3.140.1:** `KT06_O_TIEN` (bề rộng ô số tiền: R5 / R6 / TGN / TDN 737, R8 / TNL 794), `KT06_LE_TIEN` = 30 (tcMar trái / phải). `ktCoTien06(v, o, dam)` = cỡ lớn nhất trong 22 / 20 / 18 / 16 vừa `(o − 2·30 − 20)·0,95`. `ktOTien06(x, [4, 5, 13])` canh phải + chèn `tcMar` trước `vAlign` / `hideMark`; dòng Cộng qua `ktCong06(ktSau06(K.sau))`. `ktTr06Lai(n)`: n < 5.000 đ → 3 số lẻ. `ktKHIn16(cach, ok, ma)`: có `ma` → 1 tổ, tên file "Mau 16 Tm-yyyy - To …". `ktCoVua` (3.118) giữ cho t122, không còn dùng ở Mẫu 06.
 
 ### Danh sách thử trên máy thật (3.140) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
