@@ -78,13 +78,13 @@ const fs=require('fs'), path=require('path');
      const z = XLSX.CFB.read(new Uint8Array(await (await ktDocx(mau, g)).arrayBuffer()), {type:'array'}); return new TextDecoder().decode((XLSX.CFB.find(z, 'word/document.xml') || XLSX.CFB.find(z, '/word/document.xml')).content); };
    const d2 = await docKH('m01b', 'HỘI NÔNG DÂN PHƯỜNG GIA LỘC'), dau2 = d2.slice(0, d2.indexOf('</w:tbl>'));
    ok('② tên cơ quan cỡ 12, 1 dòng; cột trái 4560', /<w:sz w:val="24"\/><w:szCs w:val="24"\/><\/w:rPr><w:t xml:space="preserve">HỘI NÔNG DÂN PHƯỜNG GIA LỘC<\/w:t>/.test(dau2) && /<w:gridCol w:w="4560"\/><w:gridCol w:w="5701"\/>/.test(dau2));
-   ok('② gạch dưới tên cơ quan màu đen (không còn màu giao diện xanh), xích lên', !/schemeClr val="accent1"/.test(dau2) && (dau2.match(/<a:srgbClr val="000000"\/>/g)||[]).length===2 && /<wp:posOffset>-25400<\/wp:posOffset>/.test(dau2));
-   ok('② gạch dưới tiêu ngữ xích xuống', /<wp:posOffset>226695<\/wp:posOffset>/.test(dau2));
+   ok('② gạch dưới tên cơ quan / tiêu ngữ màu đen (3.138: viền dưới đoạn theo độ dài chữ, không còn hình vẽ)', !/schemeClr val="accent1"/.test(dau2) && !/<w:drawing>/.test(dau2) && (dau2.match(/<w:bottom w:val="single" w:sz="6" w:space="1" w:color="auto"\/>/g)||[]).length===2);
+   ok('② gạch dưới tiêu ngữ ngay sau dòng Tiêu ngữ', /Hạnh phúc<\/w:t><\/w:r>(?:<w:r>(?:(?!<\/w:p>).)*<\/w:r>)*<\/w:p><w:p><w:pPr><w:pBdr><w:bottom /.test(dau2));
    ok('② bỏ gạch đầu dòng "- Hội … xây dựng kế hoạch"', /Hội Nông dân phường Gia Lộc xây dựng kế hoạch/.test(d2.replace(/<[^>]+>/g, '')) && !/- Hội Nông dân phường Gia Lộc xây dựng/.test(d2.replace(/<[^>]+>/g, '')));
    const d3 = await docKH('m01b', 'HỘI LIÊN HIỆP PHỤ NỮ PHƯỜNG GIA LỘC');
    ok('② tên quá dài → 2 dòng (ngắt trước PHƯỜNG)', /HỘI LIÊN HIỆP PHỤ NỮ<\/w:t><w:br\/><w:t xml:space="preserve">PHƯỜNG GIA LỘC/.test(d3));
    const d1 = await docKH('m01', 'HỘI NÔNG DÂN PHƯỜNG GIA LỘC'), dau1 = d1.slice(0, d1.indexOf('</w:tbl>'));
-   ok('① cùng cách đo: cỡ 12, cột trái 4380, gạch dưới vẫn đen', /<w:sz w:val="24"\/><w:szCs w:val="24"\/><\/w:rPr><w:t xml:space="preserve">HỘI NÔNG DÂN PHƯỜNG GIA LỘC/.test(dau1) && /<w:gridCol w:w="4380"\/><w:gridCol w:w="5657"\/>/.test(dau1) && (dau1.match(/<a:srgbClr val="000000"\/>/g)||[]).length===2);
+   ok('① cùng cách đo: cỡ 12, cột trái 4380, gạch dưới vẫn đen', /<w:sz w:val="24"\/><w:szCs w:val="24"\/><\/w:rPr><w:t xml:space="preserve">HỘI NÔNG DÂN PHƯỜNG GIA LỘC/.test(dau1) && /<w:gridCol w:w="4380"\/><w:gridCol w:w="5657"\/>/.test(dau1) && !/<w:drawing>/.test(dau1) && (dau1.match(/<w:bottom w:val="single" w:sz="6" w:space="1" w:color="auto"\/>/g)||[]).length===2);   /* 3.138 */
    ok('Word ① ② hợp lệ, hết dấu {{', [d1, d2, d3].every(x=>!new DOMParser().parseFromString(x, 'application/xml').getElementsByTagName('parsererror').length && x.indexOf('{{')<0));
    /* 7. bảng khai báo Hội – xã: dòng "In ra" không tràn ô; số KH dạng 06-KH/HNDT không bị nhắc */
    const tK = K.to[boTT[0]];
