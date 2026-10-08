@@ -47,6 +47,14 @@ const fs=require('fs'), path=require('path');
          ok('3.135: xóa bản ngày — bản cuối tháng 31/08 còn nguyên', !SLM.bang[slKhoa('dnct', '2026-08-15')] && !!SLM.bang[slKhoa('dnct', '2026-08')]); } }
      try{ dongHop(); }catch(e){}
      ok('3.135: file kiểu Việt Nam (23/05/2026, 07/10/2026) đọc như cũ', k3.ngay==='2026-10-07' && !k3.canhBao.some(x=>/Mỹ/.test(x)) && tdnNgay('07/10/2026')==='2026-10-07', k3.ngay); }
+   /* 3.135: mọi ô chọn ngày có dòng ghi rõ ngày/tháng/năm */
+   { const dv = document.createElement('div'); dv.innerHTML = '<input type="date" id="gy-thu" value="2026-10-07">'; document.body.appendChild(dv); await w(150);
+     const i = document.getElementById('gy-thu'), g = i.nextSibling;
+     ok('3.135: ô ngày mới hiện "= 07/10/2026 (ngày/tháng/năm)"', g && g.className==='ngay-gy' && g.textContent==='= 07/10/2026 (ngày/tháng/năm)', g && g.textContent);
+     i.value = '2026-07-10'; i.dispatchEvent(new Event('input', {bubbles:true}));
+     const ss = document.querySelectorAll('input[type=date]'); let du = true; ss.forEach(x=>{ if(!x._gy) du = false; });
+     ok('3.135: gõ đổi ngày → cập nhật ngay; mọi ô ngày đang có đều có dòng gợi ý', g.textContent==='= 10/07/2026 (ngày/tháng/năm)' && du, g.textContent);
+     i.type = 'month'; await w(150); ok('3.135: ô đổi sang kiểu tháng → ẩn dòng gợi ý', g.style.display==='none'); dv.remove(); }
    return o;
  }, files);
  const dem = async h => { const q = await b.newPage(); await q.setContent(h); for(let i=0;i<60 && !(await q.evaluate(()=>window.TR_XONG));i++) await q.waitForTimeout(100);

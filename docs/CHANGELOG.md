@@ -12,7 +12,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - Mọi ô đều mơ hồ thì so với ngày trên tên file.
   - Khi đọc kiểu Mỹ, màn hình nạp có dòng báo. File kiểu Việt Nam đọc như cũ.
 - **Hiển thị:**
-  - Ô "Kỳ" ở bảng nạp là ô chọn ngày của trình duyệt. Máy đặt tiếng Anh thì ô này hiện **tháng trước ngày** (10/07/2026 = 7 tháng 10); app không đổi được cách hiện của ô này. Nay dưới ô ghi thêm "= 07/10/2026 (ngày/tháng)".
+  - Ô "Kỳ" ở bảng nạp là ô chọn ngày của trình duyệt. Máy đặt tiếng Anh thì ô này hiện **tháng trước ngày** (10/07/2026 = 7 tháng 10); app không đổi được cách hiện của ô này.
+  - **Mọi ô chọn ngày trong app** (nạp số liệu, ngày số liệu, ngày kiểm tra KTGS, Mẫu 04, sao kê từ / đến, Số / Sao…) nay có dòng nhỏ ngay cạnh: "= 07/10/2026 (ngày/tháng/năm)", đổi ngày là cập nhật liền; ô trống ghi "ngày/tháng/năm". Ô đổi sang kiểu tháng thì dòng này ẩn.
   - Dòng báo trùng file: nếu bản cũ nằm ở ô khác (vào nhầm do đọc sai ngày) thì ghi rõ "đã nạp vào ô KHÁC… tích để nạp vào ô đúng, rồi xóa bản ở …".
 - **Xóa riêng bản theo ngày (anh báo không xóa được):**
   - Ô tháng vừa có bản cuối tháng vừa có bản theo ngày ("+ n ngày") thì trước đây bấm vào chỉ mở bản cuối tháng, không vào được bản ngày.

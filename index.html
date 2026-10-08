@@ -2756,6 +2756,8 @@
   .sao-nut.bat{color:#b07d00;border-color:#e0a800}
   .dau-sua .so-ten>div[style*="margin-top"]{display:inline-block;margin-right:6px}
   .dau-sua .so-ten .nho{width:auto !important;min-width:0 !important}
+  .ngay-gy{display:inline-block;font-size:11px;color:#555;margin:0 4px;white-space:nowrap;vertical-align:middle}
+  .ngay-gy b{color:#0b5394}
 </style>
 </head>
 <body>
@@ -21945,6 +21947,41 @@ if(document.readyState==='loading')
 else batDau();
 </script>
 <script>
+/* 3.135 — anh Nhân: mọi ô chọn ngày ghi rõ kiểu ngày/tháng/năm (trình duyệt tiếng Anh hiện tháng/ngày → dễ nhầm, gán sai kỳ) */
+function ngayGY(iso){ return iso && /^\d{4}-\d{2}-\d{2}$/.test(iso) ? iso.slice(8,10)+'/'+iso.slice(5,7)+'/'+iso.slice(0,4) : ''; }
+function ngayGYCapNhat(i){
+  var g = i._gy; if(!g) return;
+  var la = i.type==='date', h = la ? (i.value ? '= <b>'+ngayGY(i.value)+'</b> (ngày/tháng/năm)' : 'ngày/tháng/năm') : '';
+  if(g.innerHTML!==h) g.innerHTML = h;
+  g.style.display = la ? '' : 'none';
+}
+function ngayGYQuet(){
+  var ds = document.querySelectorAll('input[type=date]'), k;
+  for(k=0;k<ds.length;k++){
+    var i = ds[k];
+    if(!i._gy || !i._gy.parentNode){
+      var g = document.createElement('small'); g.className = 'ngay-gy';
+      i.parentNode.insertBefore(g, i.nextSibling); i._gy = g;
+    }
+    ngayGYCapNhat(i);
+  }
+  ds = document.querySelectorAll('small.ngay-gy');   /* ô đổi sang kiểu tháng thì ẩn dòng gợi ý */
+  for(k=0;k<ds.length;k++){ var t = ds[k].previousSibling; if(t && t._gy===ds[k]) ngayGYCapNhat(t); }
+}
+(function(){
+  var hen = 0;
+  function henQuet(){ if(hen) return; hen = setTimeout(function(){ hen = 0; ngayGYQuet(); }, 30); }
+  function suKien(e){ var i = e.target; if(i && i._gy) ngayGYCapNhat(i); }
+  function chay(){
+    document.addEventListener('input', suKien, true); document.addEventListener('change', suKien, true);
+    ngayGYQuet();
+    if(typeof MutationObserver!=='undefined')
+      new MutationObserver(henQuet).observe(document.body, {childList:true, subtree:true, attributes:true, attributeFilter:['type']});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', chay); else chay();
+})();
+</script>
+<script>
 /* ==========================================================
    3.85 — 📈 SỐ LIỆU: bộ file Excel hệ thống nạp hằng tháng
    - Nạp cả bộ (app tự nhận loại + kỳ) hoặc từng file (anh chọn loại + kỳ, app đọc nội dung kiểm lần cuối)
@@ -25626,7 +25663,7 @@ function slXemTruoc(){
     return '<tr class="sl-xt-'+tt.lop+'"><td><input type="checkbox" class="sl-tich" data-i="'+i+'"'+(tt.ghi?' checked':'')+(coDL && kq.ky ? '' : ' disabled')+'></td>'+
       '<td class="sl-xt-ten" title="'+coChuHTML(kq.ten)+'">'+coChuHTML(kq.ten)+'<small>'+(kq.kich ? kichCo(kq.kich) : '')+(kq.sheet ? ' · sheet '+coChuHTML(kq.sheet)+', cột ở dòng '+kq.hang : '')+'</small></td>'+
       '<td><select onchange="slDoiLoai('+i+',this.value)"><option value="">— chọn —</option>'+SL_LOAI.filter(function(L){ return !L.bo; }).map(function(L){ return '<option value="'+L.k+'"'+(kq.loai===L.k?' selected':'')+'>'+coChuHTML(L.ten)+'</option>'; }).join('')+'</select></td>'+
-      '<td><input type="'+(slChonNgay(kq.loai) ? 'date' : 'month')+'" value="'+((slTuy(kq.loai) ? kq.ngay : kq.ky)||'')+'" onchange="slDoiKy('+i+',this.value)"><small>'+(slChonNgay(kq.loai) && kq.ngay ? '<b>= '+ngayVNsl(kq.ngay)+'</b> (ngày/tháng) · ' : '')+(kq.nguonKy ? 'theo '+coChuHTML(kq.nguonKy) : '')+'</small></td>'+
+      '<td><input type="'+(slChonNgay(kq.loai) ? 'date' : 'month')+'" value="'+((slTuy(kq.loai) ? kq.ngay : kq.ky)||'')+'" onchange="slDoiKy('+i+',this.value)"><small>'+(kq.nguonKy ? 'theo '+coChuHTML(kq.nguonKy) : '')+'</small></td>'+
       '<td>'+(coDL ? kq.rows.length+' dòng'+(bo ? '<small>bỏ '+bo+'</small>' : '')+(lap ? '<small>'+lap+'</small>' : '') : '')+'</td>'+
       '<td>'+(coDL ? coChuHTML(slTomTat(kq.loai, kq.tong)) : '')+'</td>'+
       '<td class="sl-xt-tt">'+coChuHTML(tt.chu)+'</td></tr>';

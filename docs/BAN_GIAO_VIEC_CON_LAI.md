@@ -226,9 +226,10 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 0 | Bấm ô T7/2026 dòng Dư nợ chi tiết | Hộp có mục "Bản theo ngày trong tháng" → bấm bản 10/07/2026 → "🗑 Xóa bản ngày 10/07/2026", bản 31/07 còn nguyên | |
+| 0b | Mở bất kỳ ô chọn ngày (nạp số liệu, ngày kiểm tra KTGS, sao kê từ/đến) | Cạnh ô có "= dd/mm/yyyy (ngày/tháng/năm)", đổi ngày là đổi theo | |
 | 1 | Xóa bản Dư nợ chi tiết vào nhầm T7 ("+ 1 ngày"), nạp lại file 7/10/2026 | Vào ô T10/2026 (theo ngày), có dòng báo "kiểu tháng/ngày (Mỹ)" | |
 
-**Ghi chú kỹ thuật 3.135:** `slKieuNgay(sheet, r, tenFile)` cho ra `'md'` | `'dm'` | `''` (quét tối đa 4.000 dòng). `slDocFile` bật `TDN_MD` trong lúc `slLayDong`; `tdnNgay` đọc a/b/yyyy theo cờ đó.
+**Ghi chú kỹ thuật 3.135:** `slKieuNgay(sheet, r, tenFile)` cho ra `'md'` | `'dm'` | `''` (quét tối đa 4.000 dòng). `slDocFile` bật `TDN_MD` trong lúc `slLayDong`; `tdnNgay` đọc a/b/yyyy theo cờ đó. Gợi ý ngày toàn app: khối `<script>` riêng sau `batDau` — `ngayGYQuet()` gắn `<small class="ngay-gy">` sau mọi `input[type=date]` (giữ ở `input._gy`), cập nhật bằng sự kiện `input`/`change` (bắt ở `document`) và `MutationObserver` (childList + đổi thuộc tính `type`, gom 30 ms); `tests/kiem.py` thêm `MutationObserver` vào danh sách hàm sẵn có.
 
 ### Danh sách thử trên máy thật (3.134) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
