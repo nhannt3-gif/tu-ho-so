@@ -1,24 +1,29 @@
-# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 14/10/2026, bản 3.136)
+# BÀN GIAO TIẾP TỤC — ĐỌC TRƯỚC (cập nhật 08/10/2026, bản 3.138)
 
 Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ngay** trên repo `nhannt3-gif/tu-ho-so`, không cần đọc lại lịch sử chat.
 Đọc theo thứ tự: mục 1 → 2 → 3 (bắt buộc), rồi **mục 0 (trạng thái mới nhất)** và mục 7 (việc đang dở cũ). Chi tiết từng bản ở `docs/CHANGELOG.md`; bảng thử máy thật + ghi chú kỹ thuật từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`; cấu trúc bộ file Excel tháng ở `docs/DU_LIEU_THANG.md`; phép thử ở `tests/README.md`.
 
 ---
 
-## 0. TRẠNG THÁI MỚI NHẤT — 14/10/2026 (đọc trước mục 7)
+## 0. TRẠNG THÁI MỚI NHẤT — 08/10/2026 (đọc trước mục 7)
 
-**Bản đang chạy:** **3.136** (đã gộp `main`, PR #111); **3.137** (cột Nợ lãi cạnh Dư nợ ở danh sách tổ viên / ra khỏi tổ / TK 105 — dư nợ 0 còn lãi = chưa tất nợ) chờ anh "gộp". Nhánh làm việc `claude/html-app-review-ck346k` đã đặt lại về `origin/main` sau khi gộp. Anh đang thử 3.136 trên máy thật.
+**Bản đang chạy:** **3.138** (anh dặn "làm xong gộp lên luôn" → đã gộp `main`). 3.137 đã gộp (PR #112). Nhánh làm việc `claude/intelligent-albattani-a9n3kg`.
+
+**3.138 gồm:** ⟳ Làm mới cạnh ô Số liệu + chip "Đang dùng: kỳ …" (Tổ / Sao kê / KTGS cùng kỳ); TK 105 "đã mở TK" (số TK hệ thống trên Mẫu 31, kể cả số dư 0); KU hủy / nhập nhầm tổ (CLOSE + giải ngân 0) bị loại; KU đã nhập máy chưa giải ngân (OPEN + giải ngân 0) không tính tất nợ + báo cáo Sao kê (quá 1 tháng lịch → "Cần đóng KU"); chip Đến hạn tháng sau 2 cột ĐH HĐ / ĐH GDXA; Mẫu 06 chấm nhạt, kẻ dòng mảnh, ngày ký lên dòng chấm, chỗ ký, mẫu trắng 1 / 2 mặt đúng trang; Mẫu 04 kiến nghị tùy chọn, bảng không tràn lề, Trưởng đoàn thẳng hàng, gạch tên đơn vị; Kế hoạch gạch dưới tên cơ quan theo độ dài tên. Bảng thử máy thật 9 mục ở `BAN_GIAO_VIEC_CON_LAI.md`.
 
 **Chuỗi bản gần nhất (chi tiết ở `docs/CHANGELOG.md`):**
 - **3.128–3.133** — Tổ TK&VV: chip lọc (chưa TK105, tất nợ, mới vào 3 nhóm CIF mới / CIF cũ dùng lại / chuyển tổ, ra khỏi tổ), tóm tắt + chip ở mọi cấp (tổ / hội / điểm / xã / PGD), vay trực tiếp STT 0 không tính là tổ, chọn đa chiều (chỉ tab Tổ: Xã + Hội cả xã, PGD + Hội), bảng chi tiết vào / ra kiểu báo cáo tổ (cấp hội thêm cột Tổ, cấp xã thêm Điểm GD); bộ in chuẩn `inChuan` / `trDan`.
 - **3.130–3.131** — TK 105 của khách đã tất nợ: lấy từ mọi bảng Dư nợ chi tiết đã nạp (kỳ cũ → mới, `slApDnct`); ngày số liệu ưu tiên cột "Ngày số liệu" trong file.
 - **3.134** — Mẫu 06 theo mẫu chuẩn + Mẫu 06 trắng ghi tay (1 mặt 4 dòng / 2 mặt 21 dòng, dòng 0,8 cm); Mẫu 16 / 04 lời văn lãi tồn nhóm chung "Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao" (vẫn tính theo số tháng để xếp nặng nhẹ).
 - **3.135** — tự nhận ngày kiểu Mỹ (tháng/ngày) khi nạp; mọi ô chọn ngày có dòng "= dd/mm/yyyy (ngày/tháng/năm)"; xóa riêng bản theo ngày.
+- **3.137** — cột Nợ lãi cạnh Dư nợ; chip "Tất nợ · còn TK 105".
+- **3.138** — Làm mới kỳ + chip; TK 105 "đã mở TK"; KU hủy / chưa giải ngân; chip đến hạn 2 ngày; Mẫu 06 / 04 / Kế hoạch in gọn (xem trên).
 - **3.136** — **Số liệu theo ngày, kỳ nào lấy kỳ đó** (quy tắc ở mục 4a dưới); mọi loại nạp được theo ngày; cột 📅 Theo ngày + 🗑 Xóa ngày cũ; dựng sẵn khi mở app có tiến độ; Sau giải ngân dùng Mẫu 31 ngày.
 
 **Việc chờ anh (không tự làm khi chưa có trả lời):**
 | # | Việc | Cần gì |
 |---|---|---|
+| A0 | Thử 3.138 (bảng 9 mục trong `BAN_GIAO_VIEC_CON_LAI.md`) — nhất là số trang Mẫu 06 trắng 1 mặt / 2 mặt và phiếu 1–2 hộ trên **Word thật** | Anh báo Đạt / Chưa. |
 | A | Thử 3.136 (bảng 8 mục trong `BAN_GIAO_VIEC_CON_LAI.md`) | Anh báo Đạt / Chưa. **Riêng Sau giải ngân:** chưa thử với Mẫu 31 ngày thật — em giả định cột giải ngân trong tháng của file ngày là lũy kế từ đầu tháng; lọc thêm theo cột "ngày GN cuối cùng" nếu file có. Anh đối chiếu lần đầu. |
 | B | File chi tiết mới thay **Mẫu 31 + Dư nợ chi tiết** (chỉ thay 2 file này, các file khác giữ) | Anh gửi dòng tên cột của file mới. Đã gửi anh danh sách cột cần có (Dư nợ chi tiết thiếu 11 cột so Mẫu 31, quan trọng: Mã / Tên Quyết định, PNKT52; không có dòng khách chỉ có 105). |
 | C | Số TK 105 của khách **chỉ có 105** / tất nợ lâu | Cần nguồn file có số sổ (Dư nợ chi tiết không có dòng các khách này). Gợi ý ghi "chưa có số — cần nguồn" **chưa được duyệt**. |
