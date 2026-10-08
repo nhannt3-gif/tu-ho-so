@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.139) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ › chọn tổ › tích "Dự kiến chia tách tổ" → Xem / In | A4 ngang, ≤ 2 trang; theo mã KH; cột Tổ mới trống; vợ/chồng, SĐT; QH / khoanh in đậm sau tên; dòng dự kiến (1)(2)(3) 1 dòng; ký Tổ trưởng | |
+| 2 | Excel cùng báo cáo | Dòng dự kiến ở đầu, đủ cột, dòng Cộng | |
+| 3 | Mọi báo cáo tab Tổ / Sao kê / Tổng hợp | Góc trên trái "PGD NHCSXH GÒ DẦU" in đậm | |
+
+**Ghi chú kỹ thuật 3.139:** `toBCChiaTach(t)` (`TO_BC` k=`ct`) dựng từ `toTV(t)` (đã bỏ hộ ra khỏi tổ 3.138.1), vợ/chồng lấy `o.voChong` dòng Mẫu 31 của tổ; trả `ky` (khối ký riêng) — `toHTMLIn` dùng `x.ky || bcKy()`; `coChu` 11 / 10 (> 46 hộ) / 9 (> 56 hộ); CSS `.ct-tom`, `.bc-bang.ct`, `.ct-ky` trong `TO_IN_CSS`. Tên cơ quan: hằng `BC_DV = 'PGD NHCSXH GÒ DẦU'` thay `D.cauHinh.donvi` ở `toDauBC`, `skHTMLIn`, `thHTMLIn`.
+
 ### Danh sách thử trên máy thật (3.138.1) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
