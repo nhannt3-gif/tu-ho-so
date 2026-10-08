@@ -14,6 +14,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Hiển thị:**
   - Ô "Kỳ" ở bảng nạp là ô chọn ngày của trình duyệt. Máy đặt tiếng Anh thì ô này hiện **tháng trước ngày** (10/07/2026 = 7 tháng 10); app không đổi được cách hiện của ô này. Nay dưới ô ghi thêm "= 07/10/2026 (ngày/tháng)".
   - Dòng báo trùng file: nếu bản cũ nằm ở ô khác (vào nhầm do đọc sai ngày) thì ghi rõ "đã nạp vào ô KHÁC… tích để nạp vào ô đúng, rồi xóa bản ở …".
+- **Xóa riêng bản theo ngày (anh báo không xóa được):**
+  - Ô tháng vừa có bản cuối tháng vừa có bản theo ngày ("+ n ngày") thì trước đây bấm vào chỉ mở bản cuối tháng, không vào được bản ngày.
+  - Nay hộp của ô tháng liệt kê thêm "Bản theo ngày trong tháng", bấm từng bản để xem; nút ghi rõ "🗑 Xóa bản ngày dd/mm/yyyy", không đụng bản cuối tháng.
 - **Anh cần làm:** ô T7/2026 của dòng Dư nợ chi tiết đang có thêm "1 ngày" (file 7/10 vào nhầm) → xóa bản đó rồi nạp lại file.
 - Kiểm tra: `kiem.py` sạch; t129 thêm 3 phép (kiểu Mỹ có giờ, mơ hồ + tên file, kiểu Việt Nam).
 

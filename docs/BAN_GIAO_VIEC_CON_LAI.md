@@ -225,6 +225,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 ### Danh sách thử trên máy thật (3.135) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
+| 0 | Bấm ô T7/2026 dòng Dư nợ chi tiết | Hộp có mục "Bản theo ngày trong tháng" → bấm bản 10/07/2026 → "🗑 Xóa bản ngày 10/07/2026", bản 31/07 còn nguyên | |
 | 1 | Xóa bản Dư nợ chi tiết vào nhầm T7 ("+ 1 ngày"), nạp lại file 7/10/2026 | Vào ô T10/2026 (theo ngày), có dòng báo "kiểu tháng/ngày (Mỹ)" | |
 
 **Ghi chú kỹ thuật 3.135:** `slKieuNgay(sheet, r, tenFile)` cho ra `'md'` | `'dm'` | `''` (quét tối đa 4.000 dòng). `slDocFile` bật `TDN_MD` trong lúc `slLayDong`; `tdnNgay` đọc a/b/yyyy theo cờ đó.

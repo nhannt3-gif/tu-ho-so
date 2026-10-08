@@ -25550,11 +25550,13 @@ function slMoO(loai, ky){
     (L.bo ? '<div class="sl-bao vang">⛔ '+coChuHTML(L.bo)+'</div>' : '')+
     (e.kiemNgay ? '<div class="sl-bao vang">⚠ Bản này chuyển từ bản cũ, ngày số liệu tạm lấy cuối tháng — anh kiểm, sai thì bấm 📅 Đổi ngày.</div>' : '')+
     '<div class="sl-tom">'+slTomDong(L, e)+'</div>'+
+    (function(){ if(!L.tuy || String(ky).length!==7) return ''; var nd = slCacNgay(loai, ky); if(!nd.length) return '';   /* 3.135: ô tháng còn bản theo ngày → mở / xóa từng bản riêng, không đụng bản cuối tháng */
+      return '<div class="nhan-nhom">Bản theo ngày trong tháng ('+nd.length+') — bấm để xem / xóa riêng</div><div class="sl-tom">'+nd.map(function(x){ return '<div class="sl-ngay-dong" onclick="dongHop();slMoO(\''+loai+'\',\''+x.ky+'\')">'+slTomDong(L, x)+'</div>'; }).join('')+'</div>'; })()+
     '<div class="hang-nut">'+(e.goc ? '<button class="nho" onclick="slMoGoc(\''+e.goc+'\')">☁ Mở file gốc trên Drive</button>' : '')+
     '<button class="nho" onclick="slTaiGoc(\''+loai+'\',\''+ky+'\')" title="Tải về máy bản sao file Excel gốc (để dùng việc khác)">⬇ Tải file gốc</button>'+   /* 3.90.1 */
     (L.ngay ? '<button class="nho" onclick="dongHop();slDoiNgay(\''+loai+'\',\''+ky+'\')">📅 Đổi ngày</button>' : '')+
     (L.bo || slKhoaO(loai, ky) ? '' : '<button class="nho" onclick="dongHop();slThayO(\''+loai+'\',\''+ky+'\')" title="Chọn file mới — phải đúng loại, đúng kỳ của ô này">🔁 Thay file</button>')+   /* 3.90 · 3.91: tháng chốt thì ẩn */
-    (slKhoaO(loai, ky) ? '<span class="sl-phu">🔒 Tháng đã chốt — chỉ xem / tải file gốc</span>' : '<button class="nho" onclick="dongHop();slXoa(\''+loai+'\',\''+ky+'\')">🗑 Xóa ô này</button>')+
+    (slKhoaO(loai, ky) ? '<span class="sl-phu">🔒 Tháng đã chốt — chỉ xem / tải file gốc</span>' : '<button class="nho" onclick="dongHop();slXoa(\''+loai+'\',\''+ky+'\')">🗑 Xóa '+(String(ky).length>7 ? 'bản ngày '+ngayVNsl(ky) : 'ô này')+'</button>')+
     '<button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button></div>', true);
 }
 function slMoGoc(id){ window.open('https://drive.google.com/file/d/'+id+'/view', '_blank'); }
