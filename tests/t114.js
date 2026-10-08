@@ -23,27 +23,27 @@ const fs=require('fs'), path=require('path');
    const d = ktDsDon(t);
    ok('lãi tồn > 6 tháng lãi: đúng 12 hộ (hộ 3 tháng lãi không vào), có lãi suất', d.ltc.length===12 && d.coLS && d.nLT===13, d.ltc.length+' / '+d.nLT);
    ok('danh sách tối đa 10 hộ + "và n hộ khác"', /và 2 hộ khác$/.test(ktDsLTC(d.ltc)) && ktDsLTC(d.ltc).split('; ').length===10, ktDsLTC(d.ltc).slice(-60));
-   ok('mỗi hộ ghi lãi tồn + số tháng lãi', /\(lãi tồn [\d.]+ đồng, khoảng 9 tháng lãi\)/.test(ktDsLTC(d.ltc)));
+   ok('3.134: mỗi hộ ghi lãi tồn, không ghi số tháng lãi', /\(lãi tồn [\d.]+ đồng\)/.test(ktDsLTC(d.ltc)) && !/tháng lãi/.test(ktDsLTC(d.ltc)));
    /* 3. Mẫu 04 */
    const g = ktBC04([{t:t}])[0], th = ktThangKT();
    ok('Mẫu 04 dòng ngày: địa danh xã + tháng / năm kiểm tra (tháng sau số liệu)', g.f.NOI04===ktXaTen(t.tenXa) && g.f.TH04===th.slice(5) && g.f.NAM04===th.slice(0, 4), g.f.NOI04+' '+g.f.TH04+'/'+g.f.NAM04);
    ok('III nội dung kiểm tra ghi sẵn 2 ý (727, mẫu 06/TD)', g.nd.length===2 && /727\/HD-NHCS/.test(g.nd[0]) && /06\/TD/.test(g.nd[1]));
-   ok('IV.1 nhận xét tổ có lãi tồn + số hộ lãi tồn trên 6 tháng lãi', /13 tổ viên còn lãi tồn [\d.]+ đồng, trong đó 12 hộ lãi tồn trên 6 tháng lãi/.test(g.nx[0]), g.nx[0].slice(0, 160));
-   ok('IV.2 a) chỉ đạo đôn đốc; b) liệt kê hộ theo tổ; c) tổ viên', /Chỉ đạo Ban quản lý các Tổ TK&VV phối hợp đôn đốc/.test(g.kn.a[0]) && /đề nghị Ban quản lý Tổ phối hợp đôn đốc các hộ:$/.test(g.kn.b[0]) && g.kn.b.some(x=>/^\+ Còn lãi tồn trên 6 tháng lãi: .* và 2 hộ khác\.$/.test(x)) && /trả lãi hằng tháng đúng kỳ/.test(g.kn.c[0]), g.kn.b.length+' dòng b)');
+   ok('IV.1 nhận xét tổ có lãi tồn + số hộ lãi tồn cao (3.134: không ghi số tháng)', /13 tổ viên còn lãi tồn [\d.]+ đồng, trong đó 12 hộ lãi tồn cao/.test(g.nx[0]) && !/tháng lãi/.test(g.nx[0]), g.nx[0].slice(0, 160));
+   ok('IV.2 a) chỉ đạo đôn đốc; b) liệt kê hộ theo tổ; c) tổ viên', /Chỉ đạo Ban quản lý các Tổ TK&VV phối hợp đôn đốc/.test(g.kn.a[0]) && /đề nghị Ban quản lý Tổ phối hợp đôn đốc các hộ:$/.test(g.kn.b[0]) && g.kn.b.some(x=>/^\+ Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao: .* và \d+ hộ khác\.$/.test(x)) && /trả lãi hằng tháng đúng kỳ/.test(g.kn.c[0]), g.kn.b.length+' dòng b)');
    const d4 = await docx(await ktDocx('m04', g)), c4 = chu(d4);
    ok('Word 04 hợp lệ, hết dấu {{', !new DOMParser().parseFromString(d4, 'application/xml').getElementsByTagName('parsererror').length && d4.indexOf('{{')<0);
    ok('Word 04: dòng ngày "… , ngày ....... tháng mm năm yyyy"', new RegExp(ktXaTen(t.tenXa)+', ngày [.…]{4,} tháng '+th.slice(5)+' năm '+th.slice(0, 4)).test(c4)   /* 3.124: dòng chấm mịn (nhiều chấm hơn, cỡ nhỏ) */);
-   ok('Word 04: III có nội dung, kiến nghị có danh sách hộ', /III\. NỘI DUNG KIỂM TRA1\. Kiểm tra hoạt động của Tổ TK&VV/.test(c4) && /Còn lãi tồn trên 6 tháng lãi: /.test(c4) && /d\) Đối với NHCSXH/.test(c4));
+   ok('Word 04: III có nội dung, kiến nghị có danh sách hộ', /III\. NỘI DUNG KIỂM TRA1\. Kiểm tra hoạt động của Tổ TK&VV/.test(c4) && /Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao: /.test(c4) && !/tháng lãi/.test(c4) && /d\) Đối với NHCSXH/.test(c4));
    const h4 = ktHTML04([g]);
-   ok('bản In 04 cùng nội dung (ngày, III, kiến nghị)', h4.indexOf('tháng '+th.slice(5)+' năm '+th.slice(0, 4))>=0 && /Kiểm tra hoạt động của Tổ TK&amp;VV/.test(h4) && /Còn lãi tồn trên 6 tháng lãi/.test(h4));
+   ok('bản In 04 cùng nội dung (ngày, III, kiến nghị)', h4.indexOf('tháng '+th.slice(5)+' năm '+th.slice(0, 4))>=0 && /Kiểm tra hoạt động của Tổ TK&amp;VV/.test(h4) && /lãi tồn cao: /.test(h4));
    /* 4. Mẫu 16 */
    const g16 = ktGiaTri16(t, [], {nx:'so'});
    ok('Mẫu 16 chưa khai ngày: tháng / năm theo tháng kiểm tra, ngày để trống', g16.f.ND==='' && g16.f.NM===th.slice(5) && g16.f.NY===th.slice(2, 4), g16.f.NM+'/'+g16.f.NY);
    ok('Mẫu 16 đã khai ngày: giữ ngày khai', ktGiaTri16(t, [], {ngay:'2026-10-07', nx:'so'}).f.ND==='07');
-   ok('Mẫu 16 tồn tại: liệt kê hộ lãi tồn trên 6 tháng lãi (tối đa 10)', g16.nx.tt.some(x=>/trong đó lãi tồn trên 6 tháng lãi: .* và 2 hộ khác\./.test(x)), g16.nx.tt.join(' | ').slice(0, 200));
-   ok('Mẫu 16 kiến nghị nhẹ nhàng có tên hộ', g16.nx.kn.some(x=>/^Đề nghị Ban quản lý Tổ phối hợp đôn đốc các hộ còn lãi tồn trên 6 tháng lãi nộp lãi: /.test(x)));
+   ok('Mẫu 16 tồn tại (3.134): nhóm chung "Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao", liệt kê tối đa 10 hộ, không ghi số tháng lãi', g16.nx.tt.some(x=>/^Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao, gồm các hộ: .* và \d+ hộ khác\./.test(x)) && !g16.nx.tt.some(x=>/tháng lãi/.test(x)), g16.nx.tt.join(' | ').slice(0, 200));
+   ok('Mẫu 16 kiến nghị nhẹ nhàng có tên hộ (gộp 1 câu)', g16.nx.kn.filter(x=>/^Đề nghị Ban quản lý Tổ phối hợp đôn đốc các hộ .* nộp lãi tồn/.test(x)).length===1, g16.nx.kn.join(' | ').slice(0, 200));
    const d16 = await docx(await ktDocx('m16', g16));
-   ok('Word 16 hợp lệ, hết dấu {{, có danh sách hộ', !new DOMParser().parseFromString(d16, 'application/xml').getElementsByTagName('parsererror').length && d16.indexOf('{{')<0 && /lãi tồn trên 6 tháng lãi/.test(chu(d16)));
+   ok('Word 16 hợp lệ, hết dấu {{, có danh sách hộ', !new DOMParser().parseFromString(d16, 'application/xml').getElementsByTagName('parsererror').length && d16.indexOf('{{')<0 && /lãi tồn cao, gồm các hộ/.test(chu(d16)) && !/tháng lãi/.test(chu(d16)));
    /* 5. tổ không có vấn đề → câu chung, không liệt kê */
    const t2 = ds.find(x=>x!==t && !ktDsDon(x).khd.length && !ktDsDon(x).ltc.length);
    if(t2){ const g2 = ktBC04([{t:t2}])[0]; ok('tổ không có món KHĐ / lãi tồn cao: kiến nghị câu chung', /^- Tiếp tục chỉ đạo các Tổ TK&VV duy trì/.test(g2.kn.a[0]) && /^- Duy trì sinh hoạt Tổ định kỳ/.test(g2.kn.b[0])); }

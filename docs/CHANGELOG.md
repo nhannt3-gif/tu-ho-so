@@ -4,6 +4,25 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.134 — 13/10/2026 15:00 — Mẫu 06 chỉnh theo mẫu chuẩn · Mẫu 06 trắng ghi tay · lời văn lãi tồn Mẫu 16 / 04
+- **Mẫu 06 (anh yêu cầu, cả Word và bản In):**
+  - Mục đích sử dụng vốn: mọi dòng cùng cỡ chữ 8 pt cho thống nhất (trước đây to nhỏ theo độ dài).
+  - Cột "Số tiền sử dụng đúng / sai mục đích" hẹp lại (Word 907 → 807), cột "Hiệu quả đầu tư" rộng ra (794 → 994); tổng chiều ngang không đổi.
+  - Tên Hội ở góc trên trái không in đậm (bản In; Word vốn không đậm).
+  - Khối số hiệu "Mẫu số 06/TD · Lập 02 liên…" thu nhỏ chữ (11 → 10 pt), canh phải theo mẫu chuẩn.
+- **Mẫu 06 trắng để ghi tay:**
+  - Nút "📄 Mẫu 06 trắng" cạnh "Xem phiếu Mẫu 06". Dòng hộ cao 0,8 cm (1 hộ ghi dài thì dùng 2 dòng).
+  - **In 1 mặt**: đủ phiếu, 4 dòng hộ. **In 2 mặt**: 1 tờ, 21 dòng hộ (mặt trước 12, mặt sau 9 kèm nhận xét và ký). Số dòng đo bằng bộ in chuẩn, đếm trang PDF thật.
+  - Có In / PDF và Word. Mở hộp thì mặc định theo ô "In 2 mặt".
+- **Mẫu 16 / Mẫu 04 (anh chốt):**
+  - Lời văn không ghi số tháng lãi; nhóm chung "Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao", mỗi hộ ghi dư nợ / lãi tồn.
+  - Câu "Món vay không có giao dịch từ 3 tháng trở lên" giữ nguyên (mốc quan trọng).
+  - Khi tính vẫn theo số tháng (không giao dịch ≥ 3 tháng, lãi tồn > 6 tháng lãi) để chọn hộ và xếp hộ nặng trước.
+- **Bộ in chuẩn:** khung nội dung trang chừa 1,5 px mỗi bên để nét viền ngoài của bảng tràn ngang không bị cắt.
+- Kiểm tra: `kiem.py` sạch; t129 mới (10 phép, đếm trang PDF thật); t114 đổi theo lời văn mới (20/20).
+
+---
+
 ## 3.133 — 13/10/2026 11:00 — Tab Tổ chọn đa chiều · bảng chi tiết vào / ra kiểu báo cáo tổ
 - **Chọn đa chiều (anh chốt: chỉ tab Tổ trước):** Hội lọc độc lập với địa bàn.
   - Xã + Hội (để trống điểm GD) → Hội đó **cả xã**.

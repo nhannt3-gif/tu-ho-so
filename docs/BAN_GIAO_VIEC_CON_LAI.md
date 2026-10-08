@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.133 · build 13/10/2026 11:00
+**Bản hiện tại:** 3.134 · build 13/10/2026 15:00
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,25 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.134) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In / Word Mẫu 06 | Mục đích cùng cỡ chữ nhỏ; cột Hiệu quả đầu tư rộng hơn; tên Hội không đậm; "Mẫu số 06/TD" nhỏ, canh phải | |
+| 2 | 📄 Mẫu 06 trắng → In 1 mặt | 1 trang đủ phiếu, 4 dòng hộ | |
+| 3 | 📄 Mẫu 06 trắng → In 2 mặt (in 2 mặt thật) | 1 tờ: trước 12 dòng, sau 9 dòng + nhận xét + ký; Word cũng 2 trang | |
+| 4 | Mẫu 16 / 04 tổ có lãi tồn cao | "Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao…", không còn "x tháng lãi" | |
+
+**Ghi chú kỹ thuật 3.134:**
+- `ktCo06Md` luôn 16 (8 pt).
+- Khuôn Word m06: lưới `[…,807,807,994,794,1117]`; khối "Mẫu số" cỡ 20.
+- Mẫu trắng:
+  - `KT_TRANG06 = {mot:4, hai:21}`; `ktTrang06GT(kieu)` cho ra `{f:{}, trang:1, rows}`.
+  - `gt.trang` → CSS dòng 22,7 pt; Word `trHeight 454`.
+  - `ktTrang06` / `ktTrang06Xuat`.
+- Lời văn: `ktDsGop(d)` (gộp hộ KHĐ + lãi tồn cao, nặng trước), `ktDsGopChu`; `ktDsLTC` bỏ số tháng.
+- `TR_CSS .tr-nd`: `padding 0 1.5px` (border-box).
+- Word mẫu trắng 2 mặt **chưa mở bằng Word thật** để xem có đúng 2 trang không: LibreOffice trong máy thử không mở được docx. Anh kiểm giúp ở mục 3.
 
 ### Danh sách thử trên máy thật (3.133) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
