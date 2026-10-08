@@ -28,7 +28,7 @@ const fs=require('fs'), path=require('path');
    /* 2. bản In: span.kt-cham, CSS cỡ 65% */
    const h16 = ktHTML16(g16);
    ok('bản In Mẫu 16: đoạn chấm bọc .kt-cham (cỡ 65%), CSS không bị đụng', /<span class="kt-cham">[…\.]{4,}<\/span>/.test(h16) && /\.kt-cham\{font-size:65%/.test(h16) && !/<style>[^<]*kt-cham">/.test(h16));
-   ok('bản In Mẫu 06 / Phân công cũng có chấm mịn; dòng kẻ chấm mảnh .6pt', /class="kt-cham"/.test(ktHTML06(g06)) && /\.kt-ld\{flex:1;border-bottom:\.6pt dotted/.test(KT_IN_CSS+ktHTML06(g06)));
+   ok('bản In Mẫu 06 / Phân công cũng có chấm mịn; dòng kẻ chấm mảnh xám (3.138: 1px dotted #8a8a8a)', /class="kt-cham"/.test(ktHTML06(g06)) && /\.kt-ld\{flex:1;border-bottom:1px dotted #8a8a8a/.test(KT_IN_CSS+ktHTML06(g06)));
    const hKH = (()=>{ C.che='kh'; C.khHoi = String(t.dv); C.khNam = 2026; const g = ktKHGiaTri(ktInV('kh')); return ktHTML01(g); })();
    ok('bản In Kế hoạch (đọc từ Word) có đoạn chấm cỡ nhỏ, không bọc 2 lần', !/kt-cham/.test(hKH) || !/kt-cham">[^<]*<span class="kt-cham/.test(hKH));
    C.che='dx';
