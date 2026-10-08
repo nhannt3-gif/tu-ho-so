@@ -27,10 +27,14 @@ const fs=require('fs'), path=require('path');
    /* mẫu trắng */
    const xt = await docx(await ktDocx('m06', ktTrang06GT('mot')));
    ok('mẫu trắng: lưới Họ tên = Mục đích = Vào việc (1953/1952/1953), cột tiền giữ 737', /<w:gridCol w:w="397"\/><w:gridCol w:w="1953"\/><w:gridCol w:w="1020"\/><w:gridCol w:w="1134"\/><w:gridCol w:w="737"\/><w:gridCol w:w="737"\/><w:gridCol w:w="1952"\/><w:gridCol w:w="737"\/><w:gridCol w:w="737"\/><w:gridCol w:w="1953"\/>/.test(xt));
-   ok('mẫu trắng: chừa dòng ký (đoạn trống sau "(Ký, ghi rõ họ tên)")', /\(Ký, ghi rõ họ tên\)<\/w:t><\/w:r><\/w:p><w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="2[68]0"/.test(xt));
+   ok('mẫu trắng: chừa dòng ký (đoạn trống sau "(Ký, ghi rõ họ tên)")', /\(Ký, ghi rõ họ tên\)<\/w:t><\/w:r><\/w:p><w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="2[5-8]0"/.test(xt));
    const h1 = ktHTML06(g1), ht = ktHTML06(ktTrang06GT('mot'));
    ok('bản In: nét 0,5 pt, dòng hộ kẻ xám, dòng chấm 2 có ngày', /\.kt-bg th,\.kt-bg td\{border:\.5pt solid #000/.test(h1) && /border-top:\.4pt solid #a6a6a6/.test(h1) && /class="kt-nx2"><i class="kt-ld"[^>]*><\/i><span>Ngày/.test(h1));
    ok('bản In mẫu trắng: 3 cột chữ 12,33% + chỗ ký', (ht.match(/width:12\.3[34]%/g)||[]).length===3 && /height:40pt/.test(ht));
+   ok('3.138.1 Word: các dòng nhận xét giữa không buộc đi liền (chỉ "Nhận xét:" + Biện pháp + dòng ngày giữ đi liền)', (()=>{ const i1 = x1.indexOf('Tình hình thực hiện'), i2 = x1.indexOf('Biện pháp xử lý:'), giua = x1.slice(x1.lastIndexOf('<w:p', i1), x1.lastIndexOf('<w:p', i2)); return !/keepNext/.test(giua) && /<w:keepNext\/>(?:(?!<\/w:p>).)*Nhận xét/.test(x1) && /<w:keepNext\/>(?:(?!<\/w:p>).)*Biện pháp xử lý/.test(x1); })());
+   ok('3.138.1 Word: dòng hộ đầu cạnh trên / dòng cuối cạnh dưới nét đen (giáp tiêu đề, dòng Cộng)', /<w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"\/>/.test(xt) && /<w:top w:val="single" w:sz="4" w:space="0" w:color="000000"\/>/.test(xt));
+   ok('3.138.1 bản In: nhận xét ra ngoài bảng (chia trang được), khối Biện pháp + ký giữ liền', /<\/tbody><\/table><div class="kt-nxk"/.test(h1) && /<div class="kt-giu"><p class="kt-dl"><b>Biện pháp xử lý/.test(h1) && /tr\.kt-dc td/.test(h1));
+   { const g5 = Object.assign({}, g1, {rows:Array.apply(null, Array(5)).map((x,i)=>Object.assign({}, g1.rows[0], {R1:String(i+1)}))}); window.__h5 = inChuan(ktHTML06(g5)); }
    window.__h = [inChuan(h1), inChuan(ht), inChuan(ktHTML06(ktTrang06GT('hai')))];
    /* Mẫu 04 */
    C.che='bc'; const ds = Object.values(KT_K.to).filter(t=>!toLaTT(t) && t.dv && String(t.dv)!=='99'); C.xa = ds[0].xa; KT_BC_CHON = {}; ktDoiCheDo('bc'); await w(400); ktBCTich(ktBCDs()[0].t.ma, true); await w(100);
@@ -62,6 +66,9 @@ const fs=require('fs'), path=require('path');
  const dem = async h => { const q = await b.newPage(); await q.setContent(h); for(let i=0;i<60 && !(await q.evaluate(()=>window.TR_XONG));i++) await q.waitForTimeout(100);
    const so = await q.evaluate(()=>window.TR_SO); await q.close(); return so; };
  const H = await p.evaluate(()=>window.__h), n1 = await dem(H[0]), n2 = await dem(H[1]), n3 = await dem(H[2]);
+ { const q = await b.newPage(); await q.setContent(await p.evaluate(()=>window.__h5)); for(let i=0;i<60 && !(await q.evaluate(()=>window.TR_XONG));i++) await q.waitForTimeout(100);
+   const t2 = await q.evaluate(()=>{ const tg = document.querySelectorAll('.tr-tg'); return tg.length===2 ? [tg[0].textContent, tg[1].textContent] : null; }); await q.close();
+   R.push((t2 && /Cộng/.test(t2[0]) && /Nhận xét/.test(t2[0]) && !/Biện pháp/.test(t2[0]) && /Biện pháp/.test(t2[1]) && /CÁN BỘ KIỂM TRA/.test(t2[1]) && !/Cộng/.test(t2[1]) ? '✓ ' : '✗ ')+'3.138.1 bản In phiếu 5 hộ: trang 1 đủ 5 hộ + Cộng + nhận xét, trang 2 chỉ Biện pháp + ngày + chữ ký'); }
  R.push((n1===1 ? '✓ ' : '✗ ')+'bản In Mẫu 06 phiếu 1 hộ: 1 trang — '+n1);
  R.push((n2===1 ? '✓ ' : '✗ ')+'bản In mẫu trắng 1 mặt: 1 trang — '+n2);
  R.push((n3===2 ? '✓ ' : '✗ ')+'bản In mẫu trắng 2 mặt: 2 trang — '+n3);

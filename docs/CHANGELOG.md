@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.138.1 — 08/10/2026 23:30 — "Đã mở TK" chỉ khách đang vay; hộ đã ra khỏi tổ theo TK 105; Mẫu 06 ngắt trang tự nhiên
+- **Anh báo / chốt:**
+  - Khách đã tất nợ trước năm 2026 cũng bị ghi "đã mở TK".
+  - Trước ngày GD 7/10 đã cho ra khỏi tổ các hộ tất nợ nhưng Mẫu 31 / Dư nợ chi tiết vẫn còn trong tổ.
+  - Mẫu 06 3–5 hộ sang trang cả khối → trang 1 trống nhiều; chữ ký chỉ cần kèm 2 dòng cuối, thống nhất mọi phiếu.
+  - Mẫu 06 trắng kẻ trên dòng Cộng phải đậm; xuất Word bị tràn 2 trang (giữ chú thích cuối trang, miễn không tràn).
+- **"Đã mở TK":** số TK 105 hệ thống (14 số) có ở mọi khách từng mở 105 → chỉ ghi "đã mở TK" khi khách đang vay (dư nợ / nợ lãi) hoặc có KU chưa giải ngân; khách đã tất nợ giữ như trước 3.138.
+- **Ra khỏi tổ (đối chiếu Mẫu 31 ngày 07/10 thật, 4 hộ tổ Nguyễn Văn Hết):** Mẫu 31 mỗi dòng là 1 món vay, "Mã tổ" là tổ lúc vay → món tất toán vẫn mang tổ cũ. Dấu hiệu thật là **TK 105**: hộ còn trong tổ thì TK 105 nằm trên dòng của tổ; hộ đã ra thì TK 105 tách sang dòng riêng **Mã tổ 0** hoặc **đã đóng**. Quy tắc: khách đã tất nợ (mọi món Đã đóng, dư nợ 0, lãi 0) mà TK 105 không còn gắn tổ → **không tính tổ viên**, hiện ở chip **Ra khỏi tổ** với "Đi đâu" = "tất nợ, TK 105 không còn gắn tổ" / "tất nợ, đã đóng TK 105"; báo cáo TK 105 của tổ cũng bỏ; ② Kiểm tra số liệu có dòng đếm. Khách đang vay, vay trực tiếp không đổi. File 07/10: 499 khách (477 tách, 22 đóng); tổ Hết còn 50 tổ viên, 3 hộ anh cho ra nằm ở Ra khỏi tổ, hộ "Chờ vay lại" vẫn trong tổ.
+- **Mẫu 06 ngắt trang (mọi phiếu, Word + In):** mỗi hộ không cắt; Cộng đi liền hộ cuối; "Nhận xét:" đi liền dòng 1; **"Biện pháp xử lý" + dòng ngày đi liền chữ ký**; các dòng khác tự chảy. Bản In: phần nhận xét ra ngoài bảng để chia trang được. Phiếu 5 hộ: trang 1 = 5 hộ + Cộng + nhận xét, trang 2 = Biện pháp + ngày + ký.
+- **Kẻ dòng:** dòng hộ đầu (giáp tiêu đề) cạnh trên và dòng hộ cuối (giáp Cộng) cạnh dưới nét đen 0,5 pt; giữa các dòng hộ vẫn xám mảnh.
+- **Mẫu 06 trắng (Word):** giữ chú thích cuối trang; chừa thêm khoảng dư — bỏ dòng trống ô Đơn vị kiểm tra, dòng cán bộ 14 pt, nhận xét dòng 12,5 pt.
+- **Phép thử:** `t131` 26/26 (thêm khách ra tổ: TK 105 tách / đã đóng, lý do Ra khỏi tổ), `t132` 31/31 (ngắt trang Word / In, phiếu 5 hộ 2 trang đúng nội dung, kẻ đen).
+
 ## 3.138 — 08/10/2026 22:30 — Làm mới kỳ số liệu; TK 105 "đã mở TK"; KU hủy / chưa giải ngân; chip đến hạn 2 ngày; Mẫu 06 / 04 / Kế hoạch in gọn
 - **Anh yêu cầu / chốt:**
   - Chọn kỳ (vd ngày 7/10) mà màn hình còn kỳ cũ (cuối T9) → **nút ⟳ Làm mới cạnh ô "Số liệu"** + **chip "📌 Đang dùng: …"** cho biết máy đang nhận số liệu kỳ nào.
