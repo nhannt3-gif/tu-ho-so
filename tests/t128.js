@@ -111,7 +111,7 @@ const fs=require('fs'), path=require('path');
      ok('3.133: dòng Cộng: n vào · m ra · chênh lệch', /^Cộng: \d+ vào · \d+ ra · chênh lệch/.test(B.tong), B.tong);
      dongHop(); C.to = ''; C.hoi = ''; C.diem = ''; TO_BDN = null;
      toBDNam(); for(let i=0;i<40 && !(TO_BDN && TO_BDN.pv);i++) await w(200); await w(200);
-     ok('3.133: cấp xã → thêm cột Điểm GD + Tổ', toBDNamBang().cot.join()==='STT,Mã KH,Họ tên hộ vay,Điểm GD,Tổ,Vào (ngày),Ra (ngày),Ghi chú', toBDNamBang().cot.join());
+     ok('3.133 / 3.137: cấp xã → thêm cột Điểm GD + Tổ (in trước Họ tên)', toBDNamBang().cot.join()==='STT,Mã KH,Điểm GD,Tổ,Họ tên hộ vay,Vào (ngày),Ra (ngày),Ghi chú', toBDNamBang().cot.join());
      dongHop(); TO_MAP = {}; TO_BD = null; TO_BDT = null; TO_PVC = null; C.xa = t.xa; C.diem = t.khoaDiem; C.to = t.ma; }
    /* sửa lỗi 3.127: số TK 105 (Dư nợ chi tiết) không hiện khi file này nạp TRƯỚC Mẫu 31 */
    { const f8 = files.find(f=>/31-08-2026\.XLSX$/.test(f.n)), mk = (b64, n)=>{ const bin=atob(b64), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return new File([u], n); };

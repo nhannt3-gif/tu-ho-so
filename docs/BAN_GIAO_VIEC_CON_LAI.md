@@ -226,7 +226,8 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 1 | Tab Tổ → chọn tổ → chip "Không dư nợ · còn 105" / "Đề xuất cho ra" | Cột Nợ lãi ngay sau Dư nợ; In / Excel cũng có | |
-| 2 | Hộ dư nợ 0 còn lãi | Nằm ở "Có dư nợ", Nợ lãi tô đỏ, gợi ý "Dư nợ 0, còn nợ lãi — chưa tất nợ"; không vào "Đề xuất cho ra" | |
+| 2 | Hộ dư nợ 0 còn lãi | Nằm ở "Có dư nợ", Nợ lãi tô đỏ, gợi ý "Còn lãi — chưa tất nợ"; không vào "Đề xuất cho ra" | |
+| 2b | Danh sách cấp Hội / xã / PGD, bảng vào / ra | Cột Tổ đứng trước Họ tên; cột Gợi ý chữ ngắn | |
 | 3 | Báo cáo TK 105 của tổ | Mục A có cột Dư nợ, Nợ lãi; có mục A2 nếu có hộ dư nợ 0 còn lãi | |
 | 4 | Chip Ra khỏi tổ | Có cột Nợ lãi tháng trước | |
 

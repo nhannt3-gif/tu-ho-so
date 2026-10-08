@@ -61,8 +61,10 @@ const fs=require('fs'), path=require('path');
    TO_K = await toNap('2026-08'); const t8 = Object.values(TO_K.to).filter(x=>!toLaTT(x)).sort((a, b)=>(TO_K.kh[b.ma]||[]).length-(TO_K.kh[a.ma]||[]).length)[0];
    TO_LOC_MO = 'tat'; const bc = toBCDS(t8), bt = await toBCTK105(t8);
    ok('3.137: danh sách tổ viên (In / Excel) có cột "Nợ lãi" ngay sau "Dư nợ"', /<th>Dư nợ<\/th><th>Nợ lãi<\/th><th>Số dư 105<\/th>/.test(bc.html) && bc.aoa[0].indexOf('Nợ lãi')===bc.aoa[0].indexOf('Dư nợ')+1);
+   TO_LOC_PV = 'tat'; const bp = toBCDSPV(Object.assign({}, toCH(), {xa:'', diem:'', hoi:'', to:''}));
+   ok('3.137: danh sách phạm vi — cột Tổ in trước Họ tên', bp.aoa[0].slice(0, 4).join()==='STT,Mã KH,Tổ,Họ tên' && /<th>Tổ<\/th><th>Họ tên<\/th>/.test(bp.html), bp.aoa[0].slice(0, 5).join());
    ok('3.137: báo cáo TK 105 mục A có cột Dư nợ, Nợ lãi', /A\. KHÁCH ĐÃ TẤT NỢ/.test(bt.html) && (/<th>Dư nợ<\/th><th>Nợ lãi<\/th><th>Số TK 105<\/th>/.test(bt.html) || /A\. KHÁCH ĐÃ TẤT NỢ[^<]*— 0 khách/.test(bt.html)));
-   ok('3.137: dư nợ 0 còn lãi → gợi ý "chưa tất nợ", không đề xuất cho ra', toGoiY({conNo:true, dn:0, lt:50000, t105:0})==='Dư nợ 0, còn nợ lãi — chưa tất nợ' && !toLocHam('ra')({conNo:true, dn:0, lt:50000, t105:0}));
+   ok('3.137: dư nợ 0 còn lãi → gợi ý "chưa tất nợ", không đề xuất cho ra', toGoiY({conNo:true, dn:0, lt:50000, t105:0})==='Còn lãi — chưa tất nợ' && toGoiY({conNo:false, t105:0})==='Cho ra' && !toLocHam('ra')({conNo:true, dn:0, lt:50000, t105:0}));
    try{ dongHop(); }catch(e){}
    return o;
  }, files);
