@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.140.3 — 09/10/2026 10:00 — Bỏ dòng "PGD NHCSXH GÒ DẦU" cuối báo cáo in
+- **Anh yêu cầu:** các bảng in ra do app lập bỏ chữ PGD Gò Dầu ở cuối trang.
+- **Đã làm:** `bcKy()` trả rỗng → bản In / PDF báo cáo Tổ TK&VV, Sao kê, Tổng hợp chỉ còn "PGD NHCSXH GÒ DẦU" in đậm góc trên trái (3.139). Mẫu chia tách tổ giữ khối ký Tổ trưởng. **Excel giữ dòng cuối** (Excel không có đầu trang ghi đơn vị).
+- **Kiểm tra:** t133 thêm 1 phép; t105, hoiquy2.
+
 ## 3.140.2 — 09/10/2026 09:00 — 📤 PDF gửi Hội; tên file theo cây địa bàn
 - **Anh yêu cầu / chốt:** nút xuất PDF gửi Hội, nút riêng từng mẫu (06, 16, 04, Kế hoạch); tên file ngắn mà hiểu được: theo cây địa bàn, Hội ngay sau xã, bỏ điểm GD (cách 2); file Word cùng tên.
 - **Tên file:** `Xã_Hội_Ấp_Tổ_Mẫu_Tháng_SL` — vd `TruongMit_HND_Ap06_VoVanTao_M06_T10-26_SL30-09-26`, `TruongMit_HND_M16_T10-26_3to_SL30-09-26`, `TruongMit_HND_M04_T10-26_SL30-09-26`, `TruongMit_HND_KH2026`. Hội: HND / HPN / CCB / DTN; ấp `Ap…`, khu phố `Kp…`; SL = ngày số liệu đang dùng (kỳ tháng = ngày cuối tháng).

@@ -3025,7 +3025,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.140.2', APP_LUC = '09/10/2026 09:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.140.3', APP_LUC = '09/10/2026 10:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12840,7 +12840,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.140.2', ds:[
+var CO_GI_MOI = {ban:'3.140.3', ds:[
+  ['🧹 Báo cáo app lập (Tổ, Sao kê, Tổng hợp): bỏ dòng “PGD NHCSXH GÒ DẦU” cuối trang in — chỉ còn ở góc trên trái', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['📤 Nút PDF gửi Hội (Mẫu 06, 16 từng tổ · 16 cả tháng · 04 · Kế hoạch): hộp in chọn “Lưu dưới dạng PDF”, tên file điền sẵn theo cây địa bàn Xã_Hội_Ấp_Tổ_Mẫu_Tháng_SL ngày số liệu (vd TruongMit_HND_Ap06_VoVanTao_M06_T10-26_SL30-09-26); file Word cùng tên', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🖨 Kế hoạch › In theo tháng: mỗi dòng tổ thêm 🖨 In / PDF 16 · 📄 Word 16 (biên bản của riêng tổ, in 2 mặt); nút Mẫu 06 ghi rõ "In / PDF"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🔧 Mẫu 06: số tiền 2 số lẻ (nợ lãi dưới 5.000 đ giữ 3 số lẻ), canh phải, luôn nằm 1 dòng — dòng Cộng không còn bị xuống dòng (1.178,4)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -28187,7 +28188,7 @@ function thExcel(){
 /* ---------- 3.90: CHUẨN IN mọi báo cáo (anh chốt): A4, lề trên 2 · dưới 2 · trái 3 · phải 2 cm; Times New Roman; đầu bảng lặp mỗi trang; số trang;
    tổng hợp A4 ngang, danh sách A4 dọc; cuối báo cáo ghi "PGD NHCSXH GÒ DẦU", không ký; xuất PDF = In → Lưu PDF ---------- */
 function bcCSS(ngang){ return TO_IN_CSS.replace('A4 portrait', ngang ? 'A4 landscape' : 'A4 portrait')+(ngang ? 'body{font-size:8.5pt}.th-bang th,.th-bang td{padding:1px 2px}' : ''); }
-function bcKy(){ return '<div class="bc-ky">'+coChuHTML(BC_KY)+'</div>'; }
+function bcKy(){ return ''; }   /* 3.140.3 (anh chốt): bỏ dòng "PGD NHCSXH GÒ DẦU" cuối báo cáo in (đã có góc trên trái, 3.139); Excel vẫn giữ dòng cuối (Excel không có đầu trang) */
 
 /* ---------- 3.90: XÓA cả bộ tháng / LÀM MỚI toàn bộ số liệu (chỉ phần Số liệu; Drive vào thùng rác, lấy lại được 30 ngày) ---------- */
 function slXoaCacO(khoa){
