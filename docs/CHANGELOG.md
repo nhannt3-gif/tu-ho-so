@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.140.2 — 09/10/2026 09:00 — 📤 PDF gửi Hội; tên file theo cây địa bàn
+- **Anh yêu cầu / chốt:** nút xuất PDF gửi Hội, nút riêng từng mẫu (06, 16, 04, Kế hoạch); tên file ngắn mà hiểu được: theo cây địa bàn, Hội ngay sau xã, bỏ điểm GD (cách 2); file Word cùng tên.
+- **Tên file:** `Xã_Hội_Ấp_Tổ_Mẫu_Tháng_SL` — vd `TruongMit_HND_Ap06_VoVanTao_M06_T10-26_SL30-09-26`, `TruongMit_HND_M16_T10-26_3to_SL30-09-26`, `TruongMit_HND_M04_T10-26_SL30-09-26`, `TruongMit_HND_KH2026`. Hội: HND / HPN / CCB / DTN; ấp `Ap…`, khu phố `Kp…`; SL = ngày số liệu đang dùng (kỳ tháng = ngày cuối tháng).
+- **Nút:** Kế hoạch › In theo tháng — mỗi dòng tổ 📤 PDF 06 · 📤 PDF 16; dưới bảng 📤 PDF 16 (cả tháng) · 📤 PDF 04; xem Kế hoạch 📤 PDF.
+- **Cách làm:** app không tự dựng PDF (không thêm thư viện) → mở hộp in, tiêu đề trang (và tiêu đề app, tạm 30 giây) = tên file để Chrome / Edge máy tính điền sẵn khi "Lưu dưới dạng PDF"; tên được chép vào bộ nhớ tạm (điện thoại dán khi máy hỏi tên). Tiêu đề đổi SAU bộ in chuẩn (bộ in nhận Mẫu 06 theo tiêu đề cũ để đánh "Trang x/y").
+- **Hàm:** `ktFTen(t, o)`, `ktFChu`, `ktFSL`, `KT_HOI_VT`, `inPDF(h, ten)`; `inBlob(b, ten, tb)` thêm lời nhắc tùy chọn; `ktKHIn06 / ktKHIn16 / ktKHIn04T / ktKHIn` nhận cách `'pdf'`.
+- **Kiểm tra:** t134 thêm 8 phép (31/31); t109, t110 (tên KH mới), t119, t132, t135, hoiquy2.
+
 ## 3.140.1 — 09/10/2026 06:30 — Mẫu 06: số tiền 2 số lẻ, canh phải, 1 dòng; Mẫu 16 từng tổ trong In theo tháng
 - **Anh báo:** Mẫu 06 Word — ô "Dư nợ đến ngày kiểm tra" dòng Cộng xuống dòng (1.178,4 → "1.178," / "4"); số dòng hộ (65,556 · 0,417) sát mép, canh trái.
 - **Nguyên nhân:** cỡ chữ dòng Cộng (3.118, `ktCoVua(v, 992)`) tính theo ô cũ rộng 992 twip, trong khi cột số tiền hiện 737 twip (1,3 cm) trừ lề ô 2 × 108.

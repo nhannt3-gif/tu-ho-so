@@ -46,7 +46,7 @@ const fs=require('fs'), path=require('path');
    /* Word */
    ktDoiCheDo('kh'); await w(100); ktKHXem(1); await w(500); ok('👁 xem trước', !!document.getElementById('kt-kh-khung'));
    ktKHIn('word'); await w(1200);
-   const fn = Object.keys(F).find(n=>/Ke hoach KTGS/.test(n)); const z = await moZip(F[fn]); const doc = z.doc, chu = doc.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
+   const fn = Object.keys(F).find(n=>/Ke hoach KTGS|_KH20\d\d/.test(n)); const z = await moZip(F[fn]); const doc = z.doc, chu = doc.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
    ok('Word: XML hợp lệ, hết dấu {{', hopLe(doc) && doc.indexOf('{{')<0, fn);
    ok('Word: căn cứ 727, không còn 10566 / 75% / MẪU THAM KHẢO', /727\/HD-NHCS ngày 11\/02\/2026/.test(chu) && chu.indexOf('10566')<0 && chu.indexOf('75%')<0 && chu.indexOf('MẪU THAM KHẢO')<0 && /tối thiểu 90% khoản vay đang còn dư nợ được giải ngân từ các năm trước\./.test(chu));
    ok('Word: tên Hội xã, năm, căn cứ HĐUT + KH Hội tỉnh điền đủ', chu.indexOf(g.f.HX)>=0 && /NĂM 2026/.test(chu) && /số 07\/HĐUT ngày 15\/01\/2026 giữa NHCSXH Gò Dầu/.test(chu) && /số 05\/KH-CCB/.test(chu) && /Năm 2025 đến thời điểm/.test(chu) && /từ tháng 02\/2026 đến tháng 10\/2026/.test(chu));
@@ -57,9 +57,9 @@ const fs=require('fs'), path=require('path');
    /* Mẫu 06 / 16 / 04 vẫn đủ phần sau khi đổi ktDocx */
    const z4 = await moZip(await ktDocx('m04', [{f:{DV:'X', SP:''}, doan:[], rows:[]}])); ok('khuôn cũ (Mẫu 04) vẫn có đầu trang + chú thích; 3.128: chân trang chỉ ghi số trang (PAGE)', !!z4.g('word/header1.xml') && !!z4.g('word/footnotes.xml') && /PAGE/.test(z4.g('word/footer1.xml')||'') && hopLe(z4.doc));
    ktKHXem(1); await w(300); ktKHIn('in'); await w(300);
-   const hh = await H[Object.keys(H).find(n=>/Ke hoach KTGS/.test(n))].text();
+   const hh = await H[Object.keys(H).find(n=>/Ke hoach KTGS|_KH20\d\d/.test(n))].text();
    ok('In / PDF: A4, đủ chữ (căn cứ 727, bảng lịch, phần III, người ký)', /size:A4;/.test(hh) && /727\/HD-NHCS/.test(hh) && /Tối thiểu 90% món vay/.test(hh) && /Có phải nộp lệ phí/.test(hh) && hh.indexOf('Giả Văn Ký')>=0 && /<table/.test(hh));
-   const xu = Object.keys(F).find(n=>/Ke hoach KTGS/.test(n)); var ra = await (async()=>{ const a = new Uint8Array(await F[xu].arrayBuffer()); let s=''; for(let i=0;i<a.length;i++) s+=String.fromCharCode(a[i]); return btoa(s); })();
+   const xu = Object.keys(F).find(n=>/Ke hoach KTGS|_KH20\d\d/.test(n)); var ra = await (async()=>{ const a = new Uint8Array(await F[xu].arrayBuffer()); let s=''; for(let i=0;i<a.length;i++) s+=String.fromCharCode(a[i]); return btoa(s); })();
    C.che = 'dx'; C.xa=''; C.hoi=''; C.khHoi='';
    return {o, ra}; }, files).catch(e=>({o:['✗ LỖI '+e.message]}));
  const r = R0.o; r.forEach(x=>console.log(x));
