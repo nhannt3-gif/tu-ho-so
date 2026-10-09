@@ -3025,7 +3025,7 @@ var xongTV = Promise.all(THU_VIEN.map(napMotTV));
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.140.3', APP_LUC = '09/10/2026 10:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.141', APP_LUC = '09/10/2026 16:00';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -12840,7 +12840,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.140.3', ds:[
+var CO_GI_MOI = {ban:'3.141', ds:[
+  ['🗓 Kế hoạch › In theo tháng kiểm tra: Mẫu 06 / 16 / 04 tự lấy số liệu cuối tháng liền trước (Mẫu 31 + BC0437 đã nạp) — không cần đổi kỳ; thiếu tháng đó → tháng gần nhất trước, ghi ⚠', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
+  ['🛟 Sửa lỗi mất cài đặt (khai báo Hội…) khi đồng bộ Drive: app nhớ đúng file cài đặt, gặp file khác luôn lấy về gộp trước — không ghi đè; không còn tạo thư mục "undefined" trên Drive', "dongHop();moCaiDat()"],
   ['🧹 Báo cáo app lập (Tổ, Sao kê, Tổng hợp): bỏ dòng “PGD NHCSXH GÒ DẦU” cuối trang in — chỉ còn ở góc trên trái', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['📤 Nút PDF gửi Hội (Mẫu 06, 16 từng tổ · 16 cả tháng · 04 · Kế hoạch): hộp in chọn “Lưu dưới dạng PDF”, tên file điền sẵn theo cây địa bàn Xã_Hội_Ấp_Tổ_Mẫu_Tháng_SL ngày số liệu (vd TruongMit_HND_Ap06_VoVanTao_M06_T10-26_SL30-09-26); file Word cùng tên', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🖨 Kế hoạch › In theo tháng: mỗi dòng tổ thêm 🖨 In / PDF 16 · 📄 Word 16 (biên bản của riêng tổ, in 2 mặt); nút Mẫu 06 ghi rõ "In / PDF"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -13633,6 +13635,8 @@ function thuMucCon(ten, cha){
 
 /* bảo đảm cả đường dẫn "A / B / C" tồn tại, trả id thư mục cuối */
 function baoDamDuong(duong){
+  if(!D.cauHinh.thumuc) D.cauHinh.thumuc = MAC_DINH.thumuc;   /* 3.140.4: không bao giờ tạo thư mục "undefined" / "null" trên Drive */
+  duong = String(duong).replace(/^\s*(undefined|null)?\s*(?=\/|$)/, function(m, x){ return x ? D.cauHinh.thumuc : m; });
   if(DR.thuMuc[duong]) return Promise.resolve(DR.thuMuc[duong]);
   var phan = duong.split('/').map(function(x){ return x.trim(); }).filter(Boolean);
   return phan.reduce(function(p, ten){
@@ -20781,7 +20785,7 @@ function apSoSanh(){
    chBam (riêng máy) = dấu băm từng khóa lúc đồng bộ gần nhất: khóa máy này chưa sửa → lấy theo Drive (cả phần đã xóa);
    khóa máy này đã sửa → gộp, máy này ưu tiên, thêm phần chỉ Drive có; lần đầu (chưa có chBam) → gộp, Drive ưu tiên, giữ phần chỉ máy này có.
    Mỗi lần đồng bộ: hỏi Drive trước (kéo nếu file mới hơn lần trước), rồi mới đẩy phần máy này đổi — không đè bản mới của máy khác. */
-var CH_RIENG = ['chGhiLuc','chKeoLuc','chBam','chiMucDriveTG','chiMucThoi','saoLuuNgay','camId','camGiu','camTuDong','rongPV','rongPhai','rongTrai','rongTab','rong339','coChu',
+var CH_RIENG = ['chGhiLuc','chKeoLuc','chFileId','chBam','chiMucDriveTG','chiMucThoi','saoLuuNgay','camId','camGiu','camTuDong','rongPV','rongPhai','rongTrai','rongTab','rong339','coChu',
   'cayMo','khoiMo','xaMo','ktKBMo','ktNapMo','slMo','dongGon','moCXL','moGanDay','moLocDT','anBangDC','suaDM','slTQ','slTab','ktgs','kyBang','tcPV','thTK','toTK','skTK',
   'hsXaCuoi','hsApCuoi','hsToCuoi','hsDiemCuoi','scanXem'];
 var TEN_CH = 'cauhinh.json', CH_DANG = null, CH_CHU = null;
@@ -20829,19 +20833,19 @@ function dongBoCauHinh(cheDo){   /* cheDo: 'tu' (tự động: kéo nếu Drive 
     return goiDrive('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+'&fields=files(id,modifiedTime)&pageSize=1');
   }).then(function(kq){
     f = kq && kq.files && kq.files[0] || null;
-    var keo = !!f && (cheDo!=='tu' || !D.cauHinh.chKeoLuc || String(f.modifiedTime) > String(D.cauHinh.chKeoLuc));
+    var keo = !!f && (cheDo!=='tu' || !D.cauHinh.chKeoLuc || D.cauHinh.chFileId!==f.id || String(f.modifiedTime) > String(D.cauHinh.chKeoLuc));   /* 3.140.4: nhớ đúng file đã đồng bộ — khác file (vd thư mục khác) thì luôn lấy về gộp trước, không ghi đè */
     if(!keo) return null;
     return canToken().then(function(){ return fetch('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media', {headers:{'Authorization':'Bearer '+DR.token}}); })
       .then(function(r){ if(!r.ok) throw new Error('Drive báo lỗi: '+r.status); return r.json(); });
   }).then(function(j){
-    if(j && j.loai==='cau-hinh-tu-ho-so'){ doi = chApDrive(j, cheDo==='lay'); D.cauHinh.chKeoLuc = f.modifiedTime; } else j = null;
+    if(j && j.loai==='cau-hinh-tu-ho-so'){ doi = chApDrive(j, cheDo==='lay'); D.cauHinh.chKeoLuc = f.modifiedTime; D.cauHinh.chFileId = f.id; } else j = null;
     var canDay = !f || cheDo==='day' || chMayDoi(j);
     if(!canDay){ chDanhDau(); CH_CHU = chChuHienTai(); luu(); return {doi:doi, day:false}; }
     var noi = new Blob([JSON.stringify(goiCauHinh(), null, 1)], {type:'application/json'}), bien = '----tuhoso'+Date.now();
     var dau = '--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(f ? {} : {name:TEN_CH, parents:[idTM]})+'\r\n--'+bien+'\r\nContent-Type: application/json\r\n\r\n';
     var u = f ? 'https://www.googleapis.com/upload/drive/v3/files/'+f.id+'?uploadType=multipart&fields=id,modifiedTime' : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,modifiedTime';
     return goiDrive(u, {method:f ? 'PATCH' : 'POST', headers:{'Content-Type':'multipart/related; boundary='+bien}, body:new Blob([dau, noi, '\r\n--'+bien+'--'], {type:'multipart/related; boundary='+bien})})
-      .then(function(r){ chDanhDau(); if(r && r.modifiedTime) D.cauHinh.chKeoLuc = r.modifiedTime; D.cauHinh.chGhiLuc = new Date().toISOString(); CH_CHU = chChuHienTai(); luu(); return {doi:doi, day:true}; });
+      .then(function(r){ chDanhDau(); if(r && r.modifiedTime) D.cauHinh.chKeoLuc = r.modifiedTime; if(r && r.id) D.cauHinh.chFileId = r.id; D.cauHinh.chGhiLuc = new Date().toISOString(); CH_CHU = chChuHienTai(); luu(); return {doi:doi, day:true}; });
   }).then(function(kq){ xong();
     if(kq.doi){ try{ capNhatDau(); ve(); if(D.cauHinh.slTab==='kt' && typeof ktVeThe==='function' && KT_K) ktVeThe(); }catch(e){} }
     return kq;
@@ -24801,13 +24805,45 @@ function ktKHNam(){ var C = ktCH(); return +C.khNam || nay().getFullYear(); }
 var KT_KH_TH = 0, KT_KH_DA = {};
 function ktKHThang7(m){ return ktKHNam()+'-'+hai(m); }
 function ktKHToThang(m){ var L = ktKHLich(); return L.ds.filter(function(t){ return L.gan[t.ma]===m; }); }
+/* 3.141 (anh chốt): IN THEO THÁNG tự lấy số liệu cuối tháng liền trước tháng kiểm tra (Mẫu 31 + BC0437 / BC0438 đã nạp) — chỉ phần này;
+   kỳ anh chọn ở ô Số liệu giữ nguyên (mượn số liệu lúc vẽ bảng / in rồi trả lại). Chưa nạp tháng đó → tháng gần nhất trước đó, ghi rõ ⚠ */
+var KT_KH_SL = null;
+function ktKHKySL(th){ var can = kyLui(th, -1), ds = toDsKy().map(function(e){ return e.ky; }).filter(function(k){ return k.length===7 && k<=can; }).sort(); return {can:can, ky:ds.pop() || ''}; }
+function ktKHNapSL(th){
+  var S = KT_KH_SL; if(S && S.th===th && S.goc===KT_K) return Promise.resolve(S);
+  var x = ktKHKySL(th), goc = KT_K;
+  var xong = function(o){ o.th = th; o.can = x.can; o.goc = goc; KT_KH_SL = o; return o; };
+  if(!x.ky || !KT_K || x.ky===KT_K.ky) return Promise.resolve(xong({ky:KT_K ? KT_K.ky : '', K:KT_K, BC:KT_BC, TR:KT_TRUOC, khong:!x.ky}));
+  var tr0 = KT_TRUOC, K;
+  return toNap(x.ky).then(function(k){ K = k; return Promise.all([ktNapBC(x.ky), ktTruocNap(k)]); })
+    .then(function(r){ var tr = r[1]; KT_TRUOC = tr0; return xong({ky:x.ky, K:K, BC:r[0], TR:tr}); }, function(){ KT_TRUOC = tr0; return xong({ky:KT_K.ky, K:KT_K, BC:KT_BC, TR:KT_TRUOC, loi:1}); });
+}
+function ktKHVoiSL(fn){   /* chạy fn với số liệu của tháng kiểm tra đang chọn (KT_KH_SL), xong trả lại số liệu đang xem */
+  var S = KT_KH_SL; if(!S || !S.K || S.K===KT_K || S.goc!==KT_K) return fn();
+  var a = KT_K, b = KT_BC, c = KT_TRUOC, d = TO_K; KT_K = S.K; TO_K = S.K; KT_BC = S.BC; KT_TRUOC = S.TR;
+  try { return fn(); } finally { KT_K = a; TO_K = d; KT_BC = b; KT_TRUOC = c; }
+}
+function ktKHSLChu(S, m){   /* dòng ghi đúng file số liệu đang dùng cho tháng kiểm tra */
+  var bc = S.BC && S.BC.k37 ? S.BC.k37.e.ky : '', bcDung = bc && slThang(bc)===slThang(S.ky);
+  var chu = 'Số liệu in T'+m+': <b>'+coChuHTML(slKyChu(S.ky))+'</b> (Mẫu 31 ✓ · BC0437 '+(bc ? coChuHTML(slKyChu(bc))+(bcDung ? ' ✓' : ' ⚠ khác tháng') : 'chưa nạp')+')';
+  if(S.khong) return '<div class="sl-bao vang">⚠ Chưa nạp Mẫu 31 cuối '+kyVN(S.can)+' hoặc trước đó — đang dùng kỳ đang chọn. '+chu+'</div>';
+  if(S.loi) return '<div class="sl-bao vang">⚠ Không mở được số liệu '+kyVN(S.can)+' — đang dùng kỳ đang chọn. '+chu+'</div>';
+  return '<div class="'+(S.ky===S.can ? 'to-the-so' : 'sl-bao vang')+'">'+(S.ky===S.can ? '📌 ' : '⚠ Chưa nạp Mẫu 31 cuối '+kyVN(S.can)+' — ')+chu+' · tự lấy, không đổi kỳ anh đang chọn.</div>';
+}
 function ktKHInThangHTML(L, dem){
+  var thCo0 = Object.keys(dem).map(Number); if(KT_KH_TH && thCo0.indexOf(KT_KH_TH)>=0){ var th0 = ktKHThang7(KT_KH_TH), S0 = KT_KH_SL;
+    if(!S0 || S0.th!==th0 || S0.goc!==KT_K){ ktKHNapSL(th0).then(function(){ if(KT_K) ktVeThe(); }); return ktKHInThangHTML0(L, dem, '<div class="rong">Đang mở số liệu cuối '+kyVN(kyLui(th0, -1))+'…</div>'); }
+    return ktKHVoiSL(function(){ return ktKHInThangHTML0(ktKHLich(), dem, ktKHSLChu(S0, KT_KH_TH)); }); }
+  return ktKHInThangHTML0(L, dem);
+}
+function ktKHInThangHTML0(L, dem, slChu){
   var thCo = Object.keys(dem).map(Number).sort(function(a, b){ return a-b; }); if(!thCo.length) return '';
   if(KT_KH_TH && thCo.indexOf(KT_KH_TH)<0) KT_KH_TH = 0;
   var h = '<div class="kt-che kt-kh-in"><span class="sl-phu">🖨 In theo tháng kiểm tra:</span>'+thCo.map(function(m){ return '<button class="to-loc'+(KT_KH_TH===m ? ' bat' : '')+'" onclick="KT_KH_TH=KT_KH_TH==='+m+'?0:'+m+';ktVeThe()">T'+m+' <small>('+dem[m]+' tổ)</small></button>'; }).join('')+'</div>';
   if(!KT_KH_TH) return h;
-  var m = KT_KH_TH, th = ktKHThang7(m), ds = L.ds.filter(function(t){ return L.gan[t.ma]===m; }), C = ktCH(), canKy = kyLui(th, -1), dat = 0;
-  if(String(C.ky)!==canKy) h += '<div class="sl-bao vang">Kiểm tra T'+m+'/'+ktKHNam()+' nên dùng số liệu <b>cuối '+kyVN(canKy)+'</b>; đang dùng <b>'+coChuHTML(slKyChu(C.ky))+'</b> — đổi ở ô Số liệu phía trên (⟳ Làm mới) nếu cần.</div>';
+  if(slChu && /^<div class="rong">/.test(slChu)) return h+slChu;
+  var m = KT_KH_TH, th = ktKHThang7(m), ds = L.ds.filter(function(t){ return L.gan[t.ma]===m; }), dat = 0;
+  h += slChu || '';   /* 3.141: thay lời nhắc đổi kỳ bằng dòng số liệu tự lấy */
   KT_DK_TH = th;
   try {
     h += '<div class="to-bang-cuon"><table class="to-bang kt-kh-thang"><thead><tr><th>Ấp</th><th>Tổ (mã)</th><th>Mẫu 06 — hộ / món kiểm tra (≥ 90%)</th><th></th></tr></thead><tbody>';
@@ -24845,7 +24881,11 @@ function inPDF(h, ten){   /* in → "Lưu dưới dạng PDF" với tên file đ
   try { if(navigator.clipboard) navigator.clipboard.writeText(ten+'.pdf').catch(function(){}); } catch(e){}
   inBlob(b, ten+'.html', 'Hộp in: chọn Máy in = “Lưu dưới dạng PDF” → Lưu. Tên file: '+ten+'.pdf (đã chép — máy hỏi tên thì dán vào).');
 }
-function ktKHIn06(ma, cach, ok){
+function ktKHIn06(ma, cach, ok){ var th = ktKHThang7(KT_KH_TH), S = KT_KH_SL;   /* 3.141: in bằng số liệu tháng kiểm tra */
+  if(KT_KH_TH && (!S || S.th!==th || S.goc!==KT_K)) return ktKHNapSL(th).then(function(){ return ktKHIn06(ma, cach, ok); });
+  return ktKHVoiSL(function(){ return ktKHIn06G(ma, cach, ok); });
+}
+function ktKHIn06G(ma, cach, ok){
   var t = KT_K && KT_K.to[ma]; if(!t) return; var th = ktKHThang7(KT_KH_TH);
   if(!ok) return ktInHop(['m06'], '<button class="nho chinh" onclick="dongHop();ktKHIn06(\''+ma+'\',\''+cach+'\',1)">'+(cach==='word' ? '📄 Xuất Word' : cach==='pdf' ? '📤 PDF' : '🖨 In')+' Mẫu 06</button>', ktHoiCuaTo([t]));
   KT_DK_TH = th; var x, X;
@@ -24856,11 +24896,15 @@ function ktKHIn06(ma, cach, ok){
   } finally { KT_DK_TH = ''; }
   var g = X.g06[0], ten = ktFTen(t, {to:1, mau:'M06', th:th});   /* 3.140.2: tên theo cây địa bàn */
   KT_KH_DA[th+'|'+ma] = 1;
-  if(cach==='word') return ktDocx('m06', g).then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+ten+'.docx.', 5); ktVeThe(); }).catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); });
-  if(cach==='pdf'){ inPDF(ktMat(ktHTML06(g), 0), ten); return ktVeThe(); }
-  inBlob(new Blob([ktMat(ktHTML06(g), 0)], {type:'text/html'}), ten+'.html'); ktVeThe();
+  if(cach==='word') return ktDocx('m06', g).then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+ten+'.docx.', 5); setTimeout(ktVeThe, 0); }).catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); });
+  if(cach==='pdf'){ inPDF(ktMat(ktHTML06(g), 0), ten); return setTimeout(ktVeThe, 0); }
+  inBlob(new Blob([ktMat(ktHTML06(g), 0)], {type:'text/html'}), ten+'.html'); setTimeout(ktVeThe, 0);
 }
-function ktKHIn16(cach, ok, ma){   /* ma: 3.140.1 — chỉ 1 tổ (nút trên dòng tổ); không có = cả tháng */
+function ktKHIn16(cach, ok, ma){ var th = ktKHThang7(KT_KH_TH), S = KT_KH_SL;   /* 3.141: in bằng số liệu tháng kiểm tra */
+  if(KT_KH_TH && (!S || S.th!==th || S.goc!==KT_K)) return ktKHNapSL(th).then(function(){ return ktKHIn16(cach, ok, ma); });
+  return ktKHVoiSL(function(){ return ktKHIn16G(cach, ok, ma); });
+}
+function ktKHIn16G(cach, ok, ma){   /* ma: 3.140.1 — chỉ 1 tổ (nút trên dòng tổ); không có = cả tháng */
   var ds = ma ? (KT_K && KT_K.to[ma] ? [KT_K.to[ma]] : []) : ktKHToThang(KT_KH_TH), th = ktKHThang7(KT_KH_TH); if(!ds.length) return;
   if(!ok) return ktInHop(['m16'], '<button class="nho chinh" onclick="dongHop();ktKHIn16(\''+cach+'\',1'+(ma ? ',\''+ma+'\'' : '')+')">'+(cach==='word' ? '📄 Xuất Word' : cach==='pdf' ? '📤 PDF' : '🖨 In')+' Mẫu 16 ('+(ma ? 'tổ '+coChuHTML(ds[0].ten||ma) : ds.length+' tổ')+')</button>', ktHoiCuaTo(ds));
   KT_DK_TH = th; var X; try { X = ktDKGiaTri(ktInV('m06'), ktInV('m16'), ds); } finally { KT_DK_TH = ''; }
@@ -24869,7 +24913,11 @@ function ktKHIn16(cach, ok, ma){   /* ma: 3.140.1 — chỉ 1 tổ (nút trên d
   if(cach==='pdf') return inPDF(ktMat(ktHTML16(X.g16), 1), ten);
   inBlob(new Blob([ktMat(ktHTML16(X.g16), 1)], {type:'text/html'}), ten+'.html');
 }
-function ktKHIn04T(cach, ok){
+function ktKHIn04T(cach, ok){ var th = ktKHThang7(KT_KH_TH), S = KT_KH_SL;   /* 3.141: in bằng số liệu tháng kiểm tra */
+  if(KT_KH_TH && (!S || S.th!==th || S.goc!==KT_K)) return ktKHNapSL(th).then(function(){ return ktKHIn04T(cach, ok); });
+  return ktKHVoiSL(function(){ return ktKHIn04TG(cach, ok); });
+}
+function ktKHIn04TG(cach, ok){
   var ds = ktKHToThang(KT_KH_TH), th = ktKHThang7(KT_KH_TH); if(!ds.length) return;
   if(!ok) return ktInHop(['m04'], '<button class="nho chinh" onclick="dongHop();ktKHIn04T(\''+cach+'\',1)">'+(cach==='word' ? '📄 Xuất Word' : cach==='pdf' ? '📤 PDF' : '🖨 In')+' Mẫu 04 T'+KT_KH_TH+'</button>', ktHoiCuaTo(ds));
   var gts = ktBC04(ds.map(function(t){ return {t:t, ngay:''}; }), th); if(!gts.length) return;

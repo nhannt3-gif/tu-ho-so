@@ -41,7 +41,7 @@ const fs=require('fs'), path=require('path');
    L = ktKHLich(); const m = L.thang.find(x=>ds.some(t=>L.gan[t.ma]===x)), dsm = ds.filter(t=>L.gan[t.ma]===m);
    KT_KH_TH = m; ktVeThe(); await w(150); const bang = document.querySelector('.kt-kh-thang');
    ok('bấm tháng → bảng tổ của tháng (theo ấp), cột tỷ lệ món, nút 06 từng tổ, nút 16 / 04 cả tháng', !!bang && bang.querySelectorAll('tbody tr').length===dsm.length && /món = /.test(bang.textContent) && /Mẫu 16 cả tháng/.test(document.getElementById('kt-the').textContent) && /Mẫu 04 T/.test(document.getElementById('kt-the').textContent), 'T'+m+' · '+dsm.length+' tổ');
-   ok('số liệu khác cuối tháng trước tháng kiểm tra → nhắc', m-1!==8 ? /nên dùng số liệu/.test(document.getElementById('kt-the').textContent) : true);
+   ok('3.141: bảng ghi số liệu in của tháng (tự lấy, thay lời nhắc đổi kỳ)', /Số liệu in T\d+/.test(document.getElementById('kt-the').textContent) && !/nên dùng số liệu/.test(document.getElementById('kt-the').textContent));
    const t0 = dsm[0]; ktKHIn06(t0.ma, 'in', 1); await w(100); const k06 = Object.keys(H).find(k=>/_M06_T\d\d-\d\d_SL\d\d-\d\d-\d\d\.html$/.test(k)), h06 = k06 ? await H[k06].text() : '';
    ok('🖨 06 từng tổ: 1 bản, đánh dấu 1 mặt, tháng kiểm tra đúng, ✓ đã in', /name="kt-hai-mat" content="0"/.test(h06) && /\/'?0?/.test(h06) && KT_KH_DA['2026-'+hai(m)+'|'+t0.ma]===1, k06);
    ktKHIn06(t0.ma, 'word', 1); await w(400); const kw = Object.keys(F).find(k=>/_M06_.*\.docx$/.test(k)); ok('📄 Word 06 từng tổ', !!kw && /<w:body>/.test(await docx(F[kw])));

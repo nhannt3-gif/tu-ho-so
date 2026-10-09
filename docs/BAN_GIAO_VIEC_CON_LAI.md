@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.141) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sau khi tải phiên bản ghép lên Drive → Cài đặt › Lấy từ Drive | Khai báo Hội, Phân công, lựa chọn in, ảnh CCCD mở được | |
+| 2 | Mở app trên máy thứ 2 | Cài đặt về đủ, không mất | |
+| 3 | Kế hoạch › In theo tháng › T10 (đang chọn kỳ khác) | Dòng "Số liệu in T10: T9/2026 …"; kỳ ô Số liệu không đổi | |
+| 4 | 🖨 / 📤 Mẫu 06, 16, 04 của T10 | Tên file `…_SL30-09-26`; số liệu tháng 9 | |
+| 5 | Tháng chưa nạp số liệu tháng trước | ⚠ ghi rõ đang dùng tháng nào | |
+
+**Ghi chú kỹ thuật 3.141:** `dongBoCauHinh`: `keo` thêm điều kiện `D.cauHinh.chFileId!==f.id` (CH_RIENG có `chFileId`), lưu id khi kéo / đẩy. `baoDamDuong`: thay đầu đường dẫn "undefined"/"null"/trống bằng `D.cauHinh.thumuc || MAC_DINH.thumuc`. In theo tháng: `KT_KH_SL = {th, can, ky, K, BC, TR, goc, khong, loi}` — `goc` = KT_K lúc nạp (đổi kỳ → nạp lại); `ktKHInThangHTML` → `ktKHInThangHTML0(L, dem, slChu)`; ktVeThe trong `…G` hoãn bằng setTimeout (không vẽ cả màn khi đang mượn số liệu). **Chưa rõ** vì sao cài đặt trong trình duyệt máy anh bị trống sáng 09/10 — chờ anh nhớ lại (xóa dữ liệu duyệt web / đổi trình duyệt / link khác?). Ghi chú thêm: khóa ảnh CCCD `hsKhoa` đang đồng bộ trong cauhinh.json (xuatDuPhong thì bỏ) — cần anh quyết có giữ cách này không.
+
 ### Danh sách thử trên máy thật (3.140.3) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
