@@ -25,6 +25,7 @@ const fs=require('fs'), path=require('path');
    ok('khối ký Tổ trưởng (thay dòng ký chung)', /TỔ TRƯỞNG/.test(x.ky) && /Ký, ghi rõ họ tên/.test(x.ky));
    const h = toHTMLIn([x], t);
    ok('bản In: "PGD NHCSXH GÒ DẦU" in đậm góc trái; có khối ký Tổ trưởng', /<div class="bc-dau"><div><b>PGD NHCSXH GÒ DẦU<\/b><\/div>/.test(h) && /TỔ TRƯỞNG/.test(h));
+   ok('3.140.3 cuối báo cáo không còn dòng "PGD NHCSXH GÒ DẦU" (Tổ / Sao kê / Tổng hợp)', h.indexOf('class="bc-ky"')<0 && skHTMLIn([{ngay:'', tieuDe:'X', pv:'Y', html:''}]).indexOf('class="bc-ky"')<0 && thHTMLIn([{ngay:'', tieuDe:'X', pv:'Y', html:''}]).indexOf('class="bc-ky"')<0 && (h.match(/GÒ DẦU/g)||[]).length===1);
    ok('Sao kê / Tổng hợp cũng ghi "PGD NHCSXH GÒ DẦU" in đậm', /<b>PGD NHCSXH GÒ DẦU<\/b>/.test(skHTMLIn([{ngay:'', tieuDe:'X', pv:'Y', html:''}])) && /<b>PGD NHCSXH GÒ DẦU<\/b>/.test(thHTMLIn([{ngay:'', tieuDe:'X', pv:'Y', html:''}])));
    /* tổ đông giả (60 hộ) → vẫn tối đa 2 trang */
    const k0 = tv.find(k=>k.qh>0) || tv[0], goc = toTV, gia = n => { toTV = () => Array.from({length:n}, (_, i)=>Object.assign({}, k0, {kh:String(4800000000+i), ten:'Nguyễn Thị Khách Giả '+(i+1), ct:'HN · NS · GQVL', sdt:'0912345678'})); const r = toBaoCao('ct', t); toTV = goc; return r; };

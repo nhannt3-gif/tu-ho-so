@@ -122,7 +122,7 @@ const fs=require('fs'), path=require('path');
    const tk = d.querySelectorAll('.trang')[8]; o.thSau = d.querySelector('.bc-to').textContent.slice(0, 80)+'\n    tham khảo: '+tk.querySelector('h1').textContent.slice(0, 50)+' · '+(tk.querySelector('.bc-dat,.bc-canh')||{}).textContent.slice(0, 60)+'\n    tổ trưởng: '+d.querySelectorAll('.trang')[5].querySelectorAll('tbody tr').length+' dòng';
    dongHop(); pvChon('th','xa',''); CH.ct = '';
    /* in tổ / sao kê: lề chuẩn + "PGD NHCSXH GÒ DẦU" */
-   o.inKhac = (skHTMLIn([{tieuDe:'X', ngay:'', pv:'', html:''}]).indexOf('bc-ky')>0 ? 'sao kê có dòng PGD' : 'THIẾU')+' · '+(bcCSS(false).indexOf('A4 portrait')>0 ? 'danh sách A4 dọc' : 'SAI');
+   o.inKhac = (skHTMLIn([{tieuDe:'X', ngay:'', pv:'', html:''}]).indexOf('class="bc-ky"')<0 ? 'sao kê không còn dòng PGD cuối (3.140.3)' : 'CÒN DÒNG CUỐI')+' · '+(bcCSS(false).indexOf('A4 portrait')>0 ? 'danh sách A4 dọc' : 'SAI');
    /* thẻ tổ: chỉ tiêu LEN_31 */
    toCH().ky = '2026-07'; slDoiTab('to'); for(let i=0;i<80 && !(TO_K && TO_K.ky==='2026-07' && document.getElementById('to-cay'));i++) await w(250);
    const ma = Object.keys(TO_K.to).find(m=>TO_K.to[m].len); toChonTo(ma); await w(300);
