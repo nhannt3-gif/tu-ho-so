@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.140.2) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Máy tính (Chrome / Edge): In theo tháng › 📤 PDF 06 một tổ | Hộp in → "Lưu dưới dạng PDF" → tên điền sẵn dạng `Xa_HND_Ap.._To.._M06_T..-26_SL..` | |
+| 2 | 📤 PDF 16 tổ, 📤 PDF 16 cả tháng, 📤 PDF 04, 📤 PDF Kế hoạch | Tên đúng cấu trúc; 16 / 04 in 2 mặt | |
+| 3 | Điện thoại: 📤 PDF | Nếu tên không tự điền → dán tên đã chép | |
+| 4 | 📄 Word các mẫu trên | File Word cùng tên với PDF | |
+
+**Ghi chú kỹ thuật 3.140.2:** `ktFTen(t, {to, mau, th, n, kh})` ghép `ktFChu(ktXaTen)` + `KT_HOI_VT[dv]` + (Ap/Kp + ấp, tổ trưởng) + mẫu + `T mm-yy` + `n to` + `ktFSL()` (theo `KT_K.ky`). `inPDF(h, ten)`: `inChuan` trước rồi mới thay `<title>` (giữ nhận diện Mẫu 06 cho "Trang x/y"), blob `trChuan = 1`, đổi `document.title` tạm 30 giây (`KT_PDF_TIT`), chép tên vào clipboard. Chưa kiểm chứng trên Chrome thật việc tên lấy từ tiêu đề khung in hay trang chính — đã đặt cả hai.
+
 ### Danh sách thử trên máy thật (3.140.1) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
