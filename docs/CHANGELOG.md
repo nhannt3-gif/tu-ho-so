@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.141 — 09/10/2026 16:00 — Sửa lỗi mất cài đặt khi đồng bộ Drive (3.140.4); In theo tháng tự lấy số liệu
+- **Sự cố anh báo (09/10):** khai báo Hội (tên CT / PCT / ủy viên, HĐUT, KH Hội tỉnh), Phân công BTV, lựa chọn in, khóa ảnh CCCD… mất trên máy và trên Drive (`Tủ hồ sơ/_Hệ thống/cauhinh.json`); có thêm thư mục lạ `undefined/_Hệ thống/cauhinh.json` (11:18).
+- **Nguyên nhân (dựng lại được bằng phép thử t136 trên bản cũ):** cài đặt trong trình duyệt máy này bị trống (chưa rõ vì sao) → app đồng bộ với file ở thư mục "undefined" → nhớ "giờ đã lấy" của file đó → quay về file thật thì tưởng không có gì mới, **không lấy về mà ghi đè** bản trống.
+- **Khôi phục (đã làm cùng anh):** lấy phiên bản 01:36 09/10 trong Quản lý phiên bản Drive, ghép với 4 Kế hoạch + lựa chọn sáng 09/10, tải lên làm phiên bản mới, "Lấy từ Drive". File thật chỉ xử lý trong phiên, không vào repo.
+- **Sửa (3.140.4):** nhớ đúng file đã đồng bộ (`chFileId`, riêng máy) — khác file thì luôn lấy về gộp trước khi ghi; `baoDamDuong` không bao giờ tạo thư mục "undefined" / "null" (tên thư mục trống → "Tủ hồ sơ").
+- **3.141 (anh chốt):** Kế hoạch › In theo tháng kiểm tra — Mẫu 06 (từng tổ), 16 (tổ / cả tháng), 04 (tháng) **tự lấy số liệu cuối tháng liền trước** (Mẫu 31 + BC0437 / BC0438 đã nạp), kỳ anh chọn ở ô Số liệu giữ nguyên; thiếu tháng → tháng gần nhất trước, ghi ⚠; bảng ghi "Số liệu in Tm: …"; tên file SL theo đúng ngày số liệu. Các chỗ kiểm tra khác (Định kỳ, sau giải ngân, Mẫu 04 lập tay…) vẫn theo kỳ anh chọn.
+- **Hàm:** `ktKHKySL`, `ktKHNapSL`, `ktKHVoiSL` (mượn KT_K / TO_K / KT_BC / KT_TRUOC rồi trả), `ktKHSLChu`; `ktKHIn06 / 16 / 04T` bọc → `…G`.
+- **Kiểm tra:** `tests/t136.js` (6 — đồng bộ, trên bản cũ 2/6), `tests/t137.js` (8 — in theo tháng), t134 (đổi phép nhắc kỳ), t117, t98, t109, t110, t119, t132, t135, hoiquy2.
+
 ## 3.140.3 — 09/10/2026 10:00 — Bỏ dòng "PGD NHCSXH GÒ DẦU" cuối báo cáo in
 - **Anh yêu cầu:** các bảng in ra do app lập bỏ chữ PGD Gò Dầu ở cuối trang.
 - **Đã làm:** `bcKy()` trả rỗng → bản In / PDF báo cáo Tổ TK&VV, Sao kê, Tổng hợp chỉ còn "PGD NHCSXH GÒ DẦU" in đậm góc trên trái (3.139). Mẫu chia tách tổ giữ khối ký Tổ trưởng. **Excel giữ dòng cuối** (Excel không có đầu trang ghi đơn vị).
