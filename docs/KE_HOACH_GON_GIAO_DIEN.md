@@ -266,5 +266,53 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
 - **Lỗi cần anh quyết** (vd thiếu file, Drive hết phiên): vẫn hiện hộp hỏi. Tin thường không bao giờ đè lên nút.
 - **Bỏ chip nổi `#sl-san`** và dòng "⚡ Sẵn dùng…" ở tab Nạp & KT → gộp vào ô thông báo (trùng với ý 1).
 
+**Anh bổ sung ý 10 (10/10): cần 1 nơi CHỈ để hiện trạng thái — đèn báo / thanh chạy màu, nhìn là biết tiến độ.** Đề xuất chốt chỗ:
+- **Máy tính:** **chân thanh bên** (trên 🗑 ⚙).
+  - **Đèn màu:**
+    - 🟢 ổn / đã lên Drive
+    - 🟡 đang chạy
+    - 🔴 lỗi / cần anh xử lý
+    - ⚪ chưa nối Drive
+  - **Thanh chạy màu** theo % tiến độ (nạp file, dựng sẵn, đồng bộ).
+  - **1 dòng chữ ngắn** tin mới nhất.
+  - Bấm → 🔔 20 tin gần nhất. Thanh bên thu gọn 60 px thì còn đèn + thanh màu.
+- **Điện thoại:** cùng bộ đèn + thanh màu + chữ nằm trong **thanh đáy**.
+- **Đầu trang chỉ còn:** ô tìm · ô Kỳ · giờ. Không có chữ báo nổi nào nữa.
+- **Tên "NhanNT":** chuyển lên **thanh bên** (dưới chữ Tủ hồ sơ ở đầu thanh bên), bỏ khỏi thanh đáy.
+- **Máy tính bỏ hẳn thanh đáy:**
+  - Đèn Drive + bộ nhớ vào chân thanh bên.
+  - Nút "Xem trước" / "Chọn file" lên hàng công cụ của màn.
+
+## Ý 11 — Luồng Scan: quét → chỉnh → chọn Lưu / Gửi, không tự lưu tạm (anh gửi 10/10)
+**Hiện nay:**
+- Quét / chọn ảnh → hàng chờ, app **tự lưu tạm** (bản chưa khai lên Drive "Hồ sơ scan/Chưa khai/<tháng>"). Không có nút "Lưu" rõ ràng.
+- Muốn chỉ scan để lưu vào máy hoặc copy gửi đi thì vẫn bị lưu vào tủ.
+- Quét tài liệu còn bất cập.
+- **Đã có sẵn trong app:** tự tìm mép giấy / thẻ, làm thẳng phối cảnh, kéo 4 góc, bộ lọc (giấy trắng, xám, đen trắng, magic), xoay, đổi thứ tự, ghép PDF, chia sẻ, chép ảnh.
+
+**Đề xuất — học theo app Scanner Lens (iOS) anh đang dùng:**
+1. **Chụp:**
+   - Điện thoại: mở camera trong app, **khung mép giấy tự nhận hiện trên màn hình** (viền xanh), chụp **liên tục nhiều trang**, góc dưới đếm số trang.
+   - Máy tính: chọn ảnh / webcam / kéo thả.
+   - Chế độ: **Tài liệu · Thẻ CCCD · Ảnh**.
+2. **Chỉnh (1 màn, trang to ở giữa, dải trang nhỏ ở dưới):**
+   - Tự cắt + làm thẳng sẵn; kéo 4 góc nếu lệch.
+   - 4 bộ lọc như Lens: **Tài liệu** (nền trắng, chữ đen rõ) · Gốc · Xám · Đen trắng.
+   - Xoay · xóa trang · kéo đổi thứ tự · ＋ chụp thêm.
+3. **Xong → hộp chọn (cùng luồng ý 4):**
+   - **💾 Lưu vào máy:** PDF hoặc ảnh JPG.
+   - **📤 Gửi / 📋 Copy ảnh:** gửi Zalo, không lưu gì.
+   - **🗄 Lưu vào tủ hồ sơ:** chọn khách (mã KH + tên + ấp, ý 7) → lưu app + Drive.
+   - **Chỉ "Lưu vào tủ" mới tạo hồ sơ.**
+4. **Bỏ tự lưu tạm vào tủ / Drive.** Để không mất việc khi lỡ đóng app giữa chừng:
+   - App giữ **phiên quét dở trong máy** (không lên Drive).
+   - Mở lại hỏi "Tiếp tục phiên quét dở?".
+   - Phiên tự bỏ sau khi đã Lưu / Gửi, hoặc sau 7 ngày.
+5. **Cải thiện quét tài liệu:**
+   - Lọc "Tài liệu" làm lại cho giống Lens: cân sáng, nền trắng đều, chữ đậm, bỏ bóng tay / bóng điện thoại.
+   - Tự xoay đúng chiều chữ.
+   - Ảnh nghiêng / mờ → báo chụp lại ngay.
+   - Thử trên ảnh mẫu thật của anh trước khi gộp. Ảnh thật chỉ thử trong máy em, **không đưa vào repo**.
+
 ## Câu hỏi chờ anh
 - (hết — chờ anh gửi thêm ý hoặc nhắn "đủ" để làm ảnh mẫu cả gói)
