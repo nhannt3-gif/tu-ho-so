@@ -176,7 +176,7 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
 - **Ngoại lệ KTGS:**
   - **In mẫu kiểm tra theo Kế hoạch đã ghi nhận** (Kế hoạch › In theo tháng: Mẫu 06 / 16 / 04) → kỳ số liệu **theo kế hoạch** (cuối tháng liền trước tháng kiểm tra, như 3.141), không theo ô Kỳ chung. Hộp in ghi rõ "số liệu T…/… theo kế hoạch".
   - **Các mẫu kiểm tra khác** (đột xuất, sau giải ngân, định kỳ chọn tự do, báo cáo tổng hợp Mẫu 04 lẻ) → **kỳ chung**.
-- **Phạm vi** (xã › điểm › hội › tổ): thanh phạm vi 1 hàng như đề xuất ở trên. Còn hỏi: dùng chung giữa các tab hay mỗi tab nhớ riêng.
+- **Phạm vi** (xã › điểm › hội › tổ): **anh chốt 10/10 "dùng chung hết"** — 1 phạm vi cho Tổng hợp, Sao kê, Tổ, KTGS, Tra cứu (và Scan khi lọc). Chọn ở tab nào thì các tab khác theo. Thanh phạm vi 1 hàng như đề xuất ở trên.
 
 ## Ý 7 — Scan lưu theo cây địa bàn chuẩn như KTGS / Tổ (anh gửi 10/10)
 **Hiện nay:**
@@ -243,4 +243,4 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
 - App nhớ kiểu xem riêng từng tab. Điện thoại vẫn dùng Danh sách (bảng không vừa chiều ngang).
 
 ## Câu hỏi chờ anh
-- Ý 6b: **phạm vi** (xã / điểm / hội / tổ) có dùng chung giữa Tổng hợp, Sao kê, Tổ, KTGS, Tra cứu như kỳ không (đề xuất: chung)?
+- (hết — chờ anh gửi thêm ý hoặc nhắn "đủ" để làm ảnh mẫu cả gói)
