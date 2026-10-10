@@ -19,24 +19,27 @@
 3. **Tổ dư nợ 0** không có trong DSTO và không có dòng LEN_31 TO_TRUONG → cờ `anDN0`, **ẩn khỏi cây chọn tổ và bảng các tổ**; vẫn tra cứu được, vẫn hiện ở "đã tất nợ / ra khỏi tổ"; Kiểm tra kỳ liệt kê.
 4. **KHĐ tự tính từ Mẫu 31** theo quy tắc hệ thống đã kiểm (DU_LIEU_THANG.md mục 3.90 — món còn dư nợ, ngày giao dịch gần nhất cách ngày số liệu ≥ 3 tháng…), dùng ở Tra cứu / Sao kê / KTGS khi tháng không có file KHĐ; có file thì dùng file và đối chiếu (mục 3 nhóm G).
 5. **Tổng hợp:** báo cáo "theo nguồn vốn" tính từ Mẫu 31 (cột Nguồn vốn) thay B32; báo cáo 01.1 thêm cột "Số lượt KH vay vốn" theo quy tắc đã kiểm (số món giải ngân lần đầu trong năm, trừ đảo khoản); cho vay in 2 cột **gồm / không gồm đảo khoản**.
-6. **Ô ma trận hiện số quan trọng của từng loại + chênh với kỳ trước** (anh yêu cầu 10/10 — nhìn sơ bộ biết kỳ trước / kỳ sau chênh thế nào). Mỗi ô 2 dòng nhỏ: dòng 1 = số chính, dòng 2 = ▲ / ▼ so với **ô cùng loại kỳ liền trước** (màu theo chỉ tiêu: QH, khoanh, KHĐ tăng = đỏ), bấm ô xem đủ chi tiết:
-   | Loại | Dòng 1 | Dòng 2 (so kỳ trước) |
+6. **Ô ma trận hiện số quan trọng của từng loại + mũi tên tăng / giảm so kỳ trước** (anh chốt 10/10). Dòng 1 = số chính; cạnh số chính **1 mũi tên ▲ / ▼** so với **ô cùng loại kỳ liền trước** (không ghi số chênh; rê chuột / bấm ô xem chênh bao nhiêu):
+   - **Dư nợ** (Mẫu 31, Dư nợ chi tiết, LEN_31, BCDHTD 01.1 / 01.2): **tăng = mũi tên xanh, giảm = đỏ**.
+   - **Quá hạn, khoanh, KHĐ 3 tháng** (file QH, khoanh, KHĐ — theo số tiền; KHĐ theo số món): **ngược lại — tăng = đỏ, giảm = xanh**.
+   - **Tổ** (DSTO, LEN_31 TO_TRUONG, BC0437 / BC0438): **không có mũi tên**.
+   | Loại | Số hiện trong ô | Mũi tên theo |
    |---|---|---|
-   | Mẫu 31 | dư nợ (tỷ) · số KH dư nợ | ▲▼ dư nợ · ▲▼ KH |
-   | Dư nợ chi tiết | dư nợ · số món | ▲▼ dư nợ |
-   | DSTO | số tổ · số tổ viên | ▲▼ tổ |
-   | LEN_31 XAPUONG / DONVIUT / CHTRINH | dư nợ · số hộ | ▲▼ dư nợ |
-   | LEN_31 TO_TRUONG | số tổ | ▲▼ tổ |
-   | BCDHTD 01.1 | dư nợ · cho vay tháng | ▲▼ dư nợ |
-   | BCDHTD 01.2 | dư nợ · số chương trình | ▲▼ dư nợ |
-   | KHĐ | số món · dư nợ | ▲▼ món (tăng = đỏ) |
-   | Nợ quá hạn · Nợ khoanh | số món · số tiền | ▲▼ tiền (tăng = đỏ) |
+   | Mẫu 31 | dư nợ (tỷ) · số KH dư nợ | dư nợ |
+   | Dư nợ chi tiết | dư nợ · số món | dư nợ |
+   | DSTO | số tổ · số tổ viên | — |
+   | LEN_31 XAPUONG / DONVIUT / CHTRINH | dư nợ · số hộ | dư nợ |
+   | LEN_31 TO_TRUONG | số tổ | — |
+   | BCDHTD 01.1 | dư nợ · cho vay tháng | dư nợ |
+   | BCDHTD 01.2 | dư nợ · số chương trình | dư nợ |
+   | KHĐ | số món · dư nợ | số món (ngược) |
+   | Nợ quá hạn · Nợ khoanh | số món · số tiền | số tiền (ngược) |
    | Phân kỳ | số món | — |
-   | BC0437 / BC0438 | số tổ / số xã · Hội | ▲▼ tổ |
+   | BC0437 / BC0438 | số tổ / số xã · Hội | — |
 
-   Ô theo ngày so với ô cuối tháng trước. Số tính sẵn lúc nạp (`slTong`, lưu trong meta) — không mở bảng, không chậm.
+   Bằng nhau → không mũi tên. Ô theo ngày so với ô cuối tháng trước. Số tính sẵn lúc nạp (`slTong`, lưu trong meta) — không mở bảng, không chậm.
 7. **📋 Danh sách file cần xuất** (anh yêu cầu ghi nhớ): ở tab Nạp & KT có nút mở bảng như `docs/FILE_XUAT_HANG_THANG.md` — tên file, **mẫu cần chọn khi xuất** (KHĐ = **mẫu 14**, không dùng 08/KTNB; Mẫu 31; Dư nợ chi tiết; DSTO; 01.1; 01.2; 4 LEN_31), dấu ✓ file tháng đang xem đã có.
-8. Phép thử: t141 (ô ma trận 2 dòng + ▲▼ đúng, nhóm file, 9 file cần cho Đạt, ẩn tổ dư nợ 0, KHĐ tự tính ↔ file giả, nguồn vốn từ Mẫu 31). Bộ giả `taogia.py` thêm DSTO + LEN_31 / 01.1 dựng từ Mẫu 31 giả (đã có một phần ở t105).
+8. Phép thử: t141 (ô ma trận: số đúng loại, mũi tên đúng chiều / màu, tổ không mũi tên, nhóm file, 9 file cần cho Đạt, ẩn tổ dư nợ 0, KHĐ tự tính ↔ file giả, nguồn vốn từ Mẫu 31). Bộ giả `taogia.py` thêm DSTO + LEN_31 / 01.1 dựng từ Mẫu 31 giả (đã có một phần ở t105).
 
 ## 3. Bản 3.146 — Kiểm tra kỳ (anh chốt 10/10/2026: **không chốt, chỉ kiểm + ghi nhận**)
 **Anh chốt:** quan trọng nhất là kiểm **đủ file · đúng kỳ · đúng cấu trúc**, và **ghi nhận chênh lệch để biết, không can thiệp**. **Không cần chốt tháng** — bấm Kiểm tra, app đánh giá; **đủ số liệu cho các loại báo cáo thì báo ✓ Đạt (dấu xanh)**.
