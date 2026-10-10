@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.154 — 11/10/2026 — Khai báo Hội = 1 bảng như Excel
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 8):** gom 1 bảng như Excel, không diễn giải; 1 Hội = 1 CT, 1 PCT, 3 BTV; app tự lấy số liệu cũ điền lại, anh không nhập lại.
+- **Chuyển dữ liệu 1 lần** `ktHdt5` (gọi trong `ktHdtChuyen`, cờ `D.cauHinh.ktHdt5`): PCT = người đầu có tên trong pct → pct2 → pct3; BTV 1–3 = 3 người đầu trong uv1 → uv5 (dồn lên); người dư → `kb.du = [{vt, ten}]`. Phân công BTV (`D.cauHinh.ktPC`: `p`, `chon`, `ky`, `phuTrach`) đổi vai theo người, bỏ vai không tên. Chọn người in cũ (`ktIn.*.ng1/ng2/ky`) Phó 2–3 → Phó CT, ủy viên 4–5 → để trống.
+- `KT_PC_VT` = ct, pct, uv1–3; `KT_IN_VT`, `KT_HKB_O` bỏ pct2, pct3, uv4, uv5.
+- **Bảng** `ktHdtBang` (`.hkb-xls`): Xã · Hội (tổ) [ⓘ người dư] · Tên Hội cấp xã · CT · Phó CT · BTV 1–3 · Nhiệm kỳ · Số HĐUT · Ngày HĐ · Số KH Hội tỉnh · Ngày KH · ⋯ (phân công BTV). Ô `input.hkb-o` (id cũ `hkb-<khóa>-<ô>`), `ktHkbPhim` (Enter / Tab / Shift / ↑↓), `ktHkbDan` (dán khối tab / xuống dòng), `ktHkbDoi` (lưu + tô đỏ ngày sai `ktHkbNgaySai`), tên nghi sai tô vàng + gợi ý ở chữ rê chuột, bấm đúp sửa theo gợi ý. Chữ mờ trong ô = chức danh theo Chuẩn hóa (Đoàn: Bí thư / Phó Bí thư). Đầu cuộn dọc, cột Xã đứng yên.
+- **Bỏ:** thẻ từng Hội (`ktHdtThe` không gọi), dòng "In ra", ↺ từng ô, đoạn giải thích (→ rê chuột số Hội – xã).
+- **Phép thử:** `tests/t150.js` (mới, 22). t108, t110, t111, t118, t121, t125 theo bảng mới / 1 PCT 3 BTV.
+
 ## 3.153 — 11/10/2026 — Xóa thống nhất: mọi thứ vào Thùng rác app
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 3):** không cần thanh Hoàn tác — cần thì vào Thùng rác khôi phục; bỏ "↩ hoàn tác lần thay" ở ô Số liệu; ô Số liệu bị xóa và bản cũ khi thay file đều vào Thùng rác ngăn Số liệu.
 - **Số liệu** (`js/22-so-lieu.js`): `slRacVao(k, lyDo)` chép bản trong máy (bảng + file gốc) sang `slr_<id>_a / _g` và thêm mục `khoCu:'soLieu'` (`sl:{loai, ky, e}`) vào `D.rac`. `slXoa` (không hỏi), `slXoaVaoRac` (xóa tháng / bản ngày cũ: hỏi 1 lần), `slGhi` khi thay file → bản cũ vào thùng (bỏ `e.truoc`, `slGiuTruoc`, `slHoanTac`). `slKhoiPhucRac`: ô đang có file khác → vào thùng (đổi chỗ); chép lại bản trong máy; nối Drive thì lấy file khỏi Thùng rác Drive (giữ id), không nối thì đẩy lại lên Drive. `slXoaHanRac` bỏ bản trong máy. `slChuyenTruoc`: meta cũ có `e.truoc` (3.145) → mục thùng rác trỏ khóa `_truoc`, 1 lần. "Làm mới toàn bộ" (gõ XOA) giữ như cũ, không qua thùng.

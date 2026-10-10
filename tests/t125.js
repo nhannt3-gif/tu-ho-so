@@ -20,39 +20,36 @@ const fs=require('fs'), path=require('path');
    const NV = s => s.replace(/\{xa\}|\{ten\}|\{cxa\}|\{ap\}|\{capAp\}|\{ngan\}|\{cap\}|\{CT\}|\{CTc\}|\{PCT\}/g, '§').split('§').sort((a, b)=>b.length-a.length)[0];   /* đoạn chữ cố định dài nhất của 1 nhiệm vụ */
    const noi = () => ktPCNoiDung(k).khoi.map(y=>y.s).join('\n'), dem = (s, x) => s.split(x).length-1;
    /* 1. đủ người: như cũ */
-   D.cauHinh.ktHoiKB[k] = {ct:'Nguyễn Văn Chủ', pct:'Trần Thị Phó', pct2:'Lê Văn Phó Hai', uv1:'Phạm Thị Ủy', uv2:'Võ Văn Viên'}; delete (D.cauHinh.ktPC||{})[k];
+   D.cauHinh.ktHoiKB[k] = {ct:'Nguyễn Văn Chủ', pct:'Trần Thị Phó', uv1:'Phạm Thị Ủy', uv2:'Võ Văn Viên', uv3:'Lê Văn Ba'}; delete (D.cauHinh.ktPC||{})[k];
    ktPCHop(k); await w(150);
    const hop = document.getElementById('hop-in');
    ok('hộp phân công: cột tích "Phân công", mặc định tích hết 5 người', hop.querySelectorAll('.kt-pc-bang tbody tr').length===5 && [...hop.querySelectorAll('.kt-pc-bang tbody tr td:first-child input')].every(x=>x.checked));
    ok('ô Người ký: mặc định để trống — ghi chung', hop.querySelector('.kt-pc-vt select') && hop.querySelector('.kt-pc-vt select').value==='' && /ghi chung/.test(hop.textContent));
    ok('ô Kiểm tra đủ nhiệm vụ có trong hộp', !!document.getElementById('kt-pc-kiem') && /Kiểm tra đủ nhiệm vụ/.test(document.getElementById('kt-pc-kiem').textContent));
    let s0 = noi();
-   ok('đủ người: CT có 10 nhiệm vụ CT, không kiêm việc Phó / Ủy viên', KT_PC_CT.every(x=>s0.indexOf(NV(x))>=0) && dem(s0, NV(KT_PC_PHO[3]))===2 && dem(s0, NV(KT_PC_UV[0]))===2);
+   ok('đủ người: CT có 10 nhiệm vụ CT, không kiêm việc Phó / Ủy viên', KT_PC_CT.every(x=>s0.indexOf(NV(x))>=0) && dem(s0, NV(KT_PC_PHO[3]))===1 && dem(s0, NV(KT_PC_UV[0]))===3);
    ok('câu tập huấn vẫn ghi đủ chức danh (Chủ tịch, Phó Chủ tịch và Ủy viên)', s0.indexOf(c.ky+', '+c.pho+' và Ủy viên Ban Thường vụ')>=0);
-   /* 2. bỏ tích Chủ tịch → khuyết: Phó 1 đôn lên mặc định; chọn Phó 2 */
+   /* 2. bỏ tích Chủ tịch → khuyết: Phó (3.154: 1 Hội 1 Phó) đôn lên phụ trách */
    ktPCChon(k, 'ct', false); await w(100);
    let g = ktPCNoiDung(k), s1 = noi();
    ok('bỏ tích Chủ tịch → Phó đầu tiên đôn lên phụ trách, đứng đầu, nhận đủ 10 nhiệm vụ CT', /^1\. Đồng chí Trần Thị Phó, /.test(g.khoi.find(y=>/^1\. /.test(y.s)).s) && s1.indexOf('Đồng chí Trần Thị Phó, '+c.pho+' phụ trách '+ten+':')>=0 && KT_PC_CT.every(x=>s1.indexOf(NV(x))>=0) && s1.indexOf('Nguyễn Văn Chủ')<0);
-   ok('Phó / Ủy viên còn lại: "tham mưu / phân công của Phó Chủ tịch phụ trách"', s1.indexOf('Tham mưu cho '+c.pho+' phụ trách '+ten)>=0 && s1.indexOf('theo sự phân công của '+c.pho+' phụ trách '+ten)>=0 && s1.indexOf('Tham mưu cho '+c.ky+' ')<0);
-   ok('còn Phó 2 → Phó 2 giữ đủ 6 nhiệm vụ Phó, người phụ trách không lặp', dem(s1, NV(KT_PC_PHO[3]))===1 && dem(s1, NV(KT_PC_PHO[5]))===1);
+   ok('Ủy viên còn lại: "phân công của Phó Chủ tịch phụ trách" (3.154: 1 Phó — không còn Phó khác tham mưu)', s1.indexOf('theo sự phân công của '+c.pho+' phụ trách '+ten)>=0 && s1.indexOf('Tham mưu cho '+c.ky+' ')<0);
    ok('tiêu đề bỏ "Chủ tịch" khi khuyết', /^Phân công nhiệm vụ của /.test(g.tieu) && g.tieu.indexOf('của '+c.pho+', Ủy viên Ban Thường vụ '+ten)>=0);
    ok('ấp chia lại: người phụ trách ít ấp như Chủ tịch; hết ấp, không trùng', ktPCKiem(k).find(r=>/có người kiểm tra/.test(r.chu)).ok);
-   ktPCDoiPT(k, 'pct2'); await w(100); s1 = noi();
-   ok('chọn Phó 2 đôn lên → Phó 2 đứng đầu, Phó 1 làm nhiệm vụ Phó', /^1\. Đồng chí Lê Văn Phó Hai, /m.test(s1) && s1.indexOf('Đồng chí Trần Thị Phó, '+c.pho+' '+ten+', thực hiện')>=0);
    ok('ô kiểm tra: ✓ Khuyết Chủ tịch — Phó đôn lên', ktPCKiem(k)[0].ok && /đôn lên phụ trách/.test(ktPCKiem(k)[0].chu));
-   /* 3. khuyết cả CT, chỉ còn 1 Phó → người phụ trách kiêm việc riêng của Phó */
-   ktPCChon(k, 'pct', false); await w(100); s1 = noi();
+   /* 3. khuyết CT, 1 Phó → người phụ trách kiêm việc riêng của Phó */
+   s1 = noi();
    ok('khuyết CT + chỉ 1 Phó → Phó phụ trách kiêm 3 nhiệm vụ riêng của Phó, không lặp 3 việc trùng', dem(s1, NV(KT_PC_PHO[3]))===1 && dem(s1, NV(KT_PC_PHO[4]))===1 && dem(s1, NV(KT_PC_PHO[5]))===1 && s1.indexOf(NV(KT_PC_PHO[0]))<0);
    ok('việc kiêm đặt trước "nhiệm vụ phát sinh khác"', s1.indexOf(NV(KT_PC_PHO[5])) < s1.indexOf(NV(KT_PC_CT[9])));
    /* 4. khuyết CT, không tích Phó nào → ⚠ */
-   ktPCChon(k, 'pct2', false); await w(100);
+   ktPCChon(k, 'pct', false); await w(100);
    ok('khuyết CT, không tích Phó nào → ô kiểm tra ⚠ nhiệm vụ CT chưa có người nhận', !ktPCKiem(k)[0].ok && /chưa có người nhận/.test(ktPCKiem(k)[0].chu) && /chưa tích/.test(document.getElementById('hop-in').textContent));
    ktPCXuat(k, 'word'); await w(100);
    ok('còn ⚠ → bấm Word hỏi trước, chưa xuất', !Object.keys(F).length && /Vẫn xuất Word/.test(document.getElementById('hop-in').textContent));
    [...document.querySelectorAll('#hop-in button')].find(x=>/Vẫn xuất Word/.test(x.textContent)).click(); await w(800);
    ok('bấm "Vẫn xuất Word" → xuất, Word hợp lệ', Object.keys(F).length===1 && hopLe(await docx(F[Object.keys(F)[0]])));
    /* 5. đủ CT, không tích Phó → CT kiêm; không tích Ủy viên → việc Ủy viên về người đứng đầu */
-   ktPCChon(k, 'ct', true); await w(50); ktPCChon(k, 'uv1', false); await w(50); ktPCChon(k, 'uv2', false); await w(100); s1 = noi();
+   ktPCChon(k, 'ct', true); await w(50); ktPCChon(k, 'uv1', false); await w(50); ktPCChon(k, 'uv2', false); await w(50); ktPCChon(k, 'uv3', false); await w(100); s1 = noi();
    ok('khuyết Phó → Chủ tịch kiêm 3 nhiệm vụ riêng của Phó', /^1\. Đồng chí Nguyễn Văn Chủ, /.test(s1.split('\n').find(x=>/^1\. /.test(x))) && dem(s1, NV(KT_PC_PHO[4]))===1 && dem(s1, '. Đồng chí ')===1);
    ok('không Ủy viên, không Phó → Chủ tịch nhận nhiệm vụ Ủy viên; ô kiểm tra ghi rõ', dem(s1, NV(KT_PC_UV[0]))===1 && ktPCKiem(k).some(r=>r.ok && /nhận nhiệm vụ của Ủy viên/.test(r.chu)));
    ktPCChon(k, 'pct', true); await w(100); s1 = noi();
@@ -61,7 +58,7 @@ const fs=require('fs'), path=require('path');
    ktPCDoiKy(k, 'pct'); g = ktPCNoiDung(k);
    ok('chọn người ký = Phó → TM. BAN THƯỜNG VỤ / PHÓ CHỦ TỊCH + tên', g.ky.cv===c.pho.toUpperCase() && g.ky.ten==='Trần Thị Phó');
    ktPCDoiKy(k, ''); g = ktPCNoiDung(k); ok('về "để trống" → CHỦ TỊCH, không tên', g.ky.cv===c.ky.toUpperCase() && g.ky.ten==='');
-   ktPCDoiKy(k, 'pct2'); g = ktPCNoiDung(k); ok('người ký không còn được phân công → về ghi chung', g.ky.ten==='' && g.ky.cv===c.ky.toUpperCase());
+   ktPCDoiKy(k, 'uv1'); g = ktPCNoiDung(k); ok('người ký không còn được phân công → về ghi chung', g.ky.ten==='' && g.ky.cv===c.ky.toUpperCase());
    ktPCDoiKy(k, ''); dongHop();
    /* 7. chỉnh ấp tay rồi đổi người → giữ ấp, ô kiểm tra báo thiếu */
    ktPCChiaDeu(k, 1); const ap = ktPCAp(k), a0 = (ktPCLay(k).p.pct.ap||[])[0];
@@ -77,10 +74,10 @@ const fs=require('fs'), path=require('path');
    D.cauHinh.ktHoiKB[k].uv1 = 'trần  thị phó';
    ok('rà tên: trùng tên 2 vai trò + ô kiểm tra phân công báo tên', ktTenLoiO(ktHoiKB(k), 'uv1').loi.some(x=>/trùng tên/.test(x)) && ktPCKiem(k).some(r=>!r.ok && /Tên "trần  thị phó"/.test(r.chu)));
    C.che = 'hdt'; ktCH().hdtTab = 'hoi'; C.xa = t.xa; ktVeThe(); await w(300);
-   const id = k.replace(/[^0-9a-z]/gi, '_'), oL = document.getElementById('hkbt-'+id+'-uv1');
-   ok('thẻ Khai báo: ⚠ dưới ô tên + nút "Sửa theo gợi ý"', oL && /⚠/.test(oL.textContent) && !!oL.querySelector('button'));
-   oL.querySelector('button').click(); await w(100);
-   ok('bấm "Sửa theo gợi ý" → tên sửa, ô nhập cập nhật', ktHoiKB(k).uv1==='Trần Thị Phó' && document.getElementById('hkb-'+id+'-uv1').value==='Trần Thị Phó');
+   const id = k.replace(/[^0-9a-z]/gi, '_'), oL = document.getElementById('hkb-'+id+'-uv1');
+   ok('3.154 bảng Khai báo: ô tên sai tô vàng, rê chuột thấy ⚠ + gợi ý', oL && oL.classList.contains('canh') && /⚠/.test(oL.title) && /Trần Thị Phó/.test(oL.title));
+   oL.dispatchEvent(new MouseEvent('dblclick', {bubbles:true})); await w(100);
+   ok('bấm đúp → sửa theo gợi ý, ô nhập cập nhật', ktHoiKB(k).uv1==='Trần Thị Phó' && document.getElementById('hkb-'+id+'-uv1').value==='Trần Thị Phó');
    ktHoiKBSua(k, 'uv2', 'Võ Văn Viên'.normalize('NFD')); ok('lưu tên gõ tổ hợp → tự chuẩn dựng sẵn (NFC)', ktHoiKB(k).uv2==='Võ Văn Viên' && ktHoiKB(k).uv2.length==='Võ Văn Viên'.normalize('NFC').length);
    /* 9. Kế hoạch: chip tháng */
    const dmK = {}; Object.values(KT_K.to).filter(x=>!toLaTT(x) && x.dv && String(x.dv)!=='99').forEach(x=>{ const kk = x.xa+'|'+x.dv; dmK[kk] = (dmK[kk]||0)+1; });

@@ -2052,7 +2052,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.153', ds:[
+var CO_GI_MOI = {ban:'3.154', ds:[
+  ["🏛 Khai báo Hội đoàn thể = 1 bảng như Excel: mỗi dòng 1 Hội cấp xã (app tự lấy từ số liệu, kèm số tổ); cột Tên Hội · Chủ tịch · Phó CT · BTV 1–3 · Nhiệm kỳ · HĐ ủy thác · KH Hội tỉnh", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
+  ["⌨ Gõ thẳng như Excel: Enter / Tab sang ô kế, ↑↓ đổi dòng; dán cả khối từ Excel / Zalo; ô trống tô nhạt, ngày sai dạng tô đỏ; Đoàn TN tự ghi Bí thư / Phó Bí thư. Bỏ dòng \"In ra\", nút ↺ từng ô", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
+  ["👥 Thống nhất 1 Hội = 1 Chủ tịch, 1 Phó CT, 3 BTV — app tự chuyển số liệu đã khai (anh không nhập lại); người dư (Phó 2–3, ủy viên 4–5) vẫn giữ, rê ⓘ để xem", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
   ["🗑 Xóa thống nhất: mọi thứ xóa đều vào Thùng rác app, khôi phục về đúng chỗ — xóa 1 mục không hỏi, xóa nhiều hỏi 1 lần (ghi rõ số mục). Không còn nút ↩ Hoàn tác", "dongHop();moDonKho('rac')"],
   ["📈 Số liệu: xóa ô / cả bộ tháng / bản theo ngày cũ, và bản cũ khi thay file → Thùng rác ngăn Số liệu (bỏ ↩ hoàn tác lần thay). Khôi phục: ô về file cũ (file đang có thì đổi chỗ vào Thùng rác)", "dongHop();moDonKho('rac')"],
   ["🗒 Việc lịch, mẩu ghi chú, lần làm việc, kế hoạch KTGS, bộ biểu mẫu cũng vào Thùng rác (ngăn Mục nhỏ). Thùng rác giữ 30 ngày rồi tự xóa hẳn (bật sẵn)", "dongHop();moDonKho('rac')"],

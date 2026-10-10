@@ -80,6 +80,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t147.js` | 3.151 Thanh lọc chung tab file (VB, BM, Scan): 1 hàng ≤ 44 px, ⚲ Lọc + chip ✕, ⇅, ☰, ⋯ từng tab, ▦ Bảng (cột, ≤ 32 px / dòng, sắp theo tiêu đề, ô tích, ↑↓), Gọn cũ → Bảng, iPhone vẫn danh sách. |
 | `node tests/t148.js` | 3.152 Xuất chung: tên file Loại_Phạm vi_Kỳ, hàng nút Tổng hợp / Sao kê đúng thứ tự, PDF tên điền sẵn, 📤 Gửi (PDF · Excel · Copy ảnh · Copy chữ), Copy chữ ra tab, Copy ảnh PNG, KTGS nhận cách pdf, khung xem file In · Sửa · Gửi, copy số hiệu + trích yếu. |
 | `node tests/t149.js` | 3.153 Xóa thống nhất: xóa 1 file không hỏi / nhiều file hỏi 1 lần, không Hoàn tác, việc lịch · lần làm việc · bộ biểu mẫu vào ngăn Mục nhỏ và khôi phục, ngăn Số liệu, tự xóa 30 ngày bật sẵn. |
+| `node tests/t150.js` | 3.154 Khai báo Hội 1 bảng: chuyển dữ liệu cũ đủ 9 vai (PCT đầu tiên, 3 BTV dồn lên, người dư ở du), phân công + chọn người in đổi vai theo, cột bảng, ⓘ, Enter / Tab / ↓, dán khối Excel, ngày sai tô đỏ, Đoàn Bí thư, Mẫu 06 dùng Phó CT mới. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.154) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS Hội → 🏛 Khai báo Hội đoàn thể | 1 bảng, mỗi Hội – xã 1 dòng, số đã khai giữ nguyên | |
+| 2 | Hội trước có Phó 2 / ủy viên 4–5 | Phó CT = người đầu, BTV dồn lên; ⓘ rê chuột thấy người dư | |
+| 3 | Gõ ô → Enter / Tab / ↓ | Sang ô kế / dòng dưới, đã lưu | |
+| 4 | Chép 1 khối từ Excel → dán vào ô | Điền đúng ô sang phải, xuống dưới | |
+| 5 | Gõ ngày sai (vd 2026-01-10) | Ô tô đỏ | |
+| 6 | ⋯ cuối dòng | Mở Phân công BTV (5 người tối đa) | |
+
+**Ghi chú kỹ thuật 3.154:** `ktHdtThe`, `ktHkbIn`, `ktHkbXem` còn trong mã (không gọi ở bảng) — dọn khi viết lại Cài đặt / KTGS. Phân công BTV + Chuẩn hóa giữ như cũ (anh chốt: làm lại khi viết lại Cài đặt).
+
 ### Danh sách thử trên máy thật (3.153) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
