@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.146) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📥 Nạp & KT, tháng đủ 9 file → 🔍 Kiểm tra kỳ | 4 bước ✓, hộp ✅ Đạt xanh, tiêu đề cột tháng ✓ xanh, dòng ① "✓ Đạt" | |
+| 2 | Tháng có chênh lệch (vd thu nợ LEN thấp hơn) | Vẫn ✅ Đạt; mục lệch nằm dưới "Ghi nhận chênh lệch — chỉ để biết" | |
+| 3 | Tháng thiếu file | "Chưa Đạt — Thiếu file: …"; chip báo cáo nào dùng được | |
+| 4 | Tháng trước đây đã chốt 🔒 | Không còn 🔒, nạp / thay / xóa được; dữ liệu còn nguyên | |
+| 5 | Tháng có BC0437 / BC0438 → Kiểm tra kỳ | Kiểm luôn phần KTGS (khối File KTGS có kết quả) | |
+
+**Ghi chú kỹ thuật 3.146:** Đạt tính trực tiếp từ meta (`slDanhGia`), không lưu; `SLM.kt[ky]` vẫn là kết quả các phép so (ghi nhận). Chưa làm (để sau, anh chưa cần): ô "Ghi nhận của anh" cho từng mục, KHĐ "số tháng liên tiếp khớp".
+
 ### Danh sách thử trên máy thật (3.145) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

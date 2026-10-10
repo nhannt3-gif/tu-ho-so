@@ -1,4 +1,4 @@
-# KẾ HOẠCH — Bộ file chuẩn mới (3.145 ✅ đã làm 10/10/2026) + Kiểm tra kỳ thống nhất (3.146 — chưa làm)
+# KẾ HOẠCH — Bộ file chuẩn mới (3.145 ✅ đã làm 10/10/2026) + Kiểm tra kỳ thống nhất (3.146 ✅ đã làm 10/10/2026)
 
 > Lập 10/10/2026 theo Q14–Q17 (`KIEN_TRUC_3_LOP.md`) và kết quả rà file thật 30/09 (`DU_LIEU_THANG.md`). **Chưa code** — chờ anh duyệt + "code".
 > Không ghi dữ liệu thật. Số liệu dẫn chứng chỉ là số đếm.
