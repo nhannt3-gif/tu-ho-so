@@ -38,6 +38,7 @@
    | BC0437 / BC0438 | số tổ / số xã · Hội | — |
 
    Bằng nhau → không mũi tên. Ô theo ngày so với ô cuối tháng trước. Số tính sẵn lúc nạp (`slTong`, lưu trong meta) — không mở bảng, không chậm.
+   **Bấm ô = nạp file** (anh chốt 10/10: chức năng chính của ma trận là nạp): ô trống → chọn file nạp ngay vào đúng loại + kỳ (như "nạp từng file", kiểm lần cuối). Ô **đã có file** → hỏi trước: *"Ô [loại · kỳ] đã có file [tên] (nạp dd/mm, N dòng). **Thay bằng file mới?**"* [🔁 Thay file] [Thôi]; bấm Thay mới chọn file, bản cũ vào thùng rác Drive. Xem chi tiết, tải file gốc, xóa ô: dòng nút nhỏ phía dưới hộp hỏi (giữ chức năng cũ). **Rê chuột** lên ô: số chính + chênh so kỳ trước + tên file, ngày nạp.
 7. **📋 Danh sách file cần xuất** (anh yêu cầu ghi nhớ): ở tab Nạp & KT có nút mở bảng như `docs/FILE_XUAT_HANG_THANG.md` — tên file, **mẫu cần chọn khi xuất** (KHĐ = **mẫu 14**, không dùng 08/KTNB; Mẫu 31; Dư nợ chi tiết; DSTO; 01.1; 01.2; 4 LEN_31), dấu ✓ file tháng đang xem đã có.
 8. Phép thử: t141 (ô ma trận: số đúng loại, mũi tên đúng chiều / màu, tổ không mũi tên, nhóm file, 9 file cần cho Đạt, ẩn tổ dư nợ 0, KHĐ tự tính ↔ file giả, nguồn vốn từ Mẫu 31). Bộ giả `taogia.py` thêm DSTO + LEN_31 / 01.1 dựng từ Mẫu 31 giả (đã có một phần ở t105).
 
