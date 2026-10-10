@@ -844,9 +844,13 @@ function slGiuChu(){   /* 3.126 (anh yêu cầu): kỳ đang giữ sẵn trong p
   var ds = Object.keys(TO_KS).sort().reverse(), x = SL_SAN_NAP;
   return (ds.length ? '⚡ Sẵn dùng: '+ds.map(slKyNgan).join(', ') : '⚡ Chưa dựng sẵn kỳ nào')+(x.chay ? ' · đang dựng '+(x.dang ? slKyNgan(x.dang)+' ' : '')+'('+x.xong+'/'+x.tong+')' : ''); }
 function slNapLai(){ TO_KS = {}; SL_BO = {}; TH_KS = {}; TH_K = null; TO_MAP = {}; TO_BD = null; TO_BDT = null; TO_PVC = null; SL_SAN_NAP.chay = false; slNapSan(); bao('Đã làm sạch phần dựng sẵn — đang dựng lại từ file đã lưu (chạy ngầm, xem tiến độ ở góc dưới).', 4); }
-function slNapSanChip(){ var g = document.getElementById('sl-giu-ds'); if(g) g.textContent = slGiuChu(); var e = document.getElementById('sl-san'); if(!e){ e = document.createElement('div'); e.id = 'sl-san'; e.className = 'sl-san'; document.body.appendChild(e); }
-  var x = SL_SAN_NAP; e.textContent = '⚡ '+(x.chay ? 'Đang dựng sẵn số liệu '+(x.dang ? slKyNgan(x.dang)+' ' : '')+'('+x.xong+'/'+x.tong+')'+(x.ds ? ' · '+x.ds.map(function(k){ return slKyNgan(k)+(TO_KS[k] ? ' ✓' : ''); }).join(' · ') : '') : 'Số liệu sẵn sàng ('+x.tong+' kỳ)');
-  e.style.display = x.tong ? '' : 'none'; if(!x.chay) setTimeout(function(){ if(!SL_SAN_NAP.chay) e.style.display = 'none'; }, 4000); }
+function slNapSanChip(){   /* 3.148: dựng sẵn số liệu báo ở ô trạng thái (bỏ chip nổi góc phải che nút) */
+  var g = document.getElementById('sl-giu-ds'); if(g) g.textContent = slGiuChu();
+  var x = SL_SAN_NAP; if(typeof TTB==='undefined') return;
+  if(x.chay){ TTB.chay = '⚡ Đang dựng sẵn số liệu '+(x.dang ? slKyNgan(x.dang)+' ' : '')+'('+x.xong+'/'+x.tong+')'; TTB.pt = x.tong ? Math.round(x.xong/x.tong*100) : 101; }
+  else if(TTB.chay && /dựng sẵn/.test(TTB.chay)){ TTB.chay = ''; TTB.pt = -1; if(x.tong) ttTin('⚡ Số liệu sẵn sàng ('+x.tong+' kỳ)'); }
+  if(typeof ttVe==='function') ttVe();
+}
 /* 3.136 (anh chốt): kỳ nào lấy kỳ đó — cuối tháng lấy đúng bảng cuối tháng; kỳ NGÀY: bảng đúng ngày → bản theo ngày gần nhất trước đó trong tháng → cuối tháng trước */
 function slKyDung(loai, ky){
   ky = String(ky||''); if(SLM.bang[slKhoa(loai, ky)]) return ky; if(ky.length<=7) return '';

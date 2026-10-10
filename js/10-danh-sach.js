@@ -7,7 +7,9 @@ var demChay = 0;
 var DL_HEN = null;
 /* thanh báo "đang làm gì" — chỉ hiện khi việc chạy quá 0,4 giây để không nhấp nháy */
 function dangLam(chu, coDung){
+  if(typeof TTB!=='undefined' && chu){ TTB.chay = chu; if(typeof ttVe==='function') ttVe(); }
   var e = document.getElementById('danglam'); if(!e) return;
+  e.classList.toggle('tt-an', !coDung && !!document.getElementById('tt-khoi'));   /* 3.148: việc không có nút Dừng → chỉ báo ở ô trạng thái */
   var c = document.getElementById('dl-chu'); if(c) c.textContent = chu || 'Đang xử lý…';
   var d = document.getElementById('dl-dung');
   if(d){ d.style.display = coDung ? '' : 'none'; d.disabled = false; d.textContent = 'Dừng'; }
@@ -15,13 +17,16 @@ function dangLam(chu, coDung){
   DL_HEN = setTimeout(function(){ e.classList.add('hien'); }, 400);
 }
 function dangLamChu(chu){
+  if(typeof TTB!=='undefined'){ TTB.chay = chu; if(typeof ttVe==='function') ttVe(); }
   var c = document.getElementById('dl-chu'); if(c) c.textContent = chu;
 }
 function hetLam(){
   clearTimeout(DL_HEN);
+  if(typeof TTB!=='undefined' && !demChay){ TTB.chay = ''; if(typeof ttVe==='function') ttVe(); }
   var e = document.getElementById('danglam'); if(e) e.classList.remove('hien');
 }
 function batChay(lap, chu, coDung){
+  if(typeof TTB!=='undefined'){ TTB.chay = chu || TTB.chay || 'Đang xử lý…'; TTB.pt = lap ? 101 : 8; if(typeof ttVe==='function') ttVe(); }   /* 3.148: ô trạng thái */
   if(chu) dangLam(chu, coDung);
   demChay++;
   var e = document.getElementById('ttchay');
@@ -30,12 +35,14 @@ function batChay(lap, chu, coDung){
   if(!lap) e.querySelector('i').style.width = '8%';
 }
 function tienChay(pt){
+  if(typeof TTB!=='undefined' && TTB.pt!==101){ TTB.pt = pt; if(typeof ttVe==='function') ttVe(); }
   var e = document.getElementById('ttchay');
   if(e && !e.classList.contains('lap')) e.querySelector('i').style.width = pt+'%';
 }
 function tatChay(){
   demChay = Math.max(0, demChay-1);
   if(demChay) return;
+  if(typeof TTB!=='undefined'){ TTB.chay = ''; TTB.pt = -1; if(typeof ttVe==='function') ttVe(); }
   hetLam();
   var e = document.getElementById('ttchay');
   if(!e) return;
@@ -798,7 +805,6 @@ function dongHTML(m, q){
       (coCauNoi() && !laDT() ? '<button onclick="event.stopPropagation();chepMot(\'' +m.id+ '\')" title="Chép file — Ctrl+V vào Zalo / email / thư mục">📋</button>' : '')+   /* 3.106 */
       '<button onclick="event.stopPropagation();'+
         (laBM?'suaBieuMau':'suaCho')+'(\'' +m.id+ '\')" title="Sửa">✎</button>'+
-      '<button onclick="event.stopPropagation();xoaVaoRac(\'' +m.id+ '\')" title="Xóa vào thùng rác">🗑</button>'+
       '<button onclick="moMenu(event,\'' +m.id+ '\')" title="Thêm lệnh">⋯</button>'+
     '</div></div></div>';
 }
@@ -889,6 +895,7 @@ function apAnPV(){
   }
   var b = document.getElementById('btn-mo-preview');
   if(b) b.style.display = anPV ? '' : 'none';
+  if(typeof dhDay==='function') dhDay();
 }
 /* tự kiểm tra và sửa khung xem — dùng khi anh thấy "mất" khung xem bên phải */
 function kiemTraKhungXem(){

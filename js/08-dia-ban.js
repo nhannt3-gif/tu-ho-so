@@ -155,7 +155,7 @@ function dongScanHTML(k){
         '<button onclick="event.stopPropagation();moHoSoTuScan(\''+k.id+'\')" title="Hồ sơ hộ 1 trang: CCCD, hồ sơ quét, món vay, lần làm việc">🏠</button>'+
         '<button onclick="event.stopPropagation();inGhep([\''+k.id+'\'])" title="In">🖨</button>'+
         '<button onclick="event.stopPropagation();themKhach(\''+k.id+'\')" title="Sửa / khai">✎</button>'+
-        '<button class="xoa-dt" onclick="event.stopPropagation();xoaKhach(\''+k.id+'\')" title="Xóa (vào thùng rác)">🗑</button></div></div>'+
+        '</div></div>'+   /* 3.148 (anh chốt): bỏ 🗑 cuối dòng — xóa bằng nút 🗑 Xóa file chung đầu tab */
     '<div class="h2 sc-tt">'+(t.dat ? '<span class="tt-dat">✓ Đạt</span>' : '<span class="tt-thieu">⚠ '+coChuHTML(t.thieu.join(' · '))+'</span>')+
       '<span class="sc-sep">·</span>'+noi+nhan+'</div></div>';
 }

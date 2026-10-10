@@ -2827,3 +2827,49 @@
 :root[data-theme="dark"] #thanh-ben a.bat{background:#2b4a68;color:#fff}
 @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #thanh-ben{background:#12293E} :root:not([data-theme="light"]) #thanh-ben a.bat{background:#2b4a68;color:#fff} }
 @media print{ #thanh-ben{display:none !important} body.co-tb{padding-left:0 !important} }
+/* ===== 3.148: nút vừa chữ · thứ tự nút hộp thoại · nút Thêm xanh · 1 nơi trạng thái ===== */
+.nho{flex:0 0 auto;padding:9px 14px}   /* sửa gốc: trước mặc định giãn đầy hàng (flex:1) → nút dài như lỗi */
+@media (min-width:700px){ .nho{min-height:32px;padding:5px 14px} }
+@media (max-width:699px){ .hop-in .hang-nut .nho{flex:1 1 auto} }   /* điện thoại: nút trong hộp thoại dàn đều cho dễ bấm */
+/* hộp thoại: Đóng / Thôi luôn bên trái (kiểu trơn), nút chính luôn ngoài cùng bên phải */
+.hop-in .hang-nut{justify-content:flex-end}
+.hop-in .hang-nut > button.chinh{order:9}
+.hop-in .hang-nut > button[onclick="dongHop()"]{order:-1;margin-right:auto;background:var(--the);color:var(--chu);border-color:var(--vien);font-weight:400}
+/* nút Thêm (nút chính của tab) có màu xanh */
+.nut-them,.dau-tab .nut-them{background:var(--xanh-nhat);border-color:var(--xanh);color:var(--xanh-dam)}
+.nut-them:hover,.dau-tab .nut-them:hover{background:var(--xanh);color:#fff}
+/* ô trạng thái */
+#tt-khoi{display:flex;flex-direction:column;gap:3px;min-width:0}
+#tt-khoi .tt-dong{display:flex;align-items:center;gap:7px;min-width:0}
+#tt-khoi .tt-den{width:10px;height:10px;border-radius:50%;flex:0 0 10px;cursor:pointer;background:#9aa4ae;box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+#tt-khoi .tt-den.xanh{background:#2fbf71}#tt-khoi .tt-den.vang{background:#f5a524;animation:tt-nhay 1s infinite alternate}#tt-khoi .tt-den.do{background:#e5484d}
+@keyframes tt-nhay{from{opacity:1}to{opacity:.45}}
+#tt-khoi .tt-chu{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;font-size:calc(12px*var(--co))}
+#tt-khoi .tt-thanh{height:3px;border-radius:2px;background:transparent;overflow:hidden}
+#tt-khoi .tt-thanh.chay{background:rgba(127,127,127,.25)}
+#tt-khoi .tt-thanh i{display:block;height:100%;width:0;background:#f5a524;transition:width .3s}
+#tt-khoi .tt-thanh.chay i{width:8%}
+#tt-khoi .tt-thanh.lap i{width:35% !important;animation:tt-lap 1.2s linear infinite}
+@keyframes tt-lap{from{transform:translateX(-100%)}to{transform:translateX(300%)}}
+.tt-ds{max-height:60vh;overflow:auto;font-size:calc(13px*var(--co));text-align:left}.tt-ds > div{padding:4px 0;border-bottom:1px solid var(--vien)}.tt-ds small{color:var(--chu-phu)}.tt-ds .do{color:var(--do)}
+.day #tt-khoi{flex:1 1 auto;margin-right:8px}
+.day #tt-khoi + #so-lieu{flex:0 1 auto}
+#danglam.tt-an{display:none !important}
+@media (min-width:1100px){
+  #thanh-ben #tb-tt{padding:8px 12px 4px;border-top:1px solid rgba(255,255,255,.14);color:#fff}
+  #thanh-ben #tb-tt #so-lieu{margin-top:5px;font-size:calc(11px*var(--co));line-height:1.9}
+  #thanh-ben #tb-tt #so-lieu .chip{display:inline-block;margin:0 3px 0 0;padding:0 6px;border-radius:9px;background:rgba(255,255,255,.14);color:#fff;cursor:pointer}
+  #thanh-ben #tb-tt #so-lieu .chip.an{display:none}
+  body.co-tb .day{display:none}
+  body.co-tb.day-can .day{display:flex}
+  body.co-tb .than{padding-bottom:16px}
+  body.co-tb.day-can .than{padding-bottom:78px}
+  body.co-tb .tt-chay{display:none}
+  body.co-tb .day .tac-gia{display:none}
+  #thanh-ben .tb-ban{font-size:calc(10.5px*var(--co));font-weight:600;opacity:.8;cursor:pointer;border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:0 5px;margin-left:3px}
+  #thanh-ben .tb-tg{color:#9be3b5 !important;font-weight:600}
+  body.tb-gon #thanh-ben #tb-tt{padding:6px 0;display:flex;justify-content:center}
+  body.tb-gon #thanh-ben #tt-khoi .tt-chu, body.tb-gon #thanh-ben #tb-tt #so-lieu{display:none}
+  body.tb-gon #thanh-ben #tt-khoi{width:40px}
+}
+#tt-khoi .tt-thanh:not(.chay) i{display:none}

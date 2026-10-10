@@ -21,8 +21,8 @@
 
 ## 3. Trạng thái (cập nhật 10/10/2026)
 - Mốc quay lại: nhánh `moc/v3.141-truoc-tach-file`.
-- **`main` = 3.145** (đã gộp). **Nhánh làm việc: 3.146 + 3.147 chờ anh "gộp"** — 3.146 Kiểm tra kỳ (Đạt = đủ 9 file · đúng kỳ · đúng cấu trúc; chênh lệch chỉ ghi nhận; bỏ hẳn chốt tháng) · 3.147 thanh bên điều hướng (máy tính ≥ 1100 px; điện thoại giữ tab ngang). Rà file thật 30/09: số đếm ở `DU_LIEU_THANG.md`.
-- **Việc tiếp:** anh thử 3.146 / 3.147 (bảng thử trong `BAN_GIAO_VIEC_CON_LAI.md`) → "gộp". Sau đó: thanh công cụ từng màn gọn lại (quy chuẩn tham khảo `KE_HOACH_DIEU_HUONG.md` mục 8, chờ anh xem bản 3.147) · đợt B (góp ý `luu()`, đồng bộ Drive) · đợt D (kỳ + phạm vi chung trên đầu trang).
+- **`main` = 3.148** (đang làm gói gọn giao diện 3.148 → 3.155, anh duyệt làm hết + gộp từng bản — `docs/KE_HOACH_GON_GIAO_DIEN.md`). 3.146 Kiểm tra kỳ · 3.147 thanh bên · 3.148 nút & 1 nơi trạng thái.
+- **Việc tiếp:** anh thử máy thật 3.145 / 3.146 / 3.147 (bảng thử trong `BAN_GIAO_VIEC_CON_LAI.md`). Sau đó: thanh công cụ từng màn gọn lại (quy chuẩn tham khảo `KE_HOACH_DIEU_HUONG.md` mục 8, chờ anh xem bản 3.147) · đợt B (góp ý `luu()`, đồng bộ Drive) · đợt D (kỳ + phạm vi chung trên đầu trang).
 - **Anh chốt 10/10:** bỏ hẳn tab Tháng + xóa dữ liệu cũ (rác); bỏ nút Giao ban, Buổi giao dịch (làm lại sau); nạp file nhận ngày số liệu từ **nội dung** file (Q12–Q14). Anh làm luân phiên 2 tài khoản — tài khoản nào cũng bắt đầu từ file này (nhánh đang dùng ghi ở mục 2).
 - **Chờ anh:** (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi tin học về máy chủ nội bộ; thử máy thật 3.136 / 3.138 / 3.142 (bảng trong `BAN_GIAO_VIEC_CON_LAI.md`); số TK 105 khách chỉ có 105 (cần nguồn); văn bản củng cố / chia tách tổ; "nhớ người ký theo khuyết" (chưa xác nhận); Mẫu 06 trắng 2 mặt trên Word thật.
 
@@ -38,5 +38,6 @@
 | Cấu trúc file Excel hệ thống | `docs/DU_LIEU_THANG.md` | Khi làm phần nạp |
 | File anh xuất hằng tháng (mẫu nào, tên file) | `docs/FILE_XUAT_HANG_THANG.md` | Ngắn, đọc khi bàn về file |
 | Kế hoạch giao diện điều hướng (đợt F) | `docs/KE_HOACH_DIEU_HUONG.md` | Ngắn |
+| Ý anh đang gom: gọn tab Nạp & KT, In / Xuất / Gửi / Xóa thống nhất | `docs/KE_HOACH_GON_GIAO_DIEN.md` | Ngắn — đọc trước khi làm bản kế tiếp |
 
 **Nguyên tắc cho phiên sau:** mỗi bản chỉ thêm ≤ 15 dòng vào CHANGELOG cho phần tóm tắt + ghi chi tiết kỹ thuật ngắn; giữ file này dưới ~80 dòng; thông tin dài để ở tài liệu chuyên đề và trỏ link.

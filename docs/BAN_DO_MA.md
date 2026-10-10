@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.147 · 10/10/2026 23:09 · 25 file · 28622 dòng · 2242 hàm cấp ngoài · 331 biến toàn cục.
+Bản 3.148 · 11/10/2026 00:47 · 25 file · 28754 dòng · 2250 hàm cấp ngoài · 332 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -10,17 +10,17 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
 | `index.html` | 205 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 2829 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `css/app.css` | 2875 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `js/01-thu-vien.js` | 67 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
-| `js/02-nen.js` | 354 | 22 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
+| `js/02-nen.js` | 358 | 22 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
 | `js/03-doc-pdf.js` | 631 | 47 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
-| `js/04-giao-dien.js` | 5514 | 523 | /*   6. VẼ GIAO DIỆN   */ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '', l |
+| `js/04-giao-dien.js` | 5515 | 523 | /*   6. VẼ GIAO DIỆN   */ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '', l |
 | `js/05-them-file.js` | 1364 | 75 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
-| `js/06-hop-thoai.js` | 3414 | 223 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
+| `js/06-hop-thoai.js` | 3419 | 223 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
 | `js/07-cccd.js` | 194 | 14 | /*   12. HỒ SƠ CCCD - 3.32: KHÔNG mã hóa nữa (anh Nhân chốt: Drive của anh là nơi lưu bảo mật). |
 | `js/08-dia-ban.js` | 612 | 53 | /*   danh mục địa bàn: Xã/phường → Điểm GD → Ấp/KP → Tổ   */ function dsXa(){ return (D.cauHinh.diaBan//[]).ma |
 | `js/09-bieu-mau.js` | 561 | 50 | /*   13. BIỂU MẪU — kho mẫu đơn trắng để in cho khách điền Xếp theo chương trình vay; có nhóm dùng chung và th |
-| `js/10-danh-sach.js` | 1205 | 93 | /*   14. DANH SÁCH GỌN + MENU + NHÓM + THÙNG RÁC + TRẠNG THÁI   */ |
+| `js/10-danh-sach.js` | 1212 | 93 | /*   14. DANH SÁCH GỌN + MENU + NHÓM + THÙNG RÁC + TRẠNG THÁI   */ |
 | `js/11-khung-tab.js` | 472 | 40 | /*   17. KHUNG CHUẨN CHO MỌI TAB Ba phần giống nhau ở mọi tab: |
 | `js/12-scan.js` | 2517 | 205 | /*   18. SCAN HỒ SƠ — máy scan trong app Hai chế độ: |
 | `js/13-xu-ly-anh.js` | 408 | 31 | /*   3.35 — XỬ LÝ ẢNH SCAN KIỂU APP SCAN CHUYÊN NGHIỆP (chạy tại chỗ, không gửi ảnh đi đâu) Tự động trước: tìm |
@@ -32,8 +32,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/19-danh-muc.js` | 222 | 23 | /*   21. CÀI ĐẶT 3.40 — MỌI DANH MỤC SỬA TRÊN GIAO DIỆN, TỰ LƯU Một bộ sửa dùng chung cho: Mảng · Chương trình |
 | `js/20-khoi-dong.js` | 140 | 4 | /*   KHỞI ĐỘNG   */ function capNhatDau(){ document.getElementById('donvi').textContent = |
 | `js/21-ngay-gy.js` | 38 | 3 | /* 3.135 — anh Nhân: mọi ô chọn ngày ghi rõ kiểu ngày/tháng/năm (trình duyệt tiếng Anh hiện tháng/ngày → dễ nh |
-| `js/22-so-lieu.js` | 6399 | 732 | /*   3.85 — 📈 SỐ LIỆU: bộ file Excel hệ thống nạp hằng tháng - Nạp cả bộ (app tự nhận loại + kỳ) hoặc từng fil |
-| `js/23-dieu-huong.js` | 63 | 8 | /*   3.147 (đợt F, anh duyệt 10/10/2026): THANH BÊN ĐIỀU HƯỚNG — máy tính màn ≥ 1100 px   - Chỉ đổi cách đi gi |
+| `js/22-so-lieu.js` | 6403 | 732 | /*   3.85 — 📈 SỐ LIỆU: bộ file Excel hệ thống nạp hằng tháng - Nạp cả bộ (app tự nhận loại + kỳ) hoặc từng fil |
+| `js/23-dieu-huong.js` | 128 | 16 | /*   3.147 (đợt F, anh duyệt 10/10/2026): THANH BÊN ĐIỀU HƯỚNG — máy tính màn ≥ 1100 px   - Chỉ đổi cách đi gi |
 
 ## 2. Mục trong mã (chú thích tiêu đề)
 
@@ -103,11 +103,11 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/06-hop-thoai.js:1461` · CHỤP / CHỌN ẢNH GHI CHÚ
 - `js/06-hop-thoai.js:1481` · 9. CÀI ĐẶT
 - `js/06-hop-thoai.js:1906` · 3.50: ❓ HƯỚNG DẪN TRỰC QUAN — chia theo tab, sơ đồ luồng dữ liệu, các bước theo logic.
-- `js/06-hop-thoai.js:2500` · 3.49: XÓA NHIỀU FILE (lúc đầu tên "− Bớt file", 3.49b đổi tên theo anh). Bấm "🗑 Xóa file" ở đầu tab → tích dòng (hoặc ch
-- `js/06-hop-thoai.js:2694` · 10. GOOGLE DRIVE  (tùy chọn — không có vẫn chạy bình thường)
-- `js/06-hop-thoai.js:2964` · 3.31 (mục 10 bàn giao) — GOOGLE PICKER: quét kho Drive cũ
-- `js/06-hop-thoai.js:3078` · 11. LẬP CHỈ MỤC
-- `js/06-hop-thoai.js:3138` · 3.50: 🗂 LẬP CHỈ MỤC — đi hết thư mục Tủ hồ sơ trên Drive để MỌI file đều được app quản lý.
+- `js/06-hop-thoai.js:2504` · 3.49: XÓA NHIỀU FILE (lúc đầu tên "− Bớt file", 3.49b đổi tên theo anh). Bấm "🗑 Xóa file" ở đầu tab → tích dòng (hoặc ch
+- `js/06-hop-thoai.js:2698` · 10. GOOGLE DRIVE  (tùy chọn — không có vẫn chạy bình thường)
+- `js/06-hop-thoai.js:2968` · 3.31 (mục 10 bàn giao) — GOOGLE PICKER: quét kho Drive cũ
+- `js/06-hop-thoai.js:3083` · 11. LẬP CHỈ MỤC
+- `js/06-hop-thoai.js:3143` · 3.50: 🗂 LẬP CHỈ MỤC — đi hết thư mục Tủ hồ sơ trên Drive để MỌI file đều được app quản lý.
 - `js/07-cccd.js:1` · 12. HỒ SƠ CCCD
 - `js/07-cccd.js:42` · 3.79.1 — KHÔI PHỤC DANH SÁCH SCAN TỪ ẢNH CÒN TRONG MÁY
 - `js/08-dia-ban.js:513` · 3.33 — ĐƯA HỒ SƠ SCAN LÊN DRIVE
@@ -116,9 +116,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/09-bieu-mau.js:227` · 3.31 — MỞ FILE WORD/EXCEL KHÔNG PHẢI TẢI VỀ (tránh rác trong thư mục Tải xuống)
 - `js/09-bieu-mau.js:337` · 3.61 (việc M): GỬI NHIỀU BIỂU MẪU · NÉN .ZIP
 - `js/10-danh-sach.js:1` · 14. DANH SÁCH GỌN + MENU + NHÓM + THÙNG RÁC + TRẠNG THÁI
-- `js/10-danh-sach.js:197` · QUÉT DỌN RÁC — chỉ trong thư mục Tủ hồ sơ, chỉ đọc cho tới khi anh chọn
-- `js/10-danh-sach.js:525` · 3.50: 🧰 DỌN KHO — một nơi duy nhất (thay Bảo trì kho ở Cài đặt và Thư viện).
-- `js/10-danh-sach.js:664` · 3.77 — VĂN BẢN TRÙNG: cùng số hiệu (bỏ dấu, khoảng trắng, gạch) + cùng năm ban hành
+- `js/10-danh-sach.js:204` · QUÉT DỌN RÁC — chỉ trong thư mục Tủ hồ sơ, chỉ đọc cho tới khi anh chọn
+- `js/10-danh-sach.js:532` · 3.50: 🧰 DỌN KHO — một nơi duy nhất (thay Bảo trì kho ở Cài đặt và Thư viện).
+- `js/10-danh-sach.js:671` · 3.77 — VĂN BẢN TRÙNG: cùng số hiệu (bỏ dấu, khoảng trắng, gạch) + cùng năm ban hành
 - `js/11-khung-tab.js:1` · 17. KHUNG CHUẨN CHO MỌI TAB
 - `js/12-scan.js:1` · 18. SCAN HỒ SƠ — máy scan trong app
 - `js/12-scan.js:838` · 3.43: SCAN TRÊN ĐIỆN THOẠI THEO KIỂU LENS — Quét → Xong → PDF lưu tạm (tên Scan ngày giờ, sửa ngay) → xem trước → Gửi
@@ -151,53 +151,53 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/22-so-lieu.js:610` · 3.145: HOÀN TÁC LẦN THAY FILE (1 bước, trong 30 ngày — Thùng rác Drive giữ 30 ngày)
 - `js/22-so-lieu.js:711` · 9. ĐỒNG BỘ DRIVE
 - `js/22-so-lieu.js:809` · 10. BỘ DỮ LIỆU KỲ: nối các bảng
-- `js/22-so-lieu.js:964` · 11. TAB 📈 SỐ LIỆU
-- `js/22-so-lieu.js:991` · đọc file BC0437 / BC0438
-- `js/22-so-lieu.js:1068` · trạng thái + nạp dữ liệu cho tab
-- `js/22-so-lieu.js:1111` · nạp + kiểm tra theo chuẩn tab Nạp & Kiểm tra (anh chốt): ma trận loại × tháng · 📥 nạp nhiều file (xem trước, xác nhận) ·
-- `js/22-so-lieu.js:1251` · số liệu tổ từ BC0437 (thiếu thì tính từ Mẫu 31, ghi rõ nguồn)
-- `js/22-so-lieu.js:1264` · màn: chưa chọn tổ → bảng các tổ (BC0437) · chọn tổ → thẻ + chọn hộ
-- `js/22-so-lieu.js:1320` · phân loại hộ + gợi ý (Mẫu 06 kiểm tra đột xuất)
-- `js/22-so-lieu.js:1426` · khai báo khi in (mặc định trống) → Word đúng khuôn / In PDF
-- `js/22-so-lieu.js:1430` · 3.98 (anh chốt): khai báo nằm ngay trong tab của mẫu (khung ✎ thu gọn được), lưu lâu dài trừ ngày; cán bộ kiểm tra lấy t
-- `js/22-so-lieu.js:1442` · 3.114 (anh chốt): HỘP CHỌN KHI IN — mỗi mẫu 1 phần, nhớ lựa chọn lần trước (D.cauHinh.ktIn[mẫu], đồng bộ Drive);
-- `js/22-so-lieu.js:1724` · 3.138 (anh chốt): Mẫu 06 gọn & nhạt
-- `js/22-so-lieu.js:1849` · 3.93.1: Mẫu 06 KIỂM TRA SAU GIẢI NGÂN (727: kiểm tra sử dụng vốn trong 30 ngày) — anh chốt (làm đơn giản):
-- `js/22-so-lieu.js:1976` · 3.98: dòng hộ dùng chung 3 màn chọn hộ (đột xuất · sau giải ngân · định kỳ)
-- `js/22-so-lieu.js:2014` · bản In / PDF — cùng bố cục mẫu (A4 ngang Mẫu 06, A4 dọc Mẫu 16); trống = dòng chấm
-- `js/22-so-lieu.js:2171` · 3.98: 📖 BẢNG CHUẨN HÓA HỘI – ĐOÀN (anh chốt: chữ đặc thù dùng chung mọi mẫu, sửa 1 chỗ)
-- `js/22-so-lieu.js:2464` · ⚙ Khai báo Hội (mỗi Hội – xã 1 khối)
-- `js/22-so-lieu.js:2512` · 3.113 (anh chốt): 🏛 KHAI BÁO HỘI ĐOÀN THỂ — 1 nơi khai cho mọi mẫu (06, 16TD, 04, Kế hoạch); tab nhỏ Hội – xã · Chuẩn hó
-- `js/22-so-lieu.js:2515` · 3.117 (anh gửi mẫu tham khảo + bản Đoàn thật, anh: "làm mẫu luôn"): 📄 THÔNG BÁO PHÂN CÔNG NHIỆM VỤ BAN THƯỜNG VỤ trong c
-- `js/22-so-lieu.js:2805` · 3.140 (anh chốt): IN THEO THÁNG KIỂM TRA (chip 🗓 Kế hoạch) — bấm tháng → các tổ của tháng (theo ấp):
-- `js/22-so-lieu.js:3349` · cột trái
-- `js/22-so-lieu.js:3399` · kiểm trùng 2 ô
-- `js/22-so-lieu.js:3454` · thẻ chi tiết (phải / hộp trên điện thoại)
-- `js/22-so-lieu.js:3693` · 3.88: ① FILE THÁNG · ② KIỂM TRA (kết quả lưu theo tháng, dữ liệu đổi thì báo kiểm lại)
-- `js/22-so-lieu.js:3797` · 3.146 (anh chốt 10/10): KIỂM TRA KỲ — không chốt / khóa tháng; Đạt = đủ 9 file · đúng kỳ · đúng cấu trúc (đã bấm kiểm, s
-- `js/22-so-lieu.js:3847` · 3.90.1: BẢNG ĐỐI CHIẾU CHÉO — chỉ tiêu × nguồn (BCDHTD chuẩn · LEN_31 · Mẫu 31 · Dư nợ chi tiết), toàn PGD và từng xã
-- `js/22-so-lieu.js:4076` · 12. NẠP: cả bộ / từng file
-- `js/22-so-lieu.js:4233` · 13. TRA KHÁCH HÀNG (ô tìm) + thẻ khách hàng
-- `js/22-so-lieu.js:4279` · 3.88 — 👥 TAB CON TỔ TK&VV (trong tab Số liệu, cạnh Tra cứu KH): chọn 1 tổ (cây xã → điểm GD → hội → tổ, hoặc gõ tên) → b
-- `js/22-so-lieu.js:4479` · 3.89: BỘ CHỌN PHẠM VI DÙNG CHUNG (anh chốt: mọi tra cứu / in đều chọn xã → điểm GD → hội → tổ)
-- `js/22-so-lieu.js:4553` · 3.92: VAY TRỰC TIẾP (anh Nhân: món không mã tổ — GQVL hội người mù, XKLD… — vẫn có xã, điểm GD cụ thể)
-- `js/22-so-lieu.js:4614` · 3.92: TAB TỔ — mục đích (anh Nhân): biết số tổ viên để KẾT NẠP thêm hoặc CHO RA khỏi tổ, căn cứ dư nợ và số dư 105
-- `js/22-so-lieu.js:4912` · 3.132 (anh chốt) — CẤP HỘI / ĐIỂM GD / XÃ / PGD: dòng tóm tắt + chip lọc như của tổ; mặc định bảng các tổ (PGD: Cộng PGD
-- `js/22-so-lieu.js:5050` · báo cáo: mỗi báo cáo trả {ten, tieuDe, html (phần thân), aoa (Excel)}
-- `js/22-so-lieu.js:5222` · xem → in / Excel
-- `js/22-so-lieu.js:5275` · 3.89 — 👤 TRA CỨU KH: phạm vi (bộ chọn chung) + KIỂM TRÙNG trước khi nhập máy
-- `js/22-so-lieu.js:5311` · 3.89 — 📑 TAB CON SAO KÊ (trong Số liệu, cạnh Tổ TK&VV): chọn kỳ + phạm vi (bộ chọn chung) → tích → Xem → In / Excel
-- `js/22-so-lieu.js:5469` · 3.91: NỢ ĐẾN HẠN — theo ngày đến hạn hợp đồng (gia hạn nếu có) + kỳ GDXA chuyển quá hạn (anh chốt)
-- `js/22-so-lieu.js:5523` · 3.91: MÓN VAY TRẢ GỐC PHÂN KỲ — NỢ ĐẾN HẠN KỲ CON (anh Nhân; Công văn 597/NHCS-TDNN 30/01/2026)
-- `js/22-so-lieu.js:5722` · 3.90 — 7 FILE TỔNG HỢP CHUẨN TW (anh chốt: số chính thức của TW, chuẩn nhất)
-- `js/22-so-lieu.js:5832` · ghép tổ LEN_31 TO_TRUONG (chỉ có tên tổ trưởng, có khi bị cắt; 2 tổ trùng tên trong 1 xã gộp 1 dòng) với mã tổ
-- `js/22-so-lieu.js:5880` · ② KIỂM TRA: số chuẩn TW khớp nhau (nhóm 7) · Mẫu 31 ↔ số chuẩn TW (nhóm 8) · KHĐ, tổ trưởng (nhóm 3)
-- `js/22-so-lieu.js:5999` · 3.90 — 📊 TAB CON TỔNG HỢP (Số liệu): tiêu chí + bộ lọc → tích → Xem → In (A4 ngang) / Excel
-- `js/22-so-lieu.js:6253` · 3.90: CHUẨN IN mọi báo cáo (anh chốt): A4, lề trên 2 · dưới 2 · trái 3 · phải 2 cm; Times New Roman; đầu bảng lặp mỗi tr
-- `js/22-so-lieu.js:6258` · 3.90: XÓA cả bộ tháng / LÀM MỚI toàn bộ số liệu (chỉ phần Số liệu; Drive vào thùng rác, lấy lại được 30 ngày)
-- `js/22-so-lieu.js:6304` · 3.90: THAY FILE 1 ô — file mới phải đúng loại, đúng kỳ của ô; khác thì báo, không thay
-- `js/22-so-lieu.js:6322` · 3.90.1: TẢI FILE GỐC (bản sao để dùng việc khác) — trong máy nếu còn, không thì tải từ Drive
-- `js/22-so-lieu.js:6340` · 3.90.1: TÌM FILE RÁC CỦA SỐ LIỆU (riêng phần Số liệu: trong máy sl_… + Drive Số liệu/ và _Hệ thống/so_lieu/; không đụng 
+- `js/22-so-lieu.js:968` · 11. TAB 📈 SỐ LIỆU
+- `js/22-so-lieu.js:995` · đọc file BC0437 / BC0438
+- `js/22-so-lieu.js:1072` · trạng thái + nạp dữ liệu cho tab
+- `js/22-so-lieu.js:1115` · nạp + kiểm tra theo chuẩn tab Nạp & Kiểm tra (anh chốt): ma trận loại × tháng · 📥 nạp nhiều file (xem trước, xác nhận) ·
+- `js/22-so-lieu.js:1255` · số liệu tổ từ BC0437 (thiếu thì tính từ Mẫu 31, ghi rõ nguồn)
+- `js/22-so-lieu.js:1268` · màn: chưa chọn tổ → bảng các tổ (BC0437) · chọn tổ → thẻ + chọn hộ
+- `js/22-so-lieu.js:1324` · phân loại hộ + gợi ý (Mẫu 06 kiểm tra đột xuất)
+- `js/22-so-lieu.js:1430` · khai báo khi in (mặc định trống) → Word đúng khuôn / In PDF
+- `js/22-so-lieu.js:1434` · 3.98 (anh chốt): khai báo nằm ngay trong tab của mẫu (khung ✎ thu gọn được), lưu lâu dài trừ ngày; cán bộ kiểm tra lấy t
+- `js/22-so-lieu.js:1446` · 3.114 (anh chốt): HỘP CHỌN KHI IN — mỗi mẫu 1 phần, nhớ lựa chọn lần trước (D.cauHinh.ktIn[mẫu], đồng bộ Drive);
+- `js/22-so-lieu.js:1728` · 3.138 (anh chốt): Mẫu 06 gọn & nhạt
+- `js/22-so-lieu.js:1853` · 3.93.1: Mẫu 06 KIỂM TRA SAU GIẢI NGÂN (727: kiểm tra sử dụng vốn trong 30 ngày) — anh chốt (làm đơn giản):
+- `js/22-so-lieu.js:1980` · 3.98: dòng hộ dùng chung 3 màn chọn hộ (đột xuất · sau giải ngân · định kỳ)
+- `js/22-so-lieu.js:2018` · bản In / PDF — cùng bố cục mẫu (A4 ngang Mẫu 06, A4 dọc Mẫu 16); trống = dòng chấm
+- `js/22-so-lieu.js:2175` · 3.98: 📖 BẢNG CHUẨN HÓA HỘI – ĐOÀN (anh chốt: chữ đặc thù dùng chung mọi mẫu, sửa 1 chỗ)
+- `js/22-so-lieu.js:2468` · ⚙ Khai báo Hội (mỗi Hội – xã 1 khối)
+- `js/22-so-lieu.js:2516` · 3.113 (anh chốt): 🏛 KHAI BÁO HỘI ĐOÀN THỂ — 1 nơi khai cho mọi mẫu (06, 16TD, 04, Kế hoạch); tab nhỏ Hội – xã · Chuẩn hó
+- `js/22-so-lieu.js:2519` · 3.117 (anh gửi mẫu tham khảo + bản Đoàn thật, anh: "làm mẫu luôn"): 📄 THÔNG BÁO PHÂN CÔNG NHIỆM VỤ BAN THƯỜNG VỤ trong c
+- `js/22-so-lieu.js:2809` · 3.140 (anh chốt): IN THEO THÁNG KIỂM TRA (chip 🗓 Kế hoạch) — bấm tháng → các tổ của tháng (theo ấp):
+- `js/22-so-lieu.js:3353` · cột trái
+- `js/22-so-lieu.js:3403` · kiểm trùng 2 ô
+- `js/22-so-lieu.js:3458` · thẻ chi tiết (phải / hộp trên điện thoại)
+- `js/22-so-lieu.js:3697` · 3.88: ① FILE THÁNG · ② KIỂM TRA (kết quả lưu theo tháng, dữ liệu đổi thì báo kiểm lại)
+- `js/22-so-lieu.js:3801` · 3.146 (anh chốt 10/10): KIỂM TRA KỲ — không chốt / khóa tháng; Đạt = đủ 9 file · đúng kỳ · đúng cấu trúc (đã bấm kiểm, s
+- `js/22-so-lieu.js:3851` · 3.90.1: BẢNG ĐỐI CHIẾU CHÉO — chỉ tiêu × nguồn (BCDHTD chuẩn · LEN_31 · Mẫu 31 · Dư nợ chi tiết), toàn PGD và từng xã
+- `js/22-so-lieu.js:4080` · 12. NẠP: cả bộ / từng file
+- `js/22-so-lieu.js:4237` · 13. TRA KHÁCH HÀNG (ô tìm) + thẻ khách hàng
+- `js/22-so-lieu.js:4283` · 3.88 — 👥 TAB CON TỔ TK&VV (trong tab Số liệu, cạnh Tra cứu KH): chọn 1 tổ (cây xã → điểm GD → hội → tổ, hoặc gõ tên) → b
+- `js/22-so-lieu.js:4483` · 3.89: BỘ CHỌN PHẠM VI DÙNG CHUNG (anh chốt: mọi tra cứu / in đều chọn xã → điểm GD → hội → tổ)
+- `js/22-so-lieu.js:4557` · 3.92: VAY TRỰC TIẾP (anh Nhân: món không mã tổ — GQVL hội người mù, XKLD… — vẫn có xã, điểm GD cụ thể)
+- `js/22-so-lieu.js:4618` · 3.92: TAB TỔ — mục đích (anh Nhân): biết số tổ viên để KẾT NẠP thêm hoặc CHO RA khỏi tổ, căn cứ dư nợ và số dư 105
+- `js/22-so-lieu.js:4916` · 3.132 (anh chốt) — CẤP HỘI / ĐIỂM GD / XÃ / PGD: dòng tóm tắt + chip lọc như của tổ; mặc định bảng các tổ (PGD: Cộng PGD
+- `js/22-so-lieu.js:5054` · báo cáo: mỗi báo cáo trả {ten, tieuDe, html (phần thân), aoa (Excel)}
+- `js/22-so-lieu.js:5226` · xem → in / Excel
+- `js/22-so-lieu.js:5279` · 3.89 — 👤 TRA CỨU KH: phạm vi (bộ chọn chung) + KIỂM TRÙNG trước khi nhập máy
+- `js/22-so-lieu.js:5315` · 3.89 — 📑 TAB CON SAO KÊ (trong Số liệu, cạnh Tổ TK&VV): chọn kỳ + phạm vi (bộ chọn chung) → tích → Xem → In / Excel
+- `js/22-so-lieu.js:5473` · 3.91: NỢ ĐẾN HẠN — theo ngày đến hạn hợp đồng (gia hạn nếu có) + kỳ GDXA chuyển quá hạn (anh chốt)
+- `js/22-so-lieu.js:5527` · 3.91: MÓN VAY TRẢ GỐC PHÂN KỲ — NỢ ĐẾN HẠN KỲ CON (anh Nhân; Công văn 597/NHCS-TDNN 30/01/2026)
+- `js/22-so-lieu.js:5726` · 3.90 — 7 FILE TỔNG HỢP CHUẨN TW (anh chốt: số chính thức của TW, chuẩn nhất)
+- `js/22-so-lieu.js:5836` · ghép tổ LEN_31 TO_TRUONG (chỉ có tên tổ trưởng, có khi bị cắt; 2 tổ trùng tên trong 1 xã gộp 1 dòng) với mã tổ
+- `js/22-so-lieu.js:5884` · ② KIỂM TRA: số chuẩn TW khớp nhau (nhóm 7) · Mẫu 31 ↔ số chuẩn TW (nhóm 8) · KHĐ, tổ trưởng (nhóm 3)
+- `js/22-so-lieu.js:6003` · 3.90 — 📊 TAB CON TỔNG HỢP (Số liệu): tiêu chí + bộ lọc → tích → Xem → In (A4 ngang) / Excel
+- `js/22-so-lieu.js:6257` · 3.90: CHUẨN IN mọi báo cáo (anh chốt): A4, lề trên 2 · dưới 2 · trái 3 · phải 2 cm; Times New Roman; đầu bảng lặp mỗi tr
+- `js/22-so-lieu.js:6262` · 3.90: XÓA cả bộ tháng / LÀM MỚI toàn bộ số liệu (chỉ phần Số liệu; Drive vào thùng rác, lấy lại được 30 ngày)
+- `js/22-so-lieu.js:6308` · 3.90: THAY FILE 1 ô — file mới phải đúng loại, đúng kỳ của ô; khác thì báo, không thay
+- `js/22-so-lieu.js:6326` · 3.90.1: TẢI FILE GỐC (bản sao để dùng việc khác) — trong máy nếu còn, không thì tải từ Drive
+- `js/22-so-lieu.js:6344` · 3.90.1: TÌM FILE RÁC CỦA SỐ LIỆU (riêng phần Số liệu: trong máy sl_… + Drive Số liệu/ và _Hệ thống/so_lieu/; không đụng 
 
 ## 3. Nhóm hàm theo tiền tố (khối chức năng)
 
@@ -241,20 +241,20 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `veScan` `js/12-scan.js:11`
 - `veBieuMau` `js/09-bieu-mau.js:15`
 - `veThem` `js/05-them-file.js:4`
-- `veSoLieu` `js/22-so-lieu.js:3560`
+- `veSoLieu` `js/22-so-lieu.js:3564`
 - `slDocFile` `js/22-so-lieu.js:340`
 - `slGhi` `js/22-so-lieu.js:587`
-- `slBo` `js/22-so-lieu.js:856`
-- `slKyDung` `js/22-so-lieu.js:851`
-- `toNap` `js/22-so-lieu.js:4396`
-- `toVe` `js/22-so-lieu.js:4469`
-- `veKTGS` `js/22-so-lieu.js:1093`
-- `veSaoKe` `js/22-so-lieu.js:5333`
-- `veTongHop` `js/22-so-lieu.js:6036`
+- `slBo` `js/22-so-lieu.js:860`
+- `slKyDung` `js/22-so-lieu.js:855`
+- `toNap` `js/22-so-lieu.js:4400`
+- `toVe` `js/22-so-lieu.js:4473`
+- `veKTGS` `js/22-so-lieu.js:1097`
+- `veSaoKe` `js/22-so-lieu.js:5337`
+- `veTongHop` `js/22-so-lieu.js:6040`
 - `inChuan` `js/05-them-file.js:1344`
 - `inBlob` `js/05-them-file.js:1156`
 - `xemChuan` `js/05-them-file.js:1352`
-- `pvLuaChon` `js/22-so-lieu.js:4485`
+- `pvLuaChon` `js/22-so-lieu.js:4489`
 - `chTheoDoi` `js/17-dong-bo-cai-dat.js:42`
 - `slDay` `js/22-so-lieu.js:724`
 - `slDayMeta` `js/22-so-lieu.js:775`

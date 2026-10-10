@@ -5400,6 +5400,7 @@ function veDay(){
     '<span class="chip" id="chip-bn" onclick="moBoNho()">💾 …</span>';
   var btnPV = document.getElementById('btn-mo-preview');
   if(btnPV) btnPV.style.display = (anPV && nganHienTai!==0) ? '' : 'none';
+  if(typeof dhDay==='function') dhDay();
   var t = ['<b>'+(D.cho.length||0)+'</b> việc chờ'+chip,
            '<b>'+D.vanBan.length+'</b> văn bản<br>'+chip,
            '<b>'+D.duLieu.length+'</b> file dữ liệu<br>'+chip,
