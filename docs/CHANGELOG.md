@@ -14,6 +14,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Cây tổ:** DSTO điền trước Thông tin tổ trưởng (SĐT, tổ phó theo DSTO); `toDong0`: tổ dư nợ 0 còn trên DSTO / LEN_31 → `canDong` (nhãn "⚠ Dư nợ 0 — cần đóng tổ", chip ở tóm tắt phạm vi, thẻ tổ); không còn ở cả 2 → `K.toAn` (ẩn khỏi cây, ô tìm vẫn thấy).
 - **📋 File cần xuất** (`slFileXuat`, `SL_FILE_XUAT`): nút ở tab Nạp & KT, ✓ file tháng đang xem đã có.
 - **Phép thử:** `tests/t141.js` (mới, 31 — Drive giả). t123 (`slBoLoaiDon`, Dư nợ chi tiết bắt buộc), t105 (B32 bị từ chối, chốt dùng bộ bắt buộc thu gọn), **hoiquy** (sửa: phép "XLS từ ô ma trận tab Tháng" hỏng từ 3.144 → "Excel sang Số liệu"; Cài đặt 11 trang), `fakedrive.js` (lấy lại khỏi thùng rác).
+- **Kiểm tra:** kiem.py sạch; hoiquy, hoiquy2, t101–t141 đạt (t116 1 phép hỏng sẵn từ 3.141). t113: tổ lệch điểm GD giữa DSTO và Thông tin tổ trưởng → nay theo DSTO (anh chốt DSTO bắt buộc).
 - **Chưa làm (3.146):** Kiểm tra kỳ thống nhất (Đạt + ghi chênh lệch), xóa mã chốt tháng.
 
 ## 3.144 — 10/10/2026 — Sắp lại tab: tab 📥 Nạp & KT thay tab Tháng; bỏ tab Tháng + dữ liệu; ẩn Giao ban, Buổi GD
