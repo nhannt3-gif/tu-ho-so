@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.142 · build 10/10/2026
+**Bản hiện tại:** 3.143 · build 10/10/2026
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` + `css/app.css` + `js/*.js` (từ 3.142 tách file; ghép lại 1 file: `python3 tests/ghep.py ra.html`)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -222,13 +222,24 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.143) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📥 Nạp nhiều file: bộ tháng có Mẫu 31 + KHĐ + Nợ khoanh + Thông tin tổ trưởng | Mẫu 31 (có cột ngày) tự tích; file không ghi ngày trong nội dung → dòng "⚠ Cần khai ngày", ô Kỳ trống, không tích được | |
+| 2 | Bấm "Tên file: … — dùng" hoặc tự chọn ngày ở ô Kỳ | Tích được; ghi "theo anh khai"; ghi nhận vào đúng ô | |
+| 3 | File có ngày trong nội dung nhưng tên file ghi ngày khác | Lấy ngày trong file (như cũ) | |
+| 4 | Nạp từng file / 🔁 Thay file (chọn ô trước) | Như cũ, không hỏi khai lại | |
+| 5 | Ghi lại: loại file nào thật sự không có ngày trong nội dung | Anh báo em để ghi vào tài liệu | |
+
+**Ghi chú kỹ thuật 3.143:** `slCanKhai` chạy sau khi tính kỳ trong `slPhanTich` / `ktPhanTich`: nguồn khác "cột ngày trong file" / "tiêu đề trong file" → `canKhai`, `goiYTen`, xóa `ngay/ky/nguonKy`. `slDoiKy` (sẵn có) đặt `nguonKy='anh chọn'`. Phép thử cũ chạy nhờ `tests/tv.js` bọc `slDocFile` (DOMContentLoaded) trả lại hành vi trước 3.143.
+
 ### Danh sách thử trên máy thật (3.142) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
-| 1 | Mở link web (Ctrl+F5 một lần), xem số bản ở góc trái | v3.142; giao diện như cũ | |
+| 1 | Mở link web (Ctrl+F5 một lần), xem số bản ở góc trái | v3.142; giao diện như cũ | Đạt (anh thử sơ qua 10/10) |
 | 2 | Dùng lướt các tab: Hôm nay, Văn bản, Số liệu (Tổ, Sao kê, KTGS, Tổng hợp, Tra cứu), Biểu mẫu, Scan, Thư viện | Chạy như 3.141, không báo lỗi | |
 | 3 | In / Word một mẫu KTGS và một báo cáo Tổ | Như cũ | |
-| 4 | 🎓 Hạn trả HSSV › 📌 Cửa sổ nổi | Cửa sổ nổi đủ màu / kiểu chữ | |
+| 4 | 🎓 Hạn trả HSSV › 📌 Cửa sổ nổi | Cửa sổ nổi đủ màu / kiểu chữ | Đạt (10/10) |
 | 5 | Điện thoại: mở link web | Như cũ | |
 
 **Ghi chú kỹ thuật 3.142:** tách bằng script một lần (dòng `<script>` / `</script>` đứng riêng → file). Thứ tự nạp giữ nguyên nên phạm vi biến / hoisting như cũ (mỗi khối cũ = 1 file). Mỗi bản sau: đổi `?v=` trong `index.html` cùng `APP_BAN` (`kiem.py` báo nếu lệch). Thêm file js mới: thêm thẻ `<script src="js/…?v=…">` đúng chỗ trong `index.html`. `t101_mau10_cu.js` vẫn mở `index.html` (bản cũ 1 file vẫn mở được). **Giới hạn đã biết:** mở app bằng bấm đúp file (file://) thì cửa sổ nổi HSSV không có kiểu chữ (trình duyệt chặn cửa sổ nổi đọc css/app.css; link web không bị). Phép thử dò chữ trong mã dùng `tests/nguon.js`.
