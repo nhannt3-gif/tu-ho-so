@@ -16,6 +16,7 @@
 - Hồi quy (chạy ngầm, ~1 giờ): `for t in hoiquy hoiquy2 $(seq -f 't%g' 101 130); do echo "$t: $(timeout 900 node tests/$t.js 2>&1 | tail -1)"; done` — dòng cuối "lỗi []" hoặc "n/n đạt" là sạch. `t100` hỏng sẵn, bỏ qua. Sửa mã khi phép thử đang chạy → có thể lỗi giả, chạy lại. Phiên mới phải dựng `tests/lib` + `tests/gia*` trước (lệnh ở đầu `tests/README.md`, ~3 phút).
 - Mỗi bản: tăng `APP_BAN` / `APP_LUC` (`js/02-nen.js`), dòng đầu `CO_GI_MOI` (`js/06-hop-thoai.js`), **`?v=` trong `index.html`** (`sed -i 's/?v=3.142/?v=3.143/' index.html`; `kiem.py` báo nếu lệch), chuỗi `APP_BAN==='x'` trong `tests/hoiquy2.js`; `docs/CHANGELOG.md` (mục mới ở đầu); `docs/BAN_GIAO_VIEC_CON_LAI.md` (bảng thử máy thật + ghi chú kỹ thuật); **mục 3 file này**; `python3 tests/bando.py`.
 - Sửa file lớn: script Python thay chuỗi có `assert s.count(a)==1`; `grep` tên hàm / lớp CSS trước khi đặt mới.
+- **Mốc quay lại:** nhánh `moc/v3.141-truoc-tach-file` = bản 3.141 (1 file `index.html`, trước kiến trúc 3 lớp) — **không xóa, không đẩy gì vào**. Bản sau lỗi nặng: Revert PR trên GitHub, hoặc lấy lại file từ nhánh mốc. Mốc mới đặt tên `moc/v<bản>-<gợi nhớ>`.
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái (cập nhật 10/10/2026)
