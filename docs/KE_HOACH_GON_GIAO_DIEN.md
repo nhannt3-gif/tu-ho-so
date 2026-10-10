@@ -314,5 +314,18 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
    - Ảnh nghiêng / mờ → báo chụp lại ngay.
    - Thử trên ảnh mẫu thật của anh trước khi gộp. Ảnh thật chỉ thử trong máy em, **không đưa vào repo**.
 
+**Anh chốt ý 11 (10/10):**
+- **PDF lưu / gửi = đúng dạng in như hiện nay** (thống nhất cho mọi đường ra):
+  - CCCD: **4 thẻ (mặt trước + sau) trên 1 trang A4**.
+  - Tài liệu: mỗi trang 1 trang A4.
+  - 💾 Lưu vào máy, 📤 Gửi, 🗄 Lưu vào tủ đều ra **cùng 1 file PDF** này.
+- **Đợt gọn giao diện này chỉ làm phần luồng:**
+  - Bước 3: hộp chọn Lưu vào máy / Gửi / Copy ảnh / Lưu vào tủ.
+  - Bước 4: bỏ tự lưu tạm, giữ phiên quét dở trong máy.
+- **Để 1 phiên riêng sau** — tối ưu Scan CCCD + tài liệu:
+  - Bước 1–2: camera tự bắt mép, chụp liên tục, màn chỉnh kiểu Lens.
+  - Mục 5: lọc Tài liệu, tự xoay, báo ảnh mờ.
+  - Khi đó xin anh ảnh mẫu thật để so với Scanner Lens.
+
 ## Câu hỏi chờ anh
 - (hết — chờ anh gửi thêm ý hoặc nhắn "đủ" để làm ảnh mẫu cả gói)
