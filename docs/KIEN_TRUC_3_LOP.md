@@ -21,7 +21,7 @@
 | Q10 | **Scan** → mini app riêng, chia sẻ được: chỉ scan → PDF → lưu máy / in. **Văn bản** → mini app / trang riêng, chia sẻ được; định kỳ trích gửi **kho văn bản trên máy chủ nội bộ** để tra cứu. |
 | Q11 | Ví dụ chuẩn: scan CCCD → Lưu → chọn cây địa bàn + gõ tên → app gợi ý khách hàng → anh chốt → lưu kèm **tên + mã KH**. |
 
-| Q12 | (10/10) **Tab Tháng: bỏ hẳn, xóa luôn dữ liệu cũ** (anh chưa nạp nhiều — coi là rác). |
+| Q12 | (10/10) **Tab Tháng: bỏ hẳn, xóa luôn dữ liệu cũ** (anh chưa nạp nhiều — coi là rác). **Không cần sao lưu trước khi xóa** (anh chốt). |
 | Q13 | (10/10) **Bỏ nút Giao ban và Buổi giao dịch** — làm lại sau khi các chức năng khác ổn. |
 | Q14 | (10/10) **Nạp file phải tự nhận đúng ngày số liệu từ nội dung file, không phụ thuộc tên file** (tên file chỉ là gợi ý cuối, phải báo rõ khi dùng). File không có ngày trong nội dung → **anh khai khi nạp**. ✅ 3.143 |
 | Q15 | (10/10) **Tách tab con 📥 Nạp & Kiểm tra ra khỏi Số liệu thành tab riêng, đặt vào chỗ tab Tháng** — nơi duy nhất nạp và kiểm tra toàn vẹn dữ liệu của app; các tab khác chỉ đọc. **Nạp BC0437 / BC0438 của KTGS cũng gộp vào đây**; quy tắc kiểm tra (② Kiểm tra tháng + 🔍 kiểm tra KTGS) sẽ **thống nhất 1 lần** thành một bộ chung. |
