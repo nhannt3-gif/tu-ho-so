@@ -72,3 +72,5 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 
 Mẫu một phép thử mới: chép `t96.js`, đổi phần `p.evaluate(...)`; luôn in `lỗi` (pageerror) cuối cùng — phải là `[]`.
+
+**Bản đồ mã:** `python3 tests/bando.py` sinh `docs/BAN_DO_MA.md` (khối, mục, nhóm hàm theo tiền tố, điểm vào) — chạy lại sau mỗi bản.

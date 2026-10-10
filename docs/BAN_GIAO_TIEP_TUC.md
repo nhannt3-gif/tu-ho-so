@@ -7,6 +7,8 @@ Tài liệu này để **một phiên / tài khoản Claude khác làm tiếp ng
 
 ## 0. TRẠNG THÁI MỚI NHẤT — 08/10/2026 (đọc trước mục 7)
 
+> **Từ 10/10/2026: trạng thái mới nhất + luật + lệnh ở `docs/BAT_DAU.md`; hướng đi kiến trúc ở `docs/KIEN_TRUC_3_LOP.md`; bản đồ mã `docs/BAN_DO_MA.md`.** Mục này giữ để tra cứu, không còn cập nhật mỗi bản.
+
 **Bản đang chạy:** **3.141** (sửa lỗi mất cài đặt khi đồng bộ Drive — nhớ đúng file `chFileId`, không tạo thư mục "undefined"; In theo tháng Kế hoạch tự lấy số liệu tháng trước). Trước đó 3.140.3 (PR #119), 3.140.2 (PR #118), 3.140.1 (PR #117), 3.140 (PR #116). **Sự cố 09/10:** mất khai báo Hội — đã khôi phục từ phiên bản Drive 01:36 (xem CHANGELOG 3.141). Nhánh làm việc `claude/intelligent-albattani-a9n3kg`.
 
 **3.138 gồm:** ⟳ Làm mới cạnh ô Số liệu + chip "Đang dùng: kỳ …" (Tổ / Sao kê / KTGS cùng kỳ); TK 105 "đã mở TK" (số TK hệ thống trên Mẫu 31, kể cả số dư 0); KU hủy / nhập nhầm tổ (CLOSE + giải ngân 0) bị loại; KU đã nhập máy chưa giải ngân (OPEN + giải ngân 0) không tính tất nợ + báo cáo Sao kê (quá 1 tháng lịch → "Cần đóng KU"); chip Đến hạn tháng sau 2 cột ĐH HĐ / ĐH GDXA; Mẫu 06 chấm nhạt, kẻ dòng mảnh, ngày ký lên dòng chấm, chỗ ký, mẫu trắng 1 / 2 mặt đúng trang; Mẫu 04 kiến nghị tùy chọn, bảng không tràn lề, Trưởng đoàn thẳng hàng, gạch tên đơn vị; Kế hoạch gạch dưới tên cơ quan theo độ dài tên. Bảng thử máy thật 9 mục ở `BAN_GIAO_VIEC_CON_LAI.md`.
