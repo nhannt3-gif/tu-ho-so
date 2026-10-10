@@ -20,9 +20,9 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái (cập nhật 10/10/2026)
-- **`main` = 3.143** (Q14 ngày số liệu theo nội dung file). Mốc quay lại: nhánh `moc/v3.141-truoc-tach-file`.
-- **Bản đang làm: 3.144 "Sắp lại tab"** (gộp bước 2-3-4 anh duyệt): tab 📥 Nạp & KT thay tab Tháng (gồm cả nạp BC0437 / BC0438 KTGS), bỏ tab Tháng + tự xóa dữ liệu (Drive vào thùng rác), ẩn Giao ban / Buổi GD — PR từ `claude/busy-curie-2qescm` **chờ anh "gộp"**.
-- **Việc tiếp (theo `KIEN_TRUC_3_LOP.md`):** thống nhất quy tắc kiểm tra (② Kiểm tra tháng + 🔍 KTGS) thành 1 bộ — anh duyệt từng mục; đợt B (lưu nhanh / an toàn, góp ý `luu()`; 1 cơ chế đồng bộ Drive) — lên kế hoạch chi tiết, chờ anh duyệt + "code".
+- Mốc quay lại: nhánh `moc/v3.141-truoc-tach-file`.
+- **`main` = 3.144** (Sắp lại tab — đã gộp, Pages xanh). Rà file thật 30/09 xong: Mẫu 31 / Dư nợ chi tiết khớp DSTO, LEN_31, BCDHTD 01.1 / 01.2 (số đếm ở `DU_LIEU_THANG.md`).
+- **Việc tiếp:** kế hoạch `docs/KE_HOACH_KIEM_TRA_KY.md` (3.145 bộ file chuẩn mới · 3.146 Kiểm tra kỳ thống nhất) — **chờ anh trả lời 3 câu ở mục 4 + "code"**. Sau đó đợt B (góp ý `luu()`, đồng bộ Drive).
 - **Anh chốt 10/10:** bỏ hẳn tab Tháng + xóa dữ liệu cũ (rác); bỏ nút Giao ban, Buổi giao dịch (làm lại sau); nạp file nhận ngày số liệu từ **nội dung** file (Q12–Q14). Anh làm luân phiên 2 tài khoản — tài khoản nào cũng bắt đầu từ file này (nhánh đang dùng ghi ở mục 2).
 - **Chờ anh:** (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi tin học về máy chủ nội bộ; thử máy thật 3.136 / 3.138 / 3.142 (bảng trong `BAN_GIAO_VIEC_CON_LAI.md`); số TK 105 khách chỉ có 105 (cần nguồn); văn bản củng cố / chia tách tổ; "nhớ người ký theo khuyết" (chưa xác nhận); Mẫu 06 trắng 2 mặt trên Word thật.
 
