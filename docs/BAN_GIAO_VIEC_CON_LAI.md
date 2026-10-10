@@ -222,6 +222,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.145) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app (có nối Drive) | Báo "đã xóa hẳn N bảng của các mẫu đã bỏ" nếu máy còn B32 / Mẫu 10 / Mẫu 7 / Sao kê KH; Drive: file đó vào Thùng rác | |
+| 2 | 📥 Nạp & KT › dòng ① | "Ⓑ bắt buộc x/3 · Ⓐ chuẩn TW x/6" | |
+| 3 | Ô ma trận Mẫu 31 / QH / khoanh / KHĐ / DSTO | Số chính + mũi tên so tháng trước (dư nợ tăng xanh; QH, khoanh, KHĐ tăng đỏ); tổ chỉ số tổ | |
+| 4 | Bấm ô trống | Mở chọn file nạp đúng ô | |
+| 5 | Bấm ô có file → Thay bằng file mới | Hỏi trước; thay xong bấm lại ô có "↩ Hoàn tác lần thay" → về file cũ (Drive: file cũ ra khỏi Thùng rác) | |
+| 6 | 📋 File cần xuất | Bảng file + mẫu chọn khi xuất (KHĐ mẫu 14), ✓ file tháng đang xem | |
+| 7 | Tổ TK&VV | Tổ dư nợ 0 còn trên DSTO / LEN_31 ghi "⚠ Dư nợ 0 — cần đóng tổ", chip liệt kê; SĐT tổ trưởng theo DSTO | |
+| 8 | Tháng không nạp file KHĐ | Tra cứu / Tổ vẫn có KHĐ (app tự tính); tháng có file → ② Kiểm tra có dòng "KHĐ app tự tính ↔ file" | |
+| 9 | Tổng hợp › Theo nguồn vốn | Số TW / ĐP tính từ Mẫu 31 (không cần B32) | |
+
+**Ghi chú kỹ thuật 3.145:** `SL_BAT_BUOC` 9 loại; `SL_NHOM` B / A / D / X. Loại đã bỏ: `SL_BO_HAN` + `slBoLoaiDon` (khóa chạy trùng `SL_BOLOAI`), giữ stub trong `SL_LOAI` (`bo`) để nhận diện file. Ô ma trận: `slOMT` → `slChinh` / `slMuiTen` / `slOBam`; tháng chốt 🔒 giữ nhánh cũ đến 3.146. Hoàn tác: `e.truoc` đi theo meta lên Drive (máy khác hoàn tác được qua Drive; máy này có bản `_truoc` trong IndexedDB — tốn thêm 1 bảng mỗi ô đã thay); `slXoa` xóa luôn bản `_truoc`. KHĐ tự tính: quy tắc ở `DU_LIEU_THANG.md` (mục KHĐ) — điều kiện "món vay sau mốc" là suy luận từ 3 món vay mới năm 2026 không có trong file T9, cần anh xác nhận qua vài tháng đối chiếu. `toDong0` chỉ ẩn tổ khi kỳ có DSTO hoặc LEN_31 (không có thì không đoán).
+
 ### Danh sách thử trên máy thật (3.144) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

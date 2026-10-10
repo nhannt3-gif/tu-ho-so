@@ -1,7 +1,7 @@
 # 📋 FILE CẦN XUẤT HẰNG THÁNG — ghi nhớ cho anh Nhân
 
 > Chốt 10/10/2026 (Q16, Q17). Xuất **ngày cuối tháng** (ngày số liệu = ngày cuối tháng). Nạp ở tab **📥 Nạp & KT** → "📥 Nạp nhiều file".
-> Bản trong app: sẽ hiện ở tab Nạp & KT từ bản 3.145.
+> Bản trong app: nút **📋 File cần xuất** ở tab Nạp & KT (từ 3.145, có ✓ file tháng đang xem đã có).
 
 ## A. Bắt buộc — nguồn dữ liệu của app (3 file)
 | # | File | Chọn mẫu khi xuất | Tên file thường gặp | Dùng vào |

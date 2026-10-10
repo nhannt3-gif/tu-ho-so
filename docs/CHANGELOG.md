@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.145 — 10/10/2026 — Bộ file chuẩn mới; xóa hẳn mẫu đã bỏ; ô ma trận số chính + mũi tên; bấm ô hỏi thay + hoàn tác; KHĐ tự tính; tổ dư nợ 0
+- **Anh chốt (Q16, Q17, KE_HOACH_KIEM_TRA_KY.md):** Ⓑ bắt buộc 3 file (Mẫu 31, Dư nợ chi tiết, DSTO) · Ⓐ chuẩn TW 6 file (BCDHTD 01.1 / 01.2, 4 LEN_31) — đủ 9 file mới Đạt · Ⓓ phụ (KHĐ mẫu 14, QH, khoanh, phân kỳ, Tổng dư nợ, **Thông tin tổ trưởng** giữ để tra soát tháng cũ) · KTGS BC0437 / BC0438.
+- **Xóa hẳn mã + dữ liệu:** B32, Mẫu 10, Mẫu 7, Sao kê KH, KHĐ 08/KTNB — chỉ còn 1 dòng nhận diện (thả file → báo "đã bỏ"). `slBoLoaiDon` (thay `slBoMau10`) chạy khi mở app / kéo Drive: xóa bảng trong máy + meta (dấu `SLM.xoa`), file Drive vào Thùng rác (chưa nối → `sl_rac_cho`). Bỏ kiểm tra chéo Mẫu 31 ↔ B32, Mẫu 10; Tổng hợp › "Theo nguồn vốn TW / ĐP" tính từ Mẫu 31 (`twTinh31` theo `nguon|xã`).
+- **Ô ma trận:** `slChinh` (số chính theo loại: dư nợ · KHĐ số món · QH / khoanh số món + tiền · tổ số tổ), `slMuiTen` so ô tháng liền trước: dư nợ tăng ▲ xanh, QH / khoanh / KHĐ ngược lại, tổ không mũi tên.
+- **Bấm ô:** trống → `slNapMot`; có file → `slOBam` hỏi "Thay bằng file mới?" (Thôi / Thay + nút nhỏ Xem / Tải / Xóa / ↩ Hoàn tác).
+- **Hoàn tác lần thay (1 bước, 30 ngày):** `slGhi` thay ô → `e.truoc` (bản meta cũ) + bản trong máy `sl_b_…_truoc`, `sl_g_…_truoc` (`slGiuTruoc`). `slHoanTac`: bản mới đã lên Drive → lấy file cũ khỏi Thùng rác (`slBoRac`, PATCH trashed:false), file mới vào Thùng rác (`slRacCho`); mốc `luc` mới để máy khác tải lại.
+- **KHĐ tự tính** `slKHDTinh` (còn dư nợ, GD gần nhất trước ngày cùng kỳ 3 tháng trước, bỏ khoanh / HSSV / món vay sau mốc); `slKHD(B)` = file nếu có, không thì số tự tính (Tra cứu, Tổ, KTGS). Kiểm tra: "KHĐ app tự tính ↔ file" (tính / file / khớp).
+- **Cây tổ:** DSTO điền trước Thông tin tổ trưởng (SĐT, tổ phó theo DSTO); `toDong0`: tổ dư nợ 0 còn trên DSTO / LEN_31 → `canDong` (nhãn "⚠ Dư nợ 0 — cần đóng tổ", chip ở tóm tắt phạm vi, thẻ tổ); không còn ở cả 2 → `K.toAn` (ẩn khỏi cây, ô tìm vẫn thấy).
+- **📋 File cần xuất** (`slFileXuat`, `SL_FILE_XUAT`): nút ở tab Nạp & KT, ✓ file tháng đang xem đã có.
+- **Phép thử:** `tests/t141.js` (mới, 31 — Drive giả). t123 (`slBoLoaiDon`, Dư nợ chi tiết bắt buộc), t105 (B32 bị từ chối, chốt dùng bộ bắt buộc thu gọn), **hoiquy** (sửa: phép "XLS từ ô ma trận tab Tháng" hỏng từ 3.144 → "Excel sang Số liệu"; Cài đặt 11 trang), `fakedrive.js` (lấy lại khỏi thùng rác).
+- **Chưa làm (3.146):** Kiểm tra kỳ thống nhất (Đạt + ghi chênh lệch), xóa mã chốt tháng.
+
 ## 3.144 — 10/10/2026 — Sắp lại tab: tab 📥 Nạp & KT thay tab Tháng; bỏ tab Tháng + dữ liệu; ẩn Giao ban, Buổi GD
 - **Anh chốt:** Q5 + Q12 (bỏ tab Tháng, xóa dữ liệu cũ, **không sao lưu**, thư mục Drive vào **thùng rác Drive**), Q13 (bỏ nút Giao ban, Buổi GD — làm lại sau), Q15 (tách Nạp & Kiểm tra thành tab riêng vào chỗ tab Tháng; **nạp BC0437 / BC0438 của KTGS gộp vào đây**; quy tắc kiểm tra thống nhất 1 lần — làm sau). Anh duyệt gộp 3 bước thành 1 bản.
 - **Thanh tab:** `📥 Nạp & KT` (`moNapSL`) ở chỗ tab Tháng, `Số liệu` (`moBCSL`) mở tab con báo cáo gần nhất (`D.cauHinh.slTabBC`, mặc định Tổng hợp); tô nút theo `toNutSL`. Bên trong vẫn là khung tab 7 (`slTab='nap'`) — chưa tách mã (đợt kiến trúc F). `doiNgan(2)` (lối cũ: Có gì mới, lời nhắc) → tab Nạp & KT.

@@ -2027,7 +2027,13 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.144', ds:[
+var CO_GI_MOI = {ban:'3.145', ds:[
+  ['📋 Bộ file mới: Ⓑ bắt buộc 3 file (Mẫu 31, Dư nợ chi tiết, DSTO) · Ⓐ chuẩn TW 6 file (01.1, 01.2, 4 LEN_31) · Ⓓ phụ (KHĐ mẫu 14, quá hạn, khoanh, phân kỳ, Tổng dư nợ, Thông tin tổ trưởng). Nút “📋 File cần xuất” ở tab Nạp & KT nhắc mẫu cần chọn khi xuất', "dongHop();moNapSL()"],
+  ['🔢 Ô ma trận hiện số chính + mũi tên so tháng trước: dư nợ tăng ▲ xanh / giảm ▼ đỏ; quá hạn, khoanh, KHĐ ngược lại; tổ chỉ hiện số tổ', "dongHop();moNapSL()"],
+  ['🖱 Bấm ô trống = nạp file vào ô đó; bấm ô đã có file → hỏi “Thay bằng file mới?” (nút nhỏ xem / tải / xóa); thay rồi vẫn ↩ Hoàn tác được 1 lần trong 30 ngày', "dongHop();moNapSL()"],
+  ['🗑 Bỏ hẳn B32, Mẫu 10, Mẫu 7, Sao kê khách hàng, KHĐ mẫu 08: bảng đã nạp tự xóa (file trên Drive vào Thùng rác Drive). Doanh số + nguồn vốn TW / ĐP lấy từ Mẫu 31 (Tổng hợp › Theo nguồn vốn)', "dongHop();moBCSL()"],
+  ['⏱ KHĐ 3 tháng: app tự tính từ Mẫu 31 (tháng không có file KHĐ vẫn có số); có file mẫu 14 thì dùng file và Kiểm tra đối chiếu với số app tính', "dongHop();moNapSL()"],
+  ['⚠ Tổ dư nợ 0 còn trên DSTO / LEN_31 → vẫn hiện, ghi “Dư nợ 0 — cần đóng tổ” (chip liệt kê ở Tổ TK&VV); không còn ở cả hai thì ẩn khỏi cây (vẫn tìm được). SĐT tổ trưởng, tổ phó lấy theo DSTO', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ['📥 Tab mới “Nạp & KT” thay chỗ tab Tháng — nơi duy nhất nạp file Excel hệ thống và kiểm tra dữ liệu; nạp BC0437 / BC0438 của KTGS cũng ở đây', "dongHop();moNapSL()"],
   ['📊 Tab “Số liệu” chỉ còn báo cáo: Tổng hợp, Sao kê, Tổ TK&VV, KTGS Hội, Tra cứu KH (nhớ tab con anh mở gần nhất)', "dongHop();moBCSL()"],
   ['🗑 Bỏ tab Tháng: dữ liệu cũ của tab tự xóa một lần; thư mục “Dữ liệu tháng” trên Drive vào thùng rác Drive (lấy lại được 30 ngày). Thêm file Excel → sang tab Nạp & KT', "dongHop();moNapSL()"],

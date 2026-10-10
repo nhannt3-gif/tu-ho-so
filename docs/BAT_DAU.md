@@ -21,8 +21,8 @@
 
 ## 3. Trạng thái (cập nhật 10/10/2026)
 - Mốc quay lại: nhánh `moc/v3.141-truoc-tach-file`.
-- **`main` = 3.144** (Sắp lại tab — đã gộp, Pages xanh). Rà file thật 30/09 xong: Mẫu 31 / Dư nợ chi tiết khớp DSTO, LEN_31, BCDHTD 01.1 / 01.2 (số đếm ở `DU_LIEU_THANG.md`).
-- **Việc tiếp:** kế hoạch `docs/KE_HOACH_KIEM_TRA_KY.md` (3.145 bộ file chuẩn mới · 3.146 Kiểm tra kỳ thống nhất) — **chờ anh trả lời 3 câu ở mục 4 + "code"**. Sau đó đợt B (góp ý `luu()`, đồng bộ Drive).
+- **`main` = 3.145** (Bộ file chuẩn mới: Ⓑ 3 bắt buộc + Ⓐ 6 chuẩn TW; xóa hẳn B32 / Mẫu 10 / Mẫu 7 / Sao kê KH / KHĐ 08; ô ma trận số + mũi tên, bấm ô hỏi thay, ↩ hoàn tác 30 ngày; KHĐ tự tính; tổ dư nợ 0 cần đóng; 📋 File cần xuất). Rà file thật 30/09: số đếm ở `DU_LIEU_THANG.md`.
+- **Việc tiếp (chờ anh chốt 5 câu ở mục 5 `docs/KE_HOACH_DIEU_HUONG.md` + "code"):** đợt F — giao diện điều hướng (thanh bên, máy tính; điện thoại giữ tab ngang) · 3.146 Kiểm tra kỳ thống nhất + xóa mã chốt tháng (`docs/KE_HOACH_KIEM_TRA_KY.md` mục 3, đã chốt) · sau đó đợt B (góp ý `luu()`, đồng bộ Drive).
 - **Anh chốt 10/10:** bỏ hẳn tab Tháng + xóa dữ liệu cũ (rác); bỏ nút Giao ban, Buổi giao dịch (làm lại sau); nạp file nhận ngày số liệu từ **nội dung** file (Q12–Q14). Anh làm luân phiên 2 tài khoản — tài khoản nào cũng bắt đầu từ file này (nhánh đang dùng ghi ở mục 2).
 - **Chờ anh:** (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi tin học về máy chủ nội bộ; thử máy thật 3.136 / 3.138 / 3.142 (bảng trong `BAN_GIAO_VIEC_CON_LAI.md`); số TK 105 khách chỉ có 105 (cần nguồn); văn bản củng cố / chia tách tổ; "nhớ người ký theo khuyết" (chưa xác nhận); Mẫu 06 trắng 2 mặt trên Word thật.
 
@@ -37,5 +37,6 @@
 | Phép thử nào kiểm gì | `tests/README.md` | `grep` tên chức năng |
 | Cấu trúc file Excel hệ thống | `docs/DU_LIEU_THANG.md` | Khi làm phần nạp |
 | File anh xuất hằng tháng (mẫu nào, tên file) | `docs/FILE_XUAT_HANG_THANG.md` | Ngắn, đọc khi bàn về file |
+| Kế hoạch giao diện điều hướng (đợt F) | `docs/KE_HOACH_DIEU_HUONG.md` | Ngắn |
 
 **Nguyên tắc cho phiên sau:** mỗi bản chỉ thêm ≤ 15 dòng vào CHANGELOG cho phần tóm tắt + ghi chi tiết kỹ thuật ngắn; giữ file này dưới ~80 dòng; thông tin dài để ở tài liệu chuyên đề và trỏ link.
