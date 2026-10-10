@@ -20,6 +20,14 @@ Anh chốt: **số chính thức của TW, chuẩn nhất**. File dạng **biể
 - **B32:** dư nợ, quá hạn khớp (làm tròn 0,01 triệu); **cho vay B32 gồm cả đảo khoản**; **"thu nợ" B32 = thu nợ thực + cho vay trong tháng** (app tính dòng "thu nợ thực"); số hộ thu nợ đúng số tháng.
 - Ghép tổ LEN_31 ↔ mã tổ: cùng xã, tên đủ trùng → tên LEN là phần đầu tên tổ; nhiều tổ khớp tên → theo dư nợ, không thì cả nhóm nếu tổng dư nợ bằng (T9: 369 / 370 dòng ghép được, khớp dư nợ / quá hạn / khoanh / cho vay).
 
+## Rà soát tổ / điểm GD trên file thật 30/09/2026 (10/10/2026, chỉ số đếm — không ghi dữ liệu khách)
+- **Dư nợ chi tiết** (25.325 dòng, 169 cột) có trên **từng món**: Mã / Tên xã, Mã / Tên thôn, **Ngày GDXA, Mã / Tên điểm giao dịch**, Mã tổ, Loại tổ, **Mã CIF TT + Tên tổ (= tên tổ trưởng)**, Mã ĐVUT, ngày sinh tổ trưởng. **Mẫu 31 có các cột tổ như trên trừ điểm GD** (theo cấu trúc Mẫu 31 dùng làm file giả).
+- **Mỗi tổ trong Dư nợ chi tiết chỉ có 1 giá trị** điểm GD / ấp / Hội / tổ trưởng / xã / ngày GDXA (0 tổ lệch giữa các món).
+- **Khớp 100%** giữa Dư nợ chi tiết ↔ DSTO ↔ Thông tin tổ trưởng (phần tổ có ở cả 2 bên): điểm GD, mã + tên tổ trưởng, Hội, ấp, xã, ngày GDXA.
+- **Tập tổ:** Dư nợ chi tiết 378 tổ = **369 tổ còn dư nợ (= đúng 369 tổ DSTO)** + 9 tổ dư nợ 0 (không có trong DSTO). 42 dòng không mã tổ = vay trực tiếp (Hình thức vay 1).
+- **Thông tin tổ trưởng 30/09 lỗi:** 352 tổ — **thiếu 18 tổ còn dư nợ** so DSTO, thừa 1 tổ không có món nào và không có trong DSTO.
+- **Kết luận:** danh sách tổ + tổ trưởng + Hội + ấp + ngày GDXA lấy từ **Mẫu 31 / Dư nợ chi tiết**, điểm GD từ **Dư nợ chi tiết** — chính xác. Thông tin tổ trưởng chỉ còn đóng góp **SĐT tổ trưởng + tổ phó** → **DSTO có đủ** (cả 369 tổ). Số tổ viên của DSTO định nghĩa khác "số khách có dư nợ" (300 tổ khác) — không dùng để so.
+
 ## 3.90 — các file khác
 - **Món vay 3 tháng KHĐ: chỉ dùng mẫu 14** "Sao kê món vay N tháng không hoạt động (DL Tháng)". File mẫu **08/KTNB** ("DS khoản vay trên N tháng không hoạt động", cột Mã món vay, Địa chỉ, Tên xã, Mô tả) **cùng số y hệt** nhưng thiếu điểm GD xã, ngày đến hạn GDXA → app không nhận. Quy tắc của hệ thống (kiểm T9): món còn dư nợ, ngày GD gần nhất **trước** ngày cùng kỳ 3 tháng trước (30/06 cho số 30/09; GD đúng ngày 30/06 không tính); **không đưa món khoanh, món HSSV**; 3 món vay mới năm 2026 cũng không có (chưa rõ lý do — app báo lưu ý). File 0 dòng → báo xuất lại.
 - **Thông tin tổ trưởng: nạp mỗi tháng** (anh chốt, để kiểm). **Nợ quá hạn, Nợ khoanh, Tổng dư nợ theo CT: phụ** (không bắt buộc, có thì đối chiếu thêm). **Bỏ:** Mẫu 7 (khỏi tham chiếu), Sao kê khách hàng (không xuất được nữa).
