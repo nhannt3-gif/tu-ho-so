@@ -187,8 +187,34 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
   - **Không tự dời file trên Drive.** Có nút "Sắp lại thư mục Drive" xem trước rồi mới dời.
 - **Cài đặt › Địa bàn (khai tay):** khi đã có cây chuẩn thì không cần nữa. Câu hỏi bên dưới.
 
+**Anh chốt ý 7 (10/10):**
+- **Nguyên tắc chung:** cái gì không còn phù hợp thì loại bỏ. **Hạn chế tối đa nhập tay** — app phải lấy được từ số liệu chuẩn.
+- **Cài đặt** sẽ viết lại, tinh chỉnh toàn bộ **sau khi** làm xong các chức năng. Phần khai tay địa bàn bỏ khi viết lại Cài đặt.
+- **Lưu file scan chỉ cần: mã KH + tên + ấp.** Không lưu theo tổ, vì khách có thể bị chuyển sang tổ khác khi củng cố tổ.
+  - Chọn khách bằng ô tìm (tên / mã KH / CCCD) từ danh bạ Mẫu 31 → app tự điền ấp + xã.
+  - Thư mục đề xuất: `Hồ sơ scan/<Xã>/<Ấp>/<Mã KH> <Tên>.pdf`. Xã do app tự lấy, vì tên ấp trùng giữa các xã.
+- **Hồ sơ scan cũ:** chuẩn hóa sau, khi cần (hiện lưu chưa nhiều). Đợt này **không** dời / khớp lại.
+
+## Ý 8 — Khai báo Hội đoàn thể: 1 bảng như Excel (anh gửi ảnh 10/10)
+**Hiện nay:**
+- Mỗi Hội một thẻ dài: tên đơn vị + dòng "In ra: …" giải thích.
+- Ban Thường vụ có CT, PCT, PCT 2, PCT 3, nhiệm kỳ, 5 ủy viên BTV; mỗi ô có dòng "In ra: …" + nút ↺.
+- Phần ủy thác (số / ngày HĐ, số / ngày KH Hội tỉnh); nút Phân công BTV, link "sửa ở Chuẩn hóa".
+
+**Anh chốt:** gom lại **1 bảng như Excel** cho gọn, **không diễn giải**. Thống nhất **1 Hội = 1 Chủ tịch, 1 Phó Chủ tịch, 3 Ủy viên BTV**.
+
+**Đề xuất bảng:**
+- Mỗi dòng = 1 Hội cấp xã (xã × Hội, app tự lấy từ số liệu, kèm số tổ).
+- Cột: Xã · Hội (số tổ) · Tên Hội cấp xã (trống = tên chuẩn) · Chủ tịch · Phó CT · BTV 1 · BTV 2 · BTV 3 · Nhiệm kỳ · Số HĐ ủy thác · Ngày HĐ · Số KH Hội tỉnh · Ngày KH.
+- **Gõ thẳng trong ô như Excel:** Enter / Tab sang ô kế, ↑↓ đổi dòng.
+- **Dán được cả khối** chép từ Excel / Zalo (nhiều dòng × nhiều cột).
+- Ô trống tô nhạt. Ngày sai dạng tô đỏ (không thêm chữ giải thích).
+- Đoàn Thanh niên tự hiện nhãn **Bí thư / Phó Bí thư**.
+- **Bỏ:** dòng "In ra: …", nút ↺ từng ô, PCT 2, PCT 3, ủy viên 4, 5.
+- Phân công BTV + Chuẩn hóa tên cấp tỉnh: để khi viết lại Cài đặt / KTGS (nút ⋯ trên bảng).
+- **Dữ liệu cũ:** đọc được. Hội nào đang có tên ở PCT 2 / PCT 3 / ủy viên 4, 5 → báo 1 lần danh sách để anh chuyển vào 3 ô BTV, rồi bỏ.
+- Mẫu in (06 / 16 / 04 / Kế hoạch) chỉ còn chọn CT / PCT / BTV 1–3.
+
 ## Câu hỏi chờ anh
-- Ý 7: bỏ phần **khai tay địa bàn** ở Cài đặt (dùng cây chuẩn từ số liệu cho Scan, Công cụ Địa bàn) — hay giữ để khai ấp / tổ chưa có trong số liệu?
-- Ý 7: hồ sơ scan cũ trên Drive có **dời sang thư mục theo tên chuẩn** (xem trước rồi mới dời) không, hay để nguyên chỗ cũ, chỉ hồ sơ mới theo chuẩn?
 - Ý 6b: phạm vi (xã / điểm / hội / tổ) + kỳ **dùng chung** giữa Tổng hợp, Sao kê, Tổ, KTGS, Tra cứu (đổi 1 lần, tab khác theo) — hay mỗi tab nhớ riêng như hiện nay?
 - Ý 5: có thêm 🤖 Copy cho AI không (anh đang cân nhắc)?
