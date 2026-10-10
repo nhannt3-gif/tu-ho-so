@@ -116,5 +116,59 @@
 - Dài quá thì báo số trang / số chữ và cho chọn trang.
 - Che họ tên / CCCD tùy chọn, như "Chép sang AI" của bảng Excel hiện có (`moChepAI`). Văn bản hành chính thường không cần che.
 
+## Ý 6 — Khu vực lọc đồng bộ (anh gửi 10/10)
+### 6a. Tab file: Văn bản · Biểu mẫu · Scan (· Thư viện)
+**Hiện nay (đo trên app, 1536×730):** mỗi tab một kiểu.
+| | Văn bản | Biểu mẫu | Scan |
+|---|---|---|---|
+| Hàng nút | Thêm · Xóa · Bộ lọc · Lập chỉ mục · ❓ | Thêm · Xóa · Bộ lọc · Bộ biểu mẫu · ❓ | Thêm · Xóa · Bộ lọc · Chế độ: Thẻ · Webcam · Chữ ký·CCCD · ❓ |
+| Hàng chip luôn hiện | Mảng + CT vay + Tag (2 hàng) | Chương trình + Tag (3 hàng) | Xã + Tag + 1 dòng giải thích |
+| Sắp xếp | Tên · Ngày · Loại · Dung lượng · Vừa thêm | + Số lần dùng · Năm VB gốc | không có; thay bằng Ngày / Tuần / Tháng |
+| Kiểu xem | Danh sách · Nhóm · Gọn · Khung xem · 📂 | như VB | Danh sách · Cây địa bàn · ⚠ Chưa đạt |
+
+**Đề xuất — 1 thanh lọc dùng chung (1 hàng):**
+```
+[＋ Thêm]  [⚲ Lọc ▾ (2)]  [⇅ Ngày ▾]  [☰ ▾]   Tín dụng ✕  HN ✕        12 mục   ⋯   ❓
+```
+- **⚲ Lọc ▾:** mở bảng chip.
+  - Văn bản: Mảng / CT vay / Tag.
+  - Biểu mẫu: Chương trình / Tag.
+  - Scan: Xã / Tag / Trạng thái (Chưa đạt).
+  - Số trong ngoặc = số điều kiện đang lọc.
+- **Chip đang lọc** hiện ngay trên thanh, bấm ✕ để bỏ. Không lọc thì không chiếm hàng nào.
+- **⇅ Sắp xếp ▾:** cùng một hộp, mỗi tab thêm tiêu chí riêng (Số lần dùng, Năm VB gốc; Scan: Ngày / Tuần / Tháng là "nhóm theo").
+- **☰ Kiểu xem ▾:** Danh sách · Nhóm · Gọn (Scan thêm Cây địa bàn). Khung xem bật / tắt ở chính khung.
+- **⋯ Việc riêng của từng tab:**
+  - Văn bản: Lập chỉ mục.
+  - Biểu mẫu: Bộ biểu mẫu.
+  - Scan: Chế độ thẻ / Webcam / Chữ ký·CCCD.
+- **Không còn nút "Xóa file"** cố định: tích chọn → thanh chọn có 🗑 Xóa (quy tắc xóa chung). Dòng giải thích → ❓.
+
+### 6b. Cây địa bàn ở Tổng hợp · Sao kê · Tổ TK&VV · KTGS · Tra cứu
+**Hiện nay:**
+- 4 ô Xã / Điểm GD / Hội / Tổ **xếp dọc**, chiếm ~110 px.
+- Chip đặt chỗ khác nhau: Tổ có chip Hội, Tổng hợp chip nằm bên phải.
+- **Mặc định khác nhau:** Tổ / Sao kê / Tổng hợp = "Toàn PGD"; KTGS = "— chọn xã —".
+- **Chỗ chọn kỳ khác nhau:**
+  - Tổng hợp không có ⟳ Làm mới / "Đang dùng".
+  - KTGS có thêm chip BC0437/0438 và dòng "Nạp ở tab…".
+- Ô tìm tổ: Tổ để trên cùng hàng kỳ, KTGS để riêng 1 hàng.
+- **Mỗi tab nhớ phạm vi riêng:** chọn xã ở Tổ, sang Sao kê phải chọn lại.
+
+**Đề xuất — 1 thanh phạm vi dùng chung, cùng chỗ ở cả 5 tab:**
+```
+Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] › Hội [— ▾] › Tổ [— ▾]   🔎 tìm tổ / tên…
+───────────────────────────────────────────────────────────────────────────────────────────────
+(hàng 2 — riêng từng tab: Tổng hợp: báo cáo + CT + nguồn vốn · Sao kê: loại + khổ · Tổ: chip lọc · KTGS: chế độ)
+```
+- **1 hàng ngang:**
+  - Kỳ + ⟳ (bỏ chip "Đang dùng" vì ô Kỳ đã ghi).
+  - 4 ô phạm vi nối nhau bằng ›; chip nhanh nằm trong ô thả xuống.
+  - Ô tìm ở cuối hàng.
+- **Mặc định cả 5 tab = Toàn PGD.** KTGS chế độ cần chọn tổ thì nhắc ngay dưới ("Chọn tổ để …").
+- **Phạm vi + kỳ dùng chung giữa 5 tab** (đổi 1 lần, tab khác theo) = đợt D làm luôn ở đây. Câu hỏi: anh có muốn chung không?
+- KTGS: chip BC0437 / BC0438 + "Nạp ở tab…" → gộp vào dòng trạng thái nhỏ.
+
 ## Câu hỏi chờ anh
+- Ý 6b: phạm vi (xã / điểm / hội / tổ) + kỳ **dùng chung** giữa Tổng hợp, Sao kê, Tổ, KTGS, Tra cứu (đổi 1 lần, tab khác theo) — hay mỗi tab nhớ riêng như hiện nay?
 - Ý 5: có thêm 🤖 Copy cho AI không (anh đang cân nhắc)?
