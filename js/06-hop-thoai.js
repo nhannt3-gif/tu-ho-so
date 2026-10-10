@@ -1292,6 +1292,48 @@ function thucHienXoaHan(ids, imLang){
     bao('Đã xóa hẳn '+xong+' file'+(loi?' · '+loi+' file lỗi, còn trong thùng rác':'')+'.', 6);
   });
 }
+/* ==========================================================
+   3.144 — BỎ TAB THÁNG (anh chốt Q5, Q12, 10/10/2026): xóa dữ liệu cũ của tab một lần, không sao lưu.
+   - Mục Dữ liệu tháng (D.duLieu), mục nhóm duLieu trong khay chờ và thùng rác: bản trong máy xóa, file trên Drive vào
+     THÙNG RÁC DRIVE (lấy lại được 30 ngày), ghi dấu daXoaHan để máy khác bỏ theo khi đồng bộ.
+   - Thư mục "<thư mục gốc>/Dữ liệu tháng" trên Drive (cả file không có trong chỉ mục) → thùng rác Drive.
+   - Chưa nối Drive: mục không có file trên Drive xóa ngay; còn lại chờ lần nối Drive sau. Xong cả thư mục thì đặt cờ boThang.
+   ========================================================== */
+var BO_THANG_CHAY = false;
+function boThangMuc(){
+  var la = function(m){ return m && (m.nhom==='duLieu' || m.khoCu==='duLieu'); };
+  return (D.duLieu||[]).map(function(m){ return {m:m, kho:'duLieu'}; })
+    .concat((D.cho||[]).filter(la).map(function(m){ return {m:m, kho:'cho'}; }))
+    .concat((D.rac||[]).filter(la).map(function(m){ return {m:m, kho:'rac'}; }));
+}
+function boThangDon(){
+  if(BO_THANG_CHAY || D.cauHinh.boThang==='xong') return Promise.resolve(0);
+  var coDrive = !!(DR.sanSang && DR.online), ds = boThangMuc(), now = new Date().toISOString(), xong = 0, loi = 0;
+  BO_THANG_CHAY = true; D.daXoaHan = D.daXoaHan || [];
+  return ds.reduce(function(p, x){
+    return p.then(function(){
+      var m = x.m, coFile = m.driveId && !m.driveMat && !laFileHeThong(m);
+      if(coFile && !coDrive) return;   /* chờ nối Drive */
+      return (coFile ? xoaFileDrive(m.driveId) : Promise.resolve(true)).then(function(){
+        try{ xoaFile(m.id); xoaAnhMayCua(m); }catch(e){}
+        D[x.kho] = (D[x.kho]||[]).filter(function(y){ return y.id!==m.id; });
+        if(!D.daXoaHan.some(function(t){ return t.id===m.id; })) D.daXoaHan.push({id:m.id, driveId:m.driveId||'', luc:now});
+        xong++;
+      }).catch(function(e){ loi++; console.warn('Bỏ tab Tháng: không xóa được', m.tenMoi, e); });
+    });
+  }, Promise.resolve()).then(function(){
+    if(!coDrive || loi) return false;
+    return baoDamDuong(D.cauHinh.thumuc).then(function(goc){ return timFileTrong('Dữ liệu tháng', goc); })
+      .then(function(f){ return f ? xoaFileDrive(f.id) : true; })
+      .then(function(){ return true; }, function(e){ console.warn('Bỏ tab Tháng: thư mục Drive', e); return false; });
+  }).then(function(daTM){
+    BO_THANG_CHAY = false;
+    if(daTM && !boThangMuc().length) D.cauHinh.boThang = 'xong';
+    if(xong || daTM){ luu(); capNhatDemRac(); ve(); }
+    if(xong) bao('Đã bỏ tab Tháng: xóa '+xong+' mục dữ liệu cũ'+(daTM ? ', thư mục “Dữ liệu tháng” trên Drive vào thùng rác Drive (lấy lại được 30 ngày)' : '')+(loi ? ' · '+loi+' mục lỗi, sẽ thử lại' : '')+'.', 7);
+    return xong;
+  });
+}
 /* chọn nhanh trong thùng rác: tất cả / cũ hơn N ngày */
 function chonRac(kieu){
   var han = kieu==='tat' ? Infinity : Date.now()-kieu*864e5;
@@ -1439,7 +1481,6 @@ function layAnh(chup){
 /* ---------- 9. CÀI ĐẶT ---------- */
 var TAB_CD = [
   {ma:'vanBan',  ten:'Văn bản',       ico:'📄'},
-  {ma:'duLieu',  ten:'Dữ liệu tháng', ico:'📊'},
   {ma:'ghiChu',  ten:'Ghi chú',       ico:'🖼'},
   {ma:'scan',    ten:'Scan hồ sơ',    ico:'🪪'},
   {ma:'bieuMau', ten:'Biểu mẫu',      ico:'📋'}
@@ -1867,7 +1908,7 @@ function soDoLuuTru(){
    Mở từ nút ❓ trên thanh trên cùng, nút ❓ ở đầu mỗi tab / Dọn kho, và hộp "Có gì mới".
    ========================================================== */
 var HD_PHAN = [
-  ['tong','🧭 Tổng quan'],['homNay','📅 Hôm nay'],['vanBan','📄 Văn bản'],['duLieu','📊 Tháng'],['bieuMau','📋 Biểu mẫu'],['ghiChu','🖼 Thư viện'],
+  ['tong','🧭 Tổng quan'],['homNay','📅 Hôm nay'],['vanBan','📄 Văn bản'],['bieuMau','📋 Biểu mẫu'],['ghiChu','🖼 Thư viện'],
   ['scan','🪪 Scan'],['kyAnh','✍ Chữ ký·CCCD'],['xoa','🗑 Xóa & Thùng rác'],['donkho','🧰 Dọn kho'],['phim','⌨ Phím & mẹo'],['moi','✨ Có gì mới']];
 function hdNut(t, lop){ return '<span class="hd-nut'+(lop?' '+lop:'')+'">'+t+'</span>'; }
 function hdBuoc(ds){ return '<ol class="hd-buoc">'+ds.map(function(x){ return '<li>'+x+'</li>'; }).join('')+'</ol>'; }
@@ -1986,7 +2027,11 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.143', ds:[
+var CO_GI_MOI = {ban:'3.144', ds:[
+  ['📥 Tab mới “Nạp & KT” thay chỗ tab Tháng — nơi duy nhất nạp file Excel hệ thống và kiểm tra dữ liệu; nạp BC0437 / BC0438 của KTGS cũng ở đây', "dongHop();moNapSL()"],
+  ['📊 Tab “Số liệu” chỉ còn báo cáo: Tổng hợp, Sao kê, Tổ TK&VV, KTGS Hội, Tra cứu KH (nhớ tab con anh mở gần nhất)', "dongHop();moBCSL()"],
+  ['🗑 Bỏ tab Tháng: dữ liệu cũ của tab tự xóa một lần; thư mục “Dữ liệu tháng” trên Drive vào thùng rác Drive (lấy lại được 30 ngày). Thêm file Excel → sang tab Nạp & KT', "dongHop();moNapSL()"],
+  ['🧰 Cột Công cụ: tạm bỏ Giao ban và Buổi GD (sẽ làm lại sau)', "dongHop();doiNgan(0)"],
   ['📅 Nạp số liệu: ngày số liệu lấy theo NỘI DUNG file. File không ghi ngày (vd KHĐ, Nợ khoanh, Thông tin tổ trưởng) → dòng báo “Cần khai ngày”, anh chọn ngày ở ô Kỳ hoặc bấm “Tên file: … — dùng”; chưa khai thì không ghi nhận', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['🧱 Kiến trúc mới (đợt A): app tách thành nhiều file nhỏ (css / js) — dùng như cũ, không đổi chức năng; cửa sổ nổi HSSV vẫn đủ kiểu chữ. Tải app về máy thì tải cả thư mục', "dongHop();moCaiDat()"],
   ['🗓 Kế hoạch › In theo tháng kiểm tra: Mẫu 06 / 16 / 04 tự lấy số liệu cuối tháng liền trước (Mẫu 31 + BC0437 đã nạp) — không cần đổi kỳ; thiếu tháng đó → tháng gần nhất trước, ghi ⚠', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
@@ -2721,6 +2766,7 @@ function noiDrive(imLang){
     if(!DR.daKeoCM){ DR.daKeoCM = true; taiChiMucTuDrive(true); }
     if(!DR.daKeoCH){ DR.daKeoCH = true; setTimeout(function(){ dongBoCauHinh('tu'); }, 800); }   /* 3.113: mở app → lấy cài đặt máy khác vừa sửa, rồi đẩy phần máy này đổi */
     if(D.cauHinh.dbMoApp!==false) setTimeout(function(){ dongBoScan(false); }, 1500);   /* 3.46: mở app → đẩy bản còn chờ */
+    if(D.cauHinh.boThang!=='xong') setTimeout(boThangDon, 7000);   /* 3.144: sau khi kéo chỉ mục — bỏ dữ liệu tab Tháng */
     if(!DR.daKeoLich){ DR.daKeoLich = true; taiLichTuDrive(); taiNguonCauTuDrive(); setTimeout(taiNoTuDrive, 2500); setTimeout(function(){ (SL_SAN ? Promise.resolve() : slNap()).then(slTaiTuDrive); }, 4000); }
     return true;
   }).catch(function(e){
@@ -3161,6 +3207,7 @@ function lapChiMuc(){
 }
 /* dựng bản ghi cho một file Drive chưa có chỉ mục — theo dấu app hoặc theo thư mục */
 function taoMucTuDrive(f, phan, now){
+  if(phan.tab==='duLieu' || (f.appProperties && f.appProperties.th && tuMetaDrive(f).nhom==='duLieu')) return null;   /* 3.144: bỏ tab Tháng — không dựng lại mục Dữ liệu tháng */
   var canCu = 'Lập chỉ mục — nằm trong '+D.cauHinh.thumuc+(f.duong?' / '+f.duong:'');
   var co = function(m){
     m.driveId = f.id; m.driveCha = (f.parents||[])[0]||''; m.tenCu = f.name; m.duoi = duoiFile(f.name);

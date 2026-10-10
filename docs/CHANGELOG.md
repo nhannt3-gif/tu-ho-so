@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.144 — 10/10/2026 — Sắp lại tab: tab 📥 Nạp & KT thay tab Tháng; bỏ tab Tháng + dữ liệu; ẩn Giao ban, Buổi GD
+- **Anh chốt:** Q5 + Q12 (bỏ tab Tháng, xóa dữ liệu cũ, **không sao lưu**, thư mục Drive vào **thùng rác Drive**), Q13 (bỏ nút Giao ban, Buổi GD — làm lại sau), Q15 (tách Nạp & Kiểm tra thành tab riêng vào chỗ tab Tháng; **nạp BC0437 / BC0438 của KTGS gộp vào đây**; quy tắc kiểm tra thống nhất 1 lần — làm sau). Anh duyệt gộp 3 bước thành 1 bản.
+- **Thanh tab:** `📥 Nạp & KT` (`moNapSL`) ở chỗ tab Tháng, `Số liệu` (`moBCSL`) mở tab con báo cáo gần nhất (`D.cauHinh.slTabBC`, mặc định Tổng hợp); tô nút theo `toNutSL`. Bên trong vẫn là khung tab 7 (`slTab='nap'`) — chưa tách mã (đợt kiến trúc F). `doiNgan(2)` (lối cũ: Có gì mới, lời nhắc) → tab Nạp & KT.
+- **Tab Nạp & KT:** tiêu đề riêng (không thanh tab con); thêm khối **File KTGS · BC0437 / BC0438** (`ktNapHTML`, chuyển từ tab con KTGS). KTGS chỉ còn dòng "Nạp và kiểm tra BC0437 / BC0438 ở tab 📥 Nạp & KT". Thanh tab con Số liệu: Tổng hợp · Sao kê · Tổ · KTGS · Tra cứu.
+- **Bỏ tab Tháng:** `boThangDon` chạy 3 giây sau khi mở app và 7 giây sau khi nối Drive: mục `D.duLieu` + khay chờ / thùng rác nhóm duLieu → xóa bản trong máy, file Drive vào thùng rác Drive, dấu `daXoaHan` (máy khác bỏ theo); thư mục `<gốc>/Dữ liệu tháng` vào thùng rác Drive; xong đặt `D.cauHinh.boThang='xong'`. Chưa nối Drive: mục có file Drive chờ lần sau. Bỏ lời nhắc "thiếu báo cáo tháng" (Hôm nay), trang Cài đặt "Dữ liệu tháng", mục Hướng dẫn "Tháng", nút "Tìm ở tab khác → Tháng"; Lập chỉ mục Drive không dựng lại mục Dữ liệu tháng.
+- **Thêm file:** Excel thêm ngoài tab Văn bản → xem trước của tab Nạp & KT (`slDocNhieu`), không vào khay chờ; PDF bảng số liệu → Văn bản. Mã tab Tháng (`veThang`, `D.duLieu`…) **giữ lại** (mảng rỗng) — dọn ở đợt J.
+- **Công cụ:** `CONG_CU` thêm cờ `an` cho Giao ban, Buổi GD — ẩn khỏi cột, `ccMo` báo "đã bỏ"; mã `gb*` / `bgd*` giữ.
+- **Phép thử:** `tests/t140.js` (mới, 20 — Drive giả). hoiquy2: phép "Excel tab Tháng" → "Excel sang tab Nạp", Cài đặt 11 trang.
+
 ## 3.143 — 10/10/2026 — Ngày số liệu theo nội dung file; file không ghi ngày → anh khai khi nạp (Q14)
 - **Anh chốt:** Q14 — nạp file phải nhận đúng ngày số liệu từ **nội dung** file; file không có ngày trong nội dung thì anh khai khi nạp (tên file chỉ là gợi ý).
 - **Trước:** cột ngày → tiêu đề → **tên file** (tự dùng, chỉ báo vàng); loại "tùy kỳ mới" (3.136) có ngày tên file giữa tháng thì tự đưa về ô cuối tháng.
