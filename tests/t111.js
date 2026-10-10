@@ -7,7 +7,7 @@ const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
- await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500); await p.evaluate(s=>{ window.NGUON_APP=s; }, require('./nguon.js')());   /* 3.142: mã ở file riêng */
  const dir = path.join(__dirname,'gia31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R0 = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
@@ -174,6 +174,9 @@ const fs=require('fs'), path=require('path');
    window.documentPictureInPicture = {requestWindow: () => Promise.resolve(window.open('', 'hsnoi', 'width=460,height=620'))};
    CC.mo = ''; ccMo('hssv'); await w(100);
    ok('📌 nút Nổi có trên ô HSSV', !!document.querySelector('#cc-o button[onclick="hsNoi()"]'));
+   /* 3.142: CSS ở file riêng; mở bằng file:// trình duyệt chặn cửa sổ nổi tải css/app.css → thay link bằng <style> cùng nội dung
+      (giống khi chạy web: app chép luật CSS sang cửa sổ nổi). Đường web thật kiểm ở t138. */
+   (function(){ const l = document.querySelector('link[rel=stylesheet]'); if(!l) return; const st = document.createElement('style'); st.textContent = NGUON_APP.split('<style>\n')[1].split('</style>')[0]; l.replaceWith(st); })();
    hsNoi(); await w(400);
    const pw = HS_PIP, pd = pw && pw.document;
    ok('📌 mở cửa sổ nổi: có đủ ô (loại, GDX, ngày vay, ra trường, tiền) + kết quả', !!pd && ['hs-loai','hs-gdx','hs-vay','hs-rt','hs-tien','hs-kq'].every(id=>pd.getElementById(id)) && pd.querySelectorAll('style').length>=document.querySelectorAll('style').length+1);
@@ -224,7 +227,7 @@ const fs=require('fs'), path=require('path');
    ktHoiKBSua(kB, 'cb', '');
    /* dọn rác: chạy lại đoạn dọn (khởi động) */
    (function(){ var ch = D.cauHinh; ['ktgsLS', 'ktgsNK', 'ktgsGN'].forEach(function(k){ delete ch[k]; }); Object.keys(ch.ktHoiKB || {}).forEach(function(k){ if(ch.ktHoiKB[k]) delete ch.ktHoiKB[k].doan; }); })();
-   ok('3.106 code dọn dữ liệu rác có trong app (ktgsLS / NK / GN, ô doan)', /\['ktgsLS', 'ktgsNK', 'ktgsGN'\]\.forEach/.test(document.documentElement.innerHTML) && D.cauHinh.ktgsLS===undefined && !(D.cauHinh.ktHoiKB[kB]||{}).doan);
+   ok('3.106 code dọn dữ liệu rác có trong app (ktgsLS / NK / GN, ô doan)', /\['ktgsLS', 'ktgsNK', 'ktgsGN'\]\.forEach/.test(NGUON_APP) && D.cauHinh.ktgsLS===undefined && !(D.cauHinh.ktHoiKB[kB]||{}).doan);
    /* chép file: giả cầu nối */
    const goi0 = goiCauNoi, goiDS = []; goiCauNoi = (h, r) => goiDS.push([h, r]);
    const coCN0 = coCauNoi; coCauNoi = () => true; try{ localStorage.setItem('tuhoso_cn_ban', '2'); }catch(e){}

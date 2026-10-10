@@ -1,7 +1,7 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.137 · build 14/10/2026 20:00
-**Kho:** `nhannt3-gif/tu-ho-so` → `index.html` (một file HTML duy nhất)
+**Bản hiện tại:** 3.142 · build 10/10/2026
+**Kho:** `nhannt3-gif/tu-ho-so` → `index.html` + `css/app.css` + `js/*.js` (từ 3.142 tách file; ghép lại 1 file: `python3 tests/ghep.py ra.html`)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
@@ -221,6 +221,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.142) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở link web (Ctrl+F5 một lần), xem số bản ở góc trái | v3.142; giao diện như cũ | |
+| 2 | Dùng lướt các tab: Hôm nay, Văn bản, Số liệu (Tổ, Sao kê, KTGS, Tổng hợp, Tra cứu), Biểu mẫu, Scan, Thư viện | Chạy như 3.141, không báo lỗi | |
+| 3 | In / Word một mẫu KTGS và một báo cáo Tổ | Như cũ | |
+| 4 | 🎓 Hạn trả HSSV › 📌 Cửa sổ nổi | Cửa sổ nổi đủ màu / kiểu chữ | |
+| 5 | Điện thoại: mở link web | Như cũ | |
+
+**Ghi chú kỹ thuật 3.142:** tách bằng script một lần (dòng `<script>` / `</script>` đứng riêng → file). Thứ tự nạp giữ nguyên nên phạm vi biến / hoisting như cũ (mỗi khối cũ = 1 file). Mỗi bản sau: đổi `?v=` trong `index.html` cùng `APP_BAN` (`kiem.py` báo nếu lệch). Thêm file js mới: thêm thẻ `<script src="js/…?v=…">` đúng chỗ trong `index.html`. `t101_mau10_cu.js` vẫn mở `index.html` (bản cũ 1 file vẫn mở được). **Giới hạn đã biết:** mở app bằng bấm đúp file (file://) thì cửa sổ nổi HSSV không có kiểu chữ (trình duyệt chặn cửa sổ nổi đọc css/app.css; link web không bị). Phép thử dò chữ trong mã dùng `tests/nguon.js`.
 
 ### Danh sách thử trên máy thật (3.141) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

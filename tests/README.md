@@ -20,7 +20,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 ## Chạy (từ thư mục gốc repo)
 | Lệnh | Kiểm gì |
 |---|---|
-| `python3 tests/kiem.py` | Cú pháp mọi khối `<script>` · trùng tên hàm · gọi hàm chưa định nghĩa. Phải ra `Cú pháp OK · Trùng tên: không · Thiếu hàm: không` (riêng `CompressionStream, DecompressionStream, Response` là hàm có sẵn của trình duyệt — bỏ qua). Viết regex có `_(`/`_t(` thì dùng `[_]` để khỏi báo nhầm. |
+| `python3 tests/kiem.py` | (3.142: ghép `index.html` + `css/` + `js/` rồi kiểm; báo nếu `?v=` khác `APP_BAN`) Cú pháp mọi khối `<script>` · trùng tên hàm · gọi hàm chưa định nghĩa. Phải ra `Cú pháp OK · Trùng tên: không · Thiếu hàm: không` (riêng `CompressionStream, DecompressionStream, Response` là hàm có sẵn của trình duyệt — bỏ qua). Viết regex có `_(`/`_t(` thì dùng `[_]` để khỏi báo nhầm. |
 | `node tests/hoiquy.js` | Hồi quy chính (28 phép, máy trắng + máy có dữ liệu cũ). Thỉnh thoảng 27/28 do chờ cố định → chạy lại. |
 | `node tests/hoiquy2.js` | Hồi quy 2 (20 phép). **Mỗi bản sửa chuỗi số bản** trong file (`sed -i "s/3\.85/3.86/g" tests/hoiquy2.js`). |
 | `node tests/t87.js` … `t96.js` | Phép thử riêng các bản 3.75–3.84 (scan, gộp trùng, an toàn dữ liệu 3.81, hồ sơ hộ 3.82, giao ban 3.83, phím chung 3.84). |
@@ -52,6 +52,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t131.js` | 3.138: ⟳ Làm mới + chip kỳ đang dùng (Tổ / Sao kê / KTGS cùng kỳ), TK 105 "đã mở TK" (số TK 14 số, số dư 0), KU hủy / nhập nhầm tổ bị loại (+ dòng ② Kiểm tra), KU chưa giải ngân (không tất nợ, báo cáo Sao kê, quá 1 tháng theo tháng lịch), chip Đến hạn 2 cột (màn hình / In / Excel) — bộ `gia31` + dòng giả cài trong phép thử |
 | `node tests/t136.js` | 3.140.4 / 3.141: đồng bộ cài đặt — máy trống chạy với thư mục khác rồi quay về → không ghi đè, lấy file thật về gộp (chFileId); không tạo thư mục "undefined" (Drive giả) |
 | `node tests/t137.js` | 3.141: Kế hoạch › In theo tháng tự lấy số liệu cuối tháng trước (T8 → Mẫu 31 T7), kỳ đang chọn giữ nguyên, tên file SL đúng ngày, thiếu tháng → ⚠ (bộ gia31) |
+| `node tests/t138.js` | 3.142 (đợt A tách file): mở app qua **máy chủ web tạm** (như GitHub Pages, không phải file://) — đủ 22 file js theo thứ tự, `?v=` = APP_BAN, index.html không còn khối viết trong trang, CSS có tác dụng, mọi hàm cấp ngoài của js/ có trên trang; cửa sổ nổi HSSV chép luật CSS ngay (không link), nền tối đúng màu. **Phép thử dò chữ trong mã** (t111–t113) đọc mã ghép qua `tests/nguon.js` (trước dùng `document.documentElement.innerHTML`). |
 | `node tests/t135.js [thư mục]` | 3.140.1: Mẫu 06 số tiền 2 số lẻ (nợ lãi dưới 5.000 đ 3 số lẻ), ô số tiền canh phải + lề 30, cỡ theo đúng ô 1,3 cm (1.178,4 · 128,56 · 12.345,67 nằm 1 dòng), Cộng từ số gốc, bản In nowrap; ghi Word ra thư mục để dựng thử |
 | `node tests/t134.js` | 3.140 (+3.140.1 Mẫu 16 từng tổ, +3.140.2 tên file Xã_Hội_Ấp_Tổ_Mẫu_Tháng_SL, 📤 PDF gửi Hội): Kế hoạch thứ tự ấp (điểm GD → mã thôn, sắp lại, về mặc định), trọn ấp mỗi tháng, chỉ đổi tháng cả ấp, cảnh báo kế hoạch cũ tách ấp, in theo tháng (06 từng tổ 1 mặt + hỏi dưới 90%, 16 cả tháng 2 mặt, 04 tháng 2 mặt, Word), Định kỳ chọn tự do — bộ `gia31` |
 | `node tests/t133.js` | 3.139: báo cáo Dự kiến chia tách tổ (cột, theo mã KH, Tổ mới trống, QH / khoanh in đậm, dòng dự kiến 1 dòng, ký Tổ trưởng, tổ 50 / 60 hộ ≤ 2 trang bản In) · "PGD NHCSXH GÒ DẦU" in đậm góc trái báo cáo Tổ / Sao kê / Tổng hợp — bộ `gia31` |
@@ -73,4 +74,5 @@ Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Dr
 
 Mẫu một phép thử mới: chép `t96.js`, đổi phần `p.evaluate(...)`; luôn in `lỗi` (pageerror) cuối cùng — phải là `[]`.
 
-**Bản đồ mã:** `python3 tests/bando.py` sinh `docs/BAN_DO_MA.md` (khối, mục, nhóm hàm theo tiền tố, điểm vào) — chạy lại sau mỗi bản.
+**Bản đồ mã:** `python3 tests/bando.py` sinh `docs/BAN_DO_MA.md` (file, mục, nhóm hàm theo tiền tố, điểm vào — vị trí `file:dòng`) — chạy lại sau mỗi bản.
+**Ghép 1 file (3.142):** `python3 tests/ghep.py ra.html` — ghép `index.html` + `css/` + `js/` thành 1 file như trước khi tách (đối chiếu / dùng offline).

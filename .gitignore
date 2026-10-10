@@ -5,3 +5,4 @@ tests/*.png
 tests/node_modules/
 tests/gia31/
 tests/gianho31/
+tests/__pycache__/

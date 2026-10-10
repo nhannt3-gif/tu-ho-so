@@ -6,7 +6,7 @@ const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
- await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500); await p.evaluate(s=>{ window.NGUON_APP=s; }, require('./nguon.js')());   /* 3.142: mã ở file riêng */
  const dir = path.join(__dirname,'gia31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[];
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
@@ -89,7 +89,7 @@ const fs=require('fs'), path=require('path');
    /* 7. bảng khai báo Hội – xã: dòng "In ra" không tràn ô; số KH dạng 06-KH/HNDT không bị nhắc */
    const tK = K.to[boTT[0]];
    ok('số KH "06-KH/HNDT" không nhắc cam; "06" vẫn nhắc', !/⚠/.test(ktHkbIn(tK, {kh:'06-KH/HNDT'}, 'kh', 'x')) && /⚠/.test(ktHkbIn(tK, {kh:'06'}, 'kh', 'x')));
-   ok('dòng "In ra" xuống dòng trong ô (tối đa 3 dòng, rê chuột xem đủ)', /\.hkb-in\{[^}]*white-space:normal/.test(document.documentElement.innerHTML) && /-webkit-line-clamp:3/.test(document.documentElement.innerHTML) && /title="In ra: /.test(ktHkbIn(tK, {}, 'kh', 'x')));
+   ok('dòng "In ra" xuống dòng trong ô (tối đa 3 dòng, rê chuột xem đủ)', /\.hkb-in\{[^}]*white-space:normal/.test(NGUON_APP) && /-webkit-line-clamp:3/.test(NGUON_APP) && /title="In ra: /.test(ktHkbIn(tK, {}, 'kh', 'x')));
    return o;
  }, files);
  R.concat(loi.map(e=>'✗ lỗi trang: '+e)).forEach(x=>console.log(x));
