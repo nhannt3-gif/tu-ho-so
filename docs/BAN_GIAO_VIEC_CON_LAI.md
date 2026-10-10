@@ -1,6 +1,6 @@
 # BÀN GIAO VIỆC CÒN LẠI — App Tủ hồ sơ (v2.1)
 
-**Bản hiện tại:** 3.143 · build 10/10/2026
+**Bản hiện tại:** 3.144 · build 10/10/2026
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` + `css/app.css` + `js/*.js` (từ 3.142 tách file; ghép lại 1 file: `python3 tests/ghep.py ra.html`)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
 **ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
@@ -221,6 +221,20 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
     - Bộ nhớ: `BN`, `capNhatBoNho` (hỏi `navigator.storage.estimate` tối đa 15 giây / lần), `moBoNho`, `demKhoTheoLoai` (duyệt IndexedDB theo tiền tố khóa), `xinGiuDuLieu`, `nkChuaLen`.
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
+
+### Danh sách thử trên máy thật (3.144) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Thanh tab | Hôm nay · Văn bản · **📥 Nạp & KT** · Số liệu · Biểu mẫu · Scan · Thư viện; không còn Tháng | |
+| 2 | Bấm 📥 Nạp & KT | Ma trận file + Kiểm tra & chốt + khối File KTGS (BC0437 / BC0438) | |
+| 3 | Bấm Số liệu | Tab con: Tổng hợp · Sao kê · Tổ · KTGS · Tra cứu; mở lại nhớ tab con gần nhất | |
+| 4 | KTGS Hội | Không còn khối nạp BC; có nút sang 📥 Nạp & KT; Mẫu 06 / 16 / 04 / Kế hoạch như cũ | |
+| 5 | Mở app có nối Drive (máy tính) | Báo "Đã bỏ tab Tháng: xóa N mục…"; drive.google.com: thư mục "Dữ liệu tháng" nằm trong Thùng rác | |
+| 6 | Máy thứ 2 / điện thoại | Không còn mục Dữ liệu tháng sau đồng bộ | |
+| 7 | Kéo thả file Excel vào app (ngoài tab Văn bản) | Mở xem trước của tab Nạp & KT | |
+| 8 | Hôm nay › cột 🧰 Công cụ | Không còn Giao ban, Buổi GD | |
+
+**Ghi chú kỹ thuật 3.144:** tab Nạp & KT là khung tab 7 với `slTab='nap'` (nút `data-sl`); `slTabConHTML` trả tiêu đề riêng khi `nap`. `boThangDon` (06-hop-thoai.js) dùng `xoaFileDrive` / `daXoaHan` như Xóa hẳn ở thùng rác, khóa chạy trùng `BO_THANG_CHAY`. `TAB_KHO` bỏ khóa 2; nhánh Excel → duLieu trong `xuLyMotFile0` tắt (`false &&`), PDF `khopMauNoiDung` → Văn bản.
 
 ### Danh sách thử trên máy thật (3.143) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

@@ -2423,6 +2423,8 @@
   .sl-ngay-dong:hover .sl-tom-dong{border-color:var(--xanh)}
   /* ===== 3.86 — Số liệu: tab con, tra cứu KH ===== */
   .sl-con{display:flex;gap:4px;margin:2px 0 10px;border-bottom:1px solid var(--vien)}
+  .sl-con-nap{align-items:baseline;flex-wrap:wrap;gap:4px 10px;padding:4px 2px 8px}.sl-con-nap b{font-size:calc(14px*var(--co))}.sl-con-nap span{font-size:calc(11.5px*var(--co));color:var(--chu-phu)}   /* 3.144: tab Nạp & KT riêng */
+  .sl-ktgs-nap{margin-top:12px}.sl-ktgs-tit{display:block;margin:0 0 4px;font-size:calc(13px*var(--co))}.kt-nap-chuyen{margin:6px 0}
   .sl-con button{border:none;background:none;font:inherit;font-size:calc(13px*var(--co));font-weight:600;color:var(--chu-phu);padding:7px 12px;cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-1px}
   .sl-con button.bat{color:var(--xanh-dam);border-bottom-color:var(--xanh)}
   .sl-tra{text-align:left}

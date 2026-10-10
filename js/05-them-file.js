@@ -74,6 +74,13 @@ function gioiThieuFile(dsFile){
   if(nganHienTai!==6) TAB_TRUOC = nganHienTai;   /* 3.34: kéo thả vào tab Tháng cũng nhớ tab để xếp đúng */
   var khoTab = TAB_KHO[nganHienTai!==6 ? nganHienTai : THEM_TU] || null;
   THEM_TU = null;
+  /* 3.144 (anh chốt): bỏ tab Tháng — file Excel thêm ngoài tab Văn bản là file số liệu → sang tab 📥 Nạp & KT (xem trước, nhận loại theo nội dung) */
+  var exSL = khoTab==='vanBan' ? [] : Array.prototype.filter.call(dsFile, function(f){ return laFileExcel(f.name||''); });
+  if(exSL.length){
+    dsFile = Array.prototype.filter.call(dsFile, function(f){ return exSL.indexOf(f)<0; });
+    if(!dsFile.length){ moNapSL(); slDocNhieu(exSL); return; }
+    bao(exSL.length+' file Excel sẽ nạp ở tab 📥 Nạp & KT sau khi đọc xong các file còn lại.', 5);
+  }
   dangDoc = true; batChay(); doiNgan(6);
   var xong = 0, tong = dsFile.length;
   var lan = Array.prototype.slice.call(dsFile).map(function(f){
@@ -86,6 +93,7 @@ function gioiThieuFile(dsFile){
   });
   Promise.all(lan).then(function(){
     dangDoc = false; tatChay(); luu(); ve();
+    if(exSL.length){ var nCho = D.cho.length; moNapSL(); slDocNhieu(exSL); if(nCho) bao('Các file khác đang ở khay chờ ('+nCho+') — duyệt sau.', 6); return; }   /* 3.144 */
     var trung = DS_TRUNG.splice(0);
     if(trung.length){
       if(!D.cho.some(function(x){ return !x.deSau; })) doiNgan(TAB_TRUOC||1);
@@ -204,7 +212,7 @@ function duLieuTuTenFile(id, van, f, duoi){
 /* 3.40 (anh Nhân chốt): THÊM TỪ TAB NÀO THÌ MẶC ĐỊNH LƯU VÀO TAB ĐÓ — app không tự chuyển sang tab khác.
    App vẫn đọc nội dung để điền sẵn; thấy giống loại khác thì chỉ ghi chú, anh đổi nhóm ở khay chờ nếu cần.
    Thêm từ Hôm nay hoặc thả vào khay chờ thì app tự xếp như cũ. */
-var TAB_KHO = {1:'vanBan', 2:'duLieu', 3:'ghiChu'};
+var TAB_KHO = {1:'vanBan', 3:'ghiChu'};   /* 3.144: bỏ tab Tháng */
 var THEM_TU = null;   /* tab vừa bấm nút Thêm file (bấm xong mới sang khay chờ chọn file) */
 function theoTabGoc(dsMoi, kho){
   dsMoi.forEach(function(m){
@@ -258,7 +266,7 @@ function xuLyMotFile0(f, khoTab){
     /* 3.40: thêm từ tab Văn bản thì tôn trọng tab anh chọn — Excel chỉ sang Dữ liệu tháng khi tên bắt đầu đúng mã báo cáo
        (KQGD_…, NQH_…), không đoán theo từ khóa trong tên (công văn có chữ "nợ quá hạn", "giao ban" bị xếp nhầm) */
     var tuVB = (khoTab==='vanBan');
-    if(laFileExcel(f.name) && !tuVB && (CHO_O || TAB_TRUOC===2 || khopMauTenFile(f.name))){
+    if(false && laFileExcel(f.name) && !tuVB && (CHO_O || TAB_TRUOC===2 || khopMauTenFile(f.name))){   /* 3.144: bỏ tab Tháng — không tạo mục Dữ liệu tháng nữa */
       D.cho.push(apChoO(duLieuTuTenFile(id, van, f, duoi), f.name)); return;
     }
     if(!laPDF){
@@ -277,6 +285,7 @@ function xuLyMotFile0(f, khoTab){
       var mau = khopMauNoiDung(chu);
       /* 3.40: PDF thêm từ tab Văn bản chỉ sang Dữ liệu tháng khi nội dung rõ là BẢNG số liệu */
       if(mau && khoTab==='vanBan') mau = null;   /* thêm từ tab Văn bản → đọc như văn bản */
+      mau = null;   /* 3.144: bỏ tab Tháng — PDF bảng số liệu vào Văn bản (số liệu nạp bằng Excel ở tab 📥 Nạp & KT) */
       if(mau){
         /* 3.20: ngày số liệu quyết định bản cuối tháng hay dữ liệu phụ */
         var nsl = docNgaySoLieu(chu), xl = loaiBanThang(nsl, mau && mau.ma);

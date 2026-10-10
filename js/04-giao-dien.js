@@ -2,6 +2,7 @@
 var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '', locThang = '';
 
 function doiNgan(i, el){
+  if(i===2){ i = 7; D.cauHinh.slTab = 'nap'; }   /* 3.144: bỏ tab Tháng (anh chốt Q5, Q12) — lối cũ sang tab 📥 Nạp & KT */
   if(!window.__giuCK) CHO_KHAI = false;
   if(BOT.tab){ BOT = {tab:'', chon:{}}; document.body.classList.remove('dang-bot'); }   /* 3.49: đổi tab là thôi chọn xóa */
   if(!window.__giuDK && typeof DK!=='undefined') DK.mo = false;   /* 3.50: đổi tab là rời Dọn kho */
@@ -17,6 +18,7 @@ function doiNgan(i, el){
   /* 3.31: thứ tự nút tab (Hôm nay·Văn bản·Tháng·Biểu mẫu·Scan·Ghi chú) khác số tab — so theo lệnh của nút,
      trước đây mở Biểu mẫu lại tô sáng nút Ghi chú */
   for(var k=0;k<b.length;k++) b[k].classList.toggle('chon', (b[k].getAttribute('onclick')||'').indexOf('doiNgan('+i+',')===0);
+  toNutSL();   /* 3.144 */
   var ph = ['Gõ số văn bản, từ khóa, tháng…','Gõ số văn bản, trích yếu, ghi chú…',
             'Tìm báo cáo…','Tìm trong ghi chú…','Tìm tên khách, ấp, tổ…',
             'Tìm biểu mẫu, chương trình…','Tìm file chờ duyệt…','Tìm văn bản, scan, biểu mẫu… ở các tab khác (tra khách hàng: tab con 👤 Tra cứu KH)'];
@@ -76,6 +78,15 @@ function toSang(s, q){
 
 function khoTab(){
   return [D.vanBan, D.vanBan, D.duLieu, D.ghiChu, (D.scan||[]), (D.bieuMau||[]), D.cho, []][nganHienTai] || [];
+}
+/* 3.144 (anh chốt Q15): tab 📥 Nạp & KT tách khỏi Số liệu, đặt vào chỗ tab Tháng — nơi duy nhất nạp + kiểm tra dữ liệu.
+   Bên trong vẫn dùng khung tab 7 (D.cauHinh.slTab = 'nap'); nút Số liệu mở tab con báo cáo gần nhất (slTabBC). */
+function moNapSL(){ D.cauHinh.slTab = 'nap'; luu(); doiNgan(7); }
+function moBCSL(){ if(!D.cauHinh.slTab || D.cauHinh.slTab==='nap') D.cauHinh.slTab = D.cauHinh.slTabBC || 'th'; luu(); doiNgan(7); }
+function toNutSL(){
+  var nap = nganHienTai===7 && (D.cauHinh.slTab||'nap')==='nap';
+  Array.prototype.forEach.call(document.querySelectorAll('#hangngan [data-sl]'), function(b){
+    b.classList.toggle('chon', nganHienTai===7 && (b.getAttribute('data-sl')==='nap')===nap); });
 }
 function tenTab(){
   return ['vanBan','vanBan','duLieu','ghiChu','scan','bieuMau','vanBan','duLieu'][nganHienTai];
@@ -312,9 +323,9 @@ var CONG_CU = [
   {id:'diaban', ico:'🗺', ten:'Địa bàn',      tit:'Cây địa bàn — mã xã, điểm GD, ấp/KP', ve:function(){ return ccDiaBanHTML(); }},
   {id:'ctvay',  ico:'📋', ten:'CT vay', tit:'Chương trình vay — tóm tắt đang cho vay · danh mục mã', ve:function(){ return ccCTVHTML(); },
     dau:function(){ return ctvChonHTML(); }},
-  {id:'giaoban', ico:'📊', ten:'Giao ban', hop:true, tit:'Số liệu giao ban — Theo dõi nợ, so với kỳ trước', ve:function(){ return ccGBHTML(); },
+  {id:'giaoban', an:true, ico:'📊', ten:'Giao ban', hop:true, tit:'Số liệu giao ban — Theo dõi nợ, so với kỳ trước', ve:function(){ return ccGBHTML(); },
     nut:'<button class="nho chinh" onclick="gbIn()" title="In / lưu PDF bảng số liệu">🖨 In</button><button class="nho" onclick="gbChep()" title="Chép nhận định để dán vào báo cáo / Zalo">📋 Chép nhận định</button>'},
-  {id:'buoigd', ico:'📅', ten:'Buổi GD', hop:true, tit:'Chuẩn bị buổi giao dịch xã', ve:function(){ return ccBGDHTML(); },
+  {id:'buoigd', an:true, ico:'📅', ten:'Buổi GD', hop:true, tit:'Chuẩn bị buổi giao dịch xã', ve:function(){ return ccBGDHTML(); },
     dau:function(){ return bgdChonHTML(); },
     nut:'<button class="nho chinh" onclick="bgdIn()">🖨 In</button><button class="nho" onclick="bgdChep()" title="Chép danh sách gửi tổ trưởng qua Zalo">📋 Chép</button>'},
   {id:'cc6',    ico:'🧰', ten:'Công cụ 6'}
@@ -550,13 +561,14 @@ function ctvChuCT(c){
 function ctvChepCT(i){ chepChu(ctvChuCT(CTV_DS[i]), 'Đã chép tóm tắt chương trình.'); }
 function ctvChep(ma){ chepChu(ma, 'Đã chép mã '+ma+'.'); }
 function ccCotHTML(){
-  return '<div class="cc-cot" title="🧰 Công cụ">'+CONG_CU.map(function(c){
+  return '<div class="cc-cot" title="🧰 Công cụ">'+CONG_CU.filter(function(c){ return !c.an; }).map(function(c){   /* 3.144: an = đã bỏ (Giao ban, Buổi GD) */
     return '<button class="cc-nut'+(CC.mo===c.id?' bat':'')+(c.ve?'':' cho')+'" onclick="ccMo(\''+c.id+'\')" title="'+coChuHTML(c.tit||c.ten)+'">'+
       '<i>'+c.ico+'</i><span>'+coChuHTML(c.ten)+'</span></button>';
   }).join('')+'</div>';
 }
 function ccTim(id){ return CONG_CU.find(function(c){ return c.id===id; }); }
 function ccMo(id){
+  var c0 = ccTim(id); if(c0 && c0.an){ CC.mo = ''; veCC(); return bao('Công cụ “'+c0.ten+'” đã bỏ (anh chốt 10/10/2026) — sẽ làm lại sau.', 5); }   /* 3.144 */
   CC.mo = CC.mo===id ? '' : id;
   if(CC.mo==='hssv' && CC.hs) CC.hs.loai = 'tren';   /* 3.63 (việc X): mỗi lần mở là Trên 12 tháng */
   Array.prototype.forEach.call(document.querySelectorAll('.cc-nut'), function(b){
@@ -574,7 +586,7 @@ function ccHopHTML(c){
 function veCC(){
   var o = document.getElementById('cc-o'); if(!o) return;
   var c = ccTim(CC.mo);
-  if(!c){ o.innerHTML = ''; return; }
+  if(!c || c.an){ o.innerHTML = ''; return; }   /* 3.144 */
   if(c.hop || (window.matchMedia && !window.matchMedia('(min-width:900px)').matches)){
     /* điện thoại: mở thành hộp, không giữ trạng thái "đang mở" trên nút (đóng hộp kiểu nào cũng được)
        3.83: công cụ có bảng rộng (Giao ban, Buổi GD) mở hộp rộng cả trên máy tính */
@@ -2475,7 +2487,7 @@ function veHomNay(){
       p:Object.keys(gCK).filter(function(k){ return gCK[k].length; }).map(function(k){ return CK_TEN[k].split(' — ')[0]+' '+gCK[k].length; }).join(' · '),
       gap:true, fn:'moChoKhai()'});
   }
-  var thieu = kyThieu();
+  var thieu = [];   /* 3.144: bỏ tab Tháng → không nhắc "thiếu báo cáo tháng" nữa (kyThieu() giữ mã cho đợt dọn) */
   var gbCon = ngayToiGiaoBan();
   if(thieu.length && gbCon>=0){
     v.push({so:gbCon, tit:(gbCon===0?'Hôm nay giao ban':'Còn '+gbCon+' ngày tới giao ban')+', thiếu '+thieu.length+' báo cáo',

@@ -126,6 +126,7 @@ function khoiDong(){
 }
 function batDau(){
   khoiDong();
+  setTimeout(function(){ if(typeof boThangDon==='function') boThangDon(); }, 3000);   /* 3.144: bỏ tab Tháng — mục không có file Drive xóa ngay; còn lại chờ nối Drive */
   xongTV.then(function(){
     sanSangPDF();
     if(TV.loi.length){

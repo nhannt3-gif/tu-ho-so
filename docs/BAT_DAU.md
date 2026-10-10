@@ -20,9 +20,9 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái (cập nhật 10/10/2026)
-- **`main` = 3.142** (đợt A tách file — đã gộp, anh thử sơ qua Đạt, HSSV Đạt). Mốc quay lại: nhánh `moc/v3.141-truoc-tach-file`.
-- **Bản đang làm: 3.143** (Q14 — ngày số liệu theo nội dung file; file không ghi ngày → anh khai khi nạp), PR từ `claude/busy-curie-2qescm` **chờ anh "gộp"**.
-- **Kế hoạch tiếp (anh đã duyệt "làm theo kế hoạch" 10/10):** 3.144 bỏ nút Giao ban + Buổi GD ở cột 🧰 Công cụ (giữ mã để làm lại sau) → 3.145 bỏ tab Tháng + xóa dữ liệu — **còn 3 câu chờ anh chốt** (Drive thư mục "Dữ liệu tháng": vào thùng rác Drive hay để nguyên; file số liệu thêm vào: chuyển sang tab Số liệu hay Văn bản; sao lưu trước khi xóa: có / không — em đề xuất: thùng rác Drive · Số liệu · có) → đợt B (anh lưu ý góp ý tốc độ `luu()`, ghi ở `KIEN_TRUC_3_LOP.md` mục 8).
+- **`main` = 3.143** (Q14 ngày số liệu theo nội dung file). Mốc quay lại: nhánh `moc/v3.141-truoc-tach-file`.
+- **Bản đang làm: 3.144 "Sắp lại tab"** (gộp bước 2-3-4 anh duyệt): tab 📥 Nạp & KT thay tab Tháng (gồm cả nạp BC0437 / BC0438 KTGS), bỏ tab Tháng + tự xóa dữ liệu (Drive vào thùng rác), ẩn Giao ban / Buổi GD — PR từ `claude/busy-curie-2qescm` **chờ anh "gộp"**.
+- **Việc tiếp (theo `KIEN_TRUC_3_LOP.md`):** thống nhất quy tắc kiểm tra (② Kiểm tra tháng + 🔍 KTGS) thành 1 bộ — anh duyệt từng mục; đợt B (lưu nhanh / an toàn, góp ý `luu()`; 1 cơ chế đồng bộ Drive) — lên kế hoạch chi tiết, chờ anh duyệt + "code".
 - **Anh chốt 10/10:** bỏ hẳn tab Tháng + xóa dữ liệu cũ (rác); bỏ nút Giao ban, Buổi giao dịch (làm lại sau); nạp file nhận ngày số liệu từ **nội dung** file (Q12–Q14). Anh làm luân phiên 2 tài khoản — tài khoản nào cũng bắt đầu từ file này (nhánh đang dùng ghi ở mục 2).
 - **Chờ anh:** (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi tin học về máy chủ nội bộ; thử máy thật 3.136 / 3.138 / 3.142 (bảng trong `BAN_GIAO_VIEC_CON_LAI.md`); số TK 105 khách chỉ có 105 (cần nguồn); văn bản củng cố / chia tách tổ; "nhớ người ký theo khuyết" (chưa xác nhận); Mẫu 06 trắng 2 mặt trên Word thật.
 
