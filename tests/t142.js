@@ -39,14 +39,14 @@ const path=require('path');
    /* 7. giao diện tab Nạp & KT */
    SL_KY = K; moNapSL(); await w(600);
    const tr7 = document.getElementById('tr7').textContent;
-   ok('khung kiểm: 4 bước Đủ file · Đúng kỳ · Đúng cấu trúc · Đã kiểm, báo ✅ Đạt', /Đủ file/.test(tr7) && /Đúng kỳ/.test(tr7) && /Đúng cấu trúc/.test(tr7) && !!document.querySelector('.sl-dat') && document.querySelectorAll('.sl-4buoc .xong').length===4);
+   ok('3.150: 1 dòng trạng thái báo ✅ Đạt + nút Kiểm lại (bỏ 4 ô bước, khung Kiểm tra riêng)', /T9\/2026 Đạt/.test(document.querySelector('.sl-tt-1').textContent) && /xanh/.test(document.querySelector('.sl-tt-1').className) && !document.querySelector('.sl-4buoc'), document.querySelector('.sl-tt-1').textContent.slice(0, 80));
    ok('không còn nút Chốt / Mở khóa, không 🔒', !/Chốt tháng|Mở khóa|🔒/.test(tr7));
    ok('dòng ①: pill "✓ Đạt"', /✓ Đạt/.test(document.querySelector('.sl-tt').textContent), document.querySelector('.sl-tt').textContent.replace(/\s+/g,' ').slice(0, 120));
    ok('tiêu đề cột tháng Đạt: ✓ xanh', !!document.querySelector('.sl-bang thead th.dat') && /✓/.test(document.querySelector('.sl-bang thead th.dat').textContent));
    kiem(2); veSoLieu(); await w(400);
    ok('có chênh lệch: mục "Ghi nhận chênh lệch — chỉ để biết" + pill vẫn Đạt', !!document.querySelector('.sl-kt-ghi') && /✓ Đạt · 2 chênh lệch ghi nhận/.test(document.querySelector('.sl-tt').textContent));
    delete SLM.bang[slKhoa('lt', K)]; veSoLieu(); await w(400);
-   ok('xóa 1 file → khung báo Chưa Đạt + thiếu file', /Chưa Đạt — Thiếu file/.test(document.getElementById('tr7').textContent));
+   ok('xóa 1 file → dòng trạng thái báo chưa Đạt + thiếu file', /chưa Đạt — thiếu 1 file/.test(document.querySelector('.sl-tt-1').textContent), document.querySelector('.sl-tt-1').textContent.slice(0, 80));
    ok('chọn tháng không còn 🔒 trong hộp chọn', (slChonThangHop(2026), !/🔒/.test(document.querySelector('.sl-luoi-thang').textContent))); dongHop();
    return o;
  });

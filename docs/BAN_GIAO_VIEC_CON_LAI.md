@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.150) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở 📥 Nạp & KT | 1 hàng nút, 1 dòng trạng thái, ma trận hết chiều ngang | |
+| 2 | Tháng thiếu file | Dòng vàng: thiếu N file (bấm tên file để nạp); rê chuột thấy báo cáo nào dùng được | |
+| 3 | Tháng đủ file → 🔍 Kiểm tra kỳ | Dòng xanh ✅ Đạt; bấm "N chênh lệch ghi nhận" mở kết quả | |
+| 4 | ⋯ | Tải gốc cả tháng, xóa cả bộ tháng, tóm tắt, làm sạch, giữ sẵn… | |
+| 5 | Tháng chưa có file | Chỉ báo "chưa có file nào" | |
+
+**Ghi chú kỹ thuật 3.150:** `slKhung` / `slKhungCuon` / `slTTHTML` còn trong mã nhưng không gọi ở tab Nạp (để dọn khi chắc không cần).
+
 ### Danh sách thử trên máy thật (3.149) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -2889,3 +2889,22 @@
 .pv-hang1 select.pv-hoi{margin-left:8px}
 .pv-hang2{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 6px 22px}
 .kt-bc-nap{border:1px solid var(--vien);background:var(--the);color:var(--chu);border-radius:10px;padding:1px 8px;cursor:pointer;font-size:calc(11.5px*var(--co))}
+/* ===== 3.150: tab Nạp & KT gọn ===== */
+.sl-thanh-nap{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 6px;padding:0;border:0;background:none}
+.sl-thanh-nap .sl-thang{display:flex;gap:2px}
+.sl-thanh-nap .sl-gian{flex:1 1 auto}
+.sl-thanh-nap .sl-db{font-size:calc(12px*var(--co));color:var(--chu-phu)}
+.sl-tt-1{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:6px 10px;border-radius:10px;margin:0 0 8px;font-size:calc(13px*var(--co));border:1px solid var(--vien);background:var(--the)}
+.sl-tt-1 .sl-tt-chu{flex:1 1 300px;min-width:0}
+.sl-tt-1.vang{background:var(--vang-nen);border-color:#EED9A8}.sl-tt-1.xanh{background:var(--luc-nen);border-color:#BFE0CC}.sl-tt-1.xam{color:var(--chu-phu)}
+.sl-tt-1 .sl-lk{background:none;border:0;padding:0;color:inherit;text-decoration:underline;cursor:pointer;font:inherit}
+.sl-bang thead th.bdc-goc .sl-tq-nut{display:inline-flex;gap:2px;margin-left:6px}
+.sl-bang thead th.bdc-goc .sl-tq-nut .nho{min-height:22px !important;padding:0 7px !important;font-size:calc(11px*var(--co))}
+details.sl-kq,details.sl-ktgs-nap{margin:10px 0;border:1px solid var(--vien);border-radius:10px;background:var(--the);padding:6px 10px}
+details.sl-kq > summary,details.sl-ktgs-nap > summary{cursor:pointer;font-weight:600;padding:2px 0}
+details.sl-kq > summary small,details.sl-ktgs-nap > summary small{font-weight:400;color:var(--chu-phu)}
+.sl-them-ds{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:8px 0}
+.sl-them-ds .sl-giu{display:flex;align-items:center;gap:6px;font-size:calc(13px*var(--co))}
+.sl-mt-cuon{max-width:100%}
+.nho{min-width:0}   /* 3.150: nút vừa chữ — nút biểu tượng (‹ › ⋯ ❓) không bị kéo rộng 76 px */
+@media (min-width:700px){ .sl-mt-cuon .sl-bang{width:100%} .sl-mt-cuon .sl-bang .bdc-o.sl-o{min-width:84px} }   /* ma trận trọn chiều ngang */

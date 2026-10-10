@@ -2027,7 +2027,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.149', ds:[
+var CO_GI_MOI = {ban:'3.150', ds:[
+  ["📥 Tab Nạp & KT gọn: 1 hàng nút (‹ tháng › · 📥 Nạp file · 📋 File cần xuất · ⋯ · ❓), 1 dòng trạng thái chỉ báo điều quan trọng nhất (chưa có file / thiếu file gì / cần kiểm / ✅ Đạt) + nút Kiểm tra kỳ", "dongHop();moNapSL()"],
+  ["🔢 Ma trận trọn chiều ngang; ‹ › ở góc bảng; bấm tên tháng = chọn tháng (kỳ chung theo); kết quả kiểm tra và file KTGS gập sẵn — bấm mới mở", "dongHop();moNapSL()"],
+  ["⋯ gom việc phụ: tải file gốc cả tháng, xóa cả bộ tháng, xóa bản theo ngày cũ, tóm tắt file, làm sạch & nạp lại, giữ sẵn, tìm rác; ❓ giải thích cách đọc ma trận và Kiểm tra kỳ", "dongHop();moNapSL()"],
   ["📅 Kỳ số liệu chung: 1 ô Kỳ ở đầu trang (cạnh ô tìm) — đổi 1 lần, mọi tab theo (Tổ, Sao kê, KTGS, Tổng hợp, ma trận Nạp & KT); ⟳ cạnh ô để đọc lại. Bỏ ô \"Số liệu\" + ⟳ Làm mới + chip \"Đang dùng\" ở từng tab", "dongHop();moBCSL()"],
   ["📍 Phạm vi chung: chọn xã / điểm GD / Hội / tổ ở tab nào thì các tab khác theo; cây chọn gọn 2 hàng — hàng ô chọn nối ›, hàng chip chỉ của cấp cần chọn tiếp", "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
   ["🧹 KTGS: bỏ dòng \"Nạp và kiểm tra BC0437 / BC0438 ở tab…\" (chip BC thiếu có nút 📥 nạp); bỏ cảnh báo \"Thông tin tổ trưởng thiếu tổ\" (DSTO là nguồn chính) — chỉ còn báo tổ chưa rõ điểm GD", "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],

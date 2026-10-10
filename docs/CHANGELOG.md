@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.150 — 11/10/2026 — Tab Nạp & KT gọn
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 1, ảnh anh gửi):** tab rối, chọn tháng 3 chỗ, "thiếu" in 2 lần, trạng thái 5 chỗ, nút rải, chữ phụ nhiều, ma trận nửa màn; tháng chưa có file vẫn báo "kiểm lại".
+- **Hàng công cụ** `slNapThanhHTML` (lớp `.sl-con-nap .sl-thanh-nap`): ‹ tháng › · 📥 Nạp file · 📋 File cần xuất · ☁ chờ · ⋯ (`slNapThem`) · ❓ (`slNapHoi`). `slTabConHTML` trả rỗng cho tab nap.
+- **Dòng trạng thái** `slNapTTHTML` (`.sl-tt .sl-tt-1`): ưu tiên chưa có file → thiếu file (link nạp từng file) → sai kỳ / cấu trúc → cần kiểm → ✅ Đạt (link "N chênh lệch ghi nhận" mở `details#sl-kq`). Tooltip: báo cáo dùng được + lưu ý (`slDanhGia`).
+- **Ma trận** trọn ngang (`.sl-bang` 100% ≥ 700 px), ‹ › ở ô góc, bấm tên tháng → `slChonThang` (kỳ chung theo khi tháng có số liệu). Cột 📅 Theo ngày giữ; nút Xóa ngày cũ → ⋯.
+- **Bỏ** khung ① (`slTTHTML` không dùng ở tab nap), 4 ô bước, khung 2 cột vuốt (điện thoại), dòng chú thích, "Sẵn dùng", Làm sạch / Giữ sẵn trên hàng, tóm tắt chi tiết + quản lý dữ liệu cuối trang (→ ⋯, `slTomTatXem`).
+- `.nho{min-width:0}`: nút biểu tượng không bị kéo rộng 76 px.
+- **Phép thử:** `tests/t146.js` (mới, 12). t142 (dòng trạng thái thay 4 bước), t130 (Xóa ngày cũ ở ⋯), t105 (quan sát), t106 (ma trận chính).
+
 ## 3.149 — 11/10/2026 — Kỳ + phạm vi chung; cây chọn 2 hàng; bỏ cảnh báo Thông tin tổ trưởng
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 6b, 6c):** kỳ nằm ngoài cùng phủ mọi tab; phạm vi "dùng chung hết"; ngoại lệ KTGS in theo kế hoạch giữ kỳ kế hoạch (không đổi — 3.141).
 - **Kỳ chung:** `#ky-chung` ở đầu trang (`kyChungVe`, `kyChungDs` = kỳ Mẫu 31 + tháng có file TW, `kyChungDoi`, `kyChungLay`: kỳ ngày chỉ giữ trong lần mở app). Đổi → `toCH/skCH/ktCH/thCH().ky`, `SL_KY` cùng đổi, bỏ bộ đã dựng. `toKyMacDinh` và Tổng hợp lấy kỳ chung trước; tab không có số liệu đúng kỳ → `kyGhiHTML` ghi "đang dùng …". Bỏ ô `select[data-ky]` + `kyLamMoiHTML` ở Tổ / Sao kê / KTGS và ô kỳ Tổng hợp (hàm `kyLamMoi` còn, không gọi từ giao diện).

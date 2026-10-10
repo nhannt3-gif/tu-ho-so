@@ -1125,7 +1125,7 @@ function ktNapHTML(){
   var tom = kq ? (cu ? '⟳ dữ liệu đã đổi — kiểm lại' : (kq.dem.k ? '✗ '+kq.dem.k+' mục lệch' : '✓ khớp')+(kq.dem.v ? ' · '+kq.dem.v+' lưu ý' : '')) : (co ? 'chưa kiểm tra' : 'chưa nạp file');
   return '<details class="sl-tq kt-nap"'+(!co || D.cauHinh.ktNapMo ? ' open' : '')+' ontoggle="D.cauHinh.ktNapMo=this.open;luu()"><summary>📥 File BC0437 / BC0438 · 🔍 Kiểm tra '+kyVN(kx)+': <b class="'+(kq && !cu ? (kq.dem.k ? 'do' : 'xanh') : 'vang')+'">'+tom+'</b></summary>'+
     '<div class="hang-nut kt-nap-nut"><button class="nho chinh" onclick="slNapBo()" title="Chọn nhiều file (BC0437, BC0438 của 1 hay nhiều tháng) — app tự nhận loại và kỳ, xem trước rồi mới ghi nhận">📥 Nạp nhiều file</button>'+
-      '<button class="nho" onclick="SL_LECH++;veSoLieu()">‹ cũ hơn</button><button class="nho" onclick="SL_LECH=Math.max(0,SL_LECH-1);veSoLieu()">mới hơn ›</button></div>'+
+      '<button class="nho" onclick="SL_LECH++;veSoLieu()" title="Các tháng cũ hơn">‹</button><button class="nho" onclick="SL_LECH=Math.max(0,SL_LECH-1);veSoLieu()" title="Các tháng mới hơn">›</button></div>'+
     '<div class="bdc-cuon sl-mt-cuon"><table class="bdc-bang sl-bang"><thead><tr><th class="bdc-goc">Loại file</th>'+
       ky.map(function(k){ var x = SLM.ktg && SLM.ktg[k]; return '<th class="'+(k===kx ? 'sl-chon' : '')+'" onclick="KT_KY_KT=\''+k+'\';veSoLieu()" title="Xem kiểm tra tháng '+kyVN(k)+'">'+kyVN(k)+(x ? (ktKTCu(k) ? ' ⟳' : (x.dem.k ? ' ✗' : ' ✔')) : '')+'</th>'; }).join('')+'</tr></thead><tbody>'+
       [L37, L38].map(function(L){ return '<tr><td class="bdc-ten sl-con-ten" title="'+coChuHTML(L.ten)+'">'+coChuHTML(L.ten.split(' · ')[0])+'</td>'+ky.map(function(k){ return slOMT(L, k); }).join('')+'</tr>'; }).join('')+
@@ -3317,7 +3317,7 @@ function slTabConHTML(){
   var t = ['tra','to','sk','th','kt'].indexOf(D.cauHinh.slTab)>=0 ? D.cauHinh.slTab : 'nap';
   if(typeof toNutSL==='function') toNutSL();
   /* 3.144 (Q15): 📥 Nạp & Kiểm tra là tab riêng trên thanh tab (chỗ tab Tháng cũ) — không còn là tab con của Số liệu */
-  if(t==='nap') return '<div class="sl-con sl-con-nap"><b>📥 Nạp &amp; Kiểm tra dữ liệu</b><span>Nơi duy nhất nạp file Excel hệ thống (Mẫu 31, file TW, KHĐ, QH, khoanh, tổ trưởng… và BC0437 / BC0438 của KTGS) và kiểm tra toàn vẹn — các tab khác chỉ đọc.</span></div>';
+  if(t==='nap') return '';   /* 3.150: tab Nạp & KT tự vẽ 1 hàng công cụ (slNapThanhHTML) — giải thích chuyển vào ❓ */
   setTimeout(function(){ var c = document.querySelector('#tr7 .sl-con'), b = c && c.querySelector('.bat'); if(b) c.scrollLeft = Math.max(0, b.offsetLeft - c.offsetLeft - 12); }, 0);   /* 3.89: điện thoại — tab con đang mở luôn thấy được */
   return '<div class="sl-con"><button class="'+(t==='th'?'bat':'')+'" onclick="slDoiTab(\'th\')">📊 Tổng hợp</button>'+   /* 3.90 */
     '<button class="'+(t==='sk'?'bat':'')+'" onclick="slDoiTab(\'sk\')">📑 Sao kê</button>'+
@@ -3529,6 +3529,7 @@ function tcChonDong(el){ var c = el && el.parentNode; if(c) Array.prototype.forE
 var SL_BAT_BUOC = ['hstd','dnct','dsto','bx','bc','lx','lh','lc','lt'];   /* 3.145 (Q16): 9 file cần cho ✓ Đạt */   /* 3.90: Ⓐ 7 file chuẩn TW + Ⓑ Mẫu 31, Thông tin tổ trưởng, KHĐ mẫu 14 (anh chốt) */
 function slChonThang(d, v){
   var cu = SL_KY || slKyMoi() || ngayISO(nay()).slice(0,7);
+  setTimeout(function(){ if(typeof kyChungDs==='function' && kyChungDs().some(function(x){ return x.ky===SL_KY; }) && D.cauHinh.kyChung!==SL_KY){ D.cauHinh.kyChung = SL_KY; KY_PHIEN.chung = SL_KY; [toCH(), skCH(), ktCH(), thCH()].forEach(function(C){ C.ky = SL_KY; }); luu(); kyChungVe(); } }, 0);   /* 3.150: tháng ma trận = kỳ chung (khi tháng có số liệu) */
   SL_KY = v ? v : kyLui(cu, d); if(!/^\d{4}-\d{2}$/.test(SL_KY)) SL_KY = cu;
   var so = function(k){ return +k.slice(0,4)*12 + +k.slice(5,7); }, ds = slDsKy(), dau = ds[0], cuoi = ds[ds.length-1];   /* 3.91: tháng chọn luôn nằm trong 6 cột ma trận */
   if(so(SL_KY) > so(cuoi)) SL_LECH = Math.max(0, SL_LECH - (so(SL_KY)-so(cuoi)));
@@ -3565,22 +3566,12 @@ function veSoLieu(){
   if(D.cauHinh.slTab==='th') return veTongHop();   /* 3.90 */
   if(D.cauHinh.slTab==='kt') return veKTGS();   /* 3.93 */
   var ky = slDsKy(), kyXem = SL_KY || slKyMoi() || ngayISO(nay()).slice(0,7), soBang = Object.keys(SLM.bang).length;
-  var cho = Object.keys(SLM.bang).filter(function(k){ return SLM.bang[k].choDay; }).length;
-  var h = slTabConHTML()+'<div class="sl-dau"><b>📅 Kỳ số liệu</b>'+   /* 3.144: tab riêng Nạp & KT */
-    '<span class="sl-thang"><button class="nho" onclick="slChonThang(-1)" title="Tháng trước">‹</button><button class="nho sl-thang-ten" onclick="slChonThangHop()" title="Chọn tháng">'+kyVN(kyXem)+' ▾</button><button class="nho" onclick="slChonThang(1)" title="Tháng sau">›</button></span>'+
-    '<button class="nho chinh" onclick="slNapBo()" title="Chọn nhiều file Excel (1 bộ của 1 tháng, hay 1 loại nhiều tháng) — app tự nhận loại và kỳ, xem trước rồi mới ghi nhận">📥 Nạp nhiều file</button>'+
-    '<button class="nho" onclick="slFileXuat(\''+kyXem+'\')" title="Danh sách file cần xuất hằng tháng, mẫu cần chọn khi xuất, ✓ file tháng đang xem đã có">📋 File cần xuất</button>'+   /* 3.145 */
-    '<span class="sl-db">'+(cho ? '☁ '+cho+' ô chờ lên Drive' : (soBang ? '☁ đã lên Drive' : ''))+'</span>'+
-    '<span class="sl-giu-ds" id="sl-giu-ds">'+slGiuChu()+'</span><button class="nho" onclick="slNapLai()" title="Bỏ phần đã dựng sẵn rồi dựng lại từ file đã lưu (khi số liệu hiện lạ, hoặc Drive vừa đổi ở máy khác) — không xóa file">🧹 Làm sạch &amp; nạp lại</button>'+   /* 3.126 */
-    (laDT() ? '' : '<label class="sl-giu" title="Số tháng giữ sẵn trong phiên làm việc — chuyển tháng / in không phải nạp lại">⚡ Giữ sẵn <select onchange="D.cauHinh.slGiu=this.value;luu();slNapSan()"><option value="12"'+(D.cauHinh.slGiu==='all' ? '' : ' selected')+'>12 tháng</option><option value="all"'+(D.cauHinh.slGiu==='all' ? ' selected' : '')+'>Tất cả</option></select></label>')+'</div>';   /* 3.125 */
-  h += '<div class="sl-hai-chon"><button class="bat" onclick="slKhung(0)">📋 Ma trận file</button><button onclick="slKhung(1)">🔍 Kiểm tra kỳ</button></div>'+   /* 3.91: điện thoại vuốt ngang 2 khung */
-    '<div class="sl-hai" id="sl-hai" onscroll="slKhungCuon()"><section class="sl-k">';
-  h += slTTHTML(kyXem);   /* 3.90.1: ① tình trạng tháng gọn 1 dòng */
-  h += '<div class="sl-mt-dau"><b>Ma trận file theo tháng</b><span class="sl-phu">ô = số chính + mũi tên so tháng trước (dư nợ tăng xanh · quá hạn / khoanh / KHĐ tăng đỏ) — bấm ô trống: nạp · ô có file: hỏi thay (↩ hoàn tác được 1 lần, 30 ngày) · Ⓑ bắt buộc · Ⓐ chuẩn TW · Ⓓ phụ</span>'+
-    '<span class="sl-tq-nut"><button class="nho" onclick="SL_LECH++;veSoLieu()" title="Xem kỳ cũ hơn">‹ cũ hơn</button><button class="nho" onclick="SL_LECH=Math.max(0,SL_LECH-1);veSoLieu()" title="Xem kỳ mới hơn">mới hơn ›</button></span></div>';
-  h += '<div class="bdc-cuon sl-mt-cuon"><table class="bdc-bang sl-bang"><thead><tr><th class="bdc-goc">Loại file</th>'+
-    ky.map(function(k){ return '<th class="'+(k===kyXem?'sl-chon':'')+(slDanhGia(k).dat ? ' dat' : '')+'" onclick="SL_KY=\''+k+'\';veSoLieu()" title="Chọn tháng '+kyVN(k)+'">'+kyVN(k)+(SLM.kt[k] ? (slKTCu(k) ? ' ⟳' : (slDanhGia(k).dat ? ' ✓' : '')) : '')+'</th>'; }).join('')+
-    '<th class="sl-ngay-th">📅 Theo ngày'+(slDsNgay().length>1 ? '<br><button class="nho" onclick="slXoaNgayCu()" title="Xóa mọi bản theo ngày, chỉ giữ ngày mới nhất — cho nhẹ máy">🗑 Xóa ngày cũ</button>' : '')+'</th></tr></thead><tbody>';   /* 3.136 (anh chốt): bản theo ngày gom 1 cột sau tháng mới nhất */
+  SL_KY = kyXem;
+  /* 3.150 (anh chốt ý 1): 1 hàng công cụ · 1 dòng trạng thái · ma trận trọn chiều ngang · kết quả kiểm tra + file KTGS gập sẵn · việc phụ trong ⋯, giải thích trong ❓ */
+  var h = slNapThanhHTML(kyXem)+slNapTTHTML(kyXem);
+  h += '<div class="bdc-cuon sl-mt-cuon"><table class="bdc-bang sl-bang"><thead><tr><th class="bdc-goc">Loại file <span class="sl-tq-nut"><button class="nho" onclick="SL_LECH++;veSoLieu()" title="Xem các tháng cũ hơn">‹</button><button class="nho" onclick="SL_LECH=Math.max(0,SL_LECH-1);veSoLieu()" title="Xem các tháng mới hơn">›</button></span></th>'+
+    ky.map(function(k){ var g = slDanhGia(k); return '<th class="'+(k===kyXem?'sl-chon':'')+(g.dat ? ' dat' : '')+'" onclick="slChonThang(0,\''+k+'\')" title="Chọn tháng '+kyVN(k)+'">'+kyVN(k)+(SLM.kt[k] ? (slKTCu(k) ? ' ⟳' : (g.dat ? ' ✓' : '')) : '')+'</th>'; }).join('')+
+    '<th class="sl-ngay-th">📅 Theo ngày</th></tr></thead><tbody>';   /* 3.136 (anh chốt): bản theo ngày gom 1 cột sau tháng */
   SL_NHOM.forEach(function(N){   /* 3.91: mỗi nhóm 1 dòng đầu bấm sổ / gọn; thu gọn thì ô tháng là chip tóm tắt; loại đã bỏ chỉ hiện khi còn dữ liệu */
     var dsL = SL_LOAI.filter(function(L){ return L.nhom===N.k && (!L.bo || slCoDL(L.k)); }), mo = slNhomMo(N.k); if(!dsL.length) return;
     h += '<tr class="sl-nh-dong'+(mo ? ' mo' : '')+'" onclick="slMoNhom(\''+N.k+'\')" title="Bấm để '+(mo ? 'thu gọn' : 'sổ ra')+'"><td class="bdc-ten"><span class="sl-nh '+N.k+'">'+(N.k==='X' ? '×' : N.k)+'</span>'+coChuHTML(N.ten.split(' · ')[0].replace(/^[ⒶⒷⒸⒹ] /, ''))+'</td>'+
@@ -3588,23 +3579,61 @@ function veSoLieu(){
     if(mo) dsL.forEach(function(L){
       h += '<tr><td class="bdc-ten sl-con-ten" title="'+coChuHTML(L.ten+' — '+N.ten)+'">'+coChuHTML(L.ten.split(' · ')[0])+'</td>'+ky.map(function(k){ return slOMT(L, k); }).join('')+slONgay(L)+'</tr>'; });
   });
-  h += '</tbody></table></div></section><section class="sl-k">';
-  h += slKTDauHTML(kyXem)+'<div id="sl-kt">'+slKTHTML(kyXem)+'</div></section></div>';
-  h += '<div class="sl-ktgs-nap">'+ktNapHTML()+'</div>';   /* 3.144: chuyển từ tab con KTGS về đây (anh chốt) */
-  h += '<details class="sl-tq"'+(D.cauHinh.slTQ ? ' open' : '')+' ontoggle="D.cauHinh.slTQ=this.open;luu()"><summary>📄 Tóm tắt chi tiết các file tháng '+kyVN(kyXem)+'</summary>'+
-    '<div id="sl-ky" class="sl-ky"><div class="rong">'+(soBang ? 'Đang mở tóm tắt '+kyVN(kyXem)+'…' : 'Chưa có số liệu.')+'</div></div></details>';
-  if(!soBang) h += '<div class="rong">Chưa có số liệu. Bấm <b>📥 Nạp nhiều file</b> rồi chọn các file Excel: Ⓑ bắt buộc Mẫu 31, Dư nợ chi tiết, DSTO · Ⓐ chuẩn TW BCDHTD 01.1, 01.2, LEN_31 XAPUONG / DONVIUT / CHTRINH / TO_TRUONG · Ⓓ phụ: KHĐ mẫu 14, Nợ quá hạn, Nợ khoanh, Thông tin tổ trưởng… (bấm <b>📋 File cần xuất</b> xem chi tiết). Nạp 1 bộ của 1 tháng hay 1 loại nhiều tháng đều được — app tự nhận loại và kỳ.</div>';
-  h += '<p class="ghi">Báo cáo ở tab <b>Số liệu</b>: <b>📊 Tổng hợp</b>, <b>📑 Sao kê</b>, <b>👥 Tổ TK&VV</b>, <b>🛡 KTGS Hội</b>, <b>👤 Tra cứu KH</b>. Excel chỉ đọc một lần lúc nạp.</p>';
-  h += '<details class="sl-qldl"><summary>🧹 Quản lý dữ liệu Số liệu</summary><div class="hang-nut"><button class="nho" onclick="slTimRac()" title="Tìm bảng / file của phần Số liệu không còn dùng (trong máy và trên Drive) để xóa">🧹 Tìm file rác của Số liệu</button>'+
-    (soBang ? '<button class="nho" onclick="slLamMoi()" title="Xóa toàn bộ số liệu (chỉ phần Số liệu) để nạp lại từ đầu">♻ Làm mới toàn bộ số liệu</button>' : '')+'</div>'+
-    '<p class="ghi">Phần Số liệu chạy riêng, dọn rác riêng — không đụng văn bản, hồ sơ, scan. Xóa từng ô: bấm ô → 🗑. Xóa 1 tháng: nút 🗑 ở dòng ①. Drive vào Thùng rác, lấy lại được 30 ngày.</p></details>';   /* 3.90 · 3.90.1 */
+  h += '</tbody></table></div>';
+  var kt = slCoFileChinh(kyXem) ? SLM.kt[kyXem] : null;
+  h += '<details class="sl-kq" id="sl-kq"'+(D.cauHinh.slKqMo ? ' open' : '')+' ontoggle="D.cauHinh.slKqMo=this.open;luu()"><summary>🔍 Kết quả kiểm tra kỳ '+kyVN(kyXem)+
+    (kt ? ' <small>('+kt.dem.ok+' khớp · '+kt.dem.lech+' chênh lệch ghi nhận · '+kt.dem.canh+' lưu ý)</small>' : ' <small>(chưa kiểm)</small>')+'</summary><div id="sl-kt">'+slKTHTML(kyXem)+'</div></details>';
+  h += '<div class="sl-ktgs-nap">'+ktNapHTML()+'</div>';   /* 3.144: nạp KTGS ở đây (anh chốt) — khối tự gập (details) */
+  if(!soBang) h += '<div class="rong">Chưa có số liệu. Bấm <b>📥 Nạp file</b> (chọn nhiều file Excel cùng lúc) hoặc bấm ô trống trên ma trận · xem <b>📋 File cần xuất</b>.</div>';
   e.innerHTML = h;
   var cuon = e.querySelector('.bdc-cuon'); if(cuon) cuon.scrollLeft = cuon.scrollWidth;   /* điện thoại: thấy ngay kỳ mới nhất */
-  if(soBang && kyXem && D.cauHinh.slTQ) slBo(kyXem).then(function(B){ var o = document.getElementById('sl-ky'); if(o && nganHienTai===7) o.innerHTML = slKyHTML(B); });
-  slKhungCuon();
-  var tq = e.querySelector('details.sl-tq'); if(tq) tq.addEventListener('toggle', function(){ if(tq.open && soBang) slBo(kyXem).then(function(B){ var o = document.getElementById('sl-ky'); if(o) o.innerHTML = slKyHTML(B); }); });   /* 3.90.1: tóm tắt chi tiết chỉ mở khi cần */
 }
 
+/* ---------- 3.150: tab Nạp & KT gọn ---------- */
+function slNapThanhHTML(kyXem){   /* 1 hàng: ‹ tháng › · 📥 Nạp file · 📋 File cần xuất · ☁ · ⋯ · ❓ */
+  var cho = Object.keys(SLM.bang).filter(function(k){ return SLM.bang[k].choDay; }).length;
+  return '<div class="sl-con-nap sl-thanh-nap">'+
+    '<span class="sl-thang"><button class="nho" onclick="slChonThang(-1)" title="Tháng trước">‹</button><button class="nho sl-thang-ten" onclick="slChonThangHop()" title="Chọn tháng">'+kyVN(kyXem)+' ▾</button><button class="nho" onclick="slChonThang(1)" title="Tháng sau">›</button></span>'+
+    '<button class="nho chinh" onclick="slNapBo()" title="Chọn nhiều file Excel (1 bộ của 1 tháng, hay 1 loại nhiều tháng) — app tự nhận loại và kỳ, xem trước rồi mới ghi nhận">📥 Nạp file</button>'+
+    '<button class="nho" onclick="slFileXuat(\''+kyXem+'\')" title="Danh sách file cần xuất hằng tháng, mẫu cần chọn khi xuất, ✓ file tháng đang xem đã có">📋 File cần xuất</button>'+
+    '<span class="sl-gian"></span>'+(cho ? '<span class="sl-db" title="Ô số liệu chưa lên Drive">☁ '+cho+' chờ</span>' : '')+
+    '<button class="nho" onclick="slNapThem(\''+kyXem+'\')" title="Tải file gốc cả tháng · Xóa cả bộ tháng · Xóa ngày cũ · Làm sạch & nạp lại · Giữ sẵn · Tóm tắt file · Tìm rác">⋯</button>'+
+    '<button class="nho" onclick="slNapHoi()" title="Giải thích tab Nạp & KT">❓</button></div>';
+}
+function slNapTTHTML(ky){   /* 1 dòng trạng thái — chỉ 1 cảnh báo, theo ưu tiên: chưa có file → thiếu file → sai kỳ / cấu trúc → cần kiểm → Đạt */
+  var g = slDanhGia(ky), kt = SLM.kt[ky], coFile = Object.keys(SLM.bang).some(function(k){ return slThang(SLM.bang[k].ky)===ky; }), chinh = slCoFileChinh(ky), lop = 'vang', chu;
+  var lk = function(ds){ return ds.map(function(t){ var L = SL_LOAI.find(function(x){ return x.ten.split(' · ')[0]===t; }); return L ? '<button class="sl-lk" onclick="slNapMot(\''+L.k+'\',\''+ky+'\')" title="Nạp '+coChuHTML(L.ten)+'">'+coChuHTML(t)+'</button>' : coChuHTML(t); }).join(', '); };
+  if(!coFile){ lop = 'xam'; chu = '<b>'+kyVN(ky)+'</b> chưa có file nào — bấm ô trống trên ma trận hoặc <b>📥 Nạp file</b>.'; }
+  else if(g.thieu.length) chu = '⚠ <b>'+kyVN(ky)+' chưa Đạt</b> — thiếu '+g.thieu.length+' file: '+lk(g.thieu);
+  else if(g.ky.length || g.ct.length) chu = '⚠ <b>'+kyVN(ky)+' chưa Đạt</b> — '+(g.ky.length ? 'sai kỳ: '+coChuHTML(g.ky.join(', ')) : '')+(g.ct.length ? (g.ky.length ? ' · ' : '')+'sai cấu trúc: '+coChuHTML(g.ct.join(', ')) : '');
+  else if(!g.daKiem) chu = kt ? '⟳ Dữ liệu '+kyVN(ky)+' đã đổi sau lần kiểm — bấm <b>Kiểm lại</b>.' : '⟳ Đủ '+SL_BAT_BUOC.length+' file — bấm <b>🔍 Kiểm tra kỳ</b>.';
+  else { lop = 'xanh'; chu = '✅ <b>'+kyVN(ky)+' Đạt</b> · ✓ Đạt'+(kt.dem.lech ? ' · <button class="sl-lk" onclick="slKqMo()">'+kt.dem.lech+' chênh lệch ghi nhận</button>' : ' · các file khớp nhau'); }
+  var tit = g.bc.map(function(b){ return (b.thieu.length ? '○ ' : '✓ ')+b.ten+(b.thieu.length ? ' — thiếu '+b.thieu.join(', ') : ''); }).concat(g.luuY.map(function(x){ return 'ⓘ '+x; })).join('\n');
+  return '<div class="sl-tt sl-tt-1 '+lop+'" title="'+coChuHTML(tit)+'"><span class="sl-tt-chu">'+chu+'</span>'+
+    (chinh ? '<button class="nho'+(g.daKiem ? '' : ' chinh')+'" onclick="slKiemTra(\''+ky+'\')">🔍 '+(kt ? 'Kiểm lại' : 'Kiểm tra kỳ')+'</button>' : '')+'</div>';
+}
+function slKqMo(){ var d = document.getElementById('sl-kq'); if(d){ d.open = true; d.scrollIntoView({behavior:'smooth', block:'start'}); } }
+function slNapThem(ky){   /* ⋯ việc phụ của tab Nạp & KT */
+  var coFile = Object.keys(SLM.bang).some(function(k){ return slThang(SLM.bang[k].ky)===ky; }), soBang = Object.keys(SLM.bang).length;
+  moHop('<div class="hop-tit">⋯ Nạp &amp; KT · '+kyVN(ky)+'</div><div class="sl-them-ds">'+
+    (coFile ? '<button class="nho" onclick="dongHop();slTaiGocThang(\''+ky+'\')">⬇ Tải file gốc cả tháng</button><button class="nho" onclick="dongHop();slXoaThang(\''+ky+'\')">🗑 Xóa cả bộ tháng '+kyVN(ky)+'</button>' : '')+
+    (slDsNgay().length>1 ? '<button class="nho" onclick="dongHop();slXoaNgayCu()">🗑 Xóa bản theo ngày cũ (giữ ngày mới nhất)</button>' : '')+
+    (soBang ? '<button class="nho" onclick="dongHop();slTomTatXem(\''+ky+'\')">📄 Tóm tắt chi tiết các file '+kyVN(ky)+'</button>' : '')+
+    '<button class="nho" onclick="dongHop();slNapLai()">🧹 Làm sạch &amp; nạp lại (dựng lại từ file đã lưu)</button>'+
+    (laDT() ? '' : '<label class="sl-giu">⚡ Giữ sẵn <select onchange="D.cauHinh.slGiu=this.value;luu();slNapSan()"><option value="12"'+(D.cauHinh.slGiu==='all' ? '' : ' selected')+'>12 tháng</option><option value="all"'+(D.cauHinh.slGiu==='all' ? ' selected' : '')+'>tất cả</option></select> <small id="sl-giu-ds">'+coChuHTML(slGiuChu())+'</small></label>')+
+    '<button class="nho" onclick="dongHop();slTimRac()">🧹 Tìm file rác của Số liệu</button>'+
+    (soBang ? '<button class="nho xau" onclick="dongHop();slLamMoi()">♻ Làm mới toàn bộ số liệu</button>' : '')+
+    '</div><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>');
+}
+function slTomTatXem(ky){ batChay(true, 'Đang mở tóm tắt '+kyVN(ky)+'…'); slBo(ky).then(function(B){ tatChay(); moHop('<div class="hop-tit">📄 Tóm tắt các file '+kyVN(ky)+'</div><div class="sl-ky">'+slKyHTML(B)+'</div><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>', true); }).catch(function(er){ tatChay(); baoLoi('Chưa mở được: '+(er && er.message || er)); }); }
+function slNapHoi(){
+  moHop('<div class="hop-tit">❓ Nạp &amp; Kiểm tra dữ liệu</div><div class="hd-chu">'+
+    '<p>Nơi duy nhất nạp file Excel hệ thống (Mẫu 31, Dư nợ chi tiết, DSTO, file TW, KHĐ, quá hạn, khoanh… và BC0437 / BC0438 của KTGS) — các tab khác chỉ đọc. Excel chỉ đọc 1 lần lúc nạp.</p>'+
+    '<p><b>Ma trận:</b> mỗi ô = số chính + mũi tên so tháng trước (dư nợ tăng ▲ xanh; quá hạn / khoanh / KHĐ tăng ▲ đỏ; tổ chỉ số tổ). Bấm ô trống: nạp đúng ô; ô có file: hỏi thay (↩ hoàn tác 1 lần, 30 ngày). Ⓑ bắt buộc · Ⓐ chuẩn TW · Ⓓ phụ. Cột 📅 Theo ngày: bản số liệu giữa tháng.</p>'+
+    '<p><b>Kiểm tra kỳ:</b> ✓ Đạt khi đủ '+SL_BAT_BUOC.length+' file (Ⓑ 3 + Ⓐ 6), đúng kỳ, đúng cấu trúc. Chênh lệch giữa các file chỉ ghi nhận để biết — không ảnh hưởng Đạt, không sửa số. Rê chuột lên dòng trạng thái: báo cáo nào dùng được, thiếu file gì.</p>'+
+    '<p>Báo cáo ở tab <b>Số liệu</b>: Tổng hợp, Sao kê, Tổ TK&amp;VV, KTGS Hội, Tra cứu KH.</p></div>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>');
+}
 /* 3.136 (anh chốt): cột 📅 Theo ngày — mọi bản theo ngày (loại tùy kỳ), xóa ngày cũ cho nhẹ máy */
 function slDsNgay(loai){ return Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ var L = slLoai(e.loai); return L && L.tuy && !L.ngay && String(e.ky).length>7 && (!loai || e.loai===loai); })
   .sort(function(a, b){ return a.ky<b.ky ? -1 : a.ky>b.ky ? 1 : 0; }); }

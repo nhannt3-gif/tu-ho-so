@@ -142,7 +142,7 @@ const fs=require('fs'), path=require('path');
    slMoNhom('A'); await w(300); o.soA = document.querySelectorAll('.sl-bang tbody tr').length+' dòng khi sổ Ⓐ';
    o.thangVN = document.querySelector('.sl-thang-ten').textContent+' · ô month: '+document.querySelectorAll('.sl-dau input[type=month]').length;
    slChonThangHop(2026); await w(200); o.hopThang = document.querySelectorAll('.sl-luoi-thang button').length+' nút tháng'; dongHop();
-   o.buocKT = document.querySelector('.sl-4buoc').textContent;
+   o.buocKT = (document.querySelector('.sl-tt-1')||{textContent:'(không có dòng trạng thái)'}).textContent.slice(0, 80);   /* 3.150: 4 ô bước → 1 dòng trạng thái */
    /* 3.146: bỏ chốt tháng — Đạt = đủ file · đúng kỳ · đúng cấu trúc + đã kiểm; chênh lệch chỉ ghi nhận */
    const dg0 = slDanhGia('2026-07'); const chuaDat = dg0.dat ? 'ĐẠT KHI THIẾU FILE' : 'thiếu '+dg0.thieu.length+' file → chưa Đạt';
    const bbCu = SL_BAT_BUOC; SL_BAT_BUOC = bbCu.filter(k=>['tt','khd','dnct','dsto'].indexOf(k)<0); await slKiemTra('2026-07'); veSoLieu(); await w(300);   /* bộ giả T7 chỉ có Mẫu 31 ở nhóm Ⓑ */

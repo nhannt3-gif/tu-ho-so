@@ -50,7 +50,8 @@ const fs=require('fs'), path=require('path');
    /* ma trận: cột 📅 Theo ngày */
    doiNgan(7); slDoiTab('nap'); for(let i=0;i<40 && !document.querySelector('.sl-ngay-th');i++) await w(150);
    const th = document.querySelector('.sl-ngay-th'), chip = [...document.querySelectorAll('.sl-ngay-chip')].map(x=>x.textContent);
-   ok('ma trận có cột "📅 Theo ngày" + nút Xóa ngày cũ; chip 10/09, 12/09', !!th && /Xóa ngày cũ/.test(th.textContent) && chip.includes('10/09') && chip.includes('12/09'), chip.join(','));
+   slNapThem(SL_KY); await w(100); const coXoaNgay = /Xóa bản theo ngày cũ/.test((document.querySelector('#hop-in')||{}).textContent||''); dongHop();
+   ok('ma trận có cột "📅 Theo ngày" (nút Xóa ngày cũ ở ⋯ — 3.150); chip 10/09, 12/09', !!th && coXoaNgay && chip.includes('10/09') && chip.includes('12/09'), chip.join(','));
    ok('ô tháng không còn "+ n ngày"', !/\+ \d+ ngày/.test(document.querySelector('.sl-bang').textContent));
    /* dựng sẵn: ngày mới nhất + tháng mới nhất, có tiến độ */
    slNapLai(); for(let i=0;i<80 && SL_SAN_NAP.chay;i++) await w(150);
