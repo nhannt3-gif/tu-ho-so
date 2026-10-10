@@ -126,3 +126,4 @@ window.addEventListener('resize', function(){ clearTimeout(TTB.rz); TTB.rz = set
 /* khởi động (cuối file: mọi biến đã khai) */
 document.body.classList.add('co-tb');
 dhVe();
+setTimeout(function(){ if(typeof slNap==='function' && typeof SL_SAN!=='undefined'){ if(SL_SAN) kyChungVe(); else slNap(); } }, 2500);   /* 3.149: ô Kỳ chung có ngay ở đầu trang */

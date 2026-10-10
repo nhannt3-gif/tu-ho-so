@@ -75,6 +75,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t120.js` | 3.115: Mẫu 06 dòng Thời điểm · Địa bàn · Tổ (gọn dần cho vừa 1 dòng), CT canh giữa, tên cán bộ kiểm tra dưới khối ký; Mẫu 16 tên Trưởng đoàn + Tổ trưởng, Bảng II như mẫu tham khảo; KH ① hết dính chữ |
 | `node tests/t99.js` | Chuyển tiếp tab Tháng: bỏ 7 dòng thuần Excel, ô XLS không tính thiếu, ô "đọc file cũ". |
 | `node tests/t144.js` | 3.148 Nút & trạng thái: bỏ 🗑 cuối dòng, nút Thêm xanh, hộp thoại Thôi trái / nút chính phải + nút không giãn, tin trong hộp vẫn nổi, tin thường vào ô trạng thái (thanh bên / thanh đáy iPhone), đèn đỏ / vàng, thanh %, hộp Đang xử lý ẩn khi không có Dừng, 🔔 danh sách tin, NhanNT trên thanh bên, thanh đáy ẩn / hiện theo tab, nút ≤ 240 px. |
+| `node tests/t145.js` | 3.149 Kỳ + phạm vi chung: ô Kỳ đầu trang, tab không còn ô kỳ riêng, đổi kỳ → mọi tab + SL_KY, phạm vi chọn ở Tổ → các tab khác + pvChung, cây 2 hàng (chip cấp kế tiếp, chọn tới tổ hết chip, bỏ chọn về PGD), KTGS bỏ dòng nạp + cảnh báo Thông tin tổ trưởng. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

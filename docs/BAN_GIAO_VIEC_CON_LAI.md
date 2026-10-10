@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.149) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Đầu trang có ô 📅 Kỳ | Đổi kỳ → Tổ, Sao kê, KTGS, Tổng hợp, ma trận Nạp cùng kỳ | |
+| 2 | Chọn xã / điểm / tổ ở tab Tổ, sang Sao kê / KTGS / Tổng hợp | Vẫn đúng phạm vi đó | |
+| 3 | Cây chọn | 2 hàng: ô chọn nối ›, chip của cấp kế tiếp; chọn tới tổ thì hết chip | |
+| 4 | KTGS | Không còn dòng "Nạp … ở tab" và cảnh báo "Thông tin tổ trưởng thiếu tổ" | |
+| 5 | Kế hoạch › In theo tháng | Vẫn lấy số liệu theo kế hoạch (cuối tháng liền trước) | |
+
+**Ghi chú kỹ thuật 3.149:** phạm vi dùng getter / setter trên đối tượng cấu hình từng tab (JSON vẫn ghi giá trị) — mọi chỗ cũ `C.xa = …` tự ghi về `pvChung`. Ô tìm tổ ở Tổ / KTGS chưa dời vào hàng cây (để 3.151 / sau).
+
 ### Danh sách thử trên máy thật (3.148) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

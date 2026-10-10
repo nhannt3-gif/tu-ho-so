@@ -2873,3 +2873,19 @@
   body.tb-gon #thanh-ben #tt-khoi{width:40px}
 }
 #tt-khoi .tt-thanh:not(.chay) i{display:none}
+/* ===== 3.149: kỳ chung ở đầu trang · cây chọn 2 hàng dùng chung ===== */
+.ky-chung{display:flex;align-items:center;gap:4px;flex:0 0 auto;color:#fff}
+.ky-chung:empty{display:none}
+.ky-chung label{display:flex;align-items:center;gap:4px;font-size:calc(13px*var(--co))}
+.ky-chung select{font:inherit;font-size:calc(13px*var(--co));padding:4px 6px;border-radius:8px;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.95);color:#123;max-width:230px}
+.ky-chung .ky-chung-lm{background:none;border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:8px;padding:3px 8px;cursor:pointer}
+@media (max-width:699px){ .ky-chung select{max-width:150px} .ky-chung .ky-chung-lm{display:none} }
+.ky-ghi{margin:4px 0;padding:4px 10px;border-radius:8px;background:var(--vang-nen);color:var(--vang);font-size:calc(12.5px*var(--co))}
+.pv-hang1{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:4px 0}
+.pv-hang1 .pv-ghim{font-size:15px}
+.pv-hang1 .pv-sep{color:var(--chu-phu);font-weight:700}
+.pv-hang1 select.pv-o{font:inherit;font-size:calc(12.5px*var(--co));padding:3px 6px;border:1px solid var(--vien);border-radius:8px;background:var(--the);color:var(--chu);max-width:250px}
+.pv-hang1 select.pv-o.co{border-color:var(--xanh);background:var(--xanh-nhat);color:var(--xanh-dam);font-weight:600}
+.pv-hang1 select.pv-hoi{margin-left:8px}
+.pv-hang2{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 6px 22px}
+.kt-bc-nap{border:1px solid var(--vien);background:var(--the);color:var(--chu);border-radius:10px;padding:1px 8px;cursor:pointer;font-size:calc(11.5px*var(--co))}

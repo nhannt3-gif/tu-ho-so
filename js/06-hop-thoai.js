@@ -2027,7 +2027,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.148', ds:[
+var CO_GI_MOI = {ban:'3.149', ds:[
+  ["📅 Kỳ số liệu chung: 1 ô Kỳ ở đầu trang (cạnh ô tìm) — đổi 1 lần, mọi tab theo (Tổ, Sao kê, KTGS, Tổng hợp, ma trận Nạp & KT); ⟳ cạnh ô để đọc lại. Bỏ ô \"Số liệu\" + ⟳ Làm mới + chip \"Đang dùng\" ở từng tab", "dongHop();moBCSL()"],
+  ["📍 Phạm vi chung: chọn xã / điểm GD / Hội / tổ ở tab nào thì các tab khác theo; cây chọn gọn 2 hàng — hàng ô chọn nối ›, hàng chip chỉ của cấp cần chọn tiếp", "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
+  ["🧹 KTGS: bỏ dòng \"Nạp và kiểm tra BC0437 / BC0438 ở tab…\" (chip BC thiếu có nút 📥 nạp); bỏ cảnh báo \"Thông tin tổ trưởng thiếu tổ\" (DSTO là nguồn chính) — chỉ còn báo tổ chưa rõ điểm GD", "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ["🚦 Một nơi báo trạng thái: chân thanh bên (điện thoại: thanh đáy) — đèn 🟢 ổn · 🟡 đang chạy · 🔴 lỗi · ⚪ chưa nối Drive, thanh màu chạy theo tiến độ, 1 dòng tin mới nhất; bấm dòng tin xem 20 tin gần đây. Tin không còn nổi đè lên nút", "dongHop();doiNgan(0)"],
   ["🔘 Nút vừa chữ, không còn kéo dài như lỗi; hộp thoại: Đóng / Thôi luôn bên trái, nút chính luôn bên phải; nút ＋ Thêm màu xanh", "dongHop();doiNgan(1)"],
   ["🗑 Bỏ nút xóa cuối mỗi dòng (Văn bản, Biểu mẫu, Scan…) — xóa bằng nút 🗑 Xóa file đầu tab (bấm file để tích); bỏ thanh ↩ Hoàn tác — cần lấy lại vào 🗑 Thùng rác → Khôi phục", "dongHop();doiNgan(1)"],

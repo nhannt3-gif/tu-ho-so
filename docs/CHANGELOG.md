@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.149 — 11/10/2026 — Kỳ + phạm vi chung; cây chọn 2 hàng; bỏ cảnh báo Thông tin tổ trưởng
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 6b, 6c):** kỳ nằm ngoài cùng phủ mọi tab; phạm vi "dùng chung hết"; ngoại lệ KTGS in theo kế hoạch giữ kỳ kế hoạch (không đổi — 3.141).
+- **Kỳ chung:** `#ky-chung` ở đầu trang (`kyChungVe`, `kyChungDs` = kỳ Mẫu 31 + tháng có file TW, `kyChungDoi`, `kyChungLay`: kỳ ngày chỉ giữ trong lần mở app). Đổi → `toCH/skCH/ktCH/thCH().ky`, `SL_KY` cùng đổi, bỏ bộ đã dựng. `toKyMacDinh` và Tổng hợp lấy kỳ chung trước; tab không có số liệu đúng kỳ → `kyGhiHTML` ghi "đang dùng …". Bỏ ô `select[data-ky]` + `kyLamMoiHTML` ở Tổ / Sao kê / KTGS và ô kỳ Tổng hợp (hàm `kyLamMoi` còn, không gọi từ giao diện).
+- **Phạm vi chung:** `pvChungO` (`D.cauHinh.pvChung`, lần đầu lấy theo tab Tổ) + `pvGan(C)`: ô xa / diem / hoi / to của toCH, skCH, ktCH, thCH, tcCH thành getter / setter trỏ về 1 chỗ.
+- **Cây chọn 2 hàng** (`pvVeCay`): hàng 1 `.pv-hang1` các ô chọn nối ›, ẩn cấp chưa tới (Hội luôn có, là lọc); hàng 2 `.pv-hang2` chip của cấp cần chọn tiếp (chọn tới tổ thì hết). Logic chọn (`pvLuaChon`, `pvChon`, `pvCha`) giữ nguyên.
+- **KTGS:** bỏ dòng "Nạp và kiểm tra … ở tab" → nút 📥 nạp cạnh chip BC thiếu; `ktSuyHTML` chỉ còn báo tổ chưa rõ điểm GD.
+- **Phép thử:** `tests/t145.js` (mới, 12). t113 (bỏ cảnh báo), t131 (⟳ Làm mới → kỳ chung), t127 (báo dựng sẵn ở ô trạng thái — 3.148).
+
 ## 3.148 — 11/10/2026 — Nút & trạng thái: 1 nơi báo trạng thái, nút vừa chữ, thứ tự nút hộp thoại, bỏ 🗑 cuối dòng
 - **Anh chốt (docs/KE_HOACH_GON_GIAO_DIEN.md ý 10, 12, 13; anh duyệt làm cả gói 3.148–3.155 + gộp, 11/10 00:40).**
 - **1 nơi trạng thái** (`js/23-dieu-huong.js`: `TTB`, `ttTin`, `ttVe`, `ttDung`, `ttDs`): khối `#tt-khoi` = đèn (`ttDen`: đỏ mất mạng · vàng đang chạy · đỏ lỗi < 12 giây · xanh Drive nối · xám) + thanh màu (`TTB.pt`, 101 = chạy không rõ %) + 1 dòng chữ (tin mới 8 giây, lỗi 12 giây, rồi về chữ nghỉ `ttNghi`). Máy tính ≥ 1100 px: chân thanh bên (`#tb-tt`, dời cả `#so-lieu` chip Drive / bộ nhớ); nhỏ hơn: thanh đáy. Bấm chữ → 🔔 20 tin.
