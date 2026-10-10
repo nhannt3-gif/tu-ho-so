@@ -2775,3 +2775,11 @@
 .hang-nut.sl-o-phu{margin-top:4px;opacity:.9;justify-content:center}.hang-nut.sl-o-phu .nho{flex:0 0 auto;width:auto;min-height:0;padding:4px 10px;font-size:calc(12px*var(--co))}
 .sl-fx{border-collapse:collapse;width:100%;font-size:calc(13px*var(--co))}.sl-fx th,.sl-fx td{border-bottom:1px solid var(--vien);padding:4px 6px;text-align:left;vertical-align:top}
 .sl-fx td.c{text-align:center;width:24px}.sl-fx .sl-fx-nhom td{background:var(--nen-phu,var(--nen));font-weight:700;padding-top:8px}.sl-fx .xanh{color:#1b7f3b}
+/* 3.146: Kiểm tra kỳ — Đạt / ghi nhận chênh lệch */
+.sl-bang thead th.dat{color:#1b7f3b;font-weight:700}
+:root[data-theme="dark"] .sl-bang thead th.dat{color:#7fd29a}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .sl-bang thead th.dat{color:#7fd29a} }
+.sl-bc-can{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.sl-luu-y{margin:4px 0}
+.sl-kt-ghi{margin:10px 0 2px;font-weight:700;color:var(--chu-phu);font-size:calc(12.5px*var(--co))}
+.sl-dat{font-size:calc(14px*var(--co))}
+.sl-kt-muc.lech{border-color:var(--xanh);border-left-width:4px}   /* 3.146: chênh lệch chỉ ghi nhận — không tô đỏ như lỗi */

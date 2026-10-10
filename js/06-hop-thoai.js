@@ -2027,7 +2027,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.145', ds:[
+var CO_GI_MOI = {ban:'3.146', ds:[
+  ['✅ Kiểm tra kỳ: bấm 🔍 Kiểm tra kỳ → app báo ✓ Đạt khi đủ 9 file (Ⓑ 3 + Ⓐ 6), đúng kỳ, đúng cấu trúc. Chênh lệch giữa các file chỉ ghi nhận để biết — không ảnh hưởng Đạt, không sửa số', "dongHop();moNapSL()"],
+  ['🔓 Bỏ hẳn chốt / khóa tháng: tháng từng chốt tự mở, nạp / thay / xóa bình thường (dữ liệu giữ nguyên)', "dongHop();moNapSL()"],
+  ['📋 Kiểm tra kỳ ghi rõ báo cáo nào dùng được: Tổ · Sao kê · Tra cứu / Tổng hợp tổng quan / KTGS (thiếu file gì); tháng có BC0437 / BC0438 thì kiểm luôn phần KTGS', "dongHop();moNapSL()"],
   ['📋 Bộ file mới: Ⓑ bắt buộc 3 file (Mẫu 31, Dư nợ chi tiết, DSTO) · Ⓐ chuẩn TW 6 file (01.1, 01.2, 4 LEN_31) · Ⓓ phụ (KHĐ mẫu 14, quá hạn, khoanh, phân kỳ, Tổng dư nợ, Thông tin tổ trưởng). Nút “📋 File cần xuất” ở tab Nạp & KT nhắc mẫu cần chọn khi xuất', "dongHop();moNapSL()"],
   ['🔢 Ô ma trận hiện số chính + mũi tên so tháng trước: dư nợ tăng ▲ xanh / giảm ▼ đỏ; quá hạn, khoanh, KHĐ ngược lại; tổ chỉ hiện số tổ', "dongHop();moNapSL()"],
   ['🖱 Bấm ô trống = nạp file vào ô đó; bấm ô đã có file → hỏi “Thay bằng file mới?” (nút nhỏ xem / tải / xóa); thay rồi vẫn ↩ Hoàn tác được 1 lần trong 30 ngày', "dongHop();moNapSL()"],

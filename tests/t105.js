@@ -143,14 +143,12 @@ const fs=require('fs'), path=require('path');
    o.thangVN = document.querySelector('.sl-thang-ten').textContent+' · ô month: '+document.querySelectorAll('.sl-dau input[type=month]').length;
    slChonThangHop(2026); await w(200); o.hopThang = document.querySelectorAll('.sl-luoi-thang button').length+' nút tháng'; dongHop();
    o.buocKT = document.querySelector('.sl-4buoc').textContent;
-   slChotHop('2026-07'); await w(200); const chuaDat = slChot('2026-07') ? 'CHỐT ĐƯỢC KHI CHƯA ĐẠT' : 'chưa Đạt → không chốt';
+   /* 3.146: bỏ chốt tháng — Đạt = đủ file · đúng kỳ · đúng cấu trúc + đã kiểm; chênh lệch chỉ ghi nhận */
+   const dg0 = slDanhGia('2026-07'); const chuaDat = dg0.dat ? 'ĐẠT KHI THIẾU FILE' : 'thiếu '+dg0.thieu.length+' file → chưa Đạt';
    const bbCu = SL_BAT_BUOC; SL_BAT_BUOC = bbCu.filter(k=>['tt','khd','dnct','dsto'].indexOf(k)<0); await slKiemTra('2026-07'); veSoLieu(); await w(300);   /* bộ giả T7 chỉ có Mẫu 31 ở nhóm Ⓑ */
-   slChotHop('2026-07'); await w(200); slChotGhi('2026-07'); await w(200); const chuaTich = slChot('2026-07');
-   document.getElementById('sl-da-xem').checked = true; slChotGhi('2026-07'); await w(400);
-   let chan = []; try{ await slGhi(await doc(fBX)); chan.push('ghi: VẪN GHI'); }catch(e){ chan.push('ghi: chặn'); }
-   const nBang = Object.keys(SLM.bang).length; slXoa('bx','2026-07'); slXoaThang('2026-07'); await w(300); chan.push('xóa: '+(Object.keys(SLM.bang).length===nBang ? 'chặn' : 'VẪN XÓA'));
-   o.chot = chuaDat+' · chưa tích → '+chuaTich+' · tích → '+slChot('2026-07')+' · '+chan.join(' · ')+' · ô khóa '+document.querySelectorAll('.sl-o.khoa').length+' · tiêu đề cột 🔒 '+document.querySelectorAll('.sl-bang th.khoa').length;
-   slMoKhoa('2026-07'); await w(300); o.moKhoa = slChot('2026-07')+' · lịch sử: '+!!SLM.chot['2026-07'].chotCu; SL_BAT_BUOC = bbCu;
+   const dg1 = slDanhGia('2026-07'); let chan = []; try{ await slGhi(await doc(fBX)); chan.push('ghi: được'); }catch(e){ chan.push('ghi: VẪN CHẶN'); }
+   o.chot = chuaDat+' · đủ bộ thu gọn + đã kiểm → '+(dg1.dat ? 'Đạt' : 'CHƯA ĐẠT '+JSON.stringify(dg1))+' · '+chan.join(' · ')+' · ô khóa '+document.querySelectorAll('.sl-o.khoa').length+' · hàm chốt còn: '+(typeof slChot);
+   SL_BAT_BUOC = bbCu;
    /* 3.91: nợ đến hạn 3 khung + viết tắt CT */
    slDoiTab('sk'); for(let i=0;i<80 && !document.getElementById('sk-cay');i++) await w(250);
    const K2 = skCH(); K2.ky = '2026-07'; K2.xa=''; K2.diem=''; K2.hoi=''; K2.to=''; veSaoKe(); for(let i=0;i<80 && !(SK_K && SK_K.ky==='2026-07' && document.getElementById('sk-cay'));i++) await w(250);
