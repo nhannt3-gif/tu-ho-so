@@ -28,6 +28,15 @@ Anh chốt: **số chính thức của TW, chuẩn nhất**. File dạng **biể
 - **Thông tin tổ trưởng 30/09 lỗi:** 352 tổ — **thiếu 18 tổ còn dư nợ** so DSTO, thừa 1 tổ không có món nào và không có trong DSTO.
 - **Kết luận:** danh sách tổ + tổ trưởng + Hội + ấp + ngày GDXA lấy từ **Mẫu 31 / Dư nợ chi tiết**, điểm GD từ **Dư nợ chi tiết** — chính xác. Thông tin tổ trưởng chỉ còn đóng góp **SĐT tổ trưởng + tổ phó** → **DSTO có đủ** (cả 369 tổ). Số tổ viên của DSTO định nghĩa khác "số khách có dư nợ" (300 tổ khác) — không dùng để so.
 
+## LEN_31 TO_TRUONG ↔ Dư nợ chi tiết từng tổ — file thật 30/09/2026 (rà 10/10/2026, chỉ số đếm)
+- LEN_31 TO_TRUONG: 374 dòng tổ (5 dòng "Vay trực tiếp", mỗi xã 1) · 5 xã · dòng Tổng cộng 370 tổ.
+- **Ghép tổ** (xã + tên tổ trưởng bỏ dấu, tên LEN có thể bị cắt): **373/374**; dòng còn lại = **2 tổ cùng tên tổ trưởng trong 1 xã bị LEN gộp 1 dòng** (dư nợ dòng LEN = cộng 2 tổ) → ghép theo nhóm như app đang làm. LEN có 1 tổ dư nợ 0 (1 hộ) — 8 tổ dư nợ 0 khác của Dư nợ chi tiết không có trên LEN.
+- **Khớp tuyệt đối từng tổ:** dư nợ, trong hạn, quá hạn, khoanh, **cho vay tháng** (= Giải ngân trong tháng, gồm đảo khoản).
+- **Thu nợ tháng:** lệch 12 tổ, LEN thấp hơn **71.999.298 đ** (đúng con số đã thấy khi so BCDHTD T9 — chưa rõ nguyên nhân; Dư nợ chi tiết = Thu nợ TH + QH + khoanh tháng). **Thu lãi tháng:** lệch 3 tổ, 216.995 đ.
+- **Số hộ** LEN ≠ số khách có dư nợ (200 tổ) và ≠ số khách có món (322 tổ) — dòng "Vay trực tiếp" có 69–261 hộ mà dư nợ rất nhỏ → **"Số hộ" LEN có cả khách chỉ gửi tiết kiệm**; Dư nợ chi tiết không có các khách này → so được khi có **Mẫu 31** (có khách chỉ gửi TK).
+- **Dư tiền gửi:** lệch 203 tổ, tổng LEN cao hơn 350 triệu (LEN có cả khách chỉ gửi TK; nhiều tổ lệch vài nghìn – vài chục nghìn đồng) → so với Mẫu 31.
+- **Kết luận cho bộ Kiểm tra kỳ:** LEN_31 TO_TRUONG là chuẩn từng tổ cho dư nợ / TH / QH / khoanh / cho vay (phải khớp tuyệt đối); thu nợ, thu lãi báo lệch kèm danh sách; số hộ, tiền gửi so với Mẫu 31.
+
 ## 3.90 — các file khác
 - **Món vay 3 tháng KHĐ: chỉ dùng mẫu 14** "Sao kê món vay N tháng không hoạt động (DL Tháng)". File mẫu **08/KTNB** ("DS khoản vay trên N tháng không hoạt động", cột Mã món vay, Địa chỉ, Tên xã, Mô tả) **cùng số y hệt** nhưng thiếu điểm GD xã, ngày đến hạn GDXA → app không nhận. Quy tắc của hệ thống (kiểm T9): món còn dư nợ, ngày GD gần nhất **trước** ngày cùng kỳ 3 tháng trước (30/06 cho số 30/09; GD đúng ngày 30/06 không tính); **không đưa món khoanh, món HSSV**; 3 món vay mới năm 2026 cũng không có (chưa rõ lý do — app báo lưu ý). File 0 dòng → báo xuất lại.
 - **Thông tin tổ trưởng: nạp mỗi tháng** (anh chốt, để kiểm). **Nợ quá hạn, Nợ khoanh, Tổng dư nợ theo CT: phụ** (không bắt buộc, có thì đối chiếu thêm). **Bỏ:** Mẫu 7 (khỏi tham chiếu), Sao kê khách hàng (không xuất được nữa).
