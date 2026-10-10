@@ -106,7 +106,7 @@
 - **Gửi trên máy tính:** tải file về + báo tên file. Không mở Zalo PC.
 - **📄 PDF:** cách (a) — hộp in "Lưu dưới dạng PDF" + tên file điền sẵn (chữ rõ, chọn / tìm được chữ).
 
-## Ý 5 — Copy văn bản để dán cho AI đọc (anh còn cân nhắc)
+## Ý 5 — Copy văn bản để dán cho AI đọc — **anh chốt 10/10: làm sau** (không thuộc đợt này)
 **Đề xuất:** thêm lựa chọn **🤖 Copy cho AI** trong hộp 📤 Gửi của Văn bản / Biểu mẫu / Scan, chép **chữ** của file kèm đầu mục:
 - Đầu mục: số hiệu · ngày · cơ quan · trích yếu (từ chỉ mục).
 - Nội dung:
@@ -169,6 +169,15 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
 - **Phạm vi + kỳ dùng chung giữa 5 tab** (đổi 1 lần, tab khác theo) = đợt D làm luôn ở đây. Câu hỏi: anh có muốn chung không?
 - KTGS: chip BC0437 / BC0438 + "Nạp ở tab…" → gộp vào dòng trạng thái nhỏ.
 
+**Anh chốt ý 6b (10/10) — KỲ CHUNG nằm ngoài cùng, phủ mọi tab:**
+- **1 ô Kỳ duy nhất** ở **đầu trang**, cạnh ô tìm (chỗ trống đã chừa ở 3.147). Hiện ở mọi tab: Nạp & KT, Tổng hợp, Sao kê, Tổ, KTGS, Tra cứu, Hôm nay, Công cụ (HSSV…).
+  - Đổi 1 lần → mọi tab theo.
+  - Bỏ các ô "Số liệu [kỳ]" / "Kỳ số liệu ‹ ›" / chip "Đang dùng" riêng của từng tab.
+- **Ngoại lệ KTGS:**
+  - **In mẫu kiểm tra theo Kế hoạch đã ghi nhận** (Kế hoạch › In theo tháng: Mẫu 06 / 16 / 04) → kỳ số liệu **theo kế hoạch** (cuối tháng liền trước tháng kiểm tra, như 3.141), không theo ô Kỳ chung. Hộp in ghi rõ "số liệu T…/… theo kế hoạch".
+  - **Các mẫu kiểm tra khác** (đột xuất, sau giải ngân, định kỳ chọn tự do, báo cáo tổng hợp Mẫu 04 lẻ) → **kỳ chung**.
+- **Phạm vi** (xã › điểm › hội › tổ): thanh phạm vi 1 hàng như đề xuất ở trên. Còn hỏi: dùng chung giữa các tab hay mỗi tab nhớ riêng.
+
 ## Ý 7 — Scan lưu theo cây địa bàn chuẩn như KTGS / Tổ (anh gửi 10/10)
 **Hiện nay:**
 - Scan dùng **cây địa bàn khai tay** ở Cài đặt › Địa bàn (`D.cauHinh.diaBan`: xã › điểm › ấp › tổ, tổ là chữ tự gõ).
@@ -216,5 +225,4 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
 - Mẫu in (06 / 16 / 04 / Kế hoạch) chỉ còn chọn CT / PCT / BTV 1–3.
 
 ## Câu hỏi chờ anh
-- Ý 6b: phạm vi (xã / điểm / hội / tổ) + kỳ **dùng chung** giữa Tổng hợp, Sao kê, Tổ, KTGS, Tra cứu (đổi 1 lần, tab khác theo) — hay mỗi tab nhớ riêng như hiện nay?
-- Ý 5: có thêm 🤖 Copy cho AI không (anh đang cân nhắc)?
+- Ý 6b: **phạm vi** (xã / điểm / hội / tổ) có dùng chung giữa Tổng hợp, Sao kê, Tổ, KTGS, Tra cứu như kỳ không (đề xuất: chung)?
