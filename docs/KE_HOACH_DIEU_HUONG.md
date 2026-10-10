@@ -1,4 +1,4 @@
-# KẾ HOẠCH — Đợt F: giao diện điều hướng (thanh bên) — bản 3.147
+# KẾ HOẠCH — Đợt F: giao diện điều hướng (thanh bên) — bản 3.147 ✅ đã làm 10/10/2026 (theo mục 5–7)
 
 > Soạn 10/10/2026 sau khi gộp 3.145. Hướng chung đã có ở `KIEN_TRUC_3_LOP.md` mục 7.1 + đợt F (mục 8).
 > Nguyên tắc: **chỉ đổi cách đi giữa các màn hình** — nội dung từng màn, dữ liệu, phím tắt cũ giữ nguyên; lối cũ (`doiNgan`, `slDoiTab`, `moNapSL`, `moBCSL`) vẫn chạy.
@@ -79,7 +79,7 @@
 ## 7. Phép thử 3.147 (t142)
 Mỗi mục mở đúng màn + tô đúng (cả khi mở bằng lối cũ `doiNgan` / `slDoiTab` / Có gì mới); thu gọn / mở nhớ qua lần mở app; < 1280 px tự thu gọn; < 1100 px không có thanh bên, tab ngang còn; số trên dấu nhắc đúng (Nạp & KT theo `SL_BAT_BUOC`); in không có thanh bên; Alt+1…9; nền tối. Hồi quy đủ (phép thử cũ bấm thanh tab ngang vẫn chạy vì thanh tab chỉ ẩn bằng CSS).
 
-## 8. Quy chuẩn bố cục anh đặt (10/10/2026) — thay phần khác nhau ở mục 2–7
+## 8. Quy chuẩn bố cục tham khảo (anh gửi 10/10/2026, ý của 1 AI khác — anh chốt: làm theo chuẩn mục 5–7 trước, cái này để tham khảo cho bước gọn thanh công cụ sau)
 1. **Thanh bên trái khi màn ≥ 900 px:** rộng cố định 220 px, nút ☰ thu còn 60 px. Chứa 7 tab nghiệp vụ xếp dọc. Dưới đáy: đèn Google Drive, Thùng rác, Cài đặt.
 2. **Thanh đầu + thanh công cụ ≤ 85 px** (laptop 125 % chỉ còn ~730 px chiều cao).
 3. **Khung xem trước (cột phải):** có vạch kéo co giãn; tự ẩn ở Hôm nay và khi xem Ma trận số liệu.

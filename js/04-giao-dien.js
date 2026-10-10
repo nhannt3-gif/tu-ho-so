@@ -87,6 +87,7 @@ function toNutSL(){
   var nap = nganHienTai===7 && (D.cauHinh.slTab||'nap')==='nap';
   Array.prototype.forEach.call(document.querySelectorAll('#hangngan [data-sl]'), function(b){
     b.classList.toggle('chon', nganHienTai===7 && (b.getAttribute('data-sl')==='nap')===nap); });
+  if(typeof dhTo==='function') dhTo();   /* 3.147: tô mục thanh bên */
 }
 function tenTab(){
   return ['vanBan','vanBan','duLieu','ghiChu','scan','bieuMau','vanBan','duLieu'][nganHienTai];

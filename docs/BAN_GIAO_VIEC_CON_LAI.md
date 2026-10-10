@@ -222,6 +222,20 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.147) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Laptop (màn ≥ 1100 px) | Thanh bên trái; đầu trang 1 hàng (ô tìm + giờ); không còn thanh tab ngang | |
+| 2 | Bấm từng mục thanh bên | Mở đúng màn, mục tô trắng; Số liệu không còn thanh tab con | |
+| 3 | Nút « | Thu còn biểu tượng (rê chuột hiện tên); mở lại app vẫn thu | |
+| 4 | Số đếm | Văn bản = file chờ duyệt; Nạp & KT ⚠ = file bắt buộc còn thiếu tháng mới nhất; 🗑 = số mục thùng rác | |
+| 5 | Công cụ HSSV / Địa bàn / CT vay trên thanh bên | Về Hôm nay, mở công cụ ở cột Công cụ | |
+| 6 | Alt+1…9 | Mở mục theo thứ tự | |
+| 7 | iPhone / cửa sổ hẹp < 1100 px | Như cũ: thanh tab ngang, không thanh bên | |
+| 8 | In một báo cáo | Bản in không có thanh bên | |
+
+**Ghi chú kỹ thuật 3.147:** thanh bên vẽ lại mỗi lần đổi tab (`dhTo` → `dhVe`, chỉ đếm mảng nhỏ / meta). Tab ngang vẫn trong DOM (ẩn CSS) để lối cũ + phép thử bấm được. Chưa làm (để anh xem rồi tính): thanh công cụ từng màn ≤ 41 px (quy chuẩn mục 8), dời chip Drive / bộ nhớ vào chân thanh bên, kỳ + phạm vi chung trên đầu trang (đợt D).
+
 ### Danh sách thử trên máy thật (3.146) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

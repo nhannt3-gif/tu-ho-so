@@ -2783,3 +2783,47 @@
 .sl-kt-ghi{margin:10px 0 2px;font-weight:700;color:var(--chu-phu);font-size:calc(12.5px*var(--co))}
 .sl-dat{font-size:calc(14px*var(--co))}
 .sl-kt-muc.lech{border-color:var(--xanh);border-left-width:4px}   /* 3.146: chênh lệch chỉ ghi nhận — không tô đỏ như lỗi */
+
+/* ===== 3.147 (đợt F): THANH BÊN ĐIỀU HƯỚNG — chỉ máy tính ≥ 1100 px; nhỏ hơn giữ thanh tab ngang như cũ ===== */
+#thanh-ben{display:none}
+@media (min-width:1100px){
+  body.co-tb{--tbw:216px;padding-left:var(--tbw)} body.co-tb.tb-gon{--tbw:60px}
+  #thanh-ben{display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;width:var(--tbw);z-index:40;background:var(--xanh);color:#fff;overflow:hidden;font-size:calc(14px*var(--co));box-shadow:1px 0 0 rgba(0,0,0,.08)}
+  body.co-tb #hangngan, body.co-tb .dau .logo, body.co-tb .dau .logo + div, body.co-tb .dau .nut-cd{display:none !important}
+  body.co-tb .dau{padding-top:7px;padding-bottom:7px}
+  body.co-tb #tr7 .sl-con:not(.sl-con-nap){display:none}   /* 5 màn Số liệu là 5 mục trên thanh bên */
+  body.co-tb .day{left:var(--tbw)}
+  #thanh-ben .tb-dau{display:flex;align-items:center;gap:9px;padding:11px 10px 9px 12px;border-bottom:1px solid rgba(255,255,255,.14)}
+  #thanh-ben .tb-logo{width:34px;height:34px;border-radius:9px;background:#fff;color:var(--xanh);font-weight:800;display:grid;place-items:center;flex:0 0 34px;cursor:pointer}
+  #thanh-ben .tb-ten{font-weight:700;line-height:1.15;white-space:nowrap;overflow:hidden;min-width:0}
+  #thanh-ben .tb-ten small{display:block;font-weight:400;opacity:.75;font-size:calc(11px*var(--co));overflow:hidden;text-overflow:ellipsis}
+  #thanh-ben .tb-gon-nut{margin-left:auto;background:none;border:0;color:#fff;opacity:.85;font-size:18px;cursor:pointer;padding:2px 4px;min-height:0;box-shadow:none}
+  #thanh-ben .tb-ds{flex:1;overflow:hidden auto;padding-bottom:6px}
+  #thanh-ben .tb-nhom{font-size:calc(10.5px*var(--co));letter-spacing:.06em;text-transform:uppercase;opacity:.6;padding:9px 16px 2px;white-space:nowrap}
+  #thanh-ben a{display:flex;align-items:center;gap:10px;padding:5px 12px;margin:1px 8px;border-radius:9px;color:#fff;text-decoration:none;white-space:nowrap;cursor:pointer;position:relative}
+  #thanh-ben a:hover{background:rgba(255,255,255,.12)}
+  #thanh-ben a.bat{background:#fff;color:var(--xanh);font-weight:700}
+  #thanh-ben a .bt{width:22px;text-align:center;flex:0 0 22px;font-size:16px}
+  #thanh-ben a .so{margin-left:auto;font-size:calc(11px*var(--co));background:rgba(255,255,255,.22);border-radius:9px;padding:0 7px;font-weight:600}
+  #thanh-ben a.bat .so{background:var(--xanh);color:#fff} #thanh-ben a .so.do{background:#e5484d;color:#fff}
+  #thanh-ben .tb-cc{display:flex;gap:4px;padding:2px 8px}
+  #thanh-ben .tb-cc a{flex:1;flex-direction:column;justify-content:center;gap:0;margin:0;padding:4px 2px;background:rgba(255,255,255,.08);font-size:calc(11.5px*var(--co))}
+  #thanh-ben .tb-cc a .bt{flex:0 0 auto}
+  #thanh-ben .tb-chan{display:flex;gap:4px;padding:6px 8px 8px;border-top:1px solid rgba(255,255,255,.14)}
+  #thanh-ben .tb-chan a{flex:1;justify-content:center;margin:0;padding:7px 0}
+  #thanh-ben .tb-chan a .so{position:absolute;top:0;right:4px;margin:0;padding:0 5px}
+  /* thu gọn 60 px: chỉ biểu tượng (rê chuột hiện tên qua title) */
+  body.tb-gon #thanh-ben .tb-ten, body.tb-gon #thanh-ben .tb-nhom, body.tb-gon #thanh-ben a .chu{display:none}
+  body.tb-gon #thanh-ben .tb-dau{flex-direction:column;padding:10px 4px 6px;gap:4px}
+  body.tb-gon #thanh-ben .tb-gon-nut{margin:0}
+  body.tb-gon #thanh-ben a{justify-content:center;margin:2px 6px;padding:8px 0}
+  body.tb-gon #thanh-ben a .so{position:absolute;top:0;right:0;margin:0;padding:0 4px;font-size:10px}
+  body.tb-gon #thanh-ben .tb-ds > a:nth-of-type(4){margin-top:10px}
+  body.tb-gon #thanh-ben .tb-cc{flex-direction:column;padding:6px 0 0;border-top:1px solid rgba(255,255,255,.14);margin-top:8px}
+  body.tb-gon #thanh-ben .tb-cc a{background:none;margin:2px 6px}
+  body.tb-gon #thanh-ben .tb-chan{flex-direction:column;padding:6px 6px 8px}
+}
+:root[data-theme="dark"] #thanh-ben{background:#12293E}
+:root[data-theme="dark"] #thanh-ben a.bat{background:#2b4a68;color:#fff}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #thanh-ben{background:#12293E} :root:not([data-theme="light"]) #thanh-ben a.bat{background:#2b4a68;color:#fff} }
+@media print{ #thanh-ben{display:none !important} body.co-tb{padding-left:0 !important} }

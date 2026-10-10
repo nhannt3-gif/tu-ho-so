@@ -2027,7 +2027,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.146', ds:[
+var CO_GI_MOI = {ban:'3.147', ds:[
+  ['🧭 Máy tính: thanh bên trái thay thanh tab — Hôm nay · Văn bản · Nạp & KT · 5 màn Số liệu · Biểu mẫu · Scan · Thư viện · Công cụ; bấm 1 lần là tới, đầu trang còn 1 hàng nên bảng / danh sách cao hơn', "dongHop();doiNgan(0)"],
+  ['« Thu gọn thanh bên còn biểu tượng (rê chuột hiện tên) — app nhớ; màn nhỏ hơn 1280 px tự thu. Alt+1…9 mở nhanh từng mục. Điện thoại giữ thanh tab ngang như cũ', "dongHop();doiNgan(0)"],
+  ['🔢 Số nhắc cạnh mục: Văn bản = file chờ duyệt · Nạp & KT ⚠ = file bắt buộc còn thiếu tháng mới nhất · 🗑 = số mục thùng rác', "dongHop();moNapSL()"],
   ['✅ Kiểm tra kỳ: bấm 🔍 Kiểm tra kỳ → app báo ✓ Đạt khi đủ 9 file (Ⓑ 3 + Ⓐ 6), đúng kỳ, đúng cấu trúc. Chênh lệch giữa các file chỉ ghi nhận để biết — không ảnh hưởng Đạt, không sửa số', "dongHop();moNapSL()"],
   ['🔓 Bỏ hẳn chốt / khóa tháng: tháng từng chốt tự mở, nạp / thay / xóa bình thường (dữ liệu giữ nguyên)', "dongHop();moNapSL()"],
   ['📋 Kiểm tra kỳ ghi rõ báo cáo nào dùng được: Tổ · Sao kê · Tra cứu / Tổng hợp tổng quan / KTGS (thiếu file gì); tháng có BC0437 / BC0438 thì kiểm luôn phần KTGS', "dongHop();moNapSL()"],
