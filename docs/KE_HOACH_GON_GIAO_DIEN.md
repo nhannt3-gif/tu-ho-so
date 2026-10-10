@@ -221,7 +221,12 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
 - Đoàn Thanh niên tự hiện nhãn **Bí thư / Phó Bí thư**.
 - **Bỏ:** dòng "In ra: …", nút ↺ từng ô, PCT 2, PCT 3, ủy viên 4, 5.
 - Phân công BTV + Chuẩn hóa tên cấp tỉnh: để khi viết lại Cài đặt / KTGS (nút ⋯ trên bảng).
-- **Dữ liệu cũ:** đọc được. Hội nào đang có tên ở PCT 2 / PCT 3 / ủy viên 4, 5 → báo 1 lần danh sách để anh chuyển vào 3 ô BTV, rồi bỏ.
+- **Dữ liệu cũ — anh chốt 10/10: app tự lấy số liệu đã khai điền vào bảng mới, anh không nhập lại.**
+  - Chuyển 1 lần khi mở bản mới: Tên Hội, CT, nhiệm kỳ, số / ngày HĐ ủy thác, số / ngày KH Hội tỉnh giữ nguyên.
+  - **Phó CT** = người đầu tiên có tên trong PCT → PCT 2 → PCT 3.
+  - **BTV 1–3** = 3 người đầu có tên trong ủy viên 1 → 5 (dồn lên, bỏ ô trống).
+  - Ai bị dư (PCT thứ 2–3, ủy viên thứ 4–5): **không mất** — giữ trong dữ liệu (`du`). Bảng hiện 1 dấu ⓘ nhỏ ở dòng Hội đó, rê chuột thấy tên để anh xem có cần đổi người không.
+  - Phép thử: dữ liệu cũ giả đủ 9 vai → bảng mới đúng CT / PCT / 3 BTV, người dư còn giữ.
 - Mẫu in (06 / 16 / 04 / Kế hoạch) chỉ còn chọn CT / PCT / BTV 1–3.
 
 ## Ý 9 — Kiểu xem "▦ Bảng chi tiết" (anh đề xuất 10/10)
