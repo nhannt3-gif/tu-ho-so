@@ -20,7 +20,7 @@
 | 8 | **LEN_31 CHTRINH** | — theo chương trình | `4820_LEN_31_CHTRINH_…` | Chuẩn theo xã × Hội × chương trình |
 | 9 | **LEN_31 TO_TRUONG** | — theo tổ trưởng | `4820_LEN_31_TO_TRUONG_…` | Chuẩn **từng tổ** + cây địa bàn |
 
-**Chốt tháng 🔒 cần đủ 9 file A + B.**
+**Kiểm tra kỳ báo ✓ Đạt khi đủ 9 file A + B (không còn chốt tháng).**
 
 ## C. Phụ — có thì đối chiếu thêm, không bắt buộc
 | File | Chọn mẫu | Ghi chú |
