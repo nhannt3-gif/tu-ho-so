@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.155) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan thẻ 2 người → Xem → Tiếp | Hộp 4 lựa chọn; tủ chưa có gì mới | |
+| 2 | 💾 Lưu vào máy | PDF 4 người / A4 như bản in (iPhone: bảng chia sẻ → Lưu vào Tệp) | |
+| 3 | 📋 Copy ảnh → dán Zalo PC | Ra ảnh 2 mặt thẻ | |
+| 4 | 🗄 Lưu vào tủ → gõ tên khách | Gợi ý khách (mã KH · ấp · xã); lưu → Drive CCCD / Xã / Ấp / Mã KH Tên.pdf | |
+| 5 | Đóng hộp giữa chừng, mở lại app | Dải vàng "bản vừa quét chưa lưu" → Mở lại | |
+
+**Ghi chú kỹ thuật 3.155:** khách phải có trong danh bạ Số liệu (Mẫu 31 đã nạp). Tối ưu chụp (khung mép giấy, lọc Tài liệu kiểu Lens, tự xoay) để phiên riêng (anh chốt).
+
 ### Danh sách thử trên máy thật (3.154) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

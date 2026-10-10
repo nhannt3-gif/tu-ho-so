@@ -2006,11 +2006,12 @@ function noiDungHD(p){
     'Chip '+hdNut('⚠ Chưa đạt (n)')+' lọc bản cần xử lý. Xem '+hdNut('☰ Danh sách')+' (mới lưu lên trước, nhóm Ngày / Tuần / Tháng) hoặc '+hdNut('🌳 Cây địa bàn')+' (bấm tổ để lọc). '+
     'Máy tính: bấm một bản → xem ở khung bên phải; '+hdNut('⛶')+' mở màn Lưu & gửi. Tích ☐ nhiều bản → 🖨 In chung 4 người / A4.</p>'+
     '<p>Hai chế độ: <b>Thẻ</b> (CCCD 2 mặt, in 4 người / A4 có đường cắt) và <b>Tài liệu</b> (nhiều trang thành 1 PDF).</p>'+
-    hdLuong(['📷 <b>Quét</b><br><small>⚡ tự chụp khi khung xanh đứng yên, hoặc ✋ thủ công</small>','① <b>Chỉnh</b><br><small>kéo 4 góc, đổi chỗ, xoay</small>','② <b>Xem</b><br><small>đúng bản PDF sẽ lưu</small>','③ <b>Lưu & gửi</b><br><small>lưu tạm ngay, lên Drive</small>'])+
+    hdLuong(['📷 <b>Quét</b><br><small>⚡ tự chụp khi khung xanh đứng yên, hoặc ✋ thủ công</small>','① <b>Chỉnh</b><br><small>kéo 4 góc, đổi chỗ, xoay</small>','② <b>Xem</b><br><small>đúng bản PDF sẽ lưu</small>','③ <b>Lưu & gửi</b><br><small>lưu máy · gửi · copy · lưu tủ</small>'])+
     hdBuoc(['Mọi bước có thanh '+hdNut('‹ Lùi')+' ① ② ③ '+hdNut('Tiếp ›','chinh')+'; bấm số bước đã qua để quay lại. Máy tính: <b>Esc = Lùi, Enter = Tiếp</b>.',
       '① Chỉnh: chạm 1 ảnh rồi chạm ảnh khác để đổi chỗ (máy tính kéo thả) · ▲▼ dời cả người · ⇄ đổi mặt · '+hdNut('✂ Chỉnh viền')+' kéo 4 góc có kính lúp.',
-      '③ Lưu & gửi: điện thoại '+hdNut('📤 Gửi')+' (Zalo, Drive, Tệp); máy bàn '+hdNut('💾 Lưu nhanh')+' (ghi thẳng vào thư mục cố định) + '+hdNut('📋 Copy')+'.',
-      'Bản lưu tạm nằm ở <i>Hồ sơ scan / Chưa khai / tháng</i>; '+hdNut('✎ Khai đầy đủ')+' (tên, xã, ấp, tổ) thì app dời về <i>CCCD / xã / điểm / ấp / tổ</i>.']);
+      '③ (3.155) hộp chọn: '+hdNut('💾 Lưu vào máy')+' (PDF như bản in — thẻ 4 người / A4) · '+hdNut('📤 Gửi')+' · '+hdNut('📋 Copy ảnh')+' · '+hdNut('🗄 Lưu vào tủ')+'. Không tự lưu tạm vào tủ nữa.',
+      '🗄 Lưu vào tủ: gõ tên / mã KH / CCCD → chọn khách trong danh bạ Mẫu 31, app tự điền xã + ấp; lưu <i>CCCD (hoặc Hồ sơ scan) / Xã / Ấp / Mã KH Tên.pdf</i> — không theo tổ (khách có thể chuyển tổ). Thẻ nhiều người: mỗi người chọn 1 khách.',
+      'Đóng hộp mà chưa xong: bản quét giữ trong máy (dải vàng đầu tab → Mở lại), quá 7 ngày tự bỏ. Bản lưu tạm cũ (trước 3.155) vẫn khai được như trước.']);
   if(p==='kyAnh') return '<h3>Chữ ký · CCCD — ảnh nhỏ dưới 200 KB để nhập hệ thống</h3>'+
     '<p>Mở bằng '+hdNut('📁 Chữ ký · CCCD')+' ở tab Scan. Cùng luồng ① ② ③ và <b>cùng màn chỉnh tay với Scan</b>.</p>'+
     hdBuoc(['Gõ <b>tên khách</b> (app nhớ 30 phút) → '+hdNut('✍ Chụp chữ ký')+' hoặc '+hdNut('🪪 Chụp CCCD')+'.',
@@ -2052,7 +2053,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.154', ds:[
+var CO_GI_MOI = {ban:'3.155', ds:[
+  ["📷 Scan xong → 1 hộp chọn: 💾 Lưu vào máy (PDF như bản in — thẻ 4 người / A4) · 📤 Gửi · 📋 Copy ảnh · 🗄 Lưu vào tủ. Chỉ “Lưu vào tủ” mới tạo hồ sơ — không còn tự lưu tạm vào tủ / Drive", "dongHop();doiNgan(4)"],
+  ["🗄 Lưu vào tủ theo khách: gõ tên / mã KH / CCCD → chọn trong danh bạ Mẫu 31, app tự điền xã + ấp; lưu CCCD (hoặc Hồ sơ scan) / Xã / Ấp / Mã KH Tên.pdf — không theo tổ", "dongHop();doiNgan(4)"],
+  ["⏸ Đóng hộp giữa chừng: bản quét giữ trong máy để làm tiếp (dải vàng đầu tab Scan → Mở lại), quá 7 ngày tự bỏ", "dongHop();doiNgan(4)"],
   ["🏛 Khai báo Hội đoàn thể = 1 bảng như Excel: mỗi dòng 1 Hội cấp xã (app tự lấy từ số liệu, kèm số tổ); cột Tên Hội · Chủ tịch · Phó CT · BTV 1–3 · Nhiệm kỳ · HĐ ủy thác · KH Hội tỉnh", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
   ["⌨ Gõ thẳng như Excel: Enter / Tab sang ô kế, ↑↓ đổi dòng; dán cả khối từ Excel / Zalo; ô trống tô nhạt, ngày sai dạng tô đỏ; Đoàn TN tự ghi Bí thư / Phó Bí thư. Bỏ dòng \"In ra\", nút ↺ từng ô", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
   ["👥 Thống nhất 1 Hội = 1 Chủ tịch, 1 Phó CT, 3 BTV — app tự chuyển số liệu đã khai (anh không nhập lại); người dư (Phó 2–3, ủy viên 4–5) vẫn giữ, rê ⓘ để xem", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],

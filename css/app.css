@@ -2964,3 +2964,19 @@ details.sl-kq > summary small,details.sl-ktgs-nap > summary small{font-weight:40
 .hkb-xls input[id$="-ten"]{min-width:190px}
 .hkb-xls input[id$="Ngay"],.hkb-xls input[id$="-nk"]{min-width:96px}
 .hkb-xls .hkb-pc{border:none;background:none;min-height:0;padding:2px 8px}
+/* 3.155 — Scan: hộp Xong (Lưu máy · Gửi · Copy ảnh · Lưu tủ) + chọn khách */
+.sx-luoi{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+.sx-o{display:flex;gap:10px;align-items:center;text-align:left;padding:12px 14px;border:1.3px solid var(--vien);border-radius:12px;background:var(--the);cursor:pointer;font:inherit;color:var(--chu)}
+.sx-o:hover{border-color:var(--xanh);background:var(--xanh-nhat)}
+.sx-o>b{font-size:24px;line-height:1}
+.sx-o span{display:flex;flex-direction:column;font-weight:700}
+.sx-o small{font-weight:400;color:var(--chu-phu);font-size:calc(11.5px*var(--co))}
+.sx-o.da{border-color:var(--xanh);background:var(--xanh-nhat)}
+.sx-kh{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--vien)}
+.sx-kh img{width:96px;max-height:64px;object-fit:contain;border-radius:6px;background:#f4f4f4;flex:0 0 auto}
+.sx-kh-o{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.sx-kh-o input{font:inherit;padding:6px 8px;border:1.3px solid var(--vien);border-radius:8px}
+.sx-gy{display:flex;flex-direction:column}
+.sx-gy button{text-align:left;border:none;background:none;padding:5px 6px;border-radius:6px;cursor:pointer;font:inherit;color:var(--chu)}
+.sx-gy button:hover{background:var(--xanh-nhat)}
+.sx-gy small{color:var(--chu-phu)}

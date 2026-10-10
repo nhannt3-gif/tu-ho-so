@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.155 — 11/10/2026 — Luồng Scan: Lưu máy / Gửi / Copy / Lưu tủ, lưu theo mã KH + tên + ấp
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 7, 11):** chưa có nút lưu rõ ràng, app tự lưu tạm lên tủ; học Scanner Lens: xong → chọn Lưu máy / Gửi / Copy / Lưu tủ; PDF lưu như bản in (4 CCCD / A4); lưu file scan chỉ cần mã KH + tên + ấp (khách có thể chuyển tổ). Phần tối ưu chụp / quét để phiên riêng.
+- **`tiepHang`** (bước ③) không gọi `luuSauHang` nữa → `scanXongHop(bl)` (`.sx-luoi`): `scanLuuMay` (máy tính tải về, điện thoại bảng chia sẻ), `scanGui` (`chiaSePDF`), `scanCopyAnh` (`scanAnhGhep`: ghép ảnh đã xử lý — thẻ 2 cột mặt trước | sau — thành PNG, ClipboardItem), `scanLuuTuHop` / `scanTimKH` (`slTimKH` danh bạ) / `scanChonKH` / `scanLuuTu` (thẻ nhiều người: mỗi người 1 khách). ✓ Xong (`scanXongBo`): đã làm gì đó thì bỏ phiên, chưa thì hỏi.
+- **Hồ sơ mới** có `maKH`, `ten`, `xa`, `ap` (+ `maXa`, `maAp`), không `diem`/`to`: `duongScan` → `<thư mục>/CCCD|Hồ sơ scan/<Xã>/<Ấp>`, `tenScanDrive` / `tenTheCCCD` → `<Mã KH> <Tên>[ - loại giấy].pdf`; `ttScan` không đòi điểm GD / tổ.
+- **Phiên quét dở:** `ghiHang` ghi mốc `luc`; `napHangCu` quá 7 ngày → bỏ (xóa ảnh trong máy).
+- `luuSauHang` / khai hàng loạt / bản lưu tạm cũ giữ nguyên để đọc dữ liệu cũ (hồ sơ cũ chuẩn hóa sau — anh chốt).
+- **Phép thử:** `tests/t151.js` (mới, 16).
+
 ## 3.154 — 11/10/2026 — Khai báo Hội = 1 bảng như Excel
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 8):** gom 1 bảng như Excel, không diễn giải; 1 Hội = 1 CT, 1 PCT, 3 BTV; app tự lấy số liệu cũ điền lại, anh không nhập lại.
 - **Chuyển dữ liệu 1 lần** `ktHdt5` (gọi trong `ktHdtChuyen`, cờ `D.cauHinh.ktHdt5`): PCT = người đầu có tên trong pct → pct2 → pct3; BTV 1–3 = 3 người đầu trong uv1 → uv5 (dồn lên); người dư → `kb.du = [{vt, ten}]`. Phân công BTV (`D.cauHinh.ktPC`: `p`, `chon`, `ky`, `phuTrach`) đổi vai theo người, bỏ vai không tên. Chọn người in cũ (`ktIn.*.ng1/ng2/ky`) Phó 2–3 → Phó CT, ủy viên 4–5 → để trống.
