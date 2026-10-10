@@ -38,5 +38,6 @@
 | Cấu trúc file Excel hệ thống | `docs/DU_LIEU_THANG.md` | Khi làm phần nạp |
 | File anh xuất hằng tháng (mẫu nào, tên file) | `docs/FILE_XUAT_HANG_THANG.md` | Ngắn, đọc khi bàn về file |
 | Kế hoạch giao diện điều hướng (đợt F) | `docs/KE_HOACH_DIEU_HUONG.md` | Ngắn |
+| Ý anh đang gom: gọn tab Nạp & KT, In / Xuất / Gửi / Xóa thống nhất | `docs/KE_HOACH_GON_GIAO_DIEN.md` | Ngắn — đọc trước khi làm bản kế tiếp |
 
 **Nguyên tắc cho phiên sau:** mỗi bản chỉ thêm ≤ 15 dòng vào CHANGELOG cho phần tóm tắt + ghi chi tiết kỹ thuật ngắn; giữ file này dưới ~80 dòng; thông tin dài để ở tài liệu chuyên đề và trỏ link.
