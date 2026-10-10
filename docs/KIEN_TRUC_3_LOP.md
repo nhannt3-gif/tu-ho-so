@@ -24,7 +24,7 @@
 | Q12 | (10/10) **Tab Tháng: bỏ hẳn, xóa luôn dữ liệu cũ** (anh chưa nạp nhiều — coi là rác). |
 | Q13 | (10/10) **Bỏ nút Giao ban và Buổi giao dịch** — làm lại sau khi các chức năng khác ổn. |
 | Q14 | (10/10) **Nạp file phải tự nhận đúng ngày số liệu từ nội dung file, không phụ thuộc tên file** (tên file chỉ là gợi ý cuối, phải báo rõ khi dùng). File không có ngày trong nội dung → **anh khai khi nạp**. ✅ 3.143 |
-| Q15 | (10/10) **Tách tab con 📥 Nạp & Kiểm tra ra khỏi Số liệu thành tab riêng, đặt vào chỗ tab Tháng** — nơi duy nhất nạp và kiểm tra toàn vẹn dữ liệu của app; các tab khác chỉ đọc. |
+| Q15 | (10/10) **Tách tab con 📥 Nạp & Kiểm tra ra khỏi Số liệu thành tab riêng, đặt vào chỗ tab Tháng** — nơi duy nhất nạp và kiểm tra toàn vẹn dữ liệu của app; các tab khác chỉ đọc. **Nạp BC0437 / BC0438 của KTGS cũng gộp vào đây**; quy tắc kiểm tra (② Kiểm tra tháng + 🔍 kiểm tra KTGS) sẽ **thống nhất 1 lần** thành một bộ chung. |
 
 **Còn chờ anh:** ~~(a) dữ liệu cũ tab Tháng~~ (đã chốt Q12: xóa); (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi bộ phận tin học về máy chủ nội bộ + dữ liệu khách hàng trên mạng cơ quan / Drive cá nhân.
 
