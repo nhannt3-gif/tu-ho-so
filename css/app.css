@@ -2762,3 +2762,16 @@
   .sl-nguon .muon{color:#8a5a00;background:#fff3cd;border-radius:3px;padding:0 3px}
   .ngay-gy{display:inline-block;font-size:11px;color:#555;margin:0 4px;white-space:nowrap;vertical-align:middle}
   .ngay-gy b{color:#0b5394}
+/* 3.145: tổ dư nợ 0 còn trên DSTO / LEN_31 → cần đóng tổ */
+.to-dong0{display:inline-block;padding:1px 8px;border-radius:10px;background:#fdecea;color:#b3261e;font-size:calc(12px*var(--co));font-weight:600;cursor:pointer}
+.to-dong0-ds{display:inline-block;margin-left:6px;font-size:calc(12.5px*var(--co))}.to-dong0-ds[open]{display:block;margin:4px 0 0}.to-dong0-ds a{color:var(--chu)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .to-dong0{background:#4a1e1b;color:#ffb4ab} }
+:root[data-theme="dark"] .to-dong0{background:#4a1e1b;color:#ffb4ab}
+/* 3.145: ô ma trận — số chính + mũi tên so tháng trước; bảng file cần xuất */
+.sl-bang .bdc-o.sl-o .sl-o-so{display:block;white-space:nowrap}
+.sl-bang .bdc-o.sl-o .sl-mt{font-weight:700}.sl-mt.xanh{color:#1b7f3b}.sl-mt.do{color:#c62828}.sl-mt.bang{color:var(--chu-phu);font-weight:400}
+:root[data-theme="dark"] .sl-mt.xanh{color:#7fd29a}:root[data-theme="dark"] .sl-mt.do{color:#ff8a80}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .sl-mt.xanh{color:#7fd29a} :root:not([data-theme="light"]) .sl-mt.do{color:#ff8a80} }
+.sl-o-phu{margin-top:4px;opacity:.9}.sl-o-phu .nho{font-size:calc(12px*var(--co))}
+.sl-fx{border-collapse:collapse;width:100%;font-size:calc(13px*var(--co))}.sl-fx th,.sl-fx td{border-bottom:1px solid var(--vien);padding:4px 6px;text-align:left;vertical-align:top}
+.sl-fx td.c{text-align:center;width:24px}.sl-fx .sl-fx-nhom td{background:var(--nen-phu,var(--nen));font-weight:700;padding-top:8px}.sl-fx .xanh{color:#1b7f3b}

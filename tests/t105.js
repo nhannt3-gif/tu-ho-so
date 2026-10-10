@@ -50,7 +50,8 @@ const fs=require('fs'), path=require('path');
        [['1','Nguồn trung ương'], ['2','Nguồn địa phương']].forEach(ng=>{ a.push([ng[1]]); const ks = Object.keys(N).filter(k=>k.split('|')[1]===ng[0] && N[k].mon);
          a.push(['PGD Giả', '', '', 1, r2(ks.reduce((s, k)=>s+ph[1](N[k]), 0)), 0, 0]); ks.forEach(k=>a.push(['', '', k.split('|')[0], 1, r2(ph[1](N[k])), 0, 0])); }); });
      a.push(['', '', '', '', '', 'PGD Giả, ngày 2 tháng 8 năm 2026']); return tep(a, '4820_B32_31072026_1.XLSX'); };
-   const tw = [fBX, fBC, fB32(), fLX(0), fLH(), fLC(), fLT()], kqTW = [];
+   const tw = [fBX, fBC, fLX(0), fLH(), fLC(), fLT()], kqTW = [];   /* 3.145: B32 đã bỏ */
+   o.b32 = 'B32 (đã bỏ 3.145): '+((await doc(fB32())).loi||'VẪN ĐỌC').slice(0, 40);
    for(const f of tw){ const kq = await ghi(f); kqTW.push(kq.loai+' '+kq.ky+' '+kq.rows.length+'d'); }
    o.docTW = kqTW.join(' · ');
    /* kỳ: ngày giữa tháng → ô theo ngày; cuối tháng → ô tháng */
@@ -143,7 +144,7 @@ const fs=require('fs'), path=require('path');
    slChonThangHop(2026); await w(200); o.hopThang = document.querySelectorAll('.sl-luoi-thang button').length+' nút tháng'; dongHop();
    o.buocKT = document.querySelector('.sl-4buoc').textContent;
    slChotHop('2026-07'); await w(200); const chuaDat = slChot('2026-07') ? 'CHỐT ĐƯỢC KHI CHƯA ĐẠT' : 'chưa Đạt → không chốt';
-   const bbCu = SL_BAT_BUOC; SL_BAT_BUOC = bbCu.filter(k=>k!=='tt' && k!=='khd'); await slKiemTra('2026-07'); veSoLieu(); await w(300);   /* bộ giả T7 chỉ có Mẫu 31 ở nhóm Ⓑ */
+   const bbCu = SL_BAT_BUOC; SL_BAT_BUOC = bbCu.filter(k=>['tt','khd','dnct','dsto'].indexOf(k)<0); await slKiemTra('2026-07'); veSoLieu(); await w(300);   /* bộ giả T7 chỉ có Mẫu 31 ở nhóm Ⓑ */
    slChotHop('2026-07'); await w(200); slChotGhi('2026-07'); await w(200); const chuaTich = slChot('2026-07');
    document.getElementById('sl-da-xem').checked = true; slChotGhi('2026-07'); await w(400);
    let chan = []; try{ await slGhi(await doc(fBX)); chan.push('ghi: VẪN GHI'); }catch(e){ chan.push('ghi: chặn'); }

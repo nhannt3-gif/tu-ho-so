@@ -31,7 +31,7 @@ module.exports = function(){
       if(m==='GET'){ return tra({id:f.id, name:f.name, size:String((f.body||'').length), trashed:!!f.trashed, modifiedTime:f.mt}); }
       if(m==='PATCH'){
         if((r.postDataBuffer()||Buffer.from('')).slice(0,2).toString()==='--'){ const {meta, body} = multipart(r.postDataBuffer(), hdr); if(meta.name) f.name=meta.name; f.body=body; f.nhanNoiDung=(f.nhanNoiDung||0)+1; }
-        else { const o = JSON.parse(r.postData()||'{}'); if(o.name) f.name=o.name; if(o.trashed) f.trashed=true; }
+        else { const o = JSON.parse(r.postData()||'{}'); if(o.name) f.name=o.name; if(o.trashed!==undefined) f.trashed=!!o.trashed; }
         if(q.get('addParents')){ f.parents = (f.parents||[]).filter(x=>x!==q.get('removeParents')).concat([q.get('addParents')]); }
         f.mt = tg(); return tra({id:f.id, parents:f.parents, modifiedTime:f.mt});
       }

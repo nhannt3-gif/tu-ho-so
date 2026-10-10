@@ -24,8 +24,8 @@ async function moTrang(b, duLieuCu){
     ok(`[${kieu}] mở app không lỗi`, !loi.length, loi.join('; '));
     let tabs=''; for(const i of [0,1,2,5,4,3]){ tabs += await p.evaluate(async i=>{ try{ doiNgan(i); await new Promise(r=>setTimeout(r,300)); var t=document.getElementById('tr'+i); return i+':'+(t && t.innerHTML.length>50?'ok':'TRỐNG')+' '; }catch(e){ return i+':LỖI '+e.message+' '; } }, i); } await p.evaluate(()=>doiNgan(0));
     ok(`[${kieu}] đi hết 6 tab`, !/TRỐNG|LỖI/.test(tabs), tabs);
-    const cd = await p.evaluate(()=>{ var r=[]; ['vanBan','duLieu','ghiChu','scan','bieuMau','chung','drive','diaban','chimuc','lich','dulieu','hd'].forEach(function(k){ try{ moCaiDat(k); r.push(k+':'+(document.getElementById('cd-noi').innerHTML.length>30?'ok':'TRỐNG')); }catch(e){ r.push(k+':LỖI '+e.message); } }); dongCaiDat(); return r.join(' '); });
-    ok(`[${kieu}] mở hết 12 trang Cài đặt`, !/TRỐNG|LỖI/.test(cd), cd);
+    const cd = await p.evaluate(()=>{ var r=[]; ['vanBan','ghiChu','scan','bieuMau','chung','drive','diaban','chimuc','lich','dulieu','hd'].forEach(function(k){ try{ moCaiDat(k); r.push(k+':'+(document.getElementById('cd-noi').innerHTML.length>30?'ok':'TRỐNG')); }catch(e){ r.push(k+':LỖI '+e.message); } }); dongCaiDat(); return r.join(' '); });
+    ok(`[${kieu}] mở hết 11 trang Cài đặt (3.144: bỏ trang Dữ liệu tháng)`, !/TRỐNG|LỖI/.test(cd), cd);
     if(cu){
       const db = await p.evaluate(()=>({to:demDiaBan().to, co:JSON.stringify(D.cauHinh.mauBaoCao.find(x=>x.ma==='KQGD')), nk:D.cauHinh.mauBaoCao.some(x=>x.ma==='NK')}));
       ok('máy cũ giữ nguyên tổ đã lưu', db.to===1, 'số tổ '+db.to);
@@ -55,11 +55,10 @@ async function moTrang(b, duLieuCu){
       document.getElementById('vung-tha').dispatchEvent(new DragEvent('drop',{dataTransfer:dt,bubbles:true,cancelable:true}));
       await new Promise(r=>setTimeout(r,800)); return D.cho.length-n0; });
     ok('Thả 1 file vào ô thả → 1 mục', th===1, 'thêm '+th);
-    // A5 XLS từ ô ma trận
-    const xl = await p.evaluate(async()=>{ D.cho=[]; HTMLInputElement.prototype.click=function(){}; doiNgan(2); themChoO('2026-09','SK_TD','Toàn PGD');
-      await gioiThieuFile([new File(['a'+Math.random()],'Sao ke.xlsx')]); await new Promise(r=>setTimeout(r,500));
-      var c=D.cho[0]; duyet(c.id,true); await new Promise(r=>setTimeout(r,300)); return {nhom:c.nhom, tab:nganHienTai, o:oDoiChieu('2026-09','SK_TD','Toàn PGD').tt}; });
-    ok('XLS bấm từ ô ma trận vào đúng ô, về tab Tháng', xl.nhom==='duLieu' && xl.tab===2 && xl.o==='du', JSON.stringify(xl));
+    // A5 (3.144: bỏ tab Tháng) — thả Excel → sang tab Nạp & KT đọc số liệu, không vào khay chờ
+    const xl = await p.evaluate(async()=>{ D.cho=[]; window.slDocNhieu=function(){ window._slNhieu=1; }; await gioiThieuFile([new File(['a'+Math.random()],'Sao ke.xlsx')]); await new Promise(r=>setTimeout(r,500));
+      return {cho:D.cho.length, nhieu:!!window._slNhieu}; });
+    ok('Thả Excel → đọc vào Số liệu (không vào khay chờ tab Tháng)', xl.cho===0 && xl.nhieu, JSON.stringify(xl));
     // ghi chú về đúng tab
     const gc = await p.evaluate(async()=>{ D.cho=[]; doiNgan(6); await gioiThieuFile([new File(['b'+Math.random()],'anh.jpg',{type:'image/jpeg'})]); await new Promise(r=>setTimeout(r,500)); duyet(D.cho[0].id,true); await new Promise(r=>setTimeout(r,300)); return nganHienTai; });
     ok('Duyệt ghi chú về tab Ghi chú (3)', gc===3, 'tab '+gc);
