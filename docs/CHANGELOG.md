@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.152 — 11/10/2026 — Xuất chung: In · PDF · Word · Excel · Gửi
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 2, 4):** mỗi báo cáo một kiểu nút, tên file khác nhau; Copy gộp vào Gửi; PDF = hộp in "Lưu dưới dạng PDF" tên điền sẵn; máy tính Gửi = tải về.
+- **File mới `js/24-xuat.js`:** `xuatHang(o)` hàng nút chuẩn `.xuat-hang` (Đóng · `o.truoc` · 🖨 In · 📄 PDF · 📝 Word · 📊 Excel · 📤 Gửi; ẩn định dạng không có); `o.html()` → In / PDF / Copy dùng chung. `xuatTen(loại, phạm vi, kỳ)` → `Loai_PhamVi_Tmm-yy`. `xuatGui` menu (Gửi file PDF / Word / Excel · 📋 Copy ảnh · 📋 Copy chữ). `xuatChepChu` (ClipboardItem text/plain + text/html, bảng → tab giữa ô). `xuatChepAnh` / `xuatAnhBlob`: vẽ trang báo cáo thành PNG bằng SVG foreignObject → canvas (không thêm thư viện); máy không cho thì chép chữ thay.
+- **Áp cho:** Tổ (`toXem`), Sao kê (`skXem`), Tổng hợp (`thXem`), biến động năm (`toBDNamXuat('html')`), KTGS Mẫu 06 sau giải ngân / Mẫu 06 trắng / Mẫu 04 / Thông báo phân công / Kế hoạch 01 — các hàm `ktGNIn`, `ktTrang06Xuat`, `ktBCIn`, `ktPCXuat` nhận thêm cách `'pdf'` (`inPDF`).
+- **Khung xem file** (`index.html` cột phải + xem lớn): 🖨 In · ✎ Sửa · 📤 Gửi (`guiFileMenu`: gửi / tải file, 📋 chép nguyên file qua cầu nối, 📋 Copy ảnh với file ảnh, 📋 Copy số hiệu + trích yếu).
+- `tests/kiem.py` biết thêm `DOMParser`, `XMLSerializer`.
+- **Phép thử:** `tests/t148.js` (mới, 16).
+
 ## 3.151 — 11/10/2026 — Thanh lọc chung tab file + kiểu xem ▦ Bảng
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 6a, 9, 13; "dùng chung hết"):** mỗi tab file một kiểu lọc / sắp / xem, hàng chip Năm / Mảng / CT / Tag chiếm 3 hàng.
 - **`veDauTab` viết lại** (`js/11-khung-tab.js`, lớp `.tl-thanh`): ＋ Thêm · 🗑 Xóa (`nutBot`) · ⚲ Lọc (n) ▾ (`moBoLoc`) · ⇅ (`moSapTab`; Scan = nhóm Ngày / Tuần / Tháng) · ☰ ▾ (`moXemTab`) · chip đang lọc `.tl-chip` (`chipDangLoc`) · số mục · ⋯ (`moThemTab`: `opt.themPhu` / `opt.nutThem` + chọn chép, ổ G, Drive, sửa tag) · ❓. Menu thả xuống dùng chung `#menu` (`moMenuTL`). Áp cho mọi tab gọi `veDauTab` (Văn bản, Biểu mẫu, Scan máy tính, Dữ liệu tháng, Ghi chú).

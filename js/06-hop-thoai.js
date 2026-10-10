@@ -1925,7 +1925,7 @@ function noiDungHD(p){
   if(p==='vanBan') return '<h3>Tab Văn bản — công văn, quyết định, kế hoạch…</h3>'+
     hdBuoc([hdNut('+ Thêm file')+' (hoặc kéo thả file vào) → app đọc số hiệu, ngày, trích yếu, đề xuất tên chuẩn.',
       'Vào <b>📥 Chờ khai</b>: xem lại, bổ sung mảng / chương trình vay → <b>Lưu</b> = vào tủ, lên Drive đúng thư mục <i>'+coChuHTML(T)+' / Văn bản / năm</i>.',
-      'Bấm một dòng → xem ở khung bên phải. Nút dưới khung: '+hdNut('Gửi cả file')+hdNut('In')+hdNut('Sửa')+' và (máy đã cài cầu nối) '+hdNut('🖥 Mở máy')+hdNut('📋 Chép')+hdNut('📂')+'.',
+      'Bấm một dòng → xem ở khung bên phải. Nút dưới khung: '+hdNut("🖨 In")+hdNut("✎ Sửa")+hdNut("📤 Gửi")+' và (máy đã cài cầu nối) '+hdNut('🖥 Mở máy')+hdNut('📋 Chép')+hdNut('📂')+'.',
       'Tên chưa chuẩn / thiếu thông tin: '+hdNut('Sửa')+' → '+hdNut('🔍 Đọc lại')+' để app đọc lại tiêu đề, số hiệu và đề xuất tên.'])+
     '<p>'+hdNut('🗂 Lập chỉ mục')+' ở đầu tab: đi hết thư mục Tủ hồ sơ, file nào chưa có trong app thì xếp vào đúng tab. '+hdNut('Bộ lọc ▾')+' và hàng lọc nhanh: năm, mảng, chương trình vay, tag.</p>';
   if(p==='homNay') return '<h3>Tab Hôm nay — sổ việc trong ngày</h3>'+
@@ -2029,7 +2029,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.151', ds:[
+var CO_GI_MOI = {ban:'3.152', ds:[
+  ["📤 Mọi khung xem báo cáo (Tổ, Sao kê, Tổng hợp, KTGS, biến động năm) cùng 1 hàng nút, cùng thứ tự: Đóng · 🖨 In · 📄 PDF · 📝 Word · 📊 Excel · 📤 Gửi — báo cáo nào không có định dạng thì ẩn nút đó", "dongHop();D.cauHinh.slTab='th';doiNgan(7)"],
+  ["📄 PDF: mở hộp in, chọn “Lưu dưới dạng PDF”, tên file điền sẵn theo quy tắc Loại_Phạm vi_Kỳ (vd KetQuaChoVayTheoXa_ToanPgd_T08-26)", "dongHop();D.cauHinh.slTab='th';doiNgan(7)"],
+  ["📤 Gửi: gửi file PDF / Word / Excel (điện thoại: Zalo…; máy tính: tải về) hoặc 📋 Copy ảnh báo cáo · 📋 Copy chữ (dán Excel ra bảng). Khung xem file Văn bản: 🖨 In · ✎ Sửa · 📤 Gửi (gửi file, chép nguyên file qua cầu nối, copy số hiệu + trích yếu)", "dongHop();doiNgan(1)"],
   ["🔎 Văn bản · Biểu mẫu · Scan dùng chung 1 thanh: ＋ Thêm · 🗑 Xóa · ⚲ Lọc ▾ · ⇅ Sắp xếp · ☰ Kiểu xem ▾ · ⋯ · ❓; chip đang lọc hiện ngay trên thanh, bấm ✕ để bỏ", "dongHop();doiNgan(1)"],
   ["▦ Kiểu xem Bảng (thay ▤ Gọn): cột Số hiệu · Ngày ký · Tên & Trích yếu · Mảng NV · CT vay · Trạng thái; dòng gọn ~30 px, bấm tiêu đề cột để sắp xếp, ↑↓ chuyển dòng; Biểu mẫu và Scan cũng có bảng riêng", "dongHop();doiNgan(1)"],
   ["⋯ gom việc riêng từng tab: Lập chỉ mục (Văn bản), Bộ biểu mẫu, Chế độ quét / Webcam / Chữ ký·CCCD (Scan), đường dẫn ổ G, thư mục Drive, sửa tag", "dongHop();doiNgan(4)"],

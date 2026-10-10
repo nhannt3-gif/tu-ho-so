@@ -1996,7 +1996,7 @@ function ktGNXem(ok){   /* 3.114: hỏi lựa chọn in trước */
   var html = ktHTML06(gts);
   moHop('<div class="hop-tit">👁 Xem '+gts.length+' phiếu Mẫu 06 — kiểm tra sau giải ngân</div>'+
     '<iframe id="kt-gn-khung" class="to-khung" title="Xem trước"></iframe>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop();ktGNXem()">‹ Đổi lựa chọn in</button><button class="nho" onclick="dongHop()">Đóng</button><button class="nho" onclick="ktGNIn(\'in\')">🖨 In / PDF</button><button class="nho chinh" onclick="ktGNIn(\'word\')">📄 Word (.docx)</button></div>', true);
+    xuatHang({truoc:'<button class="nho" onclick="dongHop();ktGNXem()">‹ Đổi lựa chọn in</button>', html:function(){ return ktHTML06(KT_GN_XEM.gts); }, in:'ktGNIn(\'in\')', pdf:'ktGNIn(\'pdf\')', word:'ktGNIn(\'word\')'}), true);   /* 3.152 */
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
   var f = document.getElementById('kt-gn-khung'); xemChuan(f, html);
 }
@@ -2006,6 +2006,7 @@ function ktGNIn(cach){
   dongHop();
   if(cach==='word') return ktDocx('m06', X.gts).then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+X.gts.length+' phiếu trong '+ten+'.docx (mỗi tổ 1 phiếu, 1 trang mới) — chỉ lưu trên máy / Drive của anh.', 7); })
     .catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); });
+  if(cach==='pdf') return inPDF(ktHTML06(X.gts), ten);   /* 3.152 */
   inBlob(new Blob([ktHTML06(X.gts)], {type:'text/html'}), ten+'.html');
 }
 
@@ -2080,13 +2081,14 @@ function ktTrang06(kieu){
   var nut = function(k, chu){ return '<button class="nho'+(KT_TRANG06_KIEU===k ? ' chinh' : '')+'" onclick="ktTrang06(\''+k+'\')">'+chu+'</button>'; };
   moHop('<div class="hop-tit">📄 Mẫu 06 trắng — ghi tay</div><div class="hang-nut">'+nut('mot', 'In 1 mặt ('+KT_TRANG06.mot+' dòng hộ)')+nut('hai', 'In 2 mặt — 1 tờ ('+KT_TRANG06.hai+' dòng hộ)')+'</div>'+
     '<div class="hop-phu">Dòng hộ cao 0,8 cm — hộ nhiều món hoặc ghi dài thì dùng 2 dòng. Đầu phiếu để chấm ghi tay.</div><iframe id="kt-trang-khung" class="to-khung" title="Xem trước"></iframe>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button><button class="nho" onclick="ktTrang06Xuat(\'in\')">🖨 In / PDF</button><button class="nho chinh" onclick="ktTrang06Xuat(\'word\')">📄 Word (.docx)</button></div>', true);
+    xuatHang({html:function(){ return ktHTML06(ktTrang06GT(KT_TRANG06_KIEU)); }, in:'ktTrang06Xuat(\'in\')', pdf:'ktTrang06Xuat(\'pdf\')', word:'ktTrang06Xuat(\'word\')'}), true);
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
   xemChuan(document.getElementById('kt-trang-khung'), ktHTML06(ktTrang06GT(KT_TRANG06_KIEU)));
 }
 function ktTrang06Xuat(cach){
   var gt = ktTrang06GT(KT_TRANG06_KIEU), ten = 'Mau 06 trang - '+(KT_TRANG06_KIEU==='hai' ? '2 mat' : '1 mat');
   if(cach==='word') return ktDocx('m06', gt).then(function(b){ giaoFile(b, ten+'.docx'); });
+  if(cach==='pdf') return inPDF(ktHTML06(gt), ten.replace(/ - /g, '_').replace(/\s+/g, ''));   /* 3.152 */
   inBlob(new Blob([ktHTML06(gt)], {type:'text/html'}), ten+'.html');
 }
 function ktCB06HTML(f){   /* 3.98: bản In — 4 dòng đầu như Word: cột Ông (bà) / Chức vụ / Tổ TK&VV cố định; trống = chấm, có chữ = khoảng trắng */
@@ -2359,7 +2361,7 @@ function ktBCHop(tit){   /* hộp xem trước Mẫu 04 dùng chung ① (cây) v
   moHop('<div class="hop-tit">👁 Mẫu 04/BC-TH · Báo cáo tổng hợp'+(tit ? ' '+coChuHTML(tit) : '')+' — '+gts.length+' báo cáo</div>'+
     '<div class="hop-phu">'+gts.map(function(g){ return coChuHTML(g.ten)+(g.nhan ? ' ('+coChuHTML(g.nhan)+')' : '')+': '+g.rows.length+' tổ'; }).join(' · ')+' — Đoàn kiểm tra theo người kiểm tra đã chọn + 2 dòng ghi tay; tháng kiểm tra = tháng sau tháng số liệu.</div>'+
     '<iframe id="kt-bc-khung" class="to-khung" title="Xem trước"></iframe>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop();'+(KT_BC_XEM.tu==='kh' ? 'ktKH04Xem()' : 'ktBCXem()')+'">‹ Đổi lựa chọn in</button><button class="nho" onclick="dongHop()">Đóng</button><button class="nho" onclick="ktBCIn(\'in\')">🖨 In / PDF</button><button class="nho chinh" onclick="ktBCIn(\'word\')">📄 Word (.docx)</button></div>', true);
+    xuatHang({truoc:'<button class="nho" onclick="dongHop();'+(KT_BC_XEM.tu==='kh' ? 'ktKH04Xem()' : 'ktBCXem()')+'">‹ Đổi lựa chọn in</button>', html:function(){ return ktHTML04(KT_BC_XEM.gts); }, in:'ktBCIn(\'in\')', pdf:'ktBCIn(\'pdf\')', word:'ktBCIn(\'word\')'}), true);   /* 3.152 */
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
   var f = document.getElementById('kt-bc-khung'); xemChuan(f, ktHTML04(gts));
 }
@@ -2369,6 +2371,7 @@ function ktBCIn(cach){
   dongHop();
   if(cach==='word') return ktDocx('m04', X.gts).then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+ten+'.docx'+(X.gts.length>1 ? ' ('+X.gts.length+' báo cáo, mỗi báo cáo 1 trang mới)' : '')+' — khuôn đúng mẫu gốc, chỉ lưu trên máy / Drive của anh.', 7); })
     .catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); });
+  if(cach==='pdf') return inPDF(ktHTML04(X.gts), ten);   /* 3.152 */
   inBlob(new Blob([ktHTML04(X.gts)], {type:'text/html'}), ten+'.html');
 }
 /* 3.138 (anh chốt): Mẫu 04 (Hội cấp xã kiểm tra Tổ TK&VV) — kiến nghị 2d, 2đ, 3a, 3b tùy chọn: mặc định KHÔNG in (1 dòng chấm để gọn báo cáo);
@@ -2688,9 +2691,10 @@ function ktPCXuat(k, cach, ok){
   if(cach!=='xem' && !ok){ var sai = ktPCKiem(k).filter(function(r){ return !r.ok; });   /* 3.123: còn mục ⚠ → nhắc trước khi xuất, vẫn cho xuất */
     if(sai.length) return hoi('Còn '+sai.length+' mục chưa đủ', sai.map(function(r){ return '⚠ '+r.chu; }).join(' · '), cach==='word' ? 'Vẫn xuất Word' : 'Vẫn in', function(){ ktPCXuat(k, cach, 1); }); }
   var ten = 'Thong bao phan cong nhiem vu BTV - '+boDauTen(g.ten).slice(0, 60);
-  if(cach==='xem'){ moHop('<div class="hop-tit">👁 Thông báo phân công — '+coChuHTML(g.ten)+'</div><iframe id="kt-pc-khung" class="to-khung" title="Xem trước"></iframe><div class="hang-nut"><button class="nho" onclick="ktPCHop(\''+k+'\')">‹ Sửa phân công</button><button class="nho" onclick="ktPCXuat(\''+k+'\',\'in\')">🖨 In / PDF</button><button class="nho chinh" onclick="ktPCXuat(\''+k+'\',\'word\')">📄 Word</button></div>', true);
+  if(cach==='xem'){ moHop('<div class="hop-tit">👁 Thông báo phân công — '+coChuHTML(g.ten)+'</div><iframe id="kt-pc-khung" class="to-khung" title="Xem trước"></iframe>'+xuatHang({truoc:'<button class="nho" onclick="ktPCHop(\''+k+'\')">‹ Sửa phân công</button>', html:function(){ return ktHTMLPC(g); }, in:'ktPCXuat(\''+k+'\',\'in\')', pdf:'ktPCXuat(\''+k+'\',\'pdf\')', word:'ktPCXuat(\''+k+'\',\'word\')'}), true);   /* 3.152 */
     var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong'); var f = document.getElementById('kt-pc-khung'); xemChuan(f, ktHTMLPC(g)); return; }
   if(cach==='word') return ktDocx('pc', g).then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+ten+'.docx — chỉ lưu trên máy / Drive của anh.', 6); }).catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); });
+  if(cach==='pdf') return inPDF(ktHTMLPC(g), ten);   /* 3.152 */
   inBlob(new Blob([ktHTMLPC(g)], {type:'text/html'}), ten+'.html');
 }
 function ktHdtChuyen(){   /* chuyển khai báo cũ 1 lần: cán bộ kiểm tra (chức vụ Phó…) → Phó CT; Chủ tịch / Bí thư → CT; khác → ủy viên; người ký → CT */
@@ -3137,7 +3141,7 @@ function ktKHXem(ok){
   moHop('<div class="hop-tit">👁 Kế hoạch KTGS năm '+g.nam+' — '+coChuHTML(g.ten)+'</div>'+
     '<div class="hop-phu">'+(g.mau==='m01b' ? 'Khuôn ② mẫu gọn (bản kế hoạch mẫu Hội cấp xã)' : 'Khuôn ① dự thảo HĐT cấp xã · 90%')+' · căn cứ '+(g.cc==='10566' ? '10566 (trước 727)' : '727')+' · '+(g.rows.length-1)+' tháng có lịch. Số HĐUT, KH Hội tỉnh, người ký theo 🏛 Khai báo Hội đoàn thể; trống = dòng chấm.</div>'+
     '<iframe id="kt-kh-khung" class="to-khung" title="Xem trước"></iframe>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop();ktKHXem()">‹ Đổi lựa chọn in</button><button class="nho" onclick="dongHop()">Đóng</button><button class="nho" onclick="ktKHIn(\'in\')">🖨 In / PDF</button><button class="nho" onclick="ktKHIn(\'pdf\')" title="Lưu file PDF gửi Hội — tên file điền sẵn">📤 PDF</button><button class="nho chinh" onclick="ktKHIn(\'word\')">📄 Word (.docx)</button></div>', true);
+    xuatHang({truoc:'<button class="nho" onclick="dongHop();ktKHXem()">‹ Đổi lựa chọn in</button>', html:function(){ return ktHTML01(KT_KH_XEM); }, in:'ktKHIn(\'in\')', pdf:'ktKHIn(\'pdf\')', word:'ktKHIn(\'word\')'}), true);   /* 3.152 */
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
   var f = document.getElementById('kt-kh-khung'); xemChuan(f, ktHTML01(g));
 }
@@ -4764,7 +4768,7 @@ function toBDNamVe(i, loai){
     (loai ? '<div class="nhan-nhom">'+nhan[loai]+' '+kyVN(X.ds[i].ky)+' — '+ds.length+' khách</div><div class="to-bang-cuon"><table class="to-bang"><thead><tr><th>STT</th><th>Mã KH</th><th>Họ tên</th>'+(X.pv ? '<th>'+(loai==='ra' ? 'Tổ cũ' : 'Tổ')+'</th>' : '')+(loai!=='ra' ? '<th>Ngày kết nạp (≈ ngày vay)</th><th>Từ đâu</th>' : '<th>Dư nợ tháng trước</th><th>Số dư 105</th><th>Đi đâu</th>')+'</tr></thead><tbody>'+
       ds.map(function(r, k){ return '<tr><td class="c">'+(k+1)+'</td><td>'+r.kh+'</td><td class="to-ten">'+coChuHTML(r.ten)+'</td>'+(X.pv ? '<td>'+coChuHTML(toTenToMa(r.to))+'</td>' : '')+(loai!=='ra' ? '<td>'+(r.ngay||'—')+'</td><td>'+coChuHTML(r.ghi)+'</td>' : '<td class="s">'+tdnTien(r.dn)+'</td><td class="s">'+tdnTien(r.t105)+'</td><td>'+coChuHTML(r.ghi)+'</td>')+'</tr>'; }).join('')+'</tbody></table></div>' : '<p class="ghi">Bấm số ở ô để xem danh sách khách.</p>')+
     '<div class="nhan-nhom">Bảng chi tiết vào / ra năm '+X.nam+'</div><div class="to-bang-cuon">'+toBDNamBangHTML(toBDNamBang(), 'to-bang')+'</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button><button class="nho" onclick="toBDNamXuat(\'in\')">🖨 In cả năm</button><button class="nho chinh" onclick="toBDNamXuat(\'excel\')">📊 Excel cả năm</button></div>', true);
+    xuatHang({ten:xuatTen('Bien dong to vien', TO_BDN.pv ? TO_BDN.ten : TO_BDN.t.ma, TO_BDN.nam), html:function(){ return toBDNamXuat('html'); }, excel:'toBDNamXuat(\'excel\')'}), true);   /* 3.152 */
 }
 /* 3.133 (anh chốt): bảng chi tiết vào / ra cả năm kiểu báo cáo tổ — STT · Mã KH · Họ tên hộ vay · [Xã · Điểm GD · Tổ theo cấp] · Vào (ngày) · Ra (ngày) · Ghi chú;
    xếp theo thời gian; khách vào rồi ra trong năm (cùng tổ) ghi chung 1 dòng; ngày vào = ngày vay đầu tiên (chuyển tổ: tháng); ngày ra ≈ ngày GD cuối trong Mẫu 31 tháng trước (chuyển tổ: tháng) */
@@ -4807,7 +4811,8 @@ function toBDNamXuat(cach){   /* 3.133: In / Excel cả năm = bảng tổng the
   var hT = '<table class="bc-bang"><thead><tr>'+thg[0].map(function(c){ return '<th>'+c+'</th>'; }).join('')+'</tr></thead><tbody>'+thg.slice(1).map(function(r){ return '<tr>'+r.map(function(v, j){ return toO(coChuHTML(String(v)), j ? 'c' : ''); }).join('')+'</tr>'; }).join('')+'</tbody></table>';
   var h = toBDNamBangHTML(B, 'bc-bang')+'<div class="bc-khung"><div class="bc-khung-ten">Tổng theo tháng</div>'+hT+'</div>'+
     '<div class="bc-ghi">Vào: ngày vay đầu tiên (≈ ngày kết nạp); chuyển tổ ghi tháng. Ra: ≈ ngày giao dịch cuối trong Mẫu 31 tháng trước; chuyển tổ ghi tháng. Hộ mới = CIF lớn hơn mọi CIF tháng trước; CIF cũ dùng lại = CIF cũ, tháng trước không có.</div>';
-  inBlob(new Blob([toHTMLIn([{tieuDe:tieu, ngay:toNgayChu(), html:h, ngang:B.cot.length>7}], t)], {type:'text/html'}), 'Bien dong to vien '+ten+'.html');
+  var trang = toHTMLIn([{tieuDe:tieu, ngay:toNgayChu(), html:h, ngang:B.cot.length>7}], t); if(cach==='html') return trang;
+  inBlob(new Blob([trang], {type:'text/html'}), 'Bien dong to vien '+ten+'.html');
 }
 function toBDDem(B){ var d = {v:0, moi:0, cu:0, chuyen:0}; Object.keys(B.vao).forEach(function(k){ d.v++; d[B.vao[k].nhom||'chuyen']++; }); return d; }
 function toBDChu(B){ B = B || TO_BD; if(!B) return ''; if(!B.co) return ' │ Biến động: chưa có Mẫu 31 '+kyVN(B.tr)+' để so';
@@ -5315,7 +5320,7 @@ function toXem(){
     moHop('<div class="hop-tit">👁 Xem báo cáo — tổ '+coChuHTML(t.ten||t.ma)+'</div>'+
       (qua.length ? '<div class="sl-bao vang">“'+qua.map(function(x){ return x.tieuDe; }).join(', ')+'” nhiều món, chữ đã thu nhỏ nhưng có thể sang trang 2.</div>' : '')+
       '<iframe id="to-khung" class="to-khung" title="Xem trước"></iframe>'+
-      '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button><button class="nho" onclick="toExcel()">📊 Excel</button><button class="nho chinh" onclick="toIn()">🖨 In / PDF</button></div>', true);
+      xuatHang({ten:xuatTen(R.length>1 ? 'Bao cao to' : R[0].ten, t.ten||t.ma, TO_K.ky), html:function(){ return toHTMLIn(TO_XEM, t); }, excel:'toExcel()'}), true);   /* 3.152: hàng nút xuất chung */
     var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
     var f = document.getElementById('to-khung'); xemChuan(f, html);
   }).catch(function(er){ tatChay(); baoLoi('Lập báo cáo lỗi: '+(er && er.message || er)); });
@@ -5755,7 +5760,7 @@ function skXem(){
   try{ SK_XEM = ds.map(function(b){ CT_DUNG = {}; SK_KHO = skKhoCua(b.k); var x = skBaoCao(b.k); x.pv = pv; x.ctChu = ctChuThich(); x.ngang = SK_KHO==='ngang'; CT_DUNG = null; return x; }); SK_KHO = 'ngang'; }
   catch(er){ CT_DUNG = null; SK_KHO = 'ngang'; return baoLoi('Lập báo cáo lỗi: '+(er && er.message || er)); }
   moHop('<div class="hop-tit">👁 Xem sao kê — '+coChuHTML(pv)+'</div><iframe id="sk-khung" class="to-khung" title="Xem trước"></iframe>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button><button class="nho" onclick="skExcel()">📊 Excel</button><button class="nho chinh" onclick="skIn()">🖨 In / PDF</button></div>', true);
+    xuatHang({ten:xuatTen(SK_XEM.length>1 ? 'Sao ke' : SK_XEM[0].ten, pv, SK_K.thang), html:function(){ return skHTMLIn(SK_XEM); }, excel:'skExcel()'}), true);   /* 3.152 */
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');   /* 3.92: khung xem trước rộng */
   var f = document.getElementById('sk-khung'); xemChuan(f, skHTMLIn(SK_XEM));
 }
@@ -6300,7 +6305,7 @@ function thXem(){
   try{ TH_XEM = ds.map(function(b){ CT_DUNG = {}; var x = thBaoCao(b.k); x.pv = pv; x.ctChu = ctChuThich(); CT_DUNG = null; return x; }); }
   catch(er){ CT_DUNG = null; return baoLoi('Lập báo cáo lỗi: '+(er && er.message || er)); }
   moHop('<div class="hop-tit">👁 Xem tổng hợp — '+coChuHTML(pv)+'</div><iframe id="th-khung" class="to-khung" title="Xem trước"></iframe>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button><button class="nho" onclick="thExcel()">📊 Excel</button><button class="nho chinh" onclick="thIn()">🖨 In / PDF</button></div>', true);
+    xuatHang({ten:xuatTen(TH_XEM.length>1 ? 'Tong hop' : TH_XEM[0].ten, pv, TH_K.ky), html:function(){ return thHTMLIn(TH_XEM); }, excel:'thExcel()'}), true);   /* 3.152 */
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
   var f = document.getElementById('th-khung'); xemChuan(f, thHTMLIn(TH_XEM));
 }

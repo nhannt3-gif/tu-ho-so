@@ -222,6 +222,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.152) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tổng hợp / Sao kê / Tổ → Xem | Hàng nút: Đóng · 🖨 In · 📄 PDF · 📊 Excel · 📤 Gửi | |
+| 2 | 📄 PDF | Hộp in, chọn Lưu dưới dạng PDF — tên file điền sẵn Loại_Phạm vi_Kỳ | |
+| 3 | 📤 Gửi → 📋 Copy ảnh → dán vào Zalo PC | Ra ảnh trang báo cáo (chữ rõ) | |
+| 4 | 📤 Gửi → 📋 Copy chữ → dán Excel | Ra bảng đúng cột | |
+| 5 | KTGS Kế hoạch / Mẫu 04 / Mẫu 06 → Xem | Cùng hàng nút, có 📝 Word | |
+| 6 | Văn bản → khung xem → 📤 Gửi | Tải / gửi file; Copy số hiệu + trích yếu | |
+| 7 | iPhone: 📤 Gửi → Copy ảnh | Safari có thể không cho → app chép chữ thay | |
+
+**Ghi chú kỹ thuật 3.152:** Copy ảnh dùng SVG foreignObject — Chrome / Edge máy tính chạy; Safari iPhone có thể chặn (tainted canvas) → tự chép chữ. Các nút In / Word riêng trên từng dòng tổ (KTGS) giữ nguyên; danh sách tổ viên / bảng các tổ in thẳng chưa qua khung xem (đợt sau).
+
 ### Danh sách thử trên máy thật (3.151) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
