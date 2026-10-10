@@ -3787,7 +3787,7 @@ function slKTHTML(ky){
   var k = SLM.kt[ky];
   if(!slCoFileChinh(ky)) return '<div class="sl-kt-dau"><span class="sl-phu">Tháng '+kyVN(ky)+' chưa có file Ⓐ chuẩn TW / Ⓑ chi tiết nào — chưa kiểm. Nạp file rồi bấm Kiểm tra.</span></div>'+
     (k ? '<div class="sl-bao vang">Kết quả kiểm cũ ('+ngayVNsl(k.luc.slice(0,10))+' '+k.luc.slice(11,16)+') không còn file tương ứng — đã ẩn.</div>' : '');   /* 3.91: không hiện kết quả cũ của tháng trống */
-  if(!k) return '<div class="sl-kt-dau"><button class="nho chinh" onclick="slKiemTra(\''+ky+'\')">🔍 Kiểm tra tháng '+kyVN(ky)+'</button><span class="sl-phu">Chưa kiểm. App so các file chuẩn TW với nhau, Mẫu 31 với số chuẩn TW (từng xã, nguồn vốn, từng tổ), KHĐ, tổ trưởng, tháng trước, Mẫu 10 cuối tháng — chỉ báo, không sửa số.</span></div>';
+  if(!k) return '<div class="sl-kt-dau"><button class="nho chinh" onclick="slKiemTra(\''+ky+'\')">🔍 Kiểm tra tháng '+kyVN(ky)+'</button><span class="sl-phu">Chưa kiểm. App so các file chuẩn TW với nhau, Mẫu 31 với số chuẩn TW (từng xã, nguồn vốn, từng tổ), KHĐ, tổ trưởng, DSTO, tháng trước — chỉ báo, không sửa số.</span></div>';
   var cu = slKTCu(ky), h = '<div class="sl-kt-dau"><span>Đã kiểm '+ngayVNsl(k.luc.slice(0,10))+' '+k.luc.slice(11,16)+' · ✅ '+k.dem.ok+' đạt · ⚠ '+k.dem.lech+' lệch · ⓘ '+k.dem.canh+' lưu ý</span>'+
     '<button class="nho'+(cu ? ' chinh' : '')+'" onclick="slKiemTra(\''+ky+'\')">🔍 Kiểm lại</button></div>';
   if(cu) h += '<div class="sl-bao vang">⟳ Dữ liệu tháng đã đổi sau lần kiểm (nạp / thay / xóa file) — kết quả dưới là của lần kiểm trước, bấm <b>Kiểm lại</b>.</div>';
