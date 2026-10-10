@@ -224,5 +224,23 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
 - **Dữ liệu cũ:** đọc được. Hội nào đang có tên ở PCT 2 / PCT 3 / ủy viên 4, 5 → báo 1 lần danh sách để anh chuyển vào 3 ô BTV, rồi bỏ.
 - Mẫu in (06 / 16 / 04 / Kế hoạch) chỉ còn chọn CT / PCT / BTV 1–3.
 
+## Ý 9 — Kiểu xem "▦ Bảng chi tiết" (anh đề xuất 10/10)
+**Anh muốn:**
+- Thêm kiểu xem **Bảng** cạnh ☰ Danh sách và 🗂 Nhóm.
+- Bảng kẻ dòng gọn, cột cố định: **Số hiệu · Ngày ký · Tên văn bản & Trích yếu · Mảng NV · CT vay · Trạng thái**.
+- Mỗi dòng cao 28–32 px → 1 màn hình máy tính thấy 20–25 văn bản, quét mắt như Excel.
+
+**Đề xuất làm:**
+- **▦ Bảng thay cho nút "Gọn" hiện có** (Gọn = mỗi file 1 dòng, trùng mục đích) → kiểu xem còn **☰ Danh sách · 🗂 Nhóm · ▦ Bảng**, không thêm nút thừa.
+- Cột đầu là ô tích chọn (để 🗑 Xóa / 📤 Gửi nhiều file).
+- **Bấm tiêu đề cột để sắp xếp** ▲▼ → ở chế độ Bảng không cần hàng Sắp xếp riêng.
+- **Bấm dòng** → khung xem bên phải như hiện nay. ↑↓ chuyển dòng, khung xem theo.
+- **Trạng thái:** biểu tượng nhỏ, rê chuột hiện chữ — ⚠ thiếu tag · ☁ chưa lên Drive · 📥 chờ khai · ★ ghim.
+- Chữ trích yếu dài → 1 dòng, cắt "…", rê chuột hiện đủ.
+- **Áp cùng kiểu cho tab file khác (đồng bộ ý 6a):**
+  - Biểu mẫu: Tên mẫu · Chương trình · Loại · Số lần dùng · Trạng thái.
+  - Scan: Mã KH · Tên · Ấp · Loại giấy tờ · Ngày · Trạng thái.
+- App nhớ kiểu xem riêng từng tab. Điện thoại vẫn dùng Danh sách (bảng không vừa chiều ngang).
+
 ## Câu hỏi chờ anh
 - Ý 6b: **phạm vi** (xã / điểm / hội / tổ) có dùng chung giữa Tổng hợp, Sao kê, Tổ, KTGS, Tra cứu như kỳ không (đề xuất: chung)?
