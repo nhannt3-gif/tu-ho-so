@@ -11,7 +11,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Bỏ tab Tháng:** `boThangDon` chạy 3 giây sau khi mở app và 7 giây sau khi nối Drive: mục `D.duLieu` + khay chờ / thùng rác nhóm duLieu → xóa bản trong máy, file Drive vào thùng rác Drive, dấu `daXoaHan` (máy khác bỏ theo); thư mục `<gốc>/Dữ liệu tháng` vào thùng rác Drive; xong đặt `D.cauHinh.boThang='xong'`. Chưa nối Drive: mục có file Drive chờ lần sau. Bỏ lời nhắc "thiếu báo cáo tháng" (Hôm nay), trang Cài đặt "Dữ liệu tháng", mục Hướng dẫn "Tháng", nút "Tìm ở tab khác → Tháng"; Lập chỉ mục Drive không dựng lại mục Dữ liệu tháng.
 - **Thêm file:** Excel thêm ngoài tab Văn bản → xem trước của tab Nạp & KT (`slDocNhieu`), không vào khay chờ; PDF bảng số liệu → Văn bản. Mã tab Tháng (`veThang`, `D.duLieu`…) **giữ lại** (mảng rỗng) — dọn ở đợt J.
 - **Công cụ:** `CONG_CU` thêm cờ `an` cho Giao ban, Buổi GD — ẩn khỏi cột, `ccMo` báo "đã bỏ"; mã `gb*` / `bgd*` giữ.
-- **Phép thử:** `tests/t140.js` (mới, 20 — Drive giả). hoiquy2: phép "Excel tab Tháng" → "Excel sang tab Nạp", Cài đặt 11 trang.
+- **Phép thử:** `tests/t140.js` (mới, 20 — Drive giả). hoiquy2: phép "Excel tab Tháng" → "Excel sang tab Nạp", Cài đặt 11 trang. t106, t110: ma trận BC0437 / BC0438 kiểm ở tab Nạp & KT.
+- **Kiểm tra:** kiem.py sạch; hoiquy, hoiquy2, t101–t140 đạt (t116 1 phép hỏng sẵn từ 3.141). Ảnh máy tính 1366 / điện thoại 390 tab Nạp & KT, KTGS.
 
 ## 3.143 — 10/10/2026 — Ngày số liệu theo nội dung file; file không ghi ngày → anh khai khi nạp (Q14)
 - **Anh chốt:** Q14 — nạp file phải nhận đúng ngày số liệu từ **nội dung** file; file không có ngày trong nội dung thì anh khai khi nạp (tên file chỉ là gợi ý).
