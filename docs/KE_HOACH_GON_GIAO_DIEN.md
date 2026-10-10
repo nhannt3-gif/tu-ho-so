@@ -178,6 +178,24 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
   - **Các mẫu kiểm tra khác** (đột xuất, sau giải ngân, định kỳ chọn tự do, báo cáo tổng hợp Mẫu 04 lẻ) → **kỳ chung**.
 - **Phạm vi** (xã › điểm › hội › tổ): **anh chốt 10/10 "dùng chung hết"** — 1 phạm vi cho Tổng hợp, Sao kê, Tổ, KTGS, Tra cứu (và Scan khi lọc). Chọn ở tab nào thì các tab khác theo. Thanh phạm vi 1 hàng như đề xuất ở trên.
 
+### 6c. Áp vào từng tab (anh gửi ảnh Tổ, KTGS, Sao kê ngày 11/10)
+**Cây chọn — đề xuất sửa (thay đề xuất "chip trong ô thả xuống" ở trên):**
+- **Giữ chip** vì bấm nhanh, nhưng **chỉ hiện chip của cấp cần chọn tiếp**.
+- Các cấp đã chọn gom thành 1 dòng `📍 Phường Gia Lộc › Gia Lộc 2 · ngày 07 › Hội Nông dân › [chọn tổ ▾]  ✕`. Bấm 1 cấp để chọn lại cấp đó.
+- Chọn tới tổ → còn 1 dòng.
+- **Tối đa 2 hàng (~60 px, nay ~130 px)**, cùng kiểu ở Tổng hợp · Sao kê · Tổ · KTGS · Tra cứu. Có chip PGD ở cả 5 tab.
+
+| Tab | Hiện có (ảnh anh gửi) | Sửa |
+|---|---|---|
+| **Chung** | Ô "Số liệu [kỳ]" + ⟳ Làm mới + chip "Đang dùng" ở từng tab | Bỏ — dùng ô Kỳ chung ở đầu trang (6b) |
+| **Tổ TK&VV** | Thẻ tổ + hàng chip lọc (Tất cả · Có dư nợ · CCCD hết hạn · Thiếu / sai SĐT · Cần xử lý · Mới vào · Ra khỏi tổ · Biến động năm) | Giữ (đây là nội dung, không phải bộ lọc chung) |
+| **KTGS** | Chip BC0437 / BC0438 ✓ + dòng "Nạp và kiểm tra BC0437 / BC0438 ở tab Nạp & KT" | Bỏ dòng; trạng thái BC → 1 chip nhỏ cạnh cây chọn (bấm sang Nạp & KT nếu thiếu) |
+| | Ô tìm tổ chiếm 1 hàng riêng | Đưa vào cuối dòng cây chọn |
+| | ⚠ "File Thông tin tổ trưởng T9 thiếu 19 tổ — đã xếp điểm GD: tháng trước" | **Bỏ** — từ 3.145 DSTO là nguồn chính, Thông tin tổ trưởng chỉ là file phụ → cảnh báo này không còn đúng (sửa lỗi). Tổ chưa rõ điểm GD (nếu có) → ghi ở Kiểm tra kỳ |
+| | Hàng chế độ (Khai báo HĐT · Đột xuất · Sau GN · Định kỳ · Mẫu 04 · Kế hoạch) + hàng con (Hội – xã · Chuẩn hóa quy tắc) + dòng giải thích | Hàng chế độ = hàng 2 (riêng tab). Hàng con → ⋯. Giải thích → ❓ |
+| **Sao kê** | Khổ Ngang / Dọc + nút 👁 Xem to ở hàng kỳ; dòng giải thích cuối | Chọn khổ chuyển vào khung xem chung (ý 4: Xem → In · PDF · Excel · Gửi). Giải thích → ❓. 4 nhóm sao kê giữ |
+| **Tổng hợp** | Cột "Tiêu chí" + cột "Bộ lọc — phạm vi" riêng, Chương trình / Nguồn vốn, nút Xem to | Cây chọn chung lên trên; tiêu chí + CT / nguồn vốn ở dưới; Xem → khung xem chung |
+
 ## Ý 7 — Scan lưu theo cây địa bàn chuẩn như KTGS / Tổ (anh gửi 10/10)
 **Hiện nay:**
 - Scan dùng **cây địa bàn khai tay** ở Cài đặt › Địa bàn (`D.cauHinh.diaBan`: xã › điểm › ấp › tổ, tổ là chữ tự gõ).
