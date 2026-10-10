@@ -247,5 +247,24 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
   - Scan: Mã KH · Tên · Ấp · Loại giấy tờ · Ngày · Trạng thái.
 - App nhớ kiểu xem riêng từng tab. Điện thoại vẫn dùng Danh sách (bảng không vừa chiều ngang).
 
+## Ý 10 — Thông báo có 1 ô cố định, không che nút (anh gửi 10/10)
+**Hiện nay có nhiều thứ nổi đè lên nội dung:**
+- **`bao()`:** chữ nổi giữa đáy màn, cách đáy 84 px.
+- **Chip "⚡ Đang dựng sẵn số liệu… / Số liệu sẵn sàng (N kỳ)"** (`slNapSanChip`, `#sl-san`): nổi góc phải dưới — **che nút "Xem trước" / nút cuối trang**.
+- **"Đang xử lý…"** (`batChay`, `#danglam`): thả từ đỉnh xuống, có vạch chạy trên cùng.
+- **Thanh "↩ Hoàn tác":** sẽ bỏ theo ý 3.
+
+**Đề xuất: 1 "ô thông báo" cố định, nằm sẵn trong bố cục (không nổi đè):**
+- **Máy tính:** ô 1 dòng ở **đầu trang**, giữa ô Kỳ và giờ.
+  - Hiện tin mới nhất ("Đã nạp Mẫu 31 T9/2026", "Đang dựng sẵn T8 (2/5) ▓▓░", "Đã kiểm tra: ✅ Đạt").
+  - Hết việc thì về trạng thái nghỉ: ☁ đã lên Drive · ⚡ sẵn dùng T9, T8.
+- **Điện thoại:** cùng ô đó nằm trong **thanh đáy** (thay chữ nổi giữa màn).
+- **Bấm ô → 🔔 danh sách 20 tin gần nhất** (giờ + nội dung), để xem lại tin đã trôi.
+- **Việc đang chạy lâu** (nạp nhiều file, dựng sẵn, đồng bộ Drive):
+  - Hiện trong ô kèm thanh tiến độ nhỏ + nút Dừng (nếu có).
+  - Không còn hộp "Đang xử lý…" che giữa đỉnh màn, trừ việc phải chờ không bấm được gì khác.
+- **Lỗi cần anh quyết** (vd thiếu file, Drive hết phiên): vẫn hiện hộp hỏi. Tin thường không bao giờ đè lên nút.
+- **Bỏ chip nổi `#sl-san`** và dòng "⚡ Sẵn dùng…" ở tab Nạp & KT → gộp vào ô thông báo (trùng với ý 1).
+
 ## Câu hỏi chờ anh
 - (hết — chờ anh gửi thêm ý hoặc nhắn "đủ" để làm ảnh mẫu cả gói)
