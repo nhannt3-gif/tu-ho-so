@@ -54,5 +54,5 @@ Mỗi mục ghi: khớp / lệch bao nhiêu / danh sách. Anh muốn ghi chú ch
 **Phép thử:** t142 — đủ / thiếu file → Đạt / chưa Đạt + thiếu gì; sai kỳ, sai cấu trúc → chưa Đạt; làm lệch số (1 xã / tổ / CT / món) → **vẫn Đạt**, chênh lệch được ghi đúng mục + danh sách; tháng từng khóa tự mở; kết quả cũ vẫn xem.
 
 ## 4. Cần anh chốt trước khi code
-1. **Bỏ chốt / khóa tháng 🔒** (có từ 3.91) — tháng đang khóa tự mở, không còn nút Chốt? (đề xuất: **bỏ**, đúng ý anh "không cần chốt")
+1. ✅ **Bỏ chốt / khóa tháng 🔒 (3.91) — XÓA HẲN MÃ** (anh chốt 10/10: "bỏ code chốt tháng tránh rác code"): nút Chốt / Mở khóa, `slChot`, `slKhoaO`, `slKhoaBao`, chặn nạp / xóa tháng đã chốt, `SLM.chot` (dữ liệu cũ bỏ qua khi đọc, xóa khỏi meta lần ghi sau), phép thử 3.91 liên quan sửa theo. Làm cùng 3.146.
 2. Làm **3.145 trước rồi 3.146** (đề xuất) hay gộp 1 bản?
