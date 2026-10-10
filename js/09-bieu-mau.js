@@ -21,7 +21,7 @@ function veBieuMau(){
   ds = locTheoThe('bieuMau', locChuan('bieuMau', ds)); BOT_DS.bieuMau = ds;
 
   var h = veDauTab('bieuMau', {kho:D.bieuMau, hamThem:'themBieuMau()',
-    nutThem:'<button class="phu" onclick="moDsBo()">📚 Bộ biểu mẫu'+(dsBo().length?' · '+dsBo().length:'')+'</button>'});
+    nutThem:'<button onclick="moDsBo()">📚 Bộ biểu mẫu'+(dsBo().length?' · '+dsBo().length:'')+'</button>'});
   h += veThanhSap('bieuMau', null, null, null, '<b>'+ds.length+'</b> biểu mẫu'+chuDemLoc('bieuMau'));
 
   var soChon = Object.keys(BM.chon).length;
@@ -44,6 +44,7 @@ function veBieuMau(){
     e.innerHTML = h; return;
   }
 
+  if(kxBang('bieuMau')){ e.innerHTML = h + bangTabHTML('bieuMau', bmSapXep(ds)); return; }   /* 3.151 */
   /* gom theo nhóm cho dễ nhìn */
   var gom = {};
   var GHIM = '\u0001ghim';   /* 3.31: mẫu ghim gom thành nhóm riêng trên cùng — ghim luôn đứng đầu, rồi tới Dùng chung */

@@ -77,6 +77,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t144.js` | 3.148 Nút & trạng thái: bỏ 🗑 cuối dòng, nút Thêm xanh, hộp thoại Thôi trái / nút chính phải + nút không giãn, tin trong hộp vẫn nổi, tin thường vào ô trạng thái (thanh bên / thanh đáy iPhone), đèn đỏ / vàng, thanh %, hộp Đang xử lý ẩn khi không có Dừng, 🔔 danh sách tin, NhanNT trên thanh bên, thanh đáy ẩn / hiện theo tab, nút ≤ 240 px. |
 | `node tests/t145.js` | 3.149 Kỳ + phạm vi chung: ô Kỳ đầu trang, tab không còn ô kỳ riêng, đổi kỳ → mọi tab + SL_KY, phạm vi chọn ở Tổ → các tab khác + pvChung, cây 2 hàng (chip cấp kế tiếp, chọn tới tổ hết chip, bỏ chọn về PGD), KTGS bỏ dòng nạp + cảnh báo Thông tin tổ trưởng. |
 | `node tests/t146.js` | 3.150 Tab Nạp & KT gọn: 1 hàng công cụ ≤ 40 px, bỏ chữ / nút thừa, 1 dòng trạng thái (thiếu file liệt kê 1 lần, tooltip báo cáo), ma trận trọn ngang, kết quả kiểm + KTGS gập sẵn, ⋯ đủ việc phụ, ❓, tháng chưa có file, bấm tên tháng → kỳ chung. |
+| `node tests/t147.js` | 3.151 Thanh lọc chung tab file (VB, BM, Scan): 1 hàng ≤ 44 px, ⚲ Lọc + chip ✕, ⇅, ☰, ⋯ từng tab, ▦ Bảng (cột, ≤ 32 px / dòng, sắp theo tiêu đề, ô tích, ↑↓), Gọn cũ → Bảng, iPhone vẫn danh sách. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

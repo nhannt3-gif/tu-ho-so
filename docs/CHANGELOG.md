@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.151 — 11/10/2026 — Thanh lọc chung tab file + kiểu xem ▦ Bảng
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 6a, 9, 13; "dùng chung hết"):** mỗi tab file một kiểu lọc / sắp / xem, hàng chip Năm / Mảng / CT / Tag chiếm 3 hàng.
+- **`veDauTab` viết lại** (`js/11-khung-tab.js`, lớp `.tl-thanh`): ＋ Thêm · 🗑 Xóa (`nutBot`) · ⚲ Lọc (n) ▾ (`moBoLoc`) · ⇅ (`moSapTab`; Scan = nhóm Ngày / Tuần / Tháng) · ☰ ▾ (`moXemTab`) · chip đang lọc `.tl-chip` (`chipDangLoc`) · số mục · ⋯ (`moThemTab`: `opt.themPhu` / `opt.nutThem` + chọn chép, ổ G, Drive, sửa tag) · ❓. Menu thả xuống dùng chung `#menu` (`moMenuTL`). Áp cho mọi tab gọi `veDauTab` (Văn bản, Biểu mẫu, Scan máy tính, Dữ liệu tháng, Ghi chú).
+- **Bỏ:** hàng lọc nhanh (`hangLocNhanh` không gọi), dòng "Đang lọc", hàng chip lọc, hàng Sắp xếp / Xem (`veThanhSap` trả rỗng), ▤ Gọn; Scan máy tính bỏ hàng Danh sách / Ngày-Tuần-Tháng / ⚠ Chưa đạt và dòng giải thích (→ ❓).
+- **⚲ Lọc** theo nhóm của tab (`nhomLocNhanh`, kèm số mục) + Tháng khi chọn năm + Khác (Chưa phân loại, hết hiệu lực, Trùng số hiệu, ★) ; Scan: Xã · Tag · ⚠ Chưa đạt. `boLoc('scan')` bỏ cả Chưa đạt / cây.
+- **▦ Bảng** (`bangTabHTML`, `bangCot`, `BANG_SAP`, `D.cauHinh.bangTab` nhớ từng tab; điện thoại luôn Danh sách): Văn bản Số hiệu · Ngày ký · Tên & Trích yếu · Mảng NV · CT vay · Trạng thái (★ ⚠ ☁ ⛔ ⧉); Biểu mẫu Tên mẫu · Chương trình · Loại · Số lần dùng · Trạng thái; Scan (Mã KH nếu có) · Tên · Ấp · Loại giấy tờ · Ngày · Trạng thái. Bấm tiêu đề sắp ▲▼, ô tích (VB: chọn xóa; BM: gửi / nén / in; Scan: in ghép), ↑↓ chuyển dòng. Bản cũ bật Gọn → tự chuyển ▦ Bảng (Văn bản) một lần.
+- **Phép thử:** `tests/t147.js` (mới, 25). t88 đọc chip trong ⚲ Lọc.
+
 ## 3.150 — 11/10/2026 — Tab Nạp & KT gọn
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 1, ảnh anh gửi):** tab rối, chọn tháng 3 chỗ, "thiếu" in 2 lần, trạng thái 5 chỗ, nút rải, chữ phụ nhiều, ma trận nửa màn; tháng chưa có file vẫn báo "kiểm lại".
 - **Hàng công cụ** `slNapThanhHTML` (lớp `.sl-con-nap .sl-thanh-nap`): ‹ tháng › · 📥 Nạp file · 📋 File cần xuất · ☁ chờ · ⋯ (`slNapThem`) · ❓ (`slNapHoi`). `slTabConHTML` trả rỗng cho tab nap.

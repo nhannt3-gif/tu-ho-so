@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.151) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở Văn bản, Biểu mẫu, Scan | Cùng 1 thanh: Thêm · Xóa · Lọc · Sắp xếp · Kiểu xem · ⋯ · ❓ | |
+| 2 | ⚲ Lọc → chọn mảng | Nút "⚲ Lọc (1)", chip trên thanh, bấm ✕ bỏ | |
+| 3 | ☰ ▾ → ▦ Bảng | Bảng gọn 20+ dòng / màn; bấm tiêu đề cột sắp xếp; ↑↓ chuyển, khung xem theo | |
+| 4 | Tích ô đầu dòng ở bảng VB | Thanh "Xóa N file" hiện | |
+| 5 | ⋯ từng tab | Lập chỉ mục / Bộ biểu mẫu / Chế độ quét, Webcam, Chữ ký·CCCD | |
+| 6 | iPhone | Vẫn Danh sách, thanh không tràn | |
+
+**Ghi chú kỹ thuật 3.151:** `hangLocNhanh`, `dongDangLoc`, `nutLocNhanh`, `batDongGon` còn trong mã nhưng không gọi (dọn sau). `veThanhSap` giữ tên, trả rỗng.
+
 ### Danh sách thử trên máy thật (3.150) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

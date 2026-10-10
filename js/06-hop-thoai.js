@@ -1977,6 +1977,8 @@ function noiDungHD(p){
       hdNut('📎 Thêm tài liệu')+' (chụp / chọn file: hồ sơ gốc, biên bản đã ký, ảnh, giấy tờ thừa kế) · '+hdNut('🔗 Gắn file có sẵn')+' (bản scan ở tab Scan…) · '+hdNut('📍 Vị trí nhà')+' (lấy GPS tại nhà khách hoặc dán link Google Maps → 🧭 Chỉ đường).',
       'Tab Hôm nay › ⚠ Cần xử lý nhắc: cam kết trả nợ đến hạn, nợ khoanh sắp hết hạn. Dữ liệu đồng bộ các máy qua Drive (_Hệ thống/theodoino.json).']);
   if(p==='scan') return '<h3>Tab Scan — CCCD và hồ sơ giấy</h3>'+
+    '<p>Ảnh xử lý trong máy, không gửi tới AI · lưu hồ sơ là bản PDF lên Drive: <b>Tủ hồ sơ/CCCD</b> (thẻ) và <b>Tủ hồ sơ/Hồ sơ scan</b> (tài liệu), chia theo xã › điểm › ấp › tổ.</p>'+
+    '<p><b>Thanh lọc chung (3.151):</b> '+hdNut('⚲ Lọc')+' Xã / Tag / ⚠ Chưa đạt · '+hdNut('⇅')+' nhóm theo Ngày / Tuần / Tháng · '+hdNut('☰ ▾')+' Danh sách / Cây địa bàn / ▦ Bảng · '+hdNut('⋯')+' Chế độ quét, Webcam, Chữ ký·CCCD.</p>'+
     '<p><b>Danh sách (3.61):</b> mỗi bản 2 dòng — dòng 2 ghi <b style="color:var(--luc)">✓ Đạt</b> (tên khách, đủ 2 mặt, đủ Xã › Điểm › Ấp › Tổ, đã lên Drive đúng thư mục tổ) hoặc <b style="color:var(--vang)">⚠ thiếu gì</b>. '+
     'Chip '+hdNut('⚠ Chưa đạt (n)')+' lọc bản cần xử lý. Xem '+hdNut('☰ Danh sách')+' (mới lưu lên trước, nhóm Ngày / Tuần / Tháng) hoặc '+hdNut('🌳 Cây địa bàn')+' (bấm tổ để lọc). '+
     'Máy tính: bấm một bản → xem ở khung bên phải; '+hdNut('⛶')+' mở màn Lưu & gửi. Tích ☐ nhiều bản → 🖨 In chung 4 người / A4.</p>'+
@@ -2027,7 +2029,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.150', ds:[
+var CO_GI_MOI = {ban:'3.151', ds:[
+  ["🔎 Văn bản · Biểu mẫu · Scan dùng chung 1 thanh: ＋ Thêm · 🗑 Xóa · ⚲ Lọc ▾ · ⇅ Sắp xếp · ☰ Kiểu xem ▾ · ⋯ · ❓; chip đang lọc hiện ngay trên thanh, bấm ✕ để bỏ", "dongHop();doiNgan(1)"],
+  ["▦ Kiểu xem Bảng (thay ▤ Gọn): cột Số hiệu · Ngày ký · Tên & Trích yếu · Mảng NV · CT vay · Trạng thái; dòng gọn ~30 px, bấm tiêu đề cột để sắp xếp, ↑↓ chuyển dòng; Biểu mẫu và Scan cũng có bảng riêng", "dongHop();doiNgan(1)"],
+  ["⋯ gom việc riêng từng tab: Lập chỉ mục (Văn bản), Bộ biểu mẫu, Chế độ quét / Webcam / Chữ ký·CCCD (Scan), đường dẫn ổ G, thư mục Drive, sửa tag", "dongHop();doiNgan(4)"],
   ["📥 Tab Nạp & KT gọn: 1 hàng nút (‹ tháng › · 📥 Nạp file · 📋 File cần xuất · ⋯ · ❓), 1 dòng trạng thái chỉ báo điều quan trọng nhất (chưa có file / thiếu file gì / cần kiểm / ✅ Đạt) + nút Kiểm tra kỳ", "dongHop();moNapSL()"],
   ["🔢 Ma trận trọn chiều ngang; ‹ › ở góc bảng; bấm tên tháng = chọn tháng (kỳ chung theo); kết quả kiểm tra và file KTGS gập sẵn — bấm mới mở", "dongHop();moNapSL()"],
   ["⋯ gom việc phụ: tải file gốc cả tháng, xóa cả bộ tháng, xóa bản theo ngày cũ, tóm tắt file, làm sạch & nạp lại, giữ sẵn, tìm rác; ❓ giải thích cách đọc ma trận và Kiểm tra kỳ", "dongHop();moNapSL()"],
@@ -2522,7 +2527,7 @@ function nutChepNhieu(tab){   /* 3.106: chọn nhiều file để chép (cầu n
 function nutBot(tab){
   var bat = BOT.tab===tab && BOT.muc!=='chep';
   return '<button class="nut-bot'+(bat?' bat':'')+'" onclick="'+(bat?'thoiBot()':'batBot(\''+tab+'\')')+'" '+
-    'title="Chọn nhiều file để xóa một lần (vào thùng rác hoặc xóa hẳn)">🗑 Xóa file</button>';
+    'title="Chọn nhiều file để xóa một lần (vào thùng rác)">🗑 Xóa</button>';
 }
 function batBot(tab, muc){
   BOT = {tab:tab, chon:{}, muc:muc==='chep' ? 'chep' : 'xoa'}; CN_CHEP_CON = []; document.body.classList.add('dang-bot');
