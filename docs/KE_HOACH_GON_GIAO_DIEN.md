@@ -2,6 +2,8 @@
 
 > **11/10/2026 00:40 — anh chốt: "lên kế hoạch lại và làm từng bước, đầy đủ, xong gộp lên luôn; đủ thời gian / token thì làm 1 lần các chức năng còn tồn; sáng anh test 1 lần".**
 > Thứ tự làm (mỗi bước 1 bản, đủ phép thử + hồi quy + tài liệu, gộp từng bản để lỗi ở bản nào quay lại đúng bản đó):
+> **Trạng thái 11/10/2026:** đã làm và gộp đủ 3.148 → 3.155; chờ anh thử máy thật.
+>
 > | Bản | Nội dung | Ý |
 > |---|---|---|
 > | 3.148 | Nút vừa chữ (sửa gốc `.nho`), thứ tự nút hộp thoại (Đóng trái · nút chính phải), nút Thêm xanh, bỏ nút xóa cuối từng dòng (xóa qua nút Xóa chung), 1 nơi trạng thái (đèn + thanh màu + chữ) ở chân thanh bên / thanh đáy điện thoại, NhanNT lên thanh bên, chip nổi số liệu bỏ | 10, 12, 13 |

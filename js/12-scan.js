@@ -330,7 +330,7 @@ function xemTruocHang(){
   var laThe = SC.che==='the', so = laThe ? Math.ceil(ds.length/2)+' người' : ds.length+' trang';
   XH = {bl:null};
   moHop(buocHTML(2, {lui:'moHangCho()', b1:'moHangCho()', tiep:"var t=document.getElementById('xh-tiep');if(t&&!t.disabled)tiepHang();else bao('PDF đang dựng, chờ chút…',2)"})+'<div class="hop-tit">Xem trước · '+so+'</div>'+
-    '<div class="hop-phu">Đúng bản sẽ lưu, in và gửi. Chưa vừa ý thì bấm <b>‹ Chỉnh tiếp</b>; đạt thì bấm <b>Tiếp</b> — app lưu tạm ngay cho an toàn.</div>'+
+    '<div class="hop-phu">Đúng bản sẽ lưu, in và gửi. Chưa vừa ý thì bấm <b>‹ Chỉnh tiếp</b>; đạt thì bấm <b>Tiếp</b> để chọn Lưu vào máy / Gửi / Lưu vào tủ.</div>'+
     '<div class="cam-kieu">Ảnh trong PDF: '+nutNetPDF('xemTruocHang()')+'</div>'+
     '<div id="xp-trang" class="xp-trang"><div class="huong-dan">Đang dựng PDF…</div></div>'+
     '<div class="xp-nut"><div class="hang-nut">'+
@@ -344,12 +344,108 @@ function xemTruocHang(){
     veTrangXP(XH.bl);
   }).catch(function(e){ tatChay(); baoLoi('Không dựng được PDF: '+(e&&e.message||e)); });
 }
-/* ③ — lưu tạm (tên "Scan ngày giờ") rồi sang màn Lưu & gửi, dùng lại đúng bản PDF vừa xem (không dựng lại) */
+/* ③ — 3.155 (anh chốt ý 7, 11 — học Scanner Lens): KHÔNG tự lưu tạm vào tủ / Drive. Xong → hộp chọn:
+   💾 Lưu vào máy (PDF đúng như bản in — thẻ 4 người / A4) · 📤 Gửi · 📋 Copy ảnh · 🗄 Lưu vào tủ (chọn khách: mã KH + tên + ấp).
+   Chỉ "Lưu vào tủ" mới tạo hồ sơ. Phiên quét dở giữ trong máy (localStorage + ảnh trong máy), mở lại tiếp được, tự bỏ sau 7 ngày. */
+var SX = null;
 function tiepHang(){
-  if(coTheNoiDrive() && !DR.sanSang && !DR.dangNoi) noiDrive(true).catch(function(){});   /* 3.48: tranh thủ lần bấm để nối Drive */
-  var bl = XH && XH.bl;
-  SAU_LUU_TAM = function(ds){ moXemPDF(ds.map(function(k){ return k.id; }), true, bl); };
-  Promise.resolve(luuSauHang()).catch(function(){ SAU_LUU_TAM = null; });
+  var bl = XH && XH.bl; if(!bl) return bao('PDF đang dựng, chờ chút…', 2);
+  scanXongHop(bl);
+}
+function scanTen(){ var d = nay(); return (SC.che==='the' ? 'CCCD' : 'Scan')+' '+hai(d.getDate())+'-'+hai(d.getMonth()+1)+'-'+String(d.getFullYear()).slice(2)+' '+hai(d.getHours())+'h'+hai(d.getMinutes()); }
+function scanXongHop(bl){
+  SX = SX && SX.bl===bl ? SX : {bl:bl, da:{}, ten:scanTen()};
+  var laThe = SC.che==='the', so = laThe ? Math.ceil(HANG.filter(function(x){ return x.kieu==='anh'; }).length/2)+' người' : HANG.filter(function(x){ return x.kieu==='anh' || x.kieu==='trang'; }).length+' trang';
+  var o = function(k, ico, chu, phu, js){ return '<button class="sx-o'+(SX.da[k] ? ' da' : '')+'" onclick="'+js+'"><b>'+ico+'</b><span>'+chu+(SX.da[k] ? ' ✓' : '')+'<small>'+phu+'</small></span></button>'; };
+  moHop(buocHTML(3, {lui:'xemTruocHang()', b1:'moHangCho()', b2:'xemTruocHang()'})+'<div class="hop-tit">Xong · '+so+' — làm gì với bản này?</div>'+
+    '<div class="sx-luoi">'+
+      o('may', '💾', 'Lưu vào máy', 'PDF'+(laThe ? ' như bản in — 4 người / A4' : ''), 'scanLuuMay()')+
+      o('gui', '📤', 'Gửi', laMayBan() ? 'tải file về, kéo vào Zalo' : 'Zalo, email… (bảng chia sẻ)', 'scanGui()')+
+      o('anh', '📋', 'Copy ảnh', 'dán thẳng vào Zalo', 'scanCopyAnh()')+
+      o('tu', '🗄', 'Lưu vào tủ hồ sơ', 'chọn khách: mã KH + tên + ấp', 'scanLuuTuHop()')+
+    '</div>'+
+    '<div class="hop-phu">Chỉ <b>Lưu vào tủ</b> mới tạo hồ sơ (lưu app + Drive). Đóng hộp này thì bản vừa quét vẫn giữ trong máy để làm tiếp (tự bỏ sau 7 ngày).</div>'+
+    '<div class="hang-nut"><button class="nho" onclick="xemTruocHang()">‹ Xem lại</button><button class="nho chinh" onclick="scanXongBo()">✓ Xong</button></div>', true);
+}
+function scanDa(k){ if(SX){ SX.da[k] = 1; var b = document.querySelector('.sx-luoi .sx-o[onclick^="scan'+{may:'LuuMay', gui:'Gui', anh:'CopyAnh'}[k]+'"]'); if(b && !b.classList.contains('da')){ b.classList.add('da'); b.querySelector('span').firstChild.textContent += ' ✓'; } } }
+function scanLuuMay(){ if(!SX) return; var ten = sachTen(SX.ten)+'.pdf';
+  if(laMayBan()) { taiXuongBlob(SX.bl, ten); bao('Đã lưu vào máy: '+ten+' (thư mục Tải xuống).', 5); } else chiaSePDF(SX.bl, ten);
+  scanDa('may'); }
+function scanGui(){ if(!SX) return; chiaSePDF(SX.bl, sachTen(SX.ten)+'.pdf'); scanDa('gui'); }
+/* ảnh đã xử lý trong hàng chờ ghép thành 1 ảnh (thẻ: mặt trước | mặt sau mỗi hàng; tài liệu: các trang xếp dọc, tối đa 6) */
+function scanAnhGhep(){
+  var anh = HANG.filter(function(x){ return x.kieu==='anh'; }).slice(0, SC.che==='the' ? 8 : 6);
+  if(!anh.length) return Promise.reject(new Error('Không có ảnh'));
+  return Promise.all(anh.map(function(x){ return docAnhHS(x.id).then(function(b){ return b ? createImageBitmap(b) : null; }); })).then(function(bm){
+    bm = bm.filter(Boolean); if(!bm.length) throw new Error('Không đọc được ảnh');
+    var cot = SC.che==='the' ? 2 : 1, W = 900, khe = 16, o = (W - (cot+1)*khe)/cot, hang = [], i;
+    for(i=0;i<bm.length;i+=cot) hang.push(bm.slice(i, i+cot));
+    var cao = hang.map(function(r){ return Math.max.apply(null, r.map(function(x){ return x.height*o/x.width; })); });
+    var c = document.createElement('canvas'); c.width = W; c.height = cao.reduce(function(a, h){ return a+h+khe; }, khe);
+    var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height);
+    var y = khe; hang.forEach(function(r, j){ r.forEach(function(x, q){ g.drawImage(x, khe+q*(o+khe), y, o, x.height*o/x.width); }); y += cao[j]+khe; });
+    return new Promise(function(ok){ c.toBlob(ok, 'image/png'); });
+  });
+}
+function scanCopyAnh(){
+  if(!(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write)) return bao('Máy này không cho chép ảnh — dùng 📤 Gửi.', 5);
+  navigator.clipboard.write([new ClipboardItem({'image/png':scanAnhGhep()})]).then(function(){ scanDa('anh'); bao('Đã chép ảnh — dán (Ctrl+V) vào Zalo.', 5); })
+    .catch(function(){ baoLoi('Không chép được ảnh — dùng 📤 Gửi.'); });
+}
+/* ✓ Xong: đã lưu / gửi → bỏ phiên quét; chưa làm gì → hỏi trước khi bỏ */
+function scanXongBo(){
+  var bo = function(){ HANG.forEach(function(x){ xoaFileHang(x, []); }); HANG = []; SX = null; ghiHang(); dongHop(); veScan(); };
+  if(SX && Object.keys(SX.da).length) return bo();
+  hoi('Bỏ bản vừa quét?', 'Chưa lưu vào máy, chưa gửi, chưa lưu vào tủ — bỏ là mất hẳn. Muốn để làm sau thì bấm Thôi rồi đóng hộp (bản quét giữ trong máy 7 ngày).', 'Bỏ', bo);
+}
+/* 🗄 Lưu vào tủ: chọn khách theo danh bạ Số liệu (Mẫu 31) — tên / mã KH / CCCD; app tự điền xã + ấp.
+   Thẻ nhiều người: mỗi người 1 dòng chọn khách. Lưu theo mã KH + tên + ấp (không theo tổ — khách có thể chuyển tổ khi củng cố). */
+var SXK = [];
+function scanNhom(){
+  if(SC.che==='the'){ var a = HANG.filter(function(x){ return x.kieu==='anh'; }), r = []; for(var i=0;i<a.length;i+=2) r.push(a.slice(i, i+2)); return r; }
+  return [HANG.filter(function(x){ return x.kieu==='anh' || x.kieu==='trang'; })];
+}
+function scanLuuTuHop(){
+  if(!SL_SAN && typeof slNap==='function') return slNap().then(scanLuuTuHop);
+  var nh = scanNhom(); SXK = nh.map(function(_, i){ return SXK[i] || null; }).slice(0, nh.length);
+  var tag = SC.che==='the' ? '' : '<div class="o"><label>Loại giấy tờ</label><div class="goi-y mot" id="sx-tag">'+dsTag('scan').filter(function(t){ return t!=='CCCD'; }).map(function(t){ return '<span class="the-loc" onclick="chonMot(this)">'+coChuHTML(t)+'</span>'; }).join('')+'</div></div>';
+  moHop('<div class="hop-tit">🗄 Lưu vào tủ hồ sơ</div><div class="hop-phu">Gõ tên / mã KH / CCCD rồi chọn khách — app tự điền xã, ấp. Lưu: <i>'+coChuHTML(SC.che==='the' ? 'CCCD' : 'Hồ sơ scan')+' / Xã / Ấp / Mã KH Tên.pdf</i>.</div>'+
+    nh.map(function(g, i){ return '<div class="sx-kh" id="sx-kh-'+i+'"><img id="sx-a'+i+'" alt=""><div class="sx-kh-o">'+(nh.length>1 ? '<b>Người '+(i+1)+'</b>' : '')+
+      '<input id="sx-tim-'+i+'" placeholder="Tên, mã KH hoặc số CCCD" autocomplete="off" oninput="scanTimKH('+i+')"><div class="sx-gy" id="sx-gy-'+i+'"></div><div class="sx-chon" id="sx-chon-'+i+'">'+scanKHChu(SXK[i])+'</div></div></div>'; }).join('')+
+    tag+'<div class="hang-nut"><button class="nho" onclick="scanXongHop(SX.bl)">‹ Thôi</button><button class="nho chinh" onclick="scanLuuTu()">🗄 Lưu vào tủ</button></div>', true);
+  nh.forEach(function(g, i){ var x = g[0]; if(x && x.kieu==='anh') docAnhHS(x.id).then(function(b){ var e = document.getElementById('sx-a'+i); if(b && e) e.src = URL.createObjectURL(b); }); });
+  setTimeout(function(){ var e = document.getElementById('sx-tim-0'); if(e) e.focus(); }, 30);
+}
+function scanKHChu(c){ return c ? '✓ <b>'+coChuHTML(c.ma)+' · '+coChuHTML(c.ten)+'</b> — '+coChuHTML([c.ap, c.xa].filter(Boolean).join(', ')) : '<span class="sl-phu">Chưa chọn khách</span>'; }
+function scanTimKH(i){
+  var q = (document.getElementById('sx-tim-'+i)||{}).value||'', g = document.getElementById('sx-gy-'+i); if(!g) return;
+  var ds = slTimKH(q, 6);
+  g.innerHTML = ds.map(function(r){ var c = SL_DB.kh[r.m] || {}; return '<button onclick="scanChonKH('+i+',\''+r.m+'\')"><b>'+coChuHTML(c.ten||r.ten)+'</b> <small>'+coChuHTML([r.m, c.tenThon, c.tenXa].filter(Boolean).join(' · '))+'</small></button>'; }).join('') ||
+    (q.trim().length>=2 ? '<div class="sl-phu">Không thấy khách khớp'+(SL_TIM.length ? '' : ' — chưa có danh bạ, nạp Mẫu 31 ở tab Nạp & KT')+'.</div>' : '');
+}
+function scanChonKH(i, ma){
+  var c = (SL_DB && SL_DB.kh[ma]) || {};
+  SXK[i] = {ma:ma, ten:c.ten||'', ap:c.tenThon||'', xa:c.tenXa||'', maXa:c.xa||'', maAp:c.thon||''};
+  var e = document.getElementById('sx-chon-'+i); if(e) e.innerHTML = scanKHChu(SXK[i]);
+  var g = document.getElementById('sx-gy-'+i); if(g) g.innerHTML = '';
+  var n = document.getElementById('sx-tim-'+(i+1)); if(n) n.focus();
+}
+function scanLuuTu(){
+  var nh = scanNhom(); if(nh.some(function(_, i){ return !SXK[i]; })) return bao(nh.length>1 ? 'Chọn khách cho đủ '+nh.length+' người.' : 'Chọn khách trước.', 4);
+  var loai = SC.che==='the' ? '' : layMot('sx-tag'), d = nay(), ds = [], ch = Promise.resolve();
+  nh.forEach(function(g, i){ var c = SXK[i];
+    var k = {id:idMoi(), che:SC.che==='the' ? 'the' : 'tailieu', ten:c.ten, maKH:c.ma, xa:c.xa, ap:c.ap, maXa:c.maXa, maAp:c.maAp, diem:'', to:'', ghi:'',
+      tag:SC.che==='the' ? ['CCCD'] : (loai ? [loai] : []), ctrinh:[], ngay:ngayISO(d), gioQuet:d.toISOString(), taoLuc:d.toISOString(), suaLuc:d.toISOString(), may:maMayCua()};
+    if(k.che==='the'){ k.matTruoc = !!g[0]; k.matSau = !!g[1];
+      (function(k, a, b){ ch = ch.then(function(){ return a ? doiTenAnh(a.id, k.id+'_matTruoc') : null; }).then(function(){ return b ? doiTenAnh(b.id, k.id+'_matSau') : null; }); })(k, g[0], g[1]); }
+    else k.trang = g.map(hangRaTrang);
+    ds.push(k); });
+  ch.then(function(){
+    D.scan = D.scan || []; ds.forEach(function(k){ D.scan.push(k); }); HS.ds = D.scan;
+    donGocHang(); HANG = []; SX = null; SXK = []; ghiHang(); luu(); dongHop(); veScan();
+    if(D.cauHinh.dbSauLuu!==false) henDongBoScan();
+    bao('Đã lưu vào tủ '+ds.length+' bản: '+ds.map(function(k){ return k.maKH+' '+k.ten; }).join(', ')+'.', 6);
+  }).catch(function(e){ baoLoi('Chưa lưu được: '+(e && e.message || e)); });
 }
 /* chạm để đổi chỗ: chạm ảnh A (viền xanh) rồi chạm ảnh B ở bất kỳ đâu → 2 ảnh đổi chỗ */
 var HC_CHON = -1;
@@ -817,13 +913,15 @@ var KHOA_HANG = 'tuhoso_hang';
 function ghiHang(){
   try{
     var ds = HANG.filter(function(x){ return x.kieu!=='file'; });
-    if(ds.length) localStorage.setItem(KHOA_HANG, JSON.stringify({che:SC.che, ds:ds}));
+    var cu = null; try{ cu = JSON.parse(localStorage.getItem(KHOA_HANG)||'null'); }catch(e){}
+    if(ds.length) localStorage.setItem(KHOA_HANG, JSON.stringify({che:SC.che, ds:ds, luc:(cu && cu.luc) || new Date().toISOString()}));   /* 3.155: mốc bắt đầu phiên — quá 7 ngày tự bỏ */
     else localStorage.removeItem(KHOA_HANG);
   }catch(e){}
 }
 function napHangCu(){
   try{
     var j = JSON.parse(localStorage.getItem(KHOA_HANG)||'null');
+    if(j && j.ds && j.ds.length && j.luc && Date.now()-new Date(j.luc).getTime() > 7*864e5){ j.ds.forEach(function(x){ xoaFileHang(x, []); }); localStorage.removeItem(KHOA_HANG); return; }   /* 3.155 */
     if(j && j.ds && j.ds.length && !HANG.length){ HANG = j.ds; if(j.che) SC.che = j.che; }
   }catch(e){}
 }

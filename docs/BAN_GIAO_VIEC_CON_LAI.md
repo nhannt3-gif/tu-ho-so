@@ -222,6 +222,41 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.155) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan thẻ 2 người → Xem → Tiếp | Hộp 4 lựa chọn; tủ chưa có gì mới | |
+| 2 | 💾 Lưu vào máy | PDF 4 người / A4 như bản in (iPhone: bảng chia sẻ → Lưu vào Tệp) | |
+| 3 | 📋 Copy ảnh → dán Zalo PC | Ra ảnh 2 mặt thẻ | |
+| 4 | 🗄 Lưu vào tủ → gõ tên khách | Gợi ý khách (mã KH · ấp · xã); lưu → Drive CCCD / Xã / Ấp / Mã KH Tên.pdf | |
+| 5 | Đóng hộp giữa chừng, mở lại app | Dải vàng "bản vừa quét chưa lưu" → Mở lại | |
+
+**Ghi chú kỹ thuật 3.155:** khách phải có trong danh bạ Số liệu (Mẫu 31 đã nạp). Tối ưu chụp (khung mép giấy, lọc Tài liệu kiểu Lens, tự xoay) để phiên riêng (anh chốt).
+
+### Danh sách thử trên máy thật (3.154) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS Hội → 🏛 Khai báo Hội đoàn thể | 1 bảng, mỗi Hội – xã 1 dòng, số đã khai giữ nguyên | |
+| 2 | Hội trước có Phó 2 / ủy viên 4–5 | Phó CT = người đầu, BTV dồn lên; ⓘ rê chuột thấy người dư | |
+| 3 | Gõ ô → Enter / Tab / ↓ | Sang ô kế / dòng dưới, đã lưu | |
+| 4 | Chép 1 khối từ Excel → dán vào ô | Điền đúng ô sang phải, xuống dưới | |
+| 5 | Gõ ngày sai (vd 2026-01-10) | Ô tô đỏ | |
+| 6 | ⋯ cuối dòng | Mở Phân công BTV (5 người tối đa) | |
+
+**Ghi chú kỹ thuật 3.154:** `ktHdtThe`, `ktHkbIn`, `ktHkbXem` còn trong mã (không gọi ở bảng) — dọn khi viết lại Cài đặt / KTGS. Phân công BTV + Chuẩn hóa giữ như cũ (anh chốt: làm lại khi viết lại Cài đặt).
+
+### Danh sách thử trên máy thật (3.153) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Văn bản: 🗑 Xóa → tích 1 file → Xóa | Không hỏi, vào Thùng rác | |
+| 2 | Tích 3 file → Xóa | Hỏi 1 lần "Xóa 3 file?" | |
+| 3 | Nạp & KT: bấm ô có file → Thay bằng file mới | Bản cũ ở 🗑 Thùng rác ngăn Số liệu; Khôi phục → ô về file cũ | |
+| 4 | Xóa 1 ô / cả bộ tháng | Ô vào ngăn Số liệu; khôi phục được | |
+| 5 | Xóa việc lịch / mẩu ghi chú / lần làm việc / bộ biểu mẫu / kế hoạch KTGS | Không hỏi; Thùng rác ngăn Mục nhỏ (mẩu ghi chú: ngăn Hôm nay); khôi phục về đúng chỗ | |
+| 6 | Thùng rác | "Tự xóa hẳn rác cũ hơn 30 ngày" đã tích sẵn | |
+
+**Ghi chú kỹ thuật 3.153:** D.rac chỉ ở máy đang xóa (như trước); bản trong máy của ô Số liệu nằm ở `slr_<id>_a/_g` tới khi xóa hẳn. Khôi phục ô khi không nối Drive và máy không còn bảng → báo cần nối Drive.
+
 ### Danh sách thử trên máy thật (3.152) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

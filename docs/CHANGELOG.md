@@ -4,6 +4,30 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.155 — 11/10/2026 — Luồng Scan: Lưu máy / Gửi / Copy / Lưu tủ, lưu theo mã KH + tên + ấp
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 7, 11):** chưa có nút lưu rõ ràng, app tự lưu tạm lên tủ; học Scanner Lens: xong → chọn Lưu máy / Gửi / Copy / Lưu tủ; PDF lưu như bản in (4 CCCD / A4); lưu file scan chỉ cần mã KH + tên + ấp (khách có thể chuyển tổ). Phần tối ưu chụp / quét để phiên riêng.
+- **`tiepHang`** (bước ③) không gọi `luuSauHang` nữa → `scanXongHop(bl)` (`.sx-luoi`): `scanLuuMay` (máy tính tải về, điện thoại bảng chia sẻ), `scanGui` (`chiaSePDF`), `scanCopyAnh` (`scanAnhGhep`: ghép ảnh đã xử lý — thẻ 2 cột mặt trước | sau — thành PNG, ClipboardItem), `scanLuuTuHop` / `scanTimKH` (`slTimKH` danh bạ) / `scanChonKH` / `scanLuuTu` (thẻ nhiều người: mỗi người 1 khách). ✓ Xong (`scanXongBo`): đã làm gì đó thì bỏ phiên, chưa thì hỏi.
+- **Hồ sơ mới** có `maKH`, `ten`, `xa`, `ap` (+ `maXa`, `maAp`), không `diem`/`to`: `duongScan` → `<thư mục>/CCCD|Hồ sơ scan/<Xã>/<Ấp>`, `tenScanDrive` / `tenTheCCCD` → `<Mã KH> <Tên>[ - loại giấy].pdf`; `ttScan` không đòi điểm GD / tổ.
+- **Phiên quét dở:** `ghiHang` ghi mốc `luc`; `napHangCu` quá 7 ngày → bỏ (xóa ảnh trong máy).
+- `luuSauHang` / khai hàng loạt / bản lưu tạm cũ giữ nguyên để đọc dữ liệu cũ (hồ sơ cũ chuẩn hóa sau — anh chốt).
+- **Phép thử:** `tests/t151.js` (mới, 16).
+
+## 3.154 — 11/10/2026 — Khai báo Hội = 1 bảng như Excel
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 8):** gom 1 bảng như Excel, không diễn giải; 1 Hội = 1 CT, 1 PCT, 3 BTV; app tự lấy số liệu cũ điền lại, anh không nhập lại.
+- **Chuyển dữ liệu 1 lần** `ktHdt5` (gọi trong `ktHdtChuyen`, cờ `D.cauHinh.ktHdt5`): PCT = người đầu có tên trong pct → pct2 → pct3; BTV 1–3 = 3 người đầu trong uv1 → uv5 (dồn lên); người dư → `kb.du = [{vt, ten}]`. Phân công BTV (`D.cauHinh.ktPC`: `p`, `chon`, `ky`, `phuTrach`) đổi vai theo người, bỏ vai không tên. Chọn người in cũ (`ktIn.*.ng1/ng2/ky`) Phó 2–3 → Phó CT, ủy viên 4–5 → để trống.
+- `KT_PC_VT` = ct, pct, uv1–3; `KT_IN_VT`, `KT_HKB_O` bỏ pct2, pct3, uv4, uv5.
+- **Bảng** `ktHdtBang` (`.hkb-xls`): Xã · Hội (tổ) [ⓘ người dư] · Tên Hội cấp xã · CT · Phó CT · BTV 1–3 · Nhiệm kỳ · Số HĐUT · Ngày HĐ · Số KH Hội tỉnh · Ngày KH · ⋯ (phân công BTV). Ô `input.hkb-o` (id cũ `hkb-<khóa>-<ô>`), `ktHkbPhim` (Enter / Tab / Shift / ↑↓), `ktHkbDan` (dán khối tab / xuống dòng), `ktHkbDoi` (lưu + tô đỏ ngày sai `ktHkbNgaySai`), tên nghi sai tô vàng + gợi ý ở chữ rê chuột, bấm đúp sửa theo gợi ý. Chữ mờ trong ô = chức danh theo Chuẩn hóa (Đoàn: Bí thư / Phó Bí thư). Đầu cuộn dọc, cột Xã đứng yên.
+- **Bỏ:** thẻ từng Hội (`ktHdtThe` không gọi), dòng "In ra", ↺ từng ô, đoạn giải thích (→ rê chuột số Hội – xã).
+- **Phép thử:** `tests/t150.js` (mới, 22). t108, t110, t111, t118, t121, t125 theo bảng mới / 1 PCT 3 BTV.
+
+## 3.153 — 11/10/2026 — Xóa thống nhất: mọi thứ vào Thùng rác app
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 3):** không cần thanh Hoàn tác — cần thì vào Thùng rác khôi phục; bỏ "↩ hoàn tác lần thay" ở ô Số liệu; ô Số liệu bị xóa và bản cũ khi thay file đều vào Thùng rác ngăn Số liệu.
+- **Số liệu** (`js/22-so-lieu.js`): `slRacVao(k, lyDo)` chép bản trong máy (bảng + file gốc) sang `slr_<id>_a / _g` và thêm mục `khoCu:'soLieu'` (`sl:{loai, ky, e}`) vào `D.rac`. `slXoa` (không hỏi), `slXoaVaoRac` (xóa tháng / bản ngày cũ: hỏi 1 lần), `slGhi` khi thay file → bản cũ vào thùng (bỏ `e.truoc`, `slGiuTruoc`, `slHoanTac`). `slKhoiPhucRac`: ô đang có file khác → vào thùng (đổi chỗ); chép lại bản trong máy; nối Drive thì lấy file khỏi Thùng rác Drive (giữ id), không nối thì đẩy lại lên Drive. `slXoaHanRac` bỏ bản trong máy. `slChuyenTruoc`: meta cũ có `e.truoc` (3.145) → mục thùng rác trỏ khóa `_truoc`, 1 lần. "Làm mới toàn bộ" (gõ XOA) giữ như cũ, không qua thùng.
+- **Mục nhỏ** (`js/06-hop-thoai.js` `MUC_NHO`, `racMucNho`, `mucNhoKhoiPhuc`): việc lịch (`lcXoaHan`), lần làm việc (`tdnXoaLan`, kèm việc cam kết), kế hoạch KTGS (`ktKHXoa`), bộ biểu mẫu (`xoaBo`) — không hỏi, vào ngăn 🗒 Mục nhỏ; mẩu ghi chú (`ntXoa`) không hỏi, vào ngăn Hôm nay như cũ.
+- **Xóa nhiều file** (`thucHienBot`): 1 file không hỏi; nhiều file hỏi 1 lần "Xóa N file?".
+- **Thùng rác** (`js/10-danh-sach.js`): thêm ngăn 📈 Số liệu, 🗒 Mục nhỏ; dòng "Trước ở: …"; "Tự xóa hẳn rác cũ hơn 30 ngày" bật sẵn (`racTuXoa!==false`).
+- **Phép thử:** `tests/t149.js` (mới, 14). t141 (thay file → thùng rác, khôi phục trong máy / Drive, chuyển e.truoc, xóa ô không hỏi, xóa hẳn), t125 (xóa kế hoạch không hỏi + khôi phục).
+
 ## 3.152 — 11/10/2026 — Xuất chung: In · PDF · Word · Excel · Gửi
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 2, 4):** mỗi báo cáo một kiểu nút, tên file khác nhau; Copy gộp vào Gửi; PDF = hộp in "Lưu dưới dạng PDF" tên điền sẵn; máy tính Gửi = tải về.
 - **File mới `js/24-xuat.js`:** `xuatHang(o)` hàng nút chuẩn `.xuat-hang` (Đóng · `o.truoc` · 🖨 In · 📄 PDF · 📝 Word · 📊 Excel · 📤 Gửi; ẩn định dạng không có); `o.html()` → In / PDF / Copy dùng chung. `xuatTen(loại, phạm vi, kỳ)` → `Loai_PhamVi_Tmm-yy`. `xuatGui` menu (Gửi file PDF / Word / Excel · 📋 Copy ảnh · 📋 Copy chữ). `xuatChepChu` (ClipboardItem text/plain + text/html, bảng → tab giữa ô). `xuatChepAnh` / `xuatAnhBlob`: vẽ trang báo cáo thành PNG bằng SVG foreignObject → canvas (không thêm thư viện); máy không cho thì chép chữ thay.

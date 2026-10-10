@@ -61,6 +61,12 @@ function diemCuaAp(xa, ap){
 /* Đạt (anh chốt): tên khách (không phải tên tạm) + đủ 2 mặt (tài liệu ≥ 1 trang) + đủ Xã › Điểm › Ấp › Tổ + đã lên Drive đúng thư mục tổ */
 function ttScan(k){
   var th = [];
+  if(k.maKH){   /* 3.155: lưu theo mã KH + tên + ấp — không cần điểm GD / tổ */
+    if(k.che==='tailieu'){ if(!(k.trang||[]).length && !k.driveId) th.push('Chưa có trang'); } else { if(!k.matTruoc) th.push('Thiếu mặt trước'); if(!k.matSau) th.push('Thiếu mặt sau'); }
+    if(!k.ap) th.push('Thiếu ấp');
+    if(!(k.driveId && !k.canDay)) th.push(k.dbLoi ? 'Lỗi lên Drive' : (k.may && k.may!==maMayCua() && !k.driveId ? 'Ở máy khác, chưa lên Drive' : 'Chưa lên Drive'));
+    return {dat:!th.length, thieu:th};
+  }
   if(!k.ten || k.chuaKhai || /^Scan[\s_-]*\d/i.test(k.ten)) th.push('Tên tạm');
   if(k.che==='tailieu'){ if(!(k.trang||[]).length && !k.driveId) th.push('Chưa có trang'); }   /* 3.80.1: có PDF trên Drive thì không báo thiếu trang */
   else { if(!k.matTruoc) th.push('Thiếu mặt trước'); if(!k.matSau) th.push('Thiếu mặt sau'); }
@@ -449,6 +455,7 @@ function lenDriveThe(dsId){ return dungTrangThe(dsId, 'drive'); }   /* 3.32: Dri
 
 /* tên chuẩn và nơi lưu cho hồ sơ CCCD */
 function tenTheCCCD(k){
+  if(k.maKH) return tenScanDrive(k);   /* 3.155 */
   return 'CCCD_'+slug(k.ten,5)+
     (k.to?('_To-'+slug(k.to,2)):'')+
     (k.ap?('_'+slug(k.ap,3)):'')+'.pdf';
@@ -517,6 +524,7 @@ function dungTrangThe(dsId, viec){
    - File Drive đã bị xóa tay (404) thì tải lên file mới
    ========================================================== */
 function duongScan(k){
+  if(k.maKH) return [D.cauHinh.thumuc, k.che==='tailieu' ? 'Hồ sơ scan' : 'CCCD', k.xa||'Chưa rõ xã', k.ap||'Chưa rõ ấp'].join(' / ');   /* 3.155: <Xã>/<Ấp>/<Mã KH> <Tên>.pdf */
   /* 3.46: bản lưu tạm (chưa khai) cũng lên Drive cho an toàn — thư mục chờ theo tháng; khai đầy đủ thì app dời về đúng xã, ấp, tổ */
   if(k.chuaKhai) return [D.cauHinh.thumuc, 'Hồ sơ scan', 'Chưa khai', String(k.ngay||ngayISO(nay())).slice(0,7)].join(' / ');
   if(k.che!=='tailieu') return duongTheCCCD(k);
@@ -524,6 +532,7 @@ function duongScan(k){
           k.to?('Tổ '+k.to):'Chưa rõ tổ'].join(' / ');
 }
 function tenScanDrive(k){
+  if(k.maKH) return sachTen(k.maKH+' '+(k.ten||'')+(k.che==='tailieu' && (k.tag||[])[0] ? ' - '+k.tag[0] : ''))+'.pdf';   /* 3.155 */
   if(k.chuaKhai) return sachTen(k.ten||'Scan')+'.pdf';
   if(k.che!=='tailieu') return tenTheCCCD(k);
   return 'HS_'+slug(k.ten||'Tai-lieu',7)+(k.to?('_To-'+slug(k.to,2)):'')+(k.ap?('_'+slug(k.ap,3)):'')+'.pdf';

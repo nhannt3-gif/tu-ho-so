@@ -1225,21 +1225,44 @@ function xoaNhieuVaoRac(ids, sau){
   return n;
 }
 function khoiPhucRac(ids){
-  var now = new Date().toISOString(), n = 0;
+  var now = new Date().toISOString(), n = 0, slCho = [];
   D.rac = (D.rac||[]).filter(function(m){
     if(ids.indexOf(m.id)<0) return true;
     if(m.khoCu==='homNay'){ nkKhoiPhuc(m); n++; return false; }   /* 3.52: về đúng ngày ở tab Hôm nay */
+    if(m.khoCu==='mucNho'){ mucNhoKhoiPhuc(m); n++; return false; }   /* 3.153 */
+    if(m.khoCu==='soLieu'){ n++; slCho.push(m); return false; }   /* 3.153: ô Số liệu — chạy sau khi lọc xong D.rac */
     var k = m.khoCu || khoCuaMuc(m);
     delete m.xoaLuc; delete m.lyDoXoa; delete m.khoCu;
     m.suaLuc = now; m.khoiPhucLuc = now;
     if(m.driveId && !laFileHeThong(m) && !m.driveMat) m.choDB = true;
     D[k] = D[k]||[]; D[k].push(m); n++; return false;
   });
+  /* 3.153: ô Số liệu — chép lại bản trong máy / lấy lại từ Thùng rác Drive (lần lượt, chạy ngầm) */
+  slCho.reduce(function(p, m){ return p.then(function(){ return slKhoiPhucRac(m).then(function(t){ bao('Đã khôi phục '+t+' về tab Số liệu.', 4); if(nganHienTai===7) veSoLieu(); })
+    .catch(function(er){ D.rac.push(m); luu(); capNhatDemRac(); if(DK.mo) ve(); baoLoi('Chưa khôi phục được '+(m.tenMoi||'')+': '+(er && er.message || er)); }); }); }, Promise.resolve());
   if(typeof HS!=='undefined') HS.ds = D.scan;
   luu();
   if(DR.sanSang && DR.online) chayDongBoCho(); else capNhatChip();
   return n;
 }
+/* 3.153 (anh chốt "thống nhất quy tắc xóa"): MỤC NHỎ không có file (việc lịch, lần làm việc, kế hoạch KTGS, bộ biểu mẫu)
+   cũng vào 🗑 Thùng rác (ngăn Mục nhỏ) — xóa 1 mục không hỏi, khôi phục về đúng chỗ. */
+var MUC_NHO = {
+  lich:{ten:'Việc lịch', kp:function(m){ var L = lcData(); L.viec.push(m.data); L.daXoa = (L.daXoa||[]).filter(function(x){ return x.id!==m.data.id; }); m.data.suaLuc = new Date().toISOString(); if(typeof henDongBoLich==='function') henDongBoLich(); }},
+  lanLV:{ten:'Lần làm việc', kp:function(m){ m.data.suaLuc = new Date().toISOString(); NO.lan.push(m.data); NO.lanXoa = (NO.lanXoa||[]).filter(function(x){ return x.id!==m.data.id; });
+    if(m.viec){ var L = lcData(); L.viec.push(m.viec); L.daXoa = (L.daXoa||[]).filter(function(x){ return x.id!==m.viec.id; }); }
+    luuNo(); }},
+  ktKH:{ten:'Kế hoạch KTGS', kp:function(m){ var S = D.cauHinh.ktKH = D.cauHinh.ktKH || {}; var o = JSON.parse(JSON.stringify(m.data)); o.luc = new Date().toISOString(); S[m.khoa] = o; }},
+  boBM:{ten:'Bộ biểu mẫu', kp:function(m){ dsBo().push(m.data); }}
+};
+function racMucNho(loai, ten, noi, data, them){
+  var now = new Date().toISOString(), m = {id:'mn'+Date.now().toString(36)+Math.random().toString(36).slice(2, 6), khoCu:'mucNho', loaiNho:loai, tenMoi:ten, noiCuChu:noi, data:JSON.parse(JSON.stringify(data)), xoaLuc:now, suaLuc:now, lyDoXoa:'Anh xóa'};
+  Object.keys(them||{}).forEach(function(k){ m[k] = them[k]; });
+  D.rac = D.rac || []; D.rac.push(m); luu(); capNhatDemRac();
+  bao('Đã chuyển '+(MUC_NHO[loai] ? MUC_NHO[loai].ten.toLowerCase() : 'mục')+' “'+String(ten).slice(0, 50)+'” vào 🗑 Thùng rác — cần thì khôi phục ở đó.', 4);
+  return m;
+}
+function mucNhoKhoiPhuc(m){ var x = MUC_NHO[m.loaiNho]; if(x) x.kp(m); luu(); }
 /* 3.32 (anh Nhân chốt): KHÔNG xóa vĩnh viễn nữa — chuyển vào thùng rác Google Drive (trashed:true).
    Google giữ 30 ngày rồi tự xóa; cần lấy lại thì vào Thùng rác của Drive. 404 = đã mất sẵn → coi như xong */
 function xoaFileDrive(driveId){
@@ -1278,7 +1301,7 @@ function thucHienXoaHan(ids, imLang){
     return p.then(function(){
       var buoc = (m.driveId && !m.driveMat && !laFileHeThong(m)) ? xoaFileDrive(m.driveId) : Promise.resolve(true);
       return buoc.then(function(){
-        xoaFile(m.id); xoaAnhMayCua(m);
+        xoaFile(m.id); xoaAnhMayCua(m); if(m.khoCu==='soLieu') slXoaHanRac(m);   /* 3.153 */
         D.rac = D.rac.filter(function(x){ return x.id!==m.id; });
         D.daXoaHan.push({id:m.id, driveId:m.driveId||'', luc:now});
         xong++;
@@ -1983,11 +2006,12 @@ function noiDungHD(p){
     'Chip '+hdNut('⚠ Chưa đạt (n)')+' lọc bản cần xử lý. Xem '+hdNut('☰ Danh sách')+' (mới lưu lên trước, nhóm Ngày / Tuần / Tháng) hoặc '+hdNut('🌳 Cây địa bàn')+' (bấm tổ để lọc). '+
     'Máy tính: bấm một bản → xem ở khung bên phải; '+hdNut('⛶')+' mở màn Lưu & gửi. Tích ☐ nhiều bản → 🖨 In chung 4 người / A4.</p>'+
     '<p>Hai chế độ: <b>Thẻ</b> (CCCD 2 mặt, in 4 người / A4 có đường cắt) và <b>Tài liệu</b> (nhiều trang thành 1 PDF).</p>'+
-    hdLuong(['📷 <b>Quét</b><br><small>⚡ tự chụp khi khung xanh đứng yên, hoặc ✋ thủ công</small>','① <b>Chỉnh</b><br><small>kéo 4 góc, đổi chỗ, xoay</small>','② <b>Xem</b><br><small>đúng bản PDF sẽ lưu</small>','③ <b>Lưu & gửi</b><br><small>lưu tạm ngay, lên Drive</small>'])+
+    hdLuong(['📷 <b>Quét</b><br><small>⚡ tự chụp khi khung xanh đứng yên, hoặc ✋ thủ công</small>','① <b>Chỉnh</b><br><small>kéo 4 góc, đổi chỗ, xoay</small>','② <b>Xem</b><br><small>đúng bản PDF sẽ lưu</small>','③ <b>Lưu & gửi</b><br><small>lưu máy · gửi · copy · lưu tủ</small>'])+
     hdBuoc(['Mọi bước có thanh '+hdNut('‹ Lùi')+' ① ② ③ '+hdNut('Tiếp ›','chinh')+'; bấm số bước đã qua để quay lại. Máy tính: <b>Esc = Lùi, Enter = Tiếp</b>.',
       '① Chỉnh: chạm 1 ảnh rồi chạm ảnh khác để đổi chỗ (máy tính kéo thả) · ▲▼ dời cả người · ⇄ đổi mặt · '+hdNut('✂ Chỉnh viền')+' kéo 4 góc có kính lúp.',
-      '③ Lưu & gửi: điện thoại '+hdNut('📤 Gửi')+' (Zalo, Drive, Tệp); máy bàn '+hdNut('💾 Lưu nhanh')+' (ghi thẳng vào thư mục cố định) + '+hdNut('📋 Copy')+'.',
-      'Bản lưu tạm nằm ở <i>Hồ sơ scan / Chưa khai / tháng</i>; '+hdNut('✎ Khai đầy đủ')+' (tên, xã, ấp, tổ) thì app dời về <i>CCCD / xã / điểm / ấp / tổ</i>.']);
+      '③ (3.155) hộp chọn: '+hdNut('💾 Lưu vào máy')+' (PDF như bản in — thẻ 4 người / A4) · '+hdNut('📤 Gửi')+' · '+hdNut('📋 Copy ảnh')+' · '+hdNut('🗄 Lưu vào tủ')+'. Không tự lưu tạm vào tủ nữa.',
+      '🗄 Lưu vào tủ: gõ tên / mã KH / CCCD → chọn khách trong danh bạ Mẫu 31, app tự điền xã + ấp; lưu <i>CCCD (hoặc Hồ sơ scan) / Xã / Ấp / Mã KH Tên.pdf</i> — không theo tổ (khách có thể chuyển tổ). Thẻ nhiều người: mỗi người chọn 1 khách.',
+      'Đóng hộp mà chưa xong: bản quét giữ trong máy (dải vàng đầu tab → Mở lại), quá 7 ngày tự bỏ. Bản lưu tạm cũ (trước 3.155) vẫn khai được như trước.']);
   if(p==='kyAnh') return '<h3>Chữ ký · CCCD — ảnh nhỏ dưới 200 KB để nhập hệ thống</h3>'+
     '<p>Mở bằng '+hdNut('📁 Chữ ký · CCCD')+' ở tab Scan. Cùng luồng ① ② ③ và <b>cùng màn chỉnh tay với Scan</b>.</p>'+
     hdBuoc(['Gõ <b>tên khách</b> (app nhớ 30 phút) → '+hdNut('✍ Chụp chữ ký')+' hoặc '+hdNut('🪪 Chụp CCCD')+'.',
@@ -1996,10 +2020,10 @@ function noiDungHD(p){
       '③ Lưu: lên Drive <i>Chữ ký - CCCD / tháng</i>; máy bàn '+hdNut('💾 Lưu nhanh')+hdNut('📋 Copy')+', điện thoại '+hdNut('📤 Gửi')+'.']);
   if(p==='xoa') return '<h3>Xóa & Thùng rác — một quy tắc</h3>'+
     hdLuong([hdNut('🗑 Xóa file')+' ở đầu tab<br>bấm file để tích', '🗑 <b>Thùng rác</b><br><small>ngăn theo tab</small>', '↩ <b>Khôi phục</b> về đúng chỗ<br>hoặc <b>Xóa hẳn</b>'])+
-    hdBuoc(['<b>Cứ xóa là vào thùng rác</b> — cả bản scan và Chữ ký · CCCD. Ngay sau khi xóa có nút '+hdNut('↩ Hoàn tác')+'.',
+    hdBuoc(['<b>Cứ xóa là vào thùng rác</b> (3.153: mọi tab — file, ô Số liệu, bản cũ khi thay file, việc lịch, lần làm việc, kế hoạch KTGS, bộ biểu mẫu). Xóa 1 mục không hỏi; xóa nhiều hỏi 1 lần. Không còn nút Hoàn tác — cần lấy lại thì vào 🗑 Thùng rác → Khôi phục.',
       hdNut('🗑 Xóa file')+' ở đầu mỗi tab: bấm vào file để tích (hoặc '+hdNut('Chọn tất cả đang lọc')+', '+hdNut('Thêm vào tủ trước ngày…')+') → '+hdNut('Xóa N file','xau')+'.',
       'Mở '+hdNut('🗑')+': dòng đầu cho biết bao nhiêu file ở ngăn nào. Bấm tên file để <b>xem thử</b>. Khôi phục từng file, cả ngăn đã chọn, hoặc '+hdNut('Làm trống ngăn này','xau')+' / '+hdNut('Làm trống cả thùng','xau')+'.',
-      '<b>Xóa hẳn</b>: file trên Drive vào thùng rác Google Drive (Google giữ thêm 30 ngày). Bật '+hdNut('☐ Tự xóa hẳn rác cũ hơn 30 ngày')+' nếu muốn app tự dọn.',
+      '<b>Xóa hẳn</b>: file trên Drive vào thùng rác Google Drive (Google giữ thêm 30 ngày). Thùng rác app giữ 30 ngày rồi tự xóa hẳn ('+hdNut('☑ Tự xóa hẳn rác cũ hơn 30 ngày')+' bật sẵn, bỏ tích nếu muốn giữ lâu hơn).',
       'Reset toàn bộ dữ liệu thử (giữ cài đặt): '+hdNut('⚙ Cài đặt')+' › Dữ liệu › '+hdNut('🔄 Reset dữ liệu thử','xau')+'.']);
   if(p==='donkho') return '<h3>🧰 Dọn kho — một nơi cho mọi việc dọn dẹp</h3>'+
     '<p>Trang nằm bên trái, <b>bấm tên file bất kỳ là xem thử ở khung bên phải</b>; dưới mỗi tên luôn có <b>đường dẫn thật</b> (☁ trên Drive, 💻 chỉ trong máy, 📥 khay chờ).</p>'+
@@ -2029,7 +2053,16 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.152', ds:[
+var CO_GI_MOI = {ban:'3.155', ds:[
+  ["📷 Scan xong → 1 hộp chọn: 💾 Lưu vào máy (PDF như bản in — thẻ 4 người / A4) · 📤 Gửi · 📋 Copy ảnh · 🗄 Lưu vào tủ. Chỉ “Lưu vào tủ” mới tạo hồ sơ — không còn tự lưu tạm vào tủ / Drive", "dongHop();doiNgan(4)"],
+  ["🗄 Lưu vào tủ theo khách: gõ tên / mã KH / CCCD → chọn trong danh bạ Mẫu 31, app tự điền xã + ấp; lưu CCCD (hoặc Hồ sơ scan) / Xã / Ấp / Mã KH Tên.pdf — không theo tổ", "dongHop();doiNgan(4)"],
+  ["⏸ Đóng hộp giữa chừng: bản quét giữ trong máy để làm tiếp (dải vàng đầu tab Scan → Mở lại), quá 7 ngày tự bỏ", "dongHop();doiNgan(4)"],
+  ["🏛 Khai báo Hội đoàn thể = 1 bảng như Excel: mỗi dòng 1 Hội cấp xã (app tự lấy từ số liệu, kèm số tổ); cột Tên Hội · Chủ tịch · Phó CT · BTV 1–3 · Nhiệm kỳ · HĐ ủy thác · KH Hội tỉnh", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
+  ["⌨ Gõ thẳng như Excel: Enter / Tab sang ô kế, ↑↓ đổi dòng; dán cả khối từ Excel / Zalo; ô trống tô nhạt, ngày sai dạng tô đỏ; Đoàn TN tự ghi Bí thư / Phó Bí thư. Bỏ dòng \"In ra\", nút ↺ từng ô", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
+  ["👥 Thống nhất 1 Hội = 1 Chủ tịch, 1 Phó CT, 3 BTV — app tự chuyển số liệu đã khai (anh không nhập lại); người dư (Phó 2–3, ủy viên 4–5) vẫn giữ, rê ⓘ để xem", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
+  ["🗑 Xóa thống nhất: mọi thứ xóa đều vào Thùng rác app, khôi phục về đúng chỗ — xóa 1 mục không hỏi, xóa nhiều hỏi 1 lần (ghi rõ số mục). Không còn nút ↩ Hoàn tác", "dongHop();moDonKho('rac')"],
+  ["📈 Số liệu: xóa ô / cả bộ tháng / bản theo ngày cũ, và bản cũ khi thay file → Thùng rác ngăn Số liệu (bỏ ↩ hoàn tác lần thay). Khôi phục: ô về file cũ (file đang có thì đổi chỗ vào Thùng rác)", "dongHop();moDonKho('rac')"],
+  ["🗒 Việc lịch, mẩu ghi chú, lần làm việc, kế hoạch KTGS, bộ biểu mẫu cũng vào Thùng rác (ngăn Mục nhỏ). Thùng rác giữ 30 ngày rồi tự xóa hẳn (bật sẵn)", "dongHop();moDonKho('rac')"],
   ["📤 Mọi khung xem báo cáo (Tổ, Sao kê, Tổng hợp, KTGS, biến động năm) cùng 1 hàng nút, cùng thứ tự: Đóng · 🖨 In · 📄 PDF · 📝 Word · 📊 Excel · 📤 Gửi — báo cáo nào không có định dạng thì ẩn nút đó", "dongHop();D.cauHinh.slTab='th';doiNgan(7)"],
   ["📄 PDF: mở hộp in, chọn “Lưu dưới dạng PDF”, tên file điền sẵn theo quy tắc Loại_Phạm vi_Kỳ (vd KetQuaChoVayTheoXa_ToanPgd_T08-26)", "dongHop();D.cauHinh.slTab='th';doiNgan(7)"],
   ["📤 Gửi: gửi file PDF / Word / Excel (điện thoại: Zalo…; máy tính: tải về) hoặc 📋 Copy ảnh báo cáo · 📋 Copy chữ (dán Excel ra bảng). Khung xem file Văn bản: 🖨 In · ✎ Sửa · 📤 Gửi (gửi file, chép nguyên file qua cầu nối, copy số hiệu + trích yếu)", "dongHop();doiNgan(1)"],
@@ -2616,9 +2649,9 @@ function thucHienBot(){
   var ds = ids.map(mucBot).filter(Boolean);
   if(!ds.length) return bao('Chưa chọn file nào.', 3);
   BOT.chon = {};
-  var kaMo = tab==='kyAnh';
-  thoiBot();
-  xoaNhieuVaoRac(ds.map(function(m){ return m.id; }), function(){ if(kaMo) moKyAnh(); });
+  var kaMo = tab==='kyAnh', chay = function(){ thoiBot(); xoaNhieuVaoRac(ds.map(function(m){ return m.id; }), function(){ if(kaMo) moKyAnh(); }); };
+  if(ds.length===1) return chay();   /* 3.153 (anh chốt): xóa 1 mục không hỏi; nhiều mục hỏi 1 lần, ghi rõ số mục */
+  hoi('Xóa '+ds.length+' file?', ds.slice(0, 8).map(function(m){ return m.tenMoi||m.ten||m.tenCu||''; }).join(' · ')+(ds.length>8 ? ' … và '+(ds.length-8)+' file nữa' : '')+'. Vào 🗑 Thùng rác — khôi phục được trong 30 ngày.', 'Xóa '+ds.length+' file', chay);
 }
 /* 3.50: 🔄 RESET DỮ LIỆU THỬ (giữ cài đặt) — ở Cài đặt › Dữ liệu. Chọn nhóm + phạm vi; mức: vào thùng rác hoặc xóa hẳn luôn */
 var NHOM_RESET = [['vanBan','Văn bản'],['duLieu','Dữ liệu tháng'],['bieuMau','Biểu mẫu'],['ghiChu','Ghi chú'],['scan','Scan'],['kyAnh','Chữ ký · CCCD'],['cho','Khay chờ']];

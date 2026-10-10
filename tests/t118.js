@@ -28,14 +28,14 @@ const fs=require('fs'), path=require('path');
    C.xa = tA.xa; C.che = 'hdt'; ktVeThe(); await w(200);
    const the = document.getElementById('kt-the');
    ok('nút 🏛 Khai báo Hội đoàn thể đứng đầu hàng chọn loại', /^🏛 Khai báo Hội đoàn thể/.test(the.querySelector('.kt-che button').textContent.trim()) && the.querySelector('.kt-che button').classList.contains('bat'));
-   ok('mỗi Hội – xã của xã chọn 1 thẻ: tên, CT, PCT, 5 ủy viên, HĐUT, KH tỉnh', the.querySelectorAll('.kt-hdt-the').length===ktHoiDs().length && the.querySelectorAll('.kt-hdt-the input').length===ktHoiDs().length*15);
+   ok('3.154: 1 bảng — mỗi Hội – xã của xã chọn 1 dòng: tên, CT, PCT, 3 BTV, nhiệm kỳ, HĐUT, KH tỉnh', the.querySelectorAll('.hkb-xls tbody tr').length===ktHoiDs().length && the.querySelectorAll('.hkb-xls input.hkb-o').length===ktHoiDs().length*11);
    ok('tên Hội cấp xã: trống = tên chuẩn theo cây (chữ mờ)', document.getElementById('hkb-'+kA.replace(/[^0-9a-z]/gi,'_')+'-ten').placeholder===ktHoiTenTD(tA));
    const tD = ds.find(t=>String(t.dv)==='14' && t.xa===tA.xa);
-   if(tD){ const thD = [...the.querySelectorAll('.kt-hdt-the')].find(x=>/Đoàn/.test(x.querySelector('.kt-hdt-dau').textContent)); ok('Đoàn: Bí thư / Phó Bí thư', !!thD && /Bí thư/.test(thD.textContent) && /Phó Bí thư/.test(thD.textContent)); }
-   ok('thẻ ghi rõ người kiểm tra / người ký khi in', /Giả Văn Phó — Phó Chủ tịch/.test(the.textContent) && /người ký Kế hoạch Giả Thị Chủ/.test(the.textContent));
+   if(tD){ const kD = ktHoiKhoa(tD).replace(/[^0-9a-z]/gi,'_'); ok('Đoàn: ô ghi Bí thư / Phó Bí thư', /Bí thư/.test(document.getElementById('hkb-'+kD+'-ct').placeholder) && /Phó Bí thư/.test(document.getElementById('hkb-'+kD+'-pct').placeholder)); }
+   ok('3.154: không còn chữ diễn giải / dòng In ra trong bảng', !the.querySelector('.hkb-in') && !/In ra:/.test(the.textContent));
    /* 3. sửa ô → lưu, In ra đổi */
    const iP = document.getElementById('hkb-'+kA.replace(/[^0-9a-z]/gi,'_')+'-pct'); iP.value = '  Trần  Văn Giả '; iP.dispatchEvent(new Event('input')); iP.dispatchEvent(new Event('change'));
-   ok('sửa Phó CT: lưu gọn khoảng trắng, dòng In ra đổi ngay', D.cauHinh.ktHoiKB[kA].pct==='Trần Văn Giả' && /Trần\s+Văn Giả/.test(document.getElementById('hkbi-'+kA.replace(/[^0-9a-z]/gi,'_')+'-pct').textContent));
+   ok('sửa Phó CT: lưu gọn khoảng trắng, ô hiện chữ đã gọn', D.cauHinh.ktHoiKB[kA].pct==='Trần Văn Giả' && iP.value==='Trần Văn Giả');
    /* 4. dùng khi in */
    const g6 = ktGiaTri06(tA, [], {}), g16 = ktGiaTri16(tA, [], {nx:''});
    ok('Mẫu 06 / 16: người kiểm tra = Phó CT + chức vụ theo Chuẩn hóa', g6.f.CB1==='Trần Văn Giả' && g6.f.CV1==='Phó Chủ tịch' && g16.f.CB1==='Trần Văn Giả');
