@@ -14,7 +14,7 @@
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.147', APP_LUC = '10/10/2026 23:09';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.148', APP_LUC = '11/10/2026 00:47';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -314,16 +314,20 @@ function idMoi(){ return Date.now().toString(36)+Math.random().toString(36).slic
 function coChuHTML(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
 
 var tBao;
-function bao(t, giay){
+function bao(t, giay, loi){
+  var h = document.getElementById('hop');
+  if(typeof ttTin==='function' && document.getElementById('tt-khoi') && !(h && h.classList.contains('hien'))){ ttTin(t, loi); return; }   /* 3.148: ghi vào ô trạng thái, không nổi đè nút (đang mở hộp thoại thì vẫn nổi) */
+  if(typeof ttTin==='function') ttTin(t, loi);
   var e = document.getElementById('bao');
   e.textContent = t; e.classList.remove('goc'); e.classList.add('hien');
   clearTimeout(tBao);
   tBao = setTimeout(function(){ e.classList.remove('hien'); }, (giay||3)*1000);
 }
-function baoLoi(t){ bao(t, 6); }
+function baoLoi(t){ bao(t, 6, true); }
 /* 3.50: báo kèm nút Hoàn tác (xóa vào thùng rác lỡ tay) */
 var BAO_HT = null;
 function baoHoanTac(t, ham, giay){
+  if(typeof ttTin==='function' && document.getElementById('tt-khoi')){ BAO_HT = null; return bao(t+' — cần lấy lại: 🗑 Thùng rác → Khôi phục.'); }   /* 3.148 (anh chốt): bỏ thanh Hoàn tác — lấy lại ở Thùng rác */
   var e = document.getElementById('bao'); BAO_HT = ham;
   e.innerHTML = coChuHTML(t)+' <button class="bao-ht" onclick="event.stopPropagation();var h=BAO_HT;BAO_HT=null;document.getElementById(\'bao\').classList.remove(\'hien\');if(h)h()">↩ Hoàn tác</button>';
   e.classList.add('hien'); e.classList.toggle('goc', window.innerWidth>=700);   /* 3.68 (AE): nhỏ ở góc, 3 giây — lỡ tay sau đó vẫn ↶ / Ctrl+Z */

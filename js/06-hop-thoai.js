@@ -1900,7 +1900,7 @@ function soDoLuuTru(){
       nut('<b>2. Khôi phục</b> → về đúng tab, đúng thư mục cũ'),
       nut('<b>3. Xóa hẳn</b> (trong 🗑, chọn / cũ hơn 7-14-30 ngày) → bỏ khỏi app, file Drive vào <b>thùng rác Google Drive</b> (Google giữ 30 ngày rồi tự xóa)'),
       nut('<b>🧹 Quét dọn</b> → tìm file thừa, trùng, mục gãy, thư mục trống → cho vào Thùng rác'),
-      nut('<b>Xóa</b>: 🗑 cuối mỗi file · 🗑 Xóa file (nhiều file) ở đầu tab → vào Thùng rác. <b>Cài đặt → Dữ liệu</b>: 🔄 Reset dữ liệu thử · Xóa sạch máy','nhat')
+      nut('<b>Xóa</b>: 🗑 Xóa file ở đầu tab → bấm file để tích → xóa → vào Thùng rác (lấy lại ở 🗑 Thùng rác → Khôi phục). <b>Cài đặt → Dữ liệu</b>: 🔄 Reset dữ liệu thử · Xóa sạch máy','nhat')
     ])+'</div></div>';
 }
 /* ==========================================================
@@ -1993,7 +1993,7 @@ function noiDungHD(p){
       '② Xem: ảnh cuối cùng + dung lượng (✓ dưới 200 KB) + tên file <i>2026-09-28 Nguyen Van A CK.jpg</i>.',
       '③ Lưu: lên Drive <i>Chữ ký - CCCD / tháng</i>; máy bàn '+hdNut('💾 Lưu nhanh')+hdNut('📋 Copy')+', điện thoại '+hdNut('📤 Gửi')+'.']);
   if(p==='xoa') return '<h3>Xóa & Thùng rác — một quy tắc</h3>'+
-    hdLuong([hdNut('🗑')+' cuối mỗi file<br>hoặc '+hdNut('🗑 Xóa file')+' (nhiều file)', '🗑 <b>Thùng rác</b><br><small>ngăn theo tab</small>', '↩ <b>Khôi phục</b> về đúng chỗ<br>hoặc <b>Xóa hẳn</b>'])+
+    hdLuong([hdNut('🗑 Xóa file')+' ở đầu tab<br>bấm file để tích', '🗑 <b>Thùng rác</b><br><small>ngăn theo tab</small>', '↩ <b>Khôi phục</b> về đúng chỗ<br>hoặc <b>Xóa hẳn</b>'])+
     hdBuoc(['<b>Cứ xóa là vào thùng rác</b> — cả bản scan và Chữ ký · CCCD. Ngay sau khi xóa có nút '+hdNut('↩ Hoàn tác')+'.',
       hdNut('🗑 Xóa file')+' ở đầu mỗi tab: bấm vào file để tích (hoặc '+hdNut('Chọn tất cả đang lọc')+', '+hdNut('Thêm vào tủ trước ngày…')+') → '+hdNut('Xóa N file','xau')+'.',
       'Mở '+hdNut('🗑')+': dòng đầu cho biết bao nhiêu file ở ngăn nào. Bấm tên file để <b>xem thử</b>. Khôi phục từng file, cả ngăn đã chọn, hoặc '+hdNut('Làm trống ngăn này','xau')+' / '+hdNut('Làm trống cả thùng','xau')+'.',
@@ -2027,7 +2027,11 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.147', ds:[
+var CO_GI_MOI = {ban:'3.148', ds:[
+  ["🚦 Một nơi báo trạng thái: chân thanh bên (điện thoại: thanh đáy) — đèn 🟢 ổn · 🟡 đang chạy · 🔴 lỗi · ⚪ chưa nối Drive, thanh màu chạy theo tiến độ, 1 dòng tin mới nhất; bấm dòng tin xem 20 tin gần đây. Tin không còn nổi đè lên nút", "dongHop();doiNgan(0)"],
+  ["🔘 Nút vừa chữ, không còn kéo dài như lỗi; hộp thoại: Đóng / Thôi luôn bên trái, nút chính luôn bên phải; nút ＋ Thêm màu xanh", "dongHop();doiNgan(1)"],
+  ["🗑 Bỏ nút xóa cuối mỗi dòng (Văn bản, Biểu mẫu, Scan…) — xóa bằng nút 🗑 Xóa file đầu tab (bấm file để tích); bỏ thanh ↩ Hoàn tác — cần lấy lại vào 🗑 Thùng rác → Khôi phục", "dongHop();doiNgan(1)"],
+  ["🧭 Tên NhanNT, số bản lên thanh bên; máy tính bỏ thanh đáy (chỉ hiện khi cần nút của nó: khay chờ duyệt, mở lại khung xem)", "dongHop();doiNgan(0)"],
   ['🧭 Máy tính: thanh bên trái thay thanh tab — Hôm nay · Văn bản · Nạp & KT · 5 màn Số liệu · Biểu mẫu · Scan · Thư viện · Công cụ; bấm 1 lần là tới, đầu trang còn 1 hàng nên bảng / danh sách cao hơn', "dongHop();doiNgan(0)"],
   ['« Thu gọn thanh bên còn biểu tượng (rê chuột hiện tên) — app nhớ; màn nhỏ hơn 1280 px tự thu. Alt+1…9 mở nhanh từng mục. Điện thoại giữ thanh tab ngang như cũ', "dongHop();doiNgan(0)"],
   ['🔢 Số nhắc cạnh mục: Văn bản = file chờ duyệt · Nạp & KT ⚠ = file bắt buộc còn thiếu tháng mới nhất · 🗑 = số mục thùng rác', "dongHop();moNapSL()"],
@@ -3053,6 +3057,7 @@ function ketQuaPicker(data){
 }
 function capNhatChip(){
   if(typeof capNhatDaiDrive==='function') setTimeout(capNhatDaiDrive, 0);
+  if(typeof ttVe==='function') setTimeout(ttVe, 0);   /* 3.148: đèn trạng thái theo Drive */
   var e = document.getElementById('chip-drive');
   if(!e) return;
   var nTen = ((typeof demChoDB==='function') ? demChoDB().length : 0) + scanCanDay().length + kaCanDay().length +

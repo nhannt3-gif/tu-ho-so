@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.148 — 11/10/2026 — Nút & trạng thái: 1 nơi báo trạng thái, nút vừa chữ, thứ tự nút hộp thoại, bỏ 🗑 cuối dòng
+- **Anh chốt (docs/KE_HOACH_GON_GIAO_DIEN.md ý 10, 12, 13; anh duyệt làm cả gói 3.148–3.155 + gộp, 11/10 00:40).**
+- **1 nơi trạng thái** (`js/23-dieu-huong.js`: `TTB`, `ttTin`, `ttVe`, `ttDung`, `ttDs`): khối `#tt-khoi` = đèn (`ttDen`: đỏ mất mạng · vàng đang chạy · đỏ lỗi < 12 giây · xanh Drive nối · xám) + thanh màu (`TTB.pt`, 101 = chạy không rõ %) + 1 dòng chữ (tin mới 8 giây, lỗi 12 giây, rồi về chữ nghỉ `ttNghi`). Máy tính ≥ 1100 px: chân thanh bên (`#tb-tt`, dời cả `#so-lieu` chip Drive / bộ nhớ); nhỏ hơn: thanh đáy. Bấm chữ → 🔔 20 tin.
+- **Nối vào:** `bao` (không mở hộp thoại → vào ô trạng thái; đang mở hộp → vẫn nổi), `baoLoi` (đèn đỏ), `baoHoanTac` (bỏ nút Hoàn tác, nhắc Thùng rác), `batChay` / `tienChay` / `tatChay` / `dangLam` / `hetLam` (hộp "Đang xử lý…" chỉ hiện khi có nút Dừng), `slNapSanChip` (bỏ chip nổi `#sl-san`), `capNhatChip`.
+- **Nút:** `.nho` mặc định `flex:0 0 auto` (trước `flex:1` giãn đầy hàng — gốc của nút dài như lỗi); máy tính cao 32 px, điện thoại trong hộp thoại vẫn dàn đều. Hộp thoại: `button[onclick="dongHop()"]` (Đóng / Thôi) đứng trái, `.chinh` đứng phải (CSS `order`). `.nut-them` xanh nhạt.
+- **Bỏ 🗑 cuối dòng** (`10-danh-sach.js` dòng văn bản / biểu mẫu, `08-dia-ban.js` dòng scan) — xóa qua 🗑 Xóa file (chọn nhiều) như cũ; hướng dẫn sửa theo.
+- **Thanh bên:** số bản (bấm → Hướng dẫn) + NhanNT; máy tính ẩn thanh đáy trừ khay chờ duyệt / nút Xem trước ở tab có khung xem (`dhDay`).
+- **Phép thử:** `tests/t144.js` (mới, 14).
+
 ## 3.147 — 10/10/2026 — Thanh bên điều hướng (đợt F) cho máy tính
 - **Anh duyệt (KE_HOACH_DIEU_HUONG.md mục 5–7, "làm theo chuẩn em nghĩ"):** máy tính ≥ 1100 px dùng thanh bên trái; điện thoại / màn < 1100 px giữ thanh tab ngang như cũ. Quy chuẩn tham khảo (mục 8) chưa áp dụng.
 - **`js/23-dieu-huong.js` (mới):** `DH_MUC` (Hôm nay · Văn bản · Nạp & KT · Số liệu: Tổng hợp, Sao kê, Tổ TK&VV, KTGS Hội, Tra cứu KH · Hồ sơ: Biểu mẫu, Scan, Thư viện) + `DH_CC` (HSSV, Địa bàn, CT vay → mở ở cột Công cụ Hôm nay) + chân: 🗑 (số mục) · 🧰 · ❓ · ⚙. Mỗi mục gọi lối cũ (`doiNgan`, `moNapSL`, `slDoiTab`, `ccMo`…). Tô mục: `toNutSL` → `dhTo`.

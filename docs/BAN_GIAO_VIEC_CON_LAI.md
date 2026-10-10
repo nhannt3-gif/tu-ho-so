@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.148) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Laptop: nạp 1 file / làm việc lâu | Chân thanh bên: đèn vàng nhấp nháy + thanh màu chạy + chữ việc đang làm; xong → hết vàng | |
+| 2 | Một thao tác có báo (vd thêm file) | Chữ hiện ở chân thanh bên, không nổi đè nút; bấm chữ → danh sách tin | |
+| 3 | Mở các hộp thoại | Thôi / Đóng bên trái, nút chính (xanh) bên phải; nút không dài bất thường | |
+| 4 | Danh sách Văn bản / Scan | Không còn 🗑 cuối dòng; xóa bằng 🗑 Xóa file đầu tab | |
+| 5 | Điện thoại | Tin + đèn nằm trong thanh đáy | |
+
+**Ghi chú kỹ thuật 3.148:** biến trạng thái tên `TTB` (tránh trùng biến cục bộ `TT` trong số liệu). Khối trạng thái + `#so-lieu` được giữ tham chiếu (`TTB.o`, `TTB.sl`) vì `dhVe` vẽ lại thanh bên mỗi lần đổi tab.
+
 ### Danh sách thử trên máy thật (3.147) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
