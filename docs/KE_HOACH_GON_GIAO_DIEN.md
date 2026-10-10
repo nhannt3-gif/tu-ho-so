@@ -102,6 +102,19 @@
 - 1 hàm chung `xuatMo(bc)` vẽ khung xem + hàng nút. In / PDF / Excel / Copy dùng chung, không mỗi báo cáo một kiểu.
 - Đây chính là "bộ báo cáo chung" của đợt D (KIEN_TRUC_3_LOP.md mục 8) — làm sớm phần này.
 
-## Câu hỏi chờ anh (khi gửi đủ ý)
-- **Gửi trên máy tính:** tải về là đủ, hay muốn mở sẵn Zalo PC?
-- **📄 PDF:** (a) hộp in "Lưu dưới dạng PDF" + tên file điền sẵn — chữ rõ, chọn / tìm được chữ, thêm 1 bước bấm Lưu (đề xuất); hay (b) bấm là ra file ngay — không thêm thư viện thì chỉ được PDF dạng ảnh (không chọn / tìm được chữ)?
+## Đã chốt 10/10 ("theo đề xuất")
+- **Gửi trên máy tính:** tải file về + báo tên file. Không mở Zalo PC.
+- **📄 PDF:** cách (a) — hộp in "Lưu dưới dạng PDF" + tên file điền sẵn (chữ rõ, chọn / tìm được chữ).
+
+## Ý 5 — Copy văn bản để dán cho AI đọc (anh còn cân nhắc)
+**Đề xuất:** thêm lựa chọn **🤖 Copy cho AI** trong hộp 📤 Gửi của Văn bản / Biểu mẫu / Scan, chép **chữ** của file kèm đầu mục:
+- Đầu mục: số hiệu · ngày · cơ quan · trích yếu (từ chỉ mục).
+- Nội dung:
+  - PDF có chữ: lấy chữ bằng pdf.js (app đã dùng `getTextContent`).
+  - Word: phần chữ (như khung xem Word hiện nay).
+  - PDF scan không có chữ: chép **ảnh các trang** (AI đọc được ảnh) và báo "file scan — chép dạng ảnh".
+- Dài quá thì báo số trang / số chữ và cho chọn trang.
+- Che họ tên / CCCD tùy chọn, như "Chép sang AI" của bảng Excel hiện có (`moChepAI`). Văn bản hành chính thường không cần che.
+
+## Câu hỏi chờ anh
+- Ý 5: có thêm 🤖 Copy cho AI không (anh đang cân nhắc)?
