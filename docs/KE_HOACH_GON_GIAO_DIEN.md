@@ -49,13 +49,16 @@
 - **Số liệu (ô / cả bộ tháng / ngày cũ):** hỏi → xóa thẳng; file Drive vào thùng rác Google Drive; **không qua thùng rác app**. Riêng thay file có ↩ hoàn tác.
 - **Mẩu ghi chú, việc lịch, lần làm việc, kế hoạch KTGS, bộ biểu mẫu:** hỏi → xóa luôn, không thùng rác.
 
-**Đề xuất 1 quy tắc:**
+**Quy tắc chung (anh chốt 10/10: không cần thanh Hoàn tác 10 giây — cần thì vào Thùng rác khôi phục):**
 1. Nút luôn là **🗑 Xóa**.
-2. Xóa 1 mục: không hỏi, vào **Thùng rác app** (ngăn theo tab, thêm ngăn Số liệu), thanh "↩ Hoàn tác" hiện 10 giây.
-3. Xóa nhiều / cả tháng: hỏi 1 lần (ghi rõ số mục).
+2. Xóa 1 mục: không hỏi, vào **Thùng rác app** (ngăn theo tab, thêm ngăn **Số liệu**). Không hiện thanh Hoàn tác; muốn lấy lại thì vào 🗑 Thùng rác → Khôi phục (về đúng chỗ cũ).
+3. Xóa nhiều mục / cả tháng: hỏi 1 lần, ghi rõ số mục.
 4. Thùng rác app giữ 30 ngày rồi tự xóa hẳn. Xóa hẳn = file Drive vào thùng rác Google Drive (thêm 30 ngày lấy lại được).
-5. Mục nhỏ không có file (việc lịch, mẩu ghi chú, lần làm việc): xóa có ↩ Hoàn tác 10 giây, không hỏi.
+5. Mục nhỏ không có file (việc lịch, mẩu ghi chú, lần làm việc, kế hoạch KTGS, bộ biểu mẫu) cũng vào Thùng rác app (ngăn riêng) → khôi phục được như file.
 6. Máy khác xóa theo (dấu `daXoaHan` / `SLM.xoa` như hiện nay).
+7. Bỏ thanh "↩ Hoàn tác" hiện có (`baoHoanTac` khi xóa).
+   - Riêng **↩ Hoàn tác lần thay file** ở ô Số liệu (3.145) không phải thanh 10 giây.
+   - Câu hỏi: giữ hay bỏ? Đề xuất: bỏ, bản cũ vào Thùng rác app ngăn Số liệu, khôi phục từ đó cho cùng 1 quy tắc.
 
 ## Ý 4 — Mọi mẫu / báo cáo cùng 1 luồng (anh gửi 10/10)
 **Luồng chuẩn:** bấm mẫu / báo cáo → **👁 Xem** (khung xem chung, khổ giấy thật) → hàng nút cố định trên khung xem, cùng thứ tự:
@@ -93,4 +96,4 @@
 ## Câu hỏi chờ anh (khi gửi đủ ý)
 - **Gửi trên máy tính:** tải về là đủ, hay muốn mở sẵn Zalo PC?
 - **📄 PDF:** dùng hộp in "Lưu dưới dạng PDF" + tên file điền sẵn (chữ rõ, chọn / tìm được chữ, như Mẫu 06 / 16 hiện nay) — được không? Hay cần bấm là ra file ngay? Không thêm thư viện thì cách này chỉ ra PDF dạng **ảnh** (không chọn / tìm được chữ).
-- **Số liệu xóa ô:** vào Thùng rác app (khôi phục được trong app) thay vì thẳng Thùng rác Drive?
+- **Số liệu xóa ô / thay file:** ô Số liệu bị xóa và bản cũ khi thay file đều vào Thùng rác app ngăn Số liệu (khôi phục trong app), bỏ nút ↩ Hoàn tác lần thay — được không?
