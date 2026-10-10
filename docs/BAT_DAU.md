@@ -20,7 +20,7 @@
 
 ## 3. Trạng thái (cập nhật 10/10/2026)
 - **Bản đang làm:** 3.142 — **đợt A xong** (tách file nguyên trạng), PR từ nhánh `claude/busy-curie-2qescm` **chờ anh "gộp"**. `main` = 3.141 + tài liệu kiến trúc (PR #121 đã gộp).
-- **Đợt A đã chứng minh:** ghép lại giống từng byte 3.141; ảnh 5 tab × máy tính / điện thoại trùng điểm ảnh; hồi quy so với mốc 3.141 (kết quả ở CHANGELOG 3.142). Sửa mã duy nhất: cửa sổ nổi HSSV chép CSS từ file.
+- **Đợt A đã chứng minh:** ghép lại giống từng byte 3.141; ảnh 5 tab × máy tính / điện thoại trùng điểm ảnh; hồi quy t101–t138 đạt như mốc 3.141 (t116 hỏng sẵn từ trước — 1 phép tên file Word "can cu 10566", chưa sửa). Sửa mã duy nhất: cửa sổ nổi HSSV chép CSS từ file.
 - **Việc tiếp (theo `KIEN_TRUC_3_LOP.md` mục 8):** đợt B (Lớp 1 an toàn: chỉ mục `D` → IndexedDB, 1 cơ chế đồng bộ Drive) — **lên kế hoạch chi tiết, chờ anh duyệt + "code"**. Q12–Q13 (bỏ tab Tháng + xóa dữ liệu, bỏ Giao ban / Buổi GD) và Q14 (ngày số liệu theo nội dung file) chưa làm — đề xuất đặt vào đợt nào thì hỏi anh.
 - **Anh chốt 10/10:** bỏ hẳn tab Tháng + xóa dữ liệu cũ (rác); bỏ nút Giao ban, Buổi giao dịch (làm lại sau); nạp file nhận ngày số liệu từ **nội dung** file (Q12–Q14). Anh làm luân phiên 2 tài khoản — tài khoản nào cũng bắt đầu từ file này (nhánh đang dùng ghi ở mục 2).
 - **Chờ anh:** (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi tin học về máy chủ nội bộ; thử máy thật 3.136 / 3.138 / 3.142 (bảng trong `BAN_GIAO_VIEC_CON_LAI.md`); số TK 105 khách chỉ có 105 (cần nguồn); văn bản củng cố / chia tách tổ; "nhớ người ký theo khuyết" (chưa xác nhận); Mẫu 06 trắng 2 mặt trên Word thật.

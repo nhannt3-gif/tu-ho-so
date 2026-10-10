@@ -12,7 +12,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Phép thử:** `tests/t138.js` (mới, 8 — mở qua máy chủ web tạm, cửa sổ nổi chép CSS, nền tối đúng); `tests/nguon.js` (mã ghép cho phép thử dò chữ trong mã: t111, t112, t113); t111 phần cửa sổ nổi: mở bằng file:// trình duyệt chặn cửa sổ nổi tải css → phép thử thay link bằng `<style>` cùng nội dung (đường web thật ở t138).
 - **Công cụ:** `tests/ghep.py` (mới); `tests/kiem.py` kiểm bản ghép + báo khi `?v=` khác `APP_BAN`; `tests/bando.py` ghi vị trí dạng `file:dòng`; `tests/hssv_exe.js` đọc `js/`.
 - **Lưu ý dùng:** link web như cũ. Tải app về máy thì tải **cả thư mục** (index.html + css/ + js/).
-- **Kiểm tra:** kiem.py; hồi quy hoiquy, hoiquy2, t101–t130 (so với mốc chạy trên 3.141 cùng máy).
+- **Kiểm tra:** kiem.py sạch; hồi quy hoiquy (28/28, lần 1 vướng phép chập chờn "Báo cáo đã bỏ…" đã biết — chạy lại đạt), hoiquy2, t101–t138 đạt hết, **trừ t116 (11/12 — hỏng sẵn trên 3.141, cùng phép "tên file Word có (can cu 10566)")**. Mốc so sánh chạy trên 3.141 cùng máy.
 
 ## 3.141 — 09/10/2026 16:00 — Sửa lỗi mất cài đặt khi đồng bộ Drive (3.140.4); In theo tháng tự lấy số liệu
 - **Sự cố anh báo (09/10):** khai báo Hội (tên CT / PCT / ủy viên, HĐUT, KH Hội tỉnh), Phân công BTV, lựa chọn in, khóa ảnh CCCD… mất trên máy và trên Drive (`Tủ hồ sơ/_Hệ thống/cauhinh.json`); có thêm thư mục lạ `undefined/_Hệ thống/cauhinh.json` (11:18).
