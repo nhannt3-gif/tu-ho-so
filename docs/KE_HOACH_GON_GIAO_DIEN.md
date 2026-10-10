@@ -69,10 +69,16 @@
   - Điện thoại: bảng chia sẻ → PDF.
   - Không thêm thư viện được nên không tự tạo PDF chữ tiếng Việt (pdf-lib thiếu bộ font) — xem câu hỏi bên dưới.
 - **📝 Word / 📊 Excel:** như các mẫu đang có (KTGS có Word; Tổ, Sao kê, Tổng hợp có Excel). Báo cáo bảng nào cũng có Excel.
-- **📋 Copy (mới):** chép 1 lần, **2 dạng cùng lúc**:
-  - Dán vào **Zalo / tin nhắn** → ra chữ gọn: dòng tiêu đề + kỳ + từng dòng "1. Tên — số".
-  - Dán vào **Excel / Word** → ra bảng nguyên cột.
-  - "Chép sang AI" (che họ tên / CCCD) giữ riêng như cũ.
+- **📋 Copy (anh chốt 10/10: copy chính FILE đó để dán nhanh vào Zalo / nơi khác):**
+  - **Giới hạn trình duyệt:** chỉ cho chép chữ và **ảnh** vào bộ nhớ tạm, không chép được file PDF / Word / Excel nguyên file.
+  - Vì vậy Copy = chép **ảnh của file**:
+    - Ảnh / scan: chép ảnh gốc.
+    - PDF / văn bản: chép ảnh trang (trang đang xem hoặc ghép các trang, giới hạn số trang để ảnh không quá lớn).
+    - Báo cáo của app: vẽ trang báo cáo thành ảnh rồi chép. Cách này phải **thử trước** (vẽ HTML ra ảnh không thêm thư viện); không được thì chép chữ / bảng.
+  - Dán vào Zalo (máy tính, điện thoại) = gửi ảnh.
+  - Cần gửi **nguyên file** (PDF / Word / Excel) thì dùng **📤 Gửi**:
+    - Điện thoại: bảng chia sẻ gửi thẳng file vào Zalo.
+    - Máy tính: tải file về rồi kéo vào Zalo.
 - **📤 Gửi:**
   - Điện thoại: bảng chia sẻ (Zalo…).
   - Máy tính: tải file về.
@@ -94,6 +100,7 @@
 - Đây chính là "bộ báo cáo chung" của đợt D (KIEN_TRUC_3_LOP.md mục 8) — làm sớm phần này.
 
 ## Câu hỏi chờ anh (khi gửi đủ ý)
+- **📋 Copy = chép ảnh của file** (do trình duyệt không cho chép nguyên file PDF / Word / Excel) — được không? Nguyên file thì qua 📤 Gửi.
 - **Gửi trên máy tính:** tải về là đủ, hay muốn mở sẵn Zalo PC?
 - **📄 PDF:** dùng hộp in "Lưu dưới dạng PDF" + tên file điền sẵn (chữ rõ, chọn / tìm được chữ, như Mẫu 06 / 16 hiện nay) — được không? Hay cần bấm là ra file ngay? Không thêm thư viện thì cách này chỉ ra PDF dạng **ảnh** (không chọn / tìm được chữ).
 - **Số liệu xóa ô / thay file:** ô Số liệu bị xóa và bản cũ khi thay file đều vào Thùng rác app ngăn Số liệu (khôi phục trong app), bỏ nút ↩ Hoàn tác lần thay — được không?
