@@ -231,7 +231,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 4 | 🎓 Hạn trả HSSV › 📌 Cửa sổ nổi | Cửa sổ nổi đủ màu / kiểu chữ | |
 | 5 | Điện thoại: mở link web | Như cũ | |
 
-**Ghi chú kỹ thuật 3.142:** tách bằng script một lần (dòng `<script>` / `</script>` đứng riêng → file). Thứ tự nạp giữ nguyên nên phạm vi biến / hoisting như cũ (mỗi khối cũ = 1 file). Mỗi bản sau: đổi `?v=` trong `index.html` cùng `APP_BAN` (`kiem.py` báo nếu lệch). Thêm file js mới: thêm thẻ `<script src="js/…?v=…">` đúng chỗ trong `index.html`. `t101_mau10_cu.js` vẫn mở `index.html` (bản cũ 1 file vẫn mở được).
+**Ghi chú kỹ thuật 3.142:** tách bằng script một lần (dòng `<script>` / `</script>` đứng riêng → file). Thứ tự nạp giữ nguyên nên phạm vi biến / hoisting như cũ (mỗi khối cũ = 1 file). Mỗi bản sau: đổi `?v=` trong `index.html` cùng `APP_BAN` (`kiem.py` báo nếu lệch). Thêm file js mới: thêm thẻ `<script src="js/…?v=…">` đúng chỗ trong `index.html`. `t101_mau10_cu.js` vẫn mở `index.html` (bản cũ 1 file vẫn mở được). **Giới hạn đã biết:** mở app bằng bấm đúp file (file://) thì cửa sổ nổi HSSV không có kiểu chữ (trình duyệt chặn cửa sổ nổi đọc css/app.css; link web không bị). Phép thử dò chữ trong mã dùng `tests/nguon.js`.
 
 ### Danh sách thử trên máy thật (3.141) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

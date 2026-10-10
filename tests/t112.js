@@ -5,7 +5,7 @@ const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
- await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500); await p.evaluate(s=>{ window.NGUON_APP=s; }, require('./nguon.js')());   /* 3.142: mã ở file riêng */
  const dir = path.join(__dirname,'gia31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
@@ -69,7 +69,7 @@ const fs=require('fs'), path=require('path');
    ok('D: tổ Đoàn Thanh niên', ktGiaTri16(Object.assign({}, tH, {dv:'14'}), [], {}).f.DOAN==='Đoàn Thanh niên phường Gia Lộc', ktGiaTri16(Object.assign({}, tH, {dv:'14'}), [], {}).f.DOAN);
    ok('D: chữ cũ đã gõ không còn tác dụng; trực tiếp → dòng chấm', ktGiaTri16(tH, [], {doan:'Đoàn cũ'}).f.DOAN==='Hội Nông dân phường Gia Lộc' && ktGiaTri16(Object.assign({}, tH, {dv:'99'}), [], {}).f.DOAN==='');
    ok('D: không còn ô Đoàn kiểm tra (3.114: hộp chọn khi in Mẫu 16 cũng không có)', !/doan/.test(ktKBKhung('dx', [])) && !/doan/.test(ktInPhan('m16', [])) && KT_KB_LUU.indexOf('doan')<0);
-   ok('D: dọn ktKBLuu.doan khi mở app', /delete ch\.ktKBLuu\.doan/.test(document.documentElement.innerHTML));
+   ok('D: dọn ktKBLuu.doan khi mở app', /delete ch\.ktKBLuu\.doan/.test(NGUON_APP));
    const z = await ktDocx('m16', ktGiaTri16(tH, [], {})); const zz = XLSX.CFB.read(new Uint8Array(await z.arrayBuffer()), {type:'array'});
    const doc = new TextDecoder().decode((XLSX.CFB.find(zz, 'word/document.xml') || XLSX.CFB.find(zz, '/word/document.xml')).content).replace(/<[^>]+>/g, '');
    ok('D: Word Mẫu 16 in "ĐOÀN KIỂM TRA: Hội Nông dân phường Gia Lộc"', /ĐOÀN KIỂM TRA: ?Hội Nông dân phường Gia Lộc/.test(doc), (doc.match(/ĐOÀN KIỂM TRA:.{0,40}/)||[''])[0]);
