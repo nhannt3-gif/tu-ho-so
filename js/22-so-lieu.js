@@ -600,20 +600,17 @@ function slGhi(kq){
            soDong:kq.rows.length, bo:kq.bo, tong:kq.tong, ngayLap:kq.ngayLap||'', donVi:kq.donVi||'', ban:APP_BAN, luc:new Date().toISOString(), may:maMayCua(), choDay:true, cuGoc:'', cuDl:''};
   if(cu){ e.cuGoc = [cu.goc, cu.cuGoc].filter(Boolean).join(','); e.cuDl = [cu.dl, cu.cuDl].filter(Boolean).join(','); }   /* bản cũ trên Drive → thùng rác Drive khi đẩy bản mới */
   var giu = Promise.resolve();
-  if(cu){ var tr = {}; Object.keys(cu).forEach(function(f){ if(f!=='truoc' && f!=='canTai') tr[f] = cu[f]; }); tr.thayLuc = e.luc; e.truoc = tr;   /* 3.145 (anh chốt): giữ 1 bản trước để hoàn tác lần thay (30 ngày) */
-    giu = slGiuTruoc(kq.loai, ky); }
+  if(cu) giu = slRacVao(k, 'Thay bằng file mới “'+(kq.ten||'')+'”');   /* 3.153 (anh chốt): bản cũ vào 🗑 Thùng rác (ngăn Số liệu) — bỏ ↩ hoàn tác lần thay */
   return giu.then(function(){ return Promise.all([luuFile(slIDB(kq.loai, ky), b), luuFile('sl_g_'+kq.loai+'_'+ky, kq.file)]); }).then(function(){
     SLM.bang[k] = e; delete SLM.xoa[k];
     slBoXoa(ky);
     if(slLaHS(kq.loai) || kq.loai==='tt' || kq.loai==='dnct'){ slVaoDanhBa(kq.loai, ky, kq.rows, kq.lap); return (kq.loai==='dnct' ? Promise.resolve() : slApDnct()).then(slLuuDanhBa); }   /* 3.128: nạp Mẫu 31 sau Dư nợ chi tiết → gắn lại số TK 105 */
   }).then(function(){ return slLuuMeta(); }).then(function(){ return L.ten+' '+slKyChu(ky); });
 }
-/* ---------- 3.145: HOÀN TÁC LẦN THAY FILE (1 bước, trong 30 ngày — Thùng rác Drive giữ 30 ngày) ---------- */
-function slGiuTruoc(loai, ky){   /* chép bảng + file gốc đang có trong máy sang khóa _truoc (máy chưa có thì lấy lại từ Drive khi hoàn tác) */
-  var a = slIDB(loai, ky), g = 'sl_g_'+loai+'_'+ky;
-  return Promise.all([docFile(a), docFile(g)]).then(function(r){
-    return Promise.all([r[0] ? luuFile(a+'_truoc', r[0]) : xoaFile(a+'_truoc'), r[1] ? luuFile(g+'_truoc', r[1]) : xoaFile(g+'_truoc')]); }).catch(function(){});
-}
+/* ---------- 3.153 (anh chốt "thống nhất quy tắc xóa"): Ô SỐ LIỆU VÀO 🗑 THÙNG RÁC APP (ngăn Số liệu) ----------
+   Xóa ô / cả tháng / bản theo ngày cũ / bản cũ khi thay file → mục khoCu 'soLieu' trong D.rac, giữ bản trong máy (bảng + file gốc) ở khóa slr_<id>_a / _g.
+   File trên Drive vẫn vào Thùng rác Drive như cũ. Khôi phục: chép lại bản trong máy; thiếu thì lấy lại từ Thùng rác Drive (cần nối Drive).
+   Xóa hẳn (hoặc tự xóa sau 30 ngày): bỏ bản trong máy. Meta cũ có e.truoc (3.145) → chuyển 1 lần thành mục thùng rác. */
 var SL_TRUOC_NGAY = 30;
 function slTruoc(e){ var t = e && e.truoc; if(!t) return null; return (Date.now()-new Date(t.thayLuc||0).getTime()) <= SL_TRUOC_NGAY*864e5 ? t : null; }
 function slBoRac(id){ return goiDrive('https://www.googleapis.com/drive/v3/files/'+id+'?fields=id', {method:'PATCH', headers:{'Content-Type':'application/json'}, body:JSON.stringify({trashed:false})}); }   /* lấy lại từ Thùng rác Drive */
@@ -622,40 +619,66 @@ function slRacCho(ids){   /* file Drive → Thùng rác ngay nếu đang nối, 
   if(coTheNoiDrive() && DR.sanSang){ ids.forEach(function(id){ xoaFileDrive(id).catch(function(){}); }); return Promise.resolve(); }
   return docFile('sl_rac_cho').then(function(cu){ return luuFile('sl_rac_cho', (Array.isArray(cu) ? cu : []).concat(ids)); });
 }
-function slHoanTac(loai, ky){
-  var k = slKhoa(loai, ky), e = SLM.bang[k], t = slTruoc(e), L = slLoai(loai); if(!e) return;
-  if(!t) return bao(e.truoc ? 'Lần thay đã quá '+SL_TRUOC_NGAY+' ngày — không hoàn tác được nữa.' : 'Ô này chưa có lần thay nào để hoàn tác.', 5);
-  var a = slIDB(loai, ky), g = 'sl_g_'+loai+'_'+ky, canDrive = !e.choDay && !!(t.goc || t.dl);   /* bản mới đã lên Drive → bản cũ đã vào Thùng rác Drive */
-  if(canDrive && !(coTheNoiDrive() && DR.sanSang)) return bao('Cần nối Drive để lấy lại file cũ từ Thùng rác Drive rồi mới hoàn tác được.', 5);
-  hoi('↩ Hoàn tác lần thay?', L.ten+' '+slKyChu(ky)+' quay về file cũ “'+(t.tenFile||'')+'” (nạp '+ngayVNsl(String(t.luc||'').slice(0, 10))+'). File mới “'+(e.tenFile||'')+'” vào Thùng rác Drive.', 'Hoàn tác', function(){
-    batChay(true, 'Đang hoàn tác…');
-    var r = {}; Object.keys(t).forEach(function(f){ if(f!=='thayLuc') r[f] = t[f]; });
-    var moi = [e.goc, e.dl];   /* file của bản mới đã lên Drive → Thùng rác; bản mới chưa lên Drive xong thì bản cũ chưa bị bỏ */
-    Promise.all(canDrive ? [t.goc, t.dl].filter(Boolean).map(slBoRac) : []).then(function(){ return Promise.all([docFile(a+'_truoc'), docFile(g+'_truoc')]); }).then(function(x){
-      if(r.choDay && !x[0]) throw new Error('bản cũ chưa lên Drive và không còn trong máy');
-      if(!x[0]) r.canTai = true;
-      return Promise.all([x[0] ? luuFile(a, x[0]) : xoaFile(a), x[1] ? luuFile(g, x[1]) : xoaFile(g)]);
-    }).then(function(){
-      xoaFile(a+'_truoc'); xoaFile(g+'_truoc');
-      r.luc = new Date().toISOString(); r.hoanTac = r.luc; SLM.bang[k] = r; delete SLM.xoa[k]; slBoXoa(ky);   /* mốc mới → máy khác bỏ bản trong máy, tải lại bản cũ */
-      return slRacCho(moi);
-    }).then(function(){ return (slLaHS(loai) || loai==='tt' || loai==='dnct') ? slDungDanhBa() : null; }).then(slLuuMeta).then(function(){
-      tatChay(); bao('↩ Đã hoàn tác: '+L.ten+' '+slKyChu(ky)+' dùng lại file “'+(r.tenFile||'')+'”.', 5); veSoLieu();
-    }).catch(function(er){ tatChay(); baoLoi('Chưa hoàn tác được: '+(er && er.message || er)); });
-  });
+function slRacMuc(e, lyDo, kA, kG){
+  var L = slLoai(e.loai) || {ten:e.loai}, id = 'slr'+Date.now().toString(36)+Math.random().toString(36).slice(2, 6), now = new Date().toISOString();
+  var c = {}; Object.keys(e).forEach(function(f){ if(f!=='truoc' && f!=='canTai') c[f] = e[f]; });
+  var m = {id:id, khoCu:'soLieu', tenMoi:L.ten+' · '+slKyChu(e.ky)+(e.tenFile ? ' — '+e.tenFile : ''), co:+e.kich||0, xoaLuc:now, suaLuc:now, lyDoXoa:lyDo||'Anh xóa',
+           sl:{loai:e.loai, ky:e.ky, e:c}, kA:kA || 'slr_'+id+'_a', kG:kG || 'slr_'+id+'_g'};
+  D.rac = D.rac || []; D.rac.push(m); return m;
 }
+function slRacVao(k, lyDo){   /* chép bản trong máy của ô k sang khóa thùng rác + thêm mục vào D.rac (ô vẫn còn — người gọi tự bỏ) */
+  var e = SLM.bang[k]; if(!e) return Promise.resolve(null);
+  var a = slIDB(e.loai, e.ky), g = 'sl_g_'+e.loai+'_'+e.ky, m = slRacMuc(e, lyDo);
+  return Promise.all([docFile(a), docFile(g)]).then(function(r){
+    return Promise.all([r[0] ? luuFile(m.kA, r[0]) : null, r[1] ? luuFile(m.kG, r[1]) : null]);
+  }).catch(function(){}).then(function(){ luu(); if(typeof capNhatDemRac==='function') capNhatDemRac(); return m; });
+}
+function slChuyenTruoc(){   /* 3.153: bản trước (3.145, e.truoc + khóa _truoc) → mục Thùng rác, 1 lần */
+  var doi = 0;
+  Object.keys(SLM.bang).forEach(function(k){ var e = SLM.bang[k]; if(!e || !e.truoc) return;
+    var t = slTruoc(e);
+    if(t){ t.loai = t.loai || e.loai; t.ky = t.ky || e.ky; var m = slRacMuc(t, 'Bản trước lần thay (từ bản cũ)', slIDB(e.loai, e.ky)+'_truoc', 'sl_g_'+e.loai+'_'+e.ky+'_truoc'); m.xoaLuc = t.thayLuc || m.xoaLuc; }
+    else { xoaFile(slIDB(e.loai, e.ky)+'_truoc'); xoaFile('sl_g_'+e.loai+'_'+e.ky+'_truoc'); }
+    delete e.truoc; doi++; });
+  if(doi){ luu(); slLuuMeta(); }
+  return doi;
+}
+function slKhoiPhucRac(m){   /* trả Promise — mục đã được bỏ khỏi D.rac trước khi gọi */
+  var s = m.sl || {}, k = slKhoa(s.loai, s.ky), e = JSON.parse(JSON.stringify(s.e || {})), L = slLoai(s.loai) || {ten:s.loai};
+  var a = slIDB(s.loai, s.ky), g = 'sl_g_'+s.loai+'_'+s.ky, coDrive = coTheNoiDrive() && DR.sanSang;
+  var hien = SLM.bang[k];
+  /* ô đang có file khác → file đó vào Thùng rác trước (khôi phục = đổi chỗ 2 bản) */
+  var p = hien ? slRacVao(k, 'Thay khi khôi phục bản “'+(e.tenFile||'')+'”').then(function(){ slRacCho([hien.goc, hien.dl]); }) : Promise.resolve();
+  return p.then(function(){ return Promise.all([docFile(m.kA), docFile(m.kG)]); }).then(function(x){
+    if(!x[0] && !(coDrive && e.dl)) throw new Error(coDrive ? 'không còn dữ liệu của ô này' : 'cần nối Drive để lấy lại dữ liệu từ Thùng rác Drive');
+    var buoc = [];
+    if(x[0]) buoc.push(luuFile(a, x[0])); else { buoc.push(slBoRac(e.dl)); e.canTai = true; }
+    if(x[1]) buoc.push(luuFile(g, x[1]));
+    if(coDrive){ if(e.goc) buoc.push(slBoRac(e.goc).catch(function(){ e.goc = ''; })); if(x[0] && e.dl) buoc.push(slBoRac(e.dl).catch(function(){ e.dl = ''; })); }
+    else { if(x[1]) e.goc = ''; if(x[0]) e.dl = ''; }
+    return Promise.all(buoc).then(function(){
+      e.cuGoc = ''; e.cuDl = ''; e.choDay = !e.goc || !e.dl;
+      e.luc = new Date().toISOString(); e.khoiPhuc = e.luc; delete e.truoc;
+      SLM.bang[k] = e; delete SLM.xoa[k]; slBoXoa(s.ky);
+      xoaFile(m.kA); xoaFile(m.kG);
+      return (slLaHS(s.loai) || s.loai==='tt' || s.loai==='dnct') ? slDungDanhBa() : null;
+    });
+  }).then(slLuuMeta).then(function(){ if(e.choDay) slHenDay(); return L.ten+' '+slKyChu(s.ky); });
+}
+function slXoaHanRac(m){ xoaFile(m.kA); xoaFile(m.kG); }
+/* xóa 1 ô: không hỏi (quy tắc chung) — vào Thùng rác */
 function slXoa(loai, ky){
   var k = slKhoa(loai, ky), e = SLM.bang[k]; if(!e) return;
-  hoi('Xóa '+slLoai(loai).ten+' '+slKyChu(ky)+'?', 'Số liệu đã đọc của ô này bị bỏ. File gốc và dữ liệu trên Drive vào Thùng rác của Drive (lấy lại được 30 ngày).', 'Xóa', function(){
-    var ids = [e.goc, e.dl].concat(String(e.cuGoc||'').split(','), String(e.cuDl||'').split(',')).filter(Boolean);
-    SLM.xoa[k] = new Date().toISOString(); delete SLM.bang[k]; slBoXoa(ky);
-    xoaFile(slIDB(loai, ky)); xoaFile('sl_g_'+loai+'_'+ky); xoaFile(slIDB(loai, ky)+'_truoc'); xoaFile('sl_g_'+loai+'_'+ky+'_truoc');
-    var p = (slLaHS(loai) || loai==='tt' || loai==='dnct') ? slDungDanhBa() : Promise.resolve();
-    p.then(slLuuMeta).then(function(){
+  return slXoaVaoRac([k], 'Anh xóa').then(function(ids){
+    return ((slLaHS(loai) || loai==='tt' || loai==='dnct') ? slDungDanhBa() : Promise.resolve()).then(slLuuMeta).then(function(){
       if(coTheNoiDrive() && DR.sanSang) ids.forEach(function(id){ xoaFileDrive(id).catch(function(){}); });
-      bao('Đã xóa '+slLoai(loai).ten+' '+slKyChu(ky)+'.', 4); if(nganHienTai===7) veSoLieu();
+      bao('Đã chuyển '+slLoai(loai).ten+' '+slKyChu(ky)+' vào 🗑 Thùng rác (ngăn Số liệu) — cần thì khôi phục ở đó.', 5); if(nganHienTai===7) veSoLieu();
     });
   });
+}
+/* xóa nhiều ô: chép từng ô vào Thùng rác rồi bỏ ô — trả về id file Drive để đưa vào Thùng rác Drive */
+function slXoaVaoRac(khoa, lyDo){
+  return khoa.reduce(function(p, k){ return p.then(function(){ return slRacVao(k, lyDo); }); }, Promise.resolve()).then(function(){ return slXoaCacO(khoa); });
 }
 
 /* 3.87: dời 1 ô sang khóa mới (loại / kỳ) — không đọc lại file, không đổi dữ liệu đã đọc: dời bản trong máy + chỉ mục;
@@ -3013,10 +3036,11 @@ function ktKHNhanh(k){ ktKHDatThang('chip', k==='quy' ? [3, 6, 9, 12] : k==='le'
 function ktKHXepLai(ok){ var L = ktKHLich();
   if(L.luu && !ok) return hoi('Xếp lại tự động?', 'Kế hoạch đã lưu sẽ chia lại từ đầu: các ấp (trọn ấp, theo thứ tự ấp) chia vào các tháng đang chọn, số tổ mỗi tháng gần bằng nhau; tháng anh đã chỉnh tay sẽ mất.', '↺ Xếp lại', function(){ ktKHXepLai(1); });
   L.gan = ktKHMacDinh(L.ds, L.thang); L.tay = false; ktKHGhi(L); ktVeThe(); }
-function ktKHXoa(ok){   /* 3.123 (anh chốt): xóa hẳn kế hoạch đã lưu của Hội – xã → về xếp tự động; không đụng khai báo, phân công, phiếu đã in */
+function ktKHXoa(){   /* 3.123: xóa kế hoạch đã lưu của Hội – xã → về xếp tự động · 3.153: không hỏi, kế hoạch cũ vào 🗑 Thùng rác (khôi phục được) */
   var L = ktKHLich(); if(!L.luu) return;
-  if(!ok) return hoi('Xóa kế hoạch năm '+ktKHNam()+'?', 'Xóa lịch kế hoạch đã lưu của '+ktHoiTenTD(L.ds[0] || {dv:ktKHHoi(), tenXa:''})+' (cả trên Drive). Lịch sẽ về xếp tự động như lần đầu để anh làm lại.', '🗑 Xóa kế hoạch', function(){ ktKHXoa(1); });
-  var S = D.cauHinh.ktKH = D.cauHinh.ktKH || {}; S[ktKHKhoa()] = {xoa:1, luc:new Date().toISOString()}; luu(); ktVeThe(); bao('Đã xóa kế hoạch — lịch về xếp tự động.', 4);
+  var S = D.cauHinh.ktKH = D.cauHinh.ktKH || {}, k = ktKHKhoa(), ten = ktHoiTenTD(L.ds[0] || {dv:ktKHHoi(), tenXa:''});
+  racMucNho('ktKH', 'Kế hoạch KTGS năm '+ktKHNam()+' · '+ten, 'KTGS Hội › Kế hoạch năm '+ktKHNam(), S[k], {khoa:k});
+  S[k] = {xoa:1, luc:new Date().toISOString()}; luu(); ktVeThe();
 }
 function ktKHNgay(iso){ var d = iso ? new Date(iso) : null; return d && !isNaN(d) ? hai(d.getDate())+'/'+hai(d.getMonth()+1)+'/'+d.getFullYear() : ''; }
 function ktKHVe(o){
@@ -3564,6 +3588,7 @@ function veSoLieu(){
   var e = document.getElementById('tr7'); if(!e) return;
   if(!SL_SAN){ e.innerHTML = '<div class="rong">Đang mở số liệu…</div>'; slNap().then(veSoLieu); return; }
   if(!slNapSan.da){ slNapSan.da = 1; setTimeout(slNapSan, 2500); }   /* 3.125: lần đầu vào tab Số liệu → nạp ngầm các tháng */
+  slChuyenTruoc();   /* 3.153: bản trước lần thay (3.145) → Thùng rác */
   if(D.cauHinh.slTab==='tra'){ e.innerHTML = slTabConHTML()+slTraHTML(); slTraTim(); tcNap(); return; }   /* 3.89: nạp cây phạm vi + chỉ mục vợ/chồng, HSSV */
   if(D.cauHinh.slTab==='to') return veToTK();   /* 3.88 */
   if(D.cauHinh.slTab==='sk') return veSaoKe();   /* 3.89 */
@@ -3633,7 +3658,7 @@ function slTomTatXem(ky){ batChay(true, 'Đang mở tóm tắt '+kyVN(ky)+'…')
 function slNapHoi(){
   moHop('<div class="hop-tit">❓ Nạp &amp; Kiểm tra dữ liệu</div><div class="hd-chu">'+
     '<p>Nơi duy nhất nạp file Excel hệ thống (Mẫu 31, Dư nợ chi tiết, DSTO, file TW, KHĐ, quá hạn, khoanh… và BC0437 / BC0438 của KTGS) — các tab khác chỉ đọc. Excel chỉ đọc 1 lần lúc nạp.</p>'+
-    '<p><b>Ma trận:</b> mỗi ô = số chính + mũi tên so tháng trước (dư nợ tăng ▲ xanh; quá hạn / khoanh / KHĐ tăng ▲ đỏ; tổ chỉ số tổ). Bấm ô trống: nạp đúng ô; ô có file: hỏi thay (↩ hoàn tác 1 lần, 30 ngày). Ⓑ bắt buộc · Ⓐ chuẩn TW · Ⓓ phụ. Cột 📅 Theo ngày: bản số liệu giữa tháng.</p>'+
+    '<p><b>Ma trận:</b> mỗi ô = số chính + mũi tên so tháng trước (dư nợ tăng ▲ xanh; quá hạn / khoanh / KHĐ tăng ▲ đỏ; tổ chỉ số tổ). Bấm ô trống: nạp đúng ô; ô có file: hỏi thay (file cũ vào 🗑 Thùng rác, khôi phục được). Ⓑ bắt buộc · Ⓐ chuẩn TW · Ⓓ phụ. Cột 📅 Theo ngày: bản số liệu giữa tháng.</p>'+
     '<p><b>Kiểm tra kỳ:</b> ✓ Đạt khi đủ '+SL_BAT_BUOC.length+' file (Ⓑ 3 + Ⓐ 6), đúng kỳ, đúng cấu trúc. Chênh lệch giữa các file chỉ ghi nhận để biết — không ảnh hưởng Đạt, không sửa số. Rê chuột lên dòng trạng thái: báo cáo nào dùng được, thiếu file gì.</p>'+
     '<p>Báo cáo ở tab <b>Số liệu</b>: Tổng hợp, Sao kê, Tổ TK&amp;VV, KTGS Hội, Tra cứu KH.</p></div>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>');
@@ -3653,10 +3678,9 @@ function slONgay(L){
 function slXoaNgayCu(giu){
   var moi = giu || slNgayMoi(), ds = slDsNgay().filter(function(e){ return e.ky!==moi ; });
   if(!ds.length) return bao('Không còn bản theo ngày cũ.', 3);
-  hoi('Xóa '+ds.length+' bản theo ngày cũ, giữ ngày '+ngayVNsl(moi)+'?', ds.map(function(e){ return slLoai(e.loai).ten.split(' · ')[0]+' '+ngayVNsl(e.ky); }).join(' · ')+'. Bản cuối tháng không bị đụng. File gốc và dữ liệu trên Drive vào Thùng rác của Drive (lấy lại được 30 ngày).', 'Xóa', function(){
-    batChay(true, 'Đang xóa '+ds.length+' bản theo ngày cũ…');
-    var ids = slXoaCacO(ds.map(function(e){ return slKhoa(e.loai, e.ky); }));
-    slDungDanhBa().then(slLuuMeta).then(function(){
+  hoi('Xóa '+ds.length+' bản theo ngày cũ, giữ ngày '+ngayVNsl(moi)+'?', ds.map(function(e){ return slLoai(e.loai).ten.split(' · ')[0]+' '+ngayVNsl(e.ky); }).join(' · ')+'. Bản cuối tháng không bị đụng. Các bản xóa vào 🗑 Thùng rác (ngăn Số liệu) — khôi phục được trong 30 ngày.', 'Xóa', function(){
+    batChay(true, 'Đang xóa '+ds.length+' bản theo ngày cũ…'); var ids = [];
+    slXoaVaoRac(ds.map(function(e){ return slKhoa(e.loai, e.ky); }), 'Xóa bản theo ngày cũ').then(function(r){ ids = r; return slDungDanhBa(); }).then(slLuuMeta).then(function(){
       tatChay(); if(coTheNoiDrive() && DR.sanSang) ids.forEach(function(id){ xoaFileDrive(id).catch(function(){}); });
       bao('Đã xóa '+ds.length+' bản theo ngày cũ — còn ngày '+ngayVNsl(moi)+'.', 4); if(nganHienTai===7) veSoLieu();
     }).catch(function(er){ tatChay(); baoLoi('Xóa lỗi: '+(er && er.message || er)); });
@@ -3676,7 +3700,7 @@ function slOMT(L, k){
   } else {
     var x = SLM.bang[slKhoa(L.k, k)], nd = [], them = '';   /* 3.136: bản theo ngày → cột 📅 Theo ngày */
     if(x){ var c = slChinh(L, x.tong), mt = slMuiTen(L, k, c);   /* 3.145 (anh chốt): ô = số chính + mũi tên so kỳ trước; bấm ô = nạp / hỏi thay */
-      return '<td class="bdc-o sl-o du'+(x.choDay?' cho':'')+'" onclick="slOBam(\''+L.k+'\',\''+k+'\')" title="'+coChuHTML(slTomTat(L.k, x.tong)+(mt.chu ? ' · '+mt.chu : '')+' · '+(x.tenFile||'')+' · kỳ theo '+(x.nguonKy||'')+(x.choDay?' · chờ lên Drive':'')+(slTruoc(x) ? ' · có thể hoàn tác lần thay' : '')+' — bấm để thay file / xem')+'">'+
+      return '<td class="bdc-o sl-o du'+(x.choDay?' cho':'')+'" onclick="slOBam(\''+L.k+'\',\''+k+'\')" title="'+coChuHTML(slTomTat(L.k, x.tong)+(mt.chu ? ' · '+mt.chu : '')+' · '+(x.tenFile||'')+' · kỳ theo '+(x.nguonKy||'')+(x.choDay?' · chờ lên Drive':'')+' — bấm để thay file / xem')+'">'+
         '<span class="sl-o-so">'+coChuHTML(c.chu)+'</span>'+(mt.html ? '<small>'+mt.html+'</small>' : '')+'</td>'; }
     if(nd.length) return '<td class="bdc-o sl-o du" onclick="slMoNgay(\''+L.k+'\',\''+k+'\')" title="Chưa có bản cuối tháng · '+nd.length+' bản theo ngày">◐<small>'+nd.length+' ngày</small></td>';
   }
@@ -3774,13 +3798,12 @@ function slMuiTen(L, k, c){   /* so với ô tháng liền trước cùng loại
 function slOBam(loai, ky){
   var e = SLM.bang[slKhoa(loai, ky)]; if(!e) return slNapMot(loai, ky);
   var L = slLoai(loai); if(L.bo) return slMoO(loai, ky);
-  var tr = slTruoc(e), a = '\''+loai+'\',\''+ky+'\'';
+  var a = '\''+loai+'\',\''+ky+'\'';
   moHop('<div class="hop-tit">'+coChuHTML(L.ten)+' · '+slKyChu(ky)+'</div>'+
-    '<div class="hop-phu">Ô này đã có file <b>'+coChuHTML(e.tenFile||'')+'</b> · '+coChuHTML(slTomTat(loai, e.tong))+' · nạp '+ngayVNsl(String(e.luc||'').slice(0, 10))+(e.hoanTac ? ' (đã hoàn tác)' : '')+'</div>'+
-    '<div class="sl-bao vang"><b>Thay bằng file mới?</b> File cũ vào Thùng rác Drive; trong '+SL_TRUOC_NGAY+' ngày hoàn tác được 1 lần thay.</div>'+
+    '<div class="hop-phu">Ô này đã có file <b>'+coChuHTML(e.tenFile||'')+'</b> · '+coChuHTML(slTomTat(loai, e.tong))+' · nạp '+ngayVNsl(String(e.luc||'').slice(0, 10))+(e.khoiPhuc ? ' (khôi phục từ Thùng rác)' : '')+'</div>'+
+    '<div class="sl-bao vang"><b>Thay bằng file mới?</b> File cũ vào 🗑 Thùng rác (ngăn Số liệu) — cần thì khôi phục ở đó.</div>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="dongHop();slThayO('+a+')">🔁 Thay bằng file mới</button></div>'+
-    '<div class="hang-nut sl-o-phu"><button class="nho" onclick="dongHop();slMoO('+a+')">👁 Xem chi tiết</button><button class="nho" onclick="slTaiGoc('+a+')">⬇ Tải file gốc</button><button class="nho" onclick="dongHop();slXoa('+a+')">🗑 Xóa ô</button>'+
-      (tr ? '<button class="nho" onclick="dongHop();slHoanTac('+a+')" title="Thay lúc '+coChuHTML(ngayVNsl(String(tr.thayLuc||'').slice(0, 10)))+'">↩ Hoàn tác lần thay (về “'+coChuHTML(tr.tenFile||'')+'”)</button>' : '')+'</div>', true);
+    '<div class="hang-nut sl-o-phu"><button class="nho" onclick="dongHop();slMoO('+a+')">👁 Xem chi tiết</button><button class="nho" onclick="slTaiGoc('+a+')">⬇ Tải file gốc</button><button class="nho" onclick="dongHop();slXoa('+a+')">🗑 Xóa</button></div>', true);
 }
 function slNgan(L, t){ t = t||{}; if(L.k==='lt' || L.k==='tt' || L.k==='dsto') return (t.dong!==undefined ? t.dong : t.n||0)+' tổ'; if(t.dn!==undefined) return tdnTr(t.dn); if(t.qh!==undefined) return tdnTr(t.qh); if(t.kn!==undefined) return tdnTr(t.kn); return (t.n||0)+' dòng'; }
 function slTTHTML(ky){
@@ -6346,10 +6369,9 @@ function slXoaCacO(khoa){
 function slXoaThang(thang){
   var ks = Object.keys(SLM.bang).filter(function(k){ return slThang(SLM.bang[k].ky)===thang; });
   if(!ks.length) return bao('Tháng '+kyVN(thang)+' chưa có file nào.', 3);
-  hoi('Xóa cả bộ tháng '+kyVN(thang)+' ('+ks.length+' ô)?', ks.map(function(k){ var e = SLM.bang[k]; return slLoai(e.loai).ten+' '+slKyChu(e.ky); }).join(' · ')+'. File gốc và dữ liệu trên Drive vào Thùng rác của Drive (lấy lại được 30 ngày). Kết quả kiểm tra của tháng cũng bỏ.', 'Xóa cả tháng', function(){
-    batChay(true, 'Đang xóa tháng '+kyVN(thang)+'…');
-    var ids = slXoaCacO(ks); delete SLM.kt[thang];
-    slDungDanhBa().then(slLuuMeta).then(function(){
+  hoi('Xóa cả bộ tháng '+kyVN(thang)+' ('+ks.length+' ô)?', ks.map(function(k){ var e = SLM.bang[k]; return slLoai(e.loai).ten+' '+slKyChu(e.ky); }).join(' · ')+'. Các ô vào 🗑 Thùng rác (ngăn Số liệu) — khôi phục được trong 30 ngày. Kết quả kiểm tra của tháng cũng bỏ.', 'Xóa cả tháng', function(){
+    batChay(true, 'Đang xóa tháng '+kyVN(thang)+'…'); var ids = [];
+    slXoaVaoRac(ks, 'Xóa cả bộ tháng '+kyVN(thang)).then(function(r){ ids = r; delete SLM.kt[thang]; return slDungDanhBa(); }).then(slLuuMeta).then(function(){
       tatChay(); if(coTheNoiDrive() && DR.sanSang) ids.forEach(function(id){ xoaFileDrive(id).catch(function(){}); });
       bao('Đã xóa '+ks.length+' ô của tháng '+kyVN(thang)+'.', 4); if(nganHienTai===7) veSoLieu();
     }).catch(function(er){ tatChay(); baoLoi('Xóa lỗi: '+(er && er.message || er)); });

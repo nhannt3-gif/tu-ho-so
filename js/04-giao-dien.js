@@ -1268,13 +1268,13 @@ function ntDoiGhim(id){
 }
 function ntXoa(id){
   var m = ntTim(id); if(!m) return;
-  hoi('Xóa mẩu ghi chú này?', ((m.nd||'').slice(0,80)||'(mẩu trống)')+((m.dinh||[]).some(function(f){ return f.k==='rieng'; }) ? ' — ảnh / file của mẩu vào thùng rác, khôi phục được' : ''), 'Xóa', function(){
+  (function(){   /* 3.153: không hỏi — mẩu vào 🗑 Thùng rác (ngăn Hôm nay), khôi phục được */
     var L = ntData();
     L.note = L.note.filter(function(x){ return x.id!==id; });
     L.noteXoa.push({id:id, luc:new Date().toISOString()});
     nkVaoRac([m]);
-    luu(); henDongBoLich(); veNhatKy(); veLich();
-  });
+    luu(); henDongBoLich(); veNhatKy(); veLich(); bao('Đã chuyển mẩu ghi chú vào 🗑 Thùng rác — cần thì khôi phục ở đó.', 4);
+  })();
 }
 /* đổi chỗ (điện thoại dùng nút, máy bàn kéo thả) */
 function ntChuyen(id, huong){
@@ -2292,7 +2292,7 @@ function lcXoa(){
       '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
       '<button class="nho" onclick="lcXoaMotLan()">Chỉ lần ngày '+lcDM(LICH.chon)+'</button>'+
       '<button class="nho xau" onclick="lcXoaHan()">Xóa cả chuỗi</button></div>');
-  } else hoi('Xóa việc này?', coChuHTML(v.ten)+' — ngày '+lcDMY(v.ngay), 'Xóa', lcXoaHan);
+  } else lcXoaHan();   /* 3.153: không hỏi — vào Thùng rác */
 }
 function lcXoaMotLan(){
   var v = lcTim(LICH.viecChon); if(!v) return;
@@ -2300,7 +2300,8 @@ function lcXoaMotLan(){
   v.suaLuc = new Date().toISOString(); LICH.viecChon = ''; dongHop(); lcDoiLich();
 }
 function lcXoaHan(){
-  var L = lcData(), id = LICH.viecChon;
+  var L = lcData(), id = LICH.viecChon, v = lcTim(id);
+  if(v) racMucNho('lich', v.ten || '(việc)', 'Hôm nay › Lịch › '+(v.ngay ? lcDMY(v.ngay) : ''), v);   /* 3.153 */
   L.viec = L.viec.filter(function(v){ return v.id!==id; });
   L.daXoa.push({id:id, luc:new Date().toISOString()});
   LICH.viecChon = ''; dongHop(); lcDoiLich();
@@ -4696,12 +4697,13 @@ function tdnLuuLan(kuoc, id, bb){
 }
 function tdnXoaLan(id){
   var l = NO.lan.find(function(x){ return x.id===id; }); if(!l) return;
-  hoi('Xóa lần làm việc '+ngayVN(l.ngay)+'?', 'Xóa khỏi nhật ký (việc cam kết trong lịch cũng bỏ). Tài liệu của hộ giữ nguyên.', 'Xóa', function(){
-    var now = new Date().toISOString();
+  (function(){   /* 3.153: không hỏi — lần làm việc (kèm việc cam kết trong lịch) vào Thùng rác */
+    var now = new Date().toISOString(), vc = l.viecId ? lcTim(l.viecId) : null;
+    racMucNho('lanLV', 'Lần làm việc '+ngayVN(l.ngay)+(l.ten || l.maKH ? ' · '+(l.ten || l.maKH) : ''), 'Theo dõi nợ › nhật ký làm việc', l, vc ? {viec:JSON.parse(JSON.stringify(vc))} : null);
     NO.lan = NO.lan.filter(function(x){ return x.id!==id; }); NO.lanXoa.push({id:id, luc:now});
     if(l.viecId){ var Lc = lcData(); Lc.viec = Lc.viec.filter(function(x){ return x.id!==l.viecId; }); Lc.daXoa.push({id:l.viecId, luc:now}); lcDoiLich(); }
     luuNo(); veGhiChu();
-  });
+  })();
 }
 
 /* ---------- vị trí nhà ---------- */

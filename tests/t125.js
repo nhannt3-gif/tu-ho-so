@@ -118,10 +118,11 @@ const fs=require('fs'), path=require('path');
    ok('bấm tháng → tích sẵn đúng các tổ của tháng đó; tổ không còn trong số liệu không tích', soMBC>0 && Object.keys(KT_BC_CHON).length===soMBC && !KT_BC_CHON[tMat.ma] && ktBCDs().filter(r=>r.chon).length===soMBC, soMBC+' tổ');
    KT_K.to[tMat.ma] = toGoc; KT_BC_CHON = {};
    C.che = 'kh'; C.khHoi = dv; ktVeThe(); await w(150);
-   ktKHXoa(); await w(50); ok('🗑 Xóa kế hoạch → hỏi trước', /Xóa kế hoạch năm 2026/.test(document.getElementById('hop-in').textContent) && ktKHLich().luu);
-   [...document.querySelectorAll('#hop-in button')].find(x=>/🗑 Xóa kế hoạch/.test(x.textContent)).click(); await w(150);
+   const nR = (D.rac||[]).length; ktKHXoa(); await w(150);
+   ok('3.153: 🗑 Xóa kế hoạch → không hỏi, kế hoạch cũ vào Thùng rác (ngăn Mục nhỏ)', !document.getElementById('hop').classList.contains('hien') && D.rac.length===nR+1 && nganRac(D.rac[D.rac.length-1])==='mucNho');
    L = ktKHLich(); ok('xóa → về xếp tự động (02 → 10), giữ dấu xóa để Drive không kéo lại', !L.luu && L.cach==='khoang' && L.tu===2 && D.cauHinh.ktKH['2026|'+xa+'|'+dv].xoa===1 && !Object.values(ktDKLich('2026-'+hai(mBC))).some(v=>v==='2026|'+xa+'|'+dv));
    ok('sau khi xóa: Báo cáo tổ không còn hàng Theo kế hoạch của Hội này', !ktBCKH().some(x=>x.dv===dv));
+   khoiPhucRac([D.rac[D.rac.length-1].id]); ok('3.153: khôi phục từ Thùng rác → kế hoạch đã lưu trở lại', !!ktKHLich().luu && D.rac.length===nR);
    /* 12. kế hoạch lưu ở bản cũ (chưa có v) vẫn đọc được, coi như đã chỉnh tay */
    D.cauHinh.ktKH['2026|'+xa+'|'+dv] = {tu:4, den:6, to:{[L.ds[0].ma]:5}, luc:'2026-03-01T00:00:00.000Z'}; L = ktKHLich();
    ok('kế hoạch bản cũ: đọc đúng khoảng 04 → 06, tổ đã xếp giữ nguyên, tổ cùng ấp theo tháng ấp (3.140), tổ ấp khác báo chưa xếp', L.cach==='khoang' && L.tu===4 && L.den===6 && L.gan[L.ds[0].ma]===5 && L.thieu.length===L.ds.filter(t=>ktKHAp(t)!==ktKHAp(L.ds[0])).length && L.ds.filter(t=>ktKHAp(t)===ktKHAp(L.ds[0])).every(t=>L.gan[t.ma]===5) && L.tay);

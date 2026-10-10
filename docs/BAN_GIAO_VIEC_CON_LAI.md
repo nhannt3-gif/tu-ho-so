@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.153) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Văn bản: 🗑 Xóa → tích 1 file → Xóa | Không hỏi, vào Thùng rác | |
+| 2 | Tích 3 file → Xóa | Hỏi 1 lần "Xóa 3 file?" | |
+| 3 | Nạp & KT: bấm ô có file → Thay bằng file mới | Bản cũ ở 🗑 Thùng rác ngăn Số liệu; Khôi phục → ô về file cũ | |
+| 4 | Xóa 1 ô / cả bộ tháng | Ô vào ngăn Số liệu; khôi phục được | |
+| 5 | Xóa việc lịch / mẩu ghi chú / lần làm việc / bộ biểu mẫu / kế hoạch KTGS | Không hỏi; Thùng rác ngăn Mục nhỏ (mẩu ghi chú: ngăn Hôm nay); khôi phục về đúng chỗ | |
+| 6 | Thùng rác | "Tự xóa hẳn rác cũ hơn 30 ngày" đã tích sẵn | |
+
+**Ghi chú kỹ thuật 3.153:** D.rac chỉ ở máy đang xóa (như trước); bản trong máy của ô Số liệu nằm ở `slr_<id>_a/_g` tới khi xóa hẳn. Khôi phục ô khi không nối Drive và máy không còn bảng → báo cần nối Drive.
+
 ### Danh sách thử trên máy thật (3.152) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

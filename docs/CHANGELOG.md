@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.153 — 11/10/2026 — Xóa thống nhất: mọi thứ vào Thùng rác app
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 3):** không cần thanh Hoàn tác — cần thì vào Thùng rác khôi phục; bỏ "↩ hoàn tác lần thay" ở ô Số liệu; ô Số liệu bị xóa và bản cũ khi thay file đều vào Thùng rác ngăn Số liệu.
+- **Số liệu** (`js/22-so-lieu.js`): `slRacVao(k, lyDo)` chép bản trong máy (bảng + file gốc) sang `slr_<id>_a / _g` và thêm mục `khoCu:'soLieu'` (`sl:{loai, ky, e}`) vào `D.rac`. `slXoa` (không hỏi), `slXoaVaoRac` (xóa tháng / bản ngày cũ: hỏi 1 lần), `slGhi` khi thay file → bản cũ vào thùng (bỏ `e.truoc`, `slGiuTruoc`, `slHoanTac`). `slKhoiPhucRac`: ô đang có file khác → vào thùng (đổi chỗ); chép lại bản trong máy; nối Drive thì lấy file khỏi Thùng rác Drive (giữ id), không nối thì đẩy lại lên Drive. `slXoaHanRac` bỏ bản trong máy. `slChuyenTruoc`: meta cũ có `e.truoc` (3.145) → mục thùng rác trỏ khóa `_truoc`, 1 lần. "Làm mới toàn bộ" (gõ XOA) giữ như cũ, không qua thùng.
+- **Mục nhỏ** (`js/06-hop-thoai.js` `MUC_NHO`, `racMucNho`, `mucNhoKhoiPhuc`): việc lịch (`lcXoaHan`), lần làm việc (`tdnXoaLan`, kèm việc cam kết), kế hoạch KTGS (`ktKHXoa`), bộ biểu mẫu (`xoaBo`) — không hỏi, vào ngăn 🗒 Mục nhỏ; mẩu ghi chú (`ntXoa`) không hỏi, vào ngăn Hôm nay như cũ.
+- **Xóa nhiều file** (`thucHienBot`): 1 file không hỏi; nhiều file hỏi 1 lần "Xóa N file?".
+- **Thùng rác** (`js/10-danh-sach.js`): thêm ngăn 📈 Số liệu, 🗒 Mục nhỏ; dòng "Trước ở: …"; "Tự xóa hẳn rác cũ hơn 30 ngày" bật sẵn (`racTuXoa!==false`).
+- **Phép thử:** `tests/t149.js` (mới, 14). t141 (thay file → thùng rác, khôi phục trong máy / Drive, chuyển e.truoc, xóa ô không hỏi, xóa hẳn), t125 (xóa kế hoạch không hỏi + khôi phục).
+
 ## 3.152 — 11/10/2026 — Xuất chung: In · PDF · Word · Excel · Gửi
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 2, 4):** mỗi báo cáo một kiểu nút, tên file khác nhau; Copy gộp vào Gửi; PDF = hộp in "Lưu dưới dạng PDF" tên điền sẵn; máy tính Gửi = tải về.
 - **File mới `js/24-xuat.js`:** `xuatHang(o)` hàng nút chuẩn `.xuat-hang` (Đóng · `o.truoc` · 🖨 In · 📄 PDF · 📝 Word · 📊 Excel · 📤 Gửi; ẩn định dạng không có); `o.html()` → In / PDF / Copy dùng chung. `xuatTen(loại, phạm vi, kỳ)` → `Loai_PhamVi_Tmm-yy`. `xuatGui` menu (Gửi file PDF / Word / Excel · 📋 Copy ảnh · 📋 Copy chữ). `xuatChepChu` (ClipboardItem text/plain + text/html, bảng → tab giữa ô). `xuatChepAnh` / `xuatAnhBlob`: vẽ trang báo cáo thành PNG bằng SVG foreignObject → canvas (không thêm thư viện); máy không cho thì chép chữ thay.

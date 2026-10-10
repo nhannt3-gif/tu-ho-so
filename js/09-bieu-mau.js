@@ -135,9 +135,8 @@ function luuBo(i){
 }
 function xoaBo(i){
   var bo = dsBo(), b = bo[i]; if(!b) return;
-  hoi('Xóa bộ "'+b.ten+'"?', 'Chỉ xóa cách gom nhóm, các biểu mẫu vẫn còn nguyên trong tủ.', 'Xóa bộ', function(){
-    bo.splice(i,1); luu(); moDsBo();
-  });
+  racMucNho('boBM', 'Bộ biểu mẫu “'+b.ten+'”', 'Biểu mẫu › 📚 Bộ biểu mẫu', b);   /* 3.153: không hỏi — vào Thùng rác (biểu mẫu vẫn còn nguyên) */
+  bo.splice(i,1); luu(); moDsBo();
 }
 function chonBoGui(i){
   var b = dsBo()[i]; if(!b) return;

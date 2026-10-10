@@ -38,7 +38,7 @@ const path=require('path'); const drive=require('./fakedrive.js')();
    slOBam('nk', '2026-08'); ok('bấm ô trống → nạp file vào ô đó', napO==='nk|2026-08', napO); slNapMot = napCu;
    slOBam('hstd', '2026-08'); await w(100);
    const hop = (document.querySelector('.hop-in')||{}).textContent||'';
-   ok('bấm ô đã có file → hỏi "Thay bằng file mới?" + nút Thôi / Thay / Xem / Tải / Xóa', /Thay bằng file mới\?/.test(hop) && /Thôi/.test(hop) && /Xem chi tiết/.test(hop) && /Tải file gốc/.test(hop) && /Xóa ô/.test(hop) && !/Hoàn tác/.test(hop));
+   ok('bấm ô đã có file → hỏi "Thay bằng file mới?" + nút Thôi / Thay / Xem / Tải / Xóa', /Thay bằng file mới\?/.test(hop) && /Thôi/.test(hop) && /Xem chi tiết/.test(hop) && /Tải file gốc/.test(hop) && /🗑 Xóa/.test(hop) && !/Hoàn tác/.test(hop));
    dongHop();
    /* 5. 📋 File cần xuất */
    slFileXuat('2026-08'); await w(100);
@@ -48,29 +48,39 @@ const path=require('path'); const drive=require('./fakedrive.js')();
    ok('tab Nạp có nút 📋 File cần xuất', Array.from(document.querySelectorAll('#tr7 button')).some(x=>/File cần xuất/.test(x.textContent)));
    dongHop();
    ['hstd','nqh','khd','dsto'].forEach(l=>['2026-07','2026-08'].forEach(k=>{ delete SLM.bang[slKhoa(l, k)]; }));
-   /* 6. thay file + hoàn tác — trong máy (bản cũ chưa lên Drive) */
+   /* 6. 3.153: thay file → bản cũ vào 🗑 Thùng rác (ngăn Số liệu), khôi phục từ đó — trong máy (bản cũ chưa lên Drive) */
    const fNQH = (ten, so) => tep([['Sao kê nợ quá hạn'], ['Số khế ước','Mã khách hàng','Tên khách hàng','Dư nợ quá hạn','Ngày chuyển quá hạn']].concat(Array.from({length:so}, (_, i)=>['66000000000000'+(10+i), '48000000'+(10+i), 'KHÁCH GIẢ '+i, 1e6, '01/08/2026'])), ten);
    const ghi = async (f) => { const kq = await slDocFile(f, 'nqh'); kq.loai = 'nqh'; kq.ky = '2026-09'; kq.ngay = '2026-09-30'; kq.nguonKy = 'anh chọn'; await slGhi(kq); return kq; };
    await ghi(fNQH('NQH cu.xlsx', 2)); await ghi(fNQH('NQH moi.xlsx', 5));
-   const e1 = SLM.bang['nqh|2026-09'];
-   ok('thay file: giữ bản trước (tên file cũ, mốc thay) + bản trong máy _truoc', e1.tenFile==='NQH moi.xlsx' && e1.truoc && e1.truoc.tenFile==='NQH cu.xlsx' && !!(await docFile(slIDB('nqh','2026-09')+'_truoc')));
+   const e1 = SLM.bang['nqh|2026-09'], racSL = ten => (D.rac||[]).filter(m=>m.khoCu==='soLieu' && m.sl && m.sl.e.tenFile===ten).pop();
+   const r1 = racSL('NQH cu.xlsx');
+   ok('thay file: bản cũ vào Thùng rác ngăn Số liệu (kèm bảng trong máy), ô không còn "truoc"', e1.tenFile==='NQH moi.xlsx' && !e1.truoc && r1 && nganRac(r1)==='soLieu' && !!(await docFile(r1.kA)), r1 && r1.tenMoi);
    slOBam('nqh', '2026-09'); await w(100);
-   ok('ô đã thay: có nút ↩ Hoàn tác lần thay (về file cũ)', /Hoàn tác lần thay \(về “NQH cu\.xlsx”\)/.test((document.querySelector('.hop-in')||{}).textContent||'')); dongHop();
-   slHoanTac('nqh', '2026-09'); for(let i=0;i<40 && SLM.bang['nqh|2026-09'].tenFile!=='NQH cu.xlsx';i++) await w(150); await w(300);
+   const hop6 = (document.querySelector('.hop-in')||{}).textContent||'';
+   ok('ô đã thay: không còn nút ↩ Hoàn tác, ghi "File cũ vào 🗑 Thùng rác"', !/Hoàn tác/.test(hop6) && /Thùng rác/.test(hop6)); dongHop();
+   khoiPhucRac([r1.id]); for(let i=0;i<40 && SLM.bang['nqh|2026-09'].tenFile!=='NQH cu.xlsx';i++) await w(150); await w(300);
    const e2 = SLM.bang['nqh|2026-09'], b2 = await docFile(slIDB('nqh','2026-09'));
-   ok('hoàn tác (trong máy): ô quay về file cũ, bảng 2 dòng, không còn bản trước (chỉ 1 bước)', e2.tenFile==='NQH cu.xlsx' && b2 && b2.n===2 && !e2.truoc && !(await docFile(slIDB('nqh','2026-09')+'_truoc')), JSON.stringify({ten:e2.tenFile, n:b2 && b2.n}));
-   e2.truoc = {tenFile:'x', thayLuc:'2026-01-01T00:00:00Z'}; let bm = ''; const bao0 = bao; bao = t=>{ bm = t; }; slHoanTac('nqh', '2026-09'); bao = bao0;
-   ok('quá 30 ngày → không hoàn tác được', /quá 30 ngày/.test(bm) && SLM.bang['nqh|2026-09'].tenFile==='NQH cu.xlsx', bm); delete e2.truoc;
-   /* 7. hoàn tác khi bản cũ đã lên Drive (đã vào Thùng rác Drive) */
+   ok('khôi phục (trong máy): ô về file cũ, bảng 2 dòng; bản mới vào Thùng rác (đổi chỗ), mục cũ ra khỏi thùng', e2.tenFile==='NQH cu.xlsx' && b2 && b2.n===2 && !!racSL('NQH moi.xlsx') && !D.rac.some(m=>m.id===r1.id) && !(await docFile(r1.kA)), JSON.stringify({ten:e2.tenFile, n:b2 && b2.n, moi:!!racSL('NQH moi.xlsx'), con:D.rac.some(m=>m.id===r1.id), kA:!!(await docFile(r1.kA))}));
+   /* meta cũ có e.truoc (3.145) → chuyển thành mục Thùng rác 1 lần */
+   await luuFile(slIDB('nqh','2026-09')+'_truoc', {v:1, n:7}); e2.truoc = {tenFile:'NQH truoc.xlsx', loai:'nqh', ky:'2026-09', thayLuc:new Date().toISOString()};
+   const n0 = D.rac.length; slChuyenTruoc(); const rT = racSL('NQH truoc.xlsx');
+   ok('meta cũ có bản trước (3.145) → thành mục Thùng rác, trỏ khóa _truoc', !e2.truoc && D.rac.length===n0+1 && rT && rT.kA===slIDB('nqh','2026-09')+'_truoc');
+   D.rac = D.rac.filter(m=>m!==rT);
+   /* 7. khôi phục khi bản cũ đã lên Drive (đã vào Thùng rác Drive) */
    window.coTheNoiDrive=()=>true; D.cauHinh.thumuc='Tủ hồ sơ'; DR.sanSang = true; DR.online = true; DR.token = 'x'; DR.hetHan = Date.now()+36e5;
    await slDay(); const eA = SLM.bang['nqh|2026-09'], gA = eA.goc, dA = eA.dl;
    await ghi(fNQH('NQH moi 2.xlsx', 4)); await slDay(); const eB = SLM.bang['nqh|2026-09'];
    const sau = await p_trash([gA, dA, eB.goc, eB.dl]);
    ok('đẩy bản mới lên Drive → file cũ vào Thùng rác Drive', !!gA && !!dA && sau[0] && sau[1] && !sau[2] && !sau[3], JSON.stringify(sau));
-   slHoanTac('nqh', '2026-09'); for(let i=0;i<40 && SLM.bang['nqh|2026-09'].tenFile!=='NQH cu.xlsx';i++) await w(150); await w(500);
+   khoiPhucRac([racSL('NQH cu.xlsx').id]); for(let i=0;i<40 && SLM.bang['nqh|2026-09'].tenFile!=='NQH cu.xlsx';i++) await w(150); await w(500);
    const sau2 = await p_trash([gA, dA, eB.goc, eB.dl]), e3 = SLM.bang['nqh|2026-09'];
-   ok('hoàn tác (Drive): lấy file cũ khỏi Thùng rác, file mới vào Thùng rác, ô trỏ lại file cũ', !sau2[0] && !sau2[1] && sau2[2] && sau2[3] && e3.goc===gA && e3.dl===dA && !e3.choDay, JSON.stringify(sau2));
-   ok('hoàn tác: mốc giờ mới (máy khác bỏ bản trong máy, tải lại bản cũ)', e3.luc > eB.luc);
+   ok('khôi phục (Drive): lấy file cũ khỏi Thùng rác Drive, file mới vào Thùng rác, ô trỏ lại file cũ', !sau2[0] && !sau2[1] && sau2[2] && sau2[3] && e3.goc===gA && e3.dl===dA && !e3.choDay, JSON.stringify(sau2));
+   ok('khôi phục: mốc giờ mới (máy khác bỏ bản trong máy, tải lại bản cũ)', e3.luc > eB.luc);
+   /* xóa 1 ô: không hỏi, vào Thùng rác; xóa hẳn ở Thùng rác bỏ bản trong máy */
+   await slXoa('nqh', '2026-09'); const rX = racSL('NQH cu.xlsx');
+   ok('🗑 Xóa ô: không hỏi, ô vào Thùng rác', !SLM.bang['nqh|2026-09'] && rX && !document.getElementById('hop').classList.contains('hien'));
+   await thucHienXoaHan([rX.id], true); await w(100);
+   ok('xóa hẳn ở Thùng rác → bỏ bản trong máy', !D.rac.some(m=>m.id===rX.id) && !(await docFile(rX.kA)));
    /* 8. KHĐ tự tính từ Mẫu 31 (kỳ T9 → mốc 30/06) */
    const m = (ku, x) => Object.assign({ku:ku, kh:'k'+ku, dn:1e6, kn:0, ct:'03', nv:'2025-01-01', ngdg:'2026-06-29'}, x);
    const hs = [m('A'), m('B', {ngdg:'2026-06-30'}), m('C', {kn:1e6}), m('D', {ct:'02'}), m('E', {dn:0}), m('F', {nv:'2026-07-05', ngdg:'2026-05-01'}), m('G', {ngdg:'2026-03-01'}), m('A')];
