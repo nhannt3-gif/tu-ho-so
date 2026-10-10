@@ -57,6 +57,39 @@
 5. Mục nhỏ không có file (việc lịch, mẩu ghi chú, lần làm việc): xóa có ↩ Hoàn tác 10 giây, không hỏi.
 6. Máy khác xóa theo (dấu `daXoaHan` / `SLM.xoa` như hiện nay).
 
+## Ý 4 — Mọi mẫu / báo cáo cùng 1 luồng (anh gửi 10/10)
+**Luồng chuẩn:** bấm mẫu / báo cáo → **👁 Xem** (khung xem chung, khổ giấy thật) → hàng nút cố định trên khung xem, cùng thứ tự:
+`🖨 In · 📄 PDF · 📝 Word · 📊 Excel · 📋 Copy · 📤 Gửi`. Báo cáo nào không có định dạng thì ẩn nút đó, không đổi chỗ các nút còn lại.
+- **🖨 In:** hộp in của máy, khổ / lề theo mẫu.
+- **📄 PDF:** ra file PDF có **tên điền sẵn** (`Loại_Phạm vi_Kỳ`).
+  - Máy tính: mở hộp in, chọn sẵn "Lưu dưới dạng PDF".
+  - Điện thoại: bảng chia sẻ → PDF.
+  - Không thêm thư viện được nên không tự tạo PDF chữ tiếng Việt (pdf-lib thiếu bộ font) — xem câu hỏi bên dưới.
+- **📝 Word / 📊 Excel:** như các mẫu đang có (KTGS có Word; Tổ, Sao kê, Tổng hợp có Excel). Báo cáo bảng nào cũng có Excel.
+- **📋 Copy (mới):** chép 1 lần, **2 dạng cùng lúc**:
+  - Dán vào **Zalo / tin nhắn** → ra chữ gọn: dòng tiêu đề + kỳ + từng dòng "1. Tên — số".
+  - Dán vào **Excel / Word** → ra bảng nguyên cột.
+  - "Chép sang AI" (che họ tên / CCCD) giữ riêng như cũ.
+- **📤 Gửi:**
+  - Điện thoại: bảng chia sẻ (Zalo…).
+  - Máy tính: tải file về.
+  - Chọn nhiều file → gửi 1 lần.
+
+**Áp cho:**
+- **Tổng hợp:** 9 báo cáo.
+- **Sao kê:** các nhóm.
+- **Tổ TK&VV:** danh sách tổ viên, bảng các tổ, biến động năm, dự kiến chia tách.
+- **Tra cứu KH:** thẻ khách.
+- **KTGS:** Mẫu 06, 16, 04, Kế hoạch 01/KH.
+- **Phiếu theo dõi nợ.**
+- **Công cụ:** HSSV (câu chốt), Địa bàn, CT vay.
+- **Văn bản / Biểu mẫu / Scan** (file có sẵn): Xem · In · PDF · Copy (số hiệu + trích yếu) · Gửi · Tải về.
+
+**Cách làm:**
+- Mỗi báo cáo khai 1 lần gồm: tiêu đề, phạm vi, kỳ, bảng `{cột, dòng, cộng}` hoặc HTML, khổ giấy.
+- 1 hàm chung `xuatMo(bc)` vẽ khung xem + hàng nút. In / PDF / Excel / Copy dùng chung, không mỗi báo cáo một kiểu.
+- Đây chính là "bộ báo cáo chung" của đợt D (KIEN_TRUC_3_LOP.md mục 8) — làm sớm phần này.
+
 ## Câu hỏi chờ anh (khi gửi đủ ý)
 - **Gửi trên máy tính:** tải về là đủ, hay muốn mở sẵn Zalo PC?
 - **PDF thật (1 file) cho báo cáo Số liệu:** không thêm thư viện thì dùng hộp in "Lưu dưới dạng PDF" + tên file điền sẵn (như Mẫu 06 / 16 hiện nay). Có được không?
