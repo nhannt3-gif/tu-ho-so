@@ -12,7 +12,7 @@ const fs=require('fs'), path=require('path');
    const mk = (b64, n) => { const bin=atob(b64), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return new File([u], n); };
    for(const f of files){ const kq = await slDocFile(mk(f.b, f.n)); if(!kq.loi) await slGhi(kq); }
    /* 1. loại file */
-   ok('Nạp số liệu: có dòng "Dư nợ chi tiết" ngay sau Mẫu 31 (nhóm Ⓑ), không bắt buộc', slLoai('dnct') && slLoai('dnct').nhom==='B' && SL_LOAI.indexOf(slLoai('dnct'))===SL_LOAI.indexOf(slLoai('hstd'))+1 && SL_BAT_BUOC.indexOf('dnct')<0);
+   ok('Nạp số liệu: có dòng "Dư nợ chi tiết" ngay sau Mẫu 31 (nhóm Ⓑ), bắt buộc từ 3.145', slLoai('dnct') && slLoai('dnct').nhom==='B' && SL_LOAI.indexOf(slLoai('dnct'))===SL_LOAI.indexOf(slLoai('hstd'))+1 && SL_BAT_BUOC.indexOf('dnct')>=0);
    ok('Mẫu 10 thành loại đã bỏ', slLoai('m10').nhom==='X' && /không dùng nữa/.test(slLoai('m10').bo) && !slLaHS('m10') && slLaHS('hstd'));
    /* 2. dựng file Dư nợ chi tiết GIẢ T8 từ Mẫu 31 T8 */
    const B8 = await slBo('2026-08'), hs = B8.co.hstd.filter(x=>x.ku && x.kh);
@@ -49,10 +49,10 @@ const fs=require('fs'), path=require('path');
    const fake = {v:1, loai:'m10', ky:'2026-08-15', ngay:'2026-08-15', n:1, cot:slNen([{ku:'6600000000000001', kh:kh, stk:'14820000004812', dn:1}], ['ku','kh','stk','dn'])};
    await luuFile(slIDB('m10','2026-08-15'), fake); SLM.bang[slKhoa('m10','2026-08-15')] = {loai:'m10', ky:'2026-08-15', ngay:'2026-08-15', soDong:1, luc:new Date().toISOString(), tenFile:'mau10.xlsx'};
    const kh2 = Object.keys(SL_DB.kh).find(m=>m!==kh); SL_DB.kh[kh2].stk = '14820000004812'; const soKH = Object.keys(SL_DB.kh).length;
-   delete SL_DB.b120; const n = await slBoMau10();
-   ok('mở app bản mới: bản Mẫu 10 đã nạp được bỏ (đánh dấu xóa, đồng bộ máy khác)', n===1 && !SLM.bang[slKhoa('m10','2026-08-15')] && !!SLM.xoa[slKhoa('m10','2026-08-15')] && !(await docFile(slIDB('m10','2026-08-15'))));
+   delete SL_DB.b120; const n = await slBoLoaiDon();
+   ok('mở app bản mới: bản Mẫu 10 đã nạp bị xóa hẳn (đánh dấu xóa, đồng bộ máy khác)', n===1 && !SLM.bang[slKhoa('m10','2026-08-15')] && !!SLM.xoa[slKhoa('m10','2026-08-15')] && !(await docFile(slIDB('m10','2026-08-15'))));
    ok('danh bạ làm sạch 1 lần tại chỗ: bỏ số 1482…, giữ số sổ đúng, không mất khách', SL_DB.b120===1 && !SL_DB.kh[kh2].stk && SL_DB.kh[kh].stk===soTK(kh) && Object.keys(SL_DB.kh).length===soKH);
-   ok('lần sau không dọn / dựng lại nữa', (await slBoMau10())===0);
+   ok('lần sau không dọn / dựng lại nữa', (await slBoLoaiDon())===0);
    const kqM10 = await slDocFile(new File([XLSX.write((()=>{ const wb2 = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb2, XLSX.utils.aoa_to_sheet([['Mã món vay','Mã khách hàng','Tổng dư nợ','Số tiền giải ngân','Số TK'],['6600000000000001','4800000001',1,1,'14820000004812']]), 'S'); return wb2; })(), {type:'array', bookType:'xlsx'})], 'Ho so tin dung chi tiet 15-10-2026.xlsx'));
    ok('thả file Mẫu 10 → báo "không dùng nữa", không nạp', !kqM10.loai && /Mẫu 10 không dùng nữa/.test(kqM10.loi), kqM10.loi);
    /* 6. màn Nạp số liệu */

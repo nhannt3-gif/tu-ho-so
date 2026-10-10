@@ -20,9 +20,9 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái (cập nhật 10/10/2026)
-- **`main` = 3.143** (Q14 ngày số liệu theo nội dung file). Mốc quay lại: nhánh `moc/v3.141-truoc-tach-file`.
-- **Bản đang làm: 3.144 "Sắp lại tab"** (gộp bước 2-3-4 anh duyệt): tab 📥 Nạp & KT thay tab Tháng (gồm cả nạp BC0437 / BC0438 KTGS), bỏ tab Tháng + tự xóa dữ liệu (Drive vào thùng rác), ẩn Giao ban / Buổi GD — PR từ `claude/busy-curie-2qescm` **chờ anh "gộp"**.
-- **Việc tiếp (theo `KIEN_TRUC_3_LOP.md`):** thống nhất quy tắc kiểm tra (② Kiểm tra tháng + 🔍 KTGS) thành 1 bộ — anh duyệt từng mục; đợt B (lưu nhanh / an toàn, góp ý `luu()`; 1 cơ chế đồng bộ Drive) — lên kế hoạch chi tiết, chờ anh duyệt + "code".
+- Mốc quay lại: nhánh `moc/v3.141-truoc-tach-file`.
+- **`main` = 3.145** (Bộ file chuẩn mới: Ⓑ 3 bắt buộc + Ⓐ 6 chuẩn TW; xóa hẳn B32 / Mẫu 10 / Mẫu 7 / Sao kê KH / KHĐ 08; ô ma trận số + mũi tên, bấm ô hỏi thay, ↩ hoàn tác 30 ngày; KHĐ tự tính; tổ dư nợ 0 cần đóng; 📋 File cần xuất). Rà file thật 30/09: số đếm ở `DU_LIEU_THANG.md`.
+- **Việc tiếp (chờ anh chốt 5 câu ở mục 5 `docs/KE_HOACH_DIEU_HUONG.md` + "code"):** đợt F — giao diện điều hướng (thanh bên, máy tính; điện thoại giữ tab ngang) · 3.146 Kiểm tra kỳ thống nhất + xóa mã chốt tháng (`docs/KE_HOACH_KIEM_TRA_KY.md` mục 3, đã chốt) · sau đó đợt B (góp ý `luu()`, đồng bộ Drive).
 - **Anh chốt 10/10:** bỏ hẳn tab Tháng + xóa dữ liệu cũ (rác); bỏ nút Giao ban, Buổi giao dịch (làm lại sau); nạp file nhận ngày số liệu từ **nội dung** file (Q12–Q14). Anh làm luân phiên 2 tài khoản — tài khoản nào cũng bắt đầu từ file này (nhánh đang dùng ghi ở mục 2).
 - **Chờ anh:** (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi tin học về máy chủ nội bộ; thử máy thật 3.136 / 3.138 / 3.142 (bảng trong `BAN_GIAO_VIEC_CON_LAI.md`); số TK 105 khách chỉ có 105 (cần nguồn); văn bản củng cố / chia tách tổ; "nhớ người ký theo khuyết" (chưa xác nhận); Mẫu 06 trắng 2 mặt trên Word thật.
 
@@ -36,5 +36,7 @@
 | Nghiệp vụ chi tiết, quy tắc số liệu, kiến trúc cũ | `docs/BAN_GIAO_TIEP_TUC.md` (≈ 70 KB) | Chỉ đọc mục cần (mục 4 Số liệu, 4a quy tắc kỳ ngày) |
 | Phép thử nào kiểm gì | `tests/README.md` | `grep` tên chức năng |
 | Cấu trúc file Excel hệ thống | `docs/DU_LIEU_THANG.md` | Khi làm phần nạp |
+| File anh xuất hằng tháng (mẫu nào, tên file) | `docs/FILE_XUAT_HANG_THANG.md` | Ngắn, đọc khi bàn về file |
+| Kế hoạch giao diện điều hướng (đợt F) | `docs/KE_HOACH_DIEU_HUONG.md` | Ngắn |
 
 **Nguyên tắc cho phiên sau:** mỗi bản chỉ thêm ≤ 15 dòng vào CHANGELOG cho phần tóm tắt + ghi chi tiết kỹ thuật ngắn; giữ file này dưới ~80 dòng; thông tin dài để ở tài liệu chuyên đề và trỏ link.

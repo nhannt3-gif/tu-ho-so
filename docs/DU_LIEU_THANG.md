@@ -20,6 +20,30 @@ Anh chốt: **số chính thức của TW, chuẩn nhất**. File dạng **biể
 - **B32:** dư nợ, quá hạn khớp (làm tròn 0,01 triệu); **cho vay B32 gồm cả đảo khoản**; **"thu nợ" B32 = thu nợ thực + cho vay trong tháng** (app tính dòng "thu nợ thực"); số hộ thu nợ đúng số tháng.
 - Ghép tổ LEN_31 ↔ mã tổ: cùng xã, tên đủ trùng → tên LEN là phần đầu tên tổ; nhiều tổ khớp tên → theo dư nợ, không thì cả nhóm nếu tổng dư nợ bằng (T9: 369 / 370 dòng ghép được, khớp dư nợ / quá hạn / khoanh / cho vay).
 
+## Rà soát tổ / điểm GD trên file thật 30/09/2026 (10/10/2026, chỉ số đếm — không ghi dữ liệu khách)
+- **Dư nợ chi tiết** (25.325 dòng, 169 cột) có trên **từng món**: Mã / Tên xã, Mã / Tên thôn, **Ngày GDXA, Mã / Tên điểm giao dịch**, Mã tổ, Loại tổ, **Mã CIF TT + Tên tổ (= tên tổ trưởng)**, Mã ĐVUT, ngày sinh tổ trưởng. **Mẫu 31 có các cột tổ như trên trừ điểm GD** (theo cấu trúc Mẫu 31 dùng làm file giả).
+- **Mỗi tổ trong Dư nợ chi tiết chỉ có 1 giá trị** điểm GD / ấp / Hội / tổ trưởng / xã / ngày GDXA (0 tổ lệch giữa các món).
+- **Khớp 100%** giữa Dư nợ chi tiết ↔ DSTO ↔ Thông tin tổ trưởng (phần tổ có ở cả 2 bên): điểm GD, mã + tên tổ trưởng, Hội, ấp, xã, ngày GDXA.
+- **Tập tổ:** Dư nợ chi tiết 378 tổ = **369 tổ còn dư nợ (= đúng 369 tổ DSTO)** + 9 tổ dư nợ 0 (không có trong DSTO). 42 dòng không mã tổ = vay trực tiếp (Hình thức vay 1).
+- **Thông tin tổ trưởng 30/09 lỗi:** 352 tổ — **thiếu 18 tổ còn dư nợ** so DSTO, thừa 1 tổ không có món nào và không có trong DSTO.
+- **Kết luận:** danh sách tổ + tổ trưởng + Hội + ấp + ngày GDXA lấy từ **Mẫu 31 / Dư nợ chi tiết**, điểm GD từ **Dư nợ chi tiết** — chính xác. Thông tin tổ trưởng chỉ còn đóng góp **SĐT tổ trưởng + tổ phó** → **DSTO có đủ** (cả 369 tổ). Số tổ viên của DSTO định nghĩa khác "số khách có dư nợ" (300 tổ khác) — không dùng để so.
+
+## LEN_31 TO_TRUONG ↔ Dư nợ chi tiết từng tổ — file thật 30/09/2026 (rà 10/10/2026, chỉ số đếm)
+- LEN_31 TO_TRUONG: 374 dòng tổ (5 dòng "Vay trực tiếp", mỗi xã 1) · 5 xã · dòng Tổng cộng 370 tổ.
+- **Ghép tổ** (xã + tên tổ trưởng bỏ dấu, tên LEN có thể bị cắt): **373/374**; dòng còn lại = **2 tổ cùng tên tổ trưởng trong 1 xã bị LEN gộp 1 dòng** (dư nợ dòng LEN = cộng 2 tổ) → ghép theo nhóm như app đang làm. LEN có 1 tổ dư nợ 0 (1 hộ) — 8 tổ dư nợ 0 khác của Dư nợ chi tiết không có trên LEN.
+- **Khớp tuyệt đối từng tổ:** dư nợ, trong hạn, quá hạn, khoanh, **cho vay tháng** (= Giải ngân trong tháng, gồm đảo khoản).
+- **Thu nợ tháng:** lệch 12 tổ, LEN thấp hơn **71.999.298 đ** (đúng con số đã thấy khi so BCDHTD T9 — chưa rõ nguyên nhân; Dư nợ chi tiết = Thu nợ TH + QH + khoanh tháng). **Thu lãi tháng:** lệch 3 tổ, 216.995 đ.
+- **Số hộ** LEN ≠ số khách có dư nợ (200 tổ) và ≠ số khách có món (322 tổ) — dòng "Vay trực tiếp" có 69–261 hộ mà dư nợ rất nhỏ → **"Số hộ" LEN có cả khách chỉ gửi tiết kiệm**; Dư nợ chi tiết không có các khách này → so được khi có **Mẫu 31** (có khách chỉ gửi TK).
+- **Dư tiền gửi:** lệch 203 tổ, tổng LEN cao hơn 350 triệu (LEN có cả khách chỉ gửi TK; nhiều tổ lệch vài nghìn – vài chục nghìn đồng) → so với Mẫu 31.
+- **Kết luận cho bộ Kiểm tra kỳ:** LEN_31 TO_TRUONG là chuẩn từng tổ cho dư nợ / TH / QH / khoanh / cho vay (phải khớp tuyệt đối); thu nợ, thu lãi báo lệch kèm danh sách; số hộ, tiền gửi so với Mẫu 31.
+
+## File TW ↔ Dư nợ chi tiết — file thật 30/09/2026 (rà 10/10/2026, chỉ số đếm)
+- **BCDHTD 01.1 (theo xã, triệu đồng): khớp tuyệt đối 5/5 xã, 14 chỉ tiêu** — cho vay tháng / năm = Giải ngân − Đảo khoản (tháng / Năm); thu nợ tháng / năm = Thu nợ TH + QH + khoanh (tháng / Năm); xóa nợ = Gốc xóa trong tháng / Xóa trong Năm; dư nợ, trong hạn, quá hạn, khoanh; ngắn / trung / dài hạn = cộng dư nợ theo cột "Thời hạn vay"; số KH dư nợ = số khách có dư nợ > 0. **Cột (17) "Số lượt khách hàng vay vốn" = số MÓN có Ngày GN đầu tiên trong năm và (Giải ngân Năm − Đảo khoản GN Năm) > 0** — khớp 5/5 xã.
+- **BCDHTD 01.2 (theo chương trình): khớp** các dòng ghép được theo mã chương trình. 1 mã chương trình có thể là nhiều dòng 01.2: **HSSV QĐ 157 = mã 02 sản phẩm 021L + 021M; HSSV STEM = mã 02 sản phẩm 271L** (khớp dư nợ). **GQVL NĐ 61 và GQVL NĐ 338 cùng mã 03** — Dư nợ chi tiết không tách được (thiếu cột Quyết định) → tách bằng **Mã / Tên Quyết định của Mẫu 31**. Dòng TỔNG "số KH dư nợ" 01.2 = cộng theo chương trình (khách vay nhiều CT tính nhiều lần) ≠ 01.1.
+- **LEN_31 XAPUONG / DONVIUT / CHTRINH:** dư nợ, trong hạn, quá hạn, khoanh, cho vay (giải ngân gồm đảo khoản) **khớp tuyệt đối mọi dòng** xã · xã × Hội · xã × Hội × chương trình. Thu nợ LEN thấp hơn (đã biết, tổng 71.999.298 đ); thu lãi lệch vài chục đồng – 217 nghìn. "Số tổ" LEN tính cả tổ dư nợ 0 / tổ có khách của chương trình đã hết dư nợ (lệch 1 ở vài dòng). Dòng "Trực tiếp" (DONVIUT) và "Không vay vốn, có tiết kiệm" (CHTRINH) có số hộ khách chỉ gửi TK.
+- **Điểm GD:** file TW không có cấp điểm; cộng từ Dư nợ chi tiết theo Mã điểm giao dịch: 12 điểm GD / 5 xã, vay trực tiếp có điểm GD trên từng món → chia được về điểm.
+- **Kết luận:** báo cáo tổng quan PGD / xã / Hội / chương trình lấy thẳng file TW (Q17); điểm GD cộng từ tổ (LEN_31 TO_TRUONG) + vay trực tiếp theo Dư nợ chi tiết.
+
 ## 3.90 — các file khác
 - **Món vay 3 tháng KHĐ: chỉ dùng mẫu 14** "Sao kê món vay N tháng không hoạt động (DL Tháng)". File mẫu **08/KTNB** ("DS khoản vay trên N tháng không hoạt động", cột Mã món vay, Địa chỉ, Tên xã, Mô tả) **cùng số y hệt** nhưng thiếu điểm GD xã, ngày đến hạn GDXA → app không nhận. Quy tắc của hệ thống (kiểm T9): món còn dư nợ, ngày GD gần nhất **trước** ngày cùng kỳ 3 tháng trước (30/06 cho số 30/09; GD đúng ngày 30/06 không tính); **không đưa món khoanh, món HSSV**; 3 món vay mới năm 2026 cũng không có (chưa rõ lý do — app báo lưu ý). File 0 dòng → báo xuất lại.
 - **Thông tin tổ trưởng: nạp mỗi tháng** (anh chốt, để kiểm). **Nợ quá hạn, Nợ khoanh, Tổng dư nợ theo CT: phụ** (không bắt buộc, có thì đối chiếu thêm). **Bỏ:** Mẫu 7 (khỏi tham chiếu), Sao kê khách hàng (không xuất được nữa).

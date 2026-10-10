@@ -41,7 +41,7 @@ const fs=require('fs'), path=require('path');
    /* 3. tổ thiếu trong Thông tin tổ trưởng → điểm GD theo DSTO cùng tháng (trước bảng tháng khác) */
    const K = await toNap('2026-07');
    ok('3 tổ thiếu lấy điểm GD theo Danh sách tổ T7/2026', boTT.every(m=>K.to[m] && K.to[m].diem && K.to[m].diemTu==='Danh sách tổ T7/2026'), boTT.map(m=>K.to[m] && K.to[m].diemTu).join(' | '));
-   ok('tổ có trong Thông tin tổ trưởng giữ điểm GD của file đó (DSTO lệch không đè)', K.to[mA].diem===du[3][c('Mã điểm GDXA')] && !K.to[mA].diemTu);
+   ok('3.145 (anh chốt DSTO bắt buộc): tổ lệch điểm GD giữa 2 file → theo DSTO, Thông tin tổ trưởng chỉ bù chỗ trống', K.to[mA].diem===diemKhac && !K.to[mA].diemTu, K.to[mA].diem);
    ok('ngày GD của tổ lấy theo DSTO = ngày của điểm GD (DSTO không có cột ngày)', boTT.every(m=>K.to[m].ngayGD));
    const h = document.createElement('div'); h.innerHTML = ktSuyHTML(K);
    ok('dòng báo vàng: "… thiếu 3 tổ … đã xếp điểm GD: Danh sách tổ (DSTO) 3"', /thiếu 3 tổ/.test(h.textContent) && /Danh sách tổ \(DSTO\) 3/.test(h.textContent), (h.querySelector('summary')||{}).textContent);
