@@ -1986,7 +1986,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.142', ds:[
+var CO_GI_MOI = {ban:'3.143', ds:[
+  ['📅 Nạp số liệu: ngày số liệu lấy theo NỘI DUNG file. File không ghi ngày (vd KHĐ, Nợ khoanh, Thông tin tổ trưởng) → dòng báo “Cần khai ngày”, anh chọn ngày ở ô Kỳ hoặc bấm “Tên file: … — dùng”; chưa khai thì không ghi nhận', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
   ['🧱 Kiến trúc mới (đợt A): app tách thành nhiều file nhỏ (css / js) — dùng như cũ, không đổi chức năng; cửa sổ nổi HSSV vẫn đủ kiểu chữ. Tải app về máy thì tải cả thư mục', "dongHop();moCaiDat()"],
   ['🗓 Kế hoạch › In theo tháng kiểm tra: Mẫu 06 / 16 / 04 tự lấy số liệu cuối tháng liền trước (Mẫu 31 + BC0437 đã nạp) — không cần đổi kỳ; thiếu tháng đó → tháng gần nhất trước, ghi ⚠', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
   ['🛟 Sửa lỗi mất cài đặt (khai báo Hội…) khi đồng bộ Drive: app nhớ đúng file cài đặt, gặp file khác luôn lấy về gộp trước — không ghi đè; không còn tạo thư mục "undefined" trên Drive', "dongHop();moCaiDat()"],

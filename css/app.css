@@ -2472,6 +2472,7 @@
   .sl-xt-ten{max-width:220px;word-break:break-word}
   .sl-xt select,.sl-xt input[type=month]{font-size:calc(12px*var(--co));max-width:170px}
   .sl-xt-loi .sl-xt-tt{color:var(--do)} .sl-xt-vang .sl-xt-tt{color:var(--vang)} .sl-xt-ok .sl-xt-tt{color:var(--luc)}
+  .sl-goi-y{display:block;margin-top:3px;font-size:11px;padding:1px 6px;min-height:0;line-height:18px;white-space:nowrap}   /* 3.143: gợi ý ngày theo tên file — anh bấm mới dùng */
   .sl-bao{border-radius:9px;padding:7px 10px;margin:7px 0;text-align:left;font-size:calc(12.5px*var(--co))}
   .sl-bao.do{background:var(--do-nen);color:var(--do)} .sl-bao.vang{background:var(--vang-nen);color:var(--vang)}
   .kh-luoi{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:5px;margin:8px 0;text-align:left}

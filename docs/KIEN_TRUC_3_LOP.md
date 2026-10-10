@@ -23,7 +23,7 @@
 
 | Q12 | (10/10) **Tab Tháng: bỏ hẳn, xóa luôn dữ liệu cũ** (anh chưa nạp nhiều — coi là rác). |
 | Q13 | (10/10) **Bỏ nút Giao ban và Buổi giao dịch** — làm lại sau khi các chức năng khác ổn. |
-| Q14 | (10/10) **Nạp file phải tự nhận đúng ngày số liệu từ nội dung file, không phụ thuộc tên file** (tên file chỉ là gợi ý cuối, phải báo rõ khi dùng). |
+| Q14 | (10/10) **Nạp file phải tự nhận đúng ngày số liệu từ nội dung file, không phụ thuộc tên file** (tên file chỉ là gợi ý cuối, phải báo rõ khi dùng). File không có ngày trong nội dung → **anh khai khi nạp**. ✅ 3.143 |
 
 **Còn chờ anh:** ~~(a) dữ liệu cũ tab Tháng~~ (đã chốt Q12: xóa); (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi bộ phận tin học về máy chủ nội bộ + dữ liệu khách hàng trên mạng cơ quan / Drive cá nhân.
 
@@ -236,7 +236,7 @@ Khối khai `thietBi`; mini app = 1 trang chọn bộ file cần dùng. Giao di�
 | Đợt | Nội dung | Rủi ro | Ghi chú |
 |---|---|---|---|
 | **A. Tách file nguyên trạng** ✅ 3.142 | Cắt các khối `<script>` / `<style>` ra `js/*.js`, `css/*.css` theo bản đồ (không đổi 1 dòng logic); `index.html` chỉ còn khung + thẻ nạp file; cập nhật `kiem.py` kiểm nhiều file; hồi quy đủ | Thấp (cơ học) | Sau đợt này mọi đợt sau sửa trong file nhỏ. Không mở bằng bấm đúp file nữa (Q8). |
-| **B. Lớp 1 an toàn** | Chỉ mục `D` → IndexedDB theo ngăn (đọc được dữ liệu cũ trong `localStorage`, chuyển 1 lần); 1 cơ chế đồng bộ Drive chung (gộp, không ghi trống, phiên bản); phép thử 2 máy giả lập | Cao (dữ liệu) | Làm kỹ, có sao lưu trước khi chuyển |
+| **B. Lớp 1 an toàn** | **Anh lưu ý (10/10, góp ý tốc độ):** `luu()` mỗi lần `JSON.stringify` toàn bộ `D` + ghi đè `localStorage` trên luồng giao diện (~240 chỗ gọi), `chTheoDoi` stringify `cauHinh` thêm lần nữa → khựng khi dữ liệu lớn (nhất là iPhone). Cần: ghi theo ngăn chỉ phần đổi, gom các lần lưu sát nhau (ghi nốt khi `pagehide`), bỏ stringify lần 2; đo trước / sau. Chỉ mục `D` → IndexedDB theo ngăn (đọc được dữ liệu cũ trong `localStorage`, chuyển 1 lần); 1 cơ chế đồng bộ Drive chung (gộp, không ghi trống, phiên bản); phép thử 2 máy giả lập | Cao (dữ liệu) | Làm kỹ, có sao lưu trước khi chuyển |
 | **C. Kho dữ liệu `KHO`** | Bọc `slBo` / `toNap` / danh bạ sau cửa `KHO`; từ điển cột sửa được; cột lạ; dấu vân tay cấu trúc; phép tính chung (mục 3.5); cây địa bàn theo kỳ + báo thay đổi | Trung bình | Màn hình chưa đổi; các khối chuyển dần sang gọi `KHO` |
 | **D. Lớp chung** | Bộ chọn phạm vi + kỳ chung cho mọi khối; bộ báo cáo `{cot, dong, tong}` → In / Excel / Word; xóa / thùng rác thống nhất (cả Số liệu) | Trung bình | |
 | **E. Đăng ký khối** | `DANG_KY`; chuyển các báo cáo hiện có sang khai báo; báo cáo bảng tự khai trong Cài đặt | Trung bình | Từ đây mẫu mới = 1 file / 1 dòng khai |
