@@ -345,5 +345,35 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
   - Mục 5: lọc Tài liệu, tự xoay, báo ảnh mờ.
   - Khi đó xin anh ảnh mẫu thật để so với Scanner Lens.
 
+## Ý 12 — Mỗi tab gọn trong 1 màn; chỗ đặt + thứ tự nút thống nhất; nút vừa chữ (anh gửi 11/10)
+**Anh chốt:**
+- Mọi tab nên gọn trong 1 màn hình.
+- Vừa 1 màn → nút đặt **cuối trang**. Không vừa → nút đặt **bên trên**.
+- Chỗ đặt và thứ tự các nút chung (Xem, Esc / Đóng, In…) **giống nhau ở mọi tab**, trừ chức năng đặc thù.
+- Nút vừa đẹp, **không kéo dài như bị lỗi**.
+
+**Quy tắc đề xuất:**
+1. **Màn chọn / lọc + 👁 Xem** (Tổng hợp, Sao kê, KTGS chọn mẫu…): gọn 1 màn → **nút chính cuối vùng chọn, canh phải**.
+2. **Màn kết quả dài** (bảng tổ, danh sách văn bản, ma trận…): **hàng nút ở trên**, **dính khi cuộn** (luôn thấy).
+3. **Hộp thoại / khung xem — thứ tự cố định ở chân hộp:**
+   ```
+   [Đóng (Esc)]                         [nút phụ …] [🖨 In] [📄 PDF] [📊 Excel] [📤 Gửi]  [Nút chính]
+   ```
+   - **Đóng / Thôi** luôn ở **trái**, kiểu trơn; Esc = Đóng.
+   - **Nút chính** (Lưu, Thay, Nạp, Xem…) luôn **ngoài cùng bên phải**, màu xanh.
+   - Bộ nút xuất theo đúng thứ tự ý 4.
+   - Hộp hỏi xóa: [Thôi] … [🗑 Xóa] (đỏ).
+4. **Kích thước nút:**
+   - Rộng **vừa chữ**: tối thiểu ~80 px, không giãn theo chiều ngang.
+   - Cao **32 px trên máy tính**, **40 px trên điện thoại** (dễ bấm).
+   - Chỉ hộp chọn trên điện thoại mới cho nút dài hết chiều ngang.
+   - **Nguyên nhân hiện nay:** lớp nút `.nho` mặc định `flex:1` (giãn đầy hàng) rồi ~120 chỗ phải sửa đè `flex:0 0 auto` từng nơi → chỗ nào sót thì nút dài ra ("⟳ Làm mới", "In bảng", "Excel", "Xem" trong ảnh anh gửi).
+   - **Sửa gốc:** mặc định không giãn, bỏ các chỗ sửa đè.
+5. **Nút đặc thù** (Webcam, Bộ biểu mẫu, Lập chỉ mục, Khai báo Hội…): nằm trong hàng công cụ của tab hoặc ⋯, theo chỗ đặt chung.
+6. **Phép thử mới:** đo mọi tab ở 1536×730, 1366×768, iPhone 390:
+   - nút không rộng quá ~240 px (trừ điện thoại);
+   - hộp thoại có Đóng bên trái, nút chính bên phải;
+   - tab nào vượt 1 màn thì hàng nút ở trên.
+
 ## Câu hỏi chờ anh
 - (hết — chờ anh gửi thêm ý hoặc nhắn "đủ" để làm ảnh mẫu cả gói)
