@@ -9,7 +9,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Trước:** cột ngày → tiêu đề → **tên file** (tự dùng, chỉ báo vàng); loại "tùy kỳ mới" (3.136) có ngày tên file giữa tháng thì tự đưa về ô cuối tháng.
 - **Nay:** file chỉ có ngày trên tên file (hoặc không có ngày) → `kq.canKhai`, ô Kỳ trống, không tự tích, trạng thái "⚠ Cần khai ngày…"; nút **"Tên file: dd/mm/yyyy — dùng"** (`.sl-goi-y`) khi tên file có ngày; chọn ngày / bấm nút → nguồn "anh chọn" (hiện "anh khai"), trạng thái ghi "Ngày số liệu do anh khai". Chưa khai → không tích, `slGhi` từ chối. Nạp từng file / Thay file (anh chọn ô trước) giữ như cũ. Áp cả file KTGS (BC0437 / BC0438). Dữ liệu đã nạp không đổi.
 - **Hàm:** `slCanKhai(kq, tuTen)` (cuối `slPhanTich`, `ktPhanTich`), `slGoiYKy`; `slTrangThai`, `slXemTruoc` (nút gợi ý); bỏ nhánh 3.136 tự đưa về cuối tháng (cờ `tuyMoi` còn trong `SL_LOAI`, không dùng nữa).
-- **Phép thử:** `tests/t139.js` (mới, 15). `tests/tv.js` giả lập "anh bấm dùng ngày tên file" cho phép thử cũ (bộ file giả KHĐ / QH / khoanh / tổ trưởng chỉ có ngày trên tên file); t139 tắt bằng `window.KHAI_TU_DONG = false`.
+- **Phép thử:** `tests/t139.js` (mới, 15). `tests/tv.js` giả lập "anh bấm dùng ngày tên file" cho phép thử cũ (bộ file giả KHĐ / QH / khoanh / tổ trưởng chỉ có ngày trên tên file); t139 tắt bằng `window.KHAI_TU_DONG = false`. t130: phép "KHĐ ngày chỉ có trên tên file" đổi theo quy tắc mới.
+- **Kiểm tra:** kiem.py sạch; hoiquy, hoiquy2, t101–t139 đạt (t116 1 phép hỏng sẵn từ 3.141).
 
 ## 3.142 — 10/10/2026 — Kiến trúc đợt A: tách app thành nhiều file (nguyên trạng)
 - **Anh chốt:** Q8 (`docs/KIEN_TRUC_3_LOP.md`) — tách file, vẫn không build / không npm; đợt A chỉ cắt nguyên trạng, không đổi chức năng.
