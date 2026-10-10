@@ -25,12 +25,10 @@ const fs=require('fs'), path=require('path');
    const op = toKyOpt([{ky:'2026-08', chu:'T8'}, {ky:'2026-09-05', chu:'ngày'}], '2026-08'); ok('ô chọn chia nhóm Cuối tháng / Theo ngày — khi cần', /optgroup label="Cuối tháng/.test(op) && /optgroup label="Theo ngày/.test(op) && op.indexOf('2026-08')<op.indexOf('2026-09-05'));
    const ds1 = toDsKy(); ok('danh sách kỳ thật: cuối tháng lên trước', ds1.length>=2 && ds1.every((x, i)=>!i || !(x.ky.length===7 && ds1[i-1].ky.length>7)), ds1.map(x=>x.ky).join(','));
    /* 2. tách khóa */
-   SLM.chot = SLM.chot || {}; SLM.chot['2026-08'] = {khoa:true, luc:new Date().toISOString()};
-   ok('tháng đã chốt: file số liệu chính khóa, BC0437 / BC0438 KHÔNG khóa', slKhoaO('hstd', '2026-08') && !slKhoaO('k37', '2026-08') && !slKhoaO('k38', '2026-08') && slTrangThai({loai:'k37', ky:'2026-08', rows:[1], canhBao:[], hash:'x1'}).lop!=='loi' && slTrangThai({loai:'hstd', ky:'2026-08', rows:[1], canhBao:[], hash:'x2'}).lop==='loi');
+   ok('3.146: bỏ chốt tháng — không còn hàm khóa, file số liệu chính và BC0437 / BC0438 đều nạp được', typeof slKhoaO==='undefined' && typeof slChot==='undefined' && slTrangThai({loai:'k37', ky:'2026-08', rows:[1], canhBao:[], hash:'x1'}).lop!=='loi' && slTrangThai({loai:'hstd', ky:'2026-08', rows:[1], canhBao:[], hash:'x2'}).lop!=='loi');
    doiNgan(7); const C = ktCH(); C.ky='2026-08'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; C.che='dx'; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    slDoiTab('nap'); await w(600);   /* 3.144: ma trận BC0437 / BC0438 ở tab 📥 Nạp & KT */
-   ok('ma trận KTGS: tháng đã chốt vẫn nạp được (không ô khóa, không 🔒 ở tiêu đề tháng)', !document.querySelector('.kt-nap .sl-o.khoa') && ![...document.querySelectorAll('.kt-nap th')].some(th=>/🔒/.test(th.textContent)) && /không theo khóa tháng/.test(document.querySelector('.kt-nap').textContent));
-   delete SLM.chot['2026-08'];
+   ok('ma trận KTGS: không ô khóa, không 🔒 ở tiêu đề tháng', !document.querySelector('.kt-nap .sl-o.khoa') && ![...document.querySelectorAll('.kt-nap th')].some(th=>/🔒/.test(th.textContent)));
    slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    /* 3. gợi ý lại */
    const ds = Object.values(KT_K.to).filter(t=>!toLaTT(t)); let best = ds[0]; ds.forEach(t=>{ if(toKhach(t).length>toKhach(best).length) best = t; });

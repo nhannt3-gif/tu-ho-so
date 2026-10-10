@@ -4,6 +4,23 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.147 — 10/10/2026 — Thanh bên điều hướng (đợt F) cho máy tính
+- **Anh duyệt (KE_HOACH_DIEU_HUONG.md mục 5–7, "làm theo chuẩn em nghĩ"):** máy tính ≥ 1100 px dùng thanh bên trái; điện thoại / màn < 1100 px giữ thanh tab ngang như cũ. Quy chuẩn tham khảo (mục 8) chưa áp dụng.
+- **`js/23-dieu-huong.js` (mới):** `DH_MUC` (Hôm nay · Văn bản · Nạp & KT · Số liệu: Tổng hợp, Sao kê, Tổ TK&VV, KTGS Hội, Tra cứu KH · Hồ sơ: Biểu mẫu, Scan, Thư viện) + `DH_CC` (HSSV, Địa bàn, CT vay → mở ở cột Công cụ Hôm nay) + chân: 🗑 (số mục) · 🧰 · ❓ · ⚙. Mỗi mục gọi lối cũ (`doiNgan`, `moNapSL`, `slDoiTab`, `ccMo`…). Tô mục: `toNutSL` → `dhTo`.
+- **Số đếm:** Văn bản = file chờ duyệt; Nạp & KT = ⚠ số file bắt buộc còn thiếu của tháng mới nhất (`dhThieuNap`); Thùng rác.
+- **Thu gọn 60 px:** nút « / » — nhớ riêng từng máy (`localStorage tb_gon`); chưa chọn thì màn < 1280 px tự thu. Alt+1…9 mở mục theo thứ tự.
+- **CSS:** thanh tab ngang, tab con Số liệu, logo / nút ❓ 🧰 🗑 ⚙ trên đầu trang chỉ **ẩn bằng CSS** khi có thanh bên (lối cũ, phép thử cũ vẫn chạy); đầu trang còn 1 hàng (52 px); thanh đáy dời theo thanh bên; nền tối cả khi máy tự chọn; in không có thanh bên.
+- **Phép thử:** `tests/t143.js` (mới, 16).
+- **Kiểm tra:** kiem.py sạch; hoiquy, hoiquy2, t101–t143 đạt (t116 1 phép hỏng sẵn từ 3.141). Ảnh 1536×730 / 1366×768 / 1000 / iPhone 390, nền tối.
+
+## 3.146 — 10/10/2026 — Kiểm tra kỳ: Đạt = đủ file · đúng kỳ · đúng cấu trúc; chênh lệch chỉ ghi nhận; bỏ hẳn chốt / khóa tháng
+- **Anh chốt (KE_HOACH_KIEM_TRA_KY.md mục 3–4):** không chốt tháng — bấm Kiểm tra, app báo **✓ Đạt** khi đủ 9 file (Ⓑ 3 + Ⓐ 6), đúng kỳ, đúng cấu trúc; chênh lệch giữa các file **chỉ ghi nhận để biết**, không ảnh hưởng Đạt, không sửa số; **xóa mã chốt** tránh rác.
+- **`slDanhGia(ky)`**: `thieu` (file Ⓑ / Ⓐ chưa có) · `ky` (ngày số liệu không phải cuối tháng) · `ct` (0 dòng dữ liệu) · `luuY` (dòng sai mã khóa, ngày anh khai — không làm trượt) · `daKiem` (đã bấm kiểm sau lần đổi file cuối, dấu `slDauKy`) · `dat` · `bc` (theo loại báo cáo `SL_BC_CAN`: Tổ · Sao kê · Tra cứu / Tổng hợp tổng quan / KTGS — thiếu file gì).
+- **Giao diện:** khung "Kiểm tra kỳ" 4 bước ✓ Đủ file · Đúng kỳ · Đúng cấu trúc · Đã kiểm; hộp ✅ Đạt (xanh) hoặc "Chưa Đạt — thiếu / sai gì"; chip theo loại báo cáo; mục lệch gom dưới "Ghi nhận chênh lệch — chỉ để biết" (viền xanh, không đỏ); dòng ① pill "✓ Đạt · N chênh lệch ghi nhận"; tiêu đề cột tháng Đạt ✓ xanh. Nút "🔍 Kiểm tra kỳ"; tháng có BC0437 / BC0438 thì kiểm luôn phần KTGS (`ktKiemTra` trả promise).
+- **Xóa mã chốt (3.91):** `slChot`, `slKhoaO`, `slKhoaBao`, `slChotHop`, `slChotGhi`, `slMoKhoaHop`, `slMoKhoa`, `slDatChot`, ô 🔒, chặn nạp / thay / xóa tháng chốt, `SLM.chot` (meta cũ: `slChuanMeta` bỏ phần chốt, `slGopMeta` không đọc; lần ghi meta sau tự rơi). Tháng từng chốt tự mở, dữ liệu giữ nguyên.
+- **Phép thử:** `tests/t142.js` (mới, 18). t105 (phần chốt → Đạt / không chặn ghi), t110 (bỏ phép tháng chốt khóa / KTGS không khóa).
+- **Kiểm tra:** kiem.py sạch; hoiquy, hoiquy2, t101–t142 đạt (t116 1 phép hỏng sẵn từ 3.141).
+
 ## 3.145 — 10/10/2026 — Bộ file chuẩn mới; xóa hẳn mẫu đã bỏ; ô ma trận số chính + mũi tên; bấm ô hỏi thay + hoàn tác; KHĐ tự tính; tổ dư nợ 0
 - **Anh chốt (Q16, Q17, KE_HOACH_KIEM_TRA_KY.md):** Ⓑ bắt buộc 3 file (Mẫu 31, Dư nợ chi tiết, DSTO) · Ⓐ chuẩn TW 6 file (BCDHTD 01.1 / 01.2, 4 LEN_31) — đủ 9 file mới Đạt · Ⓓ phụ (KHĐ mẫu 14, QH, khoanh, phân kỳ, Tổng dư nợ, **Thông tin tổ trưởng** giữ để tra soát tháng cũ) · KTGS BC0437 / BC0438.
 - **Xóa hẳn mã + dữ liệu:** B32, Mẫu 10, Mẫu 7, Sao kê KH, KHĐ 08/KTNB — chỉ còn 1 dòng nhận diện (thả file → báo "đã bỏ"). `slBoLoaiDon` (thay `slBoMau10`) chạy khi mở app / kéo Drive: xóa bảng trong máy + meta (dấu `SLM.xoa`), file Drive vào Thùng rác (chưa nối → `sl_rac_cho`). Bỏ kiểm tra chéo Mẫu 31 ↔ B32, Mẫu 10; Tổng hợp › "Theo nguồn vốn TW / ĐP" tính từ Mẫu 31 (`twTinh31` theo `nguon|xã`).
