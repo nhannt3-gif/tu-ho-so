@@ -48,12 +48,12 @@ const fs=require('fs'), path=require('path');
    ok('ghi nhận vào ô BC0437 T7', !!SLM.bang['k37|2026-07']);
    /* không lên ma trận Nạp */
    doiNgan(7); slDoiTab('nap'); SL_KY='2026-08'; veSoLieu(); await w(600);
-   ok('ma trận file chính của tab Nạp không có BC0437/0438 (3.144: BC nằm ở khối KTGS riêng cùng tab)', !/BC0437|BC0438/.test(document.querySelector('#tr7 .sl-k').textContent));
+   ok('ma trận file chính của tab Nạp không có BC0437/0438 (3.144: BC nằm ở khối KTGS riêng cùng tab)', !/BC0437|BC0438/.test(document.querySelector('#tr7 .sl-mt-cuon').textContent));
    /* tab KTGS */
    D.cauHinh.ktHaiMat = 0;   /* 3.124: phép này kiểm ngắt trang thường — in 2 mặt kiểm ở t126 */
    const C = ktCH(); C.ky='2026-08'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    ok('thanh BC0437 / BC0438 ✓', document.querySelectorAll('.kt-bc.co').length===2, document.querySelector('.kt-dau').textContent);
-   ok('3.144: tab KTGS không còn khối nạp BC, có nút sang tab Nạp & KT', !document.querySelector('#tr7 .kt-nap') && !!document.querySelector('.kt-nap-chuyen'));
+   ok('3.144 / 3.149: tab KTGS không còn khối nạp BC; chip BC thiếu có nút 📥 nạp sang tab Nạp & KT', !document.querySelector('#tr7 .kt-nap') && (!!document.querySelector('.kt-bc-nap') || document.querySelectorAll('.kt-bc.co').length===2));
    slDoiTab('nap'); await w(600);   /* 3.144: nạp + kiểm tra BC0437 / BC0438 ở tab 📥 Nạp & KT */
    const mt = document.querySelectorAll('.kt-nap .sl-bang tbody tr');
    ok('ma trận KTGS: 2 dòng BC0437 / BC0438, ô ✓ T7, T8', mt.length===2 && document.querySelectorAll('.kt-nap .sl-o.du').length===3, mt.length+' dòng · '+document.querySelectorAll('.kt-nap .sl-o.du').length+' ô có file');
