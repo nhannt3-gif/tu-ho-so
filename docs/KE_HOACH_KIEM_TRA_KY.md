@@ -19,7 +19,8 @@
 3. **Tổ dư nợ 0** không có trong DSTO và không có dòng LEN_31 TO_TRUONG → cờ `anDN0`, **ẩn khỏi cây chọn tổ và bảng các tổ**; vẫn tra cứu được, vẫn hiện ở "đã tất nợ / ra khỏi tổ"; Kiểm tra kỳ liệt kê.
 4. **KHĐ tự tính từ Mẫu 31** theo quy tắc hệ thống đã kiểm (DU_LIEU_THANG.md mục 3.90 — món còn dư nợ, ngày giao dịch gần nhất cách ngày số liệu ≥ 3 tháng…), dùng ở Tra cứu / Sao kê / KTGS khi tháng không có file KHĐ; có file thì dùng file và đối chiếu (mục 3 nhóm G).
 5. **Tổng hợp:** báo cáo "theo nguồn vốn" tính từ Mẫu 31 (cột Nguồn vốn) thay B32; báo cáo 01.1 thêm cột "Số lượt KH vay vốn" theo quy tắc đã kiểm (số món giải ngân lần đầu trong năm, trừ đảo khoản); cho vay in 2 cột **gồm / không gồm đảo khoản**.
-6. Phép thử: t141 (nhóm file, chốt cần 9 file, ẩn tổ dư nợ 0, KHĐ tự tính ↔ file giả, nguồn vốn từ Mẫu 31). Bộ giả `taogia.py` thêm DSTO + LEN_31 / 01.1 dựng từ Mẫu 31 giả (đã có một phần ở t105).
+6. **📋 Danh sách file cần xuất** (anh yêu cầu ghi nhớ): ở tab Nạp & KT có nút mở bảng như `docs/FILE_XUAT_HANG_THANG.md` — tên file, **mẫu cần chọn khi xuất** (KHĐ = **mẫu 14**, không dùng 08/KTNB; Mẫu 31; Dư nợ chi tiết; DSTO; 01.1; 01.2; 4 LEN_31), dấu ✓ file tháng đang xem đã có.
+7. Phép thử: t141 (nhóm file, chốt cần 9 file, ẩn tổ dư nợ 0, KHĐ tự tính ↔ file giả, nguồn vốn từ Mẫu 31). Bộ giả `taogia.py` thêm DSTO + LEN_31 / 01.1 dựng từ Mẫu 31 giả (đã có một phần ở t105).
 
 ## 3. Bản 3.146 — Kiểm tra kỳ thống nhất (vừa–lớn)
 **Một nút "🔍 Kiểm tra kỳ"** ở tab 📥 Nạp & KT (thay ② Kiểm tra tháng + 🔍 KTGS), **một kết quả** lưu theo kỳ (`SLM.kt`; kết quả cũ `SLM.kt` / `SLM.ktg` vẫn xem được), dữ liệu đổi → "⟳ kiểm lại". Mỗi mục: **✓ khớp · ✗ lệch (đỏ) · ⚠ lưu ý (vàng) · · không đủ file**, bấm mục → danh sách chi tiết (xã / điểm / Hội / tổ / món), xuất Excel. Chỉ báo, **không sửa số nguồn**.
