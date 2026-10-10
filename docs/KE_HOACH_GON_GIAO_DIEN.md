@@ -1,4 +1,18 @@
-# KẾ HOẠCH — Gọn giao diện + thống nhất In / Xuất / Gửi / Xóa (đang gom ý, anh gửi đủ mới làm 1 lần)
+# KẾ HOẠCH — Gọn giao diện + thống nhất In / Xuất / Gửi / Xóa
+
+> **11/10/2026 00:40 — anh chốt: "lên kế hoạch lại và làm từng bước, đầy đủ, xong gộp lên luôn; đủ thời gian / token thì làm 1 lần các chức năng còn tồn; sáng anh test 1 lần".**
+> Thứ tự làm (mỗi bước 1 bản, đủ phép thử + hồi quy + tài liệu, gộp từng bản để lỗi ở bản nào quay lại đúng bản đó):
+> | Bản | Nội dung | Ý |
+> |---|---|---|
+> | 3.148 | Nút vừa chữ (sửa gốc `.nho`), thứ tự nút hộp thoại (Đóng trái · nút chính phải), nút Thêm xanh, bỏ nút xóa cuối từng dòng (xóa qua nút Xóa chung), 1 nơi trạng thái (đèn + thanh màu + chữ) ở chân thanh bên / thanh đáy điện thoại, NhanNT lên thanh bên, chip nổi số liệu bỏ | 10, 12, 13 |
+> | 3.149 | Kỳ + phạm vi chung: ô Kỳ ở đầu trang, cây chọn 2 hàng dùng chung 5 tab, bỏ cảnh báo Thông tin tổ trưởng, KTGS in theo kế hoạch giữ kỳ kế hoạch | 6b, 6c |
+> | 3.150 | Gọn tab Nạp & KT | 1 |
+> | 3.151 | Thanh lọc chung tab file (VB, BM, Scan) + kiểu xem ▦ Bảng (thay Gọn) | 6a, 9, 13 |
+> | 3.152 | Xuất chung: Xem → In · PDF · Word · Excel · Gửi (Copy ảnh / chữ), tên file `Loại_Phạm vi_Kỳ` | 2, 4 |
+> | 3.153 | Xóa thống nhất: mọi thứ vào Thùng rác app (cả Số liệu, mục nhỏ), bỏ Hoàn tác | 3 |
+> | 3.154 | Khai báo Hội 1 bảng + tự chuyển dữ liệu cũ | 8 |
+> | 3.155 | Scan: hộp Lưu máy / Gửi / Copy / Lưu tủ, bỏ tự lưu tạm, lưu theo mã KH + tên + ấp | 7, 11 |
+> Làm sau (anh chốt): Copy cho AI (ý 5), tối ưu chụp quét Scan (phiên riêng), viết lại Cài đặt.
 
 > Mở 10/10/2026 sau 3.147. Anh: "còn ý tiếp xong mới làm 1 lần". Mỗi ý anh gửi ghi vào đây; khi đủ → ảnh mẫu → anh duyệt → "code".
 
@@ -374,6 +388,13 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
    - nút không rộng quá ~240 px (trừ điện thoại);
    - hộp thoại có Đóng bên trái, nút chính bên phải;
    - tab nào vượt 1 màn thì hàng nút ở trên.
+
+## Ý 13 — Văn bản (ảnh anh gửi 11/10)
+- **Bỏ nút 🗑 xóa cuối mỗi dòng** (Văn bản và mọi tab).
+  - Xóa dùng nút **Xóa** chung trong cặp **Thêm / Xóa**: bấm Xóa → tích chọn → xóa.
+  - Dòng chỉ còn ✎ sửa · ⋯.
+- **Nút ＋ Thêm có màu xanh** (nút chính của tab).
+- **Hàng chip Năm / Mảng / CT vay / Tag** chiếm 3 hàng + thanh cuộn ngang → gập vào **⚲ Lọc** (ý 6a).
 
 ## Câu hỏi chờ anh
 - (hết — chờ anh gửi thêm ý hoặc nhắn "đủ" để làm ảnh mẫu cả gói)
