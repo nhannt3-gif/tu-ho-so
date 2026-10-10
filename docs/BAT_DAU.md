@@ -21,7 +21,8 @@
 ## 3. Trạng thái (cập nhật 10/10/2026)
 - **Bản đang chạy:** 3.141 trên `main` (không còn PR mở).
 - **Đang làm:** kiến trúc lại app theo `docs/KIEN_TRUC_3_LOP.md` — **Bước 1 (thiết kế) đã xong, chờ anh duyệt đợt A** (tách file nguyên trạng). Chưa sửa code.
-- **Chờ anh:** (a) dữ liệu cũ tab Tháng chuyển đi đâu; (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi tin học về máy chủ nội bộ; thử máy thật 3.136 / 3.138 (bảng trong `BAN_GIAO_VIEC_CON_LAI.md`); số TK 105 khách chỉ có 105 (cần nguồn); văn bản củng cố / chia tách tổ; "nhớ người ký theo khuyết" (chưa xác nhận); Mẫu 06 trắng 2 mặt trên Word thật.
+- **Anh chốt thêm 10/10:** bỏ hẳn tab Tháng + xóa dữ liệu cũ của nó (rác); bỏ nút Giao ban, Buổi giao dịch (làm lại sau); nạp file phải nhận đúng ngày số liệu từ **nội dung** file, không phụ thuộc tên (xem `KIEN_TRUC_3_LOP.md` Q12–Q14). Anh chuyển sang tài khoản phụ làm tiếp — tài khoản nào cũng bắt đầu từ file này.
+- **Chờ anh:** (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi tin học về máy chủ nội bộ; thử máy thật 3.136 / 3.138 (bảng trong `BAN_GIAO_VIEC_CON_LAI.md`); số TK 105 khách chỉ có 105 (cần nguồn); văn bản củng cố / chia tách tổ; "nhớ người ký theo khuyết" (chưa xác nhận); Mẫu 06 trắng 2 mặt trên Word thật.
 
 ## 4. Tìm thông tin mà không đọc hết (tiết kiệm token)
 | Cần gì | Xem ở đâu | Cách đọc |

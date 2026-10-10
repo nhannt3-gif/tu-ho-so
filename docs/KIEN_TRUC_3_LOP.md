@@ -21,7 +21,11 @@
 | Q10 | **Scan** → mini app riêng, chia sẻ được: chỉ scan → PDF → lưu máy / in. **Văn bản** → mini app / trang riêng, chia sẻ được; định kỳ trích gửi **kho văn bản trên máy chủ nội bộ** để tra cứu. |
 | Q11 | Ví dụ chuẩn: scan CCCD → Lưu → chọn cây địa bàn + gõ tên → app gợi ý khách hàng → anh chốt → lưu kèm **tên + mã KH**. |
 
-**Còn chờ anh:** (a) dữ liệu cũ của tab Tháng chuyển sang Văn bản (loại "Báo cáo tháng") hay kho lưu trữ chỉ xem; (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi bộ phận tin học về máy chủ nội bộ + dữ liệu khách hàng trên mạng cơ quan / Drive cá nhân.
+| Q12 | (10/10) **Tab Tháng: bỏ hẳn, xóa luôn dữ liệu cũ** (anh chưa nạp nhiều — coi là rác). |
+| Q13 | (10/10) **Bỏ nút Giao ban và Buổi giao dịch** — làm lại sau khi các chức năng khác ổn. |
+| Q14 | (10/10) **Nạp file phải tự nhận đúng ngày số liệu từ nội dung file, không phụ thuộc tên file** (tên file chỉ là gợi ý cuối, phải báo rõ khi dùng). |
+
+**Còn chờ anh:** ~~(a) dữ liệu cũ tab Tháng~~ (đã chốt Q12: xóa); (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi bộ phận tin học về máy chủ nội bộ + dữ liệu khách hàng trên mạng cơ quan / Drive cá nhân.
 
 ---
 
