@@ -15,14 +15,11 @@ function veScan(){
 
   var h = laDT() ? dauScanDT() : veDauTab('scan', {kho:D.scan, nhanThem:'Quét bản mới',
     hamThem:'batDauScan()',
-    themPhu:'<button class="phu" onclick="chonCheScan()">Chế độ: '+
+    themPhu:'<button onclick="chonCheScan()">Chế độ quét: '+
             (SC.che==='the'?'Thẻ':'Tài liệu')+'</button>'+
-            (coCamera() ? '<button class="phu" onclick="moCamera({muc:\'scan\'})">📷 Webcam</button>' : '')+
-            '<button class="phu" onclick="moKyAnh()">📁 Chữ ký · CCCD</button>'});
-
-  /* 3.33: lời nhắc nhỏ thay khung vàng cảnh báo */
-  h += '<div class="huong-dan tab-ghi-chu-scan" style="margin:0 0 8px">Ảnh xử lý trong máy, không gửi tới AI · lưu hồ sơ là bản PDF lên Drive: '+
-    '<b>Tủ hồ sơ/CCCD</b> (thẻ) và <b>Tủ hồ sơ/Hồ sơ scan</b> (tài liệu), chia theo xã › điểm › ấp › tổ.</div>';
+            (coCamera() ? '<button onclick="moCamera({muc:\'scan\'})">📷 Webcam</button>' : '')+
+            '<button onclick="moKyAnh()">📁 Chữ ký · CCCD</button>'});
+  /* 3.151: dòng "Ảnh xử lý trong máy…" chuyển vào ❓ */
 
   var ds = locTheoThe('scan', locChuan('scan', D.scan.slice()));
   if(tuKhoa) ds = ds.filter(function(m){
@@ -62,17 +59,15 @@ function veScan(){
   var dsGoc = ds, soCD = ds.filter(function(k){ return !ttScan(k).dat; }).length;
   if(HS.chuaDat) ds = ds.filter(function(k){ return !ttScan(k).dat; });
   if(HS.cay) ds = ds.filter(function(k){ return khopCayScan(k, HS.cay); });
-  var dk = dangLoc('scan');
-  h += '<div class="sc-xem">'+
+  /* 3.151: hàng Danh sách / Cây · Ngày / Tuần / Tháng · ⚠ Chưa đạt · bỏ lọc → thanh lọc chung (☰ ▾ · ⇅ ▾ · ⚲ Lọc · chip ✕) */
+  if(laDT()) h += '<div class="sc-xem">'+
     '<span class="nhom-nut"><button class="'+(xem==='ds'?'bat':'')+'" onclick="datXemScan(\'scanXem\',\'ds\')">☰ Danh sách</button>'+
       '<button class="'+(xem==='cay'?'bat':'')+'" onclick="datXemScan(\'scanXem\',\'cay\')">🌳 Cây địa bàn</button></span>'+
-    (xem==='ds' ? '<span class="nhom-nut">'+[['ngay','Ngày'],['tuan','Tuần'],['thang','Tháng']].map(function(x){
-        return '<button class="'+(nhom===x[0]?'bat':'')+'" onclick="datXemScan(\'scanNhom\',\''+x[0]+'\')">'+x[1]+'</button>'; }).join('')+'</span>' : '')+
-    (soCD ? '<button class="chip-cd'+(HS.chuaDat?' bat':'')+'" onclick="HS.chuaDat=!HS.chuaDat;veScan()" title="Chỉ hiện bản còn thiếu">⚠ Chưa đạt ('+soCD+')</button>'
-          : (dsGoc.length ? '<span class="chip-dat">✓ Tất cả đã đạt</span>' : ''))+
-    '<span class="sc-dem">'+ds.length+' bản'+(dk.length ? ' · '+coChuHTML(dk.join(' · '))+' <span class="xoa-loc" onclick="boLoc(\'scan\')">bỏ lọc</span>' : '')+'</span></div>';
+    (soCD ? '<button class="chip-cd'+(HS.chuaDat?' bat':'')+'" onclick="HS.chuaDat=!HS.chuaDat;veScan()" title="Chỉ hiện bản còn thiếu">⚠ Chưa đạt ('+soCD+')</button>' : '')+
+    '<span class="sc-dem">'+ds.length+' bản</span></div>';
+  if(kxBang('scan')){ h += ds.length ? bangTabHTML('scan', ds.slice().sort(function(a, b){ return mocScan(b).localeCompare(mocScan(a)); })) : '<div class="rong">Không có bản nào khớp.</div>'; e.innerHTML = h; return; }
   if(xem==='cay') h += veCayScan(dsGoc);
-  if(HS.cay) h += '<div class="sc-loc-cay">🌳 Đang xem: <b>'+coChuHTML(nhanCayScan(HS.cay))+'</b> <span class="xoa-loc" onclick="HS.cay=null;veScan()">bỏ lọc</span></div>';
+  if(HS.cay && laDT()) h += '<div class="sc-loc-cay">🌳 Đang xem: <b>'+coChuHTML(nhanCayScan(HS.cay))+'</b> <span class="xoa-loc" onclick="HS.cay=null;veScan()">bỏ lọc</span></div>';
   if(!ds.length){
     h += dsGoc.length ? '<div class="rong">Không có bản nào khớp.</div>'
       : '<div class="rong">Chưa có bản quét nào.<br>Bấm <b>Quét bản mới</b> ở trên. Chế độ <b>Thẻ</b> cho CCCD hai mặt, chế độ <b>Tài liệu</b> cho giấy A4 nhiều trang.</div>';

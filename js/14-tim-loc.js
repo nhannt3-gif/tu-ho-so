@@ -151,29 +151,7 @@ var COT_SAP = [
 function lucThemMuc(m){ return String(m.themLuc || m.taoLuc || m.luc || m.suaLuc || ''); }
 /* 3.74 (AK-2): "n kết quả" nằm đầu hàng Sắp xếp — bỏ dòng đếm riêng, danh sách lên cao hơn */
 function veThanhSap(tab, kieuRieng, dangChon, hamDoi, dem){
-  return '<div class="sap">'+(dem ? '<span class="sap-dem">'+dem+'</span>' : '')+
-    (kieuRieng ? '<span class="nhan-loc">Xem</span>'+kieuRieng.map(function(x){
-        return '<button'+(dangChon===x[0]?' class="bat"':'')+' onclick="'+hamDoi+'(\''+x[0]+'\')">'+x[1]+'</button>';
-      }).join('')+'<span class="sap-ngan"></span>' : '')+
-    '<span class="nhan-loc">Sắp xếp</span>'+
-    (tab==='bieuMau' ? COT_SAP.concat(COT_SAP_BM) : COT_SAP).map(function(c){
-      var dang = SAP.cot===c.ma;
-      return '<button'+(dang?' class="bat"':'')+' onclick="doiSap(\'' +c.ma+ '\')">'+
-        c.nhan+(dang?(SAP.xuoi?' ▲':' ▼'):'')+'</button>';
-    }).join('')+
-    '<span style="flex:1"></span>'+
-    '<button onclick="datKieu(\'ds\')"'+(kieuXem==='ds'?' class="bat"':'')+
-      ' title="Xem dạng danh sách, mỗi file một dòng">☰ Danh sách</button>'+
-    '<button onclick="datKieu(\'thang\')"'+(kieuXem==='thang'?' class="bat"':'')+
-      ' title="Gom file theo năm rồi theo tháng">🗂 Nhóm</button>'+
-    (kieuXem==='thang' ? '<button class="sap-ico" onclick="bungNhom(true)" title="Bung hết các năm, tháng">⊞</button><button class="sap-ico" onclick="bungNhom(false)" title="Thu gọn hết các năm, tháng">⊟</button>' : '')+
-    '<button onclick="batDongGon()"'+(D.cauHinh.dongGon?' class="bat"':'')+' title="'+(D.cauHinh.dongGon?'Đang gọn: mỗi file 1 dòng — bấm để hiện lại dòng tag, CT vay':'Gọn: ẩn dòng tag, CT vay — mỗi file 1 dòng, thấy được nhiều file hơn')+'">▤ Gọn</button>'+
-    '<button class="chi-may'+(anPVCua(tenTabPV())?'':' bat')+'" onclick="batTatPV()" title="'+
-      (anPVCua(tenTabPV())?'Bật khung xem nhanh bên phải để đọc file ngay':'Tắt khung xem nhanh cho danh sách rộng hơn')+
-      ' — nhớ riêng cho tab này">▣ Khung xem</button>'+
-    '<button class="sap-ico" onclick="chepDuongMay(thuMucTab(\''+tab+'\'))" title="Ổ G — chép đường dẫn thư mục trên ổ G, dán vào Explorer là mở đúng thư mục">📂</button>'+
-    '<button class="sap-ico" onclick="moThuMucDrive(thuMucTab(\''+tab+'\'))" title="Drive — mở thư mục này trên Drive web bằng trình duyệt">☁</button>'+
-    '</div>';
+  return '';   /* 3.151: hàng Sắp xếp / Xem gộp vào thanh lọc chung (⇅ ▾ · ☰ ▾), số mục nằm cuối thanh */
 }
 /* 3.31: 2 cột sắp riêng của tab Biểu mẫu */
 var COT_SAP_BM = [{ma:'dung', nhan:'Số lần dùng'}, {ma:'namvb', nhan:'Năm VB gốc'}];

@@ -4,6 +4,39 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.152 — 11/10/2026 — Xuất chung: In · PDF · Word · Excel · Gửi
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 2, 4):** mỗi báo cáo một kiểu nút, tên file khác nhau; Copy gộp vào Gửi; PDF = hộp in "Lưu dưới dạng PDF" tên điền sẵn; máy tính Gửi = tải về.
+- **File mới `js/24-xuat.js`:** `xuatHang(o)` hàng nút chuẩn `.xuat-hang` (Đóng · `o.truoc` · 🖨 In · 📄 PDF · 📝 Word · 📊 Excel · 📤 Gửi; ẩn định dạng không có); `o.html()` → In / PDF / Copy dùng chung. `xuatTen(loại, phạm vi, kỳ)` → `Loai_PhamVi_Tmm-yy`. `xuatGui` menu (Gửi file PDF / Word / Excel · 📋 Copy ảnh · 📋 Copy chữ). `xuatChepChu` (ClipboardItem text/plain + text/html, bảng → tab giữa ô). `xuatChepAnh` / `xuatAnhBlob`: vẽ trang báo cáo thành PNG bằng SVG foreignObject → canvas (không thêm thư viện); máy không cho thì chép chữ thay.
+- **Áp cho:** Tổ (`toXem`), Sao kê (`skXem`), Tổng hợp (`thXem`), biến động năm (`toBDNamXuat('html')`), KTGS Mẫu 06 sau giải ngân / Mẫu 06 trắng / Mẫu 04 / Thông báo phân công / Kế hoạch 01 — các hàm `ktGNIn`, `ktTrang06Xuat`, `ktBCIn`, `ktPCXuat` nhận thêm cách `'pdf'` (`inPDF`).
+- **Khung xem file** (`index.html` cột phải + xem lớn): 🖨 In · ✎ Sửa · 📤 Gửi (`guiFileMenu`: gửi / tải file, 📋 chép nguyên file qua cầu nối, 📋 Copy ảnh với file ảnh, 📋 Copy số hiệu + trích yếu).
+- `tests/kiem.py` biết thêm `DOMParser`, `XMLSerializer`.
+- **Phép thử:** `tests/t148.js` (mới, 16).
+
+## 3.151 — 11/10/2026 — Thanh lọc chung tab file + kiểu xem ▦ Bảng
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 6a, 9, 13; "dùng chung hết"):** mỗi tab file một kiểu lọc / sắp / xem, hàng chip Năm / Mảng / CT / Tag chiếm 3 hàng.
+- **`veDauTab` viết lại** (`js/11-khung-tab.js`, lớp `.tl-thanh`): ＋ Thêm · 🗑 Xóa (`nutBot`) · ⚲ Lọc (n) ▾ (`moBoLoc`) · ⇅ (`moSapTab`; Scan = nhóm Ngày / Tuần / Tháng) · ☰ ▾ (`moXemTab`) · chip đang lọc `.tl-chip` (`chipDangLoc`) · số mục · ⋯ (`moThemTab`: `opt.themPhu` / `opt.nutThem` + chọn chép, ổ G, Drive, sửa tag) · ❓. Menu thả xuống dùng chung `#menu` (`moMenuTL`). Áp cho mọi tab gọi `veDauTab` (Văn bản, Biểu mẫu, Scan máy tính, Dữ liệu tháng, Ghi chú).
+- **Bỏ:** hàng lọc nhanh (`hangLocNhanh` không gọi), dòng "Đang lọc", hàng chip lọc, hàng Sắp xếp / Xem (`veThanhSap` trả rỗng), ▤ Gọn; Scan máy tính bỏ hàng Danh sách / Ngày-Tuần-Tháng / ⚠ Chưa đạt và dòng giải thích (→ ❓).
+- **⚲ Lọc** theo nhóm của tab (`nhomLocNhanh`, kèm số mục) + Tháng khi chọn năm + Khác (Chưa phân loại, hết hiệu lực, Trùng số hiệu, ★) ; Scan: Xã · Tag · ⚠ Chưa đạt. `boLoc('scan')` bỏ cả Chưa đạt / cây.
+- **▦ Bảng** (`bangTabHTML`, `bangCot`, `BANG_SAP`, `D.cauHinh.bangTab` nhớ từng tab; điện thoại luôn Danh sách): Văn bản Số hiệu · Ngày ký · Tên & Trích yếu · Mảng NV · CT vay · Trạng thái (★ ⚠ ☁ ⛔ ⧉); Biểu mẫu Tên mẫu · Chương trình · Loại · Số lần dùng · Trạng thái; Scan (Mã KH nếu có) · Tên · Ấp · Loại giấy tờ · Ngày · Trạng thái. Bấm tiêu đề sắp ▲▼, ô tích (VB: chọn xóa; BM: gửi / nén / in; Scan: in ghép), ↑↓ chuyển dòng. Bản cũ bật Gọn → tự chuyển ▦ Bảng (Văn bản) một lần.
+- **Phép thử:** `tests/t147.js` (mới, 25). t88 đọc chip trong ⚲ Lọc.
+
+## 3.150 — 11/10/2026 — Tab Nạp & KT gọn
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 1, ảnh anh gửi):** tab rối, chọn tháng 3 chỗ, "thiếu" in 2 lần, trạng thái 5 chỗ, nút rải, chữ phụ nhiều, ma trận nửa màn; tháng chưa có file vẫn báo "kiểm lại".
+- **Hàng công cụ** `slNapThanhHTML` (lớp `.sl-con-nap .sl-thanh-nap`): ‹ tháng › · 📥 Nạp file · 📋 File cần xuất · ☁ chờ · ⋯ (`slNapThem`) · ❓ (`slNapHoi`). `slTabConHTML` trả rỗng cho tab nap.
+- **Dòng trạng thái** `slNapTTHTML` (`.sl-tt .sl-tt-1`): ưu tiên chưa có file → thiếu file (link nạp từng file) → sai kỳ / cấu trúc → cần kiểm → ✅ Đạt (link "N chênh lệch ghi nhận" mở `details#sl-kq`). Tooltip: báo cáo dùng được + lưu ý (`slDanhGia`).
+- **Ma trận** trọn ngang (`.sl-bang` 100% ≥ 700 px), ‹ › ở ô góc, bấm tên tháng → `slChonThang` (kỳ chung theo khi tháng có số liệu). Cột 📅 Theo ngày giữ; nút Xóa ngày cũ → ⋯.
+- **Bỏ** khung ① (`slTTHTML` không dùng ở tab nap), 4 ô bước, khung 2 cột vuốt (điện thoại), dòng chú thích, "Sẵn dùng", Làm sạch / Giữ sẵn trên hàng, tóm tắt chi tiết + quản lý dữ liệu cuối trang (→ ⋯, `slTomTatXem`).
+- `.nho{min-width:0}`: nút biểu tượng không bị kéo rộng 76 px.
+- **Phép thử:** `tests/t146.js` (mới, 12). t142 (dòng trạng thái thay 4 bước), t130 (Xóa ngày cũ ở ⋯), t105 (quan sát), t106 (ma trận chính).
+
+## 3.149 — 11/10/2026 — Kỳ + phạm vi chung; cây chọn 2 hàng; bỏ cảnh báo Thông tin tổ trưởng
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 6b, 6c):** kỳ nằm ngoài cùng phủ mọi tab; phạm vi "dùng chung hết"; ngoại lệ KTGS in theo kế hoạch giữ kỳ kế hoạch (không đổi — 3.141).
+- **Kỳ chung:** `#ky-chung` ở đầu trang (`kyChungVe`, `kyChungDs` = kỳ Mẫu 31 + tháng có file TW, `kyChungDoi`, `kyChungLay`: kỳ ngày chỉ giữ trong lần mở app). Đổi → `toCH/skCH/ktCH/thCH().ky`, `SL_KY` cùng đổi, bỏ bộ đã dựng. `toKyMacDinh` và Tổng hợp lấy kỳ chung trước; tab không có số liệu đúng kỳ → `kyGhiHTML` ghi "đang dùng …". Bỏ ô `select[data-ky]` + `kyLamMoiHTML` ở Tổ / Sao kê / KTGS và ô kỳ Tổng hợp (hàm `kyLamMoi` còn, không gọi từ giao diện).
+- **Phạm vi chung:** `pvChungO` (`D.cauHinh.pvChung`, lần đầu lấy theo tab Tổ) + `pvGan(C)`: ô xa / diem / hoi / to của toCH, skCH, ktCH, thCH, tcCH thành getter / setter trỏ về 1 chỗ.
+- **Cây chọn 2 hàng** (`pvVeCay`): hàng 1 `.pv-hang1` các ô chọn nối ›, ẩn cấp chưa tới (Hội luôn có, là lọc); hàng 2 `.pv-hang2` chip của cấp cần chọn tiếp (chọn tới tổ thì hết). Logic chọn (`pvLuaChon`, `pvChon`, `pvCha`) giữ nguyên.
+- **KTGS:** bỏ dòng "Nạp và kiểm tra … ở tab" → nút 📥 nạp cạnh chip BC thiếu; `ktSuyHTML` chỉ còn báo tổ chưa rõ điểm GD.
+- **Phép thử:** `tests/t145.js` (mới, 12). t113 (bỏ cảnh báo), t131 (⟳ Làm mới → kỳ chung), t127 (báo dựng sẵn ở ô trạng thái — 3.148).
+
 ## 3.148 — 11/10/2026 — Nút & trạng thái: 1 nơi báo trạng thái, nút vừa chữ, thứ tự nút hộp thoại, bỏ 🗑 cuối dòng
 - **Anh chốt (docs/KE_HOACH_GON_GIAO_DIEN.md ý 10, 12, 13; anh duyệt làm cả gói 3.148–3.155 + gộp, 11/10 00:40).**
 - **1 nơi trạng thái** (`js/23-dieu-huong.js`: `TTB`, `ttTin`, `ttVe`, `ttDung`, `ttDs`): khối `#tt-khoi` = đèn (`ttDen`: đỏ mất mạng · vàng đang chạy · đỏ lỗi < 12 giây · xanh Drive nối · xám) + thanh màu (`TTB.pt`, 101 = chạy không rõ %) + 1 dòng chữ (tin mới 8 giây, lỗi 12 giây, rồi về chữ nghỉ `ttNghi`). Máy tính ≥ 1100 px: chân thanh bên (`#tb-tt`, dời cả `#so-lieu` chip Drive / bộ nhớ); nhỏ hơn: thanh đáy. Bấm chữ → 🔔 20 tin.

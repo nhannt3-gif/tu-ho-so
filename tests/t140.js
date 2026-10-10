@@ -34,7 +34,7 @@ const path=require('path'); const drive=require('./fakedrive.js')();
    slDoiTab('sk'); await w(200); moNapSL(); await w(200); moBCSL(); await w(300);
    ok('Số liệu nhớ tab con báo cáo gần nhất (Sao kê)', D.cauHinh.slTab==='sk');
    slDoiTab('kt'); await w(600);
-   ok('KTGS: không còn khối nạp BC0437 / BC0438, có nút sang tab Nạp & KT', !tr7.querySelector('.kt-nap') && !!tr7.querySelector('.kt-nap-chuyen button'), tr7.textContent.slice(0, 120));
+   ok('KTGS: không còn khối nạp BC0437 / BC0438; chip BC thiếu có nút 📥 nạp sang tab Nạp & KT (3.149)', !tr7.querySelector('.kt-nap') && !!tr7.querySelector('.kt-bc-nap'), tr7.textContent.slice(0, 120));
    doiNgan(2); await w(300);
    ok('lối cũ doiNgan(2) (Có gì mới, lời nhắc cũ) → tab Nạp & KT', nganHienTai===7 && D.cauHinh.slTab==='nap' && chon()==='📥 Nạp & KT');
    /* Công cụ */

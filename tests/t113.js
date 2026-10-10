@@ -44,7 +44,7 @@ const fs=require('fs'), path=require('path');
    ok('3.145 (anh chốt DSTO bắt buộc): tổ lệch điểm GD giữa 2 file → theo DSTO, Thông tin tổ trưởng chỉ bù chỗ trống', K.to[mA].diem===diemKhac && !K.to[mA].diemTu, K.to[mA].diem);
    ok('ngày GD của tổ lấy theo DSTO = ngày của điểm GD (DSTO không có cột ngày)', boTT.every(m=>K.to[m].ngayGD));
    const h = document.createElement('div'); h.innerHTML = ktSuyHTML(K);
-   ok('dòng báo vàng: "… thiếu 3 tổ … đã xếp điểm GD: Danh sách tổ (DSTO) 3"', /thiếu 3 tổ/.test(h.textContent) && /Danh sách tổ \(DSTO\) 3/.test(h.textContent), (h.querySelector('summary')||{}).textContent);
+   ok('3.149 (anh chốt): bỏ cảnh báo "Thông tin tổ trưởng thiếu tổ" — tổ đã có điểm GD theo DSTO không báo vàng', !/Thông tin tổ trưởng/.test(h.textContent) && !h.querySelector('summary'), h.textContent.slice(0, 80));
    /* 4. đối chiếu chéo trong ② Kiểm tra */
    await slKiemTra('2026-07'); const kt = SLM.kt['2026-07'].kq.filter(x=>x.nhom===6), tim = re => kt.find(x=>re.test(x.ten)) || {};
    ok('thiếu trong Thông tin tổ trưởng: 3 tổ (lưu ý, app đã bù)', tim(/có trong Thông tin tổ trưởng/).kq==='canh' && tim(/có trong Thông tin tổ trưởng/).n===3, tim(/có trong Thông tin tổ trưởng/).chu);

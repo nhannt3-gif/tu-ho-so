@@ -2680,7 +2680,7 @@ function veVanBan(){
   tinhTrungSH();   /* 3.77 */
   document.getElementById('nam-vb').innerHTML =
     veDauTab('vanBan', {kho:D.vanBan, 
-      themPhu:'<button class="phu" onclick="lapChiMuc()" title="Lập chỉ mục: đi hết thư mục Tủ hồ sơ, file nào chưa có trong app thì xếp vào đúng tab">🗂 Lập chỉ mục</button>',
+      themPhu:'<button onclick="lapChiMuc()" title="Lập chỉ mục: đi hết thư mục Tủ hồ sơ, file nào chưa có trong app thì xếp vào đúng tab">🗂 Lập chỉ mục</button>',
                         hamThem:"TAB_TRUOC=1;doiNgan(6);THEM_TU=1;document.getElementById('chon-file').click()"});   /* 3.40: nhớ đúng tab Văn bản — trước sang khay chờ trước nên giữ tab cũ (vd Tháng) → file vào Dữ liệu tháng */
   document.getElementById('loc-vb').innerHTML = '';
 
@@ -2724,7 +2724,7 @@ function veVanBan(){
   document.getElementById('dem-vb').innerHTML = '';
 
   document.getElementById('ds-vb').innerHTML = veThanhSap('vanBan', null, null, null, demVB) + (ds.length
-    ? (kieuXem==='thang' ? nhomTheoThang(ds,'ngay')
+    ? (kxBang('vanBan') ? bangTabHTML('vanBan', ds) : kieuXem==='thang' ? nhomTheoThang(ds,'ngay')
        : ds.map(function(m){ return dongHTML(m, tuKhoa); }).join(''))
     : '<div class="rong">'+(D.vanBan.length
         ? 'Không tìm thấy văn bản nào khớp.<br>Thử bỏ bớt điều kiện lọc.'
@@ -2826,7 +2826,7 @@ function theTrong(m, q){
 
 /* ----- ngăn 2: THÁNG ----- */
 var kieuTh = 'ky';   /* 3.20: ky | donvi | cay | bang */
-function datKieuTh(k){ kieuTh = k; ve(); }
+function datKieuTh(k){ kieuTh = k; dongMenu(); ve(); }
 /* ---------- BẢNG ĐỐI CHIẾU (3.20) — nhìn là biết kỳ nào thiếu gì, ở cấp nào ---------- */
 function capDang(){ return D.cauHinh.capThang || 'xa'; }
 function datCap(c){ D.cauHinh.capThang = c; luu(); veThang(); }
@@ -3632,7 +3632,8 @@ function veThang(){
   var dt = document.getElementById('dau-th');
   if(dt) dt.innerHTML = veDauTab('duLieu', {kho:D.duLieu, 
     hamThem:"CHO_O=null;nutChinh()",   /* 3.34: qua nutChinh để nhớ TAB_TRUOC=2 → Excel vào Dữ liệu tháng */
-    themPhu: D.duLieu.length?'<button class="phu" onclick="ghepKy()">Ghép để xem</button>':''});
+    xem:[['ky','Theo kỳ'],['donvi','Theo đơn vị'],['cay','Dạng cây']], hamXem:'datKieuTh',   /* 3.151: kiểu xem vào ☰ ▾ */
+    themPhu: D.duLieu.length?'<button onclick="ghepKy()">Ghép để xem</button>':''});
   var ds = locTheoThe('duLieu', locChuan('duLieu', loc(D.duLieu, tuKhoa))); BOT_DS.duLieu = ds;
   /* 3.27: hàng 2 của tab Tháng gộp đủ như các tab khác — kiểu xem + sắp xếp + khung xem + ổ G */
   var thanhXem = veThanhSap('duLieu', [['ky','Theo kỳ'],['donvi','Theo đơn vị'],['cay','Dạng cây']], kieuTh, 'datKieuTh', '<b>'+ds.length+'</b> file'+chuDemLoc('duLieu'));

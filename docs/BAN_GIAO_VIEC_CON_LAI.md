@@ -222,6 +222,53 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.152) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tổng hợp / Sao kê / Tổ → Xem | Hàng nút: Đóng · 🖨 In · 📄 PDF · 📊 Excel · 📤 Gửi | |
+| 2 | 📄 PDF | Hộp in, chọn Lưu dưới dạng PDF — tên file điền sẵn Loại_Phạm vi_Kỳ | |
+| 3 | 📤 Gửi → 📋 Copy ảnh → dán vào Zalo PC | Ra ảnh trang báo cáo (chữ rõ) | |
+| 4 | 📤 Gửi → 📋 Copy chữ → dán Excel | Ra bảng đúng cột | |
+| 5 | KTGS Kế hoạch / Mẫu 04 / Mẫu 06 → Xem | Cùng hàng nút, có 📝 Word | |
+| 6 | Văn bản → khung xem → 📤 Gửi | Tải / gửi file; Copy số hiệu + trích yếu | |
+| 7 | iPhone: 📤 Gửi → Copy ảnh | Safari có thể không cho → app chép chữ thay | |
+
+**Ghi chú kỹ thuật 3.152:** Copy ảnh dùng SVG foreignObject — Chrome / Edge máy tính chạy; Safari iPhone có thể chặn (tainted canvas) → tự chép chữ. Các nút In / Word riêng trên từng dòng tổ (KTGS) giữ nguyên; danh sách tổ viên / bảng các tổ in thẳng chưa qua khung xem (đợt sau).
+
+### Danh sách thử trên máy thật (3.151) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở Văn bản, Biểu mẫu, Scan | Cùng 1 thanh: Thêm · Xóa · Lọc · Sắp xếp · Kiểu xem · ⋯ · ❓ | |
+| 2 | ⚲ Lọc → chọn mảng | Nút "⚲ Lọc (1)", chip trên thanh, bấm ✕ bỏ | |
+| 3 | ☰ ▾ → ▦ Bảng | Bảng gọn 20+ dòng / màn; bấm tiêu đề cột sắp xếp; ↑↓ chuyển, khung xem theo | |
+| 4 | Tích ô đầu dòng ở bảng VB | Thanh "Xóa N file" hiện | |
+| 5 | ⋯ từng tab | Lập chỉ mục / Bộ biểu mẫu / Chế độ quét, Webcam, Chữ ký·CCCD | |
+| 6 | iPhone | Vẫn Danh sách, thanh không tràn | |
+
+**Ghi chú kỹ thuật 3.151:** `hangLocNhanh`, `dongDangLoc`, `nutLocNhanh`, `batDongGon` còn trong mã nhưng không gọi (dọn sau). `veThanhSap` giữ tên, trả rỗng.
+
+### Danh sách thử trên máy thật (3.150) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở 📥 Nạp & KT | 1 hàng nút, 1 dòng trạng thái, ma trận hết chiều ngang | |
+| 2 | Tháng thiếu file | Dòng vàng: thiếu N file (bấm tên file để nạp); rê chuột thấy báo cáo nào dùng được | |
+| 3 | Tháng đủ file → 🔍 Kiểm tra kỳ | Dòng xanh ✅ Đạt; bấm "N chênh lệch ghi nhận" mở kết quả | |
+| 4 | ⋯ | Tải gốc cả tháng, xóa cả bộ tháng, tóm tắt, làm sạch, giữ sẵn… | |
+| 5 | Tháng chưa có file | Chỉ báo "chưa có file nào" | |
+
+**Ghi chú kỹ thuật 3.150:** `slKhung` / `slKhungCuon` / `slTTHTML` còn trong mã nhưng không gọi ở tab Nạp (để dọn khi chắc không cần).
+
+### Danh sách thử trên máy thật (3.149) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Đầu trang có ô 📅 Kỳ | Đổi kỳ → Tổ, Sao kê, KTGS, Tổng hợp, ma trận Nạp cùng kỳ | |
+| 2 | Chọn xã / điểm / tổ ở tab Tổ, sang Sao kê / KTGS / Tổng hợp | Vẫn đúng phạm vi đó | |
+| 3 | Cây chọn | 2 hàng: ô chọn nối ›, chip của cấp kế tiếp; chọn tới tổ thì hết chip | |
+| 4 | KTGS | Không còn dòng "Nạp … ở tab" và cảnh báo "Thông tin tổ trưởng thiếu tổ" | |
+| 5 | Kế hoạch › In theo tháng | Vẫn lấy số liệu theo kế hoạch (cuối tháng liền trước) | |
+
+**Ghi chú kỹ thuật 3.149:** phạm vi dùng getter / setter trên đối tượng cấu hình từng tab (JSON vẫn ghi giá trị) — mọi chỗ cũ `C.xa = …` tự ghi về `pvChung`. Ô tìm tổ ở Tổ / KTGS chưa dời vào hàng cây (để 3.151 / sau).
+
 ### Danh sách thử trên máy thật (3.148) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

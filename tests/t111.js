@@ -126,7 +126,7 @@ const fs=require('fs'), path=require('path');
    const mau = coD.find(t=>coD.some(x=>x!==t && x.xa===t.xa && String(x.thon)===String(t.thon)));
    if(mau){ const dg = mau.diem; const tt0 = mau.tt; delete mau.diem; delete mau.tt; mau.tenDiem = ''; mau.ngayGD = ''; toSuyDiem(K);
      ok('tổ thiếu điểm GD → suy theo tổ cùng ấp, đánh dấu', mau.diem===dg && /cùng ấp|địa bàn/.test(mau.diemSuy||''), mau.diemSuy);
-     ok('báo tổ có điểm GD suy ở KTGS (3.107: thiếu trong file Thông tin tổ trưởng → xếp theo ấp)', /thiếu 1 tổ/.test(ktSuyHTML(K)) && /theo ấp 1/.test(ktSuyHTML(K)), (ktSuyHTML(K).match(/⚠[^<]*/)||[''])[0]); delete mau.diemSuy; mau.tt = tt0; }
+     ok('3.149: tổ đã suy được điểm GD → KTGS không báo (chỉ báo tổ chưa rõ điểm)', !/Thông tin tổ trưởng/.test(ktSuyHTML(K)), (ktSuyHTML(K).match(/⚠[^<]*/)||[''])[0]); delete mau.diemSuy; mau.tt = tt0; }
    else ok('có tổ để thử suy điểm GD', false);
    /* 9. 🎓 Hạn trả HSSV: dòng trên GDX + ngày vay; mỗi món chỉ ra trường + tiền; Enter qua ô; bấm vào bôi đen */
    CC.hs = null; const dv = document.createElement('div'); dv.innerHTML = hsChonLoaiHTML()+ccHSSVHTML(); document.body.appendChild(dv);

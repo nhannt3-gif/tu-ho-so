@@ -14,7 +14,7 @@ const { chromium } = require(require('child_process').execSync('npm root -g').to
  await p.goto('file://'+require('path').resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
  const r=await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){} const w=t=>new Promise(r=>setTimeout(r,t)); const o={}; doiNgan(1); await w(200);
    const ids=()=>BOT_DS.vanBan.map(m=>m.id).sort().join('');
-   o.chip=[...document.querySelectorAll('#tr1 .loc-nhanh .the-loc')].map(e=>e.textContent.trim()).join(' | ');
+   moBoLoc('vanBan'); o.chip=[...document.querySelectorAll('#hop-in .the-loc')].map(e=>e.textContent.trim()).join(' | '); dongHop();   // 3.151: chip lọc nằm trong ⚲ Lọc
    o.trungChip=[...document.querySelectorAll('#tr1 .tg.trung')].map(e=>e.closest('.d2').getAttribute('onclick').match(/'(\w+)'/)[1]+':'+e.textContent).join(', ');
    const L=locCua('vanBan');
    L.ct='HN'; ve(); await w(50); o.locHN=ids()+' (d HN + c Tất cả CT)';

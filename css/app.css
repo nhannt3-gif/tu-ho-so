@@ -2873,3 +2873,75 @@
   body.tb-gon #thanh-ben #tt-khoi{width:40px}
 }
 #tt-khoi .tt-thanh:not(.chay) i{display:none}
+/* ===== 3.149: kỳ chung ở đầu trang · cây chọn 2 hàng dùng chung ===== */
+.ky-chung{display:flex;align-items:center;gap:4px;flex:0 0 auto;color:#fff}
+.ky-chung:empty{display:none}
+.ky-chung label{display:flex;align-items:center;gap:4px;font-size:calc(13px*var(--co))}
+.ky-chung select{font:inherit;font-size:calc(13px*var(--co));padding:4px 6px;border-radius:8px;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.95);color:#123;max-width:230px}
+.ky-chung .ky-chung-lm{background:none;border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:8px;padding:3px 8px;cursor:pointer}
+@media (max-width:699px){ .ky-chung select{max-width:150px} .ky-chung .ky-chung-lm{display:none} }
+.ky-ghi{margin:4px 0;padding:4px 10px;border-radius:8px;background:var(--vang-nen);color:var(--vang);font-size:calc(12.5px*var(--co))}
+.pv-hang1{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:4px 0}
+.pv-hang1 .pv-ghim{font-size:15px}
+.pv-hang1 .pv-sep{color:var(--chu-phu);font-weight:700}
+.pv-hang1 select.pv-o{font:inherit;font-size:calc(12.5px*var(--co));padding:3px 6px;border:1px solid var(--vien);border-radius:8px;background:var(--the);color:var(--chu);max-width:250px}
+.pv-hang1 select.pv-o.co{border-color:var(--xanh);background:var(--xanh-nhat);color:var(--xanh-dam);font-weight:600}
+.pv-hang1 select.pv-hoi{margin-left:8px}
+.pv-hang2{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 6px 22px}
+.kt-bc-nap{border:1px solid var(--vien);background:var(--the);color:var(--chu);border-radius:10px;padding:1px 8px;cursor:pointer;font-size:calc(11.5px*var(--co))}
+/* ===== 3.150: tab Nạp & KT gọn ===== */
+.sl-thanh-nap{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 6px;padding:0;border:0;background:none}
+.sl-thanh-nap .sl-thang{display:flex;gap:2px}
+.sl-thanh-nap .sl-gian{flex:1 1 auto}
+.sl-thanh-nap .sl-db{font-size:calc(12px*var(--co));color:var(--chu-phu)}
+.sl-tt-1{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:6px 10px;border-radius:10px;margin:0 0 8px;font-size:calc(13px*var(--co));border:1px solid var(--vien);background:var(--the)}
+.sl-tt-1 .sl-tt-chu{flex:1 1 300px;min-width:0}
+.sl-tt-1.vang{background:var(--vang-nen);border-color:#EED9A8}.sl-tt-1.xanh{background:var(--luc-nen);border-color:#BFE0CC}.sl-tt-1.xam{color:var(--chu-phu)}
+.sl-tt-1 .sl-lk{background:none;border:0;padding:0;color:inherit;text-decoration:underline;cursor:pointer;font:inherit}
+.sl-bang thead th.bdc-goc .sl-tq-nut{display:inline-flex;gap:2px;margin-left:6px}
+.sl-bang thead th.bdc-goc .sl-tq-nut .nho{min-height:22px !important;padding:0 7px !important;font-size:calc(11px*var(--co))}
+details.sl-kq,details.sl-ktgs-nap{margin:10px 0;border:1px solid var(--vien);border-radius:10px;background:var(--the);padding:6px 10px}
+details.sl-kq > summary,details.sl-ktgs-nap > summary{cursor:pointer;font-weight:600;padding:2px 0}
+details.sl-kq > summary small,details.sl-ktgs-nap > summary small{font-weight:400;color:var(--chu-phu)}
+.sl-them-ds{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:8px 0}
+.sl-them-ds .sl-giu{display:flex;align-items:center;gap:6px;font-size:calc(13px*var(--co))}
+.sl-mt-cuon{max-width:100%}
+.nho{min-width:0}   /* 3.150: nút vừa chữ — nút biểu tượng (‹ › ⋯ ❓) không bị kéo rộng 76 px */
+@media (min-width:700px){ .sl-mt-cuon .sl-bang{width:100%} .sl-mt-cuon .sl-bang .bdc-o.sl-o{min-width:84px} }   /* ma trận trọn chiều ngang */
+/* 3.151 — thanh lọc chung tab file + kiểu xem ▦ Bảng */
+.tl-thanh{flex-wrap:nowrap;align-items:center;overflow-x:auto;scrollbar-width:none}
+.tl-thanh::-webkit-scrollbar{display:none}
+.tl-thanh > button{flex:0 0 auto;white-space:nowrap}
+.tl-chips{display:flex;gap:5px;align-items:center;flex:0 0 auto}
+.tl-chip{white-space:nowrap;cursor:pointer;border-radius:999px;padding:3px 10px;font-size:calc(12px*var(--co));font-weight:600;
+  background:var(--xanh-nhat);color:var(--xanh-dam);border:1.3px solid var(--xanh)}
+.tl-chip:hover{filter:brightness(.96)}
+.tl-chip.bo{background:var(--the);color:var(--chu-phu);border-color:var(--vien)}
+.tl-thanh .nut-them,.tl-thanh .phu,.tl-thanh .nut-bot{padding:5px 10px}
+.dau-tab .tl-them,.dau-tab .nut-hd{padding:5px 9px}
+.menu .menu-nhan{font-size:calc(11px*var(--co));color:var(--chu-phu);padding:4px 12px 2px;text-transform:uppercase;letter-spacing:.03em}
+.menu .menu-ghi{font-size:calc(11px*var(--co));color:var(--chu-phu);padding:4px 12px;max-width:230px}
+.menu button.bat{color:var(--xanh-dam);font-weight:700}
+.bang-tab-cuon{overflow-x:auto;border:1.3px solid var(--vien);border-radius:10px;background:var(--the)}
+.bang-tab{width:100%;border-collapse:collapse;font-size:calc(12.5px*var(--co));table-layout:auto}
+.bang-tab th{position:sticky;top:0;background:var(--nen);text-align:left;font-weight:700;padding:6px 8px;border-bottom:1.3px solid var(--vien);
+  white-space:nowrap;cursor:pointer;user-select:none;color:var(--chu-phu);z-index:1}
+.bang-tab th:hover,.bang-tab th.dang{color:var(--xanh-dam)}
+.bang-tab td{padding:0 8px;height:30px;border-bottom:1px solid var(--vien);white-space:nowrap;vertical-align:middle;text-align:left}
+.bang-tab th,.bang-tab td{width:1%}
+.bang-tab th.bt-ten,.bang-tab td.bt-ten{width:100%;max-width:0;overflow:hidden;text-overflow:ellipsis}
+.bang-tab td.s,.bang-tab th.s{text-align:right}
+.bang-tab .bt-o{width:1%;padding:0 4px 0 8px}
+.bang-tab .bt-n{width:1%;padding:0 4px;text-align:right}
+.bang-tab .bt-n button{border:none;background:none;cursor:pointer;font-size:15px;color:var(--chu-phu);padding:2px 6px;border-radius:6px}
+.bang-tab .bt-n button:hover{background:var(--xanh-nhat);color:var(--xanh-dam)}
+.bang-tab tr.bt-d{cursor:pointer}
+.bang-tab tr.bt-d:hover td{background:var(--xanh-nhat)}
+.bang-tab tr.bt-d.dang-xem td{background:var(--xanh-nhat);box-shadow:inset 0 -1px 0 var(--xanh)}
+.bang-tab tr.bt-d.chon td,.bang-tab tr[data-botc] td{background:#FFF6DA}
+.bang-tab tr.bt-d.mo td{color:var(--chu-phu)}
+.bang-tab .bt-tt{display:inline-block;margin-right:4px;cursor:help;color:var(--vang)}
+.bang-tab .bt-tt.dat{color:var(--xanh-dam)}
+.bang-tab td:first-child,.bang-tab th:first-child{min-width:0;border-right:none;position:static;background:inherit}
+.bang-tab thead th{background:var(--nen)}
+.bang-tab th:first-child{background:var(--nen)}
