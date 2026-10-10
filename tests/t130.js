@@ -38,9 +38,11 @@ const fs=require('fs'), path=require('path');
    const d12 = toDsKy().find(x=>x.ky==='2026-09-12');
    ok('ngày chỉ có Dư nợ chi tiết vẫn chọn được, ghi rõ món vay theo Mẫu 31 liền trước', !!d12 && /Dư nợ chi tiết \(món vay theo Mẫu 31 ngày 10\/09\/2026\)/.test(d12.chu), d12 && d12.chu);
    const K12 = await toNap('2026-09-12'); ok('ngày 12/09: Mẫu 31 mượn bản ngày 10/09 (gần nhất trong tháng), Dư nợ chi tiết đúng ngày', K12.B.nguon.hstd==='2026-09-10' && K12.B.nguon.dnct==='2026-09-12', JSON.stringify(K12.B.nguon));
-   /* tên file có ngày giữa tháng nhưng trong file không ghi ngày → loại mới vẫn vào ô tháng */
+   /* tên file có ngày giữa tháng nhưng trong file không ghi ngày → 3.143 (Q14): không tự lấy, anh khai (tên file chỉ gợi ý) — thay quy tắc 3.136 "vào ô tháng" */
+   window.KHAI_TU_DONG = false;
    const kTen = await slDocFile(new File([await tep('Mon_vay_03_thang_KHD_2026-08-31.xlsx').arrayBuffer()], 'Mon_vay_03_thang_KHD_2026-09-15.xlsx'));
-   ok('KHĐ: ngày chỉ có trên tên file → giữ ô tháng, có dòng báo; ngày ghi trong file → theo ngày', kTen.nguonKy==='tên file' ? (kTen.ky==='2026-09' && kTen.canhBao.some(x=>/không ghi ngày số liệu/.test(x))) : kTen.ky.length>7, JSON.stringify({ky:kTen.ky, nguon:kTen.nguonKy}));
+   window.KHAI_TU_DONG = true;
+   ok('KHĐ: ngày chỉ có trên tên file → cần anh khai (3.143), gợi ý 15/09; ngày ghi trong file → theo ngày', kTen.canKhai ? (!kTen.ky && kTen.goiYTen==='2026-09-15') : kTen.ky.length>7, JSON.stringify({ky:kTen.ky, khai:!!kTen.canKhai, g:kTen.goiYTen}));
    /* Sau giải ngân: tháng 9 chưa có Mẫu 31 cuối tháng → dùng bản ngày */
    ok('Sau giải ngân: có "T9/2026 (đến 10/09 — Mẫu 31 ngày)"', ktThangHS()[0]==='2026-09' && /đến 10\/09 — Mẫu 31 ngày/.test(ktGNThangChu('2026-09')) && ktGNThangChu('2026-08')===kyVN('2026-08'), ktGNThangChu('2026-09'));
    ktCH().gnTu = '2026-09'; ktCH().gnDen = '2026-09'; KT_GN = null; const RG = await ktGNNap();
