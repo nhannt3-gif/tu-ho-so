@@ -104,4 +104,4 @@
 
 ## Câu hỏi chờ anh (khi gửi đủ ý)
 - **Gửi trên máy tính:** tải về là đủ, hay muốn mở sẵn Zalo PC?
-- **📄 PDF:** dùng hộp in "Lưu dưới dạng PDF" + tên file điền sẵn (chữ rõ, chọn / tìm được chữ, như Mẫu 06 / 16 hiện nay) — được không? Hay cần bấm là ra file ngay? Không thêm thư viện thì cách này chỉ ra PDF dạng **ảnh** (không chọn / tìm được chữ).
+- **📄 PDF:** (a) hộp in "Lưu dưới dạng PDF" + tên file điền sẵn — chữ rõ, chọn / tìm được chữ, thêm 1 bước bấm Lưu (đề xuất); hay (b) bấm là ra file ngay — không thêm thư viện thì chỉ được PDF dạng ảnh (không chọn / tìm được chữ)?
