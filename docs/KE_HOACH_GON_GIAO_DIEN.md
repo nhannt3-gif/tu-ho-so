@@ -92,5 +92,5 @@
 
 ## Câu hỏi chờ anh (khi gửi đủ ý)
 - **Gửi trên máy tính:** tải về là đủ, hay muốn mở sẵn Zalo PC?
-- **PDF thật (1 file) cho báo cáo Số liệu:** không thêm thư viện thì dùng hộp in "Lưu dưới dạng PDF" + tên file điền sẵn (như Mẫu 06 / 16 hiện nay). Có được không?
+- **📄 PDF:** dùng hộp in "Lưu dưới dạng PDF" + tên file điền sẵn (chữ rõ, chọn / tìm được chữ, như Mẫu 06 / 16 hiện nay) — được không? Hay cần bấm là ra file ngay? Không thêm thư viện thì cách này chỉ ra PDF dạng **ảnh** (không chọn / tìm được chữ).
 - **Số liệu xóa ô:** vào Thùng rác app (khôi phục được trong app) thay vì thẳng Thùng rác Drive?
