@@ -48,11 +48,13 @@ const fs=require('fs'), path=require('path');
    ok('ghi nhận vào ô BC0437 T7', !!SLM.bang['k37|2026-07']);
    /* không lên ma trận Nạp */
    doiNgan(7); slDoiTab('nap'); SL_KY='2026-08'; veSoLieu(); await w(600);
-   ok('ma trận Nạp không có BC0437/0438', !/BC0437|BC0438/.test(document.getElementById('tr7').textContent));
+   ok('ma trận file chính của tab Nạp không có BC0437/0438 (3.144: BC nằm ở khối KTGS riêng cùng tab)', !/BC0437|BC0438/.test(document.querySelector('#tr7 .sl-k').textContent));
    /* tab KTGS */
    D.cauHinh.ktHaiMat = 0;   /* 3.124: phép này kiểm ngắt trang thường — in 2 mặt kiểm ở t126 */
    const C = ktCH(); C.ky='2026-08'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    ok('thanh BC0437 / BC0438 ✓', document.querySelectorAll('.kt-bc.co').length===2, document.querySelector('.kt-dau').textContent);
+   ok('3.144: tab KTGS không còn khối nạp BC, có nút sang tab Nạp & KT', !document.querySelector('#tr7 .kt-nap') && !!document.querySelector('.kt-nap-chuyen'));
+   slDoiTab('nap'); await w(600);   /* 3.144: nạp + kiểm tra BC0437 / BC0438 ở tab 📥 Nạp & KT */
    const mt = document.querySelectorAll('.kt-nap .sl-bang tbody tr');
    ok('ma trận KTGS: 2 dòng BC0437 / BC0438, ô ✓ T7, T8', mt.length===2 && document.querySelectorAll('.kt-nap .sl-o.du').length===3, mt.length+' dòng · '+document.querySelectorAll('.kt-nap .sl-o.du').length+' ô có file');
    await ktKiemTra('2026-08'); for(let i=0;i<80 && !(SLM.ktg && SLM.ktg['2026-08']);i++) await w(200); await w(300);
@@ -61,6 +63,7 @@ const fs=require('fs'), path=require('path');
    ok('BC0437 ↔ BC0438 ① ② khớp (file giả dựng từ cùng số)', KQ.muc.find(m=>/②/.test(m.ten)).tt==='c' && KQ.muc.find(m=>/①/.test(m.ten)).tt==='c', KQ.muc.slice(0,2).map(m=>m.ghi).join(' | '));
    ok('BC0437 ↔ Mẫu 31 từng tổ khớp (lệch < 1 triệu coi là khớp)', KQ.muc.find(m=>/từng tổ: tổ viên/.test(m.ten)).tt==='c', KQ.muc.find(m=>/từng tổ: tổ viên/.test(m.ten)).ghi);
    ok('khung kiểm tra hiện kết quả + chip tháng', /mục lệch|khớp/.test(document.querySelector('.kt-nap summary').textContent) && document.querySelectorAll('.kt-muc').length===KQ.muc.length);
+   slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    const e37 = SLM.bang['k37|2026-08']; const luc0 = e37.luc; e37.luc = new Date(Date.now()+1000).toISOString(); ok('đổi file → kiểm tra cũ (⟳ kiểm lại)', ktKTCu('2026-08')); e37.luc = luc0;
    ok('mục đích: bảng ngành rút gọn + tự rút gọn ngành mới', ktNganh({c_ma_pnkt51:'36000'})==='Khai thác, cung cấp nước' && ktNganh({c_ma_pnkt51:'01412'})==='Chăn nuôi trâu, bò' && ktNganh({c_ma_pnkt51:'99999', c_ten_pnkt51:'Hoạt động gì đó chưa được phân vào đâu (thử)'})==='gì đó', ktNganh({c_ma_pnkt51:'99999', c_ten_pnkt51:'Hoạt động gì đó chưa được phân vào đâu (thử)'}));
    const t0 = ds[0]; C.xa=t0.xa; C.diem=t0.khoaDiem; C.hoi=''; C.to=''; pvVeCay('kt'); await w(300);
