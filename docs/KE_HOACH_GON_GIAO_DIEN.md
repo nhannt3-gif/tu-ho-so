@@ -58,11 +58,11 @@
 6. Máy khác xóa theo (dấu `daXoaHan` / `SLM.xoa` như hiện nay).
 7. Bỏ thanh "↩ Hoàn tác" hiện có (`baoHoanTac` khi xóa).
    - Riêng **↩ Hoàn tác lần thay file** ở ô Số liệu (3.145) không phải thanh 10 giây.
-   - Câu hỏi: giữ hay bỏ? Đề xuất: bỏ, bản cũ vào Thùng rác app ngăn Số liệu, khôi phục từ đó cho cùng 1 quy tắc.
+   - **Anh chốt 10/10 "thống nhất quy tắc xóa":** bỏ nút này; ô Số liệu bị xóa và bản cũ khi thay file đều vào Thùng rác app ngăn Số liệu, khôi phục từ đó.
 
 ## Ý 4 — Mọi mẫu / báo cáo cùng 1 luồng (anh gửi 10/10)
 **Luồng chuẩn:** bấm mẫu / báo cáo → **👁 Xem** (khung xem chung, khổ giấy thật) → hàng nút cố định trên khung xem, cùng thứ tự:
-`🖨 In · 📄 PDF · 📝 Word · 📊 Excel · 📋 Copy · 📤 Gửi`. Báo cáo nào không có định dạng thì ẩn nút đó, không đổi chỗ các nút còn lại.
+`🖨 In · 📄 PDF · 📝 Word · 📊 Excel · 📤 Gửi` (anh chốt 10/10: **Copy gộp vào nút Gửi**). Báo cáo nào không có định dạng thì ẩn nút đó, không đổi chỗ các nút còn lại.
 - **🖨 In:** hộp in của máy, khổ / lề theo mẫu.
 - **📄 PDF:** ra file PDF có **tên điền sẵn** (`Loại_Phạm vi_Kỳ`).
   - Máy tính: mở hộp in, chọn sẵn "Lưu dưới dạng PDF".
@@ -79,10 +79,13 @@
   - Cần gửi **nguyên file** (PDF / Word / Excel) thì dùng **📤 Gửi**:
     - Điện thoại: bảng chia sẻ gửi thẳng file vào Zalo.
     - Máy tính: tải file về rồi kéo vào Zalo.
-- **📤 Gửi:**
-  - Điện thoại: bảng chia sẻ (Zalo…).
-  - Máy tính: tải file về.
-  - Chọn nhiều file → gửi 1 lần.
+- **📤 Gửi (gộp cả Copy):** bấm → hiện hộp nhỏ, chọn 1 trong:
+  - **📤 Gửi file:** nguyên file PDF / Word / Excel / ảnh.
+    - Điện thoại: bảng chia sẻ (Zalo…).
+    - Máy tính: tải file về để kéo vào Zalo.
+  - **📋 Copy ảnh:** chép ảnh của file / trang báo cáo → dán thẳng vào Zalo. Trình duyệt không cho chép nguyên file nên chép ảnh.
+  - **📋 Copy chữ** (báo cáo dạng bảng): dán Zalo ra chữ gọn, dán Excel ra bảng.
+  - Chọn nhiều file → Gửi 1 lần.
 
 **Áp cho:**
 - **Tổng hợp:** 9 báo cáo.
@@ -100,7 +103,5 @@
 - Đây chính là "bộ báo cáo chung" của đợt D (KIEN_TRUC_3_LOP.md mục 8) — làm sớm phần này.
 
 ## Câu hỏi chờ anh (khi gửi đủ ý)
-- **📋 Copy = chép ảnh của file** (do trình duyệt không cho chép nguyên file PDF / Word / Excel) — được không? Nguyên file thì qua 📤 Gửi.
 - **Gửi trên máy tính:** tải về là đủ, hay muốn mở sẵn Zalo PC?
 - **📄 PDF:** dùng hộp in "Lưu dưới dạng PDF" + tên file điền sẵn (chữ rõ, chọn / tìm được chữ, như Mẫu 06 / 16 hiện nay) — được không? Hay cần bấm là ra file ngay? Không thêm thư viện thì cách này chỉ ra PDF dạng **ảnh** (không chọn / tìm được chữ).
-- **Số liệu xóa ô / thay file:** ô Số liệu bị xóa và bản cũ khi thay file đều vào Thùng rác app ngăn Số liệu (khôi phục trong app), bỏ nút ↩ Hoàn tác lần thay — được không?
