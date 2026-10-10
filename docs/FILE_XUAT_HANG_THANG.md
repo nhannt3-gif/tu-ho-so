@@ -28,6 +28,7 @@
 | **Món vay 3 tháng KHĐ** | **MẪU 14** – "Sao kê món vay N tháng không hoạt động (DL Tháng)" | **Không dùng mẫu 08/KTNB** (cùng số nhưng thiếu điểm GD xã, ngày đến hạn GDXA — app không nhận). App tự tính KHĐ từ Mẫu 31; file chỉ để đối chiếu |
 | Nợ quá hạn · Nợ khoanh | sao kê theo PGD | Khoanh: thêm ngày hết hạn khoanh |
 | Nợ đến hạn phân kỳ | NOXH · cho vay trực tiếp | Số tiền từng kỳ con (CV 597) |
+| Thông tin tổ trưởng | 12. Thông tin tổ trưởng | Không cần xuất hằng tháng (DSTO thay); dữ liệu cũ giữ để tra soát tháng cũ |
 
 ## D. Riêng KTGS (khi làm kiểm tra giám sát Hội)
 | File | Ghi chú |
@@ -36,4 +37,4 @@
 | **BC0438** · Thông tin ủy thác theo xã · hội | Đối chiếu với BC0437 |
 
 ## E. KHÔNG cần xuất nữa
-B32 · Thông tin tổ trưởng (DSTO thay) · Mẫu 10 · Mẫu 7 · Sao kê khách hàng · KHĐ mẫu 08/KTNB.
+B32 · Mẫu 10 · Mẫu 7 · Sao kê khách hàng · KHĐ mẫu 08/KTNB.
