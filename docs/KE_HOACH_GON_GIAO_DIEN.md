@@ -169,6 +169,26 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
 - **Phạm vi + kỳ dùng chung giữa 5 tab** (đổi 1 lần, tab khác theo) = đợt D làm luôn ở đây. Câu hỏi: anh có muốn chung không?
 - KTGS: chip BC0437 / BC0438 + "Nạp ở tab…" → gộp vào dòng trạng thái nhỏ.
 
+## Ý 7 — Scan lưu theo cây địa bàn chuẩn như KTGS / Tổ (anh gửi 10/10)
+**Hiện nay:**
+- Scan dùng **cây địa bàn khai tay** ở Cài đặt › Địa bàn (`D.cauHinh.diaBan`: xã › điểm › ấp › tổ, tổ là chữ tự gõ).
+- Lưu Drive: `Tủ hồ sơ/Hồ sơ scan/<xã>/<điểm>/<ấp>/Tổ <…>` (thẻ CCCD: `Tủ hồ sơ/CCCD/…`).
+- KTGS / Tổ / Tổng hợp / Sao kê dùng **cây chuẩn từ số liệu**: Mẫu 31 + DSTO + LEN_31 TO_TRUONG (mã xã, mã điểm GD + ngày GDXA, Hội, mã tổ + tổ trưởng, ấp).
+- **Hai cây lệch nhau:** tên gõ tay khác tên hệ thống, tổ không có mã.
+
+**Đề xuất:**
+- **Scan chọn địa bàn bằng đúng thanh phạm vi chung (ý 6b):** Xã › Điểm GD › Hội › Tổ, lấy từ cây chuẩn kỳ mới nhất. Tìm nhanh theo tên tổ trưởng / ấp.
+- **Lưu kèm mã** (mã xã, mã điểm, mã tổ) + tên lúc lưu. Đổi tổ trưởng / đóng tổ thì hồ sơ vẫn theo mã tổ, không lạc.
+- **Thư mục Drive theo tên chuẩn:** `Hồ sơ scan/<Xã>/<Điểm GD>/<Ấp>/<Tổ trưởng> (<mã tổ>)`.
+- **Cây "Cây địa bàn" của tab Scan** vẽ bằng cùng cây (số hồ sơ mỗi nhánh), giống bảng tổ ở Tổ TK&VV.
+- **Về sau (đợt G, Q11):** gắn hồ sơ scan vào **mã khách hàng** trong tổ.
+- **Hồ sơ cũ:**
+  - App tự khớp tên đã khai với cây chuẩn (xã / ấp / tổ). Khớp → ghi thêm mã. Không khớp → để mục "Cần gán lại địa bàn" cho anh chọn.
+  - **Không tự dời file trên Drive.** Có nút "Sắp lại thư mục Drive" xem trước rồi mới dời.
+- **Cài đặt › Địa bàn (khai tay):** khi đã có cây chuẩn thì không cần nữa. Câu hỏi bên dưới.
+
 ## Câu hỏi chờ anh
+- Ý 7: bỏ phần **khai tay địa bàn** ở Cài đặt (dùng cây chuẩn từ số liệu cho Scan, Công cụ Địa bàn) — hay giữ để khai ấp / tổ chưa có trong số liệu?
+- Ý 7: hồ sơ scan cũ trên Drive có **dời sang thư mục theo tên chuẩn** (xem trước rồi mới dời) không, hay để nguyên chỗ cũ, chỉ hồ sơ mới theo chuẩn?
 - Ý 6b: phạm vi (xã / điểm / hội / tổ) + kỳ **dùng chung** giữa Tổng hợp, Sao kê, Tổ, KTGS, Tra cứu (đổi 1 lần, tab khác theo) — hay mỗi tab nhớ riêng như hiện nay?
 - Ý 5: có thêm 🤖 Copy cho AI không (anh đang cân nhắc)?
