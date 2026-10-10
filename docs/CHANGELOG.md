@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.142 — 10/10/2026 — Kiến trúc đợt A: tách app thành nhiều file (nguyên trạng)
+- **Anh chốt:** Q8 (`docs/KIEN_TRUC_3_LOP.md`) — tách file, vẫn không build / không npm; đợt A chỉ cắt nguyên trạng, không đổi chức năng.
+- **Đã làm:** `index.html` (28.389 dòng) → khung 203 dòng + `css/app.css` + 22 file `js/01-thu-vien.js` … `js/22-so-lieu.js`, **đúng thứ tự** các khối `<script>` cũ (bỏ 5 khối rỗng). Thẻ nạp có `?v=<APP_BAN>` để trình duyệt không lấy lẫn file bản cũ.
+- **Chứng minh không đổi logic:** `python3 tests/ghep.py ra.html` ghép lại 1 file → **giống từng byte** bản 3.141 (trừ 5 khối rỗng); trước khi lên số bản / sửa cửa sổ nổi. Ảnh chụp 5 tab × máy tính 1366 / điện thoại 390: phần thân trùng từng điểm ảnh với 3.141.
+- **Sửa duy nhất về mã:** cửa sổ nổi HSSV (`hsNoi`) trước chép thẻ `<style>` → nay chép cả `link[rel=stylesheet]` (đọc luật CSS; mở bằng `file://` không đọc được thì gắn link đường dẫn đầy đủ).
+- **Công cụ:** `tests/ghep.py` (mới); `tests/kiem.py` kiểm bản ghép + báo khi `?v=` khác `APP_BAN`; `tests/bando.py` ghi vị trí dạng `file:dòng`; `tests/hssv_exe.js` đọc `js/`.
+- **Lưu ý dùng:** link web như cũ. Tải app về máy thì tải **cả thư mục** (index.html + css/ + js/).
+- **Kiểm tra:** kiem.py; hồi quy hoiquy, hoiquy2, t101–t130 (so với mốc chạy trên 3.141 cùng máy).
+
 ## 3.141 — 09/10/2026 16:00 — Sửa lỗi mất cài đặt khi đồng bộ Drive (3.140.4); In theo tháng tự lấy số liệu
 - **Sự cố anh báo (09/10):** khai báo Hội (tên CT / PCT / ủy viên, HĐUT, KH Hội tỉnh), Phân công BTV, lựa chọn in, khóa ảnh CCCD… mất trên máy và trên Drive (`Tủ hồ sơ/_Hệ thống/cauhinh.json`); có thêm thư mục lạ `undefined/_Hệ thống/cauhinh.json` (11:18).
 - **Nguyên nhân (dựng lại được bằng phép thử t136 trên bản cũ):** cài đặt trong trình duyệt máy này bị trống (chưa rõ vì sao) → app đồng bộ với file ở thư mục "undefined" → nhớ "giờ đã lấy" của file đó → quay về file thật thì tưởng không có gì mới, **không lấy về mà ghi đè** bản trống.

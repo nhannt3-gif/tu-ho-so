@@ -1,7 +1,11 @@
 # 3 phép kiểm mục 0.5 (bản mở rộng): cú pháp, trùng tên hàm, thiếu hàm (onclick + mọi lời gọi)
 import re,subprocess,sys,os,tempfile
-f=sys.argv[1] if len(sys.argv)>1 else 'index.html'
-s=open(f,encoding='utf-8').read()
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+import ghep
+# 3.142: app tách nhiều file → ghép lại (index.html + css/ + js/) rồi kiểm như một file; có đối số = kiểm 1 file HTML đã ghép
+s=open(sys.argv[1],encoding='utf-8').read() if len(sys.argv)>1 else ghep.ghep()
+ban=re.search(r"var APP_BAN = '([^']+)'",s)
+lech=sorted({v for v in re.findall(r'\?v=([^"]+)"',open(os.path.join(ghep.GOC,'index.html'),encoding='utf-8').read())}-{ban.group(1) if ban else ''}) if len(sys.argv)<2 else []
 blocks=re.findall(r'<script>(.*?)</script>',s,re.S)
 loi=[]
 for i,bk in enumerate(blocks):
@@ -38,4 +42,5 @@ goi=set(re.findall(r'(?<![\w$.\\])([A-Za-z_$][\w$]*)\s*\(',js2))
 thieu=sorted(x for x in goi if x not in defs and x not in toan_cuc and x not in kw)
 onc=set(re.findall(r'on(?:click|change|input|keydown|blur|drop|dragstart|dragover)=\\?["\'](?:[^"\']*?;)?\s*([A-Za-z_$][\w$]*)\(',s))
 thieu_onc=sorted(x for x in onc if x not in defs and x not in toan_cuc and x not in kw)
+if lech: loi.append('?v= trong index.html (%s) khác APP_BAN' % ', '.join(lech))
 print('Cú pháp', 'OK' if not loi else 'LỖI '+'; '.join(loi), '· Trùng tên:', ', '.join(dup) or 'không', '· Thiếu hàm:', ', '.join(sorted(set(thieu)|set(thieu_onc))) or 'không')

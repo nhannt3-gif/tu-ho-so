@@ -20,7 +20,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 ## Chạy (từ thư mục gốc repo)
 | Lệnh | Kiểm gì |
 |---|---|
-| `python3 tests/kiem.py` | Cú pháp mọi khối `<script>` · trùng tên hàm · gọi hàm chưa định nghĩa. Phải ra `Cú pháp OK · Trùng tên: không · Thiếu hàm: không` (riêng `CompressionStream, DecompressionStream, Response` là hàm có sẵn của trình duyệt — bỏ qua). Viết regex có `_(`/`_t(` thì dùng `[_]` để khỏi báo nhầm. |
+| `python3 tests/kiem.py` | (3.142: ghép `index.html` + `css/` + `js/` rồi kiểm; báo nếu `?v=` khác `APP_BAN`) Cú pháp mọi khối `<script>` · trùng tên hàm · gọi hàm chưa định nghĩa. Phải ra `Cú pháp OK · Trùng tên: không · Thiếu hàm: không` (riêng `CompressionStream, DecompressionStream, Response` là hàm có sẵn của trình duyệt — bỏ qua). Viết regex có `_(`/`_t(` thì dùng `[_]` để khỏi báo nhầm. |
 | `node tests/hoiquy.js` | Hồi quy chính (28 phép, máy trắng + máy có dữ liệu cũ). Thỉnh thoảng 27/28 do chờ cố định → chạy lại. |
 | `node tests/hoiquy2.js` | Hồi quy 2 (20 phép). **Mỗi bản sửa chuỗi số bản** trong file (`sed -i "s/3\.85/3.86/g" tests/hoiquy2.js`). |
 | `node tests/t87.js` … `t96.js` | Phép thử riêng các bản 3.75–3.84 (scan, gộp trùng, an toàn dữ liệu 3.81, hồ sơ hộ 3.82, giao ban 3.83, phím chung 3.84). |
@@ -73,4 +73,5 @@ Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Dr
 
 Mẫu một phép thử mới: chép `t96.js`, đổi phần `p.evaluate(...)`; luôn in `lỗi` (pageerror) cuối cùng — phải là `[]`.
 
-**Bản đồ mã:** `python3 tests/bando.py` sinh `docs/BAN_DO_MA.md` (khối, mục, nhóm hàm theo tiền tố, điểm vào) — chạy lại sau mỗi bản.
+**Bản đồ mã:** `python3 tests/bando.py` sinh `docs/BAN_DO_MA.md` (file, mục, nhóm hàm theo tiền tố, điểm vào — vị trí `file:dòng`) — chạy lại sau mỗi bản.
+**Ghép 1 file (3.142):** `python3 tests/ghep.py ra.html` — ghép `index.html` + `css/` + `js/` thành 1 file như trước khi tách (đối chiếu / dùng offline).

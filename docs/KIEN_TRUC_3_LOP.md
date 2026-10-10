@@ -217,7 +217,7 @@ DANG_KY({
 ```
 - Sidebar ~220 px, thu gọn 60 px; **kỳ + phạm vi chung đặt trên cùng** (đổi một lần, mọi khối theo — tiếp nối chip "Đang dùng kỳ" 3.138).
 - **Nạp dữ liệu** là mục riêng (từ Số liệu › Nạp & Kiểm tra): ma trận file, cột 📅 Theo ngày, kiểm tra & chốt, từ điển cột, nhật ký nạp, báo thay đổi cây.
-- **Bỏ tab Tháng** (Q5): dữ liệu cũ không xóa — chờ anh chọn nơi chuyển (mục 0, câu a).
+- **Bỏ tab Tháng** (Q5, Q12): xóa luôn dữ liệu cũ của tab (anh chốt 10/10 — coi là rác).
 - Hộp thoại vừa màn hình laptop 125% (~730 px cao); ↑ / ↓ duyệt danh sách Văn bản, khung xem theo.
 - Ảnh mockup thật (1536×730, 1366×768) làm ở đầu đợt bố cục để anh chọn trước khi code.
 
@@ -235,7 +235,7 @@ Khối khai `thietBi`; mini app = 1 trang chọn bộ file cần dùng. Giao di�
 
 | Đợt | Nội dung | Rủi ro | Ghi chú |
 |---|---|---|---|
-| **A. Tách file nguyên trạng** | Cắt các khối `<script>` / `<style>` ra `js/*.js`, `css/*.css` theo bản đồ (không đổi 1 dòng logic); `index.html` chỉ còn khung + thẻ nạp file; cập nhật `kiem.py` kiểm nhiều file; hồi quy đủ | Thấp (cơ học) | Sau đợt này mọi đợt sau sửa trong file nhỏ. Không mở bằng bấm đúp file nữa (Q8). |
+| **A. Tách file nguyên trạng** ✅ 3.142 | Cắt các khối `<script>` / `<style>` ra `js/*.js`, `css/*.css` theo bản đồ (không đổi 1 dòng logic); `index.html` chỉ còn khung + thẻ nạp file; cập nhật `kiem.py` kiểm nhiều file; hồi quy đủ | Thấp (cơ học) | Sau đợt này mọi đợt sau sửa trong file nhỏ. Không mở bằng bấm đúp file nữa (Q8). |
 | **B. Lớp 1 an toàn** | Chỉ mục `D` → IndexedDB theo ngăn (đọc được dữ liệu cũ trong `localStorage`, chuyển 1 lần); 1 cơ chế đồng bộ Drive chung (gộp, không ghi trống, phiên bản); phép thử 2 máy giả lập | Cao (dữ liệu) | Làm kỹ, có sao lưu trước khi chuyển |
 | **C. Kho dữ liệu `KHO`** | Bọc `slBo` / `toNap` / danh bạ sau cửa `KHO`; từ điển cột sửa được; cột lạ; dấu vân tay cấu trúc; phép tính chung (mục 3.5); cây địa bàn theo kỳ + báo thay đổi | Trung bình | Màn hình chưa đổi; các khối chuyển dần sang gọi `KHO` |
 | **D. Lớp chung** | Bộ chọn phạm vi + kỳ chung cho mọi khối; bộ báo cáo `{cot, dong, tong}` → In / Excel / Word; xóa / thùng rác thống nhất (cả Số liệu) | Trung bình | |
