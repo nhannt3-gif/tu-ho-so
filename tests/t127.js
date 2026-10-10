@@ -36,11 +36,12 @@ const fs=require('fs'), path=require('path');
    /* 5. điện thoại: chỉ nạp sẵn tháng mới nhất */
    const g = laDT; laDT = ()=>true; TO_KS = {}; SL_BO = {}; SL_SAN_NAP.chay = false; await slNapSan(); laDT = g;
    ok('điện thoại: nạp sẵn chỉ tháng mới nhất', Object.keys(TO_KS).join()===thang[3], Object.keys(TO_KS).join(', '));
-   D.cauHinh.slTab = 'nap'; veSoLieu(); await w(150);
-   ok('đầu tab Số liệu (máy tính) có ô "⚡ Giữ sẵn 12 tháng / Tất cả"', !!document.querySelector('.sl-giu select'));
-   TO_KS = {}; SL_BO = {}; SL_SAN_NAP.chay = false; await slNapSan(); veSoLieu(); await w(150);
-   ok('3.126 / 3.136: đầu tab Số liệu báo kỳ đang dựng sẵn', /Sẵn dùng: T8, T7, T6, T5/.test((document.getElementById('sl-giu-ds')||{}).textContent||''), (document.getElementById('sl-giu-ds')||{}).textContent);
-   slNapLai(); ok('3.126: ↻ Nạp lại → bỏ bản đang giữ rồi nạp lại ngầm', SL_SAN_NAP.chay && !TO_KS[thang[0]] && !!document.querySelector('button[onclick="slNapLai()"]'));
+   D.cauHinh.slTab = 'nap'; veSoLieu(); await w(150); slNapThem(SL_KY); await w(100);   // 3.150: Giữ sẵn nằm trong ⋯
+   ok('⋯ tab Nạp & KT (máy tính) có ô "⚡ Giữ sẵn 12 tháng / Tất cả"', !!document.querySelector('#hop-in .sl-giu select'));
+   TO_KS = {}; SL_BO = {}; SL_SAN_NAP.chay = false; await slNapSan(); slNapThem(SL_KY); await w(150);
+   ok('3.126 / 3.136: ⋯ báo kỳ đang dựng sẵn', /Sẵn dùng: T8, T7, T6, T5/.test((document.getElementById('sl-giu-ds')||{}).textContent||''), (document.getElementById('sl-giu-ds')||{}).textContent);
+   const coNut = !!document.querySelector('#hop-in button[onclick="dongHop();slNapLai()"]'); dongHop();
+   slNapLai(); ok('3.126: 🧹 Làm sạch & nạp lại (⋯) → bỏ bản đang giữ rồi nạp lại ngầm', SL_SAN_NAP.chay && !TO_KS[thang[0]] && coNut);
    for(let i=0;i<120 && SL_SAN_NAP.chay;i++) await w(250); ok('3.126: nạp lại xong đủ 4 tháng', thang.every(k=>!!TO_KS[k]));
    return o;
  }, files);
