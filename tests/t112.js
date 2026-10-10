@@ -33,8 +33,7 @@ const fs=require('fs'), path=require('path');
    /* C. dòng báo vàng */
    const h = document.createElement('div'); h.innerHTML = ktSuyHTML(K);
    const tom = (h.querySelector('summary')||{}).textContent||'';
-   ok('C: báo "File Thông tin tổ trưởng T7/2026 thiếu 3 tổ … đã xếp điểm GD: tháng trước 3"', /File Thông tin tổ trưởng T7\/2026 thiếu 3 tổ/.test(tom) && /tháng trước 3/.test(tom) && !/chưa rõ/.test(tom), tom);
-   ok('C: bảng từng tổ: xã, ấp, Hội, điểm GD + căn cứ, số món', h.querySelectorAll('.kt-suy tbody tr').length===3 && /Thông tin tổ trưởng T8\/2026/.test(h.textContent) && /Món còn dư nợ/.test(h.textContent));
+   ok('C (3.149): tổ đã xếp được điểm GD → KTGS không còn báo "Thông tin tổ trưởng thiếu tổ"', ktSuyHTML(K)==='' && !/Thông tin tổ trưởng/.test(tom), tom);
    ok('C: không thiếu tổ → không báo', ktSuyHTML(T8)==='' || !/thiếu/.test(ktSuyHTML(T8)));
    /* B'. bảng tháng trước không mở được → danh bạ tổ; không đối được mã điểm → để suy */
    const Kd = {thang:'2026-09', B:{co:{tt:[1]}}, kh:{}, to:{
@@ -62,7 +61,7 @@ const fs=require('fs'), path=require('path');
    const t0 = Object.values(KT_K.to).find(t=>!toLaTT(t) && t.xa); C.xa = t0.xa; C.diem = ''; pvVeCay('kt'); await w(100);
    const chuCay = document.getElementById('kt-cay').textContent;
    ok('E: tab KTGS không còn chip "Trực tiếp" / "Vay trực tiếp"', !/Trực tiếp|Vay trực tiếp/.test(chuCay));
-   ok('C: KTGS hiện dòng báo thiếu tổ', /File Thông tin tổ trưởng T7\/2026 thiếu 3 tổ/.test(document.getElementById('tr7').textContent));
+   ok('C (3.149): KTGS không hiện dòng báo thiếu tổ', !/Thông tin tổ trưởng[^.]*thiếu/.test(document.getElementById('tr7').textContent));
    /* D. Mẫu 16: Đoàn kiểm tra = tên Hội cấp xã của tổ, không còn ô khai */
    const tH = Object.assign({}, t0, {dv:'11', tenXa:'Phường Gia Lộc'});
    ok('D: Đoàn kiểm tra = Hội Nông dân phường …', ktGiaTri16(tH, [], {}).f.DOAN==='Hội Nông dân phường Gia Lộc', ktGiaTri16(tH, [], {}).f.DOAN);
