@@ -24,7 +24,7 @@
 - **`main` = 3.166** — 3.163 Nạp & KT dải lịch + cột theo ngày, bảng tab Tổ tự vừa, chip báo số liệu, tiền 2 số lẻ · 3.164 Tổng hợp (sửa lọc Nguồn vốn, chọn 1 báo cáo xem ngay, 3 nhóm) · 3.165 Kết quả kiểm tra theo file · 3.166 📋 Chép n file. **Đã xong hết việc đã duyệt trong `docs/BAN_GIAO_3161.md` §2.0–2.5; còn lại là việc chờ anh quyết (mục "Chờ anh" dưới) + lỗi hoiquy chập chờn (§2.7).**
 - **Việc tiếp:** anh thử máy thật 3.163 → 3.166 (bảng thử trong `BAN_GIAO_VIEC_CON_LAI.md`, mỗi bản 4–8 dòng). Còn trong `BAN_GIAO_3161.md`: §2.6 (đề xuất chưa trả lời) · §2.7 lỗi hoiquy chập chờn · LEN_31 giả cho phép thử Tổng hợp (§2.1). Sau đó: đợt B (góp ý `luu()`, đồng bộ Drive) · đợt D (kỳ + phạm vi chung trên đầu trang).
 - **Anh chốt 10/10:** bỏ hẳn tab Tháng + xóa dữ liệu cũ (rác); bỏ nút Giao ban, Buổi giao dịch (làm lại sau); nạp file nhận ngày số liệu từ **nội dung** file (Q12–Q14). Anh làm luân phiên 2 tài khoản — tài khoản nào cũng bắt đầu từ file này (nhánh đang dùng ghi ở mục 2).
-- **Anh trả lời 11/10 (sau 3.166):** ① danh sách khách tab Tổ **giữ đồng** (cho chính xác) · ② bảng cuộn trong khung **đồng nhất mọi bảng cùng loại** (Sao kê, KTGS… như tab Tổ) — chờ "code" · ③ chip "Mới vào" có thông tin ngày thì ghi ngày — chờ "code" · ④ dòng tên cột hồ sơ chi tiết mới: chưa có · ⑤ máy chủ nội bộ, ⑥ TK 105 khách chỉ có 105: làm sau · ⑦ văn bản củng cố / chia tách tổ: anh gửi đường link · ⑧ "nhớ người ký theo khuyết": em giải thích lại, chờ anh xác nhận · ⑨ Mẫu 06 trắng 2 mặt: anh thấy đã in được · **mới:** 2 mẫu biên bản kết nạp / cho ra khỏi tổ (mẫu cũ cho món đến 30/09/2026, mẫu mới theo QĐ 70 từ 01/10/2026) — chờ anh gửi file.
+- **Anh trả lời 11/10 (sau 3.166):** ① danh sách khách tab Tổ **giữ đồng** (cho chính xác) · ② bảng cuộn trong khung **đồng nhất mọi bảng cùng loại** (Sao kê, KTGS… như tab Tổ) — chờ "code" · ③ chip "Mới vào" có thông tin ngày thì ghi ngày — chờ "code" · ④ dòng tên cột hồ sơ chi tiết mới: chưa có · ⑤ máy chủ nội bộ, ⑥ TK 105 khách chỉ có 105: làm sau · ⑦ văn bản củng cố / chia tách tổ: anh gửi đường link · ⑧ "nhớ người ký theo khuyết": em giải thích lại, chờ anh xác nhận · ⑨ Mẫu 06 trắng 2 mặt: anh thấy đã in được · **mới:** 2 mẫu biên bản kết nạp / cho ra khỏi tổ (mẫu cũ cho món đến 30/09/2026, mẫu mới theo QĐ 70 từ 01/10/2026) — anh đã gửi đủ bộ mẫu Tổ (10A, 10B, 10C cũ / mới, 11/TD, 01/BG, 02/BG); kế hoạch điền tự động từng ô: **`docs/KE_HOACH_HO_SO_TO.md`** (3.167 / 3.168, chờ "code").
 
 ## 4. Tìm thông tin mà không đọc hết (tiết kiệm token)
 | Cần gì | Xem ở đâu | Cách đọc |
@@ -38,6 +38,7 @@
 | Cấu trúc file Excel hệ thống | `docs/DU_LIEU_THANG.md` | Khi làm phần nạp |
 | File anh xuất hằng tháng (mẫu nào, tên file) | `docs/FILE_XUAT_HANG_THANG.md` | Ngắn, đọc khi bàn về file |
 | Kế hoạch giao diện điều hướng (đợt F) | `docs/KE_HOACH_DIEU_HUONG.md` | Ngắn |
+| Bộ hồ sơ Tổ (QĐ 70) — ô nào điền tự động | `docs/KE_HOACH_HO_SO_TO.md` | Đọc khi làm 3.167 / 3.168 |
 | Ý anh đang gom: gọn tab Nạp & KT, In / Xuất / Gửi / Xóa thống nhất | `docs/KE_HOACH_GON_GIAO_DIEN.md` | Ngắn — đọc trước khi làm bản kế tiếp |
 
 **Nguyên tắc cho phiên sau:** mỗi bản chỉ thêm ≤ 15 dòng vào CHANGELOG cho phần tóm tắt + ghi chi tiết kỹ thuật ngắn; giữ file này dưới ~80 dòng; thông tin dài để ở tài liệu chuyên đề và trỏ link.
