@@ -1,6 +1,6 @@
 # Bàn giao sau bản 3.161 — cho tài khoản / phiên Claude làm tiếp
 
-> Viết ngày 11/10/2026, khi `main` = **3.161**; cập nhật cuối phiên: `main` = **3.162**. **Việc kế tiếp: mục 2.0 (bản 3.163).** Đọc file này **sau** `CLAUDE.md` và `docs/BAT_DAU.md`.
+> Viết ngày 11/10/2026, khi `main` = **3.161**; cập nhật cuối phiên: `main` = **3.162**; phiên 11/10 (tài khoản chính) làm xong 3.163 → 3.166 (§2.0–2.5). **Còn: §2.6 (chờ anh trả lời), §2.7 (lỗi hoiquy).** Đọc file này **sau** `CLAUDE.md` và `docs/BAT_DAU.md`.
 > Mục 2 là các việc **anh Nhân đã duyệt hướng** nhưng **chưa nhắn "code"**: muốn làm việc nào thì trình lại ngắn kế hoạch của việc đó, chờ anh nhắn "code".
 
 ---
@@ -16,7 +16,7 @@
 - Không ghi tên / mã model vào commit, PR, mã nguồn.
 - Anh hay gửi **ảnh chụp màn hình** kèm 1 câu ngắn (có khi gõ tắt / sai dấu: "stck" = tick, "bắt cầu" = cầu nối, "tổng qaun" = Tổng hợp…). Đọc kỹ ảnh, nói lại em hiểu thế nào trước khi đề xuất.
 
-## 2.0 ⭐ VIỆC KẾ TIẾP: bản 3.163 (anh đã chốt nội dung, CHỜ ANH NHẮN "code")
+## 2.0 ✅ ĐÃ LÀM: bản 3.163 (11/10/2026) — §2.1 → 3.164, §2.4 → 3.165, §2.5 → 3.166 cũng đã làm (xem CHANGELOG). Còn: §2.6, §2.7
 Anh hỏi "còn bao nhiêu việc đã chốt chưa làm" — em liệt kê 19 việc (mục 2.1–2.7 bên dưới + các ý mới này). Anh đồng ý làm theo thứ tự: **3.163** Nạp & KT + bảng tab Tổ + chip báo → **3.164** Tổng hợp + cách viết số → **3.165** Kết quả kiểm tra theo ma trận → **3.166** Chép / gửi file.
 
 **3.163 gồm 6 phần (đã chốt từng ý, trừ phần 6):**

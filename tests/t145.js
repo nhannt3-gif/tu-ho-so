@@ -44,7 +44,7 @@ const fs=require('fs'), path=require('path');
    /* KTGS */
    slDoiTab('kt'); doiNgan(7); for(let i=0;i<60 && !document.getElementById('kt-cay');i++) await w(250); await w(500);
    const kt = document.getElementById('tr7').textContent;
-   ok('KTGS: không còn dòng "Nạp và kiểm tra BC0437 / BC0438 ở tab"; chip BC thiếu có nút 📥 nạp', !/Nạp và kiểm tra BC0437/.test(kt) && !!document.querySelector('.kt-bc-nap'));
+   ok('KTGS: không còn dòng "Nạp và kiểm tra BC0437 / BC0438 ở tab"; chip BC thiếu ⚠ cam cuối hàng Xã (3.163)', !/Nạp và kiểm tra BC0437/.test(kt) && [...document.querySelectorAll('#tr7 .sl-chip.cam, .pv-chip-o .sl-chip.cam')].some(x=>/⚠ BC043[78]/.test(x.textContent)));
    ok('KTGS: không còn cảnh báo "File Thông tin tổ trưởng … thiếu … tổ"', !/Thông tin tổ trưởng[^.]*thiếu/.test(kt));
    return o;
  }, files);

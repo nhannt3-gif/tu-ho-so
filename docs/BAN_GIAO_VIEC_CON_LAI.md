@@ -222,6 +222,34 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.166) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Văn bản → 🗑 Xóa → chọn 3 file | Thanh dưới có "📋 Chép 3 file" và "Xóa 3 file" | |
+| 2 | Máy có cầu nối: 📋 Chép 3 file → Zalo Ctrl+V | Dán đủ 3 file | |
+| 3 | Máy chưa cầu nối (Windows 11, Chrome / Edge) | Hiện hộp chia sẻ Windows có nút Sao chép | |
+| 4 | Xem 1 file → 📤 Gửi → 🪟 Hộp chia sẻ Windows | Hộp chia sẻ mở với file đang xem | |
+
+**Ghi chú kỹ thuật 3.166:** hộp chia sẻ Windows chỉ có trên Chrome / Edge Windows 10–11 và file phải có sẵn trong máy (đã mở / tải từ Drive). Firefox không có → tải về.
+
+### Danh sách thử trên máy thật (3.165) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp & KT → 🔍 Kết quả kiểm tra | Mỗi file 1 dòng ✓ · ⚠ · ⓘ, thứ tự như ma trận; mặc định chỉ hiện ⚠ + ⓘ | |
+| 2 | Chip Tất cả / ✓ Khớp | Hiện đúng loại mục; lần sau vẫn nhớ | |
+| 3 | 🔎 gõ "cccd" | Chỉ còn file có mục khớp, tự mở | |
+| 4 | Bấm dấu ⚠ trên ô ma trận | Khung kết quả mở, nhảy tới đúng dòng file | |
+
+### Danh sách thử trên máy thật (3.164) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổng hợp | Danh sách 3 nhóm, mỗi báo cáo có nhãn cấp; bấm 1 báo cáo → khung phải hiện ngay | |
+| 2 | Theo nguồn vốn, chọn Xã → Hội → Tổ | Số nhỏ dần đúng phạm vi; dòng cộng ghi "Cộng <xã> · <hội>…" | |
+| 3 | Chọn 01.1 rồi chọn Hội | 01.1 mờ, đầu bảng dòng vàng "chỉ chia tới xã — đang hiện số cả xã" | |
+| 4 | In / PDF / Excel ở khung phải | Đúng báo cáo đang xem | |
+
+**Ghi chú kỹ thuật 3.164:** LEN_31 (`dv`, `hoi`, `ctx`, `to`, `tg`) chưa thử bằng số vì bộ giả chưa có file LEN_31 (xem BAN_GIAO_3161.md §2.1).
+
 ### Danh sách thử trên máy thật (3.163) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

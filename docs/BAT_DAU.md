@@ -19,12 +19,12 @@
 - **Mốc quay lại:** nhánh `moc/v3.141-truoc-tach-file` = bản 3.141 (1 file `index.html`, trước kiến trúc 3 lớp) — **không xóa, không đẩy gì vào**. Bản sau lỗi nặng: Revert PR trên GitHub, hoặc lấy lại file từ nhánh mốc. Mốc mới đặt tên `moc/v<bản>-<gợi nhớ>`.
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
-## 3. Trạng thái (cập nhật 10/10/2026)
+## 3. Trạng thái (cập nhật 11/10/2026)
 - Mốc quay lại: nhánh `moc/v3.141-truoc-tach-file`.
-- **`main` = 3.163** — Nạp & KT dải lịch + cột theo ngày; bảng tab Tổ tự vừa (cột Tự động, ⚙ 3 chế độ); chip báo số liệu cuối hàng Xã; tiền triệu đồng 2 số lẻ. **Việc kế tiếp: `docs/BAN_GIAO_3161.md` mục 2.1 (3.164 Tổng hợp + cách viết số)** → 2.4 (3.165 Kết quả kiểm tra theo ma trận) → 2.5 (3.166 Chép / gửi file) + lỗi hoiquy chập chờn.
-- **Việc tiếp:** anh thử máy thật 3.145 / 3.146 / 3.147 (bảng thử trong `BAN_GIAO_VIEC_CON_LAI.md`). Sau đó: thanh công cụ từng màn gọn lại (quy chuẩn tham khảo `KE_HOACH_DIEU_HUONG.md` mục 8, chờ anh xem bản 3.147) · đợt B (góp ý `luu()`, đồng bộ Drive) · đợt D (kỳ + phạm vi chung trên đầu trang).
+- **`main` = 3.166** — 3.163 Nạp & KT dải lịch + cột theo ngày, bảng tab Tổ tự vừa, chip báo số liệu, tiền 2 số lẻ · 3.164 Tổng hợp (sửa lọc Nguồn vốn, chọn 1 báo cáo xem ngay, 3 nhóm) · 3.165 Kết quả kiểm tra theo file · 3.166 📋 Chép n file. **Đã xong hết việc đã duyệt trong `docs/BAN_GIAO_3161.md` §2.0–2.5; còn lại là việc chờ anh quyết (mục "Chờ anh" dưới) + lỗi hoiquy chập chờn (§2.7).**
+- **Việc tiếp:** anh thử máy thật 3.163 → 3.166 (bảng thử trong `BAN_GIAO_VIEC_CON_LAI.md`, mỗi bản 4–8 dòng). Còn trong `BAN_GIAO_3161.md`: §2.6 (đề xuất chưa trả lời) · §2.7 lỗi hoiquy chập chờn · LEN_31 giả cho phép thử Tổng hợp (§2.1). Sau đó: đợt B (góp ý `luu()`, đồng bộ Drive) · đợt D (kỳ + phạm vi chung trên đầu trang).
 - **Anh chốt 10/10:** bỏ hẳn tab Tháng + xóa dữ liệu cũ (rác); bỏ nút Giao ban, Buổi giao dịch (làm lại sau); nạp file nhận ngày số liệu từ **nội dung** file (Q12–Q14). Anh làm luân phiên 2 tài khoản — tài khoản nào cũng bắt đầu từ file này (nhánh đang dùng ghi ở mục 2).
-- **Chờ anh:** (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi tin học về máy chủ nội bộ; thử máy thật 3.136 / 3.138 / 3.142 (bảng trong `BAN_GIAO_VIEC_CON_LAI.md`); số TK 105 khách chỉ có 105 (cần nguồn); văn bản củng cố / chia tách tổ; "nhớ người ký theo khuyết" (chưa xác nhận); Mẫu 06 trắng 2 mặt trên Word thật.
+- **Chờ anh quyết (11/10):** ① danh sách khách tab Tổ có đổi tiền sang triệu đồng 2 số lẻ không (3.163 mới đổi bảng các tổ / PGD; danh sách khách còn ghi đồng); ② bảng Sao kê / KTGS cuộn trong khung như tab Tổ; ③ chip "Mới vào" theo ngày; ④ (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; ⑤ (c) hỏi tin học máy chủ nội bộ; ⑥ số TK 105 khách chỉ có 105 (cần nguồn); ⑦ văn bản củng cố / chia tách tổ; ⑧ "nhớ người ký theo khuyết"; ⑨ Mẫu 06 trắng 2 mặt trên Word thật; ⑩ thử máy thật các bản cũ 3.136 / 3.138 / 3.142 / 3.145–3.147.
 
 ## 4. Tìm thông tin mà không đọc hết (tiết kiệm token)
 | Cần gì | Xem ở đâu | Cách đọc |
