@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.158 — 11/10/2026 — Khai báo Hội vừa 1 trang + Chuẩn hóa
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2, phương án a):** bảng Khai báo Hội dài quá 1 trang; Tên Hội cấp xã hợp với Chuẩn hóa; Số / Ngày KH Hội tỉnh khai 1 lần mỗi Hội.
+- **Bảng khai báo** (`ktHdtBang`): `KT_HKB_COT` = CT · PCT · BTV 1–3 · Nhiệm kỳ · Số HĐUT · Ngày HĐ; dòng nhóm `tr.hkb-nhom` "Xã · n Hội · m tổ" thay cột Xã; nút 📋 `.hkb-pc` trong ô Hội (bỏ cột ⋯); bảng `width:100%`, ô nhập co theo bề ngang. Bỏ `ktHoiKBChep` / `ktHoiKBChep1` và nút ⇩ Chép.
+- **Chuẩn hóa:** `KT_CHUAN_O` thêm `kh`, `khNgay` (chữ mờ `KT_CHUAN_PH`); mục **Riêng từng xã** (`ktChuanRiengHTML`, bảng `.kt-rieng`, ô `hkr-…`): Tên Hội cấp xã (`kb.ten`, giữ chỗ lưu cũ) · Số KH · Ngày KH riêng xã (trống = chung của Hội).
+- **Đọc:** `ktHoiKB(k)` trả thêm `kh` / `khNgay` chung của Hội khi xã không khai riêng (in Kế hoạch, dòng nhắc, Phân công dùng sẵn); `ktHoiKBGoc(k)` = đúng chữ đã khai riêng.
+- **Chuyển cũ 1 lần** (`ktHdtKH`, cờ `D.cauHinh.ktKHChuan`): mỗi Hội lấy cặp số / ngày nhiều xã khai nhất → Chuẩn hóa (nếu Chuẩn hóa chưa có); xã khai trùng → bỏ ô riêng; xã khác → giữ làm ngoại lệ.
+- **Phép thử:** `tests/t154.js` (mới, 17). t108, t111, t118, t150 theo bảng mới.
+
 ## 3.157 — 11/10/2026 — Khung xem bên phải + 2 kiểu lọc (số liệu, file)
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2):** khung xem dư dòng đầu / cuối, đầu khung 4 dòng tên file; lọc rối (Nguồn vốn lẫn giữa, chip chỉ 1 cấp); kiểu xem tab file là ô thả xuống.
 - **Khung xem** (`xemBenPhai`, `05-them-file.js`): `cp-phu` bọc dòng chính `.cp-dong`, `title` = tên file; ẩn `#cp-ten` + phần phụ ở khung phải; khung `top:60px; height:calc(100vh - 72px)`. ⊡ Vừa trang (`S.che==='trang'`): `.than-p.vua-trang` (scroll-snap từng trang, canvas `width:auto`, cao = khung − 28), nhớ ở `D.cauHinh.xemChe` (`datChe2` ghi, `veVaoKhung` áp).

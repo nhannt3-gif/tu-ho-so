@@ -2053,7 +2053,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.157', ds:[
+var CO_GI_MOI = {ban:'3.158', ds:[
+  ["🏛 Khai báo Hội vừa 1 trang: bỏ cột Xã (thay bằng dòng nhóm \"Xã · số Hội · số tổ\"), bỏ cột Tên Hội cấp xã và Số / Ngày KH Hội tỉnh; nút 📋 Phân công ngay cạnh tên Hội", "doiNgan(7)"],
+  ["📖 Chuẩn hóa: Số / Ngày KH Hội tỉnh khai 1 lần cho mỗi Hội (dữ liệu cũ tự chuyển); mục \"Riêng từng xã\" để gõ tên Hội cấp xã hoặc KH khác của xã nào khác quy tắc; bỏ nút ⇩ Chép", "doiNgan(7)"],
   ["🖼 Khung xem bên phải sát trên dưới, đầu khung còn 1 dòng (📁 nơi lưu · trang · KB, rê chuột thấy tên file); thêm ⊡ Vừa trang: trọn 1 trang A4 trong khung, cuộn lật từng trang, app nhớ chế độ — các nút cũ vẫn giữ", "doiNgan(1)"],
   ["📍 Lọc số liệu (Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu): hàng chip có nhãn Xã / Điểm GD · Hội · Tổ chỉ hiện con của cấp đã chọn, Hội chọn ở mọi cấp, 🔎 tìm nhanh cuối hàng; Tổng hợp: Nguồn vốn thành chip trên cùng, danh sách báo cáo 1 dòng", "doiNgan(7)"],
   ["⚲ Lọc file (Văn bản, Biểu mẫu, Scan): bấm ⚲ Lọc mở bảng lọc ngay dưới thanh, dòng \"Đang lọc\" hiện các chip đang áp; kiểu xem thành chip ☰ 🗂 ▦ ▣ bấm 1 lần", "doiNgan(1)"],

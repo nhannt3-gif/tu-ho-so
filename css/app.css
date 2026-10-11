@@ -3068,3 +3068,13 @@ details.sl-kq > summary{padding:6px 10px}
 .tl-panel .the-loc{padding:2px 9px;font-size:calc(12px*var(--co));margin:0}
 .tl-panel .the-loc small{margin-left:3px;opacity:.75}
 .tl-panel .tl-panel-nut .nho{min-height:26px;padding:2px 10px;font-size:calc(12px*var(--co))}
+/* 3.158: Khai báo Hội vừa 1 trang — dòng nhóm xã, 📋 phân công cạnh tên Hội; ngoại lệ riêng xã ở Chuẩn hóa */
+.hkb-xls tr.hkb-nhom td{background:var(--nen);font-weight:700;padding:4px 8px;height:auto;color:var(--chu);position:static}
+.hkb-xls tr.hkb-nhom td small{font-weight:400;color:var(--chu-phu)}
+.hkb-xls:not(.kt-rieng){width:100%}
+.hkb-xls:not(.kt-rieng) input.hkb-o{min-width:0;width:100%}
+.hkb-xls:not(.kt-rieng) td.hkb-hoi{width:1%}
+.hkb-xls td.hkb-hoi .hkb-pc{padding:0 4px;margin-right:2px}
+.kt-rieng-dau{margin:14px 0 6px;font-size:calc(14px*var(--co))}
+.kt-rieng-dau small{font-weight:400;color:var(--chu-phu)}
+.hkb-xls.kt-rieng input[id$="-ten"]{min-width:240px}

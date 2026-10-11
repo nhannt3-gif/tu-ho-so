@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.158) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS Hội → 🏛 Khai báo Hội, chọn 1 xã | Bảng vừa 1 trang: dòng nhóm xã, cột Hội (tổ) · CT · PCT · BTV 1–3 · Nhiệm kỳ · HĐUT · Ngày HĐ | |
+| 2 | Bấm 📋 cạnh tên Hội | Mở Phân công BTV của Hội – xã đó | |
+| 3 | 📖 Chuẩn hóa | Có 2 dòng Số / Ngày KH Hội tỉnh; số đã khai trước đây đã tự chuyển sang (lấy số nhiều xã khai nhất) | |
+| 4 | Mục Riêng từng xã | Tên Hội cấp xã đã gõ trước vẫn còn; xã có KH khác vẫn giữ số riêng | |
+| 5 | In Kế hoạch 01/KH | Căn cứ KH Hội tỉnh đúng số / ngày | |
+
+**Ghi chú kỹ thuật 3.158:** tên Hội cấp xã vẫn lưu ở `ktHoiKB[k].ten` (không đổi chỗ lưu, chỉ dời ô gõ). `ktHdtThe` / `ktHkbIn` / `ktHkbXem` là mã cũ không gọi.
+
 ### Danh sách thử trên máy thật (3.157) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

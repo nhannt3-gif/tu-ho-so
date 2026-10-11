@@ -28,8 +28,8 @@ const fs=require('fs'), path=require('path');
    C.xa = tA.xa; C.che = 'hdt'; ktVeThe(); await w(200);
    const the = document.getElementById('kt-the');
    ok('nút 🏛 Khai báo Hội đoàn thể đứng đầu hàng chọn loại', /^🏛 Khai báo Hội đoàn thể/.test(the.querySelector('.kt-che button').textContent.trim()) && the.querySelector('.kt-che button').classList.contains('bat'));
-   ok('3.154: 1 bảng — mỗi Hội – xã của xã chọn 1 dòng: tên, CT, PCT, 3 BTV, nhiệm kỳ, HĐUT, KH tỉnh', the.querySelectorAll('.hkb-xls tbody tr').length===ktHoiDs().length && the.querySelectorAll('.hkb-xls input.hkb-o').length===ktHoiDs().length*11);
-   ok('tên Hội cấp xã: trống = tên chuẩn theo cây (chữ mờ)', document.getElementById('hkb-'+kA.replace(/[^0-9a-z]/gi,'_')+'-ten').placeholder===ktHoiTenTD(tA));
+   ok('3.154: 1 bảng — mỗi Hội – xã của xã chọn 1 dòng: tên, CT, PCT, 3 BTV, nhiệm kỳ, HĐUT, KH tỉnh', the.querySelectorAll('.hkb-xls tbody tr[data-k]').length===ktHoiDs().length && the.querySelectorAll('.hkb-xls input.hkb-o').length===ktHoiDs().length*8);
+   ok('3.158: tên Hội cấp xã không còn ở bảng khai báo (sang Chuẩn hóa)', !document.getElementById('hkb-'+kA.replace(/[^0-9a-z]/gi,'_')+'-ten'));
    const tD = ds.find(t=>String(t.dv)==='14' && t.xa===tA.xa);
    if(tD){ const kD = ktHoiKhoa(tD).replace(/[^0-9a-z]/gi,'_'); ok('Đoàn: ô ghi Bí thư / Phó Bí thư', /Bí thư/.test(document.getElementById('hkb-'+kD+'-ct').placeholder) && /Phó Bí thư/.test(document.getElementById('hkb-'+kD+'-pct').placeholder)); }
    ok('3.154: không còn chữ diễn giải / dòng In ra trong bảng', !the.querySelector('.hkb-in') && !/In ra:/.test(the.textContent));
@@ -49,10 +49,10 @@ const fs=require('fs'), path=require('path');
    ok('khai đủ → dòng nhắc xanh "Đã khai báo đủ"', /Đã khai báo đủ cho 1 Hội – xã/.test(the.textContent), (the.querySelector('.kt-hdt-nhac')||{}).textContent);
    C.che = 'bc'; ktVeThe(); await w(150); ok('tab Mẫu 04: dòng nhắc khai báo Hội thay khung ✎ cũ', !!the.querySelector('.kt-hdt-nhac') && !the.querySelector('.kt-hkb-bang'));
    /* 5. chép KH Hội tỉnh cùng Hội */
-   if(kC){ C.xa = ''; C.che = 'hdt'; ktVeThe(); await w(100); ktHoiKBChep(); await w(100); ok('⇩ chép số / ngày KH Hội tỉnh sang xã khác cùng Hội', ktHoiKB(kC).kh==='06-KH/HNDT' && ktHoiKB(kC).khNgay==='10/01/2026' && !ktHoiKB(kB).kh); }
+   if(kC){ C.xa = ''; C.che = 'hdt'; ktVeThe(); await w(100); ['kh','khNgay'].forEach(k=>ktHoiKBSua(kA, k, '')); ktChuanSua(String(tA.dv), 'kh', '06-KH/HNDT'); ktChuanSua(String(tA.dv), 'khNgay', '10/01/2026'); ok('3.158 số / ngày KH Hội tỉnh khai 1 lần ở Chuẩn hóa → xã khác cùng Hội dùng, Hội khác không', ktHoiKB(kC).kh==='06-KH/HNDT' && ktHoiKB(kC).khNgay==='10/01/2026' && ktHoiKB(kA).kh==='06-KH/HNDT' && !ktHoiKB(kB).kh); delete D.cauHinh.ktChuan; }
    /* 6. tab nhỏ Chuẩn hóa */
    C.che = 'hdt'; C.hdtTab = 'chuan'; ktVeThe(); await w(100);
-   ok('Chuẩn hóa thành tab nhỏ: 4 Hội × 12 mục (thêm chức danh ủy viên)', the.querySelectorAll('.kt-chuan tbody input').length===48 && /Chức danh ủy viên/.test(the.textContent));
+   ok('Chuẩn hóa thành tab nhỏ: 4 Hội × 14 mục (thêm chức danh ủy viên; 3.158 số / ngày KH Hội tỉnh)', the.querySelectorAll('.kt-chuan tbody input').length===56 && /Chức danh ủy viên/.test(the.textContent));
    ktChuanSua('11', 'pho', 'Phó Chủ tịch Hội giả'); ktVeThe(); await w(50);
    const daSua = the.querySelectorAll('.kt-chuan input.da').length, coVe = !!the.querySelector('.kt-chuan .hkb-ve');
    ok('ô đã sửa tô xanh + ↺; chức vụ in theo chuẩn mới', daSua===1 && coVe && ktGiaTri06(tA, [], {}).f.CV1===(String(tA.dv)==='11' ? 'Phó Chủ tịch Hội giả' : 'Phó Chủ tịch'));
