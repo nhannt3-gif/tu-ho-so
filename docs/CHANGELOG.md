@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.156 — 11/10/2026 — Tab Nạp & KT gọn 2: ma trận gọn, tự kiểm tra, 1 nút nạp
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2):** ma trận chiếm cả màn, 2 chỗ chuyển tháng, 2 nút nạp (Nạp file + Nạp nhiều file KTGS), phải bấm Kiểm tra.
+- **Nhóm Ⓚ KTGS** (`SL_NHOM` thêm `K`, gập sẵn): BC0437 / BC0438 trong ma trận chính; bỏ khối `ktNapHTML` (không gọi), nạp chung `slNapBo`. Kết quả kiểm tra KTGS (`ktKTHTML`) nằm trong `details#sl-kq`.
+- **Ma trận** (`.sl-luoi`): kẻ ô, ô cao 28 px, cột tháng chọn `.sl-cot` sáng (tiêu đề + ô); `slDsKy` theo `slMtKieu()` (`D.cauHinh.slMt`): `gon` = tháng chọn + tháng trước (+ Theo ngày), `tq` = 12 tháng trọn ngang (ô hẹp, ẩn mũi tên), `thu` = 1 dòng `slMtThuHTML`. Tên báo cáo > 22 ký tự: chữ nhỏ, xuống dòng (`.dai`). Bỏ `SL_LECH` / ‹ › góc ma trận.
+- **Hàng công cụ** `slNapThanhHTML`: ‹ T7 · T8/2026 ▾ · T9 › · 📥 Nạp file · 🔍 Kiểm tra lại · 📋 File cần xuất · [▾ Thu gọn | 2 tháng | ⇔ Tổng quan] · ☁ · ⋯ · ❓. Dòng trạng thái bỏ nút kiểm tra.
+- **Tự kiểm ngầm:** `slBoXoa` (mọi lần dữ liệu tháng đổi) → `slHenKiem` (hẹn 1,5 giây) → `slTuKiem`: tháng có file chính chưa kiểm / đã đổi → `slKiemTra(ky, im)`; BC0437/0438 chưa kiểm / đã đổi → `ktKiemTra(ky, im)`. Chế độ ngầm: không khung chờ, không xóa phần dựng sẵn, lỗi chỉ báo ở ô trạng thái. `window.SL_KHONG_TU_KIEM` để tắt khi cần.
+- **Dấu trên ô** `slKTO` / `slDauO`: mục kiểm tra gắn file theo tên (`SL_KT_KHOP`; bỏ nhóm 1 đủ file, 2 toàn vẹn, mục lưu ý / bỏ qua); có chênh → ⚠ cam, còn lại khớp → ✓ xanh; KTGS theo `SLM.ktg`. Chưa kiểm / dữ liệu đổi → không dấu.
+- **Phép thử:** `tests/t152.js` (mới, 18). t146, t106, t140, t102 theo ma trận mới.
+
 ## 3.155 — 11/10/2026 — Luồng Scan: Lưu máy / Gửi / Copy / Lưu tủ, lưu theo mã KH + tên + ấp
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 7, 11):** chưa có nút lưu rõ ràng, app tự lưu tạm lên tủ; học Scanner Lens: xong → chọn Lưu máy / Gửi / Copy / Lưu tủ; PDF lưu như bản in (4 CCCD / A4); lưu file scan chỉ cần mã KH + tên + ấp (khách có thể chuyển tổ). Phần tối ưu chụp / quét để phiên riêng.
 - **`tiepHang`** (bước ③) không gọi `luuSauHang` nữa → `scanXongHop(bl)` (`.sx-luoi`): `scanLuuMay` (máy tính tải về, điện thoại bảng chia sẻ), `scanGui` (`chiaSePDF`), `scanCopyAnh` (`scanAnhGhep`: ghép ảnh đã xử lý — thẻ 2 cột mặt trước | sau — thành PNG, ClipboardItem), `scanLuuTuHop` / `scanTimKH` (`slTimKH` danh bạ) / `scanChonKH` / `scanLuuTu` (thẻ nhiều người: mỗi người 1 khách). ✓ Xong (`scanXongBo`): đã làm gì đó thì bỏ phiên, chưa thì hỏi.

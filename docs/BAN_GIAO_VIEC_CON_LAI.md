@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.156) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở 📥 Nạp & KT | Hàng nút 1 dòng; ma trận 2 tháng + Theo ngày, kẻ ô rõ, cột tháng chọn sáng; vừa 1 màn hình | |
+| 2 | Bấm ‹ T7 / T9 › / tên cột tháng | Đổi tháng, cột sáng theo | |
+| 3 | 📥 Nạp file chọn cùng lúc Mẫu 31 + BC0437 | Nhận đúng loại; xong vài giây thấy ô ✓ / ⚠, dòng 🔍 Kết quả có tóm tắt (không bấm Kiểm tra) | |
+| 4 | Rê chuột dấu ⚠ | Hiện mục chênh lệch | |
+| 5 | ⇔ Tổng quan / ▾ Thu gọn | 12 tháng trọn ngang / 1 dòng tóm tắt; app nhớ | |
+| 6 | Nhóm Ⓚ KTGS | Bấm sổ ra thấy BC0437 / BC0438 | |
+
+**Ghi chú kỹ thuật 3.156:** `ktNapHTML` còn trong mã (không gọi). Dấu ✓ / ⚠ gắn file theo tên mục kiểm tra (`SL_KT_KHOP`) — mục mới thêm tên file lạ thì bổ sung bảng này.
+
 ### Danh sách thử trên máy thật (3.155) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -2980,3 +2980,36 @@ details.sl-kq > summary small,details.sl-ktgs-nap > summary small{font-weight:40
 .sx-gy button{text-align:left;border:none;background:none;padding:5px 6px;border-radius:6px;cursor:pointer;font:inherit;color:var(--chu)}
 .sx-gy button:hover{background:var(--xanh-nhat)}
 .sx-gy small{color:var(--chu-phu)}
+/* 3.156 — tab Nạp & KT: ma trận kẻ ô rõ, cột tháng chọn sáng, 3 kiểu ma trận, dấu ✓ / ⚠ trên ô */
+.sl-mt-cuon .sl-bang.sl-luoi{border-collapse:collapse;border-spacing:0;width:auto;min-width:0}
+.sl-mt-cuon.tq .sl-bang.sl-luoi{width:100%}
+.sl-bang.sl-luoi th,.sl-bang.sl-luoi td{border:1px solid var(--vien) !important;border-radius:0 !important}
+.sl-bang.sl-luoi thead th{background:var(--nen);padding:5px 8px;height:30px}
+.sl-bang.sl-luoi thead th.sl-chon{border-radius:0;background:var(--xanh-nhat)}
+.sl-bang.sl-luoi .bdc-o.sl-o{border:1px solid var(--vien) !important;border-radius:0;min-width:120px;height:28px;padding:2px 8px;position:relative;text-align:center;line-height:1.15}
+.sl-mt-cuon.tq .sl-bang.sl-luoi .bdc-o.sl-o{min-width:78px}
+.sl-mt-cuon.tq .sl-bang.sl-luoi .bdc-o.sl-o small{display:none}
+.sl-bang.sl-luoi .bdc-o.sl-o.du{border-color:var(--vien) !important}
+.sl-bang.sl-luoi .bdc-o.sl-o .sl-o-so{display:inline}
+.sl-bang.sl-luoi .bdc-o.sl-o small{display:inline;margin-left:5px}
+.sl-bang.sl-luoi td.bdc-ten{padding:3px 10px;white-space:nowrap}
+.sl-bang.sl-luoi td.sl-con-ten.dai{white-space:normal;font-size:calc(11.5px*var(--co));line-height:1.2;max-width:190px}
+.sl-bang.sl-luoi .sl-cot{box-shadow:inset 2px 0 0 var(--xanh),inset -2px 0 0 var(--xanh)}
+.sl-bang.sl-luoi td.sl-cot:not(.du):not(.cu){background:var(--xanh-nhat)}
+.sl-bang.sl-luoi thead th.sl-cot{box-shadow:inset 2px 0 0 var(--xanh),inset -2px 0 0 var(--xanh),inset 0 2px 0 var(--xanh)}
+.sl-bang .sl-dau{position:absolute;top:1px;right:3px;font-style:normal;font-size:11px;font-weight:800;line-height:1;cursor:help}
+.sl-bang .sl-dau.ok{color:#1b7f3b}
+.sl-bang .sl-dau.lech{color:var(--vang)}
+.sl-thanh-nap .sl-thang .nho{font-weight:700}
+.sl-thanh-nap .sl-thang .sl-thang-ten{min-width:110px}
+.sl-mt-nhom{display:inline-flex;border:1.3px solid var(--vien);border-radius:9px;overflow:hidden}
+.sl-mt-nhom .sl-mt-k{border:none;background:var(--the);padding:5px 10px;font:inherit;font-size:calc(12.5px*var(--co));font-weight:600;color:var(--chu);cursor:pointer;border-right:1px solid var(--vien)}
+.sl-mt-nhom .sl-mt-k:last-child{border-right:none}
+.sl-mt-nhom .sl-mt-k.bat{background:var(--xanh);color:#fff}
+.sl-mt-thu{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 12px;border:1.3px solid var(--vien);border-radius:10px;background:var(--the);cursor:pointer;margin:6px 0}
+.sl-mt-thu:hover{border-color:var(--xanh)}
+details.sl-kq > summary{padding:6px 10px}
+.sl-bang.sl-luoi .bdc-o.sl-o{padding-right:16px;padding-left:16px}
+.sl-bang.sl-luoi td.sl-nh-o{padding:2px 6px;height:28px}
+.sl-bang.sl-luoi tr.sl-nh-dong td.bdc-ten{padding-top:2px;padding-bottom:2px}
+.sl-bang.sl-luoi .sl-chipn{padding:0 8px;line-height:20px}

@@ -82,6 +82,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t149.js` | 3.153 Xóa thống nhất: xóa 1 file không hỏi / nhiều file hỏi 1 lần, không Hoàn tác, việc lịch · lần làm việc · bộ biểu mẫu vào ngăn Mục nhỏ và khôi phục, ngăn Số liệu, tự xóa 30 ngày bật sẵn. |
 | `node tests/t150.js` | 3.154 Khai báo Hội 1 bảng: chuyển dữ liệu cũ đủ 9 vai (PCT đầu tiên, 3 BTV dồn lên, người dư ở du), phân công + chọn người in đổi vai theo, cột bảng, ⓘ, Enter / Tab / ↓, dán khối Excel, ngày sai tô đỏ, Đoàn Bí thư, Mẫu 06 dùng Phó CT mới. |
 | `node tests/t151.js` | 3.155 Luồng Scan: hộp Lưu máy · Gửi · Copy ảnh · Lưu tủ, không tự lưu tạm, Copy ảnh PNG, chọn khách theo danh bạ, lưu mã KH + tên + ấp, đường dẫn Xã / Ấp / Mã KH Tên.pdf, trạng thái không đòi tổ, Xong hỏi khi chưa làm gì, phiên quá 7 ngày tự bỏ. |
+| `node tests/t152.js` | 3.156 Tab Nạp & KT gọn 2: hàng nút, 1 nút nạp (Ⓚ KTGS trong ma trận), 2 tháng + Theo ngày, cột chọn sáng, ô 28 px, tên dài, tự kiểm ngầm + tự kiểm lại sau xóa, dấu ✓ / ⚠, kết quả 1 dòng, vừa 1 màn hình, chuyển tháng, Tổng quan 12 tháng, Thu gọn, ❓. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

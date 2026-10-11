@@ -48,21 +48,22 @@ const fs=require('fs'), path=require('path');
    ok('ghi nhận vào ô BC0437 T7', !!SLM.bang['k37|2026-07']);
    /* không lên ma trận Nạp */
    doiNgan(7); slDoiTab('nap'); SL_KY='2026-08'; veSoLieu(); await w(600);
-   ok('ma trận file chính của tab Nạp không có BC0437/0438 (3.144: BC nằm ở khối KTGS riêng cùng tab)', !/BC0437|BC0438/.test(document.querySelector('#tr7 .sl-mt-cuon').textContent));
+   ok('3.156: BC0437/0438 là nhóm Ⓚ KTGS gập sẵn trong ma trận chính (không còn khối riêng)', [...document.querySelectorAll('#tr7 .sl-nh-dong')].some(r=>/KTGS/.test(r.textContent)) && !document.querySelector('#tr7 .kt-nap'));
    /* tab KTGS */
    D.cauHinh.ktHaiMat = 0;   /* 3.124: phép này kiểm ngắt trang thường — in 2 mặt kiểm ở t126 */
    const C = ktCH(); C.ky='2026-08'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    ok('thanh BC0437 / BC0438 ✓', document.querySelectorAll('.kt-bc.co').length===2, document.querySelector('.kt-dau').textContent);
    ok('3.144 / 3.149: tab KTGS không còn khối nạp BC; chip BC thiếu có nút 📥 nạp sang tab Nạp & KT', !document.querySelector('#tr7 .kt-nap') && (!!document.querySelector('.kt-bc-nap') || document.querySelectorAll('.kt-bc.co').length===2));
-   slDoiTab('nap'); await w(600);   /* 3.144: nạp + kiểm tra BC0437 / BC0438 ở tab 📥 Nạp & KT */
-   const mt = document.querySelectorAll('.kt-nap .sl-bang tbody tr');
-   ok('ma trận KTGS: 2 dòng BC0437 / BC0438, ô ✓ T7, T8', mt.length===2 && document.querySelectorAll('.kt-nap .sl-o.du').length===3, mt.length+' dòng · '+document.querySelectorAll('.kt-nap .sl-o.du').length+' ô có file');
+   (D.cauHinh.slMo = D.cauHinh.slMo || {}).K = true; SL_KY = '2026-08'; slDoiTab('nap'); await w(600);   /* 3.156: nhóm Ⓚ KTGS trong ma trận chính */
+   const mt = [...document.querySelectorAll('#tr7 .sl-bang tbody tr')].filter(r=>/BC043[78]/.test(r.textContent));
+   ok('ma trận nhóm Ⓚ: 2 dòng BC0437 / BC0438, ô có file T7, T8', mt.length===2 && mt.reduce((n, r)=>n+r.querySelectorAll('.sl-o.du').length, 0)>=3, mt.length+' dòng · '+mt.reduce((n, r)=>n+r.querySelectorAll('.sl-o.du').length, 0)+' ô có file');
    await ktKiemTra('2026-08'); for(let i=0;i<80 && !(SLM.ktg && SLM.ktg['2026-08']);i++) await w(200); await w(300);
    const KQ = SLM.ktg['2026-08'];
    ok('kiểm tra KTGS: lưu kết quả, đủ 3 nhóm so', !!KQ && KQ.muc.some(m=>/BC0437 ↔ BC0438 ①/.test(m.ten)) && KQ.muc.some(m=>/↔ Mẫu 31 từng tổ/.test(m.ten)) && KQ.muc.some(m=>/BC0438 ③/.test(m.ten)), KQ && KQ.muc.map(m=>m.tt+' '+m.ten.slice(0,30)).join(' | '));
    ok('BC0437 ↔ BC0438 ① ② khớp (file giả dựng từ cùng số)', KQ.muc.find(m=>/②/.test(m.ten)).tt==='c' && KQ.muc.find(m=>/①/.test(m.ten)).tt==='c', KQ.muc.slice(0,2).map(m=>m.ghi).join(' | '));
    ok('BC0437 ↔ Mẫu 31 từng tổ khớp (lệch < 1 triệu coi là khớp)', KQ.muc.find(m=>/từng tổ: tổ viên/.test(m.ten)).tt==='c', KQ.muc.find(m=>/từng tổ: tổ viên/.test(m.ten)).ghi);
-   ok('khung kiểm tra hiện kết quả + chip tháng', /mục lệch|khớp/.test(document.querySelector('.kt-nap summary').textContent) && document.querySelectorAll('.kt-muc').length===KQ.muc.length);
+   SL_KY = '2026-08'; veSoLieu(); await w(200);
+   ok('3.156: kết quả kiểm tra KTGS nằm trong dòng 🔍 Kết quả kiểm tra (tóm tắt + chi tiết)', /KTGS: .*(mục lệch|khớp)/.test(document.querySelector('#tr7 details.sl-kq summary').textContent) && document.querySelectorAll('#tr7 details.sl-kq .kt-muc').length===KQ.muc.length);
    slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    const e37 = SLM.bang['k37|2026-08']; const luc0 = e37.luc; e37.luc = new Date(Date.now()+1000).toISOString(); ok('đổi file → kiểm tra cũ (⟳ kiểm lại)', ktKTCu('2026-08')); e37.luc = luc0;
    ok('mục đích: bảng ngành rút gọn + tự rút gọn ngành mới', ktNganh({c_ma_pnkt51:'36000'})==='Khai thác, cung cấp nước' && ktNganh({c_ma_pnkt51:'01412'})==='Chăn nuôi trâu, bò' && ktNganh({c_ma_pnkt51:'99999', c_ten_pnkt51:'Hoạt động gì đó chưa được phân vào đâu (thử)'})==='gì đó', ktNganh({c_ma_pnkt51:'99999', c_ten_pnkt51:'Hoạt động gì đó chưa được phân vào đâu (thử)'}));

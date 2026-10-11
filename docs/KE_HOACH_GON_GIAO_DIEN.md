@@ -400,3 +400,12 @@ Kỳ [T8/2026 · Mẫu 31 ▾] ⟳   Xã [Toàn PGD ▾] › Điểm [— ▾] �
 
 ## Câu hỏi chờ anh
 - (hết — chờ anh gửi thêm ý hoặc nhắn "đủ" để làm ảnh mẫu cả gói)
+
+---
+# Gói 2 (anh duyệt 11/10/2026: "lên KH và làm 1 lần, phần nào xong thì gộp lên luôn")
+| Bản | Nội dung |
+|---|---|
+| 3.156 | **Tab Nạp & KT:** 1 nút 📥 Nạp file (gồm BC0437/0438), nhóm Ⓚ KTGS trong ma trận (bỏ ma trận KTGS riêng); ma trận kẻ ô rõ, cột tháng chọn sáng lên, mặc định tháng chọn + tháng trước + Theo ngày, ⇔ Tổng quan (đủ tháng, trọn ngang), ▾ thu gọn 1 dòng; tên báo cáo dài chữ nhỏ / 2 dòng; chuyển tháng 1 chỗ (‹ T7 · T8 ▾ · T9 ›), bỏ ‹ › góc ma trận; tự kiểm tra ngầm sau nạp / xóa / thay / khôi phục + nút 🔍 Kiểm tra lại; ô ✓ khớp xanh / ⚠ chênh cam; kết quả kiểm tra 1 dòng bấm mở; vừa 1 màn hình (chú thích → ❓). |
+| 3.157 | **Khung xem phải** sát trên dưới, đầu 1 dòng (📁 nơi lưu · trang · KB · ⛶ ✕), ô chọn trang + nhãn trang nổi góc, ⊡ Vừa trang (trọn 1 A4, lật từng trang, nhớ chế độ). **2 kiểu lọc:** Lọc số liệu (Nguồn vốn — Tổng hợp; 📍 PGD › Xã › Điểm › Tổ + 🔎 tìm nhanh; hàng chip Điểm GD · Hội · Tổ chỉ con của cha; Hội / CT mọi cấp) cho Tổ, Sao kê, KTGS, Tổng hợp, Tra cứu; Lọc file (⚲ Lọc mở ngay dưới thanh, dòng Đang lọc, kiểu xem thành chip ☰ 🗂 ▦ ▣) cho VB, BM, Scan, Thư viện. Tổng hợp: danh sách tiêu chí 1 dòng / báo cáo. KTGS Kế hoạch: bỏ hàng chip Hội trùng, gom 1 hàng. |
+| 3.158 | **Khai báo Hội** vừa 1 trang: bỏ cột Tên Hội cấp xã (→ Chuẩn hóa: quy tắc + tên riêng theo xã), bỏ cột Xã (→ dòng tiêu đề nhóm), nút 📋 Phân công cạnh tên Hội; Số / Ngày KH Hội tỉnh → Chuẩn hóa (1 lần / Hội, ngoại lệ theo xã; tự chuyển dữ liệu cũ), bỏ nút ⇩ Chép. |
+| 3.159 | **Chân thanh bên:** dòng trạng thái hiện đủ (≤ 3 dòng), bỏ lặp Drive, chip đủ chữ. **Chế độ tối:** nút ☾ trên chân thanh bên (Tự động → Sáng → Tối), rà màu cứng, bản in / xem trước giữ nền trắng. |

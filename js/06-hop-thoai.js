@@ -2053,7 +2053,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.155', ds:[
+var CO_GI_MOI = {ban:'3.156', ds:[
+  ["📥 Tab Nạp & KT: 1 nút Nạp file cho mọi file (kể cả BC0437 / BC0438 — nhóm Ⓚ KTGS nằm chung ma trận); ma trận kẻ ô rõ, cột tháng đang chọn sáng lên; chuyển tháng 1 chỗ: ‹ T7 · T8/2026 ▾ · T9 ›", "dongHop();moNapSL()"],
+  ["🔢 3 kiểu ma trận: ▾ Thu gọn (1 dòng) · 2 tháng (tháng chọn + tháng trước + Theo ngày, mặc định) · ⇔ Tổng quan (12 tháng, trọn ngang)", "dongHop();moNapSL()"],
+  ["🔍 Tự kiểm tra ngầm sau mỗi lần nạp / xóa / thay / khôi phục file — ô khớp có ✓ xanh, ô chênh có ⚠ cam (rê chuột xem); vẫn có nút 🔍 Kiểm tra lại; kết quả chi tiết 1 dòng, bấm mở", "dongHop();moNapSL()"],
   ["📷 Scan xong → 1 hộp chọn: 💾 Lưu vào máy (PDF như bản in — thẻ 4 người / A4) · 📤 Gửi · 📋 Copy ảnh · 🗄 Lưu vào tủ. Chỉ “Lưu vào tủ” mới tạo hồ sơ — không còn tự lưu tạm vào tủ / Drive", "dongHop();doiNgan(4)"],
   ["🗄 Lưu vào tủ theo khách: gõ tên / mã KH / CCCD → chọn trong danh bạ Mẫu 31, app tự điền xã + ấp; lưu CCCD (hoặc Hồ sơ scan) / Xã / Ấp / Mã KH Tên.pdf — không theo tổ", "dongHop();doiNgan(4)"],
   ["⏸ Đóng hộp giữa chừng: bản quét giữ trong máy để làm tiếp (dải vàng đầu tab Scan → Mở lại), quá 7 ngày tự bỏ", "dongHop();doiNgan(4)"],

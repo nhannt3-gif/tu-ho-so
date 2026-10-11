@@ -26,7 +26,7 @@ const path=require('path'); const drive=require('./fakedrive.js')();
    ok('bấm Nạp & KT → tab 7, tab con nap, tô nút Nạp & KT', nganHienTai===7 && D.cauHinh.slTab==='nap' && chon()==='📥 Nạp & KT', chon());
    const tr7 = document.getElementById('tr7');
    ok('tab Nạp có tiêu đề riêng, không có thanh tab con báo cáo', !!tr7.querySelector('.sl-con-nap') && !tr7.querySelector('.sl-con button'));
-   ok('tab Nạp có khối file KTGS (BC0437 / BC0438) + nút nạp', !!tr7.querySelector('.sl-ktgs-nap .kt-nap') && /BC0437/.test(tr7.querySelector('.sl-ktgs-nap').textContent));
+   ok('3.156: tab Nạp có nhóm Ⓚ KTGS (BC0437 / BC0438) trong ma trận + 1 nút 📥 Nạp file chung', [...tr7.querySelectorAll('.sl-nh-dong')].some(r=>/KTGS/.test(r.textContent)) && /Nạp file/.test(tr7.querySelector('.sl-thanh-nap').textContent));
    moBCSL(); await w(400);
    ok('bấm Số liệu → tab con báo cáo (mặc định Tổng hợp), tô nút Số liệu', D.cauHinh.slTab==='th' && chon()==='Số liệu', D.cauHinh.slTab+' · '+chon());
    const con = Array.from(tr7.querySelectorAll('.sl-con button')).map(x=>x.textContent);
