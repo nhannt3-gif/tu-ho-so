@@ -4974,10 +4974,9 @@ function toVeThe(){
   }
   if(!(TO_BD && TO_BD.to===t.ma && TO_BD.ky===TO_K.ky)){ TO_BD = null; toBDNap(t).then(function(){ var C2 = toCH(); if(C2.to===t.ma && document.getElementById('to-the')) toVeThe(); }); }   /* 3.128 */
   var tv = toTV(t);
-  o.innerHTML = toTheHTML(t, tv)+toDsTVHTML(t, tv)+
-    '<div class="to-bc"><span class="nhan-nhom">Báo cáo của tổ</span>'+TO_BC.map(function(b){
+  o.innerHTML = '<div class="to-bc to-bc-dau"><span class="nhan-nhom">Báo cáo của tổ</span>'+TO_BC.map(function(b){   /* 3.169 (anh 11/10): đem lên đầu khung xem (trước khuất dưới bảng) */
       return '<label class="to-bc-dong"><input type="checkbox"'+(C.bc && C.bc[b.k] ? ' checked' : '')+' onchange="toCH().bc[\''+b.k+'\']=this.checked;luu()"> '+coChuHTML(b.ten)+'</label>'; }).join('')+
-    '<button class="nho chinh" onclick="toXem()">👁 Xem</button></div>';
+    '<button class="nho chinh" onclick="toXem()">👁 Xem</button></div>'+toTheHTML(t, tv)+toDsTVHTML(t, tv);
 }
 /* ---------- 3.92: TAB TỔ — mục đích (anh Nhân): biết số tổ viên để KẾT NẠP thêm hoặc CHO RA khỏi tổ, căn cứ dư nợ và số dư 105 ----------
    chọn 1 tổ → mặc định hiện toàn bộ tổ viên (Mã KH · Họ tên · CT vay · Dư nợ · 105 · Số TK 105 · CCCD) + hàng nút lọc;
@@ -6606,7 +6605,9 @@ function thXemNgay(){   /* 3.164: xem ngay báo cáo đang chọn ở khung ph�
 function slVua(){ if(nganHienTai!==7) return; var r = document.documentElement.style, d = document.querySelector('.dau'), c = document.querySelector('#tr7 .pv-cay');
   r.setProperty('--dau-cao', (d ? d.offsetHeight : 52)+'px'); r.setProperty('--loc-cao', (c ? c.offsetHeight : 0)+'px'); thVuaKhung();
   if(window.innerWidth>=900) Array.prototype.forEach.call(document.querySelectorAll('#tr7 .to-cuon-khung'), function(k){   /* bảng cuộn trong khung, vừa phần còn lại của cửa sổ */
-    var top = k.getBoundingClientRect().top + (window.pageYOffset||0); k.style.maxHeight = Math.max(220, window.innerHeight - top - 26)+'px'; }); }
+    var top = k.getBoundingClientRect().top + (window.pageYOffset||0); k.style.maxHeight = Math.max(220, window.innerHeight - top - 26)+'px';
+    var du = document.documentElement.scrollHeight - window.innerHeight;   /* 3.169: còn phần dưới bảng (vd. hàng "Báo cáo của tổ") → bớt chiều cao bảng cho hiện đủ */
+    if(du>0) k.style.maxHeight = Math.max(220, parseFloat(k.style.maxHeight) - du - 4)+'px'; }); }
 window.addEventListener('resize', function(){ clearTimeout(window.__slVua); window.__slVua = setTimeout(slVua, 150); });
 /* 3.168 (anh 11/10): khung xem cao vừa cửa sổ, bảng cuộn bên trong khung (trang không phải cuộn dài) */
 function thVuaKhung(){ var f = document.getElementById('th-xem-khung'); if(!f || !f.offsetParent) return;

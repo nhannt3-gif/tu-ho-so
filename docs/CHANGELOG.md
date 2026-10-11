@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.169 — 11/10/2026 — Tab Tổ: "Báo cáo của tổ" lên đầu khung xem
+- **Anh (11/10, ảnh chụp):** tab Tổ còn khuất dòng "Báo cáo của tổ" → đem lên đầu khung xem.
+- `toVeThe` (đã chọn tổ): hàng `.to-bc.to-bc-dau` (Danh sách hộ vay · Nợ cần xử lý · TK 105 của tổ · Dự kiến chia tách tổ · 👁 Xem) đặt trên thẻ tóm tắt tổ, ngay dưới khối lọc.
+- `slVua()`: sau khi đặt chiều cao bảng, còn phần nào dưới bảng làm trang dài hơn cửa sổ thì bớt chiều cao bảng tương ứng (không khuất dòng).
+
 ## 3.168 — 11/10/2026 — Tab Số liệu gọn trong 1 cửa sổ, lọc cố định
 - **Anh (11/10):** tối ưu khoảng trống tab Tổng hợp, bản xem gọn trong 1 cửa sổ và cuộn trong ô; các cửa sổ khác cũng vậy — lọc cố định, dồn sát lên trên.
 - `doiNgan`: lớp `body.ngan7` khi ở tab Số liệu. CSS (≥ 900px): `.than` bớt đệm trên; `#tr7 .pv-cay` `position:sticky` dưới thanh trên (`--dau-cao`); `.sk-thanh` thôi sticky (tránh chồng).
