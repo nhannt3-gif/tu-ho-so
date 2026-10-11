@@ -22,7 +22,7 @@ const fs=require('fs'), path=require('path');
    SLM.bang['nk|2026-08'].luc = new Date(Date.now()+1000).toISOString(); veSoLieu(); await w(200);
    o.cu = slKTCu('2026-08')+' · '+!!document.querySelector('#sl-kt .sl-bao.vang');
    // thu gọn bảng nhiều tháng
-   const d = document.querySelector('details.sl-tq'); d.open = false; d.dispatchEvent(new Event('toggle')); await w(50); o.tq = 'thu gọn nhớ: '+(D.cauHinh.slTQ===false);
+   slDatMt('thu'); await w(50); o.tq = 'thu gọn nhớ (3.156): '+(D.cauHinh.slMt==='thu'); slDatMt('gon');
    // tab Tổ
    slDoiTab('to'); for(let i=0;i<60 && !document.getElementById('to-cay');i++) await w(250);
    o.ky = toDsKy().map(x=>x.chu).join(' / '); o.soTo = Object.keys(TO_K.to).length;

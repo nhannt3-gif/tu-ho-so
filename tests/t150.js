@@ -38,8 +38,8 @@ const fs=require('fs'), path=require('path');
    C.xa = tA.xa; C.che = 'hdt'; ktCH().hdtTab = 'hoi'; ktVeThe(); await w(200);
    const bang = document.querySelector('#kt-the .hkb-xls');
    const cot = bang ? [...bang.querySelectorAll('thead th')].map(x=>x.textContent).filter(Boolean).join('|') : '';
-   ok('1 bảng: Xã · Hội (tổ) · Tên Hội · CT · PCT · BTV 1–3 · Nhiệm kỳ · HĐUT · Ngày HĐ · KH Hội tỉnh · Ngày KH', cot==='Xã|Hội (tổ)|Tên Hội cấp xã|Chủ tịch|Phó CT|BTV 1|BTV 2|BTV 3|Nhiệm kỳ|Số HĐUT|Ngày HĐ|Số KH Hội tỉnh|Ngày KH', cot);
-   ok('mỗi Hội – xã 1 dòng, dòng cao ≤ 34 px', bang.querySelectorAll('tbody tr').length===ktHoiDs().length && bang.querySelector('tbody tr').getBoundingClientRect().height<=34, Math.round(bang.querySelector('tbody tr').getBoundingClientRect().height)+' px');
+   ok('1 bảng (3.158): Hội (tổ) · CT · PCT · BTV 1–3 · Nhiệm kỳ · HĐUT · Ngày HĐ', cot==='Hội (tổ)|Chủ tịch|Phó CT|BTV 1|BTV 2|BTV 3|Nhiệm kỳ|Số HĐUT|Ngày HĐ', cot);
+   ok('mỗi Hội – xã 1 dòng, dòng cao ≤ 34 px', bang.querySelectorAll('tbody tr[data-k]').length===ktHoiDs().length && bang.querySelector('tbody tr[data-k]').getBoundingClientRect().height<=34, Math.round(bang.querySelector('tbody tr[data-k]').getBoundingClientRect().height)+' px');
    ok('không còn "In ra", ↺, chữ diễn giải dài', !/In ra/.test(document.getElementById('kt-the').textContent) && !document.querySelector('#kt-the .hkb-ve') && !document.querySelector('#kt-the p.ghi'));
    const id = kA.replace(/[^0-9a-z]/gi, '_'), dongA = document.getElementById('hkb-'+id+'-ct').closest('tr');
    ok('Hội có người dư: dấu ⓘ, rê chuột thấy tên', !!dongA.querySelector('.hkb-du') && /Lê Thị Phó Ba/.test(dongA.querySelector('.hkb-du').title) && /Bùi Thị Bốn/.test(dongA.querySelector('.hkb-du').title));
@@ -49,7 +49,7 @@ const fs=require('fs'), path=require('path');
    ok('Enter → sang ô kế (Phó CT)', document.activeElement.id==='hkb-'+id+'-pct', document.activeElement.id);
    document.activeElement.dispatchEvent(new KeyboardEvent('keydown', {key:'Tab', bubbles:true}));
    ok('Tab → ô kế (BTV 1)', document.activeElement.id==='hkb-'+id+'-uv1', document.activeElement.id);
-   const r0 = +document.activeElement.getAttribute('data-r'), nDong = bang.querySelectorAll('tbody tr').length;
+   const r0 = +document.activeElement.getAttribute('data-r'), nDong = bang.querySelectorAll('tbody tr[data-k]').length;
    document.activeElement.dispatchEvent(new KeyboardEvent('keydown', {key:'ArrowDown', bubbles:true}));
    ok('↓ → cùng cột dòng dưới', nDong<2 || (+document.activeElement.getAttribute('data-r')===r0+1 && /-uv1$/.test(document.activeElement.id)), document.activeElement.id);
    /* 4. dán cả khối */
@@ -58,9 +58,9 @@ const fs=require('fs'), path=require('path');
    const a2 = ktHoiKB(kA);
    ok('dán 1 dòng 3 cột từ Excel → điền Nhiệm kỳ · Số HĐUT · Ngày HĐ', a2.nk==='2025 – 2030' && a2.hd==='09/HĐUT' && a2.hdNgay==='01/02/2025', [a2.nk, a2.hd, a2.hdNgay].join(' | '));
    /* 5. ngày sai dạng tô đỏ */
-   const oN = document.getElementById('hkb-'+id+'-khNgay'); oN.value = '2026/01/10'; oN.dispatchEvent(new Event('change'));
-   ok('ngày sai dạng → ô tô đỏ (không thêm chữ giải thích)', oN.classList.contains('sai') && getComputedStyle(oN).color!==getComputedStyle(document.getElementById('hkb-'+id+'-kh')).color);
-   oN.value = '10/01/2026'; oN.dispatchEvent(new Event('change')); ok('sửa đúng dạng → hết đỏ', !oN.classList.contains('sai'));
+   const oN = document.getElementById('hkb-'+id+'-hdNgay'); oN.value = '2026/01/10'; oN.dispatchEvent(new Event('change'));
+   ok('ngày sai dạng → ô tô đỏ (không thêm chữ giải thích)', oN.classList.contains('sai') && getComputedStyle(oN).color!==getComputedStyle(document.getElementById('hkb-'+id+'-hd')).color);
+   oN.value = '01/02/2025'; oN.dispatchEvent(new Event('change')); ok('sửa đúng dạng → hết đỏ', !oN.classList.contains('sai'));
    /* 6. Đoàn TN */
    const tD = ds.find(t=>String(t.dv)==='14' && t.xa===tA.xa);
    if(tD){ const kD = ktHoiKhoa(tD).replace(/[^0-9a-z]/gi, '_'); ok('Đoàn TN: ô ghi Bí thư / Phó Bí thư', /^Bí thư/.test(document.getElementById('hkb-'+kD+'-ct').placeholder) && /^Phó Bí thư/.test(document.getElementById('hkb-'+kD+'-pct').placeholder)); }

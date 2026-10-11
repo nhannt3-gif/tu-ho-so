@@ -48,12 +48,19 @@ function dhVe(){
   h += '<div class="tb-nhom">Công cụ</div><div class="tb-cc">'+DH_CC.map(function(c){ return '<a onclick="dhCC(\''+c[0]+'\')" title="'+coChuHTML(c[3])+'"><span class="bt">'+c[1]+'</span><span class="chu">'+c[2]+'</span></a>'; }).join('')+'</div></div>';
   var rac = (D.rac||[]).length;
   h += '<div id="tb-tt"></div><div class="tb-chan"><a onclick="moRac()" title="Thùng rác'+(rac ? ' · '+rac+' mục' : '')+'"><span class="bt">🗑</span>'+(rac ? '<span class="so">'+rac+'</span>' : '')+'</a>'+
+    '<a class="tb-gd" onclick="dhDoiGD()" title="'+dhGDTen()+' — bấm đổi (Theo máy → Sáng → Tối)"><span class="bt">'+({light:'☀', dark:'☾'}[D.cauHinh.giaoDien] || '◐')+'</span></a>'+
     '<a onclick="moDonKho()" title="Dọn kho: thùng rác, lập chỉ mục, quét rác"><span class="bt">🧰</span></a><a onclick="moHuongDan()" title="Hướng dẫn"><span class="bt">❓</span></a><a onclick="moCaiDat()" title="Cài đặt"><span class="bt">⚙</span></a></div>';
   var giu = document.getElementById('tt-khoi'), giuSL = document.getElementById('so-lieu'), oCu = document.getElementById('tb-tt');
   if(oCu && giu && giu.parentNode===oCu) oCu.removeChild(giu);
   if(oCu && giuSL && giuSL.parentNode===oCu) oCu.removeChild(giuSL);
   n.innerHTML = h;
   if(typeof ttDung==='function') ttDung();
+}
+/* 3.159 (anh chốt): nút ☾ chế độ tối ở chân thanh bên — Theo máy → Sáng → Tối (cùng ô Giao diện trong Cài đặt; bản in / khung xem file luôn nền trắng) */
+function dhGDTen(){ return 'Giao diện: '+({light:'Sáng', dark:'Tối'}[D.cauHinh.giaoDien] || 'Theo máy'); }
+function dhDoiGD(){
+  var ds = ['auto','light','dark'], v = ds[(ds.indexOf(D.cauHinh.giaoDien||'auto')+1) % 3];
+  D.cauHinh.giaoDien = v; apGiaoDien(); luu(); dhVe(); bao(dhGDTen()+'.', 2);
 }
 function dhTo(){   /* tô mục đang mở + làm mới số đếm (rẻ: chỉ đếm mảng nhỏ / meta) */
   if(!document.getElementById('thanh-ben')) return;
@@ -87,10 +94,11 @@ function ttDen(){
   if(typeof DR!=='undefined' && DR.sanSang) return 'xanh';
   return 'xam';
 }
-function ttNghi(){   /* chữ lúc rảnh: trạng thái Drive + kỳ đang giữ sẵn */
-  var d = typeof DR==='undefined' ? '' : DR.online===false ? 'Mất mạng · lưu tạm trong máy' : DR.sanSang ? 'Drive đã nối'+(DR.dongBoLuc ? ' · '+DR.dongBoLuc : '') : (typeof coTheNoiDrive==='function' && coTheNoiDrive()) ? 'Drive chưa nối — bấm đèn để nối' : 'Chưa cài Drive';
+function ttNghi(){   /* chữ lúc rảnh: trạng thái Drive + kỳ đang giữ sẵn (3.159: chip Drive đã có ngay dưới → dòng này không lặp lại Drive) */
+  var d = document.getElementById('chip-drive') ? '' : typeof DR==='undefined' ? '' : DR.online===false ? 'Mất mạng · lưu tạm trong máy' : DR.sanSang ? 'Drive đã nối'+(DR.dongBoLuc ? ' · '+DR.dongBoLuc : '') : (typeof coTheNoiDrive==='function' && coTheNoiDrive()) ? 'Drive chưa nối — bấm đèn để nối' : 'Chưa cài Drive';
   var k = (typeof TO_KS!=='undefined') ? Object.keys(TO_KS).sort().reverse() : [];
-  return d+(k.length && typeof slKyNgan==='function' ? ' · ⚡ sẵn dùng '+k.slice(0, 4).map(slKyNgan).join(', ') : '');
+  var sd = k.length && typeof slKyNgan==='function' ? '⚡ Số liệu sẵn dùng '+k.slice(0, 4).map(slKyNgan).join(', ') : '';
+  return [d, sd].filter(Boolean).join(' · ') || 'Sẵn sàng';
 }
 function ttVe(){
   var o = TTB.o; if(!o) return;

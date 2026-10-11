@@ -222,6 +222,51 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.159) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Bấm ◐ ở chân thanh bên 2 lần | ☀ Sáng rồi ☾ Tối; mở lại app vẫn giữ | |
+| 2 | Nền tối: Tổ TK&VV, KTGS, Nạp & KT, Văn bản | Chữ đọc rõ, không còn ô nền sáng chữ sáng | |
+| 3 | Nền tối: In / xem file PDF | Bản in, trang PDF vẫn nền trắng | |
+| 4 | Chân thanh bên khi có tin dài | Hiện đủ (≤ 3 dòng); chip Drive / bộ nhớ không bị cắt | |
+
+**Ghi chú kỹ thuật 3.159:** màu cứng còn lại trong CSS chủ yếu là nền thanh bên / đầu trang (cố ý) và giấy Hôm nay (nền giấy cả 2 chế độ). Gặp chỗ nào chữ khó đọc ở nền tối thì chụp gửi em.
+
+### Danh sách thử trên máy thật (3.158) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS Hội → 🏛 Khai báo Hội, chọn 1 xã | Bảng vừa 1 trang: dòng nhóm xã, cột Hội (tổ) · CT · PCT · BTV 1–3 · Nhiệm kỳ · HĐUT · Ngày HĐ | |
+| 2 | Bấm 📋 cạnh tên Hội | Mở Phân công BTV của Hội – xã đó | |
+| 3 | 📖 Chuẩn hóa | Có 2 dòng Số / Ngày KH Hội tỉnh; số đã khai trước đây đã tự chuyển sang (lấy số nhiều xã khai nhất) | |
+| 4 | Mục Riêng từng xã | Tên Hội cấp xã đã gõ trước vẫn còn; xã có KH khác vẫn giữ số riêng | |
+| 5 | In Kế hoạch 01/KH | Căn cứ KH Hội tỉnh đúng số / ngày | |
+
+**Ghi chú kỹ thuật 3.158:** tên Hội cấp xã vẫn lưu ở `ktHoiKB[k].ten` (không đổi chỗ lưu, chỉ dời ô gõ). `ktHdtThe` / `ktHkbIn` / `ktHkbXem` là mã cũ không gọi.
+
+### Danh sách thử trên máy thật (3.157) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Văn bản → bấm 1 file PDF | Khung phải sát trên dưới; đầu khung 1 dòng 📁 nơi lưu · trang · KB + ⛶ ✕; rê chuột thấy tên file | |
+| 2 | Bấm ⊡ Vừa trang | Trọn 1 trang A4 trong khung, cuộn lật từng trang; mở file khác vẫn giữ ⊡ | |
+| 3 | Tab Tổ / KTGS: chọn xã → điểm → Hội | Hàng chip có nhãn chỉ hiện con của cấp đã chọn; Hội chọn được ngay ở cấp xã | |
+| 4 | 🔎 gõ tên tổ trưởng | Gợi ý, chọn → tự điền Xã › Điểm › Hội › Tổ | |
+| 5 | Tổng hợp | Nguồn vốn chip trên cùng; danh sách báo cáo 1 dòng | |
+| 6 | Văn bản → ⚲ Lọc | Bảng lọc mở ngay dưới thanh; chọn → dòng "Đang lọc"; chip kiểu xem bấm 1 lần | |
+
+**Ghi chú kỹ thuật 3.157:** hàng Tổ chỉ hiện khi ≤ 12 tổ (nhiều hơn dùng ô chọn / 🔎). Điện thoại giữ ô thả xuống kiểu xem + hộp lọc như cũ.
+
+### Danh sách thử trên máy thật (3.156) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở 📥 Nạp & KT | Hàng nút 1 dòng; ma trận 2 tháng + Theo ngày, kẻ ô rõ, cột tháng chọn sáng; vừa 1 màn hình | |
+| 2 | Bấm ‹ T7 / T9 › / tên cột tháng | Đổi tháng, cột sáng theo | |
+| 3 | 📥 Nạp file chọn cùng lúc Mẫu 31 + BC0437 | Nhận đúng loại; xong vài giây thấy ô ✓ / ⚠, dòng 🔍 Kết quả có tóm tắt (không bấm Kiểm tra) | |
+| 4 | Rê chuột dấu ⚠ | Hiện mục chênh lệch | |
+| 5 | ⇔ Tổng quan / ▾ Thu gọn | 12 tháng trọn ngang / 1 dòng tóm tắt; app nhớ | |
+| 6 | Nhóm Ⓚ KTGS | Bấm sổ ra thấy BC0437 / BC0438 | |
+
+**Ghi chú kỹ thuật 3.156:** `ktNapHTML` còn trong mã (không gọi). Dấu ✓ / ⚠ gắn file theo tên mục kiểm tra (`SL_KT_KHOP`) — mục mới thêm tên file lạ thì bổ sung bảng này.
+
 ### Danh sách thử trên máy thật (3.155) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

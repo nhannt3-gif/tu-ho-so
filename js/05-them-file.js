@@ -592,7 +592,7 @@ function xemThu(loai, id, i){
   if(cp && cp.offsetParent && !anPV){
     mucDangXem = m; cp.classList.remove('pv-trong');
     document.getElementById('cp-ten').textContent = ten;
-    document.getElementById('cp-phu').innerHTML = coChuHTML(duong + (m.co ? ' · '+kichCo(m.co) : ''));
+    document.getElementById('cp-phu').innerHTML = '<span class="cp-dong">'+coChuHTML(duong + (m.co ? ' · '+kichCo(m.co) : ''))+'</span>'; document.getElementById('cp-phu').title = ten;
     trangChon = {}; veNutCN(m);
     veNoiDung(m, 'phai');
   } else {
@@ -650,6 +650,7 @@ function veVaoKhung(m, n){
   var o = document.getElementById(S.id);
   if(!o) return;
   S.m = m; S.pdf = null; S.trang = 1; S.tong = 1; S.tyLe = 1; S.khung = null; S.chuTrang = null;
+  if((n==='phai' || n==='lon') && D.cauHinh.xemChe!==undefined) S.che = D.cauHinh.xemChe;   /* 3.157: chế độ xem lần trước */
   o.innerHTML = '<div class="rong">Đang mở…</div>';
   veDieuKhien(n);
   /* 3.62 (việc U): bản scan CCCD (thẻ) → hiện thẳng 2 mặt thẻ vừa khung, to hơn nhiều so với cả trang A4 */
@@ -783,13 +784,14 @@ function veTrang(n){
   if(!S.pdf || !o) return;
   o.innerHTML = '';
   S.khung = []; S.chuoi = null;
+  o.classList.toggle('vua-trang', S.che==='trang');
   var tyLeCS = tinhTyLe(S, o);
   for(var i=1;i<=S.tong;i++){
     var box = document.createElement('div');
     box.className = 'o-trang';
     box.dataset.trang = i;
     if(trangChon[i]) box.classList.add('chon');
-    box.style.minHeight = Math.round((o.clientWidth||520) * 1.414 * tyLeCS) + 'px';
+    box.style.minHeight = S.che==='trang' ? (o.clientHeight - 16)+'px' : Math.round((o.clientWidth||520) * 1.414 * tyLeCS) + 'px';   /* 3.157: ⊡ Vừa trang — mỗi trang chiếm đúng 1 khung */
     if(S.tong>1){   /* 3.62: 1 trang thì không cần ô tích chọn trang / nhãn "Trang 1/1" */
       var tk = document.createElement('div');
       tk.className = 'tick'; tk.textContent = '✓';
@@ -834,7 +836,7 @@ function veTamNhin(n){
       var vp0 = pg.getViewport({scale:1});
       var ty = (rong/vp0.width) * S.tyLe;
       if(S.che==='trang'){
-        var cao = o.clientHeight - 24;
+        var cao = o.clientHeight - 28;
         ty = Math.min(rong/vp0.width, cao/vp0.height) * S.tyLe;
       }
       var vp = pg.getViewport({scale:ty});
@@ -845,7 +847,7 @@ function veTamNhin(n){
       c.height = Math.round(vp.height * dpr);
       c.style.width = Math.round(vp.width) + 'px';
       c.style.height = Math.round(vp.height) + 'px';
-      box.style.minHeight = '';
+      if(S.che!=='trang') box.style.minHeight = '';
       box.insertBefore(c, box.firstChild);
       var ctx = c.getContext('2d');
       ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
@@ -1007,6 +1009,7 @@ function zoomKhung(n, h){
 function datChe2(n, c){
   var S = XEM[n];
   S.che = (S.che===c) ? '' : c;
+  if(n==='phai' || n==='lon'){ D.cauHinh.xemChe = S.che; luu(); }   /* 3.157: nhớ ↔ / ⊡ cho lần mở sau */
   S.tyLe = 1;
   if(S.pdf){ var t = S.trang; veTrang(n); setTimeout(function(){ cuonToiTrang(n, t); }, 60); }
 }

@@ -4,6 +4,38 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.159 — 11/10/2026 — Chân thanh bên + chế độ tối
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2):** chân thanh bên còn chỗ trống mà chữ bị cắt, Drive báo 2 lần; muốn có chế độ tối.
+- **Chân thanh bên:** `.tt-chu` xuống dòng (`-webkit-line-clamp:3`), chip `#so-lieu .chip` `white-space:normal`; `ttNghi` bỏ phần Drive khi có `#chip-drive`, phần còn lại "⚡ Số liệu sẵn dùng …" hoặc "Sẵn sàng".
+- **Chế độ tối:** nút `.tb-gd` ở `.tb-chan` (◐ Theo máy / ☀ Sáng / ☾ Tối) → `dhDoiGD` xoay `D.cauHinh.giaoDien` auto → light → dark, dùng `apGiaoDien` sẵn có (cùng ô Giao diện trong Cài đặt). Rà màu cứng trong `css/app.css` (trừ khối `@media print`): nền `#fdecea / #fff6dc / #FFF6DA / #e6f4ea / #eef3f9` → `var(--do-nen / --vang-nen / --luc-nen / --xanh-nhat)`, chữ `#c0392b / #b23b2e / #b3261e / #2c7a46 / #8a5a00` → `var(--do / --luc / --vang)` (47 chỗ; giao diện sáng gần như không đổi). CSS bản in (`TDN_IN_CSS`, khuôn Word / PDF) không đổi.
+- **Phép thử:** `tests/t155.js` (mới, 10) — gồm rà tương phản chữ / nền ở 7 tab khi nền tối.
+
+## 3.158 — 11/10/2026 — Khai báo Hội vừa 1 trang + Chuẩn hóa
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2, phương án a):** bảng Khai báo Hội dài quá 1 trang; Tên Hội cấp xã hợp với Chuẩn hóa; Số / Ngày KH Hội tỉnh khai 1 lần mỗi Hội.
+- **Bảng khai báo** (`ktHdtBang`): `KT_HKB_COT` = CT · PCT · BTV 1–3 · Nhiệm kỳ · Số HĐUT · Ngày HĐ; dòng nhóm `tr.hkb-nhom` "Xã · n Hội · m tổ" thay cột Xã; nút 📋 `.hkb-pc` trong ô Hội (bỏ cột ⋯); bảng `width:100%`, ô nhập co theo bề ngang. Bỏ `ktHoiKBChep` / `ktHoiKBChep1` và nút ⇩ Chép.
+- **Chuẩn hóa:** `KT_CHUAN_O` thêm `kh`, `khNgay` (chữ mờ `KT_CHUAN_PH`); mục **Riêng từng xã** (`ktChuanRiengHTML`, bảng `.kt-rieng`, ô `hkr-…`): Tên Hội cấp xã (`kb.ten`, giữ chỗ lưu cũ) · Số KH · Ngày KH riêng xã (trống = chung của Hội).
+- **Đọc:** `ktHoiKB(k)` trả thêm `kh` / `khNgay` chung của Hội khi xã không khai riêng (in Kế hoạch, dòng nhắc, Phân công dùng sẵn); `ktHoiKBGoc(k)` = đúng chữ đã khai riêng.
+- **Chuyển cũ 1 lần** (`ktHdtKH`, cờ `D.cauHinh.ktKHChuan`): mỗi Hội lấy cặp số / ngày nhiều xã khai nhất → Chuẩn hóa (nếu Chuẩn hóa chưa có); xã khai trùng → bỏ ô riêng; xã khác → giữ làm ngoại lệ.
+- **Phép thử:** `tests/t154.js` (mới, 17). t108, t111, t118, t150 theo bảng mới.
+
+## 3.157 — 11/10/2026 — Khung xem bên phải + 2 kiểu lọc (số liệu, file)
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2):** khung xem dư dòng đầu / cuối, đầu khung 4 dòng tên file; lọc rối (Nguồn vốn lẫn giữa, chip chỉ 1 cấp); kiểu xem tab file là ô thả xuống.
+- **Khung xem** (`xemBenPhai`, `05-them-file.js`): `cp-phu` bọc dòng chính `.cp-dong`, `title` = tên file; ẩn `#cp-ten` + phần phụ ở khung phải; khung `top:60px; height:calc(100vh - 72px)`. ⊡ Vừa trang (`S.che==='trang'`): `.than-p.vua-trang` (scroll-snap từng trang, canvas `width:auto`, cao = khung − 28), nhớ ở `D.cauHinh.xemChe` (`datChe2` ghi, `veVaoKhung` áp).
+- **Lọc số liệu** (`pvVeCay`): hàng chip `hang(nhãn, …)` có `.pv-nhan` — chưa chọn xã: Xã (PGD + các xã); chọn xã: Điểm GD (Cả xã + điểm); có điểm: Tổ (≤ 12 chip); hàng Hội luôn có (đa chiều mặc định mọi tab: `d.daChieu!==false`). 🔎 `.pv-tim` cuối hàng 1 (`<p>-tim` / `<p>-gy`; Tổ → `toTim`, KTGS → `ktTim`, còn lại `pvTim(p)` + `pvChonTo`); bỏ ô tìm riêng ở `toVe` / `ktVe`. KTGS Kế hoạch bỏ chip `kt-kh-hoi`.
+- **Tổng hợp** (`veTongHop`): chip `.th-nguon` (Tất cả / Trung ương / Địa phương) trên `#th-cay`, `.th-ct` dưới cây; danh sách báo cáo `.th-bc-gon` 1 dòng, chưa nạp → ⚠ (title nêu file thiếu).
+- **Lọc file** (`veDauTab`): máy tính → chip kiểu xem `tlKieuXemHTML` (`.tl-kx`), ⚲ Lọc bật `TL_LOC_MO[tab]` → `.tl-panel` (`boLocHTML`) ngay dưới thanh + nút Bỏ hết lọc / Sửa tag / ▴ Đóng; dòng `.tl-dang` "Đang lọc:"; điện thoại giữ ô thả xuống + hộp lọc.
+- **Sửa 3.156:** tự kiểm ngầm chỉ vẽ lại khi đang ở tab Nạp & KT, không đổi tháng KTGS, không bật thông báo (trước làm mất thẻ khách đang xem ở Tra cứu).
+- **Phép thử:** `tests/t153.js` (mới, 18). t145, t147 theo cây / thanh lọc mới.
+
+## 3.156 — 11/10/2026 — Tab Nạp & KT gọn 2: ma trận gọn, tự kiểm tra, 1 nút nạp
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2):** ma trận chiếm cả màn, 2 chỗ chuyển tháng, 2 nút nạp (Nạp file + Nạp nhiều file KTGS), phải bấm Kiểm tra.
+- **Nhóm Ⓚ KTGS** (`SL_NHOM` thêm `K`, gập sẵn): BC0437 / BC0438 trong ma trận chính; bỏ khối `ktNapHTML` (không gọi), nạp chung `slNapBo`. Kết quả kiểm tra KTGS (`ktKTHTML`) nằm trong `details#sl-kq`.
+- **Ma trận** (`.sl-luoi`): kẻ ô, ô cao 28 px, cột tháng chọn `.sl-cot` sáng (tiêu đề + ô); `slDsKy` theo `slMtKieu()` (`D.cauHinh.slMt`): `gon` = tháng chọn + tháng trước (+ Theo ngày), `tq` = 12 tháng trọn ngang (ô hẹp, ẩn mũi tên), `thu` = 1 dòng `slMtThuHTML`. Tên báo cáo > 22 ký tự: chữ nhỏ, xuống dòng (`.dai`). Bỏ `SL_LECH` / ‹ › góc ma trận.
+- **Hàng công cụ** `slNapThanhHTML`: ‹ T7 · T8/2026 ▾ · T9 › · 📥 Nạp file · 🔍 Kiểm tra lại · 📋 File cần xuất · [▾ Thu gọn | 2 tháng | ⇔ Tổng quan] · ☁ · ⋯ · ❓. Dòng trạng thái bỏ nút kiểm tra.
+- **Tự kiểm ngầm:** `slBoXoa` (mọi lần dữ liệu tháng đổi) → `slHenKiem` (hẹn 1,5 giây) → `slTuKiem`: tháng có file chính chưa kiểm / đã đổi → `slKiemTra(ky, im)`; BC0437/0438 chưa kiểm / đã đổi → `ktKiemTra(ky, im)`. Chế độ ngầm: không khung chờ, không xóa phần dựng sẵn, lỗi chỉ báo ở ô trạng thái. `window.SL_KHONG_TU_KIEM` để tắt khi cần.
+- **Dấu trên ô** `slKTO` / `slDauO`: mục kiểm tra gắn file theo tên (`SL_KT_KHOP`; bỏ nhóm 1 đủ file, 2 toàn vẹn, mục lưu ý / bỏ qua); có chênh → ⚠ cam, còn lại khớp → ✓ xanh; KTGS theo `SLM.ktg`. Chưa kiểm / dữ liệu đổi → không dấu.
+- **Phép thử:** `tests/t152.js` (mới, 18). t146, t106, t140, t102 theo ma trận mới.
+
 ## 3.155 — 11/10/2026 — Luồng Scan: Lưu máy / Gửi / Copy / Lưu tủ, lưu theo mã KH + tên + ấp
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md ý 7, 11):** chưa có nút lưu rõ ràng, app tự lưu tạm lên tủ; học Scanner Lens: xong → chọn Lưu máy / Gửi / Copy / Lưu tủ; PDF lưu như bản in (4 CCCD / A4); lưu file scan chỉ cần mã KH + tên + ấp (khách có thể chuyển tổ). Phần tối ưu chụp / quét để phiên riêng.
 - **`tiepHang`** (bước ③) không gọi `luuSauHang` nữa → `scanXongHop(bl)` (`.sx-luoi`): `scanLuuMay` (máy tính tải về, điện thoại bảng chia sẻ), `scanGui` (`chiaSePDF`), `scanCopyAnh` (`scanAnhGhep`: ghép ảnh đã xử lý — thẻ 2 cột mặt trước | sau — thành PNG, ClipboardItem), `scanLuuTuHop` / `scanTimKH` (`slTimKH` danh bạ) / `scanChonKH` / `scanLuuTu` (thẻ nhiều người: mỗi người 1 khách). ✓ Xong (`scanXongBo`): đã làm gì đó thì bỏ phiên, chưa thì hỏi.

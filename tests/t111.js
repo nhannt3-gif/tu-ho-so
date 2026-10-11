@@ -89,7 +89,7 @@ const fs=require('fs'), path=require('path');
    ok('chọn "Để trống" → III giữ dòng chấm, ô kết quả trống', !g16b.nx.kq1 && /1\. Ưu điểm: \.{20,}/.test(c16b));
    ok('khai báo Mẫu 16 có chọn gợi ý nhận xét (3.114: trong hộp chọn khi in, mặc định gợi ý)', ktInLay('m16').nx==='so' && /Gợi ý theo số liệu/.test(KT_NX_CHON));
    /* 7. Bảng chuẩn hóa + Kế hoạch ② cho Đoàn ở phường */
-   const cheCu = ktCH().che; ktChuanHop(); await w(100); ok('📖 Bảng chuẩn hóa (3.113: tab nhỏ trong Khai báo Hội đoàn thể): 4 Hội × 12 mục sửa được', ktCH().hdtTab==='chuan' && document.querySelectorAll('#kt-the .kt-chuan tbody input').length===48); ktCH().hdtTab='hoi'; ktCH().che = cheCu; ktVeThe(); await w(100);
+   const cheCu = ktCH().che; ktChuanHop(); await w(100); ok('📖 Bảng chuẩn hóa (3.113: tab nhỏ trong Khai báo Hội đoàn thể): 4 Hội × 14 mục sửa được (3.158 thêm số / ngày KH Hội tỉnh)', ktCH().hdtTab==='chuan' && document.querySelectorAll('#kt-the .kt-chuan tbody input').length===56); ktCH().hdtTab='hoi'; ktCH().che = cheCu; ktVeThe(); await w(100);
    const tD = Object.assign({}, best, {dv:'14', tenXa:'Phường Gia Lộc', tenThon:'Ấp Lộc Khê'}); const kD = ktHoiKhoa(tD);
    const cD = ktChuan(tD); ok('Đoàn: Bí thư, Tỉnh Đoàn, Đoàn cấp trên, Ban Thường vụ, phường → khu phố', cD.ky==='Bí thư' && cD.tinh==='TỈNH ĐOÀN TÂY NINH' && cD.cap==='Đoàn cấp trên' && cD.ld==='Ban Thường vụ' && cD.xa==='phường' && cD.ap==='khu phố');
    ktChuanSua('12', 'ten', 'Hội LHPN thử'); ok('sửa bảng → tên đơn vị đổi theo', ktHoiTenTD({dv:'12', tenXa:'Xã A'})==='Hội LHPN thử xã A'); ktChuanSua('12', 'ten', '');
@@ -116,11 +116,11 @@ const fs=require('fs'), path=require('path');
    ok('sắp xếp văn bản có kiểu "Vừa thêm" (mới đưa vào tủ lên đầu)', COT_SAP.some(c=>c.ma==='them') && (()=>{ const o = SAP.cot; SAP.cot = 'them'; SAP.xuoi = false; const r = sapXep([{themLuc:'2026-01-01'}, {themLuc:'2026-10-04'}], 'vanBan'); SAP.cot = o; return r[0].themLuc==='2026-10-04'; })());
    /* 7b. ⚙ Khai báo Hội dạng bảng + chép kế hoạch Hội tỉnh cho các xã cùng Hội */
    C.xa = ''; ktHoiKBHop(); await w(150); const hds = ktHoiDs();
-   ok('3.154 Khai báo Hội: 1 bảng, mỗi Hội – xã 1 dòng, đủ ô', document.querySelectorAll('#kt-the .hkb-xls tbody tr').length===hds.length && document.querySelectorAll('#kt-the .hkb-xls input.hkb-o').length===hds.length*KT_HKB_O.length); ktCH().che = 'dx';
+   ok('3.154 Khai báo Hội: 1 bảng, mỗi Hội – xã 1 dòng, đủ ô (3.158: tên Hội + KH tỉnh sang Chuẩn hóa)', document.querySelectorAll('#kt-the .hkb-xls tbody tr[data-k]').length===hds.length && document.querySelectorAll('#kt-the .hkb-xls input.hkb-o').length===hds.length*KT_HKB_COT.length); ktCH().che = 'dx';
    const dvc = hds.map(x=>String(x.t.dv)).find(dv=>hds.filter(x=>String(x.t.dv)===dv).length>=2), cung = hds.filter(x=>String(x.t.dv)===dvc);
-   cung.forEach(x=>{ ktHoiKBSua(x.k, 'kh', ''); }); ktHoiKBSua(cung[0].k, 'kh', '15/KH-THỬ'); ktHoiKBChep('kh'); await w(150);
-   ok('⇩ cùng Hội: chép số KH Hội tỉnh cho mọi xã cùng Hội, Hội khác không đổi', cung.every(x=>ktHoiKB(x.k).kh==='15/KH-THỬ') && hds.filter(x=>String(x.t.dv)!==dvc).every(x=>ktHoiKB(x.k).kh!=='15/KH-THỬ'), cung.length+' xã');
-   cung.forEach(x=>ktHoiKBSua(x.k, 'kh', '')); dongHop();
+   cung.forEach(x=>{ ktHoiKBSua(x.k, 'kh', ''); }); ktChuanSua(dvc, 'kh', '15/KH-THỬ'); await w(50);
+   ok('3.158 KH Hội tỉnh khai 1 lần ở Chuẩn hóa → mọi xã cùng Hội dùng, Hội khác không đổi', cung.every(x=>ktHoiKB(x.k).kh==='15/KH-THỬ') && hds.filter(x=>String(x.t.dv)!==dvc).every(x=>ktHoiKB(x.k).kh!=='15/KH-THỬ'), cung.length+' xã');
+   ktChuanSua(dvc, 'kh', ''); dongHop();
    /* 8. điểm GD suy */
    const K = KT_K, T = K.to, coD = Object.values(T).filter(t=>!t.trucTiep && t.diem && t.thon);
    const mau = coD.find(t=>coD.some(x=>x!==t && x.xa===t.xa && String(x.thon)===String(t.thon)));
@@ -216,7 +216,7 @@ const fs=require('fs'), path=require('path');
    /* 3.106: bảng khai báo Hội – xã — dòng "In ra", bỏ ô Đoàn; Mẫu 04 nhận xét từng tổ; dọn dữ liệu rác; chép file */
    C.xa = best.xa; ktHoiKBHop(); await w(150);
    ok('3.106 / 3.154 bảng khai báo: không còn cột Đoàn kiểm tra, không còn dòng "In ra" (anh chốt: không diễn giải)', !document.querySelector('#kt-the .kt-hkb-doan') && !document.querySelector('#kt-the .hkb-in'));
-   const kB = ktHoiKhoa(best), idB = kB.replace(/[^0-9a-z]/gi, '_'), oKH = document.getElementById('hkb-'+idB+'-khNgay');
+   const kB = ktHoiKhoa(best), idB = kB.replace(/[^0-9a-z]/gi, '_'), oKH = document.getElementById('hkb-'+idB+'-hdNgay');
    if(oKH){ oKH.value = '2026-03-05'; oKH.dispatchEvent(new Event('change')); }
    ok('3.154 ngày sai dạng → ô tô đỏ', oKH && oKH.classList.contains('sai'));
    if(oKH){ oKH.value = ''; oKH.dispatchEvent(new Event('change')); } ktCH().che = 'dx';

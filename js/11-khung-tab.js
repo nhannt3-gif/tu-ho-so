@@ -164,16 +164,27 @@ function veDauTab(tab, opt){
       '<span class="cong">+</span> '+coChuHTML(opt.nhanThem||'Thêm file')+'</button>'+nutBot(tab)+
     '<button class="phu tl-loc'+(so?' co':'')+'" onclick="moBoLoc(\''+tab+'\')" title="Lọc theo năm, mảng, chương trình vay, tag…">⚲ Lọc'+(so?' ('+so+')':'')+' ▾</button>'+
     '<button class="phu tl-sap" onclick="moSapTab(event,\''+tab+'\')" title="'+(tab==='scan'?'Nhóm theo ngày / tuần / tháng':'Sắp xếp')+'">⇅ '+coChuHTML(nhanSapTab(tab))+(tab==='scan' ? ' ▾' : '')+'</button>'+
-    '<button class="phu tl-xem" onclick="moXemTab(event,\''+tab+'\')" title="Kiểu xem">'+coChuHTML(nhanKX)+' ▾</button>'+
-    '<span class="tl-chips">'+chipDangLoc(tab)+'</span>'+
+    (laDT() ? '<button class="phu tl-xem" onclick="moXemTab(event,\''+tab+'\')" title="Kiểu xem">'+coChuHTML(nhanKX)+' ▾</button>' : tlKieuXemHTML(tab, opt, dsKX, kx))+
     '<span class="dau-phai">'+chipChoKhai(tab)+'<span class="dem-tab" data-tab="'+tab+'"></span>'+
       '<button class="phu tl-them" onclick="moThemTab(event,\''+tab+'\')" title="Việc khác của tab này">⋯</button>'+
       '<button class="phu nut-hd" onclick="moHuongDan(\''+tab+'\')" title="Hướng dẫn tab này">❓</button></span>'+
-  '</div>'+ thanhBot(tab);
+  '</div>';
   window.__khoTab = opt.kho || [];
+  /* 3.157 (anh chốt — kiểu lọc FILE): ⚲ Lọc mở ngay dưới thanh (máy tính), dòng "Đang lọc" riêng khi có lọc */
+  if(TL_LOC_MO[tab] && !laDT()) h += '<div class="tl-panel">'+boLocHTML(tab)+'<div class="hang-nut tl-panel-nut"><button class="nho" onclick="boLoc(\''+tab+'\')">Bỏ hết lọc</button><button class="nho" onclick="suaTagTab(\''+tab+'\')">Sửa tag</button><button class="nho" onclick="moBoLoc(\''+tab+'\')">▴ Đóng</button></div></div>';
+  if(so) h += '<div class="tl-dang"><span class="tl-dang-nhan">Đang lọc:</span>'+chipDangLoc(tab)+(so<2 ? '<span class="tl-chip bo" onclick="boLoc(\''+tab+'\')">Bỏ lọc</span>' : '')+'</div>';
+  return h + thanhBot(tab);
+}
+var TL_OPT = {}, TL_LOC_MO = {};
+/* 3.157: kiểu xem thành chip liền nhau (máy tính) — khung xem bên phải đang mở thì chỉ biểu tượng, rê chuột thấy chữ */
+function tlKieuXemHTML(tab, o, ds, kx){
+  var ham = o.hamXem ? function(k){ return o.hamXem+'(\''+k+'\')'; } : function(k){ return 'datKX(\''+tab+'\',\''+k+'\')'; };
+  var h = '<span class="tl-kx">'+ds.map(function(x){ var bt = x[1].split(' '), ico = /^[^\wÀ-ỹ]/.test(x[1]) ? bt[0] : '', chu = ico ? bt.slice(1).join(' ') : x[1];
+    return '<button class="'+(kx===x[0] ? 'bat' : '')+'" onclick="'+ham(x[0])+'" title="'+coChuHTML(chu)+'">'+(ico ? ico+' ' : '')+'<span class="tl-chu">'+coChuHTML(chu)+'</span></button>'; }).join('')+'</span>';
+  if(tab==='vanBan' && kx==='thang') h += '<button class="phu tl-bung" onclick="bungNhom(true)" title="Bung hết nhóm">⊞</button><button class="phu tl-bung" onclick="bungNhom(false)" title="Thu gọn hết nhóm">⊟</button>';
+  if(tab!=='scan') h += '<button class="phu tl-pv'+(anPVCua(tenTabPV()) ? '' : ' bat')+'" onclick="batTatPV()" title="'+(anPVCua(tenTabPV()) ? 'Bật' : 'Tắt')+' khung xem bên phải">▣</button>';
   return h;
 }
-var TL_OPT = {};
 /* menu nhỏ thả xuống ngay dưới nút (dùng chung khung .menu của ⋯ từng dòng) */
 function moMenuTL(ev, html){
   ev.stopPropagation();
@@ -221,6 +232,14 @@ function moThemTab(ev, tab){
 
 /* panel bộ lọc — 3.151: nhóm theo từng tab (cùng nhóm hàng lọc nhanh cũ, kèm số mục), mở từ nút ⚲ Lọc của thanh chung */
 function moBoLoc(tab){
+  if(!laDT()){ TL_LOC_MO[tab] = !TL_LOC_MO[tab]; if(tab==='scan') veScan(); else ve(); return; }   /* 3.157: máy tính — tấm lọc ngay dưới thanh */
+  moHop('<div class="hop-tit">⚲ Lọc</div>'+boLocHTML(tab)+'<div class="hang-nut" style="margin-top:14px">'+
+    '<button class="nho" onclick="boLoc(\''+tab+'\');dongHop()">Bỏ hết lọc</button>'+
+    '<button class="nho" onclick="suaTagTab(\''+tab+'\')">Sửa tag</button>'+
+    '<button class="nho chinh" onclick="dongHop()">Xong</button></div>', true);
+}
+function tlLocLai(tab){ if(laDT()) moBoLoc(tab); }
+function boLocHTML(tab){
   var L = locCua(tab), kn = khoaNgay(tab), kho = window.__khoTab || [];
   var dem = function(khoa, x){ var cu = L[khoa]; L[khoa] = x; var n = locTheoThe(tab, locChuan(tab, kho)).length; L[khoa] = cu; return n; };
   var the = function(khoa, x, nhan, so, ham){
@@ -228,7 +247,7 @@ function moBoLoc(tab){
       String(x).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')+'\')">'+coChuHTML(nhan)+(so!=null?' <small>'+so+'</small>':'')+'</span>';
   };
   var nhom = function(nhan, chips){ return chips ? '<div class="lg"><div class="lg-nhan">'+nhan+'</div><div class="lg-the">'+chips+'</div></div>' : ''; };
-  var h = '<div class="hop-tit">⚲ Lọc</div>';
+  var h = '';
   nhomLocNhanh(tab, kho).forEach(function(g){
     h += nhom(g[0], g[2].map(function(x){ return the(g[1], x, x===LOC_TRONG ? (NHAN_TRONG[g[1]]||'Chưa có') : (g[1]==='ct' ? hienCT(x) : x), dem(g[1], x)); }).join(''));
     if(g[1]==='nam' && L.nam && L.nam!==LOC_TRONG){
@@ -245,14 +264,10 @@ function moBoLoc(tab){
   if(tab==='vanBan' || tab==='bieuMau'){ var soSao = kho.filter(laSao).length; if(soSao || L.sao) khac += the('sao', '1', '★ Quan trọng', soSao); }
   if(tab==='scan'){
     var soCD = kho.filter(function(k){ return !ttScan(k).dat; }).length;
-    khac += '<span class="the-loc'+(HS.chuaDat?' bat':'')+'" onclick="HS.chuaDat=!HS.chuaDat;veScan();moBoLoc(\'scan\')">⚠ Chưa đạt <small>'+soCD+'</small></span>';
+    khac += '<span class="the-loc'+(HS.chuaDat?' bat':'')+'" onclick="HS.chuaDat=!HS.chuaDat;veScan();tlLocLai(\'scan\')">⚠ Chưa đạt <small>'+soCD+'</small></span>';
   }
   h += nhom(tab==='scan' ? 'Trạng thái' : 'Khác', khac);
-  h += '<div class="hang-nut" style="margin-top:14px">'+
-    '<button class="nho" onclick="boLoc(\''+tab+'\');dongHop()">Bỏ hết lọc</button>'+
-    '<button class="nho" onclick="suaTagTab(\''+tab+'\')">Sửa tag</button>'+
-    '<button class="nho chinh" onclick="dongHop()">Xong</button></div>';
-  moHop(h, true);
+  return h;
 }
 /* Phạm vi 3 cấp (PGD / xã-phường / điểm GD) — chỉ dùng cho tab Dữ liệu tháng */
 function dsPhamVi(){
@@ -272,8 +287,8 @@ function datLocGiu(tab, khoa, gt){
   var L = locCua(tab);
   L[khoa] = (L[khoa]===gt) ? '' : gt;
   if(khoa==='nam') L.thang = '';
-  ve();
-  moBoLoc(tab);
+  if(tab==='scan') veScan(); else ve();
+  tlLocLai(tab);   /* 3.157: máy tính — tấm lọc vẫn mở (vẽ lại cùng thanh) */
 }
 
 function hangLoc(nhan, ds, dangChon, hamMo, nhanTatCa, doiNhan){
