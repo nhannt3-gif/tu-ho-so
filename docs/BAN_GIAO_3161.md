@@ -1,6 +1,6 @@
 # Bàn giao sau bản 3.161 — cho tài khoản / phiên Claude làm tiếp
 
-> Viết ngày 11/10/2026, khi `main` = **3.161** (cập nhật: **3.162** tinh chỉnh lọc — mục 3). Đọc file này **sau** `CLAUDE.md` và `docs/BAT_DAU.md`.
+> Viết ngày 11/10/2026, khi `main` = **3.161**; cập nhật cuối phiên: `main` = **3.162**. **Việc kế tiếp: mục 2.0 (bản 3.163).** Đọc file này **sau** `CLAUDE.md` và `docs/BAT_DAU.md`.
 > Mục 2 là các việc **anh Nhân đã duyệt hướng** nhưng **chưa nhắn "code"**: muốn làm việc nào thì trình lại ngắn kế hoạch của việc đó, chờ anh nhắn "code".
 
 ---
@@ -15,6 +15,21 @@
 - Repo **công khai**: không đưa dữ liệu thật (tên khách, CCCD, tổ trưởng, ảnh / file anh gửi) vào repo, kể cả trong phép thử hay tài liệu. Ảnh chụp màn hình anh gửi có dữ liệu thật → chỉ xem, không lưu vào repo.
 - Không ghi tên / mã model vào commit, PR, mã nguồn.
 - Anh hay gửi **ảnh chụp màn hình** kèm 1 câu ngắn (có khi gõ tắt / sai dấu: "stck" = tick, "bắt cầu" = cầu nối, "tổng qaun" = Tổng hợp…). Đọc kỹ ảnh, nói lại em hiểu thế nào trước khi đề xuất.
+
+## 2.0 ⭐ VIỆC KẾ TIẾP: bản 3.163 (anh đã chốt nội dung, CHỜ ANH NHẮN "code")
+Anh hỏi "còn bao nhiêu việc đã chốt chưa làm" — em liệt kê 19 việc (mục 2.1–2.7 bên dưới + các ý mới này). Anh đồng ý làm theo thứ tự: **3.163** Nạp & KT + bảng tab Tổ + chip báo → **3.164** Tổng hợp + cách viết số → **3.165** Kết quả kiểm tra theo ma trận → **3.166** Chép / gửi file.
+
+**3.163 gồm 6 phần (đã chốt từng ý, trừ phần 6):**
+1. **Tab Nạp & KT** (chi tiết mục 2.3): dải lịch tháng ●◐○ · ⦿ Gần nhất mặc định (đang mở vào T10 trống trong khi số liệu mới nhất 07/10 / chốt T9) · mỗi ngày có dữ liệu 1 cột, mới nhất bên phải · cột chốt `30/09/2026 · T9 · chốt` · ⇔ Tổng quan chỉ cột chốt mọi tháng, canh phải, bấm lại để về · **▾ Thu gọn ↔ ▴ Bung ra 1 nút, bỏ nút "2 tháng"** (anh nhắc: đã chốt mà chưa làm) · mũi tên ▲▼ ghi "so với dd/mm/yyyy" · **bỏ dòng cảnh báo vàng "T10/2026 chưa Đạt — thiếu n file…"** (anh: tab Nạp không cần; trạng thái thể hiện bằng dấu trên dải lịch + rê chuột) · tên báo cáo dài bị cắt ("Nợ đến hạn phân kỳ (NOXH") → 2 dòng / chữ nhỏ.
+2. **Lỗi màu nền tối ở ma trận Nạp & KT:** chip ngày ("07/10") nền trắng chữ sáng không đọc được; nút ⊕ ở cột Theo ngày tròn trắng chói.
+3. **Bảng tab Tổ (bảng các tổ + danh sách khách):**
+   - cột **vừa nội dung, chữ canh trái, tiền canh phải**; không cột nào giãn thừa (hiện cột Tổ trưởng / Họ tên giãn quá rộng, cột số bị ép tiêu đề 3–4 dòng; danh sách khách cột Lưu ý bị cắt — tràn ngang);
+   - **còn dư bề ngang → tự thêm cột thông tin vào cuối cho trọn màn hình**, không bao giờ tràn ngang. Bảng các tổ ưu tiên: Số món vay → Tỷ lệ QH % → Dư nợ BQ / hộ → Điểm GD → Nợ lãi → Món đến hạn tháng sau → Số khách CCCD hết / sắp hết hạn → Số khách chưa có TK 105. Danh sách khách ưu tiên: Ngày vay gần nhất → Ngày đến hạn → Hạn CCCD (ngày) → Ấp → Ngày sinh → Số món → Lãi tồn → QH / khoanh (tiền);
+   - **⚙ Cột: mỗi cột 3 lựa chọn Tự động / Luôn hiện / Ẩn** (nhớ);
+   - **in vừa A4**: In = bộ cột chính cố định (bảng tổ A4 dọc 10 cột như 3.161; danh sách khách A4 ngang ~12 cột: STT · Mã KH · Họ tên · CT vay · Dư nợ · Nợ lãi · Số dư 105 · Số TK 105 · SĐT · CCCD · Lưu ý · Ghi chú); In đầy đủ = cột đang hiện, tự co chữ vừa A4 ngang; Excel đủ cột.
+4. **Chip báo trạng thái số liệu** (các tab xem số liệu Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu — KHÔNG ở tab Nạp): bỏ các hàng vàng riêng, thành chip nhỏ cuối hàng Xã (trước 📍): `⚠ Dùng T9/2026` (rê chuột đủ câu, bấm → Nạp & KT đúng tháng) · `BC0437 ✓` `BC0438 ✓` (KTGS; ⚠ cam khi thiếu / lệch kỳ); ghi chú 📌 giải ngân KTGS ("T10 chưa có Mẫu 31 cuối tháng — lấy món GN đến 07/10…") thành chip cạnh ô chọn tháng. Ô kỳ đầu trang thêm ⚠ khi tháng chọn chưa có số liệu.
+5. **Chip tổ (hàng Tổ của bộ lọc) kèm tên ấp chữ nhỏ, màu nhạt**: ấp tên chữ bỏ "Ấp" / "KP" ("Thuận An", "Lộc Khê"); **ấp / KP tên là số giữ chữ** ("ấp 1", "KP 2" — anh: ấp 1–5 không có chữ khó hiểu); rê chuột: "Tổ … · Ấp … · mã … · n tổ viên"; ô "Chọn tổ ▾" ghi giống.
+6. **Cách viết tiền trong bảng — CHỜ ANH CHỐT:** em phân tích biểu chuẩn (mục 2.2): BCDHTD 01.1 / 01.2, B32, Mẫu 06 / 16 đều **triệu đồng 2 số lẻ**; LEN_31 đồng. Đề xuất: **bảng + bản in = triệu đồng 2 số lẻ CỐ ĐỊNH kể cả số chẵn (`3.679,00`) cho thẳng cột** như biểu TW; số 0 để trống; câu chữ ngoài bảng viết gọn (5,40 tỷ, 819 tr); Excel số thật định dạng `#,##0.00`. (Đổi so với quy tắc "chẵn bỏ ,00" đã làm ở `soTr` 3.161 — nếu anh chốt thì sửa `soTr` cho bảng.) Em có nhờ anh xem 1 trang 01.1 in gốc xem số chẵn có ghi ,00 không.
 
 ## 2. Việc đã duyệt hướng — chưa làm (thứ tự đề xuất)
 
