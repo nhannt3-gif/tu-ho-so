@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.171 — 11/10/2026 — Bộ hồ sơ vay · mẫu bám sát PDF
+- **Anh (11/10):** "em code đi về mẫu bám sát các mẫu PDF ko dc làm sai lệch" — quyết định ghi ở `docs/KE_HOACH_HO_SO_TO.md` (mục 1–9).
+- Bộ hồ sơ vay `D.cauHinh.hsoBo` (đồng bộ cùng cài đặt): chương trình HSSV (mục đích cố định, 40 triệu / năm học) / NSVSMT (xây mới / sửa chữa, 1–2 công trình, tối đa 25 triệu / công trình — cảnh báo, 60 tháng, kỳ hạn 12 tháng); ngày đến hạn / hạn trả cuối để trống; hộ mới: CCCD tự suy giới tính, năm sinh, nơi cấp (từ 01/07/2024 = Bộ Công an); người thừa kế chỉ ở 01/UQ; `hsoBoTrenM31` dò CCCD trên Mẫu 31.
+- Mẫu mới / làm lại theo PDF: `hsoLap01uq`, `hsoLap01td` (HSSV có xác nhận UBND xã, NSVSMT không), `hsoLap03td`, `hsoLap04td` (chọn 1 lần cho đợt: ngày lập, giờ, phút, ngày phát; nhập số hộ, số tiền; in từng điểm GD), `hsoLap09a`, `hsoLap01tgtv` (khung ngoài chia trang được — `hsoKhungNgoai`; hàng loạt cho hộ mới).
+- Tiêu ngữ `hsoQH`: nét kẻ 0.5pt riêng (`p.ke`), dài bằng chữ. Logo `hsoKB.logo` + `logoMau` (không đưa logo vào repo).
+- Bộ in chuẩn `trDan`: đơn vị `.kt-to` có `data-tr-ngang`, `data-tr-mg`, `data-tr-so`, `data-tr-chan` (chân trang trái | phải + Trang x / N). 10C / 02/BG: `thead` lặp, `tbody.kt-ho` không tách khách.
+- Word `hsoDocx`: nhiều section (khổ ngang / dọc riêng từng mẫu), ảnh logo, chân trang, `tblHeader`, khung `ngoai` / `cham`, ô nền.
+- Phép thử `tests/t164.js` (26 mục, dữ liệu giả); `tests/t163.js` cập nhật.
+
 ## 3.170 — 11/10/2026 — Tab 📝 Hồ sơ Tổ · 📄 Hồ sơ vay
 - **Anh (11/10):** "code cả 2 tab và gộp lên" — theo `docs/KE_HOACH_HO_SO_TO.md` (căn cứ số liệu điền tự động hết mức; thiếu thì chấm ghi tay; quy tắc thời hạn / kỳ hạn / mức vay chưa đặt, bàn riêng từng mẫu).
 - File mới `js/25-ho-so.js` (tiền tố `hso`, tránh trùng `hs*` của công cụ HSSV). 2 tab con Số liệu `hst` / `hsv` (thanh tab con + thanh bên nhóm Hồ sơ); dùng chung khối LỌC ĐỊA BÀN (`PV_DUNG.hst/hsv`), kỳ chung, `toNap` / `toTV` / `toBDNap` của tab Tổ.

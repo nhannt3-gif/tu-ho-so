@@ -222,6 +222,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.171) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › Bộ hồ sơ › + Bộ mới, HSSV, chọn hộ cũ trên cây tổ | Họ tên, CCCD, ngày cấp, địa chỉ, tổ điền sẵn; mục đích cố định | |
+| 2 | Bộ mới NSVSMT, hộ mới: nhập CCCD | Giới tính, năm sinh, nơi cấp tự điền; nhập 2 công trình, 30 triệu 1 công trình → cảnh báo | |
+| 3 | 🖨 In bộ | Đủ Giấy UQ, 01/TD, 10C, 03/TD (+ 01/TGTV nếu hộ mới); 03/TD ngang, còn lại dọc | |
+| 4 | So từng mẫu với bản PDF giấy | Bố cục, chữ, đường kẻ tiêu ngữ mảnh, không gạch chân chữ | |
+| 5 | ⚙ Khai báo: tải logo, tích thêm 1 mẫu | Logo in ở 01/TD, 01/TGTV và mẫu vừa tích | |
+| 6 | 04/TD: chọn đợt 1 lần, nhập số hộ, số tiền từng điểm GD | Mỗi điểm 1 thông báo, giờ / phút / ngày phát đúng | |
+| 7 | 02/BG tổ đông, 10C nhiều người | Bảng kéo dài, tiêu đề lặp đầu trang, 02/BG có Trang x/y, khách không bị tách trang | |
+| 8 | 📝 Word bộ hồ sơ | Mở được, 03/TD trang ngang, có logo, 01/TGTV có chân trang | |
+| 9 | Đổi trạng thái bộ; hộ mới lên Mẫu 31 tháng sau | Trạng thái nhớ; app báo đã thấy CCCD trên Mẫu 31 | |
+
+**Ghi chú kỹ thuật 3.171:** bộ = `{id, ct, tt, moi, kh{ten,cccd,ncap,nc,ns,gt,dc,...}, tv[], tk, pa[]...}` trong `D.cauHinh.hsoBo`, bộ đang chọn `hsoTK.boId`; `hsoLapBo(B,t)` trả danh sách đơn vị `[{M,h}]`, `hsoTrang` bọc mỗi đơn vị 1 `.kt-to` (khổ / lề / số trang / chân trang riêng) và `hsoDocx` sinh 1 section mỗi đơn vị. Logo: `HSO_LOGO_MD` (01td, 01tgtv) + `hsoKB.logoMau`; mẫu không có logo gốc được chèn đầu trang trong `hsoLap`. **Chưa làm:** tự dời bộ đã xong vào thùng rác sau 90 ngày; Word 02/BG chưa có Trang x/y (bản in có); chú thích ¹ 01/TGTV nằm cuối thay vì trang 2; 10A / 10B / 11 / 01BG / 10C chưa có PDF để đối chiếu (mới sửa đường kẻ tiêu ngữ); lối tắt 01/TGTV ở tab Tổ (đang làm hàng loạt trong tab Hồ sơ vay).
+
 ### Danh sách thử trên máy thật (3.170) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

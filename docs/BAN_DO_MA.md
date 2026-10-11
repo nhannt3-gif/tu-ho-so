@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.170 · 11/10/2026 20:43 · 27 file · 30983 dòng · 2470 hàm cấp ngoài · 362 biến toàn cục.
+Bản 3.171 · 11/10/2026 23:12 · 27 file · 31337 dòng · 2504 hàm cấp ngoài · 365 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -15,8 +15,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/02-nen.js` | 358 | 22 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
 | `js/03-doc-pdf.js` | 631 | 47 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
 | `js/04-giao-dien.js` | 5519 | 523 | /*   6. VẼ GIAO DIỆN   */ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '', l |
-| `js/05-them-file.js` | 1367 | 75 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
-| `js/06-hop-thoai.js` | 3511 | 226 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
+| `js/05-them-file.js` | 1371 | 75 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
+| `js/06-hop-thoai.js` | 3514 | 226 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
 | `js/07-cccd.js` | 194 | 14 | /*   12. HỒ SƠ CCCD - 3.32: KHÔNG mã hóa nữa (anh Nhân chốt: Drive của anh là nơi lưu bảo mật). |
 | `js/08-dia-ban.js` | 621 | 53 | /*   danh mục địa bàn: Xã/phường → Điểm GD → Ấp/KP → Tổ   */ function dsXa(){ return (D.cauHinh.diaBan//[]).ma |
 | `js/09-bieu-mau.js` | 561 | 50 | /*   13. BIỂU MẪU — kho mẫu đơn trắng để in cho khách điền Xếp theo chương trình vay; có nhóm dùng chung và th |
@@ -35,7 +35,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/22-so-lieu.js` | 6962 | 822 | /*   3.85 — 📈 SỐ LIỆU: bộ file Excel hệ thống nạp hằng tháng - Nạp cả bộ (app tự nhận loại + kỳ) hoặc từng fil |
 | `js/23-dieu-huong.js` | 139 | 18 | /*   3.147 (đợt F, anh duyệt 10/10/2026): THANH BÊN ĐIỀU HƯỚNG — máy tính màn ≥ 1100 px   - Chỉ đổi cách đi gi |
 | `js/24-xuat.js` | 144 | 14 | /*   3.152 (anh chốt ý 2, 4 — docs/KE_HOACH_GON_GIAO_DIEN.md): XUẤT CHUNG Mọi mẫu / báo cáo: 👁 Xem → hàng nút  |
-| `js/25-ho-so.js` | 736 | 78 | /*   3.170 (anh chốt 11/10/2026 — docs/KE_HOACH_HO_SO_TO.md): 📝 HỒ SƠ TỔ · 📄 HỒ SƠ VAY Hai tab con của Số liệu |
+| `js/25-ho-so.js` | 1083 | 112 | /*   3.170 (anh chốt 11/10/2026 — docs/KE_HOACH_HO_SO_TO.md): 📝 HỒ SƠ TỔ · 📄 HỒ SƠ VAY Hai tab con của Số liệu |
 
 ## 2. Mục trong mã (chú thích tiêu đề)
 
@@ -105,11 +105,11 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/06-hop-thoai.js:1484` · CHỤP / CHỌN ẢNH GHI CHÚ
 - `js/06-hop-thoai.js:1504` · 9. CÀI ĐẶT
 - `js/06-hop-thoai.js:1929` · 3.50: ❓ HƯỚNG DẪN TRỰC QUAN — chia theo tab, sơ đồ luồng dữ liệu, các bước theo logic.
-- `js/06-hop-thoai.js:2581` · 3.49: XÓA NHIỀU FILE (lúc đầu tên "− Bớt file", 3.49b đổi tên theo anh). Bấm "🗑 Xóa file" ở đầu tab → tích dòng (hoặc ch
-- `js/06-hop-thoai.js:2790` · 10. GOOGLE DRIVE  (tùy chọn — không có vẫn chạy bình thường)
-- `js/06-hop-thoai.js:3060` · 3.31 (mục 10 bàn giao) — GOOGLE PICKER: quét kho Drive cũ
-- `js/06-hop-thoai.js:3175` · 11. LẬP CHỈ MỤC
-- `js/06-hop-thoai.js:3235` · 3.50: 🗂 LẬP CHỈ MỤC — đi hết thư mục Tủ hồ sơ trên Drive để MỌI file đều được app quản lý.
+- `js/06-hop-thoai.js:2584` · 3.49: XÓA NHIỀU FILE (lúc đầu tên "− Bớt file", 3.49b đổi tên theo anh). Bấm "🗑 Xóa file" ở đầu tab → tích dòng (hoặc ch
+- `js/06-hop-thoai.js:2793` · 10. GOOGLE DRIVE  (tùy chọn — không có vẫn chạy bình thường)
+- `js/06-hop-thoai.js:3063` · 3.31 (mục 10 bàn giao) — GOOGLE PICKER: quét kho Drive cũ
+- `js/06-hop-thoai.js:3178` · 11. LẬP CHỈ MỤC
+- `js/06-hop-thoai.js:3238` · 3.50: 🗂 LẬP CHỈ MỤC — đi hết thư mục Tủ hồ sơ trên Drive để MỌI file đều được app quản lý.
 - `js/07-cccd.js:1` · 12. HỒ SƠ CCCD
 - `js/07-cccd.js:42` · 3.79.1 — KHÔI PHỤC DANH SÁCH SCAN TỪ ẢNH CÒN TRONG MÁY
 - `js/08-dia-ban.js:520` · 3.33 — ĐƯA HỒ SƠ SCAN LÊN DRIVE
@@ -204,20 +204,27 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/22-so-lieu.js:6903` · 3.90.1: TÌM FILE RÁC CỦA SỐ LIỆU (riêng phần Số liệu: trong máy sl_… + Drive Số liệu/ và _Hệ thống/so_lieu/; không đụng 
 - `js/24-xuat.js:1` · 3.152 (anh chốt ý 2, 4 — docs/KE_HOACH_GON_GIAO_DIEN.md): XUẤT CHUNG
 - `js/25-ho-so.js:1` · 3.170 (anh chốt 11/10/2026 — docs/KE_HOACH_HO_SO_TO.md): 📝 HỒ SƠ TỔ · 📄 HỒ SƠ VAY
-- `js/25-ho-so.js:37` · ⚙ khai báo 1 lần
-- `js/25-ho-so.js:76` · thông tin tổ / khách dùng cho mẫu
-- `js/25-ho-so.js:110` · ô điền
-- `js/25-ho-so.js:137` · khối dựng chung
-- `js/25-ho-so.js:156` · 10C/TD
-- `js/25-ho-so.js:216` · 10A/TD
-- `js/25-ho-so.js:261` · 10B/TD
-- `js/25-ho-so.js:294` · 11/TD
-- `js/25-ho-so.js:366` · 01/BG · 02/BG
-- `js/25-ho-so.js:425` · HỒ SƠ VAY: 01/TD · 03/TD · 04/TD · 09A/TD
-- `js/25-ho-so.js:523` · lập mẫu đang chọn
-- `js/25-ho-so.js:536` · WORD: HTML của mẫu → .docx (đoạn, bảng có gộp ô, đậm / nghiêng / gạch chân, ngắt trang)
-- `js/25-ho-so.js:589` · giao diện tab
-- `js/25-ho-so.js:645` · cột tùy chọn của từng mẫu
+- `js/25-ho-so.js:40` · ⚙ khai báo 1 lần
+- `js/25-ho-so.js:85` · thông tin tổ / khách dùng cho mẫu
+- `js/25-ho-so.js:119` · ô điền
+- `js/25-ho-so.js:146` · khối dựng chung
+- `js/25-ho-so.js:172` · 10C/TD
+- `js/25-ho-so.js:234` · 10A/TD
+- `js/25-ho-so.js:279` · 10B/TD
+- `js/25-ho-so.js:312` · 11/TD
+- `js/25-ho-so.js:384` · 01/BG · 02/BG
+- `js/25-ho-so.js:443` · HỒ SƠ VAY: 01/TD · 03/TD · 04/TD · 09A/TD
+- `js/25-ho-so.js:573` · 3.171 (anh chốt 11/10): BỘ HỒ SƠ VAY — lưu tạm (D.cauHinh.hsoBo, đồng bộ Drive), in thành bộ gửi tổ đi ký
+- `js/25-ho-so.js:623` · 01/TD Giấy đề nghị vay vốn — đúng PDF (HSSV có xác nhận UBND xã; NSVSMT không)
+- `js/25-ho-so.js:625` · 03/TD Danh sách tổ viên đề nghị vay vốn — đúng PDF (A4 ngang, số dòng = số người + 2 dòng trống, kẻ chấm)
+- `js/25-ho-so.js:626` · 04/TD Thông báo kết quả phê duyệt — đúng PDF; in từng thông báo (chọn điểm GD, nhập số hộ + số tiền)
+- `js/25-ho-so.js:627` · 09A/TD Giấy đề nghị gia hạn nợ — đúng PDF
+- `js/25-ho-so.js:628` · 01/UQ Giấy ủy quyền — đúng PDF (thành viên hộ + người thừa kế chỉ ở mẫu này)
+- `js/25-ho-so.js:660` · 01/TGTV Giấy đăng ký mở tài khoản tổ viên (mẫu 03/2026) — đúng PDF, có logo + chân trang
+- `js/25-ho-so.js:816` · lập mẫu đang chọn
+- `js/25-ho-so.js:836` · WORD: HTML của mẫu → .docx (đoạn, bảng có gộp ô, đậm / nghiêng / gạch chân, ngắt trang)
+- `js/25-ho-so.js:932` · giao diện tab
+- `js/25-ho-so.js:988` · cột tùy chọn của từng mẫu
 
 ## 3. Nhóm hàm theo tiền tố (khối chức năng)
 
@@ -271,9 +278,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `veKTGS` `js/22-so-lieu.js:1154`
 - `veSaoKe` `js/22-so-lieu.js:5849`
 - `veTongHop` `js/22-so-lieu.js:6558`
-- `inChuan` `js/05-them-file.js:1347`
+- `inChuan` `js/05-them-file.js:1351`
 - `inBlob` `js/05-them-file.js:1159`
-- `xemChuan` `js/05-them-file.js:1355`
+- `xemChuan` `js/05-them-file.js:1359`
 - `pvLuaChon` `js/22-so-lieu.js:4803`
 - `chTheoDoi` `js/17-dong-bo-cai-dat.js:42`
 - `slDay` `js/22-so-lieu.js:748`
