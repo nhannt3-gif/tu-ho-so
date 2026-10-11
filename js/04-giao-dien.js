@@ -4866,11 +4866,11 @@ function bbXacMinhNo(c){
   P.push(wBangKy(['KH vay vốn','Tổ TK&VV','Đại diện '+(c.hoi||'………'),'Đại diện ………']));
   return P.join('');
 }
-function taoDocx(than){
+function taoDocx(than, sect){   /* 3.170: sect = <w:sectPr> riêng (khổ ngang, lề theo mẫu) */
   var enc = function(t){ return new Blob([t], {type:'application/xml'}); };
   var doc = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-    '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+than+
-    '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1701" w:header="567" w:footer="567" w:gutter="0"/></w:sectPr></w:body></w:document>';
+    '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+than+(sect ||
+    '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1701" w:header="567" w:footer="567" w:gutter="0"/></w:sectPr>')+'</w:body></w:document>';
   var kieu = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'+
     '<w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman" w:eastAsia="Times New Roman"/><w:sz w:val="26"/><w:szCs w:val="26"/><w:lang w:val="vi-VN"/></w:rPr></w:rPrDefault>'+
     '<w:pPrDefault><w:pPr><w:jc w:val="both"/></w:pPr></w:pPrDefault></w:docDefaults></w:styles>';

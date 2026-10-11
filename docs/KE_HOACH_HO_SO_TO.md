@@ -2,7 +2,7 @@
 
 > Ghi nhận 11/10/2026. Anh chốt nguyên tắc: **căn cứ số liệu điền tự động hết mức có thể; thông tin nào không có thì để chấm ghi tay.**
 > File mẫu anh gửi chỉ đọc trong thư mục nháp của phiên — **không đưa vào repo**. Lời văn mẫu là mẫu công khai của ngành (QĐ 70/QĐ-HĐQT ngày 27/8/2026), không có dữ liệu thật → được nhúng vào app.
-> Chưa code — chờ anh nhắn "code". Bản đề xuất: **3.167** (10C cũ + 10C mới, 01/BG, 02/BG) · **3.168** (10A, 10B, 11/TD).
+> **Đã code ở 3.170** (anh 11/10: "code cả 2 tab và gộp lên"): tab 📝 Hồ sơ Tổ (10C cũ / mới, 10A, 10B, 11/TD, 01/BG, 02/BG) + tab 📄 Hồ sơ vay (01/TD, 03/TD, 04/TD, 09A/TD) — `js/25-ho-so.js`. Còn lại: quy tắc từng mẫu vay (thời hạn, kỳ hạn, mức vay, gia hạn) bàn với anh rồi điền thêm.
 
 ## Anh chốt thêm 11/10 (sau khi gửi đủ mẫu)
 - **Tab riêng "📝 Hồ sơ Tổ"** trong nhóm Số liệu (không nhét vào tab Tổ). Áp dụng đồng bộ quy tắc các tab: hàng lọc Xã · Điểm GD │ Hội · Tổ (chip kèm ấp), chip trạng thái cuối hàng Xã, 📍; chọn 1 mẫu → xem ngay khung phải; hàng xuất Word · In · PDF · Gửi.

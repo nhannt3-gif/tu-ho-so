@@ -3251,3 +3251,33 @@ span.sl-chip{cursor:help}
 
 }
 #tr7 .to-bc.to-bc-dau{margin:2px 0 6px;padding:4px 10px;background:var(--the);border:1px solid var(--vien);border-radius:8px}
+/* 3.170 — 📝 Hồ sơ Tổ · 📄 Hồ sơ vay (js/25-ho-so.js): cột trái = danh sách mẫu + tùy chọn; khung phải = A4 xem ngay */
+.th-bo.th-bo2.hso-bo{grid-template-columns:minmax(300px,370px) minmax(0,1fr)}
+@media(max-width:899px){ .th-bo.th-bo2.hso-bo{grid-template-columns:1fr} }
+@media(min-width:900px){ #tr7 .hso-bo>.hso-trai{max-height:calc(100vh - var(--dau-cao,52px) - var(--loc-cao,0px) - 24px);overflow:auto;padding-right:4px} }
+.hso-dau-ds{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.hso-dau-ds button{text-transform:none;letter-spacing:0;font-weight:600}
+#hso-ds .to-bc-dong b{color:var(--xanh)}
+.hso-chu{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px;font-size:calc(11.5px*var(--co));color:var(--chu-phu)}
+.hso-chu span{padding:0 6px;border-radius:4px}
+.hso-chu .hso-chu-sl{background:#d9f0d3;color:#1d4d1a}.hso-chu .hso-chu-kb{background:#fff0b3;color:#5c4600}.hso-chu .hso-chu-tay{border:1px dashed var(--vien)}
+.hso-tuy{border-top:1px solid var(--vien);margin-top:8px;padding-top:6px}
+.hso-tuy .kt-kb{grid-template-columns:118px minmax(0,1fr);margin:4px 0}
+.hso-tuy .kt-kb select{font:inherit;padding:3px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu);width:100%;min-width:0;box-sizing:border-box}
+.hso-tuy .sl-phu{margin:2px 0 4px;font-size:calc(12px*var(--co))}
+.hso-tuy .hso-canh{color:var(--vang)}
+.hso-nhac{margin:4px 0 8px}
+.hso-o2{display:block;margin:6px 0;font-size:calc(13px*var(--co))}
+.hso-tick{border:1px solid var(--vien);border-radius:8px;padding:4px 8px;margin:6px 0;background:var(--the)}
+.hso-tick>summary{cursor:pointer;font-weight:600;font-size:calc(13px*var(--co))}
+.hso-tick-ds{display:flex;flex-direction:column;gap:1px;max-height:260px;overflow:auto;margin-top:4px}
+.hso-tick-ds label{display:block;font-size:calc(13px*var(--co));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hso-tick-ds small{color:var(--chu-phu)}
+.hso-kb-nhom{border:1px solid var(--vien);border-radius:8px;padding:6px 10px;margin:8px 0;background:var(--the)}
+.hso-kb-nhom>summary{cursor:pointer;font-weight:600}
+.hso-kb-luoi{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr));gap:2px 18px}
+.hso-kb-luoi .kt-kb{grid-template-columns:minmax(120px,46%) minmax(0,1fr)}
+#tr7 #hso-ds{display:block !important;text-align:left;margin-top:0}
+#tr7 #hso-ds .to-bc-dong{display:block;text-align:left;font-size:calc(13px*var(--co));margin:0;padding:3px 6px;white-space:normal;line-height:1.3}
+#tr7 #hso-ds .hso-dau-ds{margin:0 0 4px;flex-wrap:wrap}
+#tr7 #hso-ds .hso-dau-ds button{font-size:calc(12px*var(--co))}

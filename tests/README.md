@@ -96,6 +96,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t162.js` | 3.167 Khối LỌC ĐỊA BÀN ở 5 tab, Điểm GD / Hội 2 thanh riêng, màu chip theo cấp, tên dòng to / đậm, không tràn ngang. |
 | `node tests/t153.js` | (3.168) Tổng hợp: Chương trình cùng dòng Nguồn vốn. |
 | `node tests/t162.js` | (3.169) khối lọc + tab Tổ hàng Báo cáo của tổ ở đầu. |
+| `node tests/t163.js` | (3.170) tab 📝 Hồ sơ Tổ + 📄 Hồ sơ vay: 10 mẫu điền từ số liệu, mẫu trắng, 10C theo ngày họp, khai báo 1 lần, Word đúng khổ, đọc số thành chữ. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

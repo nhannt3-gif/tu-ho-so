@@ -222,6 +222,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.170) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu › 📝 Hồ sơ Tổ, chọn 1 tổ, mẫu 10C, ngày họp 05/10/2026 | Mẫu mới QĐ 70; tổ trưởng, tổ phó, thôn, xã, Hội điền sẵn (nền xanh); ô thiếu để chấm | |
+| 2 | Đổi ngày họp 15/09/2026 | Tự đổi sang mẫu cũ (kết nạp bổ sung) | |
+| 3 | Tích / bỏ tích Kết nạp, Cho ra | Tên vào bảng I / II, tổng số tổ viên sau họp đổi đúng | |
+| 4 | ⚙ Khai báo 1 lần: khai PGD, trưởng ấp, tổ phó thực tế | Mẫu dùng ngay (nền vàng); lần sau mở lại vẫn còn (đồng bộ Drive) | |
+| 5 | 02/BG cho 1 tổ | A4 ngang; mỗi khách 1 dòng đậm + dòng từng món; tổng nợ gốc khớp tab Tổ | |
+| 6 | 📝 Word ở 10C, 11/TD, 02/BG | Mở được trong Word, đúng khổ (02/BG ngang), sửa được chữ | |
+| 7 | 📄 Hồ sơ vay › 01/TD: chọn tổ viên, CT HSSV, số tiền | Tên, ngày sinh, CCCD, địa chỉ, tổ trưởng, Hội điền sẵn; bằng chữ đúng | |
+| 8 | 04/TD (chọn xã, điểm GD) · 09A/TD (chọn khách, món) | UBND xã, điểm GD, ngày GD kế tiếp; mã khoản vay, gốc, lãi, ngày đến hạn đúng | |
+| 9 | Chưa chọn tổ, bấm 🖨 In | In mẫu trắng (chấm) bình thường | |
+
+**Ghi chú kỹ thuật 3.170:** `js/25-ho-so.js` — mỗi mẫu 1 hàm `hsoLap<mã>(t)` trả `{ma, h}` (HTML thân mẫu, lớp `c r j b i thut tr sau s10–s15`, bảng `luoi` / `khung0` có `data-w`); `hsoTrang` bọc trang in (`@page` theo mẫu, `.kt-to` để bộ in chuẩn chia trang); `hsoDocx` đổi cùng HTML ra .docx (thêm mẫu mới chỉ cần viết HTML theo quy ước này). Lựa chọn lần làm việc: `HSO` (đổi tổ / mẫu / kỳ thì đặt lại); nhớ lâu: `D.cauHinh.hsoO` (tkMin, hoiVT, mau10c, ngayDK, bgCa), `D.cauHinh.hsoKB`, `D.cauHinh.hsoTK` (mẫu đang chọn).
+
 ### Danh sách thử trên máy thật (3.169) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

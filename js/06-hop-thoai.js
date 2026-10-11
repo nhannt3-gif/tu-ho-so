@@ -2053,7 +2053,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.169', ds:[
+var CO_GI_MOI = {ban:'3.170', ds:[
+  ["📝 Tab mới Hồ sơ Tổ (Số liệu › Hồ sơ Tổ): chọn tổ ở khối lọc → chọn mẫu → xem A4 ngay khung phải; In · PDF · Word (.docx đúng khổ) · Gửi. Mẫu: 10C (cũ đến 30/09/2026 / mới QĐ 70 — tự chọn theo ngày họp), 10A, 10B, 11/TD, 01/BG, 02/BG (A4 ngang)", "slDoiTab('hst');doiNgan(7)"],
+  ["📄 Tab mới Hồ sơ vay: 01/TD Giấy đề nghị vay vốn (chọn tổ viên, chương trình, mục đích, số tiền → bằng chữ tự đổi), 03/TD Danh sách tổ viên đề nghị vay, 04/TD Thông báo phê duyệt (theo xã, điểm GD, ngày GD kế tiếp), 09A/TD Giấy đề nghị gia hạn nợ (chọn món)", "slDoiTab('hsv');doiNgan(7)"],
+  ["⚙ Khai báo 1 lần (nút ở 2 tab hồ sơ): thông tin PGD, trưởng ấp từng ấp, tổ phó thực tế (tổ trên máy chưa khớp), danh mục mục đích vay — lưu cùng cài đặt, đồng bộ Drive. Ô điền sẵn: xanh = số liệu, vàng = khai báo, chấm = ghi tay (in ra chữ đen)", "slDoiTab('hst');doiNgan(7)"],
   ["👥 Tab Tổ (chọn 1 tổ): hàng \"Báo cáo của tổ\" đem lên đầu khung xem (trước bị khuất dưới bảng); bảng tự trừ phần còn lại để không khuất dòng", "slDoiTab('to');doiNgan(7)"],
   ["🖥 Tab Số liệu gọn trong 1 cửa sổ: nội dung dồn sát lên trên, khối LỌC ĐỊA BÀN đứng cố định khi cuộn, bảng / khung xem tự cao vừa cửa sổ và cuộn bên trong; Tổng hợp: Nguồn vốn + Chương trình 1 dòng", "slDoiTab('th');doiNgan(7)"],
   ["🎨 Lọc địa bàn thành 1 khối \"LỌC ĐỊA BÀN\" ở mọi tab (Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu): mỗi dòng 1 thanh, mỗi cấp 1 màu — Xã xanh dương · Điểm GD xanh lá · Hội cam · Tổ tím; Điểm GD và Hội 2 thanh riêng; tên dòng chữ to, đậm", "slDoiTab('to');doiNgan(7)"],
