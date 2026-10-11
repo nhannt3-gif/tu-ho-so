@@ -21,7 +21,7 @@
 
 ## 3. Trạng thái (cập nhật 10/10/2026)
 - Mốc quay lại: nhánh `moc/v3.141-truoc-tach-file`.
-- **`main` = 3.162** — tinh chỉnh lọc số liệu (hàng Xã luôn hiện, Điểm GD │ Hội 1 dòng, Tổ chip + sổ xuống). **Bàn giao cho tài khoản khác: đọc `docs/BAN_GIAO_3161.md` trước** — việc anh đã duyệt hướng còn lại (Tổng hợp, Nạp & KT dải lịch, Kết quả kiểm tra theo ma trận, 📋 Chép n file, cách viết số toàn app) + lỗi hoiquy chập chờn.
+- **`main` = 3.162** — tinh chỉnh lọc số liệu (hàng Xã luôn hiện, Điểm GD │ Hội 1 dòng, Tổ chip + sổ xuống). **Bàn giao cho tài khoản khác: đọc `docs/BAN_GIAO_3161.md` trước — việc kế tiếp ở mục 2.0 (3.163, chờ anh nhắn "code", còn chốt cách viết tiền 2 số lẻ)** — việc anh đã duyệt hướng còn lại (Tổng hợp, Nạp & KT dải lịch, Kết quả kiểm tra theo ma trận, 📋 Chép n file, cách viết số toàn app) + lỗi hoiquy chập chờn.
 - **Việc tiếp:** anh thử máy thật 3.145 / 3.146 / 3.147 (bảng thử trong `BAN_GIAO_VIEC_CON_LAI.md`). Sau đó: thanh công cụ từng màn gọn lại (quy chuẩn tham khảo `KE_HOACH_DIEU_HUONG.md` mục 8, chờ anh xem bản 3.147) · đợt B (góp ý `luu()`, đồng bộ Drive) · đợt D (kỳ + phạm vi chung trên đầu trang).
 - **Anh chốt 10/10:** bỏ hẳn tab Tháng + xóa dữ liệu cũ (rác); bỏ nút Giao ban, Buổi giao dịch (làm lại sau); nạp file nhận ngày số liệu từ **nội dung** file (Q12–Q14). Anh làm luân phiên 2 tài khoản — tài khoản nào cũng bắt đầu từ file này (nhánh đang dùng ghi ở mục 2).
 - **Chờ anh:** (b) dòng tên cột file hồ sơ chi tiết chuẩn mới; (c) hỏi tin học về máy chủ nội bộ; thử máy thật 3.136 / 3.138 / 3.142 (bảng trong `BAN_GIAO_VIEC_CON_LAI.md`); số TK 105 khách chỉ có 105 (cần nguồn); văn bản củng cố / chia tách tổ; "nhớ người ký theo khuyết" (chưa xác nhận); Mẫu 06 trắng 2 mặt trên Word thật.
