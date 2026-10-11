@@ -3216,3 +3216,18 @@ span.sl-chip{cursor:help}
 .sl-kt-ref{color:var(--chu-phu);font-size:.95em}
 .sl-kt-nhay{outline:2px solid var(--xanh);outline-offset:1px}
 .sl-dau.lech{cursor:pointer}
+/* 3.167 (anh chốt 11/10) — KHỐI LỌC ĐỊA BÀN đồng bộ mọi tab: khung + nhãn "LỌC ĐỊA BÀN", mỗi dòng 1 thanh nổi, mỗi cấp 1 màu
+   (Xã xanh dương · Điểm GD xanh lá · Hội cam · Tổ tím — nhãn + chip đang chọn cùng màu), tên dòng chữ to và đậm hơn chip con */
+:root{--c-xa:#185FA5;--c-xa-n:#EAF2FA;--c-diem:#1A6E3F;--c-diem-n:#E6F4EC;--c-hoi:#9A4D00;--c-hoi-n:#FDEEDC;--c-to:#6B3FA0;--c-to-n:#F1EAFA}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c-xa:#7DB8EE;--c-xa-n:#15304A;--c-diem:#6FD39A;--c-diem-n:#12301F;--c-hoi:#F0B070;--c-hoi-n:#3A2810;--c-to:#C6A6F0;--c-to-n:#2C2140}}
+:root[data-theme="dark"]{--c-xa:#7DB8EE;--c-xa-n:#15304A;--c-diem:#6FD39A;--c-diem-n:#12301F;--c-hoi:#F0B070;--c-hoi-n:#3A2810;--c-to:#C6A6F0;--c-to-n:#2C2140}
+.pv-cay .loc-khoi{position:relative;display:flex;flex-direction:column;gap:5px;background:var(--xanh-nhat);border:2px solid var(--xanh);border-radius:10px;padding:14px 8px 7px;margin:12px 0 6px}
+.pv-cay .loc-khoi::before{content:"LỌC ĐỊA BÀN";position:absolute;top:-10px;left:12px;background:var(--xanh);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:1px 8px;border-radius:5px}
+.pv-cay .loc-khoi .pv-hang1,.pv-cay .loc-khoi .pv-hang2.cap-to,.pv-cay .loc-khoi .pv-nhom.cap-diem,.pv-cay .loc-khoi .pv-nhom.cap-hoi{background:var(--the);border-radius:7px;padding:4px 8px;margin:0;box-shadow:inset 4px 0 0 var(--c, var(--c-xa)),0 1px 2px rgba(0,0,0,.12)}
+.pv-cay .loc-khoi .pv-hang2[data-cap="diem-hoi"]{background:none;box-shadow:none;padding:0;margin:0;gap:6px;flex-wrap:wrap}
+.pv-cay .loc-khoi .pv-nhom.cap-diem,.pv-cay .loc-khoi .pv-nhom.cap-hoi{flex:1 1 auto}
+.pv-cay .cap-xa{--c:var(--c-xa);--n:var(--c-xa-n)} .pv-cay .cap-diem{--c:var(--c-diem);--n:var(--c-diem-n)} .pv-cay .cap-hoi{--c:var(--c-hoi);--n:var(--c-hoi-n)} .pv-cay .cap-to{--c:var(--c-to);--n:var(--c-to-n)}
+.pv-cay .loc-khoi .pv-nhan{display:inline-block;background:var(--n, var(--xanh-nhat));color:var(--c, var(--xanh-dam));border:1px solid var(--c, var(--xanh));border-radius:6px;padding:1px 9px;min-width:78px;text-align:center;font-size:calc(14px*var(--co));font-weight:800;letter-spacing:.01em;flex:0 0 auto}
+.pv-cay .loc-khoi .cap-xa .to-chip.bat,.pv-cay .loc-khoi .cap-diem .to-chip.bat,.pv-cay .loc-khoi .cap-hoi .to-chip.bat,.pv-cay .loc-khoi .cap-to .to-chip.bat{background:var(--c);border-color:var(--c);color:var(--the)}
+.pv-cay .loc-khoi .cap-to .pv-to-ds.co{border-color:var(--c-to);color:var(--c-to)}
+@media (max-width:699px){ .pv-cay .loc-khoi{padding:12px 6px 6px} .pv-cay .loc-khoi .pv-nhan{min-width:0} }

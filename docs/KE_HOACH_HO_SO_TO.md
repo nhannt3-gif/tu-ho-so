@@ -72,3 +72,9 @@ Bên A: PGD, đại diện, chức vụ, địa chỉ, điện thoại ✓ từ 
 ## Kèm trong 3.167 (anh đã chốt 11/10)
 - Bảng cuộn trong khung (tiêu đề + dòng Cộng dính) **đồng nhất mọi bảng cùng loại**: Sao kê, KTGS… như tab Tổ.
 - Chip "Mới vào": kỳ ngày → "Mới vào 07/09"; kỳ tháng → "Mới vào 31/07→31/08".
+
+## Hồ sơ vay HSSV (anh gửi 11/10 — làm sau bộ hồ sơ Tổ)
+File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật → **chỉ ghi cấu trúc, không đưa file vào repo**.
+- **01/TD Giấy đề nghị vay vốn kiêm phương án sử dụng vốn vay** (CT Học sinh sinh viên): kính gửi NHCSXH Gò Dầu; 1. người vay (họ tên, năm sinh, CCCD / ngày cấp / nơi cấp, địa chỉ, thuộc tổ … do ông bà … làm tổ trưởng, Hội quản lý); 2. số tiền đề nghị (+ bằng chữ), phương án, tổng nhu cầu = vốn tự có + vốn vay; bảng Đối tượng (sinh viên …) · Số lượng (tháng) · Thành tiền; thời hạn, kỳ hạn trả, hạn trả cuối; cam kết; xác nhận Hội (Chủ tịch ký đóng dấu); người vay ký; phần phê duyệt NH (số tiền, lãi suất, thời hạn, kỳ hạn, số tiền trả / lần, ngày trả lãi; CBTD, Trưởng phòng TD).
+- **03/TD Danh sách tổ viên đề nghị vay vốn** (CT HSSV): tên tổ (tổ trưởng), khu phố, phường; ngày họp bình xét; bảng STT · Họ tên · Đối tượng thụ hưởng · Đề nghị của Tổ (Số tiền · Mục đích · Thời hạn) · Phê duyệt NH; dòng Cộng; Tổ trưởng ký; xác nhận UBND phường.
+- Điền tự động được: thông tin người vay từ Mẫu 31 (tên, ngày sinh, CCCD, ngày cấp, nơi cấp, địa chỉ, tổ, tổ trưởng, Hội), tên tổ / khu phố / phường, Gò Dầu; số tiền chữ tự đổi từ số. Ghi tay: phương án, đối tượng, số tiền đề nghị, thời hạn, phê duyệt.

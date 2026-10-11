@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.167) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở lần lượt Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu KH | Phần lọc là 1 khối "LỌC ĐỊA BÀN" giống nhau ở mọi tab | |
+| 2 | Chọn xã → điểm GD → tổ | Chip đang chọn: Xã xanh dương, Điểm GD xanh lá, Hội cam, Tổ tím | |
+| 3 | Nền tối | Khối, nhãn, chip vẫn đọc rõ | |
+| 4 | Tra cứu KH (cột hẹp) | Khối gọn, không tràn ngang | |
+
+**Ghi chú kỹ thuật 3.167:** điện thoại vẫn dùng ô chọn thả xuống (như cũ), khối chỉ thêm khung + màu.
+
 ### Danh sách thử trên máy thật (3.166) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

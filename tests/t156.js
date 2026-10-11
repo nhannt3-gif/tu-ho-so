@@ -20,7 +20,7 @@ const fs=require('fs'), path=require('path');
    ok('máy tính: không còn hàng ô thả xuống (chỉ điện thoại)', getComputedStyle(document.querySelector('#to-cay .pv-sel')).display==='none');
    ok('📍 đường dẫn chỉ báo (không có nút ✕ / bấm)', !dan().querySelector('button'));
    const T = TO_K.to, xa = pvLuaChon(T, C, 'xa', true)[0].k; pvChon('to', 'xa', xa, 1); await w(200);
-   ok('chọn xã: hàng Xã vẫn hiện, xã đang chọn xanh; hàng Điểm GD │ Hội cùng 1 dòng', nhan()==='Xã|Điểm GD|Hội' && document.querySelector('#to-cay .pv-hang1 .to-chip.bat').textContent.indexOf(T[Object.keys(T).find(m=>T[m].xa===xa)].tenXa)===0 && !!document.querySelector('#to-cay [data-cap="diem-hoi"] .pv-vach'), nhan());
+   ok('chọn xã: hàng Xã vẫn hiện, xã đang chọn xanh; hàng Điểm GD · Hội cùng 1 dòng, 2 thanh riêng (3.167)', nhan()==='Xã|Điểm GD|Hội' && document.querySelector('#to-cay .pv-hang1 .to-chip.bat').textContent.indexOf(T[Object.keys(T).find(m=>T[m].xa===xa)].tenXa)===0 && !!document.querySelector('#to-cay [data-cap="diem-hoi"] .pv-nhom.cap-diem') && !!document.querySelector('#to-cay [data-cap="diem-hoi"] .pv-nhom.cap-hoi'), nhan());
    /* Hội trước, chưa chọn điểm */
    const hoi = pvLuaChon(T, C, 'hoi', true).find(x=>x.k!=='99').k; pvChon('to', 'hoi', hoi, 1); await w(200);
    const toH = pvLuaChon(T, C, 'to', true), selT = document.querySelector('#to-cay .pv-to-ds');

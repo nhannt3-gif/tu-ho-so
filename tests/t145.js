@@ -35,7 +35,7 @@ const fs=require('fs'), path=require('path');
    const cay = document.getElementById('to-cay');
    const nhan = () => [...document.querySelectorAll('#to-cay .pv-nhan')].map(x=>x.textContent.replace(/[①②③]/g,'')).join('|');
    ok('cây chọn (3.162): hàng Xã luôn hiện (xã đang chọn xanh) + hàng Điểm GD │ Hội', nhan()==='Xã|Điểm GD|Hội' && [...cay.querySelectorAll('.pv-hang1 .to-chip.bat')].length===1 && cay.querySelector('[data-cap="diem-hoi"]'), nhan());
-   ok('cây chọn tối đa 3 hàng (cao ≤ 115 px)', cay.getBoundingClientRect().height <= 115, Math.round(cay.getBoundingClientRect().height)+' px');
+   ok('cây chọn tối đa 3 hàng (cao ≤ 135 px — 3.167 có khung khối LỌC ĐỊA BÀN)', cay.getBoundingClientRect().height <= 135, Math.round(cay.getBoundingClientRect().height)+' px');
    const diem = pvLuaChon(TO_K.to, toCH(), 'diem')[0].k; pvChon('to', 'diem', diem); await w(200);
    const to = pvLuaChon(TO_K.to, toCH(), 'to')[0].k; pvChon('to', 'to', to); await w(300);
    ok('chọn tới tổ → dòng 📍 Xã › Điểm › Tổ (chỉ báo); hàng Tổ: chip tổ đang chọn xanh + ô sổ xuống chọn đúng tổ (3.162)', /Tổ /.test(document.querySelector('#to-cay .pv-dan').textContent) && nhan()==='Xã|Điểm GD|Hội|Tổ' && document.querySelector('#to-cay .pv-to-ds').value===to, nhan());
