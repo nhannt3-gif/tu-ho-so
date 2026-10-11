@@ -48,10 +48,10 @@ const fs=require('fs'), path=require('path');
    ktCH().gnTu = '2026-09'; ktCH().gnDen = '2026-09'; KT_GN = null; const RG = await ktGNNap();
    ok('Sau giải ngân T9: lấy Mẫu 31 ngày 10/09, không báo thiếu', !RG.thieu.length && RG.ngay['2026-09']==='2026-09-10' && !!RG.ds['2026-09'], JSON.stringify({thieu:RG.thieu, ngay:RG.ngay, to:Object.keys(RG.ds['2026-09']||{}).length}));
    /* ma trận: cột 📅 Theo ngày */
-   doiNgan(7); slDoiTab('nap'); for(let i=0;i<40 && !document.querySelector('.sl-ngay-th');i++) await w(150);
-   const th = document.querySelector('.sl-ngay-th'), chip = [...document.querySelectorAll('.sl-ngay-chip')].map(x=>x.textContent);
+   doiNgan(7); slDoiTab('nap'); SL_KY='2026-09'; veSoLieu(); for(let i=0;i<40 && !document.querySelector('.sl-cot-ngay');i++) await w(150);
+   const chip = [...document.querySelectorAll('.sl-bang thead th.sl-cot-ngay')].map(x=>x.textContent.trim().slice(0, 5)), th = chip.length;   /* 3.163: mỗi ngày có dữ liệu 1 cột */
    slNapThem(SL_KY); await w(100); const coXoaNgay = /Xóa bản theo ngày cũ/.test((document.querySelector('#hop-in')||{}).textContent||''); dongHop();
-   ok('ma trận có cột "📅 Theo ngày" (nút Xóa ngày cũ ở ⋯ — 3.150); chip 10/09, 12/09', !!th && coXoaNgay && chip.includes('10/09') && chip.includes('12/09'), chip.join(','));
+   ok('3.163: ma trận mỗi ngày có dữ liệu 1 cột (10/09, 12/09); nút Xóa ngày cũ ở ⋯', !!th && coXoaNgay && chip.includes('10/09') && chip.includes('12/09'), chip.join(','));
    ok('ô tháng không còn "+ n ngày"', !/\+ \d+ ngày/.test(document.querySelector('.sl-bang').textContent));
    /* dựng sẵn: ngày mới nhất + tháng mới nhất, có tiến độ */
    slNapLai(); for(let i=0;i<80 && SL_SAN_NAP.chay;i++) await w(150);
@@ -71,7 +71,7 @@ const fs=require('fs'), path=require('path');
    ok('3.137: chip "Tất nợ · còn TK 105" thay "Không dư nợ"; ẩn chip "còn 105" và "Đề xuất cho ra"', toLocNhan(TO_LOC.find(l=>l[0]==='ko'))==='Tất nợ · còn TK 105' && TO_LOC.find(l=>l[0]==='ko105')[4] && TO_LOC.find(l=>l[0]==='ra')[4]);
    ok('3.137: tất nợ còn 105 → "Chờ vay lại"; 105 > 100.000 đ in đậm số (không tô nền); còn nợ lãi không vào Tất nợ', toGoiY({conNo:false, t105:500000})==='Chờ vay lại' && /<b>/.test(to105({conNo:false, t105:150000}, true)) && !/<b>/.test(to105({conNo:false, t105:50000}, true)) && !toLocHam('ko')({conNo:true, dn:0, lt:1000}));
    { const x = toXen([{to:'a'},{to:'a'},{to:'b'},{to:'c'}]); ok('3.137: nền nhạt xen kẽ theo tổ', x[0]==='' && x[1]==='' && /to-xen/.test(x[2]) && x[3]==='', JSON.stringify(x)); }
-   ok('3.137: cột "Ghi chú" (thay Gợi ý) để trống khi In / Excel', bc.aoa[0][bc.aoa[0].length-1]==='Ghi chú' && bc.aoa.slice(1, -1).every(r=>r[r.length-1]==='') && !/Gợi ý/.test(bc.html) && /Ghi chú<\/th>/.test(bp.html));
+   ok('3.137: cột "Ghi chú" (thay Gợi ý) để trống khi In / Excel', (gi => gi>=0 && bc.aoa.slice(1, -1).every(r=>r[gi]===''))(bc.aoa[0].indexOf('Ghi chú')) && !/Gợi ý/.test(bc.html) && /Ghi chú<\/th>/.test(bp.html));
    try{ dongHop(); }catch(e){}
    return o;
  }, files);
