@@ -4869,6 +4869,7 @@ function pvVeCay(p){
   h = '<div class="loc-khoi"><div class="pv-hang1'+(hXa ? ' cap-xa' : '')+'">'+hXa+'<span class="pv-sel"><span class="pv-ghim">📍</span>'+h1+'</span>'+dan+tim+'</div>'+hh+'</div>';   /* 3.167 (anh chốt 11/10): khối LỌC ĐỊA BÀN, mỗi cấp 1 màu, đồng bộ mọi tab */
   o.innerHTML = h;
   if(dang){ var f = document.getElementById(dang); if(f) f.focus(); }
+  setTimeout(slVua, 0);
   if(d.sau) d.sau();
 }
 /* 3.157: 🔎 tìm nhanh tổ cho tab không có ô tìm riêng (Sao kê, Tổng hợp) — chọn → tự điền Xã › Điểm › Hội › Tổ */
@@ -5357,6 +5358,7 @@ function toCotVua(){   /* sau khi vẽ: bật dần cột Tự động theo th�
     for(i=0;i<ds.length;i++){ o = tb.querySelectorAll('.tc-'+ds[i]); for(j=0;j<o.length;j++) o[j].classList.add('tu-hien');
       if(tb.scrollWidth > khung.clientWidth+1 || (th && th.offsetHeight > h0+2)){ for(j=0;j<o.length;j++) o[j].classList.remove('tu-hien'); break; } hien.push(ds[i]); }
     TO_TU_HIEN[tb.getAttribute('data-khoa')||''] = hien; });
+  slVua();
 }
 var TO_VUA_HEN = null;
 window.addEventListener('resize', function(){ clearTimeout(TO_VUA_HEN); TO_VUA_HEN = setTimeout(toCotVua, 250); });
@@ -6566,10 +6568,11 @@ function veTongHop(){
     e.innerHTML = slTabConHTML()+kyGhiHTML({ky:C.ky})+
       (TK.K.thieuBang ? '<div class="sl-bao vang">⚠ Bảng số liệu chưa có trên máy này (lưu trên Drive, chưa tải về).<div class="hang-nut"><button class="nho chinh" onclick="toNoiDrive()">☁ Nối Drive và tải</button><button class="nho" onclick="toThuLai()">⟳ Thử lại</button></div></div>' : '')+
       /* 3.157 (anh chốt — kiểu lọc SỐ LIỆU): ① Nguồn vốn (chip, lọc lớn nhất) → ② địa bàn (cây chung, hàng chip Điểm GD · Hội · Tổ) → ③ Chương trình; danh sách báo cáo 1 dòng / báo cáo */
-      '<div class="th-loc-hang"><div class="th-loc th-nguon"><span class="pv-nhan">Nguồn vốn</span>'+[['', 'Tất cả'], ['1', 'Trung ương'], ['2', 'Địa phương']].map(function(x){ return '<button class="to-chip'+((C.nguon||'')===x[0] ? ' bat' : '')+'" onclick="thCH().nguon=\''+x[0]+'\';luu();veTongHop()">'+x[1]+'</button>'; }).join('')+'</div>'+
-      '<div id="th-cay" class="to-cay pv-cay"></div>'+
+      '<div class="th-loc-hang"><div class="th-loc-1"><div class="th-loc th-nguon"><span class="pv-nhan">Nguồn vốn</span>'+[['', 'Tất cả'], ['1', 'Trung ương'], ['2', 'Địa phương']].map(function(x){ return '<button class="to-chip'+((C.nguon||'')===x[0] ? ' bat' : '')+'" onclick="thCH().nguon=\''+x[0]+'\';luu();veTongHop()">'+x[1]+'</button>'; }).join('')+'</div>'+
       '<div class="th-loc th-ct"><span class="pv-nhan">Chương trình</span><select onchange="thCH().ct=this.value;luu();veTongHop()"><option value="">Tất cả chương trình</option>'+Object.keys(ct).sort().map(function(k){ return '<option value="'+k+'"'+(C.ct===k ? ' selected' : '')+'>'+coChuHTML(ctNgan(k))+'</option>'; }).join('')+'</select>'+
-        (C.ct ? '<button class="to-chip bat" onclick="thCH().ct=\'\';luu();veTongHop()" title="Bỏ lọc chương trình">'+coChuHTML(ctNgan(C.ct))+' ✕</button>' : '')+'</div></div>'+
+        (C.ct ? '<button class="to-chip bat" onclick="thCH().ct=\'\';luu();veTongHop()" title="Bỏ lọc chương trình">'+coChuHTML(ctNgan(C.ct))+' ✕</button>' : '')+'</div></div>'+   /* 3.168 (anh 11/10): Nguồn vốn + Chương trình 1 dòng, cây lọc dưới */
+      '<div id="th-cay" class="to-cay pv-cay"></div></div>'+
+
       /* 3.164 (anh chốt): danh sách 3 nhóm (Chuẩn TW / LEN_31 / Tính từ Mẫu 31), nhãn cấp, chọn 1 báo cáo (◉) → xem ngay ở khung phải; bỏ nút Xem + hộp xem, bỏ in nhiều báo cáo 1 lần */
       '<div class="th-bo th-bo2"><div class="th-cot"><div class="to-bc th-bc-gon" id="th-ds">'+thDsHTML(B, C)+'</div></div>'+
       '<div class="th-cot th-xem"><div id="th-xem-nut"></div><iframe id="th-xem-khung" class="to-khung th-khung" title="Xem trước"></iframe></div></div>';
@@ -6597,8 +6600,18 @@ function thXemNgay(){   /* 3.164: xem ngay báo cáo đang chọn ở khung ph�
     (sauLoc.length ? (sauPV.length ? '; ' : ' ')+'không lọc được '+sauLoc.map(function(v){ return v==='ct' ? 'chương trình' : 'nguồn vốn'; }).join(', ') : '')+'. Xem “Lọc sâu” để có số đúng phạm vi.</div>'+x.html;
   TH_XEM = [x];
   if(n) n.innerHTML = xuatHang({ten:xuatTen(x.ten, pv, TH_K.ky), html:function(){ return thHTMLIn(TH_XEM); }, excel:'thExcel()', dong:'thXemRong()', dongChu:'⤢ Phóng to'});
-  xemChuan(f, thHTMLIn(TH_XEM));
+  xemChuan(f, thHTMLIn(TH_XEM)); thVuaKhung();
 }
+/* 3.168 (anh 11/10): tab Số liệu gọn 1 cửa sổ — đo chiều cao header + khối lọc (CSS dùng cho lọc cố định + bảng cuộn vừa phần còn lại) */
+function slVua(){ if(nganHienTai!==7) return; var r = document.documentElement.style, d = document.querySelector('.dau'), c = document.querySelector('#tr7 .pv-cay');
+  r.setProperty('--dau-cao', (d ? d.offsetHeight : 52)+'px'); r.setProperty('--loc-cao', (c ? c.offsetHeight : 0)+'px'); thVuaKhung();
+  if(window.innerWidth>=900) Array.prototype.forEach.call(document.querySelectorAll('#tr7 .to-cuon-khung'), function(k){   /* bảng cuộn trong khung, vừa phần còn lại của cửa sổ */
+    var top = k.getBoundingClientRect().top + (window.pageYOffset||0); k.style.maxHeight = Math.max(220, window.innerHeight - top - 26)+'px'; }); }
+window.addEventListener('resize', function(){ clearTimeout(window.__slVua); window.__slVua = setTimeout(slVua, 150); });
+/* 3.168 (anh 11/10): khung xem cao vừa cửa sổ, bảng cuộn bên trong khung (trang không phải cuộn dài) */
+function thVuaKhung(){ var f = document.getElementById('th-xem-khung'); if(!f || !f.offsetParent) return;
+  var h = window.innerHeight - f.getBoundingClientRect().top - 22; f.style.height = Math.max(320, h)+'px'; }
+window.addEventListener('resize', function(){ clearTimeout(window.__thVua); window.__thVua = setTimeout(thVuaKhung, 150); });
 function thXemRong(){ var f = document.getElementById('th-xem-khung'); if(f && f.requestFullscreen) f.requestFullscreen(); else thXem1(); }
 function thXem1(){ if(!TH_XEM.length) return; moHop('<div class="hop-tit">👁 '+coChuHTML(TH_XEM[0].tieuDe)+'</div><iframe id="th-khung2" class="to-khung" title="Xem"></iframe><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>', true);
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong'); xemChuan(document.getElementById('th-khung2'), thHTMLIn(TH_XEM)); }

@@ -57,7 +57,7 @@ const fs=require('fs'), path=require('path');
    ok('Tổng hợp: Nguồn vốn là chip (Tất cả · Trung ương · Địa phương) đặt trên cây địa bàn', ng && [...ng.querySelectorAll('.to-chip')].map(x=>x.textContent).join('|')==='Tất cả|Trung ương|Địa phương' && ng.getBoundingClientRect().top < cay.getBoundingClientRect().top);
    [...ng.querySelectorAll('.to-chip')][1].click(); await w(400);
    ok('bấm Trung ương → lọc nguồn TW, chip sáng', thCH().nguon==='1' && document.querySelector('#tr7 .th-nguon .to-chip.bat').textContent==='Trung ương');
-   ok('Chương trình nằm dưới cây địa bàn', document.querySelector('#tr7 .th-ct').getBoundingClientRect().top > document.querySelector('#th-cay').getBoundingClientRect().top);
+   ok('3.168: Chương trình cùng 1 dòng với Nguồn vốn, trên cây địa bàn (gọn chỗ)', Math.abs(document.querySelector('#tr7 .th-ct').getBoundingClientRect().top - document.querySelector('#tr7 .th-nguon').getBoundingClientRect().top) < 12 && document.querySelector('#tr7 .th-ct').getBoundingClientRect().top < document.querySelector('#th-cay').getBoundingClientRect().top);
    ok('danh sách báo cáo 1 dòng / báo cáo, chưa nạp → ⚠ (rê chuột xem thiếu file)', [...th.querySelectorAll('.th-bc-gon .to-bc-dong')].every(x=>x.getBoundingClientRect().height<=30) && [...th.querySelectorAll('.th-bc-gon .th-mo')].every(x=>/Chưa nạp/.test(x.title)));
    thCH().nguon = '';
    return o;

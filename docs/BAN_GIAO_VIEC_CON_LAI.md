@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.168) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tổng hợp chọn 1 báo cáo | Khung xem vừa hết cửa sổ, cuộn bên trong; trang không phải cuộn | |
+| 2 | Tab Tổ, danh sách dài | Khối lọc đứng trên cùng; bảng cuộn trong khung vừa cửa sổ | |
+| 3 | Sao kê, KTGS, Tra cứu | Nội dung sát lên trên, khối lọc cố định khi cuộn | |
+| 4 | Thu nhỏ / phóng to cửa sổ | Khung tự cao lại cho vừa | |
+
+**Ghi chú kỹ thuật 3.168:** chỉ áp cho màn rộng (≥ 900px); điện thoại giữ như cũ.
+
 ### Danh sách thử trên máy thật (3.167) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
