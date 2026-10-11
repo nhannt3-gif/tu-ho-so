@@ -3231,3 +3231,22 @@ span.sl-chip{cursor:help}
 .pv-cay .loc-khoi .cap-xa .to-chip.bat,.pv-cay .loc-khoi .cap-diem .to-chip.bat,.pv-cay .loc-khoi .cap-hoi .to-chip.bat,.pv-cay .loc-khoi .cap-to .to-chip.bat{background:var(--c);border-color:var(--c);color:var(--the)}
 .pv-cay .loc-khoi .cap-to .pv-to-ds.co{border-color:var(--c-to);color:var(--c-to)}
 @media (max-width:699px){ .pv-cay .loc-khoi{padding:12px 6px 6px} .pv-cay .loc-khoi .pv-nhan{min-width:0} }
+/* 3.168 (anh 11/10) — Tổng hợp gọn 1 cửa sổ: Nguồn vốn + Chương trình 1 dòng, bớt khoảng trống, khung xem vừa cửa sổ (cuộn bên trong) */
+.th-loc-1{display:flex;flex-wrap:wrap;align-items:center;gap:4px 18px}
+.th-loc-1 .th-loc{margin:0}
+.th-loc-hang{gap:2px;margin:0 0 4px}
+.th-loc-hang .pv-cay .loc-khoi{margin:10px 0 2px}
+.th-bo.th-bo2{gap:10px;margin-top:4px}
+#tr7 #th-ds .th-nhom-ten{margin:6px 0 1px}
+#tr7 #th-ds .to-bc-dong{padding:2px 6px}
+.th-xem .xuat-hang{margin:0 0 4px;gap:4px}
+.th-khung{min-height:320px}
+@media (min-width:900px){ .th-bo2>.th-cot:first-child{position:sticky;top:0;align-self:start} }
+/* 3.168 (anh 11/10) — tab Số liệu gọn trong 1 cửa sổ: dồn sát lên trên; khối LỌC ĐỊA BÀN đứng cố định dưới thanh trên khi cuộn; bảng tab Tổ cuộn vừa phần còn lại */
+@media (min-width:900px){
+  body.ngan7 .than{padding-top:4px}
+  body.ngan7 #tr7 .pv-cay{position:sticky;top:var(--dau-cao,52px);z-index:6;background:var(--nen);padding:1px 0 3px}
+  body.ngan7 #tr7 .pv-cay .loc-khoi{margin:10px 0 2px}
+  body.ngan7 #tr7 .sk-thanh{position:static}
+
+}

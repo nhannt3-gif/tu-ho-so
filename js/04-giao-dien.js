@@ -2,7 +2,8 @@
 var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '', locThang = '';
 
 function doiNgan(i, el){
-  if(i===2){ i = 7; D.cauHinh.slTab = 'nap'; }   /* 3.144: bỏ tab Tháng (anh chốt Q5, Q12) — lối cũ sang tab 📥 Nạp & KT */
+  if(i===2){ i = 7; D.cauHinh.slTab = 'nap'; }
+  document.body.classList.toggle('ngan7', i===7);   /* 3.168: tab Số liệu — lọc cố định, khung vừa cửa sổ */   /* 3.144: bỏ tab Tháng (anh chốt Q5, Q12) — lối cũ sang tab 📥 Nạp & KT */
   if(!window.__giuCK) CHO_KHAI = false;
   if(BOT.tab){ BOT = {tab:'', chon:{}}; document.body.classList.remove('dang-bot'); }   /* 3.49: đổi tab là thôi chọn xóa */
   if(!window.__giuDK && typeof DK!=='undefined') DK.mo = false;   /* 3.50: đổi tab là rời Dọn kho */

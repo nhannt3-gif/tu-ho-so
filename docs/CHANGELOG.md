@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.168 — 11/10/2026 — Tab Số liệu gọn trong 1 cửa sổ, lọc cố định
+- **Anh (11/10):** tối ưu khoảng trống tab Tổng hợp, bản xem gọn trong 1 cửa sổ và cuộn trong ô; các cửa sổ khác cũng vậy — lọc cố định, dồn sát lên trên.
+- `doiNgan`: lớp `body.ngan7` khi ở tab Số liệu. CSS (≥ 900px): `.than` bớt đệm trên; `#tr7 .pv-cay` `position:sticky` dưới thanh trên (`--dau-cao`); `.sk-thanh` thôi sticky (tránh chồng).
+- `slVua()` (gọi sau `pvVeCay` và sau `toCotVua`, khi đổi cỡ cửa sổ): đo `--dau-cao` / `--loc-cao`; bảng `#tr7 .to-cuon-khung` cao = phần còn lại của cửa sổ (tính theo vị trí thật) → trang không cuộn dài, bảng cuộn trong khung; Tổng hợp `thVuaKhung()` cho khung xem `#th-xem-khung`.
+- Tổng hợp: Nguồn vốn + Chương trình chung 1 dòng (`.th-loc-1`), cây lọc dưới; bớt khoảng cách danh sách / hàng nút; cột danh sách báo cáo đứng yên.
+- **Phép thử:** t153 sửa theo bố cục mới (Chương trình cùng dòng Nguồn vốn).
+
 ## 3.167 — 11/10/2026 — Khối LỌC ĐỊA BÀN đồng bộ mọi tab
 - **Anh chốt (duyệt trên bản mẫu tab Hồ sơ Tổ):** tên dòng lọc nổi bật, chữ to và đậm hơn chip con; mỗi cấp 1 màu; cả phần lọc là 1 khối rõ nét; Điểm GD và Hội tách riêng; áp đồng bộ mọi tab.
 - `pvVeCay` (dùng chung Tổ / KTGS / Sao kê / Tổng hợp / Tra cứu): bọc hàng lọc trong `.loc-khoi` (khung 2px + nhãn "LỌC ĐỊA BÀN"), lớp cấp `cap-xa` / `cap-diem` / `cap-hoi` / `cap-to` trên dòng / nhóm; bỏ vạch `.pv-vach` giữa Điểm GD và Hội (2 thanh riêng, tự xuống dòng khi hẹp).
