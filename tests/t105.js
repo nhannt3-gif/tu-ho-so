@@ -84,7 +84,7 @@ const fs=require('fs'), path=require('path');
    o.thay = 'sai kỳ: '+hop.slice(0, 60)+' | đúng kỳ: '+(SLM.bang['bx|2026-07'].luc!==luc0 ? 'đã thay' : 'CHƯA THAY'); slChonFile = cu;
    /* giao diện nạp: nhóm Ⓐ Ⓑ Ⓒ Ⓓ, ma trận theo nhóm */
    doiNgan(7); slDoiTab('nap'); SL_KY = '2026-07'; veSoLieu(); await w(800);
-   o.nap = '① '+document.querySelector('.sl-tt').textContent.replace(/\s+/g,' ').slice(0, 90)+' · ma trận '+document.querySelectorAll('.sl-bang tbody tr').length+' dòng, chấm nhóm '+document.querySelectorAll('.sl-bang .sl-nh').length+', dòng tiêu đề nhóm '+document.querySelectorAll('.sl-nhom-dong').length;
+   o.nap = '① '+((document.querySelector('.sl-dai .sl-dl.bat')||{}).title||'').replace(/\s+/g,' ').slice(0, 90)+' · ma trận '+document.querySelectorAll('.sl-bang tbody tr').length+' dòng, chấm nhóm '+document.querySelectorAll('.sl-bang .sl-nh').length+', dòng tiêu đề nhóm '+document.querySelectorAll('.sl-nhom-dong').length;
    /* 3.90.1: bảng đối chiếu chéo (sau lần kiểm cuối) */
    const dcb = document.querySelector('.sl-dc-bang');
    o.dc = dcb ? dcb.querySelectorAll('tbody tr').length+' chỉ tiêu × '+(dcb.querySelectorAll('thead th').length-1)+' nguồn · ô khớp '+dcb.querySelectorAll('td.k').length+' · lệch '+dcb.querySelectorAll('td.l').length+' · chip phạm vi '+document.querySelectorAll('.sl-dc-pv .to-chip').length : 'KHÔNG CÓ BẢNG';
@@ -140,7 +140,7 @@ const fs=require('fs'), path=require('path');
    slDoiTab('nap'); SL_KY = '2026-07'; D.cauHinh.slMo = {}; veSoLieu(); await w(500);
    o.nhom = Array.from(document.querySelectorAll('.sl-nh-dong')).map(tr=>tr.cells[0].textContent.trim()+(tr.classList.contains('mo') ? '(sổ)' : '')+': '+Array.from(tr.querySelectorAll('.sl-chipn')).map(x=>x.textContent).filter(t=>t!=='—').join(' ')).join(' / ');
    slMoNhom('A'); await w(300); o.soA = document.querySelectorAll('.sl-bang tbody tr').length+' dòng khi sổ Ⓐ';
-   o.thangVN = document.querySelector('.sl-thang-ten').textContent+' · ô month: '+document.querySelectorAll('.sl-dau input[type=month]').length;
+   o.thangVN = ((document.querySelector('.sl-dai .sl-dl.bat')||{}).textContent||'')+' · ô month: '+document.querySelectorAll('.sl-dau input[type=month]').length;
    slChonThangHop(2026); await w(200); o.hopThang = document.querySelectorAll('.sl-luoi-thang button').length+' nút tháng'; dongHop();
    o.buocKT = (document.querySelector('.sl-tt-1')||{textContent:'(không có dòng trạng thái)'}).textContent.slice(0, 80);   /* 3.150: 4 ô bước → 1 dòng trạng thái */
    /* 3.146: bỏ chốt tháng — Đạt = đủ file · đúng kỳ · đúng cấu trúc + đã kiểm; chênh lệch chỉ ghi nhận */

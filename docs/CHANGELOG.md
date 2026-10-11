@@ -4,6 +4,37 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.166 — 11/10/2026 — 📋 Chép n file trong thanh chọn nhiều + hộp chia sẻ Windows
+- **Anh chốt (BAN_GIAO_3161.md §2.5):** nút "☑ Chọn chép" (`nutChepNhieu`) rơi từ 3.151 → gộp vào thanh chọn nhiều sẵn có (nút 🗑 Xóa ở thanh công cụ không đổi): `thanhBot` thêm `.bot-chep` "📋 Chép n file" (điện thoại "📤 Gửi n file") + "📋 Chép tiếp" cạnh "Xóa n file"; `capNhatBot` cập nhật số.
+- `botChep()`: có cầu nối (máy tính) → `chepNhieu` như cũ (20 file / lần, file chưa lên Drive bỏ qua + báo); chưa cầu nối → `navigator.share({files})` (Windows 11 Chrome / Edge có nút Sao chép) + mẹo cài cầu nối; không có hộp chia sẻ → tải từng file. File chưa có trên máy (chưa tải từ Drive) → bỏ qua + báo. Áp dụng mọi tab có thanh chọn (Văn bản, Biểu mẫu, Scan, Chữ ký · CCCD…).
+- Khung xem 1 file, máy tính: menu 📤 Gửi thêm "🪟 Hộp chia sẻ Windows (Sao chép)" (`guiChiaSeFile`) — không đổi nút Tải về sẵn có.
+- **Phép thử:** `tests/t161.js` (mới, 6).
+
+## 3.165 — 11/10/2026 — Kết quả kiểm tra theo cấu trúc ma trận
+- **Anh chốt (BAN_GIAO_3161.md §2.4).** `slKTHTML(ky)`: sau đầu khung + bảng đối chiếu chéo, mục kiểm tra gom theo file (`slKTFile(x)` dò tên file trong mục bằng `SL_KT_KHOP`); thứ tự file = dòng ma trận (nhóm `SL_NHOM` Ⓑ Ⓐ Ⓓ Ⓚ, rồi `SL_LOAI`); mục không gắn file → dòng "Chung — đủ file, toàn vẹn từng file". Mỗi file `details.sl-kt-file#sl-kt-f-<loại>`: "✓ n · ⚠ n · ⓘ n" (mở sẵn khi có ⚠); mục so 2 file hiện ở file đứng trước, file kia "↗ xem ở …" (`slKTToi`).
+- Chip lọc `D.cauHinh.slKtLoc` (lc = ⚠ + ⓘ mặc định khi có chênh / lưu ý · all · ok · lech · canh, nhớ); `slKTMo(1|0)` Mở hết / Gập hết; `slKTTim(q)` tìm mục (ẩn file không còn mục, tự mở file có mục khớp). `slDauO`: bấm ⚠ trên ô ma trận → `slKTToi(loại)` mở khung kết quả + đúng dòng file (nháy viền).
+- Kết quả cũ (`SLM.kt`) đọc được nguyên; KTGS (`ktKTHTML`) giữ khối riêng Ⓚ bên dưới như 3.156. Chưa làm: cột theo ngày trong khung kết quả (kiểm tra hiện chạy theo tháng).
+- **Phép thử:** `tests/t160.js` (mới, 10).
+
+## 3.164 — 11/10/2026 — Tổng hợp: sửa lọc Nguồn vốn, chọn 1 báo cáo xem ngay, 3 nhóm + nhãn cấp
+- **Anh chốt (BAN_GIAO_3161.md §2.1):** báo cáo chưa phân cấp đúng (luôn ra cả PGD); bố trí lại; mỗi lần 1 báo cáo; bỏ in nhiều báo cáo 1 lần.
+- **Lỗi thật đã sửa:** `thBaoCao('nv')` chỉ lọc tới xã → thêm `trongN(o)` (xã theo tên + `pvLoc(S, tổ)` khi chọn Điểm GD / Hội / Tổ; Hội toàn PGD đúng). Dòng cộng "Cộng <phạm vi>" (nv, hoi/tg cấp dưới xã, tk) thay "Cộng xã" / "Cộng phạm vi".
+- **Bố cục:** hàng lọc (Nguồn vốn · cây địa bàn · Chương trình) trên; dưới 2 cột: danh sách (`thDsHTML`, nhóm `TH_NHOM`, ◉ radio, nhãn cấp `b.cap`) │ khung xem `#th-xem-khung` + hàng xuất (In · PDF · Excel · Gửi · ⤢ Phóng to). `thChonBC(k)` nhớ `thCH().bcChon`; dữ liệu cũ tích nhiều → `thChon()` giữ cái đầu; lần đầu → báo cáo đầu tiên đủ file. Đổi phạm vi → `PV_DUNG.th.sau` → `thXemNgay()`.
+- **Phạm vi sâu hơn biểu:** `TH_BC[].sau` (lựa chọn biểu không chia) + `toi`; `thSau(b, S)` → dòng mờ (`.th-mo2`, rê chuột ghi lý do) + dòng vàng đầu bảng "Biểu này chỉ chia tới … — đang hiện số cả xã… Xem “Lọc sâu”".
+- `thXem()` (nhiều báo cáo 1 lần) giữ lại cho phép thử đối chiếu, giao diện không gọi. Cách viết số Tổng hợp giữ triệu đồng 2 số lẻ (`thTr(n, 2)`) — khớp quyết định 3.163.
+- **Phép thử:** `tests/t159.js` (mới, 13).
+
+## 3.163 — 11/10/2026 — Nạp & KT dải lịch + cột theo ngày · bảng tab Tổ tự vừa · chip báo số liệu · tiền 2 số lẻ
+- **Anh chốt (BAN_GIAO_3161.md §2.0, 6 phần):** phần 6 chốt theo biểu TW BCDHTD 01.1 anh gửi (triệu đồng, 2 số lẻ, số chẵn vẫn ",00").
+- **Nạp & KT** (`js/22-so-lieu.js`): `slDaiLich(ky)` dải 6 tháng (`.sl-dl` + `.sl-dl-dau dat|thieu|chua`, rê chuột = `slTTChu(ky).tit`), ‹ › (`SL_DAI`), ▾ chọn tháng, ⦿ `slGanNhat()`; mở tab → `SL_KY=''` = gần nhất. `slCotNap(ky, mt)`: [chốt tháng trước] + mỗi ngày có dữ liệu + [chốt tháng]; tq = chốt mọi tháng có số liệu. Ô ngày `slONgayO`, nhóm `slChipNgayO`. `slTongQuan()`, `slThuGon()` (1 nút ▾/▴, nhớ kiểu trước; bỏ "2 tháng"). `slMuiTen` so với bản liền trước cùng loại, ghi "so với dd/mm/yyyy". `slOMT` thêm ⚠ khi file tháng có ngày số liệu ≠ cuối tháng. Bỏ dòng `slNapTTHTML` (`.sl-tt-1`). Tên báo cáo `slTenNgan`, xuống 2 dòng. Màu nền tối chip ngày / ⊕ dùng biến CSS.
+- **Tab Tổ — cột:** `toCotChe(c, kho)` = `tu|hien|an` (dữ liệu cũ true/false → hien/an; cột chính mặc định Luôn hiện, cột thêm Tự động); `toCotHop(kho)` hộp chọn 3 chế độ; nhớ `D.cauHinh.toCot` (bảng) / `toCotKH` (danh sách). Cột Tự động vẽ sẵn lớp `tu tc-<mã>` (ẩn), `toCotVua()` sau khi vẽ bật dần theo thứ tự cho tới khi bảng sắp tràn ngang hoặc tiêu đề cột khác phải xuống thêm dòng; kết quả `TO_TU_HIEN.bang|ds` (dùng cho In đầy đủ); vẽ lại khi đổi cỡ cửa sổ.
+- **Bảng các tổ / PGD:** `TO_COT` / `TO_COT_PGD` xếp cột thêm cuối theo ưu tiên anh chốt; cột mới Nợ lãi `lt`, Món ĐH tháng sau `dhs`, Khách CCCD hết / sắp hết `cch`, Khách chưa có TK 105 `ctk` (tính trong `toSoTo`). Excel dựng từ `dsCot` (đủ mọi cột, số đồng).
+- **Danh sách khách:** `toCotDS(pv, coXa, nc, mo)` danh mục cột + `toDsBangHTML` (thay bảng viết tay trong `toDsTVHTML` / `toDsPVHTML`); cột thêm Ngày vay gần nhất · Ngày đến hạn · Hạn CCCD · Ấp · Ngày sinh · Số món · QH / khoanh (`toTV` thêm `ns, ap, nvm, dhan, smon, qhkn`). "Lãi tồn" = cột Nợ lãi sẵn có. 🖨 In danh sách giữ nguyên (cột chính A4 ngang); 🖨 In đầy đủ `toInDuDS(pv)` = cột đang hiện, tự co chữ; Excel thêm cột (`toThemCotX`).
+- **Tiền:** `soTr` / `soTrDau` luôn 2 số lẻ (bảng các tổ / PGD + bản in). Danh sách khách vẫn ghi đồng (như 3.161).
+- **Chip báo số liệu:** `kyGhiHTML(K)` không còn dòng vàng — đặt chip `⚠ Dùng T8/2026` vào `SL_CHIP` (`slChipThem`, vẽ vào `.pv-chip-o` trước 📍 của cây địa bàn); bấm `slMoNapKy(kc)`. KTGS: BC0437 / BC0438 thành chip (⚠ cam khi thiếu / lệch kỳ, bấm → Nạp & KT); dòng nguồn kỳ ngày `slNguonHTML(B, true)` thành chip; ghi chú giải ngân Mẫu 31 ngày thành chip. Ô kỳ đầu trang `⚠` (`.ky-canh`) khi tháng chọn chưa có số liệu (cho tab).
+- **Chip tổ:** `pvApNgan(ap)` (bỏ "Ấp"/"KP"/"Thôn" khi tên chữ; tên số giữ "ấp 1", "KP 2"); chip tổ thêm `<small class="pv-ap">`, rê chuột "Tổ … · Ấp … · mã … · n tổ viên"; ô "Chọn tổ ▾" ghi giống.
+- **Phép thử:** `tests/t158.js` (mới, 22). Sửa theo giao diện mới: t102, t142, t146, t152, t157.
+
 ## 3.162 — 11/10/2026 — Tinh chỉnh lọc số liệu (anh chốt)
 - **Anh chốt:** chọn xã rồi không có chỗ quay lại (phải ✕); dòng 📍 chỉ để báo đường dẫn; hàng Xã giữ nguyên, PGD / xã đang chọn tô xanh; Hội + Điểm 1 dòng; Tổ 1 dòng chip kèm danh sách sổ xuống; dòng chip đường dẫn để cùng hàng Xã cho gọn.
 - **`pvVeCay`:** hàng 1 `.pv-hang1` = nhóm Xã (luôn hiện) + `.pv-dan` (📍 chip chỉ báo, không nút) + 🔎; hàng 2 `data-cap="diem-hoi"` = Điểm GD `│` Hội (luôn hiện); hàng 3 `data-cap="to"` = ≤ 30 chip tổ + `select.pv-to-ds` đủ danh sách. Bỏ số ① ② ③, bỏ ✕ / bấm tên mở lại (`pvMo` còn trong mã, không dùng).

@@ -2053,7 +2053,15 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.162', ds:[
+var CO_GI_MOI = {ban:'3.166', ds:[
+  ["📋 Chọn nhiều (🗑 Xóa) giờ có cả nút 📋 Chép n file: có cầu nối → Ctrl+V dán hết vào Zalo; chưa cài → hộp chia sẻ Windows (nút Sao chép); điện thoại: 📤 Gửi n file", "doiNgan(1)"],
+  ["🪟 Khung xem 1 file trên máy tính: 📤 Gửi có thêm \"Hộp chia sẻ Windows (Sao chép)\"", "doiNgan(1)"],
+  ["🔍 Kết quả kiểm tra gom theo từng file (cùng thứ tự ma trận): mỗi file 1 dòng ✓ · ⚠ · ⓘ, bấm mở; chip lọc (mặc định ⚠ + ⓘ), ⊞ Mở hết / ⊟ Gập hết, 🔎 tìm mục; bấm ⚠ trên ô ma trận → nhảy tới đúng file", "slDoiTab('nap');doiNgan(7)"],
+  ["📊 Tổng hợp: chọn 1 báo cáo (◉) là xem ngay ở khung phải — bỏ nút Xem; danh sách chia 3 nhóm Chuẩn TW / LEN_31 / Tính từ Mẫu 31, có nhãn cấp [PGD · Xã] [→ Tổ]…", "slDoiTab('th');doiNgan(7)"],
+  ["🐞 Sửa lỗi: báo cáo Theo nguồn vốn chọn Điểm GD / Hội / Tổ trước đây vẫn ra số cả xã — nay lọc đúng tới tổ; dòng cộng ghi đúng phạm vi", "slDoiTab('th');doiNgan(7)"],
+  ["📅 Nạp & KT: dải lịch tháng ● Đạt · ◐ thiếu · ○ chưa nạp (rê chuột xem chi tiết) + ⦿ Gần nhất (mặc định); mỗi ngày có dữ liệu 1 cột, cột chốt tháng ghi \"30/09/2026 · T9 · chốt\"; ⇔ Tổng quan; ▾ Thu gọn ↔ ▴ Bung ra; mũi tên ghi \"so với dd/mm/yyyy\"; bỏ dòng vàng", "slDoiTab('nap');doiNgan(7)"],
+  ["👥 Tab Tổ: cột vừa nội dung, còn chỗ tự thêm cột (Số món, Tỷ lệ QH, Dư nợ BQ, Điểm GD, Nợ lãi…; danh sách khách: Ngày vay gần nhất, Ngày đến hạn, Hạn CCCD, Ấp…), không tràn ngang; ⚙ Cột: Tự động / Luôn hiện / Ẩn; danh sách khách có 🖨 In đầy đủ", "slDoiTab('to');doiNgan(7)"],
+  ["💰 Bảng các tổ: triệu đồng luôn 2 số lẻ (3.679,00) như biểu TW · ⚠ Dùng T9/2026 thành chip nhỏ cuối hàng Xã (bấm → Nạp & KT) · chip tổ kèm tên ấp", "slDoiTab('to');doiNgan(7)"],
   ["📍 Lọc số liệu tinh chỉnh: hàng Xã luôn hiện (PGD / xã đang chọn tô xanh — bấm PGD để quay lại), đường dẫn 📍 chỉ báo nằm cùng hàng Xã; Điểm GD │ Hội chung 1 dòng; hàng Tổ có chip + ô sổ xuống đủ danh sách", "slDoiTab('to');doiNgan(7)"],
   ["👥 Tab Tổ: chip gom 3 nhóm Xem · Khách · Cần xử lý (tối đa 2 dòng); nút 🖨 In · In đầy đủ · 📊 Excel · ⚙ Cột ở đầu bảng; bảng cuộn trong khung, tiêu đề + dòng Cộng luôn thấy", "slDoiTab('to');doiNgan(7)"],
   ["📏 Bảng các tổ gọn: kẻ ô, 1 đơn vị triệu đồng (12.910 · 1.234,5), cột trùng bộ lọc tự ẩn, ⚙ Cột chọn cột xem; In A4 dọc 10 cột · In đầy đủ A4 ngang; biến động / so sánh ghi đủ ngày 31/07/2026 → 31/08/2026", "slDoiTab('to');doiNgan(7)"],
@@ -2621,6 +2629,8 @@ function thanhBot(tab){
     '<span class="tb-nhom">Thêm vào tủ trước ngày <input class="bot-ngay" inputmode="numeric" placeholder="dd/mm/yyyy" oninput="gonNgay(this)">'+
       '<button onclick="botTruocNgay(this)">Chọn</button></span>'+
     '<button onclick="botBoChon()">Bỏ chọn</button>'+
+    '<button class="chinh bot-chep" onclick="botChep()" disabled title="'+(laDT() ? 'Gửi các file đã chọn (Zalo…)' : 'Chép các file đã chọn — Ctrl+V vào Zalo / email / thư mục (cầu nối); chưa cài cầu nối: hộp chia sẻ Windows')+'">'+(laDT() ? '📤 Gửi 0 file' : '📋 Chép 0 file')+'</button>'+   /* 3.166 (anh chốt): chép + xóa chung 1 thanh chọn */
+    '<button class="bot-tiep" onclick="chepTiep()" style="display:none">📋 Chép tiếp</button>'+
     '<button class="xau bot-nut" onclick="botXacNhan()" disabled>Xóa 0 file</button>'+
     '<button onclick="thoiBot()">Thôi</button></div>';
 }
@@ -2632,6 +2642,7 @@ function capNhatBot(){
     var d = th.querySelector('.bot-dem'), b = th.querySelector('.bot-nut'), t = th.querySelector('.bot-tat');
     if(d) d.textContent = n ? 'Đã chọn '+n+' file' : 'Chưa chọn file nào — bấm vào file để chọn';
     if(b){ b.textContent = BOT.muc==='chep' ? '📋 Chép '+Math.min(n, 20)+' file'+(n>20 ? ' đầu' : '') : 'Xóa '+n+' file'; b.disabled = !n; }
+    var cp = th.querySelector('.bot-chep'); if(cp){ cp.textContent = (laDT() ? '📤 Gửi ' : '📋 Chép ')+(coCauNoi() && !laDT() ? Math.min(n, 20) : n)+' file'+(coCauNoi() && !laDT() && n>20 ? ' đầu' : ''); cp.disabled = !n; }
     var tp = th.querySelector('.bot-tiep'); if(tp){ tp.style.display = CN_CHEP_CON.length ? '' : 'none'; tp.textContent = '📋 Chép tiếp '+Math.min(CN_CHEP_CON.length, 20)+' file'; }
     if(t && BOT.tab) t.textContent = 'Chọn tất cả đang lọc ('+tat+')';
   });
@@ -2659,6 +2670,18 @@ function mucBot(id){
   return timMuc(id) || (D.bieuMau||[]).find(function(x){ return x.id===id; });
 }
 /* 3.50 (anh chốt): Xóa N file → vào thùng rác ngay, không hỏi mức; có ↩ Hoàn tác. Xóa hẳn làm trong Thùng rác */
+/* 3.166 (anh chốt): 📋 Chép n file — có cầu nối → chép (Ctrl+V dán hết); chưa có → hộp chia sẻ (Windows 11 Chrome / Edge có nút Sao chép); không có hộp chia sẻ → tải về. Điện thoại: 📤 Gửi */
+function botChep(){
+  var ds = Object.keys(BOT.chon).map(mucBot).filter(Boolean); if(!ds.length) return bao('Chưa chọn file nào.', 3);
+  if(coCauNoi() && !laDT()) return chepNhieu(ds);
+  Promise.all(ds.map(function(m){ return docFile(m.id).then(function(b){ return b ? new File([b], m.tenMoi||m.ten||m.tenCu||'file', {type:b.type||'application/octet-stream'}) : null; }).catch(function(){ return null; }); })).then(function(fs){
+    fs = fs.filter(Boolean); var thieu = ds.length-fs.length, ghi = thieu ? ' · '+thieu+' file chưa có trên máy này (mở file một lần hoặc ☁ Đồng bộ) nên bỏ qua.' : '';
+    if(!fs.length) return baoLoi('Các file đã chọn chưa có trên máy này — mở từng file một lần (tải từ Drive) hoặc ☁ Đồng bộ rồi thử lại.');
+    if(navigator.canShare && navigator.canShare({files:fs})) return navigator.share({files:fs, title:fs.length+' file'}).then(function(){ bao((laDT() ? 'Đã gửi ' : 'Đã mở hộp chia sẻ — bấm Sao chép rồi Ctrl+V vào Zalo. ')+(laMayBan() ? 'Mẹo: cài cầu nối máy tính để chép thẳng.' : '')+ghi, 7); }).catch(function(){});
+    fs.forEach(function(f, i){ setTimeout(function(){ taiXuongBlob(f, f.name); }, i*300); });
+    bao('Máy này không có hộp chia sẻ — đã tải '+fs.length+' file về thư mục Tải xuống (kéo vào Zalo).'+ghi, 8);
+  });
+}
 function botXacNhan(){ if(BOT.muc==='chep') return chepNhieu(Object.keys(BOT.chon).map(mucBot).filter(Boolean)); thucHienBot(); }
 function thucHienBot(){
   var ids = Object.keys(BOT.chon), tab = BOT.tab;

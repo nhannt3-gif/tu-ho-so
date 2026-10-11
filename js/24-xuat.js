@@ -115,12 +115,16 @@ function guiFileMenu(ev){
   var anh = /\.(jpe?g|png|webp)$/i.test(m.tenMoi||m.tenCu||'') || m.nhom==='ghiChu';
   var h = '<div class="menu-nhan">Gửi file</div><button onclick="taiFile()">📤 '+(laMayBan() ? 'Tải file về (kéo vào Zalo)' : 'Gửi file (Zalo…)')+'</button>';
   if(coCauNoi() && m.driveId && !laDT()) h += '<button onclick="cnHanh(\'chep\',\'muc\',\''+m.id+'\')">📋 Chép nguyên file — Ctrl+V vào Zalo</button>';
+  if(laMayBan() && navigator.canShare) h += '<button onclick="guiChiaSeFile()" title="Windows 11 (Chrome / Edge): hộp chia sẻ có nút Sao chép">🪟 Hộp chia sẻ Windows (Sao chép)</button>';   /* 3.166 (anh chốt) */
   h += '<div class="vach"></div><div class="menu-nhan">Chép để dán</div>';
   if(anh) h += '<button onclick="guiChepAnhFile()">📋 Copy ảnh</button>';
   h += '<button onclick="guiChepTenFile()">📋 Copy '+(m.soHieu ? 'số hiệu + trích yếu' : 'tên file')+'</button>';
   h += '<div class="menu-ghi">'+(laMayBan() ? 'Máy tính: file tải về thư mục Tải xuống.' : 'Điện thoại: chọn Zalo trong bảng chia sẻ.')+'</div>';
   moMenuTL(ev, h);
 }
+function guiChiaSeFile(){ var m = mucDangXem; if(!m) return;
+  docFile(m.id).then(function(b){ if(!b) return baoLoi('File chưa có trên máy này — mở xem một lần (tải từ Drive) rồi thử lại.'); var f = new File([b], m.tenMoi||m.tenCu||'file', {type:b.type||'application/octet-stream'});
+    if(navigator.canShare({files:[f]})) return navigator.share({files:[f], title:f.name}).catch(function(){}); taiFile(); }); }
 function guiChepTenFile(){
   var m = mucDangXem; if(!m) return;
   var t = m.soHieu ? [m.soHieu, m.ngay ? ngayVN(m.ngay) : '', m.trichYeu || m.tenVB || ''].filter(Boolean).join(' · ') : (m.tenMoi || m.tenCu || m.ten || '');

@@ -34,7 +34,7 @@ const path=require('path'); const drive=require('./fakedrive.js')();
    slDoiTab('sk'); await w(200); moNapSL(); await w(200); moBCSL(); await w(300);
    ok('Số liệu nhớ tab con báo cáo gần nhất (Sao kê)', D.cauHinh.slTab==='sk');
    slDoiTab('kt'); await w(600);
-   ok('KTGS: không còn khối nạp BC0437 / BC0438; chip BC thiếu có nút 📥 nạp sang tab Nạp & KT (3.149)', !tr7.querySelector('.kt-nap') && !!tr7.querySelector('.kt-bc-nap'), tr7.textContent.slice(0, 120));
+   ok('KTGS: không còn khối nạp BC0437 / BC0438; chip BC thiếu ⚠ cam cuối hàng Xã, bấm → tab Nạp & KT (3.149 · 3.163)', !tr7.querySelector('.kt-nap') && [...document.querySelectorAll('#tr7 .sl-chip.cam, .pv-chip-o .sl-chip.cam')].some(x=>/⚠ BC043[78]/.test(x.textContent) && /moNapSL/.test(x.getAttribute('onclick'))), tr7.textContent.slice(0, 120));
    doiNgan(2); await w(300);
    ok('lối cũ doiNgan(2) (Có gì mới, lời nhắc cũ) → tab Nạp & KT', nganHienTai===7 && D.cauHinh.slTab==='nap' && chon()==='📥 Nạp & KT');
    /* Công cụ */

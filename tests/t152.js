@@ -14,12 +14,12 @@ const fs=require('fs'), path=require('path');
    SL_KY = '2026-08'; D.cauHinh.slMt = ''; moNapSL(); await w(400);
    const tr7 = document.getElementById('tr7');
    const nut = [...tr7.querySelectorAll('.sl-thanh-nap button')].map(x=>x.textContent.trim()).join('|');
-   ok('hàng nút: ‹ T7 · T8/2026 ▾ · T9 › · 📥 Nạp file · 🔍 Kiểm tra lại · 📋 File cần xuất · [▾ Thu gọn][2 tháng][⇔ Tổng quan] · ⋯ · ❓', nut==='‹ T7|T8/2026 ▾|T9 ›|📥 Nạp file|🔍 Kiểm tra lại|📋 File cần xuất|▾ Thu gọn|2 tháng|⇔ Tổng quan|⋯|❓', nut);
+   ok('hàng nút (3.163): dải lịch ‹ T… › ▾ · ⦿ Gần nhất · 📥 Nạp file · 🔍 Kiểm tra lại · 📋 File cần xuất · ⇔ Tổng quan · ▾ Thu gọn · ⋯ · ❓ (bỏ "2 tháng")', /^‹\|(T\d+[●◐○]\|){6}›\|▾\|⦿ Gần nhất\|📥 Nạp file\|(🔍 Kiểm tra lại\|)?📋 File cần xuất\|⇔ Tổng quan\|▾ Thu gọn\|⋯\|❓$/.test(nut), nut);
    ok('1 nút nạp: bỏ khối / nút "Nạp nhiều file" KTGS riêng, bỏ ‹ › góc ma trận', !tr7.querySelector('.kt-nap') && !/Nạp nhiều file/.test(tr7.textContent) && !tr7.querySelector('.sl-tq-nut'));
    const th = [...tr7.querySelectorAll('.sl-bang thead th')].map(x=>x.textContent.trim());
-   ok('mặc định: tháng chọn + tháng trước + Theo ngày', th.length===4 && /T7\/2026/.test(th[1]) && /T8\/2026/.test(th[2]) && /Theo ngày/.test(th[3]), th.join(' | '));
+   ok('mặc định (3.163): cột chốt tháng trước + các ngày có dữ liệu + cột chốt tháng chọn (mới nhất bên phải)', /T7 · chốt/.test(th[1]) && /T8 · chốt/.test(th[th.length-1]), th.join(' | '));
    ok('cột tháng chọn sáng lên (tiêu đề + ô)', tr7.querySelector('.sl-bang thead th.sl-cot') && /T8/.test(tr7.querySelector('.sl-bang thead th.sl-cot').textContent) && tr7.querySelectorAll('.sl-bang tbody td.sl-cot').length>=4);
-   ok('kẻ ô rõ: bảng lưới, ô cao 28 px', tr7.querySelector('.sl-bang.sl-luoi') && Math.round(tr7.querySelector('.sl-bang .bdc-o.sl-o').getBoundingClientRect().height)<=29, Math.round(tr7.querySelector('.sl-bang .bdc-o.sl-o').getBoundingClientRect().height));
+   ok('kẻ ô rõ: bảng lưới, ô cao 28 px', tr7.querySelector('.sl-bang.sl-luoi') && Math.min(...[...tr7.querySelectorAll('.sl-bang .bdc-o.sl-o')].map(x=>x.getBoundingClientRect().height))<=29, Math.round(Math.min(...[...tr7.querySelectorAll('.sl-bang .bdc-o.sl-o')].map(x=>x.getBoundingClientRect().height))));   /* 3.163: tên dài xuống 2 dòng → dòng đó cao hơn */
    ok('nhóm Ⓚ KTGS trong ma trận (gập sẵn)', [...tr7.querySelectorAll('.sl-nh-dong')].some(r=>/KTGS/.test(r.textContent) && !r.classList.contains('mo')));
    ok('tên báo cáo dài: chữ nhỏ, xuống dòng (lớp dai)', [...tr7.querySelectorAll('.sl-con-ten.dai')].some(x=>/Danh sách tổ/.test(x.textContent)));
    /* tự kiểm ngầm */
@@ -38,19 +38,19 @@ const fs=require('fs'), path=require('path');
      ok('xóa 1 ô → app tự kiểm lại tháng đó', SLM.kt['2026-08'].luc>luc0 && !slKTCu('2026-08')); }
    else ok('xóa 1 ô → tự kiểm lại (bỏ qua: bộ giả thiếu file phụ)', true);
    /* chuyển tháng */
-   document.querySelector('#tr7 .sl-thang-lui').click(); await w(300);
+   [...document.querySelectorAll('#tr7 .sl-dai .sl-dl')].find(x=>/^T7/.test(x.textContent)).click(); await w(300);
    const th2 = [...document.querySelectorAll('#tr7 .sl-bang thead th')].map(x=>x.textContent.trim());
-   ok('‹ T7 → tháng chọn T7, ma trận T6 + T7', SL_KY==='2026-07' && /T6\/2026/.test(th2[1]) && /T7\/2026/.test(th2[2]), th2.join(' | '));
+   ok('3.163: bấm T7 trên dải lịch → tháng chọn T7, cột chốt T6 (đầu) + chốt T7 (cuối)', SL_KY==='2026-07' && /T6 · chốt/.test(th2[1]) && /T7 · chốt/.test(th2[th2.length-1]), th2.join(' | '));
    slChonThang(0, '2026-08'); await w(200);
    /* tổng quan */
    [...document.querySelectorAll('#tr7 .sl-mt-k')].find(x=>/Tổng quan/.test(x.textContent)).click(); await w(300);
    const bang = document.querySelector('#tr7 .sl-bang'), cotT = [...bang.querySelectorAll('thead th')].filter(x=>/\d{4}/.test(x.textContent));
-   ok('⇔ Tổng quan: 12 tháng, trọn chiều ngang, nhớ lựa chọn', cotT.length===12 && bang.getBoundingClientRect().width>=document.getElementById('tr7').getBoundingClientRect().width*0.95 && D.cauHinh.slMt==='tq', cotT.length+' tháng');
-   /* thu gọn */
+   ok('⇔ Tổng quan (3.163): chỉ cột chốt tháng các tháng có số liệu, nhớ lựa chọn', cotT.length>=2 && cotT.every(x=>/chốt/.test(x.textContent)) && D.cauHinh.slMt==='tq', cotT.length+' tháng');
+   /* thu gọn ↔ bung ra 1 nút */
    [...document.querySelectorAll('#tr7 .sl-mt-k')].find(x=>/Thu gọn/.test(x.textContent)).click(); await w(300);
    const thu = document.querySelector('#tr7 .sl-mt-thu');
-   ok('▾ Thu gọn: 1 dòng tóm tắt tháng, không bảng', thu && !document.querySelector('#tr7 .sl-bang') && /T8\/2026/.test(thu.textContent) && thu.getBoundingClientRect().height<=48);
-   thu.click(); await w(300); ok('bấm dòng tóm tắt → mở lại 2 tháng', !!document.querySelector('#tr7 .sl-bang') && slMtKieu()==='gon');
+   ok('▾ Thu gọn: 1 dòng tóm tắt tháng, không bảng; nút đổi thành ▴ Bung ra', thu && !document.querySelector('#tr7 .sl-bang') && /T8\/2026/.test(thu.textContent) && thu.getBoundingClientRect().height<=48 && [...document.querySelectorAll('#tr7 .sl-mt-k')].some(x=>/Bung ra/.test(x.textContent)));
+   thu.click(); await w(300); ok('bấm dòng tóm tắt → mở lại kiểu xem trước đó (Tổng quan)', !!document.querySelector('#tr7 .sl-bang') && slMtKieu()==='tq');
    slNapHoi(); await w(100); ok('❓ giải thích tự kiểm, ✓ / ⚠, kiểu ma trận', /tự kiểm tra ngầm/.test(document.getElementById('hop-in').textContent) && /Tổng quan/.test(document.getElementById('hop-in').textContent)); dongHop();
    return o;
  }, files);
