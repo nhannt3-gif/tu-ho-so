@@ -16,6 +16,7 @@ var DH_MUC = [
   {nhom:'Hồ sơ'},
   {k:'hst', bt:'📝', ten:'Hồ sơ Tổ',   mo:function(){ dhSL('hst'); }},   /* 3.170 */
   {k:'hsv', bt:'📄', ten:'Hồ sơ vay',  mo:function(){ dhSL('hsv'); }},
+  {k:'gdx', bt:'🏢', ten:'Giao dịch xã', mo:function(){ dhSL('gdx'); }},   /* 3.172 */
   {k:'5',   bt:'📋', ten:'Biểu mẫu',   mo:function(){ doiNgan(5); }},
   {k:'4',   bt:'🪪', ten:'Scan',       mo:function(){ doiNgan(4); }},
   {k:'3',   bt:'🖼', ten:'Thư viện',   mo:function(){ doiNgan(3); }}

@@ -26,7 +26,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    const tat = []; for(const m of HSO_MAU.hst.concat(HSO_MAU.hsv)){ if(m.k==='bo') continue; slDoiTab(HSO_MAU.hst.indexOf(m)>=0 ? 'hst' : 'hsv'); hsoChonMau(m.k); await w(250); tat.push([m.k, HSO.x.trang]); }
    ok('mọi mẫu: tiêu ngữ không gạch chân chữ, có đường kẻ mảnh riêng (0,5 pt) dưới tiêu ngữ', tat.every(x=>!/<u>Độc lập/.test(x[1]) && (!/Độc lập/.test(x[1]) || /Hạnh phúc<\/p><p class="ke"/.test(x[1]))) && /p\.ke\{[^}]*border-top:\.5pt solid/.test(tat[0][1]), tat.filter(x=>/<u>Độc lập/.test(x[1])).map(x=>x[0]).join(','));
    ok('logo mặc định chỉ in ở mẫu gốc có logo (01/TD, 01/TGTV)', tat.filter(x=>/class="hso-logo"/.test(x[1])).map(x=>x[0]).sort().join(',')==='01td,01tgtv', tat.filter(x=>/class="hso-logo"/.test(x[1])).map(x=>x[0]).join(','));
-   hsoKB().logoMau = {'04td':true}; slDoiTab('hsv'); hsoChonMau('04td'); await w(300);
+   hsoKB().logoMau = {'09a':true}; slDoiTab('hsv'); hsoChonMau('09a'); await w(300);   /* 3.172: 04/TD dời sang tab Giao dịch xã → thử với 09A */
    ok('tích / bỏ tích mẫu in logo ở khai báo → áp ngay', /class="hso-logo"/.test(HSO.x.trang)); hsoKB().logoMau = null;
    /* ---- bộ hồ sơ: hộ mới ---- */
    hsoChonMau('bo'); await w(300); const B = hsoBoMoi(); hsoBoDat('moi', true); hsoBoGanTo();
@@ -57,10 +57,8 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    const hN = chu(HSO.x.h);
    ok('01/TD NSVSMT: không khối xác nhận, 2 công trình (01 công trình), xây mới, thời hạn 60 tháng', !/Xác nhận của UBND xã/.test(hN) && /Công trình cấp nước 01 công trình 25\.000\.000 đồng/.test(hN) && /Xây mới công trình cấp nước, công trình vệ sinh/.test(hN) && /Thời hạn xin vay: 60 tháng/.test(hN) && /Cấp nước sạch và vệ sinh môi trường nông thôn/.test(hN));
    ok('NSVSMT vượt 25 triệu / công trình → cảnh báo', hsoPA(B2).canh.length===1);
-   /* 04/TD từng thông báo */
-   hsoCH().boId = ''; hsoChonMau('04td'); HSO.vay.soNguoi = '1'; HSO.vay.tien = '80000000'; hsoXem(); await w(300);
-   const h04 = HSO.x.h;
-   ok('04/TD: đầu trang 3 cột (PGD · quốc hiệu · Mẫu số), Kính gửi gạch chân, 9 giờ 30 phút mặc định, 1 thông báo', /Mẫu số 04\/TD/.test(h04) && /<b class="u">Kính gửi:<\/b>/.test(h04) && /9<\/span> giờ <span class="o-kb">30<\/span> phút/.test(h04) && HSO.x.ds.length===1 && /Tám mươi triệu đồng/.test(chu(h04)));
+   /* 04/TD: 3.172 dời sang tab 🏢 Giao dịch xã (mẫu chép nguyên file anh đã in thử — xem t165) */
+   ok('04/TD dời sang tab Giao dịch xã', !HSO_MAU.hsv.some(m=>m.k==='04td') && /Mẫu số 04\/TD/.test(gdxHTML04({soNguoi:1, soTien:'80000000'}, gdxC())));
    /* 01/TGTV hàng loạt */
    HSO.vay.tgNguon = 'to'; hsoChonMau('01tgtv'); await w(300); HSO.vay.tgNguon = 'to'; hsoXem(); await w(200);
    const ctk = tv.filter(k=>!k.stk.length && !k.coTK).length;
@@ -72,7 +70,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    hsoChonMau('10c'); await w(300); ok('10C: dòng tiêu đề bảng lặp khi dài (thead)', /<thead>/.test(HSO.x.h));
    /* Word cả bộ */
    slDoiTab('hsv'); hsoCH().boId = B.id; hsoChonMau('bo'); await w(400); const wBo = await b64(await hsoDocx(hsoLap()));
-   hsoKBHop(); await w(200); ok('⚙ Khai báo: mục Logo (chọn ảnh, tích mẫu) + Đối tượng thụ hưởng theo CT + giờ phát tiền', /Logo/.test(document.getElementById('hop-in').textContent) && /Đối tượng thụ hưởng/.test(document.getElementById('hop-in').textContent) && /Giờ phát tiền/.test(document.getElementById('hop-in').textContent)); dongHop();
+   hsoKBHop(); await w(200); ok('⚙ Khai báo: mục Logo (chọn ảnh, tích mẫu) + Đối tượng thụ hưởng theo CT (3.172: giờ phát tiền chuyển sang tab Giao dịch xã)', /Logo/.test(document.getElementById('hop-in').textContent) && /Đối tượng thụ hưởng/.test(document.getElementById('hop-in').textContent) && !/Giờ phát tiền/.test(document.getElementById('hop-in').textContent)); dongHop();
    return {o, w02, wBo};
  }, files);
  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 't164-')), doc = (b64, ten, phan) => { const f = path.join(tmp, ten); fs.writeFileSync(f, Buffer.from(b64, 'base64')); return cp.execSync('unzip -p '+f+' '+(phan||'word/document.xml')).toString(); };

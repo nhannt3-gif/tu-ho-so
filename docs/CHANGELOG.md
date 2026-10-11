@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.172 — 11/10/2026 — Tab 🏢 Giao dịch xã (04/TD + 12/GDX in nhanh)
+- **Anh (11/10):** gửi file HTML in 04/TD + 12/GDX đã in thử đúng mẫu thật — "em đừng làm thay đổi"; tab riêng, thuần túy in nhanh, không phụ thuộc số liệu hộ vay; giữ mọi khai báo / tùy chọn; bỏ in hàng loạt → mẫu hay in; kiểm tra trước đợt + ngày GD gần nhất (cả ngày nghỉ); nơi giải ngân tại PGD; không viết tắt. Quyết định ghi `docs/KE_HOACH_HO_SO_TO.md` mục 3.172.
+- File mới `js/26-giao-dich-xa.js` (tiền tố `gdx`): `gdxHTML04` / `gdxHTML12` + `GDX_CSS` chuyển **tự động** từ file gốc (template → nối chuỗi ES5, CSS nguyên văn) — xem / in trong iframe `#gdx-khung` (CSS app không chạm mẫu). Zoom khung xem dùng `zoom`, khi in luôn 100%. So ảnh in file gốc ↔ app: 6 trường hợp (04 thường / GQVL, 12/GDX 10–36 dòng) trùng 100% điểm ảnh (làm ở máy làm việc — file gốc có dữ liệu thật, không vào repo).
+- Khai báo `D.cauHinh.gdx` (đồng bộ Drive cùng cài đặt; khóa giữ tên của file gốc: donViTren, kinhGui, tenUBNDVietTat, quickAmounts, danhSachCanBo, m12*…) + mới: `mauHay [{h,t}]`, `noiGN` (diem | pgd), `ma04`, `xa04`, `ngayPhatISO`, `gioDiem` / `gioPGD`, `diaDiemPGD`, `dotXN`, `m12DonVi1/2`.
+- Điểm / tổ: `gdxDsDiem()` đọc `D.cauHinh.diaBan` (tổ dạng `{ma, ten}` hoặc chuỗi "mã | tên"); `gdxNgayToi(ngay, k)` k ngày GD tới (không dời ngày nghỉ, ngày 31 → cuối tháng); `gdxDiemGanNhat()`.
+- Hồ sơ vay: bỏ `hsoLap04td`, `hsoDiemXa`, `hsoNgayGDToi`, khai báo giờ / phút 04/TD (`HSO_PGD_O`). Số liệu: tab con `gdx` (vẽ trước khi mở số liệu), thanh bên mục 🏢 Giao dịch xã. Phép thử `tests/t165.js` (30 mục); t140 / t143 / t163 / t164 cập nhật.
+
 ## 3.171 — 11/10/2026 — Bộ hồ sơ vay · mẫu bám sát PDF
 - **Anh (11/10):** "em code đi về mẫu bám sát các mẫu PDF ko dc làm sai lệch" — quyết định ghi ở `docs/KE_HOACH_HO_SO_TO.md` (mục 1–9).
 - Bộ hồ sơ vay `D.cauHinh.hsoBo` (đồng bộ cùng cài đặt): chương trình HSSV (mục đích cố định, 40 triệu / năm học) / NSVSMT (xây mới / sửa chữa, 1–2 công trình, tối đa 25 triệu / công trình — cảnh báo, 60 tháng, kỳ hạn 12 tháng); ngày đến hạn / hạn trả cuối để trống; hộ mới: CCCD tự suy giới tính, năm sinh, nơi cấp (từ 01/07/2024 = Bộ Công an); người thừa kế chỉ ở 01/UQ; `hsoBoTrenM31` dò CCCD trên Mẫu 31.
