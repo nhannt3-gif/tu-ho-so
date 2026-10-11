@@ -34,7 +34,7 @@ const path=require('path');
    return o; });
  await p.emulateMedia({media:'print'}); r.inAn = await p.evaluate(()=>getComputedStyle(document.getElementById('thanh-ben')).display==='none' && getComputedStyle(document.body).paddingLeft==='0px'); await p.emulateMedia({media:'screen'});
  ok('màn 1536: có thanh bên 216 px, ẩn thanh tab ngang', r.coTB===216 && r.anTab, r.coTB+' · '+r.anTab);
- ok('thanh bên đủ mục: 3 mục chính + 5 Số liệu + 3 Hồ sơ', r.muc==='Hôm nay,Văn bản,Nạp & KT,Tổng hợp,Sao kê,Tổ TK&VV,KTGS Hội,Tra cứu KH,Biểu mẫu,Scan,Thư viện', r.muc);
+ ok('thanh bên đủ mục: 3 mục chính + 5 Số liệu + 5 Hồ sơ (3.170: + Hồ sơ Tổ, Hồ sơ vay)', r.muc==='Hôm nay,Văn bản,Nạp & KT,Tổng hợp,Sao kê,Tổ TK&VV,KTGS Hội,Tra cứu KH,Hồ sơ Tổ,Hồ sơ vay,Biểu mẫu,Scan,Thư viện', r.muc);
  ok('bấm Văn bản / Nạp & KT / Tổ / Tổng hợp / Biểu mẫu / Hôm nay → đúng màn + tô đúng', r.van.ngan===1 && r.van.bat==='1' && r.nap.ngan===7 && r.nap.sl==='nap' && r.nap.bat==='nap' && r.to.sl==='to' && r.to.bat==='to' && r.tc.bat==='th' && r.bm.ngan===5 && r.bm.bat==='5' && r.hn.ngan===0 && r.hn.bat==='0', JSON.stringify([r.van, r.nap, r.to, r.tc, r.bm, r.hn]));
  ok('lối cũ (slDoiTab + doiNgan) vẫn tô đúng mục; tab con Số liệu ẩn', r.cuSK==='sk' && r.anCon);
  ok('lối cũ doiNgan(2) (tab Tháng cũ) → tô Nạp & KT', r.cuThang==='nap');

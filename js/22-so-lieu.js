@@ -3464,7 +3464,7 @@ var SL_TRA_Q = '';
 function slDoiTab(t){ if(t==='nap' && D.cauHinh.slTab!=='nap'){ SL_KY = ''; SL_DAI = 0; }   /* 3.163: mở tab Nạp & KT → ⦿ Gần nhất */
   D.cauHinh.slTab = t; if(t!=='nap') D.cauHinh.slTabBC = t; luu(); veSoLieu(); if(t==='tra') setTimeout(function(){ var o = document.getElementById('sl-tim'); if(o) o.focus(); }, 30); }
 function slTabConHTML(){
-  var t = ['tra','to','sk','th','kt'].indexOf(D.cauHinh.slTab)>=0 ? D.cauHinh.slTab : 'nap';
+  var t = ['tra','to','sk','th','kt','hst','hsv'].indexOf(D.cauHinh.slTab)>=0 ? D.cauHinh.slTab : 'nap';
   if(typeof toNutSL==='function') toNutSL();
   /* 3.144 (Q15): 📥 Nạp & Kiểm tra là tab riêng trên thanh tab (chỗ tab Tháng cũ) — không còn là tab con của Số liệu */
   if(t==='nap') return '';   /* 3.150: tab Nạp & KT tự vẽ 1 hàng công cụ (slNapThanhHTML) — giải thích chuyển vào ❓ */
@@ -3473,7 +3473,9 @@ function slTabConHTML(){
     '<button class="'+(t==='sk'?'bat':'')+'" onclick="slDoiTab(\'sk\')">📑 Sao kê</button>'+
     '<button class="'+(t==='to'?'bat':'')+'" onclick="slDoiTab(\'to\')">👥 Tổ TK&amp;VV</button>'+
     '<button class="'+(t==='kt'?'bat':'')+'" onclick="slDoiTab(\'kt\')">🛡 KTGS Hội</button>'+   /* 3.93 */
-    '<button class="'+(t==='tra'?'bat':'')+'" onclick="slDoiTab(\'tra\')">👤 Tra cứu KH</button></div>';   /* 3.89 */   /* 3.88: tab con báo cáo theo tổ (anh chốt: cạnh Tra cứu KH) */
+    '<button class="'+(t==='tra'?'bat':'')+'" onclick="slDoiTab(\'tra\')">👤 Tra cứu KH</button>'+
+    '<button class="'+(t==='hst'?'bat':'')+'" onclick="slDoiTab(\'hst\')">📝 Hồ sơ Tổ</button>'+   /* 3.170 (anh chốt 11/10) */
+    '<button class="'+(t==='hsv'?'bat':'')+'" onclick="slDoiTab(\'hsv\')">📄 Hồ sơ vay</button></div>';   /* 3.89 */   /* 3.88: tab con báo cáo theo tổ (anh chốt: cạnh Tra cứu KH) */
 }
 /* 3.86: tab con Tra cứu KH — ô tìm RIÊNG, độc lập với ô tìm chung của app */
 /* ===================== 3.94: 👤 TRA CỨU KH GỌN (anh chốt) =====================
@@ -3714,6 +3716,7 @@ function veSoLieu(){
   if(D.cauHinh.slTab==='sk') return veSaoKe();   /* 3.89 */
   if(D.cauHinh.slTab==='th') return veTongHop();   /* 3.90 */
   if(D.cauHinh.slTab==='kt') return veKTGS();   /* 3.93 */
+  if(D.cauHinh.slTab==='hst' || D.cauHinh.slTab==='hsv') return veHoSo();   /* 3.170: 📝 Hồ sơ Tổ · 📄 Hồ sơ vay (js/25-ho-so.js) */
   var ky = slDsKy(), kyXem = SL_KY || slKyMoi() || ngayISO(nay()).slice(0,7), soBang = Object.keys(SLM.bang).length;
   SL_KY = kyXem;
   /* 3.156 (anh chốt): 1 hàng công cụ (1 nút Nạp file cho mọi file kể cả BC0437 / 0438, chuyển tháng 1 chỗ, 🔍 Kiểm tra lại, kiểu ma trận) · 1 dòng trạng thái ·
@@ -6610,10 +6613,10 @@ function slVua(){ if(nganHienTai!==7) return; var r = document.documentElement.s
     if(du>0) k.style.maxHeight = Math.max(220, parseFloat(k.style.maxHeight) - du - 4)+'px'; }); }
 window.addEventListener('resize', function(){ clearTimeout(window.__slVua); window.__slVua = setTimeout(slVua, 150); });
 /* 3.168 (anh 11/10): khung xem cao vừa cửa sổ, bảng cuộn bên trong khung (trang không phải cuộn dài) */
-function thVuaKhung(){ var f = document.getElementById('th-xem-khung'); if(!f || !f.offsetParent) return;
+function thVuaKhung(){ var f = document.getElementById('th-xem-khung') || document.getElementById('hso-xem-khung'); if(!f || !f.offsetParent) return;   /* 3.170: + khung xem tab Hồ sơ */
   var h = window.innerHeight - f.getBoundingClientRect().top - 22; f.style.height = Math.max(320, h)+'px'; }
 window.addEventListener('resize', function(){ clearTimeout(window.__thVua); window.__thVua = setTimeout(thVuaKhung, 150); });
-function thXemRong(){ var f = document.getElementById('th-xem-khung'); if(f && f.requestFullscreen) f.requestFullscreen(); else thXem1(); }
+function thXemRong(id){ var f = document.getElementById(id || 'th-xem-khung'); if(f && f.requestFullscreen) f.requestFullscreen(); else if(!id) thXem1(); }
 function thXem1(){ if(!TH_XEM.length) return; moHop('<div class="hop-tit">👁 '+coChuHTML(TH_XEM[0].tieuDe)+'</div><iframe id="th-khung2" class="to-khung" title="Xem"></iframe><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>', true);
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong'); xemChuan(document.getElementById('th-khung2'), thHTMLIn(TH_XEM)); }
 /* số triệu đồng (biểu BCDHTD): d chữ số thập phân */

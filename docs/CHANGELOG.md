@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.170 — 11/10/2026 — Tab 📝 Hồ sơ Tổ · 📄 Hồ sơ vay
+- **Anh (11/10):** "code cả 2 tab và gộp lên" — theo `docs/KE_HOACH_HO_SO_TO.md` (căn cứ số liệu điền tự động hết mức; thiếu thì chấm ghi tay; quy tắc thời hạn / kỳ hạn / mức vay chưa đặt, bàn riêng từng mẫu).
+- File mới `js/25-ho-so.js` (tiền tố `hso`, tránh trùng `hs*` của công cụ HSSV). 2 tab con Số liệu `hst` / `hsv` (thanh tab con + thanh bên nhóm Hồ sơ); dùng chung khối LỌC ĐỊA BÀN (`PV_DUNG.hst/hsv`), kỳ chung, `toNap` / `toTV` / `toBDNap` của tab Tổ.
+- Hồ sơ Tổ: 10C cũ / mới (tự theo ngày họp, đổi tay được; tích kết nạp — mới vào tích sẵn, cho ra — ra khỏi tổ + tất nợ 105 = 0 tích sẵn; tổng trước / sau họp), 10A (danh sách tổ viên 2 cột, quy ước nguyên văn), 10B (bầu thay — gợi ý so tổ trưởng / tổ phó Mẫu 31 tháng trước), 11/TD (Bên A khai báo, CCCD tổ trưởng khi khớp mã KH DSTO / trùng tên duy nhất), 01/BG, 02/BG (dòng khách + dòng món, nợ gốc / lãi / 105, tổng, QH / khoanh).
+- Hồ sơ vay: 01/TD, 03/TD (A4 ngang), 04/TD (UBND xã, điểm GD, ngày GD kế tiếp), 09A/TD (món còn dư nợ, ngày đến hạn HĐ / gia hạn, gốc, lãi).
+- ⚙ Khai báo 1 lần `D.cauHinh.hsoKB` (PGD, trưởng ấp theo xã|ấp, tổ phó theo mã tổ, mục đích vay); người Hội lấy theo 🏛 Khai báo Hội đoàn thể (`ktNguoi`, vai trò chọn ở tùy chọn, nhớ `hsoO.hoiVT`).
+- Word: `hsoDocx` đổi HTML mẫu → WordprocessingML (đoạn, bảng gộp ô ngang / dọc, khổ / lề theo mẫu); `taoDocx(than, sect)` thêm tham số `sect` (cũ không đổi). `hsoChuSo` đọc số thành chữ.
+- `thVuaKhung` / `thXemRong(id)` dùng chung cho khung xem `#hso-xem-khung`. Phép thử `tests/t163.js` (26 mục, dữ liệu giả).
+
 ## 3.169 — 11/10/2026 — Tab Tổ: "Báo cáo của tổ" lên đầu khung xem
 - **Anh (11/10, ảnh chụp):** tab Tổ còn khuất dòng "Báo cáo của tổ" → đem lên đầu khung xem.
 - `toVeThe` (đã chọn tổ): hàng `.to-bc.to-bc-dau` (Danh sách hộ vay · Nợ cần xử lý · TK 105 của tổ · Dự kiến chia tách tổ · 👁 Xem) đặt trên thẻ tóm tắt tổ, ngay dưới khối lọc.
