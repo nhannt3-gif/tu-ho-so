@@ -7,6 +7,8 @@
 ## Anh chốt thêm 11/10 (sau khi gửi đủ mẫu)
 - **Tab riêng "📝 Hồ sơ Tổ"** trong nhóm Số liệu (không nhét vào tab Tổ). Áp dụng đồng bộ quy tắc các tab: hàng lọc Xã · Điểm GD │ Hội · Tổ (chip kèm ấp), chip trạng thái cuối hàng Xã, 📍; chọn 1 mẫu → xem ngay khung phải; hàng xuất Word · In · PDF · Gửi.
 - **⚙ Khai báo 1 lần** (lưu + đồng bộ Drive như cài đặt): PGD (tên, đại diện, chức vụ, địa chỉ, điện thoại, tỉnh in sẵn) · trưởng ấp theo từng ấp · người của Hội cấp xã (lấy sẵn từ tab Khai báo Hội đoàn thể) · **tổ phó thực tế** theo tổ (một số tổ trên máy chưa khớp thực tế) — có khai thì ưu tiên, khác máy thì chip ⚠.
+- **Hàng lọc dễ nhận biết, đồng bộ mọi tab** (anh 11/10): 3 kiểu trong bản mẫu để anh chọn — A mỗi cấp 1 màu (Xã xanh dương · Điểm GD xanh lá · Hội cam · Tổ tím; nhãn + chip đang chọn cùng màu cấp) · B cả hàng lọc 1 khối khung · C 1 khối + màu từng cấp (em đề xuất C). **Anh duyệt màu; khối làm rõ hơn** (viền 2px, nền xanh nhạt, nhãn "LỌC ĐỊA BÀN", mỗi dòng 1 thanh trắng nổi + vạch màu cấp bên trái); **Điểm GD và Hội tách 2 thanh riêng** (vạch xanh lá / cam) dù cùng 1 hàng. Tên dòng (Xã · Điểm GD · Hội · Tổ) **chữ to hơn chip con (14px) và đậm hơn**. Màu cấp là token dùng chung, giữ nguyên ở mọi chỗ có Xã / Điểm GD / Hội / Tổ (cây địa bàn, chip tổ, 📍 đường dẫn, tiêu đề bảng theo cấp).
+- **Tên dòng lọc nổi bật** (Xã · Điểm GD · Hội · Tổ — lớp `.pv-nhan` dùng chung mọi tab): nhãn nền xanh nhạt, viền xanh, chữ đậm, rộng đều. Áp cho **mọi tab có cây địa bàn** ở 3.167 (anh duyệt hướng 11/10, xem bản mẫu).
 - Ô điền 3 màu: xanh lá = số liệu · vàng = khai báo 1 lần · viền đứt = chấm ghi tay. Sửa ô chỉ áp cho lần in đó.
 - **Bố cục mẫu (dữ liệu giả)** để anh duyệt: artifact "Tab Hồ sơ Tổ — bố cục" (https://claude.ai/artifact/N81fqoLC7RwsTGL8byDjSg).
 
@@ -70,3 +72,9 @@ Bên A: PGD, đại diện, chức vụ, địa chỉ, điện thoại ✓ từ 
 ## Kèm trong 3.167 (anh đã chốt 11/10)
 - Bảng cuộn trong khung (tiêu đề + dòng Cộng dính) **đồng nhất mọi bảng cùng loại**: Sao kê, KTGS… như tab Tổ.
 - Chip "Mới vào": kỳ ngày → "Mới vào 07/09"; kỳ tháng → "Mới vào 31/07→31/08".
+
+## Hồ sơ vay HSSV (anh gửi 11/10 — làm sau bộ hồ sơ Tổ)
+File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật → **chỉ ghi cấu trúc, không đưa file vào repo**.
+- **01/TD Giấy đề nghị vay vốn kiêm phương án sử dụng vốn vay** (CT Học sinh sinh viên): kính gửi NHCSXH Gò Dầu; 1. người vay (họ tên, năm sinh, CCCD / ngày cấp / nơi cấp, địa chỉ, thuộc tổ … do ông bà … làm tổ trưởng, Hội quản lý); 2. số tiền đề nghị (+ bằng chữ), phương án, tổng nhu cầu = vốn tự có + vốn vay; bảng Đối tượng (sinh viên …) · Số lượng (tháng) · Thành tiền; thời hạn, kỳ hạn trả, hạn trả cuối; cam kết; xác nhận Hội (Chủ tịch ký đóng dấu); người vay ký; phần phê duyệt NH (số tiền, lãi suất, thời hạn, kỳ hạn, số tiền trả / lần, ngày trả lãi; CBTD, Trưởng phòng TD).
+- **03/TD Danh sách tổ viên đề nghị vay vốn** (CT HSSV): tên tổ (tổ trưởng), khu phố, phường; ngày họp bình xét; bảng STT · Họ tên · Đối tượng thụ hưởng · Đề nghị của Tổ (Số tiền · Mục đích · Thời hạn) · Phê duyệt NH; dòng Cộng; Tổ trưởng ký; xác nhận UBND phường.
+- Điền tự động được: thông tin người vay từ Mẫu 31 (tên, ngày sinh, CCCD, ngày cấp, nơi cấp, địa chỉ, tổ, tổ trưởng, Hội), tên tổ / khu phố / phường, Gò Dầu; số tiền chữ tự đổi từ số. Ghi tay: phương án, đối tượng, số tiền đề nghị, thời hạn, phê duyệt.

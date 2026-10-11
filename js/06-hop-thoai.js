@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.166', ds:[
+var CO_GI_MOI = {ban:'3.167', ds:[
+  ["🎨 Lọc địa bàn thành 1 khối \"LỌC ĐỊA BÀN\" ở mọi tab (Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu): mỗi dòng 1 thanh, mỗi cấp 1 màu — Xã xanh dương · Điểm GD xanh lá · Hội cam · Tổ tím; Điểm GD và Hội 2 thanh riêng; tên dòng chữ to, đậm", "slDoiTab('to');doiNgan(7)"],
   ["📋 Chọn nhiều (🗑 Xóa) giờ có cả nút 📋 Chép n file: có cầu nối → Ctrl+V dán hết vào Zalo; chưa cài → hộp chia sẻ Windows (nút Sao chép); điện thoại: 📤 Gửi n file", "doiNgan(1)"],
   ["🪟 Khung xem 1 file trên máy tính: 📤 Gửi có thêm \"Hộp chia sẻ Windows (Sao chép)\"", "doiNgan(1)"],
   ["🔍 Kết quả kiểm tra gom theo từng file (cùng thứ tự ma trận): mỗi file 1 dòng ✓ · ⚠ · ⓘ, bấm mở; chip lọc (mặc định ⚠ + ⓘ), ⊞ Mở hết / ⊟ Gập hết, 🔎 tìm mục; bấm ⚠ trên ô ma trận → nhảy tới đúng file", "slDoiTab('nap');doiNgan(7)"],

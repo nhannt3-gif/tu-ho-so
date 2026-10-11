@@ -93,6 +93,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t159.js` | 3.164 Tổng hợp: 3 nhóm + nhãn cấp, chọn 1 báo cáo xem ngay ở khung phải, dữ liệu cũ tích nhiều giữ cái đầu, lọc Nguồn vốn tới Hội / Tổ (= Lọc sâu), dòng cộng đúng phạm vi, phạm vi sâu hơn biểu → mờ + dòng vàng. |
 | `node tests/t160.js` | 3.165 Kết quả kiểm tra theo file (thứ tự ma trận), đếm ✓ ⚠ ⓘ, "↗ xem ở", chip lọc mặc định ⚠ + ⓘ, Mở hết / Gập hết, tìm mục, bấm ⚠ ô ma trận → đúng file. |
 | `node tests/t161.js` | 3.166 thanh chọn nhiều có 📋 Chép n file + Xóa n file; chưa cầu nối → hộp chia sẻ đủ file; không hộp chia sẻ → tải về; có cầu nối → chepNhieu; khung xem 1 file có 🪟 Hộp chia sẻ Windows. |
+| `node tests/t162.js` | 3.167 Khối LỌC ĐỊA BÀN ở 5 tab, Điểm GD / Hội 2 thanh riêng, màu chip theo cấp, tên dòng to / đậm, không tràn ngang. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

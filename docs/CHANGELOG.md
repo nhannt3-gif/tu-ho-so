@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.167 — 11/10/2026 — Khối LỌC ĐỊA BÀN đồng bộ mọi tab
+- **Anh chốt (duyệt trên bản mẫu tab Hồ sơ Tổ):** tên dòng lọc nổi bật, chữ to và đậm hơn chip con; mỗi cấp 1 màu; cả phần lọc là 1 khối rõ nét; Điểm GD và Hội tách riêng; áp đồng bộ mọi tab.
+- `pvVeCay` (dùng chung Tổ / KTGS / Sao kê / Tổng hợp / Tra cứu): bọc hàng lọc trong `.loc-khoi` (khung 2px + nhãn "LỌC ĐỊA BÀN"), lớp cấp `cap-xa` / `cap-diem` / `cap-hoi` / `cap-to` trên dòng / nhóm; bỏ vạch `.pv-vach` giữa Điểm GD và Hội (2 thanh riêng, tự xuống dòng khi hẹp).
+- CSS: token màu cấp `--c-xa/-diem/-hoi/-to` (+ nền nhạt, có bản nền tối); mỗi dòng 1 thanh nền thẻ, vạch màu cấp bên trái; `.pv-nhan` 14px đậm 800, nền nhạt + chữ màu cấp; chip đang chọn tô màu cấp.
+- Ghi nhận (chưa làm): 2 mẫu HSSV anh gửi để sau này in tự động Hồ sơ vay — 01/TD Giấy đề nghị vay vốn kiêm phương án, 03/TD Danh sách tổ viên đề nghị vay (file có dữ liệu thật → chỉ ghi cấu trúc vào `docs/KE_HOACH_HO_SO_TO.md`).
+- **Phép thử:** `tests/t162.js` (mới, 9). t145 (cây ≤ 135 px vì có khung), t156 (2 thanh thay vạch │) sửa theo quy tắc mới.
+
 ## 3.166 — 11/10/2026 — 📋 Chép n file trong thanh chọn nhiều + hộp chia sẻ Windows
 - **Anh chốt (BAN_GIAO_3161.md §2.5):** nút "☑ Chọn chép" (`nutChepNhieu`) rơi từ 3.151 → gộp vào thanh chọn nhiều sẵn có (nút 🗑 Xóa ở thanh công cụ không đổi): `thanhBot` thêm `.bot-chep` "📋 Chép n file" (điện thoại "📤 Gửi n file") + "📋 Chép tiếp" cạnh "Xóa n file"; `capNhatBot` cập nhật số.
 - `botChep()`: có cầu nối (máy tính) → `chepNhieu` như cũ (20 file / lần, file chưa lên Drive bỏ qua + báo); chưa cầu nối → `navigator.share({files})` (Windows 11 Chrome / Edge có nút Sao chép) + mẹo cài cầu nối; không có hộp chia sẻ → tải từng file. File chưa có trên máy (chưa tải từ Drive) → bỏ qua + báo. Áp dụng mọi tab có thanh chọn (Văn bản, Biểu mẫu, Scan, Chữ ký · CCCD…).
