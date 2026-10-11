@@ -33,11 +33,12 @@ const fs=require('fs'), path=require('path');
    ok('dữ liệu lưu: phạm vi chung ở D.cauHinh.pvChung', D.cauHinh.pvChung && D.cauHinh.pvChung.xa===xa);
    /* cây chọn 2 hàng */
    const cay = document.getElementById('to-cay');
-   ok('cây chọn: hàng 1 (ô chọn nối ›) + hàng 2 chip của cấp kế tiếp (điểm GD), không còn chip xã', !!cay.querySelector('.pv-hang1') && cay.querySelectorAll('.pv-hang2').length===1 && ![...cay.querySelectorAll('.pv-hang2 .to-chip')].some(c=>c.textContent==='PGD'), [...cay.querySelectorAll('.pv-hang2 .to-chip')].map(c=>c.textContent).slice(0, 3).join(' | '));
-   ok('cây chọn tối đa 2 hàng (cao ≤ 80 px)', cay.getBoundingClientRect().height <= 80, Math.round(cay.getBoundingClientRect().height)+' px');
+   const nhan = () => [...document.querySelectorAll('#to-cay .pv-nhan')].map(x=>x.textContent).join('|');
+   ok('cây chọn (3.157): hàng 1 (ô chọn nối ›) + hàng chip có nhãn của cấp kế tiếp (Điểm GD) + Hội, không còn chip xã', !!cay.querySelector('.pv-hang1') && /^Điểm GD/.test(nhan()) && ![...cay.querySelectorAll('.pv-hang2 .to-chip')].some(c=>c.textContent==='PGD'), nhan()+' · '+[...cay.querySelectorAll('.pv-hang2 .to-chip')].map(c=>c.textContent).slice(0, 3).join(' | '));
+   ok('cây chọn tối đa 3 hàng (cao ≤ 115 px)', cay.getBoundingClientRect().height <= 115, Math.round(cay.getBoundingClientRect().height)+' px');
    const diem = pvLuaChon(TO_K.to, toCH(), 'diem')[0].k; pvChon('to', 'diem', diem); await w(200);
    const to = pvLuaChon(TO_K.to, toCH(), 'to')[0].k; pvChon('to', 'to', to); await w(300);
-   ok('chọn tới tổ → hết hàng chip', !document.querySelector('#to-cay .pv-hang2'));
+   ok('chọn tới tổ → hàng Điểm GD / Tổ giữ để đổi nhanh, chip điểm + tổ đang chọn sáng (3.157)', /Tổ/.test(nhan()) && [...document.querySelectorAll('#to-cay .pv-hang2')].filter(h=>h.querySelector('.to-chip.bat')).length>=2, nhan());
    pvChon('to', 'xa', ''); await w(200);
    ok('bỏ chọn xã → về Toàn PGD, hàng chip là các xã (có PGD)', toCH().xa==='' && toCH().to==='' && [...document.querySelectorAll('#to-cay .pv-hang2 .to-chip')][0].textContent==='PGD');
    /* KTGS */

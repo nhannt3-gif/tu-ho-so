@@ -2053,7 +2053,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.156', ds:[
+var CO_GI_MOI = {ban:'3.157', ds:[
+  ["🖼 Khung xem bên phải sát trên dưới, đầu khung còn 1 dòng (📁 nơi lưu · trang · KB, rê chuột thấy tên file); thêm ⊡ Vừa trang: trọn 1 trang A4 trong khung, cuộn lật từng trang, app nhớ chế độ — các nút cũ vẫn giữ", "doiNgan(1)"],
+  ["📍 Lọc số liệu (Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu): hàng chip có nhãn Xã / Điểm GD · Hội · Tổ chỉ hiện con của cấp đã chọn, Hội chọn ở mọi cấp, 🔎 tìm nhanh cuối hàng; Tổng hợp: Nguồn vốn thành chip trên cùng, danh sách báo cáo 1 dòng", "doiNgan(7)"],
+  ["⚲ Lọc file (Văn bản, Biểu mẫu, Scan): bấm ⚲ Lọc mở bảng lọc ngay dưới thanh, dòng \"Đang lọc\" hiện các chip đang áp; kiểu xem thành chip ☰ 🗂 ▦ ▣ bấm 1 lần", "doiNgan(1)"],
   ["📥 Tab Nạp & KT: 1 nút Nạp file cho mọi file (kể cả BC0437 / BC0438 — nhóm Ⓚ KTGS nằm chung ma trận); ma trận kẻ ô rõ, cột tháng đang chọn sáng lên; chuyển tháng 1 chỗ: ‹ T7 · T8/2026 ▾ · T9 ›", "dongHop();moNapSL()"],
   ["🔢 3 kiểu ma trận: ▾ Thu gọn (1 dòng) · 2 tháng (tháng chọn + tháng trước + Theo ngày, mặc định) · ⇔ Tổng quan (12 tháng, trọn ngang)", "dongHop();moNapSL()"],
   ["🔍 Tự kiểm tra ngầm sau mỗi lần nạp / xóa / thay / khôi phục file — ô khớp có ✓ xanh, ô chênh có ⚠ cam (rê chuột xem); vẫn có nút 🔍 Kiểm tra lại; kết quả chi tiết 1 dòng, bấm mở", "dongHop();moNapSL()"],

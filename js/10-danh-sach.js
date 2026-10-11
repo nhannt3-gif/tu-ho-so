@@ -864,9 +864,10 @@ function xemBenPhai(id){
   trangChon = {};
   veNoiDung(m, 'phai');   /* 3.51: bắt đầu mở file NGAY, việc phụ làm sau */
   document.getElementById('cp-ten').textContent = m.tenMoi||m.tenCu||m.ten||'';
-  document.getElementById('cp-phu').innerHTML = coChuHTML(
+  document.getElementById('cp-phu').innerHTML = '<span class="cp-dong">'+coChuHTML(
     ['📁 '+thuMucCua(m), m.soTrang?(m.soTrang+' trang'):'', m.co?kichCo(m.co):'']
-    .filter(Boolean).join(' · ')) + lienQuanHTML(m) + boCuaFileHTML(m.id);
+    .filter(Boolean).join(' · '))+'</span>' + lienQuanHTML(m) + boCuaFileHTML(m.id);
+  document.getElementById('cp-phu').title = m.tenMoi||m.tenCu||m.ten||'';   /* 3.157: khung xem máy tính chỉ 1 dòng nơi lưu — rê chuột thấy tên file */
   veNutCN(m);
   /* chỉ đổi dòng được chọn — trước vẽ lại cả danh sách mỗi lần bấm */
   Array.prototype.forEach.call(document.querySelectorAll('.d2.chon[onclick^="chonDong("]'), function(e){ e.classList.remove('chon'); });

@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.157 — 11/10/2026 — Khung xem bên phải + 2 kiểu lọc (số liệu, file)
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2):** khung xem dư dòng đầu / cuối, đầu khung 4 dòng tên file; lọc rối (Nguồn vốn lẫn giữa, chip chỉ 1 cấp); kiểu xem tab file là ô thả xuống.
+- **Khung xem** (`xemBenPhai`, `05-them-file.js`): `cp-phu` bọc dòng chính `.cp-dong`, `title` = tên file; ẩn `#cp-ten` + phần phụ ở khung phải; khung `top:60px; height:calc(100vh - 72px)`. ⊡ Vừa trang (`S.che==='trang'`): `.than-p.vua-trang` (scroll-snap từng trang, canvas `width:auto`, cao = khung − 28), nhớ ở `D.cauHinh.xemChe` (`datChe2` ghi, `veVaoKhung` áp).
+- **Lọc số liệu** (`pvVeCay`): hàng chip `hang(nhãn, …)` có `.pv-nhan` — chưa chọn xã: Xã (PGD + các xã); chọn xã: Điểm GD (Cả xã + điểm); có điểm: Tổ (≤ 12 chip); hàng Hội luôn có (đa chiều mặc định mọi tab: `d.daChieu!==false`). 🔎 `.pv-tim` cuối hàng 1 (`<p>-tim` / `<p>-gy`; Tổ → `toTim`, KTGS → `ktTim`, còn lại `pvTim(p)` + `pvChonTo`); bỏ ô tìm riêng ở `toVe` / `ktVe`. KTGS Kế hoạch bỏ chip `kt-kh-hoi`.
+- **Tổng hợp** (`veTongHop`): chip `.th-nguon` (Tất cả / Trung ương / Địa phương) trên `#th-cay`, `.th-ct` dưới cây; danh sách báo cáo `.th-bc-gon` 1 dòng, chưa nạp → ⚠ (title nêu file thiếu).
+- **Lọc file** (`veDauTab`): máy tính → chip kiểu xem `tlKieuXemHTML` (`.tl-kx`), ⚲ Lọc bật `TL_LOC_MO[tab]` → `.tl-panel` (`boLocHTML`) ngay dưới thanh + nút Bỏ hết lọc / Sửa tag / ▴ Đóng; dòng `.tl-dang` "Đang lọc:"; điện thoại giữ ô thả xuống + hộp lọc.
+- **Sửa 3.156:** tự kiểm ngầm chỉ vẽ lại khi đang ở tab Nạp & KT, không đổi tháng KTGS, không bật thông báo (trước làm mất thẻ khách đang xem ở Tra cứu).
+- **Phép thử:** `tests/t153.js` (mới, 18). t145, t147 theo cây / thanh lọc mới.
+
 ## 3.156 — 11/10/2026 — Tab Nạp & KT gọn 2: ma trận gọn, tự kiểm tra, 1 nút nạp
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2):** ma trận chiếm cả màn, 2 chỗ chuyển tháng, 2 nút nạp (Nạp file + Nạp nhiều file KTGS), phải bấm Kiểm tra.
 - **Nhóm Ⓚ KTGS** (`SL_NHOM` thêm `K`, gập sẵn): BC0437 / BC0438 trong ma trận chính; bỏ khối `ktNapHTML` (không gọi), nạp chung `slNapBo`. Kết quả kiểm tra KTGS (`ktKTHTML`) nằm trong `details#sl-kq`.

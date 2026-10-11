@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.157) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Văn bản → bấm 1 file PDF | Khung phải sát trên dưới; đầu khung 1 dòng 📁 nơi lưu · trang · KB + ⛶ ✕; rê chuột thấy tên file | |
+| 2 | Bấm ⊡ Vừa trang | Trọn 1 trang A4 trong khung, cuộn lật từng trang; mở file khác vẫn giữ ⊡ | |
+| 3 | Tab Tổ / KTGS: chọn xã → điểm → Hội | Hàng chip có nhãn chỉ hiện con của cấp đã chọn; Hội chọn được ngay ở cấp xã | |
+| 4 | 🔎 gõ tên tổ trưởng | Gợi ý, chọn → tự điền Xã › Điểm › Hội › Tổ | |
+| 5 | Tổng hợp | Nguồn vốn chip trên cùng; danh sách báo cáo 1 dòng | |
+| 6 | Văn bản → ⚲ Lọc | Bảng lọc mở ngay dưới thanh; chọn → dòng "Đang lọc"; chip kiểu xem bấm 1 lần | |
+
+**Ghi chú kỹ thuật 3.157:** hàng Tổ chỉ hiện khi ≤ 12 tổ (nhiều hơn dùng ô chọn / 🔎). Điện thoại giữ ô thả xuống kiểu xem + hộp lọc như cũ.
+
 ### Danh sách thử trên máy thật (3.156) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
