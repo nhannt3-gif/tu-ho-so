@@ -3087,3 +3087,24 @@ details.sl-kq > summary{padding:6px 10px}
 }
 /* 3.159: chế độ tối — bản in / khung xem trang file giữ nền trắng */
 :root[data-theme="dark"] .o-trang canvas,:root[data-theme="dark"] .than-p img{background:#fff}
+/* 3.160: lọc số liệu chung — dòng 📍 (đường đang chọn) + hàng chip đánh số ① ② ③ */
+.pv-dan{display:flex;flex-wrap:wrap;align-items:center;gap:4px;min-width:0}
+.pv-dan-goc{font-size:calc(13px*var(--co))}
+.pv-dan-o{display:inline-flex;align-items:center;border:1px solid var(--xanh);background:var(--xanh-nhat);border-radius:14px;overflow:hidden}
+.pv-dan-o.mo{outline:2px solid var(--xanh)}
+.pv-dan-o button{border:none;background:none;min-height:0;font:inherit;font-size:calc(12.5px*var(--co));color:var(--xanh-dam);cursor:pointer}
+.pv-dan-ten{padding:2px 4px 2px 10px;font-weight:600}
+.pv-dan-x{padding:2px 8px 2px 4px;opacity:.7}.pv-dan-x:hover{opacity:1;color:var(--do)}
+.pv-dem{color:var(--chu-phu);margin-left:6px}
+.pv-cay .pv-nhan i{display:inline-block;width:16px;font-style:normal;color:var(--xanh)}
+.pv-them{font-size:calc(11.5px*var(--co));color:var(--chu-phu)}
+@media (min-width:700px){ .pv-hang1 .pv-sel{display:none} }
+@media (max-width:699px){ .pv-hang1 .pv-dan{display:none} .pv-hang1 .pv-sel{display:contents} }
+#tc-cay{margin:4px 0 6px}
+/* 3.160: chế độ tối — ô nhập / ô thả xuống theo giao diện (trình duyệt tự tô nền tối) */
+:root[data-theme="dark"]{color-scheme:dark}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){color-scheme:dark} }
+:root[data-theme="dark"] .kt-chuan input.da{color:var(--chu);background:rgba(95,201,138,.16)}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .kt-chuan input.da{color:var(--chu);background:rgba(95,201,138,.16)} }
+.pv-cay .pv-hang2 .pv-nhan{flex:0 0 86px;white-space:nowrap}
+.pv-hang1 .pv-dan{flex:1 1 0;min-width:180px}

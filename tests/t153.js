@@ -32,13 +32,13 @@ const fs=require('fs'), path=require('path');
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
    kyChungDoi('2026-08'); await w(200);
    const C = ktCH(); C.xa=''; C.diem=''; C.hoi=''; C.to=''; C.che='dx'; slDoiTab('kt'); doiNgan(7); for(let i=0;i<60 && !document.querySelector('#kt-cay .pv-hang1');i++) await w(250); await w(300);
-   const nhan = () => [...document.querySelectorAll('#kt-cay .pv-nhan')].map(x=>x.textContent).join('|');
+   const nhan = () => [...document.querySelectorAll('#kt-cay .pv-nhan')].map(x=>x.textContent.replace(/[①②③]/g,'')).join('|');
    ok('chưa chọn xã: hàng chip Xã (PGD + các xã) + Hội', /^Xã\|Hội$/.test(nhan()) || nhan()==='Hội', nhan());
    ok('🔎 tìm nhanh nằm cuối hàng ô chọn', !!document.querySelector('#kt-cay .pv-hang1 .pv-tim input#kt-tim'));
    const K = KT_K, xa = pvLuaChon(K.to, C, 'xa', true)[0].k; pvChon('kt', 'xa', xa); await w(200);
    ok('chọn xã: hàng Điểm GD (Cả xã + điểm của xã) + Hội', nhan()==='Điểm GD|Hội' && /Cả xã/.test(document.querySelector('#kt-cay .pv-hang2').textContent), nhan());
    const hoiXa = pvLuaChon(K.to, C, 'hoi', true)[0].k; pvChon('kt', 'hoi', hoiXa, 1); await w(200);
-   ok('Hội chọn ngay ở cấp xã (đa chiều, chưa cần điểm GD)', C.hoi===String(hoiXa) && !C.diem && document.querySelector('#kt-cay .pv-hang2:last-child .to-chip.bat'));
+   ok('Hội chọn ngay ở cấp xã (đa chiều, chưa cần điểm GD)', C.hoi===String(hoiXa) && !C.diem && document.querySelectorAll('#kt-cay .pv-dan .pv-dan-o').length===2);   /* 3.160: cấp đã chọn lên dòng 📍 */
    const diem = pvLuaChon(K.to, C, 'diem', true)[0].k; pvChon('kt', 'diem', diem); await w(200);
    ok('chọn điểm: giữ Hội, hàng Tổ chỉ tổ của điểm + Hội đó', C.hoi===String(hoiXa) && /Tổ/.test(nhan()) && [...document.querySelectorAll('#kt-cay .pv-hang2')].pop().querySelectorAll('.to-chip').length===pvLuaChon(K.to, C, 'to', true).length, nhan());
    /* KTGS kế hoạch: không còn hàng chip Hội riêng */

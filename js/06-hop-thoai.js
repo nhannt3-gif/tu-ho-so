@@ -2053,7 +2053,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.159', ds:[
+var CO_GI_MOI = {ban:'3.160', ds:[
+  ["📍 Lọc số liệu mới (Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu): dòng 📍 ghi phạm vi đang chọn — bấm tên để đổi, ✕ để bỏ; hàng chip ① Xã → ② Điểm GD · Hội (chọn cái nào trước cũng được) → ③ Tổ; máy tính bỏ hàng ô thả xuống", "slDoiTab('to');doiNgan(7)"],
+  ["👤 Tra cứu KH: bỏ khung gập \"📍 Toàn PGD\", lọc giống các tab; số khách lên dòng 📍 · ☾ Nền tối: ô nhập / ô thả xuống không còn nền trắng", "slDoiTab('tra');doiNgan(7)"],
   ["◐ Nút giao diện ở chân thanh bên: bấm đổi Theo máy → ☀ Sáng → ☾ Tối, app nhớ; nền tối đã rà lại màu (dòng xã bảng Tổ, chip đỏ / vàng / xanh) — bản in vẫn nền trắng", "dhDoiGD()"],
   ["📟 Chân thanh bên hiện đủ chữ: dòng trạng thái xuống tối đa 3 dòng, không lặp thông tin Drive (đã có chip), chip dài tự xuống dòng", "dongHop()"],
   ["🏛 Khai báo Hội vừa 1 trang: bỏ cột Xã (thay bằng dòng nhóm \"Xã · số Hội · số tổ\"), bỏ cột Tên Hội cấp xã và Số / Ngày KH Hội tỉnh; nút 📋 Phân công ngay cạnh tên Hội", "doiNgan(7)"],

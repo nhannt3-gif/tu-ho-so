@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.160) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ: chọn xã | Dòng 📍 có tên xã + ✕; hiện ② Điểm GD và Hội | |
+| 2 | Chọn Hội trước, chưa chọn điểm | Hiện ③ Tổ của Hội trong xã; bảng theo Hội cả xã | |
+| 3 | Bấm tên xã trên dòng 📍 | Mở lại hàng ① Xã để đổi | |
+| 4 | ✕ trên Hội | Bỏ Hội, giữ điểm | |
+| 5 | Tra cứu KH | Không còn khung gập "Toàn PGD"; lọc như tab Tổ; số khách trên dòng 📍 | |
+| 6 | Nền tối: Chuẩn hóa, ô thả xuống | Ô nền tối, chữ đọc rõ | |
+
+**Ghi chú kỹ thuật 3.160:** hàng ③ Tổ tối đa 40 chip (xã nhiều tổ thì chọn Điểm / Hội trước hoặc 🔎).
+
 ### Danh sách thử trên máy thật (3.159) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
