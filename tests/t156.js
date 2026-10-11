@@ -32,7 +32,7 @@ const fs=require('fs'), path=require('path');
    ok('bấm tên xã trên dòng 📍 → mở lại hàng ① Xã để đổi', nhan().indexOf('①Xã')===0 && dan().querySelector('.pv-dan-o.mo'), nhan());
    /* ✕ bỏ Hội */
    pvMo('to', ''); PV_MO.to = ''; pvVeCay('to'); await w(100);
-   const oHoi = [...dan().querySelectorAll('.pv-dan-o')].find(x=>/Hội/.test(x.textContent)); oHoi.querySelector('.pv-dan-x').click(); await w(200);
+   const oHoi = [...dan().querySelectorAll('.pv-dan-o')].find(x=>/'hoi'/.test(x.querySelector('.pv-dan-x').getAttribute('onclick'))); oHoi.querySelector('.pv-dan-x').click(); await w(200);
    ok('✕ trên Hội → bỏ Hội, giữ Điểm GD, hàng Hội hiện lại', !C.hoi && C.diem===diem && /Hội/.test(nhan()), nhan());
    /* chọn tổ */
    const to1 = pvLuaChon(T, C, 'to', true)[0].k; pvChon('to', 'to', to1, 1); await w(200);

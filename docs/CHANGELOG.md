@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.160 — 11/10/2026 — Lọc số liệu chung ① Xã › ② Điểm GD · Hội › ③ Tổ
+- **Anh chốt:** lọc còn rối (ô thả xuống + chip trùng nhau; chọn xã rồi tới điểm hay Hội không rõ thứ tự); Tra cứu khác các tab.
+- **`pvVeCay`:** dòng `.pv-dan` (📍 Toàn PGD / Xã ✕ › Điểm ✕ · Hội ✕ › Tổ ✕ · n tổ; bấm tên → `pvMo(p, cap)` mở lại hàng đó, ✕ → `pvChon(p, cap, '')`); hàng chip `data-cap` đánh số ① Xã, ② Điểm GD + Hội (ngang hàng), ③ Tổ (≤ 40 chip, còn lại 🔎); cấp đã chọn ẩn hàng (trừ khi đang mở `PV_MO[p]`). Ô thả xuống bọc `.pv-sel`: ẩn ở máy tính (≥ 700 px), điện thoại giữ.
+- **Tổ theo Hội không cần điểm:** `pvLuaChon(…, 'to', dc)` lọc xã (+ điểm nếu có); `pvCha('to', dc)` = có xã và (điểm hoặc Hội).
+- **Tra cứu:** bỏ `details.tc-pv`, `#tc-cay` dưới ô tìm khách; `PV_DUNG.tc.ghi` → "n khách · số liệu …" trên dòng 📍; không thêm ô 🔎 tìm tổ.
+- **Nền tối:** `color-scheme:dark` (ô nhập / ô thả xuống / ô tích theo giao diện); ô đã sửa Chuẩn hóa chữ sáng.
+- **Phép thử:** `tests/t156.js` (mới, 14). t145, t153 theo cây mới.
+
 ## 3.159 — 11/10/2026 — Chân thanh bên + chế độ tối
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2):** chân thanh bên còn chỗ trống mà chữ bị cắt, Drive báo 2 lần; muốn có chế độ tối.
 - **Chân thanh bên:** `.tt-chu` xuống dòng (`-webkit-line-clamp:3`), chip `#so-lieu .chip` `white-space:normal`; `ttNghi` bỏ phần Drive khi có `#chip-drive`, phần còn lại "⚡ Số liệu sẵn dùng …" hoặc "Sẵn sàng".
