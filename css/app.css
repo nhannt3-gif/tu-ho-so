@@ -3134,3 +3134,15 @@ details.sl-kq > summary{padding:6px 10px}
 .to-cot-ds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 16px;margin:8px 0}
 .to-bang.luoi td:first-child,.to-bang.luoi th:first-child{min-width:0}
 .to-bang.luoi.to-bang-pgd td:first-child{min-width:200px;white-space:nowrap}
+/* 3.162: lọc số liệu — hàng 1 Xã (luôn hiện) + 📍 đường dẫn chỉ báo bên phải; hàng 2 Điểm GD │ Hội; hàng 3 Tổ chip + ô sổ xuống */
+.pv-cay .pv-nhom{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px}
+.pv-cay .pv-hang1 .pv-nhan,.pv-cay .pv-nhom .pv-nhan{flex:0 0 auto;margin-right:4px}
+.pv-cay .pv-hang2 > .pv-nhan{flex:0 0 auto;margin-right:4px}
+.pv-cay .pv-hang1 > .pv-nhom > .to-chip,.pv-cay .pv-nhom .to-chip{padding:2px 9px;min-height:24px;line-height:1.2}
+.pv-vach{color:var(--vien);margin:0 6px;font-weight:300}
+.pv-hang1 .pv-dan{flex:0 1 auto;min-width:0;margin-left:auto;gap:3px}
+.pv-dan-o{display:inline-block;border:1px solid var(--xanh);background:var(--xanh-nhat);color:var(--xanh-dam);border-radius:12px;padding:1px 9px;font-size:calc(12px*var(--co));font-weight:600}
+.pv-hang1 .pv-tim.to-tim{margin-left:6px;flex:0 1 230px}
+.pv-to-ds{font:inherit;font-size:calc(12px*var(--co));padding:2px 6px;border:1px solid var(--vien);border-radius:8px;background:var(--the);color:var(--chu);max-width:220px}
+.pv-to-ds.co{border-color:var(--xanh);color:var(--xanh-dam);font-weight:600}
+@media (max-width:699px){ .pv-hang1 .pv-nhom{display:none} }

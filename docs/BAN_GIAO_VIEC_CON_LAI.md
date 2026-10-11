@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.162) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ chọn 1 xã | Hàng Xã vẫn hiện, xã đó xanh; bấm PGD là về Toàn PGD | |
+| 2 | Hàng 2 | Điểm GD │ Hội cùng 1 dòng; chọn cái nào trước cũng được | |
+| 3 | Hàng Tổ | Chip tổ + ô "Chọn tổ ▾" đủ danh sách | |
+| 4 | 📍 đường dẫn | Nằm cùng hàng Xã, bên phải; chỉ để xem | |
+
+**Ghi chú kỹ thuật 3.162:** cột hẹp (Tra cứu, Tổng hợp) hàng tự xuống dòng.
+
 ### Danh sách thử trên máy thật (3.161) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

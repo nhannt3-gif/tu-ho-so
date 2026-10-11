@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.162 — 11/10/2026 — Tinh chỉnh lọc số liệu (anh chốt)
+- **Anh chốt:** chọn xã rồi không có chỗ quay lại (phải ✕); dòng 📍 chỉ để báo đường dẫn; hàng Xã giữ nguyên, PGD / xã đang chọn tô xanh; Hội + Điểm 1 dòng; Tổ 1 dòng chip kèm danh sách sổ xuống; dòng chip đường dẫn để cùng hàng Xã cho gọn.
+- **`pvVeCay`:** hàng 1 `.pv-hang1` = nhóm Xã (luôn hiện) + `.pv-dan` (📍 chip chỉ báo, không nút) + 🔎; hàng 2 `data-cap="diem-hoi"` = Điểm GD `│` Hội (luôn hiện); hàng 3 `data-cap="to"` = ≤ 30 chip tổ + `select.pv-to-ds` đủ danh sách. Bỏ số ① ② ③, bỏ ✕ / bấm tên mở lại (`pvMo` còn trong mã, không dùng).
+- **Phép thử:** t156 viết lại theo bố cục mới (13); t145, t153 theo hàng mới.
+
 ## 3.161 — 11/10/2026 — Tab Tổ: chip nhóm, nút đầu bảng, bảng gọn + in A4, cảnh báo in đậm
 - **Anh chốt:** nút In nằm cuối khó thấy; bảng giữ khung cuộn; chip sau này nhiều thì tối đa 2 dòng, gom nhóm; cột vừa số liệu, kẻ ô, bản in vừa A4, bỏ cột thừa, bảng xem thêm được cột; so sánh ghi đủ ngày; in danh sách in đậm khách tất nợ còn TK 105 / CCCD hết hạn (cảnh báo trước 30 ngày, theo ngày hiện tại) / khách còn mã tổ chưa có TK 105.
 - **Chip** `toChipKhung(xem, tv, mo, bien, B)`: nhóm Xem (Bảng, Biến động cả năm) · Khách · Cần xử lý theo `TO_LOC_NHOM`; chip 0 mờ (`.mo0`) không ẩn; `toChipGon()` sau khi vẽ: quá 2 dòng → chip cuối mỗi nhóm (trừ chip đầu / đang chọn) vào `details.to-them` "⋯ thêm n". Chip mới `cccd30` (CCCD sắp hết hạn), `ctk` đổi thành "Chưa có TK 105" cho mọi khách còn mã tổ.
