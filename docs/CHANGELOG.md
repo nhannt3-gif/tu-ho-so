@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.159 — 11/10/2026 — Chân thanh bên + chế độ tối
+- **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2):** chân thanh bên còn chỗ trống mà chữ bị cắt, Drive báo 2 lần; muốn có chế độ tối.
+- **Chân thanh bên:** `.tt-chu` xuống dòng (`-webkit-line-clamp:3`), chip `#so-lieu .chip` `white-space:normal`; `ttNghi` bỏ phần Drive khi có `#chip-drive`, phần còn lại "⚡ Số liệu sẵn dùng …" hoặc "Sẵn sàng".
+- **Chế độ tối:** nút `.tb-gd` ở `.tb-chan` (◐ Theo máy / ☀ Sáng / ☾ Tối) → `dhDoiGD` xoay `D.cauHinh.giaoDien` auto → light → dark, dùng `apGiaoDien` sẵn có (cùng ô Giao diện trong Cài đặt). Rà màu cứng trong `css/app.css` (trừ khối `@media print`): nền `#fdecea / #fff6dc / #FFF6DA / #e6f4ea / #eef3f9` → `var(--do-nen / --vang-nen / --luc-nen / --xanh-nhat)`, chữ `#c0392b / #b23b2e / #b3261e / #2c7a46 / #8a5a00` → `var(--do / --luc / --vang)` (47 chỗ; giao diện sáng gần như không đổi). CSS bản in (`TDN_IN_CSS`, khuôn Word / PDF) không đổi.
+- **Phép thử:** `tests/t155.js` (mới, 10) — gồm rà tương phản chữ / nền ở 7 tab khi nền tối.
+
 ## 3.158 — 11/10/2026 — Khai báo Hội vừa 1 trang + Chuẩn hóa
 - **Anh chốt (KE_HOACH_GON_GIAO_DIEN.md Gói 2, phương án a):** bảng Khai báo Hội dài quá 1 trang; Tên Hội cấp xã hợp với Chuẩn hóa; Số / Ngày KH Hội tỉnh khai 1 lần mỗi Hội.
 - **Bảng khai báo** (`ktHdtBang`): `KT_HKB_COT` = CT · PCT · BTV 1–3 · Nhiệm kỳ · Số HĐUT · Ngày HĐ; dòng nhóm `tr.hkb-nhom` "Xã · n Hội · m tổ" thay cột Xã; nút 📋 `.hkb-pc` trong ô Hội (bỏ cột ⋯); bảng `width:100%`, ô nhập co theo bề ngang. Bỏ `ktHoiKBChep` / `ktHoiKBChep1` và nút ⇩ Chép.

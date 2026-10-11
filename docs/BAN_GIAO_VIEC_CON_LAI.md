@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.159) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Bấm ◐ ở chân thanh bên 2 lần | ☀ Sáng rồi ☾ Tối; mở lại app vẫn giữ | |
+| 2 | Nền tối: Tổ TK&VV, KTGS, Nạp & KT, Văn bản | Chữ đọc rõ, không còn ô nền sáng chữ sáng | |
+| 3 | Nền tối: In / xem file PDF | Bản in, trang PDF vẫn nền trắng | |
+| 4 | Chân thanh bên khi có tin dài | Hiện đủ (≤ 3 dòng); chip Drive / bộ nhớ không bị cắt | |
+
+**Ghi chú kỹ thuật 3.159:** màu cứng còn lại trong CSS chủ yếu là nền thanh bên / đầu trang (cố ý) và giấy Hôm nay (nền giấy cả 2 chế độ). Gặp chỗ nào chữ khó đọc ở nền tối thì chụp gửi em.
+
 ### Danh sách thử trên máy thật (3.158) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

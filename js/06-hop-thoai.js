@@ -2053,7 +2053,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.158', ds:[
+var CO_GI_MOI = {ban:'3.159', ds:[
+  ["◐ Nút giao diện ở chân thanh bên: bấm đổi Theo máy → ☀ Sáng → ☾ Tối, app nhớ; nền tối đã rà lại màu (dòng xã bảng Tổ, chip đỏ / vàng / xanh) — bản in vẫn nền trắng", "dhDoiGD()"],
+  ["📟 Chân thanh bên hiện đủ chữ: dòng trạng thái xuống tối đa 3 dòng, không lặp thông tin Drive (đã có chip), chip dài tự xuống dòng", "dongHop()"],
   ["🏛 Khai báo Hội vừa 1 trang: bỏ cột Xã (thay bằng dòng nhóm \"Xã · số Hội · số tổ\"), bỏ cột Tên Hội cấp xã và Số / Ngày KH Hội tỉnh; nút 📋 Phân công ngay cạnh tên Hội", "doiNgan(7)"],
   ["📖 Chuẩn hóa: Số / Ngày KH Hội tỉnh khai 1 lần cho mỗi Hội (dữ liệu cũ tự chuyển); mục \"Riêng từng xã\" để gõ tên Hội cấp xã hoặc KH khác của xã nào khác quy tắc; bỏ nút ⇩ Chép", "doiNgan(7)"],
   ["🖼 Khung xem bên phải sát trên dưới, đầu khung còn 1 dòng (📁 nơi lưu · trang · KB, rê chuột thấy tên file); thêm ⊡ Vừa trang: trọn 1 trang A4 trong khung, cuộn lật từng trang, app nhớ chế độ — các nút cũ vẫn giữ", "doiNgan(1)"],
