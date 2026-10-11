@@ -2053,7 +2053,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.162', ds:[
+var CO_GI_MOI = {ban:'3.163', ds:[
+  ["📅 Nạp & KT: dải lịch tháng ● Đạt · ◐ thiếu · ○ chưa nạp (rê chuột xem chi tiết) + ⦿ Gần nhất (mặc định); mỗi ngày có dữ liệu 1 cột, cột chốt tháng ghi \"30/09/2026 · T9 · chốt\"; ⇔ Tổng quan; ▾ Thu gọn ↔ ▴ Bung ra; mũi tên ghi \"so với dd/mm/yyyy\"; bỏ dòng vàng", "slDoiTab('nap');doiNgan(7)"],
+  ["👥 Tab Tổ: cột vừa nội dung, còn chỗ tự thêm cột (Số món, Tỷ lệ QH, Dư nợ BQ, Điểm GD, Nợ lãi…; danh sách khách: Ngày vay gần nhất, Ngày đến hạn, Hạn CCCD, Ấp…), không tràn ngang; ⚙ Cột: Tự động / Luôn hiện / Ẩn; danh sách khách có 🖨 In đầy đủ", "slDoiTab('to');doiNgan(7)"],
+  ["💰 Bảng các tổ: triệu đồng luôn 2 số lẻ (3.679,00) như biểu TW · ⚠ Dùng T9/2026 thành chip nhỏ cuối hàng Xã (bấm → Nạp & KT) · chip tổ kèm tên ấp", "slDoiTab('to');doiNgan(7)"],
   ["📍 Lọc số liệu tinh chỉnh: hàng Xã luôn hiện (PGD / xã đang chọn tô xanh — bấm PGD để quay lại), đường dẫn 📍 chỉ báo nằm cùng hàng Xã; Điểm GD │ Hội chung 1 dòng; hàng Tổ có chip + ô sổ xuống đủ danh sách", "slDoiTab('to');doiNgan(7)"],
   ["👥 Tab Tổ: chip gom 3 nhóm Xem · Khách · Cần xử lý (tối đa 2 dòng); nút 🖨 In · In đầy đủ · 📊 Excel · ⚙ Cột ở đầu bảng; bảng cuộn trong khung, tiêu đề + dòng Cộng luôn thấy", "slDoiTab('to');doiNgan(7)"],
   ["📏 Bảng các tổ gọn: kẻ ô, 1 đơn vị triệu đồng (12.910 · 1.234,5), cột trùng bộ lọc tự ẩn, ⚙ Cột chọn cột xem; In A4 dọc 10 cột · In đầy đủ A4 ngang; biến động / so sánh ghi đủ ngày 31/07/2026 → 31/08/2026", "slDoiTab('to');doiNgan(7)"],

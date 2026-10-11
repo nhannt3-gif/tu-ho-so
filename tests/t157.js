@@ -15,7 +15,7 @@ const fs=require('fs'), path=require('path');
    kyChungDoi('2026-08'); const C = toCH(); C.xa=''; C.diem=''; C.hoi=''; C.to=''; TO_LOC_PV = 'bang'; delete D.cauHinh.toCot; slDoiTab('to'); doiNgan(7);
    for(let i=0;i<60 && !document.querySelector('#to-the .to-bang');i++) await w(250); await w(2000);
    /* số */
-   ok('viết số triệu đồng: chẵn bỏ ",00", lẻ bỏ số 0 thừa, 0 để trống, âm có dấu', soTr(12910000000)==='12.910' && soTr(1234500000)==='1.234,5' && soTr(2530120000)==='2.530,12' && soTr(0)==='' && soTr(0, 1)==='0' && soTrDau(518621)==='+0,52' && soTrDau(-1600000)==='−1,6', [soTr(12910000000), soTr(1234500000), soTrDau(518621)].join(' | '));
+   ok('viết số triệu đồng (3.163): luôn 2 số lẻ kể cả số chẵn, 0 để trống, âm có dấu', soTr(12910000000)==='12.910,00' && soTr(1234500000)==='1.234,50' && soTr(2530120000)==='2.530,12' && soTr(0)==='' && soTr(0, 1)==='0' && soTrDau(518621)==='+0,52' && soTrDau(-1600000)==='−1,60', [soTr(12910000000), soTr(1234500000), soTrDau(518621)].join(' | '));
    /* chip */
    const nhom = [...document.querySelectorAll('#to-the .to-chip-khung .to-nhom-ten')].map(x=>x.textContent).join('|');
    ok('chip gom 3 nhóm Xem · Khách · Cần xử lý', nhom==='Xem|Khách|Cần xử lý', nhom);
@@ -29,18 +29,18 @@ const fs=require('fs'), path=require('path');
    ok('bảng cuộn trong khung, tiêu đề cột dính', getComputedStyle(khung).overflowY==='auto' && getComputedStyle(khung.querySelector('thead th')).position==='sticky');
    ok('kẻ ô mờ (bảng lưới)', khung.querySelector('table').classList.contains('luoi') && getComputedStyle(khung.querySelector('tbody td')).borderTopStyle==='solid');
    const r0 = khung.querySelector('tbody tr');
-   ok('bảng PGD: Cộng toàn PGD trên đầu, dư nợ triệu đồng có dấu chấm, không ",00"', /CỘNG TOÀN PGD/.test(r0.textContent) && /12\.910/.test(r0.textContent) && !/,00/.test(khung.textContent), r0.textContent.slice(0, 80));
+   ok('bảng PGD: Cộng toàn PGD trên đầu, dư nợ triệu đồng 2 số lẻ (12.910,00)', /CỘNG TOÀN PGD/.test(r0.textContent) && /12\.910,00/.test(r0.textContent), r0.textContent.slice(0, 80));
    ok('mốc so sánh ghi đủ ngày (so với dd/mm/yyyy; biến động dd/mm/yyyy → dd/mm/yyyy)', /so với \d\d\/\d\d\/\d{4}/.test(document.getElementById('to-the').textContent) && /Biến động \d\d\/\d\d\/\d{4} → \d\d\/\d\d\/\d{4}/.test(document.getElementById('to-the').textContent));
    /* bảng các tổ của xã */
    pvChon('to', 'xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(1800);
    const th = () => [...document.querySelectorAll('#to-the .to-bang thead th')].map(x=>x.textContent);
-   ok('bảng các tổ: có Điểm GD + Hội (chưa lọc), STT hẹp', th().includes('Điểm GD') && th().includes('Hội') && document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width < 60, document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width);
+   ok('bảng các tổ: có Hội (chưa lọc), Điểm GD là cột Tự động (3.163), STT hẹp', th().includes('Hội') && TO_COT.find(c=>c[0]==='diem')[2]===0 && document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width < 60, document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width);
    ok('dòng Cộng dính đáy khung', getComputedStyle(document.querySelector('#to-the .to-cuon-khung tr.tong td')).position==='sticky');
    pvChon('to', 'hoi', '11', 1); await w(1500);
    ok('lọc 1 Hội → bỏ cột Hội (đã ghi trên tiêu đề)', !th().includes('Hội'), th().join('|'));
    /* ⚙ Cột */
-   toCotHop(); await w(100); const cb = [...document.querySelectorAll('#hop-in .to-cot-ds label')].find(x=>/Số món vay/.test(x.textContent)).querySelector('input'); cb.checked = true; cb.dispatchEvent(new Event('change')); dongHop(); toVeThe(); await w(300);
-   ok('⚙ Cột: bật "Số món vay" → bảng có cột, app nhớ', th().includes('Số món vay') && D.cauHinh.toCot.mon===true);
+   toCotHop(); await w(100); const cb = [...document.querySelectorAll('#hop-in .to-cot-ds label')].find(x=>/Số món vay/.test(x.textContent)).querySelector('select'); cb.value = 'hien'; cb.dispatchEvent(new Event('change')); dongHop(); toVeThe(); await w(300);
+   ok('⚙ Cột (3.163 — Tự động / Luôn hiện / Ẩn): "Số món vay" Luôn hiện → bảng có cột, app nhớ', th().includes('Số món vay') && D.cauHinh.toCot.mon==='hien' && toCotChe(['x','x',1])==='hien' && toCotChe(['x','x',0])==='tu');
    /* In / Excel */
    let html = ''; const ib = inBlob; window.inBlob = async bl => { html = await bl.text(); };
    toBangXuat('in'); await w(200);
@@ -48,7 +48,8 @@ const fs=require('fs'), path=require('path');
    ok('In: A4 dọc, 10–11 cột chính (STT · Mã tổ · Tổ trưởng · Ấp · Tổ viên · Có dư nợ · Dư nợ · Quá hạn · Khoanh · Số dư 105)', !/class="trang ngang"/.test(html) && cotIn.length>=10 && cotIn.length<=11 && !cotIn.includes('Thu nợ tháng') && cotIn.includes('Số dư 105'), cotIn.join(','));
    toBangXuat('inDu'); await w(200);
    ok('In đầy đủ: A4 ngang, các cột đang xem', /class="trang ngang"/.test(html) && /Thu nợ tháng/.test(html) && /Số món vay/.test(html));
-   ok('Excel: đủ cột, số đồng (giữ STT 0 / Cộng n tổ)', TO_BANG_XUAT.cot.length===17 && typeof TO_BANG_XUAT.aoa[0][10]==='number' && /Cộng \d+ tổ/.test(TO_BANG_XUAT.tong[2]));
+   const ex = window.toExcel; let xl = null; window.toExcel = () => { xl = TO_XEM[0].aoa; }; toBangXuat('excel'); window.toExcel = ex;
+   ok('Excel: đủ cột kể cả cột thêm (3.163), số đồng, dòng Cộng n tổ', xl && xl[0].includes('Khách chưa có TK 105') && xl[0].includes('Điểm GD') && typeof xl[1][xl[0].indexOf('Dư nợ')]==='number' && xl.some(r=>/Cộng \d+ tổ/.test(r.join('|'))), xl && xl[0].length);
    /* cảnh báo in danh sách tổ viên */
    pvChon('to', 'hoi', '11', 1); TO_LOC_PV = 'tat'; toVeThe(); await w(800);
    const X = toTVPV(C), k0 = X.tv[0];

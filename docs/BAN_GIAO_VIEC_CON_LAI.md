@@ -222,6 +222,20 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.163) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở tab Nạp & KT | Tự về tháng có số liệu mới nhất; dải lịch có ●◐○, rê chuột thấy thiếu file nào | |
+| 2 | Nạp 1 Mẫu 31 theo ngày | Thêm 1 cột ngày (dd/mm/yyyy) nằm giữa cột chốt tháng trước và cột chốt tháng | |
+| 3 | ⇔ Tổng quan / ▾ Thu gọn | Tổng quan chỉ cột chốt tháng; Thu gọn ↔ Bung ra cùng 1 nút | |
+| 4 | Tab Tổ, chọn 1 xã, đổi cỡ cửa sổ | Bảng không tràn ngang; màn rộng tự có thêm cột Số món vay, Tỷ lệ QH…; số triệu đồng có ",00" | |
+| 5 | ⚙ Cột → 1 cột "Luôn hiện", 1 cột "Ẩn" | Bảng theo đúng, lần sau vẫn nhớ | |
+| 6 | Danh sách khách → 🖨 In đầy đủ | A4 ngang, đúng các cột đang thấy trên màn hình, chữ co vừa trang | |
+| 7 | Chọn kỳ tháng chưa có Mẫu 31 | Chip "⚠ Dùng T…" cuối hàng Xã, ⚠ ở ô kỳ đầu trang; bấm chip mở Nạp & KT đúng tháng | |
+| 8 | Hàng Tổ (bộ lọc) | Chip tổ có tên ấp chữ nhỏ; rê chuột thấy ấp, mã tổ, số tổ viên | |
+
+**Ghi chú kỹ thuật 3.163:** cột Tự động dựa vào bề ngang thật của khung bảng lúc vẽ — in / Excel không đổi theo màn hình (In = cột chính cố định; In đầy đủ = cột đang hiện; Excel = đủ cột). Danh sách khách vẫn ghi tiền đồng (chờ anh quyết có đổi sang triệu đồng không). Tab Tra cứu chưa có chip báo số liệu (tab không dùng `kyGhiHTML`).
+
 ### Danh sách thử trên máy thật (3.162) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

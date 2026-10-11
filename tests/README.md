@@ -89,6 +89,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t156.js` | 3.160 Lọc số liệu chung: dòng 📍 + ✕, hàng ① / ② / ③, Hội trước điểm, bấm tên mở lại, ✕ bỏ từng cấp, 5 tab, Tra cứu bỏ khung gập + số khách, nền tối ô nhập, điện thoại giữ ô thả xuống. |
 | `node tests/t157.js` | 3.161 Tab Tổ: cách viết số triệu đồng, chip 3 nhóm ≤ 2 dòng, nút đầu bảng, khung cuộn + tiêu đề / Cộng dính, kẻ ô, ngày đủ, cột tự ẩn khi lọc Hội, ⚙ Cột, In A4 dọc / In đầy đủ A4 ngang / Excel, cảnh báo in đậm + cột Lưu ý. |
 | `node tests/t156.js` | 3.160 + 3.162 Lọc số liệu chung: hàng Xã luôn hiện + 📍 chỉ báo cùng hàng, Điểm GD │ Hội 1 dòng, Tổ chip + ô sổ xuống, Hội trước điểm, bấm PGD quay lại, 5 tab, Tra cứu, nền tối ô nhập, điện thoại giữ ô thả xuống. |
+| `node tests/t158.js` | 3.163 Nạp & KT dải lịch ●◐○ + ⦿ Gần nhất, cột theo ngày + cột chốt, Tổng quan / Thu gọn; tab Tổ cột Tự động không tràn ngang, ⚙ Cột 3 chế độ, In đầy đủ / Excel đủ cột danh sách khách; tiền 2 số lẻ; chip tổ kèm ấp; chip ⚠ Dùng T… + ⚠ ô kỳ. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 
