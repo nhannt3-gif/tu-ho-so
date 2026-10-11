@@ -4,8 +4,14 @@
 > File mẫu anh gửi chỉ đọc trong thư mục nháp của phiên — **không đưa vào repo**. Lời văn mẫu là mẫu công khai của ngành (QĐ 70/QĐ-HĐQT ngày 27/8/2026), không có dữ liệu thật → được nhúng vào app.
 > Chưa code — chờ anh nhắn "code". Bản đề xuất: **3.167** (10C cũ + 10C mới, 01/BG, 02/BG) · **3.168** (10A, 10B, 11/TD).
 
+## Anh chốt thêm 11/10 (sau khi gửi đủ mẫu)
+- **Tab riêng "📝 Hồ sơ Tổ"** trong nhóm Số liệu (không nhét vào tab Tổ). Áp dụng đồng bộ quy tắc các tab: hàng lọc Xã · Điểm GD │ Hội · Tổ (chip kèm ấp), chip trạng thái cuối hàng Xã, 📍; chọn 1 mẫu → xem ngay khung phải; hàng xuất Word · In · PDF · Gửi.
+- **⚙ Khai báo 1 lần** (lưu + đồng bộ Drive như cài đặt): PGD (tên, đại diện, chức vụ, địa chỉ, điện thoại, tỉnh in sẵn) · trưởng ấp theo từng ấp · người của Hội cấp xã (lấy sẵn từ tab Khai báo Hội đoàn thể) · **tổ phó thực tế** theo tổ (một số tổ trên máy chưa khớp thực tế) — có khai thì ưu tiên, khác máy thì chip ⚠.
+- Ô điền 3 màu: xanh lá = số liệu · vàng = khai báo 1 lần · viền đứt = chấm ghi tay. Sửa ô chỉ áp cho lần in đó.
+- **Bố cục mẫu (dữ liệu giả)** để anh duyệt: artifact "Tab Hồ sơ Tổ — bố cục" (https://claude.ai/artifact/N81fqoLC7RwsTGL8byDjSg).
+
 ## Cách dùng (đề xuất)
-Tab Tổ → chọn 1 tổ → nút **📝 Hồ sơ tổ ▾** → chọn mẫu → hộp chọn trước khi in (ngày họp / kỳ chốt, tích người, sửa nhanh ô điền sẵn) → **Word (.docx) đúng khổ** + 🖨 In / PDF (bộ in chuẩn). Ô app không có dữ liệu → dòng chấm như mẫu gốc.
+Tab **📝 Hồ sơ Tổ** → chọn tổ ở hàng lọc → chọn mẫu ở cột trái → hộp chọn trước khi in (ngày họp / kỳ chốt, tích người, sửa nhanh ô điền sẵn) → **Word (.docx) đúng khổ** + 🖨 In / PDF (bộ in chuẩn). Ô app không có dữ liệu → dòng chấm như mẫu gốc.
 
 Nguồn dữ liệu: Mẫu 31 (khách, món, nợ gốc, lãi tồn, số dư 105, CCCD, ngày vay), DSTO / LEN_31 TO_TRUONG (tổ trưởng, tổ phó, ấp), Khai báo Hội (Hội, người của Hội), Cài đặt (PGD, tỉnh), biến động tổ (`TO_BD`: mới vào / ra khỏi tổ), so 2 kỳ (tổ trưởng đổi).
 
