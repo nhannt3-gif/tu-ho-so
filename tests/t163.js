@@ -58,15 +58,14 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    hsoChonMau('11'); await w(300); const w11 = await b64(await hsoDocx(HSO.x));
    /* Hồ sơ vay */
    slDoiTab('hsv'); for(let i=0;i<30 && !document.querySelector('#hsv-cay .loc-khoi');i++) await w(200); await w(600);
-   ok('tab Hồ sơ vay: 7 mục (3.171: Bộ hồ sơ, 01/UQ, 01/TD, 03/TD, 01/TGTV, 04/TD, 09A/TD)', document.querySelectorAll('#hso-ds input[name="hso-mau"]').length===7);
+   ok('tab Hồ sơ vay: 6 mục (3.172: 04/TD dời sang tab 🏢 Giao dịch xã)', document.querySelectorAll('#hso-ds input[name="hso-mau"]').length===6);
    const kv = tv.find(k=>k.mon.some(m=>(m.dn||0)>0)), c = hsoKhach(kv.kh, t);
    const B0 = hsoBoMoi(); hsoBoChonKH(kv.kh); B0.ct = 'HSSV'; B0.tien = '80000000'; B0.tuCo = '20.000.000'; B0.pa = {sv:'SV Giả'}; hsoChonMau('01td'); await w(300);   /* 3.171: đơn vay lấy theo bộ hồ sơ */
    ok('01/TD: người vay từ Mẫu 31 (tên, CCCD), tổ trưởng, số tiền + bằng chữ, tổng nhu cầu', chu().indexOf(c.ten)>=0 && (!c.cccd || chu().indexOf(c.cccd)>=0) && /Tám mươi triệu đồng/.test(chu()) && /Tổng nhu cầu vốn: 100\.000\.000/.test(chu()) && chu().indexOf('do ông (bà): '+t.ten)>=0);
    ok('01/TD: HSSV gợi ý đối tượng phương án, thời hạn / kỳ hạn để chấm', /Chi phí học tập, sinh hoạt cho sinh viên/.test(chu()) && /Thời hạn xin vay: \.{5,} tháng/.test(chu()));
    hsoCH().boId = ''; hsoChonMau('03td'); HSO.vay.chon[tv[0].kh] = true; HSO.vay.chon[tv[1].kh] = true; hsoXem(); await w(300);
    ok('03/TD: A4 ngang, tên tổ / ấp / xã, tổ viên đã tích vào bảng', HSO.x.M.ngang && chu().indexOf(tv[0].ten)>=0 && chu().indexOf(tv[1].ten)>=0 && chu().indexOf('Tên tổ TK&VV: '+t.ten)>=0);
-   hsoChonMau('04td'); HSO.vay.soNguoi = '3'; HSO.vay.tien = '1005000'; hsoXem(); await w(300);
-   ok('04/TD: kính gửi UBND xã đang lọc, điểm GD, bằng chữ', new RegExp('Kính gửi: Ủy ban nhân dân '+ktXaChu(t.tenXa)).test(chu()) && /Một triệu không trăm linh năm nghìn đồng/.test(chu()) && /Điểm giao dịch \S/.test(chu()), ktXaChu(t.tenXa));
+   ok('04/TD không còn ở Hồ sơ vay — in ở tab 🏢 Giao dịch xã (3.172)', !HSO_MAU.hsv.some(m=>m.k==='04td') && typeof gdxHTML04==='function');
    hsoChonMau('09a'); HSO.vay.kh = kv.kh; hsoVe(); await w(300); const m9 = kv.mon.filter(m=>(m.dn||0)>0)[0];
    ok('09A/TD: món còn dư nợ → mã khoản vay, chương trình, gốc, ngày đến hạn; số tiền gia hạn mặc định = gốc', chu().indexOf(m9.ku)>=0 && chu().indexOf(tdnTien(m9.dn))>=0 && (!skHL(m9) || chu().indexOf(ngayVNsl(skHL(m9)))>=0) && /gia hạn khoản nợ gốc ?\d/.test(chu()));
    ok('đọc số thành chữ', hsoChuSo(21500000)==='Hai mươi mốt triệu năm trăm nghìn đồng' && hsoChuSo(115000)==='Một trăm mười lăm nghìn đồng' && hsoChuSo(2014)==='Hai nghìn không trăm mười bốn đồng' && hsoChuSo(1000000000)==='Một tỷ đồng');

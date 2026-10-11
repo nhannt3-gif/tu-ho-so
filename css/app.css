@@ -3281,3 +3281,54 @@ span.sl-chip{cursor:help}
 #tr7 #hso-ds .to-bc-dong{display:block;text-align:left;font-size:calc(13px*var(--co));margin:0;padding:3px 6px;white-space:normal;line-height:1.3}
 #tr7 #hso-ds .hso-dau-ds{margin:0 0 4px;flex-wrap:wrap}
 #tr7 #hso-ds .hso-dau-ds button{font-size:calc(12px*var(--co))}
+/* 3.172: 🏢 Giao dịch xã — điều khiển bên trái, khung xem mẫu (iframe, CSS gốc của mẫu) bên phải */
+.th-bo.th-bo2.gdx-bo{grid-template-columns:minmax(320px,420px) minmax(0,1fr)}
+@media(max-width:899px){ .th-bo.th-bo2.gdx-bo{grid-template-columns:1fr} }
+@media(min-width:900px){ #tr7 .gdx-bo>.gdx-trai{max-height:calc(100vh - var(--dau-cao,52px) - 24px);overflow:auto;padding-right:4px} }
+.gdx-trai{text-align:left;font-size:calc(13px*var(--co))}
+.gdx-mau,.gdx-tab{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 8px}
+.gdx-mau button,.gdx-tab button{flex:1 1 auto;padding:6px 10px;border:1px solid var(--vien);border-radius:8px;background:var(--the);color:var(--chu);font:inherit;font-weight:600;cursor:pointer}
+.gdx-mau button.bat,.gdx-tab button.bat{background:var(--xanh);border-color:var(--xanh);color:#fff}
+.gdx-o{display:block;margin:6px 0}
+.gdx-o>span:first-child{display:block;font-weight:600;margin-bottom:2px}
+.gdx-o input,.gdx-o select,.gdx-hang input,.gdx-kt input,.gdx-kt select{font:inherit;padding:5px 8px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu);width:100%;min-width:0;box-sizing:border-box}
+.gdx-o small{display:block;color:var(--chu-phu);margin-top:2px}
+.gdx-lon{font-size:calc(15px*var(--co)) !important;font-weight:700}
+.gdx-hang{display:flex;gap:6px;align-items:center}
+.gdx-hang input{flex:1}
+.gdx-nh{font-weight:600;margin:8px 0 3px}
+.gdx-nh small{font-weight:400;color:var(--chu-phu)}
+.gdx-chips{display:flex;flex-wrap:wrap;gap:5px;margin:2px 0 6px}
+.gdx-mh{display:inline-flex;gap:1px}
+.gdx-mh button{padding:3px 7px}
+.gdx-the{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:14px;background:var(--the);border:1px solid var(--vien)}
+.gdx-the a{cursor:pointer;color:#d32f2f;font-weight:700}
+.gdx-trong{color:var(--chu-phu)}
+.gdx-chu{border:1.5px dashed #7cb342;border-radius:6px;padding:8px 12px;font-weight:700;color:#2e7d32;min-height:38px}
+.gdx-nut{display:flex;flex-direction:column;gap:6px;margin:12px 0 4px}
+.gdx-in{padding:10px !important;font-size:calc(14px*var(--co)) !important}
+.gdx-nho{font-size:calc(11px*var(--co)) !important;padding:1px 7px !important;margin-left:4px}
+.gdx-gqvl2,.gdx-r{display:block;margin:5px 0}
+.gdx-gqvl2{padding:6px 10px;border:1.5px solid #22c55e;border-radius:8px;font-weight:600}
+.gdx-nhom{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:6px 0}
+.gdx-nhom .gdx-nh{margin:0}
+.gdx-dot{padding:6px 10px;border-radius:8px;background:var(--the);border:1px solid var(--vien);margin:0 0 6px;line-height:1.45}
+.gdx-dot.chua{border-color:var(--vang)}
+.gdx-khoi{border-top:1px solid var(--vien);margin-top:8px;padding-top:4px}
+.gdx-khoi>summary{cursor:pointer;font-weight:600;margin:6px 0}
+.gdx-dong{display:flex;gap:4px;align-items:center;margin:2px 0}
+.gdx-dong span{flex:1}
+.gdx-o2{display:flex;flex-wrap:wrap;gap:4px 14px;margin:4px 0}
+.gdx-thanh{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 6px;font-size:calc(12.5px*var(--co))}
+.gdx-thanh .gdx-nhan{flex:1 1 auto;font-weight:600}
+.gdx-zoom{display:inline-flex;gap:2px}
+.gdx-gqvl{display:inline-flex;gap:5px;align-items:center;padding:3px 10px;border:1.5px solid #22c55e;border-radius:16px;font-weight:600}
+.gdx-kt{width:100%;border-collapse:collapse;margin:6px 0;font-size:calc(13px*var(--co))}
+.gdx-kt th,.gdx-kt td{border:1px solid var(--vien);padding:4px 6px;text-align:left;vertical-align:middle}
+.gdx-kt td:first-child{font-weight:600;white-space:nowrap}
+.gdx-kt .gdx-cc{color:var(--chu-phu);font-size:calc(12px*var(--co))}
+.gdx-n3{margin-right:8px;white-space:nowrap}
+.gdx-kt input[type=date]{width:auto}
+.gdx-canh{color:#d32f2f;font-weight:600;margin:6px 0}
+#hop-in .gdx-kt input[type=radio],#hop-in .gdx-kt input[type=checkbox],.gdx-trai input[type=radio],.gdx-trai input[type=checkbox]{width:auto;display:inline-block;margin:0 5px 0 0;vertical-align:middle}
+#hop-in .gdx-kt label{display:inline-flex;align-items:center;margin-right:12px;white-space:nowrap}

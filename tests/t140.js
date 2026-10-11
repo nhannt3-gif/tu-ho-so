@@ -30,7 +30,7 @@ const path=require('path'); const drive=require('./fakedrive.js')();
    moBCSL(); await w(400);
    ok('bấm Số liệu → tab con báo cáo (mặc định Tổng hợp), tô nút Số liệu', D.cauHinh.slTab==='th' && chon()==='Số liệu', D.cauHinh.slTab+' · '+chon());
    const con = Array.from(tr7.querySelectorAll('.sl-con button')).map(x=>x.textContent);
-   ok('thanh tab con Số liệu không còn "Nạp & Kiểm tra"', con.length===7 && !con.some(x=>/Nạp/.test(x)), con.join(' | '));
+   ok('thanh tab con Số liệu không còn "Nạp & Kiểm tra"', con.length===8 && !con.some(x=>/Nạp/.test(x)), con.join(' | '));
    slDoiTab('sk'); await w(200); moNapSL(); await w(200); moBCSL(); await w(300);
    ok('Số liệu nhớ tab con báo cáo gần nhất (Sao kê)', D.cauHinh.slTab==='sk');
    slDoiTab('kt'); await w(600);

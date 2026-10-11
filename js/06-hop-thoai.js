@@ -2053,7 +2053,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.171', ds:[
+var CO_GI_MOI = {ban:'3.172', ds:[
+  ["🏢 Tab mới Giao dịch xã (Số liệu › Giao dịch xã): in nhanh 04/TD Thông báo phê duyệt + 12/GDX Bảng kê giao nhận tiêu hủy biên lai — mẫu in giữ nguyên file anh đã in thử đúng mẫu thật; không cần số liệu hộ vay (điểm, tổ lấy từ Cài đặt › Địa bàn)", "slDoiTab('gdx');doiNgan(7)"],
+  ["⭐ Mẫu hay in (lưu số hộ + số tiền, bấm là in) · 🔄 Kiểm tra trước đợt: tự đề xuất điểm có ngày giao dịch gần nhất, ngày phát, ngày ký · nơi giải ngân Tại điểm GD / Tại PGD · tên UBND ghi đầy đủ", "slDoiTab('gdx');doiNgan(7)"],
+  ["📄 04/TD rời tab Hồ sơ vay — chỉ in ở tab Giao dịch xã", "slDoiTab('gdx');doiNgan(7)"],
   ["📦 Lập bộ hồ sơ vay (Hồ sơ vay › Bộ hồ sơ): chọn chương trình HSSV / Nước sạch VSMT → hộ cũ (cây tổ, tìm CCCD / tên) hoặc hộ mới (nhập theo Giấy UQ, lưu tạm) → 1 lần in đủ Giấy UQ, Đơn vay 01/TD, Biên bản 10C, 03/TD (+ 01/TGTV nếu hộ mới); trạng thái Đang soạn → Đã in gửi tổ → Tổ đã nộp → Đã giải ngân; tự nhận khi hộ mới có trên Mẫu 31", "slDoiTab('hsv');doiNgan(7)"],
   ["📄 Mẫu bám sát bản PDF: 01/TD, 01/UQ, 03/TD, 04/TD, 09A/TD, 01/TGTV; đường kẻ dưới tiêu ngữ / tên cơ quan là nét mảnh riêng, không gạch chân chữ; 10C, 02/BG dài thì kéo bảng, lặp tiêu đề, 02/BG có Trang x/y", "slDoiTab('hsv');doiNgan(7)"],
   ["🖼 Khai báo 1 lần: logo (tải lên, tích mẫu nào in logo — mặc định 01/TD, 01/TGTV), đối tượng thụ hưởng theo chương trình, giờ / phút phát tiền 04/TD", "slDoiTab('hsv');doiNgan(7)"],

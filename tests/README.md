@@ -98,6 +98,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t162.js` | (3.169) khối lọc + tab Tổ hàng Báo cáo của tổ ở đầu. |
 | `node tests/t163.js` | (3.170) tab 📝 Hồ sơ Tổ + 📄 Hồ sơ vay: 10 mẫu điền từ số liệu, mẫu trắng, 10C theo ngày họp, khai báo 1 lần, Word đúng khổ, đọc số thành chữ. |
 | `node tests/t164.js` | (3.171) bộ hồ sơ vay HSSV / NSVSMT, hộ cũ / hộ mới, mẫu theo PDF (01/UQ, 01/TD, 03/TD, 04/TD, 09A, 01/TGTV), logo, tiêu ngữ nét mảnh, Word nhiều section. |
+| `node tests/t165.js` | (3.172) tab 🏢 Giao dịch xã: kiểm tra trước đợt + ngày GD gần nhất, nơi giải ngân điểm / PGD, tên UBND đầy đủ, GQVL, 2 bản, ⭐ Mẫu hay in, mức tiền / cán bộ, 12/GDX tổ từ Địa bàn + trọn 1 trang, lưu cài đặt (Địa bàn giả). |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

@@ -222,6 +222,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.172) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu › 🏢 Giao dịch xã (máy chưa nạp số liệu cũng mở được) | Hiện hộp Kiểm tra trước đợt: điểm có ngày GD gần nhất, ngày phát, ngày ký hôm nay | |
+| 2 | Khai báo sẵn: người lập, cán bộ, mức tiền (khai lại 1 lần) | Tự lưu; máy khác (Drive) cũng có | |
+| 3 | In 04/TD 1 hộ 40 triệu → so với bản in từ file HTML cũ | Giống hệt (2 bản, gạch 1/2 dòng dưới PGD, tên người lập) | |
+| 4 | ⭐ Lưu mẫu 1 hộ 40 tr, 2 hộ 80 tr, 3 hộ 120 tr → bấm 🖨 ở từng mẫu | In ngay, không gõ lại số | |
+| 5 | Tích GQVL | "người lao động" ở mục 1, 2 và câu đề nghị | |
+| 6 | Nơi giải ngân Tại PGD, chọn xã | Địa điểm = PGD, ngày gợi ý ngày mai, kính gửi UBND xã đã chọn | |
+| 7 | 12/GDX: chọn điểm, In sẵn tên tổ trưởng, 12 / 20 / 36 dòng | Tên tổ trưởng theo Địa bàn; trọn 1 trang (36 dòng: xem có tràn không) | |
+| 8 | Câu "Đề nghị … thông báo" | Ghi đầy đủ "Ủy ban nhân dân phường / xã …" | |
+| 9 | Tab Hồ sơ vay | Không còn 04/TD | |
+
+**Ghi chú kỹ thuật 3.172:** mẫu in KHÔNG sửa tay — muốn đổi bố cục thì sửa file HTML gốc rồi chuyển lại (template → chuỗi, CSS khối `.preview-stage` / `.sheet-a4`… / `@media print`), so ảnh in lại cho trùng. Thứ tự file: `26-giao-dich-xa.js` sau `25-ho-so.js` (dùng `ktXaChu`, `coChuHTML`, `ngayISO`, `ngayVN`). Ô "Tên UBND (câu đề nghị)" giữ khóa `tenUBNDVietTat` của file gốc nhưng app điền đầy đủ. **Lưu ý:** 12/GDX 36 dòng ở file gốc vốn tràn sang trang 2 (đo bằng trình duyệt) — giữ nguyên như file, anh xem bản in thật. Tên tổ trưởng in sẵn cần khai tổ ở Cài đặt › Địa bàn › Sửa danh sách tổ.
+
 ### Danh sách thử trên máy thật (3.171) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
