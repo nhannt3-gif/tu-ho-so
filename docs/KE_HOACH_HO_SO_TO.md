@@ -77,6 +77,7 @@ Bên A: PGD, đại diện, chức vụ, địa chỉ, điện thoại ✓ từ 
 - Tab riêng, **tách khỏi tab Hồ sơ Tổ**; cùng quy tắc bố cục: khối LỌC ĐỊA BÀN (xã · điểm GD · Hội · tổ) → chọn khách / tổ viên → chọn mẫu → xem A4 ngay khung phải → Word · In · PDF · Gửi; ô điền 3 màu (số liệu · khai báo 1 lần · ghi tay).
 - Mẫu đầu tiên: **01/TD** Giấy đề nghị vay vốn kiêm phương án (theo từng chương trình, mở đầu HSSV) và **03/TD** Danh sách tổ viên đề nghị vay (theo tổ, nhiều người 1 lần).
 - Người vay chọn từ Mẫu 31 (khách đã có) hoặc gõ mới (khách chưa vay); app điền tên, ngày sinh, CCCD, ngày / nơi cấp, địa chỉ, tổ, tổ trưởng, Hội; số tiền tự đổi ra chữ.
+- **Mục đích chính (anh 11/10): hỗ trợ in mẫu đơn vay.** Mặc định: 1 mẫu 01/TD chung, chọn **chương trình** (danh mục CT của app); bảng phương án (Đối tượng · Số lượng · Thành tiền) có dòng gợi ý theo CT (HSSV: chi phí học tập, sinh hoạt cho sinh viên …; CT khác để trống ghi tay), sửa được trước khi in. Mẫu riêng từng CT anh gửi thêm thì thay vào sau.
 - Thứ tự đề xuất: làm sau tab Hồ sơ Tổ (dùng chung bộ dựng mẫu + khai báo 1 lần).
 
 ## Hồ sơ vay HSSV (anh gửi 11/10 — làm sau bộ hồ sơ Tổ)
