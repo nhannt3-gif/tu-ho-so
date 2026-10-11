@@ -2053,7 +2053,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.170', ds:[
+var CO_GI_MOI = {ban:'3.171', ds:[
+  ["📦 Lập bộ hồ sơ vay (Hồ sơ vay › Bộ hồ sơ): chọn chương trình HSSV / Nước sạch VSMT → hộ cũ (cây tổ, tìm CCCD / tên) hoặc hộ mới (nhập theo Giấy UQ, lưu tạm) → 1 lần in đủ Giấy UQ, Đơn vay 01/TD, Biên bản 10C, 03/TD (+ 01/TGTV nếu hộ mới); trạng thái Đang soạn → Đã in gửi tổ → Tổ đã nộp → Đã giải ngân; tự nhận khi hộ mới có trên Mẫu 31", "slDoiTab('hsv');doiNgan(7)"],
+  ["📄 Mẫu bám sát bản PDF: 01/TD, 01/UQ, 03/TD, 04/TD, 09A/TD, 01/TGTV; đường kẻ dưới tiêu ngữ / tên cơ quan là nét mảnh riêng, không gạch chân chữ; 10C, 02/BG dài thì kéo bảng, lặp tiêu đề, 02/BG có Trang x/y", "slDoiTab('hsv');doiNgan(7)"],
+  ["🖼 Khai báo 1 lần: logo (tải lên, tích mẫu nào in logo — mặc định 01/TD, 01/TGTV), đối tượng thụ hưởng theo chương trình, giờ / phút phát tiền 04/TD", "slDoiTab('hsv');doiNgan(7)"],
   ["📝 Tab mới Hồ sơ Tổ (Số liệu › Hồ sơ Tổ): chọn tổ ở khối lọc → chọn mẫu → xem A4 ngay khung phải; In · PDF · Word (.docx đúng khổ) · Gửi. Mẫu: 10C (cũ đến 30/09/2026 / mới QĐ 70 — tự chọn theo ngày họp), 10A, 10B, 11/TD, 01/BG, 02/BG (A4 ngang)", "slDoiTab('hst');doiNgan(7)"],
   ["📄 Tab mới Hồ sơ vay: 01/TD Giấy đề nghị vay vốn (chọn tổ viên, chương trình, mục đích, số tiền → bằng chữ tự đổi), 03/TD Danh sách tổ viên đề nghị vay, 04/TD Thông báo phê duyệt (theo xã, điểm GD, ngày GD kế tiếp), 09A/TD Giấy đề nghị gia hạn nợ (chọn món)", "slDoiTab('hsv');doiNgan(7)"],
   ["⚙ Khai báo 1 lần (nút ở 2 tab hồ sơ): thông tin PGD, trưởng ấp từng ấp, tổ phó thực tế (tổ trên máy chưa khớp), danh mục mục đích vay — lưu cùng cài đặt, đồng bộ Drive. Ô điền sẵn: xanh = số liệu, vàng = khai báo, chấm = ghi tay (in ra chữ đen)", "slDoiTab('hst');doiNgan(7)"],

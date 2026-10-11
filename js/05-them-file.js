@@ -1227,7 +1227,8 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
     if(C.xem) thanh();
   }
   function bac(u){   /* các bậc thử khổ: [ngang, lề t r b l, gọn, cỡ chữ pt] */
-    if(loai!=='.trang') return [[C.ngang, C.mg, 0, 0]];
+    if(loai!=='.trang'){ var an = u.getAttribute('data-tr-ngang'), am = (u.getAttribute('data-tr-mg')||'').split(/\s+/).map(parseFloat).filter(function(x){ return !isNaN(x); });   /* 3.171: mỗi bản (vd bộ hồ sơ vay) có khổ / lề riêng */
+      return [[an ? an==='1' : C.ngang, am.length===4 ? am : C.mg, 0, 0]]; }
     var ng = /\bngang\b/.test(u.className), L = C.le, B = [];
     if(L) { var m = [L, L, L, L], n0 = kho==='tu' ? ng : kho==='ngang'; return [[n0, m, 0, 0], [n0, m, 1, 9], [n0, m, 1, 8.5], [n0, m, 1, 8]]; }
     var doc = [[0, [20, 15, 20, 30], 0, 0], [0, [20, 15, 20, 30], 1, 9], [0, [15, 15, 15, 20], 1, 9], [0, [15, 15, 15, 20], 1, 8]], nga = [[1, [15, 15, 15, 20], 0, 0], [1, [15, 15, 15, 20], 1, 9], [1, [15, 15, 15, 20], 1, 8.5], [1, [10, 10, 10, 15], 1, 8]];
@@ -1295,9 +1296,12 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
       if(C.xem && nhan[i]){ var nh = d.createElement('div'); nh.className = 'tr-nhan'; nh.textContent = nhan[i]; ds.appendChild(nh); }
       for(var j=0;j<B.length;j++){ t = trang(B[j]); apBac(u, B[j]); t.nd.appendChild(u); var tran = u.scrollWidth>u.clientWidth+2; t.nd.removeChild(u); ds.removeChild(t.tg); if(!tran){ b = B[j]; break; } }
       t = trang(b); apBac(u, b); t.nd.appendChild(u); coDinhCot(u); t.nd.removeChild(u); ds.removeChild(t.tg);
-      var P = chia(u, b), N = P.length;
-      P.forEach(function(p, k){ if(C.so!=='xy' && !k) return; var s = d.createElement('div'); s.className = 'tr-so'; s.textContent = C.so==='xy' ? 'Trang '+(k+1)+'/'+N : String(k+1);
-        s.style.cssText = 'right:'+b[1][1]+'mm;bottom:'+Math.max(3, b[1][2]*0.4)+'mm;font-size:'+(C.so==='xy' ? '8pt;font-style:italic' : '9pt'); p.tg.appendChild(s); });
+      var P = chia(u, b), N = P.length, so = u.getAttribute('data-tr-so') || C.so;   /* 3.171: số trang riêng từng bản (xy · so · khong) */
+      P.forEach(function(p, k){ if(so==='khong' || (so!=='xy' && !k)) return; var s = d.createElement('div'); s.className = 'tr-so'; s.textContent = so==='xy' ? 'Trang '+(k+1)+'/'+N : String(k+1);
+        s.style.cssText = 'right:'+b[1][1]+'mm;bottom:'+Math.max(3, b[1][2]*0.4)+'mm;font-size:'+(so==='xy' ? '8pt;font-style:italic' : '9pt'); p.tg.appendChild(s); });
+      var chan = u.getAttribute('data-tr-chan'); if(chan) P.forEach(function(p, k){ var c = chan.split('|'), e = d.createElement('div'); e.className = 'tr-so';   /* 3.171: chân trang mẫu ngành (01/TGTV): trái · phải + Trang x / N */
+        e.style.cssText = 'left:'+b[1][3]+'mm;right:'+b[1][1]+'mm;bottom:'+Math.max(3, b[1][2]*0.3)+'mm;font-size:8pt;text-align:left';
+        e.innerHTML = '<div style="display:flex;justify-content:space-between"><b><i>'+c[0]+'</i></b><span>'+(c[1]||'')+'</span></div><div style="text-align:center">Trang <b>'+(k+1)+'</b> / <b>'+N+'</b></div>'; p.tg.appendChild(e); });
       TH = TH.concat(P.map(function(p){ return p.tg; })); tong += N;
       if(C.haiMat && loai==='.kt-to' && goc.length>1 && i<goc.length-1 && N%2){ var tt = trang(b); tt.tg.classList.add('tr-trang-trang'); tt.tg.innerHTML = '<div class="tr-tt">Trang trắng — để bản sau bắt đầu mặt trước khi in 2 mặt</div>'; TH.push(tt.tg); tong++; }
     });
