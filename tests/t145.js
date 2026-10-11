@@ -34,13 +34,13 @@ const fs=require('fs'), path=require('path');
    /* cây chọn 2 hàng */
    const cay = document.getElementById('to-cay');
    const nhan = () => [...document.querySelectorAll('#to-cay .pv-nhan')].map(x=>x.textContent.replace(/[①②③]/g,'')).join('|');
-   ok('cây chọn (3.157): hàng 1 (ô chọn nối ›) + hàng chip có nhãn của cấp kế tiếp (Điểm GD) + Hội, không còn chip xã', !!cay.querySelector('.pv-hang1') && /^Điểm GD/.test(nhan()) && ![...cay.querySelectorAll('.pv-hang2 .to-chip')].some(c=>c.textContent==='PGD'), nhan()+' · '+[...cay.querySelectorAll('.pv-hang2 .to-chip')].map(c=>c.textContent).slice(0, 3).join(' | '));
+   ok('cây chọn (3.162): hàng Xã luôn hiện (xã đang chọn xanh) + hàng Điểm GD │ Hội', nhan()==='Xã|Điểm GD|Hội' && [...cay.querySelectorAll('.pv-hang1 .to-chip.bat')].length===1 && cay.querySelector('[data-cap="diem-hoi"]'), nhan());
    ok('cây chọn tối đa 3 hàng (cao ≤ 115 px)', cay.getBoundingClientRect().height <= 115, Math.round(cay.getBoundingClientRect().height)+' px');
    const diem = pvLuaChon(TO_K.to, toCH(), 'diem')[0].k; pvChon('to', 'diem', diem); await w(200);
    const to = pvLuaChon(TO_K.to, toCH(), 'to')[0].k; pvChon('to', 'to', to); await w(300);
-   ok('chọn tới tổ → dòng 📍 Xã › Điểm › Tổ (bấm tên để đổi), hàng Điểm GD / Tổ ẩn (3.160)', /Tổ /.test(document.querySelector('#to-cay .pv-dan').textContent) && !/Điểm GD|Tổ/.test(nhan()), nhan());
+   ok('chọn tới tổ → dòng 📍 Xã › Điểm › Tổ (chỉ báo); hàng Tổ: chip tổ đang chọn xanh + ô sổ xuống chọn đúng tổ (3.162)', /Tổ /.test(document.querySelector('#to-cay .pv-dan').textContent) && nhan()==='Xã|Điểm GD|Hội|Tổ' && document.querySelector('#to-cay .pv-to-ds').value===to, nhan());
    pvChon('to', 'xa', ''); await w(200);
-   ok('bỏ chọn xã → về Toàn PGD, hàng chip là các xã (có PGD)', toCH().xa==='' && toCH().to==='' && [...document.querySelectorAll('#to-cay .pv-hang2 .to-chip')][0].textContent==='PGD');
+   ok('bỏ chọn xã → về Toàn PGD, hàng chip là các xã (có PGD)', toCH().xa==='' && toCH().to==='' && [...document.querySelectorAll('#to-cay .pv-hang1 .to-chip')][0].textContent==='PGD' && document.querySelector('#to-cay .pv-hang1 .to-chip.bat').textContent==='PGD');
    /* KTGS */
    slDoiTab('kt'); doiNgan(7); for(let i=0;i<60 && !document.getElementById('kt-cay');i++) await w(250); await w(500);
    const kt = document.getElementById('tr7').textContent;

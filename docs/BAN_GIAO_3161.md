@@ -1,6 +1,6 @@
 # Bàn giao sau bản 3.161 — cho tài khoản / phiên Claude làm tiếp
 
-> Viết ngày 11/10/2026, khi `main` = **3.161**. Đọc file này **sau** `CLAUDE.md` và `docs/BAT_DAU.md`.
+> Viết ngày 11/10/2026, khi `main` = **3.161** (cập nhật: **3.162** tinh chỉnh lọc — mục 3). Đọc file này **sau** `CLAUDE.md` và `docs/BAT_DAU.md`.
 > Mục 2 là các việc **anh Nhân đã duyệt hướng** nhưng **chưa nhắn "code"**: muốn làm việc nào thì trình lại ngắn kế hoạch của việc đó, chờ anh nhắn "code".
 
 ---
@@ -79,6 +79,7 @@ Anh: *"lúc trước bấm gửi file hiện hộp thoại Windows có nút Sao 
 | 3.158 | Khai báo Hội vừa 1 trang; tên Hội cấp xã + KH Hội tỉnh sang Chuẩn hóa (1 lần / Hội + riêng xã, chuyển cũ) | t154 |
 | 3.159 | Chân thanh bên đủ chữ; nút ◐ / ☀ / ☾ chế độ tối; rà màu cứng | t155 |
 | 3.160 | Lọc số liệu chung: dòng 📍 (bấm tên đổi, ✕ bỏ) + ① Xã › ② Điểm GD · Hội › ③ Tổ; Tra cứu bỏ khung gập; nền tối ô nhập | t156 |
+| 3.162 | Tinh chỉnh lọc: hàng Xã luôn hiện (đang chọn xanh, bấm PGD quay lại) + 📍 chỉ báo cùng hàng; Điểm GD │ Hội 1 dòng; Tổ chip + ô sổ xuống | t156 |
 | 3.161 | Tab Tổ: chip 3 nhóm ≤ 2 dòng, nút đầu bảng, khung cuộn, kẻ ô, triệu đồng, ⚙ Cột, In A4 dọc / đầy đủ A4 ngang, ngày đủ, cảnh báo in đậm + cột Lưu ý | t157 |
 
 Lỗi đã biết: `t116` trượt 1 mục từ trước (không liên quan); hoiquy chập chờn (mục 2.7).
