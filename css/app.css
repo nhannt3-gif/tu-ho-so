@@ -3108,3 +3108,29 @@ details.sl-kq > summary{padding:6px 10px}
 @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .kt-chuan input.da{color:var(--chu);background:rgba(95,201,138,.16)} }
 .pv-cay .pv-hang2 .pv-nhan{flex:0 0 86px;white-space:nowrap}
 .pv-hang1 .pv-dan{flex:1 1 0;min-width:180px}
+/* 3.161: tab Tổ — chip gom nhóm, nút ở đầu bảng, bảng cuộn trong khung, kẻ ô mờ, cột vừa số liệu, dòng cảnh báo */
+.to-chip-khung{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px}
+.to-nhom{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px}
+.to-nhom-ten{font-size:calc(11px*var(--co));color:var(--chu-phu);font-weight:600;margin-right:2px}
+.to-loc.mo0{opacity:.5}
+.to-them{position:relative;display:inline-block}.to-them>summary{list-style:none;cursor:pointer}.to-them>summary::-webkit-details-marker{display:none}
+.to-them-ds{position:absolute;z-index:20;top:100%;left:0;margin-top:4px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:8px;background:var(--the);border:1px solid var(--vien);border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.15)}
+.to-bang-dau{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
+.to-bang-tieu{flex:1 1 300px;min-width:0}.to-bang-tieu .to-the-so{margin:2px 0 0}
+.to-bang-nut{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto}
+.to-dv{color:var(--chu-phu)}
+.to-cuon-khung{max-height:calc(100vh - 330px);min-height:180px;overflow:auto}
+.to-cuon-khung thead th{position:sticky;top:0;z-index:2;background:var(--nen)}
+.to-cuon-khung tr.tong:last-child td{position:sticky;bottom:0;z-index:1;background:var(--nen)}
+.to-bang.luoi{border-collapse:collapse}
+.to-bang.luoi th,.to-bang.luoi td{border:1px solid var(--vien);padding:3px 7px}
+.to-bang.luoi th{white-space:normal;text-align:center;vertical-align:middle;font-size:calc(12px*var(--co))}
+.to-bang.luoi td{white-space:nowrap;width:1%}
+.to-bang.luoi td.to-ten{width:auto;white-space:normal;min-width:160px}
+.to-bang.luoi td.s{text-align:right}
+.to-bang tr.to-canh td{background:var(--vang-nen)}
+.to-bang td.to-lu{white-space:normal;min-width:120px;font-size:calc(11.5px*var(--co));color:var(--vang);font-weight:600}
+.to-cc.sap{background:var(--vang-nen);color:var(--vang)}
+.to-cot-ds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 16px;margin:8px 0}
+.to-bang.luoi td:first-child,.to-bang.luoi th:first-child{min-width:0}
+.to-bang.luoi.to-bang-pgd td:first-child{min-width:200px;white-space:nowrap}

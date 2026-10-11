@@ -87,6 +87,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t154.js` | 3.158 Khai báo Hội vừa 1 trang: chuyển KH Hội tỉnh cũ sang Chuẩn hóa (+ ngoại lệ xã), cột mới, dòng nhóm xã, 📋 Phân công cạnh tên Hội, bỏ ⇩ Chép, vừa ngang, Excel Enter, Chuẩn hóa 14 mục, Riêng từng xã, KH riêng / chung, in Kế hoạch. |
 | `node tests/t155.js` | 3.159 Chân thanh bên: dòng trạng thái không lặp Drive, tin dài ≤ 3 dòng, chip xuống dòng; nút ◐ / ☀ / ☾ xoay giao diện + nhớ; rà tương phản chữ / nền 7 tab ở nền tối; bản in giữ trắng. |
 | `node tests/t156.js` | 3.160 Lọc số liệu chung: dòng 📍 + ✕, hàng ① / ② / ③, Hội trước điểm, bấm tên mở lại, ✕ bỏ từng cấp, 5 tab, Tra cứu bỏ khung gập + số khách, nền tối ô nhập, điện thoại giữ ô thả xuống. |
+| `node tests/t157.js` | 3.161 Tab Tổ: cách viết số triệu đồng, chip 3 nhóm ≤ 2 dòng, nút đầu bảng, khung cuộn + tiêu đề / Cộng dính, kẻ ô, ngày đủ, cột tự ẩn khi lọc Hội, ⚙ Cột, In A4 dọc / In đầy đủ A4 ngang / Excel, cảnh báo in đậm + cột Lưu ý. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.161 — 11/10/2026 — Tab Tổ: chip nhóm, nút đầu bảng, bảng gọn + in A4, cảnh báo in đậm
+- **Anh chốt:** nút In nằm cuối khó thấy; bảng giữ khung cuộn; chip sau này nhiều thì tối đa 2 dòng, gom nhóm; cột vừa số liệu, kẻ ô, bản in vừa A4, bỏ cột thừa, bảng xem thêm được cột; so sánh ghi đủ ngày; in danh sách in đậm khách tất nợ còn TK 105 / CCCD hết hạn (cảnh báo trước 30 ngày, theo ngày hiện tại) / khách còn mã tổ chưa có TK 105.
+- **Chip** `toChipKhung(xem, tv, mo, bien, B)`: nhóm Xem (Bảng, Biến động cả năm) · Khách · Cần xử lý theo `TO_LOC_NHOM`; chip 0 mờ (`.mo0`) không ẩn; `toChipGon()` sau khi vẽ: quá 2 dòng → chip cuối mỗi nhóm (trừ chip đầu / đang chọn) vào `details.to-them` "⋯ thêm n". Chip mới `cccd30` (CCCD sắp hết hạn), `ctk` đổi thành "Chưa có TK 105" cho mọi khách còn mã tổ.
+- **Đầu bảng** `toBangDau(tiêu đề, nút)` + `toNutXuat()`: 🖨 In (A4 dọc) · 🖨 In đầy đủ (A4 ngang) · 📊 Excel · ⚙ Cột (`toCotHop`, nhớ `D.cauHinh.toCot`) · ⚙ Ngưỡng. Danh sách khách: 🖨 In danh sách · 📊 Excel ở đầu bảng.
+- **Bảng các tổ / bảng PGD** dựng lại theo danh mục cột `TO_COT` / `TO_COT_PGD` ([mã, tên, xem mặc định, in A4 dọc, tiền]); `toBangHTML(X)` vẽ cột đang bật, ẩn cột trùng lọc (`X.an`: Hội khi lọc Hội, Điểm GD khi lọc điểm, Còn nhận khi không ngưỡng, Mới vào / 105 tăng giảm khi thiếu tháng trước); thêm cột tùy chọn Số món vay, Tỷ lệ QH (%), Dư nợ BQ / hộ. Số: `soTr` / `soTrDau` (triệu đồng, `vi-VN` tối đa 2 số lẻ, 0 để trống). `toBangXuat('in'|'inDu'|'excel')`; `TO_BANG_XUAT` giữ `cot` / `aoa` / `tong` cũ cho Excel (số đồng).
+- **Khung cuộn** `.to-cuon-khung` (cao `100vh − 330px`), `thead th` + dòng `tr.tong` cuối dính; `.to-bang.luoi` kẻ ô, ô `width:1%` (cột tên giãn).
+- **Ngày đủ:** `toNgay31(ky)` = ngày số liệu thật của Mẫu 31 kỳ đó; `toBDChu` "Biến động 31/07/2026 → 31/08/2026", "so với 31/07/2026", cột "105 tăng/giảm từ …", bảng Ra khỏi tổ "Dư nợ 31/07/2026".
+- **Cảnh báo:** `toCanh(k)`, `toCanhTong(ds)`; `toCCCDHan` thêm `kq:'sap'` (≤ 30 ngày) + `den`; `toCCHTML` / `toCCNhan`. In (`toBCDS`, `toBCDSPV`): cột Lưu ý + `tr.canh` in đậm (`TO_IN_CSS`) + dòng tổng; màn hình: dòng `.to-canh` nền vàng nhạt + cột Lưu ý.
+- **Sửa lỗi cũ:** danh sách tổ viên lệch 1 cột (thừa ô ngày khi không có cột ngày — SĐT hiện ở cột CCCD).
+- **Phép thử:** `tests/t157.js` (mới, 20). t128 theo cách ghi ngày mới.
+
 ## 3.160 — 11/10/2026 — Lọc số liệu chung ① Xã › ② Điểm GD · Hội › ③ Tổ
 - **Anh chốt:** lọc còn rối (ô thả xuống + chip trùng nhau; chọn xã rồi tới điểm hay Hội không rõ thứ tự); Tra cứu khác các tab.
 - **`pvVeCay`:** dòng `.pv-dan` (📍 Toàn PGD / Xã ✕ › Điểm ✕ · Hội ✕ › Tổ ✕ · n tổ; bấm tên → `pvMo(p, cap)` mở lại hàng đó, ✕ → `pvChon(p, cap, '')`); hàng chip `data-cap` đánh số ① Xã, ② Điểm GD + Hội (ngang hàng), ③ Tổ (≤ 40 chip, còn lại 🔎); cấp đã chọn ẩn hàng (trừ khi đang mở `PV_MO[p]`). Ô thả xuống bọc `.pv-sel`: ẩn ở máy tính (≥ 700 px), điện thoại giữ.

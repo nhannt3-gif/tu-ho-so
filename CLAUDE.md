@@ -1,6 +1,6 @@
 # Tủ hồ sơ — hướng dẫn cho Claude
 
-**Đọc trước khi làm bất cứ việc gì:** `docs/BAT_DAU.md` (ngắn, đủ để bắt tay vào việc: luật, lệnh, trạng thái, chỗ tìm thông tin). Hướng đi lớn: `docs/KIEN_TRUC_3_LOP.md`. Tìm code: `docs/BAN_DO_MA.md` (tự sinh — **không đọc cả `index.html`, `CHANGELOG.md`, `BAN_GIAO_VIEC_CON_LAI.md`**, dùng grep đọc đúng đoạn). Bàn giao đầy đủ cũ: `docs/BAN_GIAO_TIEP_TUC.md` (chỉ đọc mục cần).
+**Đọc trước khi làm bất cứ việc gì:** **bàn giao mới nhất `docs/BAN_GIAO_3161.md`** (việc anh đã duyệt hướng, quy trình, công cụ `tools/bump.py`, `tools/hoiquy.sh`) và `docs/BAT_DAU.md` (ngắn, đủ để bắt tay vào việc: luật, lệnh, trạng thái, chỗ tìm thông tin). Hướng đi lớn: `docs/KIEN_TRUC_3_LOP.md`. Tìm code: `docs/BAN_DO_MA.md` (tự sinh — **không đọc cả `index.html`, `CHANGELOG.md`, `BAN_GIAO_VIEC_CON_LAI.md`**, dùng grep đọc đúng đoạn). Bàn giao đầy đủ cũ: `docs/BAN_GIAO_TIEP_TUC.md` (chỉ đọc mục cần).
 
 Tóm tắt bắt buộc:
 - Trả lời **tiếng Việt**, gọi người dùng là **anh Nhân** (CBTD NHCSXH PGD Gò Dầu). Ngắn gọn, thực dụng; phân biệt rõ số liệu thật / suy luận.

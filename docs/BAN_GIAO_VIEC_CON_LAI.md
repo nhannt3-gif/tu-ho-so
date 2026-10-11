@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.161) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ chọn 1 xã | Chip 3 nhóm ≤ 2 dòng; nút In / Excel / ⚙ Cột ở đầu bảng; bảng cuộn trong khung, dòng Cộng luôn thấy | |
+| 2 | Số trong bảng | Triệu đồng, có dấu chấm, không ,00; ô 0 trống | |
+| 3 | 🖨 In | A4 dọc 10–11 cột, vừa trang | |
+| 4 | ⚙ Cột → bật Số món vay | Bảng có thêm cột, lần sau vẫn nhớ | |
+| 5 | Dòng tóm tắt | "Biến động 31/07/2026 → 31/08/2026" | |
+| 6 | Chọn 1 tổ → 🖨 In danh sách | Khách tất nợ còn TK 105 / CCCD hết hạn, sắp hết hạn / chưa có TK 105 in đậm, cột Lưu ý ghi lý do, cuối bảng có dòng đếm | |
+
+**Ghi chú kỹ thuật 3.161:** danh sách khách (màn hình / in) vẫn ghi tiền bằng đồng (chính xác từng khách); chỉ bảng tổng hợp các tổ / PGD đổi sang triệu đồng. Chip "Mới vào tổ T8" vẫn ghi tháng (đủ ngày ở dòng tóm tắt). Lỗi hoiquy chập chờn ("báo cáo đã bỏ quay lại") chưa tìm ra — xem BAN_GIAO_3161.md.
+
 ### Danh sách thử trên máy thật (3.160) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

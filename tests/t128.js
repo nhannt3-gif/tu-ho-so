@@ -33,7 +33,7 @@ const fs=require('fs'), path=require('path');
    /* giao diện tổ */
    C.xa = t.xa; C.diem = t.khoaDiem; C.hoi = ''; C.to = t.ma; TO_LOC_MO = 'tat'; toVeThe(); await w(600);
    const the = document.getElementById('to-the');
-   ok('dòng tóm tắt tổ có "Biến động T8/2026: +n vào · −n ra"', /Biến động T0?8\/2026: \+\d+ vào( \([^)]*\))? · −\d+ ra/.test(the.textContent), (the.querySelector('.to-the-so')||{}).textContent);
+   ok('dòng tóm tắt tổ có "Biến động 31/07/2026 → 31/08/2026: +n vào · −n ra" (3.161 ghi đủ ngày)', /Biến động \d\d\/\d\d\/\d{4} → \d\d\/\d\d\/\d{4}: \+\d+ vào( \([^)]*\))? · −\d+ ra/.test(the.textContent), (the.querySelector('.to-the-so')||{}).textContent);
    const chip = [...the.querySelectorAll('.to-loc')].map(x=>x.textContent);
    ok('nút 📅 Biến động cả năm', chip.some(x=>/Biến động cả năm/.test(x)));
    { const so = (the.querySelector('.to-the-so')||{}).textContent||'', tvx = toTV(t), d = m=>tvx.filter(toLocHam(m)).length, lay = re=>+((so.match(re)||[])[1]);
@@ -66,7 +66,7 @@ const fs=require('fs'), path=require('path');
      const chipX = [...document.querySelectorAll('#to-cay .to-chip')].map(x=>x.textContent+(x.classList.contains('bat') ? '*' : ''));
      ok('3.132: hàng chip xã có chip PGD (đang chọn khi chưa chọn xã)', chipX[0]==='PGD*', chipX.slice(0, 3).join(' | '));
      const so = (document.querySelector('#to-the .to-the')||{}).textContent||'';
-     ok('3.132: cấp PGD có dòng tóm tắt (số tổ, tổ viên, đề xuất cho ra, CCCD, biến động) + chip như tổ', /Toàn PGD · \d+ tổ/.test(so) && /tổ viên: \d+ có dư nợ/.test(so) && /CCCD hết hạn/.test(so) && /Biến động T0?8\/2026/.test(so) && [...document.querySelectorAll('#to-the .to-loc')].some(x=>/Tất cả \d+/.test(x.textContent)), so.slice(0, 160));
+     ok('3.132: cấp PGD có dòng tóm tắt (số tổ, tổ viên, đề xuất cho ra, CCCD, biến động) + chip như tổ', /Toàn PGD · \d+ tổ/.test(so) && /tổ viên: \d+ có dư nợ/.test(so) && /CCCD hết hạn/.test(so) && /Biến động \d\d\/\d\d\/\d{4} → \d\d\/\d\d\/\d{4}/.test(so) && [...document.querySelectorAll('#to-the .to-loc')].some(x=>/Tất cả \d+/.test(x.textContent)), so.slice(0, 160));
      const hp = [...document.querySelectorAll('.to-bang-pgd tbody tr')];
      ok('3.132: bảng PGD — dòng Cộng toàn PGD trên đầu, rồi dòng xã, dưới là điểm GD', hp[0] && /CỘNG TOÀN PGD/.test(hp[0].textContent) && hp[1].classList.contains('nhom') && hp[2].classList.contains('diem'), hp.slice(0, 3).map(x=>x.className).join(','));
      TO_LOC_PV = 'tat'; toVeThe(); await w(100);
