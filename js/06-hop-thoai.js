@@ -2053,7 +2053,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.160', ds:[
+var CO_GI_MOI = {ban:'3.161', ds:[
+  ["👥 Tab Tổ: chip gom 3 nhóm Xem · Khách · Cần xử lý (tối đa 2 dòng); nút 🖨 In · In đầy đủ · 📊 Excel · ⚙ Cột ở đầu bảng; bảng cuộn trong khung, tiêu đề + dòng Cộng luôn thấy", "slDoiTab('to');doiNgan(7)"],
+  ["📏 Bảng các tổ gọn: kẻ ô, 1 đơn vị triệu đồng (12.910 · 1.234,5), cột trùng bộ lọc tự ẩn, ⚙ Cột chọn cột xem; In A4 dọc 10 cột · In đầy đủ A4 ngang; biến động / so sánh ghi đủ ngày 31/07/2026 → 31/08/2026", "slDoiTab('to');doiNgan(7)"],
+  ["⚠ In danh sách tổ viên: dòng cần lưu ý in đậm + cột Lưu ý — tất nợ còn TK 105 · CCCD hết hạn / sắp hết hạn (30 ngày, theo ngày hiện tại) · khách còn mã tổ chưa có TK 105", "slDoiTab('to');doiNgan(7)"],
   ["📍 Lọc số liệu mới (Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu): dòng 📍 ghi phạm vi đang chọn — bấm tên để đổi, ✕ để bỏ; hàng chip ① Xã → ② Điểm GD · Hội (chọn cái nào trước cũng được) → ③ Tổ; máy tính bỏ hàng ô thả xuống", "slDoiTab('to');doiNgan(7)"],
   ["👤 Tra cứu KH: bỏ khung gập \"📍 Toàn PGD\", lọc giống các tab; số khách lên dòng 📍 · ☾ Nền tối: ô nhập / ô thả xuống không còn nền trắng", "slDoiTab('tra');doiNgan(7)"],
   ["◐ Nút giao diện ở chân thanh bên: bấm đổi Theo máy → ☀ Sáng → ☾ Tối, app nhớ; nền tối đã rà lại màu (dòng xã bảng Tổ, chip đỏ / vàng / xanh) — bản in vẫn nền trắng", "dhDoiGD()"],
