@@ -100,6 +100,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t164.js` | (3.171) bộ hồ sơ vay HSSV / NSVSMT, hộ cũ / hộ mới, mẫu theo PDF (01/UQ, 01/TD, 03/TD, 04/TD, 09A, 01/TGTV), logo, tiêu ngữ nét mảnh, Word nhiều section. |
 | `node tests/t165.js` | (3.172) tab 🏢 Giao dịch xã: kiểm tra trước đợt + ngày GD gần nhất, nơi giải ngân điểm / PGD, tên UBND đầy đủ, GQVL, 2 bản, ⭐ Mẫu hay in, mức tiền / cán bộ, 12/GDX tổ từ Địa bàn + trọn 1 trang, lưu cài đặt (Địa bàn giả). |
 | `node tests/t166.js` | (3.173) KHĐ tự tính theo luật hệ thống: MONTHS_BETWEEN / ADD_MONTHS kiểu Oracle, ngày GN đầu khi chưa GD, ân hạn CT 05/07/18 · 01 C2 · 06, lãi suất 0, khoanh + gia hạn tháng, bảng Kiểm tra số liệu ghi lý do (dữ liệu giả). |
+| `node tests/t167.js` | (3.174) Giao dịch xã có số liệu (`gianho31`): cây theo Mẫu 31, ẩn Hội / Tổ cho mẫu cấp điểm, 12/GDX tên tổ trưởng theo Mẫu 31, 💵 Giấy lĩnh (tìm không dấu, TK 105 / 104, bỏ chấm khi có thông tin, rút hết số dư, cảnh báo vượt số dư, A5 / A4), danh mục tham chiếu + file TK 104 giả, TK 104 không còn là tổ trưởng, 📜 nhật ký in (in lại đúng bản, tự xóa 1 tháng), điện thoại không tràn. `t165.js` viết lại theo bố cục 3.174 (chưa có số liệu, 04/TD + 12/GDX, trọn 1 trang 10–45 dòng). |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

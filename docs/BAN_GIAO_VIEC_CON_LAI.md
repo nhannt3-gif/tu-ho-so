@@ -222,6 +222,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.174) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở 🏢 Giao dịch xã (đã có Mẫu 31) | Khối LỌC ĐỊA BÀN tự chọn điểm GD gần nhất; 04/TD / 12/GDX chỉ hiện Xã · Điểm GD | |
+| 2 | 04/TD: gõ số hộ + số tiền (hoặc bấm chip), xem 📋 Tóm tắt, bấm IN | In 2 bản; đường kẻ dưới tên cơ quan / tiêu ngữ gần chữ, không chạm | |
+| 3 | 04/TD: chọn Phó Giám đốc ký, chọn 1 bản | "KT. GIÁM ĐỐC / PHÓ GIÁM ĐỐC"; in 1 bản — anh xem thể thức | |
+| 4 | 12/GDX in 12 dòng và 20 dòng (có chọn GDV / KSV / TT) | Đầu mẫu như mẫu trắng; 3 tên ký cùng hàng; trọn 1 trang | |
+| 5 | 12/GDX in 30–36 dòng | Vẫn trọn 1 trang A4, chỗ ký không bị bóp | |
+| 6 | 💵 Giấy lĩnh: gõ tên tổ trưởng không dấu → chọn → chọn khách → Rút hết số dư → In A5 (và thử A4 nửa trang) | Đúng tên, TK 105, CCCD; dòng có thông tin không chấm, dòng trống giữ chấm; khớp giấy in sẵn | |
+| 7 | ⚙ Khai báo chung → 📥 Nạp file danh mục địa bàn (369 tổ) rồi file TK 104 | Báo số tổ khớp Mẫu 31; Giấy lĩnh tổ trưởng TK 104 tự điền; danh sách TK 104 không còn là tổ trưởng hợp lý | |
+| 8 | 📜 Nhật ký in → In lại 1 bản đã in | Ra đúng bản cũ (ngày, người, số tiền) | |
+| 9 | ⚙ Khai báo riêng: tích / bỏ "Chọn nhanh" 1 mục | Mục ra / vào khung trái, nhớ sau khi mở lại | |
+
+**Ghi chú kỹ thuật 3.174:** cây địa bàn = Mẫu 31 (`TO_K`), điểm theo `t.diem` (mã TXN…) / `t.ngayGD`; chưa có số liệu dùng `D.cauHinh.diaBan`. Phạm vi lọc dùng chung `pvChung` (như các tab). Tham chiếu chỉ bù, không sửa số liệu. Nhật ký in chỉ ở máy in (không đồng bộ Drive). Còn chờ anh: thể thức PGĐ ký; dòng 1 "NGÂN HÀNG CHÍNH SÁCH XÃ HỘI" mẫu 12 có bỏ in đậm không; bản scan giấy lĩnh in sẵn (để làm in đè); KHĐ (khoanh, HSSV) làm sau.
+
 ### Danh sách thử trên máy thật (3.173) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

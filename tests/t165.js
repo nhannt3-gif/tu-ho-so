@@ -1,7 +1,8 @@
-// 3.172 (anh chốt 11/10) — tab 🏢 Giao dịch xã: in nhanh 04/TD + 12/GDX, không cần số liệu hộ vay.
+// 3.172 → 3.174 (anh chốt 12/10) — tab 🏢 Giao dịch xã KHI CHƯA CÓ SỐ LIỆU (điểm GD theo Cài đặt › Địa bàn): 04/TD + 12/GDX.
 //   Mẫu in chép nguyên file HTML anh đã in thử đúng mẫu thật (so ảnh in với file gốc làm ở máy làm việc — file gốc có dữ liệu thật, không đưa vào repo).
-//   Ở đây kiểm: kiểm tra trước đợt + ngày GD gần nhất (cả ngày nghỉ), nơi giải ngân điểm / PGD, tên UBND đầy đủ, GQVL, 2 bản, ⭐ Mẫu hay in,
-//   mức tiền / cán bộ, 12/GDX (tổ từ Địa bàn, số dòng luôn 1 trang A4), lưu cài đặt, 04/TD đã rời Hồ sơ vay. Địa bàn GIẢ.
+//   3.174: bố cục mới (chọn nhanh + ⚙ khai báo riêng + 📋 Tóm tắt bản in), mở tab tự chọn điểm có ngày GD gần nhất (thay hộp "Kiểm tra trước đợt"),
+//   ngày ký Hôm nay / chọn ngày, ngày phát mặc định = ngày GD gần nhất (+ chọn tay, ↺ Mặc định), PGĐ ký, 1 / 2 bản, 12/GDX: đầu mẫu theo mẫu trắng,
+//   3 tên ký cùng hàng, giờ / ngày tiêu hủy tách riêng, 3 vai GDV · KSV · TT không trùng người, số dòng luôn trọn 1 trang A4. Địa bàn GIẢ.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
@@ -23,75 +24,109 @@ const path=require('path');
    /* ---- mở tab: không cần số liệu ---- */
    slDoiTab('gdx'); doiNgan(7); await w(500);
    ok('tab con Số liệu + thanh bên có 🏢 Giao dịch xã; mở được khi chưa nạp số liệu', /Giao dịch xã/.test(document.querySelector('#tr7 .sl-con').textContent) && DH_MUC.some(m=>m.k==='gdx') && !!document.getElementById('gdx-khung'));
-   ok('mở tab đợt chưa kiểm tra → tự hiện "Kiểm tra khai báo trước đợt"', /Kiểm tra khai báo trước đợt/.test(document.getElementById('hop-in').textContent));
-   let C = gdxC();
-   ok('đề xuất điểm có ngày GD gần nhất + ngày phát = ngày GD gần nhất (ngày ký = hôm nay)', C.ma04==='TXN9000001' && C.ngayPhatISO===ngayISO(nA) && C.ngayThongBao===ngayISO(nay()), C.ma04+' '+C.ngayPhatISO);
+   ok('3.174: không còn hộp "Kiểm tra trước đợt" — mở tab tự chọn điểm có ngày GD gần nhất', !document.getElementById('hop').classList.contains('hien') && gdxC().ma04==='TXN9000001' && gdxC().m12SelectedDiem==='TXN9000001');
+   let C = gdxC(), X = gdxChup();
+   ok('ngày phát mặc định = ngày GD gần nhất của điểm; ngày ký = hôm nay', X.C.ngayPhatISO===ngayISO(nA) && X.C.ngayThongBao===ngayISO(nay()), X.C.ngayPhatISO);
    ok('tên UBND ghi đầy đủ (không viết tắt), kính gửi + địa điểm theo điểm / xã', C.tenUBNDVietTat==='Ủy ban nhân dân phường Giả Một' && C.kinhGui==='Ủy ban nhân dân phường Giả Một' && C.diaDiemPhatTien==='Điểm giao dịch Điểm Giả A (phường Giả Một)');
-   ok('thiếu người lập → cảnh báo trong bảng kiểm tra', /Thiếu người lập/.test(document.getElementById('hop-in').textContent));
-   const r3 = document.querySelectorAll('#hop-in input[name="gdx-n3"]');
-   ok('chọn được trong 3 ngày GD gần nhất của điểm', r3.length===3);
-   C.nguoiLap = 'Người Lập Giả'; gdxDotXN(); await w(300);
-   ok('✓ Đúng, bắt đầu in → lưu đợt, đóng hộp, hiện tóm tắt đợt', !!C.dotXN && !document.getElementById('hop').classList.contains('hien') && /Điểm GD Điểm Giả A/.test(document.querySelector('.gdx-dot').textContent));
+   const tom = () => document.getElementById('gdx-tom').textContent;
+   ok('📋 Tóm tắt bản in: chip điểm / số hộ · tiền / ngày phát / ngày ký / người lập (vàng khi trống) / GĐ ký / 2 bản + nút IN 2 bản', /Điểm Điểm Giả A/.test(tom()) && /Người lập: để trống/.test(tom()) && !!document.querySelector('#gdx-tom .gdx-tc.vang') && /IN 2 bản/.test(tom()));
+   ok('khung chọn nhanh mặc định: ngày ký, loại TB, số hộ · tiền, lịch phát, nơi phát, người lập, người ký, số bản (theo thứ tự trên mẫu)', [...document.querySelectorAll('#gdx-trai .gdx2-hang')].map(e=>e.id.replace('gdx-m-','')).join(',')==='ngayky,gq,mh,ngayphat,noi,nguoilap,ky,soban');
    /* ---- 04/TD ---- */
    const fd = () => document.getElementById('gdx-khung').contentDocument;
-   C.soNguoi = '3'; C.soTien = '1.005.000'; gdxXem(); await w(200);
+   C.nguoiLap = 'Người Lập Giả'; C.soNguoi = '3'; C.soTien = '1.005.000'; gdxVe(); await w(200);
    let t = chu(fd().body.innerHTML);
-   ok('04/TD: 1 lần in 2 bản giống nhau', fd().querySelectorAll('.sheet-a4').length===2);
-   ok('04/TD: nội dung khung chuẩn — số người 03, bằng chữ, mục 3 giờ / ngày / địa điểm, câu đề nghị đầy đủ tên UBND', /được vay vốn đợt này \(kèm danh sách mẫu 03\/TD nếu có\): 03 người/.test(t) && /Bằng chữ: Một triệu không trăm lẻ năm nghìn đồng\./.test(t) && /Lịch phát tiền vay vào 9 giờ 30 phút, ngày \d\d tháng \d\d năm \d{4}, tại địa điểm/.test(t) && /Đề nghị Ủy ban nhân dân phường Giả Một thông báo cho những người được vay vốn/.test(t) && /Người Lập Giả/.test(t));
+   ok('04/TD: mặc định in 2 bản giống nhau', fd().querySelectorAll('.sheet-a4').length===2);
+   ok('04/TD: nội dung khung chuẩn — số người 03, bằng chữ, mục 3 giờ / ngày / địa điểm, câu đề nghị đầy đủ tên UBND', /được vay vốn đợt này \(kèm danh sách mẫu 03\/TD nếu có\): 03 người/.test(t) && /Bằng chữ: Một triệu không trăm lẻ năm nghìn đồng\./.test(t) && /Lịch phát tiền vay vào 9 giờ 30 phút, ngày \d\d tháng \d\d năm \d{4}, tại địa điểm/.test(t) && /Đề nghị Ủy ban nhân dân phường Giả Một thông báo/.test(t));
    const h0 = fd().querySelector('.sheet-a4').innerHTML;
-   ok('04/TD: gạch dưới tên PGD 1/2 dòng, gạch dưới tiêu ngữ vừa chữ, Mẫu số 04/TD 02 liên (khuôn file gốc)', /class="org-line" style="width:50%/.test(h0) && /class="nation-motto-line"/.test(h0) && /Mẫu số 04\/TD/.test(h0) && /- 01 liên lưu NH/.test(h0));
-   gdxGQVL(true); await w(200); t = chu(fd().body.innerHTML);
+   ok('04/TD: gạch dưới tên PGD 1/2 dòng (xích gần chữ, không chạm), gạch dưới tiêu ngữ, Mẫu số 04/TD 02 liên', /class="org-line" style="width:50%; height:0; border-bottom:1.2px solid #000000 !important; margin:-1px auto 0 auto;"/.test(h0) && /class="nation-motto-line" style="width:100%; height:0; border-bottom:1.5px solid #000000 !important; margin:0 auto 0 auto;"/.test(h0) && /Mẫu số 04\/TD/.test(h0) && /- 01 liên lưu NH/.test(h0));
+   gdxDat('isGQVL', true, 1); await w(200); t = chu(fd().body.innerHTML);
    ok('GQVL: "người" → "người lao động", "những người lao động"', /03 người lao động/.test(t) && /những người lao động được vay vốn/.test(t));
-   gdxGQVL(false); await w(100);
-   gdxDinhDang01(); ok('Định dạng 01: 3 → 03', C.soNguoi==='03');
-   /* ⭐ Mẫu hay in */
+   gdxDat('isGQVL', false, 1);
+   gdxDat('soBan', 1, 1); await w(150);
+   ok('chọn 1 bản → in 1 bản, nút "IN 1 bản"', fd().querySelectorAll('.sheet-a4').length===1 && /IN 1 bản/.test(tom()));
+   gdxDat('soBan', 2, 1);
+   gdxDat('kyPGD', true, 1); await w(150);
+   ok('Phó Giám đốc ký → "KT. GIÁM ĐỐC / PHÓ GIÁM ĐỐC"', /KT\. GIÁM ĐỐC<br>PHÓ GIÁM ĐỐC/.test(fd().body.innerHTML));
+   gdxDat('kyPGD', false, 1);
+   /* ngày ký: Hôm nay / chọn ngày */
+   C.ngayThongBao = ngayISO(cong(1)); gdxDat('ky04Hom', false, 1);
+   ok('ngày ký chọn tay → in đúng ngày đó, Hôm nay → quay về hôm nay', gdxChup().C.ngayThongBao===ngayISO(cong(1)) && (gdxDat('ky04Hom', true, 1), gdxChup().C.ngayThongBao===ngayISO(nay())));
+   /* ngày phát: chọn tay → ↺ Mặc định */
+   C.ngayPhatISO = ngayISO(cong(20)); gdxDat('ngayPhatTay', true, 1); await w(100);
+   ok('lịch phát tiền chọn tay → hiện ↺ Mặc định, bấm → về ngày GD gần nhất', gdxChup().C.ngayPhatISO===ngayISO(cong(20)) && /↺ Mặc định/.test(document.getElementById('gdx-m-ngayphat').textContent) && (gdxDat('ngayPhatTay', false, 1), gdxChup().C.ngayPhatISO===ngayISO(nA)));
+   /* ⭐ chip số hộ + số tiền */
    C.soNguoi = '2'; C.soTien = '80.000.000'; gdxLuuMauHay(); C.soNguoi = '1'; C.soTien = '40.000.000'; gdxLuuMauHay(); gdxLuuMauHay();
-   ok('⭐ Mẫu hay in: lưu số hộ + số tiền, trùng không lưu thêm, sắp theo số hộ', C.mauHay.length===2 && C.mauHay[0].h===1 && C.mauHay[0].t===40000000 && C.mauHay[1].t===80000000);
+   ok('⭐ lưu thành chip: số hộ + số tiền, trùng không lưu thêm, sắp theo số hộ', C.mauHay.length===2 && C.mauHay[0].h===1 && C.mauHay[0].t===40000000 && C.mauHay[1].t===80000000);
    C.soNguoi = '9'; C.soTien = '1'; gdxMauHay(1); await w(200);
-   ok('bấm mẫu → điền 2 hộ · 80.000.000, bằng chữ tự đổi', C.soNguoi==='2' && C.soTien==='80.000.000' && /Tám mươi triệu đồng/.test(document.getElementById('gdx-chu').textContent));
-   let inGoi = 0; const f = document.getElementById('gdx-khung'); const goc = f.contentWindow.print;
-   window.__gdxIn = () => { inGoi++; }; const pIn = HTMLIFrameElement.prototype;
-   const cw = f.contentWindow; cw.print = () => { inGoi++; };
-   gdxMauHay(0, 1); await w(400);
-   ok('🖨 ở mẫu → in ngay (2 bản 1 hộ · 40 triệu)', inGoi>=1 && C.soNguoi==='1', inGoi);
-   gdxBoMauHay(0); ok('bỏ mẫu (×)', C.mauHay.length===1);
+   ok('bấm chip → điền 2 hộ · 80.000.000, bằng chữ tự đổi; ô số hộ + số tiền là 2 ô nhập', C.soNguoi==='2' && C.soTien==='80.000.000' && /Tám mươi triệu đồng/.test(document.getElementById('gdx-chu').textContent) && !!document.getElementById('gdx-songuoi') && !!document.getElementById('gdx-sotien'));
+   localStorage.removeItem(GDX_NK);
+   gdxIn(); await w(400);
+   ok('🖨 IN (không cảnh báo) → in ngay ở khung ẩn + ghi 📜 nhật ký in', !!document.getElementById('gdx-in-tam') && gdxNKDs().length===1 && gdxNKDs()[0].mau==='m04');
+   gdxBoMauHay(0); ok('bỏ chip (×)', C.mauHay.length===1);
    /* mức tiền hay dùng · cán bộ */
    const n0 = C.quickAmounts.length; gdxThemMuc('60.000.000'); gdxThemMuc('60.000.000');
    ok('mức tiền hay dùng: thêm, không trùng, sắp tăng dần', C.quickAmounts.length===n0+1 && C.quickAmounts.join()===C.quickAmounts.slice().sort((a,b)=>a-b).join());
    gdxChonTien(60000000); ok('bấm mức tiền → điền số tiền', C.soTien==='60.000.000');
-   gdxTab04('kb'); await w(100); document.getElementById('gdx-cbmoi').value = 'Cán Bộ Giả A'; gdxThemCanBo(); document.getElementById('gdx-cbmoi').value = 'Cán Bộ Giả B'; gdxThemCanBo(); document.getElementById('gdx-cbmoi').value = 'Cán Bộ Giả A'; gdxThemCanBo();
-   ok('khai báo sẵn: danh sách cán bộ thêm / không trùng; đủ ô khai báo của file gốc', C.danhSachCanBo.join('|')==='Cán Bộ Giả A|Cán Bộ Giả B' && ['Tên NH cấp trên','Phòng giao dịch','Tên đầy đủ PGD','Địa danh','Ngày ký','Kính gửi','Tên UBND','Giờ phát tiền','Ngày phát tiền','Địa điểm phát tiền','Người lập','Chức danh duyệt','mức tiền','cán bộ','Khôi phục'].every(k=>document.getElementById('gdx-trai').textContent.indexOf(k)>=0));
-   C.donViTren = 'SỬA THỬ'; await new Promise(r=>{ hoi = (a,b2,c2,fn)=>{ fn(); r(); }; gdxMacDinh(); });
-   ok('Khôi phục thông tin mẫu ban đầu: trả ô khai báo, giữ cán bộ / mức tiền / mẫu hay in', C.donViTren==='NHCSXH TỈNH TÂY NINH' && C.danhSachCanBo.length===2 && C.mauHay.length===1);
+   gdxKBChung(); await w(100); for(const n of ['Cán Bộ Giả A','Cán Bộ Giả B','Cán Bộ Giả A','Cán Bộ Giả C']){ document.getElementById('gdx-cbmoi').value = n; gdxThemCanBo(); }
+   ok('⚙ Khai báo chung: danh sách cán bộ thêm / không trùng', C.danhSachCanBo.join('|')==='Cán Bộ Giả A|Cán Bộ Giả B|Cán Bộ Giả C'); dongHop();
+   gdxKBRieng(); await w(100);
+   const kbr = document.getElementById('hop-in').textContent;
+   ok('⚙ Khai báo riêng 04/TD: đủ mục của file gốc theo thứ tự trên mẫu + ô Chọn nhanh từng mục', ['Đầu mẫu','Ngày ký','Kính gửi','Loại thông báo','Số hộ','Giờ phát tiền','Lịch phát','Nơi phát','Địa điểm','Tên UBND','Người lập','Người ký','Số bản','Khôi phục'].every(k=>kbr.indexOf(k)>=0) && document.querySelectorAll('#hop-in .gdx-kbr-nhanh input').length===GDX_MUC.m04.length);
+   const tb = [...document.querySelectorAll('#hop-in .gdx-kbr-dong')].find(e=>e.id==='gdx-kbr-gio').querySelector('.gdx-kbr-nhanh input'); tb.checked = true; tb.onchange(); await w(100);
+   ok('tích Chọn nhanh "Giờ phát tiền" → mục ra khung trái, lưu cài đặt', !!document.getElementById('gdx-m-gio') && C.nhanh['m04.gio']===true);
+   gdxDatNhanh('m04', 'gio', false); dongHop();
+   C.donViTren = 'SỬA THỬ'; await new Promise(r=>{ const h0 = hoi; hoi = (a,b2,c2,fn)=>{ fn(); hoi = h0; r(); }; gdxMacDinh(); });
+   ok('Khôi phục thông tin mẫu ban đầu: trả ô khai báo, giữ cán bộ / mức tiền / chip', C.donViTren==='NHCSXH TỈNH TÂY NINH' && C.danhSachCanBo.length===3 && C.mauHay.length===1);
    /* nơi giải ngân tại PGD */
-   gdxDat04('pgd', 'Xã Giả Hai'); gdxXem(); await w(200); t = chu(fd().body.innerHTML);
+   gdxDat04('pgd', 'Xã Giả Hai', true); gdxVe(); await w(200); t = chu(fd().body.innerHTML);
    const mai = cong(1);
-   ok('Tại PGD: địa điểm = PGD (khai báo), ngày gợi ý ngày mai, kính gửi theo xã đã chọn', C.diaDiemPhatTien==='Phòng giao dịch NHCSXH Gò Dầu' && C.ngayPhatISO===ngayISO(mai) && /Kính gửi: Ủy ban nhân dân xã Giả Hai/.test(t) && /tại địa điểm: Phòng giao dịch NHCSXH Gò Dầu\./.test(t));
-   gdxDat04('diem', 'TXN9000001');
+   ok('Tại PGD: địa điểm = PGD (khai báo), ngày gợi ý ngày mai, kính gửi theo xã đã chọn', gdxChup().C.diaDiemPhatTien==='Phòng giao dịch NHCSXH Gò Dầu' && gdxChup().C.ngayPhatISO===ngayISO(mai) && /Kính gửi: Ủy ban nhân dân xã Giả Hai/.test(t) && /tại địa điểm: Phòng giao dịch NHCSXH Gò Dầu\./.test(t));
+   gdxNoi('diem'); await w(100);
+   ok('quay về Tại điểm GD → địa điểm theo điểm đang chọn', C.noiGN==='diem' && C.diaDiemPhatTien==='Điểm giao dịch Điểm Giả A (phường Giả Một)');
+   /* cảnh báo không chặn: hỏi 1 lần */
+   C.soTien = ''; gdxVe(); let hoiN = 0; const hoiGoc = moHop; window.moHop = function(h){ if(/In khi còn cảnh báo/.test(h)) hoiN++; return hoiGoc.apply(this, arguments); };
+   gdxIn(); await w(100); window.moHop = hoiGoc; dongHop();
+   ok('còn cảnh báo đỏ (chưa có số tiền) → hỏi trước khi in, không chặn', hoiN===1 && /Chưa nhập số tiền/.test(tom()));
+   C.soTien = '60.000.000';
    /* ngày GD: cả ngày nghỉ, ngày 31 ở tháng 30 ngày → cuối tháng */
    const ds31 = gdxNgayToi('31', 3);
    ok('ngày GD gần nhất: không dời ngày nghỉ; ngày 31 ở tháng ít ngày → ngày cuối tháng', ds31.length===3 && ds31.every(x=>{ const d = new Date(x); const cuoi = new Date(d.getFullYear(), d.getMonth()+1, 0).getDate(); return d.getDate()===Math.min(31, cuoi); }), ds31.join(','));
    /* ---- 12/GDX ---- */
    gdxDoiMau('m12'); await w(300); C = gdxC();
-   ok('12/GDX: điểm ngày GD gần nhất, mã điểm, xã, số tổ từ Địa bàn, ngày GD gần nhất', C.m12SelectedDiem==='TXN9000001' && C.m12NgayGD===ngayISO(nA) && /TXN9000001/.test(document.getElementById('gdx-trai').textContent) && /3 Tổ/.test(document.getElementById('gdx-trai').textContent));
-   gdxDat('m12TenToOption', 'fill', 1); gdxDat('m12GDV', 'Cán Bộ Giả A'); await w(200); t = chu(fd().body.innerHTML);
-   ok('12/GDX: in sẵn tên tổ trưởng (cả dạng "mã | tên"), giao dịch viên, Phường: Giả Một', /1 Tổ Trưởng Giả Một 2 Tổ Trưởng Giả Hai 3 Tổ Trưởng Giả Ba/.test(t) && /Giao dịch viên: Cán Bộ Giả A/.test(t) && /Phường: Giả Một/.test(t) && /Mã điểm giao dịch: TXN9000001/.test(t));
-   const html = {}; for(const n of [10, 20, 30]){ C.m12NumRows = n; html[n] = gdxTrang(gdxThan()); }
-   gdxDat('m12NumRows', 3, 1); await w(100);
-   ok('12/GDX: số dòng = số tổ (nút "Theo số tổ điểm này")', /Theo số tổ điểm này/.test(document.getElementById('gdx-trai').textContent));
-   gdxDat('m12TimeMode', 'prefill', 1); await w(100); t = chu(fd().body.innerHTML);
-   ok('Phần II: ghi sẵn giờ, ngày (mặc định 11 giờ 30 phút, ngày GD)', /3\. Thời gian tiêu hủy: 11 giờ 30 phút, ngày \d\d\/\d\d\/\d{4}/.test(t));
+   ok('12/GDX: điểm ngày GD gần nhất, mã điểm, xã, ngày GD gần nhất', C.m12SelectedDiem==='TXN9000001' && C.m12NgayGD===ngayISO(nA) && /TXN9000001/.test(document.getElementById('gdx-trai').textContent));
+   gdxDat('m12TenToOption', 'fill', 1); gdxDat('m12GDV', 'Cán Bộ Giả A', 1); await w(200); t = chu(fd().body.innerHTML);
+   const h12 = fd().querySelector('.sheet-m12').innerHTML;
+   ok('12/GDX: in sẵn tên tổ trưởng (cả dạng "mã | tên"), giao dịch viên, Phường: Giả Một, mã điểm', /1 Tổ Trưởng Giả Một 2 Tổ Trưởng Giả Hai 3 Tổ Trưởng Giả Ba/.test(t) && /Giao dịch viên: Cán Bộ Giả A/.test(t) && /Phường: Giả Một/.test(t) && /Mã điểm giao dịch: TXN9000001/.test(t));
+   ok('12/GDX đầu mẫu (mẫu trắng): kẻ dưới tên cơ quan 55 % sát lên; nhãn Điểm / Mã điểm / Xã không in đậm, mã điểm đứng gần; dòng Giao dịch viên giãn thêm', /width:55%; height:0; border-bottom:1\.3px solid #000000 !important; margin:1px auto/.test(h12) && !/<b>Điểm giao dịch:<\/b>/.test(h12) && !/<b>Mã điểm giao dịch:<\/b>/.test(h12) && /justify-content:flex-start; gap:36px/.test(h12) && !/<b>Phường: /.test(h12) && /margin-top:7px; margin-bottom:9px; font-size:12\.5pt;">\s*Giao dịch viên/.test(h12));
+   ok('12/GDX ô ký: "GIAO DỊCH VIÊN" giữ 1 dòng; 3 tiêu đề cao bằng nhau → 3 tên cùng hàng', />GIAO DỊCH VIÊN<\/div>/.test(h12) && (h12.match(/min-height:2\.5em;/g)||[]).length===3);
+   const sel = [...document.querySelectorAll('#gdx-m-ba select')];
+   ok('3 ô GDV · KSV · TT tổ GD đặt cạnh nhau; người đã là GDV không còn trong ô KSV / TT', sel.length===3 && ![...sel[1].options].some(x=>x.value==='Cán Bộ Giả A') && ![...sel[2].options].some(x=>x.value==='Cán Bộ Giả A') && [...sel[0].options].some(x=>x.value==='Cán Bộ Giả A'));
+   ok('12/GDX: số dòng "Theo số tổ (3)"', /Theo số tổ \(3\)/.test(document.getElementById('gdx-trai').textContent));
+   ok('Phần II mặc định: giờ và ngày tiêu hủy để chấm', /3\. Thời gian tiêu hủy: …….. giờ…… phút, ngày …..\/ …..\/……….\b|3\. Thời gian tiêu hủy: …….. giờ…… phút, ngày …..\/ …..\/………./.test(t));
+   gdxDat('m12NgayHuy', 'gd', 1); await w(100); t = chu(fd().body.innerHTML);
+   ok('chọn "Ngày tiêu hủy = ngày GD" (riêng) → ngày in sẵn, giờ vẫn chấm', /3\. Thời gian tiêu hủy: …….. giờ…… phút, ngày \d\d\/\d\d\/\d{4}/.test(t));
+   gdxDat('m12GioHuy', 'san', 1); await w(100); t = chu(fd().body.innerHTML);
+   ok('giờ ghi sẵn (khai báo ⚙, mặc định 11 giờ 30 phút) — chọn riêng', /3\. Thời gian tiêu hủy: 11 giờ 30 phút, ngày \d\d\/\d\d\/\d{4}/.test(t));
+   const html = {}; for(const n of [10, 15, 20, 30, 36, 45]){ C.m12NumRows = n; html[n] = gdxTrang(gdxThan()); }
+   C.m12NumRows = 12;
+   /* khai báo cũ "ghi sẵn giờ, ngày" (3.172) → 2 lựa chọn riêng */
+   D.cauHinh.gdx = {m12TimeMode:'prefill'}; const Cm = gdxC();
+   ok('khai báo cũ 3.172 "ghi sẵn giờ, ngày" đọc được → giờ ghi sẵn + ngày = ngày GD', Cm.m12GioHuy==='san' && Cm.m12NgayHuy==='gd');
+   D.cauHinh.gdx = C;
    /* lưu: cài đặt (đồng bộ Drive) */
    gdxDoiMau('m04'); luu();
    const luuDu = JSON.parse(localStorage.getItem(KHOA)).cauHinh.gdx;
-   ok('khai báo lưu trong cài đặt app (đồng bộ Drive cùng cài đặt)', luuDu && luuDu.mauHay.length===1 && luuDu.danhSachCanBo.length===2 && luuDu.nguoiLap==='Người Lập Giả');
+   ok('khai báo lưu trong cài đặt app (đồng bộ Drive cùng cài đặt)', luuDu && luuDu.mauHay.length===1 && luuDu.danhSachCanBo.length===3 && luuDu.nguoiLap==='Người Lập Giả');
    ok('04/TD đã rời tab Hồ sơ vay', !HSO_MAU.hsv.some(m=>m.k==='04td'));
    return {o, html};
  });
- /* 12/GDX luôn trọn 1 trang A4 khi in (10 / 20 / 30 dòng) */
- const v = await b.newPage({viewport:{width:794,height:1123}}); const cao = [];
- for(const n of [10, 20, 30]){ await v.setContent(R.html[n]); await v.emulateMedia({media:'print'}); await v.waitForTimeout(100); cao.push(await v.evaluate(()=>document.documentElement.scrollHeight)); }
- R.o.push((cao.every(h=>h<=1123) ? '✓ ' : '✗ ')+'12/GDX 10 / 20 / 30 dòng: trọn 1 trang A4 khi in — '+cao.join(' / ')+' px');
+ /* 12/GDX luôn trọn 1 trang A4 khi in; 3 tên ký cùng hàng */
+ const v = await b.newPage({viewport:{width:794,height:1123}}); const cao = [], hang = [];
+ for(const n of [10, 15, 20, 30, 36, 45]){ await v.setContent(R.html[n]); await v.emulateMedia({media:'print'}); await v.waitForTimeout(100);
+   cao.push(await v.evaluate(()=>document.documentElement.scrollHeight));
+   hang.push(await v.evaluate(()=>{ const y = [...document.querySelectorAll('.m12-signatures .sig-signer')].map(e=>Math.round(e.getBoundingClientRect().top)); return y.every(x=>x===y[0]) && (y[0] - document.querySelector('.m12-signatures .sig-guide').getBoundingClientRect().bottom) >= 50; })); }
+ R.o.push((cao.every(h=>h<=1123) ? '✓ ' : '✗ ')+'12/GDX 10 / 15 / 20 / 30 / 36 / 45 dòng: trọn 1 trang A4 khi in — '+cao.join(' / ')+' px');
+ R.o.push((hang.every(Boolean) ? '✓ ' : '✗ ')+'12/GDX: 3 tên ký cùng 1 hàng, chỗ ký ≥ 50 px kể cả trên 15 dòng — '+hang.join(','));
  R.o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.join(' | ') : ''));
  console.log(R.o.join('\n')); const dat = R.o.filter(x=>x[0]==='✓').length; console.log(dat+'/'+R.o.length+' đạt');
  await b.close(); })();
