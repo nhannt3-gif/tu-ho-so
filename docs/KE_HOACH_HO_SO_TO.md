@@ -178,3 +178,15 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Anh chốt (12/10):** nhật ký in **giữ 1 tháng rồi tự xóa** (không cần lưu lâu); **có theo dõi TK 104 chưa đóng của khách không còn làm tổ trưởng** (nạp thêm file TK 104 hệ thống → đối chiếu với tổ trưởng hiện tại theo Mẫu 31 → danh sách riêng để anh xử lý).
 - **Anh chốt (12/10):** **gom Đợt 1 + 2 + 3 làm 1 lần (bản 3.174)** — sửa mẫu 12/GDX + 04/TD, danh mục tham chiếu + TK 104, nhật ký in, bố cục mới tab Giao dịch xã, Giấy lĩnh tiền mặt (giấy trắng); **KHĐ (khoanh / HSSV) làm sau**.
 - **Đã làm 3.174 (12/10):** bố cục mới tab Giao dịch xã (mục E), sửa mẫu 04/TD + 12/GDX (mục D 2–4; anh đổi: "GIAO DỊCH VIÊN" giữ 1 dòng, 3 tên vẫn cùng hàng), Giấy lĩnh tiền mặt giấy trắng (mục B; in đè chờ bản scan), danh mục tham chiếu + TK 104 (mục F), nhật ký in 1 tháng, `docs/QUY_TAC_SOAN_MAU.md`. **Còn để sau (anh chốt):** KHĐ bỏ nợ khoanh + HSSV ân hạn 12 + 3 (mục D 1).
+### G. Góp ý sau 3.174 (anh, 12/10 — chờ góp ý Giấy lĩnh + "code")
+- **12/GDX:**
+  - Ngày GD: chỉ 1 chip "ngày GD kế gần nhất" + ô chọn ngày; bỏ 2 chip ngày GD tháng sau.
+  - Ô ký GDV: "(Ký, ghi rõ họ tên)" lên sát tiêu đề, không chừa dòng trống. 3 tên vẫn cùng hàng: bù chiều cao vào khoảng ký của cột GDV.
+  - In đậm phần giá trị (tên điểm GD, mã điểm, xã, tên GDV); nhãn giữ chữ thường.
+- **04/TD:**
+  - Ô số hộ và ô số tiền có nút ▲▼ tăng / giảm: số hộ bước 1, số tiền bước 5 triệu.
+  - Mức tiền gợi ý: 25 · 30 · 40 · 50 · 80 · 100 · 120 · 160 triệu.
+- **Lỗi:** bấm chip ⭐ / Hôm nay / ô chọn ngày lại mở hộp ⚙ cài đặt.
+  - Nguyên nhân: đã mở ⚙ một lần thì nội dung hộp vẫn nằm trong trang sau khi đóng, nên lần đổi sau app tưởng hộp còn mở và vẽ lại.
+  - Sửa: chỉ vẽ lại khi hộp đang hiện.
+- **Ngày gõ nhanh:** không cần gõ / hay -. Ví dụ "1410" = 14/10 năm nay, "141026" và "14102026" = 14/10/2026. Vẫn giữ nút 📅 chọn trên lịch. Áp cho mọi ô ngày của tab.
