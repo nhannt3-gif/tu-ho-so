@@ -824,7 +824,7 @@ var GL_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1
   '.sheet-gl{background:#fff;width:210mm;height:148mm;box-shadow:0 8px 24px rgba(0,0,0,.3);overflow:hidden;position:relative}.sheet-gl.gl-a4{height:297mm}'+
   '.gl-trang{position:relative;width:210mm;height:148mm;padding:8mm 11mm 4mm 13mm;font-size:13pt;line-height:1.3;display:flex;flex-direction:column}'+
   '.gl-x2 .gl-trang{height:148.5mm}.gl-cat{position:absolute;left:0;right:0;top:148.5mm;border-top:.3mm dashed #b8b8b8}'+
-  '.gl-chim{position:absolute;left:52mm;top:48mm;font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:118pt;letter-spacing:3mm;color:#e3e3e3;z-index:0;pointer-events:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
+  '.gl-chim{position:absolute;left:42.4mm;top:47.4mm;font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:114pt;line-height:1;letter-spacing:0;color:#d2d2d2;z-index:0;pointer-events:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
   '.gl-dau,.gl-than,.gl-ky,.gl-r2{position:relative;z-index:1}'+
   '.gl-dau{display:grid;grid-template-columns:64mm 1fr 50mm;align-items:start;margin-bottom:2mm}'+
   '.gl-nh{text-align:center;font-weight:bold;font-size:12.5pt;line-height:1.25}.gl-nh .gl-pgd{margin-top:2.5mm;font-weight:normal}.gl-pgdv{font-weight:normal}'+
