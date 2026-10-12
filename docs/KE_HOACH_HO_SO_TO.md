@@ -151,3 +151,14 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 2. **12/GDX — 3 ô ký (anh gửi ảnh 12/10, chốt cách sửa):** cho tiêu đề **"GIAO DỊCH VIÊN" xuống dòng** (2 dòng như 2 cột kia) → 3 tên người ký cùng 1 hàng; **khi chọn trên 15 dòng** khoảng ký vẫn đủ rộng (hiện thu còn 38 / 32 / 26 px nên tên sát tiêu đề) → giữ khoảng ký tối thiểu, phần thu gọn dồn vào bảng. So ảnh lại: phần còn lại không đổi.
 3. **04/TD — đường kẻ dưới tên cơ quan và dưới tiêu ngữ (anh gửi ảnh 12/10):** xích **gần chữ hơn 1 ít nhưng không chạm chữ** (đo trên ảnh in thử, giữ nét mảnh như cũ).
 4. **12/GDX theo mẫu trắng chuẩn (anh gửi ảnh 12/10):** nét kẻ dưới tên cơ quan **sát lên 1 ít (không sát nhiều)**, **dài 50–60 % dòng chữ** (hiện 1/3); dòng "Điểm giao dịch: … Mã điểm giao dịch: …" và "Xã: …" **không in đậm** nhãn, **mã điểm giao dịch đứng gần** ngay sau (không đẩy sang sát lề phải); dòng **"Giao dịch viên"** giãn thêm khoảng cách trên / dưới như mẫu (hiện hơi hẹp). Mẫu 04/TD: kẻ dưới cơ quan + tiêu ngữ sát chữ hơn (mục 3).
+### E. Bố cục tab 🏢 Giao dịch xã — BẢN CHỐT đề xuất (12/10, chờ anh duyệt + "code")
+- **Thanh trên (dùng chung mọi mẫu):** kỳ / ngày số liệu (kỳ chung) · khối Lọc địa bàn xã › điểm GD (chưa nạp số liệu → theo Cài đặt › Địa bàn) · [⚙ Khai báo] · [👁 Xem: bật / tắt, nhớ máy].
+- **Hàng chip mẫu:** ⭐ ghim mẫu hay dùng lên đầu · nhóm (Giải ngân · Biên lai · Tiết kiệm …) · 🔍 tìm khi nhiều mẫu.
+- **Các hàng chip của mẫu đang chọn** (sinh từ khai báo + số liệu, app chọn sẵn lựa chọn hợp lý nhất / lần trước; "+ khác" là ngoại lệ, gõ xong hỏi lưu thành chip) → dòng **"Sẽ in: …"** + **[🖨 IN]**.
+  - 04/TD: điểm (★ ngày GD gần nhất) · ⭐ Mẫu hay in (số hộ + số tiền) · Tại điểm / Tại PGD · GQVL · đợt (ngày phát, ngày ký — bấm mở Kiểm tra trước đợt).
+  - 12/GDX: số dòng (Theo số tổ / 10 / 12 / 15 / 20 / 36) · tên tổ trưởng trắng / in sẵn · GDV · KSV · tổ trưởng tổ GD (chip cán bộ) · Phần II giờ trống / ghi sẵn.
+- **Khung xem bên phải** bật / tắt; tắt thì vùng chip giãn hết ngang. **Điện thoại: chỉ xem + in.**
+- **⚙ Khai báo:** mục Chung (danh sách cán bộ ngân hàng — bổ sung dần) + mục riêng từng mẫu; mục trùng nhiều mẫu → báo anh rồi mới gom.
+- **Mẫu in 04/TD, 12/GDX không đổi** (ngoài các chỉnh anh đã chốt ở D); khai báo cũ chuyển sang chỗ mới, không phải khai lại.
+- **Thêm mẫu mới** = 1 mục khai trong code (chip cần có · khai báo riêng · câu "Sẽ in" · hàm dựng trang) — đúng khuôn `docs/QUY_TAC_SOAN_MAU.md` (viết cùng đợt) để AI khác soạn.
+- Giấy lĩnh tiền mặt làm SAU bố cục (bản giấy trắng trước, in đè khi có bản scan thẳng).
