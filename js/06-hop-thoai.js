@@ -2053,7 +2053,12 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.173', ds:[
+var CO_GI_MOI = {ban:'3.174', ds:[
+  ["🏢 Giao dịch xã bố cục mới: khối LỌC ĐỊA BÀN (cây theo Mẫu 31), khung chọn nhanh bên trái, khung xem bật / tắt bên phải, 📋 Tóm tắt bản in (chip + cảnh báo, nút IN / PDF)", "slDoiTab('gdx');doiNgan(7)"],
+  ["⚙ Mỗi mẫu có Khai báo riêng: mọi mục theo thứ tự trên mẫu, tích \"Chọn nhanh\" để đưa ra khung trái; ⚙ Khai báo chung: cán bộ, danh mục tham chiếu, file TK 104", "slDoiTab('gdx');doiNgan(7)"],
+  ["💵 Giấy lĩnh tiền mặt (khách rút TK 105 / tổ trưởng rút TK 104): gõ tên không dấu để tìm, dòng có thông tin bỏ chấm, A5 hoặc nửa A4", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
+  ["📜 Nhật ký in 1 tháng — in lại đúng bản cũ khi khách ký sai; 🏦 danh sách TK 104 chưa đóng của người không còn làm tổ trưởng", "slDoiTab('gdx');doiNgan(7)"],
+  ["🖨 04/TD: ngày ký Hôm nay / chọn ngày, ngày phát mặc định = ngày GD gần nhất, PGĐ ký, 1 hoặc 2 bản; 12/GDX: đầu mẫu theo mẫu trắng, 3 tên ký cùng hàng, giờ / ngày tiêu hủy tách riêng, 3 vai không trùng người", "slDoiTab('gdx');doiNgan(7)"],
   ["📉 Món vay 3 tháng không hoạt động (KHĐ) app tự tính nay theo ĐÚNG luật hệ thống: món chưa giao dịch lần nào tính từ ngày giải ngân đầu tiên; loại món còn ân hạn (CT 05/07/18, CT 01 sản phẩm C2, CT 06), lãi suất 0, HSSV; khoanh chỉ loại khi có gia hạn trong tháng", "moNapSL()"],
   ["🔍 Kiểm tra số liệu: so KHĐ tự tính ↔ file KHĐ ghi rõ lệch món nào, vì sao; thêm bảng món quá 3 tháng bị loại theo luật (lý do từng món)", "moNapSL()"],
   ["🏢 Tab mới Giao dịch xã (Số liệu › Giao dịch xã): in nhanh 04/TD Thông báo phê duyệt + 12/GDX Bảng kê giao nhận tiêu hủy biên lai — mẫu in giữ nguyên file anh đã in thử đúng mẫu thật; không cần số liệu hộ vay (điểm, tổ lấy từ Cài đặt › Địa bàn)", "slDoiTab('gdx');doiNgan(7)"],
