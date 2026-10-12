@@ -2053,7 +2053,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.175', ds:[
+var CO_GI_MOI = {ban:'3.176', ds:[
+  ["💵 Giấy lĩnh: khung Người lĩnh · số tiền gọn trong 1 khung — tìm tên ↑↓ Enter, khách trong tổ ô sổ xuống, số tiền ▲▼ bước 100 nghìn", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
+  ["💵 Giấy lĩnh: chữ chìm VBSP chọn Tắt · Nhạt · Vừa · Đậm; 3 ô bên phải cao hơn, ô Số tiền ngang dòng Nội dung; in xong có nút Làm trống — in người khác", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
+  ["📚 Danh mục tổ: so tên tổ trưởng bỏ \"Ông / Bà\", không dấu, không phân biệt hoa thường — hết báo lệch giả", "slDoiTab('nap');doiNgan(7)"],
   ["💵 Giấy lĩnh: bằng chữ dài tự xuống dòng dưới (bỏ chấm), dòng PGD giãn đều, dòng Nội dung canh đều, chữ VBSP chìm, chữ 13 pt; form gõ tay ngay dưới ô tìm (tìm ra thì điền sẵn, sửa được)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["📄 In Giấy lĩnh trắng: 1 mẫu / A4 hoặc 2 mẫu / A4 cắt đôi (vạch cắt giữa)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["📚 Danh mục tổ · TK 104 nạp 1 chỗ ở 📥 Nạp & KT (nút Nạp file tự nhận file nhiều sheet), nạp xong kiểm tra ngay với Mẫu 31, TK 104 gắn theo tổ", "slDoiTab('nap');doiNgan(7)"],

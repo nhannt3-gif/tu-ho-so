@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.176 — 13/10/2026 — Giấy lĩnh: chữ chìm 4 mức, 3 ô, khung nhập gọn
+- **Anh (13/10):** chữ chìm nhạt khi in kèm chữ điền, dời trái / lên 1 cm, có tắt và chọn đậm nhạt; 3 ô bên phải cao hơn, đáy ô Số tiền ngang dòng Nội dung, dòng chấm cách cạnh ô 1–1,5 mm; form nhập quá dài → gọn trong 1 khung; tìm tên dùng ↑↓ chọn; số tiền bước 100 nghìn; in xong có nút làm trống; nút in mẫu trắng giữ chỗ cũ; "em code và gộp lên luôn".
+- **Mẫu in** (`gdxGLTrang`, `GL_CSS`): chữ chìm `left:32.4mm; top:37.4mm`, mức `chim-nhat / vua / dam` (màu #e6e6e6 / #d2d2d2 / #bcbcbc) hoặc tắt (`C.glChim`, mặc định Nhạt; phiếu trắng in Vừa, Tắt thì tắt); dòng Nội dung chuyển vào cột trái → khung phải (2 ô trên + ô Số tiền) kéo hết chiều cao, đáy ô Số tiền ngang dòng Nội dung; dòng chấm trong ô cách cạnh 1,2 mm.
+- **Khung "Người lĩnh · số tiền"** (`gdxGLPhieuHTML`, thay 3 mục glloai / glnguoi / gltien): loại TK + ô tìm (↑↓ chọn, Enter, Esc — `gdxGLPhim`) + khách trong tổ (ô sổ xuống, có số dư 105) / dòng TK 104 tổ trưởng + form 6 cột như mẫu thật + số tiền ▲▼ / phím ↑↓ bước 100 nghìn (`gdxGLBuoc`) + Rút hết + chip + bằng chữ + ✕ Làm trống / ↺ Theo số liệu. Mục mới "Chữ chìm VBSP" ở khung chọn nhanh.
+- **In xong** (Giấy lĩnh) → nút "✕ Làm trống — in người khác" (`gdxGLMoi`): bỏ người lĩnh, tổ, form, số tiền; giữ ngày, khổ, loại TK; con trỏ về ô tìm.
+- Gồm 3.175.1 (so tên tổ trưởng bỏ Ông / Bà, không dấu). Phép thử `t167` 48 mục, `t165` 52 mục.
+
+## 3.175.1 — 13/10/2026 — Danh mục tổ: hết báo lệch tên tổ trưởng giả
+- **Anh (13/10, gửi ảnh):** 7 tổ báo "tên tổ trưởng lệch" chỉ do danh mục ghi "ÔNG / BÀ" + không dấu, hoa (vd "ÔNG TRAN MINH SON" ↔ "Trần Minh Sơn").
+- `dmtTenSo`: bỏ tiền tố Ông / Bà (như cách app chuẩn tên tổ trưởng từ 3.108), bỏ dấu, không phân biệt hoa thường rồi mới so. Tổ có trong Mẫu 31 mà danh mục không có vẫn báo như cũ (lệch thật).
+- Phép thử `t167` thêm ca "ÔNG / BÀ + không dấu".
+
 ## 3.175 — 12/10/2026 — Giao dịch xã: góp ý sau 3.174 + Giấy lĩnh sau in thử + nạp TK 104 một chỗ
 - **Anh (12/10):** góp ý 12/GDX, 04/TD, lỗi mở cài đặt, gõ ngày nhanh; Giấy lĩnh sau in thử (bằng chữ bị cắt, dòng PGD, dòng Nội dung xa, VBSP chìm, form gõ tay, chữ 13–14 pt); TK 104 nạp 1 chỗ ở chỗ nạp & kiểm tra dữ liệu, kiểm tra khi nạp, gắn vào tổ; nút in mẫu trắng 1 mẫu / A4 hoặc 2 mẫu / A4 cắt đôi; "em code và gộp lên luôn".
 - **Lỗi bấm chip ⭐ / Hôm nay / ô ngày mở hộp ⚙:** hộp đã đóng vẫn còn trong trang → `gdxVe` tưởng đang mở và vẽ lại. Sửa: `gdxHopMo(id)` chỉ vẽ lại khi hộp đang hiện (cả ⚙ Khai báo chung).
