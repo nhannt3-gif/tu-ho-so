@@ -26,8 +26,20 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    const tens = new Set(); ds.forEach(x=>x.to.forEach(o=>tens.add(o.tenTo)));
    let khach = ''; Object.keys(TO_K.kh).some(m=>(TO_K.kh[m]||[]).some(o=>{ if(o.ten && !tens.has(o.ten) && o.ten.length>8){ khach = o.ten; return true; } return false; }));
    dongHop();
-   return {nut, hop, html:M.html, han:M.han, d:{k:d.k, ten:d.tenDiem, ma:d.maDiem, ngay:d.ngayGD, nTo:d.to.length}, t:{ten:t.tenTo, ma:t.maTo}, nDiem:ds.length, khach, tens:[...tens].slice(0, 30), canBo:gdxC().danhSachCanBo};
+   /* 3.178: tìm Giấy lĩnh gọn trong điểm / xã đang chọn ở khối lọc */
+   gdxDoiMau('gl'); await w(300); gdxC().glLoai = '104'; const S = gdxCH();
+   const tKhac = Object.values(TO_K.to).find(x=>!x.trucTiep && x.ten && x.khoaDiem!==d.k && x.xa!==d.maXa);
+   if(d.maXa!==S.xa) pvChon('gdx', 'xa', d.maXa); pvChon('gdx', 'diem', d.k); await w(300); gdxVe(); await w(200);
+   const timTen = ten => { GDX.glQ = boDau(ten); gdxGLTim(); return [...document.querySelectorAll('#gdx-gl-gy button')].map(x=>x.textContent); };
+   const pham1 = tKhac ? timTen(tKhac.ten).some(x=>x.indexOf(tKhac.ten)>=0) : null, pham1b = timTen(t.tenTo).some(x=>x.indexOf(t.tenTo)>=0), chuPham = document.getElementById('gdx-gl-gy').textContent;
+   GDX.glTatCa = 1; const pham2 = tKhac ? timTen(tKhac.ten).some(x=>x.indexOf(tKhac.ten)>=0) : null; GDX.glTatCa = 0;
+   const kt = TO_K.to[t.maTo], kh = kt && typeof hsoTTKH==='function' ? hsoTTKH(kt).kh : '', nt = kh ? hsoKhach(kh, kt) : {};
+   const khacTT = tKhac ? boDau(tKhac.ten) : '';
+   return {khacTT, pham:{khac:!!tKhac, ngoai:pham1, trong:pham1b, chu:chuPham, tatCa:pham2}, cc:{cccd:nt.cccd||'', ncap:nt.ncap||'', noiCap:nt.noiCap||''}, nut, hop, html:M.html, han:M.han, d:{k:d.k, ten:d.tenDiem, ma:d.maDiem, ngay:d.ngayGD, nTo:d.to.length}, t:{ten:t.tenTo, ma:t.maTo}, nDiem:ds.length, khach, tens:[...tens].slice(0, 30), canBo:gdxC().danhSachCanBo};
  }, files);
+ ok('3.178 app: đã chọn điểm GD → ô tìm Giấy lĩnh chỉ tìm trong điểm đó (tổ trưởng điểm khác không ra), có "Tìm cả PGD" để mở rộng', X.pham.khac && X.pham.ngoai===false && X.pham.trong && /Đang tìm trong/.test(X.pham.chu) && X.pham.tatCa===true, JSON.stringify(X.pham));
+ ok('3.178: hộp xuất ghi số CCCD tổ trưởng được gói', /CCCD tổ trưởng/.test(X.hop));
+ ok('3.178: CCCD tổ trưởng (giả) không đọc được trong mã file', !X.cc.cccd || X.html.indexOf(X.cc.cccd)<0, X.cc.cccd ? 'có CCCD giả' : 'tổ thử không có CCCD');
  ok('tab Giao dịch xã có nút 📦 Mini app; hộp xuất cho chọn 30 / 60 / 90 ngày, ghi rõ gói gì, không gói khách TK 105', X.nut && /30 ngày/.test(X.hop) && /90 ngày/.test(X.hop) && /Không gói số liệu khách TK 105/.test(X.hop.replace(/\s+/g, ' ')));
  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'mini-')), f = path.join(tmp, 'mini.html'); fs.writeFileSync(f, X.html);
  ok('file mini gọn (< 400 KB), một file, không gọi mạng (không <script src>, không link CSS ngoài)', X.html.length < 400e3 && !/<script[^>]+src=/i.test(X.html) && !/<link /i.test(X.html), Math.round(X.html.length/1024)+' KB');
@@ -54,14 +66,20 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    const q = document.getElementById('mn-q'); q.value = X.tt; mn.tim(X.tt); await w(50);
    o.gy = document.querySelectorAll('#mn-gy button').length;
    q.dispatchEvent(new KeyboardEvent('keydown', {key:'Enter', bubbles:true})); await w(150);
+   o.formCC = document.querySelector('.mn-form input[data-k="cccd"]').value; o.formNC = document.querySelector('.mn-form input[data-k="noiCap"]').value; o.focusTien = document.activeElement && document.activeElement.id==='mn-tiengl';
    o.formTen = document.querySelector('.mn-form input[data-k="ten"]').value; o.formTK = document.querySelector('.mn-form input[data-k="tk"]').value; o.formDC = document.querySelector('.mn-form input[data-k="diaChi"]').value;
+   /* phạm vi tìm: điểm đang chọn ↔ cả PGD */
+   const dsTT = []; document.querySelectorAll('.mn-diem option').forEach(op=>dsTT.push(op.value));
+   o.phamMD = document.querySelector('.mn-pham .mn-c.bat').textContent;
+   if(X.khac){ mn.tim(X.khac); await w(30); o.phamNgoai = [...document.querySelectorAll('#mn-gy button')].length; o.phamGoiY = /tìm cả PGD/.test(document.getElementById('mn-gy').textContent);
+     mn.pham('tat'); await w(30); mn.tim(X.khac); o.phamTat = [...document.querySelectorAll('#mn-gy button')].length; mn.pham('diem'); mn.tim(''); }
    mn.glBuoc(100000); mn.glBuoc(100000); await w(50); o.glTien = document.getElementById('mn-tiengl').value;
    o.tgl = chu(); o.chim = !!fd().querySelector('.gl-chim.chim-nhat');
    mn.inNgay(); await w(500); o.inGL = document.getElementById('mn-in').contentWindow.__in!==undefined ? 1 : 1; o.lamTrong = /in người khác/.test(document.querySelector('.mn-in').textContent);
    mn.lamTrong(); await w(50); o.trong = !document.querySelector('.mn-form input[data-k="ten"]').value;
    mn.inTrang(2); await w(400); const di = document.getElementById('mn-in').contentDocument; o.trang2 = di.querySelectorAll('.gl-trang').length===2 && !!di.querySelector('.gl-x2') && /A4 portrait/.test(di.head.textContent);
    o.luu = JSON.parse(localStorage.getItem('gdxmini_c') || '{}');
-   return o; }, {d:X.d, tt:X.t.ten.split(' ').slice(-2).join(' ').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase()});
+   return o; }, {d:X.d, khac:X.khacTT, tt:X.t.ten.split(' ').slice(-2).join(' ').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase()});
  ok('mở file mini → giao diện chạy, hiện "Dùng tới ngày …" đúng hạn đã chọn', m.mo && m.han.indexOf(X.han.split('-').reverse().join('/'))>=0, m.han);
  ok('chọn điểm GD: đủ điểm như app (theo xã)', m.diem===X.nDiem, m.diem+'/'+X.nDiem);
  ok('04/TD: kính gửi UBND xã, địa điểm = điểm GD, ngày phát = ngày GD gần nhất, 2 bản; ▲ số tiền bước 5 triệu', /Kính gửi: Ủy ban nhân dân/.test(m.t04) && m.t04.indexOf('Điểm giao dịch '+X.d.ten)>=0 &&
@@ -69,6 +87,8 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
  ok('12/GDX: tên điểm, mã điểm, in sẵn tên tổ trưởng, GDV in đậm', m.t12.indexOf('Mã điểm giao dịch: '+X.d.ma)>=0 && m.t12.indexOf(X.t.ten)>=0 && /Giao dịch viên: Cán Bộ Giả A/.test(m.t12));
  ok('12/GDX: GDV đã chọn không còn trong ô KSV (chọn loại trừ)', m.gdvKSV===X.canBo.length, m.gdvKSV);
  ok('Giấy lĩnh TK 104: gõ tên tổ trưởng không dấu → Enter → điền tên, TK 104 (giả), địa chỉ', m.gy>=1 && m.formTen===X.t.ten && m.formTK==='9990001112223' && /tỉnh Tây Ninh/.test(m.formDC), m.formTen+' · '+m.formTK);
+ ok('3.178 mini: chọn tổ trưởng → điền luôn CCCD, nơi cấp (gói kèm); con trỏ nhảy xuống ô số tiền', m.formCC===X.cc.cccd && (!X.cc.noiCap || m.formNC===X.cc.noiCap) && m.focusTien, (m.formCC||'trống')+' · '+X.cc.cccd);
+ ok('3.178 mini: tìm mặc định trong điểm đang chọn; tổ trưởng điểm khác không ra (gợi ý "tìm cả PGD"); chọn Cả PGD → ra', /Điểm này/.test(m.phamMD) && m.phamNgoai===0 && m.phamGoiY && m.phamTat>=1, [m.phamMD, m.phamNgoai, m.phamTat].join(' · '));
  ok('Giấy lĩnh: ▲ bước 100 nghìn, bằng chữ trên giấy, chữ chìm mức Nhạt', m.glTien==='200.000' && m.tgl.indexOf('Hai trăm nghìn đồng.')>=0 && m.tgl.indexOf('9990001112223')>=0 && m.chim, m.glTien);
  ok('In Giấy lĩnh → nút "Làm trống — in người khác"; bấm → form trống', m.lamTrong && m.trong);
  ok('In mẫu trắng 2 mẫu / A4 (cắt đôi)', m.trang2);

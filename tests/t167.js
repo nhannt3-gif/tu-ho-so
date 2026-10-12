@@ -41,7 +41,7 @@ const fs=require('fs'), path=require('path');
    ok('chưa chọn người lĩnh → cảnh báo đỏ ở Tóm tắt', /Chưa chọn người lĩnh/.test(document.getElementById('gdx-tom').textContent));
    /* tìm tổ trưởng gõ không dấu */
    const tA = Object.values(T).find(t=>!t.trucTiep && t.ten && /[^\x00-\x7f]/.test(t.ten) && gdxGLDsKhach(t).some(k=>k.t105>0 && k.stk && k.stk.length));
-   GDX.glQ = boDau(tA.ten).split(' ').slice(-2).join(' '); gdxGLTim(); await w(100);
+   GDX.glTatCa = 1; GDX.glQ = boDau(tA.ten).split(' ').slice(-2).join(' '); gdxGLTim(); await w(100);
    const nut = [...document.querySelectorAll('#gdx-gl-gy button')].find(x=>x.textContent.indexOf(tA.ten)>=0 && /Tổ trưởng/.test(x.textContent));
    ok('ô tìm: gõ tên tổ trưởng không dấu → ra đúng tổ trưởng', !!nut, GDX.glQ);
    const q = document.getElementById('gdx-gl-q'), dsN = [...document.querySelectorAll('#gdx-gl-gy button')], iA = dsN.indexOf(nut);
