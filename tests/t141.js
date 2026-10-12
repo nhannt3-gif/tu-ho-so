@@ -83,7 +83,7 @@ const path=require('path'); const drive=require('./fakedrive.js')();
    ok('xóa hẳn ở Thùng rác → bỏ bản trong máy', !D.rac.some(m=>m.id===rX.id) && !(await docFile(rX.kA)));
    /* 8. KHĐ tự tính từ Mẫu 31 (kỳ T9 → mốc 30/06) */
    const m = (ku, x) => Object.assign({ku:ku, kh:'k'+ku, dn:1e6, kn:0, ct:'03', nv:'2025-01-01', ngdg:'2026-06-29'}, x);
-   const hs = [m('A'), m('B', {ngdg:'2026-06-30'}), m('C', {kn:1e6}), m('D', {ct:'02'}), m('E', {dn:0}), m('F', {nv:'2026-07-05', ngdg:'2026-05-01'}), m('G', {ngdg:'2026-03-01'}), m('A')];
+   const hs = [m('A'), m('B', {ngdg:'2026-06-30'}), m('C', {kn:1e6}), m('D', {ct:'02'}), m('E', {dn:0}), m('F', {nv:'2026-07-05', ngdg:'', ngn:'2026-07-05'}), m('G', {ngdg:'2026-03-01'}), m('A')];
    const kd = slKHDTinh(hs, '2026-09');
    ok('KHĐ tự tính: còn dư nợ, GD gần nhất trước 30/06 (đúng ngày mốc không tính), bỏ khoanh, HSSV, món vay sau mốc, không trùng', kd.map(x=>x.ku).join()==='A,G', kd.map(x=>x.ku).join());
    ok('tháng không có file KHĐ → dùng số tự tính; có file → dùng file', slKHD({co:{}, khdTinh:kd}).length===2 && slKHD({co:{khd:[1]}, khdTinh:kd}).length===1);

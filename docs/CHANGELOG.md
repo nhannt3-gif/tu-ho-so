@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.173 — 12/10/2026 — KHĐ tự tính theo đúng luật hệ thống
+- **Anh (12/10):** "em code theo phương án em cho là tốt nhất trước" — từ phân tích câu truy vấn hệ thống số 14 (Sao kê món vay N tháng không hoạt động).
+- `slKHDLy(o, ky)` trả lý do món không vào KHĐ ('' = vào): `dong` (CLOSE) · `gd` (MONTHS_BETWEEN(ngày BC, ngày GD gần nhất / ngày GN đầu) ≤ 3) · `du` (dư nợ TH + QH = 0) · `khoanh` (có khoanh VÀ gia hạn trong tháng — đúng câu hệ thống `khoanh = 0 OR gia hạn tháng = 0`) · `hssv` (CT 02) · `anhan` (CT 05/07/18 chưa qua 60+3 tháng từ ngày GN đầu; CT 01 sản phẩm 011SC2/MC2/LC2 24+3; CT 06 6+3) · `ls0` (lãi suất 0; file không có cột thì không xét). `slThangGiua` / `slCongThang` = MONTHS_BETWEEN / ADD_MONTHS kiểu Oracle. Ngày BC: kỳ tháng → cuối tháng, kỳ ngày → ngày đó.
+- Cột Mẫu 31 dùng thêm (app đã giữ sẵn khi nạp, không phải nạp lại): `c_ma_san_pham_cu_the`, `c_gia_han_trong_thang`; `ngn` (ngày GN đầu), `ls`, `th`, `ttMon`.
+- `slKHDTinh` dùng `slKHDLy`; bỏ luật cũ (ngày GD < cuối tháng kỳ − 3, bỏ mọi món khoanh, bỏ món vay sau mốc). Kiểm tra số liệu mục 3: bảng lệch tự tính ↔ file có cột "Lệch" (lý do), bảng mới "món quá 3 tháng bị loại theo luật".
+- Phép thử `tests/t166.js` (18 mục); `t141` sửa ca F (món chưa GD → theo ngày GN đầu).
+
 ## 3.172 — 11/10/2026 — Tab 🏢 Giao dịch xã (04/TD + 12/GDX in nhanh)
 - **Anh (11/10):** gửi file HTML in 04/TD + 12/GDX đã in thử đúng mẫu thật — "em đừng làm thay đổi"; tab riêng, thuần túy in nhanh, không phụ thuộc số liệu hộ vay; giữ mọi khai báo / tùy chọn; bỏ in hàng loạt → mẫu hay in; kiểm tra trước đợt + ngày GD gần nhất (cả ngày nghỉ); nơi giải ngân tại PGD; không viết tắt. Quyết định ghi `docs/KE_HOACH_HO_SO_TO.md` mục 3.172.
 - File mới `js/26-giao-dich-xa.js` (tiền tố `gdx`): `gdxHTML04` / `gdxHTML12` + `GDX_CSS` chuyển **tự động** từ file gốc (template → nối chuỗi ES5, CSS nguyên văn) — xem / in trong iframe `#gdx-khung` (CSS app không chạm mẫu). Zoom khung xem dùng `zoom`, khi in luôn 100%. So ảnh in file gốc ↔ app: 6 trường hợp (04 thường / GQVL, 12/GDX 10–36 dòng) trùng 100% điểm ảnh (làm ở máy làm việc — file gốc có dữ liệu thật, không vào repo).
