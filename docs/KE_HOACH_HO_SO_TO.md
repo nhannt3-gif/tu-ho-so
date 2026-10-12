@@ -178,3 +178,35 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Anh chốt (12/10):** nhật ký in **giữ 1 tháng rồi tự xóa** (không cần lưu lâu); **có theo dõi TK 104 chưa đóng của khách không còn làm tổ trưởng** (nạp thêm file TK 104 hệ thống → đối chiếu với tổ trưởng hiện tại theo Mẫu 31 → danh sách riêng để anh xử lý).
 - **Anh chốt (12/10):** **gom Đợt 1 + 2 + 3 làm 1 lần (bản 3.174)** — sửa mẫu 12/GDX + 04/TD, danh mục tham chiếu + TK 104, nhật ký in, bố cục mới tab Giao dịch xã, Giấy lĩnh tiền mặt (giấy trắng); **KHĐ (khoanh / HSSV) làm sau**.
 - **Đã làm 3.174 (12/10):** bố cục mới tab Giao dịch xã (mục E), sửa mẫu 04/TD + 12/GDX (mục D 2–4; anh đổi: "GIAO DỊCH VIÊN" giữ 1 dòng, 3 tên vẫn cùng hàng), Giấy lĩnh tiền mặt giấy trắng (mục B; in đè chờ bản scan), danh mục tham chiếu + TK 104 (mục F), nhật ký in 1 tháng, `docs/QUY_TAC_SOAN_MAU.md`. **Còn để sau (anh chốt):** KHĐ bỏ nợ khoanh + HSSV ân hạn 12 + 3 (mục D 1).
+### G. Góp ý sau 3.174 (anh, 12/10 — chờ góp ý Giấy lĩnh + "code")
+- **12/GDX:**
+  - Ngày GD: chỉ 1 chip "ngày GD kế gần nhất" + ô chọn ngày; bỏ 2 chip ngày GD tháng sau.
+  - Ô ký GDV: "(Ký, ghi rõ họ tên)" lên sát tiêu đề, không chừa dòng trống. 3 tên vẫn cùng hàng: bù chiều cao vào khoảng ký của cột GDV.
+  - In đậm phần giá trị (tên điểm GD, mã điểm, xã, tên GDV); nhãn giữ chữ thường.
+- **04/TD:**
+  - Ô số hộ và ô số tiền có nút ▲▼ tăng / giảm: số hộ bước 1, số tiền bước 5 triệu.
+  - Mức tiền gợi ý: 25 · 30 · 40 · 50 · 80 · 100 · 120 · 160 triệu.
+- **Lỗi:** bấm chip ⭐ / Hôm nay / ô chọn ngày lại mở hộp ⚙ cài đặt.
+  - Nguyên nhân: đã mở ⚙ một lần thì nội dung hộp vẫn nằm trong trang sau khi đóng, nên lần đổi sau app tưởng hộp còn mở và vẽ lại.
+  - Sửa: chỉ vẽ lại khi hộp đang hiện.
+- **Ngày gõ nhanh:** không cần gõ / hay -. Ví dụ "1410" = 14/10 năm nay, "141026" và "14102026" = 14/10/2026. Vẫn giữ nút 📅 chọn trên lịch. Áp cho mọi ô ngày của tab.
+- **Giấy lĩnh (anh góp 12/10, sau khi in thử):**
+  - **Dòng "bằng chữ":**
+    - dài quá 1 dòng thì tràn xuống dòng dưới, dòng đó bỏ chấm;
+    - vừa 1 dòng thì dòng dưới giữ chấm;
+    - tối đa 2 dòng.
+  - **Dòng PGD dưới tên chi nhánh:**
+    - có chữ thì xích lên, giãn dòng đều như 2 dòng trên;
+    - phiếu trắng thì giữ khoảng cách như form mẫu để dễ ghi tay.
+  - **Dòng Nội dung xích lên** một chút, để phần chữ ký rộng hơn.
+  - **Chữ VBSP chìm** làm luôn cho bản giấy trắng.
+  - **Font chữ 13–14 pt.**
+  - **Người lĩnh (TK 105 hay TK 104 đều vậy):**
+    - tìm tên ở ô tìm;
+    - ngay dưới ô tìm có form gõ tay đủ các ô của giấy lĩnh, bố trí giống mẫu thật;
+    - tìm ra thì app điền sẵn vào form, anh sửa được.
+  - **Nạp TK 104 chỉ ở 1 chỗ:** chỗ nạp & kiểm tra dữ liệu (file xls nhiều sheet).
+    - Nạp xong kiểm tra luôn.
+    - Gán TK 104 của tổ trưởng vào danh bạ tổ đã lưu (lưu kèm hồ sơ tổ).
+    - Không nạp ở nhiều nơi.
+- **Đã làm 3.175 (12/10):** toàn bộ mục G (12/GDX, 04/TD, lỗi mở ⚙, ngày gõ nhanh) + góp ý Giấy lĩnh sau in thử (bằng chữ 2 dòng, dòng PGD, Nội dung canh đều, VBSP chìm, 13 pt, form gõ tay, in mẫu trắng 1 / 2 mẫu A4) + nạp danh mục tổ / TK 104 một chỗ ở 📥 Nạp & KT (kiểm tra khi nạp, gắn theo tổ). TK 104 chưa hiện ở chỗ khác (anh chốt: khi cần anh báo).

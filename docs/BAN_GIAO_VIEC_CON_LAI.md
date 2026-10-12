@@ -222,6 +222,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.175) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở ⚙ Khai báo riêng rồi đóng; bấm chip ⭐ / Hôm nay / ô ngày | Không còn bật hộp cài đặt | |
+| 2 | Gõ ngày "1410", "141026" vào ô ngày (04/TD, 12/GDX, Giấy lĩnh) | Ra 14/10 (năm nay / 2026) | |
+| 3 | 04/TD: bấm ▲▼ số hộ, số tiền | Số hộ ±1, số tiền ±5 triệu; mức gợi ý 25–160 triệu | |
+| 4 | 12/GDX in 12 và 30 dòng | 1 chip ngày GD; "(Ký, ghi rõ họ tên)" GDV sát tiêu đề, 3 tên cùng hàng; điểm / mã / xã / GDV in đậm; trọn 1 trang | |
+| 5 | 📥 Nạp & KT → 📥 Nạp file → chọn file danh mục địa bàn (nhiều sheet) | Không vào bảng xem trước số liệu; hiện kết quả kiểm tra (khớp / lệch / thiếu TK 104); khối 📚 Danh mục tổ ở tab | |
+| 6 | Giấy lĩnh: tìm khách số tiền lớn (bằng chữ dài) → In A5 | Bằng chữ xuống dòng dưới, không cắt; VBSP chìm; dòng PGD đều; Nội dung sát dòng trên | |
+| 7 | Giấy lĩnh: sửa tay 1 ô trong form / ✕ Làm trống form rồi gõ người khác → In | In đúng chữ đã gõ | |
+| 8 | Giấy lĩnh tổ trưởng TK 104 (sau khi nạp danh mục) | Tự điền số TK 104 | |
+| 9 | 📄 2 mẫu/A4 (cắt đôi) → in, cắt theo vạch | 2 tờ đều nhau, đúng form | |
+
+**Ghi chú kỹ thuật 3.175:** bằng chữ chia dòng bằng đoạn script nhỏ trong trang in (`GL_JS`, đo `scrollWidth`) — chạy cả ở khung xem, In, PDF. Danh mục tổ lưu ở cài đặt (`dmTo`, `dmTK104`) nên không mất khi dựng lại danh bạ; nút Nạp file chung nhận diện trước khi phân loại số liệu (file danh mục có sheet giống Thông tin tổ trưởng vẫn không bị nạp nhầm).
+
 ### Danh sách thử trên máy thật (3.174) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

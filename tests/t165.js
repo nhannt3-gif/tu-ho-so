@@ -63,6 +63,18 @@ const path=require('path');
    gdxIn(); await w(400);
    ok('🖨 IN (không cảnh báo) → in ngay ở khung ẩn + ghi 📜 nhật ký in', !!document.getElementById('gdx-in-tam') && gdxNKDs().length===1 && gdxNKDs()[0].mau==='m04');
    gdxBoMauHay(0); ok('bỏ chip (×)', C.mauHay.length===1);
+   C.soNguoi = '2'; C.soTien = '80.000.000'; gdxBuoc('soNguoi', 1); gdxBuoc('soTien', 5000000); gdxBuoc('soTien', 5000000); gdxBuoc('soTien', -5000000);
+   ok('3.175: ▲▼ số hộ bước 1, số tiền bước 5 triệu (giữ dấu chấm)', C.soNguoi==='3' && C.soTien==='85.000.000' && document.querySelectorAll('#gdx-m-mh .gdx-buoc').length===2);
+   C.soTien = '83.000.000'; gdxBuoc('soTien', 5000000); ok('số tiền lẻ → ▲ làm tròn lên bước 5 triệu kế tiếp', C.soTien==='85.000.000');
+   ok('3.175: mức tiền gợi ý mặc định 25 · 30 · 40 · 50 · 80 · 100 · 120 · 160 triệu', JSON.stringify(GDX_MD.quickAmounts)===JSON.stringify([25,30,40,50,80,100,120,160].map(x=>x*1e6)));
+   const hn = nay(), y = hn.getFullYear();
+   ok('3.175: ngày gõ nhanh không cần / hay - (1410 · 141026 · 14102026 · 14/10/26), sai thì không nhận', gdxDocNgay('1410')===y+'-10-14' && gdxDocNgay('141026')==='2026-10-14' && gdxDocNgay('14102026')==='2026-10-14' && gdxDocNgay('14/10/26')==='2026-10-14' && gdxDocNgay('3102')==='' && gdxDocNgay('110')===y+'-10-01' && gdxDocNgay('310226')==='' && gdxDocNgay('abc')==='');
+   const oN = document.querySelector('#gdx-m-ngayky .gdx-ngay'); oN.value = '1511'; oN.onchange(); await w(100);
+   ok('gõ "1511" vào ô ngày ký → ngày ký 15/11 (không mở lịch)', gdxChup().C.ngayThongBao===y+'-11-15' && C.ky04Hom===false);
+   gdxDat('ky04Hom', true, 1);
+   gdxKBRieng(); await w(100); dongHop(); await w(50);
+   gdxMauHay(0); await w(100); document.querySelector('#gdx-m-ngayky .gdx-c').click(); await w(100);
+   ok('3.175 sửa lỗi: đã mở rồi đóng ⚙ → bấm chip ⭐ / Hôm nay KHÔNG mở lại hộp cài đặt', !document.getElementById('hop').classList.contains('hien'));
    /* mức tiền hay dùng · cán bộ */
    const n0 = C.quickAmounts.length; gdxThemMuc('60.000.000'); gdxThemMuc('60.000.000');
    ok('mức tiền hay dùng: thêm, không trùng, sắp tăng dần', C.quickAmounts.length===n0+1 && C.quickAmounts.join()===C.quickAmounts.slice().sort((a,b)=>a-b).join());
@@ -98,7 +110,9 @@ const path=require('path');
    const h12 = fd().querySelector('.sheet-m12').innerHTML;
    ok('12/GDX: in sẵn tên tổ trưởng (cả dạng "mã | tên"), giao dịch viên, Phường: Giả Một, mã điểm', /1 Tổ Trưởng Giả Một 2 Tổ Trưởng Giả Hai 3 Tổ Trưởng Giả Ba/.test(t) && /Giao dịch viên: Cán Bộ Giả A/.test(t) && /Phường: Giả Một/.test(t) && /Mã điểm giao dịch: TXN9000001/.test(t));
    ok('12/GDX đầu mẫu (mẫu trắng): kẻ dưới tên cơ quan 55 % sát lên; nhãn Điểm / Mã điểm / Xã không in đậm, mã điểm đứng gần; dòng Giao dịch viên giãn thêm', /width:55%; height:0; border-bottom:1\.3px solid #000000 !important; margin:1px auto/.test(h12) && !/<b>Điểm giao dịch:<\/b>/.test(h12) && !/<b>Mã điểm giao dịch:<\/b>/.test(h12) && /justify-content:flex-start; gap:36px/.test(h12) && !/<b>Phường: /.test(h12) && /margin-top:7px; margin-bottom:9px; font-size:12\.5pt;">\s*Giao dịch viên/.test(h12));
-   ok('12/GDX ô ký: "GIAO DỊCH VIÊN" giữ 1 dòng; 3 tiêu đề cao bằng nhau → 3 tên cùng hàng', />GIAO DỊCH VIÊN<\/div>/.test(h12) && (h12.match(/min-height:2\.5em;/g)||[]).length===3);
+   ok('12/GDX ô ký (3.175): "GIAO DỊCH VIÊN" 1 dòng, "(Ký, ghi rõ họ tên)" sát tiêu đề — bù chiều cao vào khoảng ký cột GDV', />GIAO DỊCH VIÊN<\/div>\s*<div class="sig-guide"/.test(h12) && !/min-height:2\.5em/.test(h12));
+   ok('12/GDX (3.175): giá trị điểm GD, mã điểm, xã, tên GDV in đậm; nhãn chữ thường', /Điểm giao dịch: <b>Điểm Giả A<\/b>/.test(h12) && /Mã điểm giao dịch: <b>TXN9000001<\/b>/.test(h12) && /Phường: <b>Giả Một<\/b>/.test(h12) && /Giao dịch viên: <b>Cán Bộ Giả A<\/b>/.test(h12));
+   ok('12/GDX ngày GD (3.175): chỉ 1 chip ngày GD kế gần nhất + ô chọn ngày', document.querySelectorAll('#gdx-m-ngaygd .gdx-c').length===1 && !!document.querySelector('#gdx-m-ngaygd .gdx-ngay'));
    const sel = [...document.querySelectorAll('#gdx-m-ba select')];
    ok('3 ô GDV · KSV · TT tổ GD đặt cạnh nhau; người đã là GDV không còn trong ô KSV / TT', sel.length===3 && ![...sel[1].options].some(x=>x.value==='Cán Bộ Giả A') && ![...sel[2].options].some(x=>x.value==='Cán Bộ Giả A') && [...sel[0].options].some(x=>x.value==='Cán Bộ Giả A'));
    ok('12/GDX: số dòng "Theo số tổ (3)"', /Theo số tổ \(3\)/.test(document.getElementById('gdx-trai').textContent));
@@ -110,7 +124,8 @@ const path=require('path');
    const html = {}; for(const n of [10, 15, 20, 30, 36, 45]){ C.m12NumRows = n; html[n] = gdxTrang(gdxThan()); }
    C.m12NumRows = 12;
    /* khai báo cũ "ghi sẵn giờ, ngày" (3.172) → 2 lựa chọn riêng */
-   D.cauHinh.gdx = {m12TimeMode:'prefill'}; const Cm = gdxC();
+   D.cauHinh.gdx = {m12TimeMode:'prefill', quickAmounts:[20000000, 30000000, 50000000, 80000000, 90000000, 100000000]}; const Cm = gdxC();
+   ok('máy còn bộ mức tiền cũ chưa sửa (20…100 triệu) → tự đổi bộ mới', Cm.quickAmounts.length===8 && Cm.quickAmounts[0]===25000000);
    ok('khai báo cũ 3.172 "ghi sẵn giờ, ngày" đọc được → giờ ghi sẵn + ngày = ngày GD', Cm.m12GioHuy==='san' && Cm.m12NgayHuy==='gd');
    D.cauHinh.gdx = C;
    /* lưu: cài đặt (đồng bộ Drive) */
