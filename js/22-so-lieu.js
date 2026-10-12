@@ -912,12 +912,48 @@ function slBo(ky){
    KU đã nhập máy, chưa giải ngân = còn mở (OPEN), Tổng giải ngân = 0, dư nợ = 0 → không tính tất nợ; báo cáo riêng ở Sao kê (quá 1 tháng → cần đóng KU) */
 /* 3.145: món 3 tháng không hoạt động theo quy tắc hệ thống (kiểm với file mẫu 14 thật, DU_LIEU_THANG.md):
    còn dư nợ, ngày GD gần nhất TRƯỚC ngày cùng kỳ 3 tháng trước (GD đúng ngày mốc không tính); bỏ món khoanh, món HSSV (CT 02), món vay sau mốc */
+/* 3.173 (anh duyệt 12/10): KHĐ tự tính theo ĐÚNG luật hệ thống — câu "14. Sao kê món vay N tháng không hoạt động (DL Tháng)", N = 3:
+   món chưa CLOSE · quá N tháng (MONTHS_BETWEEN kiểu Oracle) kể từ ngày GD gần nhất, chưa GD lần nào thì từ ngày GN đầu tiên · còn dư nợ trong hạn + quá hạn ·
+   không phải CT 02 · không (có nợ khoanh VÀ gia hạn trong tháng) — câu hệ thống viết (khoanh = 0 OR gia hạn tháng = 0) ·
+   loại món còn ân hạn: CT 05/07/18 chưa qua 60+N tháng từ ngày GN đầu, CT 01 sản phẩm 011SC2/011MC2/011LC2 chưa qua 24+N, CT 06 chưa qua 6+N · loại lãi suất 0.
+   Trước 3.173: chỉ xét ngày GD gần nhất < cuối tháng (kỳ − 3), bỏ mọi món khoanh, bỏ món vay sau mốc → sót món chưa GD lần nào, tính dư món còn ân hạn. */
+var SL_KHD_N = 3;
+function slNgayCuoiThang(iso){ var y = +iso.slice(0, 4), m = +iso.slice(5, 7); return +iso.slice(8, 10)===new Date(y, m, 0).getDate(); }
+function slThangGiua(a, b){   /* MONTHS_BETWEEN(a, b) như Oracle (a, b = 'YYYY-MM-DD') */
+  var n = (+a.slice(0, 4) - +b.slice(0, 4))*12 + (+a.slice(5, 7) - +b.slice(5, 7)), da = +a.slice(8, 10), db = +b.slice(8, 10);
+  return (da===db || (slNgayCuoiThang(a) && slNgayCuoiThang(b))) ? n : n + (da - db)/31;
+}
+function slCongThang(iso, k){   /* ADD_MONTHS như Oracle: ngày cuối tháng → ngày cuối tháng; tháng đích ngắn hơn → ngày cuối tháng đích */
+  var y = +iso.slice(0, 4), m = +iso.slice(5, 7) - 1 + k, d = +iso.slice(8, 10), Y = y + Math.floor(m/12), M = ((m%12)+12)%12, cuoi = new Date(Y, M+1, 0).getDate();
+  return Y+'-'+hai(M+1)+'-'+hai(slNgayCuoiThang(iso) ? cuoi : Math.min(d, cuoi));
+}
+function slKHDNgayBC(ky){ ky = String(ky||''); return ky.length>=10 ? ky.slice(0, 10) : tdnCuoiKy(ky.slice(0, 7)); }
+/* lý do 1 món KHÔNG vào danh sách KHĐ ('' = có vào). ky = kỳ số liệu (tháng → cuối tháng; ngày → ngày đó) */
+function slKHDLy(o, ky){
+  var bc = slKHDNgayBC(ky), N = SL_KHD_N, ct = String(o.ct||''), ngn = o.ngn || '', moc = o.ngdg || ngn;
+  if(!o.ku) return 'khong';
+  if(String(o.ttMon||'').toUpperCase()==='CLOSE') return 'dong';
+  if(!moc || !(slThangGiua(bc, moc) > N)) return 'gd';
+  var th = o.th!==undefined ? (o.th||0) : (o.dn||0) - (o.qh||0) - (o.kn||0);
+  if(!(th + (o.qh||0) > 0)) return 'du';
+  var gh = o.ghM!==undefined ? o.ghM : o.c_gia_han_trong_thang;
+  if((o.kn||0) > 0 && (+gh||0) > 0) return 'khoanh';
+  if(ct==='02') return 'hssv';
+  var con = function(t){ return ngn && slCongThang(ngn, t + N) > bc; };
+  if(['05','07','18'].indexOf(ct)>=0 && con(60)) return 'anhan';
+  var sp = String(o.c_ma_san_pham_cu_the || o.sprd || '').toUpperCase().trim();
+  if(ct==='01' && ['011SC2','011MC2','011LC2'].indexOf(sp)>=0 && con(24)) return 'anhan';
+  if(ct==='06' && con(6)) return 'anhan';
+  if(o.ls!==undefined && !(+o.ls)) return 'ls0';
+  return '';
+}
+var SL_KHD_LY = {dong:'món đã đóng', gd:'chưa quá 3 tháng không giao dịch', du:'không còn dư nợ trong hạn / quá hạn', khoanh:'nợ khoanh + gia hạn trong tháng',
+  hssv:'HSSV (CT 02)', anhan:'còn trong thời gian ân hạn', ls0:'lãi suất 0'};
 function slKHDTinh(hs, ky){
-  var moc = tdnCuoiKy(kyLui(slThang(ky), -3)), da = {};
+  var da = {};
   return (hs||[]).filter(function(o){
-    if(!o.ku || da[o.ku] || !((o.dn||0)>0) || !o.ngdg || o.ngdg>=moc) return false;
-    if((o.kn||0)>0 || String(o.ct)==='02' || (o.nv && o.nv>=moc)) return false;
-    return (da[o.ku] = true); }).map(function(o){ return {ku:o.ku, kh:o.kh, ten:o.ten, dn:o.dn||0, qh:o.qh||0, lt:laiTon(o), ngdg:o.ngdg, to:o.to, xa:o.xa, ct:o.ct, _tinh:true}; });
+    if(!o.ku || da[o.ku] || slKHDLy(o, ky)) return false;
+    return (da[o.ku] = true); }).map(function(o){ return {ku:o.ku, kh:o.kh, ten:o.ten, dn:o.dn||0, qh:o.qh||0, lt:laiTon(o), ngdg:o.ngdg || o.ngn, to:o.to, xa:o.xa, ct:o.ct, _tinh:true}; });
 }
 function slKHD(B){ return (B && (B.co.khd || B.khdTinh)) || []; }   /* có file KHĐ thì dùng file, không thì số tự tính */
 function slKUHuy(o){ return !!o.ku && o.gn!==undefined && String(o.ttMon||'').toUpperCase()==='CLOSE' && !((o.gn||0)>0) && !((o.dn||0)>0) && !(laiTon(o)>0); }
@@ -6497,20 +6533,20 @@ function slKTTW(ky, B, them){
       if(typeof o.lt==='number' && Math.abs(o.lt-laiTon(m))>1) sai.push([o.ku, o.ten||'', 'Lãi tồn', o.lt, laiTon(m)]);
       if(o.ngdg && m.ngdg && o.ngdg!==m.ngdg) sai.push([o.ku, o.ten||'', 'Ngày GD gần nhất', ngayVNsl(o.ngdg), ngayVNsl(m.ngdg)]); });
     them(3, 'Món vay 3 tháng KHĐ ↔ Mẫu 31 cùng món (dư nợ, quá hạn, lãi tồn, ngày GD gần nhất)', !sai.length, sai.length ? sai.length+' dòng lệch' : 'khớp '+co.khd.length+' món', '', ['Số KU', 'Họ tên', 'Chỉ tiêu', 'File KHĐ', 'Mẫu 31'], sai);
-    var cuoi = tdnCuoiKy(slThang(ky)), moc = tdnCuoiKy(kyLui(slThang(ky), -3)), coKHD = {}; co.khd.forEach(function(o){ coKHD[o.ku] = 1; });
-    var nhom = {kn:0, hs:0}, khac = [];
-    hs.forEach(function(o){
-      if(!o.ku || !((o.dn||0)>0) || !o.ngdg || o.ngdg>=moc || coKHD[o.ku]) return;
-      if((o.kn||0)>0){ nhom.kn++; return; } if(String(o.ct)==='02'){ nhom.hs++; return; }
-      khac.push([o.ku, o.ten||'', ctNgan(o.ct, o), ngayVNsl(o.nv), ngayVNsl(o.ngdg), o.dn||0]);
-    });
+    var coKHD = {}; co.khd.forEach(function(o){ coKHD[o.ku] = 1; });   /* 3.173: so theo luật hệ thống (slKHDLy) */
     var tinh = slKHDTinh(hs, ky), coTinh = {}; tinh.forEach(function(o){ coTinh[o.ku] = 1; });
-    var khop = co.khd.filter(function(o){ return coTinh[o.ku]; }).length, chiFile = co.khd.filter(function(o){ return !coTinh[o.ku]; }).map(function(o){ var m = mon[o.ku] || {}; return [o.ku, o.ten||'', ctNgan(m.ct, m), ngayVNsl(m.nv), ngayVNsl(o.ngdg || m.ngdg), o.dn||0]; });
-    them(3, 'KHĐ app tự tính từ Mẫu 31 ↔ file KHĐ (mẫu 14)', khop===tinh.length && !chiFile.length, 'tính '+tinh.length+' · file '+co.khd.length+' · khớp '+khop+' món',
-      chiFile.length ? 'Món có trong file mà app không tính ra — anh kiểm (ghi nhận, không sửa).' : '', ['Số KU', 'Họ tên', 'Chương trình', 'Ngày vay', 'Ngày GD gần nhất', 'Dư nợ'], chiFile, chiFile.length || khop!==tinh.length ? 'canh' : '');
-    them(3, 'Món Mẫu 31 không giao dịch từ trước '+ngayVNsl(moc)+' mà không có trong file KHĐ', !khac.length,
-      (nhom.kn+nhom.hs ? 'hệ thống không đưa vào: '+nhom.kn+' món khoanh, '+nhom.hs+' món HSSV' : 'không có món khoanh / HSSV')+(khac.length ? ' · còn '+khac.length+' món khác' : ''),
-      khac.length ? 'Ngoài món khoanh và HSSV (hệ thống tự loại), các món này chưa rõ lý do (thường là món mới vay chưa đến kỳ trả) — anh kiểm.' : '', ['Số KU', 'Họ tên', 'Chương trình', 'Ngày vay', 'Ngày GD gần nhất', 'Dư nợ'], khac, khac.length ? 'canh' : '');
+    var khop = co.khd.filter(function(o){ return coTinh[o.ku]; }).length;
+    var lech = co.khd.filter(function(o){ return !coTinh[o.ku]; }).map(function(o){ var m = mon[o.ku] || {}, ly = m.ku ? slKHDLy(m, ky) : '';
+        return [o.ku, o.ten||'', ctNgan(m.ct, m), ngayVNsl(m.ngn), ngayVNsl(o.ngdg || m.ngdg), o.dn||0, 'chỉ có trong file'+(ly ? ' — app: '+SL_KHD_LY[ly] : (m.ku ? '' : ' — không có trên Mẫu 31'))]; })
+      .concat(tinh.filter(function(o){ return !coKHD[o.ku]; }).map(function(o){ var m = mon[o.ku] || {}; return [o.ku, o.ten||'', ctNgan(m.ct, m), ngayVNsl(m.ngn), ngayVNsl(o.ngdg), o.dn||0, 'app tính ra, file không có']; }));
+    them(3, 'KHĐ app tự tính (luật hệ thống) ↔ file KHĐ (mẫu 14)', !lech.length, 'tính '+tinh.length+' · file '+co.khd.length+' · khớp '+khop+' món',
+      lech.length ? 'Món lệch giữa số app tự tính và file KHĐ — anh kiểm (ghi nhận, không sửa).' : '', ['Số KU', 'Họ tên', 'Chương trình', 'Ngày GN đầu', 'Ngày GD gần nhất', 'Dư nợ', 'Lệch'], lech, lech.length ? 'canh' : '');
+    var dem = {}, loai = [];
+    hs.forEach(function(o){ if(!o.ku || dem['_'+o.ku]) return; dem['_'+o.ku] = 1; var ly = slKHDLy(o, ky);
+      if(['khoanh','hssv','anhan','ls0'].indexOf(ly)<0) return; dem[ly] = (dem[ly]||0)+1; loai.push([o.ku, o.ten||'', ctNgan(o.ct, o), ngayVNsl(o.ngn), ngayVNsl(o.ngdg), o.dn||0, SL_KHD_LY[ly]]); });
+    them(3, 'Món quá 3 tháng không giao dịch nhưng được loại theo luật hệ thống', true,
+      loai.length ? ['anhan','hssv','khoanh','ls0'].filter(function(k){ return dem[k]; }).map(function(k){ return dem[k]+' món '+SL_KHD_LY[k]; }).join(' · ') : 'không có',
+      '', ['Số KU', 'Họ tên', 'Chương trình', 'Ngày GN đầu', 'Ngày GD gần nhất', 'Dư nợ', 'Lý do loại'], loai, '');
   }
 }
 

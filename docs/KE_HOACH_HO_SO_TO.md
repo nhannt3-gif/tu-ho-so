@@ -131,3 +131,18 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 6. **Giao dịch xã diễn ra cả ngày nghỉ** → không nhắc, không dời ngày. Ngày GD lớn hơn số ngày của tháng → ngày cuối tháng.
 7. **Nơi giải ngân: Tại điểm GD / Tại PGD.** Tại PGD: địa điểm = câu khai báo (mặc định "Phòng giao dịch NHCSXH Gò Dầu"), ngày gợi ý ngày mai, giờ nhớ riêng, vẫn chọn xã để kính gửi UBND.
 8. **Không viết tắt:** câu "Đề nghị … thông báo" ghi **"Ủy ban nhân dân phường / xã …"** đầy đủ (file gốc mặc định "UBND …").
+
+## Chờ tiếp (lưu 12/10 — chưa "code")
+### A. 3.173 — bố cục lại tab 🏢 Giao dịch xã (anh: "hơi rối, sẽ có rất nhiều mẫu")
+- **Anh chốt:** dùng chung **kỳ / ngày số liệu** (kỳ chung như các tab) + **khối Lọc địa bàn** (xã › điểm GD, chọn 1 lần cho mọi mẫu); khai báo **chung** chỉ gồm danh sách cán bộ ngân hàng (bổ sung dần), **mỗi mẫu có khai báo riêng** — mục trùng nhiều mẫu thì báo anh rồi mới gom về chung; **điện thoại chỉ xem** (không làm nhập); sau này có **quy tắc soạn mẫu** (`docs/QUY_TAC_SOAN_MAU.md`) để AI khác soạn, em chỉ gắn.
+- **Anh chưa ưng 3 phương án** (3 cột · Bảng mẫu → Bàn làm mẫu · trang giấy trung tâm). Yêu cầu: **in hằng ngày chủ yếu tích / bấm chọn, hạn chế nhập; khai báo 1 lần dùng lâu dài; khi in chỉ chọn cơ bản nhất.**
+- **Đề xuất đang chờ duyệt — phương án D "màn chip":** mỗi mẫu là các hàng chip (mẫu · điểm GD sắp theo ngày GD gần nhất · tổ / khách khi mẫu cần · ⭐ mẫu hay in · lựa chọn riêng) do khai báo + số liệu sinh ra; app chọn sẵn lựa chọn hợp lý nhất (lần trước / ngày GD gần nhất); "+ khác" là ngoại lệ → hỏi lưu thành chip; dòng **"Sẽ in: …"** + [🖨 IN]; khung xem 👁 bật / tắt; ⚙ Khai báo chia mục chung / từng mẫu.
+- Còn hỏi: khung xem mặc định bật hay tắt.
+### B. Mẫu mới: Giấy lĩnh tiền mặt (anh gửi ảnh mẫu trắng 12/10)
+- Dùng khi **KH rút TK 105** hoặc **tổ trưởng rút TK 104**; số liệu theo **ngày số liệu**; **cả 2 kiểu in** (in đè lên giấy in sẵn / in cả mẫu trên giấy trắng), khổ **A5 và A4**; nội dung khác khai báo / chọn riêng của mẫu.
+- Còn hỏi: A4 in 1 hay 2 giấy / tờ; bản scan thẳng 100% hoặc kích thước giấy (để in đè); TK 104 lấy từ truy vấn (mục C).
+### C. Truy vấn "Mẫu 31 mở rộng" (anh gửi các câu truy vấn hệ thống 12/10)
+- Anh chốt: **câu 31 của TW là chuẩn** → giữ nguyên lõi (số liệu trùng 100%), chỉ **thêm cột cuối**: điểm GD xã + ngày GD, CCCD / ngày cấp / nơi cấp / địa chỉ tổ trưởng, tổ phó, TK 104 tổ trưởng, tên ngành / học phí HSSV đúng mã, **ngày cấp CCCD HSSV**. Hai bản: theo ngày và theo tháng.
+- **Sổ phân tích chi tiết (tên bảng hệ thống) KHÔNG để trong repo** — anh giữ file riêng; lần sau anh gửi lại cùng kết quả 4 câu tra cấu trúc bảng.
+- **Tạm dừng: anh chưa kết nối được để chạy truy vấn.**
+- Phát hiện liên quan app (chờ duyệt): số **KHĐ app tự tính** (khi không nạp file KHĐ) lệch luật hệ thống ở 3 chỗ — sót món chưa giao dịch lần nào (hệ thống tính từ ngày GN đầu tiên), chưa loại món trong thời gian ân hạn (CT 05/07/18 60 tháng, CT 01 sản phẩm 011SC2/MC2/LC2 24 tháng, CT 06 6 tháng, lãi suất 0), điều kiện nợ khoanh.

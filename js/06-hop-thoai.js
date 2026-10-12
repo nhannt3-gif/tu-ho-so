@@ -2053,7 +2053,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.172', ds:[
+var CO_GI_MOI = {ban:'3.173', ds:[
+  ["📉 Món vay 3 tháng không hoạt động (KHĐ) app tự tính nay theo ĐÚNG luật hệ thống: món chưa giao dịch lần nào tính từ ngày giải ngân đầu tiên; loại món còn ân hạn (CT 05/07/18, CT 01 sản phẩm C2, CT 06), lãi suất 0, HSSV; khoanh chỉ loại khi có gia hạn trong tháng", "moNapSL()"],
+  ["🔍 Kiểm tra số liệu: so KHĐ tự tính ↔ file KHĐ ghi rõ lệch món nào, vì sao; thêm bảng món quá 3 tháng bị loại theo luật (lý do từng món)", "moNapSL()"],
   ["🏢 Tab mới Giao dịch xã (Số liệu › Giao dịch xã): in nhanh 04/TD Thông báo phê duyệt + 12/GDX Bảng kê giao nhận tiêu hủy biên lai — mẫu in giữ nguyên file anh đã in thử đúng mẫu thật; không cần số liệu hộ vay (điểm, tổ lấy từ Cài đặt › Địa bàn)", "slDoiTab('gdx');doiNgan(7)"],
   ["⭐ Mẫu hay in (lưu số hộ + số tiền, bấm là in) · 🔄 Kiểm tra trước đợt: tự đề xuất điểm có ngày giao dịch gần nhất, ngày phát, ngày ký · nơi giải ngân Tại điểm GD / Tại PGD · tên UBND ghi đầy đủ", "slDoiTab('gdx');doiNgan(7)"],
   ["📄 04/TD rời tab Hồ sơ vay — chỉ in ở tab Giao dịch xã", "slDoiTab('gdx');doiNgan(7)"],

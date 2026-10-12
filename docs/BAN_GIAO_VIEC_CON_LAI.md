@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.173) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tháng có cả Mẫu 31 và file KHĐ (mẫu 14) → 📥 Nạp & KT › Kiểm tra số liệu | Dòng "KHĐ app tự tính (luật hệ thống) ↔ file KHĐ": khớp, hoặc lệch có ghi lý do từng món | |
+| 2 | Xem dòng "Món quá 3 tháng … được loại theo luật hệ thống" | Liệt kê món ân hạn (CT 05/07/18, 01 C2, 06), HSSV, khoanh + gia hạn, lãi suất 0 | |
+| 3 | Tháng chỉ có Mẫu 31 (không file KHĐ) → chip / báo cáo KHĐ | Số món KHĐ gần bằng số hệ thống (đối chiếu tháng có file) | |
+
+**Ghi chú kỹ thuật 3.173:** luật lấy từ câu hệ thống "14. Sao kê món vay N tháng không hoạt động (DL Tháng)" — sổ phân tích truy vấn anh giữ riêng (không trong repo). Còn hỏi anh: điều kiện khoanh trong câu hệ thống viết OR (đã làm đúng như câu) — nếu ý định là AND thì đổi 1 dòng trong `slKHDLy`.
+
 ### Danh sách thử trên máy thật (3.172) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
