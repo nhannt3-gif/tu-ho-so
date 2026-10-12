@@ -911,12 +911,13 @@ function dmtKiem(){
     Object.keys(tc.to).forEach(function(m){ var x = tc.to[m];
       if(x.tk104){ r.coTK++; if(gap[x.tk104]) r.trungTK.push(m+' · '+gap[x.tk104]); else gap[x.tk104] = m; } else r.thieuTK.push(m+(x.tt ? ' · '+x.tt : ''));
       if(!K) return; var t = K.to[m]; if(!t || t.trucTiep){ r.chiFile.push(m+(x.tt ? ' · '+x.tt : '')); return; }
-      r.khop.push(m); if(x.tt && t.ten && slChuan(x.tt)!==slChuan(t.ten)) r.lechTT.push(m+' · file: '+x.tt+' · Mẫu 31: '+t.ten); });
+      r.khop.push(m); if(x.tt && t.ten && dmtTenSo(x.tt)!==dmtTenSo(t.ten)) r.lechTT.push(m+' · file: '+x.tt+' · Mẫu 31: '+t.ten); });
     if(K) Object.keys(K.to).forEach(function(m){ var t = K.to[m]; if(!t.trucTiep && !tc.to[m] && Object.keys(tc.to).length) r.chi31.push(m+(t.ten ? ' · '+t.ten : '')); });
     r.lech104 = gdxTK104().ds.length ? gdxTK104Lech(K) : null;
     DMT_KQ = r; return r;
   });
 }
+function dmtTenSo(x){ return slChuan(String(x||'').trim().replace(/^(ông|bà|ong|ba)\.?\s+/i, '')); }   /* 3.175.1: so tên bỏ "Ông / Bà", không dấu, không phân biệt hoa thường */
 function dmtTomChu(){
   var tc = gdxTC(), tk = gdxTK104(), n = Object.keys(tc.to).length, r = DMT_KQ;
   if(!n && !tk.ds.length) return 'chưa nạp';

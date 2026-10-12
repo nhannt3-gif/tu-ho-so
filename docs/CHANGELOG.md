@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.175.1 — 13/10/2026 — Danh mục tổ: hết báo lệch tên tổ trưởng giả
+- **Anh (13/10, gửi ảnh):** 7 tổ báo "tên tổ trưởng lệch" chỉ do danh mục ghi "ÔNG / BÀ" + không dấu, hoa (vd "ÔNG TRAN MINH SON" ↔ "Trần Minh Sơn").
+- `dmtTenSo`: bỏ tiền tố Ông / Bà (như cách app chuẩn tên tổ trưởng từ 3.108), bỏ dấu, không phân biệt hoa thường rồi mới so. Tổ có trong Mẫu 31 mà danh mục không có vẫn báo như cũ (lệch thật).
+- Phép thử `t167` thêm ca "ÔNG / BÀ + không dấu".
+
 ## 3.175 — 12/10/2026 — Giao dịch xã: góp ý sau 3.174 + Giấy lĩnh sau in thử + nạp TK 104 một chỗ
 - **Anh (12/10):** góp ý 12/GDX, 04/TD, lỗi mở cài đặt, gõ ngày nhanh; Giấy lĩnh sau in thử (bằng chữ bị cắt, dòng PGD, dòng Nội dung xa, VBSP chìm, form gõ tay, chữ 13–14 pt); TK 104 nạp 1 chỗ ở chỗ nạp & kiểm tra dữ liệu, kiểm tra khi nạp, gắn vào tổ; nút in mẫu trắng 1 mẫu / A4 hoặc 2 mẫu / A4 cắt đôi; "em code và gộp lên luôn".
 - **Lỗi bấm chip ⭐ / Hôm nay / ô ngày mở hộp ⚙:** hộp đã đóng vẫn còn trong trang → `gdxVe` tưởng đang mở và vẽ lại. Sửa: `gdxHopMo(id)` chỉ vẽ lại khi hộp đang hiện (cả ⚙ Khai báo chung).

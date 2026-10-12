@@ -99,13 +99,14 @@ const fs=require('fs'), path=require('path');
    const wb = XLSX.utils.book_new();
    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([['Mã điểm GD','Tên điểm GD','Ngày GD','Số ấp/KP','Mã xã','Tên xã/phường'], [khac.maDiem, khac.tenDiem, khac.ngayGD, 3, '900000', 'Xã Giả']]), 'Diem_giao_dich');
    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([['Mã điểm GD','Tên điểm GD','Tên xã/phường','Tên ấp/KP','Mã tổ','Tên Tổ trưởng','Hội (ĐV ủy thác)','Mã KH Tổ trưởng','Số TK 104 (Hoa hồng)','Số điện thoại','Tên Tổ phó','Mã KH Tổ phó']]
-     .concat(Object.keys(ttKH).map((m, i)=>[T[m].diem, T[m].tenDiem, T[m].tenXa, T[m].tenThon, m, T[m].ten, 'HỘI GIẢ', ttKH[m], String(1040000000+i), '0900000000', 'Tổ Phó Giả', '']))), 'To_truong');
+     .concat(Object.keys(ttKH).map((m, i)=>[T[m].diem, T[m].tenDiem, T[m].tenXa, T[m].tenThon, m, i===0 ? 'ÔNG '+boDau(T[m].ten).toUpperCase() : T[m].ten, 'HỘI GIẢ', ttKH[m], String(1040000000+i), '0900000000', 'Tổ Phó Giả', '']))), 'To_truong');
    const kq = gdxDocFile(XLSX.read(XLSX.write(wb, {type:'array', bookType:'xlsx'}), {type:'array'}));
    ok('đọc file danh mục tham chiếu (sheet tổ có Mã tổ + Số TK 104; sheet điểm GD)', kq.to && Object.keys(kq.to).length===Object.keys(ttKH).length && kq.diem && kq.diem[khac.maDiem] && !kq.tk);
    /* 3.175: nạp 1 chỗ — nút 📥 Nạp file chung (Nạp & KT) tự nhận file danh mục, nạp + kiểm tra ngay, không vào bảng xem trước số liệu */
    const fDM = new File([XLSX.write(wb, {type:'array', bookType:'xlsx'})], 'danhmuc_gia.xlsx');
    const slGoc = window.slXemTruoc; let xt = 0; window.slXemTruoc = function(){ xt++; return slGoc.apply(this, arguments); };
    slDocNhieu([fDM]); for(let i=0;i<40 && !(D.cauHinh.dmTo && DMT_KQ);i++) await w(200); await w(300); window.slXemTruoc = slGoc;
+   ok('3.175.1: tên tổ trưởng ghi "ÔNG …" không dấu, hoa trong danh mục → không báo lệch', DMT_KQ && DMT_KQ.lechTT.length===0, DMT_KQ && DMT_KQ.lechTT.join(' | '));
    ok('3.175: 📥 Nạp file chung nhận file danh mục tổ → lưu danh mục, kiểm tra ngay với Mẫu 31 (không vào bảng xem trước số liệu)', !!D.cauHinh.dmTo && Object.keys(D.cauHinh.dmTo.to).length===Object.keys(ttKH).length && !!DMT_KQ && DMT_KQ.khop.length===Object.keys(ttKH).length && xt===0 && /Đã nạp danh mục tổ/.test(document.getElementById('hop-in').textContent), DMT_KQ && DMT_KQ.khop.length);
    dongHop(); slDoiTab('gdx'); doiNgan(7); await w(500); gdxDoiMau('gl'); pvChonTo('gdx', tA.ma); gdxDat('glLoai', '104', 1); await w(300);
    g = gdxGLDuLieu(); h = fd().body.innerHTML;
