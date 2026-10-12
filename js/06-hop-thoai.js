@@ -2053,7 +2053,12 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.174', ds:[
+var CO_GI_MOI = {ban:'3.175', ds:[
+  ["💵 Giấy lĩnh: bằng chữ dài tự xuống dòng dưới (bỏ chấm), dòng PGD giãn đều, dòng Nội dung canh đều, chữ VBSP chìm, chữ 13 pt; form gõ tay ngay dưới ô tìm (tìm ra thì điền sẵn, sửa được)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
+  ["📄 In Giấy lĩnh trắng: 1 mẫu / A4 hoặc 2 mẫu / A4 cắt đôi (vạch cắt giữa)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
+  ["📚 Danh mục tổ · TK 104 nạp 1 chỗ ở 📥 Nạp & KT (nút Nạp file tự nhận file nhiều sheet), nạp xong kiểm tra ngay với Mẫu 31, TK 104 gắn theo tổ", "slDoiTab('nap');doiNgan(7)"],
+  ["🖨 04/TD: ▲▼ số hộ (bước 1) / số tiền (bước 5 triệu), mức gợi ý 25–160 triệu; 12/GDX: 1 chip ngày GD gần nhất, chữ ký GDV sát tiêu đề, giá trị in đậm; ô ngày gõ liền số (1410, 141026)", "slDoiTab('gdx');doiNgan(7)"],
+  ["🔧 Sửa lỗi: bấm chip ⭐ / Hôm nay / ô ngày lại mở hộp cài đặt", "slDoiTab('gdx');doiNgan(7)"],
   ["🏢 Giao dịch xã bố cục mới: khối LỌC ĐỊA BÀN (cây theo Mẫu 31), khung chọn nhanh bên trái, khung xem bật / tắt bên phải, 📋 Tóm tắt bản in (chip + cảnh báo, nút IN / PDF)", "slDoiTab('gdx');doiNgan(7)"],
   ["⚙ Mỗi mẫu có Khai báo riêng: mọi mục theo thứ tự trên mẫu, tích \"Chọn nhanh\" để đưa ra khung trái; ⚙ Khai báo chung: cán bộ, danh mục tham chiếu, file TK 104", "slDoiTab('gdx');doiNgan(7)"],
   ["💵 Giấy lĩnh tiền mặt (khách rút TK 105 / tổ trưởng rút TK 104): gõ tên không dấu để tìm, dòng có thông tin bỏ chấm, A5 hoặc nửa A4", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],

@@ -3399,3 +3399,19 @@ span.sl-chip{cursor:help}
 #hop-in .gdx-khoi .hang-nut{justify-content:flex-start}
 .gdx-kbr-gt>.gdx-i,.gdx2-gt>.gdx-i{flex:1 1 220px}
 .gdx-kbr-gt>select.gdx-i,.gdx2-gt>select.gdx-i{flex:0 1 auto}
+/* 3.175: Giấy lĩnh — form gõ tay như mẫu thật; ô ngày gõ nhanh + 📅; ▲▼ số hộ / số tiền 04/TD; khối 📚 danh mục tổ ở Nạp & KT */
+.gl-form{width:100%;border:1px dashed var(--vien);border-radius:8px;padding:6px 8px;margin-top:4px}
+.gl-form-luoi{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 10px}
+.gl-form-luoi label{display:flex;flex-direction:column;gap:2px;min-width:0}.gl-form-luoi label>span{font-size:calc(11.5px*var(--co));color:var(--chu-phu)}
+.gl-form-luoi .gl-f2{grid-column:1 / -1}
+.gdx-ngay2{display:inline-flex;align-items:center;gap:2px}
+.gdx-ngay2 .ngay-gy{display:none !important}
+.gdx-ngay2 .gdx-ngay{width:128px;border-style:solid;border-radius:14px;padding:3px 9px}
+.gdx-lich{width:30px;min-width:30px;padding:2px;border:1px dashed var(--vien);border-radius:14px;background:var(--nen,#fff);color:transparent;cursor:pointer}
+.gdx-lich::-webkit-datetime-edit{display:none}
+.gdx-buoc{display:inline-flex;flex-direction:column;margin-left:-4px}
+.gdx-buoc button{border:1px solid var(--vien);background:var(--the);color:var(--chu);font-size:9px;line-height:1;padding:2px 6px;cursor:pointer}
+.gdx-buoc button:first-child{border-radius:5px 5px 0 0}.gdx-buoc button:last-child{border-radius:0 0 5px 5px;border-top:none}
+.dm-khoi .dm-ds{margin:3px 0}.dm-khoi .dm-ds summary,.dm-hop .dm-ds summary{cursor:pointer}.dm-ds.vang summary{color:var(--vang)}.dm-ds.do summary{color:var(--do)}
+.dm-ds>div{max-height:220px;overflow:auto;font-size:calc(12px*var(--co));padding:2px 8px}
+#hop-in .dm-hop{text-align:left}

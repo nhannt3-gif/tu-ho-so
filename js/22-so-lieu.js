@@ -3787,6 +3787,7 @@ function veSoLieu(){
   if(coKT) tom += ' · KTGS: '+(!kg ? 'đang chờ kiểm…' : ktKTCu(kyXem) ? '⟳ đang kiểm lại…' : (kg.dem.k ? kg.dem.k+' mục lệch' : '✓ khớp'));
   h += '<details class="sl-kq" id="sl-kq"'+(D.cauHinh.slKqMo ? ' open' : '')+' ontoggle="D.cauHinh.slKqMo=this.open;luu()"><summary>🔍 Kết quả kiểm tra '+kyVN(kyXem)+': <small>'+tom+'</small></summary><div id="sl-kt">'+slKTHTML(kyXem)+'</div>'+
     (coKT ? '<div class="nhan-nhom">Ⓚ KTGS · BC0437 / BC0438</div><div class="kt-kt">'+ktKTHTML(kyXem)+'</div>' : '')+'</details>';
+  if(typeof dmtKhoiHTML==='function') h += dmtKhoiHTML();   /* 3.175: 📚 danh mục tổ · TK 104 — nạp 1 chỗ ở đây */
   if(!soBang) h += '<div class="rong">Chưa có số liệu. Bấm <b>📥 Nạp file</b> (chọn nhiều file Excel cùng lúc, kể cả BC0437 / BC0438) hoặc bấm ô trống trên ma trận · xem <b>📋 File cần xuất</b>.</div>';
   e.innerHTML = h;
   slHenKiem(kyXem);
@@ -4396,9 +4397,15 @@ function slDocNhieu(files){
   (function(){
     SL_NAP = []; batChay(true, 'Đang đọc '+files.length+' file Excel…');
     moHop('<div class="hop-tit">📥 Nạp cả bộ — đang đọc</div><div class="hop-phu" id="sl-tien">0/'+files.length+' file…</div>', true);
+    var dm = [];   /* 3.175 (anh chốt): file danh mục tổ (nhiều sheet, có TK 104) / file TK 104 → nạp vào danh mục tổ + kiểm tra ngay (1 chỗ nạp) */
     files.reduce(function(p, f, i){
-      return p.then(function(){ return slDocFile(f).then(function(kq){ SL_NAP.push(kq); var e = document.getElementById('sl-tien'); if(e) e.textContent = (i+1)+'/'+files.length+' file — vừa đọc '+f.name; }); });
-    }, Promise.resolve()).then(function(){ tatChay(); slXemTruoc(); });
+      return p.then(function(){ return slDocFile(f).then(function(kq){ var d = typeof dmtLaFile==='function' && kq.sheets ? dmtLaFile(kq.sheets) : null;
+        if(d) dm.push({kq:d, ten:f.name}); else SL_NAP.push(kq); var e = document.getElementById('sl-tien'); if(e) e.textContent = (i+1)+'/'+files.length+' file — vừa đọc '+f.name; }); });
+    }, Promise.resolve()).then(function(){
+      return dm.reduce(function(p, x){ return p.then(function(){ return dmtLuu(x.kq, x.ten); }); }, Promise.resolve());
+    }).then(function(){ tatChay();
+      if(dm.length) bao('📚 Đã nạp danh mục tổ / TK 104 ('+dm.map(function(x){ return x.ten; }).join(', ')+') — kết quả kiểm tra ở khối 📚 Danh mục tổ.', 6);
+      if(SL_NAP.length) slXemTruoc(); else if(dm.length){ dongHop(); dmtHop(); if(nganHienTai===7) veSoLieu(); } else dongHop(); });
   })();
 }
 /* trạng thái 1 file trong bảng xem trước */

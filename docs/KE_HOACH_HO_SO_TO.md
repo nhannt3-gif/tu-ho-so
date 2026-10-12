@@ -209,3 +209,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
     - Nạp xong kiểm tra luôn.
     - Gán TK 104 của tổ trưởng vào danh bạ tổ đã lưu (lưu kèm hồ sơ tổ).
     - Không nạp ở nhiều nơi.
+- **Đã làm 3.175 (12/10):** toàn bộ mục G (12/GDX, 04/TD, lỗi mở ⚙, ngày gõ nhanh) + góp ý Giấy lĩnh sau in thử (bằng chữ 2 dòng, dòng PGD, Nội dung canh đều, VBSP chìm, 13 pt, form gõ tay, in mẫu trắng 1 / 2 mẫu A4) + nạp danh mục tổ / TK 104 một chỗ ở 📥 Nạp & KT (kiểm tra khi nạp, gắn theo tổ). TK 104 chưa hiện ở chỗ khác (anh chốt: khi cần anh báo).

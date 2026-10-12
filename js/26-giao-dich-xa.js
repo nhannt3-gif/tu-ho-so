@@ -11,7 +11,7 @@
 var GDX_MD = {
   donViTren:'NHCSXH TỈNH TÂY NINH', donViDuoi:'PGD GÒ DẦU', tenPGDTrongVanBan:'Phòng giao dịch NHCSXH Gò Dầu', diaDanh:'Gò Dầu',
   ngayThongBao:'', kinhGui:'', tenUBNDVietTat:'', gioPhatTien:'9 giờ 30 phút', ngayPhatTien:'', diaDiemPhatTien:'',
-  nguoiLap:'', chucDanhDuyet:'Giám Đốc', quickAmounts:[20000000, 30000000, 50000000, 80000000, 90000000, 100000000], isGQVL:false, danhSachCanBo:[],
+  nguoiLap:'', chucDanhDuyet:'Giám Đốc', quickAmounts:[25000000, 30000000, 40000000, 50000000, 80000000, 100000000, 120000000, 160000000], isGQVL:false, danhSachCanBo:[],
   mauHay:[], noiGN:'diem', ma04:'', xa04:'', ngayPhatISO:'', gioDiem:'', gioPGD:'', diaDiemPGD:'Phòng giao dịch NHCSXH Gò Dầu', dotXN:'',
   m12DonVi1:'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI', m12DonVi2:'PHÒNG GIAO DỊCH GÒ DẦU - CHI NHÁNH TÂY NINH',
   m12SelectedDiem:'', m12NgayGD:'', m12TenToOption:'blank', m12GDV:'', m12KSV:'', m12ToTruong:'', m12HinhThucTieuHuy:'cắt nhỏ', m12SoLuongTieuHuy:'',
@@ -25,6 +25,7 @@ function gdxC(){
   var c = D.cauHinh.gdx = D.cauHinh.gdx || {};
   var moi = c.m12GioHuy===undefined;
   Object.keys(GDX_MD).forEach(function(k){ if(c[k]===undefined) c[k] = JSON.parse(JSON.stringify(GDX_MD[k])); });
+  if(JSON.stringify(c.quickAmounts)==='[20000000,30000000,50000000,80000000,90000000,100000000]') c.quickAmounts = GDX_MD.quickAmounts.slice();   /* 3.175: bộ mức cũ chưa sửa → bộ mới anh chốt; ai đã thêm / bớt thì giữ */
   if(moi && c.m12TimeMode==='prefill'){ c.m12GioHuy = 'san'; c.m12NgayHuy = 'gd'; }   /* 3.174: khai báo cũ "ghi sẵn giờ, ngày" → 2 lựa chọn riêng */
   return c;
 }
@@ -232,7 +233,7 @@ function gdxHTML12(C, d0){   /* d0: điểm GD chụp sẵn (in lại từ nhậ
     rowsHtml += '\n          <tr style="height:'+(rowHeight)+'px;'+lhDong+'">\n            <td class="col-stt" style="padding:'+(padVertical)+' 2px; text-align:center;">'+(i)+'</td>\n            <td class="col-name" style="padding:'+(padVertical)+' 5px;">'+(tenToTruong)+'</td>\n            <td class="col-num" style="padding:'+(padVertical)+' 2px;"></td>\n            <td class="col-num" style="padding:'+(padVertical)+' 2px;"></td>\n            <td class="col-num" style="padding:'+(padVertical)+' 2px;"></td>\n            <td style="padding:'+(padVertical)+' 2px; width:75px;"></td>\n            <td style="padding:'+(padVertical)+' 2px; width:75px;"></td>\n          </tr>\n        ';
   }
   var tx = String(d.tenXa||'');
-  var prefixXaPhuong = /^Phường/.test(tx) ? 'Phường: '+gdxE(tx.replace('Phường ', '')) : 'Xã: '+gdxE(tx.replace('Xã ', ''));
+  var prefixXaPhuong = /^Phường/.test(tx) ? 'Phường: <b>'+gdxE(tx.replace('Phường ', ''))+'</b>' : 'Xã: <b>'+gdxE(tx.replace('Xã ', ''))+'</b>';   /* 3.175: giá trị in đậm cho nổi bật, nhãn chữ thường */
   d = {tenDiem:gdxE(d.tenDiem), maDiem:gdxE(d.maDiem)};
   return '\n        <div class="sheet-a4 sheet-m12" style="font-family:\'Times New Roman\', Times, serif; font-size:'+
     (docMainFont)+
@@ -242,14 +243,14 @@ function gdxHTML12(C, d0){   /* d0: điểm GD chụp sẵn (in lại từ nhậ
     (dParts.month)+
     ' năm '+
     (dParts.year)+
-    '\n            </div>\n          </div>\n\n          <!-- Điểm giao dịch & Mã điểm -->\n          <div style="display:flex; justify-content:flex-start; gap:36px; margin-bottom:2px; font-size:13pt;">\n            <div>Điểm giao dịch: '+
+    '\n            </div>\n          </div>\n\n          <!-- Điểm giao dịch & Mã điểm -->\n          <div style="display:flex; justify-content:flex-start; gap:36px; margin-bottom:2px; font-size:13pt;">\n            <div>Điểm giao dịch: <b>'+
     (d.tenDiem)+
-    '</div>\n            <div>Mã điểm giao dịch: '+
+    '</b></div>\n            <div>Mã điểm giao dịch: <b>'+
     (d.maDiem)+
-    '</div>\n          </div>\n          <div style="margin-bottom:6px; font-size:13pt;">\n            '+
+    '</b></div>\n          </div>\n          <div style="margin-bottom:6px; font-size:13pt;">\n            '+
     (prefixXaPhuong)+
     '\n          </div>\n\n          <!-- PHẦN I: GIAO - NHẬN BIÊN LAI -->\n          <div style="font-weight:bold; font-size:13pt; margin-top:3px;">PHẦN I. GIAO - NHẬN BIÊN LAI</div>\n          <div style="margin-top:7px; margin-bottom:9px; font-size:12.5pt;">\n            Giao dịch viên: '+
-    (gdvName || '<span class="dots-fine">……………………………………………</span>')+
+    (gdvName ? '<b>'+gdvName+'</b>' : '<span class="dots-fine">……………………………………………</span>')+
     '\n          </div>\n\n          <!-- Bảng kê chuẩn Mẫu 12/GDX tự co giãn trọn 1 trang A4 -->\n          <table class="m12-table" style="font-size:'+
     (tableFont)+
     ';">\n            <thead>\n              <tr style="font-size:'+
@@ -264,15 +265,15 @@ function gdxHTML12(C, d0){   /* d0: điểm GD chụp sẵn (in lại từ nhậ
     (slTH ? slTH : '<span class="dots-fine">……………………………</span>')+
     ' tờ</div>\n            <div style="margin-bottom:4px;">3. Thời gian tiêu hủy: '+
     (tgTH_text)+
-    '</div>\n          </div>\n\n          <!-- 3 Chữ ký phía dưới -->\n          <div class="m12-signatures" style="margin-top:10px;">\n            <div>\n              <div class="sig-title" style="font-size:12pt; font-weight:bold; min-height:2.5em;">GIAO DỊCH VIÊN</div>\n              <div class="sig-guide" style="font-size:11pt;">(Ký, ghi rõ họ tên)</div>\n              <div class="sig-blank" style="height:'+
-    (sigBlankHeight)+
+    '</div>\n          </div>\n\n          <!-- 3 Chữ ký phía dưới -->\n          <div class="m12-signatures" style="margin-top:10px;">\n            <div>\n              <div class="sig-title" style="font-size:12pt; font-weight:bold;">GIAO DỊCH VIÊN</div>\n              <div class="sig-guide" style="font-size:11pt;">(Ký, ghi rõ họ tên)</div>\n              <div class="sig-blank" style="height:'+
+    (sigBlankHeight + 20)+
     'px;"></div>\n              <div class="sig-signer" style="font-size:12pt; font-weight:bold;">'+
     (gdvName)+
-    '</div>\n            </div>\n            <div>\n              <div class="sig-title" style="font-size:12pt; font-weight:bold; min-height:2.5em;">KIỂM SOÁT VIÊN/<br>GIAO DỊCH VIÊN</div>\n              <div class="sig-guide" style="font-size:11pt;">(Ký, ghi rõ họ tên)</div>\n              <div class="sig-blank" style="height:'+
+    '</div>\n            </div>\n            <div>\n              <div class="sig-title" style="font-size:12pt; font-weight:bold;">KIỂM SOÁT VIÊN/<br>GIAO DỊCH VIÊN</div>\n              <div class="sig-guide" style="font-size:11pt;">(Ký, ghi rõ họ tên)</div>\n              <div class="sig-blank" style="height:'+
     (sigBlankHeight)+
     'px;"></div>\n              <div class="sig-signer" style="font-size:12pt; font-weight:bold;">'+
     (ksvName)+
-    '</div>\n            </div>\n            <div>\n              <div class="sig-title" style="font-size:12pt; font-weight:bold; min-height:2.5em;">TỔ TRƯỞNG<br>TỔ GIAO DỊCH</div>\n              <div class="sig-guide" style="font-size:11pt;">(Ký, ghi rõ họ tên)</div>\n              <div class="sig-blank" style="height:'+
+    '</div>\n            </div>\n            <div>\n              <div class="sig-title" style="font-size:12pt; font-weight:bold;">TỔ TRƯỞNG<br>TỔ GIAO DỊCH</div>\n              <div class="sig-guide" style="font-size:11pt;">(Ký, ghi rõ họ tên)</div>\n              <div class="sig-blank" style="height:'+
     (sigBlankHeight)+
     'px;"></div>\n              <div class="sig-signer" style="font-size:12pt; font-weight:bold;">'+
     (toTruongGDName)+
@@ -326,7 +327,7 @@ function gdxChup(){
 function gdxDung(X){   /* → {than, css} */
   var c = X.C;
   if(X.mau==='m12') return {than:gdxHTML12(c, X.d || {tenDiem:'', maDiem:'', tenXa:'', to:[]}), css:GDX_CSS};
-  if(X.mau==='gl') return {than:gdxHTMLGL(X.gl, c), css:GL_CSS+(c.glKho==='a4' ? GL_CSS_A4 : GL_CSS_A5)};
+  if(X.mau==='gl') return {than:gdxHTMLGL(X.gl, c), css:GL_CSS+(c.glKho==='a4' || c.glKho==='a4x2' ? GL_CSS_A4 : GL_CSS_A5)};
   var x = {soNguoi:c.soNguoi || 1, soTien:c.soTien || ''}, m = '<div class="sheet-a4">'+gdxHTML04(x, c)+'</div>';
   return {than:+c.soBan===1 ? m : m+m, css:GDX_CSS};   /* mặc định 2 bản giống nhau (1 lưu tổ, 1 lưu NH) — chọn được 1 bản */
 }
@@ -384,7 +385,28 @@ function gdxCB(k, trong, bo){
   return '<select class="gdx-i" onchange="gdxDat(\''+k+'\', this.value, 1)"><option value="">— '+trong+' —</option>'+
     C.danhSachCanBo.filter(function(n){ return n===v || (bo||[]).indexOf(n)<0; }).map(function(n){ return '<option value="'+gdxE(n)+'"'+(n===v ? ' selected' : '')+'>'+gdxE(n)+'</option>'; }).join('')+'</select>';
 }
-function gdxNgayChon(js, gt){ return '<input type="date" class="gdx-ngay" value="'+gdxE(gt||'')+'" onchange="'+js+'" title="📅 chọn ngày">'; }
+/* 3.175 (anh chốt): ô ngày gõ nhanh không cần / hay - : "1410" = 14/10 năm nay · "141026" / "14102026" = 14/10/2026 (gõ 14/10/26 cũng được); 📅 chọn trên lịch */
+function gdxDocNgay(s){
+  s = String(s||'').trim(); if(!s) return '';
+  var h = nay(), d, m, y, p = s.split(/[\/\-.\s]+/).filter(Boolean);
+  if(p.length>1){ d = +p[0]; m = +p[1]; y = p[2] ? +p[2] : h.getFullYear(); }
+  else { var x = s.replace(/\D/g, ''), n = x.length;
+    if(n<=2){ d = +x; m = h.getMonth()+1; y = h.getFullYear(); }
+    else if(n===3){ d = +x.slice(0, 1); m = +x.slice(1); y = h.getFullYear(); }
+    else if(n===4){ d = +x.slice(0, 2); m = +x.slice(2); y = h.getFullYear(); }
+    else if(n===6){ d = +x.slice(0, 2); m = +x.slice(2, 4); y = +x.slice(4); }
+    else if(n===8){ d = +x.slice(0, 2); m = +x.slice(2, 4); y = +x.slice(4); }
+    else return ''; }
+  if(y < 100) y += 2000;
+  var t = new Date(y, m-1, d); if(!(m>=1 && m<=12) || t.getDate()!==d || t.getMonth()!==m-1) return '';
+  return ngayISO(t);
+}
+function gdxNgayChon(js, gt){
+  var f = '(function(){'+js+'}).call({value:';
+  return '<span class="gdx-ngay2"><input class="gdx-ngay" inputmode="numeric" autocomplete="off" placeholder="gõ 1410 · 141026" title="Gõ ngày liền số: 1410 = 14/10 năm nay · 141026 = 14/10/2026" value="'+gdxE(gt ? gdxDMY(gt) : '')+'" '+
+    'onkeydown="if(event.key===\'Enter\'){event.preventDefault();this.blur();}" onchange="var v=gdxDocNgay(this.value);if(this.value.trim()&&!v){bao(\'Không hiểu ngày “\'+this.value+\'” — gõ vd 1410 hoặc 141026\');return;}'+f+'v})">'+
+    '<input type="date" class="gdx-lich" value="'+gdxE(gt||'')+'" onchange="'+f+'this.value})" title="📅 chọn trên lịch"></span>';
+}
 
 /* ---------- vẽ 1 mục (khung chọn nhanh và ⚙ dùng chung; kb = đang ở ⚙ → có thêm phần quản lý) ---------- */
 function gdxMucHTML(m, k, kb){
@@ -396,8 +418,8 @@ function gdxMucHTML(m, k, kb){
     else if(k==='kinhgui') h = gdxIn1('kinhGui', 'Ủy ban nhân dân …');
     else if(k==='gq') h = gdxRadio('isGQVL', [[false,'Thông báo thường (người)'],[true,'GQVL (người lao động)']]);
     else if(k==='mh'){
-      h = '<div class="gdx-nhap"><label>Số hộ <input id="gdx-songuoi" class="gdx-i gdx-so" inputmode="numeric" value="'+gdxE(C.soNguoi)+'" oninput="gdxDat(\'soNguoi\', this.value.replace(/\\D/g, \'\'))"></label>'+
-        '<label>Số tiền <input id="gdx-sotien" class="gdx-i gdx-tien" inputmode="numeric" value="'+gdxE(C.soTien)+'" oninput="this.value=gdxTien(this.value);gdxDat(\'soTien\', this.value)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();gdxIn();}"> đồng</label></div>'+
+      h = '<div class="gdx-nhap"><label>Số hộ <input id="gdx-songuoi" class="gdx-i gdx-so" inputmode="numeric" value="'+gdxE(C.soNguoi)+'" oninput="gdxDat(\'soNguoi\', this.value.replace(/\\D/g, \'\'))" onkeydown="gdxPhimBuoc(event, \'soNguoi\', 1)"></label>'+gdxBuocNut('soNguoi', 1, '1 hộ')+
+        '<label>Số tiền <input id="gdx-sotien" class="gdx-i gdx-tien" inputmode="numeric" value="'+gdxE(C.soTien)+'" oninput="this.value=gdxTien(this.value);gdxDat(\'soTien\', this.value)" onkeydown="gdxPhimBuoc(event, \'soTien\', 5000000);if(event.key===\'Enter\'){event.preventDefault();gdxIn();}"> đồng</label>'+gdxBuocNut('soTien', 5000000, '5 triệu')+'</div>'+
         '<div class="gdx-chu-tien" id="gdx-chu">'+gdxE(gdxDocTien(C.soTien) || '—')+'</div>'+
         '<div class="gdx-chips">'+C.mauHay.map(function(x, i){ var bat = +C.soNguoi===x.h && String(C.soTien).replace(/\D/g, '')===String(x.t);
           return '<span class="gdx-mh">'+gdxChip(gdxSoNguoi(x.h)+' hộ · '+gdxTien(x.t), bat, 'gdxMauHay('+i+')', '', 'Điền số hộ + số tiền')+(kb ? '<button class="gdx-x" onclick="gdxBoMauHay('+i+')" title="Bỏ">×</button>' : '')+'</span>'; }).join('')+
@@ -422,7 +444,7 @@ function gdxMucHTML(m, k, kb){
   else if(m==='m12'){
     var d = gdxDiem(C.m12SelectedDiem), nr = +C.m12NumRows || 12;
     if(k==='dau12') h = '<div class="gdx-luoi"><label><span>Dòng 1</span>'+gdxIn1('m12DonVi1')+'</label><label><span>Dòng 2</span>'+gdxIn1('m12DonVi2')+'</label></div>';
-    else if(k==='ngaygd'){ var n3 = d ? gdxNgayToi(d.ngayGD, 3) : [];
+    else if(k==='ngaygd'){ var n3 = d ? gdxNgayToi(d.ngayGD, 1) : [];   /* 3.175 (anh chốt): chỉ ngày GD kế gần nhất + ô chọn ngày */
       h = n3.map(function(n, i){ return gdxChip(gdxDMY(n)+(i===0 ? ' ★' : ''), C.m12NgayGD===n, 'gdxDat(\'m12NgayGD\', \''+n+'\', 1)'); }).join('')+gdxNgayChon('gdxDat(\'m12NgayGD\', this.value, 1)', n3.indexOf(C.m12NgayGD)<0 ? C.m12NgayGD : '')+
         '<b class="gdx-hien">→ '+(C.m12NgayGD ? gdxDMY(C.m12NgayGD) : 'để chấm')+'</b>'; }
     else if(k==='ba') h = '<div class="gdx-ba">'+[['m12GDV','Giao dịch viên','chấm ghi tay'],['m12KSV','Kiểm soát viên / GDV','để trống'],['m12ToTruong','Tổ trưởng tổ GD','để trống']].map(function(r){
@@ -439,6 +461,15 @@ function gdxMucHTML(m, k, kb){
   else if(m==='gl') h = gdxGLMuc(k, kb);
   return h;
 }
+/* 3.175 (anh chốt): ▲▼ tăng / giảm — số hộ bước 1, số tiền bước 5 triệu (phím ↑ ↓ trong ô cũng được) */
+function gdxBuocNut(k, b, chu){ return '<span class="gdx-buoc"><button onclick="gdxBuoc(\''+k+'\', '+b+')" title="Tăng '+chu+'">▲</button><button onclick="gdxBuoc(\''+k+'\', -'+b+')" title="Giảm '+chu+'">▼</button></span>'; }
+function gdxBuoc(k, b){ var C = gdxC(), v = +String(C[k]||'').replace(/\D/g, '') || 0, min = k==='soNguoi' ? 1 : 0;
+  var bb = Math.abs(b); v = v % bb ? (b > 0 ? Math.ceil(v/bb)*bb : Math.floor(v/bb)*bb) : v + b;   /* số lẻ → làm tròn tới bước kế tiếp theo chiều bấm */
+  v = Math.max(min, v);
+  C[k] = k==='soTien' ? gdxTien(v) : String(v); gdxLuu();
+  var o = document.getElementById(k==='soTien' ? 'gdx-sotien' : 'gdx-songuoi'); if(o) o.value = C[k];
+  gdxXem(); var t = document.getElementById('gdx-tom'); if(t) t.innerHTML = gdxTomHTML(); }
+function gdxPhimBuoc(ev, k, b){ if(ev.key==='ArrowUp' || ev.key==='ArrowDown'){ ev.preventDefault(); gdxBuoc(k, ev.key==='ArrowUp' ? b : -b); } }
 function gdxNoi(noi){ var C = gdxC(), S = gdxCH();
   if(noi==='pgd') gdxDat04('pgd', S.xa ? gdxTenXa(S.xa) : C.xa04, true); else gdxDat04('diem', S.diem || C.ma04, true);
   gdxVe(); }
@@ -449,7 +480,7 @@ function gdxTheoLoc(){
   var C = gdxC(), S = gdxCH(), d = S.diem ? gdxDiem(S.diem) : null;
   if(d){ if(C.noiGN!=='pgd' && C.ma04!==d.k) gdxDat04('diem', d.k, true); if(C.m12SelectedDiem!==d.k) gdxDat12Diem(d.k, true); }
   if(C.noiGN==='pgd' && S.xa){ var tx = gdxTenXa(S.xa); if(tx && tx!==C.xa04) gdxDat04('pgd', tx, true); }
-  if(C.form==='gl' && S.to!==GDX.glTo){ GDX.glTo = S.to; GDX.glKH = ''; GDX.glTien = ''; }
+  if(C.form==='gl' && S.to!==GDX.glTo){ GDX.glTo = S.to; GDX.glKH = ''; GDX.glTien = ''; GDX.glSua = {}; }
   gdxVeTrai();
 }
 /* chọn điểm GD có ngày GD gần nhất (hôm nay trước) — mở mẫu cấp điểm chưa chọn điểm, hoặc mở Giấy lĩnh (anh chốt: ngày GD xã nào thì chọn điểm đó) */
@@ -484,7 +515,8 @@ function gdxKhung(K){
 }
 function gdxVuaKhung(){ var f = document.getElementById('gdx-khung'); if(!f || !f.offsetParent) return; f.style.height = Math.max(360, window.innerHeight - f.getBoundingClientRect().top - 22)+'px'; gdxXem(); }
 window.addEventListener('resize', function(){ if(document.getElementById('gdx-khung')){ clearTimeout(window.__gdxVua); window.__gdxVua = setTimeout(gdxVuaKhung, 150); } });
-function gdxVe(){ gdxVeTrai(); if(document.getElementById('gdx-kbr')) gdxKBRieng(); }
+function gdxHopMo(id){ var h = document.getElementById('hop'); return !!(document.getElementById(id) && h && h.classList.contains('hien')); }   /* 3.175: hộp đã đóng vẫn còn trong trang → chỉ vẽ lại khi đang hiện */
+function gdxVe(){ gdxVeTrai(); if(gdxHopMo('gdx-kbr')) gdxKBRieng(); }
 function gdxVeTrai(){
   var e = document.getElementById('gdx-trai'); if(!e) return;
   var C = gdxC(), M = gdxMauHT(), cay = document.getElementById('gdx-cay');
@@ -600,7 +632,7 @@ function gdxTomHTML(){
   var T = gdxTom(), X = {mau:gdxMauHT().k}, so = X.mau==='m04' && +gdxC().soBan!==1 ? 2 : 1;
   return '<div class="gdx2-tom-tit">📋 Tóm tắt bản in</div><div class="gdx2-tom-chip">'+T.chip.map(function(x){ return '<span class="gdx-tc '+x.lop+'" onclick="gdxToi(\''+x.k+'\')">'+gdxE(x.chu)+'</span>'; }).join('')+'</div>'+
     (T.canh.length ? '<div class="gdx2-canh">'+T.canh.map(function(x){ return '<div class="'+x.muc+'" onclick="gdxToi(\''+x.k+'\')">'+(x.muc==='do' ? '⛔ ' : '⚠ ')+gdxE(x.chu)+'</div>'; }).join('')+'</div>' : '')+
-    '<div class="gdx2-in"><button class="nho" onclick="gdxPDF()">📄 PDF</button><button class="nho chinh gdx-in" onclick="gdxIn()">🖨 IN '+so+' bản</button></div>';
+    '<div class="gdx2-in">'+(X.mau==='gl' ? '<button class="nho" onclick="gdxGLTrangIn(1)" title="Giấy lĩnh trắng (đúng form, không điền gì) — 1 mẫu nửa trên tờ A4">📄 Mẫu trắng 1/A4</button><button class="nho" onclick="gdxGLTrangIn(2)" title="2 mẫu trắng trên 1 tờ A4 — cắt đôi theo vạch giữa">📄 2 mẫu/A4 (cắt đôi)</button>' : '')+'<button class="nho" onclick="gdxPDF()">📄 PDF</button><button class="nho chinh gdx-in" onclick="gdxIn()">🖨 IN '+so+' bản</button></div>';
 }
 function gdxKhoaIn(X){ return JSON.stringify([X.mau, X.C, X.d ? X.d.k : '', X.gl ? [X.gl.kh, X.gl.tien] : '']); }
 function gdxIn(pdf){
@@ -611,6 +643,8 @@ function gdxIn(pdf){
   gdxInBan(X, pdf); gdxNKThem(X);
 }
 function gdxPDF(){ gdxIn(true); }
+/* 3.175 (anh chốt): in Giấy lĩnh TRẮNG đúng form — 1 mẫu / A4 (nửa trên) hoặc 2 mẫu / A4 cắt đôi (mỗi nửa đúng 148,5 mm, vạch cắt mờ ở giữa) */
+function gdxGLTrangIn(n){ var c = JSON.parse(JSON.stringify(gdxC())); c.glKho = n===2 ? 'a4x2' : 'a4'; c.glTrang = true; gdxInBan({mau:'gl', C:c, gl:{}}); }
 function gdxTenFile(X){ var c = X.C, d = X.mau==='m12' ? X.d : gdxDiem(c.ma04);
   return X.mau==='gl' ? 'GiayLinh_'+boDauTen((X.gl && X.gl.ten) || '').replace(/ /g, '')+'_'+(X.gl && X.gl.ngay || gdxHom())
     : (X.mau==='m12' ? 'Mau12GDX_' : 'Mau04TD_')+boDauTen(d ? d.tenDiem : (c.xa04 || '')).replace(/ /g, '')+'_'+(X.mau==='m12' ? c.m12NgayGD : c.ngayPhatISO || gdxHom()); }
@@ -665,6 +699,8 @@ function gdxGLDuLieu(){
     if(r.kh && typeof hsoKhach==='function'){ var k = hsoKhach(r.kh, t); r.cccd = k.cccd || ''; r.ncap = k.ncap || ''; r.noiCap = k.noiCap || ''; if(!r.ten) r.ten = k.ten || ''; }
   }
   r.tien = GDX.glHet && r.du ? String(Math.round(r.du)) : String(GDX.glTien||'').replace(/\D/g, '');
+  var sua = GDX.glSua || {};   /* 3.175: form gõ tay — sửa / bổ sung cho lần in này (không ghi đè số liệu) */
+  GL_O.forEach(function(o){ if(sua[o[0]]!==undefined) r[o[0]] = o[0]==='ncap' ? (gdxDocNgay(sua.ncap) || '') : sua[o[0]]; });
   return r;
 }
 function gdxGLMuc(k, kb){
@@ -676,8 +712,8 @@ function gdxGLMuc(k, kb){
       gdxNgayChon('gdxC().glNgayTay=this.value;gdxDat(\'glNgayCach\', this.value ? \'tay\' : \'gd\', 1)', cach==='tay' ? C.glNgayTay : '')+
       gdxChip('Để chấm', cach==='cham', 'gdxDat(\'glNgayCach\', \'cham\', 1)')+'<b class="gdx-hien">→ '+(gdxGLNgay() ? gdxDMY(gdxGLNgay()) : 'để chấm')+'</b>'; }
   else if(k==='glso') h = '<div class="gdx-luoi"><label><span>Số</span>'+gdxIn1('glSo', 'trống = chấm')+'</label><label><span>KHTK</span>'+gdxIn1('glKHTK', 'trống = chấm')+'</label></div>';
-  else if(k==='glloai') h = '<span class="gdx-ra"><label><input type="radio" name="gdx-r-glloai"'+(C.glLoai!=='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;gdxDat(\'glLoai\', \'105\', 1)"> Khách rút TK 105</label>'+
-    '<label><input type="radio" name="gdx-r-glloai"'+(C.glLoai==='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;gdxDat(\'glLoai\', \'104\', 1)"> Tổ trưởng rút TK 104</label></span>';
+  else if(k==='glloai') h = '<span class="gdx-ra"><label><input type="radio" name="gdx-r-glloai"'+(C.glLoai!=='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;GDX.glSua={};gdxDat(\'glLoai\', \'105\', 1)"> Khách rút TK 105</label>'+
+    '<label><input type="radio" name="gdx-r-glloai"'+(C.glLoai==='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;GDX.glSua={};gdxDat(\'glLoai\', \'104\', 1)"> Tổ trưởng rút TK 104</label></span>';
   else if(k==='glnguoi') h = gdxGLNguoiHTML();
   else if(k==='gltai') h = gdxIn1('glTaiNH', 'trống = chấm (vd: NHCSXH PGD Gò Dầu)');
   else if(k==='gltien'){ var g = gdxGLDuLieu();
@@ -697,9 +733,9 @@ function gdxGLLuuMuc(){ var C = gdxC(), v = +String(GDX.glTien||'').replace(/\D/
 function gdxTomVe(){ var t = document.getElementById('gdx-tom'); if(t) t.innerHTML = gdxTomHTML(); var c = document.getElementById('gdx-gl-chu'); if(c){ var g = String(GDX.glTien||'').replace(/\D/g, ''); c.textContent = g ? gdxDocTien(g) : '—'; } }
 function gdxGLNguoiHTML(){
   var C = gdxC(), t = gdxGLTo(), h = '';
-  if(!TO_K) return '<div class="sl-bao vang">Chưa có số liệu Mẫu 31 — mẫu in trắng, ghi tay. Nạp ở 📥 Nạp &amp; KT để app điền sẵn tên, CCCD, số tài khoản.</div>';
+  if(!TO_K) return '<div class="sl-bao vang">Chưa có số liệu Mẫu 31 — gõ tay vào form dưới đây (hoặc nạp Mẫu 31 ở 📥 Nạp &amp; KT để tìm tên, app điền sẵn).</div>'+gdxGLFormHTML(gdxGLDuLieu());
   h += '<div class="gdx-tim"><input id="gdx-gl-q" class="gdx-i" autocomplete="off" placeholder="🔎 Gõ tên '+(C.glLoai==='104' ? 'tổ trưởng' : 'tổ trưởng / khách')+' — không dấu cũng được" value="'+gdxE(GDX.glQ||'')+'" oninput="GDX.glQ=this.value;gdxGLTim()" onkeydown="if(event.key===\'Enter\'){var b=document.querySelector(\'#gdx-gl-gy button\');if(b){event.preventDefault();b.click();}}"><div id="gdx-gl-gy" class="gdx-gy"></div></div>';
-  if(!t) return h+'<small class="gdx-ghi">hoặc chọn Tổ ở khối LỌC ĐỊA BÀN.</small>';
+  if(!t) return h+'<small class="gdx-ghi">hoặc chọn Tổ ở khối LỌC ĐỊA BÀN · hoặc gõ thẳng vào form.</small>'+gdxGLFormHTML(gdxGLDuLieu());
   var g = gdxGLDuLieu();
   if(C.glLoai==='104'){
     h += '<div class="gdx-nguoi"><b>'+gdxE(g.ten || '(tổ chưa có tên tổ trưởng)')+'</b> · Tổ '+gdxE(t.ma)+(t.tenThon ? ' · '+gdxE(pvApNgan(t.tenThon)) : '')+'<br>TK 104: '+(g.tk ? '<b>'+gdxE(g.tk)+'</b> <small>('+g.tkTu+')</small>' : '<span class="gdx-vang">chưa có — nạp danh mục tham chiếu / file TK 104 ở ⚙ Khai báo chung</span>')+
@@ -711,9 +747,22 @@ function gdxGLNguoiHTML(){
       (ds.length>24 ? '<select class="gdx-i" onchange="if(this.value)gdxGLChonKH(this.value)"><option value="">— đủ danh sách '+ds.length+' khách —</option>'+ds.map(function(x){ return '<option value="'+gdxE(x.kh)+'"'+(x.kh===GDX.glKH ? ' selected' : '')+'>'+gdxE(x.ten+' · 105: '+gdxTien(Math.round(x.t105||0)))+'</option>'; }).join('')+'</select>' : '');
     if(g.ten) h += '<div class="gdx-nguoi"><b>'+gdxE(g.ten)+'</b> · TK 105: '+(g.tk ? '<b>'+gdxE(g.tk)+'</b>' : '<span class="gdx-vang">chưa có số</span>')+' · số dư '+gdxTien(Math.round(g.du||0))+' đ · CCCD: '+(g.cccd ? gdxE(g.cccd) : '<span class="gdx-vang">chưa có</span>')+'</div>';
   }
+  h += gdxGLFormHTML(g);
   return h;
 }
-function gdxGLChonKH(kh){ GDX.glKH = kh; GDX.glHet = 0; gdxVe(); }
+function gdxGLChonKH(kh){ GDX.glKH = kh; GDX.glHet = 0; GDX.glSua = {}; gdxVe(); }
+/* 3.175 (anh chốt): form gõ tay ngay dưới ô tìm, bố trí như mẫu thật — tìm ra thì app điền sẵn, sửa được; không tìm thì gõ thẳng */
+var GL_O = [['ten','Họ, tên khách hàng',2], ['diaChi','Địa chỉ',2], ['cccd','CMT (Hộ chiếu) số',1], ['ncap','Ngày cấp',1], ['noiCap','Nơi cấp',2], ['tk','Tài khoản số',2]];
+function gdxGLFormHTML(g){
+  return '<div class="gl-form"><div class="gdx-nh3">✍ Thông tin in lên giấy lĩnh <small>(tìm ra thì app điền sẵn — sửa / gõ thẳng được, chỉ cho lần in này)</small></div><div class="gl-form-luoi">'+
+    GL_O.map(function(o){ var v = g[o[0]] || '', ph = o[0]==='ncap' ? 'gõ 230421' : 'trống = chấm';
+      if(o[0]==='ncap' && /^\d{4}-\d{2}-\d{2}/.test(v)) v = gdxDMY(String(v).slice(0, 10));
+      if(GDX.glSua && GDX.glSua[o[0]]!==undefined && o[0]==='ncap') v = GDX.glSua.ncap;
+      return '<label class="'+(o[2]===2 ? 'gl-f2' : '')+'"><span>'+o[1]+'</span><input class="gdx-i" data-k="'+o[0]+'" value="'+gdxE(v)+'" placeholder="'+ph+'" oninput="gdxGLSua(this)"></label>'; }).join('')+
+    '</div><div class="hang-nut"><button class="nho" onclick="gdxGLLamTrong()" title="Xóa trống cả form để gõ người khác">✕ Làm trống form</button>'+(GDX.glSua && Object.keys(GDX.glSua).length && (GDX.glKH || gdxGLTo()) ? '<button class="nho" onclick="GDX.glSua={};gdxVe()">↺ Theo số liệu</button>' : '')+'</div></div>';
+}
+function gdxGLSua(o){ GDX.glSua = GDX.glSua || {}; GDX.glSua[o.getAttribute('data-k')] = o.value; gdxXem(); gdxTomVe(); }
+function gdxGLLamTrong(){ GDX.glSua = {}; GL_O.forEach(function(o){ GDX.glSua[o[0]] = ''; }); gdxVe(); var e = document.querySelector('.gl-form input'); if(e) e.focus(); }
 function gdxGLTim(){
   var g = document.getElementById('gdx-gl-gy'); if(!g) return;
   var q = slChuan(GDX.glQ||''); if(q.length<2 || !TO_K){ g.innerHTML = ''; return; }
@@ -730,7 +779,7 @@ function gdxGLTim(){
 function gdxGLChon(to, kh){
   GDX.glQ = ''; pvChonTo('gdx', to);
   var t = TO_K && TO_K.to[to];
-  GDX.glTo = to; GDX.glHet = 0; GDX.glTien = '';
+  GDX.glTo = to; GDX.glHet = 0; GDX.glTien = ''; GDX.glSua = {};
   GDX.glKH = kh || (t && gdxC().glLoai!=='104' && typeof hsoTTKH==='function' ? hsoTTKH(t).kh : '') || '';
   gdxVe();
 }
@@ -738,64 +787,82 @@ function gdxGLChon(to, kh){
 function gdxGLO(v, lop){ v = v==null ? '' : String(v).trim(); return v ? '<span class="gl-v'+(lop ? ' '+lop : '')+'">'+gdxE(v)+'</span>' : '<span class="gl-c'+(lop ? ' '+lop : '')+'"></span>'; }
 function gdxGLNgayO(iso, nhan){ var p = String(iso||'').split('-'), o = function(v, w){ return v ? '<span class="gl-vn">'+v+'</span>' : '<span class="gl-cn" style="width:'+w+'"></span>'; };
   return nhan ? nhan+' '+o(p[2], '12mm')+' tháng '+o(p[1], '12mm')+' năm '+o(p[0], '13mm') : o(p[2], '9mm')+'/'+o(p[1], '9mm')+'/'+o(p[0], '12mm'); }
-function gdxHTMLGL(g, c){
-  g = g || {}; c = c || gdxC();
+/* 3.175 (anh góp sau in thử): bằng chữ dài → tràn xuống dòng dưới (bỏ chấm), vừa 1 dòng → dòng dưới giữ chấm (tối đa 2 dòng);
+   dòng PGD có chữ → giãn đều như 2 dòng trên, phiếu trắng giữ khoảng ghi tay; dòng Nội dung canh đều các dòng trên → chỗ ký rộng hơn;
+   chữ VBSP chìm (bản giấy trắng); chữ 13 pt. trang = true → phiếu trắng đúng form (không điền gì). */
+function gdxGLTrang(g, c, trang){
+  g = trang ? {} : (g || {}); c = c || gdxC();
+  var kb = function(k, md){ return trang ? '' : (c[k]==null ? (md||'') : c[k]); };
   var tien = g.tien ? gdxTien(g.tien) : '', chu = g.tien ? gdxDocTien(g.tien) : '';
-  var r = function(nhan, gt, lop){ return '<div class="gl-r"><span class="gl-n">'+nhan+'</span>'+gt+'</div>'; };
+  var r = function(nhan, gt){ return '<div class="gl-r"><span class="gl-n">'+nhan+'</span>'+gt+'</div>'; };
   var hop = function(tit, gt){ return '<div class="gl-hop"><div class="gl-hop-t">'+tit+'</div><div class="gl-r gl-hop-g">'+gt+'</div></div>'; };
-  var trang = '<div class="gl-trang">'+
-    '<div class="gl-dau"><div class="gl-nh"><div>NGÂN HÀNG CSXH</div><div>CHI NHÁNH TỈNH TÂY NINH</div><div class="gl-r gl-pgd">'+gdxGLO(c.glPGD, 'gl-giua')+'</div></div>'+
+  var pgd = kb('glPGD');
+  return '<div class="gl-trang"><div class="gl-chim">VBSP</div>'+
+    '<div class="gl-dau"><div class="gl-nh"><div>NGÂN HÀNG CSXH</div><div>CHI NHÁNH TỈNH TÂY NINH</div>'+(pgd ? '<div class="gl-pgdv">'+gdxE(pgd)+'</div>' : '<div class="gl-r gl-pgd">'+gdxGLO('')+'</div>')+'</div>'+
       '<div class="gl-giua2"><div class="gl-tit">GIẤY LĨNH TIỀN MẶT</div><div class="gl-ngay">'+gdxGLNgayO(g.ngay, 'Ngày')+'</div></div>'+
-      '<div class="gl-so">'+r('Số:', gdxGLO(c.glSo))+r('KHTK', gdxGLO(c.glKHTK))+'</div></div>'+
+      '<div class="gl-so">'+r('Số:', gdxGLO(kb('glSo')))+r('KHTK', gdxGLO(kb('glKHTK')))+'</div></div>'+
     '<div class="gl-than"><div class="gl-trai">'+
       r('Họ, tên khách hàng:', gdxGLO(g.ten, 'gl-dam'))+r('Địa chỉ:', gdxGLO(g.diaChi))+
       '<div class="gl-r"><span class="gl-n">CMT (Hộ chiếu) số:</span>'+gdxGLO(g.cccd)+'<span class="gl-n gl-n2">Ngày</span><span class="gl-ns">'+gdxGLNgayO(g.ncap ? String(g.ncap).slice(0, 10) : '')+'</span></div>'+
-      r('Nơi cấp:', gdxGLO(g.noiCap))+r('Tài khoản số:', gdxGLO(g.tk, 'gl-dam'))+r('Tại Ngân hàng:', gdxGLO(c.glTaiNH))+
-      r('Yêu cầu cho rút tiền <i>(bằng chữ)</i>:', gdxGLO(chu))+'<div class="gl-r">'+gdxGLO('')+'</div>'+
-    '</div><div class="gl-phai"><div class="gl-phan">PHẦN DO NGÂN HÀNG GHI</div><div class="gl-hop2">'+hop('Tài khoản ghi Nợ', gdxGLO(c.glTKNo==='tk' ? g.tk : ''))+hop('Mã - Ngân hàng', gdxGLO(c.glMaNH))+'</div>'+
+      r('Nơi cấp:', gdxGLO(g.noiCap))+r('Tài khoản số:', gdxGLO(g.tk, 'gl-dam'))+r('Tại Ngân hàng:', gdxGLO(kb('glTaiNH')))+
+      r('Yêu cầu cho rút tiền <i>(bằng chữ)</i>:', chu ? '<span class="gl-v gl-bc1">'+gdxE(chu)+'</span>' : gdxGLO(''))+'<div class="gl-r">'+(chu ? '<span class="gl-c gl-bc2"></span>' : gdxGLO(''))+'</div>'+
+    '</div><div class="gl-phai"><div class="gl-phan">PHẦN DO NGÂN HÀNG GHI</div><div class="gl-hop2">'+hop('Tài khoản ghi Nợ', gdxGLO(!trang && c.glTKNo==='tk' ? g.tk : ''))+hop('Mã - Ngân hàng', gdxGLO(kb('glMaNH')))+'</div>'+
       '<div class="gl-hop2 gl-hop3">'+hop('Số tiền bằng số', gdxGLO(tien, 'gl-dam'))+'</div></div></div>'+
-    r('Nội dung:', gdxGLO(c.glND==null ? 'Rút tiền' : c.glND))+'<div class="gl-r">'+gdxGLO('')+'</div>'+
+    '<div class="gl-r gl-r2">'+'<span class="gl-n">Nội dung:</span>'+gdxGLO(kb('glND', 'Rút tiền'))+'</div><div class="gl-r gl-r2">'+gdxGLO('')+'</div>'+
     '<div class="gl-ky"><div>Kế toán trưởng</div><div>Chủ tài khoản</div><div class="gl-ky-l">Người lĩnh tiền<i>(Đã nhận đủ tiền)</i></div><div>Thủ quỹ</div><div>Kế toán</div><div>Kiểm soát</div><div>Giám đốc</div></div>'+
   '</div>';
-  return '<div class="sheet-gl'+(c.glKho==='a4' ? ' gl-a4' : '')+'">'+trang+'</div>';
+}
+/* bằng chữ: đo trên trang — chữ không vừa dòng 1 thì phần còn lại xuống dòng 2 (bỏ chấm) */
+var GL_JS = '<script>(function(){function chia(){Array.prototype.forEach.call(document.querySelectorAll(".gl-bc1"),function(a){var b=a.parentNode.nextElementSibling&&a.parentNode.nextElementSibling.querySelector(".gl-bc2");if(!b||a.getAttribute("data-xong"))return;a.setAttribute("data-xong","1");if(a.scrollWidth<=a.clientWidth+1)return;var w=a.textContent.split(" "),i=w.length;while(i>1){i--;a.textContent=w.slice(0,i).join(" ");if(a.scrollWidth<=a.clientWidth+1)break;}b.className="gl-v gl-bc2";b.textContent=w.slice(i).join(" ");});}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",chia);else chia();})();<\/script>';
+function gdxHTMLGL(g, c){
+  c = c || gdxC();
+  if(c.glKho==='a4x2') return '<div class="sheet-gl gl-a4 gl-x2">'+gdxGLTrang(g, c, c.glTrang)+'<div class="gl-cat"></div>'+gdxGLTrang(g, c, c.glTrang)+'</div>'+GL_JS;
+  return '<div class="sheet-gl'+(c.glKho==='a4' ? ' gl-a4' : '')+'">'+gdxGLTrang(g, c, c.glTrang)+'</div>'+GL_JS;
 }
 var GL_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1;color:#000;font-family:"Times New Roman",Times,serif}'+
   '.preview-stage{background:#455a64;border-radius:8px;padding:20px;display:flex;justify-content:center;overflow:auto}'+
   '.sheet-gl{background:#fff;width:210mm;height:148mm;box-shadow:0 8px 24px rgba(0,0,0,.3);overflow:hidden;position:relative}.sheet-gl.gl-a4{height:297mm}'+
-  '.gl-trang{width:210mm;height:148mm;padding:9mm 11mm 4mm 13mm;font-size:12.5pt;line-height:1.3;display:flex;flex-direction:column}'+
-  '.gl-dau{display:grid;grid-template-columns:62mm 1fr 50mm;align-items:start;margin-bottom:2.5mm}'+
-  '.gl-nh{text-align:center;font-weight:bold;font-size:12pt;line-height:1.25}.gl-nh .gl-pgd{margin-top:2.5mm;font-weight:normal}'+
-  '.gl-giua2{text-align:center}.gl-tit{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:16.5pt;margin-top:1mm;letter-spacing:.2px}.gl-ngay{font-family:Arial,Helvetica,sans-serif;font-style:italic;font-size:11.5pt;margin-top:4mm}'+
-  '.gl-so{font-size:11.5pt;padding-left:4mm}.gl-so .gl-r{min-height:8mm}'+
-  '.gl-r{display:flex;align-items:baseline;gap:1.2mm;min-height:7.3mm;white-space:nowrap}.gl-n{flex:none}.gl-n2{margin-left:2mm}'+
+  '.gl-trang{position:relative;width:210mm;height:148mm;padding:8mm 11mm 4mm 13mm;font-size:13pt;line-height:1.3;display:flex;flex-direction:column}'+
+  '.gl-x2 .gl-trang{height:148.5mm}.gl-cat{position:absolute;left:0;right:0;top:148.5mm;border-top:.3mm dashed #b8b8b8}'+
+  '.gl-chim{position:absolute;left:52mm;top:48mm;font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:118pt;letter-spacing:3mm;color:#e3e3e3;z-index:0;pointer-events:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
+  '.gl-dau,.gl-than,.gl-ky,.gl-r2{position:relative;z-index:1}'+
+  '.gl-dau{display:grid;grid-template-columns:64mm 1fr 50mm;align-items:start;margin-bottom:2mm}'+
+  '.gl-nh{text-align:center;font-weight:bold;font-size:12.5pt;line-height:1.25}.gl-nh .gl-pgd{margin-top:2.5mm;font-weight:normal}.gl-pgdv{font-weight:normal}'+
+  '.gl-giua2{text-align:center}.gl-tit{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:17pt;margin-top:.5mm;letter-spacing:.2px}.gl-ngay{font-family:Arial,Helvetica,sans-serif;font-style:italic;font-size:12pt;margin-top:4mm}'+
+  '.gl-so{font-size:12pt;padding-left:4mm}.gl-so .gl-r{min-height:8mm}'+
+  '.gl-r{display:flex;align-items:baseline;gap:1.2mm;min-height:7.2mm;white-space:nowrap}.gl-n{flex:none}.gl-n2{margin-left:2mm}'+
   '.gl-c{flex:1 1 auto;display:block;min-width:6mm;border-bottom:1.4px dotted #000;line-height:1}.gl-c::after{content:"\\00a0"}'+
-  '.gl-v{flex:1 1 auto;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:1mm}.gl-v.gl-dam{font-weight:bold}.gl-v.gl-giua{text-align:center}'+
+  '.gl-v{flex:1 1 auto;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:1mm}.gl-v.gl-dam{font-weight:bold}.gl-v.gl-bc1{text-overflow:clip}'+
   '.gl-cn{display:inline-block;border-bottom:1.4px dotted #000;line-height:1}.gl-cn::after{content:"\\00a0"}.gl-vn{display:inline-block;min-width:6mm;text-align:center}.gl-ns{flex:none}'+
-  '.gl-than{display:grid;grid-template-columns:1fr 63mm;gap:5mm}.gl-trai{min-width:0}'+
-  '.gl-phai{display:flex;flex-direction:column;align-items:stretch;padding-top:0}.gl-phan{font-weight:bold;font-size:11pt;text-align:center;margin-bottom:1.5mm}'+
-  '.gl-hop2{border:1.2px solid #000}.gl-hop3{margin-top:3mm}.gl-hop+.gl-hop{border-top:1.2px solid #000}.gl-hop{padding:1.5mm 2.5mm 1mm}.gl-hop-t{text-align:center}.gl-hop-g{min-height:9.5mm;align-items:flex-end}.gl-hop-g .gl-v{text-align:center;padding:0}'+
-  '.gl-ky{display:grid;grid-template-columns:1fr 1fr 1.15fr 0.85fr 0.85fr 0.9fr 0.9fr;text-align:center;font-weight:bold;font-size:11.5pt;margin-top:2mm;flex:1;min-height:26mm}'+
-  '.gl-ky>div{padding-top:1mm}.gl-ky i{display:block;font-weight:normal}.gl-ky-l{border-left:1.2px solid #000;border-right:1.2px solid #000}'+
-  '@media print{body{background:#fff}.preview-stage{background:none;padding:0;display:block;border-radius:0}.sheet-gl{box-shadow:none;zoom:1 !important;height:147mm}.gl-trang{height:147mm}}';
+  '.gl-than{display:grid;grid-template-columns:1fr 62mm;gap:5mm}.gl-trai{min-width:0}'+
+  '.gl-phai{display:flex;flex-direction:column;align-items:stretch}.gl-phan{font-weight:bold;font-size:11.5pt;text-align:center;line-height:1.2;margin:1mm 0 1.5mm}'+
+  '.gl-hop2{border:1.2px solid #000}.gl-hop3{margin-top:2.5mm}.gl-hop+.gl-hop{border-top:1.2px solid #000}.gl-hop{padding:1mm 2.5mm .5mm}.gl-hop-t{text-align:center;font-size:12pt;line-height:1.2}.gl-hop-g{min-height:7mm;align-items:flex-end}.gl-hop-g .gl-v{text-align:center;padding:0}'+
+  '.gl-ky{display:grid;grid-template-columns:1.15fr 1.1fr 1.2fr .8fr .8fr .95fr .9fr;column-gap:1mm;text-align:center;font-weight:bold;font-size:11.5pt;margin-top:2mm;flex:1;min-height:24mm}'+
+  '.gl-ky>div{padding-top:1mm;white-space:nowrap}.gl-ky i{display:block;font-weight:normal}.gl-ky-l{border-left:1.2px solid #000;border-right:1.2px solid #000}'+
+  '@media print{body{background:#fff}.preview-stage{background:none;padding:0;display:block;border-radius:0}.sheet-gl{box-shadow:none;zoom:1 !important;height:147mm}.gl-trang{height:147mm}'+
+    '.sheet-gl.gl-x2{height:296mm}.gl-x2 .gl-trang{height:148mm}.gl-cat{top:148mm}}';
 var GL_CSS_A5 = '@page{size:A5 landscape;margin:0}';
-var GL_CSS_A4 = '@page{size:A4 portrait;margin:0}@media print{.sheet-gl.gl-a4{height:147mm}}';
+var GL_CSS_A4 = '@page{size:A4 portrait;margin:0}@media print{.sheet-gl.gl-a4{height:147mm}.sheet-gl.gl-a4.gl-x2{height:296mm}}';
 
 /* ==========================================================
-   3.174: DANH MỤC THAM CHIẾU + TK 104 (anh chốt 12/10) — cây địa bàn vẫn theo Mẫu 31; file anh nạp chỉ để TRA thông tin Mẫu 31 không có
-   (mã điểm GD, ngày GD, số TK 104 tổ trưởng, SĐT, tổ phó) và đối chiếu. Lưu cùng cài đặt (Drive của anh) — KHÔNG đưa vào mã nguồn (repo công khai).
-   File TK 104 hệ thống → danh sách TK 104 chưa đóng của khách không còn làm tổ trưởng (xét đủ: danh mục tham chiếu + Mẫu 31 / DSTO / Thông tin tổ trưởng).
+   DANH MỤC TỔ + TK 104 tổ trưởng — 3.174 tham chiếu; 3.175 (anh chốt 12/10): NẠP 1 CHỖ ở 📥 Nạp & KT
+   (nút 📥 Nạp file tự nhận file danh mục nhiều sheet — sheet tổ có Mã tổ + Số TK 104, sheet điểm GD — hoặc file TK 104 hệ thống SOTK + MAKH; hoặc khối 📚 ngay tab),
+   nạp xong KIỂM TRA NGAY với Mẫu 31, TK 104 của tổ trưởng gắn theo mã tổ (lưu kèm danh bạ tổ: D.cauHinh.dmTo / dmTK104 — Drive của anh, KHÔNG vào mã nguồn).
+   Cây địa bàn vẫn theo Mẫu 31; danh mục chỉ bù mã điểm / ngày GD / TK 104 và đối chiếu. Bản 3.174 lưu gdxTC / gdxTK104 → tự chuyển sang tên mới.
    ========================================================== */
-function gdxTC(){ var t = D.cauHinh.gdxTC; return t && t.to ? t : {to:{}, diem:{}, luc:'', ten:''}; }
-function gdxTK104(){ var t = D.cauHinh.gdxTK104; return t && t.ds ? t : {ds:[], luc:'', ten:'', ngay:''}; }
+function gdxTC(){ var c = D.cauHinh; if(!c.dmTo && c.gdxTC){ c.dmTo = c.gdxTC; delete c.gdxTC; } var t = c.dmTo; return t && t.to ? t : {to:{}, diem:{}, luc:'', ten:''}; }
+function gdxTK104(){ var c = D.cauHinh; if(!c.dmTK104 && c.gdxTK104){ c.dmTK104 = c.gdxTK104; delete c.gdxTK104; } var t = c.dmTK104; return t && t.ds ? t : {ds:[], luc:'', ten:'', ngay:''}; }
+function dmtToCua(ma){ return gdxTC().to[ma] || null; }   /* tra 1 tổ: {tt, ttKH, tk104, sdt, pho, phoKH, diem, tenDiem, xa, ap, hoi} */
 function gdxTK104Cua(kh){ if(!kh) return ''; var x = gdxTK104().ds.find(function(o){ return o.kh===kh; }); if(x) return x.tk;
   var tc = gdxTC().to, m = Object.keys(tc).find(function(k){ return tc[k].ttKH===kh && tc[k].tk104; }); return m ? tc[m].tk104 : ''; }
 function gdxCot(h, khoa){ var c = h.map(function(x){ return slChuan(x); }); for(var i = 0; i < khoa.length; i++){ var k = khoa[i], j = c.findIndex(function(x){ return k.charAt(0)==='=' ? x===k.slice(1) : x.indexOf(k)===0; }); if(j>=0) return j; } return -1; }
-function gdxDocFile(wb){
+/* sheets = [{ten, rows}] (như slDocSheet) → {to, diem, tk} */
+function gdxDocSheets(sheets){
   var kq = {to:null, diem:null, tk:null};
-  wb.SheetNames.forEach(function(n){
-    var a = XLSX.utils.sheet_to_json(wb.Sheets[n], {header:1, defval:'', raw:false}); if(!a.length) return;
-    var hi = a.findIndex(function(r){ return r.some(function(x){ return /ma\s*to|sotk|ma diem/.test(slChuan(x)); }); }); if(hi<0) return;
-    var h = a[hi], ds = a.slice(hi+1).filter(function(r){ return r.some(function(x){ return String(x).trim(); }); }), v = function(r, i){ return i>=0 ? String(r[i]==null ? '' : r[i]).trim() : ''; };
+  (sheets||[]).forEach(function(sh){
+    var a = sh.rows || []; if(!a.length) return;
+    var hi = a.findIndex(function(r){ return (r||[]).some(function(x){ return /ma\s*to|sotk|ma diem/.test(slChuan(x)); }); }); if(hi<0) return;
+    var h = a[hi], ds = a.slice(hi+1).filter(function(r){ return (r||[]).some(function(x){ return String(x==null ? '' : x).trim(); }); }), v = function(r, i){ return i>=0 ? String(r[i]==null ? '' : r[i]).trim() : ''; };
     var cTo = gdxCot(h, ['=ma to']), c104 = h.findIndex(function(x){ return /104/.test(String(x)); });
     if(cTo>=0 && c104>=0){
       var C = {diem:gdxCot(h, ['ma diem']), tenDiem:gdxCot(h, ['ten diem']), xa:gdxCot(h, ['ten xa']), ap:gdxCot(h, ['ten ap']), tt:gdxCot(h, ['ten to truong']), ttKH:gdxCot(h, ['ma kh to truong']),
@@ -812,49 +879,93 @@ function gdxDocFile(wb){
   });
   return kq;
 }
-function gdxNapFile(){
-  if(!window.XLSX) return baoLoi('Chưa tải được bộ đọc Excel. Có mạng một lần rồi thử lại.');
-  var i = document.createElement('input'); i.type = 'file'; i.accept = '.xlsx,.xls';
-  i.onchange = function(){ var f = i.files && i.files[0]; if(!f) return; var fr = new FileReader();
-    fr.onload = function(){ var kq; try { kq = gdxDocFile(XLSX.read(new Uint8Array(fr.result), {type:'array'})); } catch(er){ return baoLoi('Không đọc được file: '+er.message); }
-      if(!kq.to && !kq.tk) return baoLoi('File không có bảng tổ (cột "Mã tổ" + "Số TK 104") hoặc bảng TK 104 (cột SOTK + MAKH).');
-      var dong = [];
-      if(kq.to){ var n = Object.keys(kq.to).length, khop = 0, chiFile = 0, chi31 = 0, tk = Object.keys(kq.to).filter(function(m){ return kq.to[m].tk104; }).length;
-        if(TO_K && TO_K.to){ Object.keys(kq.to).forEach(function(m){ if(TO_K.to[m]) khop++; else chiFile++; }); Object.keys(TO_K.to).forEach(function(m){ var t = TO_K.to[m]; if(!t.trucTiep && !kq.to[m]) chi31++; }); }
-        dong.push('📚 Danh mục tham chiếu: '+n+' tổ ('+tk+' có số TK 104)'+(kq.diem ? ', '+Object.keys(kq.diem).length+' điểm GD' : '')+'.');
-        if(TO_K && TO_K.to) dong.push('So Mẫu 31 '+slKyChu(TO_K.ky)+': khớp '+khop+' tổ · chỉ có trong file '+chiFile+' · chỉ có trong Mẫu 31 '+chi31+' (chỉ báo, không sửa số liệu).'); }
-      if(kq.tk) dong.push('🏦 File TK 104: '+kq.tk.ds.length+' tài khoản'+(kq.tk.ngay ? ' · ngày '+kq.tk.ngay : '')+'.');
-      moHop('<div class="hop-tit">📥 Nạp file tham chiếu</div><div class="hop-phu">'+gdxE(f.name)+'</div><ul class="gdx-ds">'+dong.map(function(x){ return '<li>'+gdxE(x)+'</li>'; }).join('')+'</ul>'+
-        '<div class="sl-phu">Lưu cùng cài đặt (đồng bộ Drive của anh). Nạp lại file mới thì thay bản cũ. Cây địa bàn vẫn theo Mẫu 31.</div>'+
-        '<div class="hang-nut"><button class="nho" onclick="dongHop();gdxKBChung()">Thôi</button><button class="nho chinh" onclick="gdxNapLuu()">Lưu</button></div>', true);
-      GDX.napTam = {kq:kq, ten:f.name}; };
-    fr.readAsArrayBuffer(f); };
-  i.click();
+function gdxDocFile(wb){ return gdxDocSheets(wb.SheetNames.map(function(n){ return {ten:n, rows:XLSX.utils.sheet_to_json(wb.Sheets[n], {header:1, defval:'', raw:false})}; })); }
+function dmtLaFile(sheets){ var kq = gdxDocSheets(sheets); return kq.to || kq.tk ? kq : null; }   /* nút 📥 Nạp file chung gọi để nhận file danh mục / TK 104 */
+var DMT_KQ = null, DMT_K = null;
+function dmtLuu(kq, ten){
+  var luc = new Date().toISOString(), c = D.cauHinh; gdxTC(); gdxTK104();
+  if(kq.to) c.dmTo = {to:kq.to, diem:kq.diem || (c.dmTo && c.dmTo.diem) || {}, luc:luc, ten:ten||''};
+  else if(kq.diem && c.dmTo) c.dmTo.diem = kq.diem;
+  if(kq.tk) c.dmTK104 = {ds:kq.tk.ds, ngay:kq.tk.ngay, luc:luc, ten:ten||''};
+  DMT_KQ = null; luu(); return dmtKiem();
 }
-function gdxNapLuu(){ var x = GDX.napTam; if(!x) return; var luc = new Date().toISOString();
-  if(x.kq.to) D.cauHinh.gdxTC = {to:x.kq.to, diem:x.kq.diem || gdxTC().diem || {}, luc:luc, ten:x.ten};
-  if(x.kq.tk) D.cauHinh.gdxTK104 = {ds:x.kq.tk.ds, ngay:x.kq.tk.ngay, luc:luc, ten:x.ten};
-  GDX.napTam = null; luu(); dongHop(); bao('Đã lưu file tham chiếu.'); gdxKBChung(); gdxVeTrai(); }
-function gdxBoTC(loai){ hoi(loai==='tk' ? 'Xóa file TK 104 đã nạp?' : 'Xóa danh mục tham chiếu đã nạp?', 'Chỉ xóa bản tham chiếu trên app, không ảnh hưởng số liệu Mẫu 31.', 'Xóa', function(){
-  if(loai==='tk') delete D.cauHinh.gdxTK104; else delete D.cauHinh.gdxTC; luu(); gdxKBChung(); gdxVeTrai(); }); }
-/* TK 104 chưa đóng — khách không còn là tổ trưởng: xét đủ nguồn (danh mục tham chiếu + Mẫu 31 / DSTO / Thông tin tổ trưởng) để tránh báo nhầm */
-function gdxTK104Lech(){
-  var tt = {}, co = false, tc = gdxTC().to;
+/* nạp từ khối 📚 (chọn được nhiều file) */
+function dmtNap(){
+  var ham = function(files){
+    batChay(true, 'Đang đọc danh mục…'); var co = 0, khong = [];
+    files.reduce(function(p, f){ return p.then(function(){ return f.arrayBuffer().then(slDocSheet).then(function(sh){ var kq = dmtLaFile(sh); if(kq){ co++; return dmtLuu(kq, f.name); } khong.push(f.name); }); }); }, Promise.resolve())
+      .then(function(){ tatChay(); if(khong.length) baoLoi('Không thấy bảng tổ (Mã tổ + Số TK 104) hay bảng TK 104 (SOTK + MAKH) trong: '+khong.join(', '));
+        if(co){ dmtVe(); dmtHop(); } })
+      .catch(function(er){ tatChay(); baoLoi('Không đọc được file: '+(er && er.message || er)); });
+  };
+  ham.nhieu = true; slChonFile(ham);
+}
+/* kiểm tra với Mẫu 31 kỳ chung (không có → kỳ mới nhất): khớp / chỉ trong file / chỉ trong Mẫu 31 / tên tổ trưởng lệch / thiếu TK 104 / TK 104 trùng */
+function dmtKiem(){
+  var tc = gdxTC(); if(!Object.keys(tc.to).length && !gdxTK104().ds.length){ DMT_KQ = null; return Promise.resolve(null); }
+  var ds = typeof toDsKy==='function' && SL_SAN ? toDsKy() : [], ky = (typeof kyChungLay==='function' && kyChungLay()) || (ds[0] && ds[0].ky) || '';
+  if(ky && !ds.some(function(x){ return x.ky===ky; })) ky = ds[0] ? ds[0].ky : '';
+  var lay = !ky ? Promise.resolve(null) : TO_K && TO_K.ky===ky ? Promise.resolve(TO_K) : (function(){ var cu = TO_K; return toNap(ky).then(function(K){ TO_K = cu; if(cu) slDung(cu.ky); return K; }).catch(function(){ TO_K = cu; return null; }); })();
+  return lay.then(function(K){
+    DMT_K = K; var r = {ky:K ? K.ky : '', n:Object.keys(tc.to).length, coTK:0, khop:[], chiFile:[], chi31:[], lechTT:[], thieuTK:[], trungTK:[]}, gap = {};
+    Object.keys(tc.to).forEach(function(m){ var x = tc.to[m];
+      if(x.tk104){ r.coTK++; if(gap[x.tk104]) r.trungTK.push(m+' · '+gap[x.tk104]); else gap[x.tk104] = m; } else r.thieuTK.push(m+(x.tt ? ' · '+x.tt : ''));
+      if(!K) return; var t = K.to[m]; if(!t || t.trucTiep){ r.chiFile.push(m+(x.tt ? ' · '+x.tt : '')); return; }
+      r.khop.push(m); if(x.tt && t.ten && slChuan(x.tt)!==slChuan(t.ten)) r.lechTT.push(m+' · file: '+x.tt+' · Mẫu 31: '+t.ten); });
+    if(K) Object.keys(K.to).forEach(function(m){ var t = K.to[m]; if(!t.trucTiep && !tc.to[m] && Object.keys(tc.to).length) r.chi31.push(m+(t.ten ? ' · '+t.ten : '')); });
+    r.lech104 = gdxTK104().ds.length ? gdxTK104Lech(K) : null;
+    DMT_KQ = r; return r;
+  });
+}
+function dmtTomChu(){
+  var tc = gdxTC(), tk = gdxTK104(), n = Object.keys(tc.to).length, r = DMT_KQ;
+  if(!n && !tk.ds.length) return 'chưa nạp';
+  return [n ? n+' tổ'+(r ? ' · '+r.coTK+' có TK 104' : '') : '', tk.ds.length ? 'file TK 104: '+tk.ds.length+' TK' : '',
+    r && r.ky ? 'so Mẫu 31 '+slKyChu(r.ky)+': khớp '+r.khop.length+(r.chiFile.length + r.chi31.length + r.lechTT.length ? ' · ⚠ '+(r.chiFile.length + r.chi31.length + r.lechTT.length)+' lệch' : ' ✓') : '',
+    r && r.lech104 && r.lech104.length ? '🏦 '+r.lech104.length+' TK 104 không còn là tổ trưởng' : ''].filter(Boolean).join(' · ');
+}
+function dmtDsHTML(ten, ds, lop){ return ds && ds.length ? '<details class="dm-ds'+(lop ? ' '+lop : '')+'"><summary>'+ten+' — <b>'+ds.length+'</b></summary><div>'+ds.slice(0, 300).map(function(x){ return '<div>'+gdxE(x)+'</div>'; }).join('')+(ds.length>300 ? '<div>… còn '+(ds.length-300)+'</div>' : '')+'</div></details>' : ''; }
+function dmtRuotHTML(){
+  var tc = gdxTC(), tk = gdxTK104(), n = Object.keys(tc.to).length, r = DMT_KQ;
+  return '<div class="sl-phu">Nạp 1 lần, nạp lại khi danh mục đổi. Nút <b>📥 Nạp file</b> ở trên cũng tự nhận file này. Lưu kèm danh bạ tổ (Drive của anh). Cây địa bàn vẫn theo Mẫu 31 — danh mục chỉ bù TK 104 tổ trưởng, mã điểm, ngày GD và đối chiếu.</div>'+
+    (n ? '<div>📚 Danh mục: <b>'+n+'</b> tổ · '+Object.keys(tc.diem||{}).length+' điểm GD · nạp '+gdxE(ngayVN(String(tc.luc).slice(0, 10)))+' <small>'+gdxE(tc.ten)+'</small></div>' : '')+
+    (tk.ds.length ? '<div>🏦 File TK 104: <b>'+tk.ds.length+'</b> tài khoản'+(tk.ngay ? ' · ngày '+gdxE(tk.ngay) : '')+' · nạp '+gdxE(ngayVN(String(tk.luc).slice(0, 10)))+'</div>' : '')+
+    (r ? (r.ky ? '<div>So Mẫu 31 '+slKyChu(r.ky)+': <b>'+r.khop.length+'</b> tổ khớp</div>' : '<div class="sl-phu">Chưa có Mẫu 31 để so.</div>')+
+      dmtDsHTML('Tổ chỉ có trong danh mục (không thấy trong Mẫu 31)', r.chiFile, 'vang')+dmtDsHTML('Tổ có trong Mẫu 31 nhưng danh mục không có', r.chi31, 'vang')+
+      dmtDsHTML('Tên tổ trưởng lệch (danh mục ↔ Mẫu 31)', r.lechTT, 'vang')+dmtDsHTML('Tổ chưa có số TK 104', r.thieuTK, 'vang')+dmtDsHTML('Số TK 104 trùng giữa 2 tổ', r.trungTK, 'do') : '')+
+    '<div class="hang-nut"><button class="nho chinh" onclick="dmtNap()">📥 Nạp danh mục / TK 104</button>'+
+      (n || tk.ds.length ? '<button class="nho" onclick="DMT_KQ=null;dmtKiem().then(dmtVe)">🔍 Kiểm tra lại</button>' : '')+
+      (tk.ds.length ? '<button class="nho" onclick="gdxTK104Hop()">📋 TK 104 không còn là tổ trưởng'+(r && r.lech104 ? ' ('+r.lech104.length+')' : '')+'</button>' : '')+
+      (n ? '<button class="nho" onclick="gdxBoTC(\'tc\')">✕ Xóa danh mục</button>' : '')+(tk.ds.length ? '<button class="nho" onclick="gdxBoTC(\'tk\')">✕ Xóa file TK 104</button>' : '')+'</div>';
+}
+function dmtKhoiHTML(){
+  if((Object.keys(gdxTC().to).length || gdxTK104().ds.length) && !DMT_KQ) setTimeout(function(){ dmtKiem().then(dmtVe); }, 0);
+  return '<details class="sl-kq dm-khoi" id="sl-dm"'+(D.cauHinh.slDmMo ? ' open' : '')+' ontoggle="D.cauHinh.slDmMo=this.open;luu()"><summary>📚 Danh mục tổ · TK 104 tổ trưởng: <small id="sl-dm-tom">'+gdxE(dmtTomChu())+'</small></summary><div id="sl-dm-ruot">'+dmtRuotHTML()+'</div></details>';
+}
+function dmtVe(){ var t = document.getElementById('sl-dm-tom'), r = document.getElementById('sl-dm-ruot'); if(t) t.textContent = dmtTomChu(); if(r) r.innerHTML = dmtRuotHTML(); if(gdxHopMo('gdx-kbc')) gdxKBChung(); if(document.getElementById('gdx-trai')) gdxVeTrai(); }
+function dmtHop(){
+  moHop('<div class="hop-tit">📚 Đã nạp danh mục tổ · TK 104</div><div class="hop-phu">'+gdxE(dmtTomChu())+'</div><div class="dm-hop">'+dmtRuotHTML()+'</div>', true);
+}
+function gdxBoTC(loai){ hoi(loai==='tk' ? 'Xóa file TK 104 đã nạp?' : 'Xóa danh mục tổ đã nạp?', 'Chỉ xóa bản danh mục / TK 104 trên app, không ảnh hưởng số liệu Mẫu 31.', 'Xóa', function(){
+  gdxTC(); gdxTK104(); if(loai==='tk') delete D.cauHinh.dmTK104; else delete D.cauHinh.dmTo; DMT_KQ = null; luu(); dmtVe(); }); }
+/* TK 104 chưa đóng — khách không còn là tổ trưởng: xét đủ nguồn (danh mục + Mẫu 31 / DSTO / Thông tin tổ trưởng / trùng tên) để tránh báo nhầm */
+function gdxTK104Lech(K){
+  K = K || TO_K || DMT_K; var tt = {}, co = false, tc = gdxTC().to;
   Object.keys(tc).forEach(function(m){ if(tc[m].ttKH){ tt[tc[m].ttKH] = 1; co = true; } });
-  if(TO_K && TO_K.to) Object.keys(TO_K.to).forEach(function(m){ var t = TO_K.to[m]; if(t.trucTiep) return;
-    var k = (t.ds && t.ds.ttKH) || (t.tt && t.tt.ttKH) || (typeof hsoTTKH==='function' ? hsoTTKH(t).kh : ''); if(k){ tt[k] = 1; co = true; } });
+  if(K && K.to){ var cu = TO_K; TO_K = K; Object.keys(K.to).forEach(function(m){ var t = K.to[m]; if(t.trucTiep) return;
+    var k = (t.ds && t.ds.ttKH) || (t.tt && t.tt.ttKH) || (typeof hsoTTKH==='function' ? hsoTTKH(t).kh : ''); if(k){ tt[k] = 1; co = true; } }); TO_K = cu; }
   if(!co) return null;
-  var toCua = {}; if(TO_K && TO_K.kh) Object.keys(TO_K.kh).forEach(function(m){ (TO_K.kh[m]||[]).forEach(function(o){ if(o.kh && !toCua[o.kh]) toCua[o.kh] = m; }); });
-  return gdxTK104().ds.filter(function(o){ return !tt[o.kh]; }).map(function(o){ var m = toCua[o.kh], t = m && TO_K.to[m];
+  var toCua = {}; if(K && K.kh) Object.keys(K.kh).forEach(function(m){ (K.kh[m]||[]).forEach(function(o){ if(o.kh && !toCua[o.kh]) toCua[o.kh] = m; }); });
+  return gdxTK104().ds.filter(function(o){ return !tt[o.kh]; }).map(function(o){ var m = toCua[o.kh], t = m && K.to[m];
     return {tk:o.tk, kh:o.kh, ten:o.ten, ghi:t ? 'đang là khách tổ '+(t.ten||m)+(t.tenThon ? ' · '+pvApNgan(t.tenThon) : '') : (o.to ? 'tổ cũ '+o.to : 'không còn trong Mẫu 31')}; });
 }
 function gdxTK104Hop(){
   var ds = gdxTK104Lech();
-  if(ds===null) return moHop('<div class="hop-tit">TK 104 không còn là tổ trưởng</div><div class="sl-bao vang">Chưa đủ nguồn để xét: cần Mẫu 31 (kỳ đang chọn) hoặc danh mục tham chiếu có mã KH tổ trưởng.</div><div class="hang-nut"><button class="nho" onclick="gdxKBChung()">Quay lại</button></div>', true);
+  if(ds===null) return moHop('<div class="hop-tit">TK 104 không còn là tổ trưởng</div><div class="sl-bao vang">Chưa đủ nguồn để xét: cần Mẫu 31 (kỳ đang chọn) hoặc danh mục tham chiếu có mã KH tổ trưởng.</div><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button></div>', true);
   GDX.lech = ds;
   moHop('<div class="hop-tit">🏦 TK 104 chưa đóng — khách không còn làm tổ trưởng ('+ds.length+')</div><div class="hop-phu">Đối chiếu file TK 104 ('+gdxE(gdxTK104().ngay || gdxTK104().ten)+') với tổ trưởng hiện tại: danh mục tham chiếu + Mẫu 31'+(TO_K ? ' '+slKyChu(TO_K.ky) : '')+' (DSTO / Thông tin tổ trưởng). Xét đủ các nguồn — ai là tổ trưởng ở bất kỳ nguồn nào thì không báo.</div>'+
     (ds.length ? '<div class="gdx-bang"><table><tr><th>STT</th><th>Số TK 104</th><th>Mã KH</th><th>Họ tên</th><th>Ghi chú</th></tr>'+ds.map(function(o, i){ return '<tr><td>'+(i+1)+'</td><td>'+gdxE(o.tk)+'</td><td>'+gdxE(o.kh)+'</td><td>'+gdxE(o.ten)+'</td><td>'+gdxE(o.ghi)+'</td></tr>'; }).join('')+'</table></div>' : '<div class="sl-phu">Không có tài khoản nào.</div>')+
-    '<div class="hang-nut"><button class="nho" onclick="gdxKBChung()">Quay lại</button>'+(ds.length ? '<button class="nho chinh" onclick="gdxTK104Xuat()">📊 Xuất Excel</button>' : '')+'</div>', true);
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button>'+(ds.length ? '<button class="nho chinh" onclick="gdxTK104Xuat()">📊 Xuất Excel</button>' : '')+'</div>', true);
 }
 function gdxTK104Xuat(){ var ds = GDX.lech || []; if(!window.XLSX) return baoLoi('Chưa tải được bộ Excel.');
   var ws = XLSX.utils.aoa_to_sheet([['STT','Số TK 104','Mã KH','Họ tên','Ghi chú']].concat(ds.map(function(o, i){ return [i+1, o.tk, o.kh, o.ten, o.ghi]; })));
@@ -865,12 +976,9 @@ function gdxKBChung(){
   var tc = gdxTC(), tk = gdxTK104(), nTo = Object.keys(tc.to).length, lech = tk.ds.length ? gdxTK104Lech() : null;
   moHop('<div class="hop-tit" id="gdx-kbc">⚙ Khai báo chung — tab Giao dịch xã</div><div class="hop-phu">Dùng cho mọi mẫu. Bổ sung dần khi làm mẫu mới; mục trùng nhiều mẫu sẽ gom về đây (báo anh trước). Tự lưu, đồng bộ Drive cùng cài đặt.</div>'+
     gdxCanBoHTML()+
-    '<div class="gdx-khoi"><div class="gdx-nh">📚 Danh mục tham chiếu <small>(file danh mục địa bàn — sheet tổ có Mã tổ + Số TK 104; chỉ để tra, cây vẫn theo Mẫu 31)</small></div>'+
-      (nTo ? '<div>'+nTo+' tổ · '+Object.keys(tc.diem||{}).length+' điểm GD · nạp '+gdxE(ngayVN(String(tc.luc).slice(0, 10)))+' — <small>'+gdxE(tc.ten)+'</small></div>' : '<div class="gdx-trong">Chưa nạp.</div>')+
-      '<div class="hang-nut"><button class="nho chinh" onclick="gdxNapFile()">📥 Nạp file Excel</button>'+(nTo ? '<button class="nho" onclick="gdxBoTC(\'tc\')">✕ Xóa</button>' : '')+'</div></div>'+
-    '<div class="gdx-khoi"><div class="gdx-nh">🏦 File TK 104 hệ thống <small>(cột SOTK, MAKH — để tra TK 104 và báo TK chưa đóng của người không còn làm tổ trưởng)</small></div>'+
-      (tk.ds.length ? '<div>'+tk.ds.length+' tài khoản'+(tk.ngay ? ' · ngày '+gdxE(tk.ngay) : '')+' · nạp '+gdxE(ngayVN(String(tk.luc).slice(0, 10)))+'</div>' : '<div class="gdx-trong">Chưa nạp.</div>')+
-      '<div class="hang-nut"><button class="nho chinh" onclick="gdxNapFile()">📥 Nạp file Excel</button>'+(tk.ds.length ? '<button class="nho" onclick="gdxTK104Hop()">📋 TK 104 không còn là tổ trưởng'+(lech ? ' ('+lech.length+')' : '')+'</button><button class="nho" onclick="gdxBoTC(\'tk\')">✕ Xóa</button>' : '')+'</div></div>'+
+    '<div class="gdx-khoi"><div class="gdx-nh">📚 Danh mục tổ · TK 104 tổ trưởng <small>(nạp 1 chỗ ở 📥 Nạp &amp; KT — anh chốt)</small></div><div>'+gdxE(dmtTomChu())+'</div>'+
+      '<div class="hang-nut"><button class="nho chinh" onclick="dongHop();slDoiTab(\'nap\');doiNgan(7);D.cauHinh.slDmMo=true;setTimeout(function(){var e=document.getElementById(\'sl-dm\');if(e){e.open=true;e.scrollIntoView({block:\'center\'});}},300)">📥 Mở Nạp &amp; KT</button>'+
+      (gdxTK104().ds.length ? '<button class="nho" onclick="gdxTK104Hop()">📋 TK 104 không còn là tổ trưởng'+(lech ? ' ('+lech.length+')' : '')+'</button>' : '')+'</div></div>'+
     '<div class="hang-nut"><button class="nho chinh" onclick="dongHop();gdxVeTrai()">Xong</button></div>', true);
 }
 
@@ -918,8 +1026,8 @@ function gdxCanBoHTML(){
 }
 function gdxThemCanBo(){ var o = document.getElementById('gdx-cbmoi'), v = o ? o.value.trim() : '', C = gdxC(); if(!v) return;
   if(C.danhSachCanBo.indexOf(v)>=0) return bao('Cán bộ này đã có trong danh sách!');
-  C.danhSachCanBo.push(v); gdxLuu(); if(document.getElementById('gdx-kbc')) gdxKBChung(); gdxVeTrai(); var n = document.getElementById('gdx-cbmoi'); if(n) n.focus(); }
-function gdxBoCanBo(i){ gdxC().danhSachCanBo.splice(i, 1); gdxLuu(); if(document.getElementById('gdx-kbc')) gdxKBChung(); gdxVeTrai(); }
+  C.danhSachCanBo.push(v); gdxLuu(); if(gdxHopMo('gdx-kbc')) gdxKBChung(); gdxVeTrai(); var n = document.getElementById('gdx-cbmoi'); if(n) n.focus(); }
+function gdxBoCanBo(i){ gdxC().danhSachCanBo.splice(i, 1); gdxLuu(); if(gdxHopMo('gdx-kbc')) gdxKBChung(); gdxVeTrai(); }
 function gdxMacDinh(){
   hoi('Khôi phục thông tin mẫu ban đầu?', 'Đưa các ô khai báo 04/TD về mặc định (tên NH, PGD, địa danh, giờ phát, chức danh). Giữ nguyên danh sách cán bộ, mức tiền, ⭐ chip số hộ · số tiền.', 'Khôi phục', function(){
     var C = gdxC(); ['donViTren','donViDuoi','tenPGDTrongVanBan','diaDanh','gioPhatTien','chucDanhDuyet','chucPGD','diaDiemPGD'].forEach(function(k){ C[k] = GDX_MD[k]; });
