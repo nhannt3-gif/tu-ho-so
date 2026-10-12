@@ -190,3 +190,22 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
   - Nguyên nhân: đã mở ⚙ một lần thì nội dung hộp vẫn nằm trong trang sau khi đóng, nên lần đổi sau app tưởng hộp còn mở và vẽ lại.
   - Sửa: chỉ vẽ lại khi hộp đang hiện.
 - **Ngày gõ nhanh:** không cần gõ / hay -. Ví dụ "1410" = 14/10 năm nay, "141026" và "14102026" = 14/10/2026. Vẫn giữ nút 📅 chọn trên lịch. Áp cho mọi ô ngày của tab.
+- **Giấy lĩnh (anh góp 12/10, sau khi in thử):**
+  - **Dòng "bằng chữ":**
+    - dài quá 1 dòng thì tràn xuống dòng dưới, dòng đó bỏ chấm;
+    - vừa 1 dòng thì dòng dưới giữ chấm;
+    - tối đa 2 dòng.
+  - **Dòng PGD dưới tên chi nhánh:**
+    - có chữ thì xích lên, giãn dòng đều như 2 dòng trên;
+    - phiếu trắng thì giữ khoảng cách như form mẫu để dễ ghi tay.
+  - **Dòng Nội dung xích lên** một chút, để phần chữ ký rộng hơn.
+  - **Chữ VBSP chìm** làm luôn cho bản giấy trắng.
+  - **Font chữ 13–14 pt.**
+  - **Người lĩnh (TK 105 hay TK 104 đều vậy):**
+    - tìm tên ở ô tìm;
+    - ngay dưới ô tìm có form gõ tay đủ các ô của giấy lĩnh, bố trí giống mẫu thật;
+    - tìm ra thì app điền sẵn vào form, anh sửa được.
+  - **Nạp TK 104 chỉ ở 1 chỗ:** chỗ nạp & kiểm tra dữ liệu (file xls nhiều sheet).
+    - Nạp xong kiểm tra luôn.
+    - Gán TK 104 của tổ trưởng vào danh bạ tổ đã lưu (lưu kèm hồ sơ tổ).
+    - Không nạp ở nhiều nơi.
