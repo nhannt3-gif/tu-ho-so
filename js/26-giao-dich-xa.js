@@ -532,6 +532,7 @@ function gdxDauHTML(){
       return h+gdxChip(m.bt+' '+m.ma, m.k===M.k, 'gdxDoiMau(\''+m.k+'\')', '', m.ten); }).join('')+'</div>'+
     '<div class="gdx2-nut"><button class="nho" onclick="gdxKBChung()" title="Danh sách cán bộ · danh mục tham chiếu · TK 104">⚙ Khai báo chung</button>'+
     '<button class="nho" onclick="gdxNKMo()" title="Các lần in trong 1 tháng — in lại khi khách ký sai">📜 Nhật ký in</button>'+
+    '<button class="nho" onclick="gdxMiniHop()" title="Xuất 1 file HTML gọn gửi đồng nghiệp (in 04/TD, 12/GDX, Giấy lĩnh) — có thời hạn 30 / 60 / 90 ngày">📦 Mini app</button>'+
     '<button class="nho'+(C.xem!==false ? ' chinh' : '')+'" onclick="gdxBatXem()" title="Bật / tắt khung xem trước">👁 Xem: '+(C.xem!==false ? 'Bật' : 'Tắt')+'</button></div></div>';
 }
 function gdxRuotHTML(){

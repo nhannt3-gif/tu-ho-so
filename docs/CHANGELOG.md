@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.177 — 13/10/2026 — 📦 Mini app Giao dịch xã (1 file HTML, có thời hạn)
+- **Anh (13/10):** tách Giao dịch xã thành app đơn giản gửi đồng nghiệp: in mẫu theo điểm GD, TK 104 tổ trưởng gói sẵn, TK 105 gõ tay; "chỉ cần gói 104 thôi"; lúc xuất chọn 30-60-90 ngày, hết hạn khóa hết, bảo mật tối đa, không cần mật khẩu; "em code đi và gộp lên luôn".
+- **Xuất** (`js/27-mini-gdx.js`: `gdxMiniHop`, `gdxMiniGoi`, `gdxMiniHTML`, `gdxMiniXuat`): nút **📦 Mini app** ở tab 🏢 Giao dịch xã → chọn hạn → tải `GiaoDichXa_mini_han-ddmmyyyy.html` (~70 KB, chạy offline, không CDN). Gói: điểm GD (tên, mã, xã, ngày GD), tổ (tên tổ trưởng, ấp, địa chỉ, TK 104 theo danh mục / file TK 104), danh sách cán bộ, khai báo mẫu. **Không** gói khách TK 105.
+- **Mẫu in dùng chung 1 nguồn:** hàm mẫu của app (`gdxHTML04`, `gdxHTML12`, `gdxGLTrang`, `GL_CSS`, `GDX_CSS`, `gdxDocTien`…) chép vào file lúc xuất (`Function.toString`) → sửa mẫu ở app thì bản mini xuất sau tự theo.
+- **Bảo vệ:** số liệu xáo mã (khóa ngẫu nhiên từng bản + hạn + mã bản), mở Notepad không đọc được; sửa ngày hạn trong file → không giải được → khóa. Hết hạn → khóa hết, ghi nhớ đã hết hạn (chỉnh giờ lại vẫn khóa); lùi giờ máy về trước lần mở trước → khóa. Còn ≤ 7 ngày → dòng hạn tô vàng, nhắc liên hệ anh Nhân. Không mật khẩu nên đây là che, không phải mã hóa tuyệt đối (người rành kỹ thuật vẫn gỡ được) — chỉ gửi người trong đơn vị.
+- **Mini** (`gdxMiniApp`, chỉ chạy trong file mini): chọn điểm GD theo xã (⏱ Gần nhất); 04/TD (số hộ / số tiền ▲▼ bước 5 triệu, chip mức tiền, ⭐ mẫu hay in, nơi phát, ngày phát = ngày GD gần nhất, ngày ký, người lập, GĐ / PGĐ, 1 / 2 bản); 12/GDX (ngày GD, GDV / KSV / TT loại trừ nhau, số dòng, in sẵn tên tổ trưởng, giờ / ngày tiêu hủy); Giấy lĩnh (TK 105 gõ tay; TK 104 gõ tên không dấu ↑↓ Enter hoặc chọn tổ của điểm → điền tên, TK 104, địa chỉ; ▲▼ 100 nghìn; chữ chìm 4 mức; A5 / nửa A4; mẫu trắng 1 · 2 / A4; Làm trống). Lựa chọn lưu trên máy dùng (localStorage).
+- **Phép thử** `tests/t168.js` (22 phép, dữ liệu giả `gianho31` + TK 104 giả).
+
 ## 3.176 — 13/10/2026 — Giấy lĩnh: chữ chìm 4 mức, 3 ô, khung nhập gọn
 - **Anh (13/10):** chữ chìm nhạt khi in kèm chữ điền, dời trái / lên 1 cm, có tắt và chọn đậm nhạt; 3 ô bên phải cao hơn, đáy ô Số tiền ngang dòng Nội dung, dòng chấm cách cạnh ô 1–1,5 mm; form nhập quá dài → gọn trong 1 khung; tìm tên dùng ↑↓ chọn; số tiền bước 100 nghìn; in xong có nút làm trống; nút in mẫu trắng giữ chỗ cũ; "em code và gộp lên luôn".
 - **Mẫu in** (`gdxGLTrang`, `GL_CSS`): chữ chìm `left:32.4mm; top:37.4mm`, mức `chim-nhat / vua / dam` (màu #e6e6e6 / #d2d2d2 / #bcbcbc) hoặc tắt (`C.glChim`, mặc định Nhạt; phiếu trắng in Vừa, Tắt thì tắt); dòng Nội dung chuyển vào cột trái → khung phải (2 ô trên + ô Số tiền) kéo hết chiều cao, đáy ô Số tiền ngang dòng Nội dung; dòng chấm trong ô cách cạnh 1,2 mm.

@@ -64,7 +64,9 @@ Khai mẫu cần chọn tới cấp nào trong khối **LỌC ĐỊA BÀN** (câ
    - ô trống in chấm / để trắng đúng như khai;
    - dữ liệu điền đúng;
    - mở lại khai báo cũ không lỗi.
-8. **Mục trùng nhau giữa nhiều mẫu** (ví dụ danh sách cán bộ) thì gom về **⚙ Khai báo chung**, nhưng phải báo anh trước.
+8. **Mini app (từ 3.177):** mẫu nào có trong 📦 mini app thì hàm dựng mẫu được chép vào file mini lúc xuất (`gdxMiniHTML` trong `js/27-mini-gdx.js`, danh sách `ham`).
+   - Hàm mẫu gọi thêm hàm phụ mới → thêm hàm phụ đó vào danh sách, rồi chạy `node tests/t168.js`.
+9. **Mục trùng nhau giữa nhiều mẫu** (ví dụ danh sách cán bộ) thì gom về **⚙ Khai báo chung**, nhưng phải báo anh trước.
 
 ## 5. Ví dụ đã làm
 
