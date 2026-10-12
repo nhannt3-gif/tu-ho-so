@@ -103,6 +103,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t167.js` | (3.174) Giao dịch xã có số liệu (`gianho31`): cây theo Mẫu 31, ẩn Hội / Tổ cho mẫu cấp điểm, 12/GDX tên tổ trưởng theo Mẫu 31, 💵 Giấy lĩnh (tìm không dấu, TK 105 / 104, bỏ chấm khi có thông tin, rút hết số dư, cảnh báo vượt số dư, A5 / A4), danh mục tham chiếu + file TK 104 giả, TK 104 không còn là tổ trưởng, 📜 nhật ký in (in lại đúng bản, tự xóa 1 tháng), điện thoại không tràn. `t165.js` viết lại theo bố cục 3.174 (chưa có số liệu, 04/TD + 12/GDX, trọn 1 trang 10–45 dòng). |
 | `node tests/t167.js` | (3.174 / 3.175) … thêm 3.175: nạp danh mục qua nút 📥 Nạp file chung (không vào bảng xem trước), khối 📚 Danh mục tổ ở Nạp & KT, chuyển dữ liệu 3.174, Giấy lĩnh bằng chữ 2 dòng / VBSP / 13 pt / form gõ tay / mẫu trắng 1 · 2 mẫu A4. `t165` thêm ▲▼, mức tiền, ngày gõ nhanh, lỗi mở ⚙, 12/GDX in đậm · ô ký · 1 chip ngày. |
 | `node tests/t167.js` | (3.175.1) thêm: so tên tổ trưởng danh mục ↔ Mẫu 31 bỏ "Ông / Bà", không dấu, không phân biệt hoa thường. |
+| `node tests/t167.js` | (3.176) thêm: ↑↓ Enter ô tìm, khung gọn, ▲▼ 100 nghìn, Nội dung ngang đáy ô Số tiền, chữ chìm 4 mức, nút Làm trống sau in. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

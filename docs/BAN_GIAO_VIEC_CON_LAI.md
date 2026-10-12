@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.176) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giấy lĩnh: gõ tên → ↑↓ → Enter | Chọn đúng người, form tự điền | |
+| 2 | Số tiền ▲▼ | Bước 100 nghìn | |
+| 3 | In A5 có điền / mẫu trắng; đổi Chữ chìm Nhạt · Vừa · Đậm · Tắt | Chữ chìm lệch trái / lên 1 cm như ảnh; đậm nhạt đúng; 3 ô cao hơn, ô Số tiền ngang dòng Nội dung | |
+| 4 | In xong bấm "✕ Làm trống — in người khác" | Trống người lĩnh, số tiền; con trỏ ở ô tìm | |
+
 ### Danh sách thử trên máy thật (3.175.1) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

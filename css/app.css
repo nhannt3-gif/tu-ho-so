@@ -3415,3 +3415,14 @@ span.sl-chip{cursor:help}
 .dm-khoi .dm-ds{margin:3px 0}.dm-khoi .dm-ds summary,.dm-hop .dm-ds summary{cursor:pointer}.dm-ds.vang summary{color:var(--vang)}.dm-ds.do summary{color:var(--do)}
 .dm-ds>div{max-height:220px;overflow:auto;font-size:calc(12px*var(--co));padding:2px 8px}
 #hop-in .dm-hop{text-align:left}
+/* 3.176: Giấy lĩnh — khung "Người lĩnh · số tiền" gọn (lưới 6 cột như mẫu thật) */
+.gl-khung{width:100%;border:1px solid var(--vien);border-radius:8px;padding:6px 8px;display:flex;flex-direction:column;gap:5px;background:var(--the)}
+.gl-k1{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 10px;align-items:center}
+@media(max-width:700px){ .gl-k1{grid-template-columns:1fr} }
+.gl-k2 select{width:100%}.gl-k3{display:flex;gap:6px;justify-content:flex-end}
+.gl-khung .gl-form-luoi{grid-template-columns:repeat(6,minmax(0,1fr));gap:4px 8px}
+.gl-khung .gl-form-luoi .gl-c2{grid-column:span 2}.gl-khung .gl-form-luoi .gl-c4{grid-column:span 4}.gl-khung .gl-form-luoi .gl-c6{grid-column:1 / -1}
+.gl-khung .gl-form-luoi input{padding:3px 7px}
+.gl-tien{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.gl-tien label{display:flex;gap:5px;align-items:center;font-weight:600}
+.gdx-gy button.bat{background:var(--xanh-nhat);outline:2px solid var(--xanh)}
+.gdx-moi{border-color:var(--xanh) !important;color:var(--xanh) !important;font-weight:600}
