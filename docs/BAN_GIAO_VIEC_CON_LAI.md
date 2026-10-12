@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.177) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab 🏢 Giao dịch xã → 📦 Mini app → chọn 30 ngày → Xuất file | Tải về GiaoDichXa_mini_han-….html; hộp ghi đúng số điểm / tổ / TK 104 | |
+| 2 | Mở file mini bằng Chrome / Edge (máy tính + điện thoại) | Hiện "Dùng tới ngày …"; xem trước 04/TD đúng điểm gần nhất | |
+| 3 | Mini: in 04/TD, 12/GDX, Giấy lĩnh TK 104 (gõ tên tổ trưởng → Enter), mẫu trắng 2/A4 | Bản in giống app chính; TK 104 đúng | |
+| 4 | Mở file bằng Notepad | Không đọc được tên tổ trưởng / TK 104 | |
+| 5 | Đổi ngày máy qua quá hạn rồi mở; đổi ngày lại | Khóa: "Bản này hết hạn ngày …, liên hệ anh Nhân để lấy bản mới"; đổi lại vẫn khóa | |
+
+- **Ghi chú kỹ thuật 3.177:** `js/27-mini-gdx.js` mới (nạp sau 26). `gdxMiniApp` KHÔNG chạy trong app chính — chỉ được chép vào file mini; khung mini gọi qua `window.mn.*`. Hàm mẫu chép bằng `toString` (danh sách trong `gdxMiniHTML`) — thêm hàm phụ cho mẫu thì phải thêm vào danh sách đó, chạy `t168`. Khóa localStorage của mini: `gdxmini_c` (lựa chọn), `gdxmini_max` (ngày mở muộn nhất — chống lùi giờ), `gdxmini_t_<mã bản>` (đã hết hạn). `kiem.py` báo "Thiếu hàm: CompressionStream, DecompressionStream, Response" là có sẵn từ trước (js/22, hàm trình duyệt), không phải lỗi.
+
 ### Danh sách thử trên máy thật (3.176) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
