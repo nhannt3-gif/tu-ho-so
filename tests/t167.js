@@ -108,7 +108,7 @@ const fs=require('fs'), path=require('path');
        GDX.glSua = {ncap:'010824'}; gdxVe(); await w(150); const nc2 = (document.getElementById('gdx-gl-noicap')||{}).textContent || ''; GDX.glSua = {}; gdxVe(); await w(100);
        ok('3.184: không còn ô Nơi cấp — chữ mờ cạnh nhãn Địa chỉ (tự tính theo ngày cấp); Địa chỉ · Tài khoản số cùng 1 dòng', !document.querySelector('.gl-form-luoi input[data-k="noiCap"]') && !!nc && /Nơi cấp: Bộ Công an/.test(nc2) && Math.abs(q('diaChi')-q('tk'))<3, nc2); }
      ok('3.183: Họ tên · CCCD · Ngày cấp cùng 1 dòng; nút 👁 Xem: Bật / Tắt ghi rõ trạng thái', Math.abs(r1[0]-r1[1])<3 && Math.abs(r1[0]-r1[2])<3 && /Xem: (Bật|Tắt)/.test(document.querySelector('.gdx2-nut').textContent), r1.join(','));
-     ok('3.182: mẫu in lề trên 13 mm (+5), chữ chìm dời theo, 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm', /\.gl-trang\{[^}]*padding:13mm/.test(h0.css) && /top:46\.4mm/.test(h0.css) && /\.gl-dau\{[^}]*margin-bottom:6mm/.test(h0.css) && /\.gl-ky-l\{[^}]*margin-bottom:5mm/.test(h0.css)); }
+     ok('3.182: mẫu in lề trên 13 mm (+5), chữ chìm dời theo, 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm', /\.gl-trang\{[^}]*padding:13mm/.test(h0.css) && /top:48\.4mm/.test(h0.css) && /\.gl-len\{margin-top:-1mm\}/.test(h0.css) && /class="gl-len"/.test(h0.than) && /\.gl-dau\{[^}]*margin-bottom:8mm/.test(h0.css) && /\.gl-ky-l\{[^}]*margin-bottom:5mm/.test(h0.css)); }
    const kB = gdxGLDsKhach(tA).find(k=>k.kh!==kA.kh); gdxGLChonKH(kB.kh); await w(200);
    const nk = gdxNKDs(); gdxNKIn(nk[0].id); await w(300);
    const tIn = chu(document.getElementById('gdx-in-tam').contentDocument.body.innerHTML);

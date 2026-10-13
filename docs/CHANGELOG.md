@@ -4,10 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.186 — 13/10/2026 — Giấy lĩnh: dòng Họ tên xuống 4 mm
-- **Anh (13/10):** "giãn dòng chỗ họ tên xuống 5 mm cho thoáng".
-- **Mẫu in** (`GL_CSS`): khoảng cách đầu phiếu → dòng "Họ, tên khách hàng" 2 → **6 mm** (anh: xuống 5 mm rồi giảm 1 mm) (cả thân phiếu và khung PHẦN DO NGÂN HÀNG GHI xuống theo); chữ chìm dời theo (top 42,4 → 46,4 mm) để giữ đúng vị trí so với form. Đã đo: phiếu vẫn trọn 148 mm, không tràn; chỗ ký còn ~29 mm. Mini app dùng chung mẫu nên tự theo.
-- **Phép thử:** `t167` 59/59 (kiểm CSS 6 mm + chữ chìm 46,4 mm).
+## 3.186 — 13/10/2026 — Giấy lĩnh: dòng Họ tên xuống 6 mm, dòng bằng chữ + Nội dung rút lên 1 mm
+- **Anh (13/10):** "giãn dòng chỗ họ tên xuống 5 mm cho thoáng"; "giảm 1 mm đi"; "giãn thêm dòng họ tên 2 mm, rút 2 dòng chấm chấm chỗ số tiền bằng chữ và nội dung lên 1 mm".
+- **Bằng chữ + Nội dung** (`.gl-len{margin-top:-1mm}` bọc 2 dòng bằng chữ + dòng Nội dung): rút lên 1 mm; đáy ô Số tiền bằng số vẫn ngang dòng Nội dung như 3.176 (đã đo).
+- **Mẫu in** (`GL_CSS`): khoảng cách đầu phiếu → dòng "Họ, tên khách hàng" 2 → **8 mm** (anh chỉnh: xuống 5 mm → giảm 1 mm → giãn thêm 2 mm) (cả thân phiếu và khung PHẦN DO NGÂN HÀNG GHI xuống theo); chữ chìm dời theo (top 42,4 → 48,4 mm) để giữ đúng vị trí so với form. Đã đo: phiếu vẫn trọn 148 mm, không tràn; chỗ ký còn ~29 mm. Mini app dùng chung mẫu nên tự theo.
+- **Phép thử:** `t167` 59/59 (kiểm CSS 8 mm + chữ chìm 48,4 mm + bằng chữ / Nội dung lên 1 mm).
 
 ## 3.185 — 13/10/2026 — Giấy lĩnh: tìm theo CCCD, Enter tới ô số tiền, TK 105 theo CCCD, Làm trống bỏ chọn tổ
 - **Anh (13/10):** "TK 105 chưa hiện ra"; "cho tìm tên theo số CCCD cho chính xác"; "khi tìm tên xong danh sách hiện ra, dùng phím mũi tên lên xuống để di chuyển chọn ngay tên, Enter sẽ đi đến ô số tiền luôn"; "khi chọn tổ từ cây địa bàn, nếu bấm làm trống cũng bỏ chọn" (đã ghi việc chờ, làm bản này); "code và gộp".
