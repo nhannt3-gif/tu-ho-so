@@ -109,6 +109,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t167.js` | (3.179) thêm: Giấy lĩnh mặc định TK 104; Làm trống rồi chọn lại tổ cũ ở khối lọc → điền lại TK 104. Các phép TK 105 chọn loại 105 trước. |
 | `node tests/t168.js` | (3.180) thêm: TK 104 tra theo mã lệch số 0 / tên tổ trưởng cùng xã, câu lý do khi không có, Tóm tắt 1 dòng, khối lọc thu gọn Xã / Điểm khi đã chọn điểm. |
 | `node tests/t168.js` | (3.181) thêm: khối lọc gọn khi chọn Xã › Hội › Tổ (không chọn điểm), bấm vùng nhập → gọn, đầu khung 1 hàng + menu ⋯. `t167` nút Làm trống sau in kiểm theo lớp `.gdx-moi`. |
+| `node tests/t167.js` | (3.182) thêm: ngày lĩnh chỉ Hôm nay · nhập ngày · Để chấm (1 dòng), ô tiền nổi bật, CSS lề trên 13 mm + chữ chìm 42,4 mm + gạch dọc ô Người lĩnh ngắn 5 mm, nút Làm trống ở đầu khung. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

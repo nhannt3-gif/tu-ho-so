@@ -3437,3 +3437,6 @@ span.sl-chip{cursor:help}
 .gdx-menu>div{position:absolute;right:0;top:calc(100% + 3px);z-index:30;display:flex;flex-direction:column;gap:3px;padding:5px;background:var(--the);border:1px solid var(--vien);border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.25);min-width:190px}
 .gdx-menu>div button{text-align:left;white-space:nowrap}.gdx-menu.len>div{top:auto;bottom:calc(100% + 3px)}
 .gdx-menu>summary{border:1px solid var(--vien);border-radius:6px;padding:3px 10px;background:var(--the);white-space:nowrap;font-size:calc(13px*var(--co))}.gdx-menu[open]>summary{background:var(--xanh-nhat)}
+
+.gdx-1dong{display:flex;flex-wrap:nowrap;gap:5px;align-items:center;white-space:nowrap;overflow-x:auto}
+.gdx-tien-to{width:165px;font-size:calc(17px*var(--co));font-weight:800;color:var(--xanh-dam,#0d47a1);border:2px solid var(--xanh)!important;background:var(--vang-nen,#fff8e1);padding:5px 9px}

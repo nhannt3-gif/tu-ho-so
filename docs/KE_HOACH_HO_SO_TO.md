@@ -216,3 +216,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.179 (13/10):** Giấy lĩnh mặc định TK 104 tổ trưởng (anh chốt), chuyển 1 lần cho máy đang dùng; sửa Làm trống rồi chọn lại tổ cũ không điền lại.
 - **Đã làm 3.180 (13/10):** TK 104 tra 3 bước (mã · mã bỏ số 0 · tên tổ trưởng cùng xã) + câu lý do khi không có; 📋 Tóm tắt 1 dòng; khối lọc thu gọn Xã / Điểm khi đã chọn điểm (riêng tab Giao dịch xã).
 - **Đã làm 3.181 (13/10):** tối ưu vùng nhập — khối lọc gom 1 dòng khi đã chọn điểm / tổ (▾ Đổi sổ ra, bấm vùng nhập tự gọn), đầu khung 1 hàng + menu ⋯, Mẫu trắng gom 1 nút.
+- **Đã làm 3.182 (13/10):** Giấy lĩnh — lề trên +5 mm (chữ chìm dời theo), 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm, ngày lĩnh chỉ Hôm nay · nhập · Để chấm (bỏ ngày GD điểm), ô tiền nổi bật, ✕ Làm trống kế 👁 Xem.

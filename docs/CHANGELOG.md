@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.182 — 13/10/2026 — Giấy lĩnh: lề trên, gạch dọc, ngày lĩnh gọn, vừa 1 màn hình
+- **Anh (13/10):** "mẫu in ra hơi sát đầu trang, canh lề trên thêm 5 mm, hai gạch dọc chỗ người lĩnh tiền ngắn lại 5 mm, ô nhập số tiền nổi bật hơn, dòng ngày lĩnh còn chiếm chỗ, bỏ ngày theo điểm giao dịch xã, chỉ hôm nay và nhập ngày và để trống (chấm chấm), nút làm trống để lên trên kế nút xem, như vậy sẽ vừa 1 ô màn hình chuẩn".
+- **Mẫu in** (`GL_CSS`): `.gl-trang` lề trên 8 → **13 mm**; chữ chìm dời theo (top 37,4 → 42,4 mm, giữ đúng vị trí so với form); `.gl-ky-l` (2 gạch dọc ô Người lĩnh tiền) `margin-bottom:5mm` → ngắn 5 mm. Mini app dùng chung mẫu nên tự theo.
+- **Ngày lĩnh** (`gdxGLNgay`, `gdxGLMuc('glngay')`): bỏ "Ngày GD điểm"; chỉ **Hôm nay** (mặc định) · ô nhập ngày · **Để chấm**, gọn 1 dòng. Khai báo cũ `glNgayCach='gd'` chuyển sang Hôm nay. Mini app cùng cách.
+- **Ô số tiền** nổi bật (`.gdx-tien-to`: chữ to đậm, viền xanh, nền vàng nhạt).
+- **✕ Làm trống** lên đầu khung, kế 👁 Xem (in xong → nút tô vàng = Làm trống — in người khác); bỏ nút trùng trong khung phiếu và Tóm tắt.
+- **Phép thử:** `t167` 52/52 (thêm: ngày lĩnh 3 lựa chọn 1 dòng + ô tiền nổi bật; CSS lề 13 mm, chữ chìm 42,4 mm, gạch dọc ngắn 5 mm; nút Làm trống ở đầu khung) · `t168` 32/32 · `t165` 52/52.
+
 ## 3.181 — 13/10/2026 — Giao dịch xã: tối ưu vùng nhập
 - **Anh (13/10, kèm ảnh):** "các nút quá nhiều che hết khung nhập, cơ cấu lại, khối lọc gom gọn khi nhập luôn, nhấp vào sổ ra, chọn vùng nhập thu lại, nói chung tối ưu vùng nhập"; "nhiều hàng nút quá nên chiếm chỗ".
 - **Khối lọc** (`pvVeCay`, lớp `.loc-khoi.gon`, chỉ tab Giao dịch xã): đã chọn **Điểm GD hoặc Tổ** (3.180 chỉ xét điểm — ảnh anh chọn Xã › Hội › Tổ nên chưa gọn) → còn 1 dòng 📍 đường dẫn + **▾ Đổi** + 🔎; bấm ▾ Đổi sổ ra đủ Xã · Điểm · Hội · Tổ; chọn xong hoặc **bấm vào vùng nhập** (`gdxGonLoc`, chỉ đổi lớp — không vẽ lại ô đang bấm) → gọn lại.

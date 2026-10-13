@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.182) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In Giấy lĩnh (A5 / A4) | Lề trên rộng thêm 5 mm; 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm; chữ chìm đúng chỗ như trước so với form | |
+| 2 | Ngày lĩnh | Chỉ Hôm nay · nhập ngày · Để chấm, 1 dòng | |
+| 3 | Khung nhập | Vừa 1 màn hình; ô số tiền nổi bật; ✕ Làm trống kế 👁 Xem | |
+
+- **Ghi chú kỹ thuật 3.182:** `gdxC` chuyển `glNgayCach` 'gd' → 'hom'; nút Làm trống ở `gdxDauHTML` (gl): chưa in → `gdxGLLamTrong`, đã in → `gdxGLMoi` (lớp `.gdx-moi`); sau in gọi `gdxVeTrai()` để đổi nút.
+
 ### Danh sách thử trên máy thật (3.181) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
