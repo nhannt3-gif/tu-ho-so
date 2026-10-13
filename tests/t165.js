@@ -68,6 +68,7 @@ const path=require('path');
    C.soTien = '83.000.000'; gdxBuoc('soTien', 5000000); ok('số tiền lẻ → ▲ làm tròn lên bước 5 triệu kế tiếp', C.soTien==='85.000.000');
    ok('3.175: mức tiền gợi ý mặc định 25 · 30 · 40 · 50 · 80 · 100 · 120 · 160 triệu', JSON.stringify(GDX_MD.quickAmounts)===JSON.stringify([25,30,40,50,80,100,120,160].map(x=>x*1e6)));
    const hn = nay(), y = hn.getFullYear();
+   ok('3.187: ngày gõ liền 5 / 7 số và năm 2 số cũ (ngày cấp)', gdxDocNgay('2542021')==='2021-04-25' && gdxDocNgay('252021')==='2021-05-02' && gdxDocNgay('25421')==='2021-04-25' && gdxDocNgay('250299')==='1999-02-25' && gdxDocNgay('230421')==='2021-04-23' && gdxDocNgay('99999')==='');
    ok('3.175: ngày gõ nhanh không cần / hay - (1410 · 141026 · 14102026 · 14/10/26), sai thì không nhận', gdxDocNgay('1410')===y+'-10-14' && gdxDocNgay('141026')==='2026-10-14' && gdxDocNgay('14102026')==='2026-10-14' && gdxDocNgay('14/10/26')==='2026-10-14' && gdxDocNgay('3102')==='' && gdxDocNgay('110')===y+'-10-01' && gdxDocNgay('310226')==='' && gdxDocNgay('abc')==='');
    const oN = document.querySelector('#gdx-m-ngayky .gdx-ngay'); oN.value = '1511'; oN.onchange(); await w(100);
    ok('gõ "1511" vào ô ngày ký → ngày ký 15/11 (không mở lịch)', gdxChup().C.ngayThongBao===y+'-11-15' && C.ky04Hom===false);

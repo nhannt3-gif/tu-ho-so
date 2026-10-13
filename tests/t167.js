@@ -113,6 +113,23 @@ const fs=require('fs'), path=require('path');
    const nk = gdxNKDs(); gdxNKIn(nk[0].id); await w(300);
    const tIn = chu(document.getElementById('gdx-in-tam').contentDocument.body.innerHTML);
    ok('📜 nhật ký in: lưu bản vừa in; In lại → đúng khách / số tiền cũ dù đang chọn khách khác', nk.length===1 && nk[0].mau==='gl' && tIn.indexOf(kA.ten)>=0 && tIn.indexOf(kB.ten)<0 && /500\.000/.test(tIn));
+   { /* 3.187: CCCD tổ trưởng (TK 104) lấy từ file về tổ khi danh bạ khách không có */
+     gdxDat('glLoai', '104', 1); pvChonTo('gdx', tA.ma); await w(300);
+     const goc = window.hsoKhach, t0 = TO_K.to[tA.ma], tt0 = t0.tt; window.hsoKhach = function(){ return {}; };
+     t0.tt = Object.assign({}, tt0||{}, {cccd:'012345678999', ncap:'2021-02-25'}); const gT = gdxGLDuLieu();
+     t0.tt = Object.assign({}, tt0||{}, {cccd:''}); const ds0 = t0.ds; t0.ds = Object.assign({}, ds0||{}, {cccd:''}); const dm0 = D.cauHinh.dmTo; D.cauHinh.dmTo = {to:{}, diem:{}};
+     gdxVe(); await w(200); const gK = gdxGLDuLieu(), tK = gdxTom().canh.map(x=>x.chu).join(' | ');
+     window.hsoKhach = goc; t0.tt = tt0; t0.ds = ds0; D.cauHinh.dmTo = dm0; gdxVe(); await w(200);
+     ok('3.187: CCCD tổ trưởng — danh bạ khách không có → lấy từ file Thông tin tổ trưởng (kèm ngày cấp); không có ở đâu → Tóm tắt báo lý do', gT.cccd==='012345678999' && gT.ncap==='2021-02-25' && /Thông tin tổ trưởng/.test(gT.ccTu) && !gK.cccd && /Chưa có CCCD tổ trưởng/.test(tK), (gT.ccTu||'')+' · '+tK.slice(0, 60)); }
+   { /* 3.187: 🧾 Bảng kê các loại tiền — cùng người lĩnh / số tiền với Giấy lĩnh */
+     GDX.glTien = '1350000'; GDX.xemBK = 1; gdxVeTrai(); await w(300); const gB = gdxGLDuLieu(), dB = fd(), tB = chu(dB.body.innerHTML);
+     const segOK = [...document.querySelectorAll('#gdx-tom .gdx-seg .gdx-c')].length===2;
+     ok('3.187: Tóm tắt có 💵 Giấy lĩnh · 🧾 Bảng kê; chọn Bảng kê → xem Bảng kê đúng người lĩnh, bằng chữ, bảng 11 mệnh giá', segOK && !!dB.querySelector('.bk-trang') && (!gB.ten || tB.indexOf(gB.ten)>=0) && tB.indexOf('Một triệu ba trăm năm mươi nghìn đồng.')>=0 && dB.querySelectorAll('.bk-lt').length===11);
+     const c2 = JSON.parse(JSON.stringify(gdxC())); c2.bkChia = true; const hC = gdxHTMLBK({tien:'1350000'}, c2);
+     ok('3.187: tự chia mệnh giá 1.350.000 = 2×500.000 + 1×200.000 + 1×100.000 + 1×50.000; Thành tiền 4 ô (nhóm 3 số)', JSON.stringify(gdxBKChia(1350000).so)==='{"50000":1,"100000":1,"200000":1,"500000":2}' && /<td class="bk-tt">1<\/td><td class="bk-tt">350<\/td><td class="bk-tt">000<\/td>/.test(hC));
+     gdxBKTrangIn(); await w(400); const dT = document.getElementById('gdx-in-tam').contentDocument;
+     ok('3.187: Bảng kê trắng 2 tờ / A4, không điền tên', dT.querySelectorAll('.bk-trang').length===2 && (!gB.ten || chu(dT.body.innerHTML).indexOf(gB.ten)<0));
+     GDX.xemBK = 0; GDX.glTien = ''; gdxVeTrai(); await w(200); }
    { /* 3.185: tìm theo CCCD · Enter → ô số tiền · TK 105 bù theo CCCD / ghi lý do */
      gdxDat('glLoai', '105', 1); await w(200);
      let kc = null; for(const m of Object.keys(TO_K.kh)){ const t = TO_K.to[m]; if(!t || t.trucTiep) continue; for(const o of TO_K.kh[m]){ const cc = gdxCCCDCua(o.kh, t); if(cc && cc.length>=9){ kc = {o, m, cc}; break; } } if(kc) break; }

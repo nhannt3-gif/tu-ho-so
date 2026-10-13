@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.187 — 13/10/2026 — 🧾 Bảng kê các loại tiền; CCCD tổ trưởng từ file về tổ; ngày gõ liền
+- **Anh (13/10):** gửi ảnh tờ "Bảng kê các loại tiền ngân hàng chi ra", "em chuẩn bị mẫu bảng kê luôn"; "tổ này không lấy được CCCD" → "CCCD tổ trưởng có trong các file về tổ"; "nhập ngày CCCD tay không cần nhập dấu cách".
+- **🧾 Bảng kê** (`gdxBKTrang`, `gdxHTMLBK`, `BK_CSS`, `gdxBKChia`): dựng theo ảnh tờ in sẵn (giấy trắng cả khung, chữ chìm VBSP): NGÂN HÀNG CHÍNH SÁCH XÃ HỘI · CHI NHÁNH TỈNH TÂY NINH · PHÒNG GIAO DỊCH (địa danh khai báo) | BẢNG KÊ · CÁC LOẠI TIỀN NGÂN HÀNG CHI RA · ngày; Họ và tên người lĩnh tiền · Địa chỉ · Nội dung; bảng 11 mệnh giá (500.000 → 200) · Số lượng · Thành tiền 4 ô (nhóm 3 chữ số) · Tổng cộng; Số tiền bằng chữ (2 dòng, tự xuống dòng); Người lĩnh tiền / Người chi tiền + Họ tên. **Cùng dữ liệu Giấy lĩnh** (người lĩnh, địa chỉ, nội dung, ngày, số tiền). Dòng Tóm tắt có **💵 Giấy lĩnh · 🧾 Bảng kê** → xem / in cái đang chọn (nhật ký in nhớ đúng loại). ⚙ Khai báo riêng › Bảng kê: **bảng mệnh giá để trắng (mặc định) / tự chia mệnh giá** (tờ lớn trước), **1 tờ / A4 (góc trái) / 2 liên / A4**. 📄 Mẫu trắng thêm **Bảng kê trắng 2 tờ / A4**. **Khổ tờ tạm 105 × 185 mm ước theo ảnh — chờ anh đo tờ thật.**
+- **CCCD tổ trưởng (TK 104)** (`gdxTTNhanThan`): danh bạ khách không có → lấy từ **file Thông tin tổ trưởng** → **DSTO** → **danh mục tổ** (danh mục nay đọc thêm cột CCCD / ngày cấp tổ trưởng nếu có). Không thấy ở đâu → Tóm tắt báo "Chưa có CCCD tổ trưởng — lý do — gõ tay". Mini app gói theo cùng cách.
+- **Ngày gõ liền** (`gdxDocNgay`): thêm 5 / 7 số (2542021 = 25/04/2021, 252021 = 02/05/2021, 25421 = 25/04/2021); năm 2 số quá năm nay + 10 → 19xx (250299 = 25/02/1999); năm ngoài 1900–2100 không nhận. Ô Ngày cấp rời ô tự hiện dd/mm/yyyy để soát.
+- **Phép thử:** `t167` 63/63 (Bảng kê xem / tự chia / mẫu trắng; CCCD tổ trưởng từ Thông tin tổ trưởng + lý do) · `t165` 53/53 (ngày 5 / 7 số, năm 2 số cũ) · `t168` 33/33.
+
 ## 3.186 — 13/10/2026 — Giấy lĩnh: dòng Họ tên xuống 6 mm, dòng bằng chữ + Nội dung rút lên 1 mm
 - **Anh (13/10):** "giãn dòng chỗ họ tên xuống 5 mm cho thoáng"; "giảm 1 mm đi"; "giãn thêm dòng họ tên 2 mm, rút 2 dòng chấm chấm chỗ số tiền bằng chữ và nội dung lên 1 mm".
 - **Bằng chữ + Nội dung** (`.gl-len{margin-top:-1mm}` bọc 2 dòng bằng chữ + dòng Nội dung): rút lên 1 mm; đáy ô Số tiền bằng số vẫn ngang dòng Nội dung như 3.176 (đã đo).

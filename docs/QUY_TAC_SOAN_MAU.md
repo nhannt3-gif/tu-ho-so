@@ -75,3 +75,4 @@ Khai mẫu cần chọn tới cấp nào trong khối **LỌC ĐỊA BÀN** (câ
 - **Giấy lĩnh tiền mặt** (`gdxHTMLGL` + `GL_CSS`): dựng theo ảnh mẫu, A5 ngang hoặc nửa trên A4 dọc.
   - Dòng có thông tin thì bỏ chấm.
   - Bản in đè lên giấy in sẵn làm sau, khi có bản scan thẳng 100 %.
+- **Bảng kê các loại tiền ngân hàng chi ra** (`gdxHTMLBK` + `BK_CSS`, 3.187): dựng theo ảnh tờ in sẵn, in kèm Giấy lĩnh (cùng dữ liệu). Khổ tờ tạm 105 × 185 mm, chờ đo.

@@ -221,3 +221,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.184 (13/10):** nơi cấp không ra ô — chữ mờ cạnh nhãn Địa chỉ (bấm để sửa); thẻ cấp trước 10/10/2018 ghi chung "Cục Cảnh sát" + cảnh báo; Địa chỉ · Tài khoản số 1 dòng.
 - **Đã làm 3.185 (13/10):** tìm theo số CCCD (4 số cuối trở lên); ↑↓ Enter → điền form, nhảy ô số tiền; TK 105 chưa có số sổ → tra danh bạ theo CCCD, không có thì ghi lý do; ✕ Làm trống bỏ luôn chọn tổ ở cây địa bàn (việc chờ đã ghi — xong).
 - **Đã làm 3.186 (13/10):** mẫu in Giấy lĩnh — dòng Họ tên xuống thêm 6 mm (đầu phiếu cách 8 mm); 2 dòng bằng chữ + Nội dung rút lên 1 mm, chữ chìm dời theo.
+- **Đã làm 3.187 (13/10):** 🧾 Bảng kê các loại tiền ngân hàng chi ra (theo ảnh tờ in sẵn, cùng dữ liệu Giấy lĩnh, mệnh giá để trắng / tự chia, mẫu trắng 2 tờ / A4 — khổ tạm 105 × 185 mm chờ đo); CCCD tổ trưởng từ file về tổ; ngày gõ liền 5 / 7 số.

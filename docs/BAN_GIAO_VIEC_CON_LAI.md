@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.187) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giấy lĩnh → dòng Tóm tắt bấm 🧾 Bảng kê → in | Bảng kê đúng người lĩnh, bằng chữ; đo tờ thật gửi em để chỉnh khổ | |
+| 2 | ⚙ Khai báo riêng › Bảng kê: Tự chia mệnh giá | Bảng mệnh giá + Thành tiền + Tổng cộng tự điền | |
+| 3 | TK 104 tổ Lê Ân (không có CCCD lần trước) | CCCD lấy từ file về tổ, hoặc Tóm tắt báo lý do | |
+| 4 | Ô Ngày cấp gõ 2542021 / 252021 | 25/04/2021 / 02/05/2021 | |
+
+- **Ghi chú kỹ thuật 3.187:** Bảng kê = `X.mau='gl'` + `X.bk=true` (`GDX.xemBK`), dựng `gdxHTMLBK`, CSS riêng `BK_CSS` (A4 dọc, tờ 105 × 185 mm). Khai báo `bkChia`, `bkKho` ('1' | '2'). Khổ tờ chờ anh đo.
+
 ### Danh sách thử trên máy thật (3.186) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
