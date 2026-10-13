@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.193) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giao dịch xã › chip 🧾 Bảng kê | Khung trái: Tên cơ quan · Ngày · Họ tên · Địa chỉ · Nội dung · Logo chìm; xem 2 tờ / A4 ngang | |
+| 2 | Gõ Họ tên / Nội dung rồi xóa trống | Có chữ thì in, trống thì chấm | |
+| 3 | 💵 Giấy lĩnh | Không còn chip Bảng kê / Kết hợp; Mẫu trắng chỉ Giấy lĩnh | |
+| 4 | Tổ TK&VV, tổ cũ của 7122152059 / 7070797171 | Không còn ở chip "Tất nợ · còn TK 105"; ở tổ đang vay | |
+
+- **Ghi chú kỹ thuật 3.193:** `gdxBKTrang(c)` / `gdxHTMLBK(c)` chỉ đọc khai báo `bkCQ1`, `bkCQ2`, `bkPGD`, `bkNgay`, `bkTen`, `bkDC`, `bkND`, `bkChim`; `gdxBKMuc(k)` vẽ khai báo. Bỏ `glIn`, `bkChia`, `GL_CSS_KEM`, `gdxBKTrangIn`, `glKho='a4bk'` (cờ chuyển 1 lần `bk193`). `cap:'khong'` → ẩn khối lọc. `slDanhRaTo`: khách có KU chưa đóng → KU đã đóng (không phải KU hủy) ở tổ không có KU mở gắn `raTo='chuyển sang tổ … (vay mới)'`, mục `B.raTo` có `chuyen:1`.
+
 ### Danh sách thử trên máy thật (3.192) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -120,6 +120,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t167.js` | (3.190) thêm: Bảng kê — Họ tên dưới chỗ ký để chấm. |
 | `node tests/t167.js` | (3.191) in kèm: Bảng kê 210 × 115, chữ 13 pt, không in sẵn tên, Tổng cộng đậm, bằng chữ đậm nghiêng. |
 | `node tests/t167.js` | (3.192) thêm: mẫu trắng Bảng kê 2 tờ / A4 ngang sát 2 mép + nét cắt; ⚙ 2 nhóm Giấy lĩnh / Bảng kê. |
+| `node tests/t167.js` | (3.193) mẫu 🧾 Bảng kê riêng (2 tờ A4 ngang, 6 mục khai báo, logo riêng); Giấy lĩnh không còn Bảng kê. `t131`: khách vay món mới ở tổ khác không tính ở tổ cũ. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 
