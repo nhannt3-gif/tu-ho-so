@@ -965,9 +965,17 @@ function slDanhRaTo(B, rows){
   var g = {}, ra = [], coTK = function(o){ return slCoTK(o.stk) || slStk(o.stk).length>0 || (o.t105||0)>0; };
   rows.forEach(function(o){ if(o.kh) (g[o.kh] = g[o.kh] || []).push(o); });
   (B.lap||[]).forEach(function(o){ if(o.kh && g[o.kh]) g[o.kh].push(o); });
+  var dong = function(o){ return o.ttMon && String(o.ttMon).toUpperCase()==='CLOSE' && !((o.dn||0)>0) && !(laiTon(o)>0); };
+  var toThat = function(t){ return t && t!==TO_GIA && !/^0+$/.test(String(t)); };
   Object.keys(g).forEach(function(kh){ var L = g[kh], ku = L.filter(function(o){ return o.ku; }), toKU = {};
-    if(!ku.length || !ku.every(function(o){ return o.ttMon && String(o.ttMon).toUpperCase()==='CLOSE' && !((o.dn||0)>0) && !(laiTon(o)>0); })) return;
-    ku.forEach(function(o){ if(o.to && o.to!==TO_GIA && !/^0+$/.test(String(o.to))) toKU[o.to] = 1; }); if(!Object.keys(toKU).length) return;   /* vay trực tiếp: không xét */
+    if(!ku.length) return;
+    if(!ku.every(dong)){   /* 3.193 (theo Mẫu 31 thật 11/10): khách vay món mới ở TỔ KHÁC — món cũ đã đóng ở tổ cũ chỉ là lịch sử, không tính khách vào tổ cũ */
+      var toMo = {}; ku.forEach(function(o){ if(!dong(o) && toThat(o.to)) toMo[o.to] = 1; });
+      var moi = Object.keys(toMo); if(!moi.length) return;
+      var cu = {}; ku.forEach(function(o){ if(dong(o) && !slKUHuy(o) && toThat(o.to) && !toMo[o.to]){ o.raTo = 'chuyển sang tổ '+moi.join(', ')+' (vay mới)'; cu[o.to] = 1; } });
+      Object.keys(cu).forEach(function(t){ ra.push({kh:kh, to:t, ly:'chuyển sang tổ '+moi.join(', ')+' (vay mới)', chuyen:1}); });
+      return; }
+    ku.forEach(function(o){ if(toThat(o.to)) toKU[o.to] = 1; }); if(!Object.keys(toKU).length) return;   /* vay trực tiếp: không xét */
     if(L.some(function(o){ return o.to && toKU[o.to] && coTK(o); })) return;   /* TK 105 còn gắn tổ → còn trong tổ */
     var ly = L.some(function(o){ return !o.ku && coTK(o); }) ? 'tất nợ, TK 105 không còn gắn tổ' : 'tất nợ, đã đóng TK 105';
     ku.forEach(function(o){ o.raTo = ly; }); ra.push({kh:kh, to:ku[0].to, ly:ly}); });
@@ -1019,8 +1027,10 @@ function slDoiChieu(B){
     if(mo.length) ra.push({ten:'Tổng dư nợ: dòng thiếu tên thôn / điểm GD', ok:false, chu:mo.length+' dòng', chi:mo.slice(0,6).map(function(o){ return 'thôn '+o.thon+' · CT '+o.ct+' · '+tdnTien(o.dn); }).join(' · ')}); }
   if(co.hstd && co.tt && !co.dsto){ var toLa = {};   /* 3.108: có DSTO → phép đối chiếu 2 danh sách tổ (slKTDsTo) thay */ co.hstd.forEach(function(o){ if(o.to && !B.to[o.to]) toLa[o.to] = 1; });
     var n = Object.keys(toLa).length; ra.push({ten:'Tổ trong '+hs+' có trong danh sách tổ trưởng', ok:!n, chu:n ? n+' tổ chưa có' : 'khớp hết', chi:Object.keys(toLa).slice(0,10).join(' · ')}); }
-  if(B.raTo && B.raTo.length) ra.push({ten:'Khách đã tất nợ, đã ra khỏi tổ trên hệ thống (TK 105 không còn gắn tổ / đã đóng)', ok:true, chu:B.raTo.length+' khách — không tính tổ viên (hiện ở chip Ra khỏi tổ)',
-    chi:B.raTo.filter(function(x){ return /đóng/.test(x.ly); }).length+' đã đóng TK 105 · '+B.raTo.filter(function(x){ return !/đóng/.test(x.ly); }).length+' TK 105 tách khỏi tổ'});   /* 3.138.1 */
+  if(B.raTo && B.raTo.length){ var raT = B.raTo.filter(function(x){ return !x.chuyen; }), raC = B.raTo.filter(function(x){ return x.chuyen; });
+    if(raT.length) ra.push({ten:'Khách đã tất nợ, đã ra khỏi tổ trên hệ thống (TK 105 không còn gắn tổ / đã đóng)', ok:true, chu:raT.length+' khách — không tính tổ viên (hiện ở chip Ra khỏi tổ)',
+      chi:raT.filter(function(x){ return /đóng/.test(x.ly); }).length+' đã đóng TK 105 · '+raT.filter(function(x){ return !/đóng/.test(x.ly); }).length+' TK 105 tách khỏi tổ'});
+    if(raC.length) ra.push({ten:'Khách vay món mới ở tổ khác — món cũ đã tất toán vẫn mang mã tổ cũ', ok:true, chu:raC.length+' khách — chỉ tính ở tổ đang vay, không tính vào tổ cũ (3.193)'}); }   /* 3.138.1 */
   if(B.huy && B.huy.length) ra.push({ten:'KU hủy / nhập nhầm (Đã đóng, tổng giải ngân = 0)', ok:true, chu:B.huy.length+' KU — đã loại (không tính tổ viên, tất nợ, mới vào / ra khỏi tổ)',
     chi:B.huy.slice(0, 8).map(function(o){ return o.ku+' · tổ '+(o.to||'—'); }).join(' · ')+(B.huy.length>8 ? ' …' : '')});   /* 3.138 */
   return ra;

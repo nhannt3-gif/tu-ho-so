@@ -25,6 +25,9 @@ const fs=require('fs'), path=require('path');
    kq.rows.push(moi({kh:'4899999995', ten:'Khách Giả Ra Tổ Một', to:a.to, ku:'9900000000000006', ttMon:'CLOSE', gn:20000000}));   /* 3.138.1: tất nợ, TK 105 tách dòng riêng không tổ */
    kq.rows.push(moi({kh:'4899999995', ten:'Khách Giả Ra Tổ Một', to:'', ku:'', ttMon:'', gn:0, stk:'14820000066666', t105:1500}));
    kq.rows.push(moi({kh:'4899999996', ten:'Khách Giả Ra Tổ Hai', to:a.to, ku:'9900000000000007', ttMon:'CLOSE', gn:30000000}));   /* tất nợ, đã đóng TK 105 */
+   kq.rows.push(moi({kh:'4899999997', ten:'Khách Giả Chuyển Tổ', to:a.to, ku:'9900000000000008', ttMon:'CLOSE', gn:20000000}));   /* 3.193: món cũ đã đóng ở tổ X … */
+   kq.rows.push(moi({kh:'4899999997', ten:'Khách Giả Chuyển Tổ', to:toY, ku:'9900000000000009', ttMon:'OPEN', gn:50000000, dn:50000000}));   /* … vay món mới ở tổ Y */
+   kq.rows.push(moi({kh:'4899999997', ten:'Khách Giả Chuyển Tổ', to:'0', ku:'', ttMon:'', gn:0, stk:'14820000077777', t105:3000000}));   /* TK 105 dòng riêng mã tổ 0 */
    kq.rows.push(moi({kh:'4899999993', ten:'Khách Giả Chờ Hai', to:toY, ku:'9900000000000004', ttMon:'OPEN', nv:'2026-08-20', mucVay:20000000}));
    /* TK 105: khách còn nợ, số dư 0, chỉ có số tài khoản hệ thống 14 số (chưa có số sổ 10 số) */
    const e = vay.find(x=>x.to===a.to && x.kh!==a.kh); kq.rows.filter(x=>x.kh===e.kh).forEach(x=>{ x.stk = '14820000099999'; x.t105 = 0; }); (kq.lap||[]).filter(x=>x.kh===e.kh).forEach(x=>{ x.stk = ''; x.t105 = 0; });
@@ -50,6 +53,7 @@ const fs=require('fs'), path=require('path');
    ok('3.138.1: khách đã tất nợ có số TK 14 số → KHÔNG ghi "đã mở TK" (để trống)', kT && !kT.conNo && kT.coTK && toStkChu(kT)==='', kT && toStkChu(kT));
    ok('3.138.1: khách tất nợ có TK 105 tách dòng riêng (không tổ) / đã đóng TK 105 → không còn là tổ viên', !tvX.some(k=>k.kh==='4899999995' || k.kh==='4899999996') && tvX.some(k=>k.kh==='4899999994'));
    ok('3.138.1: B.raTo ghi lý do; ② Kiểm tra có dòng "đã ra khỏi tổ"', (B.raTo||[]).find(x=>x.kh==='4899999995').ly==='tất nợ, TK 105 không còn gắn tổ' && (B.raTo||[]).find(x=>x.kh==='4899999996').ly==='tất nợ, đã đóng TK 105' && slDoiChieu(B).some(x=>/đã ra khỏi tổ/.test(x.ten)));
+   ok('3.193: khách vay món mới ở tổ khác → không còn ở tổ cũ (không vào chip Tất nợ), chỉ ở tổ đang vay; ② Kiểm tra ghi riêng', !tvX.some(k=>k.kh==='4899999997') && tvY.some(k=>k.kh==='4899999997' && k.conNo) && /chuyển sang tổ/.test(((B.raTo||[]).find(x=>x.kh==='4899999997')||{}).ly) && slDoiChieu(B).some(x=>/vay món mới ở tổ khác/.test(x.ten)) && !(B.raTo||[]).some(x=>x.kh===a.kh));
    const Mn = await toMapKy('2026-08'), bd = toBienDong(a.to, Mn, Object.assign({}, Mn, {'4899999995':{to:a.to, ten:'Khách Giả Ra Tổ Một', dn:0, t105:0}, '4899999996':{to:a.to, ten:'Khách Giả Ra Tổ Hai', dn:0, t105:0}}));
    ok('3.138.1: chip Ra khỏi tổ — cột "Đi đâu" ghi lý do', bd.ra.find(r=>r.kh==='4899999995').di==='tất nợ, TK 105 không còn gắn tổ' && bd.ra.find(r=>r.kh==='4899999996').di==='tất nợ, đã đóng TK 105', JSON.stringify(bd.ra.map(r=>r.di)));
    ok('khách chưa giải ngân có số TK 105 → "đã mở TK"', toStkChu(c1)==='đã mở TK' && toStkChu(c2)==='');
