@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.178 — 13/10/2026 — Mini app gói CCCD tổ trưởng; tìm Giấy lĩnh gọn theo xã / điểm
+- **Anh (13/10):** "Vẫn gói" (CCCD tổ trưởng vào mini app); "trong chức năng tìm khi anh chọn xã, điểm thì em giới hạn tìm cho gọn".
+- **Mini app** (`gdxMiniGoi`): gói thêm số CCCD, ngày cấp, nơi cấp tổ trưởng (`hsoKhach` theo mã KH tổ trưởng) — xáo mã như số liệu khác; hộp xuất ghi số CCCD được gói. Chọn tổ trưởng TK 104 → điền tên, CCCD, ngày cấp, nơi cấp, TK 104, địa chỉ; con trỏ nhảy xuống ô số tiền.
+- **Tìm Giấy lĩnh — app** (`gdxGLTim`): khối LỌC ĐỊA BÀN đã chọn Điểm GD → chỉ tìm trong điểm đó; chỉ chọn Xã → trong xã đó. Đầu danh sách ghi "Đang tìm trong …" + liên kết **Tìm cả PGD** (`GDX.glTatCa`); chọn xong người thì trở về tìm theo phạm vi.
+- **Tìm — mini:** chip **Điểm này · Cả xã · Cả PGD** (mặc định Điểm này, nhớ trên máy); không thấy thì gợi ý "tìm cả PGD".
+- **Phép thử:** `t168` thêm 5 phép (27/27); `t167` phép tìm tổ trưởng ở điểm khác bật Tìm cả PGD.
+
 ## 3.177 — 13/10/2026 — 📦 Mini app Giao dịch xã (1 file HTML, có thời hạn)
 - **Anh (13/10):** tách Giao dịch xã thành app đơn giản gửi đồng nghiệp: in mẫu theo điểm GD, TK 104 tổ trưởng gói sẵn, TK 105 gõ tay; "chỉ cần gói 104 thôi"; lúc xuất chọn 30-60-90 ngày, hết hạn khóa hết, bảo mật tối đa, không cần mật khẩu; "em code đi và gộp lên luôn".
 - **Xuất** (`js/27-mini-gdx.js`: `gdxMiniHop`, `gdxMiniGoi`, `gdxMiniHTML`, `gdxMiniXuat`): nút **📦 Mini app** ở tab 🏢 Giao dịch xã → chọn hạn → tải `GiaoDichXa_mini_han-ddmmyyyy.html` (~70 KB, chạy offline, không CDN). Gói: điểm GD (tên, mã, xã, ngày GD), tổ (tên tổ trưởng, ấp, địa chỉ, TK 104 theo danh mục / file TK 104), danh sách cán bộ, khai báo mẫu. **Không** gói khách TK 105.

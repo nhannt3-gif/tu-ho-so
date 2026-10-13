@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.178) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | App: Giấy lĩnh, chọn Điểm GD ở khối lọc rồi gõ tên tổ trưởng điểm khác | Không ra; dòng "Đang tìm trong điểm …" + Tìm cả PGD → ra | |
+| 2 | Xuất mini app → hộp ghi số CCCD tổ trưởng | Có số CCCD được gói | |
+| 3 | Mini: Giấy lĩnh TK 104 chọn tổ trưởng | Điền đủ tên, CCCD, ngày cấp, nơi cấp, TK 104, địa chỉ; con trỏ ở ô số tiền | |
+| 4 | Mini: chip Điểm này · Cả xã · Cả PGD | Tìm đúng phạm vi | |
+
+- **Ghi chú kỹ thuật 3.178:** mini app nay chứa CCCD tổ trưởng (xáo mã, không mật khẩu — anh đã biết rủi ro và chốt gói). Phạm vi tìm app: `gdxGLTim` lọc theo `gdxCH().diem` (so `t.khoaDiem`) hoặc `.xa` (so `t.xa`), `GDX.glTatCa = 1` bỏ lọc, `gdxGLChon` đặt lại 0. Mini: `C.timPham` ('diem' | 'xa' | 'tat') lưu trong `gdxmini_c`.
+
 ### Danh sách thử trên máy thật (3.177) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

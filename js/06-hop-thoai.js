@@ -2053,7 +2053,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.177', ds:[
+var CO_GI_MOI = {ban:'3.178', ds:[
+  ["📦 Mini app: gói luôn CCCD · ngày cấp · nơi cấp tổ trưởng — chọn tổ trưởng TK 104 là điền đủ, con trỏ nhảy xuống ô số tiền", "slDoiTab('gdx');doiNgan(7);gdxMiniHop()"],
+  ["💵 Giấy lĩnh: đã chọn Xã / Điểm GD thì ô tìm chỉ tìm trong xã / điểm đó cho gọn (bấm Tìm cả PGD để mở rộng); mini app có chip Điểm này · Cả xã · Cả PGD", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["📦 Giao dịch xã: nút Mini app — xuất 1 file HTML gửi đồng nghiệp (in 04/TD, 12/GDX, Giấy lĩnh; gói TK 104 tổ trưởng), hạn 30 / 60 / 90 ngày, hết hạn tự khóa", "slDoiTab('gdx');doiNgan(7);gdxMiniHop()"],
   ["💵 Giấy lĩnh: khung Người lĩnh · số tiền gọn trong 1 khung — tìm tên ↑↓ Enter, khách trong tổ ô sổ xuống, số tiền ▲▼ bước 100 nghìn", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: chữ chìm VBSP chọn Tắt · Nhạt · Vừa · Đậm; 3 ô bên phải cao hơn, ô Số tiền ngang dòng Nội dung; in xong có nút Làm trống — in người khác", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],

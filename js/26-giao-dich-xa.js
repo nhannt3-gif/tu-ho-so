@@ -777,17 +777,22 @@ function gdxGLTim(){
   var g = document.getElementById('gdx-gl-gy'); if(!g) return;
   var q = slChuan(GDX.glQ||''); if(q.length<2 || !TO_K){ g.innerHTML = ''; return; }
   var tu = q.split(' '), C = gdxC(), kq = [], khop = function(chu){ chu = ' '+slChuan(chu); return tu.every(function(w){ return chu.indexOf(w)>=0; }); };
-  Object.keys(TO_K.to).forEach(function(m){ var t = TO_K.to[m]; if(t.trucTiep || !t.ten) return;
+  /* 3.178 (anh chốt): đã chọn Xã / Điểm GD ở khối lọc → chỉ tìm trong xã / điểm đó cho gọn; bấm "Tìm cả PGD" để mở rộng */
+  var S = gdxCH(), pham = GDX.glTatCa ? null : (S.diem ? {k:'khoaDiem', v:S.diem, chu:'điểm '+((gdxDiem(S.diem)||{}).tenDiem || S.diem)} : S.xa ? {k:'xa', v:S.xa, chu:gdxTenXa(S.xa)} : null);
+  var trong = function(t){ return !pham || t[pham.k]===pham.v; };
+  Object.keys(TO_K.to).forEach(function(m){ var t = TO_K.to[m]; if(t.trucTiep || !t.ten || !trong(t)) return;
     if(khop([t.ten, m, t.tenThon].join(' '))) kq.push({to:m, kh:'', ten:t.ten, phu:'Tổ trưởng · tổ '+m+' · '+[pvApNgan(t.tenThon), t.tenDiem].filter(Boolean).join(' · ')}); });
-  if(C.glLoai!=='104') Object.keys(TO_K.kh).forEach(function(m){ var t = TO_K.to[m], da = {}; if(!t || t.trucTiep) return;
+  if(C.glLoai!=='104') Object.keys(TO_K.kh).forEach(function(m){ var t = TO_K.to[m], da = {}; if(!t || t.trucTiep || !trong(t)) return;
     (TO_K.kh[m]||[]).forEach(function(o){ if(!o.kh || da[o.kh] || slChuan(o.ten)===slChuan(t.ten)) return; da[o.kh] = 1;
       if(khop(o.ten+' '+o.kh)) kq.push({to:m, kh:o.kh, ten:o.ten, phu:'Khách · tổ '+(t.ten||m)+(t.tenThon ? ' · '+pvApNgan(t.tenThon) : '')}); }); });
   kq = kq.slice(0, 10); GDX.glI = 0;
   g.innerHTML = kq.length ? kq.map(function(x, i){ return '<button'+(i===0 ? ' class="bat"' : '')+' onclick="gdxGLChon(\''+x.to+'\', \''+x.kh+'\')"><b>'+gdxE(x.ten)+'</b> <small>'+gdxE(x.phu)+'</small></button>'; }).join('')
-    : '<div class="rong">Không thấy “'+gdxE(GDX.glQ)+'”.</div>';
+    : '<div class="rong">Không thấy “'+gdxE(GDX.glQ)+'”'+(pham ? ' trong '+gdxE(pham.chu) : '')+'.</div>';
+  if(pham) g.innerHTML = '<div class="gdx-gy-pham">🔎 Đang tìm trong <b>'+gdxE(pham.chu)+'</b> <a class="lk" onclick="GDX.glTatCa=1;gdxGLTim();var q=document.getElementById(\'gdx-gl-q\');if(q)q.focus()">Tìm cả PGD</a></div>'+g.innerHTML;
+  else if(GDX.glTatCa && (S.diem || S.xa)) g.innerHTML = '<div class="gdx-gy-pham">🔎 Đang tìm cả PGD <a class="lk" onclick="GDX.glTatCa=0;gdxGLTim();var q=document.getElementById(\'gdx-gl-q\');if(q)q.focus()">Chỉ trong xã / điểm đang chọn</a></div>'+g.innerHTML;
 }
 function gdxGLChon(to, kh){
-  GDX.glQ = ''; pvChonTo('gdx', to);
+  GDX.glQ = ''; GDX.glTatCa = 0; pvChonTo('gdx', to);
   var t = TO_K && TO_K.to[to];
   GDX.glTo = to; GDX.glHet = 0; GDX.glTien = ''; GDX.glSua = {};
   GDX.glKH = kh || (t && gdxC().glLoai!=='104' && typeof hsoTTKH==='function' ? hsoTTKH(t).kh : '') || '';
