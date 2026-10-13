@@ -4,6 +4,27 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.184 — 13/10/2026 — Giấy lĩnh: nơi cấp chữ mờ, trường hợp cũ ghi chung
+- **Anh (13/10):** "nơi cấp hiện dòng nhỏ dưới dòng số CCCD, cùng dòng địa chỉ mờ, không cần ra ô tốn 1 dòng"; "hiện tại đã đổi chỉ còn 2 dạng nơi cấp, nếu rơi vào trường hợp cũ thì báo và ghi Cục Cảnh sát thôi, ghi chung vậy".
+- **Form:** bỏ ô Nơi cấp; nơi cấp hiện **chữ nhỏ, mờ** cùng dòng nhãn Địa chỉ (ngay dưới ô CCCD), tự đổi khi gõ ngày cấp; bấm vào để gõ tay (để trống = tự tính lại, có dấu ✎ khi đang gõ tay). Địa chỉ · Tài khoản số cùng 1 dòng → form còn 2 dòng ô nhập.
+- **Công thức** (`gdxNoiCap`, mốc `GDX_NC_CU`): từ 01/07/2024 → Bộ Công an; từ 10/10/2018 → Cục Cảnh sát quản lý hành chính về trật tự xã hội; **trước 10/10/2018 (thẻ đợt đầu — trường hợp cũ) → ghi chung "Cục Cảnh sát"** + ⚠ ở chữ nơi cấp và cảnh báo vàng ở Tóm tắt (kiểm lại trên thẻ). Mốc 10/10/2018 là em chọn theo hiểu biết, chưa có văn bản kèm — anh chỉnh nếu khác. Mini app cùng cách.
+- **Phép thử:** `t167` 57/57 (thêm: không còn ô Nơi cấp, chữ mờ đúng, Địa chỉ · TK 1 dòng, trường hợp cũ ghi "Cục Cảnh sát" + cảnh báo) · `t168` 32/32 · `t165` 52/52.
+
+## 3.183 — 13/10/2026 — Giấy lĩnh: nơi cấp tự tính, form gọn, nút Xem rõ trạng thái
+- **Anh (13/10):** "chỗ bật tắt xem bị ngược, họ tên, căn cước, ngày cấp lên cùng 1 dòng, nơi cấp app tự tính và ghi vào không phụ thuộc số liệu, em nhớ công thức chứ, viết đủ ra luôn không viết tắt".
+- **Nơi cấp** (`gdxNoiCap`): tự tính theo **ngày cấp**, không lấy số liệu — cùng công thức đã có ở hồ sơ (`hsoNoiCapGY`): cấp từ 01/07/2024 → **Bộ Công an**; trước đó → **Cục Cảnh sát quản lý hành chính về trật tự xã hội** (viết đủ). Gõ tay ô Nơi cấp thì theo anh gõ. Đã đo trên mẫu in: dòng Nơi cấp viết đủ vẫn vừa (A5 và A4). Mini app cùng cách.
+- **Form:** Họ tên · CCCD · Ngày cấp cùng 1 dòng (lưới 12 cột); Địa chỉ 1 dòng; Nơi cấp · Tài khoản số 1 dòng.
+- **Nút xem trước** ghi rõ trạng thái **👁 Xem: Bật / Tắt** (3.181 ghi "Xem" / "Tắt xem" dễ hiểu ngược).
+- **Phép thử:** `t167` 55/55 (thêm: công thức nơi cấp, gõ ngày cấp → nơi cấp tự điền, 3 ô cùng dòng + nút Xem) · `t168` 32/32 · `t165` 52/52.
+
+## 3.182 — 13/10/2026 — Giấy lĩnh: lề trên, gạch dọc, ngày lĩnh gọn, vừa 1 màn hình
+- **Anh (13/10):** "mẫu in ra hơi sát đầu trang, canh lề trên thêm 5 mm, hai gạch dọc chỗ người lĩnh tiền ngắn lại 5 mm, ô nhập số tiền nổi bật hơn, dòng ngày lĩnh còn chiếm chỗ, bỏ ngày theo điểm giao dịch xã, chỉ hôm nay và nhập ngày và để trống (chấm chấm), nút làm trống để lên trên kế nút xem, như vậy sẽ vừa 1 ô màn hình chuẩn".
+- **Mẫu in** (`GL_CSS`): `.gl-trang` lề trên 8 → **13 mm**; chữ chìm dời theo (top 37,4 → 42,4 mm, giữ đúng vị trí so với form); `.gl-ky-l` (2 gạch dọc ô Người lĩnh tiền) `margin-bottom:5mm` → ngắn 5 mm. Mini app dùng chung mẫu nên tự theo.
+- **Ngày lĩnh** (`gdxGLNgay`, `gdxGLMuc('glngay')`): bỏ "Ngày GD điểm"; chỉ **Hôm nay** (mặc định) · ô nhập ngày · **Để chấm**, gọn 1 dòng. Khai báo cũ `glNgayCach='gd'` chuyển sang Hôm nay. Mini app cùng cách.
+- **Ô số tiền** nổi bật (`.gdx-tien-to`: chữ to đậm, viền xanh, nền vàng nhạt).
+- **✕ Làm trống** lên đầu khung, kế 👁 Xem (in xong → nút tô vàng = Làm trống — in người khác); bỏ nút trùng trong khung phiếu và Tóm tắt.
+- **Phép thử:** `t167` 52/52 (thêm: ngày lĩnh 3 lựa chọn 1 dòng + ô tiền nổi bật; CSS lề 13 mm, chữ chìm 42,4 mm, gạch dọc ngắn 5 mm; nút Làm trống ở đầu khung) · `t168` 32/32 · `t165` 52/52.
+
 ## 3.181 — 13/10/2026 — Giao dịch xã: tối ưu vùng nhập
 - **Anh (13/10, kèm ảnh):** "các nút quá nhiều che hết khung nhập, cơ cấu lại, khối lọc gom gọn khi nhập luôn, nhấp vào sổ ra, chọn vùng nhập thu lại, nói chung tối ưu vùng nhập"; "nhiều hàng nút quá nên chiếm chỗ".
 - **Khối lọc** (`pvVeCay`, lớp `.loc-khoi.gon`, chỉ tab Giao dịch xã): đã chọn **Điểm GD hoặc Tổ** (3.180 chỉ xét điểm — ảnh anh chọn Xã › Hội › Tổ nên chưa gọn) → còn 1 dòng 📍 đường dẫn + **▾ Đổi** + 🔎; bấm ▾ Đổi sổ ra đủ Xã · Điểm · Hội · Tổ; chọn xong hoặc **bấm vào vùng nhập** (`gdxGonLoc`, chỉ đổi lớp — không vẽ lại ô đang bấm) → gọn lại.

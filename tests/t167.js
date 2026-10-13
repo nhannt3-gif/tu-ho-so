@@ -38,7 +38,7 @@ const fs=require('fs'), path=require('path');
    /* ---- 💵 Giấy lĩnh ---- */
    ok('3.179: Giấy lĩnh mặc định TK 104 tổ trưởng', gdxC().glLoai==='104');
    gdxDoiMau('gl'); gdxDat('glLoai', '105', 1); await w(400);
-   ok('Giấy lĩnh: tới cấp Tổ → khối lọc hiện Hội / Tổ; mở mẫu → tự chọn điểm GD gần nhất, ngày lĩnh = ngày GD điểm đó', document.getElementById('gdx-cay').classList.contains('gdx-cap-to') && S.diem===g0.d.k && gdxGLDuLieu().ngay===gdxNgayToi(g0.d.ngayGD, 1)[0]);
+   ok('Giấy lĩnh: tới cấp Tổ → khối lọc hiện Hội / Tổ; mở mẫu → tự chọn điểm GD gần nhất, ngày lĩnh mặc định = hôm nay (3.182 bỏ ngày GD điểm)', document.getElementById('gdx-cay').classList.contains('gdx-cap-to') && S.diem===g0.d.k && gdxGLDuLieu().ngay===gdxHom());
    ok('chưa chọn người lĩnh → cảnh báo đỏ ở Tóm tắt', /Chưa chọn người lĩnh/.test(document.getElementById('gdx-tom').textContent));
    /* tìm tổ trưởng gõ không dấu */
    const tA = Object.values(T).find(t=>!t.trucTiep && t.ten && /[^\x00-\x7f]/.test(t.ten) && gdxGLDsKhach(t).some(k=>k.t105>0 && k.stk && k.stk.length));
@@ -79,7 +79,7 @@ const fs=require('fs'), path=require('path');
    ok('3.175: in mẫu trắng 2 mẫu / A4 cắt đôi: 2 tờ trắng đúng form (không tên, không "Rút tiền"), vạch cắt giữa, khổ A4', dIn.querySelectorAll('.gl-trang').length===2 && !!dIn.querySelector('.gl-cat') && /@page\{size:A4 portrait/.test(dIn.head.innerHTML) && chu(dIn.body.innerHTML).indexOf(kA.ten)<0 && !/Rút tiền/.test(chu(dIn.body.innerHTML)));
    gdxGLTrangIn(1); await w(400); dIn = document.getElementById('gdx-in-tam').contentDocument;
    ok('in mẫu trắng 1 mẫu / A4', dIn.querySelectorAll('.gl-trang').length===1 && !!dIn.querySelector('.sheet-gl.gl-a4'));
-   ok('3.176: khung gọn — loại TK + ô tìm + khách trong tổ (ô sổ xuống) + form + số tiền trong 1 khung', !!document.querySelector('#gdx-m-glphieu .gl-khung select') && !!document.querySelector('#gdx-m-glphieu #gdx-gl-q') && document.querySelectorAll('#gdx-m-glphieu .gl-form-luoi input').length===6 && !!document.querySelector('#gdx-m-glphieu #gdx-gl-tien') && !document.getElementById('gdx-m-gltien') && !document.getElementById('gdx-m-glnguoi'));
+   ok('3.176: khung gọn — loại TK + ô tìm + khách trong tổ (ô sổ xuống) + form + số tiền trong 1 khung', !!document.querySelector('#gdx-m-glphieu .gl-khung select') && !!document.querySelector('#gdx-m-glphieu #gdx-gl-q') && document.querySelectorAll('#gdx-m-glphieu .gl-form-luoi input').length===5 && !!document.querySelector('#gdx-m-glphieu #gdx-gl-tien') && !document.getElementById('gdx-m-gltien') && !document.getElementById('gdx-m-glnguoi'));
    GDX.glTien = '1000000'; gdxVe(); gdxGLBuoc(100000); gdxGLBuoc(100000); gdxGLBuoc(-100000);
    ok('3.176: ▲▼ số tiền bước 100 nghìn', gdxGLDuLieu().tien==='1100000' && document.getElementById('gdx-gl-tien').value==='1.100.000');
    ok('3.176: Nội dung nằm cột trái, ô Số tiền kéo tới ngang dòng Nội dung', (()=>{ const nd = [...fd().querySelectorAll('.gl-trai .gl-r .gl-n')].find(x=>/Nội dung/.test(x.textContent)); const b3 = fd().querySelector('.gl-hop3'); if(!nd || !b3) return false; const a = nd.parentNode.getBoundingClientRect(), b = b3.getBoundingClientRect(); return Math.abs(a.bottom - b.bottom) < 12; })());
@@ -95,7 +95,20 @@ const fs=require('fs'), path=require('path');
    /* nhật ký in: in → đổi khách → in lại bản cũ đúng khách cũ */
    GDX.glTien = '500000'; gdxVe(); localStorage.removeItem(GDX_NK); const hoiGoc = hoi; hoi = (a, b2, c2, fn)=>fn();
    gdxIn(); await w(300); hoi = hoiGoc;
-   ok('3.176: in xong → hiện nút "✕ Làm trống — in người khác"', !!document.querySelector("#gdx-tom .gdx-moi"));
+   ok('3.176/3.182: in xong → nút ✕ Làm trống (in người khác) ở đầu khung, kế 👁 Xem', !!document.querySelector(".gdx2-nut .gdx-moi") && !document.querySelector("#gdx-tom .gdx-moi"));
+   { const dd = [...document.querySelectorAll('#gdx-m-glngay .gdx-c')].map(b=>b.textContent).join('|'), h0 = gdxDung({mau:'gl', C:gdxC(), gl:gdxGLDuLieu()});
+     ok('3.182: ngày lĩnh chỉ Hôm nay · nhập ngày · Để chấm (bỏ ngày GD điểm), 1 dòng; ô số tiền nổi bật', !/Ngày GD/.test(dd) && /Hôm nay/.test(dd) && /Để chấm/.test(dd) && !!document.querySelector('#gdx-m-glngay .gdx-1dong') && !!document.querySelector('#gdx-gl-tien.gdx-tien-to'), dd);
+     ok('3.183: nơi cấp tự tính theo ngày cấp, viết đủ (từ 01/07/2024 Bộ Công an; trước đó Cục Cảnh sát quản lý hành chính về trật tự xã hội)', gdxNoiCap('2024-07-01')==='Bộ Công an' && gdxNoiCap('30/06/2024')==='Cục Cảnh sát quản lý hành chính về trật tự xã hội' && gdxNoiCap('')==='');
+     GDX.glSua = {ncap:'05/03/2017'}; const gC = gdxGLDuLieu(), tC = gdxTom().canh.map(x=>x.chu).join(' | '); GDX.glSua = {};
+     ok('3.184: thẻ cấp trước 10/10/2018 (trường hợp cũ) → ghi chung "Cục Cảnh sát" + cảnh báo kiểm lại', gC.noiCap==='Cục Cảnh sát' && /trước 10\/10\/2018/.test(tC), gC.noiCap);
+     GDX.glSua = {ncap:'250221'}; const gN = gdxGLDuLieu(); GDX.glSua = {};
+     ok('3.183: Giấy lĩnh — gõ ngày cấp → ô Nơi cấp tự điền đủ chữ, không lấy số liệu', gN.noiCap==='Cục Cảnh sát quản lý hành chính về trật tự xã hội', gN.noiCap);
+     gdxVe(); await w(200); const r1 = ['ten','cccd','ncap'].map(k=>document.querySelector('.gl-form-luoi input[data-k="'+k+'"]').getBoundingClientRect().top);
+     { const q = k => document.querySelector('.gl-form-luoi input[data-k="'+k+'"]').getBoundingClientRect().top, nc = document.getElementById('gdx-gl-noicap');
+       GDX.glSua = {ncap:'010824'}; gdxVe(); await w(150); const nc2 = (document.getElementById('gdx-gl-noicap')||{}).textContent || ''; GDX.glSua = {}; gdxVe(); await w(100);
+       ok('3.184: không còn ô Nơi cấp — chữ mờ cạnh nhãn Địa chỉ (tự tính theo ngày cấp); Địa chỉ · Tài khoản số cùng 1 dòng', !document.querySelector('.gl-form-luoi input[data-k="noiCap"]') && !!nc && /Nơi cấp: Bộ Công an/.test(nc2) && Math.abs(q('diaChi')-q('tk'))<3, nc2); }
+     ok('3.183: Họ tên · CCCD · Ngày cấp cùng 1 dòng; nút 👁 Xem: Bật / Tắt ghi rõ trạng thái', Math.abs(r1[0]-r1[1])<3 && Math.abs(r1[0]-r1[2])<3 && /Xem: (Bật|Tắt)/.test(document.querySelector('.gdx2-nut').textContent), r1.join(','));
+     ok('3.182: mẫu in lề trên 13 mm (+5), chữ chìm dời theo, 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm', /\.gl-trang\{[^}]*padding:13mm/.test(h0.css) && /top:42\.4mm/.test(h0.css) && /\.gl-ky-l\{[^}]*margin-bottom:5mm/.test(h0.css)); }
    const kB = gdxGLDsKhach(tA).find(k=>k.kh!==kA.kh); gdxGLChonKH(kB.kh); await w(200);
    const nk = gdxNKDs(); gdxNKIn(nk[0].id); await w(300);
    const tIn = chu(document.getElementById('gdx-in-tam').contentDocument.body.innerHTML);

@@ -88,7 +88,7 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    const q = document.getElementById('mn-q'); q.value = X.tt; mn.tim(X.tt); await w(50);
    o.gy = document.querySelectorAll('#mn-gy button').length;
    q.dispatchEvent(new KeyboardEvent('keydown', {key:'Enter', bubbles:true})); await w(150);
-   o.formCC = document.querySelector('.mn-form input[data-k="cccd"]').value; o.formNC = document.querySelector('.mn-form input[data-k="noiCap"]').value; o.focusTien = document.activeElement && document.activeElement.id==='mn-tiengl';
+   o.formCC = document.querySelector('.mn-form input[data-k="cccd"]').value; o.formNC = document.getElementById('mn-noicap').textContent; o.oNC = !!document.querySelector('.mn-form input[data-k="noiCap"]'); o.ncapISO = gdxDocNgay(document.querySelector('.mn-form input[data-k="ncap"]').value); o.focusTien = document.activeElement && document.activeElement.id==='mn-tiengl';
    o.formTen = document.querySelector('.mn-form input[data-k="ten"]').value; o.formTK = document.querySelector('.mn-form input[data-k="tk"]').value; o.formDC = document.querySelector('.mn-form input[data-k="diaChi"]').value;
    /* phạm vi tìm: điểm đang chọn ↔ cả PGD */
    const dsTT = []; document.querySelectorAll('.mn-diem option').forEach(op=>dsTT.push(op.value));
@@ -109,7 +109,7 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
  ok('12/GDX: tên điểm, mã điểm, in sẵn tên tổ trưởng, GDV in đậm', m.t12.indexOf('Mã điểm giao dịch: '+X.d.ma)>=0 && m.t12.indexOf(X.t.ten)>=0 && /Giao dịch viên: Cán Bộ Giả A/.test(m.t12));
  ok('12/GDX: GDV đã chọn không còn trong ô KSV (chọn loại trừ)', m.gdvKSV===X.canBo.length, m.gdvKSV);
  ok('Giấy lĩnh TK 104: gõ tên tổ trưởng không dấu → Enter → điền tên, TK 104 (giả), địa chỉ', m.gy>=1 && m.formTen===X.t.ten && m.formTK==='9990001112223' && /tỉnh Tây Ninh/.test(m.formDC), m.formTen+' · '+m.formTK);
- ok('3.178 mini: chọn tổ trưởng → điền luôn CCCD, nơi cấp (gói kèm); con trỏ nhảy xuống ô số tiền', m.formCC===X.cc.cccd && (!X.cc.noiCap || m.formNC===X.cc.noiCap) && m.focusTien, (m.formCC||'trống')+' · '+X.cc.cccd);
+ ok('3.178/3.184 mini: chọn tổ trưởng → điền luôn CCCD; nơi cấp tự tính theo ngày cấp, chữ mờ cạnh nhãn Địa chỉ (không ra ô); con trỏ nhảy xuống ô số tiền', m.formCC===X.cc.cccd && !m.oNC && (!m.ncapISO || m.formNC.indexOf(m.ncapISO>='2024-07-01' ? 'Bộ Công an' : 'Cục Cảnh sát quản lý hành chính về trật tự xã hội')>=0) && m.focusTien, (m.formCC||'trống')+' · '+X.cc.cccd);
  ok('3.178 mini: tìm mặc định trong điểm đang chọn; tổ trưởng điểm khác không ra (gợi ý "tìm cả PGD"); chọn Cả PGD → ra', /Điểm này/.test(m.phamMD) && m.phamNgoai===0 && m.phamGoiY && m.phamTat>=1, [m.phamMD, m.phamNgoai, m.phamTat].join(' · '));
  ok('Giấy lĩnh: ▲ bước 100 nghìn, bằng chữ trên giấy, chữ chìm mức Nhạt', m.glTien==='200.000' && m.tgl.indexOf('Hai trăm nghìn đồng.')>=0 && m.tgl.indexOf('9990001112223')>=0 && m.chim, m.glTien);
  ok('In Giấy lĩnh → nút "Làm trống — in người khác"; bấm → form trống', m.lamTrong && m.trong);
