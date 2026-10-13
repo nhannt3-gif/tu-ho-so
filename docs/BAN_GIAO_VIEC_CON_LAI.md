@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.183) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Chọn tổ trưởng có ngày cấp trước / sau 01/07/2024 | Nơi cấp: Cục Cảnh sát quản lý hành chính về trật tự xã hội / Bộ Công an — đủ chữ, in không bị cắt | |
+| 2 | Form | Họ tên · CCCD · Ngày cấp 1 dòng; nút 👁 Xem: Bật / Tắt đúng | |
+
+- **Ghi chú kỹ thuật 3.183:** `gdxNoiCap` dùng ở `gdxGLDuLieu` (bỏ qua `noiCap` số liệu trừ khi gõ tay `GDX.glSua.noiCap`) và mini (`S.noiCapTay`). Hồ sơ vay / hồ sơ tổ vẫn dùng `hsoNoiCapGY` (gợi ý viết tắt "Cục CS QLHC") — chưa đổi, chờ anh.
+
 ### Danh sách thử trên máy thật (3.182) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

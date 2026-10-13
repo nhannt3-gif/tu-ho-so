@@ -537,7 +537,7 @@ function gdxDauHTML(){
   var C = gdxC(), M = gdxMauHT(), ds = [['⚙ Khai báo riêng mẫu', 'gdxKBRieng()', 'Mọi mục của mẫu — tích Chọn nhanh để đưa ra khung'], ['⚙ Khai báo chung', 'gdxKBChung()', 'Danh sách cán bộ · danh mục tham chiếu · TK 104'],
     ['📜 Nhật ký in', 'gdxNKMo()', 'Các lần in trong 1 tháng — in lại khi khách ký sai'], ['📦 Mini app', 'gdxMiniHop()', 'Xuất 1 file HTML gọn gửi đồng nghiệp — có thời hạn 30 / 60 / 90 ngày']];
   return '<div class="gdx2-dau"><div class="gdx2-mau">'+GDX_MAU.map(function(m){ return gdxChip(m.bt+' '+m.ma, m.k===M.k, 'gdxDoiMau(\''+m.k+'\')', '', m.nhom+' — '+m.ten); }).join('')+'</div>'+
-    '<div class="gdx2-nut">'+(M.k==='gl' ? '<button class="nho'+(GDX.glDaIn ? ' gdx-moi' : '')+'" onclick="'+(GDX.glDaIn ? 'gdxGLMoi()' : 'gdxGLLamTrong()')+'" title="'+(GDX.glDaIn ? 'Làm trống — in người khác: bỏ người lĩnh, tổ, số tiền; giữ ngày, khổ giấy' : 'Xóa trống các ô để gõ người khác')+'">✕ Làm trống</button>' : '')+'<button class="nho'+(C.xem!==false ? ' chinh' : '')+'" onclick="gdxBatXem()" title="Bật / tắt khung xem trước">👁 '+(C.xem!==false ? 'Xem' : 'Tắt xem')+'</button>'+gdxMenu(ds)+'</div></div>';
+    '<div class="gdx2-nut">'+(M.k==='gl' ? '<button class="nho'+(GDX.glDaIn ? ' gdx-moi' : '')+'" onclick="'+(GDX.glDaIn ? 'gdxGLMoi()' : 'gdxGLLamTrong()')+'" title="'+(GDX.glDaIn ? 'Làm trống — in người khác: bỏ người lĩnh, tổ, số tiền; giữ ngày, khổ giấy' : 'Xóa trống các ô để gõ người khác')+'">✕ Làm trống</button>' : '')+'<button class="nho'+(C.xem!==false ? ' chinh' : '')+'" onclick="gdxBatXem()" title="Bật / tắt khung xem trước">👁 Xem: '+(C.xem!==false ? 'Bật' : 'Tắt')+'</button>'+gdxMenu(ds)+'</div></div>';
 }
 function gdxRuotHTML(){
   var C = gdxC(), M = gdxMauHT(), S = gdxCH(), canh = '';
@@ -707,6 +707,7 @@ function gdxGLDuLieu(){
   r.tien = GDX.glHet && r.du ? String(Math.round(r.du)) : String(GDX.glTien||'').replace(/\D/g, '');
   var sua = GDX.glSua || {};   /* 3.175: form gõ tay — sửa / bổ sung cho lần in này (không ghi đè số liệu) */
   GL_O.forEach(function(o){ if(sua[o[0]]!==undefined) r[o[0]] = o[0]==='ncap' ? (gdxDocNgay(sua.ncap) || '') : sua[o[0]]; });
+  if(sua.noiCap===undefined) r.noiCap = gdxNoiCap(r.ncap);   /* 3.183: tự tính, không lấy số liệu; gõ tay ô Nơi cấp thì theo anh gõ */
   return r;
 }
 function gdxGLMuc(k, kb){
@@ -774,7 +775,7 @@ function gdxGLMoi(){
 }
 function gdxGLChonKH(kh){ GDX.glKH = kh; GDX.glHet = 0; GDX.glSua = {}; gdxVe(); }
 /* 3.175 (anh chốt): form gõ tay ngay dưới ô tìm, bố trí như mẫu thật — tìm ra thì app điền sẵn, sửa được; không tìm thì gõ thẳng */
-var GL_O = [['ten','Họ, tên khách hàng',4], ['cccd','CMT / CCCD số',2], ['diaChi','Địa chỉ',6], ['ncap','Ngày cấp',2], ['noiCap','Nơi cấp',2], ['tk','Tài khoản số',2]];   /* [khóa, nhãn, số cột / 6] */
+var GL_O = [['ten','Họ, tên khách hàng',5], ['cccd','CMT / CCCD số',4], ['ncap','Ngày cấp',3], ['diaChi','Địa chỉ',12], ['noiCap','Nơi cấp (tự tính theo ngày cấp)',8], ['tk','Tài khoản số',4]];   /* [khóa, nhãn, số cột / 12] — 3.183: Họ tên · CCCD · Ngày cấp 1 dòng */
 function gdxGLSua(o){ GDX.glSua = GDX.glSua || {}; GDX.glSua[o.getAttribute('data-k')] = o.value; gdxXem(); gdxTomVe(); }
 function gdxGLLamTrong(){ GDX.glTo = '';   /* 3.179: quên tổ đang điền → chọn lại đúng tổ cũ ở khối lọc thì điền lại theo số liệu */
    GDX.glSua = {}; GL_O.forEach(function(o){ GDX.glSua[o[0]] = ''; }); GDX.glTien = ''; GDX.glHet = 0; gdxVe(); var e = document.querySelector('.gl-form-luoi input'); if(e) e.focus(); }
@@ -804,6 +805,9 @@ function gdxGLChon(to, kh){
   gdxVe();
 }
 /* mẫu in Giấy lĩnh — dựng theo ảnh mẫu anh gửi (khung, chữ, vị trí); không có hình chìm VBSP (giấy in sẵn mới có) */
+/* 3.183 (anh chốt): nơi cấp tự tính theo ngày cấp, không phụ thuộc số liệu — cùng công thức hsoNoiCapGY (từ 01/07/2024: Bộ Công an; trước đó: Cục Cảnh sát quản lý hành chính về trật tự xã hội), viết đủ không tắt */
+function gdxNoiCap(ncap){ var s = String(ncap||'').trim(), iso = /^\d{4}-\d{2}-\d{2}/.test(s) ? s.slice(0, 10) : gdxDocNgay(s); if(!iso) return '';
+  return iso >= '2024-07-01' ? 'Bộ Công an' : 'Cục Cảnh sát quản lý hành chính về trật tự xã hội'; }
 function gdxGLO(v, lop){ v = v==null ? '' : String(v).trim(); return v ? '<span class="gl-v'+(lop ? ' '+lop : '')+'">'+gdxE(v)+'</span>' : '<span class="gl-c'+(lop ? ' '+lop : '')+'"></span>'; }
 function gdxGLNgayO(iso, nhan){ var p = String(iso||'').split('-'), o = function(v, w){ return v ? '<span class="gl-vn">'+v+'</span>' : '<span class="gl-cn" style="width:'+w+'"></span>'; };
   return nhan ? nhan+' '+o(p[2], '12mm')+' tháng '+o(p[1], '12mm')+' năm '+o(p[0], '13mm') : o(p[2], '9mm')+'/'+o(p[1], '9mm')+'/'+o(p[0], '12mm'); }

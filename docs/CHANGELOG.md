@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.183 — 13/10/2026 — Giấy lĩnh: nơi cấp tự tính, form gọn, nút Xem rõ trạng thái
+- **Anh (13/10):** "chỗ bật tắt xem bị ngược, họ tên, căn cước, ngày cấp lên cùng 1 dòng, nơi cấp app tự tính và ghi vào không phụ thuộc số liệu, em nhớ công thức chứ, viết đủ ra luôn không viết tắt".
+- **Nơi cấp** (`gdxNoiCap`): tự tính theo **ngày cấp**, không lấy số liệu — cùng công thức đã có ở hồ sơ (`hsoNoiCapGY`): cấp từ 01/07/2024 → **Bộ Công an**; trước đó → **Cục Cảnh sát quản lý hành chính về trật tự xã hội** (viết đủ). Gõ tay ô Nơi cấp thì theo anh gõ. Đã đo trên mẫu in: dòng Nơi cấp viết đủ vẫn vừa (A5 và A4). Mini app cùng cách.
+- **Form:** Họ tên · CCCD · Ngày cấp cùng 1 dòng (lưới 12 cột); Địa chỉ 1 dòng; Nơi cấp · Tài khoản số 1 dòng.
+- **Nút xem trước** ghi rõ trạng thái **👁 Xem: Bật / Tắt** (3.181 ghi "Xem" / "Tắt xem" dễ hiểu ngược).
+- **Phép thử:** `t167` 55/55 (thêm: công thức nơi cấp, gõ ngày cấp → nơi cấp tự điền, 3 ô cùng dòng + nút Xem) · `t168` 32/32 · `t165` 52/52.
+
 ## 3.182 — 13/10/2026 — Giấy lĩnh: lề trên, gạch dọc, ngày lĩnh gọn, vừa 1 màn hình
 - **Anh (13/10):** "mẫu in ra hơi sát đầu trang, canh lề trên thêm 5 mm, hai gạch dọc chỗ người lĩnh tiền ngắn lại 5 mm, ô nhập số tiền nổi bật hơn, dòng ngày lĩnh còn chiếm chỗ, bỏ ngày theo điểm giao dịch xã, chỉ hôm nay và nhập ngày và để trống (chấm chấm), nút làm trống để lên trên kế nút xem, như vậy sẽ vừa 1 ô màn hình chuẩn".
 - **Mẫu in** (`GL_CSS`): `.gl-trang` lề trên 8 → **13 mm**; chữ chìm dời theo (top 37,4 → 42,4 mm, giữ đúng vị trí so với form); `.gl-ky-l` (2 gạch dọc ô Người lĩnh tiền) `margin-bottom:5mm` → ngắn 5 mm. Mini app dùng chung mẫu nên tự theo.

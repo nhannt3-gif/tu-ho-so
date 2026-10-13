@@ -3422,8 +3422,9 @@ span.sl-chip{cursor:help}
 .gl-k1{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 10px;align-items:center}
 @media(max-width:700px){ .gl-k1{grid-template-columns:1fr} }
 .gl-k2 select{width:100%}.gl-k3{display:flex;gap:6px;justify-content:flex-end}
-.gl-khung .gl-form-luoi{grid-template-columns:repeat(6,minmax(0,1fr));gap:4px 8px}
-.gl-khung .gl-form-luoi .gl-c2{grid-column:span 2}.gl-khung .gl-form-luoi .gl-c4{grid-column:span 4}.gl-khung .gl-form-luoi .gl-c6{grid-column:1 / -1}
+.gl-khung .gl-form-luoi{grid-template-columns:repeat(12,minmax(0,1fr));gap:4px 8px}
+.gl-khung .gl-form-luoi .gl-c3{grid-column:span 3}.gl-khung .gl-form-luoi .gl-c4{grid-column:span 4}.gl-khung .gl-form-luoi .gl-c5{grid-column:span 5}.gl-khung .gl-form-luoi .gl-c8{grid-column:span 8}.gl-khung .gl-form-luoi .gl-c12{grid-column:1 / -1}
+@media(max-width:700px){.gl-khung .gl-form-luoi .gl-c3,.gl-khung .gl-form-luoi .gl-c4,.gl-khung .gl-form-luoi .gl-c5{grid-column:span 6}.gl-khung .gl-form-luoi .gl-c8{grid-column:1 / -1}}
 .gl-khung .gl-form-luoi input{padding:3px 7px}
 .gl-tien{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.gl-tien label{display:flex;gap:5px;align-items:center;font-weight:600}
 .gdx-gy button.bat{background:var(--xanh-nhat);outline:2px solid var(--xanh)}

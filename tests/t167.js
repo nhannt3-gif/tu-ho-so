@@ -98,6 +98,11 @@ const fs=require('fs'), path=require('path');
    ok('3.176/3.182: in xong → nút ✕ Làm trống (in người khác) ở đầu khung, kế 👁 Xem', !!document.querySelector(".gdx2-nut .gdx-moi") && !document.querySelector("#gdx-tom .gdx-moi"));
    { const dd = [...document.querySelectorAll('#gdx-m-glngay .gdx-c')].map(b=>b.textContent).join('|'), h0 = gdxDung({mau:'gl', C:gdxC(), gl:gdxGLDuLieu()});
      ok('3.182: ngày lĩnh chỉ Hôm nay · nhập ngày · Để chấm (bỏ ngày GD điểm), 1 dòng; ô số tiền nổi bật', !/Ngày GD/.test(dd) && /Hôm nay/.test(dd) && /Để chấm/.test(dd) && !!document.querySelector('#gdx-m-glngay .gdx-1dong') && !!document.querySelector('#gdx-gl-tien.gdx-tien-to'), dd);
+     ok('3.183: nơi cấp tự tính theo ngày cấp, viết đủ (từ 01/07/2024 Bộ Công an; trước đó Cục Cảnh sát quản lý hành chính về trật tự xã hội)', gdxNoiCap('2024-07-01')==='Bộ Công an' && gdxNoiCap('30/06/2024')==='Cục Cảnh sát quản lý hành chính về trật tự xã hội' && gdxNoiCap('')==='');
+     GDX.glSua = {ncap:'250221'}; const gN = gdxGLDuLieu(); GDX.glSua = {};
+     ok('3.183: Giấy lĩnh — gõ ngày cấp → ô Nơi cấp tự điền đủ chữ, không lấy số liệu', gN.noiCap==='Cục Cảnh sát quản lý hành chính về trật tự xã hội', gN.noiCap);
+     gdxVe(); await w(200); const r1 = ['ten','cccd','ncap'].map(k=>document.querySelector('.gl-form-luoi input[data-k="'+k+'"]').getBoundingClientRect().top);
+     ok('3.183: Họ tên · CCCD · Ngày cấp cùng 1 dòng; nút 👁 Xem: Bật / Tắt ghi rõ trạng thái', Math.abs(r1[0]-r1[1])<3 && Math.abs(r1[0]-r1[2])<3 && /Xem: (Bật|Tắt)/.test(document.querySelector('.gdx2-nut').textContent), r1.join(','));
      ok('3.182: mẫu in lề trên 13 mm (+5), chữ chìm dời theo, 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm', /\.gl-trang\{[^}]*padding:13mm/.test(h0.css) && /top:42\.4mm/.test(h0.css) && /\.gl-ky-l\{[^}]*margin-bottom:5mm/.test(h0.css)); }
    const kB = gdxGLDsKhach(tA).find(k=>k.kh!==kA.kh); gdxGLChonKH(kB.kh); await w(200);
    const nk = gdxNKDs(); gdxNKIn(nk[0].id); await w(300);
