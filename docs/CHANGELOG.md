@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.190 — 13/10/2026 — 🧾 Bảng kê: Họ tên người lĩnh ghi tay
+- **Anh (13/10):** "tên người nhận tự ký và ghi tay".
+- **Bảng kê** (`gdxBKTrang`): dòng **Họ tên** dưới chỗ ký Người lĩnh tiền không in sẵn tên nữa, để chấm cho người lĩnh tự ký và ghi tay (như Người chi tiền). Dòng "Họ và tên người lĩnh tiền" ở đầu tờ vẫn in sẵn.
+- **Phép thử:** `t167` 67/67.
+
 ## 3.189 — 13/10/2026 — 🧾 Bảng kê: chữ chìm bằng logo
 - **Anh (13/10):** "em code đi, em có logo rồi phải không" (tờ Bảng kê in sẵn có logo VBSP in chìm to giữa bảng).
 - **Bảng kê** (`gdxBKTrang`, `BK_CSS_LOI`): chữ chìm dùng **logo anh đã nạp ở 📄 Hồ sơ vay › ⚙ Khai báo 1 lần** (`hsoKB().logo`, lưu trong cài đặt máy anh, đồng bộ Drive — không có trong repo), rộng 58 mm, giữa vùng bảng mệnh giá như tờ in sẵn; đậm nhạt theo Chữ chìm của Giấy lĩnh (Nhạt / Vừa / Đậm, Tắt = không in). Chưa nạp logo → giữ chữ VBSP như cũ. Áp cho Bảng kê in riêng, in kèm Giấy lĩnh và mẫu trắng. Giấy lĩnh giữ chữ VBSP.

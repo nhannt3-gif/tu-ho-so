@@ -137,6 +137,7 @@ const fs=require('fs'), path=require('path');
        const kb = hsoKB(), lgCu = kb.logo; kb.logo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
        const hL = gdxBKTrang({tien:'1000'}, gdxC()); if(lgCu) kb.logo = lgCu; else delete kb.logo; const hV = gdxBKTrang({tien:'1000'}, gdxC());
        ok('3.189: Bảng kê chữ chìm = logo đã nạp (Hồ sơ vay); chưa nạp → chữ VBSP', /<img class="bk-chim bk-logo chim-\w+" src="data:image\/png/.test(hL) && /class="bk-chim">VBSP</.test(hV) && /\.bk-chim\.bk-logo\{[^}]*opacity/.test(BK_CSS_LOI));
+       ok('3.190: Bảng kê — dòng Họ tên dưới chỗ ký để chấm (người lĩnh tự ghi tay), tên in sẵn chỉ ở dòng Họ và tên người lĩnh tiền', d3.querySelectorAll('.bk-hoten .gl-v').length===0 && d3.querySelectorAll('.bk-hoten .gl-c').length===2 && d3.querySelector('.bk-ten .gl-v').textContent==='Giả Văn Lĩnh');
        f3.remove(); gdxGLTrangIn(3); await w(400); const dK = document.getElementById('gdx-in-tam').contentDocument;
        ok('3.188: mẫu trắng Giấy lĩnh + Bảng kê / A4 — trống tên, trống mệnh giá', dK.querySelectorAll('.gl-trang').length===1 && dK.querySelectorAll('.bk-trang').length===1 && (!gB.ten || chu(dK.body.innerHTML).indexOf(gB.ten)<0) && [].every.call(dK.querySelectorAll('.bk-sl'), x=>!x.textContent)); }
      GDX.xemBK = 0; GDX.glTien = ''; gdxVeTrai(); await w(200); }

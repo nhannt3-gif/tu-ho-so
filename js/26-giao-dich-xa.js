@@ -936,7 +936,7 @@ function gdxBKTrang(g, c, trang){
       '<tr class="bk-tong"><td><b>Tổng cộng</b></td><td></td>'+o4(ch ? tien - ch.du : 0)+'</tr>'+
       '<tr class="bk-chu"><td colspan="6"><div class="gl-r"><span class="gl-n"><i>Số tiền bằng chữ:</i></span>'+(chu ? '<span class="gl-v gl-bc1">'+gdxE(chu)+'</span>' : gdxGLO(''))+'</div><div class="gl-r">'+(chu ? '<span class="gl-c gl-bc2"></span>' : gdxGLO(''))+'</div></td></tr></tbody></table>'+
     '<div class="bk-ky"><div>Người lĩnh tiền<i>(ký và ghi rõ họ tên)</i></div><div>Người chi tiền<i>(ký và ghi rõ họ tên)</i></div></div>'+
-    '<div class="bk-hoten">'+r('Họ tên:', g.ten)+r('Họ tên:', '')+'</div>'+
+    '<div class="bk-hoten">'+r('Họ tên:', '')+r('Họ tên:', '')+'</div>'+   /* 3.190 (anh): người lĩnh tự ký và ghi tay họ tên → để chấm */
   '</div>';
 }
 function gdxHTMLBK(g, c){
