@@ -225,3 +225,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.188 (13/10):** Giấy lĩnh + Bảng kê in chung 1 tờ A4 (⚙ Khổ giấy) — Bảng kê xoay ngang sát góc dưới trái, cắt 2 nhát, tự chia mệnh giá, bằng chữ đủ; mẫu trắng cùng kiểu.
 - **Đã làm 3.189 (13/10):** Bảng kê chữ chìm = logo đã nạp ở Hồ sơ vay (chưa nạp → VBSP).
 - **Đã làm 3.190 (13/10):** Bảng kê — Họ tên dưới chỗ ký Người lĩnh tiền để chấm (người lĩnh tự ghi tay).
+- **Đã làm 3.191 (13/10):** Bảng kê in kèm 210 × 115 mm (cắt 1 nhát), chữ 13 pt; không in sẵn tên người lĩnh; Tổng cộng đậm, bằng chữ đậm nghiêng; PGD sát nhãn; cụm cơ quan lớn hơn.

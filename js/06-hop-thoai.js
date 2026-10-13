@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.190', ds:[
+var CO_GI_MOI = {ban:'3.191', ds:[
+  ["🧾 Bảng kê in kèm Giấy lĩnh: dài hết bề ngang A4, rộng thêm 1 cm (cắt 1 nhát), chữ 13 pt; không in sẵn tên người lĩnh; Tổng cộng đậm, bằng chữ đậm nghiêng", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["🧾 Bảng kê: dòng Họ tên dưới chỗ ký Người lĩnh tiền để chấm — người lĩnh tự ký và ghi tay", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["🧾 Bảng kê: chữ chìm là logo đã nạp ở 📄 Hồ sơ vay › Khai báo 1 lần, to giữa bảng như tờ in sẵn (chưa nạp → chữ VBSP)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["🧾 Giấy lĩnh + Bảng kê in chung 1 tờ A4 (⚙ Khổ giấy): Giấy lĩnh nửa trên, Bảng kê xoay ngang sát góc dưới trái — cắt 2 nhát; tự chia mệnh giá từ tờ lớn, bằng chữ đầy đủ", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],

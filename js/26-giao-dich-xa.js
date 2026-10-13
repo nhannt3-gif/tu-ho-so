@@ -931,7 +931,7 @@ function gdxBKTrang(g, c, trang){
   return '<div class="bk-trang">'+(c.glChim==='tat' ? '' : logo ? '<img class="bk-chim bk-logo chim-'+mc+'" src="'+logo+'" alt="">' : '<div class="bk-chim">VBSP</div>')+
     '<div class="bk-dau"><div class="bk-nh"><div>NGÂN HÀNG CHÍNH SÁCH XÃ HỘI</div><div>CHI NHÁNH TỈNH TÂY NINH</div><div class="gl-r bk-pgd"><b>PHÒNG GIAO DỊCH:</b>'+gdxGLO(pgd)+'</div></div>'+
       '<div class="bk-tit"><div class="bk-t1">BẢNG KÊ</div><div class="bk-t2">CÁC LOẠI TIỀN NGÂN HÀNG CHI RA</div><div class="bk-ngay">Ngày '+o(p[2], '7mm')+' tháng '+o(p[1], '7mm')+' năm '+(p[0] ? '<span class="gl-vn">'+p[0]+'</span>' : '20'+o('', '6mm'))+'</div></div></div>'+
-    r('Họ và tên người lĩnh tiền:', g.ten, 'bk-ten')+r('Địa chỉ:', g.diaChi)+r('Nội dung:', trang ? '' : (c.glND==null ? 'Rút tiền' : c.glND))+
+    r('Họ và tên người lĩnh tiền:', '', 'bk-ten')+r('Địa chỉ:', g.diaChi)+r('Nội dung:', trang ? '' : (c.glND==null ? 'Rút tiền' : c.glND))+
     '<table class="bk-bang"><colgroup><col style="width:19mm"><col style="width:13mm"><col><col><col><col></colgroup><thead><tr><th>Loại tiền</th><th>Số lượng</th><th colspan="4">Thành tiền</th></tr></thead><tbody>'+dong+
       '<tr class="bk-tong"><td><b>Tổng cộng</b></td><td></td>'+o4(ch ? tien - ch.du : 0)+'</tr>'+
       '<tr class="bk-chu"><td colspan="6"><div class="gl-r"><span class="gl-n"><i>Số tiền bằng chữ:</i></span>'+(chu ? '<span class="gl-v gl-bc1">'+gdxE(chu)+'</span>' : gdxGLO(''))+'</div><div class="gl-r">'+(chu ? '<span class="gl-c gl-bc2"></span>' : gdxGLO(''))+'</div></td></tr></tbody></table>'+
@@ -951,7 +951,7 @@ var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6
   '.bk-chim.bk-logo{left:31mm;top:58mm;width:58mm;height:auto;opacity:.16}.bk-logo.chim-vua{opacity:.24}.bk-logo.chim-dam{opacity:.34}'+
   '.bk-trang>*:not(.bk-chim){position:relative;z-index:1}'+
   '.bk-dau{display:grid;grid-template-columns:1.05fr 1fr;gap:2mm;margin-bottom:2.5mm}'+
-  '.bk-nh{text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:7.5pt;line-height:1.35}.bk-pgd{min-height:0;font-size:7.5pt;margin-top:1mm}'+
+  '.bk-nh{text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;line-height:1.35}.bk-pgd{min-height:0;font-size:8.5pt;margin-top:1mm}.bk-trang .bk-pgd .gl-v{flex:0 1 auto;text-align:left;padding-left:1.2mm}'+   /* 3.191 (anh): cụm tên cơ quan lớn hơn; tên PGD sát chữ PHÒNG GIAO DỊCH */
   '.bk-tit{text-align:center}.bk-t1{font-weight:bold;font-size:14pt;letter-spacing:.5px}.bk-t2{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:7pt}.bk-ngay{font-size:9.5pt;margin-top:1mm}'+
   '.bk-trang .gl-r{display:flex;align-items:baseline;gap:1mm;min-height:6.2mm;white-space:nowrap}.bk-trang .gl-n{flex:none}'+
   '.bk-trang .gl-c{flex:1 1 auto;display:block;min-width:5mm;border-bottom:1.2px dotted #000;line-height:1}.bk-trang .gl-c::after{content:"\\00a0"}'+
@@ -961,8 +961,8 @@ var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6
   '.bk-bang th{border:1.1px solid #000;font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;padding:.8mm 0}'+
   '.bk-bang td{border-left:1.1px solid #000;border-right:1.1px solid #000;border-bottom:1px dotted #000;height:6.3mm;padding:0 1mm}'+
   '.bk-lt{text-align:right}.bk-sl{text-align:center}.bk-tt{text-align:right;font-size:9.5pt}'+
-  '.bk-tong td{border-top:1.1px solid #000;border-bottom:1.1px solid #000;height:10mm;font-family:Arial,Helvetica,sans-serif;font-size:9pt}'+
-  '.bk-chu td{border:1.1px solid #000;padding:1mm 1.5mm;height:auto}.bk-trang .bk-chu .gl-r{min-height:5.6mm;font-size:10pt}'+
+  '.bk-tong td{border-top:1.1px solid #000;border-bottom:1.1px solid #000;height:10mm;font-family:Arial,Helvetica,sans-serif;font-size:9pt}.bk-tong .bk-tt{font-weight:bold}'+
+  '.bk-chu td{border:1.1px solid #000;padding:1mm 1.5mm;height:auto}.bk-trang .bk-chu .gl-r{min-height:5.6mm;font-size:10pt}.bk-trang .bk-chu .gl-v{font-weight:bold;font-style:italic}.bk-trang .bk-chu .gl-bc2{white-space:normal}'+   /* 3.191 (anh): Tổng cộng + bằng chữ in đậm (bằng chữ nghiêng) */
   '.bk-ky{display:grid;grid-template-columns:1fr 1fr;text-align:center;margin-top:2.5mm;font-size:10.5pt;flex:1}.bk-ky i{display:block;font-size:9.5pt}'+
   '.bk-hoten{display:grid;grid-template-columns:1fr 1fr;gap:6mm;font-size:10pt}';
 var BK_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1;color:#000;font-family:"Times New Roman",Times,serif}'+
@@ -971,10 +971,17 @@ var BK_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1
   '@page{size:A4 portrait;margin:0}'+
   '@media print{body{background:#fff}.preview-stage{background:none;padding:0;display:block;border-radius:0}.sheet-bk{box-shadow:none;zoom:1 !important;height:296mm}.sheet-bk:not(.bk-x2) .bk-trang{outline:none}}';
 var GL_CSS_A5 = '@page{size:A5 landscape;margin:0}';
-/* 3.188 (anh chốt): Giấy lĩnh nửa trên + Bảng kê 105 × 185 xoay ngang (185 × 105) sát góc dưới trái → cắt 2 nhát theo nét đứt */
-var GL_CSS_KEM = '.sheet-gl.gl-kem{height:297mm}.gl-bkk{position:absolute;left:0;bottom:0;width:185mm;height:105mm;z-index:1}'+
-  '.gl-bkk .bk-trang{position:absolute;left:0;top:105mm;transform-origin:0 0;transform:rotate(-90deg)}'+
-  '.gl-cat-n{position:absolute;left:0;width:185mm;bottom:105mm;border-top:.3mm dashed #b8b8b8}.gl-cat-d{position:absolute;left:185mm;bottom:0;height:105mm;border-left:.3mm dashed #b8b8b8}'+
+/* 3.188 (anh chốt): Giấy lĩnh nửa trên + Bảng kê xoay ngang sát góc dưới trái → cắt theo nét đứt.
+   3.191 (anh): Bảng kê in kèm dài hết bề ngang trang (210 mm), rộng 115 mm (+1 cm) → chỉ cắt 1 nhát ngang; chữ 13 pt */
+var GL_CSS_KEM = '.sheet-gl.gl-kem{height:297mm}.gl-bkk{position:absolute;left:0;bottom:0;width:210mm;height:115mm;z-index:1}'+
+  '.gl-bkk .bk-trang{position:absolute;left:0;top:115mm;width:115mm;height:210mm;padding:8mm 6mm 6mm 7mm;font-size:13pt;transform-origin:0 0;transform:rotate(-90deg)}'+
+  '.gl-bkk .bk-dau{grid-template-columns:auto auto;justify-content:space-between;gap:3mm}.gl-bkk .bk-dau div{white-space:nowrap}.gl-bkk .bk-nh,.gl-bkk .bk-pgd{font-size:9pt}.gl-bkk .bk-t1{font-size:17pt}.gl-bkk .bk-t2{font-size:7.8pt}.gl-bkk .bk-ngay{font-size:11.5pt}'+
+  '.gl-bkk .bk-bang col:first-child{width:24mm !important}.gl-bkk .bk-tong td:first-child{white-space:nowrap}'+
+  '.gl-bkk .bk-trang .gl-r{min-height:7.6mm}.gl-bkk .bk-bang{font-size:13pt;margin-top:2mm}.gl-bkk .bk-bang th{font-size:10.5pt;padding:1mm 0}.gl-bkk .bk-bang td{height:7.4mm}.gl-bkk .bk-tt{font-size:12pt}'+
+  '.gl-bkk .bk-tong td{height:11mm;font-size:11pt}.gl-bkk .bk-tong .bk-tt{font-size:12.5pt}.gl-bkk .bk-trang .bk-chu .gl-r{min-height:7mm;font-size:13pt}'+
+  '.gl-bkk .bk-ky{font-size:13pt;margin-top:3mm}.gl-bkk .bk-ky i{font-size:11.5pt}.gl-bkk .bk-hoten{font-size:13pt}'+
+  '.gl-bkk .bk-chim{left:27mm;top:88mm;font-size:76pt}.gl-bkk .bk-chim.bk-logo{left:26.5mm;top:72mm;width:62mm}'+
+  '.gl-cat-n{position:absolute;left:0;width:210mm;bottom:115mm;border-top:.3mm dashed #b8b8b8}.gl-cat-d{display:none}'+
   '@media print{.sheet-gl.gl-a4.gl-kem{height:296mm}}';
 var GL_CSS_A4 = '@page{size:A4 portrait;margin:0}@media print{.sheet-gl.gl-a4{height:147mm}.sheet-gl.gl-a4.gl-x2{height:296mm}}';
 
