@@ -214,3 +214,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.177 (13/10):** 📦 mini app Giao dịch xã — nút ở tab, xuất 1 file HTML (04/TD, 12/GDX, Giấy lĩnh; gói điểm GD, tổ trưởng + TK 104, cán bộ, khai báo; không gói khách TK 105), hạn 30/60/90 ngày, hết hạn / lùi giờ / sửa hạn → khóa, số liệu xáo mã (không mật khẩu). Mẫu in chép từ hàm của app lúc xuất (1 nguồn).
 - **Đã làm 3.178 (13/10):** mini app gói thêm CCCD · ngày cấp · nơi cấp tổ trưởng (anh chốt "vẫn gói"); tìm Giấy lĩnh gọn theo Xã / Điểm GD đang chọn (app: liên kết Tìm cả PGD; mini: chip Điểm này · Cả xã · Cả PGD).
 - **Đã làm 3.179 (13/10):** Giấy lĩnh mặc định TK 104 tổ trưởng (anh chốt), chuyển 1 lần cho máy đang dùng; sửa Làm trống rồi chọn lại tổ cũ không điền lại.
+- **Đã làm 3.180 (13/10):** TK 104 tra 3 bước (mã · mã bỏ số 0 · tên tổ trưởng cùng xã) + câu lý do khi không có; 📋 Tóm tắt 1 dòng; khối lọc thu gọn Xã / Điểm khi đã chọn điểm (riêng tab Giao dịch xã).

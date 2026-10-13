@@ -27,7 +27,7 @@ function gdxMiniGoi(){
   Object.keys(C).forEach(function(k){ if(['nhanh', 'xem', 'form'].indexOf(k)<0) c[k] = JSON.parse(JSON.stringify(C[k]===undefined ? null : C[k])); });
   var diem = gdxDsDiem().map(function(d){
     return {k:d.k, ma:d.maDiem || '', ten:d.tenDiem || '', xa:d.tenXa || '', xaChu:gdxXaPhuong(d.tenXa), ngay:d.ngayGD || '',
-      to:(d.to||[]).map(function(t){ var tc = dmtToCua(t.maTo) || {}, kt = typeof TO_K!=='undefined' && TO_K && TO_K.to ? TO_K.to[t.maTo] : null, kh = tc.ttKH || '';
+      to:(d.to||[]).map(function(t){ var kt = typeof TO_K!=='undefined' && TO_K && TO_K.to ? TO_K.to[t.maTo] : null, tc = dmtTimTo(kt || {ma:t.maTo, ten:t.tenTo, tenXa:d.tenXa}) || {}, kh = tc.ttKH || '';
         if(!kh && kt && typeof hsoTTKH==='function'){ try { kh = hsoTTKH(kt).kh || ''; } catch(e){} }
         var tk = tc.tk104 || gdxTK104Cua(kh) || '', dc = '';
         try { dc = ktDiaBan({tenThon:t.tenAp, tenXa:d.tenXa}); } catch(e){ dc = ''; }

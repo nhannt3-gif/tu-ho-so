@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.180 — 13/10/2026 — TK 104 tra chắc hơn; Tóm tắt 1 dòng; khối lọc thu gọn
+- **Anh (13/10):** "không có tổ nào hiện 104 hết"; "chỗ tóm tắt thu gọn 1 dòng chừa chỗ nhập rộng ra"; "chọn điểm rồi thì thu gọn xã, điểm lại luôn cho rộng nhất".
+- **TK 104** (`dmtTimTo`, `dmtViSao`): trên dữ liệu giả đường tra theo mã tổ vẫn đúng → chưa rõ nguyên nhân trên máy anh (chưa xem được dữ liệu thật). Nay tra 3 bước: ① đúng mã tổ · ② mã bỏ khoảng trắng / số 0 đầu · ③ tổ trưởng trùng tên (không dấu, bỏ Ông / Bà) cùng xã, chỉ 1 tổ có TK 104 (ghi rõ "theo tên tổ trưởng, mã tổ danh mục …"). Không thấy → dòng TK 104 và Tóm tắt **ghi lý do**: máy / trình duyệt này chưa có danh mục · mã tổ … không có trong danh mục (kèm 2 mã mẫu của danh mục) · danh mục có tổ nhưng ô TK 104 trống. Mini app tra cùng cách.
+- **📋 Tóm tắt 1 dòng** (`gdxTomHTML`, CSS `.gdx2-tom`): 📋 · chip cuộn ngang · cảnh báo đầu tiên (+n, rê chuột xem hết, bấm → tới mục) · nút in gọn (📄 Trắng 1/A4 · 📄 2/A4 · PDF · 🖨 IN). Điện thoại vẫn xuống dòng.
+- **Khối lọc thu gọn** (`pvVeCay`, cờ `PV_DUNG.gdx.gonDiem` — chỉ tab Giao dịch xã): đã chọn Điểm GD → ẩn hàng chip Xã và Điểm GD, còn dòng 📍 đường dẫn + nút **▾ Đổi xã / điểm** (mở lại; chọn xong tự gọn). Tab khác không đổi.
+- **Phép thử:** `t168` thêm 4 phép (31/31) · `t167` 50/50 · `t165` 52/52.
+
 ## 3.179 — 13/10/2026 — Giấy lĩnh mặc định TK 104
 - **Anh (13/10):** nạp danh mục rồi nhưng Giấy lĩnh chưa hiện TK 104; chốt "mặc định 104".
 - **Nguyên nhân (thử bằng dữ liệu giả):** ① Giấy lĩnh mặc định "TK 105 khách" → chọn tổ trưởng thì lấy TK 105 của tổ trưởng (không có thì trống), không lấy TK 104; ② bấm ✕ Làm trống rồi chọn lại đúng tổ cũ ở khối LỌC ĐỊA BÀN → các ô vẫn trống.

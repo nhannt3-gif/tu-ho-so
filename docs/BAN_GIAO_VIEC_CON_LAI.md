@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.180) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giấy lĩnh TK 104 chọn tổ trưởng | Hiện TK 104; nếu vẫn "chưa có" thì đọc dòng lý do (chụp gửi em) | |
+| 2 | Tóm tắt bản in | 1 dòng, chỗ nhập rộng hơn | |
+| 3 | Chọn điểm GD ở khối lọc | Hàng Xã / Điểm thu gọn; ▾ Đổi xã / điểm mở lại | |
+
+- **Ghi chú kỹ thuật 3.180:** `dmtTimTo(t)` dùng ở `gdxGLDuLieu` và `gdxMiniGoi`; `dmtViSao(t)` = câu lý do. Thu gọn khối lọc: `PV_MO[p]==='xd'` = đang mở lại; `pvChon` đặt lại '' nên chọn xong tự gọn.
+
 ### Danh sách thử trên máy thật (3.179) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
