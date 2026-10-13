@@ -227,7 +227,8 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 |---|---|---|---|
 | 1 | In Giấy lĩnh + Bảng kê / A4 | Bảng kê hết bề ngang, cao 115 mm sát đáy, cắt 1 nhát; chữ 13 pt dễ đọc | |
 | 2 | Bảng kê | Tên người lĩnh để trống; Tổng cộng đậm; bằng chữ đậm nghiêng; Gò Dầu sát chữ PGD | |
-| 3 | Logo chìm | Logo cánh sen đã nạp ở Hồ sơ vay, mờ giữa bảng | |
+| 3 | Logo chìm | Logo cánh sen đã nạp ở Hồ sơ vay, cân giữa bảng như tờ thật (dòng 100.000 → Tổng cộng) | |
+| 4 | ⋯ › ⚙ Khai báo riêng mẫu › 🧾 Bảng kê: Logo chìm Đậm / Tắt | Logo Bảng kê đổi riêng, Giấy lĩnh không đổi | |
 
 - **Ghi chú kỹ thuật 3.191:** in kèm: `.gl-bkk` 210 × 115, `.bk-trang` 115 × 210 xoay -90° (top 115 mm); `.gl-cat-d` ẩn. Cỡ chữ in kèm riêng trong `GL_CSS_KEM`, tờ Bảng kê riêng (105 × 185) giữ cỡ cũ.
 
