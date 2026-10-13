@@ -2053,7 +2053,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.184', ds:[
+var CO_GI_MOI = {ban:'3.185', ds:[
+  ["💵 Giấy lĩnh: ô tìm nhận số CCCD (4 số cuối trở lên) cho đúng người; ↑↓ chọn, Enter → điền form và nhảy ngay ô số tiền", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
+  ["💵 Giấy lĩnh: TK 105 chưa có số sổ → tra danh bạ theo CCCD, không có thì ghi lý do; ✕ Làm trống bỏ luôn chọn tổ ở cây địa bàn", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: Nơi cấp không ra ô — chữ mờ cạnh nhãn Địa chỉ (bấm để sửa); thẻ cấp trước 10/10/2018 ghi chung \"Cục Cảnh sát\" và báo kiểm lại", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: Nơi cấp tự tính theo ngày cấp, viết đủ (Bộ Công an / Cục Cảnh sát quản lý hành chính về trật tự xã hội); Họ tên · CCCD · Ngày cấp 1 dòng; nút 👁 Xem: Bật / Tắt", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: mẫu in lề trên +5 mm, 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm; ngày lĩnh chỉ Hôm nay · nhập ngày · Để chấm (1 dòng); ô số tiền nổi bật; ✕ Làm trống lên kế 👁 Xem", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],

@@ -243,9 +243,10 @@ function gdxMiniApp(){
     return !d || p==='tat' ? {p:'tat', chu:'cả PGD'} : p==='xa' ? {p:'xa', xa:d.xa, chu:d.xa} : {p:'diem', k:d.k, chu:'điểm '+d.ten}; }
   function timKQ(q){
     q = boDau(q).replace(/[^a-z0-9]+/g, ' ').trim(); if(q.length < 2) return [];
-    var tu = q.split(' '), kq = [], P = phamTim();
+    var tu = q.split(' '), kq = [], P = phamTim(), so = /^\d{4,}$/.test(q) ? q : '';   /* 3.185: gõ số → tìm theo CCCD */
     DS.forEach(function(d){ if((P.p==='diem' && d.k!==P.k) || (P.p==='xa' && d.xa!==P.xa)) return; d.to.forEach(function(t){ var s = ' '+boDau([t.ten, t.ma, t.ap].join(' ')).replace(/[^a-z0-9]+/g, ' ');
-      if(tu.every(function(w){ return s.indexOf(w)>=0; })) kq.push({k:d.k+'|'+t.ma, ten:t.ten || t.ma, phu:[t.ap, d.ten, d.xa].filter(Boolean).join(' · ')+(t.tk ? '' : ' · chưa có TK 104')}); }); });
+      var cc = String(t.cccd||'').replace(/\D/g, ''), ccOK = so && cc && cc.slice(-so.length)===so;
+      if(ccOK || (!so && tu.every(function(w){ return s.indexOf(w)>=0; }))) kq.push({k:d.k+'|'+t.ma, ten:t.ten || t.ma, phu:[t.ap, d.ten, d.xa].filter(Boolean).join(' · ')+(ccOK ? ' · CCCD '+cc : '')+(t.tk ? '' : ' · chưa có TK 104')}); }); });
     return kq.slice(0, 10);
   }
   window.mn = {
