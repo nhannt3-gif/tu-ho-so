@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.178', ds:[
+var CO_GI_MOI = {ban:'3.179', ds:[
+  ["💵 Giấy lĩnh: mặc định TK 104 tổ trưởng (chọn tổ trưởng là hiện TK 104); sửa lỗi Làm trống rồi chọn lại đúng tổ cũ thì ô trống", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["📦 Mini app: gói luôn CCCD · ngày cấp · nơi cấp tổ trưởng — chọn tổ trưởng TK 104 là điền đủ, con trỏ nhảy xuống ô số tiền", "slDoiTab('gdx');doiNgan(7);gdxMiniHop()"],
   ["💵 Giấy lĩnh: đã chọn Xã / Điểm GD thì ô tìm chỉ tìm trong xã / điểm đó cho gọn (bấm Tìm cả PGD để mở rộng); mini app có chip Điểm này · Cả xã · Cả PGD", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["📦 Giao dịch xã: nút Mini app — xuất 1 file HTML gửi đồng nghiệp (in 04/TD, 12/GDX, Giấy lĩnh; gói TK 104 tổ trưởng), hạn 30 / 60 / 90 ngày, hết hạn tự khóa", "slDoiTab('gdx');doiNgan(7);gdxMiniHop()"],
