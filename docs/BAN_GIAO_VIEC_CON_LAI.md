@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.192) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ⋯ › ⚙ Khai báo riêng mẫu (Giấy lĩnh) | 2 nhóm 💵 Giấy lĩnh / 🧾 Bảng kê; Bảng kê có Tên PGD, Logo chìm, Bảng mệnh giá, Kiểu in | |
+| 2 | 📄 Mẫu trắng › Bảng kê trắng 2 tờ / A4 ngang | 2 tờ sát 2 mép, cắt theo nét đứt ra đúng 115 × 210; GÒ DẦU in sẵn, còn lại chấm | |
+| 3 | Tóm tắt › 🧾 Bảng kê → IN | Ra tờ A4 Giấy lĩnh + Bảng kê (có dữ liệu) | |
+
+- **Ghi chú kỹ thuật 3.192:** `gdxDung`: `X.bk && C.bkTrang` → `gdxHTMLBK` (mẫu trắng A4 ngang); `X.bk` có dữ liệu → ép `glKho='a4bk'`. `GDX_MUC.gl` thêm trường `nhom` (tiêu đề nhóm trong `gdxKBRieng`). `bkChim` '' (bản 3.191) đọc như 'nhat'.
+
 ### Danh sách thử trên máy thật (3.191) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

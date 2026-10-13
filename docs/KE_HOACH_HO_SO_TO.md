@@ -226,3 +226,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.189 (13/10):** Bảng kê chữ chìm = logo đã nạp ở Hồ sơ vay (chưa nạp → VBSP).
 - **Đã làm 3.190 (13/10):** Bảng kê — Họ tên dưới chỗ ký Người lĩnh tiền để chấm (người lĩnh tự ghi tay).
 - **Đã làm 3.191 (13/10):** Bảng kê in kèm 210 × 115 mm (cắt 1 nhát), chữ 13 pt; không in sẵn tên người lĩnh; Tổng cộng đậm, bằng chữ đậm nghiêng; PGD sát nhãn; cụm cơ quan lớn hơn.
+- **Đã làm 3.192 (13/10):** ⚙ Khai báo riêng tách 2 nhóm Giấy lĩnh / Bảng kê (Tên PGD, Logo chìm riêng, Bảng mệnh giá, Kiểu in); mẫu trắng Bảng kê 2 tờ / A4 ngang sát 2 mép + nét cắt; có dữ liệu in chung Giấy lĩnh; bỏ kiểu 105 × 185.

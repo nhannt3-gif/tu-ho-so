@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.192 — 13/10/2026 — ⚙ Bảng kê khai báo riêng; mẫu trắng 2 tờ / A4 ngang
+- **Anh (13/10):** "trong phần khai riêng tách ra 2 phần riêng cho giấy lĩnh và bảng kê, 2 mẫu là 2 kiểu logo chìm khác nhau, nên để khai riêng không gộp"; "bảng kê có các kiểu in: in chung giấy lĩnh tiền như đã có; in riêng mẫu trắng 2 bảng kê lên 1 tờ A4 ngang mỗi tờ canh 1 đầu"; "2 tờ không hết tờ A4 nên có gạch để cắt cho đúng cỡ, bỏ kiểu cũ"; "chỉ in trắng mới in 2 tờ trên 1 A4 ngang, còn có dữ liệu thì in chung giấy lĩnh tiền; mẫu trắng có chữ Gò Dầu, cho khai trong cài đặt riêng bảng kê".
+- **⚙ Khai báo riêng mẫu (Giấy lĩnh)** chia **2 nhóm có tiêu đề**: 💵 Giấy lĩnh tiền mặt (các mục cũ, Chữ chìm VBSP chỉ cho Giấy lĩnh) · 🧾 Bảng kê các loại tiền: **Tên phòng giao dịch** (`bkPGD`, trống = Địa danh), **Logo chìm** (`bkChim` Tắt / Nhạt / Vừa / Đậm, mặc định Nhạt — **bỏ "Theo Giấy lĩnh"**), **Bảng mệnh giá** (để trắng / tự chia), **Kiểu in** (giải thích + nút In mẫu trắng). Bỏ mục gộp `glbk` cũ.
+- **Kiểu in Bảng kê:** có dữ liệu → **in chung Giấy lĩnh** trên 1 tờ A4 dọc (Tóm tắt › 🧾 Bảng kê nay xem / in tờ chung; hoặc Khổ giấy A4 + Bảng kê). **Mẫu trắng → 2 tờ / A4 ngang** (`gdxHTMLBK`, `BK_CSS`): mỗi tờ 115 × 210 mm (cao hết khổ), tờ trái sát mép trái, tờ phải sát mép phải, **nét đứt cách mỗi mép 115 mm** để cắt đúng cỡ; tên PGD in sẵn (GÒ DẦU), ngày / họ tên / địa chỉ / nội dung / mệnh giá / bằng chữ để chấm ghi tay. **Bỏ kiểu cũ 105 × 185** (1 tờ góc trái / 2 liên cạnh nhau, `bkKho`).
+- **Kỹ thuật:** cỡ 115 × 210 + chữ 13 pt tách thành `BK_CSS_TO` (lớp `.bk-to`) dùng chung cho in kèm và mẫu trắng; `GL_CSS_KEM` chỉ còn xoay + nét cắt.
+- **Phép thử:** `t167` 70/70 (mẫu trắng A4 ngang 2 tờ sát 2 mép, 2 nét cắt, PGD in sẵn; ⚙ 2 nhóm; logo riêng) · `t168` 33/33.
+
 ## 3.191 — 13/10/2026 — 🧾 Bảng kê in kèm: to hơn, chữ 13 pt, đậm số tiền
 - **Anh (13/10):** "Bảng kê chiều dài cho full chiều ngang trang, chiều ngang cho rộng hơn 1 cm, bỏ ghi sẵn tên hộ vay, số tiền cộng in đậm, bằng chữ in đậm nghiêng, chữ Gò Dầu gần chữ PGD, cả cụm tên cơ quan lớn lên 1 chút, dùng font 13–14, logo in chìm là logo cánh sen anh gửi lần trước (in góc trái)".
 - **In kèm Giấy lĩnh** (`GL_CSS_KEM`): Bảng kê **210 × 115 mm** (dài hết bề ngang A4, rộng 105 → 115 mm), sát đáy tờ → **chỉ cắt 1 nhát ngang** (cách đáy 115 mm). Chữ **13 pt** (bảng mệnh giá 13 pt, Thành tiền 12 pt, đầu bảng 10,5 pt); cột Loại tiền 24 mm; logo chìm 62 mm giữa bảng.

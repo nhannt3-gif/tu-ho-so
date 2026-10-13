@@ -3393,6 +3393,7 @@ span.sl-chip{cursor:help}
 .gdx-kbr-dong{display:grid;grid-template-columns:170px minmax(0,1fr) 110px;gap:8px;align-items:center;padding:7px 4px;border-bottom:1px solid var(--vien)}
 @media(max-width:700px){ .gdx-kbr-dong{grid-template-columns:1fr} }
 .gdx-kbr-ten{font-weight:600}.gdx-kbr-gt{display:flex;flex-wrap:wrap;gap:5px 6px;align-items:center;min-width:0}
+.gdx-kbr-nhom{margin:12px 0 2px;padding:5px 8px;font-weight:700;background:var(--xanh-nhat);border-left:4px solid var(--xanh);border-radius:4px}   /* 3.192: tiêu đề nhóm Giấy lĩnh / Bảng kê trong ⚙ Khai báo riêng */
 .gdx-kbr-nhanh{white-space:nowrap;font-size:calc(12px*var(--co))}
 .gdx-bang{max-height:60vh;overflow:auto}.gdx-bang table{width:100%;border-collapse:collapse;font-size:calc(12.5px*var(--co))}
 .gdx-bang th,.gdx-bang td{border:1px solid var(--vien);padding:4px 6px;text-align:left;vertical-align:top}.gdx-nk-nut{white-space:nowrap}

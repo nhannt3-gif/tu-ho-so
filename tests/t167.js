@@ -124,11 +124,14 @@ const fs=require('fs'), path=require('path');
    { /* 3.187: 🧾 Bảng kê các loại tiền — cùng người lĩnh / số tiền với Giấy lĩnh */
      GDX.glTien = '1350000'; GDX.xemBK = 1; gdxVeTrai(); await w(300); const gB = gdxGLDuLieu(), dB = fd(), tB = chu(dB.body.innerHTML);
      const segOK = [...document.querySelectorAll('#gdx-tom .gdx-seg .gdx-c')].length===2;
-     ok('3.187: Tóm tắt có 💵 Giấy lĩnh · 🧾 Bảng kê; chọn Bảng kê → xem Bảng kê (3.191: không in sẵn tên người lĩnh), bằng chữ, bảng 11 mệnh giá', segOK && !!dB.querySelector('.bk-trang') && (!gB.ten || tB.indexOf(gB.ten)<0) && tB.indexOf('Một triệu ba trăm năm mươi nghìn đồng.')>=0 && dB.querySelectorAll('.bk-lt').length===11);
-     const c2 = JSON.parse(JSON.stringify(gdxC())); c2.bkChia = true; const hC = gdxHTMLBK({tien:'1350000'}, c2);
+     ok('3.187: Tóm tắt có 💵 Giấy lĩnh · 🧾 Bảng kê; chọn Bảng kê → 3.192: xem Giấy lĩnh + Bảng kê chung 1 tờ (3.191: không in sẵn tên người lĩnh), bằng chữ, bảng 11 mệnh giá', segOK && !!dB.querySelector('.bk-trang') && !!dB.querySelector('.gl-trang') && (!gB.ten || chu(dB.querySelector('.bk-trang').innerHTML).indexOf(gB.ten)<0) && tB.indexOf('Một triệu ba trăm năm mươi nghìn đồng.')>=0 && dB.querySelectorAll('.bk-lt').length===11);
+     const c2 = JSON.parse(JSON.stringify(gdxC())); c2.bkChia = true; const hC = gdxBKTrang({tien:'1350000'}, c2);
      ok('3.187: tự chia mệnh giá 1.350.000 = 2×500.000 + 1×200.000 + 1×100.000 + 1×50.000; Thành tiền 4 ô (nhóm 3 số)', JSON.stringify(gdxBKChia(1350000).so)==='{"50000":1,"100000":1,"200000":1,"500000":2}' && /<td class="bk-tt">1<\/td><td class="bk-tt">350<\/td><td class="bk-tt">000<\/td>/.test(hC));
      gdxBKTrangIn(); await w(400); const dT = document.getElementById('gdx-in-tam').contentDocument;
      ok('3.187: Bảng kê trắng 2 tờ / A4, không điền tên', dT.querySelectorAll('.bk-trang').length===2 && (!gB.ten || chu(dT.body.innerHTML).indexOf(gB.ten)<0));
+     { const S = dT.querySelector('.sheet-bk').getBoundingClientRect(), T = [...dT.querySelectorAll('.bk-trang')].map(x=>x.getBoundingClientRect()), mm = v=>Math.round(v/3.7795);
+       ok('3.192: mẫu trắng 2 tờ / A4 ngang — mỗi tờ 115 × 210 sát 1 mép, 2 nét cắt, PGD in sẵn, ngày / họ tên chấm', mm(S.width)===297 && mm(S.height)===210 && mm(T[0].left-S.left)===0 && mm(S.right-T[1].right)===0 && mm(T[0].width)===115 && mm(T[0].height)===210 && dT.querySelectorAll('.bk-cat').length===2 && /PHÒNG GIAO DỊCH:\s*\S/.test(dT.querySelector('.bk-pgd').textContent) && !dT.querySelector('.bk-ngay .gl-vn') && !!dT.querySelector('.bk-ten .gl-c') && /@page\{size:A4 landscape/.test(dT.head.innerHTML+dT.body.innerHTML)); }
+     ok('3.192: ⚙ Khai báo riêng — 2 nhóm Giấy lĩnh / Bảng kê, Bảng kê có Tên PGD · Logo chìm · Bảng mệnh giá · Kiểu in', GDX_MUC.gl.filter(o=>o.nhom).length===2 && ['bkpgd','bkchim','bkchia','bkin'].every(k=>GDX_MUC.gl.some(o=>o.k===k)) && !GDX_MUC.gl.some(o=>o.k==='glbk') && /gdxBKTrangIn/.test(gdxGLMuc('bkin', 1)));
      { /* 3.188: Giấy lĩnh + Bảng kê chung 1 tờ A4 — Bảng kê xoay ngang góc dưới trái, luôn tự chia */
        const c3 = JSON.parse(JSON.stringify(gdxC())); c3.glKho = 'a4bk'; c3.bkChia = false; const B3 = gdxDung({mau:'gl', C:c3, gl:{ten:'Giả Văn Lĩnh', tien:'1750000', ngay:'2026-10-13'}});
        const f3 = document.createElement('iframe'); f3.style.cssText = 'width:1000px;height:1300px'; document.body.appendChild(f3); f3.contentDocument.open(); f3.contentDocument.write(gdxTrang(B3.than, B3.css)); f3.contentDocument.close(); await w(300);
@@ -141,7 +144,7 @@ const fs=require('fs'), path=require('path');
        { const kb2 = hsoKB(), lg2 = kb2.logo; kb2.logo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
          const cc = JSON.parse(JSON.stringify(gdxC())); cc.glChim = 'nhat'; cc.bkChim = 'dam'; const hD = gdxBKTrang({}, cc); cc.bkChim = 'tat'; const hT = gdxBKTrang({}, cc); cc.bkChim = ''; const hG = gdxBKTrang({}, cc);
          if(lg2) kb2.logo = lg2; else delete kb2.logo;
-         ok('3.191: ⚙ Bảng kê — logo chìm đậm nhạt riêng (Đậm / Tắt / theo Giấy lĩnh)', /bk-logo chim-dam/.test(hD) && !/bk-chim/.test(hT) && /bk-logo chim-nhat/.test(hG) && /Logo chìm Bảng kê/.test(gdxGLMuc('glbk', 1))); }
+         ok('3.191/3.192: ⚙ Bảng kê — logo chìm đậm nhạt riêng (Đậm / Tắt / mặc định Nhạt, không theo Giấy lĩnh)', /bk-logo chim-dam/.test(hD) && !/bk-chim/.test(hT) && /bk-logo chim-nhat/.test(hG) && /Riêng Bảng kê/.test(gdxGLMuc('bkchim', 1))); }
        f3.remove(); gdxGLTrangIn(3); await w(400); const dK = document.getElementById('gdx-in-tam').contentDocument;
        ok('3.188: mẫu trắng Giấy lĩnh + Bảng kê / A4 — trống tên, trống mệnh giá', dK.querySelectorAll('.gl-trang').length===1 && dK.querySelectorAll('.bk-trang').length===1 && (!gB.ten || chu(dK.body.innerHTML).indexOf(gB.ten)<0) && [].every.call(dK.querySelectorAll('.bk-sl'), x=>!x.textContent)); }
      GDX.xemBK = 0; GDX.glTien = ''; gdxVeTrai(); await w(200); }
