@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.192 · 13/10/2026 14:29 · 29 file · 33081 dòng · 2668 hàm cấp ngoài · 388 biến toàn cục.
+Bản 3.192 · 13/10/2026 14:29 · 29 file · 33084 dòng · 2668 hàm cấp ngoài · 388 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -36,7 +36,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/23-dieu-huong.js` | 140 | 18 | /*   3.147 (đợt F, anh duyệt 10/10/2026): THANH BÊN ĐIỀU HƯỚNG — máy tính màn ≥ 1100 px   - Chỉ đổi cách đi gi |
 | `js/24-xuat.js` | 144 | 14 | /*   3.152 (anh chốt ý 2, 4 — docs/KE_HOACH_GON_GIAO_DIEN.md): XUẤT CHUNG Mọi mẫu / báo cáo: 👁 Xem → hàng nút  |
 | `js/25-ho-so.js` | 1041 | 109 | /*   3.170 (anh chốt 11/10/2026 — docs/KE_HOACH_HO_SO_TO.md): 📝 HỒ SƠ TỔ · 📄 HỒ SƠ VAY Hai tab con của Số liệu |
-| `js/26-giao-dich-xa.js` | 1207 | 154 | /*   3.172 (anh chốt 11/10/2026): 🏢 GIAO DỊCH XÃ — in nhanh 04/TD + 12/GDX, KHÔNG cần số liệu hộ vay   - Mẫu i |
+| `js/26-giao-dich-xa.js` | 1210 | 154 | /*   3.172 (anh chốt 11/10/2026): 🏢 GIAO DỊCH XÃ — in nhanh 04/TD + 12/GDX, KHÔNG cần số liệu hộ vay   - Mẫu i |
 | `js/27-mini-gdx.js` | 325 | 8 | /*   3.177 (anh chốt 13/10/2026): 📦 MINI APP Giao dịch xã — 1 file HTML gửi đồng nghiệp, có thời hạn   - Nút " |
 
 ## 2. Mục trong mã (chú thích tiêu đề)
@@ -227,25 +227,25 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/25-ho-so.js:806` · WORD: HTML của mẫu → .docx (đoạn, bảng có gộp ô, đậm / nghiêng / gạch chân, ngắt trang)
 - `js/25-ho-so.js:902` · giao diện tab
 - `js/25-ho-so.js:958` · cột tùy chọn của từng mẫu
-- `js/26-giao-dich-xa.js:38` · hàm của file gốc (chuyển ES5, giữ nguyên cách tính)
-- `js/26-giao-dich-xa.js:88` · điểm GD · tổ — 3.174 (anh chốt 12/10): cây địa bàn theo Mẫu 31 (kỳ chung, như các tab khác);
-- `js/26-giao-dich-xa.js:152` · MẪU IN — chuyển nguyên văn từ file gốc
-- `js/26-giao-dich-xa.js:290` · 3.174 (anh chốt 12/10 — docs/KE_HOACH_HO_SO_TO.md mục E): BỐ CỤC MỚI tab 🏢 Giao dịch xã
-- `js/26-giao-dich-xa.js:312` · ngày của 04/TD: ngày ký (hôm nay / chọn ngày) · ngày phát (mặc định = ngày GD gần nhất của điểm; tại PGD = ngày mai)
-- `js/26-giao-dich-xa.js:317` · bản chụp lựa chọn để dựng mẫu (xem trước · in · nhật ký in lại dùng chung 1 bản)
-- `js/26-giao-dich-xa.js:341` · mục của từng mẫu — theo thứ tự trên mẫu; nhanh = mặc định ra khung chọn nhanh (anh đổi ở ⚙)
-- `js/26-giao-dich-xa.js:386` · ô điều khiển dùng chung
-- `js/26-giao-dich-xa.js:424` · vẽ 1 mục (khung chọn nhanh và ⚙ dùng chung; kb = đang ở ⚙ → có thêm phần quản lý)
-- `js/26-giao-dich-xa.js:491` · theo khối lọc: điểm GD / xã đang chọn → điền mẫu
-- `js/26-giao-dich-xa.js:506` · vẽ tab
-- `js/26-giao-dich-xa.js:605` · 📋 Tóm tắt bản in: chip + cảnh báo (không chặn — hỏi 1 lần) + nút in
-- `js/26-giao-dich-xa.js:682` · ⚙ Khai báo riêng mẫu: MỌI mục, theo thứ tự trên mẫu; tích "Chọn nhanh" → ra khung trái
-- `js/26-giao-dich-xa.js:694` · 3.174: 💵 GIẤY LĨNH TIỀN MẶT (anh chốt 12/10) — khách rút TK 105 hoặc tổ trưởng rút TK 104; số liệu theo kỳ / ngày số liệ
-- `js/26-giao-dich-xa.js:922` · 3.187 (anh gửi ảnh mẫu 13/10): 🧾 BẢNG KÊ CÁC LOẠI TIỀN NGÂN HÀNG CHI RA — in kèm Giấy lĩnh, cùng người lĩnh / số tiền.
-- `js/26-giao-dich-xa.js:998` · DANH MỤC TỔ + TK 104 tổ trưởng — 3.174 tham chiếu; 3.175 (anh chốt 12/10): NẠP 1 CHỖ ở 📥 Nạp & KT
-- `js/26-giao-dich-xa.js:1144` · ⚙ Khai báo chung
-- `js/26-giao-dich-xa.js:1155` · 📜 Nhật ký in: chỉ lưu lựa chọn (không lưu PDF), trên máy này, tự xóa sau 1 tháng (anh chốt)
-- `js/26-giao-dich-xa.js:1174` · ⭐ Mẫu hay in (số hộ + số tiền) · mức tiền · danh sách cán bộ — giữ từ 3.172
+- `js/26-giao-dich-xa.js:39` · hàm của file gốc (chuyển ES5, giữ nguyên cách tính)
+- `js/26-giao-dich-xa.js:89` · điểm GD · tổ — 3.174 (anh chốt 12/10): cây địa bàn theo Mẫu 31 (kỳ chung, như các tab khác);
+- `js/26-giao-dich-xa.js:153` · MẪU IN — chuyển nguyên văn từ file gốc
+- `js/26-giao-dich-xa.js:291` · 3.174 (anh chốt 12/10 — docs/KE_HOACH_HO_SO_TO.md mục E): BỐ CỤC MỚI tab 🏢 Giao dịch xã
+- `js/26-giao-dich-xa.js:313` · ngày của 04/TD: ngày ký (hôm nay / chọn ngày) · ngày phát (mặc định = ngày GD gần nhất của điểm; tại PGD = ngày mai)
+- `js/26-giao-dich-xa.js:318` · bản chụp lựa chọn để dựng mẫu (xem trước · in · nhật ký in lại dùng chung 1 bản)
+- `js/26-giao-dich-xa.js:342` · mục của từng mẫu — theo thứ tự trên mẫu; nhanh = mặc định ra khung chọn nhanh (anh đổi ở ⚙)
+- `js/26-giao-dich-xa.js:387` · ô điều khiển dùng chung
+- `js/26-giao-dich-xa.js:425` · vẽ 1 mục (khung chọn nhanh và ⚙ dùng chung; kb = đang ở ⚙ → có thêm phần quản lý)
+- `js/26-giao-dich-xa.js:492` · theo khối lọc: điểm GD / xã đang chọn → điền mẫu
+- `js/26-giao-dich-xa.js:507` · vẽ tab
+- `js/26-giao-dich-xa.js:606` · 📋 Tóm tắt bản in: chip + cảnh báo (không chặn — hỏi 1 lần) + nút in
+- `js/26-giao-dich-xa.js:683` · ⚙ Khai báo riêng mẫu: MỌI mục, theo thứ tự trên mẫu; tích "Chọn nhanh" → ra khung trái
+- `js/26-giao-dich-xa.js:695` · 3.174: 💵 GIẤY LĨNH TIỀN MẶT (anh chốt 12/10) — khách rút TK 105 hoặc tổ trưởng rút TK 104; số liệu theo kỳ / ngày số liệ
+- `js/26-giao-dich-xa.js:923` · 3.187 (anh gửi ảnh mẫu 13/10): 🧾 BẢNG KÊ CÁC LOẠI TIỀN NGÂN HÀNG CHI RA — in kèm Giấy lĩnh, cùng người lĩnh / số tiền.
+- `js/26-giao-dich-xa.js:1001` · DANH MỤC TỔ + TK 104 tổ trưởng — 3.174 tham chiếu; 3.175 (anh chốt 12/10): NẠP 1 CHỖ ở 📥 Nạp & KT
+- `js/26-giao-dich-xa.js:1147` · ⚙ Khai báo chung
+- `js/26-giao-dich-xa.js:1158` · 📜 Nhật ký in: chỉ lưu lựa chọn (không lưu PDF), trên máy này, tự xóa sau 1 tháng (anh chốt)
+- `js/26-giao-dich-xa.js:1177` · ⭐ Mẫu hay in (số hộ + số tiền) · mức tiền · danh sách cán bộ — giữ từ 3.172
 - `js/27-mini-gdx.js:24` · gói số liệu (chỉ chạy trên máy anh lúc xuất)
 - `js/27-mini-gdx.js:77` · KHUNG MINI APP — chỉ chạy TRONG file mini (gdxMiniApp được chép nguyên vào file lúc xuất). Không chạy trong app chính.
 

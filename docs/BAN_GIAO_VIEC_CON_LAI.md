@@ -227,9 +227,9 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 |---|---|---|---|
 | 1 | ⋯ › ⚙ Khai báo riêng mẫu (Giấy lĩnh) | 2 nhóm 💵 Giấy lĩnh / 🧾 Bảng kê; Bảng kê có Tên PGD, Logo chìm, Bảng mệnh giá, Kiểu in | |
 | 2 | 📄 Mẫu trắng › Bảng kê trắng 2 tờ / A4 ngang | 2 tờ sát 2 mép, cắt theo nét đứt ra đúng 105 × 210; GÒ DẦU in sẵn, còn lại chấm | |
-| 3 | Tóm tắt › 🧾 Bảng kê → IN | Ra tờ A4 Giấy lĩnh + Bảng kê (có dữ liệu) | |
+| 3 | Tóm tắt › 💵 Lĩnh / 🧾 Bảng kê / 💵+🧾 → IN | Lĩnh: chỉ Giấy lĩnh · Bảng kê: A4 ngang 1 tờ sát mép trái · 💵+🧾: 1 tờ A4 dọc cả 2 | |
 
-- **Ghi chú kỹ thuật 3.192:** `gdxDung`: `X.bk && C.bkTrang` → `gdxHTMLBK` (mẫu trắng A4 ngang); `X.bk` có dữ liệu → ép `glKho='a4bk'`. `GDX_MUC.gl` thêm trường `nhom` (tiêu đề nhóm trong `gdxKBRieng`). `bkChim` '' (bản 3.191) đọc như 'nhat'.
+- **Ghi chú kỹ thuật 3.192:** `C.glIn` 'gl' | 'bk' | 'kh' → `X.bk` (gdxHTMLBK, A4 ngang: có dữ liệu 1 tờ, mẫu trắng 2 tờ) / `X.kh` (ép `glKho='a4bk'` nội bộ). `glKho='a4bk'` cũ → `glKho='a4'` + `glIn='kh'` (gdxC). `GDX_MUC.gl` thêm trường `nhom` (tiêu đề nhóm trong `gdxKBRieng`). `bkChim` '' (bản 3.191) đọc như 'nhat'.
 
 ### Danh sách thử trên máy thật (3.191) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
