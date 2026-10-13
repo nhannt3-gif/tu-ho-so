@@ -73,8 +73,8 @@ const fs=require('fs'), path=require('path');
    g = gdxGLDuLieu(); t = chu(fd().body.innerHTML);
    ok('sửa tay trên form → in theo form (chỉ lần in này), ngày cấp gõ nhanh 230421 → 23/04/2021', g.ten==='Người Giả Sửa Tay' && g.ncap==='2021-04-23' && t.indexOf('Người Giả Sửa Tay')>=0 && (SL_DB.kh[kA.kh]||{}).ten!=='Người Giả Sửa Tay');
    gdxGLLamTrong(); await w(200); g = gdxGLDuLieu();
-   ok('✕ Làm trống form → gõ người khác từ đầu (không cần tìm)', !g.ten && !g.tk && !!fd().querySelector('.gl-r .gl-c'));
-   gdxGLChonKH(kA.kh); await w(200);
+   ok('✕ Làm trống form → gõ người khác từ đầu (không cần tìm); 3.185: bỏ luôn chọn tổ ở cây địa bàn, giữ Xã / Điểm', !g.ten && !g.tk && !!fd().querySelector('.gl-r .gl-c') && !S.to && !!S.diem);
+   pvChonTo('gdx', tA.ma); await w(300); gdxGLChonKH(kA.kh); await w(200);
    gdxGLTrangIn(2); await w(400); let dIn = document.getElementById('gdx-in-tam').contentDocument;
    ok('3.175: in mẫu trắng 2 mẫu / A4 cắt đôi: 2 tờ trắng đúng form (không tên, không "Rút tiền"), vạch cắt giữa, khổ A4', dIn.querySelectorAll('.gl-trang').length===2 && !!dIn.querySelector('.gl-cat') && /@page\{size:A4 portrait/.test(dIn.head.innerHTML) && chu(dIn.body.innerHTML).indexOf(kA.ten)<0 && !/Rút tiền/.test(chu(dIn.body.innerHTML)));
    gdxGLTrangIn(1); await w(400); dIn = document.getElementById('gdx-in-tam').contentDocument;
@@ -113,6 +113,30 @@ const fs=require('fs'), path=require('path');
    const nk = gdxNKDs(); gdxNKIn(nk[0].id); await w(300);
    const tIn = chu(document.getElementById('gdx-in-tam').contentDocument.body.innerHTML);
    ok('📜 nhật ký in: lưu bản vừa in; In lại → đúng khách / số tiền cũ dù đang chọn khách khác', nk.length===1 && nk[0].mau==='gl' && tIn.indexOf(kA.ten)>=0 && tIn.indexOf(kB.ten)<0 && /500\.000/.test(tIn));
+   { /* 3.185: tìm theo CCCD · Enter → ô số tiền · TK 105 bù theo CCCD / ghi lý do */
+     gdxDat('glLoai', '105', 1); await w(200);
+     let kc = null; for(const m of Object.keys(TO_K.kh)){ const t = TO_K.to[m]; if(!t || t.trucTiep) continue; for(const o of TO_K.kh[m]){ const cc = gdxCCCDCua(o.kh, t); if(cc && cc.length>=9){ kc = {o, m, cc}; break; } } if(kc) break; }
+     if(kc){ GDX.glTatCa = 1; GDX.glQ = kc.cc.slice(-6); gdxGLTim(); await w(100);
+       const bs = [...document.querySelectorAll('#gdx-gl-gy button')], iC = bs.findIndex(b=>b.textContent.indexOf(kc.cc)>=0), q = document.getElementById('gdx-gl-q');
+       for(let j=0;j<iC;j++) q.dispatchEvent(new KeyboardEvent('keydown', {key:'ArrowDown', bubbles:true}));
+       q.dispatchEvent(new KeyboardEvent('keydown', {key:'Enter', bubbles:true})); await w(400);
+       ok('3.185: gõ 6 số cuối CCCD → ra đúng người (kèm CCCD); ↑↓ Enter → điền form, con trỏ nhảy ô số tiền', iC>=0 && (document.activeElement||{}).id==='gdx-gl-tien' && String(gdxGLDuLieu().cccd).replace(/\D/g,'')===kc.cc, kc.cc.slice(-6)); }
+     else ok('3.185: tìm theo CCCD', false, 'dữ liệu giả không có CCCD');
+     let kn = null; for(const m of Object.keys(TO_K.kh)){ const t = TO_K.to[m]; if(!t || t.trucTiep) continue; const x = gdxGLDsKhach(t).find(k=>!(k.stk||[]).length && gdxCCCDCua(k.kh, t).length>=9); if(x){ kn = {x, t}; break; } }
+     if(kn){ pvChonTo('gdx', kn.t.ma); await w(300); gdxGLChonKH(kn.x.kh); await w(300);
+       const g1 = gdxGLDuLieu(), ly = (document.querySelector('#gdx-m-glphieu').textContent.match(/TK 105: chưa có — [^\n]*/)||[''])[0];
+       const cc = gdxCCCDCua(kn.x.kh, kn.t); SL_DB.kh['ZZ_GIA_99'] = {cccd:cc, stk:'1234567890', stkKy:'2026-07'}; const g2 = gdxGLDuLieu(); delete SL_DB.kh['ZZ_GIA_99'];
+       ok('3.185: TK 105 chưa có số sổ → ghi lý do; có số sổ cùng CCCD ở danh bạ (mã KH khác) → lấy, ghi "theo CCCD"', !g1.tk && !!g1.tkLy && !!ly && g2.tk==='1234567890' && /theo CCCD/.test(g2.tkTu), ly.slice(0, 60)); }
+     else { /* dữ liệu giả: khách có CCCD đều đã có số sổ → giả lập 1 khách chưa có số sổ (chỉ trong phép thử) */
+       let kz = null; for(const m of Object.keys(TO_K.kh)){ const t = TO_K.to[m]; if(!t || t.trucTiep) continue; const x = gdxGLDsKhach(t).find(k=>gdxCCCDCua(k.kh, t).length>=9); if(x){ kz = {x, t}; break; } }
+       const goc = window.gdxGLDsKhach; window.gdxGLDsKhach = function(t){ return goc(t).map(k=>k.kh===kz.x.kh ? Object.assign({}, k, {stk:[], coTK:true}) : k); };
+       const db = SL_DB.kh[kz.x.kh], stk0 = db && db.stk; if(db) delete db.stk;
+       pvChonTo('gdx', kz.t.ma); await w(300); gdxGLChonKH(kz.x.kh); await w(300);
+       const g1 = gdxGLDuLieu(), ly = (document.querySelector('#gdx-m-glphieu').textContent.match(/TK 105: chưa có — .{0,80}/)||[''])[0];
+       SL_DB.kh['ZZ_GIA_99'] = {cccd:gdxCCCDCua(kz.x.kh, kz.t), stk:'1234567890', stkKy:'2026-07'}; const g2 = gdxGLDuLieu(); delete SL_DB.kh['ZZ_GIA_99'];
+       window.gdxGLDsKhach = goc; if(db && stk0) db.stk = stk0;
+       ok('3.185: TK 105 chưa có số sổ → ghi lý do (Mẫu 31 chỉ báo đã mở TK…); có số sổ cùng CCCD ở danh bạ (mã KH khác) → lấy, ghi "theo CCCD"', !g1.tk && /đã mở TK/.test(g1.tkLy||'') && !!ly && g2.tk==='1234567890' && /theo CCCD/.test(g2.tkTu), ly.slice(0, 70)); }
+   }
    GDX.glDaIn = true; gdxTomVe(); gdxGLMoi(); await w(400);
    ok('bấm Làm trống — in người khác: bỏ người lĩnh, tổ, số tiền; giữ ngày, khổ; con trỏ về ô tìm', !gdxGLDuLieu().ten && !gdxGLDuLieu().tien && !S.to && !!S.diem && document.activeElement && document.activeElement.id==='gdx-gl-q');
    pvChonTo('gdx', tA.ma); gdxGLChonKH(kA.kh); await w(300);

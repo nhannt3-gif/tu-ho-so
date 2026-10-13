@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.185 — 13/10/2026 — Giấy lĩnh: tìm theo CCCD, Enter tới ô số tiền, TK 105 theo CCCD, Làm trống bỏ chọn tổ
+- **Anh (13/10):** "TK 105 chưa hiện ra"; "cho tìm tên theo số CCCD cho chính xác"; "khi tìm tên xong danh sách hiện ra, dùng phím mũi tên lên xuống để di chuyển chọn ngay tên, Enter sẽ đi đến ô số tiền luôn"; "khi chọn tổ từ cây địa bàn, nếu bấm làm trống cũng bỏ chọn" (đã ghi việc chờ, làm bản này); "code và gộp".
+- **Tìm theo CCCD** (`gdxGLTim`, `gdxCCCDCua`): gõ số (4 số cuối trở lên hoặc đủ CCCD) → tìm theo **số CCCD** (danh bạ khách các kỳ / dòng Mẫu 31), không lẫn người trùng tên; kết quả kèm "CCCD …". Gõ chữ vẫn tìm theo tên như cũ. Mini app: tìm tổ trưởng theo CCCD đã gói.
+- **↑↓ Enter → ô số tiền** (`gdxGLToiTien`): chọn người trong danh sách tìm (↑↓ Enter hoặc bấm) hay chọn khách ở ô sổ xuống → con trỏ nhảy ngay ô **Số tiền** (bôi sẵn để gõ đè).
+- **TK 105** (`gdxGLDuLieu`): số sổ lấy theo Mẫu 31 / Dư nợ chi tiết như cũ (chỉ nhận 10 chữ số); chưa có → tra **danh bạ các kỳ theo số CCCD** (không theo tên), thấy thì lấy và ghi "theo CCCD — mã KH …, kỳ …"; vẫn không có → dòng **TK 105: chưa có — lý do** (Mẫu 31 chỉ báo đã mở TK, chưa có số sổ 10 chữ số — nạp Dư nợ chi tiết kỳ này hoặc gõ tay / khách chưa có TK 105).
+- **✕ Làm trống** (`gdxGLLamTrong` = `gdxGLMoi`): trước hay sau in như nhau — bỏ người lĩnh, form, số tiền và **bỏ luôn chọn tổ** ở cây địa bàn (giữ Xã / Điểm), con trỏ về ô tìm.
+- **Phép thử:** `t167` 59/59 (thêm: tìm 6 số cuối CCCD + ↑↓ Enter → ô số tiền; TK 105 chưa có số sổ → lý do, có số sổ cùng CCCD ở danh bạ → lấy; Làm trống bỏ chọn tổ) · `t168` 33/33 · `t165` 52/52.
+
 ## 3.184 — 13/10/2026 — Giấy lĩnh: nơi cấp chữ mờ, trường hợp cũ ghi chung
 - **Anh (13/10):** "nơi cấp hiện dòng nhỏ dưới dòng số CCCD, cùng dòng địa chỉ mờ, không cần ra ô tốn 1 dòng"; "hiện tại đã đổi chỉ còn 2 dạng nơi cấp, nếu rơi vào trường hợp cũ thì báo và ghi Cục Cảnh sát thôi, ghi chung vậy".
 - **Form:** bỏ ô Nơi cấp; nơi cấp hiện **chữ nhỏ, mờ** cùng dòng nhãn Địa chỉ (ngay dưới ô CCCD), tự đổi khi gõ ngày cấp; bấm vào để gõ tay (để trống = tự tính lại, có dấu ✎ khi đang gõ tay). Địa chỉ · Tài khoản số cùng 1 dòng → form còn 2 dòng ô nhập.

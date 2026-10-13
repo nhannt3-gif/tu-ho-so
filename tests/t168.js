@@ -95,13 +95,14 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    o.phamMD = document.querySelector('.mn-pham .mn-c.bat').textContent;
    if(X.khac){ mn.tim(X.khac); await w(30); o.phamNgoai = [...document.querySelectorAll('#mn-gy button')].length; o.phamGoiY = /tìm cả PGD/.test(document.getElementById('mn-gy').textContent);
      mn.pham('tat'); await w(30); mn.tim(X.khac); o.phamTat = [...document.querySelectorAll('#mn-gy button')].length; mn.pham('diem'); mn.tim(''); }
+   if(X.cc){ mn.pham('tat'); await w(30); mn.tim(X.cc.slice(-6)); o.ccTim = [...document.querySelectorAll('#mn-gy button')].some(b=>b.textContent.indexOf(X.cc)>=0); mn.pham('diem'); mn.tim(''); }
    mn.glBuoc(100000); mn.glBuoc(100000); await w(50); o.glTien = document.getElementById('mn-tiengl').value;
    o.tgl = chu(); o.chim = !!fd().querySelector('.gl-chim.chim-nhat');
    mn.inNgay(); await w(500); o.inGL = document.getElementById('mn-in').contentWindow.__in!==undefined ? 1 : 1; o.lamTrong = /in người khác/.test(document.querySelector('.mn-in').textContent);
    mn.lamTrong(); await w(50); o.trong = !document.querySelector('.mn-form input[data-k="ten"]').value;
    mn.inTrang(2); await w(400); const di = document.getElementById('mn-in').contentDocument; o.trang2 = di.querySelectorAll('.gl-trang').length===2 && !!di.querySelector('.gl-x2') && /A4 portrait/.test(di.head.textContent);
    o.luu = JSON.parse(localStorage.getItem('gdxmini_c') || '{}');
-   return o; }, {d:X.d, khac:X.khacTT, tt:X.t.ten.split(' ').slice(-2).join(' ').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase()});
+   return o; }, {d:X.d, khac:X.khacTT, cc:String(X.cc.cccd||'').replace(/\D/g,''), tt:X.t.ten.split(' ').slice(-2).join(' ').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase()});
  ok('mở file mini → giao diện chạy, hiện "Dùng tới ngày …" đúng hạn đã chọn', m.mo && m.han.indexOf(X.han.split('-').reverse().join('/'))>=0, m.han);
  ok('chọn điểm GD: đủ điểm như app (theo xã)', m.diem===X.nDiem, m.diem+'/'+X.nDiem);
  ok('04/TD: kính gửi UBND xã, địa điểm = điểm GD, ngày phát = ngày GD gần nhất, 2 bản; ▲ số tiền bước 5 triệu', /Kính gửi: Ủy ban nhân dân/.test(m.t04) && m.t04.indexOf('Điểm giao dịch '+X.d.ten)>=0 &&
@@ -111,6 +112,7 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
  ok('Giấy lĩnh TK 104: gõ tên tổ trưởng không dấu → Enter → điền tên, TK 104 (giả), địa chỉ', m.gy>=1 && m.formTen===X.t.ten && m.formTK==='9990001112223' && /tỉnh Tây Ninh/.test(m.formDC), m.formTen+' · '+m.formTK);
  ok('3.178/3.184 mini: chọn tổ trưởng → điền luôn CCCD; nơi cấp tự tính theo ngày cấp, chữ mờ cạnh nhãn Địa chỉ (không ra ô); con trỏ nhảy xuống ô số tiền', m.formCC===X.cc.cccd && !m.oNC && (!m.ncapISO || m.formNC.indexOf(m.ncapISO>='2024-07-01' ? 'Bộ Công an' : 'Cục Cảnh sát quản lý hành chính về trật tự xã hội')>=0) && m.focusTien, (m.formCC||'trống')+' · '+X.cc.cccd);
  ok('3.178 mini: tìm mặc định trong điểm đang chọn; tổ trưởng điểm khác không ra (gợi ý "tìm cả PGD"); chọn Cả PGD → ra', /Điểm này/.test(m.phamMD) && m.phamNgoai===0 && m.phamGoiY && m.phamTat>=1, [m.phamMD, m.phamNgoai, m.phamTat].join(' · '));
+ ok('3.185 mini: gõ 6 số cuối CCCD tổ trưởng → ra đúng người', !X.cc.cccd || m.ccTim, X.cc.cccd ? 'có CCCD giả' : 'không có CCCD giả');
  ok('Giấy lĩnh: ▲ bước 100 nghìn, bằng chữ trên giấy, chữ chìm mức Nhạt', m.glTien==='200.000' && m.tgl.indexOf('Hai trăm nghìn đồng.')>=0 && m.tgl.indexOf('9990001112223')>=0 && m.chim, m.glTien);
  ok('In Giấy lĩnh → nút "Làm trống — in người khác"; bấm → form trống', m.lamTrong && m.trong);
  ok('In mẫu trắng 2 mẫu / A4 (cắt đôi)', m.trang2);

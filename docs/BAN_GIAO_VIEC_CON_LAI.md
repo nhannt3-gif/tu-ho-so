@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.185) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giấy lĩnh: gõ 4–6 số cuối CCCD | Ra đúng người, kèm CCCD; ↑↓ Enter → điền form, con trỏ ở ô Số tiền | |
+| 2 | TK 105: chọn khách chưa có số sổ (vd HUỲNH THỊ YẾN) | Có số theo CCCD (ghi nguồn) hoặc dòng "TK 105: chưa có — lý do" | |
+| 3 | Chọn tổ ở cây địa bàn → ✕ Làm trống | Bỏ chọn tổ, giữ Xã / Điểm, form trống | |
+
+- **Ghi chú kỹ thuật 3.185:** `gdxCCCDCua(kh, t)` = CCCD theo danh bạ `SL_DB.kh` hoặc dòng Mẫu 31; tìm số khi chuỗi tìm là ≥ 4 chữ số (so đuôi). TK 105 bù theo CCCD quét `SL_DB.kh` (cùng CCCD, có `slStk`), lý do ở `r.tkLy`. Nút Làm trống ở đầu khung luôn gọi `gdxGLMoi`.
+
 ### Danh sách thử trên máy thật (3.184) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
