@@ -751,8 +751,8 @@ function gdxGLMuc(k, kb){
   else if(k==='bkpgd') h = gdxIn1('bkPGD', C.diaDanh || 'Gò Dầu')+'<small class="gdx-ghi">In hoa sau "PHÒNG GIAO DỊCH:" ở Bảng kê (cả mẫu trắng). Để trống = lấy Địa danh ở Khai báo chung.</small>';
   else if(k==='bkchim') h = gdxRadio('bkChim', [['tat','Tắt'],['nhat','Nhạt'],['vua','Vừa'],['dam','Đậm']])+'<small class="gdx-ghi">Logo đã nạp ở 📄 Hồ sơ vay › ⚙ Khai báo 1 lần (chưa nạp → chữ VBSP). Riêng Bảng kê, không theo chữ chìm Giấy lĩnh.</small>';
   else if(k==='bkchia') h = gdxRadio('bkChia', [[false,'Để trắng (thủ quỹ ghi)'],[true,'Tự chia mệnh giá (tờ lớn trước)']])+'<small class="gdx-ghi">In chung Giấy lĩnh luôn tự chia.</small>';
-  else if(k==='bkin') h = '<small class="gdx-ghi">Có dữ liệu: <b>in chung Giấy lĩnh</b> trên 1 tờ A4 dọc (Tóm tắt › 🧾 Bảng kê, hoặc Khổ giấy A4 + Bảng kê). Mẫu trắng: <b>2 tờ / A4 ngang</b>, mỗi tờ 115 × 210 mm sát 1 mép, nét đứt để cắt.</small><button class="nho" onclick="gdxBKTrangIn()">📄 In mẫu trắng 2 tờ / A4 ngang</button>';
-  else if(k==='glkho') h = gdxRadio('glKho', [['a5','A5 ngang'],['a4','A4 dọc · in nửa trên'],['a4bk','A4 dọc · Giấy lĩnh trên + 🧾 Bảng kê dưới']])+'<small class="gdx-ghi">Giấy lĩnh + Bảng kê: 1 tờ A4, bấm IN 1 lần; Bảng kê 210 × 115 mm xoay ngang sát đáy (cắt 1 nhát ngang theo nét đứt), luôn tự chia mệnh giá từ tờ lớn.</small>';
+  else if(k==='bkin') h = '<small class="gdx-ghi">Có dữ liệu: <b>in chung Giấy lĩnh</b> trên 1 tờ A4 dọc (Tóm tắt › 🧾 Bảng kê, hoặc Khổ giấy A4 + Bảng kê). Mẫu trắng: <b>2 tờ / A4 ngang</b>, mỗi tờ 105 × 210 mm sát 1 mép, nét đứt để cắt.</small><button class="nho" onclick="gdxBKTrangIn()">📄 In mẫu trắng 2 tờ / A4 ngang</button>';
+  else if(k==='glkho') h = gdxRadio('glKho', [['a5','A5 ngang'],['a4','A4 dọc · in nửa trên'],['a4bk','A4 dọc · Giấy lĩnh trên + 🧾 Bảng kê dưới']])+'<small class="gdx-ghi">Giấy lĩnh + Bảng kê: 1 tờ A4, bấm IN 1 lần; Bảng kê 210 × 105 mm xoay ngang sát đáy (cắt 1 nhát ngang theo nét đứt), luôn tự chia mệnh giá từ tờ lớn.</small>';
   return h;
 }
 function gdxGLLuuMuc(){ var C = gdxC(), v = +String(GDX.glTien||'').replace(/\D/g, ''); if(!(v > 0)) return bao('Nhập số tiền trước.'); C.glMuc = C.glMuc || []; if(C.glMuc.indexOf(v)>=0) return bao('Số tiền này đã có.');
@@ -938,7 +938,7 @@ function gdxBKTrang(g, c, trang){
   var logo = typeof hsoKB==='function' && hsoKB().logo, bc = c.bkChim || 'nhat', tat = bc==='tat', mc = bc;   /* 3.192 (anh): logo Bảng kê đậm nhạt riêng (⚙ Bảng kê), không theo Giấy lĩnh */   /* 3.191 (anh: "logo cân đối như hình"): khung logo đo theo ảnh tờ in sẵn — trên giữa dòng 100.000, dưới giữa dòng Tổng cộng, trái 3/4 cột Số lượng, phải 1/3 cột Thành tiền cuối; ảnh co vừa khung giữ tỷ lệ. 3.189 (anh): chữ chìm = logo đã nạp ở 📄 Hồ sơ vay › Khai báo 1 lần (như tờ in sẵn); chưa nạp → chữ VBSP */
   return '<div class="bk-trang bk-to">'+(tat ? '' : logo ? '<img class="bk-chim bk-logo chim-'+mc+'" src="'+logo+'" alt="">' : '<div class="bk-chim">VBSP</div>')+
     '<div class="bk-dau"><div class="bk-nh"><div>NGÂN HÀNG CHÍNH SÁCH XÃ HỘI</div><div>CHI NHÁNH TỈNH TÂY NINH</div><div class="gl-r bk-pgd"><b>PHÒNG GIAO DỊCH:</b>'+gdxGLO(pgd)+'</div></div>'+
-      '<div class="bk-tit"><div class="bk-t1">BẢNG KÊ</div><div class="bk-t2">CÁC LOẠI TIỀN NGÂN HÀNG CHI RA</div><div class="bk-ngay">Ngày '+o(p[2], '7mm')+' tháng '+o(p[1], '7mm')+' năm '+(p[0] ? '<span class="gl-vn">'+p[0]+'</span>' : '20'+o('', '6mm'))+'</div></div></div>'+
+      '<div class="bk-tit"><div class="bk-t1">BẢNG KÊ</div><div class="bk-t2">CÁC LOẠI TIỀN NGÂN HÀNG CHI RA</div><div class="bk-ngay">Ngày '+o(p[2], '6mm')+' tháng '+o(p[1], '6mm')+' năm '+(p[0] ? '<span class="gl-vn">'+p[0]+'</span>' : '20'+o('', '6mm'))+'</div></div></div>'+
     r('Họ và tên người lĩnh tiền:', '', 'bk-ten')+r('Địa chỉ:', g.diaChi)+r('Nội dung:', trang ? '' : (c.glND==null ? 'Rút tiền' : c.glND))+
     '<table class="bk-bang"><colgroup><col style="width:19mm"><col style="width:13mm"><col><col><col><col></colgroup><thead><tr><th>Loại tiền</th><th>Số lượng</th><th colspan="4">Thành tiền</th></tr></thead><tbody>'+dong+
       '<tr class="bk-tong"><td><b>Tổng cộng</b></td><td></td>'+o4(ch ? tien - ch.du : 0)+'</tr>'+
@@ -972,26 +972,26 @@ var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6
   '.bk-chu td{border:1.1px solid #000;padding:1mm 1.5mm;height:auto}.bk-trang .bk-chu .gl-r{min-height:5.6mm;font-size:10pt}.bk-trang .bk-chu .gl-v{font-weight:bold;font-style:italic}.bk-trang .bk-chu .gl-bc2{white-space:normal}'+   /* 3.191 (anh): Tổng cộng + bằng chữ in đậm (bằng chữ nghiêng) */
   '.bk-ky{display:grid;grid-template-columns:1fr 1fr;text-align:center;margin-top:2.5mm;font-size:10.5pt;flex:1}.bk-ky i{display:block;font-size:9.5pt}'+
   '.bk-hoten{display:grid;grid-template-columns:1fr 1fr;gap:6mm;font-size:10pt}';
-/* 3.192: khổ Bảng kê 115 × 210 mm, chữ 13 pt (anh chốt 3.191) — dùng cho in chung Giấy lĩnh và mẫu trắng 2 tờ / A4 ngang */
-var BK_CSS_TO = '.bk-trang.bk-to{width:115mm;height:210mm;padding:8mm 5mm 6mm 5.5mm;font-size:13pt}'+
-  '.bk-to .bk-dau{grid-template-columns:auto auto;justify-content:space-between;gap:3mm}.bk-to .bk-dau div{white-space:nowrap}.bk-to .bk-nh,.bk-to .bk-pgd{font-size:8.6pt}.bk-to .bk-t1{font-size:17pt}.bk-to .bk-t2{font-size:7.4pt}.bk-to .bk-ngay{font-size:11.5pt}'+
+/* 3.192: khổ Bảng kê 105 × 210 mm (anh: ngang 105 đúng mẫu), chữ 13 pt (anh chốt 3.191) — dùng cho in chung Giấy lĩnh và mẫu trắng 2 tờ / A4 ngang */
+var BK_CSS_TO = '.bk-trang.bk-to{width:105mm;height:210mm;padding:8mm 5mm 6mm 5.5mm;font-size:13pt}'+
+  '.bk-to .bk-t1{font-size:17pt}.bk-to .bk-ngay{font-size:9.5pt}'+
   '.bk-to .bk-bang col:first-child{width:24mm !important}.bk-to .bk-tong td:first-child{white-space:nowrap}'+
   '.bk-to.bk-trang .gl-r{min-height:7.6mm}.bk-to .bk-bang{font-size:13pt;margin-top:2mm}.bk-to .bk-bang th{font-size:10.5pt;padding:1mm 0}.bk-to .bk-bang td{height:7.4mm}.bk-to .bk-tt{font-size:12pt}'+
   '.bk-to .bk-tong td{height:11mm;font-size:11pt}.bk-to .bk-tong .bk-tt{font-size:12.5pt}.bk-to.bk-trang .bk-chu .gl-r{min-height:7mm;font-size:13pt}'+
   '.bk-to .bk-ky{font-size:13pt;margin-top:3mm}.bk-to .bk-ky i{font-size:11.5pt}.bk-to .bk-hoten{font-size:13pt}'+
-  '.bk-to .bk-chim{left:27mm;top:88mm;font-size:76pt}.bk-to .bk-chim.bk-logo{left:39.1mm;top:82mm;width:58.7mm;height:66.7mm}';
+  '.bk-to .bk-chim{left:13mm;top:92mm;font-size:66pt}.bk-to .bk-chim.bk-logo{left:39.1mm;top:81.5mm;width:50.5mm;height:66.7mm}';
 var BK_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1;color:#000;font-family:"Times New Roman",Times,serif}'+
   '.preview-stage{background:#455a64;border-radius:8px;padding:20px;display:flex;justify-content:center;overflow:auto}'+
   '.sheet-bk{background:#fff;width:297mm;height:210mm;box-shadow:0 8px 24px rgba(0,0,0,.3);position:relative;display:flex;justify-content:space-between;align-items:flex-start;overflow:hidden}'+ BK_CSS_LOI+BK_CSS_TO+
-  '.bk-cat{position:absolute;top:0;height:210mm;border-left:.3mm dashed #b8b8b8}.bk-cat-t{left:115mm}.bk-cat-p{right:115mm}'+
+  '.bk-cat{position:absolute;top:0;height:210mm;border-left:.3mm dashed #b8b8b8}.bk-cat-t{left:105mm}.bk-cat-p{right:105mm}'+
   '@page{size:A4 landscape;margin:0}'+
   '@media print{body{background:#fff}.preview-stage{background:none;padding:0;display:block;border-radius:0}.sheet-bk{box-shadow:none;zoom:1 !important;height:209mm}}';
 var GL_CSS_A5 = '@page{size:A5 landscape;margin:0}';
 /* 3.188 (anh chốt): Giấy lĩnh nửa trên + Bảng kê xoay ngang sát góc dưới trái → cắt theo nét đứt.
-   3.191 (anh): Bảng kê in kèm dài hết bề ngang trang (210 mm), rộng 115 mm (+1 cm) → chỉ cắt 1 nhát ngang; chữ 13 pt */
-var GL_CSS_KEM = '.sheet-gl.gl-kem{height:297mm}.gl-bkk{position:absolute;left:0;bottom:0;width:210mm;height:115mm;z-index:1}'+
-  '.gl-bkk .bk-trang{position:absolute;left:0;top:115mm;transform-origin:0 0;transform:rotate(-90deg)}'+
-  '.gl-cat-n{position:absolute;left:0;width:210mm;bottom:115mm;border-top:.3mm dashed #b8b8b8}.gl-cat-d{display:none}'+
+   3.191 (anh): Bảng kê in kèm dài hết bề ngang trang (210 mm), rộng 115 mm (+1 cm) → chỉ cắt 1 nhát ngang; chữ 13 pt. 3.192: rộng về 105 mm đúng mẫu */
+var GL_CSS_KEM = '.sheet-gl.gl-kem{height:297mm}.gl-bkk{position:absolute;left:0;bottom:0;width:210mm;height:105mm;z-index:1}'+
+  '.gl-bkk .bk-trang{position:absolute;left:0;top:105mm;transform-origin:0 0;transform:rotate(-90deg)}'+
+  '.gl-cat-n{position:absolute;left:0;width:210mm;bottom:105mm;border-top:.3mm dashed #b8b8b8}.gl-cat-d{display:none}'+
   '@media print{.sheet-gl.gl-a4.gl-kem{height:296mm}}';
 var GL_CSS_A4 = '@page{size:A4 portrait;margin:0}@media print{.sheet-gl.gl-a4{height:147mm}.sheet-gl.gl-a4.gl-x2{height:296mm}}';
 
