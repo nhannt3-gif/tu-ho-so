@@ -105,8 +105,10 @@ function gdxMiniApp(){
   Object.keys(P.C||{}).forEach(function(k){ C[k] = P.C[k]; });
   var luuC = {}; try { luuC = JSON.parse(doc(LS_C) || '{}') || {}; } catch(e){ luuC = {}; }
   var GIU = ['mau', 'diem', 'soNguoi', 'soTien', 'isGQVL', 'noiGN', 'gioPhatTien', 'kyPGD', 'nguoiLap', 'soBan', 'm12GDV', 'm12KSV', 'm12ToTruong', 'm12NumRows', 'm12TenToOption',
-    'm12GioHuy', 'm12NgayHuy', 'm12SoLuongTieuHuy', 'glLoai', 'timPham', 'glChim', 'glKho', 'glNgayCach', 'glND', 'glTKNo', 'glMaNH', 'glPGD', 'glTaiNH'];
+    'm12GioHuy', 'm12NgayHuy', 'm12SoLuongTieuHuy', 'glLoai', 'glLoai104', 'timPham', 'glChim', 'glKho', 'glNgayCach', 'glND', 'glTKNo', 'glMaNH', 'glPGD', 'glTaiNH'];
   GIU.forEach(function(k){ if(luuC[k]!==undefined) C[k] = luuC[k]; });
+  if(luuC.glLoai!==undefined && !luuC.glLoai104) C.glLoai = '104';   /* 3.179 (anh chốt): Giấy lĩnh mặc định TK 104 — bản mini cũ đã lưu 105 thì chuyển 1 lần */
+  C.glLoai104 = 1;
   var S = {ngayKy:'', ngayPhat:'', ngay12:'', glNgayTay:'', g:{}, q:'', qi:0, daIn:false};   /* lần mở này (không lưu) */
   function luu(){ var o = {}; GIU.forEach(function(k){ o[k] = C[k]; }); ghi(LS_C, JSON.stringify(o)); }
   var DS = P.diem || [];
@@ -204,7 +206,7 @@ function gdxMiniApp(){
   var GLO = [['ten', 'Họ, tên khách hàng', 4], ['cccd', 'CMT / CCCD số', 2], ['diaChi', 'Địa chỉ', 6], ['ncap', 'Ngày cấp', 2], ['noiCap', 'Nơi cấp', 2], ['tk', 'Tài khoản số', 2]];
   function glHTML(){
     var d = diem(C.diem), n = glNgay(), c = C.glNgayCach || 'gd', tien = String(S.g.tien||'').replace(/\D/g, '');
-    var h = hang('Loại', chip('TK 105 khách (gõ tay)', C.glLoai!=='104', 'mn.glLoai(\'105\')')+chip('TK 104 tổ trưởng', C.glLoai==='104', 'mn.glLoai(\'104\')'));
+    var h = hang('Loại', chip('TK 104 tổ trưởng', C.glLoai==='104', 'mn.glLoai(\'104\')')+chip('TK 105 khách (gõ tay)', C.glLoai!=='104', 'mn.glLoai(\'105\')'));
     if(C.glLoai==='104') h += hang('Tổ trưởng', '<div class="mn-tim"><input id="mn-q" class="mn-i" autocomplete="off" placeholder="🔎 Gõ tên tổ trưởng (không dấu) · ↑↓ Enter" value="'+E(S.q)+'" oninput="mn.tim(this.value)" onkeydown="mn.phimTim(event)"><div id="mn-gy" class="mn-gy"></div></div>'+
       '<span class="mn-pham">Tìm trong: '+[['diem', 'Điểm này'], ['xa', 'Cả xã'], ['tat', 'Cả PGD']].map(function(o){ return chip(o[1], phamTim().p===o[0], 'mn.pham(\''+o[0]+'\')'); }).join('')+'</span>'+
       (d ? '<select class="mn-i" onchange="if(this.value)mn.chonTT(this.value)"><option value="">— Tổ của điểm '+E(d.ten)+' ('+d.to.length+') —</option>'+d.to.map(function(t){ return '<option value="'+E(d.k+'|'+t.ma)+'">'+E((t.ten || t.ma)+(t.ap ? ' · '+t.ap : '')+(t.tk ? '' : ' · chưa có TK 104'))+'</option>'; }).join('')+'</select>' : ''));

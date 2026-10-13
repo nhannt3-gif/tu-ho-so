@@ -18,7 +18,7 @@ var GDX_MD = {
   m12TimeMode:'blank', m12PrefillGio:'11 giờ 30 phút', m12PrefillNgay:'', m12NumRows:12,
   form:'m04', tab04:'don', soNguoi:'1', soTien:'80.000.000',
   /* 3.174 */ ky04Hom:true, ngayPhatTay:false, kyPGD:false, chucPGD:'KT. GIÁM ĐỐC|PHÓ GIÁM ĐỐC', soBan:2, m12GioHuy:'cham', m12NgayHuy:'cham', nhanh:{}, xem:true,
-  glLoai:'105', glKho:'a5', glChim:'nhat', glNgayCach:'gd', glNgayTay:'', glND:'Rút tiền', glPGD:'', glTaiNH:'', glSo:'', glKHTK:'', glTKNo:'cham', glMaNH:'', glMuc:[500000, 1000000, 2000000, 5000000]
+  glLoai:'104', glKho:'a5', glChim:'nhat', glNgayCach:'gd', glNgayTay:'', glND:'Rút tiền', glPGD:'', glTaiNH:'', glSo:'', glKHTK:'', glTKNo:'cham', glMaNH:'', glMuc:[500000, 1000000, 2000000, 5000000]
 };
 var GDX = {zoom:0, daHoi:'', glQ:'', glKH:'', glTien:'', glHet:0, glTo:''};   /* lần làm việc: zoom (0 = vừa khung), đã hỏi cảnh báo của bản nào, Giấy lĩnh đang chọn */
 function gdxC(){
@@ -26,7 +26,8 @@ function gdxC(){
   var moi = c.m12GioHuy===undefined;
   Object.keys(GDX_MD).forEach(function(k){ if(c[k]===undefined) c[k] = JSON.parse(JSON.stringify(GDX_MD[k])); });
   if(JSON.stringify(c.quickAmounts)==='[20000000,30000000,50000000,80000000,90000000,100000000]') c.quickAmounts = GDX_MD.quickAmounts.slice();   /* 3.175: bộ mức cũ chưa sửa → bộ mới anh chốt; ai đã thêm / bớt thì giữ */
-  if(moi && c.m12TimeMode==='prefill'){ c.m12GioHuy = 'san'; c.m12NgayHuy = 'gd'; }   /* 3.174: khai báo cũ "ghi sẵn giờ, ngày" → 2 lựa chọn riêng */
+  if(moi && c.m12TimeMode==='prefill'){ c.m12GioHuy = 'san'; c.m12NgayHuy = 'gd'; }
+  if(!c.glLoai104){ c.glLoai104 = 1; c.glLoai = '104'; }   /* 3.179 (anh chốt): Giấy lĩnh mặc định TK 104 tổ trưởng — chuyển 1 lần, sau đó giữ lựa chọn của anh */   /* 3.174: khai báo cũ "ghi sẵn giờ, ngày" → 2 lựa chọn riêng */
   return c;
 }
 function gdxE(s){ return coChuHTML(s==null ? '' : String(s)); }
@@ -728,8 +729,8 @@ function gdxTomVe(){ var t = document.getElementById('gdx-tom'); if(t) t.innerHT
 /* 3.176 (anh chốt): khung "Người lĩnh · số tiền" gọn trong 1 khung — loại TK + ô tìm (↑↓ Enter) + khách trong tổ (ô sổ xuống) + form gõ tay như mẫu thật + số tiền ▲▼ (bước 100 nghìn) */
 function gdxGLPhieuHTML(kb){
   var C = gdxC(), t = gdxGLTo(), g = gdxGLDuLieu(), h = '<div class="gl-khung">';
-  h += '<div class="gl-k1"><span class="gdx-ra"><label><input type="radio" name="gdx-r-glloai"'+(C.glLoai!=='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;GDX.glSua={};gdxDat(\'glLoai\', \'105\', 1)"> TK 105 khách</label>'+
-    '<label><input type="radio" name="gdx-r-glloai"'+(C.glLoai==='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;GDX.glSua={};gdxDat(\'glLoai\', \'104\', 1)"> TK 104 tổ trưởng</label></span>'+
+  h += '<div class="gl-k1"><span class="gdx-ra"><label><input type="radio" name="gdx-r-glloai"'+(C.glLoai==='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;GDX.glSua={};gdxDat(\'glLoai\', \'104\', 1)"> TK 104 tổ trưởng</label>'+
+    '<label><input type="radio" name="gdx-r-glloai"'+(C.glLoai!=='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;GDX.glSua={};gdxDat(\'glLoai\', \'105\', 1)"> TK 105 khách</label></span>'+
     (TO_K ? '<div class="gdx-tim"><input id="gdx-gl-q" class="gdx-i" autocomplete="off" placeholder="🔎 Gõ tên '+(C.glLoai==='104' ? 'tổ trưởng' : 'tổ trưởng / khách')+' (không dấu) · ↑↓ Enter" value="'+gdxE(GDX.glQ||'')+'" oninput="GDX.glQ=this.value;gdxGLTim()" onkeydown="gdxGLPhim(event)"><div id="gdx-gl-gy" class="gdx-gy"></div></div>'
       : '<small class="gdx-ghi">Chưa có Mẫu 31 — gõ tay vào các ô dưới.</small>')+'</div>';
   if(t && C.glLoai==='104') h += '<div class="gl-k2">Tổ '+gdxE(t.ten || t.ma)+(t.tenThon ? ' · '+gdxE(pvApNgan(t.tenThon)) : '')+' · TK 104: '+(g.tk ? '<b>'+gdxE(g.tk)+'</b> <small>('+g.tkTu+')</small>' : '<span class="gdx-vang">chưa có — nạp danh mục ở 📥 Nạp &amp; KT</span>')+'</div>';
@@ -772,7 +773,8 @@ function gdxGLChonKH(kh){ GDX.glKH = kh; GDX.glHet = 0; GDX.glSua = {}; gdxVe();
 /* 3.175 (anh chốt): form gõ tay ngay dưới ô tìm, bố trí như mẫu thật — tìm ra thì app điền sẵn, sửa được; không tìm thì gõ thẳng */
 var GL_O = [['ten','Họ, tên khách hàng',4], ['cccd','CMT / CCCD số',2], ['diaChi','Địa chỉ',6], ['ncap','Ngày cấp',2], ['noiCap','Nơi cấp',2], ['tk','Tài khoản số',2]];   /* [khóa, nhãn, số cột / 6] */
 function gdxGLSua(o){ GDX.glSua = GDX.glSua || {}; GDX.glSua[o.getAttribute('data-k')] = o.value; gdxXem(); gdxTomVe(); }
-function gdxGLLamTrong(){ GDX.glSua = {}; GL_O.forEach(function(o){ GDX.glSua[o[0]] = ''; }); GDX.glTien = ''; GDX.glHet = 0; gdxVe(); var e = document.querySelector('.gl-form-luoi input'); if(e) e.focus(); }
+function gdxGLLamTrong(){ GDX.glTo = '';   /* 3.179: quên tổ đang điền → chọn lại đúng tổ cũ ở khối lọc thì điền lại theo số liệu */
+   GDX.glSua = {}; GL_O.forEach(function(o){ GDX.glSua[o[0]] = ''; }); GDX.glTien = ''; GDX.glHet = 0; gdxVe(); var e = document.querySelector('.gl-form-luoi input'); if(e) e.focus(); }
 function gdxGLTim(){
   var g = document.getElementById('gdx-gl-gy'); if(!g) return;
   var q = slChuan(GDX.glQ||''); if(q.length<2 || !TO_K){ g.innerHTML = ''; return; }

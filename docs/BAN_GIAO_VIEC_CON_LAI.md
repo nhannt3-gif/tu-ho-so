@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.179) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở Giấy lĩnh, tìm / chọn 1 tổ trưởng | Mặc định TK 104; ô Tài khoản số = TK 104 theo danh mục | |
+| 2 | Bấm ✕ Làm trống rồi chọn lại đúng tổ đó ở khối lọc | Điền lại đủ, có TK 104 | |
+
+- **Ghi chú kỹ thuật 3.179:** cờ `D.cauHinh.gdx.glLoai104` = đã chuyển mặc định 1 lần; mini: `glLoai104` trong `gdxmini_c`.
+
 ### Danh sách thử trên máy thật (3.178) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

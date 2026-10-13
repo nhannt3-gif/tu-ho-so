@@ -36,7 +36,8 @@ const fs=require('fs'), path=require('path');
    const t12 = chu(fd().body.innerHTML);
    ok('12/GDX: in sẵn tên tổ trưởng theo Mẫu 31 (xếp theo ấp), mã điểm theo Mẫu 31', khac.to.every(x=>t12.indexOf(x.tenTo)>=0) && t12.indexOf('Mã điểm giao dịch: '+khac.maDiem)>=0);
    /* ---- 💵 Giấy lĩnh ---- */
-   gdxDoiMau('gl'); await w(400);
+   ok('3.179: Giấy lĩnh mặc định TK 104 tổ trưởng', gdxC().glLoai==='104');
+   gdxDoiMau('gl'); gdxDat('glLoai', '105', 1); await w(400);
    ok('Giấy lĩnh: tới cấp Tổ → khối lọc hiện Hội / Tổ; mở mẫu → tự chọn điểm GD gần nhất, ngày lĩnh = ngày GD điểm đó', document.getElementById('gdx-cay').classList.contains('gdx-cap-to') && S.diem===g0.d.k && gdxGLDuLieu().ngay===gdxNgayToi(g0.d.ngayGD, 1)[0]);
    ok('chưa chọn người lĩnh → cảnh báo đỏ ở Tóm tắt', /Chưa chọn người lĩnh/.test(document.getElementById('gdx-tom').textContent));
    /* tìm tổ trưởng gõ không dấu */
@@ -108,6 +109,8 @@ const fs=require('fs'), path=require('path');
    ok('hộp 📜 Nhật ký in: dòng + 🖨 In lại + 📄 PDF + ×', /In lại/.test(document.getElementById('hop-in').textContent) && document.querySelectorAll('#hop-in .gdx-nk-nut button').length===3); dongHop();
    /* ---- tổ trưởng rút TK 104: danh mục tham chiếu + file TK 104 (dữ liệu GIẢ) ---- */
    gdxDat('glLoai', '104', 1); await w(200);
+   { const tk0 = gdxGLDuLieu().tk; gdxGLLamTrong(); await w(100); const trong = !gdxGLDuLieu().tk; pvChonTo('gdx', tA.ma); await w(300);
+     ok('3.179: Làm trống rồi chọn lại đúng tổ cũ ở khối lọc → điền lại TK 104 theo số liệu', !tk0 || (trong && gdxGLDuLieu().tk===tk0), tk0); }
    g = gdxGLDuLieu();
    ok('TK 104 chưa nạp tham chiếu → số TK để chấm + cảnh báo vàng', g.ten===tA.ten && !g.tk && /Chưa có số tài khoản 104/.test(document.getElementById('gdx-tom').textContent));
    const dsTo = Object.keys(T).filter(m=>!T[m].trucTiep && T[m].ten).slice(0, 6), maKH = m => (typeof hsoTTKH==='function' && hsoTTKH(T[m]).kh) || ('99'+m.replace(/\D/g, '').padStart(8, '0'));

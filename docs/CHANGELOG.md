@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.179 — 13/10/2026 — Giấy lĩnh mặc định TK 104
+- **Anh (13/10):** nạp danh mục rồi nhưng Giấy lĩnh chưa hiện TK 104; chốt "mặc định 104".
+- **Nguyên nhân (thử bằng dữ liệu giả):** ① Giấy lĩnh mặc định "TK 105 khách" → chọn tổ trưởng thì lấy TK 105 của tổ trưởng (không có thì trống), không lấy TK 104; ② bấm ✕ Làm trống rồi chọn lại đúng tổ cũ ở khối LỌC ĐỊA BÀN → các ô vẫn trống.
+- **Sửa:** `GDX_MD.glLoai = '104'`; máy đang dùng chuyển 1 lần sang 104 (cờ `glLoai104` trong `gdxC`), sau đó giữ lựa chọn của anh. Nút loại TK xếp **TK 104 tổ trưởng** trước. `gdxGLLamTrong` quên tổ đang điền → chọn lại tổ cũ thì điền lại theo số liệu. Mini app: mặc định TK 104, bản mini đã lưu 105 chuyển 1 lần.
+- **Phép thử:** `t167` thêm 2 phép (mặc định 104; Làm trống → chọn lại tổ cũ điền lại TK 104) — 50/50; `t168` 27/27; `t165` 52/52.
+
 ## 3.178 — 13/10/2026 — Mini app gói CCCD tổ trưởng; tìm Giấy lĩnh gọn theo xã / điểm
 - **Anh (13/10):** "Vẫn gói" (CCCD tổ trưởng vào mini app); "trong chức năng tìm khi anh chọn xã, điểm thì em giới hạn tìm cho gọn".
 - **Mini app** (`gdxMiniGoi`): gói thêm số CCCD, ngày cấp, nơi cấp tổ trưởng (`hsoKhach` theo mã KH tổ trưởng) — xáo mã như số liệu khác; hộp xuất ghi số CCCD được gói. Chọn tổ trưởng TK 104 → điền tên, CCCD, ngày cấp, nơi cấp, TK 104, địa chỉ; con trỏ nhảy xuống ô số tiền.
