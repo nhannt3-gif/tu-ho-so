@@ -3335,6 +3335,7 @@ span.sl-chip{cursor:help}
 /* 3.174 (anh chốt 12/10) — bố cục mới tab Giao dịch xã: khung chọn ~60 % trái (chip / nút chọn / ô sổ xuống) + khung xem ~40 % phải, bật / tắt;
    Tóm tắt bản in ghim đáy khung trái; mẫu cấp Điểm GD ẩn hàng Hội / Tổ của khối LỌC ĐỊA BÀN */
 .gdx-cap-diem .cap-hoi,.gdx-cap-diem [data-cap="to"],.gdx-cap-diem .pv-hoi,.gdx-cap-diem .pv-to{display:none !important}
+#gdx-cay.gdx-cap-khong{display:none}   /* 3.193: 🧾 Bảng kê (mẫu trắng) không cần lọc địa bàn */
 .gdx2-bo{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;align-items:start;margin-top:4px;text-align:left}
 .gdx2-bo.an-xem{grid-template-columns:1fr}.gdx2-bo.an-xem .gdx2-xem{display:none}
 @media(max-width:899px){ .gdx2-bo{grid-template-columns:1fr} }
