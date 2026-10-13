@@ -224,3 +224,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.187 (13/10):** 🧾 Bảng kê các loại tiền ngân hàng chi ra (theo ảnh tờ in sẵn, cùng dữ liệu Giấy lĩnh, mệnh giá để trắng / tự chia, mẫu trắng 2 tờ / A4 — khổ tạm 105 × 185 mm chờ đo); CCCD tổ trưởng từ file về tổ; ngày gõ liền 5 / 7 số. Mẫu in Giấy lĩnh: 9 dòng khối trái giãn đều 7,08 mm, chấm bằng chữ lên 0,8 mm, 2 gạch dọc Người lĩnh tiền dài thêm 2,5 mm.
 - **Đã làm 3.188 (13/10):** Giấy lĩnh + Bảng kê in chung 1 tờ A4 (⚙ Khổ giấy) — Bảng kê xoay ngang sát góc dưới trái, cắt 2 nhát, tự chia mệnh giá, bằng chữ đủ; mẫu trắng cùng kiểu.
 - **Đã làm 3.189 (13/10):** Bảng kê chữ chìm = logo đã nạp ở Hồ sơ vay (chưa nạp → VBSP).
+- **Đã làm 3.190 (13/10):** Bảng kê — Họ tên dưới chỗ ký Người lĩnh tiền để chấm (người lĩnh tự ghi tay).
