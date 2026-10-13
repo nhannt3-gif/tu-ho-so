@@ -3443,3 +3443,4 @@ span.sl-chip{cursor:help}
 .gdx-tien-to{width:165px;font-size:calc(17px*var(--co));font-weight:800;color:var(--xanh-dam,#0d47a1);border:2px solid var(--xanh)!important;background:var(--vang-nen,#fff8e1);padding:5px 9px}
 .gl-nhan2{display:flex;justify-content:space-between;gap:8px;min-width:0}.gl-nhan2>span{flex:none;font-size:calc(11.5px*var(--co));color:var(--chu-phu)}
 .gl-noicap{font-style:normal;font-size:calc(11px*var(--co));color:var(--chu-phu);opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;min-width:0}.gl-noicap:hover{opacity:1;text-decoration:underline}
+.gdx-seg{display:inline-flex;gap:3px;flex:none}

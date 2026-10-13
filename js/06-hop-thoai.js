@@ -2053,7 +2053,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.186', ds:[
+var CO_GI_MOI = {ban:'3.187', ds:[
+  ["🧾 Giấy lĩnh: thêm Bảng kê các loại tiền ngân hàng chi ra — cùng người lĩnh / số tiền; chọn 💵 / 🧾 ở dòng Tóm tắt; bảng mệnh giá để trắng hoặc tự chia; mẫu trắng 2 tờ / A4", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
+  ["💵 Giấy lĩnh: CCCD tổ trưởng lấy thêm từ file về tổ (Thông tin tổ trưởng · DSTO · danh mục); ngày cấp gõ liền 5–8 số không cần dấu", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh (mẫu in): dòng Họ tên xuống thêm 6 mm cho thoáng, 2 dòng bằng chữ + Nội dung rút lên 1 mm, chữ chìm dời theo", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: ô tìm nhận số CCCD (4 số cuối trở lên) cho đúng người; ↑↓ chọn, Enter → điền form và nhảy ngay ô số tiền", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: TK 105 chưa có số sổ → tra danh bạ theo CCCD, không có thì ghi lý do; ✕ Làm trống bỏ luôn chọn tổ ở cây địa bàn", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
