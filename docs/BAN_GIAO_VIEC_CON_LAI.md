@@ -229,6 +229,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 2 | ⚙ Khai báo riêng › Bảng kê: Tự chia mệnh giá | Bảng mệnh giá + Thành tiền + Tổng cộng tự điền | |
 | 3 | TK 104 tổ Lê Ân (không có CCCD lần trước) | CCCD lấy từ file về tổ, hoặc Tóm tắt báo lý do | |
 | 4 | Ô Ngày cấp gõ 2542021 / 252021 | 25/04/2021 / 02/05/2021 | |
+| 5 | In Giấy lĩnh | 9 dòng khối trái cách đều; 2 gạch dọc Người lĩnh tiền dài hơn 2,5 mm; chấm bằng chữ sát chữ hơn | |
 
 - **Ghi chú kỹ thuật 3.187:** Bảng kê = `X.mau='gl'` + `X.bk=true` (`GDX.xemBK`), dựng `gdxHTMLBK`, CSS riêng `BK_CSS` (A4 dọc, tờ 105 × 185 mm). Khai báo `bkChia`, `bkKho` ('1' | '2'). Khổ tờ chờ anh đo.
 
