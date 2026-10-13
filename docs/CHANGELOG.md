@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.186 — 13/10/2026 — Giấy lĩnh: dòng Họ tên xuống 5 mm
+- **Anh (13/10):** "giãn dòng chỗ họ tên xuống 5 mm cho thoáng".
+- **Mẫu in** (`GL_CSS`): khoảng cách đầu phiếu → dòng "Họ, tên khách hàng" 2 → **7 mm** (cả thân phiếu và khung PHẦN DO NGÂN HÀNG GHI xuống theo); chữ chìm dời theo (top 42,4 → 47,4 mm) để giữ đúng vị trí so với form. Đã đo: phiếu vẫn trọn 148 mm, không tràn; chỗ ký còn ~29 mm. Mini app dùng chung mẫu nên tự theo.
+- **Phép thử:** `t167` 59/59 (kiểm CSS 7 mm + chữ chìm 47,4 mm).
+
 ## 3.185 — 13/10/2026 — Giấy lĩnh: tìm theo CCCD, Enter tới ô số tiền, TK 105 theo CCCD, Làm trống bỏ chọn tổ
 - **Anh (13/10):** "TK 105 chưa hiện ra"; "cho tìm tên theo số CCCD cho chính xác"; "khi tìm tên xong danh sách hiện ra, dùng phím mũi tên lên xuống để di chuyển chọn ngay tên, Enter sẽ đi đến ô số tiền luôn"; "khi chọn tổ từ cây địa bàn, nếu bấm làm trống cũng bỏ chọn" (đã ghi việc chờ, làm bản này); "code và gộp".
 - **Tìm theo CCCD** (`gdxGLTim`, `gdxCCCDCua`): gõ số (4 số cuối trở lên hoặc đủ CCCD) → tìm theo **số CCCD** (danh bạ khách các kỳ / dòng Mẫu 31), không lẫn người trùng tên; kết quả kèm "CCCD …". Gõ chữ vẫn tìm theo tên như cũ. Mini app: tìm tổ trưởng theo CCCD đã gói.
