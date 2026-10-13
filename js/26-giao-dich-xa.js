@@ -743,7 +743,7 @@ function gdxGLMuc(k, kb){
   else if(k==='glnd') h = gdxIn1('glND', 'Rút tiền');
   else if(k==='glnh') h = '<div class="gdx-luoi"><label><span>Tài khoản ghi Nợ</span><select class="gdx-i" onchange="gdxDat(\'glTKNo\', this.value, 1)"><option value="cham"'+(C.glTKNo!=='tk' ? ' selected' : '')+'>Để chấm (ngân hàng ghi)</option><option value="tk"'+(C.glTKNo==='tk' ? ' selected' : '')+'>= Tài khoản số của khách</option></select></label>'+
     '<label><span>Mã - Ngân hàng</span>'+gdxIn1('glMaNH', 'trống = chấm')+'</label></div>';
-  else if(k==='glbk') h = gdxRadio('bkChia', [[false,'Bảng mệnh giá để trắng (thủ quỹ ghi)'],[true,'Tự chia mệnh giá (tờ lớn trước)']])+gdxRadio('bkKho', [['1','1 tờ / A4 (góc trái)'],['2','2 liên / A4 (cạnh nhau)']])+'<small class="gdx-ghi">Chuyển xem / in Bảng kê ở dòng Tóm tắt (💵 Giấy lĩnh · 🧾 Bảng kê). Khổ tờ tạm 105 × 185 mm — chờ anh đo tờ thật.</small>';
+  else if(k==='glbk') h = gdxRadio('bkChia', [[false,'Bảng mệnh giá để trắng (thủ quỹ ghi)'],[true,'Tự chia mệnh giá (tờ lớn trước)']])+gdxRadio('bkKho', [['1','1 tờ / A4 (góc trái)'],['2','2 liên / A4 (cạnh nhau)']])+'<small class="gdx-ghi">Chuyển xem / in Bảng kê ở dòng Tóm tắt (💵 Giấy lĩnh · 🧾 Bảng kê). Khổ tờ tạm 105 × 185 mm — chờ anh đo tờ thật. Chữ chìm = logo đã nạp ở 📄 Hồ sơ vay › ⚙ Khai báo 1 lần (chưa nạp → chữ VBSP); mức đậm nhạt theo Chữ chìm của Giấy lĩnh.</small>';
   else if(k==='glkho') h = gdxRadio('glKho', [['a5','A5 ngang'],['a4','A4 dọc · in nửa trên'],['a4bk','A4 dọc · Giấy lĩnh trên + 🧾 Bảng kê dưới']])+'<small class="gdx-ghi">Giấy lĩnh + Bảng kê: 1 tờ A4, bấm IN 1 lần; Bảng kê xoay ngang sát góc dưới trái (cắt 2 nhát theo nét đứt), luôn tự chia mệnh giá từ tờ lớn.</small>';
   return h;
 }
@@ -927,7 +927,8 @@ function gdxBKTrang(g, c, trang){
   var o4 = function(v){ return gdxBKNhom(v).map(function(x){ return '<td class="bk-tt">'+x+'</td>'; }).join(''); };
   var dong = BK_MG.map(function(m){ var n = ch && ch.so[m]; return '<tr><td class="bk-lt">'+gdxTien(m)+'</td><td class="bk-sl">'+(n || '')+'</td>'+o4(n ? n*m : 0)+'</tr>'; }).join('');
   var pgd = trang ? '' : (c.diaDanh || '');
-  return '<div class="bk-trang">'+(c.glChim==='tat' ? '' : '<div class="bk-chim">VBSP</div>')+
+  var logo = typeof hsoKB==='function' && hsoKB().logo, mc = trang ? 'vua' : (c.glChim || 'nhat');   /* 3.189 (anh): chữ chìm = logo đã nạp ở 📄 Hồ sơ vay › Khai báo 1 lần (như tờ in sẵn); chưa nạp → chữ VBSP */
+  return '<div class="bk-trang">'+(c.glChim==='tat' ? '' : logo ? '<img class="bk-chim bk-logo chim-'+mc+'" src="'+logo+'" alt="">' : '<div class="bk-chim">VBSP</div>')+
     '<div class="bk-dau"><div class="bk-nh"><div>NGÂN HÀNG CHÍNH SÁCH XÃ HỘI</div><div>CHI NHÁNH TỈNH TÂY NINH</div><div class="gl-r bk-pgd"><b>PHÒNG GIAO DỊCH:</b>'+gdxGLO(pgd)+'</div></div>'+
       '<div class="bk-tit"><div class="bk-t1">BẢNG KÊ</div><div class="bk-t2">CÁC LOẠI TIỀN NGÂN HÀNG CHI RA</div><div class="bk-ngay">Ngày '+o(p[2], '7mm')+' tháng '+o(p[1], '7mm')+' năm '+(p[0] ? '<span class="gl-vn">'+p[0]+'</span>' : '20'+o('', '6mm'))+'</div></div></div>'+
     r('Họ và tên người lĩnh tiền:', g.ten, 'bk-ten')+r('Địa chỉ:', g.diaChi)+r('Nội dung:', trang ? '' : (c.glND==null ? 'Rút tiền' : c.glND))+
@@ -947,6 +948,7 @@ function gdxBKTrangIn(){ var c = JSON.parse(JSON.stringify(gdxC())); c.bkTrang =
 var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6mm 6mm 5mm 7mm;font-size:11pt;line-height:1.25;display:flex;flex-direction:column;overflow:hidden}'+
   '.bk-cat{position:absolute;left:105mm;top:0;height:185mm;border-left:.3mm dashed #b8b8b8}.sheet-bk:not(.bk-x2) .bk-trang{outline:.2mm dashed #ccc}'+
   '.bk-chim{position:absolute;left:18mm;top:78mm;font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:64pt;color:#e6e6e6;z-index:0;pointer-events:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
+  '.bk-chim.bk-logo{left:31mm;top:58mm;width:58mm;height:auto;opacity:.16}.bk-logo.chim-vua{opacity:.24}.bk-logo.chim-dam{opacity:.34}'+
   '.bk-trang>*:not(.bk-chim){position:relative;z-index:1}'+
   '.bk-dau{display:grid;grid-template-columns:1.05fr 1fr;gap:2mm;margin-bottom:2.5mm}'+
   '.bk-nh{text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:7.5pt;line-height:1.35}.bk-pgd{min-height:0;font-size:7.5pt;margin-top:1mm}'+
