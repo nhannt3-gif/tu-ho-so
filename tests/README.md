@@ -116,6 +116,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t167.js` | (3.186) CSS Giấy lĩnh: đầu phiếu → Họ tên 8 mm, chữ chìm 48,4 mm, `.gl-len` bằng chữ + Nội dung lên 1 mm. |
 | `node tests/t167.js` | (3.187) thêm: Bảng kê (xem theo 💵/🧾, tự chia mệnh giá, mẫu trắng 2 tờ), CCCD tổ trưởng từ Thông tin tổ trưởng + lý do. `t165`: ngày gõ liền 5 / 7 số, năm 2 số cũ. |
 | `node tests/t167.js` | (3.188) thêm: Giấy lĩnh + Bảng kê chung 1 tờ A4 (Bảng kê 185 × 105 sát góc dưới trái, tự chia, bằng chữ đủ, 2 nét cắt) + mẫu trắng. |
+| `node tests/t167.js` | (3.189) thêm: Bảng kê chữ chìm = logo đã nạp, chưa nạp → VBSP. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.189 — 13/10/2026 — 🧾 Bảng kê: chữ chìm bằng logo
+- **Anh (13/10):** "em code đi, em có logo rồi phải không" (tờ Bảng kê in sẵn có logo VBSP in chìm to giữa bảng).
+- **Bảng kê** (`gdxBKTrang`, `BK_CSS_LOI`): chữ chìm dùng **logo anh đã nạp ở 📄 Hồ sơ vay › ⚙ Khai báo 1 lần** (`hsoKB().logo`, lưu trong cài đặt máy anh, đồng bộ Drive — không có trong repo), rộng 58 mm, giữa vùng bảng mệnh giá như tờ in sẵn; đậm nhạt theo Chữ chìm của Giấy lĩnh (Nhạt / Vừa / Đậm, Tắt = không in). Chưa nạp logo → giữ chữ VBSP như cũ. Áp cho Bảng kê in riêng, in kèm Giấy lĩnh và mẫu trắng. Giấy lĩnh giữ chữ VBSP.
+- **Phép thử:** `t167` 66/66 (logo giả 1 điểm ảnh → chữ chìm là ảnh; chưa nạp → VBSP).
+
 ## 3.188 — 13/10/2026 — 🧾 Giấy lĩnh + Bảng kê in chung 1 tờ A4
 - **Anh (13/10):** "thêm mẫu bảng kê tiền in kèm phiếu chi luôn, in ở phần A4 dưới em bố trí" → chọn cách A (giữ đúng tờ in sẵn, xoay ngang) "canh cạnh dưới cho dễ cắt", "in chung 1 tờ A4", "tiền kê từ mệnh giá lớn xuống", "tự chia sẵn, chốt tổng tiền bằng chữ đầy đủ", "đồng ý gộp". Dòng chấm dưới Nội dung (6,0 mm) anh để nguyên.
 - **⚙ Khổ giấy** thêm **A4 dọc · Giấy lĩnh trên + 🧾 Bảng kê dưới** (`glKho='a4bk'`, `GL_CSS_KEM`): bấm IN 1 lần ra cả 2 phần trên 1 tờ A4. Giấy lĩnh nửa trên như bản A4 cũ; Bảng kê (105 × 185 mm) **xoay ngang 185 × 105 mm sát cạnh dưới và cạnh trái** → cắt 2 nhát theo nét đứt (ngang cách đáy 105 mm, dọc cách mép trái 185 mm). Bảng kê in kèm **luôn tự chia mệnh giá từ tờ lớn xuống** (Số lượng, Thành tiền, Tổng cộng), **số tiền bằng chữ đầy đủ** (dài tự xuống dòng 2). Cùng dữ liệu Giấy lĩnh.

@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.189) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Đã nạp logo ở Hồ sơ vay → xem / in Bảng kê (riêng hoặc kèm Giấy lĩnh) | Logo mờ to giữa bảng mệnh giá, không che số | |
+| 2 | ⚙ Chữ chìm Nhạt / Vừa / Đậm | Logo đậm nhạt theo | |
+
+- **Ghi chú kỹ thuật 3.189:** `gdxBKTrang` đọc `hsoKB().logo` (data URL PNG ≤ 360 px) → `<img class="bk-chim bk-logo chim-…">`, opacity .16 / .24 / .34. Mini app chưa gói Bảng kê nên không ảnh hưởng.
+
 ### Danh sách thử trên máy thật (3.188) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
