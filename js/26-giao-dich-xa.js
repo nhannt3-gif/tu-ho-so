@@ -18,7 +18,7 @@ var GDX_MD = {
   m12TimeMode:'blank', m12PrefillGio:'11 giờ 30 phút', m12PrefillNgay:'', m12NumRows:12,
   form:'m04', tab04:'don', soNguoi:'1', soTien:'80.000.000',
   /* 3.174 */ ky04Hom:true, ngayPhatTay:false, kyPGD:false, chucPGD:'KT. GIÁM ĐỐC|PHÓ GIÁM ĐỐC', soBan:2, m12GioHuy:'cham', m12NgayHuy:'cham', nhanh:{}, xem:true,
-  glLoai:'104', glKho:'a5', glChim:'nhat', glNgayCach:'hom', glNgayTay:'', glND:'Rút tiền', glPGD:'', glTaiNH:'', glSo:'', glKHTK:'', glTKNo:'cham', glMaNH:'', bkChia:false, bkKho:'1', bkChim:'', glMuc:[500000, 1000000, 2000000, 5000000]
+  glLoai:'104', glKho:'a5', glIn:'gl', glChim:'nhat', glNgayCach:'hom', glNgayTay:'', glND:'Rút tiền', glPGD:'', glTaiNH:'', glSo:'', glKHTK:'', glTKNo:'cham', glMaNH:'', bkChia:false, bkChim:'nhat', bkPGD:'', glMuc:[500000, 1000000, 2000000, 5000000]
 };
 var GDX = {zoom:0, daHoi:'', glQ:'', glKH:'', glTien:'', glHet:0, glTo:''};   /* lần làm việc: zoom (0 = vừa khung), đã hỏi cảnh báo của bản nào, Giấy lĩnh đang chọn */
 function gdxC(){
@@ -28,6 +28,7 @@ function gdxC(){
   if(JSON.stringify(c.quickAmounts)==='[20000000,30000000,50000000,80000000,90000000,100000000]') c.quickAmounts = GDX_MD.quickAmounts.slice();   /* 3.175: bộ mức cũ chưa sửa → bộ mới anh chốt; ai đã thêm / bớt thì giữ */
   if(moi && c.m12TimeMode==='prefill'){ c.m12GioHuy = 'san'; c.m12NgayHuy = 'gd'; }
   if(!c.glLoai104){ c.glLoai104 = 1; c.glLoai = '104'; }
+  if(c.glKho==='a4bk'){ c.glKho = 'a4'; c.glIn = 'kh'; }   /* 3.192 (anh: tách Giấy lĩnh / Bảng kê): khổ 'A4 + Bảng kê' cũ → chọn in 💵+🧾 Kết hợp */
   if(c.glNgayCach==='gd' || !c.glNgayCach) c.glNgayCach = 'hom';   /* 3.182 (anh chốt): bỏ "ngày GD điểm" — ngày lĩnh chỉ Hôm nay · nhập ngày · để chấm */   /* 3.179 (anh chốt): Giấy lĩnh mặc định TK 104 tổ trưởng — chuyển 1 lần, sau đó giữ lựa chọn của anh */   /* 3.174: khai báo cũ "ghi sẵn giờ, ngày" → 2 lựa chọn riêng */
   return c;
 }
@@ -323,14 +324,15 @@ function gdxChup(){
   if(m==='m04'){ c.ngayThongBao = gdxNgayKy04(C); c.ky04Hom = false; var np = gdxNgayPhat04(C); c.ngayPhatISO = np; c.ngayPhatTay = true; c.ngayPhatTien = np ? gdxNgayChu(np) : 'ngày …… tháng …… năm ………';
     if(C.noiGN==='pgd'){ c.diaDiemPhatTien = C.diaDiemPGD || GDX_MD.diaDiemPGD; if(C.gioPGD) c.gioPhatTien = C.gioPGD; } else if(C.gioDiem) c.gioPhatTien = C.gioDiem; }
   if(m==='m12'){ var d = gdxDiem(C.m12SelectedDiem); X.d = d ? JSON.parse(JSON.stringify(d)) : null; }
-  if(m==='gl'){ X.gl = gdxGLDuLieu(); if(GDX.xemBK) X.bk = true; }   /* 3.187: đang xem / in Bảng kê các loại tiền */
+  if(m==='gl'){ X.gl = gdxGLDuLieu(); if(C.glIn==='bk') X.bk = true; else if(C.glIn==='kh') X.kh = true; }   /* 3.192 (anh): chọn in 💵 Giấy lĩnh · 🧾 Bảng kê · 💵+🧾 Kết hợp — tách biệt */
   return X;
 }
 function gdxDung(X){   /* → {than, css} */
   var c = X.C;
   if(X.mau==='m12') return {than:gdxHTML12(c, X.d || {tenDiem:'', maDiem:'', tenXa:'', to:[]}), css:GDX_CSS};
-  if(X.mau==='gl' && X.bk) return {than:gdxHTMLBK(X.gl, c), css:BK_CSS};
-  if(X.mau==='gl') return {than:gdxHTMLGL(X.gl, c), css:GL_CSS+(c.glKho==='a4bk' ? GL_CSS_A4+BK_CSS_LOI+GL_CSS_KEM : c.glKho==='a4' || c.glKho==='a4x2' ? GL_CSS_A4 : GL_CSS_A5)};
+  if(X.mau==='gl' && X.bk) return {than:gdxHTMLBK(X.gl, c), css:BK_CSS};   /* 3.192 (anh): 🧾 Bảng kê in riêng — A4 ngang (có dữ liệu 1 tờ sát mép trái; mẫu trắng 2 tờ sát 2 mép) */
+  if(X.mau==='gl' && X.kh){ c = JSON.parse(JSON.stringify(c)); c.glKho = 'a4bk'; }   /* 💵+🧾 Kết hợp: 1 tờ A4 dọc */
+  if(X.mau==='gl') return {than:gdxHTMLGL(X.gl, c), css:GL_CSS+(c.glKho==='a4bk' ? GL_CSS_A4+BK_CSS_LOI+BK_CSS_TO+GL_CSS_KEM : c.glKho==='a4' || c.glKho==='a4x2' ? GL_CSS_A4 : GL_CSS_A5)};
   var x = {soNguoi:c.soNguoi || 1, soTien:c.soTien || ''}, m = '<div class="sheet-a4">'+gdxHTML04(x, c)+'</div>';
   return {than:+c.soBan===1 ? m : m+m, css:GDX_CSS};   /* mặc định 2 bản giống nhau (1 lưu tổ, 1 lưu NH) — chọn được 1 bản */
 }
@@ -364,7 +366,7 @@ var GDX_MUC = {
     {k:'giohuy', ten:'Giờ tiêu hủy', nhanh:0},
     {k:'ngayhuy', ten:'Ngày tiêu hủy', nhanh:1}],
   gl: [
-    {k:'gldau', ten:'Dòng dưới tên chi nhánh', nhanh:0},
+    {k:'gldau', ten:'Dòng dưới tên chi nhánh', nhanh:0, nhom:'💵 Giấy lĩnh tiền mặt'},
     {k:'glngay', ten:'Ngày lĩnh', nhanh:1},
     {k:'glso', ten:'Số · KHTK', nhanh:0},
     {k:'glphieu', ten:'Người lĩnh · số tiền', nhanh:1},
@@ -373,7 +375,11 @@ var GDX_MUC = {
     {k:'glnh', ten:'Phần do ngân hàng ghi', nhanh:0},
     {k:'glkho', ten:'Khổ giấy', nhanh:1},
     {k:'glchim', ten:'Chữ chìm VBSP', nhanh:1},
-    {k:'glbk', ten:'🧾 Bảng kê các loại tiền (khai báo riêng)', nhanh:0}]
+    /* 3.192 (anh): khai báo Bảng kê tách riêng — 2 mẫu 2 kiểu chữ chìm khác nhau, không gộp */
+    {k:'bkpgd', ten:'Tên phòng giao dịch', nhanh:0, nhom:'🧾 Bảng kê các loại tiền'},
+    {k:'bkchim', ten:'Logo chìm', nhanh:0},
+    {k:'bkchia', ten:'Bảng mệnh giá', nhanh:0},
+    {k:'bkin', ten:'Kiểu in', nhanh:0}]
 };
 function gdxNhanh(m, k){ var C = gdxC(), v = (C.nhanh||{})[m+'.'+k]; if(v!==undefined) return !!v; var x = (GDX_MUC[m]||[]).find(function(o){ return o.k===k; }); return !!(x && x.nhanh); }
 function gdxDatNhanh(m, k, v){ var C = gdxC(); C.nhanh = C.nhanh || {}; C.nhanh[m+'.'+k] = !!v; gdxLuu(); gdxVeTrai(); }
@@ -575,7 +581,7 @@ function gdxXem(){
   var d = f.contentDocument; if(!d) return;
   var X = gdxChup(), B = gdxDung(X);
   d.open(); d.write(gdxTrang(B.than, B.css)); d.close();
-  var rong = X.mau==='gl' ? 840 : 800, z = GDX.zoom || Math.min(1, Math.max(0.3, (f.clientWidth - 52) / rong));
+  var rong = X.mau==='gl' ? (X.bk ? 1165 : 840) : 800, z = GDX.zoom || Math.min(1, Math.max(0.3, (f.clientWidth - 52) / rong));
   Array.prototype.forEach.call(d.querySelectorAll('.sheet-a4,.sheet-gl,.sheet-bk'), function(s){ s.style.zoom = z; });
   var b = document.getElementById('gdx-zoom'); if(b) b.textContent = Math.round(z*100)+'%';
   var c = document.getElementById('gdx-chu'); if(c) c.textContent = gdxDocTien(gdxC().soTien) || '—';
@@ -584,7 +590,7 @@ function gdxZoom(k){ var f = document.getElementById('gdx-khung'), z0 = GDX.zoom
   GDX.zoom = k===0 ? 1 : Math.round(Math.min(1.4, Math.max(0.3, z0 + k*0.1))*10)/10; gdxXem(); }
 function gdxThanhHTML(){
   var M = gdxMauHT(), C = gdxC();
-  var nhan = M.k==='m04' ? '04/TD · A4 dọc · '+(+C.soBan===1 ? '1 bản' : '2 bản (1 lưu tổ, 1 lưu NH)') : M.k==='m12' ? '12/GDX · A4 dọc · trọn 1 trang' : GDX.xemBK ? '🧾 Bảng kê các loại tiền · A4 dọc · '+(C.bkKho==='2' ? '2 liên cạnh nhau' : '1 tờ góc trái')+' (khổ tờ tạm 105 × 185 mm)' : 'Giấy lĩnh · '+(C.glKho==='a4bk' ? 'A4 dọc · Giấy lĩnh trên + 🧾 Bảng kê dưới (tự chia mệnh giá)' : C.glKho==='a4' ? 'A4 dọc, in nửa trên' : 'A5 ngang');
+  var nhan = M.k==='m04' ? '04/TD · A4 dọc · '+(+C.soBan===1 ? '1 bản' : '2 bản (1 lưu tổ, 1 lưu NH)') : M.k==='m12' ? '12/GDX · A4 dọc · trọn 1 trang' : C.glIn==='bk' ? '🧾 Bảng kê · A4 ngang, 1 tờ 105 × 210 sát mép trái'+(C.bkChia ? ' (tự chia mệnh giá)' : '') : C.glIn==='kh' ? '💵+🧾 Kết hợp · 1 tờ A4 dọc: Giấy lĩnh trên, Bảng kê dưới (tự chia mệnh giá)' : 'Giấy lĩnh · '+(C.glKho==='a4' ? 'A4 dọc, in nửa trên' : 'A5 ngang');
   return '<span class="gdx-nhan">'+nhan+'</span><span class="gdx-zoom"><button class="nho" onclick="gdxZoom(-1)" title="Thu nhỏ khung xem">🔍−</button><button class="nho" id="gdx-zoom" onclick="gdxZoom(0)" title="Về 100%">100%</button><button class="nho" onclick="gdxZoom(1)" title="Phóng to khung xem">🔍+</button></span>';
 }
 function gdxDat(k, v, ve){ var C = gdxC(); C[k] = v;
@@ -631,7 +637,7 @@ function gdxTom(){
     lk('glphieu', g.ten || 'chưa chọn người lĩnh', g.ten ? '' : 'do');
     lk('glphieu', 'TK '+(g.tk || 'chấm'), g.tk ? '' : 'vang');
     lk('glphieu', g.tien ? gdxTien(g.tien)+' đ' : 'số tiền: chấm', g.tien ? '' : 'vang');
-    lk('glngay', g.ngay ? 'ngày '+gdxDMY(g.ngay) : 'ngày: chấm'); lk('glkho', C.glKho==='a4bk' ? 'A4 + Bảng kê' : C.glKho==='a4' ? 'A4 nửa trang' : 'A5');
+    lk('glngay', g.ngay ? 'ngày '+gdxDMY(g.ngay) : 'ngày: chấm'); lk('glkho', C.glKho==='a4' ? 'A4 nửa trang' : 'A5');
     if(!g.ten) cb('do', 'Chưa chọn người lĩnh — tìm tên hoặc chọn tổ ở khối LỌC ĐỊA BÀN.', 'glphieu');
     if(g.ncap && gdxNoiCapCu(g.ncap) && !(GDX.glSua && GDX.glSua.noiCap!==undefined)) cb('vang', 'Ngày cấp trước 10/10/2018 (thẻ đợt đầu) — nơi cấp ghi chung "Cục Cảnh sát", kiểm lại trên thẻ (bấm chữ Nơi cấp để sửa).', 'glphieu');
     if(g.ten && !g.tk) cb('vang', 'Chưa có số tài khoản'+(C.glLoai==='104' ? ' 104 ('+(gdxGLTo() ? dmtViSao(gdxGLTo()) : 'nạp danh mục ở 📥 Nạp & KT')+')' : ' 105')+' — để chấm.', 'glphieu');
@@ -643,13 +649,13 @@ function gdxTom(){
 }
 /* 3.180 (anh chốt): Tóm tắt thu gọn 1 dòng — chip (cuộn ngang) · cảnh báo đầu tiên (rê chuột xem hết, bấm → tới mục) · nút in; chừa chỗ nhập rộng ra */
 function gdxTomHTML(){
-  var T = gdxTom(), X = {mau:gdxMauHT().k}, so = X.mau==='m04' && +gdxC().soBan!==1 ? 2 : 1;
+  var T = gdxTom(), C = gdxC(), X = {mau:gdxMauHT().k}, so = X.mau==='m04' && +gdxC().soBan!==1 ? 2 : 1;
   var c0 = T.canh[0], coDo = T.canh.some(function(x){ return x.muc==='do'; });
   var canh = c0 ? '<span class="gdx2-canh1 '+(coDo ? 'do' : 'vang')+'" onclick="gdxToi(\''+c0.k+'\')" title="'+gdxE(T.canh.map(function(x){ return (x.muc==='do' ? '⛔ ' : '⚠ ')+x.chu; }).join('\n'))+'">'+(coDo ? '⛔ ' : '⚠ ')+gdxE(c0.chu)+(T.canh.length>1 ? ' <b>+'+(T.canh.length-1)+'</b>' : '')+'</span>' : '';
   return '<span class="gdx2-tom-tit" title="Tóm tắt bản in — bấm chip để tới mục">📋</span><div class="gdx2-tom-chip">'+T.chip.map(function(x){ return '<span class="gdx-tc '+x.lop+'" onclick="gdxToi(\''+x.k+'\')">'+gdxE(x.chu)+'</span>'; }).join('')+'</div>'+canh+
-    '<div class="gdx2-in">'+(X.mau==='gl' ? '<span class="gdx-seg">'+gdxChip('💵 Giấy lĩnh', !GDX.xemBK, 'GDX.xemBK=0;gdxVeTrai()', '', 'Xem / in Giấy lĩnh')+gdxChip('🧾 Bảng kê', !!GDX.xemBK, 'GDX.xemBK=1;gdxVeTrai()', '', 'Xem / in Bảng kê các loại tiền ngân hàng chi ra — cùng người lĩnh, số tiền')+'</span>'+gdxMenu((function(d){ d.nhan = '📄 Mẫu trắng'; return d; })([['📄 Giấy lĩnh 1 mẫu / A4 (nửa trên)', 'gdxGLTrangIn(1)', 'Giấy lĩnh trắng đúng form'], ['📄 Giấy lĩnh 2 mẫu / A4 (cắt đôi)', 'gdxGLTrangIn(2)', 'Cắt đôi theo vạch giữa'], ['🧾 Bảng kê trắng 2 tờ / A4', 'gdxBKTrangIn()', 'Bảng kê các loại tiền — giấy trắng đúng form'], ['📄 Giấy lĩnh + 🧾 Bảng kê / A4', 'gdxGLTrangIn(3)', 'Giấy lĩnh nửa trên + Bảng kê góc dưới trái (xoay ngang) — giấy trắng']]), 'len') : '')+'<button class="nho" onclick="gdxPDF()">PDF</button><button class="nho chinh gdx-in" onclick="gdxIn()">🖨 IN '+so+' bản</button></div>';
+    '<div class="gdx2-in">'+(X.mau==='gl' ? '<span class="gdx-seg">'+gdxChip('💵 Lĩnh', C.glIn!=='bk' && C.glIn!=='kh', 'gdxDat(\'glIn\', \'gl\', 1)', '', 'Chỉ in Giấy lĩnh (khổ theo ⚙ Giấy lĩnh)')+gdxChip('🧾 Bảng kê', C.glIn==='bk', 'gdxDat(\'glIn\', \'bk\', 1)', '', 'Chỉ in Bảng kê — A4 ngang, 1 tờ sát mép trái')+gdxChip('💵+🧾', C.glIn==='kh', 'gdxDat(\'glIn\', \'kh\', 1)', '', 'Giấy lĩnh + Bảng kê chung 1 tờ A4 dọc — cùng số tiền')+'</span>'+gdxMenu((function(d){ d.nhan = '📄 Mẫu trắng'; return d; })([['💵 Giấy lĩnh · 1 mẫu / A4 (nửa trên)', 'gdxGLTrangIn(1)', 'Giấy lĩnh trắng đúng form'], ['💵 Giấy lĩnh · 2 mẫu / A4 (cắt đôi)', 'gdxGLTrangIn(2)', 'Cắt đôi theo vạch giữa'], ['🧾 Bảng kê · 2 tờ / A4 ngang', 'gdxBKTrangIn()', 'Bảng kê trắng — mỗi tờ 105 × 210 sát 1 mép, cắt theo nét đứt'], ['💵+🧾 Kết hợp · 1 tờ A4 dọc', 'gdxGLTrangIn(3)', 'Giấy lĩnh nửa trên + Bảng kê dưới (xoay ngang) — giấy trắng']]), 'len') : '')+'<button class="nho" onclick="gdxPDF()">PDF</button><button class="nho chinh gdx-in" onclick="gdxIn()">🖨 IN '+so+' bản</button></div>';
 }
-function gdxKhoaIn(X){ return JSON.stringify([X.mau, X.C, X.d ? X.d.k : '', X.gl ? [X.gl.kh, X.gl.tien] : '', !!X.bk]); }
+function gdxKhoaIn(X){ return JSON.stringify([X.mau, X.C, X.d ? X.d.k : '', X.gl ? [X.gl.kh, X.gl.tien] : '', !!X.bk, !!X.kh]); }
 function gdxIn(pdf){
   var X = gdxChup(), T = gdxTom(), k = gdxKhoaIn(X);
   if(T.canh.length && GDX.daHoi!==k){
@@ -662,7 +668,7 @@ function gdxPDF(){ gdxIn(true); }
 /* 3.175 (anh chốt): in Giấy lĩnh TRẮNG đúng form — 1 mẫu / A4 (nửa trên) hoặc 2 mẫu / A4 cắt đôi (mỗi nửa đúng 148,5 mm, vạch cắt mờ ở giữa) */
 function gdxGLTrangIn(n){ var c = JSON.parse(JSON.stringify(gdxC())); c.glKho = n===3 ? 'a4bk' : n===2 ? 'a4x2' : 'a4'; c.glTrang = true; gdxInBan({mau:'gl', C:c, gl:{}}); }
 function gdxTenFile(X){ var c = X.C, d = X.mau==='m12' ? X.d : gdxDiem(c.ma04);
-  return X.mau==='gl' ? (X.bk ? 'BangKe_' : 'GiayLinh_')+boDauTen((X.gl && X.gl.ten) || '').replace(/ /g, '')+'_'+(X.gl && X.gl.ngay || gdxHom())
+  return X.mau==='gl' ? (X.bk ? 'BangKe_' : X.kh ? 'GiayLinh_BangKe_' : 'GiayLinh_')+boDauTen((X.gl && X.gl.ten) || '').replace(/ /g, '')+'_'+(X.gl && X.gl.ngay || gdxHom())
     : (X.mau==='m12' ? 'Mau12GDX_' : 'Mau04TD_')+boDauTen(d ? d.tenDiem : (c.xa04 || '')).replace(/ /g, '')+'_'+(X.mau==='m12' ? c.m12NgayGD : c.ngayPhatISO || gdxHom()); }
 function gdxInBan(X, pdf){
   var B = gdxDung(X), h = gdxTrang(B.than, B.css);
@@ -679,7 +685,7 @@ function gdxKBRieng(sang){
   var M = gdxMauHT();
   moHop('<div class="hop-tit" id="gdx-kbr">⚙ Khai báo riêng — '+M.bt+' '+gdxE(gdxTenMau(M))+'</div><div class="hop-phu">Các mục xếp theo thứ tự trên mẫu (trên → dưới, trái → phải). Tích <b>Chọn nhanh</b> để đưa mục ra khung bên trái; bỏ tích thì mục nằm ở đây, dùng giá trị khai báo. Tự lưu, đồng bộ Drive cùng cài đặt.</div>'+
     '<div class="gdx-kbr">'+GDX_MUC[M.k].map(function(o){ var n = gdxNhanh(M.k, o.k);
-      return '<div class="gdx-kbr-dong'+(o.k===sang ? ' nhay' : '')+'" id="gdx-kbr-'+o.k+'"><div class="gdx-kbr-ten">'+gdxE(o.ten)+'</div><div class="gdx-kbr-gt">'+gdxMucHTML(M.k, o.k, true)+'</div>'+
+      return (o.nhom ? '<div class="gdx-kbr-nhom">'+gdxE(o.nhom)+'</div>' : '')+'<div class="gdx-kbr-dong'+(o.k===sang ? ' nhay' : '')+'" id="gdx-kbr-'+o.k+'"><div class="gdx-kbr-ten">'+gdxE(o.ten)+'</div><div class="gdx-kbr-gt">'+gdxMucHTML(M.k, o.k, true)+'</div>'+
         '<label class="gdx-kbr-nhanh"><input type="checkbox"'+(n ? ' checked' : '')+' onchange="gdxDatNhanh(\''+M.k+'\', \''+o.k+'\', this.checked)"> Chọn nhanh</label></div>'; }).join('')+'</div>'+
     (M.k==='m04' ? '<div class="hang-nut"><button class="nho" onclick="gdxMacDinh()">↺ Khôi phục thông tin mẫu ban đầu</button></div>' : '')+
     '<div class="hang-nut"><button class="nho chinh" onclick="dongHop();gdxVeTrai()">Xong</button></div>', true);
@@ -743,8 +749,11 @@ function gdxGLMuc(k, kb){
   else if(k==='glnd') h = gdxIn1('glND', 'Rút tiền');
   else if(k==='glnh') h = '<div class="gdx-luoi"><label><span>Tài khoản ghi Nợ</span><select class="gdx-i" onchange="gdxDat(\'glTKNo\', this.value, 1)"><option value="cham"'+(C.glTKNo!=='tk' ? ' selected' : '')+'>Để chấm (ngân hàng ghi)</option><option value="tk"'+(C.glTKNo==='tk' ? ' selected' : '')+'>= Tài khoản số của khách</option></select></label>'+
     '<label><span>Mã - Ngân hàng</span>'+gdxIn1('glMaNH', 'trống = chấm')+'</label></div>';
-  else if(k==='glbk') h = '<small class="gdx-ghi">Logo chìm Bảng kê:</small>'+gdxRadio('bkChim', [['','Theo Giấy lĩnh'],['tat','Tắt'],['nhat','Nhạt'],['vua','Vừa'],['dam','Đậm']])+gdxRadio('bkChia', [[false,'Bảng mệnh giá để trắng (thủ quỹ ghi)'],[true,'Tự chia mệnh giá (tờ lớn trước)']])+gdxRadio('bkKho', [['1','1 tờ / A4 (góc trái)'],['2','2 liên / A4 (cạnh nhau)']])+'<small class="gdx-ghi">Chuyển xem / in Bảng kê ở dòng Tóm tắt (💵 Giấy lĩnh · 🧾 Bảng kê). Khổ tờ tạm 105 × 185 mm — chờ anh đo tờ thật. Chữ chìm = logo đã nạp ở 📄 Hồ sơ vay › ⚙ Khai báo 1 lần (chưa nạp → chữ VBSP); đậm nhạt chọn ở dòng Logo chìm trên (mặc định theo Chữ chìm Giấy lĩnh).</small>';
-  else if(k==='glkho') h = gdxRadio('glKho', [['a5','A5 ngang'],['a4','A4 dọc · in nửa trên'],['a4bk','A4 dọc · Giấy lĩnh trên + 🧾 Bảng kê dưới']])+'<small class="gdx-ghi">Giấy lĩnh + Bảng kê: 1 tờ A4, bấm IN 1 lần; Bảng kê xoay ngang sát góc dưới trái (cắt 2 nhát theo nét đứt), luôn tự chia mệnh giá từ tờ lớn.</small>';
+  else if(k==='bkpgd') h = gdxIn1('bkPGD', C.diaDanh || 'Gò Dầu')+'<small class="gdx-ghi">In hoa sau "PHÒNG GIAO DỊCH:" ở Bảng kê (cả mẫu trắng). Để trống = lấy Địa danh ở Khai báo chung.</small>';
+  else if(k==='bkchim') h = gdxRadio('bkChim', [['tat','Tắt'],['nhat','Nhạt'],['vua','Vừa'],['dam','Đậm']])+'<small class="gdx-ghi">Logo đã nạp ở 📄 Hồ sơ vay › ⚙ Khai báo 1 lần (chưa nạp → chữ VBSP). Riêng Bảng kê, không theo chữ chìm Giấy lĩnh.</small>';
+  else if(k==='bkchia') h = gdxRadio('bkChia', [[false,'Để trắng (thủ quỹ ghi)'],[true,'Tự chia mệnh giá (tờ lớn trước)']])+'<small class="gdx-ghi">In chung Giấy lĩnh luôn tự chia.</small>';
+  else if(k==='bkin') h = '<small class="gdx-ghi">Chọn ở dòng Tóm tắt: <b>🧾 Bảng kê</b> = in riêng, A4 ngang, 1 tờ 105 × 210 sát mép trái (nét đứt để cắt) · <b>💵+🧾 Kết hợp</b> = Giấy lĩnh + Bảng kê 1 tờ A4 dọc (luôn tự chia). Mẫu trắng: 2 tờ / A4 ngang.</small><button class="nho" onclick="gdxBKTrangIn()">📄 In mẫu trắng 2 tờ / A4 ngang</button>';
+  else if(k==='glkho') h = gdxRadio('glKho', [['a5','A5 ngang'],['a4','A4 dọc · in nửa trên']])+'<small class="gdx-ghi">Chỉ cho Giấy lĩnh. In kèm Bảng kê: chọn 💵+🧾 Kết hợp ở dòng Tóm tắt.</small>';
   return h;
 }
 function gdxGLLuuMuc(){ var C = gdxC(), v = +String(GDX.glTien||'').replace(/\D/g, ''); if(!(v > 0)) return bao('Nhập số tiền trước.'); C.glMuc = C.glMuc || []; if(C.glMuc.indexOf(v)>=0) return bao('Số tiền này đã có.');
@@ -926,11 +935,11 @@ function gdxBKTrang(g, c, trang){
   var p = String(g.ngay||'').split('-'), o = function(v, w){ return v ? '<span class="gl-vn">'+v+'</span>' : '<span class="gl-cn" style="width:'+w+'"></span>'; };
   var o4 = function(v){ return gdxBKNhom(v).map(function(x){ return '<td class="bk-tt">'+x+'</td>'; }).join(''); };
   var dong = BK_MG.map(function(m){ var n = ch && ch.so[m]; return '<tr><td class="bk-lt">'+gdxTien(m)+'</td><td class="bk-sl">'+(n || '')+'</td>'+o4(n ? n*m : 0)+'</tr>'; }).join('');
-  var pgd = trang ? '' : (c.diaDanh || '');
-  var logo = typeof hsoKB==='function' && hsoKB().logo, bc = c.bkChim || '', tat = bc ? bc==='tat' : c.glChim==='tat', mc = bc && bc!=='tat' ? bc : trang ? 'vua' : (c.glChim || 'nhat');   /* 3.191 (anh): logo Bảng kê đậm nhạt riêng (⚙ Bảng kê) — '' = theo Giấy lĩnh */   /* 3.191 (anh: "logo cân đối như hình"): khung logo đo theo ảnh tờ in sẵn — trên giữa dòng 100.000, dưới giữa dòng Tổng cộng, trái 3/4 cột Số lượng, phải 1/3 cột Thành tiền cuối; ảnh co vừa khung giữ tỷ lệ. 3.189 (anh): chữ chìm = logo đã nạp ở 📄 Hồ sơ vay › Khai báo 1 lần (như tờ in sẵn); chưa nạp → chữ VBSP */
-  return '<div class="bk-trang">'+(tat ? '' : logo ? '<img class="bk-chim bk-logo chim-'+mc+'" src="'+logo+'" alt="">' : '<div class="bk-chim">VBSP</div>')+
+  var pgd = c.bkPGD || c.diaDanh || '';   /* 3.192 (anh): mẫu trắng cũng in tên PGD — khai ở ⚙ Bảng kê */
+  var logo = typeof hsoKB==='function' && hsoKB().logo, bc = c.bkChim || 'nhat', tat = bc==='tat', mc = bc;   /* 3.192 (anh): logo Bảng kê đậm nhạt riêng (⚙ Bảng kê), không theo Giấy lĩnh */   /* 3.191 (anh: "logo cân đối như hình"): khung logo đo theo ảnh tờ in sẵn — trên giữa dòng 100.000, dưới giữa dòng Tổng cộng, trái 3/4 cột Số lượng, phải 1/3 cột Thành tiền cuối; ảnh co vừa khung giữ tỷ lệ. 3.189 (anh): chữ chìm = logo đã nạp ở 📄 Hồ sơ vay › Khai báo 1 lần (như tờ in sẵn); chưa nạp → chữ VBSP */
+  return '<div class="bk-trang bk-to">'+(tat ? '' : logo ? '<img class="bk-chim bk-logo chim-'+mc+'" src="'+logo+'" alt="">' : '<div class="bk-chim">VBSP</div>')+
     '<div class="bk-dau"><div class="bk-nh"><div>NGÂN HÀNG CHÍNH SÁCH XÃ HỘI</div><div>CHI NHÁNH TỈNH TÂY NINH</div><div class="gl-r bk-pgd"><b>PHÒNG GIAO DỊCH:</b>'+gdxGLO(pgd)+'</div></div>'+
-      '<div class="bk-tit"><div class="bk-t1">BẢNG KÊ</div><div class="bk-t2">CÁC LOẠI TIỀN NGÂN HÀNG CHI RA</div><div class="bk-ngay">Ngày '+o(p[2], '7mm')+' tháng '+o(p[1], '7mm')+' năm '+(p[0] ? '<span class="gl-vn">'+p[0]+'</span>' : '20'+o('', '6mm'))+'</div></div></div>'+
+      '<div class="bk-tit"><div class="bk-t1">BẢNG KÊ</div><div class="bk-t2">CÁC LOẠI TIỀN NGÂN HÀNG CHI RA</div><div class="bk-ngay">Ngày '+o(p[2], '6mm')+' tháng '+o(p[1], '6mm')+' năm '+(p[0] ? '<span class="gl-vn">'+p[0]+'</span>' : '20'+o('', '6mm'))+'</div></div></div>'+
     r('Họ và tên người lĩnh tiền:', '', 'bk-ten')+r('Địa chỉ:', g.diaChi)+r('Nội dung:', trang ? '' : (c.glND==null ? 'Rút tiền' : c.glND))+
     '<table class="bk-bang"><colgroup><col style="width:19mm"><col style="width:13mm"><col><col><col><col></colgroup><thead><tr><th>Loại tiền</th><th>Số lượng</th><th colspan="4">Thành tiền</th></tr></thead><tbody>'+dong+
       '<tr class="bk-tong"><td><b>Tổng cộng</b></td><td></td>'+o4(ch ? tien - ch.du : 0)+'</tr>'+
@@ -939,14 +948,15 @@ function gdxBKTrang(g, c, trang){
     '<div class="bk-hoten">'+r('Họ tên:', '')+r('Họ tên:', '')+'</div>'+   /* 3.190 (anh): người lĩnh tự ký và ghi tay họ tên → để chấm */
   '</div>';
 }
-function gdxHTMLBK(g, c){
-  c = c || gdxC(); var hai = c.bkTrang || c.bkKho==='2';
-  return '<div class="sheet-bk'+(hai ? ' bk-x2' : '')+'">'+gdxBKTrang(g, c, c.bkTrang)+(hai ? '<div class="bk-cat"></div>'+gdxBKTrang(g, c, c.bkTrang) : '')+'</div>'+GL_JS;
+function gdxHTMLBK(g, c){   /* 3.192 (anh): in riêng A4 ngang — mẫu trắng 2 tờ sát 2 mép; có dữ liệu 1 tờ sát mép trái; nét đứt cắt đúng khổ */
+  c = c || gdxC();
+  if(!c.bkTrang) return '<div class="sheet-bk bk-ngang">'+gdxBKTrang(g, c)+'<div class="bk-cat bk-cat-t"></div></div>'+GL_JS;
+  var t = gdxBKTrang({}, c, true);
+  return '<div class="sheet-bk bk-ngang">'+t+'<div class="bk-cat bk-cat-t"></div><div class="bk-cat bk-cat-p"></div>'+t+'</div>'+GL_JS;
 }
 function gdxBKTrangIn(){ var c = JSON.parse(JSON.stringify(gdxC())); c.bkTrang = true; gdxInBan({mau:'gl', C:c, gl:{}, bk:true}); }
 /* 3.188: phần lõi Bảng kê (chữ .gl-* bó trong .bk-trang) — dùng chung cho tờ riêng và in kèm Giấy lĩnh */
 var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6mm 5mm 5mm 5.5mm;font-size:11pt;line-height:1.25;display:flex;flex-direction:column;overflow:hidden}'+
-  '.bk-cat{position:absolute;left:105mm;top:0;height:185mm;border-left:.3mm dashed #b8b8b8}.sheet-bk:not(.bk-x2) .bk-trang{outline:.2mm dashed #ccc}'+
   '.bk-chim{position:absolute;left:18mm;top:78mm;font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:64pt;color:#e6e6e6;z-index:0;pointer-events:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
   '.bk-chim.bk-logo{left:34.1mm;top:68.5mm;width:54.5mm;height:56.6mm;object-fit:contain;object-position:center;opacity:.16}.bk-logo.chim-vua{opacity:.24}.bk-logo.chim-dam{opacity:.34}'+
   '.bk-trang>*:not(.bk-chim){position:relative;z-index:1}'+
@@ -965,23 +975,26 @@ var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6
   '.bk-chu td{border:1.1px solid #000;padding:1mm 1.5mm;height:auto}.bk-trang .bk-chu .gl-r{min-height:5.6mm;font-size:10pt}.bk-trang .bk-chu .gl-v{font-weight:bold;font-style:italic}.bk-trang .bk-chu .gl-bc2{white-space:normal}'+   /* 3.191 (anh): Tổng cộng + bằng chữ in đậm (bằng chữ nghiêng) */
   '.bk-ky{display:grid;grid-template-columns:1fr 1fr;text-align:center;margin-top:2.5mm;font-size:10.5pt;flex:1}.bk-ky i{display:block;font-size:9.5pt}'+
   '.bk-hoten{display:grid;grid-template-columns:1fr 1fr;gap:6mm;font-size:10pt}';
+/* 3.192: khổ Bảng kê 105 × 210 mm (anh: ngang 105 đúng mẫu), chữ 13 pt (anh chốt 3.191) — dùng cho in chung Giấy lĩnh và mẫu trắng 2 tờ / A4 ngang */
+var BK_CSS_TO = '.bk-trang.bk-to{width:105mm;height:210mm;padding:8mm 5mm 6mm 5.5mm;font-size:13pt}'+
+  '.bk-to .bk-t1{font-size:17pt}.bk-to .bk-ngay{font-size:9.5pt}'+
+  '.bk-to .bk-bang col:first-child{width:24mm !important}.bk-to .bk-tong td:first-child{white-space:nowrap}'+
+  '.bk-to.bk-trang .gl-r{min-height:7.6mm}.bk-to .bk-bang{font-size:13pt;margin-top:2mm}.bk-to .bk-bang th{font-size:10.5pt;padding:1mm 0}.bk-to .bk-bang td{height:7.4mm}.bk-to .bk-tt{font-size:12pt}'+
+  '.bk-to .bk-tong td{height:11mm;font-size:11pt}.bk-to .bk-tong .bk-tt{font-size:12.5pt}.bk-to.bk-trang .bk-chu .gl-r{min-height:7mm;font-size:13pt}'+
+  '.bk-to .bk-ky{font-size:13pt;margin-top:3mm}.bk-to .bk-ky i{font-size:11.5pt}.bk-to .bk-hoten{font-size:13pt}'+
+  '.bk-to .bk-chim{left:13mm;top:92mm;font-size:66pt}.bk-to .bk-chim.bk-logo{left:39.1mm;top:81.5mm;width:50.5mm;height:66.7mm}';
 var BK_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1;color:#000;font-family:"Times New Roman",Times,serif}'+
   '.preview-stage{background:#455a64;border-radius:8px;padding:20px;display:flex;justify-content:center;overflow:auto}'+
-  '.sheet-bk{background:#fff;width:210mm;height:297mm;box-shadow:0 8px 24px rgba(0,0,0,.3);position:relative;display:flex;align-items:flex-start}'+ BK_CSS_LOI+
-  '@page{size:A4 portrait;margin:0}'+
-  '@media print{body{background:#fff}.preview-stage{background:none;padding:0;display:block;border-radius:0}.sheet-bk{box-shadow:none;zoom:1 !important;height:296mm}.sheet-bk:not(.bk-x2) .bk-trang{outline:none}}';
+  '.sheet-bk{background:#fff;width:297mm;height:210mm;box-shadow:0 8px 24px rgba(0,0,0,.3);position:relative;display:flex;justify-content:space-between;align-items:flex-start;overflow:hidden}'+ BK_CSS_LOI+BK_CSS_TO+
+  '.bk-cat{position:absolute;top:0;height:210mm;border-left:.3mm dashed #b8b8b8}.bk-cat-t{left:105mm}.bk-cat-p{right:105mm}'+
+  '@page{size:A4 landscape;margin:0}'+
+  '@media print{body{background:#fff}.preview-stage{background:none;padding:0;display:block;border-radius:0}.sheet-bk{box-shadow:none;zoom:1 !important;height:209mm}}';
 var GL_CSS_A5 = '@page{size:A5 landscape;margin:0}';
 /* 3.188 (anh chốt): Giấy lĩnh nửa trên + Bảng kê xoay ngang sát góc dưới trái → cắt theo nét đứt.
-   3.191 (anh): Bảng kê in kèm dài hết bề ngang trang (210 mm), rộng 115 mm (+1 cm) → chỉ cắt 1 nhát ngang; chữ 13 pt */
-var GL_CSS_KEM = '.sheet-gl.gl-kem{height:297mm}.gl-bkk{position:absolute;left:0;bottom:0;width:210mm;height:115mm;z-index:1}'+
-  '.gl-bkk .bk-trang{position:absolute;left:0;top:115mm;width:115mm;height:210mm;padding:8mm 5mm 6mm 5.5mm;font-size:13pt;transform-origin:0 0;transform:rotate(-90deg)}'+
-  '.gl-bkk .bk-dau{grid-template-columns:auto auto;justify-content:space-between;gap:3mm}.gl-bkk .bk-dau div{white-space:nowrap}.gl-bkk .bk-nh,.gl-bkk .bk-pgd{font-size:8.6pt}.gl-bkk .bk-t1{font-size:17pt}.gl-bkk .bk-t2{font-size:7.4pt}.gl-bkk .bk-ngay{font-size:11.5pt}'+
-  '.gl-bkk .bk-bang col:first-child{width:24mm !important}.gl-bkk .bk-tong td:first-child{white-space:nowrap}'+
-  '.gl-bkk .bk-trang .gl-r{min-height:7.6mm}.gl-bkk .bk-bang{font-size:13pt;margin-top:2mm}.gl-bkk .bk-bang th{font-size:10.5pt;padding:1mm 0}.gl-bkk .bk-bang td{height:7.4mm}.gl-bkk .bk-tt{font-size:12pt}'+
-  '.gl-bkk .bk-tong td{height:11mm;font-size:11pt}.gl-bkk .bk-tong .bk-tt{font-size:12.5pt}.gl-bkk .bk-trang .bk-chu .gl-r{min-height:7mm;font-size:13pt}'+
-  '.gl-bkk .bk-ky{font-size:13pt;margin-top:3mm}.gl-bkk .bk-ky i{font-size:11.5pt}.gl-bkk .bk-hoten{font-size:13pt}'+
-  '.gl-bkk .bk-chim{left:27mm;top:88mm;font-size:76pt}.gl-bkk .bk-chim.bk-logo{left:39.1mm;top:82mm;width:58.7mm;height:66.7mm}'+
-  '.gl-cat-n{position:absolute;left:0;width:210mm;bottom:115mm;border-top:.3mm dashed #b8b8b8}.gl-cat-d{display:none}'+
+   3.191 (anh): Bảng kê in kèm dài hết bề ngang trang (210 mm), rộng 115 mm (+1 cm) → chỉ cắt 1 nhát ngang; chữ 13 pt. 3.192: rộng về 105 mm đúng mẫu */
+var GL_CSS_KEM = '.sheet-gl.gl-kem{height:297mm}.gl-bkk{position:absolute;left:0;bottom:0;width:210mm;height:105mm;z-index:1}'+
+  '.gl-bkk .bk-trang{position:absolute;left:0;top:105mm;transform-origin:0 0;transform:rotate(-90deg)}'+
+  '.gl-cat-n{position:absolute;left:0;width:210mm;bottom:105mm;border-top:.3mm dashed #b8b8b8}.gl-cat-d{display:none}'+
   '@media print{.sheet-gl.gl-a4.gl-kem{height:296mm}}';
 var GL_CSS_A4 = '@page{size:A4 portrait;margin:0}@media print{.sheet-gl.gl-a4{height:147mm}.sheet-gl.gl-a4.gl-x2{height:296mm}}';
 
