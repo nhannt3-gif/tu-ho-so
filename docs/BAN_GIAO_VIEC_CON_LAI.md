@@ -225,7 +225,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 ### Danh sách thử trên máy thật (3.186) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
-| 1 | In Giấy lĩnh (A5 / A4) | Dòng Họ tên cách đầu phiếu thêm 5 mm, thoáng; chữ chìm đúng chỗ; chỗ ký đủ | |
+| 1 | In Giấy lĩnh (A5 / A4) | Dòng Họ tên cách đầu phiếu thêm 4 mm, thoáng; chữ chìm đúng chỗ; chỗ ký đủ | |
 
 ### Danh sách thử trên máy thật (3.185) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

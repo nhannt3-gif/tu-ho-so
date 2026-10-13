@@ -220,4 +220,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.183 (13/10):** nơi cấp tự tính theo ngày cấp đủ chữ (Bộ Công an từ 01/07/2024; trước đó Cục Cảnh sát quản lý hành chính về trật tự xã hội); Họ tên · CCCD · Ngày cấp 1 dòng; nút 👁 Xem: Bật / Tắt.
 - **Đã làm 3.184 (13/10):** nơi cấp không ra ô — chữ mờ cạnh nhãn Địa chỉ (bấm để sửa); thẻ cấp trước 10/10/2018 ghi chung "Cục Cảnh sát" + cảnh báo; Địa chỉ · Tài khoản số 1 dòng.
 - **Đã làm 3.185 (13/10):** tìm theo số CCCD (4 số cuối trở lên); ↑↓ Enter → điền form, nhảy ô số tiền; TK 105 chưa có số sổ → tra danh bạ theo CCCD, không có thì ghi lý do; ✕ Làm trống bỏ luôn chọn tổ ở cây địa bàn (việc chờ đã ghi — xong).
-- **Đã làm 3.186 (13/10):** mẫu in Giấy lĩnh — dòng Họ tên xuống thêm 5 mm (đầu phiếu cách 7 mm), chữ chìm dời theo.
+- **Đã làm 3.186 (13/10):** mẫu in Giấy lĩnh — dòng Họ tên xuống thêm 4 mm (đầu phiếu cách 6 mm), chữ chìm dời theo.
