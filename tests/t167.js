@@ -129,6 +129,13 @@ const fs=require('fs'), path=require('path');
      ok('3.187: tự chia mệnh giá 1.350.000 = 2×500.000 + 1×200.000 + 1×100.000 + 1×50.000; Thành tiền 4 ô (nhóm 3 số)', JSON.stringify(gdxBKChia(1350000).so)==='{"50000":1,"100000":1,"200000":1,"500000":2}' && /<td class="bk-tt">1<\/td><td class="bk-tt">350<\/td><td class="bk-tt">000<\/td>/.test(hC));
      gdxBKTrangIn(); await w(400); const dT = document.getElementById('gdx-in-tam').contentDocument;
      ok('3.187: Bảng kê trắng 2 tờ / A4, không điền tên', dT.querySelectorAll('.bk-trang').length===2 && (!gB.ten || chu(dT.body.innerHTML).indexOf(gB.ten)<0));
+     { /* 3.188: Giấy lĩnh + Bảng kê chung 1 tờ A4 — Bảng kê xoay ngang góc dưới trái, luôn tự chia */
+       const c3 = JSON.parse(JSON.stringify(gdxC())); c3.glKho = 'a4bk'; c3.bkChia = false; const B3 = gdxDung({mau:'gl', C:c3, gl:{ten:'Giả Văn Lĩnh', tien:'1750000', ngay:'2026-10-13'}});
+       const f3 = document.createElement('iframe'); f3.style.cssText = 'width:1000px;height:1300px'; document.body.appendChild(f3); f3.contentDocument.open(); f3.contentDocument.write(gdxTrang(B3.than, B3.css)); f3.contentDocument.close(); await w(300);
+       const d3 = f3.contentDocument, mm = v=>Math.round(v/3.7795), S3 = d3.querySelector('.sheet-gl').getBoundingClientRect(), K3 = d3.querySelector('.gl-bkk .bk-trang').getBoundingClientRect();
+       ok('3.188: A4 Giấy lĩnh + Bảng kê: 1 tờ, Bảng kê 185 × 105 sát góc dưới trái, tự chia (3×500.000), bằng chữ đủ, có 2 nét cắt', d3.querySelectorAll('.gl-trang').length===1 && mm(K3.width)===185 && mm(K3.height)===105 && mm(K3.left-S3.left)===0 && mm(S3.bottom-K3.bottom)===0 && d3.querySelector('.bk-sl').textContent==='3' && d3.querySelector('.bk-trang .gl-bc1').textContent.indexOf('Một triệu bảy trăm năm mươi nghìn đồng.')===0 && !!d3.querySelector('.gl-cat-n') && !!d3.querySelector('.gl-cat-d') && /@page\{size:A4 portrait/.test(B3.css));
+       f3.remove(); gdxGLTrangIn(3); await w(400); const dK = document.getElementById('gdx-in-tam').contentDocument;
+       ok('3.188: mẫu trắng Giấy lĩnh + Bảng kê / A4 — trống tên, trống mệnh giá', dK.querySelectorAll('.gl-trang').length===1 && dK.querySelectorAll('.bk-trang').length===1 && (!gB.ten || chu(dK.body.innerHTML).indexOf(gB.ten)<0) && [].every.call(dK.querySelectorAll('.bk-sl'), x=>!x.textContent)); }
      GDX.xemBK = 0; GDX.glTien = ''; gdxVeTrai(); await w(200); }
    { /* 3.185: tìm theo CCCD · Enter → ô số tiền · TK 105 bù theo CCCD / ghi lý do */
      gdxDat('glLoai', '105', 1); await w(200);

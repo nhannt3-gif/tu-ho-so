@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.188 — 13/10/2026 — 🧾 Giấy lĩnh + Bảng kê in chung 1 tờ A4
+- **Anh (13/10):** "thêm mẫu bảng kê tiền in kèm phiếu chi luôn, in ở phần A4 dưới em bố trí" → chọn cách A (giữ đúng tờ in sẵn, xoay ngang) "canh cạnh dưới cho dễ cắt", "in chung 1 tờ A4", "tiền kê từ mệnh giá lớn xuống", "tự chia sẵn, chốt tổng tiền bằng chữ đầy đủ", "đồng ý gộp". Dòng chấm dưới Nội dung (6,0 mm) anh để nguyên.
+- **⚙ Khổ giấy** thêm **A4 dọc · Giấy lĩnh trên + 🧾 Bảng kê dưới** (`glKho='a4bk'`, `GL_CSS_KEM`): bấm IN 1 lần ra cả 2 phần trên 1 tờ A4. Giấy lĩnh nửa trên như bản A4 cũ; Bảng kê (105 × 185 mm) **xoay ngang 185 × 105 mm sát cạnh dưới và cạnh trái** → cắt 2 nhát theo nét đứt (ngang cách đáy 105 mm, dọc cách mép trái 185 mm). Bảng kê in kèm **luôn tự chia mệnh giá từ tờ lớn xuống** (Số lượng, Thành tiền, Tổng cộng), **số tiền bằng chữ đầy đủ** (dài tự xuống dòng 2). Cùng dữ liệu Giấy lĩnh.
+- **📄 Mẫu trắng** thêm **Giấy lĩnh + 🧾 Bảng kê / A4**.
+- **Kỹ thuật:** lõi CSS Bảng kê tách thành `BK_CSS_LOI` (chữ `.gl-*` bó trong `.bk-trang`) dùng chung cho tờ riêng và in kèm — Bảng kê in riêng không đổi. Mini app chưa gói Bảng kê: khổ này ở mini in như A4 nửa trên.
+- **Lưu ý máy in:** máy không in sát mép được thì nét đứt mép dưới có thể không lên (chữ cách mép 5–7 mm nên không mất chữ) — in thử báo em dời lên nếu cần. Khổ tờ Bảng kê 105 × 185 mm vẫn là số ước, chờ anh đo.
+- **Phép thử:** `t167` 65/65 (in chung: 1 tờ, Bảng kê 185 × 105 sát góc dưới trái, tự chia, bằng chữ đủ, 2 nét cắt; mẫu trắng) · `t168` 33/33 · `t165` 53/53.
+
 ## 3.187 — 13/10/2026 — 🧾 Bảng kê các loại tiền; CCCD tổ trưởng từ file về tổ; ngày gõ liền
 - **Anh (13/10):** gửi ảnh tờ "Bảng kê các loại tiền ngân hàng chi ra", "em chuẩn bị mẫu bảng kê luôn"; "tổ này không lấy được CCCD" → "CCCD tổ trưởng có trong các file về tổ"; "nhập ngày CCCD tay không cần nhập dấu cách".
 - **🧾 Bảng kê** (`gdxBKTrang`, `gdxHTMLBK`, `BK_CSS`, `gdxBKChia`): dựng theo ảnh tờ in sẵn (giấy trắng cả khung, chữ chìm VBSP): NGÂN HÀNG CHÍNH SÁCH XÃ HỘI · CHI NHÁNH TỈNH TÂY NINH · PHÒNG GIAO DỊCH (địa danh khai báo) | BẢNG KÊ · CÁC LOẠI TIỀN NGÂN HÀNG CHI RA · ngày; Họ và tên người lĩnh tiền · Địa chỉ · Nội dung; bảng 11 mệnh giá (500.000 → 200) · Số lượng · Thành tiền 4 ô (nhóm 3 chữ số) · Tổng cộng; Số tiền bằng chữ (2 dòng, tự xuống dòng); Người lĩnh tiền / Người chi tiền + Họ tên. **Cùng dữ liệu Giấy lĩnh** (người lĩnh, địa chỉ, nội dung, ngày, số tiền). Dòng Tóm tắt có **💵 Giấy lĩnh · 🧾 Bảng kê** → xem / in cái đang chọn (nhật ký in nhớ đúng loại). ⚙ Khai báo riêng › Bảng kê: **bảng mệnh giá để trắng (mặc định) / tự chia mệnh giá** (tờ lớn trước), **1 tờ / A4 (góc trái) / 2 liên / A4**. 📄 Mẫu trắng thêm **Bảng kê trắng 2 tờ / A4**. **Khổ tờ tạm 105 × 185 mm ước theo ảnh — chờ anh đo tờ thật.**

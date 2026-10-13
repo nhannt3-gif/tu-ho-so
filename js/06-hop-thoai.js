@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.187', ds:[
+var CO_GI_MOI = {ban:'3.188', ds:[
+  ["🧾 Giấy lĩnh + Bảng kê in chung 1 tờ A4 (⚙ Khổ giấy): Giấy lĩnh nửa trên, Bảng kê xoay ngang sát góc dưới trái — cắt 2 nhát; tự chia mệnh giá từ tờ lớn, bằng chữ đầy đủ", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["🧾 Giấy lĩnh: thêm Bảng kê các loại tiền ngân hàng chi ra — cùng người lĩnh / số tiền; chọn 💵 / 🧾 ở dòng Tóm tắt; bảng mệnh giá để trắng hoặc tự chia; mẫu trắng 2 tờ / A4", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: CCCD tổ trưởng lấy thêm từ file về tổ (Thông tin tổ trưởng · DSTO · danh mục); ngày cấp gõ liền 5–8 số không cần dấu", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh (mẫu in): dòng Họ tên xuống thêm 6 mm cho thoáng, 2 dòng bằng chữ + Nội dung rút lên 1 mm, chữ chìm dời theo", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],

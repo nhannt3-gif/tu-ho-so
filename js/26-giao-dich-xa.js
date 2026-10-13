@@ -330,7 +330,7 @@ function gdxDung(X){   /* → {than, css} */
   var c = X.C;
   if(X.mau==='m12') return {than:gdxHTML12(c, X.d || {tenDiem:'', maDiem:'', tenXa:'', to:[]}), css:GDX_CSS};
   if(X.mau==='gl' && X.bk) return {than:gdxHTMLBK(X.gl, c), css:BK_CSS};
-  if(X.mau==='gl') return {than:gdxHTMLGL(X.gl, c), css:GL_CSS+(c.glKho==='a4' || c.glKho==='a4x2' ? GL_CSS_A4 : GL_CSS_A5)};
+  if(X.mau==='gl') return {than:gdxHTMLGL(X.gl, c), css:GL_CSS+(c.glKho==='a4bk' ? GL_CSS_A4+BK_CSS_LOI+GL_CSS_KEM : c.glKho==='a4' || c.glKho==='a4x2' ? GL_CSS_A4 : GL_CSS_A5)};
   var x = {soNguoi:c.soNguoi || 1, soTien:c.soTien || ''}, m = '<div class="sheet-a4">'+gdxHTML04(x, c)+'</div>';
   return {than:+c.soBan===1 ? m : m+m, css:GDX_CSS};   /* mặc định 2 bản giống nhau (1 lưu tổ, 1 lưu NH) — chọn được 1 bản */
 }
@@ -584,7 +584,7 @@ function gdxZoom(k){ var f = document.getElementById('gdx-khung'), z0 = GDX.zoom
   GDX.zoom = k===0 ? 1 : Math.round(Math.min(1.4, Math.max(0.3, z0 + k*0.1))*10)/10; gdxXem(); }
 function gdxThanhHTML(){
   var M = gdxMauHT(), C = gdxC();
-  var nhan = M.k==='m04' ? '04/TD · A4 dọc · '+(+C.soBan===1 ? '1 bản' : '2 bản (1 lưu tổ, 1 lưu NH)') : M.k==='m12' ? '12/GDX · A4 dọc · trọn 1 trang' : GDX.xemBK ? '🧾 Bảng kê các loại tiền · A4 dọc · '+(C.bkKho==='2' ? '2 liên cạnh nhau' : '1 tờ góc trái')+' (khổ tờ tạm 105 × 185 mm)' : 'Giấy lĩnh · '+(C.glKho==='a4' ? 'A4 dọc, in nửa trên' : 'A5 ngang');
+  var nhan = M.k==='m04' ? '04/TD · A4 dọc · '+(+C.soBan===1 ? '1 bản' : '2 bản (1 lưu tổ, 1 lưu NH)') : M.k==='m12' ? '12/GDX · A4 dọc · trọn 1 trang' : GDX.xemBK ? '🧾 Bảng kê các loại tiền · A4 dọc · '+(C.bkKho==='2' ? '2 liên cạnh nhau' : '1 tờ góc trái')+' (khổ tờ tạm 105 × 185 mm)' : 'Giấy lĩnh · '+(C.glKho==='a4bk' ? 'A4 dọc · Giấy lĩnh trên + 🧾 Bảng kê dưới (tự chia mệnh giá)' : C.glKho==='a4' ? 'A4 dọc, in nửa trên' : 'A5 ngang');
   return '<span class="gdx-nhan">'+nhan+'</span><span class="gdx-zoom"><button class="nho" onclick="gdxZoom(-1)" title="Thu nhỏ khung xem">🔍−</button><button class="nho" id="gdx-zoom" onclick="gdxZoom(0)" title="Về 100%">100%</button><button class="nho" onclick="gdxZoom(1)" title="Phóng to khung xem">🔍+</button></span>';
 }
 function gdxDat(k, v, ve){ var C = gdxC(); C[k] = v;
@@ -631,7 +631,7 @@ function gdxTom(){
     lk('glphieu', g.ten || 'chưa chọn người lĩnh', g.ten ? '' : 'do');
     lk('glphieu', 'TK '+(g.tk || 'chấm'), g.tk ? '' : 'vang');
     lk('glphieu', g.tien ? gdxTien(g.tien)+' đ' : 'số tiền: chấm', g.tien ? '' : 'vang');
-    lk('glngay', g.ngay ? 'ngày '+gdxDMY(g.ngay) : 'ngày: chấm'); lk('glkho', C.glKho==='a4' ? 'A4 nửa trang' : 'A5');
+    lk('glngay', g.ngay ? 'ngày '+gdxDMY(g.ngay) : 'ngày: chấm'); lk('glkho', C.glKho==='a4bk' ? 'A4 + Bảng kê' : C.glKho==='a4' ? 'A4 nửa trang' : 'A5');
     if(!g.ten) cb('do', 'Chưa chọn người lĩnh — tìm tên hoặc chọn tổ ở khối LỌC ĐỊA BÀN.', 'glphieu');
     if(g.ncap && gdxNoiCapCu(g.ncap) && !(GDX.glSua && GDX.glSua.noiCap!==undefined)) cb('vang', 'Ngày cấp trước 10/10/2018 (thẻ đợt đầu) — nơi cấp ghi chung "Cục Cảnh sát", kiểm lại trên thẻ (bấm chữ Nơi cấp để sửa).', 'glphieu');
     if(g.ten && !g.tk) cb('vang', 'Chưa có số tài khoản'+(C.glLoai==='104' ? ' 104 ('+(gdxGLTo() ? dmtViSao(gdxGLTo()) : 'nạp danh mục ở 📥 Nạp & KT')+')' : ' 105')+' — để chấm.', 'glphieu');
@@ -647,7 +647,7 @@ function gdxTomHTML(){
   var c0 = T.canh[0], coDo = T.canh.some(function(x){ return x.muc==='do'; });
   var canh = c0 ? '<span class="gdx2-canh1 '+(coDo ? 'do' : 'vang')+'" onclick="gdxToi(\''+c0.k+'\')" title="'+gdxE(T.canh.map(function(x){ return (x.muc==='do' ? '⛔ ' : '⚠ ')+x.chu; }).join('\n'))+'">'+(coDo ? '⛔ ' : '⚠ ')+gdxE(c0.chu)+(T.canh.length>1 ? ' <b>+'+(T.canh.length-1)+'</b>' : '')+'</span>' : '';
   return '<span class="gdx2-tom-tit" title="Tóm tắt bản in — bấm chip để tới mục">📋</span><div class="gdx2-tom-chip">'+T.chip.map(function(x){ return '<span class="gdx-tc '+x.lop+'" onclick="gdxToi(\''+x.k+'\')">'+gdxE(x.chu)+'</span>'; }).join('')+'</div>'+canh+
-    '<div class="gdx2-in">'+(X.mau==='gl' ? '<span class="gdx-seg">'+gdxChip('💵 Giấy lĩnh', !GDX.xemBK, 'GDX.xemBK=0;gdxVeTrai()', '', 'Xem / in Giấy lĩnh')+gdxChip('🧾 Bảng kê', !!GDX.xemBK, 'GDX.xemBK=1;gdxVeTrai()', '', 'Xem / in Bảng kê các loại tiền ngân hàng chi ra — cùng người lĩnh, số tiền')+'</span>'+gdxMenu((function(d){ d.nhan = '📄 Mẫu trắng'; return d; })([['📄 Giấy lĩnh 1 mẫu / A4 (nửa trên)', 'gdxGLTrangIn(1)', 'Giấy lĩnh trắng đúng form'], ['📄 Giấy lĩnh 2 mẫu / A4 (cắt đôi)', 'gdxGLTrangIn(2)', 'Cắt đôi theo vạch giữa'], ['🧾 Bảng kê trắng 2 tờ / A4', 'gdxBKTrangIn()', 'Bảng kê các loại tiền — giấy trắng đúng form']]), 'len') : '')+'<button class="nho" onclick="gdxPDF()">PDF</button><button class="nho chinh gdx-in" onclick="gdxIn()">🖨 IN '+so+' bản</button></div>';
+    '<div class="gdx2-in">'+(X.mau==='gl' ? '<span class="gdx-seg">'+gdxChip('💵 Giấy lĩnh', !GDX.xemBK, 'GDX.xemBK=0;gdxVeTrai()', '', 'Xem / in Giấy lĩnh')+gdxChip('🧾 Bảng kê', !!GDX.xemBK, 'GDX.xemBK=1;gdxVeTrai()', '', 'Xem / in Bảng kê các loại tiền ngân hàng chi ra — cùng người lĩnh, số tiền')+'</span>'+gdxMenu((function(d){ d.nhan = '📄 Mẫu trắng'; return d; })([['📄 Giấy lĩnh 1 mẫu / A4 (nửa trên)', 'gdxGLTrangIn(1)', 'Giấy lĩnh trắng đúng form'], ['📄 Giấy lĩnh 2 mẫu / A4 (cắt đôi)', 'gdxGLTrangIn(2)', 'Cắt đôi theo vạch giữa'], ['🧾 Bảng kê trắng 2 tờ / A4', 'gdxBKTrangIn()', 'Bảng kê các loại tiền — giấy trắng đúng form'], ['📄 Giấy lĩnh + 🧾 Bảng kê / A4', 'gdxGLTrangIn(3)', 'Giấy lĩnh nửa trên + Bảng kê góc dưới trái (xoay ngang) — giấy trắng']]), 'len') : '')+'<button class="nho" onclick="gdxPDF()">PDF</button><button class="nho chinh gdx-in" onclick="gdxIn()">🖨 IN '+so+' bản</button></div>';
 }
 function gdxKhoaIn(X){ return JSON.stringify([X.mau, X.C, X.d ? X.d.k : '', X.gl ? [X.gl.kh, X.gl.tien] : '', !!X.bk]); }
 function gdxIn(pdf){
@@ -660,7 +660,7 @@ function gdxIn(pdf){
 }
 function gdxPDF(){ gdxIn(true); }
 /* 3.175 (anh chốt): in Giấy lĩnh TRẮNG đúng form — 1 mẫu / A4 (nửa trên) hoặc 2 mẫu / A4 cắt đôi (mỗi nửa đúng 148,5 mm, vạch cắt mờ ở giữa) */
-function gdxGLTrangIn(n){ var c = JSON.parse(JSON.stringify(gdxC())); c.glKho = n===2 ? 'a4x2' : 'a4'; c.glTrang = true; gdxInBan({mau:'gl', C:c, gl:{}}); }
+function gdxGLTrangIn(n){ var c = JSON.parse(JSON.stringify(gdxC())); c.glKho = n===3 ? 'a4bk' : n===2 ? 'a4x2' : 'a4'; c.glTrang = true; gdxInBan({mau:'gl', C:c, gl:{}}); }
 function gdxTenFile(X){ var c = X.C, d = X.mau==='m12' ? X.d : gdxDiem(c.ma04);
   return X.mau==='gl' ? (X.bk ? 'BangKe_' : 'GiayLinh_')+boDauTen((X.gl && X.gl.ten) || '').replace(/ /g, '')+'_'+(X.gl && X.gl.ngay || gdxHom())
     : (X.mau==='m12' ? 'Mau12GDX_' : 'Mau04TD_')+boDauTen(d ? d.tenDiem : (c.xa04 || '')).replace(/ /g, '')+'_'+(X.mau==='m12' ? c.m12NgayGD : c.ngayPhatISO || gdxHom()); }
@@ -744,7 +744,7 @@ function gdxGLMuc(k, kb){
   else if(k==='glnh') h = '<div class="gdx-luoi"><label><span>Tài khoản ghi Nợ</span><select class="gdx-i" onchange="gdxDat(\'glTKNo\', this.value, 1)"><option value="cham"'+(C.glTKNo!=='tk' ? ' selected' : '')+'>Để chấm (ngân hàng ghi)</option><option value="tk"'+(C.glTKNo==='tk' ? ' selected' : '')+'>= Tài khoản số của khách</option></select></label>'+
     '<label><span>Mã - Ngân hàng</span>'+gdxIn1('glMaNH', 'trống = chấm')+'</label></div>';
   else if(k==='glbk') h = gdxRadio('bkChia', [[false,'Bảng mệnh giá để trắng (thủ quỹ ghi)'],[true,'Tự chia mệnh giá (tờ lớn trước)']])+gdxRadio('bkKho', [['1','1 tờ / A4 (góc trái)'],['2','2 liên / A4 (cạnh nhau)']])+'<small class="gdx-ghi">Chuyển xem / in Bảng kê ở dòng Tóm tắt (💵 Giấy lĩnh · 🧾 Bảng kê). Khổ tờ tạm 105 × 185 mm — chờ anh đo tờ thật.</small>';
-  else if(k==='glkho') h = gdxRadio('glKho', [['a5','A5 ngang'],['a4','A4 dọc · in nửa trên']]);
+  else if(k==='glkho') h = gdxRadio('glKho', [['a5','A5 ngang'],['a4','A4 dọc · in nửa trên'],['a4bk','A4 dọc · Giấy lĩnh trên + 🧾 Bảng kê dưới']])+'<small class="gdx-ghi">Giấy lĩnh + Bảng kê: 1 tờ A4, bấm IN 1 lần; Bảng kê xoay ngang sát góc dưới trái (cắt 2 nhát theo nét đứt), luôn tự chia mệnh giá từ tờ lớn.</small>';
   return h;
 }
 function gdxGLLuuMuc(){ var C = gdxC(), v = +String(GDX.glTien||'').replace(/\D/g, ''); if(!(v > 0)) return bao('Nhập số tiền trước.'); C.glMuc = C.glMuc || []; if(C.glMuc.indexOf(v)>=0) return bao('Số tiền này đã có.');
@@ -880,6 +880,8 @@ var GL_JS = '<script>(function(){function chia(){Array.prototype.forEach.call(do
 function gdxHTMLGL(g, c){
   c = c || gdxC();
   if(c.glKho==='a4x2') return '<div class="sheet-gl gl-a4 gl-x2">'+gdxGLTrang(g, c, c.glTrang)+'<div class="gl-cat"></div>'+gdxGLTrang(g, c, c.glTrang)+'</div>'+GL_JS;
+  if(c.glKho==='a4bk'){ var cb = JSON.parse(JSON.stringify(c)); cb.bkChia = true;   /* 3.188 (anh chốt): in chung 1 tờ A4 — Bảng kê luôn tự chia mệnh giá */
+    return '<div class="sheet-gl gl-a4 gl-kem">'+gdxGLTrang(g, c, c.glTrang)+'<div class="gl-bkk">'+gdxBKTrang(g, cb, c.glTrang)+'</div><div class="gl-cat-n"></div><div class="gl-cat-d"></div></div>'+GL_JS; }
   return '<div class="sheet-gl'+(c.glKho==='a4' ? ' gl-a4' : '')+'">'+gdxGLTrang(g, c, c.glTrang)+'</div>'+GL_JS;
 }
 var GL_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1;color:#000;font-family:"Times New Roman",Times,serif}'+
@@ -941,31 +943,37 @@ function gdxHTMLBK(g, c){
   return '<div class="sheet-bk'+(hai ? ' bk-x2' : '')+'">'+gdxBKTrang(g, c, c.bkTrang)+(hai ? '<div class="bk-cat"></div>'+gdxBKTrang(g, c, c.bkTrang) : '')+'</div>'+GL_JS;
 }
 function gdxBKTrangIn(){ var c = JSON.parse(JSON.stringify(gdxC())); c.bkTrang = true; gdxInBan({mau:'gl', C:c, gl:{}, bk:true}); }
-var BK_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1;color:#000;font-family:"Times New Roman",Times,serif}'+
-  '.preview-stage{background:#455a64;border-radius:8px;padding:20px;display:flex;justify-content:center;overflow:auto}'+
-  '.sheet-bk{background:#fff;width:210mm;height:297mm;box-shadow:0 8px 24px rgba(0,0,0,.3);position:relative;display:flex;align-items:flex-start}'+
-  '.bk-trang{position:relative;width:105mm;height:185mm;padding:6mm 6mm 5mm 7mm;font-size:11pt;line-height:1.25;display:flex;flex-direction:column;overflow:hidden}'+
+/* 3.188: phần lõi Bảng kê (chữ .gl-* bó trong .bk-trang) — dùng chung cho tờ riêng và in kèm Giấy lĩnh */
+var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6mm 6mm 5mm 7mm;font-size:11pt;line-height:1.25;display:flex;flex-direction:column;overflow:hidden}'+
   '.bk-cat{position:absolute;left:105mm;top:0;height:185mm;border-left:.3mm dashed #b8b8b8}.sheet-bk:not(.bk-x2) .bk-trang{outline:.2mm dashed #ccc}'+
   '.bk-chim{position:absolute;left:18mm;top:78mm;font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:64pt;color:#e6e6e6;z-index:0;pointer-events:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
   '.bk-trang>*:not(.bk-chim){position:relative;z-index:1}'+
   '.bk-dau{display:grid;grid-template-columns:1.05fr 1fr;gap:2mm;margin-bottom:2.5mm}'+
   '.bk-nh{text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:7.5pt;line-height:1.35}.bk-pgd{min-height:0;font-size:7.5pt;margin-top:1mm}'+
   '.bk-tit{text-align:center}.bk-t1{font-weight:bold;font-size:14pt;letter-spacing:.5px}.bk-t2{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:7pt}.bk-ngay{font-size:9.5pt;margin-top:1mm}'+
-  '.gl-r{display:flex;align-items:baseline;gap:1mm;min-height:6.2mm;white-space:nowrap}.gl-n{flex:none}'+
-  '.gl-c{flex:1 1 auto;display:block;min-width:5mm;border-bottom:1.2px dotted #000;line-height:1}.gl-c::after{content:"\\00a0"}'+
-  '.gl-v{flex:1 1 auto;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:1mm}.gl-v.gl-bc1{text-overflow:clip}.bk-ten .gl-v{font-weight:bold}'+
-  '.gl-cn{display:inline-block;border-bottom:1.2px dotted #000;line-height:1}.gl-cn::after{content:"\\00a0"}.gl-vn{display:inline-block;min-width:5mm;text-align:center}'+
+  '.bk-trang .gl-r{display:flex;align-items:baseline;gap:1mm;min-height:6.2mm;white-space:nowrap}.bk-trang .gl-n{flex:none}'+
+  '.bk-trang .gl-c{flex:1 1 auto;display:block;min-width:5mm;border-bottom:1.2px dotted #000;line-height:1}.bk-trang .gl-c::after{content:"\\00a0"}'+
+  '.bk-trang .gl-v{flex:1 1 auto;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:1mm}.bk-trang .gl-v.gl-bc1{text-overflow:clip}.bk-ten .bk-trang .gl-v{font-weight:bold}'+
+  '.bk-trang .gl-cn{display:inline-block;border-bottom:1.2px dotted #000;line-height:1}.bk-trang .gl-cn::after{content:"\\00a0"}.bk-trang .gl-vn{display:inline-block;min-width:5mm;text-align:center}'+
   '.bk-bang{width:100%;border-collapse:collapse;margin-top:1.5mm;font-size:10.5pt;table-layout:fixed}'+
   '.bk-bang th{border:1.1px solid #000;font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;padding:.8mm 0}'+
   '.bk-bang td{border-left:1.1px solid #000;border-right:1.1px solid #000;border-bottom:1px dotted #000;height:6.3mm;padding:0 1mm}'+
   '.bk-lt{text-align:right}.bk-sl{text-align:center}.bk-tt{text-align:right;font-size:9.5pt}'+
   '.bk-tong td{border-top:1.1px solid #000;border-bottom:1.1px solid #000;height:10mm;font-family:Arial,Helvetica,sans-serif;font-size:9pt}'+
-  '.bk-chu td{border:1.1px solid #000;padding:1mm 1.5mm;height:auto}.bk-chu .gl-r{min-height:5.6mm;font-size:10pt}'+
+  '.bk-chu td{border:1.1px solid #000;padding:1mm 1.5mm;height:auto}.bk-trang .bk-chu .gl-r{min-height:5.6mm;font-size:10pt}'+
   '.bk-ky{display:grid;grid-template-columns:1fr 1fr;text-align:center;margin-top:2.5mm;font-size:10.5pt;flex:1}.bk-ky i{display:block;font-size:9.5pt}'+
-  '.bk-hoten{display:grid;grid-template-columns:1fr 1fr;gap:6mm;font-size:10pt}'+
+  '.bk-hoten{display:grid;grid-template-columns:1fr 1fr;gap:6mm;font-size:10pt}';
+var BK_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1;color:#000;font-family:"Times New Roman",Times,serif}'+
+  '.preview-stage{background:#455a64;border-radius:8px;padding:20px;display:flex;justify-content:center;overflow:auto}'+
+  '.sheet-bk{background:#fff;width:210mm;height:297mm;box-shadow:0 8px 24px rgba(0,0,0,.3);position:relative;display:flex;align-items:flex-start}'+ BK_CSS_LOI+
   '@page{size:A4 portrait;margin:0}'+
   '@media print{body{background:#fff}.preview-stage{background:none;padding:0;display:block;border-radius:0}.sheet-bk{box-shadow:none;zoom:1 !important;height:296mm}.sheet-bk:not(.bk-x2) .bk-trang{outline:none}}';
 var GL_CSS_A5 = '@page{size:A5 landscape;margin:0}';
+/* 3.188 (anh chốt): Giấy lĩnh nửa trên + Bảng kê 105 × 185 xoay ngang (185 × 105) sát góc dưới trái → cắt 2 nhát theo nét đứt */
+var GL_CSS_KEM = '.sheet-gl.gl-kem{height:297mm}.gl-bkk{position:absolute;left:0;bottom:0;width:185mm;height:105mm;z-index:1}'+
+  '.gl-bkk .bk-trang{position:absolute;left:0;top:105mm;transform-origin:0 0;transform:rotate(-90deg)}'+
+  '.gl-cat-n{position:absolute;left:0;width:185mm;bottom:105mm;border-top:.3mm dashed #b8b8b8}.gl-cat-d{position:absolute;left:185mm;bottom:0;height:105mm;border-left:.3mm dashed #b8b8b8}'+
+  '@media print{.sheet-gl.gl-a4.gl-kem{height:296mm}}';
 var GL_CSS_A4 = '@page{size:A4 portrait;margin:0}@media print{.sheet-gl.gl-a4{height:147mm}.sheet-gl.gl-a4.gl-x2{height:296mm}}';
 
 /* ==========================================================

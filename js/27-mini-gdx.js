@@ -141,6 +141,7 @@ function gdxMiniApp(){
     if(mau==='m12'){ c.m12NgayGD = ngay12(); var d0 = d ? {tenDiem:d.ten, maDiem:d.ma, tenXa:d.xa, to:d.to.map(function(t){ return {tenTo:t.ten}; })} : {tenDiem:'', maDiem:'', tenXa:'', to:[]};
       return {than:gdxHTML12(c, d0), css:GDX_CSS}; }
     if(mau==='gl'){ if(trang){ c.glKho = trang===2 ? 'a4x2' : 'a4'; c.glTrang = true; return {than:gdxHTMLGL({}, c), css:GL_CSS+GL_CSS_A4}; }
+      if(c.glKho==='a4bk') c.glKho = 'a4';   /* 3.188: mini chưa gói Bảng kê → in Giấy lĩnh A4 nửa trên */
       var g = {}; Object.keys(S.g).forEach(function(k){ g[k] = S.g[k]; }); g.ngay = glNgay(); g.ncap = gdxDocNgay(S.g.ncap) || ''; if(!S.noiCapTay) g.noiCap = gdxNoiCap(g.ncap); g.tien = String(S.g.tien||'').replace(/\D/g, '');
       return {than:gdxHTMLGL(g, c), css:GL_CSS+(c.glKho==='a4' ? GL_CSS_A4 : GL_CSS_A5)}; }
     var xa = d ? d.xaChu : '';
