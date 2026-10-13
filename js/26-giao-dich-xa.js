@@ -303,7 +303,7 @@ var GDX_MAU = [
 function gdxTenMau(M){ return M.ten.indexOf(M.ma)===0 ? M.ten : M.ma+' — '+M.ten; }
 function gdxMauHT(){ var f = gdxC().form; return GDX_MAU.find(function(m){ return m.k===f; }) || GDX_MAU[0]; }
 function gdxCH(){ var C = D.cauHinh.gdxTK = D.cauHinh.gdxTK || {ky:''}; return pvGan(C); }
-PV_DUNG.gdx = {S:function(){ return gdxCH(); }, K:function(){ return TO_K; }, sau:function(){ gdxTheoLoc(); }, toBatBuoc:true, daChieu:true};
+PV_DUNG.gdx = {S:function(){ return gdxCH(); }, K:function(){ return TO_K; }, sau:function(){ gdxTheoLoc(); }, toBatBuoc:true, daChieu:true, gonDiem:true};
 function gdxHom(){ return ngayISO(nay()); }
 function gdxMai(){ var m = nay(); m.setDate(m.getDate()+1); return ngayISO(m); }
 function gdxDMY(iso){ return iso ? ngayVN(iso) : ''; }
@@ -623,17 +623,19 @@ function gdxTom(){
     lk('glphieu', g.tien ? gdxTien(g.tien)+' đ' : 'số tiền: chấm', g.tien ? '' : 'vang');
     lk('glngay', g.ngay ? 'ngày '+gdxDMY(g.ngay) : 'ngày: chấm'); lk('glkho', C.glKho==='a4' ? 'A4 nửa trang' : 'A5');
     if(!g.ten) cb('do', 'Chưa chọn người lĩnh — tìm tên hoặc chọn tổ ở khối LỌC ĐỊA BÀN.', 'glphieu');
-    if(g.ten && !g.tk) cb('vang', 'Chưa có số tài khoản'+(C.glLoai==='104' ? ' 104 (nạp danh mục tham chiếu ở ⚙ Khai báo chung)' : ' 105')+' — để chấm.', 'glphieu');
+    if(g.ten && !g.tk) cb('vang', 'Chưa có số tài khoản'+(C.glLoai==='104' ? ' 104 ('+(gdxGLTo() ? dmtViSao(gdxGLTo()) : 'nạp danh mục ở 📥 Nạp & KT')+')' : ' 105')+' — để chấm.', 'glphieu');
     if(g.ten && !g.cccd) cb('vang', 'Chưa có số CCCD — để chấm.', 'glphieu');
     if(g.tien && g.du!=null && +g.tien > g.du) cb('do', 'Số tiền rút '+gdxTien(g.tien)+' lớn hơn số dư 105 ('+gdxTien(g.du)+' — số liệu '+(TO_K ? slKyChu(TO_K.ky) : '')+').', 'glphieu');
   }
   return ra;
 }
+/* 3.180 (anh chốt): Tóm tắt thu gọn 1 dòng — chip (cuộn ngang) · cảnh báo đầu tiên (rê chuột xem hết, bấm → tới mục) · nút in; chừa chỗ nhập rộng ra */
 function gdxTomHTML(){
   var T = gdxTom(), X = {mau:gdxMauHT().k}, so = X.mau==='m04' && +gdxC().soBan!==1 ? 2 : 1;
-  return '<div class="gdx2-tom-tit">📋 Tóm tắt bản in</div><div class="gdx2-tom-chip">'+T.chip.map(function(x){ return '<span class="gdx-tc '+x.lop+'" onclick="gdxToi(\''+x.k+'\')">'+gdxE(x.chu)+'</span>'; }).join('')+'</div>'+
-    (T.canh.length ? '<div class="gdx2-canh">'+T.canh.map(function(x){ return '<div class="'+x.muc+'" onclick="gdxToi(\''+x.k+'\')">'+(x.muc==='do' ? '⛔ ' : '⚠ ')+gdxE(x.chu)+'</div>'; }).join('')+'</div>' : '')+
-    '<div class="gdx2-in">'+(X.mau==='gl' && GDX.glDaIn ? '<button class="nho gdx-moi" onclick="gdxGLMoi()" title="Xóa người lĩnh, form, số tiền — giữ ngày, khổ giấy">✕ Làm trống — in người khác</button>' : '')+(X.mau==='gl' ? '<button class="nho" onclick="gdxGLTrangIn(1)" title="Giấy lĩnh trắng (đúng form, không điền gì) — 1 mẫu nửa trên tờ A4">📄 Mẫu trắng 1/A4</button><button class="nho" onclick="gdxGLTrangIn(2)" title="2 mẫu trắng trên 1 tờ A4 — cắt đôi theo vạch giữa">📄 2 mẫu/A4 (cắt đôi)</button>' : '')+'<button class="nho" onclick="gdxPDF()">📄 PDF</button><button class="nho chinh gdx-in" onclick="gdxIn()">🖨 IN '+so+' bản</button></div>';
+  var c0 = T.canh[0], coDo = T.canh.some(function(x){ return x.muc==='do'; });
+  var canh = c0 ? '<span class="gdx2-canh1 '+(coDo ? 'do' : 'vang')+'" onclick="gdxToi(\''+c0.k+'\')" title="'+gdxE(T.canh.map(function(x){ return (x.muc==='do' ? '⛔ ' : '⚠ ')+x.chu; }).join('\n'))+'">'+(coDo ? '⛔ ' : '⚠ ')+gdxE(c0.chu)+(T.canh.length>1 ? ' <b>+'+(T.canh.length-1)+'</b>' : '')+'</span>' : '';
+  return '<span class="gdx2-tom-tit" title="Tóm tắt bản in — bấm chip để tới mục">📋</span><div class="gdx2-tom-chip">'+T.chip.map(function(x){ return '<span class="gdx-tc '+x.lop+'" onclick="gdxToi(\''+x.k+'\')">'+gdxE(x.chu)+'</span>'; }).join('')+'</div>'+canh+
+    '<div class="gdx2-in">'+(X.mau==='gl' && GDX.glDaIn ? '<button class="nho gdx-moi" onclick="gdxGLMoi()" title="Xóa người lĩnh, form, số tiền — giữ ngày, khổ giấy">✕ Làm trống — in người khác</button>' : '')+(X.mau==='gl' ? '<button class="nho" onclick="gdxGLTrangIn(1)" title="Giấy lĩnh trắng (đúng form, không điền gì) — 1 mẫu nửa trên tờ A4">📄 Trắng 1/A4</button><button class="nho" onclick="gdxGLTrangIn(2)" title="2 mẫu trắng trên 1 tờ A4 — cắt đôi theo vạch giữa">📄 2/A4</button>' : '')+'<button class="nho" onclick="gdxPDF()">PDF</button><button class="nho chinh gdx-in" onclick="gdxIn()">🖨 IN '+so+' bản</button></div>';
 }
 function gdxKhoaIn(X){ return JSON.stringify([X.mau, X.C, X.d ? X.d.k : '', X.gl ? [X.gl.kh, X.gl.tien] : '']); }
 function gdxIn(pdf){
@@ -689,9 +691,9 @@ function gdxGLDuLieu(){
   var C = gdxC(), t = gdxGLTo(), r = {ten:'', kh:'', diaChi:'', cccd:'', ncap:'', noiCap:'', tk:'', tkTu:'', du:null, tien:'', ngay:gdxGLNgay(), to:t ? t.ma : ''};
   if(t){
     if(C.glLoai==='104'){
-      var tc = gdxTC().to[t.ma] || null, kh = (tc && tc.ttKH) || (typeof hsoTTKH==='function' ? hsoTTKH(t).kh : '') || '';
+      var tc = dmtTimTo(t), kh = (tc && tc.ttKH) || (typeof hsoTTKH==='function' ? hsoTTKH(t).kh : '') || '';
       r.ten = t.ten || (tc && tc.tt) || ''; r.kh = kh;
-      if(tc && tc.tk104){ r.tk = tc.tk104; r.tkTu = 'danh mục tham chiếu'; } else { r.tk = gdxTK104Cua(kh); if(r.tk) r.tkTu = 'file TK 104'; }
+      if(tc && tc.tk104){ r.tk = tc.tk104; r.tkTu = tc.theoTen ? 'danh mục — theo tên tổ trưởng, mã tổ danh mục '+tc.theoTen : 'danh mục tham chiếu'; } else { r.tk = gdxTK104Cua(kh); if(r.tk) r.tkTu = 'file TK 104'; }
     } else {
       var x = gdxGLDsKhach(t).find(function(o){ return o.kh===GDX.glKH; }) || null;
       if(x){ r.ten = x.ten; r.kh = x.kh; r.tk = (x.stk||[])[0] || ''; r.tkTu = r.tk ? 'Mẫu 31' : ''; r.du = x.t105 || 0; }
@@ -733,7 +735,7 @@ function gdxGLPhieuHTML(kb){
     '<label><input type="radio" name="gdx-r-glloai"'+(C.glLoai!=='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;GDX.glSua={};gdxDat(\'glLoai\', \'105\', 1)"> TK 105 khách</label></span>'+
     (TO_K ? '<div class="gdx-tim"><input id="gdx-gl-q" class="gdx-i" autocomplete="off" placeholder="🔎 Gõ tên '+(C.glLoai==='104' ? 'tổ trưởng' : 'tổ trưởng / khách')+' (không dấu) · ↑↓ Enter" value="'+gdxE(GDX.glQ||'')+'" oninput="GDX.glQ=this.value;gdxGLTim()" onkeydown="gdxGLPhim(event)"><div id="gdx-gl-gy" class="gdx-gy"></div></div>'
       : '<small class="gdx-ghi">Chưa có Mẫu 31 — gõ tay vào các ô dưới.</small>')+'</div>';
-  if(t && C.glLoai==='104') h += '<div class="gl-k2">Tổ '+gdxE(t.ten || t.ma)+(t.tenThon ? ' · '+gdxE(pvApNgan(t.tenThon)) : '')+' · TK 104: '+(g.tk ? '<b>'+gdxE(g.tk)+'</b> <small>('+g.tkTu+')</small>' : '<span class="gdx-vang">chưa có — nạp danh mục ở 📥 Nạp &amp; KT</span>')+'</div>';
+  if(t && C.glLoai==='104') h += '<div class="gl-k2">Tổ '+gdxE(t.ten || t.ma)+(t.tenThon ? ' · '+gdxE(pvApNgan(t.tenThon)) : '')+' · TK 104: '+(g.tk ? '<b>'+gdxE(g.tk)+'</b> <small>('+g.tkTu+')</small>' : '<span class="gdx-vang">chưa có — '+gdxE(dmtViSao(t))+'</span>')+'</div>';
   else if(t){ var ds = gdxGLDsKhach(t), tt = (typeof hsoTTKH==='function' ? hsoTTKH(t).kh : '') || '';
     h += '<div class="gl-k2"><select class="gdx-i" onchange="if(this.value)gdxGLChonKH(this.value)"><option value="">— Khách tổ '+gdxE(t.ten || t.ma)+' ('+ds.length+') —</option>'+
       ds.map(function(x){ return '<option value="'+gdxE(x.kh)+'"'+(x.kh===GDX.glKH ? ' selected' : '')+'>'+gdxE(x.ten+(x.kh===tt ? ' (TT)' : '')+' · 105: '+gdxTien(Math.round(x.t105||0)))+'</option>'; }).join('')+'</select></div>'; }
@@ -873,7 +875,24 @@ var GL_CSS_A4 = '@page{size:A4 portrait;margin:0}@media print{.sheet-gl.gl-a4{he
    ========================================================== */
 function gdxTC(){ var c = D.cauHinh; if(!c.dmTo && c.gdxTC){ c.dmTo = c.gdxTC; delete c.gdxTC; } var t = c.dmTo; return t && t.to ? t : {to:{}, diem:{}, luc:'', ten:''}; }
 function gdxTK104(){ var c = D.cauHinh; if(!c.dmTK104 && c.gdxTK104){ c.dmTK104 = c.gdxTK104; delete c.gdxTK104; } var t = c.dmTK104; return t && t.ds ? t : {ds:[], luc:'', ten:'', ngay:''}; }
-function dmtToCua(ma){ return gdxTC().to[ma] || null; }   /* tra 1 tổ: {tt, ttKH, tk104, sdt, pho, phoKH, diem, tenDiem, xa, ap, hoi} */
+function dmtToCua(ma){ return gdxTC().to[ma] || null; }
+/* 3.180: tra tổ trong danh mục cho chắc — ① đúng mã tổ · ② mã bỏ khoảng trắng / số 0 đầu · ③ tổ trưởng trùng tên (không dấu, bỏ Ông / Bà) cùng xã, chỉ 1 tổ có TK 104 */
+function dmtKhoaSo(m){ return String(m==null ? '' : m).replace(/\s|'/g, '').replace(/^0+/, '').toUpperCase(); }
+function dmtTimTo(t){
+  if(!t) return null; var to = gdxTC().to, ma = t.ma || t.maTo || ''; if(to[ma]) return to[ma];
+  var k = dmtKhoaSo(ma), m = k ? Object.keys(to).find(function(x){ return dmtKhoaSo(x)===k; }) : null; if(m) return to[m];
+  var tt = dmtTenSo(t.ten || t.tenTo || ''); if(!tt) return null;
+  var xa = slChuan(String(t.tenXa || '').replace(/^(xã|phường|thị trấn)\s+/i, ''));
+  var ds = Object.keys(to).filter(function(x){ var o = to[x]; return o.tk104 && dmtTenSo(o.tt)===tt && (!xa || !o.xa || slChuan(o.xa).indexOf(xa)>=0); });
+  return ds.length===1 ? Object.assign({theoTen:ds[0]}, to[ds[0]]) : null;
+}
+/* vì sao tổ chưa có TK 104 — hiện ngay trên dòng TK 104 cho anh biết */
+function dmtViSao(t){
+  var tc = gdxTC(), n = Object.keys(tc.to).length;
+  if(!n) return 'máy / trình duyệt này chưa có danh mục — nạp file danh mục ở 📥 Nạp & KT';
+  var x = dmtTimTo(t); if(x && !x.tk104) return 'danh mục có tổ này nhưng ô TK 104 trống';
+  return 'mã tổ '+(t.ma || '')+' không có trong danh mục ('+n+' tổ, vd mã '+Object.keys(tc.to).slice(0, 2).join(', ')+') — bổ sung danh mục hoặc gõ tay';
+}   /* tra 1 tổ: {tt, ttKH, tk104, sdt, pho, phoKH, diem, tenDiem, xa, ap, hoi} */
 function gdxTK104Cua(kh){ if(!kh) return ''; var x = gdxTK104().ds.find(function(o){ return o.kh===kh; }); if(x) return x.tk;
   var tc = gdxTC().to, m = Object.keys(tc).find(function(k){ return tc[k].ttKH===kh && tc[k].tk104; }); return m ? tc[m].tk104 : ''; }
 function gdxCot(h, khoa){ var c = h.map(function(x){ return slChuan(x); }); for(var i = 0; i < khoa.length; i++){ var k = khoa[i], j = c.findIndex(function(x){ return k.charAt(0)==='=' ? x===k.slice(1) : x.indexOf(k)===0; }); if(j>=0) return j; } return -1; }
