@@ -95,7 +95,7 @@ const fs=require('fs'), path=require('path');
    /* nhật ký in: in → đổi khách → in lại bản cũ đúng khách cũ */
    GDX.glTien = '500000'; gdxVe(); localStorage.removeItem(GDX_NK); const hoiGoc = hoi; hoi = (a, b2, c2, fn)=>fn();
    gdxIn(); await w(300); hoi = hoiGoc;
-   ok('3.176: in xong → hiện nút "✕ Làm trống — in người khác"', /Làm trống — in người khác/.test(document.getElementById('gdx-tom').textContent));
+   ok('3.176: in xong → hiện nút "✕ Làm trống — in người khác"', !!document.querySelector("#gdx-tom .gdx-moi"));
    const kB = gdxGLDsKhach(tA).find(k=>k.kh!==kA.kh); gdxGLChonKH(kB.kh); await w(200);
    const nk = gdxNKDs(); gdxNKIn(nk[0].id); await w(300);
    const tIn = chu(document.getElementById('gdx-in-tam').contentDocument.body.innerHTML);

@@ -42,16 +42,23 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    D.cauHinh.dmTo = {to:{ZZZ:{tt:'Người Khác', tk104:'X3'}}, diem:{}}; m180.viMa = /không có trong danh mục/.test(dmtViSao(kT)) && !dmtTimTo(kT);
    D.cauHinh.dmTo = dm0; gdxVe(); await w(200);
    m180.tom = document.getElementById('gdx-tom').offsetHeight; m180.tomCanh = !!document.querySelector('#gdx-tom .gdx2-canh1') || !gdxTom().canh.length;
-   m180.gon = !document.querySelector('#gdx-cay [data-cap="diem-hoi"] .cap-diem') && !document.querySelector('#gdx-cay .pv-nhom.cap-xa') && /Đổi xã/.test((document.querySelector('#gdx-cay .pv-gon')||{}).textContent||'');
-   pvMo('gdx', 'xd'); await w(200); m180.mo = !!document.querySelector('#gdx-cay .pv-nhom.cap-xa') || !!document.querySelector('#gdx-cay .cap-diem');
-   pvChon('gdx', 'diem', d.k); await w(200); m180.gonLai = !document.querySelector('#gdx-cay .pv-nhom.cap-xa');
+   const lk = () => document.querySelector('#gdx-cay .loc-khoi'), an = q => { const e = document.querySelector('#gdx-cay '+q); return !e || !e.offsetParent; };
+   m180.gon = lk().classList.contains('gon') && an('.pv-nhom.cap-xa') && an('.pv-hang2') && /Đổi/.test((document.querySelector('#gdx-cay .pv-gon')||{}).textContent||'');
+   pvMo('gdx', 'xd'); await w(200); m180.mo = !lk().classList.contains('gon') && !an('.pv-hang2');
+   document.getElementById('gdx-bo').dispatchEvent(new MouseEvent('mousedown', {bubbles:true})); await w(100); m180.gonNhap = lk().classList.contains('gon');
+   m180.menu = !!document.querySelector('.gdx2-dau details.gdx-menu') && [...document.querySelectorAll('.gdx2-dau .gdx-menu button')].map(b=>b.textContent).join('|');
+   m180.dau1 = document.querySelector('.gdx2-dau').offsetHeight;
+   pvMo('gdx', 'xd'); await w(200);
+   pvChon('gdx', 'diem', d.k); await w(200); m180.gonLai = lk().classList.contains('gon');
+   { const S2 = gdxCH(); S2.diem = ''; S2.to = t.maTo; pvVeCay('gdx'); await w(200); m180.gonTo = lk().classList.contains('gon'); pvChon('gdx', 'diem', d.k); await w(200); }
    const khacTT = tKhac ? boDau(tKhac.ten) : '';
    return {m180, khacTT, pham:{khac:!!tKhac, ngoai:pham1, trong:pham1b, chu:chuPham, tatCa:pham2}, cc:{cccd:nt.cccd||'', ncap:nt.ncap||'', noiCap:nt.noiCap||''}, nut, hop, html:M.html, han:M.han, d:{k:d.k, ten:d.tenDiem, ma:d.maDiem, ngay:d.ngayGD, nTo:d.to.length}, t:{ten:t.tenTo, ma:t.maTo}, nDiem:ds.length, khach, tens:[...tens].slice(0, 30), canBo:gdxC().danhSachCanBo};
  }, files);
  ok('3.180: không thấy TK 104 → báo rõ lý do (máy chưa có danh mục / mã tổ không có trong danh mục)', X.m180.viChua && X.m180.viMa);
  ok('3.180: tra TK 104 theo mã có số 0 đầu khác nhau, hoặc theo tên tổ trưởng cùng xã (bỏ Ông / Bà, hoa thường)', X.m180.so0 && X.m180.ten);
  ok('3.180: 📋 Tóm tắt thu gọn 1 dòng (chip + cảnh báo đầu + nút in)', X.m180.tom <= 60 && X.m180.tomCanh, X.m180.tom+' px');
- ok('3.180: đã chọn điểm → khối lọc thu gọn hàng Xã / Điểm, có nút Đổi xã / điểm; mở ra đổi xong tự gọn lại', X.m180.gon && X.m180.mo && X.m180.gonLai);
+ ok('3.181: bấm vào vùng nhập → khối lọc gom gọn lại; đầu khung 1 hàng, nút phụ gom vào ⋯ (Khai báo riêng / chung, Nhật ký in, Mini app)', X.m180.gonNhap && /Khai báo riêng/.test(X.m180.menu) && /Mini app/.test(X.m180.menu) && X.m180.dau1 <= 58, X.m180.dau1+' px');
+ ok('3.180/3.181: đã chọn điểm (hoặc chọn Xã › Hội › Tổ, không chọn điểm) → khối lọc gọn (ẩn Xã · Điểm · Hội · Tổ), nút ▾ Đổi sổ ra; chọn xong tự gọn lại', X.m180.gon && X.m180.mo && X.m180.gonLai && X.m180.gonTo);
  ok('3.178 app: đã chọn điểm GD → ô tìm Giấy lĩnh chỉ tìm trong điểm đó (tổ trưởng điểm khác không ra), có "Tìm cả PGD" để mở rộng', X.pham.khac && X.pham.ngoai===false && X.pham.trong && /Đang tìm trong/.test(X.pham.chu) && X.pham.tatCa===true, JSON.stringify(X.pham));
  ok('3.178: hộp xuất ghi số CCCD tổ trưởng được gói', /CCCD tổ trưởng/.test(X.hop));
  ok('3.178: CCCD tổ trưởng (giả) không đọc được trong mã file', !X.cc.cccd || X.html.indexOf(X.cc.cccd)<0, X.cc.cccd ? 'có CCCD giả' : 'tổ thử không có CCCD');

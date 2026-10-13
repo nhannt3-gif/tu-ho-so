@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.181 — 13/10/2026 — Giao dịch xã: tối ưu vùng nhập
+- **Anh (13/10, kèm ảnh):** "các nút quá nhiều che hết khung nhập, cơ cấu lại, khối lọc gom gọn khi nhập luôn, nhấp vào sổ ra, chọn vùng nhập thu lại, nói chung tối ưu vùng nhập"; "nhiều hàng nút quá nên chiếm chỗ".
+- **Khối lọc** (`pvVeCay`, lớp `.loc-khoi.gon`, chỉ tab Giao dịch xã): đã chọn **Điểm GD hoặc Tổ** (3.180 chỉ xét điểm — ảnh anh chọn Xã › Hội › Tổ nên chưa gọn) → còn 1 dòng 📍 đường dẫn + **▾ Đổi** + 🔎; bấm ▾ Đổi sổ ra đủ Xã · Điểm · Hội · Tổ; chọn xong hoặc **bấm vào vùng nhập** (`gdxGonLoc`, chỉ đổi lớp — không vẽ lại ô đang bấm) → gọn lại.
+- **Đầu khung 1 hàng** (`gdxDauHTML`, `gdxMenu`): chip 04/TD · 12/GDX · Giấy lĩnh · 👁 Xem · **⋯** (⚙ Khai báo riêng mẫu, ⚙ Khai báo chung, 📜 Nhật ký in, 📦 Mini app). Bỏ hàng tiêu đề mẫu (trùng chip) và nhãn nhóm Giải ngân / Biên lai / Tiết kiệm (còn trong chú thích chip).
+- **Tóm tắt:** 📄 Mẫu trắng gom 1 nút (sổ lên: 1 mẫu / A4 · 2 mẫu / A4); nút sau in rút gọn "✕ Làm trống" (chú thích: in người khác).
+- **Phép thử:** `t168` 32/32 (thêm: chọn Xã › Hội › Tổ không chọn điểm → gọn; bấm vùng nhập → gọn; đầu khung 1 hàng + menu ⋯) · `t167` 50/50 · `t165` 52/52.
+
 ## 3.180 — 13/10/2026 — TK 104 tra chắc hơn; Tóm tắt 1 dòng; khối lọc thu gọn
 - **Anh (13/10):** "không có tổ nào hiện 104 hết"; "chỗ tóm tắt thu gọn 1 dòng chừa chỗ nhập rộng ra"; "chọn điểm rồi thì thu gọn xã, điểm lại luôn cho rộng nhất".
 - **TK 104** (`dmtTimTo`, `dmtViSao`): trên dữ liệu giả đường tra theo mã tổ vẫn đúng → chưa rõ nguyên nhân trên máy anh (chưa xem được dữ liệu thật). Nay tra 3 bước: ① đúng mã tổ · ② mã bỏ khoảng trắng / số 0 đầu · ③ tổ trưởng trùng tên (không dấu, bỏ Ông / Bà) cùng xã, chỉ 1 tổ có TK 104 (ghi rõ "theo tên tổ trưởng, mã tổ danh mục …"). Không thấy → dòng TK 104 và Tóm tắt **ghi lý do**: máy / trình duyệt này chưa có danh mục · mã tổ … không có trong danh mục (kèm 2 mã mẫu của danh mục) · danh mục có tổ nhưng ô TK 104 trống. Mini app tra cùng cách.
