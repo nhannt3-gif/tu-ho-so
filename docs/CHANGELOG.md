@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.184 — 13/10/2026 — Giấy lĩnh: nơi cấp chữ mờ, trường hợp cũ ghi chung
+- **Anh (13/10):** "nơi cấp hiện dòng nhỏ dưới dòng số CCCD, cùng dòng địa chỉ mờ, không cần ra ô tốn 1 dòng"; "hiện tại đã đổi chỉ còn 2 dạng nơi cấp, nếu rơi vào trường hợp cũ thì báo và ghi Cục Cảnh sát thôi, ghi chung vậy".
+- **Form:** bỏ ô Nơi cấp; nơi cấp hiện **chữ nhỏ, mờ** cùng dòng nhãn Địa chỉ (ngay dưới ô CCCD), tự đổi khi gõ ngày cấp; bấm vào để gõ tay (để trống = tự tính lại, có dấu ✎ khi đang gõ tay). Địa chỉ · Tài khoản số cùng 1 dòng → form còn 2 dòng ô nhập.
+- **Công thức** (`gdxNoiCap`, mốc `GDX_NC_CU`): từ 01/07/2024 → Bộ Công an; từ 10/10/2018 → Cục Cảnh sát quản lý hành chính về trật tự xã hội; **trước 10/10/2018 (thẻ đợt đầu — trường hợp cũ) → ghi chung "Cục Cảnh sát"** + ⚠ ở chữ nơi cấp và cảnh báo vàng ở Tóm tắt (kiểm lại trên thẻ). Mốc 10/10/2018 là em chọn theo hiểu biết, chưa có văn bản kèm — anh chỉnh nếu khác. Mini app cùng cách.
+- **Phép thử:** `t167` 57/57 (thêm: không còn ô Nơi cấp, chữ mờ đúng, Địa chỉ · TK 1 dòng, trường hợp cũ ghi "Cục Cảnh sát" + cảnh báo) · `t168` 32/32 · `t165` 52/52.
+
 ## 3.183 — 13/10/2026 — Giấy lĩnh: nơi cấp tự tính, form gọn, nút Xem rõ trạng thái
 - **Anh (13/10):** "chỗ bật tắt xem bị ngược, họ tên, căn cước, ngày cấp lên cùng 1 dòng, nơi cấp app tự tính và ghi vào không phụ thuộc số liệu, em nhớ công thức chứ, viết đủ ra luôn không viết tắt".
 - **Nơi cấp** (`gdxNoiCap`): tự tính theo **ngày cấp**, không lấy số liệu — cùng công thức đã có ở hồ sơ (`hsoNoiCapGY`): cấp từ 01/07/2024 → **Bộ Công an**; trước đó → **Cục Cảnh sát quản lý hành chính về trật tự xã hội** (viết đủ). Gõ tay ô Nơi cấp thì theo anh gõ. Đã đo trên mẫu in: dòng Nơi cấp viết đủ vẫn vừa (A5 và A4). Mini app cùng cách.

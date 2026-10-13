@@ -626,6 +626,7 @@ function gdxTom(){
     lk('glphieu', g.tien ? gdxTien(g.tien)+' đ' : 'số tiền: chấm', g.tien ? '' : 'vang');
     lk('glngay', g.ngay ? 'ngày '+gdxDMY(g.ngay) : 'ngày: chấm'); lk('glkho', C.glKho==='a4' ? 'A4 nửa trang' : 'A5');
     if(!g.ten) cb('do', 'Chưa chọn người lĩnh — tìm tên hoặc chọn tổ ở khối LỌC ĐỊA BÀN.', 'glphieu');
+    if(g.ncap && gdxNoiCapCu(g.ncap) && !(GDX.glSua && GDX.glSua.noiCap!==undefined)) cb('vang', 'Ngày cấp trước 10/10/2018 (thẻ đợt đầu) — nơi cấp ghi chung "Cục Cảnh sát", kiểm lại trên thẻ (bấm chữ Nơi cấp để sửa).', 'glphieu');
     if(g.ten && !g.tk) cb('vang', 'Chưa có số tài khoản'+(C.glLoai==='104' ? ' 104 ('+(gdxGLTo() ? dmtViSao(gdxGLTo()) : 'nạp danh mục ở 📥 Nạp & KT')+')' : ' 105')+' — để chấm.', 'glphieu');
     if(g.ten && !g.cccd) cb('vang', 'Chưa có số CCCD — để chấm.', 'glphieu');
     if(g.tien && g.du!=null && +g.tien > g.du) cb('do', 'Số tiền rút '+gdxTien(g.tien)+' lớn hơn số dư 105 ('+gdxTien(g.du)+' — số liệu '+(TO_K ? slKyChu(TO_K.ky) : '')+').', 'glphieu');
@@ -707,7 +708,7 @@ function gdxGLDuLieu(){
   r.tien = GDX.glHet && r.du ? String(Math.round(r.du)) : String(GDX.glTien||'').replace(/\D/g, '');
   var sua = GDX.glSua || {};   /* 3.175: form gõ tay — sửa / bổ sung cho lần in này (không ghi đè số liệu) */
   GL_O.forEach(function(o){ if(sua[o[0]]!==undefined) r[o[0]] = o[0]==='ncap' ? (gdxDocNgay(sua.ncap) || '') : sua[o[0]]; });
-  if(sua.noiCap===undefined) r.noiCap = gdxNoiCap(r.ncap);   /* 3.183: tự tính, không lấy số liệu; gõ tay ô Nơi cấp thì theo anh gõ */
+  r.noiCap = sua.noiCap!==undefined ? sua.noiCap : gdxNoiCap(r.ncap);   /* 3.183: tự tính, không lấy số liệu; gõ tay ô Nơi cấp thì theo anh gõ */
   return r;
 }
 function gdxGLMuc(k, kb){
@@ -745,7 +746,8 @@ function gdxGLPhieuHTML(kb){
   h += '<div class="gl-form-luoi">'+GL_O.map(function(o){ var v = g[o[0]] || '', ph = o[0]==='ncap' ? 'gõ 230421' : 'trống = chấm';
       if(o[0]==='ncap' && /^\d{4}-\d{2}-\d{2}/.test(v)) v = gdxDMY(String(v).slice(0, 10));
       if(GDX.glSua && GDX.glSua[o[0]]!==undefined && o[0]==='ncap') v = GDX.glSua.ncap;
-      return '<label class="gl-c'+o[2]+'"><span>'+o[1]+'</span><input class="gdx-i" data-k="'+o[0]+'" value="'+gdxE(v)+'" placeholder="'+ph+'" oninput="gdxGLSua(this)"></label>'; }).join('')+'</div>';
+      var nhan = o[0]==='diaChi' ? '<span class="gl-nhan2"><span>'+o[1]+'</span><i id="gdx-gl-noicap" class="gl-noicap" onclick="event.preventDefault();gdxGLNoiCapTay()" title="Nơi cấp — tự tính theo ngày cấp (từ 01/07/2024: Bộ Công an; trước đó: Cục Cảnh sát quản lý hành chính về trật tự xã hội). Bấm để gõ tay.">'+gdxGLNoiCapChu(g)+'</i></span>' : '<span>'+o[1]+'</span>';
+      return '<label class="gl-c'+o[2]+'">'+nhan+'<input class="gdx-i" data-k="'+o[0]+'" value="'+gdxE(v)+'" placeholder="'+ph+'" oninput="gdxGLSua(this)"></label>'; }).join('')+'</div>';
   h += '<div class="gl-tien"><label>Số tiền <input id="gdx-gl-tien" class="gdx-i gdx-tien gdx-tien-to" inputmode="numeric" value="'+gdxE(g.tien ? gdxTien(g.tien) : '')+'" placeholder="trống = chấm" oninput="this.value=gdxTien(this.value);GDX.glTien=this.value;GDX.glHet=0;gdxXem();gdxTomVe()" onkeydown="if(event.key===\'ArrowUp\'||event.key===\'ArrowDown\'){event.preventDefault();gdxGLBuoc(event.key===\'ArrowUp\'?100000:-100000);}"></label>'+
     '<span class="gdx-buoc"><button onclick="gdxGLBuoc(100000)" title="Tăng 100 nghìn">▲</button><button onclick="gdxGLBuoc(-100000)" title="Giảm 100 nghìn">▼</button></span>'+
     (C.glLoai!=='104' && g.du ? gdxChip('Rút hết: '+gdxTien(Math.round(g.du)), !!GDX.glHet, 'GDX.glHet=1;GDX.glTien=\'\';gdxVe()') : '')+
@@ -775,8 +777,13 @@ function gdxGLMoi(){
 }
 function gdxGLChonKH(kh){ GDX.glKH = kh; GDX.glHet = 0; GDX.glSua = {}; gdxVe(); }
 /* 3.175 (anh chốt): form gõ tay ngay dưới ô tìm, bố trí như mẫu thật — tìm ra thì app điền sẵn, sửa được; không tìm thì gõ thẳng */
-var GL_O = [['ten','Họ, tên khách hàng',5], ['cccd','CMT / CCCD số',4], ['ncap','Ngày cấp',3], ['diaChi','Địa chỉ',12], ['noiCap','Nơi cấp (tự tính theo ngày cấp)',8], ['tk','Tài khoản số',4]];   /* [khóa, nhãn, số cột / 12] — 3.183: Họ tên · CCCD · Ngày cấp 1 dòng */
-function gdxGLSua(o){ GDX.glSua = GDX.glSua || {}; GDX.glSua[o.getAttribute('data-k')] = o.value; gdxXem(); gdxTomVe(); }
+var GL_O = [['ten','Họ, tên khách hàng',5], ['cccd','CMT / CCCD số',4], ['ncap','Ngày cấp',3], ['diaChi','Địa chỉ',8], ['tk','Tài khoản số',4]];   /* [khóa, nhãn, số cột / 12] — 3.183: Họ tên · CCCD · Ngày cấp 1 dòng; 3.184: bỏ ô Nơi cấp — chữ mờ cạnh nhãn Địa chỉ */
+function gdxGLSua(o){ GDX.glSua = GDX.glSua || {}; GDX.glSua[o.getAttribute('data-k')] = o.value; gdxXem(); gdxTomVe();
+  if(o.getAttribute('data-k')==='ncap'){ var e = document.getElementById('gdx-gl-noicap'); if(e) e.textContent = gdxGLNoiCapChu(gdxGLDuLieu()); } }
+/* 3.184 (anh chốt): nơi cấp không ra ô — chữ mờ cùng dòng nhãn Địa chỉ (dưới ô CCCD); bấm để gõ tay, để trống = tự tính lại */
+function gdxGLNoiCapChu(g){ return (gdxNoiCapCu(g.ncap) && !(GDX.glSua && GDX.glSua.noiCap!==undefined) ? '⚠ ' : '')+'Nơi cấp: '+(g.noiCap || '— gõ ngày cấp')+(GDX.glSua && GDX.glSua.noiCap!==undefined ? ' ✎' : ''); }
+function gdxGLNoiCapTay(){ var g = gdxGLDuLieu(), v = prompt('Nơi cấp (để trống = tự tính theo ngày cấp):', g.noiCap || ''); if(v===null) return;
+  GDX.glSua = GDX.glSua || {}; if(String(v).trim()) GDX.glSua.noiCap = String(v).trim(); else delete GDX.glSua.noiCap; gdxVe(); }
 function gdxGLLamTrong(){ GDX.glTo = '';   /* 3.179: quên tổ đang điền → chọn lại đúng tổ cũ ở khối lọc thì điền lại theo số liệu */
    GDX.glSua = {}; GL_O.forEach(function(o){ GDX.glSua[o[0]] = ''; }); GDX.glTien = ''; GDX.glHet = 0; gdxVe(); var e = document.querySelector('.gl-form-luoi input'); if(e) e.focus(); }
 function gdxGLTim(){
@@ -806,8 +813,12 @@ function gdxGLChon(to, kh){
 }
 /* mẫu in Giấy lĩnh — dựng theo ảnh mẫu anh gửi (khung, chữ, vị trí); không có hình chìm VBSP (giấy in sẵn mới có) */
 /* 3.183 (anh chốt): nơi cấp tự tính theo ngày cấp, không phụ thuộc số liệu — cùng công thức hsoNoiCapGY (từ 01/07/2024: Bộ Công an; trước đó: Cục Cảnh sát quản lý hành chính về trật tự xã hội), viết đủ không tắt */
-function gdxNoiCap(ncap){ var s = String(ncap||'').trim(), iso = /^\d{4}-\d{2}-\d{2}/.test(s) ? s.slice(0, 10) : gdxDocNgay(s); if(!iso) return '';
-  return iso >= '2024-07-01' ? 'Bộ Công an' : 'Cục Cảnh sát quản lý hành chính về trật tự xã hội'; }
+/* 3.184 (anh chốt): hiện chỉ còn 2 dạng; thẻ cấp trước 10/10/2018 (thẻ đợt đầu — trường hợp cũ) → ghi chung "Cục Cảnh sát" và báo để kiểm lại trên thẻ */
+var GDX_NC_CU = '2018-10-10';
+function gdxNgayISO(ncap){ var s = String(ncap||'').trim(); return /^\d{4}-\d{2}-\d{2}/.test(s) ? s.slice(0, 10) : gdxDocNgay(s); }
+function gdxNoiCap(ncap){ var iso = gdxNgayISO(ncap); if(!iso) return '';
+  return iso >= '2024-07-01' ? 'Bộ Công an' : iso >= GDX_NC_CU ? 'Cục Cảnh sát quản lý hành chính về trật tự xã hội' : 'Cục Cảnh sát'; }
+function gdxNoiCapCu(ncap){ var iso = gdxNgayISO(ncap); return !!iso && iso < GDX_NC_CU; }
 function gdxGLO(v, lop){ v = v==null ? '' : String(v).trim(); return v ? '<span class="gl-v'+(lop ? ' '+lop : '')+'">'+gdxE(v)+'</span>' : '<span class="gl-c'+(lop ? ' '+lop : '')+'"></span>'; }
 function gdxGLNgayO(iso, nhan){ var p = String(iso||'').split('-'), o = function(v, w){ return v ? '<span class="gl-vn">'+v+'</span>' : '<span class="gl-cn" style="width:'+w+'"></span>'; };
   return nhan ? nhan+' '+o(p[2], '12mm')+' tháng '+o(p[1], '12mm')+' năm '+o(p[0], '13mm') : o(p[2], '9mm')+'/'+o(p[1], '9mm')+'/'+o(p[0], '12mm'); }

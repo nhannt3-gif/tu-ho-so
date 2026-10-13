@@ -111,6 +111,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t168.js` | (3.181) thêm: khối lọc gọn khi chọn Xã › Hội › Tổ (không chọn điểm), bấm vùng nhập → gọn, đầu khung 1 hàng + menu ⋯. `t167` nút Làm trống sau in kiểm theo lớp `.gdx-moi`. |
 | `node tests/t167.js` | (3.182) thêm: ngày lĩnh chỉ Hôm nay · nhập ngày · Để chấm (1 dòng), ô tiền nổi bật, CSS lề trên 13 mm + chữ chìm 42,4 mm + gạch dọc ô Người lĩnh ngắn 5 mm, nút Làm trống ở đầu khung. |
 | `node tests/t167.js` | (3.183) thêm: công thức nơi cấp theo ngày cấp (đủ chữ), gõ ngày cấp → nơi cấp tự điền, Họ tên · CCCD · Ngày cấp 1 dòng, nút 👁 Xem: Bật / Tắt. |
+| `node tests/t167.js` | (3.184) thêm: bỏ ô Nơi cấp (chữ mờ cạnh nhãn Địa chỉ), Địa chỉ · TK 1 dòng, thẻ cấp trước 10/10/2018 ghi "Cục Cảnh sát" + cảnh báo. `t168` mini kiểm chữ mờ nơi cấp. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

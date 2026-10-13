@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.184) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Chọn tổ trưởng / gõ ngày cấp | Chữ mờ "Nơi cấp: …" cạnh nhãn Địa chỉ đổi theo ngày cấp; bấm vào sửa được | |
+| 2 | Ngày cấp trước 10/10/2018 | Ghi "Cục Cảnh sát", có ⚠ và cảnh báo vàng ở Tóm tắt | |
+
+- **Ghi chú kỹ thuật 3.184:** `GL_O` không còn `noiCap` (5 ô); `GDX.glSua.noiCap` = gõ tay (qua `gdxGLNoiCapTay`, hộp prompt). Mini: `S.noiCapTay`, `mn.noiCapTay`; file mini mang theo `gdxNgayISO` + `GDX_NC_CU`.
+
 ### Danh sách thử trên máy thật (3.183) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -59,9 +59,9 @@ function gdxMiniHTML(han, G){
   var goi = gdxMiniMa(JSON.stringify({han:hanISO, id:id, xuat:ngayISO(hom), ban:APP_BAN, C:G.C, diem:G.diem}), khoa+'|'+hanISO+'|'+id);
   var bien = function(ten, v){ return 'var '+ten+' = '+JSON.stringify(v).replace(/<\//g, '<\\/')+';\n'; };
   var ham = [hai, ngayISO, ngayVN, nay, coChuHTML, boDau, gdxE, gdxDocTien, gdxTien, gdxSoNguoi, gdxNgay, gdxChipTien, gdxNgayToi, gdxNgayChu, gdxHom, gdxMai, gdxDMY,
-    gdxNgayKy04, gdxHTML04, gdxHTML12, gdxTrang, gdxGLO, gdxGLNgayO, gdxGLTrang, gdxHTMLGL, gdxDocNgay, gdxNoiCap, gdxMiniDong, gdxMiniGiai, gdxMiniApp];
+    gdxNgayKy04, gdxHTML04, gdxHTML12, gdxTrang, gdxGLO, gdxGLNgayO, gdxGLTrang, gdxHTMLGL, gdxDocNgay, gdxNgayISO, gdxNoiCap, gdxMiniDong, gdxMiniGiai, gdxMiniApp];
   var js = bien('MINI_ID', id)+bien('MINI_HAN', hanISO)+bien('MINI_K', khoa)+bien('MINI_GOI', goi)+bien('MINI_BAN', APP_BAN)+
-    bien('GDX_MD', GDX_MD)+bien('GDX_CSS', GDX_CSS)+bien('GL_CSS', GL_CSS)+bien('GL_CSS_A5', GL_CSS_A5)+bien('GL_CSS_A4', GL_CSS_A4)+bien('GL_JS', GL_JS)+
+    bien('GDX_MD', GDX_MD)+bien('GDX_CSS', GDX_CSS)+bien('GL_CSS', GL_CSS)+bien('GL_CSS_A5', GL_CSS_A5)+bien('GL_CSS_A4', GL_CSS_A4)+bien('GL_JS', GL_JS)+bien('GDX_NC_CU', GDX_NC_CU)+
     ham.map(function(f){ return f.toString(); }).join('\n').replace(/<\/script/gi, '<\\/script')+'\ngdxMiniApp();\n';
   return {html:'<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">'+
     '<title>Giao dịch xã — bản mini</title><style>'+GDX_MINI_CSS+'</style></head><body><div id="mn-app"><div class="mn-mo">Đang mở…</div></div><script>\n'+js+'<\/script></body></html>',
@@ -203,14 +203,16 @@ function gdxMiniApp(){
       hang('Ngày tiêu hủy', chip('Để chấm', C.m12NgayHuy!=='gd', 'mn.dat(\'m12NgayHuy\', \'cham\', 1)')+chip('= Ngày GD', C.m12NgayHuy==='gd', 'mn.dat(\'m12NgayHuy\', \'gd\', 1)'))+
       hang('Số BL tiêu hủy', '<input class="mn-i" value="'+E(C.m12SoLuongTieuHuy)+'" placeholder="trống = chấm" oninput="mn.dat(\'m12SoLuongTieuHuy\', this.value)">');
   }
-  var GLO = [['ten', 'Họ, tên khách hàng', 5], ['cccd', 'CMT / CCCD số', 4], ['ncap', 'Ngày cấp', 3], ['diaChi', 'Địa chỉ', 12], ['noiCap', 'Nơi cấp (tự tính theo ngày cấp)', 8], ['tk', 'Tài khoản số', 4]];
+  var GLO = [['ten', 'Họ, tên khách hàng', 5], ['cccd', 'CMT / CCCD số', 4], ['ncap', 'Ngày cấp', 3], ['diaChi', 'Địa chỉ', 8], ['tk', 'Tài khoản số', 4]];
+  function noiCapHT(){ return S.noiCapTay ? (S.g.noiCap || '') : gdxNoiCap(gdxDocNgay(S.g.ncap) || ''); }
+  function noiCapChu(){ var iso = gdxDocNgay(S.g.ncap) || ''; return (!S.noiCapTay && iso && iso < '2018-10-10' ? '⚠ Thẻ cấp trước 10/10/2018 — kiểm lại · ' : '')+'Nơi cấp: '+(noiCapHT() || '— gõ ngày cấp')+(S.noiCapTay ? ' ✎' : ''); }
   function glHTML(){
     var d = diem(C.diem), n = glNgay(), c = C.glNgayCach || 'hom', tien = String(S.g.tien||'').replace(/\D/g, '');
     var h = hang('Loại', chip('TK 104 tổ trưởng', C.glLoai==='104', 'mn.glLoai(\'104\')')+chip('TK 105 khách (gõ tay)', C.glLoai!=='104', 'mn.glLoai(\'105\')'));
     if(C.glLoai==='104') h += hang('Tổ trưởng', '<div class="mn-tim"><input id="mn-q" class="mn-i" autocomplete="off" placeholder="🔎 Gõ tên tổ trưởng (không dấu) · ↑↓ Enter" value="'+E(S.q)+'" oninput="mn.tim(this.value)" onkeydown="mn.phimTim(event)"><div id="mn-gy" class="mn-gy"></div></div>'+
       '<span class="mn-pham">Tìm trong: '+[['diem', 'Điểm này'], ['xa', 'Cả xã'], ['tat', 'Cả PGD']].map(function(o){ return chip(o[1], phamTim().p===o[0], 'mn.pham(\''+o[0]+'\')'); }).join('')+'</span>'+
       (d ? '<select class="mn-i" onchange="if(this.value)mn.chonTT(this.value)"><option value="">— Tổ của điểm '+E(d.ten)+' ('+d.to.length+') —</option>'+d.to.map(function(t){ return '<option value="'+E(d.k+'|'+t.ma)+'">'+E((t.ten || t.ma)+(t.ap ? ' · '+t.ap : '')+(t.tk ? '' : ' · chưa có TK 104'))+'</option>'; }).join('')+'</select>' : ''));
-    h += '<div class="mn-form">'+GLO.map(function(o){ return '<label class="mn-c'+o[2]+'"><span>'+o[1]+'</span><input class="mn-i" data-k="'+o[0]+'" value="'+E(S.g[o[0]]||'')+'" placeholder="'+(o[0]==='ncap' ? 'gõ 230421' : 'trống = chấm')+'" oninput="mn.glSua(this)"></label>'; }).join('')+'</div>';
+    h += '<div class="mn-form">'+GLO.map(function(o){ return '<label class="mn-c'+o[2]+'">'+(o[0]==='diaChi' ? '<span class="mn-nhan2"><span>'+o[1]+'</span><i id="mn-noicap" onclick="event.preventDefault();mn.noiCapTay()" title="Nơi cấp — tự tính theo ngày cấp; bấm để gõ tay">'+E(noiCapChu())+'</i></span>' : '<span>'+o[1]+'</span>')+'<input class="mn-i" data-k="'+o[0]+'" value="'+E(S.g[o[0]]||'')+'" placeholder="'+(o[0]==='ncap' ? 'gõ 230421' : 'trống = chấm')+'" oninput="mn.glSua(this)"></label>'; }).join('')+'</div>';
     h += hang('Số tiền', '<input id="mn-tiengl" class="mn-i mn-tien" inputmode="numeric" value="'+E(gdxTien(tien))+'" placeholder="trống = chấm" oninput="this.value=gdxTien(this.value);mn.glTien(this.value)" onkeydown="if(event.key===\'ArrowUp\'||event.key===\'ArrowDown\'){event.preventDefault();mn.glBuoc(event.key===\'ArrowUp\'?100000:-100000);}">'+buoc('mn.glBuoc', 100000)+
       '<div class="mn-chips">'+(C.glMuc||[]).map(function(a){ return chip(gdxChipTien(a), String(a)===tien, 'mn.glTien(\''+a+'\', 1)'); }).join('')+'</div><div class="mn-chu" id="mn-chugl">'+E(tien ? gdxDocTien(tien) : '—')+'</div>');
     h += hang('Ngày lĩnh', chip('Hôm nay', c==='hom', 'mn.dat(\'glNgayCach\', \'hom\', 1)')+ngayO('mn.glNgayTay', c==='tay' ? S.glNgayTay : '')+
@@ -263,7 +265,8 @@ function gdxMiniApp(){
     chu04:function(){ chuTien('mn-chu04', String(C.soTien||'').replace(/\D/g, '')); },
     mauHay:function(i){ var m = C.mauHay[i]; if(!m) return; C.soNguoi = String(m.h); C.soTien = gdxTien(m.t); luu(); veTrai(); xem(); },
     glLoai:function(l){ C.glLoai = l; S.q = ''; luu(); veTrai(); xem(); },
-    glSua:function(o){ var k = o.getAttribute('data-k'); S.g[k] = o.value; if(k==='noiCap') S.noiCapTay = !!o.value; xem(); },
+    glSua:function(o){ var k = o.getAttribute('data-k'); S.g[k] = o.value; if(k==='ncap'){ var e = document.getElementById('mn-noicap'); if(e) e.textContent = noiCapChu(); } xem(); },
+    noiCapTay:function(){ var v = prompt('Nơi cấp (để trống = tự tính theo ngày cấp):', noiCapHT()); if(v===null) return; v = String(v).trim(); S.noiCapTay = !!v; S.g.noiCap = v; veTrai(); xem(); },
     glTien:function(v, ve){ S.g.tien = String(v||'').replace(/\D/g, ''); if(ve) veTrai(); else chuTien('mn-chugl', S.g.tien); xem(); },
     glBuoc:function(b){ S.g.tien = String(tron(+String(S.g.tien||'').replace(/\D/g, '') || 0, b) || ''); if(S.g.tien==='0') S.g.tien = '';
       var e = document.getElementById('mn-tiengl'); if(e) e.value = gdxTien(S.g.tien); chuTien('mn-chugl', S.g.tien); xem(); },
@@ -313,7 +316,7 @@ var GDX_MINI_CSS = '*{box-sizing:border-box}body{margin:0;font-family:-apple-sys
   '.mn-gy button{text-align:left;border:0;border-bottom:1px solid #eceff1;background:#fff;padding:5px 8px;cursor:pointer;font-family:inherit}.mn-gy button.bat{background:#e3f2fd}.mn-gy small{color:#607d8b}.mn-rong{color:#90a4ae;padding:4px}'+
   '.mn-gt>select{max-width:100%}.mn-pham{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:#546e7a}'+
   '.mn-form{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px 6px;padding:6px;background:#f5f7f8;border-radius:6px}.mn-form label{display:flex;flex-direction:column;font-size:12px;color:#546e7a}.mn-form input{width:100%}'+
-  '.mn-c3{grid-column:span 3}.mn-c4{grid-column:span 4}.mn-c5{grid-column:span 5}.mn-c8{grid-column:span 8}.mn-c12{grid-column:1 / -1}'+
+  '.mn-nhan2{display:flex;justify-content:space-between;gap:6px;min-width:0}.mn-nhan2 i{font-style:normal;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}.mn-c3{grid-column:span 3}.mn-c4{grid-column:span 4}.mn-c5{grid-column:span 5}.mn-c8{grid-column:span 8}.mn-c12{grid-column:1 / -1}'+
   '.mn-in{position:sticky;bottom:-10px;background:#fff;padding:8px 0;margin-top:auto;display:flex;gap:6px;justify-content:flex-end;border-top:1px solid #eceff1}'+
   '.mn-nut{border:1px solid #90a4ae;background:#fff;border-radius:6px;padding:7px 14px;font-size:14px;cursor:pointer}.mn-nut.moi{background:#fff8e1;border-color:#ffb300;font-weight:bold}.mn-nut.chinh{background:#1565c0;border-color:#1565c0;color:#fff;font-weight:bold}'+
   '.mn-khoa{max-width:520px;margin:12vh auto;background:#fff;border-radius:10px;padding:30px;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,.15)}.mn-khoa-ic{font-size:54px}.mn-khoa h2{margin:8px 0;color:#c62828}.mn-khoa p{font-size:16px;line-height:1.5}'+

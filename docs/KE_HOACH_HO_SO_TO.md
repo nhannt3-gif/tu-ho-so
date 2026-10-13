@@ -218,3 +218,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.181 (13/10):** tối ưu vùng nhập — khối lọc gom 1 dòng khi đã chọn điểm / tổ (▾ Đổi sổ ra, bấm vùng nhập tự gọn), đầu khung 1 hàng + menu ⋯, Mẫu trắng gom 1 nút.
 - **Đã làm 3.182 (13/10):** Giấy lĩnh — lề trên +5 mm (chữ chìm dời theo), 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm, ngày lĩnh chỉ Hôm nay · nhập · Để chấm (bỏ ngày GD điểm), ô tiền nổi bật, ✕ Làm trống kế 👁 Xem.
 - **Đã làm 3.183 (13/10):** nơi cấp tự tính theo ngày cấp đủ chữ (Bộ Công an từ 01/07/2024; trước đó Cục Cảnh sát quản lý hành chính về trật tự xã hội); Họ tên · CCCD · Ngày cấp 1 dòng; nút 👁 Xem: Bật / Tắt.
+- **Đã làm 3.184 (13/10):** nơi cấp không ra ô — chữ mờ cạnh nhãn Địa chỉ (bấm để sửa); thẻ cấp trước 10/10/2018 ghi chung "Cục Cảnh sát" + cảnh báo; Địa chỉ · Tài khoản số 1 dòng.
