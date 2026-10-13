@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.188) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ⚙ Khổ giấy: A4 Giấy lĩnh trên + Bảng kê dưới → IN | 1 tờ A4: Giấy lĩnh nửa trên, Bảng kê xoay ngang góc dưới trái, tự chia mệnh giá, bằng chữ đủ | |
+| 2 | Cắt Bảng kê theo 2 nét đứt | Ra tờ đúng khổ, không mất chữ; nét đứt mép dưới có lên không | |
+| 3 | 📄 Mẫu trắng › Giấy lĩnh + Bảng kê / A4 | Cả 2 phần trắng đúng form | |
+
+- **Ghi chú kỹ thuật 3.188:** `glKho='a4bk'` → `gdxHTMLGL` dựng `.sheet-gl.gl-a4.gl-kem` = `gdxGLTrang` + `.gl-bkk` (`gdxBKTrang` với `bkChia=true`, xoay `rotate(-90deg)`, gốc trên trái, top 105 mm) + `.gl-cat-n` / `.gl-cat-d`. CSS = `GL_CSS + GL_CSS_A4 + BK_CSS_LOI + GL_CSS_KEM`; in đặt cao 296 mm tránh trang trắng. `gdxGLTrangIn(3)` = mẫu trắng. Mini app: `a4bk` → `a4`.
+
 ### Danh sách thử trên máy thật (3.187) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
