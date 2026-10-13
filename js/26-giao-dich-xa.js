@@ -512,7 +512,10 @@ function gdxKhung(K){
   if(K){ var S = gdxCH(); if(!S.diem && M.cap!=='to') gdxChonDiemGan(); pvVeCay('gdx'); }
   else { var C2 = gdxC(); if(!gdxDiem(C2.ma04) && !gdxDiem(C2.m12SelectedDiem)) gdxChonDiemGan(); gdxVeTrai(); }
   setTimeout(gdxVuaKhung, 0);
+  var bo = document.getElementById('gdx-bo'); if(bo) bo.addEventListener('mousedown', gdxGonLoc, true);
 }
+/* 3.181 (anh chốt): bấm vào vùng nhập → khối lọc gom gọn lại (chỉ đổi lớp, không vẽ lại để không mất ô đang bấm) */
+function gdxGonLoc(){ if(PV_MO.gdx!=='xd') return; PV_MO.gdx = ''; var k = document.querySelector('#gdx-cay .loc-khoi'); if(k && (gdxCH().diem || gdxCH().to)){ k.classList.add('gon'); var b = k.querySelector('.pv-gon'); if(b) b.textContent = '▾ Đổi'; } setTimeout(gdxVuaKhung, 0); }
 function gdxVuaKhung(){ var f = document.getElementById('gdx-khung'); if(!f || !f.offsetParent) return; f.style.height = Math.max(360, window.innerHeight - f.getBoundingClientRect().top - 22)+'px'; gdxXem(); }
 window.addEventListener('resize', function(){ if(document.getElementById('gdx-khung')){ clearTimeout(window.__gdxVua); window.__gdxVua = setTimeout(gdxVuaKhung, 150); } });
 function gdxHopMo(id){ var h = document.getElementById('hop'); return !!(document.getElementById(id) && h && h.classList.contains('hien')); }   /* 3.175: hộp đã đóng vẫn còn trong trang → chỉ vẽ lại khi đang hiện */
@@ -527,14 +530,13 @@ function gdxVeTrai(){
   var t = document.getElementById('gdx-thanh'); if(t) t.innerHTML = gdxThanhHTML();
   gdxXem();
 }
+/* 3.181 (anh chốt: "các nút quá nhiều che hết khung nhập"): đầu khung 1 hàng — chip mẫu · 👁 · ⋯ (khai báo riêng / chung, nhật ký in, mini app) */
+function gdxMenu(ds, lop){ return '<details class="gdx-menu'+(lop ? ' '+lop : '')+'"><summary class="nho" title="Thêm">'+(ds.nhan || '⋯')+'</summary><div>'+ds.map(function(x){ return '<button class="nho" onclick="this.closest(\'details\').open=false;'+x[1]+'"'+(x[2] ? ' title="'+gdxE(x[2])+'"' : '')+'>'+x[0]+'</button>'; }).join('')+'</div></details>'; }
 function gdxDauHTML(){
-  var C = gdxC(), M = gdxMauHT(), nhom = '';
-  return '<div class="gdx2-dau"><div class="gdx2-mau"><b>Mẫu:</b>'+GDX_MAU.map(function(m){ var h = (m.nhom!==nhom ? '<span class="gdx2-nhom">'+m.nhom+'</span>' : ''); nhom = m.nhom;
-      return h+gdxChip(m.bt+' '+m.ma, m.k===M.k, 'gdxDoiMau(\''+m.k+'\')', '', m.ten); }).join('')+'</div>'+
-    '<div class="gdx2-nut"><button class="nho" onclick="gdxKBChung()" title="Danh sách cán bộ · danh mục tham chiếu · TK 104">⚙ Khai báo chung</button>'+
-    '<button class="nho" onclick="gdxNKMo()" title="Các lần in trong 1 tháng — in lại khi khách ký sai">📜 Nhật ký in</button>'+
-    '<button class="nho" onclick="gdxMiniHop()" title="Xuất 1 file HTML gọn gửi đồng nghiệp (in 04/TD, 12/GDX, Giấy lĩnh) — có thời hạn 30 / 60 / 90 ngày">📦 Mini app</button>'+
-    '<button class="nho'+(C.xem!==false ? ' chinh' : '')+'" onclick="gdxBatXem()" title="Bật / tắt khung xem trước">👁 Xem: '+(C.xem!==false ? 'Bật' : 'Tắt')+'</button></div></div>';
+  var C = gdxC(), M = gdxMauHT(), ds = [['⚙ Khai báo riêng mẫu', 'gdxKBRieng()', 'Mọi mục của mẫu — tích Chọn nhanh để đưa ra khung'], ['⚙ Khai báo chung', 'gdxKBChung()', 'Danh sách cán bộ · danh mục tham chiếu · TK 104'],
+    ['📜 Nhật ký in', 'gdxNKMo()', 'Các lần in trong 1 tháng — in lại khi khách ký sai'], ['📦 Mini app', 'gdxMiniHop()', 'Xuất 1 file HTML gọn gửi đồng nghiệp — có thời hạn 30 / 60 / 90 ngày']];
+  return '<div class="gdx2-dau"><div class="gdx2-mau">'+GDX_MAU.map(function(m){ return gdxChip(m.bt+' '+m.ma, m.k===M.k, 'gdxDoiMau(\''+m.k+'\')', '', m.nhom+' — '+m.ten); }).join('')+'</div>'+
+    '<div class="gdx2-nut"><button class="nho'+(C.xem!==false ? ' chinh' : '')+'" onclick="gdxBatXem()" title="Bật / tắt khung xem trước">👁 '+(C.xem!==false ? 'Xem' : 'Tắt xem')+'</button>'+gdxMenu(ds)+'</div></div>';
 }
 function gdxRuotHTML(){
   var C = gdxC(), M = gdxMauHT(), S = gdxCH(), canh = '';
@@ -546,7 +548,7 @@ function gdxRuotHTML(){
   if(M.k==='m04' && C.noiGN==='pgd' && !TO_K) canh += '<label class="gdx-l1">Xã / phường (kính gửi) <select class="gdx-i" onchange="gdxDat04(\'pgd\', this.value, true);gdxVe()"><option value="">— chọn —</option>'+gdxDsXa().map(function(x){ return '<option'+(x===C.xa04 ? ' selected' : '')+'>'+gdxE(x)+'</option>'; }).join('')+'</select></label>';
   if(!gdxDsDiem().length) canh += '<div class="sl-bao vang">Chưa có điểm giao dịch — nạp Mẫu 31 (📥 Nạp &amp; KT) hoặc khai ở <a class="lk" onclick="moCaiDat(\'diaban\')">Cài đặt › Địa bàn</a>. Vẫn in được, ô điểm để trống.</div>';
   var ds = GDX_MUC[M.k].filter(function(o){ return gdxNhanh(M.k, o.k); });
-  return '<div class="gdx2-tieu"><span>'+M.bt+' <b>'+gdxE(gdxTenMau(M))+'</b></span><button class="nho" onclick="gdxKBRieng()" title="Mọi mục của mẫu — tích Chọn nhanh để đưa ra đây">⚙ Khai báo riêng mẫu</button></div>'+canh+
+  return canh+
     (ds.length ? ds.map(function(o){ return '<div class="gdx2-hang" id="gdx-m-'+o.k+'"><div class="gdx2-nh">'+gdxE(o.ten)+'</div><div class="gdx2-gt">'+gdxMucHTML(M.k, o.k)+'</div></div>'; }).join('')
       : '<div class="sl-phu">Mọi mục đang để trong ⚙ — mẫu in theo khai báo.</div>');
 }
@@ -635,7 +637,7 @@ function gdxTomHTML(){
   var c0 = T.canh[0], coDo = T.canh.some(function(x){ return x.muc==='do'; });
   var canh = c0 ? '<span class="gdx2-canh1 '+(coDo ? 'do' : 'vang')+'" onclick="gdxToi(\''+c0.k+'\')" title="'+gdxE(T.canh.map(function(x){ return (x.muc==='do' ? '⛔ ' : '⚠ ')+x.chu; }).join('\n'))+'">'+(coDo ? '⛔ ' : '⚠ ')+gdxE(c0.chu)+(T.canh.length>1 ? ' <b>+'+(T.canh.length-1)+'</b>' : '')+'</span>' : '';
   return '<span class="gdx2-tom-tit" title="Tóm tắt bản in — bấm chip để tới mục">📋</span><div class="gdx2-tom-chip">'+T.chip.map(function(x){ return '<span class="gdx-tc '+x.lop+'" onclick="gdxToi(\''+x.k+'\')">'+gdxE(x.chu)+'</span>'; }).join('')+'</div>'+canh+
-    '<div class="gdx2-in">'+(X.mau==='gl' && GDX.glDaIn ? '<button class="nho gdx-moi" onclick="gdxGLMoi()" title="Xóa người lĩnh, form, số tiền — giữ ngày, khổ giấy">✕ Làm trống — in người khác</button>' : '')+(X.mau==='gl' ? '<button class="nho" onclick="gdxGLTrangIn(1)" title="Giấy lĩnh trắng (đúng form, không điền gì) — 1 mẫu nửa trên tờ A4">📄 Trắng 1/A4</button><button class="nho" onclick="gdxGLTrangIn(2)" title="2 mẫu trắng trên 1 tờ A4 — cắt đôi theo vạch giữa">📄 2/A4</button>' : '')+'<button class="nho" onclick="gdxPDF()">PDF</button><button class="nho chinh gdx-in" onclick="gdxIn()">🖨 IN '+so+' bản</button></div>';
+    '<div class="gdx2-in">'+(X.mau==='gl' && GDX.glDaIn ? '<button class="nho gdx-moi" onclick="gdxGLMoi()" title="Làm trống — in người khác: xóa người lĩnh, form, số tiền; giữ ngày, khổ giấy">✕ Làm trống</button>' : '')+(X.mau==='gl' ? gdxMenu((function(d){ d.nhan = '📄 Mẫu trắng'; return d; })([['📄 1 mẫu / A4 (nửa trên)', 'gdxGLTrangIn(1)', 'Giấy lĩnh trắng đúng form'], ['📄 2 mẫu / A4 (cắt đôi)', 'gdxGLTrangIn(2)', 'Cắt đôi theo vạch giữa']]), 'len') : '')+'<button class="nho" onclick="gdxPDF()">PDF</button><button class="nho chinh gdx-in" onclick="gdxIn()">🖨 IN '+so+' bản</button></div>';
 }
 function gdxKhoaIn(X){ return JSON.stringify([X.mau, X.C, X.d ? X.d.k : '', X.gl ? [X.gl.kh, X.gl.tien] : '']); }
 function gdxIn(pdf){

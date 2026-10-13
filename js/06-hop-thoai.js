@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.180', ds:[
+var CO_GI_MOI = {ban:'3.181', ds:[
+  ["🏢 Giao dịch xã: vùng nhập rộng hơn — khối lọc gom 1 dòng khi đã chọn điểm / tổ (▾ Đổi để sổ ra, bấm vào vùng nhập tự gọn), đầu khung 1 hàng (nút phụ vào ⋯), Mẫu trắng gom 1 nút", "slDoiTab('gdx');doiNgan(7)"],
   ["💵 Giấy lĩnh: TK 104 tra chắc hơn (mã tổ lệch số 0 đầu / theo tên tổ trưởng cùng xã); chưa có thì ghi rõ lý do ngay trên dòng TK 104", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["🏢 Giao dịch xã: 📋 Tóm tắt thu gọn 1 dòng; đã chọn điểm thì khối lọc thu gọn Xã / Điểm (nút ▾ Đổi xã / điểm) — chỗ nhập rộng hơn", "slDoiTab('gdx');doiNgan(7)"],
   ["💵 Giấy lĩnh: mặc định TK 104 tổ trưởng (chọn tổ trưởng là hiện TK 104); sửa lỗi Làm trống rồi chọn lại đúng tổ cũ thì ô trống", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],

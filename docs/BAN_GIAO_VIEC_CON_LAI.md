@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.181) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Chọn Xã › Hội › Tổ (hoặc Điểm) | Khối lọc còn 1 dòng; ▾ Đổi sổ ra; bấm vào vùng nhập thì gọn lại | |
+| 2 | Đầu khung | 1 hàng: chip mẫu · 👁 Xem · ⋯ (khai báo, nhật ký, mini app) | |
+| 3 | Tóm tắt | 1 dòng; 📄 Mẫu trắng sổ lên 1/A4 · 2/A4 | |
+
+- **Ghi chú kỹ thuật 3.181:** khối lọc gọn bằng lớp `.gon` (CSS ẩn `.pv-nhom.cap-xa` + `.pv-hang2`), `PV_MO.gdx==='xd'` = đang sổ ra; `gdxGonLoc` gắn `mousedown` (capture) vào `#gdx-bo`. Menu ⋯ là `<details class="gdx-menu">` (không JS), `.len` = sổ lên.
+
 ### Danh sách thử trên máy thật (3.180) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
