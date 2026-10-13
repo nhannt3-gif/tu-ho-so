@@ -853,8 +853,8 @@ function gdxGLTrang(g, c, trang){
       r('Họ, tên khách hàng:', gdxGLO(g.ten, 'gl-dam'))+r('Địa chỉ:', gdxGLO(g.diaChi))+
       '<div class="gl-r"><span class="gl-n">CMT (Hộ chiếu) số:</span>'+gdxGLO(g.cccd)+'<span class="gl-n gl-n2">Ngày</span><span class="gl-ns">'+gdxGLNgayO(g.ncap ? String(g.ncap).slice(0, 10) : '')+'</span></div>'+
       r('Nơi cấp:', gdxGLO(g.noiCap))+r('Tài khoản số:', gdxGLO(g.tk, 'gl-dam'))+r('Tại Ngân hàng:', gdxGLO(kb('glTaiNH')))+
-      r('Yêu cầu cho rút tiền <i>(bằng chữ)</i>:', chu ? '<span class="gl-v gl-bc1">'+gdxE(chu)+'</span>' : gdxGLO(''))+'<div class="gl-r">'+(chu ? '<span class="gl-c gl-bc2"></span>' : gdxGLO(''))+'</div>'+
-      r('Nội dung:', gdxGLO(kb('glND', 'Rút tiền')))+
+      '<div class="gl-len">'+r('Yêu cầu cho rút tiền <i>(bằng chữ)</i>:', chu ? '<span class="gl-v gl-bc1">'+gdxE(chu)+'</span>' : gdxGLO(''))+'<div class="gl-r">'+(chu ? '<span class="gl-c gl-bc2"></span>' : gdxGLO(''))+'</div>'+
+      r('Nội dung:', gdxGLO(kb('glND', 'Rút tiền')))+'</div>'+
     '</div><div class="gl-phai"><div class="gl-phan">PHẦN DO NGÂN HÀNG GHI</div><div class="gl-hop2">'+hop('Tài khoản ghi Nợ', gdxGLO(!trang && c.glTKNo==='tk' ? g.tk : ''))+hop('Mã - Ngân hàng', gdxGLO(kb('glMaNH')))+'</div>'+
       '<div class="gl-hop2 gl-hop3">'+hop('Số tiền bằng số', gdxGLO(tien, 'gl-dam'))+'</div></div></div>'+
     '<div class="gl-r gl-r2">'+gdxGLO('')+'</div>'+
@@ -873,10 +873,11 @@ var GL_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1
   '.sheet-gl{background:#fff;width:210mm;height:148mm;box-shadow:0 8px 24px rgba(0,0,0,.3);overflow:hidden;position:relative}.sheet-gl.gl-a4{height:297mm}'+
   '.gl-trang{position:relative;width:210mm;height:148mm;padding:13mm 11mm 4mm 13mm;font-size:13pt;line-height:1.3;display:flex;flex-direction:column}'+
   '.gl-x2 .gl-trang{height:148.5mm}.gl-cat{position:absolute;left:0;right:0;top:148.5mm;border-top:.3mm dashed #b8b8b8}'+
-  '.gl-chim{position:absolute;left:32.4mm;top:42.4mm;font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:114pt;line-height:1;letter-spacing:0;color:#d2d2d2;z-index:0;pointer-events:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
+  '.gl-chim{position:absolute;left:32.4mm;top:48.4mm;font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:114pt;line-height:1;letter-spacing:0;color:#d2d2d2;z-index:0;pointer-events:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
   '.gl-chim.chim-nhat{color:#e6e6e6}.gl-chim.chim-vua{color:#d2d2d2}.gl-chim.chim-dam{color:#bcbcbc}'+
   '.gl-dau,.gl-than,.gl-ky,.gl-r2{position:relative;z-index:1}'+
-  '.gl-dau{display:grid;grid-template-columns:64mm 1fr 50mm;align-items:start;margin-bottom:2mm}'+
+  '.gl-len{margin-top:-1mm}'+   /* 3.186 (anh chốt): 2 dòng chấm bằng chữ + dòng Nội dung rút lên 1 mm */
+  '.gl-dau{display:grid;grid-template-columns:64mm 1fr 50mm;align-items:start;margin-bottom:8mm}'+
   '.gl-nh{text-align:center;font-weight:bold;font-size:12.5pt;line-height:1.25}.gl-nh .gl-pgd{margin-top:2.5mm;font-weight:normal}.gl-pgdv{font-weight:normal}'+
   '.gl-giua2{text-align:center}.gl-tit{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:17pt;margin-top:.5mm;letter-spacing:.2px}.gl-ngay{font-family:Arial,Helvetica,sans-serif;font-style:italic;font-size:12pt;margin-top:4mm}'+
   '.gl-so{font-size:12pt;padding-left:4mm}.gl-so .gl-r{min-height:8mm}'+
@@ -886,7 +887,7 @@ var GL_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1
   '.gl-cn{display:inline-block;border-bottom:1.4px dotted #000;line-height:1}.gl-cn::after{content:"\\00a0"}.gl-vn{display:inline-block;min-width:6mm;text-align:center}.gl-ns{flex:none}'+
   '.gl-than{display:grid;grid-template-columns:1fr 62mm;gap:5mm}.gl-trai{min-width:0}'+
   '.gl-phai{display:flex;flex-direction:column;align-items:stretch}.gl-phan{font-weight:bold;font-size:11.5pt;text-align:center;line-height:1.2;margin:1mm 0 1.5mm}'+
-  /* 3.182 (anh chốt): lề trên 13 mm (+5), chữ chìm dời theo; 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm */
+  /* 3.182 (anh chốt): lề trên 13 mm (+5), chữ chìm dời theo; 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm. 3.186: dòng Họ tên (cả thân phiếu) xuống thêm 6 mm cho thoáng (đầu phiếu cách 8 mm — anh chỉnh 5 → 4 → +2 mm), chữ chìm dời theo */
   /* 3.176 (anh chốt): 3 ô cao hơn — 2 ô trên chia đều, ô Số tiền đáy ngang dòng Nội dung; dòng chấm trong ô cách cạnh ~1,2 mm */
   '.gl-hop2{border:1.2px solid #000;display:flex;flex-direction:column;flex:2}.gl-hop3{margin-top:2.5mm;flex:1;margin-bottom:1.6mm}.gl-hop+.gl-hop{border-top:1.2px solid #000}'+
   '.gl-hop{flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:1mm 1.2mm 1.2mm}.gl-hop-t{text-align:center;font-size:12pt;line-height:1.2}.gl-hop-g{min-height:0;align-items:flex-end}.gl-hop-g .gl-v{text-align:center;padding:0}'+

@@ -113,6 +113,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t167.js` | (3.183) thêm: công thức nơi cấp theo ngày cấp (đủ chữ), gõ ngày cấp → nơi cấp tự điền, Họ tên · CCCD · Ngày cấp 1 dòng, nút 👁 Xem: Bật / Tắt. |
 | `node tests/t167.js` | (3.184) thêm: bỏ ô Nơi cấp (chữ mờ cạnh nhãn Địa chỉ), Địa chỉ · TK 1 dòng, thẻ cấp trước 10/10/2018 ghi "Cục Cảnh sát" + cảnh báo. `t168` mini kiểm chữ mờ nơi cấp. |
 | `node tests/t167.js` | (3.185) thêm: tìm theo 6 số cuối CCCD + ↑↓ Enter → ô số tiền; TK 105 chưa có số sổ → lý do / lấy theo CCCD ở danh bạ (giả lập); Làm trống bỏ chọn tổ. `t168` mini tìm theo CCCD. |
+| `node tests/t167.js` | (3.186) CSS Giấy lĩnh: đầu phiếu → Họ tên 8 mm, chữ chìm 48,4 mm, `.gl-len` bằng chữ + Nội dung lên 1 mm. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 
