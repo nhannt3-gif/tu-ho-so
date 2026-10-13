@@ -951,7 +951,7 @@ var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6
   '.bk-chim.bk-logo{left:31mm;top:58mm;width:58mm;height:auto;opacity:.16}.bk-logo.chim-vua{opacity:.24}.bk-logo.chim-dam{opacity:.34}'+
   '.bk-trang>*:not(.bk-chim){position:relative;z-index:1}'+
   '.bk-dau{display:grid;grid-template-columns:1.05fr 1fr;gap:2mm;margin-bottom:2.5mm}'+
-  '.bk-nh{text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;line-height:1.35}.bk-pgd{min-height:0;font-size:8.5pt;margin-top:1mm}.bk-trang .bk-pgd .gl-v{flex:0 1 auto;text-align:left;padding-left:1.2mm}'+   /* 3.191 (anh): cụm tên cơ quan lớn hơn; tên PGD sát chữ PHÒNG GIAO DỊCH */
+  '.bk-nh{text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;line-height:1.35}.bk-pgd{min-height:0;font-size:8.5pt;margin-top:1mm}.bk-trang .bk-pgd .gl-v{flex:0 1 auto;text-align:left;padding-left:1.2mm;text-transform:uppercase}'+   /* 3.191 (anh): cụm tên cơ quan lớn hơn; tên PGD sát chữ PHÒNG GIAO DỊCH */
   '.bk-tit{text-align:center}.bk-t1{font-weight:bold;font-size:14pt;letter-spacing:.5px}.bk-t2{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:7pt}.bk-ngay{font-size:9.5pt;margin-top:1mm}'+
   '.bk-trang .gl-r{display:flex;align-items:baseline;gap:1mm;min-height:6.2mm;white-space:nowrap}.bk-trang .gl-n{flex:none}'+
   '.bk-trang .gl-c{flex:1 1 auto;display:block;min-width:5mm;border-bottom:1.2px dotted #000;line-height:1}.bk-trang .gl-c::after{content:"\\00a0"}'+

@@ -7,7 +7,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 ## 3.191 — 13/10/2026 — 🧾 Bảng kê in kèm: to hơn, chữ 13 pt, đậm số tiền
 - **Anh (13/10):** "Bảng kê chiều dài cho full chiều ngang trang, chiều ngang cho rộng hơn 1 cm, bỏ ghi sẵn tên hộ vay, số tiền cộng in đậm, bằng chữ in đậm nghiêng, chữ Gò Dầu gần chữ PGD, cả cụm tên cơ quan lớn lên 1 chút, dùng font 13–14, logo in chìm là logo cánh sen anh gửi lần trước (in góc trái)".
 - **In kèm Giấy lĩnh** (`GL_CSS_KEM`): Bảng kê **210 × 115 mm** (dài hết bề ngang A4, rộng 105 → 115 mm), sát đáy tờ → **chỉ cắt 1 nhát ngang** (cách đáy 115 mm). Chữ **13 pt** (bảng mệnh giá 13 pt, Thành tiền 12 pt, đầu bảng 10,5 pt); cột Loại tiền 24 mm; logo chìm 62 mm giữa bảng.
-- **Mọi Bảng kê** (`gdxBKTrang`, `BK_CSS_LOI`): **không in sẵn tên người lĩnh** (dòng "Họ và tên người lĩnh tiền" để chấm, ghi tay); **Tổng cộng in đậm**; **số tiền bằng chữ in đậm nghiêng** (rất dài thì xuống dòng 3); tên PGD **sát chữ "PHÒNG GIAO DỊCH:"**; cụm tên cơ quan 7,5 → 8,5 pt (in kèm 9 pt, mỗi dòng 1 hàng).
+- **Mọi Bảng kê** (`gdxBKTrang`, `BK_CSS_LOI`): **không in sẵn tên người lĩnh** (dòng "Họ và tên người lĩnh tiền" để chấm, ghi tay); **Tổng cộng in đậm**; **số tiền bằng chữ in đậm nghiêng** (rất dài thì xuống dòng 3); tên PGD **viết hoa, sát chữ "PHÒNG GIAO DỊCH:"** (vd PHÒNG GIAO DỊCH: GÒ DẦU); cụm tên cơ quan 7,5 → 8,5 pt (in kèm 9 pt, mỗi dòng 1 hàng).
 - **Logo chìm:** dùng logo anh đã nạp ở 📄 Hồ sơ vay › ⚙ Khai báo 1 lần (logo in góc trái mẫu 01/TD) — không có trong repo.
 - **Phép thử:** `t167` 67/67 · `t168` 33/33.
 
