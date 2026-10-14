@@ -1,4 +1,4 @@
-# Kế hoạch — SỔ HỘ VAY (quy trình làm hồ sơ vay mới) — ĐANG BÀN, CHỜ ANH DUYỆT
+# Kế hoạch — SỔ HỘ VAY (quy trình làm hồ sơ vay mới) — ANH ĐÃ DUYỆT HƯỚNG (14/10), CHỜ "code"
 
 > Anh 14/10: "1. tạo hộ vay: nhập mới hoặc lấy từ Mẫu 31 → ra người vay; nhập thừa kế ngay hoặc sau — có lúc chỉ cần người đứng tên (HSSV chỉ cần tên SV cho 01, 03; chỉ giấy UQ mới cần đủ thừa kế) → bổ sung khi cần; khai báo tổ khi nhập hộ → hộ cũ từ Mẫu 31 có mã KH sẵn, hộ mới chưa có; lưu danh sách hộ vay thành 1 bảng lâu dài; khi cần in 01/TD: chọn hộ, chọn chương trình, in; cần thì in kèm 03, 06…"
 
@@ -23,7 +23,11 @@
 - Sổ lưu cùng cài đặt (đồng bộ Drive) — vài trăm hộ vẫn ổn; nhiều hơn → chuyển IndexedDB theo `KE_HOACH_B_C.md` mục 4.
 - Đây là **đổi chức năng cũ** (bỏ tab Bộ HS, gộp Hộ mới) → cần anh duyệt.
 
-## Câu hỏi chờ anh
+## Anh duyệt 14/10
+- "Anh cũng nói từ đầu Bộ HS cần sửa lại, theo cách anh đề nghị thấy gọn hơn" → **duyệt gộp 🏠 Hộ mới + Bộ HS thành 1 tab 👪 Hộ vay** (câu 1).
+- Câu 2–6: em làm theo mặc định đề xuất nếu anh không sửa: (2) hộ cũ đọc Mẫu 31 mới nhất · (3) tự gắn mã KH · (4) có lưu lịch sử đề nghị vay · (5) 06 = 06/TD phiếu kiểm tra sử dụng vốn · (6) sổ hộ vay trước (3.209), GQVL sau (3.210).
+
+## Câu hỏi (đã gửi anh)
 1. Gộp 🏠 Hộ mới + Bộ HS thành **1 tab "👪 Hộ vay"**, Bộ HS cũ tự chuyển vào — duyệt?
 2. Hộ cũ: nhân thân **luôn lấy Mẫu 31 mới nhất**, app chỉ lưu thêm thành viên / SĐT / HSSV — đồng ý?
 3. Hộ mới lên Mẫu 31 (khớp CCCD) → **tự gắn mã KH** — đồng ý?

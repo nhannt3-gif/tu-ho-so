@@ -1,4 +1,4 @@
-# Kế hoạch 3.209 — Bộ hồ sơ GQVL (người lao động): 01/GQVL mẫu mới · 03/TD · 07b/GQVL Hợp đồng tín dụng (CHỜ ANH DUYỆT)
+# Kế hoạch 3.210 (dời sau sổ hộ vay — xem `KE_HOACH_SO_HO_VAY.md`) — Bộ hồ sơ GQVL (người lao động): 01/GQVL mẫu mới · 03/TD · 07b/GQVL Hợp đồng tín dụng (CHỜ ANH DUYỆT)
 
 > Anh 14/10: "GQVL có mẫu riêng" · gửi VB 11055/HD-NHCS (30/12/2025) + VB 4039/HD-NHCS (28/8/2026, hiệu lực **01/10/2026**: thay mẫu 01/GQVL, 07a, 07b) + mẫu 01/GQVL mới, 07b/GQVL, 1 mẫu 03/TD GQVL ghi sẵn. "GQVL sẽ dùng Mẫu 07 (Hợp đồng tín dụng), mẫu 03".
 > File anh gửi chỉ đọc ở máy làm việc — **không đưa vào repo** (03/TD có tên thật).
