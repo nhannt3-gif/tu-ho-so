@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.203 · 14/10/2026 19:58 · 30 file · 33345 dòng · 2689 hàm cấp ngoài · 389 biến toàn cục.
+Bản 3.204 · 14/10/2026 20:11 · 30 file · 33349 dòng · 2689 hàm cấp ngoài · 389 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -16,7 +16,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/03-doc-pdf.js` | 631 | 47 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
 | `js/04-giao-dien.js` | 5519 | 523 | /*   6. VẼ GIAO DIỆN   */ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '', l |
 | `js/05-them-file.js` | 1371 | 75 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
-| `js/06-hop-thoai.js` | 3571 | 226 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
+| `js/06-hop-thoai.js` | 3572 | 226 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
 | `js/07-cccd.js` | 194 | 14 | /*   12. HỒ SƠ CCCD - 3.32: KHÔNG mã hóa nữa (anh Nhân chốt: Drive của anh là nơi lưu bảo mật). |
 | `js/08-dia-ban.js` | 621 | 53 | /*   danh mục địa bàn: Xã/phường → Điểm GD → Ấp/KP → Tổ   */ function dsXa(){ return (D.cauHinh.diaBan//[]).ma |
 | `js/09-bieu-mau.js` | 561 | 50 | /*   13. BIỂU MẪU — kho mẫu đơn trắng để in cho khách điền Xếp theo chương trình vay; có nhóm dùng chung và th |
@@ -38,7 +38,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/25-ho-so.js` | 1048 | 111 | /*   3.170 (anh chốt 11/10/2026 — docs/KE_HOACH_HO_SO_TO.md): 📝 HỒ SƠ TỔ · 📄 HỒ SƠ VAY Hai tab con của Số liệu |
 | `js/26-giao-dich-xa.js` | 1094 | 134 | /*   3.172 (anh chốt 11/10/2026): 🏢 GIAO DỊCH XÃ — in nhanh 04/TD + 12/GDX, KHÔNG cần số liệu hộ vay   - Mẫu i |
 | `js/27-mini-gdx.js` | 324 | 8 | /*   3.177 (anh chốt 13/10/2026): 📦 MINI APP Giao dịch xã — 1 file HTML gửi đồng nghiệp, có thời hạn   - Nút " |
-| `js/28-tv-tk.js` | 306 | 36 | /*   3.201 (anh chốt 14/10/2026): 2 nguồn dữ liệu mới của hệ thống TƯ ① Mẫu 01/TV — Danh sách thành viên tổ (t |
+| `js/28-tv-tk.js` | 309 | 36 | /*   3.201 (anh chốt 14/10/2026): 2 nguồn dữ liệu mới của hệ thống TƯ ① Mẫu 01/TV — Danh sách thành viên tổ (t |
 
 ## 2. Mục trong mã (chú thích tiêu đề)
 
@@ -108,11 +108,11 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/06-hop-thoai.js:1484` · CHỤP / CHỌN ẢNH GHI CHÚ
 - `js/06-hop-thoai.js:1504` · 9. CÀI ĐẶT
 - `js/06-hop-thoai.js:1929` · 3.50: ❓ HƯỚNG DẪN TRỰC QUAN — chia theo tab, sơ đồ luồng dữ liệu, các bước theo logic.
-- `js/06-hop-thoai.js:2641` · 3.49: XÓA NHIỀU FILE (lúc đầu tên "− Bớt file", 3.49b đổi tên theo anh). Bấm "🗑 Xóa file" ở đầu tab → tích dòng (hoặc ch
-- `js/06-hop-thoai.js:2850` · 10. GOOGLE DRIVE  (tùy chọn — không có vẫn chạy bình thường)
-- `js/06-hop-thoai.js:3120` · 3.31 (mục 10 bàn giao) — GOOGLE PICKER: quét kho Drive cũ
-- `js/06-hop-thoai.js:3235` · 11. LẬP CHỈ MỤC
-- `js/06-hop-thoai.js:3295` · 3.50: 🗂 LẬP CHỈ MỤC — đi hết thư mục Tủ hồ sơ trên Drive để MỌI file đều được app quản lý.
+- `js/06-hop-thoai.js:2642` · 3.49: XÓA NHIỀU FILE (lúc đầu tên "− Bớt file", 3.49b đổi tên theo anh). Bấm "🗑 Xóa file" ở đầu tab → tích dòng (hoặc ch
+- `js/06-hop-thoai.js:2851` · 10. GOOGLE DRIVE  (tùy chọn — không có vẫn chạy bình thường)
+- `js/06-hop-thoai.js:3121` · 3.31 (mục 10 bàn giao) — GOOGLE PICKER: quét kho Drive cũ
+- `js/06-hop-thoai.js:3236` · 11. LẬP CHỈ MỤC
+- `js/06-hop-thoai.js:3296` · 3.50: 🗂 LẬP CHỈ MỤC — đi hết thư mục Tủ hồ sơ trên Drive để MỌI file đều được app quản lý.
 - `js/07-cccd.js:1` · 12. HỒ SƠ CCCD
 - `js/07-cccd.js:42` · 3.79.1 — KHÔI PHỤC DANH SÁCH SCAN TỪ ẢNH CÒN TRONG MÁY
 - `js/08-dia-ban.js:520` · 3.33 — ĐƯA HỒ SƠ SCAN LÊN DRIVE

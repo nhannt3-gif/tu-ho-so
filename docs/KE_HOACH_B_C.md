@@ -97,8 +97,8 @@ Tách KTGS ra file riêng (cơ học) → dòng thời gian + chốt sổ tổ v
 |---|---|---|---|
 | 1 | **3.202** bảng tổ dựng sẵn (TK 104, CCCD), TK 105 tra khi cần, TK trùng, CCCD hết hạn | ✅ phiên này | |
 | 2 | **3.203** gom lưu (`luu()` hẹn ghi, `pagehide`, bỏ stringify lặp) | 1 phiên ngắn | rủi ro thấp |
-| 3 | **3.204** chỉ mục theo ngăn trong IndexedDB + dự phòng 30 ngày + phép thử đồng bộ cài đặt 2 máy | 1–2 phiên | rủi ro cao — làm kỹ |
-| 4 | **3.205** cửa `KHO` (ky, cay, to, toVien, khach, tk104, tk105, cccd, thanhVienTW) + Giấy lĩnh / mini app qua `KHO` | 1 phiên | màn hình không đổi |
+| 3 | **3.205** chỉ mục theo ngăn trong IndexedDB + dự phòng 30 ngày + phép thử đồng bộ cài đặt 2 máy | 1–2 phiên | rủi ro cao — làm kỹ |
+| 4 | **3.206** cửa `KHO` (ky, cay, to, toVien, khach, tk104, tk105, cccd, thanhVienTW) + Giấy lĩnh / mini app qua `KHO` | 1 phiên | màn hình không đổi |
 | 5 | Tách **KTGS** ra file riêng (cơ học) + gom bộ phép thử KTGS | 1 phiên | mẫu KTGS khóa |
 | 6 | Dòng thời gian khách / tổ + **chốt sổ tổ viên cuối năm** | 1–2 phiên | **hạn: trước khi nạp Mẫu 31 tháng 1/2027** |
 | 7 | Đối chiếu chéo + danh mục lý do lệch (QT-09) | 1 phiên | cần anh chốt QT-09 |
