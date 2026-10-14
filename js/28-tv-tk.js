@@ -225,7 +225,14 @@ function tkCanDong(){
     r.k105 = {ky:b5.ky, theo:B.co.tv01 ? 'Mẫu 01/TV '+slKyChu(B.nguon.tv01) : 'thành viên app (Mẫu 31) — chưa có Mẫu 01/TV', ds:b5.rows.filter(function(o){ return !tv[o.kh]; })}; }
   return r;
 }
+function tkDamBao(cb){   /* 3.205: kỳ đang mở chưa gắn Sao kê mới nhất (nạp sau khi dựng kỳ) → gắn rồi mới chạy */
+  if(!TO_K){ bao('Chưa dựng số liệu kỳ — mở tab Giao dịch xã / Tổ sau khi nạp Mẫu 31.'); return true; }
+  var can = ['tk104', 'tk105'].some(function(l){ var e = tkChonBan(l, TO_K.ngay); return e && !(TO_K.tk && TO_K.tk[l] && TO_K.tk[l].ky===e.ky); });
+  if(!can) return false;
+  batChay(true, 'Đang gắn Sao kê TK 104 / 105…'); tkNapMoi(TO_K).then(function(){ tatChay(); cb(); }, function(){ tatChay(); cb(); }); return true;
+}
 function tkCanDongHop(loai){
+  if(tkDamBao(function(){ tkCanDongHop(loai); })) return;
   var r = tkCanDong()[loai==='tk104' ? 'k104' : 'k105'];
   if(!r){ bao('Chưa có file Sao kê '+(loai==='tk104' ? 'TK 104' : 'TK 105')+' — nạp ở 📥 Nạp & KT.'); return; }
   var ds = r.ds.slice().sort(function(a, b){ return (a.t105||0)-(b.t105||0); });
@@ -272,6 +279,7 @@ function tkKhoiHTML(){   /* ⚙ Khai báo chung (Giao dịch xã) · 📥 Nạp 
 }
 /* 3.202: hộp "Tổ thiếu dữ liệu" — gõ bổ sung 1 lần (nhớ theo mã KH tổ trưởng; nạp file mới không đè) */
 function tkThieuHop(){
+  if(tkDamBao(tkThieuHop)) return;
   var x = tkBangTom(); if(!x){ bao('Chưa có số liệu Mẫu 31 — mở tab Giao dịch xã / Tổ sau khi nạp.'); return; }
   var o = function(t, k, v, ph, w){ return '<input class="gdx-i" style="width:'+w+'" value="'+gdxE(v||'')+'" placeholder="'+ph+'" onchange="tkBoSung(\''+t.ma+'\', \''+k+'\', this.value)">'; };
   moHop('<div class="hop-tit">📒 Bảng tổ — chưa đủ dữ liệu ('+x.thieu.length+' / '+x.n+' tổ)</div><div class="hop-phu">Kỳ '+slKyChu(TO_K.ky)+' · tổ trưởng = Mã CIF TT (Mẫu 31) · CCCD: Mẫu 31 → Mẫu 01/TV → Thông tin tổ trưởng / DSTO → anh gõ · TK 104: Sao kê TK 104. Gõ 1 lần, app nhớ theo mã KH tổ trưởng.</div>'+
@@ -298,6 +306,7 @@ function tkTrungDs(){
   return r;
 }
 function tkTrungHop(){
+  if(tkDamBao(tkTrungHop)) return;
   var ds = tkTrungDs();
   moHop('<div class="hop-tit">⚠ TK trùng — xác định TK đang dùng, đóng TK thừa ('+ds.length+')</div><div class="hop-phu">TK 104: tổ trưởng có ≥ 2 TK trong Sao kê TK 104 · TK 105: khách có ≥ 2 TK trong Sao kê TK 105. Chọn TK đang dùng ở Giấy lĩnh / bảng tổ thiếu — app nhớ.</div>'+
     '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Loại</th><th>Mã KH</th><th>Họ tên</th><th>Tổ</th><th>Các TK (số dư)</th><th>Đang dùng</th></tr></thead><tbody>'+

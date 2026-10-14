@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.205 — 14/10/2026 — 🏦 Sao kê TK 104 / 105 dùng được ngay sau khi nạp
+- **Anh (14/10):** 2 nút "TK 104 chưa đóng" / "TK 105 cần đóng" không chạy — anh nạp Sao kê ngày 13/10, không có file 30/9.
+- Nguyên nhân: nạp Sao kê chỉ xóa các kỳ đã dựng trong bộ đệm, **kỳ đang mở (T9) vẫn là bản dựng trước khi có Sao kê** → báo "chưa có Sao kê" tới khi tải lại trang. (Ngày 13/10 khác 30/9 không phải nguyên nhân — kỳ không có Sao kê cùng ngày thì app lấy bản gần nhất.)
+- Sửa: nạp Sao kê xong **gắn ngay vào kỳ đang mở** (`tkNapMoi(TO_K)` sau `slGhi`); các nút TK 104 chưa đóng · TK 105 cần đóng · ⚠ TK trùng · Tổ chưa đủ **tự kiểm và gắn Sao kê mới nhất trước khi mở** (`tkDamBao`).
+- **Anh hỏi (ảnh ma trận T9):** "LEN_31 374, DS tổ 370 — lệch 4 tổ là tổ nào, ghi chú ra luôn" · "cột 30/09/2026 trống là sao".
+  - **② Kiểm tra số liệu** thêm mục **"Số tổ: LEN_31 TO_TRUONG (N dòng) ↔ Danh sách tổ (M tổ)"** — liệt kê từng dòng chênh + lý do: dòng vay trực tiếp (LEN_31 đếm cả, không phải tổ) · dòng chưa ghép được mã tổ (tên tổ trưởng LEN_31 khác Mẫu 31) · tổ chỉ có ở LEN_31 · 1 dòng LEN_31 gộp 2 tổ trùng tên · tổ chỉ có ở Danh sách tổ (không còn dư nợ / có dư nợ mà không có dòng LEN_31). Chỉ ghi nhận, không sửa số.
+  - **Ma trận:** cột ngày trùng ngày chốt cuối tháng (vd 30/09 — file Nợ đến hạn phân kỳ nạp theo ngày) **không mở cột riêng nữa** — đã hiện ở cột chốt T9 ("✓ 1 ngày · 30/09").
+- Hồi quy 3.203: `t117`, `t155` đọc bộ nhớ ngay sau `luu()` → chờ 300 ms ghi gom (app đúng, sửa phép thử).
+- **Phép thử:** `t167` 84/84 (kỳ đang mở chưa gắn Sao kê → bấm nút tự gắn; ② LEN_31 ↔ Danh sách tổ với dữ liệu giả) · `t117` 10/10 · `t155` 10/10 · `t130`, `t146`, `t152`, `t163` đạt.
+
 ## 3.204 — 14/10/2026 — 🏦 Khối nguồn tổ trưởng báo rõ Danh sách tổ
 - **Anh gửi ảnh (14/10):** Bảng tổ "đủ 0 · chưa đủ 369", khối chỉ ghi Sao kê / Mẫu 01/TV — không biết vì sao.
 - Nguyên nhân: máy chưa có **Danh sách tổ hệ thống** (cũng chưa có Sao kê TK 104) → cả 369 tổ thiếu TK 104; khối chưa có dòng Danh sách tổ nên không thấy.

@@ -132,6 +132,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t167.js` | (3.202) Bảng tổ dựng sẵn, hộp thiếu dữ liệu, TK 105 Sao kê 2 TK → chọn TK đang dùng, ⚠ TK trùng. |
 | `node tests/t169.js` | (3.203) Gom lưu: 10 lần `luu()` → 1 lần ghi, ghi ngay khi ẩn app / rời trang, bộ nhớ đầy, xóa sạch không ghi lại. |
 | `node tests/t167.js` | (3.204) + khối nguồn tổ trưởng: dòng Danh sách tổ, bảng tổ ghi thiếu gì. |
+| `node tests/t167.js` | (3.205) + bấm TK 104 chưa đóng khi kỳ đang mở chưa gắn Sao kê → tự gắn. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 
