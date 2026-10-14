@@ -15,6 +15,9 @@ Cửa sổ riêng có **tab con**: 🏦 PGD (+ logo) · 🏘 **Trưởng ấp** 
 **Thẻ 1 CT** (vd NSVSMT): tên gọi tắt (HSSV, GQVL — gọi nhanh) · tên ghi trên 01/TD, 03/TD · **đối tượng thụ hưởng** (gõ danh sách) · **mục đích vay** (mục + loại xây mới / sửa chữa) · **mức vay 1 công trình** (1 hay 2 công trình → số tiền tương ứng, sửa được) · **thời hạn vay** (số tháng, 🖨 ghi sẵn / ✍ chấm) · **phân kỳ** (🖨 ghi sẵn / ✍ chấm) · ô thêm tự đặt (ghi sẵn / chấm) cho đặc thù.
 Lập 01/TD / Bộ HS: chọn CT → chọn mục đích, số công trình → tự điền. Khai báo riêng mẫu (ô chấm, 09A lý do + in kèm) ở nút ⚙ Khai báo riêng mẫu.
 
+## Anh chốt 14/10
+- **HSSV: số tháng và số tiền ở bảng 01/TD cho tự gõ, không tự tính** (bỏ cách chia 4 triệu / tháng trong `hsoPA`).
+
 ## Câu hỏi chờ anh
 1. Làm trước 3 CT: HSSV, NSVSMT, GQVL? (CT khác anh tự thêm thẻ)
 2. Thêm lãi suất (ghi sẵn / chấm)? Ô nào khác ngoài các ô anh đã nêu?
