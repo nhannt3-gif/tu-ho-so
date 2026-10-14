@@ -23,7 +23,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.210.** Chuỗi gần nhất: 3.206 cây địa bàn Mở rộng / Thu gọn, Hồ sơ vay mỗi mẫu 1 tab, 09A ô chấm + in kèm 06/TD, 01/TĐCK → 3.207 hộ vay mới → 3.208 ⚙ Khai báo chung (tab con) + thẻ chương trình vay (01/TD, 03/TD tự điền) → **3.209 👪 Sổ hộ vay** (thay Hộ mới + Bộ HS; in hồ sơ theo hộ + in kèm) → **3.210 03/TD nhiều hộ cùng chương trình**.
+- (3.211) GQVL đã làm: 01/GQVL + 07b/GQVL + lịch trả gốc tự chia — anh so bản in với mẫu giấy.
 - **Việc tiếp (thứ tự):**
   1. **3.211 GQVL** — `docs/KE_HOACH_3209.md` (đã chốt đủ, anh cần nhắn "code"): thẻ GQVL dạng riêng · tab **01/GQVL** (mẫu mới VB 4039, từ 01/10/2026) · tab **07b/GQVL** hợp đồng tín dụng · lịch trả gốc **24 tháng/lần, chia đều làm tròn xuống trăm nghìn, kỳ cuối nhiều nhất, không ân hạn**, ≤ 12 tháng trả 1 lần · lãi 7,9248 %/năm, ưu tiên 6,24 % · quá hạn 130 % · II.4 doanh thu – chi phí → chênh lệch, thu nhập BQ/tháng, lãi vay dự kiến · chọn nhanh như GDX · Bộ GQVL: 01/GQVL · 10C · 03/TD · 07b · 01/TGTV (không 01/TD, 01/UQ). Mẫu gốc anh gửi **không có trong repo** (có tên thật) — xin anh gửi lại nếu cần đối chiếu bố cục.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.

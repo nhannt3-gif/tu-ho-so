@@ -61,4 +61,4 @@ Tên CT in: "Hỗ trợ tạo việc làm duy trì và mở rộng việc làm" 
 4. Làm C phần đơn giản trước (DT, CP gõ → chênh lệch, thu nhập BQ, lãi vay dự kiến), mẫu tính theo từng mục đích để đợt sau?
 ## 7. Trạng thái
 - ☑ đã chốt đủ (24 tháng/lần, chia đều làm tròn trăm nghìn, kỳ cuối nhiều nhất, không ân hạn, lãi quá hạn 130 %, 1 món 1 mẫu 03, chọn nhanh như GDX)
-- ☐ chờ anh nhắn "code"
+- ☑ anh nhắn "code" 15/10 → **đã làm 3.211** (t174 19/19). Sau: mẫu tính hiệu quả theo từng mục đích; 03/TD GQVL nhiều người (đã có 03/TD nhiều hộ 3.210).

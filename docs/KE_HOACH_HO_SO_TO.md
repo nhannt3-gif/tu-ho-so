@@ -245,3 +245,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.208 (14/10):** Khai báo chung tab con + thẻ chương trình vay (01/TD, 03/TD tự điền).
 - **Đã làm 3.209 (14/10):** sổ hộ vay (thay Hộ mới + Bộ HS), in hồ sơ theo hộ + in kèm.
 - **Đã làm 3.210 (15/10):** 03/TD nhiều hộ cùng chương trình.
+- **Đã làm 3.211 (15/10):** hồ sơ vay GQVL (01/GQVL, 07b, lịch trả gốc).

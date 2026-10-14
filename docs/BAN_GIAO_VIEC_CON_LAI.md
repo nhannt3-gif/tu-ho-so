@@ -222,6 +222,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.211) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 👪 Hộ vay → 📄 In hồ sơ → chip GQVL → tab 01/GQVL | Đơn mẫu mới, nhân thân điền sẵn | |
+| 2 | Bấm chip mục đích, số tiền 50 tr, 60 tháng, 24 tháng/lần | Bảng mục đích, bằng chữ, thời hạn đúng | |
+| 3 | Gõ ngày ký HĐ → tab 07b | Kỳ hạn trả gốc 3 kỳ (16,6 / 16,6 / 16,8 tr), hạn cuối đúng | |
+| 4 | Tích đối tượng ưu tiên | 07b lãi 6,24 %, quá hạn 8,112 % | |
+| 5 | Gõ doanh thu / chi phí | Chênh lệch, BQ/tháng; ⚠ nếu chi phí < vốn + lãi | |
+| 6 | In kèm 03/TD + 07b → In / Word | 1 lần in / 1 file đủ 3 mẫu | |
+| 7 | So bản in với mẫu giấy 01/GQVL, 07b (VB 4039) | Đúng nội dung, bố cục chấp nhận được | |
+
+**Ghi chú kỹ thuật 3.211:** thẻ `kieu:'gqvl'` (ls, lsUT, qh, lamTron, kyLai, chipTien); `hsoPA` gqvl đọc `B.pa.dong[] {md, sl, tien}`; `hsoGQ(B)` (lãi theo ưu tiên `pa.ut`, lịch `hsoLich(tien, th, ky, B.ngayHD, R)`, `hsoLaiDK`, hiệu quả, cảnh báo); `hsoLap01gqvl`, `hsoLap07b`, `hsoPLBang`; cột trái `hsoTuyGQ` (gọi từ `hsoTuyPA`); `hsoLapBo` gqvl: đơn 01/GQVL, `kem.hd` → 07b, bỏ 01/UQ. Bố cục 2 mẫu dựng theo nội dung văn bản Word anh gửi (không chép file vào repo) — cần anh so với mẫu giấy.
+
 ### Danh sách thử trên máy thật (3.210) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
