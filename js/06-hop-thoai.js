@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.212', ds:[
+var CO_GI_MOI = {ban:'3.213', ds:[
+  ["🧾 Bảng kê: ngang 118 mm đúng phủ bì giấy thật (cao 210 mm) — 2 tờ / A4 ngang, in từ Giấy lĩnh và 💵+🧾 kết hợp đều theo khổ mới", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
   ["📄 Hồ sơ vay mở vào tab 👪 Hộ vay (Bộ HS đã ẩn)", "slDoiTab('hsv');doiNgan(7)"],
   ["💼 Hồ sơ vay GQVL: tab 01/GQVL (phương án — mẫu mới 01/10/2026) + 07b/GQVL (hợp đồng tín dụng); lịch trả gốc tự chia 24 tháng/lần, lãi suất theo đối tượng ưu tiên, chọn nhanh mục đích / số tiền / thời hạn", "slDoiTab('hsv');doiNgan(7);setTimeout(function(){hsoChonMau('01gqvl')},800)"],
   ["📋 Hồ sơ vay: 03/TD nhiều hộ cùng chương trình 1 tờ — tích hộ ở 👪 Hộ vay → Lập 03/TD, hoặc ＋ Thêm hộ ở tab 03/TD; sửa số tiền, thời hạn, ĐTTH, mục đích từng dòng", "slDoiTab('hsv');doiNgan(7);setTimeout(function(){hsoChonMau('03td')},800)"],

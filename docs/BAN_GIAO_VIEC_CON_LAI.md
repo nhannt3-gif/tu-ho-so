@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.213) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giao dịch xã → 🧾 Bảng kê → In, đặt lên giấy thật | Khung tờ ngang đúng 118 mm, nét cắt trùng mép giấy | |
+| 2 | Giấy lĩnh → 🧾 Bảng kê / 💵+🧾 → In | Bảng kê cùng khổ 118 mm, Giấy lĩnh không bị đè | |
+
+**Ghi chú kỹ thuật 3.213:** chỉ đổi CSS khổ (`js/26-giao-dich-xa.js`: `BK_CSS_TO`, `.bk-cat-*`, `GL_CSS_KEM`); `BK_CSS_LOI` (105 × 185, lớp gốc) bị `.bk-to` đè như trước. Nếu máy in co giãn, anh chỉnh tỷ lệ in 100 % / "Kích thước thực".
+
 ### Danh sách thử trên máy thật (3.212)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

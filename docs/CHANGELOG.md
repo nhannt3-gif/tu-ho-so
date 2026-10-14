@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.213 — 15/10/2026 — 🧾 Bảng kê ngang 118 mm
+- **Anh (15/10, gấp):** chiều ngang Bảng kê phải đúng phủ bì giấy thật **118 mm** (trước 105 mm).
+- `BK_CSS_TO`: `.bk-trang.bk-to` 118 × 210 mm (chữ, lề trong giữ nguyên; cột Thành tiền giãn thêm); logo / chữ chìm dời theo giữa tờ (+6,5 mm).
+- 🧾 Bảng kê 2 tờ / A4 ngang: nét cắt ở 118 mm từ 2 mép (`.bk-cat-t`, `.bk-cat-p`); 🧾 in từ Giấy lĩnh 1 tờ sát mép trái theo khổ mới.
+- 💵+🧾 kết hợp (A4 dọc): Bảng kê xoay ngang cao 118 mm sát đáy (`GL_CSS_KEM`: `.gl-bkk`, nét cắt ngang ở 118 mm từ đáy) — Giấy lĩnh nửa trên 148 mm không bị đè (còn 31 mm trống giữa).
+- Không đổi dữ liệu, khai báo, Giấy lĩnh, mini app (mini chưa có Bảng kê).
+- **Phép thử:** `t167` 85/85 (đo tờ 118 × 210; mới: 💵+🧾 Bảng kê cao 118 mm sát đáy, không đè Giấy lĩnh).
+
 ## 3.212 — 15/10/2026 — sửa nhỏ sau hồi quy 3.211
 - Tab Hồ sơ vay mở mặc định vào **👪 Hộ vay** (máy đang lưu tab Bộ HS cũ → tự chuyển 1 lần); tránh hiện lại tab Bộ HS đã ẩn.
 - Hồi quy đầy đủ 3.211: t163 sửa đếm 9 tab; hoiquy 1 dòng chập chờn (chạy lại riêng 28/28 đạt); t100 / t116 trượt sẵn trên main.
