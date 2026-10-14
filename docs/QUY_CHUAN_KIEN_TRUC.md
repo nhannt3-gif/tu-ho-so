@@ -8,6 +8,7 @@
 
 ## 0. Anh chốt
 - **Đã chốt trước** (KT3L mục 0): **Q2** mô hình lớp riêng biệt — sửa 1 tính năng không ảnh hưởng tính năng khác · **Q3** hồ sơ chi tiết là nguồn chính, file khác để đối chiếu · **Q4** cây địa bàn gắn hồ sơ chi tiết theo kỳ · **Q6** lớp chung: cây địa bàn, cây nghiệp vụ, chế độ xem, lưu, xóa, sao lưu — mẫu / nghiệp vụ mới = thêm 1 tab con hoặc 1 nút · **Q8** tách file · **Q16–Q17** vai trò từng file.
+- **14/10/2026 (bổ sung 2):** khi anh mô tả chức năng / mẫu biểu mới → **em tư vấn đặt vào tab nào, lấy số liệu từ đâu** trước khi làm; các tab chia **theo nhu cầu giao diện** nhưng **gắn chặt nhau về số liệu** → xử lý gắn kết ở kho chung, không ở giữa các tab; **KTGS là phần tương đối hoàn chỉnh, độc lập**, dùng để kiểm tra, **không so số liệu theo ngày** → **đóng gói riêng**, không để thay đổi nơi khác làm sai lệch.
 - **14/10/2026 (bổ sung):** app phát triển nhanh theo nhu cầu thực tế nên dễ lệch hướng → **ưu tiên bền vững**; **tách biệt Dữ liệu – Nghiệp vụ – Giao diện**; **chia rõ cái lấy từ kho chung và cái cá nhân hóa của từng chức năng**; **nhiều nơi gọi + có quy tắc rõ → đưa vào chung**.
 
 ---
@@ -25,6 +26,20 @@
 1. **Không chép mã quy tắc** sang khối khác — cần chép = dấu hiệu phải đưa vào phép tính chung.
 2. **Giao diện không tự tính số nghiệp vụ** (tổ viên, dư nợ, nợ cần xử lý…) — chỉ hiện kết quả lấy từ `KHO`.
 3. Phần **dữ liệu** không chứa HTML / chữ hiển thị; phần **nghiệp vụ** không vẽ, không đọc ô nhập trên màn hình.
+
+---
+
+## 1a. Tab = cách nhìn, số liệu = một kho (mới, 14/10)
+- Tab / tab con chia **theo nhu cầu giao diện** (người dùng làm việc gì ở đâu) — **không** phải ranh giới số liệu. Nhiều tab cùng dùng tổ, khách, món vay, TK 105… → các thứ đó **chỉ nằm ở `KHO`**, tab nào cũng hỏi `KHO`, **không tab nào "sở hữu" số liệu dùng chung** và không lấy số từ tab khác.
+- Hệ quả: đổi / thêm / bỏ một tab **không đụng** số liệu; sửa một quy tắc ở `KHO` thì **mọi tab đổi theo cùng lúc** (đúng QT, giống nhau mọi nơi) → phải hồi quy các tab dùng quy tắc đó.
+- **Tư vấn đặt chỗ (bước 0 của checklist mục 6):** mỗi yêu cầu chức năng / mẫu biểu mới, em trả lời trước khi làm: ① đặt ở **tab / tab con nào** (theo việc anh làm ở đâu) · ② **số liệu lấy từ `KHO`** (cái gì đã có, cái gì phải thêm vào chung) · ③ phần **riêng** của khối (trình bày, khai báo) · ④ quy tắc mới cần anh chốt (QT) · ⑤ ảnh hưởng tới tab khác.
+
+## 1b. KTGS — gói độc lập (mới, 14/10)
+- **KTGS** (Mẫu 06 / 16 / 04, Kế hoạch, Phân công BTV, Khai báo Hội cho KTGS, BC0437 / BC0438) là **phần tương đối hoàn chỉnh, độc lập**, dùng để **kiểm tra là chính**, **không so số liệu theo ngày** → **đóng gói riêng**:
+  1. **Mã riêng** (tiền tố `kt…`, file riêng khi tách `22-so-lieu.js` — làm **đầu tiên**, cơ học, không đổi logic) + **bộ phép thử riêng** (t106, t108–t122, t129, t132, t134, t137…).
+  2. **Số liệu vào qua 1 cửa hẹp, theo kỳ THÁNG:** KTGS chỉ nhận **ảnh chụp cuối tháng** (Mẫu 31 / Mẫu 18 cuối tháng — như In theo tháng 3.141 tự lấy cuối tháng trước) + **BC0437 / BC0438 của riêng KTGS** (QT-08). Số liệu theo ngày của các tab khác **không chảy vào** KTGS.
+  3. **Không phá cấu trúc:** các đợt dọn kiến trúc (mục 8) **không viết lại bên trong KTGS**; chỉ đặt **bộ chuyển** trả đúng dữ liệu như KTGS đang dùng. Đổi quy tắc chung (QT) có ảnh hưởng KTGS → **chạy riêng bộ phép thử KTGS** và báo anh trước khi gộp.
+  4. Dùng chung với nơi khác **chỉ**: cây địa bàn, khai báo Hội + Chuẩn hóa, xuất In / Word / PDF — qua cửa chung.
 
 ---
 
@@ -90,6 +105,7 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 ---
 
 ## 6. Checklist mỗi chức năng mới / sửa (ghi vào mô tả PR)
+0. **Tư vấn đặt chỗ** (mục 1a) — anh duyệt chỗ đặt trước khi làm. Chạm tới KTGS → theo mục 1b.
 1. Dữ liệu cần → có trên `KHO` chưa? **Có → dùng.** Chưa → mục 2: chung hay riêng.
 2. Quy tắc nghiệp vụ mới? → anh chốt → **QT** (mục 4) → 1 hàm.
 3. Giao diện chỉ gọi `KHO` / `CHUAN`; không đọc biến khối khác; không tự tính số nghiệp vụ.
@@ -113,8 +129,8 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 Đề xuất thứ tự, mỗi bước anh duyệt → "code" → hồi quy → "gộp":
 1. **Tạm dừng chức năng lớn ~2–3 bản.**
 2. **Đợt C rút gọn:** dựng `KHO` bọc hàm hiện có (`slBo`, `toNap`, `toKhach`, `toTV`, `slDanhRaTo`, danh bạ…) + phép tính chung QT-01…07 — **không đổi kết quả**.
-3. Chuyển **Hồ sơ Tổ**, rồi **Giao dịch xã** sang gọi `KHO` (2 bản) — 2 khối mới, dính chặt nhất.
-4. Tách `js/22-so-lieu.js` theo khối (cơ học).
+3. **Tách KTGS ra file riêng trước** (cơ học, không đổi logic) + gom bộ phép thử KTGS (mục 1b) — để mọi bước sau không đụng KTGS.
+4. Chuyển **Hồ sơ Tổ**, rồi **Giao dịch xã** sang gọi `KHO` (2 bản) — 2 khối mới, dính chặt nhất; tách phần còn lại của `js/22-so-lieu.js` theo khối (cơ học).
 5. **Đợt E** `DANG_KY`; **đợt D** hoàn tất `CHUAN`.
 6. **Đợt B** lưu an toàn (song song / ngay sau — liên quan sự cố mất cài đặt 09/10).
 7. Từ đó mọi chức năng mới theo checklist mục 6.
