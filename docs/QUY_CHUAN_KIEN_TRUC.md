@@ -95,11 +95,11 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 | QT-08 | **BC0437 / BC0438 chỉ dùng cho KTGS**, không đối chiếu tổ viên | 14/10 | |
 | QT-09 | LEN_31 TO_TRUONG "Số hộ" ≈ hộ có món còn mở + khách chỉ có TK 105 (số dư > 0, không món trong năm) — khớp 283 / 367 tổ (30/09), lệch ±1–2 còn lại → **đang bàn**, chưa đưa vào app | 14/10 | file 30/09 |
 | QT-10 | Tiền trên mẫu in 2 số lẻ (nợ lãi < 5.000 đ giữ 3 số lẻ) | 3.140.1 | |
-| QT-11 | **TK 105 của khách** — thứ tự nguồn hiện có: Mẫu 31 / Mẫu 18 (số TK 10 chữ số) → danh bạ các kỳ **theo CCCD**; trả kèm nguồn, thiếu thì lý do | 3.185 · **chờ chốt** | câu hỏi A dưới |
+| QT-11 | **TK 105 của khách** — chỉ cần **số TK** (in Giấy lĩnh **không lấy số dư — số tiền gõ tay**); nguồn: **Mẫu 31 ưu tiên** → Mẫu 18 → danh bạ các kỳ theo CCCD; trả kèm nguồn, thiếu thì lý do | 3.185 · **anh chốt 14/10** | |
 | QT-12 | **TK 104 của tổ (tổ trưởng)** — danh mục tổ: ① đúng mã tổ ② mã chuẩn hóa (bỏ khoảng trắng / số 0 đầu) ③ tên tổ trưởng không dấu | 3.175–3.180 · **chờ chốt** | câu hỏi B |
-| QT-13 | **CCCD, ngày cấp, nơi cấp** — danh bạ khách → Thông tin tổ trưởng → DSTO → danh mục tổ; nơi cấp tự tính theo ngày cấp (thẻ trước 10/10/2018 ghi chung) | 3.183–3.187 · **chờ chốt** | câu hỏi C |
+| QT-13 | **CCCD, ngày cấp, nơi cấp** — **Mẫu 31 ưu tiên** (các nguồn khác nhau thì lấy Mẫu 31) → Thông tin tổ trưởng → DSTO → danh mục tổ; nơi cấp tự tính theo ngày cấp (thẻ trước 10/10/2018 ghi chung) | 3.183–3.187 · **anh chốt 14/10** | |
 
-**Câu hỏi chờ anh để chốt QT-11 → QT-13** (tài khoản làm code hỏi lại anh trước khi làm): **A.** in Giấy lĩnh cần số dư 105 hay chỉ số TK (cần số dư → theo ngày số liệu gần nhất)? **B.** "danh mục tổ" (TK 104) anh lấy ở đâu trên hệ thống, bao lâu cập nhật; còn file nào khác có TK 104? **C.** CCCD ở Mẫu 31 và Thông tin tổ trưởng khác nhau (khách đổi thẻ) → ưu tiên nguồn nào; CCCD hết hạn có cảnh báo khi in Giấy lĩnh không?
+**Anh chốt 14/10:** **A** — in Giấy lĩnh **không cần số dư**, số tiền **gõ tay**; **C** — **ưu tiên Mẫu 31** cho TK 105 và CCCD. **Còn chờ — B:** "danh mục tổ" (TK 104) lấy ở đâu trên hệ thống, bao lâu cập nhật, còn file nào khác có TK 104 (tài khoản làm code hỏi anh trước khi làm QT-12); CCCD hết hạn có cảnh báo khi in Giấy lĩnh không (hỏi kèm).
 | … | Các quy tắc cũ (3.90 thứ bậc tin cậy, 3.136 kỳ ngày, 3.137 còn lãi = còn nợ…) chuyển vào đây khi đụng tới | | KT3L 3.3, 3.5 |
 
 ---
