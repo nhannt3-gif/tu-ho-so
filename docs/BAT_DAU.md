@@ -10,6 +10,8 @@
 - Không ghi tên / mã model vào commit, PR, mã nguồn.
 - App (từ 3.142) = `index.html` (khung) + `css/app.css` + `js/01-…` → `js/22-so-lieu.js`, nạp đúng thứ tự (ES5, không build, không npm, không thêm thư viện). Ghép lại 1 file: `python3 tests/ghep.py ra.html`.
 
+- **Luật kiến trúc (14/10, bắt buộc): `docs/QUY_CHUAN_KIEN_TRUC.md`** — đọc trước khi thêm / sửa chức năng: chung hay riêng, sổ quy tắc QT, KTGS gói riêng + khóa mẫu (gọi "Mẫu 06 KTGS"…), mẫu Giao dịch xã đã chốt, **thứ tự làm tiếp (mục 8): B lưu an toàn → C kho chung (làm thử TK 104 / 105 / CCCD) → tách KTGS → chốt sổ tổ viên cuối năm → đối chiếu chéo** — tạm dừng chức năng lớn.
+
 ## 2. Quy trình kỹ thuật (lệnh)
 - Nhánh: nhánh phiên được giao (tài khoản chính: `claude/html-app-review-ck346k`; tài khoản phụ: `claude/busy-curie-2qescm`). Bắt đầu: `git fetch origin main && git checkout -B <nhánh> origin/main`.
 - Kiểm: `python3 tests/kiem.py` → bình thường là `Cú pháp OK · Trùng tên: không · Thiếu hàm: CompressionStream, DecompressionStream, Response`.
@@ -20,6 +22,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái (cập nhật 11/10/2026)
+- ⚠ **LƯU Ý 14/10 cho tài khoản làm code — đọc `docs/QUY_CHUAN_KIEN_TRUC.md` trước khi làm bất cứ bản nào.** Anh chốt: ① **tạm dừng chức năng lớn**; thứ tự làm tiếp (mục 8): **B lưu an toàn → C kho chung `KHO` (làm thử bằng TK 104 / 105 / CCCD — QT-11…13) → tách KTGS ra gói riêng → dòng thời gian + chốt sổ tổ viên cuối năm (trước 01/2027) → đối chiếu chéo có danh mục lý do lệch → Giao dịch xã / Hồ sơ Tổ qua `KHO` → "Việc cần xử lý" ở Hôm nay**; ② **KTGS gói riêng, chỉ dùng kỳ tháng; mẫu KTGS đã chốt bị khóa** (gọi "Mẫu 06 KTGS"…); **3 mẫu Giao dịch xã (04/TD, 12/GDX, Giấy lĩnh) đã chốt — khóa**, chỉ đổi phần lấy dữ liệu; ③ **QT-11…13 đã chốt:** file tháng là chuẩn; Giấy lĩnh in số TK, số tiền gõ tay, gợi ý số dư 105 theo Mẫu 31 mới nhất; TK 105 + CCCD **ưu tiên Mẫu 31**; **CCCD hết hạn → cảnh báo**; **TK 104 lấy từ Sao kê 104 xuất theo tháng** (sao kê ngày gắn Mẫu 31 ngày) — **xin anh dòng tên cột Sao kê 104** trước khi làm bộ đọc; ④ quy tắc tổ viên QT-01…07 (Mẫu 31 chứa toàn bộ món tất nợ trong năm; BC0437/0438 chỉ cho KTGS; LEN_31 "Số hộ" QT-09 đang bàn); ⑤ mỗi yêu cầu mới: **tư vấn đặt chỗ** (tab nào, số liệu từ `KHO` nào, chung / riêng) → anh duyệt → "code".
 - Mốc quay lại: nhánh `moc/v3.141-truoc-tach-file`.
 - **`main` = 3.201** (👥 Mẫu 01/TV TƯ → cần cho ra khỏi tổ; 🏦 Sao kê TK 104 / 105 theo ngày, Mã CIF TT, TK cần đóng; CCCD tổ trưởng đủ nguồn + nhớ gõ tay; bỏ danh mục tổ; Giấy lĩnh PGD đậm / thường, bằng chữ nghiêng, Rút tiền nghiêng / thường). **Đang chờ:** anh test 3.201 · setup lại từng mẫu · đo khổ tờ Bảng kê thật · thử in máy thật · mốc 10/10/2018 · hồ sơ vay nơi cấp đủ chữ · KHĐ bỏ khoanh + HSSV ân hạn (để sau) · Giấy lĩnh in đè (chờ scan) · t100 / t116 trượt sẵn trên main (chưa xem).
 - **Việc tiếp:** anh thử máy thật 3.163 → 3.166 (bảng thử trong `BAN_GIAO_VIEC_CON_LAI.md`, mỗi bản 4–8 dòng). Còn trong `BAN_GIAO_3161.md`: §2.6 (đề xuất chưa trả lời) · §2.7 lỗi hoiquy chập chờn · LEN_31 giả cho phép thử Tổng hợp (§2.1). Sau đó: đợt B (góp ý `luu()`, đồng bộ Drive) · đợt D (kỳ + phạm vi chung trên đầu trang).
