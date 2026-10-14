@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.202) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp Mẫu 31 + Sao kê TK 104 / 105 (+ Mẫu 01/TV) → ⚙ Khai báo chung (Giao dịch xã) | Dòng "Bảng tổ: N tổ · đủ X · thiếu Y" | |
+| 2 | 📒 Tổ thiếu dữ liệu · bổ sung → gõ ngày cấp 1 tổ → mở lại | Tổ đó hết thiếu; Giấy lĩnh tự điền ngày cấp | |
+| 3 | Giấy lĩnh TK 104 nhiều tổ | TK 104 + CCCD tự điền; CCCD hết hạn có cảnh báo | |
+| 4 | Giấy lĩnh TK 105 → chọn khách có 2 TK | Cảnh báo + ô chọn TK; chọn xong nhớ | |
+| 5 | ⚠ TK trùng | Danh sách + Excel | |
+
+**Ghi chú kỹ thuật 3.202:** `TO_K.bangTo` (dựng lười bằng `tkBangTo()`, xóa khi `tkNapMoi` / anh bổ sung / chọn TK); `cccdCua(kh, t, laTT)` dùng chung; `tkCua` lập chỉ mục `theo` lười, TK anh chọn đứng đầu; `D.cauHinh.tk104Tay`, `tkChon`, `ccNho` đồng bộ Drive như cài đặt.
+
 ### Danh sách thử trên máy thật (3.201) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.202 — 14/10/2026 — 📒 Bảng tổ dựng sẵn (TK 104 · CCCD), TK 105 tra khi cần, TK trùng
+- **Anh (14/10):** "tạo 1 data sẵn khi khởi tạo đảm bảo 369 tổ đủ số liệu" · "TK 105 rất nhiều, ít dùng, không cần chạy sẵn; mặc định 104" · "TK trùng thì cảnh báo để xác định TK đang dùng, đóng TK thừa" · "nguồn = Mẫu 31 + 2 Sao kê; chưa có mới thì dùng bản gần nhất" · "Mẫu 18 giữ làm đối chiếu của Mẫu 31" · thuật toán CCCD anh giao, "tránh trường hợp không load ra CCCD".
+- **Bảng tổ dựng sẵn** (`toBangDung`, `js/28`): dựng 1 lần cho kỳ đang dùng (dựng lại khi nạp file / anh bổ sung) — mỗi tổ: mã KH tổ trưởng (**Mã CIF TT**), CCCD, ngày cấp, hạn CCCD, **TK 104 theo Sao kê**, điểm GD + **nguồn từng ô**, **thiếu gì + lý do**. Tổ không còn thành viên (mọi món tất nợ, không có trong 01/TV) → bỏ qua, không tính thiếu. ⚙ Khai báo chung / 📥 Nạp & KT: dòng **"Bảng tổ: N tổ · đủ X · thiếu Y"** + hộp **📒 Tổ thiếu dữ liệu · bổ sung** (gõ CCCD / ngày cấp / TK 104 1 lần — nhớ theo mã KH tổ trưởng, nạp file mới không đè). Giấy lĩnh TK 104 + mini app **đọc từ bảng**.
+- **CCCD 1 hàm chung** (`cccdCua`, QT-13): Mẫu 31 mọi dòng / các kỳ → Mẫu 01/TV → Thông tin tổ trưởng / DSTO (bù ngày cấp nếu cùng số) → số anh gõ. Không có mã KH tổ trưởng vẫn tra file về tổ. **CCCD hết / sắp hết hạn → cảnh báo** ở Tóm tắt Giấy lĩnh.
+- **TK 104 / 105 theo Sao kê bản gần nhất** (`tkChonBan`: ngày ≤ ngày kỳ, không có thì bản sớm nhất sau đó) — thay "file mới nhất" của 3.201. **TK 105 tra khi chọn khách** (không dựng sẵn); Mẫu 31 / Mẫu 18 chỉ dự phòng; không có → lý do (TK mới mở sau ngày Sao kê?) + gõ tay.
+- **TK trùng:** ≥ 2 TK → lấy TK mở gần nhất + cảnh báo + ô chọn TK đang dùng (`D.cauHinh.tkChon`, nhớ theo mã KH); nút **⚠ TK trùng** (TK 104 tổ trưởng + TK 105 khách) xuất Excel.
+- **File thật (30/09 + Sao kê 13/10, chỉ thư mục nháp):** **369 tổ đang hoạt động** — TK 104 **369 / 369**, CCCD tổ trưởng **369 / 369** (329 Mẫu 31, 40 Mẫu 01/TV…), đủ hết **322**, **47 tổ chỉ thiếu ngày cấp** (CCCD lấy từ 01/TV — không có ngày cấp → anh gõ 1 lần); 8 tổ không còn thành viên (bỏ qua); 21 khách có ≥ 2 TK 105.
+- **Sổ QT:** QT-11…14 chuẩn lại theo file thật ghi vào `docs/QUY_CHUAN_KIEN_TRUC.md` mục 4. Kế hoạch + ước số phiên: `docs/KE_HOACH_B_C.md`.
+- **Phép thử:** `t167` 78/78 (bảng tổ, hộp thiếu, TK 105 Sao kê 2 TK → chọn, TK trùng) · `t168` 33/33.
+
 ## 3.201 — 14/10/2026 — Nguồn TƯ: Mẫu 01/TV, Sao kê TK 104 / 105, Mã CIF TT; bỏ danh mục tổ
 - **Anh (14/10):** đổi cơ bản cách lấy TK 104 / TK 105 ("nạp danh mục không khả thi"); số liệu chính là Mẫu 31 + Mẫu 18; nạp 2 file Sao kê TK 104 / 105 theo ngày; báo tổ trưởng đã nghỉ cần đóng 104, khách ra khỏi tổ cần đóng 105; rà thuật toán thành viên tổ, đối chiếu chéo Mẫu 01/TV (chính xác theo TƯ, chỉ có theo tháng); "Mẫu 01/TV lấy dư nợ = 0 nhưng không tính lãi tồn — các món đó coi như chưa tất nợ"; bỏ hẳn danh mục tổ; chữ "Rút tiền" chọn nghiêng / không (mặc định nghiêng); "làm và chạy 1 lần anh test".
 - **Rà thuật toán thành viên tổ (file thật 30/09, chỉ trong vùng nháp):** app (Mẫu 31) **18.648 / 18.648 cặp khách–tổ đều có trong 01/TV** (app không sai chỗ nào); TƯ còn 168 thành viên Mẫu 31 không thể hiện (không còn món vay, dư nợ 0, tiền gửi 0). Khế ước hủy: app đã loại trước khi xét (`slBo`) — không phải lỗi.

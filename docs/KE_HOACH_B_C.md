@@ -1,4 +1,6 @@
-# KẾ HOẠCH CHI TIẾT — Đợt B (lưu an toàn) + Đợt C rút gọn (kho chung `KHO`) — bản 14/10/2026, chờ anh Nhân duyệt
+# KẾ HOẠCH CHI TIẾT — Đợt B (lưu an toàn) + Đợt C rút gọn (kho chung `KHO`) — bản 14/10/2026
+
+> **Cập nhật 14/10 (anh chốt):** làm **TK 104 / 105 + CCCD trước** để anh dùng → **3.202 = bảng tổ dựng sẵn** (xong); thứ tự sau: 3.203 gom lưu → 3.204 chỉ mục theo ngăn → 3.205 cửa `KHO`. QT-11…14 đã ghi vào `QUY_CHUAN_KIEN_TRUC.md` mục 4. Lộ trình + ước số phiên: mục 4 cuối file.
 
 > Căn cứ: `docs/QUY_CHUAN_KIEN_TRUC.md` (kế hoạch tổng của tài khoản lập kế hoạch, mục 8 bước 2–3) + `docs/KIEN_TRUC_3_LOP.md` mục 6, 8.
 > Nền: `main` = **3.201** (đã gộp: Mẫu 01/TV, Sao kê TK 104 / 105, Mã CIF TT, CCCD tổ trưởng, bỏ danh mục tổ).
@@ -84,3 +86,22 @@ Tách KTGS ra file riêng (cơ học) → dòng thời gian + chốt sổ tổ v
 2. ~~QT-13, 14~~ — **anh giao em chốt thuật toán (14/10)**, yêu cầu kết quả chuẩn, không để lỗi không ra CCCD → theo bảng mục 0 + bảo đảm ở bản 3.205 mục 3.
 3. **Đợt B chia 2 bản** (3.202 gom lưu · 3.203 IndexedDB theo ngăn) — đồng ý? Làm 3.202 trước.
 4. Thứ tự: **3.202 → 3.203 → 3.204 → 3.205** — mỗi bản anh test / "gộp" rồi mới sang bản sau.
+
+---
+
+## 4. Lộ trình toàn bộ + ước số phiên (tiết kiệm token)
+
+| # | Bản / việc | Ước | Ghi chú |
+|---|---|---|---|
+| 1 | **3.202** bảng tổ dựng sẵn (TK 104, CCCD), TK 105 tra khi cần, TK trùng, CCCD hết hạn | ✅ phiên này | |
+| 2 | **3.203** gom lưu (`luu()` hẹn ghi, `pagehide`, bỏ stringify lặp) | 1 phiên ngắn | rủi ro thấp |
+| 3 | **3.204** chỉ mục theo ngăn trong IndexedDB + dự phòng 30 ngày + phép thử đồng bộ cài đặt 2 máy | 1–2 phiên | rủi ro cao — làm kỹ |
+| 4 | **3.205** cửa `KHO` (ky, cay, to, toVien, khach, tk104, tk105, cccd, thanhVienTW) + Giấy lĩnh / mini app qua `KHO` | 1 phiên | màn hình không đổi |
+| 5 | Tách **KTGS** ra file riêng (cơ học) + gom bộ phép thử KTGS | 1 phiên | mẫu KTGS khóa |
+| 6 | Dòng thời gian khách / tổ + **chốt sổ tổ viên cuối năm** | 1–2 phiên | **hạn: trước khi nạp Mẫu 31 tháng 1/2027** |
+| 7 | Đối chiếu chéo + danh mục lý do lệch (QT-09) | 1 phiên | cần anh chốt QT-09 |
+| 8 | Hồ sơ Tổ + phần còn lại Giao dịch xã qua `KHO`; tách `js/22`; `DANG_KY` | 2–3 phiên | |
+| 9 | "Việc cần xử lý" ở Hôm nay | 1 phiên | |
+|   | **Tổng** | **≈ 10–13 phiên** | |
+
+**Cách làm tiết kiệm token:** mỗi phiên **1 bản**, mở đầu chỉ đọc `BAT_DAU.md` + mục cần của file này; anh gửi file thật (nếu cần kiểm) **1 lần đầu phiên**; ý nhỏ phát sinh **gom lại** đưa vào bản kế tiếp; hồi quy đầy đủ chạy **1 lần cuối bản**; mỗi phiên kết thúc bằng PR + cập nhật `BAT_DAU.md` để phiên sau vào việc ngay.

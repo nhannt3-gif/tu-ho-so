@@ -126,13 +126,60 @@ function tvRaHTML(ma){
 
 /* ---------- ④ TK 104 / TK 105 theo Sao kê ngày ---------- */
 function tkMoiNhat(loai){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===loai; }).sort(function(a, b){ return a.ky<b.ky ? 1 : -1; }); return ds[0] || null; }
-function tkNapMoi(K){   /* gắn K.tk = {tk104:{ky, rows}, tk105:{…}} — file mới nhất (TK là thông tin hiện tại, không theo kỳ đang xem) */
-  K.tk = {};
-  return Promise.all(['tk104', 'tk105'].map(function(loai){ var e = tkMoiNhat(loai); if(!e) return null;
+/* 3.202 (anh chốt 14/10): TK 104 / 105 = số 10 số theo Sao kê; kỳ nào chưa có Sao kê mới → dùng bản GẦN NHẤT (ngày ≤ ngày kỳ, không có thì bản sớm nhất sau đó) */
+function tkChonBan(loai, ngay){
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===loai; }).sort(function(a, b){ return a.ky<b.ky ? -1 : 1; });
+  if(!ds.length) return null; var truoc = ds.filter(function(e){ return !ngay || e.ky<=ngay; });
+  return truoc.length ? truoc[truoc.length-1] : ds[0];
+}
+function tkNapMoi(K){   /* gắn K.tk = {tk104:{ky, rows, theo}, tk105:{…}} — 1 lần khi dựng kỳ (nối Sao kê vào Mẫu 31 theo mã KH) */
+  K.tk = {}; K.bangTo = null;
+  return Promise.all(['tk104', 'tk105'].map(function(loai){ var e = tkChonBan(loai, K.ngay); if(!e) return null;
     return slDocBang(loai, e.ky).then(function(b){ if(b) K.tk[loai] = {ky:e.ky, rows:slMoBang(b)}; }).catch(function(){}); }));
 }
 function tkBang(loai){ var t = TO_K && TO_K.tk; return t && t[loai] ? t[loai] : null; }
-function tkCua(loai, kh){ var b = tkBang(loai); if(!b || !kh) return null; var ds = b.rows.filter(function(o){ return o.kh===kh; }); return ds.length ? {ds:ds, ky:b.ky} : null; }
+function tkCua(loai, kh){   /* {ds:[{stk, t105, ndk…}] (TK anh chọn đứng đầu, rồi TK mở gần nhất), ky, trung} */
+  var b = tkBang(loai); if(!b || !kh) return null;
+  if(!b.theo){ b.theo = {}; b.rows.forEach(function(o){ (b.theo[o.kh] = b.theo[o.kh] || []).push(o); }); }
+  var ds = (b.theo[kh] || []).slice(); if(!ds.length) return null;
+  var chon = (D.cauHinh.tkChon || {})[loai+'|'+kh];
+  ds.sort(function(a, c){ return (c.stk===chon) - (a.stk===chon) || String(c.ndk||'').localeCompare(String(a.ndk||'')); });
+  return {ds:ds, ky:b.ky, trung:ds.length>1, daChon:!!chon && ds[0].stk===chon};
+}
+function tkChonDat(loai, kh, stk){ var m = D.cauHinh.tkChon = D.cauHinh.tkChon || {}; if(stk) m[loai+'|'+kh] = stk; else delete m[loai+'|'+kh]; if(TO_K) TO_K.bangTo = null; luu(); if(typeof gdxVe==='function') gdxVe(); }
+/* CCCD dùng chung (tổ trưởng + khách) — QT-13 (anh giao 14/10): Mẫu 31 mọi dòng / các kỳ (danh bạ) → Mẫu 01/TV → [tổ trưởng: Thông tin tổ trưởng, DSTO] → số anh gõ (nhớ theo mã KH) */
+function cccdCua(kh, t, laTT){
+  var r = {cccd:'', ncap:'', noiCap:'', ns:'', tu:'', ly:''};
+  if(!kh && !laTT){ r.ly = 'chưa chọn khách'; return r; }
+  var so = function(v){ return String(v||'').replace(/\D/g, ''); };
+  if(kh && typeof hsoKhach==='function'){ var k = hsoKhach(kh, t) || {}; r.ns = k.ns || ''; if(so(k.cccd).length>=9){ r.cccd = so(k.cccd); r.ncap = k.ncap || ''; r.noiCap = k.noiCap || ''; r.tu = 'Mẫu 31'; } }
+  if(!r.cccd && kh){ var v = tv01Cua(kh); if(v && so(v.cccd).length>=9){ r.cccd = so(v.cccd); r.tu = 'Mẫu 01/TV'; } }
+  if(laTT && t) [[t.tt, 'Thông tin tổ trưởng'], [t.ds, 'DSTO']].some(function(x){ var o = x[0]; if(!o || so(o.cccd).length<9) return false;
+    if(!r.cccd){ r.cccd = so(o.cccd); r.ncap = r.ncap || o.ncap || ''; r.tu = x[1]; return true; } if(!r.ncap && o.ncap && so(o.cccd)===r.cccd){ r.ncap = o.ncap; return true; } return false; });   /* CCCD từ 01/TV (không có ngày cấp) → bù ngày cấp từ file về tổ nếu cùng số */
+  var nh = kh ? ccNho(kh) : null;
+  if(nh){ if(!r.cccd && nh.cccd){ r.cccd = nh.cccd; r.tu = 'anh gõ'; } if(!r.ncap && nh.ncap && (!nh.cccd || nh.cccd===r.cccd)) r.ncap = nh.ncap; }
+  if(!r.cccd) r.ly = !kh ? 'chưa có mã KH tổ trưởng (Mã CIF TT trên Mẫu 31), file về tổ cũng không có CCCD' : 'không có CCCD ở Mẫu 31 / Mẫu 01/TV'+(laTT ? ' / Thông tin tổ trưởng / DSTO' : '')+' — gõ 1 lần, app nhớ';
+  r.han = r.cccd && typeof toCCCDHan==='function' ? toCCCDHan(r.cccd, r.ns, r.ncap) : null;
+  return r;
+}
+/* BẢNG TỔ DỰNG SẴN (anh chốt 14/10): mỗi tổ — tổ trưởng (Mã CIF TT), CCCD, ngày cấp, TK 104, điểm GD + nguồn; thiếu thì ghi lý do để bổ sung 1 lần.
+   Dựng 1 lần cho kỳ đang dùng (TO_K), dựng lại khi nạp file / anh bổ sung. Giấy lĩnh, mini app đọc từ đây. */
+function toBangDung(K){
+  var T = {}, L = Object.keys(K.to||{}), cu = TO_K; TO_K = K;
+  L.forEach(function(m){ var t = K.to[m]; if(!t || t.trucTiep || !t.ten) return;
+    var kh = typeof hsoTTKH==='function' ? hsoTTKH(t).kh || '' : '', c = cccdCua(kh, t, true), x = tkCua('tk104', kh), tay = (D.cauHinh.tk104Tay||{})[kh] || '', b = tkBang('tk104');
+    var o = {ma:m, ten:t.ten, kh:kh, khTu:t.cif ? 'Mã CIF TT' : (kh ? 'DSTO / trùng tên' : ''), cccd:c.cccd, ncap:c.ncap, ns:c.ns, ccTu:c.tu, ccLy:c.ly, han:c.han,
+      tk:x ? x.ds[0].stk : tay, tkTu:x ? 'Sao kê TK 104 '+slKyChu(x.ky) : (tay ? 'anh gõ' : ''), tkDs:x ? x.ds.map(function(y){ return y.stk; }) : [], tkTrung:!!(x && x.trung), tkDaChon:!!(x && x.daChon),
+      tkLy:x || tay ? '' : !kh ? 'chưa có mã KH tổ trưởng' : !b ? 'chưa nạp Sao kê TK 104' : 'tổ trưởng (mã KH '+kh+') không có trong Sao kê TK 104 '+slKyChu(b.ky),
+      diem:t.diem || '', tenDiem:t.tenDiem || '', ap:t.tenThon || '', xa:t.tenXa || ''};
+    o.thieu = [!o.kh && 'mã KH tổ trưởng', !o.cccd && 'CCCD', o.cccd && !o.ncap && 'ngày cấp', !o.tk && 'TK 104', o.tkTrung && !o.tkDaChon && 'TK 104 trùng'].filter(Boolean);
+    o.ngung = !(K.kh[m]||[]).length && !(K.B && K.B.co && K.B.co.tv01 && K.B.co.tv01.some(function(v){ return v.to===m; }));   /* tổ không còn thành viên (mọi món đã tất nợ, không có trong 01/TV) → không tính thiếu */
+    if(o.ngung) o.thieu = [];
+    T[m] = o; });
+  TO_K = cu; K.bangTo = T; return T;
+}
+function tkBangTo(){ return TO_K ? (TO_K.bangTo || toBangDung(TO_K)) : null; }
+function tkBangTom(){ var T = tkBangTo(); if(!T) return null; var all = Object.keys(T).map(function(m){ return T[m]; }), ds = all.filter(function(o){ return !o.ngung; }); return {n:ds.length, ngung:all.length-ds.length, du:ds.filter(function(o){ return !o.thieu.length; }).length, thieu:ds.filter(function(o){ return o.thieu.length; })}; }
 function tv01Cua(kh){ var B = TO_K && TO_K.B; return B && B.co && B.co.tv01 ? B.co.tv01.find(function(o){ return o.kh===kh; }) || null : null; }
 /* TK 104 cần đóng: chủ TK không còn là tổ trưởng (Mã CIF TT) của tổ nào · TK 105 cần đóng: khách không còn là thành viên tổ nào (Mẫu 01/TV, thiếu thì theo app) */
 function tkCanDong(){
@@ -163,19 +210,17 @@ function tkCanDongXuat(loai){
 }
 
 /* ---------- ⑤ Giấy lĩnh: tổ trưởng (Mã CIF TT) → TK 104 · CCCD anh gõ tay nhớ theo mã KH (D.cauHinh.ccNho, đồng bộ Drive như cài đặt) ---------- */
-function tkTT(t){
-  var kh = t && typeof hsoTTKH==='function' ? hsoTTKH(t).kh || '' : '', b = tkBang('tk104');
-  if(!kh) return {kh:'', tk:'', tu:'', ly:'chưa có Mã CIF TT của tổ (nạp Mẫu 31 / Mẫu 18)'};
-  if(!b) return {kh:kh, tk:'', tu:'', ly:'chưa nạp Sao kê TK 104 (📥 Nạp & KT)'};
-  var x = tkCua('tk104', kh); if(!x) return {kh:kh, tk:'', tu:'', ly:'tổ trưởng (mã KH '+kh+') không có trong Sao kê TK 104 '+slKyChu(b.ky)};
-  return {kh:kh, tk:x.ds[0].stk, tu:'Sao kê TK 104 '+slKyChu(x.ky)+(x.ds.length>1 ? ' · '+x.ds.length+' TK, lấy TK đầu' : '')};
+function tkTT(t){   /* tổ trưởng → TK 104 (đọc bảng tổ dựng sẵn) */
+  var o = t && tkBangTo() ? tkBangTo()[t.ma] : null; if(!o && t && TO_K){ TO_K.bangTo = null; o = (tkBangTo()||{})[t.ma]; }
+  if(!o) return {kh:'', tk:'', tu:'', ly:'chưa có Mã CIF TT của tổ (nạp Mẫu 31)'};
+  return {kh:o.kh, tk:o.tk, tu:o.tkTu+(o.tkTrung ? ' · '+o.tkDs.length+' TK'+(o.tkDaChon ? ', anh đã chọn' : ', TK mở gần nhất — chọn TK đang dùng') : ''), ly:o.tkLy, ds:o.tkDs, trung:o.tkTrung};
 }
 function ccNho(kh){ var m = D.cauHinh.ccNho; return m && m[kh] ? m[kh] : null; }
 function ccNhoGhi(k, v){
   if(k!=='cccd' && k!=='ncap') return; var g = gdxGLDuLieu(); if(!g.kh) return;
   var m = D.cauHinh.ccNho = D.cauHinh.ccNho || {}, x = m[g.kh] = m[g.kh] || {};
   if(k==='cccd') x.cccd = String(v||'').replace(/\D/g, ''); else x.ncap = gdxDocNgay(v) || '';
-  if(!x.cccd && !x.ncap) delete m[g.kh]; luu();
+  if(!x.cccd && !x.ncap) delete m[g.kh]; if(TO_K) TO_K.bangTo = null; luu();
 }
 function tkKhoiHTML(){   /* ⚙ Khai báo chung (Giao dịch xã) · 📥 Nạp & KT: nguồn TK 104 / 105 + nút TK cần đóng */
   var e4 = tkMoiNhat('tk104'), e5 = tkMoiNhat('tk105'), e1 = tkMoiNhat('tv01');
@@ -183,5 +228,45 @@ function tkKhoiHTML(){   /* ⚙ Khai báo chung (Giao dịch xã) · 📥 Nạp 
     '<div>Sao kê TK 104: '+(e4 ? '<b>'+slKyChu(e4.ky)+'</b> · '+e4.soDong+' TK' : 'chưa nạp')+' · Sao kê TK 105: '+(e5 ? '<b>'+slKyChu(e5.ky)+'</b> · '+e5.soDong+' TK' : 'chưa nạp')+
     ' · Mẫu 01/TV: '+(e1 ? '<b>'+slKyChu(e1.ky)+'</b>' : 'chưa nạp')+'</div>'+
     '<small class="gdx-ghi">TK 104 tổ trưởng ghép theo Mã CIF TT (Mẫu 31 / Mẫu 18). TK 105 khách: số sổ Mẫu 18, thiếu thì Sao kê TK 105. CCCD anh gõ tay được nhớ theo mã KH.</small>'+
-    '<div class="hang-nut"><button class="nho" onclick="tkCanDongHop(\'tk104\')">📋 TK 104 cần đóng</button><button class="nho" onclick="tkCanDongHop(\'tk105\')">📋 TK 105 cần đóng</button></div></div>';
+    (function(){ var x = tkBangTom(); return x ? '<div>📒 <b>Bảng tổ dựng sẵn</b> ('+slKyChu(TO_K.ky)+'): <b>'+x.n+'</b> tổ · đủ <b>'+x.du+'</b>'+(x.thieu.length ? ' · <span class="gdx-vang">thiếu <b>'+x.thieu.length+'</b></span>' : ' ✓')+(x.ngung ? ' · <small>'+x.ngung+' tổ không còn thành viên (bỏ qua)</small>' : '')+'</div>' : '<div><small class="gdx-ghi">Bảng tổ dựng khi mở tab có số liệu (Mẫu 31).</small></div>'; })()+
+    '<div class="hang-nut"><button class="nho chinh" onclick="tkThieuHop()">📒 Tổ thiếu dữ liệu · bổ sung</button><button class="nho" onclick="tkTrungHop()">⚠ TK trùng</button>'+
+    '<button class="nho" onclick="tkCanDongHop(\'tk104\')">📋 TK 104 cần đóng</button><button class="nho" onclick="tkCanDongHop(\'tk105\')">📋 TK 105 cần đóng</button></div></div>';
 }
+
+/* 3.202: hộp "Tổ thiếu dữ liệu" — gõ bổ sung 1 lần (nhớ theo mã KH tổ trưởng; nạp file mới không đè) */
+function tkThieuHop(){
+  var x = tkBangTom(); if(!x){ bao('Chưa có số liệu Mẫu 31 — mở tab Giao dịch xã / Tổ sau khi nạp.'); return; }
+  var o = function(t, k, v, ph, w){ return '<input class="gdx-i" style="width:'+w+'" value="'+gdxE(v||'')+'" placeholder="'+ph+'" onchange="tkBoSung(\''+t.ma+'\', \''+k+'\', this.value)">'; };
+  moHop('<div class="hop-tit">📒 Bảng tổ — thiếu dữ liệu ('+x.thieu.length+' / '+x.n+' tổ)</div><div class="hop-phu">Kỳ '+slKyChu(TO_K.ky)+' · tổ trưởng = Mã CIF TT (Mẫu 31) · CCCD: Mẫu 31 → Mẫu 01/TV → Thông tin tổ trưởng / DSTO → anh gõ · TK 104: Sao kê TK 104. Gõ 1 lần, app nhớ theo mã KH tổ trưởng.</div>'+
+    (x.thieu.length ? '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Mã tổ</th><th>Tổ trưởng</th><th>Mã KH</th><th>Thiếu</th><th>CCCD</th><th>Ngày cấp</th><th>TK 104</th></tr></thead><tbody>'+
+      x.thieu.map(function(t){ var ly = [t.ccLy, t.tkLy].filter(Boolean).join(' · ');
+        return '<tr><td>'+t.ma+'</td><td>'+coChuHTML(t.ten)+'</td><td>'+(t.kh || '<span class="gdx-vang">?</span>')+'</td><td title="'+gdxE(ly)+'">'+coChuHTML(t.thieu.join(', '))+(ly ? '<br><small>'+coChuHTML(ly)+'</small>' : '')+'</td>'+
+          '<td>'+(t.kh ? (t.cccd && t.ccTu!=='anh gõ' ? t.cccd : o(t, 'cccd', t.cccd, '12 số', '9.5em')) : '')+'</td><td>'+(t.kh ? (t.ncap && t.ccTu==='Mẫu 31' ? ngayVNsl(t.ncap) : o(t, 'ncap', t.ncap ? ngayVNsl(t.ncap) : '', 'dd/mm/yyyy', '7.5em')) : '')+'</td>'+
+          '<td>'+(t.kh ? (t.tkTrung ? gdxGLChonTK('tk104', {kh:t.kh, tk:t.tk, tkDs:t.tkDs}) : t.tk && t.tkTu!=='anh gõ' ? t.tk : o(t, 'tk104', t.tk, '10 số', '8em')) : '')+'</td></tr>'; }).join('')+'</tbody></table></div>'
+      : '<div class="sl-bao xanh">✓ Mọi tổ đủ: mã KH tổ trưởng, CCCD, ngày cấp, TK 104.</div>')+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button></div>', true);
+}
+function tkBoSung(ma, k, v){
+  var t = (tkBangTo()||{})[ma]; if(!t || !t.kh) return; v = String(v||'').trim();
+  if(k==='tk104'){ var m = D.cauHinh.tk104Tay = D.cauHinh.tk104Tay || {}; v = v.replace(/\D/g, ''); if(v) m[t.kh] = v; else delete m[t.kh]; }
+  else { var n = D.cauHinh.ccNho = D.cauHinh.ccNho || {}, x = n[t.kh] = n[t.kh] || {}; if(k==='cccd') x.cccd = v.replace(/\D/g, ''); else x.ncap = gdxDocNgay(v) || ''; if(!x.cccd && !x.ncap) delete n[t.kh]; }
+  TO_K.bangTo = null; luu();
+}
+/* TK trùng: tổ trưởng ≥ 2 TK 104 (bảng tổ) · khách ≥ 2 TK 105 (Sao kê) → xác định TK đang dùng, đóng TK thừa */
+function tkTrungDs(){
+  var r = [], T = tkBangTo() || {};
+  Object.keys(T).forEach(function(m){ var t = T[m]; if(t.tkTrung) r.push({loai:'TK 104', kh:t.kh, ten:t.ten, to:m, ds:t.tkDs.join(' · '), chon:t.tkDaChon ? t.tk : ''}); });
+  var b = tkBang('tk105'); if(b){ var g = {}; b.rows.forEach(function(o){ (g[o.kh] = g[o.kh] || []).push(o); });
+    Object.keys(g).forEach(function(kh){ if(g[kh].length>1){ var c = (D.cauHinh.tkChon||{})['tk105|'+kh]; r.push({loai:'TK 105', kh:kh, ten:g[kh][0].ten, to:'', ds:g[kh].map(function(o){ return o.stk+' ('+tdnTien(o.t105||0)+')'; }).join(' · '), chon:c || ''}); } }); }
+  return r;
+}
+function tkTrungHop(){
+  var ds = tkTrungDs();
+  moHop('<div class="hop-tit">⚠ TK trùng — xác định TK đang dùng, đóng TK thừa ('+ds.length+')</div><div class="hop-phu">TK 104: tổ trưởng có ≥ 2 TK trong Sao kê TK 104 · TK 105: khách có ≥ 2 TK trong Sao kê TK 105. Chọn TK đang dùng ở Giấy lĩnh / bảng tổ thiếu — app nhớ.</div>'+
+    '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Loại</th><th>Mã KH</th><th>Họ tên</th><th>Tổ</th><th>Các TK (số dư)</th><th>Đang dùng</th></tr></thead><tbody>'+
+    (ds.map(function(o){ return '<tr><td>'+o.loai+'</td><td>'+o.kh+'</td><td>'+coChuHTML(o.ten)+'</td><td>'+o.to+'</td><td>'+coChuHTML(o.ds)+'</td><td>'+(o.chon || '<span class="gdx-vang">chưa chọn</span>')+'</td></tr>'; }).join('') || '<tr><td colspan="6" class="rong">Không có TK trùng.</td></tr>')+
+    '</tbody></table></div><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button>'+(ds.length ? '<button class="nho chinh" onclick="tkTrungXuat()">📊 Xuất Excel</button>' : '')+'</div>', true);
+}
+function tkTrungXuat(){ var ds = tkTrungDs(); if(!window.XLSX) return baoLoi('Chưa tải được bộ Excel.');
+  var ws = XLSX.utils.aoa_to_sheet([['Loại', 'Mã KH', 'Họ tên', 'Tổ', 'Các TK (số dư)', 'Đang dùng']].concat(ds.map(function(o){ return [o.loai, o.kh, o.ten, o.to, o.ds, o.chon]; })));
+  var wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'TK trung'); XLSX.writeFile(wb, 'TK_trung_'+gdxHom()+'.xlsx'); }

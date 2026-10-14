@@ -18,7 +18,7 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    gdxC().danhSachCanBo = ['Cán Bộ Giả A','Cán Bộ Giả B','Cán Bộ Giả C'];
    slDoiTab('gdx'); doiNgan(7); for(let i=0;i<50 && !document.querySelector('#gdx-cay .loc-khoi');i++) await w(200); await w(500);
    const ds = gdxDsDiem(), d = ds.find(x=>x.to.length>=2), t = d.to[0];
-   TO_K.to[t.maTo].cif = '9990000001'; TO_K.tk = {tk104:{ky:'2026-10-13', rows:[{kh:'9990000001', stk:'9990001112223'}]}};   /* 3.201: Mã CIF TT + Sao kê TK 104 GIẢ */
+   TO_K.to[t.maTo].cif = '9990000001'; TO_K.tk = {tk104:{ky:'2026-10-13', rows:[{kh:'9990000001', stk:'9990001112223'}]}}; TO_K.bangTo = null;   /* 3.201: Mã CIF TT + Sao kê TK 104 GIẢ */
    const nut = [...document.querySelectorAll('.gdx2-nut button')].some(x=>/Mini app/.test(x.textContent));
    gdxMiniHop(60); await w(100); const hop = document.querySelector('#hop').textContent;
    const G = gdxMiniGoi(), M = gdxMiniHTML(30, G);
@@ -36,9 +36,9 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    const kt = TO_K.to[t.maTo], kh = kt && typeof hsoTTKH==='function' ? hsoTTKH(kt).kh : '', nt = kh ? hsoKhach(kh, kt) : {};
    /* 3.180: tra TK 104 chắc hơn · Tóm tắt 1 dòng · thu gọn Xã / Điểm */
    const kT = TO_K.to[t.maTo], m180 = {};
-   const tkG = TO_K.tk; TO_K.tk = {}; m180.viChua = /chưa nạp Sao kê TK 104/.test(tkTT(kT).ly||''); TO_K.tk = tkG;   /* 3.201: bỏ danh mục tổ — lý do theo Sao kê TK 104 */
-   const tk0 = TO_K.tk; TO_K.tk = {tk104:{ky:'2026-10-13', rows:[{kh:'0000000000', stk:'X9'}]}}; m180.viMa = /không có trong Sao kê TK 104/.test(tkTT(kT).ly||'') && !tkTT(kT).tk;
-   TO_K.tk = {tk104:{ky:'2026-10-13', rows:[{kh:tkTT(kT).kh, stk:'X1'}]}}; m180.so0 = tkTT(kT).tk==='X1'; m180.ten = true; TO_K.tk = tk0; gdxVe(); await w(200);
+   const tkG = TO_K.tk; TO_K.tk = {}; TO_K.bangTo = null; m180.viChua = /chưa nạp Sao kê TK 104/.test(tkTT(kT).ly||''); TO_K.tk = tkG;   /* 3.201: bỏ danh mục tổ — lý do theo Sao kê TK 104 */
+   const tk0 = TO_K.tk; TO_K.tk = {tk104:{ky:'2026-10-13', rows:[{kh:'0000000000', stk:'X9'}]}}; TO_K.bangTo = null; m180.viMa = /không có trong Sao kê TK 104/.test(tkTT(kT).ly||'') && !tkTT(kT).tk;
+   TO_K.tk = {tk104:{ky:'2026-10-13', rows:[{kh:tkTT(kT).kh, stk:'X1'}]}}; TO_K.bangTo = null; m180.so0 = tkTT(kT).tk==='X1'; m180.ten = true; TO_K.tk = tk0; TO_K.bangTo = null; gdxVe(); await w(200);
    m180.tom = document.getElementById('gdx-tom').offsetHeight; m180.tomCanh = !!document.querySelector('#gdx-tom .gdx2-canh1') || !gdxTom().canh.length;
    const lk = () => document.querySelector('#gdx-cay .loc-khoi'), an = q => { const e = document.querySelector('#gdx-cay '+q); return !e || !e.offsetParent; };
    m180.gon = lk().classList.contains('gon') && an('.pv-nhom.cap-xa') && an('.pv-hang2') && /Đổi/.test((document.querySelector('#gdx-cay .pv-gon')||{}).textContent||'');
