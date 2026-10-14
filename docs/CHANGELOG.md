@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.211 — 15/10/2026 — 💼 Hồ sơ vay GQVL (01/GQVL · 07b/GQVL · 03/TD)
+- **Anh (14/10):** GQVL có mẫu riêng — dùng 01/GQVL (phương án), 03/TD, 07b/GQVL (hợp đồng tín dụng) theo VB 11055 + VB 4039 (thay mẫu từ 01/10/2026). Chốt: ô chấm theo mẫu, cố định được thì khai báo; lịch trả gốc app tự tính — **mặc định 24 tháng/lần, chia đều làm tròn xuống trăm nghìn, kỳ cuối nhiều nhất, không ân hạn** (≤ 12 tháng trả 1 lần); **lãi 7,9248 %, ưu tiên 6,24 %, quá hạn 130 %**; tạm 1 món 1 mẫu 03; chọn nhanh như tab Giao dịch xã. Kế hoạch `docs/KE_HOACH_3209.md`.
+- **Thẻ GQVL** (dạng riêng): lãi suất, lãi ưu tiên, % quá hạn, làm tròn, kỳ trả lãi, chip số tiền, mục đích, ĐTTH "Người lao động", 60 tháng, 24 tháng/lần — sửa ở ⚙ Khai báo chung › Chương trình vay. Thẻ GQVL tạm của 3.208 tự chuyển (giữ mục đích đã khai); bật lại ở Bộ HS.
+- **Tab 01/GQVL** (mẫu mới): nhân thân, có thời hạn đến (hạn CCCD), ưu tiên ☐1–6, tên phương án, địa điểm, lao động, vốn (tự có + vay, bằng chữ), **bảng mục đích nhiều dòng**, thời hạn, kỳ hạn trả gốc / lãi, **doanh thu – chi phí → chênh lệch, thu nhập BQ/tháng**, ghi chú (1)–(7). Cột trái: chip mục đích / số tiền / thời hạn / kỳ hạn; tích ưu tiên → lãi ưu tiên; ⚠ vượt 200 triệu, 120 tháng, kỳ hạn vượt mức VB, chi phí < vốn + lãi vay dự kiến. In kèm ☐ 03/TD ☐ 10C ☐ 07b ☐ 01/TGTV.
+- **Tab 07b/GQVL** (hợp đồng): Bên cho vay từ ⚙ PGD, Bên vay từ hộ; số tiền + bằng chữ, mục tiêu lao động, thời hạn + **hạn cuối**, lãi + quá hạn, **kỳ hạn trả gốc (ngày theo ngày ký HĐ, trống → chấm)**, giải ngân ☐ tiền mặt / ☐ chuyển khoản, mục đích, nơi thực hiện, đủ Điều 4–10, phụ lục 3 bảng.
+- Tab 01/TD chọn GQVL → nhắc dùng 01/GQVL. Không dùng 01/UQ cho GQVL.
+- **Phép thử:** `t174` 19/19 (mới) · t170 9 tab · t172 thẻ tự thêm thay GQVL.
+
 ## 3.210 — 15/10/2026 — 📋 03/TD nhiều hộ cùng chương trình
 - **Anh (14/10):** "nếu cần 2 hộ chung mẫu 03 thì chọn 2 hộ 1 lần, hoặc chọn mẫu 03 trước rồi add hộ; cùng 1 chương trình in chung 1 mẫu 03". Kế hoạch `docs/KE_HOACH_SO_HO_VAY.md` mục C.
 - **Cách 1:** tab 👪 Hộ vay tích nhiều hộ → **📋 Lập 03/TD (n hộ)**. **Cách 2:** tab 03/TD → chip chương trình → **＋ Thêm hộ** (từ sổ). Đi từ hộ đang làm (01/TD) sang 03/TD → hộ đó tự vào tờ.

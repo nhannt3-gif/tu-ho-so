@@ -20,7 +20,7 @@ const fs=require('fs'), path=require('path');
    const hop = document.getElementById('hop-in');
    ok('cửa sổ có 4 tab con: PGD · Trưởng ấp · Tổ phó · Chương trình vay; mở tab Chương trình vay', [...hop.querySelectorAll('.hso-kbt')].map(e=>e.getAttribute('data-kb')).join(',')==='pgd,ap,pho,ct' && hop.querySelector('.hso-kbp[data-kb="ct"]').style.display==='' && hop.querySelector('.hso-kbp[data-kb="pgd"]').style.display==='none');
    ok('3 thẻ mặc định HSSV · NSVSMT · GQVL', hsoCTVDs().map(c=>c.ma).join(',')==='HSSV,NSVSMT,GQVL' && hop.querySelectorAll('.hso-ctv').length===3);
-   ok('khai báo cũ "MÃ: …" (đối tượng thụ hưởng) chuyển vào thẻ', hsoCTV('HSSV').dtth.indexOf('Hộ gia đình giả khó khăn')>=0 && hsoCTV('NSVSMT').dtth.indexOf('Hộ giả nông thôn')>=0 && hsoCTV('GQVL').dtth.length===0);
+   ok('khai báo cũ "MÃ: …" (đối tượng thụ hưởng) chuyển vào thẻ', hsoCTV('HSSV').dtth.indexOf('Hộ gia đình giả khó khăn')>=0 && hsoCTV('NSVSMT').dtth.indexOf('Hộ giả nông thôn')>=0 && hsoCTV('GQVL').dtth.join()==='Người lao động');
    hsoKBTab('ap'); ok('bấm tab Trưởng ấp → hiện, có chọn xã', hop.querySelector('.hso-kbp[data-kb="ap"]').style.display==='' && !!hop.querySelector('.hso-kbp[data-kb="ap"] .hso-kb-loc select'));
    const xa = Object.keys(hmDiaBan())[0]; HSO_KBT.xa = xa; hsoKBHop(); await w(100);
    ok('chọn xã trong cửa sổ → chỉ ấp xã đó', [...document.querySelectorAll('#hop-in .hso-kbp[data-kb="ap"] .kt-kb')].length>0 && HSO_KBT.tab==='ap');
@@ -44,14 +44,14 @@ const fs=require('fs'), path=require('path');
    ok('03/TD NSVSMT phường: ĐTTH "ở khu vực thành thị", chữ "UBND phường"', /Hộ gia đình ở khu vực thành thị/.test(h) && /UBND phường/.test(h));
    const iN = hsoCTVDs().findIndex(c=>c.ma==='NSVSMT'); hsoCTDat(iN, 'thIn', 'cham'); hsoChonMau('01td'); await w(300); h = chu(HSO.x.h);
    ok('đổi thẻ NSVSMT thời hạn → ✍ Chấm: 01/TD thời hạn để chấm', /Thời hạn xin vay: \.+ tháng/.test(h)); hsoCTDat(iN, 'thIn', 'in');
-   /* 4. GQVL dạng 1 mục đích; đổi tên tắt → bộ đi theo */
-   const iG = hsoCTVDs().findIndex(c=>c.ma==='GQVL'); hsoCTDat(iG, 'md', 'Chăn nuôi bò giả\nTrồng trọt giả', 'ds'); hsoCTDat(iG, 'ubnd', true);
-   ok('GQVL mặc định tắt ở Bộ HS (có mẫu riêng — chờ mẫu)', hsoCTV('GQVL').bat===false && /mẫu đơn riêng/.test(hsoCTV('GQVL').rieng)); hsoCTDat(iG, 'bat', true);
-   B.ct = 'GQVL'; B.tien = '50000000'; B.pa = {sl:'02 con'}; hsoChonMau('bo'); await w(300);
-   ok('Bộ HS: ① liệt kê chương trình theo thẻ (HSSV, NSVSMT, GQVL)', ['HSSV','NSVSMT','GQVL'].every(k=>document.querySelector('#hso-tuy input[name="hso-ct"][onchange*="\''+k+'\'"]')));
+   /* 4. thẻ tự thêm dạng 1 mục đích; đổi tên tắt → bộ đi theo (3.211: GQVL có dạng riêng — thử ở t174) */
+   ok('GQVL: dạng riêng (01/GQVL + 07b), bật ở Bộ HS', hsoCTV('GQVL').kieu==='gqvl' && hsoCTV('GQVL').bat!==false);
+   hsoCTThem(); const iG = hsoCTVDs().length-1; hsoCTDat(iG, 'ma', 'GQX'); hsoCTDat(iG, 'ten', 'Hỗ trợ tạo việc làm giả'); hsoCTDat(iG, 'md', 'Chăn nuôi bò giả\nTrồng trọt giả', 'ds'); hsoCTDat(iG, 'ubnd', true);
+   B.ct = 'GQX'; B.tien = '50000000'; B.pa = {sl:'02 con'}; hsoChonMau('bo'); await w(300);
+   ok('Bộ HS: ① liệt kê chương trình theo thẻ (HSSV, NSVSMT, GQVL)', ['HSSV','NSVSMT','GQVL','GQX'].every(k=>document.querySelector('#hso-tuy input[name="hso-ct"][onchange*="\''+k+'\'"]')));
    hsoChonMau('01td'); await w(300); h = chu(HSO.x.h);
    ok('01/TD GQVL: tên in theo thẻ, mục đích đầu danh sách, số lượng gõ, khối UBND theo thẻ', /Chương trình cho vay: Hỗ trợ tạo việc làm/.test(h) && /Để thực hiện phương án: Chăn nuôi bò giả\./.test(h) && /Chăn nuôi bò giả 02 con 50\.000\.000 đồng/.test(h) && /Xác nhận của UBND xã/.test(h));
-   hsoCTDat(iG, 'ma', 'gq vl2'); ok('đổi tên tắt thẻ → bộ hồ sơ đổi theo', hsoCTVDs()[iG].ma==='GQVL2' && B.ct==='GQVL2');
+   hsoCTDat(iG, 'ma', 'gq x2'); ok('đổi tên tắt thẻ → bộ hồ sơ đổi theo', hsoCTVDs()[iG].ma==='GQX2' && B.ct==='GQX2');
    /* 5. bố cục như GDX: nhập liệu rộng hơn xem trước */
    const bo = document.querySelector('.hso-bo'), cot = bo ? [...bo.children].map(e=>e.getBoundingClientRect().width) : [0, 0];
    ok('bố cục như tab Giao dịch xã: cột nhập ~60 %, xem trước ~40 %', cot[0]>cot[1]*1.3, cot.map(Math.round).join(' / '));
