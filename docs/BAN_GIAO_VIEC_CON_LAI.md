@@ -222,6 +222,26 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.201) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📥 Nạp file: Mẫu 31 + Mẫu 18 + Mẫu 01/TV cuối tháng 9 | 01/TV nhận đúng loại, kỳ T9/2026 | |
+| 2 | ② Kiểm tra số liệu T9 → nhóm Danh sách tổ | Dòng "Thành viên tổ ↔ 01/TV" + "Cần cho ra khỏi tổ" có bảng, xuất được | |
+| 3 | Tab 👥 Tổ → chọn 1 tổ → chip Cần cho ra khỏi tổ (TƯ) | Danh sách + lý do | |
+| 4 | Nạp Sao kê TK 104, TK 105 (ngày) | Nhận đúng loại, kỳ theo ngày BC | |
+| 5 | Giấy lĩnh TK 104 tổ trưởng | Tự điền TK 104 + CCCD; thiếu thì ghi rõ lý do | |
+| 6 | Gõ tay ngày cấp tổ trưởng, chọn tổ khác rồi chọn lại | Ngày cấp vẫn còn | |
+| 7 | ⚙ Khai báo chung → TK 104 / TK 105 cần đóng | Bảng + 📊 Xuất Excel | |
+| 8 | Giấy lĩnh → Nội dung → chip Thường / Nghiêng | Chữ "Rút tiền" đổi theo | |
+
+**Ghi chú kỹ thuật 3.201:** loại `rieng:true` (tv01, tk104, tk105) đọc ở `slDocRieng` trước bộ nhận cột (js/28); `K.tk` = Sao kê mới nhất, nạp tk104/105 xóa `TO_KS`; `tvDoiChieu(B)` cache `B._tv`; chip `tvra` chỉ hiện khi xem 1 tổ (`TO_TV_MA`).
+
+### Danh sách thử trên máy thật (3.200) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giấy lĩnh → khai báo dòng PGD → chip Thường / Đậm | Dòng PHÒNG GIAO DỊCH GÒ DẦU in thường / đậm theo chip | |
+| 2 | In Giấy lĩnh có số tiền | Số tiền bằng chữ in nghiêng, vẫn chia 2 dòng đúng | |
+
 ### Danh sách thử trên máy thật (3.199) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

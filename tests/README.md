@@ -127,6 +127,8 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t167.js` | (3.197) Giấy lĩnh: gạch dọc dài thêm 2 mm, ô Số tiền giãn đều, PGD đậm; Bảng kê: Họ tên nhỏ nghiêng. |
 | `node tests/t167.js` | (3.198) Giấy lĩnh không viết tắt PGD. |
 | `node tests/t167.js` | (3.199) Giấy lĩnh: ngày tháng cùng dòng PGD, thân phiếu lên 1,25 mm. |
+| `node tests/t167.js` | (3.200) Giấy lĩnh: PGD Đậm / Thường; số tiền bằng chữ nghiêng. |
+| `node tests/t167.js` | (3.201) Sao kê TK 104 giả → Giấy lĩnh + TK 104 cần đóng; Mẫu 01/TV giả → cần cho ra khỏi tổ; nhớ ngày cấp gõ tay; bỏ danh mục tổ. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 

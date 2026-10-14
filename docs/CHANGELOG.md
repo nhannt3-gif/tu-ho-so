@@ -4,6 +4,25 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.201 — 14/10/2026 — Nguồn TƯ: Mẫu 01/TV, Sao kê TK 104 / 105, Mã CIF TT; bỏ danh mục tổ
+- **Anh (14/10):** đổi cơ bản cách lấy TK 104 / TK 105 ("nạp danh mục không khả thi"); số liệu chính là Mẫu 31 + Mẫu 18; nạp 2 file Sao kê TK 104 / 105 theo ngày; báo tổ trưởng đã nghỉ cần đóng 104, khách ra khỏi tổ cần đóng 105; rà thuật toán thành viên tổ, đối chiếu chéo Mẫu 01/TV (chính xác theo TƯ, chỉ có theo tháng); "Mẫu 01/TV lấy dư nợ = 0 nhưng không tính lãi tồn — các món đó coi như chưa tất nợ"; bỏ hẳn danh mục tổ; chữ "Rút tiền" chọn nghiêng / không (mặc định nghiêng); "làm và chạy 1 lần anh test".
+- **Rà thuật toán thành viên tổ (file thật 30/09, chỉ trong vùng nháp):** app (Mẫu 31) **18.648 / 18.648 cặp khách–tổ đều có trong 01/TV** (app không sai chỗ nào); TƯ còn 168 thành viên Mẫu 31 không thể hiện (không còn món vay, dư nợ 0, tiền gửi 0). Khế ước hủy: app đã loại trước khi xét (`slBo`) — không phải lỗi.
+- **Mã CIF TT** (Mẫu 31 / Mẫu 18) = mã KH tổ trưởng → `t.cif`, `hsoTTKH` dùng trước DSTO / trùng tên. Mẫu 18 = loại "Dư nợ chi tiết" sẵn có (đổi tên hiển thị, đọc thêm cột Mã CIF TT).
+- **Loại file mới** (đọc riêng theo khuôn, `js/28-tv-tk.js`): `tv01` Mẫu 01/TV (theo tháng — dòng "Đến ngày…"), `tk104` / `tk105` "9. Sao kê tài khoản theo mã sản phẩm" (theo ngày — cột Ngày BC, tự nhận 104 / 105 theo cột Sản phẩm). Nạp qua 📥 Nạp file như các file khác.
+- **Đối chiếu 01/TV** (`tvDoiChieu`): ② Kiểm tra số liệu nhóm 6 — khớp / TƯ có Mẫu 31 không thể hiện / app có TƯ không; **Cần cho ra khỏi tổ**: TƯ còn giữ, dư nợ 0 + tiền gửi 0 và **không còn lãi tồn** (còn lãi tồn = chưa tất nợ, liệt kê riêng); khách đứng tên ≥ 2 tổ. Tab 👥 Tổ (1 tổ): chip **Cần cho ra khỏi tổ (TƯ)**. File thật T9: 182 khách cần cho ra, 9 khách ở 2 tổ, 7 khách dư nợ 0 nhưng còn lãi tồn.
+- **TK 104 / 105** (`tkTT`, `tkCanDong`): luôn dùng Sao kê **mới nhất** (gắn `K.tk` khi dựng kỳ). Giấy lĩnh TK 104 = Sao kê TK 104 theo Mã CIF TT (file thật: 369/377 tổ, 8 tổ báo rõ "không có trong Sao kê"); TK 105 khách: số sổ Mẫu 18 → thiếu thì Sao kê TK 105. Nút **📋 TK 104 cần đóng** (chủ TK không còn là tổ trưởng — file thật 40) / **TK 105 cần đóng** (không còn là thành viên tổ theo 01/TV — file thật 2.292), xuất Excel — ở ⚙ Khai báo chung (Giao dịch xã) và 📥 Nạp & KT.
+- **CCCD tổ trưởng / khách**: Mẫu 31 → Mẫu 01/TV → Thông tin tổ trưởng / DSTO → số anh gõ tay lần trước (`D.cauHinh.ccNho`, nhớ theo mã KH; 01/TV không có ngày cấp → lấy ngày anh đã gõ). File thật: 376/377 tổ trưởng có CCCD.
+- **Bỏ hẳn danh mục tổ** (khối 📚, nạp / kiểm tra, tra theo tên, `gdxTC` / `dmt*`, `gdxTK104*`); dữ liệu cũ `D.cauHinh.dmTo` / `dmTK104` để nguyên, không dùng. Mini app lấy TK 104 / CCCD theo nguồn mới.
+- **Giấy lĩnh:** chữ nội dung ("Rút tiền") chip **Nghiêng** (mặc định) / **Thường** (`glNDNghieng`).
+- **Không làm** (anh từng bỏ ở 3.137): tách chip "Tất nợ · còn TK 105" theo số dư 0.
+- **Phép thử:** `t167` 74/74 (Sao kê TK 104 giả, 01/TV giả, cần cho ra khỏi tổ, nhớ ngày cấp) · `t168` 33/33 (mini app theo Sao kê TK 104) · hồi quy đầy đủ.
+
+## 3.200 — 14/10/2026 — 💵 Giấy lĩnh: PGD đậm / thường, số tiền bằng chữ in nghiêng
+- **Anh (14/10):** "dòng Phòng giao dịch Gò Dầu em cho tùy chọn in đậm hoặc không" · "số tiền bằng chữ cho in nghiêng".
+- Khai báo dòng đầu phiếu (ô tên PGD) thêm 2 chip **Đậm** (mặc định, như 3.197) / **Thường** — khóa `glPGDDam` ('dam' / 'thuong'), mini app mang theo.
+- Số tiền bằng chữ (cả 2 dòng) in nghiêng; nhãn “Yêu cầu cho rút tiền (bằng chữ):” giữ như cũ.
+- **Phép thử:** `t167` 75/75 · `t168` 33/33.
+
 ## 3.199 — 14/10/2026 — 💵 Giấy lĩnh: ngày tháng cùng dòng PGD
 - **Anh (14/10):** "dòng ngày tháng cho cùng dòng PGD Gò Dầu" · "cho giãn dòng xích lên 1 mm thấy khoảng cách hơi trống".
 - Dòng *Ngày … tháng … năm …* (cột giữa) cách tiêu đề 4 → 2,75 mm → ngang hàng dòng **PHÒNG GIAO DỊCH GÒ DẦU** (đo lệch < 0,1 px); khai báo PGD trống → dòng chấm cũng ngang dòng ngày.

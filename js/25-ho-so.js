@@ -102,6 +102,7 @@ function hsoKhach(kh, t){   /* nhân thân khách: danh bạ (Mẫu 31 các kỳ
   return {kh:kh, ten:g('ten'), ns:g('ns'), cccd:g('cccd'), ncap:g('ncap'), noiCap:g('noiCap'), ap:hsoApTen({tenThon:g('tenThon')}) || (t ? hsoApTen(t) : ''), tenXa:g('tenXa') || (t ? t.tenXa : '')};
 }
 function hsoTTKH(t){   /* mã KH của tổ trưởng: DSTO / Thông tin tổ trưởng; không có → tổ viên trùng tên (chỉ 1 người) */
+  if(t.cif) return {kh:t.cif, cc:'Mã CIF TT (Mẫu 31 / Mẫu 18)'};   /* 3.201: hệ thống ghi sẵn mã KH tổ trưởng trên từng dòng */
   var m = (t.ds && t.ds.ttKH) || (t.tt && t.tt.ttKH) || ''; if(m) return {kh:m, cc:'mã KH tổ trưởng trên DSTO'};
   var ds = {}; ((TO_K && TO_K.kh[t.ma]) || []).forEach(function(o){ if(o.kh && slChuan(o.ten)===slChuan(t.ten)) ds[o.kh] = 1; });
   var k = Object.keys(ds); return k.length===1 ? {kh:k[0], cc:'tổ viên trùng tên tổ trưởng'} : {kh:'', cc:''};

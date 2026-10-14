@@ -18,7 +18,7 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    gdxC().danhSachCanBo = ['Cán Bộ Giả A','Cán Bộ Giả B','Cán Bộ Giả C'];
    slDoiTab('gdx'); doiNgan(7); for(let i=0;i<50 && !document.querySelector('#gdx-cay .loc-khoi');i++) await w(200); await w(500);
    const ds = gdxDsDiem(), d = ds.find(x=>x.to.length>=2), t = d.to[0];
-   D.cauHinh.dmTo = {to:{}, diem:{}, luc:'', ten:'gia'}; D.cauHinh.dmTo.to[t.maTo] = {tt:t.tenTo, tk104:'9990001112223'};   /* TK 104 GIẢ */
+   TO_K.to[t.maTo].cif = '9990000001'; TO_K.tk = {tk104:{ky:'2026-10-13', rows:[{kh:'9990000001', stk:'9990001112223'}]}};   /* 3.201: Mã CIF TT + Sao kê TK 104 GIẢ */
    const nut = [...document.querySelectorAll('.gdx2-nut button')].some(x=>/Mini app/.test(x.textContent));
    gdxMiniHop(60); await w(100); const hop = document.querySelector('#hop').textContent;
    const G = gdxMiniGoi(), M = gdxMiniHTML(30, G);
@@ -35,12 +35,10 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    GDX.glTatCa = 1; const pham2 = tKhac ? timTen(tKhac.ten).some(x=>x.indexOf(tKhac.ten)>=0) : null; GDX.glTatCa = 0;
    const kt = TO_K.to[t.maTo], kh = kt && typeof hsoTTKH==='function' ? hsoTTKH(kt).kh : '', nt = kh ? hsoKhach(kh, kt) : {};
    /* 3.180: tra TK 104 chắc hơn · Tóm tắt 1 dòng · thu gọn Xã / Điểm */
-   const dm0 = D.cauHinh.dmTo, kT = TO_K.to[t.maTo], m180 = {};
-   D.cauHinh.dmTo = {to:{}, diem:{}}; m180.viChua = /chưa có danh mục/.test(dmtViSao(kT));
-   D.cauHinh.dmTo = {to:{['00'+t.maTo]:{tk104:'X1'}}, diem:{}}; m180.so0 = (dmtTimTo(kT)||{}).tk104==='X1';
-   D.cauHinh.dmTo = {to:{ZZZ:{tt:'Ông '+String(kT.ten).toUpperCase(), xa:kT.tenXa, tk104:'X2'}}, diem:{}}; const y = dmtTimTo(kT) || {}; m180.ten = y.tk104==='X2' && y.theoTen==='ZZZ';
-   D.cauHinh.dmTo = {to:{ZZZ:{tt:'Người Khác', tk104:'X3'}}, diem:{}}; m180.viMa = /không có trong danh mục/.test(dmtViSao(kT)) && !dmtTimTo(kT);
-   D.cauHinh.dmTo = dm0; gdxVe(); await w(200);
+   const kT = TO_K.to[t.maTo], m180 = {};
+   const tkG = TO_K.tk; TO_K.tk = {}; m180.viChua = /chưa nạp Sao kê TK 104/.test(tkTT(kT).ly||''); TO_K.tk = tkG;   /* 3.201: bỏ danh mục tổ — lý do theo Sao kê TK 104 */
+   const tk0 = TO_K.tk; TO_K.tk = {tk104:{ky:'2026-10-13', rows:[{kh:'0000000000', stk:'X9'}]}}; m180.viMa = /không có trong Sao kê TK 104/.test(tkTT(kT).ly||'') && !tkTT(kT).tk;
+   TO_K.tk = {tk104:{ky:'2026-10-13', rows:[{kh:tkTT(kT).kh, stk:'X1'}]}}; m180.so0 = tkTT(kT).tk==='X1'; m180.ten = true; TO_K.tk = tk0; gdxVe(); await w(200);
    m180.tom = document.getElementById('gdx-tom').offsetHeight; m180.tomCanh = !!document.querySelector('#gdx-tom .gdx2-canh1') || !gdxTom().canh.length;
    const lk = () => document.querySelector('#gdx-cay .loc-khoi'), an = q => { const e = document.querySelector('#gdx-cay '+q); return !e || !e.offsetParent; };
    m180.gon = lk().classList.contains('gon') && an('.pv-nhom.cap-xa') && an('.pv-hang2') && /Đổi/.test((document.querySelector('#gdx-cay .pv-gon')||{}).textContent||'');
@@ -54,8 +52,8 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    const khacTT = tKhac ? boDau(tKhac.ten) : '';
    return {m180, khacTT, pham:{khac:!!tKhac, ngoai:pham1, trong:pham1b, chu:chuPham, tatCa:pham2}, cc:{cccd:nt.cccd||'', ncap:nt.ncap||'', noiCap:nt.noiCap||''}, nut, hop, html:M.html, han:M.han, d:{k:d.k, ten:d.tenDiem, ma:d.maDiem, ngay:d.ngayGD, nTo:d.to.length}, t:{ten:t.tenTo, ma:t.maTo}, nDiem:ds.length, khach, tens:[...tens].slice(0, 30), canBo:gdxC().danhSachCanBo};
  }, files);
- ok('3.180: không thấy TK 104 → báo rõ lý do (máy chưa có danh mục / mã tổ không có trong danh mục)', X.m180.viChua && X.m180.viMa);
- ok('3.180: tra TK 104 theo mã có số 0 đầu khác nhau, hoặc theo tên tổ trưởng cùng xã (bỏ Ông / Bà, hoa thường)', X.m180.so0 && X.m180.ten);
+ ok('3.201: không thấy TK 104 → báo rõ lý do (chưa nạp Sao kê TK 104 / tổ trưởng không có trong Sao kê)', X.m180.viChua && X.m180.viMa);
+ ok('3.201: TK 104 tổ trưởng lấy theo mã KH tổ trưởng trong Sao kê TK 104', X.m180.so0 && X.m180.ten);
  ok('3.180: 📋 Tóm tắt thu gọn 1 dòng (chip + cảnh báo đầu + nút in)', X.m180.tom <= 60 && X.m180.tomCanh, X.m180.tom+' px');
  ok('3.181: bấm vào vùng nhập → khối lọc gom gọn lại; đầu khung 1 hàng, nút phụ gom vào ⋯ (Khai báo riêng / chung, Nhật ký in, Mini app)', X.m180.gonNhap && /Khai báo riêng/.test(X.m180.menu) && /Mini app/.test(X.m180.menu) && X.m180.dau1 <= 58, X.m180.dau1+' px');
  ok('3.180/3.181: đã chọn điểm (hoặc chọn Xã › Hội › Tổ, không chọn điểm) → khối lọc gọn (ẩn Xã · Điểm · Hội · Tổ), nút ▾ Đổi sổ ra; chọn xong tự gọn lại', X.m180.gon && X.m180.mo && X.m180.gonLai && X.m180.gonTo);
