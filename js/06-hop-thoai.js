@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.209', ds:[
+var CO_GI_MOI = {ban:'3.210', ds:[
+  ["📋 Hồ sơ vay: 03/TD nhiều hộ cùng chương trình 1 tờ — tích hộ ở 👪 Hộ vay → Lập 03/TD, hoặc ＋ Thêm hộ ở tab 03/TD; sửa số tiền, thời hạn, ĐTTH, mục đích từng dòng", "slDoiTab('hsv');doiNgan(7);setTimeout(function(){hsoChonMau('03td')},800)"],
   ["👪 Hồ sơ vay: Sổ hộ vay (thay Hộ mới + Bộ HS) — ＋ Hộ mới / ＋ Lấy từ Mẫu 31, khai tổ, nhiều HSSV; 📄 In hồ sơ: chọn hộ → chương trình → 01/TD, in kèm 03/TD · 10C · 01/UQ · 01/TGTV", "slDoiTab('hsv');doiNgan(7);setTimeout(function(){hsoChonMau('homoi')},800)"],
   ["⚙ Hồ sơ vay: Khai báo chung có tab con (PGD · Trưởng ấp · Tổ phó · 📋 Chương trình vay) — mỗi chương trình 1 thẻ; chọn chương trình ở Bộ HS → 01/TD, 03/TD tự điền; thời hạn / hạn trả cuối gõ thì in, trống thì chấm", "slDoiTab('hsv');doiNgan(7);setTimeout(function(){hsoKBHop('ct')},800)"],
   ["🏠 Hồ sơ vay: tab Hộ mới — khai báo hộ vay mới 1 lần (ngày gõ liền số, giới tính / năm sinh / nơi cấp / hạn CCCD tự suy, địa chỉ Xã → Điểm GD → Ấp, thành viên, đứng tên vay, HSSV) → 📄 Lập HS điền sẵn 01/UQ · 01/TD · 03/TD", "slDoiTab('hsv');doiNgan(7)"],

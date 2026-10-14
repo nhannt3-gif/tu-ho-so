@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.210) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 👪 Hộ vay: tích 2–3 hộ → 📋 Lập 03/TD | 03/TD có đủ hộ, cùng chương trình, Cộng đúng | |
+| 2 | Tab 03/TD → ＋ Thêm hộ, sửa số tiền / mục đích | Khung phải cập nhật | |
+| 3 | Đổi chip chương trình ở 03/TD | Tên CT, thời hạn, ĐTTH đổi cả tờ | |
+
+**Ghi chú kỹ thuật 3.210:** tờ đang lập `hsoCH().d03` {ct, ds:[{hoId, tien, md, th, dt}]} — `hsoD03`, `hsoD03Moi(o, ct)` (lấy phiếu hộ nếu cùng CT), `hsoD03Them / Bo / Dat / CT / TuChon`, `hsoD03Hang` → `hsoLap03td(t, null, rows, ctMa)` (thêm tham số ctMa), cột trái `hsoTuy03`; tick sổ `HM_CHON`.
+
 ### Danh sách thử trên máy thật (3.209) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
