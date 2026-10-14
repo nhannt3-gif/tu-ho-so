@@ -39,7 +39,7 @@
 - **Luật khóa KTGS:** KHÔNG chép / sửa mẫu — chỉ thêm **1 cửa gọi** vào đúng hàm KTGS dựng Mẫu 06 cho 1 hộ (`ktGiaTri06`, `ktCB06`, `KT_KHUON.m06`, `ktXuat`…), truyền lựa chọn "mục đích trống" + cán bộ trống. Bản in Mẫu 06 bên KTGS phải **giữ nguyên** → chạy lại phép thử KTGS (t97 / t99 / t104 / t105 / t111 …) trước – sau.
 
 ## 5. Trạng thái (cập nhật mỗi lần commit)
-- ☐ 1. Cây địa bàn thống nhất (5 tab, Mở rộng / Thu gọn, đường dẫn bấm về cấp trên)
+- ☑ 1. Cây địa bàn thống nhất (5 tab, Mở rộng / Thu gọn, đường dẫn bấm về cấp trên)  — `pvGonCua` / `pvGonDoi` (D.cauHinh.pvGon[p]), mắt đường dẫn `.pv-ve`; t168 sửa chữ Đổi → Mở rộng
 - ☐ 2. Giấy lĩnh "↺ Phiếu mới" (app + mini app)
 - ☐ 3. Hồ sơ vay: tab con mỗi mẫu + bố cục GDX + số liệu theo ngày đã chọn
 - ☐ 4a. 09A ô chấm tùy biến (+ danh sách lý do)
