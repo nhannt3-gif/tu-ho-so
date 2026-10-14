@@ -19,7 +19,7 @@ const fs=require('fs'), path=require('path');
    const xa = Object.keys(hmDiaBan())[0]; hmDatXa(xa); await w(100);
    const X = hmDiaBan()[xa], dk = Object.keys(X.diem)[0]; if(dk) hmDatDiem(dk); const ap = Object.keys(X.ap).find(k=>!dk || X.ap[k].diem[dk]); hmDatAp(ap); await w(100);
    ok('chọn Xã → Điểm GD → Ấp (ấp lọc theo điểm)', HM.tenXa && HM.tenThon, HM.tenXa+' · '+HM.tenThon);
-   hmDat(0, 'ten', 'nguyễn văn giả'); hmDat(0, 'ns', '150378'); hmDat(0, 'cccd', '072078000111'); hmDat(0, 'ncap', '9112021'); await w(100);
+   hmDat(0, 'ten', 'nguyễn văn giả'); hmDat(0, 'ns', '150378'); hmDat(0, 'cccd', '072078000111'); hmDat(0, 'ncap', '9112021'); hmDat(0, 'sdt', '0900 000 111'); await w(100);
    const suy = document.getElementById('hm-suy-0').textContent;
    ok('ngày gõ liền số: 150378 → 15/03/1978, 9112021 → 09/11/2021; tên viết hoa đầu từ', HM.tv[0].ns==='1978-03-15' && HM.tv[0].ncap==='2021-11-09' && HM.tv[0].ten==='Nguyễn Văn Giả', HM.tv[0].ns+' · '+HM.tv[0].ncap+' · '+HM.tv[0].ten);
    ok('suy theo CCCD: Nam, năm 1978 khớp; nơi cấp; hạn CCCD', /Nam, năm sinh theo CCCD 1978 ✓ khớp/.test(suy) && /nơi cấp: Cục CS QLHC/.test(suy) && /hạn CCCD|hết hạn/.test(suy), suy);
@@ -31,7 +31,7 @@ const fs=require('fs'), path=require('path');
    hmLuu(); await w(300);
    ok('💾 Lưu hộ → vào danh sách (D.cauHinh.hoMoi), hiện ở cột trái + bảng khung phải', hmDs().length===1 && /Nguyễn Văn Giả/.test(document.getElementById('hso-tuy').textContent) && /DANH SÁCH HỘ VAY MỚI/.test(HSO.x.trang) && HSO.x.trang.indexOf('Nguyễn Văn Giả')>0);
    hmLapHS(hmDs()[0].id); await w(400); const B = hsoBo();
-   ok('📄 Lập HS → Bộ HS mới: người vay, ngày sinh, CCCD, nơi cấp, địa chỉ, thành viên (01/UQ), HSSV', hsoMau().k==='bo' && B.moi && B.nv.ten==='Nguyễn Văn Giả' && B.nv.ns==='1978-03-15' && B.nv.noiCap==='Cục CS QLHC' && B.nv.tenXa===HM_X(B) && B.ho.length===1 && B.ho[0].qh==='Con' && B.ct==='HSSV' && B.pa.sv==='Nguyễn Thị Con Giả', JSON.stringify({nv:B.nv.ten, xa:B.nv.tenXa, ap:B.nv.ap, ho:B.ho.length, sv:B.pa.sv}));
+   ok('📄 Lập HS → Bộ HS mới: người vay, ngày sinh, CCCD, nơi cấp, địa chỉ, thành viên (01/UQ), HSSV', hsoMau().k==='bo' && B.moi && B.nv.ten==='Nguyễn Văn Giả' && B.nv.ns==='1978-03-15' && B.nv.noiCap==='Cục CS QLHC' && B.nv.sdt==='0900 000 111' && B.nv.tenXa===HM_X(B) && B.ho.length===1 && B.ho[0].qh==='Con' && B.ct==='HSSV' && B.pa.sv==='Nguyễn Thị Con Giả', JSON.stringify({nv:B.nv.ten, xa:B.nv.tenXa, ap:B.nv.ap, ho:B.ho.length, sv:B.pa.sv}));
    function HM_X(B){ return hmDs()[0].tenXa; }
    hsoChonMau('01td'); await w(400);
    ok('01/TD (theo bộ đang chọn) điền tên người vay hộ mới', HSO.x.trang.indexOf('Nguyễn Văn Giả')>0);

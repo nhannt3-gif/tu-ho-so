@@ -1042,7 +1042,7 @@ function hsoDocO(){ ['ttMoi','ttCu','phoMoi','phoCu','giao','nhan'].forEach(func
    hộ = {id, tao, sua, xa, tenXa, diem, tenDiem, thon, tenThon, tv:[{ten, ns, cccd, ncap, noiCap, qh}], dung (người đứng tên vay), hssv (-1 = không)} */
 function hmDs(){ var c = D.cauHinh; if(!Array.isArray(c.hoMoi)) c.hoMoi = []; return c.hoMoi; }
 var HM = null, HM_Q = '';
-function hmNguoi(){ return {ten:'', ns:'', cccd:'', ncap:'', noiCap:'', qh:''}; }
+function hmNguoi(){ return {ten:'', ns:'', cccd:'', ncap:'', noiCap:'', qh:'', sdt:''}; }
 function hmDiaBan(){   /* xã · điểm GD · ấp lấy từ cây tổ đang có */
   var X = {}; Object.keys((TO_K && TO_K.to) || {}).forEach(function(m){ var t = TO_K.to[m]; if(!t || !t.xa || toLaTT(t)) return;
     var x = X[t.xa] = X[t.xa] || {xa:t.xa, tenXa:t.tenXa||t.xa, diem:{}, ap:{}};
@@ -1101,7 +1101,7 @@ function hmVe(){
   var nguoi = HM.tv.map(function(n, i){ var o = function(f, ph, w, ngay){ return '<input style="width:'+w+'" value="'+coChuHTML(ngay ? (n[f] ? ngayVNsl(n[f]) : '') : (n[f]||''))+'" placeholder="'+ph+'" onchange="hmDat('+i+',\''+f+'\',this.value)">'; };
     return '<div class="hm-nguoi'+(i===HM.dung ? ' dung' : '')+'"><div class="hm-hang"><b>'+(i+1)+'.</b>'+o('ten', 'Họ tên', '34%')+o('ns', 'ngày sinh — gõ 150378', '22%', 1)+o('cccd', 'Số CCCD 12 số', '24%')+
       (i ? o('qh', 'Quan hệ', '13%') : '<span class="hm-qh">Chủ hộ</span>')+(i ? '<button class="nho" title="Bỏ người này" onclick="hmBoNguoi('+i+')">✕</button>' : '')+'</div>'+
-      '<div class="hm-hang">'+o('ncap', 'ngày cấp CCCD — gõ 9112021', '34%', 1)+
+      '<div class="hm-hang">'+o('ncap', 'ngày cấp CCCD — gõ 9112021', '34%', 1)+o('sdt', 'Số điện thoại', '22%')+
       '<label><input type="radio" name="hm-dung"'+(i===HM.dung ? ' checked' : '')+' onchange="HM.dung='+i+';hmVe()"> Đứng tên vay</label>'+
       '<label><input type="radio" name="hm-sv"'+(i===HM.hssv ? ' checked' : '')+' onchange="HM.hssv='+i+';hmVe()"> HSSV</label></div>'+
       '<div class="sl-phu" id="hm-suy-'+i+'">'+hmSuyHTML(n, i===HM.dung)+'</div></div>'; }).join('');
@@ -1114,6 +1114,7 @@ function hmDat(i, f, v){
   var n = HM.tv[i]; if(!n) return; v = String(v||'').trim();
   if(f==='ns' || f==='ncap'){ var iso = typeof gdxDocNgay==='function' ? gdxDocNgay(v) : hsoNgayTu(v); n[f] = iso || ''; if(v && !iso) bao('Ngày chưa đọc được: '+v+' — gõ dd/mm/yyyy hoặc liền số (150378).'); }
   else if(f==='cccd') n.cccd = v.replace(/\D/g, '');
+  else if(f==='sdt') n.sdt = v.replace(/[^\d+ ]/g, '').trim();
   else if(f==='ten') n.ten = tenHoaDau(v.replace(/\s+/g, ' '));
   else n[f] = v;
   if(f==='ncap') n.noiCap = hsoNoiCapGY(n.ncap);
@@ -1135,7 +1136,7 @@ function hmGanBo(id, B){   /* hộ → bộ hồ sơ: người vay, thành viên
   B = B || hsoBo(); var o = hmDs().find(function(x){ return x.id===id; }); if(!B || !o) return;
   var n = o.tv[o.dung||0] || {}, d = hsoCCCDDoc(n.cccd);
   B.moi = true; B.kh = ''; B.hoMoiId = o.id; B.chon = B.chon || {}; B.chon.tgtv = 1;
-  B.nv = Object.assign({}, B.nv||{}, {ten:n.ten||'', ns:n.ns||'', cccd:n.cccd||'', ncap:n.ncap||'', noiCap:n.noiCap || hsoNoiCapGY(n.ncap), gt:d ? d.gt : (B.nv||{}).gt, danToc:(B.nv||{}).danToc || 'Kinh', ap:hsoApTen({tenThon:o.tenThon}) || o.tenThon || '', tenXa:o.tenXa||''});
+  B.nv = Object.assign({}, B.nv||{}, {ten:n.ten||'', ns:n.ns||'', cccd:n.cccd||'', ncap:n.ncap||'', noiCap:n.noiCap || hsoNoiCapGY(n.ncap), sdt:n.sdt || (B.nv||{}).sdt || '', gt:d ? d.gt : (B.nv||{}).gt, danToc:(B.nv||{}).danToc || 'Kinh', ap:hsoApTen({tenThon:o.tenThon}) || o.tenThon || '', tenXa:o.tenXa||''});
   B.ho = o.tv.filter(function(x, i){ return i!==(o.dung||0) && x.ten; }).map(function(x){ return {ten:x.ten, ns:x.ns||'', cccd:x.cccd||'', qh:x.qh||''}; });
   B.soNguoi = B.soNguoi || String(o.tv.length);
   if(o.hssv>=0 && o.tv[o.hssv]){ B.ct = 'HSSV'; B.pa = B.pa || {}; B.pa.sv = o.tv[o.hssv].ten; }
