@@ -38,7 +38,7 @@ const fs=require('fs'), path=require('path');
    const K = KT_K, xa = pvLuaChon(K.to, C, 'xa', true)[0].k; pvChon('kt', 'xa', xa); await w(200);
    ok('chọn xã: hàng Xã vẫn hiện + hàng Điểm GD (Cả xã + điểm của xã) │ Hội (3.162)', nhan()==='Xã|Điểm GD|Hội' && /Cả xã/.test(document.querySelector('#kt-cay .pv-hang2').textContent), nhan());
    const hoiXa = pvLuaChon(K.to, C, 'hoi', true)[0].k; pvChon('kt', 'hoi', hoiXa, 1); await w(200);
-   ok('Hội chọn ngay ở cấp xã (đa chiều, chưa cần điểm GD)', C.hoi===String(hoiXa) && !C.diem && document.querySelectorAll('#kt-cay .pv-dan .pv-dan-o').length===2);   /* 3.160: cấp đã chọn lên dòng 📍 */
+   ok('Hội chọn ngay ở cấp xã (đa chiều, chưa cần điểm GD)', C.hoi===String(hoiXa) && !C.diem && document.querySelectorAll('#kt-cay .pv-dan .pv-dan-o').length===3);   /* 3.206: + mắt 🏠 PGD */   /* 3.160: cấp đã chọn lên dòng 📍 */
    const diem = pvLuaChon(K.to, C, 'diem', true)[0].k; pvChon('kt', 'diem', diem); await w(200);
    ok('chọn điểm: giữ Hội, hàng Tổ chỉ tổ của điểm + Hội đó', C.hoi===String(hoiXa) && /Tổ/.test(nhan()) && [...document.querySelectorAll('#kt-cay .pv-hang2')].pop().querySelectorAll('.to-chip').length===Math.min(30, pvLuaChon(K.to, C, 'to', true).length), nhan());
    /* KTGS kế hoạch: không còn hàng chip Hội riêng */
