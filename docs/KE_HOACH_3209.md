@@ -35,22 +35,23 @@ Tên CT in: "Hỗ trợ tạo việc làm duy trì và mở rộng việc làm" 
 - Số kỳ n = thời hạn T ÷ kỳ hạn K (làm tròn lên); T ≤ 12 → 1 kỳ.
 - Ngày kỳ i = ngày gốc + i × K tháng (ngày 29–31 tháng thiếu → cuối tháng); kỳ cuối = **hạn trả nợ cuối cùng** = ngày gốc + T. Ngày gốc = ngày ký HĐ / giải ngân dự kiến — **trống → ngày để chấm, chỉ in số tiền**.
 - Số tiền: **chia đều, làm tròn xuống bội R** (mặc định 1.000.000 đ), **phần lẻ dồn kỳ cuối**.
-- **Anh chốt 14/10: KHÔNG có ân hạn.** Tham số theo mục đích: **kiểu chia** (Đều · Tỷ lệ % từng kỳ, vd 20-30-50 · 1 lần cuối kỳ — T ≤ 12 tự 1 lần) · R.
+- **Anh chốt 14/10: KHÔNG có ân hạn; mặc định phân kỳ 24 tháng/lần; app tự tính từ số tiền vay — "hết" (không thêm kiểu chia khác).** Chỉ: chia đều theo số kỳ (T ≤ 12 → 1 lần khi đến hạn). Kỳ hạn sửa được ở thẻ / bộ hồ sơ (cảnh báo nếu vượt mức VB).
+- Ví dụ: vay 50.000.000, 60 tháng, 24 tháng/lần → 3 kỳ: tháng 24: 16.000.000 · tháng 48: 16.000.000 · tháng 60 (hạn cuối): 18.000.000.
 - Cảnh báo (không chặn): K vượt mức tối đa theo T; T > 120; tiền > 200 triệu.
 - **Lãi suất tự chọn:** tích đối tượng ưu tiên 1–5 ở 01/GQVL → 6,24 %; không → 7,9248 % (2 số khai ở thẻ GQVL, sửa khi Chính phủ đổi). Lãi quá hạn: khai ở thẻ (🖨 / ✍).
 
 **B. Tham số mặc định theo mục đích** (em ĐỀ XUẤT từ thực tế — không phải quy định, anh sửa / thêm ở thẻ GQVL; mẫu 03 anh gửi đều 60 tháng):
-| Mục đích (vd) | T | K | Kiểu chia |
+| Mục đích (vd) | T | K (mặc định 24 — anh chốt) | Kiểu chia |
 |---|---|---|---|
-| Chăn nuôi bò sinh sản | 60 | 12 | Đều 5 kỳ |
-| Chăn nuôi heo, gia cầm; sửa chuồng + nuôi | 60 | 12 | Đều 5 kỳ |
-| Trồng cây lâu năm (chanh, cây ăn trái) | 60 | 12 | Đều 5 kỳ |
-| Kinh doanh, dịch vụ, mua máy móc | 36–60 | 12 | Đều |
+| Chăn nuôi bò sinh sản | 60 | 24 | Đều 3 kỳ |
+| Chăn nuôi heo, gia cầm; sửa chuồng + nuôi | 60 | 24 | Đều 3 kỳ |
+| Trồng cây lâu năm (chanh, cây ăn trái) | 60 | 24 | Đều 3 kỳ |
+| Kinh doanh, dịch vụ, mua máy móc | 36–60 | 24 | Đều |
 | Trồng ngắn ngày | ≤ 12 | — | 1 lần cuối kỳ |
 
 **C. 01/GQVL II.4 hiệu quả** — gõ Tổng doanh thu, Tổng chi phí → **Chênh lệch = DT − CP**, **Thu nhập BQ tăng thêm/tháng = Chênh lệch ÷ T**; app tính sẵn **lãi vay dự kiến** theo lịch trả gốc (dư nợ từng tháng × lãi suất ÷ 12) để đối chiếu chú thích (7): chi phí phải ≥ vốn + lãi vay → nhắc ⚠ nếu thấp hơn. Đợt sau (anh muốn): mỗi mục đích 1 "mẫu tính" (vd bò: số con × giá; số bê / năm × giá bán bê; chi phí / con / năm) → DT, CP tự ra.
 
-**D. Chọn nhanh như GDX:** chip **mục đích** (bấm = điền mục đích + T, K, kiểu chia), chip **số tiền** (30 / 50 / 100 / 200 triệu — khai ở thẻ), chip **thời hạn** (12 / 36 / 60), chip **kỳ hạn** (6 / 12 / 24).
+**D. Chọn nhanh như GDX:** chip **mục đích** (bấm = điền mục đích + T, K, kiểu chia), chip **số tiền** (30 / 50 / 100 / 200 triệu — khai ở thẻ), chip **thời hạn** (12 / 36 / 60), chip **kỳ hạn** (24 mặc định / 12).
 
 ## 6. Câu hỏi chờ anh
 1. Công thức A (chia đều, làm tròn 1 triệu, lẻ dồn kỳ cuối; ngày gốc trống → ngày chấm) — đồng ý?
