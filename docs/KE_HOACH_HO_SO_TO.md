@@ -243,3 +243,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.206 (14/10):** cây địa bàn thống nhất, ↺ Phiếu mới, Hồ sơ vay theo tab, 09A ô chấm tùy biến + in kèm Mẫu 06/TD.
 - **Đã làm 3.207 (14/10):** danh sách hộ vay mới (khai báo 1 lần, Lập HS).
 - **Đã làm 3.208 (14/10):** Khai báo chung tab con + thẻ chương trình vay (01/TD, 03/TD tự điền).
+- **Đã làm 3.209 (14/10):** sổ hộ vay (thay Hộ mới + Bộ HS), in hồ sơ theo hộ + in kèm.

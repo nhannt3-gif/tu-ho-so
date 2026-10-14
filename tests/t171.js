@@ -13,7 +13,7 @@ const fs=require('fs'), path=require('path');
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
    kyChungDoi('2026-08'); delete D.cauHinh.hoMoi;
    slDoiTab('hsv'); doiNgan(7); await w(1200); hsoChonMau('homoi'); await w(400);
-   ok('tab con đầu "🏠 Hộ mới" + nút ＋ Hộ mới', /Hộ mới/.test((document.querySelector('#hso-tabm .hso-tm')||{}).textContent||'') && /＋ Hộ mới/.test(document.getElementById('hso-tuy').textContent));
+   ok('tab con đầu "🏠 Hộ mới" + nút ＋ Hộ mới', /Hộ vay/.test((document.querySelector('#hso-tabm .hso-tm')||{}).textContent||'') && /＋ Hộ mới/.test(document.getElementById('hso-tuy').textContent));
    hmMo(); await w(200);
    ok('form mở: địa chỉ chọn Xã từ cây tổ', !!document.querySelector('#hop-in .hm-dc select') && document.querySelectorAll('#hop-in .hm-dc select option').length>1);
    const xa = Object.keys(hmDiaBan())[0]; hmDatXa(xa); await w(100);
@@ -26,10 +26,10 @@ const fs=require('fs'), path=require('path');
    hmDat(0, 'cccd', '072180000111'); await w(100);
    ok('CCCD khác năm sinh → ⚠', /khác năm sinh đã nhập/.test(document.getElementById('hm-suy-0').textContent), document.getElementById('hm-suy-0').textContent);
    hmDat(0, 'cccd', '072078000111');
-   HM.tv.push(hmNguoi()); hmVe(); hmDat(1, 'ten', 'Nguyễn Thị Con Giả'); hmDat(1, 'ns', '01052006'); hmDat(1, 'cccd', '072306000222'); hmDat(1, 'qh', 'Con'); HM.hssv = 1; hmVe(); await w(100);
-   ok('thành viên 2: nữ 2006 khớp; chọn HSSV', /Nữ, năm sinh theo CCCD 2006 ✓ khớp/.test(document.getElementById('hm-suy-1').textContent) && HM.hssv===1);
+   HM.tv.push(hmNguoi()); hmVe(); hmDat(1, 'ten', 'Nguyễn Thị Con Giả'); hmDat(1, 'ns', '01052006'); hmDat(1, 'cccd', '072306000222'); hmDat(1, 'qh', 'Con'); HM.sv = [1]; hmVe(); await w(100);
+   ok('thành viên 2: nữ 2006 khớp; chọn HSSV', /Nữ, năm sinh theo CCCD 2006 ✓ khớp/.test(document.getElementById('hm-suy-1').textContent) && HM.sv.indexOf(1)>=0);
    hmLuu(); await w(300);
-   ok('💾 Lưu hộ → vào danh sách (D.cauHinh.hoMoi), hiện ở cột trái + bảng khung phải', hmDs().length===1 && /Nguyễn Văn Giả/.test(document.getElementById('hso-tuy').textContent) && /DANH SÁCH HỘ VAY MỚI/.test(HSO.x.trang) && HSO.x.trang.indexOf('Nguyễn Văn Giả')>0);
+   ok('💾 Lưu hộ → vào danh sách (D.cauHinh.hoMoi), hiện ở cột trái + bảng khung phải', hmDs().length===1 && /Nguyễn Văn Giả/.test(document.getElementById('hso-tuy').textContent) && /SỔ HỘ VAY/.test(HSO.x.trang) && HSO.x.trang.indexOf('Nguyễn Văn Giả')>0);
    hmLapHS(hmDs()[0].id); await w(400); const B = hsoBo();
    ok('📄 Lập HS → Bộ HS mới: người vay, ngày sinh, CCCD, nơi cấp, địa chỉ, thành viên (01/UQ), HSSV', hsoMau().k==='bo' && B.moi && B.nv.ten==='Nguyễn Văn Giả' && B.nv.ns==='1978-03-15' && B.nv.noiCap==='Cục CS QLHC' && B.nv.sdt==='0900 000 111' && B.nv.tenXa===HM_X(B) && B.ho.length===1 && B.ho[0].qh==='Con' && B.ct==='HSSV' && B.pa.sv==='Nguyễn Thị Con Giả', JSON.stringify({nv:B.nv.ten, xa:B.nv.tenXa, ap:B.nv.ap, ho:B.ho.length, sv:B.pa.sv}));
    function HM_X(B){ return hmDs()[0].tenXa; }

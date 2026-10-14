@@ -136,6 +136,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t170.js` | (3.206) Cây địa bàn Mở rộng / Thu gọn + về cấp trên, ↺ Phiếu mới, Hồ sơ vay tab mẫu, 09A ô chấm tùy biến, in kèm Mẫu 06/TD. |
 | `node tests/t171.js` | (3.207) Hộ vay mới: form nhập nhanh, suy CCCD, địa chỉ, thành viên, Lưu hộ, Lập HS → 01/TD · 01/UQ. |
 | `node tests/t172.js` | (3.208) Khai báo chung tab con, thẻ chương trình vay → 01/TD · 03/TD tự điền, thời hạn / hạn cuối gõ hoặc chấm, HSSV gõ số tháng. |
+| `node tests/t173.js` | (3.209) Sổ hộ vay: lấy Mẫu 31, hộ mới (tổ, nhiều HSSV), trùng CCCD, gắn mã KH; in theo hộ + in kèm; chuyển Bộ HS cũ. |
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 
