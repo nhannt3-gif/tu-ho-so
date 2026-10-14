@@ -595,7 +595,7 @@ function gdxZoom(k){ var f = document.getElementById('gdx-khung'), z0 = GDX.zoom
   GDX.zoom = k===0 ? 1 : Math.round(Math.min(1.4, Math.max(0.3, z0 + k*0.1))*10)/10; gdxXem(); }
 function gdxThanhHTML(){
   var M = gdxMauHT(), C = gdxC();
-  var nhan = M.k==='m04' ? '04/TD · A4 dọc · '+(+C.soBan===1 ? '1 bản' : '2 bản (1 lưu tổ, 1 lưu NH)') : M.k==='m12' ? '12/GDX · A4 dọc · trọn 1 trang' : M.k==='bk' ? '🧾 Bảng kê · A4 ngang · 2 tờ 105 × 210 sát 2 mép (cắt theo nét đứt)' : C.glIn==='bk' ? '🧾 Bảng kê · A4 ngang, 1 tờ 105 × 210 sát mép trái (tự chia mệnh giá)' : C.glIn==='kh' ? '💵+🧾 Giấy lĩnh + Bảng kê · 1 tờ A4 dọc (tự chia mệnh giá)' : 'Giấy lĩnh · '+(C.glKho==='a4' ? 'A4 dọc, in nửa trên' : 'A5 ngang');
+  var nhan = M.k==='m04' ? '04/TD · A4 dọc · '+(+C.soBan===1 ? '1 bản' : '2 bản (1 lưu tổ, 1 lưu NH)') : M.k==='m12' ? '12/GDX · A4 dọc · trọn 1 trang' : M.k==='bk' ? '🧾 Bảng kê · A4 ngang · 2 tờ 118 × 210 sát 2 mép (cắt theo nét đứt)' : C.glIn==='bk' ? '🧾 Bảng kê · A4 ngang, 1 tờ 118 × 210 sát mép trái (tự chia mệnh giá)' : C.glIn==='kh' ? '💵+🧾 Giấy lĩnh + Bảng kê · 1 tờ A4 dọc (tự chia mệnh giá)' : 'Giấy lĩnh · '+(C.glKho==='a4' ? 'A4 dọc, in nửa trên' : 'A5 ngang');
   return '<span class="gdx-nhan">'+nhan+'</span><span class="gdx-zoom"><button class="nho" onclick="gdxZoom(-1)" title="Thu nhỏ khung xem">🔍−</button><button class="nho" id="gdx-zoom" onclick="gdxZoom(0)" title="Về 100%">100%</button><button class="nho" onclick="gdxZoom(1)" title="Phóng to khung xem">🔍+</button></span>';
 }
 function gdxDat(k, v, ve){ var C = gdxC(); C[k] = v;
@@ -971,7 +971,7 @@ function gdxBKTrang(c, g){   /* g = dữ liệu Giấy lĩnh (3.194: in từ tab
 }
 function gdxHTMLBKDL(g, c){ return '<div class="sheet-bk bk-ngang">'+gdxBKTrang(c, g)+'<div class="bk-cat bk-cat-t"></div></div>'+GL_JS; }   /* 3.194: 🧾 từ tab Giấy lĩnh — A4 ngang, 1 tờ sát mép trái */
 function gdxBKTrangIn(){ gdxInBan({mau:'bk', C:JSON.parse(JSON.stringify(gdxC()))}); }   /* 📄 Mẫu trắng Bảng kê (theo tab 🧾 Bảng kê) */
-function gdxHTMLBK(c){   /* 2 tờ 105 × 210 / A4 ngang, mỗi tờ sát 1 mép, nét đứt cắt đúng khổ */
+function gdxHTMLBK(c){   /* 2 tờ 118 × 210 / A4 ngang (3.213: ngang 118 mm phủ bì theo giấy thật), mỗi tờ sát 1 mép, nét đứt cắt đúng khổ */
   var t = gdxBKTrang(c || gdxC());
   return '<div class="sheet-bk bk-ngang">'+t+'<div class="bk-cat bk-cat-t"></div><div class="bk-cat bk-cat-p"></div>'+t+'</div>';
 }
@@ -1006,25 +1006,25 @@ var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6
   '.bk-chu td{border:.9px solid #000;padding:1mm 1.5mm;height:auto}.bk-trang .bk-chu .gl-r{min-height:5.6mm;font-size:10pt}.bk-trang .bk-chu .gl-v{font-weight:bold;font-style:italic}.bk-trang .bk-chu .gl-bc2{white-space:normal}'+   /* 3.191 (anh): Tổng cộng + bằng chữ in đậm (bằng chữ nghiêng) */
   '.bk-ky{display:grid;grid-template-columns:1fr 1fr;text-align:center;margin-top:2.5mm;font-size:10.5pt;flex:1}.bk-ky i{display:block;font-size:9.5pt}'+
   '.bk-hoten{display:grid;grid-template-columns:1fr 1fr;gap:3mm;font-size:10pt}.bk-hoten .gl-n{font-size:8pt}.bk-hoten .gl-r{gap:.8mm}';
-/* 3.192: khổ Bảng kê 105 × 210 mm (anh: ngang 105 đúng mẫu), chữ 13 pt (anh chốt 3.191) */
-var BK_CSS_TO = '.bk-trang.bk-to{width:105mm;height:210mm;padding:8mm 5mm 6mm 5.5mm;font-size:13pt}'+
+/* 3.192: khổ Bảng kê 105 × 210 mm, chữ 13 pt (anh chốt 3.191) · 3.213 (anh 15/10): ngang 118 mm đúng phủ bì giấy thật — logo / chữ chìm dời giữa tờ */
+var BK_CSS_TO = '.bk-trang.bk-to{width:118mm;height:210mm;padding:8mm 5mm 6mm 5.5mm;font-size:13pt}'+
   '.bk-to .bk-t1{font-size:17pt}.bk-to .bk-ngay{font-size:9.5pt}'+
   '.bk-to .bk-bang col:first-child{width:24mm !important}.bk-to .bk-tong td:first-child{white-space:nowrap}'+
   '.bk-to.bk-trang .gl-r{min-height:7.6mm}.bk-to .bk-bang{font-size:13pt;margin-top:2mm}.bk-to .bk-bang th{font-size:10.5pt;padding:1mm 0}.bk-to .bk-bang td{height:7.4mm}.bk-to .bk-tt{font-size:12pt}'+
   '.bk-to .bk-tong td{height:11mm;font-size:11pt}.bk-to .bk-tong .bk-tt{font-size:12.5pt}.bk-to.bk-trang .bk-chu .gl-r{min-height:7mm;font-size:13pt}'+
   '.bk-to .bk-ky{font-size:13pt;margin-top:3mm}.bk-to .bk-ky i{font-size:11.5pt}.bk-to .bk-hoten{font-size:13pt}.bk-to .bk-hoten .gl-n{font-size:10pt}'+
-  '.bk-to .bk-chim{left:13mm;top:92mm;font-size:66pt}.bk-to .bk-chim.bk-logo{left:39.1mm;top:81.5mm;width:50.5mm;height:66.7mm}';
+  '.bk-to .bk-chim{left:19.5mm;top:92mm;font-size:66pt}.bk-to .bk-chim.bk-logo{left:45.6mm;top:81.5mm;width:50.5mm;height:66.7mm}';
 var BK_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1;color:#000;font-family:"Times New Roman",Times,serif}'+
   '.preview-stage{background:#455a64;border-radius:8px;padding:20px;display:flex;justify-content:center;overflow:auto}'+
   '.sheet-bk{background:#fff;width:297mm;height:210mm;box-shadow:0 8px 24px rgba(0,0,0,.3);position:relative;display:flex;justify-content:space-between;align-items:flex-start;overflow:hidden}'+ BK_CSS_LOI+BK_CSS_TO+
-  '.bk-cat{position:absolute;top:0;height:210mm;border-left:.3mm dashed #b8b8b8}.bk-cat-t{left:105mm}.bk-cat-p{right:105mm}'+
+  '.bk-cat{position:absolute;top:0;height:210mm;border-left:.3mm dashed #b8b8b8}.bk-cat-t{left:118mm}.bk-cat-p{right:118mm}'+
   '@page{size:A4 landscape;margin:0}'+
   '@media print{body{background:#fff}.preview-stage{background:none;padding:0;display:block;border-radius:0}.sheet-bk{box-shadow:none;zoom:1 !important;height:209mm}}';
 var GL_CSS_A5 = '@page{size:A5 landscape;margin:0}';
-/* 3.188–3.194: 💵+🧾 Giấy lĩnh nửa trên + Bảng kê 105 × 210 xoay ngang sát đáy → cắt 1 nhát ngang */
-var GL_CSS_KEM = '.sheet-gl.gl-kem{height:297mm}.gl-bkk{position:absolute;left:0;bottom:0;width:210mm;height:105mm;z-index:1}'+
-  '.gl-bkk .bk-trang{position:absolute;left:0;top:105mm;transform-origin:0 0;transform:rotate(-90deg)}'+
-  '.gl-cat-n{position:absolute;left:0;width:210mm;bottom:105mm;border-top:.3mm dashed #b8b8b8}'+
+/* 3.188–3.194: 💵+🧾 Giấy lĩnh nửa trên + Bảng kê 118 × 210 (3.213) xoay ngang sát đáy → cắt 1 nhát ngang */
+var GL_CSS_KEM = '.sheet-gl.gl-kem{height:297mm}.gl-bkk{position:absolute;left:0;bottom:0;width:210mm;height:118mm;z-index:1}'+
+  '.gl-bkk .bk-trang{position:absolute;left:0;top:118mm;transform-origin:0 0;transform:rotate(-90deg)}'+
+  '.gl-cat-n{position:absolute;left:0;width:210mm;bottom:118mm;border-top:.3mm dashed #b8b8b8}'+
   '@media print{.sheet-gl.gl-a4.gl-kem{height:296mm}}';
 var GL_CSS_A4 = '@page{size:A4 portrait;margin:0}@media print{.sheet-gl.gl-a4{height:147mm}.sheet-gl.gl-a4.gl-x2{height:296mm}}';
 

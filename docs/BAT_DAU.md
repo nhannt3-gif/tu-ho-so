@@ -23,7 +23,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.212** (sửa nhỏ: mở Hồ sơ vay vào 👪 Hộ vay). Trước: 3.211 GQVL (01/GQVL + 07b), 3.210 03/TD nhiều hộ, 3.209 sổ hộ vay, 3.208 thẻ chương trình vay.
+- **`main` = 3.213** — 🧾 Bảng kê ngang 118 mm (đúng giấy thật). Trước: 3.212 mở Hồ sơ vay vào 👪 Hộ vay · 3.209 👪 Sổ hộ vay → 3.210 03/TD nhiều hộ → 3.211 GQVL (`docs/KE_HOACH_3209.md`). **Việc kế tiếp anh đã định hướng (15/10, chờ anh chốt + nhắn "code"):** cửa `KHO` (`js/29-kho.js`, `KE_HOACH_B_C.md` C1) → tối ưu sổ hộ vay (nhập Enter/Tab qua ô không mất con trỏ, gõ là kiểm Mẫu 31, tìm Mẫu 31 ↑↓ Enter + xem trước, lọc / sắp xếp / phiếu hộ, xóa vào thùng rác) → khai báo riêng từng mẫu. B2 IndexedDB tạm lùi (máy anh chưa báo đầy).
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.
