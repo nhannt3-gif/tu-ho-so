@@ -1,5 +1,7 @@
 # Bàn giao sau bản 3.161 — cho tài khoản / phiên Claude làm tiếp
 
+> ⚠ **14/10/2026 — MỚI, ưu tiên hơn mọi mục dưới:** anh đã chốt luật kiến trúc + thứ tự làm tiếp ở **`docs/QUY_CHUAN_KIEN_TRUC.md`** (tóm tắt ở `docs/BAT_DAU.md` mục 3, dòng LƯU Ý 14/10). Tạm dừng chức năng lớn; việc tiếp: lưu an toàn → kho chung (TK 104 / 105 / CCCD) → tách KTGS.
+
 > Viết ngày 11/10/2026, khi `main` = **3.161**; cập nhật cuối phiên: `main` = **3.162**; phiên 11/10 (tài khoản chính) làm xong 3.163 → 3.166 (§2.0–2.5). **Còn: §2.6 (chờ anh trả lời), §2.7 (lỗi hoiquy).** Đọc file này **sau** `CLAUDE.md` và `docs/BAT_DAU.md`.
 > Mục 2 là các việc **anh Nhân đã duyệt hướng** nhưng **chưa nhắn "code"**: muốn làm việc nào thì trình lại ngắn kế hoạch của việc đó, chờ anh nhắn "code".
 
