@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.203 — 14/10/2026 — 💾 Gom lưu (kế hoạch B1)
+- **Theo `docs/KE_HOACH_B_C.md` mục 1 (bản B1 — gom lưu, rủi ro thấp, không đổi nơi lưu); anh nhắn "làm tiếp" (14/10).**
+- `luu()` **giữ tên** (≈ 295 chỗ gọi không sửa) — chỉ **hẹn ghi sau 300 ms**; nhiều lần gọi sát nhau → **ghi 1 lần**. `luuNgay()` ghi ngay; `luuHuy()` hủy hẹn.
+- **Ghi ngay khi** rời trang (`pagehide`, `beforeunload`) và khi ẩn app (`visibilitychange` → hidden) — đóng tab / tải lại ngay sau thao tác không mất.
+- `chTheoDoi()` (so cài đặt đồng bộ Drive) và hẹn đẩy chỉ mục Drive chạy **1 lần mỗi lần ghi gom** (trước: mỗi lần gọi `luu()` stringify lại).
+- **Xóa sạch máy:** hủy hẹn + chặn ghi lại sau khi xóa (`LUU_KHOA_XOA`).
+- Bộ nhớ đầy → vẫn báo "bộ nhớ trình duyệt đã đầy" như cũ.
+- **Phép thử:** `t169` 8/8 (10 lần gọi → 1 lần ghi, ghi ngay, ẩn app, chTheoDoi 1 lần, bộ nhớ đầy, tải lại không mất, xóa sạch không ghi lại); `hoiquy.js` đọc bộ nhớ sau `luuNgay()`.
+
 ## 3.202 — 14/10/2026 — 📒 Bảng tổ dựng sẵn (TK 104 · CCCD), TK 105 tra khi cần, TK trùng
 - **Anh (14/10):** "tạo 1 data sẵn khi khởi tạo đảm bảo 369 tổ đủ số liệu" · "TK 105 rất nhiều, ít dùng, không cần chạy sẵn; mặc định 104" · "TK trùng thì cảnh báo để xác định TK đang dùng, đóng TK thừa" · "nguồn = Mẫu 31 + 2 Sao kê; chưa có mới thì dùng bản gần nhất" · "Mẫu 18 giữ làm đối chiếu của Mẫu 31" · thuật toán CCCD anh giao, "tránh trường hợp không load ra CCCD".
 - **Bảng tổ dựng sẵn** (`toBangDung`, `js/28`): dựng 1 lần cho kỳ đang dùng (dựng lại khi nạp file / anh bổ sung) — mỗi tổ: mã KH tổ trưởng (**Mã CIF TT**), CCCD, ngày cấp, hạn CCCD, **TK 104 theo Sao kê**, điểm GD + **nguồn từng ô**, **thiếu gì + lý do**. Tổ không còn thành viên (mọi món tất nợ, không có trong 01/TV) → bỏ qua, không tính thiếu. ⚙ Khai báo chung / 📥 Nạp & KT: dòng **"Bảng tổ: N tổ · đủ X · thiếu Y"** + hộp **📒 Tổ chưa đủ dữ liệu · bổ sung** (gõ CCCD / ngày cấp / TK 104 1 lần — nhớ theo mã KH tổ trưởng, nạp file mới không đè). Giấy lĩnh TK 104 + mini app **đọc từ bảng**.

@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.203) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sửa 1 văn bản rồi **đóng tab ngay** → mở lại | Thay đổi còn | |
+| 2 | iPhone: sửa cài đặt rồi vuốt thoát app → mở lại | Thay đổi còn | |
+| 3 | Thao tác nhanh nhiều lần (chọn / lọc / sửa) trên máy nhiều dữ liệu | Không khựng như trước | |
+| 4 | Máy thứ 2 sau khi đồng bộ Drive | Cài đặt đổi ở máy 1 lên đủ | |
+
+**Ghi chú kỹ thuật 3.203:** `LUU_HEN` (hẹn 300 ms), `LUU_LAN` (đếm lần ghi — phép thử đo); `luuNgay()` = ghi `localStorage` + `henDongBoChiMuc()` + `chTheoDoi()`; chỗ nào cần chắc đã ghi (trước đọc lại `localStorage`, trước tải lại trang tự gọi) dùng `luuNgay()`.
+
 ### Danh sách thử trên máy thật (3.202) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -14,7 +14,7 @@
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.202', APP_LUC = '14/10/2026 19:30';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.203', APP_LUC = '14/10/2026 19:58';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -195,21 +195,30 @@ function nap(){
   for(var k in MAC_DINH){ if(D.cauHinh[k]===undefined) D.cauHinh[k]=MAC_DINH[k]; }
 }
 
-function luu(){
+/* 3.203 (kế hoạch B1): luu() chỉ hẹn ghi sau 300 ms — nhiều lần gọi sát nhau → ghi 1 lần; luuNgay() ghi ngay (rời trang / ẩn app / trước xóa) */
+var LUU_HEN = null, LUU_LAN = 0;
+function luu(){ if(!LUU_HEN) LUU_HEN = setTimeout(luuNgay, 300); return true; }
+function luuHuy(){ if(LUU_HEN){ clearTimeout(LUU_HEN); LUU_HEN = null; } }
+function luuNgay(){
+  luuHuy(); if(window.LUU_KHOA_XOA) return false;   /* đang xóa sạch máy → không ghi lại */
   try{
     localStorage.setItem(KHOA, JSON.stringify({
       phienBan:PHIEN_BAN, cauHinh:D.cauHinh, vanBan:D.vanBan,
       duLieu:D.duLieu, ghiChu:D.ghiChu, ganDay:D.ganDay, cho:D.cho, bieuMau:D.bieuMau, rac:D.rac, scan:D.scan, lich:D.lich, daXoaHan:D.daXoaHan||[], nguonCau:D.nguonCau||null,
       kyAnh:D.kyAnh||[], boHS:D.boHS||[]
     }));
+    LUU_LAN++;
     if(typeof henDongBoChiMuc==='function') henDongBoChiMuc();
-    if(typeof chTheoDoi==='function') chTheoDoi();   /* 3.113: cài đặt đổi → tự đẩy lên Drive */
+    if(typeof chTheoDoi==='function') chTheoDoi();   /* 3.113: cài đặt đổi → tự đẩy lên Drive · 3.203: chỉ so 1 lần mỗi lần ghi gom */
     return true;
   }catch(e){
     baoLoi('Không lưu được — bộ nhớ trình duyệt đã đầy. Vào Cài đặt xuất dữ liệu ra file để giải phóng.');
     return false;
   }
 }
+window.addEventListener('pagehide', function(){ if(LUU_HEN) luuNgay(); });
+window.addEventListener('beforeunload', function(){ if(LUU_HEN) luuNgay(); });
+document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='hidden' && LUU_HEN) luuNgay(); });
 
 /* File thật lưu trong IndexedDB (tách khỏi chỉ mục cho nhẹ) */
 var kho = null, khoHong = false, khoTam = {};
