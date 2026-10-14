@@ -2056,6 +2056,7 @@ function moHuongDan(p){
 var CO_GI_MOI = {ban:'3.206', ds:[
   ["📍 Cây địa bàn mọi tab: ▾ Mở rộng / ▴ Thu gọn (gọn 1 dòng 🏠 PGD › Xã › Điểm › Tổ — bấm từng mắt để về cấp đó); chọn xong tổ tự gọn, nhớ theo tab", "slDoiTab('to');doiNgan(7)"],
   ["📄 Hồ sơ vay / Hồ sơ Tổ: mỗi mẫu 1 tab con; 09A/TD có ô chấm ✍ viết tay | 🖨 in sẵn (lý do, số tiền, thời gian, kế hoạch trả nợ, ngày ký) + in kèm Mẫu 06/TD; Giấy lĩnh nút ↺ Phiếu mới", "slDoiTab('hsv');doiNgan(7)"],
+  ["📄 Mẫu mới 01/TĐCK — Giấy đề nghị thay đổi mẫu chữ ký giao dịch: tab riêng + in kèm 09A/TD (cùng 1 lần in)", "slDoiTab('hsv');doiNgan(7)"],
   ["🏦 Nạp Sao kê TK 104 / 105 xong dùng được ngay: nút TK 104 chưa đóng, TK 105 cần đóng, TK trùng tự gắn Sao kê mới nhất (không cần tải lại trang)", "slDoiTab('gdx');doiNgan(7)"],
   ["🔍 ② Kiểm tra: số tổ LEN_31 TO_TRUONG ↔ Danh sách tổ — liệt kê từng dòng chênh + lý do (vay trực tiếp, chưa ghép mã tổ, tổ hết dư nợ…); ma trận bỏ cột ngày trùng ngày chốt cuối tháng", "slDoiTab('nap')"],
   ["🏦 Khối Tổ trưởng (CCCD · TK 104): hiện Danh sách tổ đã nạp ngày nào / chưa nạp / bản kiểu cũ, và bảng tổ chưa đủ vì thiếu gì (TK 104, ngày cấp…)", "slDoiTab('gdx');doiNgan(7)"],

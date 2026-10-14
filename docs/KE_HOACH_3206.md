@@ -46,6 +46,8 @@
 - ☑ 4b. In kèm Mẫu 06/TD (cửa gọi KTGS, mục đích in sẵn / trống, cán bộ trống) — `hso06Gt` (gọi ktGiaTri06 + ktMaKV, KHÔNG sửa code KTGS), `hsoIn06`, `hsoIn09Kem` (In 09A rồi 06 — 2 khổ giấy), `hsoWord06`; hsoLuu().kem06 / md06; t170 19/19
 - ☑ 5. Phép thử mới `t170` + bump 3.206 + CHANGELOG / bàn giao / BAT_DAU — (hồi quy + PR: xem commit cuối)
 
+- ☑ 6. (anh thêm 14/10) Mẫu **01/TĐCK** thay đổi mẫu chữ ký giao dịch — tab riêng + in kèm 09A (cùng 1 tài liệu) — `hsoLap01tdck`, `HSO_CHAM['01tdck']`, hsoLuu().kemTDCK; t170 23/23
+
 ## 6. Sau 3.206 (chưa làm — chờ anh)
 - Nút "09A" từ chip Đến hạn tháng sau / Sao kê nợ đến hạn; in nhiều hộ; lưu vết món đã lập 09A.
 - Áp "ô chấm tùy biến" cho các mẫu Hồ sơ vay khác (01/TD, 01/UQ, 03/TD, 01/TGTV) → gom phần chung về khai báo chung tab.

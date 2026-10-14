@@ -232,6 +232,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 5 | 09A: bật 🖨 Lý do / Thời gian / Ngày ký → In / Word | In đúng chữ; tắt lại ✍ → dòng chấm; mở lại app vẫn nhớ | |
 | 6 | 09A: tích In kèm Mẫu 06/TD → In (và 🖨 06/TD) → Word | In 09A rồi 06/TD; Word ra 2 file; 06 có hộ vay + Hội, cán bộ trống; mục đích theo lựa chọn | |
 | 7 | Tab KTGS: in Mẫu 06 KTGS như cũ | Không đổi | |
+| 8 | 09A: tích In kèm 01/TĐCK → In / Word; tab 01/TĐCK riêng | 09A + 01/TĐCK cùng 1 lần in / 1 file; nhân thân điền sẵn — **anh so bố cục với bản giấy** | |
 
 **Ghi chú kỹ thuật 3.206:** `pvGonCua(p)` / `pvGonDoi(p)` + mắt `.pv-ve` (`pvChon(p, cap, '')`); `hsoTabMauHTML` (#hso-tabm); `HSO_CHAM` + `hsoCham*`; `hso06Gt` gọi KTGS chỉ đọc (truyền v: ng1 '' → cán bộ trống, md 'nganh' / ''). In kèm = 2 lần `inBlob` cách 1,5 s (09A dọc, 06 ngang).
 

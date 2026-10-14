@@ -34,7 +34,7 @@ const fs=require('fs'), path=require('path');
    ok('Giấy lĩnh: nút "↺ Phiếu mới" (không còn "Làm trống")', [...document.querySelectorAll('.gdx2-nut button')].some(x=>/↺ Phiếu mới/.test(x.textContent)) && ![...document.querySelectorAll('.gdx2-nut button')].some(x=>/Làm trống/.test(x.textContent)));
    /* 3. Hồ sơ vay */
    slDoiTab('hsv'); doiNgan(7); await w(1200); hsoChonMau('09a'); await w(500);
-   ok('Hồ sơ vay: mỗi mẫu 1 tab con (6), 09A đang chọn, dòng "Số liệu: T8/2026"', document.querySelectorAll('#hso-tabm .hso-tm').length===6 && /09A\/TD/.test((document.querySelector('#hso-tabm .hso-tm.bat')||{}).textContent||'') && /Số liệu: T8\/2026/.test(document.getElementById('hso-tabm').textContent));
+   ok('Hồ sơ vay: mỗi mẫu 1 tab con (7, có 01/TĐCK), 09A đang chọn, dòng "Số liệu: T8/2026"', document.querySelectorAll('#hso-tabm .hso-tm').length===7 && /09A\/TD/.test((document.querySelector('#hso-tabm .hso-tm.bat')||{}).textContent||'') && /Số liệu: T8\/2026/.test(document.getElementById('hso-tabm').textContent));
    pvChonTo('hsv', t.ma); await w(600); const k = hsoTVTo(t).find(k=>k.mon.some(m=>m.dn>0)); HSO.vay.kh = k.kh; hsoVe(); await w(400); hsoXem(); await w(500);
    const doc = () => document.getElementById('hso-xem-khung').contentDocument.body.textContent;
    ok('09A mặc định: lý do / thời gian / ngày ký để chấm; số tiền gia hạn in sẵn = dư nợ', !/Đang gặp khó khăn/.test(doc()) && /Đề nghị Ngân hàng xem xét cho gia hạn khoản nợ gốc\s*[\d.]+\s*đồng/.test(doc()) && /ngày\.+tháng/.test(doc()));
@@ -53,6 +53,15 @@ const fs=require('fs'), path=require('path');
    ok('mục đích 🖨 in sẵn → ngành kinh tế theo Mẫu 31 (khi món có mã ngành)', g.rows[0].R7!==undefined && (g.rows[0].R7 || !ktCoNganh(hsoMonGH(t)[0])), g.rows[0].R7);
    const h06 = ktHTML06(g);
    ok('Mẫu 06/TD dựng bằng đúng hàm KTGS (ktHTML06), có tên hộ vay', /<html/i.test(h06) && h06.indexOf(tenHoaDau(g.rows[0].R2))>=0);
+   /* 01/TĐCK — in kèm 09A (cùng khổ dọc → 1 tài liệu) + tab riêng */
+   hsoLuu().kemTDCK = true; hsoVe(); await w(300); let x = hsoLap();
+   const c = hsoKhachChon(t);
+   ok('09A tích In kèm 01/TĐCK → 1 tài liệu 2 mẫu (09A + 01/TĐCK), có tên người vay + "thay đổi mẫu ký giao dịch"', x.ds.length===2 && x.ds[1].M.k==='01tdck' && x.trang.indexOf('Về việc thay đổi mẫu ký giao dịch với NHCSXH')>0 && x.ds[1].h.indexOf(c.ten)>0);
+   ok('01/TĐCK: phần chấp thuận NH để chấm, ô chữ ký thứ nhất / thứ hai', /chấp thuận cho ông\/bà:\.+ có tên trên/.test(x.ds[1].h) && /Chữ ký thứ nhất/.test(x.ds[1].h) && /Chữ ký thứ hai/.test(x.ds[1].h));
+   const wd = await hsoDocx(x); ok('Word 09A + 01/TĐCK tạo được', wd && wd.size>5000, wd && wd.size);
+   hsoChonMau('01tdck'); await w(400); x = hsoLap();
+   ok('tab 01/TĐCK riêng: chung người vay đang chọn', x.M.k==='01tdck' && x.h.indexOf(c.ten)>0);
+   hsoChonMau('09a'); await w(300);
    const bl = await ktDocx('m06', g); ok('Word Mẫu 06/TD tạo được (ktDocx m06)', bl && bl.size>5000, bl && bl.size);
    return o;
  }, files);

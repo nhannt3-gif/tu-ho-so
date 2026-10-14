@@ -23,7 +23,8 @@ var HSO_MAU = {
     {k:'01td', ma:'01/TD',  ten:'Giấy đề nghị vay vốn kiêm phương án sử dụng vốn vay', mg:[12, 18, 10, 22]},
     {k:'03td', ma:'03/TD',  ten:'Danh sách tổ viên đề nghị vay vốn', ngang:true, mg:[10, 12, 10, 9]},
     {k:'01tgtv', ma:'01/TGTV', ten:'Giấy đăng ký mở tài khoản tổ viên', mg:[12, 10, 22, 12], chan:'Ngân hàng Chính sách xã hội|Website: www.vbsp.org.vn Hotline: 1900 638583'},
-    {k:'09a',  ma:'09A/TD', ten:'Giấy đề nghị gia hạn nợ', mg:[10, 18, 10, 25]}
+    {k:'09a',  ma:'09A/TD', ten:'Giấy đề nghị gia hạn nợ', mg:[10, 18, 10, 25]},
+    {k:'01tdck', ma:'01/TĐCK', ten:'Giấy đề nghị thay đổi mẫu chữ ký giao dịch', mg:[12, 18, 12, 25]}   /* 3.206 (anh gửi mẫu 14/10, VB 2407 28/3/2025) — in kèm khi gia hạn */
   ]
 };
 var HSO = {khoa:'', kn:{}, ra:{}, tv:{}, vay:{}, o:{}};   /* lựa chọn trong lần làm việc (đổi tổ / mẫu → làm lại) */
@@ -530,6 +531,29 @@ function hsoChamTuy(mk, md){   /* md = {khóa: giá trị mặc định khi In s
     }
     return '<div class="hso-cham-o"><span class="hso-cham-nhan">'+coChuHTML(x[1])+'</span>'+sw+'<span class="hso-cham-gt">'+(inS ? o : '<i class="hso-cham-tay">…… chấm, ghi tay</i>')+'</span></div>'; }).join('')+'</div>';
 }
+/* 3.206 (anh gửi mẫu 14/10): 01/TĐCK — Giấy đề nghị thay đổi mẫu chữ ký giao dịch với NHCSXH (VB 2407 ngày 28/3/2025). Người đề nghị = người vay đang chọn
+   (dùng chung lựa chọn với 09A); nhân thân theo danh bạ (Mẫu 31); ngày ký = ô chấm tùy biến; phần chấp thuận NH luôn chấm. In kèm 09A (cùng khổ dọc → 1 lần in / 1 file Word). */
+HSO_CHAM['01tdck'] = [['ngayKy','Ngày tháng (khách hàng ký)','ngay','cham']];
+function hsoLap01tdck(t){
+  var T = t ? hsoTo(t) : {}, c = hsoKhachChon(t) || {}, ns = String(c.ns||''), noiCap = c.noiCap || hsoNoiCapGY(c.ncap);
+  var nsChu = ns.length>=10 ? hsoO(ngayVNsl(ns)) : ns.length===4 ? hsoCham(3)+'/'+hsoCham(4)+'/'+hsoO(ns) : hsoCham(4)+'/'+hsoCham(6)+'/'+hsoCham(6);
+  var kyO = '<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Họ và tên:'+hsoCham(40)+'</p>';
+  var h = hsoBang('khung0', [74, 26], '<tr><td class="c">'+hsoQH('–', 13)+'</td><td><p class="b i s12">Mẫu số 01/TĐCK</p><p class="i s12">Lập 01 bản lưu NH</p></td></tr>')+
+    '<p class="c b s14 tr">GIẤY ĐỀ NGHỊ</p><p class="c b">Về việc thay đổi mẫu ký giao dịch với NHCSXH</p>'+
+    '<p class="c tr"><b>Kính gửi:</b> '+coChuHTML(hsoPGD('kinhGui'))+'</p>'+
+    '<p class="tr">Tên tôi là:'+hsoO(c.ten, 'sl', 36)+'; ngày, tháng, năm sinh: '+nsChu+'</p>'+
+    '<p>Số thẻ căn cước/căn cước công dân:'+hsoO(c.cccd, 'sl', 40)+'; ngày cấp: '+hsoNgayO(c.ncap, 'sl')+'; nơi cấp:'+hsoO(c.cccd ? noiCap : '', 'sl', 46)+'</p>'+
+    '<p>Nơi cư trú:'+hsoO(c.ten ? hsoDiaChi(c, t) : '', 'sl', 90)+'</p>'+
+    '<p class="j">Là đại diện theo ủy quyền của hộ gia đình đứng tên vay vốn và thực hiện các giao dịch với NHCSXH, thuộc Tổ Tiết kiệm và vay vốn do ông (bà):'+hsoO(T.tt, 'sl', 40)+' làm Tổ trưởng.</p>'+
+    '<p class="j">Đề nghị NHCSXH '+hsoO(hsoPGD('ngan'), 'sl', 34)+' thay đổi mẫu chữ ký giao dịch với Ngân hàng như sau:</p>'+
+    hsoBang('luoi', [1, 1], '<tr><td class="c"><p class="c b">Chữ ký thứ nhất</p></td><td class="c"><p class="c b">Chữ ký thứ hai</p></td></tr><tr><td>'+kyO+'</td><td>'+kyO+'</td></tr>')+
+    '<p>&nbsp;</p>'+
+    hsoBang('khung0', [1.15, 1], '<tr><td class="c"><p class="c b">CHẤP THUẬN CỦA</p><p class="c b">NGÂN HÀNG CHÍNH SÁCH XÃ HỘI</p>'+
+      '<p class="j">Ngân hàng Chính sách xã hội '+coChuHTML(hsoPGD('ngan'))+' chấp thuận cho ông/bà:'+hsoCham(30)+' có tên trên thay đổi mẫu chữ ký giao dịch với NHCSXH theo mẫu chữ ký đã đăng ký kể từ ngày '+hsoCham(5)+'/'+hsoCham(5)+'/'+hsoCham(8)+'</p>'+
+      '<p class="c b tr">GIÁM ĐỐC</p><p class="c i s11">(Ký tên, đóng dấu)</p></td>'+
+      '<td class="c"><p class="c i">'+hsoO(T.xa, 'sl', 14)+hsoChamNgay('01tdck', 'ngayKy')+'</p><p class="c b">KHÁCH HÀNG</p><p class="c i s11">(Ký, ghi rõ họ và tên)</p></td></tr>');
+  return {ma:'01/TĐCK', h:h};
+}
 /* 3.206 (anh chốt 14/10): 09A in kèm MẪU 06/TD (bên KTGS gọi "Mẫu 06 KTGS") — KHÔNG chép / sửa mẫu KTGS (khóa): gọi đúng hàm KTGS
    (ktGiaTri06 → ktHTML06 / ktDocx 'm06') cho 1 hộ = món đang gia hạn; Hội quản lý theo khai báo KTGS; cán bộ kiểm tra để trống (chấm); mục đích: in ngành (Mẫu 31) hoặc để trống */
 function hso06Gt(){
@@ -836,10 +860,11 @@ function hsoLap(){
   if(M.k==='bo'){ x = hsoLapBo(B, t); ai = hsoBoNV(B).ten || ''; }
   else if(M.k==='01tgtv'){ var P = hsoTGTVDs(t, B); x = {ma:'01/TGTV', ds:(P.length ? P : [null]).map(function(y){ return {M:M, h:hsoLap01tgtv(t, y).h}; })}; ai = P.length===1 ? P[0].ten : ''; }
   else if(M.k==='03td' && !B && t){ var ch = HSO.vay.chon || {}; x = hsoLap03td(t, null, hsoTVTo(t).filter(function(k){ return ch[k.kh]; }).map(function(k){ return {ten:k.ten}; })); }
-  else { var f = {'10c':hsoLap10c, '10a':hsoLap10a, '10b':hsoLap10b, '11':hsoLap11, '01bg':hsoLap01bg, '02bg':hsoLap02bg, '01uq':hsoLap01uq, '01td':hsoLap01td, '03td':hsoLap03td, '09a':hsoLap09a}[M.k];
+  else { var f = {'10c':hsoLap10c, '10a':hsoLap10a, '10b':hsoLap10b, '11':hsoLap11, '01bg':hsoLap01bg, '02bg':hsoLap02bg, '01uq':hsoLap01uq, '01td':hsoLap01td, '03td':hsoLap03td, '09a':hsoLap09a, '01tdck':hsoLap01tdck}[M.k];
     x = f(t, p==='hsv' && /^(01uq|01td|03td)$/.test(M.k) ? B : undefined);
-    ai = /^(01uq|01td)$/.test(M.k) ? hsoBoNV(B).ten || '' : M.k==='09a' ? ((hsoKhachChon(t)||{}).ten || '') : ''; }
+    ai = /^(01uq|01td)$/.test(M.k) ? hsoBoNV(B).ten || '' : /^(09a|01tdck)$/.test(M.k) ? ((hsoKhachChon(t)||{}).ten || '') : ''; }
   if(!x.ds) x.ds = [{M:M, h:x.h}];
+  if(M.k==='09a' && hsoLuu().kemTDCK) x.ds.push({M:hsoMauK('01tdck'), h:hsoLap01tdck(t).h});   /* 3.206: 09A in kèm 01/TĐCK (cùng khổ dọc → 1 lần in, 1 file Word) */
   x.ds.forEach(function(u){ if(u.M && !/^(01td|01tgtv)$/.test(u.M.k) && hsoLogoCo(u.M.k)) u.h = '<p>'+hsoLogo(u.M.k, 16)+'</p>'+u.h; });   /* 3.171: logo ở mẫu anh tích (mẫu gốc có logo đã đặt sẵn đúng chỗ) */
   x.M = M; x.t = t; x.h = x.ds[0].h;
   var pv = ai || (t ? 'To '+t.ten : '') || 'Trang';
@@ -981,7 +1006,9 @@ function hsoVe(){
   var S = hsoCH(), t = TO_K && S.to ? TO_K.to[S.to] : null, M = hsoMau(), k = hsoKhoa();
   if(t && toLaTT(t)) t = null;
   if(HSO.khoa!==k){   /* đổi tổ / mẫu / kỳ → tích mặc định */
-    var giuNgay = HSO.o.ngay; HSO = {khoa:k, kn:{}, ra:{}, tv:{}, vay:{ct:HSO.vay && HSO.vay.ct || '', md:HSO.vay && HSO.vay.md || '', chon:{}}, o:{ngay:giuNgay}};
+    var giuNgay = HSO.o.ngay, cu = String(HSO.khoa||'').split('|'), mo = k.split('|'), cungTo = cu[2] && cu[2]===mo[2] && cu[3]===mo[3], V0 = HSO.vay || {};
+    HSO = {khoa:k, kn:{}, ra:{}, tv:{}, vay:{ct:V0.ct || '', md:V0.md || '', chon:{}}, o:{ngay:giuNgay}};
+    if(cungTo && V0.kh){ HSO.vay.kh = V0.kh; HSO.vay.ku = V0.ku || ''; }   /* 3.206: đổi mẫu cùng tổ → giữ người vay đang chọn (09A ↔ 01/TĐCK) */
     if(t){ var tv = hsoTVTo(t);
       tv.forEach(function(x){ if(x.vao) HSO.kn[x.kh] = true; if(!x.conNo && !x.chuaGN && !(x.t105>0)) HSO.ra[x.kh] = true; });
       if(TO_BD && TO_BD.to===t.ma && TO_BD.co) TO_BD.ra.forEach(function(r){ HSO.ra[r.kh] = true; }); }
@@ -1083,11 +1110,17 @@ function hsoTuyVay(M, t, tv){
         ds.map(function(k){ return '<label><input type="checkbox"'+(V.tg[k.kh]!==false ? ' checked' : '')+' onchange="HSO.vay.tg[\''+k.kh+'\']=this.checked;hsoHen()"> '+coChuHTML(k.ten)+'</label>'; }).join('')+'</div></details>' : '<div class="sl-phu">Chọn tổ ở khối lọc.</div>'; }
     return h;
   }
+  if(M.k==='01tdck'){   /* 3.206: người đề nghị = tổ viên đang chọn (chung lựa chọn với 09A) */
+    h += hsoTuyO('Người đề nghị', hsoChon('HSO.vay.kh=this.value;HSO.vay.ku=\'\';hsoVe()', HSO.vay.kh||'', [['', t ? '— chọn tổ viên ('+tv.length+') —' : '— chọn tổ trước —']].concat(tv.map(function(k){ return [k.kh, k.ten+' · '+k.kh]; }))))+
+      hsoChamTuy('01tdck', {ngayKy:ngayISO(nay())});
+  }
   if(M.k==='09a'){
     var mon = hsoMonGH(t), ds9 = tv.filter(function(k){ return k.mon.some(function(m){ return (m.dn||0)>0; }); });
     h += hsoTuyO('Người vay', hsoChon('HSO.vay.kh=this.value;HSO.vay.ku=\'\';delete HSO.vay.tienGH;hsoVe()', V.kh||'', [['', t ? '— chọn tổ viên ('+ds9.length+') —' : '— chọn tổ trước —']].concat(ds9.map(function(k){ return [k.kh, k.ten+' · '+k.kh]; }))))+
       (mon.length ? hsoTuyO('Món vay', hsoChon('HSO.vay.ku=this.value;delete HSO.vay.tienGH;hsoVe()', V.ku || mon[0].ku, mon.map(function(m){ return [m.ku, m.ku+' · '+ctNgan(m.ct, m)+' · '+tdnTien(m.dn)+' đ · ĐH '+ngayVNsl(skHL(m))]; })))+
         '' : '')+
+      '<div class="hso-cham"><label class="hso-o2"><input type="checkbox"'+(hsoLuu().kemTDCK ? ' checked' : '')+' onchange="hsoLuu().kemTDCK=this.checked;luu();hsoVe()"> <b>In kèm 01/TĐCK</b> (giấy đề nghị thay đổi mẫu chữ ký giao dịch) — cùng trang in / file Word</label>'+
+        (hsoLuu().kemTDCK ? hsoChamTuy('01tdck', {ngayKy:ngayISO(nay())}) : '')+'</div>'+
       '<div class="hso-cham"><label class="hso-o2"><input type="checkbox"'+(hsoLuu().kem06 ? ' checked' : '')+' onchange="hsoLuu().kem06=this.checked;luu();hsoVe()"> <b>In kèm Mẫu 06/TD</b> (phiếu kiểm tra sử dụng vốn) — điền sẵn hộ vay, Hội quản lý; cán bộ kiểm tra để trống</label>'+
         (hsoLuu().kem06 ? '<div class="hso-cham-o"><span class="hso-cham-nhan">Mẫu 06/TD — cột Mục đích</span><span class="hso-sw"><button class="'+(hsoLuu().md06==='in' ? '' : 'bat')+'" onclick="hsoLuu().md06=\'cham\';luu();hsoVe()" title="Để trống — ghi tay">✍</button><button class="'+(hsoLuu().md06==='in' ? 'bat' : '')+'" onclick="hsoLuu().md06=\'in\';luu();hsoVe()" title="In sẵn ngành kinh tế theo Mẫu 31">🖨</button></span></div>' : '')+'</div>'+
       hsoChamTuy('09a', {tienGH:mon.length ? (mon.find(function(m){ return m.ku===V.ku; }) || mon[0]).dn : '', ngayKy:ngayISO(nay())});   /* 3.206: ô chấm tùy biến */
