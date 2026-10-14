@@ -95,6 +95,11 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 | QT-08 | **BC0437 / BC0438 chỉ dùng cho KTGS**, không đối chiếu tổ viên | 14/10 | |
 | QT-09 | LEN_31 TO_TRUONG "Số hộ" ≈ hộ có món còn mở + khách chỉ có TK 105 (số dư > 0, không món trong năm) — khớp 283 / 367 tổ (30/09), lệch ±1–2 còn lại → **đang bàn**, chưa đưa vào app | 14/10 | file 30/09 |
 | QT-10 | Tiền trên mẫu in 2 số lẻ (nợ lãi < 5.000 đ giữ 3 số lẻ) | 3.140.1 | |
+| QT-11 | **TK 105 của khách** — thứ tự nguồn hiện có: Mẫu 31 / Mẫu 18 (số TK 10 chữ số) → danh bạ các kỳ **theo CCCD**; trả kèm nguồn, thiếu thì lý do | 3.185 · **chờ chốt** | câu hỏi A dưới |
+| QT-12 | **TK 104 của tổ (tổ trưởng)** — danh mục tổ: ① đúng mã tổ ② mã chuẩn hóa (bỏ khoảng trắng / số 0 đầu) ③ tên tổ trưởng không dấu | 3.175–3.180 · **chờ chốt** | câu hỏi B |
+| QT-13 | **CCCD, ngày cấp, nơi cấp** — danh bạ khách → Thông tin tổ trưởng → DSTO → danh mục tổ; nơi cấp tự tính theo ngày cấp (thẻ trước 10/10/2018 ghi chung) | 3.183–3.187 · **chờ chốt** | câu hỏi C |
+
+**Câu hỏi chờ anh để chốt QT-11 → QT-13** (tài khoản làm code hỏi lại anh trước khi làm): **A.** in Giấy lĩnh cần số dư 105 hay chỉ số TK (cần số dư → theo ngày số liệu gần nhất)? **B.** "danh mục tổ" (TK 104) anh lấy ở đâu trên hệ thống, bao lâu cập nhật; còn file nào khác có TK 104? **C.** CCCD ở Mẫu 31 và Thông tin tổ trưởng khác nhau (khách đổi thẻ) → ưu tiên nguồn nào; CCCD hết hạn có cảnh báo khi in Giấy lĩnh không?
 | … | Các quy tắc cũ (3.90 thứ bậc tin cậy, 3.136 kỳ ngày, 3.137 còn lãi = còn nợ…) chuyển vào đây khi đụng tới | | KT3L 3.3, 3.5 |
 
 ---
@@ -127,12 +132,46 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 
 ---
 
-## 8. Đưa app về đúng (theo lộ trình KT3L mục 8 — đã xong A, F, một phần D)
-Đề xuất thứ tự, mỗi bước anh duyệt → "code" → hồi quy → "gộp":
-1. **Tạm dừng chức năng lớn ~2–3 bản.**
-2. **Đợt C rút gọn:** dựng `KHO` bọc hàm hiện có (`slBo`, `toNap`, `toKhach`, `toTV`, `slDanhRaTo`, danh bạ…) + phép tính chung QT-01…07 — **không đổi kết quả**.
-3. **Tách KTGS ra file riêng trước** (cơ học, không đổi logic) + gom bộ phép thử KTGS (mục 1b) — để mọi bước sau không đụng KTGS.
-4. Chuyển **Hồ sơ Tổ**, rồi **Giao dịch xã** sang gọi `KHO` (2 bản) — 2 khối mới, dính chặt nhất; tách phần còn lại của `js/22-so-lieu.js` theo khối (cơ học).
-5. **Đợt E** `DANG_KY`; **đợt D** hoàn tất `CHUAN`.
-6. **Đợt B** lưu an toàn (song song / ngay sau — liên quan sự cố mất cài đặt 09/10).
-7. Từ đó mọi chức năng mới theo checklist mục 6.
+## 8. Lộ trình — so với kế hoạch đã chốt trước đợt bố cục (KT3L mục 8) và thứ tự mới (14/10)
+
+**Hướng không đổi** (Q2, Q3, Q4, Q6, Q16; các cửa `KHO1` / `KHO` / `CHUAN`; `DANG_KY`). Chỉ **bổ sung** và **sắp lại thứ tự**.
+
+| Đợt KT3L | Thực tế đến 3.194 | Quyết định 14/10 |
+|---|---|---|
+| A. Tách file | ✅ 3.142 | — |
+| B. Lưu an toàn (`luu()`, đồng bộ Drive) | ❌ chưa (đã ghi "việc tiếp" sau 3.166) | **Giữ — đưa lên số 2** (sự cố mất cài đặt 09/10) |
+| C. Kho dữ liệu `KHO` | ❌ chưa | Giữ — số 3, kèm sổ QT; **làm thử bằng TK 104 / 105 / CCCD** (QT-11…13) |
+| D. Lớp chung | 🟡 một phần (3.149–3.167) | Giữ |
+| E. Đăng ký khối | ❌ chưa | Giữ, sau C |
+| F. Bố cục máy tính | ✅ 3.144–3.168 | — |
+| G. Nghiệp vụ nối kho | ❌ chưa | Giữ; thêm **Hồ sơ Tổ** (mới có khung → **dựng thẳng trên `KHO`**, không phải chuyển) và **phần lấy dữ liệu Giao dịch xã** |
+| H. Máy chủ nội bộ | chờ tin học | Giữ, để sau |
+| I. Mini app | 🟡 mini Giao dịch xã (3.177) chưa qua `KHO` | Giữ; mini app sau phải qua `KHO` |
+| J. Dọn mã chết | xen kẽ | Giữ |
+
+**Lệch đã xảy ra (ghi để không lặp lại):** sau đợt F lẽ ra làm B → C; thực tế làm nhiều chức năng mới (3.167–3.194) trên nền chưa có kho chung.
+
+**Điểm mới (KT3L chưa có):**
+1. **KTGS gói riêng + khóa mẫu đã chốt** (mục 1b).
+2. **Giao dịch xã:** 3 mẫu (04/TD, 12/GDX, Giấy lĩnh) **đã cân chỉnh đúng mẫu chuẩn → khóa như mẫu KTGS** (thuộc riêng khối, sửa phải anh yêu cầu rõ); chỉ **phần lấy dữ liệu** (TK 104 / 105 / CCCD) chuyển về `KHO`.
+3. **Dòng thời gian khách / tổ cả năm** trong `KHO` (vào / ra / chuyển tổ, tất nợ, phát sinh QH / khoanh, đổi tổ trưởng) — tab chỉ đọc kết quả, không tự so 2 kỳ.
+4. **Chốt sổ tổ viên cuối năm:** Mẫu 31 chỉ chứa món tất nợ **trong năm** → lưu danh sách tổ viên 31/12 kèm trạng thái TK 105 để năm sau đối chiếu. **Hạn: trước khi nạp Mẫu 31 tháng 1/2027.**
+5. **Đối chiếu chéo có "danh mục lý do lệch đã biết"** (hộ chỉ còn TK 105, tất nợ trong tháng, hệ thống gỡ mã tổ sau ngày chốt, cách đếm số hộ LEN_31 — QT-09) → chỉ báo **lệch thật**.
+6. **"Việc cần xử lý"** gom ở tab Hôm nay theo địa bàn (CCCD hết hạn, chưa TK 105, BQL tổ không còn trong số liệu, tổ lệch đối chiếu, khách "không còn trong số liệu", nợ cần xử lý), tích "đã xử lý".
+7. Kỳ: **kỳ tháng (chốt)** cho báo cáo + KTGS, **kỳ ngày** cho tác nghiệp (Giao dịch xã, tra cứu) — `KHO` trả đúng loại kỳ.
+
+**Thứ tự làm (mỗi bước: kế hoạch → anh duyệt → "code" → hồi quy → "gộp"):**
+
+| # | Việc |
+|---|---|
+| 1 | Gộp quy chuẩn này + trỏ từ `CLAUDE.md`, `BAT_DAU.md` ✅ |
+| 2 | **Đợt B** lưu an toàn (ít nhất cài đặt + đồng bộ) |
+| 3 | **Đợt C rút gọn:** `KHO` bọc hàm hiện có + QT-01…07, phép thử; **làm thử bằng QT-11…13** (TK 104 / 105 / CCCD) cho Giấy lĩnh — sau khi anh trả lời câu hỏi A–C |
+| 4 | **Tách KTGS** ra file riêng (cơ học) + gom bộ phép thử KTGS |
+| 5 | Dòng thời gian + **chốt sổ tổ viên cuối năm** (trước 01/2027) |
+| 6 | Bảng đối chiếu chéo + danh mục lý do lệch (xong QT-09) |
+| 7 | Giao dịch xã lấy dữ liệu qua `KHO`; Hồ sơ Tổ dựng trên `KHO`; tách phần còn lại `js/22-so-lieu.js`; `DANG_KY` |
+| 8 | "Việc cần xử lý" ở Hôm nay |
+| 9 | Sau đó mới thêm chức năng / mẫu mới (tư vấn đặt chỗ trước — mục 1a) |
+
+**Rủi ro cần nhớ:** Mẫu 31 đổi cấu trúc (→ từ điển cột) · dung lượng nhiều kỳ (~20 MB / Mẫu 31 → lưu gọn, giữ cuối tháng, dọn kỳ ngày cũ) · 2 tài khoản làm song song (→ theo quy chuẩn + cập nhật `BAT_DAU.md` mỗi bản) · repo công khai (quy tắc rút từ dữ liệu thật chỉ ghi tổng quát).

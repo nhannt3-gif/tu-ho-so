@@ -10,6 +10,8 @@
 - Không ghi tên / mã model vào commit, PR, mã nguồn.
 - App (từ 3.142) = `index.html` (khung) + `css/app.css` + `js/01-…` → `js/22-so-lieu.js`, nạp đúng thứ tự (ES5, không build, không npm, không thêm thư viện). Ghép lại 1 file: `python3 tests/ghep.py ra.html`.
 
+- **Luật kiến trúc (14/10, bắt buộc): `docs/QUY_CHUAN_KIEN_TRUC.md`** — đọc trước khi thêm / sửa chức năng: chung hay riêng, sổ quy tắc QT, KTGS gói riêng + khóa mẫu (gọi "Mẫu 06 KTGS"…), mẫu Giao dịch xã đã chốt, **thứ tự làm tiếp (mục 8): B lưu an toàn → C kho chung (làm thử TK 104 / 105 / CCCD) → tách KTGS → chốt sổ tổ viên cuối năm → đối chiếu chéo** — tạm dừng chức năng lớn.
+
 ## 2. Quy trình kỹ thuật (lệnh)
 - Nhánh: nhánh phiên được giao (tài khoản chính: `claude/html-app-review-ck346k`; tài khoản phụ: `claude/busy-curie-2qescm`). Bắt đầu: `git fetch origin main && git checkout -B <nhánh> origin/main`.
 - Kiểm: `python3 tests/kiem.py` → bình thường là `Cú pháp OK · Trùng tên: không · Thiếu hàm: CompressionStream, DecompressionStream, Response`.
