@@ -13,8 +13,8 @@ Kế hoạch tổng viết QT-11…13 trước khi có file thật Sao kê / 01/
 
 | Số | Kế hoạch tổng ghi | Thực tế file | Đề xuất chuẩn lại |
 |---|---|---|---|
-| **QT-11** TK 105 khách | "Mẫu 31 ưu tiên → Mẫu 18 → danh bạ theo CCCD" | Cột Sổ TK 105 của **Mẫu 31** thường là **số tài khoản hệ thống 13–14 số** (1482…); **Mẫu 18** ghi **số sổ 10 số** (khớp Sao kê TK 105: 17.737 / 17.738 khách). Từ 3.120 anh chốt in **số sổ 10 số**. | Số in = **số sổ 10 số**. Nguồn: **Mẫu 18** → Mẫu 31 (khi có số 10 số) → **Sao kê TK 105** (khách đã tất nợ — Mẫu 18 không ghi) → danh bạ theo CCCD → gõ tay. **Số tiền gõ tay**; **gợi ý số dư 105 theo Mẫu 31 mới nhất** (nút "rút hết" chỉ điền khi anh bấm — như hiện nay). *Cần anh xác nhận: in số sổ 10 số (không in số TK 14 số).* |
-| **QT-12** TK 104 tổ trưởng | Sao kê 104 **tháng** là chuẩn; tra theo mã tổ → mã chuẩn hóa → tên tổ trưởng; danh mục tổ là nguồn phụ | Sao kê 104 **không có cột Mã tổ** (chỉ Mã KH, Mã xã, Mã thôn). Ghép **Mã CIF TT** (Mẫu 31 / 18) ↔ Mã KH: 369 / 377 tổ (8 tổ không có TK — báo rõ). Danh mục tổ: anh chốt **bỏ hẳn** (14/10, đã bỏ ở 3.201). | Ghép theo **Mã CIF TT**. Kỳ: **Sao kê 104 tháng của kỳ đang xem**; kỳ ngày → Sao kê 104 đúng ngày, thiếu thì ngày gần nhất trước đó trong tháng, rồi tháng trước (như `slKyDung` 3.136); ghi nguồn + ngày. 3.201 đang lấy **file mới nhất** → đổi trong đợt C. Không còn danh mục tổ. |
+| **QT-11** TK 105 khách | "Mẫu 31 ưu tiên → Mẫu 18 → danh bạ theo CCCD" | Mẫu 31 **không có số TK 105 10 số** (chỉ số hệ thống 13–14 số); Sao kê TK 105 có **số 10 số** của **mọi khách** (21.034 KH, gồm cả khách đã tất nợ mà Mẫu 18 không ghi); khớp Mẫu 18 17.737 / 17.738. | **Anh chốt 14/10:** số TK 105 = **10 số từ Sao kê TK 105**, **nối vào Mẫu 31 theo Mã KH 1 lần khi nạp** (gắn vào danh bạ khách, ghi nguồn + ngày Sao kê) → **không phụ thuộc Mẫu 18**. Kỳ: Sao kê có ngày ≤ ngày kỳ, gần nhất (tháng → Sao kê cuối tháng; ngày → Sao kê đúng / gần nhất trước ngày đó). Khách nhiều TK → giữ đủ, in TK đầu + báo. Chưa có Sao kê → Mẫu 18 (dự phòng, như 3.120) → gõ tay. **Số tiền gõ tay**; gợi ý số dư theo Sao kê / Mẫu 31 mới nhất (nút "rút hết" chỉ điền khi anh bấm). |
+| **QT-12** TK 104 tổ trưởng | Sao kê 104 **tháng** là chuẩn; tra theo mã tổ → mã chuẩn hóa → tên tổ trưởng; danh mục tổ là nguồn phụ | Sao kê 104 **không có cột Mã tổ** (chỉ Mã KH, Mã xã, Mã thôn), số TK **10 số**. Ghép **Mã CIF TT** (Mẫu 31 / 18) ↔ Mã KH: 369 / 377 tổ (8 tổ không có TK — báo rõ). Danh mục tổ: anh chốt **bỏ hẳn** (đã bỏ ở 3.201). | **Anh chốt 14/10:** như TK 105 — **nối Sao kê TK 104 vào Mẫu 31 theo Mã KH 1 lần khi nạp**; tổ lấy TK 104 qua **Mã CIF TT** (mã KH tổ trưởng). Cùng quy tắc kỳ như QT-11. 3.201 đang tra "file mới nhất" lúc in → đổi thành nối khi nạp trong đợt C. |
 | **QT-13** CCCD | Mẫu 31 → Thông tin tổ trưởng → DSTO → danh mục tổ; CCCD hết hạn → cảnh báo | 46 / 367 tổ trưởng (30/09) **chưa từng vay** → không có trong Mẫu 31; **Mẫu 01/TV có CCCD 18.802 / 18.802 thành viên** (không có ngày cấp). | Mẫu 31 → Mẫu 18 → **Mẫu 01/TV** → Thông tin tổ trưởng → DSTO → **số anh gõ tay lần trước** (nhớ theo mã KH, 3.201). Nơi cấp tự tính theo ngày cấp. **CCCD hết hạn / sắp hết hạn → cảnh báo khi in Giấy lĩnh** (dùng `toCCCDHan` sẵn có) — *chưa làm, đưa vào đợt C*. |
 | **QT-14** (mới) Mẫu 01/TV | — | 01/TV = danh sách thành viên tổ của TƯ, **chỉ theo tháng**; cột Dư nợ = gốc, **không tính lãi tồn**. App ↔ 01/TV (30/09): 18.648 / 18.648 cặp khách–tổ của app đều có trong 01/TV; TƯ thêm 168 thành viên không còn món vay. | 01/TV là **chuẩn thành viên tháng**. **Cần cho ra khỏi tổ** = TƯ còn giữ + dư nợ 0 + tiền gửi 0 + **không còn lãi tồn** (Mẫu 31). Còn lãi tồn = chưa tất nợ (anh chốt 14/10). Khách ở ≥ 2 tổ → cho ra ở tổ không còn dư nợ / tiền gửi. Kỳ tháng; KTGS chưa dùng (QT-08). |
 
@@ -56,8 +56,8 @@ File mới `js/29-kho.js` (nạp sau `js/28`). Mỗi hàm ghi **hợp đồng** 
 | `KHO.to(maTo, ky)` → tổ (tổ trưởng, mã KH tổ trưởng = Mã CIF TT, điểm GD, Hội) | `TO_K.to`, `hsoTTKH` | QT-12 |
 | `KHO.toVien(maTo, ky)` → tổ viên + trạng thái (còn nợ / tất nợ còn TK 105 / ra khỏi tổ + lý do) | `toKhach`, `toTV`, `slDanhRaTo` | QT-01…07 |
 | `KHO.khach(maKH, ky)` → nhân thân + món + tổ | `hsoKhach`, danh bạ `SL_DB` | QT-13 |
-| `KHO.tk104(maTo, ky)` → `{so, nguon, ngay, ly}` | `tkTT` (3.201) — đổi sang **theo kỳ** | QT-12 |
-| `KHO.tk105(maKH, ky)` → `{so[], soDu, nguon, ly}` | `slStkKH`, `tkCua('tk105')` | QT-11 |
+| `KHO.tk104(maTo, ky)` → `{so, nguon, ngay, ly}` | Sao kê TK 104 **đã nối vào danh bạ khi nạp** (mã KH tổ trưởng = Mã CIF TT) | QT-12 |
+| `KHO.tk105(maKH, ky)` → `{so[], soDu, nguon, ngay, ly}` | Sao kê TK 105 **đã nối vào danh bạ khi nạp**; chưa có Sao kê → Mẫu 18 | QT-11 |
 | `KHO.cccd(maKH, ky)` → `{so, ngayCap, noiCap, han, nguon, ly}` | `hsoKhach`, `tv01Cua`, `gdxTTNhanThan`, `ccNho`, `gdxNoiCap`, `toCCCDHan` | QT-13 |
 | `KHO.thanhVienTW(ky)` → đối chiếu 01/TV + cần cho ra khỏi tổ | `tvDoiChieu` (3.201) | QT-14 |
 
@@ -66,7 +66,7 @@ File mới `js/29-kho.js` (nạp sau `js/28`). Mỗi hàm ghi **hợp đồng** 
 
 ### Bản 3.205 — C2: Giấy lĩnh + mini app lấy dữ liệu qua `KHO` (mẫu in KHÔNG đổi)
 1. `gdxGLDuLieu` (`js/26`) và `gdxMiniGoi` (`js/27`) chỉ gọi `KHO.tk104 / tk105 / cccd` — bỏ đọc thẳng `TO_K`, `SL_DB`, `tkCua`… trong khối Giao dịch xã (giảm chỉ số "đọc biến chung" mục 7 quy chuẩn).
-2. **TK 104 theo kỳ** (QT-12 chuẩn lại) thay "file mới nhất".
+2. **Nối Sao kê TK 104 / 105 vào Mẫu 31 theo Mã KH 1 lần khi nạp** (nạp Sao kê hoặc Mẫu 31 đều nối lại, như cơ chế 3.120 Dư nợ chi tiết → danh bạ), theo kỳ (QT-11, 12) — thay cách tra "file mới nhất" lúc in của 3.201; Mẫu 18 chỉ còn là dự phòng TK 105 + nguồn điểm GD.
 3. **Cảnh báo CCCD hết hạn / sắp hết hạn** ở dòng Tóm tắt Giấy lĩnh (QT-13).
 4. Phép thử: **so HTML bản in Giấy lĩnh / Bảng kê / mini app trước – sau = giống hệt** (với cùng dữ liệu giả) — chứng minh mẫu khóa không đổi; `t167`, `t168` giữ đạt.
 5. Ghi QT-11…14 vào `QUY_CHUAN_KIEN_TRUC.md` mục 4 + chú thích số QT trong hàm `KHO`.
@@ -77,7 +77,7 @@ Tách KTGS ra file riêng (cơ học) → dòng thời gian + chốt sổ tổ v
 ---
 
 ## 3. Cần anh chốt trước khi em nhắn bắt đầu
-1. **QT-11:** Giấy lĩnh in **số sổ 10 số** (Mẫu 18 / Sao kê 105), không in số TK 14 số của Mẫu 31 — đúng không?
+1. ~~QT-11 / 12~~ — **anh đã chốt 14/10:** TK 104 / 105 đều 10 số, lấy từ Sao kê, nối vào Mẫu 31 theo Mã KH 1 lần khi nạp.
 2. **QT-12, 13, 14** như bảng mục 0 — đồng ý?
 3. **Đợt B chia 2 bản** (3.202 gom lưu · 3.203 IndexedDB theo ngăn) — đồng ý? Làm 3.202 trước.
 4. Thứ tự: **3.202 → 3.203 → 3.204 → 3.205** — mỗi bản anh test / "gộp" rồi mới sang bản sau.
