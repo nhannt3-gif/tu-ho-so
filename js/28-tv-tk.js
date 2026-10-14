@@ -228,8 +228,8 @@ function tkKhoiHTML(){   /* ⚙ Khai báo chung (Giao dịch xã) · 📥 Nạp 
     '<div>Sao kê TK 104: '+(e4 ? '<b>'+slKyChu(e4.ky)+'</b> · '+e4.soDong+' TK' : 'chưa nạp')+' · Sao kê TK 105: '+(e5 ? '<b>'+slKyChu(e5.ky)+'</b> · '+e5.soDong+' TK' : 'chưa nạp')+
     ' · Mẫu 01/TV: '+(e1 ? '<b>'+slKyChu(e1.ky)+'</b>' : 'chưa nạp')+'</div>'+
     '<small class="gdx-ghi">TK 104 tổ trưởng ghép theo Mã CIF TT (Mẫu 31 / Mẫu 18). TK 105 khách: số sổ Mẫu 18, thiếu thì Sao kê TK 105. CCCD anh gõ tay được nhớ theo mã KH.</small>'+
-    (function(){ var x = tkBangTom(); return x ? '<div>📒 <b>Bảng tổ dựng sẵn</b> ('+slKyChu(TO_K.ky)+'): <b>'+x.n+'</b> tổ · đủ <b>'+x.du+'</b>'+(x.thieu.length ? ' · <span class="gdx-vang">thiếu <b>'+x.thieu.length+'</b></span>' : ' ✓')+(x.ngung ? ' · <small>'+x.ngung+' tổ không còn thành viên (bỏ qua)</small>' : '')+'</div>' : '<div><small class="gdx-ghi">Bảng tổ dựng khi mở tab có số liệu (Mẫu 31).</small></div>'; })()+
-    '<div class="hang-nut"><button class="nho chinh" onclick="tkThieuHop()">📒 Tổ thiếu dữ liệu · bổ sung</button><button class="nho" onclick="tkTrungHop()">⚠ TK trùng</button>'+
+    (function(){ var x = tkBangTom(); return x ? '<div>📒 <b>Bảng tổ dựng sẵn</b> ('+slKyChu(TO_K.ky)+'): <b>'+x.n+'</b> tổ · đủ <b>'+x.du+'</b>'+(x.thieu.length ? ' · <span class="gdx-vang">chưa đủ <b>'+x.thieu.length+'</b></span>' : ' ✓')+(x.ngung ? ' · <small>'+x.ngung+' tổ không còn thành viên (bỏ qua)</small>' : '')+'</div>' : '<div><small class="gdx-ghi">Bảng tổ dựng khi mở tab có số liệu (Mẫu 31).</small></div>'; })()+
+    '<div class="hang-nut"><button class="nho chinh" onclick="tkThieuHop()">📒 Tổ chưa đủ dữ liệu · bổ sung</button><button class="nho" onclick="tkTrungHop()">⚠ TK trùng</button>'+
     '<button class="nho" onclick="tkCanDongHop(\'tk104\')">📋 TK 104 cần đóng</button><button class="nho" onclick="tkCanDongHop(\'tk105\')">📋 TK 105 cần đóng</button></div></div>';
 }
 
@@ -237,7 +237,7 @@ function tkKhoiHTML(){   /* ⚙ Khai báo chung (Giao dịch xã) · 📥 Nạp 
 function tkThieuHop(){
   var x = tkBangTom(); if(!x){ bao('Chưa có số liệu Mẫu 31 — mở tab Giao dịch xã / Tổ sau khi nạp.'); return; }
   var o = function(t, k, v, ph, w){ return '<input class="gdx-i" style="width:'+w+'" value="'+gdxE(v||'')+'" placeholder="'+ph+'" onchange="tkBoSung(\''+t.ma+'\', \''+k+'\', this.value)">'; };
-  moHop('<div class="hop-tit">📒 Bảng tổ — thiếu dữ liệu ('+x.thieu.length+' / '+x.n+' tổ)</div><div class="hop-phu">Kỳ '+slKyChu(TO_K.ky)+' · tổ trưởng = Mã CIF TT (Mẫu 31) · CCCD: Mẫu 31 → Mẫu 01/TV → Thông tin tổ trưởng / DSTO → anh gõ · TK 104: Sao kê TK 104. Gõ 1 lần, app nhớ theo mã KH tổ trưởng.</div>'+
+  moHop('<div class="hop-tit">📒 Bảng tổ — chưa đủ dữ liệu ('+x.thieu.length+' / '+x.n+' tổ)</div><div class="hop-phu">Kỳ '+slKyChu(TO_K.ky)+' · tổ trưởng = Mã CIF TT (Mẫu 31) · CCCD: Mẫu 31 → Mẫu 01/TV → Thông tin tổ trưởng / DSTO → anh gõ · TK 104: Sao kê TK 104. Gõ 1 lần, app nhớ theo mã KH tổ trưởng.</div>'+
     (x.thieu.length ? '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Mã tổ</th><th>Tổ trưởng</th><th>Mã KH</th><th>Thiếu</th><th>CCCD</th><th>Ngày cấp</th><th>TK 104</th></tr></thead><tbody>'+
       x.thieu.map(function(t){ var ly = [t.ccLy, t.tkLy].filter(Boolean).join(' · ');
         return '<tr><td>'+t.ma+'</td><td>'+coChuHTML(t.ten)+'</td><td>'+(t.kh || '<span class="gdx-vang">?</span>')+'</td><td title="'+gdxE(ly)+'">'+coChuHTML(t.thieu.join(', '))+(ly ? '<br><small>'+coChuHTML(ly)+'</small>' : '')+'</td>'+

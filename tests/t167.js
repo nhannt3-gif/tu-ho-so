@@ -208,7 +208,7 @@ const fs=require('fs'), path=require('path');
    { const bt = tkBangTom(), r0 = tkBangTo()[tA.ma];
      ok('3.202: bảng tổ dựng sẵn — mỗi tổ có tổ trưởng (mã KH), TK 104 Sao kê, CCCD + nguồn; đếm đủ / thiếu', bt && bt.n>0 && bt.du+bt.thieu.length===bt.n && r0 && r0.kh===khTT && r0.tk==='1040000000' && /Sao kê TK 104/.test(r0.tkTu), bt && JSON.stringify({n:bt.n, du:bt.du, thieu:bt.thieu.length}));
      tkThieuHop(); await w(100); const hT = document.getElementById('hop-in').textContent; dongHop();
-     ok('3.202: hộp "Tổ thiếu dữ liệu · bổ sung" mở được (bảng hoặc báo đủ)', /Bảng tổ — thiếu dữ liệu/.test(hT));
+     ok('3.202: hộp "Tổ chưa đủ dữ liệu · bổ sung" mở được (bảng hoặc báo đủ)', /Bảng tổ — chưa đủ dữ liệu/.test(hT));
      const kh5 = ((TO_K.kh[tA.ma]||[]).find(o=>o.kh!==khTT)||{}).kh;
      const aoa5 = [[''],['', '9. Sao kê Tài khoản theo mã sản phẩm (DLNgày)'],[''],[''],['', 'Mã PGD','Mã xã','Mã thôn','Mã khách hàng','Tên khách hàng','Tên TK','Tài khoản','Số Dư Ngày báo cáo','Số dư tháng trước','Sản phẩm','Ngày đăng ký','Ngày BC'],
        ['', '009999','900000','90000001', kh5, 'Khách Giả', 'Gia', '1050000001', 300000, 0, '105', '01/01/2020', '13/10/2026'],
