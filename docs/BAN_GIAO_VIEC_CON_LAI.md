@@ -233,9 +233,10 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 6 | Nạp Danh sách tổ hệ thống (`baocao_…xlsx`) ở 📥 Nạp & KT | Vào ô Danh sách tổ, kỳ = ngày báo cáo; kỳ tháng 9 vẫn dùng được | |
 | 7 | ⚙ Khai báo chung → dòng Bảng tổ | 369 / 369 đủ; nguồn CCCD / TK 104 = Danh sách tổ | |
 | 8 | 🏦 TK 104 chưa đóng | Danh sách có cột Lý do + Excel | |
+| 10 | Nạp lại Danh sách tổ số liệu đến 30/09 → ma trận tháng 9 | 1 dòng về tổ (không còn dòng Thông tin tổ trưởng); kỳ 9 dùng bản 30/09, kỳ 10 dùng bản 13/10 | |
 | 9 | ② Kiểm tra số liệu tháng 9 | 2 mục mới về Danh sách tổ (khớp Mã CIF TT, đủ CCCD · ngày cấp · TK 104) | |
 
-**Ghi chú kỹ thuật 3.202:** Danh sách tổ hệ thống: `dsHTDoc` (loại `dsto`, `tong.rieng`), `dsChonKy(ky)` chọn bản gần nhất (dùng trong `slBo`), `slBBE(k, ky)` cho file bắt buộc; `cccdCua` / `toBangDung` ưu tiên `t.ds` khi `t.ds.ttKH` = Mã CIF TT; `o.tkThua`, `o.dsLech`; `tkCanDong().k104.ds[].ly`. `TO_K.bangTo` (dựng lười bằng `tkBangTo()`, xóa khi `tkNapMoi` / anh bổ sung / chọn TK); `cccdCua(kh, t, laTT)` dùng chung; `tkCua` lập chỉ mục `theo` lười, TK anh chọn đứng đầu; `D.cauHinh.tk104Tay`, `tkChon`, `ccNho` đồng bộ Drive như cài đặt.
+**Ghi chú kỹ thuật 3.202:** Danh sách tổ hệ thống: `dsHTDoc` (loại `dsto`, `tong.rieng`), `dsChonKy(ky)` chọn bản của tháng, không có thì mới nhất (dùng trong `slBo`); `L.an` = loại ẩn khỏi ma trận (tt), `slBBE(k, ky)` cho file bắt buộc; `cccdCua` / `toBangDung` ưu tiên `t.ds` khi `t.ds.ttKH` = Mã CIF TT; `o.tkThua`, `o.dsLech`; `tkCanDong().k104.ds[].ly`. `TO_K.bangTo` (dựng lười bằng `tkBangTo()`, xóa khi `tkNapMoi` / anh bổ sung / chọn TK); `cccdCua(kh, t, laTT)` dùng chung; `tkCua` lập chỉ mục `theo` lười, TK anh chọn đứng đầu; `D.cauHinh.tk104Tay`, `tkChon`, `ccNho` đồng bộ Drive như cài đặt.
 
 ### Danh sách thử trên máy thật (3.201) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

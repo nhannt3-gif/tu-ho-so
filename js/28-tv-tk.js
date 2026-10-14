@@ -152,9 +152,11 @@ function tkChonBan(loai, ngay){
   if(!ds.length) return null; var truoc = ds.filter(function(e){ return !ngay || e.ky<=ngay; });
   return truoc.length ? truoc[truoc.length-1] : ds[0];
 }
-function dsChonKy(ky){   /* 3.202 (anh chốt 14/10: giữ 1 danh sách tổ): bản Danh sách tổ hệ thống MỚI NHẤT (đủ cột nhất) cho mọi kỳ — không có thì '' (dùng DSTO cũ theo kỳ) */
+function dsChonKy(ky){   /* 3.202 (anh chốt 14/10: nạp theo tháng là chính, theo ngày khi thay đổi lớn; giữ 1 danh sách tổ): bản Danh sách tổ hệ thống CỦA THÁNG (mới nhất ≤ ngày kỳ); tháng không có → bản mới nhất; không có bản hệ thống nào → '' (DSTO cũ theo kỳ) */
   var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto' && e.tong && e.tong.rieng; }).sort(function(a, b){ return a.ky<b.ky ? -1 : 1; });
-  return ds.length ? ds[ds.length-1].ky : '';
+  if(!ds.length) return ''; ky = String(ky||''); var th = ky.slice(0, 7), den = ky.length<=7 ? tdnCuoiKy(ky) : ky;
+  var cung = ds.filter(function(e){ return String(e.ky).slice(0, 7)===th && (String(e.ky).length<=7 ? tdnCuoiKy(e.ky) : e.ky)<=den; });
+  return (cung.length ? cung[cung.length-1] : ds[ds.length-1]).ky;
 }
 function tkNapMoi(K){   /* gắn K.tk = {tk104:{ky, rows, theo}, tk105:{…}} — 1 lần khi dựng kỳ (nối Sao kê vào Mẫu 31 theo mã KH) */
   K.tk = {}; K.bangTo = null;
@@ -261,7 +263,7 @@ function tkKhoiHTML(){   /* ⚙ Khai báo chung (Giao dịch xã) · 📥 Nạp 
     ' · Mẫu 01/TV: '+(e1 ? '<b>'+slKyChu(e1.ky)+'</b>' : 'chưa nạp')+'</div>'+
     '<small class="gdx-ghi">TK 104 tổ trưởng ghép theo Mã CIF TT (Mẫu 31 / Mẫu 18). TK 105 khách: số sổ Mẫu 18, thiếu thì Sao kê TK 105. CCCD anh gõ tay được nhớ theo mã KH.</small>'+
     (function(){ var x = tkBangTom(); return x ? '<div>📒 <b>Bảng tổ dựng sẵn</b> ('+slKyChu(TO_K.ky)+'): <b>'+x.n+'</b> tổ · đủ <b>'+x.du+'</b>'+(x.thieu.length ? ' · <span class="gdx-vang">chưa đủ <b>'+x.thieu.length+'</b></span>' : ' ✓')+(x.ngung ? ' · <small>'+x.ngung+' tổ không còn thành viên (bỏ qua)</small>' : '')+'</div>' : '<div><small class="gdx-ghi">Bảng tổ dựng khi mở tab có số liệu (Mẫu 31).</small></div>'; })()+
-    '<div class="hang-nut"><button class="nho chinh" onclick="tkThieuHop()">📒 Tổ chưa đủ dữ liệu · bổ sung</button><button class="nho" onclick="tkTrungHop()">⚠ TK trùng</button>'+
+    '<div class="hang-nut"><button class="nho chinh" onclick="tkThieuHop()">📒 Tổ chưa đủ · bổ sung</button><button class="nho" onclick="tkTrungHop()">⚠ TK trùng</button>'+
     '<button class="nho" onclick="tkCanDongHop(\'tk104\')">📋 TK 104 cần đóng</button><button class="nho" onclick="tkCanDongHop(\'tk105\')">📋 TK 105 cần đóng</button></div></div>';
 }
 
