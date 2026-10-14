@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.195 — 14/10/2026 — 🧾 Bảng kê: font đầu tờ như tờ thật, tên PGD liền khối
+- **Anh (14/10):** "font chữ bảng kê em dùng font chuẩn như bảng kê, chữ Gò Dầu em thêm vào liền khối cùng cỡ font chữ, chỉ khi bỏ trong khai báo thì hiện chấm".
+- **Tên PGD** (`gdxBKTrang`): có khai báo → in **“PHÒNG GIAO DỊCH: GÒ DẦU”** thành 1 khối, cùng font Arial đậm, cùng cỡ, viết hoa (trước đây tên PGD là ô riêng, chữ thường mảnh, cách xa); **bỏ trống khai báo → “PHÒNG GIAO DỊCH:” + dòng chấm** ghi tay. Áp cho tab 🧾 Bảng kê, mẫu trắng và phần Bảng kê in từ Giấy lĩnh.
+- **Font đầu tờ theo tờ in sẵn:** 2 dòng tên cơ quan dùng chữ không chân đứng hẹp (Arial Narrow, máy chưa có thì Arial); BẢNG KÊ chữ có chân đậm; CÁC LOẠI TIỀN… và đầu bảng chữ không chân đậm; nhãn, số tiền chữ có chân (Times New Roman) — như tờ thật.
+- **Phép thử:** `t167` 71/71 (tên PGD liền khối, trống → chấm).
+
 ## 3.194 — 14/10/2026 — 💵 Giấy lĩnh in kèm Bảng kê (theo cài đặt tab Bảng kê); 🌸 logo NHCSXH có sẵn
 - **Anh (14/10):** "bên tab Giấy lĩnh tiền, khi in em sẽ kết hợp bảng kê cùng 1 trang A4 như bản cũ, có điền đầy đủ thông tin tổ trưởng, số tiền theo mẫu lĩnh tiền, số tiền chi mặc định từ mệnh giá cao đến thấp, chỗ ký tên để trống KH tự ký ghi họ tên"; "em bố trí như cũ, nút chọn in chỉ giấy lĩnh, chỉ bảng kê, cả 2, mẫu trắng khi không chọn dữ liệu"; "mẫu nào lấy theo cài đặt mẫu đó"; gửi logo NHCSXH (cánh sen) — "logo em tích hợp vào app luôn", "lưu lại logo này trên app và cho xuất khi cần", "tích logo này vào bảng kê, sau này khi nói tích hợp logo thì sẽ ở góc hoặc chìm", "nếu bật lên để xem thì hiện màu"; "em gom lại và code phần này".
 - **💵 Giấy lĩnh — 4 nút in** như bản 3.192: **💵 Lĩnh** (chỉ Giấy lĩnh, A5 / A4 nửa trên) · **🧾 Bảng kê** (A4 ngang, 1 tờ 105 × 210 sát mép trái + nét cắt) · **💵+🧾** (1 tờ A4 dọc, Bảng kê xoay ngang sát đáy, cắt 1 nhát) · **📄 Mẫu trắng** (Giấy lĩnh 1 / 2 mẫu · Bảng kê 2 tờ / A4 ngang · Kết hợp). Phần Bảng kê: **họ tên người lĩnh in sẵn** (tổ trưởng / khách), địa chỉ, nội dung, ngày, **số tiền theo Giấy lĩnh — tự chia mệnh giá từ cao đến thấp**, Tổng cộng, bằng chữ đậm nghiêng; **dòng Họ tên dưới chỗ ký để trống** (khách tự ký, ghi tên). **Mẫu nào lấy cài đặt mẫu đó:** phần Giấy lĩnh theo ⚙ Giấy lĩnh (chữ chìm VBSP), phần Bảng kê theo ⚙ tab 🧾 Bảng kê (tên cơ quan, PGD, logo chìm).

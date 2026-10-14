@@ -222,6 +222,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.195) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🧾 Bảng kê | “PHÒNG GIAO DỊCH: GÒ DẦU” 1 khối cùng font, cùng cỡ; tên cơ quan chữ đứng hẹp như tờ thật | |
+| 2 | Xóa trống ô Phòng giao dịch | Hiện “PHÒNG GIAO DỊCH:” + chấm | |
+
 ### Danh sách thử trên máy thật (3.194) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

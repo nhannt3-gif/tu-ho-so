@@ -945,7 +945,7 @@ function gdxBKTrang(c, g){   /* g = dữ liệu Giấy lĩnh (3.194: in từ tab
   var dong = BK_MG.map(function(m){ var n = ch && ch.so[m]; return '<tr><td class="bk-lt">'+gdxTien(m)+'</td><td class="bk-sl">'+(n || '')+'</td>'+o4(n ? n*m : 0)+'</tr>'; }).join('');
   var logo = gdxLogo(), mc = c.bkChim || 'nhat';
   return '<div class="bk-trang bk-to">'+(mc==='tat' ? '' : logo ? '<img class="bk-chim bk-logo chim-'+mc+'" src="'+logo+'" alt="">' : '<div class="bk-chim">VBSP</div>')+
-    '<div class="bk-dau"><div class="bk-nh"><div>'+gdxE(c.bkCQ1||'')+'</div><div>'+gdxE(c.bkCQ2||'')+'</div><div class="gl-r bk-pgd"><b>PHÒNG GIAO DỊCH:</b>'+gdxGLO(c.bkPGD)+'</div></div>'+
+    '<div class="bk-dau"><div class="bk-nh"><div>'+gdxE(c.bkCQ1||'')+'</div><div>'+gdxE(c.bkCQ2||'')+'</div>'+(c.bkPGD ? '<div class="bk-pgd"><b>PHÒNG GIAO DỊCH: '+gdxE(String(c.bkPGD).toUpperCase())+'</b></div>' : '<div class="gl-r bk-pgd"><b>PHÒNG GIAO DỊCH:</b>'+gdxGLO('')+'</div>')+'</div>'+   /* 3.195 (anh): tên PGD liền khối cùng font, cùng cỡ với "PHÒNG GIAO DỊCH:"; bỏ trống trong khai báo mới hiện chấm */
       '<div class="bk-tit"><div class="bk-t1">BẢNG KÊ</div><div class="bk-t2">CÁC LOẠI TIỀN NGÂN HÀNG CHI RA</div><div class="bk-ngay">Ngày '+o(p[2], '6mm')+' tháng '+o(p[1], '6mm')+' năm '+(p[0] ? '<span class="gl-vn">'+p[0]+'</span>' : '20'+o('', '6mm'))+'</div></div></div>'+
     (g ? r('Họ và tên người lĩnh tiền:', g.ten, 'bk-ten')+r('Địa chỉ:', g.diaChi)+r('Nội dung:', c.glND==null ? 'Rút tiền' : c.glND)
        : r('Họ và tên người lĩnh tiền:', c.bkTen, 'bk-ten')+r('Địa chỉ:', c.bkDC)+r('Nội dung:', c.bkND))+
@@ -978,7 +978,7 @@ var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6
   '.bk-chim.bk-logo{left:34.1mm;top:68.5mm;width:54.5mm;height:56.6mm;object-fit:contain;object-position:center;opacity:.16}.bk-logo.chim-vua{opacity:.24}.bk-logo.chim-dam{opacity:.34}'+
   '.bk-trang>*:not(.bk-chim){position:relative;z-index:1}'+
   '.bk-dau{display:grid;grid-template-columns:auto auto;justify-content:space-between;gap:1.5mm;margin-bottom:2.5mm}.bk-dau div{white-space:nowrap}'+
-  '.bk-nh{text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:8pt;line-height:1.35}.bk-pgd{min-height:0;font-size:8pt;margin-top:1mm}.bk-trang .bk-pgd .gl-v{flex:0 1 auto;text-align:left;padding-left:1.2mm;text-transform:uppercase}'+   /* 3.191 (anh): cụm tên cơ quan lớn hơn; tên PGD sát chữ PHÒNG GIAO DỊCH */
+  '.bk-nh{text-align:center;font-family:"Arial Narrow","Arial Nova Cond",Arial,Helvetica,sans-serif;font-size:8pt;line-height:1.35}.bk-pgd{min-height:0;font-size:8pt;margin-top:1mm}.bk-trang .bk-pgd .gl-v{flex:0 1 auto;text-align:left;padding-left:1.2mm;text-transform:uppercase}'+   /* 3.191 (anh): cụm tên cơ quan lớn hơn; tên PGD sát chữ PHÒNG GIAO DỊCH */
   '.bk-tit{text-align:center}.bk-t1{font-weight:bold;font-size:14pt;letter-spacing:.5px}.bk-t2{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:6.8pt}.bk-ngay{font-size:9.5pt;margin-top:1mm}'+
   '.bk-trang .gl-r{display:flex;align-items:baseline;gap:1mm;min-height:6.2mm;white-space:nowrap}.bk-trang .gl-n{flex:none}'+
   '.bk-trang .gl-c{flex:1 1 auto;display:block;min-width:5mm;border-bottom:1.2px dotted #000;line-height:1}.bk-trang .gl-c::after{content:"\\00a0"}'+
