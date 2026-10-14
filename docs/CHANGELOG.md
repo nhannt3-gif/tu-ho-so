@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.207 — 14/10/2026 — 🏠 Danh sách hộ vay mới (khai báo 1 lần, gọi ra làm hồ sơ)
+- **Anh (14/10):** "xong mẫu 09, chuyển qua 01/TD, 03/TD, giấy UQ — đầu tiên khai báo hộ vay mới: form họ tên, ngày sinh (nhập nhanh), CCCD, ngày cấp → suy giới tính, ngày hết hạn, kiểm năm khớp CCCD; địa chỉ chọn xã → ấp (hoặc điểm GD cho gọn); thêm thành viên; chọn ai đứng tên vay, ai là HSSV; Lưu hộ vào danh sách, gọi ra làm hồ sơ". Kế hoạch `docs/KE_HOACH_3207.md`.
+- **Tab con đầu "🏠 Hộ mới"** (Hồ sơ vay): danh sách hộ đã khai (tìm tên / CCCD; ✓ Mẫu 31 khi CCCD người đứng tên đã có trên số liệu) · ✎ sửa · **📄 Lập HS** · 🗑; khung phải = bảng DANH SÁCH HỘ VAY MỚI (in được).
+- **Form hộ** (`hmMo` / `hmVe`): ngày gõ liền số (`150378` = 15/03/1978, `9112021` = 09/11/2021); tên tự viết hoa đầu từ; **giới tính + năm sinh theo số CCCD (lệch năm sinh đã nhập → ⚠)**, CCCD ≠ 12 số → ⚠, **nơi cấp theo ngày cấp, hạn CCCD (hết / sắp hết → ⚠)**; địa chỉ **Xã → Điểm GD (lọc) → Ấp** lấy từ cây tổ (không có số liệu thì gõ tay); **＋ Thành viên** (họ tên, ngày sinh, CCCD, quan hệ); **Đứng tên vay** / **HSSV** / Không vay HSSV; **💾 Lưu hộ** → `D.cauHinh.hoMoi` (đồng bộ Drive cùng cài đặt).
+- **Gọi ra làm hồ sơ:** 📄 Lập HS tạo Bộ HS mới điền sẵn người vay (nhân thân, nơi cấp, địa chỉ), thành viên (01/UQ), HSSV (01/TD) → 01/UQ · 01/TD · 03/TD theo bộ như cũ. Bộ HS → Hộ mới có thêm ô **"Hộ vay mới đã khai"** (vẫn giữ nhập tay cũ). Mặc định em chọn (anh chưa trả lời chi tiết): ghi ở `docs/KE_HOACH_3207.md` mục 4.
+- **Phép thử:** `t171` 14/14 (mới) · t163 / t170 đếm 8 tab mẫu.
+
 ## 3.206 — 14/10/2026 — 📍 Cây địa bàn thống nhất · ↺ Phiếu mới · Hồ sơ vay theo tab · 09A/TD ô chấm tùy biến + in kèm Mẫu 06/TD
 - **Kế hoạch:** `docs/KE_HOACH_3206.md` (anh chốt 14/10, gom 1 bản; trạng thái từng phần ở mục 5).
 - **Cây địa bàn — mọi tab** (Tổ · Sao kê · Hồ sơ · KTGS · Giao dịch xã, hàm chung `pvVeCay`): đã chọn địa bàn thì có nút **▾ Mở rộng / ▴ Thu gọn** (anh chốt tên); gọn = **1 dòng 🏠 PGD › Xã › Điểm · Hội › Tổ**, **bấm từng mắt để về cấp đó** (kiểu nút Home); chọn xong tổ tự gọn; nhớ theo tab (`D.cauHinh.pvGon[p]`; GDX mặc định gọn như 3.180). Điện thoại giữ ô chọn khi gọn.
