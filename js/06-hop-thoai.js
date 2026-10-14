@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.195', ds:[
+var CO_GI_MOI = {ban:'3.196', ds:[
+  ["📏 Mọi mẫu in: đường kẻ mảnh, chấm mịn; đường phụ (giữa các dòng, chia ô) nhạt và nhỏ hơn đường chính", "slDoiTab('gdx');doiNgan(7)"],
   ["🧾 Bảng kê: “PHÒNG GIAO DỊCH: GÒ DẦU” liền khối cùng font, cùng cỡ (bỏ trống khai báo mới hiện chấm); tên cơ quan font chữ đứng hẹp như tờ thật", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
   ["💵 Giấy lĩnh in kèm Bảng kê trở lại: 💵 Lĩnh · 🧾 Bảng kê · 💵+🧾 + Mẫu trắng — Bảng kê điền theo Giấy lĩnh, tự chia mệnh giá, ký tên để trống", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["🌸 Logo NHCSXH (cánh sen) có sẵn trong app: logo chìm Bảng kê, logo góc Hồ sơ vay; ⬇ Tải logo ở Hồ sơ vay › Khai báo 1 lần", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],

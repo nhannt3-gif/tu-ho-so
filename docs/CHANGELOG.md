@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.196 — 14/10/2026 — 📏 Đường kẻ mảnh, đường phụ nhạt hơn đường chính — mọi mẫu biểu
+- **Anh (14/10):** "các lằn kẻ con nên lợt nhỏ hơn lằn chính" → "áp dụng cho mọi mẫu biểu". Quy tắc ghi ở `docs/QUY_TAC_SOAN_MAU.md` (mục Đường kẻ): chính ≤ 0,9 px đen; phụ 0,4–0,6 px xám hoặc chấm xám; chấm ghi tay 0,5 pt / 0,7 px xám đậm; không đường nào ≥ 1,2 px.
+- **💵 Giấy lĩnh:** dòng chấm 1,4 px đen → 0,7 px `#333` (như Bảng kê); khung 3 ô 1,2 → 0,9 px; vạch chia giữa các ô và 2 gạch dọc ô Người lĩnh → 0,6 px xám (đường phụ).
+- **04/TD, 12/GDX:** vạch dưới tên cơ quan / tiêu ngữ 1,2–1,5 px → 0,9 px; bảng 12/GDX: khung, cột, đầu bảng, dòng Tổng cộng 0,9 px đen, kẻ ngang giữa các dòng 0,5 px xám.
+- **Mẫu 06 / 16 / 04 KTGS / Kế hoạch KTGS (bản In):** bảng 1 px → 0,5 pt; dòng chấm 1 px đen → 0,5 pt chấm xám (Mẫu 06 đã theo quy tắc từ trước, chỉ làm mịn dòng chấm lý do). **Xuất Word của các mẫu này giữ nguyên khung file gốc.**
+- **📄 Hồ sơ vay:** lưới vẫn 0,5 pt đen; kẻ chấm giữa các dòng (bảng có chấm) đen → xám, cả bản In và bản Word.
+- **Bản in báo cáo nội bộ:** khung tóm tắt 1,5 → 0,9 px, dòng chấm 0,7 px xám, vạch cột trung tâm / tên khung 0,9 px.
+- Chỉ đổi độ dày / màu nét, không đổi bố cục.
+
 ## 3.195 — 14/10/2026 — 🧾 Bảng kê: font đầu tờ như tờ thật, tên PGD liền khối, lằn kẻ mảnh
 - **Anh (14/10):** "font chữ bảng kê em dùng font chuẩn như bảng kê, chữ Gò Dầu em thêm vào liền khối cùng cỡ font chữ, chỉ khi bỏ trong khai báo thì hiện chấm".
 - **Tên PGD** (`gdxBKTrang`): có khai báo → in **“PHÒNG GIAO DỊCH: GÒ DẦU”** thành 1 khối, cùng font Arial đậm, cùng cỡ, viết hoa (trước đây tên PGD là ô riêng, chữ thường mảnh, cách xa); **bỏ trống khai báo → “PHÒNG GIAO DỊCH:” + dòng chấm** ghi tay. Áp cho tab 🧾 Bảng kê, mẫu trắng và phần Bảng kê in từ Giấy lĩnh.
