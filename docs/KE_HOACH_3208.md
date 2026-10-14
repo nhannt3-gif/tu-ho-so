@@ -10,10 +10,14 @@
 2. **⚙ Khai báo riêng mẫu** = ô chấm ✍ / 🖨 của mẫu · 09A: lý do gia hạn, in kèm 06/TD, 01/TĐCK · logo theo mẫu.
 3. **01/TD, Bộ HS:** chọn CT → tự điền mục đích, đối tượng thụ hưởng, khai báo đặc thù. Bộ HS 3 bước: ① Hộ vay → ② CT + đặc thù → ③ Mẫu trong bộ.
 
+## Anh bổ sung 14/10 (tối) — thiết kế cửa sổ ⚙ Khai báo chung
+Cửa sổ riêng có **tab con**: 🏦 PGD (+ logo) · 🏘 **Trưởng ấp** (chọn xã / điểm GD → ấp → gõ tên) · 👥 **Tổ phó** (chọn xã / điểm → tổ → tổ phó thực tế) · 📋 **Chương trình vay**.
+**Thẻ 1 CT** (vd NSVSMT): tên gọi tắt (HSSV, GQVL — gọi nhanh) · tên ghi trên 01/TD, 03/TD · **đối tượng thụ hưởng** (gõ danh sách) · **mục đích vay** (mục + loại xây mới / sửa chữa) · **mức vay 1 công trình** (1 hay 2 công trình → số tiền tương ứng, sửa được) · **thời hạn vay** (số tháng, 🖨 ghi sẵn / ✍ chấm) · **phân kỳ** (🖨 ghi sẵn / ✍ chấm) · ô thêm tự đặt (ghi sẵn / chấm) cho đặc thù.
+Lập 01/TD / Bộ HS: chọn CT → chọn mục đích, số công trình → tự điền. Khai báo riêng mẫu (ô chấm, 09A lý do + in kèm) ở nút ⚙ Khai báo riêng mẫu.
+
 ## Câu hỏi chờ anh
-1. Bắt đầu với CT nào (đề xuất HSSV, NSVSMT, GQVL)?
-2. Mỗi CT có khai mức vay tối đa, thời hạn, kỳ hạn trả để tự điền 01/TD?
-3. Khai báo đặc thù GQVL gồm những ô nào (hoặc gửi mẫu 01/TD GQVL)?
+1. Làm trước 3 CT: HSSV, NSVSMT, GQVL? (CT khác anh tự thêm thẻ)
+2. Thêm lãi suất (ghi sẵn / chấm)? Ô nào khác ngoài các ô anh đã nêu?
 
 ## Trạng thái
 - ☐ chờ anh trả lời + nhắn "code"
