@@ -3452,3 +3452,8 @@ button.pv-dan-o.pv-ve{cursor:pointer;font:inherit;font-size:calc(12px*var(--co))
 /* 3.206: Hồ sơ Tổ / Hồ sơ vay — thanh tab mẫu như Giao dịch xã */
 .hso-dau{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 6px}.hso-dau .gdx2-mau{flex:1 1 auto;min-width:0}.hso-ky{font-size:calc(12.5px*var(--co));color:var(--chu-phu);white-space:nowrap}
 .hso-dau .gdx-c{font-size:calc(13px*var(--co));padding:3px 12px}
+.hso-cham{border:1px solid var(--vien);border-radius:8px;padding:6px 8px;margin:8px 0;background:var(--the)}.hso-cham-dau{font-size:calc(12.5px*var(--co));color:var(--chu-phu);margin-bottom:4px}
+.hso-cham-o{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 6px;align-items:center;padding:4px 0;border-top:1px dashed var(--vien)}.hso-cham-o:first-of-type{border-top:none}
+.hso-cham-nhan{font-size:calc(13px*var(--co));font-weight:600}.hso-cham-gt{grid-column:1 / -1;display:flex;flex-direction:column;gap:4px}.hso-cham-gt input,.hso-cham-gt select{font:inherit;padding:3px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--nen,#fff);color:var(--chu);width:100%;box-sizing:border-box}
+.hso-cham-ly{display:flex;gap:4px}.hso-cham-tay{color:var(--chu-phu);font-size:calc(12px*var(--co))}
+.hso-sw{display:inline-flex;border:1px solid var(--vien);border-radius:14px;overflow:hidden}.hso-sw button{border:none;background:none;padding:2px 9px;min-height:0;cursor:pointer;font:inherit}.hso-sw button.bat{background:var(--xanh);color:#fff}
