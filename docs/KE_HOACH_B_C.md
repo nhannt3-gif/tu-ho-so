@@ -68,6 +68,7 @@ File mới `js/29-kho.js` (nạp sau `js/28`). Mỗi hàm ghi **hợp đồng** 
 1. `gdxGLDuLieu` (`js/26`) và `gdxMiniGoi` (`js/27`) chỉ gọi `KHO.tk104 / tk105 / cccd` — bỏ đọc thẳng `TO_K`, `SL_DB`, `tkCua`… trong khối Giao dịch xã (giảm chỉ số "đọc biến chung" mục 7 quy chuẩn).
 2. **Nối Sao kê TK 104 / 105 vào Mẫu 31 theo Mã KH 1 lần khi nạp** (nạp Sao kê hoặc Mẫu 31 đều nối lại, như cơ chế 3.120 Dư nợ chi tiết → danh bạ), theo kỳ (QT-11, 12) — thay cách tra "file mới nhất" lúc in của 3.201; **Mẫu 18 = file đối chiếu của Mẫu 31** (anh chốt 14/10) — không bắt buộc, không còn là nguồn TK; nạp thì: đối chiếu tổng với Mẫu 31 (như hiện nay) + bù / đối chiếu điểm GD (thứ tự điểm GD: DSTO → Mẫu 18 → suy theo ấp; DSTO ↔ Mẫu 18 lệch thì báo).
 3. **Cảnh báo CCCD hết hạn / sắp hết hạn** ở dòng Tóm tắt Giấy lĩnh (QT-13).
+   - **Bảo đảm không còn trường hợp "không load ra CCCD"** (anh giao 14/10): ① mã KH tổ trưởng chỉ lấy Mã CIF TT (bỏ đoán theo tên khi đã có CIF); ② CCCD tra **mọi dòng** của khách trong Mẫu 31 các kỳ (không chỉ dòng trong tổ đang chọn) → Mẫu 01/TV → Thông tin tổ trưởng / DSTO → số anh gõ (nhớ theo mã KH); ③ không có thì **ghi rõ lý do** + cho gõ 1 lần; ④ mục mới ở ② Kiểm tra số liệu: **"Tổ trưởng / khách chưa có CCCD: N"** kèm danh sách — để thấy trước khi in; ⑤ phép thử dữ liệu giả đủ ca: tổ trưởng chưa vay, vay ở tổ khác, chuyển tổ, Mẫu 31 thiếu CCCD, chỉ có ở 01/TV, đã gõ tay; ⑥ chạy trên file thật (thư mục nháp) — đạt **100% tổ trưởng có CCCD hoặc có lý do**, báo số liệu khi giao bản.
 4. **Danh sách TK trùng** (khách ≥ 2 TK 105, tổ trưởng ≥ 2 TK 104) — cảnh báo ở ② Kiểm tra số liệu + nút ở ⚙ Khai báo chung, xuất Excel, anh chọn TK đang dùng (nhớ theo mã KH).
 5. **Bộ file bắt buộc** (✅ Đạt ở Nạp & KT): bỏ Mẫu 18 khỏi danh sách bắt buộc (giữ làm file đối chiếu của Mẫu 31); Sao kê TK 104 / 105 là file theo ngày, **không bắt buộc** — thiếu thì dùng bản gần nhất (*anh chốt nếu muốn khác*).
 6. Phép thử: **so HTML bản in Giấy lĩnh / Bảng kê / mini app trước – sau = giống hệt** (với cùng dữ liệu giả) — chứng minh mẫu khóa không đổi; `t167`, `t168` giữ đạt.
@@ -80,6 +81,6 @@ Tách KTGS ra file riêng (cơ học) → dòng thời gian + chốt sổ tổ v
 
 ## 3. Cần anh chốt trước khi em nhắn bắt đầu
 1. ~~QT-11 / 12~~ — **anh đã chốt 14/10:** TK 104 / 105 đều 10 số, lấy từ Sao kê, nối vào Mẫu 31 theo Mã KH 1 lần khi nạp; TK trùng → cảnh báo đóng TK thừa; nguồn TK = Mẫu 31 + 2 Sao kê (chưa có bản mới → bản gần nhất); **Mẫu 18 giữ làm file đối chiếu của Mẫu 31** (không bắt buộc, không lấy TK).
-2. **QT-12, 13, 14** như bảng mục 0 — đồng ý?
+2. ~~QT-13, 14~~ — **anh giao em chốt thuật toán (14/10)**, yêu cầu kết quả chuẩn, không để lỗi không ra CCCD → theo bảng mục 0 + bảo đảm ở bản 3.205 mục 3.
 3. **Đợt B chia 2 bản** (3.202 gom lưu · 3.203 IndexedDB theo ngăn) — đồng ý? Làm 3.202 trước.
 4. Thứ tự: **3.202 → 3.203 → 3.204 → 3.205** — mỗi bản anh test / "gộp" rồi mới sang bản sau.
