@@ -38,7 +38,8 @@ Tên CT in: "Hỗ trợ tạo việc làm duy trì và mở rộng việc làm" 
 - **Anh chốt 14/10: KHÔNG có ân hạn; mặc định phân kỳ 24 tháng/lần; app tự tính từ số tiền vay — "hết" (không thêm kiểu chia khác).** Chỉ: chia đều theo số kỳ (T ≤ 12 → 1 lần khi đến hạn). Kỳ hạn sửa được ở thẻ / bộ hồ sơ (cảnh báo nếu vượt mức VB).
 - Ví dụ: vay 50.000.000, 60 tháng, 24 tháng/lần → 3 kỳ: tháng 24: 16.000.000 · tháng 48: 16.000.000 · tháng 60 (hạn cuối): 18.000.000.
 - Cảnh báo (không chặn): K vượt mức tối đa theo T; T > 120; tiền > 200 triệu.
-- **Lãi suất tự chọn:** tích đối tượng ưu tiên 1–5 ở 01/GQVL → 6,24 %; không → 7,9248 % (2 số khai ở thẻ GQVL, sửa khi Chính phủ đổi). Lãi quá hạn: khai ở thẻ (🖨 / ✍).
+- **Lãi suất tự chọn:** tích đối tượng ưu tiên 1–5 ở 01/GQVL → 6,24 %; không → 7,9248 % (2 số khai ở thẻ GQVL, sửa khi Chính phủ đổi). **Lãi quá hạn = 130 % lãi suất cho vay** (anh chốt 14/10): 07b ghi %/năm → 7,9248 × 1,3 = **10,30224 %/năm**; ưu tiên 6,24 × 1,3 = **8,112 %/năm** (hệ số 130 % khai ở thẻ).
+- **Làm tròn số tiền từng kỳ (anh 14/10): "lấy đến hàng trăm", kỳ cuối nhiều nhất** — chờ anh chốt trăm đồng hay trăm nghìn (em đề nghị trăm nghìn); mức làm tròn là 1 ô ở thẻ.
 
 **B. Tham số mặc định theo mục đích** (em ĐỀ XUẤT từ thực tế — không phải quy định, anh sửa / thêm ở thẻ GQVL; mẫu 03 anh gửi đều 60 tháng):
 | Mục đích (vd) | T | K (mặc định 24 — anh chốt) | Kiểu chia |
