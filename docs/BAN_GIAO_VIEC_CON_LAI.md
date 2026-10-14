@@ -222,6 +222,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.208) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay → ⚙ Khai báo chung | Cửa sổ 4 tab con; Trưởng ấp / Tổ phó chọn xã → điểm | |
+| 2 | Tab 📋 Chương trình vay: mở thẻ NSVSMT, HSSV | Đủ ô; ĐTTH / mục đích cũ đã chuyển vào thẻ | |
+| 3 | Bộ HS chọn HSSV, gõ số tháng + số tiền → 01/TD | Bảng in đúng số gõ; trống → chấm | |
+| 4 | Gõ Thời hạn 48, Hạn trả cuối → 01/TD, 03/TD | 01/TD in 48 tháng + ngày; 03/TD cột Thời hạn 48 tháng | |
+| 5 | Bộ HS NSVSMT (xã / phường) → 03/TD | ĐTTH nông thôn / thành thị; 60 tháng | |
+| 6 | Thẻ NSVSMT đổi Thời hạn → ✍ Chấm | 01/TD thời hạn để chấm | |
+| 7 | Bố cục: cột trái rộng, xem trước bên phải | Như tab Giao dịch xã | |
+
+**Ghi chú kỹ thuật 3.208:** thẻ CT `hsoKB().ctv[]` {ma, ten, kieu hssv|congtrinh|chung, loai, ctr[{ten, tien}], md[], dtth[], dtthMd, dtthPh, th, thIn, ky, kyIn, ubnd, nhcsxh, bat} — `hsoCTVDs()` (tạo mặc định + chuyển kb.md / kb.dtth cũ), `hsoCTV(ma)`, `hsoCTTenIn`, `hsoCTDat`, `hsoCTVHTML`; cửa sổ `hsoKBHop(tab)` + `HSO_KBT` {tab, xa, diem, mo}, `hsoKBTab`. `hsoPA(B)` đọc thẻ: r.C, th / ky = B.th / B.ky gõ hoặc thẻ (thIn / kyIn 'in'), công trình i lưu ở `hsoPaK(i)` (giữ khóa cũ nuoc / tienN, vs / tienV). Bộ: `B.th`, `B.ky`, `B.hanCuoi` (ISO), `B.pa.soThang`, `B.pa.md / dt / sl`. `hsoDTTHMd(B, phuong)`.
+
 ### Danh sách thử trên máy thật (3.207) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

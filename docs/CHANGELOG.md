@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.208 — 14/10/2026 — ⚙ Khai báo chung (tab con) + thẻ chương trình vay → 01/TD, 03/TD tự điền
+- **Anh (14/10):** mục đích vay, đối tượng thụ hưởng khai theo chương trình vay (HSSV, NSVSMT, GQVL); khai báo chung là cửa sổ riêng có tab con (trưởng ấp, tổ phó chọn theo xã / điểm, chương trình vay); thẻ CT: tên tắt, tên in 01/03, ĐTTH, mục đích (xây mới / sửa chữa), mức vay 1 công trình, thời hạn & phân kỳ ghi sẵn hay chấm. Chốt thêm: **HSSV số tháng, số tiền gõ tay (không tự tính)**; **01/TD thời hạn xin vay, hạn trả nợ cuối: gõ thì in, không gõ thì chấm; số tháng gõ mang sang 03/TD**; **NSVSMT mặc định ghi sẵn hết, đổi trong cài đặt**; bố cục như tab Giao dịch xã; khai báo riêng ghi rõ của mẫu nào. Kế hoạch `docs/KE_HOACH_3208.md`.
+- **⚙ Khai báo chung** (thay "Khai báo 1 lần"): tab con 🏦 PGD · logo · 🏘 Trưởng ấp · 👥 Tổ phó (chọn xã → điểm GD ngay trong cửa sổ) · 📋 Chương trình vay.
+- **Thẻ chương trình vay** (`hsoKB().ctv`; mặc định HSSV, NSVSMT, GQVL; ＋ thêm, 🗑 xóa): tên tắt (đổi → bộ hồ sơ đổi theo) · tên in · dạng phương án (HSSV / theo công trình / 1 mục đích) · công trình + mức vay 1 công trình · có Xây mới / Sửa chữa · mục đích · đối tượng thụ hưởng + mặc định xã / phường · thời hạn & kỳ hạn **✍ Chấm / 🖨 Ghi sẵn** · khối Xác nhận UBND xã trên 01/TD · câu "Đề nghị NHCSXH cho vay". Khai báo cũ (ô chữ "MÃ: …" mục đích / ĐTTH) tự chuyển vào thẻ.
+- **Bộ HS / 01/TD / 03/TD:** chọn chương trình theo thẻ → tự điền tên CT, mục đích, bảng phương án, thời hạn, kỳ hạn, ĐTTH (trống → mặc định thẻ theo xã / phường). HSSV: **ô Số tháng + Số tiền gõ tay** (bỏ chia 4 triệu / tháng). Ô **Thời hạn xin vay, Kỳ hạn, Hạn trả nợ cuối cùng** (Bộ HS và tab 01/TD): gõ thì in, trống thì theo thẻ (ghi sẵn / chấm); thời hạn 01/TD = cột Thời hạn 03/TD. NSVSMT in như cũ (60 tháng, 12 tháng/lần).
+- **Giao diện:** khung nhập liệu rộng 60 %, xem trước 40 % như tab Giao dịch xã (Hồ sơ Tổ, Hồ sơ vay); cột trái ghi **"⚙ Khai báo riêng — Mẫu …"** (Bộ HS / Hộ mới: "✎ Nhập liệu").
+- **GQVL** (anh: "GQVL có mẫu riêng"): thẻ mặc định tắt ở Bộ HS, ghi chờ mẫu đơn riêng — bật được ở thẻ nếu cần.
+- **Bộ HS cũ:** HSSV đã lập trước đây không còn tự tính số tháng → ô số lượng để chấm, gõ lại nếu cần.
+- **Phép thử:** `t172` 20/20 (mới) · t164 gõ số tháng HSSV.
+
 ## 3.207 — 14/10/2026 — 🏠 Danh sách hộ vay mới (khai báo 1 lần, gọi ra làm hồ sơ)
 - **Anh (14/10):** "xong mẫu 09, chuyển qua 01/TD, 03/TD, giấy UQ — đầu tiên khai báo hộ vay mới: form họ tên, ngày sinh (nhập nhanh), CCCD, ngày cấp → suy giới tính, ngày hết hạn, kiểm năm khớp CCCD; địa chỉ chọn xã → ấp (hoặc điểm GD cho gọn); thêm thành viên; chọn ai đứng tên vay, ai là HSSV; Lưu hộ vào danh sách, gọi ra làm hồ sơ". Kế hoạch `docs/KE_HOACH_3207.md`.
 - **Tab con đầu "🏠 Hộ mới"** (Hồ sơ vay): danh sách hộ đã khai (tìm tên / CCCD; ✓ Mẫu 31 khi CCCD người đứng tên đã có trên số liệu) · ✎ sửa · **📄 Lập HS** · 🗑; khung phải = bảng DANH SÁCH HỘ VAY MỚI (in được).

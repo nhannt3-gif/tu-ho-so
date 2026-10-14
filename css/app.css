@@ -3252,7 +3252,7 @@ span.sl-chip{cursor:help}
 }
 #tr7 .to-bc.to-bc-dau{margin:2px 0 6px;padding:4px 10px;background:var(--the);border:1px solid var(--vien);border-radius:8px}
 /* 3.170 — 📝 Hồ sơ Tổ · 📄 Hồ sơ vay (js/25-ho-so.js): cột trái = danh sách mẫu + tùy chọn; khung phải = A4 xem ngay */
-.th-bo.th-bo2.hso-bo{grid-template-columns:minmax(300px,370px) minmax(0,1fr)}
+.th-bo.th-bo2.hso-bo{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}   /* 3.208 (anh chốt): bố cục như tab Giao dịch xã — nhập liệu rộng 60 %, xem trước 40 % */
 @media(max-width:899px){ .th-bo.th-bo2.hso-bo{grid-template-columns:1fr} }
 @media(min-width:900px){ #tr7 .hso-bo>.hso-trai{max-height:calc(100vh - var(--dau-cao,52px) - var(--loc-cao,0px) - 24px);overflow:auto;padding-right:4px} }
 .hso-dau-ds{display:flex;align-items:center;justify-content:space-between;gap:6px}
@@ -3465,3 +3465,14 @@ button.pv-dan-o.pv-ve{cursor:pointer;font:inherit;font-size:calc(12px*var(--co))
 .hm-nguoi{border:1px solid var(--vien);border-radius:8px;padding:6px 8px;margin:6px 0}.hm-nguoi.dung{border-color:var(--xanh);box-shadow:0 0 0 1px var(--xanh) inset}
 .hm-hang{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:2px 0}.hm-hang input{font:inherit;padding:4px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--nen,#fff);color:var(--chu);min-width:0;box-sizing:border-box}
 .hm-hang label{font-size:calc(13px*var(--co));white-space:nowrap}.hm-qh{font-size:calc(12.5px*var(--co));color:var(--chu-phu)}
+
+/* 3.208 — ⚙ Khai báo chung (tab con) · thẻ chương trình vay · khai báo riêng mẫu */
+.hso-kb-tab{position:sticky;top:0;z-index:2;background:var(--nen,var(--the));padding:4px 0;border-bottom:1px solid var(--vien);margin-bottom:6px}
+.hso-kb-tab .hso-kbt.bat{background:var(--xanh);color:#fff;border-color:transparent}
+.hso-kb-loc{margin:4px 0}.hso-kb-loc select{max-width:100%}
+.hso-ctv .kt-kb textarea{font:inherit;padding:4px 8px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu);width:100%;box-sizing:border-box;resize:vertical}
+.hso-ctv .kt-kb select{font:inherit;padding:3px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu);width:100%;min-width:0}
+.hso-so{width:70px;font:inherit;padding:2px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu)}
+.hso-nho{font-weight:400;font-size:calc(12px*var(--co));margin-left:6px}
+.hso-kbr{color:var(--xanh-dam)}
+@media(min-width:1100px){ .hso-tuy .kt-kb{grid-template-columns:170px minmax(0,1fr)} }
