@@ -908,7 +908,7 @@ var GL_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1
   '.gl-dau,.gl-than,.gl-ky,.gl-r2{position:relative;z-index:1}'+
   '.gl-trai .gl-r{min-height:7.08mm}.gl-bcd .gl-c{position:relative;top:-.8mm}'+   /* 3.187 (anh chốt): 9 dòng khối trái giãn đều 7,08 mm (bỏ rút 1 mm của 3.186 → dòng Yêu cầu hết sát dòng trên); 2 đường chấm bằng chữ lên 0,8 mm */
   '.gl-dau{display:grid;grid-template-columns:64mm 1fr 50mm;align-items:start;margin-bottom:8mm}'+
-  '.gl-nh{text-align:center;font-weight:bold;font-size:12.5pt;line-height:1.25}.gl-nh .gl-pgd{margin-top:2.5mm;font-weight:normal}.gl-pgdv{font-weight:normal}'+
+  '.gl-nh{text-align:center;font-weight:bold;font-size:12.5pt;line-height:1.25}.gl-nh .gl-pgd{margin-top:2.5mm;font-weight:normal}.gl-pgdv{font-weight:bold}'+
   '.gl-giua2{text-align:center}.gl-tit{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:17pt;margin-top:.5mm;letter-spacing:.2px}.gl-ngay{font-family:Arial,Helvetica,sans-serif;font-style:italic;font-size:12pt;margin-top:4mm}'+
   '.gl-so{font-size:12pt;padding-left:4mm}.gl-so .gl-r{min-height:8mm}'+
   '.gl-r{display:flex;align-items:baseline;gap:1.2mm;min-height:7.2mm;white-space:nowrap}.gl-n{flex:none}.gl-n2{margin-left:2mm}'+
@@ -919,10 +919,10 @@ var GL_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1
   '.gl-phai{display:flex;flex-direction:column;align-items:stretch}.gl-phan{font-weight:bold;font-size:11.5pt;text-align:center;line-height:1.2;margin:1mm 0 1.5mm}'+
   /* 3.182 (anh chốt): lề trên 13 mm (+5), chữ chìm dời theo; 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm (3.187: dài lại 2,5 mm → cách đáy 2,5 mm). 3.186: dòng Họ tên (cả thân phiếu) xuống thêm 6 mm cho thoáng (đầu phiếu cách 8 mm — anh chỉnh 5 → 4 → +2 mm), chữ chìm dời theo */
   /* 3.176 (anh chốt): 3 ô cao hơn — 2 ô trên chia đều, ô Số tiền đáy ngang dòng Nội dung; dòng chấm trong ô cách cạnh ~1,2 mm */
-  '.gl-hop2{border:.9px solid #000;display:flex;flex-direction:column;flex:2}.gl-hop3{margin-top:2.5mm;flex:1;margin-bottom:1.6mm}.gl-hop+.gl-hop{border-top:.6px solid #666}'+
+  '.gl-hop2{border:.9px solid #000;display:flex;flex-direction:column;flex:2}.gl-hop3{margin-top:2.5mm;flex:1;margin-bottom:1.6mm}.gl-hop3 .gl-hop{justify-content:space-evenly;padding:1mm 1.2mm}.gl-hop+.gl-hop{border-top:.6px solid #666}'+
   '.gl-hop{flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:1mm 1.2mm 1.2mm}.gl-hop-t{text-align:center;font-size:12pt;line-height:1.2}.gl-hop-g{min-height:0;align-items:flex-end}.gl-hop-g .gl-v{text-align:center;padding:0}'+
   '.gl-ky{display:grid;grid-template-columns:1.15fr 1.1fr 1.2fr .8fr .8fr .95fr .9fr;column-gap:1mm;text-align:center;font-weight:bold;font-size:11.5pt;margin-top:2mm;flex:1;min-height:24mm}'+
-  '.gl-ky>div{padding-top:1mm;white-space:nowrap}.gl-ky i{display:block;font-weight:normal}.gl-ky-l{border-left:.6px solid #666;border-right:.6px solid #666;margin-bottom:2.5mm}'+
+  '.gl-ky>div{padding-top:1mm;white-space:nowrap}.gl-ky i{display:block;font-weight:normal}.gl-ky-l{border-left:.6px solid #666;border-right:.6px solid #666;margin-bottom:.5mm}'+
   '@media print{body{background:#fff}.preview-stage{background:none;padding:0;display:block;border-radius:0}.sheet-gl{box-shadow:none;zoom:1 !important;height:147mm}.gl-trang{height:147mm}'+
     '.sheet-gl.gl-x2{height:296mm}.gl-x2 .gl-trang{height:148mm}.gl-cat{top:148mm}}';
 /* ==========================================================
@@ -953,7 +953,7 @@ function gdxBKTrang(c, g){   /* g = dữ liệu Giấy lĩnh (3.194: in từ tab
       '<tr class="bk-tong"><td><b>Tổng cộng</b></td><td></td>'+o4(ch ? tien - ch.du : 0)+'</tr>'+
       '<tr class="bk-chu"><td colspan="6"><div class="gl-r"><span class="gl-n"><i>Số tiền bằng chữ:</i></span>'+(chu ? '<span class="gl-v gl-bc1">'+gdxE(chu)+'</span>' : gdxGLO(''))+'</div><div class="gl-r">'+(chu ? '<span class="gl-c gl-bc2"></span>' : gdxGLO(''))+'</div></td></tr></tbody></table>'+
     '<div class="bk-ky"><div>Người lĩnh tiền<i>(ký và ghi rõ họ tên)</i></div><div>Người chi tiền<i>(ký và ghi rõ họ tên)</i></div></div>'+
-    '<div class="bk-hoten">'+r('Họ tên:', '')+r('Họ tên:', '')+'</div>'+
+    '<div class="bk-hoten">'+r('<i>Họ tên:</i>', '')+r('<i>Họ tên:</i>', '')+'</div>'+
   '</div>';
 }
 function gdxHTMLBKDL(g, c){ return '<div class="sheet-bk bk-ngang">'+gdxBKTrang(c, g)+'<div class="bk-cat bk-cat-t"></div></div>'+GL_JS; }   /* 3.194: 🧾 từ tab Giấy lĩnh — A4 ngang, 1 tờ sát mép trái */
@@ -992,14 +992,14 @@ var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6
   '.bk-tong td{border-top:.9px solid #000;border-bottom:.9px solid #000;height:10mm;font-family:Arial,Helvetica,sans-serif;font-size:9pt}.bk-tong .bk-tt{font-weight:bold}'+
   '.bk-chu td{border:.9px solid #000;padding:1mm 1.5mm;height:auto}.bk-trang .bk-chu .gl-r{min-height:5.6mm;font-size:10pt}.bk-trang .bk-chu .gl-v{font-weight:bold;font-style:italic}.bk-trang .bk-chu .gl-bc2{white-space:normal}'+   /* 3.191 (anh): Tổng cộng + bằng chữ in đậm (bằng chữ nghiêng) */
   '.bk-ky{display:grid;grid-template-columns:1fr 1fr;text-align:center;margin-top:2.5mm;font-size:10.5pt;flex:1}.bk-ky i{display:block;font-size:9.5pt}'+
-  '.bk-hoten{display:grid;grid-template-columns:1fr 1fr;gap:6mm;font-size:10pt}';
+  '.bk-hoten{display:grid;grid-template-columns:1fr 1fr;gap:3mm;font-size:10pt}.bk-hoten .gl-n{font-size:8pt}.bk-hoten .gl-r{gap:.8mm}';
 /* 3.192: khổ Bảng kê 105 × 210 mm (anh: ngang 105 đúng mẫu), chữ 13 pt (anh chốt 3.191) */
 var BK_CSS_TO = '.bk-trang.bk-to{width:105mm;height:210mm;padding:8mm 5mm 6mm 5.5mm;font-size:13pt}'+
   '.bk-to .bk-t1{font-size:17pt}.bk-to .bk-ngay{font-size:9.5pt}'+
   '.bk-to .bk-bang col:first-child{width:24mm !important}.bk-to .bk-tong td:first-child{white-space:nowrap}'+
   '.bk-to.bk-trang .gl-r{min-height:7.6mm}.bk-to .bk-bang{font-size:13pt;margin-top:2mm}.bk-to .bk-bang th{font-size:10.5pt;padding:1mm 0}.bk-to .bk-bang td{height:7.4mm}.bk-to .bk-tt{font-size:12pt}'+
   '.bk-to .bk-tong td{height:11mm;font-size:11pt}.bk-to .bk-tong .bk-tt{font-size:12.5pt}.bk-to.bk-trang .bk-chu .gl-r{min-height:7mm;font-size:13pt}'+
-  '.bk-to .bk-ky{font-size:13pt;margin-top:3mm}.bk-to .bk-ky i{font-size:11.5pt}.bk-to .bk-hoten{font-size:13pt}'+
+  '.bk-to .bk-ky{font-size:13pt;margin-top:3mm}.bk-to .bk-ky i{font-size:11.5pt}.bk-to .bk-hoten{font-size:13pt}.bk-to .bk-hoten .gl-n{font-size:10pt}'+
   '.bk-to .bk-chim{left:13mm;top:92mm;font-size:66pt}.bk-to .bk-chim.bk-logo{left:39.1mm;top:81.5mm;width:50.5mm;height:66.7mm}';
 var BK_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1;color:#000;font-family:"Times New Roman",Times,serif}'+
   '.preview-stage{background:#455a64;border-radius:8px;padding:20px;display:flex;justify-content:center;overflow:auto}'+

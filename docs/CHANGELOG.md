@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.197 — 14/10/2026 — 💵 Giấy lĩnh / 🧾 Bảng kê: chỉnh theo ý anh
+- **Anh (14/10):** "hai gạch dọc trong giấy lĩnh tiền cho dài thêm xuống dưới 2 mm, ô số tiền bằng số canh đều ô cho đẹp, chữ phòng giao dịch Gò Dầu in đậm như 2 dòng trên… bảng kê… chỗ họ tên người ký, chữ họ tên in nhỏ nghiêng, kéo dài chỗ chấm để ghi đủ tên".
+- **Giấy lĩnh:** 2 gạch dọc ô Người lĩnh tiền dài thêm 2 mm (cách đáy 2,5 → 0,5 mm); ô **Số tiền bằng số**: tiêu đề và số giãn đều trong ô; dòng tên PGD (khai báo `glPGD`) **in đậm** như 2 dòng tên cơ quan.
+- **Bảng kê:** chữ “Họ tên:” dưới 2 chỗ ký nhỏ, nghiêng; khoảng cách 2 cột hẹp lại để dòng chấm dài hơn, đủ chỗ ghi họ tên. “PHÒNG GIAO DỊCH: GÒ DẦU” liền khối, in đậm đã có từ 3.195 (cùng PR).
+- **Phép thử:** `t167` 72/72.
+
 ## 3.196 — 14/10/2026 — 📏 Đường kẻ mảnh, đường phụ nhạt hơn đường chính — mọi mẫu biểu
 - **Anh (14/10):** "các lằn kẻ con nên lợt nhỏ hơn lằn chính" → "áp dụng cho mọi mẫu biểu". Quy tắc ghi ở `docs/QUY_TAC_SOAN_MAU.md` (mục Đường kẻ): chính ≤ 0,9 px đen; phụ 0,4–0,6 px xám hoặc chấm xám; chấm ghi tay 0,5 pt / 0,7 px xám đậm; không đường nào ≥ 1,2 px.
 - **💵 Giấy lĩnh:** dòng chấm 1,4 px đen → 0,7 px `#333` (như Bảng kê); khung 3 ô 1,2 → 0,9 px; vạch chia giữa các ô và 2 gạch dọc ô Người lĩnh → 0,6 px xám (đường phụ).
