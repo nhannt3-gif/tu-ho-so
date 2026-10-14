@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.207) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay → 🏠 Hộ mới → ＋ Hộ mới: gõ ngày liền số, CCCD | Ngày đúng; giới tính, năm sinh, nơi cấp, hạn CCCD hiện; CCCD lệch năm → ⚠ | |
+| 2 | Địa chỉ: Xã → Điểm GD → Ấp | Ấp lọc theo điểm | |
+| 3 | ＋ Thành viên, chọn Đứng tên / HSSV → Lưu hộ | Hộ vào danh sách, bảng khung phải | |
+| 4 | 📄 Lập HS → tab 01/UQ, 01/TD | Người vay, thành viên, HSSV điền sẵn | |
+| 5 | Mở app máy khác (Drive) | Danh sách hộ mới có đủ | |
+
+**Ghi chú kỹ thuật 3.207:** `hmDs()` = `D.cauHinh.hoMoi`; `hmDiaBan()` từ `TO_K.to` (xa → diem, ap{thon, tenThon, diem}); `hmGanBo(id, B)` → B.nv / B.ho / B.pa.sv / B.ct HSSV; `hmM31(cccd)` tra `SL_DB.kh` (chỉ mục lười).
+
 ### Danh sách thử trên máy thật (3.206) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

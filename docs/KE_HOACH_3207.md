@@ -20,7 +20,7 @@
 Tab "🏠 Hộ mới" đứng đầu · thành viên khác: họ tên, ngày sinh, CCCD, quan hệ · HSSV: chỉ chọn người đi học · Bộ HS: thêm chọn từ danh sách, giữ nhập tay.
 
 ## 5. Trạng thái
-- ☐ 1. Tab 🏠 Hộ mới + danh sách + khung phải
-- ☐ 2. Form hộ (nhập nhanh, suy CCCD, địa chỉ xã/điểm → ấp, thành viên, đứng tên, HSSV, Lưu)
-- ☐ 3. Lập hồ sơ từ hộ / chọn hộ trong Bộ HS
-- ☐ 4. Phép thử t171 + bump 3.207 + tài liệu + PR (hồi quy đầy đủ 1 lần trước gộp)
+- ☑ 1. Tab 🏠 Hộ mới + danh sách + khung phải (`hmTuyHTML`, `hmLapHTML`)
+- ☑ 2. Form hộ (nhập nhanh, suy CCCD, địa chỉ xã/điểm → ấp, thành viên, đứng tên, HSSV, Lưu)
+- ☑ 3. Lập hồ sơ từ hộ / chọn hộ trong Bộ HS (`hmLapHS`, `hmGanBo`)
+- ☑ 4. Phép thử t171 14/14 + bump 3.207 + tài liệu + PR (hồi quy đầy đủ 1 lần trước gộp)

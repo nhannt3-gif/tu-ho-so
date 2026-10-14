@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.206', ds:[
+var CO_GI_MOI = {ban:'3.207', ds:[
+  ["🏠 Hồ sơ vay: tab Hộ mới — khai báo hộ vay mới 1 lần (ngày gõ liền số, giới tính / năm sinh / nơi cấp / hạn CCCD tự suy, địa chỉ Xã → Điểm GD → Ấp, thành viên, đứng tên vay, HSSV) → 📄 Lập HS điền sẵn 01/UQ · 01/TD · 03/TD", "slDoiTab('hsv');doiNgan(7)"],
   ["📍 Cây địa bàn mọi tab: ▾ Mở rộng / ▴ Thu gọn (gọn 1 dòng 🏠 PGD › Xã › Điểm › Tổ — bấm từng mắt để về cấp đó); chọn xong tổ tự gọn, nhớ theo tab", "slDoiTab('to');doiNgan(7)"],
   ["📄 Hồ sơ vay / Hồ sơ Tổ: mỗi mẫu 1 tab con; 09A/TD có ô chấm ✍ viết tay | 🖨 in sẵn (lý do, số tiền, thời gian, kế hoạch trả nợ, ngày ký) + in kèm Mẫu 06/TD; Giấy lĩnh nút ↺ Phiếu mới", "slDoiTab('hsv');doiNgan(7)"],
   ["📄 Mẫu mới 01/TĐCK — Giấy đề nghị thay đổi mẫu chữ ký giao dịch: tab riêng + in kèm 09A/TD (cùng 1 lần in)", "slDoiTab('hsv');doiNgan(7)"],
