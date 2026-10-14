@@ -24,7 +24,7 @@ const fs=require('fs'), path=require('path');
    /* 2. nút chế độ tối */
    const nut = () => document.querySelector('#thanh-ben .tb-chan .tb-gd');
    ok('nút ◐ Giao diện ở chân thanh bên (cạnh 🗑 🧰 ❓ ⚙)', !!nut() && nut().textContent==='◐' && /Theo máy/.test(nut().title));
-   nut().click(); await w(100);
+   nut().click(); await w(400);   /* 3.203: ghi gom sau 300 ms */
    ok('bấm → Sáng ☀ (nhớ ở cài đặt)', D.cauHinh.giaoDien==='light' && document.documentElement.getAttribute('data-theme')==='light' && nut().textContent==='☀' && JSON.parse(localStorage.getItem(KHOA)).cauHinh.giaoDien==='light');
    nut().click(); await w(100);
    ok('bấm → Tối ☾, nền app tối', D.cauHinh.giaoDien==='dark' && document.documentElement.getAttribute('data-theme')==='dark' && nut().textContent==='☾' && (()=>{ const c = getComputedStyle(document.body).backgroundColor.match(/\d+/g).map(Number); return c[0]+c[1]+c[2] < 150; })());
