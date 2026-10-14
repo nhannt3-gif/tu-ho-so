@@ -4,6 +4,40 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.199 — 14/10/2026 — 💵 Giấy lĩnh: ngày tháng cùng dòng PGD
+- **Anh (14/10):** "dòng ngày tháng cho cùng dòng PGD Gò Dầu" · "cho giãn dòng xích lên 1 mm thấy khoảng cách hơi trống".
+- Dòng *Ngày … tháng … năm …* (cột giữa) cách tiêu đề 4 → 2,75 mm → ngang hàng dòng **PHÒNG GIAO DỊCH GÒ DẦU** (đo lệch < 0,1 px); khai báo PGD trống → dòng chấm cũng ngang dòng ngày.
+- Đầu phiếu thấp lại → thân phiếu (từ dòng Họ, tên khách hàng) **xích lên 1,25 mm**; chữ chìm VBSP dời theo (48,4 → 47,15 mm).
+- **Sửa lỗi 3.198:** mini app thiếu hàm `gdxTenPGD` → in Giấy lĩnh trong mini app báo lỗi; đã thêm vào gói mini app.
+- **Phép thử:** `t167` 74/74 · `t168` 33/33 · `t165` 54/54.
+
+## 3.198 — 14/10/2026 — 💵 Giấy lĩnh: không viết tắt PGD
+- **Anh (14/10):** "không viết tắt PGD".
+- `gdxTenPGD`: khai báo tên PGD ghi “Gò Dầu”, “PGD Gò Dầu” hay “Phòng giao dịch Gò Dầu” đều in **“PHÒNG GIAO DỊCH GÒ DẦU”** (viết hoa, đậm, 1 dòng); dữ liệu cũ đã ghi “PGD …” tự in đầy đủ. Trống → chấm như cũ. Gợi ý ô khai báo đổi thành “vd: Gò Dầu”.
+- **Phép thử:** `t167` 73/73.
+
+## 3.197 — 14/10/2026 — 💵 Giấy lĩnh / 🧾 Bảng kê: chỉnh theo ý anh
+- **Anh (14/10):** "hai gạch dọc trong giấy lĩnh tiền cho dài thêm xuống dưới 2 mm, ô số tiền bằng số canh đều ô cho đẹp, chữ phòng giao dịch Gò Dầu in đậm như 2 dòng trên… bảng kê… chỗ họ tên người ký, chữ họ tên in nhỏ nghiêng, kéo dài chỗ chấm để ghi đủ tên".
+- **Giấy lĩnh:** 2 gạch dọc ô Người lĩnh tiền dài thêm 2 mm (cách đáy 2,5 → 0,5 mm); ô **Số tiền bằng số**: tiêu đề và số giãn đều trong ô; dòng tên PGD (khai báo `glPGD`) **in đậm** như 2 dòng tên cơ quan.
+- **Bảng kê:** chữ “Họ tên:” dưới 2 chỗ ký nhỏ, nghiêng; khoảng cách 2 cột hẹp lại để dòng chấm dài hơn, đủ chỗ ghi họ tên. “PHÒNG GIAO DỊCH: GÒ DẦU” liền khối, in đậm đã có từ 3.195 (cùng PR).
+- **Phép thử:** `t167` 72/72.
+
+## 3.196 — 14/10/2026 — 📏 Đường kẻ mảnh, đường phụ nhạt hơn đường chính — mọi mẫu biểu
+- **Anh (14/10):** "các lằn kẻ con nên lợt nhỏ hơn lằn chính" → "áp dụng cho mọi mẫu biểu". Quy tắc ghi ở `docs/QUY_TAC_SOAN_MAU.md` (mục Đường kẻ): chính ≤ 0,9 px đen; phụ 0,4–0,6 px xám hoặc chấm xám; chấm ghi tay 0,5 pt / 0,7 px xám đậm; không đường nào ≥ 1,2 px.
+- **💵 Giấy lĩnh:** dòng chấm 1,4 px đen → 0,7 px `#333` (như Bảng kê); khung 3 ô 1,2 → 0,9 px; vạch chia giữa các ô và 2 gạch dọc ô Người lĩnh → 0,6 px xám (đường phụ).
+- **04/TD, 12/GDX:** vạch dưới tên cơ quan / tiêu ngữ 1,2–1,5 px → 0,9 px; bảng 12/GDX: khung, cột, đầu bảng, dòng Tổng cộng 0,9 px đen, kẻ ngang giữa các dòng 0,5 px xám.
+- **Mẫu 06 / 16 / 04 KTGS / Kế hoạch KTGS (bản In):** bảng 1 px → 0,5 pt; dòng chấm 1 px đen → 0,5 pt chấm xám (Mẫu 06 đã theo quy tắc từ trước, chỉ làm mịn dòng chấm lý do). **Xuất Word của các mẫu này giữ nguyên khung file gốc.**
+- **📄 Hồ sơ vay:** lưới vẫn 0,5 pt đen; kẻ chấm giữa các dòng (bảng có chấm) đen → xám, cả bản In và bản Word.
+- **Bản in báo cáo nội bộ:** khung tóm tắt 1,5 → 0,9 px, dòng chấm 0,7 px xám, vạch cột trung tâm / tên khung 0,9 px.
+- Chỉ đổi độ dày / màu nét, không đổi bố cục.
+
+## 3.195 — 14/10/2026 — 🧾 Bảng kê: font đầu tờ như tờ thật, tên PGD liền khối, lằn kẻ mảnh
+- **Anh (14/10):** "font chữ bảng kê em dùng font chuẩn như bảng kê, chữ Gò Dầu em thêm vào liền khối cùng cỡ font chữ, chỉ khi bỏ trong khai báo thì hiện chấm".
+- **Tên PGD** (`gdxBKTrang`): có khai báo → in **“PHÒNG GIAO DỊCH: GÒ DẦU”** thành 1 khối, cùng font Arial đậm, cùng cỡ, viết hoa (trước đây tên PGD là ô riêng, chữ thường mảnh, cách xa); **bỏ trống khai báo → “PHÒNG GIAO DỊCH:” + dòng chấm** ghi tay. Áp cho tab 🧾 Bảng kê, mẫu trắng và phần Bảng kê in từ Giấy lĩnh.
+- **Font đầu tờ theo tờ in sẵn:** 2 dòng tên cơ quan dùng chữ không chân đứng hẹp (Arial Narrow, máy chưa có thì Arial); BẢNG KÊ chữ có chân đậm; CÁC LOẠI TIỀN… và đầu bảng chữ không chân đậm; nhãn, số tiền chữ có chân (Times New Roman) — như tờ thật.
+- **Lằn kẻ / chấm** (anh: "chấm nhuyễn, các lằn kẻ không dày quá nhìn thô, các lằn kẻ con nên lợt nhỏ hơn lằn chính"): chấm ghi tay nhỏ, mịn (0,7 px, xám đậm); lằn chính (khung bảng, đầu cột, Tổng cộng, ô bằng chữ, cột Loại tiền / Số lượng) mảnh lại 1,1 → 0,9 px; lằn con lợt và nhỏ hơn — dòng mệnh giá chấm 0,6 px xám, chia ô Thành tiền 0,5 px xám nhạt.
+- **Phép thử:** `t167` 71/71 (tên PGD liền khối, trống → chấm).
+
 ## 3.194 — 14/10/2026 — 💵 Giấy lĩnh in kèm Bảng kê (theo cài đặt tab Bảng kê); 🌸 logo NHCSXH có sẵn
 - **Anh (14/10):** "bên tab Giấy lĩnh tiền, khi in em sẽ kết hợp bảng kê cùng 1 trang A4 như bản cũ, có điền đầy đủ thông tin tổ trưởng, số tiền theo mẫu lĩnh tiền, số tiền chi mặc định từ mệnh giá cao đến thấp, chỗ ký tên để trống KH tự ký ghi họ tên"; "em bố trí như cũ, nút chọn in chỉ giấy lĩnh, chỉ bảng kê, cả 2, mẫu trắng khi không chọn dữ liệu"; "mẫu nào lấy theo cài đặt mẫu đó"; gửi logo NHCSXH (cánh sen) — "logo em tích hợp vào app luôn", "lưu lại logo này trên app và cho xuất khi cần", "tích logo này vào bảng kê, sau này khi nói tích hợp logo thì sẽ ở góc hoặc chìm", "nếu bật lên để xem thì hiện màu"; "em gom lại và code phần này".
 - **💵 Giấy lĩnh — 4 nút in** như bản 3.192: **💵 Lĩnh** (chỉ Giấy lĩnh, A5 / A4 nửa trên) · **🧾 Bảng kê** (A4 ngang, 1 tờ 105 × 210 sát mép trái + nét cắt) · **💵+🧾** (1 tờ A4 dọc, Bảng kê xoay ngang sát đáy, cắt 1 nhát) · **📄 Mẫu trắng** (Giấy lĩnh 1 / 2 mẫu · Bảng kê 2 tờ / A4 ngang · Kết hợp). Phần Bảng kê: **họ tên người lĩnh in sẵn** (tổ trưởng / khách), địa chỉ, nội dung, ngày, **số tiền theo Giấy lĩnh — tự chia mệnh giá từ cao đến thấp**, Tổng cộng, bằng chữ đậm nghiêng; **dòng Họ tên dưới chỗ ký để trống** (khách tự ký, ghi tên). **Mẫu nào lấy cài đặt mẫu đó:** phần Giấy lĩnh theo ⚙ Giấy lĩnh (chữ chìm VBSP), phần Bảng kê theo ⚙ tab 🧾 Bảng kê (tên cơ quan, PGD, logo chìm).

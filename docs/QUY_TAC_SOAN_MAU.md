@@ -79,3 +79,17 @@ Khai mẫu cần chọn tới cấp nào trong khối **LỌC ĐỊA BÀN** (câ
 - **Quy ước "tích hợp logo"** (anh chốt 14/10): khi anh nói tích hợp logo vào mẫu nào thì có 2 cách — **logo góc** (rõ, nhỏ, góc trái đầu tờ) hoặc **logo chìm** (to, mờ, giữa tờ, giữ màu logo, mờ theo mức Nhạt / Vừa / Đậm). Anh chưa nói cách nào thì **hỏi lại** trước khi làm.
   - Logo mặc định = **logo NHCSXH (cánh sen)** có sẵn trong app (`LOGO_NHCSXH`, js/25) — ngoại lệ được anh đồng ý đưa vào repo (biểu trưng công khai, không phải dữ liệu khách). Logo anh nạp ở 📄 Hồ sơ vay › ⚙ Khai báo 1 lần được ưu tiên; nút ⬇ Tải logo xuất PNG nền trong suốt.
   - Giấy lĩnh dùng chữ chìm VBSP; Bảng kê dùng logo chìm.
+
+## Đường kẻ — áp cho mọi mẫu biểu (3.196, anh chốt 14/10)
+
+> Anh: "chấm nhuyễn, các lằn kẻ không dày quá nhìn thô, các lằn kẻ con nên lợt nhỏ hơn lằn chính — áp dụng cho mọi mẫu biểu".
+
+| Loại đường | Dùng cho | Quy cách |
+|---|---|---|
+| **Đường chính** | khung ngoài, kẻ đầu bảng / dòng tổng, vạch dưới tên cơ quan & tiêu ngữ | liền, đen `#000`, **≤ 0,9 px (≈ 0,7 pt)**; mẫu Hồ sơ / Số liệu dùng 0,5 pt |
+| **Đường phụ (con)** | kẻ giữa các dòng trong thân bảng, vạch chia ô / cột ký | **mảnh hơn và lợt hơn** đường chính: liền 0,4–0,6 px xám `#666`–`#a6a6a6`, hoặc chấm xám `#555`–`#777` |
+| **Dòng chấm ghi tay** | chỗ để trống cho viết tay | chấm mịn **0,5 pt / 0,7 px**, xám đậm `#333`–`#555` |
+| **Nét cắt** | tờ in 2 phiếu / 2 bảng kê | gạch nhạt `#b8b8b8` (giữ như cũ) |
+
+- Không dùng đường ≥ 1,2 px cho bất kỳ mẫu nào.
+- Mẫu chép nguyên từ file Word anh gửi (khung Word gốc của Mẫu 06/16/04/KH khi **xuất Word**) giữ nguyên đường kẻ của file gốc; quy tắc trên áp cho **bản In** và các bảng app tự dựng.

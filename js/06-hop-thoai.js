@@ -2053,7 +2053,12 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.194', ds:[
+var CO_GI_MOI = {ban:'3.199', ds:[
+  ["💵 Giấy lĩnh: ngày tháng cùng dòng PHÒNG GIAO DỊCH GÒ DẦU, thân phiếu xích lên cho bớt trống", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
+  ["💵 Giấy lĩnh: không viết tắt PGD — in đầy đủ “PHÒNG GIAO DỊCH GÒ DẦU” (khai báo chỉ cần ghi Gò Dầu)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
+  ["💵 Giấy lĩnh: 2 gạch dọc dài thêm 2 mm, ô Số tiền bằng số giãn đều, dòng PGD in đậm; 🧾 Bảng kê: chữ “Họ tên” nhỏ nghiêng, chấm dài ghi đủ tên", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
+  ["📏 Mọi mẫu in: đường kẻ mảnh, chấm mịn; đường phụ (giữa các dòng, chia ô) nhạt và nhỏ hơn đường chính", "slDoiTab('gdx');doiNgan(7)"],
+  ["🧾 Bảng kê: “PHÒNG GIAO DỊCH: GÒ DẦU” liền khối cùng font, cùng cỡ (bỏ trống khai báo mới hiện chấm); tên cơ quan font chữ đứng hẹp như tờ thật", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
   ["💵 Giấy lĩnh in kèm Bảng kê trở lại: 💵 Lĩnh · 🧾 Bảng kê · 💵+🧾 + Mẫu trắng — Bảng kê điền theo Giấy lĩnh, tự chia mệnh giá, ký tên để trống", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["🌸 Logo NHCSXH (cánh sen) có sẵn trong app: logo chìm Bảng kê, logo góc Hồ sơ vay; ⬇ Tải logo ở Hồ sơ vay › Khai báo 1 lần", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
   ["🧾 Bảng kê thành mẫu riêng (chip 🧾 Bảng kê cạnh Giấy lĩnh): mẫu trắng 2 tờ / A4 ngang, khai báo từng dòng Tên cơ quan · Ngày · Họ tên · Địa chỉ · Nội dung (có chữ thì in, trống = chấm) · Logo chìm", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],

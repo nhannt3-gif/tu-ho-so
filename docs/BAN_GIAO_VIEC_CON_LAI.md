@@ -222,6 +222,37 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.199) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In 💵 Giấy lĩnh | Ngày tháng cùng dòng PHÒNG GIAO DỊCH GÒ DẦU; thân phiếu bớt trống | |
+| 2 | Mini app: in Giấy lĩnh | In được, PGD ghi đủ | |
+
+### Danh sách thử trên máy thật (3.198) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In 💵 Giấy lĩnh (khai báo PGD “PGD GÒ DẦU” hoặc “Gò Dầu”) | In “PHÒNG GIAO DỊCH GÒ DẦU” đậm, 1 dòng, không lấn tiêu đề | |
+
+### Danh sách thử trên máy thật (3.197) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In 💵 Giấy lĩnh | 2 gạch dọc dài thêm 2 mm; ô Số tiền bằng số cân đối; dòng PGD đậm như 2 dòng trên | |
+| 2 | In 🧾 Bảng kê | “Họ tên:” nhỏ nghiêng, chấm đủ dài ghi tên | |
+
+### Danh sách thử trên máy thật (3.196) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In 💵 Giấy lĩnh | Chấm mịn, khung ô mảnh, vạch chia ô nhạt hơn khung | |
+| 2 | In 12/GDX, 04/TD | Vạch dưới tên cơ quan mảnh; bảng 12/GDX kẻ ngang giữa các dòng nhạt hơn khung | |
+| 3 | In Mẫu 06 / 16 / 04 KTGS, Hồ sơ vay | Đường kẻ mảnh, chấm mịn; xuất Word không đổi | |
+
+### Danh sách thử trên máy thật (3.195) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🧾 Bảng kê | “PHÒNG GIAO DỊCH: GÒ DẦU” 1 khối cùng font, cùng cỡ; tên cơ quan chữ đứng hẹp như tờ thật | |
+| 2 | Xóa trống ô Phòng giao dịch | Hiện “PHÒNG GIAO DỊCH:” + chấm | |
+| 3 | In Bảng kê | Chấm mịn; lằn chính mảnh vừa; dòng mệnh giá và chia ô Thành tiền lợt hơn | |
+
 ### Danh sách thử trên máy thật (3.194) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

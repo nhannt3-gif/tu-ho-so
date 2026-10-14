@@ -229,3 +229,8 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.192 (13/10):** ⚙ Khai báo riêng tách 2 nhóm Giấy lĩnh / Bảng kê (Tên PGD, Logo chìm riêng, Bảng mệnh giá, Kiểu in); mẫu trắng Bảng kê 2 tờ 105 × 210 / A4 ngang sát 2 mép + nét cắt; Bảng kê ngang 105 đúng mẫu; có dữ liệu in chung Giấy lĩnh; bỏ kiểu 105 × 185.
 - **Đã làm 3.193 (13/10):** 🧾 Bảng kê thành mẫu riêng (mẫu trắng 2 tờ / A4 ngang, khai báo từng dòng ghi / chấm, logo chìm riêng); Giấy lĩnh bỏ hết phần Bảng kê; Tổ TK&VV không tính khách chuyển tổ khi vay mới ở tổ cũ.
 - **Đã làm 3.194 (14/10):** Giấy lĩnh in kèm Bảng kê (💵 / 🧾 / 💵+🧾 + Mẫu trắng; dữ liệu theo Giấy lĩnh, cài đặt Bảng kê theo tab Bảng kê); logo NHCSXH có sẵn trong app (chìm Bảng kê, góc Hồ sơ vay, ⬇ Tải logo); quy ước tích hợp logo góc / chìm.
+- **Đã làm 3.195 (14/10):** Bảng kê — tên PGD liền khối cùng font với “PHÒNG GIAO DỊCH:”, trống → chấm; tên cơ quan chữ đứng hẹp như tờ thật.
+- **Đã làm 3.196 (14/10):** đường kẻ mọi mẫu biểu mảnh lại, đường phụ nhạt hơn đường chính, chấm mịn (quy tắc ở QUY_TAC_SOAN_MAU.md).
+- **Đã làm 3.197 (14/10):** Giấy lĩnh — gạch dọc dài thêm 2 mm, ô Số tiền giãn đều, PGD đậm; Bảng kê — Họ tên nhỏ nghiêng, chấm dài.
+- **Đã làm 3.198 (14/10):** Giấy lĩnh không viết tắt PGD — in “PHÒNG GIAO DỊCH GÒ DẦU”.
+- **Đã làm 3.199 (14/10):** Giấy lĩnh — ngày tháng cùng dòng PGD, thân phiếu lên 1,25 mm; sửa mini app thiếu gdxTenPGD.

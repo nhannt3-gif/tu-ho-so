@@ -5013,7 +5013,7 @@ function tdnPhieuDL(m){
 /* ---- bản in (HTML A4) ---- */
 var PHIEU_CSS = '@page{size:A4;margin:14mm 14mm 14mm 18mm}body{font-family:"Times New Roman",serif;font-size:12.5pt;color:#000;margin:0}'+
   '.phieu+.phieu{page-break-before:always}h1{font-size:15pt;text-align:center;margin:0 0 2px}.phu{text-align:center;font-size:11pt;margin-bottom:8px}'+
-  '.tom{border:1.5px solid #000;padding:6px 9px;margin-bottom:8px}.tom-ten{font-size:13.5pt;font-weight:bold}.tom-dc{font-size:11pt;margin-bottom:4px}'+
+  '.tom{border:.9px solid #000;padding:6px 9px;margin-bottom:8px}.tom-ten{font-size:13.5pt;font-weight:bold}.tom-dc{font-size:11pt;margin-bottom:4px}'+
   '.so{display:flex;border:1px solid #777;margin:4px 0}.so div{flex:1;padding:3px 5px;border-left:1px solid #777}.so div:first-child{border-left:0}'+
   '.so small{display:block;font-size:9.5pt;color:#444}.so b{font-size:12.5pt}.nhan{margin:5px 0}.nhan span{display:inline-block;border:1px solid #000;border-radius:3px;padding:0 5px;margin:0 4px 3px 0;font-size:10.5pt;font-weight:bold}'+
   '.nhan .do{background:#fde2df}.nhan .vg{background:#fff1c2}.nhan .xa{background:#e6f0fb}.nhan .xam{background:#eee;font-weight:normal}'+
@@ -5022,7 +5022,7 @@ var PHIEU_CSS = '@page{size:A4;margin:14mm 14mm 14mm 18mm}body{font-family:"Time
   'td,th{border:1px solid #777;padding:2px 5px;vertical-align:top;text-align:left}th{background:#eee}.kv td:first-child{width:30%;color:#333}'+
   '.tg td:first-child{width:17%;white-space:nowrap}.tg .do td{color:#b3261e}.tg .xanh td{color:#1b6e2a}.tg .toi td{font-style:italic;color:#555}'+
   '.so-p{text-align:right;white-space:nowrap}.chua{color:#666;font-style:italic}.ky{display:flex;justify-content:flex-end;margin-top:14px}.ky div{text-align:center;width:45%}'+
-  '.cham{border-bottom:1px dotted #000;height:18px}';
+  '.cham{border-bottom:.7px dotted #333;height:18px}';
 function tdnPhieuHTML(d){
   var e = coChuHTML, kc = function(v){ return v ? e(v) : '<span class="chua">chưa có</span>'; };
   var kv = function(ds){ return '<table class="kv">'+ds.map(function(r){ return '<tr><td>'+e(r[0])+'</td><td>'+(/^\(chưa có\)$/.test(r[1]) ? kc('') : e(r[1]))+'</td></tr>'; }).join('')+'</table>'; };
