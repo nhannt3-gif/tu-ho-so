@@ -152,10 +152,9 @@ function tkChonBan(loai, ngay){
   if(!ds.length) return null; var truoc = ds.filter(function(e){ return !ngay || e.ky<=ngay; });
   return truoc.length ? truoc[truoc.length-1] : ds[0];
 }
-function dsChonKy(ky){   /* 3.202: bản Danh sách tổ hệ thống (có CCCD, TK 104) gần nhất cho kỳ — không có thì '' (dùng DSTO cũ theo kỳ) */
+function dsChonKy(ky){   /* 3.202 (anh chốt 14/10: giữ 1 danh sách tổ): bản Danh sách tổ hệ thống MỚI NHẤT (đủ cột nhất) cho mọi kỳ — không có thì '' (dùng DSTO cũ theo kỳ) */
   var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto' && e.tong && e.tong.rieng; }).sort(function(a, b){ return a.ky<b.ky ? -1 : 1; });
-  if(!ds.length) return ''; ky = String(ky||''); var den = ky.length<=7 ? ky+'-31' : ky, truoc = ds.filter(function(e){ return e.ky<=den; });
-  return (truoc.length ? truoc[truoc.length-1] : ds[0]).ky;
+  return ds.length ? ds[ds.length-1].ky : '';
 }
 function tkNapMoi(K){   /* gắn K.tk = {tk104:{ky, rows, theo}, tk105:{…}} — 1 lần khi dựng kỳ (nối Sao kê vào Mẫu 31 theo mã KH) */
   K.tk = {}; K.bangTo = null;
