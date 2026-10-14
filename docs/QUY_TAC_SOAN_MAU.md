@@ -75,4 +75,7 @@ Khai mẫu cần chọn tới cấp nào trong khối **LỌC ĐỊA BÀN** (câ
 - **Giấy lĩnh tiền mặt** (`gdxHTMLGL` + `GL_CSS`): dựng theo ảnh mẫu, A5 ngang hoặc nửa trên A4 dọc.
   - Dòng có thông tin thì bỏ chấm.
   - Bản in đè lên giấy in sẵn làm sau, khi có bản scan thẳng 100 %.
-- **Bảng kê các loại tiền ngân hàng chi ra** (`gdxHTMLBK` + `BK_CSS`, 3.187): dựng theo ảnh tờ in sẵn, in kèm Giấy lĩnh (cùng dữ liệu). Khổ tờ tạm 105 × 185 mm, chờ đo.
+- **Bảng kê các loại tiền ngân hàng chi ra** (3.193–3.194): mẫu riêng ở tab Giao dịch xã (chip 🧾 Bảng kê) — mẫu trắng 2 tờ 105 × 210 / A4 ngang, khai báo từng dòng (có chữ thì in, trống = chấm). Tab 💵 Giấy lĩnh in kèm: 🧾 (A4 ngang 1 tờ) hoặc 💵+🧾 (1 tờ A4 dọc), dữ liệu theo Giấy lĩnh, tự chia mệnh giá, phần cơ quan / logo theo cài đặt tab Bảng kê.
+- **Quy ước "tích hợp logo"** (anh chốt 14/10): khi anh nói tích hợp logo vào mẫu nào thì có 2 cách — **logo góc** (rõ, nhỏ, góc trái đầu tờ) hoặc **logo chìm** (to, mờ, giữa tờ, giữ màu logo, mờ theo mức Nhạt / Vừa / Đậm). Anh chưa nói cách nào thì **hỏi lại** trước khi làm.
+  - Logo mặc định = **logo NHCSXH (cánh sen)** có sẵn trong app (`LOGO_NHCSXH`, js/25) — ngoại lệ được anh đồng ý đưa vào repo (biểu trưng công khai, không phải dữ liệu khách). Logo anh nạp ở 📄 Hồ sơ vay › ⚙ Khai báo 1 lần được ưu tiên; nút ⬇ Tải logo xuất PNG nền trong suốt.
+  - Giấy lĩnh dùng chữ chìm VBSP; Bảng kê dùng logo chìm.
