@@ -40,6 +40,7 @@
   2. **Số liệu vào qua 1 cửa hẹp, theo kỳ THÁNG:** KTGS chỉ nhận **ảnh chụp cuối tháng** (Mẫu 31 / Mẫu 18 cuối tháng — như In theo tháng 3.141 tự lấy cuối tháng trước) + **BC0437 / BC0438 của riêng KTGS** (QT-08). Số liệu theo ngày của các tab khác **không chảy vào** KTGS.
   3. **Không phá cấu trúc:** các đợt dọn kiến trúc (mục 8) **không viết lại bên trong KTGS**; chỉ đặt **bộ chuyển** trả đúng dữ liệu như KTGS đang dùng. Đổi quy tắc chung (QT) có ảnh hưởng KTGS → **chạy riêng bộ phép thử KTGS** và báo anh trước khi gộp.
   4. Dùng chung với nơi khác **chỉ**: cây địa bàn, khai báo Hội + Chuẩn hóa, xuất In / Word / PDF — qua cửa chung.
+  5. **Mẫu biểu KTGS đã chốt — khóa** (Mẫu 06, 06 trắng, 16, 04, Kế hoạch ① ②, Thông báo phân công BTV): khuôn Word (`KT_KHUON`), CSS in (`KT_IN_CSS`…), hàm dựng mẫu `kt…` **thuộc riêng KTGS**. Sửa mẫu ở nơi khác (Giao dịch xã, Hồ sơ, báo cáo…) **không được đụng** tới các phần này. Bộ in chung (`inChuan`, xuất Word / PDF) mà KTGS đang dùng nếu phải sửa → **giữ nguyên kết quả in KTGS** (so bản in / Word KTGS trước – sau bằng phép thử) và **hỏi kỹ anh trước**. Muốn sửa chính mẫu KTGS → **chỉ khi anh yêu cầu rõ**, nói trước phạm vi, anh duyệt.
 
 ---
 
