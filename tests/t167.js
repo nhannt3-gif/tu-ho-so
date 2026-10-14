@@ -246,6 +246,8 @@ const fs=require('fs'), path=require('path');
      const cdD = tkCanDong().k104;
      ok('3.202: TK 104 trong Sao kê khác TK trên Danh sách tổ → vào "TK 104 chưa đóng" (lý do: tổ trưởng đang dùng TK khác)', rD.tkThua.indexOf('1040000000')>=0 && cdD.ds.some(x=>x.stk==='1040000000' && /đang dùng TK khác/.test(x.ly)), cdD.ds.map(x=>x.stk+' '+x.ly).join(', '));
      ok('3.202: file bắt buộc "Danh sách tổ" của tháng tính bản gần nhất', !!slBBE('dsto', TO_K.ky) && slBBE('dsto', TO_K.ky).ganNhat==='2026-10-13'); }
+     TO_K.tk = {}; TO_K.bangTo = null; tkCanDongHop('tk104'); await w(800);
+     ok('3.205: kỳ đang mở chưa gắn Sao kê (nạp sau khi dựng kỳ) → bấm "TK 104 chưa đóng" tự gắn Sao kê rồi mở danh sách', !!(TO_K.tk && TO_K.tk.tk104) && document.querySelectorAll('#hop-in .to-bang tbody tr').length>0, document.querySelectorAll('#hop-in .to-bang tbody tr').length+' dòng'); dongHop();
    slDoiTab('gdx'); doiNgan(7); await w(500); gdxDoiMau('gl'); await w(200);
    gdxDat('glLoai', '105', 1); gdxDoiMau('m04'); await w(200);
    return o;

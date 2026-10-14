@@ -239,3 +239,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.202 (14/10):** bảng tổ dựng sẵn (TK 104 · CCCD), TK 105 tra Sao kê khi chọn, TK trùng, CCCD hết hạn cảnh báo.
 - **Đã làm 3.203 (14/10):** gom lưu (kế hoạch B1).
 - **Đã làm 3.204 (14/10):** khối nguồn tổ trưởng báo rõ Danh sách tổ.
+- **Đã làm 3.205 (14/10):** Sao kê TK 104 / 105 dùng được ngay sau khi nạp.

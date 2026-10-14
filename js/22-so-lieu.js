@@ -619,7 +619,8 @@ function slGhi(kq){
     slBoXoa(ky);
     if(/^tk10[45]$/.test(kq.loai)) Object.keys(TO_KS).forEach(function(x){ delete TO_KS[x]; });   /* 3.201: Sao kê TK 104 / 105 gắn vào mọi kỳ đã dựng (K.tk) → dựng lại */
     if(slLaHS(kq.loai) || kq.loai==='tt' || kq.loai==='dnct'){ slVaoDanhBa(kq.loai, ky, kq.rows, kq.lap); return (kq.loai==='dnct' ? Promise.resolve() : slApDnct()).then(slLuuDanhBa); }   /* 3.128: nạp Mẫu 31 sau Dư nợ chi tiết → gắn lại số TK 105 */
-  }).then(function(){ return slLuuMeta(); }).then(function(){ return L.ten+' '+slKyChu(ky); });
+  }).then(function(){ return slLuuMeta(); }).then(function(){ if(/^tk10[45]$/.test(kq.loai) && TO_K && typeof tkNapMoi==='function') return tkNapMoi(TO_K).catch(function(){}); })   /* 3.205: kỳ đang mở nhận Sao kê ngay (không cần tải lại trang) */
+    .then(function(){ return L.ten+' '+slKyChu(ky); });
 }
 /* ---------- 3.153 (anh chốt "thống nhất quy tắc xóa"): Ô SỐ LIỆU VÀO 🗑 THÙNG RÁC APP (ngăn Số liệu) ----------
    Xóa ô / cả tháng / bản theo ngày cũ / bản cũ khi thay file → mục khoCu 'soLieu' trong D.rac, giữ bản trong máy (bảng + file gốc) ở khóa slr_<id>_a / _g.

@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.204', ds:[
+var CO_GI_MOI = {ban:'3.205', ds:[
+  ["🏦 Nạp Sao kê TK 104 / 105 xong dùng được ngay: nút TK 104 chưa đóng, TK 105 cần đóng, TK trùng tự gắn Sao kê mới nhất (không cần tải lại trang)", "slDoiTab('gdx');doiNgan(7)"],
   ["🏦 Khối Tổ trưởng (CCCD · TK 104): hiện Danh sách tổ đã nạp ngày nào / chưa nạp / bản kiểu cũ, và bảng tổ chưa đủ vì thiếu gì (TK 104, ngày cấp…)", "slDoiTab('gdx');doiNgan(7)"],
   ["💾 Lưu gọn hơn: nhiều thay đổi liền nhau chỉ ghi bộ nhớ 1 lần (đỡ khựng khi dữ liệu lớn, nhất là iPhone); rời trang / ẩn app / tải lại vẫn lưu đủ", "doiNgan(6)"],
   ["📋 Danh sách tổ hệ thống (file baocao_…) thay DSTO cũ + Thông tin tổ trưởng: CCCD, ngày cấp, TK 104 tổ trưởng lấy thống nhất từ đây (kỳ theo Ngày báo cáo, kỳ nào cũng dùng bản gần nhất); Sao kê TK 104 chỉ để báo TK 104 chưa đóng · ma trận chỉ còn 1 dòng về tổ (ẩn Thông tin tổ trưởng)", "slDoiTab('nap')"],

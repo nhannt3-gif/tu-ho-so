@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.205 — 14/10/2026 — 🏦 Sao kê TK 104 / 105 dùng được ngay sau khi nạp
+- **Anh (14/10):** 2 nút "TK 104 chưa đóng" / "TK 105 cần đóng" không chạy — anh nạp Sao kê ngày 13/10, không có file 30/9.
+- Nguyên nhân: nạp Sao kê chỉ xóa các kỳ đã dựng trong bộ đệm, **kỳ đang mở (T9) vẫn là bản dựng trước khi có Sao kê** → báo "chưa có Sao kê" tới khi tải lại trang. (Ngày 13/10 khác 30/9 không phải nguyên nhân — kỳ không có Sao kê cùng ngày thì app lấy bản gần nhất.)
+- Sửa: nạp Sao kê xong **gắn ngay vào kỳ đang mở** (`tkNapMoi(TO_K)` sau `slGhi`); các nút TK 104 chưa đóng · TK 105 cần đóng · ⚠ TK trùng · Tổ chưa đủ **tự kiểm và gắn Sao kê mới nhất trước khi mở** (`tkDamBao`).
+- **Phép thử:** `t167` 83/83 (kỳ đang mở chưa gắn Sao kê → bấm nút tự gắn, ra danh sách).
+
 ## 3.204 — 14/10/2026 — 🏦 Khối nguồn tổ trưởng báo rõ Danh sách tổ
 - **Anh gửi ảnh (14/10):** Bảng tổ "đủ 0 · chưa đủ 369", khối chỉ ghi Sao kê / Mẫu 01/TV — không biết vì sao.
 - Nguyên nhân: máy chưa có **Danh sách tổ hệ thống** (cũng chưa có Sao kê TK 104) → cả 369 tổ thiếu TK 104; khối chưa có dòng Danh sách tổ nên không thấy.

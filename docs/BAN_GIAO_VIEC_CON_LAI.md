@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.205) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ⚙ Khai báo chung → 📋 TK 104 chưa đóng | Danh sách + cột Lý do + Xuất Excel | |
+| 2 | 📋 TK 105 cần đóng (chưa có Mẫu 01/TV → so theo thành viên app) | Danh sách khách không còn là thành viên | |
+| 3 | Nạp Sao kê mới khi đang mở Giao dịch xã → bấm nút ngay | Không cần tải lại trang | |
+
+**Ghi chú kỹ thuật 3.205:** `tkDamBao(cb)` so `TO_K.tk[loai].ky` với `tkChonBan(loai, TO_K.ngay)`; khác / thiếu → `tkNapMoi(TO_K)` rồi gọi lại.
+
 ### Danh sách thử trên máy thật (3.204) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
