@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.200 — 14/10/2026 — 💵 Giấy lĩnh: PGD đậm / thường, số tiền bằng chữ in nghiêng
+- **Anh (14/10):** "dòng Phòng giao dịch Gò Dầu em cho tùy chọn in đậm hoặc không" · "số tiền bằng chữ cho in nghiêng".
+- Khai báo dòng đầu phiếu (ô tên PGD) thêm 2 chip **Đậm** (mặc định, như 3.197) / **Thường** — khóa `glPGDDam` ('dam' / 'thuong'), mini app mang theo.
+- Số tiền bằng chữ (cả 2 dòng) in nghiêng; nhãn “Yêu cầu cho rút tiền (bằng chữ):” giữ như cũ.
+- **Phép thử:** `t167` 75/75 · `t168` 33/33.
+
 ## 3.199 — 14/10/2026 — 💵 Giấy lĩnh: ngày tháng cùng dòng PGD
 - **Anh (14/10):** "dòng ngày tháng cho cùng dòng PGD Gò Dầu" · "cho giãn dòng xích lên 1 mm thấy khoảng cách hơi trống".
 - Dòng *Ngày … tháng … năm …* (cột giữa) cách tiêu đề 4 → 2,75 mm → ngang hàng dòng **PHÒNG GIAO DỊCH GÒ DẦU** (đo lệch < 0,1 px); khai báo PGD trống → dòng chấm cũng ngang dòng ngày.

@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.199', ds:[
+var CO_GI_MOI = {ban:'3.200', ds:[
+  ["💵 Giấy lĩnh: dòng PHÒNG GIAO DỊCH chọn in Đậm / Thường (khai báo dòng đầu phiếu); số tiền bằng chữ in nghiêng", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: ngày tháng cùng dòng PHÒNG GIAO DỊCH GÒ DẦU, thân phiếu xích lên cho bớt trống", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: không viết tắt PGD — in đầy đủ “PHÒNG GIAO DỊCH GÒ DẦU” (khai báo chỉ cần ghi Gò Dầu)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: 2 gạch dọc dài thêm 2 mm, ô Số tiền bằng số giãn đều, dòng PGD in đậm; 🧾 Bảng kê: chữ “Họ tên” nhỏ nghiêng, chấm dài ghi đủ tên", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],

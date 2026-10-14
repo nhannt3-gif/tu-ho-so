@@ -234,3 +234,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.197 (14/10):** Giấy lĩnh — gạch dọc dài thêm 2 mm, ô Số tiền giãn đều, PGD đậm; Bảng kê — Họ tên nhỏ nghiêng, chấm dài.
 - **Đã làm 3.198 (14/10):** Giấy lĩnh không viết tắt PGD — in “PHÒNG GIAO DỊCH GÒ DẦU”.
 - **Đã làm 3.199 (14/10):** Giấy lĩnh — ngày tháng cùng dòng PGD, thân phiếu lên 1,25 mm; sửa mini app thiếu gdxTenPGD.
+- **Đã làm 3.200 (14/10):** Giấy lĩnh — dòng PGD chọn Đậm / Thường; số tiền bằng chữ in nghiêng.

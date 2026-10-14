@@ -105,7 +105,7 @@ function gdxMiniApp(){
   Object.keys(P.C||{}).forEach(function(k){ C[k] = P.C[k]; });
   var luuC = {}; try { luuC = JSON.parse(doc(LS_C) || '{}') || {}; } catch(e){ luuC = {}; }
   var GIU = ['mau', 'diem', 'soNguoi', 'soTien', 'isGQVL', 'noiGN', 'gioPhatTien', 'kyPGD', 'nguoiLap', 'soBan', 'm12GDV', 'm12KSV', 'm12ToTruong', 'm12NumRows', 'm12TenToOption',
-    'm12GioHuy', 'm12NgayHuy', 'm12SoLuongTieuHuy', 'glLoai', 'glLoai104', 'timPham', 'glChim', 'glKho', 'glNgayCach', 'glND', 'glTKNo', 'glMaNH', 'glPGD', 'glTaiNH'];
+    'm12GioHuy', 'm12NgayHuy', 'm12SoLuongTieuHuy', 'glLoai', 'glLoai104', 'timPham', 'glChim', 'glKho', 'glNgayCach', 'glND', 'glTKNo', 'glMaNH', 'glPGD', 'glPGDDam', 'glTaiNH'];
   GIU.forEach(function(k){ if(luuC[k]!==undefined) C[k] = luuC[k]; });
   if(luuC.glLoai!==undefined && !luuC.glLoai104) C.glLoai = '104';   /* 3.179 (anh chốt): Giấy lĩnh mặc định TK 104 — bản mini cũ đã lưu 105 thì chuyển 1 lần */
   C.glLoai104 = 1;
