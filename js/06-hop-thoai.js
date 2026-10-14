@@ -2053,7 +2053,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.213', ds:[
+var CO_GI_MOI = {ban:'3.214', ds:[
+  ["📒 Hồ sơ vay: tab Sổ hộ vay — xem lại cả sổ, tìm, lọc (hộ cũ / hộ mới / HSSV / ⚠ cần bổ sung / tổ), sắp xếp, sửa thẳng từng ô hộ mới (Enter / Tab, ↑ ↓), in đúng danh sách đang lọc", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
+  ["👪 Khai báo hộ vay: mỗi người 1 dòng có tiêu đề cột, Enter / Tab sang ô kế không mất con trỏ, Ctrl+Enter lưu, 💾 Lưu & thêm hộ tiếp (giữ xã, ấp, tổ)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('homoi')"],
   ["🧾 Bảng kê: ngang 118 mm đúng phủ bì giấy thật (cao 210 mm) — 2 tờ / A4 ngang, in từ Giấy lĩnh và 💵+🧾 kết hợp đều theo khổ mới", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
   ["📄 Hồ sơ vay mở vào tab 👪 Hộ vay (Bộ HS đã ẩn)", "slDoiTab('hsv');doiNgan(7)"],
   ["💼 Hồ sơ vay GQVL: tab 01/GQVL (phương án — mẫu mới 01/10/2026) + 07b/GQVL (hợp đồng tín dụng); lịch trả gốc tự chia 24 tháng/lần, lãi suất theo đối tượng ưu tiên, chọn nhanh mục đích / số tiền / thời hạn", "slDoiTab('hsv');doiNgan(7);setTimeout(function(){hsoChonMau('01gqvl')},800)"],

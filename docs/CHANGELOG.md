@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.214 — 15/10/2026 — 📒 Sổ hộ vay: tab xem lại + form nhập dạng lưới
+- **Anh (15/10):** tối ưu phần nhập và bố cục các cột; có tab xem lại sổ hộ vay để chỉnh sửa (theo cách văn bản: thêm, xem lại, sắp xếp, sửa, tìm); Tab / Enter qua ô. Tối ưu lưu trữ để sau (cùng đợt chuẩn hóa lưu).
+- **Tab con mới 📒 Sổ hộ vay** (`sohv`, cạnh 👪 Hộ vay): dùng hết bề ngang (`.hso-bo.hso-rong`, khung xem ẩn — 🖨 In / PDF / Word / ⤢ Phóng to vẫn ở trên). Bảng: STT · ✎ 📄 🗑 · Người đứng tên · Ngày sinh · Số CCCD · Ngày cấp · Hạn CCCD · SĐT · Mã KH · Tổ · địa chỉ · Người · HSSV · **Cần bổ sung** (CCCD thiếu / sai số chữ số, ngày sinh, ngày cấp, địa chỉ / tổ, CCCD hết / sắp hết hạn). Tìm tên / CCCD / mã KH / ấp (gõ tới đâu lọc tới đó, giữ con trỏ) · chọn tổ · chip Tất cả / Hộ cũ / Hộ mới / Có HSSV / ⚠ Cần bổ sung (n) · sắp xếp (mới thêm, tên theo chữ cuối, ngày sinh, tổ · ấp, mới sửa — bấm tiêu đề cột hoặc ô ↕, nhớ ở `hsoLuu().soSX`).
+- **Sửa thẳng ô** (hộ mới): họ tên, ngày sinh, CCCD, ngày cấp, SĐT — Enter / Tab sang ô kế, ↑ ↓ cùng cột dòng trên / dưới; tự lưu (`hmSoSua`: chuẩn hóa như form, ngày gõ liền, nơi cấp tự suy; CCCD trùng hộ khác → không đổi; cập nhật cột Cần bổ sung / Hạn CCCD tại chỗ; phiếu làm hồ sơ của hộ đồng bộ theo). Hộ cũ (mã KH): nhân thân theo Mẫu 31 mới nhất, chữ xám, sửa đầy đủ bằng ✎.
+- **🖨 In sổ** = đúng danh sách đang lọc (ghi bộ lọc dưới tiêu đề). Bản in SỔ HỘ VAY (cả tab 👪 Hộ vay) đổi **A4 ngang, 12 cột** (thêm Ngày cấp, Hạn CCCD, SĐT; Tổ / Ấp · xã tách cột; số không xuống dòng); hộ cũ in theo Mẫu 31 mới nhất (`hmNguoiDung`).
+- **Form hộ (`hmVe`)**: dòng tiêu đề cột 1 lần, mỗi người 1 dòng lưới (`.hm-luoi`); hộp dùng phím chung (Enter / Tab sang ô, Shift lùi, ↑ ↓ ô chọn, Ctrl+Enter lưu); gõ xong 1 ô **không vẽ lại cả hộp** (`hmDat` chỉ sửa ô + dòng gợi ý); vẽ lại khi đổi địa chỉ / thêm người vẫn giữ con trỏ (`data-hm`, `HM_O`); mở hộp → con trỏ ở ô đầu còn trống của người đứng tên; ＋ Thành viên → con trỏ vào tên người mới; **💾 Lưu & thêm hộ tiếp** (giữ xã, điểm, ấp, tổ). Tìm Mẫu 31 hiện thêm năm sinh.
+- Chuẩn hóa ô dùng chung `hmChuan` (form + bảng). Dữ liệu không đổi cấu trúc (`D.cauHinh.hoMoi`).
+- **Phép thử:** `t175` 23/23 (mới) · t163 / t170 đếm 10 tab.
+
 ## 3.213 — 15/10/2026 — 🧾 Bảng kê ngang 118 mm
 - **Anh (15/10, gấp):** chiều ngang Bảng kê phải đúng phủ bì giấy thật **118 mm** (trước 105 mm).
 - `BK_CSS_TO`: `.bk-trang.bk-to` 118 × 210 mm (chữ, lề trong giữ nguyên; cột Thành tiền giãn thêm); logo / chữ chìm dời theo giữa tờ (+6,5 mm).
