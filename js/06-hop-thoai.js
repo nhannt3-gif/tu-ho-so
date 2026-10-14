@@ -2053,7 +2053,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.193', ds:[
+var CO_GI_MOI = {ban:'3.194', ds:[
+  ["💵 Giấy lĩnh in kèm Bảng kê trở lại: 💵 Lĩnh · 🧾 Bảng kê · 💵+🧾 + Mẫu trắng — Bảng kê điền theo Giấy lĩnh, tự chia mệnh giá, ký tên để trống", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
+  ["🌸 Logo NHCSXH (cánh sen) có sẵn trong app: logo chìm Bảng kê, logo góc Hồ sơ vay; ⬇ Tải logo ở Hồ sơ vay › Khai báo 1 lần", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
   ["🧾 Bảng kê thành mẫu riêng (chip 🧾 Bảng kê cạnh Giấy lĩnh): mẫu trắng 2 tờ / A4 ngang, khai báo từng dòng Tên cơ quan · Ngày · Họ tên · Địa chỉ · Nội dung (có chữ thì in, trống = chấm) · Logo chìm", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
   ["💵 Giấy lĩnh gọn lại như trước: bỏ hết phần in kèm / kết hợp Bảng kê", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["👥 Tổ TK&VV: khách vay món mới ở tổ khác không còn bị tính ở tổ cũ (chip Tất nợ · còn TK 105)", "D.cauHinh.slTab='to';doiNgan(7)"],

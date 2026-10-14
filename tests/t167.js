@@ -122,7 +122,13 @@ const fs=require('fs'), path=require('path');
      window.hsoKhach = goc; t0.tt = tt0; t0.ds = ds0; D.cauHinh.dmTo = dm0; gdxVe(); await w(200);
      ok('3.187: CCCD tổ trưởng — danh bạ khách không có → lấy từ file Thông tin tổ trưởng (kèm ngày cấp); không có ở đâu → Tóm tắt báo lý do', gT.cccd==='012345678999' && gT.ncap==='2021-02-25' && /Thông tin tổ trưởng/.test(gT.ccTu) && !gK.cccd && /Chưa có CCCD tổ trưởng/.test(tK), (gT.ccTu||'')+' · '+tK.slice(0, 60)); }
    { /* 3.193 (anh): 🧾 Bảng kê = mẫu độc lập (mẫu trắng), không còn dính Giấy lĩnh */
-     ok('3.193: Giấy lĩnh không còn chip Bảng kê / Kết hợp, Mẫu trắng chỉ còn Giấy lĩnh', !document.querySelector('#gdx-tom .gdx-seg') && !/Bảng kê|Kết hợp/.test(document.querySelector('#gdx-tom .gdx-menu').textContent) && !/a4bk/.test(gdxGLMuc('glkho', 1)) && !GDX_MUC.gl.some(o=>/^bk/.test(o.k)));
+     ok('3.194: Giấy lĩnh có 3 nút in 💵 / 🧾 / 💵+🧾 + Mẫu trắng (Giấy lĩnh · Bảng kê · Kết hợp); ⚙ Giấy lĩnh không có mục Bảng kê', document.querySelectorAll('#gdx-tom .gdx-seg .gdx-c').length===3 && /Bảng kê/.test(document.querySelector('#gdx-tom .gdx-menu').textContent) && /Kết hợp/.test(document.querySelector('#gdx-tom .gdx-menu').textContent) && !/a4bk/.test(gdxGLMuc('glkho', 1)) && !GDX_MUC.gl.some(o=>/^bk/.test(o.k)));
+     { GDX.glTien = '1750000'; gdxDat('glIn', 'kh', 1); await w(400); const dK = fd(), gK = gdxGLDuLieu(), bk = dK.querySelector('.gl-bkk .bk-trang');
+       ok('3.194: 💵+🧾 — 1 tờ A4: Giấy lĩnh + Bảng kê điền theo Giấy lĩnh (họ tên, tự chia 3×500.000, bằng chữ), dòng ký Họ tên để trống, logo NHCSXH', !!dK.querySelector('.gl-trang') && !!bk && (!gK.ten || bk.querySelector('.bk-ten').textContent.indexOf(gK.ten)>=0) && bk.querySelector('.bk-sl').textContent==='3' && /Một triệu bảy trăm năm mươi/.test(bk.textContent) && bk.querySelectorAll('.bk-hoten .gl-v').length===0 && !!bk.querySelector('img.bk-logo'));
+       gdxDat('glIn', 'bk', 1); await w(400); const dR = fd(), T = dR.querySelectorAll('.bk-trang');
+       ok('3.194: 🧾 từ Giấy lĩnh — A4 ngang 1 tờ có dữ liệu, không có Giấy lĩnh, 1 nét cắt', T.length===1 && !dR.querySelector('.gl-trang') && dR.querySelectorAll('.bk-cat').length===1 && T[0].querySelector('.bk-sl').textContent==='3');
+       gdxDat('glIn', 'gl', 1); GDX.glTien = ''; await w(300);
+       ok('3.194: 💵 Lĩnh — chỉ Giấy lĩnh', !fd().querySelector('.bk-trang') && !!fd().querySelector('.gl-trang')); }
      { const c = gdxC(), k = c.glKho; c.glKho = 'a4bk'; gdxC(); ok('3.193: khổ cũ "A4 + Bảng kê" → A4 nửa trên', c.glKho==='a4'); c.glKho = k; }
      gdxDoiMau('bk'); await w(500); const dB = fd(), S = dB.querySelector('.sheet-bk'), T = [...dB.querySelectorAll('.bk-trang')].map(x=>x.getBoundingClientRect()), zB = S ? (+S.style.zoom || 1) : 1, mm = v=>Math.round(v/3.7795/zB);
      ok('3.193: chip mẫu 🧾 Bảng kê; xem 2 tờ 105 × 210 / A4 ngang sát 2 mép, 2 nét cắt; lọc địa bàn ẩn', [...document.querySelectorAll('.gdx2-mau .gdx-c')].some(b=>/Bảng kê/.test(b.textContent)) && !!S && mm(S.getBoundingClientRect().width)===297 && T.length===2 && mm(T[0].width)===105 && mm(T[0].height)===210 && mm(T[0].left-S.getBoundingClientRect().left)===0 && mm(S.getBoundingClientRect().right-T[1].right)===0 && dB.querySelectorAll('.bk-cat').length===2 && (!document.getElementById('gdx-cay') || getComputedStyle(document.getElementById('gdx-cay')).display==='none'));
@@ -134,7 +140,7 @@ const fs=require('fs'), path=require('path');
      const kb = hsoKB(), lgCu = kb.logo; kb.logo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
      const cc = JSON.parse(JSON.stringify(gdxC())); cc.bkChim = 'dam'; cc.glChim = 'tat'; const hD = gdxBKTrang(cc); cc.bkChim = 'tat'; cc.glChim = 'dam'; const hT = gdxBKTrang(cc);
      if(lgCu) kb.logo = lgCu; else delete kb.logo; const hV = gdxBKTrang(gdxC());
-     ok('3.193: logo chìm Bảng kê riêng (logo Hồ sơ vay, Đậm / Tắt không theo Giấy lĩnh); chưa nạp logo → chữ VBSP', /<img class="bk-chim bk-logo chim-dam"/.test(hD) && !/bk-chim/.test(hT) && /class="bk-chim">VBSP</.test(hV));
+     ok('3.193/3.194: logo chìm Bảng kê riêng (Đậm / Tắt không theo Giấy lĩnh); chưa nạp logo → logo NHCSXH có sẵn; ⬇ Tải logo', /<img class="bk-chim bk-logo chim-dam"/.test(hD) && !/bk-chim/.test(hT) && hV.indexOf(LOGO_NHCSXH)>0 && /^data:image\/png;base64,/.test(LOGO_NHCSXH) && typeof hsoLogoTai==='function');
      ok('3.187: tự chia mệnh giá (hàm giữ lại) 1.350.000 = 2×500.000 + 1×200.000 + 1×100.000 + 1×50.000', JSON.stringify(gdxBKChia(1350000).so)==='{"50000":1,"100000":1,"200000":1,"500000":2}');
      gdxDoiMau('gl'); await w(400); }
    { /* 3.185: tìm theo CCCD · Enter → ô số tiền · TK 105 bù theo CCCD / ghi lý do */

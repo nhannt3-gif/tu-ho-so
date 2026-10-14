@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.194) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giấy lĩnh: chọn tổ trưởng, gõ số tiền → 💵+🧾 → IN | 1 tờ A4: Giấy lĩnh + Bảng kê điền sẵn tên, tự chia mệnh giá, bằng chữ; ký tên trống; logo cánh sen hồng mờ | |
+| 2 | 🧾 Bảng kê (từ Giấy lĩnh) → IN | A4 ngang 1 tờ sát mép trái, có dữ liệu | |
+| 3 | 📄 Mẫu trắng › Bảng kê 2 tờ / Kết hợp | Trắng đúng form | |
+| 4 | 📄 Hồ sơ vay › ⚙ Khai báo 1 lần › Logo › ⬇ Tải logo | Tải được Logo_NHCSXH.png nền trong suốt | |
+| 5 | In 01/TD trên máy chưa nạp logo | Có logo cánh sen ở góc | |
+
+- **Ghi chú kỹ thuật 3.194:** `C.glIn` 'gl' | 'bk' | 'kh' → `X.bk` (`gdxHTMLBKDL(g, c)`) / `X.kh` (`glKho='a4bk'` nội bộ + `GL_CSS_KEM`). `gdxBKTrang(c, g)`: có `g` → dữ liệu Giấy lĩnh + `gdxBKChia`; không có → khai báo tab Bảng kê. `gdxLogo()` → `hsoLogoSrc()` = `hsoKB().logo || LOGO_NHCSXH`; `hsoLogoCo(k)` chỉ còn theo danh sách mẫu tích.
+
 ### Danh sách thử trên máy thật (3.193) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
