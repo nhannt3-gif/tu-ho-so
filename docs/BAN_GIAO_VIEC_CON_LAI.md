@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.214) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay → 👪 Hộ vay → ＋ Hộ mới, gõ họ tên Enter, 150378 Enter, CCCD Enter… | Con trỏ tự sang ô kế, không nhảy mất; ngày tự thành 15/03/1978 | |
+| 2 | Đổi ấp / tổ bằng ↑ ↓ trong form | Không mất chữ đã gõ, con trỏ vẫn ở ô đó | |
+| 3 | 💾 Lưu & thêm hộ tiếp | Form trống, giữ xã / ấp / tổ | |
+| 4 | Tab 📒 Sổ hộ vay: tìm, chip ⚠ Cần bổ sung, chọn tổ, ↕ sắp xếp | Bảng lọc đúng, đếm n / tổng | |
+| 5 | Sửa ô ngày cấp / CCCD của hộ mới trong bảng | Tự lưu, cột Cần bổ sung đổi ngay; mở ✎ thấy số mới | |
+| 6 | 🖨 In ở tab 📒 Sổ hộ vay (đang lọc) | A4 ngang 12 cột, đúng các hộ đang lọc | |
+
+**Ghi chú kỹ thuật 3.214:** `hsoVe` bật `.hso-rong` khi mẫu `sohv`; `hsoLap` → `hmLapHTML(hmSoDs()…, hmSoLocChu())`. Tìm trong sổ chỉ vẽ lại bảng (`hmSoVeBang`) để giữ con trỏ. Bảng rộng tối thiểu 1348 px — màn nhỏ cuộn ngang trong khung. Chưa làm (để đợt sau): xóa vào thùng rác, dự phòng riêng sổ hộ (đợt chuẩn hóa lưu), tìm Mẫu 31 ↑ ↓ Enter + xem trước.
+
 ### Danh sách thử trên máy thật (3.213) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
