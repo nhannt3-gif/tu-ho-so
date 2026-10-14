@@ -222,6 +222,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.199) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In 💵 Giấy lĩnh | Ngày tháng cùng dòng PHÒNG GIAO DỊCH GÒ DẦU; thân phiếu bớt trống | |
+| 2 | Mini app: in Giấy lĩnh | In được, PGD ghi đủ | |
+
 ### Danh sách thử trên máy thật (3.198) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

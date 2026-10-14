@@ -59,7 +59,7 @@ function gdxMiniHTML(han, G){
   var goi = gdxMiniMa(JSON.stringify({han:hanISO, id:id, xuat:ngayISO(hom), ban:APP_BAN, C:G.C, diem:G.diem}), khoa+'|'+hanISO+'|'+id);
   var bien = function(ten, v){ return 'var '+ten+' = '+JSON.stringify(v).replace(/<\//g, '<\\/')+';\n'; };
   var ham = [hai, ngayISO, ngayVN, nay, coChuHTML, boDau, gdxE, gdxDocTien, gdxTien, gdxSoNguoi, gdxNgay, gdxChipTien, gdxNgayToi, gdxNgayChu, gdxHom, gdxMai, gdxDMY,
-    gdxNgayKy04, gdxHTML04, gdxHTML12, gdxTrang, gdxGLO, gdxGLNgayO, gdxGLTrang, gdxHTMLGL, gdxDocNgay, gdxNgayISO, gdxNoiCap, gdxMiniDong, gdxMiniGiai, gdxMiniApp];
+    gdxNgayKy04, gdxHTML04, gdxHTML12, gdxTrang, gdxGLO, gdxGLNgayO, gdxGLTrang, gdxTenPGD, gdxHTMLGL, gdxDocNgay, gdxNgayISO, gdxNoiCap, gdxMiniDong, gdxMiniGiai, gdxMiniApp];
   var js = bien('MINI_ID', id)+bien('MINI_HAN', hanISO)+bien('MINI_K', khoa)+bien('MINI_GOI', goi)+bien('MINI_BAN', APP_BAN)+
     bien('GDX_MD', GDX_MD)+bien('GDX_CSS', GDX_CSS)+bien('GL_CSS', GL_CSS)+bien('GL_CSS_A5', GL_CSS_A5)+bien('GL_CSS_A4', GL_CSS_A4)+bien('GL_JS', GL_JS)+bien('GDX_NC_CU', GDX_NC_CU)+
     ham.map(function(f){ return f.toString(); }).join('\n').replace(/<\/script/gi, '<\\/script')+'\ngdxMiniApp();\n';

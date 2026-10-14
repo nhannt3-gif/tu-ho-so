@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.199 — 14/10/2026 — 💵 Giấy lĩnh: ngày tháng cùng dòng PGD
+- **Anh (14/10):** "dòng ngày tháng cho cùng dòng PGD Gò Dầu" · "cho giãn dòng xích lên 1 mm thấy khoảng cách hơi trống".
+- Dòng *Ngày … tháng … năm …* (cột giữa) cách tiêu đề 4 → 2,75 mm → ngang hàng dòng **PHÒNG GIAO DỊCH GÒ DẦU** (đo lệch < 0,1 px); khai báo PGD trống → dòng chấm cũng ngang dòng ngày.
+- Đầu phiếu thấp lại → thân phiếu (từ dòng Họ, tên khách hàng) **xích lên 1,25 mm**; chữ chìm VBSP dời theo (48,4 → 47,15 mm).
+- **Sửa lỗi 3.198:** mini app thiếu hàm `gdxTenPGD` → in Giấy lĩnh trong mini app báo lỗi; đã thêm vào gói mini app.
+- **Phép thử:** `t167` 74/74 · `t168` 33/33 · `t165` 54/54.
+
 ## 3.198 — 14/10/2026 — 💵 Giấy lĩnh: không viết tắt PGD
 - **Anh (14/10):** "không viết tắt PGD".
 - `gdxTenPGD`: khai báo tên PGD ghi “Gò Dầu”, “PGD Gò Dầu” hay “Phòng giao dịch Gò Dầu” đều in **“PHÒNG GIAO DỊCH GÒ DẦU”** (viết hoa, đậm, 1 dòng); dữ liệu cũ đã ghi “PGD …” tự in đầy đủ. Trống → chấm như cũ. Gợi ý ô khai báo đổi thành “vd: Gò Dầu”.

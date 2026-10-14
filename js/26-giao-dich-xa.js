@@ -907,13 +907,13 @@ var GL_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1
   '.sheet-gl{background:#fff;width:210mm;height:148mm;box-shadow:0 8px 24px rgba(0,0,0,.3);overflow:hidden;position:relative}.sheet-gl.gl-a4{height:297mm}'+
   '.gl-trang{position:relative;width:210mm;height:148mm;padding:13mm 11mm 4mm 13mm;font-size:13pt;line-height:1.3;display:flex;flex-direction:column}'+
   '.gl-x2 .gl-trang{height:148.5mm}.gl-cat{position:absolute;left:0;right:0;top:148.5mm;border-top:.3mm dashed #b8b8b8}'+
-  '.gl-chim{position:absolute;left:32.4mm;top:48.4mm;font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:114pt;line-height:1;letter-spacing:0;color:#d2d2d2;z-index:0;pointer-events:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
+  '.gl-chim{position:absolute;left:32.4mm;top:47.15mm;font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:114pt;line-height:1;letter-spacing:0;color:#d2d2d2;z-index:0;pointer-events:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
   '.gl-chim.chim-nhat{color:#e6e6e6}.gl-chim.chim-vua{color:#d2d2d2}.gl-chim.chim-dam{color:#bcbcbc}'+
   '.gl-dau,.gl-than,.gl-ky,.gl-r2{position:relative;z-index:1}'+
   '.gl-trai .gl-r{min-height:7.08mm}.gl-bcd .gl-c{position:relative;top:-.8mm}'+   /* 3.187 (anh chốt): 9 dòng khối trái giãn đều 7,08 mm (bỏ rút 1 mm của 3.186 → dòng Yêu cầu hết sát dòng trên); 2 đường chấm bằng chữ lên 0,8 mm */
   '.gl-dau{display:grid;grid-template-columns:64mm 1fr 50mm;align-items:start;margin-bottom:8mm}'+
-  '.gl-nh{text-align:center;font-weight:bold;font-size:12.5pt;line-height:1.25}.gl-nh .gl-pgd{margin-top:2.5mm;font-weight:normal}.gl-pgdv{font-weight:bold}'+
-  '.gl-giua2{text-align:center}.gl-tit{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:17pt;margin-top:.5mm;letter-spacing:.2px}.gl-ngay{font-family:Arial,Helvetica,sans-serif;font-style:italic;font-size:12pt;margin-top:4mm}'+
+  '.gl-nh{text-align:center;font-weight:bold;font-size:12.5pt;line-height:1.25}.gl-nh .gl-pgd{margin-top:-.3mm;font-weight:normal}.gl-pgdv{font-weight:bold}'+
+  '.gl-giua2{text-align:center}.gl-tit{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:17pt;margin-top:.5mm;letter-spacing:.2px}.gl-ngay{font-family:Arial,Helvetica,sans-serif;font-style:italic;font-size:12pt;margin-top:2.75mm}'+
   '.gl-so{font-size:12pt;padding-left:4mm}.gl-so .gl-r{min-height:8mm}'+
   '.gl-r{display:flex;align-items:baseline;gap:1.2mm;min-height:7.2mm;white-space:nowrap}.gl-n{flex:none}.gl-n2{margin-left:2mm}'+
   '.gl-c{flex:1 1 auto;display:block;min-width:6mm;border-bottom:.7px dotted #333;line-height:1}.gl-c::after{content:"\\00a0"}'+
