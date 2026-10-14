@@ -35,16 +35,16 @@ Tên CT in: "Hỗ trợ tạo việc làm duy trì và mở rộng việc làm" 
 - Số kỳ n = thời hạn T ÷ kỳ hạn K (làm tròn lên); T ≤ 12 → 1 kỳ.
 - Ngày kỳ i = ngày gốc + i × K tháng (ngày 29–31 tháng thiếu → cuối tháng); kỳ cuối = **hạn trả nợ cuối cùng** = ngày gốc + T. Ngày gốc = ngày ký HĐ / giải ngân dự kiến — **trống → ngày để chấm, chỉ in số tiền**.
 - Số tiền: **chia đều, làm tròn xuống bội R** (mặc định 1.000.000 đ), **phần lẻ dồn kỳ cuối**.
-- Tham số theo mục đích: **kiểu chia** (Đều · Ân hạn m kỳ đầu (chỉ trả lãi) rồi chia đều · Tỷ lệ % từng kỳ, vd 20-30-50 · 1 lần cuối kỳ) · m · R.
+- **Anh chốt 14/10: KHÔNG có ân hạn.** Tham số theo mục đích: **kiểu chia** (Đều · Tỷ lệ % từng kỳ, vd 20-30-50 · 1 lần cuối kỳ — T ≤ 12 tự 1 lần) · R.
 - Cảnh báo (không chặn): K vượt mức tối đa theo T; T > 120; tiền > 200 triệu.
 - **Lãi suất tự chọn:** tích đối tượng ưu tiên 1–5 ở 01/GQVL → 6,24 %; không → 7,9248 % (2 số khai ở thẻ GQVL, sửa khi Chính phủ đổi). Lãi quá hạn: khai ở thẻ (🖨 / ✍).
 
 **B. Tham số mặc định theo mục đích** (em ĐỀ XUẤT từ thực tế — không phải quy định, anh sửa / thêm ở thẻ GQVL; mẫu 03 anh gửi đều 60 tháng):
 | Mục đích (vd) | T | K | Kiểu chia |
 |---|---|---|---|
-| Chăn nuôi bò sinh sản | 60 | 12 | Ân hạn 1 kỳ đầu (bò chưa sinh) → 4 kỳ đều |
+| Chăn nuôi bò sinh sản | 60 | 12 | Đều 5 kỳ |
 | Chăn nuôi heo, gia cầm; sửa chuồng + nuôi | 60 | 12 | Đều 5 kỳ |
-| Trồng cây lâu năm (chanh, cây ăn trái) | 60 | 12 | Ân hạn 1–2 kỳ |
+| Trồng cây lâu năm (chanh, cây ăn trái) | 60 | 12 | Đều 5 kỳ |
 | Kinh doanh, dịch vụ, mua máy móc | 36–60 | 12 | Đều |
 | Trồng ngắn ngày | ≤ 12 | — | 1 lần cuối kỳ |
 
