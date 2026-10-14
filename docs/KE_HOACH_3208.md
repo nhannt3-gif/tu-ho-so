@@ -17,6 +17,10 @@ Lập 01/TD / Bộ HS: chọn CT → chọn mục đích, số công trình → 
 
 ## Anh chốt 14/10
 - **HSSV: số tháng và số tiền ở bảng 01/TD cho tự gõ, không tự tính** (bỏ cách chia 4 triệu / tháng trong `hsoPA`).
+- **01/TD — "Thời hạn xin vay" (số tháng) và "Hạn trả nợ cuối cùng" (ngày): gõ thì in, không gõ thì chấm.** Số tháng đã gõ ở 01/TD **tự đồng bộ sang cột Thời hạn của 03/TD** (cùng hộ).
+- **NSVSMT: mặc định ghi sẵn hết** (thời hạn 60 tháng, kỳ hạn 12 tháng / lần, mục đích, ĐTTH…) — đổi được trong thẻ CT (⚙ Khai báo chung › Chương trình vay).
+- **Bố cục màn nhập liệu như tab Giao dịch xã**: khung trái nhập rộng ra (ô nhập + tùy chọn), khung phải xem trước.
+- **Khai báo riêng ghi rõ của mẫu nào** (vd "⚙ Khai báo riêng — Mẫu 09A/TD", "⚙ Khai báo riêng — Mẫu 01/TD").
 
 ## Câu hỏi chờ anh
 1. Làm trước 3 CT: HSSV, NSVSMT, GQVL? (CT khác anh tự thêm thẻ)
