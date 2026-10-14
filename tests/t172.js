@@ -46,6 +46,7 @@ const fs=require('fs'), path=require('path');
    ok('đổi thẻ NSVSMT thời hạn → ✍ Chấm: 01/TD thời hạn để chấm', /Thời hạn xin vay: \.+ tháng/.test(h)); hsoCTDat(iN, 'thIn', 'in');
    /* 4. GQVL dạng 1 mục đích; đổi tên tắt → bộ đi theo */
    const iG = hsoCTVDs().findIndex(c=>c.ma==='GQVL'); hsoCTDat(iG, 'md', 'Chăn nuôi bò giả\nTrồng trọt giả', 'ds'); hsoCTDat(iG, 'ubnd', true);
+   ok('GQVL mặc định tắt ở Bộ HS (có mẫu riêng — chờ mẫu)', hsoCTV('GQVL').bat===false && /mẫu đơn riêng/.test(hsoCTV('GQVL').rieng)); hsoCTDat(iG, 'bat', true);
    B.ct = 'GQVL'; B.tien = '50000000'; B.pa = {sl:'02 con'}; hsoChonMau('bo'); await w(300);
    ok('Bộ HS: ① liệt kê chương trình theo thẻ (HSSV, NSVSMT, GQVL)', ['HSSV','NSVSMT','GQVL'].every(k=>document.querySelector('#hso-tuy input[name="hso-ct"][onchange*="\''+k+'\'"]')));
    hsoChonMau('01td'); await w(300); h = chu(HSO.x.h);

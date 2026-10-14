@@ -32,4 +32,5 @@ Lập 01/TD / Bộ HS: chọn CT → chọn mục đích, số công trình → 
 - ☑ 3. Bộ HS / 01/TD / 03/TD đọc thẻ: `hsoPA` (HSSV gõ số tháng), thời hạn / kỳ hạn / hạn cuối gõ hoặc chấm, ĐTTH mặc định xã / phường
 - ☑ 4. Bố cục 60/40 như GDX, "⚙ Khai báo riêng — Mẫu …"
 - ☑ 5. t172 20/20, t164 sửa, bump 3.208, tài liệu
-- ☐ Sau: bố cục lại Bộ HS (anh sẽ nói), GQVL theo mẫu thật, 03/TD nhiều hộ (KE_HOACH_3207 mục 3)
+- ☑ 6. (anh 14/10: **"GQVL có mẫu riêng"**) thẻ GQVL mặc định **tắt ở Bộ HS** + ghi "có mẫu đơn riêng (không dùng 01/TD) — chờ anh gửi mẫu"
+- ☐ Sau: bố cục lại Bộ HS (anh sẽ nói), **làm mẫu đơn riêng GQVL khi anh gửi mẫu**, 03/TD nhiều hộ (KE_HOACH_3207 mục 3)
