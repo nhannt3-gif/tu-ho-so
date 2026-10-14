@@ -981,15 +981,16 @@ var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6
   '.bk-nh{text-align:center;font-family:"Arial Narrow","Arial Nova Cond",Arial,Helvetica,sans-serif;font-size:8pt;line-height:1.35}.bk-pgd{min-height:0;font-size:8pt;margin-top:1mm}.bk-trang .bk-pgd .gl-v{flex:0 1 auto;text-align:left;padding-left:1.2mm;text-transform:uppercase}'+   /* 3.191 (anh): cụm tên cơ quan lớn hơn; tên PGD sát chữ PHÒNG GIAO DỊCH */
   '.bk-tit{text-align:center}.bk-t1{font-weight:bold;font-size:14pt;letter-spacing:.5px}.bk-t2{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:6.8pt}.bk-ngay{font-size:9.5pt;margin-top:1mm}'+
   '.bk-trang .gl-r{display:flex;align-items:baseline;gap:1mm;min-height:6.2mm;white-space:nowrap}.bk-trang .gl-n{flex:none}'+
-  '.bk-trang .gl-c{flex:1 1 auto;display:block;min-width:5mm;border-bottom:1.2px dotted #000;line-height:1}.bk-trang .gl-c::after{content:"\\00a0"}'+
+  '.bk-trang .gl-c{flex:1 1 auto;display:block;min-width:5mm;border-bottom:.7px dotted #333;line-height:1}.bk-trang .gl-c::after{content:"\\00a0"}'+
   '.bk-trang .gl-v{flex:1 1 auto;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:1mm}.bk-trang .gl-v.gl-bc1{text-overflow:clip}.bk-ten .bk-trang .gl-v{font-weight:bold}'+
-  '.bk-trang .gl-cn{display:inline-block;border-bottom:1.2px dotted #000;line-height:1}.bk-trang .gl-cn::after{content:"\\00a0"}.bk-trang .gl-vn{display:inline-block;min-width:5mm;text-align:center}'+
+  '.bk-trang .gl-cn{display:inline-block;border-bottom:.7px dotted #333;line-height:1}.bk-trang .gl-cn::after{content:"\\00a0"}.bk-trang .gl-vn{display:inline-block;min-width:5mm;text-align:center}'+
   '.bk-bang{width:100%;border-collapse:collapse;margin-top:1.5mm;font-size:10.5pt;table-layout:fixed}'+
-  '.bk-bang th{border:1.1px solid #000;font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;padding:.8mm 0}'+
-  '.bk-bang td{border-left:1.1px solid #000;border-right:1.1px solid #000;border-bottom:1px dotted #000;height:6.3mm;padding:0 1mm}'+
+  '.bk-bang th{border:.9px solid #000;font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;padding:.8mm 0}'+
+  '.bk-bang td{border-left:.9px solid #000;border-right:.9px solid #000;border-bottom:.6px dotted #666;height:6.3mm;padding:0 1mm}'+
+  '.bk-bang td.bk-tt{border-left:.5px solid #888;border-right:.5px solid #888}.bk-bang td:last-child{border-right:.9px solid #000}'+   /* 3.195 (anh): chấm nhuyễn; lằn chính mảnh vừa, lằn con (dòng mệnh giá, chia ô Thành tiền) lợt và nhỏ hơn */
   '.bk-lt{text-align:right}.bk-sl{text-align:center}.bk-tt{text-align:right;font-size:9.5pt}'+
-  '.bk-tong td{border-top:1.1px solid #000;border-bottom:1.1px solid #000;height:10mm;font-family:Arial,Helvetica,sans-serif;font-size:9pt}.bk-tong .bk-tt{font-weight:bold}'+
-  '.bk-chu td{border:1.1px solid #000;padding:1mm 1.5mm;height:auto}.bk-trang .bk-chu .gl-r{min-height:5.6mm;font-size:10pt}.bk-trang .bk-chu .gl-v{font-weight:bold;font-style:italic}.bk-trang .bk-chu .gl-bc2{white-space:normal}'+   /* 3.191 (anh): Tổng cộng + bằng chữ in đậm (bằng chữ nghiêng) */
+  '.bk-tong td{border-top:.9px solid #000;border-bottom:.9px solid #000;height:10mm;font-family:Arial,Helvetica,sans-serif;font-size:9pt}.bk-tong .bk-tt{font-weight:bold}'+
+  '.bk-chu td{border:.9px solid #000;padding:1mm 1.5mm;height:auto}.bk-trang .bk-chu .gl-r{min-height:5.6mm;font-size:10pt}.bk-trang .bk-chu .gl-v{font-weight:bold;font-style:italic}.bk-trang .bk-chu .gl-bc2{white-space:normal}'+   /* 3.191 (anh): Tổng cộng + bằng chữ in đậm (bằng chữ nghiêng) */
   '.bk-ky{display:grid;grid-template-columns:1fr 1fr;text-align:center;margin-top:2.5mm;font-size:10.5pt;flex:1}.bk-ky i{display:block;font-size:9.5pt}'+
   '.bk-hoten{display:grid;grid-template-columns:1fr 1fr;gap:6mm;font-size:10pt}';
 /* 3.192: khổ Bảng kê 105 × 210 mm (anh: ngang 105 đúng mẫu), chữ 13 pt (anh chốt 3.191) */

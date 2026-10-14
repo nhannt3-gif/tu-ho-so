@@ -4,10 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.195 — 14/10/2026 — 🧾 Bảng kê: font đầu tờ như tờ thật, tên PGD liền khối
+## 3.195 — 14/10/2026 — 🧾 Bảng kê: font đầu tờ như tờ thật, tên PGD liền khối, lằn kẻ mảnh
 - **Anh (14/10):** "font chữ bảng kê em dùng font chuẩn như bảng kê, chữ Gò Dầu em thêm vào liền khối cùng cỡ font chữ, chỉ khi bỏ trong khai báo thì hiện chấm".
 - **Tên PGD** (`gdxBKTrang`): có khai báo → in **“PHÒNG GIAO DỊCH: GÒ DẦU”** thành 1 khối, cùng font Arial đậm, cùng cỡ, viết hoa (trước đây tên PGD là ô riêng, chữ thường mảnh, cách xa); **bỏ trống khai báo → “PHÒNG GIAO DỊCH:” + dòng chấm** ghi tay. Áp cho tab 🧾 Bảng kê, mẫu trắng và phần Bảng kê in từ Giấy lĩnh.
 - **Font đầu tờ theo tờ in sẵn:** 2 dòng tên cơ quan dùng chữ không chân đứng hẹp (Arial Narrow, máy chưa có thì Arial); BẢNG KÊ chữ có chân đậm; CÁC LOẠI TIỀN… và đầu bảng chữ không chân đậm; nhãn, số tiền chữ có chân (Times New Roman) — như tờ thật.
+- **Lằn kẻ / chấm** (anh: "chấm nhuyễn, các lằn kẻ không dày quá nhìn thô, các lằn kẻ con nên lợt nhỏ hơn lằn chính"): chấm ghi tay nhỏ, mịn (0,7 px, xám đậm); lằn chính (khung bảng, đầu cột, Tổng cộng, ô bằng chữ, cột Loại tiền / Số lượng) mảnh lại 1,1 → 0,9 px; lằn con lợt và nhỏ hơn — dòng mệnh giá chấm 0,6 px xám, chia ô Thành tiền 0,5 px xám nhạt.
 - **Phép thử:** `t167` 71/71 (tên PGD liền khối, trống → chấm).
 
 ## 3.194 — 14/10/2026 — 💵 Giấy lĩnh in kèm Bảng kê (theo cài đặt tab Bảng kê); 🌸 logo NHCSXH có sẵn

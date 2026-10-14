@@ -227,6 +227,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 |---|---|---|---|
 | 1 | 🧾 Bảng kê | “PHÒNG GIAO DỊCH: GÒ DẦU” 1 khối cùng font, cùng cỡ; tên cơ quan chữ đứng hẹp như tờ thật | |
 | 2 | Xóa trống ô Phòng giao dịch | Hiện “PHÒNG GIAO DỊCH:” + chấm | |
+| 3 | In Bảng kê | Chấm mịn; lằn chính mảnh vừa; dòng mệnh giá và chia ô Thành tiền lợt hơn | |
 
 ### Danh sách thử trên máy thật (3.194) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
