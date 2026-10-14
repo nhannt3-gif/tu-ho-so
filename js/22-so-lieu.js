@@ -74,7 +74,7 @@ var SL_LOAI = [
   /* 3.120 (anh chốt): Dư nợ chi tiết — cùng khuôn Mẫu 31, có thêm số TK 105 + điểm GD; Mẫu 31 là số liệu chính, file này CHỈ tham chiếu số TK 105 và điểm giao dịch xã */
   {k:'dnct', nhom:'B', tuy:true, thamChieu:true, ten:'Mẫu 18 · Dư nợ chi tiết (tham chiếu TK 105 + điểm GD)', can:['so khe uoc','ma kh','tong du no','ma diem giao dich'], mot:['so tiet kiem 105'],
    khoa:'ku', khoaPhu:'kh', chi:['ku','kh','ten','stk','diem','tenDiem','ngayGD','to','ttKH','thon','xa','tenXa','dn','th','qh','kn','gnT','dkT','tnTH','tnQH','tnK','xoaT','t105','ttMon'], tenFile:['du no chi tiet','mau 18']},   /* 3.121: + cột số tiền — CHỈ để đối chiếu với Mẫu 31 */
-  {k:'tt',   nhom:'D', tuy:true, tuyMoi:true, ten:'Thông tin tổ trưởng', can:['ma to truong','ten to truong'], khoa:'to', cu:'TT_TO', tenFile:['to truong']},
+  {k:'tt',   nhom:'D', tuy:true, tuyMoi:true, an:'Thông tin tổ trưởng không cần nữa (anh chốt 14/10) — Danh sách tổ hệ thống đã đủ; file vẫn đọc để tra tháng cũ, không hiện trên ma trận.', ten:'Thông tin tổ trưởng', can:['ma to truong','ten to truong'], khoa:'to', cu:'TT_TO', tenFile:['to truong']},
   {k:'khd',  nhom:'D', tuy:true, tuyMoi:true, ten:'Món vay 3 tháng KHĐ (mẫu 14)', can:['so khe uoc','ngay giao dich gan nhat'], khong:['tinh trang mon vay'], khoa:'ku', cu:'', tenFile:['khong hoat dong','3 thang','03 thang','khd']},
   /* Ⓒ theo ngày */
   {k:'m10',  nhom:'X', bo:'Mẫu 10 không dùng nữa từ bản 3.120 (anh chốt) — xuất Mẫu 31 (số liệu chính) và Dư nợ chi tiết (tham chiếu số TK 105 · điểm GD).', ten:'Mẫu 10 · Sao kê chi tiết (theo ngày)', ngay:true, can:['ma mon vay','ma khach hang','tong du no','so tien giai ngan'], khong:['tinh trang mon vay'],
@@ -82,7 +82,7 @@ var SL_LOAI = [
   /* Ⓓ phụ — không bắt buộc, có thì đối chiếu thêm với Mẫu 31 */
   {k:'nqh',  nhom:'D', tuy:true, tuyMoi:true, ten:'Nợ quá hạn', can:['so khe uoc','du no qua han'], mot:['ngay chuyen qua han','chuyen qh trong thang'], khong:['ngay giao dich gan nhat','tinh trang mon vay'], khoa:'ku', cu:'SK_NQH', tenFile:['qua han','nqh']},
   {k:'nk',   nhom:'D', tuy:true, tuyMoi:true, ten:'Nợ khoanh', can:['so khe uoc','du no khoanh','ngay het han khoanh'], khong:['ngay giao dich gan nhat','tinh trang mon vay'], khoa:'ku', cu:'SK_NK', tenFile:['khoanh']},
-  {k:'dsto', nhom:'B', tuy:true, tuyMoi:true, ten:'Danh sách tổ TK&VV (DSTO)', can:['ma to','ma diem gdx','don vi uy thac'], khong:['ma khach hang','ma mon vay','so khe uoc'], khoa:'to', giuHet:true, tenFile:['dsto']},   /* 3.108: đối chiếu với Thông tin tổ trưởng + bổ sung tổ thiếu */
+  {k:'dsto', nhom:'B', tuy:true, tuyMoi:true, ten:'Danh sách tổ TK&VV (hệ thống)', can:['ma to','ma diem gdx','don vi uy thac'], khong:['ma khach hang','ma mon vay','so khe uoc'], khoa:'to', giuHet:true, tenFile:['dsto']},   /* 3.108: đối chiếu với Thông tin tổ trưởng + bổ sung tổ thiếu */
   /* 3.201: đọc riêng theo khuôn (js/28) — Mẫu 01/TV danh sách thành viên tổ của TƯ (theo tháng) · Sao kê TK 104 / TK 105 (theo ngày) */
   {k:'tv01', nhom:'D', tuy:true, rieng:true, ten:'Mẫu 01/TV · Danh sách thành viên tổ (TƯ)', can:[], tenFile:['mau01 tv','mau 01 tv','01 tv']},
   {k:'tk104', nhom:'D', ngay:true, rieng:true, ten:'Sao kê TK 104 (tổ trưởng)', can:[], tenFile:['tk 104','tk104']},
@@ -99,7 +99,7 @@ var SL_LOAI = [
   {k:'khd08', nhom:'X', bo:'Đây là file mẫu 08/KTNB — anh dùng file mẫu 14 “Sao kê món vay N tháng không hoạt động (DL Tháng)” (anh chốt; 2 file cùng số nhưng mẫu 14 có điểm GD xã, ngày đến hạn GDXA).', ten:'Món vay 3 tháng KHĐ mẫu 08/KTNB', can:['ma mon vay','ngay giao dich gan nhat','mo ta'], khoa:'ku', tenFile:['ktnb']}
 ];
 /* 3.145 (anh chốt Q16, 10/10/2026): Ⓑ bắt buộc (nguồn dữ liệu) · Ⓐ đối chiếu chuẩn TW · Ⓓ phụ · Ⓚ KTGS (khối riêng ở tab Nạp) · X đã bỏ (chỉ nhận dạng, dữ liệu xóa hẳn) */
-var SL_NHOM = [{k:'B', ten:'Ⓑ Bắt buộc · nguồn dữ liệu (Mẫu 31, Dư nợ chi tiết, DSTO)'}, {k:'A', ten:'Ⓐ Đối chiếu chuẩn TW · BCDHTD 01.1 / 01.2 · LEN_31'},
+var SL_NHOM = [{k:'B', ten:'Ⓑ Bắt buộc · nguồn dữ liệu (Mẫu 31, Dư nợ chi tiết, Danh sách tổ)'}, {k:'A', ten:'Ⓐ Đối chiếu chuẩn TW · BCDHTD 01.1 / 01.2 · LEN_31'},
                {k:'D', ten:'Ⓓ Phụ · không bắt buộc, có thì đối chiếu thêm'}, {k:'K', ten:'Ⓚ KTGS · BC0437 / BC0438 (Hội đoàn thể)'}, {k:'X', ten:'Đã bỏ'}];   /* 3.156: KTGS vào chung ma trận */
 var SL_KHOA_DUNG = {ku:/^\d{10,20}$/, kh:/^\d{6,12}$/, thon:/^\d{6,10}$/, to:/^\d{5,9}$/};
 function slLoai(k){ return SL_LOAI.find(function(L){ return L.k===k; }); }
@@ -400,6 +400,8 @@ function slPhanTich(kq, loaiChon){
   }
   if(L.bo){ kq.loi = L.bo; return kq; }   /* 3.90: loại đã bỏ */
   kq.loai = L.k;
+  if(L.an) (kq.canhBao = kq.canhBao || []).push(L.an);   /* 3.202 */
+  if(L.k==='dsto') (kq.canhBao = kq.canhBao || []).push('Danh sách tổ kiểu cũ (DSTO) — không có CCCD, TK 104 tổ trưởng; nên xuất Danh sách tổ hệ thống (baocao_…).');
   var kn = slKieuNgay(dau.sheet, dau.r, kq.ten), d;   /* 3.135: file ghi ngày kiểu tháng/ngày (Mỹ) → đọc đúng */
   TDN_MD = kn==='md'; try { d = slLayDong(dau.sheet, dau.r, dau.co, L); } finally { TDN_MD = false; }
   if(kn==='md') kq.canhBao.push('File ghi ngày dạng chữ kiểu tháng/ngày/năm (Mỹ) — app đã đọc theo kiểu này (vd 10/7/2026 = 07/10/2026).');
@@ -899,7 +901,7 @@ function slBo(ky){
   var B = {ky:ky, co:{}, mon:{}, theoKH:{}, lap:[], to:{}, nqh:{}, nk:{}, khd:{}, tdn:[], nguon:{}};
   return SL_LOAI.reduce(function(p, L){
     return p.then(function(){
-      var kd = slKyDung(L.k, ky); if(!kd) return;
+      var kd = (L.k==='dsto' && typeof dsChonKy==='function' && dsChonKy(ky)) || slKyDung(L.k, ky); if(!kd) return;   /* 3.202 (anh chốt 14/10): Danh sách tổ hệ thống thay DSTO cũ — kỳ nào cũng dùng bản gần nhất */
       return slDocBang(L.k, kd).then(function(b){
         if(b) B.nguon[L.k] = kd;
         if(!b) return;
@@ -1340,9 +1342,9 @@ function ktSuyHTML(K){   /* 3.149 (anh chốt 11/10): DSTO là nguồn chính (3
   if(!chua.length) return '';
   var mon = function(t){ return (K.kh[t.ma]||[]).filter(function(o){ return (o.dn||0)>0; }).length; };
   var dong = function(t){ return '<tr><td>'+coChuHTML((t.ten||'')+' ('+t.ma+')')+'</td><td>'+coChuHTML(t.tenXa||t.xa||'')+'</td><td>'+coChuHTML(t.tenThon||t.thon||'')+'</td><td>'+coChuHTML(tdnHoi(t.dv)||'')+'</td><td class="s">'+mon(t)+'</td></tr>'; };
-  return '<details class="sl-bao vang"><summary>⚠ <b>'+chua.length+' tổ chưa rõ điểm GD</b> (không có trên DSTO / Dư nợ chi tiết kỳ này)</summary>'+
+  return '<details class="sl-bao vang"><summary>⚠ <b>'+chua.length+' tổ chưa rõ điểm GD</b> (không có trên Danh sách tổ / Dư nợ chi tiết kỳ này)</summary>'+
     '<div class="kt-suy"><table><thead><tr><th>Tổ (mã)</th><th>Xã / phường</th><th>Ấp</th><th>Hội</th><th>Món còn dư nợ</th></tr></thead><tbody>'+chua.map(dong).join('')+'</tbody></table></div>'+
-    '<div><small>Nạp DSTO cùng kỳ để có điểm GD của tổ.</small></div></details>';
+    '<div><small>Nạp Danh sách tổ cùng kỳ để có điểm GD của tổ.</small></div></details>';
 }
 function ktTim(){
   var g = document.getElementById('kt-gy'); if(!g || !KT_K) return;
@@ -3737,6 +3739,10 @@ function tcHaiCot(){ return window.innerWidth>=900 && !!document.getElementById(
 function tcChonDong(el){ var c = el && el.parentNode; if(c) Array.prototype.forEach.call(c.querySelectorAll('.sl-kq-dong.chon'), function(x){ x.classList.remove('chon'); }); if(el) el.classList.add('chon'); }
 /* 3.88: luồng nạp theo THÁNG — chọn tháng → ① file của tháng (trạng thái từng loại) → ② Kiểm tra (kết quả lưu, không chạy lại) → ③ Chốt (sau)
    bảng nhiều tháng giữ nguyên, thu gọn được (D.cauHinh.slTQ) để lấy chỗ cho kết quả kiểm tra */
+function slBBE(k, ky){   /* 3.202: file bắt buộc của tháng — Danh sách tổ hệ thống tính bản gần nhất (danh sách, không chốt cuối tháng) */
+  var e = SLM.bang[slKhoa(k, ky)]; if(e || k!=='dsto' || typeof dsChonKy!=='function') return e || null;
+  var kd = dsChonKy(ky), g = kd && SLM.bang[slKhoa('dsto', kd)]; return g ? Object.assign({}, g, {ngay:'', ngayXuat:'', ganNhat:kd}) : null;
+}
 var SL_BAT_BUOC = ['hstd','dnct','dsto','bx','bc','lx','lh','lc','lt'];   /* 3.145 (Q16): 9 file cần cho ✓ Đạt */   /* 3.90: Ⓐ 7 file chuẩn TW + Ⓑ Mẫu 31, Thông tin tổ trưởng, KHĐ mẫu 14 (anh chốt) */
 function slChonThang(d, v){
   var cu = SL_KY || slKyMoi() || ngayISO(nay()).slice(0,7);
@@ -3759,7 +3765,7 @@ function slNhomMo(n){ var mo = D.cauHinh.slMo || {}; return mo[n]!==undefined ? 
 function slChipNhom(N, dsL, k){
   var coThang = Object.keys(SLM.bang).some(function(x){ return slThang(SLM.bang[x].ky)===k; });
   if(N==='C'){ var nd = 0; dsL.forEach(function(L){ nd += slCacNgay(L.k, k).length; }); return nd ? '<span class="sl-chipn du">'+nd+' ngày</span>' : '<span class="sl-chipn">—</span>'; }
-  var bb = dsL.filter(function(L){ return N==='A' || N==='B' ? SL_BAT_BUOC.indexOf(L.k)>=0 : true; }), co = bb.filter(function(L){ return SLM.bang[slKhoa(L.k, k)] || (L.ngay && slCacNgay(L.k, k).length); }), n = bb.length;   /* 3.91: loại phụ theo ngày (phân kỳ) */
+  var bb = dsL.filter(function(L){ return N==='A' || N==='B' ? SL_BAT_BUOC.indexOf(L.k)>=0 : true; }), co = bb.filter(function(L){ return slBBE(L.k, k) || (L.ngay && slCacNgay(L.k, k).length); }), n = bb.length;   /* 3.91: loại phụ theo ngày (phân kỳ) */
   if(!co.length && !coThang) return '<span class="sl-chipn">—</span>';
   if(N==='A' || N==='B'){ var thieu = bb.filter(function(L){ return !SLM.bang[slKhoa(L.k, k)]; }).map(function(L){ return L.ten.split(' · ')[0]; });
     return '<span class="sl-chipn '+(thieu.length ? 'thieu' : 'du')+'" title="'+coChuHTML(thieu.length ? 'thiếu: '+thieu.join(', ') : 'đủ')+'">'+co.length+'/'+n+(thieu.length ? '' : ' ✓')+'</span>'; }
@@ -3795,7 +3801,7 @@ function veSoLieu(){
         var g = slDanhGia(c.ky);
         return '<th class="'+lop(c)+(c.ky===kyXem ? ' sl-chon' : '')+(g.dat ? ' dat' : '')+'" onclick="slChonThang(0,\''+c.ky+'\')" title="Chốt tháng '+kyVN(c.ky)+' — bấm để chọn tháng"><b>'+ngayVNsl(tdnCuoiKy(c.ky))+'</b><small>T'+(+c.ky.slice(5))+(c.ky.slice(0, 4)!==String(nay().getFullYear()) ? '/'+c.ky.slice(2, 4) : '')+' · chốt'+(SLM.kt[c.ky] ? (slKTCu(c.ky) ? ' ⟳' : (g.dat ? ' ✓' : '')) : '')+'</small></th>'; }).join('')+'</tr></thead><tbody>';
     SL_NHOM.forEach(function(N){   /* 3.91: mỗi nhóm 1 dòng đầu bấm sổ / gọn; thu gọn thì ô là chip tóm tắt; loại đã bỏ chỉ hiện khi còn dữ liệu */
-      var dsL = SL_LOAI.filter(function(L){ return L.nhom===N.k && (!L.bo || slCoDL(L.k)); }), mo = slNhomMo(N.k); if(!dsL.length) return;
+      var dsL = SL_LOAI.filter(function(L){ return L.nhom===N.k && !L.an && (!L.bo || slCoDL(L.k)); }), mo = slNhomMo(N.k);   /* 3.202: ma trận chỉ còn 1 dòng về tổ (Danh sách tổ) */ if(!dsL.length) return;
       h += '<tr class="sl-nh-dong'+(mo ? ' mo' : '')+'" onclick="slMoNhom(\''+N.k+'\')" title="Bấm để '+(mo ? 'thu gọn' : 'sổ ra')+'"><td class="bdc-ten"><span class="sl-nh '+N.k+'">'+(N.k==='X' ? '×' : N.k)+'</span>'+coChuHTML(N.ten.split(' · ')[0].replace(/^[ⒶⒷⒸⒹⓀ] /, ''))+'</td>'+
         cots.map(function(c){ return oCot(c, '<td class="sl-nh-o">'+(mo ? '' : c.chot ? slChipNhom(N.k, dsL, c.ky) : slChipNgayO(dsL, c.ky))+'</td>'); }).join('')+'</tr>';
       if(mo) dsL.forEach(function(L){ var ten = slTenNgan(L);
@@ -3822,7 +3828,7 @@ function slNapThanhHTML(kyXem){   /* 3.156: ‹ T7 · T8/2026 ▾ · T9 › · �
   var ngan = function(k){ return 'T'+(+k.slice(5, 7)); }, kieu = function(v, chu, tit){ return '<button class="sl-mt-k'+(mt===v ? ' bat' : '')+'" onclick="slDatMt(\''+v+'\')" title="'+tit+'">'+chu+'</button>'; };
   return '<div class="sl-con-nap sl-thanh-nap">'+
     slDaiLich(kyXem)+
-    '<button class="nho chinh" onclick="slNapBo()" title="Chọn nhiều file Excel một lần (Mẫu 31, DSTO, file TW, KHĐ… và BC0437 / BC0438 của KTGS; 1 hay nhiều tháng) — app tự nhận loại và kỳ, xem trước rồi mới ghi nhận">📥 Nạp file</button>'+
+    '<button class="nho chinh" onclick="slNapBo()" title="Chọn nhiều file Excel một lần (Mẫu 31, Danh sách tổ, file TW, KHĐ… và BC0437 / BC0438 của KTGS; 1 hay nhiều tháng) — app tự nhận loại và kỳ, xem trước rồi mới ghi nhận">📥 Nạp file</button>'+
     (slCoFileChinh(kyXem) ? '<button class="nho sl-kt-nut" onclick="slKiemTra(\''+kyXem+'\')" title="App tự kiểm sau mỗi lần nạp / xóa / thay file — bấm để kiểm lại cho chắc">🔍 Kiểm tra lại</button>' : '')+
     '<button class="nho" onclick="slFileXuat(\''+kyXem+'\')" title="Danh sách file cần xuất hằng tháng, mẫu cần chọn khi xuất, ✓ file tháng đang xem đã có">📋 File cần xuất</button>'+
     '<span class="sl-mt-nhom"><button class="sl-mt-k'+(mt==='tq' ? ' bat' : '')+'" onclick="slTongQuan()" title="'+(mt==='tq' ? 'Bấm để về kiểu xem theo ngày' : 'Chỉ cột chốt tháng của mọi tháng có số liệu')+'">⇔ Tổng quan</button>'+
@@ -3833,7 +3839,7 @@ function slNapThanhHTML(kyXem){   /* 3.156: ‹ T7 · T8/2026 ▾ · T9 › · �
 }
 /* ma trận thu gọn: 1 dòng tóm tắt tháng đang chọn — bấm để mở */
 function slMtThuHTML(k){
-  var dsN = SL_NHOM.filter(function(N){ return N.k!=='X'; }).map(function(N){ var dsL = SL_LOAI.filter(function(L){ return L.nhom===N.k && !L.bo; }); return dsL.length ? '<span class="sl-nh '+N.k+'">'+N.k+'</span>'+slChipNhom(N.k, dsL, k) : ''; }).filter(Boolean);
+  var dsN = SL_NHOM.filter(function(N){ return N.k!=='X'; }).map(function(N){ var dsL = SL_LOAI.filter(function(L){ return L.nhom===N.k && !L.bo && !L.an; }); return dsL.length ? '<span class="sl-nh '+N.k+'">'+N.k+'</span>'+slChipNhom(N.k, dsL, k) : ''; }).filter(Boolean);
   return '<div class="sl-mt-thu" onclick="slThuGon()" title="Bấm để mở ma trận"><b>'+kyVN(k)+'</b> '+dsN.join(' ')+' <span class="sl-phu">▸ mở ma trận</span></div>';
 }
 /* 3.156: dấu trên ô sau kiểm tra — mỗi mục kiểm tra gắn với file có tên trong mục; mọi mục liên quan khớp → ✓, có chênh → ⚠ */
@@ -3897,7 +3903,7 @@ function slNapThem(ky){   /* ⋯ việc phụ của tab Nạp & KT */
 function slTomTatXem(ky){ batChay(true, 'Đang mở tóm tắt '+kyVN(ky)+'…'); slBo(ky).then(function(B){ tatChay(); moHop('<div class="hop-tit">📄 Tóm tắt các file '+kyVN(ky)+'</div><div class="sl-ky">'+slKyHTML(B)+'</div><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>', true); }).catch(function(er){ tatChay(); baoLoi('Chưa mở được: '+(er && er.message || er)); }); }
 function slNapHoi(){
   moHop('<div class="hop-tit">❓ Nạp &amp; Kiểm tra dữ liệu</div><div class="hd-chu">'+
-    '<p>Nơi duy nhất nạp file Excel hệ thống (Mẫu 31, Dư nợ chi tiết, DSTO, file TW, KHĐ, quá hạn, khoanh… và BC0437 / BC0438 của KTGS) — các tab khác chỉ đọc. Excel chỉ đọc 1 lần lúc nạp.</p>'+
+    '<p>Nơi duy nhất nạp file Excel hệ thống (Mẫu 31, Dư nợ chi tiết, Danh sách tổ, file TW, KHĐ, quá hạn, khoanh… và BC0437 / BC0438 của KTGS) — các tab khác chỉ đọc. Excel chỉ đọc 1 lần lúc nạp.</p>'+
     '<p><b>Ma trận:</b> mỗi ô = số chính + mũi tên so tháng trước (dư nợ tăng ▲ xanh; quá hạn / khoanh / KHĐ tăng ▲ đỏ; tổ chỉ số tổ). Bấm ô trống: nạp đúng ô; ô có file: hỏi thay (file cũ vào 🗑 Thùng rác, khôi phục được). Ⓑ bắt buộc · Ⓐ chuẩn TW · Ⓓ phụ. Cột 📅 Theo ngày: bản số liệu giữa tháng.</p>'+
     '<p><b>Kiểm tra kỳ:</b> ✓ Đạt khi đủ '+SL_BAT_BUOC.length+' file (Ⓑ 3 + Ⓐ 6), đúng kỳ, đúng cấu trúc. Chênh lệch giữa các file chỉ ghi nhận để biết — không ảnh hưởng Đạt, không sửa số. Rê chuột lên dòng trạng thái: báo cáo nào dùng được, thiếu file gì.</p>'+
     '<p><b>3.156:</b> app <b>tự kiểm tra ngầm</b> sau mỗi lần nạp / xóa / thay / khôi phục file (cả BC0437 / BC0438); muốn chắc thì bấm <b>🔍 Kiểm tra lại</b>. Ô có dấu <b style="color:#1b7f3b">✓</b> = khớp với các file khác, <b style="color:var(--vang)">⚠</b> = có chênh lệch (rê chuột xem). Kết quả chi tiết: dòng 🔍 dưới ma trận, bấm mở.</p>'+
@@ -4001,7 +4007,7 @@ function slTomDong(L, e){
 var SL_FILE_XUAT = [
   ['B', 'hstd', 'Mẫu 31', '31 – Tạo hồ sơ tín dụng chi tiết theo kỳ số liệu (175 cột)', 'Ho_so_tin_dung_chi_tiet_…'],
   ['B', 'dnct', 'Dư nợ chi tiết', 'Dư nợ chi tiết (169 cột, có cột Ngày số liệu)', '004820_DU_NO__CHI_tiet_DEN_dd-mm-yyyy_'],
-  ['B', 'dsto', 'DSTO', 'Danh sách tổ TK&VV', '004820_ddmmyyyy_DSTO'],
+  ['B', 'dsto', 'Danh sách tổ', 'Danh sách tổ TK&VV (hệ thống) — có Ngày báo cáo, tổ trưởng, CCCD, ngày cấp, TK 104, điểm GD · thay DSTO cũ và Thông tin tổ trưởng', 'baocao_yyyymmdd_hhmmss'],
   ['A', 'bx', 'BCDHTD 01.1', '01.1/BCTD — theo xã', '4820_BCDHTD_01.1_ddmmyyyy_…'],
   ['A', 'bc', 'BCDHTD 01.2', '01.2/BCTD — theo chương trình', '4820_BCDHTD_01.2_ddmmyyyy_…'],
   ['A', 'lx', 'LEN_31 XAPUONG', 'Tổng hợp số liệu tín dụng — theo xã', '4820_LEN_31_XAPUONG_…'],
@@ -4012,7 +4018,7 @@ var SL_FILE_XUAT = [
   ['D', 'nqh', 'Nợ quá hạn', 'sao kê theo PGD', ''],
   ['D', 'nk', 'Nợ khoanh', 'sao kê theo PGD (có ngày hết hạn khoanh)', ''],
   ['D', 'tdn', 'Tổng dư nợ theo CT', '', ''],
-  ['D', 'tt', 'Thông tin tổ trưởng', '12. Thông tin tổ trưởng', 'không cần xuất hằng tháng (DSTO thay) — giữ để tra soát tháng cũ'],
+  ['D', 'tt', 'Thông tin tổ trưởng', '12. Thông tin tổ trưởng', 'không cần xuất nữa (Danh sách tổ hệ thống thay) — giữ để tra soát tháng cũ'],
   ['K', 'k37', 'BC0437', 'Thông tin tổ TK&VV do HĐT quản lý', 'chỉ khi làm KTGS'],
   ['K', 'k38', 'BC0438', 'Thông tin ủy thác theo xã · hội', 'chỉ khi làm KTGS']];
 function slFileXuat(ky){
@@ -4022,7 +4028,7 @@ function slFileXuat(ky){
     var co = !!SLM.bang[slKhoa(r[1], ky)] || (slLoai(r[1]) && slLoai(r[1]).ngay && slCacNgay(r[1], ky).length);
     h += '<tr><td class="c">'+(co ? '<b class="xanh">✓</b>' : '<span class="sl-phu">—</span>')+'</td><td><b>'+coChuHTML(r[2])+'</b></td><td>'+coChuHTML(r[3])+'</td><td class="sl-phu">'+coChuHTML(r[4])+'</td></tr>';
   });
-  var du = SL_BAT_BUOC.filter(function(k){ return SLM.bang[slKhoa(k, ky)]; }).length;
+  var du = SL_BAT_BUOC.filter(function(k){ return slBBE(k, ky); }).length;
   moHop('<div class="hop-tit">📋 File cần xuất hằng tháng</div><div class="hop-phu">Xuất <b>ngày cuối tháng</b>. ✓ = tháng '+kyVN(ky)+' đã có · đủ <b>'+du+'/'+SL_BAT_BUOC.length+'</b> file Ⓑ + Ⓐ (đủ 9 file thì Kiểm tra kỳ báo Đạt). Không cần xuất nữa: B32 · Mẫu 10 · Mẫu 7 · Sao kê khách hàng · KHĐ mẫu 08/KTNB.</div>'+
     '<div class="bdc-cuon"><table class="sl-fx"><thead><tr><th></th><th>File</th><th>Chọn mẫu khi xuất</th><th>Ghi chú / tên file thường gặp</th></tr></thead><tbody>'+h+'</tbody></table></div>'+
     '<div class="hang-nut"><button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button></div>', true);
@@ -4059,7 +4065,7 @@ function slOBam(loai, ky){
 }
 function slNgan(L, t){ t = t||{}; if(L.k==='lt' || L.k==='tt' || L.k==='dsto') return (t.dong!==undefined ? t.dong : t.n||0)+' tổ'; if(t.dn!==undefined) return tdnTr(t.dn); if(t.qh!==undefined) return tdnTr(t.qh); if(t.kn!==undefined) return tdnTr(t.kn); return (t.n||0)+' dòng'; }
 function slTTHTML(ky){
-  var dem = function(nh){ var ds = SL_BAT_BUOC.filter(function(k){ return slLoai(k).nhom===nh; }); return {n:ds.length, thieu:ds.filter(function(k){ return !SLM.bang[slKhoa(k, ky)]; })}; };
+  var dem = function(nh){ var ds = SL_BAT_BUOC.filter(function(k){ return slLoai(k).nhom===nh; }); return {n:ds.length, thieu:ds.filter(function(k){ return !slBBE(k, ky); })}; };
   var A = dem('A'), Bb = dem('B'), kt = SLM.kt[ky], cu = kt && slKTCu(ky), coFile = Object.keys(SLM.bang).some(function(k){ return slThang(SLM.bang[k].ky)===ky; });
   var pill = function(lop, chu){ return '<span class="sl-pill '+lop+'">'+chu+'</span>'; };
   var thieu = Bb.thieu.concat(A.thieu);
@@ -4117,7 +4123,7 @@ function slKTHTML(ky){
 var SL_BC_CAN = [['Tổ TK&VV · Sao kê · Tra cứu KH', ['hstd','dnct','dsto']], ['Tổng hợp tổng quan (PGD · xã · Hội · CT)', ['hstd','bx','bc','lx','lh','lc','lt']], ['KTGS Hội', ['hstd','dsto','k37','k38']]];
 function slDanhGia(ky){
   var cuoi = tdnCuoiKy(ky), r = {thieu:[], ky:[], ct:[], luuY:[]}, ten = function(k){ return slLoai(k).ten.split(' · ')[0]; };
-  SL_BAT_BUOC.forEach(function(k){ var e = SLM.bang[slKhoa(k, ky)];
+  SL_BAT_BUOC.forEach(function(k){ var e = slBBE(k, ky);
     if(!e){ r.thieu.push(ten(k)); return; }
     if(e.ngay && e.ngay!==cuoi) r.ky.push(ten(k)+' (ngày số liệu '+ngayVNsl(e.ngay)+')');
     if(!e.soDong) r.ct.push(ten(k)+': 0 dòng dữ liệu');
@@ -4249,10 +4255,17 @@ function slKTDsTo(B, them){   /* 3.108 (anh chốt): nạp cả 2 danh sách t�
   var bo = function(x){ return slChuan(String(x||'').replace(/^(ông|bà|ong|ba)\.?\s+/i, '')); };
   var dk = function(L){ return L.length ? 'canh' : ''; };
   if(tt){ var a = []; Object.keys(mon).forEach(function(m){ if(!TT[m]) a.push([m, tenTo(m), D[m] ? String(D[m].tenDiem||'').trim() : '', mon[m]]); });
-    them(6, 'Tổ có món ('+hs+') có trong Thông tin tổ trưởng', !a.length, a.length ? a.length+' tổ thiếu — app lấy điểm GD theo Danh sách tổ (DSTO)' : 'đủ', a.length ? 'File hệ thống xuất thiếu; tổ vẫn lên đúng điểm GD theo DSTO.' : '', ['Mã tổ', 'Tổ trưởng', 'Điểm GD (DSTO)', 'Món còn dư nợ'], a, dk(a)); }
+    them(6, 'Tổ có món ('+hs+') có trong Thông tin tổ trưởng', !a.length, a.length ? a.length+' tổ thiếu — app lấy điểm GD theo Danh sách tổ' : 'đủ', a.length ? 'File hệ thống xuất thiếu; tổ vẫn lên đúng điểm GD theo Danh sách tổ.' : '', ['Mã tổ', 'Tổ trưởng', 'Điểm GD (Danh sách tổ)', 'Món còn dư nợ'], a, dk(a)); }
   var b = []; Object.keys(mon).forEach(function(m){ if(!D[m]) b.push([m, tenTo(m), TT[m] ? String(TT[m].tenDiem||'').trim() : '', mon[m]]); });
-  them(6, 'Tổ có món ('+hs+') có trong Danh sách tổ (DSTO)', !b.length, b.length ? b.length+' tổ thiếu' : 'đủ', '', ['Mã tổ', 'Tổ trưởng', 'Điểm GD (Thông tin tổ trưởng)', 'Món còn dư nợ'], b, dk(b));
-  var c = []; Object.keys(D).forEach(function(m){ if(!mon[m]) c.push([m, tenTo(m), 'DSTO']); }); Object.keys(TT).forEach(function(m){ if(!mon[m]) c.push([m, tenTo(m), 'Thông tin tổ trưởng']); });
+  if(ds.some(function(o){ return o.cccd!==undefined; })){   /* 3.202: Danh sách tổ hệ thống — nguồn thống nhất CCCD, TK 104 tổ trưởng → so với Mã CIF TT (Mẫu 31) */
+    var cif = {}; (co.hstd||[]).forEach(function(o){ if(o.to && o.ttKH && !cif[o.to]) cif[o.to] = o.ttKH; });
+    var l = [], f = []; Object.keys(mon).forEach(function(m){ var x = D[m]; if(!x) return;
+      if(cif[m] && x.ttKH && cif[m]!==x.ttKH) l.push([m, tenTo(m), x.ttKH, cif[m]]);
+      var k = [String(x.cccd||'').length<9 && 'CCCD', !x.ncap && 'ngày cấp', !/^\d{10}$/.test(x.tk104||'') && 'TK 104'].filter(Boolean); if(k.length) f.push([m, tenTo(m), x.ttKH||'', k.join(', ')]); });
+    them(6, 'Tổ trưởng trên Danh sách tổ khớp Mã CIF TT ('+hs+')', !l.length, l.length ? l.length+' tổ lệch' : 'khớp', l.length ? 'App lấy CCCD, TK 104 theo Mẫu 31 cho tổ lệch — kiểm lại tổ trưởng trên hệ thống.' : '', ['Mã tổ', 'Tổ trưởng', 'Mã KH (Danh sách tổ)', 'Mã CIF TT ('+hs+')'], l, dk(l));
+    them(6, 'Danh sách tổ đủ CCCD · ngày cấp · TK 104 tổ trưởng', !f.length, f.length ? f.length+' tổ chưa đủ' : 'đủ', '', ['Mã tổ', 'Tổ trưởng', 'Mã KH', 'Còn thiếu'], f, dk(f)); }
+  them(6, 'Tổ có món ('+hs+') có trong Danh sách tổ', !b.length, b.length ? b.length+' tổ thiếu' : 'đủ', '', ['Mã tổ', 'Tổ trưởng', 'Điểm GD (Thông tin tổ trưởng)', 'Món còn dư nợ'], b, dk(b));
+  var c = []; Object.keys(D).forEach(function(m){ if(!mon[m]) c.push([m, tenTo(m), 'Danh sách tổ']); }); Object.keys(TT).forEach(function(m){ if(!mon[m]) c.push([m, tenTo(m), 'Thông tin tổ trưởng']); });
   them(6, 'Tổ trong danh sách còn món dư nợ ('+hs+')', !c.length, c.length ? c.length+' tổ không còn món dư nợ' : 'khớp', c.length ? 'Thường là tổ đã giải thể / sáp nhập, hoặc tổ chỉ còn tiết kiệm.' : '', ['Mã tổ', 'Tổ trưởng', 'Có trong'], c, dk(c));
   if(tt){
     var d = [], e = [];
@@ -4260,13 +4273,13 @@ function slKTDsTo(B, them){   /* 3.108 (anh chốt): nạp cả 2 danh sách t�
       if(x.diem && y.diem && x.diem!==y.diem) d.push([m, tenTo(m), String(y.tenDiem||y.diem).trim(), String(x.tenDiem||x.diem).trim()]);
       var lt = bo(x.toTen)!==bo(y.toTen), ls = String(x.sdt||'').replace(/\D/g, '')!==String(y.sdt||'').replace(/\D/g, '') && x.sdt && y.sdt;
       if(lt || ls) e.push([m, tenHoaDau(y.toTen), tenHoaDau(x.toTen), y.sdt||'', x.sdt||'']); });
-    them(6, 'Điểm GD: Thông tin tổ trưởng = DSTO', !d.length, d.length ? d.length+' tổ lệch' : 'khớp', '', ['Mã tổ', 'Tổ trưởng', 'Thông tin tổ trưởng', 'DSTO'], d);
-    them(6, 'Tổ trưởng / SĐT: Thông tin tổ trưởng = DSTO', !e.length, e.length ? e.length+' tổ lệch' : 'khớp (so không phân biệt hoa thường, bỏ "Ông / Bà")', '', ['Mã tổ', 'Tên (TT tổ trưởng)', 'Tên (DSTO)', 'SĐT (TT)', 'SĐT (DSTO)'], e);
+    them(6, 'Điểm GD: Thông tin tổ trưởng = Danh sách tổ', !d.length, d.length ? d.length+' tổ lệch' : 'khớp', '', ['Mã tổ', 'Tổ trưởng', 'Thông tin tổ trưởng', 'Danh sách tổ'], d);
+    them(6, 'Tổ trưởng / SĐT: Thông tin tổ trưởng = Danh sách tổ', !e.length, e.length ? e.length+' tổ lệch' : 'khớp (so không phân biệt hoa thường, bỏ "Ông / Bà")', '', ['Mã tổ', 'Tên (TT tổ trưởng)', 'Tên (Danh sách tổ)', 'SĐT (TT)', 'SĐT (Danh sách tổ)'], e);
   }
   var f = [];
   Object.keys(D).forEach(function(m){ var h = dvMon[m]; if(!h) return; var a1 = toDvTuTen(D[m].dvTen), a2 = TT[m] ? String(TT[m].dv||'') : '';
     if((a1 && a1!==h) || (a2 && a2!==h)) f.push([m, tenTo(m), tdnHoi(h), a1 ? tdnHoi(a1) : '', a2 ? tdnHoi(a2) : '']); });
-  them(6, 'Hội của tổ: '+hs+' (ĐVUT món) = DSTO'+(tt ? ' = Thông tin tổ trưởng' : ''), !f.length, f.length ? f.length+' tổ lệch — app theo '+hs : 'khớp', '', ['Mã tổ', 'Tổ trưởng', hs, 'DSTO', 'Thông tin tổ trưởng'], f);
+  them(6, 'Hội của tổ: '+hs+' (ĐVUT món) = Danh sách tổ'+(tt ? ' = Thông tin tổ trưởng' : ''), !f.length, f.length ? f.length+' tổ lệch — app theo '+hs : 'khớp', '', ['Mã tổ', 'Tổ trưởng', hs, 'Danh sách tổ', 'Thông tin tổ trưởng'], f);
   var g = [];
   Object.keys(D).forEach(function(m){ var x = String(D[m].toTen||'').replace(/^(ông|bà|ong|ba)\.?\s+/i, ''); if(!x || /[^\x00-\x7f]/.test(x)) return;
     var k = D[m].ttKH && tenKH[D[m].ttKH] && slChuan(tenKH[D[m].ttKH])===slChuan(x);
@@ -4286,8 +4299,8 @@ function slKiemTra(ky, im){   /* im = tự kiểm ngầm (3.156): không khung c
   }).then(function(){
     var co = B.co, hs = B.hsTen;
     /* 1. đủ file */
-    var thieu = SL_BAT_BUOC.filter(function(k){ return !SLM.bang[slKhoa(k, ky)]; });
-    them(1, 'Đủ file bộ tháng ('+SL_BAT_BUOC.length+' loại: Mẫu 31, Dư nợ chi tiết, DSTO + BCDHTD 01.1, 01.2 + 4 LEN_31)', !thieu.length, thieu.length ? 'thiếu '+thieu.length+': '+thieu.map(function(k){ return slLoai(k).ten; }).join(', ') : 'đủ',
+    var thieu = SL_BAT_BUOC.filter(function(k){ return !slBBE(k, ky); });
+    them(1, 'Đủ file bộ tháng ('+SL_BAT_BUOC.length+' loại: Mẫu 31, Dư nợ chi tiết, Danh sách tổ + BCDHTD 01.1, 01.2 + 4 LEN_31)', !thieu.length, thieu.length ? 'thiếu '+thieu.length+': '+thieu.map(function(k){ return slLoai(k).ten; }).join(', ') : 'đủ',
       (thieu.indexOf('hstd')>=0 && co.hstd) ? 'Chưa có Mẫu 31 — các phép so dùng tạm '+hs+'.' : '');
     /* 2. toàn vẹn từng file */
     var vd = [];
@@ -4446,7 +4459,7 @@ function slXemTruoc(){
     var lap = kq.bo && kq.bo.trung ? '+ '+kq.bo.trung+' dòng lặp giữ riêng' : '';
     return '<tr class="sl-xt-'+tt.lop+'"><td><input type="checkbox" class="sl-tich" data-i="'+i+'"'+(tt.ghi?' checked':'')+(coDL && kq.ky ? '' : ' disabled')+'></td>'+
       '<td class="sl-xt-ten" title="'+coChuHTML(kq.ten)+'">'+coChuHTML(kq.ten)+'<small>'+(kq.kich ? kichCo(kq.kich) : '')+(kq.sheet ? ' · sheet '+coChuHTML(kq.sheet)+', cột ở dòng '+kq.hang : '')+'</small></td>'+
-      '<td><select onchange="slDoiLoai('+i+',this.value)"><option value="">— chọn —</option>'+SL_LOAI.filter(function(L){ return !L.bo; }).map(function(L){ return '<option value="'+L.k+'"'+(kq.loai===L.k?' selected':'')+'>'+coChuHTML(L.ten)+'</option>'; }).join('')+'</select></td>'+
+      '<td><select onchange="slDoiLoai('+i+',this.value)"><option value="">— chọn —</option>'+SL_LOAI.filter(function(L){ return !L.bo && !L.an; }).map(function(L){ return '<option value="'+L.k+'"'+(kq.loai===L.k?' selected':'')+'>'+coChuHTML(L.ten)+'</option>'; }).join('')+'</select></td>'+
       '<td><input type="'+(slChonNgay(kq.loai) ? 'date' : 'month')+'" value="'+((slTuy(kq.loai) ? kq.ngay : kq.ky)||'')+'" onchange="slDoiKy('+i+',this.value)"><small>'+(kq.nguonKy ? 'theo '+coChuHTML(kq.nguonKy==='anh chọn' && kq.canKhai ? 'anh khai' : kq.nguonKy) : '')+'</small>'+
         (kq.canKhai && !kq.ky && kq.goiYTen ? '<button class="sl-goi-y" onclick="slDoiKy('+i+',\''+slGoiYKy(kq)+'\')" title="Ngày trên tên file (thường là ngày xuất) — chỉ dùng khi anh chắc đúng là ngày số liệu">Tên file: '+ngayVNsl(kq.goiYTen)+' — dùng</button>' : '')+'</td>'+
       '<td>'+(coDL ? kq.rows.length+' dòng'+(bo ? '<small>bỏ '+bo+'</small>' : '')+(lap ? '<small>'+lap+'</small>' : '') : '')+'</td>'+
@@ -4489,7 +4502,7 @@ function slNapMot(loai, ky){
   kyMd = laNgay ? (slTuy(loai || SL_LOAI[0].k) && kyMd.length===7 ? tdnCuoiKy(kyMd) : slNgayMacDinh(kyMd)) : slThang(kyMd);   /* 3.90: file TW / Mẫu 31 mặc định ngày cuối tháng */
   moHop('<div class="hop-tit">📄 Nạp từng file</div>'+
     '<div class="hop-phu">Anh chọn loại và ngày số liệu (file TW / Mẫu 31: ngày cuối tháng = số chốt tháng; Mẫu 10: ngày nạp), rồi chọn file. App vẫn đọc nội dung để kiểm: sai loại thì chặn, ngày trong file khác thì báo.</div>'+
-    '<div class="o"><label>Loại file</label><select id="sl-m-loai" onchange="slNapMotLoai(this.value)">'+SL_LOAI.filter(function(L){ return !L.bo; }).map(function(L){ return '<option value="'+L.k+'"'+(L.k===loai?' selected':'')+'>'+coChuHTML(L.ten)+'</option>'; }).join('')+'</select></div>'+
+    '<div class="o"><label>Loại file</label><select id="sl-m-loai" onchange="slNapMotLoai(this.value)">'+SL_LOAI.filter(function(L){ return !L.bo && !L.an; }).map(function(L){ return '<option value="'+L.k+'"'+(L.k===loai?' selected':'')+'>'+coChuHTML(L.ten)+'</option>'; }).join('')+'</select></div>'+
     '<div class="o"><label id="sl-m-ky-nhan">'+(laNgay ? 'Ngày số liệu' : 'Kỳ')+'</label><input id="sl-m-ky" type="'+(laNgay ? 'date' : 'month')+'" value="'+kyMd+'"></div>'+
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="slNapMotChon()">Chọn file…</button></div>');
 }
@@ -5018,7 +5031,7 @@ function toGanTrucTiep(K, Bm){
 }
 function toVeCay(){ pvVeCay('to'); }
 function toChonTo(ma){
-  var t = TO_K && TO_K.to[ma]; if(!t){ var an = TO_K && TO_K.toAn && TO_K.toAn[ma]; if(an) bao('Tổ '+(an.ten||ma)+' (mã '+ma+'): dư nợ 0 và không còn trên DSTO / LEN_31 TO_TRUONG kỳ này — đã ẩn khỏi cây tổ.', 6); return; }
+  var t = TO_K && TO_K.to[ma]; if(!t){ var an = TO_K && TO_K.toAn && TO_K.toAn[ma]; if(an) bao('Tổ '+(an.ten||ma)+' (mã '+ma+'): dư nợ 0 và không còn trên Danh sách tổ / LEN_31 TO_TRUONG kỳ này — đã ẩn khỏi cây tổ.', 6); return; }
   var C = toCH(); C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); C.to = ma;
   TO_Q = ''; var i = document.getElementById('to-tim'); if(i) i.value = '';
   var g = document.getElementById('to-gy'); if(g) g.innerHTML = '';
@@ -5534,7 +5547,7 @@ function toPVHTML(C){
 }
 function toDong0HTML(ds){   /* 3.145: chip "cần đóng tổ" — bấm mở danh sách, bấm tên mở tổ */
   var d = ds.filter(function(t){ return t.canDong; }); if(!d.length) return '';
-  return ' <details class="to-dong0-ds"><summary class="to-dong0">⚠ '+d.length+' tổ dư nợ 0 — cần đóng tổ</summary>'+d.map(function(t){ return '<a href="#" onclick="toChonTo(\''+t.ma+'\');return false">'+coChuHTML((t.ten||'Tổ '+t.ma)+(t.tenThon ? ' · '+t.tenThon : ''))+'</a> <small>('+(t.ds && t.len ? 'DSTO + LEN_31' : t.ds ? 'DSTO' : 'LEN_31')+')</small>'; }).join(' · ')+'</details>';
+  return ' <details class="to-dong0-ds"><summary class="to-dong0">⚠ '+d.length+' tổ dư nợ 0 — cần đóng tổ</summary>'+d.map(function(t){ return '<a href="#" onclick="toChonTo(\''+t.ma+'\');return false">'+coChuHTML((t.ten||'Tổ '+t.ma)+(t.tenThon ? ' · '+t.tenThon : ''))+'</a> <small>('+(t.ds && t.len ? 'Danh sách tổ + LEN_31' : t.ds ? 'Danh sách tổ' : 'LEN_31')+')</small>'; }).join(' · ')+'</details>';
 }
 var TO_PV_MAX = 800;   /* màn hình hiện tối đa ngần này dòng; In / Excel đủ */
 function toDsPVHTML(C, X){
@@ -5635,7 +5648,7 @@ function toChiTieu(t){
 
 /* ---------- báo cáo: mỗi báo cáo trả {ten, tieuDe, html (phần thân), aoa (Excel)} ---------- */
 /* 3.136 (anh chốt): kỳ NGÀY — mỗi loại file lấy theo ngày nào (đúng ngày / mượn bảng liền trước) → dòng ghi chú; KTGS chỉ cảnh báo trên màn hình */
-var SL_NGUON_TEN = [['hstd','Mẫu 31'],['dnct','Dư nợ chi tiết'],['khd','KHĐ'],['nqh','Quá hạn'],['nk','Khoanh'],['tt','Tổ trưởng'],['dsto','DSTO']];
+var SL_NGUON_TEN = [['hstd','Mẫu 31'],['dnct','Dư nợ chi tiết'],['khd','KHĐ'],['nqh','Quá hạn'],['nk','Khoanh'],['tt','Tổ trưởng'],['dsto','Danh sách tổ']];
 function slNguonKy(n){ return n.length>7 ? ngayVNsl(n).slice(0, 5) : 'cuối T'+(+n.slice(5, 7))+(n.slice(0, 4)!==String(nay().getFullYear()) ? '/'+n.slice(0, 4) : ''); }
 function slNguonDs(B){ return SL_NGUON_TEN.map(function(x){ var n = B.nguon && B.nguon[x[0]]; return {k:x[0], ten:x[1], ky:n || '', dung:n===B.ky}; }); }
 function slNguonChu(B){   /* dạng chữ (bản in / Excel): chỉ nêu loại mượn bảng khác ngày */
@@ -6994,7 +7007,7 @@ function slTimRac(){
   var ra = [], dung = {};
   Object.keys(SLM.bang).forEach(function(k){ var e = SLM.bang[k], L = slLoai(e.loai);
     [e.goc, e.dl].forEach(function(id){ if(id) dung[id] = 1; });
-    if(!L || L.bo) ra.push({loai:'o', khoa:k, ten:(L ? L.ten : e.loai)+' · '+slKyChu(e.ky), noi:'Ô dữ liệu của loại đã bỏ (trong máy + Drive)', kich:e.kich||0}); });
+    if(!L || L.bo || L.an) ra.push({loai:'o', khoa:k, ten:(L ? L.ten : e.loai)+' · '+slKyChu(e.ky), noi:'Ô dữ liệu của loại đã bỏ (trong máy + Drive)', kich:e.kich||0}); });
   slKhoaIDB().then(function(ks){
     return ks.filter(function(id){ return /^sl_[bg]_/.test(id); }).reduce(function(p, id){ return p.then(function(){
       var m = id.match(/^sl[_]([bg])[_]([a-z0-9]+)[_](.+)$/); if(!m) return;

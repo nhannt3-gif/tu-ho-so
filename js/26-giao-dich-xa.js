@@ -650,8 +650,10 @@ function gdxTom(){
     if(!g.ten) cb('do', 'Chưa chọn người lĩnh — tìm tên hoặc chọn tổ ở khối LỌC ĐỊA BÀN.', 'glphieu');
     if(g.ncap && gdxNoiCapCu(g.ncap) && !(GDX.glSua && GDX.glSua.noiCap!==undefined)) cb('vang', 'Ngày cấp trước 10/10/2018 (thẻ đợt đầu) — nơi cấp ghi chung "Cục Cảnh sát", kiểm lại trên thẻ (bấm chữ Nơi cấp để sửa).', 'glphieu');
     if(g.ten && !g.tk) cb('vang', 'Chưa có số tài khoản'+(C.glLoai==='104' ? ' 104 ('+(g.tkLy || 'chưa xác định được tổ trưởng')+')' : ' 105'+(g.tkLy ? ' ('+g.tkLy+')' : ''))+' — để chấm.', 'glphieu');
-    if(C.glLoai==='104' && g.ten && !g.cccd && g.ccLy) cb('vang', 'Chưa có CCCD tổ trưởng — '+g.ccLy+' — gõ tay.', 'glphieu');
-    if(g.ten && !g.cccd) cb('vang', 'Chưa có số CCCD — để chấm.', 'glphieu');
+    if(g.ten && !g.cccd && !g.ccLy) cb('vang', 'Chưa có số CCCD — để chấm.', 'glphieu');
+    if(g.ten && !g.cccd && g.ccLy) cb('vang', 'Chưa có CCCD '+(C.glLoai==='104' ? 'tổ trưởng' : 'khách')+' — '+g.ccLy+'.', 'glphieu');
+    if(g.han && (g.han.kq==='het' || g.han.kq==='sap') && !(GDX.glSua && GDX.glSua.cccd!==undefined)) cb(g.han.kq==='het' ? 'do' : 'vang', 'CCCD '+g.han.chu+' — kiểm lại thẻ trước khi chi.', 'glphieu');   /* 3.202 (QT-13): CCCD hết / sắp hết hạn */
+    if(g.tkTrung) cb('vang', (C.glLoai==='104' ? 'Tổ trưởng' : 'Khách')+' có '+g.tkDs.length+' TK '+(C.glLoai==='104' ? '104' : '105')+' — chọn TK đang dùng (ô TK ở form), báo đóng TK thừa.', 'glphieu');
     if(g.tien && g.du!=null && +g.tien > g.du) cb('do', 'Số tiền rút '+gdxTien(g.tien)+' lớn hơn số dư 105 ('+gdxTien(g.du)+' — số liệu '+(TO_K ? slKyChu(TO_K.ky) : '')+').', 'glphieu');
   }
   return ra;
@@ -716,24 +718,26 @@ function gdxGLNgay(){
 function gdxGLDuLieu(){
   var C = gdxC(), t = gdxGLTo(), r = {ten:'', kh:'', diaChi:'', cccd:'', ncap:'', noiCap:'', tk:'', tkTu:'', du:null, tien:'', ngay:gdxGLNgay(), to:t ? t.ma : ''};
   if(t){
-    if(C.glLoai==='104'){
-      var x4 = tkTT(t);   /* 3.201: Mã CIF TT (Mẫu 31 / 18) → Sao kê TK 104 mới nhất */
-      r.ten = t.ten || ''; r.kh = x4.kh; r.tk = x4.tk; r.tkTu = x4.tu; r.tkLy = x4.ly; if(x4.du!==undefined) r.du = x4.du;
+    if(C.glLoai==='104'){   /* 3.202: đọc BẢNG TỔ DỰNG SẴN (tổ trưởng = Mã CIF TT, TK 104 Sao kê, CCCD đủ nguồn) */
+      var b4 = (tkBangTo()||{})[t.ma] || {};
+      r.ten = t.ten || ''; r.kh = b4.kh || ''; r.tk = b4.tk || ''; r.tkTu = b4.tkTu || ''; r.tkLy = b4.tkLy || ''; r.tkDs = b4.tkDs || []; r.tkTrung = !!b4.tkTrung && !b4.tkDaChon;
+      r.cccd = b4.cccd || ''; r.ncap = b4.ncap || ''; r.ccTu = b4.ccTu || ''; r.ccLy = b4.ccLy || ''; r.han = b4.han || null;
     } else {
       var x = gdxGLDsKhach(t).find(function(o){ return o.kh===GDX.glKH; }) || null;
-      if(x){ r.ten = x.ten; r.kh = x.kh; r.tk = (x.stk||[])[0] || ''; r.tkTu = r.tk ? 'Mẫu 31' : ''; r.du = x.t105 || 0; r.coTK = !!x.coTK; }
+      if(x){ r.ten = x.ten; r.kh = x.kh; r.du = x.t105 || 0; r.coTK = !!x.coTK;
+        var x5 = tkCua('tk105', x.kh);   /* 3.202 (anh chốt): TK 105 10 số theo Sao kê (bản gần nhất) — tra khi chọn khách */
+        if(x5){ r.tk = x5.ds[0].stk; r.tkTu = 'Sao kê TK 105 '+slKyChu(x5.ky)+(x5.trung ? ' · '+x5.ds.length+' TK'+(x5.daChon ? ', anh đã chọn' : ', TK mở gần nhất') : ''); r.tkDs = x5.ds.map(function(y){ return y.stk; }); r.tkTrung = x5.trung && !x5.daChon; r.duSK = x5.ds[0].t105; }
+        else if((x.stk||[]).length){ r.tk = x.stk[0]; r.tkTu = 'Mẫu 31 / Mẫu 18'; }
+        var c5 = cccdCua(x.kh, t, false); r.cccd = c5.cccd; r.ncap = c5.ncap; r.ccTu = c5.tu; r.ccLy = c5.ly; r.han = c5.han; }
     }
     var row = r.kh ? (TO_K.kh[t.ma]||[]).find(function(o){ return o.kh===r.kh && o.tenThon; }) : null;
     if(r.ten || r.kh) r.diaChi = ktDiaBan({tenThon:(row && row.tenThon) || t.tenThon, tenXa:(row && row.tenXa) || t.tenXa});
-    if(r.kh && typeof hsoKhach==='function'){ var k = hsoKhach(r.kh, t); r.cccd = k.cccd || ''; r.ncap = k.ncap || ''; r.noiCap = k.noiCap || ''; if(!r.ten) r.ten = k.ten || ''; }
-    if(!r.cccd && (C.glLoai==='104' || r.kh)){ var nt = gdxTTNhanThan(C.glLoai==='104' ? t : {}, r.kh); if(nt.cccd){ r.cccd = nt.cccd; r.ncap = r.ncap || nt.ncap; r.ccTu = nt.tu; } else r.ccLy = r.kh ? 'không thấy CCCD ở Mẫu 31 / Mẫu 18 / Mẫu 01/TV'+(C.glLoai==='104' ? ' / DSTO / Thông tin tổ trưởng' : '') : 'chưa xác định được mã KH tổ trưởng (Mã CIF TT)'; }
-    if(r.kh && !r.ncap){ var nh = ccNho(r.kh); if(nh && nh.ncap && (!nh.cccd || nh.cccd===String(r.cccd||'').replace(/\D/g, ''))) r.ncap = nh.ncap; }   /* 3.201: Mẫu 01/TV không có ngày cấp → lấy ngày anh đã gõ lần trước */
-    if(C.glLoai!=='104' && r.kh && !r.tk){ var x5 = tkCua('tk105', r.kh); if(x5){ r.tk = x5.ds[0].stk; r.tkTu = 'Sao kê TK 105 '+slKyChu(x5.ky); if(!r.du) r.du = x5.ds.reduce(function(a, o){ return a+(o.t105||0); }, 0); } }   /* 3.201: Mẫu 18 không ghi số sổ (khách đã tất nợ) → Sao kê TK 105 */
-    if(C.glLoai!=='104' && r.kh && !r.tk){   /* 3.185 (anh chốt): chưa có số sổ 105 → tra danh bạ các kỳ theo SỐ CCCD (không theo tên); không có thì ghi lý do */
+    if(r.kh && typeof hsoKhach==='function'){ var k = hsoKhach(r.kh, t); r.noiCap = k.noiCap || ''; if(!r.ten) r.ten = k.ten || ''; }
+    if(C.glLoai!=='104' && r.kh && !r.tk){   /* 3.185 (anh chốt): chưa có số TK 105 → tra danh bạ các kỳ theo SỐ CCCD (không theo tên); không có thì ghi lý do */
       var cc = String(r.cccd||'').replace(/\D/g, ''), db = typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh;
       var m2 = cc.length>=9 && db ? Object.keys(db).find(function(k){ var c = db[k]; return String(c.cccd||'').replace(/\D/g, '')===cc && slStk(c.stk).length; }) : '';
       if(m2){ r.tk = slStk(db[m2].stk)[0]; r.tkTu = 'theo CCCD'+(m2!==r.kh ? ' — mã KH '+m2 : '')+(db[m2].stkKy ? ', kỳ '+db[m2].stkKy : ''); }
-      else r.tkLy = r.coTK ? 'Mẫu 31 chỉ báo đã mở TK, chưa có số sổ 10 chữ số — nạp Dư nợ chi tiết kỳ này hoặc gõ tay' : (r.du ? 'chưa có số sổ — nạp Dư nợ chi tiết kỳ này hoặc gõ tay' : 'khách chưa có TK 105 (Mẫu 31) — gõ tay nếu có'); }
+      else { var b5 = tkBang('tk105'); r.tkLy = b5 ? 'không có trong Sao kê TK 105 '+slKyChu(b5.ky)+' (TK mới mở sau ngày Sao kê?) — gõ tay' : 'chưa nạp Sao kê TK 105 (📥 Nạp & KT) — gõ tay'; } }
   }
   r.tien = GDX.glHet && r.du ? String(Math.round(r.du)) : String(GDX.glTien||'').replace(/\D/g, '');
   var sua = GDX.glSua || {};   /* 3.175: form gõ tay — sửa / bổ sung cho lần in này (không ghi đè số liệu) */
@@ -772,11 +776,11 @@ function gdxGLPhieuHTML(kb){
     '<label><input type="radio" name="gdx-r-glloai"'+(C.glLoai!=='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;GDX.glSua={};gdxDat(\'glLoai\', \'105\', 1)"> TK 105 khách</label></span>'+
     (TO_K ? '<div class="gdx-tim"><input id="gdx-gl-q" class="gdx-i" autocomplete="off" placeholder="🔎 Gõ tên '+(C.glLoai==='104' ? 'tổ trưởng' : 'tổ trưởng / khách')+' (không dấu) · ↑↓ Enter" value="'+gdxE(GDX.glQ||'')+'" oninput="GDX.glQ=this.value;gdxGLTim()" onkeydown="gdxGLPhim(event)"><div id="gdx-gl-gy" class="gdx-gy"></div></div>'
       : '<small class="gdx-ghi">Chưa có Mẫu 31 — gõ tay vào các ô dưới.</small>')+'</div>';
-  if(t && C.glLoai==='104') h += '<div class="gl-k2">Tổ '+gdxE(t.ten || t.ma)+(t.tenThon ? ' · '+gdxE(pvApNgan(t.tenThon)) : '')+' · TK 104: '+(g.tk ? '<b>'+gdxE(g.tk)+'</b> <small>('+g.tkTu+')</small>' : '<span class="gdx-vang">chưa có — '+gdxE(g.tkLy || '')+'</span>')+'</div>';
+  if(t && C.glLoai==='104') h += '<div class="gl-k2">Tổ '+gdxE(t.ten || t.ma)+(t.tenThon ? ' · '+gdxE(pvApNgan(t.tenThon)) : '')+' · TK 104: '+(g.tk ? '<b>'+gdxE(g.tk)+'</b> <small>('+g.tkTu+')</small>' : '<span class="gdx-vang">chưa có — '+gdxE(g.tkLy || '')+'</span>')+gdxGLChonTK('tk104', g)+'</div>';
   else if(t){ var ds = gdxGLDsKhach(t), tt = (typeof hsoTTKH==='function' ? hsoTTKH(t).kh : '') || '';
     h += '<div class="gl-k2"><select class="gdx-i" onchange="if(this.value)gdxGLChonKH(this.value)"><option value="">— Khách tổ '+gdxE(t.ten || t.ma)+' ('+ds.length+') —</option>'+
       ds.map(function(x){ return '<option value="'+gdxE(x.kh)+'"'+(x.kh===GDX.glKH ? ' selected' : '')+'>'+gdxE(x.ten+(x.kh===tt ? ' (TT)' : '')+' · 105: '+gdxTien(Math.round(x.t105||0)))+'</option>'; }).join('')+'</select></div>'+
-      (GDX.glKH ? '<div class="gl-k2">TK 105: '+(g.tk ? '<b>'+gdxE(g.tk)+'</b> <small>('+gdxE(g.tkTu||'')+')</small>' : '<span class="gdx-vang">chưa có — '+gdxE(g.tkLy||'gõ tay')+'</span>')+'</div>' : ''); }
+      (GDX.glKH ? '<div class="gl-k2">TK 105: '+(g.tk ? '<b>'+gdxE(g.tk)+'</b> <small>('+gdxE(g.tkTu||'')+')</small>' : '<span class="gdx-vang">chưa có — '+gdxE(g.tkLy||'gõ tay')+'</span>')+gdxGLChonTK('tk105', g)+'</div>' : ''); }
   else if(TO_K) h += '<div class="gl-k2"><small class="gdx-ghi">hoặc chọn Tổ ở khối LỌC ĐỊA BÀN · hoặc gõ thẳng vào các ô dưới</small></div>';
   h += '<div class="gl-form-luoi">'+GL_O.map(function(o){ var v = g[o[0]] || '', ph = o[0]==='ncap' ? 'gõ liền 230421' : 'trống = chấm';
       if(o[0]==='ncap' && /^\d{4}-\d{2}-\d{2}/.test(v)) v = gdxDMY(String(v).slice(0, 10));
@@ -791,6 +795,10 @@ function gdxGLPhieuHTML(kb){
     '<div class="gdx-chu-tien" id="gdx-gl-chu">'+gdxE(g.tien ? gdxDocTien(g.tien) : '—')+'</div>';
   if(GDX.glSua && Object.keys(GDX.glSua).length && (GDX.glKH || t)) h += '<div class="gl-k3"><button class="nho" onclick="GDX.glSua={};gdxVe()">↺ Theo số liệu</button></div>';   /* 3.182: ✕ Làm trống lên đầu khung, kế 👁 Xem */
   return h+'</div>';
+}
+function gdxGLChonTK(loai, g){   /* 3.202: khách / tổ trưởng có ≥ 2 TK → chọn TK đang dùng (nhớ theo mã KH), báo đóng TK thừa */
+  if(!g.kh || !g.tkDs || g.tkDs.length<2) return '';
+  return ' <select class="gdx-i gdx-tk-chon" title="Có '+g.tkDs.length+' TK — chọn TK đang dùng" onchange="tkChonDat(\''+loai+'\', \''+g.kh+'\', this.value)">'+g.tkDs.map(function(x){ return '<option value="'+gdxE(x)+'"'+(x===g.tk ? ' selected' : '')+'>'+gdxE(x)+'</option>'; }).join('')+'</select>';
 }
 function gdxGLBuoc(b){ var g = gdxGLDuLieu(), v = +String(g.tien||'').replace(/\D/g, '') || 0, bb = Math.abs(b);
   v = v % bb ? (b > 0 ? Math.ceil(v/bb)*bb : Math.floor(v/bb)*bb) : v + b; v = Math.max(0, v);

@@ -4,6 +4,34 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.203 — 14/10/2026 — 💾 Gom lưu (kế hoạch B1)
+- **Theo `docs/KE_HOACH_B_C.md` mục 1 (bản B1 — gom lưu, rủi ro thấp, không đổi nơi lưu); anh nhắn "làm tiếp" (14/10).**
+- `luu()` **giữ tên** (≈ 295 chỗ gọi không sửa) — chỉ **hẹn ghi sau 300 ms**; nhiều lần gọi sát nhau → **ghi 1 lần**. `luuNgay()` ghi ngay; `luuHuy()` hủy hẹn.
+- **Ghi ngay khi** rời trang (`pagehide`, `beforeunload`) và khi ẩn app (`visibilitychange` → hidden) — đóng tab / tải lại ngay sau thao tác không mất.
+- `chTheoDoi()` (so cài đặt đồng bộ Drive) và hẹn đẩy chỉ mục Drive chạy **1 lần mỗi lần ghi gom** (trước: mỗi lần gọi `luu()` stringify lại).
+- **Xóa sạch máy:** hủy hẹn + chặn ghi lại sau khi xóa (`LUU_KHOA_XOA`).
+- Bộ nhớ đầy → vẫn báo "bộ nhớ trình duyệt đã đầy" như cũ.
+- **Phép thử:** `t169` 8/8 (10 lần gọi → 1 lần ghi, ghi ngay, ẩn app, chTheoDoi 1 lần, bộ nhớ đầy, tải lại không mất, xóa sạch không ghi lại); `hoiquy.js` đọc bộ nhớ sau `luuNgay()`.
+
+## 3.202 — 14/10/2026 — 📒 Bảng tổ dựng sẵn (TK 104 · CCCD), TK 105 tra khi cần, TK trùng
+- **Anh (14/10):** "tạo 1 data sẵn khi khởi tạo đảm bảo 369 tổ đủ số liệu" · "TK 105 rất nhiều, ít dùng, không cần chạy sẵn; mặc định 104" · "TK trùng thì cảnh báo để xác định TK đang dùng, đóng TK thừa" · "nguồn = Mẫu 31 + 2 Sao kê; chưa có mới thì dùng bản gần nhất" · "Mẫu 18 giữ làm đối chiếu của Mẫu 31" · thuật toán CCCD anh giao, "tránh trường hợp không load ra CCCD".
+- **Bảng tổ dựng sẵn** (`toBangDung`, `js/28`): dựng 1 lần cho kỳ đang dùng (dựng lại khi nạp file / anh bổ sung) — mỗi tổ: mã KH tổ trưởng (**Mã CIF TT**), CCCD, ngày cấp, hạn CCCD, **TK 104 theo Sao kê**, điểm GD + **nguồn từng ô**, **thiếu gì + lý do**. Tổ không còn thành viên (mọi món tất nợ, không có trong 01/TV) → bỏ qua, không tính thiếu. ⚙ Khai báo chung / 📥 Nạp & KT: dòng **"Bảng tổ: N tổ · đủ X · thiếu Y"** + hộp **📒 Tổ chưa đủ dữ liệu · bổ sung** (gõ CCCD / ngày cấp / TK 104 1 lần — nhớ theo mã KH tổ trưởng, nạp file mới không đè). Giấy lĩnh TK 104 + mini app **đọc từ bảng**.
+- **CCCD 1 hàm chung** (`cccdCua`, QT-13): Mẫu 31 mọi dòng / các kỳ → Mẫu 01/TV → Thông tin tổ trưởng / DSTO (bù ngày cấp nếu cùng số) → số anh gõ. Không có mã KH tổ trưởng vẫn tra file về tổ. **CCCD hết / sắp hết hạn → cảnh báo** ở Tóm tắt Giấy lĩnh.
+- **TK 104 / 105 theo Sao kê bản gần nhất** (`tkChonBan`: ngày ≤ ngày kỳ, không có thì bản sớm nhất sau đó) — thay "file mới nhất" của 3.201. **TK 105 tra khi chọn khách** (không dựng sẵn); Mẫu 31 / Mẫu 18 chỉ dự phòng; không có → lý do (TK mới mở sau ngày Sao kê?) + gõ tay.
+- **TK trùng:** ≥ 2 TK → lấy TK mở gần nhất + cảnh báo + ô chọn TK đang dùng (`D.cauHinh.tkChon`, nhớ theo mã KH); nút **⚠ TK trùng** (TK 104 tổ trưởng + TK 105 khách) xuất Excel.
+- **File thật (30/09 + Sao kê 13/10, chỉ thư mục nháp):** **369 tổ đang hoạt động** — TK 104 **369 / 369**, CCCD tổ trưởng **369 / 369** (329 Mẫu 31, 40 Mẫu 01/TV…), đủ hết **322**, **47 tổ chỉ thiếu ngày cấp** (CCCD lấy từ 01/TV — không có ngày cấp → anh gõ 1 lần); 8 tổ không còn thành viên (bỏ qua); 21 khách có ≥ 2 TK 105.
+- **Danh sách tổ hệ thống (anh chốt 14/10):** "thống nhất CCCD, TK 104 lấy từ file này [baocao_…] và đồng bộ qua Mẫu 31; TK 104 [Sao kê] chỉ dùng tham khảo, các tổ còn 104 chưa đóng" · "thống nhất ds tổ này thay cho các loại ds đã có, trong file có đủ số liệu ngày báo cáo, đưa vào ds nạp và kiểm tra".
+  - **Đọc riêng** (`dsHTDoc`, `js/28`): nhận theo cột MATO + MATT + CMT, vào ô **Danh sách tổ** (loại `dsto`, Ⓑ bắt buộc) — **kỳ theo cột NGAYBC**; lấy tổ trưởng (MATT), CCCD, ngày cấp, ngày sinh, TK 104, điểm GD (MADGD / TENDGD), Hội, tổ phó, số TV, dư nợ. **Thay DSTO cũ và Thông tin tổ trưởng** (file cũ vẫn đọc được để tra tháng cũ).
+  - **Kỳ nào cũng có Danh sách tổ** (`dsChonKy`: **bản của tháng** — mới nhất ≤ ngày kỳ; tháng không có → bản mới nhất; anh chốt: nạp theo tháng là chính, theo ngày khi thay đổi lớn); file bắt buộc của tháng tính bản gần nhất (`slBBE`), không báo "không phải cuối tháng".
+  - **Tổ trưởng: CCCD, ngày cấp, TK 104 theo Danh sách tổ trước** (ghép Mẫu 31 qua Mã CIF TT = MATT); Danh sách tổ ghi tổ trưởng khác Mã CIF TT → báo lệch (vào "chưa đủ"), không đoán. Sao kê TK 104 chỉ dùng khi chưa có Danh sách tổ.
+  - **TK 104 chưa đóng** (Sao kê, tham khảo): chủ TK không còn là tổ trưởng + tổ trưởng còn TK khác TK trên Danh sách tổ — hộp + Excel có cột **Lý do**.
+  - **Ma trận chỉ còn 1 dòng về tổ** (anh chốt 14/10): dòng Thông tin tổ trưởng ẩn (`an`) — file cũ vẫn đọc để tra tháng cũ, nạp nhầm thì báo "không cần nữa"; ô cũ dọn được ở 🧰 Dọn kho. DSTO kiểu cũ vẫn vào dòng Danh sách tổ, kèm lưu ý nên xuất bản hệ thống. **Số liệu tháng cũ không cần nạp lại Danh sách tổ** (dùng bản mới nhất).
+  - Tổ Danh sách tổ ghi 0 thành viên, 0 dư nợ và Mẫu 31 không còn thành viên → **tổ ngừng** (không tính thiếu).
+  - **② Kiểm tra số liệu** nhóm 6 thêm: "Tổ trưởng trên Danh sách tổ khớp Mã CIF TT" · "Danh sách tổ đủ CCCD · ngày cấp · TK 104 tổ trưởng"; chữ "DSTO" trên giao diện đổi thành "Danh sách tổ"; 📋 File cần xuất ghi file `baocao_yyyymmdd_hhmmss`.
+  - **File thật (Mẫu 31 30/09 + Danh sách tổ 13/10, chỉ thư mục nháp):** **369 / 369 tổ đủ** CCCD, ngày cấp, TK 104 (tất cả theo Danh sách tổ; TK 104 trùng khớp Sao kê 369 / 369; tổ trưởng lệch Mã CIF TT: 0); 1 tổ ngừng; **40 TK 104 chưa đóng** (không còn là tổ trưởng); CCCD: 362 còn hạn, **1 hết hạn**, 7 chưa xác định hạn.
+- **Sổ QT:** QT-11…14 chuẩn lại theo file thật ghi vào `docs/QUY_CHUAN_KIEN_TRUC.md` mục 4. Kế hoạch + ước số phiên: `docs/KE_HOACH_B_C.md`.
+- **Phép thử:** `t167` 82/82 (bảng tổ, hộp thiếu, TK 105 Sao kê 2 TK → chọn, TK trùng, Danh sách tổ hệ thống giả: đọc, kỳ gần nhất, CCCD / TK 104 theo Danh sách tổ, TK 104 chưa đóng, file bắt buộc) · `t168` 33/33.
+
 ## 3.201 — 14/10/2026 — Nguồn TƯ: Mẫu 01/TV, Sao kê TK 104 / 105, Mã CIF TT; bỏ danh mục tổ
 - **Anh (14/10):** đổi cơ bản cách lấy TK 104 / TK 105 ("nạp danh mục không khả thi"); số liệu chính là Mẫu 31 + Mẫu 18; nạp 2 file Sao kê TK 104 / 105 theo ngày; báo tổ trưởng đã nghỉ cần đóng 104, khách ra khỏi tổ cần đóng 105; rà thuật toán thành viên tổ, đối chiếu chéo Mẫu 01/TV (chính xác theo TƯ, chỉ có theo tháng); "Mẫu 01/TV lấy dư nợ = 0 nhưng không tính lãi tồn — các món đó coi như chưa tất nợ"; bỏ hẳn danh mục tổ; chữ "Rút tiền" chọn nghiêng / không (mặc định nghiêng); "làm và chạy 1 lần anh test".
 - **Rà thuật toán thành viên tổ (file thật 30/09, chỉ trong vùng nháp):** app (Mẫu 31) **18.648 / 18.648 cặp khách–tổ đều có trong 01/TV** (app không sai chỗ nào); TƯ còn 168 thành viên Mẫu 31 không thể hiện (không còn món vay, dư nợ 0, tiền gửi 0). Khế ước hủy: app đã loại trước khi xét (`slBo`) — không phải lỗi.
