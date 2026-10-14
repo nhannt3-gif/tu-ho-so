@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.212 — 15/10/2026 — sửa nhỏ sau hồi quy 3.211
+- Tab Hồ sơ vay mở mặc định vào **👪 Hộ vay** (máy đang lưu tab Bộ HS cũ → tự chuyển 1 lần); tránh hiện lại tab Bộ HS đã ẩn.
+- Hồi quy đầy đủ 3.211: t163 sửa đếm 9 tab; hoiquy 1 dòng chập chờn (chạy lại riêng 28/28 đạt); t100 / t116 trượt sẵn trên main.
+
 ## 3.211 — 15/10/2026 — 💼 Hồ sơ vay GQVL (01/GQVL · 07b/GQVL · 03/TD)
 - **Anh (14/10):** GQVL có mẫu riêng — dùng 01/GQVL (phương án), 03/TD, 07b/GQVL (hợp đồng tín dụng) theo VB 11055 + VB 4039 (thay mẫu từ 01/10/2026). Chốt: ô chấm theo mẫu, cố định được thì khai báo; lịch trả gốc app tự tính — **mặc định 24 tháng/lần, chia đều làm tròn xuống trăm nghìn, kỳ cuối nhiều nhất, không ân hạn** (≤ 12 tháng trả 1 lần); **lãi 7,9248 %, ưu tiên 6,24 %, quá hạn 130 %**; tạm 1 món 1 mẫu 03; chọn nhanh như tab Giao dịch xã. Kế hoạch `docs/KE_HOACH_3209.md`.
 - **Thẻ GQVL** (dạng riêng): lãi suất, lãi ưu tiên, % quá hạn, làm tròn, kỳ trả lãi, chip số tiền, mục đích, ĐTTH "Người lao động", 60 tháng, 24 tháng/lần — sửa ở ⚙ Khai báo chung › Chương trình vay. Thẻ GQVL tạm của 3.208 tự chuyển (giữ mục đích đã khai); bật lại ở Bộ HS.
