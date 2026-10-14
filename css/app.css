@@ -3448,3 +3448,7 @@ button.pv-dan-o.pv-ve{cursor:pointer;font:inherit;font-size:calc(12px*var(--co))
 .gl-nhan2{display:flex;justify-content:space-between;gap:8px;min-width:0}.gl-nhan2>span{flex:none;font-size:calc(11.5px*var(--co));color:var(--chu-phu)}
 .gl-noicap{font-style:normal;font-size:calc(11px*var(--co));color:var(--chu-phu);opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;min-width:0}.gl-noicap:hover{opacity:1;text-decoration:underline}
 .gdx-seg{display:inline-flex;gap:3px;flex:none}
+
+/* 3.206: Hồ sơ Tổ / Hồ sơ vay — thanh tab mẫu như Giao dịch xã */
+.hso-dau{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 6px}.hso-dau .gdx2-mau{flex:1 1 auto;min-width:0}.hso-ky{font-size:calc(12.5px*var(--co));color:var(--chu-phu);white-space:nowrap}
+.hso-dau .gdx-c{font-size:calc(13px*var(--co));padding:3px 12px}

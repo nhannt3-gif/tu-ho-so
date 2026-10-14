@@ -920,16 +920,20 @@ function veHoSo(){
 function hsoKhung(K, giu){
   var e = document.getElementById('tr7'), p = hsoTab(); if(!e) return;
   var dau = giu ? e.innerHTML : slTabConHTML()+(K ? kyGhiHTML(K) : '');
-  e.innerHTML = dau+(K ? '<div id="'+p+'-cay" class="to-cay pv-cay"></div>' : '<div class="sl-bao vang">Chưa có số liệu món vay (Mẫu 31) — mẫu in ra để trống, ghi tay. Nạp ở <b>📥 Nạp &amp; KT</b> để app điền sẵn.</div>')+
+  e.innerHTML = dau+'<div id="hso-tabm"></div>'+(K ? '<div id="'+p+'-cay" class="to-cay pv-cay"></div>' : '<div class="sl-bao vang">Chưa có số liệu món vay (Mẫu 31) — mẫu in ra để trống, ghi tay. Nạp ở <b>📥 Nạp &amp; KT</b> để app điền sẵn.</div>')+
     '<div class="th-bo th-bo2 hso-bo"><div class="th-cot hso-trai"><div class="to-bc th-bc-gon" id="hso-ds"></div><div id="hso-tuy" class="hso-tuy"></div></div>'+
     '<div class="th-cot th-xem"><div id="hso-xem-nut"></div><iframe id="hso-xem-khung" class="to-khung th-khung" title="Xem trước"></iframe></div></div>';
   if(K) pvVeCay(p); else hsoVe();
 }
-function hsoDsHTML(){
+function hsoDsHTML(){   /* 3.206 (anh chốt): mẫu chọn ở thanh tab con (hsoTabMauHTML) — cột trái chỉ còn tên mẫu đang làm + chú thích màu */
   var p = hsoTab(), M = hsoMau(p);
-  return '<div class="th-nhom-ten hso-dau-ds">'+(p==='hst' ? '📝 Hồ sơ Tổ TK&amp;VV' : '📄 Hồ sơ vay')+'<button class="nho" onclick="hsoKBHop()" title="PGD, trưởng ấp, tổ phó thực tế, mục đích vay — khai 1 lần">⚙ Khai báo 1 lần</button></div>'+
-    HSO_MAU[p].map(function(m){ return '<label class="to-bc-dong'+(m.k===M.k ? ' bat' : '')+'"'+(m.ghi ? ' title="'+coChuHTML(m.ghi)+'"' : '')+'><input type="radio" name="hso-mau"'+(m.k===M.k ? ' checked' : '')+' onchange="hsoChonMau(\''+m.k+'\')"> <b>'+m.ma+'</b> '+coChuHTML(m.ten)+(m.ngang ? ' <span class="th-cap">[A4 ngang]</span>' : '')+'</label>'; }).join('')+
+  return '<div class="th-nhom-ten hso-dau-ds"><span><b>'+M.ma+'</b> '+coChuHTML(M.ten)+(M.ngang ? ' <span class="th-cap">[A4 ngang]</span>' : '')+'</span></div>'+(M.ghi ? '<div class="sl-phu">'+coChuHTML(M.ghi)+'</div>' : '')+
     '<div class="hso-chu"><span class="hso-chu-sl">số liệu</span><span class="hso-chu-kb">khai báo 1 lần</span><span class="hso-chu-tay">…… ghi tay</span></div>';
+}
+function hsoTabMauHTML(){   /* 3.206 (anh chốt 14/10): mỗi biểu mẫu = 1 tab con, bố trí như tab Giao dịch xã · số liệu theo kỳ / ngày đã chọn */
+  var p = hsoTab(), M = hsoMau(p);
+  return '<div class="gdx2-dau hso-dau"><div class="gdx2-mau">'+HSO_MAU[p].map(function(m){ return gdxChip('<b>'+m.ma+'</b>', m.k===M.k, 'hsoChonMau(\''+m.k+'\')', 'hso-tm', m.ten+(m.ngang ? ' [A4 ngang]' : '')+(m.ghi ? ' — '+m.ghi : '')); }).join('')+'</div>'+
+    '<div class="gdx2-nut"><span class="hso-ky" title="Số liệu lấy theo kỳ / ngày đang chọn ở dải lịch">📅 Số liệu: <b>'+(TO_K ? slKyChu(TO_K.ky) : 'chưa có')+'</b></span><button class="nho" onclick="hsoKBHop()" title="PGD, trưởng ấp, tổ phó thực tế, mục đích vay — khai 1 lần">⚙ Khai báo 1 lần</button></div></div>';
 }
 function hsoChonMau(k){ hsoCH()[hsoTab()] = k; luu(); hsoVe(); }
 function hsoKhoa(){ var S = hsoCH(); return [hsoTab(), hsoMau().k, S.to||'', TO_K ? TO_K.ky : ''].join('|'); }
@@ -945,6 +949,7 @@ function hsoVe(){
   }
   if(t && (M.k==='10c' || M.k==='10b') && !(TO_BD && TO_BD.to===t.ma && TO_BD.ky===TO_K.ky)){ TO_BD = null; toBDNap(t).then(function(){ HSO.khoa = ''; if(document.getElementById('hso-ds')) hsoVe(); }); }
   ds.innerHTML = hsoDsHTML();
+  var tm = document.getElementById('hso-tabm'); if(tm) tm.innerHTML = hsoTabMauHTML();
   var tu = document.getElementById('hso-tuy'); if(tu) tu.innerHTML = hsoTuyHTML(M, t);
   hsoXem();
 }

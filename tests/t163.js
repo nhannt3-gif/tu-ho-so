@@ -18,7 +18,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    const nut = [].map.call(document.querySelectorAll('#tr7 .sl-con button'), x=>x.textContent);
    ok('thanh tab con Số liệu có 📝 Hồ sơ Tổ và 📄 Hồ sơ vay', nut.some(x=>/Hồ sơ Tổ/.test(x)) && nut.some(x=>/Hồ sơ vay/.test(x)), nut.join(' | '));
    ok('thanh bên: nhóm Hồ sơ có 2 mục mới', DH_MUC.some(m=>m.k==='hst') && DH_MUC.some(m=>m.k==='hsv'));
-   ok('tab Hồ sơ Tổ: khối LỌC ĐỊA BÀN + danh sách 6 mẫu + khung xem', !!document.querySelector('#hst-cay .loc-khoi') && document.querySelectorAll('#hso-ds input[name="hso-mau"]').length===6 && !!document.getElementById('hso-xem-khung'));
+   ok('tab Hồ sơ Tổ: khối LỌC ĐỊA BÀN + danh sách 6 mẫu + khung xem', !!document.querySelector('#hst-cay .loc-khoi') && document.querySelectorAll('#hso-tabm .hso-tm').length===6 && !!document.getElementById('hso-xem-khung'));
    /* chưa chọn tổ → mẫu trắng */
    const C = hsoCH(); C.xa=''; C.diem=''; C.hoi=''; C.to=''; hsoChonMau('10c'); await w(400);
    ok('chưa chọn tổ: 10C là mẫu trắng (chấm), vẫn có nút In / Word', /BIÊN BẢN HỌP/.test(chu()) && /Chủ trì: Ông \(bà\) \.{10}/.test(chu()) && /Word/.test(document.getElementById('hso-xem-nut').textContent));
@@ -58,7 +58,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    hsoChonMau('11'); await w(300); const w11 = await b64(await hsoDocx(HSO.x));
    /* Hồ sơ vay */
    slDoiTab('hsv'); for(let i=0;i<30 && !document.querySelector('#hsv-cay .loc-khoi');i++) await w(200); await w(600);
-   ok('tab Hồ sơ vay: 6 mục (3.172: 04/TD dời sang tab 🏢 Giao dịch xã)', document.querySelectorAll('#hso-ds input[name="hso-mau"]').length===6);
+   ok('tab Hồ sơ vay: 6 mục (3.172: 04/TD dời sang tab 🏢 Giao dịch xã)', document.querySelectorAll('#hso-tabm .hso-tm').length===6);
    const kv = tv.find(k=>k.mon.some(m=>(m.dn||0)>0)), c = hsoKhach(kv.kh, t);
    const B0 = hsoBoMoi(); hsoBoChonKH(kv.kh); B0.ct = 'HSSV'; B0.tien = '80000000'; B0.tuCo = '20.000.000'; B0.pa = {sv:'SV Giả'}; hsoChonMau('01td'); await w(300);   /* 3.171: đơn vay lấy theo bộ hồ sơ */
    ok('01/TD: người vay từ Mẫu 31 (tên, CCCD), tổ trưởng, số tiền + bằng chữ, tổng nhu cầu', chu().indexOf(c.ten)>=0 && (!c.cccd || chu().indexOf(c.cccd)>=0) && /Tám mươi triệu đồng/.test(chu()) && /Tổng nhu cầu vốn: 100\.000\.000/.test(chu()) && chu().indexOf('do ông (bà): '+t.ten)>=0);
