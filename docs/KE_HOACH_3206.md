@@ -43,7 +43,7 @@
 - ☑ 2. Giấy lĩnh "↺ Phiếu mới" (app + mini app) — chỉ đổi chữ nút (chức năng = Làm trống cũ, `gdxGLMoi`); in xong con trỏ về ô tìm
 - ☑ 3. Hồ sơ vay: tab con mỗi mẫu + bố cục GDX + số liệu theo ngày đã chọn — `hsoTabMauHTML` (#hso-tabm, chip `.hso-tm`, áp cả Hồ sơ Tổ), dòng "📅 Số liệu: kỳ" (kỳ chung); t163 đếm `.hso-tm`
 - ☑ 4a. 09A ô chấm tùy biến (+ danh sách lý do) — `HSO_CHAM`, `hsoChamKieu/Dat/GT/Tien/Ngay`, `hsoChamTuy`, `hsoLyDoDs` (hsoLuu().cham, hsoLuu().lyDoDs)
-- ☐ 4b. In kèm Mẫu 06/TD (cửa gọi KTGS, mục đích in sẵn / trống, cán bộ trống)
+- ☑ 4b. In kèm Mẫu 06/TD (cửa gọi KTGS, mục đích in sẵn / trống, cán bộ trống) — `hso06Gt` (gọi ktGiaTri06 + ktMaKV, KHÔNG sửa code KTGS), `hsoIn06`, `hsoIn09Kem` (In 09A rồi 06 — 2 khổ giấy), `hsoWord06`; hsoLuu().kem06 / md06; t170 19/19
 - ☐ 5. Phép thử mới `t170` + hồi quy + bump 3.206 + CHANGELOG / bàn giao / BAT_DAU + PR
 
 ## 6. Sau 3.206 (chưa làm — chờ anh)

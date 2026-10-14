@@ -530,6 +530,18 @@ function hsoChamTuy(mk, md){   /* md = {khóa: giá trị mặc định khi In s
     }
     return '<div class="hso-cham-o"><span class="hso-cham-nhan">'+coChuHTML(x[1])+'</span>'+sw+'<span class="hso-cham-gt">'+(inS ? o : '<i class="hso-cham-tay">…… chấm, ghi tay</i>')+'</span></div>'; }).join('')+'</div>';
 }
+/* 3.206 (anh chốt 14/10): 09A in kèm MẪU 06/TD (bên KTGS gọi "Mẫu 06 KTGS") — KHÔNG chép / sửa mẫu KTGS (khóa): gọi đúng hàm KTGS
+   (ktGiaTri06 → ktHTML06 / ktDocx 'm06') cho 1 hộ = món đang gia hạn; Hội quản lý theo khai báo KTGS; cán bộ kiểm tra để trống (chấm); mục đích: in ngành (Mẫu 31) hoặc để trống */
+function hso06Gt(){
+  var S = hsoCH(), t = TO_K && S.to ? TO_K.to[S.to] : null, V = HSO.vay; if(!t || !V.kh || typeof ktGiaTri06!=='function') return null;
+  var mon = hsoMonGH(t), m = mon.find(function(x){ return x.ku===V.ku; }) || mon[0]; if(!m) return null;
+  var c = hsoKhachChon(t) || {}, mm = Object.assign({}, m); ktMaKV([mm]);
+  return ktGiaTri06(t, [{kh:V.kh, ten:c.ten || m.ten || '', mon:[mm]}], {ngay:'', ng1:'', cb2:'', cv2:'', dv:'', md:hsoLuu().md06==='in' ? 'nganh' : ''});
+}
+function hso06Ten(){ var c = hsoKhachChon(TO_K && TO_K.to[hsoCH().to]) || {}; return 'Mau 06-TD Phieu KT su dung von - '+boDauTen(c.ten || 'ho vay'); }
+function hsoIn06(){ var g = hso06Gt(); if(!g) return bao('Chọn tổ, người vay, món vay trước.'); inBlob(new Blob([ktHTML06(g)], {type:'text/html'}), hso06Ten()+'.html'); }
+function hsoIn09Kem(){ xuatIn(); setTimeout(hsoIn06, 1500); }   /* in 09A rồi in tiếp Mẫu 06/TD (2 khổ giấy khác nhau → 2 lần in); nút 🖨 06/TD để in lại riêng */
+function hsoWord06(){ var g = hso06Gt(); if(!g) return; ktDocx('m06', g).then(function(bl){ giaoFile(bl, hso06Ten()+'.docx'); }).catch(function(er){ baoLoi('Tạo Word Mẫu 06/TD lỗi: '+(er && er.message || er)); }); }
 function hsoLap09a(t){
   var T = hsoTo(t), c = hsoKhachChon(t), V = HSO.vay, mon = hsoMonGH(t), m = mon.find(function(x){ return x.ku===V.ku; }) || mon[0] || null, han = m ? skHL(m) : '', tien = hsoSo(hsoChamGT('09a', 'tienGH', m ? m.dn : 0));
   var h = hsoBang('khung0', [74, 26], '<tr><td class="c">'+hsoQH('–', 13)+'</td><td><p class="b i s12">Mẫu số: 09A/TD</p><p class="i s12">Lập 01 liên lưu NH</p></td></tr>')+
@@ -931,7 +943,7 @@ function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, 
   ].concat(anh.map(function(a){ return {ten:'word/media/'+a.ten, b:nhi(a.b64)}; })).concat(chan.map(function(c){ return {ten:'word/'+c.ten, b:enc(ftXml(c))}; })))
     .then(function(z){ return new Blob([z], {type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}); });
 }
-function hsoWord(){ var x = hsoLap(); hsoDocx(x).then(function(bl){ giaoFile(bl, x.ten+'.docx'); bao('Đã tạo '+x.ten+'.docx — ô app điền sẵn là chữ thường, sửa thoải mái trong Word.', 6); }).catch(function(er){ baoLoi('Chưa tạo được Word: '+(er && er.message || er)); }); }
+function hsoWord(){ var x = hsoLap(); hsoDocx(x).then(function(bl){ giaoFile(bl, x.ten+'.docx'); if(hsoMau().k==='09a' && hsoLuu().kem06) setTimeout(hsoWord06, 600); bao('Đã tạo '+x.ten+'.docx — ô app điền sẵn là chữ thường, sửa thoải mái trong Word.', 6); }).catch(function(er){ baoLoi('Chưa tạo được Word: '+(er && er.message || er)); }); }
 
 /* ---------- giao diện tab ---------- */
 function veHoSo(){
@@ -985,7 +997,9 @@ function hsoXem(){
   var f = document.getElementById('hso-xem-khung'), n = document.getElementById('hso-xem-nut'); if(!f) return;
   var x; try { x = hsoLap(); } catch(er){ f.srcdoc = '<p style="font-family:sans-serif;color:#b00">Lập mẫu lỗi: '+coChuHTML(er && er.message || er)+'</p>'; return; }
   HSO.x = x;
-  if(n) n.innerHTML = xuatHang({ten:x.ten, html:function(){ return HSO.x.trang; }, word:'hsoWord()', dong:'thXemRong(\'hso-xem-khung\')', dongChu:'⤢ Phóng to'});
+  var kem = hsoMau().k==='09a' && hsoLuu().kem06;   /* 3.206: 09A in kèm Mẫu 06/TD */
+  if(n) n.innerHTML = xuatHang({ten:x.ten, html:function(){ return HSO.x.trang; }, word:'hsoWord()', dong:'thXemRong(\'hso-xem-khung\')', dongChu:'⤢ Phóng to',
+    'in':kem ? 'hsoIn09Kem()' : '', truoc:kem ? '<button class="nho" onclick="hsoIn06()" title="In riêng Mẫu 06/TD (phiếu kiểm tra) của món đang gia hạn">🖨 06/TD</button>' : ''});
   xemChuan(f, x.trang); thVuaKhung();
 }
 function hsoHen(){ clearTimeout(HSO_HEN); HSO_HEN = setTimeout(hsoXem, 250); }
@@ -1074,6 +1088,8 @@ function hsoTuyVay(M, t, tv){
     h += hsoTuyO('Người vay', hsoChon('HSO.vay.kh=this.value;HSO.vay.ku=\'\';delete HSO.vay.tienGH;hsoVe()', V.kh||'', [['', t ? '— chọn tổ viên ('+ds9.length+') —' : '— chọn tổ trước —']].concat(ds9.map(function(k){ return [k.kh, k.ten+' · '+k.kh]; }))))+
       (mon.length ? hsoTuyO('Món vay', hsoChon('HSO.vay.ku=this.value;delete HSO.vay.tienGH;hsoVe()', V.ku || mon[0].ku, mon.map(function(m){ return [m.ku, m.ku+' · '+ctNgan(m.ct, m)+' · '+tdnTien(m.dn)+' đ · ĐH '+ngayVNsl(skHL(m))]; })))+
         '' : '')+
+      '<div class="hso-cham"><label class="hso-o2"><input type="checkbox"'+(hsoLuu().kem06 ? ' checked' : '')+' onchange="hsoLuu().kem06=this.checked;luu();hsoVe()"> <b>In kèm Mẫu 06/TD</b> (phiếu kiểm tra sử dụng vốn) — điền sẵn hộ vay, Hội quản lý; cán bộ kiểm tra để trống</label>'+
+        (hsoLuu().kem06 ? '<div class="hso-cham-o"><span class="hso-cham-nhan">Mẫu 06/TD — cột Mục đích</span><span class="hso-sw"><button class="'+(hsoLuu().md06==='in' ? '' : 'bat')+'" onclick="hsoLuu().md06=\'cham\';luu();hsoVe()" title="Để trống — ghi tay">✍</button><button class="'+(hsoLuu().md06==='in' ? 'bat' : '')+'" onclick="hsoLuu().md06=\'in\';luu();hsoVe()" title="In sẵn ngành kinh tế theo Mẫu 31">🖨</button></span></div>' : '')+'</div>'+
       hsoChamTuy('09a', {tienGH:mon.length ? (mon.find(function(m){ return m.ku===V.ku; }) || mon[0]).dn : '', ngayKy:ngayISO(nay())});   /* 3.206: ô chấm tùy biến */
   }
   return h;
