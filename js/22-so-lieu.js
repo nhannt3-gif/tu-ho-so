@@ -1069,7 +1069,7 @@ function slGanNhat(){ SL_KY = slKyMoi() || ngayISO(nay()).slice(0, 7); SL_DAI = 
 function slCotNap(kyXem, mt){
   if(mt==='tq'){ var th = {}; th[kyXem] = 1; Object.keys(SLM.bang).forEach(function(k){ th[slThang(SLM.bang[k].ky)] = 1; });
     return Object.keys(th).sort().map(function(k){ return {ky:k, chot:true}; }); }
-  var ng = {}; Object.keys(SLM.bang).forEach(function(k){ var e = SLM.bang[k], L = slLoai(e.loai); if(L && !L.bo && String(e.ky).length>7 && slThang(e.ky)===kyXem) ng[e.ky] = 1; });
+  var ng = {}; Object.keys(SLM.bang).forEach(function(k){ var e = SLM.bang[k], L = slLoai(e.loai); if(L && !L.bo && String(e.ky).length>7 && slThang(e.ky)===kyXem && e.ky!==tdnCuoiKy(kyXem)) ng[e.ky] = 1; });   /* 3.205: ngày = ngày chốt cuối tháng → đã hiện ở cột chốt, không mở cột riêng */
   return [{ky:kyLui(kyXem, -1), chot:true}].concat(Object.keys(ng).sort().map(function(k){ return {ky:k}; }), [{ky:kyXem, chot:true}]);
 }
 function slTenNgan(L){ return L.ten.replace(/ · [^()]*$/, ''); }   /* 3.163: không cắt giữa ngoặc ("Nợ đến hạn phân kỳ (NOXH · cho vay trực tiếp)") */
@@ -6560,6 +6560,17 @@ function slKTTW(ky, B, them){
       them(8, 'Thu nợ tháng từng tổ: LEN_31 ↔ Mẫu 31', !dsTN.length, dsTN.length ? dsTN.length+' tổ lệch · tổng chênh '+tdnTien(dsTN.reduce(function(s, r){ return s+r[5]; }, 0)) : 'khớp',
         dsTN.length ? 'Số chuẩn thu nợ là BCDHTD (= Mẫu 31). Đây là các tổ LEN_31 ghi thu nợ khác — chưa rõ nguyên nhân, anh kiểm trên hệ thống.' : '', ['Xã', 'Tổ trưởng (mã tổ)', 'Chỉ tiêu', 'LEN_31', 'Mẫu 31', 'Chênh'], dsTN, dsTN.length ? 'canh' : '');
       if(chua.length) them(8, 'Dòng tổ LEN_31 chưa ghép được mã tổ', false, chua.length+' dòng', 'Tên tổ trưởng ở LEN_31 không khớp tên tổ ở Mẫu 31 (hoặc trùng tên mà dư nợ không phân được).', ['Xã', 'Tổ trưởng', 'Số hộ', 'Dư nợ'], chua, 'canh');
+      if(co.dsto){   /* 3.205 (anh hỏi 14/10): số tổ LEN_31 TO_TRUONG ≠ Danh sách tổ → liệt kê từng dòng chênh + lý do */
+        var DS = {}; co.dsto.forEach(function(o){ DS[o.to] = o; }); var coLEN = {}, lc = [];
+        G.forEach(function(g){ var o = g.o;
+          if(g.tt){ lc.push(['', o.ten||'', o.xa||'', 'chỉ LEN_31', 'dòng vay trực tiếp (không phải tổ)', o.dn||0]); return; }
+          if(!g.ma.length){ lc.push(['', o.ten||'', o.xa||'', 'chỉ LEN_31', 'chưa ghép được mã tổ (tên tổ trưởng LEN_31 khác Mẫu 31)', o.dn||0]); return; }
+          g.ma.forEach(function(m){ coLEN[m] = 1; if(!DS[m]) lc.push([m, o.ten||'', o.xa||'', 'chỉ LEN_31', 'tổ không có trên Danh sách tổ', o.dn||0]); });
+          if(g.ma.length>1) lc.push([g.ma.join(', '), o.ten||'', o.xa||'', 'LEN_31 gộp', '1 dòng LEN_31 gộp '+g.ma.length+' tổ trùng tên tổ trưởng', o.dn||0]); });
+        co.dsto.forEach(function(o){ if(!coLEN[o.to]) lc.push([o.to, String(o.toTen||''), String(o.tenXa||''), 'chỉ Danh sách tổ', (o.dn>0 ? 'có dư nợ nhưng không có dòng LEN_31' : 'không còn dư nợ (LEN_31 không có dòng)'), o.dn||0]); });
+        them(6, 'Số tổ: LEN_31 TO_TRUONG ('+G.length+' dòng) ↔ Danh sách tổ ('+co.dsto.length+' tổ)', !lc.length, lc.length ? lc.length+' dòng chênh — xem lý do từng dòng' : 'khớp',
+          'LEN_31 đếm dòng tổ trưởng (gồm dòng vay trực tiếp); Danh sách tổ đếm mã tổ. Chỉ ghi nhận để biết, không sửa số.', ['Mã tổ', 'Tổ trưởng', 'Xã', 'Có ở', 'Lý do', 'Dư nợ'], lc, lc.length ? 'canh' : '');
+      }
       /* 3. Thông tin tổ trưởng ↔ LEN_31 */
       if(co.tt){
         var daGhep = {}; G.forEach(function(g){ g.ma.forEach(function(m){ daGhep[m] = 1; }); });

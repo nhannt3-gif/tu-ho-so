@@ -228,6 +228,8 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 1 | ⚙ Khai báo chung → 📋 TK 104 chưa đóng | Danh sách + cột Lý do + Xuất Excel | |
 | 2 | 📋 TK 105 cần đóng (chưa có Mẫu 01/TV → so theo thành viên app) | Danh sách khách không còn là thành viên | |
 | 3 | Nạp Sao kê mới khi đang mở Giao dịch xã → bấm nút ngay | Không cần tải lại trang | |
+| 4 | ② Kiểm tra số liệu T9 → mục "Số tổ: LEN_31 TO_TRUONG ↔ Danh sách tổ" | Liệt kê 4 dòng chênh 374 − 370 + lý do | |
+| 5 | Ma trận T9 | Không còn cột 30/09/2026 trống | |
 
 **Ghi chú kỹ thuật 3.205:** `tkDamBao(cb)` so `TO_K.tk[loai].ky` với `tkChonBan(loai, TO_K.ngay)`; khác / thiếu → `tkNapMoi(TO_K)` rồi gọi lại.
 

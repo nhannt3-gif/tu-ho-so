@@ -246,6 +246,12 @@ const fs=require('fs'), path=require('path');
      const cdD = tkCanDong().k104;
      ok('3.202: TK 104 trong Sao kê khác TK trên Danh sách tổ → vào "TK 104 chưa đóng" (lý do: tổ trưởng đang dùng TK khác)', rD.tkThua.indexOf('1040000000')>=0 && cdD.ds.some(x=>x.stk==='1040000000' && /đang dùng TK khác/.test(x.ly)), cdD.ds.map(x=>x.stk+' '+x.ly).join(', '));
      ok('3.202: file bắt buộc "Danh sách tổ" của tháng tính bản gần nhất', !!slBBE('dsto', TO_K.ky) && slBBE('dsto', TO_K.ky).ganNhat==='2026-10-13'); }
+     { const hsG = [{ku:'K1', to:'0900001', toTen:'Nguyễn Văn Giả', tenXa:'Xã Giả', dn:1000}, {ku:'K2', to:'0900002', toTen:'Trần Thị Giả', tenXa:'Xã Giả', dn:2000}];
+       const ltG = [{cap:'to', ten:'Nguyễn Văn Giả', xa:'Xã Giả', dn:1000}, {cap:'to', ten:'Trần Thị Giả', xa:'Xã Giả', dn:2000}, {cap:'to', ten:'Vay trực tiếp', xa:'Xã Giả', dv:'99', dn:500}, {cap:'to', ten:'Lê Văn Lạ', xa:'Xã Giả', dn:300}];
+       const dsG = [{to:'0900001', toTen:'Nguyễn Văn Giả', tenXa:'Xã Giả', dn:1000}, {to:'0900002', toTen:'Trần Thị Giả', tenXa:'Xã Giả', dn:2000}, {to:'0900003', toTen:'Phạm Văn Ngừng', tenXa:'Xã Giả', dn:0}];
+       const kq = []; slKTTW('2026-09', {co:{hstd:hsG, lt:ltG, dsto:dsG}, hsTen:'Mẫu 31', lap:[]}, function(n, ten, okk, chu, chi, cot, ds){ kq.push({ten, chu, ds:ds||[]}); });
+       const x = kq.find(o=>/^Số tổ: LEN_31 TO_TRUONG/.test(o.ten)) || {ds:[]};
+       ok('3.205: ② Số tổ LEN_31 TO_TRUONG (4 dòng) ↔ Danh sách tổ (3 tổ) — liệt kê dòng vay trực tiếp, dòng chưa ghép, tổ chỉ có ở Danh sách tổ + lý do', /4 dòng/.test(x.ten||'') && x.ds.length===3 && x.ds.some(r=>/vay trực tiếp/.test(r[4])) && x.ds.some(r=>/chưa ghép/.test(r[4])) && x.ds.some(r=>r[0]==='0900003' && /không còn dư nợ/.test(r[4])), (x.ten||'')+' · '+x.ds.map(r=>r[4]).join(' | ')); }
      TO_K.tk = {}; TO_K.bangTo = null; tkCanDongHop('tk104'); await w(800);
      ok('3.205: kỳ đang mở chưa gắn Sao kê (nạp sau khi dựng kỳ) → bấm "TK 104 chưa đóng" tự gắn Sao kê rồi mở danh sách', !!(TO_K.tk && TO_K.tk.tk104) && document.querySelectorAll('#hop-in .to-bang tbody tr').length>0, document.querySelectorAll('#hop-in .to-bang tbody tr').length+' dòng'); dongHop();
    slDoiTab('gdx'); doiNgan(7); await w(500); gdxDoiMau('gl'); await w(200);
