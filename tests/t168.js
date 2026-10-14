@@ -41,7 +41,7 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    TO_K.tk = {tk104:{ky:'2026-10-13', rows:[{kh:tkTT(kT).kh, stk:'X1'}]}}; TO_K.bangTo = null; m180.so0 = tkTT(kT).tk==='X1'; m180.ten = true; TO_K.tk = tk0; TO_K.bangTo = null; gdxVe(); await w(200);
    m180.tom = document.getElementById('gdx-tom').offsetHeight; m180.tomCanh = !!document.querySelector('#gdx-tom .gdx2-canh1') || !gdxTom().canh.length;
    const lk = () => document.querySelector('#gdx-cay .loc-khoi'), an = q => { const e = document.querySelector('#gdx-cay '+q); return !e || !e.offsetParent; };
-   m180.gon = lk().classList.contains('gon') && an('.pv-nhom.cap-xa') && an('.pv-hang2') && /Đổi/.test((document.querySelector('#gdx-cay .pv-gon')||{}).textContent||'');
+   m180.gon = lk().classList.contains('gon') && an('.pv-nhom.cap-xa') && an('.pv-hang2') && /Mở rộng/.test((document.querySelector('#gdx-cay .pv-gon')||{}).textContent||'');
    pvMo('gdx', 'xd'); await w(200); m180.mo = !lk().classList.contains('gon') && !an('.pv-hang2');
    document.getElementById('gdx-bo').dispatchEvent(new MouseEvent('mousedown', {bubbles:true})); await w(100); m180.gonNhap = lk().classList.contains('gon');
    m180.menu = !!document.querySelector('.gdx2-dau details.gdx-menu') && [...document.querySelectorAll('.gdx2-dau .gdx-menu button')].map(b=>b.textContent).join('|');
