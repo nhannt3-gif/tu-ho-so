@@ -23,12 +23,12 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.211.** Chuỗi gần nhất: 3.206 cây địa bàn Mở rộng / Thu gọn, Hồ sơ vay mỗi mẫu 1 tab, 09A ô chấm + in kèm 06/TD, 01/TĐCK → 3.207 hộ vay mới → 3.208 ⚙ Khai báo chung (tab con) + thẻ chương trình vay → **3.209 👪 Sổ hộ vay** (thay Hộ mới + Bộ HS; in theo hộ + in kèm) → **3.210 03/TD nhiều hộ** → **3.211 GQVL** (01/GQVL + 07b/GQVL, lịch trả gốc 24 tháng/lần làm tròn trăm nghìn, lãi theo ưu tiên — `docs/KE_HOACH_3209.md`).
+- **`main` = 3.212** (sửa nhỏ: mở Hồ sơ vay vào 👪 Hộ vay). Trước: 3.211 GQVL (01/GQVL + 07b), 3.210 03/TD nhiều hộ, 3.209 sổ hộ vay, 3.208 thẻ chương trình vay.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.
   3. Đợt kiến trúc B / C (`KE_HOACH_B_C.md`) — anh đã tạm dừng chức năng lớn trước đó, hỏi lại anh thứ tự.
-- **Đang chờ anh:** thử máy thật 3.202–3.211 (bảng thử từng bản trong `BAN_GIAO_VIEC_CON_LAI.md`). Hồi quy: t100 / t116 trượt sẵn trên main (không do các bản này).
+- **Đang chờ anh:** thử máy thật 3.202–3.212 (bảng thử từng bản trong `BAN_GIAO_VIEC_CON_LAI.md`). Hồi quy: t100 / t116 trượt sẵn trên main (không do các bản này).
 - **Kế hoạch đã xong (tham khảo khi sửa):** `KE_HOACH_SO_HO_VAY.md` (3.209–3.210), `KE_HOACH_3209.md` (GQVL 3.211), `KE_HOACH_3208.md`, `KE_HOACH_3207.md`, `KE_HOACH_3206.md`.
 
 ### Ghi chú cũ (đọc khi cần)
