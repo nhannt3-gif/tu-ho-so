@@ -13,6 +13,8 @@
 
 Kế hoạch tổng viết QT-11…13 trước khi có file thật Sao kê / 01/TV. Đối chiếu file thật (chỉ đọc trong thư mục nháp) thấy cần chỉnh:
 
+> **Cập nhật 14/10 (bản 3.202, anh chốt):** CCCD, ngày cấp, TK 104 của tổ trưởng **lấy thống nhất từ Danh sách tổ hệ thống** (file `baocao_…`, có Ngày báo cáo; thay DSTO cũ + Thông tin tổ trưởng), ghép Mẫu 31 qua Mã CIF TT; **Sao kê TK 104 chỉ tham khảo** để báo TK 104 chưa đóng. File thật 13/10: 369 / 369 tổ đủ CCCD, ngày cấp, TK 104; 40 TK 104 chưa đóng. Hai dòng QT-12 / QT-13 dưới đây là bản cũ — bản đúng ở `docs/QUY_CHUAN_KIEN_TRUC.md` mục 4.
+
 | Số | Kế hoạch tổng ghi | Thực tế file | Đề xuất chuẩn lại |
 |---|---|---|---|
 | **QT-11** TK 105 khách | "Mẫu 31 ưu tiên → Mẫu 18 → danh bạ theo CCCD" | Mẫu 31 **không có số TK 105 10 số** (chỉ số hệ thống 13–14 số); Sao kê TK 105 có **số 10 số** của **mọi khách** (21.034 KH, gồm cả khách đã tất nợ mà Mẫu 18 không ghi); khớp Mẫu 18 17.737 / 17.738. | **Anh chốt 14/10:** số TK 105 = **10 số từ Sao kê TK 105**, **nối vào Mẫu 31 theo Mã KH 1 lần khi nạp** (gắn vào danh bạ khách, ghi nguồn + ngày Sao kê) → **không phụ thuộc Mẫu 18**. Kỳ: Sao kê có ngày ≤ ngày kỳ, gần nhất (tháng → Sao kê cuối tháng; ngày → Sao kê đúng / gần nhất trước ngày đó). Khách nhiều TK → **cảnh báo để anh xác định TK đang dùng và đóng TK thừa** (danh sách riêng, xuất Excel); in TK anh chọn (chưa chọn thì TK mở gần nhất + báo). Kỳ chưa có Sao kê mới → **dùng Sao kê gần nhất** (chấp nhận thiếu vài TK mới mở — báo \"chưa có trong Sao kê ngày …\") → gõ tay. **Không lấy TK từ Mẫu 18** (anh chốt 14/10: nguồn TK = Mẫu 31 + Sao kê TK 105 + Sao kê TK 104). **Số tiền gõ tay**; gợi ý số dư theo Sao kê / Mẫu 31 mới nhất (nút "rút hết" chỉ điền khi anh bấm). |

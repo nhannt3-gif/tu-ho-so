@@ -191,7 +191,7 @@ const fs=require('fs'), path=require('path');
      ['', '009999','900000','90000001', '9999999991', 'Người Giả Đã Thôi', 'Gia', '1049999991', 20000, 0, '104', '01/01/2020', '13/10/2026'],
      ['', '009999','900000','90000001', '9999999992', 'Người Giả Thứ Hai', 'Gia', '1049999992', 0, 0, '104', '01/01/2021', '13/10/2026']];
    gdxVe(); await w(200); g = gdxGLDuLieu();
-   ok('3.201: chưa nạp Sao kê TK 104 → số TK để chấm + cảnh báo vàng ghi rõ lý do', g.ten===tA.ten && !g.tk && /chưa nạp Sao kê TK 104/.test(g.tkLy||'') && /Chưa có số tài khoản 104/.test(document.getElementById('gdx-tom').textContent), g.tkLy);
+   ok('3.201: chưa nạp Sao kê TK 104 → số TK để chấm + cảnh báo vàng ghi rõ lý do', g.ten===tA.ten && !g.tk && /chưa nạp (Danh sách tổ \/ )?Sao kê TK 104/.test(g.tkLy||'') && /Chưa có số tài khoản 104/.test(document.getElementById('gdx-tom').textContent), g.tkLy);
    const nap = async (aoa, ten) => { const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoa), 'BCQUERY'); const kq = await slDocFile(new File([XLSX.write(wb, {type:'array', bookType:'xlsx'})], ten)); if(!kq.loi && kq.ky) await slGhi(kq); return kq; };
    const k4 = await nap(aoa4, 'Sao_ke_TK_104_13-10-2026.XLSX');
    ok('3.201: đọc Sao kê TK 104 (9. Sao kê TK theo mã sản phẩm) — loại tk104, kỳ theo cột Ngày BC', k4.loai==='tk104' && k4.ky==='2026-10-13' && k4.rows.length===3 && /3 tài khoản/.test(slTomTat(k4.loai, k4.tong)), k4.loi || k4.loai+' '+k4.ky);
@@ -236,6 +236,16 @@ const fs=require('fs'), path=require('path');
    ok('3.201: đối chiếu thành viên tổ ↔ 01/TV: thành viên treo (dư nợ 0, tiền gửi 0, Mẫu 31 không có) vào "Cần cho ra khỏi tổ"', dc && dc.ra.some(o=>o.kh==='9999999993' && /không còn món vay/.test(o.ly)) && dc.thieu.some(o=>o.kh==='9999999993') && dc.khop===tvA.length, dc && JSON.stringify({khop:dc.khop, ra:dc.ra.length, du:dc.du.length}));
    SL_BO = {}; TO_K.B = await slBo(TO_K.ky);
    ok('3.201: tab Tổ — chip "Cần cho ra khỏi tổ (TƯ)" của tổ có thành viên treo', (tvRaCuaTo(tA.ma)||[]).length===1 && /Thành Viên Giả Treo/.test(tvRaHTML(tA.ma)));
+   /* ---- 3.202 (anh chốt 14/10): Danh sách tổ hệ thống (dữ liệu GIẢ) — nguồn thống nhất CCCD, TK 104 tổ trưởng; Sao kê TK 104 chỉ tham khảo ---- */
+   { const aoaD = [['DANH SÁCH TỔ TIẾT KIỆM VÀ VAY VỐN'],[''],['NGAYBC','MADGD','TENDGD','MADP','TENXA','TENTHON','DVUT','TENDVUT','MATO','MATT','TENTT','CMT','NGAYCAP','MOBILE','NGAYSINHTT','SOTV','DUNO','TK104','MATP','TENTP','MOBILETP'],
+       ['13/10/2026', 'D9', 'Điểm Giả', '90000001', 'Xã Giả', 'Ấp Giả', '03', 'Hội Giả', tA.ma, khTT, tA.ten, '079123456789', '01/02/2022', '0900000000', '01/01/1970', 10, 100000000, '1049999999', '9999999998', 'Phó Giả', '']];
+     const kD = await nap(aoaD, 'baocao_20261014_175516.xlsx');
+     ok('3.202: đọc Danh sách tổ hệ thống (baocao_…) — loại dsto, kỳ theo cột Ngày báo cáo', kD.loai==='dsto' && kD.ky==='2026-10-13' && kD.rows.length===1 && kD.rows[0].cccd==='079123456789' && kD.rows[0].tk104==='1049999999', kD.loi || kD.loai+' '+kD.ky);
+     SL_BO = {}; TO_KS = {}; TO_K = await toNap(TO_K.ky); const rD = tkBangTo()[tA.ma];
+     ok('3.202: kỳ cũ hơn vẫn dùng Danh sách tổ gần nhất; CCCD, ngày cấp, TK 104 tổ trưởng lấy từ Danh sách tổ', TO_K.B.nguon.dsto==='2026-10-13' && rD && rD.cccd==='079123456789' && rD.ncap==='2022-02-01' && rD.ccTu==='Danh sách tổ' && rD.tk==='1049999999' && rD.tkTu==='Danh sách tổ', rD && [rD.cccd, rD.ncap, rD.ccTu, rD.tk, rD.tkTu].join(' · '));
+     const cdD = tkCanDong().k104;
+     ok('3.202: TK 104 trong Sao kê khác TK trên Danh sách tổ → vào "TK 104 chưa đóng" (lý do: tổ trưởng đang dùng TK khác)', rD.tkThua.indexOf('1040000000')>=0 && cdD.ds.some(x=>x.stk==='1040000000' && /đang dùng TK khác/.test(x.ly)), cdD.ds.map(x=>x.stk+' '+x.ly).join(', '));
+     ok('3.202: file bắt buộc "Danh sách tổ" của tháng tính bản gần nhất', !!slBBE('dsto', TO_K.ky) && slBBE('dsto', TO_K.ky).ganNhat==='2026-10-13'); }
    slDoiTab('gdx'); doiNgan(7); await w(500); gdxDoiMau('gl'); await w(200);
    gdxDat('glLoai', '105', 1); gdxDoiMau('m04'); await w(200);
    return o;

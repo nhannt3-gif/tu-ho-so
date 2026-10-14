@@ -2054,6 +2054,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.202', ds:[
+  ["📋 Danh sách tổ hệ thống (file baocao_…) thay DSTO cũ + Thông tin tổ trưởng: CCCD, ngày cấp, TK 104 tổ trưởng lấy thống nhất từ đây (kỳ theo Ngày báo cáo, kỳ nào cũng dùng bản gần nhất); Sao kê TK 104 chỉ để báo TK 104 chưa đóng", "slDoiTab('nap')"],
   ["📒 Bảng tổ dựng sẵn: mỗi tổ đủ tổ trưởng, CCCD, ngày cấp, TK 104 (Sao kê) — báo đủ / thiếu, bổ sung 1 lần (⚙ Khai báo chung · Nạp & KT)", "slDoiTab('gdx');doiNgan(7)"],
   ["🏦 TK 105 khách tra Sao kê khi chọn; TK trùng → chọn TK đang dùng, danh sách ⚠ TK trùng để đóng TK thừa; CCCD hết hạn → cảnh báo khi in", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["👥 Mẫu 01/TV (danh sách thành viên tổ của TƯ): đối chiếu với app, chip “Cần cho ra khỏi tổ (TƯ)” ở tab Tổ + mục ở ② Kiểm tra số liệu", "slDoiTab('nap');doiNgan(7)"],

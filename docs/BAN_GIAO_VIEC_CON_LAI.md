@@ -230,8 +230,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 3 | Giấy lĩnh TK 104 nhiều tổ | TK 104 + CCCD tự điền; CCCD hết hạn có cảnh báo | |
 | 4 | Giấy lĩnh TK 105 → chọn khách có 2 TK | Cảnh báo + ô chọn TK; chọn xong nhớ | |
 | 5 | ⚠ TK trùng | Danh sách + Excel | |
+| 6 | Nạp Danh sách tổ hệ thống (`baocao_…xlsx`) ở 📥 Nạp & KT | Vào ô Danh sách tổ, kỳ = ngày báo cáo; kỳ tháng 9 vẫn dùng được | |
+| 7 | ⚙ Khai báo chung → dòng Bảng tổ | 369 / 369 đủ; nguồn CCCD / TK 104 = Danh sách tổ | |
+| 8 | 🏦 TK 104 chưa đóng | Danh sách có cột Lý do + Excel | |
+| 9 | ② Kiểm tra số liệu tháng 9 | 2 mục mới về Danh sách tổ (khớp Mã CIF TT, đủ CCCD · ngày cấp · TK 104) | |
 
-**Ghi chú kỹ thuật 3.202:** `TO_K.bangTo` (dựng lười bằng `tkBangTo()`, xóa khi `tkNapMoi` / anh bổ sung / chọn TK); `cccdCua(kh, t, laTT)` dùng chung; `tkCua` lập chỉ mục `theo` lười, TK anh chọn đứng đầu; `D.cauHinh.tk104Tay`, `tkChon`, `ccNho` đồng bộ Drive như cài đặt.
+**Ghi chú kỹ thuật 3.202:** Danh sách tổ hệ thống: `dsHTDoc` (loại `dsto`, `tong.rieng`), `dsChonKy(ky)` chọn bản gần nhất (dùng trong `slBo`), `slBBE(k, ky)` cho file bắt buộc; `cccdCua` / `toBangDung` ưu tiên `t.ds` khi `t.ds.ttKH` = Mã CIF TT; `o.tkThua`, `o.dsLech`; `tkCanDong().k104.ds[].ly`. `TO_K.bangTo` (dựng lười bằng `tkBangTo()`, xóa khi `tkNapMoi` / anh bổ sung / chọn TK); `cccdCua(kh, t, laTT)` dùng chung; `tkCua` lập chỉ mục `theo` lười, TK anh chọn đứng đầu; `D.cauHinh.tk104Tay`, `tkChon`, `ccNho` đồng bộ Drive như cài đặt.
 
 ### Danh sách thử trên máy thật (3.201) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
