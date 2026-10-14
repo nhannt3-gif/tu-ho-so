@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.210 — 15/10/2026 — 📋 03/TD nhiều hộ cùng chương trình
+- **Anh (14/10):** "nếu cần 2 hộ chung mẫu 03 thì chọn 2 hộ 1 lần, hoặc chọn mẫu 03 trước rồi add hộ; cùng 1 chương trình in chung 1 mẫu 03". Kế hoạch `docs/KE_HOACH_SO_HO_VAY.md` mục C.
+- **Cách 1:** tab 👪 Hộ vay tích nhiều hộ → **📋 Lập 03/TD (n hộ)**. **Cách 2:** tab 03/TD → chip chương trình → **＋ Thêm hộ** (từ sổ). Đi từ hộ đang làm (01/TD) sang 03/TD → hộ đó tự vào tờ.
+- Mỗi dòng sửa được: số tiền, thời hạn, đối tượng thụ hưởng (danh sách thẻ CT), mục đích; ✕ bỏ dòng; dòng **Cộng** tự tính; đổi chương trình → cả tờ theo thẻ CT mới (tên CT, thời hạn, ĐTTH). Dòng lấy sẵn số liệu từ phiếu làm hồ sơ của hộ nếu cùng chương trình. "làm tờ mới" xóa tờ đang lập (không lưu lịch sử).
+- Bộ HS cũ chưa gắn hộ + 03/TD tích tổ viên (cách cũ) vẫn dùng được; có thêm ô "＋ Thêm hộ từ sổ".
+- **Phép thử:** `t173` 20/20.
+
 ## 3.209 — 14/10/2026 — 👪 Sổ hộ vay (thay 🏠 Hộ mới + Bộ HS) · in hồ sơ theo hộ
 - **Anh (14/10):** Bộ HS rối, sửa theo cách gọn: tạo hộ vay (nhập mới hoặc lấy Mẫu 31), khai tổ khi tạo, chỉ cần người đứng tên — thừa kế / thành viên bổ sung khi cần (giấy UQ mới cần đủ), 1 hộ vay nhiều HSSV, hộ cũ có mã KH, danh sách lưu lâu dài, **không lưu lịch sử đề nghị vay** — in 01/TD: chọn hộ, chọn chương trình, in, cần thì in kèm. Kế hoạch `docs/KE_HOACH_SO_HO_VAY.md`.
 - **Tab "👪 Hộ vay"** (thay 🏠 Hộ mới; tab Bộ HS ẩn): **＋ Hộ mới** (form nhanh + **chọn tổ**, **HSSV tích nhiều người**) · **＋ Lấy từ Mẫu 31** (tìm tên / CCCD, hoặc tích nhiều tổ viên tổ đang chọn; tên vợ/chồng trên Mẫu 31 thành người thừa kế gợi ý) · trùng CCCD → mở hộ đã có · hộ mới khớp CCCD trên Mẫu 31 → **tự gắn mã KH**. Khung phải: bảng SỔ HỘ VAY.

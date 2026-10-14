@@ -45,6 +45,17 @@ const fs=require('fs'), path=require('path');
    ok('01/UQ thiếu ngày sinh / CCCD thành viên → ⚠ + nút Bổ sung', /01\/UQ thiếu/.test(document.getElementById('hso-tuy').textContent));
    hmLamHS(o0.id); await w(400);
    ok('hộ cũ: 01/TD lấy nhân thân Mẫu 31, đổi hộ không lẫn phương án hộ trước', HSO.x.trang.indexOf(c0.ten)>0 && hsoBo().hoId===o0.id && !/Trần Văn Con Hai/.test(HSO.x.trang));
+   /* 03/TD nhiều hộ cùng chương trình */
+   hsoChonMau('homoi'); await w(300); HM_CHON = {}; HM_CHON[oM.id] = true; HM_CHON[o0.id] = true; hsoVe(); await w(200);
+   ok('tab Hộ vay: tích hộ → nút 📋 Lập 03/TD (2 hộ)', /Lập 03\/TD \(2 hộ\)/.test(document.getElementById('hso-tuy').textContent));
+   hsoD03TuChon(); await w(500); let D3 = hsoD03();
+   ok('📋 Lập 03/TD → tab 03/TD, 2 dòng, cùng chương trình', hsoMau().k==='03td' && D3.ds.length===2 && HSO.x.trang.indexOf('Trần Văn Giả')>0 && HSO.x.trang.indexOf(c0.ten)>0, D3.ct+' · '+D3.ds.length);
+   hsoD03Dat(0, 'tien', '40.000.000'); hsoD03Dat(1, 'tien', '30000000'); await w(400);
+   ok('sửa số tiền từng dòng → dòng Cộng tự tính', /70\.000\.000/.test(HSO.x.trang));
+   const o3 = hmDs().find(o=>o.id!==oM.id && o.id!==o0.id); hsoD03Them(o3.id); await w(300);
+   ok('＋ Thêm hộ vào tờ đang lập', hsoD03().ds.length===3 && HSO.x.trang.indexOf(hmTen(o3))>0);
+   hsoD03CT('NSVSMT'); await w(400);
+   ok('đổi chương trình → tên CT, thời hạn, ĐTTH theo thẻ cho cả tờ', /Cấp nước sạch và vệ sinh môi trường nông thôn/.test(HSO.x.trang) && hsoD03().ds.every(r=>r.th==='60'));
    /* chuyển Bộ HS cũ */
    const Bc = hsoBoMoi(); Bc.nv = {ten:'Lê Văn Bộ Cũ', cccd:'072070000777', ns:'1970-01-01'}; Bc.ho = [{ten:'Lê Thị Vợ Cũ', qh:'Vợ'}]; Bc.pa = {sv:'Lê Văn SV Cũ'};
    delete D.cauHinh.hoVayChuyen; hmChuyenCu(); const oc = hmDs().find(o=>o.tv[0].ten==='Lê Văn Bộ Cũ');
