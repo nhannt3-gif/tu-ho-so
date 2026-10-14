@@ -222,6 +222,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.209) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay → 👪 Hộ vay → ＋ Lấy từ Mẫu 31 (tìm / tích tổ viên) | Hộ vào sổ có mã KH, tổ; vợ/chồng thành thừa kế | |
+| 2 | ＋ Hộ mới: chọn xã → ấp → tổ, tích 2 HSSV, Lưu | Hộ mới, chưa mã KH, 2 SV | |
+| 3 | Nhập hộ mới trùng CCCD | Báo, mở hộ đã có | |
+| 4 | 📄 In hồ sơ → chọn chương trình, SV, gõ số tiền | 01/TD đúng hộ, SV | |
+| 5 | Tích In kèm 03/TD, 01/UQ → In / Word | 1 lần in 3 mẫu | |
+| 6 | 01/UQ hộ thiếu ngày sinh / CCCD thừa kế | ⚠ + ✎ Bổ sung | |
+| 7 | Bộ HS đã lập trước đây | Có trong sổ hộ vay | |
+
+**Ghi chú kỹ thuật 3.209:** sổ = `D.cauHinh.hoMoi` (giữ khóa 3.207) {id, kh, to, xa, tenXa, diem, thon, tenThon, tv[], dung, sv[]} (`hmSV` đọc cả `hssv` cũ). `hmTuM31(kh)`, `hmM31Hop`, `hmLayTo`, `hmGanMa` (tự gắn mã KH), `hmChuyenCu` (cờ `D.cauHinh.hoVayChuyen`), `hmDongBo(o, B)` hộ → phiếu (B.hoId; hộ cũ đọc `hsoKhach` + SL_DB.kh.sdt), `hmBo(o)` 1 phiếu / hộ, `hmLamHS(id, mau)`, `hmChonHo`. Cột trái 01/TD · 01/UQ: `hsoTuyHo` (bộ có hoId; bộ cũ chưa gắn → cách cũ), phương án tách `hsoTuyPA(B)`; in kèm `B.kem` {ds, bb, uq, tgtv} → `hsoLapBo` (`hsoKemCo`). Tab Bộ HS: `HSO_MAU.hsv` `an:1` (ẩn khỏi thanh tab, mã giữ).
+
 ### Danh sách thử trên máy thật (3.208) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

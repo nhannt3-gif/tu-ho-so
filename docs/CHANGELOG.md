@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.209 — 14/10/2026 — 👪 Sổ hộ vay (thay 🏠 Hộ mới + Bộ HS) · in hồ sơ theo hộ
+- **Anh (14/10):** Bộ HS rối, sửa theo cách gọn: tạo hộ vay (nhập mới hoặc lấy Mẫu 31), khai tổ khi tạo, chỉ cần người đứng tên — thừa kế / thành viên bổ sung khi cần (giấy UQ mới cần đủ), 1 hộ vay nhiều HSSV, hộ cũ có mã KH, danh sách lưu lâu dài, **không lưu lịch sử đề nghị vay** — in 01/TD: chọn hộ, chọn chương trình, in, cần thì in kèm. Kế hoạch `docs/KE_HOACH_SO_HO_VAY.md`.
+- **Tab "👪 Hộ vay"** (thay 🏠 Hộ mới; tab Bộ HS ẩn): **＋ Hộ mới** (form nhanh + **chọn tổ**, **HSSV tích nhiều người**) · **＋ Lấy từ Mẫu 31** (tìm tên / CCCD, hoặc tích nhiều tổ viên tổ đang chọn; tên vợ/chồng trên Mẫu 31 thành người thừa kế gợi ý) · trùng CCCD → mở hộ đã có · hộ mới khớp CCCD trên Mẫu 31 → **tự gắn mã KH**. Khung phải: bảng SỔ HỘ VAY.
+- **📄 In hồ sơ** (tab 01/TD, 01/UQ): ô **👪 Hộ vay** chọn hộ → chip **chương trình** → chip **sinh viên** (hộ nhiều SV) → phương án (theo thẻ CT) → **In kèm** ☐ 03/TD ☐ 10C ☐ 01/UQ ☐ 01/TGTV (1 lần in, 1 file Word). Hộ cũ: nhân thân, SĐT theo Mẫu 31 mới nhất. 01/UQ thiếu thành viên / ngày sinh, CCCD → ⚠ + **✎ Bổ sung**. Mỗi hộ 1 phiếu làm hồ sơ (ghi đè, không lưu lịch sử).
+- **Dữ liệu cũ:** Hộ mới 3.207 giữ nguyên (cùng khóa `hoMoi`); Bộ HS cũ tự chuyển người vay / thành viên / HSSV vào sổ, **bản gốc giữ**.
+- **Chưa làm (3.209 phần 3):** 03/TD nhiều hộ cùng chương trình 1 tờ (chọn nhiều hộ / ＋ Thêm hộ) — hiện 03/TD in kèm theo từng hộ.
+- **Phép thử:** `t173` 15/15 (mới) · t171 theo luồng mới.
+
 ## 3.208 — 14/10/2026 — ⚙ Khai báo chung (tab con) + thẻ chương trình vay → 01/TD, 03/TD tự điền
 - **Anh (14/10):** mục đích vay, đối tượng thụ hưởng khai theo chương trình vay (HSSV, NSVSMT, GQVL); khai báo chung là cửa sổ riêng có tab con (trưởng ấp, tổ phó chọn theo xã / điểm, chương trình vay); thẻ CT: tên tắt, tên in 01/03, ĐTTH, mục đích (xây mới / sửa chữa), mức vay 1 công trình, thời hạn & phân kỳ ghi sẵn hay chấm. Chốt thêm: **HSSV số tháng, số tiền gõ tay (không tự tính)**; **01/TD thời hạn xin vay, hạn trả nợ cuối: gõ thì in, không gõ thì chấm; số tháng gõ mang sang 03/TD**; **NSVSMT mặc định ghi sẵn hết, đổi trong cài đặt**; bố cục như tab Giao dịch xã; khai báo riêng ghi rõ của mẫu nào. Kế hoạch `docs/KE_HOACH_3208.md`.
 - **⚙ Khai báo chung** (thay "Khai báo 1 lần"): tab con 🏦 PGD · logo · 🏘 Trưởng ấp · 👥 Tổ phó (chọn xã → điểm GD ngay trong cửa sổ) · 📋 Chương trình vay.
