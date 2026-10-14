@@ -222,6 +222,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.206) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ / Sao kê / KTGS / Giao dịch xã: chọn tổ | Khối lọc gọn 1 dòng 🏠 PGD › Xã › Điểm › Tổ + ▾ Mở rộng | |
+| 2 | Bấm tên Xã / Điểm / 🏠 PGD trên dòng gọn | Về đúng cấp đó | |
+| 3 | Giấy lĩnh: in 1 phiếu → ↺ Phiếu mới | Form trống, con trỏ ở ô tìm | |
+| 4 | Hồ sơ vay: các tab mẫu; 09A chọn tổ → người vay → món | Dòng Số liệu đúng kỳ; số tiền gia hạn = dư nợ | |
+| 5 | 09A: bật 🖨 Lý do / Thời gian / Ngày ký → In / Word | In đúng chữ; tắt lại ✍ → dòng chấm; mở lại app vẫn nhớ | |
+| 6 | 09A: tích In kèm Mẫu 06/TD → In (và 🖨 06/TD) → Word | In 09A rồi 06/TD; Word ra 2 file; 06 có hộ vay + Hội, cán bộ trống; mục đích theo lựa chọn | |
+| 7 | Tab KTGS: in Mẫu 06 KTGS như cũ | Không đổi | |
+
+**Ghi chú kỹ thuật 3.206:** `pvGonCua(p)` / `pvGonDoi(p)` + mắt `.pv-ve` (`pvChon(p, cap, '')`); `hsoTabMauHTML` (#hso-tabm); `HSO_CHAM` + `hsoCham*`; `hso06Gt` gọi KTGS chỉ đọc (truyền v: ng1 '' → cán bộ trống, md 'nganh' / ''). In kèm = 2 lần `inBlob` cách 1,5 s (09A dọc, 06 ngang).
+
 ### Danh sách thử trên máy thật (3.205) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

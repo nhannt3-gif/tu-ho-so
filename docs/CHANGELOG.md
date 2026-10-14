@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.206 — 14/10/2026 — 📍 Cây địa bàn thống nhất · ↺ Phiếu mới · Hồ sơ vay theo tab · 09A/TD ô chấm tùy biến + in kèm Mẫu 06/TD
+- **Kế hoạch:** `docs/KE_HOACH_3206.md` (anh chốt 14/10, gom 1 bản; trạng thái từng phần ở mục 5).
+- **Cây địa bàn — mọi tab** (Tổ · Sao kê · Hồ sơ · KTGS · Giao dịch xã, hàm chung `pvVeCay`): đã chọn địa bàn thì có nút **▾ Mở rộng / ▴ Thu gọn** (anh chốt tên); gọn = **1 dòng 🏠 PGD › Xã › Điểm · Hội › Tổ**, **bấm từng mắt để về cấp đó** (kiểu nút Home); chọn xong tổ tự gọn; nhớ theo tab (`D.cauHinh.pvGon[p]`; GDX mặc định gọn như 3.180). Điện thoại giữ ô chọn khi gọn.
+- **Giấy lĩnh:** nút **"↺ Phiếu mới"** thay "✕ Làm trống" (app + mini app; chức năng như cũ); in xong con trỏ về ô tìm người kế.
+- **Hồ sơ Tổ / Hồ sơ vay:** **mỗi biểu mẫu 1 tab con** (thanh tab như tab Giao dịch xã) + dòng **📅 Số liệu: kỳ đang chọn** + ⚙ Khai báo 1 lần; cột trái còn tên mẫu + chú thích màu.
+- **09A/TD — ô chấm tùy biến (cách chung cho mọi mẫu):** số liệu cố định (tên, nhân thân, món vay, tổ, Hội) không tùy biến; mỗi ô chấm có công tắc **✍ viết tay | 🖨 in sẵn**, nhớ theo mẫu (`hsoLuu().cham`, đồng bộ Drive): lý do (danh sách, **mặc định "Đang gặp khó khăn về kinh tế, tài chính"**, ＋ thêm / ✕ bỏ), số tiền đề nghị gia hạn (mặc định = dư nợ, in sẵn), thời gian đề nghị, kế hoạch trả nợ (tháng/kỳ, tiền/kỳ, kỳ cuối), ngày tháng người vay ký. Ý kiến Hội · UBND · phê duyệt NH luôn chấm. Thêm ô cho mẫu khác = 1 dòng `HSO_CHAM`.
+- **In kèm Mẫu 06/TD** (bên KTGS gọi "Mẫu 06 KTGS"): ô tích ở 09A → **🖨 In** in 09A rồi in tiếp Mẫu 06/TD (2 khổ giấy → 2 lần in), nút **🖨 06/TD** in riêng, **Word** ra thêm file Mẫu 06/TD. Điền sẵn hộ vay (món đang gia hạn) + Hội quản lý; **cán bộ kiểm tra để trống**; cột **mục đích ✍ để trống | 🖨 in ngành kinh tế (Mẫu 31)**. **Không chép / sửa mẫu KTGS (khóa)** — gọi đúng `ktGiaTri06` / `ktHTML06` / `ktDocx('m06')`.
+- **Phép thử:** `t170` 19/19 (mới) · `t163` đếm tab mẫu · `t168` chữ Mở rộng · t164, t165, t167 đạt.
+
 ## 3.205 — 14/10/2026 — 🏦 Sao kê TK 104 / 105 dùng được ngay sau khi nạp
 - **Anh (14/10):** 2 nút "TK 104 chưa đóng" / "TK 105 cần đóng" không chạy — anh nạp Sao kê ngày 13/10, không có file 30/9.
 - Nguyên nhân: nạp Sao kê chỉ xóa các kỳ đã dựng trong bộ đệm, **kỳ đang mở (T9) vẫn là bản dựng trước khi có Sao kê** → báo "chưa có Sao kê" tới khi tải lại trang. (Ngày 13/10 khác 30/9 không phải nguyên nhân — kỳ không có Sao kê cùng ngày thì app lấy bản gần nhất.)
