@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.204 — 14/10/2026 — 🏦 Khối nguồn tổ trưởng báo rõ Danh sách tổ
+- **Anh gửi ảnh (14/10):** Bảng tổ "đủ 0 · chưa đủ 369", khối chỉ ghi Sao kê / Mẫu 01/TV — không biết vì sao.
+- Nguyên nhân: máy chưa có **Danh sách tổ hệ thống** (cũng chưa có Sao kê TK 104) → cả 369 tổ thiếu TK 104; khối chưa có dòng Danh sách tổ nên không thấy.
+- Khối 🏦 (⚙ Khai báo chung · 📥 Nạp & KT): thêm dòng **"Danh sách tổ (hệ thống): ngày … · N tổ / chưa nạp"** (bản kiểu cũ → nhắc nạp lại file baocao_…); bảng tổ chưa đủ **ghi thiếu gì, bao nhiêu tổ** (vd "thiếu TK 104 369"); ghi chú nguồn theo 3.202 (Danh sách tổ chính, Sao kê TK 104 tham khảo); nút "TK 104 chưa đóng".
+- Lộ trình `docs/KE_HOACH_B_C.md`: bản IndexedDB theo ngăn lùi sang số kế tiếp (3.205).
+- **Phép thử:** `t167` 82/82 · `t168` 33/33; file thật không có Danh sách tổ → khối ghi "chưa nạp", "chưa đủ 47 (thiếu ngày cấp 47)".
+
 ## 3.203 — 14/10/2026 — 💾 Gom lưu (kế hoạch B1)
 - **Theo `docs/KE_HOACH_B_C.md` mục 1 (bản B1 — gom lưu, rủi ro thấp, không đổi nơi lưu); anh nhắn "làm tiếp" (14/10).**
 - `luu()` **giữ tên** (≈ 295 chỗ gọi không sửa) — chỉ **hẹn ghi sau 300 ms**; nhiều lần gọi sát nhau → **ghi 1 lần**. `luuNgay()` ghi ngay; `luuHuy()` hủy hẹn.
