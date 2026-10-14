@@ -34,7 +34,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('hộ mới: giới tính tự lấy từ số CCCD, nơi cấp gợi ý theo ngày cấp (trước 01/07/2024 → Cục CS QLHC)', B.nv.gt==='Nam' && B.nv.noiCap==='Cục CS QLHC' && B.nv.ns==='1980-05-06', B.nv.gt+' · '+B.nv.noiCap);
    hsoBoDat('nv.ncap', '02/01/2026'); ok('ngày cấp từ 01/07/2024 → Bộ Công an', B.nv.noiCap==='Bộ Công an'); hsoBoDat('nv.ncap', '08/04/2021');
    hsoBoThemHo(); hsoBoDat('ho.0.ten', 'Trần Thị Giả'); hsoBoDat('ho.0.qh', 'Vợ'); hsoBoDat('ho.0.ns', '01/01/1982'); hsoBoDat('soNguoi', '3');
-   hsoBoDat('pa.sv', 'Nguyễn Văn Con'); hsoBoDat('tien', '60000000'); hsoBoDat('tuCo', '20000000'); hsoBoDat('dtth', 'Đối tượng giả HSSV'); await w(400);
+   hsoBoDat('pa.sv', 'Nguyễn Văn Con'); hsoBoDat('pa.soThang', '15'); hsoBoDat('tien', '60000000'); hsoBoDat('tuCo', '20000000'); hsoBoDat('dtth', 'Đối tượng giả HSSV'); await w(400);
    ok('bộ lưu tạm trong cài đặt (đồng bộ Drive), có trạng thái', D.cauHinh.hsoBo.some(x=>x.id===B.id && x.tt==='soan') && !!document.querySelector('#hso-tuy select'));
    ok('hộ mới → bộ tự tích 01/TGTV', B.chon.tgtv===1);
    const X = hsoLap(), ds = X.ds.map(u=>u.M.k);

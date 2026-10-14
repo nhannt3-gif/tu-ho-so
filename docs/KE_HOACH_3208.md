@@ -1,4 +1,4 @@
-# Kế hoạch 3.208 — Khai báo theo chương trình vay + khai báo chung / riêng tab Hồ sơ vay (CHỜ ANH DUYỆT)
+# Kế hoạch 3.208 — Khai báo theo chương trình vay + khai báo chung / riêng tab Hồ sơ vay (ĐÃ LÀM — 3.208)
 
 > Anh 14/10 (tối): "tab bộ hồ sơ nên bố cục lại — đầu tiên khai báo hết các mẫu, gồm khai báo riêng và khai báo chung cho tab hồ sơ vay" · "DS lý do gia hạn là riêng của mẫu gia hạn; mục đích vay và đối tượng thụ hưởng khai báo trong chương trình vay (HSSV, Cấp nước sạch, Hỗ trợ tạo việc làm — gọi tắt GQVL); lập bộ hồ sơ có thêm khai báo riêng đặc thù cho từng chương trình; chọn mẫu 01/TD chỉ cần chọn chương trình vay là thông tin tự điền".
 
@@ -22,9 +22,14 @@ Lập 01/TD / Bộ HS: chọn CT → chọn mục đích, số công trình → 
 - **Bố cục màn nhập liệu như tab Giao dịch xã**: khung trái nhập rộng ra (ô nhập + tùy chọn), khung phải xem trước.
 - **Khai báo riêng ghi rõ của mẫu nào** (vd "⚙ Khai báo riêng — Mẫu 09A/TD", "⚙ Khai báo riêng — Mẫu 01/TD").
 
-## Câu hỏi chờ anh
-1. Làm trước 3 CT: HSSV, NSVSMT, GQVL? (CT khác anh tự thêm thẻ)
-2. Thêm lãi suất (ghi sẵn / chấm)? Ô nào khác ngoài các ô anh đã nêu?
+## Anh chốt 14/10 (cuối) — "đúng, em làm đi, code xong gộp lên luôn và bàn giao"
+- Mặc định em chọn (anh không phản đối): 3 thẻ HSSV · NSVSMT · GQVL (GQVL dạng "1 mục đích + số tiền", chờ anh gửi mẫu ghi sẵn để chỉnh); **không thêm ô lãi suất** (lãi suất nằm ở phần Phê duyệt NH — luôn chấm); **số đề nghị vay = vốn vay NHCSXH**, tổng nhu cầu = vay + tự có; HSSV: thời hạn xin vay (gõ) sang 03/TD, ô số lượng bảng 01/TD chỉ in ở 01/TD; hạn trả cuối gõ tay (không tự cộng).
+- Anh: **"Bộ hồ sơ còn rối — sẽ sửa lại"** → để đợt sau (chờ ý anh), 3.208 chỉ thay phần chương trình / phương án / thời hạn.
 
 ## Trạng thái
-- ☐ chờ anh trả lời + nhắn "code"
+- ☑ 1. Cửa sổ ⚙ Khai báo chung tab con (PGD · Trưởng ấp · Tổ phó chọn xã / điểm · Chương trình vay) — `hsoKBHop(tab)`, `HSO_KBT`, `hsoKBTab`
+- ☑ 2. Thẻ chương trình vay + chuyển khai báo cũ — `hsoCTVDs`, `hsoCTV`, `hsoCTDat`, `hsoCTVHTML`
+- ☑ 3. Bộ HS / 01/TD / 03/TD đọc thẻ: `hsoPA` (HSSV gõ số tháng), thời hạn / kỳ hạn / hạn cuối gõ hoặc chấm, ĐTTH mặc định xã / phường
+- ☑ 4. Bố cục 60/40 như GDX, "⚙ Khai báo riêng — Mẫu …"
+- ☑ 5. t172 20/20, t164 sửa, bump 3.208, tài liệu
+- ☐ Sau: bố cục lại Bộ HS (anh sẽ nói), GQVL theo mẫu thật, 03/TD nhiều hộ (KE_HOACH_3207 mục 3)

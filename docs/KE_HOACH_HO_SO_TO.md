@@ -242,3 +242,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.205 (14/10):** Sao kê TK 104 / 105 dùng được ngay sau khi nạp.
 - **Đã làm 3.206 (14/10):** cây địa bàn thống nhất, ↺ Phiếu mới, Hồ sơ vay theo tab, 09A ô chấm tùy biến + in kèm Mẫu 06/TD.
 - **Đã làm 3.207 (14/10):** danh sách hộ vay mới (khai báo 1 lần, Lập HS).
+- **Đã làm 3.208 (14/10):** Khai báo chung tab con + thẻ chương trình vay (01/TD, 03/TD tự điền).
