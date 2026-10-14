@@ -228,7 +228,7 @@ function gdxMiniApp(){
     var y = t.scrollTop, M = {m04:m04HTML, m12:m12HTML, gl:glHTML}[C.mau];
     t.innerHTML = '<div class="mn-mau">'+chip('📢 04/TD', C.mau==='m04', 'mn.mau(\'m04\')', 'Thông báo kết quả phê duyệt cho vay')+chip('📋 12/GDX', C.mau==='m12', 'mn.mau(\'m12\')', 'Bảng kê giao, nhận, tiêu hủy biên lai')+
       chip('💵 Giấy lĩnh', C.mau==='gl', 'mn.mau(\'gl\')', 'Giấy lĩnh tiền mặt')+'</div>'+chonDiemHTML()+'<div class="mn-ruot">'+M()+'</div>'+
-      '<div class="mn-in">'+(C.mau==='gl' ? '<button class="mn-nut'+(S.daIn ? ' moi' : '')+'" onclick="mn.lamTrong()">✕ Làm trống'+(S.daIn ? ' — in người khác' : '')+'</button>' : '')+'<button class="mn-nut chinh" onclick="mn.inNgay()">🖨 IN'+(C.mau==='m04' && +C.soBan!==1 ? ' 2 bản' : '')+'</button></div>';
+      '<div class="mn-in">'+(C.mau==='gl' ? '<button class="mn-nut'+(S.daIn ? ' moi' : '')+'" onclick="mn.lamTrong()">↺ Phiếu mới'+(S.daIn ? ' — in người khác' : '')+'</button>' : '')+'<button class="mn-nut chinh" onclick="mn.inNgay()">🖨 IN'+(C.mau==='m04' && +C.soBan!==1 ? ' 2 bản' : '')+'</button></div>';
     t.scrollTop = y;
   }
   function ve(){

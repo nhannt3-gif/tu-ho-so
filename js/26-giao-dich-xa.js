@@ -555,7 +555,7 @@ function gdxDauHTML(){
   var C = gdxC(), M = gdxMauHT(), ds = [['⚙ Khai báo riêng mẫu', 'gdxKBRieng()', 'Mọi mục của mẫu — tích Chọn nhanh để đưa ra khung'], ['⚙ Khai báo chung', 'gdxKBChung()', 'Danh sách cán bộ · danh mục tham chiếu · TK 104'],
     ['📜 Nhật ký in', 'gdxNKMo()', 'Các lần in trong 1 tháng — in lại khi khách ký sai'], ['📦 Mini app', 'gdxMiniHop()', 'Xuất 1 file HTML gọn gửi đồng nghiệp — có thời hạn 30 / 60 / 90 ngày']];
   return '<div class="gdx2-dau"><div class="gdx2-mau">'+GDX_MAU.map(function(m){ return gdxChip(m.bt+' '+m.ma, m.k===M.k, 'gdxDoiMau(\''+m.k+'\')', '', m.nhom+' — '+m.ten); }).join('')+'</div>'+
-    '<div class="gdx2-nut">'+(M.k==='gl' ? '<button class="nho'+(GDX.glDaIn ? ' gdx-moi' : '')+'" onclick="gdxGLMoi()" title="'+(GDX.glDaIn ? 'Làm trống — in người khác: bỏ người lĩnh, tổ, số tiền; giữ ngày, khổ giấy' : 'Xóa trống các ô để gõ người khác')+'">✕ Làm trống</button>' : '')+'<button class="nho'+(C.xem!==false ? ' chinh' : '')+'" onclick="gdxBatXem()" title="Bật / tắt khung xem trước">👁 Xem: '+(C.xem!==false ? 'Bật' : 'Tắt')+'</button>'+gdxMenu(ds)+'</div></div>';
+    '<div class="gdx2-nut">'+(M.k==='gl' ? '<button class="nho'+(GDX.glDaIn ? ' gdx-moi' : '')+'" onclick="gdxGLMoi()" title="'+(GDX.glDaIn ? 'Phiếu mới — in người khác: bỏ người lĩnh, tổ, số tiền; giữ ngày, khổ giấy, loại TK' : 'Phiếu mới: xóa các ô để chọn / gõ người khác (giữ ngày, khổ giấy, loại TK)')+'">↺ Phiếu mới</button>' : '')+'<button class="nho'+(C.xem!==false ? ' chinh' : '')+'" onclick="gdxBatXem()" title="Bật / tắt khung xem trước">👁 Xem: '+(C.xem!==false ? 'Bật' : 'Tắt')+'</button>'+gdxMenu(ds)+'</div></div>';
 }
 function gdxRuotHTML(){
   var C = gdxC(), M = gdxMauHT(), S = gdxCH(), canh = '';
@@ -673,7 +673,7 @@ function gdxIn(pdf){
     return hoi('In khi còn cảnh báo?', T.canh.map(function(x){ return (x.muc==='do' ? '⛔ ' : '⚠ ')+x.chu; }).join('\n'), pdf ? 'Vẫn lưu PDF' : 'Vẫn in', function(){ GDX.daHoi = k; gdxIn(pdf); });
   }
   gdxInBan(X, pdf); gdxNKThem(X);
-  if(X.mau==='gl'){ GDX.glDaIn = true; gdxVeTrai(); }
+  if(X.mau==='gl'){ GDX.glDaIn = true; gdxVeTrai(); setTimeout(function(){ var e = document.getElementById('gdx-gl-q'); if(e) e.focus(); }, 300); }   /* 3.206: in xong → con trỏ về ô tìm người kế */
 }
 function gdxPDF(){ gdxIn(true); }
 /* 3.175 (anh chốt): in Giấy lĩnh TRẮNG đúng form — 1 mẫu / A4 (nửa trên) hoặc 2 mẫu / A4 cắt đôi (mỗi nửa đúng 148,5 mm, vạch cắt mờ ở giữa) */
@@ -812,7 +812,7 @@ function gdxGLPhim(ev){
   else if(ev.key==='Enter'){ ev.preventDefault(); (ds[i] || ds[0]).click(); }
   else if(ev.key==='Escape'){ GDX.glQ = ''; ev.target.value = ''; gdxGLTim(); }
 }
-/* 3.176: in xong → "✕ Làm trống — in người khác": bỏ người lĩnh / form / số tiền, giữ ngày, khổ, loại TK; con trỏ về ô tìm */
+/* 3.176: in xong → "✕ Làm trống — in người khác" (3.206 anh chốt: đổi tên "↺ Phiếu mới"): bỏ người lĩnh / form / số tiền, giữ ngày, khổ, loại TK; con trỏ về ô tìm */
 function gdxGLMoi(){
   var S = gdxCH(); GDX.glQ = ''; GDX.glKH = ''; GDX.glTien = ''; GDX.glHet = 0; GDX.glSua = {}; GDX.glDaIn = false; GDX.glI = 0;
   if(TO_K && S.to){ S.to = ''; GDX.glTo = ''; luu(); var cay = document.getElementById('gdx-cay'); if(cay) pvVeCay('gdx'); else gdxVe(); } else gdxVe();

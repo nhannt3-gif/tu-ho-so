@@ -40,7 +40,7 @@
 
 ## 5. Trạng thái (cập nhật mỗi lần commit)
 - ☑ 1. Cây địa bàn thống nhất (5 tab, Mở rộng / Thu gọn, đường dẫn bấm về cấp trên)  — `pvGonCua` / `pvGonDoi` (D.cauHinh.pvGon[p]), mắt đường dẫn `.pv-ve`; t168 sửa chữ Đổi → Mở rộng
-- ☐ 2. Giấy lĩnh "↺ Phiếu mới" (app + mini app)
+- ☑ 2. Giấy lĩnh "↺ Phiếu mới" (app + mini app) — chỉ đổi chữ nút (chức năng = Làm trống cũ, `gdxGLMoi`); in xong con trỏ về ô tìm
 - ☐ 3. Hồ sơ vay: tab con mỗi mẫu + bố cục GDX + số liệu theo ngày đã chọn
 - ☐ 4a. 09A ô chấm tùy biến (+ danh sách lý do)
 - ☐ 4b. In kèm Mẫu 06/TD (cửa gọi KTGS, mục đích in sẵn / trống, cán bộ trống)
