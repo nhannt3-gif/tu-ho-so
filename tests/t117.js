@@ -35,7 +35,7 @@ const path=require('path'); const drive=require('./fakedrive.js')();
  const b6 = await B.evaluate(async()=>await dongBoCauHinh('tu'));
  ok('không có gì đổi → không đẩy lại', !b6.day && !b6.doi && (Object.values(drive.F).find(x=>x.name==='cauhinh.json').nhanNoiDung||0)===n0, JSON.stringify(b6));
  // 6. lưu là tự hẹn đẩy (khóa đồng bộ), khóa riêng không hẹn
- const b7 = await B.evaluate(async()=>{ clearTimeout(H_DAY_CH); H_DAY_CH = null; D.cauHinh.rongPV = 444; luu(); const riêng = !!H_DAY_CH; D.cauHinh.ktPnkt = {'01':'Trồng lúa giả'}; luu(); const dongBo = !!H_DAY_CH; await new Promise(r=>setTimeout(r, 4600)); await (CH_DANG||Promise.resolve()); return {riêng, dongBo}; });
+ const b7 = await B.evaluate(async()=>{ clearTimeout(H_DAY_CH); H_DAY_CH = null; D.cauHinh.rongPV = 444; luu(); await new Promise(r=>setTimeout(r, 400)); const riêng = !!H_DAY_CH; D.cauHinh.ktPnkt = {'01':'Trồng lúa giả'}; luu(); await new Promise(r=>setTimeout(r, 400)); const dongBo = !!H_DAY_CH;   /* 3.203: luu() ghi gom sau 300 ms */ await new Promise(r=>setTimeout(r, 4600)); await (CH_DANG||Promise.resolve()); return {riêng, dongBo}; });
  j = fileCH(); ok('đổi độ rộng (riêng máy) không hẹn đẩy; đổi bảng ngành → 4 giây sau tự lên Drive', !b7.riêng && b7.dongBo && j.ktPnkt && j.ktPnkt['01']==='Trồng lúa giả', JSON.stringify(b7));
  // 7. "Lấy từ Drive" bằng tay: Drive ưu tiên
  const b8 = await A.evaluate(async()=>{ D.cauHinh.ktPnkt = {'01':'Sửa riêng A'}; D.cauHinh.chBam = {}; const ok2 = await keoCauHinh(true); return {ok2, pn:D.cauHinh.ktPnkt}; });
