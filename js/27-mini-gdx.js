@@ -27,13 +27,12 @@ function gdxMiniGoi(){
   Object.keys(C).forEach(function(k){ if(['nhanh', 'xem', 'form'].indexOf(k)<0) c[k] = JSON.parse(JSON.stringify(C[k]===undefined ? null : C[k])); });
   var diem = gdxDsDiem().map(function(d){
     return {k:d.k, ma:d.maDiem || '', ten:d.tenDiem || '', xa:d.tenXa || '', xaChu:gdxXaPhuong(d.tenXa), ngay:d.ngayGD || '',
-      to:(d.to||[]).map(function(t){ var kt = typeof TO_K!=='undefined' && TO_K && TO_K.to ? TO_K.to[t.maTo] : null, tc = dmtTimTo(kt || {ma:t.maTo, ten:t.tenTo, tenXa:d.tenXa}) || {}, kh = tc.ttKH || '';
-        if(!kh && kt && typeof hsoTTKH==='function'){ try { kh = hsoTTKH(kt).kh || ''; } catch(e){} }
-        var tk = tc.tk104 || gdxTK104Cua(kh) || '', dc = '';
+      to:(d.to||[]).map(function(t){ var kt = typeof TO_K!=='undefined' && TO_K && TO_K.to ? TO_K.to[t.maTo] : null, x4 = kt ? tkTT(kt) : {}, kh = x4.kh || '';   /* 3.201: Mã CIF TT → Sao kê TK 104 (bỏ danh mục tổ) */
+        var tk = x4.tk || '', dc = '';
         try { dc = ktDiaBan({tenThon:t.tenAp, tenXa:d.tenXa}); } catch(e){ dc = ''; }
-        var nt = {}; if(kh && kt && typeof hsoKhach==='function'){ try { nt = hsoKhach(kh, kt) || {}; } catch(e){ nt = {}; } } if(!nt.cccd && kt){ var n2 = gdxTTNhanThan(kt); if(n2.cccd) nt = {cccd:n2.cccd, ncap:nt.ncap || n2.ncap, noiCap:nt.noiCap}; }   /* 3.178 (anh chốt): gói luôn CCCD · ngày cấp · nơi cấp tổ trưởng */
+        var nt = {}; if(kh && kt && typeof hsoKhach==='function'){ try { nt = hsoKhach(kh, kt) || {}; } catch(e){ nt = {}; } } if(!nt.cccd && kt){ var n2 = gdxTTNhanThan(kt, kh); if(n2.cccd) nt = {cccd:n2.cccd, ncap:nt.ncap || n2.ncap, noiCap:nt.noiCap}; }   /* 3.178 (anh chốt): gói luôn CCCD · ngày cấp · nơi cấp tổ trưởng */
         nTo++; if(tk) nTK++; if(nt.cccd) nCC++;
-        return {ma:t.maTo || '', ten:t.tenTo || tc.tt || '', ap:t.tenAp || '', tk:tk, dc:dc, cccd:nt.cccd || '', ncap:nt.ncap || '', noiCap:nt.noiCap || ''}; })};
+        return {ma:t.maTo || '', ten:t.tenTo || '', ap:t.tenAp || '', tk:tk, dc:dc, cccd:nt.cccd || '', ncap:nt.ncap || '', noiCap:nt.noiCap || ''}; })};
   });
   return {C:c, diem:diem, nTo:nTo, nTK:nTK, nCC:nCC};
 }
@@ -105,7 +104,7 @@ function gdxMiniApp(){
   Object.keys(P.C||{}).forEach(function(k){ C[k] = P.C[k]; });
   var luuC = {}; try { luuC = JSON.parse(doc(LS_C) || '{}') || {}; } catch(e){ luuC = {}; }
   var GIU = ['mau', 'diem', 'soNguoi', 'soTien', 'isGQVL', 'noiGN', 'gioPhatTien', 'kyPGD', 'nguoiLap', 'soBan', 'm12GDV', 'm12KSV', 'm12ToTruong', 'm12NumRows', 'm12TenToOption',
-    'm12GioHuy', 'm12NgayHuy', 'm12SoLuongTieuHuy', 'glLoai', 'glLoai104', 'timPham', 'glChim', 'glKho', 'glNgayCach', 'glND', 'glTKNo', 'glMaNH', 'glPGD', 'glPGDDam', 'glTaiNH'];
+    'm12GioHuy', 'm12NgayHuy', 'm12SoLuongTieuHuy', 'glLoai', 'glLoai104', 'timPham', 'glChim', 'glKho', 'glNgayCach', 'glND', 'glTKNo', 'glMaNH', 'glPGD', 'glPGDDam', 'glNDNghieng', 'glTaiNH'];
   GIU.forEach(function(k){ if(luuC[k]!==undefined) C[k] = luuC[k]; });
   if(luuC.glLoai!==undefined && !luuC.glLoai104) C.glLoai = '104';   /* 3.179 (anh chốt): Giấy lĩnh mặc định TK 104 — bản mini cũ đã lưu 105 thì chuyển 1 lần */
   C.glLoai104 = 1;

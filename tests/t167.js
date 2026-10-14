@@ -109,7 +109,7 @@ const fs=require('fs'), path=require('path');
        ok('3.184: không còn ô Nơi cấp — chữ mờ cạnh nhãn Địa chỉ (tự tính theo ngày cấp); Địa chỉ · Tài khoản số cùng 1 dòng', !document.querySelector('.gl-form-luoi input[data-k="noiCap"]') && !!nc && /Nơi cấp: Bộ Công an/.test(nc2) && Math.abs(q('diaChi')-q('tk'))<3, nc2); }
      ok('3.183: Họ tên · CCCD · Ngày cấp cùng 1 dòng; nút 👁 Xem: Bật / Tắt ghi rõ trạng thái', Math.abs(r1[0]-r1[1])<3 && Math.abs(r1[0]-r1[2])<3 && /Xem: (Bật|Tắt)/.test(document.querySelector('.gdx2-nut').textContent), r1.join(','));
      { const c1 = JSON.parse(JSON.stringify(gdxC())); c1.glPGD = 'Gò Dầu'; c1.glPGDDam = 'thuong'; const hT = gdxHTMLGL({}, c1); c1.glPGDDam = 'dam'; const hD = gdxHTMLGL({}, c1);
-       ok('3.200: tùy chọn dòng PGD Giấy lĩnh — Đậm (mặc định) / Thường; số tiền bằng chữ in nghiêng', /\.gl-bc1,\.gl-bc2\{font-style:italic\}/.test(h0.css) && /class="gl-pgdv gl-thuong">PHÒNG GIAO DỊCH GÒ DẦU/.test(hT) && /class="gl-pgdv">PHÒNG GIAO DỊCH GÒ DẦU/.test(hD) && /\.gl-pgdv\.gl-thuong\{font-weight:normal\}/.test(h0.css) && GDX_MD.glPGDDam==='dam'); }
+       ok('3.200: tùy chọn dòng PGD Giấy lĩnh — Đậm (mặc định) / Thường; số tiền bằng chữ in nghiêng', /\.gl-bc1,\.gl-bc2,\.gl-v\.gl-ng\{font-style:italic\}/.test(h0.css) && /class="gl-pgdv gl-thuong">PHÒNG GIAO DỊCH GÒ DẦU/.test(hT) && /class="gl-pgdv">PHÒNG GIAO DỊCH GÒ DẦU/.test(hD) && /\.gl-pgdv\.gl-thuong\{font-weight:normal\}/.test(h0.css) && GDX_MD.glPGDDam==='dam'); }
      ok('3.199: ngày tháng cùng dòng PGD (ngày cách tiêu đề 2,75 mm; dòng chấm PGD trống cũng ngang ngày), thân phiếu + chữ chìm lên 1,25 mm', /\.gl-ngay\{[^}]*margin-top:2\.75mm/.test(h0.css) && /\.gl-nh \.gl-pgd\{margin-top:-\.3mm/.test(h0.css) && /top:47\.15mm/.test(h0.css));
      ok('3.198: Giấy lĩnh không viết tắt PGD — PGD Gò Dầu / Gò Dầu → PHÒNG GIAO DỊCH GÒ DẦU; trống → chấm', gdxTenPGD('PGD GÒ DẦU')==='PHÒNG GIAO DỊCH GÒ DẦU' && gdxTenPGD('Gò Dầu')==='PHÒNG GIAO DỊCH GÒ DẦU' && gdxTenPGD('Phòng giao dịch Gò Dầu')==='PHÒNG GIAO DỊCH GÒ DẦU' && gdxTenPGD(' ')==='');
      ok('3.197: PGD Giấy lĩnh in đậm; ô Số tiền bằng số giãn đều; Bảng kê chữ Họ tên nhỏ nghiêng, chấm dài', /\.gl-pgdv\{font-weight:bold\}/.test(h0.css) && /\.gl-hop3 \.gl-hop\{justify-content:space-evenly/.test(h0.css) && /\.bk-hoten \.gl-n\{font-size:8pt\}/.test(BK_CSS_LOI+BK_CSS) && /<i>Họ tên:<\/i>/.test(gdxBKTrang(gdxC())));
@@ -179,48 +179,47 @@ const fs=require('fs'), path=require('path');
    ok('nhật ký tự xóa bản quá 1 tháng', gdxNKDs().length===1 && !gdxNKDs().some(x=>x.id==='cu'));
    gdxNKMo(); await w(100);
    ok('hộp 📜 Nhật ký in: dòng + 🖨 In lại + 📄 PDF + ×', /In lại/.test(document.getElementById('hop-in').textContent) && document.querySelectorAll('#hop-in .gdx-nk-nut button').length===3); dongHop();
-   /* ---- tổ trưởng rút TK 104: danh mục tham chiếu + file TK 104 (dữ liệu GIẢ) ---- */
+   /* ---- 3.201: tổ trưởng rút TK 104 — Sao kê TK 104 theo ngày (dữ liệu GIẢ), ghép Mã CIF TT / mã KH tổ trưởng; bỏ danh mục tổ ---- */
    gdxDat('glLoai', '104', 1); await w(200);
    { const tk0 = gdxGLDuLieu().tk; gdxGLLamTrong(); await w(100); const trong = !gdxGLDuLieu().tk; pvChonTo('gdx', tA.ma); await w(300);
      ok('3.179: Làm trống rồi chọn lại đúng tổ cũ ở khối lọc → điền lại TK 104 theo số liệu', !tk0 || (trong && gdxGLDuLieu().tk===tk0), tk0); }
    g = gdxGLDuLieu();
-   ok('TK 104 chưa nạp tham chiếu → số TK để chấm + cảnh báo vàng', g.ten===tA.ten && !g.tk && /Chưa có số tài khoản 104/.test(document.getElementById('gdx-tom').textContent));
-   const dsTo = Object.keys(T).filter(m=>!T[m].trucTiep && T[m].ten).slice(0, 6), maKH = m => (typeof hsoTTKH==='function' && hsoTTKH(T[m]).kh) || ('99'+m.replace(/\D/g, '').padStart(8, '0'));
-   const ttKH = {}; dsTo.concat([tA.ma]).forEach(m=>{ ttKH[m] = maKH(m); });
-   const wb = XLSX.utils.book_new();
-   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([['Mã điểm GD','Tên điểm GD','Ngày GD','Số ấp/KP','Mã xã','Tên xã/phường'], [khac.maDiem, khac.tenDiem, khac.ngayGD, 3, '900000', 'Xã Giả']]), 'Diem_giao_dich');
-   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([['Mã điểm GD','Tên điểm GD','Tên xã/phường','Tên ấp/KP','Mã tổ','Tên Tổ trưởng','Hội (ĐV ủy thác)','Mã KH Tổ trưởng','Số TK 104 (Hoa hồng)','Số điện thoại','Tên Tổ phó','Mã KH Tổ phó']]
-     .concat(Object.keys(ttKH).map((m, i)=>[T[m].diem, T[m].tenDiem, T[m].tenXa, T[m].tenThon, m, i===0 ? 'ÔNG '+boDau(T[m].ten).toUpperCase() : T[m].ten, 'HỘI GIẢ', ttKH[m], String(1040000000+i), '0900000000', 'Tổ Phó Giả', '']))), 'To_truong');
-   const kq = gdxDocFile(XLSX.read(XLSX.write(wb, {type:'array', bookType:'xlsx'}), {type:'array'}));
-   ok('đọc file danh mục tham chiếu (sheet tổ có Mã tổ + Số TK 104; sheet điểm GD)', kq.to && Object.keys(kq.to).length===Object.keys(ttKH).length && kq.diem && kq.diem[khac.maDiem] && !kq.tk);
-   /* 3.175: nạp 1 chỗ — nút 📥 Nạp file chung (Nạp & KT) tự nhận file danh mục, nạp + kiểm tra ngay, không vào bảng xem trước số liệu */
-   const fDM = new File([XLSX.write(wb, {type:'array', bookType:'xlsx'})], 'danhmuc_gia.xlsx');
-   const slGoc = window.slXemTruoc; let xt = 0; window.slXemTruoc = function(){ xt++; return slGoc.apply(this, arguments); };
-   slDocNhieu([fDM]); for(let i=0;i<40 && !(D.cauHinh.dmTo && DMT_KQ);i++) await w(200); await w(300); window.slXemTruoc = slGoc;
-   ok('3.175.1: tên tổ trưởng ghi "ÔNG …" không dấu, hoa trong danh mục → không báo lệch', DMT_KQ && DMT_KQ.lechTT.length===0, DMT_KQ && DMT_KQ.lechTT.join(' | '));
-   ok('3.175: 📥 Nạp file chung nhận file danh mục tổ → lưu danh mục, kiểm tra ngay với Mẫu 31 (không vào bảng xem trước số liệu)', !!D.cauHinh.dmTo && Object.keys(D.cauHinh.dmTo.to).length===Object.keys(ttKH).length && !!DMT_KQ && DMT_KQ.khop.length===Object.keys(ttKH).length && xt===0 && /Đã nạp danh mục tổ/.test(document.getElementById('hop-in').textContent), DMT_KQ && DMT_KQ.khop.length);
-   dongHop(); slDoiTab('gdx'); doiNgan(7); await w(500); gdxDoiMau('gl'); pvChonTo('gdx', tA.ma); gdxDat('glLoai', '104', 1); await w(300);
+   ok('3.201: bỏ hẳn danh mục tổ (không còn hàm / khối 📚)', typeof dmtTimTo==='undefined' && typeof gdxTC==='undefined' && typeof dmtKhoiHTML==='undefined');
+   const khTT = hsoTTKH(tA).kh || ((TO_K.kh[tA.ma]||[])[0]||{}).kh || ''; tA.cif = khTT;   /* bộ GIẢ không có cột Mã CIF TT → gán tay như Mẫu 31 thật */
+   const aoa4 = [[''],['', '9. Sao kê Tài khoản theo mã sản phẩm (DLNgày)'],[''],[''],['', 'Mã PGD','Mã xã','Mã thôn','Mã khách hàng','Tên khách hàng','Tên TK','Tài khoản','Số Dư Ngày báo cáo','Số dư tháng trước','Sản phẩm','Ngày đăng ký','Ngày BC'],
+     ['', '009999','900000','90000001', khTT, tA.ten, 'Gia', '1040000000', 150000, 100000, '104', '01/01/2024', '13/10/2026'],
+     ['', '009999','900000','90000001', '9999999991', 'Người Giả Đã Thôi', 'Gia', '1049999991', 20000, 0, '104', '01/01/2020', '13/10/2026'],
+     ['', '009999','900000','90000001', '9999999992', 'Người Giả Thứ Hai', 'Gia', '1049999992', 0, 0, '104', '01/01/2021', '13/10/2026']];
+   gdxVe(); await w(200); g = gdxGLDuLieu();
+   ok('3.201: chưa nạp Sao kê TK 104 → số TK để chấm + cảnh báo vàng ghi rõ lý do', g.ten===tA.ten && !g.tk && /chưa nạp Sao kê TK 104/.test(g.tkLy||'') && /Chưa có số tài khoản 104/.test(document.getElementById('gdx-tom').textContent), g.tkLy);
+   const nap = async (aoa, ten) => { const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoa), 'BCQUERY'); const kq = await slDocFile(new File([XLSX.write(wb, {type:'array', bookType:'xlsx'})], ten)); if(!kq.loi && kq.ky) await slGhi(kq); return kq; };
+   const k4 = await nap(aoa4, 'Sao_ke_TK_104_13-10-2026.XLSX');
+   ok('3.201: đọc Sao kê TK 104 (9. Sao kê TK theo mã sản phẩm) — loại tk104, kỳ theo cột Ngày BC', k4.loai==='tk104' && k4.ky==='2026-10-13' && k4.rows.length===3 && /3 tài khoản/.test(slTomTat(k4.loai, k4.tong)), k4.loi || k4.loai+' '+k4.ky);
+   await tkNapMoi(TO_K); gdxVe(); await w(300);
    g = gdxGLDuLieu(); h = fd().body.innerHTML;
-   ok('Giấy lĩnh TK 104 tổ trưởng tự điền số TK 104 gắn theo tổ (danh mục tổ)', g.tk===dmtToCua(tA.ma).tk104 && g.tkTu==='danh mục tham chiếu' && h.indexOf(g.tk)>=0);
-   const wb2 = XLSX.utils.book_new();
-   XLSX.utils.book_append_sheet(wb2, XLSX.utils.aoa_to_sheet([['NGAYBC','TENPGD','MADP','MATO','SOTK','MAKH','TENKH','SDT']]
-     .concat([[ '2026-10-12', 'PGD GIẢ', '', '', '1040000000', ttKH[Object.keys(ttKH)[0]], 'Tổ Trưởng Đang Làm', '' ], [ '2026-10-12', 'PGD GIẢ', '', '', '1049999991', '9999999991', 'Người Giả Đã Thôi', '' ], [ '2026-10-12', 'PGD GIẢ', '', 'T0CU01', '1049999992', '9999999992', 'Người Giả Thứ Hai', '' ]])), 'Sheet1');
-   const kq2 = gdxDocFile(XLSX.read(XLSX.write(wb2, {type:'array', bookType:'xlsx'}), {type:'array'}));
-   ok('đọc file TK 104 hệ thống (SOTK, MAKH, TENKH, MATO)', kq2.tk && kq2.tk.ds.length===3 && !kq2.to);
-   await dmtLuu(kq2, 'tk104gia.xlsx');
-   const lech = gdxTK104Lech();
-   ok('TK 104 không còn là tổ trưởng: chỉ báo 2 người không phải tổ trưởng ở mọi nguồn (người đang là tổ trưởng không báo)', lech && lech.length===2 && lech.every(x=>/^99999999/.test(x.kh)) && lech.some(x=>/tổ cũ T0CU01/.test(x.ghi)), lech && lech.map(x=>x.kh).join(','));
+   ok('3.201: Giấy lĩnh TK 104 tổ trưởng lấy theo Sao kê TK 104 mới nhất (dù kỳ đang xem cũ hơn)', !!khTT && g.tk==='1040000000' && /Sao kê TK 104/.test(g.tkTu) && h.indexOf('1040000000')>=0, g.tk+' · '+g.tkTu);
+   const cd = tkCanDong();
+   ok('3.201: TK 104 cần đóng — chỉ 2 TK không phải tổ trưởng hiện tại', cd.k104 && cd.k104.ds.length===2 && cd.k104.ds.every(x=>/^99999999/.test(x.kh)), cd.k104 && cd.k104.ds.map(x=>x.kh).join(','));
+   tkCanDongHop('tk104'); await w(100);
+   ok('3.201: hộp TK 104 cần đóng + 📊 Xuất Excel', document.querySelectorAll('#hop-in .to-bang tbody tr').length===2 && /Xuất Excel/.test(document.getElementById('hop-in').textContent)); dongHop();
    gdxKBChung(); await w(100);
-   ok('⚙ Khai báo chung: không còn nút nạp — chỉ trạng thái + 📥 Mở Nạp & KT + danh sách (2)', /Danh mục tổ · TK 104/.test(document.getElementById('hop-in').textContent) && /Mở Nạp/.test(document.getElementById('hop-in').textContent) && !/Nạp file Excel/.test(document.getElementById('hop-in').textContent) && /TK 104 không còn là tổ trưởng \(2\)/.test(document.getElementById('hop-in').textContent));
-   gdxTK104Hop(); await w(100);
-   ok('bảng TK 104 không còn là tổ trưởng + 📊 Xuất Excel', document.querySelectorAll('#hop-in .gdx-bang tr').length===3 && /Xuất Excel/.test(document.getElementById('hop-in').textContent)); dongHop();
-   luu(); const ch = JSON.parse(localStorage.getItem(KHOA)).cauHinh;
-   ok('danh mục tổ + TK 104 lưu kèm (cài đặt — Drive của anh, không ở mã nguồn)', !!(ch.dmTo && ch.dmTo.to[tA.ma]) && !!(ch.dmTK104 && ch.dmTK104.ds.length===3));
-   slDoiTab('nap'); doiNgan(7); await w(800);
-   const khoi = document.getElementById('sl-dm');
-   ok('📥 Nạp & KT có khối 📚 Danh mục tổ · TK 104: tóm tắt + kết quả kiểm tra + nút nạp / kiểm tra lại / TK 104 không còn là tổ trưởng', !!khoi && /tổ/.test(khoi.textContent) && /Nạp danh mục \/ TK 104/.test(khoi.textContent) && /Kiểm tra lại/.test(khoi.textContent) && /không còn là tổ trưởng \(2\)/.test(khoi.textContent));
-   D.cauHinh.gdxTC = D.cauHinh.dmTo; delete D.cauHinh.dmTo;
-   ok('bản 3.174 lưu gdxTC → tự chuyển sang danh mục tổ mới', Object.keys(gdxTC().to).length===Object.keys(ttKH).length && !D.cauHinh.gdxTC && !!D.cauHinh.dmTo);
+   ok('3.201: ⚙ Khai báo chung có khối 🏦 TK 104 / 105 (ngày Sao kê + nút TK cần đóng), không còn khối danh mục', /Sao kê TK 104: 13\/10\/2026|Sao kê TK 104: ngày 13\/10\/2026/.test(document.getElementById('hop-in').textContent) && /TK 105 cần đóng/.test(document.getElementById('hop-in').textContent) && !/Danh mục tổ/.test(document.getElementById('hop-in').textContent), document.getElementById('hop-in').textContent.slice(0, 300)); dongHop();
+   /* CCCD / ngày cấp anh gõ tay → nhớ theo mã KH */
+   ccNhoGhi('ncap', '01/02/2023');
+   ok('3.201: ngày cấp gõ tay được nhớ theo mã KH tổ trưởng (cài đặt — Drive của anh)', D.cauHinh.ccNho && D.cauHinh.ccNho[khTT] && D.cauHinh.ccNho[khTT].ncap==='2023-02-01');
+   delete D.cauHinh.ccNho;
+   /* ---- 3.201: Mẫu 01/TV (dữ liệu GIẢ) → đối chiếu thành viên + cần cho ra khỏi tổ ---- */
+   const tvA = (TO_K.kh[tA.ma]||[]).reduce((a, o)=>{ if(!a.some(x=>x.kh===o.kh)) a.push(o); return a; }, []);
+   const aoa1 = [['Mẫu 01/TV'],['NGÂN HÀNG CHÍNH SÁCH XÃ HỘI'],['CHI NHÁNH GIẢ'],['PGD GIẢ'],['(Đến ngày 31 tháng 08 năm 2026)'],['Mã tổ: '+tA.ma],['Tên tổ trưởng: '+tA.ten],['Tên tổ phó: Tổ Phó Giả'],['Địa chỉ: Ấp Giả'],['Đơn vị tính: đồng'],
+     ['STT','Họ và tên','Mã\nkhách hàng','','CMND/CCCD','Điện thoại di động','Dư nợ','','','','','Số dư tiền gửi'],['(1)','(2)','(3)','','(4)','(5)','(6)','','','','','(7)']]
+     .concat(tvA.map((o, i)=>[i+1, o.ten, o.kh, '', '079000000'+String(i).padStart(3, '0'), '', 1000000, '', '', '', '', 50000]))
+     .concat([[tvA.length+1, 'Thành Viên Giả Treo', '9999999993', '', '079000000999', '', 0, '', '', '', '', 0]]);
+   const k1 = await nap(aoa1, '4820_MAU01_TV_31082026_0000.XLSX');
+   ok('3.201: đọc Mẫu 01/TV — khối theo tổ, kỳ tháng theo dòng "Đến ngày"', k1.loai==='tv01' && k1.ky==='2026-08' && k1.rows.length===tvA.length+1 && k1.rows[0].to===tA.ma && k1.rows[0].cccd==='079000000000', k1.loi || k1.loai+' '+k1.ky+' '+k1.rows.length);
+   SL_BO = {}; const B9 = await slBo('2026-08'), dc = tvDoiChieu(B9);
+   ok('3.201: đối chiếu thành viên tổ ↔ 01/TV: thành viên treo (dư nợ 0, tiền gửi 0, Mẫu 31 không có) vào "Cần cho ra khỏi tổ"', dc && dc.ra.some(o=>o.kh==='9999999993' && /không còn món vay/.test(o.ly)) && dc.thieu.some(o=>o.kh==='9999999993') && dc.khop===tvA.length, dc && JSON.stringify({khop:dc.khop, ra:dc.ra.length, du:dc.du.length}));
+   SL_BO = {}; TO_K.B = await slBo(TO_K.ky);
+   ok('3.201: tab Tổ — chip "Cần cho ra khỏi tổ (TƯ)" của tổ có thành viên treo', (tvRaCuaTo(tA.ma)||[]).length===1 && /Thành Viên Giả Treo/.test(tvRaHTML(tA.ma)));
    slDoiTab('gdx'); doiNgan(7); await w(500); gdxDoiMau('gl'); await w(200);
    gdxDat('glLoai', '105', 1); gdxDoiMau('m04'); await w(200);
    return o;

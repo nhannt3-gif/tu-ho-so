@@ -2053,7 +2053,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.200', ds:[
+var CO_GI_MOI = {ban:'3.201', ds:[
+  ["👥 Mẫu 01/TV (danh sách thành viên tổ của TƯ): đối chiếu với app, chip “Cần cho ra khỏi tổ (TƯ)” ở tab Tổ + mục ở ② Kiểm tra số liệu", "slDoiTab('nap');doiNgan(7)"],
+  ["🏦 Sao kê TK 104 / TK 105 theo ngày: Giấy lĩnh lấy TK 104 tổ trưởng theo Mã CIF TT, TK 105 bổ sung cho khách đã tất nợ; nút TK 104 / 105 cần đóng", "slDoiTab('gdx');doiNgan(7)"],
+  ["🪪 CCCD tổ trưởng lấy đủ (Mẫu 31 → Mẫu 01/TV → DSTO), số anh gõ tay được nhớ; bỏ hẳn danh mục tổ; chữ “Rút tiền” chọn in nghiêng / thường", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: dòng PHÒNG GIAO DỊCH chọn in Đậm / Thường (khai báo dòng đầu phiếu); số tiền bằng chữ in nghiêng", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: ngày tháng cùng dòng PHÒNG GIAO DỊCH GÒ DẦU, thân phiếu xích lên cho bớt trống", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
   ["💵 Giấy lĩnh: không viết tắt PGD — in đầy đủ “PHÒNG GIAO DỊCH GÒ DẦU” (khai báo chỉ cần ghi Gò Dầu)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
