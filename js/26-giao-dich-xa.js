@@ -747,7 +747,7 @@ function gdxTTNhanThan(t){ if(!t) return {}; var tc = dmtTimTo(t) || {}, ng = [[
   return {}; }
 function gdxGLMuc(k, kb){
   var C = gdxC(), h = '';
-  if(k==='gldau') h = gdxIn1('glPGD', 'trống = chấm (vd: PGD GÒ DẦU)');
+  if(k==='gldau') h = gdxIn1('glPGD', 'tên PGD, vd: Gò Dầu — in “PHÒNG GIAO DỊCH GÒ DẦU”; trống = chấm');
   else if(k==='glngay'){ var cach = C.glNgayCach || 'hom';   /* 3.182: 1 dòng — Hôm nay · ô nhập ngày · Để chấm */
     h = '<span class="gdx-1dong">'+gdxChip('Hôm nay', cach==='hom', 'gdxDat(\'glNgayCach\', \'hom\', 1)')+
       gdxNgayChon('gdxC().glNgayTay=this.value;gdxDat(\'glNgayCach\', this.value ? \'tay\' : \'hom\', 1)', cach==='tay' ? C.glNgayTay : '')+
@@ -873,7 +873,7 @@ function gdxGLTrang(g, c, trang){
   var tien = g.tien ? gdxTien(g.tien) : '', chu = g.tien ? gdxDocTien(g.tien) : '';
   var r = function(nhan, gt){ return '<div class="gl-r"><span class="gl-n">'+nhan+'</span>'+gt+'</div>'; };
   var hop = function(tit, gt){ return '<div class="gl-hop"><div class="gl-hop-t">'+tit+'</div><div class="gl-r gl-hop-g">'+gt+'</div></div>'; };
-  var pgd = kb('glPGD'), chim = trang ? (c.glChim==='tat' ? 'tat' : 'vua') : (c.glChim || 'nhat');   /* 3.176: chữ chìm Tắt · Nhạt · Vừa · Đậm — phiếu điền sẵn mặc định Nhạt, phiếu trắng Vừa */
+  var pgd = gdxTenPGD(kb('glPGD')), chim = trang ? (c.glChim==='tat' ? 'tat' : 'vua') : (c.glChim || 'nhat');   /* 3.176: chữ chìm Tắt · Nhạt · Vừa · Đậm — phiếu điền sẵn mặc định Nhạt, phiếu trắng Vừa */
   return '<div class="gl-trang">'+(chim==='tat' ? '' : '<div class="gl-chim chim-'+chim+'">VBSP</div>')+
     '<div class="gl-dau"><div class="gl-nh"><div>NGÂN HÀNG CSXH</div><div>CHI NHÁNH TỈNH TÂY NINH</div>'+(pgd ? '<div class="gl-pgdv">'+gdxE(pgd)+'</div>' : '<div class="gl-r gl-pgd">'+gdxGLO('')+'</div>')+'</div>'+
       '<div class="gl-giua2"><div class="gl-tit">GIẤY LĨNH TIỀN MẶT</div><div class="gl-ngay">'+gdxGLNgayO(g.ngay, 'Ngày')+'</div></div>'+
@@ -892,6 +892,10 @@ function gdxGLTrang(g, c, trang){
 }
 /* bằng chữ: đo trên trang — chữ không vừa dòng 1 thì phần còn lại xuống dòng 2 (bỏ chấm) */
 var GL_JS = '<script>(function(){function chia(){Array.prototype.forEach.call(document.querySelectorAll(".gl-bc1"),function(a){var b=a.parentNode.nextElementSibling&&a.parentNode.nextElementSibling.querySelector(".gl-bc2");if(!b||a.getAttribute("data-xong"))return;a.setAttribute("data-xong","1");if(a.scrollWidth<=a.clientWidth+1)return;var w=a.textContent.split(" "),i=w.length;while(i>1){i--;a.textContent=w.slice(0,i).join(" ");if(a.scrollWidth<=a.clientWidth+1)break;}b.className="gl-v gl-bc2";b.textContent=w.slice(i).join(" ");});}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",chia);else chia();})();<\/script>';
+function gdxTenPGD(v){   /* 3.198 (anh): không viết tắt PGD — "PGD Gò Dầu" / "Gò Dầu" → "PHÒNG GIAO DỊCH GÒ DẦU" */
+  var t = String(v||'').trim().replace(/^(pgd|phòng\s+giao\s+dịch)\b\s*:?\s*/i, '').trim();
+  return t ? 'PHÒNG GIAO DỊCH '+t.toUpperCase() : '';
+}
 function gdxHTMLGL(g, c){
   c = c || gdxC();
   if(c.glKho==='a4x2') return '<div class="sheet-gl gl-a4 gl-x2">'+gdxGLTrang(g, c, c.glTrang)+'<div class="gl-cat"></div>'+gdxGLTrang(g, c, c.glTrang)+'</div>'+GL_JS;

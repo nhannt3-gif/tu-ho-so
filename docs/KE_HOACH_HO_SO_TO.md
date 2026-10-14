@@ -232,3 +232,4 @@ File anh gửi là bản đã ghi tham khảo có tên, CCCD người thật →
 - **Đã làm 3.195 (14/10):** Bảng kê — tên PGD liền khối cùng font với “PHÒNG GIAO DỊCH:”, trống → chấm; tên cơ quan chữ đứng hẹp như tờ thật.
 - **Đã làm 3.196 (14/10):** đường kẻ mọi mẫu biểu mảnh lại, đường phụ nhạt hơn đường chính, chấm mịn (quy tắc ở QUY_TAC_SOAN_MAU.md).
 - **Đã làm 3.197 (14/10):** Giấy lĩnh — gạch dọc dài thêm 2 mm, ô Số tiền giãn đều, PGD đậm; Bảng kê — Họ tên nhỏ nghiêng, chấm dài.
+- **Đã làm 3.198 (14/10):** Giấy lĩnh không viết tắt PGD — in “PHÒNG GIAO DỊCH GÒ DẦU”.

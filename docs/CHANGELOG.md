@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.198 — 14/10/2026 — 💵 Giấy lĩnh: không viết tắt PGD
+- **Anh (14/10):** "không viết tắt PGD".
+- `gdxTenPGD`: khai báo tên PGD ghi “Gò Dầu”, “PGD Gò Dầu” hay “Phòng giao dịch Gò Dầu” đều in **“PHÒNG GIAO DỊCH GÒ DẦU”** (viết hoa, đậm, 1 dòng); dữ liệu cũ đã ghi “PGD …” tự in đầy đủ. Trống → chấm như cũ. Gợi ý ô khai báo đổi thành “vd: Gò Dầu”.
+- **Phép thử:** `t167` 73/73.
+
 ## 3.197 — 14/10/2026 — 💵 Giấy lĩnh / 🧾 Bảng kê: chỉnh theo ý anh
 - **Anh (14/10):** "hai gạch dọc trong giấy lĩnh tiền cho dài thêm xuống dưới 2 mm, ô số tiền bằng số canh đều ô cho đẹp, chữ phòng giao dịch Gò Dầu in đậm như 2 dòng trên… bảng kê… chỗ họ tên người ký, chữ họ tên in nhỏ nghiêng, kéo dài chỗ chấm để ghi đủ tên".
 - **Giấy lĩnh:** 2 gạch dọc ô Người lĩnh tiền dài thêm 2 mm (cách đáy 2,5 → 0,5 mm); ô **Số tiền bằng số**: tiêu đề và số giãn đều trong ô; dòng tên PGD (khai báo `glPGD`) **in đậm** như 2 dòng tên cơ quan.
