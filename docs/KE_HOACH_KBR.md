@@ -43,6 +43,8 @@ Ngày họp bình xét 03/TD: giữ ô cũ (`hsoNgayTuy`). 4. Số tiền trả 
 | 01/GQVL · 07b/GQVL | Gom chip / thẻ chương trình (3.211) về cùng khối ô tùy biến cho thống nhất; ngày ký HĐ, ngày ký phương án | ngay |
 | 10C · 01/TGTV · Hồ sơ Tổ | Người ký theo vai trò Hội (như KTGS: chọn vai trò → tên đã khai) | tu |
 
-**Logic ngày (anh chốt sau):** gợi ý để anh chọn — (A) giữ như hiện nay: chấm, muốn in thì gõ; (B) 1 "ngày lập hồ sơ" chung cho cả bộ, các ô ngày 🖨 dùng ngày đó; (C) ngày theo sự kiện: đơn = ngày họp tổ, 03/TD = ngày họp, phần UBND / NH luôn chấm.
+**Logic ngày — anh chốt 15/10:** chỉ áp **Hồ sơ vay** (mọi mẫu, kể cả 09A, 01/TĐCK): mặc định chấm ghi tay, chỉ in ngày anh gõ. **Các mẫu Giao dịch xã giữ như cũ** (Giấy lĩnh mặc định hôm nay / gõ tay / chấm; 04/TD ký hôm nay; Bảng kê chấm).
+
+~~Logic ngày (anh chốt sau):~~ (các hướng cũ, giữ để tham khảo) gợi ý để anh chọn — (A) giữ như hiện nay: chấm, muốn in thì gõ; (B) 1 "ngày lập hồ sơ" chung cho cả bộ, các ô ngày 🖨 dùng ngày đó; (C) ngày theo sự kiện: đơn = ngày họp tổ, 03/TD = ngày họp, phần UBND / NH luôn chấm.
 
 Câu hỏi còn mở (anh trả lời khi rảnh): 01/TD mục 4 "Số tiền trả nợ / lần" có cho app tự chia theo thời hạn / kỳ hạn không? 03/TD "Số người chưa được vay" có cần không?
