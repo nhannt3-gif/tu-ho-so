@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.216 — 15/10/2026 — 🏛 Cửa KHO (kho số liệu chung)
+- **Anh (15/10):** "làm cửa kho trước cho hoàn chỉnh rồi tiếp các mẫu còn lại". Theo `KE_HOACH_B_C.md` mục 2 (C1 + chuyển chỗ gọi C2), `KIEN_TRUC_3_LOP` 3.5, `QUY_CHUAN_KIEN_TRUC` mục 3 (cửa = hợp đồng).
+- **File mới `js/29-kho.js`** — `KHO.*` 26 cửa, mỗi cửa ghi hợp đồng (vào · ra · QT): `ky, coKy, maTo, maDong, coBang, nap, to, dsTo, dongTo, toVien, bangTo, toTruong, toTruongKH, khach, danhBa, coDanhBa, dsDanhBa, timCCCD, tim, cccd, hanCCCD, tk105, tk104, saoKe, thanhVienTW, tv01`. Chỉ **bọc** hàm sẵn có (bên trong chưa viết lại); chưa dựng kỳ → rỗng / null, không lỗi. Lõi `hsoKhach`, `hsoTTKH` dời từ js/25 về js/29 (giữ tên).
+- **Chuyển chỗ gọi:** Giấy lĩnh (`gdxGLDuLieu`, danh sách khách, tìm), mini app (gói số liệu lúc xuất), Hồ sơ vay + sổ hộ vay (`hsoTVTo`, `hmM31` → `KHO.timCCCD`, `hmTuM31`, `hmDongBo`, `hmNguoiDung`, tìm Mẫu 31 → `KHO.tim`), Hồ sơ Tổ, Giao dịch xã (12/GDX, 04/TD, chọn điểm). **js/25: 109 → 7 dòng, js/26: 48 → 4 dòng** còn chạm biến kho (chỉ chỗ tab đặt kỳ, cây chọn, tổ trưởng kỳ trước).
+- **Không đổi màn hình, dữ liệu, bản in:** so trước – sau 26 nhóm giống hệt từng ký tự (Giấy lĩnh TK 104 từng tổ / TK 105 từng khách, 12/GDX, 04/TD, mini app, 10C · 10A · 10B · 11 · 01/BG · 02/BG, 01/TD · 03/TD · 01/UQ, sổ hộ vay). KTGS không đụng.
+- **Phép thử:** `t177` 14/14 (mới: hợp đồng từng cửa = hàm được bọc, chưa dựng kỳ, kiểm tĩnh js/25 + js/26 chỉ qua KHO) · t167 t168 t170 t173–t176 đạt.
+
 ## 3.215 — 15/10/2026 — ⚙ Khai báo riêng từng mẫu Hồ sơ vay (đợt 1: 01/TD · 03/TD · 01/UQ)
 - **Anh (15/10):** khai báo riêng liệt kê từ trên xuống của mẫu (từ dòng Kính gửi), dòng nào cần thì cho khai báo / tùy biến, theo kinh nghiệm tab KTGS; anh bổ sung sau. Kế hoạch + danh sách ô: `docs/KE_HOACH_KBR.md`.
 - **Kế thừa ô chấm tùy biến 3.206 (09A)** — mở rộng `HSO_CHAM`: loại `kb` (khai 1 lần, nhớ `hsoLuu().chamGT[mẫu]`, cột 5 `'ct'` = nhớ theo chương trình vay), `tu` (app tự lấy), `nhom` (tiêu đề nhóm theo thứ tự trên mẫu); `hsoChamNgayTT` (Ngày … tháng … năm — **mặc định ✍ chấm ghi tay; 🖨 chỉ in ngày anh gõ, trống vẫn chấm, không tự lấy hôm nay** — anh 15/10: áp mọi mẫu Hồ sơ vay **kể cả 09A, 01/TĐCK** (trước: 🖨 trống = hôm nay); `hsoChamNgay` bỏ mặc định hôm nay). Khối **✍ / 🖨 Ô tùy biến — Mẫu …** ở cột trái (có hộ và mẫu trắng).

@@ -92,9 +92,9 @@ function gdxChipTien(amountNumber){
 function gdxNgayThang(v){ var s = String(v==null ? '' : v).trim(), m = s.match(/^\d{4}-\d{2}-(\d{2})/) || s.match(/^(\d{1,2})\/\d{1,2}\/\d{4}/) || s.match(/^(\d{1,2})$/); return m ? String(+m[1]) : ''; }
 function gdxDsDiem(){
   var r = [];
-  if(typeof TO_K!=='undefined' && TO_K && TO_K.to && Object.keys(TO_K.to).length){
+  if(KHO.maTo().length){
     var g = {};
-    Object.keys(TO_K.to).forEach(function(m){ var t = TO_K.to[m]; if(!t || t.trucTiep || !t.diem) return;
+    KHO.maTo().forEach(function(m){ var t = KHO.to(m); if(!t || t.trucTiep || !t.diem) return;
       var x = g[t.khoaDiem] = g[t.khoaDiem] || {k:t.khoaDiem, maXa:t.xa||'', tenXa:t.tenXa||'', maDiem:t.diem||'', tenDiem:String(t.tenDiem||'').trim(), ngayGD:gdxNgayThang(t.ngayGD), to:[]};
       if(!x.ngayGD && t.ngayGD) x.ngayGD = gdxNgayThang(t.ngayGD);
       x.to.push({maTo:m, tenTo:t.ten||'', tenAp:t.tenThon||''}); });
@@ -492,7 +492,7 @@ function gdxPhimBuoc(ev, k, b){ if(ev.key==='ArrowUp' || ev.key==='ArrowDown'){ 
 function gdxNoi(noi){ var C = gdxC(), S = gdxCH();
   if(noi==='pgd') gdxDat04('pgd', S.xa ? gdxTenXa(S.xa) : C.xa04, true); else gdxDat04('diem', S.diem || C.ma04, true);
   gdxVe(); }
-function gdxTenXa(maXa){ var r = ''; if(TO_K && TO_K.to) Object.keys(TO_K.to).some(function(m){ var t = TO_K.to[m]; if(t.xa===maXa && t.tenXa){ r = t.tenXa; return true; } return false; }); return r || maXa; }
+function gdxTenXa(maXa){ var r = ''; KHO.maTo().some(function(m){ var t = KHO.to(m); if(t.xa===maXa && t.tenXa){ r = t.tenXa; return true; } return false; }); return r || maXa; }
 
 /* ---------- theo khối lọc: điểm GD / xã đang chọn → điền mẫu ---------- */
 function gdxTheoLoc(){
@@ -505,7 +505,7 @@ function gdxTheoLoc(){
 /* chọn điểm GD có ngày GD gần nhất (hôm nay trước) — mở mẫu cấp điểm chưa chọn điểm, hoặc mở Giấy lĩnh (anh chốt: ngày GD xã nào thì chọn điểm đó) */
 function gdxChonDiemGan(){
   var g = gdxDiemGanNhat(); if(!g) return false;
-  if(TO_K && TO_K.to){ var S = gdxCH(); if(S.diem===g.d.k) return true; S.xa = g.d.maXa; S.diem = g.d.k; S.hoi = ''; S.to = ''; luu(); return true; }
+  if(KHO.coKy()){ var S = gdxCH(); if(S.diem===g.d.k) return true; S.xa = g.d.maXa; S.diem = g.d.k; S.hoi = ''; S.to = ''; luu(); return true; }
   var C = gdxC(); gdxDat04('diem', g.d.k, true); gdxDat12Diem(g.d.k, true); return true;
 }
 
@@ -561,10 +561,10 @@ function gdxRuotHTML(){
   var C = gdxC(), M = gdxMauHT(), S = gdxCH(), canh = '';
   if(M.cap==='diem' && !(C.noiGN==='pgd' && M.k==='m04')){ var d = gdxDiem(M.k==='m12' ? C.m12SelectedDiem : C.ma04);
     canh = d ? '<div class="gdx2-diem">📍 <b>'+gdxE(d.tenDiem)+'</b>'+(d.maDiem ? ' · mã '+gdxE(d.maDiem) : '')+' · '+gdxE(d.tenXa)+(d.ngayGD ? ' · GD ngày '+gdxE(d.ngayGD)+' hằng tháng' : ' · <span class="gdx-vang">chưa có ngày GD</span>')+'</div>'
-      : '<div class="sl-bao vang">Chọn <b>Điểm GD</b>'+(TO_K ? ' ở khối LỌC ĐỊA BÀN' : '')+'.</div>';
-    if(!TO_K) canh += '<label class="gdx-l1">Điểm GD <select class="gdx-i" onchange="gdxChonDiemTay(this.value)"><option value="">— chọn —</option>'+gdxDsDiem().map(function(x){ var cur = M.k==='m12' ? C.m12SelectedDiem : C.ma04; return '<option value="'+gdxE(x.k)+'"'+(x.k===cur ? ' selected' : '')+'>'+gdxE(x.tenDiem+' · '+x.tenXa)+'</option>'; }).join('')+'</select></label>';
+      : '<div class="sl-bao vang">Chọn <b>Điểm GD</b>'+(KHO.coKy() ? ' ở khối LỌC ĐỊA BÀN' : '')+'.</div>';
+    if(!KHO.coKy()) canh += '<label class="gdx-l1">Điểm GD <select class="gdx-i" onchange="gdxChonDiemTay(this.value)"><option value="">— chọn —</option>'+gdxDsDiem().map(function(x){ var cur = M.k==='m12' ? C.m12SelectedDiem : C.ma04; return '<option value="'+gdxE(x.k)+'"'+(x.k===cur ? ' selected' : '')+'>'+gdxE(x.tenDiem+' · '+x.tenXa)+'</option>'; }).join('')+'</select></label>';
   }
-  if(M.k==='m04' && C.noiGN==='pgd' && !TO_K) canh += '<label class="gdx-l1">Xã / phường (kính gửi) <select class="gdx-i" onchange="gdxDat04(\'pgd\', this.value, true);gdxVe()"><option value="">— chọn —</option>'+gdxDsXa().map(function(x){ return '<option'+(x===C.xa04 ? ' selected' : '')+'>'+gdxE(x)+'</option>'; }).join('')+'</select></label>';
+  if(M.k==='m04' && C.noiGN==='pgd' && !KHO.coKy()) canh += '<label class="gdx-l1">Xã / phường (kính gửi) <select class="gdx-i" onchange="gdxDat04(\'pgd\', this.value, true);gdxVe()"><option value="">— chọn —</option>'+gdxDsXa().map(function(x){ return '<option'+(x===C.xa04 ? ' selected' : '')+'>'+gdxE(x)+'</option>'; }).join('')+'</select></label>';
   if(!gdxDsDiem().length) canh += '<div class="sl-bao vang">Chưa có điểm giao dịch — nạp Mẫu 31 (📥 Nạp &amp; KT) hoặc khai ở <a class="lk" onclick="moCaiDat(\'diaban\')">Cài đặt › Địa bàn</a>. Vẫn in được, ô điểm để trống.</div>';
   var ds = GDX_MUC[M.k].filter(function(o){ return gdxNhanh(M.k, o.k); });
   return canh+
@@ -577,7 +577,7 @@ function gdxDoiMau(f){
   var C = gdxC(); C.form = f; gdxLuu();
   var M = gdxMauHT(), cay = document.getElementById('gdx-cay');
   if(f==='gl'){ gdxChonDiemGan(); var S = gdxCH(); GDX.glTo = S.to; GDX.glKH = ''; GDX.glTien = ''; if(!C.glNgayCach) C.glNgayCach = 'hom'; }
-  else if(f!=='bk' && !(TO_K ? gdxCH().diem : (gdxDiem(C.ma04) || gdxDiem(C.m12SelectedDiem)))) gdxChonDiemGan();
+  else if(f!=='bk' && !(KHO.coKy() ? gdxCH().diem : (gdxDiem(C.ma04) || gdxDiem(C.m12SelectedDiem)))) gdxChonDiemGan();
   if(cay){ cay.className = 'to-cay pv-cay gdx-cap-'+M.cap; pvVeCay('gdx'); } else gdxVeTrai();
 }
 /* khung xem: zoom 0 = vừa bề ngang khung (chỉ khung xem; khi in luôn 100%) */
@@ -654,7 +654,7 @@ function gdxTom(){
     if(g.ten && !g.cccd && g.ccLy) cb('vang', 'Chưa có CCCD '+(C.glLoai==='104' ? 'tổ trưởng' : 'khách')+' — '+g.ccLy+'.', 'glphieu');
     if(g.han && (g.han.kq==='het' || g.han.kq==='sap') && !(GDX.glSua && GDX.glSua.cccd!==undefined)) cb(g.han.kq==='het' ? 'do' : 'vang', 'CCCD '+g.han.chu+' — kiểm lại thẻ trước khi chi.', 'glphieu');   /* 3.202 (QT-13): CCCD hết / sắp hết hạn */
     if(g.tkTrung) cb('vang', (C.glLoai==='104' ? 'Tổ trưởng' : 'Khách')+' có '+g.tkDs.length+' TK '+(C.glLoai==='104' ? '104' : '105')+' — chọn TK đang dùng (ô TK ở form), báo đóng TK thừa.', 'glphieu');
-    if(g.tien && g.du!=null && +g.tien > g.du) cb('do', 'Số tiền rút '+gdxTien(g.tien)+' lớn hơn số dư 105 ('+gdxTien(g.du)+' — số liệu '+(TO_K ? slKyChu(TO_K.ky) : '')+').', 'glphieu');
+    if(g.tien && g.du!=null && +g.tien > g.du) cb('do', 'Số tiền rút '+gdxTien(g.tien)+' lớn hơn số dư 105 ('+gdxTien(g.du)+' — số liệu '+(KHO.coKy() ? slKyChu(KHO.ky().ky) : '')+').', 'glphieu');
   }
   return ra;
 }
@@ -709,8 +709,8 @@ function gdxKBRieng(sang){
    Dòng có thông tin thì bỏ chấm; dòng không có thì giữ chấm để giữ form (anh chốt). Nội dung mặc định "Rút tiền".
    Tìm nhanh: gõ tên tổ trưởng / khách không dấu; hoặc chọn ở khối LỌC ĐỊA BÀN. Mở mẫu → tự chọn điểm GD có ngày GD gần nhất (hôm nay trước).
    ========================================================== */
-function gdxGLTo(){ var S = gdxCH(); var t = TO_K && S.to ? TO_K.to[S.to] : null; return t && !t.trucTiep ? t : null; }
-function gdxGLDsKhach(t){ if(!t || !TO_K) return []; try { return toTV(t); } catch(e){ return []; } }
+function gdxGLTo(){ var S = gdxCH(); var t = KHO.to(S.to); return t && !t.trucTiep ? t : null; }
+function gdxGLDsKhach(t){ return t ? KHO.toVien(t) : []; }   /* 3.216: qua cửa KHO */
 function gdxGLNgay(){
   var C = gdxC(), cach = C.glNgayCach || 'hom';
   if(cach==='cham') return ''; if(cach==='tay') return C.glNgayTay || ''; return gdxHom();
@@ -719,25 +719,25 @@ function gdxGLDuLieu(){
   var C = gdxC(), t = gdxGLTo(), r = {ten:'', kh:'', diaChi:'', cccd:'', ncap:'', noiCap:'', tk:'', tkTu:'', du:null, tien:'', ngay:gdxGLNgay(), to:t ? t.ma : ''};
   if(t){
     if(C.glLoai==='104'){   /* 3.202: đọc BẢNG TỔ DỰNG SẴN (tổ trưởng = Mã CIF TT, TK 104 Sao kê, CCCD đủ nguồn) */
-      var b4 = (tkBangTo()||{})[t.ma] || {};
+      var b4 = KHO.bangTo(t.ma) || {};   /* 3.216: qua cửa KHO */
       r.ten = t.ten || ''; r.kh = b4.kh || ''; r.tk = b4.tk || ''; r.tkTu = b4.tkTu || ''; r.tkLy = b4.tkLy || ''; r.tkDs = b4.tkDs || []; r.tkTrung = !!b4.tkTrung && !b4.tkDaChon;
       r.cccd = b4.cccd || ''; r.ncap = b4.ncap || ''; r.ccTu = b4.ccTu || ''; r.ccLy = b4.ccLy || ''; r.han = b4.han || null;
     } else {
       var x = gdxGLDsKhach(t).find(function(o){ return o.kh===GDX.glKH; }) || null;
       if(x){ r.ten = x.ten; r.kh = x.kh; r.du = x.t105 || 0; r.coTK = !!x.coTK;
-        var x5 = tkCua('tk105', x.kh);   /* 3.202 (anh chốt): TK 105 10 số theo Sao kê (bản gần nhất) — tra khi chọn khách */
+        var x5 = KHO.tk105(x.kh);   /* 3.202 (anh chốt): TK 105 10 số theo Sao kê (bản gần nhất) — tra khi chọn khách */
         if(x5){ r.tk = x5.ds[0].stk; r.tkTu = 'Sao kê TK 105 '+slKyChu(x5.ky)+(x5.trung ? ' · '+x5.ds.length+' TK'+(x5.daChon ? ', anh đã chọn' : ', TK mở gần nhất') : ''); r.tkDs = x5.ds.map(function(y){ return y.stk; }); r.tkTrung = x5.trung && !x5.daChon; r.duSK = x5.ds[0].t105; }
         else if((x.stk||[]).length){ r.tk = x.stk[0]; r.tkTu = 'Mẫu 31 / Mẫu 18'; }
-        var c5 = cccdCua(x.kh, t, false); r.cccd = c5.cccd; r.ncap = c5.ncap; r.ccTu = c5.tu; r.ccLy = c5.ly; r.han = c5.han; }
+        var c5 = KHO.cccd(x.kh, t, false); r.cccd = c5.cccd; r.ncap = c5.ncap; r.ccTu = c5.tu; r.ccLy = c5.ly; r.han = c5.han; }
     }
-    var row = r.kh ? (TO_K.kh[t.ma]||[]).find(function(o){ return o.kh===r.kh && o.tenThon; }) : null;
+    var row = r.kh ? KHO.dongTo(t.ma).find(function(o){ return o.kh===r.kh && o.tenThon; }) : null;
     if(r.ten || r.kh) r.diaChi = ktDiaBan({tenThon:(row && row.tenThon) || t.tenThon, tenXa:(row && row.tenXa) || t.tenXa});
-    if(r.kh && typeof hsoKhach==='function'){ var k = hsoKhach(r.kh, t); r.noiCap = k.noiCap || ''; if(!r.ten) r.ten = k.ten || ''; }
+    if(r.kh && typeof hsoKhach==='function'){ var k = KHO.khach(r.kh, t); r.noiCap = k.noiCap || ''; if(!r.ten) r.ten = k.ten || ''; }
     if(C.glLoai!=='104' && r.kh && !r.tk){   /* 3.185 (anh chốt): chưa có số TK 105 → tra danh bạ các kỳ theo SỐ CCCD (không theo tên); không có thì ghi lý do */
-      var cc = String(r.cccd||'').replace(/\D/g, ''), db = typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh;
-      var m2 = cc.length>=9 && db ? Object.keys(db).find(function(k){ var c = db[k]; return String(c.cccd||'').replace(/\D/g, '')===cc && slStk(c.stk).length; }) : '';
-      if(m2){ r.tk = slStk(db[m2].stk)[0]; r.tkTu = 'theo CCCD'+(m2!==r.kh ? ' — mã KH '+m2 : '')+(db[m2].stkKy ? ', kỳ '+db[m2].stkKy : ''); }
-      else { var b5 = tkBang('tk105'); r.tkLy = b5 ? 'không có trong Sao kê TK 105 '+slKyChu(b5.ky)+' (TK mới mở sau ngày Sao kê?) — gõ tay' : 'chưa nạp Sao kê TK 105 (📥 Nạp & KT) — gõ tay'; } }
+      var cc = String(r.cccd||'').replace(/\D/g, '');
+      var m2 = cc.length>=9 ? KHO.dsDanhBa().find(function(k){ var c = KHO.danhBa(k); return String(c.cccd||'').replace(/\D/g, '')===cc && slStk(c.stk).length; }) : '';
+      if(m2){ var c2 = KHO.danhBa(m2); r.tk = slStk(c2.stk)[0]; r.tkTu = 'theo CCCD'+(m2!==r.kh ? ' — mã KH '+m2 : '')+(c2.stkKy ? ', kỳ '+c2.stkKy : ''); }
+      else { var b5 = KHO.saoKe('tk105'); r.tkLy = b5 ? 'không có trong Sao kê TK 105 '+slKyChu(b5.ky)+' (TK mới mở sau ngày Sao kê?) — gõ tay' : 'chưa nạp Sao kê TK 105 (📥 Nạp & KT) — gõ tay'; } }
   }
   r.tien = GDX.glHet && r.du ? String(Math.round(r.du)) : String(GDX.glTien||'').replace(/\D/g, '');
   var sua = GDX.glSua || {};   /* 3.175: form gõ tay — sửa / bổ sung cho lần in này (không ghi đè số liệu) */
@@ -746,7 +746,7 @@ function gdxGLDuLieu(){
   return r;
 }
 /* 3.187 (anh: "CCCD tổ trưởng có trong các file về tổ"): Thông tin tổ trưởng (t.tt) → DSTO (t.ds) → danh mục tổ anh nạp */
-function gdxTTNhanThan(t, kh){ if(!t) return {}; var v = kh ? tv01Cua(kh) : null, nh = kh ? ccNho(kh) : null, ng = [[v, 'Mẫu 01/TV'], [t.tt, 'file Thông tin tổ trưởng'], [t.ds, 'DSTO'], [nh, 'anh gõ lần trước']];   /* 3.201: + Mẫu 01/TV + số anh gõ tay (nhớ theo mã KH) */
+function gdxTTNhanThan(t, kh){ if(!t) return {}; var v = kh ? KHO.tv01(kh) : null, nh = kh ? ccNho(kh) : null, ng = [[v, 'Mẫu 01/TV'], [t.tt, 'file Thông tin tổ trưởng'], [t.ds, 'DSTO'], [nh, 'anh gõ lần trước']];   /* 3.201: + Mẫu 01/TV + số anh gõ tay (nhớ theo mã KH) */
   for(var i = 0; i < ng.length; i++){ var o = ng[i][0]; if(o && String(o.cccd||'').replace(/\D/g, '').length >= 9) return {cccd:String(o.cccd).replace(/\D/g, ''), ncap:o.ncap || '', tu:ng[i][1]}; }
   return {}; }
 function gdxGLMuc(k, kb){
@@ -774,14 +774,14 @@ function gdxGLPhieuHTML(kb){
   var C = gdxC(), t = gdxGLTo(), g = gdxGLDuLieu(), h = '<div class="gl-khung">';
   h += '<div class="gl-k1"><span class="gdx-ra"><label><input type="radio" name="gdx-r-glloai"'+(C.glLoai==='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;GDX.glSua={};gdxDat(\'glLoai\', \'104\', 1)"> TK 104 tổ trưởng</label>'+
     '<label><input type="radio" name="gdx-r-glloai"'+(C.glLoai!=='104' ? ' checked' : '')+' onchange="GDX.glKH=\'\';GDX.glHet=0;GDX.glSua={};gdxDat(\'glLoai\', \'105\', 1)"> TK 105 khách</label></span>'+
-    (TO_K ? '<div class="gdx-tim"><input id="gdx-gl-q" class="gdx-i" autocomplete="off" placeholder="🔎 Gõ tên '+(C.glLoai==='104' ? 'tổ trưởng' : 'tổ trưởng / khách')+' (không dấu) · ↑↓ Enter" value="'+gdxE(GDX.glQ||'')+'" oninput="GDX.glQ=this.value;gdxGLTim()" onkeydown="gdxGLPhim(event)"><div id="gdx-gl-gy" class="gdx-gy"></div></div>'
+    (KHO.coKy() ? '<div class="gdx-tim"><input id="gdx-gl-q" class="gdx-i" autocomplete="off" placeholder="🔎 Gõ tên '+(C.glLoai==='104' ? 'tổ trưởng' : 'tổ trưởng / khách')+' (không dấu) · ↑↓ Enter" value="'+gdxE(GDX.glQ||'')+'" oninput="GDX.glQ=this.value;gdxGLTim()" onkeydown="gdxGLPhim(event)"><div id="gdx-gl-gy" class="gdx-gy"></div></div>'
       : '<small class="gdx-ghi">Chưa có Mẫu 31 — gõ tay vào các ô dưới.</small>')+'</div>';
   if(t && C.glLoai==='104') h += '<div class="gl-k2">Tổ '+gdxE(t.ten || t.ma)+(t.tenThon ? ' · '+gdxE(pvApNgan(t.tenThon)) : '')+' · TK 104: '+(g.tk ? '<b>'+gdxE(g.tk)+'</b> <small>('+g.tkTu+')</small>' : '<span class="gdx-vang">chưa có — '+gdxE(g.tkLy || '')+'</span>')+gdxGLChonTK('tk104', g)+'</div>';
   else if(t){ var ds = gdxGLDsKhach(t), tt = (typeof hsoTTKH==='function' ? hsoTTKH(t).kh : '') || '';
     h += '<div class="gl-k2"><select class="gdx-i" onchange="if(this.value)gdxGLChonKH(this.value)"><option value="">— Khách tổ '+gdxE(t.ten || t.ma)+' ('+ds.length+') —</option>'+
       ds.map(function(x){ return '<option value="'+gdxE(x.kh)+'"'+(x.kh===GDX.glKH ? ' selected' : '')+'>'+gdxE(x.ten+(x.kh===tt ? ' (TT)' : '')+' · 105: '+gdxTien(Math.round(x.t105||0)))+'</option>'; }).join('')+'</select></div>'+
       (GDX.glKH ? '<div class="gl-k2">TK 105: '+(g.tk ? '<b>'+gdxE(g.tk)+'</b> <small>('+gdxE(g.tkTu||'')+')</small>' : '<span class="gdx-vang">chưa có — '+gdxE(g.tkLy||'gõ tay')+'</span>')+gdxGLChonTK('tk105', g)+'</div>' : ''); }
-  else if(TO_K) h += '<div class="gl-k2"><small class="gdx-ghi">hoặc chọn Tổ ở khối LỌC ĐỊA BÀN · hoặc gõ thẳng vào các ô dưới</small></div>';
+  else if(KHO.coKy()) h += '<div class="gl-k2"><small class="gdx-ghi">hoặc chọn Tổ ở khối LỌC ĐỊA BÀN · hoặc gõ thẳng vào các ô dưới</small></div>';
   h += '<div class="gl-form-luoi">'+GL_O.map(function(o){ var v = g[o[0]] || '', ph = o[0]==='ncap' ? 'gõ liền 230421' : 'trống = chấm';
       if(o[0]==='ncap' && /^\d{4}-\d{2}-\d{2}/.test(v)) v = gdxDMY(String(v).slice(0, 10));
       if(GDX.glSua && GDX.glSua[o[0]]!==undefined && o[0]==='ncap') v = GDX.glSua.ncap;
@@ -815,7 +815,7 @@ function gdxGLPhim(ev){
 /* 3.176: in xong → "✕ Làm trống — in người khác" (3.206 anh chốt: đổi tên "↺ Phiếu mới"): bỏ người lĩnh / form / số tiền, giữ ngày, khổ, loại TK; con trỏ về ô tìm */
 function gdxGLMoi(){
   var S = gdxCH(); GDX.glQ = ''; GDX.glKH = ''; GDX.glTien = ''; GDX.glHet = 0; GDX.glSua = {}; GDX.glDaIn = false; GDX.glI = 0;
-  if(TO_K && S.to){ S.to = ''; GDX.glTo = ''; luu(); var cay = document.getElementById('gdx-cay'); if(cay) pvVeCay('gdx'); else gdxVe(); } else gdxVe();
+  if(KHO.coKy() && S.to){ S.to = ''; GDX.glTo = ''; luu(); var cay = document.getElementById('gdx-cay'); if(cay) pvVeCay('gdx'); else gdxVe(); } else gdxVe();
   setTimeout(function(){ var e = document.getElementById('gdx-gl-q') || document.querySelector('.gl-form-luoi input'); if(e) e.focus(); }, 50);
 }
 function gdxGLChonKH(kh){ GDX.glKH = kh; GDX.glHet = 0; GDX.glSua = {}; gdxVe(); gdxGLToiTien(); }
@@ -828,22 +828,22 @@ function gdxGLNoiCapChu(g){ return (gdxNoiCapCu(g.ncap) && !(GDX.glSua && GDX.gl
 function gdxGLNoiCapTay(){ var g = gdxGLDuLieu(), v = prompt('Nơi cấp (để trống = tự tính theo ngày cấp):', g.noiCap || ''); if(v===null) return;
   GDX.glSua = GDX.glSua || {}; if(String(v).trim()) GDX.glSua.noiCap = String(v).trim(); else delete GDX.glSua.noiCap; gdxVe(); }
 function gdxGLLamTrong(){ gdxGLMoi(); }   /* 3.185 (anh chốt): Làm trống trước / sau in như nhau — bỏ người lĩnh, form, số tiền và bỏ luôn chọn tổ ở cây địa bàn (giữ Xã / Điểm) */
-function gdxCCCDCua(kh, t){ var c = typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh && SL_DB.kh[kh], v = c && c.cccd;
-  if(!v && t && TO_K && TO_K.kh[t.ma]){ var r = TO_K.kh[t.ma].find(function(o){ return o.kh===kh && o.cccd; }); v = r ? r.cccd : ''; } return String(v||'').replace(/\D/g, ''); }
+function gdxCCCDCua(kh, t){ var c = KHO.danhBa(kh), v = c && c.cccd;
+  if(!v && t && KHO.dongTo(t.ma).length){ var r = KHO.dongTo(t.ma).find(function(o){ return o.kh===kh && o.cccd; }); v = r ? r.cccd : ''; } return String(v||'').replace(/\D/g, ''); }
 function gdxGLTim(){
   var g = document.getElementById('gdx-gl-gy'); if(!g) return;
-  var q = slChuan(GDX.glQ||''); if(q.length<2 || !TO_K){ g.innerHTML = ''; return; }
+  var q = slChuan(GDX.glQ||''); if(q.length<2 || !KHO.coKy()){ g.innerHTML = ''; return; }
   var tu = q.split(' '), C = gdxC(), kq = [], khop = function(chu){ chu = ' '+slChuan(chu); return tu.every(function(w){ return chu.indexOf(w)>=0; }); };
   /* 3.178 (anh chốt): đã chọn Xã / Điểm GD ở khối lọc → chỉ tìm trong xã / điểm đó cho gọn; bấm "Tìm cả PGD" để mở rộng */
   var S = gdxCH(), pham = GDX.glTatCa ? null : (S.diem ? {k:'khoaDiem', v:S.diem, chu:'điểm '+((gdxDiem(S.diem)||{}).tenDiem || S.diem)} : S.xa ? {k:'xa', v:S.xa, chu:gdxTenXa(S.xa)} : null);
   var trong = function(t){ return !pham || t[pham.k]===pham.v; };
   /* 3.185 (anh chốt): gõ số (4 số cuối trở lên hoặc đủ CCCD) → tìm theo số CCCD cho đúng người, không lẫn trùng tên */
   var so = /^\d{4,}$/.test(q) ? q : '', theoCC = function(kh, t){ if(!so || !kh) return ''; var cc = gdxCCCDCua(kh, t); return cc && cc.slice(-so.length)===so ? cc : ''; };
-  Object.keys(TO_K.to).forEach(function(m){ var t = TO_K.to[m]; if(t.trucTiep || !t.ten || !trong(t)) return;
+  KHO.maTo().forEach(function(m){ var t = KHO.to(m); if(t.trucTiep || !t.ten || !trong(t)) return;
     var cc = so ? theoCC(typeof hsoTTKH==='function' ? hsoTTKH(t).kh : '', t) : '';
     if(cc || (!so && khop([t.ten, m, t.tenThon].join(' ')))) kq.push({to:m, kh:'', ten:t.ten, phu:'Tổ trưởng · tổ '+m+' · '+[pvApNgan(t.tenThon), t.tenDiem].filter(Boolean).join(' · ')+(cc ? ' · CCCD '+cc : '')}); });
-  if(C.glLoai!=='104') Object.keys(TO_K.kh).forEach(function(m){ var t = TO_K.to[m], da = {}; if(!t || t.trucTiep || !trong(t)) return;
-    (TO_K.kh[m]||[]).forEach(function(o){ if(!o.kh || da[o.kh] || (!so && slChuan(o.ten)===slChuan(t.ten))) return; da[o.kh] = 1;
+  if(C.glLoai!=='104') KHO.maDong().forEach(function(m){ var t = KHO.to(m), da = {}; if(!t || t.trucTiep || !trong(t)) return;
+    KHO.dongTo(m).forEach(function(o){ if(!o.kh || da[o.kh] || (!so && slChuan(o.ten)===slChuan(t.ten))) return; da[o.kh] = 1;
       var cc = theoCC(o.kh, t);
       if(cc || (!so && khop(o.ten+' '+o.kh))) kq.push({to:m, kh:o.kh, ten:o.ten, phu:'Khách · tổ '+(t.ten||m)+(t.tenThon ? ' · '+pvApNgan(t.tenThon) : '')+(cc ? ' · CCCD '+cc : '')}); }); });
   kq = kq.slice(0, 10); GDX.glI = 0;
@@ -854,7 +854,7 @@ function gdxGLTim(){
 }
 function gdxGLChon(to, kh){
   GDX.glQ = ''; GDX.glTatCa = 0; pvChonTo('gdx', to);
-  var t = TO_K && TO_K.to[to];
+  var t = KHO.to(to);
   GDX.glTo = to; GDX.glHet = 0; GDX.glTien = ''; GDX.glSua = {};
   GDX.glKH = kh || (t && gdxC().glLoai!=='104' && typeof hsoTTKH==='function' ? hsoTTKH(t).kh : '') || '';
   gdxVe(); gdxGLToiTien();
