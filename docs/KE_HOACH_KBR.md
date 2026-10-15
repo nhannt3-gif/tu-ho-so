@@ -4,7 +4,7 @@
 
 ## Nguyên tắc (kế thừa 3.206 — ô chấm tùy biến 09A)
 - Mỗi ô có công tắc **✍ chấm ghi tay / 🖨 in sẵn**, app nhớ theo mẫu (`hsoLuu().cham[mẫu][ô]`, đồng bộ Drive cùng cài đặt).
-- Loại ô: `ngay` (**mặc định ✍ chấm ghi tay; 🖨 chỉ in ngày đã gõ, trống vẫn chấm — anh 15/10: "bấm in ghi ngày hôm nay là chưa đúng ý", logic ngày anh chốt sau**; ngày gõ chỉ giữ trong lần làm) · `kb` (khai 1 lần, app nhớ `hsoLuu().chamGT`; cột 5 `'ct'` = nhớ theo chương trình vay) · `tu` (app tự lấy theo hộ / danh sách / ⚙ Khai báo chung — chỉ có công tắc) · `nhom` (tiêu đề nhóm, theo thứ tự trên mẫu).
+- Loại ô: `ngay` (**mặc định ✍ chấm ghi tay; 🖨 chỉ in ngày đã gõ, trống vẫn chấm — anh 15/10: "bấm in ghi ngày hôm nay là chưa đúng ý" · "app cho tất cả mẫu kể cả 09 đã làm, không tự ghi ngày khi anh không gõ vào"**; ngày gõ chỉ giữ trong lần làm) · `kb` (khai 1 lần, app nhớ `hsoLuu().chamGT`; cột 5 `'ct'` = nhớ theo chương trình vay) · `tu` (app tự lấy theo hộ / danh sách / ⚙ Khai báo chung — chỉ có công tắc) · `nhom` (tiêu đề nhóm, theo thứ tự trên mẫu).
 - **Không tùy biến:** nhân thân, món vay, tổ, Hội, chương trình, Kính gửi (⚙ Khai báo chung › PGD), số tiền / phương án (gõ ở phiếu hộ).
 - **Mặc định mọi ô = ✍ chấm → bản in giống hệt trước** (đã so từng ký tự 01/TD, 03/TD, 01/UQ — có hộ và mẫu trắng). Anh bật 🖨 ô nào thì ô đó in sẵn.
 - Thêm ô = thêm 1 dòng `HSO_CHAM[mẫu]` + 1 chỗ dùng trong hàm lập mẫu.
