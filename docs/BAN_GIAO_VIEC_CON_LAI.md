@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.216) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giao dịch xã → Giấy lĩnh TK 104 / TK 105, in như mọi ngày | Tên, CCCD, TK, địa chỉ như hôm qua | |
+| 2 | 12/GDX, 04/TD, 📦 Mini app | Như cũ | |
+| 3 | Hồ sơ Tổ 10C, 10A… · Hồ sơ vay 01/TD, sổ hộ vay, ＋ Lấy từ Mẫu 31 | Như cũ | |
+
+**Ghi chú kỹ thuật 3.216:** cửa `KHO` (`js/29-kho.js`) đọc kỳ đang dựng (TO_K). Tab mới / mẫu mới: hỏi số qua `KHO.*`, không đọc `TO_K` / `SL_DB` / Sao kê (t177 kiểm tĩnh js/25, js/26 — thêm file vào danh sách khi chuyển tiếp). Còn đọc thẳng: KTGS (gói riêng), js/22 (khối kho cũ). Bước sau theo kế hoạch: đổi bên trong cửa (nối Sao kê theo kỳ, nhiều kỳ), tách js/22.
+
 ### Danh sách thử trên máy thật (3.215) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

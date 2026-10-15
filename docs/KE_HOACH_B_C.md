@@ -50,6 +50,8 @@ Kế hoạch tổng viết QT-11…13 trước khi có file thật Sao kê / 01/
 
 ## 2. Đợt C rút gọn — kho chung `KHO` (bước 3 kế hoạch tổng), làm thử bằng TK 104 / 105 / CCCD
 
+> **✅ 3.216 (15/10, anh: "làm cửa kho trước cho hoàn chỉnh"):** C1 + phần chuyển chỗ gọi của C2 đã làm — `js/29-kho.js`; Giấy lĩnh, mini app, Hồ sơ vay, sổ hộ vay, Hồ sơ Tổ, Giao dịch xã hỏi qua `KHO` (chi tiết `QUY_CHUAN_KIEN_TRUC.md` mục 7). C2 mục 2–5 (nối Sao kê, CCCD đủ nguồn, TK trùng, bộ file) đã có từ 3.202–3.205.
+
 ### Bản 3.204 — C1: cửa `KHO` bọc hàm sẵn có (không đổi màn hình)
 File mới `js/29-kho.js` (nạp sau `js/28`). Mỗi hàm ghi **hợp đồng** ngay trên hàm (đầu vào, đầu ra, đơn vị, số QT):
 

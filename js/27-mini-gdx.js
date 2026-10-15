@@ -27,10 +27,10 @@ function gdxMiniGoi(){
   Object.keys(C).forEach(function(k){ if(['nhanh', 'xem', 'form'].indexOf(k)<0) c[k] = JSON.parse(JSON.stringify(C[k]===undefined ? null : C[k])); });
   var diem = gdxDsDiem().map(function(d){
     return {k:d.k, ma:d.maDiem || '', ten:d.tenDiem || '', xa:d.tenXa || '', xaChu:gdxXaPhuong(d.tenXa), ngay:d.ngayGD || '',
-      to:(d.to||[]).map(function(t){ var kt = typeof TO_K!=='undefined' && TO_K && TO_K.to ? TO_K.to[t.maTo] : null, x4 = kt ? tkTT(kt) : {}, kh = x4.kh || '', b4 = kt ? (tkBangTo()||{})[t.maTo] || {} : {};   /* 3.202: đọc bảng tổ dựng sẵn */
+      to:(d.to||[]).map(function(t){ var kt = KHO.to(t.maTo), x4 = kt ? KHO.toTruong(kt) : {}, kh = x4.kh || '', b4 = kt ? KHO.bangTo(t.maTo) || {} : {};   /* 3.202: đọc bảng tổ dựng sẵn · 3.216: qua cửa KHO */
         var tk = x4.tk || '', dc = '';
         try { dc = ktDiaBan({tenThon:t.tenAp, tenXa:d.tenXa}); } catch(e){ dc = ''; }
-        var nt = {cccd:b4.cccd || '', ncap:b4.ncap || '', noiCap:''}; if(kh && kt && typeof hsoKhach==='function'){ try { nt.noiCap = (hsoKhach(kh, kt) || {}).noiCap || ''; } catch(e){} }   /* 3.202: CCCD theo bảng tổ (Mẫu 31 → 01/TV → Thông tin TT / DSTO → anh gõ) */
+        var nt = {cccd:b4.cccd || '', ncap:b4.ncap || '', noiCap:''}; if(kh && kt && typeof hsoKhach==='function'){ try { nt.noiCap = (KHO.khach(kh, kt) || {}).noiCap || ''; } catch(e){} }   /* 3.202: CCCD theo bảng tổ (Mẫu 31 → 01/TV → Thông tin TT / DSTO → anh gõ) */
         nTo++; if(tk) nTK++; if(nt.cccd) nCC++;
         return {ma:t.maTo || '', ten:t.tenTo || '', ap:t.tenAp || '', tk:tk, dc:dc, cccd:nt.cccd || '', ncap:nt.ncap || '', noiCap:nt.noiCap || ''}; })};
   });
