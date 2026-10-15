@@ -12,7 +12,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - Chỗ khách hàng ký (phần C) thêm 1 dòng trống; "Phường/Xã … Tỉnh/Thành phố" cách đều.
 - **Phần D (anh: "chưa khớp lắm") đo lại theo file Word mẫu:** cột 2689 · 2409 · 2410 · 2874 twip (≈ 26 · 23 · 23 · 28 %); dòng 1 ≥ 6,3 mm ("Tiếp nhận ngày …" canh giữa nghiêng · "Gò Dầu, ngày …" gộp 3 cột); dòng chức danh ≥ 10 mm, 4 ô thẳng hàng trên (tên đậm, chú thích nghiêng); dòng ký 27 mm không kẻ ngang giữa; bảng thụt vào trong khung; Số CIF / Số TK tổ viên / Hiệu lực dưới bảng.
 - Vẫn **3 trang** (mặc định và bật hết ô).
-- **Phép thử:** t176 20/20 (thêm 4: mặc định chấm, bật 🖨 in đủ, chữ ký mẫu 2 ô + ép in màu, bật hết vẫn 3 trang).
+- **Phép thử:** t176 20/20 (thêm 4: mặc định chấm, bật 🖨 in đủ, chữ ký mẫu 2 ô + ép in màu, bật hết vẫn 3 trang) · t164 sửa theo mặc định mới (ngày hết hạn CCCD chấm).
 
 ## 3.218 — 15/10/2026 — 📄 01/TGTV 3 trang theo file Word mẫu
 - **Anh (15/10):** 01/TGTV rớt qua trang phần cuối — tinh chỉnh, canh lề lại; gửi file Word mẫu (03/2026, PGD Gò Dầu — chỉ dùng đo, không đưa lên repo); "chỉ 3 trang, trang cuối là trang trắng dùng để in 2 mặt nhiều bản".
