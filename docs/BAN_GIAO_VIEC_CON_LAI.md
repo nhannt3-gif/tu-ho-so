@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.219) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TGTV chọn hộ → In (chưa bật gì) | Dân tộc, thường trú, điện thoại, CIF để chấm; dải A/B/C xanh đậm in rõ chữ trắng | |
+| 2 | Bật 🖨 vài ô (thường trú, điện thoại) → In | In số liệu đúng ô, vẫn 3 trang | |
+| 3 | Trang 2 khung Chữ ký mẫu · trang 3 chỗ khách hàng ký | 2 khung nét đứt đều; chỗ ký rộng hơn | |
+
+**Ghi chú kỹ thuật 3.219:** `Q(k)` trong `hsoLap01tgtv` = ô bật 🖨 và có người (mẫu trắng luôn chấm). Nếu máy in vẫn bỏ nền: Chrome › In › Tùy chọn khác › bật "Đồ họa nền".
+
 ### Danh sách thử trên máy thật (3.218) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

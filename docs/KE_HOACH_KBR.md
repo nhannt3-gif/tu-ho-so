@@ -30,7 +30,15 @@
 
 Ngày họp bình xét 03/TD: giữ ô cũ (`hsoNgayTuy`). 4. Số tiền trả nợ/lần (01/TD): để chấm (cách chia khác nhau theo chương trình — anh chốt nếu muốn tự tính).
 
-## Đợt 2 — đề xuất (chờ anh xem, bổ sung)
+## Đợt 2a — 3.219 (đã làm, anh 15/10: "mấy phần đó tùy chọn, mặc định chấm ghi tay")
+| Mẫu | Nhóm | Ô | Loại |
+|---|---|---|---|
+| 01/TGTV | A | Số CIF (ô đầu trang + phần D) · ☒ Việt Nam · Dân tộc · ☒ Có cư trú · Ngày hết hạn CCCD · Nơi thường trú (Thôn · Xã · Tỉnh) · Điện thoại | tu (mặc định ✍) |
+| | C | Ngày tháng khách hàng ký | ngay |
+
+Họ tên, ngày sinh, giới tính, số CCCD, ngày cấp, nơi cấp: luôn in (nhân thân cố định). Số nhà, đường, nghề nghiệp, nơi làm việc, email, mã số thuế: để chấm (khách ghi).
+
+## Đợt 2b — đề xuất còn lại (chờ anh xem, bổ sung)
 | Mẫu | Ô đề xuất | Loại |
 |---|---|---|
 | 01/TGTV | Địa chỉ thường trú / hiện tại: Tổ dân phố/Thôn, Phường/Xã, Tỉnh (= sổ hộ vay / Mẫu 31) | tu |

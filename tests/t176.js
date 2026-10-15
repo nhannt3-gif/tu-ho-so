@@ -59,6 +59,16 @@ const fs=require('fs'), path=require('path');
    ok('01/TGTV (có hộ) đúng 3 trang như file Word mẫu: chú thích ¹ ngay sau phần B (trang 2), phần D + Số CIF + Hiệu lực trọn trang 3, chân trang "Trang x / 3"', nTG==='3' && /Trong thời gian NHCSXH/.test(pg3[1]||'') && /D - PHẦN DÀNH CHO NGÂN HÀNG/.test(pg3[2]||'') && /Số CIF/.test(pg3[2]||'') && /Hiệu lực từ ngày/.test(pg3[2]||'') && /Trang 3 \/ 3/.test(pg3[2]||''), nTG);
    hsoCH().boId = ''; hsoVe(); await w(2500); const nTr = (document.getElementById('hso-xem-khung').contentDocument.getElementById('tr-n')||{}).textContent;
    ok('01/TGTV mẫu trắng cũng 3 trang', nTr==='3', nTr);
+   /* 3.219 (anh 15/10): 01/TGTV ô tùy biến mặc định chấm; bật 🖨 → in số liệu; chữ ký mẫu 2 ô; dải tiêu đề in được màu */
+   hmLamHS(ho.id, '01tgtv'); await w(400); let tg = hsoLap01tgtv(TO_K.to[C.to], Object.assign({}, hsoBoNV(hsoBo()), {danToc:'Kinh', ap:'Ấp Giả', tenXa:'Xã Giả', sdt:'0900000999', kh:'4800000999'})).h, tgc = chu(tg);
+   ok('01/TGTV mặc định ✍: dân tộc, cư trú, hạn CCCD, thường trú, điện thoại, Số CIF, ngày ký đều chấm; khối ô tùy biến có 8 ô', !/Kinh/.test(tgc) && !/Ấp Giả/.test(tgc) && !/0900000999/.test(tgc) && !/4800000999/.test(tgc) && !/☒ Việt Nam/.test(tgc) && /Ô tùy biến — Mẫu 01\/TGTV/.test(document.getElementById('hso-tuy').textContent) && HSO_CHAM['01tgtv'].filter(x=>x[2]!=='nhom').length===8);
+   HSO_CHAM['01tgtv'].forEach(x=>{ if(x[2]!=='nhom') hsoChamDat('01tgtv', x[0], 'in'); }); HSO.vay.ngayKy = '2026-10-20';
+   tg = hsoLap01tgtv(TO_K.to[C.to], Object.assign({}, hsoBoNV(hsoBo()), {danToc:'Kinh', ap:'Ấp Giả', tenXa:'Xã Giả', sdt:'0900000999', kh:'4800000999'})).h; tgc = chu(tg);
+   ok('🖨 bật: in dân tộc, ☒ Việt Nam, ☒ Có cư trú, thường trú (ấp, xã, tỉnh), điện thoại, Số CIF (2 chỗ), ngày ký đã gõ', /Kinh/.test(tgc) && /☒ Việt Nam/.test(tgc) && /☒ Có cư trú/.test(tgc) && /Ấp Giả/.test(tgc) && /0900000999/.test(tgc) && (tgc.match(/4800000999/g)||[]).length===2 && /ngày 20 tháng 10 năm 2026/.test(tgc));
+   ok('chữ ký mẫu: 2 ô giống nhau (tiêu đề + khung nét đứt) · dải tiêu đề A/B/C ép in màu nền', (tg.match(/class="tg-ckk"/g)||[]).length===2 && /td\.nen\{[^}]*print-color-adjust:exact/.test(hsoTrang(hsoMau(), tg)));
+   delete HSO.vay.ngayKy; hsoVe(); await w(300); hsoXem(); await w(2500);
+   ok('bật hết ô vẫn 3 trang', (document.getElementById('hso-xem-khung').contentDocument.getElementById('tr-n')||{}).textContent==='3');
+   HSO_CHAM['01tgtv'].forEach(x=>{ if(x[2]!=='nhom') hsoChamDat('01tgtv', x[0], 'cham'); });
    return o;
  }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));
