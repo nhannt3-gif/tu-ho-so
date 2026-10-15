@@ -995,7 +995,7 @@ var BK_CSS_LOI = '.bk-trang{position:relative;width:105mm;height:185mm;padding:6
   '.bk-tit{text-align:center}.bk-t1{font-weight:bold;font-size:14pt;letter-spacing:.5px}.bk-t2{font-family:Arial,Helvetica,sans-serif;font-weight:bold;font-size:6.8pt}.bk-ngay{font-size:9.5pt;margin-top:1mm}'+
   '.bk-trang .gl-r{display:flex;align-items:baseline;gap:1mm;min-height:6.2mm;white-space:nowrap}.bk-trang .gl-n{flex:none}'+
   '.bk-trang .gl-c{flex:1 1 auto;display:block;min-width:5mm;border-bottom:.7px dotted #333;line-height:1}.bk-trang .gl-c::after{content:"\\00a0"}'+
-  '.bk-trang .gl-v{flex:1 1 auto;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:1mm}.bk-trang .gl-v.gl-bc1{text-overflow:clip}.bk-ten .bk-trang .gl-v{font-weight:bold}'+
+  '.bk-trang .gl-v{flex:1 1 auto;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:1mm}.bk-trang .gl-v.gl-bc1{text-overflow:clip}.bk-trang .bk-ten .gl-v{font-weight:bold}'+
   '.bk-trang .gl-cn{display:inline-block;border-bottom:.7px dotted #333;line-height:1}.bk-trang .gl-cn::after{content:"\\00a0"}.bk-trang .gl-vn{display:inline-block;min-width:5mm;text-align:center}'+
   '.bk-bang{width:100%;border-collapse:collapse;margin-top:1.5mm;font-size:10.5pt;table-layout:fixed}'+
   '.bk-bang th{border:.9px solid #000;font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;padding:.8mm 0}'+
@@ -1013,18 +1013,22 @@ var BK_CSS_TO = '.bk-trang.bk-to{width:118mm;height:210mm;padding:8mm 5mm 6mm 5.
   '.bk-to.bk-trang .gl-r{min-height:7.6mm}.bk-to .bk-bang{font-size:13pt;margin-top:2mm}.bk-to .bk-bang th{font-size:10.5pt;padding:1mm 0}.bk-to .bk-bang td{height:7.4mm}.bk-to .bk-tt{font-size:12pt}'+
   '.bk-to .bk-tong td{height:11mm;font-size:11pt}.bk-to .bk-tong .bk-tt{font-size:12.5pt}.bk-to.bk-trang .bk-chu .gl-r{min-height:7mm;font-size:13pt}'+
   '.bk-to .bk-ky{font-size:13pt;margin-top:3mm}.bk-to .bk-ky i{font-size:11.5pt}.bk-to .bk-hoten{font-size:13pt}.bk-to .bk-hoten .gl-n{font-size:10pt}'+
-  '.bk-to .bk-chim{left:19.5mm;top:92mm;font-size:66pt}.bk-to .bk-chim.bk-logo{left:45.6mm;top:81.5mm;width:50.5mm;height:66.7mm}';
+  '.bk-to .bk-chim{left:19.5mm;top:92mm;font-size:66pt}.bk-to .bk-chim.bk-logo{left:42.6mm;top:77.5mm;width:56.5mm;height:74.7mm}'+
+  /* 3.217 (anh 15/10): tên người lĩnh in đậm · tên cơ quan to hơn · dòng CÁC LOẠI TIỀN… + ngày tháng to tương ứng · logo cánh sen to hơn 1 chút */
+  '.bk-to .bk-nh,.bk-to .bk-pgd{font-size:9.5pt}.bk-to .bk-t2{font-size:8.3pt}.bk-to .bk-ngay{font-size:11pt}';
 var BK_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1;color:#000;font-family:"Times New Roman",Times,serif}'+
   '.preview-stage{background:#455a64;border-radius:8px;padding:20px;display:flex;justify-content:center;overflow:auto}'+
   '.sheet-bk{background:#fff;width:297mm;height:210mm;box-shadow:0 8px 24px rgba(0,0,0,.3);position:relative;display:flex;justify-content:space-between;align-items:flex-start;overflow:hidden}'+ BK_CSS_LOI+BK_CSS_TO+
-  '.bk-cat{position:absolute;top:0;height:210mm;border-left:.3mm dashed #b8b8b8}.bk-cat-t{left:118mm}.bk-cat-p{right:118mm}'+
+  '.bk-cat{position:absolute;top:0;height:210mm;width:.3mm;margin-left:-.15mm;background:repeating-linear-gradient(to bottom,#8c8c8c 0 2.6mm,transparent 2.6mm 4.8mm);-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
+  '.bk-cat::before{content:"";position:absolute;top:2.5mm;left:50%;width:4.2mm;height:4.2mm;transform:translateX(-50%) rotate(90deg);background:#fff url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23555%27%20stroke-width%3D%271.5%27%20stroke-linecap%3D%27round%27%3E%3Ccircle%20cx%3D%276%27%20cy%3D%276%27%20r%3D%273%27%2F%3E%3Ccircle%20cx%3D%276%27%20cy%3D%2718%27%20r%3D%273%27%2F%3E%3Cpath%20d%3D%27M8.1%208.1L20%2020M8.1%2015.9L20%204%27%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bk-cat-t{left:118mm}.bk-cat-p{right:118mm}'+
   '@page{size:A4 landscape;margin:0}'+
   '@media print{body{background:#fff}.preview-stage{background:none;padding:0;display:block;border-radius:0}.sheet-bk{box-shadow:none;zoom:1 !important;height:209mm}}';
 var GL_CSS_A5 = '@page{size:A5 landscape;margin:0}';
 /* 3.188–3.194: 💵+🧾 Giấy lĩnh nửa trên + Bảng kê 118 × 210 (3.213) xoay ngang sát đáy → cắt 1 nhát ngang */
 var GL_CSS_KEM = '.sheet-gl.gl-kem{height:297mm}.gl-bkk{position:absolute;left:0;bottom:0;width:210mm;height:118mm;z-index:1}'+
   '.gl-bkk .bk-trang{position:absolute;left:0;top:118mm;transform-origin:0 0;transform:rotate(-90deg)}'+
-  '.gl-cat-n{position:absolute;left:0;width:210mm;bottom:118mm;border-top:.3mm dashed #b8b8b8}'+
+  '.gl-cat-n{position:absolute;left:0;width:210mm;bottom:118mm;height:.3mm;margin-bottom:-.15mm;background:repeating-linear-gradient(to right,#8c8c8c 0 2.6mm,transparent 2.6mm 4.8mm);-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
+  '.gl-cat-n::before{content:"";position:absolute;left:4mm;top:50%;width:4.2mm;height:4.2mm;transform:translateY(-50%);background:#fff url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23555%27%20stroke-width%3D%271.5%27%20stroke-linecap%3D%27round%27%3E%3Ccircle%20cx%3D%276%27%20cy%3D%276%27%20r%3D%273%27%2F%3E%3Ccircle%20cx%3D%276%27%20cy%3D%2718%27%20r%3D%273%27%2F%3E%3Cpath%20d%3D%27M8.1%208.1L20%2020M8.1%2015.9L20%204%27%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
   '@media print{.sheet-gl.gl-a4.gl-kem{height:296mm}}';
 var GL_CSS_A4 = '@page{size:A4 portrait;margin:0}@media print{.sheet-gl.gl-a4{height:147mm}.sheet-gl.gl-a4.gl-x2{height:296mm}}';
 
