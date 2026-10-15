@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.216', ds:[
+var CO_GI_MOI = {ban:'3.217', ds:[
+  ["🧾 Bảng kê: tên người lĩnh in đậm, tên cơ quan to hơn, dòng “CÁC LOẠI TIỀN NGÂN HÀNG CHI RA” + ngày tháng to tương ứng, nét đứt cắt mờ hơn, logo cánh sen to hơn 1 chút", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
   ["🏛 Cửa KHO: Giấy lĩnh, mini app, Hồ sơ vay, sổ hộ vay, Hồ sơ Tổ, Giao dịch xã lấy số liệu chung qua 1 cửa (tổ, tổ viên, khách, CCCD, TK 104 / 105) — màn hình và bản in không đổi; sau này đổi quy tắc chỉ sửa 1 chỗ", "slDoiTab('gdx');doiNgan(7)"],
   ["⚙ Hồ sơ vay: khai báo riêng từng mẫu 01/TD · 03/TD · 01/UQ — liệt kê ô từ trên xuống, mỗi ô ✍ chấm / 🖨 in sẵn: ngày ký (hôm nay / gõ), lãi suất theo chương trình, lãi quá hạn, ngày trả lãi, số tiền / thời hạn phê duyệt = đề nghị, số người + tổng tiền 03/TD tự tính, tên trưởng thôn 01/UQ", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
   ["📒 Hồ sơ vay: tab Sổ hộ vay — xem lại cả sổ, tìm, lọc (hộ cũ / hộ mới / HSSV / ⚠ cần bổ sung / tổ), sắp xếp, sửa thẳng từng ô hộ mới (Enter / Tab, ↑ ↓), in đúng danh sách đang lọc", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
