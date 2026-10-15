@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.219 — 15/10/2026 — 📄 01/TGTV: ô tùy biến + sửa theo bản in thử
+- **Anh (15/10, gửi ảnh bản in 3.218):** mấy phần điền sẵn để tùy chọn, mặc định chấm ghi tay; chỗ khách hàng ký trang cuối rộng xuống; chữ ký 2 bị lỗi; màu xanh lá in ra lợt không thấy; còn lệch nhiều chỗ.
+- **Ô tùy biến 01/TGTV** (`HSO_CHAM['01tgtv']`, khối ✍ / 🖨 ở cột trái, **mặc định ✍ chấm**): Số CIF (ô đầu trang + phần D) · ☒ Việt Nam · Dân tộc · ☒ Có cư trú · Ngày hết hạn CCCD · Nơi thường trú (Thôn, Xã, Tỉnh) · Điện thoại · Ngày khách hàng ký (chỉ in ngày đã gõ). Họ tên, ngày sinh, giới tính, số CCCD, ngày cấp, nơi cấp luôn in. **Đổi mặc định:** trước đây dân tộc, thường trú, điện thoại, Số CIF, ☒ Việt Nam tự in — nay chấm, bật 🖨 để in.
+- **Chữ ký mẫu:** 2 ô giống nhau như mẫu Word — tiêu đề + khung nét đứt cao 27 mm, "(Ký và ghi rõ họ tên)" trong khung (trước: ô "Xác nhận chữ ký mẫu" lệch giữa, không khung).
+- **Dải tiêu đề A / B / C:** màu đúng mẫu `#538135` + **ép in nền** (`print-color-adjust:exact`) — trước đây trình duyệt bỏ nền khi in nên chữ trắng gần như mất.
+- Chỗ khách hàng ký (phần C) thêm 2 dòng trống; 4 ô ký phần D thẳng hàng trên; "Phường/Xã … Tỉnh/Thành phố" cách đều.
+- Vẫn **3 trang** (mặc định và bật hết ô).
+- **Phép thử:** t176 20/20 (thêm 4: mặc định chấm, bật 🖨 in đủ, chữ ký mẫu 2 ô + ép in màu, bật hết vẫn 3 trang).
+
 ## 3.218 — 15/10/2026 — 📄 01/TGTV 3 trang theo file Word mẫu
 - **Anh (15/10):** 01/TGTV rớt qua trang phần cuối — tinh chỉnh, canh lề lại; gửi file Word mẫu (03/2026, PGD Gò Dầu — chỉ dùng đo, không đưa lên repo); "chỉ 3 trang, trang cuối là trang trắng dùng để in 2 mặt nhiều bản".
 - **Đo file mẫu:** A4; lề trên 10 · phải 12,5 · dưới 16 · trái 7,1 mm (Word 567 · 708 · 907 · 403 twip); chữ 12 pt; giãn dòng đơn; chú thích ¹ ở chân trang 2 ngay sau phần B; phần D (khung ký NH, Số CIF, Hiệu lực) trọn trang 3.
