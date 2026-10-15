@@ -1212,7 +1212,7 @@ var TR_CSS = '@page{size:A4 portrait;margin:0}@page tr-ngang{size:A4 landscape;m
 var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) — không dùng biến của app */
   var d = document, MM = 96/25.4, goc = null, loai = '', nhan = [], ds = null, kho = 'tu', zm = 1, vua = 'ngang', TH = null;
   var px = function(mm){ return mm*MM; };
-  var tieuDe = function(e){ return e.nodeType===1 && (/^H[1-6]$/.test(e.tagName) || /\b(bc-khung-ten|nhan-nhom)\b/.test(e.className) || (e.tagName==='P' && /\bkt-b\b/.test(e.className)) || (e.tagName==='TR' && e.cells.length && /\bkt-b\b/.test(e.cells[0].className))); };
+  var tieuDe = function(e){ return e.nodeType===1 && (/^H[1-6]$/.test(e.tagName) || /\b(bc-khung-ten|nhan-nhom)\b/.test(e.className) || (e.tagName==='P' && /\bkt-b\b/.test(e.className)) || (e.tagName==='TR' && e.cells.length && /\bkt-b\b/.test(e.cells[0].className)) || (e.tagName==='TR' && /\btr-td\b/.test(e.className))); };
   var giu = function(e){ var s = getComputedStyle(e); return s.breakInside==='avoid' || s.pageBreakInside==='avoid' || /\b(kt-ho|kt-giu)\b/.test(e.className) || e.tagName==='TR'; };
   var chiaDuoc = function(e){ return e.nodeType===1 && /^(TABLE|TBODY|DIV|SECTION|UL|OL|BLOCKQUOTE|TD)$/.test(e.tagName) && e.children.length>0 && (e.tagName!=='DIV' || !/flex|grid|inline/.test(getComputedStyle(e).display)) && e.tagName!=='TD'; };
   var dauBang = function(e){ return e.nodeType===1 && /^(THEAD|COLGROUP|CAPTION)$/.test(e.tagName); };

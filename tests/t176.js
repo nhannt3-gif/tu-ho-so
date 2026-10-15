@@ -55,7 +55,10 @@ const fs=require('fs'), path=require('path');
    /* 3.218: 01/TGTV vừa 3 trang (trước rớt Số CIF + chú thích sang trang 4) */
    hmLamHS(ho.id, '01tgtv'); await w(500); hsoXem(); await w(2500);
    const nTG = (document.getElementById('hso-xem-khung').contentDocument.getElementById('tr-n')||{}).textContent;
-   ok('01/TGTV (có hộ) vừa đúng 3 trang A4, phần D + Số CIF + chú thích ở trang 3', nTG==='3', nTG);
+   const pg3 = [...document.getElementById('hso-xem-khung').contentDocument.querySelectorAll('div')].filter(x=>/tr-tg\b/.test(x.className)).map(x=>x.innerText.replace(/\s+/g, ' '));
+   ok('01/TGTV (có hộ) đúng 3 trang như file Word mẫu: chú thích ¹ ngay sau phần B (trang 2), phần D + Số CIF + Hiệu lực trọn trang 3, chân trang "Trang x / 3"', nTG==='3' && /Trong thời gian NHCSXH/.test(pg3[1]||'') && /D - PHẦN DÀNH CHO NGÂN HÀNG/.test(pg3[2]||'') && /Số CIF/.test(pg3[2]||'') && /Hiệu lực từ ngày/.test(pg3[2]||'') && /Trang 3 \/ 3/.test(pg3[2]||''), nTG);
+   hsoCH().boId = ''; hsoVe(); await w(2500); const nTr = (document.getElementById('hso-xem-khung').contentDocument.getElementById('tr-n')||{}).textContent;
+   ok('01/TGTV mẫu trắng cũng 3 trang', nTr==='3', nTr);
    return o;
  }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));

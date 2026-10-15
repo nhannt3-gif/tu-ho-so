@@ -4,12 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.218 — 15/10/2026 — 📄 01/TGTV vừa 3 trang
-- **Anh (15/10):** mẫu 01/TGTV bị rớt qua trang phần cuối — tinh chỉnh, canh lại.
-- Trước: 4 trang A4 (trang 4 chỉ còn đuôi khung ký phần D, dòng Số CIF / Số TK tổ viên, Hiệu lực, chú thích ¹). Nay **3 trang** (đo khung xem trước + in PDF).
-- Cách gọn (chỉ mẫu 01/TGTV): chữ phần **B (dịch vụ) và C (cam kết)** + 2 đoạn chú thích nghiêng về điện thoại / email: 13 → **12 pt**; khoảng dòng 1,22 → 1,13 (lớp `.gon` trong `hsoTrang`). Phần A (thông tin khai), ô CCCD, khung ký giữ nguyên cỡ. Lề trang giữ (12 · 10 · 22 · 12 mm, chân trang như cũ).
-- Áp cả in kèm 01/TGTV từ 01/TD / Bộ HS và in hàng loạt tổ viên (mỗi người 1 bản 3 trang).
-- **Phép thử:** t176 15/15 (thêm: 01/TGTV = 3 trang).
+## 3.218 — 15/10/2026 — 📄 01/TGTV 3 trang theo file Word mẫu
+- **Anh (15/10):** 01/TGTV rớt qua trang phần cuối — tinh chỉnh, canh lề lại; gửi file Word mẫu (03/2026, PGD Gò Dầu — chỉ dùng đo, không đưa lên repo); "chỉ 3 trang, trang cuối là trang trắng dùng để in 2 mặt nhiều bản".
+- **Đo file mẫu:** A4; lề trên 10 · phải 12,5 · dưới 16 · trái 7,1 mm (Word 567 · 708 · 907 · 403 twip); chữ 12 pt; giãn dòng đơn; chú thích ¹ ở chân trang 2 ngay sau phần B; phần D (khung ký NH, Số CIF, Hiệu lực) trọn trang 3.
+- **Trước:** app 4 trang — khung ký phần D bị cắt đôi, trang 4 chỉ còn đuôi khung + Số CIF + Hiệu lực + chú thích.
+- **Sửa (chỉ 01/TGTV):** lề theo mẫu (`mg:[10, 12.5, 16, 7.1]`); giãn dòng 1,15 như Word đơn (lớp `.tgtv`); chú thích ¹ dời vào cuối phần B (như chân trang 2 của mẫu); tiêu đề mục A / B / C / D không đứng trơ cuối trang (dòng `tr-td` kéo theo dòng sau — `js/05` bộ chia trang). Cỡ chữ giữ như cũ (khung trong 12 pt = mẫu).
+- **Kết quả:** 3 trang (có hộ và mẫu trắng): trang 1 → "Thu nhập bình quân…", trang 2 → hết phần B + chú thích + đầu phần C, trang 3 → phần C còn lại + **trọn phần D**; chân trang "Trang x / 3".
+- **Trang trắng in 2 mặt:** in nhiều bản (in hàng loạt tổ viên) khi bật in 2 mặt → app đã tự chèn 1 trang trắng sau mỗi bản lẻ trang (có từ trước) → mỗi bản đủ 2 tờ, bản sau bắt đầu mặt trước.
+- **Phép thử:** t176 16/16 (thêm: 01/TGTV có hộ / mẫu trắng = 3 trang, chú thích ở trang 2, phần D + Số CIF ở trang 3).
 
 ## 3.217 — 15/10/2026 — 🧾 Bảng kê: chữ, logo, nét cắt
 - **Anh (15/10):** tên hộ vay in đậm, tên cơ quan to hơn, dòng các loại tiền chi ra + ngày tháng to lên tương ứng, lằn kẻ đứt để cắt hơi mờ, logo cánh sen to lên 1 chút.
