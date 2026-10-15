@@ -226,7 +226,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 1 | Giấy lĩnh → 🧾 Bảng kê (có tên) → In | Tên người lĩnh đậm; tên cơ quan, dòng CÁC LOẠI TIỀN…, ngày to hơn; vẫn 1 dòng | |
-| 2 | 🧾 Bảng kê mẫu trắng 2 tờ | Nét cắt mờ nhẹ, logo to hơn chút, không đè chữ | |
+| 2 | 🧾 Bảng kê mẫu trắng 2 tờ | Đường cắt đứt quãng rõ, có hình kéo ở đầu; logo to hơn chút, không đè chữ | |
 
 **Ghi chú kỹ thuật 3.217:** chỉ CSS `js/26-giao-dich-xa.js` (`BK_CSS_LOI` bộ chọn tên đậm, `BK_CSS_TO`, `.bk-cat`, `GL_CSS_KEM .gl-cat-n`).
 

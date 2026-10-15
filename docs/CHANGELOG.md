@@ -8,7 +8,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Anh (15/10):** tên hộ vay in đậm, tên cơ quan to hơn, dòng các loại tiền chi ra + ngày tháng to lên tương ứng, lằn kẻ đứt để cắt hơi mờ, logo cánh sen to lên 1 chút.
 - **Tên người lĩnh tiền in đậm** — sửa bộ chọn CSS cũ viết ngược (`.bk-ten .bk-trang .gl-v` → `.bk-trang .bk-ten .gl-v`) nên trước đây không đậm.
 - Tên cơ quan + dòng PHÒNG GIAO DỊCH 8 → 9,5 pt · "CÁC LOẠI TIỀN NGÂN HÀNG CHI RA" 6,8 → 8,3 pt · "Ngày … tháng … năm …" 9,5 → 11 pt.
-- Nét đứt cắt: xám `#b8b8b8` 0,3 mm → `#d6d6d6` 0,25 mm (cả Bảng kê 2 tờ và 💵+🧾 kết hợp).
+- **Nét cắt** (anh: mờ quá → đậm lên chút, cách quãng, có hình kéo mảnh): vạch xám đậm `#8c8c8c` 0,3 mm, gạch 2,6 mm cách 2,2 mm (vẽ bằng nền lặp, in đúng màu), **hình kéo ✂ mảnh** (SVG nét 1,5) ở đầu đường cắt — cả Bảng kê 2 tờ (dọc, kéo hướng xuống) và 💵+🧾 kết hợp (ngang).
 - Logo cánh sen 50,5 × 66,7 → 56,5 × 74,7 mm (giữ tâm). Chữ chìm VBSP (khi chưa có logo) giữ nguyên.
 - Khổ 118 × 210 mm giữ nguyên; đo không tràn chữ (đầu tờ, thân tờ). Áp mọi cách in Bảng kê (mẫu trắng, từ Giấy lĩnh, kết hợp).
 - **Phép thử:** t167 85/85 · t168 33/33.

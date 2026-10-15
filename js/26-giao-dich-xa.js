@@ -1019,14 +1019,16 @@ var BK_CSS_TO = '.bk-trang.bk-to{width:118mm;height:210mm;padding:8mm 5mm 6mm 5.
 var BK_CSS = '*{box-sizing:border-box;margin:0;padding:0}body{background:#eceff1;color:#000;font-family:"Times New Roman",Times,serif}'+
   '.preview-stage{background:#455a64;border-radius:8px;padding:20px;display:flex;justify-content:center;overflow:auto}'+
   '.sheet-bk{background:#fff;width:297mm;height:210mm;box-shadow:0 8px 24px rgba(0,0,0,.3);position:relative;display:flex;justify-content:space-between;align-items:flex-start;overflow:hidden}'+ BK_CSS_LOI+BK_CSS_TO+
-  '.bk-cat{position:absolute;top:0;height:210mm;border-left:.25mm dashed #d6d6d6}.bk-cat-t{left:118mm}.bk-cat-p{right:118mm}'+
+  '.bk-cat{position:absolute;top:0;height:210mm;width:.3mm;margin-left:-.15mm;background:repeating-linear-gradient(to bottom,#8c8c8c 0 2.6mm,transparent 2.6mm 4.8mm);-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
+  '.bk-cat::before{content:"";position:absolute;top:2.5mm;left:50%;width:4.2mm;height:4.2mm;transform:translateX(-50%) rotate(90deg);background:#fff url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23555%27%20stroke-width%3D%271.5%27%20stroke-linecap%3D%27round%27%3E%3Ccircle%20cx%3D%276%27%20cy%3D%276%27%20r%3D%273%27%2F%3E%3Ccircle%20cx%3D%276%27%20cy%3D%2718%27%20r%3D%273%27%2F%3E%3Cpath%20d%3D%27M8.1%208.1L20%2020M8.1%2015.9L20%204%27%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bk-cat-t{left:118mm}.bk-cat-p{right:118mm}'+
   '@page{size:A4 landscape;margin:0}'+
   '@media print{body{background:#fff}.preview-stage{background:none;padding:0;display:block;border-radius:0}.sheet-bk{box-shadow:none;zoom:1 !important;height:209mm}}';
 var GL_CSS_A5 = '@page{size:A5 landscape;margin:0}';
 /* 3.188–3.194: 💵+🧾 Giấy lĩnh nửa trên + Bảng kê 118 × 210 (3.213) xoay ngang sát đáy → cắt 1 nhát ngang */
 var GL_CSS_KEM = '.sheet-gl.gl-kem{height:297mm}.gl-bkk{position:absolute;left:0;bottom:0;width:210mm;height:118mm;z-index:1}'+
   '.gl-bkk .bk-trang{position:absolute;left:0;top:118mm;transform-origin:0 0;transform:rotate(-90deg)}'+
-  '.gl-cat-n{position:absolute;left:0;width:210mm;bottom:118mm;border-top:.25mm dashed #d6d6d6}'+
+  '.gl-cat-n{position:absolute;left:0;width:210mm;bottom:118mm;height:.3mm;margin-bottom:-.15mm;background:repeating-linear-gradient(to right,#8c8c8c 0 2.6mm,transparent 2.6mm 4.8mm);-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
+  '.gl-cat-n::before{content:"";position:absolute;left:4mm;top:50%;width:4.2mm;height:4.2mm;transform:translateY(-50%);background:#fff url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23555%27%20stroke-width%3D%271.5%27%20stroke-linecap%3D%27round%27%3E%3Ccircle%20cx%3D%276%27%20cy%3D%276%27%20r%3D%273%27%2F%3E%3Ccircle%20cx%3D%276%27%20cy%3D%2718%27%20r%3D%273%27%2F%3E%3Cpath%20d%3D%27M8.1%208.1L20%2020M8.1%2015.9L20%204%27%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
   '@media print{.sheet-gl.gl-a4.gl-kem{height:296mm}}';
 var GL_CSS_A4 = '@page{size:A4 portrait;margin:0}@media print{.sheet-gl.gl-a4{height:147mm}.sheet-gl.gl-a4.gl-x2{height:296mm}}';
 
