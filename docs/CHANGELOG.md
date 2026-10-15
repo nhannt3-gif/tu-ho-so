@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.218 — 15/10/2026 — 📄 01/TGTV vừa 3 trang
+- **Anh (15/10):** mẫu 01/TGTV bị rớt qua trang phần cuối — tinh chỉnh, canh lại.
+- Trước: 4 trang A4 (trang 4 chỉ còn đuôi khung ký phần D, dòng Số CIF / Số TK tổ viên, Hiệu lực, chú thích ¹). Nay **3 trang** (đo khung xem trước + in PDF).
+- Cách gọn (chỉ mẫu 01/TGTV): chữ phần **B (dịch vụ) và C (cam kết)** + 2 đoạn chú thích nghiêng về điện thoại / email: 13 → **12 pt**; khoảng dòng 1,22 → 1,13 (lớp `.gon` trong `hsoTrang`). Phần A (thông tin khai), ô CCCD, khung ký giữ nguyên cỡ. Lề trang giữ (12 · 10 · 22 · 12 mm, chân trang như cũ).
+- Áp cả in kèm 01/TGTV từ 01/TD / Bộ HS và in hàng loạt tổ viên (mỗi người 1 bản 3 trang).
+- **Phép thử:** t176 15/15 (thêm: 01/TGTV = 3 trang).
+
 ## 3.217 — 15/10/2026 — 🧾 Bảng kê: chữ, logo, nét cắt
 - **Anh (15/10):** tên hộ vay in đậm, tên cơ quan to hơn, dòng các loại tiền chi ra + ngày tháng to lên tương ứng, lằn kẻ đứt để cắt hơi mờ, logo cánh sen to lên 1 chút.
 - **Tên người lĩnh tiền in đậm** — sửa bộ chọn CSS cũ viết ngược (`.bk-ten .bk-trang .gl-v` → `.bk-trang .bk-ten .gl-v`) nên trước đây không đậm.

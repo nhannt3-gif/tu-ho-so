@@ -52,6 +52,10 @@ const fs=require('fs'), path=require('path');
    ['ngayKy','ubOng','nhTien','nhLai','nhQH','nhTH','nhNgayLai','nhNgay'].forEach(k=>hsoChamDat('01td', k, 'cham')); h = chu(hsoLap().h);
    ok('bấm ✍ lại → về chấm như cũ (giá trị khai vẫn nhớ)', /Lãi suất: \.+%\/năm/.test(h) && hsoLuu().chamGT['01td']['nhLai|HSSV']==='6,6');
    ok('09A giữ nguyên 7 ô (không đụng)', HSO_CHAM['09a'].length===7);
+   /* 3.218: 01/TGTV vừa 3 trang (trước rớt Số CIF + chú thích sang trang 4) */
+   hmLamHS(ho.id, '01tgtv'); await w(500); hsoXem(); await w(2500);
+   const nTG = (document.getElementById('hso-xem-khung').contentDocument.getElementById('tr-n')||{}).textContent;
+   ok('01/TGTV (có hộ) vừa đúng 3 trang A4, phần D + Số CIF + chú thích ở trang 3', nTG==='3', nTG);
    return o;
  }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));

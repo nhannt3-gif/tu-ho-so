@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.218) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay → 01/TGTV chọn hộ → In | 3 trang; trang 3 có đủ phần D, Số CIF, Hiệu lực, chú thích | |
+| 2 | 📝 Word 01/TGTV | Kiểm số trang trong Word (Word tự ngắt trang — báo em nếu vẫn 4) | |
+
+**Ghi chú kỹ thuật 3.218:** lớp `.gon` (dòng 1,13) chỉ ảnh hưởng bản In / PDF; Word dùng cỡ chữ `s12` đã đổi nhưng khoảng dòng theo Word.
+
 ### Danh sách thử trên máy thật (3.217) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
