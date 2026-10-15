@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.215 — 15/10/2026 — ⚙ Khai báo riêng từng mẫu Hồ sơ vay (đợt 1: 01/TD · 03/TD · 01/UQ)
+- **Anh (15/10):** khai báo riêng liệt kê từ trên xuống của mẫu (từ dòng Kính gửi), dòng nào cần thì cho khai báo / tùy biến, theo kinh nghiệm tab KTGS; anh bổ sung sau. Kế hoạch + danh sách ô: `docs/KE_HOACH_KBR.md`.
+- **Kế thừa ô chấm tùy biến 3.206 (09A)** — mở rộng `HSO_CHAM`: loại `kb` (khai 1 lần, nhớ `hsoLuu().chamGT[mẫu]`, cột 5 `'ct'` = nhớ theo chương trình vay), `tu` (app tự lấy), `nhom` (tiêu đề nhóm theo thứ tự trên mẫu); `hsoChamNgayTT` (Ngày … tháng … năm — 🖨 trống = hôm nay, ✍ giữ chuỗi chấm cũ). Khối **✍ / 🖨 Ô tùy biến — Mẫu …** ở cột trái (có hộ và mẫu trắng).
+- **01/TD:** ngày người vay ký · UBND "Ông/bà" = người vay · Phê duyệt NH: số tiền + bằng chữ, thời hạn / kỳ hạn, hạn cuối (= đề nghị), **lãi suất theo chương trình**, lãi quá hạn, ngày trả lãi hàng tháng, ngày Giám đốc ký.
+- **03/TD:** ngày cột UBND · Phê duyệt NH: cột 7–8 + dòng Cộng = đề nghị, ngày, **số người + tổng số tiền tự tính** theo danh sách.
+- **01/UQ:** ngày lập giấy (mục I) · **tên trưởng thôn** (⚙ Khai báo chung › Trưởng ấp) dưới chỗ ký Chứng kiến.
+- **Mặc định mọi ô ✍ chấm → bản in giống hệt 3.214** (so từng ký tự 01/TD, 03/TD, 01/UQ có hộ + mẫu trắng). 09A / 01/TĐCK không đổi.
+- **Phép thử:** `t176` 14/14 (mới) · t163 t164 t170–t175 đạt.
+
 ## 3.214 — 15/10/2026 — 📒 Sổ hộ vay: tab xem lại + form nhập dạng lưới
 - **Anh (15/10):** tối ưu phần nhập và bố cục các cột; có tab xem lại sổ hộ vay để chỉnh sửa (theo cách văn bản: thêm, xem lại, sắp xếp, sửa, tìm); Tab / Enter qua ô. Tối ưu lưu trữ để sau (cùng đợt chuẩn hóa lưu).
 - **Tab con mới 📒 Sổ hộ vay** (`sohv`, cạnh 👪 Hộ vay): dùng hết bề ngang (`.hso-bo.hso-rong`, khung xem ẩn — 🖨 In / PDF / Word / ⤢ Phóng to vẫn ở trên). Bảng: STT · ✎ 📄 🗑 · Người đứng tên · Ngày sinh · Số CCCD · Ngày cấp · Hạn CCCD · SĐT · Mã KH · Tổ · địa chỉ · Người · HSSV · **Cần bổ sung** (CCCD thiếu / sai số chữ số, ngày sinh, ngày cấp, địa chỉ / tổ, CCCD hết / sắp hết hạn). Tìm tên / CCCD / mã KH / ấp (gõ tới đâu lọc tới đó, giữ con trỏ) · chọn tổ · chip Tất cả / Hộ cũ / Hộ mới / Có HSSV / ⚠ Cần bổ sung (n) · sắp xếp (mới thêm, tên theo chữ cuối, ngày sinh, tổ · ấp, mới sửa — bấm tiêu đề cột hoặc ô ↕, nhớ ở `hsoLuu().soSX`).

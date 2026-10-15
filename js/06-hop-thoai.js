@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.214', ds:[
+var CO_GI_MOI = {ban:'3.215', ds:[
+  ["⚙ Hồ sơ vay: khai báo riêng từng mẫu 01/TD · 03/TD · 01/UQ — liệt kê ô từ trên xuống, mỗi ô ✍ chấm / 🖨 in sẵn: ngày ký (hôm nay / gõ), lãi suất theo chương trình, lãi quá hạn, ngày trả lãi, số tiền / thời hạn phê duyệt = đề nghị, số người + tổng tiền 03/TD tự tính, tên trưởng thôn 01/UQ", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
   ["📒 Hồ sơ vay: tab Sổ hộ vay — xem lại cả sổ, tìm, lọc (hộ cũ / hộ mới / HSSV / ⚠ cần bổ sung / tổ), sắp xếp, sửa thẳng từng ô hộ mới (Enter / Tab, ↑ ↓), in đúng danh sách đang lọc", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
   ["👪 Khai báo hộ vay: mỗi người 1 dòng có tiêu đề cột, Enter / Tab sang ô kế không mất con trỏ, Ctrl+Enter lưu, 💾 Lưu & thêm hộ tiếp (giữ xã, ấp, tổ)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('homoi')"],
   ["🧾 Bảng kê: ngang 118 mm đúng phủ bì giấy thật (cao 210 mm) — 2 tờ / A4 ngang, in từ Giấy lĩnh và 💵+🧾 kết hợp đều theo khổ mới", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],

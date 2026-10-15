@@ -141,6 +141,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t174.js` | (3.211) GQVL: thẻ, lịch trả gốc 24 tháng/lần làm tròn trăm nghìn, lãi theo ưu tiên, 01/GQVL, 07b, in kèm 03/TD. |
 | `node tests/t167.js` (3.213) | thêm: Bảng kê 118 × 210 mm, 💵+🧾 Bảng kê cao 118 mm sát đáy không đè Giấy lĩnh. |
 | `node tests/t175.js` | 3.214 Sổ hộ vay: form lưới (Enter / Tab, giữ con trỏ khi vẽ lại, Lưu & thêm tiếp), tab 📒 Sổ hộ vay (sửa ô, ↑ ↓, CCCD trùng, Cần bổ sung, tìm / chip / sắp xếp, in đúng danh sách lọc, bản in 12 cột). |
+| `node tests/t176.js` | 3.215 Khai báo riêng 01/TD · 03/TD · 01/UQ: thứ tự ô từ trên xuống, mặc định chấm, 🖨 ngày = hôm nay / gõ, lãi suất theo chương trình, số tiền / thời hạn phê duyệt, 03/TD tự đếm + cộng, tên trưởng thôn, bật lại ✍. |
 
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).

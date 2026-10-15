@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.215) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay → 01/TD chọn hộ, kéo xuống khối ✍ / 🖨 Ô tùy biến | Ô xếp theo thứ tự trên mẫu (Người vay → UBND → Phê duyệt NH) | |
+| 2 | Chưa bật gì → In | Giống bản in hôm qua | |
+| 3 | Bật 🖨 Lãi suất, gõ 6,6 (chương trình HSSV); đổi sang NSVSMT | HSSV in 6,6; NSVSMT chấm (chưa khai) | |
+| 4 | 03/TD bật 🖨 Số người / tổng tiền, cột 7–8 | Tự đếm số hộ, cộng tiền đúng | |
+| 5 | 01/UQ bật 🖨 Trưởng thôn (đã khai ở ⚙ Khai báo chung) | Tên in dưới chỗ ký Chứng kiến | |
+| 6 | Word / PDF các mẫu trên | Giống bản In | |
+
+**Ghi chú kỹ thuật 3.215:** ô mới khai 1 dòng `HSO_CHAM[mẫu]` + 1 chỗ dùng trong `hsoLap…`; `hsoKBRieng(mẫu, md)` vẽ khối. Ngày 🖨 gõ cụ thể chỉ giữ trong lần làm (`HSO.vay`). Đợt 2 (01/TGTV, 01/TĐCK, GQVL, người ký theo vai trò Hội): `docs/KE_HOACH_KBR.md`.
+
 ### Danh sách thử trên máy thật (3.214) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
