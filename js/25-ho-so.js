@@ -587,8 +587,9 @@ function hsoChamKBKhoa(mk, k){ var d = hsoChamDef(mk, k); return d && d[4]==='ct
 function hsoChamKBLay(mk, k){ var L = hsoLuu(), g = ((L.chamGT||{})[mk])||{}; return g[hsoChamKBKhoa(mk, k)]; }
 function hsoChamKBDat(mk, k, v){ var L = hsoLuu(); L.chamGT = L.chamGT || {}; (L.chamGT[mk] = L.chamGT[mk] || {})[hsoChamKBKhoa(mk, k)] = String(v||'').trim(); luu(); hsoHen(); }
 function hsoChamIn(mk, k){ return hsoChamKieu(mk, k)==='in'; }
-function hsoChamNgayTT(mk, k, cham){   /* 'Ngày dd tháng mm năm yyyy' khi 🖨 (trống = hôm nay); ✍ → giữ nguyên chuỗi chấm cũ của mẫu */
-  var g = hsoChamIn(mk, k) ? hsoNg(hsoChamGT(mk, k, ngayISO(nay()))) : null;
+function hsoChamNgayTT(mk, k, cham){   /* 'Ngày dd tháng mm năm yyyy' khi 🖨 + đã gõ ngày; ✍ hoặc trống → giữ nguyên chuỗi chấm cũ của mẫu.
+     Anh (15/10): ngày mặc định chấm ghi tay; 🖨 KHÔNG tự lấy hôm nay — logic ngày anh chốt sau */
+  var g = hsoChamIn(mk, k) ? hsoNg(hsoChamGT(mk, k, '')) : null;
   return g ? 'Ngày '+hsoO(g.d, 'kb')+' tháng '+hsoO(g.m, 'kb')+' năm '+hsoO(g.y, 'kb') : cham; }
 function hsoChamKieu(mk, k){ var c = ((hsoLuu().cham||{})[mk])||{}, d = (HSO_CHAM[mk]||[]).find(function(x){ return x[0]===k; }); return c[k] || (d ? d[3] : 'cham'); }
 function hsoChamDat(mk, k, v){ var L = hsoLuu(); L.cham = L.cham || {}; (L.cham[mk] = L.cham[mk] || {})[k] = v; luu(); hsoVe(); }
@@ -614,7 +615,7 @@ function hsoChamTuy(mk, md){   /* md = {khóa: giá trị mặc định khi In s
           (ds.indexOf(HSO.vay.lyDo)>=0 && ds.length>1 ? '<button class="nho" onclick="hsoLyDoBo('+ds.indexOf(HSO.vay.lyDo)+')" title="Bỏ lý do này khỏi danh sách">✕</button>' : '')+'</span>'; }
       else if(x[2]==='kb'){ var kv = hsoChamKBLay(mk, k); o = hsoIn('hsoChamKBDat(\''+mk+'\',\''+k+'\',this.value)', kv==null ? '' : kv, (md && md[k] ? 'trống = '+md[k] : 'khai 1 lần, app nhớ')+(x[4]==='ct' ? ' (theo chương trình đang chọn)' : '')); }
       else if(x[2]==='tu') o = '<small class="hso-cham-tu">'+(md && md[k] ? 'tự lấy: '+coChuHTML(md[k]) : 'tự lấy khi có số liệu')+'</small>';
-      else o = hsoIn('HSO.vay[\''+k+'\']=this.value;hsoHen()', v, x[2]==='tien' ? 'số tiền' : x[2]==='so' ? 'số' : x[2]==='ngay' ? 'trống = hôm nay' : '', x[2]==='ngay' ? 'date' : (x[2]==='so' ? 'number' : ''));
+      else o = (x[2]==='ngay' ? '<small class="hso-cham-tu">'+(mk==='09a' || mk==='01tdck' ? 'trống = hôm nay' : 'gõ ngày — trống vẫn chấm')+'</small>' : '')+hsoIn('HSO.vay[\''+k+'\']=this.value;hsoHen()', v, x[2]==='tien' ? 'số tiền' : x[2]==='so' ? 'số' : x[2]==='ngay' ? '' : '', x[2]==='ngay' ? 'date' : (x[2]==='so' ? 'number' : ''));
     }
     return '<div class="hso-cham-o"><span class="hso-cham-nhan">'+coChuHTML(x[1])+'</span>'+sw+'<span class="hso-cham-gt">'+(inS ? o : '<i class="hso-cham-tay">…… chấm, ghi tay</i>')+'</span></div>'; }).join('')+'</div>';
 }
@@ -787,7 +788,7 @@ function hsoLap01uq(t, B){
   var h = '<p class="r i s12">Mẫu số 01/UQ</p><p class="r i s12">Lập 02 bản:</p><p class="r i s12">01 bản lưu NH</p><p class="r i s12">01 bản lưu hộ gia đình</p>'+hsoQH('-', 14)+
     '<p class="c b s14 tr sau">GIẤY ỦY QUYỀN</p>'+
     '<p class="j thut tr">Căn cứ Bộ Luật dân sự số 91/2015/QH13 và các văn bản pháp lý có liên quan,</p>'+
-    '<p class="j thut"><b>I.</b> '+(function(){ var g = hsoChamIn('01uq', 'ngayLap') ? hsoNg(hsoChamGT('01uq', 'ngayLap', ngayISO(nay()))) : null; return g ? 'Ngày '+hsoO(g.d, 'kb')+' tháng '+hsoO(g.m, 'kb')+' năm '+hsoO(g.y, 'kb') : 'Ngày … tháng … năm …….'; })()+', hộ gia đình chúng tôi gồm '+hsoO(sn, 'kb', 6)+' người'+sup(1)+', trong đó các thành viên từ đủ 18 tuổi trở lên, có năng lực hành vi dân sự đầy đủ theo quy định của pháp luật gồm:</p>'+
+    '<p class="j thut"><b>I.</b> '+(function(){ var g = hsoChamIn('01uq', 'ngayLap') ? hsoNg(hsoChamGT('01uq', 'ngayLap', '')) : null; return g ? 'Ngày '+hsoO(g.d, 'kb')+' tháng '+hsoO(g.m, 'kb')+' năm '+hsoO(g.y, 'kb') : 'Ngày … tháng … năm …….'; })()+', hộ gia đình chúng tôi gồm '+hsoO(sn, 'kb', 6)+' người'+sup(1)+', trong đó các thành viên từ đủ 18 tuổi trở lên, có năng lực hành vi dân sự đầy đủ theo quy định của pháp luật gồm:</p>'+
     hsoBang('luoi', [6, 26, 16, 19, 33], r)+
     '<p class="j thut tr"><b>II.</b> Các thành viên trong hộ gia đình có tên tại mục I của Giấy ủy quyền này (gọi là Bên ủy quyền) thỏa thuận cử ông (bà): '+hsoO(N.ten, 'sl', 25)+' STT'+sup(2)+': '+(N.ten ? hsoO('01', 'sl') : hsoCham(4))+', sinh ngày: '+hsoO(hsoNgayVN(N.ns), 'sl', 12)+
       ', số Thẻ căn cước/CCCD: '+hsoO(N.cccd, 'sl', 14)+', ngày cấp: '+hsoO(hsoNgayVN(N.ncap), 'sl', 12)+', nơi cấp: '+hsoO(N.noiCap, 'sl', 14)+' (gọi là Bên được ủy quyền) đại diện theo ủy quyền cho chúng tôi thực hiện đứng tên người vay và thực hiện các giao dịch với Ngân hàng Chính sách xã hội theo quy định trước sự chứng kiến của Trưởng thôn.</p>'+

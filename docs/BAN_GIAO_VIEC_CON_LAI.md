@@ -232,7 +232,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 5 | 01/UQ bật 🖨 Trưởng thôn (đã khai ở ⚙ Khai báo chung) | Tên in dưới chỗ ký Chứng kiến | |
 | 6 | Word / PDF các mẫu trên | Giống bản In | |
 
-**Ghi chú kỹ thuật 3.215:** ô mới khai 1 dòng `HSO_CHAM[mẫu]` + 1 chỗ dùng trong `hsoLap…`; `hsoKBRieng(mẫu, md)` vẽ khối. Ngày 🖨 gõ cụ thể chỉ giữ trong lần làm (`HSO.vay`). Đợt 2 (01/TGTV, 01/TĐCK, GQVL, người ký theo vai trò Hội): `docs/KE_HOACH_KBR.md`.
+**Ghi chú kỹ thuật 3.215:** ô mới khai 1 dòng `HSO_CHAM[mẫu]` + 1 chỗ dùng trong `hsoLap…`; `hsoKBRieng(mẫu, md)` vẽ khối. Ngày: mặc định chấm; 🖨 chỉ in ngày đã gõ (trống vẫn chấm, không tự lấy hôm nay — anh chốt logic ngày sau; 09A / 01/TĐCK giữ cách cũ 3.206: 🖨 trống = hôm nay). Ngày gõ chỉ giữ trong lần làm (`HSO.vay`). Đợt 2 (01/TGTV, 01/TĐCK, GQVL, người ký theo vai trò Hội): `docs/KE_HOACH_KBR.md`.
 
 ### Danh sách thử trên máy thật (3.214) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

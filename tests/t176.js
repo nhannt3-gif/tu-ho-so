@@ -24,7 +24,7 @@ const fs=require('fs'), path=require('path');
    ['ngayKy','ubOng','nhTien','nhLai','nhQH','nhTH','nhNgayLai','nhNgay'].forEach(k=>hsoChamDat('01td', k, 'in'));
    hsoChamKBDat('01td', 'nhLai', '6,6'); hsoChamKBDat('01td', 'nhQH', '130'); hsoChamKBDat('01td', 'nhNgayLai', '20'); await w(300);
    h = chu(hsoLap().h); const A = hsoPA(B);
-   ok('🖨: ngày người vay ký = hôm nay; Ông/bà = tên người vay; NH: số tiền + bằng chữ, lãi 6,6, quá hạn 130, thời hạn, ngày trả lãi 20, ngày GĐ ký', h.split(ngayHom).length===3 && h.indexOf('Ông/bà '+B.nv.ten)>=0 && A.tien===40000000 && h.indexOf('Số tiền cho vay: '+tdnTien(A.tien))>=0 && h.indexOf(hsoChuSo(A.tien))>=0 && /Lãi suất: 6,6%\/năm/.test(h) && /quá hạn: 130%/.test(h) && /vào ngày 20/.test(h) && h.indexOf('Thời hạn cho vay: 60 tháng')>=0, (h.match(/PHÊ DUYỆT[\s\S]{0,260}/)||[''])[0]);
+   ok('🖨 ngày chưa gõ → vẫn chấm (không tự lấy hôm nay); Ông/bà = tên người vay; NH: số tiền + bằng chữ, lãi 6,6, quá hạn 130, thời hạn, ngày trả lãi 20, ngày GĐ ký', h.split(ngayHom).length===1 && /Ngày\.+ tháng \.+ năm \.+/.test(h) && h.indexOf('Ông/bà '+B.nv.ten)>=0 && A.tien===40000000 && h.indexOf('Số tiền cho vay: '+tdnTien(A.tien))>=0 && h.indexOf(hsoChuSo(A.tien))>=0 && /Lãi suất: 6,6%\/năm/.test(h) && /quá hạn: 130%/.test(h) && /vào ngày 20/.test(h) && h.indexOf('Thời hạn cho vay: 60 tháng')>=0, (h.match(/PHÊ DUYỆT[\s\S]{0,260}/)||[''])[0]);
    ok('lãi suất nhớ THEO CHƯƠNG TRÌNH (HSSV), khai báo lưu vào cài đặt (đồng bộ Drive)', hsoLuu().chamGT['01td']['nhLai|HSSV']==='6,6' && hsoLuu().chamGT['01td'].nhQH==='130' && hsoLuu().cham['01td'].nhLai==='in');
    B.ct = 'NSVSMT'; hsoBoLuu(); await w(100); h = chu(hsoLap().h);
    ok('đổi sang NSVSMT chưa khai lãi → lãi chấm (không lấy nhầm lãi HSSV); quá hạn vẫn 130', /Lãi suất: \.+%\/năm/.test(h) && /quá hạn: 130%/.test(h));
@@ -38,13 +38,13 @@ const fs=require('fs'), path=require('path');
    ok('03/TD mặc định: cột 7–8 trống, số người / tổng tiền chấm', /Số người được vay vốn đợt này: \.+ người/.test(vienCham) && /Tổng số tiền cho vay: \.+ đồng/.test(vienCham));
    ['ngayKy','nhCot','nhNgay','nhSo'].forEach(k=>hsoChamDat('03td', k, 'in')); await w(200); h3 = hsoLap().h; const t3 = chu(h3), D3 = hsoD03(), n3 = D3.ds.length || 1;
    const tong = (D3.ds.length ? D3.ds : [{tien:hsoPA(hsoBo()).tien}]).reduce((a, r)=>a+(hsoSo(r.tien)||0), 0);
-   ok('03/TD 🖨: số người = số dòng, tổng tiền tự tính; 2 ngày = hôm nay; cột 7 = số tiền đề nghị', new RegExp('Số người được vay vốn đợt này: '+n3+' người').test(t3) && (tong>0 && t3.indexOf('Tổng số tiền cho vay: '+tdnTien(tong)+' đồng')>=0) && t3.split(ngayHom).length===3 && (tong>0 && (h3.match(new RegExp(tdnTien(tong).replace(/\./g, '\\.'), 'g'))||[]).length>=3), n3+' người · '+tong);
+   ok('03/TD 🖨: số người = số dòng, tổng tiền tự tính; ngày chưa gõ vẫn chấm; cột 7 = số tiền đề nghị', new RegExp('Số người được vay vốn đợt này: '+n3+' người').test(t3) && (tong>0 && t3.indexOf('Tổng số tiền cho vay: '+tdnTien(tong)+' đồng')>=0) && t3.split(ngayHom).length===1 && (tong>0 && (h3.match(new RegExp(tdnTien(tong).replace(/\./g, '\\.'), 'g'))||[]).length>=3), n3+' người · '+tong);
    /* 01/UQ */
    hsoChonMau('01uq'); await w(300); let hu = chu(hsoLap().h);
    ok('01/UQ mặc định: "Ngày … tháng … năm ……." như cũ, không in tên trưởng thôn', /I\. Ngày … tháng … năm ……\., hộ gia đình/.test(hu));
    const kbc = hsoKB(); kbc.ap = kbc.ap || {}; kbc.ap[hsoApKhoa(TO_K.to[C.to])] = 'Trưởng Ấp Giả'; const T = hsoBoT(hsoBo());
-   hsoChamDat('01uq', 'ngayLap', 'in'); hsoChamDat('01uq', 'truongThon', 'in'); await w(200); hu = chu(hsoLap().h);
-   ok('01/UQ 🖨: mục I ghi ngày hôm nay; tên trưởng thôn theo ⚙ Khai báo chung in dưới chỗ ký', hu.indexOf('I. '+ngayHom+', hộ gia đình')>=0 && T.truongAp==='Trưởng Ấp Giả' && /TRƯỞNG THÔN\(Ký, ghi rõ họ tên\)\s*Trưởng Ấp Giả/.test(hu.replace(/&nbsp;/g, ' ')), T.truongAp);
+   hsoChamDat('01uq', 'ngayLap', 'in'); hsoChamDat('01uq', 'truongThon', 'in'); HSO.vay.ngayLap = '2026-10-20'; await w(200); hu = chu(hsoLap().h);
+   ok('01/UQ 🖨: mục I ghi ngày đã gõ; tên trưởng thôn theo ⚙ Khai báo chung in dưới chỗ ký', hu.indexOf('I. Ngày 20 tháng 10 năm 2026, hộ gia đình')>=0 && T.truongAp==='Trưởng Ấp Giả' && /TRƯỞNG THÔN\(Ký, ghi rõ họ tên\)\s*Trưởng Ấp Giả/.test(hu.replace(/&nbsp;/g, ' ')), T.truongAp);
    /* mẫu trắng */
    hsoCH().boId = ''; hsoChonMau('01td'); await w(300); h = chu(hsoLap().h);
    ok('mẫu trắng 01/TD vẫn có khối ô tùy biến; lãi suất khai báo vẫn in', /Ô tùy biến — Mẫu 01\/TD/.test(document.getElementById('hso-tuy').textContent) && /PHÊ DUYỆT/.test(h));

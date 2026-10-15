@@ -6,7 +6,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ## 3.215 — 15/10/2026 — ⚙ Khai báo riêng từng mẫu Hồ sơ vay (đợt 1: 01/TD · 03/TD · 01/UQ)
 - **Anh (15/10):** khai báo riêng liệt kê từ trên xuống của mẫu (từ dòng Kính gửi), dòng nào cần thì cho khai báo / tùy biến, theo kinh nghiệm tab KTGS; anh bổ sung sau. Kế hoạch + danh sách ô: `docs/KE_HOACH_KBR.md`.
-- **Kế thừa ô chấm tùy biến 3.206 (09A)** — mở rộng `HSO_CHAM`: loại `kb` (khai 1 lần, nhớ `hsoLuu().chamGT[mẫu]`, cột 5 `'ct'` = nhớ theo chương trình vay), `tu` (app tự lấy), `nhom` (tiêu đề nhóm theo thứ tự trên mẫu); `hsoChamNgayTT` (Ngày … tháng … năm — 🖨 trống = hôm nay, ✍ giữ chuỗi chấm cũ). Khối **✍ / 🖨 Ô tùy biến — Mẫu …** ở cột trái (có hộ và mẫu trắng).
+- **Kế thừa ô chấm tùy biến 3.206 (09A)** — mở rộng `HSO_CHAM`: loại `kb` (khai 1 lần, nhớ `hsoLuu().chamGT[mẫu]`, cột 5 `'ct'` = nhớ theo chương trình vay), `tu` (app tự lấy), `nhom` (tiêu đề nhóm theo thứ tự trên mẫu); `hsoChamNgayTT` (Ngày … tháng … năm — **mặc định ✍ chấm ghi tay; 🖨 chỉ in ngày anh gõ, trống vẫn chấm, không tự lấy hôm nay** — anh 15/10: logic ngày chốt sau). Khối **✍ / 🖨 Ô tùy biến — Mẫu …** ở cột trái (có hộ và mẫu trắng).
 - **01/TD:** ngày người vay ký · UBND "Ông/bà" = người vay · Phê duyệt NH: số tiền + bằng chữ, thời hạn / kỳ hạn, hạn cuối (= đề nghị), **lãi suất theo chương trình**, lãi quá hạn, ngày trả lãi hàng tháng, ngày Giám đốc ký.
 - **03/TD:** ngày cột UBND · Phê duyệt NH: cột 7–8 + dòng Cộng = đề nghị, ngày, **số người + tổng số tiền tự tính** theo danh sách.
 - **01/UQ:** ngày lập giấy (mục I) · **tên trưởng thôn** (⚙ Khai báo chung › Trưởng ấp) dưới chỗ ký Chứng kiến.
