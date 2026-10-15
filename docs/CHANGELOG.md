@@ -9,7 +9,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Ô tùy biến 01/TGTV** (`HSO_CHAM['01tgtv']`, khối ✍ / 🖨 ở cột trái, **mặc định ✍ chấm**): Số CIF (ô đầu trang + phần D) · ☒ Việt Nam · Dân tộc · ☒ Có cư trú · Ngày hết hạn CCCD · Nơi thường trú (Thôn, Xã, Tỉnh) · Điện thoại · Ngày khách hàng ký (chỉ in ngày đã gõ). Họ tên, ngày sinh, giới tính, số CCCD, ngày cấp, nơi cấp luôn in. **Đổi mặc định:** trước đây dân tộc, thường trú, điện thoại, Số CIF, ☒ Việt Nam tự in — nay chấm, bật 🖨 để in.
 - **Chữ ký mẫu:** 2 ô giống nhau như mẫu Word — tiêu đề + khung nét đứt cao 27 mm, "(Ký và ghi rõ họ tên)" trong khung (trước: ô "Xác nhận chữ ký mẫu" lệch giữa, không khung).
 - **Dải tiêu đề A / B / C:** màu đúng mẫu `#538135` + **ép in nền** (`print-color-adjust:exact`) — trước đây trình duyệt bỏ nền khi in nên chữ trắng gần như mất.
-- Chỗ khách hàng ký (phần C) thêm 2 dòng trống; 4 ô ký phần D thẳng hàng trên; "Phường/Xã … Tỉnh/Thành phố" cách đều.
+- Chỗ khách hàng ký (phần C) thêm 1 dòng trống; "Phường/Xã … Tỉnh/Thành phố" cách đều.
+- **Phần D (anh: "chưa khớp lắm") đo lại theo file Word mẫu:** cột 2689 · 2409 · 2410 · 2874 twip (≈ 26 · 23 · 23 · 28 %); dòng 1 ≥ 6,3 mm ("Tiếp nhận ngày …" canh giữa nghiêng · "Gò Dầu, ngày …" gộp 3 cột); dòng chức danh ≥ 10 mm, 4 ô thẳng hàng trên (tên đậm, chú thích nghiêng); dòng ký 27 mm không kẻ ngang giữa; bảng thụt vào trong khung; Số CIF / Số TK tổ viên / Hiệu lực dưới bảng.
 - Vẫn **3 trang** (mặc định và bật hết ô).
 - **Phép thử:** t176 20/20 (thêm 4: mặc định chấm, bật 🖨 in đủ, chữ ký mẫu 2 ô + ép in màu, bật hết vẫn 3 trang).
 
