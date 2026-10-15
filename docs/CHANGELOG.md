@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.220 — 15/10/2026 — ⚙ Ô tùy biến 01/TĐCK · 01/GQVL · 07b
+- **Anh (15/10):** "gộp và tiếp tục" — đợt 2 khai báo riêng (`docs/KE_HOACH_KBR.md`).
+- **01/TĐCK:** thêm nhóm "Chấp thuận của NHCSXH": "chấp thuận cho ông/bà …" = tên khách (tự lấy) · "kể từ ngày …/…/…" (ngày đã gõ). Ngày khách hàng ký giữ như cũ.
+- **01/GQVL:** "…, ngày … tháng … năm …" chỗ người vay ký phương án (ngày đã gõ).
+- **07b/GQVL:** "Hôm nay, ngày … tại …" — nơi ký hợp đồng khai 1 lần, app nhớ (ngày ký HĐ vẫn ở ô "Ngày ký HĐ").
+- Khối "✍ / 🖨 Ô tùy biến" hiện ở cột trái 01/GQVL, 07b (như 01/TD, 01/UQ). **Mặc định ✍ chấm → bản in giống hệt 3.219** (so từng ký tự: 01/GQVL, 07b có hộ + mẫu trắng, 01/TĐCK, 09A in kèm 01/TĐCK).
+- **Phép thử:** t176 25/25 (thêm 5).
+
 ## 3.219 — 15/10/2026 — 📄 01/TGTV: ô tùy biến + sửa theo bản in thử
 - **Anh (15/10, gửi ảnh bản in 3.218):** mấy phần điền sẵn để tùy chọn, mặc định chấm ghi tay; chỗ khách hàng ký trang cuối rộng xuống; chữ ký 2 bị lỗi; màu xanh lá in ra lợt không thấy; còn lệch nhiều chỗ.
 - **Ô tùy biến 01/TGTV** (`HSO_CHAM['01tgtv']`, khối ✍ / 🖨 ở cột trái, **mặc định ✍ chấm**): Số CIF (ô đầu trang + phần D) · ☒ Việt Nam · Dân tộc · ☒ Có cư trú · Ngày hết hạn CCCD · Nơi thường trú (Thôn, Xã, Tỉnh) · Điện thoại · Ngày khách hàng ký (chỉ in ngày đã gõ). Họ tên, ngày sinh, giới tính, số CCCD, ngày cấp, nơi cấp luôn in. **Đổi mặc định:** trước đây dân tộc, thường trú, điện thoại, Số CIF, ☒ Việt Nam tự in — nay chấm, bật 🖨 để in.

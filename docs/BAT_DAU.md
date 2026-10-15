@@ -23,7 +23,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.219** — 01/TGTV ô tùy biến (mặc định chấm) + sửa bản in (chữ ký mẫu, màu dải tiêu đề, chỗ ký). Trước: 3.218 01/TGTV 3 trang theo file Word mẫu · 3.216 🏛 cửa `KHO` (**mẫu / tab mới lấy số qua `KHO.*`**). **Việc tiếp (chờ anh "code"):** 01/TĐCK ô tùy biến · GQVL gom về khối ô tùy biến · (09A ý kiến Hội — anh chưa chốt có cần) · đợt chuẩn hóa lưu. Hồi quy: t100 / t116 trượt sẵn trên main.
+- **`main` = 3.220** — ô tùy biến 01/TĐCK · 01/GQVL · 07b (mặc định chấm). Trước: 3.219 01/TGTV ô tùy biến + sửa bản in theo mẫu Word · 3.216 🏛 cửa `KHO` (**mẫu / tab mới lấy số qua `KHO.*`**). **Việc tiếp:** đợt chuẩn hóa lưu (sổ hộ vay thùng rác + dự phòng riêng, cùng B2 IndexedDB) · 09A ý kiến Hội (anh chưa chốt). Hồi quy: t100 / t116 trượt sẵn trên main.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.

@@ -611,7 +611,7 @@ function hsoChamTuy(mk, md){   /* md = {khóa: giá trị mặc định khi In s
 }
 /* 3.206 (anh gửi mẫu 14/10): 01/TĐCK — Giấy đề nghị thay đổi mẫu chữ ký giao dịch với NHCSXH (VB 2407 ngày 28/3/2025). Người đề nghị = người vay đang chọn
    (dùng chung lựa chọn với 09A); nhân thân theo danh bạ (Mẫu 31); ngày ký = ô chấm tùy biến; phần chấp thuận NH luôn chấm. In kèm 09A (cùng khổ dọc → 1 lần in / 1 file Word). */
-HSO_CHAM['01tdck'] = [['ngayKy','Ngày tháng (khách hàng ký)','ngay','cham']];
+HSO_CHAM['01tdck'] = [['_1','Khách hàng','nhom'], ['ngayKy','Ngày tháng (khách hàng ký)','ngay','cham'], ['_2','Chấp thuận của NHCSXH','nhom'], ['nhTen','"chấp thuận cho ông/bà …" = tên khách hàng','tu','cham'], ['nhNgay','"kể từ ngày …/…/…" (hiệu lực mẫu chữ ký mới)','ngay','cham']];   /* 3.220 (anh 15/10): thêm phần chấp thuận NH — mặc định ✍ chấm */
 /* 3.215 (anh 15/10): ô tùy biến từng mẫu, liệt kê từ trên xuống. Nhân thân, món vay, tổ, Hội, chương trình, số tiền / phương án (đã gõ ở phiếu hộ) KHÔNG ở đây.
    Phần NH phê duyệt / UBND / trưởng thôn: mặc định ✍ chấm như cũ — anh bật 🖨 khi muốn in sẵn. */
 HSO_CHAM['01td'] = [['_1','Người vay','nhom'], ['ngayKy','Ngày tháng (người vay ký)','ngay','cham'],
@@ -623,6 +623,8 @@ HSO_CHAM['03td'] = [['_1','Tổ trưởng · UBND','nhom'], ['ngayKy','Ngày th�
 HSO_CHAM['01tgtv'] = [['_1','A — thông tin khách hàng','nhom'], ['cif','Ô đầu trang + phần D: Số CIF (mã KH Mẫu 31)','tu','cham'], ['quocTich','Quốc tịch ☒ Việt Nam','tu','cham'], ['danToc','Dân tộc (Mẫu 31)','tu','cham'],
   ['cuTru','Tình trạng cư trú ☒ Có cư trú','tu','cham'], ['hanCCCD','Ngày hết hạn CCCD (tự tính theo ngày sinh, ngày cấp)','tu','cham'], ['thuongTru','Nơi thường trú: Tổ dân phố/Thôn · Phường/Xã · Tỉnh (sổ hộ vay)','tu','cham'],
   ['sdt','Điện thoại liên hệ (Mẫu 31 / sổ hộ vay)','tu','cham'], ['_2','C — cam kết','nhom'], ['ngayKy','Ngày tháng (khách hàng ký)','ngay','cham']];   /* 3.219 (anh 15/10): mặc định ✍ chấm ghi tay */
+HSO_CHAM['01gqvl'] = [['_1','Người vay ký','nhom'], ['ngayKy','"…, ngày … tháng … năm …" (người vay ký phương án)','ngay','cham']];   /* 3.220 */
+HSO_CHAM['07b'] = [['_1','Mở đầu hợp đồng','nhom'], ['noiKy','"Hôm nay, ngày … tại …" — nơi ký hợp đồng','kb','cham']];   /* 3.220 · ngày ký HĐ: ô "Ngày ký HĐ" ở trên (gõ thì in, trống chấm) */
 HSO_CHAM['01uq'] = [['_1','Mục I','nhom'], ['ngayLap','"Ngày … tháng … năm …" lập giấy','ngay','cham'],
   ['_2','Chữ ký','nhom'], ['truongThon','Chứng kiến của Trưởng thôn — họ tên (⚙ Khai báo chung › Trưởng ấp)','tu','cham']];
 function hsoLap01tdck(t){
@@ -640,7 +642,7 @@ function hsoLap01tdck(t){
     hsoBang('luoi', [1, 1], '<tr><td class="c"><p class="c b">Chữ ký thứ nhất</p></td><td class="c"><p class="c b">Chữ ký thứ hai</p></td></tr><tr><td>'+kyO+'</td><td>'+kyO+'</td></tr>')+
     '<p>&nbsp;</p>'+
     hsoBang('khung0', [1.15, 1], '<tr><td class="c"><p class="c b">CHẤP THUẬN CỦA</p><p class="c b">NGÂN HÀNG CHÍNH SÁCH XÃ HỘI</p>'+
-      '<p class="j">Ngân hàng Chính sách xã hội '+coChuHTML(hsoPGD('ngan'))+' chấp thuận cho ông/bà:'+hsoCham(30)+' có tên trên thay đổi mẫu chữ ký giao dịch với NHCSXH theo mẫu chữ ký đã đăng ký kể từ ngày '+hsoCham(5)+'/'+hsoCham(5)+'/'+hsoCham(8)+'</p>'+
+      '<p class="j">Ngân hàng Chính sách xã hội '+coChuHTML(hsoPGD('ngan'))+' chấp thuận cho ông/bà:'+(hsoChamIn('01tdck', 'nhTen') && c.ten ? ' '+hsoO(c.ten, 'sl')+' ' : hsoCham(30))+' có tên trên thay đổi mẫu chữ ký giao dịch với NHCSXH theo mẫu chữ ký đã đăng ký kể từ ngày '+(function(){ var g = hsoChamIn('01tdck', 'nhNgay') ? hsoNg(hsoChamGT('01tdck', 'nhNgay', '')) : null; return g ? hsoO(g.d+'/'+g.m+'/'+g.y, 'kb') : hsoCham(5)+'/'+hsoCham(5)+'/'+hsoCham(8); })()+'</p>'+
       '<p class="c b tr">GIÁM ĐỐC</p><p class="c i s11">(Ký tên, đóng dấu)</p></td>'+
       '<td class="c"><p class="c i">'+hsoO(T.xa, 'sl', 14)+hsoChamNgay('01tdck', 'ngayKy')+'</p><p class="c b">KHÁCH HÀNG</p><p class="c i s11">(Ký, ghi rõ họ và tên)</p></td></tr>');
   return {ma:'01/TĐCK', h:h};
@@ -1543,7 +1545,7 @@ function hsoLap01gqvl(t, B){
     '<p class="l1">- Tổng doanh thu của phương án: '+(G.dt ? hsoO2(tdnTien(G.dt)) : hsoCham(30))+' đồng</p><p class="l1">- Tổng chi phí của phương án: '+(G.cp ? hsoO2(tdnTien(G.cp)) : hsoCham(30))+' đồng</p>'+
     '<p class="l1">- Chênh lệch thu - chi của phương án: '+(G.cl!=null ? hsoO2(tdnTien(G.cl)) : hsoCham(30))+' đồng</p><p class="l1">- Thu nhập bình quân tăng thêm/1 tháng của khách hàng: '+(G.bq!=null ? hsoO2(tdnTien(G.bq)) : hsoCham(25))+' đồng</p>'+
     '<p class="b tr">III. Cam kết</p><p class="j thut">Tôi cam kết sử dụng vốn vay đúng mục đích, trả nợ gốc và lãi đúng thời hạn, nếu sai tôi xin chịu trách nhiệm trước pháp luật.</p>'+
-    hsoBang('khung0', [45, 55], '<tr><td></td><td class="c"><p class="c i">'+coChuHTML(hsoPGD('noi'))+', ngày '+hsoCham(4)+' tháng '+hsoCham(4)+' năm '+hsoCham(6)+'</p><p class="c b">NGƯỜI ĐỀ NGHỊ VAY VỐN</p><p class="c i s12">(Ký và ghi rõ họ tên)</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p class="c b">'+hsoO(N.ten, 'sl', 25)+'</p></td></tr>')+
+    hsoBang('khung0', [45, 55], '<tr><td></td><td class="c"><p class="c i">'+coChuHTML(hsoPGD('noi'))+(function(){ var g = hsoChamIn('01gqvl', 'ngayKy') ? hsoNg(hsoChamGT('01gqvl', 'ngayKy', '')) : null; return g ? ', ngày '+hsoO(g.d, 'kb')+' tháng '+hsoO(g.m, 'kb')+' năm '+hsoO(g.y, 'kb') : ', ngày '+hsoCham(4)+' tháng '+hsoCham(4)+' năm '+hsoCham(6); })()+'</p><p class="c b">NGƯỜI ĐỀ NGHỊ VAY VỐN</p><p class="c i s12">(Ký và ghi rõ họ tên)</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p class="c b">'+hsoO(N.ten, 'sl', 25)+'</p></td></tr>')+
     '<p class="b i s11 tr">Ghi chú:</p>'+[
     '(1) Trường hợp đề nghị vay vốn tại nơi thường trú thì ghi thông tin nơi thường trú; trường hợp đề nghị vay vốn tại nơi tạm trú thì ghi thông tin nơi tạm trú.',
     '(2) Nếu khách hàng là chủ hộ kinh doanh (hoặc người đại diện ủy quyền) vay với tư cách Cá nhân người lao động để phục vụ công việc kinh doanh/tạo việc làm, duy trì, mở rộng việc làm cho chính bản thân khách hàng thì kê khai Giấy chứng nhận đăng ký kinh doanh. Đối với ngành nghề kinh doanh có điều kiện thì kê khai cả nội dung Giấy phép kinh doanh có điều kiện/Giấy chứng nhận đủ điều kiện kinh doanh.',
@@ -1572,7 +1574,7 @@ function hsoLap07b(t, B){
     '<p class="c b s14 tr">HỢP ĐỒNG TÍN DỤNG</p><p class="c">Số: '+hsoCham(6)+'/20'+hsoCham(3)+'/HĐ-TD</p><p class="c i">(Áp dụng cho vay đối với người lao động)</p>'+
     ['Căn cứ bộ Luật dân sự và các quy định pháp luật khác có liên quan;', 'Căn cứ Luật Việc làm số 74/2025/QH15 ngày 16/06/2025 của Quốc Hội;', 'Căn cứ Nghị định số 338/2025/NĐ-CP ngày 25/12/2025 của Chính phủ quy định chi tiết một số điều của Luật Việc làm về chính sách hỗ trợ tạo việc làm;',
      'Căn cứ văn bản số 11055/HD-NHCS ngày 30/12/2025 của Tổng Giám đốc Ngân hàng Chính sách xã hội hướng dẫn nghiệp vụ cho vay hỗ trợ tạo việc làm, duy trì, mở rộng việc làm và các văn bản hướng dẫn có liên quan của Tổng Giám đốc NHCSXH;'].map(function(x){ return '<p class="j thut i">'+x+'</p>'; }).join('')+
-    '<p class="j thut">Hôm nay, '+hsoNTN(B && B.ngayHD)+' tại '+hsoCham(35)+' chúng tôi gồm:</p>'+
+    '<p class="j thut">Hôm nay, '+hsoNTN(B && B.ngayHD)+' tại '+(hsoChamGT('07b', 'noiKy', '') ? hsoO(hsoChamGT('07b', 'noiKy', ''), 'kb') : hsoCham(35))+' chúng tôi gồm:</p>'+
     '<p class="b">Bên cho vay</p><p>- Tên Ngân hàng Chính sách xã hội: '+o(hsoPGD('ten'), 40)+'</p><p>- Địa chỉ: '+o(hsoPGD('diaChi'), 50)+'</p><p>- Điện thoại: '+o(hsoPGD('dt'), 50)+'</p>'+
     '<p>- Họ và tên người đại diện: '+o(hsoPGD('daiDien'), 25)+' Chức vụ: '+o(hsoPGD('daiDien') ? hsoPGD('chucVu') : '', 20)+'</p><p>- Giấy uỷ quyền (nếu có): '+o(hsoPGD('uyQuyen'), 40)+'</p>'+
     '<p class="b">Bên vay</p><p>- Họ và tên người vay: '+s(N.ten, 45)+'</p><p>- Ngày, tháng, năm sinh: '+s(hsoNgayVN(N.ns), 40)+'</p><p>- Thẻ căn cước công dân/Thẻ căn cước số: '+s(N.cccd, 30)+'</p>'+
@@ -1657,7 +1659,7 @@ function hsoTuyHo(M, t){
   if(o) hmDongBo(o, B);
   h += hsoTuyO('👪 Hộ vay', hsoChon('hmChonHo(this.value)', o ? o.id : '', [['', hmDs().length ? '— chọn hộ trong sổ ('+hmDs().length+') —' : '— sổ trống —']].concat(hmDs().map(function(x){ var n = x.tv[x.dung||0] || {}; return [x.id, (n.ten||'(chưa tên)')+(x.kh ? ' · '+x.kh : ' · hộ mới')+(hmToTen(x) ? ' · '+hmToTen(x) : '')]; }))))+
     '<div class="hang-nut"><button class="nho" onclick="hmMo()">＋ Hộ mới</button><button class="nho" onclick="hmM31Hop()">＋ Lấy từ Mẫu 31</button>'+(o ? '<button class="nho" onclick="hmMo(\''+o.id+'\')">✎ Sửa / bổ sung hộ</button>' : '')+'</div>';
-  var kbr = /^(01td|01uq)$/.test(M.k) ? function(){ return hsoKBRieng(M.k, o ? {ubOng:B.nv.ten} : null); } : function(){ return ''; };   /* 3.215: ⚙ Khai báo riêng */
+  var kbr = /^(01td|01uq|01gqvl|07b)$/.test(M.k) ? function(){ return hsoKBRieng(M.k, o ? {ubOng:B.nv.ten} : null); } : function(){ return ''; };   /* 3.215: ⚙ Khai báo riêng */
   if(!o) return h+'<div class="sl-phu">Chưa chọn hộ → khung phải là mẫu trắng (in được ngay).</div>'+kbr();
   var N = B.nv, C = hsoCTV(B.ct) || {};
   h += '<div class="sl-phu"><b>'+coChuHTML(N.ten)+'</b>'+(N.cccd ? ' · CCCD '+coChuHTML(N.cccd) : '')+(o.kh ? ' · mã KH '+coChuHTML(o.kh) : ' · hộ mới (chưa mã KH)')+(hmToTen(o) ? ' · '+coChuHTML(hmToTen(o)) : ' · <b class="hso-canh">chưa gắn tổ</b>')+'</div>';
