@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.222 — 16/10/2026 — ⚙ Khai báo đơn vị dùng chung + bố cục cột trái Hồ sơ vay
+- **Anh (16/10):** làm 1 lần theo phương án B + bổ sung 1–3 (bổ sung 4 xuất / nhập khai báo ra file: làm sau khi ổn), gom nhiều chức năng thử 1 lần.
+- **⚙ Khai báo đơn vị** (`js/30-khai-bao.js`, `hsoKBHop`): 1 cửa sổ cho Hồ sơ Tổ, Hồ sơ vay, Giao dịch xã (nút ⚙ Khai báo đơn vị ở cả 3 tab; Giao dịch xã mở ở tab 👤 Cán bộ). Tab: 🏦 PGD · logo · **tên đơn vị in trên từng mẫu Giao dịch xã** (04/TD, 12/GDX, Giấy lĩnh, Bảng kê — sửa ở đây hoặc khai báo riêng mẫu, cùng 1 chỗ lưu) · 👤 Cán bộ · 🤝 Hội (danh sách đã khai + nút sang KTGS; KTGS gói khóa nên vẫn sửa ở KTGS) · 🏘 Trưởng ấp · 👥 Tổ phó · 📋 Chương trình vay · 🏦 TK 104 / 105. **Chỗ lưu giữ nguyên** → không chuyển dữ liệu.
+- **Bố cục A cột trái Hồ sơ vay:** tiêu đề **✎ Nhập liệu — Mẫu …**; **⚙ Khai báo riêng — Mẫu …** xuống cuối cột, thu gọn được (app nhớ); 03/TD, 01/TGTV dời khối xuống cuối; **09A, 01/TĐCK** cùng khung. Chương trình vay chỉ 1 lối vào (① ⚙ khai báo chương trình) — bỏ link ở dòng Đối tượng thụ hưởng và mục đích GQVL.
+- **Bổ sung 1 — 📎 nguồn:** ô đang 🖨 ghi nguồn số liệu (Mẫu 31 kỳ …, sổ hộ vay, ③ Phương án, khai 1 lần theo chương trình, gõ trong lần làm…).
+- **Bổ sung 2 — ↺ Về mặc định:** nút ở khối khai báo riêng (hiện số ô đã đổi), hỏi trước; giá trị đã khai (lãi suất…) giữ lại.
+- **Bổ sung 3 — ⚠ Trước khi in:** dòng nhắc dưới tiêu đề cột trái: người vay thiếu CCCD / ngày cấp / ngày sinh; ô đã bật 🖨 mà chưa có số liệu (sẽ in chấm). Bản ghi mẫu không nhắc ô.
+- **Bản in không đổi:** so 23 mục (01/TD, 01/UQ, 03/TD, 01/TGTV, 09A, 01/TĐCK, Hồ sơ Tổ, 12/GDX, 04/TD, Giấy lĩnh 104 / 105, sổ hộ vay) với 3.221 — giống từng ký tự.
+- **Phép thử:** t178 22/22 (mới); t172, t176 sửa chữ tiêu đề.
+
 ## 3.221 — 16/10/2026 — 📝 Bản ghi mẫu (Hồ sơ vay)
 - **Anh (16/10):** tất cả các phần đều tùy biến in sẵn được để xuất dạng ghi mẫu — "bản ghi mẫu lấy dữ liệu thật, kiểu in ra cho khách hàng viết lại được".
 - Đầu khối "Ô tùy biến" mỗi mẫu (01/TD, 03/TD, 01/UQ, 01/TGTV, 01/TĐCK, 09A, 01/GQVL, 07b): **🖨 Bản thật | 📝 Bản ghi mẫu**.

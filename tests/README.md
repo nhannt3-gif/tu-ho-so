@@ -148,6 +148,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t176.js` (3.219) | thêm: 01/TGTV ô tùy biến mặc định chấm / bật in, chữ ký mẫu 2 ô, ép in màu, vẫn 3 trang. |
 | `node tests/t176.js` (3.220) | thêm: 01/TĐCK chấp thuận NH, 01/GQVL ngày ký, 07b nơi ký. |
 | `node tests/t176.js` (3.221) | thêm: bản ghi mẫu — in số liệu thật, UBND / NH vẫn chấm, không lưu, tên file GhiMau. |
+| `node tests/t178.js` | 3.222 Khai báo đơn vị dùng chung (Giao dịch xã mở cùng cửa sổ, tên đơn vị từng mẫu, Hội, TK), bố cục A cột trái, chương trình vay 1 lối vào, 📎 nguồn, ↺ về mặc định, ⚠ nhắc thiếu, 09A / 01/TĐCK cùng khung. |
 
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).

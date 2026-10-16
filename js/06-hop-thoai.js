@@ -2053,7 +2053,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.221', ds:[
+var CO_GI_MOI = {ban:'3.222', ds:[
+  ["⚙ Khai báo đơn vị: 1 cửa sổ dùng chung mọi tab — PGD, logo, tên đơn vị từng mẫu Giao dịch xã, cán bộ, Hội, trưởng ấp, tổ phó, chương trình vay, TK 104 / 105", "slDoiTab('hsv');doiNgan(7);hsoKBHop('pgd')"],
+  ["Hồ sơ vay: cột trái đầu ✎ Nhập liệu, cuối ⚙ Khai báo riêng (thu gọn được, ↺ về mặc định, 📎 nguồn số liệu); ⚠ nhắc thiếu trước khi in", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
   ["📝 Hồ sơ vay: Bản ghi mẫu — 1 nút in số liệu thật vào mọi ô khách phải viết (dân tộc, thường trú, điện thoại, CIF, …) để khách chép lại vào mẫu thật; phần UBND / Hội / NH vẫn chấm; chỉ cho lần in đó", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01tgtv')"],
   ["⚙ Hồ sơ vay: ô tùy biến 01/TĐCK (tên khách + ngày hiệu lực phần NH chấp thuận), 01/GQVL (ngày người vay ký), 07b (nơi ký hợp đồng) — mặc định chấm, bật 🖨 mới in", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01tdck')"],
   ["📄 01/TGTV: ô tùy biến (Số CIF, quốc tịch, dân tộc, cư trú, hạn CCCD, thường trú, điện thoại, ngày ký) mặc định chấm ghi tay; khung Chữ ký mẫu 2 ô như mẫu; dải tiêu đề xanh in rõ; chỗ khách hàng ký rộng hơn", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01tgtv')"],

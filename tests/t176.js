@@ -18,7 +18,7 @@ const fs=require('fs'), path=require('path');
    /* 01/TD */
    hmLamHS(ho.id, '01td'); await w(300); const B = hsoBo(); B.ct = 'HSSV'; B.pa = Object.assign(B.pa||{}, {sv:'Con Giả', soThang:'12'}); B.tien = '40000000'; B.th = '60'; hsoBoLuu(); hsoVe(); await w(300);
    const tuy = document.getElementById('hso-tuy').textContent;
-   ok('01/TD: khối "Ô tùy biến — Mẫu 01/TD (từ trên xuống)": Người vay → Xác nhận UBND → Phê duyệt NH (đủ 9 ô)', /Ô tùy biến — Mẫu 01\/TD/.test(tuy) && tuy.indexOf('Người vay')<tuy.indexOf('Xác nhận của UBND xã') && tuy.indexOf('Xác nhận của UBND xã')<tuy.indexOf('Phê duyệt của Ngân hàng') && HSO_CHAM['01td'].filter(x=>x[2]!=='nhom').length===9 && document.querySelectorAll('#hso-tuy .hso-cham-o').length>=9);
+   ok('01/TD: khối "Ô tùy biến — Mẫu 01/TD (từ trên xuống)": Người vay → Xác nhận UBND → Phê duyệt NH (đủ 9 ô)', /Khai báo riêng — Mẫu 01\/TD/.test(tuy) && tuy.indexOf('Người vay')<tuy.indexOf('Xác nhận của UBND xã') && tuy.indexOf('Xác nhận của UBND xã')<tuy.indexOf('Phê duyệt của Ngân hàng') && HSO_CHAM['01td'].filter(x=>x[2]!=='nhom').length===9 && document.querySelectorAll('#hso-tuy .hso-cham-o').length>=9);
    let h = chu(hsoLap().h);
    ok('mặc định ✍: ngày ký, Ông/bà, phê duyệt NH đều chấm như bản cũ', /Ngày\.+ tháng \.+ năm \.+/.test(h) && /Ông\/bà \.{20,}/.test(h) && /Lãi suất: \.+%\/năm/.test(h) && /vào ngày \.{20,}/.test(h));
    ['ngayKy','ubOng','nhTien','nhLai','nhQH','nhTH','nhNgayLai','nhNgay'].forEach(k=>hsoChamDat('01td', k, 'in'));
@@ -33,7 +33,7 @@ const fs=require('fs'), path=require('path');
    delete HSO.vay.ngayKy;
    /* 03/TD */
    hsoChonMau('03td'); await w(300);
-   ok('03/TD: khối ô tùy biến (Tổ trưởng · UBND → Phê duyệt NH)', /Ô tùy biến — Mẫu 03\/TD/.test(document.getElementById('hso-tuy').textContent));
+   ok('03/TD: khối ô tùy biến (Tổ trưởng · UBND → Phê duyệt NH)', /Khai báo riêng — Mẫu 03\/TD/.test(document.getElementById('hso-tuy').textContent));
    let h3 = hsoLap().h; const vienCham = chu(h3);
    ok('03/TD mặc định: cột 7–8 trống, số người / tổng tiền chấm', /Số người được vay vốn đợt này: \.+ người/.test(vienCham) && /Tổng số tiền cho vay: \.+ đồng/.test(vienCham));
    ['ngayKy','nhCot','nhNgay','nhSo'].forEach(k=>hsoChamDat('03td', k, 'in')); await w(200); h3 = hsoLap().h; const t3 = chu(h3), D3 = hsoD03(), n3 = D3.ds.length || 1;
@@ -47,7 +47,7 @@ const fs=require('fs'), path=require('path');
    ok('01/UQ 🖨: mục I ghi ngày đã gõ; tên trưởng thôn theo ⚙ Khai báo chung in dưới chỗ ký', hu.indexOf('I. Ngày 20 tháng 10 năm 2026, hộ gia đình')>=0 && T.truongAp==='Trưởng Ấp Giả' && /TRƯỞNG THÔN\(Ký, ghi rõ họ tên\)\s*Trưởng Ấp Giả/.test(hu.replace(/&nbsp;/g, ' ')), T.truongAp);
    /* mẫu trắng */
    hsoCH().boId = ''; hsoChonMau('01td'); await w(300); h = chu(hsoLap().h);
-   ok('mẫu trắng 01/TD vẫn có khối ô tùy biến; lãi suất khai báo vẫn in', /Ô tùy biến — Mẫu 01\/TD/.test(document.getElementById('hso-tuy').textContent) && /PHÊ DUYỆT/.test(h));
+   ok('mẫu trắng 01/TD vẫn có khối ô tùy biến; lãi suất khai báo vẫn in', /Khai báo riêng — Mẫu 01\/TD/.test(document.getElementById('hso-tuy').textContent) && /PHÊ DUYỆT/.test(h));
    /* tắt lại → về chấm */
    ['ngayKy','ubOng','nhTien','nhLai','nhQH','nhTH','nhNgayLai','nhNgay'].forEach(k=>hsoChamDat('01td', k, 'cham')); h = chu(hsoLap().h);
    ok('bấm ✍ lại → về chấm như cũ (giá trị khai vẫn nhớ)', /Lãi suất: \.+%\/năm/.test(h) && hsoLuu().chamGT['01td']['nhLai|HSSV']==='6,6');
@@ -61,7 +61,7 @@ const fs=require('fs'), path=require('path');
    ok('01/TGTV mẫu trắng cũng 3 trang', nTr==='3', nTr);
    /* 3.219 (anh 15/10): 01/TGTV ô tùy biến mặc định chấm; bật 🖨 → in số liệu; chữ ký mẫu 2 ô; dải tiêu đề in được màu */
    hmLamHS(ho.id, '01tgtv'); await w(400); let tg = hsoLap01tgtv(TO_K.to[C.to], Object.assign({}, hsoBoNV(hsoBo()), {danToc:'Kinh', ap:'Ấp Giả', tenXa:'Xã Giả', sdt:'0900000999', kh:'4800000999'})).h, tgc = chu(tg);
-   ok('01/TGTV mặc định ✍: dân tộc, cư trú, hạn CCCD, thường trú, điện thoại, Số CIF, ngày ký đều chấm; khối ô tùy biến có 8 ô', !/Kinh/.test(tgc) && !/Ấp Giả/.test(tgc) && !/0900000999/.test(tgc) && !/4800000999/.test(tgc) && !/☒ Việt Nam/.test(tgc) && /Ô tùy biến — Mẫu 01\/TGTV/.test(document.getElementById('hso-tuy').textContent) && HSO_CHAM['01tgtv'].filter(x=>x[2]!=='nhom').length===8);
+   ok('01/TGTV mặc định ✍: dân tộc, cư trú, hạn CCCD, thường trú, điện thoại, Số CIF, ngày ký đều chấm; khối ô tùy biến có 8 ô', !/Kinh/.test(tgc) && !/Ấp Giả/.test(tgc) && !/0900000999/.test(tgc) && !/4800000999/.test(tgc) && !/☒ Việt Nam/.test(tgc) && /Khai báo riêng — Mẫu 01\/TGTV/.test(document.getElementById('hso-tuy').textContent) && HSO_CHAM['01tgtv'].filter(x=>x[2]!=='nhom').length===8);
    HSO_CHAM['01tgtv'].forEach(x=>{ if(x[2]!=='nhom') hsoChamDat('01tgtv', x[0], 'in'); }); HSO.vay.ngayKy = '2026-10-20';
    tg = hsoLap01tgtv(TO_K.to[C.to], Object.assign({}, hsoBoNV(hsoBo()), {danToc:'Kinh', ap:'Ấp Giả', tenXa:'Xã Giả', sdt:'0900000999', kh:'4800000999'})).h; tgc = chu(tg);
    ok('🖨 bật: in dân tộc, ☒ Việt Nam, ☒ Có cư trú, thường trú (ấp, xã, tỉnh), điện thoại, Số CIF (2 chỗ), ngày ký đã gõ', /Kinh/.test(tgc) && /☒ Việt Nam/.test(tgc) && /☒ Có cư trú/.test(tgc) && /Ấp Giả/.test(tgc) && /0900000999/.test(tgc) && (tgc.match(/4800000999/g)||[]).length===2 && /ngày 20 tháng 10 năm 2026/.test(tgc));
@@ -77,7 +77,7 @@ const fs=require('fs'), path=require('path');
    ok('01/TĐCK 🖨: in tên khách + ngày hiệu lực đã gõ', td.indexOf('chấp thuận cho ông/bà: '+tenK)>=0 && /kể từ ngày 01\/11\/2026/.test(td), tenK);
    ['nhTen','nhNgay'].forEach(k=>hsoChamDat('01tdck', k, 'cham')); delete HSO.vay.nhNgay;
    hsoChonMau('01gqvl'); await w(300); hsoChamDat('01gqvl', 'ngayKy', 'in'); HSO.vay.ngayKy = '2026-11-05'; let gq = chu(hsoLap().h);
-   ok('01/GQVL 🖨 ngày người vay ký = ngày đã gõ; khối ô tùy biến có', /ngày 05 tháng 11 năm 2026/.test(gq) && /Ô tùy biến — Mẫu 01\/GQVL/.test(document.getElementById('hso-tuy').textContent));
+   ok('01/GQVL 🖨 ngày người vay ký = ngày đã gõ; khối ô tùy biến có', /ngày 05 tháng 11 năm 2026/.test(gq) && /Khai báo riêng — Mẫu 01\/GQVL/.test(document.getElementById('hso-tuy').textContent));
    hsoChamDat('01gqvl', 'ngayKy', 'cham'); delete HSO.vay.ngayKy;
    hsoChonMau('07b'); await w(300); hsoChamDat('07b', 'noiKy', 'in'); hsoChamKBDat('07b', 'noiKy', 'PGD NHCSXH Gò Dầu'); let hd = chu(hsoLap().h);
    ok('07b 🖨 nơi ký "Hôm nay … tại PGD NHCSXH Gò Dầu" (khai 1 lần, nhớ)', /tại PGD NHCSXH Gò Dầu chúng tôi gồm/.test(hd) && hsoLuu().chamGT['07b'].noiKy==='PGD NHCSXH Gò Dầu');

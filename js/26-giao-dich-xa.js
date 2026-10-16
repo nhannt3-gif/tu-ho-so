@@ -552,7 +552,7 @@ function gdxVeTrai(){
 /* 3.181 (anh chốt: "các nút quá nhiều che hết khung nhập"): đầu khung 1 hàng — chip mẫu · 👁 · ⋯ (khai báo riêng / chung, nhật ký in, mini app) */
 function gdxMenu(ds, lop){ return '<details class="gdx-menu'+(lop ? ' '+lop : '')+'"><summary class="nho" title="Thêm">'+(ds.nhan || '⋯')+'</summary><div>'+ds.map(function(x){ return '<button class="nho" onclick="this.closest(\'details\').open=false;'+x[1]+'"'+(x[2] ? ' title="'+gdxE(x[2])+'"' : '')+'>'+x[0]+'</button>'; }).join('')+'</div></details>'; }
 function gdxDauHTML(){
-  var C = gdxC(), M = gdxMauHT(), ds = [['⚙ Khai báo riêng mẫu', 'gdxKBRieng()', 'Mọi mục của mẫu — tích Chọn nhanh để đưa ra khung'], ['⚙ Khai báo chung', 'gdxKBChung()', 'Danh sách cán bộ · danh mục tham chiếu · TK 104'],
+  var C = gdxC(), M = gdxMauHT(), ds = [['⚙ Khai báo riêng mẫu', 'gdxKBRieng()', 'Mọi mục của mẫu — tích Chọn nhanh để đưa ra khung'], ['⚙ Khai báo đơn vị', 'gdxKBChung()', 'Danh sách cán bộ · danh mục tham chiếu · TK 104'],
     ['📜 Nhật ký in', 'gdxNKMo()', 'Các lần in trong 1 tháng — in lại khi khách ký sai'], ['📦 Mini app', 'gdxMiniHop()', 'Xuất 1 file HTML gọn gửi đồng nghiệp — có thời hạn 30 / 60 / 90 ngày']];
   return '<div class="gdx2-dau"><div class="gdx2-mau">'+GDX_MAU.map(function(m){ return gdxChip(m.bt+' '+m.ma, m.k===M.k, 'gdxDoiMau(\''+m.k+'\')', '', m.nhom+' — '+m.ten); }).join('')+'</div>'+
     '<div class="gdx2-nut">'+(M.k==='gl' ? '<button class="nho'+(GDX.glDaIn ? ' gdx-moi' : '')+'" onclick="gdxGLMoi()" title="'+(GDX.glDaIn ? 'Phiếu mới — in người khác: bỏ người lĩnh, tổ, số tiền; giữ ngày, khổ giấy, loại TK' : 'Phiếu mới: xóa các ô để chọn / gõ người khác (giữ ngày, khổ giấy, loại TK)')+'">↺ Phiếu mới</button>' : '')+'<button class="nho'+(C.xem!==false ? ' chinh' : '')+'" onclick="gdxBatXem()" title="Bật / tắt khung xem trước">👁 Xem: '+(C.xem!==false ? 'Bật' : 'Tắt')+'</button>'+gdxMenu(ds)+'</div></div>';
@@ -1036,12 +1036,7 @@ var GL_CSS_A4 = '@page{size:A4 portrait;margin:0}@media print{.sheet-gl.gl-a4{he
    điểm GD = Mẫu 18 (Dư nợ chi tiết) / DSTO; TK 104 · TK 105 cần đóng: js/28-tv-tk.js. */
 
 /* ---------- ⚙ Khai báo chung ---------- */
-function gdxKBChung(){
-  moHop('<div class="hop-tit" id="gdx-kbc">⚙ Khai báo chung — tab Giao dịch xã</div><div class="hop-phu">Dùng cho mọi mẫu. Bổ sung dần khi làm mẫu mới; mục trùng nhiều mẫu sẽ gom về đây (báo anh trước). Tự lưu, đồng bộ Drive cùng cài đặt.</div>'+
-    gdxCanBoHTML()+
-    tkKhoiHTML()+
-    '<div class="hang-nut"><button class="nho chinh" onclick="dongHop();gdxVeTrai()">Xong</button></div>', true);
-}
+function gdxKBChung(tab){ hsoKBHop(tab || 'cb'); }   /* 3.222 (anh 16/10, PA B): ⚙ Khai báo đơn vị dùng chung mọi tab — tab Giao dịch xã mở ở 👤 Cán bộ */
 
 /* ---------- 📜 Nhật ký in: chỉ lưu lựa chọn (không lưu PDF), trên máy này, tự xóa sau 1 tháng (anh chốt) ---------- */
 var GDX_NK = 'tuhoso_gdx_nhatky';
