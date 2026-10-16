@@ -64,7 +64,7 @@ const fs=require('fs'), path=require('path');
    ok('01/TGTV mặc định ✍: dân tộc, cư trú, hạn CCCD, thường trú, điện thoại, Số CIF, ngày ký đều chấm; khối ô tùy biến có 8 ô', !/Kinh/.test(tgc) && !/Ấp Giả/.test(tgc) && !/0900000999/.test(tgc) && !/4800000999/.test(tgc) && !/☒ Việt Nam/.test(tgc) && /Khai báo riêng — Mẫu 01\/TGTV/.test(document.getElementById('hso-tuy').textContent) && HSO_CHAM['01tgtv'].filter(x=>x[2]!=='nhom').length===8);
    HSO_CHAM['01tgtv'].forEach(x=>{ if(x[2]!=='nhom') hsoChamDat('01tgtv', x[0], 'in'); }); HSO.vay.ngayKy = '2026-10-20';
    tg = hsoLap01tgtv(TO_K.to[C.to], Object.assign({}, hsoBoNV(hsoBo()), {danToc:'Kinh', ap:'Ấp Giả', tenXa:'Xã Giả', sdt:'0900000999', kh:'4800000999'})).h; tgc = chu(tg);
-   ok('🖨 bật: in dân tộc, ☒ Việt Nam, ☒ Có cư trú, thường trú (ấp, xã, tỉnh), điện thoại, Số CIF (2 chỗ), ngày ký đã gõ', /Kinh/.test(tgc) && /☒ Việt Nam/.test(tgc) && /☒ Có cư trú/.test(tgc) && /Ấp Giả/.test(tgc) && /0900000999/.test(tgc) && (tgc.match(/4800000999/g)||[]).length===2 && /ngày 20 tháng 10 năm 2026/.test(tgc));
+   ok('🖨 bật: in dân tộc, ☒ Việt Nam, ☒ Có cư trú, thường trú (ấp, xã, tỉnh), điện thoại, Số CIF (2 chỗ), ngày ký đã gõ', /Kinh/.test(tgc) && /☒ Việt Nam/.test(tgc) && /☒ Có cư trú/.test(tgc) && /Ấp Giả/.test(tgc) && /0900000999/.test(tgc) && (tgc.match(/4800000999/g)||[]).length===2 && /ngày\s*20 tháng\s*10\s*năm\s*2026/.test(tgc));
    ok('chữ ký mẫu: 2 ô giống nhau (tiêu đề + khung nét đứt) · dải tiêu đề A/B/C ép in màu nền', (tg.match(/class="tg-ckk"/g)||[]).length===2 && /td\.nen\{[^}]*print-color-adjust:exact/.test(hsoTrang(hsoMau(), tg)));
    delete HSO.vay.ngayKy; hsoVe(); await w(300); hsoXem(); await w(2500);
    ok('bật hết ô vẫn 3 trang', (document.getElementById('hso-xem-khung').contentDocument.getElementById('tr-n')||{}).textContent==='3');
@@ -84,10 +84,10 @@ const fs=require('fs'), path=require('path');
    hsoChamDat('07b', 'noiKy', 'cham'); hd = chu(hsoLap().h); ok('07b ✍ lại → "tại ……" chấm', /tại \.{20,} chúng tôi gồm/.test(hd));
    /* 3.221 (anh 16/10): 📝 bản ghi mẫu — số liệu thật vào mọi ô khách viết; UBND / NH vẫn chấm; không lưu; tắt → về bản thật */
    hmLamHS(ho.id, '01tgtv'); await w(400); const P1 = Object.assign({}, hsoBoNV(hsoBo()), {danToc:'Kinh', ap:'Ấp Giả', tenXa:'Xã Giả', sdt:'0900000999', kh:'4800000999'});
-   const thatTG = chu(hsoLap01tgtv(TO_K.to[C.to], P1).h); hsoGhiMauDat(1); await w(200); const gmTG = chu(hsoLap01tgtv(TO_K.to[C.to], P1).h);
+   const thatTG = chu(hsoLap01tgtv(TO_K.to[C.to], P1).h); OM_KIEU = 'mau'; omMucDat('01tgtv', 'het'); await w(200); const gmTG = chu(hsoLap01tgtv(TO_K.to[C.to], P1).h);   /* 3.223: 01/TGTV lên nền ô — 📝 Bản mẫu thay 📝 Bản ghi mẫu */
    ok('01/TGTV 📝 ghi mẫu: in dân tộc, ☒ Việt Nam, cư trú, thường trú, điện thoại, CIF (bản thật vẫn chấm)', !/Kinh/.test(thatTG) && /Kinh/.test(gmTG) && /☒ Việt Nam/.test(gmTG) && /☒ Có cư trú/.test(gmTG) && /Ấp Giả/.test(gmTG) && /0900000999/.test(gmTG) && /4800000999/.test(gmTG));
-   ok('nút 📝 Bản ghi mẫu + nhắc ở khối ô tùy biến; không lưu vào cài đặt', /Bản ghi mẫu/.test(document.getElementById('hso-tuy').textContent) && !hsoLuu().ghiMau && !/"in"/.test(JSON.stringify((hsoLuu().cham||{})['01tgtv']||{})));
-   hsoGhiMauDat(0); hmLamHS(ho.id, '01td'); await w(300); OM_KIEU = 'mau'; omMucDat('01td', 'chuaUBNH'); await w(200); let gm1 = chu(hsoLap().h);
+   ok('nút 📝 Bản mẫu ở cột trái; kiểu in không lưu vào cài đặt', /Bản mẫu/.test(document.getElementById('hso-tuy').textContent) && !hsoLuu().ghiMau && !hsoLuu().omKieu && !/"in"/.test(JSON.stringify((hsoLuu().cham||{})['01tgtv']||{})));
+   OM_KIEU = 'that'; hsoGhiMauDat(0); hmLamHS(ho.id, '01td'); await w(300); OM_KIEU = 'mau'; omMucDat('01td', 'chuaUBNH'); await w(200); let gm1 = chu(hsoLap().h);
    ok('01/TD (3.223 nền ô) 📝 bản mẫu "Chừa UBND + NH": phần UBND "Ông/bà" + phê duyệt NH vẫn chấm; tên file có "Mau"', /Ông\/bà [.…]{20,}/.test(gm1) && /Lãi suất: [.…]+ ?%\/năm/.test(gm1) && /Mau_|Mau$|- Mau|TdMau/i.test(hsoLap().ten||''), hsoLap().ten); OM_KIEU = 'that';
    hsoGhiMauDat(0); await w(200); ok('bấm 🖨 Bản thật → về như cũ', !HSO_GM && !/GhiMau/i.test(hsoLap().ten||''));
    return o;
