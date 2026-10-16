@@ -57,7 +57,7 @@ const fs=require('fs'), path=require('path');
    hsoLuu().kemTDCK = true; hsoVe(); await w(300); let x = hsoLap();
    const c = hsoKhachChon(t);
    ok('09A tích In kèm 01/TĐCK → 1 tài liệu 2 mẫu (09A + 01/TĐCK), có tên người vay + "thay đổi mẫu ký giao dịch"', x.ds.length===2 && x.ds[1].M.k==='01tdck' && x.trang.indexOf('Về việc thay đổi mẫu ký giao dịch với NHCSXH')>0 && x.ds[1].h.indexOf(c.ten)>0);
-   ok('01/TĐCK: phần chấp thuận NH để chấm, ô chữ ký thứ nhất / thứ hai', /chấp thuận cho ông\/bà:\.+ có tên trên/.test(x.ds[1].h) && /Chữ ký thứ nhất/.test(x.ds[1].h) && /Chữ ký thứ hai/.test(x.ds[1].h));
+   ok('01/TĐCK: phần chấp thuận NH để chấm, ô chữ ký thứ nhất / thứ hai', /chấp thuận cho ông\/bà:\s*[.…]+ có tên trên/.test(x.ds[1].h.replace(/<[^>]+>/g, '')) && /Chữ ký thứ nhất/.test(x.ds[1].h) && /Chữ ký thứ hai/.test(x.ds[1].h));
    const wd = await hsoDocx(x); ok('Word 09A + 01/TĐCK tạo được', wd && wd.size>5000, wd && wd.size);
    hsoChonMau('01tdck'); await w(400); x = hsoLap();
    ok('tab 01/TĐCK riêng: chung người vay đang chọn', x.M.k==='01tdck' && x.h.indexOf(c.ten)>0);

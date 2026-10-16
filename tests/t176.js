@@ -72,7 +72,7 @@ const fs=require('fs'), path=require('path');
    /* 3.220: 01/TĐCK · 01/GQVL · 07b ô tùy biến (mặc định chấm — so trước / sau giống hệt, xem CHANGELOG) */
    hsoCH().boId = ''; hsoChonMau('01tdck'); await w(300); HSO.vay.kh = hsoTVTo(TO_K.to[C.to])[0].kh; hsoVe(); await w(200);
    let td = chu(hsoLap().h); const tenK = (hsoKhachChon(TO_K.to[C.to])||{}).ten;
-   ok('01/TĐCK mặc định: "chấp thuận cho ông/bà …" và "kể từ ngày …" chấm', /chấp thuận cho ông\/bà:\.{10,}/.test(td) && /kể từ ngày \.+\/\.+\/\.+/.test(td));
+   ok('01/TĐCK mặc định: "chấp thuận cho ông/bà …" và "kể từ ngày …" chấm', /chấp thuận cho ông\/bà:\s*[.…]{10,}/.test(td) && /kể từ ngày [.…]+\/[.…]+\/[.…]+/.test(td));
    hsoChamDat('01tdck', 'nhTen', 'in'); hsoChamDat('01tdck', 'nhNgay', 'in'); HSO.vay.nhNgay = '2026-11-01'; td = chu(hsoLap().h);
    ok('01/TĐCK 🖨: in tên khách + ngày hiệu lực đã gõ', td.indexOf('chấp thuận cho ông/bà: '+tenK)>=0 && /kể từ ngày 01\/11\/2026/.test(td), tenK);
    ['nhTen','nhNgay'].forEach(k=>hsoChamDat('01tdck', k, 'cham')); delete HSO.vay.nhNgay;

@@ -15,6 +15,7 @@ def doan(p, lui=''):
         if not t: continue
         f = ('B' if re.search(r'<w:b/>|<w:b w:val="(1|true)"', rp) else '')+('I' if re.search(r'<w:i/>|<w:i w:val="(1|true)"', rp) else '')+('U' if '<w:u ' in rp else '')
         sz = (re.search(r'<w:sz w:val="(\d+)"', rp) or [None, ''])[1]
+        cs = (re.search(r'<w:spacing w:val="(-?\d+)"', rp) or [None, ''])[1]; f += ('~%+.1f ' % (int(cs)/20)) if cs else ''   # giãn / nén ký tự (pt)
         runs.append(('[%s%s]' % (f, (str(int(sz)/2) if sz else '')) if (f or sz) else '')+t)
     tabs = re.findall(r'<w:tab w:val="(\w+)"[^>]*w:pos="(\d+)"', pp)
     print(lui+'P', jc or '-', ind, sp, ('tabs='+','.join('%s@%s' % (a, tw(b)) for a, b in tabs)) if tabs else '', '|', ''.join(runs)[:220])
