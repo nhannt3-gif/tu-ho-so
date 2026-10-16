@@ -23,7 +23,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.222** — ⚙ Khai báo đơn vị dùng chung mọi tab + bố cục A cột trái Hồ sơ vay (✎ Nhập liệu · ⚙ Khai báo riêng · 📎 nguồn · ↺ · ⚠ nhắc thiếu). 3.221 📝 bản ghi mẫu · 3.216 🏛 cửa `KHO` (**mẫu / tab mới lấy số qua `KHO.*`**). **Việc tiếp:** bổ sung 4 xuất / nhập khai báo ra file (anh hẹn sau khi 3.222 ổn) · đợt chuẩn hóa lưu (sổ hộ vay thùng rác + dự phòng riêng) · 09A ý kiến Hội (anh chưa chốt). Hồi quy: t100 / t116 trượt sẵn trên main.
+- **`main` = 3.223** — bản lớn: 13 mẫu Hồ sơ vay / Hồ sơ Tổ đúng form Word gốc trên nền ô (`js/31-o-mau.js` + `js/mau/*.js`, 3 kiểu in), 10C / 11 cũ – mới chip riêng, thêm 10D, sổ hộ vay đủ cột, lưu an toàn (KHO1 chụp / xuất nạp khai báo) + lưu theo ngăn IndexedDB (`js/34-luu-ngan.js`, công tắc quay lại). Mẫu mới / sửa mẫu: theo `QUY_CHUAN_KIEN_TRUC.md` mục 9 + đo bằng t180. **Việc tiếp:** đồng bộ Drive theo ngăn; 01/BG, 02/BG lên nền ô; bản điện thoại.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.

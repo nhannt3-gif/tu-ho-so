@@ -2053,7 +2053,12 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.222', ds:[
+var CO_GI_MOI = {ban:'3.223', ds:[
+  ["📄 Hồ sơ vay / Hồ sơ Tổ: 13 mẫu dựng lại đúng form file Word gốc (lề, cỡ chữ, ngắt dòng, ngắt trang, chú thích chân trang) — 01/TD, 01/UQ, 03/TD, 09A, 01/TĐCK, 01/TGTV, 01/GQVL, 07b, 10A, 10B, 10C cũ / mới, 11 cũ / mới", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
+  ["✎ Mọi chỗ chấm thành ô tùy biến: 3 kiểu in 📄 Trắng · 🖨 Thật · 📝 Mẫu; chữ dài tự thu nhỏ trong khung và báo ⚠; 🖼 khai báo trực quan (bấm ô trên trang)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
+  ["👥 Hồ sơ Tổ: 10C cũ / 10C mới, 11 cũ / 11 mới là chip riêng (anh tự chọn, bỏ chọn theo ngày); thêm 10D/TD giải thể Tổ; ngày họp mặc định để chấm", "slDoiTab('hst');doiNgan(7)"],
+  ["📒 Sổ hộ vay đủ cột: ➕ thông tin thêm mỗi người (giới tính, dân tộc, nghề, thu nhập, địa chỉ, nơi làm việc, hộ KD…) + cột Cần bổ sung theo mẫu", "slDoiTab('hsv');doiNgan(7)"],
+  ["💾 Lưu an toàn: tự chụp khai báo hằng ngày (giữ 10 bản, ↩ khôi phục), xuất / nạp khai báo ra file; dữ liệu lưu theo ngăn trong IndexedDB (hết lo đầy bộ nhớ), có công tắc quay lại cách cũ", "slDoiTab('hsv');doiNgan(7);hsoKBHop('sl')"],
   ["⚙ Khai báo đơn vị: 1 cửa sổ dùng chung mọi tab — PGD, logo, tên đơn vị từng mẫu Giao dịch xã, cán bộ, Hội, trưởng ấp, tổ phó, chương trình vay, TK 104 / 105", "slDoiTab('hsv');doiNgan(7);hsoKBHop('pgd')"],
   ["Hồ sơ vay: cột trái đầu ✎ Nhập liệu, cuối ⚙ Khai báo riêng (thu gọn được, ↺ về mặc định, 📎 nguồn số liệu); ⚠ nhắc thiếu trước khi in", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
   ["📝 Hồ sơ vay: Bản ghi mẫu — 1 nút in số liệu thật vào mọi ô khách phải viết (dân tộc, thường trú, điện thoại, CIF, …) để khách chép lại vào mẫu thật; phần UBND / Hội / NH vẫn chấm; chỉ cho lần in đó", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01tgtv')"],
