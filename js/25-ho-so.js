@@ -14,6 +14,7 @@ var HSO_MAU = {
     {k:'10ccu', ma:'10C/TD cũ', ten:'Biên bản họp kết nạp bổ sung, cho ra khỏi Tổ — mẫu cũ (vào tổ đến 30/09/2026)', mg:[10, 20, 10, 30]},
     {k:'10a',  ma:'10A/TD', ten:'Biên bản họp thành lập Tổ', mg:[20, 20, 20, 30]},
     {k:'10b',  ma:'10B/TD', ten:'Biên bản họp kết nạp, thay đổi Ban quản lý Tổ', mg:[20, 20, 20, 30]},
+    {k:'10d',  ma:'10D/TD', ten:'Biên bản họp giải thể Tổ', mg:[20, 20, 20, 30]},   /* 3.223 (anh 16/10, phương án a) */
     {k:'11',   ma:'11/TD mới',  ten:'Hợp đồng ủy nhiệm — mẫu mới QĐ 70 (từ 01/10/2026)', mg:[20, 20, 20, 30]},   /* 3.223 (anh 16/10): 11 cũ / 11 mới là 2 mẫu độc lập */
     {k:'11cu', ma:'11/TD cũ',  ten:'Hợp đồng ủy nhiệm — mẫu cũ (trước 01/10/2026)', mg:[20, 20, 17, 30]},
     {k:'01bg', ma:'01/BG',  ten:'Biên bản bàn giao hồ sơ Tổ', mg:[20, 20, 20, 30]},
@@ -296,6 +297,7 @@ function hsoLap10c(t, X){
 }
 
 function hsoLap10cCu(t){ return hsoLap10c(t, {cu:1}); }
+function hsoLap10d(t){ return {ma:'10D/TD', h:'<p class="c">Mẫu 10D/TD dựng trên nền ô (js/mau/10d.js) — chưa nạp được mô-đun.</p>'}; }   /* 3.223: chip 10D (mô-đun riêng) */
 function hsoLap11Cu(t){ return {ma:'11/TD cũ', h:'<p class="c">Mẫu 11/TD cũ dựng trên nền ô (js/mau/11cu.js) — chưa nạp được mô-đun.</p>'}; }   /* 3.223: chip 11 cũ (mô-đun riêng) */   /* 3.223: chip 10C cũ */
 /* ---------- 10A/TD ---------- */
 function hsoLap10a(t){
@@ -1003,7 +1005,7 @@ function hsoLap(){
   else if(M.k==='01tgtv'){ var P = hsoTGTVDs(t, B); x = {ma:'01/TGTV', ds:(P.length ? P : [null]).map(function(y){ return {M:M, h:hsoLap01tgtv(t, y).h}; })}; ai = P.length===1 ? P[0].ten : ''; }
   else if(M.k==='03td' && (hsoD03().ds.length || (B && B.hoId)) && (!B || B.hoId)){ var D3 = hsoD03(), t3 = hsoD03To(D3); x = hsoLap03td(t3, null, hsoD03Hang(D3), D3.ct); }   /* 3.209: 03/TD nhiều hộ cùng chương trình */
   else if(M.k==='03td' && !B && t){ var ch = HSO.vay.chon || {}; x = hsoLap03td(t, null, hsoTVTo(t).filter(function(k){ return ch[k.kh]; }).map(function(k){ return {ten:k.ten}; })); }
-  else { var f = {'10c':function(t){ return hsoLap10c(t, {moiChon:1}); }, '10ccu':hsoLap10cCu, '10a':hsoLap10a, '10b':hsoLap10b, '11':hsoLap11, '11cu':hsoLap11Cu, '01bg':hsoLap01bg, '02bg':hsoLap02bg, '01uq':hsoLap01uq, '01td':hsoLap01td, '03td':hsoLap03td, '09a':hsoLap09a, '01tdck':hsoLap01tdck, '01gqvl':hsoLap01gqvl, '07b':hsoLap07b}[M.k];
+  else { var f = {'10c':function(t){ return hsoLap10c(t, {moiChon:1}); }, '10ccu':hsoLap10cCu, '10a':hsoLap10a, '10b':hsoLap10b, '10d':function(t){ return hsoLap10d(t); }, '11':hsoLap11, '11cu':hsoLap11Cu, '01bg':hsoLap01bg, '02bg':hsoLap02bg, '01uq':hsoLap01uq, '01td':hsoLap01td, '03td':hsoLap03td, '09a':hsoLap09a, '01tdck':hsoLap01tdck, '01gqvl':hsoLap01gqvl, '07b':hsoLap07b}[M.k];
     x = f(t, p==='hsv' && /^(01uq|01td|03td|01gqvl|07b)$/.test(M.k) ? B : undefined);
     ai = /^(01uq|01td|01gqvl|07b)$/.test(M.k) ? hsoBoNV(B).ten || '' : /^(09a|01tdck)$/.test(M.k) ? ((hsoKhachChon(t)||{}).ten || '') : ''; }
   if(!x.ds) x.ds = [{M:M, h:x.h}];
@@ -1745,7 +1747,7 @@ function hsoTuyHTML(M, t){
   if(can) h += '<div class="sl-bao vang hso-nhac">Chọn <b>1 tổ</b> ở khối LỌC ĐỊA BÀN để app điền sẵn — chưa chọn thì khung phải là mẫu trắng (in được ngay).</div>';
   if(t && T.phoKB && T.phoMay && slChuan(T.phoMay)!==slChuan(T.pho)) h += '<div class="sl-phu hso-canh">⚠ Tổ phó theo khai báo: <b>'+coChuHTML(T.pho)+'</b> (trên máy: '+coChuHTML(T.phoMay)+')</div>';
   else if(t && !T.pho) h += '<div class="sl-phu hso-canh">Tổ chưa có tổ phó trên máy — <a href="#" onclick="event.preventDefault();hsoKBHop(\'pho\')">⚙ khai tổ phó thực tế</a>.</div>';
-  if(t && !T.truongAp && ['10c','10ccu','10a','10b'].indexOf(M.k)>=0) h += '<div class="sl-phu hso-canh">Chưa khai trưởng ấp '+coChuHTML(T.ap)+' — <a href="#" onclick="event.preventDefault();hsoKBHop(\'ap\')">⚙ khai báo</a>.</div>';
+  if(t && !T.truongAp && ['10c','10ccu','10a','10b','10d'].indexOf(M.k)>=0) h += '<div class="sl-phu hso-canh">Chưa khai trưởng ấp '+coChuHTML(T.ap)+' — <a href="#" onclick="event.preventDefault();hsoKBHop(\'ap\')">⚙ khai báo</a>.</div>';
   var tv = hsoTVTo(t);
   if(M.k==='10c' || M.k==='10ccu'){   /* 3.223 (anh 16/10): 10C cũ / mới là 2 chip — bỏ chọn mẫu theo ngày */
     var raBD = TO_BD && t && TO_BD.to===t.ma && TO_BD.co ? TO_BD.ra : [];
@@ -1766,6 +1768,7 @@ function hsoTuyHTML(M, t){
       hsoTuyO('Tổ trưởng mới', hsoIn('hsoDocO()', B.tt, 'trống = chấm', '', 'hso-o-ttMoi'))+hsoTuyO('thay Ông (Bà)', hsoIn('hsoDocO()', B.ttCu, '', '', 'hso-o-ttCu'))+
       hsoTuyO('Tổ phó mới', hsoIn('hsoDocO()', B.pho, 'trống = chấm', '', 'hso-o-phoMoi'))+hsoTuyO('thay Ông (Bà)', hsoIn('hsoDocO()', B.phoCu, '', '', 'hso-o-phoCu'));
   }
+  else if(M.k==='10d') h += hsoNgayTuy()+hsoHoiTuy(t);
   else if(M.k==='11' || M.k==='11cu'){
     var K = t ? hsoTTKH(t) : {kh:''}, c = K.kh ? hsoKhach(K.kh, t) : {};
     h += hsoNgayTuy('Ngày ký', 'Trống = chấm.')+'<div class="sl-phu">Bên A (PGD) lấy ở <a href="#" onclick="event.preventDefault();hsoKBHop(\'pgd\')">⚙ Khai báo chung</a>'+(hsoPGD('daiDien') ? '' : ' — <b>chưa khai người đại diện</b>')+'.</div>'+
