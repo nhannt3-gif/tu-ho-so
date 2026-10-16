@@ -27,7 +27,7 @@ const fs=require('fs'), path=require('path');
    ok('tab 01/GQVL: mẫu mới, người vay, mục đích chọn nhanh, 50 tr + bằng chữ, 60 tháng, 24 tháng/lần, trả lãi hằng tháng', /Mẫu số 01\/GQVL/.test(h) && /Lê Văn Lao Động/.test(h) && /Chăn nuôi bò sinh sản/.test(h) && /50\.000\.000/.test(h) && /Năm mươi triệu/.test(h) && /Thời hạn xin vay: 60 tháng/.test(h) && /24 tháng\/lần/.test(h) && /hằng tháng/.test(h));
    ok('cột trái: chip mục đích, số tiền, thời hạn, kỳ hạn (chọn nhanh như GDX)', document.querySelectorAll('#hso-tuy .hso-chon').length>=4);
    hsoBoDat('pa.dt', '120000000'); hsoBoDat('pa.cp', '70000000', 1); await w(400); h = chu(HSO.x.h);
-   ok('hiệu quả: chênh lệch 50 tr, thu nhập BQ/tháng = 50 tr ÷ 60', /Chênh lệch thu - chi của phương án: 50\.000\.000/.test(h) && /833\.333/.test(h));
+   ok('hiệu quả: chênh lệch 50 tr, thu nhập BQ/tháng = 50 tr ÷ 60', /Chênh lệch thu - chi của phương án ?:\s*50\.000\.000/.test(h) && /833\.333/.test(h));
    ok('chi phí 70 tr ≥ vốn + lãi vay dự kiến → không cảnh báo', !/chi phí thấp hơn/.test(document.getElementById('hso-tuy').textContent));
    hsoBoDat('pa.cp', '52000000', 1); await w(300);
    ok('⚠ chi phí 52 tr < vốn 50 tr + lãi vay dự kiến', /chi phí thấp hơn vốn \+ lãi vay/.test(document.getElementById('hso-tuy').textContent)); hsoBoDat('pa.cp', '70000000');

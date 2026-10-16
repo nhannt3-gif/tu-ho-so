@@ -61,8 +61,8 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('tab Hồ sơ vay: 10 mục (3.214: + 📒 Sổ hộ vay; 3.172: 04/TD dời sang GDX; 3.206: + 01/TĐCK; 3.209: 👪 Hộ vay, Bộ HS ẩn; 3.211: + 01/GQVL, 07b)', document.querySelectorAll('#hso-tabm .hso-tm').length===10);
    const kv = tv.find(k=>k.mon.some(m=>(m.dn||0)>0)), c = hsoKhach(kv.kh, t);
    const B0 = hsoBoMoi(); hsoBoChonKH(kv.kh); B0.ct = 'HSSV'; B0.tien = '80000000'; B0.tuCo = '20.000.000'; B0.pa = {sv:'SV Giả'}; hsoChonMau('01td'); await w(300);   /* 3.171: đơn vay lấy theo bộ hồ sơ */
-   ok('01/TD: người vay từ Mẫu 31 (tên, CCCD), tổ trưởng, số tiền + bằng chữ, tổng nhu cầu', chu().indexOf(c.ten)>=0 && (!c.cccd || chu().indexOf(c.cccd)>=0) && /Tám mươi triệu đồng/.test(chu()) && /Tổng nhu cầu vốn: 100\.000\.000/.test(chu()) && chu().indexOf('do ông (bà): '+t.ten)>=0);
-   ok('01/TD: HSSV gợi ý đối tượng phương án, thời hạn / kỳ hạn để chấm', /Chi phí học tập, sinh hoạt cho sinh viên/.test(chu()) && /Thời hạn xin vay: \.{5,} tháng/.test(chu()));
+   ok('01/TD: người vay từ Mẫu 31 (tên, CCCD), tổ trưởng, số tiền + bằng chữ, tổng nhu cầu', chu().indexOf(c.ten)>=0 && (!c.cccd || chu().indexOf(c.cccd)>=0) && /Tám mươi triệu đồng/.test(chu()) && /Tổng nhu cầu vốn: 100\.000\.000/.test(chu()) && (chu().indexOf('do ông (bà): '+t.ten)>=0 || chu().indexOf('do ông (bà) '+t.ten)>=0));   /* 3.223: chữ đúng file gốc 01/TD (không có dấu ":") */
+   ok('01/TD: HSSV gợi ý đối tượng phương án, thời hạn / kỳ hạn để chấm', /Chi phí học tập, sinh hoạt cho sinh viên/.test(chu()) && /Thời hạn xin vay: [.…]{3,} tháng/.test(chu()));
    hsoCH().boId = ''; hsoChonMau('03td'); HSO.vay.chon[tv[0].kh] = true; HSO.vay.chon[tv[1].kh] = true; hsoXem(); await w(300);
    ok('03/TD: A4 ngang, tên tổ / ấp / xã, tổ viên đã tích vào bảng', HSO.x.M.ngang && chu().indexOf(tv[0].ten)>=0 && chu().indexOf(tv[1].ten)>=0 && chu().indexOf('Tên tổ TK&VV: '+t.ten)>=0);
    ok('04/TD không còn ở Hồ sơ vay — in ở tab 🏢 Giao dịch xã (3.172)', !HSO_MAU.hsv.some(m=>m.k==='04td') && typeof gdxHTML04==='function');

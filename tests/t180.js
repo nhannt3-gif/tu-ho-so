@@ -10,7 +10,7 @@ const KHOP = fs.existsSync(path.join(__dirname, 'mau_goc', 'khop.json')) ? JSON.
 const NOI = {hsv:{'01td':'01td', '01uq':'01uq', '03td':'03td', '09a':'09a', '01tdck':'01tdck', '01tgtv':'01tgtv', '01gqvl':'01gqvl', '07b':'07b'},
              hst:{'10c':'10c_moi', '10a':'10a', '10b':'10b', '11':'11_cu', '01bg':'01bg', '02bg':'02bg'}};
 Object.assign(NOI.hsv, KHOP.noiHsv||{}); Object.assign(NOI.hst, KHOP.noiHst||{});
-const tu = s => String(s).toLowerCase().replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/g, ' ').replace(/&amp;/g, '&').replace(/[.…_,;:()\[\]"“”'‘’!?\/\-–—*+=%]+/g, ' ').split(/\s+/).filter(x=>x && !/^\d$/.test(x));
+const tu = s => String(s).normalize('NFC').toLowerCase().replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/[.…_,;:()\[\]"“”'‘’!?\/\-–—*+=%]+/g, ' ').split(/\s+/).filter(x=>x && !/^\d$/.test(x));
 function lcs(a, b){ const n = a.length, m = b.length; let pr = new Uint16Array(m+1), cu = new Uint16Array(m+1); const keo = new Uint8Array(n);
   const D = []; for(let i=1;i<=n;i++){ for(let j=1;j<=m;j++) cu[j] = a[i-1]===b[j-1] ? pr[j-1]+1 : Math.max(pr[j], cu[j-1]); D.push(cu.slice()); [pr, cu] = [cu, pr]; cu.fill(0); }
   let i = n, j = m; while(i>0 && j>0){ if(a[i-1]===b[j-1]){ keo[i-1] = 1; i--; j--; } else if((i>1 ? D[i-2][j] : 0) >= D[i-1][j-1]) i--; else j--; }
