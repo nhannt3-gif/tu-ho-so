@@ -4,6 +4,31 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.222 — 16/10/2026 — ⚙ Khai báo đơn vị dùng chung + bố cục cột trái Hồ sơ vay
+- **Anh (16/10):** làm 1 lần theo phương án B + bổ sung 1–3 (bổ sung 4 xuất / nhập khai báo ra file: làm sau khi ổn), gom nhiều chức năng thử 1 lần.
+- **⚙ Khai báo đơn vị** (`js/30-khai-bao.js`, `hsoKBHop`): 1 cửa sổ cho Hồ sơ Tổ, Hồ sơ vay, Giao dịch xã (nút ⚙ Khai báo đơn vị ở cả 3 tab; Giao dịch xã mở ở tab 👤 Cán bộ). Tab: 🏦 PGD · logo · **tên đơn vị in trên từng mẫu Giao dịch xã** (04/TD, 12/GDX, Giấy lĩnh, Bảng kê — sửa ở đây hoặc khai báo riêng mẫu, cùng 1 chỗ lưu) · 👤 Cán bộ · 🤝 Hội (danh sách đã khai + nút sang KTGS; KTGS gói khóa nên vẫn sửa ở KTGS) · 🏘 Trưởng ấp · 👥 Tổ phó · 📋 Chương trình vay · 🏦 TK 104 / 105. **Chỗ lưu giữ nguyên** → không chuyển dữ liệu.
+- **Bố cục A cột trái Hồ sơ vay:** tiêu đề **✎ Nhập liệu — Mẫu …**; **⚙ Khai báo riêng — Mẫu …** xuống cuối cột, thu gọn được (app nhớ); 03/TD, 01/TGTV dời khối xuống cuối; **09A, 01/TĐCK** cùng khung. Chương trình vay chỉ 1 lối vào (① ⚙ khai báo chương trình) — bỏ link ở dòng Đối tượng thụ hưởng và mục đích GQVL.
+- **Bổ sung 1 — 📎 nguồn:** ô đang 🖨 ghi nguồn số liệu (Mẫu 31 kỳ …, sổ hộ vay, ③ Phương án, khai 1 lần theo chương trình, gõ trong lần làm…).
+- **Bổ sung 2 — ↺ Về mặc định:** nút ở khối khai báo riêng (hiện số ô đã đổi), hỏi trước; giá trị đã khai (lãi suất…) giữ lại.
+- **Bổ sung 3 — ⚠ Trước khi in:** dòng nhắc dưới tiêu đề cột trái: người vay thiếu CCCD / ngày cấp / ngày sinh; ô đã bật 🖨 mà chưa có số liệu (sẽ in chấm). Bản ghi mẫu không nhắc ô.
+- **Bản in không đổi:** so 23 mục (01/TD, 01/UQ, 03/TD, 01/TGTV, 09A, 01/TĐCK, Hồ sơ Tổ, 12/GDX, 04/TD, Giấy lĩnh 104 / 105, sổ hộ vay) với 3.221 — giống từng ký tự.
+- **Phép thử:** t178 22/22 (mới); t172, t176 sửa chữ tiêu đề.
+
+## 3.221 — 16/10/2026 — 📝 Bản ghi mẫu (Hồ sơ vay)
+- **Anh (16/10):** tất cả các phần đều tùy biến in sẵn được để xuất dạng ghi mẫu — "bản ghi mẫu lấy dữ liệu thật, kiểu in ra cho khách hàng viết lại được".
+- Đầu khối "Ô tùy biến" mỗi mẫu (01/TD, 03/TD, 01/UQ, 01/TGTV, 01/TĐCK, 09A, 01/GQVL, 07b): **🖨 Bản thật | 📝 Bản ghi mẫu**.
+- **Bản ghi mẫu:** mọi ô của khách / tổ in sẵn số liệu thật của hộ (không cần bật từng ô); ô nào chưa có số liệu vẫn chấm; ngày chỉ in khi đã gõ (logic ngày Hồ sơ vay). Phần **UBND / Hội / Ngân hàng / người chứng kiến** vẫn chấm (`HSO_GM_KHAC`: 01/TD UBND + phê duyệt NH, 03/TD cột UBND + NH, 01/UQ trưởng thôn, 01/TĐCK chấp thuận NH).
+- **Không lưu** (chỉ trong lần làm) — mở lại app luôn là Bản thật, tránh quên tắt; ✍ / 🖨 từng ô của bản thật giữ nguyên. Tên file in / Word thêm "GhiMau". Khối ô tùy biến viền vàng + dòng nhắc khi đang ở bản ghi mẫu.
+- **Phép thử:** t176 29/29 (thêm 4).
+
+## 3.220 — 15/10/2026 — ⚙ Ô tùy biến 01/TĐCK · 01/GQVL · 07b
+- **Anh (15/10):** "gộp và tiếp tục" — đợt 2 khai báo riêng (`docs/KE_HOACH_KBR.md`).
+- **01/TĐCK:** thêm nhóm "Chấp thuận của NHCSXH": "chấp thuận cho ông/bà …" = tên khách (tự lấy) · "kể từ ngày …/…/…" (ngày đã gõ). Ngày khách hàng ký giữ như cũ.
+- **01/GQVL:** "…, ngày … tháng … năm …" chỗ người vay ký phương án (ngày đã gõ).
+- **07b/GQVL:** "Hôm nay, ngày … tại …" — nơi ký hợp đồng khai 1 lần, app nhớ (ngày ký HĐ vẫn ở ô "Ngày ký HĐ").
+- Khối "✍ / 🖨 Ô tùy biến" hiện ở cột trái 01/GQVL, 07b (như 01/TD, 01/UQ). **Mặc định ✍ chấm → bản in giống hệt 3.219** (so từng ký tự: 01/GQVL, 07b có hộ + mẫu trắng, 01/TĐCK, 09A in kèm 01/TĐCK).
+- **Phép thử:** t176 25/25 (thêm 5).
+
 ## 3.219 — 15/10/2026 — 📄 01/TGTV: ô tùy biến + sửa theo bản in thử
 - **Anh (15/10, gửi ảnh bản in 3.218):** mấy phần điền sẵn để tùy chọn, mặc định chấm ghi tay; chỗ khách hàng ký trang cuối rộng xuống; chữ ký 2 bị lỗi; màu xanh lá in ra lợt không thấy; còn lệch nhiều chỗ.
 - **Ô tùy biến 01/TGTV** (`HSO_CHAM['01tgtv']`, khối ✍ / 🖨 ở cột trái, **mặc định ✍ chấm**): Số CIF (ô đầu trang + phần D) · ☒ Việt Nam · Dân tộc · ☒ Có cư trú · Ngày hết hạn CCCD · Nơi thường trú (Thôn, Xã, Tỉnh) · Điện thoại · Ngày khách hàng ký (chỉ in ngày đã gõ). Họ tên, ngày sinh, giới tính, số CCCD, ngày cấp, nơi cấp luôn in. **Đổi mặc định:** trước đây dân tộc, thường trú, điện thoại, Số CIF, ☒ Việt Nam tự in — nay chấm, bật 🖨 để in.

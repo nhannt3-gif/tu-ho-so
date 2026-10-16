@@ -222,6 +222,35 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.222) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay / Hồ sơ Tổ / Giao dịch xã › ⚙ Khai báo đơn vị | Cùng 1 cửa sổ; tab Cán bộ, Hội, TK 104 / 105 có đủ | |
+| 2 | Tab PGD › sửa tên PGD Giấy lĩnh → in Giấy lĩnh | Tên mới in đúng; khai báo riêng Giấy lĩnh hiện cùng tên | |
+| 3 | 01/TD cột trái | Đầu: ✎ Nhập liệu; cuối: ⚙ Khai báo riêng (bấm thu gọn → mở lại app vẫn gọn) | |
+| 4 | Bật 🖨 ngày ký chưa gõ | ⚠ Trước khi in nhắc ô sẽ in chấm; ô có 📎 nguồn | |
+| 5 | ↺ Về mặc định | Hỏi trước; mọi ô về ✍, lãi suất đã khai vẫn còn khi bật lại | |
+| 6 | 09A + in kèm 01/TĐCK | Mỗi mẫu 1 khối ⚙ Khai báo riêng | |
+
+**Ghi chú kỹ thuật 3.222:** `js/30-khai-bao.js` (`kbTenGDXHTML`, `kbHoiHTML`) — chỉ giao diện, đọc / ghi chỗ lưu cũ (`gdxC()`, `D.cauHinh.ktHoiKB`). `gdxKBChung(tab)` = `hsoKBHop(tab||'cb')`. Js/25: `hsoKBRieng` → `<details>` + `hsoKBRMo` (nhớ `hsoLuu().kbrDong`), `hsoChamVeMD`, `HSO_NGUON` / `hsoChamNguon`, `hsoThieu` / `hsoThieuHTML`. Bổ sung 4 (xuất / nhập khai báo ra file) để sau.
+
+### Danh sách thử trên máy thật (3.221) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TGTV chọn hộ → 📝 Bản ghi mẫu → In | Dân tộc, thường trú, điện thoại, CIF in sẵn; tên file có GhiMau | |
+| 2 | 01/TD 📝 → In | Phần khách in đủ; UBND, phê duyệt NH vẫn chấm | |
+| 3 | Bấm 🖨 Bản thật / mở lại app | Về bản thật (chấm như cũ) | |
+
+**Ghi chú kỹ thuật 3.221:** `HSO_GM` (biến phiên) → `hsoChamKieu` trả 'in' cho ô không thuộc `HSO_GM_KHAC`. Ô chưa có trong `HSO_CHAM` (số nhà, nghề nghiệp, email… 01/TGTV) không có số liệu nên vẫn chấm.
+
+### Danh sách thử trên máy thật (3.220) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TĐCK chọn tổ viên, chưa bật gì → In | Như hôm qua | |
+| 2 | 07b bật 🖨 nơi ký, gõ "PGD NHCSXH Gò Dầu" | "Hôm nay … tại PGD NHCSXH Gò Dầu"; lần sau vẫn nhớ | |
+
+**Ghi chú kỹ thuật 3.220:** `HSO_CHAM['01gqvl' | '07b']`; `hsoTuyHo` vẽ khối cho `01td|01uq|01gqvl|07b`.
+
 ### Danh sách thử trên máy thật (3.219) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -109,6 +109,8 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 - Mỗi khối có **vùng cấu hình riêng**, khóa mang **tiền tố của khối** (`gdx…`, `kt…`, `hs…`, `to…`). Khối **không ghi** vào khóa của khối khác.
 - Phân rõ **đồng bộ qua Drive** (khai báo, lựa chọn in…) và **riêng máy** (độ rộng, đang chọn, mốc đồng bộ — `CH_RIENG`).
 - Cấu hình / khai báo mà **≥ 2 khối dùng** (khai báo Hội, logo NHCSXH, tên PGD) → chuyển thành **khai báo chung** (mục 2).
+- **3.222 (anh chốt 16/10, phương án B): ⚙ Khai báo đơn vị** = 1 cửa sổ dùng chung mọi tab (`hsoKBHop`, `gdxKBChung` mở cùng cửa sổ, `js/30-khai-bao.js`): 🏦 PGD · logo · tên đơn vị trên từng mẫu Giao dịch xã · 👤 Cán bộ · 🤝 Hội (xem, sửa ở KTGS) · 🏘 Trưởng ấp · 👥 Tổ phó · 📋 Chương trình vay · 🏦 TK 104 / 105. **Chỗ lưu giữ nguyên** (`hsoKB`, `gdx`, `ktHoiKB`) → không chuyển dữ liệu, mẫu khóa không đổi bản in.
+- **Bố cục cột trái mỗi mẫu (bố cục A):** đầu cột **✎ Nhập liệu — Mẫu …** (số liệu của lần làm) · cuối cột **⚙ Khai báo riêng — Mẫu …** (ô ✍ / 🖨, thu gọn được, ↺ về mặc định, 📎 nguồn số liệu) · ⚠ nhắc thiếu ngay dưới tiêu đề. Chương trình vay chỉ 1 lối vào (① ⚙ khai báo chương trình). Mẫu mới theo đúng khung này.
 
 ---
 

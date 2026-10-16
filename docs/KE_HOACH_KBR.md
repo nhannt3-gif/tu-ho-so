@@ -38,7 +38,19 @@ Ngày họp bình xét 03/TD: giữ ô cũ (`hsoNgayTuy`). 4. Số tiền trả 
 
 Họ tên, ngày sinh, giới tính, số CCCD, ngày cấp, nơi cấp: luôn in (nhân thân cố định). Số nhà, đường, nghề nghiệp, nơi làm việc, email, mã số thuế: để chấm (khách ghi).
 
-## Đợt 2b — đề xuất còn lại (chờ anh xem, bổ sung)
+## Đợt 2b — 3.220 (đã làm, anh 15/10 "tiếp tục")
+| Mẫu | Ô | Loại |
+|---|---|---|
+| 01/TĐCK | Ngày khách hàng ký (đã có) · "chấp thuận cho ông/bà …" = tên khách · "kể từ ngày …/…/…" hiệu lực | ngay · tu · ngay |
+| 01/GQVL | "…, ngày … tháng … năm …" người vay ký phương án | ngay |
+| 07b/GQVL | "Hôm nay, ngày … tại …" — nơi ký hợp đồng (khai 1 lần) · ngày ký HĐ: ô "Ngày ký HĐ" có sẵn (gõ thì in) | kb |
+
+Mặc định chấm — bản in so trước / sau giống hệt (01/GQVL, 07b có hộ + mẫu trắng, 01/TĐCK, 09A in kèm 01/TĐCK). Chip mục đích / số tiền / thời hạn GQVL (3.211) giữ ở chỗ cũ (là số liệu hồ sơ, không phải ô chấm).
+
+## Còn lại — chờ anh
+- 09A "Ý kiến của tổ chức Hội": in sẵn chức vụ + tên người ký theo vai trò (như 10C) — anh chưa chốt có cần.
+
+## (lưu) Đề xuất đợt 2 ban đầu (chờ anh xem, bổ sung)
 | Mẫu | Ô đề xuất | Loại |
 |---|---|---|
 | 01/TGTV | Địa chỉ thường trú / hiện tại: Tổ dân phố/Thôn, Phường/Xã, Tỉnh (= sổ hộ vay / Mẫu 31) | tu |
