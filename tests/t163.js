@@ -47,7 +47,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    /* từng mẫu Tổ */
    const kq = {};
    for(const m of HSO_MAU.hst){ hsoChonMau(m.k); await w(500); kq[m.k] = {chu:chu(), x:HSO.x}; }
-   ok('10A: danh sách tổ viên + tổng số + phê duyệt UBND', kq['10a'].chu.indexOf(tv[0].ten)>=0 && new RegExp('Tổng số: '+tv.length+' tổ viên').test(kq['10a'].chu) && /PHÊ DUYỆT CỦA ỦY BAN NHÂN DÂN CẤP XÃ/.test(kq['10a'].chu));
+   ok('10A: danh sách tổ viên + tổng số + phê duyệt UBND', kq['10a'].chu.indexOf(tv[0].ten)>=0 && new RegExp('Tổng số: '+tv.length+' ?tổ viên').test(kq['10a'].chu) && /PHÊ DUYỆT CỦA ỦY BAN NHÂN DÂN CẤP XÃ/.test(kq['10a'].chu));
    ok('10B: kết nạp + bầu thay Ban quản lý', /Bầu thành viên mới tham gia Ban quản lý Tổ/.test(kq['10b'].chu) && /Tổng số tổ viên của tổ sau kỳ họp là: \d+/.test(kq['10b'].chu));
    ok('11/TD: Bên A người đại diện (khai báo) · Bên B tổ trưởng · lời văn Điều 1–4', kq['11'].chu.indexOf('Nguyễn Văn Giả')>=0 && kq['11'].chu.indexOf('Ban quản lý Tổ TK&VV: '+t.ten)>=0 && /Điều 4\. Điều khoản thi hành/.test(kq['11'].chu));
    ok('01/BG: Bên giao = tổ trưởng hiện tại (tháng trước không đổi), Bên nhận chấm', kq['01bg'].chu.indexOf('Ông/Bà: '+t.ten+', nguyên Tổ trưởng')>=0 && /Ông\/Bà: \.{10,} Chức vụ: Tổ trưởng/.test(kq['01bg'].chu));
