@@ -20,14 +20,21 @@ def doc(f):
     co = collections.Counter(re.findall(r'<w:sz w:val="(\d+)"', s)).most_common(1)
     ph = collections.Counter(re.findall(r'<w:rFonts [^>]*w:ascii="([^"]+)"', s)).most_common(1)
     return {'kho':[w, h], 'ngang':w>h, 'le':le, 'co':int(co[0][0])/2 if co else None, 'phong':ph[0][0] if ph else None, 'bang':bang, 'doan':doan}
-def trang(f):
+def trang(f):   # → (số trang, [[trang, y mm, x mm, chữ đầu dòng]]) — vị trí dòng theo bản PDF LibreOffice của file Word
     d = tempfile.mkdtemp(); subprocess.run(['soffice', '--headless', '--convert-to', 'pdf', '--outdir', d, f], capture_output=True, timeout=180)
-    p = glob.glob(d+'/*.pdf'); 
-    if not p: return None
+    p = glob.glob(d+'/*.pdf')
+    if not p: return None, []
     o = subprocess.run(['pdfinfo', p[0]], capture_output=True, text=True).stdout
-    return int(re.search(r'Pages:\s+(\d+)', o).group(1))
+    b = subprocess.run(['pdftotext', '-bbox', p[0], '-'], capture_output=True, text=True).stdout
+    dong = []; pg = 0
+    for m in re.finditer(r'<page |<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="[\d.]+" yMax="[\d.]+">([^<]*)</word>', b):
+        if m.group(0).startswith('<page'): pg += 1; continue
+        x, y, w = float(m.group(1))*25.4/72, float(m.group(2))*25.4/72, m.group(3)
+        if dong and dong[-1][0]==pg and abs(dong[-1][1]-y)<1.2 and x>dong[-1][4]: dong[-1][3] += ' '+w; dong[-1][4] = x; continue
+        dong.append([pg, round(y, 1), round(x, 1), w, x])
+    return int(re.search(r'Pages:\s+(\d+)', o).group(1)), [x[:4] for x in dong]
 R = {}
 for f in sorted(glob.glob(os.path.join(G, '*.docx'))):
-    k = os.path.basename(f)[:-5]; R[k] = doc(f); R[k]['trang'] = trang(f)
+    k = os.path.basename(f)[:-5]; R[k] = doc(f); R[k]['trang'], R[k]['dong'] = trang(f)
     print(k, R[k]['kho'], R[k]['le'], R[k]['trang'], 'trang', R[k]['co'], 'pt', R[k]['phong'], len(R[k]['doan']), 'đoạn', len(R[k]['bang']), 'bảng')
 json.dump(R, open(os.path.join(G, 'so_do.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
