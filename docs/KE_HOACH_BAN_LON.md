@@ -11,7 +11,9 @@
 6. **Lưu file Word / PDF mẫu anh gửi làm chuẩn gốc** và so theo đó. Lưu hết trên repo; cần thì đổi sang tên giả / số liệu giả.
 7. **Cấu trúc:** dễ bảo trì, có lớp từng loại; hàm / mẫu đã chuẩn giữ an toàn — **sửa mẫu này không lỗi mẫu kia**; bản mới phải đảm bảo mẫu cũ chạy chuẩn; mọi thứ **độc lập, cắm và rút**.
 8. **Sổ hộ vay đủ cột** (thêm hộ — đã bàn, chưa làm): đủ thông tin cho mọi ô tự động của các mẫu.
-9. Hồ sơ Tổ làm đồng bộ (10C, 10A, 10B, 11); **01/BG, 02/BG làm riêng sau**. **Điện thoại tạm dừng** (bàn riêng: chủ yếu truy vấn, xem).
+9. Hồ sơ Tổ làm đồng bộ (10C, 10A, 10B, 11) + **mẫu mới 10D/TD giải thể Tổ** (anh chọn phương án a — dựng thẳng trên nền mới ở M7); **01/BG, 02/BG làm riêng sau** (M0 chỉ lưu chuẩn gốc + khóa bản in hiện tại, ghi chỗ lệch).
+10. **10C cũ / 10C mới, 11/TD cũ / 11/TD mới = 2 mẫu độc lập** (mỗi mẫu 1 chip), anh tự chọn — bỏ tự chọn theo ngày họp (lựa chọn cũ `mau10c`: 'cu' → mở 10C cũ, còn lại → 10C mới). **Ngày trên mẫu Hồ sơ Tổ thường để trống** → mặc định chấm (như logic ngày Hồ sơ vay).
+11. Câu hỏi còn treo cũ (01/TD mục 4 số tiền trả nợ / lần; 03/TD số người chưa được vay; 09A ý kiến Hội) → trên nền mới đều là **ô mặc định ✍ chấm**, anh bật 🖨 / ✎ khi cần — không cần chốt riêng. **Điện thoại tạm dừng** (bàn riêng: chủ yếu truy vấn, xem).
 
 ## 1. Mốc trong bản (thứ tự làm)
 | Mốc | Việc | Cửa kiểm để qua mốc |
@@ -23,7 +25,7 @@
 | **M4** | 01/TD, 01/UQ lên nền mới, đo theo file gốc | t179 (mặc định = bản cũ, trừ bản trắng chấm) · t180 · t181 |
 | **M5** | 03/TD (bảng số dòng cố định), 01/TGTV, 09A + 01/TĐCK | như M4 |
 | **M6** | 01/GQVL, 07b | như M4 |
-| **M7** | Hồ sơ Tổ 10C, 10A, 10B, 11 | như M4; 01/BG, 02/BG không đụng |
+| **M7** | Hồ sơ Tổ: 10C cũ · 10C mới · 10A · 10B · 11/TD cũ · 11/TD mới (mẫu độc lập) · **10D/TD mới** | như M4; 01/BG, 02/BG không đụng |
 | **M8** | **Lưu B2 / B3:** IndexedDB theo ngăn qua `KHO1` (cài đặt máy · khai báo đơn vị · khai báo mẫu · sổ hộ vay · văn bản · nhật ký); lần đầu chép từ localStorage, **giữ bản cũ 30 ngày + công tắc quay lại**; xóa = thùng rác; đồng bộ Drive theo ngăn | phép thử 2 máy giả lập; dữ liệu cũ đọc được; quay lại được |
 | **M9** | Tổng kiểm: chuẩn khóa + chuẩn gốc + chồng khít + hồi quy đủ + tài liệu + bảng thử máy thật theo từng mẫu | sạch mới báo anh |
 
@@ -33,8 +35,8 @@
 - Dữ liệu cũ luôn đọc được; chuyển dữ liệu có bản sao + quay lại.
 - Repo công khai: file mẫu, bản chuẩn chỉ chứa mẫu trắng / số liệu giả.
 
-## 3. Cần anh
-- **File gốc Word / PDF** từng mẫu: 01/TD, 03/TD, 01/UQ, 09A, 01/TĐCK, 01/GQVL, 07b, 10C (cũ + mới QĐ 70), 10A, 10B, 11 (đã có 01/TGTV). Có số liệu khách → em đổi sang giả trước khi lưu.
+## 3. File gốc — ĐÃ ĐỦ 17 file (anh gửi 16/10)
+01/TD · 03/TD · 01/UQ · 09A · 01/TĐCK · 01/TGTV · 01/GQVL · 07b/GQVL · 10C cũ · 10C mới (VB 4336) · 10A · 10B · 10D · 11/TD cũ (CV 7305 / VB 5535 — có 1 số điện thoại → thay số giả khi lưu) · 11/TD mới (27/9/2026) · 01/BG · 02/BG. Lưu `tests/mau_goc/` ở M0.
 - Thử máy thật 1 lần theo bảng thử cuối bản.
 
 ## 4. Rủi ro (đã báo anh)
