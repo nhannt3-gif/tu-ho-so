@@ -3508,3 +3508,8 @@ table.hm-so{min-width:1348px}
 /* 3.222: ⚙ Khai báo riêng thu gọn được · 📎 nguồn ô 🖨 · ⚠ nhắc thiếu trước khi in · tên đơn vị từng mẫu Giao dịch xã */
 .hso-kbr-d{margin-top:8px;border-top:1px solid var(--vien)}.hso-kbr-d>summary{cursor:pointer;list-style:revert}.hso-cham-ng{display:block;color:var(--chu-phu);font-weight:400}
 .hso-thieu ul{margin:3px 0 0;padding-left:18px}.kb-tenm{margin:4px 0}.kb-tenm>i{display:block;color:var(--chu-phu);margin-bottom:2px}
+/* 3.223 M2: ➕ thông tin thêm người trong hộ · thiếu theo mẫu */
+.hm-them{margin-top:4px}.hm-them>summary{cursor:pointer;color:var(--xanh-dam);font-size:calc(12.5px*var(--co))}.hm-them-nhom{margin:6px 0 2px}.hm-them-nhom>i{display:block;color:var(--chu-phu);margin-bottom:3px}
+.hm-them-luoi{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:5px 10px}.hm-them-o{display:flex;flex-direction:column;gap:2px;font-size:calc(12px*var(--co))}.hm-them-o.rong{grid-column:1/-1}
+.hm-them-o>input,.hm-them-o>select{font:inherit;padding:3px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--nen,#fff);color:var(--chu)}.hm-them-nhieu{display:flex;flex-wrap:wrap;gap:4px 12px}
+.hm-so-mau{color:var(--chu-phu);font-size:calc(11.5px*var(--co));margin-top:2px}
