@@ -51,7 +51,7 @@ function omG(mk, V, pt){
     if(!v) return '<span class="'+lop+'" data-o="'+k+'">'+cham+'</span>';
     var W = o.rong || omRong(cham, pt), tw = omRong(v, pt), fs = pt;
     if(tw > W*0.98){ fs = Math.max(pt*OM_NHO, Math.floor(pt*W*0.98/tw*10)/10); if(omRong(v, fs) > W*1.02) OM_DAI.push({mk:mk, k:k, n:(m.oK[k]||{}).n || k, v:v}); }
-    return '<span class="'+lop+'" data-o="'+k+'" style="display:inline-block;width:'+W.toFixed(2)+'mm;white-space:nowrap;vertical-align:baseline;text-indent:0;text-align:'+(o.canh==='c' ? 'center' : 'left')+(fs<pt ? ';font-size:'+fs+'pt' : '')+'">'+coChuHTML(v)+'</span>'; };
+    return '<span class="'+lop+'" data-o="'+k+'" style="display:inline-block;width:'+W.toFixed(2)+'mm;white-space:nowrap;vertical-align:baseline;line-height:1;text-indent:0;text-align:'+(o.canh==='c' ? 'center' : 'left')+(fs<pt ? ';font-size:'+fs+'pt' : '')+'">'+coChuHTML(v)+'</span>'; };
   G.ngay = function(k, ds, o){ var g = hsoNg(G.gt(k)), p = g ? [g.d, g.m, g.y] : ['', '', ''];
     return ds.map(function(ch, i){ return G.o(k, ch, Object.assign({}, o || {}, {gt:p[i], canh:'c'})); }); };
   G.khoi = function(k, dong, o){   /* ô nhiều dòng (ý kiến, xác nhận…): dong = [chuỗi chấm từng dòng] — có chữ: khung cao đúng số dòng, chữ xuống dòng trong khung */
