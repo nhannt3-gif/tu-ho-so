@@ -8,7 +8,7 @@ const fs = require('fs'), path = require('path');
 const GOC = JSON.parse(fs.readFileSync(path.join(__dirname, 'mau_goc', 'so_do.json'), 'utf8'));
 const KHOP = fs.existsSync(path.join(__dirname, 'mau_goc', 'khop.json')) ? JSON.parse(fs.readFileSync(path.join(__dirname, 'mau_goc', 'khop.json'), 'utf8')) : {};
 const NOI = {hsv:{'01td':'01td', '01uq':'01uq', '03td':'03td', '09a':'09a', '01tdck':'01tdck', '01tgtv':'01tgtv', '01gqvl':'01gqvl', '07b':'07b'},
-             hst:{'10c':'10c_moi', '10ccu':'10c_cu', '10a':'10a', '10b':'10b', '11':'11_cu', '01bg':'01bg', '02bg':'02bg'}};
+             hst:{'10c':'10c_moi', '10ccu':'10c_cu', '10a':'10a', '10b':'10b', '11':'11_moi', '11cu':'11_cu', '01bg':'01bg', '02bg':'02bg'}};
 Object.assign(NOI.hsv, KHOP.noiHsv||{}); Object.assign(NOI.hst, KHOP.noiHst||{});
 const tu = s => String(s).normalize('NFC').toLowerCase().replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/[.…_,;:()\[\]"“”'‘’!?\/\-–—*+=%]+/g, ' ').split(/\s+/).filter(x=>x && !/^\d$/.test(x));
 function lcs(a, b){ const n = a.length, m = b.length; let pr = new Uint16Array(m+1), cu = new Uint16Array(m+1); const keo = new Uint8Array(n);

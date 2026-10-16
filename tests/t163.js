@@ -18,7 +18,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    const nut = [].map.call(document.querySelectorAll('#tr7 .sl-con button'), x=>x.textContent);
    ok('thanh tab con Số liệu có 📝 Hồ sơ Tổ và 📄 Hồ sơ vay', nut.some(x=>/Hồ sơ Tổ/.test(x)) && nut.some(x=>/Hồ sơ vay/.test(x)), nut.join(' | '));
    ok('thanh bên: nhóm Hồ sơ có 2 mục mới', DH_MUC.some(m=>m.k==='hst') && DH_MUC.some(m=>m.k==='hsv'));
-   ok('tab Hồ sơ Tổ: khối LỌC ĐỊA BÀN + danh sách 7 mẫu (3.223: 10C cũ / mới 2 chip) + khung xem', !!document.querySelector('#hst-cay .loc-khoi') && document.querySelectorAll('#hso-tabm .hso-tm').length===7 && !!document.getElementById('hso-xem-khung'));
+   ok('tab Hồ sơ Tổ: khối LỌC ĐỊA BÀN + danh sách 8 mẫu (3.223: 10C, 11 cũ / mới mỗi mẫu 1 chip) + khung xem', !!document.querySelector('#hst-cay .loc-khoi') && document.querySelectorAll('#hso-tabm .hso-tm').length===8 && !!document.getElementById('hso-xem-khung'));
    /* chưa chọn tổ → mẫu trắng */
    const C = hsoCH(); C.xa=''; C.diem=''; C.hoi=''; C.to=''; hsoChonMau('10c'); await w(400);
    ok('chưa chọn tổ: 10C là mẫu trắng (chấm), vẫn có nút In / Word', /BIÊN BẢN HỌP/.test(chu()) && /Chủ trì: Ông ?\(bà\) ?[.…]{10}/.test(chu()) && /Word/.test(document.getElementById('hso-xem-nut').textContent));
