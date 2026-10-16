@@ -580,7 +580,12 @@ function hsoChamNgayTT(mk, k, cham){   /* 'Ngày dd tháng mm năm yyyy' khi �
      Anh (15/10): ngày mặc định chấm ghi tay; 🖨 KHÔNG tự lấy hôm nay — logic ngày anh chốt sau */
   var g = hsoChamIn(mk, k) ? hsoNg(hsoChamGT(mk, k, '')) : null;
   return g ? 'Ngày '+hsoO(g.d, 'kb')+' tháng '+hsoO(g.m, 'kb')+' năm '+hsoO(g.y, 'kb') : cham; }
-function hsoChamKieu(mk, k){ var c = ((hsoLuu().cham||{})[mk])||{}, d = (HSO_CHAM[mk]||[]).find(function(x){ return x[0]===k; }); return c[k] || (d ? d[3] : 'cham'); }
+/* 3.221 (anh 16/10): 📝 BẢN GHI MẪU — in số liệu thật vào mọi ô khách / tổ phải viết để khách chép lại vào mẫu thật. Chỉ giữ trong lần làm (không lưu — tránh quên tắt);
+   ✍ / 🖨 của bản thật không đổi. Phần UBND / Hội / Ngân hàng / người chứng kiến ghi (HSO_GM_KHAC) vẫn chấm. Ngày: vẫn chỉ in ngày đã gõ. */
+var HSO_GM = false, HSO_GM_KHAC = {'01td':['ubOng','nhTien','nhLai','nhQH','nhTH','nhHan','nhNgayLai','nhNgay'], '03td':['ngayKy','nhCot','nhNgay','nhSo'], '01uq':['truongThon'], '01tdck':['nhTen','nhNgay']};
+function hsoGhiMauO(mk, k){ return (HSO_GM_KHAC[mk]||[]).indexOf(k)<0; }
+function hsoGhiMauDat(v){ HSO_GM = !!v; hsoVe(); }
+function hsoChamKieu(mk, k){ if(HSO_GM && hsoGhiMauO(mk, k) && hsoChamDef(mk, k)) return 'in'; var c = ((hsoLuu().cham||{})[mk])||{}, d = (HSO_CHAM[mk]||[]).find(function(x){ return x[0]===k; }); return c[k] || (d ? d[3] : 'cham'); }
 function hsoChamDat(mk, k, v){ var L = hsoLuu(); L.cham = L.cham || {}; (L.cham[mk] = L.cham[mk] || {})[k] = v; luu(); hsoVe(); }
 function hsoLyDoDs(){ var L = hsoLuu(); if(!Array.isArray(L.lyDoDs) || !L.lyDoDs.length) L.lyDoDs = ['Đang gặp khó khăn về kinh tế, tài chính']; return L.lyDoDs; }
 function hsoLyDoThem(){ var v = String(HSO.vay.lyDo||'').trim(); if(!v) return bao('Gõ lý do vào ô trước rồi bấm ＋.'); var ds = hsoLyDoDs(); if(ds.indexOf(v)<0){ ds.push(v); luu(); } hsoVe(); bao('Đã thêm vào danh sách lý do.'); }
@@ -594,7 +599,9 @@ function hsoKBRieng(mk, md){   /* 3.215: khối ⚙ Khai báo riêng ở cột t
   var M = (HSO_MAU.hsv.concat(HSO_MAU.hst)).find(function(m){ return m.k===mk; }) || {ma:mk};
   return '<div class="nhan-nhom hso-kbr-o">✍ / 🖨 Ô tùy biến — Mẫu '+coChuHTML(M.ma)+' (từ trên xuống)</div>'+hsoChamTuy(mk, md); }
 function hsoChamTuy(mk, md){   /* md = {khóa: giá trị mặc định khi In sẵn} */
-  return '<div class="hso-cham"><div class="hso-cham-dau">Ô chấm: <b>✍ viết tay</b> hay <b>🖨 in sẵn</b> <small>(app nhớ theo mẫu)</small></div>'+(HSO_CHAM[mk]||[]).map(function(x){
+  return '<div class="hso-cham'+(HSO_GM ? ' hso-gm' : '')+'"><div class="hso-cham-che">'+gdxChip('🖨 Bản thật', !HSO_GM, 'hsoGhiMauDat(0)', 'hso-ct', 'In theo ✍ / 🖨 từng ô bên dưới')+gdxChip('📝 Bản ghi mẫu', HSO_GM, 'hsoGhiMauDat(1)', 'hso-ct', 'In số liệu thật vào mọi ô khách phải viết — khách chép lại vào mẫu thật')+'</div>'+
+    (HSO_GM ? '<div class="sl-bao vang hso-nhac">📝 <b>Bản ghi mẫu</b>: mọi ô của khách in sẵn số liệu thật (có số liệu mới in; ngày in khi đã gõ). Phần UBND / Hội / Ngân hàng vẫn chấm. Chỉ cho lần in này — bấm <b>🖨 Bản thật</b> để về.</div>' : '')+
+    '<div class="hso-cham-dau">Ô chấm: <b>✍ viết tay</b> hay <b>🖨 in sẵn</b> <small>(app nhớ theo mẫu)</small></div>'+(HSO_CHAM[mk]||[]).map(function(x){
     if(x[2]==='nhom') return '<div class="hso-cham-nhom">'+coChuHTML(x[1])+'</div>';
     var k = x[0], kieu = hsoChamKieu(mk, k), inS = kieu==='in', v = HSO.vay[k]!==undefined ? HSO.vay[k] : (md && md[k]!==undefined ? md[k] : ''), o = '';
     var sw = '<span class="hso-sw"><button class="'+(inS ? '' : 'bat')+'" onclick="hsoChamDat(\''+mk+'\',\''+k+'\',\'cham\')" title="Để chấm — ghi tay">✍</button><button class="'+(inS ? 'bat' : '')+'" onclick="hsoChamDat(\''+mk+'\',\''+k+'\',\'in\')" title="In sẵn">🖨</button></span>';
@@ -607,7 +614,7 @@ function hsoChamTuy(mk, md){   /* md = {khóa: giá trị mặc định khi In s
       else if(x[2]==='tu') o = '<small class="hso-cham-tu">'+(md && md[k] ? 'tự lấy: '+coChuHTML(md[k]) : 'tự lấy khi có số liệu')+'</small>';
       else o = (x[2]==='ngay' ? '<small class="hso-cham-tu">'+'gõ ngày — trống vẫn chấm'+'</small>' : '')+hsoIn('HSO.vay[\''+k+'\']=this.value;hsoHen()', v, x[2]==='tien' ? 'số tiền' : x[2]==='so' ? 'số' : x[2]==='ngay' ? '' : '', x[2]==='ngay' ? 'date' : (x[2]==='so' ? 'number' : ''));
     }
-    return '<div class="hso-cham-o"><span class="hso-cham-nhan">'+coChuHTML(x[1])+'</span>'+sw+'<span class="hso-cham-gt">'+(inS ? o : '<i class="hso-cham-tay">…… chấm, ghi tay</i>')+'</span></div>'; }).join('')+'</div>';
+    return '<div class="hso-cham-o"><span class="hso-cham-nhan">'+coChuHTML(x[1])+(HSO_GM && !hsoGhiMauO(mk, k) ? ' <small class="hso-cham-tu">(UBND / Hội / NH — vẫn chấm)</small>' : '')+'</span>'+sw+'<span class="hso-cham-gt">'+(inS ? o : '<i class="hso-cham-tay">…… chấm, ghi tay</i>')+'</span></div>'; }).join('')+'</div>';
 }
 /* 3.206 (anh gửi mẫu 14/10): 01/TĐCK — Giấy đề nghị thay đổi mẫu chữ ký giao dịch với NHCSXH (VB 2407 ngày 28/3/2025). Người đề nghị = người vay đang chọn
    (dùng chung lựa chọn với 09A); nhân thân theo danh bạ (Mẫu 31); ngày ký = ô chấm tùy biến; phần chấp thuận NH luôn chấm. In kèm 09A (cùng khổ dọc → 1 lần in / 1 file Word). */
@@ -965,7 +972,7 @@ function hsoLap(){
   x.ds.forEach(function(u){ if(u.M && !/^(01td|01tgtv)$/.test(u.M.k) && hsoLogoCo(u.M.k)) u.h = '<p>'+hsoLogo(u.M.k, 16)+'</p>'+u.h; });   /* 3.171: logo ở mẫu anh tích (mẫu gốc có logo đã đặt sẵn đúng chỗ) */
   x.M = M; x.t = t; x.h = x.ds[0].h;
   var pv = ai || (t ? 'To '+t.ten : '') || 'Trang';
-  x.ten = xuatTen((M.k==='bo' ? 'Bo ho so vay' : 'Mau '+M.ma.replace(/\//g, ' ')), pv, HSO.o.ngay || ngayISO(nay()));
+  x.ten = xuatTen((M.k==='bo' ? 'Bo ho so vay' : 'Mau '+M.ma.replace(/\//g, ' '))+(HSO_GM ? ' - Ghi mau' : ''), pv, HSO.o.ngay || ngayISO(nay()));   /* 3.221: bản ghi mẫu ghi rõ trong tên file */
   x.trang = hsoTrang(x.ds, null, x.ten);
   return x;
 }

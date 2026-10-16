@@ -82,6 +82,14 @@ const fs=require('fs'), path=require('path');
    hsoChonMau('07b'); await w(300); hsoChamDat('07b', 'noiKy', 'in'); hsoChamKBDat('07b', 'noiKy', 'PGD NHCSXH Gò Dầu'); let hd = chu(hsoLap().h);
    ok('07b 🖨 nơi ký "Hôm nay … tại PGD NHCSXH Gò Dầu" (khai 1 lần, nhớ)', /tại PGD NHCSXH Gò Dầu chúng tôi gồm/.test(hd) && hsoLuu().chamGT['07b'].noiKy==='PGD NHCSXH Gò Dầu');
    hsoChamDat('07b', 'noiKy', 'cham'); hd = chu(hsoLap().h); ok('07b ✍ lại → "tại ……" chấm', /tại \.{20,} chúng tôi gồm/.test(hd));
+   /* 3.221 (anh 16/10): 📝 bản ghi mẫu — số liệu thật vào mọi ô khách viết; UBND / NH vẫn chấm; không lưu; tắt → về bản thật */
+   hmLamHS(ho.id, '01tgtv'); await w(400); const P1 = Object.assign({}, hsoBoNV(hsoBo()), {danToc:'Kinh', ap:'Ấp Giả', tenXa:'Xã Giả', sdt:'0900000999', kh:'4800000999'});
+   const thatTG = chu(hsoLap01tgtv(TO_K.to[C.to], P1).h); hsoGhiMauDat(1); await w(200); const gmTG = chu(hsoLap01tgtv(TO_K.to[C.to], P1).h);
+   ok('01/TGTV 📝 ghi mẫu: in dân tộc, ☒ Việt Nam, cư trú, thường trú, điện thoại, CIF (bản thật vẫn chấm)', !/Kinh/.test(thatTG) && /Kinh/.test(gmTG) && /☒ Việt Nam/.test(gmTG) && /☒ Có cư trú/.test(gmTG) && /Ấp Giả/.test(gmTG) && /0900000999/.test(gmTG) && /4800000999/.test(gmTG));
+   ok('nút 📝 Bản ghi mẫu + nhắc ở khối ô tùy biến; không lưu vào cài đặt', /Bản ghi mẫu/.test(document.getElementById('hso-tuy').textContent) && !hsoLuu().ghiMau && !/"in"/.test(JSON.stringify((hsoLuu().cham||{})['01tgtv']||{})));
+   hmLamHS(ho.id, '01td'); await w(300); let gm1 = chu(hsoLap().h);
+   ok('01/TD ghi mẫu: phần UBND "Ông/bà" + phê duyệt NH vẫn chấm; tên file "Ghi mau"', /Ông\/bà \.{20,}/.test(gm1) && /Lãi suất: \.+%\/năm/.test(gm1) && /GhiMau/i.test(hsoLap().ten||''), hsoLap().ten);
+   hsoGhiMauDat(0); await w(200); ok('bấm 🖨 Bản thật → về như cũ', !HSO_GM && !/GhiMau/i.test(hsoLap().ten||''));
    return o;
  }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));

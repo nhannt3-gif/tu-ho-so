@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.221 — 16/10/2026 — 📝 Bản ghi mẫu (Hồ sơ vay)
+- **Anh (16/10):** tất cả các phần đều tùy biến in sẵn được để xuất dạng ghi mẫu — "bản ghi mẫu lấy dữ liệu thật, kiểu in ra cho khách hàng viết lại được".
+- Đầu khối "Ô tùy biến" mỗi mẫu (01/TD, 03/TD, 01/UQ, 01/TGTV, 01/TĐCK, 09A, 01/GQVL, 07b): **🖨 Bản thật | 📝 Bản ghi mẫu**.
+- **Bản ghi mẫu:** mọi ô của khách / tổ in sẵn số liệu thật của hộ (không cần bật từng ô); ô nào chưa có số liệu vẫn chấm; ngày chỉ in khi đã gõ (logic ngày Hồ sơ vay). Phần **UBND / Hội / Ngân hàng / người chứng kiến** vẫn chấm (`HSO_GM_KHAC`: 01/TD UBND + phê duyệt NH, 03/TD cột UBND + NH, 01/UQ trưởng thôn, 01/TĐCK chấp thuận NH).
+- **Không lưu** (chỉ trong lần làm) — mở lại app luôn là Bản thật, tránh quên tắt; ✍ / 🖨 từng ô của bản thật giữ nguyên. Tên file in / Word thêm "GhiMau". Khối ô tùy biến viền vàng + dòng nhắc khi đang ở bản ghi mẫu.
+- **Phép thử:** t176 29/29 (thêm 4).
+
 ## 3.220 — 15/10/2026 — ⚙ Ô tùy biến 01/TĐCK · 01/GQVL · 07b
 - **Anh (15/10):** "gộp và tiếp tục" — đợt 2 khai báo riêng (`docs/KE_HOACH_KBR.md`).
 - **01/TĐCK:** thêm nhóm "Chấp thuận của NHCSXH": "chấp thuận cho ông/bà …" = tên khách (tự lấy) · "kể từ ngày …/…/…" (ngày đã gõ). Ngày khách hàng ký giữ như cũ.

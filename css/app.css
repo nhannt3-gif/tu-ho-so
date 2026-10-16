@@ -3503,3 +3503,5 @@ table.hm-so{border-collapse:collapse;table-layout:fixed;width:100%;min-width:140
 table.hm-so{min-width:1348px}
 /* 3.215 (anh 15/10): ⚙ Khai báo riêng từng mẫu Hồ sơ vay — nhóm ô theo vị trí trên mẫu, ô tự lấy */
 .hso-cham-nhom{margin:7px 0 2px;font-weight:600;font-size:calc(12px*var(--co));color:var(--chu-phu);border-bottom:1px dashed var(--vien)}.hso-cham-tu{color:var(--chu-phu)}
+/* 3.221: 📝 bản ghi mẫu */
+.hso-cham-che{display:flex;gap:6px;margin-bottom:4px}.hso-cham.hso-gm{border-color:var(--vang);box-shadow:0 0 0 1px var(--vang) inset}
