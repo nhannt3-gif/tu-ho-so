@@ -35,10 +35,10 @@ const fs=require('fs'), path=require('path');
    hsoChonMau('03td'); await w(300);
    ok('03/TD: khối ô tùy biến (Tổ trưởng · UBND → Phê duyệt NH)', /Khai báo riêng — Mẫu 03\/TD/.test(document.getElementById('hso-tuy').textContent));
    let h3 = hsoLap().h; const vienCham = chu(h3);
-   ok('03/TD mặc định: cột 7–8 trống, số người / tổng tiền chấm', /Số người được vay vốn đợt này: \.+ người/.test(vienCham) && /Tổng số tiền cho vay: \.+ đồng/.test(vienCham));
+   ok('03/TD mặc định: cột 7–8 trống, số người / tổng tiền chấm', /Số người được vay vốn đợt này: [.…]+\s+người/.test(vienCham) && /Tổng số tiền cho vay: \.+ đồng/.test(vienCham));
    ['ngayKy','nhCot','nhNgay','nhSo'].forEach(k=>hsoChamDat('03td', k, 'in')); await w(200); h3 = hsoLap().h; const t3 = chu(h3), D3 = hsoD03(), n3 = D3.ds.length || 1;
    const tong = (D3.ds.length ? D3.ds : [{tien:hsoPA(hsoBo()).tien}]).reduce((a, r)=>a+(hsoSo(r.tien)||0), 0);
-   ok('03/TD 🖨: số người = số dòng, tổng tiền tự tính; ngày chưa gõ vẫn chấm; cột 7 = số tiền đề nghị', new RegExp('Số người được vay vốn đợt này: '+n3+' người').test(t3) && (tong>0 && t3.indexOf('Tổng số tiền cho vay: '+tdnTien(tong)+' đồng')>=0) && t3.split(ngayHom).length===1 && (tong>0 && (h3.match(new RegExp(tdnTien(tong).replace(/\./g, '\\.'), 'g'))||[]).length>=3), n3+' người · '+tong);
+   ok('03/TD 🖨: số người = số dòng, tổng tiền tự tính; ngày chưa gõ vẫn chấm; cột 7 = số tiền đề nghị', new RegExp('Số người được vay vốn đợt này: '+n3+'\\s+người').test(t3) && (tong>0 && t3.indexOf('Tổng số tiền cho vay: '+tdnTien(tong)+' đồng')>=0) && t3.split(ngayHom).length===1 && (tong>0 && (h3.match(new RegExp(tdnTien(tong).replace(/\./g, '\\.'), 'g'))||[]).length>=3), n3+' người · '+tong);
    /* 01/UQ */
    hsoChonMau('01uq'); await w(300); let hu = chu(hsoLap().h);
    ok('01/UQ mặc định: "Ngày … tháng … năm ……." như cũ, không in tên trưởng thôn', /I\. Ngày … tháng … năm ……\., hộ gia đình/.test(hu));
