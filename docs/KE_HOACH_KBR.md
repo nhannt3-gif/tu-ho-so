@@ -1,5 +1,7 @@
 # Kế hoạch — KHAI BÁO RIÊNG từng mẫu Hồ sơ vay (anh chốt 15/10/2026)
 
+> **16/10/2026:** phần tiếp theo (ô tùy biến mọi chỗ chấm, khai báo trực quan, bản trắng / thật / mẫu) chuyển sang **`KE_HOACH_BAN_LON.md`** (bản lớn 3.223).
+
 > Ý anh (15/10): "Phần khai báo riêng cứ liệt kê từ trên xuống của mẫu, từ dòng Kính gửi, dòng nào em thấy cần cứ cho khai báo hoặc tùy biến, căn cứ kinh nghiệm làm bên tab KTGS; anh sẽ bổ sung thêm nếu thấy thiếu."
 
 ## Nguyên tắc (kế thừa 3.206 — ô chấm tùy biến 09A)

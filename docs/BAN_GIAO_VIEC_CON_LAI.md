@@ -222,6 +222,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.223) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app lần đầu sau khi cập nhật | Đủ văn bản, dữ liệu, khai báo như trước; 💾 Sao lưu › 🗄 Nơi lưu ghi "theo ngăn (IndexedDB)" + "Bản cũ lúc chuyển" | |
+| 2 | Hồ sơ vay › 01/TD 📄 Trắng · 🖨 Thật · 📝 Mẫu, in ra giấy | Đặt lên bản in từ Word gốc: dòng trùng khít, cùng số trang | |
+| 3 | Lần lượt 03/TD, 01/UQ, 09A, 01/TĐCK, 01/TGTV, 01/GQVL, 07b — in thật 1 khách | Đúng form gốc; tên / địa chỉ dài thu nhỏ trong khung, có ⚠ báo | |
+| 4 | Hồ sơ Tổ: 10C mới, 10C cũ, 10A, 10B, 10D, 11 mới, 11 cũ | Mỗi mẫu 1 chip; ngày họp để chấm; in đúng form gốc | |
+| 5 | 🖼 khai báo trực quan: bấm 1 ô trên trang, đổi ✍ / 🤖 / ✎ | Ô đổi màu; in lại đúng cách vừa chọn | |
+| 6 | Sổ hộ vay › ➕ Thông tin thêm 1 người → in 01/TGTV | Trường vừa khai lên đúng chỗ | |
+| 7 | 💾 Sao lưu › ⬆ Xuất khai báo → máy khác ⬇ Nạp | Máy kia có đủ khai báo nhóm đã tích | |
+| 8 | 💾 Sao lưu › ↩ Quay lại cách lưu cũ, mở lại app, rồi 🗄 Bật lưu theo ngăn | Dữ liệu không đổi qua 2 lần chuyển | |
+| 9 | iPhone / Android mở app | Mở bình thường, không báo lỗi lưu | |
+
+**Ghi chú kỹ thuật 3.223:** M8 làm phần lưu trong máy; **đồng bộ Drive theo ngăn chưa làm** (giữ 2 đường cauhinh.json + chỉ mục, đã có phép thử 2 máy t136 / t185) — đề xuất bản sau. Số trang của bản in Hồ sơ Tổ đặt ở chân trang theo app (vị trí khác Word một chút). 10D: gốc có trang 3 trắng (đoạn rỗng sau bảng UBND) — app không in trang trắng. 01/TGTV giữ bố cục 3.219 (LibreOffice dàn gốc 4 trang nên t180 chỉ báo). 01/BG, 02/BG chưa lên nền ô (anh hẹn sau).
+
 ### Danh sách thử trên máy thật (3.222) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

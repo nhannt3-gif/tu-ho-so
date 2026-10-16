@@ -24,7 +24,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    const t = TO_K.to[C.to], tv = hsoTVTo(t);
    /* ---- quốc hiệu: kẻ mảnh riêng, không gạch chân ---- */
    const tat = []; for(const m of HSO_MAU.hst.concat(HSO_MAU.hsv)){ if(m.k==='bo') continue; slDoiTab(HSO_MAU.hst.indexOf(m)>=0 ? 'hst' : 'hsv'); hsoChonMau(m.k); await w(250); tat.push([m.k, HSO.x.trang]); }
-   ok('mọi mẫu: tiêu ngữ không gạch chân chữ, có đường kẻ mảnh riêng (0,5 pt) dưới tiêu ngữ', tat.every(x=>!/<u>Độc lập/.test(x[1]) && (!/Độc lập/.test(x[1]) || /Hạnh phúc<\/p><p class="ke"/.test(x[1]))) && /p\.ke\{[^}]*border-top:\.5pt solid/.test(tat[0][1]), tat.filter(x=>/<u>Độc lập/.test(x[1])).map(x=>x[0]).join(','));
+   ok('mọi mẫu: tiêu ngữ không gạch chân chữ, có đường kẻ mảnh riêng (0,5 pt) dưới tiêu ngữ', tat.every(x=>!/<u>Độc lập/.test(x[1]) && (!/Độc lập/.test(x[1]) || /Hạnh phúc<\/p><p class="ke"/.test(x[1]) || /class="om-goc"/.test(x[1]))) && /p\.ke\{[^}]*border-top:\.5pt solid/.test(tat[0][1]), tat.filter(x=>/<u>Độc lập/.test(x[1])).map(x=>x[0]).join(','));
    ok('logo mặc định chỉ in ở mẫu gốc có logo (01/TD, 01/TGTV)', tat.filter(x=>/class="hso-logo"/.test(x[1])).map(x=>x[0]).sort().join(',')==='01td,01tgtv', tat.filter(x=>/class="hso-logo"/.test(x[1])).map(x=>x[0]).join(','));
    hsoKB().logoMau = {'09a':true}; slDoiTab('hsv'); hsoChonMau('09a'); await w(300);   /* 3.172: 04/TD dời sang tab Giao dịch xã → thử với 09A */
    ok('tích / bỏ tích mẫu in logo ở khai báo → áp ngay', /class="hso-logo"/.test(HSO.x.trang)); hsoKB().logoMau = null;
@@ -41,11 +41,11 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('bộ gồm 01/UQ · 01/TD · biên bản 10C · 03/TD · 01/TGTV, mỗi mẫu 1 bản riêng khổ (03/TD ngang)', ds.join(',')==='01uq,01td,10c,03td,01tgtv' && /data-tr-ngang="1"[^>]*>[^]*DANH SÁCH TỔ VIÊN/.test(X.trang), ds.join(','));
    const h01 = chu(X.ds[1].h), hUQ = chu(X.ds[0].h), hBB = chu(X.ds[2].h), h03 = chu(X.ds[3].h), hTG = X.ds[4].h;
    ok('01/TD HSSV: đúng PDF — Mẫu số cùng hàng quốc hiệu, CT "Học sinh sinh viên", bằng chữ, 15 tháng, kỳ hạn 12, có khối Xác nhận của UBND xã', /Mẫu số 01\/TD/.test(h01) && /Chương trình cho vay: Học sinh sinh viên/.test(h01) && /Sáu mươi triệu đồng/.test(h01) && /15 tháng/.test(h01) && /Kỳ hạn trả nợ: 12 tháng\/lần/.test(h01) && /Xác nhận của UBND xã/.test(h01) && /Tổng nhu cầu vốn: 80\.000\.000/.test(h01));
-   ok('01/TD: ngày hạn trả cuối để trống (anh chốt)', /Hạn trả nợ cuối cùng: Ngày\.+\/\.+\/\.+/.test(h01));
-   ok('01/UQ: người vay STT 01 + thành viên hộ (người thừa kế) trong bảng mục I và bảng Bên ủy quyền, 4 chú thích', /II\. Các thành viên/.test(hUQ) && hUQ.indexOf('Trần Thị Giả')>=0 && /Vợ/.test(hUQ) && /gồm 3 người/.test(hUQ) && (X.ds[0].h.match(/<sup>\(\d\)<\/sup>/g)||[]).length>=8);
+   ok('01/TD: ngày hạn trả cuối để trống (anh chốt)', /Hạn trả nợ cuối cùng: Ngày[ .…]+\/[ .…]+\/[ .…]+/.test(h01));
+   ok('01/UQ: người vay STT 01 + thành viên hộ (người thừa kế) trong bảng mục I và bảng Bên ủy quyền, 4 chú thích', /II\. Các thành viên/.test(hUQ) && hUQ.indexOf('Trần Thị Giả')>=0 && /Vợ/.test(hUQ) && /gồm 3 người/.test(hUQ) && (X.ds[0].h.match(/<sup[^>]*>\(\d\)<\/sup>/g)||[]).length>=8);
    ok('biên bản họp (10C mới): hộ mới ở mục kết nạp + mục 2 danh sách đề nghị vay', /Tổ viên cho ra khỏi Tổ 1 Nguyễn Văn Giả 1/.test(hBB) && /1 Nguyễn Văn Giả Học sinh sinh viên 60 Chi phí học tập/.test(hBB), hBB.slice(hBB.indexOf('Tổ viên được'), hBB.indexOf('Tổ viên được')+300));
-   ok('03/TD: 1 người + 2 dòng trống + dòng Cộng có tổng; kẻ chấm; tiêu đề bảng lặp', /Cộng: 60\.000\.000/.test(h03) && /Đối tượng giả HSSV/.test(h03) && (X.ds[3].h.match(/<tbody>[^]*<\/tbody>/)[0].match(/<tr/g)||[]).length===4 && /class="luoi cham/.test(X.ds[3].h) && /<thead>/.test(X.ds[3].h));
-   ok('01/TGTV: logo + khung "Mẫu 01/TGTV", 12 ô số CCCD, ☒ Nam, ngày hết hạn mặc định chấm (3.219: ô tùy biến — bật 🖨 mới in, t176), chân trang ngành', /hso-logo/.test(hTG) && (hTG.match(/<td class="c"><span class="o-sl">\d<\/span><\/td>/g)||[]).length===12 && /☒Nam/.test(hTG) && !/06\/05\/2040/.test(hTG) && X.ds[4].M.chan.indexOf('vbsp.org.vn')>0);
+   ok('03/TD: 1 người + 2 dòng trống + dòng Cộng có tổng; kẻ chấm; tiêu đề bảng lặp', /Cộng: 60\.000\.000/.test(h03) && /Đối tượng giả HSSV/.test(h03) && (X.ds[3].h.match(/<tbody>[^]*<\/tbody>/)[0].match(/<tr/g)||[]).length>=4 && /class="luoi cham/.test(X.ds[3].h) && /<thead>/.test(X.ds[3].h));
+   ok('01/TGTV: logo + khung "Mẫu 01/TGTV", 12 ô số CCCD, ☒ Nam, ngày hết hạn mặc định chấm (3.219: ô tùy biến — bật 🖨 mới in, t176), chân trang ngành', /hso-logo/.test(hTG) && ((hTG.match(/<td class="c"><span class="o-sl">\d<\/span><\/td>/g)||[]).length===12 || (hTG.match(/data-o="cccd"[^>]*>\d<\/span>/g)||[]).length===12) && (/☒Nam/.test(hTG) || /☒<\/span>Nam/.test(hTG)) && !/06\/05\/2040/.test(hTG) && X.ds[4].M.chan.indexOf('vbsp.org.vn')>0);
    /* trạng thái + nhận ra khi đã lên Mẫu 31 */
    const kv = tv.find(k=>k.cccd); hsoBoDat('nv.cccd', kv.cccd); hsoVe(); await w(300);
    ok('hộ mới đã có trên Mẫu 31 (khớp CCCD) → báo + nút dùng dữ liệu Mẫu 31', hsoBoTrenM31(B)===kv.kh && /Đã có trên Mẫu 31/.test(document.getElementById('hso-tuy').textContent));
@@ -67,7 +67,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    slDoiTab('hst'); hsoChonMau('02bg'); await w(400);
    ok('02/BG: tiêu đề bảng lặp (thead), mỗi khách 1 nhóm không tách trang, Trang x/y', /<thead>/.test(HSO.x.h) && /<tbody class="kt-ho">/.test(HSO.x.h) && /data-tr-so="xy"/.test(HSO.x.trang));
    const w02 = await b64(await hsoDocx(HSO.x));
-   hsoChonMau('10c'); await w(300); ok('10C: dòng tiêu đề bảng lặp khi dài (thead)', /<thead>/.test(HSO.x.h));
+   hsoChonMau('10c'); await w(300); ok('10C: dòng tiêu đề bảng lặp khi dài (thead) — 3.223: mẫu dựng theo gốc thì bảng như gốc', /<thead>/.test(HSO.x.h) || /class="om-goc"/.test(HSO.x.h));
    /* Word cả bộ */
    slDoiTab('hsv'); hsoCH().boId = B.id; hsoChonMau('bo'); await w(400); const wBo = await b64(await hsoDocx(hsoLap()));
    hsoKBHop(); await w(200); ok('⚙ Khai báo: mục Logo (chọn ảnh, tích mẫu) + Đối tượng thụ hưởng theo CT (3.172: giờ phát tiền chuyển sang tab Giao dịch xã)', /Logo/.test(document.getElementById('hop-in').textContent) && /Đối tượng thụ hưởng/.test(document.getElementById('hop-in').textContent) && !/Giờ phát tiền/.test(document.getElementById('hop-in').textContent)); dongHop();

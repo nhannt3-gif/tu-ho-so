@@ -3,7 +3,7 @@
    - Tab: 🏦 PGD · logo · tên đơn vị trên từng mẫu · 👤 Cán bộ · 🤝 Hội · 🏘 Trưởng ấp · 👥 Tổ phó · 📋 Chương trình vay · 🏦 TK 104 / 105.
    - Dữ liệu GIỮ NGUYÊN CHỖ LƯU cũ (D.cauHinh.hsoKB, gdx, ktHoiKB…) → không phải chuyển, bản in mẫu khóa (Giao dịch xã, KTGS) không đổi.
    - Khai báo Hội vẫn sửa ở KTGS (gói riêng, mẫu khóa) — ở đây xem danh sách + nút sang KTGS.
-   - Xuất / nhập khai báo ra file (bổ sung 4): anh hẹn làm sau khi bản này ổn. */
+   - 3.223 M1: tab 💾 Sao lưu (tự lưu / khôi phục / xuất – nạp file) ở js/32-kho-luu.js. */
 
 /* tên đơn vị in trên các mẫu Giao dịch xã — cùng khóa gdxC() (sửa ở đây = sửa ở khai báo riêng của mẫu) */
 var KB_TEN_GDX = [['04/TD Thông báo', [['donViTren', 'Tên NH cấp trên'], ['donViDuoi', 'Phòng giao dịch'], ['tenPGDTrongVanBan', 'Tên PGD trong văn bản'], ['diaDanh', 'Địa danh ("…, ngày")']]],

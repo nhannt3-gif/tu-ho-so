@@ -180,3 +180,13 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 | 9 | Sau đó mới thêm chức năng / mẫu mới (tư vấn đặt chỗ trước — mục 1a) |
 
 **Rủi ro cần nhớ:** Mẫu 31 đổi cấu trúc (→ từ điển cột) · dung lượng nhiều kỳ (~20 MB / Mẫu 31 → lưu gọn, giữ cuối tháng, dọn kỳ ngày cũ) · 2 tài khoản làm song song (→ theo quy chuẩn + cập nhật `BAT_DAU.md` mỗi bản) · repo công khai (quy tắc rút từ dữ liệu thật chỉ ghi tổng quát).
+
+---
+
+## 9. Mẫu biểu: chuẩn gốc · chuẩn khóa · chồng khít · cắm và rút (anh chốt 16/10/2026 — chi tiết `KE_HOACH_BAN_LON.md`)
+1. **Chuẩn gốc:** file Word / PDF anh gửi lưu ở `tests/mau_goc/` (mẫu trắng / số liệu giả). Bản in app phải khớp chữ, số trang, lề (±1–2 mm).
+2. **Chuẩn khóa:** bản in app đã đạt, anh duyệt → `tests/chuan/`, so **từng ký tự** mỗi bản. Sửa mẫu A làm lệch mẫu B → đỏ, không gộp. Chỉ cập nhật chuẩn của mẫu anh duyệt đổi.
+3. **Chồng khít:** bản trắng / có số liệu / bản mẫu cùng vị trí khối (±0,5 mm), cùng số trang. Số liệu nằm trong khung ô cố định, không xô form; chữ dài → thu nhỏ, quá mức → ⚠ báo.
+4. **Sổ mẫu — cắm và rút:** mỗi mẫu là 1 mô-đun đăng ký (mã, tên, tab, phần, ô, hàm dựng); mẫu không gọi mẫu khác; khai báo lưu theo mã mẫu. Nền ô (`js/31-o-mau.js`) là lớp riêng có hợp đồng + phép thử; sửa nền → chạy chuẩn khóa mọi mẫu.
+5. **Cửa lưu `KHO1`:** tab không tự đụng localStorage / IndexedDB; có lịch sử chụp, khôi phục, xuất / nhập.
+6. Mẫu Giao dịch xã, KTGS: không lên nền mới, chỉ được chuẩn khóa canh giữ.

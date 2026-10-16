@@ -149,6 +149,13 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t176.js` (3.220) | thêm: 01/TĐCK chấp thuận NH, 01/GQVL ngày ký, 07b nơi ký. |
 | `node tests/t176.js` (3.221) | thêm: bản ghi mẫu — in số liệu thật, UBND / NH vẫn chấm, không lưu, tên file GhiMau. |
 | `node tests/t178.js` | 3.222 Khai báo đơn vị dùng chung (Giao dịch xã mở cùng cửa sổ, tên đơn vị từng mẫu, Hội, TK), bố cục A cột trái, chương trình vay 1 lối vào, 📎 nguồn, ↺ về mặc định, ⚠ nhắc thiếu, 09A / 01/TĐCK cùng khung. |
+| `node tests/t179.js` | 3.223 M0 chuẩn khóa: bản in mọi mẫu so từng ký tự với `tests/chuan/*.html` (ghi lại chuẩn mẫu anh duyệt đổi: `node tests/chuan_tao.js <tên>`). |
+| `node tests/t180.js` | 3.223 M0 chuẩn gốc: so với file Word gốc (`tests/mau_goc/`) — chữ, số trang, lề, vị trí dòng; mẫu trong `khop.json` bắt buộc đạt. |
+| `node tests/t181.js` | 3.223 chồng khít: bản trắng / thật / mẫu cùng số trang, cùng vị trí đoạn ±0,5 mm. |
+| `node tests/t182.js` | 3.223 M1 lưu an toàn B1: KHO1 chụp / khôi phục, giữ 10 bản, xuất / nạp khai báo theo nhóm. |
+| `node tests/t183.js` | 3.223 M2 sổ hộ vay đủ cột: thông tin thêm, chép sang phiếu, cần bổ sung theo mẫu. |
+| `node tests/t184.js` | 3.223 M3 nền ô trên 01/TD: 3 kiểu in, cách từng ô, chữ dài thu nhỏ + ⚠, khai báo trực quan. |
+| `node tests/t185.js` | 3.223 M8 lưu theo ngăn IndexedDB: chuyển lần đầu + giữ bản cũ, chỉ ghi ngăn đổi, dữ liệu > 5 MB, localStorage bị xóa mất, công tắc quay lại, IndexedDB bị chặn, xóa sạch, 2 máy giả lập. |
 
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
