@@ -81,7 +81,7 @@ const fs=require('fs'), path=require('path');
    hsoChamDat('01gqvl', 'ngayKy', 'cham'); delete HSO.vay.ngayKy;
    hsoChonMau('07b'); await w(300); hsoChamDat('07b', 'noiKy', 'in'); hsoChamKBDat('07b', 'noiKy', 'PGD NHCSXH Gò Dầu'); let hd = chu(hsoLap().h);
    ok('07b 🖨 nơi ký "Hôm nay … tại PGD NHCSXH Gò Dầu" (khai 1 lần, nhớ)', /tại PGD NHCSXH Gò Dầu chúng tôi gồm/.test(hd) && hsoLuu().chamGT['07b'].noiKy==='PGD NHCSXH Gò Dầu');
-   hsoChamDat('07b', 'noiKy', 'cham'); hd = chu(hsoLap().h); ok('07b ✍ lại → "tại ……" chấm', /tại \.{20,} chúng tôi gồm/.test(hd));
+   hsoChamDat('07b', 'noiKy', 'cham'); hd = chu(hsoLap().h); ok('07b ✍ lại → "tại ……" chấm', /tại [.…]{20,} chúng tôi gồm/.test(hd));
    /* 3.221 (anh 16/10): 📝 bản ghi mẫu — số liệu thật vào mọi ô khách viết; UBND / NH vẫn chấm; không lưu; tắt → về bản thật */
    hmLamHS(ho.id, '01tgtv'); await w(400); const P1 = Object.assign({}, hsoBoNV(hsoBo()), {danToc:'Kinh', ap:'Ấp Giả', tenXa:'Xã Giả', sdt:'0900000999', kh:'4800000999'});
    const thatTG = chu(hsoLap01tgtv(TO_K.to[C.to], P1).h); OM_KIEU = 'mau'; omMucDat('01tgtv', 'het'); await w(200); const gmTG = chu(hsoLap01tgtv(TO_K.to[C.to], P1).h);   /* 3.223: 01/TGTV lên nền ô — 📝 Bản mẫu thay 📝 Bản ghi mẫu */

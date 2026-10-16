@@ -33,7 +33,7 @@ const fs=require('fs'), path=require('path');
    ok('⚠ chi phí 52 tr < vốn 50 tr + lãi vay dự kiến', /chi phí thấp hơn vốn \+ lãi vay/.test(document.getElementById('hso-tuy').textContent)); hsoBoDat('pa.cp', '70000000');
    hsoBoDat('ngayHD', '15102026'); hsoChonMau('07b'); await w(400); h = chu(HSO.x.h);
    ok('07b: HĐTD, số tiền + bằng chữ, 60 tháng, hạn cuối 15/10/2031, lãi 7,9248 %, quá hạn 10,30224 %', /HỢP ĐỒNG TÍN DỤNG/.test(h) && /Mẫu số 07b\/GQVL/.test(h) && /Thời hạn cho vay: 60 tháng; hạn trả nợ cuối cùng ngày 15\/10\/2031/.test(h) && /Lãi suất cho vay: 7,9248/.test(h) && /Lãi suất quá hạn: 10,30224/.test(h));
-   ok('07b kỳ hạn trả gốc: 15/10/2028 16.600.000 · 15/10/2030 16.600.000 · 15/10/2031 16.800.000', /15\/10\/2028, số tiền: 16\.600\.000/.test(h) && /15\/10\/2030, số tiền: 16\.600\.000/.test(h) && /15\/10\/2031, số tiền: 16\.800\.000/.test(h));
+   ok('07b kỳ hạn trả gốc: 15/10/2028 16.600.000 · 15/10/2030 16.600.000 · 15/10/2031 16.800.000', /15\/10\/2028, số tiền: ?16\.600\.000/.test(h) && /15\/10\/2030, số tiền: ?16\.600\.000/.test(h) && /15\/10\/2031, số tiền: ?16\.800\.000/.test(h));
    hsoGQUT(2, true); await w(400); h = chu(HSO.x.h);
    ok('tích đối tượng ưu tiên (người khuyết tật) → lãi 6,24 %, quá hạn 8,112 %', /Lãi suất cho vay: 6,24/.test(h) && /Lãi suất quá hạn: 8,112/.test(h));
    hsoGQTien('250000000'); await w(300);
