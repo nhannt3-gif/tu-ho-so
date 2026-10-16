@@ -57,7 +57,8 @@ function dongBoCauHinh(cheDo){   /* cheDo: 'tu' (tự động: kéo nếu Drive 
     return canToken().then(function(){ return fetch('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media', {headers:{'Authorization':'Bearer '+DR.token}}); })
       .then(function(r){ if(!r.ok) throw new Error('Drive báo lỗi: '+r.status); return r.json(); });
   }).then(function(j){
-    if(j && j.loai==='cau-hinh-tu-ho-so'){ doi = chApDrive(j, cheDo==='lay'); D.cauHinh.chKeoLuc = f.modifiedTime; D.cauHinh.chFileId = f.id; } else j = null;
+    if(j && j.loai==='cau-hinh-tu-ho-so'){ if(typeof KHO1!=='undefined') KHO1.chup('trước khi nhận cài đặt từ Drive');   /* 3.223 M1: chụp ngay (đồng bộ) trước khi áp bản Drive */
+      doi = chApDrive(j, cheDo==='lay'); D.cauHinh.chKeoLuc = f.modifiedTime; D.cauHinh.chFileId = f.id; } else j = null;
     var canDay = !f || cheDo==='day' || chMayDoi(j);
     if(!canDay){ chDanhDau(); CH_CHU = chChuHienTai(); luu(); return {doi:doi, day:false}; }
     var noi = new Blob([JSON.stringify(goiCauHinh(), null, 1)], {type:'application/json'}), bien = '----tuhoso'+Date.now();
