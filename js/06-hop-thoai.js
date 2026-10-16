@@ -2861,7 +2861,7 @@ function xoaSachMay(){
   if((gt('xs-go')||'').trim().toUpperCase()!=='XOA') return baoLoi('Gõ đúng chữ XOA để xác nhận.');
   hoi('Chắc chắn xóa sạch?', 'Lần hỏi cuối. Sau khi xóa, app tải lại như mới cài trên máy này.', 'Xóa sạch', function(){
     var ten = xuatDuPhong('truoc-xoa-sach');
-    luuHuy(); window.LUU_KHOA_XOA = 1; localStorage.removeItem(KHOA);
+    luuHuy(); window.LUU_KHOA_XOA = 1; localStorage.removeItem(KHOA); if(typeof LN!=='undefined') LN.xoaHet();   /* 3.223 M8: bỏ cả kho theo ngăn */
     moKho().then(function(db){
       var t = db.transaction('f','readwrite');
       t.objectStore('f').clear();

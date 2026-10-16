@@ -178,9 +178,9 @@ var D = {cauHinh:{}, vanBan:[], duLieu:[], ghiChu:[], cho:[], ganDay:[], bieuMau
 
 function nap(){
   try{
-    var s = localStorage.getItem(KHOA);
-    if(s){
-      var j = JSON.parse(s);
+    var s = window.LN_J ? null : localStorage.getItem(KHOA);   /* 3.223 M8: LN_J = bản đọc từ IndexedDB theo ngăn (js/34) khi localStorage không còn giữ bản mới nhất */
+    if(s || window.LN_J){
+      var j = window.LN_J || JSON.parse(s);
       D.vanBan = j.vanBan||[]; D.duLieu = j.duLieu||[];
       D.ghiChu = j.ghiChu||[]; D.ganDay = j.ganDay||[]; D.cho = j.cho||[]; D.bieuMau = j.bieuMau||[]; D.rac = j.rac||[]; D.scan = j.scan||j.cauHinh&&j.cauHinh.hsDS||[];
       if(typeof HS!=='undefined') HS.ds = D.scan;   /* 3.79.1 */
@@ -201,12 +201,14 @@ function luu(){ if(!LUU_HEN) LUU_HEN = setTimeout(luuNgay, 300); return true; }
 function luuHuy(){ if(LUU_HEN){ clearTimeout(LUU_HEN); LUU_HEN = null; } }
 function luuNgay(){
   luuHuy(); if(window.LUU_KHOA_XOA) return false;   /* đang xóa sạch máy → không ghi lại */
-  try{
-    localStorage.setItem(KHOA, JSON.stringify({
+  var o = {
       phienBan:PHIEN_BAN, cauHinh:D.cauHinh, vanBan:D.vanBan,
       duLieu:D.duLieu, ghiChu:D.ghiChu, ganDay:D.ganDay, cho:D.cho, bieuMau:D.bieuMau, rac:D.rac, scan:D.scan, lich:D.lich, daXoaHan:D.daXoaHan||[], nguonCau:D.nguonCau||null,
       kyAnh:D.kyAnh||[], boHS:D.boHS||[]
-    }));
+    }, ln = typeof LN!=='undefined' && LN.bat(), s = ln ? LN.chuoi(o) : null, lsOk = true;   /* 3.223 M8: bật lưu theo ngăn → chuỗi ghép từ từng ngăn (không stringify 2 lần) */
+  try{
+    try{ localStorage.setItem(KHOA, s || JSON.stringify(o)); }catch(e){ if(!ln) throw e; lsOk = false; }
+    if(ln) LN.ghi(lsOk);   /* ghi IndexedDB chỉ ngăn đổi; localStorage đầy → dữ liệu vẫn an toàn ở IndexedDB, không báo lỗi */
     LUU_LAN++;
     if(typeof henDongBoChiMuc==='function') henDongBoChiMuc();
     if(typeof chTheoDoi==='function') chTheoDoi();   /* 3.113: cài đặt đổi → tự đẩy lên Drive · 3.203: chỉ so 1 lần mỗi lần ghi gom */
