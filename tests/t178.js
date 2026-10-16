@@ -42,7 +42,7 @@ const fs=require('fs'), path=require('path');
    document.querySelector('#hso-tuy details.hso-kbr-d').open = true; await w(100);
    /* bổ sung 3: nhắc thiếu */
    tuy = document.getElementById('hso-tuy'); let th = tuy.querySelector('.hso-thieu');
-   ok('⚠ Trước khi in: người vay thiếu ngày cấp CCCD (đầu cột trái)', !!th && /thiếu[^]*ngày cấp CCCD/.test(th.textContent) && tuy.querySelector('.hso-thieu').previousElementSibling===tuy.querySelector('.nhan-nhom'));
+   ok('⚠ Trước khi in: người vay thiếu ngày cấp CCCD (đầu cột trái)', !!th && /thiếu[^]*ngày cấp CCCD/.test(th.textContent) && [...tuy.children].indexOf(tuy.querySelector('.hso-thieu'))<=2);
    hsoChamDat('01td', 'ngayKy', 'in'); hsoChamDat('01td', 'nhLai', 'in'); await w(200); th = document.querySelector('#hso-tuy .hso-thieu');
    ok('bật 🖨 ngày ký (chưa gõ) + lãi suất (chưa khai) → nhắc 2 ô sẽ in chấm', /Ngày tháng \(người vay ký\)[^]*in chấm/.test(th.textContent) && /Lãi suất[^]*in chấm/.test(th.textContent));
    HSO.vay.ngayKy = '2026-10-20'; hsoChamKBDat('01td', 'nhLai', '6,6'); hsoVe(); await w(200); th = document.querySelector('#hso-tuy .hso-thieu');
@@ -57,7 +57,7 @@ const fs=require('fs'), path=require('path');
    hsoChonMau('01td'); await w(300);
    ok('nút "↺ Về mặc định (3 ô đã đổi)"', /↺ Về mặc định \(3 ô đã đổi\)/.test(document.querySelector('#hso-tuy details.hso-kbr-d').textContent));
    delete HSO.vay.ngayKy; hsoChamVeMD('01td', 1); await w(200);
-   ok('↺ → mọi ô về ✍ (bản in = mặc định, giữ giá trị đã khai lãi 6,6), hết nút', !(hsoLuu().cham||{})['01td'] && hsoLuu().chamGT['01td']['nhLai|HSSV']==='6,6' && !/↺ Về mặc định/.test(document.getElementById('hso-tuy').textContent) && /Lãi suất: \.+%\/năm/.test(hsoLap().h.replace(/<[^>]+>/g, '')));
+   ok('↺ → mọi ô về ✍ (bản in = mặc định, giữ giá trị đã khai lãi 6,6), hết nút', !(hsoLuu().cham||{})['01td'] && hsoLuu().chamGT['01td']['nhLai|HSSV']==='6,6' && !/↺ Về mặc định/.test(document.getElementById('hso-tuy').textContent) && /Lãi suất: [.…]+ ?%\/năm/.test(hsoLap().h.replace(/<[^>]+>/g, '')));
    /* 09A + 01/TĐCK cùng khung */
    hsoChonMau('09a'); await w(300); const tv = hsoTVTo(TO_K.to[C.to]).filter(k=>k.mon.some(m=>(m.dn||0)>0)); HSO.vay.kh = tv[0].kh; hsoLuu().kemTDCK = true; hsoVe(); await w(300);
    const d9 = [...document.querySelectorAll('#hso-tuy details.hso-kbr-d summary')].map(e=>e.textContent);

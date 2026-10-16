@@ -36,7 +36,7 @@ module.exports = async function(p){
     hsoChonMau('09a'); await w(250); const tv9 = tv.find(k=>k.mon.some(m=>(m.dn||0)>0)) || tv[0]; HSO.vay.kh = tv9.kh; hsoLuu().kemTDCK = 0; hsoVe(); await w(300); lay('hsv_09a_so', ()=>hsoLap());
     hsoChonMau('01tdck'); await w(250); HSO.vay.kh = tv9.kh; hsoVe(); await w(300); lay('hsv_01tdck_so', ()=>hsoLap());
     /* 📝 bản ghi mẫu */
-    HSO_GM = true; for(const m of ['01td', '01tgtv']){ hmLamHS(ho.id, m); await w(300); lay('hsv_'+m+'_gm', ()=>hsoLap()); } HSO_GM = false;
+    HSO_GM = true; OM_KIEU = 'mau'; for(const m of ['01td', '01tgtv']){ hmLamHS(ho.id, m); await w(300); lay('hsv_'+m+'_gm', ()=>hsoLap()); } HSO_GM = false; OM_KIEU = 'that';   /* 3.223: mẫu trên nền ô → 📝 Bản mẫu (điền hết) */
     /* ---- KTGS (mẫu khóa) ---- */
     const K = ktCH(); K.ky='2026-08'; K.xa=''; K.diem=''; K.hoi=''; K.to=''; K.che='dx'; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
     const dsK = Object.values(KT_K.to).filter(t=>!toLaTT(t)); let best = dsK[0]; dsK.forEach(t=>{ if(toKhach(t).length>toKhach(best).length) best = t; });
