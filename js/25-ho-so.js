@@ -1766,7 +1766,7 @@ function hsoTuyHTML(M, t){
       hsoTuyO('Tổ trưởng mới', hsoIn('hsoDocO()', B.tt, 'trống = chấm', '', 'hso-o-ttMoi'))+hsoTuyO('thay Ông (Bà)', hsoIn('hsoDocO()', B.ttCu, '', '', 'hso-o-ttCu'))+
       hsoTuyO('Tổ phó mới', hsoIn('hsoDocO()', B.pho, 'trống = chấm', '', 'hso-o-phoMoi'))+hsoTuyO('thay Ông (Bà)', hsoIn('hsoDocO()', B.phoCu, '', '', 'hso-o-phoCu'));
   }
-  else if(M.k==='11'){
+  else if(M.k==='11' || M.k==='11cu'){
     var K = t ? hsoTTKH(t) : {kh:''}, c = K.kh ? hsoKhach(K.kh, t) : {};
     h += hsoNgayTuy('Ngày ký', 'Trống = chấm.')+'<div class="sl-phu">Bên A (PGD) lấy ở <a href="#" onclick="event.preventDefault();hsoKBHop(\'pgd\')">⚙ Khai báo chung</a>'+(hsoPGD('daiDien') ? '' : ' — <b>chưa khai người đại diện</b>')+'.</div>'+
       (t ? '<div class="sl-phu">'+(c.cccd ? 'CCCD tổ trưởng: '+coChuHTML(c.cccd)+' — căn cứ: '+coChuHTML(K.cc) : '⚠ Chưa khớp được tổ trưởng với khách trong Mẫu 31 → số căn cước để chấm.')+'</div>' : '');
