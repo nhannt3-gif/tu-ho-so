@@ -15,7 +15,10 @@ const path=require('path'); const drive=require('./fakedrive.js')();
  const w = (p, t) => p.waitForTimeout(t);
 
  // 1. máy có dữ liệu cũ (trước 3.223) → lần đầu chuyển
- const ctx = await b.newContext(); await ctx.addInitScript(d=>{ if(!localStorage.getItem('t185')){ localStorage.setItem('t185','1'); localStorage.setItem('tuhoso_v1', d); } }, CU);
+ const os=require('os'), fs=require('fs'), HS=fs.mkdtempSync(path.join(os.tmpdir(), 't185-'));   /* hồ sơ trình duyệt ghi đĩa như máy thật — ngữ cảnh ẩn danh (RAM) có hạn mức nhỏ, chạy song song nặng Chromium xóa cả kho trang */
+ const ctx = await chromium.launchPersistentContext(HS, {});
+ const TRANG = path.join(HS, 'trong.html'); fs.writeFileSync(TRANG, '<!doctype html><title>trống</title>');   /* trang file:// trống cùng nguồn: đặt dữ liệu cũ 1 lần, KHÔNG dùng addInitScript (localStorage bị xóa thì không tự nạp lại → thấy đúng lỗi) */
+ { const t = await ctx.newPage(); await t.goto('file://'+TRANG); await t.evaluate(d=>localStorage.setItem('tuhoso_v1', d), CU); await t.close(); }
  let p = await mo(ctx); await w(p, 600);
  const a1 = await p.evaluate(async()=>{ await LN.xong(); const j = await LN.napIDB(), f = await docFile('ln:banCu'), t = LN.tt();
    return {bat:t.bat, vb:j && j.vanBan.length, ch:j && j.cauHinh.thuCu, gc:j && j.ghiChu.length, banCu:f ? await f.text() : '', bc:!!t.banCu, ls:/"luuLuc":\d+\}$/.test(localStorage.getItem('tuhoso_v1'))}; });
@@ -42,6 +45,11 @@ const path=require('path'); const drive=require('./fakedrive.js')();
  const a5 = await p.evaluate(async()=>{ D.vanBan = D.vanBan.filter(x=>!/LON-GIA/.test(x.soHieu)); luuNgay(); await LN.xong(); return {cho:localStorage.getItem('tuhoso_ln_cho'), ls:!!localStorage.getItem('tuhoso_v1')}; });
  ok('dữ liệu nhỏ lại → localStorage ghi lại được, bỏ dấu chờ', a5.cho===null && a5.ls);
 
+ // 3b. localStorage bị xóa mất (Chromium có lúc xóa cả kho sau lần ghi quá chỗ) → mở lại KHÔNG coi là máy mới, nạp IndexedDB, không ghi đè bằng bản trống
+ await p.evaluate(async()=>{ await LN.xong(); localStorage.clear(); }); await p.reload(); await w(p, 1500);
+ const a5b = await p.evaluate(async()=>{ await xongTV; await LN.xong(); await new Promise(x=>setTimeout(x, 500)); const j = await LN.napIDB(); return {vb:D.vanBan.length, ch:D.cauHinh.thuNgan, idb:j.vanBan.length, ls:!!localStorage.getItem('tuhoso_v1')}; });
+ ok('localStorage bị xóa mất → mở lại nạp đủ từ IndexedDB, ghi lại localStorage, IndexedDB không bị ghi đè', a5b.vb===3 && a5b.ch===2 && a5b.idb===3 && a5b.ls, JSON.stringify(a5b));
+
  // 4. công tắc quay lại cách cũ → chỉ localStorage; bật lại → chép đủ sang IndexedDB
  const a6 = await p.evaluate(async()=>{ lnDoiCach('cu', true); const g0 = LN.tt().dem.ghi; D.cauHinh.thuCach = 'cu'; luuNgay(); await LN.xong(); return {cach:LN.cach(), bat:LN.bat(), ghi:LN.tt().dem.ghi-g0, ls:JSON.parse(localStorage.getItem('tuhoso_v1')).cauHinh.thuCach}; });
  ok('quay lại cách cũ: không ghi IndexedDB nữa, localStorage giữ bản mới', a6.cach==='cu' && !a6.bat && a6.ghi===0 && a6.ls==='cu', JSON.stringify(a6));
@@ -65,7 +73,7 @@ const path=require('path'); const drive=require('./fakedrive.js')();
  await w(p, 1500); await p.evaluate(async()=>{ await xongTV; await LN.xong(); await new Promise(x=>setTimeout(x, 400)); });
  const a11 = await p.evaluate(()=>({vb:D.vanBan.length, cu:D.cauHinh.thuCu}));
  ok('xóa sạch máy → kho ngăn trống, mở lại không có dữ liệu cũ', a10.j && a11.vb===0 && a11.cu===undefined, JSON.stringify([a10, a11]));
- await ctx.close();
+ await ctx.close(); try { fs.rmSync(HS, {recursive:true, force:true}); } catch(e){}
 
  // 7. IndexedDB bị chặn (trình duyệt riêng tư) → cách cũ, app chạy bình thường
  const c2 = await b.newContext(); await c2.addInitScript(d=>{ if(!localStorage.getItem('t185')){ localStorage.setItem('t185','1'); localStorage.setItem('tuhoso_v1', d); } }, CU);

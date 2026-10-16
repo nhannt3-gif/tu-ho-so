@@ -124,18 +124,28 @@ var LN = (function(){
     /* xóa sạch máy: bỏ cả kho ngăn + dấu chờ */
     xoaHet: function(){ try { localStorage.removeItem(CHO); } catch(e){} CU = {}; return dat({}, true).catch(function(){}); },
     tt: function(){ return {cach:cach(), bat:me.bat(), hong:hong, cho:me.cho(), meta:META, dem:DEM, banCu:me.banCu}; },
+    giu: false,   /* true: đang đọc IndexedDB lúc mở app (localStorage trống) — luuNgay() hoãn, không ghi đè */
     _tat: function(v){ tat = !!v; }
   };
   return me;
 })();
 window.LN_J = null;
 if(LN.bat()) try { LN.dauPhien = localStorage.getItem(KHOA); } catch(e){}   /* bản localStorage lúc mở app, trước mọi lần ghi */
-/* mở app: localStorage không giữ bản mới nhất → đọc IndexedDB rồi mới khởi động; bình thường khởi động ngay như cũ rồi kiểm sau */
+/* mở app: localStorage không giữ bản mới nhất (dấu chờ) HOẶC không có dữ liệu → đọc IndexedDB rồi mới khởi động; bình thường khởi động ngay như cũ rồi kiểm sau.
+   Không có dữ liệu ở localStorage mà IndexedDB có = localStorage bị xóa / mất (Chromium có lúc xóa cả kho localStorage sau lần ghi quá chỗ) → KHÔNG coi là máy mới, không ghi đè IndexedDB. */
 var LN_KD = khoiDong;
 khoiDong = function(){
-  if(LN.bat() && LN.cho()) return LN.napIDB().then(function(j){ window.LN_J = j; if(!j) LN._tat(1); }, function(){ LN._tat(1); }).then(function(){
+  var cho = LN.cho(), trong = false; try { trong = !localStorage.getItem(KHOA); } catch(e){}
+  if(LN.bat() && cho) return LN.napIDB().then(function(j){ window.LN_J = j; if(!j) LN._tat(1); }, function(){ LN._tat(1); }).then(function(){
     LN_KD(); window.LN_J = null;
     if(LN.bat()) LN.sauKD(); else baoLoi('Không đọc được dữ liệu ở IndexedDB — vào ⚙ Khai báo đơn vị › 💾 Sao lưu để lấy lại từ bản tự lưu / Drive.'); });
+  if(LN.bat() && trong){   /* localStorage trống: khởi động ngay (máy mới) nhưng GIỮ mọi lần ghi tới khi đọc xong IndexedDB */
+    LN.giu = true; LN_KD();
+    return LN.napIDB().then(function(j){ return j; }, function(){ return null; }).then(function(j){
+      var co = j && ['vanBan', 'duLieu', 'ghiChu', 'scan', 'bieuMau', 'kyAnh', 'boHS'].some(function(k){ return (j[k] || []).length; }) || j && j.cauHinh && Object.keys(j.cauHinh).some(function(k){ return !(k in MAC_DINH) && !(typeof chRieng==='function' && chRieng(k)); });   /* có văn bản / dữ liệu / khai báo thật (không chỉ mặc định) */
+      if(co){ window.LN_J = j; nap(); window.LN_J = null; if(typeof HS!=='undefined') HS.ds = D.scan; try { capNhatDau(); ve(); } catch(e){} bao('Đã nạp dữ liệu từ IndexedDB (bản ở localStorage bị mất).', 6); }
+      LN.giu = false; if(co) luuNgay(); return LN.sauKD(); });
+  }
   LN_KD(); if(LN.bat()) setTimeout(function(){ LN.sauKD(); }, 50);
 };
 

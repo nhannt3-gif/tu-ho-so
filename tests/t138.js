@@ -16,11 +16,13 @@ const sv = http.createServer((q, r) => { const f = path.join(GOC, decodeURICompo
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
  await p.goto('http://127.0.0.1:'+cong+'/'); await p.waitForTimeout(1500);
  const tepJS = fs.readdirSync(path.join(GOC,'js')).filter(n=>n.endsWith('.js')).sort();
+ const tepMau = fs.readdirSync(path.join(GOC,'js','mau')).filter(n=>n.endsWith('.js')).sort();
  const hamFile = [].concat.apply([], tepJS.map(n=>(fs.readFileSync(path.join(GOC,'js',n),'utf8').match(/^function ([\w$]+)/mg)||[]).map(x=>x.slice(9))));
  const R = await p.evaluate(async(a)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    const sc = Array.from(document.querySelectorAll('script[src]')).map(s=>s.getAttribute('src'));
-   ok('nạp đủ '+a.tepJS.length+' file js theo thứ tự tên', sc.filter(s=>/^js\//.test(s)).map(s=>s.replace(/^js\/|\?.*$/g,'')).join()===a.tepJS.join(), sc.length);
+   ok('nạp đủ '+a.tepJS.length+' file js theo thứ tự tên', sc.filter(s=>/^js\/[^\/]+$/.test(s.replace(/\?.*$/,''))).map(s=>s.replace(/^js\/|\?.*$/g,'')).join()===a.tepJS.join(), sc.length);
+   ok('3.223: nạp đủ '+a.tepMau.length+' mô-đun mẫu js/mau/*.js, sau các file js chính', sc.filter(s=>/^js\/mau\//.test(s)).map(s=>s.replace(/^js\/mau\/|\?.*$/g,'')).sort().join()===a.tepMau.join() && sc.findIndex(s=>/^js\/mau\//.test(s)) > sc.findIndex(s=>/^js\/34-/.test(s)));
    ok('?v= mọi thẻ nạp = APP_BAN', Array.from(document.querySelectorAll('script[src^="js/"],link[href^="css/"]')).every(e=>(e.getAttribute('src')||e.getAttribute('href')).split('?v=')[1]===APP_BAN), APP_BAN);
    ok('file index.html không còn khối <style> / <script> viết trong trang', a.trongHTML===0, a.trongHTML);
    ok('kiểu chữ từ css/app.css có tác dụng (biến màu nền)', getComputedStyle(document.documentElement).getPropertyValue('--nen').trim()!=='');
@@ -37,7 +39,7 @@ const sv = http.createServer((q, r) => { const f = path.join(GOC, decodeURICompo
      ok('📌 nền tối: khối HSSV nền tối', pw.getComputedStyle(pd.querySelector('.hs-k')).backgroundColor==='rgb(22, 58, 36)', pw.getComputedStyle(pd.querySelector('.hs-k')).backgroundColor);
      hsNoiDong(); }
    return o;
- }, {tepJS, ham: hamFile, trongHTML: (fs.readFileSync(path.join(GOC,'index.html'),'utf8').match(/^<(style|script)>$/mg)||[]).length});
+ }, {tepJS, tepMau, ham: hamFile, trongHTML: (fs.readFileSync(path.join(GOC,'index.html'),'utf8').match(/^<(style|script)>$/mg)||[]).length});
  R.forEach(x=>console.log(x)); if(thieu.length) console.log('THIẾU FILE:', thieu.slice(0,5)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));
  const sai = R.filter(x=>x[0]==='✗').length + (thieu.length ? 1 : 0); console.log((R.length-sai)+'/'+R.length+' đạt'); await b.close(); sv.close(); process.exit(sai||loi.length ? 1 : 0);
 })();

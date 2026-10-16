@@ -201,6 +201,7 @@ function luu(){ if(!LUU_HEN) LUU_HEN = setTimeout(luuNgay, 300); return true; }
 function luuHuy(){ if(LUU_HEN){ clearTimeout(LUU_HEN); LUU_HEN = null; } }
 function luuNgay(){
   luuHuy(); if(window.LUU_KHOA_XOA) return false;   /* đang xóa sạch máy → không ghi lại */
+  if(typeof LN!=='undefined' && LN.giu){ LUU_HEN = setTimeout(luuNgay, 300); return true; }   /* 3.223 M8: đang đọc IndexedDB lúc mở app → hoãn, không ghi đè bằng bản trống */
   var o = {
       phienBan:PHIEN_BAN, cauHinh:D.cauHinh, vanBan:D.vanBan,
       duLieu:D.duLieu, ghiChu:D.ghiChu, ganDay:D.ganDay, cho:D.cho, bieuMau:D.bieuMau, rac:D.rac, scan:D.scan, lich:D.lich, daXoaHan:D.daXoaHan||[], nguonCau:D.nguonCau||null,
