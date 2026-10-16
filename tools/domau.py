@@ -7,6 +7,7 @@ MM = lambda tw: round(int(tw)/56.6929, 1)   # twip → mm
 def chu(x): return re.sub(r'\s+', ' ', x).strip()
 def doc(f):
     z = zipfile.ZipFile(f); s = z.read('word/document.xml').decode('utf-8')
+    s = re.sub(r'<mc:Fallback>.*?</mc:Fallback>', '', s, flags=re.S)   # 3.223: hộp chữ Word lưu 2 bản (Choice + Fallback) → chỉ lấy 1
     pg = re.findall(r'<w:pgSz([^>]*)/>', s); mar = re.findall(r'<w:pgMar([^>]*)/>', s)
     a = lambda t, k: (re.search(k+r'="(\d+)"', t) or [None, '0'])[1]
     w, h = MM(a(pg[0], 'w:w')), MM(a(pg[0], 'w:h'))

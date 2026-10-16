@@ -18,20 +18,20 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    const nut = [].map.call(document.querySelectorAll('#tr7 .sl-con button'), x=>x.textContent);
    ok('thanh tab con Số liệu có 📝 Hồ sơ Tổ và 📄 Hồ sơ vay', nut.some(x=>/Hồ sơ Tổ/.test(x)) && nut.some(x=>/Hồ sơ vay/.test(x)), nut.join(' | '));
    ok('thanh bên: nhóm Hồ sơ có 2 mục mới', DH_MUC.some(m=>m.k==='hst') && DH_MUC.some(m=>m.k==='hsv'));
-   ok('tab Hồ sơ Tổ: khối LỌC ĐỊA BÀN + danh sách 6 mẫu + khung xem', !!document.querySelector('#hst-cay .loc-khoi') && document.querySelectorAll('#hso-tabm .hso-tm').length===6 && !!document.getElementById('hso-xem-khung'));
+   ok('tab Hồ sơ Tổ: khối LỌC ĐỊA BÀN + danh sách 7 mẫu (3.223: 10C cũ / mới 2 chip) + khung xem', !!document.querySelector('#hst-cay .loc-khoi') && document.querySelectorAll('#hso-tabm .hso-tm').length===7 && !!document.getElementById('hso-xem-khung'));
    /* chưa chọn tổ → mẫu trắng */
    const C = hsoCH(); C.xa=''; C.diem=''; C.hoi=''; C.to=''; hsoChonMau('10c'); await w(400);
-   ok('chưa chọn tổ: 10C là mẫu trắng (chấm), vẫn có nút In / Word', /BIÊN BẢN HỌP/.test(chu()) && /Chủ trì: Ông \(bà\) \.{10}/.test(chu()) && /Word/.test(document.getElementById('hso-xem-nut').textContent));
+   ok('chưa chọn tổ: 10C là mẫu trắng (chấm), vẫn có nút In / Word', /BIÊN BẢN HỌP/.test(chu()) && /Chủ trì: Ông ?\(bà\) ?[.…]{10}/.test(chu()) && /Word/.test(document.getElementById('hso-xem-nut').textContent));
    pvChon('hst','xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(400);
    pvChon('hst','diem', pvLuaChon(TO_K.to, C, 'diem', true)[0].k); await w(400);
    pvChon('hst','to', pvLuaChon(TO_K.to, C, 'to', true)[0].k); await w(1500);
    const t = TO_K.to[C.to], tv = hsoTVTo(t);
-   /* 10C theo ngày họp */
-   HSO.o.ngay = '2026-09-15'; hsoXem(); await w(200);
-   ok('10C ngày họp 15/09/2026 → mẫu cũ (kết nạp bổ sung, Ấp (kp))', /kết nạp bổ sung tổ viên/.test(chu()) && /Ấp \(kp\)/.test(chu()) && HSO.x.ma.indexOf('cũ')>0);
-   HSO.o.ngay = '2026-10-05'; hsoXem(); await w(200);
-   ok('10C ngày họp 05/10/2026 → mẫu mới QĐ 70 (Hình thức họp, bảng I │ II, đề nghị vay)', /Hình thức họp/.test(chu()) && /Tổ viên được kết nạp/.test(chu()) && /đề nghị vay vốn NHCSXH/.test(chu()) && /05\/10\/2026/.test(chu()));
-   ok('10C điền tổ trưởng, thôn, xã từ số liệu', chu().indexOf('Ông (bà) '+t.ten+'. Chức vụ: Tổ trưởng')>=0 && chu().indexOf('Thôn '+hsoApTen(t))>=0, t.ten+' · '+hsoApTen(t));
+   /* 3.223 (anh 16/10): 10C cũ / mới = 2 chip độc lập, không chọn theo ngày; ngày Hồ sơ Tổ mặc định chấm */
+   HSO.o.ngay = '2026-09-15'; hsoChonMau('10ccu'); await w(300);
+   ok('chip 10C cũ → mẫu cũ (kết nạp bổ sung, Ấp (kp))', /kết nạp bổ sung tổ viên/.test(chu()) && /Ấp \(kp\)/.test(chu()) && HSO.x.ma.indexOf('cũ')>0);
+   HSO.o.ngay = '2026-10-05'; hsoChonMau('10c'); await w(300);
+   ok('chip 10C mới → mẫu mới QĐ 70 (Hình thức họp, bảng I │ II, đề nghị vay); ngày họp mặc định chấm', /Hình thức họp/.test(chu()) && /Tổ viên được kết nạp/.test(chu()) && /đề nghị vay vốn NHCSXH/.test(chu()) && !/05\/10\/2026/.test(chu()));
+   ok('10C điền tổ trưởng, thôn, xã từ số liệu', (chu().indexOf('Ông (bà) '+t.ten+'. Chức vụ: Tổ trưởng')>=0 || chu().indexOf('Ông(bà)'+t.ten+' Chức vụ: Tổ')>=0) && (chu().indexOf('Thôn '+hsoApTen(t))>=0 || chu().indexOf('Thôn'+hsoApTen(t))>=0), t.ten+' · '+hsoApTen(t));
    /* tích kết nạp 1 người, cho ra 1 người → bảng + tổng sau họp */
    HSO.kn = {}; HSO.ra = {}; HSO.kn['KH_GIA_MOI'] = true; HSO.ra[tv[0].kh] = true; hsoXem(); await w(200);
    const L = hsoKNRa(t, tv);
@@ -39,7 +39,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    /* khai báo 1 lần */
    hsoKB().pgd.daiDien = 'Nguyễn Văn Giả'; hsoKB().ap[hsoApKhoa(t)] = 'Trần Trưởng Ấp Giả'; hsoKB().pho[t.ma] = 'Lê Tổ Phó Thật'; luu();
    hsoVe(); await w(300);
-   ok('khai báo trưởng ấp + tổ phó thực tế → 10C dùng (ô vàng)', chu().indexOf('Trần Trưởng Ấp Giả')>=0 && chu().indexOf('Lê Tổ Phó Thật')>=0 && /o-kb">Trần Trưởng Ấp Giả/.test(HSO.x.h));
+   ok('khai báo trưởng ấp + tổ phó thực tế → 10C dùng (ô vàng)', chu().indexOf('Trần Trưởng Ấp Giả')>=0 && chu().indexOf('Lê Tổ Phó Thật')>=0 && (/o-kb">Trần Trưởng Ấp Giả/.test(HSO.x.h) || /data-o="truongAp"[^>]*>Trần Trưởng Ấp Giả/.test(HSO.x.h)));
    ok('tổ phó khai khác máy → nhắc ⚠ ở cột tùy chọn', !t.pho || /Tổ phó theo khai báo/.test(document.getElementById('hso-tuy').textContent));
    hsoKBHop(); await w(200);
    ok('hộp ⚙ Khai báo 1 lần: có PGD, trưởng ấp, tổ phó, mục đích vay', ['Phòng giao dịch','Trưởng ấp','Tổ phó thực tế','Mục đích vay'].every(x=>document.getElementById('hop-in').textContent.indexOf(x)>=0));

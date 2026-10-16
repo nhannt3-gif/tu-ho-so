@@ -10,7 +10,8 @@
    ========================================================== */
 var HSO_MAU = {
   hst: [
-    {k:'10c',  ma:'10C/TD', ten:'Biên bản họp kết nạp, cho ra khỏi Tổ', ghi:'mẫu cũ (vào tổ đến 30/09/2026) · mẫu mới QĐ 70 (từ 01/10/2026) — tự chọn theo ngày họp', mg:[10, 20, 10, 30]},
+    {k:'10c',  ma:'10C/TD mới', ten:'Biên bản họp kết nạp, cho ra khỏi Tổ — mẫu mới QĐ 70 (từ 01/10/2026)', mg:[10, 20, 10, 30]},   /* 3.223 (anh 16/10): 10C cũ / 10C mới là 2 mẫu độc lập, anh tự chọn */
+    {k:'10ccu', ma:'10C/TD cũ', ten:'Biên bản họp kết nạp bổ sung, cho ra khỏi Tổ — mẫu cũ (vào tổ đến 30/09/2026)', mg:[10, 20, 10, 30]},
     {k:'10a',  ma:'10A/TD', ten:'Biên bản họp thành lập Tổ', mg:[20, 20, 20, 30]},
     {k:'10b',  ma:'10B/TD', ten:'Biên bản họp kết nạp, thay đổi Ban quản lý Tổ', mg:[20, 20, 20, 30]},
     {k:'11',   ma:'11/TD',  ten:'Hợp đồng ủy nhiệm', mg:[20, 20, 20, 30]},
@@ -251,7 +252,7 @@ function hsoBangTen2(ds, nhan, toiThieu){   /* STT · Họ tên │ STT · Họ 
   return hsoBang('luoi', [8, 42, 8, 42], h);
 }
 function hsoLap10c(t, X){
-  var T = hsoTo(t), tv = hsoTVTo(t), L = t ? hsoKNRa(t, tv) : {kn:[], ra:[], truoc:0, sau:0}, ng = HSO.o.ngay || '', moi = X && X.moi ? true : hso10cMoi(ng), N = hsoNguoiHoi(t), tk = hsoLuu().tkMin || '';
+  var T = hsoTo(t), tv = hsoTVTo(t), L = t ? hsoKNRa(t, tv) : {kn:[], ra:[], truoc:0, sau:0}, ng = HSO.o.ngay || '', moi = X && X.moi ? true : X && X.cu ? false : X && X.moiChon ? true : hso10cMoi(ng), N = hsoNguoiHoi(t), tk = hsoLuu().tkMin || '';
   if(X && X.kn){ var moiVao = X.kn.filter(function(x){ return !tv.some(function(k){ return k.kh && k.kh===x.kh; }); }).length; L = {kn:X.kn, ra:[], truoc:tv.length, sau:tv.length+moiVao}; }   /* 3.171: biên bản trong bộ hồ sơ vay (hộ mới → kết nạp; mục 2 = người đề nghị vay) */
   var gioNgay = 'Thời gian bắt đầu: '+hsoCham(6)+' giờ '+hsoCham(6)+', '+(ng ? 'ngày '+hsoNgayO(ng) : 'ngày '+hsoCham(5)+'/'+hsoCham(5)+'/'+hsoCham(8));
   var h;
@@ -293,6 +294,7 @@ function hsoLap10c(t, X){
   return {ma:'10C/TD (mẫu mới QĐ 70)', h:h};
 }
 
+function hsoLap10cCu(t){ return hsoLap10c(t, {cu:1}); }   /* 3.223: chip 10C cũ */
 /* ---------- 10A/TD ---------- */
 function hsoLap10a(t){
   var T = hsoTo(t), tv = hsoTVTo(t).filter(function(k){ return HSO.tv[k.kh]!==false; }), N = hsoNguoiHoi(t), ng = HSO.o.ngay || '', L = hsoLuu(), n = Math.max(20, Math.ceil(tv.length/2)), ds = '';
@@ -999,7 +1001,7 @@ function hsoLap(){
   else if(M.k==='01tgtv'){ var P = hsoTGTVDs(t, B); x = {ma:'01/TGTV', ds:(P.length ? P : [null]).map(function(y){ return {M:M, h:hsoLap01tgtv(t, y).h}; })}; ai = P.length===1 ? P[0].ten : ''; }
   else if(M.k==='03td' && (hsoD03().ds.length || (B && B.hoId)) && (!B || B.hoId)){ var D3 = hsoD03(), t3 = hsoD03To(D3); x = hsoLap03td(t3, null, hsoD03Hang(D3), D3.ct); }   /* 3.209: 03/TD nhiều hộ cùng chương trình */
   else if(M.k==='03td' && !B && t){ var ch = HSO.vay.chon || {}; x = hsoLap03td(t, null, hsoTVTo(t).filter(function(k){ return ch[k.kh]; }).map(function(k){ return {ten:k.ten}; })); }
-  else { var f = {'10c':hsoLap10c, '10a':hsoLap10a, '10b':hsoLap10b, '11':hsoLap11, '01bg':hsoLap01bg, '02bg':hsoLap02bg, '01uq':hsoLap01uq, '01td':hsoLap01td, '03td':hsoLap03td, '09a':hsoLap09a, '01tdck':hsoLap01tdck, '01gqvl':hsoLap01gqvl, '07b':hsoLap07b}[M.k];
+  else { var f = {'10c':function(t){ return hsoLap10c(t, {moiChon:1}); }, '10ccu':hsoLap10cCu, '10a':hsoLap10a, '10b':hsoLap10b, '11':hsoLap11, '01bg':hsoLap01bg, '02bg':hsoLap02bg, '01uq':hsoLap01uq, '01td':hsoLap01td, '03td':hsoLap03td, '09a':hsoLap09a, '01tdck':hsoLap01tdck, '01gqvl':hsoLap01gqvl, '07b':hsoLap07b}[M.k];
     x = f(t, p==='hsv' && /^(01uq|01td|03td|01gqvl|07b)$/.test(M.k) ? B : undefined);
     ai = /^(01uq|01td|01gqvl|07b)$/.test(M.k) ? hsoBoNV(B).ten || '' : /^(09a|01tdck)$/.test(M.k) ? ((hsoKhachChon(t)||{}).ten || '') : ''; }
   if(!x.ds) x.ds = [{M:M, h:x.h}];
@@ -1152,7 +1154,7 @@ function hsoVe(){
       tv.forEach(function(x){ if(x.vao) HSO.kn[x.kh] = true; if(!x.conNo && !x.chuaGN && !(x.t105>0)) HSO.ra[x.kh] = true; });
       if(TO_BD && TO_BD.to===t.ma && TO_BD.co) TO_BD.ra.forEach(function(r){ HSO.ra[r.kh] = true; }); }
   }
-  if(t && (M.k==='10c' || M.k==='10b') && !(TO_BD && TO_BD.to===t.ma && TO_BD.ky===KHO.ky().ky)){ TO_BD = null; toBDNap(t).then(function(){ HSO.khoa = ''; if(document.getElementById('hso-ds')) hsoVe(); }); }
+  if(t && (M.k==='10c' || M.k==='10ccu' || M.k==='10b') && !(TO_BD && TO_BD.to===t.ma && TO_BD.ky===KHO.ky().ky)){ TO_BD = null; toBDNap(t).then(function(){ HSO.khoa = ''; if(document.getElementById('hso-ds')) hsoVe(); }); }
   ds.innerHTML = hsoDsHTML();
   var tm = document.getElementById('hso-tabm'); if(tm) tm.innerHTML = hsoTabMauHTML();
   var tu = document.getElementById('hso-tuy'); if(tu) tu.innerHTML = hsoTuyHTML(M, t);
@@ -1741,12 +1743,11 @@ function hsoTuyHTML(M, t){
   if(can) h += '<div class="sl-bao vang hso-nhac">Chọn <b>1 tổ</b> ở khối LỌC ĐỊA BÀN để app điền sẵn — chưa chọn thì khung phải là mẫu trắng (in được ngay).</div>';
   if(t && T.phoKB && T.phoMay && slChuan(T.phoMay)!==slChuan(T.pho)) h += '<div class="sl-phu hso-canh">⚠ Tổ phó theo khai báo: <b>'+coChuHTML(T.pho)+'</b> (trên máy: '+coChuHTML(T.phoMay)+')</div>';
   else if(t && !T.pho) h += '<div class="sl-phu hso-canh">Tổ chưa có tổ phó trên máy — <a href="#" onclick="event.preventDefault();hsoKBHop(\'pho\')">⚙ khai tổ phó thực tế</a>.</div>';
-  if(t && !T.truongAp && ['10c','10a','10b'].indexOf(M.k)>=0) h += '<div class="sl-phu hso-canh">Chưa khai trưởng ấp '+coChuHTML(T.ap)+' — <a href="#" onclick="event.preventDefault();hsoKBHop(\'ap\')">⚙ khai báo</a>.</div>';
+  if(t && !T.truongAp && ['10c','10ccu','10a','10b'].indexOf(M.k)>=0) h += '<div class="sl-phu hso-canh">Chưa khai trưởng ấp '+coChuHTML(T.ap)+' — <a href="#" onclick="event.preventDefault();hsoKBHop(\'ap\')">⚙ khai báo</a>.</div>';
   var tv = hsoTVTo(t);
-  if(M.k==='10c'){
+  if(M.k==='10c' || M.k==='10ccu'){   /* 3.223 (anh 16/10): 10C cũ / mới là 2 chip — bỏ chọn mẫu theo ngày */
     var raBD = TO_BD && t && TO_BD.to===t.ma && TO_BD.co ? TO_BD.ra : [];
-    h += hsoNgayTuy('Ngày họp', 'Chọn mẫu theo ngày họp: đến 30/09/2026 mẫu cũ, từ 01/10/2026 mẫu mới (QĐ 70). Trống = chấm, mẫu theo hôm nay.')+
-      hsoTuyO('Mẫu', hsoChon('hsoDatLuu(\'mau10c\',this.value)', L.mau10c || 'tu', [['tu','Tự theo ngày họp'], ['cu','Mẫu cũ (vào tổ đến 30/09/2026)'], ['moi','Mẫu mới QĐ 70 (từ 01/10/2026)']]))+hsoHoiTuy(t)+
+    h += hsoNgayTuy('Ngày họp', 'Trống = chấm (Hồ sơ Tổ mặc định để trống ngày).')+hsoHoiTuy(t)+
       hsoTuyO('Tiết kiệm tối thiểu (đ)', hsoIn('hsoDatLuu(\'tkMin\',this.value)', L.tkMin||'', 'trống = chấm'))+
       (t ? hsoDsTick('kn', tv.filter(function(k){ return k.vao; }).map(function(k){ return {kh:k.kh, ten:k.ten, ghi:k.vao.tu}; }).concat(tv.filter(function(k){ return !k.vao; }).map(function(k){ return {kh:k.kh, ten:k.ten, ghi:'tổ viên hiện có'}; })), '➕ Kết nạp (mới vào tích sẵn)')+
         hsoDsTick('ra', raBD.map(function(r){ return {kh:r.kh, ten:r.ten, ghi:'đã ra khỏi tổ — '+r.di}; }).concat(tv.filter(function(k){ return !k.conNo && !k.chuaGN; }).map(function(k){ return {kh:k.kh, ten:k.ten, ghi:k.t105>0 ? 'tất nợ, còn 105' : 'tất nợ, 105 = 0'}; })), '➖ Cho ra (ra khỏi tổ + tất nợ 105 = 0 tích sẵn)', TO_BD ? 'Không có.' : 'Đang so Mẫu 31 tháng trước…') : '');
