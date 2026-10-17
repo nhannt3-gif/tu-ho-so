@@ -16,7 +16,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **03/TD theo 01/TD** (`hsoD03TuBo`): dòng của hộ có 01/TD cùng chương trình → số tiền, mục đích, thời hạn, ĐTTH theo 01/TD (ô anh gõ tay ở 03/TD giữ nguyên); 03/TD 1 hộ đổi chương trình theo 01/TD.
 - **Phiếu cũ tự gắn Sổ hộ vay** (`hmChuyenCu` chạy mỗi lần, trước 1 lần): anh báo "tab hộ vay cũ và sổ hộ vay chưa link" — phiếu chưa gắn sổ làm mẫu rơi về giao diện Hộ vay cũ; nay gắn vào hộ trùng CCCD / tên, không có thì thêm hộ. Địa chỉ, nhân thân theo Sổ hộ vay (một nguồn).
 - **⚙ Khai báo riêng**: nút **▸ Mở / ▾ Tắt** rõ ràng, mặc định **tắt** (khóa nhớ mới `kbrMo`).
-- **Chuẩn khóa:** cập nhật `tests/chuan/hsv_01td_so|gm`, `hsv_03td_so|trang` (anh duyệt đổi). t181: 01/TD cho xê ≤ 12 mm, 03/TD chỉ giữ cùng số trang.
+- **Chuẩn khóa:** cập nhật `tests/chuan/hsv_01td_so|gm`, `hsv_03td_so|trang` (anh duyệt đổi). t181: 01/TD cho xê ≤ 12 mm, 03/TD chỉ giữ cùng số trang. t180: 03/TD bản trắng 5 dòng theo lời anh (file Word gốc 4 dòng) → khối dưới bảng lệch gốc ≤ 12 mm.
 - **Phép thử:** `tests/t199.js` (mới, 14); t172, t178, t181 theo luật mới.
 
 ## 3.239 — 17/10/2026 — Dọn nhỏ theo file rà soát anh gửi (bước 1)
