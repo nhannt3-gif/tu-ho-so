@@ -82,5 +82,11 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     2. Mẫu **không gắn sẵn dữ liệu**; chỉ khi **chọn hộ ở Sổ hộ vay rồi gọi tới mẫu** thì mẫu mới được điền.
     3. Cần **1 nơi riêng** để **trực quan chọn từng mẫu biểu**, tối ưu, khai báo cho thật hoàn chỉnh.
     4. Nơi đó có cả **mẫu trắng** và **gắn dữ liệu mẫu (giả) để thử**.
-  - (chờ anh nói tiếp)
+  - **Ý 2 (17/10):**
+    1. Mẫu là phần **dùng nhiều nhất**, sau này **nhiều mẫu hơn nữa** → đặt **ở ngoài**, trong **1 tab Mẫu biểu** riêng (để như hiện tại cũng ổn, nhưng sợ nhiều mẫu sẽ rối).
+    2. Mẫu có **chế độ gõ tay** khi cần — thay việc mở Word gõ thủ công (phải sửa / xóa, hay làm lệch form).
+    3. Bố trí: **form bên trái, màn xem bên phải**; ô nào **chọn từ danh sách** được thì cho chọn, ô nào **tự động** được thì tự động.
+    4. Các chế độ: **thủ công** (không gắn dữ liệu tự động) · **bán tự động** · (tự động khi gọi từ Sổ hộ vay).
+    5. **Gõ xong lưu lại được.**
+  - (chờ anh bàn tiếp — đề xuất của em ở tin nhắn 17/10, chưa chốt)
 
