@@ -131,5 +131,14 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
   - **Ý 16 (17/10):** form lập mẫu **đi đúng thứ tự trên tờ mẫu** cho quen — ô chọn nhanh (chương trình, mục đích…) **nằm đúng chỗ của nó trên giấy**, không gom riêng lên đầu.
   - **Ý 17 (17/10):** **phạm vi làm trước: đúng 1 bộ — 01/TD · 03/TD · 06/TD · Giấy ủy quyền (01/UQ)**. Nhập liệu theo **bộ quy tắc chung** (đã có từ trước, nay ghi thành luật `docs/QUY_CHUAN_KIEN_TRUC.md` mục 11): Tab / Enter sang ô kế · ↑↓ chọn trong danh sách · ←→ đi trong chữ để sửa · ngày gõ liền số không cần dấu /.
   - **Ý 18 (17/10):** bảng trên giấy **co theo số dòng có dữ liệu** — **03/TD có 1 hộ** thì tự **cân đối các ô, bỏ dòng thừa**; **01/TD** (bảng đối tượng — hiện để sẵn nhiều dòng chấm) và **06/TD** cũng vậy. (Bản trắng in sẵn để ghi tay: giữ dòng trống như mẫu gốc — chờ anh xác nhận.)
+  - **Ý 19 (17/10):** in **mẫu trắng** → bảng **đủ 5 dòng** (như mẫu gốc); có dữ liệu → co theo số dòng (ý 18). HSSV: dòng sinh viên **không ép 1 dòng** (chữ dài xuống dòng như file mẫu). **01/TD HSSV: chỗ ký UBND còn ngắn quá; chỗ ký Ngân hàng bị mất → đối kỹ mẫu.**
+  - **Đối chiếu 01/TD app (3.238) với 2 file mẫu anh gửi (em soi 17/10):**
+    1. App dựng **ô cố định đúng bề rộng chuỗi chấm của mẫu trắng** → khi có dữ liệu chữ bị **hở khoảng** ("ngày cấp:  14 / 09 /2021 ,", "thôn 01      xã (phường) …", "60.000.000          đồng") và còn chữ khuôn "xã (phường)". File anh: chữ **chạy liền** ("ấp 6, xã …, tỉnh Tây Ninh.", "80.000.000 đồng").
+    2. Bảng đối tượng: app **thu nhỏ chữ** dòng HSSV cho vừa 1 dòng + 2 dòng chấm thừa; tiêu đề không đậm. File anh: tiêu đề **đậm canh giữa**, chỉ dòng có dữ liệu, chữ dài **xuống dòng**.
+    3. Ngày ký · Người vay: file anh ở **cột phải**, canh giữa cột, ghi chú nghiêng; app để giữa trang, cách dòng rộng.
+    4. UBND (HSSV): file anh **2 cột cùng hàng** (trái: Xác nhận của UBND xã đậm · Ông/bà … · 2 dòng chấm · **Chủ tịch** đậm · (ký tên, đóng dấu) — phải: Ngày … · Người vay) + **chừa ~4 dòng ký** trước PHÊ DUYỆT; app xếp chồng, chỗ ký ngắn.
+    5. Ký Ngân hàng: file anh 3 cột **thẳng hàng**, tiêu đề đậm, ghi chú nghiêng nhỏ, "Ngày … tháng … năm …" trên cột Giám đốc, **chừa chỗ ký tới cuối trang**; app 3 cột lệch hàng, **hết chỗ ký** (in thật dễ tràn trang → "mất").
+    6. Đầu giấy: file anh quốc hiệu **đậm, canh giữa, gạch dưới**, "Mẫu số 01/TD" đậm góc phải.
+    → Hướng: **2 cách dựng** — bản trắng (chấm, ô cố định, đủ 5 dòng) và **bản đã điền** (chữ liền như file anh, bảng co theo dữ liệu); khối ký UBND / NH theo đúng bố cục file anh, cố định chỗ ký, **luôn vừa 1 trang A4**.
   - **Đủ ý bộ 01 + 03 + 06 + UQ — chờ anh nhắn "code".**
 
