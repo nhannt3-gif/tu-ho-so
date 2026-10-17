@@ -25,3 +25,7 @@ html,body{margin:0;background:var(--dt-nen);color:var(--dt-chu);font-family:-app
 .dt-trong{color:var(--dt-phu);text-align:center}
 .item-title.do{color:var(--dt-do)}
 .view-main .page-content{padding-bottom:calc(64px + env(safe-area-inset-bottom))}   /* chừa chỗ thanh tab dưới */
+.dt-o{width:100%;box-sizing:border-box;font-size:16px;padding:10px 12px;border-radius:10px;border:1px solid rgba(0,0,0,.12);background:var(--dt-the);color:var(--dt-chu)}
+.dt-anh{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px}.dt-anh-o{position:relative}.dt-anh-o img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;display:block}
+.dt-bo-anh{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:none;background:rgba(0,0,0,.55);color:#fff}
+.toast{pointer-events:none}   /* thông báo chỉ để đọc — không bao giờ chặn bấm */

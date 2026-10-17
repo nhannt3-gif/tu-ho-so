@@ -39,7 +39,7 @@ var DT = (function(){
       if(CH.sai>=10) return xoaMay().then(function(){ throw new Error('Sai PIN 10 lần — đã xóa dữ liệu trong máy. Đặt PIN mới và tải lại từ Drive.'); });
       throw new Error('PIN chưa đúng'+(CH.sai>=3 ? ' (sai '+CH.sai+' lần)' : '')); });
   }
-  function khoa(){ S.khoa = null; S.goi = null; clearTimeout(S.hen); if(DT.khiKhoa) DT.khiKhoa(); }
+  function khoa(){ S.khoa = null; S.goi = null; DS.vanban = null; DS.scan = null; clearTimeout(S.hen); if(DT.khiKhoa) DT.khiKhoa(); }
   function henKhoa(){ clearTimeout(S.hen); S.hen = setTimeout(khoa, DT_KHOA_SAU); }
   var DT_KHOA_SAU = 5*60000, AN_LUC = 0;
   document.addEventListener('visibilitychange', function(){ if(document.hidden) AN_LUC = Date.now(); else if(S.khoa && AN_LUC && Date.now()-AN_LUC > 2*60000) khoa(); });
@@ -93,6 +93,31 @@ var DT = (function(){
     var ra = g.kh.filter(function(k){ return t.every(function(w){ return k.q.indexOf(' '+w)>=0 || (w.length>=4 && k.q.indexOf(w)>=0); }); }); return {ds:ra.slice(0, n || 100), du:ra.length}; }
   function kh(ma){ var g = S.goi; return g ? g.kh.find(function(k){ return k[0]===ma; }) || null : null; }
   function khTo(ma){ var g = S.goi; return g ? g.kh.filter(function(k){ return k[7]===ma; }) : []; }
+  /* ---------- 3.232: Văn bản · Scan (đọc danh sách theo khối trên Drive, tải file, gửi file vào khay chờ) ---------- */
+  var DS = {vanban:null, scan:null};
+  function thuMuc(ten, cha, tao){ return tim(ten, cha, true).then(function(f){ if(f || !tao) return f && f.id;
+    return fetch('https://www.googleapis.com/drive/v3/files?fields=id', {method:'POST', headers:{Authorization:'Bearer '+S.token, 'Content-Type':'application/json'}, body:JSON.stringify({name:ten, mimeType:'application/vnd.google-apps.folder', parents:[cha]})})
+      .then(function(r){ if(!r.ok) throw new Error('Drive báo lỗi '+r.status); return r.json(); }).then(function(x){ return x.id; }); }); }
+  function duong(ds, tao){ return dangNhap(true).catch(function(){ return dangNhap(false); }).then(function(){
+    return [CH.thuMuc || 'Tủ hồ sơ'].concat(ds).reduce(function(p, ten){ return p.then(function(cha){ return cha ? thuMuc(ten, cha, tao) : null; }); }, Promise.resolve('root')); }); }
+  function taiKhoi(loai){   /* loai = vanban | scan → [mục] (gộp các lô năm / tháng, bỏ mục đã xóa) */
+    var ngan = loai==='vanban' ? ['vanBan'] : ['scan', 'kyAnh'];
+    return duong(['_Hệ thống', 'khoi']).then(function(id){ if(!id) throw new Error('Chưa có danh sách trên Drive (máy tính chưa đồng bộ theo khối)');
+      var q = "'"+id+"' in parents and trashed=false and name contains '"+loai+"__'";
+      return goi('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+'&fields=files(id,name,modifiedTime)&pageSize=200'); })
+    .then(function(k){ return Promise.all((k.files || []).filter(function(f){ return !/__rac/.test(f.name); }).map(function(f){ return goi('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media'); })); })
+    .then(function(ds){ var ra = []; ds.forEach(function(j){ ngan.forEach(function(n){ ((j && j.ngan && j.ngan[n]) || []).forEach(function(m){ if(m && !m.daXoa) ra.push(m); }); }); });
+      ra.sort(function(a, b){ return String(b.ngay || b.taoLuc || '').localeCompare(String(a.ngay || a.taoLuc || '')); }); DS[loai] = ra; return ra; });
+  }
+  function taiFile(id){ return dangNhap(true).catch(function(){ return dangNhap(false); }).then(function(){
+    return fetch('https://www.googleapis.com/drive/v3/files/'+id+'?alt=media', {headers:{Authorization:'Bearer '+S.token}}); }).then(function(r){ if(!r.ok) throw new Error('Không tải được file ('+r.status+')'); return r.blob(); }); }
+  function guiKhay(bl, ten){   /* 💾 Lưu vào app = đưa vào khay _Chờ xử lý trên Drive → máy tính "Nạp khay chờ" để khai báo */
+    return duong(['_Chờ xử lý'], true).then(function(id){ var bien = '----tuhosodt'+Date.now();
+      var body = new Blob(['--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify({name:ten, parents:[id]})+'\r\n--'+bien+'\r\nContent-Type: '+(bl.type || 'application/octet-stream')+'\r\n\r\n', bl, '\r\n--'+bien+'--'], {type:'multipart/related; boundary='+bien});
+      return fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {method:'POST', headers:{Authorization:'Bearer '+S.token, 'Content-Type':'multipart/related; boundary='+bien}, body:body}); })
+      .then(function(r){ if(!r.ok) throw new Error('Chưa gửi được ('+r.status+')'); return true; }); }
+  function locDS(loai, q){ var ds = DS[loai] || [], t = boDau(q).split(' ').filter(Boolean); if(!t.length) return ds;
+    return ds.filter(function(m){ var c = ' '+boDau([m.soHieu, m.trichYeu, m.ten, m.maKH, m.loai, m.ap, m.to, m.coQuan].join(' '))+' '; return t.every(function(w){ return c.indexOf(w)>=0; }); }); }
   return {coPIN:coPIN, datPIN:datPIN, moKhoa:moKhoa, khoa:khoa, xoaMay:xoaMay, napGoi:napGoi, taiGoi:taiGoi, goi:function(){ return S.goi; }, moi:function(){ return !!S.khoa; },
-    tong:tong, dsTo:dsTo, nhom:nhom, timKH:timKH, kh:kh, khTo:khTo, boDau:boDau, ch:CH, chLuu:chLuu, khiKhoa:null};
+    tong:tong, dsTo:dsTo, nhom:nhom, taiKhoi:taiKhoi, ds:function(l){ return DS[l]; }, datDS:function(l, ds){ DS[l] = ds; }, locDS:locDS, taiFile:taiFile, guiKhay:guiKhay, timKH:timKH, kh:kh, khTo:khTo, boDau:boDau, ch:CH, chLuu:chLuu, khiKhoa:null};
 })();

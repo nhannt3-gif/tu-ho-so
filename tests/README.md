@@ -165,6 +165,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t191.js` | 3.229 Khai báo riêng 4 nguồn: nguồn ô (📊 / ⚙), ⌨ cho mọi ô tự động, 11/TD Bên A mặc định ⌨ (in như chung khi chưa gõ), gõ riêng chỉ đổi mẫu đó, riêng trước, chọn lại 📊, ✍, ⧉ chép, khai báo trực quan, tóm tắt, bản trắng. |
 | `node tests/t192.js` | 3.230 R1 chuẩn hóa: "Có gì mới" 15 dòng + link, hàm mồ côi đã dọn, hàm phép thử giữ, thanh lọc Sổ hộ vay không bung, kiem.py thước đo trong mốc, bump.py tự cắt. · `node tests/do_bo_cuc.js [thư mục ảnh]` — đo bố cục 17 trang × 4 cỡ (bảng Markdown). |
 | `node tests/t193.js` | 3.231 Bản điện thoại: gói số liệu xem (máy tính), tự chuyển trên điện thoại, đặt PIN, mã hóa trong máy, tra cứu không dấu, thẻ khách, lùi, địa bàn từng cấp (tổng khớp), khóa / PIN sai / mở lại không cần Drive, cài đặt, mở bản máy tính. |
+| `node tests/t194.js` | 3.232 Điện thoại phần 2: thanh tab 5 mục, Văn bản (danh sách, lọc không dấu, mục chưa lên Drive), Scan (danh sách, 2 ảnh → PDF A4 bằng pdf-lib), bảng nút chuẩn Xem / Lưu máy / Lưu vào app / Đóng. |
 
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).

@@ -1980,7 +1980,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.231', ds:[
+var CO_GI_MOI = {ban:'3.232', ds:[
+  ["📱 Điện thoại: 📄 Văn bản (danh sách từ Drive, lọc không dấu, mở · lưu · gửi Zalo; ＋ gửi file vào app = khay _Chờ xử lý) · 📷 Scan (danh sách, chụp / chọn ảnh → PDF A4 → xem · lưu máy · gửi · lưu vào app)", "hsoKBHop('sl')"],
   ["📱 Bản điện thoại (kiểu iOS): mở cùng đường dẫn trên điện thoại → tự chuyển; khóa mã PIN, số liệu trong máy mã hóa; 🔎 tra cứu khách (tên không dấu, CCCD, SĐT) → nhân thân + tổ + món vay; 🗺 địa bàn PGD → Xã → Điểm → Hội → Tổ → Khách (dư nợ, hộ, tổ, món, quá hạn, khoanh)", "hsoKBHop('sl')"],
   ["📤 Máy tính: ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại — bật để tự đẩy số liệu xem lên Drive mỗi lần nạp Mẫu 31 (hoặc 📤 Đẩy ngay)", "hsoKBHop('sl')"],
   ["🧹 Chuẩn hóa đợt R1: app nhẹ hơn ~140 KB — bỏ 93 hàm không còn dùng, \"Có gì mới\" chỉ giữ 15 dòng gần nhất (lịch sử đủ ở CHANGELOG)", "moHuongDan('moi')"],
@@ -1994,8 +1995,7 @@ var CO_GI_MOI = {ban:'3.231', ds:[
   ["📅 Sổ hộ vay: lọc ngày nhập (Tháng này · Tháng trước · Quý này · Năm nay · từ / đến ngày), sắp theo ngày nhập, nhóm theo tháng (bấm dòng tháng gập / mở, tích cả tháng)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
   ["📌 Khối LỌC ĐỊA BÀN: nút Ghim (ghim = luôn mở; bỏ ghim = chọn xong tổ tự gọn) · ⬆ Lên 1 cấp · phím Backspace lên 1 cấp · mắt đường dẫn gạch chân bấm được", "slDoiTab('hsv');doiNgan(7)"],
   ["☁ Cài đặt đồng bộ theo khối: _Hệ thống/caidat/<khối>.json (Chung, KTGS, Hồ sơ, Số liệu, Scan, Lịch, Văn bản…) — sửa 1 khai báo chỉ gửi đúng file khối đó; máy chưa cập nhật vẫn đọc / ghi cauhinh.json như cũ", "hsoKBHop('sl')"],
-  ["📷 Scan mới: chọn loại trước (CCCD · Tài liệu · Chữ ký · Ảnh khách) — Tài liệu không bao giờ đòi mặt 2; bộ nút chuẩn In · Lưu vào máy · Lưu vào app · Gửi Zalo · Bỏ", "doiNgan(4);batDauScan()"],
-  ["🗂 Lưu vào app = ⏳ Chờ khai báo: chưa lên Drive cho tới khi khai đủ xã, ấp, tổ; 💾 Lưu vào máy chỉ ra file (máy tính có hộp Lưu thành)", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📷 Scan mới: chọn loại trước (CCCD · Tài liệu · Chữ ký · Ảnh khách) — Tài liệu không bao giờ đòi mặt 2; bộ nút chuẩn In · Lưu vào máy · Lưu vào app · Gửi Zalo · Bỏ", "doiNgan(4);batDauScan()"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

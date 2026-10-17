@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.232) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Điện thoại › 📄 Văn bản › ⟳ | Ra danh sách văn bản như máy tính; gõ lọc không dấu | |
+| 2 | Bấm 1 văn bản | Bảng nút: Xem (mở PDF) · Lưu vào máy · Gửi (Zalo) | |
+| 3 | ＋ Gửi file vào app → chọn file từ Zalo / máy | Máy tính › Nạp khay chờ thấy file | |
+| 4 | 📷 Scan › Chụp / chọn ảnh (2 ảnh) › Tạo PDF | PDF 2 trang A4; Lưu vào app → vào khay chờ | |
+
+**Ghi chú kỹ thuật 3.232:** danh sách văn bản / scan giữ trong bộ nhớ (không cất máy), khóa app là xóa. Mục chưa lên Drive (quét ở máy chưa đồng bộ) ghi "chưa lên Drive".
+
 ### Danh sách thử trên máy thật (3.231) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

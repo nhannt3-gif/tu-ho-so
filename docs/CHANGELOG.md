@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.232 — 17/10/2026 — 📱 Bản điện thoại phần 2: Văn bản · Scan
+- **Anh duyệt 17/10:** điện thoại tập trung xem văn bản, scan; số liệu đọc từ Drive.
+- **Lõi** `js/dt/dt-nen.js`: `DT.taiKhoi('vanban'|'scan')` đọc các lô khối trên Drive (`_Hệ thống/khoi/vanban__<năm>.json`, `scan__<tháng>.json` — do máy tính đồng bộ theo khối từ 3.225; bỏ lô thùng rác, mục đã xóa) · `DT.taiFile(driveId)` · `DT.guiKhay(file, tên)` → `<thư mục>/_Chờ xử lý` (máy tính **Nạp khay chờ** để khai báo, như luồng ⏳ Chờ khai báo 3.224) · `DT.locDS` lọc không dấu.
+- **Giao diện** `js/dt/dt-giao-dien.js`: thanh tab 5 mục (🔎 Tra cứu · 🗺 Địa bàn · 📄 Văn bản · 📷 Scan · ⚙ Cài đặt). 📄 danh sách (số hiệu · ngày · loại · trích yếu), ＋ Gửi file vào app; 📷 danh sách scan + **Chụp / chọn ảnh → PDF** (ảnh thu về cạnh dài 1600 px, mỗi ảnh 1 trang A4, pdf-lib 1.17.1 nạp khi dùng — danh mục đã duyệt). Mở mục / PDF vừa tạo → **bảng nút chuẩn** 👁 Xem · ⬇ Lưu vào máy · 📤 Gửi (Zalo…, nếu máy hỗ trợ chia sẻ file) · 💾 Lưu vào app · Đóng (KE_HOACH_CHUAN_HOA mục 5).
+- **Sửa:** thông báo (toast) không còn chặn bấm sau khi đóng (`destroyOnClose` + `pointer-events:none`).
+- **Phép thử:** `tests/t194.js` (mới, 9).
+
 ## 3.231 — 17/10/2026 — 📱 Bản điện thoại phần 1: khóa PIN, tra cứu khách, địa bàn theo cấp
 - **Anh duyệt 17/10:** điện thoại giao diện riêng kiểu iOS, cùng đường dẫn tự chuyển; bỏ Số liệu / Nạp / Hồ sơ / KTGS trên điện thoại; tra cứu khách (nhân thân + món vay), xem nhanh địa bàn từng cấp đủ dư nợ, số hộ, số tổ, quá hạn, khoanh; số liệu đọc từ Drive; em tự quyết Framework7 + PIN + mã hóa.
 - **Máy tính — gói số liệu xem** `js/38-goi-xem.js`: `gxLapTu(K)` (tổ + tổng từng tổ: dư nợ, quá hạn, khoanh, số hộ còn nợ, số món; khách: nhân thân + món [CT, khế ước, ngày vay, giải ngân, dư nợ, quá hạn, khoanh, đến hạn, trạng thái]; tên chương trình; tổ trưởng `gxTT`) theo Mẫu 31 chốt tháng mới nhất (`KHO.nap` + cửa mới `KHO.voiKy` — không đổi kỳ đang xem) → gzip → Drive `<thư mục>/_Hệ thống/xem/xem.json.gz`. Tự đẩy sau khi nạp Mẫu 31 (bọc `slGhi`, chờ 20 giây cả lô; chưa nối Drive → đẩy khi nối) khi bật ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại; nút 📤 Đẩy ngay. Khóa `gx*` riêng máy (không đồng bộ).
