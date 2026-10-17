@@ -105,5 +105,6 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
   - **Ý 7 (17/10):**
     1. **Đề nghị cho vay = Vốn vay NHCSXH**; **Tổng nhu cầu = Vốn vay + Vốn tự có** (app tự tính, bằng chữ tự đổi).
     2. **HSSV:** anh **gõ số tháng** và **gõ số tiền** của dòng sinh viên; số tiền đó **điền sang số tiền xin vay** (không tính theo mức / tháng).
-  - (chờ anh trả lời: nơi cấp CCCD cố định hay theo ngày cấp; câu "Đề nghị NHCSXH cho vay" hay "Đề nghị cho vay")
+  - **Ý 8 (17/10):** **nơi cấp CCCD tự điền theo ngày cấp** — từ 01/07/2024 "Bộ Công an", trước đó "Cục CS QLHC" (dùng lại `hsoNoiCapGY` có sẵn). Câu đề nghị **ghi đúng mẫu gốc**: "Đề nghị cho vay số tiền" (bỏ biến thể "Đề nghị NHCSXH cho vay" theo thẻ chương trình).
+  - (01/TD đủ ý — chờ anh duyệt kế hoạch 01/TD + nói 03/TD)
 
