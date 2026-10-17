@@ -24,7 +24,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    const t = TO_K.to[C.to], tv = hsoTVTo(t);
    /* ---- quốc hiệu: kẻ mảnh riêng, không gạch chân ---- */
    const tat = []; for(const m of HSO_MAU.hst.concat(HSO_MAU.hsv)){ if(m.k==='bo') continue; slDoiTab(HSO_MAU.hst.indexOf(m)>=0 ? 'hst' : 'hsv'); hsoChonMau(m.k); await w(250); tat.push([m.k, HSO.x.trang]); }
-   ok('mọi mẫu: tiêu ngữ không gạch chân chữ, có đường kẻ mảnh riêng (0,5 pt) dưới tiêu ngữ', tat.every(x=>!/<u>Độc lập/.test(x[1]) && (!/Độc lập/.test(x[1]) || /Hạnh phúc<\/p><p class="ke"/.test(x[1]) || /class="om-goc"/.test(x[1]))) && /p\.ke\{[^}]*border-top:\.5pt solid/.test(tat[0][1]), tat.filter(x=>/<u>Độc lập/.test(x[1])).map(x=>x[0]).join(','));
+   ok('mọi mẫu: tiêu ngữ không gạch chân chữ, có đường kẻ mảnh riêng (≈ 0,5 pt — 3.249: vạch 1 px thu scaleY(.55)) dưới tiêu ngữ', tat.every(x=>!/<u>Độc lập/.test(x[1]) && (!/Độc lập/.test(x[1]) || /Hạnh phúc<\/p><p class="ke"/.test(x[1]) || /class="om-goc"/.test(x[1]))) && /p\.ke\{[^}]*height:1px[^}]*background:#000[^}]*scaleY\(\.55\)/.test(tat[0][1]), tat.filter(x=>/<u>Độc lập/.test(x[1])).map(x=>x[0]).join(','));
    ok('logo mặc định chỉ in ở mẫu gốc có logo (01/TD, 01/TGTV)', tat.filter(x=>/class="hso-logo"/.test(x[1])).map(x=>x[0]).sort().join(',')==='01td,01tgtv', tat.filter(x=>/class="hso-logo"/.test(x[1])).map(x=>x[0]).join(','));
    hsoKB().logoMau = {'09a':true}; slDoiTab('hsv'); hsoChonMau('09a'); await w(300);   /* 3.172: 04/TD dời sang tab Giao dịch xã → thử với 09A */
    ok('tích / bỏ tích mẫu in logo ở khai báo → áp ngay', /class="hso-logo"/.test(HSO.x.trang)); hsoKB().logoMau = null;

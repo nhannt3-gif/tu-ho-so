@@ -20,7 +20,7 @@ const fs=require('fs'), path=require('path');
  ok('HSSV: bảng chỉ dòng số liệu, bỏ dòng chấm thừa (3.247 anh 18/10)', r.n===1 && !r.cham && /Tên Rất Dài/.test(r.chu), JSON.stringify(r));
  ok('HSSV: dòng sinh viên chữ thường (không thu nhỏ cỡ chữ, không ép 1 dòng)', !/font-size|nowrap|width/.test(r.nho) && /Tên Rất Dài Để Thử/.test(r.chu), r.nho);
  r = await ev(()=>{ const h = hsoLap().h, i = h.indexOf('(ký tên, đóng dấu)'); return (h.slice(i, i+400).match(/&nbsp;/g)||[]).length; });
- ok('UBND: chừa ≥ 5 dòng chỗ Chủ tịch ký + đóng dấu', r>=5, r);
+ ok('UBND: chừa ≥ 3 dòng chỗ Chủ tịch ký + đóng dấu (3.249 anh 18/10: bớt 2 dòng, dồn cho chỗ ký NH)', r>=3, r);
  r = await ev(()=>{ const d = document.createElement('div'); d.innerHTML = hsoLap().h; const t = d.textContent.replace(/\s+/g, ' ');
    return {t:t.slice(0, 900), cc:/- Số CC\/CCCD: \d{9,12}, ngày cấp: \d\d\/\d\d\/\d{4}, nơi cấp: \S/.test(t), dc:/- Địa chỉ cư trú: (ấp|khu phố) [^,]+, (xã|phường) [^,]+, tỉnh Tây Ninh\./.test(t),
      tien:/số tiền: 60\.000\.000 đồng/.test(t) && /\(Bằng chữ: Sáu mươi triệu đồng\)/.test(t) && /Vốn tự có tham gia: 20\.000\.000 đồng\./.test(t) && /Vốn vay NHCSXH: 60\.000\.000 đồng để/.test(t),

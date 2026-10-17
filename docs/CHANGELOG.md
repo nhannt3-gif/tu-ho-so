@@ -4,6 +4,30 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.249 — 18/10/2026 — 01/TD chỗ ký NH; gạch tiêu ngữ vừa chữ
+- **Anh 18/10** (ảnh bản in 01/TD in sẵn UBND + NH):
+  - "chỗ ký của NH quá ngắn, thêm ít nhất 2 dòng, tiết kiệm từ các chỗ khác, chỗ dưới UB giảm 1–2 dòng";
+  - "giảm canh lề đầu trang 1 chút";
+  - "gạch dưới tiêu ngữ sát lên vừa dòng chữ, nét mảnh, không dính chữ";
+  - "gạch tiêu ngữ vừa chữ, không được dài hơn".
+- `js/mau/01td.js`:
+  - dưới khối UBND 5 → 3 dòng trống;
+  - cách đoạn 2,4 → 1,5 pt (13 chỗ);
+  - sau chữ ký Ngân hàng chừa sẵn 3 dòng trống;
+  - lề trên 10 → 7 mm;
+  - phần Phê duyệt NH dùng ô liền: có số liệu thì "60.000.000 đồng (Bằng chữ: …)", "12 tháng/lần" như đánh máy (trước bị hở chữ "đồng" và mất dấu ")").
+  - Đo PDF tên SV dài + in sẵn UBND + NH: 1 trang, còn ~3 dòng ký NH.
+- `js/25-ho-so.js`:
+  - `hsoQH`: gạch dưới tiêu ngữ dài đúng bề rộng dòng "Độc lập – Tự do – Hạnh phúc" (đo chữ đậm theo cỡ của mẫu, trước cố định ≈ 4,65 × cỡ).
+  - `p.ke` = vạch 1 px thu `scaleY(.55)` (≈ 0,5 pt; viền < 1 px bị Chrome làm tròn).
+  - Mẫu nền ô: `.om-goc p.ke` cách chân chữ ~0,6 mm, không dính dấu nặng / chữ p.
+  - Áp cho mọi mẫu hồ sơ có tiêu ngữ.
+- Phép thử:
+  - t199: UBND ≥ 3 dòng;
+  - t164: kiểu kẻ mới;
+  - t180: 01/TD lề trên 7 mm (dung sai lề 3,5, vị trí dòng 16 mm).
+- Chuẩn khóa ghi lại (độ dài gạch): `hst_01bg_*`, `hsv_01td_*`, `hsv_01uq_*`, `hsv_09a_*`.
+
 ## 3.248 — 18/10/2026 — 01/TD cân đối thêm; chấm mảnh cho mọi mẫu hồ sơ
 - **Anh 18/10:**
   - "chtr nước sạch để 1 dòng chấm chỗ đối tượng": NSVSMT có số liệu thì thêm 1 dòng chấm sau các dòng công trình.

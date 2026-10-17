@@ -59,26 +59,26 @@
         var x = ['', '', 0], ch = CH[i], ok = false;   /* 3.240 (anh 17/10 "giữ form"): luôn đủ 3 dòng như gốc — dòng không có số liệu vẫn chấm */
         hang += '<tr><td class="c"><p>'+o('bang', ch[0], {gt:ok ? x[0] : '', canh:'c', rong:57, hai:4.8})+'</p></td><td class="c"><p>'+o('bang', ch[1], {gt:ok ? x[1] : '', canh:'c', rong:41})+'</p></td><td class="c"><p>'+o('bang', ch[2], {gt:ok ? hsoDongTien(x[2]) : '', canh:'c', rong:58})+'</p></td></tr>'; }   /* có chữ: khung = cả ô bảng (gốc 60 / 44 / 61 mm) */
       var ngK = G.ngay('ngayKy', ['……', '……', '………']), hanC = G.ngay('hanCuoi', ['……..', '……..', '…………']), nhH = G.ngay('nhHan', ['…....', '…....', '……..']), nhN = G.ngay('nhNgay', ['……', '……', '………']);
-      var ub = C.ubnd ? '<p class="c b">Xác nhận của UBND xã</p><p style="'+JJ+'">Ông/bà '+o('ubOng', '........................................................')+'</p>'+G.khoi('ubYK', ['.........................................................................', '.........................................................................'])+'<p class="c b">Chủ tịch</p><p class="c i">(ký tên, đóng dấu)</p>'+P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+P('&nbsp;', TR(3)) : '';   /* 3.240 (anh 17/10): chừa 5 dòng chỗ Chủ tịch ký + đóng dấu (3 dòng còn đè dấu lên chữ) */
+      var ub = C.ubnd ? '<p class="c b">Xác nhận của UBND xã</p><p style="'+JJ+'">Ông/bà '+o('ubOng', '........................................................')+'</p>'+G.khoi('ubYK', ['.........................................................................', '.........................................................................'])+'<p class="c b">Chủ tịch</p><p class="c i">(ký tên, đóng dấu)</p>'+P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+P('&nbsp;', TR(1)) : '';   /* 3.249 (anh 18/10): bớt 2 dòng dưới UBND, dồn cho chỗ ký NH */   /* 3.240 (anh 17/10): chừa 5 dòng chỗ Chủ tịch ký + đóng dấu (3 dòng còn đè dấu lên chữ) */
       var h = '<div class="om-goc" style="line-height:1.15">'+   /* 3.240: có khối UBND (5 dòng ký + đóng dấu) → dòng sát hơn chút để vẫn 1 trang, cỡ chữ giữ 13 như gốc */
         hsoBang('khung0 t3', [23.4, 108.7, 37], '<tr><td>'+hsoLogo(MK, 16)+'</td><td class="c">'+hsoQH('-', 13).replace('HÒA', 'HOÀ')+'</td><td class="r"><p class="r b" style="margin-top:3pt">Mẫu số 01/TD</p></td></tr>')+
         P('<b>GIẤY ĐỀ NGHỊ VAY VỐN KIÊM PHƯƠNG ÁN SỬ DỤNG VỐN VAY</b>', 'text-align:center;font-size:14pt;margin-top:6pt')+
         P('<b>Chương trình cho vay</b>: '+o('ct', '...................................................................', L), J+'text-align:center;'+TR(3))+
-        P('&nbsp;', 'font-size:6pt;'+TR(2.4))+   /* đoạn trống gốc (dấu đoạn nhỏ) */
-        P('<b>Kính gửi:</b> '+o('kinhGui', '................................................................', {lay:function(v){ return v+'.'; }}), J+T1+TR(2.4)+'margin-bottom:3pt')+
+        P('&nbsp;', 'font-size:6pt;'+TR(1.5))+   /* đoạn trống gốc (dấu đoạn nhỏ) */
+        P('<b>Kính gửi:</b> '+o('kinhGui', '................................................................', {lay:function(v){ return v+'.'; }}), J+T1+TR(1.5)+'margin-bottom:3pt')+
         P(co('ten') ? '<b>1.</b> Họ tên người vay: '+o('ten', '', L)+'<span style="display:inline-block;width:'+Math.max(3, Math.min(12.7, 168 - omRong('1. Họ tên người vay: '+G.gt('ten')+'Năm sinh: '+(G.gt('ns') || '................................'), 14))).toFixed(1)+'mm"></span>Năm sinh: '+o('ns', '................................', L)
-          : '<b>1.</b> Họ tên người vay: '+o('ten', '...............................................................')+' Năm sinh: '+o('ns', '................................'), J+TR(2.4))   /* 3.248 (anh 18/10): có tên → "Năm sinh" cách tên 1 tab (12,7 mm; tên dài thì co lại cho vừa dòng) */+
+          : '<b>1.</b> Họ tên người vay: '+o('ten', '...............................................................')+' Năm sinh: '+o('ns', '................................'), J+TR(1.5))   /* 3.248 (anh 18/10): có tên → "Năm sinh" cách tên 1 tab (12,7 mm; tên dài thì co lại cho vừa dòng) */+
         P(co('cccd') || co('ncap') ? '- Số CC/CCCD: '+o('cccd', '................................', L)+', ngày cấp: '+(co('ncap') ? o('ncap', '', {lien:1, gt:hsoNgayVN(G.gt('ncap'))}) : '...../...../........')+', nơi cấp: '+o('noiCap', '.........................', L)
-          : '- Số CC/CCCD:'+o('cccd', '................................')+'ngày cấp: '+G.ngay('ncap', ['.....', '.....', '........']).join(' /')+' , nơi cấp: '+o('noiCap', '.........................'), J+T2+TR(2.4))+
-        P(V.dc && co('thon') ? '- Địa chỉ cư trú: '+o('thon', '', {lien:1, gt:V.dc}) : '- Địa chỉ cư trú: thôn '+o('thon', '...........................')+'  xã (phường) '+o('xa', '.............................')+' Tỉnh Tây Ninh.', J+T2+TR(2.4))   /* có số liệu: "ấp 6, xã Truông Mít, tỉnh Tây Ninh." (ấp / khu phố, xã / phường theo địa bàn) */+
-        P('- Là thành viên Tổ TK&amp;VV do ông (bà) '+o('tt', '.................................................', L)+(co('tt') ? ' làm tổ trưởng.' : '  làm tổ trưởng.'), J+T2+TR(2.4))+
-        P(co('hoi') ? '- Thuộc tổ chức '+o('hoi', '', L)+' quản lý' : '- Thuộc tổ chức Hội: '+o('hoi', '...........................................................................')+' quản lý', J+T2+TR(2.4))   /* "Hội Nông dân" · "Hội Cựu chiến binh" · "Hội Liên hiệp phụ nữ" · "Đoàn thanh niên" — không ghi xã */+
-        P('2. Đề nghị cho vay số tiền: '+o('tien', '.................................................', L)+' đồng', J+TR(2.4))+
-        P('(Bằng chữ'+o('tienChu', '........................................................................................................................', {lay:function(v){ return ': '+v; }, lien:1})+(co('tienChu') ? ')' : ' )'), J+'padding-left:9.6mm;'+TR(2.4))+
-        P('Để thực hiện phương án:'+o('md', '...................................................................................................', {lay:function(v){ return ' '+v; }, lien:1}), J+'padding-left:9.6mm;'+TR(2.4))+
-        P('Tổng nhu cầu vốn: '+o('tong', '........................................', L)+' đồng. Trong đó:', J+T2+TR(2.4))+
-        P('+ Vốn tự có tham gia: '+o('tuCo', '................................', L)+' đồng.', J+T1+TR(2.4))+
-        P('+ Vốn vay NHCSXH: '+o('vay', '.................................', L)+' đồng để dùng vào việc: ', J+T1+TR(2.4))+
+          : '- Số CC/CCCD:'+o('cccd', '................................')+'ngày cấp: '+G.ngay('ncap', ['.....', '.....', '........']).join(' /')+' , nơi cấp: '+o('noiCap', '.........................'), J+T2+TR(1.5))+
+        P(V.dc && co('thon') ? '- Địa chỉ cư trú: '+o('thon', '', {lien:1, gt:V.dc}) : '- Địa chỉ cư trú: thôn '+o('thon', '...........................')+'  xã (phường) '+o('xa', '.............................')+' Tỉnh Tây Ninh.', J+T2+TR(1.5))   /* có số liệu: "ấp 6, xã Truông Mít, tỉnh Tây Ninh." (ấp / khu phố, xã / phường theo địa bàn) */+
+        P('- Là thành viên Tổ TK&amp;VV do ông (bà) '+o('tt', '.................................................', L)+(co('tt') ? ' làm tổ trưởng.' : '  làm tổ trưởng.'), J+T2+TR(1.5))+
+        P(co('hoi') ? '- Thuộc tổ chức '+o('hoi', '', L)+' quản lý' : '- Thuộc tổ chức Hội: '+o('hoi', '...........................................................................')+' quản lý', J+T2+TR(1.5))   /* "Hội Nông dân" · "Hội Cựu chiến binh" · "Hội Liên hiệp phụ nữ" · "Đoàn thanh niên" — không ghi xã */+
+        P('2. Đề nghị cho vay số tiền: '+o('tien', '.................................................', L)+' đồng', J+TR(1.5))+
+        P('(Bằng chữ'+o('tienChu', '........................................................................................................................', {lay:function(v){ return ': '+v; }, lien:1})+(co('tienChu') ? ')' : ' )'), J+'padding-left:9.6mm;'+TR(1.5))+
+        P('Để thực hiện phương án:'+o('md', '...................................................................................................', {lay:function(v){ return ' '+v; }, lien:1}), J+'padding-left:9.6mm;'+TR(1.5))+
+        P('Tổng nhu cầu vốn: '+o('tong', '........................................', L)+' đồng. Trong đó:', J+T2+TR(1.5))+
+        P('+ Vốn tự có tham gia: '+o('tuCo', '................................', L)+' đồng.', J+T1+TR(1.5))+
+        P('+ Vốn vay NHCSXH: '+o('vay', '.................................', L)+' đồng để dùng vào việc: ', J+T1+TR(1.5))+
         hsoBang('khung0 t3', [60.2, 44.5, 61.4], hang)+
         P('- Thời hạn xin vay: '+o('th', '………', L)+' tháng; Kỳ hạn trả nợ: '+o('ky', '………', L)+' tháng/lần.', J+T1+TR(1))+
         P('- Hạn trả nợ cuối cùng: '+(co('hanCuoi') ? 'ngày '+o('hanCuoi', '', {lien:1, gt:hsoNgayVN(G.gt('hanCuoi'))})+'.' : 'Ngày '+hanC.join(' /')), J+'padding-left:12.7mm;'+TR(1))+
@@ -86,16 +86,16 @@
         hsoBang('khung0 t1', [47.5, 45.6, 76.2], '<tr><td colspan="2" class="c" style="vertical-align:top">'+ub+'</td><td class="c" style="vertical-align:top"><p class="c i">Ngày '+ngK[0]+' tháng '+ngK[1]+' năm '+ngK[2]+'</p><p class="c b">Người vay</p><p class="c i">(Ký, ghi rõ họ tên hoặc điểm chỉ)</p>'+
           P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+'</td></tr>')+   /* 4 dòng trống chỗ ký (gốc) nằm trong cột người vay → có / không khối UBND (thẻ CT) vẫn cao như nhau */
         P('<b>PHÊ DUYỆT CỦA NGÂN HÀNG</b>', 'text-align:center;font-size:14pt;'+TR(3))+
-        P('1. Số tiền cho vay: '+o('nhTien', '….........………')+' đồng (Bằng chữ: '+o('nhTien', '………....……........……...…..……...', {gt:omCach(MK, 'nhTien')!=='cham' ? V.nhTienChu : ''})+')', J+TR(1))+
-        P('2. Lãi suất: '+o('nhLai', '..……')+' %/năm. Lãi suất nợ quá hạn:  '+o('nhQH', '……......…')+'% lãi suất khi cho vay.', J+TR(1))+
-        P('3. Thời hạn cho vay: '+o('nhTH', '…….........')+' tháng; Kỳ hạn trả nợ: '+o('nhTH', '.............', {gt:omCach(MK, 'nhTH')!=='cham' ? V.nhKy : ''})+' tháng/lần.', J+TR(1))+
-        P('4. Số tiền trả nợ: '+o('nhTra', '...........................')+' đồng/lần. Hạn trả nợ cuối cùng: Ngày'+nhH.join(' /'), J+TR(1))+
-        P('5. Lãi tiền vay được trả định kỳ hàng tháng, vào ngày '+o('nhNgayLai', '............................................................'), J+TR(1))+
+        P('1. Số tiền cho vay: '+o('nhTien', '….........………', L)+' đồng (Bằng chữ: '+o('nhTien', '………....……........……...…..……...', {gt:omCach(MK, 'nhTien')!=='cham' ? V.nhTienChu : '', lien:1})+')', J+TR(1))+
+        P('2. Lãi suất: '+o('nhLai', '..……', L)+' %/năm. Lãi suất nợ quá hạn:  '+o('nhQH', '……......…', L)+'% lãi suất khi cho vay.', J+TR(1))+
+        P('3. Thời hạn cho vay: '+o('nhTH', '…….........', L)+' tháng; Kỳ hạn trả nợ: '+o('nhTH', '.............', {gt:omCach(MK, 'nhTH')!=='cham' ? V.nhKy : '', lien:1})+' tháng/lần.', J+TR(1))+
+        P('4. Số tiền trả nợ: '+o('nhTra', '...........................', L)+' đồng/lần. Hạn trả nợ cuối cùng: Ngày'+nhH.join(' /'), J+TR(1))+
+        P('5. Lãi tiền vay được trả định kỳ hàng tháng, vào ngày '+o('nhNgayLai', '............................................................', L), J+TR(1))+
         hsoBang('khung0 t3', [42.6, 58.8, 69.9], '<tr><td class="c"><p>&nbsp;</p><p class="c b">Cán bộ tín dụng</p><p class="c i">(Ký, ghi rõ họ tên)</p></td>'+
           '<td class="c"><p>&nbsp;</p><p class="c b">Trưởng phòng</p><p class="c b">(Tổ trưởng) TD</p><p class="c i">(Ký, ghi rõ họ tên)</p></td>'+
-          '<td class="c"><p class="c i">Ngày '+nhN[0]+' tháng '+nhN[1]+' năm '+nhN[2]+'</p><p class="c b">Giám đốc</p><p class="c i">(Ký tên, đóng dấu)</p></td></tr>')+'</div>';   /* chỗ ký NH = phần trống cuối trang như gốc (3.240: t199 đo — luôn 1 trang A4, còn ≥ 20 mm để ký) */
+          '<td class="c"><p class="c i">Ngày '+nhN[0]+' tháng '+nhN[1]+' năm '+nhN[2]+'</p><p class="c b">Giám đốc</p><p class="c i">(Ký tên, đóng dấu)</p></td></tr>')+P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+'</div>';   /* 3.249 (anh 18/10): chỗ ký NH chừa sẵn 3 dòng trống (máy in lề khác vẫn đủ chỗ) */   /* chỗ ký NH = phần trống cuối trang như gốc (3.240: t199 đo — luôn 1 trang A4, còn ≥ 20 mm để ký) */
       return {ma:'01/TD', h:h};
     }});
   hsoLap01td = function(t, B){ return omLap(MK, t, B || hsoBo()); };
-  var M = hsoMauK(MK); if(M) M.mg = omMg([10, 19.6, 6.3, 21.1]);   /* lề theo file gốc */
+  var M = hsoMauK(MK); if(M) M.mg = omMg([7, 19.6, 6.3, 21.1]);   /* lề theo file gốc; 3.249 (anh 18/10): lề trên 10 → 7 mm */
 })();
