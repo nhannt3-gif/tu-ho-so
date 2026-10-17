@@ -3,7 +3,7 @@ const { chromium, devices } = require(require('child_process').execSync('npm roo
 (async()=>{ const b=await chromium.launch(); const loi=[];
  for(const may of [['pc',{viewport:{width:1366,height:768}}],['ip',devices['iPhone 13']]]){
  const ctx=await b.newContext(may[1]); const p=await ctx.newPage(); p.on('pageerror',e=>loi.push(may[0]+': '+e.message)); await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
- await p.goto('file://'+require('path').resolve(__dirname,'..','index.html')); await p.waitForTimeout(1300);
+ await p.goto('file://'+require('path').resolve(__dirname,'..','index.html')+'?may=1'); await p.waitForTimeout(1300);
  const r=await p.evaluate(async(may)=>{ await xongTV; try{dongHop()}catch(e){} document.getElementById('bao').style.opacity='0'; const w=t=>new Promise(r=>setTimeout(r,t)); const o={};
    const anh=async(c,t,W,H)=>{ const cv=document.createElement('canvas'); cv.width=W||860; cv.height=H||540; const g=cv.getContext('2d'); g.fillStyle=c; g.fillRect(0,0,cv.width,cv.height); g.fillStyle='#fff'; g.font='60px sans-serif'; g.fillText(t,60,280); return await new Promise(r=>cv.toBlob(r,'image/jpeg',0.8)); };
    await luuFile('hs_s1_matTruoc', await anh('#2a6','TRUOC')); await luuFile('hs_s1_matSau', await anh('#a52','SAU'));

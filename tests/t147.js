@@ -7,7 +7,7 @@ const path=require('path');
  const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
  const mo = async (vp, mobile) => { const p = await b.newPage({viewport:vp, isMobile:!!mobile, hasTouch:!!mobile}); p.on('pageerror',e=>loi.push(e.message));
    await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
-   await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+   await p.goto('file://'+path.resolve(__dirname,'..','index.html')+'?may=1'); await p.waitForTimeout(1500);
    await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){}
      const vb = (i, sh, ngay, mang, ct, ty) => ({id:'v'+i, nhom:'vanBan', tenMoi:ngay+' '+sh+' '+ty+'.pdf', soHieu:sh, ngay:ngay, trichYeu:ty, tenVB:ty, mang:mang, ctrinh:ct, tag:['Tổ TK&VV'], driveId:i%2?'d'+i:''});
      D.vanBan = [vb(1,'12/HD-NHCS','2026-03-01','Tín dụng',['HN'],'Hướng dẫn cho vay hộ nghèo'), vb(2,'5/QĐ-HĐQT','2025-07-10','Kế toán',['HCN'],'Quy định hạch toán'),

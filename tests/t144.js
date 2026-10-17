@@ -8,7 +8,7 @@ const path=require('path');
  const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
  const mo = async (vp, mobile) => { const p = await b.newPage({viewport:vp, isMobile:!!mobile, hasTouch:!!mobile}); p.on('pageerror',e=>loi.push(e.message));
    await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
-   await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+   await p.goto('file://'+path.resolve(__dirname,'..','index.html')+'?may=1'); await p.waitForTimeout(1500);
    await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){}
      D.vanBan = [{id:'v1', nhom:'vanBan', tenMoi:'2026-10-01 1/A Thử.pdf', soHieu:'1/A', ngay:'2026-10-01', trichYeu:'Thử', mang:'Tín dụng', ctrinh:['HN'], the:[]}]; luu(); ve(); });
    return p; };
