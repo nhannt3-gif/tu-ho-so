@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.226) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Máy 1 sửa khai báo Hội; máy 2 mở app (hoặc chờ 1 phút) | Máy 2 có đúng khai báo | |
+| 2 | Drive: thư mục `_Hệ thống/caidat` | Có các file chung.json, ktgs.json, … | |
+| 3 | Máy chưa cập nhật bản mới sửa cài đặt | Máy mới vẫn nhận | |
+
+**Ghi chú kỹ thuật 3.226:** bảng khóa → khối `CH_KHOI_LUAT` (js/36); khóa mới chưa vào bảng tự về khối Chung — chỉ ảnh hưởng gom file, không mất dữ liệu.
+
 ### Danh sách thử trên máy thật (3.225) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

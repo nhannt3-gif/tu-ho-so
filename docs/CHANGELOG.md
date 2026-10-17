@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.226 — 17/10/2026 — Cài đặt theo khối (bàn giao 3.225, việc tiếp a)
+- **Cách làm (theo bàn giao):** chia CHÍNH cơ chế `cauhinh.json` thành file theo khối, không chạy 2 đường cùng luật. `_Hệ thống/caidat/<khối>.json` chỉ chứa khóa của khối (`chKhoiCua(k)` theo bảng `CH_KHOI_LUAT`; khóa chưa có trong bảng → `chung`). Luật gộp giữ nguyên (`chApDrive` theo khóa; `chBam` dấu từng khóa — mỗi khóa thuộc đúng 1 file nên chỉ đánh dấu khóa của file vừa đồng bộ: `chDanhDauKhoa`). Mốc riêng từng file `D.cauHinh.chKhoi[khối] = {keo, id}` (như `chKeoLuc` / `chFileId`).
+- **Máy cũ (`cauhinh.json`):** không còn là đường thứ 2 cùng luật — mốc riêng `chCuBam` (dấu từng khóa của bản `cauhinh.json` máy này thấy / ghi gần nhất; nâng cấp lần đầu lấy từ `chBam` cũ): khóa nào khác `chCuBam` = máy cũ vừa sửa → áp vào; máy mới ghi lại `cauhinh.json` đầy đủ khi nội dung đổi (`chCuNoi`) — thôi hẳn khi anh bật "Máy cũ đã cập nhật hết" (`kdBoCu`). Tắt đồng bộ theo khối trên máy (`tuhoso_dbk` = `tat`) → đường cũ nguyên vẹn.
+- `dongBoCauHinh` (js/17) được bọc ở `js/36-dong-bo-khoi.js` → `chKhoiDongBo(cheDo)`; mọi chỗ gọi cũ (mở app, quay lại app, sau khi lưu, Lấy từ Drive) không đổi.
+- **Chưa làm (b) kho IndexedDB theo khối (C2)** — chờ anh (xem BAN_GIAO_3224.md mục Tiến độ).
+- **Phép thử:** `tests/t188.js` (mới, 13: 3 máy, 1 máy cũ); t117, t136, t187 vẫn đạt.
+
 ## 3.225 — 17/10/2026 — Scan mới (3.224) + đồng bộ Drive theo khối (3.225)
 - **Anh chốt 17/10** (`docs/KE_HOACH_3224_SCAN.md`, `docs/KE_HOACH_3225_LUU.md`; làm liền, xong phần nào gộp phần đó).
 - **3.224 scan** (`js/35-scan.js`, cắm / rút — thay `batDauScan`, `quetNhanh`, `scanXongHop`, `scanLuuMay`, `scanGui`, `ghiLuuTam`, `scanCanDay`, `apLoc`, `locMacDinh`, `dungKA`, `xemKA2`; mã js/12 giữ):
