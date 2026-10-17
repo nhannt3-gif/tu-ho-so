@@ -118,5 +118,6 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     3. Cần 03/TD **nhiều hộ**: mở Mẫu 03 → **"＋ Thêm hộ"** chọn từ các **01/TD đã lưu** → thêm dòng.
   - **Ý 12 (17/10):** **Mẫu 06/TD** = mượn bộ code **Mẫu 06 bên KTGS** (gọi đúng hàm KTGS như 09A in kèm 06/TD từ 3.206 — **không chép / sửa mẫu KTGS**, KTGS khóa mẫu), trong Hồ sơ vay gọi là "Mẫu 06/TD".
   - **Ý 13 (17/10):** Mẫu 06/TD là **mẫu in kèm các bộ hồ sơ vay** (không chỉ bộ 01 + 03): mỗi bộ hồ sơ có lựa chọn "in kèm 06/TD" (như 09A đang có từ 3.206), điền theo hộ / các hộ của bộ đó.
+  - **Ý 14 (17/10):** **Mẫu 06/TD thủ công** cũng lập riêng được như 01/TD — anh chọn / điền (không cần qua 01/TD hay bộ hồ sơ). Luật chung: **mẫu nào cũng có chế độ thủ công** (chọn từ danh sách + gõ tay).
   - **Đủ ý bộ 01 + 03 + 06 — chờ anh nhắn "code".**
 
