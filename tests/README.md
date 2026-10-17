@@ -157,6 +157,8 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t184.js` | 3.223 M3 nền ô trên 01/TD: 3 kiểu in, cách từng ô, chữ dài thu nhỏ + ⚠, khai báo trực quan. |
 | `node tests/t185.js` | 3.223 M8 lưu theo ngăn IndexedDB: chuyển lần đầu + giữ bản cũ, chỉ ghi ngăn đổi, dữ liệu > 5 MB, localStorage bị xóa mất, công tắc quay lại, IndexedDB bị chặn, xóa sạch, 2 máy giả lập. |
 | `node tests/t179.js` (3.223.1) | chuẩn khóa Giấy lĩnh không lệch theo ngày chạy (chuẩn hóa "Ngày"). |
+| `node tests/t186.js` | 3.224 scan mới: chọn loại, Tài liệu không ghép mặt sau, Văn bản rõ, bộ nút chuẩn, Lưu vào app không lên Drive khi chưa khai, chữ ký giữ nguyên mẫu ≤ 200 KB, ảnh khách 1 mặt CCCD. |
+| `node tests/t187.js` | 3.225 đồng bộ Drive theo khối: 3 máy (1 máy cũ chỉ chimuc.json), chỉ gửi / tải file đổi, dấu xóa, chặn ghi trống, chimuc.json 1 lần / giờ. |
 
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).

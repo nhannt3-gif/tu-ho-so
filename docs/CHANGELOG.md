@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.225 — 17/10/2026 — Scan mới (3.224) + đồng bộ Drive theo khối (3.225)
+- **Anh chốt 17/10** (`docs/KE_HOACH_3224_SCAN.md`, `docs/KE_HOACH_3225_LUU.md`; làm liền, xong phần nào gộp phần đó).
+- **3.224 scan** (`js/35-scan.js`, cắm / rút — thay `batDauScan`, `quetNhanh`, `scanXongHop`, `scanLuuMay`, `scanGui`, `ghiLuuTam`, `scanCanDay`, `apLoc`, `locMacDinh`, `dungKA`, `xemKA2`; mã js/12 giữ):
+  - ① chọn **loại** (🪪 CCCD · 📄 Tài liệu · ✍ Chữ ký · 🧑 Ảnh khách = 1 mặt CCCD) + nguồn; loại quyết định chế độ (`SC.che`) → Tài liệu / ảnh từ file không còn bị ghép cặp đòi mặt 2.
+  - ⑤ bộ nút chuẩn: 🖨 In (`inBlob`) · 💾 Lưu vào máy (`showSaveFilePicker` khi có, không thì Tải xuống / chia sẻ) · 🗂 Lưu vào app (⏳ Chờ khai báo, tên file sửa được) · 🗄 Lưu + khai ngay · 📤 Gửi Zalo · ✕ Bỏ. **Bản chưa khai không lên Drive** (`scanCanDay` lọc `chuaKhai`; bản đã từng lên thư mục Chưa khai vẫn cập nhật).
+  - Tài liệu: lọc mặc định **Văn bản rõ** (Giấy trắng + lấy nét chữ). Chữ ký: **giữ nguyên mẫu chụp** — `kyKhuBong` cân sáng nền theo vùng, tương phản rất nhẹ, giữ màu mực; JPG ≤ 200 KB; tùy chọn Gốc. Xem chữ ký / ảnh khách: bộ nút Lưu vào máy · Gửi Zalo · Lưu vào app · Bỏ.
+  - Bản nháp phiên quét giữ 1 ngày (trước 7).
+- **3.225 đồng bộ Drive theo khối** (`js/36-dong-bo-khoi.js`): `_Hệ thống/khoi/<khối>__<lô>.json` — văn bản theo năm, scan + chữ ký·CCCD theo tháng, ghi chú (lịch), dữ liệu tháng, bộ hồ sơ, biểu mẫu, thùng rác theo khối gốc (+ `daXoa`), dấu xóa `chung__xoa`. Kéo: 1 lệnh liệt kê / phút, chỉ tải file giờ sửa khác; đẩy: chỉ file đổi (dấu băm), Drive vừa đổi thì gộp trước. Không mục lục chung. Gộp = `gopTuRemote` (giữ nguyên luật). Mốc riêng máy `kdBam` / `kdKeo` (CH_RIENG).
+  - **Chuyển tiếp:** vẫn đọc `chimuc.json` (máy cũ); ghi tối đa 1 lần / giờ; nút "Máy cũ đã cập nhật hết" (`D.cauHinh.kdBoCu`) thôi ghi. Tắt trên 1 máy: 💾 Sao lưu › ☁ Đồng bộ theo khối › Tắt (`localStorage.tuhoso_dbk`).
+  - **Khác kế hoạch (báo anh):** cài đặt **vẫn qua `cauhinh.json`** — chạy song song 2 đường làm lẫn mốc `chBam` (t117, t136 trượt) → tách cài đặt theo khối để bước sau. Tách kho IndexedDB theo khối (C2) cũng để bước sau (đã có lưu theo ngăn 3.223).
+- **Phép thử:** t186 (scan, 14), t187 (3 máy, Drive giả, 12) mới; t151 theo bộ nút mới.
+
 ## 3.223.1 — 17/10/2026 — Bảng kê: viết tắt KP
 - **Anh báo:** Bảng kê che mất chữ cuối dòng Địa chỉ ("tỉnh Tây N…"). **Anh chốt:** không thu nhỏ chữ trong mẫu đơn; Bảng kê chỉ cần viết tắt "khu phố" → "KP".
 - `gdxBKDC` (js/26) áp cho dòng Địa chỉ Bảng kê (từ Giấy lĩnh và nhập tay); Giấy lĩnh không đổi.

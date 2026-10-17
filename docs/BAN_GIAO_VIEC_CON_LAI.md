@@ -222,6 +222,20 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.225) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan › Quét → chọn 📄 Tài liệu → lấy 2 ảnh có sẵn | 2 trang, không đòi mặt sau; nền giấy trắng, chữ rõ | |
+| 2 | Chọn 🪪 CCCD → chụp 2 mặt | Ghép đúng mặt trước | mặt sau như cũ | |
+| 3 | Đạt → 💾 Lưu vào máy (máy tính) | Hộp Lưu thành chọn thư mục; app không thêm mục | |
+| 4 | Đạt → 🗂 Lưu vào app | Vào ⏳ Chờ khai báo; chưa lên Drive; khai xã/ấp/tổ xong mới lên | |
+| 5 | Chọn ✍ Chữ ký → chụp | Chữ ký nhìn như thật (không ảo, không lem), dưới 200 KB | |
+| 6 | Chọn 🧑 Ảnh khách → chụp mặt trước CCCD | 1 mặt, cắt đúng khổ thẻ, dưới 200 KB | |
+| 7 | 2 máy cùng nối Drive: máy A thêm văn bản / ghi chú | Máy B nhận trong ~1 phút; Drive có thư mục _Hệ thống/khoi | |
+| 8 | Điện thoại có nhiều văn bản: mở app, sửa 1 ghi chú | Đồng bộ nhanh, không khựng | |
+
+**Ghi chú kỹ thuật 3.225:** cài đặt vẫn qua cauhinh.json; chimuc.json vẫn ghi mỗi giờ cho máy chưa cập nhật — khi mọi máy đã lên 3.225, vào 💾 Sao lưu bấm "Máy cũ đã cập nhật hết". Hồi quy: t100, t116 trượt sẵn trên main; hoiquy "báo cáo đã bỏ quay lại" chập chờn đã biết (BAN_GIAO_3161).
+
 ### Danh sách thử trên máy thật (3.223.1) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
