@@ -53,7 +53,7 @@ const fs=require('fs'), path=require('path');
  ok('Sổ hộ vay: chip loại, chip tháng, ô tìm chạy qua data-lenh', l1==='moi' && l2 && l3===1, l1+' · '+l2+' · '+l3);
  ok('Sổ hộ vay không còn onclick ở thanh lọc', await ev(()=>!document.querySelector('.hm-so-loc [onclick], .hm-so-loc [onchange], .hm-so-loc [oninput]')));
  /* 5b. hộ nhập bản cũ (chưa tổ, chưa xã) vẫn hiện khi chọn địa bàn · bảng trống ghi lọc + ✕ Bỏ lọc · tiêu đề bảng theo chế độ tối */
- await ev(()=>{ HM_SO.q = ''; hmDs().push({id:'hmcu', tao:'2025-03-02T08:00:00.000Z', kh:'', to:'', tv:[{ten:'Hộ Nhập Bản Cũ'}], dung:0, sv:[]}); const C = hsoCH(), x = pvLuaChon(TO_K.to, C, 'xa', true)[0].k; pvChon('hsv', 'xa', x); hsoVe(); }); await w(400);
+ await ev(()=>{ HM_SO.q = ''; HM_SO.tu = ''; HM_SO.den = ''; HM_SO.loai = ''; hmDs().push({id:'hmcu', tao:'2025-03-02T08:00:00.000Z', kh:'', to:'', tv:[{ten:'Hộ Nhập Bản Cũ'}], dung:0, sv:[]}); const C = hsoCH(), x = pvLuaChon(TO_K.to, C, 'xa', true)[0].k; pvChon('hsv', 'xa', x); hsoVe(); }); await w(400);
  ok('hộ nhập bản cũ (chưa tổ, chưa xã) vẫn hiện khi đang chọn Xã', await ev(()=>[...document.querySelectorAll('#hm-so-bang input[data-so="ten"]')].some(x=>x.value==='Hộ Nhập Bản Cũ')));
  await ev(()=>{ HM_SO.loai = 'cu'; hsoVe(); }); await w(300);
  r = await ev(()=>({chu:(document.querySelector('#hm-so-bang .hm-so-trong')||{}).textContent||'', nut:!!document.querySelector('#hm-so-bang [data-lenh="so.boLoc"]')}));
