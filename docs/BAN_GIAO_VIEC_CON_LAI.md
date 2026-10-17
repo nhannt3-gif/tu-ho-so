@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.241) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giao dịch xã › Mẫu 04 → In | Lề 2/2/3/2 cm; gạch PGD ½ chữ, mảnh; tiêu đề cùng cỡ; giãn đều; 1 trang | |
+| 2 | 12/GDX → In | Như cũ, nét gạch đầu mẫu mảnh | |
+
+**Ghi chú kỹ thuật 3.241:** nét kẻ mảnh trong bản in: dùng vạch `height:1px; background:#000; transform:scaleY(.55)` (viền `border` < 1 px bị làm tròn 1 px).
+
 ### Danh sách thử trên máy thật (3.240) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
