@@ -222,6 +222,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.242) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › 01/TD | Form đi đúng thứ tự tờ giấy; chọn chương trình bằng chip, không có GQVL | |
+| 2 | Gõ người vay mới, Tab / Enter liên tục, ngày gõ liền số | Con trỏ sang ô kế; ngày đúng; nơi cấp tự điền; hộ mới vào Sổ hộ vay | |
+| 3 | Chọn Xã → Thôn → Hội → Tổ | Xã quản lý đầu danh sách; Hội lọc tổ; tổ trưởng + Hội hiện | |
+| 4 | NSVSMT tích 2 công trình, để trống tự có | Đề nghị 50 tr, tổng 55 tr (tự có mặc định 5 tr) | |
+| 5 | 💾 Lưu → Làm trống → bấm bản đã lưu | Tên không dấu + tổ + ấp; mở lại đúng hộ | |
+| 6 | Sửa rồi bấm In / Mẫu 03 chưa lưu | Hỏi "Lưu bản 01/TD này trước?"; Mẫu 03 có hộ vừa lập | |
+| 7 | Chọn hộ cũ có mã KH | Ô nhân thân khóa, lấy theo Mẫu 31 | |
+
+**Ghi chú kỹ thuật 3.242:** form 01/TD = `L01.form` (`js/40-lap-01td.js`), vẽ lại bằng `setTimeout` và giữ con trỏ theo `data-l01`; ô cũ giữ con trỏ qua `hsoVeGiuO`. Phím chung nhận thêm gốc `div.phim-chung`. `hsoTuCo(B)` = tự có hoặc mặc định thẻ; `hsoLoaiChu(C, v)` đổi mã loại cũ sang chữ.
+
 ### Danh sách thử trên máy thật (3.241) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
