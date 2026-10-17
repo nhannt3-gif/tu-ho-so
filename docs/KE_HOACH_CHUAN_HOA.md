@@ -129,5 +129,6 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     7. Bản đã lưu hiện thành **1 danh sách ngay dưới form nhập**.
     8. Bố trí form **gọn trong 1 trang màn hình**.
   - **Ý 16 (17/10):** form lập mẫu **đi đúng thứ tự trên tờ mẫu** cho quen — ô chọn nhanh (chương trình, mục đích…) **nằm đúng chỗ của nó trên giấy**, không gom riêng lên đầu.
-  - **Đủ ý bộ 01 + 03 + 06 — chờ anh nhắn "code".**
+  - **Ý 17 (17/10):** **phạm vi làm trước: đúng 1 bộ — 01/TD · 03/TD · 06/TD · Giấy ủy quyền (01/UQ)**. Nhập liệu theo **bộ quy tắc chung** (đã có từ trước, nay ghi thành luật `docs/QUY_CHUAN_KIEN_TRUC.md` mục 11): Tab / Enter sang ô kế · ↑↓ chọn trong danh sách · ←→ đi trong chữ để sửa · ngày gõ liền số không cần dấu /.
+  - **Đủ ý bộ 01 + 03 + 06 + UQ — chờ anh nhắn "code".**
 
