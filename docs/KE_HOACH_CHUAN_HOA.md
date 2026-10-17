@@ -88,5 +88,6 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     3. Bố trí: **form bên trái, màn xem bên phải**; ô nào **chọn từ danh sách** được thì cho chọn, ô nào **tự động** được thì tự động.
     4. Các chế độ: **thủ công** (không gắn dữ liệu tự động) · **bán tự động** · (tự động khi gọi từ Sổ hộ vay).
     5. **Gõ xong lưu lại được.**
-  - (chờ anh bàn tiếp — đề xuất của em ở tin nhắn 17/10, chưa chốt)
+  - **Ý 3 (17/10):** giao diện các tab mẫu **tạm để như hiện tại**; **cấu trúc code em tự sắp xếp** sao cho bộ mẫu độc lập — sau này đưa ra ngoài (mục riêng) chỉ như "đem từ trong 1 tab ra desktop".
+  - (chờ anh duyệt kế hoạch các bước M1–M4 ở tin nhắn 17/10)
 
