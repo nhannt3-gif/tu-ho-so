@@ -16,6 +16,8 @@ const fs=require('fs'), path=require('path');
  /* 1. thứ tự form theo tờ giấy */
  let r = await ev(()=>[...document.querySelectorAll('#hso-tuy .l01 .l01-o > span:first-child, #hso-tuy .l01 .nhan-nhom')].map(x=>x.textContent.trim()).join(' | '));
  ok('form 01/TD đúng thứ tự tờ giấy: Chương trình → Kính gửi → 1. Người vay (họ tên, năm sinh, CCCD, ngày cấp, nơi cấp, xã, thôn, tổ)', /Chương trình cho vay \| Kính gửi \| 1\. Người vay .*Họ tên người vay \| Năm sinh \| Số CC \/ CCCD \| Ngày cấp \| Nơi cấp \| Địa chỉ — Xã \| Thôn \(ấp\) \| Hội \(lọc tổ\) \| Tổ TK&VV/.test(r), r.slice(0, 200));
+ r = await ev(()=>[...document.querySelectorAll('#hso-tuy [data-lenh="l01.ct"]')].map(x=>x.getAttribute('data-ma')));
+ ok('chương trình trên 01/TD không có GQVL (GQVL dùng mẫu riêng 01/GQVL — anh 17/10)', r.length>0 && r.indexOf('GQVL')<0, r.join(','));
  r = await ev(()=>{ const s = document.querySelector('[data-l01="xa"]'); const ql = D.cauHinh.xaQuanLy || []; return {dau:s.options[1] && s.options[1].text, ql:ql}; });
  ok('xã anh quản lý đứng đầu danh sách xã', r.ql.indexOf(r.dau)>=0, JSON.stringify(r));
  /* 2. gõ người vay mới — Tab / Enter, ngày liền số */

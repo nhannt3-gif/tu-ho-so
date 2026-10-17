@@ -16,7 +16,7 @@ var L01 = (function(){
   function hoMoi(){   /* lập 01/TD cho người chưa có trong sổ → thêm hộ mới vào Sổ hộ vay + phiếu hồ sơ */
     var o = {id:'hm'+Date.now().toString(36)+Math.random().toString(36).slice(2, 5), tao:new Date().toISOString(), kh:'', to:'', xa:'', tenXa:'', diem:'', tenDiem:'', thon:'', tenThon:'',
       tv:[{ten:'', ns:'', cccd:'', ncap:'', noiCap:'', qh:'', sdt:''}], dung:0, sv:[]};
-    hmDs().unshift(o); var B = hmBo(o); B.ct = B.ct || (hsoCTVDs().find(function(c){ return c.bat!==false; }) || {}).ma || 'HSSV'; luu(); return B; }
+    hmDs().unshift(o); var B = hmBo(o); B.ct = B.ct || (hsoCTVDs().find(function(c){ return c.bat!==false && c.kieu!=='gqvl'; }) || {}).ma || 'HSSV'; luu(); return B; }
   function canBo(){ return hsoBo() || hoMoi(); }
   function tenBan(B){ var o = ho(B), n = nguoi(o), T = hsoBoT(B);
     return [boDauTen(n.ten || 'Chua ten'), o && hmToTen(o) ? boDauTen(hmToTen(o)) : '', o && o.tenThon ? boDauTen(o.tenThon) : (T.ap ? boDauTen(T.ap) : '')].filter(Boolean).join(' - '); }   /* tên không dấu + tổ + ấp */
@@ -68,7 +68,7 @@ var L01 = (function(){
       GD.hang([GD.nut({chu:'Làm trống', lenh:'l01.trong', tit:'Bắt đầu 01/TD mới'}), GD.nut({chu:'💾 Lưu', lenh:'l01.luu', chinh:1, tit:'Lưu bản — tên tự đặt: tên không dấu + tổ + ấp'}),
         GD.nut({chu:'🖨 In', lenh:'l01.in'}), GD.nut({chu:'📤 Gửi', lenh:'l01.gui'}), GD.nut({chu:'📄 Mẫu 03', lenh:'l01.m03', tit:'Sang 03/TD — điền sẵn từ 01/TD này'})])+'</div>';
     /* Chương trình · Kính gửi */
-    h += '<div class="l01-phan">'+o1('Chương trình cho vay', '<span class="hang-nut">'+hsoCTVDs().filter(function(c){ return c.bat!==false || (B && c.ma===B.ct); }).map(function(c){ return GD.chip('<b>'+e(c.ma)+'</b>', !!B && B.ct===c.ma, 'l01.ct', {ma:c.ma}, c.ten).replace('gd-chip', 'gd-chip hso-ct'); }).join('')+
+    h += '<div class="l01-phan">'+o1('Chương trình cho vay', '<span class="hang-nut">'+hsoCTVDs().filter(function(c){ return c.kieu!=='gqvl' && (c.bat!==false || (B && c.ma===B.ct)); }).map(function(c){ return GD.chip('<b>'+e(c.ma)+'</b>', !!B && B.ct===c.ma, 'l01.ct', {ma:c.ma}, c.ten).replace('gd-chip', 'gd-chip hso-ct'); }).join('')+
         ' <a href="#" class="hso-nho" data-lenh="l01.kb" data-k="ct" title="Thêm / sửa chương trình">⚙</a></span>')+
       o1('Kính gửi', '<span class="l01-tu">'+e(hsoPGD('kinhGui') || '— chưa khai —')+' <a href="#" class="hso-nho" data-lenh="l01.kb" data-k="pgd" title="Khai báo tên Ngân hàng (Kính gửi)">⚙</a></span>')+'</div>';
     /* 1. Người vay */
