@@ -72,7 +72,10 @@ function ktSectSo(sect, kieu){   /* 3.128: gắn chân trang số trang (rId11),
   return sect;
 }
 function ktSectLe(sect){ sect = String(sect).replace(/<w:type w:val="[^"]*"\/>/, ''); return sect.replace(/<w:pgSz/, '<w:type w:val="oddPage"/><w:pgSz'); }
-function ktDocx(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: mỗi phiếu sang trang mới, cùng 1 file) */
+function ktDocx(mau, gt){   /* 3.236: tải khuôn trước (giữ cờ in 1 / 2 mặt KT_HAI_EP của lúc gọi) */
+  var ep = KT_HAI_EP; return ktKhuon().then(function(){ var cu = KT_HAI_EP; KT_HAI_EP = ep; try { return ktDocxLam(mau, gt); } finally { KT_HAI_EP = cu; } });
+}
+function ktDocxLam(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: mỗi phiếu sang trang mới, cùng 1 file) */
   var K = mau==='pc' ? KT_KHUON.m01b : KT_KHUON[mau], G = KT_KHUON.chung, enc = function(t){ return new Blob([t], {type:'application/xml'}); };
   var mot = function(g){
     if(mau==='pc') return ktBungPC(g);   /* 3.117: Thông báo phân công Ban Thường vụ */

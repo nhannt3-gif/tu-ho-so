@@ -168,6 +168,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t194.js` | 3.232 Điện thoại phần 2: thanh tab 5 mục, Văn bản (danh sách, lọc không dấu, mục chưa lên Drive), Scan (danh sách, 2 ảnh → PDF A4 bằng pdf-lib), bảng nút chuẩn Xem / Lưu máy / Lưu vào app / Đóng. |
 | `node tests/t195.js` | 3.233 Điện thoại phần 3: máy tính lập bản mini GDX theo kỳ mới nhất (không đổi kỳ đang xem, số liệu xáo), điện thoại mở trong app (04/TD, 12/GDX, Giấy lĩnh), cất mã hóa, mở lại không cần Drive, dt-sw.js. |
 | `node tests/t196.js` | 3.234 R2: bộ nhận lệnh data-lenh, ô rộng theo loại, bộ nút xuất (thứ tự, mờ không ẩn, Ctrl+P, Lưu vào app), lùi / tiến tab và mẫu, ◀ đóng hộp, hộp con giữ hộp cha, Sổ hộ vay theo data-lenh, hộ nhập bản cũ vẫn hiện khi lọc địa bàn, bảng trống có ✕ Bỏ lọc, tiêu đề bảng chế độ tối, Khai báo 390 px. |
+| `node tests/t197.js` | 3.236 R3 phần 2: khuôn Word KTGS không nạp lúc mở app, `ktDocx` tự tải (giữ cờ in 2 mặt), tải đúng 1 lần, Kế hoạch năm tự tải trước khi xem. |
 | (3.235) | Tách `22-so-lieu.js`: không thêm phép thử — chạy lại t106, t108, t129, t134, t179–t181 (khóa bản in), t196 + hồi quy; ghép các file `js/22*` + `js/22k-kt-khuon.js` khớp từng byte bản cũ. |
 
 

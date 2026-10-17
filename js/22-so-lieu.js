@@ -1,4 +1,4 @@
-/* 3.235 (R3): file này giữ phần lõi; các khối khác tách sang js/22b…22i + js/22k-kt-khuon.js (nạp ngay sau theo thứ tự tên; khuôn 22k chỉ là dữ liệu) */
+/* 3.235 (R3): file này giữ phần lõi; các khối khác tách sang js/22b…22i (nạp ngay sau theo thứ tự tên) + khuôn Word KTGS js/khuon/kt-khuon.js (3.236: tải khi cần — ktKhuon) */
 /* ==========================================================
    3.85 — 📈 SỐ LIỆU: bộ file Excel hệ thống nạp hằng tháng
    - Nạp cả bộ (app tự nhận loại + kỳ) hoặc từng file (anh chọn loại + kỳ, app đọc nội dung kiểm lần cuối)

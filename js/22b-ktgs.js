@@ -112,6 +112,14 @@ function ktTruocNap(K){
     return KT_TRUOC = {ky:tr, co:true, t105:t};
   }).catch(function(){ return KT_TRUOC = {ky:tr, co:false, t105:{}}; });
 }
+function ktKhuon(){   /* 3.236 (R3 phần 2): khuôn Word KTGS (490 KB, js/khuon/kt-khuon.js) chỉ tải khi cần — mở 🛡 KTGS, tạo Word / xem Kế hoạch năm */
+  if(window.KT_KHUON) return Promise.resolve(window.KT_KHUON);
+  if(!ktKhuon.p) ktKhuon.p = new Promise(function(ok, loi){ var s = document.createElement('script');
+    s.src = 'js/khuon/kt-khuon.js?v='+APP_BAN; s.onload = function(){ window.KT_KHUON ? ok(window.KT_KHUON) : loi(new Error('khuôn rỗng')); };
+    s.onerror = function(){ ktKhuon.p = null; s.remove(); loi(new Error('Không tải được khuôn Word KTGS (mất mạng?) — thử lại khi có mạng.')); }; document.head.appendChild(s); });
+  return ktKhuon.p;
+}
+function ktKhuonTruoc(f){ if(window.KT_KHUON) return false; ktKhuon().then(f, function(er){ baoLoi(er && er.message || er); }); return true; }   /* chưa có khuôn → tải rồi chạy lại f */
 function veKTGS(){
   var e = document.getElementById('tr7'); if(!e) return;
   if(!SL_SAN){ e.innerHTML = '<div class="rong">Đang mở số liệu…</div>'; slNap().then(veKTGS); return; }
@@ -119,7 +127,7 @@ function veKTGS(){
   if(!dsKy.length){ e.innerHTML = slTabConHTML()+ktDauHTML(null, [])+'<div class="rong">Chưa có số liệu món vay. Nạp Mẫu 31 (và BC0437 / BC0438) ở tab <b>📥 Nạp &amp; KT</b> trước.</div>'; return; }
   toKyMacDinh(C, dsKy, 'kt');
   e.innerHTML = slTabConHTML()+'<div class="rong">Đang mở số liệu '+slKyChu(C.ky)+'…</div>';
-  toNap(C.ky).then(function(K){ KT_K = K; TO_K = K; return Promise.all([ktNapBC(C.ky), ktTruocNap(K)]); })
+  toNap(C.ky).then(function(K){ KT_K = K; TO_K = K; ktKhuon().catch(function(){}); return Promise.all([ktNapBC(C.ky), ktTruocNap(K)]); })
     .then(function(r){ KT_BC = r[0]; if(nganHienTai===7 && D.cauHinh.slTab==='kt') ktVe(dsKy); })
     .catch(function(er){ var o = document.getElementById('tr7'); if(o && D.cauHinh.slTab==='kt') o.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" onclick="toThuLai()">⟳ Thử lại</button></div>'; });
 }

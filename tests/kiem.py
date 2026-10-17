@@ -50,7 +50,7 @@ if lech: loi.append('?v= trong index.html (%s) khác APP_BAN' % ', '.join(lech))
 # 3.231: bản điện thoại dt.html + js/dt/*.js — cú pháp từng file, ?v= cùng APP_BAN
 if len(sys.argv)<2 and os.path.exists(os.path.join(ghep.GOC,'dt.html')):
     import glob as _g
-    for p in sorted(_g.glob(os.path.join(ghep.GOC,'js','dt','*.js'))):
+    for p in sorted(_g.glob(os.path.join(ghep.GOC,'js','dt','*.js'))+_g.glob(os.path.join(ghep.GOC,'js','khuon','*.js'))):   # 3.236: + khuôn nạp khi dùng
         r=subprocess.run(['node','--check',p],capture_output=True,text=True)
         if r.returncode: loi.append(os.path.basename(p)+': '+(r.stderr.strip().splitlines()[-1] if r.stderr else '?'))
     lv=sorted({v for v in re.findall(r'\?v=([^"]+)"',open(os.path.join(ghep.GOC,'dt.html'),encoding='utf-8').read())}-{ban.group(1) if ban else ''})
