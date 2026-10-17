@@ -113,7 +113,7 @@ function omO1HTML(mk, x, V){   /* 1 dòng ô (Chọn nhanh ở cột trái) */
   else inp = '<i class="hso-cham-tay">…… chấm, ghi tay</i>';
   return '<div class="hso-cham-o"><span class="hso-cham-nhan">'+coChuHTML(x.n)+(c!=='cham' ? ' <small class="hso-cham-ng">📎 '+coChuHTML(omNguon(mk, x))+'</small>' : '')+'</span>'+omCachNut(mk, x, 1)+'<span class="hso-cham-gt">'+inp+'</span></div>'; }
 function omKBRieng(mk, V){   /* cuối cột trái: ⚙ Khai báo riêng — tóm tắt + Chọn nhanh + mở khai báo trực quan */
-  var m = OM_MAU[mk], dem = {cham:0, tu:0, kb:0, go:0}, dong = !!((hsoLuu().kbrDong||{})[mk]), doi = Object.keys(((hsoLuu().cham||{})[mk])||{}).length, nh = omNhanh(mk);
+  var m = OM_MAU[mk], dem = {cham:0, tu:0, kb:0, go:0}, dong = !hsoKBRDangMo(mk), doi = Object.keys(((hsoLuu().cham||{})[mk])||{}).length, nh = omNhanh(mk);
   var nl = {m31:0, chung:0, tu:0}; m.o.forEach(function(x){ var c = omCachLuu(mk, x.k); dem[c]++; if(c==='tu') nl[omNguonLoai(x)]++; });
   return '<details class="hso-kbr-d"'+(dong ? '' : ' open')+' ontoggle="hsoKBRMo(\''+mk+'\',this.open)"><summary class="nhan-nhom hso-kbr-o">⚙ Khai báo riêng — Mẫu '+coChuHTML(m.ma)+' <small>('+m.o.length+' ô: '+[[nl.m31, '📊'], [nl.chung, '⚙'], [nl.tu, '🤖'], [dem.kb, '⌨'], [dem.go, '✏'], [dem.cham, '✍']].filter(function(z){ return z[0]; }).map(function(z){ return z[0]+' '+z[1]; }).join(' · ')+')</small></summary>'+
     '<div class="hang-nut"><button class="nho chinh" onclick="omKBHop(\''+mk+'\')" title="Hiện mẫu như giấy thật — bấm vào chỗ chấm để khai">🖼 Khai báo trực quan</button>'+

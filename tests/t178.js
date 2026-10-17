@@ -34,11 +34,11 @@ const fs=require('fs'), path=require('path');
    const ho = hmTuM31(hsoTVTo(TO_K.to[C.to])[0].kh); ho.kh = ''; ho.tv[ho.dung||0].ncap = '';   /* hộ mới (không đọc lại Mẫu 31) thiếu ngày cấp */
    hmLamHS(ho.id, '01td'); await w(300); const B = hsoBo(); B.ct = 'HSSV'; B.pa = Object.assign(B.pa||{}, {sv:'Con Giả', soThang:'12'}); B.tien = '40000000'; hsoBoLuu(); hsoVe(); await w(300);
    let tuy = document.getElementById('hso-tuy'), dau = tuy.querySelector('.nhan-nhom'), kbr = tuy.querySelector('details.hso-kbr-d');
-   ok('01/TD: đầu cột trái "✎ Nhập liệu — Mẫu 01/TD", cuối cột "⚙ Khai báo riêng — Mẫu 01/TD" (details, mở)', /✎ Nhập liệu — Mẫu 01\/TD/.test(dau.textContent) && !!kbr && kbr.open && /⚙ Khai báo riêng — Mẫu 01\/TD/.test(kbr.querySelector('summary').textContent) && !kbr.nextElementSibling);
+   ok('01/TD: đầu cột trái "✎ Nhập liệu — Mẫu 01/TD", cuối cột "⚙ Khai báo riêng — Mẫu 01/TD" (details, 3.240: mặc định TẮT, bấm mở)', /✎ Nhập liệu — Mẫu 01\/TD/.test(dau.textContent) && !!kbr && !kbr.open && (kbr.open = true) && /⚙ Khai báo riêng — Mẫu 01\/TD/.test(kbr.querySelector('summary').textContent) && !kbr.nextElementSibling);
    const nCT = tuy.innerHTML.split("hsoKBHop(\\'ct\\')").length - 1 + tuy.innerHTML.split("hsoKBHop('ct')").length - 1;
    ok('chương trình vay chỉ 1 lối vào (① ⚙ khai báo chương trình)', nCT===1, nCT);
    const h0 = hsoLap().h; kbr.open = false; await w(100);
-   ok('thu gọn ⚙ Khai báo riêng → nhớ (vẽ lại vẫn gọn), bản in không đổi', hsoLuu().kbrDong['01td']===1 && (hsoVe(), !document.querySelector('#hso-tuy details.hso-kbr-d').open) && hsoLap().h===h0);
+   ok('thu gọn ⚙ Khai báo riêng → nhớ (vẽ lại vẫn gọn), bản in không đổi', !hsoKBRDangMo('01td') && (hsoVe(), !document.querySelector('#hso-tuy details.hso-kbr-d').open) && hsoLap().h===h0);
    document.querySelector('#hso-tuy details.hso-kbr-d').open = true; await w(100);
    /* bổ sung 3: nhắc thiếu */
    tuy = document.getElementById('hso-tuy'); let th = tuy.querySelector('.hso-thieu');
