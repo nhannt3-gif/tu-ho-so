@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.246 — 18/10/2026 — Dọn giao diện Bộ HS / Hộ vay cũ
+- Theo kế hoạch anh đã duyệt ("cái nào cũ đã bỏ thì dọn rác"): tab **📁 Bộ HS** đã ẩn từ 3.209, không còn lối vào trong app (chỉ phép thử cũ gọi) → gỡ hẳn.
+- `js/25-ho-so.js` gỡ: `hsoTuyBo` (cột nhập Bộ HS), `hsoBoChonKH`, `hsoBoTim` (chọn / tìm khách kiểu cũ), `hmLapHS`, `hmGanBo`, `hsoBoXoa`, `hsoBoGanTo`, `hsoBoThemHo`, `hsoBoBoHo`, `hsoBoTrenM31` và mục `bo` trong danh sách mẫu (−19 onclick, −3 dòng > 400 ký tự).
+- **Giữ:** `hsoLapBo` (in 01/TD kèm 01/UQ · 10C · 03/TD · 01/TGTV — một lần in / một file Word), phiếu hồ sơ `D.cauHinh.hsoBo` (dữ liệu cũ đọc được, gắn Sổ hộ vay), 03/TD tích tổ viên theo tổ.
+- Chữ còn trỏ về "📁 Bộ hồ sơ vay" (03/TD chưa có hộ, 01/TGTV) → trỏ về 📒 Sổ hộ vay.
+- Phép thử chuyển sang luồng mới (Sổ hộ vay → 📄 Lập HS → 01/TD + In kèm): t163, t164 (cả file Word in kèm), t171, t172, t192.
+
 ## 3.245 — 18/10/2026 — Giao dịch xã: bỏ dòng chip tóm tắt; sửa bản mini
 - **Anh 18/10** (ảnh thanh dưới Giao dịch xã): "dòng chip này bỏ đi" → bỏ 📋 + dãy chip tóm tắt (điểm, số hộ · tiền, ngày phát, ngày ký, người lập, GĐ ký, số bản). Thanh dưới còn cảnh báo (nếu có) + nút In / PDF, nút canh phải. Chip vẫn tính (`gdxTom`) để ghi 📜 nhật ký in.
 - **Sửa lỗi 3.243:** bản Giao dịch xã mini (`js/27-mini-gdx.js`, chép hàm từ app lúc xuất) thiếu `gdxLien`, `gdxGachTay`, `GDX_GACH` → mở Mẫu 04 trong bản mini báo lỗi. Đã thêm vào danh sách chép (t168 bắt được).
