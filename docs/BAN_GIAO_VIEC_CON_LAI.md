@@ -222,6 +222,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.231) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Máy tính: ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 tích "Tự đẩy…" (đã nối Drive) | Báo "Đã đẩy số liệu T… (n khách)" | |
+| 2 | Điện thoại: mở đường dẫn app như mọi khi | Tự sang giao diện điện thoại, đặt PIN 2 lần | |
+| 3 | ⟳ → đăng nhập Google | Lấy được số liệu, ghi "Mẫu 31 dd/mm/yyyy" | |
+| 4 | 🔎 gõ tên không dấu / CCCD / SĐT | Ra danh sách; bấm → nhân thân, tổ, từng món vay; bấm số điện thoại gọi được | |
+| 5 | 🗺 Địa bàn: bấm xã → điểm → hội → tổ → khách | Mỗi cấp có dư nợ, hộ, tổ, món, quá hạn, khoanh; tổng PGD khớp máy tính | |
+| 6 | Để yên 5 phút / chuyển app 2 phút rồi quay lại | Đòi PIN | |
+| 7 | ⚙ › 🖥 Mở bản máy tính | Về giao diện cũ (máy tính) trên điện thoại | |
+
+**Ghi chú kỹ thuật 3.231:** thư viện điện thoại tải từ jsDelivr lần đầu (Framework7 ~200 KB + 77 KB sau nén) rồi cất máy. Gói số liệu trên Drive là JSON nén (không mã hóa — bảo vệ bằng tài khoản Google như các file số liệu khác); trên điện thoại cất mã hóa theo PIN. iPhone: mở Safari → "Thêm vào màn hình chính".
+
 ### Danh sách thử trên máy thật (3.230) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

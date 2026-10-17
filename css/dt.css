@@ -1,0 +1,27 @@
+/* ===== 3.231 bản điện thoại — chỉ phần riêng; còn lại theo Framework7 (iOS) ===== */
+:root{--dt-xanh:#1a5fb4;--dt-do:#c01c28;--dt-nen:#f2f2f7;--dt-the:#fff;--dt-chu:#1c1c1e;--dt-phu:#6e6e73}
+@media (prefers-color-scheme:dark){:root{--dt-nen:#000;--dt-the:#1c1c1e;--dt-chu:#f2f2f7;--dt-phu:#98989d}}
+html,body{margin:0;background:var(--dt-nen);color:var(--dt-chu);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+/* màn khóa PIN */
+.khoa{position:fixed;inset:0;z-index:20000;display:none;flex-direction:column;align-items:center;justify-content:space-between;padding:calc(40px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#1a5fb4,#0d3a75);color:#fff;box-sizing:border-box}
+.khoa-dau{text-align:center}.khoa-logo{width:64px;height:64px;border-radius:16px;background:#fff;color:#1a5fb4;font-weight:800;font-size:26px;line-height:64px;margin:0 auto 10px}
+.khoa-ten{font-size:22px;font-weight:700}.khoa-tieu{margin-top:14px;font-size:15px;opacity:.95;max-width:300px}
+.khoa-cham{display:flex;gap:14px;justify-content:center;margin-top:18px}.khoa-cham i{width:13px;height:13px;border-radius:50%;border:1.5px solid #fff}.khoa-cham i.co{background:#fff}
+.khoa-loi{min-height:20px;margin-top:12px;color:#ffd5d5;font-size:14px}
+.khoa-phim{display:grid;grid-template-columns:repeat(3,76px);gap:16px 26px;justify-content:center}
+.khoa-phim button{width:76px;height:76px;border-radius:50%;border:none;background:rgba(255,255,255,.18);color:#fff;font-size:28px;font-weight:500}
+.khoa-phim button:active{background:rgba(255,255,255,.4)}.khoa-quen{border:none;background:none;color:#fff;opacity:.8;font-size:14px}
+/* trang */
+.dt-ic{font-size:22px;line-height:28px}
+.dt-tim{padding:8px 16px}.dt-tim input{width:100%;box-sizing:border-box;font-size:17px;padding:10px 14px;border-radius:12px;border:none;background:var(--dt-the);color:var(--dt-chu);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.dt-ghi{color:var(--dt-phu);font-size:13px;padding:0 16px;margin:6px 0}
+.dt-the{background:var(--dt-the);border-radius:14px;margin:12px 16px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dt-dn{font-size:30px;font-weight:700;color:var(--dt-xanh)}.dt-so{display:flex;gap:16px;margin-top:4px;font-size:15px}
+.dt-qh{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px;font-size:14px;color:var(--dt-phu)}.dt-the .dt-ghi{padding:0;margin-top:8px}
+.do,.dt-qh .do{color:var(--dt-do)!important}
+.dt-mon-dau{display:flex;justify-content:space-between;gap:8px;font-size:15px}.dt-mon-dau span{color:var(--dt-phu);font-size:13px}
+.dt-mon-ct{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:6px;font-size:14px}.dt-mon.canh{border-left:4px solid var(--dt-do)}
+.dt-kv .item-after{color:var(--dt-chu);max-width:62%;white-space:normal;text-align:right}
+.dt-trong{color:var(--dt-phu);text-align:center}
+.item-title.do{color:var(--dt-do)}
+.view-main .page-content{padding-bottom:calc(64px + env(safe-area-inset-bottom))}   /* chừa chỗ thanh tab dưới */

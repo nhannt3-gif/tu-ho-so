@@ -3,7 +3,7 @@
    Lần đầu có mạng: tải về và cất vào máy.
    Những lần sau: nạp thẳng từ máy, không cần mạng.
    ========================================================== */
-var THU_VIEN = [
+var THU_VIEN = window.THU_VIEN_DT || [   /* 3.231: bản điện thoại (dt.html) đặt danh sách riêng trước khi nạp file này */
   {ten:'pdfjs',  url:'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js'},
   {ten:'pdfjsw', url:'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js', giuNguyen:true},
   {ten:'pdflib', url:'https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js'},
@@ -55,6 +55,7 @@ function napMotTV(tv){
     });
   }).then(function(kq){
     if(tv.giuNguyen){ TV[tv.ten] = kq.ma; return; }
+    if(tv.css){ var st = document.createElement('style'); st.textContent = kq.ma; document.head.appendChild(st); TV.san[tv.ten] = true; return; }   /* 3.231: thư viện CSS */
     var b = document.createElement('script');
     b.textContent = kq.ma;
     document.head.appendChild(b);

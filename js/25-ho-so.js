@@ -85,7 +85,7 @@ function hsoKBHop(tab){   /* 3.208 (anh chốt 14/10): ⚙ Khai báo chung — c
       (to.length ? '<div class="hso-kb-luoi">'+to.slice(0, 200).map(function(t){ return o('', 'Tổ '+(t.ten||t.ma)+' · '+pvApNgan(t.tenThon)+' — máy: '+(t.pho||'chưa có'), kb.pho[t.ma], 'trống = theo máy', 'hsoKB().pho[\''+t.ma+'\']=this.value.trim();luu()'); }).join('')+'</div>'+(to.length>200 ? '<div class="sl-phu">Hiện 200 tổ đầu — chọn xã / điểm để rút gọn.</div>' : '') : '<div class="sl-phu">Chưa có số liệu tổ.</div>')+'</div>')+
     pane('ct', hsoCTVHTML())+
     pane('cb', typeof gdxCanBoHTML==='function' ? gdxCanBoHTML()+'<div class="sl-phu">Dùng ở ô chọn cán bộ của các mẫu Giao dịch xã (12/GDX, 04/TD…). Cán bộ tín dụng lập hồ sơ vay: tab 🏦 PGD (ô \"Cán bộ tín dụng\").</div>' : '')+
-    pane('hoi', kbHoiHTML())+pane('tk', typeof tkKhoiHTML==='function' ? tkKhoiHTML() : '')+pane('kiem', typeof khKBHTML==='function' ? khKBHTML() : '')+pane('sl', typeof kbSaoLuuHTML==='function' ? kbSaoLuuHTML() : '')+
+    pane('hoi', kbHoiHTML())+pane('tk', typeof tkKhoiHTML==='function' ? tkKhoiHTML() : '')+pane('kiem', typeof khKBHTML==='function' ? khKBHTML() : '')+pane('sl', (typeof kbSaoLuuHTML==='function' ? kbSaoLuuHTML() : '')+(typeof gxKBHTML==='function' ? gxKBHTML() : ''))+
     '<div class="hang-nut"><button class="nho chinh" onclick="dongHop();hsoVe();if(typeof gdxVeTrai===\'function\'&&document.getElementById(\'gdx-trai\'))gdxVeTrai()">Xong</button></div>', true);
 }
 /* ---------- 3.208 (anh chốt 14/10): CHƯƠNG TRÌNH VAY — mỗi CT 1 thẻ (D.cauHinh.hsoKB.ctv): tên tắt, tên in 01/03, đối tượng thụ hưởng, mục đích, mức vay, thời hạn / kỳ hạn ghi sẵn hay chấm ----------

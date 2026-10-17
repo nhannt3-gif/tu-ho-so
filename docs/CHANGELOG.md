@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.231 — 17/10/2026 — 📱 Bản điện thoại phần 1: khóa PIN, tra cứu khách, địa bàn theo cấp
+- **Anh duyệt 17/10:** điện thoại giao diện riêng kiểu iOS, cùng đường dẫn tự chuyển; bỏ Số liệu / Nạp / Hồ sơ / KTGS trên điện thoại; tra cứu khách (nhân thân + món vay), xem nhanh địa bàn từng cấp đủ dư nợ, số hộ, số tổ, quá hạn, khoanh; số liệu đọc từ Drive; em tự quyết Framework7 + PIN + mã hóa.
+- **Máy tính — gói số liệu xem** `js/38-goi-xem.js`: `gxLapTu(K)` (tổ + tổng từng tổ: dư nợ, quá hạn, khoanh, số hộ còn nợ, số món; khách: nhân thân + món [CT, khế ước, ngày vay, giải ngân, dư nợ, quá hạn, khoanh, đến hạn, trạng thái]; tên chương trình; tổ trưởng `gxTT`) theo Mẫu 31 chốt tháng mới nhất (`KHO.nap` + cửa mới `KHO.voiKy` — không đổi kỳ đang xem) → gzip → Drive `<thư mục>/_Hệ thống/xem/xem.json.gz`. Tự đẩy sau khi nạp Mẫu 31 (bọc `slGhi`, chờ 20 giây cả lô; chưa nối Drive → đẩy khi nối) khi bật ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại; nút 📤 Đẩy ngay. Khóa `gx*` riêng máy (không đồng bộ).
+- **Tự chuyển:** đầu `index.html` — màn cảm ứng, cạnh ngắn ≤ 600 px → `dt.html`; `?may=1` / nút "🖥 Mở bản máy tính" giữ bản máy tính, `?dt=1` về bản điện thoại. Máy tính bảng, máy tính không đổi.
+- **Điện thoại** `dt.html` + `js/dt/dt-nen.js` (hộp `DT`: PIN → PBKDF2 150.000 vòng → AES-GCM 256, dữ liệu trong máy chỉ dạng mã hóa — IndexedDB `tuhoso_dt`; sai 5 lần chờ 1 phút, 10 lần xóa dữ liệu máy; để yên 5 phút / ẩn 2 phút tự khóa; Drive chỉ đọc cùng Client ID, quyền drive.file) + `js/dt/dt-giao-dien.js` (hộp `DTG`, Framework7 8.3.4 kiểu iOS: màn PIN, 🔎 Tra cứu, 👤 thẻ khách — gọi điện 1 chạm, 🗺 Địa bàn PGD → Xã → Điểm GD → Hội → Tổ → Khách, ⚙ Cài đặt; ⬅ lùi bằng nút / vuốt / nút ◀ điện thoại) + `css/dt.css`. Chữ từ gói luôn thoát HTML; CSP chỉ cho mã từ trang, jsDelivr (thư viện đã duyệt), Google.
+- **Bộ nạp thư viện** `js/01`: danh sách riêng `THU_VIEN_DT` + thư viện CSS. `kiem.py` kiểm cú pháp `js/dt/*.js` + `?v=` của `dt.html`; `bump.py` đổi `?v=` cả `dt.html`; `tests/tv.js` định tuyến jsDelivr → `tests/lib` (framework7 8.3.4, dompurify 3.2.6).
+- **Thước đo:** `onclick` +2 (nút trong ⚙ Khai báo vẫn theo kiểu cũ — sẽ đổi khi có bộ nhận lệnh ở R2).
+- **Còn (bản sau):** Văn bản, Scan, Giao dịch xã mẫu nhẹ trên điện thoại; chạy không mạng (service worker); vân tay / Face ID.
+- **Phép thử:** `tests/t193.js` (mới, 20).
+
 ## 3.230 — 17/10/2026 — Chuẩn hóa đợt R1: thước đo, dọn rác, kiểm kê giao diện
 - **Anh duyệt 17/10:** kế hoạch chuẩn hóa code + bản điện thoại (`docs/KE_HOACH_CHUAN_HOA.md` — 9 mục: hiện trạng, chuẩn không build, bố cục, bộ nút xuất, điều hướng, thư viện, bản điện thoại); làm tuần tự R1 → điện thoại → R2…, mỗi đợt hồi quy 1 lần rồi gộp. Luật mới: `QUY_CHUAN_KIEN_TRUC.md` mục 10 (code / giao diện mới, danh mục thư viện được phép); `CLAUDE.md` đổi "không thêm thư viện" → chỉ dùng danh mục anh duyệt.
 - **Thước đo chống lệch hướng:** `tests/kiem.py` thêm dòng "Thước đo" (JS / CSS KB, hàm & biến chung, mồ côi, dòng > 400 ký tự, `onclick`, file > 150 KB, đọc thẳng biến kho ngoài `22` / `29`) so với mốc `tests/do_moc.json` (mốc lấy ở 3.229); tăng → ⚠ VƯỢT MỐC; `--moc` ghi mốc mới.

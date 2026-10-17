@@ -39,6 +39,8 @@ var KHO = (function(){
     khach: function(kh, t){ return hsoKhach(kh, t); },
     /* KHO.danhBa(maKH) → bản ghi danh bạ Mẫu 31 các kỳ (sdt, voChong, gt, danToc, to, xa, stk…) | null */
     danhBa: function(kh){ return typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh && kh ? SL_DB.kh[kh] || null : null; },
+    /* KHO.voiKy(K, hàm) → chạy hàm với kỳ K (đã dựng bằng KHO.nap) làm kỳ đang dựng rồi trả lại kỳ cũ — đọc kỳ khác không đổi màn hình (3.231) */
+    voiKy: function(K, f){ var cu = TO_K; TO_K = K; try { return f(); } finally { TO_K = cu; } },
     /* KHO.phienDanhBa() → đối tượng nhận diện bản danh bạ đang dùng (đổi khi nạp lại) — chỉ để biết khi nào dựng lại chỉ mục (3.228) */
     phienDanhBa: function(){ return typeof SL_DB!=='undefined' ? SL_DB : null; },
     /* KHO.monKH(maKH) → [{ct, ku, dn, nv, gn, qh, kn, dh, to, xong, md, truong, raTruong}] — món theo Mẫu 31 mới nhất (cần slKhMonNap() trước; chưa nạp → []) · 3.228 */
