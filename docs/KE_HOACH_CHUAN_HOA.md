@@ -139,6 +139,7 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     4. UBND (HSSV): file anh **2 cột cùng hàng** (trái: Xác nhận của UBND xã đậm · Ông/bà … · 2 dòng chấm · **Chủ tịch** đậm · (ký tên, đóng dấu) — phải: Ngày … · Người vay) + **chừa ~4 dòng ký** trước PHÊ DUYỆT; app xếp chồng, chỗ ký ngắn.
     5. Ký Ngân hàng: file anh 3 cột **thẳng hàng**, tiêu đề đậm, ghi chú nghiêng nhỏ, "Ngày … tháng … năm …" trên cột Giám đốc, **chừa chỗ ký tới cuối trang**; app 3 cột lệch hàng, **hết chỗ ký** (in thật dễ tràn trang → "mất").
     6. Đầu giấy: file anh quốc hiệu **đậm, canh giữa, gạch dưới**, "Mẫu số 01/TD" đậm góc phải.
+    - **Đính chính (em, 17/10):** ảnh đối chiếu lần 1 dựng **thiếu CSS in** của app → mục 3, 5, 6 ở trên **sai** (bản in thật của app đã: đầu giấy đậm canh giữa có gạch, Ngày / Người vay cột phải, UBND 2 cột, NH 3 cột thẳng hàng). Khác biệt **thật** (ảnh lần 2, dựng từ `HSO.x.trang`): ① chữ điền **hở khoảng** (ô cố định theo chuỗi chấm) + còn chữ khuôn "xã (phường)"; ② dòng HSSV **thu nhỏ chữ** cho vừa 1 dòng + 2 dòng chấm thừa; ③ **chỗ ký UBND ngắn** (~2 dòng trống trước PHÊ DUYỆT, file anh ~4); ④ chỗ ký NH **sát cuối trang** (in thật dễ tràn → "mất").
     → Hướng: **2 cách dựng** — bản trắng (chấm, ô cố định, đủ 5 dòng) và **bản đã điền** (chữ liền như file anh, bảng co theo dữ liệu); khối ký UBND / NH theo đúng bố cục file anh, cố định chỗ ký, **luôn vừa 1 trang A4**.
   - **Đủ ý bộ 01 + 03 + 06 + UQ — chờ anh nhắn "code".**
 
