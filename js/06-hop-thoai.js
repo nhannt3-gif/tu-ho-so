@@ -2053,7 +2053,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.225', ds:[
+var CO_GI_MOI = {ban:'3.226', ds:[
+  ["☁ Cài đặt đồng bộ theo khối: _Hệ thống/caidat/<khối>.json (Chung, KTGS, Hồ sơ, Số liệu, Scan, Lịch, Văn bản…) — sửa 1 khai báo chỉ gửi đúng file khối đó; máy chưa cập nhật vẫn đọc / ghi cauhinh.json như cũ", "hsoKBHop('sl')"],
   ["📷 Scan mới: chọn loại trước (CCCD · Tài liệu · Chữ ký · Ảnh khách) — Tài liệu không bao giờ đòi mặt 2; bộ nút chuẩn In · Lưu vào máy · Lưu vào app · Gửi Zalo · Bỏ", "doiNgan(4);batDauScan()"],
   ["🗂 Lưu vào app = ⏳ Chờ khai báo: chưa lên Drive cho tới khi khai đủ xã, ấp, tổ; 💾 Lưu vào máy chỉ ra file (máy tính có hộp Lưu thành)", "doiNgan(4)"],
   ["✍ Chữ ký giữ nguyên mẫu chụp (JPG, chỉ khử bóng mờ, dưới 200 KB); 📄 tài liệu mặc định lọc Văn bản rõ", "doiNgan(4)"],
