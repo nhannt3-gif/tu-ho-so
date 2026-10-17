@@ -89,5 +89,11 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     4. Các chế độ: **thủ công** (không gắn dữ liệu tự động) · **bán tự động** · (tự động khi gọi từ Sổ hộ vay).
     5. **Gõ xong lưu lại được.**
   - **Ý 3 (17/10):** giao diện các tab mẫu **tạm để như hiện tại**; **cấu trúc code em tự sắp xếp** sao cho bộ mẫu độc lập — sau này đưa ra ngoài (mục riêng) chỉ như "đem từ trong 1 tab ra desktop".
-  - (chờ anh duyệt kế hoạch các bước M1–M4 ở tin nhắn 17/10)
+  - **Ý 4 (17/10) — Mẫu 01/TD bán tự động** (form trực quan đi đúng thứ tự trên giấy 01/TD; cái gì app tính ra được thì tự hiện, không bắt nhập):
+    - **A. Đầu giấy:** *Chương trình vay* = danh sách chọn (HSSV, NSVSMT; sau thêm chương trình khác — **khai báo được**). *Kính gửi (tên Ngân hàng)* = **cố định**, khai trong khai báo riêng của mẫu.
+    - **B. Người vay:** form nhập **như nhập hộ mới**, hoặc **gọi từ Mẫu 31 / Sổ hộ vay**. Địa chỉ chọn **ngược**: Xã → Thôn (ấp) → Tổ, lấy từ danh sách địa bàn; **các xã anh phụ trách (2 xã) lên đầu danh sách** (khai báo, không ghi cứng). *Hội quản lý*: lấy theo tổ; hoặc chọn Hội trước thì danh sách tổ chỉ còn tổ của Hội đó.
+    - **C. Đề nghị vay:** *Số tiền vay*, *vốn tự có* thường khai sẵn trong khai báo riêng, **hiện mờ** trong ô. *Để thực hiện phương án*: theo chương trình (HSSV, NS cố định) — **chỉ chọn**. *Bảng đối tượng*: chọn 1 công trình Nước sạch, 1 công trình Vệ sinh, hoặc cả 2; **mặc định 25 triệu / 1 công trình**, ít khi đổi — đổi thì sửa tay. *Thời hạn vay* cố định **60 tháng**, *phân kỳ* **12 tháng** — khai 1 lần trong khai báo riêng của mẫu.
+    - **D, E (sau phần người vay — UBND xác nhận, Ngân hàng phê duyệt):** mặc định **chấm chấm** (ghi tay).
+    - **01/TD → 03/TD:** dựa vào các 01/TD đã lập để **điền sang 03/TD tương ứng**.
+  - (chờ anh trả lời các câu hỏi về 01/TD ở tin nhắn 17/10)
 
