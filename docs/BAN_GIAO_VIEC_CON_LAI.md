@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.235) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app, bấm lần lượt các tab con Số liệu (Tra cứu, Tổ, Sao kê, Tổng hợp, KTGS) | Như bản trước, không báo lỗi | |
+| 2 | 🛡 KTGS › in Word Mẫu 06 / 04/BC-TH / 01/KH | File Word như cũ | |
+
+**Ghi chú kỹ thuật 3.235:** tách nguyên văn theo dòng (đầu mỗi file ghi khoảng dòng gốc); hàm vẫn để chung toàn app như cũ nên thứ tự nạp chỉ quan trọng với câu lệnh chạy ngay lúc nạp — giữ đúng thứ tự cũ. Sửa code Số liệu: tìm hàm qua `docs/BAN_DO_MA.md` (đã ghi file mới).
+
 ### Danh sách thử trên máy thật (3.234) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

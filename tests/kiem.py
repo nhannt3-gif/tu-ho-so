@@ -76,7 +76,7 @@ if len(sys.argv)<2:
     G=ghep.GOC; tepjs=[p for l,p in ghep.tep() if l=='js']
     nd={p:open(os.path.join(G,p),encoding='utf-8').read() for p in tepjs}
     css=sum(os.path.getsize(os.path.join(G,p)) for l,p in ghep.tep() if l=='css')
-    kho=sum(len(re.findall(r'\b(TO_K|SL_DB|SL_KHMON|SL_PHU)\b', boChuoi(t))) for p,t in nd.items() if not re.search(r'js/(22-so-lieu|29-kho)\.js$', p))
+    kho=sum(len(re.findall(r'\b(TO_K|SL_DB|SL_KHMON|SL_PHU)\b', boChuoi(t))) for p,t in nd.items() if not re.search(r'js/(22[a-z]?-[\w-]+|29-kho)\.js$', p))
     do={'js_kb':sum(len(t.encode()) for t in nd.values())//1024, 'css_kb':css//1024, 'ham':len(top), 'bien':len(set(re.findall(r'^var\s+([\w$]+)',js,re.M))),
         'mo_coi':len(mo_coi), 'dong_dai':sum(1 for t in nd.values() for l in t.split('\n') if len(l)>400), 'onclick':len(re.findall(r'on(?:click|change|input)=\\?"',js)),
         'file_lon':sum(1 for t in nd.values() if len(t.encode())>150*1024), 'kho_thang':kho}
