@@ -29,7 +29,7 @@ const path=require('path');
    ok('ngày phát mặc định = ngày GD gần nhất của điểm; ngày ký = hôm nay', X.C.ngayPhatISO===ngayISO(nA) && X.C.ngayThongBao===ngayISO(nay()), X.C.ngayPhatISO);
    ok('tên UBND ghi đầy đủ (không viết tắt), kính gửi + địa điểm theo điểm / xã', C.tenUBNDVietTat==='Ủy ban nhân dân phường Giả Một' && C.kinhGui==='Ủy ban nhân dân phường Giả Một' && C.diaDiemPhatTien==='Điểm giao dịch Điểm Giả A (phường Giả Một)');
    const tom = () => document.getElementById('gdx-tom').textContent;
-   ok('📋 Tóm tắt bản in: chip điểm / số hộ · tiền / ngày phát / ngày ký / người lập (vàng khi trống) / GĐ ký / 2 bản + nút IN 2 bản', /Điểm Điểm Giả A/.test(tom()) && /Người lập: để trống/.test(tom()) && !!document.querySelector('#gdx-tom .gdx-tc.vang') && /IN 2 bản/.test(tom()));
+   ok('3.245 (anh 18/10): bỏ dòng chip tóm tắt 📋 — thanh dưới chỉ còn cảnh báo + nút IN 2 bản; chip vẫn ghi nhật ký in', !document.querySelector('#gdx-tom .gdx-tc') && !/📋/.test(tom()) && /IN 2 bản/.test(tom()) && gdxTom().chip.length>3);
    ok('khung chọn nhanh mặc định: ngày ký, loại TB, số hộ · tiền, lịch phát, nơi phát, người lập, người ký, số bản (theo thứ tự trên mẫu)', [...document.querySelectorAll('#gdx-trai .gdx2-hang')].map(e=>e.id.replace('gdx-m-','')).join(',')==='ngayky,gq,mh,ngayphat,noi,nguoilap,ky,soban');
    /* ---- 04/TD ---- */
    const fd = () => document.getElementById('gdx-khung').contentDocument;

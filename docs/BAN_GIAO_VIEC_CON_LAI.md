@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.245) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giao dịch xã › thanh dưới | Không còn dòng chip 📋; cảnh báo + nút In vẫn có | |
+| 2 | Xuất bản GDX mini → mở Mẫu 04 | Mở được, có nét gạch tay mục 2, không báo lỗi | |
+
+**Ghi chú kỹ thuật 3.245:** hàm / biến mới dùng trong `gdxHTML04` (hoặc mẫu GDX khác) phải thêm vào danh sách `ham` / `bien` trong `gdxMiniXuat` (`js/27-mini-gdx.js`) — t168 kiểm.
+
 ### Danh sách thử trên máy thật (3.244) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
