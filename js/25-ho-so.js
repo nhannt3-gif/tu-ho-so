@@ -796,6 +796,10 @@ function hsoPA(B){
 function hsoDongTien(v){ return v ? tdnTien(v)+' đồng' : ''; }
 /* ---------- 01/TD Giấy đề nghị vay vốn — đúng PDF (HSSV có xác nhận UBND xã; NSVSMT không) ---------- */
 function hsoBoHoiTen(T){ return T.hoi || ''; }
+function hsoHoiNgan(h){   /* 3.247 (anh 18/10): tên tổ chức in trên đơn — "Hội Nông dân" · "Hội Cựu chiến binh" · "Hội Liên hiệp phụ nữ" · "Đoàn thanh niên" (không ghi xã / phường) */
+  var s = String(h||'').trim(); if(!s) return '';
+  if(/nông\s*dân/i.test(s)) return 'Hội Nông dân'; if(/cựu\s*chiến\s*binh/i.test(s)) return 'Hội Cựu chiến binh'; if(/phụ\s*nữ/i.test(s)) return 'Hội Liên hiệp phụ nữ'; if(/đoàn|thanh\s*niên/i.test(s)) return 'Đoàn thanh niên';
+  return s.replace(/\s+(xã|phường|thị trấn)\s.*$/i, ''); }
 /* ---------- 03/TD Danh sách tổ viên đề nghị vay vốn — đúng PDF (A4 ngang, số dòng = số người + 2 dòng trống, kẻ chấm) ---------- */
 /* ---------- 04/TD Thông báo kết quả phê duyệt — đúng PDF; in từng thông báo (chọn điểm GD, nhập số hộ + số tiền) ---------- */
 /* ---------- 09A/TD Giấy đề nghị gia hạn nợ — đúng PDF ---------- */

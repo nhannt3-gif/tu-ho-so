@@ -173,6 +173,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t198.js` | 3.239: nút khung app theo data-lenh (tab, ✕ tìm, thùng rác, nền hộp, Gửi file trong khung xem), trả bộ nhớ ảnh tạm (xoayAnh, anhTam). |
 | `node tests/t199.js` | 3.240: 01/TD bảng giữ 3 dòng, HSSV xuống dòng, chỗ ký UBND, 1 trang A4; 03/TD 1 hộ 3 dòng / trắng 5 dòng, theo 01/TD; khai báo riêng mở / tắt; phiếu cũ tự gắn Sổ hộ vay. |
 | `node tests/t200.js` | (3.242) Form lập 01/TD: thứ tự tờ giấy, gõ Tab / Enter, ngày liền số, nơi cấp tự điền, hộ mới vào Sổ, Xã › Thôn › Tổ (Hội lọc), tự tính, loại công trình theo thẻ, tự có mặc định, Lưu / Làm trống / mở lại, hỏi lưu khi In / Mẫu 03, hộ cũ khóa nhân thân. |
+| (3.247) | t199 thêm 3 phép in 01/TD như đánh máy + hsoHoiNgan; t172, t180, t181, t184 theo chữ 14; chuẩn khóa hsv_01td_* ghi lại. |
 | (3.246) | t163, t164, t171, t172, t192 theo luồng Sổ hộ vay → 01/TD + In kèm (Bộ HS cũ đã gỡ). |
 | (3.245) | t165: bỏ chip tóm tắt GDX; t168 bắt lỗi bản mini thiếu hàm. |
 | (3.244) | t173, t178 theo form 01/TD mới; t200 thêm phép In kèm (21 phép). |

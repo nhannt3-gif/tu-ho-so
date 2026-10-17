@@ -15,7 +15,7 @@ const fs=require('fs'), path=require('path');
    const doViTri = () => { const d = document.getElementById('hso-xem-khung').contentDocument, MM = 96/25.4, r = [];
      [...d.querySelectorAll('.tr-tg')].forEach((g, i) => { const y0 = g.getBoundingClientRect().top; [...g.querySelectorAll('p, tr')].filter(e=>!e.closest('.om')).forEach(e=>{ r.push(i+':'+((e.getBoundingClientRect().top - y0)/MM).toFixed(2)); }); });
      return {trang:d.querySelectorAll('.tr-tg').length, vt:r}; };
-   const DUNG = {'01td':12, '03td':'trang'};   /* 3.240 (anh 17/10 "giữ form nhưng linh động"): 01/TD cho chữ dài xuống dòng trong bảng → khối dưới xê ≤ 12 mm, vẫn cùng số đoạn, cùng trang */
+   const DUNG = {'01td':'trang', '03td':'trang'};   /* 3.247 (anh 18/10): 01/TD có số liệu chỉ in dòng số liệu của bảng, chữ liền như đánh máy → chỉ giữ cùng số trang */   /* 3.240 (anh 17/10 "giữ form nhưng linh động"): 01/TD cho chữ dài xuống dòng trong bảng → khối dưới xê ≤ 12 mm, vẫn cùng số đoạn, cùng trang */
    const so = (a, b, tl) => { tl = tl || 0.5; if(tl==='trang') return a.trang!==b.trang ? 'số trang '+a.trang+' ≠ '+b.trang : '';   /* 3.240: 03/TD bản trắng 5 dòng, có số liệu co dòng (anh 17/10) → chỉ giữ cùng số trang */ if(a.trang!==b.trang) return 'số trang '+a.trang+' ≠ '+b.trang; if(a.vt.length!==b.vt.length) return 'số đoạn '+a.vt.length+' ≠ '+b.vt.length;
      for(let i=0;i<a.vt.length;i++){ const x = a.vt[i].split(':'), y = b.vt[i].split(':'); if(x[0]!==y[0] || Math.abs(+x[1]-+y[1])>tl) return 'đoạn '+i+' lệch: '+a.vt[i]+' ≠ '+b.vt[i]+' (trang:mm)'; } return ''; };
    for(const mk of Object.keys(OM_MAU).filter(k=>!chi || k===chi)){

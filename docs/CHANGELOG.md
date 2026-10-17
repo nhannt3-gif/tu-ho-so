@@ -4,6 +4,40 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.247 — 18/10/2026 — In 01/TD: chữ 14, điền như đánh máy
+- **Anh 18/10** (ảnh bản in 01/TD HSSV):
+  - chữ lên 14;
+  - dòng Chương trình cho vay canh giữa;
+  - logo nhỏ lại (19 → 16 mm);
+  - số CCCD cách dấu ":" một khoảng trắng;
+  - dòng CCCD và dòng địa chỉ in liền, cách dấu phẩy khi có số liệu;
+  - thôn → ấp / khu phố, xã / phường theo địa bàn;
+  - tổ chức quản lý in "Hội Nông dân", "Hội Cựu chiến binh", "Hội Liên hiệp phụ nữ" (không ghi xã), Đoàn thì "Đoàn thanh niên" (bỏ chữ Hội);
+  - vốn tự có, vốn vay sát chữ "đồng";
+  - có số liệu thì in như đánh máy thông thường, chỉ khi chấm mới giữ form;
+  - kỳ hạn "12 tháng/lần" cũng vậy;
+  - ngày tháng của đơn không in đậm;
+  - bảng đối tượng bỏ dòng chấm thừa;
+  - chỗ ký UBND và Ngân hàng rộng rãi.
+- `js/31-o-mau.js`: ô kiểu `lien` — có số liệu thì in chữ liền (không khung rộng bằng dòng chấm), trống thì giữ chuỗi chấm gốc.
+- `js/mau/01td.js`:
+  - cỡ 14 (`co:14`), cách dòng 1,15 cả khi có khối UBND (trước là 1,06);
+  - CCCD / ngày cấp / nơi cấp, địa chỉ (`hsoDiaChi`), tổ trưởng, tổ chức, số tiền, bằng chữ, mục đích, tổng, tự có, vay, thời hạn, kỳ hạn, hạn cuối dùng ô liền;
+  - bảng: có số liệu thì chỉ các dòng số liệu, bản trắng 2 dòng chấm (bỏ bớt 1 để chữ 14 vẫn vừa 1 trang).
+- `js/25-ho-so.js`: `hsoHoiNgan(tên Hội)` cho tên tổ chức in trên đơn.
+- Đối chiếu file gốc `tests/mau_goc/01td.docx`:
+  - gốc Times New Roman 13 (tiêu đề 14), app nay 14 theo anh;
+  - cách dòng Single (≈ 1,15) giống gốc;
+  - cách đoạn 3 / 2,4 / 1 pt giống gốc.
+- Đo PDF: HSSV có UBND, NSVSMT, bản trắng đều 1 trang A4.
+- Phép thử:
+  - t199 thêm 3 phép, sửa số dòng bảng;
+  - t172 hạn cuối "ngày dd/mm/yyyy.";
+  - t184 đo khung theo cỡ 14;
+  - t180 01/TD dung sai vị trí dòng 12 mm;
+  - t181 01/TD chỉ giữ cùng số trang;
+  - chuẩn khóa `hsv_01td_gm/so/trang` ghi lại.
+
 ## 3.246 — 18/10/2026 — Dọn giao diện Bộ HS / Hộ vay cũ
 - Theo kế hoạch anh đã duyệt ("cái nào cũ đã bỏ thì dọn rác"): tab **📁 Bộ HS** đã ẩn từ 3.209, không còn lối vào trong app (chỉ phép thử cũ gọi) → gỡ hẳn.
 - `js/25-ho-so.js` gỡ: `hsoTuyBo` (cột nhập Bộ HS), `hsoBoChonKH`, `hsoBoTim` (chọn / tìm khách kiểu cũ), `hmLapHS`, `hmGanBo`, `hsoBoXoa`, `hsoBoGanTo`, `hsoBoThemHo`, `hsoBoBoHo`, `hsoBoTrenM31` và mục `bo` trong danh sách mẫu (−19 onclick, −3 dòng > 400 ký tự).

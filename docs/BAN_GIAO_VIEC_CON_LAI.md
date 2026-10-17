@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.247) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In 01/TD HSSV có UBND | Chữ 14, 1 trang; dòng CCCD, địa chỉ in liền; Hội không ghi xã; chỗ ký UBND, NH rộng | |
+| 2 | In 01/TD bản trắng | 1 trang, bảng 2 dòng chấm | |
+| 3 | Hộ thuộc Đoàn thanh niên | "Thuộc tổ chức Đoàn thanh niên quản lý" | |
+
+**Ghi chú kỹ thuật 3.247:** `G.o(k, cham, {lien:1})` — ô in chữ liền khi có số liệu; dùng cho các dòng văn xuôi. Ô trong dòng cần thẳng cột (Họ tên … Năm sinh) vẫn để khung cố định.
+
 ### Danh sách thử trên máy thật (3.246) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
