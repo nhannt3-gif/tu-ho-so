@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.240) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TD HSSV (tên SV dài) → In | Tên xuống dòng, chữ thường; chỗ Chủ tịch ký + đóng dấu rộng; 1 trang, chỗ ký NH đủ | |
+| 2 | 01/TD NSVSMT tích 2 công trình → In | 2 dòng số liệu + 1 dòng chấm; 1 trang | |
+| 3 | Lập 01/TD xong → 03/TD | Số tiền, mục đích, thời hạn theo 01/TD; 3 dòng; "Khu phố / Phường" đúng địa bàn | |
+| 4 | 03/TD → Bản trắng | 5 dòng | |
+| 5 | ⚙ Khai báo riêng | Mặc định tắt; bấm ▸ Mở / ▾ Tắt | |
+| 6 | Mở phiếu hồ sơ cũ (lập trước đây) | Hiện đúng hộ, hộ có trong Sổ hộ vay | |
+
+**Ghi chú kỹ thuật 3.240:** việc tiếp theo kế hoạch: dọn giao diện Bộ HS / Hộ vay cũ (anh: "cái nào cũ đã bỏ thì dọn rác"), 06/TD, Giấy ủy quyền, form 01/TD theo thứ tự giấy + lưu bản.
+
 ### Danh sách thử trên máy thật (3.239) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.239** — dọn nhỏ theo file rà anh gửi: trả bộ nhớ ảnh / file tạm (`thuHoiSau`, `anhTam`), tìm kiếm nhớ sẵn chữ bỏ dấu (`diemNho`), `index.html` hết `onclick` (`data-lenh khung.*`). Trước đó 3.238 sửa Phóng to Sổ hộ vay, R4 phần 1 (3.237 phép thử nhanh), R3, R2, 📱 điện thoại. **Việc tiếp (anh đã duyệt):** bộ 01/TD · 03/TD · 06/TD · Giấy ủy quyền theo ý anh 1–19 (`docs/KE_HOACH_CHUAN_HOA.md` mục Hồ sơ vay hướng B) → sau đó Biểu 07 (chờ anh gửi tài liệu). Chờ anh: thử máy thật 3.225–3.239, ngưỡng tạm 3.228, `RA_SOAT_CHU_DAI.md`, `GOP_Y_MAU.md`.
+- **`main` = 3.240** — 01/TD, 03/TD theo file mẫu anh gửi (giữ form, chữ dài xuống dòng, chỗ ký UBND, 1 trang), 03/TD theo 01/TD, khai báo riêng mở / tắt, phiếu cũ tự gắn Sổ hộ vay. **Việc tiếp (anh duyệt):** dọn giao diện Bộ HS / Hộ vay cũ → 06/TD → Giấy ủy quyền → form 01/TD theo thứ tự giấy + lưu bản (`docs/KE_HOACH_CHUAN_HOA.md` mục Hồ sơ vay hướng B, ý 1–19). Chờ anh: thử máy thật 3.225–3.240, Biểu 07 (tài liệu).
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.
