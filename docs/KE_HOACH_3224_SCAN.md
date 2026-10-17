@@ -9,7 +9,7 @@
 |---|---|---|---|
 | Máy bàn | `js/12-scan.js` hàng chờ `HANG` | Chỉnh → Xem → hộp 4 nút (Lưu máy · Gửi · Copy ảnh · Lưu vào tủ) | hàng chờ giữ 7 ngày; chế độ Thẻ / Tài liệu chọn ở chỗ khác |
 | Điện thoại (kiểu Lens, 3.43) | `quetNhanh` → `moXemPDF` | quét xong **tự lưu tạm** "Scan ngày giờ" → xem → hàng nút khác (In · Copy · Lưu nhanh · In chung · ⋯) | tự lưu, bộ nút khác máy bàn |
-| 📁 Chữ ký · CCCD (3.44) | `moKyAnh` … `luuKA` | 3 bước riêng, lưu xong **tự đưa lên Drive** | luồng thứ 3; xóa nền chữ ký cắt cứng (ngưỡng 72 %, nét ép gần đen) + JPG → **chữ ký ảo, lem** |
+| 📁 Chữ ký · CCCD (3.44) | `moKyAnh` … `luuKA` | 3 bước riêng, lưu xong **tự đưa lên Drive** | luồng thứ 3; xóa nền chữ ký cắt cứng (ngưỡng 72 %, nét ép gần đen) + JPG → **chữ ký ảo, lem** → bỏ, thay bằng giữ nguyên mẫu chụp |
 | Chung | — | ảnh từ file / tài liệu đôi khi bị xếp **cặp mặt trước – mặt sau** như CCCD | xếp cặp theo chế độ đang nhớ (`SC.che`), không theo loại anh chọn lúc quét |
 
 Phần **làm tốt, giữ và dùng chung**: tìm khung + nắn phối cảnh + kéo 4 góc có kính lúp + xoay / lật + lọc ảnh (`js/13-xu-ly-anh.js`, đang dùng cho CCCD), bộ dựng PDF đúng khổ, đọc chữ (OCR), cầu nối máy tính.
@@ -24,11 +24,11 @@ Phần **làm tốt, giữ và dùng chung**: tìm khung + nắn phối cảnh +
 |---|---|---|---|
 | CCCD | 85,6 × 54 mm, 2 mặt | Magic màu (như nay) | Gốc · Xám |
 | Tài liệu / văn bản | A4 dọc / ngang (tự theo tờ giấy) | **Văn bản rõ** (mới: nền giấy trắng đều, chữ đen đậm, giữ dấu đỏ / chữ ký màu) | Giấy trắng · Xám · Đen trắng · Gốc |
-| Chữ ký | khung quanh nét ký (app đoán sẵn, kéo được) | **Xóa nền nhẹ** (mới) | Xóa nền vừa · Không xóa (chỉ cắt) |
+| Chữ ký | khung quanh nét ký (app đoán sẵn, kéo được) | **Nguyên mẫu chụp + khử bóng mờ nhẹ** (mới) | Gốc (chỉ cắt) |
 | Ảnh khách (1 mặt CCCD) | 85,6 × 54 mm, **chỉ mặt trước** — tự tìm khung thẻ, nắn thẳng như CCCD | Magic màu | Gốc · Xám |
 
 - **Văn bản rõ** (tài liệu): trừ nền theo độ sáng từng vùng (khử bóng, khử vàng giấy) bằng `nenSang` sẵn có → kéo giãn chữ → lấy nét nhẹ; điểm có màu rõ (dấu đỏ, mực xanh) giữ màu. Nhiều trang: chụp liên tục, mỗi trang tự cắt, dời / xóa trang được.
-- **Xóa nền chữ ký nhẹ**: nền ước theo vùng (không 1 ngưỡng cả ảnh) → chuyển mềm (không cắt cứng) → **giữ độ đậm nhạt thật của nét** (không ép đen) → mép nét mịn, không răng cưa; khử chấm bẩn nhỏ. Mặc định lưu **JPG chất lượng cao** (hệ thống chắc chắn nhận); PNG xám chỉ bật nếu anh xác nhận hệ thống nhận PNG.
+- **Chữ ký — giữ nguyên mẫu chụp** (anh chốt 17/10): **không xóa nền thành trắng, không ép đen nét**; chỉ tinh chỉnh ít: khử bóng mờ / tối góc (cân sáng theo vùng bằng `nenSang`), tăng tương phản rất nhẹ — nét giữ đúng màu mực, độ đậm nhạt thật, mép tự nhiên. Lưu **JPG**, nén dung lượng.
 - **Chữ ký / Ảnh khách: nén dưới 200 KB** (anh chốt 17/10, giữ mức như nay — để nhập hệ thống): hạ chất lượng dần → thu nhỏ dần tới khi ≤ 200 KB, ưu tiên giữ nét; hiện dung lượng + ✓ dưới 200 KB.
 
 **③ ✓ Chốt đạt** → **④ Xem thử bản in**: PDF thật (CCCD đúng khổ — 1 người / 2 mặt, hoặc 4 người / A4; tài liệu A4 nhiều trang) hoặc ảnh (chữ ký, ảnh khách); tên file sửa được (gợi ý: "CCCD Nguyen Van A", "2026-10-17 Nguyen Van A CK.jpg"…).
@@ -48,12 +48,12 @@ Phần **làm tốt, giữ và dùng chung**: tìm khung + nắn phối cảnh +
 **Giữ**: danh sách scan cũ, chữ ký · CCCD cũ (xem, in, gửi, khai, dùng trong hồ sơ như nay) · bản cũ "lưu tạm chưa khai" chuyển vào ⏳ Chờ khai báo · đọc chữ (OCR) · cầu nối máy tính · webcam · quét từ máy quét.
 
 ## 2. Cách làm (kiến trúc)
-- Mô-đun mới `js/35-scan.js` (cắm / rút): luồng ①–⑤ + bộ nút chuẩn; **xử lý ảnh dùng chung** đưa vào `js/13-xu-ly-anh.js` (thêm lọc Văn bản rõ, xóa nền chữ ký nhẹ, nén ≤ 200 KB — hàm cũ giữ nguyên).
+- Mô-đun mới `js/35-scan.js` (cắm / rút): luồng ①–⑤ + bộ nút chuẩn; **xử lý ảnh dùng chung** đưa vào `js/13-xu-ly-anh.js` (thêm lọc Văn bản rõ, khử bóng mờ chữ ký, nén ≤ 200 KB — hàm cũ giữ nguyên).
 - Lưu qua **cửa khối Scan** `KHO_SCAN` (lưu tạm, khai báo, danh sách, ảnh) → 3.225 tách lưu trữ chỉ đổi bên trong cửa, luồng scan không sửa.
 - Nút "Quét" / "📷" / "📁 Chữ ký · CCCD" ở tab Scan, Hồ sơ… trỏ vào luồng mới. Mã luồng cũ **chưa xóa** ở 3.224 (chỉ không gọi nữa) → anh thử máy thật đạt mới xóa ở bản sau.
 
 ## 3. Phép thử (dữ liệu / ảnh GIẢ — tự vẽ trong phép thử, không ảnh thật)
-`t186` (mới): ① mỗi loại đúng số mặt (Tài liệu / Chữ ký / Ảnh không bao giờ đòi mặt 2; CCCD ghép cặp đúng); ② bộ chỉnh chung chạy cho cả 4 loại (tìm khung, xoay, kéo góc); ③ Văn bản rõ: nền xám / bóng → nền trắng đều, chữ còn đậm, dấu đỏ còn đỏ; ④ chữ ký: nét xám nhạt giữ được độ nhạt, mép không răng cưa (đo số mức xám ở mép), không chấm bẩn; ⑤ ≤ 200 KB với ảnh lớn (chữ ký, ảnh khách); ⑥ Lưu vào máy không tạo mục trong app; Lưu vào app → ⏳ Chờ khai báo, chưa lên Drive; khai xong → lên Drive (Drive giả) đúng thư mục; ⑦ bản nháp: tắt app giữa chừng → mở lại hỏi làm tiếp; xong / bỏ → xóa nháp; ⑧ dữ liệu cũ (scan, chữ ký · CCCD, lưu tạm cũ) đọc được, lưu tạm cũ hiện ở Chờ khai báo; ⑨ máy bàn + điện thoại (khung iPhone) cùng bộ nút.
+`t186` (mới): ① mỗi loại đúng số mặt (Tài liệu / Chữ ký / Ảnh không bao giờ đòi mặt 2; CCCD ghép cặp đúng); ② bộ chỉnh chung chạy cho cả 4 loại (tìm khung, xoay, kéo góc); ③ Văn bản rõ: nền xám / bóng → nền trắng đều, chữ còn đậm, dấu đỏ còn đỏ; ④ chữ ký: giữ nguyên mẫu — màu mực / độ đậm nhạt của nét gần như ảnh chụp (đo sai khác trên vùng nét), bóng mờ ở góc được cân lại (đo độ sáng nền 4 góc gần bằng nhau), không ép trắng / ép đen; ⑤ ≤ 200 KB với ảnh lớn (chữ ký, ảnh khách); ⑥ Lưu vào máy không tạo mục trong app; Lưu vào app → ⏳ Chờ khai báo, chưa lên Drive; khai xong → lên Drive (Drive giả) đúng thư mục; ⑦ bản nháp: tắt app giữa chừng → mở lại hỏi làm tiếp; xong / bỏ → xóa nháp; ⑧ dữ liệu cũ (scan, chữ ký · CCCD, lưu tạm cũ) đọc được, lưu tạm cũ hiện ở Chờ khai báo; ⑨ máy bàn + điện thoại (khung iPhone) cùng bộ nút.
 Hồi quy đủ (`tools/hoiquy.sh`) — các phép thử scan cũ (Lens, chữ ký, Drive scan…) cập nhật theo luồng mới khi đúng là chức năng anh duyệt đổi; còn lại phải giữ đạt.
 
 ## 4. Rủi ro + ước lượng
@@ -63,5 +63,5 @@ Hồi quy đủ (`tools/hoiquy.sh`) — các phép thử scan cũ (Lens, chữ k
 
 ## 5. Anh duyệt
 1. Luồng ①–⑤, bộ nút chuẩn, danh sách Bỏ / Giữ như trên?
-2. ✅ Chữ ký, ảnh khách dưới 200 KB (anh chốt 17/10). Định dạng: mặc định JPG chất lượng cao; PNG chỉ khi anh xác nhận hệ thống nhận.
+2. ✅ Chữ ký, ảnh khách dưới 200 KB (anh chốt 17/10). Chữ ký: JPG nguyên mẫu chụp, chỉ khử bóng mờ nhẹ + nén (anh chốt 17/10).
 3. ✅ Ảnh khách = 1 mặt CCCD (mặt trước) (anh chốt 17/10).
