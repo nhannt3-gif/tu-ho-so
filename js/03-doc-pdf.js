@@ -493,10 +493,6 @@ function moVietTat(t){ t = String(t||''); var r = t; MO_VIET_TAT.forEach(functio
 var MO_VIET_TAT = [[/\bTổ TK&VV\b/g,'Tổ Tiết kiệm và vay vốn'],[/\bTK&VV\b/g,'Tiết kiệm và vay vốn'],[/\bNHCSXH\b/g,'Ngân hàng Chính sách xã hội'],
   [/\bHĐQT\b/g,'Hội đồng quản trị'],[/\bHĐĐD\b/g,'Hội đồng đại diện'],[/\bBĐD\b/g,'Ban đại diện'],[/\bUBND\b/g,'Ủy ban nhân dân'],[/\bHSSV\b/g,'học sinh, sinh viên'],
   [/\bGQVL\b/g,'giải quyết việc làm'],[/\bNSVSMT\b/g,'nước sạch và vệ sinh môi trường'],[/\bSXKD\b/g,'sản xuất kinh doanh']];
-function tyDayDu(t){
-  var t0 = chuanTenVB(String(t||'')), r = t0; MO_VIET_TAT.forEach(function(x){ r = r.replace(x[0], x[1]); });
-  return r===t0 ? '' : r;
-}
 /* 3.65 (việc AB): cắt tên dài ở ranh giới từ, không để treo từ nối cuối câu ("của", "và", "về"…) */
 function catTenGon(t, n){
   t = String(t||'').slice(0, n).replace(/\s+\S*$/, '');

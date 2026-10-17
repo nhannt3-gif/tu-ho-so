@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.230 — 17/10/2026 — Chuẩn hóa đợt R1: thước đo, dọn rác, kiểm kê giao diện
+- **Anh duyệt 17/10:** kế hoạch chuẩn hóa code + bản điện thoại (`docs/KE_HOACH_CHUAN_HOA.md` — 9 mục: hiện trạng, chuẩn không build, bố cục, bộ nút xuất, điều hướng, thư viện, bản điện thoại); làm tuần tự R1 → điện thoại → R2…, mỗi đợt hồi quy 1 lần rồi gộp. Luật mới: `QUY_CHUAN_KIEN_TRUC.md` mục 10 (code / giao diện mới, danh mục thư viện được phép); `CLAUDE.md` đổi "không thêm thư viện" → chỉ dùng danh mục anh duyệt.
+- **Thước đo chống lệch hướng:** `tests/kiem.py` thêm dòng "Thước đo" (JS / CSS KB, hàm & biến chung, mồ côi, dòng > 400 ký tự, `onclick`, file > 150 KB, đọc thẳng biến kho ngoài `22` / `29`) so với mốc `tests/do_moc.json` (mốc lấy ở 3.229); tăng → ⚠ VƯỢT MỐC; `--moc` ghi mốc mới.
+- **Dọn rác:** bỏ 93 hàm mồ côi (43 hàm 1 dòng + 50 hàm nhiều dòng — đều không còn ai gọi, đã đối chiếu phép thử) + 6 hàm chỉ chúng gọi; còn 10 hàm mồ côi là hàm phép thử dùng (giữ). "Có gì mới" `CO_GI_MOI` chỉ 15 dòng gần nhất + link CHANGELOG, 3 bước thử mới; `tools/bump.py` tự cắt. CSS: bỏ 2 khối lặp y hệt. Kết quả: JS 3.548 → 3.405 KB, hàm chung −99, `onclick` −50, dòng > 400 −4.
+- **Bố cục:** thanh lọc 📒 Sổ hộ vay không bung khi tắt khung xem (ô tìm ≤ 340 px, ô chọn ≤ 240 px, chữ cùng cỡ nút).
+- **Kiểm kê giao diện** `docs/KIEM_KE_GIAO_DIEN.md` + công cụ `tests/do_bo_cuc.js` (17 trang × 4 cỡ: tràn ngang, nút / ô giãn, lòi ra ngoài; chụp ảnh khi cần) — danh sách cho R2 (hộp Khai báo trên điện thoại tràn ngang + nút tab bị kéo dài; dải tab lòi ở 768 / 390; bộ nút xuất 3 kiểu; chữ nút đóng 5 kiểu; chưa gắn nút ◀ điện thoại).
+- **Chưa làm:** nâng SheetJS bản vá (chỉ có ở cdn.sheetjs.com — máy làm việc không tải được để thử; giữ 0.18.5, ghi ở kế hoạch mục 7).
+- **Phép thử:** `tests/t192.js` (mới, 7).
+
 ## 3.229 — 17/10/2026 — Khai báo riêng 4 nguồn từng mẫu (11/TD mới + cũ trước)
 - **Anh chốt 17/10:** 11/TD cũ và mới, Bên A cho khai báo riêng theo mẫu, không lấy thông tin chung; mẫu nào cũng lấy khai báo riêng trước; mỗi ô chọn ghi tay / lấy Mẫu 31 / lấy khai báo chung / tự gõ (mỗi mẫu cùng nội dung nhưng khác vài chữ).
 - **Lõi** `js/31-o-mau.js`: `OM_LOAI.tu` thêm `kb` — mọi ô tự động có ⌨ Tự gõ riêng; `omNguonLoai` / `omCachChu` ghi rõ nguồn ô tự động (📊 Mẫu 31 · ⚙ Khai báo chung · 🤖 khác) theo `x.ng`; tên cách: ✍ Ghi tay · ⌨ Tự gõ (nhớ riêng mẫu) · ✏ Gõ trong lần làm.

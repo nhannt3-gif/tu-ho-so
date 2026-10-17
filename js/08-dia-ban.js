@@ -38,15 +38,6 @@ function dsTo(xa, diem, ap){
   });
   return ra;
 }
-function apToanPGD(){
-  var ra = [];
-  (D.cauHinh.diaBan||[]).forEach(function(x){
-    (x.diem||[]).forEach(function(d){
-      (d.ap||[]).forEach(function(a){ if(ra.indexOf(a.ten)<0) ra.push(a.ten); });
-    });
-  });
-  return ra;
-}
 function diemCuaAp(xa, ap){
   var x = (D.cauHinh.diaBan||[]).find(function(y){ return y.xa===xa; });
   if(!x) return '';
@@ -167,9 +158,6 @@ function dongScanHTML(k){
 }
 
 /* ---- giao diện ngăn Hồ sơ ---- */
-function datXa(v){ HS.locXa=v; HS.locAp=''; HS.locTo=''; veScan(); }
-function datAp(v){ HS.locAp=v; HS.locTo=''; veScan(); }
-function datTo(v){ HS.locTo=v; veScan(); }
 function doiChonHS(id){
   if(HS.chon[id]) delete HS.chon[id]; else HS.chon[id]=1;
   veScan();
@@ -381,40 +369,7 @@ function xoaScanIm(id){
   if(HS.chon) delete HS.chon[id];
 }
 function xoaKhach(id){ xoaNhieuVaoRac([id], function(){ if(document.getElementById('hop').classList.contains('hien') && !document.querySelector('#hop-in .buoc')) dongHop(); }); }
-function xemHS(id){
-  var k = HS.ds.find(function(x){ return x.id===id; });
-  if(!k) return;
-  window.__k = k;
-  var tl = k.che==='tailieu';
-  moHop('<div class="hop-tit">'+coChuHTML(k.ten)+'</div>'+
-    '<div class="hop-phu">'+coChuHTML([k.xa,k.diem,k.ap,k.to?('Tổ '+k.to):''].filter(Boolean).join(' · ')||'Chưa khai địa bàn')+
-    (k.ghi?(' · '+coChuHTML(k.ghi)):'')+
-    /* 3.33: cho biết bản PDF đang nằm đâu trên Drive */
-    '<br><small>'+(k.driveId ? '☁ Trên Drive: '+coChuHTML(duongScan(k)) : 'Chưa lên Drive')+'</small></div>'+
-    '<div id="k-xem"></div>'+
-    '<div class="hang-nut" style="margin-top:14px">'+
-      '<button class="nho chinh" onclick="inGhep([\''+id+'\'])">'+(tl?'In':'In thẻ này')+'</button>'+
-      '<button class="nho" onclick="luuTheRaMay([\''+id+'\'])">Lưu PDF</button>'+
-      (k.driveId ? '<button class="nho" onclick="window.open(\'https://drive.google.com/file/d/'+k.driveId+'/view\',\'_blank\')">☁ Mở trên Drive</button>'+
-                   '<button class="nho" onclick="lenDriveThe([\''+id+'\'])">Cập nhật Drive</button>'
-                 : '<button class="nho" onclick="lenDriveThe([\''+id+'\'])">Lên Drive</button>')+
-      '<button class="nho" onclick="'+(tl?'scanTaiLieu':'themKhach')+'(\''+id+'\')">Sửa</button>'+
-      '<button class="nho" onclick="dongHop()">Đóng</button></div>');
-  if(tl) veTrangXem(k); else veAnhKhach();
-}
 /* 3.33: xem các trang của bản Tài liệu (trước đây hộp xem trống vì chỉ hiện 2 mặt thẻ) */
-function veTrangXem(k){
-  var e = document.getElementById('k-xem'); if(!e) return;
-  e.innerHTML = '';
-  (k.trang||[]).forEach(function(idT, i){
-    var d = document.createElement('div'); d.style.cssText = 'margin-bottom:8px';
-    d.innerHTML = '<div class="huong-dan" style="margin:0 0 4px">Trang '+(i+1)+'/'+k.trang.length+(laTrangPDF(idT)?' · PDF':'')+'</div>';
-    var im = document.createElement('img');
-    im.style.cssText = 'width:100%;border-radius:9px;border:1px solid var(--vien)';
-    d.appendChild(im); e.appendChild(d);
-    anhTrangHS(idT, im);
-  });
-}
 
 /* ---- IN GHÉP NHIỀU KHÁCH TRÊN MỘT TRANG A4 ---- */
 function inGhep(dsId){ dungTrangThe(dsId, 'in'); }

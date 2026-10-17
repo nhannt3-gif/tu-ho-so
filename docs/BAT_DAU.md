@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.229** — 3.227 📒 Sổ hộ vay gộp 1 tab (lọc địa bàn · ngày nhập, nhóm tháng) + 📌 Ghim khối lọc · 3.228 🔎 Kiểm tra hộ vay khi nhập (khai báo được) + GQVL số lượng / đơn vị · 3.229 khai báo riêng 4 nguồn từng mẫu (11/TD trước). **Việc tiếp:** cuốn chiếu khai báo riêng + 4 luật điền từng mẫu khi anh rà (07b → 01/TD, 03/TD, 01/UQ → …, `docs/KE_HOACH_3228.md`); nhu cầu vay nhập trong sổ. Chờ anh: ngưỡng tạm (90 ngày, 60 tổ viên), `RA_SOAT_CHU_DAI.md`, `GOP_Y_MAU.md`, thử máy thật 3.225–3.229.
+- **`main` = 3.230** — chuẩn hóa đợt R1 (thước đo `kiem.py`, dọn 99 hàm rác, "Có gì mới" 15 dòng, kiểm kê giao diện). Trước đó 3.227 Sổ hộ vay 1 tab + 📌 Ghim · 3.228 🔎 Kiểm tra hộ vay · 3.229 khai báo riêng 4 nguồn. **Việc tiếp (anh duyệt 17/10, làm tuần tự, tự gộp): `docs/KE_HOACH_CHUAN_HOA.md`** — bản điện thoại (Framework7, PIN + mã hóa, gói số liệu xem trên Drive) → R2 (khung bố cục, mảnh giao diện, bộ nút xuất, điều hướng `DH`) → R3 → R4. Chờ anh: ngưỡng tạm 3.228, `RA_SOAT_CHU_DAI.md`, `GOP_Y_MAU.md`, thử máy thật 3.225–3.230.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.

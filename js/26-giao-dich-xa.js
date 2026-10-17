@@ -339,7 +339,6 @@ function gdxDung(X){   /* → {than, css} */
   return {than:+c.soBan===1 ? m : m+m, css:GDX_CSS};   /* mặc định 2 bản giống nhau (1 lưu tổ, 1 lưu NH) — chọn được 1 bản */
 }
 function gdxThan(){ return gdxDung(gdxChup()).than; }
-function gdxSoBan(X){ return X.mau==='m04' && +X.C.soBan!==1 ? 2 : 1; }
 
 /* ---------- mục của từng mẫu — theo thứ tự trên mẫu; nhanh = mặc định ra khung chọn nhanh (anh đổi ở ⚙) ---------- */
 var GDX_MUC = {
@@ -746,9 +745,6 @@ function gdxGLDuLieu(){
   return r;
 }
 /* 3.187 (anh: "CCCD tổ trưởng có trong các file về tổ"): Thông tin tổ trưởng (t.tt) → DSTO (t.ds) → danh mục tổ anh nạp */
-function gdxTTNhanThan(t, kh){ if(!t) return {}; var v = kh ? KHO.tv01(kh) : null, nh = kh ? ccNho(kh) : null, ng = [[v, 'Mẫu 01/TV'], [t.tt, 'file Thông tin tổ trưởng'], [t.ds, 'DSTO'], [nh, 'anh gõ lần trước']];   /* 3.201: + Mẫu 01/TV + số anh gõ tay (nhớ theo mã KH) */
-  for(var i = 0; i < ng.length; i++){ var o = ng[i][0]; if(o && String(o.cccd||'').replace(/\D/g, '').length >= 9) return {cccd:String(o.cccd).replace(/\D/g, ''), ncap:o.ncap || '', tu:ng[i][1]}; }
-  return {}; }
 function gdxGLMuc(k, kb){
   var C = gdxC(), h = '';
   if(k==='gldau') h = '<span class="gdx-1dong">'+gdxIn1('glPGD', 'tên PGD, vd: Gò Dầu — in “PHÒNG GIAO DỊCH GÒ DẦU”; trống = chấm')+gdxChip('<b>Đậm</b>', C.glPGDDam!=='thuong', 'gdxDat(\'glPGDDam\', \'dam\', 1)')+gdxChip('Thường', C.glPGDDam==='thuong', 'gdxDat(\'glPGDDam\', \'thuong\', 1)')+'</span>';   /* 3.200 (anh): dòng PGD in đậm hoặc không */

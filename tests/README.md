@@ -163,6 +163,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t189.js` | 3.227 Sổ hộ vay gộp tab: lọc khối LỌC ĐỊA BÀN (xã / tổ / hội, hộ chưa có tổ), ngày nhập (nút nhanh, từ ngày), sắp theo ngày nhập, nhóm theo tháng (gập, tích cả tháng, bản in), tích → Lập 03/TD; 📌 Ghim, ⬆ Lên 1 cấp, Backspace. |
 | `node tests/t190.js` | 3.228 🔎 Kiểm tra hộ vay: luật khai báo (ngưỡng, mức, tắt), tuổi, CCCD, trùng CCCD / SĐT / tên gần đúng / vợ chồng (sổ + Mẫu 31), trong hộ, hộ đang vay (món, quá hạn, cùng CT), đổi tổ, theo chương trình; form (🔴 chặn lưu, ✓ Đã kiểm tra), lưới (chip, ô 🔎), Khai báo; GQVL số lượng + đơn vị. |
 | `node tests/t191.js` | 3.229 Khai báo riêng 4 nguồn: nguồn ô (📊 / ⚙), ⌨ cho mọi ô tự động, 11/TD Bên A mặc định ⌨ (in như chung khi chưa gõ), gõ riêng chỉ đổi mẫu đó, riêng trước, chọn lại 📊, ✍, ⧉ chép, khai báo trực quan, tóm tắt, bản trắng. |
+| `node tests/t192.js` | 3.230 R1 chuẩn hóa: "Có gì mới" 15 dòng + link, hàm mồ côi đã dọn, hàm phép thử giữ, thanh lọc Sổ hộ vay không bung, kiem.py thước đo trong mốc, bump.py tự cắt. · `node tests/do_bo_cuc.js [thư mục ảnh]` — đo bố cục 17 trang × 4 cỡ (bảng Markdown). |
 
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).

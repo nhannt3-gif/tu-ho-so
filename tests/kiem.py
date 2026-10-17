@@ -4,6 +4,8 @@ sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import ghep
 MO_COI='--mo-coi' in sys.argv   # 3.227: in đủ danh sách hàm mồ côi
 if MO_COI: sys.argv.remove('--mo-coi')
+MOC='--moc' in sys.argv   # 3.230: ghi số đo hiện tại làm mốc mới (sau khi dọn bớt / anh duyệt tăng)
+if MOC: sys.argv.remove('--moc')
 # 3.142: app tách nhiều file → ghép lại (index.html + css/ + js/) rồi kiểm như một file; có đối số = kiểm 1 file HTML đã ghép
 s=open(sys.argv[1],encoding='utf-8').read() if len(sys.argv)>1 else ghep.ghep()
 ban=re.search(r"var APP_BAN = '([^']+)'",s)
@@ -51,3 +53,19 @@ for w in re.findall(r'[A-Za-z_$][\w$]*',s): dem[w]=dem.get(w,0)+1
 mo_coi=sorted({x for x in top if dem.get(x,0)<=1})
 print('Cú pháp', 'OK' if not loi else 'LỖI '+'; '.join(loi), '· Trùng tên:', ', '.join(dup) or 'không', '· Thiếu hàm:', ', '.join(sorted(set(thieu)|set(thieu_onc))) or 'không')
 print('Hàm mồ côi (chỉ báo, dọn dần):', len(mo_coi), ('— '+', '.join(mo_coi)) if MO_COI else '— xem danh sách: python3 tests/kiem.py --mo-coi')
+# 3.230 (R1 — KE_HOACH_CHUAN_HOA mục 2.7): THƯỚC ĐO chống lệch hướng — so với mốc tests/do_moc.json; tăng → ⚠ (giải thích trong CHANGELOG hoặc dọn bớt), giảm → hạ mốc bằng --moc
+if len(sys.argv)<2:
+    import json, glob
+    G=ghep.GOC; tepjs=[p for l,p in ghep.tep() if l=='js']
+    nd={p:open(os.path.join(G,p),encoding='utf-8').read() for p in tepjs}
+    css=sum(os.path.getsize(os.path.join(G,p)) for l,p in ghep.tep() if l=='css')
+    kho=sum(len(re.findall(r'\b(TO_K|SL_DB|SL_KHMON|SL_PHU)\b', boChuoi(t))) for p,t in nd.items() if not re.search(r'js/(22-so-lieu|29-kho)\.js$', p))
+    do={'js_kb':sum(len(t.encode()) for t in nd.values())//1024, 'css_kb':css//1024, 'ham':len(top), 'bien':len(set(re.findall(r'^var\s+([\w$]+)',js,re.M))),
+        'mo_coi':len(mo_coi), 'dong_dai':sum(1 for t in nd.values() for l in t.split('\n') if len(l)>400), 'onclick':len(re.findall(r'on(?:click|change|input)=\\?"',js)),
+        'file_lon':sum(1 for t in nd.values() if len(t.encode())>150*1024), 'kho_thang':kho}
+    ten={'js_kb':'JS KB','css_kb':'CSS KB','ham':'hàm chung','bien':'biến chung','mo_coi':'mồ côi','dong_dai':'dòng >400','onclick':'onclick','file_lon':'file >150 KB','kho_thang':'đọc thẳng biến kho'}
+    pm=os.path.join(G,'tests','do_moc.json'); moc=json.load(open(pm,encoding='utf-8')) if os.path.exists(pm) else {}
+    if MOC or not moc: json.dump(do,open(pm,'w',encoding='utf-8'),ensure_ascii=False,indent=1); moc=do
+    vuot=[k for k in do if k in moc and do[k]>moc[k] and k not in ('js_kb','css_kb','ham','bien')]
+    print('Thước đo:', ' · '.join('%s %d%s'%(ten[k],do[k],('' if k not in moc or do[k]==moc[k] else ' (%+d)'%(do[k]-moc[k]))) for k in do), ('— ⚠ VƯỢT MỐC: '+', '.join(ten[k] for k in vuot)) if vuot else '— trong mốc')
+

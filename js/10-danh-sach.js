@@ -200,7 +200,6 @@ function moTrenDrive(id){
 }
 
 /* ---- THÙNG RÁC ---- */
-function boVaoRac(id){ return xoaVaoRac(id); }
 /* ==========================================================
    QUÉT DỌN RÁC — chỉ trong thư mục Tủ hồ sơ, chỉ đọc cho tới khi anh chọn
    Tìm: file thừa (có trên Drive, không có trong tủ) · file trùng nội dung (md5) ·
@@ -398,7 +397,6 @@ function veKhacDKHTML(){
       false, [['Xuất file cho AI','moNhoAI()'],['Dán kết quả từ AI','moDanAI()']])+
     '<div class="huong-dan">Reset dữ liệu thử và Xóa sạch máy nằm ở ⚙ Cài đặt › Dữ liệu.</div>';
 }
-function veQuetDon(){ if(DK.mo && DK.phan==='quet') ve(); else moDonKho('quet'); }
 function veQuetRacHTML(){
   var h = '<div class="dk-mo-ta"><b>Quét rác</b> tìm file <b>hỏng, rỗng, trùng, thiếu thông tin</b> và thư mục trống. App <b>chỉ liệt kê</b> — anh bấm tên để xem thử, '+
     'tích mục muốn dọn rồi bấm nút cuối trang: file vào <b>Thùng rác</b> (khôi phục được), thư mục trống xóa luôn. Chưa nối Drive vẫn quét được phần trong app.</div>'+
@@ -1177,7 +1175,6 @@ function bungNhom(mo){
   Array.prototype.forEach.call(document.querySelectorAll('.g[id^="g-"]'), function(e){ moNhom[e.id.slice(2)] = mo; e.classList.toggle('mo', mo); });
 }
 /* 3.73: chế độ gọn — ẩn dòng 2 (tag, CT vay) của mỗi dòng file, nút thao tác dồn lên dòng 1 */
-function batDongGon(){ D.cauHinh.dongGon = !D.cauHinh.dongGon; luu(); apDongGon(); ve(); }
 function apDongGon(){ document.body.classList.toggle('dong-gon', !!D.cauHinh.dongGon); }
 function nhomTheoThang(ds, khoaNgay){
   var nam = {};

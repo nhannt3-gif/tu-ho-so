@@ -291,25 +291,7 @@ function datLocGiu(tab, khoa, gt){
   tlLocLai(tab);   /* 3.157: máy tính — tấm lọc vẫn mở (vẽ lại cùng thanh) */
 }
 
-function hangLoc(nhan, ds, dangChon, hamMo, nhanTatCa, doiNhan){
-  if(!ds.length) return '';
-  return '<div class="nam">'+(nhan?'<span class="nhan-loc">'+nhan+'</span>':
-      '<span class="nhan-loc"></span>')+
-    '<button'+(dangChon===''?' class="bat"':'')+' onclick="'+hamMo+"'')\">"+
-      coChuHTML(nhanTatCa)+'</button>'+
-    ds.map(function(x){
-      return '<button'+(dangChon===x?' class="bat"':'')+' onclick="'+hamMo+"'"+
-        String(x).replace(/'/g,"\\'")+"')\">"+
-        coChuHTML(doiNhan?doiNhan(x):x)+'</button>';
-    }).join('')+'</div>';
-}
 
-function datLoc(tab, khoa, gt){
-  var L = locCua(tab);
-  L[khoa] = (L[khoa]===gt) ? '' : gt;
-  if(khoa==='nam') L.thang = '';
-  ve();
-}
 function boLoc(tab){
   LOC[tab] = {nam:'', thang:'', ct:'', tag:'', mang:'', pham:'', hoi:'', xa:'', chua:'', hl:'', trung:''};
   if(tab==='scan' && typeof HS!=='undefined'){ HS.chuaDat = false; HS.cay = null; }   /* 3.151 */
@@ -427,17 +409,7 @@ function anLocNhanh(tab){
   if(laDT()) return !(D.cauHinh.moLocDT||{})[tab];
   return !!(D.cauHinh.anLocNhanh||{})[tab];
 }
-function batLocNhanh(tab){
-  var k = laDT() ? 'moLocDT' : 'anLocNhanh';
-  D.cauHinh[k] = D.cauHinh[k] || {};
-  D.cauHinh[k][tab] = !D.cauHinh[k][tab];
-  luu(); ve();
-}
 /* nút "Lọc nhanh ▾" chỉ hiện khi anh đã ẩn hàng lọc (lúc đang hiện thì nút ẩn nằm cuối dòng lọc đầu) — đỡ tốn một nút */
-function nutLocNhanh(tab, kho){
-  if(!anLocNhanh(tab) || !nhomLocNhanh(tab, kho).length) return '';
-  return '<button class="phu" onclick="batLocNhanh(\''+tab+'\')" title="Hiện hàng lọc nhanh — app nhớ riêng cho tab này">Lọc nhanh ▾</button>';
-}
 /* 3.65 (việc AC, anh chốt): ⭐ đánh dấu văn bản / biểu mẫu quan trọng — không cần quan tâm nữa thì bỏ sao.
    Biểu mẫu dùng chung cờ "ghim" có sẵn (khỏi 2 nút cùng việc) */
 function laSao(m){ return !!(m && (m.huongDan!==undefined ? m.ghim : m.sao)); }
@@ -451,37 +423,6 @@ function doiSao(id){
 function saoSuaHTML(m, gon){ var b = laSao(m); return '<button class="nho sao-nut'+(b?' bat':'')+(gon?' sg-ico':'')+'" type="button" id="sao-sua" onclick="doiSao(\''+m.id+'\')"'+(gon?' title="'+(b?'Đang đánh dấu quan trọng — bấm để bỏ':'Đánh dấu quan trọng')+'"':'')+'>'+(gon?(b?'★':'☆'):(b?'★ Quan trọng':'☆ Đánh dấu quan trọng'))+'</button>'; }
 /* 3.69 (việc AJ, anh chốt: vẫn chip nhưng gọn): các nhóm ngắn (Năm · Mảng · CT vay · Phạm vi · Hội · Xã) chung 1 dòng, Tag / Nhãn 1 dòng;
    bỏ chip "Tất cả" — bấm chip để lọc (xanh có ✕), bấm lại để bỏ; đang lọc hiện "✕ Bỏ lọc (n)"; chip kèm số mục nếu chọn nó */
-function hangLocNhanh(tab, kho){
-  if(anLocNhanh(tab)) return '';
-  kho = kho||[];
-  var nhom = nhomLocNhanh(tab, kho);
-  var L = locCua(tab);
-  var soSao = (tab==='vanBan'||tab==='bieuMau') ? kho.filter(laSao).length : 0;
-  if(!nhom.length && !soSao && !L.sao && !(tab==='vanBan' && D.vanBan.some(function(m){ return TRUNG_SH[m.id]; })) && !L.trung) return '';
-  var dem = function(khoa, x){   /* số mục nếu chọn chip này (giữ các lọc khác) */
-    var cu = L[khoa]; L[khoa] = x;
-    var n = locTheoThe(tab, locChuan(tab, kho)).length; L[khoa] = cu; return n;
-  };
-  var chip = function(khoa, x, nhan, so){
-    return '<span class="the-loc'+(L[khoa]===x?' bat':'')+(so===0 && L[khoa]!==x?' rong':'')+(x===LOC_TRONG?' loc-trong':'')+(khoa==='trung'?' loc-trung':'')+'" onclick="datLoc(\''+tab+'\',\''+khoa+'\',\''+
-      String(x).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')+'\')" title="'+(L[khoa]===x?'Bấm để bỏ lọc này':'Lọc theo '+coChuHTML(nhan))+'">'+
-      coChuHTML(nhan)+(so!=null?' <small>'+so+'</small>':'')+'</span>';
-  };
-  var nhomHTML = function(g){ return '<span class="ln-nhan">'+g[0]+'</span>'+g[2].map(function(x){
-    return chip(g[1], x, x===LOC_TRONG ? (NHAN_TRONG[g[1]]||'Chưa có') : (g[1]==='ct' ? hienCT(x) : x), dem(g[1], x)); }).join(''); };
-  var ngan = nhom.filter(function(g){ return g[1]!=='tag'; }), dai = nhom.filter(function(g){ return g[1]==='tag'; });
-  var so = ['nam','thang','mang','ct','tag','pham','hoi','xa','chua','hl','sao','trung'].filter(function(k){ return !!L[k]; }).length;
-  var soTrung = tab==='vanBan' ? kho.filter(function(m){ return !!TRUNG_SH[m.id]; }).length : 0;
-  var phai = '<span class="ln-phai">'+(so ? '<span class="ln-bo" onclick="boLoc(\''+tab+'\')" title="Bỏ hết các lọc đang bật">✕ Bỏ lọc ('+so+')</span>' : '')+
-    ((soTrung || L.trung) ? chip('trung', '1', '⚠ Trùng số hiệu', soTrung) : '')+   /* 3.77 */
-    ((soSao || L.sao) ? chip('sao', '1', '★ Quan trọng', soSao) : '')+
-    '<span class="ln-an" onclick="batLocNhanh(\''+tab+'\')" title="Ẩn hàng lọc nhanh của tab này — bấm Lọc nhanh ▾ để hiện lại">ẩn ▴</span></span>';
-  var h1 = ngan.map(nhomHTML).join('<span class="ln-gach"></span>');
-  var dong = [];
-  if(h1 || !dai.length) dong.push('<div class="ln-hang">'+h1+phai+'</div>');
-  dai.forEach(function(g, i){ dong.push('<div class="ln-hang">'+nhomHTML(g)+(!h1 && i===0 ? phai : '')+'</div>'); });
-  return '<div class="loc-nhanh gon">'+dong.join('')+'</div>';
-}
 /* khóa lọc đang có chip trên hàng lọc nhanh — dòng "Đang lọc" không nhắc lại */
 function khoaTrenHangLoc(tab, kho){
   if(anLocNhanh(tab)) return [];
@@ -528,16 +469,6 @@ function oChonTag(tab, dangCo, idO){
     '<div class="huong-dan">Tag gần dùng xếp lên đầu. '+
     '<b onclick="suaTagTab(\''+tab+'\')" style="cursor:pointer;text-decoration:underline">'+
     'Sửa danh sách tag</b></div></div>';
-}
-function oChonNV(dangCo, idO){
-  var nv = D.cauHinh.nghiepVu||[];
-  return '<div class="o"><label>Mảng nghiệp vụ — chọn một</label>'+
-    '<div class="goi-y mot" id="'+idO+'">'+
-    nv.map(function(t){
-      return '<span class="the-loc'+(dangCo===t?' bat':'')+
-        '" onclick="chonMot(this)">'+coChuHTML(t)+'</span>';
-    }).join('')+'</div>'+
-    '<div class="huong-dan">Mảng lớn, ít khi đổi. Việc cụ thể thì dùng Tag bên dưới.</div></div>';
 }
 function chonMot(el){
   var b = el.parentNode.children;

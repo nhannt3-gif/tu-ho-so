@@ -321,17 +321,6 @@ function gopChiMuc(remote){
   });
   return doi;
 }
-function gopNhanh(local, remote){
-  var co = {}; local.forEach(function(m){ co[m.id] = true; });
-  (D.rac||[]).forEach(function(m){ co[m.id] = true; });
-  var daXoa = {}; (D.daXoaHan||[]).forEach(function(t){ daXoa[t.id] = 1; });
-  remote = (remote||[]).filter(function(m){ return !laFileHeThong(m) && !daXoa[m.id]; });
-  var them = 0;
-  (remote||[]).forEach(function(m){
-    if(!co[m.id]){ local.push(m); them++; }
-  });
-  return them;
-}
 /* tải chỉ mục từ Drive, gộp vào máy này nếu Drive mới hơn */
 function taiChiMucTuDrive(imLang){
   if(!coTheNoiDrive()) return Promise.resolve(false);

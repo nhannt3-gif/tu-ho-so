@@ -85,7 +85,6 @@ function veBieuMau(){
        'Bấm 🖨 để in ngay một mẫu, hoặc tích chọn nhiều mẫu rồi bấm <b>In cả bộ</b>.</p>';
   e.innerHTML = h;
 }
-function datNhomBM(t){ BM.locNhom = (BM.locNhom===t)?'':t; veBieuMau(); }
 /* ==========================================================
    BIỂU MẪU 3.24 — như một thư mục: ghim · đếm lần dùng · ghi chú cách dùng ·
    bản cũ ghi đã thay bằng bản mới (hiệu lực từ ngày) · gắn văn bản sinh ra mẫu ·
@@ -152,11 +151,6 @@ function inBo(i){
   dongHop(); veBieuMau();
   if(typeof inBoMau==='function') inBoMau();
   else bao('Đã chọn '+Object.keys(BM.chon).length+' mẫu của bộ “'+b.ten+'” — bấm In cả bộ.', 6);
-}
-function bmGhim(id){
-  var m = bmTim(id); if(!m) return;
-  m.ghim = !m.ghim; m.suaLuc = new Date().toISOString(); luu(); veBieuMau();
-  bao(m.ghim?'Đã đánh dấu ★ quan trọng — lên đầu danh sách.':'Đã bỏ dấu ★.', 3);
 }
 function bmDungThem(id){
   var m = bmTim(id); if(!m) return;
@@ -298,8 +292,6 @@ function moOfficeHop(id, cach){
     bao('Đã tải về thư mục Tải xuống. Dùng xong nên xóa để khỏi rác.', 6);
   }).catch(function(e){ baoLoi('Không mở được: '+(e&&e.message||e)); });
 }
-function bmMoWord(id){ moBangOffice(id, 'word'); }
-function bmMoExcel(id){ moBangOffice(id, 'excel'); }
 function bmMoDocs(id){
   var m = timMucMo(id); if(!m) return;
   if(bmTim(id)) bmDungThem(id);
@@ -328,7 +320,6 @@ function bmLuuVB(id){
   m.vbKem = gt('bm-vb2') || ''; m.suaLuc = new Date().toISOString();
   luu(); dongHop(); veBieuMau();
 }
-function datKieuBM(k){ BM.locKieu = k; veBieuMau(); }
 function doiChonBM(id){
   if(BM.chon[id]) delete BM.chon[id]; else BM.chon[id]=1;
   if(!Object.keys(BM.chon).length) BM.boTen = '';
