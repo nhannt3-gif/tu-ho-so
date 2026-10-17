@@ -102,5 +102,8 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     - Người vay: năm sinh ghi đủ ngày (dd/mm/yyyy) · nơi cấp CCCD · "ấp …, xã …, tỉnh …" · "do ông (bà) <tổ trưởng> làm tổ trưởng" · "Thuộc tổ chức <Hội> quản lý".
     - Phê duyệt của Ngân hàng: toàn bộ chấm (ghi tay).
   - **Ý 6 (17/10):** NSVSMT — phương án **Xây mới** hoặc **Sửa chữa** (chọn 1).
-  - (chờ anh trả lời câu 1, 2, 3, 5 ở tin nhắn 17/10)
+  - **Ý 7 (17/10):**
+    1. **Đề nghị cho vay = Vốn vay NHCSXH**; **Tổng nhu cầu = Vốn vay + Vốn tự có** (app tự tính, bằng chữ tự đổi).
+    2. **HSSV:** anh **gõ số tháng** và **gõ số tiền** của dòng sinh viên; số tiền đó **điền sang số tiền xin vay** (không tính theo mức / tháng).
+  - (chờ anh trả lời: nơi cấp CCCD cố định hay theo ngày cấp; câu "Đề nghị NHCSXH cho vay" hay "Đề nghị cho vay")
 
