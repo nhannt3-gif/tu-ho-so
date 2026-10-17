@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.243) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giao dịch xã › Mẫu 04 → In | "Gò Dầu" không tách dòng; "tại địa điểm: …" nối liền; 3 dòng chấm mục 2 có nét gạch tay mảnh | |
+| 2 | ⚙ Khai báo riêng › Mục 2 → Ẩn → In | Không còn nét gạch, chấm trống để ghi tay | |
+
+**Ghi chú kỹ thuật 3.243:** nét gạch tay = SVG nhỏ (`gdxGachTay`, 14×20 px) đặt tuyệt đối giữa dòng chấm (`span.dots-fine` position:relative). Giữ liền chữ bằng `&nbsp;` (`gdxLien`).
+
 ### Danh sách thử trên máy thật (3.242) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

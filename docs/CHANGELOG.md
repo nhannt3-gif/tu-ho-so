@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.243 — 18/10/2026 — Mẫu 04 GDX: không rớt chữ, nét gạch tay mục 2
+- **Anh 18/10** (ảnh bản in): "Gò Dầu" bị rớt dòng, dòng địa điểm cũng rớt; 3 dòng chấm mục 2 cần 1 nét gạch tay cho chân thật (ý nói không có dữ liệu) — anh chọn kiểu 1, nét mảnh, ngắn; cho hiện / ẩn ở khai báo riêng.
+- `js/26-giao-dich-xa.js` (`gdxHTML04`):
+  - Tên PGD trong câu: 2 chữ cuối đi liền (`gdxLien`, khoảng trắng không ngắt) — không tách "Gò │ Dầu"; áp mọi tên PGD khai báo.
+  - Mục 1: "01 người" liền.
+  - Mục 3: "tại địa điểm:" đi liền và tên điểm giao dịch nối ngay sau trong cùng đoạn (trước để dòng riêng).
+  - Mục 2: mỗi dòng chấm (số người chưa được vay · số thứ tự · số tiền) có 1 nét gạch tay mảnh, ngắn (SVG `gach-tay`, mỗi dòng hơi khác cho tự nhiên). Thêm dấu cách sau "danh sách là:".
+  - ⚙ Khai báo riêng Mẫu 04: mục mới *Mục 2 (chưa được vay): nét gạch tay* — Hiện (mặc định) / Ẩn (`gach04`).
+- **Chuẩn khóa:** `tests/chuan/gdx_m04` ghi lại. t165 thêm 3 phép.
+
 ## 3.242 — 17/10/2026 — Form lập 01/TD theo những gì anh đã chốt (ý 1–19)
 - **Anh 17/10:** "Mau01TD em làm vẫn chưa theo những gì đã chốt" → em báo kế hoạch form, anh "ok".
 - **Form mới** `js/40-lap-01td.js` (`L01`, thay khung nhập 01/TD cũ trong `hsoTuyVay`), đi đúng thứ tự tờ giấy:

@@ -173,6 +173,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t198.js` | 3.239: nút khung app theo data-lenh (tab, ✕ tìm, thùng rác, nền hộp, Gửi file trong khung xem), trả bộ nhớ ảnh tạm (xoayAnh, anhTam). |
 | `node tests/t199.js` | 3.240: 01/TD bảng giữ 3 dòng, HSSV xuống dòng, chỗ ký UBND, 1 trang A4; 03/TD 1 hộ 3 dòng / trắng 5 dòng, theo 01/TD; khai báo riêng mở / tắt; phiếu cũ tự gắn Sổ hộ vay. |
 | `node tests/t200.js` | (3.242) Form lập 01/TD: thứ tự tờ giấy, gõ Tab / Enter, ngày liền số, nơi cấp tự điền, hộ mới vào Sổ, Xã › Thôn › Tổ (Hội lọc), tự tính, loại công trình theo thẻ, tự có mặc định, Lưu / Làm trống / mở lại, hỏi lưu khi In / Mẫu 03, hộ cũ khóa nhân thân. |
+| (3.243) | t165 thêm: Gò Dầu / 03 người / tại địa điểm không tách; 3 nét gạch tay mục 2; Ẩn nét gạch. Chuẩn khóa gdx_m04 ghi lại. |
 | (3.241) | t165 theo kiểu gạch mới (½ chữ, nét mảnh); chuẩn khóa gdx_m04, gdx_m12 ghi lại. |
 | (3.238) | t196 thêm: Sổ hộ vay › Phóng to xem trong hộp, ＋ Hộ mới sau khi phóng to, mở hộp khi đang toàn màn hình. |
 | (3.235) | Tách `22-so-lieu.js`: không thêm phép thử — chạy lại t106, t108, t129, t134, t179–t181 (khóa bản in), t196 + hồi quy; ghép các file `js/22*` + `js/22k-kt-khuon.js` khớp từng byte bản cũ. |
