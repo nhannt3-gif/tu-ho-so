@@ -156,6 +156,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t183.js` | 3.223 M2 sổ hộ vay đủ cột: thông tin thêm, chép sang phiếu, cần bổ sung theo mẫu. |
 | `node tests/t184.js` | 3.223 M3 nền ô trên 01/TD: 3 kiểu in, cách từng ô, chữ dài thu nhỏ + ⚠, khai báo trực quan. |
 | `node tests/t185.js` | 3.223 M8 lưu theo ngăn IndexedDB: chuyển lần đầu + giữ bản cũ, chỉ ghi ngăn đổi, dữ liệu > 5 MB, localStorage bị xóa mất, công tắc quay lại, IndexedDB bị chặn, xóa sạch, 2 máy giả lập. |
+| `node tests/t179.js` (3.223.1) | chuẩn khóa Giấy lĩnh không lệch theo ngày chạy (chuẩn hóa "Ngày"). |
 
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
