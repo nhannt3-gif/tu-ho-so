@@ -77,5 +77,10 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
 - Hiện trạng (3.237): mọi tab mẫu (01/UQ, 01/TD, 01/GQVL, 03/TD, 07b, 01/TGTV, 09A, 01/TĐCK) có khối 👪 chọn hộ + ＋ Hộ mới + ＋ Lấy từ Mẫu 31 → trùng Sổ hộ vay; anh: "không đúng".
 - Hướng B: **đi từ hộ** — 📒 Sổ hộ vay là màn làm việc chính: tích hộ → 📄 Lập hồ sơ → chọn các mẫu cần → in / lưu một lượt. Tab mẫu: in mẫu trắng + khai báo riêng mẫu (khai báo trực quan, chọn nhanh).
 - Logic từng phần (ghi theo lời anh, ngày):
-  - (chờ anh)
+  - **Ý 1 (17/10):**
+    1. Các tab mẫu (01/UQ, 01/TD, 01/GQVL, 03/TD, 07b, 01/TGTV, 09A, 01/TĐCK) **không ngang hàng** với tab 📒 Sổ hộ vay — chúng là **1 bộ mẫu độc lập**.
+    2. Mẫu **không gắn sẵn dữ liệu**; chỉ khi **chọn hộ ở Sổ hộ vay rồi gọi tới mẫu** thì mẫu mới được điền.
+    3. Cần **1 nơi riêng** để **trực quan chọn từng mẫu biểu**, tối ưu, khai báo cho thật hoàn chỉnh.
+    4. Nơi đó có cả **mẫu trắng** và **gắn dữ liệu mẫu (giả) để thử**.
+  - (chờ anh nói tiếp)
 
