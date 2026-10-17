@@ -42,12 +42,12 @@ const fs=require('fs'), path=require('path');
    ok('🖨 cả phần NH: số tiền cho vay = đề nghị, lãi theo khai (6,9 theo chương trình HSSV)', h.indexOf('Số tiền cho vay: 40.000.000')>=0 && /Lãi suất: 6,9 %\/năm/.test(h) && hsoLuu().chamGT['01td']['nhLai|HSSV']==='6,9');
    omDatPhan('01td', 'nh', 'cham'); h = chu(hsoLap().h); ok('✍ cả phần NH → chấm lại, giá trị khai vẫn nhớ', /Lãi suất: [.…]+ %\/năm/.test(h) && hsoLuu().chamGT['01td']['nhLai|HSSV']==='6,9');
    /* 5. khung cố định + chữ dài */
-   const x = hsoLap().h, s = x.match(/<span class="om om-tu" data-o="ten" style="([^"]+)"/);
-   const wDot = omRong('...............................................................', 14)   /* 3.247: 01/TD chữ 14 */;
-   ok('ô có chữ = khung cố định đúng bề rộng chuỗi chấm gốc (Họ tên)', !!s && Math.abs(parseFloat(s[1].match(/width:([\d.]+)mm/)[1]) - wDot)<0.05, s && s[1]);
-   B.nv.ten = 'Nguyễn Thị Bé Ba Tư Năm Sáu Bảy Tám Chín Mười Một Mười Hai Mười Ba'; hsoBoLuu(); const x2 = hsoLap();
-   ok('tên dài quá khung: thu nhỏ chữ (font-size) + ⚠ báo trước khi in', /data-o="ten" style="[^"]*font-size:[\d.]+pt/.test(x2.h) && OM_DAI.some(d=>d.k==='ten'));
-   hsoVe(); await w(300); ok('⚠ Trước khi in ghi ô Họ tên dài quá khung', /Họ tên người vay[^]*dài quá khung/.test((document.querySelector('#hso-tuy .hso-thieu')||{}).textContent||''));
+   const x = hsoLap().h, s = x.match(/<span class="om om-tu" data-o="ten"( style="[^"]*")?>([^<]*)<\/span>(<span style="display:inline-block;width:([\d.]+)mm"><\/span>)?Năm sinh/);
+   ok('3.248 (anh 18/10): ô Họ tên có chữ → in liền như đánh máy (không khung), "Năm sinh" cách tên 1 tab (≤ 12,7 mm)', !!s && !s[1] && s[2]===B.nv.ten && !!s[4] && +s[4]<=12.7 && +s[4]>=3, s && s[0].slice(0, 200));
+   B.nv.ten = 'Nguyễn Thị Bé Ba Tư Năm Sáu Bảy Tám Chín Mười Một Mười Hai Mười Ba'; hsoBoLuu(); const x2 = hsoLap(), g2 = (x2.h.match(/<\/span><span style="display:inline-block;width:([\d.]+)mm"><\/span>Năm sinh/)||[])[1];
+   ok('tên dài → khoảng trước "Năm sinh" co lại (≥ 3 mm) cho vừa dòng', !!g2 && +g2<12.7 && +g2>=3, g2);
+   OM_DAI = []; const G9 = omG('09a', {ten:'Nguyễn Thị Bé Ba Tư Năm Sáu Bảy Tám Chín Mười Một Mười Hai Mười Ba'}, 13), h9 = G9.o('ten', '......................................................');
+   ok('ô khung cố định (vd 09A Họ tên) chữ dài quá khung: thu nhỏ chữ (font-size) + ⚠ ghi vào danh sách báo trước khi in', /font-size:[\d.]+pt/.test(h9) && OM_DAI.some(d=>d.k==='ten'));
    hmDongBo(hmTim(ho.id), B); hsoBoLuu(); hsoVe(); await w(300);
    /* 6. Chọn nhanh + khai báo trực quan */
    ok('cột trái: ⚙ Khai báo riêng — tóm tắt số ô theo nguồn (3.229: 📊 / ⚙ / 🤖 / ⌨ / ✏ / ✍) + nút 🖼 Khai báo trực quan + 9 ô Chọn nhanh', /ô: \d+ (📊|⚙|🤖)/.test(document.getElementById('hso-tuy').textContent) && /Khai báo trực quan/.test(document.getElementById('hso-tuy').textContent) && omNhanh('01td').length===9);

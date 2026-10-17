@@ -957,6 +957,7 @@ function hsoLap(){
   x.M = M; x.t = t; x.h = x.ds[0].h;
   var pv = ai || (t ? 'To '+t.ten : '') || 'Trang';
   x.ten = xuatTen('Mau '+M.ma.replace(/\//g, ' ')+(HSO_GM ? ' - Ghi mau' : '')+(typeof omCo==='function' && omCo(M.k) ? omTen() : ''), pv, HSO.o.ngay || ngayISO(nay()));   /* 3.221: bản ghi mẫu ghi rõ trong tên file */
+  if(typeof omChamMin==='function') x.ds.forEach(function(u){ if(OM_MAU[u.M.k]) u.h = omChamMin(u.h); });   /* 3.248: chấm mảnh lúc dựng bản in / xem / Word (HTML mẫu giữ chuỗi chấm gốc) */
   x.trang = hsoTrang(x.ds, null, x.ten);
   return x;
 }
@@ -965,7 +966,7 @@ function hsoLap(){
 /* ---------- WORD: HTML của mẫu → .docx (đoạn, bảng có gộp ô, đậm / nghiêng / gạch chân, ngắt trang) ---------- */
 function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, lặp tiêu đề, kẻ chấm), kẻ mảnh, logo, nhiều khổ (mỗi mẫu 1 section) */
   var ds = x.ds || [{M:x.M, h:x.h}], anh = [], soAnh = 0, tw = function(mm){ return Math.round(mm*56.7); };
-  var co = function(el, f){ var m = (' '+(el.className||'')+' ').match(/ s(\d+) /); return m ? +m[1]*2 : f; };
+  var co = function(el, f){ var m = (' '+(el.className||'')+' ').match(/ s(\d+) /); if(m) return +m[1]*2; var fs = el.style && el.style.fontSize; return fs && /%$/.test(fs) ? Math.max(14, Math.round(f*parseFloat(fs)/100)) : f; };   /* 3.248: chấm mảnh (font-size %) → Word cỡ nhỏ theo tỉ lệ */
   var lop = function(el, k){ return (' '+(el.className||'')+' ').indexOf(' '+k+' ')>=0; };
   var chay = function(t, f){ return '<w:r><w:rPr>'+(f.b ? '<w:b/>' : '')+(f.i ? '<w:i/>' : '')+(f.mau ? '<w:color w:val="'+f.mau+'"/>' : '')+'<w:sz w:val="'+f.sz+'"/><w:szCs w:val="'+f.sz+'"/>'+(f.u ? '<w:u w:val="single"/>' : '')+(f.sup ? '<w:vertAlign w:val="superscript"/>' : '')+'</w:rPr><w:t xml:space="preserve">'+xmlEsc(t)+'</w:t></w:r>'; };
   var hinh = function(img){ var src = img.getAttribute('src')||'', m = src.match(/^data:image\/(png|jpe?g);base64,(.+)$/); if(!m) return '';

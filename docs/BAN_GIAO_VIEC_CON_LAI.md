@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.248) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In 01/TD NSVSMT | 2 dòng công trình + 1 dòng chấm | |
+| 2 | In 01/TD HSSV tên SV dài | SV xuống 2–3 dòng, số lượng / thành tiền giữa ô, 1 trang | |
+| 3 | In 01/TD tên người vay ngắn | "Năm sinh" cách tên khoảng 1 tab | |
+| 4 | In / Word 01/UQ, 09A, 10C bản trắng | Dòng chấm nhỏ mịn, dài như cũ, không xô dòng | |
+
+**Ghi chú kỹ thuật 3.248:** `omChamMin(h)` bọc chuỗi chấm (≥ 4 dấu, … = 4) trong `span.om-min` (65 %, line-height 0). Phép thử so chuỗi chấm gốc dùng `hsoLap().h`; bản in dùng `HSO.x.ds[i].h` / `trang` (đã chấm mảnh).
+
 ### Danh sách thử trên máy thật (3.247) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

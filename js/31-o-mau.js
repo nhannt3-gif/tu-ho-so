@@ -78,7 +78,10 @@ function omG(mk, V, pt){
       '<div class="om om-'+(c==='mau' ? 'mau' : c)+'" data-o="'+k+'" style="position:absolute;left:0;right:0;top:0;bottom:0;overflow:hidden;text-align:'+(o.canh || 'justify')+'">'+coChuHTML(v)+'</div></div>'; };
   return G;
 }
-function omLap(mk, t, B, a, b){ var m = OM_MAU[mk]; OM_DAI = OM_DAI.filter(function(x){ return x.mk!==mk; }); var x = m.lap(t, B, a, b); x.ma = x.ma || m.ma; return x; }   /* a, b: tham số riêng của mẫu (vd 03/TD: danh sách hộ, chương trình) */
+function omLap(mk, t, B, a, b){ var m = OM_MAU[mk]; OM_DAI = OM_DAI.filter(function(x){ return x.mk!==mk; }); var x = m.lap(t, B, a, b); x.ma = x.ma || m.ma; return x; }
+/* 3.248 (anh 18/10 "chấm mảnh như các mẫu đã chốt, áp cho các loại"): dòng chấm (≥ 4 dấu) nhỏ mịn như Mẫu 06 / 16 KTGS — cỡ 65 %, thêm dấu cho giữ nguyên bề dài (form không xô); line-height:0 → không đổi cao dòng (trang in có DOCTYPE nên dòng chỉ có chấm vẫn giữ cao chuẩn) */
+function omChamMin(h){ var tl = typeof KT_CHAM_TL!=='undefined' ? KT_CHAM_TL : 0.65;
+  return String(h).replace(/>([^<>]*)</g, function(m0, s){ return /[.…]{2,}/.test(s) ? '>'+s.replace(/[.…]{2,}/g, function(c){ if(c.replace(/…/g, '....').length<4) return c; return '<span class="om-min" style="font-size:'+Math.round(tl*100)+'%;letter-spacing:0;line-height:0">'+(typeof ktChamDai==='function' ? ktChamDai(c, 1/tl) : c)+'</span>'; })+'<' : m0; }); }   /* a, b: tham số riêng của mẫu (vd 03/TD: danh sách hộ, chương trình) */
 function omTen(){ return OM_KIEU==='trang' ? ' - Trang' : OM_KIEU==='mau' ? ' - Mau' : ''; }
 
 /* ---------- giao diện cột trái: kiểu in · khai báo riêng (tóm tắt + Chọn nhanh) ---------- */
