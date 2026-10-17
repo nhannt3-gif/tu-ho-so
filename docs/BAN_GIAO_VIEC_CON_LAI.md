@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.237) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sổ hộ vay: sửa thẳng ô tên / địa chỉ, gõ có dấu nháy kép (vd Ấp "Mới") → mở lại | Ô hiện đủ chữ, bảng không vỡ | |
+
+**Ghi chú kỹ thuật 3.237:** phép thử nhanh chỉ cho hàm thuần (tính toán, chuẩn hóa, kiểm tra) — hàm cần DOM thật vẫn thử bằng trình duyệt. Thêm phép thử: 1 dòng `thu('tên', () => điều kiện)` trong `tests/nhanh/thu.js`; sửa hàm nghiệp vụ nào thì thêm phép thử nhanh cho hàm đó.
+
 ### Danh sách thử trên máy thật (3.236) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

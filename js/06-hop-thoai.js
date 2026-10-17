@@ -1980,7 +1980,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.236', ds:[
+var CO_GI_MOI = {ban:'3.237', ds:[
+  ["🔧 Sửa: chữ có dấu nháy kép (\") trong tên, ghi chú, địa chỉ không còn làm vỡ ô nhập / nút (Sổ hộ vay, các bảng sửa thẳng ô)", "doiNgan(7)"],
   ["⚡ App mở nhẹ hơn ~470 KB: khuôn Word KTGS (Mẫu 06, 16, 04/BC-TH, Kế hoạch năm) chỉ tải khi mở 🛡 KTGS hoặc tạo Word — lần đầu cần mạng", "doiNgan(7)"],
   ["🧱 Bên trong: phần Số liệu (1,3 MB, 1 file) tách thành 9 file theo khối + khuôn Word KTGS riêng — chức năng, bản in giữ nguyên; chuẩn bị nạp theo tab cho app mở nhanh hơn", "doiNgan(7)"],
   ["⬅ ➡ Lùi / tiến đúng bước mọi lúc: nút đầu trang, nút ◀ điện thoại, Back chuột, Alt+← / Alt+→ — lùi tab, tab con, mẫu Hồ sơ vay; ◀ khi đang mở hộp = đóng hộp", "doiNgan(7)"],
@@ -1994,8 +1995,7 @@ var CO_GI_MOI = {ban:'3.236', ds:[
   ["📒 Sổ hộ vay: tắt khung xem không còn bung ô tìm / ô chọn / chip — vừa nội dung, chữ cùng cỡ nút", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
   ["⌨ Khai báo riêng từng mẫu 4 nguồn: ✍ Ghi tay · 📊 Mẫu 31 · ⚙ Khai báo chung · ⌨ Tự gõ (nhớ riêng mẫu) — mẫu lấy khai báo riêng trước; ⧉ chép chữ tự động để sửa vài chữ", "slDoiTab('hst');doiNgan(7);hsoChonMau('11')"],
   ["📄 Mọi mẫu: ô lấy khai báo chung (Bên A, tên PGD, đại diện…) mặc định ⌨ khai riêng theo mẫu đó — chưa gõ thì in như khai báo chung", "slDoiTab('hst');doiNgan(7);hsoChonMau('11')"],
-  ["🔎 Sổ hộ vay: app tự kiểm tra khi nhập hộ — tuổi (trên 65 cảnh báo), CCCD, trùng CCCD / SĐT / họ tên gần đúng / vợ chồng (sổ + Mẫu 31), thừa kế, hộ đang vay mấy món (quá hạn, cùng chương trình), đổi tổ (ghi tổ cũ), theo chương trình; 🔴 chặn lưu, ✓ Đã kiểm tra", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
-  ["⚙ Khai báo đơn vị › 🔎 Kiểm tra hộ vay: bật / tắt từng luật, chọn mức 🔴 / 🟠 / 🟡 / ℹ, sửa ngưỡng (tuổi, số ngày, số tổ viên)", "hsoKBHop('kiem')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🔎 Sổ hộ vay: app tự kiểm tra khi nhập hộ — tuổi (trên 65 cảnh báo), CCCD, trùng CCCD / SĐT / họ tên gần đúng / vợ chồng (sổ + Mẫu 31), thừa kế, hộ đang vay mấy món (quá hạn, cùng chương trình), đổi tổ (ghi tổ cũ), theo chương trình; 🔴 chặn lưu, ✓ Đã kiểm tra", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
