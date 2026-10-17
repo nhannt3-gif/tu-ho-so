@@ -15,7 +15,7 @@
 Phần **làm tốt, giữ và dùng chung**: tìm khung + nắn phối cảnh + kéo 4 góc có kính lúp + xoay / lật + lọc ảnh (`js/13-xu-ly-anh.js`, đang dùng cho CCCD), bộ dựng PDF đúng khổ, đọc chữ (OCR), cầu nối máy tính.
 
 ## 1. Luồng mới — 1 luồng cho máy bàn + điện thoại, mọi loại
-**① Chọn loại + nguồn** (1 màn): 🪪 **CCCD** (2 mặt) · 📄 **Tài liệu / văn bản** (nhiều trang, 1 mặt mỗi trang) · ✍ **Chữ ký** (1 ảnh) · 🧑 **Ảnh khách** (1 ảnh) — nguồn 📷 máy quét / camera · 🖼 lấy từ file (ảnh, PDF).
+**① Chọn loại + nguồn** (1 màn): 🪪 **CCCD** (2 mặt) · 📄 **Tài liệu / văn bản** (nhiều trang, 1 mặt mỗi trang) · ✍ **Chữ ký** (1 ảnh) · 🧑 **Ảnh khách** = **1 mặt CCCD (mặt trước)** (anh chốt 17/10) — nguồn 📷 máy quét / camera · 🖼 lấy từ file (ảnh, PDF).
 - **Loại quyết định cách xử lý**, không đoán: chỉ CCCD mới ghép cặp mặt trước | mặt sau; Tài liệu, Chữ ký, Ảnh khách luôn 1 mặt → **hết nhầm đòi mặt 2**.
 - Loại chọn lần trước được nhớ (riêng máy), đổi 1 chạm.
 
@@ -25,10 +25,10 @@ Phần **làm tốt, giữ và dùng chung**: tìm khung + nắn phối cảnh +
 | CCCD | 85,6 × 54 mm, 2 mặt | Magic màu (như nay) | Gốc · Xám |
 | Tài liệu / văn bản | A4 dọc / ngang (tự theo tờ giấy) | **Văn bản rõ** (mới: nền giấy trắng đều, chữ đen đậm, giữ dấu đỏ / chữ ký màu) | Giấy trắng · Xám · Đen trắng · Gốc |
 | Chữ ký | khung quanh nét ký (app đoán sẵn, kéo được) | **Xóa nền nhẹ** (mới) | Xóa nền vừa · Không xóa (chỉ cắt) |
-| Ảnh khách | khung cắt tự do / chân dung | Gốc (chỉnh sáng nhẹ) | Magic màu |
+| Ảnh khách (1 mặt CCCD) | 85,6 × 54 mm, **chỉ mặt trước** — tự tìm khung thẻ, nắn thẳng như CCCD | Magic màu | Gốc · Xám |
 
 - **Văn bản rõ** (tài liệu): trừ nền theo độ sáng từng vùng (khử bóng, khử vàng giấy) bằng `nenSang` sẵn có → kéo giãn chữ → lấy nét nhẹ; điểm có màu rõ (dấu đỏ, mực xanh) giữ màu. Nhiều trang: chụp liên tục, mỗi trang tự cắt, dời / xóa trang được.
-- **Xóa nền chữ ký nhẹ**: nền ước theo vùng (không 1 ngưỡng cả ảnh) → chuyển mềm (không cắt cứng) → **giữ độ đậm nhạt thật của nét** (không ép đen) → mép nét mịn, không răng cưa; khử chấm bẩn nhỏ. Lưu **PNG xám** nếu nhẹ hơn, JPG chất lượng cao nếu không — tránh lem do nén JPG trên nét đen trắng.
+- **Xóa nền chữ ký nhẹ**: nền ước theo vùng (không 1 ngưỡng cả ảnh) → chuyển mềm (không cắt cứng) → **giữ độ đậm nhạt thật của nét** (không ép đen) → mép nét mịn, không răng cưa; khử chấm bẩn nhỏ. Mặc định lưu **JPG chất lượng cao** (hệ thống chắc chắn nhận); PNG xám chỉ bật nếu anh xác nhận hệ thống nhận PNG.
 - **Chữ ký / Ảnh khách: nén dưới 200 KB** (anh chốt 17/10, giữ mức như nay — để nhập hệ thống): hạ chất lượng dần → thu nhỏ dần tới khi ≤ 200 KB, ưu tiên giữ nét; hiện dung lượng + ✓ dưới 200 KB.
 
 **③ ✓ Chốt đạt** → **④ Xem thử bản in**: PDF thật (CCCD đúng khổ — 1 người / 2 mặt, hoặc 4 người / A4; tài liệu A4 nhiều trang) hoặc ảnh (chữ ký, ảnh khách); tên file sửa được (gợi ý: "CCCD Nguyen Van A", "2026-10-17 Nguyen Van A CK.jpg"…).
@@ -63,5 +63,5 @@ Hồi quy đủ (`tools/hoiquy.sh`) — các phép thử scan cũ (Lens, chữ k
 
 ## 5. Anh duyệt
 1. Luồng ①–⑤, bộ nút chuẩn, danh sách Bỏ / Giữ như trên?
-2. Chữ ký lưu **PNG xám khi nhẹ hơn** — hệ thống của NH có nhận PNG không? (không nhận → luôn JPG chất lượng cao).
-3. Ảnh khách là ảnh chân dung / ảnh chụp khách (không phải CCCD) — đúng ý anh?
+2. ✅ Chữ ký, ảnh khách dưới 200 KB (anh chốt 17/10). Định dạng: mặc định JPG chất lượng cao; PNG chỉ khi anh xác nhận hệ thống nhận.
+3. ✅ Ảnh khách = 1 mặt CCCD (mặt trước) (anh chốt 17/10).
