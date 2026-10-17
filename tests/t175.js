@@ -61,7 +61,7 @@ const fs=require('fs'), path=require('path');
  await ev(()=>{ document.querySelector('#hm-so-tim').focus(); }); await p.keyboard.type('thị giả');
  r = await ev(()=>({n:document.querySelectorAll('#hm-so-bang tbody tr[data-id]').length, fo:document.activeElement.id, dem:document.getElementById('hm-so-dem').textContent}));
  ok('tìm "thị giả" (không dấu, gõ tới đâu lọc tới đó) — ô tìm giữ con trỏ, đếm 1 / 5', r.n===1 && r.fo==='hm-so-tim' && r.dem==='1 / 5 hộ', JSON.stringify(r));
- r = await ev(()=>HSO.x && /lọc: tìm/.test(HSO.x.trang||'') ? 1 : 0); await p.waitForTimeout(400); r = await ev(()=>{ const h = hsoLap().h || ''; return {loc:/lọc: tìm "thị giả"/.test(h), n:(h.match(/<tr>/g)||[]).length}; });
+ r = await ev(()=>HSO.x && /lọc: tìm/.test(HSO.x.trang||'') ? 1 : 0); await p.waitForTimeout(400); r = await ev(()=>{ const h = hsoLap().h || ''; return {loc:/lọc: tìm (&quot;|")thị giả(&quot;|")/.test(h), n:(h.match(/<tr>/g)||[]).length}; });
  ok('🖨 In = đúng danh sách đang lọc, ghi rõ bộ lọc trên bản in (3.227: tiêu đề cột + dòng tháng + 1 hộ)', r.loc && r.n===3, JSON.stringify(r));
  await ev(async()=>{ HM_SO.q=''; HM_SO.loai='moi'; hsoVe(); await new Promise(r=>setTimeout(r,200)); });
  r = await ev(()=>document.querySelectorAll('#hm-so-bang tbody tr[data-id]').length); ok('chip Hộ mới → 2 hộ', r===2, r);

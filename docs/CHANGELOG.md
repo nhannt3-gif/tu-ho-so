@@ -15,6 +15,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - `coChuHTML`, `GD.nut`, thứ tự bộ nút xuất.
   - **`kiem.py` tự chạy** — trượt là lỗi.
 - **Sửa (phép thử nhanh bắt được):** `coChuHTML` không thoát dấu `"` mà được đặt trong `value="…"` / `title="…"` ở 133 chỗ → chữ có dấu nháy kép làm vỡ ô nhập / nút. Nay thoát cả `"` (trong chữ thường vẫn hiện đúng). `GD` (3.234) tự thoát.
+- t175: bản in Sổ hộ vay ghi bộ lọc `tìm &quot;…&quot;` (hiện như `"…"`) — phép thử nhận cả 2.
 - Hạ mốc thước đo theo 3.236 (JS lúc mở 2.950 KB, file > 150 KB: 4).
 
 ## 3.236 — 17/10/2026 — Chuẩn hóa R3 phần 2: khuôn Word KTGS nạp khi dùng
