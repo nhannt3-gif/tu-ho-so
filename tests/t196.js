@@ -63,6 +63,18 @@ const fs=require('fs'), path=require('path');
  r = await ev(()=>{ document.documentElement.setAttribute('data-theme', 'dark'); document.body.classList.add('toi'); const th = document.querySelector('#hm-so-bang th'); const c = getComputedStyle(th).backgroundColor.match(/\d+/g).map(Number); return c.slice(0, 3); });
  await ev(()=>{ document.documentElement.removeAttribute('data-theme'); document.body.classList.remove('toi'); });
  ok('chế độ tối: tiêu đề bảng Sổ hộ vay nền tối (không còn dòng trắng)', r[0]+r[1]+r[2] < 200, JSON.stringify(r));
+ /* 5c. 3.238 (anh báo): Sổ hộ vay › ⤢ Phóng to → xem trong hộp (không bung toàn màn hình khung ẩn) → Đóng → ＋ Hộ mới mở được */
+ await ev(()=>{ dongHop(); hsoChonMau('sohv'); }); await w(800);
+ await p.click('#hso-xem-nut button:has-text("Phóng to")'); await w(600);
+ r = await ev(()=>({fs:!!document.fullscreenElement, hop:document.getElementById('hop').classList.contains('hien'), khung:!!document.getElementById('hso-khung2')}));
+ ok('Sổ hộ vay › ⤢ Phóng to: xem bản in trong hộp, không bung toàn màn hình', !r.fs && r.hop && r.khung, JSON.stringify(r));
+ await p.click('#hop-in [data-lenh="hso.dong"]'); await w(400);
+ await p.click('[data-lenh="so.moi"]'); await w(500);
+ ok('đóng xem → ＋ Hộ mới mở form khai báo hộ', await ev(()=>/Khai báo hộ vay mới/.test(document.getElementById('hop-in').textContent) && !document.fullscreenElement));
+ await ev(()=>dongHop()); await w(300);
+ r = await ev(async()=>{ const f = document.getElementById('hso-xem-khung'); document.querySelector('#tr7 .hso-bo').classList.remove('hso-rong'); try { await f.requestFullscreen(); } catch(e){} const truoc = !!document.fullscreenElement; hmMo(); await new Promise(r=>setTimeout(r,300)); return {truoc:truoc, sau:!!document.fullscreenElement, hop:document.getElementById('hop').classList.contains('hien')}; });
+ ok('đang phóng to toàn màn hình mà mở hộp → tự thoát toàn màn hình, hộp hiện', r.truoc && !r.sau && r.hop, JSON.stringify(r));
+ await ev(()=>{ dongHop(); hsoVe(); }); await w(300);
  /* 6. hộp Khai báo ở 390 px */
  await p.setViewportSize({width:390, height:820}); await ev(()=>hsoKBHop('pgd')); await w(600);
  r = await ev(()=>({tran:document.documentElement.scrollWidth>innerWidth+1, gian:[...document.querySelectorAll('#hop-in .hso-kbt')].filter(b=>b.getBoundingClientRect().width>innerWidth*0.6).length}));

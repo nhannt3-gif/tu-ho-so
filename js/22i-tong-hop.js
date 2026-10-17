@@ -391,7 +391,9 @@ window.addEventListener('resize', function(){ clearTimeout(window.__slVua); wind
 function thVuaKhung(){ var f = document.getElementById('th-xem-khung') || document.getElementById('hso-xem-khung'); if(!f || !f.offsetParent) return;   /* 3.170: + khung xem tab Hồ sơ */
   var h = window.innerHeight - f.getBoundingClientRect().top - 22; f.style.height = Math.max(320, h)+'px'; }
 window.addEventListener('resize', function(){ clearTimeout(window.__thVua); window.__thVua = setTimeout(thVuaKhung, 150); });
-function thXemRong(id){ var f = document.getElementById(id || 'th-xem-khung'); if(f && f.requestFullscreen) f.requestFullscreen(); else if(!id) thXem1(); }
+function thXemRong(id){ var f = document.getElementById(id || 'th-xem-khung');
+  if(f && !f.offsetParent && id==='hso-xem-khung' && typeof hsoXemHop==='function') return hsoXemHop();   /* 3.238 (anh báo): khung xem đang ẩn (📒 Sổ hộ vay) → bung toàn màn hình khung ẩn = màn trống che hộp ＋ Hộ mới; nay xem trong hộp */
+  if(f && f.requestFullscreen) f.requestFullscreen(); else if(!id) thXem1(); }
 function thXem1(){ if(!TH_XEM.length) return; moHop('<div class="hop-tit">👁 '+coChuHTML(TH_XEM[0].tieuDe)+'</div><iframe id="th-khung2" class="to-khung" title="Xem"></iframe><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>', true);
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong'); xemChuan(document.getElementById('th-khung2'), thHTMLIn(TH_XEM)); }
 /* số triệu đồng (biểu BCDHTD): d chữ số thập phân */

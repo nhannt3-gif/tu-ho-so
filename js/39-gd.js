@@ -52,6 +52,7 @@ var GD = (function(){
       var b = function(){ var r = g.apply(this, arguments); if(!DANG_VE) setTimeout(ghi, 0); return r; }; b.__dh = true; window[t] = b; });
     var mo = window.moHop, dong = window.dongHop;
     window.moHop = function(html, rong){
+      if(document.fullscreenElement && document.exitFullscreen){ try { document.exitFullscreen(); } catch(er){} }   /* 3.238: đang phóng to toàn màn hình → thoát, để hộp mở ra luôn thấy */
       var dangMo = hopMo();
       if(dangMo && CON){ var e2 = document.getElementById('hop-in'), f = document.createDocumentFragment();   /* giữ nguyên hộp cha (nút, chữ đang gõ) */
         while(e2.firstChild) f.appendChild(e2.firstChild); CHONG.push({f:f, lop:e2.className}); }
