@@ -54,6 +54,7 @@ const fs=require('fs'), path=require('path');
  ok('loại công trình theo thẻ (Xây mới · Sửa chữa · Cải tạo) → chọn "Cải tạo" vào mục đích', r.nut.join('|')==='Xây mới|Sửa chữa|Cải tạo' && r.loai==='Cải tạo' && /^Cải tạo /.test(r.md), JSON.stringify(r));
  ok('vốn tự có trống → mặc định thẻ NSVSMT 5 triệu: tổng = vay + tự có (55.000.000), in đủ', !r.tuCo && /55\.000\.000 đ/.test(r.tinh) && r.inTuCo && r.inTong, JSON.stringify(r));
  ok('câu đề nghị theo mẫu gốc: "Đề nghị cho vay" (bỏ biến thể NHCSXH)', !r.nhcsxh);
+ ok('form 01/TD giữ khối "In kèm" (03/TD · 10C · 01/UQ · 01/TGTV) như cột cũ', await ev(()=>{ const t = document.getElementById('hso-tuy').textContent; return /In kèm/.test(t) && /01\/UQ giấy ủy quyền/.test(t) && /03\/TD danh sách/.test(t); }));
  /* 5. lưu, danh sách, làm trống, mở lại */
  await p.click('[data-lenh="l01.luu"]'); await w(500);
  r = await ev(()=>{ const B = hsoBo(); return {ten:B.tenBan, ds:[...document.querySelectorAll('#hso-tuy .l01-dong a')].map(a=>a.textContent)}; });

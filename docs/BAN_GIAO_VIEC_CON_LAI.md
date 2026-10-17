@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.244) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TD hộ có 2 SV (HSSV) | Có chip chọn SV, chọn SV nào in đơn SV đó | |
+| 2 | 01/TD tích In kèm 01/UQ khi hộ thiếu CCCD thành viên | Hiện ⚠ + nút Bổ sung; In ra 01/UQ + 01/TD (+ 03/TD nếu tích) | |
+
+**Ghi chú kỹ thuật 3.244:** `hsoTuySV`, `hsoTuyKem` dùng chung giữa `hsoTuyVay` (mẫu khác) và `L01.form`.
+
 ### Danh sách thử trên máy thật (3.243) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

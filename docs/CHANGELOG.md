@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.244 — 18/10/2026 — Form 01/TD: trả lại chọn SV và In kèm
+- Hồi quy 3.242 (t173, t178) phát hiện form lập 01/TD mới (3.242) đã bỏ sót 2 chức năng của cột cũ: **chip chọn sinh viên** khi hộ có nhiều SV (mỗi SV 1 đơn) và khối **In kèm** (03/TD, 10C, 01/UQ, 01/TGTV + cảnh báo 01/UQ thiếu thành viên / ngày sinh, CCCD + ngày họp tổ). Không được bỏ chức năng cũ khi anh chưa duyệt → đưa lại.
+- `js/25-ho-so.js`: tách 2 mảnh dùng chung `hsoTuySV(B, o)`, `hsoTuyKem(B, o, gq)` (cột cũ và form mới cùng gọi). `js/40-lap-01td.js`: chip SV ngay trên phần 2. Đề nghị vay (HSSV), khối In kèm sau dòng tự tính.
+- Phép thử: t173, t178 theo form mới (lệnh GD `l01.ct`, `l01.kb`); t200 thêm 1 phép In kèm.
+
 ## 3.243 — 18/10/2026 — Mẫu 04 GDX: không rớt chữ, nét gạch tay mục 2
 - **Anh 18/10** (ảnh bản in): "Gò Dầu" bị rớt dòng, dòng địa điểm cũng rớt; 3 dòng chấm mục 2 cần 1 nét gạch tay cho chân thật (ý nói không có dữ liệu) — anh chọn kiểu 1, nét mảnh, ngắn; cho hiện / ẩn ở khai báo riêng.
 - `js/26-giao-dich-xa.js` (`gdxHTML04`):

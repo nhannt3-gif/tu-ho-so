@@ -92,9 +92,11 @@ var L01 = (function(){
     h += '</div>';
     /* 2. Đề nghị vay */
     if(B){ var A = hsoPA(B), tuCo = hsoTuCo(B);
+      if(C.kieu==='hssv' && o) h += hsoTuySV(B, o);   /* hộ nhiều SV: chip chọn SV (mỗi SV 1 đơn) */
       h += String(hsoTuyPA(B)).replace(/<div class="nhan-nhom">③ Phương án — /, '<div class="nhan-nhom">2. Đề nghị vay — ')+
         '<div class="sl-phu l01-tinh">Tự tính: đề nghị vay <b>'+(A.tien ? tdnTien(A.tien)+' đ' : '…')+'</b>'+(A.tien ? ' ('+e(hsoChuSo(A.tien))+')' : '')+' · tổng nhu cầu <b>'+(A.tien ? tdnTien(A.tien+tuCo)+' đ' : '…')+'</b></div>';
       if(C.kieu==='gqvl') h += '<div class="sl-bao vang hso-nhac">GQVL dùng mẫu riêng <b>01/GQVL</b> + <b>07b/GQVL</b> — '+GD.nut({chu:'Mở 01/GQVL', lenh:'l01.gq', chinh:1})+'</div>';
+      else if(o) h += hsoTuyKem(B, o, false);   /* in kèm 03/TD · 10C · 01/UQ · 01/TGTV (như cột cũ) */
     } else h += '<div class="sl-phu">Gõ họ tên người vay (hoặc chọn hộ trong sổ) → hiện phần <b>2. Đề nghị vay</b>. Chưa có người vay thì khung phải là mẫu trắng (in được ngay).</div>';
     h += '<div class="sl-phu">Phần UBND xác nhận, Ngân hàng phê duyệt: để chấm, ghi tay.</div>';
     /* bản đã lưu */
