@@ -62,5 +62,5 @@
 
 ## Trạng thái (17/10)
 - ✅ **3.228 đã làm** (`js/37-kiem-ho.js`, t190): đủ mục A, B, C (thẻ món đang vay = dòng ℹ trong khung 🔎), D trừ "nhu cầu vay nhập ngay trong sổ (`o.nc`)" — để sau. Khác kế hoạch: Tra cứu giữ `tcKiemTrung2` riêng (nhập rời, không có hộ) — chỉ dùng chung chỉ mục món `slKhMonNap`; cccdHet mặc định 🟠 (không 🔴) để không chặn lưu hộ; luật GQVL "tổng dòng ≠ số tiền" bỏ (số tiền GQVL = tổng dòng) — thay bằng `ctCanh` (cảnh báo phương án sẵn có: vượt mức / công trình, vượt 200 triệu, hiệu quả âm).
-- ✅ **3.229 phần lõi đã làm** (`js/31-o-mau.js`, t191): 4 nguồn, riêng trước, ⌨ chưa gõ in như tự động, ⧉ chép; 11/TD mới + cũ Bên A mặc định ⌨. **Còn:** 4 luật điền + cuốn chiếu từng mẫu khi anh rà (chữ dài theo `RA_SOAT_CHU_DAI.md`).
+- ✅ **3.229 phần lõi đã làm** (`js/31-o-mau.js`, t191): 4 nguồn, riêng trước, ⌨ chưa gõ in như tự động, ⧉ chép; mọi mẫu: ô lấy khai báo chung mặc định ⌨ riêng mẫu (anh 17/10 "mẫu nào khai theo mẫu đó"). **Còn:** 4 luật điền + cuốn chiếu từng mẫu khi anh rà (chữ dài theo `RA_SOAT_CHU_DAI.md`).
 

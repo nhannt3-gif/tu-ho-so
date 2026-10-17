@@ -19,6 +19,7 @@ const fs=require('fs'), path=require('path');
    const m11 = OM_MAU['11'], x = k => m11.oK[k];
    ok('nguồn ô tự động ghi rõ: Bên A → ⚙ Khai báo chung, tổ trưởng → 📊 Mẫu 31', omCachChu(x('ngan'), 'tu')[0]==='⚙' && omCachChu(x('tt'), 'tu')[0]==='📊');
    ok('mọi ô tự động đều có ⌨ Tự gõ riêng mẫu', OM_LOAI.tu.indexOf('kb')>=0 && OM_CACH.kb[0]==='⌨');
+   ok('mọi mẫu: ô khai báo chung mặc định ⌨ riêng (07b Bên A, 01/TĐCK, 10A…), ô Mẫu 31 giữ 📊', Object.keys(OM_MAU).every(mk=>OM_MAU[mk].o.every(x=>!(x.l==='tukb' || x.l==='tu' && omNguonLoai(x)==='chung') || x.md!=='tu')) && OM_MAU['11'].oK.tt.md==='tu' && OM_MAU['07b'].o.filter(x=>x.p==='nhs' && x.l==='tukb').every(x=>x.md==='kb'));
    ok('11/TD Bên A mặc định ⌨ riêng — chưa gõ → in như khai báo chung', omCachLuu('11', 'ngan')==='kb' && lap('11').indexOf('Gò Giả')>=0 && lap('11').indexOf('Nguyễn Văn Đại Diện Giả')>=0);
    ok('chưa gõ riêng → không báo "chưa có số liệu"', !/Bên A: Chi nhánh[^<]*<\/b> chưa có số liệu/.test(document.getElementById('hso-tuy').innerHTML));
    omDatKB('11', 'ngan', 'Gò Dầu Riêng Mẫu 11'); await w(300);

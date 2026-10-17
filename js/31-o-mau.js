@@ -18,7 +18,7 @@ function omCachChu(x, c){   /* [icon, tên] của cách c cho ô x — 🤖 tác
   return OM_CACH[c] || OM_CACH.cham; }
 /* m = {k, ma, phan:[mã phần…], o:[{k, n nhãn, p phần, l loại, md mặc định, ct theo chương trình?, ng nguồn, nhanh?, cmau chữ mẫu gợi ý}], lap:function(G, t, B){ return html }} */
 function omMg(a){ return [a[0], Math.round((a[1]-0.4)*10)/10, a[2], Math.round((a[3]-0.4)*10)/10]; }   /* lề theo Word − 0,4 mm hai bên: khung chia trang có đệm 1,5 px mỗi bên → bề rộng chữ đúng bằng Word (dòng vừa khít Word không bị xuống dòng) */
-function omDangKy(m){ m.oK = {}; m.o.forEach(function(x){ m.oK[x.k] = x; }); OM_MAU[m.k] = m; return m; }
+function omDangKy(m){ m.oK = {}; m.o.forEach(function(x){ if(x.md==='tu' && (x.l==='tukb' || x.l==='tu' && omNguonLoai(x)==='chung')) x.md = 'kb'; m.oK[x.k] = x; }); OM_MAU[m.k] = m; return m; }   /* 3.229 (anh 17/10 "mẫu nào khai theo mẫu đó"): ô lấy khai báo chung mặc định ⌨ riêng mẫu — chưa gõ thì in như chung */
 function omCo(mk){ return !!OM_MAU[mk]; }
 function omL(ten){ var L = hsoLuu(); L[ten] = L[ten] || {}; return L[ten]; }
 function omRong(s, pt, dam){   /* bề rộng chữ (mm) theo phông in — canvas */

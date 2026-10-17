@@ -225,7 +225,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 ### Danh sách thử trên máy thật (3.229) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
-| 1 | Hồ sơ Tổ › 11/TD mới, chưa khai gì | In như trước (Bên A theo khai báo chung) | |
+| 1 | Hồ sơ Tổ › 11/TD mới, 07b, 01/TĐCK… chưa khai gì | In như trước (ô Bên A / PGD theo khai báo chung), cột trái ghi ⌨ | |
 | 2 | 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ | 11/TD mới in chữ đã sửa; 11/TD cũ vẫn chữ chung | |
 | 3 | Ô tổ trưởng: chọn ⌨, gõ khác | In chữ gõ; chọn lại 📊 Mẫu 31 → in theo Mẫu 31 | |
 | 4 | Cột trái ⚙ Khai báo riêng | Tóm tắt "n 📊 · n ⚙ · n ⌨ · n ✍" | |

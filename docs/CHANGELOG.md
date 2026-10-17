@@ -9,7 +9,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Lõi** `js/31-o-mau.js`: `OM_LOAI.tu` thêm `kb` — mọi ô tự động có ⌨ Tự gõ riêng; `omNguonLoai` / `omCachChu` ghi rõ nguồn ô tự động (📊 Mẫu 31 · ⚙ Khai báo chung · 🤖 khác) theo `x.ng`; tên cách: ✍ Ghi tay · ⌨ Tự gõ (nhớ riêng mẫu) · ✏ Gõ trong lần làm.
 - **Khai báo riêng trước:** `omCachLuu` — ô đã gõ riêng mà chưa chọn cách → ⌨; `omDatKB` gõ chữ → tự chuyển ⌨. **⌨ chưa gõ → in như nguồn tự động** (`G.gt`, lớp ô theo nguồn thực → bản in không đổi, chuẩn t179 giữ nguyên). `omG` đè `V[ô]` bằng chữ riêng (cả mẫu đọc thẳng V; số liệu dạng bảng / danh sách giữ nguyên).
 - **🖼 Khai báo trực quan:** "Nguồn chữ" từng ô theo 4 nguồn; ô ⌨ hiện chữ tự động làm gợi ý + nút **⧉ Chép từ Mẫu 31 / Khai báo chung để sửa** (`omChepTu`, `omVTam`); tóm tắt cột trái đếm theo nguồn.
-- **11/TD mới + cũ:** ô Bên A (`ngan`, `daiDien`, `diaChi`, `dt`, `tkNH` — 11 cũ không có `tkNH`) mặc định ⌨.
+- **Thống nhất mọi mẫu (anh 17/10: "mẫu nào khai theo mẫu đó"):** `omDangKy` — ô lấy ⚙ khai báo chung (`tukb`, hoặc `tu` có nguồn Khai báo đơn vị) mặc định ⌨ riêng mẫu (11/TD, 07b Bên A, 01/TĐCK, 01/GQVL, 10A…); chưa gõ → in như khai báo chung.
 - **Chưa làm (cuốn chiếu theo từng mẫu khi anh rà):** 4 luật điền (tên dài đẩy năm sinh, không thu nhỏ chữ; địa chỉ liền mạch xã / phường; khung ngày) — `docs/KE_HOACH_3228.md` mục 3.229; ô Đại diện · Chức vụ chung 1 ô (chức vụ vẫn theo khai báo chung).
 - **Phép thử:** `tests/t191.js` (mới, 16). t181 chỉ gõ giả ô khai báo như trước; t184 theo tóm tắt mới.
 
