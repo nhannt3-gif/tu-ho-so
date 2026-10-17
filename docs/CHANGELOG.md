@@ -4,6 +4,21 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.248 — 18/10/2026 — 01/TD cân đối thêm; chấm mảnh cho mọi mẫu hồ sơ
+- **Anh 18/10:**
+  - "chtr nước sạch để 1 dòng chấm chỗ đối tượng": NSVSMT có số liệu thì thêm 1 dòng chấm sau các dòng công trình.
+  - "tên sinh viên dài có thể xuống dòng nên phải cân đối trước": ô số lượng, thành tiền canh giữa theo chiều dọc. Đo PDF tên SV 7 chữ (3 dòng) có khối UBND: vẫn 1 trang, chỗ ký rộng.
+  - "năm sinh nếu tên ngắn thì gần lại 1 tab": có tên thì in liền, "Năm sinh" cách tên 12,7 mm; tên dài thì khoảng cách co lại (≥ 3 mm) cho vừa dòng.
+  - "chấm mảnh như các mẫu đã chốt, áp cho các loại": mọi mẫu hồ sơ trên nền ô (01/TD, 01/UQ, 03/TD, 09A, 01/TĐCK, 01/GQVL, 07b, 10A–10D, 11…) dùng dòng chấm nhỏ mịn như Mẫu 06 / 16 KTGS.
+- **Kỹ thuật chấm mảnh:**
+  - `omChamMin` (`js/31-o-mau.js`): cỡ 65 %, thêm dấu cho giữ bề dài (`ktChamDai`), `line-height:0` để không đổi cao dòng.
+  - Áp lúc dựng bản in / xem / Word (`hsoLap` → `x.ds`); HTML mẫu (`x.h`) giữ chuỗi chấm gốc.
+  - Word: `hsoDocx` đọc `font-size:%` ra cỡ chấm nhỏ.
+- Phép thử:
+  - t199: NSVSMT 2 dòng số liệu + 1 dòng chấm.
+  - t184 phần 5 theo luật mới: Họ tên in liền + Năm sinh cách 1 tab; tên dài co khoảng; thu nhỏ chữ / ⚠ thử ở ô khung cố định 09A.
+  - Chuẩn khóa `hsv_01td_*` ghi lại.
+
 ## 3.247 — 18/10/2026 — In 01/TD: chữ 14, điền như đánh máy
 - **Anh 18/10** (ảnh bản in 01/TD HSSV):
   - chữ lên 14;

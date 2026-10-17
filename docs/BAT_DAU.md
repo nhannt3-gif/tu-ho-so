@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.247** — in 01/TD chữ 14, điền như đánh máy (CCCD, địa chỉ, tiền, Hội / Đoàn), bảng chỉ dòng số liệu, chỗ ký rộng. Trước đó 3.246: gỡ giao diện Bộ HS cũ. **Việc tiếp:** 06/TD (chờ anh chốt: (a) hộ mới cột giải ngân / dư nợ điền số vay hay để trống; (b) lập tay 1 hộ hay nhiều dòng) → Giấy ủy quyền chọn hộ từ Sổ. Chờ anh: thử máy thật 3.225–3.247, Biểu 07.
+- **`main` = 3.248** — 01/TD cân đối (Năm sinh cách 1 tab, tên SV dài, nước sạch +1 dòng chấm); chấm mảnh như KTGS cho mọi mẫu hồ sơ. Trước đó 3.247: 01/TD chữ 14, điền như đánh máy. **Việc tiếp:** 06/TD (chờ anh chốt: (a) hộ mới cột giải ngân / dư nợ điền số vay hay để trống; (b) lập tay 1 hộ hay nhiều dòng) → Giấy ủy quyền chọn hộ từ Sổ. Chờ anh: thử máy thật 3.225–3.248, Biểu 07.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.

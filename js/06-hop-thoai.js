@@ -1980,7 +1980,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.247', ds:[
+var CO_GI_MOI = {ban:'3.248', ds:[
+  ["📝 01/TD: Năm sinh cách tên 1 tab; tên SV dài xuống dòng vẫn cân (số lượng, thành tiền canh giữa); nước sạch thêm 1 dòng chấm bảng đối tượng; chấm mảnh như mẫu KTGS cho mọi mẫu hồ sơ (in, xem, Word)", "doiNgan(7)"],
   ["📝 In 01/TD: chữ 14; có số liệu thì in liền như đánh máy (CCCD, ngày cấp, nơi cấp cách dấu phẩy; địa chỉ ấp / khu phố, xã / phường; tiền sát chữ đồng; 12 tháng/lần); Hội không ghi xã, Đoàn thanh niên; bảng chỉ dòng số liệu; chỗ ký rộng hơn", "doiNgan(7)"],
   ["🧹 Hồ sơ vay: gỡ giao diện 📁 Bộ HS cũ (đã ẩn từ 3.209) — lập hồ sơ đi 1 đường: 📒 Sổ hộ vay → 📄 Lập HS → 01/TD (In kèm 01/UQ · 10C · 03/TD · 01/TGTV)", "doiNgan(7)"],
   ["🧾 Giao dịch xã: bỏ dòng chip tóm tắt 📋 ở thanh dưới — còn cảnh báo + nút In; sửa bản GDX mini xuất ra (3.243 thiếu hàm nét gạch)", "doiNgan(7)"],
@@ -1994,8 +1995,7 @@ var CO_GI_MOI = {ban:'3.247', ds:[
   ["⚙ Khai báo riêng của mẫu có nút ▸ Mở / ▾ Tắt (mặc định tắt)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
   ["⚡ Gõ tìm văn bản nhanh hơn (nhất là máy yếu / nhiều văn bản); chụp / xoay nhiều thẻ CCCD liên tục không còn đầy bộ nhớ trình duyệt", "doiNgan(1)"],
   ["🔧 Sửa: 📒 Sổ hộ vay › ⤢ Phóng to → xem bản in trong hộp lớn (trước bung toàn màn hình khung đang ẩn → màn trống che hộp, bấm ＋ Hộ mới không được)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
-  ["🔧 Sửa: chữ có dấu nháy kép (\") trong tên, ghi chú, địa chỉ không còn làm vỡ ô nhập / nút (Sổ hộ vay, các bảng sửa thẳng ô)", "doiNgan(7)"],
-  ["⚡ App mở nhẹ hơn ~470 KB: khuôn Word KTGS (Mẫu 06, 16, 04/BC-TH, Kế hoạch năm) chỉ tải khi mở 🛡 KTGS hoặc tạo Word — lần đầu cần mạng", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🔧 Sửa: chữ có dấu nháy kép (\") trong tên, ghi chú, địa chỉ không còn làm vỡ ô nhập / nút (Sổ hộ vay, các bảng sửa thẳng ô)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

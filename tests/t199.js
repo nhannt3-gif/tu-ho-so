@@ -35,7 +35,7 @@ const fs=require('fs'), path=require('path');
  /* 2. NSVSMT 2 công trình */
  await ev(async()=>{ const B = hsoBo(); B.ct = 'NSVSMT'; B.pa = Object.assign(B.pa||{}, {nuoc:true, vs:true}); B.tien = ''; hsoBoLuu(); hsoVe(); await new Promise(r=>setTimeout(r, 1200)); });
  r = await ev(()=>{ const d = document.createElement('div'); d.innerHTML = hsoLap().h; const bang = [...d.querySelectorAll('table')].find(t=>/Đối tượng/.test(t.textContent)); return bang ? [...bang.querySelectorAll('tr')].slice(1).map(h=>h.textContent.replace(/\s+/g, ' ').trim()) : []; });
- ok('NSVSMT tích cấp nước + vệ sinh: đúng 2 dòng số liệu (3.247: không dòng chấm)', r.length===2 && /Công trình cấp nước/.test(r[0]) && /Công trình vệ sinh/.test(r[1]), JSON.stringify(r));
+ ok('NSVSMT tích cấp nước + vệ sinh: 2 dòng số liệu + 1 dòng chấm (3.248 anh 18/10: cân đối)', r.length===3 && /Công trình cấp nước/.test(r[0]) && /Công trình vệ sinh/.test(r[1]) && /……/.test(r[2]), JSON.stringify(r));
  n = await trang(await ev(()=>HSO.x.trang)); ok('NSVSMT: 1 trang A4', n===1, n+' trang');
  /* 3. bản trắng: 3 dòng chấm như gốc */
  r = await ev(()=>{ omKieuDat('trang'); const d = document.createElement('div'); d.innerHTML = hsoLap().h; const bang = [...d.querySelectorAll('table')].find(t=>/Đối tượng/.test(t.textContent)); const x = bang ? [...bang.querySelectorAll('tr')].slice(1).filter(h=>/…|\.\.\./.test(h.textContent)).length : -1; omKieuDat('that'); return x; });
