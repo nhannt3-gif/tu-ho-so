@@ -15,7 +15,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Bộ nút xuất** (`xuatHang`): thứ tự cố định Đóng · In · [Lưu vào app] · PDF · Word · Excel · Gửi; nút không dùng được → mờ, không ẩn. Scan: In · Lưu vào app · Lưu + khai · Lưu vào máy · Gửi; bản điện thoại: Xem · Lưu vào app · Lưu vào máy · Gửi · Đóng.
 - **Chuyển sang mảnh mới:** thanh lọc 📒 Sổ hộ vay (`hmSoDangKy`), nút ⚙ khai báo luật trong form hộ (`khDangKy`), nút 📱 gói số liệu xem (⚙ › 💾 Sao lưu).
 - **Bố cục:** nút tab ⚙ Khai báo đơn vị vừa chữ, xuống dòng khi hẹp (trước bị kéo dài cả hàng trên điện thoại).
-- **Phép thử:** `tests/t196.js` (mới, 16); t148 theo thứ tự nút mới.
+- **Sửa (anh báo 17/10 kèm ảnh):** 📒 Sổ hộ vay — dòng tiêu đề bảng trắng ở chế độ tối (dùng biến màu chưa khai `--nen-the`, dự phòng nền sáng) → theo màu nền app; hộ nhập từ bản trước 3.227 (chưa tổ, chưa khai xã) bị lọc địa bàn giấu mất → luôn hiện; bảng trống ghi số hộ trong sổ + bộ lọc đang bật + nút ✕ Bỏ lọc. `kiem.py` báo lỗi khi CSS dùng biến chưa khai mà dự phòng là màu sáng cố định.
+- **Phép thử:** `tests/t196.js` (mới, 20); t148 theo thứ tự nút mới.
 
 ## 3.233 — 17/10/2026 — 📱 Bản điện thoại phần 3: Giao dịch xã mẫu nhẹ · chạy không mạng
 - **Anh chốt 17/10:** Giao dịch xã giữ trên điện thoại, nhẹ, chủ yếu mẫu nhẹ.

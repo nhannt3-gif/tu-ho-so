@@ -52,6 +52,17 @@ const fs=require('fs'), path=require('path');
  await p.fill('#hm-so-tim', 'lenh'); await w(400); const l3 = await ev(()=>document.querySelectorAll('#hm-so-bang tr[data-id]').length);
  ok('Sổ hộ vay: chip loại, chip tháng, ô tìm chạy qua data-lenh', l1==='moi' && l2 && l3===1, l1+' · '+l2+' · '+l3);
  ok('Sổ hộ vay không còn onclick ở thanh lọc', await ev(()=>!document.querySelector('.hm-so-loc [onclick], .hm-so-loc [onchange], .hm-so-loc [oninput]')));
+ /* 5b. hộ nhập bản cũ (chưa tổ, chưa xã) vẫn hiện khi chọn địa bàn · bảng trống ghi lọc + ✕ Bỏ lọc · tiêu đề bảng theo chế độ tối */
+ await ev(()=>{ HM_SO.q = ''; hmDs().push({id:'hmcu', tao:'2025-03-02T08:00:00.000Z', kh:'', to:'', tv:[{ten:'Hộ Nhập Bản Cũ'}], dung:0, sv:[]}); const C = hsoCH(), x = pvLuaChon(TO_K.to, C, 'xa', true)[0].k; pvChon('hsv', 'xa', x); hsoVe(); }); await w(400);
+ ok('hộ nhập bản cũ (chưa tổ, chưa xã) vẫn hiện khi đang chọn Xã', await ev(()=>[...document.querySelectorAll('#hm-so-bang input[data-so="ten"]')].some(x=>x.value==='Hộ Nhập Bản Cũ')));
+ await ev(()=>{ HM_SO.loai = 'cu'; hsoVe(); }); await w(300);
+ r = await ev(()=>({chu:(document.querySelector('#hm-so-bang .hm-so-trong')||{}).textContent||'', nut:!!document.querySelector('#hm-so-bang [data-lenh="so.boLoc"]')}));
+ ok('bảng trống: ghi số hộ trong sổ + bộ lọc đang bật + nút ✕ Bỏ lọc', /hộ trong sổ/.test(r.chu) && /hộ cũ/.test(r.chu) && r.nut, r.chu);
+ await p.click('#hm-so-bang [data-lenh="so.boLoc"]'); await w(300);
+ ok('✕ Bỏ lọc → hiện lại hộ', await ev(()=>!HM_SO.loai && document.querySelectorAll('#hm-so-bang tr[data-id]').length>0));
+ r = await ev(()=>{ document.documentElement.setAttribute('data-theme', 'dark'); document.body.classList.add('toi'); const th = document.querySelector('#hm-so-bang th'); const c = getComputedStyle(th).backgroundColor.match(/\d+/g).map(Number); return c.slice(0, 3); });
+ await ev(()=>{ document.documentElement.removeAttribute('data-theme'); document.body.classList.remove('toi'); });
+ ok('chế độ tối: tiêu đề bảng Sổ hộ vay nền tối (không còn dòng trắng)', r[0]+r[1]+r[2] < 200, JSON.stringify(r));
  /* 6. hộp Khai báo ở 390 px */
  await p.setViewportSize({width:390, height:820}); await ev(()=>hsoKBHop('pgd')); await w(600);
  r = await ev(()=>({tran:document.documentElement.scrollWidth>innerWidth+1, gian:[...document.querySelectorAll('#hop-in .hso-kbt')].filter(b=>b.getBoundingClientRect().width>innerWidth*0.6).length}));

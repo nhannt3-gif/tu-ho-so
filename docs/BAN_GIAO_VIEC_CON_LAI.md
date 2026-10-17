@@ -231,6 +231,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 4 | Sổ hộ vay › mở form hộ, gõ tên dở → ⚙ khai báo luật → Đóng | Về form hộ, chữ đang gõ còn | |
 | 5 | Xem 1 báo cáo → bộ nút | Đóng · In · PDF · Word · Excel · Gửi (nút không dùng được thì mờ); Ctrl+P in | |
 | 6 | Điện thoại (bản máy tính `?may=1`) › ⚙ Khai báo | Nút tab vừa chữ, xuống dòng | |
+| 7 | Chế độ tối › Hồ sơ vay › 📒 Sổ hộ vay | Dòng tiêu đề bảng nền tối, chữ đọc được; hộ anh nhập bản trước hiện lại (Tất cả, bỏ lọc ngày) | |
 
 **Ghi chú kỹ thuật 3.234:** `js/39-gd.js` bọc `doiNgan`, `slDoiTab`, `hsoChonMau`, `moHop`, `dongHop` (nạp sau cùng). Đăng ký lệnh theo kiểu lười (`hmSoDangKy`, `khDangKy` gọi lúc vẽ) vì file 25, 37 nạp trước 39. Code giao diện mới: chỉ dùng `GD.*` + `data-lenh`, không thêm `onclick`.
 
