@@ -12,7 +12,7 @@ const fs=require('fs'), path=require('path');
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    window.SL_KHONG_TU_KIEM = 1;
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
-   kyChungDoi('2026-08'); delete D.cauHinh.pvGon;
+   kyChungDoi('2026-08'); delete D.cauHinh.pvGon; D.cauHinh.pvGhim = {to:false};   /* 3.227: tab Tổ mặc định 📌 ghim — thử chế độ bỏ ghim (tự gọn) */
    /* 1. cây địa bàn — tab Tổ */
    slDoiTab('to'); doiNgan(7); for(let i=0;i<50 && !document.querySelector('#to-cay .loc-khoi');i++) await w(200); await w(400);
    const t = Object.values(TO_K.to).find(t=>!t.trucTiep && t.ten && t.khoaDiem && hsoTVTo(t).some(k=>k.mon.some(m=>m.dn>0)));
@@ -34,7 +34,7 @@ const fs=require('fs'), path=require('path');
    ok('Giấy lĩnh: nút "↺ Phiếu mới" (không còn "Làm trống")', [...document.querySelectorAll('.gdx2-nut button')].some(x=>/↺ Phiếu mới/.test(x.textContent)) && ![...document.querySelectorAll('.gdx2-nut button')].some(x=>/Làm trống/.test(x.textContent)));
    /* 3. Hồ sơ vay */
    slDoiTab('hsv'); doiNgan(7); await w(1200); hsoChonMau('09a'); await w(500);
-   ok('Hồ sơ vay: mỗi mẫu 1 tab con (10 — 3.209 Bộ HS ẩn, 3.211 thêm 01/GQVL, 07b, 3.214 📒 Sổ hộ vay), 09A đang chọn, dòng "Số liệu: T8/2026"', document.querySelectorAll('#hso-tabm .hso-tm').length===10 && /09A\/TD/.test((document.querySelector('#hso-tabm .hso-tm.bat')||{}).textContent||'') && /Số liệu: T8\/2026/.test(document.getElementById('hso-tabm').textContent));
+   ok('Hồ sơ vay: mỗi mẫu 1 tab con (9 — 3.209 Bộ HS ẩn, 3.211 thêm 01/GQVL, 07b, 3.214 📒 Sổ hộ vay, 3.227 gộp 👪 Hộ vay), 09A đang chọn, dòng "Số liệu: T8/2026"', document.querySelectorAll('#hso-tabm .hso-tm').length===9 && /09A\/TD/.test((document.querySelector('#hso-tabm .hso-tm.bat')||{}).textContent||'') && /Số liệu: T8\/2026/.test(document.getElementById('hso-tabm').textContent));
    pvChonTo('hsv', t.ma); await w(600); const k = hsoTVTo(t).find(k=>k.mon.some(m=>m.dn>0)); HSO.vay.kh = k.kh; hsoVe(); await w(400); hsoXem(); await w(500);
    const doc = () => document.getElementById('hso-xem-khung').contentDocument.body.textContent;
    ok('09A mặc định: lý do / thời gian / ngày ký để chấm; số tiền gia hạn in sẵn = dư nợ', !/Đang gặp khó khăn/.test(doc()) && /Đề nghị Ngân hàng xem xét cho gia hạn khoản nợ gốc\s*[\d.]+\s*đồng/.test(doc()) && /ngày[.…]+tháng/.test(doc()));

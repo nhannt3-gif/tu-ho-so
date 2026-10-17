@@ -2,6 +2,8 @@
 import re,subprocess,sys,os,tempfile
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import ghep
+MO_COI='--mo-coi' in sys.argv   # 3.227: in đủ danh sách hàm mồ côi
+if MO_COI: sys.argv.remove('--mo-coi')
 # 3.142: app tách nhiều file → ghép lại (index.html + css/ + js/) rồi kiểm như một file; có đối số = kiểm 1 file HTML đã ghép
 s=open(sys.argv[1],encoding='utf-8').read() if len(sys.argv)>1 else ghep.ghep()
 ban=re.search(r"var APP_BAN = '([^']+)'",s)
@@ -43,4 +45,9 @@ thieu=sorted(x for x in goi if x not in defs and x not in toan_cuc and x not in 
 onc=set(re.findall(r'on(?:click|change|input|keydown|blur|drop|dragstart|dragover)=\\?["\'](?:[^"\']*?;)?\s*([A-Za-z_$][\w$]*)\(',s))
 thieu_onc=sorted(x for x in onc if x not in defs and x not in toan_cuc and x not in kw)
 if lech: loi.append('?v= trong index.html (%s) khác APP_BAN' % ', '.join(lech))
+# 3.227 (anh 17/10: dọn rác, kiểm toàn vẹn): hàm mồ côi = khai báo nhưng tên không xuất hiện ở chỗ nào khác (kể cả onclick trong chuỗi) — chỉ báo, không làm trượt
+dem={}
+for w in re.findall(r'[A-Za-z_$][\w$]*',s): dem[w]=dem.get(w,0)+1
+mo_coi=sorted({x for x in top if dem.get(x,0)<=1})
 print('Cú pháp', 'OK' if not loi else 'LỖI '+'; '.join(loi), '· Trùng tên:', ', '.join(dup) or 'không', '· Thiếu hàm:', ', '.join(sorted(set(thieu)|set(thieu_onc))) or 'không')
+print('Hàm mồ côi (chỉ báo, dọn dần):', len(mo_coi), ('— '+', '.join(mo_coi)) if MO_COI else '— xem danh sách: python3 tests/kiem.py --mo-coi')

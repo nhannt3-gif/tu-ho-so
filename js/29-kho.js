@@ -39,6 +39,14 @@ var KHO = (function(){
     khach: function(kh, t){ return hsoKhach(kh, t); },
     /* KHO.danhBa(maKH) → bản ghi danh bạ Mẫu 31 các kỳ (sdt, voChong, gt, danToc, to, xa, stk…) | null */
     danhBa: function(kh){ return typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh && kh ? SL_DB.kh[kh] || null : null; },
+    /* KHO.phienDanhBa() → đối tượng nhận diện bản danh bạ đang dùng (đổi khi nạp lại) — chỉ để biết khi nào dựng lại chỉ mục (3.228) */
+    phienDanhBa: function(){ return typeof SL_DB!=='undefined' ? SL_DB : null; },
+    /* KHO.monKH(maKH) → [{ct, ku, dn, nv, gn, qh, kn, dh, to, xong, md, truong, raTruong}] — món theo Mẫu 31 mới nhất (cần slKhMonNap() trước; chưa nạp → []) · 3.228 */
+    monKH: function(kh){ return typeof SL_KHMON!=='undefined' && kh ? SL_KHMON[kh] || [] : []; },
+    /* KHO.hssvPhu() → [{ten, so (CCCD HSSV), kh, ku, dn, xong}] — HSSV trong món Mẫu 31 mới nhất (cần slKhMonNap()) · 3.228 */
+    hssvPhu: function(){ return typeof SL_PHU!=='undefined' ? SL_PHU.filter(function(p){ return p.loai==='hs'; }) : []; },
+    /* KHO.coMonMoi() → true khi chỉ mục món đã theo Mẫu 31 mới nhất */
+    coMonMoi: function(){ return typeof SL_PHU_KY!=='undefined' && !!SL_PHU_KY && typeof slMau31Moi==='function' && SL_PHU_KY===slMau31Moi(); },
     /* KHO.coDanhBa() → true khi đã có danh bạ (đã nạp Mẫu 31) */
     coDanhBa: function(){ return typeof SL_DB!=='undefined' && !!(SL_DB && SL_DB.kh); },
     /* KHO.dsDanhBa() → [mã KH] trong danh bạ */

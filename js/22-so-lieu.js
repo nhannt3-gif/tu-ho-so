@@ -4936,7 +4936,11 @@ function pvVeCay(p){
   /* 3.180 (anh chốt, tab Giao dịch xã — d.gonDiem): đã chọn Điểm GD → thu gọn hàng chip Xã / Điểm cho rộng; nút ▾ Đổi xã / điểm mở lại (chọn xong tự gọn) */
   /* 3.181: thu gọn cả khối (ẩn Xã · Điểm · Hội · Tổ, chỉ còn 📍 đường dẫn + 🔎) bằng lớp .gon — bấm ▾ Đổi để sổ ra; bấm vào vùng nhập thì gọn lại */
   /* 3.206 (anh chốt 14/10): mọi tab — đã chọn địa bàn thì có nút ▾ Mở rộng / ▴ Thu gọn (nhớ theo tab: D.cauHinh.pvGon[p]); gọn = 1 dòng 🏠 PGD › Xã › Điểm › Tổ (bấm từng mắt để về cấp đó) */
-  var coChon = !!(S.xa || S.diem || S.hoi || S.to), gon = coChon && pvGonCua(p) && PV_MO[p]!=='xd', nutGon = coChon ? '<button class="nho pv-gon" onclick="pvGonDoi(\''+p+'\')" title="'+(gon ? 'Mở rộng khối lọc (Xã · Điểm GD · Hội · Tổ)' : 'Thu gọn khối lọc còn 1 dòng')+'">'+(gon ? '▾ Mở rộng' : '▴ Thu gọn')+'</button>' : '';
+  /* 3.227 (anh 17/10): 📌 Ghim — ghim: khối lọc luôn mở; bỏ ghim: chọn xong tổ tự thu gọn còn 1 dòng; ⬆ Lên 1 cấp (Backspace) */
+  var coChon = !!(S.xa || S.diem || S.hoi || S.to), ghim = pvGhimCua(p), gon = coChon && pvGonCua(p) && PV_MO[p]!=='xd',
+    nutGon = (coChon && !ghim ? '<button class="nho pv-gon" onclick="pvGonDoi(\''+p+'\')" title="'+(gon ? 'Mở rộng khối lọc (Xã · Điểm GD · Hội · Tổ)' : 'Thu gọn khối lọc còn 1 dòng')+'">'+(gon ? '▾ Mở rộng' : '▴ Thu gọn')+'</button>' : '')+
+      (coChon ? '<button class="nho pv-len" onclick="pvLen(\''+p+'\')" title="Về 1 cấp (phím Backspace)">⬆ Lên 1 cấp</button>' : '')+
+      '<button class="nho pv-ghim-nut'+(ghim ? ' bat' : '')+'" onclick="pvGhimDoi(\''+p+'\')" title="'+(ghim ? 'Đang ghim: khối lọc luôn mở — bấm để bỏ ghim (chọn xong tổ tự thu gọn)' : 'Chưa ghim: chọn xong tổ tự thu gọn — bấm để ghim (luôn mở)')+'">📌'+(ghim ? ' Đã ghim' : '')+'</button>';
   if(hD || hH) hh += '<div class="pv-hang2 to-chips" data-cap="diem-hoi">'+hD+hH+'</div>';   /* 3.167 (anh chốt): Điểm GD và Hội 2 thanh riêng (bỏ vạch │) */
   if(dsT.length) hh += '<div class="pv-hang2 to-chips cap-to" data-cap="to">'+nhan('Tổ')+dsT.slice(0, 30).map(function(x){ return chip('to', x.k, x.chu.split(' · ')[0], 0, toTit(x), x.ap ? pvApNgan(x.ap) : ''); }).join('')+
     '<select class="pv-to-ds'+(S.to ? ' co' : '')+'" onchange="pvChon(\''+p+'\',\'to\',this.value)" title="Đủ danh sách tổ ('+dsT.length+')"><option value="">'+(dsT.length>30 ? 'Còn '+(dsT.length-30)+' tổ — chọn ▾' : 'Chọn tổ ▾')+'</option>'+
@@ -4944,7 +4948,7 @@ function pvVeCay(p){
   /* 📍 đường dẫn — chỉ báo (không bấm) */
   var tenCua = function(cap, ds){ var x = ds.find(function(z){ return String(z.k)===String(S[cap]); }); return x ? x.chu.split(' · ')[0] : S[cap]; };
   var o1 = function(chu, ve){ return ve ? '<button class="pv-dan-o pv-ve" onclick="'+ve+'" title="Về '+coChuHTML(chu)+'">'+coChuHTML(chu)+'</button>' : '<span class="pv-dan-o">'+coChuHTML(chu)+'</span>'; };   /* 3.206: mắt đường dẫn bấm được → về cấp đó */
-  var ve = function(cap){ return 'pvChon(\''+p+'\',\''+cap+'\',\'\')'; };
+  var ve = function(cap){ return 'pvVe(\''+p+'\',\''+cap+'\')'; };
   var dsHall = pvLuaChon(T, S, 'hoi', dc), dsTall = S.to ? pvLuaChon(T, S, 'to', dc) : [];
   var giua = [S.diem ? o1('Điểm '+tenCua('diem', dsD), S.to ? ve('to') : '') : '', S.hoi ? o1(tenCua('hoi', dsHall), S.to ? ve('to') : '') : ''].filter(Boolean).join('<span class="pv-sep">·</span>');
   var nTo = Object.keys(T||{}).filter(function(m){ var t = T[m]; return !t.trucTiep && !toLaTT(t) && pvLoc(S, t); }).length;
@@ -4969,12 +4973,24 @@ function pvTim(p){
     : '<div class="rong">Không thấy tổ khớp “'+coChuHTML(PV_Q[p])+'”.</div>';
 }
 var PV_MO = {};   /* 3.160: cấp đang mở lại để đổi (bấm tên trên dòng 📍) */
-function pvGonCua(p){ var g = (D.cauHinh.pvGon||{})[p]; return g===undefined ? !!(PV_DUNG[p] && PV_DUNG[p].gonDiem) : !!g; }   /* 3.206: tab GDX mặc định gọn (như 3.180), tab khác mặc định mở */
+var PV_GHIM_MD = {to:1, kt:1, sk:1, th:1};   /* 3.227: mặc định ghim ở tab hay đổi qua lại (Tổ, KTGS, Sao kê, Tổng hợp); Hồ sơ, Giao dịch xã, Tra cứu: chọn xong tự gọn */
+function pvGhimCua(p){ var g = (D.cauHinh.pvGhim||{})[p]; return g===undefined ? !!PV_GHIM_MD[p] : !!g; }
+function pvGhimDoi(p){ var g = !pvGhimCua(p); (D.cauHinh.pvGhim = D.cauHinh.pvGhim || {})[p] = g; (D.cauHinh.pvGon = D.cauHinh.pvGon || {})[p] = false; PV_MO[p] = ''; luu(); pvVeCay(p); bao(g ? '📌 Đã ghim khối lọc — luôn mở.' : 'Bỏ ghim — chọn xong tổ khối lọc tự thu gọn.'); }
+function pvVe(p, cap){ pvChon(p, cap, ''); if(!pvGhimCua(p) && pvGonCua(p)){ PV_MO[p] = 'xd'; pvVeCay(p); } }   /* về 1 cấp đang gọn → mở tạm để chọn lại, chọn xong tổ tự gọn */
+function pvLen(p){ var d = PV_DUNG[p]; if(!d) return false; var S = d.S(), cap = S.to ? 'to' : S.hoi ? 'hoi' : S.diem ? 'diem' : S.xa ? 'xa' : ''; if(!cap) return false; pvVe(p, cap); return true; }
+document.addEventListener('keydown', function(e){   /* 3.227: Backspace (không ở ô nhập, không mở hộp) = ⬆ Lên 1 cấp ở khối lọc đang hiện */
+  if(e.key!=='Backspace' || e.ctrlKey || e.altKey || e.metaKey || e.defaultPrevented) return;
+  var a = e.target; if(a && (/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) || a.isContentEditable)) return;
+  var hop = document.getElementById('hop'); if(hop && hop.classList.contains('hien')) return;
+  var p = Object.keys(PV_DUNG).find(function(k){ var o = document.getElementById(k+'-cay'); return o && o.offsetParent; });
+  if(p && pvLen(p)) e.preventDefault();
+});
+function pvGonCua(p){ if(pvGhimCua(p)) return false; var g = (D.cauHinh.pvGon||{})[p]; return g===undefined ? !!(PV_DUNG[p] && PV_DUNG[p].gonDiem) : !!g; }   /* 3.206: tab GDX mặc định gọn (như 3.180), tab khác mặc định mở */
 function pvGonDoi(p){ var gon = pvGonCua(p) && PV_MO[p]!=='xd'; (D.cauHinh.pvGon = D.cauHinh.pvGon || {})[p] = !gon; PV_MO[p] = ''; luu(); pvVeCay(p); }
 function pvMo(p, cap){ PV_MO[p] = PV_MO[p]===cap ? '' : cap; pvVeCay(p); }
 function pvChonTo(p, ma){
   var d = PV_DUNG[p], K = d && d.K(), t = K && K.to[ma]; if(!t) return;
-  var S = d.S(); S.xa = t.xa||''; S.diem = t.khoaDiem; S.hoi = String(t.dv||''); S.to = ma; PV_Q[p] = ''; (D.cauHinh.pvGon = D.cauHinh.pvGon || {})[p] = true; PV_MO[p] = '';
+  var S = d.S(); S.xa = t.xa||''; S.diem = t.khoaDiem; S.hoi = String(t.dv||''); S.to = ma; PV_Q[p] = ''; if(!pvGhimCua(p)) (D.cauHinh.pvGon = D.cauHinh.pvGon || {})[p] = true; PV_MO[p] = '';
   luu(); pvVeCay(p);
 }
 function pvBoTT(T){ var r = {}; Object.keys(T||{}).forEach(function(m){ if(!toLaTT(T[m])) r[m] = T[m]; }); return r; }   /* 3.107: tab KTGS Hội kiểm tra theo tổ → cây bỏ mục vay trực tiếp */
@@ -4982,7 +4998,7 @@ function pvChon(p, cap, v, chip){
   var d = PV_DUNG[p]; if(!d) return;
   var S = d.S(), i = PV_CAP.map(function(c){ return c[0]; }).indexOf(cap);
   v = String(v||''); if(chip && S[cap]===v) v = '';   /* bấm lại chip đang chọn = bỏ chọn */
-  PV_MO[p] = ''; if(cap==='to' && v) (D.cauHinh.pvGon = D.cauHinh.pvGon || {})[p] = true;   /* 3.206: chọn xong tổ → tự gọn */
+  PV_MO[p] = ''; if(cap==='to' && v && !pvGhimCua(p)) (D.cauHinh.pvGon = D.cauHinh.pvGon || {})[p] = true;   /* 3.206: chọn xong tổ → tự gọn */
   S[cap] = v; for(var j=i+1;j<PV_CAP.length;j++){ if(PV_CAP[j][0]==='hoi' && (d.daChieu!==false || (cap!=='xa' && cap!=='diem'))) continue; S[PV_CAP[j][0]] = ''; }   /* 3.133: tab Tổ đổi xã / điểm giữ Hội (Hội không có ở phạm vi mới thì cây tự bỏ) */
   luu(); pvVeCay(p);
 }
@@ -5888,24 +5904,24 @@ function tcCH(){ return pvGan(D.cauHinh.tcPV = D.cauHinh.tcPV || {xa:'', diem:''
 PV_DUNG.tc = {S:function(){ return tcCH(); }, K:function(){ return TC_K; }, sau:function(){ slTraTim(); }, ghi:function(){ var n = SL_TIM.length, ky = slHSMoi(); return n ? n.toLocaleString('vi-VN')+' khách'+(ky ? ' · số liệu '+slKyChu(ky) : '') : ''; }};
 /* Mẫu 31 mới nhất: chỉ mục phụ vợ/chồng + HSSV (Mẫu 10 không có các cột này) */
 function slMau31Moi(){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='hstd'; }).map(function(e){ return e.ky; }).sort(); return ds[ds.length-1] || ''; }
+function slKhMonNap(){   /* 3.228: chỉ mục phụ theo Mẫu 31 mới nhất — món theo khách (SL_KHMON), vợ/chồng + HSSV (SL_PHU); dùng chung Tra cứu + 🔎 kiểm tra hộ vay */
+  var m31 = slMau31Moi(); if(!m31 || SL_PHU_KY===m31) return Promise.resolve();
+  return slBo(m31).then(function(B){
+    var phu = [], vc = {}, km = {}, gk = {};
+    (B.co.hstd||[]).forEach(function(o){
+      if(o.ku && o.kh && !gk[o.ku]){ gk[o.ku] = 1; (km[o.kh] = km[o.kh]||[]).push({ct:ctNgan(o.ct, o), ku:String(o.ku), dn:o.dn||0, nv:o.nv||o.ngn||'', md:ktCoNganh(o) ? ktNganh(o) : '',
+        xong:(o.ttMon==='CLOSE' || !((o.dn||0)>0)) && !(laiTon(o)>0), truong:o.c_ten_truong||'', raTruong:o.raTruong||'', gn:o.gn||0, qh:o.qh||0, kn:o.kn||0, dh:o.dhgh||o.dhg||'', to:o.to||''}); }   /* 3.94: món theo khách cho thẻ kiểm trùng · 3.228: + giải ngân, quá hạn, khoanh, đến hạn, tổ */
+      if(o.ku && (o.c_ten_hssv || o.c_cmnd_hssv)) phu.push({loai:'hs', ten:String(o.c_ten_hssv||''), so:String(o.c_cmnd_hssv||'').replace(/\D/g, ''), kh:o.kh, ku:o.ku, dn:o.dn||0, xong:o.ttMon==='CLOSE' || !(o.dn>0)});
+      if(o.voChong && o.kh && !vc[o.kh]){ vc[o.kh] = 1; phu.push({loai:'vc', ten:String(o.voChong), kh:o.kh}); }
+    });
+    phu.forEach(function(p){ p.t = ' '+slChuan(p.ten); });
+    SL_PHU = phu; SL_PHU_KY = m31; SL_KHMON = km;
+  });
+}
 function tcNap(){
   var ds = toDsKy(); if(!ds.length) return Promise.resolve();
-  var m31 = slMau31Moi();
   return toNap(ds[0].ky).then(function(K){ TC_K = K; pvVeCay('tc'); })
-    .then(function(){
-      if(!m31 || SL_PHU_KY===m31) return;
-      return slBo(m31).then(function(B){
-        var phu = [], vc = {}, km = {}, gk = {};
-        (B.co.hstd||[]).forEach(function(o){
-          if(o.ku && o.kh && !gk[o.ku]){ gk[o.ku] = 1; (km[o.kh] = km[o.kh]||[]).push({ct:ctNgan(o.ct, o), ku:String(o.ku), dn:o.dn||0, nv:o.nv||o.ngn||'', md:ktCoNganh(o) ? ktNganh(o) : '',
-            xong:(o.ttMon==='CLOSE' || !((o.dn||0)>0)) && !(laiTon(o)>0), truong:o.c_ten_truong||'', raTruong:o.raTruong||''}); }   /* 3.94: món theo khách cho thẻ kiểm trùng */
-          if(o.ku && (o.c_ten_hssv || o.c_cmnd_hssv)) phu.push({loai:'hs', ten:String(o.c_ten_hssv||''), so:String(o.c_cmnd_hssv||'').replace(/\D/g, ''), kh:o.kh, ku:o.ku, dn:o.dn||0, xong:o.ttMon==='CLOSE' || !(o.dn>0)});
-          if(o.voChong && o.kh && !vc[o.kh]){ vc[o.kh] = 1; phu.push({loai:'vc', ten:String(o.voChong), kh:o.kh}); }
-        });
-        phu.forEach(function(p){ p.t = ' '+slChuan(p.ten); });
-        SL_PHU = phu; SL_PHU_KY = m31; SL_KHMON = km;
-      });
-    }).then(function(){ if(nganHienTai===7 && D.cauHinh.slTab==='tra'){ slTraTim(); tcKTVe(); } })
+    .then(slKhMonNap).then(function(){ if(nganHienTai===7 && D.cauHinh.slTab==='tra'){ slTraTim(); tcKTVe(); } })
     .catch(function(er){ console.warn('Tra cứu: chưa mở được số liệu', er); });
 }
 function tcTinhTrang(c){ return c.mon ? 'đang vay '+c.mon+' món' : ((c.ku||[]).length ? 'đã tất nợ' : 'chỉ gửi tiết kiệm'); }

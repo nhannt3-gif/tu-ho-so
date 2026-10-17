@@ -50,7 +50,7 @@ const fs=require('fs'), path=require('path');
    hsoVe(); await w(300); ok('⚠ Trước khi in ghi ô Họ tên dài quá khung', /Họ tên người vay[^]*dài quá khung/.test((document.querySelector('#hso-tuy .hso-thieu')||{}).textContent||''));
    hmDongBo(hmTim(ho.id), B); hsoBoLuu(); hsoVe(); await w(300);
    /* 6. Chọn nhanh + khai báo trực quan */
-   ok('cột trái: ⚙ Khai báo riêng — tóm tắt số ô + nút 🖼 Khai báo trực quan + 9 ô Chọn nhanh', /ô: \d+ 🤖/.test(document.getElementById('hso-tuy').textContent) && /Khai báo trực quan/.test(document.getElementById('hso-tuy').textContent) && omNhanh('01td').length===9);
+   ok('cột trái: ⚙ Khai báo riêng — tóm tắt số ô theo nguồn (3.229: 📊 / ⚙ / 🤖 / ⌨ / ✏ / ✍) + nút 🖼 Khai báo trực quan + 9 ô Chọn nhanh', /ô: \d+ (📊|⚙|🤖)/.test(document.getElementById('hso-tuy').textContent) && /Khai báo trực quan/.test(document.getElementById('hso-tuy').textContent) && omNhanh('01td').length===9);
    omKBHop('01td'); await w(800); const f = document.getElementById('om-kbt-khung'), d = f.contentDocument;
    ok('🖼 cửa sổ rộng: mẫu như giấy (mọi ô có data-o) + khung phải', document.getElementById('hop-in').classList.contains('xem-rong') && d.querySelectorAll('[data-o]').length>=40 && !!document.getElementById('om-kbt-phai'));
    d.querySelector('[data-o="nhNgayLai"]').click(); await w(200);

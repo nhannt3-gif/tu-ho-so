@@ -23,7 +23,7 @@ const fs=require('fs'), path=require('path');
      if(tab==='hsv'){ const tv = hsoTVTo(TO_K.to[C.to]); const ho = hmTuM31(tv[0].kh); ho.tv.push({ten:'Trần Thị Thừa Kế Giả', ns:'1982-03-03', cccd:'072182000002', qh:'Vợ'}); hmLamHS(ho.id, mk); await w(300);
        const B = hsoBo(); B.ct = 'HSSV'; B.pa = Object.assign(B.pa||{}, {sv:'Nguyễn Văn Con Giả Có Tên Rất Dài', soThang:'12'}); B.tien = '40000000'; B.th = '60'; B.hanCuoi = '2031-10-15'; hsoBoLuu(); HSO.vay.kh = tv[0].kh; }
      /* bản thật: bật hết ô sang in (🤖 / ✎ / ⌨) + khai giá trị → nhiều chữ nhất */
-     const m = OM_MAU[mk]; m.phan.forEach(q=>omDatPhan(mk, q, 'in')); m.o.forEach(x=>{ if((OM_LOAI[x.l]||[]).indexOf('kb')>=0){ omDatKB(mk, x.k, 'Giá trị khai báo giả '+x.k); } omDatChuMau(mk, x.k, 'Chữ mẫu giả cho ô '+x.n); if(x.l==='go') HSO.vay[x.k] = x.ngay ? '2026-10-20' : '123.456.789'; });
+     const m = OM_MAU[mk]; m.phan.forEach(q=>omDatPhan(mk, q, 'in')); m.o.forEach(x=>{ if(x.l==='kb' || x.l==='tukb'){ omDatKB(mk, x.k, 'Giá trị khai báo giả '+x.k); }   /* 3.229: ô 🤖 cũng có ⌨ — chỉ gõ giả ô khai báo như trước */ omDatChuMau(mk, x.k, 'Chữ mẫu giả cho ô '+x.n); if(x.l==='go') HSO.vay[x.k] = x.ngay ? '2026-10-20' : '123.456.789'; });
      dongHop(); const lay = async k => { OM_KIEU = k; hsoChonMau(mk); hsoVe(); await w(1600); return doViTri(); };
      const a = await lay('trang'), t = await lay('that'), u = await lay('mau'); OM_KIEU = 'that';
      ok(mk+': bản trắng có '+a.trang+' trang, '+a.vt.length+' đoạn / dòng bảng', a.trang>0 && a.vt.length>5);

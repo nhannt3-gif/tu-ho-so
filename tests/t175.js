@@ -13,7 +13,7 @@ const fs=require('fs'), path=require('path');
    slDoiTab('hsv'); doiNgan(7); await w(1200);
    const C = hsoCH(); C.xa=''; C.diem=''; C.to='';
    pvChon('hsv','xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(300); pvChon('hsv','to', pvLuaChon(TO_K.to, C, 'to', true)[0].k); await w(1000);
-   hsoChonMau('homoi'); await w(300); }, files);
+   hsoChonMau('sohv'); await w(300); }, files);
  const o=[]; const ok=(t,d,c)=>o.push((d?'✓ ':'✗ ')+t+(c!==undefined?' — '+c:''));
  const ev = f=>p.evaluate(f);
  /* 1. form lưới */
@@ -40,9 +40,9 @@ const fs=require('fs'), path=require('path');
  await ev(()=>{ dongHop(); HM = null; });
  /* 2. tab 📒 Sổ hộ vay */
  await ev(async()=>{ const w=t=>new Promise(r=>setTimeout(r,t)); const C = hsoCH(), t = TO_K.to[C.to]; hsoTVTo(t).slice(0, 3).forEach(k=>hmTuM31(k.kh));
-   hmMo(); hmDat(0, 'ten', 'lê văn mới'); hmDat(0, 'cccd', '07208000022'); hmLuu(); hsoChonMau('sohv'); await w(400); });
+   hmMo(); hmDat(0, 'ten', 'lê văn mới'); hmDat(0, 'cccd', '07208000022'); hmLuu(); C.xa = ''; C.diem = ''; C.hoi = ''; C.to = ''; hsoChonMau('sohv'); await w(400); });   /* 3.227: sổ lọc theo khối LỌC ĐỊA BÀN — bỏ chọn để thấy cả sổ */
  r = await ev(()=>({tab:[...document.querySelectorAll('#hso-tabm .hso-tm')].map(x=>x.textContent).join('|'), rong:document.querySelector('#tr7 .hso-bo').classList.contains('hso-rong'), dong:document.querySelectorAll('#hm-so-bang tbody tr[data-id]').length, inp:document.querySelectorAll('#hm-so-bang input[data-so]').length, m31:document.querySelectorAll('#hm-so-bang .hm-so-m31').length, ngang:hsoMau().ngang, th:[...document.querySelectorAll('#hm-so-bang th')].map(x=>x.textContent).join('|')}));
- ok('tab 📒 Sổ hộ vay cạnh 👪 Hộ vay, dùng hết bề ngang, 5 hộ; hộ mới sửa được ô (2 hộ × 5 ô), hộ cũ chữ xám theo Mẫu 31', /Hộ vay\|📒 Sổ hộ vay/.test(r.tab) && r.rong && r.dong===5 && r.inp===10 && r.m31===15 && r.ngang, JSON.stringify(r).slice(0, 200));
+ ok('tab 📒 Sổ hộ vay đầu tiên (3.227 gộp 👪 Hộ vay), dùng hết bề ngang, 5 hộ; hộ mới sửa được ô (2 hộ × 5 ô), hộ cũ chữ xám theo Mẫu 31', /^📒 Sổ hộ vay/.test(r.tab) && !/👪/.test(r.tab) && r.rong && r.dong===5 && r.inp===10 && r.m31===15 && r.ngang, JSON.stringify(r).slice(0, 200));
  ok('cột bảng: STT · Người đứng tên · Ngày sinh · Số CCCD · Ngày cấp · Hạn CCCD · SĐT · Mã KH · Tổ · địa chỉ · Người · HSSV · Cần bổ sung', /Người đứng tên vay.*Ngày sinh.*Số CCCD\|Ngày cấp\|Hạn CCCD\|Số điện thoại\|Mã KH\|Tổ · địa chỉ\|Người\|HSSV\|Cần bổ sung/.test(r.th), r.th);
  r = await ev(()=>{ const tr = [...document.querySelectorAll('#hm-so-bang tbody tr')].find(x=>/Lê Văn Mới/.test(x.querySelector('input[data-so="ten"]') ? x.querySelector('input[data-so="ten"]').value : '')); return tr ? tr.querySelector('.hm-so-lt').textContent : ''; });
  ok('hộ mới thiếu → cột Cần bổ sung ghi rõ (CCCD 11 số, ngày sinh, ngày cấp)', /CCCD 11 số/.test(r) && /ngày sinh/.test(r) && /ngày cấp/.test(r), r);
@@ -62,7 +62,7 @@ const fs=require('fs'), path=require('path');
  r = await ev(()=>({n:document.querySelectorAll('#hm-so-bang tbody tr[data-id]').length, fo:document.activeElement.id, dem:document.getElementById('hm-so-dem').textContent}));
  ok('tìm "thị giả" (không dấu, gõ tới đâu lọc tới đó) — ô tìm giữ con trỏ, đếm 1 / 5', r.n===1 && r.fo==='hm-so-tim' && r.dem==='1 / 5 hộ', JSON.stringify(r));
  r = await ev(()=>HSO.x && /lọc: tìm/.test(HSO.x.trang||'') ? 1 : 0); await p.waitForTimeout(400); r = await ev(()=>{ const h = hsoLap().h || ''; return {loc:/lọc: tìm "thị giả"/.test(h), n:(h.match(/<tr>/g)||[]).length}; });
- ok('🖨 In = đúng danh sách đang lọc, ghi rõ bộ lọc trên bản in', r.loc && r.n===2, JSON.stringify(r));
+ ok('🖨 In = đúng danh sách đang lọc, ghi rõ bộ lọc trên bản in (3.227: tiêu đề cột + dòng tháng + 1 hộ)', r.loc && r.n===3, JSON.stringify(r));
  await ev(async()=>{ HM_SO.q=''; HM_SO.loai='moi'; hsoVe(); await new Promise(r=>setTimeout(r,200)); });
  r = await ev(()=>document.querySelectorAll('#hm-so-bang tbody tr[data-id]').length); ok('chip Hộ mới → 2 hộ', r===2, r);
  await ev(async()=>{ HM_SO.loai='thieu'; hsoVe(); await new Promise(r=>setTimeout(r,200)); });
@@ -74,10 +74,10 @@ const fs=require('fs'), path=require('path');
  /* bản in sổ */
  r = await ev(()=>{ const h = hmLapHTML(); return {cot:(h.match(/<td class="c b">/g)||[]).length, han:/Hạn CCCD/.test(h), m31:hmDs().filter(o=>o.kh).every(o=>h.indexOf(hmNguoiDung(o).n.ten)>=0)}; });
  ok('bản in SỔ HỘ VAY: 12 cột (thêm Ngày cấp, Hạn CCCD, SĐT, Tổ / Ấp · xã tách riêng), A4 ngang, hộ cũ theo Mẫu 31', r.cot===12 && r.han && r.m31, JSON.stringify(r));
- /* tab 👪 Hộ vay vẫn như cũ */
- await ev(async()=>{ hsoChonMau('homoi'); await new Promise(r=>setTimeout(r,300)); });
- r = await ev(()=>({rong:document.querySelector('#tr7 .hso-bo').classList.contains('hso-rong'), nut:/Lấy từ Mẫu 31/.test(document.getElementById('hso-tuy').textContent), ds:document.querySelectorAll('.hm-dong').length}));
- ok('tab 👪 Hộ vay giữ nguyên (danh sách + xem trước bên phải)', !r.rong && r.nut && r.ds===5, JSON.stringify(r));
+ /* 3.227: tab 👪 Hộ vay đã gộp — máy đang nhớ tab cũ → mở 📒 Sổ hộ vay */
+ await ev(async()=>{ hsoCH().hsv = 'homoi'; hsoVe(); await new Promise(r=>setTimeout(r,300)); });
+ r = await ev(()=>({k:hsoMau().k, nho:hsoCH().hsv, nut:/Lấy từ Mẫu 31/.test(document.getElementById('hso-tuy').textContent)}));
+ ok('máy nhớ tab 👪 Hộ vay cũ → mở 📒 Sổ hộ vay', r.k==='sohv' && r.nho==='sohv' && r.nut, JSON.stringify(r));
  o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));
  const sai = o.filter(x=>x[0]==='✗').length; console.log((o.length-sai)+'/'+o.length+' đạt'); await b.close(); process.exit(sai||loi.length ? 1 : 0);
 })();

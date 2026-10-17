@@ -15,7 +15,8 @@
 ## 2. Quy trình kỹ thuật (lệnh)
 - Nhánh: nhánh phiên được giao (tài khoản chính: `claude/html-app-review-ck346k`; tài khoản phụ: `claude/busy-curie-2qescm`). Bắt đầu: `git fetch origin main && git checkout -B <nhánh> origin/main`.
 - **Anh chốt 14/10 — gom thử:** trong lúc làm chỉ chạy **phép thử liên quan** (1–3 file `tests/tNNN.js`); **hồi quy đầy đủ (`bash tools/hoiquy.sh <tên>`, ~80 phép) chạy 1 lần cho cả đợt, trước khi anh nhắn "gộp"**; ý nhỏ phát sinh khi anh test gom vào cùng PR, không mở PR lẻ.
-- Kiểm: `python3 tests/kiem.py` → bình thường là `Cú pháp OK · Trùng tên: không · Thiếu hàm: CompressionStream, DecompressionStream, Response`.
+- Kiểm: `python3 tests/kiem.py` → bình thường là `Cú pháp OK · Trùng tên: không · Thiếu hàm: CompressionStream, DecompressionStream, Response`. Dòng 2 "Hàm mồ côi" (3.227) chỉ báo — `--mo-coi` in đủ danh sách.
+- **Anh dặn 17/10:** làm nhiều chức năng rồi chạy hồi quy đủ **1 lần** (không chạy riêng từng bản); bản xong thì gộp. **Mỗi bản:** dọn rác code trong phạm vi bản (bỏ hàm / CSS / nhánh không còn dùng — grep `js/`, `index.html`, `tests/` trước khi xóa; gộp hàm trùng việc; không xóa phần đọc dữ liệu cũ) + kiểm toàn vẹn (kiem.py, phép thử phần sửa, hồi quy đủ); ghi vào CHANGELOG đã bỏ / gộp gì.
 - Hồi quy (chạy ngầm, ~1 giờ): `for t in hoiquy hoiquy2 $(seq -f 't%g' 101 130); do echo "$t: $(timeout 900 node tests/$t.js 2>&1 | tail -1)"; done` — dòng cuối "lỗi []" hoặc "n/n đạt" là sạch. `t100` hỏng sẵn, bỏ qua. Sửa mã khi phép thử đang chạy → có thể lỗi giả, chạy lại. Phiên mới phải dựng `tests/lib` + `tests/gia*` trước (lệnh ở đầu `tests/README.md`, ~3 phút).
 - Mỗi bản: tăng `APP_BAN` / `APP_LUC` (`js/02-nen.js`), dòng đầu `CO_GI_MOI` (`js/06-hop-thoai.js`), **`?v=` trong `index.html`** (`sed -i 's/?v=3.142/?v=3.143/' index.html`; `kiem.py` báo nếu lệch), chuỗi `APP_BAN==='x'` trong `tests/hoiquy2.js`; `docs/CHANGELOG.md` (mục mới ở đầu); `docs/BAN_GIAO_VIEC_CON_LAI.md` (bảng thử máy thật + ghi chú kỹ thuật); **mục 3 file này**; `python3 tests/bando.py`.
 - Sửa file lớn: script Python thay chuỗi có `assert s.count(a)==1`; `grep` tên hàm / lớp CSS trước khi đặt mới.
@@ -23,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.226** — cài đặt đồng bộ theo khối (`_Hệ thống/caidat/<khối>.json`, js/36). Trước đó 3.224 scan mới (`js/35-scan.js`) + 3.225 đồng bộ Drive theo khối (`js/36-dong-bo-khoi.js`). Trước đó 3.223 (14 mẫu đúng form gốc, lưu theo ngăn). **Việc tiếp:** tách cài đặt theo khối + kho IndexedDB theo khối (bước sau của `docs/KE_HOACH_3225_LUU.md`); rà chữ dài từng ô (`docs/RA_SOAT_CHU_DAI.md`, chờ anh); sổ góp ý mẫu (`docs/GOP_Y_MAU.md`); xem `docs/BAN_GIAO_3224.md`.
+- **`main` = 3.229** — 3.227 📒 Sổ hộ vay gộp 1 tab (lọc địa bàn · ngày nhập, nhóm tháng) + 📌 Ghim khối lọc · 3.228 🔎 Kiểm tra hộ vay khi nhập (khai báo được) + GQVL số lượng / đơn vị · 3.229 khai báo riêng 4 nguồn từng mẫu (11/TD trước). **Việc tiếp:** cuốn chiếu khai báo riêng + 4 luật điền từng mẫu khi anh rà (07b → 01/TD, 03/TD, 01/UQ → …, `docs/KE_HOACH_3228.md`); nhu cầu vay nhập trong sổ. Chờ anh: ngưỡng tạm (90 ngày, 60 tổ viên), `RA_SOAT_CHU_DAI.md`, `GOP_Y_MAU.md`, thử máy thật 3.225–3.229.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.
