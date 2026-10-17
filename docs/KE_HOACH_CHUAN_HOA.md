@@ -112,5 +112,9 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     2. Thêm **Mẫu 06** → in **1 lần cả bộ 01 + 03 + 06**.
     3. **Giấy ủy quyền (01/UQ)** còn vướng **thành viên / thừa kế** → anh **khai trước** ở 📒 Sổ hộ vay (thêm hộ vay); lúc lập UQ **chọn hộ từ sổ**.
     4. **03/TD thủ công** (không qua 01/TD) vẫn lập được — gõ / chọn tương tự như 01/TD.
-  - (chờ anh xác nhận: 03/TD 1 hộ hay gom nhiều hộ; Mẫu 06 là Mẫu 06/TD nào)
+  - **Ý 11 (17/10) — 03/TD và lưu 01/TD:**
+    1. Thường **03/TD in 1 hộ** (hộ vừa gõ 01/TD).
+    2. **Lưu 01/TD:** mặc định đặt tên **theo tên hộ vay, gắn tổ** (vd "Nguyễn Văn A — Tổ …"), vào danh sách 01/TD đã lưu.
+    3. Cần 03/TD **nhiều hộ**: mở Mẫu 03 → **"＋ Thêm hộ"** chọn từ các **01/TD đã lưu** → thêm dòng.
+  - (chờ anh xác nhận Mẫu 06 là Mẫu 06/TD nào)
 
