@@ -1980,7 +1980,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.249', ds:[
+var CO_GI_MOI = {ban:'3.250', ds:[
+  ["📝 01/TD: chỗ ký UBND trả lại 4 dòng (bớt 2 thì Chủ tịch ký đè chữ); chỗ ký NH chừa 2 dòng + phần trống cuối trang — vẫn 1 trang khi tên SV dài, in sẵn UBND + NH", "doiNgan(7)"],
   ["📝 01/TD: chỗ ký Ngân hàng rộng thêm 3 dòng (bớt 2 dòng dưới UBND, bớt cách đoạn), phần NH in liền khi có số liệu; lề trên 7 mm; gạch tiêu ngữ mảnh, sát chữ, dài đúng bằng dòng tiêu ngữ (mọi mẫu)", "doiNgan(7)"],
   ["📝 01/TD: Năm sinh cách tên 1 tab; tên SV dài xuống dòng vẫn cân (số lượng, thành tiền canh giữa); nước sạch thêm 1 dòng chấm bảng đối tượng; chấm mảnh như mẫu KTGS cho mọi mẫu hồ sơ (in, xem, Word)", "doiNgan(7)"],
   ["📝 In 01/TD: chữ 14; có số liệu thì in liền như đánh máy (CCCD, ngày cấp, nơi cấp cách dấu phẩy; địa chỉ ấp / khu phố, xã / phường; tiền sát chữ đồng; 12 tháng/lần); Hội không ghi xã, Đoàn thanh niên; bảng chỉ dòng số liệu; chỗ ký rộng hơn", "doiNgan(7)"],
@@ -1994,8 +1995,7 @@ var CO_GI_MOI = {ban:'3.249', ds:[
   ["📄 01/TD, 03/TD in theo file mẫu anh gửi: tên HSSV dài xuống dòng (không thu nhỏ), giữ đủ dòng chấm như mẫu; chừa chỗ Chủ tịch UBND ký + đóng dấu; luôn 1 trang", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
   ["🔗 03/TD lấy số tiền, mục đích, thời hạn từ 01/TD của hộ (đổi chương trình bên 01/TD thì 03/TD đổi theo); phiếu hồ sơ cũ tự gắn vào Sổ hộ vay", "slDoiTab('hsv');doiNgan(7);hsoChonMau('03td')"],
   ["⚙ Khai báo riêng của mẫu có nút ▸ Mở / ▾ Tắt (mặc định tắt)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
-  ["⚡ Gõ tìm văn bản nhanh hơn (nhất là máy yếu / nhiều văn bản); chụp / xoay nhiều thẻ CCCD liên tục không còn đầy bộ nhớ trình duyệt", "doiNgan(1)"],
-  ["🔧 Sửa: 📒 Sổ hộ vay › ⤢ Phóng to → xem bản in trong hộp lớn (trước bung toàn màn hình khung đang ẩn → màn trống che hộp, bấm ＋ Hộ mới không được)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["⚡ Gõ tìm văn bản nhanh hơn (nhất là máy yếu / nhiều văn bản); chụp / xoay nhiều thẻ CCCD liên tục không còn đầy bộ nhớ trình duyệt", "doiNgan(1)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

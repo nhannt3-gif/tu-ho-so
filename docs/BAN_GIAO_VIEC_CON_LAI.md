@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.250) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In 01/TD HSSV in sẵn UBND + NH | Chủ tịch ký không đè chữ; NH đủ chỗ ký; 1 trang | |
+
+**Ghi chú kỹ thuật 3.250:** cân trang 01/TD: UBND 4 dòng trống, NH 2 dòng trống — trường hợp nặng nhất vừa khít 1 trang (thêm dòng nữa sẽ tràn).
+
 ### Danh sách thử trên máy thật (3.249) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
