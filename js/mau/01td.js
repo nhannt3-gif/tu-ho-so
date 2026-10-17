@@ -51,11 +51,14 @@
       var V = this.V(t, B), A = V._A, C = A.C || {}, G = omG(MK, V, 13), o = G.o;
       var dong = A.dong.length ? A.dong : [], CH = [['………………………………', '…………………..', '……………………………..'], ['………………………………', '…………………..', '……………………………..'], ['………………………………..', '....………………..', '……………………………..']];
       var hang = '<tr><td class="c b"><p>Đối tượng</p></td><td class="c b"><p>Số lượng</p></td><td class="c b"><p>Thành tiền</p></td></tr>';
-      for(var i=0;i<Math.max(3, dong.length);i++){ var x = dong[i] || ['', '', 0], ch = CH[Math.min(i, 2)], ok = omCach(MK, 'bang')!=='cham';
+      var ok0 = omCach(MK, 'bang')!=='cham' && dong.length, lien = function(v, ch){ return v ? '<span class="om om-tu" data-o="bang">'+coChuHTML(v)+'</span>' : '<span class="om om-cham" data-o="bang">'+ch+'</span>'; };   /* ô chưa có (vd HSSV chưa gõ số tháng) → chấm */
+      if(ok0) dong.forEach(function(x){   /* 3.240 (anh 17/10): có số liệu → đúng số dòng, chữ dài xuống dòng (không thu nhỏ, không dòng chấm thừa) */
+        hang += '<tr><td class="c"><p>'+lien(x[0], CH[0][0])+'</p></td><td class="c"><p>'+lien(x[1], CH[0][1])+'</p></td><td class="c"><p>'+lien(x[2] ? hsoDongTien(x[2]) : '', CH[0][2])+'</p></td></tr>'; });
+      for(var i=ok0 ? dong.length : 0;i<3;i++){ var x = ['', '', 0], ch = CH[i], ok = false;   /* 3.240 (anh 17/10 "giữ form"): luôn đủ 3 dòng như gốc — dòng không có số liệu vẫn chấm */
         hang += '<tr><td class="c"><p>'+o('bang', ch[0], {gt:ok ? x[0] : '', canh:'c', rong:57, hai:4.8})+'</p></td><td class="c"><p>'+o('bang', ch[1], {gt:ok ? x[1] : '', canh:'c', rong:41})+'</p></td><td class="c"><p>'+o('bang', ch[2], {gt:ok ? hsoDongTien(x[2]) : '', canh:'c', rong:58})+'</p></td></tr>'; }   /* có chữ: khung = cả ô bảng (gốc 60 / 44 / 61 mm) */
       var ngK = G.ngay('ngayKy', ['……', '……', '………']), hanC = G.ngay('hanCuoi', ['……..', '……..', '…………']), nhH = G.ngay('nhHan', ['…....', '…....', '……..']), nhN = G.ngay('nhNgay', ['……', '……', '………']);
-      var ub = C.ubnd ? '<p class="c b">Xác nhận của UBND xã</p><p style="'+JJ+'">Ông/bà '+o('ubOng', '........................................................')+'</p>'+G.khoi('ubYK', ['.........................................................................', '.........................................................................'])+'<p class="c b">Chủ tịch</p><p class="c i">(ký tên, đóng dấu)</p>' : '';
-      var h = '<div class="om-goc" style="line-height:1.15">'+
+      var ub = C.ubnd ? '<p class="c b">Xác nhận của UBND xã</p><p style="'+JJ+'">Ông/bà '+o('ubOng', '........................................................')+'</p>'+G.khoi('ubYK', ['.........................................................................', '.........................................................................'])+'<p class="c b">Chủ tịch</p><p class="c i">(ký tên, đóng dấu)</p>'+P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+P('&nbsp;', TR(3))+P('&nbsp;', TR(3)) : '';   /* 3.240 (anh 17/10): chừa 5 dòng chỗ Chủ tịch ký + đóng dấu (3 dòng còn đè dấu lên chữ) */
+      var h = '<div class="om-goc" style="line-height:'+(C.ubnd ? '1.06' : '1.15')+'">'+   /* 3.240: có khối UBND (5 dòng ký + đóng dấu) → dòng sát hơn chút để vẫn 1 trang, cỡ chữ giữ 13 như gốc */
         hsoBang('khung0 t3', [23.4, 108.7, 37], '<tr><td>'+hsoLogo(MK, 19)+'</td><td class="c">'+hsoQH('-', 13).replace('HÒA', 'HOÀ')+'</td><td class="r"><p class="r b" style="margin-top:3pt">Mẫu số 01/TD</p></td></tr>')+
         P('<b>GIẤY ĐỀ NGHỊ VAY VỐN KIÊM PHƯƠNG ÁN SỬ DỤNG VỐN VAY</b>', 'text-align:center;font-size:14pt;margin-top:6pt')+
         P('<b>Chương trình cho vay</b>: '+o('ct', '...................................................................'), J+T1+TR(3))+
@@ -86,7 +89,7 @@
         P('5. Lãi tiền vay được trả định kỳ hàng tháng, vào ngày '+o('nhNgayLai', '............................................................'), J+TR(1))+
         hsoBang('khung0 t3', [42.6, 58.8, 69.9], '<tr><td class="c"><p>&nbsp;</p><p class="c b">Cán bộ tín dụng</p><p class="c i">(Ký, ghi rõ họ tên)</p></td>'+
           '<td class="c"><p>&nbsp;</p><p class="c b">Trưởng phòng</p><p class="c b">(Tổ trưởng) TD</p><p class="c i">(Ký, ghi rõ họ tên)</p></td>'+
-          '<td class="c"><p class="c i">Ngày '+nhN[0]+' tháng '+nhN[1]+' năm '+nhN[2]+'</p><p class="c b">Giám đốc</p><p class="c i">(Ký tên, đóng dấu)</p></td></tr>')+'</div>';
+          '<td class="c"><p class="c i">Ngày '+nhN[0]+' tháng '+nhN[1]+' năm '+nhN[2]+'</p><p class="c b">Giám đốc</p><p class="c i">(Ký tên, đóng dấu)</p></td></tr>')+'</div>';   /* chỗ ký NH = phần trống cuối trang như gốc (3.240: t199 đo — luôn 1 trang A4, còn ≥ 20 mm để ký) */
       return {ma:'01/TD', h:h};
     }});
   hsoLap01td = function(t, B){ return omLap(MK, t, B || hsoBo()); };

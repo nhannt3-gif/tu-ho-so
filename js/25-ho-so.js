@@ -602,10 +602,11 @@ function hsoChamNgay(mk, k, n){ var v = hsoChamGT(mk, k, ''), g = hsoNg(v);   /*
   return g ? ', ngày '+hsoO(g.d, 'kb')+' tháng '+hsoO(g.m, 'kb')+' năm '+hsoO(g.y, 'kb') : ', ngày'+hsoCham(n[0])+'tháng'+hsoCham(n[1])+'năm '+hsoCham(n[2]); }
 function hsoKBRieng(mk, md){   /* 3.215: khối ⚙ Khai báo riêng ở cột trái — liệt kê ô từ trên xuống theo mẫu · 3.222 (anh 16/10, bố cục A): cuối cột trái, thu gọn được, ↺ về mặc định */
   if(typeof omCo==='function' && omCo(mk)){ var S0 = hsoCH(), t0 = KHO.to(S0.to); if(t0 && toLaTT(t0)) t0 = null; return omKBRieng(mk, OM_MAU[mk].V(t0, hsoBo())); }   /* 3.223: mẫu đã lên nền ô */
-  var M = (HSO_MAU.hsv.concat(HSO_MAU.hst)).find(function(m){ return m.k===mk; }) || {ma:mk}, dong = !!((hsoLuu().kbrDong||{})[mk]), doi = Object.keys(((hsoLuu().cham||{})[mk])||{}).length;
+  var M = (HSO_MAU.hsv.concat(HSO_MAU.hst)).find(function(m){ return m.k===mk; }) || {ma:mk}, dong = !hsoKBRDangMo(mk), doi = Object.keys(((hsoLuu().cham||{})[mk])||{}).length;
   return '<details class="hso-kbr-d"'+(dong ? '' : ' open')+' ontoggle="hsoKBRMo(\''+mk+'\',this.open)"><summary class="nhan-nhom hso-kbr-o">⚙ Khai báo riêng — Mẫu '+coChuHTML(M.ma)+' <small>(ô ✍ / 🖨 từ trên xuống)</small></summary>'+
     (doi ? '<div class="hang-nut"><button class="nho" onclick="hsoChamVeMD(\''+mk+'\')" title="Đưa mọi ô của mẫu về mặc định (✍ chấm) — giá trị đã khai vẫn giữ">↺ Về mặc định ('+doi+' ô đã đổi)</button></div>' : '')+hsoChamTuy(mk, md)+'</details>'; }
-function hsoKBRMo(mk, mo){ var L = hsoLuu(); L.kbrDong = L.kbrDong || {}; if(!!L.kbrDong[mk]===!mo) return; if(mo) delete L.kbrDong[mk]; else L.kbrDong[mk] = 1; luu(); }
+function hsoKBRDangMo(mk){ return !!((hsoLuu().kbrMo||{})[mk]); }   /* 3.240 (anh 17/10): khai báo riêng có nút mở / tắt, mặc định TẮT — tránh nhầm với form lập mẫu */
+function hsoKBRMo(mk, mo){ var L = hsoLuu(); L.kbrMo = L.kbrMo || {}; if(hsoKBRDangMo(mk)===!!mo) return; if(mo) L.kbrMo[mk] = 1; else delete L.kbrMo[mk]; delete (L.kbrDong||{})[mk]; luu(); }
 function hsoChamVeMD(mk, khongHoi){   /* 3.222 (bổ sung 2): bỏ ✍ / 🖨 anh đã đổi của mẫu → về mặc định; giá trị khai 1 lần (chamGT) giữ nguyên để bật lại không phải gõ */
   var ghi = function(){ var L = hsoLuu(); if(L.cham) delete L.cham[mk]; luu(); hsoVe(); bao('Đã đưa ô tùy biến về mặc định.'); };
   if(khongHoi) return ghi();
@@ -998,7 +999,7 @@ function hsoLap(){
   else if(M.k==='bo'){ x = hsoLapBo(B, t); ai = hsoBoNV(B).ten || ''; }
   else if((M.k==='01td' || M.k==='01gqvl') && B && B.hoId && hsoKemCo(B)){ x = hsoLapBo(Object.assign({}, B, {chon:Object.assign({td:1}, B.kem)}), t); ai = hsoBoNV(B).ten || ''; }   /* 3.209: 01/TD in kèm 03/TD · 10C · 01/UQ · 01/TGTV */
   else if(M.k==='01tgtv'){ var P = hsoTGTVDs(t, B); x = {ma:'01/TGTV', ds:(P.length ? P : [null]).map(function(y){ return {M:M, h:hsoLap01tgtv(t, y).h}; })}; ai = P.length===1 ? P[0].ten : ''; }
-  else if(M.k==='03td' && (hsoD03().ds.length || (B && B.hoId)) && (!B || B.hoId)){ var D3 = hsoD03(), t3 = hsoD03To(D3); x = hsoLap03td(t3, null, hsoD03Hang(D3), D3.ct); }   /* 3.209: 03/TD nhiều hộ cùng chương trình */
+  else if(M.k==='03td' && (hsoD03().ds.length || (B && B.hoId)) && (!B || B.hoId)){ var D3 = hsoD03(), t3 = hsoD03To(D3); hsoD03TuBo(D3); x = hsoLap03td(t3, null, hsoD03Hang(D3), D3.ct); }   /* 3.209: 03/TD nhiều hộ cùng chương trình */
   else if(M.k==='03td' && !B && t){ var ch = HSO.vay.chon || {}; x = hsoLap03td(t, null, hsoTVTo(t).filter(function(k){ return ch[k.kh]; }).map(function(k){ return {ten:k.ten}; })); }
   else { var f = {'10c':function(t){ return hsoLap10c(t, {moiChon:1}); }, '10ccu':hsoLap10cCu, '10a':hsoLap10a, '10b':hsoLap10b, '10d':function(t){ return hsoLap10d(t); }, '11':hsoLap11, '11cu':hsoLap11Cu, '01bg':hsoLap01bg, '02bg':hsoLap02bg, '01uq':hsoLap01uq, '01td':hsoLap01td, '03td':hsoLap03td, '09a':hsoLap09a, '01tdck':hsoLap01tdck, '01gqvl':hsoLap01gqvl, '07b':hsoLap07b}[M.k];
     x = f(t, p==='hsv' && /^(01uq|01td|03td|01gqvl|07b)$/.test(M.k) ? B : undefined);
@@ -1209,8 +1210,9 @@ function hmGanMa(){   /* hộ mới đã lên Mẫu 31 (khớp CCCD người đ�
   var doi = 0; hmDs().forEach(function(o){ if(o.kh) return; var n = o.tv[o.dung||0] || {}, m = hmM31(n.cccd); if(!m) return; var c = KHO.danhBa(m) || {}; o.kh = m; if(c.to && !o.to) o.to = c.to; doi++; });
   if(doi) luu(); return doi;
 }
-function hmChuyenCu(){   /* 1 lần: Bộ HS cũ (3.171–3.208) → sổ hộ vay; bản gốc hsoBo giữ nguyên */
-  var C = D.cauHinh; if(C.hoVayChuyen) return; C.hoVayChuyen = 1;
+function hmChuyenCu(){   /* phiếu hồ sơ chưa gắn sổ (Bộ HS cũ 3.171–3.208, phiếu lập thẳng từ Mẫu 31 / mẫu) → gắn vào hộ trùng CCCD / tên trong sổ, không có thì thêm hộ; phiếu gốc giữ nguyên
+     3.240 (anh 17/10 "tab hộ vay cũ và sổ hộ vay chưa link nhau"): chạy MỖI lần (trước chỉ 1 lần → phiếu lập sau đó không lên sổ) */
+  var C = D.cauHinh; if(!hsoBoDs().some(function(B){ return !B.hoId && String((B.nv||{}).ten||'').trim(); })) return; C.hoVayChuyen = 1;
   hsoBoDs().forEach(function(B){ var N = B.nv || {}; if(B.hoId || !String(N.ten||'').trim()) return;
     var so = String(N.cccd||'').replace(/\D/g, ''), o = hmDs().find(function(x){ var n = x.tv[x.dung||0] || {}; return so ? String(n.cccd||'').replace(/\D/g, '')===so : slChuan(n.ten)===slChuan(N.ten); });
     if(!o){ o = {id:'hm'+Date.now().toString(36)+Math.random().toString(36).slice(2, 5), tao:B.tao || new Date().toISOString(), kh:B.kh||'', to:B.to||'', xa:'', tenXa:N.tenXa||'', diem:'', tenDiem:'', thon:'', tenThon:N.ap||'',
@@ -1547,14 +1549,19 @@ function hsoD03Moi(o, ct){   /* dòng mới: lấy phiếu làm hồ sơ của h
   if(B && B.ct===ct){ hmDongBo(o, B); var A = hsoPA(B); return {hoId:o.id, tien:A.tien ? String(A.tien) : '', md:A.mdDs||'', th:A.th||'', dt:B.dtth || hsoDTTHMd(B, ph)}; }
   return {hoId:o.id, tien:'', md:C.kieu==='congtrinh' ? '' : (C.md||[])[0] || '', th:C.thIn==='in' ? C.th||'' : '', dt:hsoDTTHMd({ct:ct}, ph)};
 }
+function hsoD03TuBo(D3){   /* 3.240 (anh 17/10 "mẫu 01 qua mẫu 03 đủ thông tin"): dòng của hộ có 01/TD cùng chương trình → số tiền, mục đích, thời hạn, ĐTTH theo 01/TD (ô anh đã gõ tay ở 03/TD giữ nguyên) */
+  var doi = false;
+  D3.ds.forEach(function(r){ var B = hsoBoDs().find(function(b){ return b.hoId===r.hoId; }), o = hmTim(r.hoId); if(!B || !o || B.ct!==D3.ct) return;
+    var m = hsoD03Moi(o, D3.ct), tay = r.tay || {}; ['tien', 'md', 'th', 'dt'].forEach(function(f){ if(!tay[f] && m[f] && r[f]!==m[f]){ r[f] = m[f]; doi = true; } }); });
+  if(doi) luu(); }
 function hsoD03Them(id){ if(!id) return; var D3 = hsoD03(), o = hmTim(id); if(!o) return; if(D3.ds.some(function(r){ return r.hoId===id; })) return bao('Hộ đã có trong danh sách.'); D3.ds.push(hsoD03Moi(o, D3.ct)); luu(); hsoVe(); }
 function hsoD03Bo(i){ var D3 = hsoD03(); D3.ds.splice(i, 1); luu(); hsoVe(); }
-function hsoD03Dat(i, f, v){ var r = hsoD03().ds[i]; if(!r) return; r[f] = f==='tien' ? String(v||'').replace(/[^\d]/g, '') : f==='th' ? String(v||'').replace(/[^\d]/g, '') : String(v||'').trim(); luu(); hsoVe(); }
+function hsoD03Dat(i, f, v){ var r = hsoD03().ds[i]; if(!r) return; (r.tay = r.tay || {})[f] = 1; r[f] = f==='tien' ? String(v||'').replace(/[^\d]/g, '') : f==='th' ? String(v||'').replace(/[^\d]/g, '') : String(v||'').trim(); luu(); hsoVe(); }
 function hsoD03CT(ma){ var D3 = hsoD03(); if(D3.ct===ma) return; D3.ct = ma; D3.ds = D3.ds.map(function(r){ var o = hmTim(r.hoId); return o ? hsoD03Moi(o, ma) : r; }); luu(); hsoVe(); }
 function hsoD03TuChon(){ var ids = hmDs().filter(function(o){ return HM_CHON[o.id]; }).map(function(o){ return o.id; }); if(!ids.length) return;
   var D3 = hsoD03(), B = hsoBoDs().find(function(b){ return b.hoId===ids[0]; }); if(B && B.ct) D3.ct = B.ct;
   D3.ds = ids.map(function(id){ return hsoD03Moi(hmTim(id), D3.ct); }); HM_CHON = {}; hsoCH().boId = ''; luu(); hsoChonMau('03td'); }
-function hsoD03Hang(D3){ return D3.ds.map(function(r){ var o = hmTim(r.hoId); return {ten:o ? hmTen(o) : '(hộ đã xóa)', dt:r.dt, tien:hsoSo(r.tien), md:r.md, th:r.th ? r.th+' tháng' : ''}; }); }
+function hsoD03Hang(D3){ return D3.ds.map(function(r){ var o = hmTim(r.hoId); return {ten:o ? hmTen(o) : '(hộ đã xóa)', xa:o ? o.tenXa || '' : '', dt:r.dt, tien:hsoSo(r.tien), md:r.md, th:r.th ? r.th+' tháng' : ''}; }); }
 function hsoTuy03(t){
   var D3 = hsoD03(), C = hsoCTV(D3.ct) || {}, co = {}; D3.ds.forEach(function(r){ co[r.hoId] = 1; });
   var h = '<div class="nhan-nhom">Chương trình (cùng 1 chương trình / 1 tờ)</div><div class="hang-nut">'+hsoCTVDs().filter(function(c){ return c.bat!==false || c.ma===D3.ct; }).map(function(c){ return gdxChip('<b>'+coChuHTML(c.ma)+'</b>', D3.ct===c.ma, 'hsoD03CT(\''+c.ma+'\')', 'hso-ct', c.ten); }).join('')+'</div>';
@@ -1848,12 +1855,15 @@ function hsoTuyHTML(M, t){
   return h;
 }
 function hsoTuyVay(M, t, tv){
+  hmChuyenCu();   /* 3.240 (anh 17/10): phiếu chưa gắn sổ → gắn trước, mọi mẫu đi theo Sổ hộ vay (trước rơi về giao diện Hộ vay cũ) */
   var V = HSO.vay, B = hsoBo(), h = '';
   if(M.k==='sohv') return hmSoHTML();   /* 3.214 */
   if(M.k==='bo') return hsoTuyBo(t, tv);
   if(/^(01uq|01td|01gqvl|07b)$/.test(M.k) && (!B || B.hoId)) return hsoTuyHo(M, t);   /* 3.209: in theo hộ (bộ cũ chưa gắn hộ → cách cũ) */
   if(M.k==='03td'){ var D3 = hsoD03(), oB = B && B.hoId && hmTim(B.hoId);   /* 3.209: 03/TD nhiều hộ; đi từ hộ đang làm → tự thêm hộ đó */
     if(oB && !D3.ds.length){ D3.ct = B.ct || D3.ct; D3.ds.push(hsoD03Moi(oB, D3.ct)); luu(); }
+    else if(oB && D3.ds.length===1 && D3.ds[0].hoId===oB.id && B.ct && D3.ct!==B.ct){ D3.ct = B.ct; D3.ds = [hsoD03Moi(oB, B.ct)]; luu(); }   /* 3.240: 03/TD 1 hộ đi theo 01/TD của hộ — đổi chương trình bên 01/TD thì 03/TD đổi theo */
+    hsoD03TuBo(D3);
     if(D3.ds.length || oB) return hsoTuy03(t);
     h += hsoTuyO('＋ Thêm hộ từ sổ', hsoChon('hsoD03Them(this.value)', '', [['', '— 03/TD nhiều hộ: chọn hộ trong 👪 sổ hộ vay —']].concat(hmDs().map(function(o){ return [o.id, hmTen(o)+(hmToTen(o) ? ' · '+hmToTen(o) : '')]; })))); }
   if(/^(01uq|01td|03td)$/.test(M.k)){

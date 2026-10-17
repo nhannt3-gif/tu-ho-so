@@ -3510,7 +3510,8 @@ table.hm-so{min-width:1476px}
 /* 3.221: 📝 bản ghi mẫu */
 .hso-cham-che{display:flex;gap:6px;margin-bottom:4px}.hso-cham.hso-gm{border-color:var(--vang);box-shadow:0 0 0 1px var(--vang) inset}
 /* 3.222: ⚙ Khai báo riêng thu gọn được · 📎 nguồn ô 🖨 · ⚠ nhắc thiếu trước khi in · tên đơn vị từng mẫu Giao dịch xã */
-.hso-kbr-d{margin-top:8px;border-top:1px solid var(--vien)}.hso-kbr-d>summary{cursor:pointer;list-style:revert}.hso-cham-ng{display:block;color:var(--chu-phu);font-weight:400}
+.hso-kbr-d{margin-top:8px;border-top:1px solid var(--vien)}.hso-kbr-d>summary{cursor:pointer;list-style:none}.hso-kbr-d>summary::-webkit-details-marker{display:none}
+.hso-kbr-d>summary::after{content:'▸ Mở';margin-left:8px;padding:1px 10px;border:1px solid var(--vien);border-radius:6px;font-size:12px;font-weight:600;color:var(--xanh);background:var(--the);white-space:nowrap}.hso-kbr-d[open]>summary::after{content:'▾ Tắt'}   /* 3.240: nút mở / tắt rõ ràng */.hso-cham-ng{display:block;color:var(--chu-phu);font-weight:400}
 .hso-thieu ul{margin:3px 0 0;padding-left:18px}.kb-tenm{margin:4px 0}.kb-tenm>i{display:block;color:var(--chu-phu);margin-bottom:2px}
 /* 3.223 M2: ➕ thông tin thêm người trong hộ · thiếu theo mẫu */
 .hm-them{margin-top:4px}.hm-them>summary{cursor:pointer;color:var(--xanh-dam);font-size:calc(12.5px*var(--co))}.hm-them-nhom{margin:6px 0 2px}.hm-them-nhom>i{display:block;color:var(--chu-phu);margin-bottom:3px}

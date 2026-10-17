@@ -40,7 +40,7 @@ const fs=require('fs'), path=require('path');
    ok('NSVSMT sửa chữa 1 công trình: mục đích, 01 công trình, thời hạn 60, kỳ hạn 12 ghi sẵn, không khối UBND', /Sửa chữa công trình cấp nước/.test(h) && /Công trình cấp nước 01 công trình 25\.000\.000 đồng/.test(h) && /Thời hạn xin vay: 60 tháng; Kỳ hạn trả nợ: 12 tháng\/lần/.test(h) && !/Xác nhận của UBND xã/.test(h) && /Đề nghị cho vay số tiền/.test(h));
    hsoChonMau('03td'); await w(300); h = chu(HSO.x.h);
    ok('03/TD NSVSMT xã: ĐTTH mặc định "cư trú tại vùng nông thôn", 60 tháng', /Hộ gia đình cư trú tại vùng nông thôn 25\.000\.000 Sửa chữa công trình cấp nước 60 tháng/.test(h), (h.match(/Nguyễn Văn Giả[^]{0,120}/)||[''])[0]);
-   B.nv.tenXa = 'Phường Giả'; hsoXem(); await w(200); h = chu(HSO.x.h);
+   B.nv.tenXa = 'Phường Giả'; if(B.hoId && hmTim(B.hoId)) hmTim(B.hoId).tenXa = 'Phường Giả'; hsoXem();   /* 3.240: địa chỉ lấy từ Sổ hộ vay (một nguồn) */ await w(200); h = chu(HSO.x.h);
    ok('03/TD NSVSMT phường: ĐTTH "ở khu vực thành thị", chữ "UBND phường"', /Hộ gia đình ở khu vực thành thị/.test(h) && /UBND phường/.test(h));
    const iN = hsoCTVDs().findIndex(c=>c.ma==='NSVSMT'); hsoCTDat(iN, 'thIn', 'cham'); hsoChonMau('01td'); await w(300); h = chu(HSO.x.h);
    ok('đổi thẻ NSVSMT thời hạn → ✍ Chấm: 01/TD thời hạn để chấm', /Thời hạn xin vay: [.…]+ tháng/.test(h)); hsoCTDat(iN, 'thIn', 'in');

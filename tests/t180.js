@@ -40,7 +40,7 @@ function lcs(a, b){ const n = a.length, m = b.length; let pr = new Uint16Array(m
     const gd = sx(g.dong||[]).filter(x=>tu(x[3]).length), ad = sx(a.dong||[]).filter(x=>tu(x[3]).length); let j = 0; const lech = [];
     gd.forEach(x=>{ const kx = khoa(x[3]); for(let q=j;q<Math.min(ad.length, j+14);q++){ if(ad[q][0]===x[0] && khoa(ad[q][3])===kx && Math.abs(ad[q][1]-x[1])<20){ lech.push(Math.abs(ad[q][1]-x[1])); j = q+1; break; } } });
     lech.sort((p, q)=>p-q); const ghep = Math.round(lech.length*100/Math.max(1, gd.length)), p90 = lech.length ? lech[Math.floor(lech.length*0.9)].toFixed(1) : '?';
-    const vtOk = ghep>=70 && lech.length && +p90<=3;
+    const vtOk = ghep>=70 && lech.length && +p90<=({'03td':12}[a.goc] || 3);   /* 3.240 (anh 17/10): 03/TD bản trắng 5 dòng (gốc 4) → khối dưới bảng xuống 1 dòng */
     const tom = 'vị trí dòng: ghép '+ghep+' %, lệch 90 % ≤ '+p90+' mm · chữ '+tl+' % · trang app '+a.trang+' / gốc '+g.trang+' · '+(a.ngang ? 'ngang' : 'dọc')+(ngOk ? '' : ' ≠ gốc')+' · lề app '+a.le.join('/')+' / gốc '+g.le.join('/');
     if((KHOP.mau||[]).indexOf(a.goc)>=0) ok(k+' ↔ '+a.goc+' (đã khớp)', tl>=98 && trOk && ngOk && leOk && vtOk, tom);
     else bao(k+' ↔ '+a.goc+' (chưa làm lại): '+tom);

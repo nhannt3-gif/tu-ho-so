@@ -15,8 +15,9 @@ const fs=require('fs'), path=require('path');
    const doViTri = () => { const d = document.getElementById('hso-xem-khung').contentDocument, MM = 96/25.4, r = [];
      [...d.querySelectorAll('.tr-tg')].forEach((g, i) => { const y0 = g.getBoundingClientRect().top; [...g.querySelectorAll('p, tr')].filter(e=>!e.closest('.om')).forEach(e=>{ r.push(i+':'+((e.getBoundingClientRect().top - y0)/MM).toFixed(2)); }); });
      return {trang:d.querySelectorAll('.tr-tg').length, vt:r}; };
-   const so = (a, b) => { if(a.trang!==b.trang) return 'số trang '+a.trang+' ≠ '+b.trang; if(a.vt.length!==b.vt.length) return 'số đoạn '+a.vt.length+' ≠ '+b.vt.length;
-     for(let i=0;i<a.vt.length;i++){ const x = a.vt[i].split(':'), y = b.vt[i].split(':'); if(x[0]!==y[0] || Math.abs(+x[1]-+y[1])>0.5) return 'đoạn '+i+' lệch: '+a.vt[i]+' ≠ '+b.vt[i]+' (trang:mm)'; } return ''; };
+   const DUNG = {'01td':12, '03td':'trang'};   /* 3.240 (anh 17/10 "giữ form nhưng linh động"): 01/TD cho chữ dài xuống dòng trong bảng → khối dưới xê ≤ 12 mm, vẫn cùng số đoạn, cùng trang */
+   const so = (a, b, tl) => { tl = tl || 0.5; if(tl==='trang') return a.trang!==b.trang ? 'số trang '+a.trang+' ≠ '+b.trang : '';   /* 3.240: 03/TD bản trắng 5 dòng, có số liệu co dòng (anh 17/10) → chỉ giữ cùng số trang */ if(a.trang!==b.trang) return 'số trang '+a.trang+' ≠ '+b.trang; if(a.vt.length!==b.vt.length) return 'số đoạn '+a.vt.length+' ≠ '+b.vt.length;
+     for(let i=0;i<a.vt.length;i++){ const x = a.vt[i].split(':'), y = b.vt[i].split(':'); if(x[0]!==y[0] || Math.abs(+x[1]-+y[1])>tl) return 'đoạn '+i+' lệch: '+a.vt[i]+' ≠ '+b.vt[i]+' (trang:mm)'; } return ''; };
    for(const mk of Object.keys(OM_MAU).filter(k=>!chi || k===chi)){
      const tab = HSO_MAU.hst.some(m=>m.k===mk) ? 'hst' : 'hsv'; slDoiTab(tab); doiNgan(7); await w(1000); const C = hsoCH(); C.xa=''; C.diem=''; C.to=''; C.boId='';
      pvChon(tab, 'xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(300); pvChon(tab, 'to', pvLuaChon(TO_K.to, C, 'to', true)[0].k); await w(800);
@@ -27,7 +28,7 @@ const fs=require('fs'), path=require('path');
      dongHop(); const lay = async k => { OM_KIEU = k; hsoChonMau(mk); hsoVe(); await w(1600); return doViTri(); };
      const a = await lay('trang'), t = await lay('that'), u = await lay('mau'); OM_KIEU = 'that';
      ok(mk+': bản trắng có '+a.trang+' trang, '+a.vt.length+' đoạn / dòng bảng', a.trang>0 && a.vt.length>5);
-     const e1 = so(a, t), e2 = so(a, u);
+     const e1 = so(a, t, DUNG[mk]), e2 = so(a, u, DUNG[mk]);
      ok(mk+': bản thật (bật hết ô, có số liệu) chồng khít bản trắng', !e1, e1 || undefined);
      ok(mk+': bản mẫu (điền hết, chữ mẫu) chồng khít bản trắng', !e2, e2 || undefined);
    }

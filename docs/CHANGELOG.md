@@ -4,6 +4,21 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.240 — 17/10/2026 — 01/TD, 03/TD theo file mẫu anh gửi; 03/TD theo 01/TD; khai báo riêng mở / tắt
+- **Anh gửi 17/10:** 01/TD HSSV, 01/TD NSVSMT 50 tr, 03/TD HSSV (dữ liệu thật — chỉ đọc làm khuôn, không vào repo). Anh làm rõ luật **chồng khít**: giữ form như bản trắng, không xáo trộn nhiều, nhưng linh động — có số liệu cố gắng không tràn quá số dòng chấm, ít số liệu vẫn giữ dòng chấm; cỡ chữ có thể hạ chút nếu thiếu chỗ ký.
+- **01/TD** (`js/mau/01td.js`):
+  - Bảng đối tượng: dòng số liệu chữ cỡ thường, dài thì **xuống dòng** (trước thu nhỏ cho vừa 1 dòng); luôn đủ **3 dòng** như gốc, dòng không có số liệu vẫn chấm.
+  - Khối UBND (HSSV): chừa **5 dòng** chỗ Chủ tịch ký + đóng dấu (trước đè dấu lên chữ); có khối UBND thì dòng sát hơn chút (1,06) — cỡ chữ giữ 13 như gốc, **luôn 1 trang A4** (đo: HSSV tên SV dài + UBND).
+- **03/TD** (`js/mau/03td.js`):
+  - Họ tên, đối tượng thụ hưởng, mục đích chữ cỡ thường xuống dòng (trước thu nhỏ).
+  - Có số liệu: các dòng số liệu + **2 dòng trống** (1 hộ = 3 dòng như file anh); bản trắng **5 dòng**.
+  - Đầu trang theo địa bàn: "Khu phố / Phường" hoặc "Ấp / Xã" (bản trắng giữ "Ấp (kp) / Xã (phường)"); nhận phường theo địa chỉ hộ.
+- **03/TD theo 01/TD** (`hsoD03TuBo`): dòng của hộ có 01/TD cùng chương trình → số tiền, mục đích, thời hạn, ĐTTH theo 01/TD (ô anh gõ tay ở 03/TD giữ nguyên); 03/TD 1 hộ đổi chương trình theo 01/TD.
+- **Phiếu cũ tự gắn Sổ hộ vay** (`hmChuyenCu` chạy mỗi lần, trước 1 lần): anh báo "tab hộ vay cũ và sổ hộ vay chưa link" — phiếu chưa gắn sổ làm mẫu rơi về giao diện Hộ vay cũ; nay gắn vào hộ trùng CCCD / tên, không có thì thêm hộ. Địa chỉ, nhân thân theo Sổ hộ vay (một nguồn).
+- **⚙ Khai báo riêng**: nút **▸ Mở / ▾ Tắt** rõ ràng, mặc định **tắt** (khóa nhớ mới `kbrMo`).
+- **Chuẩn khóa:** cập nhật `tests/chuan/hsv_01td_so|gm`, `hsv_03td_so|trang` (anh duyệt đổi). t181: 01/TD cho xê ≤ 12 mm, 03/TD chỉ giữ cùng số trang. t180: 03/TD bản trắng 5 dòng theo lời anh (file Word gốc 4 dòng) → khối dưới bảng lệch gốc ≤ 12 mm.
+- **Phép thử:** `tests/t199.js` (mới, 14); t172, t178, t181 theo luật mới.
+
 ## 3.239 — 17/10/2026 — Dọn nhỏ theo file rà soát anh gửi (bước 1)
 - **Anh gửi 17/10** file "yêu cầu bàn giao & tối ưu 3.238" (AI khác lập); em đối chiếu code thật → `docs/KE_HOACH_CHUAN_HOA.md` (bảng rà). Anh duyệt làm bước 1.
 - **Trả bộ nhớ ảnh / file tạm** (`URL.createObjectURL` không thu hồi — Safari điện thoại tự tải lại trang khi đầy): hàm chung `thuHoiSau(u, ms)`, `anhTam(img, blob)` (`js/02-nen.js`).
