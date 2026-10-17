@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.235 — 17/10/2026 — Chuẩn hóa R3 phần 1: tách `js/22-so-lieu.js` theo khối
+- **Anh duyệt 17/10** (`docs/KE_HOACH_CHUAN_HOA.md` R3; `docs/QUY_CHUAN_KIEN_TRUC.md` mục 7 — tách cơ học, không đổi logic, làm đầu tiên).
+- `js/22-so-lieu.js` (1,3 MB · 6.963 dòng) → 10 file, nạp **liền nhau đúng thứ tự cũ** (ghép lại khớp từng byte với bản 3.234):
+  - `22-so-lieu.js` lõi Số liệu (nạp, kho đã đọc);
+  - `22b-ktgs.js`, `22c-ktgs-m06.js`, `22d-ktgs-04.js`, `22e-ktgs-kh.js` — KTGS hội đoàn thể (tiền tố `kt…`);
+  - `js/mau/kt-khuon.js` — khuôn Word KTGS 490 KB, chỉ là dữ liệu mẫu trắng;
+  - `22f-tra-cuu.js`, `22g-to.js`, `22h-cap-hoi-sao-ke.js`, `22i-tong-hop.js`.
+  Mỗi file < 120 KB (trừ khuôn), < 1.300 dòng.
+- `kiem.py`: thước đo "đọc thẳng biến kho" miễn cho cả nhóm `js/22*` (trước là 1 file `22-so-lieu.js`).
+- Dọn: 1 dòng > 400 ký tự của 3.234 (Sổ hộ vay, bảng trống) xuống dòng.
+- **Bản sau (R3 phần 2):** nạp khi dùng — khuôn Word KTGS và khối KTGS chỉ tải khi mở 🛡 KTGS / in Word KTGS.
+
 ## 3.234 — 17/10/2026 — Chuẩn hóa R2: mảnh giao diện chung, bộ nút xuất, điều hướng lùi / tiến
 - **Anh duyệt 17/10** (`docs/KE_HOACH_CHUAN_HOA.md` mục 2, 4, 5, 6).
 - **`js/39-gd.js` (mới)** — hộp `GD`:

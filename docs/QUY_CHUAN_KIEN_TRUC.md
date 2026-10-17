@@ -129,7 +129,7 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 |---|---|---|
 | Hồ sơ Tổ (`js/25`) gọi thẳng hàm khối khác | 31 hàm · 57 lần đọc biến chung (`TO_K`, `KT_K`, `SLM`…) | 0 — qua `KHO` |
 | Giao dịch xã (`js/26`) | 19 hàm · 60 lần đọc biến chung | 0 |
-| `js/22-so-lieu.js` | 7.020 dòng · 827 hàm (kho + Tổ + KTGS + Sao kê + Tổng hợp + Tra cứu) | tách theo khối, mỗi file < 2.500 dòng |
+| `js/22-so-lieu.js` | ~~7.020 dòng · 827 hàm~~ → **3.235 đã tách** 10 file `js/22*` + `js/mau/kt-khuon.js` (mỗi file < 1.300 dòng) | còn: nạp khi dùng (R3 phần 2) |
 | Cửa `KHO1` / `KHO` / `CHUAN` / `DANG_KY` | chưa có | có (đợt B / C / D / E) |
 
 **Cập nhật 15/10 (3.216 — cửa `KHO`):** `js/29-kho.js` có 24 cửa (ky, coKy, maTo, maDong, coBang, nap, to, dsTo, dongTo, toVien, bangTo, toTruong, toTruongKH, khach, danhBa, coDanhBa, dsDanhBa, timCCCD, tim, cccd, hanCCCD, tk105, tk104, saoKe, thanhVienTW, tv01); lõi `hsoKhach`, `hsoTTKH` dời về js/29. **`js/25` 109 → 7 dòng, `js/26` 48 → 4 dòng** còn chạm biến kho — chỉ chỗ tab đặt kỳ (`TO_K = …`), cây chọn (`PV_DUNG.K`), đọc tổ trưởng kỳ trước (Hồ sơ Tổ). `t177` kiểm tĩnh, thêm đọc thẳng ở 2 file này → trượt. Bản in Giấy lĩnh, 12/GDX, 04/TD, mini app, 6 mẫu Hồ sơ Tổ, Hồ sơ vay, sổ hộ vay so trước – sau giống hệt. Còn lại đọc thẳng: KTGS (gói riêng, chưa đụng), `js/22` (chính là khối kho cũ — tách dần).
