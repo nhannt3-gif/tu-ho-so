@@ -37,7 +37,7 @@ const fs=require('fs'), path=require('path');
    ok('hộ mới nhập CCCD đã có trên Mẫu 31 → tự gắn mã KH', hmDs().some(o=>o.kh===kc.kh && o.tv[0].ten==='Người Có Mẫu 31'));
    /* in theo hộ */
    hmLamHS(oM.id); await w(400);
-   ok('📄 In hồ sơ → tab 01/TD, cột trái "👪 Hộ vay" đã chọn hộ, chip chương trình, chip 2 SV', hsoMau().k==='01td' && /Hộ vay/.test(document.getElementById('hso-tuy').textContent) && document.querySelectorAll('#hso-tuy .hso-ct').length>=4 && /Trần Văn Giả/.test(HSO.x.trang));
+   ok('📄 In hồ sơ → tab 01/TD (3.242 form theo tờ giấy): "1. Người vay" đã chọn hộ, chip chương trình, chip 2 SV', hsoMau().k==='01td' && /Người vay/.test(document.getElementById('hso-tuy').textContent) && document.querySelectorAll('#hso-tuy [data-lenh="l01.ct"]').length>=2 && document.querySelectorAll('#hso-tuy .hso-ct').length>=2 && /Trần Văn Giả/.test(HSO.x.trang));
    hsoBoDat('pa.sv', 'Trần Văn Con Hai', 1); hsoBoDat('tien', '40000000'); hsoBoDat('pa.soThang', '10'); await w(400);
    ok('chọn SV thứ 2 → 01/TD ghi đúng SV', /Trần Văn Con Hai/.test(HSO.x.trang) && /Học sinh sinh viên/.test(HSO.x.trang));
    hsoBoDat('kem.ds', 1, 1); hsoBoDat('kem.uq', 1, 1); await w(500);

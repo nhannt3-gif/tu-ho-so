@@ -35,7 +35,7 @@ const fs=require('fs'), path=require('path');
    hmLamHS(ho.id, '01td'); await w(300); const B = hsoBo(); B.ct = 'HSSV'; B.pa = Object.assign(B.pa||{}, {sv:'Con Giả', soThang:'12'}); B.tien = '40000000'; hsoBoLuu(); hsoVe(); await w(300);
    let tuy = document.getElementById('hso-tuy'), dau = tuy.querySelector('.nhan-nhom'), kbr = tuy.querySelector('details.hso-kbr-d');
    ok('01/TD: đầu cột trái "✎ Nhập liệu — Mẫu 01/TD", cuối cột "⚙ Khai báo riêng — Mẫu 01/TD" (details, 3.240: mặc định TẮT, bấm mở)', /✎ Nhập liệu — Mẫu 01\/TD/.test(dau.textContent) && !!kbr && !kbr.open && (kbr.open = true) && /⚙ Khai báo riêng — Mẫu 01\/TD/.test(kbr.querySelector('summary').textContent) && !kbr.nextElementSibling);
-   const nCT = tuy.innerHTML.split("hsoKBHop(\\'ct\\')").length - 1 + tuy.innerHTML.split("hsoKBHop('ct')").length - 1;
+   const nCT = tuy.innerHTML.split("hsoKBHop(\\'ct\\')").length - 1 + tuy.innerHTML.split("hsoKBHop('ct')").length - 1 + tuy.innerHTML.split('data-lenh="l01.kb" data-k="ct"').length - 1;   /* 3.242: form 01/TD dùng lệnh GD */
    ok('chương trình vay chỉ 1 lối vào (① ⚙ khai báo chương trình)', nCT===1, nCT);
    const h0 = hsoLap().h; kbr.open = false; await w(100);
    ok('thu gọn ⚙ Khai báo riêng → nhớ (vẽ lại vẫn gọn), bản in không đổi', !hsoKBRDangMo('01td') && (hsoVe(), !document.querySelector('#hso-tuy details.hso-kbr-d').open) && hsoLap().h===h0);
