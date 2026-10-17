@@ -1,0 +1,125 @@
+/* ===== 3.225 (anh chốt 17/10/2026 — docs/KE_HOACH_3225_LUU.md): ĐỒNG BỘ DRIVE THEO KHỐI =====
+   Khối: vanban · lich · scan · solieu · hoso · gdx · ktgs · chung. Trên Drive: _Hệ thống/khoi/<khối>__<lô>.json (thư mục phẳng).
+   - Văn bản chia lô theo NĂM, Scan (+ chữ ký · CCCD) theo THÁNG, thùng rác theo khối gốc, mỗi khối 1 file cài đặt (<khối>__caidat).
+   - Kéo: mỗi phút 1 lệnh liệt kê thư mục (tên + giờ sửa) → file nào giờ sửa khác lần trước mới tải về, gộp.
+   - Đẩy: chỉ file có nội dung đổi (so dấu băm lần đẩy trước); file trên Drive vừa bị máy khác sửa → tải về gộp trước rồi mới ghi.
+   - KHÔNG có mục lục chung (2 máy ghi cùng lúc không đè nhau). Luật gộp GIỮ NGUYÊN: danh sách theo mục (bản sửa sau thắng, dấu xóa) — gopTuRemote;
+     cài đặt theo khóa — chApDrive (mốc chBam chỉ đánh dấu đúng các khóa của file vừa đồng bộ).
+   - Chuyển tiếp: vẫn đọc / ghi chimuc.json + cauhinh.json cho máy chưa cập nhật (chimuc.json ghi tối đa 1 lần / giờ);
+     anh bật "Máy cũ đã cập nhật hết" (D.cauHinh.kdBoCu, đồng bộ) → thôi ghi chimuc.json. Tắt hẳn trên 1 máy: localStorage 'tuhoso_dbk' = 'tat'.
+   - Lịch (lich.json), Theo dõi nợ, Số liệu (meta / khach_hang) giữ đường riêng như cũ. */
+var KD_TM = '_Hệ thống/khoi', KD_DANG = null, KD_HEN = null, KD_BAO = false;
+CH_RIENG.push('kdBam', 'kdKeo');   /* mốc đồng bộ riêng từng máy — không lên Drive */
+var KD_KHOI_DS = {vanBan:'vanban', ghiChu:'lich', scan:'scan', kyAnh:'scan', duLieu:'solieu', boHS:'hoso', bieuMau:'gdx'};
+var KD_VB = ['cheCau', 'kieuTen', 'kieuTenThang', 'loaiVB', 'nghiepVu', 'nhomCau', 'phongGanDay', 'phongSo', 'tenCauTruc', 'tuKhoa', 'vtLoai'];
+var KD_LICH = ['nhanGhiChu', 'nhanGCDaGop', 'taNhacKhac', 'tvPhan'];
+function kdKhoiKhoa(k){   /* khóa cài đặt → khối (chưa có trong bảng → chung) */
+  if(/^kt[A-Z0-9]/.test(k) || k==='nkChe') return 'ktgs';
+  if(/^gdx/.test(k)) return 'gdx';
+  if(/^hso|^hoMoi$|^loaiBoHS$|^boMau$/.test(k)) return 'hoso';
+  if(/^scan|^ka[A-Z]|^hs(DS|TuDrive|Khoa)$|^inThe$|^pdfNet$/.test(k)) return 'scan';
+  if(/^sl[A-Z]|^slgb|^tk(Chon|104Tay)$|^ccNho$|^ky(Chot|Chung)$|^to(Nguong|Cot)$|^gb[A-Z]|^mauBaoCao$|^maDaBo$|^boThang$|^capThang$|^soKyBang$/.test(k)) return 'solieu';
+  if(KD_VB.indexOf(k)>=0) return 'vanban';
+  if(KD_LICH.indexOf(k)>=0) return 'lich';
+  return 'chung';
+}
+function kdBat(){ var t = ''; try { t = localStorage.getItem('tuhoso_dbk'); } catch(e){} return t!=='tat'; }
+function kdLo(ngan, m){
+  var k = KD_KHOI_DS[ngan], t = String(m.ngay || m.taoLuc || m.luc || m.suaLuc || '');
+  if(k==='vanban') return k+'__'+(/^\d{4}/.test(t) ? t.slice(0, 4) : 'khac');
+  if(k==='scan') return k+'__'+(/^\d{4}-\d{2}/.test(t) ? t.slice(0, 7) : 'khac');
+  return k+'__ds';
+}
+/* gói toàn bộ phần đồng bộ của máy này thành các file theo khối / lô — thứ tự khóa cố định để so dấu băm */
+function kdGoi(){
+  var F = {}, them = function(ten, ngan, m){ var f = F[ten] = F[ten] || {loai:'tuhoso-khoi', ngan:{}}; (f.ngan[ngan] = f.ngan[ngan] || []).push(m); };
+  Object.keys(KD_KHOI_DS).forEach(function(ng){ (D[ng] || []).forEach(function(m){ if(m && !(typeof laFileHeThong==='function' && laFileHeThong(m))) them(kdLo(ng, m), ng, m); }); });
+  (D.rac || []).forEach(function(m){ if(!m) return; var ten = (KD_KHOI_DS[m.khoCu] || 'chung')+'__rac'; them(ten, 'rac', m);
+    if(Date.now()-new Date(m.xoaLuc || 0).getTime() < 60*864e5) (F[ten].daXoa = F[ten].daXoa || []).push({id:m.id, xoaLuc:m.xoaLuc}); });   /* như chimuc.json: máy khác chuyển mục vào thùng rác theo dấu này */
+  var cd = {}; Object.keys(D.cauHinh).sort().forEach(function(k){ if(chRieng(k) || D.cauHinh[k]===undefined) return; var kh = kdKhoiKhoa(k); (cd[kh] = cd[kh] || {})[k] = D.cauHinh[k]; });
+  Object.keys(cd).forEach(function(kh){ F[kh+'__caidat'] = {loai:'tuhoso-khoi', cd:cd[kh]}; });
+  F['chung__xoa'] = {loai:'tuhoso-khoi', xoa:(D.daXoaHan || []).filter(function(t){ return Date.now()-new Date(t.luc).getTime() < 366*864e5; })};
+  return F;
+}
+function kdBam(o){ return chBamChu(JSON.stringify(o)); }
+function kdDanhDau(cd){ var b = chLaDT(D.cauHinh.chBam) ? D.cauHinh.chBam : (D.cauHinh.chBam = {}); Object.keys(cd || {}).forEach(function(k){ b[k] = chBamChu(JSON.stringify(cd[k])); }); }
+/* gộp 1 file khối từ Drive vào máy này — trả true nếu máy này có đổi */
+function kdGop(j){
+  if(!j || j.loai!=='tuhoso-khoi') return false;
+  var doi = 0;
+  if(j.cd){ doi += chApDrive(j.cd, false); kdDanhDau(j.cd); }
+  if(j.ngan || j.xoa){ var r = {}; Object.keys(j.ngan || {}).forEach(function(k){ r[k] = j.ngan[k]; }); if(j.xoa) r.daXoaHan = j.xoa; if(j.daXoa) r.daXoa = j.daXoa;
+    CM_DANG_KEO = true; try { var kq = gopTuRemote(r); doi += kq.them + kq.xoa; } finally { CM_DANG_KEO = false; } }
+  return doi > 0;
+}
+function kdThuMuc(){ return baoDamDuong(D.cauHinh.thumuc+'/'+KD_TM); }
+function kdDanhSach(id){ return goiDrive('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent("'"+id+"' in parents and trashed=false")+'&fields=files(id,name,modifiedTime)&pageSize=1000')
+  .then(function(kq){ var R = {}; (kq.files || []).forEach(function(f){ if(/\.json$/.test(f.name)) R[f.name.replace(/\.json$/, '')] = f; }); return R; }); }
+function kdTai(f){ return goiDrive('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media'); }
+function kdMoc(){ var c = D.cauHinh; if(!chLaDT(c.kdBam)) c.kdBam = {}; if(!chLaDT(c.kdKeo)) c.kdKeo = {}; return c; }
+/* ⬇ kéo các file khối máy khác vừa sửa */
+function kdKeoVe(){
+  if(!kdBat() || !coTheNoiDrive() || !DR.sanSang) return Promise.resolve(0);
+  var c = kdMoc(), doi = 0, idTM = '';
+  return kdThuMuc().then(function(id){ idTM = id; return kdDanhSach(id); }).then(function(R){
+    return Object.keys(R).filter(function(n){ return R[n].modifiedTime!==c.kdKeo[n]; }).reduce(function(p, n){
+      return p.then(function(){ return kdTai(R[n]); }).then(function(j){
+        if(kdGop(j)) doi++;
+        c.kdKeo[n] = R[n].modifiedTime;
+        var moi = kdGoi()[n]; if(moi && kdBam(moi)===kdBam(j)) c.kdBam[n] = kdBam(moi);   /* máy này không có gì riêng → khỏi đẩy lại */
+      });
+    }, Promise.resolve());
+  }).then(function(){ if(doi){ luu(); try { capNhatDau(); ve(); } catch(e){} } return doi; });
+}
+/* ⬆ đẩy file khối có đổi (Drive vừa đổi thì gộp trước) */
+function kdDay(){
+  if(!kdBat() || !coTheNoiDrive() || !DR.sanSang) return Promise.resolve(0);
+  if(KD_DANG) return KD_DANG;
+  var c = kdMoc(), F = kdGoi(), doi = Object.keys(F).filter(function(n){ return kdBam(F[n])!==c.kdBam[n]; }), so = 0, idTM = '';
+  if(!doi.length) return Promise.resolve(0);
+  KD_DANG = kdThuMuc().then(function(id){ idTM = id; return kdDanhSach(id); }).then(function(R){
+    var dem = demChiMuc(goiChiMuc()), conTren = Object.keys(R).length;
+    return doi.reduce(function(p, n){
+      return p.then(function(){
+        var f = R[n];
+        return (f && f.modifiedTime!==c.kdKeo[n] ? kdTai(f).then(function(j){ kdGop(j); c.kdKeo[n] = f.modifiedTime; }) : Promise.resolve()).then(function(){
+          var o = kdGoi()[n]; if(!o) return;
+          if(dem===0 && conTren >= 3 && o.ngan){ if(!KD_BAO){ KD_BAO = true; baoLoi('Không ghi khối trống lên Drive (máy này đang trống, Drive còn dữ liệu). Vào 💾 Sao lưu để kiểm tra.'); } return; }   /* chặn ghi trống */
+          return ghiJSONLenDrive(n+'.json', idTM, o, f ? {id:f.id} : null).then(function(r){ c.kdBam[n] = kdBam(o); if(r && r.modifiedTime) c.kdKeo[n] = r.modifiedTime; if(o.cd) kdDanhDau(o.cd); so++; });
+        });
+      });
+    }, Promise.resolve());
+  }).then(function(){ KD_DANG = null; if(so) luu(); return so; }, function(e){ KD_DANG = null; console.warn('Chưa đẩy được khối:', e); return 0; });
+  return KD_DANG;
+}
+function kdHen(){ if(!kdBat() || !coTheNoiDrive() || !DR.sanSang || CM_DANG_KEO) return; clearTimeout(KD_HEN); KD_HEN = setTimeout(function(){ kdDay(); }, 5000); }
+
+/* nối vào đường cũ: mỗi lần lưu → hẹn đẩy khối; chimuc.json (máy cũ) tối đa 1 lần / giờ, thôi hẳn khi anh bật "Máy cũ đã cập nhật hết" */
+var KD_HEN_CM_CU = henDongBoChiMuc;
+henDongBoChiMuc = function(){
+  if(!kdBat()) return KD_HEN_CM_CU();
+  kdHen(); if(D.cauHinh.kdBoCu) return;
+  var t = Date.parse(D.cauHinh.chiMucThoi || 0) || 0; if(Date.now()-t > 36e5) KD_HEN_CM_CU();
+};
+/* kéo về (mỗi phút / quay lại app / mở app): đẩy phần máy này đang chờ → kéo khối → rồi đọc chimuc.json (máy cũ có thể vừa ghi) */
+var KD_TAI_CM_CU = taiChiMucTuDrive;
+taiChiMucTuDrive = function(imLang){
+  if(!kdBat()) return KD_TAI_CM_CU(imLang);
+  return kdDay().then(kdKeoVe).then(function(){ return KD_TAI_CM_CU(imLang); }, function(){ return KD_TAI_CM_CU(imLang); });
+};
+/* cài đặt (cauhinh.json) chạy như cũ — nhưng đẩy khối trước để mốc chBam không đánh dấu nhầm khóa chưa lên file khối */
+var KD_DB_CH_CU = dongBoCauHinh;
+dongBoCauHinh = function(cheDo){ if(!kdBat()) return KD_DB_CH_CU(cheDo); return kdDay().then(function(){ return KD_DB_CH_CU(cheDo); }, function(){ return KD_DB_CH_CU(cheDo); }); };
+
+/* giao diện: thêm vào nhóm 🗄 Nơi lưu (💾 Sao lưu) */
+var KD_SL = kbSaoLuuHTML;
+kbSaoLuuHTML = function(){
+  var bat = kdBat(), n = Object.keys(kdMoc().kdKeo).length;
+  return '<div class="hso-kb-nhom"><b>☁ Đồng bộ Drive theo khối</b> <small>(3.225: văn bản theo năm, scan theo tháng, cài đặt theo khối — chỉ gửi / tải phần đổi)</small>'+
+    '<div class="sl-phu">'+(bat ? 'Đang bật'+(n ? ' · '+n+' file khối đã đồng bộ' : '') : 'Đã tắt trên máy này (chỉ dùng chimuc.json / cauhinh.json như cũ)')+
+      ' · Máy cũ (chưa cập nhật): '+(D.cauHinh.kdBoCu ? '<b>đã cập nhật hết</b> — thôi ghi chimuc.json' : 'vẫn ghi chimuc.json mỗi giờ để máy cũ đọc')+'</div>'+
+    '<div class="hang-nut"><button class="nho" onclick="kdDoi()">'+(bat ? 'Tắt trên máy này' : 'Bật trên máy này')+'</button>'+
+      '<button class="nho" onclick="D.cauHinh.kdBoCu=!D.cauHinh.kdBoCu;luu();hsoKBHop(\'sl\')">'+(D.cauHinh.kdBoCu ? 'Ghi lại chimuc.json cho máy cũ' : 'Máy cũ đã cập nhật hết')+'</button>'+
+      (bat && coTheNoiDrive() ? '<button class="nho" onclick="batChay(true);kdDay().then(kdKeoVe).then(function(){tatChay();bao(\'Đã đồng bộ khối.\',3);hsoKBHop(\'sl\')},function(e){tatChay();baoLoi(String(e))})">☁ Đồng bộ ngay</button>' : '')+'</div></div>'+KD_SL();
+};
+function kdDoi(){ try { if(kdBat()) localStorage.setItem('tuhoso_dbk', 'tat'); else localStorage.removeItem('tuhoso_dbk'); } catch(e){} bao(kdBat() ? 'Đã bật đồng bộ theo khối.' : 'Đã tắt đồng bộ theo khối trên máy này.', 4); try { hsoKBHop('sl'); } catch(e){} }
