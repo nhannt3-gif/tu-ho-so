@@ -396,7 +396,7 @@ function scanCopyAnh(){
 function scanXongBo(){
   var bo = function(){ HANG.forEach(function(x){ xoaFileHang(x, []); }); HANG = []; SX = null; ghiHang(); dongHop(); veScan(); };
   if(SX && Object.keys(SX.da).length) return bo();
-  hoi('Bỏ bản vừa quét?', 'Chưa lưu vào máy, chưa gửi, chưa lưu vào tủ — bỏ là mất hẳn. Muốn để làm sau thì bấm Thôi rồi đóng hộp (bản quét giữ trong máy 7 ngày).', 'Bỏ', bo);
+  hoi('Bỏ bản vừa quét?', 'Chưa lưu vào máy, chưa gửi, chưa lưu vào tủ — bỏ là mất hẳn. Muốn để làm sau thì bấm Thôi rồi đóng hộp (bản quét giữ trong máy '+(typeof SC_LOAI!=='undefined' ? '1 ngày' : '7 ngày')+').', 'Bỏ', bo);
 }
 /* 🗄 Lưu vào tủ: chọn khách theo danh bạ Số liệu (Mẫu 31) — tên / mã KH / CCCD; app tự điền xã + ấp.
    Thẻ nhiều người: mỗi người 1 dòng chọn khách. Lưu theo mã KH + tên + ấp (không theo tổ — khách có thể chuyển tổ khi củng cố). */
@@ -921,7 +921,7 @@ function ghiHang(){
 function napHangCu(){
   try{
     var j = JSON.parse(localStorage.getItem(KHOA_HANG)||'null');
-    if(j && j.ds && j.ds.length && j.luc && Date.now()-new Date(j.luc).getTime() > 7*864e5){ j.ds.forEach(function(x){ xoaFileHang(x, []); }); localStorage.removeItem(KHOA_HANG); return; }   /* 3.155 */
+    if(j && j.ds && j.ds.length && j.luc && Date.now()-new Date(j.luc).getTime() > (typeof SC_LOAI!=='undefined' ? 864e5 : 7*864e5)){ j.ds.forEach(function(x){ xoaFileHang(x, []); }); localStorage.removeItem(KHOA_HANG); return; }   /* 3.155 */
     if(j && j.ds && j.ds.length && !HANG.length){ HANG = j.ds; if(j.che) SC.che = j.che; }
   }catch(e){}
 }

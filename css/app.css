@@ -3521,3 +3521,6 @@ table.hm-so{min-width:1348px}
 .om-o-ten{padding:6px 8px;border-left:3px solid var(--xanh);background:rgba(26,95,180,.06);margin-bottom:6px}.om-phan{display:flex;align-items:center;gap:6px;margin:3px 0}.om-phan span{flex:1}
 .om-chu{padding:0 4px;border-radius:3px}.om-chu.om-tu{background:#d9f0d3}.om-chu.om-kb{background:#fff0b3}.om-chu.om-go{background:#dbeafe}.om-chu.om-cham{background:#eef0f3}
 @media(max-width:899px){ .om-kbt{grid-template-columns:1fr} }
+
+/* 3.224 scan: ① chọn loại */
+.sc-loai{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.sc-loai button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 12px;border:1px solid var(--vien);border-radius:10px;background:var(--the);text-align:left;cursor:pointer}.sc-loai button b{font-size:calc(15px*var(--co))}.sc-loai button small{color:var(--chu-phu);font-size:calc(12px*var(--co))}.sc-loai button.bat{border-color:var(--xanh);box-shadow:0 0 0 2px var(--xanh) inset}

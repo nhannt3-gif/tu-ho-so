@@ -18,11 +18,11 @@ const path=require('path');
    XH = {bl:new Blob(['%PDF-1.4 giả'], {type:'application/pdf'})};
    tiepHang(); await w(200);
    const hop = document.getElementById('hop-in').textContent;
-   ok('Tiếp → hộp chọn: 💾 Lưu vào máy · 📤 Gửi · 📋 Copy ảnh · 🗄 Lưu vào tủ', /Lưu vào máy/.test(hop) && /Gửi/.test(hop) && /Copy ảnh/.test(hop) && /Lưu vào tủ hồ sơ/.test(hop) && document.querySelectorAll('#hop-in .sx-o').length===4);
-   ok('thẻ: Lưu vào máy ghi "4 người / A4" (PDF như bản in)', /4 người \/ A4/.test(hop));
+   ok('3.224: Đạt → bộ nút chuẩn 🖨 In · 💾 Lưu vào máy · 🗂 Lưu vào app · 🗄 Lưu + khai ngay · 📤 Gửi Zalo · ✕ Bỏ', /In/.test(hop) && /Lưu vào máy/.test(hop) && /Lưu vào app/.test(hop) && /khai ngay/.test(hop) && /Gửi Zalo/.test(hop) && /Bỏ/.test(hop) && document.querySelectorAll('#hop-in .sx-o').length===5);
+   ok('thẻ: In ghi đúng khổ thẻ', /đúng khổ thẻ/.test(hop));
    ok('không tự lưu tạm vào tủ (D.scan vẫn trống), phiên quét dở giữ trong máy', D.scan.length===0 && !!localStorage.getItem(KHOA_HANG));
    /* Lưu vào máy (máy tính → tải về) */
-   let tai = null; const tx0 = taiXuongBlob; window.taiXuongBlob = (bl, ten) => { tai = ten; };
+   window.showSaveFilePicker = undefined; let tai = null; const tx0 = taiXuongBlob; window.taiXuongBlob = (bl, ten) => { tai = ten; };
    scanLuuMay(); window.taiXuongBlob = tx0;
    ok('💾 Lưu vào máy: tải PDF, nút có ✓', /^CCCD \d\d-\d\d-\d\d \d\dh\d\d\.pdf$/.test(tai||'') && document.querySelector('.sx-o.da'), tai);
    /* Copy ảnh */
