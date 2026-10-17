@@ -128,5 +128,6 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     6. Lưu **tự đặt tên**: **tên hộ vay không dấu + tổ + ấp** (để nhớ). Các mẫu khác tương tự.
     7. Bản đã lưu hiện thành **1 danh sách ngay dưới form nhập**.
     8. Bố trí form **gọn trong 1 trang màn hình**.
+  - **Ý 16 (17/10):** form lập mẫu **đi đúng thứ tự trên tờ mẫu** cho quen — ô chọn nhanh (chương trình, mục đích…) **nằm đúng chỗ của nó trên giấy**, không gom riêng lên đầu.
   - **Đủ ý bộ 01 + 03 + 06 — chờ anh nhắn "code".**
 
