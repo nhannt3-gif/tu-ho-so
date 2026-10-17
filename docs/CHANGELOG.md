@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.237 — 17/10/2026 — Chuẩn hóa R4 phần 1: phép thử nhanh lớp Nghiệp vụ (node)
+- **Anh duyệt 17/10** (`docs/KE_HOACH_CHUAN_HOA.md` mục 2.8).
+- **`tests/nhanh/nen.js`:** nạp toàn bộ code app (đúng thứ tự `index.html`) vào node, không trình duyệt; DOM / trình duyệt thay bằng đồ giả vô hại, hẹn giờ không chạy — nạp 62 file trong ~0,1 giây.
+- **`tests/nhanh/thu.js`** (26 phép thử, < 0,2 giây; "hôm nay" cố định 17/10/2026):
+  - chuẩn hóa chữ (`slChuan`, `boDauTen`), ngày (`ngayVNsl`, gõ ngày liền số);
+  - hạn CCCD theo mốc 14 / 25 / 40 / 60 tuổi (còn / hết / sắp hết / CMND 9 số / sau 58 tuổi);
+  - thiếu thông tin hộ (`hmThieu`), kiểm tra hộ vay (tuổi), địa bàn (`pvLoc`, `hmTrongDB`);
+  - tổng gói số liệu điện thoại (`gxTong`), khối đồng bộ cài đặt (`chKhoiCua`);
+  - `coChuHTML`, `GD.nut`, thứ tự bộ nút xuất.
+  - **`kiem.py` tự chạy** — trượt là lỗi.
+- **Sửa (phép thử nhanh bắt được):** `coChuHTML` không thoát dấu `"` mà được đặt trong `value="…"` / `title="…"` ở 133 chỗ → chữ có dấu nháy kép làm vỡ ô nhập / nút. Nay thoát cả `"` (trong chữ thường vẫn hiện đúng). `GD` (3.234) tự thoát.
+- Hạ mốc thước đo theo 3.236 (JS lúc mở 2.950 KB, file > 150 KB: 4).
+
 ## 3.236 — 17/10/2026 — Chuẩn hóa R3 phần 2: khuôn Word KTGS nạp khi dùng
 - **Anh duyệt 17/10** (`docs/KE_HOACH_CHUAN_HOA.md` R3 — nạp theo tab).
 - Khuôn Word KTGS (490 KB, chỉ là dữ liệu mẫu trắng) chuyển `js/22k-kt-khuon.js` → `js/khuon/kt-khuon.js`, **bỏ khỏi `index.html`**: JS nạp lúc mở app 3.430 → 2.950 KB.

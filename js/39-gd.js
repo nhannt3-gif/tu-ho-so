@@ -16,7 +16,7 @@ var GD = (function(){
     f(el, ev);
   }
   ['click', 'change', 'input'].forEach(function(t){ document.addEventListener(t, chay); });
-  function e(s){ return typeof coChuHTML==='function' ? coChuHTML(s) : String(s==null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'}[c]; }); }
+  function e(s){ return String(s==null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'}[c]; }); }   /* 3.237: tự thoát cả dấu " (coChuHTML không thoát → vỡ title / value) */
   function du(d){ return Object.keys(d || {}).map(function(k){ return ' data-'+k+'="'+e(d[k])+'"'; }).join(''); }
   /* nút: {chu, lenh, du, chinh, tat, tit, lop} — luôn vừa chữ, không giãn */
   function nut(o){ return '<button type="button" class="nho gd-nut'+(o.chinh ? ' chinh' : '')+(o.lop ? ' '+o.lop : '')+'"'+(o.lenh ? ' data-lenh="'+o.lenh+'"' : '')+du(o.du)+(o.tit ? ' title="'+e(o.tit)+'"' : '')+(o.tat ? ' disabled' : '')+'>'+o.chu+'</button>'; }

@@ -60,6 +60,13 @@ if len(sys.argv)<2 and os.path.exists(os.path.join(ghep.GOC,'dt.html')):
         r=subprocess.run(['node','--check',sw],capture_output=True,text=True)
         if r.returncode: loi.append('dt-sw.js: lỗi cú pháp')
         if ban and ("'tuhoso-dt-%s'" % ban.group(1)) not in open(sw,encoding='utf-8').read(): loi.append('dt-sw.js: tên bộ đệm khác APP_BAN')
+# 3.237 (R4): phép thử nhanh lớp Nghiệp vụ (node, < 1 giây) — trượt là lỗi
+if len(sys.argv)<2 or '--nhanh' in sys.argv:
+    _r=subprocess.run(['node',os.path.join(ghep.GOC,'tests','nhanh','thu.js')],capture_output=True,text=True)
+    _d=(_r.stdout.strip().splitlines() or ['?'])[-1]
+    if _r.returncode: loi.append('phép thử nhanh: '+_d+' — '+'; '.join(x[2:] for x in _r.stdout.splitlines() if x.startswith('✗'))[:300])
+    NHANH=_d
+else: NHANH=''
 # 3.234 (anh 17/10: dòng trắng ở chế độ tối): biến màu chưa khai mà dự phòng là màu sáng cố định → chế độ tối ra mảng trắng
 _cs=open(os.path.join(ghep.GOC,'css','app.css'),encoding='utf-8').read(); _khai=set(re.findall(r'(--[\w-]+)\s*:',_cs+s))
 for v,du in re.findall(r'var\((--[\w-]+)\s*,\s*(#[0-9a-fA-F]{3,6}|white)\)',_cs):
@@ -69,6 +76,7 @@ dem={}
 for w in re.findall(r'[A-Za-z_$][\w$]*',s): dem[w]=dem.get(w,0)+1
 mo_coi=sorted({x for x in top if dem.get(x,0)<=1})
 print('Cú pháp', 'OK' if not loi else 'LỖI '+'; '.join(loi), '· Trùng tên:', ', '.join(dup) or 'không', '· Thiếu hàm:', ', '.join(sorted(set(thieu)|set(thieu_onc))) or 'không')
+if NHANH: print('Phép thử nhanh (tests/nhanh):', NHANH)
 print('Hàm mồ côi (chỉ báo, dọn dần):', len(mo_coi), ('— '+', '.join(mo_coi)) if MO_COI else '— xem danh sách: python3 tests/kiem.py --mo-coi')
 # 3.230 (R1 — KE_HOACH_CHUAN_HOA mục 2.7): THƯỚC ĐO chống lệch hướng — so với mốc tests/do_moc.json; tăng → ⚠ (giải thích trong CHANGELOG hoặc dọn bớt), giảm → hạ mốc bằng --moc
 if len(sys.argv)<2:
