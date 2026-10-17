@@ -16,7 +16,7 @@ const fs=require('fs'), path=require('path');
    /* 1. Khai báo đơn vị — 1 cửa sổ cho mọi tab */
    slDoiTab('gdx'); await w(600); gdxKBChung(); await w(200); let hop = document.getElementById('hop-in');
    ok('Giao dịch xã › ⚙ Khai báo đơn vị → cùng cửa sổ, mở ở tab 👤 Cán bộ', /Khai báo đơn vị — dùng chung mọi tab/.test(hop.textContent) && hop.querySelector('.hso-kbp[data-kb="cb"]').style.display==='' && !!hop.querySelector('#gdx-cbmoi'));
-   ok('đủ tab: PGD · Cán bộ · Hội · Trưởng ấp · Tổ phó · Chương trình vay · TK 104 / 105 · 💾 Sao lưu (3.223)', [...hop.querySelectorAll('.hso-kbt')].map(e=>e.getAttribute('data-kb')).join(',')==='pgd,cb,hoi,ap,pho,ct,tk,sl');
+   ok('đủ tab: PGD · Cán bộ · Hội · Trưởng ấp · Tổ phó · Chương trình vay · TK 104 / 105 · 🔎 Kiểm tra hộ vay (3.228) · 💾 Sao lưu (3.223)', [...hop.querySelectorAll('.hso-kbt')].map(e=>e.getAttribute('data-kb')).join(',')==='pgd,cb,hoi,ap,pho,ct,tk,kiem,sl');
    const nCB = gdxC().danhSachCanBo.length; document.getElementById('gdx-cbmoi').value = 'Cán Bộ Giả'; gdxThemCanBo(); await w(150); hop = document.getElementById('hop-in');
    ok('thêm cán bộ trong cửa sổ chung → lưu đúng chỗ cũ (gdxC), cửa sổ vẫn ở tab Cán bộ', gdxC().danhSachCanBo.length===nCB+1 && hop.querySelector('.hso-kbp[data-kb="cb"]').style.display==='');
    gdxBoCanBo(gdxC().danhSachCanBo.length-1);

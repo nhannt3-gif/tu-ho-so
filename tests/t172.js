@@ -18,7 +18,7 @@ const fs=require('fs'), path=require('path');
    ok('nút "⚙ Khai báo đơn vị" + cột trái ghi "⚙ Khai báo riêng — Mẫu 01/TD" (3.222)', /⚙ Khai báo đơn vị/.test(document.getElementById('hso-tabm').textContent) && /Khai báo riêng — Mẫu 01\/TD/.test(document.getElementById('hso-tuy').textContent));
    hsoKBHop('ct'); await w(200);
    const hop = document.getElementById('hop-in');
-   ok('cửa sổ có tab con PGD · Cán bộ · Hội · Trưởng ấp · Tổ phó · Chương trình vay · TK (3.222); mở tab Chương trình vay', [...hop.querySelectorAll('.hso-kbt')].map(e=>e.getAttribute('data-kb')).join(',')==='pgd,cb,hoi,ap,pho,ct,tk,sl' && hop.querySelector('.hso-kbp[data-kb="ct"]').style.display==='' && hop.querySelector('.hso-kbp[data-kb="pgd"]').style.display==='none');
+   ok('cửa sổ có tab con PGD · Cán bộ · Hội · Trưởng ấp · Tổ phó · Chương trình vay · TK (3.222); mở tab Chương trình vay', [...hop.querySelectorAll('.hso-kbt')].map(e=>e.getAttribute('data-kb')).join(',')==='pgd,cb,hoi,ap,pho,ct,tk,kiem,sl' && hop.querySelector('.hso-kbp[data-kb="ct"]').style.display==='' && hop.querySelector('.hso-kbp[data-kb="pgd"]').style.display==='none');
    ok('3 thẻ mặc định HSSV · NSVSMT · GQVL', hsoCTVDs().map(c=>c.ma).join(',')==='HSSV,NSVSMT,GQVL' && hop.querySelectorAll('.hso-ctv').length===3);
    ok('khai báo cũ "MÃ: …" (đối tượng thụ hưởng) chuyển vào thẻ', hsoCTV('HSSV').dtth.indexOf('Hộ gia đình giả khó khăn')>=0 && hsoCTV('NSVSMT').dtth.indexOf('Hộ giả nông thôn')>=0 && hsoCTV('GQVL').dtth.join()==='Người lao động');
    hsoKBTab('ap'); ok('bấm tab Trưởng ấp → hiện, có chọn xã', hop.querySelector('.hso-kbp[data-kb="ap"]').style.display==='' && !!hop.querySelector('.hso-kbp[data-kb="ap"] .hso-kb-loc select'));

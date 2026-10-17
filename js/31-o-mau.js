@@ -34,7 +34,7 @@ function omPhanDien(mk, p){   /* 📝 bản mẫu: phần p có điền không *
 function omCachLuu(mk, k){   /* cách anh chọn cho ô (bản thật) — đọc cả giá trị cũ 'in' (3.206–3.222) */
   var x = (OM_MAU[mk] || {}).oK[k] || {}, ds = OM_LOAI[x.l] || ['cham'], c = ((hsoLuu().cham||{})[mk]||{})[k];
   if(c==='in') c = ds[1] || 'cham'; if(ds.indexOf(c)>=0) return c;
-  if(ds.indexOf('kb')>=0 && omKB(mk, k)) return 'kb';   /* 3.229: khai báo riêng trước */
+  if(ds.indexOf('kb')>=0 && x.md && x.md!=='cham' && omKB(mk, k)) return 'kb';   /* 3.229: khai báo riêng trước (ô mặc định ✍ chấm giữ chấm — ↺ Về mặc định vẫn đúng) */
   return x.md || 'cham'; }
 function omCach(mk, k){   /* cách hiệu lực theo kiểu in đang chọn */
   var x = (OM_MAU[mk] || {}).oK[k] || {};

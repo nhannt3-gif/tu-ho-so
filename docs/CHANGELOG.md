@@ -11,7 +11,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **🖼 Khai báo trực quan:** "Nguồn chữ" từng ô theo 4 nguồn; ô ⌨ hiện chữ tự động làm gợi ý + nút **⧉ Chép từ Mẫu 31 / Khai báo chung để sửa** (`omChepTu`, `omVTam`); tóm tắt cột trái đếm theo nguồn.
 - **Thống nhất mọi mẫu (anh 17/10: "mẫu nào khai theo mẫu đó"):** `omDangKy` — ô lấy ⚙ khai báo chung (`tukb`, hoặc `tu` có nguồn Khai báo đơn vị) mặc định ⌨ riêng mẫu (11/TD, 07b Bên A, 01/TĐCK, 01/GQVL, 10A…); chưa gõ → in như khai báo chung.
 - **Chưa làm (cuốn chiếu theo từng mẫu khi anh rà):** 4 luật điền (tên dài đẩy năm sinh, không thu nhỏ chữ; địa chỉ liền mạch xã / phường; khung ngày) — `docs/KE_HOACH_3228.md` mục 3.229; ô Đại diện · Chức vụ chung 1 ô (chức vụ vẫn theo khai báo chung).
-- **Phép thử:** `tests/t191.js` (mới, 16). t181 chỉ gõ giả ô khai báo như trước; t184 theo tóm tắt mới.
+- Riêng trước chỉ áp ô có nguồn mặc định (📊 / ⚙ / ⌨); ô mặc định ✍ chấm giữ chấm (↺ Về mặc định đúng như cũ).
+- **Phép thử:** `tests/t191.js` (mới, 17). t181 chỉ gõ giả ô khai báo như trước; t184 theo tóm tắt mới; t172, t178 thêm tab 🔎 Kiểm tra hộ vay.
+- **Hồi quy đủ (1 lần cho 3.227–3.229):** sạch trừ t100, t116, t158 (trượt sẵn trên main); 3 chỗ trượt do bản (t172, t178 ×2) đã sửa, chạy lại riêng đạt.
 
 ## 3.228 — 17/10/2026 — 🔎 Kiểm tra hộ vay khi nhập (khai báo được) · GQVL số lượng + đơn vị
 - **Anh chốt 17/10:** khi nhập hộ kiểm tra liền logic, đa chiều, trùng so Mẫu 31 (CCCD, SĐT, họ tên gần đúng, người thừa kế); lấy từ hộ cũ báo đang vay mấy món + tóm tắt; cho đổi tổ nhưng báo tổ cũ; trên 65 tuổi cảnh báo; logic kiểm tra cho khai báo; cảnh báo phát triển hết mức; GQVL mục đích đa dạng — nhập mục đích + số lượng (4 con, 25 m²); HSSV 01/TD có xác nhận, NSVSMT 01/TD thường, GQVL 07b (giữ như cũ).
