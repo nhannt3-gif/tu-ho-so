@@ -387,12 +387,6 @@ function thucHienDuyet(id, thay){
   duyetThat(id);
 }
 /* cho phép lưu một file dữ liệu phụ (anh bấm "Vẫn lưu") */
-function vanLuuBanPhu(id){
-  var m = (D.cho||[]).find(function(x){ return x.id===id; });
-  if(!m) return;
-  m.chapNhanPhu = true; m.tenMoi = tenDuLieu(m, m.duoi);
-  luu(); duyet(id);
-}
 function duyet(id, imLang){
   var m0 = (D.cho||[]).find(function(x){ return x.id===id; });
   /* 3.31 (mục 11a): kỳ đã chốt — thêm file phải xác nhận */
@@ -1041,7 +1035,6 @@ function moBangMay(){
 
 /* giữ tên cũ cho các chỗ đang gọi */
 function zoom(h){ zoomKhung('lon', h); }
-function apZoom(){ apZoomKhung('lon'); }
 
 function dongXem(){
   document.getElementById('xem').classList.remove('hien');
@@ -1062,17 +1055,6 @@ var trangChon = {};
 function doiChonTrang(box, i){
   if(trangChon[i]){ delete trangChon[i]; box.classList.remove('chon'); }
   else { trangChon[i] = 1; box.classList.add('chon'); }
-  capNhatThanhChon();
-}
-function chonHetTrang(){
-  var ds = document.querySelectorAll('.o-trang');
-  for(var i=0;i<ds.length;i++){ trangChon[+ds[i].dataset.trang]=1; ds[i].classList.add('chon'); }
-  capNhatThanhChon();
-}
-function boChonTrang(){
-  trangChon = {};
-  var ds = document.querySelectorAll('.o-trang');
-  for(var i=0;i<ds.length;i++) ds[i].classList.remove('chon');
   capNhatThanhChon();
 }
 function capNhatThanhChon(){

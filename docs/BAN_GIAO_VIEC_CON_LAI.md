@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.230) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app, dùng các tab như thường ngày | Không có chỗ nào báo lỗi / nút không chạy (bản này chỉ dọn hàm không còn dùng) | |
+| 2 | ❓ › Có gì mới | 15 dòng gần nhất + link lịch sử đầy đủ | |
+| 3 | Hồ sơ vay › 📒 Sổ hộ vay | Thanh lọc gọn, ô tìm / ô chọn không kéo dài | |
+
+**Ghi chú kỹ thuật 3.230:** nếu anh gặp nút bấm không phản hồi ở chỗ ít dùng, báo em tên nút — có thể là hàm em dọn nhầm (đã đối chiếu tên trong toàn bộ mã + phép thử, nhưng tên ghép động thì không dò được).
+
 ### Danh sách thử trên máy thật (3.229) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

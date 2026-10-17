@@ -14,7 +14,6 @@ function demDiaBan(){
   });
   return ra;
 }
-function demDiaBan2(){ return demDiaBan(); }
 
 /* ---- bật/tắt nhanh ---- */
 function datLenDrive(v, el){

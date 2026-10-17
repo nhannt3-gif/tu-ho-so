@@ -261,13 +261,6 @@ function chuyenLienQuan(){
   return n;
 }
 /* 3.65 (việc AA): chọn văn bản bằng cách GÕ SỐ HIỆU — tìm trong mọi văn bản của app (mọi loại); app không tự đoán */
-function oTimVB(id, nhan, gtri, boQua){
-  var v = gtri && timMuc(gtri);
-  return '<div class="o tvb"><label>'+nhan+'</label><div class="tvb-o"><input id="'+id+'-tim" autocomplete="off" placeholder="Gõ số hiệu, vd 70/QĐ" value="'+coChuHTML(v?tenNganVB(v):'')+'" '+
-    'oninput="tvbGoi(\''+id+'\',\''+(boQua||'')+'\')" onfocus="tvbGoi(\''+id+'\',\''+(boQua||'')+'\')">'+
-    '<button class="nho" type="button" title="Bỏ chọn" onclick="tvbChon(\''+id+'\',\'\')">✕</button></div>'+
-    '<input type="hidden" id="'+id+'" value="'+coChuHTML(v?v.id:'')+'"><div class="tvb-ds" id="'+id+'-ds"></div></div>';
-}
 function tvbSo(t){ return boDau(String(t||'')).replace(/[^a-z0-9]/g,''); }
 function tvbGoi(id, boQua){
   var e = document.getElementById(id+'-tim'), ds = document.getElementById(id+'-ds'); if(!e || !ds) return;
@@ -423,19 +416,6 @@ var SG_HD = {
 /* 3.75 (AP — quy tắc phím chung): ô gốc của cây (cha) để trống thì không cho sang ô con */
 var SG_CAY = {'k-xa':'Xã / phường', 'k-diem':'Điểm giao dịch', 'k-ap':'Ấp / khu phố'};
 /* 3.72 (anh chốt): hướng dẫn + ví dụ hiện ngay trên ô đang gõ */
-function sgBong(el){   /* 3.78: không dùng nữa (bong bóng nổi che ô) — giữ tên cho chỗ cũ gọi */
-  var cu = document.getElementById('sg-bong'); if(cu) cu.remove(); return;
-  var r = el && el.closest && el.closest('.sua-trai'); if(!r || !el.id) return;
-  var g = SG_HD[el.id] || GOI_Y_O[el.id], nd = '';
-  if(el.id==='s-tag-go'){ var gy = tgGoiY(); nd = 'Bấm chip để chọn / bỏ · gõ để lọc · Enter tạo tag mới'+(gy.length?' · <span class="sg-vd">gợi ý: '+gy.map(coChuHTML).join(', ')+'</span>':''); }
-  else if(g) nd = coChuHTML(SG_HD[el.id] ? g[0] : (g[1]||g[0]))+(SG_HD[el.id] && g[1] ? ' · <span class="sg-vd">Ví dụ: '+coChuHTML(g[1])+'</span>' : (!SG_HD[el.id] && g[0] && !/Ví dụ|vd:/i.test(g[1]||'') ? ' · <span class="sg-vd">Mẫu: '+coChuHTML(g[0])+'</span>' : ''));
-  if(!nd) return;
-  var b = document.createElement('div'); b.id = 'sg-bong'; b.className = 'sg-bong'; b.innerHTML = '💡 '+nd;
-  r.appendChild(b);
-  var o = el.closest('.chip-o, .tg-hang') || el, ro = o.getBoundingClientRect(), rr = r.getBoundingClientRect();
-  var trai = Math.max(4, Math.min(ro.left - rr.left, rr.width - b.offsetWidth - 6));
-  b.style.left = trai+'px'; b.style.top = (ro.top - rr.top + r.scrollTop - b.offsetHeight - 6)+'px';
-}
 /* 3.78 (anh chốt): bỏ bong bóng nổi (che các ô phía trên) → hướng dẫn + ví dụ hiện ở DẢI CHIP XANH CỐ ĐỊNH đầu hộp (#sg-hd);
    dải giữ chỗ sẵn nên không xô lệch ô; phím tắt chữ nhỏ cuối dải */
 function sgNoiDungHd(el){
@@ -769,11 +749,6 @@ function traDuongMacDinh(id){
 }
 
 /* ngày hiển thị dd/mm/yyyy, lưu lại yyyy-mm-dd */
-function ngayVNo(iso){
-  if(!iso) return '';
-  var p = String(iso).split('-');
-  return p.length===3 ? p[2]+'/'+p[1]+'/'+p[0] : iso;
-}
 function ngayISOo(vn){
   if(!vn) return '';
   var t = String(vn).replace(/[^\d]/g,'');
@@ -832,20 +807,6 @@ function ngayVao(t){
   if(/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
   return '';
 }
-function themLoaiVB(){
-  var v = prompt('Tên loại văn bản mới:','');
-  if(!v) return;
-  v = v.trim();
-  D.cauHinh.loaiVB = D.cauHinh.loaiVB||[];
-  if(D.cauHinh.loaiVB.indexOf(v)<0) D.cauHinh.loaiVB.push(v);
-  luu();
-  var e = document.getElementById('s-loai');
-  if(e){
-    var op = document.createElement('option');
-    op.textContent = v; e.appendChild(op); e.value = v;
-  }
-  bao('Đã thêm loại "'+v+'".', 3);
-}
 
 function o(nhan,id,gt,hd){
   return '<div class="o"><label>'+coChuHTML(nhan)+'</label>'+
@@ -902,15 +863,6 @@ function xemTenTruoc(){
         coChuHTML(tr[0].trichYeu||tr[0].tenMoi||'')+'</b>. Kiểm lại kẻo lưu trùng.</div>'
       : '';
   }
-}
-function giuTenGoc(id){
-  var m = D.cho.find(function(c){ return c.id===id; }) || timMuc(id);
-  if(!m) return;
-  m.giuTen = true;
-  m.tenMoi = m.tenCu;
-  var e = document.getElementById('ten-truoc');
-  if(e) e.textContent = m.tenCu;
-  bao('Giữ nguyên tên gốc. App chỉ ghi vào chỉ mục.', 4);
 }
 
 function luuSua(id){
@@ -1176,15 +1128,6 @@ function khoCuaMuc(m){
   if(laBieuMau(m)) return 'bieuMau';
   return m.nhom==='duLieu' ? 'duLieu' : m.nhom==='ghiChu' ? 'ghiChu' : 'vanBan';
 }
-function lienKetDen(id){
-  var ra = [];
-  D.vanBan.forEach(function(v){
-    if((v.lienQuan||[]).indexOf(id)>=0) ra.push('Văn bản liên quan: '+tenNganVB(v));
-  });
-  (D.bieuMau||[]).forEach(function(b){ if(b.vbKem===id) ra.push('Biểu mẫu ban hành kèm: '+(b.ten||b.tenMoi||'')); });
-  D.ghiChu.forEach(function(g){ if(g.gocVB===id) ra.push('Ghi chú gắn vào: '+(g.moTa||g.tenMoi||'')); });
-  return ra;
-}
 function chuyenVaoRac(ids, lyDo){
   var now = new Date().toISOString(), n = 0; D.rac = D.rac || [];
   /* 3.79.1 (SỬA LỖI MẤT DANH SÁCH SCAN): trước gán D.scan = HS.ds kể cả khi tab Scan CHƯA mở (HS.ds = [] lúc khởi động)
@@ -1358,14 +1301,6 @@ function boThangDon(){
   });
 }
 /* chọn nhanh trong thùng rác: tất cả / cũ hơn N ngày */
-function chonRac(kieu){
-  var han = kieu==='tat' ? Infinity : Date.now()-kieu*864e5;
-  Array.prototype.forEach.call(document.querySelectorAll('#rac-ds input[type=checkbox]'), function(c){
-    var luc = new Date(c.getAttribute('data-luc')||0).getTime();
-    c.checked = kieu==='bo' ? false : (kieu==='tat' ? true : luc < han);
-  });
-  demChonRac();
-}
 function idChonRac(){
   return Array.prototype.slice.call(document.querySelectorAll('#rac-ds input[type=checkbox]:checked'))
     .map(function(c){ return c.value; });
@@ -1441,14 +1376,6 @@ function chipChoKhai(tab){
   if(!n) return '';
   var ct = Object.keys(g).filter(function(k){ return g[k].length; }).map(function(k){ return CK_TEN[k].split(' — ')[0]+' '+g[k].length; }).join(' · ');
   return '<button class="chip-ck" onclick="moChoKhai()" title="File chờ khai thông tin: '+coChuHTML(ct)+' — bấm mở danh sách">📥 '+n+'<span class="ck-chu"> chờ khai ›</span></button>';
-}
-function daiChoKhaiHTML(){
-  var g = dsChoKhai(), n = Object.keys(g).reduce(function(a,k){ return a+g[k].length; }, 0);
-  if(!n || CHO_KHAI) return '';
-  return '<div class="dai-ck" onclick="moChoKhai()"><b>📥 '+n+' file chờ khai thông tin</b>'+
-    Object.keys(g).filter(function(k){ return g[k].length; }).map(function(k){
-      return '<span>'+CK_TEN[k].split(' — ')[0]+' '+g[k].length+'</span>'; }).join('')+
-    '<em>Mở danh sách ›</em></div>';
 }
 function tenKho(nhom){
   return {vanBan:'Văn bản', duLieu:'Dữ liệu tháng', ghiChu:'Ghi chú', bieuMau:'Biểu mẫu', scan:'Scan'}[nhom] || 'Văn bản';
@@ -2053,7 +1980,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.229', ds:[
+var CO_GI_MOI = {ban:'3.230', ds:[
+  ["🧹 Chuẩn hóa đợt R1: app nhẹ hơn ~140 KB — bỏ 93 hàm không còn dùng, \"Có gì mới\" chỉ giữ 15 dòng gần nhất (lịch sử đủ ở CHANGELOG)", "moHuongDan('moi')"],
+  ["📒 Sổ hộ vay: tắt khung xem không còn bung ô tìm / ô chọn / chip — vừa nội dung, chữ cùng cỡ nút", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
   ["⌨ Khai báo riêng từng mẫu 4 nguồn: ✍ Ghi tay · 📊 Mẫu 31 · ⚙ Khai báo chung · ⌨ Tự gõ (nhớ riêng mẫu) — mẫu lấy khai báo riêng trước; ⧉ chép chữ tự động để sửa vài chữ", "slDoiTab('hst');doiNgan(7);hsoChonMau('11')"],
   ["📄 Mọi mẫu: ô lấy khai báo chung (Bên A, tên PGD, đại diện…) mặc định ⌨ khai riêng theo mẫu đó — chưa gõ thì in như khai báo chung", "slDoiTab('hst');doiNgan(7);hsoChonMau('11')"],
   ["🔎 Sổ hộ vay: app tự kiểm tra khi nhập hộ — tuổi (trên 65 cảnh báo), CCCD, trùng CCCD / SĐT / họ tên gần đúng / vợ chồng (sổ + Mẫu 31), thừa kế, hộ đang vay mấy món (quá hạn, cùng chương trình), đổi tổ (ghi tổ cũ), theo chương trình; 🔴 chặn lưu, ✓ Đã kiểm tra", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
@@ -2066,403 +1995,16 @@ var CO_GI_MOI = {ban:'3.229', ds:[
   ["📷 Scan mới: chọn loại trước (CCCD · Tài liệu · Chữ ký · Ảnh khách) — Tài liệu không bao giờ đòi mặt 2; bộ nút chuẩn In · Lưu vào máy · Lưu vào app · Gửi Zalo · Bỏ", "doiNgan(4);batDauScan()"],
   ["🗂 Lưu vào app = ⏳ Chờ khai báo: chưa lên Drive cho tới khi khai đủ xã, ấp, tổ; 💾 Lưu vào máy chỉ ra file (máy tính có hộp Lưu thành)", "doiNgan(4)"],
   ["✍ Chữ ký giữ nguyên mẫu chụp (JPG, chỉ khử bóng mờ, dưới 200 KB); 📄 tài liệu mặc định lọc Văn bản rõ", "doiNgan(4)"],
-  ["☁ Đồng bộ Drive theo khối: văn bản theo năm, scan theo tháng, ghi chú… — chỉ gửi / tải phần đổi, nhanh hơn nhiều khi dữ liệu lớn", "slDoiTab('hsv');doiNgan(7);hsoKBHop('sl')"],
-  ["🧾 Bảng kê: địa chỉ viết tắt \"khu phố\" → \"KP\" cho đủ 1 dòng (không còn bị che chữ)", "slDoiTab('gdx');doiNgan(7)"],
-  ["📄 Hồ sơ vay / Hồ sơ Tổ: 13 mẫu dựng lại đúng form file Word gốc (lề, cỡ chữ, ngắt dòng, ngắt trang, chú thích chân trang) — 01/TD, 01/UQ, 03/TD, 09A, 01/TĐCK, 01/TGTV, 01/GQVL, 07b, 10A, 10B, 10C cũ / mới, 11 cũ / mới", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
-  ["✎ Mọi chỗ chấm thành ô tùy biến: 3 kiểu in 📄 Trắng · 🖨 Thật · 📝 Mẫu; chữ dài tự thu nhỏ trong khung và báo ⚠; 🖼 khai báo trực quan (bấm ô trên trang)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
-  ["👥 Hồ sơ Tổ: 10C cũ / 10C mới, 11 cũ / 11 mới là chip riêng (anh tự chọn, bỏ chọn theo ngày); thêm 10D/TD giải thể Tổ; ngày họp mặc định để chấm", "slDoiTab('hst');doiNgan(7)"],
-  ["📒 Sổ hộ vay đủ cột: ➕ thông tin thêm mỗi người (giới tính, dân tộc, nghề, thu nhập, địa chỉ, nơi làm việc, hộ KD…) + cột Cần bổ sung theo mẫu", "slDoiTab('hsv');doiNgan(7)"],
-  ["💾 Lưu an toàn: tự chụp khai báo hằng ngày (giữ 10 bản, ↩ khôi phục), xuất / nạp khai báo ra file; dữ liệu lưu theo ngăn trong IndexedDB (hết lo đầy bộ nhớ), có công tắc quay lại cách cũ", "slDoiTab('hsv');doiNgan(7);hsoKBHop('sl')"],
-  ["⚙ Khai báo đơn vị: 1 cửa sổ dùng chung mọi tab — PGD, logo, tên đơn vị từng mẫu Giao dịch xã, cán bộ, Hội, trưởng ấp, tổ phó, chương trình vay, TK 104 / 105", "slDoiTab('hsv');doiNgan(7);hsoKBHop('pgd')"],
-  ["Hồ sơ vay: cột trái đầu ✎ Nhập liệu, cuối ⚙ Khai báo riêng (thu gọn được, ↺ về mặc định, 📎 nguồn số liệu); ⚠ nhắc thiếu trước khi in", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
-  ["📝 Hồ sơ vay: Bản ghi mẫu — 1 nút in số liệu thật vào mọi ô khách phải viết (dân tộc, thường trú, điện thoại, CIF, …) để khách chép lại vào mẫu thật; phần UBND / Hội / NH vẫn chấm; chỉ cho lần in đó", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01tgtv')"],
-  ["⚙ Hồ sơ vay: ô tùy biến 01/TĐCK (tên khách + ngày hiệu lực phần NH chấp thuận), 01/GQVL (ngày người vay ký), 07b (nơi ký hợp đồng) — mặc định chấm, bật 🖨 mới in", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01tdck')"],
-  ["📄 01/TGTV: ô tùy biến (Số CIF, quốc tịch, dân tộc, cư trú, hạn CCCD, thường trú, điện thoại, ngày ký) mặc định chấm ghi tay; khung Chữ ký mẫu 2 ô như mẫu; dải tiêu đề xanh in rõ; chỗ khách hàng ký rộng hơn", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01tgtv')"],
-  ["📄 01/TGTV đúng 3 trang như file Word mẫu (lề, giãn dòng theo mẫu) — phần D, Số CIF không còn rớt sang trang 4; in 2 mặt nhiều bản tự chèn trang trắng", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01tgtv')"],
-  ["🧾 Bảng kê: tên người lĩnh in đậm, tên cơ quan to hơn, dòng “CÁC LOẠI TIỀN NGÂN HÀNG CHI RA” + ngày tháng to tương ứng, đường cắt cách quãng có hình kéo, logo cánh sen to hơn 1 chút", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
-  ["🏛 Cửa KHO: Giấy lĩnh, mini app, Hồ sơ vay, sổ hộ vay, Hồ sơ Tổ, Giao dịch xã lấy số liệu chung qua 1 cửa (tổ, tổ viên, khách, CCCD, TK 104 / 105) — màn hình và bản in không đổi; sau này đổi quy tắc chỉ sửa 1 chỗ", "slDoiTab('gdx');doiNgan(7)"],
-  ["⚙ Hồ sơ vay: khai báo riêng từng mẫu 01/TD · 03/TD · 01/UQ — liệt kê ô từ trên xuống, mỗi ô ✍ chấm / 🖨 in sẵn: ngày ký (hôm nay / gõ), lãi suất theo chương trình, lãi quá hạn, ngày trả lãi, số tiền / thời hạn phê duyệt = đề nghị, số người + tổng tiền 03/TD tự tính, tên trưởng thôn 01/UQ", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
-  ["📒 Hồ sơ vay: tab Sổ hộ vay — xem lại cả sổ, tìm, lọc (hộ cũ / hộ mới / HSSV / ⚠ cần bổ sung / tổ), sắp xếp, sửa thẳng từng ô hộ mới (Enter / Tab, ↑ ↓), in đúng danh sách đang lọc", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
-  ["👪 Khai báo hộ vay: mỗi người 1 dòng có tiêu đề cột, Enter / Tab sang ô kế không mất con trỏ, Ctrl+Enter lưu, 💾 Lưu & thêm hộ tiếp (giữ xã, ấp, tổ)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('homoi')"],
-  ["🧾 Bảng kê: ngang 118 mm đúng phủ bì giấy thật (cao 210 mm) — 2 tờ / A4 ngang, in từ Giấy lĩnh và 💵+🧾 kết hợp đều theo khổ mới", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
-  ["📄 Hồ sơ vay mở vào tab 👪 Hộ vay (Bộ HS đã ẩn)", "slDoiTab('hsv');doiNgan(7)"],
-  ["💼 Hồ sơ vay GQVL: tab 01/GQVL (phương án — mẫu mới 01/10/2026) + 07b/GQVL (hợp đồng tín dụng); lịch trả gốc tự chia 24 tháng/lần, lãi suất theo đối tượng ưu tiên, chọn nhanh mục đích / số tiền / thời hạn", "slDoiTab('hsv');doiNgan(7);setTimeout(function(){hsoChonMau('01gqvl')},800)"],
-  ["📋 Hồ sơ vay: 03/TD nhiều hộ cùng chương trình 1 tờ — tích hộ ở 👪 Hộ vay → Lập 03/TD, hoặc ＋ Thêm hộ ở tab 03/TD; sửa số tiền, thời hạn, ĐTTH, mục đích từng dòng", "slDoiTab('hsv');doiNgan(7);setTimeout(function(){hsoChonMau('03td')},800)"],
-  ["👪 Hồ sơ vay: Sổ hộ vay (thay Hộ mới + Bộ HS) — ＋ Hộ mới / ＋ Lấy từ Mẫu 31, khai tổ, nhiều HSSV; 📄 In hồ sơ: chọn hộ → chương trình → 01/TD, in kèm 03/TD · 10C · 01/UQ · 01/TGTV", "slDoiTab('hsv');doiNgan(7);setTimeout(function(){hsoChonMau('homoi')},800)"],
-  ["⚙ Hồ sơ vay: Khai báo chung có tab con (PGD · Trưởng ấp · Tổ phó · 📋 Chương trình vay) — mỗi chương trình 1 thẻ; chọn chương trình ở Bộ HS → 01/TD, 03/TD tự điền; thời hạn / hạn trả cuối gõ thì in, trống thì chấm", "slDoiTab('hsv');doiNgan(7);setTimeout(function(){hsoKBHop('ct')},800)"],
-  ["🏠 Hồ sơ vay: tab Hộ mới — khai báo hộ vay mới 1 lần (ngày gõ liền số, giới tính / năm sinh / nơi cấp / hạn CCCD tự suy, địa chỉ Xã → Điểm GD → Ấp, thành viên, đứng tên vay, HSSV) → 📄 Lập HS điền sẵn 01/UQ · 01/TD · 03/TD", "slDoiTab('hsv');doiNgan(7)"],
-  ["📍 Cây địa bàn mọi tab: ▾ Mở rộng / ▴ Thu gọn (gọn 1 dòng 🏠 PGD › Xã › Điểm › Tổ — bấm từng mắt để về cấp đó); chọn xong tổ tự gọn, nhớ theo tab", "slDoiTab('to');doiNgan(7)"],
-  ["📄 Hồ sơ vay / Hồ sơ Tổ: mỗi mẫu 1 tab con; 09A/TD có ô chấm ✍ viết tay | 🖨 in sẵn (lý do, số tiền, thời gian, kế hoạch trả nợ, ngày ký) + in kèm Mẫu 06/TD; Giấy lĩnh nút ↺ Phiếu mới", "slDoiTab('hsv');doiNgan(7)"],
-  ["📄 Mẫu mới 01/TĐCK — Giấy đề nghị thay đổi mẫu chữ ký giao dịch: tab riêng + in kèm 09A/TD (cùng 1 lần in)", "slDoiTab('hsv');doiNgan(7)"],
-  ["🏦 Nạp Sao kê TK 104 / 105 xong dùng được ngay: nút TK 104 chưa đóng, TK 105 cần đóng, TK trùng tự gắn Sao kê mới nhất (không cần tải lại trang)", "slDoiTab('gdx');doiNgan(7)"],
-  ["🔍 ② Kiểm tra: số tổ LEN_31 TO_TRUONG ↔ Danh sách tổ — liệt kê từng dòng chênh + lý do (vay trực tiếp, chưa ghép mã tổ, tổ hết dư nợ…); ma trận bỏ cột ngày trùng ngày chốt cuối tháng", "slDoiTab('nap')"],
-  ["🏦 Khối Tổ trưởng (CCCD · TK 104): hiện Danh sách tổ đã nạp ngày nào / chưa nạp / bản kiểu cũ, và bảng tổ chưa đủ vì thiếu gì (TK 104, ngày cấp…)", "slDoiTab('gdx');doiNgan(7)"],
-  ["💾 Lưu gọn hơn: nhiều thay đổi liền nhau chỉ ghi bộ nhớ 1 lần (đỡ khựng khi dữ liệu lớn, nhất là iPhone); rời trang / ẩn app / tải lại vẫn lưu đủ", "doiNgan(6)"],
-  ["📋 Danh sách tổ hệ thống (file baocao_…) thay DSTO cũ + Thông tin tổ trưởng: CCCD, ngày cấp, TK 104 tổ trưởng lấy thống nhất từ đây (kỳ theo Ngày báo cáo, kỳ nào cũng dùng bản gần nhất); Sao kê TK 104 chỉ để báo TK 104 chưa đóng · ma trận chỉ còn 1 dòng về tổ (ẩn Thông tin tổ trưởng)", "slDoiTab('nap')"],
-  ["📒 Bảng tổ dựng sẵn: mỗi tổ đủ tổ trưởng, CCCD, ngày cấp, TK 104 (Sao kê) — báo đủ / thiếu, bổ sung 1 lần (⚙ Khai báo chung · Nạp & KT)", "slDoiTab('gdx');doiNgan(7)"],
-  ["🏦 TK 105 khách tra Sao kê khi chọn; TK trùng → chọn TK đang dùng, danh sách ⚠ TK trùng để đóng TK thừa; CCCD hết hạn → cảnh báo khi in", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["👥 Mẫu 01/TV (danh sách thành viên tổ của TƯ): đối chiếu với app, chip “Cần cho ra khỏi tổ (TƯ)” ở tab Tổ + mục ở ② Kiểm tra số liệu", "slDoiTab('nap');doiNgan(7)"],
-  ["🏦 Sao kê TK 104 / TK 105 theo ngày: Giấy lĩnh lấy TK 104 tổ trưởng theo Mã CIF TT, TK 105 bổ sung cho khách đã tất nợ; nút TK 104 / 105 cần đóng", "slDoiTab('gdx');doiNgan(7)"],
-  ["🪪 CCCD tổ trưởng lấy đủ (Mẫu 31 → Mẫu 01/TV → DSTO), số anh gõ tay được nhớ; bỏ hẳn danh mục tổ; chữ “Rút tiền” chọn in nghiêng / thường", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh: dòng PHÒNG GIAO DỊCH chọn in Đậm / Thường (khai báo dòng đầu phiếu); số tiền bằng chữ in nghiêng", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh: ngày tháng cùng dòng PHÒNG GIAO DỊCH GÒ DẦU, thân phiếu xích lên cho bớt trống", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh: không viết tắt PGD — in đầy đủ “PHÒNG GIAO DỊCH GÒ DẦU” (khai báo chỉ cần ghi Gò Dầu)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh: 2 gạch dọc dài thêm 2 mm, ô Số tiền bằng số giãn đều, dòng PGD in đậm; 🧾 Bảng kê: chữ “Họ tên” nhỏ nghiêng, chấm dài ghi đủ tên", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["📏 Mọi mẫu in: đường kẻ mảnh, chấm mịn; đường phụ (giữa các dòng, chia ô) nhạt và nhỏ hơn đường chính", "slDoiTab('gdx');doiNgan(7)"],
-  ["🧾 Bảng kê: “PHÒNG GIAO DỊCH: GÒ DẦU” liền khối cùng font, cùng cỡ (bỏ trống khai báo mới hiện chấm); tên cơ quan font chữ đứng hẹp như tờ thật", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
-  ["💵 Giấy lĩnh in kèm Bảng kê trở lại: 💵 Lĩnh · 🧾 Bảng kê · 💵+🧾 + Mẫu trắng — Bảng kê điền theo Giấy lĩnh, tự chia mệnh giá, ký tên để trống", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["🌸 Logo NHCSXH (cánh sen) có sẵn trong app: logo chìm Bảng kê, logo góc Hồ sơ vay; ⬇ Tải logo ở Hồ sơ vay › Khai báo 1 lần", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
-  ["🧾 Bảng kê thành mẫu riêng (chip 🧾 Bảng kê cạnh Giấy lĩnh): mẫu trắng 2 tờ / A4 ngang, khai báo từng dòng Tên cơ quan · Ngày · Họ tên · Địa chỉ · Nội dung (có chữ thì in, trống = chấm) · Logo chìm", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('bk')"],
-  ["💵 Giấy lĩnh gọn lại như trước: bỏ hết phần in kèm / kết hợp Bảng kê", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["👥 Tổ TK&VV: khách vay món mới ở tổ khác không còn bị tính ở tổ cũ (chip Tất nợ · còn TK 105)", "D.cauHinh.slTab='to';doiNgan(7)"],
-  ["⚙ Khai báo riêng Giấy lĩnh tách 2 nhóm 💵 Giấy lĩnh / 🧾 Bảng kê; Bảng kê có Tên PGD, Logo chìm riêng, Bảng mệnh giá, Kiểu in", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["🧾 Bảng kê: có dữ liệu → in chung Giấy lĩnh; mẫu trắng 2 tờ / A4 ngang, mỗi tờ 115 × 210 sát 1 mép, nét đứt để cắt", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["🧾 Bảng kê in kèm Giấy lĩnh: dài hết bề ngang A4, rộng thêm 1 cm (cắt 1 nhát), chữ 13 pt; không in sẵn tên người lĩnh; Tổng cộng đậm, bằng chữ đậm nghiêng", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["🧾 Bảng kê: dòng Họ tên dưới chỗ ký Người lĩnh tiền để chấm — người lĩnh tự ký và ghi tay", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["🧾 Bảng kê: chữ chìm là logo đã nạp ở 📄 Hồ sơ vay › Khai báo 1 lần, to giữa bảng như tờ in sẵn (chưa nạp → chữ VBSP)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["🧾 Giấy lĩnh + Bảng kê in chung 1 tờ A4 (⚙ Khổ giấy): Giấy lĩnh nửa trên, Bảng kê xoay ngang sát góc dưới trái — cắt 2 nhát; tự chia mệnh giá từ tờ lớn, bằng chữ đầy đủ", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["🧾 Giấy lĩnh: thêm Bảng kê các loại tiền ngân hàng chi ra — cùng người lĩnh / số tiền; chọn 💵 / 🧾 ở dòng Tóm tắt; bảng mệnh giá để trắng hoặc tự chia; mẫu trắng 2 tờ / A4", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh: CCCD tổ trưởng lấy thêm từ file về tổ (Thông tin tổ trưởng · DSTO · danh mục); ngày cấp gõ liền 5–8 số không cần dấu", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh (mẫu in): dòng Họ tên xuống thêm 6 mm cho thoáng, 2 dòng bằng chữ + Nội dung rút lên 1 mm, chữ chìm dời theo", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh: ô tìm nhận số CCCD (4 số cuối trở lên) cho đúng người; ↑↓ chọn, Enter → điền form và nhảy ngay ô số tiền", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh: TK 105 chưa có số sổ → tra danh bạ theo CCCD, không có thì ghi lý do; ✕ Làm trống bỏ luôn chọn tổ ở cây địa bàn", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh: Nơi cấp không ra ô — chữ mờ cạnh nhãn Địa chỉ (bấm để sửa); thẻ cấp trước 10/10/2018 ghi chung \"Cục Cảnh sát\" và báo kiểm lại", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh: Nơi cấp tự tính theo ngày cấp, viết đủ (Bộ Công an / Cục Cảnh sát quản lý hành chính về trật tự xã hội); Họ tên · CCCD · Ngày cấp 1 dòng; nút 👁 Xem: Bật / Tắt", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh: mẫu in lề trên +5 mm, 2 gạch dọc ô Người lĩnh tiền ngắn 5 mm; ngày lĩnh chỉ Hôm nay · nhập ngày · Để chấm (1 dòng); ô số tiền nổi bật; ✕ Làm trống lên kế 👁 Xem", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["🏢 Giao dịch xã: vùng nhập rộng hơn — khối lọc gom 1 dòng khi đã chọn điểm / tổ (▾ Đổi để sổ ra, bấm vào vùng nhập tự gọn), đầu khung 1 hàng (nút phụ vào ⋯), Mẫu trắng gom 1 nút", "slDoiTab('gdx');doiNgan(7)"],
-  ["💵 Giấy lĩnh: TK 104 tra chắc hơn (mã tổ lệch số 0 đầu / theo tên tổ trưởng cùng xã); chưa có thì ghi rõ lý do ngay trên dòng TK 104", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["🏢 Giao dịch xã: 📋 Tóm tắt thu gọn 1 dòng; đã chọn điểm thì khối lọc thu gọn Xã / Điểm (nút ▾ Đổi xã / điểm) — chỗ nhập rộng hơn", "slDoiTab('gdx');doiNgan(7)"],
-  ["💵 Giấy lĩnh: mặc định TK 104 tổ trưởng (chọn tổ trưởng là hiện TK 104); sửa lỗi Làm trống rồi chọn lại đúng tổ cũ thì ô trống", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["📦 Mini app: gói luôn CCCD · ngày cấp · nơi cấp tổ trưởng — chọn tổ trưởng TK 104 là điền đủ, con trỏ nhảy xuống ô số tiền", "slDoiTab('gdx');doiNgan(7);gdxMiniHop()"],
-  ["💵 Giấy lĩnh: đã chọn Xã / Điểm GD thì ô tìm chỉ tìm trong xã / điểm đó cho gọn (bấm Tìm cả PGD để mở rộng); mini app có chip Điểm này · Cả xã · Cả PGD", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["📦 Giao dịch xã: nút Mini app — xuất 1 file HTML gửi đồng nghiệp (in 04/TD, 12/GDX, Giấy lĩnh; gói TK 104 tổ trưởng), hạn 30 / 60 / 90 ngày, hết hạn tự khóa", "slDoiTab('gdx');doiNgan(7);gdxMiniHop()"],
-  ["💵 Giấy lĩnh: khung Người lĩnh · số tiền gọn trong 1 khung — tìm tên ↑↓ Enter, khách trong tổ ô sổ xuống, số tiền ▲▼ bước 100 nghìn", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["💵 Giấy lĩnh: chữ chìm VBSP chọn Tắt · Nhạt · Vừa · Đậm; 3 ô bên phải cao hơn, ô Số tiền ngang dòng Nội dung; in xong có nút Làm trống — in người khác", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["📚 Danh mục tổ: so tên tổ trưởng bỏ \"Ông / Bà\", không dấu, không phân biệt hoa thường — hết báo lệch giả", "slDoiTab('nap');doiNgan(7)"],
-  ["💵 Giấy lĩnh: bằng chữ dài tự xuống dòng dưới (bỏ chấm), dòng PGD giãn đều, dòng Nội dung canh đều, chữ VBSP chìm, chữ 13 pt; form gõ tay ngay dưới ô tìm (tìm ra thì điền sẵn, sửa được)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["📄 In Giấy lĩnh trắng: 1 mẫu / A4 hoặc 2 mẫu / A4 cắt đôi (vạch cắt giữa)", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["📚 Danh mục tổ · TK 104 nạp 1 chỗ ở 📥 Nạp & KT (nút Nạp file tự nhận file nhiều sheet), nạp xong kiểm tra ngay với Mẫu 31, TK 104 gắn theo tổ", "slDoiTab('nap');doiNgan(7)"],
-  ["🖨 04/TD: ▲▼ số hộ (bước 1) / số tiền (bước 5 triệu), mức gợi ý 25–160 triệu; 12/GDX: 1 chip ngày GD gần nhất, chữ ký GDV sát tiêu đề, giá trị in đậm; ô ngày gõ liền số (1410, 141026)", "slDoiTab('gdx');doiNgan(7)"],
-  ["🔧 Sửa lỗi: bấm chip ⭐ / Hôm nay / ô ngày lại mở hộp cài đặt", "slDoiTab('gdx');doiNgan(7)"],
-  ["🏢 Giao dịch xã bố cục mới: khối LỌC ĐỊA BÀN (cây theo Mẫu 31), khung chọn nhanh bên trái, khung xem bật / tắt bên phải, 📋 Tóm tắt bản in (chip + cảnh báo, nút IN / PDF)", "slDoiTab('gdx');doiNgan(7)"],
-  ["⚙ Mỗi mẫu có Khai báo riêng: mọi mục theo thứ tự trên mẫu, tích \"Chọn nhanh\" để đưa ra khung trái; ⚙ Khai báo chung: cán bộ, danh mục tham chiếu, file TK 104", "slDoiTab('gdx');doiNgan(7)"],
-  ["💵 Giấy lĩnh tiền mặt (khách rút TK 105 / tổ trưởng rút TK 104): gõ tên không dấu để tìm, dòng có thông tin bỏ chấm, A5 hoặc nửa A4", "slDoiTab('gdx');doiNgan(7);gdxDoiMau('gl')"],
-  ["📜 Nhật ký in 1 tháng — in lại đúng bản cũ khi khách ký sai; 🏦 danh sách TK 104 chưa đóng của người không còn làm tổ trưởng", "slDoiTab('gdx');doiNgan(7)"],
-  ["🖨 04/TD: ngày ký Hôm nay / chọn ngày, ngày phát mặc định = ngày GD gần nhất, PGĐ ký, 1 hoặc 2 bản; 12/GDX: đầu mẫu theo mẫu trắng, 3 tên ký cùng hàng, giờ / ngày tiêu hủy tách riêng, 3 vai không trùng người", "slDoiTab('gdx');doiNgan(7)"],
-  ["📉 Món vay 3 tháng không hoạt động (KHĐ) app tự tính nay theo ĐÚNG luật hệ thống: món chưa giao dịch lần nào tính từ ngày giải ngân đầu tiên; loại món còn ân hạn (CT 05/07/18, CT 01 sản phẩm C2, CT 06), lãi suất 0, HSSV; khoanh chỉ loại khi có gia hạn trong tháng", "moNapSL()"],
-  ["🔍 Kiểm tra số liệu: so KHĐ tự tính ↔ file KHĐ ghi rõ lệch món nào, vì sao; thêm bảng món quá 3 tháng bị loại theo luật (lý do từng món)", "moNapSL()"],
-  ["🏢 Tab mới Giao dịch xã (Số liệu › Giao dịch xã): in nhanh 04/TD Thông báo phê duyệt + 12/GDX Bảng kê giao nhận tiêu hủy biên lai — mẫu in giữ nguyên file anh đã in thử đúng mẫu thật; không cần số liệu hộ vay (điểm, tổ lấy từ Cài đặt › Địa bàn)", "slDoiTab('gdx');doiNgan(7)"],
-  ["⭐ Mẫu hay in (lưu số hộ + số tiền, bấm là in) · 🔄 Kiểm tra trước đợt: tự đề xuất điểm có ngày giao dịch gần nhất, ngày phát, ngày ký · nơi giải ngân Tại điểm GD / Tại PGD · tên UBND ghi đầy đủ", "slDoiTab('gdx');doiNgan(7)"],
-  ["📄 04/TD rời tab Hồ sơ vay — chỉ in ở tab Giao dịch xã", "slDoiTab('gdx');doiNgan(7)"],
-  ["📦 Lập bộ hồ sơ vay (Hồ sơ vay › Bộ hồ sơ): chọn chương trình HSSV / Nước sạch VSMT → hộ cũ (cây tổ, tìm CCCD / tên) hoặc hộ mới (nhập theo Giấy UQ, lưu tạm) → 1 lần in đủ Giấy UQ, Đơn vay 01/TD, Biên bản 10C, 03/TD (+ 01/TGTV nếu hộ mới); trạng thái Đang soạn → Đã in gửi tổ → Tổ đã nộp → Đã giải ngân; tự nhận khi hộ mới có trên Mẫu 31", "slDoiTab('hsv');doiNgan(7)"],
-  ["📄 Mẫu bám sát bản PDF: 01/TD, 01/UQ, 03/TD, 04/TD, 09A/TD, 01/TGTV; đường kẻ dưới tiêu ngữ / tên cơ quan là nét mảnh riêng, không gạch chân chữ; 10C, 02/BG dài thì kéo bảng, lặp tiêu đề, 02/BG có Trang x/y", "slDoiTab('hsv');doiNgan(7)"],
-  ["🖼 Khai báo 1 lần: logo (tải lên, tích mẫu nào in logo — mặc định 01/TD, 01/TGTV), đối tượng thụ hưởng theo chương trình, giờ / phút phát tiền 04/TD", "slDoiTab('hsv');doiNgan(7)"],
-  ["📝 Tab mới Hồ sơ Tổ (Số liệu › Hồ sơ Tổ): chọn tổ ở khối lọc → chọn mẫu → xem A4 ngay khung phải; In · PDF · Word (.docx đúng khổ) · Gửi. Mẫu: 10C (cũ đến 30/09/2026 / mới QĐ 70 — tự chọn theo ngày họp), 10A, 10B, 11/TD, 01/BG, 02/BG (A4 ngang)", "slDoiTab('hst');doiNgan(7)"],
-  ["📄 Tab mới Hồ sơ vay: 01/TD Giấy đề nghị vay vốn (chọn tổ viên, chương trình, mục đích, số tiền → bằng chữ tự đổi), 03/TD Danh sách tổ viên đề nghị vay, 04/TD Thông báo phê duyệt (theo xã, điểm GD, ngày GD kế tiếp), 09A/TD Giấy đề nghị gia hạn nợ (chọn món)", "slDoiTab('hsv');doiNgan(7)"],
-  ["⚙ Khai báo 1 lần (nút ở 2 tab hồ sơ): thông tin PGD, trưởng ấp từng ấp, tổ phó thực tế (tổ trên máy chưa khớp), danh mục mục đích vay — lưu cùng cài đặt, đồng bộ Drive. Ô điền sẵn: xanh = số liệu, vàng = khai báo, chấm = ghi tay (in ra chữ đen)", "slDoiTab('hst');doiNgan(7)"],
-  ["👥 Tab Tổ (chọn 1 tổ): hàng \"Báo cáo của tổ\" đem lên đầu khung xem (trước bị khuất dưới bảng); bảng tự trừ phần còn lại để không khuất dòng", "slDoiTab('to');doiNgan(7)"],
-  ["🖥 Tab Số liệu gọn trong 1 cửa sổ: nội dung dồn sát lên trên, khối LỌC ĐỊA BÀN đứng cố định khi cuộn, bảng / khung xem tự cao vừa cửa sổ và cuộn bên trong; Tổng hợp: Nguồn vốn + Chương trình 1 dòng", "slDoiTab('th');doiNgan(7)"],
-  ["🎨 Lọc địa bàn thành 1 khối \"LỌC ĐỊA BÀN\" ở mọi tab (Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu): mỗi dòng 1 thanh, mỗi cấp 1 màu — Xã xanh dương · Điểm GD xanh lá · Hội cam · Tổ tím; Điểm GD và Hội 2 thanh riêng; tên dòng chữ to, đậm", "slDoiTab('to');doiNgan(7)"],
-  ["📋 Chọn nhiều (🗑 Xóa) giờ có cả nút 📋 Chép n file: có cầu nối → Ctrl+V dán hết vào Zalo; chưa cài → hộp chia sẻ Windows (nút Sao chép); điện thoại: 📤 Gửi n file", "doiNgan(1)"],
-  ["🪟 Khung xem 1 file trên máy tính: 📤 Gửi có thêm \"Hộp chia sẻ Windows (Sao chép)\"", "doiNgan(1)"],
-  ["🔍 Kết quả kiểm tra gom theo từng file (cùng thứ tự ma trận): mỗi file 1 dòng ✓ · ⚠ · ⓘ, bấm mở; chip lọc (mặc định ⚠ + ⓘ), ⊞ Mở hết / ⊟ Gập hết, 🔎 tìm mục; bấm ⚠ trên ô ma trận → nhảy tới đúng file", "slDoiTab('nap');doiNgan(7)"],
-  ["📊 Tổng hợp: chọn 1 báo cáo (◉) là xem ngay ở khung phải — bỏ nút Xem; danh sách chia 3 nhóm Chuẩn TW / LEN_31 / Tính từ Mẫu 31, có nhãn cấp [PGD · Xã] [→ Tổ]…", "slDoiTab('th');doiNgan(7)"],
-  ["🐞 Sửa lỗi: báo cáo Theo nguồn vốn chọn Điểm GD / Hội / Tổ trước đây vẫn ra số cả xã — nay lọc đúng tới tổ; dòng cộng ghi đúng phạm vi", "slDoiTab('th');doiNgan(7)"],
-  ["📅 Nạp & KT: dải lịch tháng ● Đạt · ◐ thiếu · ○ chưa nạp (rê chuột xem chi tiết) + ⦿ Gần nhất (mặc định); mỗi ngày có dữ liệu 1 cột, cột chốt tháng ghi \"30/09/2026 · T9 · chốt\"; ⇔ Tổng quan; ▾ Thu gọn ↔ ▴ Bung ra; mũi tên ghi \"so với dd/mm/yyyy\"; bỏ dòng vàng", "slDoiTab('nap');doiNgan(7)"],
-  ["👥 Tab Tổ: cột vừa nội dung, còn chỗ tự thêm cột (Số món, Tỷ lệ QH, Dư nợ BQ, Điểm GD, Nợ lãi…; danh sách khách: Ngày vay gần nhất, Ngày đến hạn, Hạn CCCD, Ấp…), không tràn ngang; ⚙ Cột: Tự động / Luôn hiện / Ẩn; danh sách khách có 🖨 In đầy đủ", "slDoiTab('to');doiNgan(7)"],
-  ["💰 Bảng các tổ: triệu đồng luôn 2 số lẻ (3.679,00) như biểu TW · ⚠ Dùng T9/2026 thành chip nhỏ cuối hàng Xã (bấm → Nạp & KT) · chip tổ kèm tên ấp", "slDoiTab('to');doiNgan(7)"],
-  ["📍 Lọc số liệu tinh chỉnh: hàng Xã luôn hiện (PGD / xã đang chọn tô xanh — bấm PGD để quay lại), đường dẫn 📍 chỉ báo nằm cùng hàng Xã; Điểm GD │ Hội chung 1 dòng; hàng Tổ có chip + ô sổ xuống đủ danh sách", "slDoiTab('to');doiNgan(7)"],
-  ["👥 Tab Tổ: chip gom 3 nhóm Xem · Khách · Cần xử lý (tối đa 2 dòng); nút 🖨 In · In đầy đủ · 📊 Excel · ⚙ Cột ở đầu bảng; bảng cuộn trong khung, tiêu đề + dòng Cộng luôn thấy", "slDoiTab('to');doiNgan(7)"],
-  ["📏 Bảng các tổ gọn: kẻ ô, 1 đơn vị triệu đồng (12.910 · 1.234,5), cột trùng bộ lọc tự ẩn, ⚙ Cột chọn cột xem; In A4 dọc 10 cột · In đầy đủ A4 ngang; biến động / so sánh ghi đủ ngày 31/07/2026 → 31/08/2026", "slDoiTab('to');doiNgan(7)"],
-  ["⚠ In danh sách tổ viên: dòng cần lưu ý in đậm + cột Lưu ý — tất nợ còn TK 105 · CCCD hết hạn / sắp hết hạn (30 ngày, theo ngày hiện tại) · khách còn mã tổ chưa có TK 105", "slDoiTab('to');doiNgan(7)"],
-  ["📍 Lọc số liệu mới (Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu): dòng 📍 ghi phạm vi đang chọn — bấm tên để đổi, ✕ để bỏ; hàng chip ① Xã → ② Điểm GD · Hội (chọn cái nào trước cũng được) → ③ Tổ; máy tính bỏ hàng ô thả xuống", "slDoiTab('to');doiNgan(7)"],
-  ["👤 Tra cứu KH: bỏ khung gập \"📍 Toàn PGD\", lọc giống các tab; số khách lên dòng 📍 · ☾ Nền tối: ô nhập / ô thả xuống không còn nền trắng", "slDoiTab('tra');doiNgan(7)"],
-  ["◐ Nút giao diện ở chân thanh bên: bấm đổi Theo máy → ☀ Sáng → ☾ Tối, app nhớ; nền tối đã rà lại màu (dòng xã bảng Tổ, chip đỏ / vàng / xanh) — bản in vẫn nền trắng", "dhDoiGD()"],
-  ["📟 Chân thanh bên hiện đủ chữ: dòng trạng thái xuống tối đa 3 dòng, không lặp thông tin Drive (đã có chip), chip dài tự xuống dòng", "dongHop()"],
-  ["🏛 Khai báo Hội vừa 1 trang: bỏ cột Xã (thay bằng dòng nhóm \"Xã · số Hội · số tổ\"), bỏ cột Tên Hội cấp xã và Số / Ngày KH Hội tỉnh; nút 📋 Phân công ngay cạnh tên Hội", "doiNgan(7)"],
-  ["📖 Chuẩn hóa: Số / Ngày KH Hội tỉnh khai 1 lần cho mỗi Hội (dữ liệu cũ tự chuyển); mục \"Riêng từng xã\" để gõ tên Hội cấp xã hoặc KH khác của xã nào khác quy tắc; bỏ nút ⇩ Chép", "doiNgan(7)"],
-  ["🖼 Khung xem bên phải sát trên dưới, đầu khung còn 1 dòng (📁 nơi lưu · trang · KB, rê chuột thấy tên file); thêm ⊡ Vừa trang: trọn 1 trang A4 trong khung, cuộn lật từng trang, app nhớ chế độ — các nút cũ vẫn giữ", "doiNgan(1)"],
-  ["📍 Lọc số liệu (Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu): hàng chip có nhãn Xã / Điểm GD · Hội · Tổ chỉ hiện con của cấp đã chọn, Hội chọn ở mọi cấp, 🔎 tìm nhanh cuối hàng; Tổng hợp: Nguồn vốn thành chip trên cùng, danh sách báo cáo 1 dòng", "doiNgan(7)"],
-  ["⚲ Lọc file (Văn bản, Biểu mẫu, Scan): bấm ⚲ Lọc mở bảng lọc ngay dưới thanh, dòng \"Đang lọc\" hiện các chip đang áp; kiểu xem thành chip ☰ 🗂 ▦ ▣ bấm 1 lần", "doiNgan(1)"],
-  ["📥 Tab Nạp & KT: 1 nút Nạp file cho mọi file (kể cả BC0437 / BC0438 — nhóm Ⓚ KTGS nằm chung ma trận); ma trận kẻ ô rõ, cột tháng đang chọn sáng lên; chuyển tháng 1 chỗ: ‹ T7 · T8/2026 ▾ · T9 ›", "dongHop();moNapSL()"],
-  ["🔢 3 kiểu ma trận: ▾ Thu gọn (1 dòng) · 2 tháng (tháng chọn + tháng trước + Theo ngày, mặc định) · ⇔ Tổng quan (12 tháng, trọn ngang)", "dongHop();moNapSL()"],
-  ["🔍 Tự kiểm tra ngầm sau mỗi lần nạp / xóa / thay / khôi phục file — ô khớp có ✓ xanh, ô chênh có ⚠ cam (rê chuột xem); vẫn có nút 🔍 Kiểm tra lại; kết quả chi tiết 1 dòng, bấm mở", "dongHop();moNapSL()"],
-  ["📷 Scan xong → 1 hộp chọn: 💾 Lưu vào máy (PDF như bản in — thẻ 4 người / A4) · 📤 Gửi · 📋 Copy ảnh · 🗄 Lưu vào tủ. Chỉ “Lưu vào tủ” mới tạo hồ sơ — không còn tự lưu tạm vào tủ / Drive", "dongHop();doiNgan(4)"],
-  ["🗄 Lưu vào tủ theo khách: gõ tên / mã KH / CCCD → chọn trong danh bạ Mẫu 31, app tự điền xã + ấp; lưu CCCD (hoặc Hồ sơ scan) / Xã / Ấp / Mã KH Tên.pdf — không theo tổ", "dongHop();doiNgan(4)"],
-  ["⏸ Đóng hộp giữa chừng: bản quét giữ trong máy để làm tiếp (dải vàng đầu tab Scan → Mở lại), quá 7 ngày tự bỏ", "dongHop();doiNgan(4)"],
-  ["🏛 Khai báo Hội đoàn thể = 1 bảng như Excel: mỗi dòng 1 Hội cấp xã (app tự lấy từ số liệu, kèm số tổ); cột Tên Hội · Chủ tịch · Phó CT · BTV 1–3 · Nhiệm kỳ · HĐ ủy thác · KH Hội tỉnh", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
-  ["⌨ Gõ thẳng như Excel: Enter / Tab sang ô kế, ↑↓ đổi dòng; dán cả khối từ Excel / Zalo; ô trống tô nhạt, ngày sai dạng tô đỏ; Đoàn TN tự ghi Bí thư / Phó Bí thư. Bỏ dòng \"In ra\", nút ↺ từng ô", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
-  ["👥 Thống nhất 1 Hội = 1 Chủ tịch, 1 Phó CT, 3 BTV — app tự chuyển số liệu đã khai (anh không nhập lại); người dư (Phó 2–3, ủy viên 4–5) vẫn giữ, rê ⓘ để xem", "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
-  ["🗑 Xóa thống nhất: mọi thứ xóa đều vào Thùng rác app, khôi phục về đúng chỗ — xóa 1 mục không hỏi, xóa nhiều hỏi 1 lần (ghi rõ số mục). Không còn nút ↩ Hoàn tác", "dongHop();moDonKho('rac')"],
-  ["📈 Số liệu: xóa ô / cả bộ tháng / bản theo ngày cũ, và bản cũ khi thay file → Thùng rác ngăn Số liệu (bỏ ↩ hoàn tác lần thay). Khôi phục: ô về file cũ (file đang có thì đổi chỗ vào Thùng rác)", "dongHop();moDonKho('rac')"],
-  ["🗒 Việc lịch, mẩu ghi chú, lần làm việc, kế hoạch KTGS, bộ biểu mẫu cũng vào Thùng rác (ngăn Mục nhỏ). Thùng rác giữ 30 ngày rồi tự xóa hẳn (bật sẵn)", "dongHop();moDonKho('rac')"],
-  ["📤 Mọi khung xem báo cáo (Tổ, Sao kê, Tổng hợp, KTGS, biến động năm) cùng 1 hàng nút, cùng thứ tự: Đóng · 🖨 In · 📄 PDF · 📝 Word · 📊 Excel · 📤 Gửi — báo cáo nào không có định dạng thì ẩn nút đó", "dongHop();D.cauHinh.slTab='th';doiNgan(7)"],
-  ["📄 PDF: mở hộp in, chọn “Lưu dưới dạng PDF”, tên file điền sẵn theo quy tắc Loại_Phạm vi_Kỳ (vd KetQuaChoVayTheoXa_ToanPgd_T08-26)", "dongHop();D.cauHinh.slTab='th';doiNgan(7)"],
-  ["📤 Gửi: gửi file PDF / Word / Excel (điện thoại: Zalo…; máy tính: tải về) hoặc 📋 Copy ảnh báo cáo · 📋 Copy chữ (dán Excel ra bảng). Khung xem file Văn bản: 🖨 In · ✎ Sửa · 📤 Gửi (gửi file, chép nguyên file qua cầu nối, copy số hiệu + trích yếu)", "dongHop();doiNgan(1)"],
-  ["🔎 Văn bản · Biểu mẫu · Scan dùng chung 1 thanh: ＋ Thêm · 🗑 Xóa · ⚲ Lọc ▾ · ⇅ Sắp xếp · ☰ Kiểu xem ▾ · ⋯ · ❓; chip đang lọc hiện ngay trên thanh, bấm ✕ để bỏ", "dongHop();doiNgan(1)"],
-  ["▦ Kiểu xem Bảng (thay ▤ Gọn): cột Số hiệu · Ngày ký · Tên & Trích yếu · Mảng NV · CT vay · Trạng thái; dòng gọn ~30 px, bấm tiêu đề cột để sắp xếp, ↑↓ chuyển dòng; Biểu mẫu và Scan cũng có bảng riêng", "dongHop();doiNgan(1)"],
-  ["⋯ gom việc riêng từng tab: Lập chỉ mục (Văn bản), Bộ biểu mẫu, Chế độ quét / Webcam / Chữ ký·CCCD (Scan), đường dẫn ổ G, thư mục Drive, sửa tag", "dongHop();doiNgan(4)"],
-  ["📥 Tab Nạp & KT gọn: 1 hàng nút (‹ tháng › · 📥 Nạp file · 📋 File cần xuất · ⋯ · ❓), 1 dòng trạng thái chỉ báo điều quan trọng nhất (chưa có file / thiếu file gì / cần kiểm / ✅ Đạt) + nút Kiểm tra kỳ", "dongHop();moNapSL()"],
-  ["🔢 Ma trận trọn chiều ngang; ‹ › ở góc bảng; bấm tên tháng = chọn tháng (kỳ chung theo); kết quả kiểm tra và file KTGS gập sẵn — bấm mới mở", "dongHop();moNapSL()"],
-  ["⋯ gom việc phụ: tải file gốc cả tháng, xóa cả bộ tháng, xóa bản theo ngày cũ, tóm tắt file, làm sạch & nạp lại, giữ sẵn, tìm rác; ❓ giải thích cách đọc ma trận và Kiểm tra kỳ", "dongHop();moNapSL()"],
-  ["📅 Kỳ số liệu chung: 1 ô Kỳ ở đầu trang (cạnh ô tìm) — đổi 1 lần, mọi tab theo (Tổ, Sao kê, KTGS, Tổng hợp, ma trận Nạp & KT); ⟳ cạnh ô để đọc lại. Bỏ ô \"Số liệu\" + ⟳ Làm mới + chip \"Đang dùng\" ở từng tab", "dongHop();moBCSL()"],
-  ["📍 Phạm vi chung: chọn xã / điểm GD / Hội / tổ ở tab nào thì các tab khác theo; cây chọn gọn 2 hàng — hàng ô chọn nối ›, hàng chip chỉ của cấp cần chọn tiếp", "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ["🧹 KTGS: bỏ dòng \"Nạp và kiểm tra BC0437 / BC0438 ở tab…\" (chip BC thiếu có nút 📥 nạp); bỏ cảnh báo \"Thông tin tổ trưởng thiếu tổ\" (DSTO là nguồn chính) — chỉ còn báo tổ chưa rõ điểm GD", "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ["🚦 Một nơi báo trạng thái: chân thanh bên (điện thoại: thanh đáy) — đèn 🟢 ổn · 🟡 đang chạy · 🔴 lỗi · ⚪ chưa nối Drive, thanh màu chạy theo tiến độ, 1 dòng tin mới nhất; bấm dòng tin xem 20 tin gần đây. Tin không còn nổi đè lên nút", "dongHop();doiNgan(0)"],
-  ["🔘 Nút vừa chữ, không còn kéo dài như lỗi; hộp thoại: Đóng / Thôi luôn bên trái, nút chính luôn bên phải; nút ＋ Thêm màu xanh", "dongHop();doiNgan(1)"],
-  ["🗑 Bỏ nút xóa cuối mỗi dòng (Văn bản, Biểu mẫu, Scan…) — xóa bằng nút 🗑 Xóa file đầu tab (bấm file để tích); bỏ thanh ↩ Hoàn tác — cần lấy lại vào 🗑 Thùng rác → Khôi phục", "dongHop();doiNgan(1)"],
-  ["🧭 Tên NhanNT, số bản lên thanh bên; máy tính bỏ thanh đáy (chỉ hiện khi cần nút của nó: khay chờ duyệt, mở lại khung xem)", "dongHop();doiNgan(0)"],
-  ['🧭 Máy tính: thanh bên trái thay thanh tab — Hôm nay · Văn bản · Nạp & KT · 5 màn Số liệu · Biểu mẫu · Scan · Thư viện · Công cụ; bấm 1 lần là tới, đầu trang còn 1 hàng nên bảng / danh sách cao hơn', "dongHop();doiNgan(0)"],
-  ['« Thu gọn thanh bên còn biểu tượng (rê chuột hiện tên) — app nhớ; màn nhỏ hơn 1280 px tự thu. Alt+1…9 mở nhanh từng mục. Điện thoại giữ thanh tab ngang như cũ', "dongHop();doiNgan(0)"],
-  ['🔢 Số nhắc cạnh mục: Văn bản = file chờ duyệt · Nạp & KT ⚠ = file bắt buộc còn thiếu tháng mới nhất · 🗑 = số mục thùng rác', "dongHop();moNapSL()"],
-  ['✅ Kiểm tra kỳ: bấm 🔍 Kiểm tra kỳ → app báo ✓ Đạt khi đủ 9 file (Ⓑ 3 + Ⓐ 6), đúng kỳ, đúng cấu trúc. Chênh lệch giữa các file chỉ ghi nhận để biết — không ảnh hưởng Đạt, không sửa số', "dongHop();moNapSL()"],
-  ['🔓 Bỏ hẳn chốt / khóa tháng: tháng từng chốt tự mở, nạp / thay / xóa bình thường (dữ liệu giữ nguyên)', "dongHop();moNapSL()"],
-  ['📋 Kiểm tra kỳ ghi rõ báo cáo nào dùng được: Tổ · Sao kê · Tra cứu / Tổng hợp tổng quan / KTGS (thiếu file gì); tháng có BC0437 / BC0438 thì kiểm luôn phần KTGS', "dongHop();moNapSL()"],
-  ['📋 Bộ file mới: Ⓑ bắt buộc 3 file (Mẫu 31, Dư nợ chi tiết, DSTO) · Ⓐ chuẩn TW 6 file (01.1, 01.2, 4 LEN_31) · Ⓓ phụ (KHĐ mẫu 14, quá hạn, khoanh, phân kỳ, Tổng dư nợ, Thông tin tổ trưởng). Nút “📋 File cần xuất” ở tab Nạp & KT nhắc mẫu cần chọn khi xuất', "dongHop();moNapSL()"],
-  ['🔢 Ô ma trận hiện số chính + mũi tên so tháng trước: dư nợ tăng ▲ xanh / giảm ▼ đỏ; quá hạn, khoanh, KHĐ ngược lại; tổ chỉ hiện số tổ', "dongHop();moNapSL()"],
-  ['🖱 Bấm ô trống = nạp file vào ô đó; bấm ô đã có file → hỏi “Thay bằng file mới?” (nút nhỏ xem / tải / xóa); thay rồi vẫn ↩ Hoàn tác được 1 lần trong 30 ngày', "dongHop();moNapSL()"],
-  ['🗑 Bỏ hẳn B32, Mẫu 10, Mẫu 7, Sao kê khách hàng, KHĐ mẫu 08: bảng đã nạp tự xóa (file trên Drive vào Thùng rác Drive). Doanh số + nguồn vốn TW / ĐP lấy từ Mẫu 31 (Tổng hợp › Theo nguồn vốn)', "dongHop();moBCSL()"],
-  ['⏱ KHĐ 3 tháng: app tự tính từ Mẫu 31 (tháng không có file KHĐ vẫn có số); có file mẫu 14 thì dùng file và Kiểm tra đối chiếu với số app tính', "dongHop();moNapSL()"],
-  ['⚠ Tổ dư nợ 0 còn trên DSTO / LEN_31 → vẫn hiện, ghi “Dư nợ 0 — cần đóng tổ” (chip liệt kê ở Tổ TK&VV); không còn ở cả hai thì ẩn khỏi cây (vẫn tìm được). SĐT tổ trưởng, tổ phó lấy theo DSTO', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['📥 Tab mới “Nạp & KT” thay chỗ tab Tháng — nơi duy nhất nạp file Excel hệ thống và kiểm tra dữ liệu; nạp BC0437 / BC0438 của KTGS cũng ở đây', "dongHop();moNapSL()"],
-  ['📊 Tab “Số liệu” chỉ còn báo cáo: Tổng hợp, Sao kê, Tổ TK&VV, KTGS Hội, Tra cứu KH (nhớ tab con anh mở gần nhất)', "dongHop();moBCSL()"],
-  ['🗑 Bỏ tab Tháng: dữ liệu cũ của tab tự xóa một lần; thư mục “Dữ liệu tháng” trên Drive vào thùng rác Drive (lấy lại được 30 ngày). Thêm file Excel → sang tab Nạp & KT', "dongHop();moNapSL()"],
-  ['🧰 Cột Công cụ: tạm bỏ Giao ban và Buổi GD (sẽ làm lại sau)', "dongHop();doiNgan(0)"],
-  ['📅 Nạp số liệu: ngày số liệu lấy theo NỘI DUNG file. File không ghi ngày (vd KHĐ, Nợ khoanh, Thông tin tổ trưởng) → dòng báo “Cần khai ngày”, anh chọn ngày ở ô Kỳ hoặc bấm “Tên file: … — dùng”; chưa khai thì không ghi nhận', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🧱 Kiến trúc mới (đợt A): app tách thành nhiều file nhỏ (css / js) — dùng như cũ, không đổi chức năng; cửa sổ nổi HSSV vẫn đủ kiểu chữ. Tải app về máy thì tải cả thư mục', "dongHop();moCaiDat()"],
-  ['🗓 Kế hoạch › In theo tháng kiểm tra: Mẫu 06 / 16 / 04 tự lấy số liệu cuối tháng liền trước (Mẫu 31 + BC0437 đã nạp) — không cần đổi kỳ; thiếu tháng đó → tháng gần nhất trước, ghi ⚠', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🛟 Sửa lỗi mất cài đặt (khai báo Hội…) khi đồng bộ Drive: app nhớ đúng file cài đặt, gặp file khác luôn lấy về gộp trước — không ghi đè; không còn tạo thư mục "undefined" trên Drive', "dongHop();moCaiDat()"],
-  ['🧹 Báo cáo app lập (Tổ, Sao kê, Tổng hợp): bỏ dòng “PGD NHCSXH GÒ DẦU” cuối trang in — chỉ còn ở góc trên trái', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['📤 Nút PDF gửi Hội (Mẫu 06, 16 từng tổ · 16 cả tháng · 04 · Kế hoạch): hộp in chọn “Lưu dưới dạng PDF”, tên file điền sẵn theo cây địa bàn Xã_Hội_Ấp_Tổ_Mẫu_Tháng_SL ngày số liệu (vd TruongMit_HND_Ap06_VoVanTao_M06_T10-26_SL30-09-26); file Word cùng tên', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🖨 Kế hoạch › In theo tháng: mỗi dòng tổ thêm 🖨 In / PDF 16 · 📄 Word 16 (biên bản của riêng tổ, in 2 mặt); nút Mẫu 06 ghi rõ "In / PDF"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🔧 Mẫu 06: số tiền 2 số lẻ (nợ lãi dưới 5.000 đ giữ 3 số lẻ), canh phải, luôn nằm 1 dòng — dòng Cộng không còn bị xuống dòng (1.178,4)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🗓 Kế hoạch: mỗi tháng kiểm tra TRỌN ẤP (chia ấp vào tháng, số tổ gần đều); đổi tháng theo cả ấp; kế hoạch cũ bị tách ấp có cảnh báo + nút Xếp lại theo ấp', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['⇅ Thứ tự ấp mặc định theo điểm GD → mã thôn → tên; sắp lại ▲▼ (nhớ theo xã), ↺ về mặc định', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🖨 Kế hoạch › bấm tháng → in theo tháng: Mẫu 06 từng tổ (1 mặt, hiện tỷ lệ món, dưới 90% hỏi lại, ✎ chọn hộ ngay), Mẫu 16 cả tháng + Mẫu 04 tháng (2 mặt)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🗓 Định kỳ · Mẫu 06 + 16 nay chọn tổ tự do (không tích sẵn theo Kế hoạch)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🔧 Sửa bản In / PDF Kế hoạch: bảng đầu trang không còn hiện khung kẻ; Quốc hiệu không bị xuống dòng', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['✂️ Tab Tổ TK&VV › báo cáo “Dự kiến chia tách tổ” (A4 ngang, tối đa 2 trang): mỗi hộ 1 dòng theo mã KH, cột Tổ mới (1/2/3) để tổ trưởng ghi, tên vợ/chồng, SĐT, QH / khoanh in đậm sau tên; dòng dự kiến chia tối đa 3 tổ; ký Tổ trưởng', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🏢 Các báo cáo app lập (Tổ, Sao kê, Tổng hợp): góc trên trái ghi “PGD NHCSXH GÒ DẦU” in đậm', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🔧 Sửa: “đã mở TK” chỉ ghi cho khách đang vay (còn dư nợ / nợ lãi) hoặc KU chưa giải ngân — khách đã tất nợ (kể cả trước 2026) không còn bị ghi nhầm', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🚪 Tổ TK&VV: hộ đã tất nợ mà TK 105 không còn gắn tổ (tách dòng riêng hoặc đã đóng) = đã ra khỏi tổ trên hệ thống → không tính tổ viên, hiện ở chip “Ra khỏi tổ” kèm lý do; ② Kiểm tra số liệu ghi số hộ', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['📝 Mẫu 06: ngắt trang tự nhiên ở mọi phiếu — trang 1 đầy trước, chỉ “Biện pháp xử lý” + dòng ngày + chữ ký đi liền sang trang sau; kẻ trên dòng Cộng nét đen; mẫu trắng chừa thêm chỗ cho Word (giữ chú thích cuối trang)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['⟳ Cạnh ô “Số liệu” (Tổ TK&VV, Sao kê, KTGS) có nút ⟳ Làm mới — đọc lại theo kỳ đang chọn, cả 3 tab cùng dùng kỳ đó; chip “📌 Đang dùng: …” cho biết máy đang lấy số liệu kỳ nào (vàng = khác kỳ đã chọn, bấm Làm mới)', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🔢 TK 105: khách có số tài khoản 105 trên Mẫu 31 (kể cả số dư 0) không còn bị báo “chưa có TK 105”; ô Số TK 105 ghi “đã mở TK” khi chưa có số sổ', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🚫 KU hủy / nhập nhầm tổ (Đã đóng, tổng giải ngân = 0) không còn tính vào tổ viên, tất nợ, mới vào / ra khỏi tổ; ② Kiểm tra số liệu ghi số KU đã loại', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['⏳ KU đã nhập máy chưa giải ngân (còn mở, giải ngân 0): không tính tất nợ; Sao kê › Nợ cần xử lý có báo cáo riêng — quá 1 tháng (từ ngày vay đến ngày số liệu) tô nền, ghi “Cần đóng KU”, xếp đầu', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
-  ['📅 Chip “Đến hạn tháng sau”: 2 cột ĐH theo HĐ (gia hạn) và ĐH theo GDXA, ghi rõ “đã quá ĐH HĐ — chưa chuyển QH do ngày GD xã” / “chuyển QH ngày …” (cả In / Excel)', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['📝 Mẫu 06: dòng chấm nhạt (không đậm, xám); kẻ ngang giữa các dòng hộ mảnh xám; tiêu đề cột cỡ 11; “Biện pháp xử lý” 1 dòng rưỡi, ngày ký đưa lên; chừa chỗ ký; phiếu 1–2 hộ gọn 1 trang; mẫu trắng 3 cột Họ tên · Mục đích · Vào việc bằng nhau, 1 mặt đúng 1 trang, 2 mặt đúng 2 trang (cả Word)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 04: kiến nghị 2d, 2đ, 3a, 3b tùy chọn trong hộp “Chọn khi in” (mặc định 1 dòng chấm; tích để in câu gợi ý, sửa được); bản In không còn đường kẻ lòi lề phải; tên Trưởng đoàn thẳng giữa dưới chức danh; gạch dưới tên đơn vị', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🗓 Kế hoạch: gạch dưới tên cơ quan dài theo tên (1/3–1/2 dòng chữ), cân giữa, cách chữ vừa phải; bản In có gạch như Word', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['💰 Tổ TK&VV: chip “Tất nợ · còn TK 105” (thay Không dư nợ; bỏ 2 chip còn 105 / đề xuất cho ra) — TK 105 trên 100.000 đ in đậm; không tô màu sặc sỡ, nền nhạt xen kẽ theo tổ; cột “Nợ lãi” sau “Dư nợ”; còn nợ lãi = chưa tất nợ (tính như còn dư nợ); cột Gợi ý đổi thành “Ghi chú” (màn hình ghi ngắn, In / Excel để trống ghi tay); cột Tổ in trước Họ tên', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['📅 Số liệu theo NGÀY: chọn kỳ ngày ở ô “Số liệu” (Tổ, KTGS, Sao kê) → mỗi loại file lấy bản đúng ngày, thiếu thì lấy cuối tháng trước; đầu tab có dòng ghi rõ lấy theo ngày nào (KTGS chỉ cảnh báo trên màn hình). Mới vào / Ra khỏi tổ so ngày đó với cuối tháng trước', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['📥 KHĐ, Nợ quá hạn, Nợ khoanh, Thông tin tổ trưởng, DSTO, Tổng dư nợ nay nạp được theo ngày (như Mẫu 31, Dư nợ chi tiết); ngày chỉ có Dư nợ chi tiết cũng chọn được', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🗂 Ma trận có cột “📅 Theo ngày” sau tháng mới nhất (bấm ngày để xem / xóa) + nút 🗑 Xóa ngày cũ (giữ ngày mới nhất, cho nhẹ máy); nạp ngày mới app hỏi xóa ngày cũ', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['⚡ Mở app là dựng sẵn số liệu (tháng + ngày mới nhất) chạy ngầm, có tiến độ từng kỳ; nút 🧹 Làm sạch & nạp lại (không xóa file). Nạp file có tiến độ từng file', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🛡 Sau giải ngân (30 ngày): tháng chưa có Mẫu 31 cuối tháng dùng Mẫu 31 ngày mới nhất — in phiếu đi kiểm kịp thời', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📅 Mọi ô chọn ngày ghi rõ kiểu: cạnh ô có dòng “= 07/10/2026 (ngày/tháng/năm)”, đổi ngày là đổi theo — máy đặt tiếng Anh ô ngày hiện tháng trước, nhìn dòng này để khỏi nhầm', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['📅 Sửa: file ghi ngày kiểu Mỹ (tháng/ngày, vd “10/7/2026 12:00:00 AM”) bị đọc nhầm thành 10/07 — nay app tự nhận kiểu ngày của file. File đã vào nhầm ô tháng thì xóa ô đó rồi nạp lại', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['📄 Mẫu 06 trắng để ghi tay (nút cạnh “Xem phiếu Mẫu 06”): in 1 mặt (4 dòng hộ) hoặc 1 tờ 2 mặt (21 dòng hộ), dòng 0,8 cm — In / Word', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📝 Mẫu 06: mục đích sử dụng vốn cùng cỡ chữ nhỏ; cột đúng / sai mục đích hẹp lại, Hiệu quả đầu tư rộng ra; tên Hội không in đậm; “Mẫu số 06/TD” nhỏ, canh phải', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📝 Mẫu 16 / 04: không ghi số tháng lãi — nhóm chung “Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao” (vẫn tính theo số tháng để xếp nặng nhẹ)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🔀 Tab Tổ chọn đa chiều: Hội lọc độc lập với địa bàn — Xã + Hội (cả xã, không cần chọn điểm), PGD + Hội (toàn PGD); đổi xã vẫn giữ Hội', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['📅 Biến động cả năm: thêm bảng chi tiết kiểu báo cáo tổ — STT, Mã KH, Họ tên hộ vay, Vào (ngày), Ra (ngày), Ghi chú; cấp Hội thêm cột Tổ, cấp xã thêm Điểm GD; In / Excel theo bảng này', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['👥 Tổ TK&VV: chọn Hội / điểm GD / xã / PGD (chưa chọn tổ) cũng có dòng tóm tắt + chip lọc như của tổ (đề xuất cho ra, CCCD hết hạn, mới vào, ra khỏi tổ…) — danh sách có cột Tổ, In / Excel', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🏢 Hàng chip xã có chip PGD; bảng toàn PGD: dòng Cộng PGD trên đầu, từng xã → các điểm GD (bấm để xuống bảng các tổ)', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['0️⃣ Vay trực tiếp không tính là tổ: STT 0, đầu nhóm điểm GD; số tổ không tính, khách và số tiền vẫn cộng; bảng các tổ có In / Excel', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🆕 Mới vào tổ chia 3 nhóm: hộ mới (CIF mới) · CIF cũ dùng lại · chuyển tổ — dòng tóm tắt và Biến động cả năm', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['📅 Dư nợ chi tiết: lấy kỳ theo cột “Ngày số liệu” trong file (tên file ghi ngày xuất có thể khác) — file đã nạp sai ô tháng thì nạp lại', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🔢 Số TK 105 khách đã tất nợ: nạp thêm file Dư nợ chi tiết các tháng trước (vd đến 31/12/2025) — app lấy số sổ của tháng khách còn vay; khách đang vay giữ số mới nhất', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🔧 Tổ TK&VV: sửa dòng tóm tắt bị lệch số (“không dư nợ còn 105”, “đề xuất cho ra”, “CCCD hết hạn”) — nay khớp đúng với các chip', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🔧 Sửa: số TK 105 (theo file Dư nợ chi tiết) không hiện khi file này được nạp trước Mẫu 31 — nay tự gắn lại, máy đã nạp rồi cũng tự sửa khi mở app', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🖨 Bộ in chuẩn: mọi bản In / Xem trước do app tự chia trang A4 — xem sao in vậy; hết dòng ngày giờ, đường dẫn ở đầu / cuối trang; lặp tiêu đề bảng, không cắt dòng; báo cáo nhanh tự chọn dọc / dọc gọn / ngang', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🔎 Khung xem trước mới: lật trang ⏮ ‹ n/N › ⏭, thu phóng − + ↔ ⊡, Khổ, In, PDF, Word, toàn màn hình', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🔢 Số trang: Mẫu 06 “Trang x/y” từng tổ; Kế hoạch, 04, 16, Phân công, báo cáo số trang góc dưới phải từ trang 2 (cả Word và bản In); in 2 mặt chèn trang trắng chính xác', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📝 Mẫu 06 theo mẫu chuẩn: lề rộng tối đa, Họ tên 1 dòng, Mục đích tối đa 2 dòng, chương trình ghi viết tắt hệ thống, dòng chấm tới cuối dòng', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['👥 Tổ TK&VV: chip “Có dư nợ · chưa có TK 105”, ngày tất nợ, Mới vào tổ / Ra khỏi tổ (so tháng trước), 📅 Biến động cả năm', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🖨 Hộp “Chọn khi in”: ô người kiểm tra / người ký hiện kèm tên đã khai (vd “Phó Chủ tịch — Trần Thị B”), ô chưa khai tên thì ẩn bớt', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['⚡ Tab Số liệu: hiện các tháng đang giữ sẵn (vd “Đang giữ 9 tháng: T9, T8, …”) + nút ↻ Nạp lại', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🖨 Mẫu 06 / 16 / 04 / Kế hoạch / Phân công: gạch dưới tiêu ngữ và tên cơ quan mảnh lại (0,5 pt) — cả Word và bản In', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['⚡ Số liệu: máy tính giữ sẵn 12 tháng gần nhất (chọn “Tất cả” ở đầu tab Số liệu), điện thoại giữ tháng mới nhất — lần đầu vào tab Số liệu app nạp ngầm các tháng, sau đó chuyển tháng / in / đổi tab không phải nạp lại', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🖨 Mẫu 06 / 16 / 04 / Kế hoạch / Phân công: dòng chấm in mịn hơn (cỡ nhỏ, đủ dài như cũ) — cả Word và bản In', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🖨 In 2 mặt (mặc định bật, ô trong hộp “Chọn khi in”): xuất nhiều tổ / nhiều bản — mỗi bản bắt đầu tờ mới, bản lẻ trang tự thêm 1 trang trắng (Word chắc chắn; In từ trình duyệt là ước lượng)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📝 Mẫu 16: mục III ghi “Qua kiểm tra tại Tổ và kiểm tra thực tế tổ viên, Đoàn có nhận xét như sau:” — bỏ số khách hàng (không khớp số tổ viên của tổ)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📄 Phân công BTV: tích chọn người phân công; bỏ tích Chủ tịch = khuyết → chọn Phó đôn lên phụ trách (nhận đủ nhiệm vụ CT); không còn Phó → Chủ tịch kiêm; ô “Kiểm tra đủ nhiệm vụ” (ấp thiếu / trùng, Kế toán, Thủ quỹ); chỗ ký mặc định ghi chung CHỦ TỊCH, chọn người ký nếu muốn in tên', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['✍ Khai báo Hội – xã: rà chính tả tên Ban Thường vụ (khoảng trắng, viết hoa, chưa dấu, 2 dấu thanh, trùng tên) — báo ⚠ + nút “Sửa theo gợi ý”, không tự sửa', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🗓 Kế hoạch năm: thêm cách “Chọn tháng” bằng chip (vd T3, T5, T7) + Chọn nhanh Cuối quý / Tháng lẻ / Tháng chẵn; Xem / In là lưu kế hoạch, có 🗑 Xóa kế hoạch; Báo cáo tổ (Mẫu 04) có hàng “Theo kế hoạch” bấm tháng là tích sẵn tổ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📥 Nạp số liệu: ô Danh sách tổ TK&VV (DSTO) báo số tổ (vd 369 tổ) thay cho số dòng', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🔍 Kiểm tra tháng: bảng đối chiếu thêm cột “Dư nợ CT” (dư nợ, quá hạn, khoanh, cho vay / thu nợ tháng, tiền gửi 105, số KH) cạnh Mẫu 31; mục mới “Mẫu 31 ↔ Dư nợ chi tiết” báo khớp / lệch + danh sách món lệch (chỉ báo, không sửa). File Dư nợ chi tiết nạp ở 3.120 cần nạp lại 1 lần', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['📥 Nạp số liệu: thêm dòng riêng “Dư nợ chi tiết” ngay dưới Mẫu 31 — file này chỉ dùng tham chiếu số TK 105 (10 chữ số) và điểm giao dịch xã; mọi số dư nợ, lãi, số dư 105 vẫn lấy từ Mẫu 31. Thả file vào “Nạp nhiều file” app tự nhận dòng', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🌳 Chọn tổ: chip và danh sách tổ xếp theo ấp (cùng ấp theo tên tổ trưởng), hết lộn xộn', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🗑 Bỏ hẳn Mẫu 10: không nhận file Mẫu 10 nữa; bản Mẫu 10 đã nạp tự bỏ (file trên Drive vào Thùng rác, lấy lại được 30 ngày) — hết số TK 105 sai dạng 1482…', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['📄 Phân công BTV: tên Hội dài ở đầu văn bản xuống dòng trước "XÃ / PHƯỜNG …" (như Kế hoạch), không còn ngắt giữa tên xã', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📄 Phân công BTV: lấy đủ ấp / khu phố của xã theo thứ tự cây, mở lần đầu tự chia sẵn (Chủ tịch / Bí thư ít hơn, rồi Phó, Ủy viên — mỗi người 1 đoạn liền nhau), nút ⇄ Chia lại đều; hộp có ô Nhiệm kỳ, Số HĐ ủy thác, Ngày ký HĐ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Rà mẫu chung 06 / 16 / 04: "Chức vụ:" có hai chấm; chữ sau dòng chấm cách 1 khoảng; tên đơn vị dài xuống dòng trước "xã / phường"; chức vụ dài viết tắt BTV / BCH; Mẫu 16 "(tỷ lệ 0%)" hết dính', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 06: Cán bộ chứng kiến ngang hàng Cán bộ kiểm tra, số tiền dòng Cộng in đậm, số dài tự thu chữ không rớt dòng · Mẫu 16 / 04: có tên đơn vị thì bỏ dòng "ĐƠN VỊ KIỂM TRA" · Mẫu 04: nơi nhận ghi "PGD NHCSXH Gò Dầu"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📄 Thông báo phân công nhiệm vụ Ban Thường vụ (Hội / Đoàn): ở 🏛 Khai báo Hội đoàn thể, nút 📄 Phân công BTV cạnh tên mỗi Hội — tích ấp mỗi người phụ trách kiểm tra (hoặc ⇄ Gợi ý chia đều), kiêm kế toán / thủ quỹ; xuất Word hoặc In. Thẻ thêm ô Phó Chủ tịch 2, 3 và Nhiệm kỳ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 06 phân trang: 1 mặt chứa tối đa 3 dòng khế ước (lề trên / dưới 1 cm); nhiều hơn thì 1 khách nhiều khế ước không bị cắt đôi, hộ cuối sang trang cùng dòng Cộng + nhận xét + ký (Word và bản In)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 16 Bảng II (khi chọn điền): bỏ chữ "đầy đủ" — ghi "Có thực hiện", "Có tham gia", "Đảm bảo đúng thành phần", "Có lưu giữ"; điều cấm vẫn ghi rõ "Không"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 06: dòng "Thời điểm · Địa bàn · Tổ TK&VV" không rớt dòng — thu khoảng cách, dài thì bỏ "tỉnh Tây Ninh", vẫn dài thì viết tắt KP / P. / X.; cột Chương trình canh giữa ô; tên cán bộ kiểm tra in dưới khối ký', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 16: tên Trưởng đoàn và Tổ trưởng in dưới khối ký; Bảng II (khi chọn điền) ghi như mẫu tham khảo: "Theo cụm dân cư liền kề", "Tại văn phòng ấp, định kỳ theo quý", "Thực hiện đầy đủ"…', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🗓 Kế hoạch ①: sửa 2 chỗ dính chữ (")? Các hình thức", "Lưu: VT")', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🖨 KTGS: bấm In / Word / Xem của mẫu nào thì hiện hộp chọn của mẫu đó — Mẫu 06: mục đích in / trống, người kiểm tra; Mẫu 16: nhận xét gợi ý / trống, Bảng II trống / theo 727, 2 người kiểm tra; Mẫu 04: nhận xét, 2 người; Kế hoạch: người ký. Nút ✚ Điền đầy đủ; app nhớ lựa chọn', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['👤 Người kiểm tra chọn theo vai trò (Phó Chủ tịch mặc định / Chủ tịch / ủy viên BTV / để trống) — tên lấy theo Khai báo Hội của từng tổ; Mẫu 04 in tên Trưởng đoàn; Kế hoạch chọn người ký, chức danh luôn CHỦ TỊCH', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Nhận xét Mẫu 16 / 04 liệt kê thêm hộ nợ quá hạn, nợ khoanh (tối đa 10 hộ) kèm đề xuất nhẹ nhàng: xây dựng kế hoạch trả nợ, trả dần; động viên trả khi có điều kiện', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📅 Kiểm tra đột xuất: ô Ngày kiểm tra nằm cạnh nút In; các tab mẫu bỏ khung ✎ Khai báo', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['☁ Toàn bộ cài đặt lên Drive (bảng khai báo Hội, chuẩn hóa, lịch kế hoạch, bảng ngành, lựa chọn in…): mở app là tự lấy phần máy khác vừa sửa rồi mới đẩy phần máy này đổi; 2 máy cùng sửa thì gộp, không đè. Độ rộng khung, đang xem, camera… vẫn riêng từng máy', "dongHop();moCaiDat('drive')"],
-  ['🏛 KTGS Hội › Khai báo Hội đoàn thể — 1 nơi khai cho Mẫu 06, 16TD, 04, Kế hoạch: tên Hội cấp xã (trống = tên chuẩn), Chủ tịch, Phó Chủ tịch, tối đa 5 ủy viên BTV, số / ngày HĐUT, KH Hội tỉnh; tab nhỏ 📖 Chuẩn hóa quy tắc (ô đã sửa tô xanh, ↺ từng ô)', "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
-  ['👤 Người kiểm tra Mẫu 06 / 16 / 04 mặc định = Phó Chủ tịch; người ký Kế hoạch = Chủ tịch (khai báo cũ tự chuyển sang). Các tab mẫu chỉ còn dòng nhắc Hội nào chưa khai', "dongHop();D.cauHinh.slTab='kt';ktCH().che='hdt';doiNgan(7)"],
-  ['🗓 Kế hoạch KTGS ① ②: chọn căn cứ 727 (từ 11/02/2026) hoặc hướng dẫn cũ 10566 (kế hoạch lập trước 727) — chỉ thay dòng căn cứ đầu, nội dung giữ nguyên; nhớ theo Hội', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 06 theo mẫu gốc: dòng "Thời điểm · Địa bàn · Tổ TK&VV" (dài thì Tổ xuống dòng), "Đơn vị tính" dòng riêng, "Đơn vị kiểm tra" canh trái; tiêu đề xích xuống; tên người vay viết hoa đầu từ; 1 món 2 dòng; cột tiền thực tế gọn, Vào việc rộng; chương trình / mục đích dài nhỏ 1 cỡ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 06: cột Nợ lãi (kiểm tra thực tế) điền sẵn lãi tồn (triệu đồng), dòng Cộng có tổng; tổng giải ngân / dư nợ không rớt chữ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 16: "ĐƠN VỊ KIỂM TRA" canh giữa; Bảng II điền sẵn theo 727 (x / Không / Định kỳ theo quý) — chọn "Để trống" ở khung khai báo nếu muốn ghi tay', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📷 Ảnh scan khôi phục không còn ngày tương lai (vd 2036) — lấy hôm nay', "dongHop()"],
-  ['🗓 Kế hoạch KTGS ① ②: sửa chữ dính ("Địa điểm: Văn phòng", "xã giao đồng chí", "Hội nhận ủy thác"… 10 chỗ)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 04: dòng ngày "Gia Lộc, ngày … tháng mm năm yyyy" theo tháng kiểm tra; III. Nội dung kiểm tra ghi sẵn theo văn bản 727; nhận xét từng tổ có lãi tồn; kiến nghị a) b) c) ghi nhẹ nhàng, liệt kê hộ có món không giao dịch từ 3 tháng và lãi tồn trên 6 tháng lãi (tối đa 10 hộ mỗi tổ)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 16: chưa khai ngày thì tháng / năm theo tháng kiểm tra; Tồn tại / Kiến nghị ghi tên hộ có món không giao dịch từ 3 tháng, lãi tồn trên 6 tháng lãi', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['⚙ Bảng khai báo Hội – xã: dòng "In ra" xuống dòng gọn trong ô (không đè ô bên), rê chuột xem đủ; số KH dạng 06-KH/HNDT không còn bị nhắc cam', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🗓 Kế hoạch KTGS ② (và ①): gạch dưới tên cơ quan màu đen, xích lên; gạch dưới tiêu ngữ xích xuống; tên Hội dài tự xuống cỡ 12 (quá dài thì 2 dòng gọn trước "PHƯỜNG / XÃ"); bỏ gạch đầu dòng câu "Hội … xây dựng kế hoạch"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Nạp thêm "Danh sách tổ TK&VV" (file …_DSTO.xlsx, loại phụ) cùng Thông tin tổ trưởng: tổ thiếu trong file tổ trưởng lấy điểm GD theo DSTO; ② Kiểm tra đối chiếu 2 danh sách với Mẫu 31 (tổ thiếu, tổ không còn món, lệch điểm GD, Hội, tổ trưởng / SĐT)', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['✍ Tên tổ trưởng / tổ phó hiện và in "Nguyễn Văn A": bỏ "Ông / Bà" đầu tên, tên không dấu lấy lại tên có dấu theo Mẫu 31, viết hoa chữ đầu mỗi từ — tên hộ vay giữ nguyên như hệ thống', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🧾 Đọc đủ dòng file Excel khai sai vùng dữ liệu (DSTO hệ thống khai tới dòng 14 dù có 380 dòng)', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['📍 Tổ không có trong file Thông tin tổ trưởng tháng này (file hệ thống xuất thiếu): lấy điểm GD theo bảng tổ tháng gần nhất → danh bạ tổ → ấp → ngày GDXA; dòng báo vàng ở KTGS Hội ghi rõ số tổ thiếu và bảng từng tổ kèm căn cứ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📍 Vay trực tiếp (không qua tổ) xếp vào điểm GD theo ấp của món, rồi mới theo ngày GDXA; xã chỉ 1 điểm thì lấy luôn — hết mục "(chưa rõ điểm GD)" do món trực tiếp', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🛡 KTGS Hội: cây chọn không còn mục "Trực tiếp" / "Vay trực tiếp" (kiểm tra theo tổ); các tab khác giữ nguyên', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 16: dòng "ĐOÀN KIỂM TRA:" tự in tên Hội cấp xã của tổ (Hội Nông dân xã …, Đoàn Thanh niên phường …); bỏ ô khai Đoàn kiểm tra', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Chép file: nút 📋 trên từng dòng văn bản (1 file) · ☑ Chọn chép nhiều file rồi Ctrl+V một lần vào Zalo / email / thư mục (tối đa 20 file mỗi lần, có Chép tiếp) — cần cài lại cầu nối 1 lần (bản 2)', "dongHop();doiNgan(1)"],
-  ['📋 Mẫu 04: Đoàn kiểm tra lấy cán bộ Mẫu 06 / 16 + 2 dòng Ông (bà) in sẵn; thời gian "Tháng mm/yyyy" (tháng sau số liệu); địa điểm ấp, xã, tỉnh; nhận xét từng tổ theo số liệu (văn bản 727); kiến nghị để ghi tay; thêm dòng ghi tài liệu', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🗓 Kế hoạch ①: thành phần ghi chung "… thành lập đoàn kiểm tra gồm: Các đồng chí Chủ tịch, Phó Chủ tịch, Ủy viên Ban Thường vụ …" · Kế hoạch ②: đủ 3 căn cứ như ① (chưa khai thì để chấm)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['⚙ Bảng khai báo Hội – xã: dưới mỗi ô có dòng "In ra:" (chữ sẽ in, tự lấy / đã gõ, ↺ về chuẩn, nhắc cam khi nghi gõ sai); bỏ ô Đoàn kiểm tra; dọn dữ liệu cũ không dùng', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🗓 Kế hoạch KTGS ① ②: gạch đầu dòng chuẩn — mọi dòng "- …" / "+ …" thụt đầu dòng đều nhau, bỏ dấu cách thừa (mục Ban quản lý Tổ TK&VV…)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['✍ Ghi tên tác giả NhanNT (chữ xanh lá nhỏ) ở dải trạng thái dưới cùng, Cài đặt, Hướng dẫn, cửa sổ nổi HSSV và HanTraHSSV.exe — không gắn vào biểu mẫu in', "dongHop()"],
-  ['🔎 Tra cứu KH: tên hộ vay + mã KH luôn nổi bật (danh sách và đầu thẻ)', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
-  ['🔎 Tra cứu KH: cột trái / phải 40 / 60 (danh sách không còn mất chữ); dòng HSSV tô màu tên trường + khóa học, ngày nhập học → ra trường để đối chiếu khi cho vay năm mới', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
-  ['📌 Cửa sổ nổi HSSV: mặc định thu gọn (5 khối + câu chốt), ▾ Chi tiết mới hiện bảng / kỳ trả / cách tính, ▁ thu nhỏ còn 1 dải (ô ra trường, tiền vay, 1 dòng kết quả); nút ☀ / 🌙 đổi nền sáng / tối riêng cửa sổ nổi; khối HSSV đẹp hơn ở nền tối', "dongHop();doiNgan(0);ccMo('hssv')"],
-  ['📌 Hạn trả HSSV có nút Nổi: cửa sổ nhỏ luôn nằm trên trình duyệt / chương trình nghiệp vụ (Chrome, Edge) để vừa nhìn vừa nhập; dùng chung số liệu với ô trong app, ↩ đưa về. Máy không dùng được thì có công cụ riêng HanTraHSSV.exe (thư mục tools/hssv)', "dongHop();doiNgan(0);ccMo('hssv')"],
-  ['🎓 Hạn trả HSSV: tiền vay gợi ý tính theo năm học (từ tháng 9) — ra trường tháng 6–8 tròn năm, tháng 2–5 nửa năm, tháng 9 – tháng 1 tính vào năm trước; vay tháng 1–5 năm đầu tính nửa năm; ô Cách tính liệt kê từng năm học', "dongHop();doiNgan(0);ccMo('hssv')"],
-  ['🎓 Hạn trả HSSV: ô Ngày vay tự gợi ý ngày giải ngân = ngày giao dịch (GDX) gần nhất kể từ hôm nay (hôm nay đúng GDX thì lấy hôm nay); đổi GDX thì gợi ý lại; gõ đè nếu khác', "dongHop();doiNgan(0);ccMo('hssv')"],
-  ['🎓 Hạn trả HSSV: app tự gợi ý tiền vay theo thời gian phát tiền vay (mỗi nửa năm = 5 tháng = 20 triệu, năm = 40 triệu, không tính lẻ) — ô Tiền vay điền sẵn, gõ đè nếu cần; kết quả 3 khối lớn (số tiền vay + số tháng vay, thời hạn, hạn cuối) + 2 khối phụ nhỏ (trả mỗi lần, lần đầu)', "dongHop();doiNgan(0);ccMo('hssv')"],
-  ['📄 Mẫu 06 gọn hơn: đã điền Đơn vị thì bỏ dòng chấm thứ 2; chữ “Chức vụ” 2 dòng cán bộ thẳng cột; địa bàn “ấp / khu phố …, xã / phường …, tỉnh Tây Ninh” rồi Tổ TK&VV; cột Mục đích rộng (~3,7 cm), dòng cao 1,5 cm (ghi được 3 dòng); 1 khách nhiều khế ước chỉ ghi tên, ô ký 1 lần; hộ xếp theo mã KH; món có 2 mục đích (PNKT52, vd nước sạch + vệ sinh) in đủ cả 2', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🧹 KTGS chỉ phục vụ in mẫu: bỏ theo dõi “đã lập phiếu”, lịch sử / lần kiểm tra trước, nhật ký gửi sang Mẫu 04 (dữ liệu cũ vẫn giữ, không dùng)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📋 Mẫu 04 có 2 chỗ lập: ① chọn xã / hội ở cây → tích cả ấp hoặc từng tổ (không tích sẵn, ngày tùy chọn) · ② trong 🗓 Kế hoạch năm: chọn tháng có lịch → Mẫu 04 theo đúng tổ của tháng đó, in cùng Kế hoạch', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📅 Sau giải ngân: mỗi tổ 1 phiếu cho cả lần kiểm tra (gom các tháng đã chọn); xem trước mỗi phiếu là 1 tờ riêng (không còn nối đuôi)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['👥 Danh sách chọn hộ (đột xuất, sau giải ngân, định kỳ) chung 1 kiểu: mã KH, món (mã KV, số KU, CT, dư nợ, ngày GN), lãi tồn, số dư 105, ghi chú tình trạng — xếp theo mã KH', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📖 Bảng chuẩn hóa Hội – Đoàn (trong khung ✎ Khai báo của Kế hoạch / Mẫu 04): tên, đầu trang, chức danh ký, cấp trên… sửa 1 chỗ cho mọi mẫu; Đoàn: Tỉnh Đoàn, Bí thư; ký TM. BAN THƯỜNG VỤ; phường → “phường”, “khu phố” trong Kế hoạch, Mẫu 16', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['✎ KTGS: khai báo nằm ngay trong tab của mẫu (khung thu gọn được, không còn hộp bật lên); cán bộ kiểm tra khai 1 bảng theo Hội – xã (4 người / xã), phiếu tự lấy đúng người của Hội phụ trách tổ — khi in chọn "Để trống" nếu muốn điền tay; khai báo được nhớ lần sau', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📄 Văn bản không liên quan chương trình vay không còn bị kẹt ở Chờ khai (CT vay không bắt buộc); sắp xếp thêm kiểu "Vừa thêm" — file mới đưa vào tủ lên đầu', "dongHop();doiNgan(1)"],
-  ['🏷 Đơn vị kiểm tra Mẫu 06 / 16 tự điền Hội cấp xã của từng tổ (Hội Nông dân xã …, Hội Liên hiệp Phụ nữ phường …, Đoàn Thanh niên xã …) — đủ chỗ viết đủ, thiếu chỗ viết gọn; gõ "-" để chừa dòng chấm. Đầu trang Kế hoạch: Đoàn "ĐTN XÃ …", Hội LHPN "HỘI LHPN XÃ …"', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📝 Mẫu 16: chữ in sẵn “thôn/tổ dân phố, xã/phường/đặc khu” thành đúng chữ; tên Hội đầy đủ (hết lỗi “Hội Đoàn Thanh niên”); Chức vụ thẳng cột; gợi ý nhận xét theo số liệu (ô kết quả số tổ viên / lãi tồn / quá hạn, ưu điểm – tồn tại – kiến nghị) — chọn “Để trống” nếu muốn ghi tay', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📍 Tổ chưa có trong file Thông tin tổ trưởng (tổ mới / tách) không còn “(chưa rõ điểm GD)”: app suy điểm GD theo danh mục địa bàn của ấp → tổ cùng ấp → tổ cùng xã cùng ngày GDXA, có dòng báo để anh biết', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🗓 KTGS Hội › Định kỳ theo lịch · Mẫu 06 + 16: chọn số liệu cuối tháng (vd 30/09) → kiểm tra tháng sau (10/2026), ngày để trống; tổ gợi ý theo lịch Kế hoạch 01/KH (chọn thêm / bỏ tự do); Mẫu 06 = hộ có món giải ngân các năm trước, tích sẵn 100%, báo ≥ 90%; hộ quá hạn / khoanh không tích (tích tay khi cần); Mẫu 16 kèm theo; Mẫu 04 tự nhận các tổ này', "dongHop();D.cauHinh.slTab='kt';ktCH().che='dk';doiNgan(7)"],
-  ['📆 Ô Số liệu (Tổ TK&VV, Sao kê, KTGS) mặc định Mẫu 31 cuối tháng gần nhất; số liệu theo ngày nằm nhóm riêng, chỉ dùng khi anh chọn (mở lại app về cuối tháng)', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🔓 BC0437 / BC0438 bên KTGS không theo khóa tháng của số liệu — tháng đã chốt vẫn nạp / thay được', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['↺ Gợi ý lại (kiểm tra đột xuất) mỗi lần bấm ra lượt hộ khác, ưu tiên hộ chưa kiểm lần trước; hiện số hộ tốt / cần quan tâm để biết vì sao 2 kiểu ra giống nhau', "dongHop();D.cauHinh.slTab='kt';ktCH().che='dx';doiNgan(7)"],
-  ['🗓 Kế hoạch 01/KH thêm khuôn ② mẫu gọn (theo bản kế hoạch mẫu của Hội xã) — chọn ① / ② trên màn Kế hoạch; khai báo xếp theo thứ tự trên mẫu; bảng đầu trang / chữ ký không viền, Quốc hiệu không rớt dòng', "dongHop();D.cauHinh.slTab='kt';ktCH().che='kh';doiNgan(7)"],
-  ['🗓 KTGS Hội › Kế hoạch năm · 01/KH: chọn năm → xã → hội → app lấy 100% tổ của Hội tại xã, gom theo ấp, xếp sẵn tháng 02 → 10 (đổi được cả ấp / từng tổ, nhắc nếu còn tổ chưa xếp) → 👁 Xem → Word / In; khuôn theo dự thảo HĐT cấp xã, căn cứ 727, tối thiểu 90%, không ghi số hộ', "dongHop();D.cauHinh.slTab='kt';ktCH().che='kh';doiNgan(7)"],
-  ['📋 KTGS Hội › Báo cáo tổng hợp · Mẫu 04/BC-TH: chọn tháng → các tổ đã lập phiếu trong tháng tích sẵn (thêm tổ bằng cây, sửa ngày) → mỗi Hội – xã 1 báo cáo → 👁 Xem → Word để sửa / In; Word đúng khuôn mẫu gốc, bỏ khung MẪU THAM KHẢO, chỗ ghi tay để dòng chấm (I.1: 4 dòng, III: 4, mỗi mục IV: 3)', "dongHop();D.cauHinh.slTab='kt';ktCH().che='bc';doiNgan(7)"],
-  ['⚙ Khai báo Hội: tên đơn vị, số / ngày Hợp đồng ủy thác, Kế hoạch KTGS của Hội tỉnh, Đoàn kiểm tra, người ký — khai 1 lần, Mẫu 04 (và Kế hoạch 01/KH sắp làm) tự điền', "dongHop();D.cauHinh.slTab='kt';ktCH().che='bc';doiNgan(7)"],
-  ['👤 Tra cứu KH gọn: danh sách 2 dòng/khách (điện thoại 50 dòng + Xem thêm, ↑ ↓ Enter); thẻ chia nhóm — số tóm tắt (dư nợ, QH, khoanh, lãi tồn, 105) · nhân thân (CCCD + ngày cấp, cảnh báo hết / sắp hết hạn) · liên hệ & địa bàn · tiết kiệm · món vay có mục đích vay vốn; món HSSV ghi đủ tên SV, CCCD SV, trường, hệ, ngành, khóa', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
-  ['📋 Bấm vào giá trị (CCCD, mã KH, SĐT, khế ước, số TK…) là chép — bỏ các nút 📋 riêng; bỏ nút Hồ sơ hộ ở thẻ khách, thêm 👥 Mở tổ', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
-  ['🔍 Kiểm trùng 2 ô (CCCD + họ tên): trùng CCCD người vay · trùng CCCD HSSV · TRÙNG TÊN VỢ/CHỒNG của người đang vay = người thừa kế · trùng họ tên — báo rõ trùng với ai, món nào, dư nợ, địa bàn', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
-  ['📋 Thêm file bằng cách dán: copy file (vd văn bản cũ trong thư mục) rồi bấm Ctrl+V trong app — nhận như kéo thả, xếp vào tab đang mở', "dongHop();doiNgan(1)"],
-  ['📅 KTGS Hội › Sau giải ngân (30 ngày): chọn tháng (hoặc từ tháng → đến tháng) → chọn địa bàn → 👁 Xem → In / Word Mẫu 06 — mỗi tổ, mỗi tháng 1 phiếu (gồm cả HSSV nhận tiền lần 2 trở đi); chọn đến tổ thì tích / bỏ tích từng món', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['⚙ Bảng ngành kinh tế gọn: ngành nhiều món lên trên, ẩn ngành dưới 10 món (nút Hiện thêm / Thu gọn); cột Mục đích ghi “In mục đích vay vốn (theo hệ thống, rút gọn)”', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🛡 Số liệu có tab con mới KTGS Hội: nạp BC0437 (tổ TK&VV do HĐT quản lý) + BC0438 (ủy thác theo xã · hội) theo chuẩn tab Nạp — ma trận loại × tháng, nạp nhiều file (xem trước → ghi nhận), 🔍 kiểm tra BC0437 ↔ BC0438 ↔ Mẫu 31 ↔ KHĐ; xếp loại tổ tự tính theo công thức của file khi cột = 0; bảng các tổ có điểm, xếp loại', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['🧾 Chọn hộ kiểm tra đột xuất (Mẫu 06): gợi ý 6–8 hộ theo số tổ viên · Hộ tốt / Cần quan tâm / Trung hòa (6 tốt + 2 KHĐ) · bỏ hộ quá hạn, khoanh · có HSSV thì ≥ 1 món · món giải ngân dưới 30 ngày tự vào · tích thêm / bỏ được, có lý do từng hộ', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📄 Mẫu 06/TD Phiếu kiểm tra sử dụng vốn vay + Mẫu 16/TD Biên bản kiểm tra tổ: Word đúng 100% khuôn mẫu gốc (chỉ điền số liệu có sẵn, thiếu thì giữ dòng chấm; ngày + đoàn khai khi in; cột Mục đích chọn Để trống / In ngành kinh tế rút gọn — tên ngành anh sửa ở ⚙ Bảng ngành kinh tế; dòng cao ≥ 1,2 cm có chỗ ghi thực tế), In / PDF cùng bố cục, sang trang lặp tiêu đề bảng', "dongHop();D.cauHinh.slTab='kt';doiNgan(7)"],
-  ['📑 Sao kê bố cục mới: chọn 1 báo cáo (2 cột theo nhóm), thanh trên có Khổ Ngang / Dọc + 👁 Xem; in mỗi món 1 dòng, dọc bỏ Số KU, tràn thì bỏ SĐT rồi co chữ', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
-  ['👥 Tổ TK&VV: chọn tổ hiện ngay toàn bộ tổ viên (Mã KH, dư nợ, 105, số TK 105, CCCD còn / hết hạn) + nút lọc Đề xuất cho ra · Không dư nợ còn 105…; chưa chọn tổ thì ra bảng các tổ (tổ viên, mới vào, cho ra, KQGD tháng)', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['🏷 Vay trực tiếp (không qua tổ) nằm đúng xã / điểm GD, hội “Trực tiếp”; bỏ chip xã giả', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['📊 Tổng hợp in theo khuôn 01.1: A4 ngang lề 7 mm, tiêu đề 2 tầng, hàng số cột, triệu đồng 2 số lẻ · 👤 Tra cứu KH 2 cột (trái danh sách, phải chi tiết + hạn CCCD)', "dongHop();D.cauHinh.slTab='th';doiNgan(7)"],
-  ['👤 Kiểm trùng CCCD ghi rõ “Chưa vay vốn, có thể nhập máy” / “Trùng — đang vay vốn”', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
-  ['🔍 Kiểm tra tháng: tháng chưa có file Ⓐ chuẩn TW / Ⓑ chi tiết nào thì không kiểm, không còn hiện kết quả kiểm cũ (lưu từ bản trước)', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🏠 Sao kê nợ đến hạn kỳ con (CV 597): nhà ở xã hội + cho vay trực tiếp + ủy thác vay từ 01/03/2026 — kỳ đã đến hạn chưa trả, kỳ tới, hạn nộp 08/TD; danh sách nợ gốc đến hạn phân kỳ theo tổ gửi tổ trưởng; nạp file “Nợ đến hạn phân kỳ” để có đúng số tiền kỳ', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
-  ['🛠 Scan: bản chỉ có PDF trên Drive (quét ở máy khác) đổi tên không còn báo “Chưa lên Drive” / “không có trang” — app chỉ đổi tên, dời file trên Drive', "dongHop();doiNgan(4)"],
-  ['📅 Nợ đến hạn tính đúng theo hạn hợp đồng + kỳ GDXA chuyển quá hạn, chia 3 khung (quá hạn HĐ chưa chuyển QH · chuyển QH trong kỳ · chuyển QH kỳ sau), có Mã KH, SĐT, NV, lãi tồn, số dư 105, nút chọn nhanh Tháng sau / Đến cuối quý / Đến hết năm, in A4 dọc', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
-  ['🔒 Kiểm tra & chốt tháng: đủ file + đã kiểm = Đạt → Chốt (khóa, không nạp đè / thay / xóa; mở khóa có xác nhận) — chỉ để biết và chốt, không sửa số', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['📋 Ma trận: mỗi nhóm Ⓐ Ⓑ Ⓒ Ⓓ bấm sổ / gọn, thu gọn thì hiện chip 7/7 ✓; chọn tháng bằng chữ Việt; máy tính chia 2 cột, điện thoại vuốt ngang 2 khung', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🏷 Chương trình ghi tên viết tắt thống nhất (HN, HSSV, HSSVSTEM, GQVL, NSVSMT, MTN, HCN, APT, XKLD, NOXH…), cuối báo cáo có chú thích', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
-  ['📥 Số liệu gọn lại: ma trận file theo tháng là màn chính (mỗi loại 1 dòng, chấm tròn = nhóm), ① tình trạng tháng còn 1 dòng (Ⓐ x/7 · Ⓑ y/3 · file thiếu bấm để nạp)', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🔍 Kiểm tra có bảng đối chiếu chéo: chỉ tiêu × nguồn (BCDHTD · LEN_31 · B32 · Mẫu 31 · Mẫu 10), xanh khớp / đỏ lệch / vàng lưu ý, chọn toàn PGD hay từng xã, bấm ô xem chi tiết; mục đạt gom 1 dòng', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['⬇ Tải file gốc (bản sao Excel để dùng việc khác) từng ô hoặc cả tháng · 🧹 Tìm file rác của Số liệu (riêng phần Số liệu, tích rồi xóa)', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['📥 Số liệu nạp thêm 7 file chuẩn TW mỗi tháng (BCDHTD 01.1, 01.2 · B32 · LEN_31 XAPUONG / DONVIUT / CHTRINH / TO_TRUONG); file chia nhóm Ⓐ chuẩn TW · Ⓑ chi tiết · Ⓒ theo ngày · Ⓓ phụ; bỏ Mẫu 7 và Sao kê KH; 3 tháng KHĐ chỉ nhận mẫu 14 (DL Tháng)', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['📊 Tab con mới Tổng hợp: tích tiêu chí (theo xã, chương trình, đơn vị hành chính, hội, tổ trưởng, tiền gửi, nguồn vốn TW/ĐP) + bộ lọc phạm vi → Xem → In A4 ngang / Excel; lọc sâu hơn tính từ Mẫu 31 ghi “tham khảo” và tự đối chiếu số chuẩn', "dongHop();D.cauHinh.slTab='th';doiNgan(7)"],
-  ['🔍 Kiểm tra tháng thêm: số chuẩn TW khớp nhau (BCDHTD ↔ LEN_31 ↔ B32) và Mẫu 31 ↔ số chuẩn TW (từng xã, nguồn vốn, từng tổ), KHĐ ↔ Mẫu 31, tổ trưởng ↔ LEN_31', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🗂 Mẫu 31 / file TW xuất giữa tháng: app tự đọc ngày trong file — cuối tháng vào ô tháng, ngày khác vào ô theo ngày · 🔁 Thay file 1 ô (phải đúng loại, đúng kỳ) · 🗑 Xóa cả bộ tháng · ♻ Làm mới toàn bộ số liệu', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🖨 Mọi báo cáo in theo lề chuẩn: trên 2 · dưới 2 · trái 3 · phải 2 cm, có số trang, cuối báo cáo ghi “PGD NHCSXH GÒ DẦU”; thẻ tổ có chỉ tiêu chuẩn TW từ LEN_31', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['📑 Số liệu có thêm tab con Sao kê: chọn phạm vi (xã → điểm GD → hội → tổ) → tích → Xem → In / Excel: nợ quá hạn · nợ khoanh · KHĐ · số điện thoại (đánh dấu số trống / không đạt) · nợ đến hạn từ ngày đến ngày (ngày GDXA + hợp đồng, còn được gia hạn) · giải ngân trong tháng · món thay đổi dư nợ · khách cần mở TK 105', "dongHop();D.cauHinh.slTab='sk';doiNgan(7)"],
-  ['👤 Tra cứu KH: gõ CCCD là kiểm trùng ngay (khách đang vay + CMND HSSV → “chưa vay vốn, có thể nhập máy” hoặc trùng với ai) · gõ tên tìm cả vợ/chồng, HSSV, hiện xã · ấp · tổ · tình trạng · chọn 📍 phạm vi để thu hẹp', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
-  ['🛠 Tổ TK&VV: máy chưa có bảng số liệu (lưu trên Drive, chưa tải về) thì cây tổ vẫn hiện (lấy từ danh bạ) và báo rõ, có nút ☁ Nối Drive và tải / ⟳ Thử lại — trước đây cây trống, không báo', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['👥 Số liệu có thêm tab con Tổ TK&VV (cạnh Tra cứu KH): chọn tổ theo cây Xã → Điểm GD → Hội → Tổ (phím như các hộp khác, chip chọn nhanh) hoặc gõ tên tổ trưởng; tích báo cáo → Xem → In / Excel: Danh sách hộ vay · Nợ cần xử lý (quá hạn, khoanh, KHĐ trên 1 trang A4) · TK 105 của tổ', "dongHop();D.cauHinh.slTab='to';doiNgan(7)"],
-  ['📈 Số liệu theo tháng: chọn tháng → ① file của tháng (đủ / thiếu, nạp ngay) → ② 🔍 Kiểm tra (đủ file, toàn vẹn, khớp giữa các file, với tháng trước, Mẫu 31 ↔ Mẫu 10, theo từng tổ với Mẫu 7) — kết quả lưu lại, dữ liệu đổi thì báo kiểm lại; bảng nhiều tháng thu gọn được', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['📈 Số liệu: tách Mẫu 31 (chốt tháng) và Mẫu 10 (dư nợ theo ngày, nạp ngày nào cũng được) — app tự nhận loại theo cột, tự đọc ngày số liệu; Mẫu 10 đã nạp trước đây tự chuyển sang dòng mới, không mất dữ liệu', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['🧾 Khách có nhiều sổ 105: dòng lặp giữ nguyên như file (không gộp), dư nợ không cộng trùng, số dư 105 lấy 1 lần mỗi khách (sửa lỗi cộng thừa ở 3.86) · thêm loại Mẫu 7 Kiểm tra Tổ TK&VV; file xuất sau ngày số liệu thì cảnh báo', "dongHop();D.cauHinh.slTab='nap';doiNgan(7)"],
-  ['📈 Số liệu: đọc Mẫu 31 "Hồ sơ tín dụng chi tiết theo kỳ số liệu" (175 cột, thay Mẫu 10) — giữ đủ mọi cột, gộp khế ước trùng (khách 2 sổ 105), lưu cả món đã tất toán và khách chỉ gửi tiết kiệm; đối chiếu dư nợ tháng trước + phát sinh', "dongHop();doiNgan(7)"],
-  ['👤 Tab Số liệu chia 2 tab con: 📥 Nạp số liệu · 👤 Tra cứu KH (ô tìm riêng: tên, CCCD, mã KH, SĐT, số khế ước kể cả món đã tất toán, ngày sinh) · ô tìm chung không còn tra khách hàng — ở tab Số liệu thì gợi ý nhảy sang tab Văn bản / Scan… có kết quả', "dongHop();D.cauHinh.slTab='tra';doiNgan(7)"],
-  ['📈 Tab mới Số liệu: nạp bộ file Excel hằng tháng (cả bộ hoặc từng file) — app tự nhận loại theo cột trong file, lấy đúng dòng dữ liệu, kỳ theo ngày trong file; lưu dạng đọc nhanh trên Drive; đối chiếu tổng dư nợ, quá hạn, khoanh', "dongHop();doiNgan(7)"],
-  ['👤 Tra khách hàng ở ô tìm: gõ tên (không dấu), CCCD, mã KH hoặc năm sinh → thẻ khách hàng có CCCD, ngày cấp, địa chỉ, nút chép, các món vay · Tab Tháng: bỏ 7 dòng sao kê thuần Excel, dòng XLS không còn tính thiếu', "dongHop();doiNgan(7)"],
-  ['✍ Tab Scan: bản tên không dấu (từ Lập chỉ mục) → đề xuất tên có dấu theo khách Theo dõi nợ, anh tích rồi mới đổi · ⌨ phím chung cho hộp hồ sơ hộ, lần làm việc, lịch · 📥 chip chờ khai gọn trên điện thoại', "dongHop();doiNgan(4)"],
-  ['📊 Công cụ Giao ban: Theo dõi nợ kỳ này so kỳ trước theo xã, điểm GD, tổ tăng / giảm, món mới vào / đã ra + nhận định gợi ý · 📅 Buổi GD: cam kết đến hạn, món cần đôn đốc, hồ sơ thiếu ở điểm — In / Chép gửi Zalo', "dongHop();doiNgan(0);ccMo('giaoban')"],
-  ['🏠 Hồ sơ hộ 1 trang: CCCD, hồ sơ quét, Chữ ký·CCCD, bộ hồ sơ, mọi món vay, lần làm việc, tóm tắt hồ sơ hộ — gõ tên ở ô tìm, nút 🏠 trên dòng Scan hoặc thẻ món vay', "dongHop();doiNgan(4)"],
-  ['🛟 An toàn dữ liệu: luôn gộp với Drive trước khi ghi, chặn ghi trống, giữ bản dự phòng đầu ngày · Dọn kho › 🛟 Sao lưu: 7 bản trong máy + Drive, lấy lại mục bị thiếu', "dongHop();moDonKho('saoluu')"],
-  ['☁ Bản scan tài liệu có PDF trên Drive không còn báo nhầm "Chưa có trang" · ♻ Khôi phục gắn ảnh vào đúng bản đã có, không tạo trùng', "dongHop();doiNgan(4)"],
-  ['🔗 Hộp sửa: văn bản liên quan chỉ ghi số hiệu (rê chuột thấy tên), chung 1 hàng với Ghi chú riêng; Trích yếu 1 dòng — vừa 1 khung cả màn 1280', "dongHop();doiNgan(1)"],
-  ['🛠 Sửa lỗi mất danh sách Scan (xóa / gộp văn bản trước khi mở tab Scan) · tab Scan có nút ♻ Khôi phục từ ảnh còn trong máy', "dongHop();doiNgan(4)"],
-  ['▭ Hộp sửa gọn trong 1 khung: chip tag nhỏ (3 hàng, cuộn trong khối), ô ＋ tag đứng đầu, hàng nút Lưu / Thôi thấp lại', "dongHop();doiNgan(1)"],
-  ['💡 Hộp sửa: hướng dẫn + ví dụ hiện ở dải chip xanh cố định đầu hộp — không còn bong bóng che ô', "dongHop();doiNgan(1)"],
-  ['🔗 Khung xem: văn bản liên quan gọn 1 dòng chip số hiệu dưới tên (bỏ khối dòng thời gian)', "dongHop();doiNgan(1)"],
-  ['⚠ Văn bản trùng số hiệu: chip ⚠ trùng trên dòng + chip lọc "Trùng số hiệu"; bấm để Gộp (giữ 1 bản, gộp liên quan, tag, ⭐; bản kia vào thùng rác)', "dongHop();doiNgan(1)"],
-  ['📥 Lưu file mới trùng số hiệu + năm với văn bản đã có → hỏi Bỏ file mới / Giữ cả 2 / Lưu rồi gộp', "dongHop();doiNgan(1)"],
-  ['🔎 Lọc không sót: mỗi nhóm có chip Chưa gắn… (chưa có ngày, mảng, CT, tag); lọc 1 CT ra cả văn bản Tất cả CT', "dongHop();doiNgan(1)"],
-  ['⌨ Ô gõ chữ: ← → chỉ di chuyển trong ô (không nhảy ô) · ô chọn (Xã, Ấp, Tổ…) vẫn ← → qua lại ô', "dongHop();doiNgan(4)"],
-  ['📷 Tự chụp nhanh hơn: giữ yên 0,5 giây (trước 1 giây), đỡ run tay; app lấy khung hình nét nhất · nút ⏱ đổi Nhanh / Vừa / Chắc', "dongHop();doiNgan(4)"],
-  ['🪪 Hộp sửa bản quét gọn 1 màn hình: trái ô nhập, phải xem bản quét — giống hộp sửa văn bản', "dongHop();doiNgan(4)"],
-  ['⌨ Phím chung: Enter / Tab sang ô kế, Shift lùi, ↑ ↓ chọn; Xã / Điểm / Ấp còn trống thì báo, chưa cho sang ô con', "dongHop();doiNgan(4)"],
-  ['📋 Khung xem PDF: bôi đen, Ctrl+C chép chữ được như PDF thường · nút 📋 chép cả trang · trang ảnh có 🔍 Đọc chữ (OCR)', "dongHop();doiNgan(1)"],
-  ['↑ Danh sách lên cao hơn: số kết quả nằm đầu hàng Sắp xếp, bỏ khoảng trống dưới hàng lọc · 📂 Ổ G / ☁ Drive thành nút nhỏ', "dongHop();doiNgan(1)"],
-  ['🔒 Chép sang AI: bảng có họ tên / CCCD / điện thoại thì cảnh báo và che sẵn (KH1, KH2…, ***), số tiền giữ nguyên · cộng thử đọc đúng số kiểu 1,234,567', "dongHop();doiNgan(2)"],
-  ['▤ Gọn: mỗi file 1 dòng (ẩn tag, CT vay) · 🗂 Nhóm có ⊞ bung hết / ⊟ thu hết — nút nằm trên hàng Sắp xếp', "dongHop();doiNgan(1)"],
-  ['📥 File trong khay chờ: sửa xong bấm Lưu là vào tủ luôn · gõ số hiệu 4336hd nhcs tự thành 4336/HD-NHCS', "dongHop();doiNgan(1)"],
-  ['🏷 Hộp sửa: tag hiện sẵn dạng chip nhỏ, bấm chọn / bỏ · gợi ý hiện ngay trên ô đang gõ', "dongHop();doiNgan(1)"],
-  ['📋 Công cụ CT vay: tóm tắt 9 chương trình đang cho vay (lãi suất, thời hạn, mức vay, đối tượng, kỳ hạn trả nợ) và danh mục 32 mã chương trình', "dongHop();doiNgan(0);ccMo('ctvay')"],
-  ['🔗 Văn bản liên quan hiện số hiệu ngay trên dòng — bấm là đi tới, có ‹ Quay lại; trong hộp sửa bấm ↗ để xem bên cạnh', "dongHop();doiNgan(1)"],
-  ['✎ Hộp sửa văn bản gọn 1 màn hình: Enter / Tab sang ô kế, Shift lùi lại, ↑ ↓ chọn, Ctrl+Enter Lưu; tên cũ / tên mới 2 dòng; trích yếu không chép lại tên', "dongHop();doiNgan(1)"],
-  ['🏷 Tag có gợi ý: đứng ở ô Tag thấy gợi ý bấm được, ↓ xem cả danh sách tag đã có, gõ không dấu vẫn ra', "dongHop();doiNgan(1)"],
-  ['🔎 Hàng lọc gọn 2 dòng, bỏ chip "Tất cả" (bấm lại để bỏ lọc); "Dùng chung" đổi tên hiển thị thành "Tất cả CT"; tìm hiểu chữ viết tắt', "dongHop();doiNgan(1)"],
-  ['🔗 Văn bản liên quan thay cho vai trò VB chính / sửa đổi: sửa văn bản → gõ số hiệu để liên kết (2 chiều); khung xem có 🕘 dòng thời gian', "dongHop();doiNgan(1)"],
-  ['✎ Hộp nhập không còn đóng khi lỡ nhấp ra ngoài; Đóng (Esc) khi đang điền dở thì mở lại còn nguyên; nút Lưu luôn ở đáy hộp', "dongHop();doiNgan(1)"],
-  ['↩ Khung Hoàn tác nhỏ ở góc, tắt sau 3 giây · Lịch: nút Hôm nay mờ khi đang ở hôm nay', "dongHop();doiNgan(0)"],
-  ['🖨 Theo dõi nợ › Danh sách: in / xuất Excel danh sách chi tiết theo lọc đang xem (gom Xã › Điểm › Ấp, có dòng cộng) và bảng tổng hợp 3 danh sách theo xã, điểm GD', "dongHop();doiNgan(3);D.cauHinh.tvPhan='no';veGhiChu()"],
-  ['🧾 Theo dõi nợ › thẻ món › In phiếu: phiếu thông tin món vay — trang đầu tóm tắt, dòng thời gian, I–VI chi tiết; in A4 hoặc ra Word', "dongHop();doiNgan(3);D.cauHinh.tvPhan='no';veGhiChu()"],
-  ['🧾 In phiếu (n) ở thanh Theo dõi nợ: in cả nhánh đang lọc (vd cả một tổ), mỗi món một phiếu', "dongHop();doiNgan(3);D.cauHinh.tvPhan='no';veGhiChu()"],
-  ['✓ / ✗ Cam kết trả nợ: đánh dấu giữ đúng / thất hứa ở từng lần làm việc — đếm "Thất hứa x/y lần"; ⚖ mục mới Khả năng thu hồi trong hồ sơ hộ', "dongHop();doiNgan(3);D.cauHinh.tvPhan='no';veGhiChu()"],
-  ['★ Đánh dấu văn bản / biểu mẫu quan trọng (bấm ☆ trên dòng) — chip lọc "★ Quan trọng"; ở Biểu mẫu thay cho nút 📌 ghim', "dongHop();doiNgan(1)"],
-  ['✎ Hộp khai văn bản: tên file không còn cắt dở ("…của.pdf"), "Hướng dẫn thực hiện…" viết thường đúng, trích yếu tự mở rộng viết tắt, ô Nhóm gọn 1 dòng', "dongHop();doiNgan(1)"],
-  ['⚠ Thư viện › Theo dõi nợ: 3 danh sách riêng ⏳ 3 tháng KHD · 🔴 Nợ quá hạn · 🔒 Nợ khoanh — mỗi tháng 📥 Cập nhật từ file sao kê, không bao giờ xóa, món quay lại ghi ↻ phát sinh lại', "dongHop();doiNgan(3);D.cauHinh.tvPhan='no';veGhiChu()"],
-  ['🗂 Hồ sơ hộ vay: người vay & hộ, thừa kế, thực trạng, tài sản, sử dụng vốn, nguyên nhân, phương án — có lịch sử thay đổi', "dongHop();doiNgan(3);D.cauHinh.tvPhan='no';veGhiChu()"],
-  ['📝 Ghi lần làm việc → Biên bản Word điền sẵn theo mẫu PGD; cam kết trả nợ tự lên lịch Hôm nay; 📍 vị trí nhà + chỉ đường', "dongHop();doiNgan(3);D.cauHinh.tvPhan='no';veGhiChu()"],
-  ['🎓 Hạn trả HSSV: bỏ nút Tự chọn; ô chọn nhỏ trên tiêu đề, mặc định Trên 12 tháng; chọn Đến 12 tháng · Y khoa thì ô đổi màu cam kèm lưu ý (không bật hộp)', "dongHop();doiNgan(0);ccMo('hssv')"],
-  ['🧰 Tab Hôm nay: lịch gọn lại (70%), bên phải là cột Công cụ — bấm để mở ngay dưới lịch', "dongHop();doiNgan(0)"],
-  ['🎓 Công cụ Hạn trả HSSV: hạn cuối theo ngày GDX, thời hạn cho vay (tháng), kỳ đầu, số tiền mỗi kỳ, câu chốt bấm là chép', "dongHop();doiNgan(0);ccMo('hssv')"],
-  ['🗺 Công cụ Địa bàn: cây Xã › Điểm GD › Ấp/KP kèm mã, xếp theo mã; gõ tìm ấp/KP (không dấu); bấm mã để chép', "dongHop();doiNgan(0);ccMo('diaban')"],
-  ['👁 Khung xem kéo sát đáy màn hình, nút gọn lại; file 1 trang bỏ nút lật trang; CCCD hiện 2 mặt thẻ to vừa khung', "dongHop();doiNgan(4)"],
-  ['🖥 Bỏ dòng nhắc cầu nối dưới khung xem — máy chưa cài chỉ hỏi khi anh bấm 🖥 Mở máy / 📋 Copy; "Để sau" thì không nhắc nữa', "dongHop();doiNgan(1)"],
-  ['📄 Dòng danh sách mỏng hơn ~25–30% (Văn bản, Scan, các tab): thấy nhiều file hơn, tên dài hiện đủ hơn', "dongHop();doiNgan(1)"]],
-  thu:['Văn bản: ✎ sửa một văn bản → gõ rồi Enter liên tục qua các ô → Ctrl+Enter lưu.',
-    'Văn bản: ✎ sửa một văn bản → 🔗 Thêm văn bản liên quan (gõ số hiệu) → Lưu → bấm văn bản kia xem dòng thời gian.',
-    '⚠ Theo dõi nợ → 🖨 Danh sách → ☰ Chi tiết / Σ Tổng hợp → 🖨 In hoặc 📊 Xuất Excel.',
-    'Mở một món ở ⚠ Theo dõi nợ → 🧾 In phiếu → xem trước → 🖨 In hoặc 📄 Ra Word.',
-    'Ở lần làm việc có cam kết: bấm ✓ Giữ đúng hoặc ✗ Thất hứa; ✎ Khả năng thu hồi chọn 1 mức — in lại phiếu thấy trên trang đầu.',
-    'Thư viện › ⚠ Theo dõi nợ › 📥 Cập nhật tháng: chọn cùng lúc 3 file sao kê tháng (3 tháng KHD, nợ quá hạn, nợ khoanh) → xem trước → Cập nhật.',
-    'Bấm ô 🔴 Nợ quá hạn → món mới phát sinh ở đầu; đổi sang 🌳 Cây địa bàn, bấm một tổ.',
-    'Mở một món → ✎ Bổ sung "Nguyên nhân", "Thừa kế"… → ➕ Ghi lần làm việc (có hạn cam kết) → 📝 Biên bản mở bằng Word.',
-    'Tháng sau cập nhật file mới: món vắng mặt chuyển "Đã ra khỏi DS", quay lại thì ghi ↻ phát sinh lại; thông tin đã bổ sung còn nguyên.']};
+  ["☁ Đồng bộ Drive theo khối: văn bản theo năm, scan theo tháng, ghi chú… — chỉ gửi / tải phần đổi, nhanh hơn nhiều khi dữ liệu lớn", "slDoiTab('hsv');doiNgan(7);hsoKBHop('sl')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
+    'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
+    'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
 function noiDungCoGiMoi(){
   return '<h3>Bản '+CO_GI_MOI.ban+' có gì mới</h3><div class="hd-moi">'+CO_GI_MOI.ds.map(function(x){
       return '<button class="hd-moi-dong" onclick="'+x[1]+'">'+coChuHTML(x[0])+' <span>›</span></button>'; }).join('')+'</div>'+
+    '<p class="sl-phu">Lịch sử đầy đủ các bản: <a href="https://github.com/nhannt3-gif/tu-ho-so/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener">docs/CHANGELOG.md</a></p>'+
     '<h3>Thử nhanh (5 phút)</h3>'+hdBuoc(CO_GI_MOI.thu.map(coChuHTML));
 }
-function moCoGiMoi(){ moHuongDan('moi'); }
 function kiemCoGiMoi(){
   if(D.cauHinh.daXemMoi===CO_GI_MOI.ban) return;
   if(document.getElementById('hop').classList.contains('hien')) return setTimeout(kiemCoGiMoi, 5000);
@@ -2539,15 +2081,6 @@ function huongDanNhanh(){
   '</div>';
 }
 
-function batMuc(id){
-  var e = document.getElementById('muc-'+id);
-  if(!e) return;
-  var dang = e.classList.contains('mo');
-  var ds = document.querySelectorAll('.muc');
-  for(var i=0;i<ds.length;i++) ds[i].classList.remove('mo');
-  if(!dang) e.classList.add('mo');
-  window.__mucMo = dang ? '' : id;
-}
 
 function datKieuTen(v, el){
   D.cauHinh.kieuTen = v;
@@ -2688,11 +2221,6 @@ function napDL(){
    ========================================================== */
 var BOT = {tab:'', chon:{}}, BOT_DS = {};
 function botAt(id){ return BOT.tab ? ' data-bot="'+id+'"'+(BOT.chon[id]?' data-botc="1"':'') : ''; }
-function nutChepNhieu(tab){   /* 3.106: chọn nhiều file để chép (cầu nối) */
-  if(!coCauNoi() || laDT()) return '';
-  var bat = BOT.tab===tab && BOT.muc==='chep';
-  return '<button class="nut-bot'+(bat?' bat':'')+'" onclick="'+(bat?'thoiBot()':'batBot(\''+tab+'\',\'chep\')')+'" title="Chọn nhiều file rồi chép một lần — Ctrl+V vào Zalo / email / thư mục">☑ Chọn chép</button>';
-}
 function nutBot(tab){
   var bat = BOT.tab===tab && BOT.muc!=='chep';
   return '<button class="nut-bot'+(bat?' bat':'')+'" onclick="'+(bat?'thoiBot()':'batBot(\''+tab+'\')')+'" '+
@@ -3334,7 +2862,6 @@ function tenDungChuan(m){
   return t===m.tenMoi;
 }
 /* QUÉT TỦ — chỉ trong thư mục Tủ hồ sơ; tìm file mới + tên lệch/chưa chuẩn rồi báo */
-function quetTu(){ return lapChiMuc(); }   /* 3.50: "Quét tủ" đổi tên thành Lập chỉ mục */
 /* ==========================================================
    3.50: 🗂 LẬP CHỈ MỤC — đi hết thư mục Tủ hồ sơ trên Drive để MỌI file đều được app quản lý.
    Gặp file chưa có chỉ mục thì xác định thuộc tab nào theo thứ tự: dấu app ghi trên file → THƯ MỤC chứa file → tên/nội dung.
@@ -3517,31 +3044,6 @@ function veLapChiMucHTML(){
   var nCK = demChoKhai();
   h += '<div class="dk-hang" style="margin-top:8px">'+(nCK?'<button class="nho chinh" onclick="DK.mo=false;moChoKhai()">📥 Mở Chờ khai ('+nCK+')</button>':'')+'</div></div>';
   return h;
-}
-function moBaoCaoQuet(){
-  var chua = D.vanBan.filter(function(m){ return chuaPhanLoai(m).length; }).length;
-  function dongBC(id, ly){
-    var m = timMuc(id); if(!m) return '';
-    return '<div class="bc-dong"><div class="bc-ten">'+coChuHTML(m.tenMoi||m.tenCu||'')+
-      '<small>'+coChuHTML(ly+' · '+thuMucCua(m))+'</small></div>'+
-      '<button class="nho" onclick="'+(laBieuMau(m)?'suaBieuMau':'suaCho')+'(\''+id+'\')">Sửa</button></div>';
-  }
-  var h = '<div class="hop-tit">Kết quả quét Tủ hồ sơ</div>'+
-    '<div class="hop-phu">Đã xem '+QUET.xong+' file. Chỉ đọc — không đổi tên, không dời file nào. '+
-    'Bấm <b>Sửa</b> để cập nhật; bấm Lưu trong hộp sửa thì app mới đổi trên Drive.</div>';
-  h += '<div class="nhan-nhom">File mới vào tủ ('+QUET.moi.length+')'+
-    (QUET.khoiPhuc?' · '+QUET.khoiPhuc+' khôi phục đủ phân loại từ Drive':'')+'</div>'+
-    (QUET.moi.length ? QUET.moi.map(function(id){ return dongBC(id, 'Mới thêm'); }).join('')
-                     : '<div class="huong-dan">Không có file mới.</div>');
-  h += '<div class="nhan-nhom">Tên cần xem lại ('+QUET.lech.length+')</div>'+
-    (QUET.lech.length ? QUET.lech.map(function(x){ return dongBC(x.id, x.ly); }).join('')
-                      : '<div class="huong-dan">Tên file đều đúng chuẩn.</div>');
-  h += '<div class="huong-dan" style="margin-top:10px">File anh copy tay vào ổ G thì app không thấy '+
-    '(Google chỉ cho app thấy file do app tạo) — đưa file vào bằng nút Thêm của app.</div>';
-  h += '<div class="hang-nut" style="margin-top:12px">'+
-    (chua?'<button class="nho" onclick="dongHop();locCua(\'vanBan\').chua=\'1\';ve()">Lọc '+chua+' VB chưa phân loại</button>':'')+
-    '<button class="nho chinh" onclick="dongHop()">Xong</button></div>';
-  moHop(h);
 }
 function ketQuet(t){
   QUET.chay = false; tatChay();

@@ -160,7 +160,6 @@ function luuKhaiHangLoat(){
   var daKhai = ds.filter(function(k, i){ return k && chon[i] && !k.chuaKhai; }).map(function(k){ return k.id; });
   if(daKhai.length && D.cauHinh.hsTuDrive!==false && coTheNoiDrive()) setTimeout(function(){ dayScanNhieu(daKhai); }, 600);
 }
-function doiDBKL(){ doiDB.apply(null, arguments); }
 
 function chonCheScan(){
   moHop('<div class="hop-tit">Chế độ quét</div>'+
@@ -954,7 +953,6 @@ function quetNhanh(nguon){
   if(!nguon && camTuDong() && coCamera()) return moCamera({muc:'scan'});
   chonNguon(nguon||'camera');
 }
-function xongScan(){ xemTruocHang(); }
 /* màn xem trước PDF thật (dựng bằng đúng bộ tạo PDF khi gửi/in) + đổi tên + gửi */
 function moXemPDF(ids, moi, blSan){
   HS.ds = D.scan || [];
@@ -1872,10 +1870,6 @@ function apGoiYSua(id){
   if('ty' in g.moi) dat('s-ty', g.moi.ty, g.cu.ty);
   bao(n ? 'Đã điền '+n+' mục đã chọn (ô viền xanh) — xem lại rồi bấm Lưu.' : 'Không đổi gì.', 6);
 }
-function canOCR(m){
-  if(!m || !/pdf$/i.test(m.duoi||m.tenCu||'') || m.nhom!=='vanBan') return false;
-  return !!m.anhPDF && (!m.soHieu || !m.ngay || !m.trichYeu || !m.chac);
-}
 var OCR_LIB = null;
 function napOCR(){
   if(window.Tesseract) return Promise.resolve(true);
@@ -1896,7 +1890,6 @@ function napOCR(){
    Nguồn chữ: lớp chữ của PDF (nhanh, đúng); PDF chụp / ảnh thì OCR tiếng Việt trong máy.
    Kết quả hiện BẢNG SO SÁNH với thông tin hiện tại, tích chọn mục muốn đổi, tên file mới tính lại ngay.
    ========================================================== */
-function docChuOCR(id, cheSua){ return docLaiGoiY(id, cheSua, true); }
 function docLaiGoiY(id, cheSua, epOCR){
   var m = timMucCaCho(id) || timMuc(id); if(!m) return;
   if(cheSua) GOI_Y_SUA = {id:id, form:nhoFormSua(), cu:{so:gt('s-so'), ngay:ngayISOTuVN(gt('s-ngay')), ty:gt('s-ty'), loai:gt('s-loai')}};
@@ -2313,12 +2306,6 @@ function hoiCaiCauNoi(duPhong){
     '</div>');
 }
 /* các nút cầu nối (chỉ máy tính đã cài) */
-function nutCauNoi(loai, id, it){
-  if(!coCauNoi()) return '';
-  return '<button class="nho chinh" onclick="cnHanh(\'chep\',\''+loai+'\',\''+id+'\')" title="Chép file vào bộ nhớ tạm — mở Zalo bấm Ctrl+V">📋 Chép file · Ctrl+V vào Zalo</button>'+
-    (it ? '' : '<button class="nho" onclick="cnHanh(\'xem\',\''+loai+'\',\''+id+'\')" title="Mở bản tạm để xem, không đụng file gốc">👁 Xem nhanh</button>')+
-    '<button class="nho" onclick="cnHanh(\'thumuc\',\''+loai+'\',\''+id+'\')" title="Mở thư mục chứa file, chọn sẵn file">📂 Mở thư mục</button>';
-}
 /* máy chưa cài cầu nối: PDF / ảnh mở ngay trong tab trình duyệt (không lưu file); Word / Excel thì tải về */
 function xemTrongTab(bl, ten){
   if(/pdf|image/.test(bl.type||'') || /\.(pdf|jpe?g|png)$/i.test(ten||'')){ var u = URL.createObjectURL(bl); window.open(u, '_blank'); setTimeout(function(){ URL.revokeObjectURL(u); }, 60000); return; }
@@ -2395,40 +2382,6 @@ function doiTenAnh(idCu, idMoiT){
 }
 
 /* khai đầy đủ rồi lưu */
-function khaiVaLuu(){
-  var anh = HANG.filter(function(x){ return x.kieu==='anh'; });
-  dongHop();
-  /* 3.35: nhiều người một lần (trước đây chỉ lấy 2 ảnh đầu, các ảnh sau bị bỏ) → lưu tạm từng người rồi mở khai hàng loạt */
-  if(SC.che==='the' && anh.length>2){
-    return luuNhieuThe(anh).then(function(){ setTimeout(khaiHangLoat, 300); });
-  }
-  donGocHang();
-  if(SC.che==='the'){
-    var k = {id:idMoi(), che:'the', ten:'', ngay:ngayISO(nay()),
-      xa:D.cauHinh.hsXaCuoi||'', diem:D.cauHinh.hsDiemCuoi||'',
-      ap:D.cauHinh.hsApCuoi||'', to:D.cauHinh.hsToCuoi||'', ghi:'',
-      tag:['CCCD'], ctrinh:[], taoLuc:new Date().toISOString()};
-    var ch = Promise.resolve();
-    if(anh[0]){ ch = ch.then(function(){ return doiTenAnh(anh[0].id, k.id+'_matTruoc'); });
-      k.matTruoc = true; }
-    if(anh[1]){ ch = ch.then(function(){ return doiTenAnh(anh[1].id, k.id+'_matSau'); });
-      k.matSau = true; }
-    ch.then(function(){
-      HANG = []; window.__k = k;
-      D.scan = D.scan || []; D.scan.push(k); HS.ds = D.scan; luu();
-      themKhach(k.id);
-    });
-  }else{
-    var k2 = {id:idMoi(), che:'tailieu', ten:'', ngay:ngayISO(nay()),
-      xa:D.cauHinh.hsXaCuoi||'', diem:'', ap:D.cauHinh.hsApCuoi||'',
-      to:D.cauHinh.hsToCuoi||'', ghi:'', tag:[], ctrinh:[],
-      trang:HANG.filter(function(x){ return x.kieu==='anh' || x.kieu==='trang'; }).map(hangRaTrang),
-      taoLuc:new Date().toISOString()};
-    HANG = [];
-    D.scan = D.scan || []; D.scan.push(k2); HS.ds = D.scan; luu();
-    scanTaiLieu(k2.id);
-  }
-}
 
 /* ---- CHẾ ĐỘ TÀI LIỆU: chụp nhiều trang rồi ghép ---- */
 function scanTaiLieu(id){

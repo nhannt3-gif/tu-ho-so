@@ -234,9 +234,6 @@ function laNgayChay(iso){
   var a = lcAm(iso);
   return dsNgayChay(iso).indexOf(a.ngay)>=0;
 }
-function tenCheChay(){
-  return {thap:'thập trai', luc:'lục trai', socvong:'mùng 1 & rằm'}[D.cauHinh.cheChay||'thap'] || '';
-}
 /* chữ ghi thêm cho một ngày: sóc/vọng · ngày chay · lễ âm */
 function nhanNgayAm(iso){
   var a = lcAm(iso), t = [];
@@ -608,10 +605,6 @@ function ccVuaMan(){
 }
 window.addEventListener('resize', function(){ if(CC.mo) ccVuaMan(); });
 /* vẽ lại riêng phần thân (giữ ô đang gõ) */
-function ccVeThan(){
-  var c = ccTim(CC.mo || CC.hop), t = document.getElementById('cc-than');
-  if(c && c.ve && t) t.innerHTML = c.ve();
-}
 function ccChep(t, bx){
   if(HS_PIP && HS_PIP.navigator.clipboard){   /* 3.102: đang gõ trong cửa sổ nổi → chép bằng clipboard của cửa sổ đó (cửa sổ chính không có tiêu điểm) */
     var m = bx||('📋 Đã chép: '+t);
@@ -1059,22 +1052,6 @@ function dongXong(id){
   });
   luu(); henDongBoLich(); veNhatKy();
 }
-function menuDong(id, ev){
-  ev && ev.stopPropagation();
-  var m = ntTim(id); if(!m) return;
-  moHop('<div class="hop-tit">Dòng ghi chép</div>'+
-    '<div class="hop-phu">'+coChuHTML((m.nd||'').slice(0,90))+'</div>'+
-    '<div class="o"><label>Màu dòng</label><div class="chip-gon mo" style="gap:7px">'+
-      Object.keys(NT_MAU).map(function(k){
-        return '<span class="the-loc nt-'+k+(m.mau===k?' bat':'')+'" onclick="dongDoiMau(\''+id+'\',\''+k+'\')">'+NT_MAU[k]+'</span>';
-      }).join('')+'</div></div>'+
-    '<div class="hang-nut">'+
-      '<button class="nho" onclick="dongLenLich(\''+id+'\')">🕘 Đưa lên SCHEDULE</button>'+
-      '<button class="nho" onclick="dongChuyen(\''+id+'\',-1)">↑ Lên trên</button>'+
-      '<button class="nho" onclick="dongChuyen(\''+id+'\',1)">↓ Xuống dưới</button></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
-      '<button class="nho xau" onclick="dongXoa(\''+id+'\')">Xóa dòng</button></div>');
-}
 function dongDoiMau(id, mau){
   (function(){ var m0 = ntTim(id); if(m0) ghiHoanTac('đổi màu dòng', (function(cu){ return function(){ var x = ntTim(id); if(x) x.mau = cu; }; })(m0.mau)); })();
   var m = ntTim(id); if(!m) return;
@@ -1189,11 +1166,6 @@ function ntDatChe(che){
   bao(che==='note' ? 'Chế độ Note: mẩu giấy màu, ghim được. Chữ cũ vẫn còn nguyên.'
                    : 'Chế độ Đơn giản: một ô ghi chép như trước.', 4);
 }
-function ntDoiChe(){
-  D.cauHinh.nkChe = ntCheDo()==='note' ? 'don' : 'note'; luu(); veNhatKy();
-  bao(ntCheDo()==='note' ? 'Chế độ Note: mẩu giấy màu, ghim được. Chữ cũ vẫn còn nguyên.'
-                         : 'Chế độ Đơn giản: một ô ghi chép như trước.', 5);
-}
 function ntNgay(iso){
   /* xếp ổn định: ghim trước, rồi theo thứ tự anh sắp (thuTu), rồi theo lúc tạo — KHÔNG theo lúc sửa
      (nếu theo lúc sửa thì mẩu nhảy chỗ ngay khi đang gõ) */
@@ -1215,11 +1187,6 @@ function ntChung(iso, tao){
   return m || null;
 }
 /* gõ ở chế độ Đơn giản: tạo mẩu chung ngay lần gõ đầu */
-function ntGoChung(iso, el){
-  var m = ntChung(iso, true);
-  clearTimeout(NT_HEN[m.id]);
-  NT_HEN[m.id] = setTimeout(function(){ ntLuuO(m.id, el.value); }, 600);
-}
 function ntTim(id){ return ntData().note.find(function(x){ return x.id===id; }); }
 /* 3.18: lưu KHÔNG vẽ lại gì — trước đây vẽ lại lịch + sổ nên ô đang gõ bị thay,
    mất chỗ nhập, phải bấm lại mỗi chữ */
@@ -1720,7 +1687,6 @@ function xinGiuDuLieu(){
     moBoNho();
   });
 }
-function capNhatChamLich(){ veLich(); }   /* chỉ dùng khi thêm/xóa mẩu, KHÔNG dùng lúc gõ */
 function ntOHTML(m, ghimRieng){
   var mau = Object.keys(NT_MAU).map(function(k){
     return '<span class="nt-cham nt-'+k+(m.mau===k?' chon':'')+'" title="'+NT_MAU[k]+'" onclick="ntDoiMau(\''+m.id+'\',\''+k+'\')"></span>';
@@ -2229,23 +2195,6 @@ function lcChonNgay(iso){
 }
 function lcChonViec(id){ LICH.viecChon = (LICH.viecChon===id) ? '' : id; veLich(); }
 /* thêm việc theo lịch không cần ô nhập (ô nhập của SCHEDULE đã bỏ ở 3.19) */
-function lcThemNhanh(ten, lap, iso){
-  ten = (ten||'').trim(); if(!ten) return null;
-  var t = new Date().toISOString();
-  var v = {id:idMoi(), ten:ten, ngay:iso||LICH.chon, lap:lap||'mot', luuY:false,
-           xong:false, xongNgay:{}, bo:[], taoLuc:t, suaLuc:t};
-  lcData().viec.push(v); lcDoiLich();
-  return v;
-}
-function lcThem(){
-  var e = document.getElementById('lc-o'), ten = (e && e.value || '').trim();
-  if(!ten){ if(e) e.focus(); return bao('Gõ việc cần làm vào ô rồi bấm Thêm.', 3); }
-  var t = new Date().toISOString();
-  lcData().viec.push({id:idMoi(), ten:ten, ngay:LICH.chon, lap:gt('lc-lap')||'mot', luuY:false,
-    xong:false, xongNgay:{}, bo:[], taoLuc:t, suaLuc:t});
-  lcDoiLich();
-  var o = document.getElementById('lc-o'); if(o) o.focus();
-}
 function lcTim(id){ return lcData().viec.find(function(v){ return v.id===id; }); }
 function lcXong(id){
   var v = lcTim(id); if(!v) return;
@@ -2588,10 +2537,6 @@ function loaiBanThang(nsl, ma){
     ? {loai:'cuoi', ky:ky, ngay:nsl, cuoi:cuoi}
     : {loai:'phu',  ky:ky, ngay:nsl, cuoi:cuoi};
 }
-function chuBanThang(m){
-  if(m.banPhu) return 'giữa tháng '+(m.nsl||'').slice(8,10)+'-'+(m.nsl||'').slice(5,7);
-  return '';
-}
 /* ---- cấp và phạm vi ---- */
 function dsCap(){ return [['pgd','Toàn PGD'],['xa','Xã, phường'],['diem','Điểm giao dịch']]; }
 function dsDonVi(cap){
@@ -2732,15 +2677,9 @@ function veVanBan(){
         ? 'Không tìm thấy văn bản nào khớp.<br>Thử bỏ bớt điều kiện lọc.'
         : 'Chưa có văn bản nào.<br>Bấm <b>+ Thêm file</b> ở góc trên bên trái, hoặc kéo thả file vào.')+'</div>');
 }
-function datLocNV(t){ locNV = (locNV===t)?'':t; ve(); }
 var CON_ID = {};
 function xepChaCon(ds){ CON_ID = {}; return ds; }   /* 3.68 (AF): bỏ VB chính / VB treo dưới — giữ tên hàm cho chỗ gọi cũ */
-function datNam(n){ locNam = n; locThang = ''; ve(); }
 var kieuXem = 'ds', moThuMuc = {};
-function datKieu(k, el){
-  kieuXem = k;
-  ve();
-}
 function moTM(id){
   moThuMuc[id] = !moThuMuc[id];
   var e = document.getElementById('tm-'+id);
@@ -2784,47 +2723,8 @@ function veCay(them){
     (them ? veThanhSap('vanBan') : '') + h;
 }
 
-function theHTML(m, q){
-  if(m.nhom==='ghiChu') return anhHTML(m, q);
-  return '<div class="vuot-bao" data-id="'+m.id+'"'+botAt(m.id)+'>'+
-    '<div class="vuot-nut">'+
-      '<button class="b-sua" onclick="event.stopPropagation();suaCho(\''+m.id+'\')">Sửa</button>'+
-      '<button class="b-gui" onclick="event.stopPropagation();guiNhanh(\''+m.id+'\')">Gửi</button>'+
-    '</div>'+ theTrong(m, q) +'</div>';
-}
 function guiNhanh(id){ var m = timMuc(id); if(m){ mucDangXem = m; taiFile(); } }
 
-function theTrong(m, q){
-  var lqT = lqCua(m);
-  var h = '<article class="the-vb'+(m.hetHieuLuc?' mo':'')+
-          '" onclick="moXem(\''+m.id+'\')">';
-  if(m.nhom==='duLieu'){
-    h += '<div><span class="so-vb">'+coChuHTML(m.tenLoai||'Khác')+'</span>'+
-         '<span class="ngay-vb">'+kyVN(m.ky)+'</span></div>';
-    h += '<div class="tom">'+coChuHTML(m.tenMoi||'')+'</div>';
-  }else{
-    h += '<div><span class="so-vb">'+toSang(m.soHieu||'(chưa có số)', q)+'</span>'+
-         '<span class="ngay-vb">'+ngayVN(m.ngay)+'</span></div>';
-    h += '<div class="tieu">'+toSang(m.trichYeu||m.tenMoi||'', q)+'</div>';
-    if(m.nhom==='khac') h += '<div class="goi-y"><span class="mini phu">Chưa phân loại</span></div>';
-    if(m.tomTat) h += '<div class="tom">'+toSang(m.tomTat, q)+'</div>';
-    var the = (m.the||[]).map(function(t){
-      return '<span class="mini">'+coChuHTML(t)+'</span>'; }).join(' ');
-    var ct = (m.ctrinh||[]).map(function(t){
-      return '<span class="mini ct">'+coChuHTML(hienCT(t))+'</span>'; }).join(' ');
-    if(the||ct) h += '<div class="goi-y">'+the+' '+ct+'</div>';
-    var d = [];
-    if(lqT.length) d.push('🔗 '+lqT.length+' văn bản liên quan');
-    var anhGan = D.ghiChu.filter(function(x){ return x.gocVB===m.id; }).length;
-    if(anhGan) d.push(anhGan+' ảnh ghi chú');
-    if(m.hetHieuLuc) d.push('<b>đã hết hiệu lực</b>');
-    d.push('📁 '+coChuHTML(thuMucCua(m)));
-    if(d.length) h += '<div class="noi">'+d.join(' · ')+'</div>';
-    if(m.ghiChu) h += '<div class="ghi-rieng">Ghi chú riêng: '+toSang(m.ghiChu,q)+'</div>';
-  }
-  h += '</article>';
-  return h;
-}
 
 /* ----- ngăn 2: THÁNG ----- */
 var kieuTh = 'ky';   /* 3.20: ky | donvi | cay | bang */
@@ -2833,17 +2733,7 @@ function datKieuTh(k){ kieuTh = k; dongMenu(); ve(); }
 function capDang(){ return D.cauHinh.capThang || 'xa'; }
 function datCap(c){ D.cauHinh.capThang = c; luu(); veThang(); }
 function soKyBang(){ return D.cauHinh.soKyBang || 6; }
-function datSoKy(n){ D.cauHinh.soKyBang = n; luu(); veThang(); }
 function gonBang(){ D.cauHinh.anBangDC = !D.cauHinh.anBangDC; luu(); veThang(); }
-function dsKyGanDay(n){
-  var ky = {}, hn = ngayISO(nay()).slice(0,7);
-  D.duLieu.forEach(function(x){ if(x.ky) ky[x.ky]=1; });
-  ky[hn]=1;
-  return Object.keys(ky).sort().slice(-n);
-}
-function mauApDung(cap){
-  return (D.cauHinh.mauBaoCao||[]).filter(function(m){ return mauApCap(m, cap) && !laMaSoLieu(m); });
-}
 /* ---------- MA TRẬN THÁNG (3.21) — màn chính của tab Tháng ----------
    Cột: Báo cáo | PGD | 5 xã (bấm xã → bung các điểm giao dịch của xã đó)
    Nối thêm kỳ cuối năm trước để đối chiếu đầu năm.
@@ -5286,7 +5176,6 @@ function tdnViecCan(){
   if(ky) Object.keys(NO.mon).forEach(function(k){ var s = tdnSL(NO.mon[k], 'nk'); if(s && s.nhh && tdnSoNgay(hn, s.nhh)<=183 && tdnSoNgay(hn, s.nhh)>=0) kh++; });
   return {n:ck+kh, p:[ck?ck+' cam kết đến hạn':'', kh?kh+' sắp hết hạn khoanh':''].filter(Boolean).join(' · ')};
 }
-function veBaoTriTV(){ return ''; }
 function veGhiChu(){
   if(tvPhan()==='no'){   /* 3.64: ⚠ Theo dõi nợ */
     document.getElementById('loc-gc').innerHTML = thanhTV();
@@ -5327,7 +5216,6 @@ function veGhiChu(){
   document.getElementById('ds-gc').innerHTML = h;
   ds.forEach(function(m){ napAnh(m.id); });
 }
-function datLocGC(t){ locGC = (locGC===t)?'':t; ve(); }
 
 function anhHTML(m, q){
   var gan = '';
