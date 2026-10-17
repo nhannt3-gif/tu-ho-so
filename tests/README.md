@@ -167,6 +167,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t193.js` | 3.231 Bản điện thoại: gói số liệu xem (máy tính), tự chuyển trên điện thoại, đặt PIN, mã hóa trong máy, tra cứu không dấu, thẻ khách, lùi, địa bàn từng cấp (tổng khớp), khóa / PIN sai / mở lại không cần Drive, cài đặt, mở bản máy tính. |
 | `node tests/t194.js` | 3.232 Điện thoại phần 2: thanh tab 5 mục, Văn bản (danh sách, lọc không dấu, mục chưa lên Drive), Scan (danh sách, 2 ảnh → PDF A4 bằng pdf-lib), bảng nút chuẩn Xem / Lưu máy / Lưu vào app / Đóng. |
 | `node tests/t195.js` | 3.233 Điện thoại phần 3: máy tính lập bản mini GDX theo kỳ mới nhất (không đổi kỳ đang xem, số liệu xáo), điện thoại mở trong app (04/TD, 12/GDX, Giấy lĩnh), cất mã hóa, mở lại không cần Drive, dt-sw.js. |
+| `node tests/t196.js` | 3.234 R2: bộ nhận lệnh data-lenh, ô rộng theo loại, bộ nút xuất (thứ tự, mờ không ẩn, Ctrl+P, Lưu vào app), lùi / tiến tab và mẫu, ◀ đóng hộp, hộp con giữ hộp cha, Sổ hộ vay theo data-lenh, Khai báo 390 px. |
 
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).

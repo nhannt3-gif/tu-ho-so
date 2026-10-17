@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.234) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Bấm 3 tab liên tiếp → nút ⬅ đầu trang (hoặc Back chuột, Alt+←) | Lùi đúng từng tab; ➡ tiến lại | |
+| 2 | Hồ sơ vay: 01/TD → Sổ hộ vay → ⬅ | Về 01/TD | |
+| 3 | Mở 1 hộp bất kỳ → Back chuột / ◀ điện thoại | Đóng hộp, ở lại trang | |
+| 4 | Sổ hộ vay › mở form hộ, gõ tên dở → ⚙ khai báo luật → Đóng | Về form hộ, chữ đang gõ còn | |
+| 5 | Xem 1 báo cáo → bộ nút | Đóng · In · PDF · Word · Excel · Gửi (nút không dùng được thì mờ); Ctrl+P in | |
+| 6 | Điện thoại (bản máy tính `?may=1`) › ⚙ Khai báo | Nút tab vừa chữ, xuống dòng | |
+
+**Ghi chú kỹ thuật 3.234:** `js/39-gd.js` bọc `doiNgan`, `slDoiTab`, `hsoChonMau`, `moHop`, `dongHop` (nạp sau cùng). Đăng ký lệnh theo kiểu lười (`hmSoDangKy`, `khDangKy` gọi lúc vẽ) vì file 25, 37 nạp trước 39. Code giao diện mới: chỉ dùng `GD.*` + `data-lenh`, không thêm `onclick`.
+
 ### Danh sách thử trên máy thật (3.233) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

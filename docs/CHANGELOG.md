@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.234 — 17/10/2026 — Chuẩn hóa R2: mảnh giao diện chung, bộ nút xuất, điều hướng lùi / tiến
+- **Anh duyệt 17/10** (`docs/KE_HOACH_CHUAN_HOA.md` mục 2, 4, 5, 6).
+- **`js/39-gd.js` (mới)** — hộp `GD`:
+  - bộ nhận lệnh `data-lenh="khối.lệnh"` (1 bộ nghe chung cho click / change / input) — `GD.dangKy`; code mới không cần hàm chung toàn app, hết lỗi dấu nháy trong `onclick`;
+  - mảnh giao diện `GD.nut / hang / o / chip / kv`: nút luôn vừa chữ, ô rộng theo loại (ngày 112 · số 140 · tên 260 · tìm 300 px, biến CSS `--o-*`);
+  - điều hướng `DH`: đổi tab / tab con / mẫu Hồ sơ vay / mở hộp ghi 1 bước lịch sử trình duyệt → nút ⬅ ➡ đầu trang, ◀ điện thoại, Back chuột, Alt+← / → lùi tiến đúng bước; ◀ khi mở hộp = đóng hộp;
+  - hộp con `GD.moCon`: hộp cha giữ nguyên (cả chữ đang gõ), đóng hộp con về hộp cha;
+  - phím Ctrl+P = In, Ctrl+S = Lưu vào app ở khung có bộ nút xuất.
+- **Bộ nút xuất** (`xuatHang`): thứ tự cố định Đóng · In · [Lưu vào app] · PDF · Word · Excel · Gửi; nút không dùng được → mờ, không ẩn. Scan: In · Lưu vào app · Lưu + khai · Lưu vào máy · Gửi; bản điện thoại: Xem · Lưu vào app · Lưu vào máy · Gửi · Đóng.
+- **Chuyển sang mảnh mới:** thanh lọc 📒 Sổ hộ vay (`hmSoDangKy`), nút ⚙ khai báo luật trong form hộ (`khDangKy`), nút 📱 gói số liệu xem (⚙ › 💾 Sao lưu).
+- **Bố cục:** nút tab ⚙ Khai báo đơn vị vừa chữ, xuống dòng khi hẹp (trước bị kéo dài cả hàng trên điện thoại).
+- **Phép thử:** `tests/t196.js` (mới, 16); t148 theo thứ tự nút mới.
+
 ## 3.233 — 17/10/2026 — 📱 Bản điện thoại phần 3: Giao dịch xã mẫu nhẹ · chạy không mạng
 - **Anh chốt 17/10:** Giao dịch xã giữ trên điện thoại, nhẹ, chủ yếu mẫu nhẹ.
 - **Máy tính** `js/38-goi-xem.js`: mỗi lần đẩy gói số liệu xem, lập kèm **bản mini Giao dịch xã** (`gxMini` → `gdxMiniHTML` của 3.177, hạn 90 ngày — mẫu chép từ chính hàm app, số liệu xáo như bản mini, theo Mẫu 31 mới nhất qua `KHO.voiKy`) → Drive `_Hệ thống/xem/gdx.html.gz`. Không có điểm GD thì bỏ qua.
