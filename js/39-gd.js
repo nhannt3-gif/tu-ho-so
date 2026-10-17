@@ -76,4 +76,16 @@ var GD = (function(){
   return {dangKy:dangKy, nut:nut, hang:hang, o:o, chip:chip, kv:kv, moCon:moCon, boc:boc, chup:chup, so:function(){ return CHONG.length; }};
 })();
 GD.boc();
+/* 3.239: nút khung app trong index.html (thanh bên, ô tìm, khung xem file, nền hộp) theo data-lenh — trước là onclick */
+(function(){ var k = {
+    quetDung:function(el){ QUET.dung = true; el.disabled = true; el.textContent = 'Đang dừng…'; },
+    caiDat:function(el){ var x = el.getAttribute('data-k'); if(x) moCaiDat(x); else moCaiDat(); },
+    ngan:function(el){ doiNgan(+el.getAttribute('data-n'), el); },
+    zoom:function(el){ zoom(+el.getAttribute('data-n')); },
+    guiFileMenu:function(el, ev){ guiFileMenu({currentTarget:el, target:ev.target, stopPropagation:function(){ ev.stopPropagation(); }}); },   /* menu đặt theo vị trí nút */
+    ngoaiXem:function(el, ev){ if(ev.target.id==='xem') dongXem(); },
+    ngoaiHop:function(el, ev){ if(ev.target.id==='hop' && !khoaHop) bamNgoaiHop(); } };
+  ['xoaTim', 'moHuongDan', 'moDonKho', 'moRac', 'moNapSL', 'moBCSL', 'moLonCP', 'anPreview', 'inFile', 'guiTrangChon', 'suaMuc', 'hienPreview', 'nutChinh', 'toanManHinh', 'dongXem']
+    .forEach(function(t){ k[t] = function(){ return window[t](); }; });
+  GD.dangKy('khung', k); })();
 setTimeout(function(){ try { history.replaceState({th:1, s:GD.chup()}, ''); } catch(e){} }, 0);

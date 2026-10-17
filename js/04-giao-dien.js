@@ -18,7 +18,7 @@ function doiNgan(i, el){
   var b = document.getElementById('hangngan').children;
   /* 3.31: thứ tự nút tab (Hôm nay·Văn bản·Tháng·Biểu mẫu·Scan·Ghi chú) khác số tab — so theo lệnh của nút,
      trước đây mở Biểu mẫu lại tô sáng nút Ghi chú */
-  for(var k=0;k<b.length;k++) b[k].classList.toggle('chon', (b[k].getAttribute('onclick')||'').indexOf('doiNgan('+i+',')===0);
+  for(var k=0;k<b.length;k++) b[k].classList.toggle('chon', b[k].getAttribute('data-lenh')==='khung.ngan' ? b[k].getAttribute('data-n')===String(i) : (b[k].getAttribute('onclick')||'').indexOf('doiNgan('+i+',')===0);   /* 3.239: nút theo data-lenh */
   toNutSL();   /* 3.144 */
   var ph = ['Gõ số văn bản, từ khóa, tháng…','Gõ số văn bản, trích yếu, ghi chú…',
             'Tìm báo cáo…','Tìm trong ghi chú…','Tìm tên khách, ấp, tổ…',
@@ -44,22 +44,26 @@ function doiNgan(i, el){
 function xoaTim(){ document.getElementById('otim').value=''; tuKhoa=''; dongGoiY(); ve(); }
 
 /* tìm kiếm: bỏ dấu, khớp khúc giữa, có chấm điểm */
+function diemNho(m){   /* 3.239: chữ đã bỏ dấu của từng trường, tính 1 lần — gõ tìm không bỏ dấu lại từng mục mỗi phím (thuộc tính ẩn: không lưu vào kho) */
+  var ct = (m.ctrinh||[]).map(function(c){ return c+' '+ctTenDay(c); }), nh = (m.the||[]).concat(m.tag||[], m.mang?[m.mang]:[], ct).join(' ');
+  var goc = [m.soHieu, m.trichYeu||m.moTa, m.tomTat, m.ghiChu, m.tenMoi, m.tenVB, nh].join('\u0001'), x = m.__tim;
+  if(x && x.goc===goc) return x;
+  var mr = moVietTat([m.tenVB||m.trichYeu||'', m.tomTat||''].join(' '));
+  x = {goc:goc, so:boDau(m.soHieu||''), ti:boDau(m.trichYeu||m.moTa||''), to:boDau(m.tomTat||''), gh:boDau(m.ghiChu||''), te:boDau(m.tenMoi||''), mr:mr ? boDau(mr) : '', nh:boDau(nh)};
+  try { Object.defineProperty(m, '__tim', {value:x, writable:true, configurable:true, enumerable:false}); } catch(e){}
+  return x;
+}
 function diem(m, q){
   if(!q) return 1;
-  var d = 0;
-  var so = boDau(m.soHieu||''), ti = boDau(m.trichYeu||m.moTa||''),
-      to = boDau(m.tomTat||''), gh = boDau(m.ghiChu||''),
-      te = boDau(m.tenMoi||''), ky = (m.ky||'')+' '+(m.ngay||'');
-  if(so.indexOf(q)>=0) d += 100;
-  if(ti.indexOf(q)>=0) d += 50;
-  if(te.indexOf(q)>=0) d += 30;
-  if(to.indexOf(q)>=0) d += 20;
-  if(gh.indexOf(q)>=0) d += 20;
+  var d = 0, x = diemNho(m), ky = (m.ky||'')+' '+(m.ngay||'');
+  if(x.so.indexOf(q)>=0) d += 100;
+  if(x.ti.indexOf(q)>=0) d += 50;
+  if(x.te.indexOf(q)>=0) d += 30;
+  if(x.to.indexOf(q)>=0) d += 20;
+  if(x.gh.indexOf(q)>=0) d += 20;
   if(ky.indexOf(q)>=0) d += 15;
-  if(d<50){ var mr = moVietTat([m.tenVB||m.trichYeu||'', m.tomTat||''].join(' ')); if(mr && boDau(mr).indexOf(q)>=0) d += 45; }   /* 3.69 */
-  var nhanTim = boDau((m.the||[]).concat(m.tag||[], m.mang?[m.mang]:[],
-    (m.ctrinh||[]).map(function(c){ return c+' '+ctTenDay(c); })).join(' '));
-  if(nhanTim.indexOf(q)>=0) d += 25;
+  if(d<50 && x.mr && x.mr.indexOf(q)>=0) d += 45;   /* 3.69 */
+  if(x.nh.indexOf(q)>=0) d += 25;
   return d;
 }
 function loc(ds, q){
@@ -4386,7 +4390,7 @@ function moHoSoHo(q){
       (H.mons.length ? '<button class="nho" onclick="dongHop();tdnPhieu(\''+H.mons[0].kuoc+'\')" title="Phiếu thông tin món vay">🧾 Phiếu món vay</button>' : '')+
       '<button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button></div>';
   moHop(h, true);
-  the.forEach(function(k){ docAnhHS(k.id+'_matTruoc').then(function(b){ var i = document.getElementById('h1a-'+k.id); if(i && b) i.src = URL.createObjectURL(b); else if(i) i.replaceWith(Object.assign(document.createElement('div'), {className:'h1-khong', textContent:k.driveId ? '☁ ảnh trên Drive' : 'chưa có ảnh'})); }).catch(function(){}); });
+  the.forEach(function(k){ docAnhHS(k.id+'_matTruoc').then(function(b){ var i = document.getElementById('h1a-'+k.id); if(i && b) anhTam(i, b); else if(i) i.replaceWith(Object.assign(document.createElement('div'), {className:'h1-khong', textContent:k.driveId ? '☁ ảnh trên Drive' : 'chưa có ảnh'})); }).catch(function(){}); });
 }
 /* 3.84: bản scan tên KHÔNG dấu (vd lấy từ tên file khi Lập chỉ mục) → đề xuất tên có dấu theo danh sách khách Theo dõi nợ.
    Khớp: tên không dấu bắt đầu bằng tên khách (đuôi như "Hdtd" giữ nguyên) + cùng mã tổ nếu cả 2 có. Anh tích rồi mới đổi. */
@@ -5365,7 +5369,7 @@ function lamGhep(){
     var ten = 'TuHoSo_'+ky+'_ca-bo.pdf';
     var bl = new Blob([bytes], {type:'application/pdf'});
     var a = document.createElement('a');
-    a.href = URL.createObjectURL(bl); a.download = ten; a.click();
+    a.href = URL.createObjectURL(bl); a.download = ten; a.click(); thuHoiSau(a.href);
     bao('Đã ghép xong bản tạm '+kyVN(ky)+'. Xem xong có thể xóa.', 5);
   }).catch(function(e){
     console.warn(e); baoLoi('Không ghép được — có thể vài file không phải PDF chữ.');

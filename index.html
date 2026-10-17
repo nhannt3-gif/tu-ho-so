@@ -7,11 +7,11 @@
 <script>/* 3.231: điện thoại (màn cảm ứng, cạnh ngắn ≤ 600 px) → bản điện thoại dt.html; ?may=1 hoặc nút "Mở bản máy tính" ở điện thoại → giữ bản này, ?dt=1 → về bản điện thoại */
 (function(){ try { var q = location.search, L = localStorage; if(/[?&]may=1/.test(q)) L.setItem('tuhoso_ban', 'may'); if(/[?&]dt=1/.test(q)) L.removeItem('tuhoso_ban');
   if(L.getItem('tuhoso_ban')!=='may' && matchMedia('(pointer:coarse)').matches && Math.min(screen.width, screen.height)<=600) location.replace('dt.html'); } catch(e){} })();</script>
-<link rel="stylesheet" href="css/app.css?v=3.238">
+<link rel="stylesheet" href="css/app.css?v=3.239">
 </head>
 <body>
 <div class="tt-chay" id="ttchay"><i></i></div>
-<div class="dang-lam" id="danglam"><span class="dl-xoay"></span><span id="dl-chu">Đang xử lý…</span><button id="dl-dung" style="display:none" onclick="QUET.dung=true;this.disabled=true;this.textContent='Đang dừng…'">Dừng</button></div>
+<div class="dang-lam" id="danglam"><span class="dl-xoay"></span><span id="dl-chu">Đang xử lý…</span><button id="dl-dung" style="display:none" data-lenh="khung.quetDung">Dừng</button></div>
 <div class="menu" id="menu"></div>
 <nav id="thanh-ben" aria-label="Điều hướng"></nav>
 <div class="khung">
@@ -21,33 +21,33 @@
       <div class="logo">TH</div>
       <span class="dh-nut"><button class="nho" data-lenh="dh.lui" title="Lùi 1 bước (Alt+←, nút ◀ điện thoại)">⬅</button><button class="nho" data-lenh="dh.tien" title="Tiến (Alt+→)">➡</button></span>
       <div style="min-width:0">
-        <div class="ten-app">Tủ hồ sơ <span class="ban-goc" id="ban-goc" onclick="moCaiDat('hd')" title="Xem số bản và hướng dẫn"></span></div>
+        <div class="ten-app">Tủ hồ sơ <span class="ban-goc" id="ban-goc" data-lenh="khung.caiDat" data-k="hd" title="Xem số bản và hướng dẫn"></span></div>
         <div class="dong-phu" id="donvi">Đang tải…</div>
       </div>
       <div class="tim-bao">
       <div class="tim">
         <span>🔍</span>
         <input id="otim" placeholder="Gõ số văn bản, từ khóa, tháng…" autocomplete="off">
-        <span class="xoa" onclick="xoaTim()">✕</span>
+        <span class="xoa" data-lenh="khung.xoaTim">✕</span>
       </div>
       <div class="goiy" id="goiy"></div>
     </div>
       <div class="ky-chung" id="ky-chung"></div>
       <div class="gio"><b id="gio">--:--</b><span id="ngay">—</span></div>
-      <button class="nut-cd" onclick="moHuongDan()" title="Hướng dẫn">❓</button>
-      <button class="nut-cd" onclick="moDonKho()" title="Dọn kho: thùng rác, lập chỉ mục, quét rác">🧰</button>
-      <button class="nut-cd nut-rac" onclick="moRac()" title="Thùng rác">🗑<span id="dem-rac" class="dem-rac" style="display:none"></span></button>
-      <button class="nut-cd" onclick="moCaiDat()" title="Cài đặt">⚙</button>
+      <button class="nut-cd" data-lenh="khung.moHuongDan" title="Hướng dẫn">❓</button>
+      <button class="nut-cd" data-lenh="khung.moDonKho" title="Dọn kho: thùng rác, lập chỉ mục, quét rác">🧰</button>
+      <button class="nut-cd nut-rac" data-lenh="khung.moRac" title="Thùng rác">🗑<span id="dem-rac" class="dem-rac" style="display:none"></span></button>
+      <button class="nut-cd" data-lenh="khung.caiDat" title="Cài đặt">⚙</button>
     </div>
     <div id="the-loc-hang"></div>
     <div class="ngan" id="hangngan">
-      <button class="chon" onclick="doiNgan(0,this)">Hôm nay</button>
-      <button onclick="doiNgan(1,this)">Văn bản</button>
-      <button onclick="moNapSL()" data-sl="nap" title="Nạp file Excel hệ thống và kiểm tra toàn vẹn dữ liệu — nơi duy nhất nạp dữ liệu của app">📥 Nạp &amp; KT</button>
-      <button onclick="moBCSL()" data-sl="bc" title="Báo cáo từ dữ liệu đã nạp: Tổng hợp, Sao kê, Tổ TK&amp;VV, KTGS, Tra cứu KH">Số liệu</button>
-      <button onclick="doiNgan(5,this)">Biểu mẫu</button>
-      <button onclick="doiNgan(4,this)">Scan</button>
-      <button onclick="doiNgan(3,this)">Thư viện</button>
+      <button class="chon" data-lenh="khung.ngan" data-n="0">Hôm nay</button>
+      <button data-lenh="khung.ngan" data-n="1">Văn bản</button>
+      <button data-lenh="khung.moNapSL" data-sl="nap" title="Nạp file Excel hệ thống và kiểm tra toàn vẹn dữ liệu — nơi duy nhất nạp dữ liệu của app">📥 Nạp &amp; KT</button>
+      <button data-lenh="khung.moBCSL" data-sl="bc" title="Báo cáo từ dữ liệu đã nạp: Tổng hợp, Sao kê, Tổ TK&amp;VV, KTGS, Tra cứu KH">Số liệu</button>
+      <button data-lenh="khung.ngan" data-n="5">Biểu mẫu</button>
+      <button data-lenh="khung.ngan" data-n="4">Scan</button>
+      <button data-lenh="khung.ngan" data-n="3">Thư viện</button>
     </div>
   </div>
 
@@ -124,17 +124,17 @@
          <div class="xem-phu" id="cp-phu">Bấm một mục bên trái để xem nội dung tại đây</div>
        </div>
        <div class="zoom">
-         <button onclick="moLonCP()" title="Mở lớn">⛶</button>
-         <button onclick="anPreview()" title="Đóng khung xem">✕</button>
+         <button data-lenh="khung.moLonCP" title="Mở lớn">⛶</button>
+         <button data-lenh="khung.anPreview" title="Đóng khung xem">✕</button>
        </div>
      </div>
      <div class="dk" id="cp-dk"></div>
      <div class="than-p" id="cp-than"></div>
      <div class="day-p">
-       <button onclick="inFile()">🖨 In</button>
-       <button id="cp-guitrang" style="display:none" onclick="guiTrangChon()">Gửi trang chọn</button>
-       <button onclick="suaMuc()">✎ Sửa</button>
-       <button class="chinh" onclick="guiFileMenu(event)" title="Gửi file (Zalo…) hoặc chép để dán">📤 Gửi</button>
+       <button data-lenh="khung.inFile">🖨 In</button>
+       <button id="cp-guitrang" style="display:none" data-lenh="khung.guiTrangChon">Gửi trang chọn</button>
+       <button data-lenh="khung.suaMuc">✎ Sửa</button>
+       <button class="chinh" data-lenh="khung.guiFileMenu" title="Gửi file (Zalo…) hoặc chép để dán">📤 Gửi</button>
        <span class="cn-cho" id="cp-cn"></span>
      </div>
      <div class="cn-meo" id="cp-cnmeo"></div>
@@ -145,12 +145,12 @@
     <div class="so-lieu" id="so-lieu">—</div>
     <span class="tac-gia" title="Tác giả">NhanNT</span>
     <div id="nut-phu-cho"></div>
-    <button class="nho" id="btn-mo-preview" style="display:none;flex:0 0 auto" onclick="hienPreview()">▣ Xem trước</button>
-    <button class="nut-chinh" id="nut-chinh" onclick="nutChinh()" style="display:none">Chọn file</button>
+    <button class="nho" id="btn-mo-preview" style="display:none;flex:0 0 auto" data-lenh="khung.hienPreview">▣ Xem trước</button>
+    <button class="nut-chinh" id="nut-chinh" data-lenh="khung.nutChinh" style="display:none">Chọn file</button>
   </div>
 
   <!-- XEM TRƯỚC -->
-  <div class="xem" id="xem" onclick="if(event.target.id==='xem')dongXem()">
+  <div class="xem" id="xem" data-lenh="khung.ngoaiXem">
     <div class="xem-hop">
       <div class="xem-dau">
         <div class="tt">
@@ -158,92 +158,92 @@
           <div class="xem-phu" id="x-phu">—</div>
         </div>
         <div class="zoom">
-          <button onclick="zoom(-1)" title="Thu nhỏ">−</button>
-          <button onclick="zoom(0)" title="Vừa khung" style="font-size:12px">100%</button>
-          <button onclick="zoom(1)" title="Phóng to">+</button>
-          <button onclick="toanManHinh()" title="Toàn màn hình">⛶</button>
+          <button data-lenh="khung.zoom" data-n="-1" title="Thu nhỏ">−</button>
+          <button data-lenh="khung.zoom" data-n="0" title="Vừa khung" style="font-size:12px">100%</button>
+          <button data-lenh="khung.zoom" data-n="1" title="Phóng to">+</button>
+          <button data-lenh="khung.toanManHinh" title="Toàn màn hình">⛶</button>
         </div>
       </div>
       <div class="dk" id="x-dk"></div>
       <div class="xem-than" id="x-than"></div>
       <div class="xem-day">
-        <button id="nut-in" onclick="inFile()">🖨 In</button>
-        <button id="nut-gui-trang" style="display:none" onclick="guiTrangChon()">Gửi trang chọn</button>
-        <button onclick="suaMuc()">✎ Sửa</button>
-        <button class="chinh" onclick="guiFileMenu(event)" title="Gửi file (Zalo…) hoặc chép để dán">📤 Gửi</button>
+        <button id="nut-in" data-lenh="khung.inFile">🖨 In</button>
+        <button id="nut-gui-trang" style="display:none" data-lenh="khung.guiTrangChon">Gửi trang chọn</button>
+        <button data-lenh="khung.suaMuc">✎ Sửa</button>
+        <button class="chinh" data-lenh="khung.guiFileMenu" title="Gửi file (Zalo…) hoặc chép để dán">📤 Gửi</button>
         <span class="cn-cho" id="x-cn"></span>
-        <button onclick="dongXem()">Đóng (Esc)</button>
+        <button data-lenh="khung.dongXem">Đóng (Esc)</button>
       </div>
     </div>
   </div>
 
-  <div class="hop" id="hop" onclick="if(event.target.id==='hop'&&!khoaHop)bamNgoaiHop()">
+  <div class="hop" id="hop" data-lenh="khung.ngoaiHop">
     <div class="hop-in" id="hop-in"></div>
   </div>
 
   <div class="bao" id="bao"></div>
 </div>
-<script src="js/01-thu-vien.js?v=3.238"></script>
-<script src="js/02-nen.js?v=3.238"></script>
-<script src="js/03-doc-pdf.js?v=3.238"></script>
-<script src="js/04-giao-dien.js?v=3.238"></script>
-<script src="js/05-them-file.js?v=3.238"></script>
-<script src="js/06-hop-thoai.js?v=3.238"></script>
-<script src="js/07-cccd.js?v=3.238"></script>
-<script src="js/08-dia-ban.js?v=3.238"></script>
-<script src="js/09-bieu-mau.js?v=3.238"></script>
-<script src="js/10-danh-sach.js?v=3.238"></script>
-<script src="js/11-khung-tab.js?v=3.238"></script>
-<script src="js/12-scan.js?v=3.238"></script>
-<script src="js/13-xu-ly-anh.js?v=3.238"></script>
-<script src="js/14-tim-loc.js?v=3.238"></script>
-<script src="js/15-ai-chuan-hoa.js?v=3.238"></script>
-<script src="js/16-ai-dan-ket-qua.js?v=3.238"></script>
-<script src="js/17-dong-bo-cai-dat.js?v=3.238"></script>
-<script src="js/18-cai-dat.js?v=3.238"></script>
-<script src="js/19-danh-muc.js?v=3.238"></script>
-<script src="js/20-khoi-dong.js?v=3.238"></script>
-<script src="js/21-ngay-gy.js?v=3.238"></script>
-<script src="js/22-so-lieu.js?v=3.238"></script>
-<script src="js/22b-ktgs.js?v=3.238"></script>
-<script src="js/22c-ktgs-m06.js?v=3.238"></script>
-<script src="js/22d-ktgs-04.js?v=3.238"></script>
-<script src="js/22e-ktgs-kh.js?v=3.238"></script>
-<script src="js/22f-tra-cuu.js?v=3.238"></script>
-<script src="js/22g-to.js?v=3.238"></script>
-<script src="js/22h-cap-hoi-sao-ke.js?v=3.238"></script>
-<script src="js/22i-tong-hop.js?v=3.238"></script>
-<script src="js/23-dieu-huong.js?v=3.238"></script>
-<script src="js/24-xuat.js?v=3.238"></script>
-<script src="js/25-ho-so.js?v=3.238"></script>
-<script src="js/26-giao-dich-xa.js?v=3.238"></script>
-<script src="js/27-mini-gdx.js?v=3.238"></script>
-<script src="js/28-tv-tk.js?v=3.238"></script>
-<script src="js/29-kho.js?v=3.238"></script>
-<script src="js/30-khai-bao.js?v=3.238"></script>
-<script src="js/31-o-mau.js?v=3.238"></script>
-<script src="js/32-kho-luu.js?v=3.238"></script>
-<script src="js/33-so-ho-them.js?v=3.238"></script>
-<script src="js/34-luu-ngan.js?v=3.238"></script>
-<script src="js/35-scan.js?v=3.238"></script>
-<script src="js/36-dong-bo-khoi.js?v=3.238"></script>
-<script src="js/37-kiem-ho.js?v=3.238"></script>
-<script src="js/38-goi-xem.js?v=3.238"></script>
-<script src="js/39-gd.js?v=3.238"></script>
-<script src="js/mau/01td.js?v=3.238"></script>
-<script src="js/mau/01uq.js?v=3.238"></script>
-<script src="js/mau/03td.js?v=3.238"></script>
-<script src="js/mau/09a.js?v=3.238"></script>
-<script src="js/mau/01tdck.js?v=3.238"></script>
-<script src="js/mau/01tgtv.js?v=3.238"></script>
-<script src="js/mau/01gqvl.js?v=3.238"></script>
-<script src="js/mau/07b.js?v=3.238"></script>
-<script src="js/mau/10c.js?v=3.238"></script>
-<script src="js/mau/10ccu.js?v=3.238"></script>
-<script src="js/mau/10a.js?v=3.238"></script>
-<script src="js/mau/10b.js?v=3.238"></script>
-<script src="js/mau/10d.js?v=3.238"></script>
-<script src="js/mau/11.js?v=3.238"></script>
-<script src="js/mau/11cu.js?v=3.238"></script>
+<script src="js/01-thu-vien.js?v=3.239"></script>
+<script src="js/02-nen.js?v=3.239"></script>
+<script src="js/03-doc-pdf.js?v=3.239"></script>
+<script src="js/04-giao-dien.js?v=3.239"></script>
+<script src="js/05-them-file.js?v=3.239"></script>
+<script src="js/06-hop-thoai.js?v=3.239"></script>
+<script src="js/07-cccd.js?v=3.239"></script>
+<script src="js/08-dia-ban.js?v=3.239"></script>
+<script src="js/09-bieu-mau.js?v=3.239"></script>
+<script src="js/10-danh-sach.js?v=3.239"></script>
+<script src="js/11-khung-tab.js?v=3.239"></script>
+<script src="js/12-scan.js?v=3.239"></script>
+<script src="js/13-xu-ly-anh.js?v=3.239"></script>
+<script src="js/14-tim-loc.js?v=3.239"></script>
+<script src="js/15-ai-chuan-hoa.js?v=3.239"></script>
+<script src="js/16-ai-dan-ket-qua.js?v=3.239"></script>
+<script src="js/17-dong-bo-cai-dat.js?v=3.239"></script>
+<script src="js/18-cai-dat.js?v=3.239"></script>
+<script src="js/19-danh-muc.js?v=3.239"></script>
+<script src="js/20-khoi-dong.js?v=3.239"></script>
+<script src="js/21-ngay-gy.js?v=3.239"></script>
+<script src="js/22-so-lieu.js?v=3.239"></script>
+<script src="js/22b-ktgs.js?v=3.239"></script>
+<script src="js/22c-ktgs-m06.js?v=3.239"></script>
+<script src="js/22d-ktgs-04.js?v=3.239"></script>
+<script src="js/22e-ktgs-kh.js?v=3.239"></script>
+<script src="js/22f-tra-cuu.js?v=3.239"></script>
+<script src="js/22g-to.js?v=3.239"></script>
+<script src="js/22h-cap-hoi-sao-ke.js?v=3.239"></script>
+<script src="js/22i-tong-hop.js?v=3.239"></script>
+<script src="js/23-dieu-huong.js?v=3.239"></script>
+<script src="js/24-xuat.js?v=3.239"></script>
+<script src="js/25-ho-so.js?v=3.239"></script>
+<script src="js/26-giao-dich-xa.js?v=3.239"></script>
+<script src="js/27-mini-gdx.js?v=3.239"></script>
+<script src="js/28-tv-tk.js?v=3.239"></script>
+<script src="js/29-kho.js?v=3.239"></script>
+<script src="js/30-khai-bao.js?v=3.239"></script>
+<script src="js/31-o-mau.js?v=3.239"></script>
+<script src="js/32-kho-luu.js?v=3.239"></script>
+<script src="js/33-so-ho-them.js?v=3.239"></script>
+<script src="js/34-luu-ngan.js?v=3.239"></script>
+<script src="js/35-scan.js?v=3.239"></script>
+<script src="js/36-dong-bo-khoi.js?v=3.239"></script>
+<script src="js/37-kiem-ho.js?v=3.239"></script>
+<script src="js/38-goi-xem.js?v=3.239"></script>
+<script src="js/39-gd.js?v=3.239"></script>
+<script src="js/mau/01td.js?v=3.239"></script>
+<script src="js/mau/01uq.js?v=3.239"></script>
+<script src="js/mau/03td.js?v=3.239"></script>
+<script src="js/mau/09a.js?v=3.239"></script>
+<script src="js/mau/01tdck.js?v=3.239"></script>
+<script src="js/mau/01tgtv.js?v=3.239"></script>
+<script src="js/mau/01gqvl.js?v=3.239"></script>
+<script src="js/mau/07b.js?v=3.239"></script>
+<script src="js/mau/10c.js?v=3.239"></script>
+<script src="js/mau/10ccu.js?v=3.239"></script>
+<script src="js/mau/10a.js?v=3.239"></script>
+<script src="js/mau/10b.js?v=3.239"></script>
+<script src="js/mau/10d.js?v=3.239"></script>
+<script src="js/mau/11.js?v=3.239"></script>
+<script src="js/mau/11cu.js?v=3.239"></script>
 </body>
 </html>

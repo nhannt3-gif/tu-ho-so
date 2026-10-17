@@ -671,7 +671,7 @@ function veVaoKhungPDF(m, n, S, o){
     var tenF = [m.tenCu, m.tenMoi, m.ten, m.duoi].filter(Boolean).join(' ');
     var laAnh = /^image\//.test(b.type) || /\.(jpg|jpeg|png|webp)(\s|$)/i.test(tenF);
     if(laAnh){
-      var u = URL.createObjectURL(b);
+      var u = URL.createObjectURL(b); thuHoiSau(o.__u, 0); o.__u = u;   /* 3.239: đổi file xem → trả ảnh cũ */
       o.innerHTML = '<img src="'+u+'" alt="">'+
         (m.moTa?('<div class="ghi">'+coChuHTML(m.moTa)+'</div>'):'');
       veDieuKhien(n); apZoomKhung(n); return;
@@ -1022,7 +1022,7 @@ function moBangMay(){
   var m = mucDangXem; if(!m) return;
   layNoiDung(m).then(function(b){
     if(!b) return baoLoi('Không tìm thấy nội dung file.');
-    var u = URL.createObjectURL(b);
+    var u = URL.createObjectURL(b); thuHoiSau(u, 120000);
     var w = window.open(u, '_blank');
     if(!w){
       var f = new File([b], m.tenMoi||m.tenCu||'file.pdf', {type:b.type||'application/pdf'});
@@ -1098,7 +1098,7 @@ function guiTrangChon(){
       return navigator.share({files:[f], title:r.ten});
     var a = document.createElement('a');
     a.href = URL.createObjectURL(r.blob); a.download = r.ten;
-    document.body.appendChild(a); a.click(); a.remove();
+    document.body.appendChild(a); a.click(); thuHoiSau(a.href); a.remove();
     bao('Đã tách '+ds.length+' trang thành file riêng.', 4);
   }).catch(function(e){
     console.warn(e); baoLoi('Không tách được trang từ file này.');
@@ -1122,7 +1122,7 @@ function taiFile(imLang){
       var a = document.createElement('a');
       a.href = URL.createObjectURL(b);
       a.download = tenF;
-      document.body.appendChild(a); a.click(); a.remove();
+      document.body.appendChild(a); a.click(); thuHoiSau(a.href); a.remove();
       if(!imLang) bao('Đã lưu: '+(m.tenMoi||'')+' — bỏ vào '+thuMucCua(m), 6);
     }
   });
@@ -1146,7 +1146,7 @@ function inBlob(b, ten, tb){   /* tb: lời nhắc thay "Đã mở hộp thoại
   var f = document.createElement('iframe');
   f.id = 'khung-in';
   f.style.cssText = 'position:fixed;width:0;height:0;border:0;left:-9999px';
-  f.src = u;
+  f.src = u; thuHoiSau(u, 120000);
   f.onload = function(){
     var cho = 0, inNgay = function(){ try{ if(b.trChuan && !f.contentWindow.TR_XONG && cho++<80) return setTimeout(inNgay, 100); }catch(e){}   /* 3.128: chờ chia trang xong */
       try{

@@ -412,7 +412,7 @@ function scanLuuTuHop(){
     nh.map(function(g, i){ return '<div class="sx-kh" id="sx-kh-'+i+'"><img id="sx-a'+i+'" alt=""><div class="sx-kh-o">'+(nh.length>1 ? '<b>Người '+(i+1)+'</b>' : '')+
       '<input id="sx-tim-'+i+'" placeholder="Tên, mã KH hoặc số CCCD" autocomplete="off" oninput="scanTimKH('+i+')"><div class="sx-gy" id="sx-gy-'+i+'"></div><div class="sx-chon" id="sx-chon-'+i+'">'+scanKHChu(SXK[i])+'</div></div></div>'; }).join('')+
     tag+'<div class="hang-nut"><button class="nho" onclick="scanXongHop(SX.bl)">‹ Thôi</button><button class="nho chinh" onclick="scanLuuTu()">🗄 Lưu vào tủ</button></div>', true);
-  nh.forEach(function(g, i){ var x = g[0]; if(x && x.kieu==='anh') docAnhHS(x.id).then(function(b){ var e = document.getElementById('sx-a'+i); if(b && e) e.src = URL.createObjectURL(b); }); });
+  nh.forEach(function(g, i){ var x = g[0]; if(x && x.kieu==='anh') docAnhHS(x.id).then(function(b){ var e = document.getElementById('sx-a'+i); if(b && e) anhTam(e, b); }); });
   setTimeout(function(){ var e = document.getElementById('sx-tim-0'); if(e) e.focus(); }, 30);
 }
 function scanKHChu(c){ return c ? '✓ <b>'+coChuHTML(c.ma)+' · '+coChuHTML(c.ten)+'</b> — '+coChuHTML([c.ap, c.xa].filter(Boolean).join(', ')) : '<span class="sl-phu">Chưa chọn khách</span>'; }
@@ -902,7 +902,7 @@ function chiaSePDF(bl, ten){
   if(navigator.canShare && navigator.canShare({files:[f]}))
     return navigator.share({files:[f], title:ten}).catch(function(){});
   var a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = ten;
-  document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); }, 1000);
+  document.body.appendChild(a); a.click(); thuHoiSau(a.href); setTimeout(function(){ a.remove(); }, 1000);
   bao('Đã tải về: '+ten, 5);
 }
 
@@ -1496,7 +1496,7 @@ function chiaSeAnh(b, ten){
   var f = new File([b], ten, {type:'image/jpeg'});
   if(navigator.canShare && navigator.canShare({files:[f]})) return navigator.share({files:[f], title:ten}).catch(function(){});
   var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = ten;
-  document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); }, 1000);
+  document.body.appendChild(a); a.click(); thuHoiSau(a.href); setTimeout(function(){ a.remove(); }, 1000);
   bao('Đã tải về: '+ten, 5);
 }
 function guiKA(id){
@@ -1709,7 +1709,7 @@ function chupCam(tuDong){
     if(CAM.muc!=='scan'){ var m = CAM.muc; dongCam(); return nhanKA(m==='ky'?'ky':'anh', f); }
     CAM.anh.push(f);
     var n = document.getElementById('cam-nho');
-    if(n){ var u = URL.createObjectURL(b); n.innerHTML = '<img src="'+u+'"><b>'+CAM.anh.length+'</b>'; }
+    if(n){ var u = URL.createObjectURL(b); n.innerHTML = '<img src="'+u+'"><b>'+CAM.anh.length+'</b>'; thuHoiSau(CAM.nhoU, 0); CAM.nhoU = u; }   /* 3.239: chụp liền nhiều tấm — trả ảnh nhỏ cũ */
     veThanhCam();
     if(navigator.vibrate) try{ navigator.vibrate(40); }catch(e){}
   });
@@ -2196,7 +2196,7 @@ function taiBoCaiCauNoi(go){
   var buf = new Uint8Array(2 + noi.length*2); buf[0] = 0xFF; buf[1] = 0xFE;
   for(var i=0;i<noi.length;i++){ var c = noi.charCodeAt(i); buf[2+i*2] = c & 255; buf[3+i*2] = c >> 8; }
   var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([buf], {type:'application/octet-stream'}));
-  a.download = go ? 'go-cau-noi-tu-ho-so.reg' : 'cai-cau-noi-tu-ho-so.reg'; document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); }, 1000);
+  a.download = go ? 'go-cau-noi-tu-ho-so.reg' : 'cai-cau-noi-tu-ho-so.reg'; document.body.appendChild(a); a.click(); thuHoiSau(a.href); setTimeout(function(){ a.remove(); }, 1000);
   bao(go ? 'Đã tải file gỡ — bấm đúp để gỡ cầu nối.' : 'Đã tải bộ cài — mở thư mục Tải về, bấm đúp file .reg → Yes → OK. Rồi bấm "Mở thử".', 9);
 }
 /* gọi cầu nối: rel = đường dẫn trong Drive "Tủ hồ sơ/…/tên file" */
@@ -2309,7 +2309,7 @@ function hoiCaiCauNoi(duPhong){
 /* máy chưa cài cầu nối: PDF / ảnh mở ngay trong tab trình duyệt (không lưu file); Word / Excel thì tải về */
 function xemTrongTab(bl, ten){
   if(/pdf|image/.test(bl.type||'') || /\.(pdf|jpe?g|png)$/i.test(ten||'')){ var u = URL.createObjectURL(bl); window.open(u, '_blank'); setTimeout(function(){ URL.revokeObjectURL(u); }, 60000); return; }
-  var a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = ten||'file'; document.body.appendChild(a); a.click(); a.remove();
+  var a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = ten||'file'; document.body.appendChild(a); a.click(); thuHoiSau(a.href); a.remove();
 }
 
 /* lưu tạm: tên tự đặt theo ngày giờ quét, khai sau */
@@ -2477,7 +2477,7 @@ function veTrangScan(){
 /* 3.35: hiện một trang của bản tài liệu — ảnh, hoặc trang PDF gốc (vẽ bằng pdf.js) */
 function anhTrangHS(idT, im){
   if(laTrangPDF(idT)) return anhTrangPDF(idT, 700).then(function(u){ im.src = u; }).catch(function(){ im.alt = 'Không xem trước được trang PDF'; });
-  return docAnhHS(idT).then(function(b){ if(b) im.src = URL.createObjectURL(b); });
+  return docAnhHS(idT).then(function(b){ if(b) anhTam(im, b); });
 }
 function capNhatSoTrang(){
   var k = window.__k, n = document.getElementById('nn-trang');
@@ -2547,8 +2547,9 @@ function luuScanTL(){
 /* ---- xoay ảnh 90° ---- */
 function xoayAnh(blob){
   return new Promise(function(ok, loi){
-    var img = new Image();
+    var img = new Image(), u = URL.createObjectURL(blob);   /* 3.239: trả bộ nhớ sau khi đọc (trước không trả → Safari đầy khi xoay nhiều thẻ) */
     img.onload = function(){
+      thuHoiSau(u, 0);
       var c = document.createElement('canvas');
       c.width = img.height; c.height = img.width;
       var x = c.getContext('2d');
@@ -2557,7 +2558,7 @@ function xoayAnh(blob){
       x.drawImage(img, -img.width/2, -img.height/2);
       c.toBlob(function(b){ ok(b); }, 'image/jpeg', 0.9);
     };
-    img.onerror = function(){ loi(new Error('không đọc được ảnh')); };
-    img.src = URL.createObjectURL(blob);
+    img.onerror = function(){ thuHoiSau(u, 0); loi(new Error('không đọc được ảnh')); };
+    img.src = u;
   });
 }
