@@ -16,8 +16,8 @@ const fs=require('fs'), path=require('path');
    const C = hsoCH(); C.xa=''; C.diem=''; C.to='';
    pvChon('hsv','xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(300); pvChon('hsv','to', pvLuaChon(TO_K.to, C, 'to', true)[0].k); await w(1000);
    const t = TO_K.to[C.to], tv = hsoTVTo(t);
-   hsoChonMau('homoi'); await w(300);
-   ok('tab "👪 Hộ vay" + nút ＋ Hộ mới, ＋ Lấy từ Mẫu 31; tab Bộ HS ẩn', /Hộ vay/.test(document.querySelector('#hso-tabm').textContent) && /Lấy từ Mẫu 31/.test(document.getElementById('hso-tuy').textContent) && ![...document.querySelectorAll('#hso-tabm .hso-tm')].some(e=>/Bộ HS/.test(e.textContent)));
+   hsoChonMau('sohv'); await w(300);
+   ok('tab "📒 Sổ hộ vay" + nút ＋ Hộ mới, 📥 Lấy từ Mẫu 31; tab Bộ HS ẩn', /Sổ hộ vay/.test(document.querySelector('#hso-tabm').textContent) && /Lấy từ Mẫu 31/.test(document.getElementById('hso-tuy').textContent) && ![...document.querySelectorAll('#hso-tabm .hso-tm')].some(e=>/Bộ HS/.test(e.textContent)));
    /* lấy từ Mẫu 31 */
    const k0 = tv[0].kh, o0 = hmTuM31(k0), c0 = SL_DB.kh[k0];
    ok('lấy từ Mẫu 31: mã KH, tổ, tên; trùng mã KH → không tạo 2 lần', o0.kh===k0 && o0.to===c0.to && o0.tv[0].ten===c0.ten && hmTuM31(k0)===o0 && hmDs().length===1);
@@ -46,8 +46,8 @@ const fs=require('fs'), path=require('path');
    hmLamHS(o0.id); await w(400);
    ok('hộ cũ: 01/TD lấy nhân thân Mẫu 31, đổi hộ không lẫn phương án hộ trước', HSO.x.trang.indexOf(c0.ten)>0 && hsoBo().hoId===o0.id && !/Trần Văn Con Hai/.test(HSO.x.trang));
    /* 03/TD nhiều hộ cùng chương trình */
-   hsoChonMau('homoi'); await w(300); HM_CHON = {}; HM_CHON[oM.id] = true; HM_CHON[o0.id] = true; hsoVe(); await w(200);
-   ok('tab Hộ vay: tích hộ → nút 📋 Lập 03/TD (2 hộ)', /Lập 03\/TD \(2 hộ\)/.test(document.getElementById('hso-tuy').textContent));
+   hsoChonMau('sohv'); await w(300); HM_CHON = {}; HM_CHON[oM.id] = true; HM_CHON[o0.id] = true; hsoVe(); await w(200);
+   ok('Sổ hộ vay: tích hộ → nút 📋 Lập 03/TD (2 hộ)', /Lập 03\/TD \(2 hộ\)/.test(document.getElementById('hso-tuy').textContent));
    hsoD03TuChon(); await w(500); let D3 = hsoD03();
    ok('📋 Lập 03/TD → tab 03/TD, 2 dòng, cùng chương trình', hsoMau().k==='03td' && D3.ds.length===2 && HSO.x.trang.indexOf('Trần Văn Giả')>0 && HSO.x.trang.indexOf(c0.ten)>0, D3.ct+' · '+D3.ds.length);
    hsoD03Dat(0, 'tien', '40.000.000'); hsoD03Dat(1, 'tien', '30000000'); await w(400);

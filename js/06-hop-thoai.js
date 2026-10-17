@@ -2053,7 +2053,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.226', ds:[
+var CO_GI_MOI = {ban:'3.227', ds:[
+  ["📒 Hồ sơ vay: gộp tab 👪 Hộ vay vào 📒 Sổ hộ vay — ＋ Hộ mới · 📥 Lấy từ Mẫu 31 · sửa thẳng ô · ☐ tích hộ → 📋 Lập 03/TD; lọc Xã · Điểm GD · Hội · Tổ theo khối LỌC ĐỊA BÀN", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
+  ["📅 Sổ hộ vay: lọc ngày nhập (Tháng này · Tháng trước · Quý này · Năm nay · từ / đến ngày), sắp theo ngày nhập, nhóm theo tháng (bấm dòng tháng gập / mở, tích cả tháng)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
+  ["📌 Khối LỌC ĐỊA BÀN: nút Ghim (ghim = luôn mở; bỏ ghim = chọn xong tổ tự gọn) · ⬆ Lên 1 cấp · phím Backspace lên 1 cấp · mắt đường dẫn gạch chân bấm được", "slDoiTab('hsv');doiNgan(7)"],
   ["☁ Cài đặt đồng bộ theo khối: _Hệ thống/caidat/<khối>.json (Chung, KTGS, Hồ sơ, Số liệu, Scan, Lịch, Văn bản…) — sửa 1 khai báo chỉ gửi đúng file khối đó; máy chưa cập nhật vẫn đọc / ghi cauhinh.json như cũ", "hsoKBHop('sl')"],
   ["📷 Scan mới: chọn loại trước (CCCD · Tài liệu · Chữ ký · Ảnh khách) — Tài liệu không bao giờ đòi mặt 2; bộ nút chuẩn In · Lưu vào máy · Lưu vào app · Gửi Zalo · Bỏ", "doiNgan(4);batDauScan()"],
   ["🗂 Lưu vào app = ⏳ Chờ khai báo: chưa lên Drive cho tới khi khai đủ xã, ấp, tổ; 💾 Lưu vào máy chỉ ra file (máy tính có hộp Lưu thành)", "doiNgan(4)"],

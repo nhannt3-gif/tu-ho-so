@@ -222,6 +222,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.227) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay | Tab đầu là 📒 Sổ hộ vay (không còn 👪 Hộ vay); có ＋ Hộ mới, 📥 Lấy từ Mẫu 31 | |
+| 2 | Chọn Xã → Tổ ở khối LỌC ĐỊA BÀN | Sổ chỉ còn hộ của xã / tổ; hộ mới chưa có tổ vẫn hiện khi chỉ chọn xã | |
+| 3 | Nút Tháng này / Tháng trước, gõ từ ngày | Lọc đúng ngày nhập; bản in ghi khoảng ngày | |
+| 4 | Dòng "Tháng 10/2026 · n hộ" | Bấm gập / mở; ô tích cả tháng → nút 📋 Lập 03/TD (n hộ) | |
+| 5 | Bỏ tích "Nhóm theo tháng" | Bảng phẳng | |
+| 6 | Hồ sơ vay: chọn tổ | Khối lọc tự gọn 1 dòng; ⬆ Lên 1 cấp / Backspace → về điểm, khối mở lại để chọn | |
+| 7 | Bấm 📌 | Khối lọc luôn mở, chọn tổ không gọn; tab Tổ / KTGS mặc định đã ghim | |
+
+**Ghi chú kỹ thuật 3.227:** ngày nhập = lúc đưa hộ vào sổ (`o.tao`), hộ chuyển từ Bộ HS cũ lấy ngày tạo bộ. Khối lọc Hồ sơ Tổ / Hồ sơ vay dùng chung 1 lựa chọn (`hsoCH()`), nên tổ chọn để in 10C cũng lọc sổ. Hàm mồ côi `kiem.py`: `pvMo`, `hmLapHS` còn phép thử gọi (t168, t171) — giữ.
+
 ### Danh sách thử trên máy thật (3.226) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
