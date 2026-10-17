@@ -22,7 +22,7 @@
 | Ô | Hiện nay | Đề xuất |
 |---|---|---|
 | Bảng kê · Họ và tên người lĩnh tiền | cắt, thêm … | ↵ xuống dòng |
-| Bảng kê · Địa chỉ | cắt, thêm … (**lỗi anh báo**) | ↵ xuống dòng (bảng tiền dời xuống ~5 mm, khổ 118 mm còn đủ chỗ) |
+| Bảng kê · Địa chỉ | cắt, thêm … (**lỗi anh báo**) | ✅ **anh chốt 17/10: ✂ viết tắt "khu phố" → "KP"** là đủ chỗ (giữ 1 dòng, giữ cỡ chữ) |
 | Bảng kê · Nội dung | cắt, thêm … | ✂ viết ngắn (thường "Rút tiền") |
 | Giấy lĩnh · Họ tên / Địa chỉ | em rà khi làm (cùng cách hiện chữ) | ↵ xuống dòng nếu cũng bị cắt |
 
