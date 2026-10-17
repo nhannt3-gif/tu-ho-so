@@ -51,9 +51,9 @@
       var V = this.V(t, B), A = V._A, C = A.C || {}, G = omG(MK, V, 13), o = G.o;
       var dong = A.dong.length ? A.dong : [], CH = [['………………………………', '…………………..', '……………………………..'], ['………………………………', '…………………..', '……………………………..'], ['………………………………..', '....………………..', '……………………………..']];
       var hang = '<tr><td class="c b"><p>Đối tượng</p></td><td class="c b"><p>Số lượng</p></td><td class="c b"><p>Thành tiền</p></td></tr>';
-      var ok0 = omCach(MK, 'bang')!=='cham' && dong.length, lien = function(v){ return '<span class="om om-tu" data-o="bang">'+coChuHTML(v)+'</span>'; };
+      var ok0 = omCach(MK, 'bang')!=='cham' && dong.length, lien = function(v, ch){ return v ? '<span class="om om-tu" data-o="bang">'+coChuHTML(v)+'</span>' : '<span class="om om-cham" data-o="bang">'+ch+'</span>'; };   /* ô chưa có (vd HSSV chưa gõ số tháng) → chấm */
       if(ok0) dong.forEach(function(x){   /* 3.240 (anh 17/10): có số liệu → đúng số dòng, chữ dài xuống dòng (không thu nhỏ, không dòng chấm thừa) */
-        hang += '<tr><td class="c"><p>'+lien(x[0])+'</p></td><td class="c"><p>'+lien(x[1])+'</p></td><td class="c"><p>'+lien(hsoDongTien(x[2]))+'</p></td></tr>'; });
+        hang += '<tr><td class="c"><p>'+lien(x[0], CH[0][0])+'</p></td><td class="c"><p>'+lien(x[1], CH[0][1])+'</p></td><td class="c"><p>'+lien(x[2] ? hsoDongTien(x[2]) : '', CH[0][2])+'</p></td></tr>'; });
       for(var i=0;!ok0 && i<3;i++){ var x = ['', '', 0], ch = CH[i], ok = false;   /* bản trắng / ô để chấm: 3 dòng chấm như gốc */
         hang += '<tr><td class="c"><p>'+o('bang', ch[0], {gt:ok ? x[0] : '', canh:'c', rong:57, hai:4.8})+'</p></td><td class="c"><p>'+o('bang', ch[1], {gt:ok ? x[1] : '', canh:'c', rong:41})+'</p></td><td class="c"><p>'+o('bang', ch[2], {gt:ok ? hsoDongTien(x[2]) : '', canh:'c', rong:58})+'</p></td></tr>'; }   /* có chữ: khung = cả ô bảng (gốc 60 / 44 / 61 mm) */
       var ngK = G.ngay('ngayKy', ['……', '……', '………']), hanC = G.ngay('hanCuoi', ['……..', '……..', '…………']), nhH = G.ngay('nhHan', ['…....', '…....', '……..']), nhN = G.ngay('nhNgay', ['……', '……', '………']);
