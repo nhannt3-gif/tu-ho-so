@@ -18,6 +18,14 @@ module.exports = async function(p){
       boc.__khai = true; window.slDocFile = boc;
     });
   });
+  await p.route(/cdn\.jsdelivr\.net/, r=>{   /* 3.231: thư viện bản điện thoại (npm cùng bản trong tests/lib) */
+    const u = r.request().url(); let f=null, ct='text/javascript';
+    if(/framework7@8\.3\.4\/framework7-bundle\.min\.css/.test(u)){ f=L+'framework7-8.3.4/package/framework7-bundle.min.css'; ct='text/css'; }
+    else if(/framework7@8\.3\.4\/framework7-bundle\.min\.js/.test(u)) f=L+'framework7-8.3.4/package/framework7-bundle.min.js';
+    else if(/dompurify@3\.2\.6/.test(u)) f=L+'dompurify-3.2.6/package/dist/purify.min.js';
+    else if(/pdf-lib@1\.17\.1/.test(u)) f=L+'pdf-lib-1.17.1/package/dist/pdf-lib.min.js';
+    return f ? r.fulfill({path:f, contentType:ct, headers:{'access-control-allow-origin':'*'}}) : r.abort();
+  });
   await p.route(/cdnjs\.cloudflare\.com/, r=>{
     const u = r.request().url(); let f=null;
     if(/xlsx\.full/.test(u)) f=L+'xlsx-0.18.5/package/dist/xlsx.full.min.js';

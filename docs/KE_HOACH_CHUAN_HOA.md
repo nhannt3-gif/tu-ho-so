@@ -65,3 +65,6 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
 
 ## Trạng thái
 - 17/10: **R1 xong = 3.230** (thước đo + mốc `tests/do_moc.json`, dọn 99 hàm, "Có gì mới" 15 dòng, CSS trùng, bố cục Sổ hộ vay, `docs/KIEM_KE_GIAO_DIEN.md`). Chưa làm trong R1: nâng SheetJS (không tải được để thử), DOMPurify (làm cùng bản điện thoại). Tiếp: **bản điện thoại**.
+- 17/10: **Điện thoại phần 1 = 3.231** (`dt.html`, `js/dt/`, `js/38-goi-xem.js`): PIN + mã hóa, tra cứu khách, địa bàn theo cấp, gói số liệu xem trên Drive. Tiếp: phần 2 Văn bản + Scan, phần 3 Giao dịch xã mẫu nhẹ + chạy không mạng.
+- 17/10: **Điện thoại phần 2 = 3.232**: Văn bản, Scan (chụp → PDF), khay chờ, bảng nút chuẩn. Tiếp: phần 3 Giao dịch xã mẫu nhẹ + chạy không mạng.
+- 17/10: **Điện thoại phần 3 = 3.233**: Giao dịch xã mẫu nhẹ (bản mini 3.177 đẩy kèm, mở trong app), chạy không mạng (`dt-sw.js`). **Bản điện thoại đủ 3 phần.** Còn để sau: vân tay / Face ID, quét QR CCCD. Tiếp: **R2**.

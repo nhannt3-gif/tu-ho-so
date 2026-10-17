@@ -4,6 +4,30 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.233 — 17/10/2026 — 📱 Bản điện thoại phần 3: Giao dịch xã mẫu nhẹ · chạy không mạng
+- **Anh chốt 17/10:** Giao dịch xã giữ trên điện thoại, nhẹ, chủ yếu mẫu nhẹ.
+- **Máy tính** `js/38-goi-xem.js`: mỗi lần đẩy gói số liệu xem, lập kèm **bản mini Giao dịch xã** (`gxMini` → `gdxMiniHTML` của 3.177, hạn 90 ngày — mẫu chép từ chính hàm app, số liệu xáo như bản mini, theo Mẫu 31 mới nhất qua `KHO.voiKy`) → Drive `_Hệ thống/xem/gdx.html.gz`. Không có điểm GD thì bỏ qua.
+- **Điện thoại:** `DT.taiGDX` / `DT.docGDX` / `DT.napGDX` (cất mã hóa theo PIN như gói số liệu); trang 🏢 Giao dịch mở bản mini trong khung (in 04/TD, 12/GDX, Giấy lĩnh như bản mini). Thanh tab gọn 5 mục: 🔎 Tra cứu · 🗺 Địa bàn · 🏢 Giao dịch · 📄 Tài liệu (nút chuyển Văn bản | Scan) · ⚙ Cài đặt.
+- **Chạy không mạng:** `dt-sw.js` (service worker, chỉ khi mở qua https) giữ 5 tệp của bản điện thoại — mạng có lấy bản mới, mất mạng dùng bản đã cất; tệp bản máy tính đi thẳng mạng như cũ. Thư viện đã cất máy từ trước (bộ nạp `js/01`). `bump.py` đổi tên bộ đệm theo bản; `kiem.py` kiểm cú pháp + tên bộ đệm.
+- **Phép thử:** `tests/t195.js` (mới, 7); t194 theo thanh tab mới; hoiquy2, t144, t147, t87 (bản máy tính trên giả lập điện thoại) mở `?may=1`.
+
+## 3.232 — 17/10/2026 — 📱 Bản điện thoại phần 2: Văn bản · Scan
+- **Anh duyệt 17/10:** điện thoại tập trung xem văn bản, scan; số liệu đọc từ Drive.
+- **Lõi** `js/dt/dt-nen.js`: `DT.taiKhoi('vanban'|'scan')` đọc các lô khối trên Drive (`_Hệ thống/khoi/vanban__<năm>.json`, `scan__<tháng>.json` — do máy tính đồng bộ theo khối từ 3.225; bỏ lô thùng rác, mục đã xóa) · `DT.taiFile(driveId)` · `DT.guiKhay(file, tên)` → `<thư mục>/_Chờ xử lý` (máy tính **Nạp khay chờ** để khai báo, như luồng ⏳ Chờ khai báo 3.224) · `DT.locDS` lọc không dấu.
+- **Giao diện** `js/dt/dt-giao-dien.js`: thanh tab 5 mục (🔎 Tra cứu · 🗺 Địa bàn · 📄 Văn bản · 📷 Scan · ⚙ Cài đặt). 📄 danh sách (số hiệu · ngày · loại · trích yếu), ＋ Gửi file vào app; 📷 danh sách scan + **Chụp / chọn ảnh → PDF** (ảnh thu về cạnh dài 1600 px, mỗi ảnh 1 trang A4, pdf-lib 1.17.1 nạp khi dùng — danh mục đã duyệt). Mở mục / PDF vừa tạo → **bảng nút chuẩn** 👁 Xem · ⬇ Lưu vào máy · 📤 Gửi (Zalo…, nếu máy hỗ trợ chia sẻ file) · 💾 Lưu vào app · Đóng (KE_HOACH_CHUAN_HOA mục 5).
+- **Sửa:** thông báo (toast) không còn chặn bấm sau khi đóng (`destroyOnClose` + `pointer-events:none`).
+- **Phép thử:** `tests/t194.js` (mới, 9).
+
+## 3.231 — 17/10/2026 — 📱 Bản điện thoại phần 1: khóa PIN, tra cứu khách, địa bàn theo cấp
+- **Anh duyệt 17/10:** điện thoại giao diện riêng kiểu iOS, cùng đường dẫn tự chuyển; bỏ Số liệu / Nạp / Hồ sơ / KTGS trên điện thoại; tra cứu khách (nhân thân + món vay), xem nhanh địa bàn từng cấp đủ dư nợ, số hộ, số tổ, quá hạn, khoanh; số liệu đọc từ Drive; em tự quyết Framework7 + PIN + mã hóa.
+- **Máy tính — gói số liệu xem** `js/38-goi-xem.js`: `gxLapTu(K)` (tổ + tổng từng tổ: dư nợ, quá hạn, khoanh, số hộ còn nợ, số món; khách: nhân thân + món [CT, khế ước, ngày vay, giải ngân, dư nợ, quá hạn, khoanh, đến hạn, trạng thái]; tên chương trình; tổ trưởng `gxTT`) theo Mẫu 31 chốt tháng mới nhất (`KHO.nap` + cửa mới `KHO.voiKy` — không đổi kỳ đang xem) → gzip → Drive `<thư mục>/_Hệ thống/xem/xem.json.gz`. Tự đẩy sau khi nạp Mẫu 31 (bọc `slGhi`, chờ 20 giây cả lô; chưa nối Drive → đẩy khi nối) khi bật ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại; nút 📤 Đẩy ngay. Khóa `gx*` riêng máy (không đồng bộ).
+- **Tự chuyển:** đầu `index.html` — màn cảm ứng, cạnh ngắn ≤ 600 px → `dt.html`; `?may=1` / nút "🖥 Mở bản máy tính" giữ bản máy tính, `?dt=1` về bản điện thoại. Máy tính bảng, máy tính không đổi.
+- **Điện thoại** `dt.html` + `js/dt/dt-nen.js` (hộp `DT`: PIN → PBKDF2 150.000 vòng → AES-GCM 256, dữ liệu trong máy chỉ dạng mã hóa — IndexedDB `tuhoso_dt`; sai 5 lần chờ 1 phút, 10 lần xóa dữ liệu máy; để yên 5 phút / ẩn 2 phút tự khóa; Drive chỉ đọc cùng Client ID, quyền drive.file) + `js/dt/dt-giao-dien.js` (hộp `DTG`, Framework7 8.3.4 kiểu iOS: màn PIN, 🔎 Tra cứu, 👤 thẻ khách — gọi điện 1 chạm, 🗺 Địa bàn PGD → Xã → Điểm GD → Hội → Tổ → Khách, ⚙ Cài đặt; ⬅ lùi bằng nút / vuốt / nút ◀ điện thoại) + `css/dt.css`. Chữ từ gói luôn thoát HTML; CSP chỉ cho mã từ trang, jsDelivr (thư viện đã duyệt), Google.
+- **Bộ nạp thư viện** `js/01`: danh sách riêng `THU_VIEN_DT` + thư viện CSS. `kiem.py` kiểm cú pháp `js/dt/*.js` + `?v=` của `dt.html`; `bump.py` đổi `?v=` cả `dt.html`; `tests/tv.js` định tuyến jsDelivr → `tests/lib` (framework7 8.3.4, dompurify 3.2.6).
+- **Thước đo:** `onclick` +2 (nút trong ⚙ Khai báo vẫn theo kiểu cũ — sẽ đổi khi có bộ nhận lệnh ở R2).
+- **Còn (bản sau):** Văn bản, Scan, Giao dịch xã mẫu nhẹ trên điện thoại; chạy không mạng (service worker); vân tay / Face ID.
+- **Phép thử:** `tests/t193.js` (mới, 20).
+
 ## 3.230 — 17/10/2026 — Chuẩn hóa đợt R1: thước đo, dọn rác, kiểm kê giao diện
 - **Anh duyệt 17/10:** kế hoạch chuẩn hóa code + bản điện thoại (`docs/KE_HOACH_CHUAN_HOA.md` — 9 mục: hiện trạng, chuẩn không build, bố cục, bộ nút xuất, điều hướng, thư viện, bản điện thoại); làm tuần tự R1 → điện thoại → R2…, mỗi đợt hồi quy 1 lần rồi gộp. Luật mới: `QUY_CHUAN_KIEN_TRUC.md` mục 10 (code / giao diện mới, danh mục thư viện được phép); `CLAUDE.md` đổi "không thêm thư viện" → chỉ dùng danh mục anh duyệt.
 - **Thước đo chống lệch hướng:** `tests/kiem.py` thêm dòng "Thước đo" (JS / CSS KB, hàm & biến chung, mồ côi, dòng > 400 ký tự, `onclick`, file > 150 KB, đọc thẳng biến kho ngoài `22` / `29`) so với mốc `tests/do_moc.json` (mốc lấy ở 3.229); tăng → ⚠ VƯỢT MỐC; `--moc` ghi mốc mới.
