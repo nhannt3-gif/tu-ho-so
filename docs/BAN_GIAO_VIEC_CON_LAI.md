@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.249) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In 01/TD bật in sẵn UBND + NH | 1 trang; chỗ ký NH còn ≥ 3 dòng; NH "… đồng (Bằng chữ: …)" liền | |
+| 2 | Nhìn gạch dưới tiêu ngữ 01/TD, 01/UQ, 09A | Mảnh, sát chữ không dính, dài đúng bằng dòng chữ | |
+| 3 | Lề trên 01/TD | Đầu trang gần mép hơn (7 mm) | |
+
+**Ghi chú kỹ thuật 3.249:** độ dài gạch tiêu ngữ = `omRong(tiêu ngữ, cỡ, đậm)` (canvas, Times New Roman); Word dùng `data-ke` (mm) → `pBdr` với lề trái/phải theo độ dài.
+
 ### Danh sách thử trên máy thật (3.248) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
