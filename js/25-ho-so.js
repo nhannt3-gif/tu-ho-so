@@ -1454,7 +1454,12 @@ function hmSoBangHTML(ds){
 function hmSoLtHTML(r){ var o = r.o;   /* ô Cần bổ sung: thiếu thông tin · thiếu cho mẫu · 🔎 cảnh báo kiểm tra (3.228) */
   return (r.thieu.length ? '⚠ '+coChuHTML(r.thieu.join(', ')) : '✓')+(typeof hmThieuMauChu==='function' && hmThieuMauChu(o, r.n, HM_SO.mau) ? '<div class="hm-so-mau">'+coChuHTML(hmThieuMauChu(o, r.n, HM_SO.mau))+'</div>' : '')+(typeof khSoHTML==='function' ? khSoHTML(o, r.kiem) : ''); }
 function hmSoDemChu(ds){ var n = hmDs().length; return ds.length+(ds.length!==n ? ' / '+n : '')+' hộ'; }
+function hsoXemHop(){ var x = HSO.x; if(!x) return;   /* 3.238: ⤢ Phóng to khi khung xem đang ẩn (Sổ hộ vay) → xem bản in trong hộp rộng */
+  moHop('<div class="hop-tit">👁 '+coChuHTML(x.ten || 'Xem bản in')+'</div><iframe id="hso-khung2" class="to-khung" title="Xem"></iframe>'+
+    GD.hang([GD.nut({chu:'Đóng (Esc)', lenh:'hso.dong'}), GD.nut({chu:'🖨 In', lenh:'hso.in', chinh:1})]), true);
+  var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong'); xemChuan(document.getElementById('hso-khung2'), x.trang); }
 function hmSoDangKy(){ if(hmSoDangKy.xong || typeof GD==='undefined') return; hmSoDangKy.xong = 1;   /* 3.234 (R2): lệnh của thanh lọc sổ — data-lenh="so.…" */
+  GD.dangKy('hso', {dong:function(){ dongHop(); }, in:function(){ dongHop(); xuatIn(); }});
   GD.dangKy('so', {boLoc:function(){ HM_SO.loai = ''; HM_SO.q = ''; HM_SO.mau = ''; HM_SO.tu = ''; HM_SO.den = ''; hsoVe(); }, moi:function(){ hmMo(); }, m31:function(){ hmM31Hop(); }, loai:function(el){ HM_SO.loai = el.getAttribute('data-k'); hsoVe(); },
     khoang:function(el){ hmSoKhoang(el.getAttribute('data-k')); }, ngay:function(el){ hmSoNgay(el.getAttribute('data-f'), el.value); },
     tim:function(el){ HM_SO.q = el.value; hmSoVeBang(); }, mau:function(el){ HM_SO.mau = el.value; hsoVe(); }, sx:function(el){ hmSoSapXep(el.value || el.getAttribute('data-k')); },

@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.238 — 17/10/2026 — Sửa Phóng to ở Sổ hộ vay che hộp ＋ Hộ mới
+- **Anh báo 17/10:** Hồ sơ vay › 📒 Sổ hộ vay › ⤢ Phóng to → bấm ＋ Hộ mới không được.
+- **Nguyên nhân:** Sổ hộ vay dùng hết bề ngang nên khung xem bản in bị ẩn (3.214), nhưng ⤢ Phóng to vẫn bung khung ẩn đó ra toàn màn hình (`requestFullscreen`) → lớp toàn màn hình trống nằm trên cùng, hộp mở sau nằm dưới, không thấy / không bấm được.
+- **Sửa:** `thXemRong` — khung xem đang ẩn → `hsoXemHop()` (xem bản in trong hộp rộng, Đóng · 🖨 In, theo `data-lenh`). Phòng xa mọi tab: `moHop` (bọc ở `js/39-gd.js`) đang toàn màn hình → thoát trước, hộp luôn hiện.
+- **Anh chốt hướng (chưa code):** Hồ sơ vay đi theo **hướng B** — Sổ hộ vay là màn làm việc chính (tích hộ → 📄 Lập hồ sơ → chọn các mẫu → in / lưu một lượt); các tab mẫu bỏ khối chọn hộ / ＋ Hộ mới / ＋ Lấy từ Mẫu 31, chỉ để in mẫu trắng + khai báo riêng mẫu. Logic chi tiết anh nói dần → ghi ở `docs/KE_HOACH_CHUAN_HOA.md`.
+- **Phép thử:** t196 + 3 (Phóng to Sổ hộ vay → hộp xem; đóng → ＋ Hộ mới mở được; đang toàn màn hình mở hộp → tự thoát).
+
 ## 3.237 — 17/10/2026 — Chuẩn hóa R4 phần 1: phép thử nhanh lớp Nghiệp vụ (node)
 - **Anh duyệt 17/10** (`docs/KE_HOACH_CHUAN_HOA.md` mục 2.8).
 - **`tests/nhanh/nen.js`:** nạp toàn bộ code app (đúng thứ tự `index.html`) vào node, không trình duyệt; DOM / trình duyệt thay bằng đồ giả vô hại, hẹn giờ không chạy — nạp 62 file trong ~0,1 giây.
