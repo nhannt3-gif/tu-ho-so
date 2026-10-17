@@ -1980,7 +1980,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.242', ds:[
+var CO_GI_MOI = {ban:'3.243', ds:[
+  ["📄 Mẫu 04 Giao dịch xã: tên PGD (Gò Dầu) không rớt nửa xuống dòng; \"tại địa điểm:\" nối liền tên điểm GD; \"01 người\" liền; mục 2 không có người chưa được vay → nét gạch tay mảnh trên 3 dòng chấm (⚙ Khai báo riêng: Hiện / Ẩn)", "doiNgan(7)"],
   ["📝 Lập 01/TD theo thứ tự tờ giấy: Chương trình → Kính gửi → Người vay (gõ mới hoặc chọn từ Sổ / M31, Tab / Enter đi ô kế, ngày gõ liền số, nơi cấp tự điền) → Xã › Thôn › Tổ (Hội lọc tổ) → Đề nghị vay tự tính; 💾 Lưu, danh sách bản đã lưu, Làm trống, In / Gửi / Mẫu 03 hỏi lưu", "doiNgan(7)"],
   ["🏗 NSVSMT: loại công trình theo thẻ (Xây mới · Sửa chữa, thêm Cải tạo ở khai báo); vốn tự có trống = mặc định thẻ 5 triệu", "doiNgan(7)"],
   ["📄 Mẫu 04 Giao dịch xã canh chuẩn: lề trên 2 · dưới 2 · trái 3 · phải 2 cm; gạch dưới tên PGD bằng ½ chữ, 2 nét gạch mảnh; THÔNG BÁO và KẾT QUẢ PHÊ DUYỆT cùng cỡ; giãn ngày – tiêu đề – kính gửi – thân", "doiNgan(7)"],
@@ -1994,8 +1995,7 @@ var CO_GI_MOI = {ban:'3.242', ds:[
   ["🧱 Bên trong: phần Số liệu (1,3 MB, 1 file) tách thành 9 file theo khối + khuôn Word KTGS riêng — chức năng, bản in giữ nguyên; chuẩn bị nạp theo tab cho app mở nhanh hơn", "doiNgan(7)"],
   ["⬅ ➡ Lùi / tiến đúng bước mọi lúc: nút đầu trang, nút ◀ điện thoại, Back chuột, Alt+← / Alt+→ — lùi tab, tab con, mẫu Hồ sơ vay; ◀ khi đang mở hộp = đóng hộp", "doiNgan(7)"],
   ["🧾 Bộ nút xuất thống nhất mọi nơi: Đóng · 🖨 In · 💾 Lưu vào app · PDF · Word · Excel · Gửi (nút không dùng được thì mờ, không ẩn); Ctrl+P = In, Ctrl+S = Lưu vào app", "doiNgan(7)"],
-  ["🪟 Mở hộp từ hộp (vd form hộ → ⚙ khai báo luật): đóng hộp con quay lại hộp cha, chữ đang gõ còn nguyên", "doiNgan(7)"],
-  ["📱 Điện thoại: 🏢 Giao dịch xã (04/TD · 12/GDX · Giấy lĩnh — bản mini máy tính đẩy kèm, mở trong app); thanh tab: Tra cứu · Địa bàn · Giao dịch · Tài liệu (Văn bản | Scan) · Cài đặt; chạy được khi mất mạng", "hsoKBHop('sl')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🪟 Mở hộp từ hộp (vd form hộ → ⚙ khai báo luật): đóng hộp con quay lại hộp cha, chữ đang gõ còn nguyên", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

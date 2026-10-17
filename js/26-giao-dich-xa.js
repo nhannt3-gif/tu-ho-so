@@ -17,7 +17,7 @@ var GDX_MD = {
   m12SelectedDiem:'', m12NgayGD:'', m12TenToOption:'blank', m12GDV:'', m12KSV:'', m12ToTruong:'', m12HinhThucTieuHuy:'cắt nhỏ', m12SoLuongTieuHuy:'',
   m12TimeMode:'blank', m12PrefillGio:'11 giờ 30 phút', m12PrefillNgay:'', m12NumRows:12,
   form:'m04', tab04:'don', soNguoi:'1', soTien:'80.000.000',
-  /* 3.174 */ ky04Hom:true, ngayPhatTay:false, kyPGD:false, chucPGD:'KT. GIÁM ĐỐC|PHÓ GIÁM ĐỐC', soBan:2, m12GioHuy:'cham', m12NgayHuy:'cham', nhanh:{}, xem:true,
+  /* 3.174 */ ky04Hom:true, ngayPhatTay:false, kyPGD:false, chucPGD:'KT. GIÁM ĐỐC|PHÓ GIÁM ĐỐC', soBan:2, gach04:'hien', m12GioHuy:'cham', m12NgayHuy:'cham', nhanh:{}, xem:true,
   glLoai:'104', glKho:'a5', glIn:'gl', glChim:'nhat', glNgayCach:'hom', glNgayTay:'', glND:'Rút tiền', glPGD:'', glPGDDam:'dam', glNDNghieng:'nghieng', glTaiNH:'', glSo:'', glKHTK:'', glTKNo:'cham', glMaNH:'', bkChim:'nhat', bkCQ1:'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI', bkCQ2:'CHI NHÁNH TỈNH TÂY NINH', bkPGD:'Gò Dầu', bkNgay:'cham', bkTen:'', bkDC:'', bkND:'', glMuc:[500000, 1000000, 2000000, 5000000]
 };
 var GDX = {zoom:0, daHoi:'', glQ:'', glKH:'', glTien:'', glHet:0, glTo:''};   /* lần làm việc: zoom (0 = vừa khung), đã hỏi cảnh báo của bản nào, Giấy lĩnh đang chọn */
@@ -160,6 +160,7 @@ function gdxHTML04(data, C){
   var targetTerm = isGQVL ? 'người lao động' : 'người';
   var targetPlural = isGQVL ? 'những người lao động' : 'những người';
   var appConfig = {};
+  var gach = function(i){ return C.gach04==='an' ? '' : gdxGachTay(i); };   /* 3.243 (anh 18/10): mục 2 không có số liệu → nét gạch tay mảnh trên mỗi dòng chấm; ⚙ Khai báo riêng hiện / ẩn */
   ['donViTren','donViDuoi','diaDanh','kinhGui','tenPGDTrongVanBan','gioPhatTien','ngayPhatTien','diaDiemPhatTien','tenUBNDVietTat','nguoiLap','chucDanhDuyet'].forEach(function(k){ appConfig[k] = gdxE(C[k]); });
   if(C.kyPGD) appConfig.chucDanhDuyet = String(C.chucPGD||GDX_MD.chucPGD).split('|').map(gdxE).join('<br>');   /* 3.174: Phó Giám đốc ký thay (KT. GIÁM ĐỐC / PHÓ GIÁM ĐỐC — anh xem lại thể thức sau) */
   return '\n        <div class="doc-body-inner sheet-m04">\n          <table class="doc-header-table" style="width: 100%; border-collapse: collapse; border: none; margin-bottom: 8px;">\n            <tr>\n              <!-- Cột 1: Tên cơ quan canh đều đối xứng và có gạch dưới tầm 1/2 chữ -->\n              <td style="width: 34%; text-align: center; vertical-align: top; border: none; padding: 0 4px 0 0;">\n                <div class="org-box">\n                  <div class="org-level-1" style="font-size:11.5pt; font-weight:bold; white-space:nowrap;">'+
@@ -177,12 +178,12 @@ function gdxHTML04(data, C){
     '</em>\n          </div>\n\n          <div class="doc-heading">\n            <div class="doc-heading-1">THÔNG BÁO</div>\n            <div class="doc-heading-2">KẾT QUẢ PHÊ DUYỆT CHO VAY</div>\n          </div>\n\n          <div class="doc-send-to" style="padding-left: 2.8cm; margin-bottom: 12px;">\n            <b><u>Kính gửi:</u></b> '+
     (appConfig.kinhGui)+
     '.\n          </div>\n\n          <div class="doc-p-intro">\n            Căn cứ hồ sơ cho vay đã được phê duyệt, '+
-    (appConfig.tenPGDTrongVanBan)+
+    (gdxLien(appConfig.tenPGDTrongVanBan))+
     ' thông báo kết quả phê duyệt cho vay như sau:\n          </div>\n\n          <div class="doc-li">\n            1. Tổng số '+
     (targetTerm)+
     ' được vay vốn đợt này (kèm danh sách mẫu 03/TD nếu có): '+
     (soNguoiFormatted)+
-    ' '+
+    '&nbsp;'+
     (targetTerm)+
     '.\n          </div>\n          <div class="doc-li doc-li-sub">\n            Số tiền: '+
     (soTienFormatted)+
@@ -190,13 +191,13 @@ function gdxHTML04(data, C){
     (bangChuFormatted)+
     '\n          </div>\n\n          <div class="doc-li">\n            2. Số '+
     (targetTerm)+
-    ' chưa được vay vốn đợt này: <span class="dots-fine">....................................</span> <span style="white-space:nowrap;">'+
+    ' chưa được vay vốn đợt này: <span class="dots-fine" style="position:relative;">....................................'+gach(0)+'</span> <span style="white-space:nowrap;">'+
     (targetTerm)+
-    '.</span>\n          </div>\n          <div class="doc-li doc-li-sub">\n            - Có số thứ tự trong danh sách là:<span class="dots-fine">...............................................................</span>\n          </div>\n          <div class="doc-li doc-li-sub">\n            - Số tiền: <span class="dots-fine">..........................................................................................</span> đồng.\n          </div>\n\n          <div class="doc-li">\n            3. Lịch phát tiền vay vào '+
+    '.</span>\n          </div>\n          <div class="doc-li doc-li-sub">\n            - Có số thứ tự trong danh sách là: <span class="dots-fine" style="position:relative;">...............................................................'+gach(1)+'</span>\n          </div>\n          <div class="doc-li doc-li-sub">\n            - Số tiền: <span class="dots-fine" style="position:relative;">..........................................................................................'+gach(2)+'</span> đồng.\n          </div>\n\n          <div class="doc-li">\n            3. Lịch phát tiền vay vào '+
     (appConfig.gioPhatTien)+
     ', '+
     (appConfig.ngayPhatTien)+
-    ', tại địa điểm:\n          </div>\n          <div class="doc-li doc-li-sub" style="padding-left:0; margin-top:2px;">\n            '+
+    ', tại&nbsp;địa&nbsp;điểm: '+
     (appConfig.diaDiemPhatTien)+
     '.\n          </div>\n\n          <div class="doc-p-closing">\n            Đề nghị '+
     (appConfig.tenUBNDVietTat)+
@@ -318,6 +319,11 @@ function gdxNgayPhat04(C){ return C.ngayPhatTay && C.ngayPhatISO ? C.ngayPhatISO
 
 /* ---------- bản chụp lựa chọn để dựng mẫu (xem trước · in · nhật ký in lại dùng chung 1 bản) ---------- */
 var GDX_BO = ['danhSachCanBo','quickAmounts','mauHay','nhanh','glMuc'];
+/* 3.243: giữ liền 2 chữ cuối (vd "Gò Dầu") — không rớt nửa tên xuống dòng */
+function gdxLien(s){ return String(s||'').replace(/ ([^ ]+)$/, '&nbsp;$1'); }
+/* 3.243: nét gạch tay mảnh, ngắn (SVG, mỗi dòng hơi khác cho tự nhiên) — đặt giữa dòng chấm */
+var GDX_GACH = [[40, 'M11.6 1.2 C9.4 6 6.6 11.6 2.2 18.6 L2.9 18.9 C7.4 12 10.2 6.3 12.3 1.5 Z'], [45, 'M11.2 1.4 C9.2 6.4 6.4 12 2.6 18.4 L3.3 18.7 C7.2 12.4 10 6.7 11.9 1.7 Z'], [48, 'M12 1 C9.6 6.2 6.9 11.4 2 18.8 L2.7 19.1 C7.6 11.8 10.4 6.5 12.7 1.3 Z']];
+function gdxGachTay(i){ var g = GDX_GACH[i % GDX_GACH.length]; return '<svg class="gach-tay" style="position:absolute; left:'+g[0]+'%; top:-1px; width:14px; height:20px;" width="14" height="20" viewBox="0 0 14 20" aria-hidden="true"><path d="'+g[1]+'" fill="#111"/></svg>'; }
 function gdxChup(){
   var C = gdxC(), m = C.form==='m12' ? 'm12' : C.form==='gl' ? 'gl' : C.form==='bk' ? 'bk' : 'm04', c = {};
   Object.keys(C).forEach(function(k){ if(GDX_BO.indexOf(k)<0) c[k] = JSON.parse(JSON.stringify(C[k]===undefined ? null : C[k])); });
@@ -348,6 +354,7 @@ var GDX_MUC = {
     {k:'kinhgui', ten:'Kính gửi', nhanh:0},
     {k:'gq', ten:'Loại thông báo', nhanh:1},
     {k:'mh', ten:'Số hộ · số tiền', nhanh:1},
+    {k:'gach2', ten:'Mục 2 (chưa được vay): nét gạch tay trên dòng chấm', nhanh:0},
     {k:'gio', ten:'Giờ phát tiền', nhanh:0},
     {k:'ngayphat', ten:'Lịch phát tiền vay', nhanh:1},
     {k:'noi', ten:'Nơi phát tiền', nhanh:1},
@@ -456,6 +463,7 @@ function gdxMucHTML(m, k, kb){
     else if(k==='nguoilap') h = gdxCB('nguoiLap', 'để trống');
     else if(k==='ky') h = gdxRadio('kyPGD', [[false,'Giám đốc'],[true,'Phó Giám đốc (KT. Giám đốc)']])+
       (kb ? '<div class="gdx-luoi"><label><span>Chức danh Giám đốc</span>'+gdxIn1('chucDanhDuyet')+'</label><label><span>Phó GĐ ký thay (dấu | = xuống dòng)</span>'+gdxIn1('chucPGD')+'</label></div>' : '');
+    else if(k==='gach2') h = gdxRadio('gach04', [['hien','Hiện'],['an','Ẩn']])+'<small class="gdx-ghi">Không có người chưa được vay → gạch tay mỗi dòng chấm; ẩn để ghi tay.</small>';
     else if(k==='soban') h = gdxRadio('soBan', [[2,'2 bản (1 lưu tổ, 1 lưu NH)'],[1,'1 bản']]);
   }
   else if(m==='m12'){
