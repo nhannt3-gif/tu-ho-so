@@ -1,5 +1,5 @@
 /* ===== 3.231 BẢN ĐIỆN THOẠI — GIAO DIỆN (Framework7, kiểu iOS) =====
-   Màn khóa PIN (tự viết) → app Framework7: 🔎 Tra cứu khách · 🗺 Địa bàn theo cấp (PGD → Xã → Điểm GD → Hội → Tổ → Khách) · 📄 Văn bản · 📷 Scan (3.232) · ⚙ Cài đặt.
+   Màn khóa PIN (tự viết) → app Framework7: 🔎 Tra cứu khách · 🗺 Địa bàn theo cấp (PGD → Xã → Điểm GD → Hội → Tổ → Khách) · 🏢 Giao dịch xã (3.233) · 📄 Tài liệu = Văn bản | Scan (3.232) · ⚙ Cài đặt.
    ⬅ Lùi: nút trên thanh, vuốt từ mép trái, nút ◀ điện thoại / trình duyệt (lịch sử trình duyệt). Chữ từ gói số liệu luôn qua dtE() (không chèn HTML lạ). */
 var DTG = (function(){
   var app = null, el = function(id){ return document.getElementById(id); };
@@ -101,7 +101,7 @@ var DTG = (function(){
   /* 📄 Văn bản · 📷 Scan (3.232) */
   var SC = {anh:[], pdf:null};
   function trDS(loai){ var vb = loai==='vanban', ds = DT.ds(loai);
-    return trang(loai, {tieu:vb ? 'Văn bản' : 'Scan', phai:'<a href="#" class="link dt-tai" data-l="'+loai+'">⟳</a>', than:
+    return trang(loai, {tieu:'Tài liệu', phai:'<a href="#" class="link dt-tai" data-l="'+loai+'">⟳</a>', than:nutTL(loai)+
       (vb ? '' : '<div class="block"><a href="/sc/moi/" class="button button-fill button-large">📷 Chụp / chọn ảnh → PDF</a></div>')+
       (vb ? '<div class="block"><label class="button button-outline">＋ Gửi file vào app (khay chờ)<input type="file" id="dt-them" style="display:none"></label></div>' : '')+
       '<div class="dt-tim"><input type="search" id="dt-loc" data-l="'+loai+'" placeholder="'+(vb ? 'Số hiệu, trích yếu, loại' : 'Tên khách, mã KH, ấp, tổ')+'" autocomplete="off"></div>'+
@@ -133,6 +133,13 @@ var DTG = (function(){
       return SC.anh.reduce(function(p, a){ return p.then(function(){ return a.bl.arrayBuffer(); }).then(function(b){ return doc.embedJpg(b); }).then(function(im){
         var W = 595.28, H = 841.89, k = Math.min((W-36)/im.width, (H-36)/im.height), pg = doc.addPage([W, H]); pg.drawImage(im, {x:(W-im.width*k)/2, y:(H-im.height*k)/2, width:im.width*k, height:im.height*k}); }); }, Promise.resolve())
       .then(function(){ return doc.save(); }); }).then(function(u){ return new Blob([u], {type:'application/pdf'}); }); }
+  /* 🏢 Giao dịch xã (3.233) — bản mini của máy tính chạy trong khung */
+  function trGDX(){ return trang('gdx', {tieu:'Giao dịch xã', phai:'<a href="#" class="link dt-taigdx">⟳</a>', than:'<div id="dt-gdx" class="dt-gdx">'+trong('Đang mở…')+'</div>'}); }
+  function veGDX(page){ var o = page.el.querySelector('#dt-gdx'); if(!o) return;
+    DT.docGDX().then(function(h){ if(!h){ o.innerHTML = trong('Bấm ⟳ để lấy bản Giao dịch xã từ Drive (04/TD, 12/GDX, Giấy lĩnh).'); return; }
+      o.innerHTML = '<iframe class="dt-gdx-khung" title="Giao dịch xã"></iframe>'; o.firstChild.srcdoc = h; }); }
+  /* 📄 Tài liệu = Văn bản | Scan */
+  function nutTL(dang){ return '<div class="block dt-tl"><div class="segmented segmented-strong"><a href="/vb/" data-reload-all="true" class="button'+(dang==='vanban' ? ' button-active' : '')+'">📄 Văn bản</a><a href="/sc/" data-reload-all="true" class="button'+(dang==='scan' ? ' button-active' : '')+'">📷 Scan</a></div></div>'; }
   /* ⚙ Cài đặt */
   function trCD(){ var C = DT.ch;
     return trang('cd', {tieu:'Cài đặt', than:'<div class="list inset"><ul>'+
@@ -156,6 +163,9 @@ var DTG = (function(){
     Array.prototype.forEach.call(page.el.querySelectorAll('.dt-bo-anh'), function(b){ b.onclick = function(){ SC.anh.splice(+b.getAttribute('data-i'), 1); app.views.main.router.refreshPage(); }; });
     if($('#dt-taopdf')) $('#dt-taopdf').onclick = function(){ var ten = (($('#dt-tenpdf') || {}).value || 'Scan '+new Date().toLocaleDateString('vi-VN').replace(/\//g, '-')).replace(/[\\/:*?"<>|]+/g, '-')+'.pdf';
       taoPDF().then(function(bl){ SC.pdf = bl; tacVu(bl, ten, true); }, function(er){ app.dialog.alert(e(er.message)); }); };
+    if($('#dt-gdx')) veGDX(page);
+    Array.prototype.forEach.call(page.el.querySelectorAll('.dt-taigdx'), function(a){ a.onclick = function(ev){ ev.preventDefault(); var t = app.toast.create({destroyOnClose:true, text:'Đang lấy Giao dịch xã…', position:'center'}); t.open();
+      DT.taiGDX().then(function(){ t.close(); veGDX(page); }, function(er){ t.close(); app.dialog.alert(e(er.message)); }); }; });
     if($('#dt-khoa')) $('#dt-khoa').onclick = function(ev){ ev.preventDefault(); DT.khoa(); };
     if($('#dt-may')) $('#dt-may').onclick = function(ev){ ev.preventDefault(); try { localStorage.setItem('tuhoso_ban', 'may'); } catch(er){} location.href = 'index.html'; };
     if($('#dt-tm')) $('#dt-tm').onchange = function(){ DT.ch.thuMuc = this.value.trim() || 'Tủ hồ sơ'; DT.chLuu(); };
@@ -166,6 +176,7 @@ var DTG = (function(){
     {path:'/', async:function(c){ c.resolve({content:trTra()}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/kh/:ma/', async:function(c){ c.resolve({content:trKH(decodeURIComponent(c.to.params.ma))}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/db/:xa/:diem/:hoi/:to/', async:function(c){ c.resolve({content:trDB(c.to.params)}); }, on:{pageInit:function(ev, page){ gan(page); }}},
+    {path:'/gdx/', async:function(c){ c.resolve({content:trGDX()}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/vb/', async:function(c){ c.resolve({content:trDS('vanban')}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/sc/', async:function(c){ c.resolve({content:trDS('scan')}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/sc/moi/', async:function(c){ c.resolve({content:trSCMoi()}); }, on:{pageInit:function(ev, page){ gan(page); }}},
@@ -173,4 +184,5 @@ var DTG = (function(){
   ];
   return {batDau:batDau, app:function(){ return app; }, veKQ:veKQ, dongBo:dongBo, sc:SC, taoPDF:taoPDF};
 })();
+if('serviceWorker' in navigator && location.protocol==='https:') navigator.serviceWorker.register('dt-sw.js').catch(function(){});   /* 3.233: chạy không mạng (chỉ giữ tệp của bản điện thoại) */
 xongTV.then(function(){ if(typeof Framework7==='undefined'){ document.getElementById('khoa').innerHTML = '<div class="khoa-dau"><div class="khoa-tieu">Chưa tải được giao diện — kiểm tra mạng rồi mở lại.</div></div>'; return; } DTG.batDau(); });

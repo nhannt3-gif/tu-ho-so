@@ -8,6 +8,7 @@ def rw(p, f):
 rw('js/02-nen.js', lambda s: re.sub(r"var APP_BAN = '[0-9.]+', APP_LUC = '[^']*'", "var APP_BAN = '%s', APP_LUC = '%s'" % (v, luc), s))
 rw('index.html', lambda s: s.replace('?v='+cu, '?v='+v))
 import os
+if os.path.exists('dt-sw.js'): rw('dt-sw.js', lambda s: s.replace("'tuhoso-dt-%s'" % cu, "'tuhoso-dt-%s'" % v) if ("'tuhoso-dt-%s'" % cu) in s else s+'')   # 3.233 bộ đệm chạy không mạng
 if os.path.exists('dt.html'): rw('dt.html', lambda s: s.replace('?v='+cu, '?v='+v) if ('?v='+cu) in s else s+'')   # 3.231 bản điện thoại
 rw('tests/hoiquy2.js', lambda s: s.replace("APP_BAN==='%s'" % cu, "APP_BAN==='%s'" % v))
 moi = ''.join("  [%s, %s],\n" % (json.dumps(x[0], ensure_ascii=False), json.dumps(x[1], ensure_ascii=False)) for x in sp['moi'])

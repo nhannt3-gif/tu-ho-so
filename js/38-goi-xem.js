@@ -2,7 +2,7 @@
    Máy tính nạp Mẫu 31 xong → tự lập gói (tổ + tổng từng tổ + khách + món vay, theo Mẫu 31 mới nhất) → nén gzip → Drive `<thư mục>/_Hệ thống/xem/xem.json.gz`.
    Điện thoại (dt.html) chỉ tải gói này về xem — không nạp Excel, không tính lại → nhẹ, khớp số máy tính.
    Bật / tắt + đẩy tay: ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại (D.cauHinh.gxBat). Số liệu gói chỉ ở Drive của anh, không vào repo. */
-var GX_TM = '_Hệ thống/xem', GX_TEN = 'xem.json.gz', GX_HEN = null;
+var GX_TM = '_Hệ thống/xem', GX_TEN = 'xem.json.gz', GX_MINI = 'gdx.html.gz', GX_HEN = null;
 if(typeof CH_RIENG!=='undefined') CH_RIENG.push('gxBat', 'gxLuc', 'gxKy', 'gxSo', 'gxCho');   /* riêng máy nạp số liệu, không đồng bộ */
 function gxTong(ds){   /* tổng 1 nhóm tổ viên: dư nợ, quá hạn, khoanh, số hộ còn nợ, số món còn dư nợ */
   var r = {dn:0, qh:0, kn:0, ho:0, mon:0};
@@ -29,6 +29,10 @@ function gxLapTu(K){   /* K = kỳ đã dựng (TO_K) → gói */
   g.ct = {}; g.kh.forEach(function(k){ k[10].forEach(function(m){ if(m[0] && !g.ct[m[0]]){ var c = (typeof TDN_CT!=='undefined' && TDN_CT[m[0]]) || null; g.ct[m[0]] = c ? c[0] : m[0]; } }); });   /* tên chương trình cho điện thoại */
   return g;
 }
+function gxMini(K){   /* 3.233: bản mini Giao dịch xã (04/TD, 12/GDX, Giấy lĩnh — js/27, mẫu chép từ chính hàm app) theo kỳ K, hạn 90 ngày — điện thoại mở trong app */
+  if(typeof gdxMiniHTML!=='function') return '';
+  try { return KHO.voiKy(K, function(){ var G = gdxMiniGoi(); return G.diem.length ? gdxMiniHTML(90, G).html : ''; }); } catch(e){ console.warn('Chưa lập được bản mini GDX', e); return ''; }
+}
 function gxNen(obj){   /* JSON → gzip (Blob) */
   var s = new Blob([JSON.stringify(obj)]).stream().pipeThrough(new CompressionStream('gzip'));
   return new Response(s).blob();
@@ -37,15 +41,17 @@ function gxKyMoi(){ var ds = toDsKy().filter(function(x){ return x.ky.length===7
 function gxDay(tay){   /* lập + đẩy gói lên Drive */
   var ky = gxKyMoi(); if(!ky){ if(tay) baoLoi('Chưa có Mẫu 31 để đẩy cho điện thoại.'); return Promise.resolve(false); }
   if(!coTheNoiDrive() || !DR.sanSang){ D.cauHinh.gxCho = 1; luu(); if(tay) baoLoi('Chưa nối Drive — nối Drive rồi bấm lại (hoặc app tự đẩy khi nối).'); return Promise.resolve(false); }
-  var g;
-  return KHO.nap(ky).then(function(K){ g = gxLapTu(K); return gxNen(g); }).then(function(bl){
-    return baoDamDuong(D.cauHinh.thumuc+'/'+GX_TM).then(function(idTM){ return timFileTrong(GX_TEN, idTM).then(function(cu){ return gxGhi(bl, idTM, cu); }); });
+  var g, mini = '';
+  return KHO.nap(ky).then(function(K){ g = gxLapTu(K); mini = gxMini(K); return gxNen(g); }).then(function(bl){
+    return baoDamDuong(D.cauHinh.thumuc+'/'+GX_TM).then(function(idTM){ return timFileTrong(GX_TEN, idTM).then(function(cu){ return gxGhi(bl, idTM, cu, GX_TEN); })
+      .then(function(){ if(!mini) return; return new Response(new Blob([mini]).stream().pipeThrough(new CompressionStream('gzip'))).blob().then(function(b2){
+        return timFileTrong(GX_MINI, idTM).then(function(cu){ return gxGhi(b2, idTM, cu, GX_MINI); }); }); }); });
   }).then(function(){ D.cauHinh.gxLuc = g.luc; D.cauHinh.gxKy = g.ky; D.cauHinh.gxSo = g.kh.length; delete D.cauHinh.gxCho; luu();
     if(tay) bao('📱 Đã đẩy số liệu '+slKyChu(g.ky)+' ('+g.kh.length+' khách) cho điện thoại.', 5); return true; })
     .catch(function(e){ if(tay) baoLoi('Chưa đẩy được: '+(e && e.message || e)); return false; });
 }
-function gxGhi(bl, idTM, cu){   /* tải tệp nhị phân lên Drive (tạo mới / ghi đè) */
-  var bien = '----tuhoso'+Date.now(), meta = cu ? {} : {name:GX_TEN, parents:[idTM], mimeType:'application/gzip'};
+function gxGhi(bl, idTM, cu, ten){   /* tải tệp nhị phân lên Drive (tạo mới / ghi đè) */
+  var bien = '----tuhoso'+Date.now(), meta = cu ? {} : {name:ten || GX_TEN, parents:[idTM], mimeType:'application/gzip'};
   var body = new Blob(['--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+'\r\n--'+bien+'\r\nContent-Type: application/gzip\r\n\r\n', bl, '\r\n--'+bien+'--'], {type:'multipart/related; boundary='+bien});
   return goiDrive(cu ? 'https://www.googleapis.com/upload/drive/v3/files/'+cu.id+'?uploadType=multipart&fields=id,modifiedTime' : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,modifiedTime',
     {method:cu ? 'PATCH' : 'POST', headers:{'Content-Type':'multipart/related; boundary='+bien}, body:body});

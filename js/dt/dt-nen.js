@@ -39,12 +39,12 @@ var DT = (function(){
       if(CH.sai>=10) return xoaMay().then(function(){ throw new Error('Sai PIN 10 lần — đã xóa dữ liệu trong máy. Đặt PIN mới và tải lại từ Drive.'); });
       throw new Error('PIN chưa đúng'+(CH.sai>=3 ? ' (sai '+CH.sai+' lần)' : '')); });
   }
-  function khoa(){ S.khoa = null; S.goi = null; DS.vanban = null; DS.scan = null; clearTimeout(S.hen); if(DT.khiKhoa) DT.khiKhoa(); }
+  function khoa(){ S.khoa = null; S.goi = null; DS.vanban = null; DS.scan = null; GDX = null; clearTimeout(S.hen); if(DT.khiKhoa) DT.khiKhoa(); }
   function henKhoa(){ clearTimeout(S.hen); S.hen = setTimeout(khoa, DT_KHOA_SAU); }
   var DT_KHOA_SAU = 5*60000, AN_LUC = 0;
   document.addEventListener('visibilitychange', function(){ if(document.hidden) AN_LUC = Date.now(); else if(S.khoa && AN_LUC && Date.now()-AN_LUC > 2*60000) khoa(); });
   ['touchstart', 'keydown', 'click'].forEach(function(ev){ document.addEventListener(ev, function(){ if(S.khoa) henKhoa(); }, {passive:true}); });
-  function xoaMay(){ S.goi = null; S.khoa = null; return Promise.all([ghi('goi', null), ghi('kiem', null), ghi('muoi', null)]).then(function(){ CH = {}; chLuu(); }); }
+  function xoaMay(){ S.goi = null; S.khoa = null; GDX = null; return Promise.all([ghi('goi', null), ghi('kiem', null), ghi('muoi', null), ghi('gdx', null)]).then(function(){ CH = {}; chLuu(); }); }
   /* ---------- gói số liệu (mã hóa trong máy) ---------- */
   function cat(g){ return nenGzip(MA.encode(JSON.stringify(g))).then(function(z){ return maHoa(S.khoa, z); }).then(function(x){ return ghi('goi', x); }); }
   function docGoi(){ return doc('goi').then(function(x){ if(!x || !S.khoa) return null; return giaiMa(S.khoa, x.c ? x : x).then(function(z){ return nenGzip(z, true); }).then(function(u){ S.goi = lapChiMuc(JSON.parse(GIAI.decode(u))); return S.goi; }); }); }
@@ -116,8 +116,15 @@ var DT = (function(){
       var body = new Blob(['--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify({name:ten, parents:[id]})+'\r\n--'+bien+'\r\nContent-Type: '+(bl.type || 'application/octet-stream')+'\r\n\r\n', bl, '\r\n--'+bien+'--'], {type:'multipart/related; boundary='+bien});
       return fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {method:'POST', headers:{Authorization:'Bearer '+S.token, 'Content-Type':'multipart/related; boundary='+bien}, body:body}); })
       .then(function(r){ if(!r.ok) throw new Error('Chưa gửi được ('+r.status+')'); return true; }); }
+  /* 3.233: 🏢 Giao dịch xã — bản mini máy tính đẩy kèm (gdx.html.gz), cất mã hóa như gói số liệu */
+  var GDX = null;
+  function napGDX(html){ GDX = String(html || ''); return S.khoa ? nenGzip(MA.encode(GDX)).then(function(z){ return maHoa(S.khoa, z); }).then(function(x){ return ghi('gdx', x); }).then(function(){ return GDX; }) : Promise.resolve(GDX); }
+  function docGDX(){ if(GDX) return Promise.resolve(GDX); return doc('gdx').then(function(x){ if(!x || !S.khoa) return ''; return giaiMa(S.khoa, x).then(function(z){ return nenGzip(z, true); }).then(function(u){ GDX = GIAI.decode(u); return GDX; }); }); }
+  function taiGDX(){ return duong(['_Hệ thống', 'xem']).then(function(id){ if(!id) throw new Error('Chưa có trên Drive — máy tính bật 📱 Bản điện thoại');
+      return tim('gdx.html.gz', id); }).then(function(f){ if(!f) throw new Error('Chưa có bản Giao dịch xã — máy tính chưa đẩy (cần có điểm GD)');
+      return goi('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media', true); }).then(function(b){ return nenGzip(new Uint8Array(b), true); }).then(function(u){ return napGDX(GIAI.decode(u)); }); }
   function locDS(loai, q){ var ds = DS[loai] || [], t = boDau(q).split(' ').filter(Boolean); if(!t.length) return ds;
     return ds.filter(function(m){ var c = ' '+boDau([m.soHieu, m.trichYeu, m.ten, m.maKH, m.loai, m.ap, m.to, m.coQuan].join(' '))+' '; return t.every(function(w){ return c.indexOf(w)>=0; }); }); }
   return {coPIN:coPIN, datPIN:datPIN, moKhoa:moKhoa, khoa:khoa, xoaMay:xoaMay, napGoi:napGoi, taiGoi:taiGoi, goi:function(){ return S.goi; }, moi:function(){ return !!S.khoa; },
-    tong:tong, dsTo:dsTo, nhom:nhom, taiKhoi:taiKhoi, ds:function(l){ return DS[l]; }, datDS:function(l, ds){ DS[l] = ds; }, locDS:locDS, taiFile:taiFile, guiKhay:guiKhay, timKH:timKH, kh:kh, khTo:khTo, boDau:boDau, ch:CH, chLuu:chLuu, khiKhoa:null};
+    tong:tong, dsTo:dsTo, nhom:nhom, taiKhoi:taiKhoi, ds:function(l){ return DS[l]; }, datDS:function(l, ds){ DS[l] = ds; }, napGDX:napGDX, docGDX:docGDX, taiGDX:taiGDX, locDS:locDS, taiFile:taiFile, guiKhay:guiKhay, timKH:timKH, kh:kh, khTo:khTo, boDau:boDau, ch:CH, chLuu:chLuu, khiKhoa:null};
 })();

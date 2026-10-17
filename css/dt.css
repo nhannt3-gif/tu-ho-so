@@ -29,3 +29,5 @@ html,body{margin:0;background:var(--dt-nen);color:var(--dt-chu);font-family:-app
 .dt-anh{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px}.dt-anh-o{position:relative}.dt-anh-o img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;display:block}
 .dt-bo-anh{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:none;background:rgba(0,0,0,.55);color:#fff}
 .toast{pointer-events:none}   /* thông báo chỉ để đọc — không bao giờ chặn bấm */
+.dt-gdx{padding:0}.dt-gdx-khung{display:block;width:100%;height:calc(100vh - 150px - env(safe-area-inset-bottom));border:0;background:#fff}
+.dt-tl{margin:10px 16px}

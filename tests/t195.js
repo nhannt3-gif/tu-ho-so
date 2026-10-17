@@ -1,0 +1,30 @@
+// 3.233 — BẢN ĐIỆN THOẠI phần 3: 🏢 Giao dịch xã (máy tính đẩy kèm bản mini 04/TD · 12/GDX · Giấy lĩnh theo kỳ mới nhất; điện thoại mở trong app, cất mã hóa) · chạy không mạng (dt-sw.js). Dữ liệu GIẢ.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
+(async()=>{ const b=await chromium.launch(); const loi=[], o=[]; const ok=(t,d,c)=>o.push((d?'✓ ':'✗ ')+t+(c!==undefined?' — '+c:''));
+ const p=await b.newPage({viewport:{width:1440,height:900}}); p.on('pageerror',e=>loi.push('máy tính: '+e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+G+'/index.html'); await p.waitForTimeout(1500);
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const M = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} window.SL_KHONG_TU_KIEM = 1;
+   for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
+   kyChungDoi('2026-08'); slDoiTab('gdx'); doiNgan(7); await new Promise(r=>setTimeout(r,1200));
+   const K = await KHO.nap(gxKyMoi()), cu = TO_K, h = gxMini(K); return {h:h, giuKy:TO_K===cu, g:gxLapTu(K)}; }, files);
+ ok('máy tính: lập bản mini Giao dịch xã theo kỳ mới nhất (không đổi kỳ đang xem)', M.h.length>5000 && /gdxMiniApp\(\)/.test(M.h) && /MINI_GOI/.test(M.h) && M.giuKy, M.h.length+' ký tự');
+ ok('bản mini không chứa tên tổ / số liệu dạng chữ thường đọc được (đã xáo như 3.177)', !/Phường Gia Lộc/.test(M.h));
+ const ctx = await b.newContext({viewport:{width:390,height:844}, isMobile:true, hasTouch:true});
+ const d = await ctx.newPage(); d.on('pageerror',e=>loi.push('điện thoại: '+e.message)); await d.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(d);
+ await d.goto('file://'+G+'/dt.html'); await d.waitForTimeout(2500); const w = t=>d.waitForTimeout(t), phim = async s=>{ for(const k of s) await d.click('#khoa [data-k="'+k+'"]'); };
+ await phim('1122'); await d.click('#khoa [data-k="ok"]'); await phim('1122'); await d.click('#khoa [data-k="ok"]'); await w(1500); await d.evaluate(()=>DTG.app().dialog.close());
+ await d.evaluate(h=>DT.napGDX(h), M.h); await d.evaluate(()=>DTG.app().views.main.router.navigate('/gdx/', {reloadAll:true})); await w(2500);
+ const f = await d.evaluate(()=>{ const ifr = document.querySelector('.page-current .dt-gdx-khung'); const t = ifr && ifr.contentDocument && ifr.contentDocument.body ? ifr.contentDocument.body.innerText : ''; return {co:!!ifr, t:t.slice(0, 400), cao:ifr ? ifr.getBoundingClientRect().height : 0}; });
+ ok('🏢 tab Giao dịch xã: mở bản mini trong app (04/TD · 12/GDX · Giấy lĩnh)', f.co && /04\/TD/.test(f.t) && /12\/GDX/.test(f.t) && /Giấy lĩnh/i.test(f.t) && f.cao>400, f.t.replace(/\s+/g, ' ').slice(0, 120));
+ const ma = await d.evaluate(async()=>{ const x = await new Promise(ok=>{ const r = indexedDB.open('tuhoso_dt'); r.onsuccess = e=>{ const q = e.target.result.transaction('k').objectStore('k').get('gdx'); q.onsuccess = ()=>ok(q.result); }; }); return !!x && new TextDecoder().decode(x.c).indexOf('gdxMiniApp')<0; });
+ ok('bản Giao dịch xã cất trong máy dạng mã hóa', ma);
+ await d.evaluate(()=>DT.khoa()); await d.reload(); await w(2500); await phim('1122'); await w(1500);
+ await d.evaluate(()=>DTG.app().views.main.router.navigate('/gdx/', {reloadAll:true})); await w(2500);
+ ok('khóa → mở lại bằng PIN: Giao dịch xã giải mã từ máy, không cần Drive', await d.evaluate(()=>{ const ifr = document.querySelector('.page-current .dt-gdx-khung'); return !!(ifr && ifr.contentDocument && /04\/TD/.test(ifr.contentDocument.body.innerText)); }));
+ const sw = fs.readFileSync(G+'/dt-sw.js', 'utf8'), ban = /var APP_BAN = '([^']+)'/.exec(fs.readFileSync(G+'/js/02-nen.js', 'utf8'))[1];
+ ok('chạy không mạng: dt-sw.js giữ đủ tệp bản điện thoại, tên bộ đệm theo bản, bỏ qua tệp bản máy tính', ["dt.html", "css/dt.css", "js/01-thu-vien.js", "js/dt/dt-nen.js", "js/dt/dt-giao-dien.js"].every(t=>sw.indexOf("'"+t+"'")>=0) && sw.indexOf("'tuhoso-dt-"+ban+"'")>=0 && /if\(!co\) return;/.test(sw));
+ o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
+ console.log(o.join('\n')); console.log(o.filter(x=>x[0]==='✓').length+'/'+o.length+' đạt'); await b.close(); })();

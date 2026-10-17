@@ -55,6 +55,11 @@ if len(sys.argv)<2 and os.path.exists(os.path.join(ghep.GOC,'dt.html')):
         if r.returncode: loi.append(os.path.basename(p)+': '+(r.stderr.strip().splitlines()[-1] if r.stderr else '?'))
     lv=sorted({v for v in re.findall(r'\?v=([^"]+)"',open(os.path.join(ghep.GOC,'dt.html'),encoding='utf-8').read())}-{ban.group(1) if ban else ''})
     if lv: loi.append('?v= trong dt.html (%s) khác APP_BAN' % ', '.join(lv))
+    sw=os.path.join(ghep.GOC,'dt-sw.js')
+    if os.path.exists(sw):
+        r=subprocess.run(['node','--check',sw],capture_output=True,text=True)
+        if r.returncode: loi.append('dt-sw.js: lỗi cú pháp')
+        if ban and ("'tuhoso-dt-%s'" % ban.group(1)) not in open(sw,encoding='utf-8').read(): loi.append('dt-sw.js: tên bộ đệm khác APP_BAN')
 # 3.227 (anh 17/10: dọn rác, kiểm toàn vẹn): hàm mồ côi = khai báo nhưng tên không xuất hiện ở chỗ nào khác (kể cả onclick trong chuỗi) — chỉ báo, không làm trượt
 dem={}
 for w in re.findall(r'[A-Za-z_$][\w$]*',s): dem[w]=dem.get(w,0)+1

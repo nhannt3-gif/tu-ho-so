@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.233 — 17/10/2026 — 📱 Bản điện thoại phần 3: Giao dịch xã mẫu nhẹ · chạy không mạng
+- **Anh chốt 17/10:** Giao dịch xã giữ trên điện thoại, nhẹ, chủ yếu mẫu nhẹ.
+- **Máy tính** `js/38-goi-xem.js`: mỗi lần đẩy gói số liệu xem, lập kèm **bản mini Giao dịch xã** (`gxMini` → `gdxMiniHTML` của 3.177, hạn 90 ngày — mẫu chép từ chính hàm app, số liệu xáo như bản mini, theo Mẫu 31 mới nhất qua `KHO.voiKy`) → Drive `_Hệ thống/xem/gdx.html.gz`. Không có điểm GD thì bỏ qua.
+- **Điện thoại:** `DT.taiGDX` / `DT.docGDX` / `DT.napGDX` (cất mã hóa theo PIN như gói số liệu); trang 🏢 Giao dịch mở bản mini trong khung (in 04/TD, 12/GDX, Giấy lĩnh như bản mini). Thanh tab gọn 5 mục: 🔎 Tra cứu · 🗺 Địa bàn · 🏢 Giao dịch · 📄 Tài liệu (nút chuyển Văn bản | Scan) · ⚙ Cài đặt.
+- **Chạy không mạng:** `dt-sw.js` (service worker, chỉ khi mở qua https) giữ 5 tệp của bản điện thoại — mạng có lấy bản mới, mất mạng dùng bản đã cất; tệp bản máy tính đi thẳng mạng như cũ. Thư viện đã cất máy từ trước (bộ nạp `js/01`). `bump.py` đổi tên bộ đệm theo bản; `kiem.py` kiểm cú pháp + tên bộ đệm.
+- **Phép thử:** `tests/t195.js` (mới, 7); t194 theo thanh tab mới; hoiquy2, t144, t147, t87 (bản máy tính trên giả lập điện thoại) mở `?may=1`.
+
 ## 3.232 — 17/10/2026 — 📱 Bản điện thoại phần 2: Văn bản · Scan
 - **Anh duyệt 17/10:** điện thoại tập trung xem văn bản, scan; số liệu đọc từ Drive.
 - **Lõi** `js/dt/dt-nen.js`: `DT.taiKhoi('vanban'|'scan')` đọc các lô khối trên Drive (`_Hệ thống/khoi/vanban__<năm>.json`, `scan__<tháng>.json` — do máy tính đồng bộ theo khối từ 3.225; bỏ lô thùng rác, mục đã xóa) · `DT.taiFile(driveId)` · `DT.guiKhay(file, tên)` → `<thư mục>/_Chờ xử lý` (máy tính **Nạp khay chờ** để khai báo, như luồng ⏳ Chờ khai báo 3.224) · `DT.locDS` lọc không dấu.
