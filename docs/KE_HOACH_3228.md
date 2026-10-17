@@ -7,7 +7,7 @@
 
 ### A. Nguyên tắc
 - **Một bộ kiểm chung** (lớp Nghiệp vụ, file mới `js/37-kiem-ho.js`): `khKiem(hộ, bối cảnh) → [{ma, muc:'do'|'cam'|'vang'|'xanh', chu, nguoi, mo:{…}}]`. Dùng ở: form nhập hộ (khi rời ô), lưới 📒 Sổ hộ vay (cột ⚠, lọc "chỉ hộ có cảnh báo"), tab Tra cứu (thay phần riêng của `tcKiemTrung2` — giữ nguyên kết quả, có phép thử khóa).
-- **Khai báo được** (anh chốt 17/10 "logic kiểm tra này sẽ cho khai báo cho tiện"): ⚙ Khai báo đơn vị → thẻ mới **"🔎 Kiểm tra hộ vay"**, mỗi luật 1 dòng: bật / tắt · mức (🔴 chặn / 🟠 / 🟡 / ℹ) · ngưỡng (nếu có). Lưu `D.cauHinh.khLuat` (khối đồng bộ `hoso` — thêm vào `CH_KHOI_LUAT`). Ngưỡng chưa có số chính sách → ghi "(tạm)".
+- **Khai báo được** (anh chốt 17/10 "logic kiểm tra này sẽ cho khai báo cho tiện"): ⚙ Khai báo đơn vị → thẻ mới **"🔎 Kiểm tra hộ vay"**, mỗi luật 1 dòng: bật / tắt · mức (🔴 chặn / 🟠 / 🟡 / ℹ) · ngưỡng (nếu có). Lưu `hsoKB().khLuat` (đồng bộ cùng khai báo đơn vị). Ngưỡng chưa có số chính sách → ghi "(tạm)".
 - 🔴 chặn = không cho lưu như hộ mới (chỉ "Mở hộ đó"); 🟠 / 🟡 có nút **"Đã kiểm tra"** — ghi ngày vào hộ (`o.daKiem[ma] = {luc, giaTri}`), dữ liệu đổi thì nhắc lại.
 
 ### B. Danh mục luật (mặc định)
@@ -59,3 +59,8 @@
 - 4 luật điền (anh chốt): font / cỡ theo mẫu gốc, đủ chỗ ký; giữ form — tên dài đẩy "Năm sinh" ra xa nhưng **1 dòng, không thu nhỏ chữ** (tối thiểu 2 khoảng trắng, không đủ → cảnh báo); địa chỉ nối liền, chọn đúng xã / phường (mẫu trắng giữ "xã (phường)"); ô khung / chấm: điền đủ viết liền, thiếu mới hiện khung.
 - Làm trong lõi `js/31-o-mau.js`; mặc định in không đổi (t179 / t180 / t181); `kb` cũ chuyển thành ⌨ Tự gõ.
 - Cuốn chiếu: 07b → 01/TD, 03/TD, 01/UQ → 01/TĐCK, 01/GQVL, 01/TGTV, 09A → 10a, 10b, 10c, 10c cũ, 10d.
+
+## Trạng thái (17/10)
+- ✅ **3.228 đã làm** (`js/37-kiem-ho.js`, t190): đủ mục A, B, C (thẻ món đang vay = dòng ℹ trong khung 🔎), D trừ "nhu cầu vay nhập ngay trong sổ (`o.nc`)" — để sau. Khác kế hoạch: Tra cứu giữ `tcKiemTrung2` riêng (nhập rời, không có hộ) — chỉ dùng chung chỉ mục món `slKhMonNap`; cccdHet mặc định 🟠 (không 🔴) để không chặn lưu hộ; luật GQVL "tổng dòng ≠ số tiền" bỏ (số tiền GQVL = tổng dòng) — thay bằng `ctCanh` (cảnh báo phương án sẵn có: vượt mức / công trình, vượt 200 triệu, hiệu quả âm).
+- ✅ **3.229 phần lõi đã làm** (`js/31-o-mau.js`, t191): 4 nguồn, riêng trước, ⌨ chưa gõ in như tự động, ⧉ chép; 11/TD mới + cũ Bên A mặc định ⌨. **Còn:** 4 luật điền + cuốn chiếu từng mẫu khi anh rà (chữ dài theo `RA_SOAT_CHU_DAI.md`).
+

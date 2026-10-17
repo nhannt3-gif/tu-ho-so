@@ -5904,24 +5904,24 @@ function tcCH(){ return pvGan(D.cauHinh.tcPV = D.cauHinh.tcPV || {xa:'', diem:''
 PV_DUNG.tc = {S:function(){ return tcCH(); }, K:function(){ return TC_K; }, sau:function(){ slTraTim(); }, ghi:function(){ var n = SL_TIM.length, ky = slHSMoi(); return n ? n.toLocaleString('vi-VN')+' khách'+(ky ? ' · số liệu '+slKyChu(ky) : '') : ''; }};
 /* Mẫu 31 mới nhất: chỉ mục phụ vợ/chồng + HSSV (Mẫu 10 không có các cột này) */
 function slMau31Moi(){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='hstd'; }).map(function(e){ return e.ky; }).sort(); return ds[ds.length-1] || ''; }
+function slKhMonNap(){   /* 3.228: chỉ mục phụ theo Mẫu 31 mới nhất — món theo khách (SL_KHMON), vợ/chồng + HSSV (SL_PHU); dùng chung Tra cứu + 🔎 kiểm tra hộ vay */
+  var m31 = slMau31Moi(); if(!m31 || SL_PHU_KY===m31) return Promise.resolve();
+  return slBo(m31).then(function(B){
+    var phu = [], vc = {}, km = {}, gk = {};
+    (B.co.hstd||[]).forEach(function(o){
+      if(o.ku && o.kh && !gk[o.ku]){ gk[o.ku] = 1; (km[o.kh] = km[o.kh]||[]).push({ct:ctNgan(o.ct, o), ku:String(o.ku), dn:o.dn||0, nv:o.nv||o.ngn||'', md:ktCoNganh(o) ? ktNganh(o) : '',
+        xong:(o.ttMon==='CLOSE' || !((o.dn||0)>0)) && !(laiTon(o)>0), truong:o.c_ten_truong||'', raTruong:o.raTruong||'', gn:o.gn||0, qh:o.qh||0, kn:o.kn||0, dh:o.dhgh||o.dhg||'', to:o.to||''}); }   /* 3.94: món theo khách cho thẻ kiểm trùng · 3.228: + giải ngân, quá hạn, khoanh, đến hạn, tổ */
+      if(o.ku && (o.c_ten_hssv || o.c_cmnd_hssv)) phu.push({loai:'hs', ten:String(o.c_ten_hssv||''), so:String(o.c_cmnd_hssv||'').replace(/\D/g, ''), kh:o.kh, ku:o.ku, dn:o.dn||0, xong:o.ttMon==='CLOSE' || !(o.dn>0)});
+      if(o.voChong && o.kh && !vc[o.kh]){ vc[o.kh] = 1; phu.push({loai:'vc', ten:String(o.voChong), kh:o.kh}); }
+    });
+    phu.forEach(function(p){ p.t = ' '+slChuan(p.ten); });
+    SL_PHU = phu; SL_PHU_KY = m31; SL_KHMON = km;
+  });
+}
 function tcNap(){
   var ds = toDsKy(); if(!ds.length) return Promise.resolve();
-  var m31 = slMau31Moi();
   return toNap(ds[0].ky).then(function(K){ TC_K = K; pvVeCay('tc'); })
-    .then(function(){
-      if(!m31 || SL_PHU_KY===m31) return;
-      return slBo(m31).then(function(B){
-        var phu = [], vc = {}, km = {}, gk = {};
-        (B.co.hstd||[]).forEach(function(o){
-          if(o.ku && o.kh && !gk[o.ku]){ gk[o.ku] = 1; (km[o.kh] = km[o.kh]||[]).push({ct:ctNgan(o.ct, o), ku:String(o.ku), dn:o.dn||0, nv:o.nv||o.ngn||'', md:ktCoNganh(o) ? ktNganh(o) : '',
-            xong:(o.ttMon==='CLOSE' || !((o.dn||0)>0)) && !(laiTon(o)>0), truong:o.c_ten_truong||'', raTruong:o.raTruong||''}); }   /* 3.94: món theo khách cho thẻ kiểm trùng */
-          if(o.ku && (o.c_ten_hssv || o.c_cmnd_hssv)) phu.push({loai:'hs', ten:String(o.c_ten_hssv||''), so:String(o.c_cmnd_hssv||'').replace(/\D/g, ''), kh:o.kh, ku:o.ku, dn:o.dn||0, xong:o.ttMon==='CLOSE' || !(o.dn>0)});
-          if(o.voChong && o.kh && !vc[o.kh]){ vc[o.kh] = 1; phu.push({loai:'vc', ten:String(o.voChong), kh:o.kh}); }
-        });
-        phu.forEach(function(p){ p.t = ' '+slChuan(p.ten); });
-        SL_PHU = phu; SL_PHU_KY = m31; SL_KHMON = km;
-      });
-    }).then(function(){ if(nganHienTai===7 && D.cauHinh.slTab==='tra'){ slTraTim(); tcKTVe(); } })
+    .then(slKhMonNap).then(function(){ if(nganHienTai===7 && D.cauHinh.slTab==='tra'){ slTraTim(); tcKTVe(); } })
     .catch(function(er){ console.warn('Tra cứu: chưa mở được số liệu', er); });
 }
 function tcTinhTrang(c){ return c.mon ? 'đang vay '+c.mon+' món' : ((c.ku||[]).length ? 'đã tất nợ' : 'chỉ gửi tiết kiệm'); }

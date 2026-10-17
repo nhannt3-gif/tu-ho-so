@@ -222,6 +222,30 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.229) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ Tổ › 11/TD mới, chưa khai gì | In như trước (Bên A theo khai báo chung) | |
+| 2 | 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ | 11/TD mới in chữ đã sửa; 11/TD cũ vẫn chữ chung | |
+| 3 | Ô tổ trưởng: chọn ⌨, gõ khác | In chữ gõ; chọn lại 📊 Mẫu 31 → in theo Mẫu 31 | |
+| 4 | Cột trái ⚙ Khai báo riêng | Tóm tắt "n 📊 · n ⚙ · n ⌨ · n ✍" | |
+
+**Ghi chú kỹ thuật 3.229:** chữ riêng lưu chỗ cũ `hsoLuu().chamGT[mẫu][ô]` (dữ liệu "khai 1 lần" cũ đọc được ngay, nay gọi là ⌨ Tự gõ).
+
+### Danh sách thử trên máy thật (3.228) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ＋ Hộ mới, gõ ngày sinh 1955 | Khung 🔎 Kiểm tra: 🟠 trên 65 tuổi; bấm ✓ Đã kiểm tra → mờ | |
+| 2 | Gõ CCCD / SĐT của khách đang vay làm người thừa kế | 🟠 đang vay ở Mẫu 31 / 🟡 trùng SĐT | |
+| 3 | Gõ tên sai 1 chữ của khách cũ, cùng năm sinh | 🟡 gần trùng … (mã KH) | |
+| 4 | 📥 Lấy từ Mẫu 31 hộ đang vay | ℹ Đang vay n món · dư nợ …; món quá hạn 🔴 | |
+| 5 | Đổi tổ hộ cũ | ℹ tổ cũ + 🟠 còn món ở tổ cũ | |
+| 6 | Hộ người vay dưới 18 tuổi → Lưu | Không lưu, báo 🔴 | |
+| 7 | ⚙ Khai báo đơn vị › 🔎 Kiểm tra hộ vay: đổi 65 → 70, tắt 1 luật | Sổ / form theo ngay | |
+| 8 | 01/GQVL: mục đích "Chăn nuôi bò sinh sản", số lượng 4 | Đơn vị tự "con"; bản in "4 con" | |
+
+**Ghi chú kỹ thuật 3.228:** luật lưu ở `hsoKB().khLuat` (đồng bộ cùng khai báo đơn vị). Món đang vay lấy từ Mẫu 31 mới nhất — nạp 1 lần khi mở sổ / form (`khNap`). Ngưỡng tạm (90 ngày, 60 tổ viên) chờ anh chốt.
+
 ### Danh sách thử trên máy thật (3.227) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

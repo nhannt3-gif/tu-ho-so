@@ -4,6 +4,25 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.229 — 17/10/2026 — Khai báo riêng 4 nguồn từng mẫu (11/TD mới + cũ trước)
+- **Anh chốt 17/10:** 11/TD cũ và mới, Bên A cho khai báo riêng theo mẫu, không lấy thông tin chung; mẫu nào cũng lấy khai báo riêng trước; mỗi ô chọn ghi tay / lấy Mẫu 31 / lấy khai báo chung / tự gõ (mỗi mẫu cùng nội dung nhưng khác vài chữ).
+- **Lõi** `js/31-o-mau.js`: `OM_LOAI.tu` thêm `kb` — mọi ô tự động có ⌨ Tự gõ riêng; `omNguonLoai` / `omCachChu` ghi rõ nguồn ô tự động (📊 Mẫu 31 · ⚙ Khai báo chung · 🤖 khác) theo `x.ng`; tên cách: ✍ Ghi tay · ⌨ Tự gõ (nhớ riêng mẫu) · ✏ Gõ trong lần làm.
+- **Khai báo riêng trước:** `omCachLuu` — ô đã gõ riêng mà chưa chọn cách → ⌨; `omDatKB` gõ chữ → tự chuyển ⌨. **⌨ chưa gõ → in như nguồn tự động** (`G.gt`, lớp ô theo nguồn thực → bản in không đổi, chuẩn t179 giữ nguyên). `omG` đè `V[ô]` bằng chữ riêng (cả mẫu đọc thẳng V; số liệu dạng bảng / danh sách giữ nguyên).
+- **🖼 Khai báo trực quan:** "Nguồn chữ" từng ô theo 4 nguồn; ô ⌨ hiện chữ tự động làm gợi ý + nút **⧉ Chép từ Mẫu 31 / Khai báo chung để sửa** (`omChepTu`, `omVTam`); tóm tắt cột trái đếm theo nguồn.
+- **11/TD mới + cũ:** ô Bên A (`ngan`, `daiDien`, `diaChi`, `dt`, `tkNH` — 11 cũ không có `tkNH`) mặc định ⌨.
+- **Chưa làm (cuốn chiếu theo từng mẫu khi anh rà):** 4 luật điền (tên dài đẩy năm sinh, không thu nhỏ chữ; địa chỉ liền mạch xã / phường; khung ngày) — `docs/KE_HOACH_3228.md` mục 3.229; ô Đại diện · Chức vụ chung 1 ô (chức vụ vẫn theo khai báo chung).
+- **Phép thử:** `tests/t191.js` (mới, 16). t181 chỉ gõ giả ô khai báo như trước; t184 theo tóm tắt mới.
+
+## 3.228 — 17/10/2026 — 🔎 Kiểm tra hộ vay khi nhập (khai báo được) · GQVL số lượng + đơn vị
+- **Anh chốt 17/10:** khi nhập hộ kiểm tra liền logic, đa chiều, trùng so Mẫu 31 (CCCD, SĐT, họ tên gần đúng, người thừa kế); lấy từ hộ cũ báo đang vay mấy món + tóm tắt; cho đổi tổ nhưng báo tổ cũ; trên 65 tuổi cảnh báo; logic kiểm tra cho khai báo; cảnh báo phát triển hết mức; GQVL mục đích đa dạng — nhập mục đích + số lượng (4 con, 25 m²); HSSV 01/TD có xác nhận, NSVSMT 01/TD thường, GQVL 07b (giữ như cũ).
+- **Bộ kiểm** `js/37-kiem-ho.js` (file mới, lớp Nghiệp vụ): `khKiem(hộ)` → `[{ma, muc, chu, k}]`, 31 luật trong `KH_LUAT` (7 nhóm: tuổi · CCCD · trùng · trong hộ · hộ đang vay · tổ · theo chương trình của phiếu hồ sơ). Mức `chan` 🔴 chặn lưu · `do` 🔴 · `cam` 🟠 · `vang` 🟡 · `tt` ℹ. Luật khai trong `hsoKB().khLuat` (`khLuat`, `khLuatDat`, `khLuatMD`, `khKBHTML` — tab mới ⚙ Khai báo đơn vị › 🔎 Kiểm tra hộ vay). Ngưỡng tạm: sắp đáo hạn 90 ngày, tổ 60 tổ viên còn nợ.
+- **Trùng:** chỉ mục danh bạ theo tên (chữ cuối) / SĐT / tên vợ chồng (`khChiMuc`, dựng lại khi `KHO.phienDanhBa()` đổi); tên gần đúng `khGan` (đảo tên đệm, Levenshtein ≤ ngưỡng, dừng sớm) + cùng năm sinh (hoặc cùng xã khi thiếu năm sinh). CCCD: 12 số, mã tỉnh `KH_TINH`, số thứ 4, năm sinh / giới tính, ngày cấp, hạn (`toCCCDHan`).
+- **Hộ đang vay:** `slKhMonNap()` tách từ `tcNap` (Tra cứu dùng chung) + thêm giải ngân, quá hạn, khoanh, đến hạn, tổ của món; cửa mới `KHO.monKH`, `KHO.hssvPhu`, `KHO.coMonMoi`, `KHO.phienDanhBa`. Đổi tổ: ℹ ghi tổ cũ (Mẫu 31) + 🟠 còn món ở tổ cũ.
+- **Giao diện:** form hộ có khung 🔎 Kiểm tra (vẽ lại khi rời ô — `khVeForm`), 🔴 chặn `hmLuu` (sau bước trùng sổ → mở hộ đã có như cũ); 🟠 / 🟡 nút ✓ Đã kiểm tra (`o.daKiem[k] = {luc, chu}`, nội dung đổi → nhắc lại). Lưới sổ: ô Cần bổ sung thêm 🔎 đếm theo mức (rê chuột xem, bấm mở hộ), chip "🔎 Có cảnh báo (n)"; `hmSoLtHTML` dùng chung bảng + sửa ô.
+- **GQVL:** dòng mục đích `{md, sl, dv, tien}` — ô Số lượng + ô Đơn vị (gợi ý `HSO_DV` + đã nhớ, `datalist`); `hsoGQTach` đọc dữ liệu cũ "4 con"; `hsoGQSL` → chữ in "4 con" (01/GQVL, 07b không đổi bố cục); `hsoGQDvGoi` nhớ đơn vị theo mục đích (`hsoKB().mdDv`) hoặc đoán theo từ khóa; mục đích gõ mới thêm vào thẻ GQVL.
+- **Không làm ở bản này:** kiểm trùng tab Tra cứu (`tcKiemTrung2`) giữ riêng (nhập CCCD / tên rời, không có hộ); nhu cầu vay nhập ngay trong sổ (`o.nc`) để sau.
+- **Phép thử:** `tests/t190.js` (mới, 42). t163, t177 sửa theo 3.227 (9 tab, hỏi địa bàn qua cây).
+
 ## 3.227 — 17/10/2026 — Sổ hộ vay gộp 1 tab: lọc địa bàn · ngày nhập, nhóm theo tháng; 📌 Ghim khối lọc
 - **Anh chốt 17/10:** "👪 Hộ vay" và "📒 Sổ hộ vay" trùng nhau → gộp 1 tab; sổ lọc theo Xã, Điểm, Hội, Tổ và ngày nhập trên lưới, sắp theo ngày, nhóm theo tháng; cây địa bàn chỗ cần tự ẩn khi chọn xong, chỗ cần hiện để quay lại → nút ghim; khi thu gọn bấm nút cha về 1 cấp; mỗi bản dọn rác code + kiểm toàn vẹn.
 - **Gộp tab** (`js/25-ho-so.js`): bỏ mục `homoi` khỏi `HSO_MAU.hsv`; `hsoCH()` máy nhớ `hsv:'homoi'` → `'sohv'`. Nút ＋ Hộ mới, 📥 Lấy từ Mẫu 31, ô tích + 📋 Lập 03/TD (`hmSoTick`, `hmSoTickThang`, `hmSoNutChonHTML`) chuyển vào lưới sổ. Link "tích nhiều hộ" ở 03/TD trỏ 📒 Sổ hộ vay.

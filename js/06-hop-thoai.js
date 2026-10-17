@@ -2053,7 +2053,12 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.227', ds:[
+var CO_GI_MOI = {ban:'3.229', ds:[
+  ["⌨ Khai báo riêng từng mẫu 4 nguồn: ✍ Ghi tay · 📊 Mẫu 31 · ⚙ Khai báo chung · ⌨ Tự gõ (nhớ riêng mẫu) — mẫu lấy khai báo riêng trước; ⧉ chép chữ tự động để sửa vài chữ", "slDoiTab('hst');doiNgan(7);hsoChonMau('11')"],
+  ["📄 11/TD mới + cũ: Bên A mặc định ⌨ khai báo riêng (chưa gõ thì in như khai báo chung)", "slDoiTab('hst');doiNgan(7);hsoChonMau('11')"],
+  ["🔎 Sổ hộ vay: app tự kiểm tra khi nhập hộ — tuổi (trên 65 cảnh báo), CCCD, trùng CCCD / SĐT / họ tên gần đúng / vợ chồng (sổ + Mẫu 31), thừa kế, hộ đang vay mấy món (quá hạn, cùng chương trình), đổi tổ (ghi tổ cũ), theo chương trình; 🔴 chặn lưu, ✓ Đã kiểm tra", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
+  ["⚙ Khai báo đơn vị › 🔎 Kiểm tra hộ vay: bật / tắt từng luật, chọn mức 🔴 / 🟠 / 🟡 / ℹ, sửa ngưỡng (tuổi, số ngày, số tổ viên)", "hsoKBHop('kiem')"],
+  ["🐄 GQVL: mục đích + số lượng + đơn vị (4 con, 25 m²) — app nhớ đơn vị theo mục đích, mục đích gõ mới thêm vào gợi ý", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01gqvl')"],
   ["📒 Hồ sơ vay: gộp tab 👪 Hộ vay vào 📒 Sổ hộ vay — ＋ Hộ mới · 📥 Lấy từ Mẫu 31 · sửa thẳng ô · ☐ tích hộ → 📋 Lập 03/TD; lọc Xã · Điểm GD · Hội · Tổ theo khối LỌC ĐỊA BÀN", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
   ["📅 Sổ hộ vay: lọc ngày nhập (Tháng này · Tháng trước · Quý này · Năm nay · từ / đến ngày), sắp theo ngày nhập, nhóm theo tháng (bấm dòng tháng gập / mở, tích cả tháng)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
   ["📌 Khối LỌC ĐỊA BÀN: nút Ghim (ghim = luôn mở; bỏ ghim = chọn xong tổ tự gọn) · ⬆ Lên 1 cấp · phím Backspace lên 1 cấp · mắt đường dẫn gạch chân bấm được", "slDoiTab('hsv');doiNgan(7)"],
