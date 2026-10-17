@@ -273,7 +273,7 @@ function veAnhKhach(){
     var i = document.createElement('img');
     i.style.cssText = 'width:100%;border-radius:9px;border:1px solid var(--vien)';
     d.appendChild(i); e.appendChild(d);
-    docAnhHS(k.id+'_'+mt).then(function(b){ if(b) i.src = URL.createObjectURL(b); });
+    docAnhHS(k.id+'_'+mt).then(function(b){ if(b) anhTam(i, b); });
   });
 }
 function chupThe(truoc, chup){
@@ -394,7 +394,7 @@ function dungTaiLieu(ds, viec){
     else {
       var a = document.createElement('a');
       a.href = URL.createObjectURL(bl); a.download = ten;
-      document.body.appendChild(a); a.click(); a.remove();
+      document.body.appendChild(a); a.click(); thuHoiSau(a.href); a.remove();
       bao('Đã lưu '+ten, 6);
     }
   }).catch(function(e){
@@ -463,7 +463,7 @@ function dungTrangThe(dsId, viec){
     }else{
       var a = document.createElement('a');
       a.href = URL.createObjectURL(bl); a.download = ten;
-      document.body.appendChild(a); a.click(); a.remove();
+      document.body.appendChild(a); a.click(); thuHoiSau(a.href); a.remove();
       bao('Đã lưu '+ten+' vào thư mục Tải về.', 6);
     }
   }).catch(function(e){

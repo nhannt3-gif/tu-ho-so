@@ -89,5 +89,69 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     4. Các chế độ: **thủ công** (không gắn dữ liệu tự động) · **bán tự động** · (tự động khi gọi từ Sổ hộ vay).
     5. **Gõ xong lưu lại được.**
   - **Ý 3 (17/10):** giao diện các tab mẫu **tạm để như hiện tại**; **cấu trúc code em tự sắp xếp** sao cho bộ mẫu độc lập — sau này đưa ra ngoài (mục riêng) chỉ như "đem từ trong 1 tab ra desktop".
-  - (chờ anh duyệt kế hoạch các bước M1–M4 ở tin nhắn 17/10)
+  - **Ý 4 (17/10) — Mẫu 01/TD bán tự động** (form trực quan đi đúng thứ tự trên giấy 01/TD; cái gì app tính ra được thì tự hiện, không bắt nhập):
+    - **A. Đầu giấy:** *Chương trình vay* = danh sách chọn (HSSV, NSVSMT; sau thêm chương trình khác — **khai báo được**). *Kính gửi (tên Ngân hàng)* = **cố định**, khai trong khai báo riêng của mẫu.
+    - **B. Người vay:** form nhập **như nhập hộ mới**, hoặc **gọi từ Mẫu 31 / Sổ hộ vay**. Địa chỉ chọn **ngược**: Xã → Thôn (ấp) → Tổ, lấy từ danh sách địa bàn; **các xã anh phụ trách (2 xã) lên đầu danh sách** (khai báo, không ghi cứng). *Hội quản lý*: lấy theo tổ; hoặc chọn Hội trước thì danh sách tổ chỉ còn tổ của Hội đó.
+    - **C. Đề nghị vay:** *Số tiền vay*, *vốn tự có* thường khai sẵn trong khai báo riêng, **hiện mờ** trong ô. *Để thực hiện phương án*: theo chương trình (HSSV, NS cố định) — **chỉ chọn**. *Bảng đối tượng*: chọn 1 công trình Nước sạch, 1 công trình Vệ sinh, hoặc cả 2; **mặc định 25 triệu / 1 công trình**, ít khi đổi — đổi thì sửa tay. *Thời hạn vay* cố định **60 tháng**, *phân kỳ* **12 tháng** — khai 1 lần trong khai báo riêng của mẫu.
+    - **D, E (sau phần người vay — UBND xác nhận, Ngân hàng phê duyệt):** mặc định **chấm chấm** (ghi tay).
+    - **01/TD → 03/TD:** dựa vào các 01/TD đã lập để **điền sang 03/TD tương ứng**.
+  - **Ý 5 (17/10) — 2 file 01/TD mẫu anh gửi** (HSSV, NSVSMT 50 tr xây mới; có dữ liệu khách thật → **chỉ đọc làm khuôn, KHÔNG đưa vào repo**). Rút ra:
+    - Mỗi **chương trình** là 1 **bộ mặc định** (khai báo được): tên chương trình in trên giấy · câu "Để thực hiện phương án" · dòng bảng đối tượng · vốn tự có · thời hạn · kỳ hạn · có / không khối "Xác nhận của UBND xã".
+    - **HSSV:** "Học sinh sinh viên" · phương án "Chi phí học tập, sinh hoạt" · bảng 1 dòng "Chi phí học tập, sinh hoạt cho sinh viên: <tên SV>" · số lượng "<n> tháng" · thời hạn xin vay **chấm** · kỳ hạn 12 tháng/lần · **có** khối UBND xã xác nhận (Ông/bà … · Chủ tịch ký, đóng dấu).
+    - **NSVSMT:** "Cấp nước sạch và vệ sinh môi trường nông thôn" · phương án "Xây mới công trình cấp nước, công trình vệ sinh" · bảng "Công trình cấp nước — 01 công trình — 25.000.000" và / hoặc "Công trình vệ sinh — 01 công trình — 25.000.000" · tự có 5.000.000 · thời hạn 60 tháng · kỳ hạn 12 · **không** có khối UBND.
+    - Người vay: năm sinh ghi đủ ngày (dd/mm/yyyy) · nơi cấp CCCD · "ấp …, xã …, tỉnh …" · "do ông (bà) <tổ trưởng> làm tổ trưởng" · "Thuộc tổ chức <Hội> quản lý".
+    - Phê duyệt của Ngân hàng: toàn bộ chấm (ghi tay).
+  - **Ý 6 (17/10):** NSVSMT — phương án **Xây mới** hoặc **Sửa chữa** (chọn 1).
+  - **Ý 7 (17/10):**
+    1. **Đề nghị cho vay = Vốn vay NHCSXH**; **Tổng nhu cầu = Vốn vay + Vốn tự có** (app tự tính, bằng chữ tự đổi).
+    2. **HSSV:** anh **gõ số tháng** và **gõ số tiền** của dòng sinh viên; số tiền đó **điền sang số tiền xin vay** (không tính theo mức / tháng).
+  - **Ý 8 (17/10):** **nơi cấp CCCD tự điền theo ngày cấp** — từ 01/07/2024 "Bộ Công an", trước đó "Cục CS QLHC" (dùng lại `hsoNoiCapGY` có sẵn). Câu đề nghị **ghi đúng mẫu gốc**: "Đề nghị cho vay số tiền" (bỏ biến thể "Đề nghị NHCSXH cho vay" theo thẻ chương trình).
+  - **Ý 9 (17/10):** tên sinh viên (HSSV): hộ có HSSV trong sổ thì chọn; **gõ tay** (thủ công / hộ chưa khai HSSV) thì anh tự gõ tên — ô luôn gõ được.
+  - **Ý 10 (17/10) — bộ 01 + 03 + 06:**
+    1. Gõ xong 01/TD → **nút "In Mẫu 03" ngay cạnh** → app **điền sang 03/TD** — thông tin 01/TD qua 03/TD **đủ**.
+    2. Thêm **Mẫu 06** → in **1 lần cả bộ 01 + 03 + 06**.
+    3. **Giấy ủy quyền (01/UQ)** còn vướng **thành viên / thừa kế** → anh **khai trước** ở 📒 Sổ hộ vay (thêm hộ vay); lúc lập UQ **chọn hộ từ sổ**.
+    4. **03/TD thủ công** (không qua 01/TD) vẫn lập được — gõ / chọn tương tự như 01/TD.
+  - **Ý 11 (17/10) — 03/TD và lưu 01/TD:**
+    1. Thường **03/TD in 1 hộ** (hộ vừa gõ 01/TD).
+    2. **Lưu 01/TD:** mặc định đặt tên **theo tên hộ vay, gắn tổ** (vd "Nguyễn Văn A — Tổ …"), vào danh sách 01/TD đã lưu.
+    3. Cần 03/TD **nhiều hộ**: mở Mẫu 03 → **"＋ Thêm hộ"** chọn từ các **01/TD đã lưu** → thêm dòng.
+  - **Ý 12 (17/10):** **Mẫu 06/TD** = mượn bộ code **Mẫu 06 bên KTGS** (gọi đúng hàm KTGS như 09A in kèm 06/TD từ 3.206 — **không chép / sửa mẫu KTGS**, KTGS khóa mẫu), trong Hồ sơ vay gọi là "Mẫu 06/TD".
+  - **Ý 13 (17/10):** Mẫu 06/TD là **mẫu in kèm các bộ hồ sơ vay** (không chỉ bộ 01 + 03): mỗi bộ hồ sơ có lựa chọn "in kèm 06/TD" (như 09A đang có từ 3.206), điền theo hộ / các hộ của bộ đó.
+  - **Ý 14 (17/10):** **Mẫu 06/TD thủ công** cũng lập riêng được như 01/TD — anh chọn / điền (không cần qua 01/TD hay bộ hồ sơ). Luật chung: **mẫu nào cũng có chế độ thủ công** (chọn từ danh sách + gõ tay).
+  - **Ý 15 (17/10) — khai báo riêng & form lập mẫu (áp cho mọi mẫu):**
+    1. Tránh nhầm với **mẫu chuẩn**: chọn 01/TD có nút **⚙ Khai báo riêng** — mở ra khai các chỗ **mặc định / cần đổi**. Vd **sửa / thêm mục đích vay** (đang có Xây mới, Sửa chữa → thêm **Cải tạo**); sửa câu chữ đoạn sau, thêm vài chữ.
+    2. Khai xong: phần **cần chọn** → đưa ra **ngoài form để chọn nhanh**; ô **chưa có số liệu mặc định** → đưa ra để **gõ vào**.
+    3. Khai báo riêng có **Lưu**; **mỗi ô có nút ↺ Mặc định** (trở về khi gõ sai — mặc định có thể là trống). Lưu xong khung khai báo riêng **đóng lại**.
+    4. Mẫu luôn hiện sẵn **bộ form**; form có nút **Làm trống**. Anh gõ vào để tạo 1 bản 01/TD.
+    5. Gõ xong: **hỏi có lưu không** → Lưu; cho **In** hoặc **Gửi** đi.
+    6. Lưu **tự đặt tên**: **tên hộ vay không dấu + tổ + ấp** (để nhớ). Các mẫu khác tương tự.
+    7. Bản đã lưu hiện thành **1 danh sách ngay dưới form nhập**.
+    8. Bố trí form **gọn trong 1 trang màn hình**.
+  - **Ý 16 (17/10):** form lập mẫu **đi đúng thứ tự trên tờ mẫu** cho quen — ô chọn nhanh (chương trình, mục đích…) **nằm đúng chỗ của nó trên giấy**, không gom riêng lên đầu.
+  - **Ý 17 (17/10):** **phạm vi làm trước: đúng 1 bộ — 01/TD · 03/TD · 06/TD · Giấy ủy quyền (01/UQ)**. Nhập liệu theo **bộ quy tắc chung** (đã có từ trước, nay ghi thành luật `docs/QUY_CHUAN_KIEN_TRUC.md` mục 11): Tab / Enter sang ô kế · ↑↓ chọn trong danh sách · ←→ đi trong chữ để sửa · ngày gõ liền số không cần dấu /.
+  - **Ý 18 (17/10):** bảng trên giấy **co theo số dòng có dữ liệu** — **03/TD có 1 hộ** thì tự **cân đối các ô, bỏ dòng thừa**; **01/TD** (bảng đối tượng — hiện để sẵn nhiều dòng chấm) và **06/TD** cũng vậy. (Bản trắng in sẵn để ghi tay: giữ dòng trống như mẫu gốc — chờ anh xác nhận.)
+  - **Ý 19 (17/10):** in **mẫu trắng** → bảng **đủ 5 dòng** (như mẫu gốc); có dữ liệu → co theo số dòng (ý 18). HSSV: dòng sinh viên **không ép 1 dòng** (chữ dài xuống dòng như file mẫu). **01/TD HSSV: chỗ ký UBND còn ngắn quá; chỗ ký Ngân hàng bị mất → đối kỹ mẫu.**
+  - **Đối chiếu 01/TD app (3.238) với 2 file mẫu anh gửi (em soi 17/10):**
+    1. App dựng **ô cố định đúng bề rộng chuỗi chấm của mẫu trắng** → khi có dữ liệu chữ bị **hở khoảng** ("ngày cấp:  14 / 09 /2021 ,", "thôn 01      xã (phường) …", "60.000.000          đồng") và còn chữ khuôn "xã (phường)". File anh: chữ **chạy liền** ("ấp 6, xã …, tỉnh Tây Ninh.", "80.000.000 đồng").
+    2. Bảng đối tượng: app **thu nhỏ chữ** dòng HSSV cho vừa 1 dòng + 2 dòng chấm thừa; tiêu đề không đậm. File anh: tiêu đề **đậm canh giữa**, chỉ dòng có dữ liệu, chữ dài **xuống dòng**.
+    3. Ngày ký · Người vay: file anh ở **cột phải**, canh giữa cột, ghi chú nghiêng; app để giữa trang, cách dòng rộng.
+    4. UBND (HSSV): file anh **2 cột cùng hàng** (trái: Xác nhận của UBND xã đậm · Ông/bà … · 2 dòng chấm · **Chủ tịch** đậm · (ký tên, đóng dấu) — phải: Ngày … · Người vay) + **chừa ~4 dòng ký** trước PHÊ DUYỆT; app xếp chồng, chỗ ký ngắn.
+    5. Ký Ngân hàng: file anh 3 cột **thẳng hàng**, tiêu đề đậm, ghi chú nghiêng nhỏ, "Ngày … tháng … năm …" trên cột Giám đốc, **chừa chỗ ký tới cuối trang**; app 3 cột lệch hàng, **hết chỗ ký** (in thật dễ tràn trang → "mất").
+    6. Đầu giấy: file anh quốc hiệu **đậm, canh giữa, gạch dưới**, "Mẫu số 01/TD" đậm góc phải.
+    - **Đính chính (em, 17/10):** ảnh đối chiếu lần 1 dựng **thiếu CSS in** của app → mục 3, 5, 6 ở trên **sai** (bản in thật của app đã: đầu giấy đậm canh giữa có gạch, Ngày / Người vay cột phải, UBND 2 cột, NH 3 cột thẳng hàng). Khác biệt **thật** (ảnh lần 2, dựng từ `HSO.x.trang`): ① chữ điền **hở khoảng** (ô cố định theo chuỗi chấm) + còn chữ khuôn "xã (phường)"; ② dòng HSSV **thu nhỏ chữ** cho vừa 1 dòng + 2 dòng chấm thừa; ③ **chỗ ký UBND ngắn** (~2 dòng trống trước PHÊ DUYỆT, file anh ~4); ④ chỗ ký NH **sát cuối trang** (in thật dễ tràn → "mất").
+    → Hướng: **2 cách dựng** — bản trắng (chấm, ô cố định, đủ 5 dòng) và **bản đã điền** (chữ liền như file anh, bảng co theo dữ liệu); khối ký UBND / NH theo đúng bố cục file anh, cố định chỗ ký, **luôn vừa 1 trang A4**.
+  - **Đủ ý bộ 01 + 03 + 06 + UQ — chờ anh nhắn "code".**
+
+## Rà file "yêu cầu bàn giao & tối ưu 3.238" anh gửi 17/10 (do AI khác lập) — em đối chiếu code thật
+| # | Điểm trong file | Thực tế code (3.238) | Đề xuất |
+|---|---|---|---|
+| I.3 | In CCCD: bỏ lề bấm lỗ 25 mm, căn giữa 2 thẻ | `js/12-scan.js` đã **căn giữa ngang** (`xT = (A4 rộng − 2 thẻ − khe)/2`), không có lề 25 mm | Không cần làm (chờ anh xác nhận bản in thật có lệch không) |
+| II.1 | Xóa 47 hàm mồ côi (datAp, datXa…) | **22/25 tên không còn** (R1 3.230 đã dọn 99 hàm); `datCap`, `capDang` đang dùng; `boBaoCao` chỉ phép thử dùng. `kiem.py` hiện báo **10** hàm mồ côi | Dọn 10 hàm `kiem.py` báo (sau khi soát từng hàm) |
+| II.2 | `batDau` trùng 3, `keo` trùng 2 | Là **hàm con cục bộ** trong 2 khối kéo thả (`js/10`) + 1 hàm toàn app (`js/20`) — không đè nhau, không lỗi | Đổi tên hàm con cho rõ (việc nhỏ, làm khi chạm tới) |
+| II.3 | 8 `onclick` trong `index.html` → `data-lenh` | Thực có **33** `onclick` | Chuyển cả 33 sang `data-lenh` (cuốn chiếu R2) |
+| II.4 | Rò bộ nhớ `URL.createObjectURL` (Safari) | **Đúng**: `xoayAnh` (`js/12`) không thu hồi; toàn app 41 lần tạo / 18 lần thu hồi | Sửa: thu hồi sau khi ảnh nạp / lỗi / tải xong; rà cả 41 chỗ |
+| III | Mô-đun Phân bổ kế hoạch Biểu 07 | **Chức năng MỚI**. Mã mẫu trong file **không chạy được nguyên văn**: gọi `App.dangKyModule`, `D.cauHinh.diaBan` (không có trong app), dữ liệu QĐ gõ cứng, Xem trước / Xuất Word để trống | Cần anh duyệt phạm vi + gửi mã C# gốc / file Biểu 07 mẫu / QĐ mẫu (dữ liệu giả) — làm sau bộ 01 · 03 · 06 · UQ |
+| IV | Điện thoại: cây PGD → Xã → Điểm · Hội → Tổ → Khách, tìm tên / CCCD, nút về bản máy tính | **Đã có** từ 3.231 (cả ĐT tổ trưởng); **chưa có**: hộ đã tất nợ, lãi tồn, nút Zalo | Thêm vào gói số liệu xem khi anh cần |
+| V | Tìm kiếm: `diem()` gọi `boDau` ~7 lần / mục / phím | **Đúng** (`js/04` `diem`) | Nhớ sẵn chữ đã bỏ dấu **từng trường** (giữ nguyên trọng số điểm — không gộp 1 chuỗi như file đề xuất vì sẽ mất thứ tự ưu tiên) |
 

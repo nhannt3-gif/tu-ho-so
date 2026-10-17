@@ -42,6 +42,12 @@ thu('gxTong: cộng dư nợ / quá hạn / khoanh, đếm hộ còn nợ, món 
 /* Đồng bộ cài đặt theo khối */
 thu('chKhoiCua: khóa → khối đồng bộ', () => J(['ktA', 'hoMoi', 'gdxB', 'slTab', 'scanX', 'loaiVB', 'nhanGhiChu', 'khongRo'].map(A.chKhoiCua))===J(['ktgs', 'hoso', 'gdx', 'solieu', 'scan', 'vanban', 'lich', 'chung']),
   () => ['ktA', 'hoMoi', 'gdxB', 'slTab', 'scanX', 'loaiVB', 'nhanGhiChu', 'khongRo'].map(A.chKhoiCua));
+/* Tìm kiếm văn bản (3.239: nhớ sẵn chữ bỏ dấu từng trường — điểm giữ nguyên thứ tự ưu tiên) */
+thu('diem: số hiệu 100 · trích yếu 50 · ghi chú 20 · không khớp 0', () => { const m = {soHieu:'12/HD-NHCS', trichYeu:'Hướng dẫn cho vay', ghiChu:'Lưu ý ấp Một'};
+  return A.diem(m, 'hd-nhcs')===100 && A.diem(m, 'huong dan')===50 && A.diem(m, 'ap mot')===20 && A.diem(m, 'khong co')===0; });
+thu('diem: sửa trích yếu → tìm theo chữ mới (không dùng chữ nhớ cũ)', () => { const m = {trichYeu:'Cũ'}; A.diem(m, 'cu'); m.trichYeu = 'Mới đổi'; return A.diem(m, 'moi doi')===50 && A.diem(m, 'cu')===0; });
+thu('diem: chữ nhớ sẵn không lọt vào dữ liệu lưu (JSON)', () => { const m = {trichYeu:'Có dấu'}; A.diem(m, 'co'); return JSON.stringify(m).indexOf('__tim')<0 && !!m.__tim; });
+thu('loc: xếp số hiệu trước trích yếu', () => J(A.loc([{id:1, trichYeu:'quyết định 70'}, {id:2, soHieu:'70/QĐ'}], '70').map(x => x.id))===J([2, 1]));
 /* Giao diện chung (chuỗi HTML — không cần trình duyệt) */
 thu('coChuHTML: thoát & < > " (dùng được cả trong thuộc tính)', () => A.coChuHTML('a"b<c>&')==='a&quot;b&lt;c&gt;&amp;', () => A.coChuHTML('a"b<c>&'));
 thu('GD.nut: thoát dấu nháy trong title, gắn data-lenh', () => /title="a&quot;b"/.test(A.GD.nut({chu:'x', lenh:'k.l', tit:'a"b'})) && /data-lenh="k.l"/.test(A.GD.nut({chu:'x', lenh:'k.l'})));

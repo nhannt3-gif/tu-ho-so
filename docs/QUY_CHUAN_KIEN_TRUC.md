@@ -196,3 +196,18 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 - **Giao diện mới:** chỉ dùng khung bố cục + mảnh giao diện chung (khi có ở R2); không gắn độ rộng / cỡ chữ cứng trong chuỗi HTML; xuất / in chỉ dùng bộ nút chuẩn; màn / hộp mới đi qua bộ điều hướng chung, 4 nút ⬅ Lùi · ✕ Đóng · Bỏ · Thoát nghĩa cố định.
 - **Danh mục thư viện được phép** (nạp qua `js/01`, cố định bản, chạy offline): pdf.js 3.11.174 · pdf-lib 1.17.1 · SheetJS 0.18.5 (chờ nâng bản vá) · DOMPurify 3.x · Framework7 Core 8.x (chỉ bản điện thoại) · jsQR (dự phòng quét QR). Thêm thư viện khác: anh duyệt từng cái.
 
+## 11. Quy tắc nhập liệu — mọi form (anh chốt 17/10/2026; gom từ các luật đã có: Sổ hộ vay 3.218+, gõ ngày liền số 3.187)
+| Phím / thao tác | Tác dụng |
+|---|---|
+| **Tab** hoặc **Enter** | Sang **ô kế tiếp** (đúng thứ tự trên tờ mẫu) |
+| **Shift+Tab** / **Shift+Enter** | Lùi về ô trước |
+| **↑ / ↓** ở ô danh sách | **Chọn** trong danh sách (không cần chuột) |
+| **← / →** | Đi qua lại **trong chữ** để sửa (không nhảy ô) |
+| **Ctrl+Enter** | Lưu |
+| **Esc** | **Về 1 cấp** (đóng danh sách đang xổ → rời ô → đóng hộp / khung khai báo riêng → về màn trước) |
+| **Backspace** (ngoài ô nhập) | *Chưa chốt — anh tính sau* (hiện chỉ khối LỌC ĐỊA BÀN: lên 1 cấp) |
+| Gõ **ngày** | **Không cần dấu /** — gõ liền số (vd 1102026 = 01/10/2026, 2542021 = 25/04/2021); gõ có dấu / - . vẫn được |
+| Gõ **số tiền** | Gõ số trơn, app tự chấm nghìn + bằng chữ |
+- Mỗi ô có **↺ Mặc định** (ở khai báo riêng); form có **Làm trống**.
+- Form mới, mẫu mới **bắt buộc** theo bảng này; phép thử bàn phím cho mỗi form (Tab / Enter / ↑↓ / ngày liền số).
+

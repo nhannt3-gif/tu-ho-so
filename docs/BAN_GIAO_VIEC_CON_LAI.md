@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.239) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Ô tìm đầu trang: gõ nhanh từ khóa (tab Văn bản nhiều mục) | Lọc mượt, kết quả như cũ | |
+| 2 | Khung xem file: 🖨 In · 📤 Gửi file · ✎ Sửa · + / − / 100% · ⛶ | Như cũ (menu Gửi hiện cạnh nút) | |
+| 3 | Mở hộp bất kỳ → bấm ra ngoài hộp | Đóng hộp (hộp đang khóa thì không) | |
+| 4 | Scan thẻ: chụp / xoay liên tục 10–20 thẻ (điện thoại) | Không tự tải lại trang | |
+
+**Ghi chú kỹ thuật 3.239:** tạo ảnh / file tạm mới → dùng `anhTam` (ảnh) hoặc `thuHoiSau(url)` (tải về, mở tab). Nút mới trong `index.html` → `data-lenh="khung.…"` + đăng ký ở `js/39-gd.js`.
+
 ### Danh sách thử trên máy thật (3.238) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

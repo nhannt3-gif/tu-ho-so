@@ -73,7 +73,7 @@ function xuatChoAI(){
   var a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
   a.download = 'ChoAI_'+ds.length+'-muc_'+ngayISO(nay())+'.csv';
-  document.body.appendChild(a); a.click(); a.remove();
+  document.body.appendChild(a); a.click(); thuHoiSau(a.href); a.remove();
   bao('Đã xuất '+ds.length+' mục. Đưa file này cho AI kèm câu nhắc.', 6);
 }
 

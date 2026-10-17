@@ -1980,7 +1980,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.238', ds:[
+var CO_GI_MOI = {ban:'3.239', ds:[
+  ["⚡ Gõ tìm văn bản nhanh hơn (nhất là máy yếu / nhiều văn bản); chụp / xoay nhiều thẻ CCCD liên tục không còn đầy bộ nhớ trình duyệt", "doiNgan(1)"],
   ["🔧 Sửa: 📒 Sổ hộ vay › ⤢ Phóng to → xem bản in trong hộp lớn (trước bung toàn màn hình khung đang ẩn → màn trống che hộp, bấm ＋ Hộ mới không được)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
   ["🔧 Sửa: chữ có dấu nháy kép (\") trong tên, ghi chú, địa chỉ không còn làm vỡ ô nhập / nút (Sổ hộ vay, các bảng sửa thẳng ô)", "doiNgan(7)"],
   ["⚡ App mở nhẹ hơn ~470 KB: khuôn Word KTGS (Mẫu 06, 16, 04/BC-TH, Kế hoạch năm) chỉ tải khi mở 🛡 KTGS hoặc tạo Word — lần đầu cần mạng", "doiNgan(7)"],
@@ -1994,8 +1995,7 @@ var CO_GI_MOI = {ban:'3.238', ds:[
   ["📤 Máy tính: ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại — bật để tự đẩy số liệu xem lên Drive mỗi lần nạp Mẫu 31 (hoặc 📤 Đẩy ngay)", "hsoKBHop('sl')"],
   ["🧹 Chuẩn hóa đợt R1: app nhẹ hơn ~140 KB — bỏ 93 hàm không còn dùng, \"Có gì mới\" chỉ giữ 15 dòng gần nhất (lịch sử đủ ở CHANGELOG)", "moHuongDan('moi')"],
   ["📒 Sổ hộ vay: tắt khung xem không còn bung ô tìm / ô chọn / chip — vừa nội dung, chữ cùng cỡ nút", "slDoiTab('hsv');doiNgan(7);hsoChonMau('sohv')"],
-  ["⌨ Khai báo riêng từng mẫu 4 nguồn: ✍ Ghi tay · 📊 Mẫu 31 · ⚙ Khai báo chung · ⌨ Tự gõ (nhớ riêng mẫu) — mẫu lấy khai báo riêng trước; ⧉ chép chữ tự động để sửa vài chữ", "slDoiTab('hst');doiNgan(7);hsoChonMau('11')"],
-  ["📄 Mọi mẫu: ô lấy khai báo chung (Bên A, tên PGD, đại diện…) mặc định ⌨ khai riêng theo mẫu đó — chưa gõ thì in như khai báo chung", "slDoiTab('hst');doiNgan(7);hsoChonMau('11')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["⌨ Khai báo riêng từng mẫu 4 nguồn: ✍ Ghi tay · 📊 Mẫu 31 · ⚙ Khai báo chung · ⌨ Tự gõ (nhớ riêng mẫu) — mẫu lấy khai báo riêng trước; ⧉ chép chữ tự động để sửa vài chữ", "slDoiTab('hst');doiNgan(7);hsoChonMau('11')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
@@ -2170,7 +2170,7 @@ function xuatDuPhong(phu, chiGom){
   try{
     var a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([JSON.stringify(goi, null, 1)], {type:'application/json'}));
-    a.download = ten; document.body.appendChild(a); a.click(); a.remove();
+    a.download = ten; document.body.appendChild(a); a.click(); thuHoiSau(a.href); a.remove();
     return ten;
   }catch(e){
     console.warn('Không tải được bản dự phòng', e);

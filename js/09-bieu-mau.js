@@ -288,7 +288,7 @@ function moOfficeHop(id, cach){
     var a = document.createElement('a');
     a.href = URL.createObjectURL(b);
     a.download = m.tenMoi || m.tenCu || 'tai_lieu';
-    document.body.appendChild(a); a.click(); a.remove();
+    document.body.appendChild(a); a.click(); thuHoiSau(a.href); a.remove();
     bao('Đã tải về thư mục Tải xuống. Dùng xong nên xóa để khỏi rác.', 6);
   }).catch(function(e){ baoLoi('Không mở được: '+(e&&e.message||e)); });
 }

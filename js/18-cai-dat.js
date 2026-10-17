@@ -209,7 +209,7 @@ function xuatDB(){
   var a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([j],{type:'application/json'}));
   a.download = 'DanhMuc_DiaBan_'+ngayISO(nay())+'.json';
-  document.body.appendChild(a); a.click(); a.remove();
+  document.body.appendChild(a); a.click(); thuHoiSau(a.href); a.remove();
   bao('Đã xuất danh mục. Sửa xong bấm Nạp từ file.', 5);
 }
 function napDB(){

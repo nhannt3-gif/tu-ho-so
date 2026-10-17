@@ -4,6 +4,21 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.239 — 17/10/2026 — Dọn nhỏ theo file rà soát anh gửi (bước 1)
+- **Anh gửi 17/10** file "yêu cầu bàn giao & tối ưu 3.238" (AI khác lập); em đối chiếu code thật → `docs/KE_HOACH_CHUAN_HOA.md` (bảng rà). Anh duyệt làm bước 1.
+- **Trả bộ nhớ ảnh / file tạm** (`URL.createObjectURL` không thu hồi — Safari điện thoại tự tải lại trang khi đầy): hàm chung `thuHoiSau(u, ms)`, `anhTam(img, blob)` (`js/02-nen.js`).
+  - `xoayAnh` (xoay ảnh thẻ) trả ngay khi đọc xong.
+  - Ảnh nhỏ trong danh sách hồ sơ / sắp xếp / thẻ CCCD dùng `anhTam`.
+  - Ảnh nhỏ chụp liên tục trả ảnh cũ; xem ảnh trong khung trả ảnh trước; mở tab / in trả sau 2 phút.
+  - 13 chỗ tải file về trả sau 1 phút.
+- **Tìm kiếm văn bản nhanh hơn:** `diem()` trước bỏ dấu ~7 lần / mục / phím → nay `diemNho(m)` nhớ sẵn chữ bỏ dấu **từng trường** (thuộc tính ẩn `__tim`, không lưu vào kho; tự tính lại khi mục đổi). Điểm ưu tiên giữ nguyên (số hiệu 100 · trích yếu 50 · tên 30 · tóm tắt / ghi chú 20 · kỳ 15 · viết tắt 45 · thẻ 25).
+- **Nút khung app trong `index.html` → `data-lenh`** (33 `onclick`): thanh bên cũ, ô tìm ✕, cài đặt / hướng dẫn / dọn kho / thùng rác, khung xem file (in, gửi, sửa, phóng, thu nhỏ), nền hộp. Lệnh đăng ký ở `js/39-gd.js` (khối `khung`). Tô sáng nút tab đọc `data-n`.
+- **Không làm (đối chiếu thấy không cần):**
+  - In CCCD đã căn giữa ngang, không có lề 25 mm.
+  - 10 hàm `kiem.py` báo mồ côi là hàm các phép thử còn dùng (t192 giữ).
+  - `batDau`, `keo` trùng tên là hàm con cục bộ, không đè nhau.
+- **Phép thử:** `tests/t198.js` (mới, 9); phép thử nhanh + 4 (tìm kiếm: điểm, sửa mục tìm lại, không lọt vào dữ liệu lưu, thứ tự).
+
 ## 3.238 — 17/10/2026 — Sửa Phóng to ở Sổ hộ vay che hộp ＋ Hộ mới
 - **Anh báo 17/10:** Hồ sơ vay › 📒 Sổ hộ vay › ⤢ Phóng to → bấm ＋ Hộ mới không được.
 - **Nguyên nhân:** Sổ hộ vay dùng hết bề ngang nên khung xem bản in bị ẩn (3.214), nhưng ⤢ Phóng to vẫn bung khung ẩn đó ra toàn màn hình (`requestFullscreen`) → lớp toàn màn hình trống nằm trên cùng, hộp mở sau nằm dưới, không thấy / không bấm được.

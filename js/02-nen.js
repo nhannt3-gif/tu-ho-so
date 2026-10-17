@@ -14,7 +14,7 @@
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.238', APP_LUC = '17/10/2026 19:56';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.239', APP_LUC = '17/10/2026 21:29';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -323,6 +323,8 @@ function kyVN(s){
 }
 function nay(){ return new Date(); }
 function idMoi(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function thuHoiSau(u, ms){ if(u) setTimeout(function(){ try { URL.revokeObjectURL(u); } catch(e){} }, ms==null ? 60000 : ms); }   /* 3.239: trả bộ nhớ file / ảnh tạm (Safari điện thoại tự tải lại trang khi đầy) */
+function anhTam(im, b){ if(!im || !b) return; var u = URL.createObjectURL(b), xong = function(){ im.removeEventListener('load', xong); im.removeEventListener('error', xong); thuHoiSau(u, 0); }; im.addEventListener('load', xong); im.addEventListener('error', xong); im.src = u; }   /* ảnh hiện xong là trả bộ nhớ */
 function coChuHTML(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML.replace(/"/g, '&quot;'); }   /* 3.237: thoát cả " — chuỗi này còn đặt trong value="…" / title="…" (133 chỗ) */
 
 var tBao;
