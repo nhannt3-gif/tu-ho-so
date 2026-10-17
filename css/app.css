@@ -3552,3 +3552,14 @@ table.hm-so{min-width:1476px}
 .hm-so-trong{padding:14px 8px!important}.hm-so-trong .nho{margin-left:8px}
 .dh-nut{display:inline-flex;gap:2px;flex:none}.dh-nut .nho{padding:2px 7px;min-height:0;background:transparent;border-color:transparent;color:inherit;font-size:15px}.dh-nut .nho:hover{background:rgba(255,255,255,.15)}
 .hso-kb-tab{flex-wrap:wrap}
+
+/* 3.242: form lập 01/TD theo thứ tự tờ giấy */
+.l01-thanh{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--vien);margin-bottom:6px;position:sticky;top:0;z-index:2;background:var(--nen)}
+.l01-ban{font-size:13px}.l01-phan{margin:2px 0 6px}.l01 .l01-o{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px;align-items:center;margin:3px 0}
+.l01 .l01-o>span:first-child{color:var(--chu-phu);font-size:13px}.l01 .l01-o input,.l01 .l01-o select{max-width:420px}.l01-tu{color:var(--chu)}
+.l01-tinh{margin:4px 0}.l01-ds{display:flex;flex-direction:column;gap:2px;max-height:240px;overflow:auto}
+.l01-dong{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:3px 6px;border-radius:6px}.l01-dong.bat{background:var(--xanh-nhat)}.l01-dong small{color:var(--chu-phu)}
+@media (max-width:699px){.l01 .l01-o{grid-template-columns:1fr}}
+.l01 .hso-o{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px;align-items:center;margin:3px 0}.l01 .hso-o>span{color:var(--chu-phu);font-size:13px}.l01 .hso-o input,.l01 .hso-o select{max-width:420px}
+.l01 .hso-ho label{font-size:13px}.l01 .hang-nut .hso-o2{display:inline-block;margin:4px 12px 4px 0}
+@media (max-width:699px){.l01 .hso-o{grid-template-columns:1fr}}

@@ -441,7 +441,7 @@ function sgHd(el){
   if(SG_HD[el.id]) e.innerHTML = '💡 <b>'+coChuHTML(ten)+'</b> — '+coChuHTML(SG_HD[el.id][0])+' <span class="sg-vd">Ví dụ: '+coChuHTML(SG_HD[el.id][1])+'</span>';
 }
 function sgO(t){   /* các ô nhập theo thứ tự gõ · 3.88: t trong cây chọn phạm vi (.pv-cay) thì lấy các ô của cây */
-  var r = (t && t.closest && t.closest('.pv-cay')) || document.querySelector('#hop-in.sua-gon .sua-trai') || document.querySelector('#hop-in.sua-gon') || document.querySelector('#hop-in.phim-chung'); if(!r) return [];
+  var r = (t && t.closest && (t.closest('.pv-cay') || t.closest('div.phim-chung'))) || document.querySelector('#hop-in.sua-gon .sua-trai') || document.querySelector('#hop-in.sua-gon') || document.querySelector('#hop-in.phim-chung'); if(!r) return [];
   return Array.prototype.filter.call(r.querySelectorAll('input,select,textarea'), function(x){
     return x.type!=='hidden' && x.type!=='checkbox' && x.type!=='radio' && !x.readOnly && !x.disabled && x.offsetParent!==null; });
 }
@@ -465,7 +465,7 @@ function sgMoDau(){   /* mở hộp: con trỏ ở ô đầu tiên còn trống 
   if(o) o.focus();
 }
 function sgPhim(e){
-  var t = e.target; if(!t || !t.closest || !t.closest('#hop-in.sua-gon, #hop-in.phim-chung, .pv-cay')) return;
+  var t = e.target; if(!t || !t.closest || !t.closest('#hop-in.sua-gon, #hop-in.phim-chung, .pv-cay, div.phim-chung')) return;   /* 3.242: + form trong tab (01/TD) */
   /* 3.84: hộp phim-chung (hồ sơ hộ, lần làm việc, lịch) — ô nhiều dòng giữ Enter để xuống dòng (Tab vẫn sang ô kế) */
   if(t.tagName==='TEXTAREA' && e.key==='Enter' && !e.ctrlKey && !e.metaKey && !e.shiftKey && !t.closest('#hop-in.sua-gon')) return;
   if(e.key==='Enter' && (e.ctrlKey||e.metaKey) && t.closest('#hop-in')){ e.preventDefault(); e.stopPropagation(); var b = document.querySelector('#hop-in .day-form .chinh, #hop-in .hang-nut .chinh'); if(b) b.click(); return; }
@@ -493,7 +493,7 @@ function sgPhim(e){
   if(t.tagName==='SELECT' && (e.key==='ArrowDown'||e.key==='ArrowUp') && !e.altKey){
     e.preventDefault(); var n = t.selectedIndex + (e.key==='ArrowDown'?1:-1);
     while(n>=0 && n<t.options.length && t.options[n].value==='__go') n += (e.key==='ArrowDown'?1:-1);   /* 3.75: lướt qua "+ Gõ giá trị khác…" */
-    if(n>=0 && n<t.options.length){ t.selectedIndex = n; if(t.onchange) t.onchange(); }
+    if(n>=0 && n<t.options.length){ t.selectedIndex = n; if(t.onchange) t.onchange(); else t.dispatchEvent(new Event('change', {bubbles:true})); }   /* 3.242: ô chọn theo data-lenh */
     return;
   }
   /* 3.75 (AP — quy tắc phím chung): → ← tiến / lùi 1 ô — CHỈ ở ô chọn.
