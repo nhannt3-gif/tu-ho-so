@@ -31,7 +31,7 @@ const fs=require('fs'), path=require('path');
    ok('HSSV chưa gõ số tháng → ô số lượng chấm (không tự chia 4 triệu)', !/15 tháng/.test(h) && /Chi phí học tập, sinh hoạt cho sinh viên: Nguyễn Văn Con [.…]+ 60\.000\.000 đồng/.test(h), (h.match(/sinh viên: [^]{0,60}/)||[''])[0]);
    ok('HSSV thời hạn xin vay để chấm (thẻ ✍), kỳ hạn 12 ghi sẵn, hạn cuối chấm', /Thời hạn xin vay: [.…]+ tháng; Kỳ hạn trả nợ: 12 tháng\/lần/.test(h) && /Hạn trả nợ cuối cùng: Ngày ?[.…]+ ?\/[.…]+ ?\/[.…]+/.test(h));
    hsoBoDat('pa.soThang', '15'); hsoBoDat('th', '48'); hsoBoDat('hanCuoi', '15102030'); await w(400); h = chu(HSO.x.h);
-   ok('gõ số tháng 15, thời hạn 48, hạn cuối 15102030 → in đúng', /15 tháng 60\.000\.000/.test(h) && /Thời hạn xin vay: 48 tháng/.test(h) && /Hạn trả nợ cuối cùng: Ngày 15 ?\/10 ?\/2030/.test(h) && B.hanCuoi==='2030-10-15');
+   ok('gõ số tháng 15, thời hạn 48, hạn cuối 15102030 → in đúng', /15 tháng 60\.000\.000/.test(h) && /Thời hạn xin vay: 48 tháng/.test(h) && /Hạn trả nợ cuối cùng: ngày 15\/10\/2030\./.test(h) && B.hanCuoi==='2030-10-15');
    ok('tab 01/TD có ô Thời hạn + Hạn trả nợ cuối (sửa thẳng vào bộ)', /Thời hạn xin vay \(tháng\)/.test(document.getElementById('hso-tuy').textContent) && /Hạn trả nợ cuối cùng/.test(document.getElementById('hso-tuy').textContent));
    hsoChonMau('03td'); await w(300); h = chu(HSO.x.h);
    ok('03/TD: thời hạn 48 tháng đồng bộ từ 01/TD, CT "Học sinh sinh viên"', /60\.000\.000 Chi phí học tập, sinh hoạt cho sinh viên Nguyễn Văn Con 48 tháng/.test(h) && /Chương trình cho vay: Học sinh sinh viên/.test(h), (h.match(/60\.000\.000 Chi[^]{0,80}/)||[''])[0]);

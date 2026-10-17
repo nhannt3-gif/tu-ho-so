@@ -17,20 +17,29 @@ const fs=require('fs'), path=require('path');
    const tv = hsoTVTo(TO_K.to[C.to]), ho = hmTuM31(tv[0].kh); hmLamHS(ho.id, '01td'); await w(300); const B = hsoBo(); B.ct = 'HSSV'; B.pa = Object.assign(B.pa||{}, {sv:'Nguyễn Hoàng Bảo Giả Tên Rất Dài Để Thử', soThang:'15'}); B.tien = '60000000'; B.tuCo = '20000000'; hsoBoLuu(); hsoVe(); await w(1200); });
  let r = await ev(()=>{ const d = document.createElement('div'); d.innerHTML = hsoLap().h; const bang = [...d.querySelectorAll('table')].find(t=>/Đối tượng/.test(t.textContent)); const hang = bang ? [...bang.querySelectorAll('tr')].slice(1) : [];
    const o1 = hang[0] && hang[0].querySelector('.om'); return {n:hang.length, cham:hang.some(h=>/……/.test(h.textContent)), nho:o1 ? (o1.getAttribute('style')||'') : '', chu:hang[0] ? hang[0].textContent : ''}; });
- ok('HSSV: dòng số liệu đầu bảng, còn lại chấm — giữ 3 dòng như gốc (anh 17/10 "giữ form")', r.n===3 && /Tên Rất Dài/.test(r.chu), JSON.stringify(r));
+ ok('HSSV: bảng chỉ dòng số liệu, bỏ dòng chấm thừa (3.247 anh 18/10)', r.n===1 && !r.cham && /Tên Rất Dài/.test(r.chu), JSON.stringify(r));
  ok('HSSV: dòng sinh viên chữ thường (không thu nhỏ cỡ chữ, không ép 1 dòng)', !/font-size|nowrap|width/.test(r.nho) && /Tên Rất Dài Để Thử/.test(r.chu), r.nho);
  r = await ev(()=>{ const h = hsoLap().h, i = h.indexOf('(ký tên, đóng dấu)'); return (h.slice(i, i+400).match(/&nbsp;/g)||[]).length; });
  ok('UBND: chừa ≥ 5 dòng chỗ Chủ tịch ký + đóng dấu', r>=5, r);
+ r = await ev(()=>{ const d = document.createElement('div'); d.innerHTML = hsoLap().h; const t = d.textContent.replace(/\s+/g, ' ');
+   return {t:t.slice(0, 900), cc:/- Số CC\/CCCD: \d{9,12}, ngày cấp: \d\d\/\d\d\/\d{4}, nơi cấp: \S/.test(t), dc:/- Địa chỉ cư trú: (ấp|khu phố) [^,]+, (xã|phường) [^,]+, tỉnh Tây Ninh\./.test(t),
+     tien:/số tiền: 60\.000\.000 đồng/.test(t) && /\(Bằng chữ: Sáu mươi triệu đồng\)/.test(t) && /Vốn tự có tham gia: 20\.000\.000 đồng\./.test(t) && /Vốn vay NHCSXH: 60\.000\.000 đồng để/.test(t),
+     ky:/Kỳ hạn trả nợ: 12 tháng\/lần/.test(t), hoi:/Thuộc tổ chức (Hội (Nông dân|Cựu chiến binh|Liên hiệp phụ nữ)|Đoàn thanh niên) quản lý/.test(t), ctGiua:/text-align:center/.test((d.innerHTML.match(/<p[^>]*><b>Chương trình cho vay/)||[''])[0]),
+     ngayDam:/<p class="c b i">Ngày/.test(d.innerHTML), co14:OM_MAU['01td'].co===14}; });
+ ok('3.247 (anh 18/10) có số liệu → in liền như đánh máy: CCCD, ngày cấp, nơi cấp cách dấu phẩy; địa chỉ "ấp / khu phố …, xã / phường …, tỉnh Tây Ninh."; tiền sát chữ "đồng"; kỳ hạn 12 tháng/lần', r.cc && r.dc && r.tien && r.ky, JSON.stringify(r));
+ ok('3.247: tổ chức quản lý "Hội Nông dân / Cựu chiến binh / Liên hiệp phụ nữ / Đoàn thanh niên" (không ghi xã); Chương trình canh giữa; ngày của đơn không đậm; chữ 14', r.hoi && r.ctGiua && !r.ngayDam && r.co14, JSON.stringify({hoi:r.hoi, ct:r.ctGiua, dam:r.ngayDam, co:r.co14}));
+ r = await ev(()=>[hsoHoiNgan('Hội Nông dân xã Truông Mít'), hsoHoiNgan('Hội Cựu chiến binh phường Gia Lộc'), hsoHoiNgan('Hội Liên hiệp Phụ nữ xã A'), hsoHoiNgan('Đoàn Thanh niên xã Truông Mít')].join('|'));
+ ok('hsoHoiNgan: tên tổ chức in trên đơn', r==='Hội Nông dân|Hội Cựu chiến binh|Hội Liên hiệp phụ nữ|Đoàn thanh niên', r);
  let n = await trang(await ev(()=>HSO.x.trang));
  ok('HSSV tên dài + khối UBND: vừa 1 trang A4 (chỗ ký NH không tràn)', n===1, n+' trang');
  /* 2. NSVSMT 2 công trình */
  await ev(async()=>{ const B = hsoBo(); B.ct = 'NSVSMT'; B.pa = Object.assign(B.pa||{}, {nuoc:true, vs:true}); B.tien = ''; hsoBoLuu(); hsoVe(); await new Promise(r=>setTimeout(r, 1200)); });
  r = await ev(()=>{ const d = document.createElement('div'); d.innerHTML = hsoLap().h; const bang = [...d.querySelectorAll('table')].find(t=>/Đối tượng/.test(t.textContent)); return bang ? [...bang.querySelectorAll('tr')].slice(1).map(h=>h.textContent.replace(/\s+/g, ' ').trim()) : []; });
- ok('NSVSMT tích cấp nước + vệ sinh: 2 dòng số liệu + 1 dòng chấm (đủ 3 như gốc)', r.length===3 && /Công trình cấp nước/.test(r[0]) && /Công trình vệ sinh/.test(r[1]) && /……/.test(r[2]), JSON.stringify(r));
+ ok('NSVSMT tích cấp nước + vệ sinh: đúng 2 dòng số liệu (3.247: không dòng chấm)', r.length===2 && /Công trình cấp nước/.test(r[0]) && /Công trình vệ sinh/.test(r[1]), JSON.stringify(r));
  n = await trang(await ev(()=>HSO.x.trang)); ok('NSVSMT: 1 trang A4', n===1, n+' trang');
  /* 3. bản trắng: 3 dòng chấm như gốc */
  r = await ev(()=>{ omKieuDat('trang'); const d = document.createElement('div'); d.innerHTML = hsoLap().h; const bang = [...d.querySelectorAll('table')].find(t=>/Đối tượng/.test(t.textContent)); const x = bang ? [...bang.querySelectorAll('tr')].slice(1).filter(h=>/…|\.\.\./.test(h.textContent)).length : -1; omKieuDat('that'); return x; });
- ok('📄 Bản trắng: bảng đối tượng 3 dòng chấm như mẫu gốc', r===3, r);
+ ok('📄 Bản trắng: bảng đối tượng 2 dòng chấm (3.247 anh 18/10 bỏ bớt 1 — chữ 14 vừa 1 trang)', r===2, r);
  /* 3b. 03/TD theo file anh gửi (HSSV): 1 hộ = 1 dòng số liệu + 2 dòng trống, mục đích chữ thường xuống dòng, số tiền theo 01/TD; bản trắng 5 dòng */
  r = await ev(async()=>{ const B = hsoBo(); B.ct = 'HSSV'; B.pa = Object.assign(B.pa||{}, {sv:'Cù Thị Giả Ngọc'}); B.tien = '100000000'; hsoBoLuu(); const D3 = hsoD03(); D3.ct = 'HSSV'; D3.ds = []; luu(); hsoChonMau('03td'); await new Promise(r=>setTimeout(r, 1200));
    const d = document.createElement('div'); d.innerHTML = hsoLap().h; const bang = [...d.querySelectorAll('table')].find(t=>/Mục đích sử dụng vốn/.test(t.textContent)); const hang = [...bang.querySelectorAll('tr')].filter(t=>!/Mục đích|Số tiền|Cộng|^\s*1\s*2\s*3/.test(t.textContent) && t.querySelectorAll('td').length===8);

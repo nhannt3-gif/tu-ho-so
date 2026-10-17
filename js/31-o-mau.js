@@ -61,6 +61,7 @@ function omG(mk, V, pt){
     var lop = 'om om-'+(v ? (c==='mau' ? 'mau' : c) : 'cham');
     var st0 = (pt!==G.pt ? 'font-size:'+pt+'pt;line-height:1;' : '')+(o.ls ? 'letter-spacing:'+o.ls+'pt;' : '');   /* ô cỡ chữ riêng (vd 11 trong đoạn 14) */
     if(!v) return '<span class="'+lop+'" data-o="'+k+'"'+(st0 ? ' style="'+st0+'"' : '')+'>'+cham+'</span>';
+    if(o.lien) return '<span class="'+lop+'" data-o="'+k+'"'+(st0 ? ' style="'+st0+'"' : '')+'>'+coChuHTML(v)+'</span>';   /* 3.247 (anh 18/10): có số liệu → chữ liền như đánh máy (không khung rộng bằng dòng chấm); trống → giữ chấm */
     var ls = o.ls || 0, W = o.rong || omRong(cham, pt)+cham.length*ls*0.3528, tw = omRong(v, pt)+String(v).length*ls*0.3528, fs = pt;   /* o.ls: nén / giãn ký tự (pt) như Word */
     if(o.hai && tw > W*0.98){   /* ô trong bảng: cho xuống 2 dòng trong khung cao o.hai mm (không làm cao dòng bảng) */
       var f2 = Math.min(pt, Math.floor(o.hai/0.3528/2*10)/10, Math.floor(pt*2*W*0.9/tw*10)/10);

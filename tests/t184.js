@@ -43,7 +43,7 @@ const fs=require('fs'), path=require('path');
    omDatPhan('01td', 'nh', 'cham'); h = chu(hsoLap().h); ok('✍ cả phần NH → chấm lại, giá trị khai vẫn nhớ', /Lãi suất: [.…]+ %\/năm/.test(h) && hsoLuu().chamGT['01td']['nhLai|HSSV']==='6,9');
    /* 5. khung cố định + chữ dài */
    const x = hsoLap().h, s = x.match(/<span class="om om-tu" data-o="ten" style="([^"]+)"/);
-   const wDot = omRong('...............................................................', 13);
+   const wDot = omRong('...............................................................', 14)   /* 3.247: 01/TD chữ 14 */;
    ok('ô có chữ = khung cố định đúng bề rộng chuỗi chấm gốc (Họ tên)', !!s && Math.abs(parseFloat(s[1].match(/width:([\d.]+)mm/)[1]) - wDot)<0.05, s && s[1]);
    B.nv.ten = 'Nguyễn Thị Bé Ba Tư Năm Sáu Bảy Tám Chín Mười Một Mười Hai Mười Ba'; hsoBoLuu(); const x2 = hsoLap();
    ok('tên dài quá khung: thu nhỏ chữ (font-size) + ⚠ báo trước khi in', /data-o="ten" style="[^"]*font-size:[\d.]+pt/.test(x2.h) && OM_DAI.some(d=>d.k==='ten'));
