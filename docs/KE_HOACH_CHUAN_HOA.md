@@ -119,5 +119,14 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
   - **Ý 12 (17/10):** **Mẫu 06/TD** = mượn bộ code **Mẫu 06 bên KTGS** (gọi đúng hàm KTGS như 09A in kèm 06/TD từ 3.206 — **không chép / sửa mẫu KTGS**, KTGS khóa mẫu), trong Hồ sơ vay gọi là "Mẫu 06/TD".
   - **Ý 13 (17/10):** Mẫu 06/TD là **mẫu in kèm các bộ hồ sơ vay** (không chỉ bộ 01 + 03): mỗi bộ hồ sơ có lựa chọn "in kèm 06/TD" (như 09A đang có từ 3.206), điền theo hộ / các hộ của bộ đó.
   - **Ý 14 (17/10):** **Mẫu 06/TD thủ công** cũng lập riêng được như 01/TD — anh chọn / điền (không cần qua 01/TD hay bộ hồ sơ). Luật chung: **mẫu nào cũng có chế độ thủ công** (chọn từ danh sách + gõ tay).
+  - **Ý 15 (17/10) — khai báo riêng & form lập mẫu (áp cho mọi mẫu):**
+    1. Tránh nhầm với **mẫu chuẩn**: chọn 01/TD có nút **⚙ Khai báo riêng** — mở ra khai các chỗ **mặc định / cần đổi**. Vd **sửa / thêm mục đích vay** (đang có Xây mới, Sửa chữa → thêm **Cải tạo**); sửa câu chữ đoạn sau, thêm vài chữ.
+    2. Khai xong: phần **cần chọn** → đưa ra **ngoài form để chọn nhanh**; ô **chưa có số liệu mặc định** → đưa ra để **gõ vào**.
+    3. Khai báo riêng có **Lưu**; **mỗi ô có nút ↺ Mặc định** (trở về khi gõ sai — mặc định có thể là trống). Lưu xong khung khai báo riêng **đóng lại**.
+    4. Mẫu luôn hiện sẵn **bộ form**; form có nút **Làm trống**. Anh gõ vào để tạo 1 bản 01/TD.
+    5. Gõ xong: **hỏi có lưu không** → Lưu; cho **In** hoặc **Gửi** đi.
+    6. Lưu **tự đặt tên**: **tên hộ vay không dấu + tổ + ấp** (để nhớ). Các mẫu khác tương tự.
+    7. Bản đã lưu hiện thành **1 danh sách ngay dưới form nhập**.
+    8. Bố trí form **gọn trong 1 trang màn hình**.
   - **Đủ ý bộ 01 + 03 + 06 — chờ anh nhắn "code".**
 
