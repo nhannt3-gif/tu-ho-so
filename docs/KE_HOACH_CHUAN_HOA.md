@@ -101,5 +101,6 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     - **NSVSMT:** "Cấp nước sạch và vệ sinh môi trường nông thôn" · phương án "Xây mới công trình cấp nước, công trình vệ sinh" · bảng "Công trình cấp nước — 01 công trình — 25.000.000" và / hoặc "Công trình vệ sinh — 01 công trình — 25.000.000" · tự có 5.000.000 · thời hạn 60 tháng · kỳ hạn 12 · **không** có khối UBND.
     - Người vay: năm sinh ghi đủ ngày (dd/mm/yyyy) · nơi cấp CCCD · "ấp …, xã …, tỉnh …" · "do ông (bà) <tổ trưởng> làm tổ trưởng" · "Thuộc tổ chức <Hội> quản lý".
     - Phê duyệt của Ngân hàng: toàn bộ chấm (ghi tay).
-  - (chờ anh trả lời câu hỏi về 2 file mẫu ở tin nhắn 17/10)
+  - **Ý 6 (17/10):** NSVSMT — phương án **Xây mới** hoặc **Sửa chữa** (chọn 1).
+  - (chờ anh trả lời câu 1, 2, 3, 5 ở tin nhắn 17/10)
 
