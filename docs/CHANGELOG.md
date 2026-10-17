@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.236 — 17/10/2026 — Chuẩn hóa R3 phần 2: khuôn Word KTGS nạp khi dùng
+- **Anh duyệt 17/10** (`docs/KE_HOACH_CHUAN_HOA.md` R3 — nạp theo tab).
+- Khuôn Word KTGS (490 KB, chỉ là dữ liệu mẫu trắng) chuyển `js/22k-kt-khuon.js` → `js/khuon/kt-khuon.js`, **bỏ khỏi `index.html`**: JS nạp lúc mở app 3.430 → 2.950 KB.
+- `ktKhuon()` (`js/22b-ktgs.js`): tải 1 lần (thẻ script, `?v=` theo bản), lỗi mạng → báo "thử lại khi có mạng", lần sau tải lại được.
+  - Mở 🛡 KTGS → tải sẵn (không chặn màn hình).
+  - `ktDocx` (mọi nút Word KTGS + Word Mẫu 06 ở Hồ sơ) tải trước rồi làm (giữ cờ in 1 / 2 mặt `KT_HAI_EP` của lúc bấm).
+  - Kế hoạch năm (Xem, In, In cả Kế hoạch + Mẫu 04) chưa có khuôn → tải rồi chạy tiếp.
+- Khối code KTGS (`22b…22e`, ~320 KB) **vẫn nạp lúc mở** — gọi từ nhiều chỗ (nút trong chuỗi `onclick`, Hồ sơ, đồng bộ); để sau R4 khi có sổ đăng ký chức năng.
+- `kiem.py` kiểm cú pháp cả `js/khuon/*.js`. t110, t114, t120 (đọc thẳng khuôn) gọi `ktKhuon()` trước.
+- **Phép thử:** `tests/t197.js` (mới, 5).
+
 ## 3.235 — 17/10/2026 — Chuẩn hóa R3 phần 1: tách `js/22-so-lieu.js` theo khối
 - **Anh duyệt 17/10** (`docs/KE_HOACH_CHUAN_HOA.md` R3; `docs/QUY_CHUAN_KIEN_TRUC.md` mục 7 — tách cơ học, không đổi logic, làm đầu tiên).
 - `js/22-so-lieu.js` (1,3 MB · 6.963 dòng) → 10 file, nạp **liền nhau đúng thứ tự cũ** (ghép lại khớp từng byte với bản 3.234):

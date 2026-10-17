@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.236) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app → 🛡 KTGS → Word Mẫu 06 / Mẫu 04 / Kế hoạch năm | File Word như cũ | |
+| 2 | Hồ sơ Tổ › Mẫu 06 › Word (chưa mở KTGS lần nào) | File Word như cũ (chờ ~1 giây lần đầu) | |
+
+**Ghi chú kỹ thuật 3.236:** khuôn tải bằng thẻ script cùng chỗ với app (đường dẫn tương đối) nên chạy cả file:// lẫn https; trình duyệt giữ bộ đệm như các file khác. Thêm khuôn / dữ liệu lớn chỉ dùng ở 1 tab → đặt ở `js/khuon/`, tải bằng hàm kiểu `ktKhuon`.
+
 ### Danh sách thử trên máy thật (3.235) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
