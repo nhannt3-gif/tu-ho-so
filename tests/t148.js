@@ -18,7 +18,7 @@ const fs=require('fs'), path=require('path');
    slDoiTab('th'); doiNgan(7); for(let i=0;i<60 && !TH_K;i++) await w(250); await w(300);
    thXem(); for(let i=0;i<40 && !document.getElementById('th-khung');i++) await w(250); await w(800);
    const nut = () => [...document.querySelectorAll('#hop-in .xuat-hang button')].map(x=>x.textContent.trim());
-   ok('Tổng hợp: Đóng · 🖨 In · 📄 PDF · 📊 Excel · 📤 Gửi (không Word)', nut().join('|')==='Đóng (Esc)|🖨 In|📄 PDF|📊 Excel|📤 Gửi', nut().join('|'));
+   ok('Tổng hợp: Đóng · 🖨 In · 📄 PDF · 📝 Word (mờ — 3.234 không ẩn) · 📊 Excel · 📤 Gửi', nut().join('|')==='Đóng (Esc)|🖨 In|📄 PDF|📝 Word|📊 Excel|📤 Gửi' && document.querySelector('#hop-in .xuat-word').disabled, nut().join('|'));
    const bs = [...document.querySelectorAll('#hop-in .xuat-hang button')], x0 = b => Math.round(b.getBoundingClientRect().left);
    ok('Đóng bên trái, 📤 Gửi bên phải cùng', x0(bs[0]) < x0(bs[1]) && x0(bs[bs.length-1]) === Math.max.apply(null, bs.map(x0)));
    ok('tên PDF: TongHop_… _T08-26', /_T08-26$/.test(XUAT.ten), XUAT.ten);
@@ -33,7 +33,7 @@ const fs=require('fs'), path=require('path');
    /* Sao kê, Tổ: cùng hàng */
    slDoiTab('sk'); doiNgan(7); for(let i=0;i<60 && !SK_K;i++) await w(250); await w(300);
    const C = skCH(); C.bc = {}; C.bc[SK_BC[0].k] = true; skXem(); await w(1200);
-   ok('Sao kê: cùng hàng Đóng · In · PDF · Excel · Gửi', nut().join('|')==='Đóng (Esc)|🖨 In|📄 PDF|📊 Excel|📤 Gửi', nut().join('|')+' · '+(document.querySelector('#hop-in .hop-tit')||{}).textContent);
+   ok('Sao kê: cùng hàng Đóng · In · PDF · Word (mờ) · Excel · Gửi', nut().join('|')==='Đóng (Esc)|🖨 In|📄 PDF|📝 Word|📊 Excel|📤 Gửi', nut().join('|')+' · '+(document.querySelector('#hop-in .hop-tit')||{}).textContent);
    const xuat0 = XUAT; XUAT = {html:()=>'<html><body><div class="trang"><div class="bc-dau"><div>PGD GIẢ</div><div>T8/2026</div></div><h1>BÁO CÁO GIẢ</h1><table><tr><th>Xã</th><th>Dư nợ</th></tr><tr><td>Xã A</td><td>1.000</td></tr><tr><td>Xã B</td><td>2.000</td></tr><tr><td>Cộng</td><td>3.000</td></tr></table></div></body></html>'};
    const x = xuatChuTuHTML(xuatHTML());
    ok('Copy chữ: đầu trang tách dòng (PGD / kỳ / tiêu đề)', /^PGD GIẢ\nT8\/2026\nBÁO CÁO GIẢ/.test(x.chu), JSON.stringify(x.chu.slice(0, 40)));
@@ -45,7 +45,7 @@ const fs=require('fs'), path=require('path');
    ok('Copy ảnh: vẽ được trang báo cáo thành ảnh PNG', anh && anh.type==='image/png' && anh.size>2000, anh && (anh.type+' '+anh.size+(anh.loi||''))); XUAT = xuat0;
    dongHop();
    /* KTGS: có Word, nút ‹ quay lại giữ bên trái */
-   ok('hàng có Word: Đóng · ‹ … · 🖨 In · 📄 PDF · 📝 Word · 📤 Gửi', (()=>{ const d = document.createElement('div'); d.innerHTML = xuatHang({truoc:'<button class="nho">‹ Đổi lựa chọn in</button>', html:()=>'<html><body>x</body></html>', in:'x()', pdf:'y()', word:'z()'}); return [...d.querySelectorAll('button')].map(x=>x.textContent).join('|')==='Đóng (Esc)|‹ Đổi lựa chọn in|🖨 In|📄 PDF|📝 Word|📤 Gửi'; })());
+   ok('hàng có Word: Đóng · ‹ … · 🖨 In · 📄 PDF · 📝 Word · 📊 Excel (mờ) · 📤 Gửi', (()=>{ const d = document.createElement('div'); d.innerHTML = xuatHang({truoc:'<button class="nho">‹ Đổi lựa chọn in</button>', html:()=>'<html><body>x</body></html>', in:'x()', pdf:'y()', word:'z()'}); return [...d.querySelectorAll('button')].map(x=>x.textContent).join('|')==='Đóng (Esc)|‹ Đổi lựa chọn in|🖨 In|📄 PDF|📝 Word|📊 Excel|📤 Gửi'; })());
    ok('KTGS: các hàm xuất nhận cách "pdf"', ['ktGNIn','ktTrang06Xuat','ktBCIn','ktPCXuat','ktKHIn'].every(f=>/cach==='pdf'/.test(String(window[f]))));
    /* khung xem file */
    D.vanBan = [{id:'v1', nhom:'vanBan', tenMoi:'2026-10-01 12_HD-NHCS Thử.pdf', soHieu:'12/HD-NHCS', ngay:'2026-10-01', trichYeu:'Hướng dẫn giả', mang:'Tín dụng', ctrinh:['HN']}]; luu();

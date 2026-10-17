@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.233** — 📱 bản điện thoại đủ 3 phần: 3.231 PIN + mã hóa, tra cứu khách, địa bàn theo cấp · 3.232 Văn bản, Scan (chụp → PDF, khay chờ) · 3.233 Giao dịch xã mẫu nhẹ (bản mini), chạy không mạng. Máy tính đẩy gói số liệu xem + bản mini lên Drive (`js/38-goi-xem.js`). Trước đó 3.230 chuẩn hóa R1. **Việc tiếp (`docs/KE_HOACH_CHUAN_HOA.md`):** R2 (khung bố cục, mảnh giao diện, bộ nút xuất, điều hướng `DH` — Hồ sơ vay, Scan) → R3 (tách `22-so-lieu.js`) → R4. Chờ anh: thử máy thật 3.225–3.233, ngưỡng tạm 3.228, `RA_SOAT_CHU_DAI.md`, `GOP_Y_MAU.md`.
+- **`main` = 3.234** — chuẩn hóa R2: `js/39-gd.js` (hộp `GD`: bộ nhận lệnh `data-lenh`, mảnh giao diện, điều hướng lùi / tiến `DH`, hộp con), bộ nút xuất thống nhất. Trước đó 3.231–3.233 📱 bản điện thoại đủ 3 phần (`dt.html`), 3.230 R1. **Việc tiếp (`docs/KE_HOACH_CHUAN_HOA.md`):** R3 (tách `22-so-lieu.js` theo tab, nạp khi dùng) → R4 (phép thử nhanh lớp nghiệp vụ, sổ cài đặt). Chờ anh: thử máy thật 3.225–3.234, ngưỡng tạm 3.228, `RA_SOAT_CHU_DAI.md`, `GOP_Y_MAU.md`.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.

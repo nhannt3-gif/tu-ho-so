@@ -177,7 +177,7 @@ function khDongHTML(o, x, nut){
     : (nut && (x.muc==='cam' || x.muc==='vang') ? ' <button class="nho" onclick="'+nut+'(\''+x.k.replace(/'/g, "\\'")+'\')" title="Đã xem, đúng như vậy — không nhắc lại (nội dung đổi sẽ nhắc lại)">✓ Đã kiểm tra</button>' : ''))+'</div>';
 }
 function khFormHTML(){   /* khung 🔎 trong form nhập hộ (HM) */
-  if(!HM) return ''; var ds = khKiem(HM);
+  khDangKy(); if(!HM) return ''; var ds = khKiem(HM);
   if(!ds.length) return '<div class="kh-dong kh-ok">🟢 Chưa thấy điều gì cần lưu ý.</div>';
   return ds.map(function(x){ return khDongHTML(HM, x, 'khDaKiemForm'); }).join('')+(ds.some(function(x){ return x.muc==='chan'; }) ? '<div class="sl-phu hso-canh">🔴 Còn mục chặn lưu — sửa xong mới lưu được.</div>' : '');
 }
@@ -190,3 +190,4 @@ function khSoHTML(o, ds){   /* ô lưới sổ: đếm theo mức + chi tiết k
 }
 var KH_NAP = null;
 function khNap(sau){ if(KHO.coMonMoi()) return; if(KH_NAP) return; KH_NAP = slKhMonNap().then(function(){ KH_NAP = null; if(sau) sau(); }, function(){ KH_NAP = null; }); }   /* nạp món Mẫu 31 mới nhất 1 lần rồi vẽ lại */
+function khDangKy(){ if(khDangKy.xong || typeof GD==='undefined') return; khDangKy.xong = 1; GD.dangKy('kh', {luat:function(){ GD.moCon(function(){ hsoKBHop('kiem'); }); }}); }   /* 3.234: form hộ → ⚙ luật kiểm tra (hộp con) */

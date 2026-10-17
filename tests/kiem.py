@@ -60,6 +60,10 @@ if len(sys.argv)<2 and os.path.exists(os.path.join(ghep.GOC,'dt.html')):
         r=subprocess.run(['node','--check',sw],capture_output=True,text=True)
         if r.returncode: loi.append('dt-sw.js: lỗi cú pháp')
         if ban and ("'tuhoso-dt-%s'" % ban.group(1)) not in open(sw,encoding='utf-8').read(): loi.append('dt-sw.js: tên bộ đệm khác APP_BAN')
+# 3.234 (anh 17/10: dòng trắng ở chế độ tối): biến màu chưa khai mà dự phòng là màu sáng cố định → chế độ tối ra mảng trắng
+_cs=open(os.path.join(ghep.GOC,'css','app.css'),encoding='utf-8').read(); _khai=set(re.findall(r'(--[\w-]+)\s*:',_cs+s))
+for v,du in re.findall(r'var\((--[\w-]+)\s*,\s*(#[0-9a-fA-F]{3,6}|white)\)',_cs):
+    if v not in _khai and (du=='white' or int(du[1:2],16)>=12): loi.append('css: var(%s,%s) — biến chưa khai, chế độ tối ra màu sáng'%(v,du))
 # 3.227 (anh 17/10: dọn rác, kiểm toàn vẹn): hàm mồ côi = khai báo nhưng tên không xuất hiện ở chỗ nào khác (kể cả onclick trong chuỗi) — chỉ báo, không làm trượt
 dem={}
 for w in re.findall(r'[A-Za-z_$][\w$]*',s): dem[w]=dem.get(w,0)+1
