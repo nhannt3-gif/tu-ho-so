@@ -19,13 +19,13 @@ const path=require('path'); const drive=require('./fakedrive.js')();
    D.vanBan.push({id:'vA1', nhom:'vanBan', soHieu:'1/CV-GIA', ngay:'2025-03-01', tenMoi:'a1.pdf', suaLuc:t}, {id:'vA2', nhom:'vanBan', soHieu:'2/CV-GIA', ngay:'2026-09-01', tenMoi:'a2.pdf', suaLuc:t});
    D.ghiChu.push({id:'gA', nhom:'ghiChu', tieuDe:'Ghi chú giả A', suaLuc:t}); D.cauHinh.ktHoiKB = {'X1|11':{ct:'Nguyễn Văn Giả'}}; luuNgay(); await kdDay(); });
  const f1 = khoi();
- ok('A đẩy theo khối: văn bản chia lô theo năm, ghi chú khối lịch, khai báo Hội khối KTGS', ['vanban__2025.json', 'vanban__2026.json', 'lich__ds.json', 'ktgs__caidat.json', 'chung__caidat.json'].every(n=>f1.indexOf(n)>=0), f1.join(' '));
+ ok('A đẩy theo khối: văn bản chia lô theo năm, ghi chú khối lịch (cài đặt vẫn qua cauhinh.json)', ['vanban__2025.json', 'vanban__2026.json', 'lich__ds.json'].every(n=>f1.indexOf(n)>=0), f1.join(' '));
  // 2. B kéo về
- const b2 = await B.evaluate(async()=>{ await kdKeoVe(); return {vb:D.vanBan.map(x=>x.id).sort().join(), gc:D.ghiChu.some(x=>x.id==='gA'), hoi:((D.cauHinh.ktHoiKB||{})['X1|11']||{}).ct}; });
+ const b2 = await A.evaluate(async()=>{ await dongBoCauHinh('tu'); }).then(()=>B.evaluate(async()=>{ await dongBoCauHinh('tu'); await kdKeoVe(); return {vb:D.vanBan.map(x=>x.id).sort().join(), gc:D.ghiChu.some(x=>x.id==='gA'), hoi:((D.cauHinh.ktHoiKB||{})['X1|11']||{}).ct}; }));
  ok('B kéo về đủ văn bản, ghi chú, khai báo Hội', b2.vb==='vA1,vA2' && b2.gc && b2.hoi==='Nguyễn Văn Giả', JSON.stringify(b2));
  // 3. B sửa 1 ghi chú → chỉ gửi file khối lịch
  const b3 = await B.evaluate(async()=>{ await kdDay(); __ghi = []; const g = D.ghiChu.find(x=>x.id==='gA'); g.tieuDe = 'Ghi chú giả A (B sửa)'; g.suaLuc = new Date(Date.now()+1000).toISOString(); luuNgay(); await kdDay(); return __ghi; });
- ok('B sửa 1 ghi chú → chỉ ghi đúng 1 file lich__ds (không gửi văn bản, cài đặt)', b3.length===1 && b3[0]==='lich__ds.json', JSON.stringify(b3));
+ ok('B sửa 1 ghi chú → chỉ ghi đúng 1 file lich__ds (không gửi văn bản)', b3.length===1 && b3[0]==='lich__ds.json', JSON.stringify(b3));
  // 4. A kéo: chỉ tải file đổi
  const a4 = await A.evaluate(async()=>{ let tai = 0; const g = window.kdTai; window.kdTai = function(f){ tai++; return g.apply(this, arguments); }; await kdKeoVe(); window.kdTai = g; return {tai, gc:D.ghiChu.find(x=>x.id==='gA').tieuDe}; });
  ok('A kéo về chỉ tải 1 file đổi, nhận bản B sửa', a4.tai===1 && /B sửa/.test(a4.gc), JSON.stringify(a4));
@@ -43,13 +43,13 @@ const path=require('path'); const drive=require('./fakedrive.js')();
  ok('xóa hẳn ở B → A bỏ theo, đẩy / kéo lại không sống lại', !a6.co && !a6.sau, JSON.stringify(a6));
  // 7. chặn ghi trống: A mất hết danh sách → không ghi đè khối trên Drive
  const a7 = await A.evaluate(async()=>{ let bl = ''; const g = window.baoLoi; window.baoLoi = t => { bl = t; }; __ghi = []; D.vanBan = []; D.ghiChu = []; D.scan = []; luuNgay(); await kdDay(); window.baoLoi = g; return {ghi:__ghi.filter(n=>/vanban|lich__ds|scan/.test(n)), bl}; });
- ok('máy trống → không ghi đè khối văn bản / ghi chú / scan trên Drive, có báo', !a7.ghi.length && /trống/.test(a7.bl), JSON.stringify(a7));
+ ok('máy trống → không ghi đè khối văn bản / ghi chú / scan trên Drive (lô trống không ghi; xóa thật đi theo dấu xóa chung__xoa)', !a7.ghi.length && khoi().indexOf('vanban__2026.json')>=0, JSON.stringify(a7));
  // 8. chimuc.json tối đa 1 lần / giờ; bật "máy cũ đã cập nhật hết" → thôi ghi
  const b8 = await B.evaluate(async()=>{ let n = 0; const g = window.KD_HEN_CM_CU; window.KD_HEN_CM_CU = () => { n++; }; D.cauHinh.chiMucThoi = new Date().toISOString(); henDongBoChiMuc(); const trongGio = n;
    D.cauHinh.chiMucThoi = new Date(Date.now()-2*36e5).toISOString(); henDongBoChiMuc(); const quaGio = n - trongGio; D.cauHinh.kdBoCu = true; henDongBoChiMuc(); const boCu = n - trongGio - quaGio; window.KD_HEN_CM_CU = g; delete D.cauHinh.kdBoCu; return {trongGio, quaGio, boCu}; });
  ok('chimuc.json: trong 1 giờ không ghi lại, quá 1 giờ ghi; bật "máy cũ đã cập nhật hết" thì thôi', b8.trongGio===0 && b8.quaGio===1 && b8.boCu===0, JSON.stringify(b8));
  // 9. mốc riêng máy (kdBam, kdKeo) không lên Drive
- const cd = Object.values(drive.F).filter(f=>/caidat\.json$|cauhinh\.json$/.test(f.name)).map(f=>f.body.toString('utf8')).join('');
+ const cd = Object.values(drive.F).filter(f=>/cauhinh\.json$/.test(f.name)).map(f=>f.body.toString('utf8')).join('');
  ok('mốc đồng bộ riêng máy (kdBam / kdKeo / chBam) không lên Drive', !/"kdBam"|"kdKeo"|"chBam"/.test(cd));
  R.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.join(' | ') : ''));
  console.log(R.join('\n')); console.log(R.filter(x=>x[0]==='✓').length+'/'+R.length+' đạt'); await b.close(); })();

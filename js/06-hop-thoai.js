@@ -2053,7 +2053,11 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.223.1', ds:[
+var CO_GI_MOI = {ban:'3.225', ds:[
+  ["📷 Scan mới: chọn loại trước (CCCD · Tài liệu · Chữ ký · Ảnh khách) — Tài liệu không bao giờ đòi mặt 2; bộ nút chuẩn In · Lưu vào máy · Lưu vào app · Gửi Zalo · Bỏ", "doiNgan(4);batDauScan()"],
+  ["🗂 Lưu vào app = ⏳ Chờ khai báo: chưa lên Drive cho tới khi khai đủ xã, ấp, tổ; 💾 Lưu vào máy chỉ ra file (máy tính có hộp Lưu thành)", "doiNgan(4)"],
+  ["✍ Chữ ký giữ nguyên mẫu chụp (JPG, chỉ khử bóng mờ, dưới 200 KB); 📄 tài liệu mặc định lọc Văn bản rõ", "doiNgan(4)"],
+  ["☁ Đồng bộ Drive theo khối: văn bản theo năm, scan theo tháng, ghi chú… — chỉ gửi / tải phần đổi, nhanh hơn nhiều khi dữ liệu lớn", "slDoiTab('hsv');doiNgan(7);hsoKBHop('sl')"],
   ["🧾 Bảng kê: địa chỉ viết tắt \"khu phố\" → \"KP\" cho đủ 1 dòng (không còn bị che chữ)", "slDoiTab('gdx');doiNgan(7)"],
   ["📄 Hồ sơ vay / Hồ sơ Tổ: 13 mẫu dựng lại đúng form file Word gốc (lề, cỡ chữ, ngắt dòng, ngắt trang, chú thích chân trang) — 01/TD, 01/UQ, 03/TD, 09A, 01/TĐCK, 01/TGTV, 01/GQVL, 07b, 10A, 10B, 10C cũ / mới, 11 cũ / mới", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
   ["✎ Mọi chỗ chấm thành ô tùy biến: 3 kiểu in 📄 Trắng · 🖨 Thật · 📝 Mẫu; chữ dài tự thu nhỏ trong khung và báo ⚠; 🖼 khai báo trực quan (bấm ô trên trang)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
