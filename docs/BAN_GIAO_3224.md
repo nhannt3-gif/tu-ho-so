@@ -27,4 +27,5 @@
 ## 4. Tiến độ (cập nhật mỗi lần xong 1 phần)
 - 17/10: 3.223.1 đã gộp (PR #190). Bàn giao gộp (PR #191).
 - 17/10: **3.225** = 3.224 scan (`js/35-scan.js`) + đồng bộ Drive theo khối (`js/36-dong-bo-khoi.js`) — xem CHANGELOG 3.225. **Khác kế hoạch:** cài đặt vẫn qua cauhinh.json (2 đường song song làm lẫn mốc chBam — t117/t136); kho IndexedDB theo khối (C2) chưa làm.
+- 17/10: **3.225 đã gộp (PR #192)** — hồi quy đủ sạch trừ t100 / t116 (trượt sẵn trên main). Anh chưa thử máy thật (bảng 3.225 trong BAN_GIAO_VIEC_CON_LAI.md). **Tài khoản phụ làm tiếp từ đây.**
 - **Việc tiếp:** (a) tách cài đặt theo khối — làm bằng cách chia CHÍNH cơ chế cauhinh.json thành file theo khối (cùng chBam, chFileId từng file), không chạy 2 đường; (b) C2 kho IndexedDB theo khối (sửa js/34 `LN`: mỗi khối 1 DB, chuyển từ tuhoso_ngan, giữ 30 ngày); (c) chờ anh: RA_SOAT_CHU_DAI, GOP_Y_MAU, thử máy thật 3.225.
