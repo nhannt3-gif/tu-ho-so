@@ -204,6 +204,8 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 | **↑ / ↓** ở ô danh sách | **Chọn** trong danh sách (không cần chuột) |
 | **← / →** | Đi qua lại **trong chữ** để sửa (không nhảy ô) |
 | **Ctrl+Enter** | Lưu |
+| **Esc** | **Về 1 cấp** (đóng danh sách đang xổ → rời ô → đóng hộp / khung khai báo riêng → về màn trước) |
+| **Backspace** (ngoài ô nhập) | *Chưa chốt — anh tính sau* (hiện chỉ khối LỌC ĐỊA BÀN: lên 1 cấp) |
 | Gõ **ngày** | **Không cần dấu /** — gõ liền số (vd 1102026 = 01/10/2026, 2542021 = 25/04/2021); gõ có dấu / - . vẫn được |
 | Gõ **số tiền** | Gõ số trơn, app tự chấm nghìn + bằng chữ |
 - Mỗi ô có **↺ Mặc định** (ở khai báo riêng); form có **Làm trống**.
