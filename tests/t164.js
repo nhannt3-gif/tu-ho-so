@@ -28,17 +28,19 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('logo mặc định chỉ in ở mẫu gốc có logo (01/TD, 01/TGTV)', tat.filter(x=>/class="hso-logo"/.test(x[1])).map(x=>x[0]).sort().join(',')==='01td,01tgtv', tat.filter(x=>/class="hso-logo"/.test(x[1])).map(x=>x[0]).join(','));
    hsoKB().logoMau = {'09a':true}; slDoiTab('hsv'); hsoChonMau('09a'); await w(300);   /* 3.172: 04/TD dời sang tab Giao dịch xã → thử với 09A */
    ok('tích / bỏ tích mẫu in logo ở khai báo → áp ngay', /class="hso-logo"/.test(HSO.x.trang)); hsoKB().logoMau = null;
-   /* ---- bộ hồ sơ: hộ mới ---- */
-   hsoChonMau('bo'); await w(300); const B = hsoBoMoi(); hsoBoDat('moi', true); hsoBoGanTo();
-   hsoBoDat('nv.ten', 'Nguyễn Văn Giả'); hsoBoDat('nv.ns', '06/05/1980'); hsoBoDat('nv.cccd', '072080001234'); hsoBoDat('nv.ncap', '08/04/2021'); await w(300);
-   ok('hộ mới: giới tính tự lấy từ số CCCD, nơi cấp gợi ý theo ngày cấp (trước 01/07/2024 → Cục CS QLHC)', B.nv.gt==='Nam' && B.nv.noiCap==='Cục CS QLHC' && B.nv.ns==='1980-05-06', B.nv.gt+' · '+B.nv.noiCap);
-   hsoBoDat('nv.ncap', '02/01/2026'); ok('ngày cấp từ 01/07/2024 → Bộ Công an', B.nv.noiCap==='Bộ Công an'); hsoBoDat('nv.ncap', '08/04/2021');
-   hsoBoThemHo(); hsoBoDat('ho.0.ten', 'Trần Thị Giả'); hsoBoDat('ho.0.qh', 'Vợ'); hsoBoDat('ho.0.ns', '01/01/1982'); hsoBoDat('soNguoi', '3');
-   hsoBoDat('pa.sv', 'Nguyễn Văn Con'); hsoBoDat('pa.soThang', '15'); hsoBoDat('tien', '60000000'); hsoBoDat('tuCo', '20000000'); hsoBoDat('dtth', 'Đối tượng giả HSSV'); await w(400);
-   ok('bộ lưu tạm trong cài đặt (đồng bộ Drive), có trạng thái', D.cauHinh.hsoBo.some(x=>x.id===B.id && x.tt==='soan') && !!document.querySelector('#hso-tuy select'));
-   ok('hộ mới → bộ tự tích 01/TGTV', B.chon.tgtv===1);
+   /* ---- hồ sơ vay hộ mới (3.246: Bộ HS cũ đã gỡ → 📒 Sổ hộ vay + 01/TD In kèm) ---- */
+   hmMo(); await w(100); hmDat(0, 'ten', 'Nguyễn Văn Giả'); hmDat(0, 'ns', '06/05/1980'); hmDat(0, 'cccd', '072080001234'); hmDat(0, 'ncap', '08/04/2021');
+   ok('hộ mới: nơi cấp gợi ý theo ngày cấp (trước 01/07/2024 → Cục CS QLHC)', HM.tv[0].noiCap==='Cục CS QLHC' && HM.tv[0].ns==='1980-05-06', HM.tv[0].noiCap);
+   hmDat(0, 'ncap', '02/01/2026'); ok('ngày cấp từ 01/07/2024 → Bộ Công an', HM.tv[0].noiCap==='Bộ Công an'); hmDat(0, 'ncap', '08/04/2021');
+   HM.tv.push(hmNguoi()); hmVe(); hmDat(1, 'ten', 'Trần Thị Giả'); hmDat(1, 'qh', 'Vợ'); hmDat(1, 'ns', '01/01/1982'); HM.to = (KHO.to(hsoCH().to) || {}).ma || HM.to; hmLuu(); await w(300); try{ dongHop(); }catch(e){} HM = null;
+   const oG = hmDs().find(x=>x.tv[0].ten==='Nguyễn Văn Giả'); hmLamHS(oG.id, '01td'); await w(400); const B = hsoBo();
+   ok('hộ mới: giới tính tự lấy từ số CCCD', B.nv.gt==='Nam', B.nv.gt);
+   hsoBoDat('soNguoi', '3'); hsoBoDat('ct', 'HSSV'); hsoBoDat('pa.sv', 'Nguyễn Văn Con'); hsoBoDat('pa.soThang', '15'); hsoBoDat('tien', '60000000'); hsoBoDat('tuCo', '20000000'); hsoBoDat('dtth', 'Đối tượng giả HSSV');
+   ['uq', 'bb', 'ds', 'tgtv'].forEach(k=>hsoBoDat('kem.'+k, 1)); hsoVe(); await w(500);
+   ok('phiếu hồ sơ lưu trong cài đặt (đồng bộ Drive), có trạng thái', D.cauHinh.hsoBo.some(x=>x.id===B.id && !!x.tt));
+   ok('hộ mới → In kèm có 01/TGTV (hộ mới)', /01\/TGTV mở TK tổ viên \(hộ mới\)/.test(document.getElementById('hso-tuy').textContent));
    const X = hsoLap(), ds = X.ds.map(u=>u.M.k);
-   ok('bộ gồm 01/UQ · 01/TD · biên bản 10C · 03/TD · 01/TGTV, mỗi mẫu 1 bản riêng khổ (03/TD ngang)', ds.join(',')==='01uq,01td,10c,03td,01tgtv' && /data-tr-ngang="1"[^>]*>[^]*DANH SÁCH TỔ VIÊN/.test(X.trang), ds.join(','));
+   ok('01/TD + In kèm: 01/UQ · 01/TD · biên bản 10C · 03/TD · 01/TGTV, mỗi mẫu 1 bản riêng khổ (03/TD ngang)', ds.join(',')==='01uq,01td,10c,03td,01tgtv' && /data-tr-ngang="1"[^>]*>[^]*DANH SÁCH TỔ VIÊN/.test(X.trang), ds.join(','));
    const h01 = chu(X.ds[1].h), hUQ = chu(X.ds[0].h), hBB = chu(X.ds[2].h), h03 = chu(X.ds[3].h), hTG = X.ds[4].h;
    ok('01/TD HSSV: đúng PDF — Mẫu số cùng hàng quốc hiệu, CT "Học sinh sinh viên", bằng chữ, 15 tháng, kỳ hạn 12, có khối Xác nhận của UBND xã', /Mẫu số 01\/TD/.test(h01) && /Chương trình cho vay: Học sinh sinh viên/.test(h01) && /Sáu mươi triệu đồng/.test(h01) && /15 tháng/.test(h01) && /Kỳ hạn trả nợ: 12 tháng\/lần/.test(h01) && /Xác nhận của UBND xã/.test(h01) && /Tổng nhu cầu vốn: 80\.000\.000/.test(h01));
    ok('01/TD: ngày hạn trả cuối để trống (anh chốt)', /Hạn trả nợ cuối cùng: Ngày[ .…]+\/[ .…]+\/[ .…]+/.test(h01));
@@ -46,12 +48,9 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('biên bản họp (10C mới): hộ mới ở mục kết nạp + mục 2 danh sách đề nghị vay', /Tổ viên cho ra khỏi Tổ 1 Nguyễn Văn Giả 1/.test(hBB) && /1 Nguyễn Văn Giả Học sinh sinh viên 60 Chi phí học tập/.test(hBB), hBB.slice(hBB.indexOf('Tổ viên được'), hBB.indexOf('Tổ viên được')+300));
    ok('03/TD: 1 người + 2 dòng trống + dòng Cộng có tổng; kẻ chấm; tiêu đề bảng lặp', /Cộng: 60\.000\.000/.test(h03) && /Đối tượng giả HSSV/.test(h03) && (X.ds[3].h.match(/<tbody>[^]*<\/tbody>/)[0].match(/<tr/g)||[]).length>=4 && /class="luoi cham/.test(X.ds[3].h) && /<thead>/.test(X.ds[3].h));
    ok('01/TGTV: logo + khung "Mẫu 01/TGTV", 12 ô số CCCD, ☒ Nam, ngày hết hạn mặc định chấm (3.219: ô tùy biến — bật 🖨 mới in, t176), chân trang ngành', /hso-logo/.test(hTG) && ((hTG.match(/<td class="c"><span class="o-sl">\d<\/span><\/td>/g)||[]).length===12 || (hTG.match(/data-o="cccd"[^>]*>\d<\/span>/g)||[]).length===12) && (/☒Nam/.test(hTG) || /☒<\/span>Nam/.test(hTG)) && !/06\/05\/2040/.test(hTG) && X.ds[4].M.chan.indexOf('vbsp.org.vn')>0);
-   /* trạng thái + nhận ra khi đã lên Mẫu 31 */
-   const kv = tv.find(k=>k.cccd); hsoBoDat('nv.cccd', kv.cccd); hsoVe(); await w(300);
-   ok('hộ mới đã có trên Mẫu 31 (khớp CCCD) → báo + nút dùng dữ liệu Mẫu 31', hsoBoTrenM31(B)===kv.kh && /Đã có trên Mẫu 31/.test(document.getElementById('hso-tuy').textContent));
-   /* hộ cũ */
-   const B2 = hsoBoMoi(); hsoBoChonKH(tv[0].kh); await w(300);
-   ok('hộ cũ: chọn tổ viên → nhân thân từ số liệu, tổ trưởng, Hội; không tích 01/TGTV', B2.nv.ten===tv[0].ten && !!B2.toi.tt && B2.chon.tgtv===0);
+   /* hộ cũ (mã KH) — từ Mẫu 31 */
+   const o2 = hmTuM31(tv[0].kh); hmLamHS(o2.id, '01td'); await w(400); const B2 = hsoBo();
+   ok('hộ cũ: lấy từ Mẫu 31 → nhân thân từ số liệu, tổ trưởng, Hội; không tích 01/TGTV', B2.nv.ten===tv[0].ten && !!hsoBoT(B2).tt && !(B2.kem||{}).tgtv);
    /* NSVSMT */
    B2.ct = 'NSVSMT'; B2.pa = {loai:'moi', nuoc:true, vs:true, tienN:'25000000', tienV:'26000000'}; hsoChonMau('01td'); await w(300);
    const hN = chu(HSO.x.h);
@@ -69,7 +68,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    const w02 = await b64(await hsoDocx(HSO.x));
    hsoChonMau('10c'); await w(300); ok('10C: dòng tiêu đề bảng lặp khi dài (thead) — 3.223: mẫu dựng theo gốc thì bảng như gốc', /<thead>/.test(HSO.x.h) || /class="om-goc"/.test(HSO.x.h));
    /* Word cả bộ */
-   slDoiTab('hsv'); hsoCH().boId = B.id; hsoChonMau('bo'); await w(400); const wBo = await b64(await hsoDocx(hsoLap()));
+   slDoiTab('hsv'); hsoCH().boId = B.id; hsoChonMau('01td'); await w(400); const wBo = await b64(await hsoDocx(hsoLap()));
    hsoKBHop(); await w(200); ok('⚙ Khai báo: mục Logo (chọn ảnh, tích mẫu) + Đối tượng thụ hưởng theo CT (3.172: giờ phát tiền chuyển sang tab Giao dịch xã)', /Logo/.test(document.getElementById('hop-in').textContent) && /Đối tượng thụ hưởng/.test(document.getElementById('hop-in').textContent) && !/Giờ phát tiền/.test(document.getElementById('hop-in').textContent)); dongHop();
    return {o, w02, wBo};
  }, files);

@@ -26,7 +26,7 @@ const fs=require('fs'), path=require('path');
    ok('chọn xã trong cửa sổ → chỉ ấp xã đó', [...document.querySelectorAll('#hop-in .hso-kbp[data-kb="ap"] .kt-kb')].length>0 && HSO_KBT.tab==='ap');
    dongHop(); HSO_KBT.xa = null;
    /* 2. HSSV: số tháng, số tiền gõ tay; thời hạn chấm (thẻ), gõ thì in + sang 03/TD */
-   hsoChonMau('bo'); await w(300); const B = hsoBoMoi(); hsoBoDat('moi', true); hsoBoDat('nv.ten', 'Nguyễn Văn Giả'); hsoBoDat('pa.sv', 'Nguyễn Văn Con'); hsoBoDat('tien', '60000000'); await w(300);
+   hmMo(); await w(100); hmDat(0, 'ten', 'Nguyễn Văn Giả'); hmLuu(); await w(200); try{ dongHop(); }catch(e){} HM = null; hmLamHS(hmDs().find(x=>x.tv[0].ten==='Nguyễn Văn Giả').id, '01td'); await w(300); const B = hsoBo(); B.ct = 'HSSV'; hsoBoDat('pa.sv', 'Nguyễn Văn Con'); hsoBoDat('tien', '60000000'); await w(300);   /* 3.246: Bộ HS cũ đã gỡ → hộ trong 📒 Sổ */
    hsoChonMau('01td'); await w(300); let h = chu(HSO.x.h);
    ok('HSSV chưa gõ số tháng → ô số lượng chấm (không tự chia 4 triệu)', !/15 tháng/.test(h) && /Chi phí học tập, sinh hoạt cho sinh viên: Nguyễn Văn Con [.…]+ 60\.000\.000 đồng/.test(h), (h.match(/sinh viên: [^]{0,60}/)||[''])[0]);
    ok('HSSV thời hạn xin vay để chấm (thẻ ✍), kỳ hạn 12 ghi sẵn, hạn cuối chấm', /Thời hạn xin vay: [.…]+ tháng; Kỳ hạn trả nợ: 12 tháng\/lần/.test(h) && /Hạn trả nợ cuối cùng: Ngày ?[.…]+ ?\/[.…]+ ?\/[.…]+/.test(h));
@@ -36,7 +36,7 @@ const fs=require('fs'), path=require('path');
    hsoChonMau('03td'); await w(300); h = chu(HSO.x.h);
    ok('03/TD: thời hạn 48 tháng đồng bộ từ 01/TD, CT "Học sinh sinh viên"', /60\.000\.000 Chi phí học tập, sinh hoạt cho sinh viên Nguyễn Văn Con 48 tháng/.test(h) && /Chương trình cho vay: Học sinh sinh viên/.test(h), (h.match(/60\.000\.000 Chi[^]{0,80}/)||[''])[0]);
    /* 3. NSVSMT: ghi sẵn hết theo thẻ; ĐTTH mặc định theo xã / phường */
-   B.ct = 'NSVSMT'; B.th = ''; B.pa = {loai:'sua', nuoc:true, tienN:'25000000'}; B.nv.tenXa = 'Xã Giả'; hsoChonMau('01td'); await w(300); h = chu(HSO.x.h);
+   B.ct = 'NSVSMT'; B.th = ''; B.pa = {loai:'sua', nuoc:true, tienN:'25000000'}; B.nv.tenXa = 'Xã Giả'; if(B.hoId && hmTim(B.hoId)) hmTim(B.hoId).tenXa = 'Xã Giả'; hsoChonMau('01td'); await w(300); h = chu(HSO.x.h);
    ok('NSVSMT sửa chữa 1 công trình: mục đích, 01 công trình, thời hạn 60, kỳ hạn 12 ghi sẵn, không khối UBND', /Sửa chữa công trình cấp nước/.test(h) && /Công trình cấp nước 01 công trình 25\.000\.000 đồng/.test(h) && /Thời hạn xin vay: 60 tháng; Kỳ hạn trả nợ: 12 tháng\/lần/.test(h) && !/Xác nhận của UBND xã/.test(h) && /Đề nghị cho vay số tiền/.test(h));
    hsoChonMau('03td'); await w(300); h = chu(HSO.x.h);
    ok('03/TD NSVSMT xã: ĐTTH mặc định "cư trú tại vùng nông thôn", 60 tháng', /Hộ gia đình cư trú tại vùng nông thôn 25\.000\.000 Sửa chữa công trình cấp nước 60 tháng/.test(h), (h.match(/Nguyễn Văn Giả[^]{0,120}/)||[''])[0]);
@@ -47,8 +47,8 @@ const fs=require('fs'), path=require('path');
    /* 4. thẻ tự thêm dạng 1 mục đích; đổi tên tắt → bộ đi theo (3.211: GQVL có dạng riêng — thử ở t174) */
    ok('GQVL: dạng riêng (01/GQVL + 07b), bật ở Bộ HS', hsoCTV('GQVL').kieu==='gqvl' && hsoCTV('GQVL').bat!==false);
    hsoCTThem(); const iG = hsoCTVDs().length-1; hsoCTDat(iG, 'ma', 'GQX'); hsoCTDat(iG, 'ten', 'Hỗ trợ tạo việc làm giả'); hsoCTDat(iG, 'md', 'Chăn nuôi bò giả\nTrồng trọt giả', 'ds'); hsoCTDat(iG, 'ubnd', true);
-   B.ct = 'GQX'; B.tien = '50000000'; B.pa = {sl:'02 con'}; hsoChonMau('bo'); await w(300);
-   ok('Bộ HS: ① liệt kê chương trình theo thẻ (HSSV, NSVSMT, GQVL)', ['HSSV','NSVSMT','GQVL','GQX'].every(k=>document.querySelector('#hso-tuy input[name="hso-ct"][onchange*="\''+k+'\'"]')));
+   B.ct = 'GQX'; B.tien = '50000000'; B.pa = {sl:'02 con'}; hsoChonMau('01td'); await w(400);
+   ok('01/TD: chương trình liệt kê theo thẻ (HSSV, NSVSMT, GQX; GQVL dùng mẫu riêng)', ['HSSV','NSVSMT','GQX'].every(k=>document.querySelector('#hso-tuy [data-lenh="l01.ct"][data-ma="'+k+'"]')) && !document.querySelector('#hso-tuy [data-lenh="l01.ct"][data-ma="GQVL"]'));
    hsoChonMau('01td'); await w(300); h = chu(HSO.x.h);
    ok('01/TD GQVL: tên in theo thẻ, mục đích đầu danh sách, số lượng gõ, khối UBND theo thẻ', /Chương trình cho vay: Hỗ trợ tạo việc làm/.test(h) && /Để thực hiện phương án: Chăn nuôi bò giả\./.test(h) && /Chăn nuôi bò giả 02 con 50\.000\.000 đồng/.test(h) && /Xác nhận của UBND xã/.test(h));
    hsoCTDat(iG, 'ma', 'gq x2'); ok('đổi tên tắt thẻ → bộ hồ sơ đổi theo', hsoCTVDs()[iG].ma==='GQX2' && B.ct==='GQX2');
