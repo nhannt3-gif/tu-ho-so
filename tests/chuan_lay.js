@@ -48,7 +48,7 @@ module.exports = async function(p){
   }, files);
   const hom = new Date(), dd = String(hom.getDate()).padStart(2, '0'), mm = String(hom.getMonth()+1).padStart(2, '0'), yy = hom.getFullYear();
   const chuan = s => String(s).split(dd+'/'+mm+'/'+yy).join('{NGAY}').split(yy+'-'+mm+'-'+dd).join('{NGAY}')
-    .replace(new RegExp('ngày ([^0-9]{0,40})'+dd+'([^0-9]{1,40})tháng([^0-9]{1,40})'+mm+'([^0-9]{1,40})năm([^0-9]{1,40})'+yy, 'g'), 'ngày $1{D}$2tháng$3{M}$4năm$5{Y}')
+    .replace(new RegExp('ngày ([^0-9]{0,40})'+dd+'([^0-9]{1,40})tháng([^0-9]{1,40})'+mm+'([^0-9]{1,40})năm([^0-9]{1,40})'+yy, 'gi'), 'ngày $1{D}$2tháng$3{M}$4năm$5{Y}')
     .replace(/\bhm[a-z0-9]{8,}\b/g, '{HO}').replace(/\?v=[0-9.]+/g, '?v={BAN}');
   const o = {}; Object.keys(R.out).sort().forEach(k=>{ o[k] = chuan(R.out[k]); });
   return {out:o, loi:R.loi};

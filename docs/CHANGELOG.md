@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.223.1 — 17/10/2026 — Bảng kê: viết tắt KP
+- **Anh báo:** Bảng kê che mất chữ cuối dòng Địa chỉ ("tỉnh Tây N…"). **Anh chốt:** không thu nhỏ chữ trong mẫu đơn; Bảng kê chỉ cần viết tắt "khu phố" → "KP".
+- `gdxBKDC` (js/26) áp cho dòng Địa chỉ Bảng kê (từ Giấy lĩnh và nhập tay); Giấy lĩnh không đổi.
+- **Phép thử:** `tests/chuan_lay.js` chuẩn hóa cả "Ngày …" viết hoa (chuẩn khóa Giấy lĩnh không lệch theo ngày chạy); ghi lại chuẩn `gdx_gl_104/105`.
+- Kèm kế hoạch: `docs/KE_HOACH_3224_SCAN.md`, `docs/KE_HOACH_3225_LUU.md`, `docs/RA_SOAT_CHU_DAI.md` (rà từng ô: xuống dòng / thu nhỏ / viết ngắn — chờ anh ghi ý).
+
 ## 3.223 — 16/10/2026 — Bản lớn: mẫu đúng form gốc trên nền ô, sổ hộ vay đủ cột, lưu an toàn (M0–M8)
 - **Anh chốt (16/10, `docs/KE_HOACH_BAN_LON.md`):** mọi chỗ chấm thành ô tùy biến; 3 kiểu in trắng / thật / mẫu; xem luôn đúng form Word gốc, chữ dài thu nhỏ + báo; giữ file gốc để so; mỗi mẫu là mô-đun cắm / rút riêng; 10C, 11 cũ / mới là mẫu độc lập (chip riêng, bỏ chọn theo ngày); ngày Hồ sơ Tổ mặc định chấm; thêm 10D (phương án a); 01/BG, 02/BG, bản điện thoại để sau.
 - **M0 chuẩn:** `tests/mau_goc/` 17 file Word đã làm sạch + `so_do.json` (`tools/domau.py`, bỏ bản trùng hộp chữ `mc:Fallback`); `tests/chuan/` bản in khóa; **t179** so từng ký tự, **t180** so với gốc (chữ NFC, số trang, lề, vị trí dòng — bắt buộc với mẫu trong `khop.json`), **t181** chồng khít trắng / thật / mẫu.

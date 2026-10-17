@@ -949,6 +949,7 @@ function gdxBKNhom(v){ v = +v || 0; if(!v) return ['', '', '', '']; var s = Stri
 /* 3.193 (anh): 🧾 Bảng kê = mẫu độc lập (mẫu trắng) — mỗi dòng theo ⚙ Khai báo riêng: có chữ thì in, để trống = chấm ghi tay; bảng mệnh giá để trắng.
    Chữ chìm = logo đã nạp ở 📄 Hồ sơ vay (khác Giấy lĩnh: chữ VBSP). */
 function gdxLogo(){ return typeof hsoLogoSrc==='function' ? hsoLogoSrc() : ''; }   /* 3.194: logo NHCSXH có sẵn (hoặc logo anh nạp) */
+function gdxBKDC(s){ return s ? String(s).replace(/(^|[\s,])khu ph\u1ed1(?=\s)/gi, '$1KP') : s; }   /* 3.223.1 (anh 17/10): Bảng kê khổ nhỏ — viết tắt "khu phố" → "KP" cho đủ 1 dòng (không thu nhỏ chữ) */
 function gdxBKTrang(c, g){   /* g = dữ liệu Giấy lĩnh (3.194: in từ tab Giấy lĩnh) — có g: họ tên, địa chỉ, nội dung, ngày, số tiền theo Giấy lĩnh, tự chia mệnh giá */
   c = c || gdxC();
   var tien = g ? +String(g.tien||'').replace(/\D/g, '') || 0 : 0, chu = tien ? gdxDocTien(tien) : '', ch = tien ? gdxBKChia(tien) : null;
@@ -960,8 +961,8 @@ function gdxBKTrang(c, g){   /* g = dữ liệu Giấy lĩnh (3.194: in từ tab
   return '<div class="bk-trang bk-to">'+(mc==='tat' ? '' : logo ? '<img class="bk-chim bk-logo chim-'+mc+'" src="'+logo+'" alt="">' : '<div class="bk-chim">VBSP</div>')+
     '<div class="bk-dau"><div class="bk-nh"><div>'+gdxE(c.bkCQ1||'')+'</div><div>'+gdxE(c.bkCQ2||'')+'</div>'+(c.bkPGD ? '<div class="bk-pgd"><b>PHÒNG GIAO DỊCH: '+gdxE(String(c.bkPGD).toUpperCase())+'</b></div>' : '<div class="gl-r bk-pgd"><b>PHÒNG GIAO DỊCH:</b>'+gdxGLO('')+'</div>')+'</div>'+   /* 3.195 (anh): tên PGD liền khối cùng font, cùng cỡ với "PHÒNG GIAO DỊCH:"; bỏ trống trong khai báo mới hiện chấm */
       '<div class="bk-tit"><div class="bk-t1">BẢNG KÊ</div><div class="bk-t2">CÁC LOẠI TIỀN NGÂN HÀNG CHI RA</div><div class="bk-ngay">Ngày '+o(p[2], '6mm')+' tháng '+o(p[1], '6mm')+' năm '+(p[0] ? '<span class="gl-vn">'+p[0]+'</span>' : '20'+o('', '6mm'))+'</div></div></div>'+
-    (g ? r('Họ và tên người lĩnh tiền:', g.ten, 'bk-ten')+r('Địa chỉ:', g.diaChi)+r('Nội dung:', c.glND==null ? 'Rút tiền' : c.glND)
-       : r('Họ và tên người lĩnh tiền:', c.bkTen, 'bk-ten')+r('Địa chỉ:', c.bkDC)+r('Nội dung:', c.bkND))+
+    (g ? r('Họ và tên người lĩnh tiền:', g.ten, 'bk-ten')+r('Địa chỉ:', gdxBKDC(g.diaChi))+r('Nội dung:', c.glND==null ? 'Rút tiền' : c.glND)
+       : r('Họ và tên người lĩnh tiền:', c.bkTen, 'bk-ten')+r('Địa chỉ:', gdxBKDC(c.bkDC))+r('Nội dung:', c.bkND))+
     '<table class="bk-bang"><colgroup><col style="width:19mm"><col style="width:13mm"><col><col><col><col></colgroup><thead><tr><th>Loại tiền</th><th>Số lượng</th><th colspan="4">Thành tiền</th></tr></thead><tbody>'+dong+
       '<tr class="bk-tong"><td><b>Tổng cộng</b></td><td></td>'+o4(ch ? tien - ch.du : 0)+'</tr>'+
       '<tr class="bk-chu"><td colspan="6"><div class="gl-r"><span class="gl-n"><i>Số tiền bằng chữ:</i></span>'+(chu ? '<span class="gl-v gl-bc1">'+gdxE(chu)+'</span>' : gdxGLO(''))+'</div><div class="gl-r">'+(chu ? '<span class="gl-c gl-bc2"></span>' : gdxGLO(''))+'</div></td></tr></tbody></table>'+
