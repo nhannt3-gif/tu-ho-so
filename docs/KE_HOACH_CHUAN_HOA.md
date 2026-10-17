@@ -95,5 +95,11 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     - **C. Đề nghị vay:** *Số tiền vay*, *vốn tự có* thường khai sẵn trong khai báo riêng, **hiện mờ** trong ô. *Để thực hiện phương án*: theo chương trình (HSSV, NS cố định) — **chỉ chọn**. *Bảng đối tượng*: chọn 1 công trình Nước sạch, 1 công trình Vệ sinh, hoặc cả 2; **mặc định 25 triệu / 1 công trình**, ít khi đổi — đổi thì sửa tay. *Thời hạn vay* cố định **60 tháng**, *phân kỳ* **12 tháng** — khai 1 lần trong khai báo riêng của mẫu.
     - **D, E (sau phần người vay — UBND xác nhận, Ngân hàng phê duyệt):** mặc định **chấm chấm** (ghi tay).
     - **01/TD → 03/TD:** dựa vào các 01/TD đã lập để **điền sang 03/TD tương ứng**.
-  - (chờ anh trả lời các câu hỏi về 01/TD ở tin nhắn 17/10)
+  - **Ý 5 (17/10) — 2 file 01/TD mẫu anh gửi** (HSSV, NSVSMT 50 tr xây mới; có dữ liệu khách thật → **chỉ đọc làm khuôn, KHÔNG đưa vào repo**). Rút ra:
+    - Mỗi **chương trình** là 1 **bộ mặc định** (khai báo được): tên chương trình in trên giấy · câu "Để thực hiện phương án" · dòng bảng đối tượng · vốn tự có · thời hạn · kỳ hạn · có / không khối "Xác nhận của UBND xã".
+    - **HSSV:** "Học sinh sinh viên" · phương án "Chi phí học tập, sinh hoạt" · bảng 1 dòng "Chi phí học tập, sinh hoạt cho sinh viên: <tên SV>" · số lượng "<n> tháng" · thời hạn xin vay **chấm** · kỳ hạn 12 tháng/lần · **có** khối UBND xã xác nhận (Ông/bà … · Chủ tịch ký, đóng dấu).
+    - **NSVSMT:** "Cấp nước sạch và vệ sinh môi trường nông thôn" · phương án "Xây mới công trình cấp nước, công trình vệ sinh" · bảng "Công trình cấp nước — 01 công trình — 25.000.000" và / hoặc "Công trình vệ sinh — 01 công trình — 25.000.000" · tự có 5.000.000 · thời hạn 60 tháng · kỳ hạn 12 · **không** có khối UBND.
+    - Người vay: năm sinh ghi đủ ngày (dd/mm/yyyy) · nơi cấp CCCD · "ấp …, xã …, tỉnh …" · "do ông (bà) <tổ trưởng> làm tổ trưởng" · "Thuộc tổ chức <Hội> quản lý".
+    - Phê duyệt của Ngân hàng: toàn bộ chấm (ghi tay).
+  - (chờ anh trả lời câu hỏi về 2 file mẫu ở tin nhắn 17/10)
 
