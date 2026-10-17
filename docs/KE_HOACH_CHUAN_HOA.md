@@ -72,3 +72,10 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
 - 17/10: **R3 phần 1 = 3.235**: `22-so-lieu.js` tách 10 file theo khối (KTGS `22b…22e`, Tra cứu `22f`, Tổ `22g`, Cấp hội · Sao kê `22h`, Tổng hợp `22i`, khuôn Word `js/22k-kt-khuon.js`), nguyên văn, đúng thứ tự nạp. Tiếp: **R3 phần 2** (nạp khi dùng: khuôn + khối KTGS).
 - 17/10: **R3 phần 2 = 3.236**: khuôn Word KTGS `js/khuon/kt-khuon.js` nạp khi dùng (`ktKhuon`) — JS lúc mở app 3.430 → 2.950 KB. Khối code KTGS vẫn nạp lúc mở (nhiều lối gọi) → làm sau R4 khi có sổ đăng ký. Tiếp: **R4**.
 - 17/10: **R4 phần 1 = 3.237**: phép thử nhanh `tests/nhanh/` (node, nạp cả app với DOM giả, 26 phép thử < 0,2 giây, `kiem.py` tự chạy) — bắt được lỗi `coChuHTML` không thoát `"` (133 chỗ trong thuộc tính), đã sửa. Tiếp: **R4 phần 2** sổ đăng ký cài đặt.
+
+## Hồ sơ vay — hướng B (anh chốt hướng 17/10, logic chi tiết anh nói dần — CHƯA CODE)
+- Hiện trạng (3.237): mọi tab mẫu (01/UQ, 01/TD, 01/GQVL, 03/TD, 07b, 01/TGTV, 09A, 01/TĐCK) có khối 👪 chọn hộ + ＋ Hộ mới + ＋ Lấy từ Mẫu 31 → trùng Sổ hộ vay; anh: "không đúng".
+- Hướng B: **đi từ hộ** — 📒 Sổ hộ vay là màn làm việc chính: tích hộ → 📄 Lập hồ sơ → chọn các mẫu cần → in / lưu một lượt. Tab mẫu: in mẫu trắng + khai báo riêng mẫu (khai báo trực quan, chọn nhanh).
+- Logic từng phần (ghi theo lời anh, ngày):
+  - (chờ anh)
+

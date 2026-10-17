@@ -170,6 +170,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t196.js` | 3.234 R2: bộ nhận lệnh data-lenh, ô rộng theo loại, bộ nút xuất (thứ tự, mờ không ẩn, Ctrl+P, Lưu vào app), lùi / tiến tab và mẫu, ◀ đóng hộp, hộp con giữ hộp cha, Sổ hộ vay theo data-lenh, hộ nhập bản cũ vẫn hiện khi lọc địa bàn, bảng trống có ✕ Bỏ lọc, tiêu đề bảng chế độ tối, Khai báo 390 px. |
 | `node tests/t197.js` | 3.236 R3 phần 2: khuôn Word KTGS không nạp lúc mở app, `ktDocx` tự tải (giữ cờ in 2 mặt), tải đúng 1 lần, Kế hoạch năm tự tải trước khi xem. |
 | `node tests/nhanh/thu.js` | 3.237 R4: phép thử NHANH lớp Nghiệp vụ (node, không trình duyệt, < 1 giây; `kiem.py` tự chạy) — chuẩn hóa chữ / ngày, hạn CCCD, thiếu thông tin hộ, kiểm tra tuổi, địa bàn, tổng gói điện thoại, khối cài đặt, thoát HTML, bộ nút xuất. |
+| (3.238) | t196 thêm: Sổ hộ vay › Phóng to xem trong hộp, ＋ Hộ mới sau khi phóng to, mở hộp khi đang toàn màn hình. |
 | (3.235) | Tách `22-so-lieu.js`: không thêm phép thử — chạy lại t106, t108, t129, t134, t179–t181 (khóa bản in), t196 + hồi quy; ghép các file `js/22*` + `js/22k-kt-khuon.js` khớp từng byte bản cũ. |
 
 

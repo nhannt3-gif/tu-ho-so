@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.237** — chuẩn hóa R4 phần 1: phép thử nhanh lớp Nghiệp vụ `tests/nhanh/` (node, < 1 giây, `kiem.py` tự chạy); sửa `coChuHTML` thoát dấu `"`. Trước đó R3 (3.235 tách `js/22*`, 3.236 khuôn Word KTGS nạp khi dùng), R2 3.234 (`js/39-gd.js`), 3.231–3.233 📱 bản điện thoại. **Việc tiếp (`docs/KE_HOACH_CHUAN_HOA.md`):** R4 phần 2 — sổ đăng ký cài đặt (`D.cauHinh`: khối · mặc định → tìm khóa lạ). Chờ anh: thử máy thật 3.225–3.237, ngưỡng tạm 3.228, `RA_SOAT_CHU_DAI.md`, `GOP_Y_MAU.md`.
+- **`main` = 3.238** — sửa Sổ hộ vay › Phóng to che hộp ＋ Hộ mới. Trước đó R4 phần 1 (3.237 phép thử nhanh `tests/nhanh/`, `coChuHTML` thoát `"`), R3 (3.235–3.236), R2 3.234, 3.231–3.233 📱 điện thoại. **Đang bàn với anh:** Hồ sơ vay hướng B (đi từ hộ: Sổ hộ vay → Lập hồ sơ → chọn mẫu; tab mẫu bỏ khối chọn hộ) — anh nói logic dần, chưa code. **Việc tiếp:** R4 phần 2 sổ đăng ký cài đặt. Chờ anh: thử máy thật 3.225–3.238, ngưỡng tạm 3.228, `RA_SOAT_CHU_DAI.md`, `GOP_Y_MAU.md`.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.
