@@ -25,7 +25,7 @@ const path=require('path');
    const j2 = await KHO1.docChup(KHO1.dsChup()[0].id); ok('bản "trước khi khôi phục" giữ đúng bản sửa nhầm', j2.hsoKB.pgd.ten==='PGD Sửa Nhầm');
    /* 3. tự chụp trước khi nhận Drive */
    const n0 = KHO1.dsChup()[0].id; D.cauHinh.hsoKB.pgd.ten = 'PGD Trước Drive';
-   const src = String(dongBoCauHinh); ok('đồng bộ Drive: chụp trước khi áp bản Drive (mã)', /KHO1\.chup\('trước khi nhận cài đặt từ Drive'\)[\s\S]{0,120}chApDrive/.test(src));
+   const src = String(typeof CH_DB_CU!=='undefined' ? CH_DB_CU : dongBoCauHinh), srcK = typeof chKhoiDongBo==='function' ? String(chKhoiDongBo) : ''; ok('đồng bộ Drive: chụp trước khi áp bản Drive (mã — đường cũ + đường theo khối 3.226)', /KHO1\.chup\('trước khi nhận cài đặt từ Drive'\)[\s\S]{0,120}chApDrive/.test(src) && (!srcK || (/KHO1\.chup\('trước khi nhận cài đặt từ Drive'\)/.test(srcK) && /chup\(\); doi \+= chApDrive/.test(srcK))));
    localStorage.removeItem('tuhoso_chup'); await KHO1.chupNgay(); ok('tự lưu hằng ngày: chưa có bản hôm nay → chụp', KHO1.dsChup().length===1 && KHO1.dsChup()[0].ly==='tự lưu hằng ngày');
    await KHO1.chupNgay(); ok('đã có bản hôm nay → không chụp thêm', KHO1.dsChup().length===1);
    /* 4. tab 💾 Sao lưu */
