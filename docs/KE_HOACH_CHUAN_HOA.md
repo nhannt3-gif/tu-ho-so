@@ -107,5 +107,10 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     2. **HSSV:** anh **gõ số tháng** và **gõ số tiền** của dòng sinh viên; số tiền đó **điền sang số tiền xin vay** (không tính theo mức / tháng).
   - **Ý 8 (17/10):** **nơi cấp CCCD tự điền theo ngày cấp** — từ 01/07/2024 "Bộ Công an", trước đó "Cục CS QLHC" (dùng lại `hsoNoiCapGY` có sẵn). Câu đề nghị **ghi đúng mẫu gốc**: "Đề nghị cho vay số tiền" (bỏ biến thể "Đề nghị NHCSXH cho vay" theo thẻ chương trình).
   - **Ý 9 (17/10):** tên sinh viên (HSSV): hộ có HSSV trong sổ thì chọn; **gõ tay** (thủ công / hộ chưa khai HSSV) thì anh tự gõ tên — ô luôn gõ được.
-  - (01/TD đủ ý — chờ anh duyệt kế hoạch 01/TD + nói 03/TD)
+  - **Ý 10 (17/10) — bộ 01 + 03 + 06:**
+    1. Gõ xong 01/TD → **nút "In Mẫu 03" ngay cạnh** → app **điền sang 03/TD** — thông tin 01/TD qua 03/TD **đủ**.
+    2. Thêm **Mẫu 06** → in **1 lần cả bộ 01 + 03 + 06**.
+    3. **Giấy ủy quyền (01/UQ)** còn vướng **thành viên / thừa kế** → anh **khai trước** ở 📒 Sổ hộ vay (thêm hộ vay); lúc lập UQ **chọn hộ từ sổ**.
+    4. **03/TD thủ công** (không qua 01/TD) vẫn lập được — gõ / chọn tương tự như 01/TD.
+  - (chờ anh xác nhận: 03/TD 1 hộ hay gom nhiều hộ; Mẫu 06 là Mẫu 06/TD nào)
 
