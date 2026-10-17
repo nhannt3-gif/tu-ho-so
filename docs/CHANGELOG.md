@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.245 — 18/10/2026 — Giao dịch xã: bỏ dòng chip tóm tắt; sửa bản mini
+- **Anh 18/10** (ảnh thanh dưới Giao dịch xã): "dòng chip này bỏ đi" → bỏ 📋 + dãy chip tóm tắt (điểm, số hộ · tiền, ngày phát, ngày ký, người lập, GĐ ký, số bản). Thanh dưới còn cảnh báo (nếu có) + nút In / PDF, nút canh phải. Chip vẫn tính (`gdxTom`) để ghi 📜 nhật ký in.
+- **Sửa lỗi 3.243:** bản Giao dịch xã mini (`js/27-mini-gdx.js`, chép hàm từ app lúc xuất) thiếu `gdxLien`, `gdxGachTay`, `GDX_GACH` → mở Mẫu 04 trong bản mini báo lỗi. Đã thêm vào danh sách chép (t168 bắt được).
+- Phép thử: t165 theo thanh dưới mới.
+
 ## 3.244 — 18/10/2026 — Form 01/TD: trả lại chọn SV và In kèm
 - Hồi quy 3.242 (t173, t178) phát hiện form lập 01/TD mới (3.242) đã bỏ sót 2 chức năng của cột cũ: **chip chọn sinh viên** khi hộ có nhiều SV (mỗi SV 1 đơn) và khối **In kèm** (03/TD, 10C, 01/UQ, 01/TGTV + cảnh báo 01/UQ thiếu thành viên / ngày sinh, CCCD + ngày họp tổ). Không được bỏ chức năng cũ khi anh chưa duyệt → đưa lại.
 - `js/25-ho-so.js`: tách 2 mảnh dùng chung `hsoTuySV(B, o)`, `hsoTuyKem(B, o, gq)` (cột cũ và form mới cùng gọi). `js/40-lap-01td.js`: chip SV ngay trên phần 2. Đề nghị vay (HSSV), khối In kèm sau dòng tự tính.

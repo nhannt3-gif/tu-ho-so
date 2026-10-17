@@ -1980,7 +1980,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.244', ds:[
+var CO_GI_MOI = {ban:'3.245', ds:[
+  ["🧾 Giao dịch xã: bỏ dòng chip tóm tắt 📋 ở thanh dưới — còn cảnh báo + nút In; sửa bản GDX mini xuất ra (3.243 thiếu hàm nét gạch)", "doiNgan(7)"],
   ["📝 Form 01/TD: đưa lại chip chọn sinh viên (hộ nhiều SV) và khối In kèm (03/TD · 10C · 01/UQ · 01/TGTV, cảnh báo UQ thiếu thành viên) — form mới 3.242 lỡ bỏ", "doiNgan(7)"],
   ["📄 Mẫu 04 Giao dịch xã: tên PGD (Gò Dầu) không rớt nửa xuống dòng; \"tại địa điểm:\" nối liền tên điểm GD; \"01 người\" liền; mục 2 không có người chưa được vay → nét gạch tay mảnh trên 3 dòng chấm (⚙ Khai báo riêng: Hiện / Ẩn)", "doiNgan(7)"],
   ["📝 Lập 01/TD theo thứ tự tờ giấy: Chương trình → Kính gửi → Người vay (gõ mới hoặc chọn từ Sổ / M31, Tab / Enter đi ô kế, ngày gõ liền số, nơi cấp tự điền) → Xã › Thôn › Tổ (Hội lọc tổ) → Đề nghị vay tự tính; 💾 Lưu, danh sách bản đã lưu, Làm trống, In / Gửi / Mẫu 03 hỏi lưu", "doiNgan(7)"],
@@ -1994,8 +1995,7 @@ var CO_GI_MOI = {ban:'3.244', ds:[
   ["🔧 Sửa: chữ có dấu nháy kép (\") trong tên, ghi chú, địa chỉ không còn làm vỡ ô nhập / nút (Sổ hộ vay, các bảng sửa thẳng ô)", "doiNgan(7)"],
   ["⚡ App mở nhẹ hơn ~470 KB: khuôn Word KTGS (Mẫu 06, 16, 04/BC-TH, Kế hoạch năm) chỉ tải khi mở 🛡 KTGS hoặc tạo Word — lần đầu cần mạng", "doiNgan(7)"],
   ["🧱 Bên trong: phần Số liệu (1,3 MB, 1 file) tách thành 9 file theo khối + khuôn Word KTGS riêng — chức năng, bản in giữ nguyên; chuẩn bị nạp theo tab cho app mở nhanh hơn", "doiNgan(7)"],
-  ["⬅ ➡ Lùi / tiến đúng bước mọi lúc: nút đầu trang, nút ◀ điện thoại, Back chuột, Alt+← / Alt+→ — lùi tab, tab con, mẫu Hồ sơ vay; ◀ khi đang mở hộp = đóng hộp", "doiNgan(7)"],
-  ["🧾 Bộ nút xuất thống nhất mọi nơi: Đóng · 🖨 In · 💾 Lưu vào app · PDF · Word · Excel · Gửi (nút không dùng được thì mờ, không ẩn); Ctrl+P = In, Ctrl+S = Lưu vào app", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["⬅ ➡ Lùi / tiến đúng bước mọi lúc: nút đầu trang, nút ◀ điện thoại, Back chuột, Alt+← / Alt+→ — lùi tab, tab con, mẫu Hồ sơ vay; ◀ khi đang mở hộp = đóng hộp", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
