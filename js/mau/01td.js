@@ -41,10 +41,10 @@
       {k:'nhNgayLai', n:'NH 5. Lãi trả hàng tháng vào ngày', p:'nh', l:'kb', md:'cham', nhanh:1},
       {k:'nhNgay', n:'Ngày tháng (Giám đốc ký)', p:'nh', l:'go', md:'cham', ngay:1, nhanh:1}],
     V:function(t, B){
-      var N = hsoBoNV(B), T = hsoBoT(B), A = hsoPA(B), tuCo = B ? hsoSo(B.tuCo) : 0, V = HSO.vay, hoi = B && T.hoi ? hsoBoHoiTen(T) : '';
+      var N = hsoBoNV(B), T = hsoBoT(B), A = hsoPA(B), tuCo = hsoTuCo(B), V = HSO.vay, hoi = B && T.hoi ? hsoBoHoiTen(T) : '';
       return {ct:B ? hsoCTTenIn(B.ct) : '', kinhGui:hsoPGD('kinhGui'), ten:N.ten, ns:hsoNgayVN(N.ns), cccd:N.cccd, ncap:N.ncap, noiCap:N.noiCap, thon:B ? N.ap : '', xa:B ? String(N.tenXa||'').replace(/^(xã|phường|thị trấn)\s+/i, '') : '',
         tt:B ? T.tt : '', hoi:String(hoi).replace(/^Hội\s+/, ''), tien:A.tien ? tdnTien(A.tien) : '', tienChu:A.tien ? hsoChuSo(A.tien) : '', md:A.md ? A.md+'.' : '', tong:A.tien ? tdnTien(A.tien+tuCo) : '',
-        tuCo:B && B.tuCo!=='' && B.tuCo!=null ? tdnTien(tuCo) : '', vay:A.tien ? tdnTien(A.tien) : '', th:A.th, ky:B ? A.ky : '', hanCuoi:B && B.hanCuoi || '', ngayKy:V.ngayKy, ubOng:N.ten,
+        tuCo:B && tuCo ? tdnTien(tuCo) : '', vay:A.tien ? tdnTien(A.tien) : '', th:A.th, ky:B ? A.ky : '', hanCuoi:B && B.hanCuoi || '', ngayKy:V.ngayKy, ubOng:N.ten,
         nhTien:A.tien ? tdnTien(A.tien) : '', nhTienChu:A.tien ? hsoChuSo(A.tien) : '', nhTH:A.th, nhKy:B ? A.ky : '', nhHan:B && B.hanCuoi || '', nhTra:V.nhTra, nhNgay:V.nhNgay, _A:A};
     },
     lap:function(t, B){
@@ -69,7 +69,7 @@
         P('- Địa chỉ cư trú: thôn '+o('thon', '...........................')+'  xã (phường) '+o('xa', '.............................')+' Tỉnh Tây Ninh.', J+T2+TR(2.4))+
         P('- Là thành viên Tổ TK&amp;VV do ông (bà) '+o('tt', '.................................................')+'  làm tổ trưởng.', J+T2+TR(2.4))+
         P('- Thuộc tổ chức Hội: '+o('hoi', '...........................................................................')+' quản lý', J+T2+TR(2.4))+
-        P('2. Đề nghị '+(C.nhcsxh ? 'NHCSXH ' : '')+'cho vay số tiền: '+o('tien', '.................................................')+' đồng', J+TR(2.4))+
+        P('2. Đề nghị cho vay số tiền: '+o('tien', '.................................................')+' đồng', J+TR(2.4))+
         P('(Bằng chữ'+o('tienChu', '........................................................................................................................', {lay:function(v){ return ': '+v; }})+' )', J+'padding-left:9.6mm;'+TR(2.4))+
         P('Để thực hiện phương án:'+o('md', '...................................................................................................', {lay:function(v){ return ' '+v; }}), J+'padding-left:9.6mm;'+TR(2.4))+
         P('Tổng nhu cầu vốn: '+o('tong', '........................................')+' đồng. Trong đó:', J+T2+TR(2.4))+

@@ -4,6 +4,24 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.242 — 17/10/2026 — Form lập 01/TD theo những gì anh đã chốt (ý 1–19)
+- **Anh 17/10:** "Mau01TD em làm vẫn chưa theo những gì đã chốt" → em báo kế hoạch form, anh "ok".
+- **Form mới** `js/40-lap-01td.js` (`L01`, thay khung nhập 01/TD cũ trong `hsoTuyVay`), đi đúng thứ tự tờ giấy:
+  1. Thanh: tên bản + Làm trống · 💾 Lưu · 🖨 In · 📤 Gửi · 📄 Mẫu 03.
+  2. Chương trình cho vay (chip theo thẻ chương trình) — **không có GQVL** (anh 17/10: GQVL dùng mẫu riêng 01/GQVL, tránh nhầm).
+  3. Kính gửi (cố định theo PGD).
+  4. **1. Người vay**: chọn từ 📒 Sổ hộ vay hoặc Lấy từ M31; hoặc gõ mới (họ tên, năm sinh, CCCD, ngày cấp) → tự thêm hộ mới vào Sổ (một nguồn). Ngày gõ liền số (150378 → 15/03/1978). **Nơi cấp tự điền** theo ngày cấp: từ 01/7/2024 "Bộ Công an", trước đó "Cục CS QLHC". Hộ cũ (mã KH) khóa ô nhân thân, đọc Mẫu 31.
+  5. Địa chỉ **Xã → Thôn → Tổ**: xã anh quản lý lên đầu; chọn Hội thì chỉ còn tổ của Hội; chọn tổ → tổ trưởng, Hội tự hiện.
+  6. **2. Đề nghị vay**: dòng tự tính đề nghị = vốn vay (kèm bằng chữ), tổng nhu cầu = vay + tự có.
+  7. Phần UBND / Ngân hàng để chấm như mẫu.
+  8. **📂 Bản 01/TD đã lưu** dưới form: tên tự đặt = tên không dấu + tổ + ấp; bấm để mở lại.
+- **In / Gửi / Mẫu 03** khi có thay đổi chưa lưu → hỏi "Lưu bản 01/TD này trước?".
+- **Phím** (QUY_CHUAN mục 11): Tab / Enter sang ô kế, ↑↓ đổi lựa chọn trong ô chọn (áp ngay), Esc lên một cấp — form dùng bộ phím chung (`div.phim-chung`, `js/06-hop-thoai.js`).
+- **Thẻ chương trình** (khai báo): thêm *Lựa chọn loại công trình* (`loaiDs`, mặc định Xây mới · Sửa chữa — anh thêm Cải tạo khi cần) và *Vốn tự có mặc định* (`tuCo`, NSVSMT 5.000.000). Bỏ tick "NHCSXH" — câu đề nghị theo mẫu gốc "2. Đề nghị cho vay số tiền".
+- NSVSMT để trống số tiền công trình → lấy số tiền mặc định thẻ (25 triệu / công trình). Vốn tự có trống → mặc định thẻ (form hiện mờ), tính vào tổng nhu cầu và bản in.
+- Dữ liệu cũ: mã loại `moi` / `sua` vẫn đọc (`hsoLoaiChu`).
+- **Chuẩn khóa:** `hsv_01td_gm`, `hsv_01td_so` ghi lại (chỉ bỏ chữ "NHCSXH").
+
 ## 3.241 — 17/10/2026 — Mẫu 04 Giao dịch xã canh chuẩn văn bản
 - **Anh 17/10:** rà Mẫu 04 GDX — lề chuẩn trên 2 · dưới 2 · trái 3 · phải 2 cm (chuẩn chung cho văn bản Word, trừ trường hợp đặc biệt thiếu chỗ); gạch dưới "PGD …" dài hơn chữ; 2 nét gạch mảnh lại; "THÔNG BÁO" nhỏ hơn "KẾT QUẢ PHÊ DUYỆT"; giãn ngày – tiêu đề – kính gửi – thân; chiều ngang hơi bè. Em đo, báo số, anh chốt: gạch ½ chữ, tiêu đề 15 pt.
 - `js/26-giao-dich-xa.js` (`GDX_CSS`, khuôn 04):
