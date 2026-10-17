@@ -116,5 +116,6 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
     1. Thường **03/TD in 1 hộ** (hộ vừa gõ 01/TD).
     2. **Lưu 01/TD:** mặc định đặt tên **theo tên hộ vay, gắn tổ** (vd "Nguyễn Văn A — Tổ …"), vào danh sách 01/TD đã lưu.
     3. Cần 03/TD **nhiều hộ**: mở Mẫu 03 → **"＋ Thêm hộ"** chọn từ các **01/TD đã lưu** → thêm dòng.
-  - (chờ anh xác nhận Mẫu 06 là Mẫu 06/TD nào)
+  - **Ý 12 (17/10):** **Mẫu 06/TD** = mượn bộ code **Mẫu 06 bên KTGS** (gọi đúng hàm KTGS như 09A in kèm 06/TD từ 3.206 — **không chép / sửa mẫu KTGS**, KTGS khóa mẫu), trong Hồ sơ vay gọi là "Mẫu 06/TD".
+  - **Đủ ý bộ 01 + 03 + 06 — chờ anh nhắn "code".**
 
