@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.250 — 18/10/2026 — 01/TD cân lại chỗ ký UBND / NH
+- **Anh 18/10:** "chỗ ký UB cũng không nhỏ quá, bớt 2 dòng là hơi nhiều, UB ký sẽ bị đè chữ".
+- `js/mau/01td.js`: dưới khối UBND 3 → 4 dòng trống (so với gốc 5 chỉ bớt 1); chỗ ký NH chừa sẵn 3 → 2 dòng trống (anh dặn "ít nhất 2 dòng") + phần trống cuối trang.
+- Đo PDF trường hợp nặng nhất (tên SV dài 3 dòng, in sẵn UBND + NH): 1 trang, chỗ ký NH ~2,5 cm; HSSV thường, NSVSMT, bản trắng đều 1 trang.
+- Chuẩn khóa `hsv_01td_*` ghi lại.
+
 ## 3.249 — 18/10/2026 — 01/TD chỗ ký NH; gạch tiêu ngữ vừa chữ
 - **Anh 18/10** (ảnh bản in 01/TD in sẵn UBND + NH):
   - "chỗ ký của NH quá ngắn, thêm ít nhất 2 dòng, tiết kiệm từ các chỗ khác, chỗ dưới UB giảm 1–2 dòng";
