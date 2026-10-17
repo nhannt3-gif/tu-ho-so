@@ -60,10 +60,12 @@ function gxHen(){ if(!D.cauHinh.gxBat) return; clearTimeout(GX_HEN); D.cauHinh.g
 var GX_SLGHI = slGhi;
 slGhi = function(kq){ return GX_SLGHI(kq).then(function(r){ if(kq && kq.loai==='hstd') gxHen(); return r; }); };
 setInterval(function(){ if(D.cauHinh && D.cauHinh.gxBat && D.cauHinh.gxCho && typeof DR!=='undefined' && DR.sanSang) gxDay(false); }, 60000);   /* chưa nối Drive lúc nạp → nối là đẩy */
-function gxKBHTML(){   /* ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại */
+function gxKBHTML(){   /* ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại — 3.234: nút theo chuẩn data-lenh */
+  if(!gxKBHTML.dk){ gxKBHTML.dk = 1; GD.dangKy('gx', {bat:function(el){ D.cauHinh.gxBat = el.checked ? 1 : 0; luu(); (el.checked ? gxDay(true) : Promise.resolve()).then(function(){ hsoKBHop('sl'); }); },
+    day:function(){ gxDay(true).then(function(){ hsoKBHop('sl'); }); }}); }
   var C = D.cauHinh;
   return '<div class="hso-kb-nhom"><b>📱 Bản điện thoại</b> <small>(mở cùng đường dẫn trên điện thoại → tự chuyển giao diện điện thoại; số liệu lấy từ Drive)</small>'+
-    '<label class="hso-o2"><input type="checkbox"'+(C.gxBat ? ' checked' : '')+' onchange="D.cauHinh.gxBat=this.checked?1:0;luu();if(this.checked)gxDay(true);hsoKBHop(\'sl\')"> Tự đẩy số liệu xem cho điện thoại mỗi lần nạp Mẫu 31 mới</label>'+
+    '<label class="hso-o2"><input type="checkbox" data-lenh="gx.bat" data-su="change"'+(C.gxBat ? ' checked' : '')+'> Tự đẩy số liệu xem cho điện thoại mỗi lần nạp Mẫu 31 mới</label>'+
     '<div class="sl-phu">'+(C.gxLuc ? 'Lần đẩy gần nhất: '+kbGioVN(C.gxLuc)+' · '+slKyChu(C.gxKy)+' · '+(C.gxSo||0)+' khách' : 'Chưa đẩy lần nào.')+(C.gxCho ? ' · ⏳ đang chờ nối Drive' : '')+'</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="gxDay(true).then(function(){ hsoKBHop(\'sl\'); })">📤 Đẩy ngay</button></div></div>';
+    GD.hang([GD.nut({chu:'📤 Đẩy ngay', lenh:'gx.day'})])+'</div>';
 }

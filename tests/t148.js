@@ -18,7 +18,7 @@ const fs=require('fs'), path=require('path');
    slDoiTab('th'); doiNgan(7); for(let i=0;i<60 && !TH_K;i++) await w(250); await w(300);
    thXem(); for(let i=0;i<40 && !document.getElementById('th-khung');i++) await w(250); await w(800);
    const nut = () => [...document.querySelectorAll('#hop-in .xuat-hang button')].map(x=>x.textContent.trim());
-   ok('Tổng hợp: Đóng · 🖨 In · 📄 PDF · 📊 Excel · 📤 Gửi (không Word)', nut().join('|')==='Đóng (Esc)|🖨 In|📄 PDF|📊 Excel|📤 Gửi', nut().join('|'));
+   ok('Tổng hợp: Đóng · 🖨 In · 📄 PDF · 📝 Word (mờ — 3.234 không ẩn) · 📊 Excel · 📤 Gửi', nut().join('|')==='Đóng (Esc)|🖨 In|📄 PDF|📝 Word|📊 Excel|📤 Gửi' && document.querySelector('#hop-in .xuat-word').disabled, nut().join('|'));
    const bs = [...document.querySelectorAll('#hop-in .xuat-hang button')], x0 = b => Math.round(b.getBoundingClientRect().left);
    ok('Đóng bên trái, 📤 Gửi bên phải cùng', x0(bs[0]) < x0(bs[1]) && x0(bs[bs.length-1]) === Math.max.apply(null, bs.map(x0)));
    ok('tên PDF: TongHop_… _T08-26', /_T08-26$/.test(XUAT.ten), XUAT.ten);

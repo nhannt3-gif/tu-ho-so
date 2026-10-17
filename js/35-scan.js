@@ -35,9 +35,9 @@ scanXongHop = function(bl){
     '<label class="xp-ten">Tên file <input id="sx-ten" value="'+coChuHTML(SX.ten)+'" onfocus="this.select()" onchange="SX.ten=this.value"></label>'+
     '<div class="sx-luoi">'+
       o('in', '🖨', 'In', laThe ? 'đúng khổ thẻ' : 'A4', 'scanIn()')+
-      o('may', '💾', 'Lưu vào máy', 'chỉ ra file PDF, không lưu vào app', 'scanLuuMay()')+
-      o('app', '🗂', 'Lưu vào app', 'vào ⏳ Chờ khai báo — khai xã, ấp, tổ sau', 'scanLuuApp()')+
+      o('app', '🗂', 'Lưu vào app', 'vào ⏳ Chờ khai báo — khai xã, ấp, tổ sau', 'scanLuuApp()')+   /* 3.234: thứ tự chuẩn In · Lưu vào app · Lưu vào máy · Gửi */
       o('tu', '🗄', 'Lưu vào app + khai ngay', 'chọn khách: mã KH + tên + ấp', 'scanLuuTuHop()')+
+      o('may', '💾', 'Lưu vào máy', 'chỉ ra file PDF, không lưu vào app', 'scanLuuMay()')+
       o('gui', '📤', 'Gửi Zalo', laMayBan() ? 'tải file, kéo vào Zalo' : 'bảng chia sẻ', 'scanGui()')+
     '</div>'+
     '<div class="hop-phu">Chưa lưu gì cho tới khi anh bấm Lưu. Bản lưu vào app chỉ lên Drive khi đã khai đủ địa bàn.</div>'+
@@ -112,11 +112,11 @@ xemKA2 = function(){
         'oninput="KA.ten=this.value;KA.tenLuc=Date.now();document.getElementById(\'ka-tf\').textContent=\'→ \'+tenFileKA(KA.loai,this.value)">'+
         '<span id="ka-tf">→ '+coChuHTML(tenFileKA(KA.loai, ten))+'</span></div>'+
       '<div class="xp-nut"><div class="hang-nut">'+
+        '<button class="nho xau" onclick="dongHop()">✕ Bỏ</button>'+   /* 3.234: Bỏ trái … Lưu vào app · Lưu vào máy · Gửi */
         '<button class="nho" onclick="veCatKA()">‹ Cắt lại</button>'+
-        '<button class="nho" onclick="kaLuuMay()">💾 Lưu vào máy</button>'+
-        '<button class="nho" onclick="kaGuiMoi()">📤 Gửi Zalo</button>'+
         '<button class="nho chinh sc-xong" onclick="luuKA()">🗂 Lưu vào app</button>'+
-        '<button class="nho xau" onclick="dongHop()">✕ Bỏ</button></div></div>', true);
+        '<button class="nho" onclick="kaLuuMay()">💾 Lưu vào máy</button>'+
+        '<button class="nho" onclick="kaGuiMoi()">📤 Gửi Zalo</button></div></div>', true);
     var e = document.getElementById('ka-ten2'); if(e && !e.value) e.focus();
   }).catch(function(e){ tatChay(); baoLoi('Không nén được ảnh: '+(e&&e.message||e)); });
 };

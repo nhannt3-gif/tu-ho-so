@@ -16,14 +16,17 @@ function xuatTen(loai, pv, ky){
    html có thì In / PDF / Copy dùng chung; in riêng (vd hỏi trước) thì truyền o.in */
 function xuatHang(o){
   XUAT = o || {};
-  var b = function(lop, js, chu, tit){ return '<button class="nho'+(lop ? ' '+lop : '')+'" onclick="'+js+'"'+(tit ? ' title="'+tit+'"' : '')+'>'+chu+'</button>'; };
-  var coHTML = typeof XUAT.html==='function';
+  /* 3.234 (R2 — KE_HOACH_CHUAN_HOA mục 5): bộ nút chuẩn, thứ tự cố định: Đóng … 🖨 In · [💾 Lưu vào app] · 📄 PDF · 📝 Word · 📊 Excel · 📤 Gửi
+     — loại không có thì nút MỜ (không ẩn → bố cục không nhảy); Lưu vào app chỉ hiện ở chỗ có lưu kho (XUAT.vaoApp). Ctrl+P In · Ctrl+S Lưu vào app (js/39). */
+  var b = function(lop, js, chu, tit){ return '<button class="nho'+(lop ? ' '+lop : '')+'"'+(js ? ' onclick="'+js+'"' : ' disabled')+(tit ? ' title="'+tit+'"' : '')+'>'+chu+'</button>'; };
+  var coHTML = typeof XUAT.html==='function', khong = function(ten){ return 'Mẫu này không xuất '+ten; };
   return '<div class="hang-nut xuat-hang">'+
     b('', XUAT.dong || 'dongHop()', XUAT.dongChu || 'Đóng (Esc)')+(XUAT.truoc || '')+
-    (XUAT.in || coHTML ? b('xuat-in', XUAT.in || 'xuatIn()', '🖨 In') : '')+
-    (XUAT.pdf || coHTML ? b('xuat-pdf', XUAT.pdf || 'xuatPDF()', '📄 PDF', 'Mở hộp in — chọn “Lưu dưới dạng PDF”, tên file điền sẵn') : '')+
-    (XUAT.word ? b('xuat-word', XUAT.word, '📝 Word') : '')+
-    (XUAT.excel ? b('xuat-excel', XUAT.excel, '📊 Excel') : '')+
+    b('xuat-in', XUAT.in || (coHTML ? 'xuatIn()' : ''), '🖨 In', 'In (Ctrl+P)')+
+    (XUAT.vaoApp ? b('xuat-app', XUAT.vaoApp, '💾 Lưu vào app', 'Lưu vào kho app, đồng bộ Drive (Ctrl+S)') : '')+
+    b('xuat-pdf', XUAT.pdf || (coHTML ? 'xuatPDF()' : ''), '📄 PDF', XUAT.pdf || coHTML ? 'Mở hộp in — chọn “Lưu dưới dạng PDF”, tên file điền sẵn' : khong('PDF'))+
+    b('xuat-word', XUAT.word || '', '📝 Word', XUAT.word ? 'Tải file Word (.docx)' : khong('Word'))+
+    b('xuat-excel', XUAT.excel || '', '📊 Excel', XUAT.excel ? 'Tải file Excel (.xlsx)' : khong('Excel — chỉ bảng số liệu chuẩn mới có Excel'))+
     b('chinh xuat-gui', 'xuatGui(event)', '📤 Gửi', 'Gửi file (Zalo…) hoặc chép ảnh / chữ để dán')+
   '</div>';
 }

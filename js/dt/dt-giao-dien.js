@@ -115,11 +115,12 @@ var DTG = (function(){
   function moMuc(loai, i, q){ var m = DT.locDS(loai, q)[i]; if(!m) return; if(!m.driveId) return app.dialog.alert('Mục này chưa lên Drive — mở ở máy tính đã quét / lưu.');
     var t = app.toast.create({destroyOnClose:true, text:'Đang tải…', position:'center'}); t.open();
     DT.taiFile(m.driveId).then(function(bl){ t.close(); var ten = (m.soHieu || m.ten || 'tep').replace(/[\\/:*?"<>|]+/g, '-')+(/pdf/.test(bl.type) || !bl.type ? '.pdf' : ''); tacVu(bl, ten, false); }, function(er){ t.close(); app.dialog.alert(e(er.message)); }); }
-  function tacVu(bl, ten, vaoApp){   /* bảng nút chuẩn: Xem · Lưu vào máy · Gửi · (Lưu vào app) */
+  function tacVu(bl, ten, vaoApp){   /* bảng nút chuẩn: Xem · (Lưu vào app) · Lưu vào máy · Gửi · Đóng */
     var url = URL.createObjectURL(bl), f = new File([bl], ten, {type:bl.type || 'application/pdf'});
-    var nut = [{text:'👁 Xem', onClick:function(){ window.open(url, '_blank'); }}, {text:'⬇ Lưu vào máy', onClick:function(){ var a = document.createElement('a'); a.href = url; a.download = ten; document.body.appendChild(a); a.click(); a.remove(); }}];
-    if(navigator.canShare && navigator.canShare({files:[f]})) nut.push({text:'📤 Gửi (Zalo…)', onClick:function(){ navigator.share({files:[f], title:ten}).catch(function(){}); }});
+    var nut = [{text:'👁 Xem', onClick:function(){ window.open(url, '_blank'); }}];   /* thứ tự chuẩn: Xem · Lưu vào app · Lưu vào máy · Gửi */
     if(vaoApp) nut.push({text:'💾 Lưu vào app (khay chờ)', onClick:function(){ DT.guiKhay(bl, ten).then(function(){ app.toast.create({destroyOnClose:true, text:'Đã đưa vào khay _Chờ xử lý — máy tính Nạp khay chờ để khai báo', closeTimeout:3000}).open(); }, function(er){ app.dialog.alert(e(er.message)); }); }});
+    nut.push({text:'⬇ Lưu vào máy', onClick:function(){ var a = document.createElement('a'); a.href = url; a.download = ten; document.body.appendChild(a); a.click(); a.remove(); }});
+    if(navigator.canShare && navigator.canShare({files:[f]})) nut.push({text:'📤 Gửi (Zalo…)', onClick:function(){ navigator.share({files:[f], title:ten}).catch(function(){}); }});
     app.actions.create({buttons:[nut.concat([{text:'Đóng', color:'red'}])]}).open(); }
   function trSCMoi(){ return trang('scmoi', {tieu:'Chụp → PDF', than:'<div class="block"><label class="button button-fill button-large">📷 Chụp / chọn ảnh<input type="file" id="dt-anh" accept="image/*" capture="environment" multiple style="display:none"></label></div>'+
     '<div class="block"><input type="text" id="dt-tenpdf" class="dt-o" placeholder="Tên file (vd: Nguyễn Văn A - CCCD)"></div><div class="dt-anh" id="dt-dsanh">'+anhHTML()+'</div>'+
