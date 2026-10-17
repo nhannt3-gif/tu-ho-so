@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.241 — 17/10/2026 — Mẫu 04 Giao dịch xã canh chuẩn văn bản
+- **Anh 17/10:** rà Mẫu 04 GDX — lề chuẩn trên 2 · dưới 2 · trái 3 · phải 2 cm (chuẩn chung cho văn bản Word, trừ trường hợp đặc biệt thiếu chỗ); gạch dưới "PGD …" dài hơn chữ; 2 nét gạch mảnh lại; "THÔNG BÁO" nhỏ hơn "KẾT QUẢ PHÊ DUYỆT"; giãn ngày – tiêu đề – kính gửi – thân; chiều ngang hơi bè. Em đo, báo số, anh chốt: gạch ½ chữ, tiêu đề 15 pt.
+- `js/26-giao-dich-xa.js` (`GDX_CSS`, khuôn 04):
+  - **Lề** (màn và in): 20 / 20 / 20 / 30 mm (trên / phải / dưới / trái) — trước 15 / 15 / 15 / 20 in, 18 / 18 / 18 / 25 màn. Bề ngang chữ 175 → 160 mm.
+  - **Gạch dưới tên PGD = ½ chữ** (NĐ 30): gạch nằm trong khung chữ tên PGD (`org-chu`), dài 50 % chữ, giữa chữ — đo: 12,7 mm (chữ 25,7 mm; trước ~27 mm).
+  - **Nét gạch mảnh** (PGD, tiêu ngữ, đầu 12/GDX): vẽ bằng vạch 1 px thu `scaleY(.55)` — Chrome làm tròn viền < 1 px lên 1 px nên đặt `.6px` không mỏng đi. Đo 600 dpi: ~0,45 pt (trước ~0,72 pt).
+  - **THÔNG BÁO / KẾT QUẢ PHÊ DUYỆT CHO VAY cùng 15 pt** (trước 15 / 16).
+  - **Khoảng cách**: ngày → tiêu đề 6,1 mm · tiêu đề → Kính gửi 6,1 mm · Kính gửi → thân 5,0 mm (trước 3,8 / 3,7 / 3,2).
+  - 12/GDX giữ lề hẹp riêng (bảng rộng); bảng kê, giấy lĩnh không đổi.
+- **Chuẩn khóa:** cập nhật `tests/chuan/gdx_m04`, `gdx_m12` (anh duyệt). t165 theo kiểu gạch mới.
+
 ## 3.240 — 17/10/2026 — 01/TD, 03/TD theo file mẫu anh gửi; 03/TD theo 01/TD; khai báo riêng mở / tắt
 - **Anh gửi 17/10:** 01/TD HSSV, 01/TD NSVSMT 50 tr, 03/TD HSSV (dữ liệu thật — chỉ đọc làm khuôn, không vào repo). Anh làm rõ luật **chồng khít**: giữ form như bản trắng, không xáo trộn nhiều, nhưng linh động — có số liệu cố gắng không tràn quá số dòng chấm, ít số liệu vẫn giữ dòng chấm; cỡ chữ có thể hạ chút nếu thiếu chỗ ký.
 - **01/TD** (`js/mau/01td.js`):

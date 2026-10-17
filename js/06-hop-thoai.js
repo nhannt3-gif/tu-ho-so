@@ -1980,7 +1980,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.240', ds:[
+var CO_GI_MOI = {ban:'3.241', ds:[
+  ["📄 Mẫu 04 Giao dịch xã canh chuẩn: lề trên 2 · dưới 2 · trái 3 · phải 2 cm; gạch dưới tên PGD bằng ½ chữ, 2 nét gạch mảnh; THÔNG BÁO và KẾT QUẢ PHÊ DUYỆT cùng cỡ; giãn ngày – tiêu đề – kính gửi – thân", "doiNgan(7)"],
   ["📄 01/TD, 03/TD in theo file mẫu anh gửi: tên HSSV dài xuống dòng (không thu nhỏ), giữ đủ dòng chấm như mẫu; chừa chỗ Chủ tịch UBND ký + đóng dấu; luôn 1 trang", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
   ["🔗 03/TD lấy số tiền, mục đích, thời hạn từ 01/TD của hộ (đổi chương trình bên 01/TD thì 03/TD đổi theo); phiếu hồ sơ cũ tự gắn vào Sổ hộ vay", "slDoiTab('hsv');doiNgan(7);hsoChonMau('03td')"],
   ["⚙ Khai báo riêng của mẫu có nút ▸ Mở / ▾ Tắt (mặc định tắt)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
@@ -1994,8 +1995,7 @@ var CO_GI_MOI = {ban:'3.240', ds:[
   ["🪟 Mở hộp từ hộp (vd form hộ → ⚙ khai báo luật): đóng hộp con quay lại hộp cha, chữ đang gõ còn nguyên", "doiNgan(7)"],
   ["📱 Điện thoại: 🏢 Giao dịch xã (04/TD · 12/GDX · Giấy lĩnh — bản mini máy tính đẩy kèm, mở trong app); thanh tab: Tra cứu · Địa bàn · Giao dịch · Tài liệu (Văn bản | Scan) · Cài đặt; chạy được khi mất mạng", "hsoKBHop('sl')"],
   ["📱 Điện thoại: 📄 Văn bản (danh sách từ Drive, lọc không dấu, mở · lưu · gửi Zalo; ＋ gửi file vào app = khay _Chờ xử lý) · 📷 Scan (danh sách, chụp / chọn ảnh → PDF A4 → xem · lưu máy · gửi · lưu vào app)", "hsoKBHop('sl')"],
-  ["📱 Bản điện thoại (kiểu iOS): mở cùng đường dẫn trên điện thoại → tự chuyển; khóa mã PIN, số liệu trong máy mã hóa; 🔎 tra cứu khách (tên không dấu, CCCD, SĐT) → nhân thân + tổ + món vay; 🗺 địa bàn PGD → Xã → Điểm → Hội → Tổ → Khách (dư nợ, hộ, tổ, món, quá hạn, khoanh)", "hsoKBHop('sl')"],
-  ["📤 Máy tính: ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại — bật để tự đẩy số liệu xem lên Drive mỗi lần nạp Mẫu 31 (hoặc 📤 Đẩy ngay)", "hsoKBHop('sl')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📱 Bản điện thoại (kiểu iOS): mở cùng đường dẫn trên điện thoại → tự chuyển; khóa mã PIN, số liệu trong máy mã hóa; 🔎 tra cứu khách (tên không dấu, CCCD, SĐT) → nhân thân + tổ + món vay; 🗺 địa bàn PGD → Xã → Điểm → Hội → Tổ → Khách (dư nợ, hộ, tổ, món, quá hạn, khoanh)", "hsoKBHop('sl')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
