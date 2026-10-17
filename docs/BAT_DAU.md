@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.235** — chuẩn hóa R3 phần 1: `js/22-so-lieu.js` tách 10 file theo khối (`22b…22e` KTGS, `22f` Tra cứu, `22g` Tổ, `22h` Cấp hội · Sao kê, `22i` Tổng hợp, `js/mau/kt-khuon.js` khuôn Word KTGS). Trước đó 3.234 R2 (`js/39-gd.js`: `data-lenh`, mảnh giao diện, lùi / tiến, hộp con, bộ nút xuất), 3.231–3.233 📱 bản điện thoại. **Việc tiếp (`docs/KE_HOACH_CHUAN_HOA.md`):** R3 phần 2 (nạp khi dùng: khuôn + khối KTGS) → R4 (phép thử nhanh lớp nghiệp vụ, sổ cài đặt). Chờ anh: thử máy thật 3.225–3.235, ngưỡng tạm 3.228, `RA_SOAT_CHU_DAI.md`, `GOP_Y_MAU.md`.
+- **`main` = 3.235** — chuẩn hóa R3 phần 1: `js/22-so-lieu.js` tách 10 file theo khối (`22b…22e` KTGS, `22f` Tra cứu, `22g` Tổ, `22h` Cấp hội · Sao kê, `22i` Tổng hợp, `js/22k-kt-khuon.js` khuôn Word KTGS). Trước đó 3.234 R2 (`js/39-gd.js`: `data-lenh`, mảnh giao diện, lùi / tiến, hộp con, bộ nút xuất), 3.231–3.233 📱 bản điện thoại. **Việc tiếp (`docs/KE_HOACH_CHUAN_HOA.md`):** R3 phần 2 (nạp khi dùng: khuôn + khối KTGS) → R4 (phép thử nhanh lớp nghiệp vụ, sổ cài đặt). Chờ anh: thử máy thật 3.225–3.235, ngưỡng tạm 3.228, `RA_SOAT_CHU_DAI.md`, `GOP_Y_MAU.md`.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.
