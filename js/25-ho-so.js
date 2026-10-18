@@ -1765,8 +1765,30 @@ function hsoGQTien(v){ var B = hsoBo(); if(!B) return; B.pa = B.pa || {}; var ds
 function hsoGQUT(i, v){ var B = hsoBo(); if(!B) return; B.pa = B.pa || {}; var u = B.pa.ut = B.pa.ut || [], k = u.indexOf(i); if(v && k<0) u.push(i); if(!v && k>=0) u.splice(k, 1); hsoBoLuu(); hsoVe(); }
 /* ---------- 3.209: cột trái 01/TD · 01/UQ · 03/TD · 01/TGTV theo hộ — chọn hộ → chọn chương trình → phương án → in (+ in kèm) ---------- */
 function hsoKemCo(B){ var k = (B && B.kem) || {}; return !!(k.ds || k.bb || k.uq || k.tgtv || k.hd); }
-function hsoUQThieu(B){   /* thành viên ≥ 18 tuổi thiếu ngày sinh / CCCD (giấy UQ) */
-  var r = []; (B.ho || []).forEach(function(x){ if(!x.ns || !x.cccd) r.push(x.ten); }); return r; }
+function hsoUQThieu(B){   /* thành viên ≥ 18 tuổi thiếu ngày sinh / CCCD (giấy UQ) — 3.256: bỏ người dưới 18 tuổi */
+  var r = []; (B.ho || []).forEach(function(x){ var tu = hsoTuoi(x.ns, HSO.vay.ngayLap); if(tu>=0 && tu<18) return; if(!x.ns || !x.cccd) r.push(x.ten); }); return r; }
+/* 3.256 (anh chốt 17/10, ý 10.3 — "code tiếp" 18/10): GIẤY ỦY QUYỀN 01/UQ chọn hộ từ 📒 Sổ hộ vay — thành viên / người thừa kế khai sẵn ở sổ.
+   Form đi đúng thứ tự giấy: hộ → I. ngày lập, số người, thành viên ≥ 18 tuổi → II. người được ủy quyền (= người đứng tên vay trong sổ, chung 01/TD) → bên ủy quyền → trưởng thôn chứng kiến. */
+function hsoTuoi(ns, ngay){ var d = hsoNg(ns), n = ngay ? hsoNg(ngay) : null, h = n ? new Date(+n.y, +n.m-1, +n.d) : new Date(); if(!d) return -1;
+  var t = h.getFullYear()-(+d.y); if(h.getMonth()+1<+d.m || h.getMonth()+1===+d.m && h.getDate()<+d.d) t--; return t; }
+function hmDatDung(id, i){ var o = hmTim(id); if(!o || !o.tv[i]) return; o.dung = +i; luu(); var B = hsoBo(); if(B && B.hoId===id) hmDongBo(o, B); hsoBoLuu(); hsoVe(); }
+function hsoTuyUQ(M, t){
+  var B = hsoBo(), o = B && B.hoId ? hmTim(B.hoId) : null, h = '<div class="nhan-nhom hso-kbr">✎ Nhập liệu — Mẫu 01/UQ <small>(theo thứ tự trên giấy)</small></div>';
+  if(B && !o) B = null; if(o) hmDongBo(o, B);
+  h += hsoTuyO('👪 Hộ (📒 Sổ hộ vay)', hsoChon('hmChonHo(this.value)', o ? o.id : '', [['', hmDs().length ? '— chọn hộ trong sổ ('+hmDs().length+') —' : '— sổ trống —']].concat(hmDs().map(function(x){ var n = x.tv[x.dung||0] || {}; return [x.id, (n.ten||'(chưa tên)')+(x.kh ? ' · '+x.kh : ' · hộ mới')+(hmToTen(x) ? ' · '+hmToTen(x) : '')]; }))))+
+    '<div class="hang-nut"><button class="nho" onclick="hmMo()">＋ Hộ mới</button><button class="nho" onclick="hmM31Hop()">＋ Lấy từ Mẫu 31</button>'+(o ? '<button class="nho chinh" onclick="hmMo(\''+o.id+'\')" title="Thêm / sửa thành viên, người thừa kế, ngày sinh, CCCD ở sổ">✎ Sửa thành viên ở sổ</button>' : '')+'</div>';
+  if(!o) return h+'<div class="sl-phu">Chưa chọn hộ → khung phải là mẫu trắng (in được ngay). Thành viên / người thừa kế khai ở 📒 Sổ hộ vay (＋ Hộ mới / ✎ Sửa).</div>'+hsoKBRieng(M.k, null);
+  var V = HSO.vay, tv = o.tv.map(function(x, i){ return {x:x, i:i, tuoi:hsoTuoi(x.ns, V.ngayLap)}; }).filter(function(r){ return r.x.ten; }), dung = o.dung || 0;
+  h += '<div class="nhan-nhom">I. Hộ gia đình</div>'+hsoTuyO('Ngày lập giấy', '<input type="date" value="'+coChuHTML(V.ngayLap||'')+'" onchange="HSO.vay.ngayLap=this.value;hsoVe()">')+'<div class="sl-phu">Trống = chấm ghi tay.</div>'+
+    hsoTuyO('Hộ gồm (người)', '<input inputmode="numeric" value="'+coChuHTML(B.soNguoi||'')+'" placeholder="'+tv.length+' (theo sổ) — trống = chấm" onchange="hsoBoDat(\'soNguoi\',this.value.replace(/\\D/g,\'\'),1)">');
+  h += '<div class="hso-tick-ds">'+tv.map(function(r, k){ var x = r.x, thieu = [!x.ns && 'ngày sinh', !x.cccd && 'CCCD'].filter(Boolean), nho = r.tuoi>=0 && r.tuoi<18;
+    return '<div>'+(r.i===dung ? '⭐ ' : '• ')+'<b>'+coChuHTML(x.ten)+'</b>'+(x.qh ? ' <small>· '+coChuHTML(x.qh)+'</small>' : '')+(x.ns ? ' <small>· '+hsoNgayVN(x.ns)+(r.tuoi>=0 ? ' ('+r.tuoi+' t)' : '')+'</small>' : '')+(x.cccd ? ' <small>· '+coChuHTML(x.cccd)+'</small>' : '')+
+      (nho ? ' <b class="hso-canh">dưới 18 tuổi — không vào giấy</b>' : thieu.length ? ' <b class="hso-canh">thiếu '+thieu.join(', ')+'</b>' : '')+'</div>'; }).join('')+'</div>';
+  var thieuAi = hsoUQThieu(B); if(!B.ho.length || thieuAi.length) h += '<div class="sl-bao vang hso-nhac">⚠ Giấy UQ cần đủ thành viên ≥ 18 tuổi (ngày sinh, CCCD)'+(thieuAi.length ? ' — thiếu: '+coChuHTML(thieuAi.join(', ')) : ' — hộ chưa có thành viên khác')+' <button class="nho" onclick="hmMo(\''+o.id+'\')">✎ Bổ sung ở sổ</button></div>';
+  h += '<div class="nhan-nhom">II. Người được ủy quyền</div>'+hsoTuyO('Cử ông (bà)', hsoChon('hmDatDung(\''+o.id+'\',this.value)', String(dung), tv.filter(function(r){ return !(r.tuoi>=0 && r.tuoi<18); }).map(function(r){ return [String(r.i), r.x.ten+(r.x.qh ? ' · '+r.x.qh : '')]; })))+
+    '<div class="sl-phu">= người đứng tên vay trong sổ (01/TD dùng chung). Thành viên còn lại là <b>Bên ủy quyền</b>.</div>';
+  var tt = hsoBoT(B).truongAp || ''; h += hsoTuyO('Trưởng thôn chứng kiến', '<span class="l01-tu">'+(tt ? coChuHTML(tt) : '— chưa khai (⚙ Khai báo đơn vị › Trưởng ấp) —')+'</span>');
+  return h+hsoKBRieng(M.k, {ubOng:B.nv.ten}); }
 function hsoTuyHo(M, t){
   var B = hsoBo(), o = B && B.hoId ? hmTim(B.hoId) : null, h = '';
   if(B && !o) B = null;
@@ -1858,6 +1880,7 @@ function hsoTuyVay(M, t, tv){
   var V = HSO.vay, B = hsoBo(), h = '';
   if(M.k==='sohv') return hmSoHTML();   /* 3.214 */
   if(M.k==='01td' && typeof L01!=='undefined') return L01.form(M, t);   /* 3.242: form lập 01/TD theo thứ tự tờ giấy (js/40-lap-01td.js) */
+  if(M.k==='01uq') return hsoTuyUQ(M, t);   /* 3.256: form Giấy ủy quyền theo thứ tự tờ giấy */
   if(/^(01uq|01td|01gqvl|07b)$/.test(M.k) && (!B || B.hoId)) return hsoTuyHo(M, t);   /* 3.209: in theo hộ (bộ cũ chưa gắn hộ → cách cũ) */
   if(M.k==='06td') return hsoTuy06();   /* 3.253 */
   if(M.k==='03td'){ var D3 = hsoD03(), oB = B && B.hoId && hmTim(B.hoId);   /* 3.209: 03/TD nhiều hộ; đi từ hộ đang làm → tự thêm hộ đó */

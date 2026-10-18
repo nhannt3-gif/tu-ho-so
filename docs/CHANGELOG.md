@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.256 — 18/10/2026 — Giấy ủy quyền 01/UQ chọn hộ từ Sổ
+- **Anh chốt 17/10 (ý 10.3):** Giấy ủy quyền vướng thành viên / thừa kế → khai trước ở 📒 Sổ hộ vay, lúc lập UQ chọn hộ từ sổ. 18/10: "code tiếp".
+- `js/25-ho-so.js` `hsoTuyUQ`: cột trái 01/UQ riêng, đi đúng thứ tự giấy, không còn chương trình / phương án vay của 01/TD.
+  - **Hộ:** chọn hộ trong sổ; ＋ Hộ mới; ＋ Lấy từ Mẫu 31; ✎ Sửa thành viên ở sổ.
+  - **I. Hộ gia đình:**
+    - ngày lập giấy (trống = chấm);
+    - số người (gợi ý theo sổ);
+    - danh sách thành viên có tuổi, quan hệ, CCCD; người dưới 18 tuổi ghi "không vào giấy"; thiếu ngày sinh / CCCD → ⚠ + nút bổ sung ở sổ.
+  - **II. Người được ủy quyền:** chọn trong các thành viên đủ 18 tuổi = người đứng tên vay trong sổ (`hmDatDung`, 01/TD dùng chung); còn lại là bên ủy quyền.
+  - **Trưởng thôn chứng kiến:** theo khai báo đơn vị.
+- `hsoTuoi(ngày sinh, ngày lập)`. `hsoUQThieu` và mẫu 01/UQ (`js/mau/01uq.js`) bỏ người dưới 18 tuổi.
+- Phép thử: **t203 mới** (8 phép).
+
 ## 3.255 — 18/10/2026 — Khai báo riêng Mẫu 06/TD
 - **Anh 18/10:** "Mẫu 06 em cứ liên kết cho chọn và khai báo trong khai báo riêng của mẫu".
 - `js/25-ho-so.js` (`hso06KBHTML`, `hso06V`, lưu `hsoLuu().k06`): khai báo riêng 06/TD ở cuối cột trái (mở / tắt như mẫu khác).

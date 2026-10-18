@@ -18,7 +18,7 @@
       {k:'bq', n:'Bảng Bên ủy quyền ký: họ tên, quan hệ với bên được ủy quyền', p:'kh', l:'tu', md:'tu', ng:'sổ hộ vay (thành viên / thừa kế)'},
       {k:'truongThon', n:'Chứng kiến của Trưởng thôn — họ tên', p:'ub', l:'tu', md:'cham', ng:'⚙ Khai báo đơn vị › Trưởng ấp', nhanh:1}],
     V:function(t, B){
-      var N = hsoBoNV(B), ho = (B && B.ho) || [], dc = B ? hsoDiaChi({ap:N.ap, tenXa:N.tenXa}, null).replace(/, tỉnh .*$/, '') : '';
+      var N = hsoBoNV(B), ho = ((B && B.ho) || []).filter(function(x){ var tu = typeof hsoTuoi==='function' ? hsoTuoi(x.ns, HSO.vay.ngayLap) : -1; return !(tu>=0 && tu<18); }),   /* 3.256: chỉ thành viên đủ 18 tuổi */ dc = B ? hsoDiaChi({ap:N.ap, tenXa:N.tenXa}, null).replace(/, tỉnh .*$/, '') : '';
       return {N:N, ho:ho, dc:dc, ngayLap:HSO.vay.ngayLap, soNguoi:B && B.soNguoi ? String(B.soNguoi) : '', uqTen:N.ten, uqStt:N.ten ? '01' : '', uqNs:N.ns, uqCccd:N.cccd, uqNcap:N.ncap, uqNoiCap:N.noiCap,
         truongThon:B ? hsoBoT(B).truongAp || '' : ''};
     },
