@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.251 — 18/10/2026 — ĐTTH HSSV trên 03/TD
+- **Anh 18/10:** "đối tượng thụ hưởng trên mẫu 03 của chương trình HSSV em chưa có" → "Hộ gia đình gặp khó khăn về kinh tế, tài chính do bệnh tật — chỉ ghi 1 đối tượng này làm mặc định".
+- `js/25-ho-so.js` `HSO_CTV_MD` HSSV: `dtth` = [câu trên], `dtthMd` = `dtthPh` = câu trên. Thẻ HSSV đã lưu còn trống ĐTTH → điền 1 lần (`kb.v251`); ai đã khai thì giữ.
+- 03/TD (1 hộ từ 01/TD và 03/TD nhiều hộ) tự điền cột ĐTTH; form 01/TD phần 2 có ô chọn ĐTTH (mặc định câu trên).
+- Phép thử: t199 thêm 1 phép (18). Chuẩn khóa `hsv_03td_so` ghi lại (cột ĐTTH có chữ).
+
 ## 3.250 — 18/10/2026 — 01/TD cân lại chỗ ký UBND / NH
 - **Anh 18/10:** "chỗ ký UB cũng không nhỏ quá, bớt 2 dòng là hơi nhiều, UB ký sẽ bị đè chữ".
 - `js/mau/01td.js`: dưới khối UBND 3 → 4 dòng trống (so với gốc 5 chỉ bớt 1); chỗ ký NH chừa sẵn 3 → 2 dòng trống (anh dặn "ít nhất 2 dòng") + phần trống cuối trang.
