@@ -90,7 +90,7 @@ function hsoKBHop(tab){   /* 3.208 (anh chốt 14/10): ⚙ Khai báo chung — c
 /* ---------- 3.208 (anh chốt 14/10): CHƯƠNG TRÌNH VAY — mỗi CT 1 thẻ (D.cauHinh.hsoKB.ctv): tên tắt, tên in 01/03, đối tượng thụ hưởng, mục đích, mức vay, thời hạn / kỳ hạn ghi sẵn hay chấm ----------
    kieu: 'hssv' (tên SV, số tháng + số tiền gõ tay) · 'congtrinh' (xây mới / sửa chữa, mỗi công trình 1 dòng, mức vay 1 công trình) · 'chung' (1 mục đích + số tiền) */
 var HSO_CTV_MD = [
-  {ma:'HSSV', ten:'Học sinh sinh viên', kieu:'hssv', loai:false, ctr:[], md:['Chi phí học tập, sinh hoạt'], dtth:[], dtthMd:'', dtthPh:'', th:'', thIn:'cham', ky:'12', kyIn:'in', ubnd:true, nhcsxh:true, bat:true},
+  {ma:'HSSV', ten:'Học sinh sinh viên', kieu:'hssv', loai:false, ctr:[], md:['Chi phí học tập, sinh hoạt'], dtth:['Hộ gia đình gặp khó khăn về kinh tế, tài chính do bệnh tật'], dtthMd:'Hộ gia đình gặp khó khăn về kinh tế, tài chính do bệnh tật', dtthPh:'Hộ gia đình gặp khó khăn về kinh tế, tài chính do bệnh tật', th:'', thIn:'cham', ky:'12', kyIn:'in', ubnd:true, nhcsxh:true, bat:true},
   {ma:'NSVSMT', ten:'Cấp nước sạch và vệ sinh môi trường nông thôn', kieu:'congtrinh', loai:true, ctr:[{ten:'Công trình cấp nước', tien:'25000000'}, {ten:'Công trình vệ sinh', tien:'25000000'}], md:[],
     dtth:['Hộ gia đình cư trú tại vùng nông thôn', 'Hộ gia đình ở khu vực thành thị'], dtthMd:'Hộ gia đình cư trú tại vùng nông thôn', dtthPh:'Hộ gia đình ở khu vực thành thị', th:'60', thIn:'in', ky:'12', kyIn:'in', ubnd:false, nhcsxh:false, bat:true, tuCo:'5000000'},
   {ma:'GQVL', ten:'Hỗ trợ tạo việc làm, duy trì và mở rộng việc làm', kieu:'gqvl', loai:false, ctr:[], md:['Chăn nuôi bò sinh sản', 'Chăn nuôi heo', 'Trồng cây ăn trái', 'Kinh doanh, dịch vụ'], dtth:['Người lao động'], dtthMd:'Người lao động', dtthPh:'Người lao động',
@@ -104,6 +104,7 @@ function hsoCTVDs(){
       kb.ctv.forEach(function(c){ if(m && m[1].toUpperCase()!==c.ma) return; var v = m ? m[2].trim() : d; if(c[f[1]].indexOf(v)<0) c[f[1]].push(v); }); }); }); }
   kb.ctv.forEach(function(c, i){ if(c.ma==='GQVL' && c.rieng){ var m = JSON.parse(JSON.stringify(HSO_CTV_MD[2])); ['md','dtth'].forEach(function(f){ if(c[f] && c[f].length) m[f] = c[f]; }); kb.ctv[i] = c = m; } });   /* 3.211: thẻ GQVL tạm (3.208) → dạng GQVL */
   kb.ctv.forEach(function(c){ Object.keys(HSO_CTV_TRONG).forEach(function(f){ if(c[f]===undefined) c[f] = JSON.parse(JSON.stringify(HSO_CTV_TRONG[f])); }); });
+  if(!kb.v251){ kb.v251 = 1; kb.ctv.forEach(function(c){ if(c.ma==='HSSV' && !(c.dtth||[]).length && !c.dtthMd && !c.dtthPh){ var md = HSO_CTV_MD[0]; c.dtth = md.dtth.slice(); c.dtthMd = md.dtthMd; c.dtthPh = md.dtthPh; } }); }   /* 3.251 (anh 18/10): HSSV có 1 ĐTTH mặc định — thẻ đã lưu còn trống thì điền 1 lần */
   return kb.ctv;
 }
 function hsoCTV(ma){ if(!ma) return null; var u = String(ma).toUpperCase(); return hsoCTVDs().find(function(c){ return c.ma===u; }) || Object.assign(JSON.parse(JSON.stringify(HSO_CTV_TRONG)), {ma:u, ten:HSO_CT[u] || ma}); }
