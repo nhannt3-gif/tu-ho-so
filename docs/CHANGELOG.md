@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.260 — 18/10/2026 — Phần C: sổ đăng ký cài đặt, dọn mồ côi, đổi tên hàm con trùng
+- **Anh 18/10:** "giờ làm trước phần C" (việc kỹ thuật còn treo trong lộ trình chuẩn hóa).
+- **R4 phần 2 — sổ đăng ký cài đặt** `js/17b-so-cai-dat.js`:
+  - `CH_SO`: mọi khóa `D.cauHinh` app dùng (≈ 170), mỗi khóa 1 dòng mô tả; khối đồng bộ vẫn theo `chKhoiCua`, riêng máy theo `CH_RIENG`, mặc định theo `MAC_DINH` (không lặp).
+  - `tests/kiem.py`: mã dùng khóa (`D.cauHinh.<khóa>`) chưa ghi sổ → báo lỗi.
+  - ⚙ Khai báo › 💾 Sao lưu thêm dòng 🧾 Sổ cài đặt → hộp xem khóa theo khối + KB; khóa lạ (không có trong sổ) đứng đầu, **chỉ báo, không tự xóa**.
+- Dọn mồ côi: bỏ `hsoBoTen` (sót từ Bộ HS cũ); 9 hàm chỉ phép thử gọi (thXem, pvMo, gdxThan…) tách riêng, không tính mồ côi (mốc 10 → 0).
+- Hàm con kéo độ rộng (`js/10-danh-sach.js`) đổi tên `keoRongDau/Di`, `keoCotDau/Di` — hết trùng tên hàm khởi động `batDau`.
+- Ngắt 3 dòng mã > 400 ký tự (thêm ở 3.24x–3.258) — thước đo về trong mốc (t192 đạt lại).
+- **Chưa làm được:** nâng SheetJS / DOMPurify (máy làm việc không tải được cdnjs; SheetJS > 0.18.5 không có trên cdnjs — cần anh duyệt nguồn); KTGS nạp khi dùng (38 chỗ ngoài KTGS gọi vào — cần tách lõi dùng chung, lập kế hoạch riêng).
+- Phép thử: t206 (5), phép thử nhanh +2 (32).
+
 ## 3.259 — 18/10/2026 — Bộ thông tin tổ: KQGD từng điểm GD, 3 tháng KHĐ, Nợ quá hạn, Nợ khoanh
 - **Anh 18/10:** gửi file tổng hợp "Thông tin tổ cơ bản" (14 sheet) + Mẫu 13/GDX bản mới: "chỉ làm trước phần KQGD, DS QH, Khoanh, 3 tháng KHĐ theo mẫu trước … KQGD theo VB mới có thêm 1 số thông tin". Chấm điểm lũy kế anh nghiên cứu gửi sau; THHD theo xã / hội làm sau.
 - Tab con 📑 Sao kê thêm nhóm **Thông tin tổ** (file mới `js/22j-thong-tin-to.js`):

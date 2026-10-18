@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.260) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ⚙ Khai báo › 💾 Sao lưu › 🧾 Sổ cài đặt › Xem | Khóa theo khối, có mô tả; khóa lạ (nếu có) đứng đầu | |
+| 2 | Kéo độ rộng khung xem / cột | Kéo được như cũ | |
+
+**Ghi chú kỹ thuật 3.260:** thêm khóa cài đặt mới → thêm 1 dòng vào `CH_SO` (`js/17b-so-cai-dat.js`), không thì `kiem.py` báo lỗi. Khóa đặt tên động thêm vào `CH_SO_MAU` (mẫu regex).
+
 ### Danh sách thử trên máy thật (3.259) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

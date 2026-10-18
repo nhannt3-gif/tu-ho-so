@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.259** — Sao kê › Thông tin tổ: KQGD từng điểm GD (13/GDX bản mới) + 3 tháng KHĐ, Nợ QH, Nợ khoanh chia Điểm › Hội › Tổ, Excel công thức. Trước đó 3.258: Hồ sơ vay sắp lại chip. Tiếp: phần C (R4 phần 2 sổ cài đặt…), chấm điểm lũy kế khi anh gửi, THHD xã / hội. Chờ anh: thử máy thật 3.225–3.259, Biểu 07.
+- **`main` = 3.260** — phần C: sổ đăng ký cài đặt (`js/17b-so-cai-dat.js`, kiem.py kiểm khóa), dọn mồ côi. Trước đó 3.259: Sao kê › Thông tin tổ (KQGD từng điểm GD, 3 tháng KHĐ, Nợ QH, Nợ khoanh). Chờ anh: chấm điểm lũy kế, nguồn SheetJS mới, kế hoạch KTGS nạp khi dùng, thử máy thật 3.225–3.260.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.

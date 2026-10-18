@@ -178,6 +178,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t203.js` | (3.256) Giấy ủy quyền 01/UQ: form theo thứ tự giấy, chọn hộ từ sổ, thành viên ≥ 18 tuổi, người được ủy quyền = người đứng tên vay. |
 | `node tests/t204.js` | (3.257) Rà form / bản in từng mẫu không lọt mẫu khác (01/GQVL, 07b, 01/UQ, 01/TGTV, 06/TD, 01/TĐCK, 01/TD) với hộ HSSV / GQVL. |
 | `node tests/t205.js` | 3.259 Bộ thông tin tổ: KQGD từng điểm (24 cột, công thức), 3 sao kê chia Điểm › Hội › Tổ, Excel nhiều sheet (24). |
+| `node tests/t206.js` | 3.260 Sổ cài đặt (Sao lưu › 🧾), khóa lạ, hàm con kéo đổi tên (5). |
 | (3.258) | t204 thêm 2 phép thứ tự chip Hồ sơ vay + 01/TD tách theo chương trình (13); t163, t170 đếm 11 chip. |
 | (3.255) | t202 thêm 4 phép khai báo riêng 06/TD (12). |
 | (3.254) | t201 thêm 5 phép cỡ chữ 13 / 13,5 / 14 (16 phép); chuẩn khóa hst_01bg_*, hsv_01td_*, hsv_01uq_*, hsv_09a_* ghi lại. |
