@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.262 — 18/10/2026 — Bộ thông tin tổ: số liệu theo ngày (nếu có), thêm cột Số hộ đang có dư nợ
+- **Anh 18/10:** "tạm ổn rồi, em kiểm tra lấy số liệu nếu có dữ liệu theo ngày được không, thêm cột số hộ đang có dư nợ".
+- **Kỳ theo ngày:** kỳ đang chọn là ngày và có **Mẫu 31 đúng ngày đó** → lập bằng số liệu ngày (đầu trang ghi "Số liệu ngày dd/mm/yyyy"); không có Mẫu 31 ngày đó → như 3.261, lấy chốt cuối tháng. KHĐ / quá hạn / khoanh theo file app đang dùng cho kỳ (ngày thật của file ghi ở đầu sao kê).
+- **Số hộ** = tổ viên của tổ trên Mẫu 31 (như tab Tổ, kể cả hộ chỉ gửi TK 105); **cột mới "Số hộ đang có dư nợ"** = hộ còn dư nợ > 0 — có ở sheet điểm, xã, Tổng hợp, theo xã, theo hội (bản in + Excel).
+- Phép thử: t205 thêm 2 (30).
+
 ## 3.261 — 18/10/2026 — Bộ thông tin tổ: đủ khung file tổng hợp, chốt cuối tháng; bản in hết chồng chữ
 - **Anh 18/10:** "số liệu còn sai chưa hoàn chỉnh" (ảnh: bảng KQGD in bị chồng chữ) — "anh cần dữ liệu tương tự, chốt cuối tháng là được".
 - Số liệu **luôn chốt cuối tháng**: kỳ đang chọn là ngày → app tự lấy Mẫu 31 chốt tháng của tháng đó (`ttChuanBi`), kèm BC0437 cùng tháng (điểm, xếp loại tổ) và file phân kỳ — nạp 1 lần rồi mới lập.

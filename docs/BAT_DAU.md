@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.261** — Sao kê › Bộ thông tin tổ chốt cuối tháng, đủ khung file tổng hợp (Tổng hợp, theo xã, theo hội, điểm, xã, 3 sao kê, Ghi chú). Trước đó 3.260: sổ đăng ký cài đặt. Chờ anh: cách chấm điểm lũy kế, nguồn SheetJS mới, kế hoạch KTGS nạp khi dùng, thử máy thật 3.225–3.261.
+- **`main` = 3.262** — Bộ thông tin tổ: kỳ ngày dùng Mẫu 31 ngày (nếu có), thêm cột Số hộ đang có dư nợ. Trước đó 3.261: đủ khung file tổng hợp, chốt cuối tháng. Chờ anh: cách chấm điểm lũy kế, nguồn SheetJS mới, kế hoạch KTGS nạp khi dùng, thử máy thật 3.225–3.262.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.
