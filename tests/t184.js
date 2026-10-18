@@ -58,7 +58,7 @@ const fs=require('fs'), path=require('path');
    omDatCach('01td', 'nhNgayLai', 'kb'); omDatKB('01td', 'nhNgayLai', '25'); await w(300);
    ok('khai trong cửa sổ → mẫu vẽ lại có giá trị, bản in có "vào ngày 25"', /vào ngày 25/.test(chu(document.getElementById('om-kbt-khung').contentDocument.body.innerHTML)) && /vào ngày 25/.test(chu(hsoLap().h)));
    omDatNhanh('01td', 'tuCo', true); ok('tích Chọn nhanh ô mới → ra cột trái', omNhanh('01td').indexOf('tuCo')>=0);
-   dongHop(); await w(200);
+   omKBLuu(); await w(200);   /* 3.252: 💾 Lưu (đóng mà không lưu = hủy) */
    /* 7. Word + in kèm */
    const x3 = hsoLap(); let wd = null; try { wd = await hsoDocx(x3); } catch(e){ wd = e; }
    ok('xuất Word 01/TD trên nền ô vẫn tạo được file', wd && wd.size>3000, wd && (wd.size || wd.message));

@@ -39,7 +39,7 @@ const fs=require('fs'), path=require('path');
    ok('⧉ chép → ô tự gõ có sẵn chữ Mẫu 31 để sửa vài chữ', omKB('11', 'tt') && omKB('11', 'tt')===String(OM_MAU['11'].V(KHO.to(hsoCH().to)).tt) && omCachLuu('11', 'tt')==='kb');
    OM_KBT.k = 'ngan'; omKBVe(); await w(200);
    ok('ô Bên A: ✍ · ⚙ Khai báo chung · ⌨ Tự gõ', /⚙ Khai báo chung/.test(document.getElementById('om-kbt-phai').textContent));
-   dongHop(); hsoVe(); await w(300);
+   omKBLuu(); hsoVe(); await w(300);   /* 3.252: 💾 Lưu */
    const tt = omKBRieng('11', OM_MAU['11'].V(KHO.to(hsoCH().to))).replace(/<[^>]+>/g, ' ');
    ok('tóm tắt khai báo riêng đếm theo nguồn (📊 / ⚙ / ⌨ / ✍)', /\d+ 📊/.test(tt) && /\d+ ⌨/.test(tt), tt.slice(0, 120));
    OM_KIEU = 'trang'; const tr = lap('11'); OM_KIEU = 'that';

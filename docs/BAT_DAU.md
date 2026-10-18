@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.251** — ĐTTH HSSV mặc định trên 03/TD. Trước đó 3.250: 01/TD cân chỗ ký UBND / NH. **Việc tiếp (chờ anh nhắn "code"):** khai báo riêng từng mẫu theo ý 15 — chỉ các chỗ chấm (tự động / giá trị khai sẵn / để chấm, theo chương trình, ↺ mặc định, Lưu đóng khung; câu chữ mẫu, gạch tiêu ngữ, chấm mảnh cố định) — 01/TD → 03/TD → 06/TD → 01/UQ; 06/TD còn chờ chốt 2 ý. Chờ anh: thử máy thật 3.225–3.251, Biểu 07.
+- **`main` = 3.252** — khai báo riêng mọi mẫu (Lưu / Hủy / ↺ từng ô / ô gõ ra cột trái / thẻ chương trình). Trước đó 3.251: ĐTTH HSSV trên 03/TD. **Việc tiếp:** 06/TD (anh chốt 18/10: phần ghi theo hồ sơ — NH — điền sẵn đầy đủ; nhiều hộ trên 1 phiếu, ~3 hộ / mặt) → Giấy ủy quyền chọn hộ từ Sổ. Chờ anh: thử máy thật 3.225–3.252, Biểu 07.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.
