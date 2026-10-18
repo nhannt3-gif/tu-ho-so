@@ -1588,6 +1588,7 @@ function hsoLich(tien, th, ky, ngay0, R){   /* lịch trả gốc: chia đều t
 }
 function hsoLaiDK(lich, tien, th, ls){   /* lãi vay dự kiến cả thời hạn: dư nợ từng tháng × lãi suất ÷ 12 */
   var du = +tien || 0, lai = 0; for(var m=1;m<=th;m++){ lai += du*ls/100/12; lich.forEach(function(k){ if(k.thang===m) du -= k.tien; }); } return Math.round(lai); }
+function hsoLaGQ(B){ return !!B && (hsoCTV(B.ct)||{}).kieu==='gqvl'; }   /* 3.257: 01/GQVL, 07b chỉ lấy phương án khi hộ đang chọn chương trình GQVL (không lọt HSSV / NSVSMT) */
 function hsoGQ(B){   /* số liệu GQVL của phiếu: lãi suất theo ưu tiên, lịch, lãi dự kiến, hiệu quả, cảnh báo */
   var A = hsoPA(B), C = A.C || {}, P = (B && B.pa) || {}, ut = (P.ut||[]).some(function(i){ return i<5; });
   var ls = hsoSoDoc(ut ? C.lsUT : C.ls), qh = ls*(hsoSoDoc(C.qh)||130)/100, th = +A.th || 0, ky = +A.ky || 0;
@@ -1601,7 +1602,7 @@ function hsoGQ(B){   /* số liệu GQVL của phiếu: lãi suất theo ưu ti�
 }
 function hsoO2(v, n){ return hsoO(v, 'kb', n); }
 function hsoLap01gqvl(t, B){
-  B = B || hsoBo(); var N = hsoBoNV(B), G = B ? hsoGQ(B) : {A:{dong:[], tien:0}, C:{}, lich:[]}, A = G.A, P = (B && B.pa) || {}, L = P.ld || {};
+  B = B || hsoBo(); var N = hsoBoNV(B), G = hsoLaGQ(B) ? hsoGQ(B) : {A:{dong:[], tien:0}, C:{}, lich:[]}, A = G.A, P = (B && B.pa) || {}, L = P.ld || {};
   var dc = B ? hsoDiaChi({ap:N.ap, tenXa:N.tenXa}, null) : '', han = '', d = hsoCCCDDoc(N.cccd);
   if(N.cccd && N.ns && N.ncap && typeof toCCCDHan==='function'){ var hn = toCCCDHan(String(N.cccd).replace(/\D/g, ''), N.ns, N.ncap); if(hn && hn.den) han = ngayVNsl(hn.den); }
   var o = function(f, n){ return hsoO2(L[f], n||5); };
@@ -1660,7 +1661,7 @@ function hsoLap01gqvl(t, B){
   return {ma:'01/GQVL', h:h};
 }
 function hsoLap07b(t, B){
-  B = B || hsoBo(); var N = hsoBoNV(B), G = B ? hsoGQ(B) : {A:{dong:[], tien:0, th:''}, C:{}, lich:[], ls:0, qh:0}, A = G.A, P = (B && B.pa) || {}, L = P.ld || {};
+  B = B || hsoBo(); var N = hsoBoNV(B), G = hsoLaGQ(B) ? hsoGQ(B) : {A:{dong:[], tien:0, th:''}, C:{}, lich:[], ls:0, qh:0}, A = G.A, P = (B && B.pa) || {}, L = P.ld || {};
   var dc = B ? hsoDiaChi({ap:N.ap, tenXa:N.tenXa}, null) : '', han = '';
   if(N.cccd && N.ns && N.ncap && typeof toCCCDHan==='function'){ var hn = toCCCDHan(String(N.cccd).replace(/\D/g, ''), N.ns, N.ncap); if(hn && hn.den) han = ngayVNsl(hn.den); }
   var cuoi = G.lich.length ? G.lich[G.lich.length-1].ngay : '', nl = +L.tong || ((+L.tao||0)+(+L.duy||0)+(+L.mo||0)) || '';
@@ -1801,6 +1802,11 @@ function hsoTuyHo(M, t){
   h += '<div class="sl-phu"><b>'+coChuHTML(N.ten)+'</b>'+(N.cccd ? ' · CCCD '+coChuHTML(N.cccd) : '')+(o.kh ? ' · mã KH '+coChuHTML(o.kh) : ' · hộ mới (chưa mã KH)')+(hmToTen(o) ? ' · '+coChuHTML(hmToTen(o)) : ' · <b class="hso-canh">chưa gắn tổ</b>')+'</div>';
   if(M.k==='01uq'){ var th = hsoUQThieu(B); if(!B.ho.length || th.length) h += '<div class="sl-bao vang hso-nhac">⚠ Giấy UQ cần đủ thành viên ≥ 18 tuổi (ngày sinh, CCCD)'+(th.length ? ' — thiếu: '+coChuHTML(th.join(', ')) : ' — hộ chưa có thành viên')+' <button class="nho" onclick="hmMo(\''+o.id+'\')">✎ Bổ sung</button></div>'; return h; }
   if(M.k==='01tgtv') return h;
+  if(M.k==='01gqvl' || M.k==='07b'){   /* 3.257 (anh 18/10 "rà soát form mẫu nào không lọt mẫu khác"): mẫu riêng GQVL — không chip chương trình khác, không phương án / In kèm của HSSV, NSVSMT */
+    if(C.kieu!=='gqvl'){ var gqC = hsoCTVDs().find(function(c){ return c.kieu==='gqvl'; });
+      return h+'<div class="sl-bao vang hso-nhac">Mẫu '+coChuHTML(M.ma)+' chỉ dùng cho chương trình <b>GQVL</b> — hộ đang chọn <b>'+coChuHTML(B.ct||'')+'</b>. '+(gqC ? '<button class="nho chinh" onclick="hsoBoDat(\'ct\',\''+gqC.ma+'\',1)">Chuyển hộ sang chương trình GQVL</button>' : '')+' Chưa chuyển thì khung phải in theo hộ, phần phương án để chấm.</div>'+kbr(); }
+    h += '<div class="sl-phu">Chương trình: <b>'+coChuHTML(C.ten || C.ma)+'</b></div>'+hsoTuyPA(B)+(M.k==='01gqvl' ? hsoTuyKem(B, o, true) : '');
+    return h+kbr(); }
   h += '<div class="nhan-nhom">① Chương trình vay <a href="#" class="hso-nho" onclick="event.preventDefault();hsoKBHop(\'ct\')">⚙ khai báo chương trình</a></div><div class="hang-nut">'+
     hsoCTVDs().filter(function(c){ return c.bat!==false || c.ma===B.ct; }).map(function(c){ return gdxChip('<b>'+coChuHTML(c.ma)+'</b>', B.ct===c.ma, 'hsoBoDat(\'ct\',\''+c.ma+'\',1)', 'hso-ct', c.ten); }).join('')+'</div>';
   if(C.kieu==='hssv') h += hsoTuySV(B, o);
@@ -1903,7 +1909,7 @@ function hsoTuyVay(M, t, tv){
     var ng = V.tgNguon || (B ? 'bo' : 'to'), ds = hsoTVTo(t).filter(function(k){ return !k.stk.length && !k.coTK; });
     h += '<div class="hang-nut"><label class="hso-o2"><input type="radio" name="hso-tg"'+(ng==='bo' ? ' checked' : '')+' onchange="HSO.vay.tgNguon=\'bo\';hsoVe()"> Người vay đang lập hồ sơ (📒 Sổ hộ vay)</label>'+
       '<label class="hso-o2"><input type="radio" name="hso-tg"'+(ng==='to' ? ' checked' : '')+' onchange="HSO.vay.tgNguon=\'to\';hsoVe()"> Tổ viên chưa có TK 105 (in hàng loạt)</label></div>';
-    if(ng==='bo') h += B ? '<div class="sl-phu">'+coChuHTML(hsoBoTen(B))+'</div>' : '<div class="sl-phu">Chưa chọn hộ (📒 Sổ hộ vay → 📄 Lập HS) → mẫu trắng.</div>';
+    if(ng==='bo') h += B ? '<div class="sl-phu">'+coChuHTML((B.nv.ten || '(chưa có tên)')+(B.hoId && hmTim(B.hoId) && hmToTen(hmTim(B.hoId)) ? ' · '+hmToTen(hmTim(B.hoId)) : ''))+'</div>' : '<div class="sl-phu">Chưa chọn hộ (📒 Sổ hộ vay → 📄 Lập HS) → mẫu trắng.</div>';
     else { if(!V.tg) V.tg = {}; h += t ? '<details class="hso-tick" open><summary>Chưa có TK 105 — tích để in ('+ds.length+')</summary><div class="hso-tick-ds">'+
         ds.map(function(k){ return '<label><input type="checkbox"'+(V.tg[k.kh]!==false ? ' checked' : '')+' onchange="HSO.vay.tg[\''+k.kh+'\']=this.checked;hsoHen()"> '+coChuHTML(k.ten)+'</label>'; }).join('')+'</div></details>' : '<div class="sl-phu">Chọn tổ ở khối lọc.</div>'; }
     return h+hsoKBRieng('01tgtv');   /* 3.219 · 3.222: cuối cột trái */

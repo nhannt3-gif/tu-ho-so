@@ -56,7 +56,7 @@
       {k:'ngayKy', n:'Ngày tháng (người đề nghị vay vốn ký)', p:'ky', l:'go', md:'cham', ngay:1, nhanh:1},
       {k:'kyTen', n:'Họ tên dưới chữ ký người đề nghị', p:'ky', l:'tu', md:'tu', ng:'người vay'}],
     V:function(t, B){
-      B = B || hsoBo(); var N = hsoBoNV(B), Q = B ? hsoGQ(B) : {A:{dong:[], tien:0}, C:{}}, A = Q.A, Pa = (B && B.pa) || {}, L = Pa.ld || {}, d = hsoCCCDDoc(N.cccd), han = '';
+      B = B || hsoBo(); var N = hsoBoNV(B), Q = hsoLaGQ(B) ? hsoGQ(B) : {A:{dong:[], tien:0}, C:{}}, A = Q.A, Pa = (B && B.pa) || {}, L = Pa.ld || {}, d = hsoCCCDDoc(N.cccd), han = '';
       if(N.cccd && N.ns && N.ncap && typeof toCCCDHan==='function'){ var hn = toCCCDHan(String(N.cccd).replace(/\D/g, ''), N.ns, N.ncap); if(hn && hn.den) han = hn.den; }
       var dc = B ? hsoDiaChi({ap:N.ap, tenXa:N.tenXa}, null) : '', tc = B && B.tuCo!=='' && B.tuCo!=null ? tdnTien(hsoSo(B.tuCo)) : '';
       return {Q:Q, A:A, L:L, ut:Pa.ut || [], ngan:hsoPGD('ngan'), ten:N.ten, ns:N.ns, danToc:N.danToc, gt:/^(nam|nữ)$/i.test(N.gt) ? N.gt : (d ? d.gt : ''),   /* Mẫu 31 ghi giới tính dạng mã (01…) → suy theo CCCD */

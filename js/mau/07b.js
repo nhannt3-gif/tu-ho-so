@@ -59,7 +59,7 @@
       {k:'kyTen', n:'Họ tên dưới chữ ký Bên vay', p:'ky', l:'tu', md:'tu', ng:'người vay'},
       {k:'kyNH', n:'Họ tên dưới chữ ký Bên cho vay', p:'ky', l:'tukb', md:'tu', ng:'⚙ Khai báo đơn vị › PGD › đại diện'}],
     V:function(t, B){
-      B = B || hsoBo(); var N = hsoBoNV(B), Q = B ? hsoGQ(B) : {A:{dong:[], tien:0, th:''}, C:{}, lich:[], ls:0, qh:0}, A = Q.A, Pa = (B && B.pa) || {}, L = Pa.ld || {}, d = hsoCCCDDoc(N.cccd), han = '';
+      B = B || hsoBo(); var N = hsoBoNV(B), Q = hsoLaGQ(B) ? hsoGQ(B) : {A:{dong:[], tien:0, th:''}, C:{}, lich:[], ls:0, qh:0}, A = Q.A, Pa = (B && B.pa) || {}, L = Pa.ld || {}, d = hsoCCCDDoc(N.cccd), han = '';
       if(N.cccd && N.ns && N.ncap && typeof toCCCDHan==='function'){ var hn = toCCCDHan(String(N.cccd).replace(/\D/g, ''), N.ns, N.ncap); if(hn && hn.den) han = hn.den; }
       var dc = B ? hsoDiaChi({ap:N.ap, tenXa:N.tenXa}, null) : '', cuoi = Q.lich.length ? Q.lich[Q.lich.length-1].ngay : (B && B.hanCuoi) || '', dd = hsoPGD('daiDien');
       return {Q:Q, A:A, Pa:Pa, soHD:HSO.vay.soHD, ngayHD:B && B.ngayHD, nhTen:hsoPGD('ten'), nhDc:hsoPGD('diaChi'), nhDt:hsoPGD('dt'), daiDien:dd, chucVu:dd ? hsoPGD('chucVu') : '', uyQuyen:hsoPGD('uyQuyen'),

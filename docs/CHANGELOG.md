@@ -4,6 +4,22 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.257 — 18/10/2026 — Rà form từng mẫu không lọt mẫu khác
+- **Anh 18/10:** "rà soát lại form của mẫu nào không lọt mẫu khác, ví dụ trong mẫu 01TG mà có GQVL là không đúng".
+- Rà 19 mẫu (Hồ sơ vay + Hồ sơ tổ), mỗi mẫu với hộ đang chọn HSSV và GQVL. Lọt ở 4 chỗ, đã sửa:
+  - **01/GQVL, 07b/GQVL:** hộ đang chọn HSSV vẫn hiện chip HSSV / NSVSMT, phương án sinh viên, In kèm 01/UQ · 06/TD; bản in lọt phương án HSSV. Nay:
+    - mẫu chỉ dùng cho GQVL;
+    - hộ khác chương trình → báo + nút "Chuyển hộ sang chương trình GQVL";
+    - phần phương án để chấm (`hsoLaGQ`, áp cả bản in);
+    - hộ GQVL: phương án GQVL + In kèm của GQVL.
+  - **01/TGTV:** dòng người vay ghi "· GQVL · Đang soạn" → chỉ họ tên + tổ.
+  - **01/TD hộ GQVL:** không còn hiện phương án GQVL, chỉ nhắc mở 01/GQVL.
+- Đúng phạm vi, giữ nguyên:
+  - 03/TD có GQVL (03/TD dùng chung);
+  - 09A In kèm 06/TD;
+  - mẫu Hồ sơ tổ không có phần hộ vay.
+- Phép thử: **t204 mới** (11 phép).
+
 ## 3.256 — 18/10/2026 — Giấy ủy quyền 01/UQ chọn hộ từ Sổ
 - **Anh chốt 17/10 (ý 10.3):** Giấy ủy quyền vướng thành viên / thừa kế → khai trước ở 📒 Sổ hộ vay, lúc lập UQ chọn hộ từ sổ. 18/10: "code tiếp".
 - `js/25-ho-so.js` `hsoTuyUQ`: cột trái 01/UQ riêng, đi đúng thứ tự giấy, không còn chương trình / phương án vay của 01/TD.
