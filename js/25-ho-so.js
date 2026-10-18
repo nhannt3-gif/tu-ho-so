@@ -971,7 +971,6 @@ function hsoBoDat(duong, v, ve){
   if(duong==='ho') B.ho = v;
   hsoBoLuu(); if(ve) hsoVeGiuO(); else hsoHen();
 }
-function hsoBoTen(b){ var tt = HSO_TT.find(function(x){ return x[0]===b.tt; }); return (b.nv.ten || '(chưa có tên)')+' · '+(b.ct || '')+' · '+(tt ? tt[1] : '')+' · '+ngayVNsl(String(b.sua||b.tao).slice(0, 10)); }
 function hsoKhungNgoai(ds){   /* khung viền ngoài chia được trang: mỗi đoạn con 1 dòng bảng (mẫu 01/TGTV) */
   var dong = [];
   ds.forEach(function(x){ if(Array.isArray(x)){ dong.push('<tr class="tr-td"><td class="c b'+(x[0]==='nen' ? ' nen' : ' tieu')+'">'+x[1]+'</td></tr>'); return; }   /* 3.218: tiêu đề mục (tr-td) không đứng trơ cuối trang — kéo theo dòng sau */
@@ -1824,9 +1823,11 @@ function hsoTuyHo(M, t){
 }
 /* 3.243b: chip chọn sinh viên (hộ nhiều SV) và khối "In kèm" — dùng chung cột cũ và form lập 01/TD (L01) */
 function hsoTuySV(B, o){ var sv = hmSV(o).map(function(i){ return (o.tv[i]||{}).ten; }).filter(Boolean);
-  return sv.length>1 ? '<div class="nhan-nhom">Sinh viên (mỗi SV 1 đơn)</div><div class="hang-nut">'+sv.map(function(x){ return gdxChip(coChuHTML(x), (B.pa||{}).sv===x, 'hsoBoDat(\'pa.sv\',\''+String(x).replace(/'/g, "\\'")+'\',1)', 'hso-ct', ''); }).join('')+'</div>' : sv.length ? '' : '<div class="sl-phu hso-canh">Hộ chưa đánh dấu HSSV — gõ tên SV ở ô dưới hoặc <a href="#" onclick="event.preventDefault();hmMo(\''+o.id+'\')">✎ bổ sung</a>.</div>'; }
+  return sv.length>1 ? '<div class="nhan-nhom">Sinh viên (mỗi SV 1 đơn)</div><div class="hang-nut">'+sv.map(function(x){ return gdxChip(coChuHTML(x), (B.pa||{}).sv===x, 'hsoBoDat(\'pa.sv\',\''+
+      String(x).replace(/'/g, "\\'")+'\',1)', 'hso-ct', ''); }).join('')+'</div>' : sv.length ? '' : '<div class="sl-phu hso-canh">Hộ chưa đánh dấu HSSV — gõ tên SV ở ô dưới hoặc <a href="#" onclick="event.preventDefault();hmMo(\''+o.id+'\')">✎ bổ sung</a>.</div>'; }
 function hsoTuyKem(B, o, gq){
-  return '<div class="nhan-nhom">In kèm (1 lần in / 1 file Word)</div>'+(gq ? [['ds','03/TD danh sách'], ['bb','10C biên bản họp'], ['hd','07b/GQVL hợp đồng tín dụng'], ['tgtv','01/TGTV mở TK tổ viên'+(o.kh ? '' : ' (hộ mới)')]] : [['ds','03/TD danh sách'], ['bb','10C biên bản họp'], ['uq','01/UQ giấy ủy quyền'], ['tgtv','01/TGTV mở TK tổ viên'+(o.kh ? '' : ' (hộ mới)')], ['k06','06/TD phiếu kiểm tra (in tiếp sau, khổ ngang)']]).map(function(x){
+  return '<div class="nhan-nhom">In kèm (1 lần in / 1 file Word)</div>'+(gq ? [['ds','03/TD danh sách'], ['bb','10C biên bản họp'], ['hd','07b/GQVL hợp đồng tín dụng'], ['tgtv','01/TGTV mở TK tổ viên'+
+      (o.kh ? '' : ' (hộ mới)')]] : [['ds','03/TD danh sách'], ['bb','10C biên bản họp'], ['uq','01/UQ giấy ủy quyền'], ['tgtv','01/TGTV mở TK tổ viên'+(o.kh ? '' : ' (hộ mới)')], ['k06','06/TD phiếu kiểm tra (in tiếp sau, khổ ngang)']]).map(function(x){
       return '<label class="hso-o2"><input type="checkbox"'+(B.kem[x[0]] ? ' checked' : '')+' onchange="hsoBoDat(\'kem.'+x[0]+'\',this.checked?1:0,1)"> '+x[1]+'</label>'; }).join('')+
     (B.kem.uq && (hsoUQThieu(B).length || !B.ho.length) ? '<div class="sl-bao vang hso-nhac">⚠ 01/UQ thiếu thành viên / ngày sinh, CCCD — <button class="nho" onclick="hmMo(\''+o.id+'\')">✎ Bổ sung</button></div>' : '')+
     (B.kem.bb || B.kem.ds ? hsoNgayTuy('Ngày họp tổ', 'Biên bản, 03/TD — trống = chấm.') : '');

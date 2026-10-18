@@ -71,13 +71,23 @@ else: NHANH=''
 _cs=open(os.path.join(ghep.GOC,'css','app.css'),encoding='utf-8').read(); _khai=set(re.findall(r'(--[\w-]+)\s*:',_cs+s))
 for v,du in re.findall(r'var\((--[\w-]+)\s*,\s*(#[0-9a-fA-F]{3,6}|white)\)',_cs):
     if v not in _khai and (du=='white' or int(du[1:2],16)>=12): loi.append('css: var(%s,%s) — biến chưa khai, chế độ tối ra màu sáng'%(v,du))
+# 3.260 (R4 phần 2): khóa cài đặt dùng thẳng trong mã (D.cauHinh.<khóa> hoặc D.cauHinh["<khóa>"]) phải có trong sổ js/17b-so-cai-dat.js
+_so=open(os.path.join(ghep.GOC,'js','17b-so-cai-dat.js'),encoding='utf-8').read().split('var CH_SO = {')[1].split('\n};')[0]
+_dk=set(re.findall(r"([A-Za-z_]\w*):'",_so))
+_dung=set(a or b for a,b in re.findall(r"D\.cauHinh(?:\.([A-Za-z_]\w*)|\[['\"]([A-Za-z_]\w*)['\"]\])",s))
+_chua=sorted(_dung-_dk)
+if _chua: loi.append('khóa cài đặt chưa ghi vào sổ js/17b-so-cai-dat.js: '+', '.join(_chua))
 # 3.227 (anh 17/10: dọn rác, kiểm toàn vẹn): hàm mồ côi = khai báo nhưng tên không xuất hiện ở chỗ nào khác (kể cả onclick trong chuỗi) — chỉ báo, không làm trượt
 dem={}
 for w in re.findall(r'[A-Za-z_$][\w$]*',s): dem[w]=dem.get(w,0)+1
 mo_coi=sorted({x for x in top if dem.get(x,0)<=1})
+# 3.260 (phần C): hàm chỉ phép thử gọi (giữ có chủ ý — vd thXem đối chiếu 9 báo cáo 1 lượt) tách riêng, không tính là mồ côi
+_thu=''.join(open(os.path.join(ghep.GOC,'tests',f),encoding='utf-8').read() for f in os.listdir(os.path.join(ghep.GOC,'tests')) if f.endswith('.js'))
+chi_thu=[x for x in mo_coi if re.search(r'\b'+re.escape(x)+r'\b',_thu)]
+mo_coi=[x for x in mo_coi if x not in chi_thu]
 print('Cú pháp', 'OK' if not loi else 'LỖI '+'; '.join(loi), '· Trùng tên:', ', '.join(dup) or 'không', '· Thiếu hàm:', ', '.join(sorted(set(thieu)|set(thieu_onc))) or 'không')
 if NHANH: print('Phép thử nhanh (tests/nhanh):', NHANH)
-print('Hàm mồ côi (chỉ báo, dọn dần):', len(mo_coi), ('— '+', '.join(mo_coi)) if MO_COI else '— xem danh sách: python3 tests/kiem.py --mo-coi')
+print('Hàm mồ côi (chỉ báo, dọn dần):', len(mo_coi), ('— '+', '.join(mo_coi)) if MO_COI else '— xem danh sách: python3 tests/kiem.py --mo-coi', '· chỉ phép thử gọi: %d%s'%(len(chi_thu), (' ('+', '.join(chi_thu)+')') if MO_COI else ''))
 # 3.230 (R1 — KE_HOACH_CHUAN_HOA mục 2.7): THƯỚC ĐO chống lệch hướng — so với mốc tests/do_moc.json; tăng → ⚠ (giải thích trong CHANGELOG hoặc dọn bớt), giảm → hạ mốc bằng --moc
 if len(sys.argv)<2:
     import json, glob

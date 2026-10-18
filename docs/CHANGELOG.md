@@ -4,6 +4,29 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.260 — 18/10/2026 — Phần C: sổ đăng ký cài đặt, dọn mồ côi, đổi tên hàm con trùng
+- **Anh 18/10:** "giờ làm trước phần C" (việc kỹ thuật còn treo trong lộ trình chuẩn hóa).
+- **R4 phần 2 — sổ đăng ký cài đặt** `js/17b-so-cai-dat.js`:
+  - `CH_SO`: mọi khóa `D.cauHinh` app dùng (≈ 170), mỗi khóa 1 dòng mô tả; khối đồng bộ vẫn theo `chKhoiCua`, riêng máy theo `CH_RIENG`, mặc định theo `MAC_DINH` (không lặp).
+  - `tests/kiem.py`: mã dùng khóa (`D.cauHinh.<khóa>`) chưa ghi sổ → báo lỗi.
+  - ⚙ Khai báo › 💾 Sao lưu thêm dòng 🧾 Sổ cài đặt → hộp xem khóa theo khối + KB; khóa lạ (không có trong sổ) đứng đầu, **chỉ báo, không tự xóa**.
+- Dọn mồ côi: bỏ `hsoBoTen` (sót từ Bộ HS cũ); 9 hàm chỉ phép thử gọi (thXem, pvMo, gdxThan…) tách riêng, không tính mồ côi (mốc 10 → 0).
+- Hàm con kéo độ rộng (`js/10-danh-sach.js`) đổi tên `keoRongDau/Di`, `keoCotDau/Di` — hết trùng tên hàm khởi động `batDau`.
+- Ngắt 3 dòng mã > 400 ký tự (thêm ở 3.24x–3.258) — thước đo về trong mốc (t192 đạt lại).
+- **Chưa làm được:** nâng SheetJS / DOMPurify (máy làm việc không tải được cdnjs; SheetJS > 0.18.5 không có trên cdnjs — cần anh duyệt nguồn); KTGS nạp khi dùng (38 chỗ ngoài KTGS gọi vào — cần tách lõi dùng chung, lập kế hoạch riêng).
+- Phép thử: t206 (5), phép thử nhanh +2 (32).
+
+## 3.259 — 18/10/2026 — Bộ thông tin tổ: KQGD từng điểm GD, 3 tháng KHĐ, Nợ quá hạn, Nợ khoanh
+- **Anh 18/10:** gửi file tổng hợp "Thông tin tổ cơ bản" (14 sheet) + Mẫu 13/GDX bản mới: "chỉ làm trước phần KQGD, DS QH, Khoanh, 3 tháng KHĐ theo mẫu trước … KQGD theo VB mới có thêm 1 số thông tin". Chấm điểm lũy kế anh nghiên cứu gửi sau; THHD theo xã / hội làm sau.
+- Tab con 📑 Sao kê thêm nhóm **Thông tin tổ** (file mới `js/22j-thong-tin-to.js`):
+  - **Kết quả giao dịch tại điểm GD** — mỗi điểm GD 1 trang (A4 ngang, nghìn đồng như 13/GDX), 24 cột: tổ trưởng, ấp, mã tổ, SĐT, tổ phó, số khách hàng, doanh số cho vay / thu nợ, dư nợ, quá hạn + tỷ lệ, khoanh + tỷ lệ, lãi đã nộp, lãi tồn, tiền gửi tổ viên, KHĐ 3 tháng (số hộ, dư nợ, tỷ lệ), số hộ khoanh, nợ đến hạn kỳ cuối chưa trả, nợ đến hạn tháng sau (phân kỳ, kỳ cuối).
+  - Dòng Hội (cộng) → các tổ (dư nợ lớn trước) → dòng theo chương trình của hội (tên viết tắt hệ thống); cuối trang: CỘNG + theo chương trình. Tổ dư nợ 0 tô đỏ nhạt.
+  - **Bộ thông tin tổ** = các trang KQGD + 3 tháng KHĐ + Nợ quá hạn + Nợ khoanh; 3 sao kê chia Điểm GD › Hội › Tổ, dòng nhóm mang số cộng, cột đúng file mẫu (Ghi chú để trống cho cán bộ ghi).
+  - Excel: 1 sheet mỗi điểm GD (tên điểm) + 3 sheet sao kê; dòng cộng Hội / Tổ / Điểm / CỘNG và cột tỷ lệ là **công thức** (SUM, IFERROR) như file anh đang dùng.
+- Cách tính (từ Mẫu 31 tháng chọn — ghi cuối trang): doanh số, lãi đã nộp = trong tháng (13/GDX theo phiên giao dịch nên có thể khác); nợ đến hạn kỳ cuối chưa trả = món trong hạn đã qua hạn hợp đồng / gia hạn chưa chuyển quá hạn; phân kỳ tháng sau theo file Nợ đến hạn phân kỳ (không có thì ước tính như sao kê NOXH).
+- `js/22h-cap-hoi-sao-ke.js`: `skBaoCao` nhận báo cáo trả nhiều trang (mảng); `skXem` nạp trước file phân kỳ cho 2 báo cáo mới; báo cáo cũ không đổi.
+- Phép thử: t205 (24 phép).
+
 ## 3.258 — 18/10/2026 — Sắp lại thứ tự mẫu Hồ sơ vay, 01/TD tách theo chương trình
 - **Anh 18/10:** "sắp xếp theo thứ tự nhóm 01UQ, 01TD HSSV, 01TD NSVSMT, 03TD, 06TD, 01GQVL, 07A GQVL, 01TGTV …" — "cho khỏi lăn tăn khi chọn rối".
 - Thanh chip Hồ sơ vay:

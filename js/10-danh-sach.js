@@ -1068,13 +1068,13 @@ function ganKeoRong(){
   if(!k || k.dataset.gan) return;
   k.dataset.gan = '1';
   var dangKeo = false;
-  function batDau(e){
+  function keoRongDau(e){
     dangKeo = true;
     document.body.style.userSelect = 'none';
     document.body.style.cursor = 'col-resize';
     e.preventDefault();
   }
-  function keo(e){
+  function keoRongDi(e){
     if(!dangKeo) return;
     var x = (e.touches ? e.touches[0].clientX : e.clientX);
     var than = document.querySelector('.than');
@@ -1091,10 +1091,10 @@ function ganKeoRong(){
     if(v){ D.cauHinh.rongPV = v.trim(); luu(); }
     if(XEM.phai.pdf) veTrang('phai');
   }
-  k.addEventListener('mousedown', batDau);
-  k.addEventListener('touchstart', batDau, {passive:false});
-  document.addEventListener('mousemove', keo);
-  document.addEventListener('touchmove', keo, {passive:false});
+  k.addEventListener('mousedown', keoRongDau);
+  k.addEventListener('touchstart', keoRongDau, {passive:false});
+  document.addEventListener('mousemove', keoRongDi);
+  document.addEventListener('touchmove', keoRongDi, {passive:false});
   document.addEventListener('mouseup', xong);
   document.addEventListener('touchend', xong);
   /* bấm đúp để trả về mặc định */
@@ -1111,14 +1111,14 @@ function ganKeoCot(){
   if(!v || v.dataset.gan) return;
   v.dataset.gan = '1';
   var dang = false, x0 = 0, t0 = 1.0, p0 = 1.25;
-  function batDau(x){
+  function keoCotDau(x){
     dang = true; x0 = x;
     var cs = getComputedStyle(document.documentElement);
     t0 = parseFloat(cs.getPropertyValue('--rong-trai')) || 1.5;
     p0 = parseFloat(cs.getPropertyValue('--rong-phai')) || 1;
     document.body.style.userSelect = 'none';
   }
-  function keo(x){
+  function keoCotDi(x){
     if(!dang) return;
     var dx = (x - x0) / Math.max(400, window.innerWidth) * 2.2;
     /* 3.12: chặn kéo quá tay — mỗi cột giữ trong khoảng 30%..70% */
@@ -1137,12 +1137,12 @@ function ganKeoCot(){
     luu(); apRongCot();
     if(XEM.phai.pdf) veTrang('phai');
   }
-  v.addEventListener('mousedown', function(e){ e.preventDefault(); batDau(e.clientX); });
-  document.addEventListener('mousemove', function(e){ keo(e.clientX); });
+  v.addEventListener('mousedown', function(e){ e.preventDefault(); keoCotDau(e.clientX); });
+  document.addEventListener('mousemove', function(e){ keoCotDi(e.clientX); });
   document.addEventListener('mouseup', thoi);
-  v.addEventListener('touchstart', function(e){ batDau(e.touches[0].clientX); }, {passive:true});
+  v.addEventListener('touchstart', function(e){ keoCotDau(e.touches[0].clientX); }, {passive:true});
   document.addEventListener('touchmove', function(e){
-    if(dang) keo(e.touches[0].clientX); }, {passive:true});
+    if(dang) keoCotDi(e.touches[0].clientX); }, {passive:true});
   document.addEventListener('touchend', thoi);
   v.addEventListener('dblclick', function(){
     if(D.cauHinh.rongTab) delete D.cauHinh.rongTab[tenTabPV()];
