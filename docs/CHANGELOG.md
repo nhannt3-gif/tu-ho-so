@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.263 — 19/10/2026 — Tình hình hoạt động (THHD) thay Bộ thông tin tổ
+- **Anh 19/10:** "thay thế nút Bộ thông tin chốt thành bảng Tình hình hoạt động (THHD), bao gồm các thông tin về tín dụng tại xã, có phân theo điểm, ngắn gọn 1 trang A4 dọc, tùy cấp chọn mà có chi tiết nhất có thể".
+- Nút **Bộ thông tin tổ** (Excel nhiều sheet Tổng hợp / theo xã / theo hội / Ghi chú) **bỏ**, thay bằng **📊 Tình hình hoạt động (THHD)** — 1 trang A4 dọc, triệu đồng, đơn vị tính góc phải:
+  1. Chỉ tiêu chính: số tổ, số hộ (tổ viên), hộ có dư nợ, dư nợ, tiết kiệm TK 105, dư nợ BQ / hộ, quá hạn, khoanh, KHĐ 3 tháng (số hộ, %), tỷ lệ rủi ro, lãi tồn, lãi đã thu, cho vay / thu nợ tháng, nợ đến hạn tháng sau, quá hạn HĐ chưa chuyển QH, chấm điểm tổ (BC0437).
+  2. Chi tiết theo cấp: **PGD** — theo xã ├ điểm + theo hội · **xã** — theo điểm + theo hội · **điểm** — theo hội + tổ cần lưu ý (QH, khoanh, KHĐ, dư nợ 0, xếp loại TB / Yếu) · **hội** — từng tổ · **tổ** — hộ cần lưu ý (QH, khoanh, KHĐ, lãi tồn).
+  3. Theo chương trình (hộ có dư nợ, dư nợ, tỷ trọng, QH, khoanh, KHĐ, cho vay / thu nợ tháng).
+- KQGD (điểm + toàn xã), 3 sao kê riêng giữ nguyên. Excel THHD: 1 sheet các khối.
+- Phép thử: t205 viết lại (37) — THHD từng cấp.
+
 ## 3.262 — 18/10/2026 — Bộ thông tin tổ: số liệu theo ngày (nếu có), thêm cột Số hộ đang có dư nợ
 - **Anh 18/10:** "tạm ổn rồi, em kiểm tra lấy số liệu nếu có dữ liệu theo ngày được không, thêm cột số hộ đang có dư nợ".
 - **Kỳ theo ngày:** kỳ đang chọn là ngày và có **Mẫu 31 đúng ngày đó** → lập bằng số liệu ngày (đầu trang ghi "Số liệu ngày dd/mm/yyyy"); không có Mẫu 31 ngày đó → như 3.261, lấy chốt cuối tháng. KHĐ / quá hạn / khoanh theo file app đang dùng cho kỳ (ngày thật của file ghi ở đầu sao kê).

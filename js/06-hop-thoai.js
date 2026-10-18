@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.262', ds:[
+var CO_GI_MOI = {ban:'3.263', ds:[
+  ["📊 Sao kê › Tình hình hoạt động (THHD) thay Bộ thông tin tổ: 1 trang A4 dọc, chi tiết theo cấp chọn (PGD › xã › điểm › hội › tổ)", "doiNgan(7)"],
   ["📒 Bộ thông tin tổ: thêm cột Số hộ đang có dư nợ (Số hộ = tổ viên); chọn kỳ theo ngày có Mẫu 31 ngày đó thì lấy số liệu ngày; đơn vị tính góc phải trên bảng; KQGD toàn xã liền sau các điểm; 3 nút sao kê riêng (Nợ QH, Nợ khoanh — A4 dọc, 3 tháng KHĐ)", "doiNgan(7)"],
   ["📒 Bộ thông tin tổ chốt cuối tháng như file tổng hợp: Tổng hợp · theo xã · theo hội · từng điểm · từng xã · 3 tháng KHĐ · Nợ QH · Nợ khoanh · Ghi chú; bản in hết chồng chữ", "doiNgan(7)"],
   ["🧾 Sổ cài đặt (⚙ Khai báo › 💾 Sao lưu): xem mọi lựa chọn / khai báo app nhớ theo khối, dung lượng; khóa lạ (bản cũ để lại) chỉ báo để rà", "hsoKBHop('sl')"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.262', ds:[
   ["⚙ Khai báo riêng mọi mẫu hồ sơ (01/TD, 01/UQ, 03/TD, 09A, 01/TĐCK, 01/TGTV, 01/GQVL, 07b, 10A–10D, 11…): 💾 Lưu đóng khung, ✕ Hủy / đóng chưa lưu thì trả lại, ↺ mặc định từng ô, ô cần gõ tự ra cột trái, ô theo chương trình mở thẻ chương trình — chỉ chỗ chấm, câu chữ mẫu giữ nguyên", "doiNgan(7)"],
   ["📝 HSSV: đối tượng thụ hưởng mặc định \"Hộ gia đình gặp khó khăn về kinh tế, tài chính do bệnh tật\" — 03/TD tự điền, đổi / thêm ở ⚙ khai báo chương trình", "doiNgan(7)"],
   ["📝 01/TD: chỗ ký UBND trả lại 4 dòng (bớt 2 thì Chủ tịch ký đè chữ); chỗ ký NH chừa 2 dòng + phần trống cuối trang — vẫn 1 trang khi tên SV dài, in sẵn UBND + NH", "doiNgan(7)"],
-  ["📝 01/TD: chỗ ký Ngân hàng rộng thêm 3 dòng (bớt 2 dòng dưới UBND, bớt cách đoạn), phần NH in liền khi có số liệu; lề trên 7 mm; gạch tiêu ngữ mảnh, sát chữ, dài đúng bằng dòng tiêu ngữ (mọi mẫu)", "doiNgan(7)"],
-  ["📝 01/TD: Năm sinh cách tên 1 tab; tên SV dài xuống dòng vẫn cân (số lượng, thành tiền canh giữa); nước sạch thêm 1 dòng chấm bảng đối tượng; chấm mảnh như mẫu KTGS cho mọi mẫu hồ sơ (in, xem, Word)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📝 01/TD: chỗ ký Ngân hàng rộng thêm 3 dòng (bớt 2 dòng dưới UBND, bớt cách đoạn), phần NH in liền khi có số liệu; lề trên 7 mm; gạch tiêu ngữ mảnh, sát chữ, dài đúng bằng dòng tiêu ngữ (mọi mẫu)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
