@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.261 — 18/10/2026 — Bộ thông tin tổ: đủ khung file tổng hợp, chốt cuối tháng; bản in hết chồng chữ
+- **Anh 18/10:** "số liệu còn sai chưa hoàn chỉnh" (ảnh: bảng KQGD in bị chồng chữ) — "anh cần dữ liệu tương tự, chốt cuối tháng là được".
+- Số liệu **luôn chốt cuối tháng**: kỳ đang chọn là ngày → app tự lấy Mẫu 31 chốt tháng của tháng đó (`ttChuanBi`), kèm BC0437 cùng tháng (điểm, xếp loại tổ) và file phân kỳ — nạp 1 lần rồi mới lập.
+- **Đủ khung file** (thứ tự sheet như file anh dùng): Tổng hợp (xã ├ điểm, + khối nợ quá hạn theo điểm, + tình hình chấm điểm) → THHD theo Xã (tỷ lệ rủi ro, điểm TB) → THHD theo Hội từng xã (tỷ trọng, số tổ Tốt / Khá / TB-Yếu) → từng điểm GD → từng xã (thêm cột Điểm GD, Hội; "Cộng Hội …") → 3 tháng KHĐ → Nợ QH → Nợ khoanh → Ghi chú (phạm vi, nguồn file, cách tính, tổ dư nợ 0 / thiếu điểm GD).
+- Sheet điểm GD **theo cột file** (Số hộ, Dư nợ, Tiết kiệm, Nợ quá hạn + tỷ lệ, Lãi tồn, KHĐ 3 tháng + tỷ lệ, Khoanh, Điểm / Xếp loại tháng, Điểm / Xếp loại lũy kế) + cột thêm theo 13/GDX ở cuối (doanh số tháng, lãi đã nộp, tỷ lệ khoanh, nợ đến hạn). Bỏ dòng theo chương trình.
+- **Bản in**: chỉ cột chính (bỏ SĐT, tổ phó, lũy kế, cột thêm), nghìn đồng, tiêu đề cột xuống dòng — hết chồng chữ (ảnh anh gửi). Excel: đủ cột, đồng, dòng cộng / tỷ lệ là công thức.
+- Tên hội theo file: Hội nông dân · Hội liên hiệp phụ nữ · Hội cựu chiến binh · Đoàn thanh niên CSHCM.
+- Điểm lũy kế để trống — chờ anh gửi cách chấm lũy kế.
+- Phép thử: t205 viết lại theo khung mới (28).
+
 ## 3.260 — 18/10/2026 — Phần C: sổ đăng ký cài đặt, dọn mồ côi, đổi tên hàm con trùng
 - **Anh 18/10:** "giờ làm trước phần C" (việc kỹ thuật còn treo trong lộ trình chuẩn hóa).
 - **R4 phần 2 — sổ đăng ký cài đặt** `js/17b-so-cai-dat.js`:

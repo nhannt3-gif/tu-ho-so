@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.261) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › Bộ thông tin tổ (kỳ T9 chốt tháng) › 👁 Xem | Tổng hợp → theo xã → theo hội → điểm → xã → 3 sao kê → Ghi chú; bản in không chồng chữ | |
+| 2 | Chọn kỳ theo ngày rồi Xem | Vẫn ra số chốt cuối tháng của tháng đó | |
+| 3 | 📊 Excel, so file tổng hợp tháng 08 | Cột, thứ tự sheet giống; số khớp Mẫu 31 cuối tháng | |
+
+**Ghi chú kỹ thuật 3.261:** `skXem` nạp trước 1 lần cho kqgd / bott (`ttChuanBi` → file phân kỳ → lập, đổi `SK_K` sang số chốt tháng trong lúc lập rồi trả lại). Cột bảng tổ khai ở `TT_COT` (cột 4 = có trong bản in).
+
 ### Danh sách thử trên máy thật (3.260) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
