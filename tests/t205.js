@@ -18,23 +18,33 @@ const fs=require('fs'), path=require('path');
    /* toàn PGD */
    const C = skCH(); C.xa = ''; C.diem = ''; C.hoi = ''; C.to = '';
    skXem(); for(let i=0;i<40 && !document.getElementById('sk-khung');i++) await w(250); await w(800);
-   const X = SK_XEM, kq = X.filter(x=>/^KẾT QUẢ GIAO DỊCH/.test(x.tieuDe));
-   ok('bộ = các trang KQGD (mỗi điểm 1) + 3 tháng KHĐ + Nợ QH + Nợ khoanh', kq.length>=1 && X.length===kq.length+3 && X.slice(-3).map(x=>x.ten).join('|')==='3 Tháng KHĐ|Nợ QH|Nợ khoanh', X.map(x=>x.ten).join('|'));
+   const X = SK_XEM, kq = X.filter(x=>/^KẾT QUẢ GIAO DỊCH TẠI ĐIỂM/.test(x.tieuDe)), xa = X.filter(x=>/^KẾT QUẢ GIAO DỊCH TOÀN XÃ/.test(x.tieuDe));
+   const ten = X.map(x=>x.ten);
+   ok('3.261: thứ tự như file tổng hợp: Tổng hợp → THHD theo Xã → THHD theo Hội → điểm → xã → 3 sao kê → Ghi chú', ten[0]==='Tổng hợp' && ten[1]==='THHD theo Xã' && /^THHD theo Hội - /.test(ten[2]) && ten.slice(-4).join('|')==='3 Tháng KHĐ|Nợ QH|Nợ khoanh|Ghi chú'
+     && ten.indexOf(kq[0].ten) < ten.indexOf(xa[0].ten) && X.filter(x=>/^THHD theo Hội/.test(x.ten)).length===xa.length, ten.join('|'));
    const diemT = new Set(Object.values(SK_K.to).map(t=>t.khoaDiem || ttDiemTen(t)));
    ok('số trang KQGD = số điểm GD có tổ', kq.length===diemT.size, kq.length+' / '+diemT.size);
    const k0 = kq[0], cot = k0.aoa[0];
-   ok('KQGD: đủ 24 cột (thêm doanh số, lãi đã nộp, nợ đến hạn theo 13/GDX)', cot.length===24 && cot.indexOf('Doanh số cho vay')>=0 && cot.indexOf('Tiền lãi đã nộp')>=0 && cot.indexOf('Nợ đến hạn tháng sau — Phân kỳ')>=0, cot.length);
+   ok('KQGD: cột như file (Số hộ, Dư nợ, Tiết kiệm, …, Điểm / Xếp loại) + cột thêm 13/GDX ở cuối (28)', cot.length===28 && cot.slice(6, 9).join('|')==='Số hộ|Dư nợ|Tiết kiệm - Số dư' && /^Điểm tháng \d\d$/.test(cot[17]) && cot[27]==='Nợ đến hạn tháng sau — Kỳ cuối', cot.join('|'));
    const r1 = k0.aoa[1];
-   ok('KQGD: dòng đầu là Hội (cộng) có công thức SUM', /\(\d+ tổ\)$/.test(String(r1[1])) && r1[9] && /^SUM\(J7:J\d+\)$/.test(r1[9].f), JSON.stringify(r1[9]));
-   ok('KQGD: tỷ lệ NQH là công thức IFERROR', r1[11] && /^IFERROR\(K6\/J6\*100,0\)$/.test(r1[11].f), JSON.stringify(r1[11]));
-   const cong = k0.aoa.find(r=>/^CỘNG \(\d+ tổ\)$/.test(String(r[1])));
-   ok('KQGD: dòng CỘNG = tổng các dòng Hội (công thức)', cong && /^J\d+(\+J\d+)*$/.test(cong[9].f), cong && cong[9].f);
-   /* đối chiếu dư nợ: tổng các trang KQGD = tổng dư nợ món Mẫu 31 thuộc các tổ */
-   const tongKQ = kq.reduce((a, x)=>{ const c = x.aoa.find(r=>/^CỘNG/.test(String(r[1]))); return a + (c ? c[9].v : 0); }, 0);
+   ok('KQGD: dòng đầu là Hội (n tổ), số cộng là công thức SUM', /\(\d+ tổ\)$/.test(String(r1[0])) && r1[7] && /^SUM\(H7:H\d+\)$/.test(r1[7].f), JSON.stringify(r1[7]));
+   ok('KQGD: tỷ lệ NQH là công thức IFERROR', r1[10] && /^IFERROR\(J6\/H6\*100,0\)$/.test(r1[10].f), JSON.stringify(r1[10]));
+   const cong = k0.aoa.find(r=>/^CỘNG \(\d+ tổ\)$/.test(String(r[0])));
+   ok('KQGD: dòng CỘNG = tổng các dòng Hội (công thức)', cong && /^H\d+(\+H\d+)*$/.test(cong[7].f), cong && cong[7].f);
+   const tongKQ = kq.reduce((a, x)=>{ const c = x.aoa.find(r=>/^CỘNG/.test(String(r[0]))); return a + (c ? c[7].v : 0); }, 0);
    let tong31 = 0; Object.keys(SK_K.to).forEach(m=>{ (SK_K.kh[m]||[]).forEach(o=>{ if(o.ku) tong31 += o.dn||0; }); });
    ok('KQGD: tổng dư nợ các điểm = dư nợ món Mẫu 31 của các tổ', Math.abs(tongKQ - tong31) < 1 && tong31>0, tongKQ+' / '+tong31);
-   ok('KQGD: có dòng theo chương trình (tên viết tắt hệ thống)', k0.aoa.some(r=>/^· \S+/.test(String(r[1]))), k0.aoa.filter(r=>/^· /.test(String(r[1]))).map(r=>r[1]).slice(0,5).join(' '));
-   ok('KQGD in: nghìn đồng, 2 dòng tiêu đề, khổ ngang', /nghìn đồng/.test(k0.html) && /rowspan="2"/.test(k0.html) && k0.ngang===true);
+   ok('KQGD in: cột chính (không SĐT, tổ phó), nghìn đồng, tiêu đề cột xuống dòng được, khổ ngang', !/SĐT Tổ trưởng/.test(k0.html) && /Tiết kiệm - Số dư/.test(k0.html) && /nghìn đồng/.test(k0.html) && /white-space:normal/.test(k0.html) && k0.ngang===true);
+   const x0 = xa[0];
+   ok('sheet xã: thêm cột Điểm GD, Hội; nhóm "Cộng Hội …"; cuối "CỘNG <XÃ>"', x0.aoa[0][1]==='Điểm GD' && x0.aoa[0][2]==='Hội đoàn thể' && /^Cộng .*\(\d+ tổ\)$/.test(String(x0.aoa[1][0])) && /^CỘNG .*\(\d+ tổ\)$/.test(String(x0.aoa[x0.aoa.length-1][0])), x0.aoa[1][0]+' · '+x0.aoa[x0.aoa.length-1][0]);
+   const th = X[0], thT = th.aoa.find(r=>r[0]==='TỔNG CỘNG');
+   ok('Tổng hợp: TỔNG CỘNG dư nợ = tổng các điểm; có khối nợ quá hạn + chấm điểm', thT && Math.abs(thT[3].v - tongKQ) < 1 && th.aoa.some(r=>/^NỢ QUÁ HẠN/.test(String(r[0]))) && th.aoa.some(r=>/^TÌNH HÌNH CHẤM ĐIỂM/.test(String(r[0]))), thT && thT[3].v);
+   const tx = X[1], txT = tx.aoa[tx.aoa.length-1];
+   ok('THHD theo Xã: cột như file, dòng TỔNG CỘNG PGD', tx.aoa[0].join('|')==='Xã|Số tổ|Số hộ|Dư nợ (đồng)|Tiết kiệm (đồng)|Nợ quá hạn (đồng)|Tỷ lệ NQH (%)|Dư nợ KHĐ (đồng)|Dư nợ Khoanh (đồng)|Tỷ lệ rủi ro (%)|Điểm TB tháng' && txT[0]==='TỔNG CỘNG PGD' && Math.abs(txT[3].v - tongKQ)<1, tx.aoa[0].join('|'));
+   const tg = X[2];
+   ok('THHD theo Hội: 14 cột (tỷ trọng, rủi ro, điểm TB, số tổ Tốt / Khá / TB-Yếu)', tg.aoa[0].length===14 && tg.aoa[0][13]==='Số tổ TB/Yếu' && tg.aoa[tg.aoa.length-1][0]==='CỘNG', tg.aoa[0].join('|'));
+   const gc = X[X.length-1];
+   ok('Ghi chú: phạm vi, nguồn số liệu chốt cuối tháng, cách tính, cần lưu ý', /PHẠM VI/.test(gc.html) && /NGUỒN SỐ LIỆU \(chốt cuối tháng\)/.test(gc.html) && /CẦN LƯU Ý/.test(gc.html));
    /* 3 sao kê */
    const khd = X.find(x=>x.ten==='3 Tháng KHĐ'), qh = X.find(x=>x.ten==='Nợ QH'), kn = X.find(x=>x.ten==='Nợ khoanh');
    const dem = (x, re) => x.aoa.filter(r=>re.test(String(r[1]))).length;
@@ -54,17 +64,17 @@ const fs=require('fs'), path=require('path');
    /* Excel: sheet theo tên điểm + 3 sheet, công thức giữ */
    let wb = null; const tai0 = window.taiXuongBlob; window.taiXuongBlob = async (bl, ten) => { wb = XLSX.read(new Uint8Array(await bl.arrayBuffer()), {type:'array', cellFormula:true}); wb._ten = ten; };
    skExcel(); for(let i=0;i<20 && !wb;i++) await w(250); window.taiXuongBlob = tai0;
-   ok('Excel: 1 sheet mỗi điểm + 3 Tháng KHĐ, Nợ QH, Nợ khoanh', wb && wb.SheetNames.length===X.length && wb.SheetNames.slice(-3).join('|')==='3 Tháng KHĐ|Nợ QH|Nợ khoanh', wb && wb.SheetNames.join('|'));
-   const s0 = wb && wb.Sheets[wb.SheetNames[0]];
-   ok('Excel: ô cộng Hội có công thức (J6)', s0 && s0.J6 && /^SUM\(J7:J\d+\)$/.test(s0.J6.f || ''), s0 && JSON.stringify(s0.J6));
+   ok('Excel: đủ sheet như bộ xem (Tổng hợp … Ghi chú)', wb && wb.SheetNames.length===X.length && wb.SheetNames[0]==='Tổng hợp' && wb.SheetNames.slice(-4).join('|')==='3 Tháng KHĐ|Nợ QH|Nợ khoanh|Ghi chú', wb && wb.SheetNames.join('|'));
+   const s0 = wb && wb.Sheets[ttTenSheet(kq[0].ten)];
+   ok('Excel: sheet điểm GD — ô cộng Hội có công thức (H6)', s0 && s0.H6 && /^SUM\(H7:H\d+\)$/.test(s0.H6.f || ''), s0 && JSON.stringify(s0.H6));
    dongHop();
    /* phạm vi 1 điểm GD: chỉ 1 trang KQGD */
    const t0 = Object.values(SK_K.to).find(t=>t.diem && !toLaTT(t)); C.xa = t0.xa; C.diem = t0.khoaDiem; C.hoi = ''; C.to = '';
-   skXem(); await w(1200);
-   ok('chọn 1 điểm GD → 1 trang KQGD + 3 sao kê', SK_XEM.length===4 && /^KẾT QUẢ GIAO DỊCH TẠI ĐIỂM GIAO DỊCH /.test(SK_XEM[0].tieuDe), SK_XEM.map(x=>x.ten).join('|'));
+   skXem(); await w(1500);
+   ok('chọn 1 điểm GD → Tổng hợp, theo xã, theo hội, 1 điểm, 1 xã, 3 sao kê, ghi chú', SK_XEM.filter(x=>/TẠI ĐIỂM GIAO DỊCH/.test(x.tieuDe)).length===1 && SK_XEM.length===9, SK_XEM.map(x=>x.ten).join('|'));
    dongHop();
    /* chỉ KQGD */
-   skChonBC('kqgd'); await w(300); skXem(); await w(1200);
+   skChonBC('kqgd'); await w(300); skXem(); await w(1500);
    ok('báo cáo KQGD riêng: chỉ trang KQGD', SK_XEM.length===1 && /^KẾT QUẢ GIAO DỊCH/.test(SK_XEM[0].tieuDe), SK_XEM.length);
    dongHop();
    /* báo cáo cũ không đổi: 1 trang, có ngang theo khổ */
