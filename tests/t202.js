@@ -25,6 +25,13 @@ const fs=require('fs'), path=require('path');
    ok('nhiều hộ / phiếu: 3 hộ cùng tổ → 1 phiếu 3 dòng, dòng Cộng = tổng', g.length===1 && g[0].rows.length===3 && g[0].f.TGN===ktTr(40000000+30000000*2, 2), g.length+' phiếu · '+(g[0]||{rows:[]}).rows.length+' dòng · Cộng '+(g[0]||{f:{}}).f.TGN);
    /* Word */
    let wd = null; try { wd = await ktDocx('m06', g[0]); } catch(e){ wd = e; } ok('xuất Word 06/TD (khuôn KTGS)', wd && wd.size>3000, wd && (wd.size || wd.message));
+   /* 3.255: khai báo riêng 06/TD */
+   ok('06/TD có ⚙ Khai báo riêng: đơn vị kiểm tra, cán bộ 1 / 2, thời điểm, mục đích', /Khai báo riêng — Mẫu 06\/TD/.test(document.getElementById('hso-tuy').textContent) && /Đơn vị kiểm tra/.test(document.getElementById('hso-tuy').textContent) && /Thời điểm kiểm tra/.test(document.getElementById('hso-tuy').textContent));
+   hso06Dat('dvc', 'go'); hso06Dat('dv', 'Đơn Vị Kiểm Tra Giả'); hso06Dat('cb2', 'Người Thứ Hai Giả'); hso06Dat('cv2', 'Cán bộ giả'); hso06Dat('ngay', '2026-10-20'); hso06Dat('md', 'trong'); await w(400);
+   let g2 = hso06GtHS()[0];
+   ok('khai: đơn vị gõ riêng, cán bộ 2 + chức vụ, thời điểm 20/10/2026, mục đích để trống → vào phiếu', /Đơn Vị Kiểm Tra Giả/.test(g2.f.DV) && g2.f.CB2==='Người Thứ Hai Giả' && g2.f.CV2==='Cán bộ giả' && g2.f.TD==='20/10/2026' && g2.rows.every(r=>!r.R7), JSON.stringify({DV:g2.f.DV, CB2:g2.f.CB2, TD:g2.f.TD, R7:g2.rows.map(r=>r.R7)}));
+   hso06Dat('dvc', 'cham'); ok('đơn vị kiểm tra "Để chấm" → trống (dòng chấm)', !/Đơn Vị/.test(hso06GtHS()[0].f.DV));
+   hso06MD(); await w(300); g2 = hso06GtHS()[0]; ok('↺ Về mặc định → mục đích theo hồ sơ, thời điểm chấm', g2.rows.some(r=>r.R7) && !g2.f.TD);
    /* 01/TD In kèm 06/TD */
    hmLamHS(h1.id, '01td'); await w(500); hsoBoDat('kem.k06', 1, 1); await w(500);
    ok('01/TD In kèm có ô 06/TD; tích → nút 🖨 06/TD cạnh nút In', /06\/TD phiếu kiểm tra/.test(document.getElementById('hso-tuy').textContent) && hsoKem06() && /🖨 06\/TD/.test(document.getElementById('hso-xem-nut').textContent));

@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.254', ds:[
+var CO_GI_MOI = {ban:'3.255', ds:[
+  ["📋 06/TD có ⚙ Khai báo riêng: đơn vị kiểm tra (theo Hội / để chấm / gõ riêng), cán bộ kiểm tra 1 (vai trò, tên theo Khai báo Hội), cán bộ 2 + chức vụ, thời điểm kiểm tra, mục đích (theo hồ sơ / để trống)", "doiNgan(7)"],
   ["🔤 Khai báo riêng mọi mẫu: chọn cỡ chữ 13 · 13,5 · 14; 01/TD in thật cỡ 14 (sửa 3.247 mới đổi khung ô, thân chữ vẫn 13)", "doiNgan(7)"],
   ["📋 Mẫu 06/TD trong Hồ sơ vay: phiếu kiểm tra sử dụng vốn (dùng Mẫu 06 KTGS), nhiều hộ / phiếu theo danh sách 03/TD, phần ghi theo hồ sơ điền sẵn (giải ngân = dư nợ = số vay, mục đích); 01/TD In kèm 06/TD", "doiNgan(7)"],
   ["⚙ Khai báo riêng mọi mẫu hồ sơ (01/TD, 01/UQ, 03/TD, 09A, 01/TĐCK, 01/TGTV, 01/GQVL, 07b, 10A–10D, 11…): 💾 Lưu đóng khung, ✕ Hủy / đóng chưa lưu thì trả lại, ↺ mặc định từng ô, ô cần gõ tự ra cột trái, ô theo chương trình mở thẻ chương trình — chỉ chỗ chấm, câu chữ mẫu giữ nguyên", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.254', ds:[
   ["📝 Form 01/TD: đưa lại chip chọn sinh viên (hộ nhiều SV) và khối In kèm (03/TD · 10C · 01/UQ · 01/TGTV, cảnh báo UQ thiếu thành viên) — form mới 3.242 lỡ bỏ", "doiNgan(7)"],
   ["📄 Mẫu 04 Giao dịch xã: tên PGD (Gò Dầu) không rớt nửa xuống dòng; \"tại địa điểm:\" nối liền tên điểm GD; \"01 người\" liền; mục 2 không có người chưa được vay → nét gạch tay mảnh trên 3 dòng chấm (⚙ Khai báo riêng: Hiện / Ẩn)", "doiNgan(7)"],
   ["📝 Lập 01/TD theo thứ tự tờ giấy: Chương trình → Kính gửi → Người vay (gõ mới hoặc chọn từ Sổ / M31, Tab / Enter đi ô kế, ngày gõ liền số, nơi cấp tự điền) → Xã › Thôn › Tổ (Hội lọc tổ) → Đề nghị vay tự tính; 💾 Lưu, danh sách bản đã lưu, Làm trống, In / Gửi / Mẫu 03 hỏi lưu", "doiNgan(7)"],
-  ["🏗 NSVSMT: loại công trình theo thẻ (Xây mới · Sửa chữa, thêm Cải tạo ở khai báo); vốn tự có trống = mặc định thẻ 5 triệu", "doiNgan(7)"],
-  ["📄 Mẫu 04 Giao dịch xã canh chuẩn: lề trên 2 · dưới 2 · trái 3 · phải 2 cm; gạch dưới tên PGD bằng ½ chữ, 2 nét gạch mảnh; THÔNG BÁO và KẾT QUẢ PHÊ DUYỆT cùng cỡ; giãn ngày – tiêu đề – kính gửi – thân", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🏗 NSVSMT: loại công trình theo thẻ (Xây mới · Sửa chữa, thêm Cải tạo ở khai báo); vốn tự có trống = mặc định thẻ 5 triệu", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
