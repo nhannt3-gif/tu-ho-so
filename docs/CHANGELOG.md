@@ -4,6 +4,25 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.263 — 19/10/2026 — Tình hình hoạt động (THHD) thay Bộ thông tin tổ
+- **Anh 19/10:** "thay thế nút Bộ thông tin chốt thành bảng Tình hình hoạt động (THHD), bao gồm các thông tin về tín dụng tại xã, có phân theo điểm, ngắn gọn 1 trang A4 dọc, tùy cấp chọn mà có chi tiết nhất có thể".
+- Nút **Bộ thông tin tổ** (Excel nhiều sheet Tổng hợp / theo xã / theo hội / Ghi chú) **bỏ**, thay bằng **📊 Tình hình hoạt động (THHD)** — 1 trang A4 dọc, triệu đồng, đơn vị tính góc phải:
+  1. Chỉ tiêu chính: số tổ, số hộ (tổ viên), hộ có dư nợ, dư nợ, tiết kiệm TK 105, dư nợ BQ / hộ, quá hạn, khoanh, KHĐ 3 tháng (số hộ, %), tỷ lệ rủi ro, lãi tồn, lãi đã thu, cho vay / thu nợ tháng, nợ đến hạn tháng sau, quá hạn HĐ chưa chuyển QH, chấm điểm tổ (BC0437).
+  2. Chi tiết theo cấp: **PGD** — theo xã ├ điểm + theo hội · **xã** — theo điểm + theo hội · **điểm** — theo hội + tổ cần lưu ý (QH, khoanh, KHĐ, dư nợ 0, xếp loại TB / Yếu) · **hội** — từng tổ · **tổ** — hộ cần lưu ý (QH, khoanh, KHĐ, lãi tồn).
+  3. Theo chương trình (hộ có dư nợ, dư nợ, tỷ trọng, QH, khoanh, KHĐ, cho vay / thu nợ tháng).
+- KQGD (điểm + toàn xã), 3 sao kê riêng giữ nguyên. Excel THHD: 1 sheet các khối.
+- Phép thử: t205 viết lại (37) — THHD từng cấp.
+
+## 3.262 — 18/10/2026 — Bộ thông tin tổ: số liệu theo ngày (nếu có), thêm cột Số hộ đang có dư nợ
+- **Anh 18/10:** "tạm ổn rồi, em kiểm tra lấy số liệu nếu có dữ liệu theo ngày được không, thêm cột số hộ đang có dư nợ".
+- **Kỳ theo ngày:** kỳ đang chọn là ngày và có **Mẫu 31 đúng ngày đó** → lập bằng số liệu ngày (đầu trang ghi "Số liệu ngày dd/mm/yyyy"); không có Mẫu 31 ngày đó → như 3.261, lấy chốt cuối tháng. KHĐ / quá hạn / khoanh theo file app đang dùng cho kỳ (ngày thật của file ghi ở đầu sao kê).
+- **Số hộ** = tổ viên của tổ trên Mẫu 31 (như tab Tổ, kể cả hộ chỉ gửi TK 105); **cột mới "Số hộ đang có dư nợ"** = hộ còn dư nợ > 0 — có ở sheet điểm, xã, Tổng hợp, theo xã, theo hội (bản in + Excel).
+- **Anh góp thêm về mẫu:** "đơn vị tính đưa lên bên phải trên bảng, KQGD cả xã để chung với các điểm giao dịch":
+  - mỗi bảng có dòng *Đơn vị tính: …* góc phải ngay trên bảng (bảng tổ in: nghìn đồng; bảng tổng hợp, sao kê: đồng); Excel ghi "Đơn vị tính: đồng" ở dòng thứ 3;
+  - KQGD toàn xã đứng liền sau các điểm GD của xã (Gia Lộc 2 → Gia Lộc → Phường Gia Lộc → …) — cả trong Bộ thông tin tổ và báo cáo KQGD riêng.
+- **Anh:** "sao kê NQH, NK, 3 tháng KHĐ tách ra thành 3 nút chọn luôn" · "NK cho in A4 dọc": nhóm Thông tin tổ thêm 3 nút riêng (Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ — chia Điểm GD › Hội › Tổ, cùng số liệu ngày / chốt tháng như bộ); Nợ quá hạn, Nợ khoanh in A4 dọc, 3 tháng KHĐ A4 ngang (11 cột).
+- Phép thử: t205 thêm 7 (35).
+
 ## 3.261 — 18/10/2026 — Bộ thông tin tổ: đủ khung file tổng hợp, chốt cuối tháng; bản in hết chồng chữ
 - **Anh 18/10:** "số liệu còn sai chưa hoàn chỉnh" (ảnh: bảng KQGD in bị chồng chữ) — "anh cần dữ liệu tương tự, chốt cuối tháng là được".
 - Số liệu **luôn chốt cuối tháng**: kỳ đang chọn là ngày → app tự lấy Mẫu 31 chốt tháng của tháng đó (`ttChuanBi`), kèm BC0437 cùng tháng (điểm, xếp loại tổ) và file phân kỳ — nạp 1 lần rồi mới lập.
