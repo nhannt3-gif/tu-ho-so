@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.259) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu › Sao kê › chọn 1 xã → Bộ thông tin tổ → 👁 Xem | Mỗi điểm GD 1 trang KQGD + 3 tháng KHĐ + Nợ QH + Nợ khoanh | |
+| 2 | So trang KQGD với 13/GDX cùng điểm | Số tổ, số khách, dư nợ, QH, khoanh, lãi tồn khớp (doanh số / lãi đã nộp có thể lệch vì 13/GDX theo phiên) | |
+| 3 | 📊 Excel | Sheet tên điểm GD + 3 sheet; sửa 1 số trong dòng tổ → dòng Hội, CỘNG tự đổi | |
+
+**Ghi chú kỹ thuật 3.259:** `js/22j-thong-tin-to.js` (`ttBaoCao`, `ttDuLieu`, `ttKQBang`, `ttSaoKe`); công thức Excel tính dòng theo `TT_DONG0 = 5` (skExcel chèn 4 dòng đầu) — đổi phần đầu sheet ở `skExcel` thì sửa hằng này. Chấm điểm tổ (BC0437 tháng, lũy kế) chưa đưa vào — chờ anh gửi cách chấm lũy kế.
+
 ### Danh sách thử trên máy thật (3.258) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

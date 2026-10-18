@@ -386,7 +386,7 @@ function tcTrongPV(ma){ var S = tcCH(); if(!S.xa) return true; var c = SL_DB.kh[
    phạm vi từ xã trở lên: bảng chia theo tổ, có dòng cộng từng tổ
    ========================================================== */
 /* 3.92 (anh chốt): chọn 1 báo cáo mỗi lần, xếp theo nhóm 2 cột (chừa chỗ mẫu mới); kho = khổ in mặc định; ngay = cần khoảng ngày */
-var SK_NHOM = [{k:'xl', ten:'Nợ cần xử lý'}, {k:'dh', ten:'Nợ đến hạn'}, {k:'ps', ten:'Phát sinh tháng'}, {k:'kh', ten:'Khách hàng'}];
+var SK_NHOM = [{k:'xl', ten:'Nợ cần xử lý'}, {k:'dh', ten:'Nợ đến hạn'}, {k:'ps', ten:'Phát sinh tháng'}, {k:'kh', ten:'Khách hàng'}, {k:'tt', ten:'Thông tin tổ'}];   /* 3.259: + Thông tin tổ (js/22j) */
 var SK_BC = [{k:'qh', ten:'Sao kê nợ quá hạn', nhom:'xl', kho:'doc'}, {k:'kh', ten:'Sao kê nợ khoanh', nhom:'xl', kho:'doc'}, {k:'khd', ten:'Sao kê món vay 3 tháng không hoạt động', nhom:'xl', kho:'doc'},
   {k:'cgn', ten:'KU đã nhập máy chưa giải ngân (quá 1 tháng → cần đóng KU)', nhom:'xl', kho:'ngang'},
   {k:'dh', ten:'Sao kê nợ đến hạn (hạn hợp đồng + kỳ GDXA chuyển quá hạn)', nhom:'dh', kho:'ngang', ngay:1},
@@ -394,7 +394,9 @@ var SK_BC = [{k:'qh', ten:'Sao kê nợ quá hạn', nhom:'xl', kho:'doc'}, {k:'
   {k:'pkto', ten:'Danh sách nợ gốc đến hạn phân kỳ theo tổ — gửi tổ trưởng (CV 597)', nhom:'dh', kho:'doc', ngay:1},
   {k:'gn', ten:'Sao kê giải ngân trong tháng', nhom:'ps', kho:'doc'}, {k:'ddn', ten:'Sao kê món vay có thay đổi dư nợ trong tháng', nhom:'ps', kho:'ngang'},
   {k:'m105', ten:'Sao kê khách giải ngân cần mở TK 105', nhom:'ps', kho:'doc'},
-  {k:'sdt', ten:'Sao kê số điện thoại khách hàng (đánh dấu số trống / không đạt)', nhom:'kh', kho:'doc'}];
+  {k:'sdt', ten:'Sao kê số điện thoại khách hàng (đánh dấu số trống / không đạt)', nhom:'kh', kho:'doc'},
+  {k:'kqgd', ten:'Kết quả giao dịch tại điểm GD (Mẫu 13/GDX + thông tin tổ) — mỗi điểm 1 trang', nhom:'tt', kho:'ngang'},
+  {k:'bott', ten:'Bộ thông tin tổ: KQGD từng điểm + 3 tháng KHĐ + Nợ quá hạn + Nợ khoanh (chia Điểm › Hội › Tổ; Excel nhiều sheet)', nhom:'tt', kho:'ngang'}];
 function skChon(){ var C = skCH(); if(!C.chon || !SK_BC.some(function(b){ return b.k===C.chon; })){ var c = SK_BC.find(function(b){ return C.bc[b.k]; }); C.chon = c ? c.k : 'qh'; } return C.chon; }
 function skKhoCua(k){ var C = skCH(), b = SK_BC.find(function(x){ return x.k===k; }) || {}; return (C.kho && C.kho[k]) || b.kho || 'doc'; }
 function skChonBC(k){ var C = skCH(); C.chon = k; C.bc = {}; C.bc[k] = true; luu(); veSaoKe(); }
@@ -472,6 +474,7 @@ function skCan31(ten){ return {ten:ten.slice(0, 31), tieuDe:ten.toUpperCase(), n
 function skNgayThang(L){ var e = SLM.bang[slKhoa(L, SK_K.thang)]; return e ? e.ngay : tdnCuoiKy(SK_K.thang); }
 function skBaoCao(k){
   var K = SK_K, B = K.B, th = K.thang;
+  if(k==='kqgd' || k==='bott') return ttBaoCao(k);   /* 3.259: trả nhiều trang (mảng) */
   if(k==='qh' || k==='kh' || k==='khd'){
     var L = {qh:'nqh', kh:'nk', khd:'khd'}[k], ten = {qh:'Sao kê nợ quá hạn', kh:'Sao kê nợ khoanh', khd:'Sao kê món vay 3 tháng không hoạt động'}[k];
     if(!SLM.bang[slKhoa(L, th)]) return {ten:ten, tieuDe:ten.toUpperCase(), ngay:'Tháng '+kyVN(th), html:'<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(L).ten)+' tháng '+kyVN(th)+'.</div>', aoa:[['Chưa nạp file']]};
@@ -751,10 +754,13 @@ function skXem(){
   if(SK_K.thieuBang) return bao('Bảng số liệu chưa có trên máy này — bấm ☁ Nối Drive và tải trước.', 5);
   var ds = SK_BC.filter(function(b){ return C.bc[b.k]; }); if(!ds.length) return bao('Chọn 1 báo cáo.', 3);
   if(C.bc.dh && (!C.tu || !C.den || C.tu > C.den)) return bao('Chọn khoảng ngày đến hạn (từ ngày ≤ đến ngày).', 4);
-  if((C.bc.noxh || C.bc.pkto) && !skXem.daNap){ var M = skMau31(), e = M && SLM.bang[slKhoa('hstd', SK_K.thang)];   /* 3.91: nạp trước file phân kỳ */
+  if((C.bc.noxh || C.bc.pkto || C.bc.kqgd || C.bc.bott) && !skXem.daNap){ var M = skMau31(), e = M && SLM.bang[slKhoa('hstd', SK_K.thang)];   /* 3.91: nạp trước file phân kỳ */
     if(e) return skPKNap(e.ngay).then(function(){ skXem.daNap = true; try{ skXem(); } finally { skXem.daNap = false; } }); }
   var pv = pvChu(C, SK_K);
-  try{ SK_XEM = ds.map(function(b){ CT_DUNG = {}; SK_KHO = skKhoCua(b.k); var x = skBaoCao(b.k); x.pv = pv; x.ctChu = ctChuThich(); x.ngang = SK_KHO==='ngang'; CT_DUNG = null; return x; }); SK_KHO = 'ngang'; }
+  try{ SK_XEM = [].concat.apply([], ds.map(function(b){ CT_DUNG = {}; SK_KHO = skKhoCua(b.k); var x = skBaoCao(b.k);
+      if(Array.isArray(x)) x.forEach(function(y){ y.pv = pv; });   /* 3.259: bộ nhiều trang — mỗi trang giữ khổ, chú thích riêng */
+      else { x.pv = pv; x.ctChu = ctChuThich(); x.ngang = SK_KHO==='ngang'; }
+      CT_DUNG = null; return x; })); SK_KHO = 'ngang'; }
   catch(er){ CT_DUNG = null; SK_KHO = 'ngang'; return baoLoi('Lập báo cáo lỗi: '+(er && er.message || er)); }
   moHop('<div class="hop-tit">👁 Xem sao kê — '+coChuHTML(pv)+'</div><iframe id="sk-khung" class="to-khung" title="Xem trước"></iframe>'+
     xuatHang({ten:xuatTen(SK_XEM.length>1 ? 'Sao ke' : SK_XEM[0].ten, pv, SK_K.thang), html:function(){ return skHTMLIn(SK_XEM); }, excel:'skExcel()'}), true);   /* 3.152 */
