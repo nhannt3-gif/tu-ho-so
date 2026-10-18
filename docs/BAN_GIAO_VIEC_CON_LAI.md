@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.253) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Lập 01/TD 1 hộ → tab 06/TD | Phiếu khổ ngang Mẫu 06: tên, chương trình, giải ngân, dư nợ, mục đích điền sẵn; phần thực tế trống | |
+| 2 | 03/TD thêm 2 hộ cùng tổ → 06/TD | 1 phiếu 3 hộ, dòng Cộng đúng | |
+| 3 | 06/TD → Word | File Word khuôn KTGS | |
+| 4 | 01/TD tích In kèm 06/TD → In | In bộ hồ sơ rồi in tiếp 06/TD | |
+
+**Ghi chú kỹ thuật 3.253:** 06/TD không qua `hsoTrang` / `hsoDocx` (mẫu KTGS có CSS / khuôn riêng): `hsoLap` trả `x.trang = ktHTML06(...)`, `hsoWord` gọi `hsoWord06HS`. Hộ chưa có tổ → tổ tạm theo xã / thôn của hộ.
+
 ### Danh sách thử trên máy thật (3.252) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

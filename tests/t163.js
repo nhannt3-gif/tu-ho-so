@@ -58,7 +58,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    hsoChonMau('11'); await w(300); const w11 = await b64(await hsoDocx(HSO.x));
    /* Hồ sơ vay */
    slDoiTab('hsv'); for(let i=0;i<30 && !document.querySelector('#hsv-cay .loc-khoi');i++) await w(200); await w(600);
-   ok('tab Hồ sơ vay: 9 mục (3.214: + 📒 Sổ hộ vay; 3.172: 04/TD dời sang GDX; 3.206: + 01/TĐCK; 3.209: Bộ HS ẩn; 3.211: + 01/GQVL, 07b; 3.227: gộp 👪 Hộ vay vào Sổ hộ vay)', document.querySelectorAll('#hso-tabm .hso-tm').length===9);
+   ok('tab Hồ sơ vay: 10 mục (3.253: + 06/TD; 3.214: + 📒 Sổ hộ vay; 3.172: 04/TD dời sang GDX; 3.206: + 01/TĐCK; 3.209: Bộ HS ẩn; 3.211: + 01/GQVL, 07b; 3.227: gộp 👪 Hộ vay vào Sổ hộ vay)', document.querySelectorAll('#hso-tabm .hso-tm').length===10);
    const kv = tv.find(k=>k.mon.some(m=>(m.dn||0)>0)), c = hsoKhach(kv.kh, t);
    const oK = hmTuM31(kv.kh); hmLamHS(oK.id, '01td'); await w(300); const B0 = hsoBo(); B0.ct = 'HSSV'; B0.tien = '80000000'; B0.tuCo = '20.000.000'; B0.pa = {sv:'SV Giả'}; hsoChonMau('01td'); await w(300);   /* 3.171: đơn vay lấy theo bộ hồ sơ */
    ok('01/TD: người vay từ Mẫu 31 (tên, CCCD), tổ trưởng, số tiền + bằng chữ, tổng nhu cầu', chu().indexOf(c.ten)>=0 && (!c.cccd || chu().indexOf(c.cccd)>=0) && /Tám mươi triệu đồng/.test(chu()) && /Tổng nhu cầu vốn: 100\.000\.000/.test(chu()) && (chu().indexOf('do ông (bà): '+t.ten)>=0 || chu().indexOf('do ông (bà) '+t.ten)>=0));   /* 3.223: chữ đúng file gốc 01/TD (không có dấu ":") */
