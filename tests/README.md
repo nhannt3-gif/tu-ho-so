@@ -176,6 +176,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t201.js` | (3.252) Khai báo riêng mọi mẫu nền ô: 💾 Lưu, ✕ Hủy / đóng chưa lưu trả lại, ↺ từng ô, ô gõ tự ra cột trái, nút thẻ chương trình. |
 | `node tests/t202.js` | (3.253) Mẫu 06/TD Hồ sơ vay: khuôn KTGS, phần ghi theo hồ sơ điền sẵn, nhiều hộ / phiếu, Word, 01/TD In kèm 06/TD. |
 | `node tests/t203.js` | (3.256) Giấy ủy quyền 01/UQ: form theo thứ tự giấy, chọn hộ từ sổ, thành viên ≥ 18 tuổi, người được ủy quyền = người đứng tên vay. |
+| `node tests/t204.js` | (3.257) Rà form / bản in từng mẫu không lọt mẫu khác (01/GQVL, 07b, 01/UQ, 01/TGTV, 06/TD, 01/TĐCK, 01/TD) với hộ HSSV / GQVL. |
 | (3.255) | t202 thêm 4 phép khai báo riêng 06/TD (12). |
 | (3.254) | t201 thêm 5 phép cỡ chữ 13 / 13,5 / 14 (16 phép); chuẩn khóa hst_01bg_*, hsv_01td_*, hsv_01uq_*, hsv_09a_* ghi lại. |
 | (3.251) | t199 thêm phép ĐTTH HSSV trên 03/TD (18 phép); chuẩn khóa hsv_03td_so ghi lại. |
