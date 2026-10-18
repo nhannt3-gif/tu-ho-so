@@ -793,7 +793,7 @@ function skExcel(){
     if(!window.XLSX) return baoLoi('Chưa tải được bộ ghi Excel — có mạng một lần rồi thử lại.');
     var wb = XLSX.utils.book_new(), dung = {};
     SK_XEM.forEach(function(x){ var t = x.ten.slice(0, 28), n = t, i = 2; while(dung[n]) n = t+' '+(i++); dung[n] = 1;
-      XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([[x.tieuDe], ['Phạm vi: '+x.pv], [x.ngay], []].concat(x.aoa).concat([[], x.ctChu ? [x.ctChu] : [], [BC_KY]])), n); });
+      XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([[x.tieuDe], ['Phạm vi: '+x.pv], [x.ngay+(x.dvEx ? ' · '+x.dvEx : '')], []].concat(x.aoa).concat([[], x.ctChu ? [x.ctChu] : [], [BC_KY]])), n); });
     var u = XLSX.write(wb, {type:'array', bookType:'xlsx'});
     taiXuongBlob(new Blob([u], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), 'Sao ke '+SK_K.thang+'.xlsx');
   });

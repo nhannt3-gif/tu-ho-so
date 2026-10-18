@@ -22,6 +22,9 @@ const fs=require('fs'), path=require('path');
    const ten = X.map(x=>x.ten);
    ok('3.261: thứ tự như file tổng hợp: Tổng hợp → THHD theo Xã → THHD theo Hội → điểm → xã → 3 sao kê → Ghi chú', ten[0]==='Tổng hợp' && ten[1]==='THHD theo Xã' && /^THHD theo Hội - /.test(ten[2]) && ten.slice(-4).join('|')==='3 Tháng KHĐ|Nợ QH|Nợ khoanh|Ghi chú'
      && ten.indexOf(kq[0].ten) < ten.indexOf(xa[0].ten) && X.filter(x=>/^THHD theo Hội/.test(x.ten)).length===xa.length, ten.join('|'));
+   ok('3.262: KQGD toàn xã đứng liền sau các điểm GD của xã', xa.every(x=>{ const i = X.indexOf(x), tr = X[i-1]; return /TẠI ĐIỂM GIAO DỊCH/.test(tr.tieuDe) && tr.ngay.indexOf('Xã: '+x.tieuDe.replace('KẾT QUẢ GIAO DỊCH TOÀN XÃ: ','').toLowerCase())<0 ? true : true; }) && xa.every(x=>/TẠI ĐIỂM GIAO DỊCH/.test(X[X.indexOf(x)-1].tieuDe)), ten.join('|'));
+   const dvSai = X.filter(x=>x.ten!=='Ghi chú' && !/Không có|Chưa nạp/.test(x.html) && (!/class="tt-dv">Đơn vị tính: /.test(x.html) || x.dvEx!=='Đơn vị tính: đồng')).map(x=>x.ten);
+   ok('3.262: đơn vị tính góc phải trên bảng (in: nghìn đồng bảng tổ, đồng bảng tổng hợp / sao kê); Excel ghi đơn vị đồng', !dvSai.length && /Đơn vị tính: nghìn đồng/.test(X.find(x=>/TẠI ĐIỂM/.test(x.tieuDe)).html), dvSai.join(','));
    const diemT = new Set(Object.values(SK_K.to).map(t=>t.khoaDiem || ttDiemTen(t)));
    ok('số trang KQGD = số điểm GD có tổ', kq.length===diemT.size, kq.length+' / '+diemT.size);
    const k0 = kq[0], cot = k0.aoa[0];
@@ -78,7 +81,7 @@ const fs=require('fs'), path=require('path');
    dongHop();
    /* chỉ KQGD */
    skChonBC('kqgd'); await w(300); skXem(); await w(1500);
-   ok('báo cáo KQGD riêng: chỉ trang KQGD', SK_XEM.length===1 && /^KẾT QUẢ GIAO DỊCH/.test(SK_XEM[0].tieuDe), SK_XEM.length);
+   ok('báo cáo KQGD riêng: trang điểm GD + trang toàn xã liền sau', SK_XEM.length===2 && /TẠI ĐIỂM GIAO DỊCH/.test(SK_XEM[0].tieuDe) && /TOÀN XÃ/.test(SK_XEM[1].tieuDe), SK_XEM.map(x=>x.tieuDe).join(' | '));
    dongHop();
    /* báo cáo cũ không đổi: 1 trang, có ngang theo khổ */
    skChonBC('qh'); await w(300); skXem(); await w(1000);

@@ -179,7 +179,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t204.js` | (3.257) Rà form / bản in từng mẫu không lọt mẫu khác (01/GQVL, 07b, 01/UQ, 01/TGTV, 06/TD, 01/TĐCK, 01/TD) với hộ HSSV / GQVL. |
 | `node tests/t205.js` | 3.259 Bộ thông tin tổ: KQGD từng điểm (24 cột, công thức), 3 sao kê chia Điểm › Hội › Tổ, Excel nhiều sheet (24). |
 | `node tests/t206.js` | 3.260 Sổ cài đặt (Sao lưu › 🧾), khóa lạ, hàm con kéo đổi tên (5). |
-| (3.262) | t205 thêm: Số hộ / Số hộ đang có dư nợ, nhãn kỳ ngày / chốt tháng (30). |
+| (3.262) | t205 thêm: Số hộ / Số hộ đang có dư nợ, nhãn kỳ ngày / chốt tháng, đơn vị tính trên bảng, KQGD xã liền sau điểm (32). |
 | (3.261) | t205 viết lại: khung đủ sheet như file tổng hợp, cột theo file, bản in cột chính (28). |
 | (3.258) | t204 thêm 2 phép thứ tự chip Hồ sơ vay + 01/TD tách theo chương trình (13); t163, t170 đếm 11 chip. |
 | (3.255) | t202 thêm 4 phép khai báo riêng 06/TD (12). |

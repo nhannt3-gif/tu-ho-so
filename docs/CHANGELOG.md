@@ -8,7 +8,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Anh 18/10:** "tạm ổn rồi, em kiểm tra lấy số liệu nếu có dữ liệu theo ngày được không, thêm cột số hộ đang có dư nợ".
 - **Kỳ theo ngày:** kỳ đang chọn là ngày và có **Mẫu 31 đúng ngày đó** → lập bằng số liệu ngày (đầu trang ghi "Số liệu ngày dd/mm/yyyy"); không có Mẫu 31 ngày đó → như 3.261, lấy chốt cuối tháng. KHĐ / quá hạn / khoanh theo file app đang dùng cho kỳ (ngày thật của file ghi ở đầu sao kê).
 - **Số hộ** = tổ viên của tổ trên Mẫu 31 (như tab Tổ, kể cả hộ chỉ gửi TK 105); **cột mới "Số hộ đang có dư nợ"** = hộ còn dư nợ > 0 — có ở sheet điểm, xã, Tổng hợp, theo xã, theo hội (bản in + Excel).
-- Phép thử: t205 thêm 2 (30).
+- **Anh góp thêm về mẫu:** "đơn vị tính đưa lên bên phải trên bảng, KQGD cả xã để chung với các điểm giao dịch":
+  - mỗi bảng có dòng *Đơn vị tính: …* góc phải ngay trên bảng (bảng tổ in: nghìn đồng; bảng tổng hợp, sao kê: đồng); Excel ghi "Đơn vị tính: đồng" ở dòng thứ 3;
+  - KQGD toàn xã đứng liền sau các điểm GD của xã (Gia Lộc 2 → Gia Lộc → Phường Gia Lộc → …) — cả trong Bộ thông tin tổ và báo cáo KQGD riêng.
+- Phép thử: t205 thêm 4 (32).
 
 ## 3.261 — 18/10/2026 — Bộ thông tin tổ: đủ khung file tổng hợp, chốt cuối tháng; bản in hết chồng chữ
 - **Anh 18/10:** "số liệu còn sai chưa hoàn chỉnh" (ảnh: bảng KQGD in bị chồng chữ) — "anh cần dữ liệu tương tự, chốt cuối tháng là được".
