@@ -51,6 +51,7 @@ function kbSaoLuuHTML(){
     (a.length ? '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Lúc</th><th>Lý do</th><th>Số mục</th><th></th></tr></thead><tbody>'+a.map(function(x){
       return '<tr><td>'+kbGioVN(x.luc)+'</td><td>'+coChuHTML(x.ly)+'</td><td class="so">'+x.khoa+' · '+x.kb+' KB</td><td><button class="nho" onclick="kbKhoiPhuc(\''+x.id+'\')">↩ Khôi phục</button></td></tr>'; }).join('')+'</tbody></table></div>' : '<div class="sl-phu">Chưa có bản chụp.</div>')+
     '<div class="hang-nut"><button class="nho" onclick="KHO1.chup(\'chụp tay\').then(function(r){ bao(r ? \'Đã chụp.\' : \'Không đổi so với bản mới nhất.\'); hsoKBHop(\'sl\'); })">📸 Chụp ngay</button></div></div>'+
+    (typeof chSoTomHTML==='function' ? chSoTomHTML() : '')+   /* 3.260: sổ cài đặt (js/17b) */
     '<div class="hso-kb-nhom"><b>⬆ Xuất khai báo ra file</b> <small>(chuyển sang máy khác, gửi đồng nghiệp — chỉ khai báo, không có file Mẫu 31)</small>'+
     KB_NHOM.map(function(g){ return '<label class="hso-o2"><input type="checkbox" class="kb-xuat" value="'+g[0]+'"'+(g[3] ? ' checked' : '')+(dem(g) ? '' : ' disabled')+'> '+coChuHTML(g[1])+(dem(g) ? '' : ' <small>(chưa có)</small>')+'</label>'; }).join('')+
     '<div class="hang-nut"><button class="nho chinh" onclick="kbXuat()">⬆ Xuất file khai báo</button></div></div>'+

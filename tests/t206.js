@@ -1,0 +1,25 @@
+// 3.260 — Phần C: 🧾 Sổ cài đặt (Khai báo › Sao lưu): khóa trên máy theo khối, khóa lạ; hàm con kéo độ rộng đổi tên không trùng hàm chung
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const path=require('path');
+(async()=>{ const b=await chromium.launch(); const loi=[];
+ const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ const R = await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
+   const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
+   D.cauHinh.khoaLaGia = {x:1}; D.cauHinh.kyChung = '2026-08';
+   hsoKBHop('sl'); await w(300);
+   const t = (document.getElementById('hop-in')||{}).textContent || '';
+   ok('Sao lưu có dòng 🧾 Sổ cài đặt + đếm khóa lạ', /Sổ cài đặt/.test(t) && /1 khóa lạ/.test(t), t.slice(t.indexOf('Sổ cài đặt'), t.indexOf('Sổ cài đặt')+120));
+   chSoHop(); await w(200);
+   const h = document.getElementById('hop-in').innerHTML;
+   ok('hộp Sổ cài đặt: khóa lạ đứng đầu, có khối Số liệu', /Khóa lạ \(1\)/.test(h) && h.indexOf('khoaLaGia') < h.indexOf('Số liệu') && /kyChung/.test(h));
+   ok('mỗi khóa có mô tả', /Kỳ số liệu chung mọi tab/.test(h));
+   dongHop(); delete D.cauHinh.khoaLaGia;
+   ok('không còn khóa lạ sau khi bỏ khóa giả (bản mới không để rác)', chSoKiem().la.length===0, chSoKiem().la.map(x=>x.k).join(','));
+   ok('hàm khởi động batDau vẫn là hàm chung (hàm con kéo đã đổi tên)', typeof batDau==='function' && /function batDau\(\)/.test(String(batDau)));
+   return o;
+ });
+ R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5).join(' | '));
+ console.log(R.filter(x=>x[0]==='✓').length+'/'+R.length+' đạt'); await b.close(); process.exit(R.some(x=>x[0]!=='✓') || loi.length ? 1 : 0);
+})();

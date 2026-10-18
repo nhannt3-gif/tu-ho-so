@@ -971,7 +971,6 @@ function hsoBoDat(duong, v, ve){
   if(duong==='ho') B.ho = v;
   hsoBoLuu(); if(ve) hsoVeGiuO(); else hsoHen();
 }
-function hsoBoTen(b){ var tt = HSO_TT.find(function(x){ return x[0]===b.tt; }); return (b.nv.ten || '(chưa có tên)')+' · '+(b.ct || '')+' · '+(tt ? tt[1] : '')+' · '+ngayVNsl(String(b.sua||b.tao).slice(0, 10)); }
 function hsoKhungNgoai(ds){   /* khung viền ngoài chia được trang: mỗi đoạn con 1 dòng bảng (mẫu 01/TGTV) */
   var dong = [];
   ds.forEach(function(x){ if(Array.isArray(x)){ dong.push('<tr class="tr-td"><td class="c b'+(x[0]==='nen' ? ' nen' : ' tieu')+'">'+x[1]+'</td></tr>'); return; }   /* 3.218: tiêu đề mục (tr-td) không đứng trơ cuối trang — kéo theo dòng sau */

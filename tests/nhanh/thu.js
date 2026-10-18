@@ -42,6 +42,10 @@ thu('gxTong: cộng dư nợ / quá hạn / khoanh, đếm hộ còn nợ, món 
 /* Đồng bộ cài đặt theo khối */
 thu('chKhoiCua: khóa → khối đồng bộ', () => J(['ktA', 'hoMoi', 'gdxB', 'slTab', 'scanX', 'loaiVB', 'nhanGhiChu', 'khongRo'].map(A.chKhoiCua))===J(['ktgs', 'hoso', 'gdx', 'solieu', 'scan', 'vanban', 'lich', 'chung']),
   () => ['ktA', 'hoMoi', 'gdxB', 'slTab', 'scanX', 'loaiVB', 'nhanGhiChu', 'khongRo'].map(A.chKhoiCua));
+/* 3.260: sổ đăng ký cài đặt */
+thu('chSoKiem: khóa trong sổ chia theo khối, khóa lạ tách riêng, riêng máy riêng', () => { const c0 = A.D.cauHinh; A.D.cauHinh = {kyChung:'2026-08', ktHoiKB:{a:1}, camId:'x', khoaLaGia:1};
+  try { const R = A.chSoKiem(); return R.tong===4 && R.la.length===1 && R.la[0].k==='khoaLaGia' && R.khoi.solieu && R.khoi.ktgs && R.khoi['riêng máy'] && R.khoi['riêng máy'][0].k==='camId'; } finally { A.D.cauHinh = c0; } });
+thu('chSoCo: mọi khóa mặc định + riêng máy đều có trong sổ', () => Object.keys(A.MAC_DINH).concat(A.CH_RIENG).every(A.chSoCo), () => Object.keys(A.MAC_DINH).concat(A.CH_RIENG).filter(k => !A.chSoCo(k)));
 /* Tìm kiếm văn bản (3.239: nhớ sẵn chữ bỏ dấu từng trường — điểm giữ nguyên thứ tự ưu tiên) */
 thu('diem: số hiệu 100 · trích yếu 50 · ghi chú 20 · không khớp 0', () => { const m = {soHieu:'12/HD-NHCS', trichYeu:'Hướng dẫn cho vay', ghiChu:'Lưu ý ấp Một'};
   return A.diem(m, 'hd-nhcs')===100 && A.diem(m, 'huong dan')===50 && A.diem(m, 'ap mot')===20 && A.diem(m, 'khong co')===0; });
