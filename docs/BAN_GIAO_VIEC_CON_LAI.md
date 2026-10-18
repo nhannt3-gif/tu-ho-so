@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.255) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 06/TD › ⚙ Khai báo riêng → Đơn vị "Để chấm", ngày kiểm tra, cán bộ 2 | Phiếu đổi đúng chỗ | |
+| 2 | ↺ Về mặc định | Về như ban đầu | |
+
+**Ghi chú kỹ thuật 3.255:** `hso06V()` → tham số `v` của `ktGiaTri06` (dv '-' = chấm, chữ = gõ riêng, '' = theo Hội; ng1 vai trò; cb2 / cv2; ngay).
+
 ### Danh sách thử trên máy thật (3.254) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

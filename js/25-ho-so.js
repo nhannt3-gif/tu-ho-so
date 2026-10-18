@@ -720,9 +720,25 @@ function hso06GtHS(){ if(typeof ktGiaTri06!=='function') return [];
   return thu.map(function(k){ var ds = nhom[k], o0 = ds[0].o, t = (o0.to && KHO.to(o0.to)) || {ten:'', tenXa:o0.tenXa || '', tenThon:o0.tenThon || '', ma:''}, phu = {};
     var dc = ds.map(function(h){ var tien = hsoSo(h.r.tien), ten = hmTen(h.o); phu[tenHoaDau(ten)] = {ct:h.ct==='NSVSMT' ? 'Nước sạch VSMT' : hsoCTTenIn(h.ct), md:h.r.md || ''};
       return {kh:h.o.kh || ('z'+h.o.id), ten:ten, mon:[{_ma:'', ct:'', gn:tien, dn:tien}]}; });
-    var g; try { g = ktGiaTri06(t, dc, {ngay:'', ng1:'', cb2:'', cv2:'', dv:'', md:''}); } catch(e){ g = ktGiaTri06({ten:t.ten || '', tenXa:t.tenXa || '', tenThon:t.tenThon || ''}, dc, {ngay:'', ng1:'', cb2:'', cv2:'', dv:'', md:''}); }
-    g.rows.forEach(function(r){ var x = phu[r.R2]; if(x){ r.R4 = x.ct; r.R7 = x.md; } });   /* chương trình, mục đích theo hồ sơ (KTGS lấy từ Mẫu 31) */
+    var v = hso06V(), g; try { g = ktGiaTri06(t, dc, v); } catch(e){ g = ktGiaTri06({ten:t.ten || '', tenXa:t.tenXa || '', tenThon:t.tenThon || ''}, dc, v); }
+    var mdHS = hso06L().md!=='trong'; g.rows.forEach(function(r){ var x = phu[r.R2]; if(x){ r.R4 = x.ct; r.R7 = mdHS ? x.md : ''; } });   /* chương trình, mục đích theo hồ sơ (KTGS lấy từ Mẫu 31) */
     return g; }); }
+/* 3.255 (anh 18/10 "Mẫu 06 liên kết cho chọn và khai báo trong khai báo riêng của mẫu"): ⚙ Khai báo riêng 06/TD — đơn vị kiểm tra · cán bộ 1 (vai trò theo 🏛 Khai báo Hội) · cán bộ 2 + chức vụ · thời điểm · mục đích */
+function hso06L(){ var L = hsoLuu(); L.k06 = L.k06 || {}; return L.k06; }
+function hso06V(){ var L = hso06L(); return {ngay:L.ngay || '', ng1:L.ng1!==undefined ? L.ng1 : 'pct', cb2:L.cb2 || '', cv2:L.cv2 || '', dv:L.dvc==='cham' ? '-' : L.dvc==='go' ? (String(L.dv||'').trim() || '-') : '', md:''}; }
+function hso06Dat(k, v){ var L = hso06L(); if(v==null || v==='') delete L[k]; else L[k] = v; luu(); hsoVe(); }
+function hso06MD(){ hsoLuu().k06 = {}; luu(); hsoVe(); bao('Khai báo riêng 06/TD về mặc định.'); }
+function hso06KBHTML(){ var L = hso06L(), mo = hsoKBRDangMo('06td'), dvc = L.dvc || 'tu', ng1 = L.ng1!==undefined ? L.ng1 : 'pct';
+  var sel = function(k, gt, ds){ return '<select onchange="hso06Dat(\''+k+'\',this.value)">'+ds.map(function(x){ return '<option value="'+x[0]+'"'+(x[0]===gt ? ' selected' : '')+'>'+coChuHTML(x[1])+'</option>'; }).join('')+'</select>'; };
+  var inp = function(k, ph, kieu){ return '<input'+(kieu ? ' type="'+kieu+'"' : '')+' value="'+coChuHTML(L[k]||'')+'" placeholder="'+coChuHTML(ph)+'" onchange="hso06Dat(\''+k+'\',this.value.trim())">'; };
+  return '<details class="hso-kbr-d"'+(mo ? ' open' : '')+' ontoggle="hsoKBRMo(\'06td\',this.open)"><summary class="nhan-nhom hso-kbr-o">⚙ Khai báo riêng — Mẫu 06/TD</summary>'+
+    hsoTuyO('Đơn vị kiểm tra', sel('dvc', dvc, [['tu', 'Tự lấy — Hội của tổ (🏛 Khai báo Hội)'], ['cham', 'Để chấm (ghi tay)'], ['go', 'Gõ riêng']])+(dvc==='go' ? inp('dv', 'vd: Hội Nông dân xã …') : ''))+
+    hsoTuyO('Cán bộ kiểm tra 1', sel('ng1', ng1, (typeof KT_IN_VT!=='undefined' ? KT_IN_VT : [['', 'Để trống (ghi tay)']]).map(function(x){ return [x[0], x[1]+(x[0] ? ' — tên theo 🏛 Khai báo Hội' : '')]; })))+
+    hsoTuyO('Cán bộ kiểm tra 2', inp('cb2', 'họ tên — trống = chấm'))+hsoTuyO('Chức vụ cán bộ 2', inp('cv2', 'trống = chấm'))+
+    hsoTuyO('Thời điểm kiểm tra', inp('ngay', '', 'date'))+'<div class="sl-phu">Trống = chấm; ngày ký cuối phiếu theo ngày này.</div>'+
+    hsoTuyO('Mục đích sử dụng vốn', sel('md', L.md || 'hs', [['hs', 'Theo hồ sơ (01/TD)'], ['trong', 'Để trống (ghi tay)']]))+
+    '<div class="hang-nut"><button class="nho" onclick="hso06MD()">↺ Về mặc định</button></div>'+
+    '<div class="sl-phu">Khuôn phiếu theo Mẫu 06 KTGS (khóa) — chỉ các chỗ chấm khai được.</div></details>'; }
 function hso06TenHS(){ var ds = hso06Ho(); return 'Mau 06-TD Phieu KT su dung von - '+(ds.length===1 ? boDauTen(hmTen(ds[0].o)) : ds.length+' ho'); }
 function hsoLap06td(){ var g = hso06GtHS(); return {ma:'06/TD', k06:g, trang:g.length ? ktHTML06(g.length===1 ? g[0] : g) : '<p style="font-family:sans-serif;padding:20px">Chưa có hộ — chọn hộ ở 📒 Sổ hộ vay (📄 Lập HS) hoặc ＋ Thêm hộ.</p>'}; }
 function hsoIn06HS(){ var g = hso06GtHS(); if(!g.length) return bao('Chưa có hộ cho Mẫu 06/TD.'); inBlob(new Blob([ktHTML06(g.length===1 ? g[0] : g)], {type:'text/html'}), hso06TenHS()+'.html'); }
@@ -1539,7 +1555,7 @@ function hsoTuy06(){   /* 3.253: cột trái 06/TD — hộ chung với 03/TD, t
     : '<div class="sl-phu">Chưa có hộ.</div>';
   h += hsoTuyO('＋ Thêm hộ từ sổ', hsoChon('hsoD03Them(this.value)', '', [['', '— chọn hộ trong 📒 sổ hộ vay —']].concat(hmDs().filter(function(o){ return !D3.ds.some(function(r){ return r.hoId===o.id; }); }).map(function(o){ return [o.id, hmTen(o)+(hmToTen(o) ? ' · '+hmToTen(o) : '')]; }))));
   h += '<div class="sl-phu">Bớt hộ / sửa số tiền: ở tab <a href="#" onclick="event.preventDefault();hsoChonMau(\'03td\')">03/TD</a>.</div>';
-  return h; }
+  return h+hso06KBHTML(); }
 function hsoTuy03(t){
   var D3 = hsoD03(), C = hsoCTV(D3.ct) || {}, co = {}; D3.ds.forEach(function(r){ co[r.hoId] = 1; });
   var h = '<div class="nhan-nhom">Chương trình (cùng 1 chương trình / 1 tờ)</div><div class="hang-nut">'+hsoCTVDs().filter(function(c){ return c.bat!==false || c.ma===D3.ct; }).map(function(c){ return gdxChip('<b>'+coChuHTML(c.ma)+'</b>', D3.ct===c.ma, 'hsoD03CT(\''+c.ma+'\')', 'hso-ct', c.ten); }).join('')+'</div>';

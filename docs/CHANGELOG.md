@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.255 — 18/10/2026 — Khai báo riêng Mẫu 06/TD
+- **Anh 18/10:** "Mẫu 06 em cứ liên kết cho chọn và khai báo trong khai báo riêng của mẫu".
+- `js/25-ho-so.js` (`hso06KBHTML`, `hso06V`, lưu `hsoLuu().k06`): khai báo riêng 06/TD ở cuối cột trái (mở / tắt như mẫu khác).
+  - **Đơn vị kiểm tra:** tự lấy Hội của tổ (theo 🏛 Khai báo Hội, như KTGS) · để chấm · gõ riêng.
+  - **Cán bộ kiểm tra 1:** chọn vai trò Phó CT / CT / Ủy viên BTV / để trống; tên lấy theo Khai báo Hội.
+  - **Cán bộ 2 + chức vụ:** trống = chấm.
+  - **Thời điểm kiểm tra:** trống = chấm.
+  - **Mục đích:** theo hồ sơ 01/TD hoặc để trống.
+  - Nút ↺ Về mặc định.
+- Khuôn phiếu vẫn Mẫu 06 KTGS (khóa); giá trị chuyển vào `ktGiaTri06` qua tham số như KTGS.
+- Phép thử: t202 thêm 4 phép (12).
+
 ## 3.254 — 18/10/2026 — Cỡ chữ 13 / 13,5 / 14 theo mẫu
 - **Anh 18/10:** "các mẫu cho khai báo font 13 – 13,5 – 14 để có thể tùy biến".
 - **Sửa báo sai 3.247:** 3.247 ghi "01/TD chữ 14" nhưng chỉ đổi cỡ dùng tính khung ô (`omG`), thân chữ in vẫn 13 pt (CSS trang 13 pt). Đo lại 18/10 phát hiện; nay in thật 14 pt.
