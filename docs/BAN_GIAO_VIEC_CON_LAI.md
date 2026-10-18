@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.252) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TD › ⚙ Khai báo riêng › 🖼 → đổi 1 ô → ✕ Hủy | Ô trở lại như cũ | |
+| 2 | Đổi ô "Số tiền trả nợ" sang ✏ gõ trong lần làm → 💾 Lưu | Khung đóng, ô đó ra cột trái để gõ | |
+| 3 | Mở lại, ↺ Mặc định ô này | Riêng ô đó về mặc định | |
+| 4 | Làm như trên ở 03/TD, 09A, 10C | Giống 01/TD | |
+
+**Ghi chú kỹ thuật 3.252:** `HOP_KHI_DONG` (js/06): việc chạy khi `dongHop()` mà chưa Lưu; `moHop` mở hộp khác thì bỏ. Khai báo riêng chụp `hsoLuu().cham/chamGT/chuMau/nhanh[mẫu]` lúc mở.
+
 ### Danh sách thử trên máy thật (3.251) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -1,7 +1,7 @@
 /* ---------- HỘP THOẠI CHUNG ---------- */
 var hamDong = null, khoaHop = false;
 function moHop(html, rong){
-  nhapGiu();   /* 3.68 (AD): đang điền dở mà mở hộp khác (vd Sửa danh sách tag) → giữ nháp */
+  nhapGiu(); HOP_KHI_DONG = null;   /* 3.68 (AD): đang điền dở mà mở hộp khác (vd Sửa danh sách tag) → giữ nháp */
   if(!/cd-dau/.test(html)) document.getElementById('hop').classList.remove('trang');
   var e = document.getElementById('hop-in');
   e.classList.remove('co-xem-ben', 'sua-gon', 'quet-gon', 'q-the', 'q-tl', 'phim-chung', 'xem-rong');
@@ -52,7 +52,8 @@ function ganNutEsc(e){
   chon.textContent = (chon.textContent.trim()==='Thôi' ? 'Thôi' : 'Đóng')+' (Esc)';
   chon.setAttribute('data-esc', '1');
 }
-function dongHop(){ nhapGiu(); khoaHop = false; document.getElementById('hop').classList.remove('hien'); }
+var HOP_KHI_DONG = null;   /* 3.252: việc làm khi hộp đóng mà chưa Lưu (vd khai báo riêng mẫu → trả lại như trước khi mở) — mở hộp khác thì bỏ */
+function dongHop(){ nhapGiu(); khoaHop = false; document.getElementById('hop').classList.remove('hien'); if(HOP_KHI_DONG){ var f = HOP_KHI_DONG; HOP_KHI_DONG = null; f(); } }
 /* 3.68 (việc AD, anh chốt): hộp có ô nhập KHÔNG đóng khi lỡ nhấp ra ngoài — chỉ đóng bằng Đóng / Thôi (Esc) hoặc Lưu.
    Hộp chỉ để xem / thông báo vẫn nhấp ra ngoài là đóng. */
 function hopCoONhap(){
@@ -1980,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.251', ds:[
+var CO_GI_MOI = {ban:'3.252', ds:[
+  ["⚙ Khai báo riêng mọi mẫu hồ sơ (01/TD, 01/UQ, 03/TD, 09A, 01/TĐCK, 01/TGTV, 01/GQVL, 07b, 10A–10D, 11…): 💾 Lưu đóng khung, ✕ Hủy / đóng chưa lưu thì trả lại, ↺ mặc định từng ô, ô cần gõ tự ra cột trái, ô theo chương trình mở thẻ chương trình — chỉ chỗ chấm, câu chữ mẫu giữ nguyên", "doiNgan(7)"],
   ["📝 HSSV: đối tượng thụ hưởng mặc định \"Hộ gia đình gặp khó khăn về kinh tế, tài chính do bệnh tật\" — 03/TD tự điền, đổi / thêm ở ⚙ khai báo chương trình", "doiNgan(7)"],
   ["📝 01/TD: chỗ ký UBND trả lại 4 dòng (bớt 2 thì Chủ tịch ký đè chữ); chỗ ký NH chừa 2 dòng + phần trống cuối trang — vẫn 1 trang khi tên SV dài, in sẵn UBND + NH", "doiNgan(7)"],
   ["📝 01/TD: chỗ ký Ngân hàng rộng thêm 3 dòng (bớt 2 dòng dưới UBND, bớt cách đoạn), phần NH in liền khi có số liệu; lề trên 7 mm; gạch tiêu ngữ mảnh, sát chữ, dài đúng bằng dòng tiêu ngữ (mọi mẫu)", "doiNgan(7)"],
@@ -1994,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.251', ds:[
   ["🏗 NSVSMT: loại công trình theo thẻ (Xây mới · Sửa chữa, thêm Cải tạo ở khai báo); vốn tự có trống = mặc định thẻ 5 triệu", "doiNgan(7)"],
   ["📄 Mẫu 04 Giao dịch xã canh chuẩn: lề trên 2 · dưới 2 · trái 3 · phải 2 cm; gạch dưới tên PGD bằng ½ chữ, 2 nét gạch mảnh; THÔNG BÁO và KẾT QUẢ PHÊ DUYỆT cùng cỡ; giãn ngày – tiêu đề – kính gửi – thân", "doiNgan(7)"],
   ["📄 01/TD, 03/TD in theo file mẫu anh gửi: tên HSSV dài xuống dòng (không thu nhỏ), giữ đủ dòng chấm như mẫu; chừa chỗ Chủ tịch UBND ký + đóng dấu; luôn 1 trang", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"],
-  ["🔗 03/TD lấy số tiền, mục đích, thời hạn từ 01/TD của hộ (đổi chương trình bên 01/TD thì 03/TD đổi theo); phiếu hồ sơ cũ tự gắn vào Sổ hộ vay", "slDoiTab('hsv');doiNgan(7);hsoChonMau('03td')"],
-  ["⚙ Khai báo riêng của mẫu có nút ▸ Mở / ▾ Tắt (mặc định tắt)", "slDoiTab('hsv');doiNgan(7);hsoChonMau('01td')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🔗 03/TD lấy số tiền, mục đích, thời hạn từ 01/TD của hộ (đổi chương trình bên 01/TD thì 03/TD đổi theo); phiếu hồ sơ cũ tự gắn vào Sổ hộ vay", "slDoiTab('hsv');doiNgan(7);hsoChonMau('03td')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

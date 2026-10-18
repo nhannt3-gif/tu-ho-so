@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.252 — 18/10/2026 — Khai báo riêng mọi mẫu (ý 15)
+- **Anh 18/10:** "triển khai hết các mẫu khai báo riêng 1 lần"; "cái có mẫu rồi không cho sửa như câu chữ, chỉ chỗ chấm mới cho tùy biến"; gạch tiêu ngữ, chấm mảnh cố định.
+- Khung khai báo riêng (🖼 khai báo trực quan, `js/31-o-mau.js`) dùng chung cho cả 15 mẫu nền ô, nay đủ ý 15:
+  - **💾 Lưu:** lưu khai báo riêng của mẫu và đóng khung.
+  - **✕ Hủy, hoặc đóng khung mà chưa lưu** (Esc, ✕ góc): trả lại đúng như lúc mở (cách từng ô, giá trị tự gõ, chữ mẫu, Chọn nhanh). Dùng `omKBChup` / `omKBTraLai` và móc chung `HOP_KHI_DONG` trong `dongHop`.
+  - **↺ Mặc định ô này:** từng ô về như lúc mới — cách mặc định, bỏ giá trị tự gõ ở mọi chương trình, bỏ chữ mẫu, Chọn nhanh theo mặc định (`omKBMD1`).
+  - **Lúc Lưu:** ô "gõ trong lần làm" và ô "tự gõ" chưa có giá trị tự ra **cột trái (Chọn nhanh)** để gõ; app báo tên các ô đó.
+  - **Ô theo chương trình** (lãi suất, mục đích, thời hạn…): nút **⚙ Thẻ chương trình**, lưu khai báo rồi mở thẻ (`omKBCT`).
+- Chỉ khai các chỗ chấm. Câu chữ của mẫu, gạch tiêu ngữ, chấm mảnh giữ cố định.
+- Phép thử:
+  - **t201 mới** (11 phép): Hủy, đóng chưa lưu, Lưu, ô gõ ra cột trái, ↺ từng ô, nút thẻ chương trình, đủ 15 mẫu, 09A.
+  - t184, t191 bấm 💾 Lưu thay vì đóng hộp.
+
 ## 3.251 — 18/10/2026 — ĐTTH HSSV trên 03/TD
 - **Anh 18/10:** "đối tượng thụ hưởng trên mẫu 03 của chương trình HSSV em chưa có" → "Hộ gia đình gặp khó khăn về kinh tế, tài chính do bệnh tật — chỉ ghi 1 đối tượng này làm mặc định".
 - `js/25-ho-so.js` `HSO_CTV_MD` HSSV: `dtth` = [câu trên], `dtthMd` = `dtthPh` = câu trên. Thẻ HSSV đã lưu còn trống ĐTTH → điền 1 lần (`kb.v251`); ai đã khai thì giữ.
