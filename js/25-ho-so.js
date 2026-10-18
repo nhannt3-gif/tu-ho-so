@@ -209,7 +209,7 @@ function hsoCTMon(m){ var v = ctNgan(m.ct, m); return CT_VT_TEN[v] || v; }
 
 /* ---------- khối dựng chung ---------- */
 function hsoQH(gach, co){   /* quốc hiệu + tiêu ngữ + kẻ mảnh dài bằng dòng tiêu ngữ (gach: "-" hoặc "–" theo PDF từng mẫu) */
-  gach = gach || '-'; co = co || 13; var l = 'c b'+(co!==13 ? ' s'+co : '');
+  gach = gach || '-'; co = co || 13; var l = 'c b'+(co!==13 ? ' s'+co : '')+'" style="font-size:'+co+'pt';   /* 3.254: cỡ quốc hiệu cố định theo mẫu (không theo cỡ chữ thân khai báo riêng) → gạch tiêu ngữ luôn vừa chữ */
   var tn = 'Độc lập '+gach+' Tự do '+gach+' Hạnh phúc', dai = typeof omRong==='function' ? Math.round(omRong(tn, co, true)*10)/10 : Math.round(co*4.65);   /* 3.249 (anh 18/10): gạch dài vừa đúng dòng tiêu ngữ, không dài hơn */
   return '<p class="'+l+'">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p><p class="'+l+'">'+tn+'</p>'+hsoKe(dai);
 }
@@ -990,7 +990,7 @@ function hsoLap(){
 /* ---------- WORD: HTML của mẫu → .docx (đoạn, bảng có gộp ô, đậm / nghiêng / gạch chân, ngắt trang) ---------- */
 function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, lặp tiêu đề, kẻ chấm), kẻ mảnh, logo, nhiều khổ (mỗi mẫu 1 section) */
   var ds = x.ds || [{M:x.M, h:x.h}], anh = [], soAnh = 0, tw = function(mm){ return Math.round(mm*56.7); };
-  var co = function(el, f){ var m = (' '+(el.className||'')+' ').match(/ s(\d+) /); if(m) return +m[1]*2; var fs = el.style && el.style.fontSize; return fs && /%$/.test(fs) ? Math.max(14, Math.round(f*parseFloat(fs)/100)) : f; };   /* 3.248: chấm mảnh (font-size %) → Word cỡ nhỏ theo tỉ lệ */
+  var co = function(el, f){ var m = (' '+(el.className||'')+' ').match(/ s(\d+) /); if(m) return +m[1]*2; var fs = el.style && el.style.fontSize; return fs && /%$/.test(fs) ? Math.max(14, Math.round(f*parseFloat(fs)/100)) : fs && /pt$/.test(fs) && / om-co /.test(' '+(el.className||'')+' ') ? Math.round(parseFloat(fs)*2) : f; };   /* 3.254: cỡ chữ mẫu theo khai báo riêng */   /* 3.248: chấm mảnh (font-size %) → Word cỡ nhỏ theo tỉ lệ */
   var lop = function(el, k){ return (' '+(el.className||'')+' ').indexOf(' '+k+' ')>=0; };
   var chay = function(t, f){ return '<w:r><w:rPr>'+(f.b ? '<w:b/>' : '')+(f.i ? '<w:i/>' : '')+(f.mau ? '<w:color w:val="'+f.mau+'"/>' : '')+'<w:sz w:val="'+f.sz+'"/><w:szCs w:val="'+f.sz+'"/>'+(f.u ? '<w:u w:val="single"/>' : '')+(f.sup ? '<w:vertAlign w:val="superscript"/>' : '')+'</w:rPr><w:t xml:space="preserve">'+xmlEsc(t)+'</w:t></w:r>'; };
   var hinh = function(img){ var src = img.getAttribute('src')||'', m = src.match(/^data:image\/(png|jpe?g);base64,(.+)$/); if(!m) return '';

@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.254) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In 01/TD | Thân chữ 14, vẫn 1 trang, gạch tiêu ngữ vừa chữ | |
+| 2 | ⚙ Khai báo riêng 09A → Cỡ chữ 13,5 → In | Chữ thân 13,5; quốc hiệu giữ cỡ cũ | |
+
+**Ghi chú kỹ thuật 3.254:** cỡ chữ thân = `div.om-co` bọc HTML mẫu; đoạn có class `s12`, `s14`… hoặc style riêng (quốc hiệu, tiêu đề) giữ cỡ riêng.
+
 ### Danh sách thử trên máy thật (3.253) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

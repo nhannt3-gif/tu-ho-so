@@ -4,6 +4,24 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.254 — 18/10/2026 — Cỡ chữ 13 / 13,5 / 14 theo mẫu
+- **Anh 18/10:** "các mẫu cho khai báo font 13 – 13,5 – 14 để có thể tùy biến".
+- **Sửa báo sai 3.247:** 3.247 ghi "01/TD chữ 14" nhưng chỉ đổi cỡ dùng tính khung ô (`omG`), thân chữ in vẫn 13 pt (CSS trang 13 pt). Đo lại 18/10 phát hiện; nay in thật 14 pt.
+- `js/31-o-mau.js`:
+  - `omCoChu(mk)` / `omCoDat` / `omCoHTML`: cỡ chữ thân mẫu lưu ở `hsoLuu().coChu[mẫu]`.
+  - Chưa chọn thì dùng mặc định mẫu: 01/TD 14 (`OM_CO_MD`); các mẫu khác giữ như cũ.
+  - `omLap` bọc `div.om-co` (font-size) quanh mẫu; `omG` đo khung ô theo cỡ đã chọn.
+  - Chọn ở cột trái (khai báo riêng) và trên thanh khung khai báo trực quan. Lưu / Hủy theo khung (`coChu` có trong ảnh chụp).
+- `js/25-ho-so.js`:
+  - `hsoQH`: quốc hiệu, tiêu ngữ giữ đúng cỡ của mẫu (style font-size), không theo cỡ thân, nên gạch tiêu ngữ luôn vừa chữ.
+  - `hsoDocx` đọc cỡ của `div.om-co` sang Word.
+- Đo PDF 01/TD 14 pt:
+  - HSSV tên SV dài + in sẵn UBND, NH: 1 trang;
+  - HSSV thường, bản trắng, NSVSMT: 1 trang.
+- Phép thử:
+  - t201 thêm 5 phép (16).
+  - Chuẩn khóa `hst_01bg_*`, `hsv_01td_*`, `hsv_01uq_*`, `hsv_09a_*` ghi lại.
+
 ## 3.253 — 18/10/2026 — Mẫu 06/TD trong Hồ sơ vay
 - **Anh chốt 17–18/10:**
   - (ý 12) dùng bộ mã Mẫu 06 KTGS, không chép / sửa mẫu KTGS;
