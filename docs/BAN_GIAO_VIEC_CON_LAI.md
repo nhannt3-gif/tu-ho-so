@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.258) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Hồ sơ vay | Chip đúng thứ tự Sổ · 01/UQ · 01/TD HSSV · 01/TD NSVSMT · 03/TD · 06/TD · 01/GQVL · 07b · 01/TGTV · 09A · 01/TĐCK | |
+| 2 | Bấm 01/TD NSVSMT | Form 01/TD chương trình nước sạch | |
+
+**Ghi chú kỹ thuật 3.258:** chip 01/TD theo chương trình chỉ ở thanh chip; `hsoMau()` vẫn là `01td`.
+
 ### Danh sách thử trên máy thật (3.257) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

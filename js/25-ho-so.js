@@ -24,9 +24,9 @@ var HSO_MAU = {
     {k:'sohv', ma:'📒 Sổ hộ vay', ten:'Sổ hộ vay — hộ mới / lấy từ Mẫu 31, lọc địa bàn · ngày nhập, nhóm theo tháng, sửa thẳng từng ô, lập 03/TD, in sổ', ngang:true, mg:[12, 10, 12, 12]},   /* 3.227 (anh 17/10): gộp tab 👪 Hộ vay vào đây */   /* 3.214 (anh 15/10) */   /* 3.207 → 3.209 (anh 14/10): sổ hộ vay lâu dài thay Hộ mới + Bộ HS */
     {k:'01uq', ma:'01/UQ',  ten:'Giấy ủy quyền', mg:[18, 18, 18, 30]},
     {k:'01td', ma:'01/TD',  ten:'Giấy đề nghị vay vốn kiêm phương án sử dụng vốn vay', mg:[12, 18, 10, 22]},
-    {k:'01gqvl', ma:'01/GQVL', ten:'Phương án sử dụng vốn vay GQVL (người lao động) — mẫu từ 01/10/2026 (VB 4039)', mg:[15, 20, 15, 25]},   /* 3.211 */
     {k:'03td', ma:'03/TD',  ten:'Danh sách tổ viên đề nghị vay vốn', ngang:true, mg:[10, 12, 10, 9]},
     {k:'06td', ma:'06/TD',  ten:'Phiếu kiểm tra sử dụng vốn vay — dùng Mẫu 06 KTGS (khóa mẫu), nhiều hộ / phiếu', ngang:true, mg:[10, 10, 10, 10]},   /* 3.253 (anh chốt 17–18/10, ý 12–14) */
+    {k:'01gqvl', ma:'01/GQVL', ten:'Phương án sử dụng vốn vay GQVL (người lao động) — mẫu từ 01/10/2026 (VB 4039)', mg:[15, 20, 15, 25]},   /* 3.211 */
     {k:'07b',  ma:'07b/GQVL', ten:'Hợp đồng tín dụng GQVL (người lao động) — mẫu từ 01/10/2026 (VB 4039)', mg:[15, 20, 15, 25]},   /* 3.211 */
     {k:'01tgtv', ma:'01/TGTV', ten:'Giấy đăng ký mở tài khoản tổ viên', mg:[10, 12.5, 16, 7.1], chan:'Ngân hàng Chính sách xã hội|Website: www.vbsp.org.vn Hotline: 1900 638583'},
     {k:'09a',  ma:'09A/TD', ten:'Giấy đề nghị gia hạn nợ', mg:[10, 18, 10, 25]},
@@ -934,6 +934,8 @@ function hsoLap01tgtv(t, P){   /* P = {ten, ns, gt, cccd, ncap, noiCap, sdt, dan
     '';
   return {ma:'01/TGTV', h:'<div class="tgtv">'+h+'</div>'};   /* 3.218 (anh 15/10, theo file Word mẫu 03/2026): giãn dòng đơn 1,15 như Word, lề 10 · 12,5 · 16 · 7,1 mm, phần D trọn trang 3 → 3 trang nội dung; trang trắng thứ 4 chỉ khi in 2 mặt nhiều bản (đã có sẵn) */
 }
+function hsoCT01Ds(){ return hsoCTVDs().filter(function(c){ return c.bat!==false && c.kieu!=='gqvl'; }); }   /* 3.258: chương trình lập bằng 01/TD (chip trên thanh mẫu) */
+function hsoChon01CT(ma){ HSO.vay.ct01 = ma; hsoChonMau('01td'); var B = hsoBo(); if(B && B.ct!==ma){ B.ct = ma; hsoBoLuu(); } hsoVe(); }   /* chọn chip "01/TD <chương trình>" → phiếu đang mở đổi chương trình; chưa có phiếu → hộ mới lập theo chương trình này */
 function hsoMauK(k){ var r = null; ['hst','hsv'].forEach(function(p){ HSO_MAU[p].forEach(function(m){ if(m.k===k) r = m; }); }); return r; }
 function hsoDTTHMd(B, phuong){ var c = B && hsoCTV(B.ct); return c ? (phuong ? c.dtthPh : c.dtthMd) || '' : ''; }
 function hsoLapBo(B, t){   /* cả bộ: 01/UQ · 01/TD · biên bản họp kết nạp và bình xét (10C mới) · 03/TD · 01/TGTV (hộ mới) — mỗi mẫu 1 bản, khổ riêng */
@@ -1125,7 +1127,10 @@ function hsoDsHTML(){   /* 3.206 (anh chốt): mẫu chọn ở thanh tab con (h
 }
 function hsoTabMauHTML(){   /* 3.206 (anh chốt 14/10): mỗi biểu mẫu = 1 tab con, bố trí như tab Giao dịch xã · số liệu theo kỳ / ngày đã chọn */
   var p = hsoTab(), M = hsoMau(p);
-  return '<div class="gdx2-dau hso-dau"><div class="gdx2-mau">'+HSO_MAU[p].filter(function(m){ return !m.an || m.k===M.k; }).map(function(m){ return gdxChip('<b>'+m.ma+'</b>', m.k===M.k, 'hsoChonMau(\''+m.k+'\')', 'hso-tm', m.ten+(m.ngang ? ' [A4 ngang]' : '')+(m.ghi ? ' — '+m.ghi : '')); }).join('')+'</div>'+
+  return '<div class="gdx2-dau hso-dau"><div class="gdx2-mau">'+HSO_MAU[p].filter(function(m){ return !m.an || m.k===M.k; }).map(function(m){
+      if(p==='hsv' && m.k==='01td'){ var ctB = (hsoBo()||{}).ct || HSO.vay.ct01 || '';   /* 3.258 (anh 18/10): 01/TD tách chip theo chương trình — 01/TD HSSV · 01/TD NSVSMT · … (không GQVL — mẫu riêng) */
+        return hsoCT01Ds().map(function(c){ return gdxChip('<b>01/TD '+coChuHTML(c.ma)+'</b>', M.k==='01td' && ctB===c.ma, 'hsoChon01CT(\''+c.ma+'\')', 'hso-tm', m.ten+' — chương trình '+(c.ten || c.ma)); }).join(''); }
+      return gdxChip('<b>'+m.ma+'</b>', m.k===M.k, 'hsoChonMau(\''+m.k+'\')', 'hso-tm', m.ten+(m.ngang ? ' [A4 ngang]' : '')+(m.ghi ? ' — '+m.ghi : '')); }).join('')+'</div>'+
     '<div class="gdx2-nut"><span class="hso-ky" title="Số liệu lấy theo kỳ / ngày đang chọn ở dải lịch">📅 Số liệu: <b>'+(KHO.coKy() ? slKyChu(KHO.ky().ky) : 'chưa có')+'</b></span><button class="nho" onclick="hsoKBHop()" title="PGD, logo, trưởng ấp, tổ phó thực tế, chương trình vay — dùng chung mọi mẫu">⚙ Khai báo đơn vị</button></div></div>';
 }
 function hsoChonMau(k){ hsoCH()[hsoTab()] = k; luu(); hsoVe(); }

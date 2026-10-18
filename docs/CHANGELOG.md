@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.258 — 18/10/2026 — Sắp lại thứ tự mẫu Hồ sơ vay, 01/TD tách theo chương trình
+- **Anh 18/10:** "sắp xếp theo thứ tự nhóm 01UQ, 01TD HSSV, 01TD NSVSMT, 03TD, 06TD, 01GQVL, 07A GQVL, 01TGTV …" — "cho khỏi lăn tăn khi chọn rối".
+- Thanh chip Hồ sơ vay:
+  - 📒 Sổ hộ vay · 01/UQ · **01/TD HSSV** · **01/TD NSVSMT** · 03/TD · 06/TD · 01/GQVL · 07b/GQVL · 01/TGTV · 09A/TD · 01/TĐCK.
+  - Sổ hộ vay vẫn đứng đầu (màn làm việc chính, ý hướng B).
+- `js/25-ho-so.js`:
+  - `HSO_MAU.hsv` sắp lại thứ tự; mỗi mẫu vẫn 1 mục (không trùng mẫu ở khai báo, in, Word).
+  - Riêng thanh chip dựng **01/TD theo từng chương trình đang bật, trừ GQVL** (`hsoCT01Ds`); chương trình anh thêm sau cũng tự có chip.
+  - `hsoChon01CT`: mở 01/TD; phiếu đang mở đổi sang chương trình đó; chưa có phiếu thì hộ mới lập theo chương trình đó (`HSO.vay.ct01`).
+- Phép thử:
+  - t204 thêm 2 phép (thứ tự chip, chip 01/TD NSVSMT);
+  - t163, t170 đếm 11 chip.
+
 ## 3.257 — 18/10/2026 — Rà form từng mẫu không lọt mẫu khác
 - **Anh 18/10:** "rà soát lại form của mẫu nào không lọt mẫu khác, ví dụ trong mẫu 01TG mà có GQVL là không đúng".
 - Rà 19 mẫu (Hồ sơ vay + Hồ sơ tổ), mỗi mẫu với hộ đang chọn HSSV và GQVL. Lọt ở 4 chỗ, đã sửa:
