@@ -295,6 +295,7 @@ function ttKN(){ return ttSaoKe({ten:'Nợ khoanh', tieuDe:'DANH SÁCH NỢ KHOA
 /* ---------- vào từ skBaoCao ---------- */
 function ttBaoCao(k){
   if(!skMau31()) return skCan31(SK_BC.find(function(b){ return b.k===k; }).ten);
+  if(k==='tqh') return [ttQH()]; if(k==='tkn') return [ttKN()]; if(k==='tkhd') return [ttKHD()];   /* 3.262 (anh chốt): 3 sao kê chọn riêng */
   var ds = ttDuLieu();
   if(!ds.length) return [{ten:'KQGD', tieuDe:'KẾT QUẢ GIAO DỊCH TẠI ĐIỂM GIAO DỊCH', ngang:true, ctChu:'', ngay:'', aoa:[['Không có tổ trong phạm vi']], html:'<div class="bc-rong">Không có tổ trong phạm vi.</div>'}];
   var xs = ttXaGom(ds);   /* 3.262 (anh chốt): KQGD toàn xã đứng liền sau các điểm GD của xã (như file tổng hợp) */

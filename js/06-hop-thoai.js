@@ -1982,7 +1982,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.262', ds:[
-  ["📒 Bộ thông tin tổ: thêm cột Số hộ đang có dư nợ (Số hộ = tổ viên); chọn kỳ theo ngày có Mẫu 31 ngày đó thì lấy số liệu ngày", "doiNgan(7)"],
+  ["📒 Bộ thông tin tổ: thêm cột Số hộ đang có dư nợ (Số hộ = tổ viên); chọn kỳ theo ngày có Mẫu 31 ngày đó thì lấy số liệu ngày; đơn vị tính góc phải trên bảng; KQGD toàn xã liền sau các điểm; 3 nút sao kê riêng (Nợ QH, Nợ khoanh — A4 dọc, 3 tháng KHĐ)", "doiNgan(7)"],
   ["📒 Bộ thông tin tổ chốt cuối tháng như file tổng hợp: Tổng hợp · theo xã · theo hội · từng điểm · từng xã · 3 tháng KHĐ · Nợ QH · Nợ khoanh · Ghi chú; bản in hết chồng chữ", "doiNgan(7)"],
   ["🧾 Sổ cài đặt (⚙ Khai báo › 💾 Sao lưu): xem mọi lựa chọn / khai báo app nhớ theo khối, dung lượng; khóa lạ (bản cũ để lại) chỉ báo để rà", "hsoKBHop('sl')"],
   ["📒 Sao kê › Thông tin tổ: KQGD tại điểm GD (Mẫu 13/GDX + thông tin tổ, mỗi điểm 1 trang) và Bộ thông tin tổ (KQGD + 3 tháng KHĐ + Nợ quá hạn + Nợ khoanh, chia Điểm › Hội › Tổ) — Excel nhiều sheet, dòng cộng là công thức", "doiNgan(7)"],

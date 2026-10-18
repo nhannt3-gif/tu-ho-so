@@ -11,7 +11,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Anh góp thêm về mẫu:** "đơn vị tính đưa lên bên phải trên bảng, KQGD cả xã để chung với các điểm giao dịch":
   - mỗi bảng có dòng *Đơn vị tính: …* góc phải ngay trên bảng (bảng tổ in: nghìn đồng; bảng tổng hợp, sao kê: đồng); Excel ghi "Đơn vị tính: đồng" ở dòng thứ 3;
   - KQGD toàn xã đứng liền sau các điểm GD của xã (Gia Lộc 2 → Gia Lộc → Phường Gia Lộc → …) — cả trong Bộ thông tin tổ và báo cáo KQGD riêng.
-- Phép thử: t205 thêm 4 (32).
+- **Anh:** "sao kê NQH, NK, 3 tháng KHĐ tách ra thành 3 nút chọn luôn" · "NK cho in A4 dọc": nhóm Thông tin tổ thêm 3 nút riêng (Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ — chia Điểm GD › Hội › Tổ, cùng số liệu ngày / chốt tháng như bộ); Nợ quá hạn, Nợ khoanh in A4 dọc, 3 tháng KHĐ A4 ngang (11 cột).
+- Phép thử: t205 thêm 7 (35).
 
 ## 3.261 — 18/10/2026 — Bộ thông tin tổ: đủ khung file tổng hợp, chốt cuối tháng; bản in hết chồng chữ
 - **Anh 18/10:** "số liệu còn sai chưa hoàn chỉnh" (ảnh: bảng KQGD in bị chồng chữ) — "anh cần dữ liệu tương tự, chốt cuối tháng là được".

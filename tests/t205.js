@@ -12,7 +12,7 @@ const fs=require('fs'), path=require('path');
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
    kyChungDoi('2026-08'); await w(300);
    slDoiTab('sk'); doiNgan(7); for(let i=0;i<60 && !SK_K;i++) await w(250); await w(300);
-   ok('nhóm "Thông tin tổ" có 2 báo cáo', SK_NHOM.some(n=>n.k==='tt') && SK_BC.filter(b=>b.nhom==='tt').map(b=>b.k).join(',')==='kqgd,bott');
+   ok('nhóm "Thông tin tổ": KQGD, Bộ, + 3 sao kê chọn riêng (3.262)', SK_NHOM.some(n=>n.k==='tt') && SK_BC.filter(b=>b.nhom==='tt').map(b=>b.k).join(',')==='kqgd,bott,tqh,tkn,tkhd');
    skChonBC('bott'); await w(400);
    ok('màn Sao kê hiện lựa chọn Bộ thông tin tổ', /Bộ thông tin tổ/.test(document.getElementById('tr7').textContent));
    /* toàn PGD */
@@ -83,6 +83,9 @@ const fs=require('fs'), path=require('path');
    skChonBC('kqgd'); await w(300); skXem(); await w(1500);
    ok('báo cáo KQGD riêng: trang điểm GD + trang toàn xã liền sau', SK_XEM.length===2 && /TẠI ĐIỂM GIAO DỊCH/.test(SK_XEM[0].tieuDe) && /TOÀN XÃ/.test(SK_XEM[1].tieuDe), SK_XEM.map(x=>x.tieuDe).join(' | '));
    dongHop();
+   /* 3.262: 3 sao kê chọn riêng */
+   for(const [k, t] of [['tqh','Nợ QH'], ['tkn','Nợ khoanh'], ['tkhd','3 Tháng KHĐ']]){ skChonBC(k); await w(300); skXem(); await w(1500);
+     ok('nút '+t+' riêng → đúng 1 sao kê chia Điểm › Hội › Tổ'+(k==='tkn' ? ' — in A4 dọc' : ''), SK_XEM.length===1 && SK_XEM[0].ten===t && (k!=='tkn' || SK_XEM[0].ngang===false), SK_XEM.map(x=>x.ten+(x.ngang ? ' ngang' : ' dọc')).join('|')); dongHop(); }
    /* báo cáo cũ không đổi: 1 trang, có ngang theo khổ */
    skChonBC('qh'); await w(300); skXem(); await w(1000);
    ok('sao kê cũ vẫn 1 trang như trước', SK_XEM.length===1 && SK_XEM[0].ten==='Sao kê nợ quá hạn' && typeof SK_XEM[0].ngang==='boolean', SK_XEM.length+' '+SK_XEM[0].ten);
