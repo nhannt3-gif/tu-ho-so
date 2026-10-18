@@ -4,6 +4,28 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.253 — 18/10/2026 — Mẫu 06/TD trong Hồ sơ vay
+- **Anh chốt 17–18/10:**
+  - (ý 12) dùng bộ mã Mẫu 06 KTGS, không chép / sửa mẫu KTGS;
+  - (ý 13) in kèm bộ hồ sơ;
+  - (ý 14) lập riêng được;
+  - 18/10: "phần của Ngân hàng điền sẵn đầy đủ, có thể lập nhiều hộ trên 1 phiếu, 1 mặt chắc được 3 hộ".
+- `js/25-ho-so.js`:
+  - tab mới **06/TD** (`HSO_MAU.hsv`, khổ ngang);
+  - `hso06Ho`: hộ = danh sách 03/TD (chung bộ 01 + 03 + 06); trống thì lấy hộ đang lập 01/TD;
+  - `hso06GtHS`: gọi `ktGiaTri06` theo từng tổ, mỗi tổ 1 phiếu;
+  - phần ghi theo hồ sơ điền sẵn: họ tên, chương trình, giải ngân = dư nợ = số tiền vay 01/TD / 03/TD, mục đích;
+  - phần kiểm tra thực tế để trống ghi tay; mã khoản vay trống (chưa giải ngân).
+- In và Word đều qua hàm KTGS: `ktHTML06`, `ktDocx('m06')`.
+- Cột trái 06/TD: danh sách hộ, "＋ Thêm hộ từ sổ"; bớt hộ, sửa số tiền ở tab 03/TD.
+- 01/TD **In kèm**:
+  - thêm ô **06/TD phiếu kiểm tra**;
+  - tích → nút 🖨 06/TD cạnh nút In, In = in bộ rồi in tiếp 06/TD (khổ ngang khác khổ dọc nên in 2 lần, như 09A);
+  - Word tạo thêm file 06/TD.
+- Phép thử:
+  - **t202 mới** (8 phép);
+  - t163, t170 theo 10 tab Hồ sơ vay.
+
 ## 3.252 — 18/10/2026 — Khai báo riêng mọi mẫu (ý 15)
 - **Anh 18/10:** "triển khai hết các mẫu khai báo riêng 1 lần"; "cái có mẫu rồi không cho sửa như câu chữ, chỉ chỗ chấm mới cho tùy biến"; gạch tiêu ngữ, chấm mảnh cố định.
 - Khung khai báo riêng (🖼 khai báo trực quan, `js/31-o-mau.js`) dùng chung cho cả 15 mẫu nền ô, nay đủ ý 15:
