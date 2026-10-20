@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.268) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Scan › 🔎 Rà CCCD đã lưu | Thanh chạy đọc từng bản (có Dừng) → hộp nhóm ✓ / ✗ / ⚠ / ⏳ / ⏰ / ? | |
+| 2 | Bản sai khách → chọn Đổi sang → ✔ Làm | Tên file trên Drive đổi theo khách đúng, ảnh khách đi theo | |
+| 3 | Khách có 2 bản CCCD giống nhau | Khối Bản trùng, ảnh nhỏ cạnh nhau, bản thừa tích sẵn Xóa → vào Thùng rác | |
+| 4 | Bấm 🔎 lần 2 | Không đọc lại bản đã rà (nhanh) | |
+
+**Ghi chú kỹ thuật 3.268:** `js/42-scan-ra-soat.js`: `rsDoc` (đọc → `k.raDoc`), `rsXet` (nhóm), `rsVanTay` (băm FNV-1a 2 lượt + dHash 8×8 + ảnh nhỏ), `rsSoSanh`, `rsDrive` (liệt kê thư mục CCCD có md5Checksum), `rsApDung`. Hạn CCCD: `sxHanCCCD(ns, ncap)`; `cccdMRZ` thêm `han`. Chưa so được nội dung file chỉ có trên Drive (chỉ md5).
+
 ### Danh sách thử trên máy thật (3.267) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
