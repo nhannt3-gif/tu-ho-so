@@ -82,8 +82,8 @@ const fs=require('fs'), path=require('path');
    ok('trả về thư mục chờ: bỏ mã KH, tên giữ tên + số đọc được để Sắp xếp đối chiếu', !sChu.maKH && sChu.ten==='cccd-Người Khác Hẳn Xyz - 079000000888' && duongScan(sChu)===D.cauHinh.thumuc+' / Scan chờ sắp xếp', sChu.ten);
    /* Drive (giả lập): tên sửa tay · file ngoài app · file giống hệt */
    const cu = {n:coTheNoiDrive, d:baoDamDuong, g:goiDrive};
-   coTheNoiDrive = () => true; baoDamDuong = () => Promise.resolve('TM');
-   goiDrive = () => Promise.resolve({files:[{id:'drJ', name:'sua tay.pdf', md5Checksum:'m1'}, {id:'drX', name:'cccd-'+cA.ten+' - '+cA.cccd+'.pdf', md5Checksum:'m1'}, {id:'drY', name:'gi do.pdf', md5Checksum:'m2'}]});
+   coTheNoiDrive = () => true; baoDamDuong = d => Promise.resolve(/CCCD$/.test(d) ? 'TM' : 'TMKHAC');   /* 3.298: rà 3 thư mục — file giả chỉ nằm ở CCCD */
+   goiDrive = u => Promise.resolve({files:/'TM'/.test(decodeURIComponent(u)) ? [{id:'drJ', name:'sua tay.pdf', md5Checksum:'m1'}, {id:'drX', name:'cccd-'+cA.ten+' - '+cA.cccd+'.pdf', md5Checksum:'m1'}, {id:'drY', name:'gi do.pdf', md5Checksum:'m2'}] : []});
    const dr = await rsDrive(); coTheNoiDrive = cu.n; baoDamDuong = cu.d; goiDrive = cu.g;
    ok('Drive: file app biết mà tên bị sửa tay → đề xuất đặt lại tên chuẩn', dr.ten && dr.ten.length===1 && dr.ten[0].dung===tenScanDrive(sTr1), JSON.stringify(dr.ten && dr.ten.map(x=>x.dung)));
    ok('Drive: file không qua app → chỉ báo, nhận ra khách từ tên', dr.ngoai.length===2 && dr.ngoai.some(x=>x.f.id==='drX' && /khớp/.test(x.ly)));

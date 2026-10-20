@@ -101,22 +101,32 @@ function rsDsDrive(idTM){
       .then(function(r){ ra = ra.concat(((r && r.files) || []).filter(function(f){ return f.mimeType!=='application/vnd.google-apps.folder'; })); return r && r.nextPageToken ? trang(r.nextPageToken) : ra; }); };
   return trang('');
 }
+/* 3.298 (bước 5 kế hoạch tên + lưu): rà 3 thư mục Scan trên Drive — CCCD · Hồ sơ scan · Hồ sơ vay (trước chỉ CCCD).
+   File app biết: sai thư mục → khối "Sai thư mục" (dời + đặt tên chuẩn); đúng thư mục mà tên sửa tay → "Tên bị sửa tay". File app không biết → "Không qua app" (Nhận vào app). */
+var RS_TM = ['cccd', 'tl', 'hsv'];
 function rsDrive(){
   if(!coTheNoiDrive()) return Promise.resolve({chua:1});
   var theoId = {}, theoAnh = {}; (D.scan||[]).forEach(function(k){ if(k.driveId) theoId[k.driveId] = k; Object.keys(k.anhDrive||{}).forEach(function(m){ var a = k.anhDrive[m]; if(a && a.id){ theoAnh[a.id] = {k:k, mat:m}; theoId[a.id] = k; } }); });   /* 3.271: + 2 ảnh mặt thẻ */
-  return baoDamDuong([D.cauHinh.thumuc, SXT.cccd].join(' / ')).then(function(idTM){ return rsDsDrive(idTM).then(function(fs){
-    var R = {idTM:idTM, ten:[], ngoai:[], giong:[]}, md5 = {};
-    fs.forEach(function(f){ var k = theoId[f.id];
-      if(k){ var A = theoAnh[f.id], dung = A ? sxTenAnh(k, A.mat) : tenScanDrive(k); if(f.name!==dung) R.ten.push({k:k, f:f, dung:dung, mat:A ? A.mat : ''}); }
-      else { var b = sxBoc(f.name.replace(/\s*-?\s*m[ặa]t\s*(tr\S{0,3}c|sau)\s*(?=\.\w+$)/i, '')), t = sxXacDinh({cccd:b.cccd, ma:b.ma, ten:b.ten}), anh = /^image\//.test(f.mimeType||'') || /\.(jpe?g|png|heic|heif|webp)$/i.test(f.name);
+  var R = {idTM:'', tm:{}, ten:[], ngoai:[], giong:[], cho:[]}, md5 = {}, coCho = {};
+  return RS_TM.reduce(function(p, fk){ return p.then(function(){ return baoDamDuong(tcDuong(fk)).then(function(idTM){ R.tm[fk] = idTM; if(fk==='cccd') R.idTM = idTM; return rsDsDrive(idTM); }).then(function(fs){
+    fs.forEach(function(f){ var k = theoId[f.id]; f.__tm = fk; f.__idTM = R.tm[fk];
+      if(k){ var A = theoAnh[f.id], dung = A ? sxTenAnh(k, A.mat) : tenScanDrive(k);
+        if(duongScan(k)!==tcDuong(fk)){ if(!coCho[k.id]){ coCho[k.id] = 1; R.cho.push({k:k, f:f, tu:TC.thuMuc[fk], den:duongScan(k).replace(D.cauHinh.thumuc+' / ', '')}); } }
+        else if(f.name!==dung) R.ten.push({k:k, f:f, dung:dung, mat:A ? A.mat : ''}); }
+      else if(fk==='cccd'){ var b = sxBoc(f.name.replace(/\s*-?\s*m[ặa]t\s*(tr\S{0,3}c|sau)\s*(?=\.\w+$)/i, '')), t = sxXacDinh({cccd:b.cccd, ma:b.ma, ten:b.ten}), anh = /^image\//.test(f.mimeType||'') || /\.(jpe?g|png|heic|heif|webp)$/i.test(f.name);
         R.ngoai.push({f:f, ma:t.ma||'', cccd:b.cccd||'', ten:b.ten||'', anh:anh, pdf:!anh && /pdf/.test((f.mimeType||'')+f.name.toLowerCase()), mat:/m[ặa]t\s*sau|\bsau\b/i.test(f.name) ? 'sau' : 'truoc',
           ly:t.ma ? 'khớp '+sxNhanKH(t.ma)+' — app không có bản này (thả tay / lưu ở máy khác chưa đồng bộ)' : 'không nhận ra khách từ tên file'}); }
+      else { var goc = f.name.replace(/\.\w+$/, '').replace(/ \(\d+\)$/, ''), ph = goc.split(' - '), l = ph.length>=3 ? ph.pop() : '';   /* "Khóa - Họ tên - Loại" → bỏ loại trước khi nhận khách */
+        var b2 = sxBoc(ph.join(' - ')), t2 = sxXacDinh({cccd:b2.cccd, ma:b2.ma, ten:b2.ten}), m = /^tl:(.+)$/.exec(b2.loai||''); l = l || (m ? m[1] : '');
+        R.ngoai.push({f:f, tl:true, ma:t2.ma||'', cccd:b2.cccd||'', ten:b2.ten||'', loai:String(l||'Tài liệu').trim(), pdf:/pdf/.test((f.mimeType||'')+f.name.toLowerCase()),
+          ly:'tài liệu trong '+TC.thuMuc[fk]+(t2.ma ? ' — khớp '+sxNhanKH(t2.ma) : ' — không nhận ra khách')+' — app không có bản này'}); }
       if(f.md5Checksum) (md5[f.md5Checksum] = md5[f.md5Checksum] || []).push(f); });
+  }); }); }, Promise.resolve()).then(function(){
     Object.keys(md5).forEach(function(h){ var ds = md5[h]; if(ds.length<2) return;
       ds.sort(function(a, b){ return (theoId[b.id] ? 1 : 0)-(theoId[a.id] ? 1 : 0); });   /* giữ bản app biết */
       R.giong.push({giu:ds[0], bo:ds.slice(1).map(function(f){ return {f:f, app:theoId[f.id]}; })}); });
     R.nhan = rsNhomNhan(R.ngoai);
-    return R; }); }).catch(function(e){ return {loi:(e && e.message) || String(e)}; });
+    return R; }).catch(function(e){ return {loi:(e && e.message) || String(e)}; });
 }
 
 /* ---------- chạy rà ---------- */
@@ -138,7 +148,8 @@ function moRaSoat(docLai){
   .catch(function(e){ tatChay(); baoLoi('Chưa rà xong: '+(e && e.message || e)); });
 }
 function rsLap(ds, tam, nhom, dr, dung){
-  var R = {nhom:{}, trung:[], dr:dr, dung:dung, chuaDoc:0, tong:ds.length, chon:{}, xoa:{}, doiTen:{}, boDrive:{}, nhan:{}};
+  var R = {nhom:{}, trung:[], dr:dr, dung:dung, chuaDoc:0, tong:ds.length, chon:{}, xoa:{}, doiTen:{}, boDrive:{}, nhan:{}, choTM:{}};
+  (dr && dr.cho || []).forEach(function(x, i){ R.choTM[i] = true; });   /* sai thư mục: tích sẵn */
   ['sai', 'hai', 'cmnd', 'lech', 'khongChu', 'ngoai', 'khong', 'dung', 'han'].forEach(function(n){ R.nhom[n] = []; });
   ds.forEach(function(k){ var r = k.raDoc || tam[k.id]; if(!r){ R.chuaDoc++; return; }
     var x = rsXet(k, r); x.k = x.k || k; x.r = r; R.nhom[x.nhom].push(x); if(x.han) R.nhom.han.push(x); });
@@ -185,9 +196,15 @@ function rsVeTrung(){
 }
 function rsVeDrive(){
   var D2 = RS.dr || {}, e = coChuHTML;
-  if(D2.chua) return '<div class="sx-hd">☁ Chưa nối Drive (hoặc anh đã dừng) — chưa rà thư mục CCCD trên Drive.</div>';
-  if(D2.loi) return '<div class="sx-hd vang">☁ Chưa đọc được thư mục CCCD trên Drive: '+e(D2.loi)+'</div>';
+  if(D2.chua) return '<div class="sx-hd">☁ Chưa nối Drive (hoặc anh đã dừng) — chưa rà thư mục CCCD · Hồ sơ scan · Hồ sơ vay trên Drive.</div>';
+  if(D2.loi) return '<div class="sx-hd vang">☁ Chưa đọc được thư mục trên Drive: '+e(D2.loi)+'</div>';
   var h = '';
+  if((D2.cho||[]).length) h += '<details open class="sx-khoi"><summary class="vang"><b>📂 File nằm sai thư mục</b> — '+D2.cho.length+' bản</summary>'+
+    '<div class="sx-hd">Theo quy tắc chung: CCCD → <i>CCCD</i>, mẫu hồ sơ vay (01TD, 01GQVL…) → <i>Hồ sơ vay</i>, tài liệu khác → <i>Hồ sơ scan</i>, chưa rõ khách → <i>Scan chờ sắp xếp</i>. Đã tích sẵn — dời + đặt tên chuẩn (PDF và 2 ảnh mặt thẻ đi cùng).</div>'+
+    '<table class="to-bang luoi sx-bang"><tbody>'+
+    D2.cho.map(function(x, i){ return '<tr><td class="sx-c2">'+e(x.f.name)+'<br><small>đang ở: '+e(x.tu)+'</small></td><td class="sx-c3">'+
+      '<label class="sx-r"><input type="checkbox" data-lenh="rs.choTM" data-su="change" data-i="'+i+'"'+(RS.choTM[i] ? ' checked' : '')+'> Dời về <b>'+e(x.den)+'</b> · tên <i>'+e(tenScanDrive(x.k))+'</i></label></td></tr>'; })
+      .join('')+'</tbody></table></details>';
   if(D2.ten.length) h += '<details open class="sx-khoi"><summary class="vang"><b>✎ Tên trên Drive bị sửa tay</b> — '+D2.ten.length+' file</summary><div class="sx-hd">Tích để đặt lại tên chuẩn.</div><table class="to-bang luoi sx-bang"><tbody>'+
     D2.ten.map(function(x, i){ return '<tr><td class="sx-c2">'+e(x.f.name)+'</td><td class="sx-c3"><label class="sx-r"><input type="checkbox" data-lenh="rs.doiTen" data-su="change" data-i="'+i+'"'+(RS.doiTen[i] ? ' checked' : '')+'> Đặt lại: <b>'+e(x.dung)+'</b></label></td></tr>'; }).join('')+'</tbody></table></details>';
   if(D2.giong.length) h += '<details open class="sx-khoi"><summary class="vang"><b>⧉ File giống hệt nhau trên Drive</b> — '+D2.giong.length+' nhóm</summary><div class="sx-hd">Cùng nội dung từng byte (Drive so). Bản app không biết đã tích sẵn — xóa vào Thùng rác Drive.</div><table class="to-bang luoi sx-bang"><tbody>'+
@@ -201,9 +218,9 @@ function rsVeDrive(){
         (g.nhan ? '<label class="sx-r"><input type="checkbox" data-lenh="rs.nhan" data-su="change" data-i="'+i+'"'+(RS.nhan[i] ? ' checked' : '')+'> Nhận vào app — '+(g.ma ? '<b>'+e(sxNhanKH(g.ma))+'</b>' : '⏳ Chờ sắp xếp')+(g.pdf ? '' : ' <small>(chỉ có ảnh — app dựng PDF)</small>')+'</label>' : '<small>'+e(g.ly)+'</small>')+'</td></tr>'; }).join('')+'</tbody></table></details>';
   var nTai = typeof sxDsAnhTai==='function' ? sxDsAnhTai().length : 0;
   if(nTai) h += '<div class="sx-hd">🖼 Ảnh mặt thẻ máy này đã tải từ Drive: <b>'+nTai+'</b> bản <button type="button" class="nho" data-lenh="rs.donTai" title="Xóa bản trong máy cho nhẹ — Drive vẫn giữ, cần thì app tự tải lại">🧹 Dọn ảnh tải về</button></div>';
-  return h || '<div class="sx-hd">☁ Thư mục CCCD trên Drive: tên chuẩn, không có file giống hệt.</div>';
+  return h || '<div class="sx-hd">☁ Thư mục CCCD · Hồ sơ scan · Hồ sơ vay trên Drive: đúng thư mục, tên chuẩn, không có file giống hệt.</div>';
 }
-function rsViec(){ var R = RS, dem = function(o){ return Object.keys(o||{}).filter(function(k){ return o[k]; }).length; }; return dem(R.chon)+dem(R.xoa)+dem(R.doiTen)+dem(R.boDrive)+dem(R.cat)+dem(R.nhan); }
+function rsViec(){ var R = RS, dem = function(o){ return Object.keys(o||{}).filter(function(k){ return o[k]; }).length; }; return dem(R.chon)+dem(R.xoa)+dem(R.doiTen)+dem(R.boDrive)+dem(R.cat)+dem(R.nhan)+dem(R.choTM); }
 function rsVeCat(){
   var ds = RS.catDs||[], e = coChuHTML, hong = (D.scan||[]).filter(function(k){ return k.maKH && !k.catTuPDF && (k.catHong || k.catLoi); });
   var hh = hong.length ? '<details open class="sx-khoi"><summary class="do"><b>⚠ Không tách được 2 mặt thẻ</b> — '+hong.length+' bản (đang dùng PDF)</summary><table class="to-bang luoi sx-bang"><tbody>'+
@@ -242,12 +259,13 @@ GD.dangKy('rs', {mo:function(){ moRaSoat(false); }, docLai:function(){ moRaSoat(
   boDrive:function(el){ RS.boDrive[el.getAttribute('data-x')] = !!el.checked; rsDemNut(); },
   doiTen:function(el){ RS.doiTen[+el.getAttribute('data-i')] = !!el.checked; rsDemNut(); },
   cat:function(el){ var k = el.getAttribute('data-k'), v = el.getAttribute('data-v'); if(v) RS.cat[k] = v; else delete RS.cat[k]; rsDemNut(); },
-  nhan:function(el){ RS.nhan[+el.getAttribute('data-i')] = !!el.checked; rsDemNut(); }, donTai:function(){ sxDonAnhTai(); }});
+  nhan:function(el){ RS.nhan[+el.getAttribute('data-i')] = !!el.checked; rsDemNut(); }, choTM:function(el){ RS.choTM[+el.getAttribute('data-i')] = !!el.checked; rsDemNut(); }, donTai:function(){ sxDonAnhTai(); }});
 /* 3.293 (bước 0): file thả tay trên Drive → nhóm theo khách: PDF + ảnh mặt trước / sau cùng khách = 1 bản; PDF lạ (không nhận ra khách) = 1 bản chờ sắp xếp;
    ảnh lạ không nhận ra khách → chỉ báo (không biết ghép với ai) */
 function rsNhomNhan(ngoai){
   var theoMa = {}, ra = [];
   ngoai.forEach(function(x){
+    if(x.tl){ ra.push(x.pdf ? {pdf:x.f, tl:true, loai:x.loai, ma:x.ma, ten:x.ten, cccd:x.cccd, nhan:true} : {truoc:x.f, ma:x.ma, nhan:false, ly:x.ly+' (không phải PDF — chỉ báo)'}); return; }   /* 3.298 */
     if(!x.ma){ if(x.pdf) ra.push({pdf:x.f, ma:'', ten:x.ten, cccd:x.cccd, nhan:true}); else ra.push({truoc:x.f, ma:'', nhan:false, ly:x.anh ? 'ảnh — không nhận ra khách từ tên file, chưa biết ghép với bản nào (đặt tên có mã KH / số CCCD rồi Rà lại)' : x.ly}); return; }
     var g = theoMa[x.ma] = theoMa[x.ma] || {ma:x.ma, nhan:true, ten:x.ten, cccd:x.cccd};
     if(x.pdf){ if(g.pdf) ra.push({pdf:x.f, ma:x.ma, cccd:x.cccd, nhan:true}); else g.pdf = x.f; }
@@ -258,10 +276,11 @@ function rsNhomNhan(ngoai){
 }
 /* nhận 1 nhóm vào app → bản CCCD (chưa đổi gì trên Drive; rsApDung đặt tên / dời sau) */
 function rsNhanVao(g, idTM){
-  var bay = new Date().toISOString(), k = {id:idMoi(), che:'the', tag:['CCCD'], ten:g.ten || (g.pdf ? g.pdf.name : g.truoc.name).replace(/\.\w+$/, ''), maKH:'', cccd:g.cccd||'', ghi:'Nhận từ Drive (file thả tay)', ctrinh:[],
+  var bay = new Date().toISOString(), k = {id:idMoi(), che:g.tl ? 'tailieu' : 'the', tag:g.tl ? [g.loai || 'Tài liệu'] : ['CCCD'], ten:g.ten || (g.pdf ? g.pdf.name : g.truoc.name).replace(/\.\w+$/, ''), maKH:'', cccd:g.cccd||'', ghi:'Nhận từ Drive (file thả tay)', ctrinh:[],
     ngay:bay.slice(0, 10), taoLuc:bay, suaLuc:bay, may:maMayCua(), tuDrive:1};
-  if(g.pdf){ k.driveId = g.pdf.id; k.driveCha = idTM; }
+  if(g.pdf){ k.driveId = g.pdf.id; k.driveCha = g.pdf.__idTM || idTM; }
   if(g.truoc || g.sau){ k.anhDrive = {}; ['truoc', 'sau'].forEach(function(mat){ var f = g[mat]; if(f){ k.anhDrive[mat] = {id:f.id, ten:f.name, cha:idTM}; if(mat==='truoc') k.matTruoc = true; else k.matSau = true; } }); }
+  if(g.tl) k.trang = [];
   if(g.ma) sxGan(k, g.ma, false);
   if(!k.driveId) k.canDay = true;   /* chỉ có ảnh → đồng bộ dựng PDF từ 2 ảnh (tải về từ Drive) */
   D.scan = D.scan || []; D.scan.push(k); HS.ds = D.scan;
@@ -286,10 +305,11 @@ function rsApDung(){
   R.trung.forEach(function(g, gi){ g.bo.forEach(function(x, j){ if(!R.xoa[gi+':'+j]) return; n++; xoa.push(x.k.id);
     if(!x.ka) rsAnhTheo(x.k).forEach(function(a){ a.tuCCCD = g.giu.k.id; }); }); });   /* ảnh khách từ bản xóa → gắn sang bản giữ */
   var D2 = R.dr || {}, viecDrive = [];
-  (D2.ten||[]).forEach(function(x, i){ if(R.doiTen[i]){ n++; viecDrive.push(function(){ return x.mat ? sxDoiId(x.f.id, '', D2.idTM, x.dung).then(function(){ var a = (x.k.anhDrive||{})[x.mat]; if(a){ a.ten = x.dung; a.cha = D2.idTM; } }) : sxDoi(x.k, D2.idTM, x.dung); }); } });
+  (D2.ten||[]).forEach(function(x, i){ if(R.doiTen[i]){ n++; viecDrive.push(function(){ var id0 = x.f.__idTM || D2.idTM; return x.mat ? sxDoiId(x.f.id, '', id0, x.dung).then(function(){ var a = (x.k.anhDrive||{})[x.mat]; if(a){ a.ten = x.dung; a.cha = id0; } }) : sxDoi(x.k, id0, x.dung); }); } });
   var viecCat = [];   /* ✂ ảnh cắt từ PDF: Đúng / Bỏ làm trong máy; Cắt lại cần tải PDF */
   Object.keys(R.cat||{}).forEach(function(id){ var v = R.cat[id], k = (D.scan||[]).find(function(x){ return x.id===id; }); if(v && k){ n++; viecCat.push(function(){ return sxCatXuLy(k, v); }); } });
   (D2.giong||[]).forEach(function(g, gi){ g.bo.forEach(function(x, j){ if(R.boDrive[gi+':'+j] && !x.app){ n++; viecDrive.push(function(){ return xoaFileDrive(x.f.id); }); } }); });
+  (D2.cho||[]).forEach(function(x, i){ if(R.choTM[i]){ n++; x.k.canDay = true; dsSC.push(x.k); } });   /* 3.298: sai thư mục → dời + tên chuẩn (sxDoiDrive) */
   var nhanMoi = []; (D2.nhan||[]).forEach(function(g, i){ if(R.nhan[i] && g.nhan){ n++; var k = rsNhanVao(g, D2.idTM); nhanMoi.push(k); if(k.driveId) dsSC.push(k); } });   /* 3.293 */
   luu(); RS = null; dongHop();
   if(xoa.length) chuyenVaoRac(xoa, 'Rà CCCD: bản trùng');
