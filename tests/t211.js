@@ -1,0 +1,34 @@
+// 3.272 — khung xem phải: dòng "Hồ sơ của khách" (gom CCCD · Chữ ký · Ảnh · tài liệu của 1 khách, thiếu ghi ✗, bấm → xem ngay). Dữ liệu GIẢ.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs=require('fs'), path=require('path');
+(async()=>{ const b=await chromium.launch(); const loi=[];
+ const p=await b.newPage({viewport:{width:1500,height:900}}); p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
+   const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
+   for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
+   await slNap(); await w(200);
+   const DB = KHO.dsKhach(), ma = Object.keys(DB).filter(m=>DB[m].ten)[0], c = DB[ma], bay = new Date().toISOString();
+   const anh = mau => new Promise(r=>{ const cv=document.createElement('canvas'); cv.width=400; cv.height=250; const g=cv.getContext('2d'); g.fillStyle=mau; g.fillRect(0,0,400,250); cv.toBlob(r,'image/jpeg',0.9); });
+   await luuAnhHS('t211a_matTruoc', await anh('#c33')); await luuAnhHS('t211a_matSau', await anh('#36c')); await luuAnhHS('kat211', await anh('#333'));
+   const kC = {id:'t211a', che:'the', ten:c.ten, maKH:ma, tag:['CCCD'], matTruoc:true, matSau:true, ngay:bay.slice(0,10), suaLuc:bay};
+   const kT = {id:'t211b', che:'tailieu', ten:c.ten, maKH:ma, tag:['01TD'], trang:[], ngay:bay.slice(0,10), suaLuc:bay};
+   const kK = {id:'kat211', loai:'ky', khach:c.ten, maKH:ma, ten:'x.jpg', ngay:bay.slice(0,10), suaLuc:bay};
+   D.scan = D.scan || []; D.kyAnh = D.kyAnh || []; D.scan.push(kC, kT); D.kyAnh.push(kK); HS.ds = D.scan;
+   doiNgan(4); await w(500); anPV = false; const cp = document.getElementById('cotphai');
+   ok('(chuẩn bị) khung xem phải đang hiện', !!(cp && cp.offsetParent), cp ? 'có' : 'không');
+   xemScanCP('t211a'); await w(400);
+   const h = document.querySelector('#cp-phu .sx-hskh'), t = h ? h.textContent : '';
+   ok('xem 1 bản CCCD → dòng "Hồ sơ của khách" (tên, mã KH) dưới đầu khung xem', !!h && /Hồ sơ của khách/.test(t) && t.indexOf(ma)>=0, t);
+   ok('gom đủ: 🪪 CCCD · ✍ Chữ ký · 📄 01TD; thiếu Ảnh ghi ✗', h && h.querySelectorAll('.sx-hs-nut').length===3 && /🧑 Ảnh ✗/.test(t) && /📄 01TD/.test(t));
+   ok('bản đang xem tô đậm', h && h.querySelector('.sx-hs-nut.dang[data-id="t211a"]'));
+   h.querySelector('[data-id="kat211"]').click(); await w(400);
+   const h2 = document.querySelector('#cp-phu .sx-hskh');
+   ok('bấm ✍ Chữ ký → khung phải chuyển sang chữ ký, dòng Hồ sơ của khách vẫn còn, chữ ký tô đậm', XEM.phai.m===kK && h2 && h2.querySelector('.sx-hs-nut.dang[data-id="kat211"]'), XEM.phai.m && XEM.phai.m.id);
+   D.scan = D.scan.filter(k=>!/^t211/.test(k.id)); D.kyAnh = D.kyAnh.filter(k=>k.id!=='kat211'); luu();
+   return o; }, files);
+ R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5).join(' | '));
+ console.log(R.filter(x=>x[0]==='✓').length+'/'+R.length+' đạt'); await b.close(); process.exit(R.some(x=>x[0]!=='✓') || loi.length ? 1 : 0);
+})();

@@ -3573,3 +3573,11 @@ table.hm-so{min-width:1476px}
 .rs-khong-anh{height:60px;display:flex;align-items:center;justify-content:center;color:var(--chu-phu);font-size:12px;border:1px dashed var(--vien);border-radius:6px}
 .sx-bang .rs-c1{width:26%}#hop-in .sx-bang td,#hop-in .sx-bang th{white-space:normal;overflow-wrap:anywhere}
 .sx-nho{max-width:200px;max-height:120px;margin:4px 6px 0 0;border:1px solid var(--vien);border-radius:6px;vertical-align:top}
+/* 3.271: bảng đối chiếu thông tin đọc được trên thẻ ↔ Mẫu 31 */
+.sx-doc-xem{margin:4px 0}.sx-doc-xem>summary{cursor:pointer;color:var(--xanh);font-size:calc(12px*var(--co))}.sx-doc-bang{margin-top:4px;font-size:calc(12px*var(--co))}.sx-doc-bang td.c{text-align:center;width:28px}.sx-doc-bang tr.sx-lech td{background:var(--do-nen)}
+#hop-in .sx-doc-bang{width:100%;table-layout:fixed}#hop-in .sx-doc-bang td,#hop-in .sx-doc-bang th{overflow-wrap:break-word;word-break:normal;padding:2px 5px}
+.sx-doc-bang th:nth-child(1){width:28%}.sx-doc-bang th:nth-child(2),.sx-doc-bang th:nth-child(3){width:32%}.sx-doc-bang th:nth-child(4){width:8%}
+/* 3.272: khung xem phải — dòng "Hồ sơ của khách" */
+.sx-hskh{margin-top:6px;padding:6px 8px;border:1px solid var(--vien);border-radius:8px;background:var(--the);white-space:normal}.sx-hskh small{color:var(--chu-phu)}
+.sx-hs-hang{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.sx-hs-nut{font:inherit;font-size:calc(12.5px*var(--co));padding:3px 9px;border:1px solid var(--vien);border-radius:14px;background:var(--nen);color:var(--chu);cursor:pointer}
+.sx-hs-nut:hover{border-color:var(--xanh)}.sx-hs-nut.dang{border-color:var(--xanh);background:var(--xanh-nhat);font-weight:700}.sx-hs-thieu{font-size:calc(12.5px*var(--co));padding:3px 6px;color:var(--do)}

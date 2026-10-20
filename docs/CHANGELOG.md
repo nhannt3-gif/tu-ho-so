@@ -4,6 +4,21 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.272 — 20/10/2026 — "Hồ sơ của khách" ở khung xem phải
+- Theo bố trí anh duyệt ở 3.264 (mục 3 Khung xem bên phải) — việc còn lại của phần Scan.
+- Bấm 1 bản scan / chữ ký / ảnh đã gắn mã KH → dưới đầu khung xem có dòng **Hồ sơ của khách** (mã KH · tên · ấp · tổ · xã): 🪪 CCCD · ✍ Chữ ký · 🧑 Ảnh · 📄 tài liệu theo loại (01TD…); thiếu ghi ✗ đỏ; bản đang xem tô đậm; bấm mục nào khung phải chuyển sang xem mục đó (`sxHoSoKhach`, lệnh `sx.xemHS`).
+- Phép thử: t211 (5).
+
+## 3.271 — 20/10/2026 — Ảnh CCCD lên Drive, cắt từ PDF, bảng đối chiếu, CMND 9 số
+- **Anh 20/10**: "anh cần phải lên Drive để đồng bộ giữa các máy"; "Drive anh có 5TB nên có thể dùng PA lưu cả 3 … khi em chạy lại chưa chắc chuẩn phải kiểm tra cắt lại"; "đọc được gì em cũng hiện ra để kiểm tra coi đúng hay không"; "các hộ đọc được CMND 9 số em cũng lưu thêm 1 cột để đối chiếu"; "mẫu 04 tab GD xã, tên cơ quan và tiêu ngữ gần nhau quá".
+- **3 file lên Drive** (file mới `js/43-scan-anh-drive.js`): bản thẻ lưu `… - CCCD.pdf` + `… - Mặt trước.jpg` + `… - Mặt sau.jpg` chung thư mục (CCCD / Scan chờ sắp xếp). Đổi tên / dời (🧹 Sắp xếp, 🔎 Rà) / thùng rác / xóa hẳn: 2 ảnh đi theo PDF. Bản cũ còn ảnh trong máy → lần đồng bộ tới tự đưa ảnh lên (không gửi lại PDF).
+- **Máy khác** không có ảnh → tự tải 2 ảnh từ Drive về giữ trong máy (khung xem, hộp Sửa bản quét, in, đọc số như máy đã quét).
+- **Bản cũ chỉ có PDF** (vd hộ Thủy): tải PDF → dò khung 2 thẻ trên trang → cắt thành 2 ảnh (đánh dấu "cắt từ PDF", đưa lên Drive); **PDF gốc giữ nguyên** (không dựng lại PDF từ ảnh cắt). 🔎 Rà có khối **"✂ Ảnh cắt từ PDF — anh xem lại"**: Đúng / ↻ Cắt lại (dò khung cách khác) / Bỏ ảnh cắt (dùng PDF). Đọc ra số khớp Mẫu 31 → coi là cắt đúng.
+- **Bảng đối chiếu** "📋 Thông tin đọc được trên thẻ — so Mẫu 31": Số CCCD, CMND cũ, Họ tên, Ngày sinh, Giới tính, Nơi thường trú, Ngày cấp, Hạn thẻ, Đọc từ — ✓ / ✗ (lệch tô đỏ). Hiện lúc vừa quét, ở 🧹 Sắp xếp và 🔎 Rà. Bản lưu giữ đủ kết quả đọc (`cccdDoc`).
+- **CMND 9 số** đọc từ QR lưu vào bản (`k.cmnd`): hiện ở 📊 Kiểm tra (từng hộ + cột Excel "CMND cũ (9 số, đọc từ thẻ)"), Tra cứu khách (dòng "CMND cũ"); Mẫu 31 còn số 9 số → tra ra đúng khách ("theo số CMND cũ").
+- **Mẫu 04/TD** (🏢 Giao dịch xã): bảng đầu trang lấn lề trái 5 mm / phải 7 mm, cột 31 / 53 / 16 % → tên cơ quan cách tiêu ngữ ~5,6 mm (trước ~3,2), tiêu ngữ cách "Mẫu số 04/TD" rộng hơn; cỡ chữ giữ nguyên.
+- Phép thử: t210 (15, Drive giả 2 máy); t209 sửa 1 (cắt từ PDF).
+
 ## 3.270 — 20/10/2026 — Rà theo Mẫu 31 ngày
 - **Anh 20/10**: "khi rà em rà mẫu 31 ngày luôn".
 - 🧹 Sắp xếp và 🔎 Rà **đã** so với danh bạ khách gộp mọi Mẫu 31 đã nạp (tháng + ngày, mỗi khách lấy kỳ mới nhất) — nay ghi rõ ở đầu hộp: "mới nhất: Mẫu 31 ngày …".
