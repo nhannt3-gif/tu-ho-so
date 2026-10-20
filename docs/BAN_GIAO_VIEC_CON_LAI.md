@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.298) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🗂 Quản lý › 🔎 Rà CCCD | Khối "File nằm sai thư mục" (nếu có bản 01GQVL / 01TD cũ ở Hồ sơ scan) — ✔ → dời về Hồ sơ vay | |
+| 2 | Thả tay 1 PDF "MãKH - Họ tên - Giấy xác nhận.pdf" vào Hồ sơ scan › Rà | Nhận vào app thành tài liệu đúng khách | |
+
+**Ghi chú kỹ thuật 3.298:** 42 `rsDrive` duyệt `RS_TM` (cccd, tl, hsv) — `R.tm`, file gắn `__tm / __idTM`; app biết + `duongScan(k)` ≠ thư mục → `R.cho` (theo bản, không trùng) → `RS.choTM` (tích sẵn) → `canDay` + `sxDoiDrive`; đổi tên dùng `x.f.__idTM`; ngoài app ở tl/hsv → `{tl:true, loai}` → `rsNhomNhan` 1 file 1 nhóm → `rsNhanVao` che `tailieu`.
+
 ### Danh sách thử trên máy thật (3.297) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

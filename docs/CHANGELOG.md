@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.298 — 21/10/2026 — Bước 5: rà Drive dữ liệu cũ theo quy tắc chung
+- Theo `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` bước 5 ("rà Drive toàn bộ → đổi tên / dời theo quy tắc, báo file không quản được — anh tích mới làm").
+- 🗂 Quản lý › 🔎 Rà CCCD đã lưu: phần Drive nay rà **3 thư mục**: **CCCD · Hồ sơ scan · Hồ sơ vay** (trước chỉ CCCD).
+  - Khối mới **📂 File nằm sai thư mục**: bản app biết mà nằm sai chỗ theo quy tắc (CCCD → CCCD, mẫu hồ sơ vay 01TD / 01GQVL… → Hồ sơ vay, tài liệu khác → Hồ sơ scan, chưa rõ khách → Scan chờ sắp xếp) — **tích sẵn**, ✔ làm thì dời + đặt tên chuẩn (PDF và 2 ảnh mặt thẻ đi cùng). Vd bản 01GQVL lưu trước 3.297 ở Hồ sơ scan → dời về Hồ sơ vay.
+  - Tên bị sửa tay: như cũ, cho cả 3 thư mục.
+  - File không qua app ở Hồ sơ scan / Hồ sơ vay: PDF tên "Mã KH - Họ tên - Loại" → **Nhận vào app** thành bản tài liệu (loại theo tên, gắn khách); không phải PDF → chỉ báo.
+- Bước 4 (Bộ hồ sơ) chưa làm — chờ anh chốt cách đặt tên file trong bộ.
+- Phép thử: t223 thêm 2 (8); t208 sửa Drive giả theo 3 thư mục.
+
 ## 3.297 — 21/10/2026 — Bước 3: bản hồ sơ vay đã ký vào tủ, thư mục Hồ sơ vay
 - Theo `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` bước 3 (anh duyệt 20/10, đề xuất (b) 1 thư mục `Hồ sơ vay`). App không tự dựng được PDF từ mẫu in (in qua trình duyệt) nên "lưu PDF vào tủ" làm bằng **quét bản đã ký**.
 - Form 01/TD: nút **📷 Quét bản đã ký** → sang tab Scan, loại **Tài liệu** sáng sẵn; quét xong, bước lưu điền sẵn khách + tên chuẩn (dòng 📌) → **🗄 Lưu vào tủ**: tag `01TD`, tên **`Mã KH - Họ tên - 01TD`** (hộ mới: **`Số CCCD - Họ tên - 01TD`**), thư mục Drive **Hồ sơ vay**; hiện ngay ở "Hồ sơ của khách" (khung phải).

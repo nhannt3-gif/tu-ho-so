@@ -25,6 +25,11 @@ const fs=require('fs'), path=require('path'); const drive=require('./fakedrive.j
    await sxTaiLen(await the('#36c'), DB[m2].cccd+' mat sau.jpg', idTM);
    await sxTaiLen(bpdf, 'scan la.pdf', idTM, 'application/pdf');
    await sxTaiLen(await the('#999'), 'IMG_0001.jpg', idTM);
+   /* 3.298: bản tài liệu 01GQVL (app biết) đang nằm ở Hồ sơ scan → sai thư mục; PDF tài liệu thả tay ở Hồ sơ scan → nhận vào app */
+   const idTL = await baoDamDuong('Tủ hồ sơ / Hồ sơ scan');
+   const k3 = {id:'t223tl', che:'tailieu', tag:['01GQVL'], maKH:m1, ten:DB[m1].ten, trang:[], ngay:'2026-10-20', taoLuc:'2026-10-20T00:00:00Z', may:maMayCua()};
+   k3.driveId = await sxTaiLen(bpdf, 'don cu.pdf', idTL, 'application/pdf'); k3.driveCha = idTL; D.scan.push(k3);
+   await sxTaiLen(bpdf, m1+' - '+DB[m1].ten+' - Giấy xác nhận.pdf', idTL, 'application/pdf');
    const dr = await rsDrive(); RS = rsLap([], {}, [], dr, false);
    const nh = dr.nhan, g1 = nh.find(g=>g.ma===m1), g2 = nh.find(g=>g.ma===m2), gla = nh.find(g=>!g.ma && g.pdf), ganh = nh.find(g=>!g.nhan);
    rsVe(); await w(200); const html = document.getElementById('hop-in').textContent, soNut = document.querySelectorAll('#hop-in [data-lenh="rs.nhan"]').length;
@@ -32,12 +37,16 @@ const fs=require('fs'), path=require('path'); const drive=require('./fakedrive.j
    henDongBoScan = function(){ dongBoScan(true); };
    rsApDung(); for(let i=0;i<60;i++){ await w(250); if(D.scan.slice(n0).every(k=>k.driveId && !k.canDay)) break; } await w(500);
    const moi = D.scan.slice(n0).map(k=>JSON.parse(JSON.stringify(k)));
-   return {m1, m2, ten1:DB[m1].ten, ten2:DB[m2].ten, nhom:{g1:!!(g1 && g1.pdf && g1.truoc && g1.sau), g2:!!(g2 && !g2.pdf && g2.truoc && g2.sau), gla:!!gla, ganh:!!ganh}, html:/Nhận vào app/.test(html), soNut, moi}; });
- ok('Rà Drive: nhóm file thả tay theo khách — PDF + 2 ảnh = 1 nhóm; khách chỉ có 2 ảnh = 1 nhóm; PDF lạ riêng; ảnh lạ chỉ báo', r.nhom.g1 && r.nhom.g2 && r.nhom.gla && r.nhom.ganh && r.html && r.soNut===3, JSON.stringify(r.nhom)+' nút '+r.soNut);
- const k1 = r.moi.find(k=>k.maKH===r.m1), k2 = r.moi.find(k=>k.maKH===r.m2), kla = r.moi.find(k=>!k.maKH);
+   const choCo = (dr.cho||[]).some(x=>x.k===k3 && /Hồ sơ vay/.test(x.den)), tlNhom = nh.find(g=>g.tl && /Giấy xác nhận/.test(g.pdf.name));
+   const kTL = D.scan.slice(n0).find(k=>k.che==='tailieu');
+   return {k3:{id:k3.driveId, cho:choCo}, tl:{nhom:!!(tlNhom && tlNhom.nhan && tlNhom.loai==='Giấy xác nhận'), k:kTL && {tag:kTL.tag, ma:kTL.maKH, d:kTL.driveId}}, m1, m2, ten1:DB[m1].ten, ten2:DB[m2].ten, nhom:{g1:!!(g1 && g1.pdf && g1.truoc && g1.sau), g2:!!(g2 && !g2.pdf && g2.truoc && g2.sau), gla:!!gla, ganh:!!ganh}, html:/Nhận vào app/.test(html), soNut, moi}; });
+ ok('Rà Drive: nhóm file thả tay theo khách — PDF + 2 ảnh = 1 nhóm; khách chỉ có 2 ảnh = 1 nhóm; PDF lạ riêng; ảnh lạ chỉ báo', r.nhom.g1 && r.nhom.g2 && r.nhom.gla && r.nhom.ganh && r.html && r.soNut===4, JSON.stringify(r.nhom)+' nút '+r.soNut);
+ const k1 = r.moi.find(k=>k.maKH===r.m1 && k.che==='the'), k2 = r.moi.find(k=>k.maKH===r.m2), kla = r.moi.find(k=>!k.maKH);
  ok('Nhận vào app: khách 1 → 1 bản, PDF + 2 ảnh tên chuẩn, đúng thư mục CCCD', k1 && ten(k1.driveId)===r.m1+' - '+r.ten1+' - CCCD.pdf' && ten(k1.anhDrive.truoc.id)===r.m1+' - '+r.ten1+' - Mặt trước.jpg' && ten(k1.anhDrive.sau.id)===r.m1+' - '+r.ten1+' - Mặt sau.jpg' && cha(k1.driveId)==='Tủ hồ sơ/CCCD', k1 && [ten(k1.driveId), ten(k1.anhDrive.truoc.id)].join(' | '));
  ok('khách chỉ có 2 ảnh → app dựng PDF từ 2 ảnh (tải về), tên chuẩn; ảnh đổi tên theo', k2 && k2.driveId && ten(k2.driveId)===r.m2+' - '+r.ten2+' - CCCD.pdf' && ten(k2.anhDrive.truoc.id)===r.m2+' - '+r.ten2+' - Mặt trước.jpg', k2 && JSON.stringify({pdf:ten(k2.driveId), a:ten(k2.anhDrive && k2.anhDrive.truoc.id)}));
  ok('PDF lạ → 1 bản ⏳ Chờ sắp xếp (dời về thư mục chờ)', kla && cha(kla.driveId)==='Tủ hồ sơ/Scan chờ sắp xếp', kla && cha(kla.driveId));
+ ok('3.298 Rà 3 thư mục: bản 01GQVL app biết nằm ở Hồ sơ scan → "Sai thư mục"; tích sẵn → dời về Hồ sơ vay, tên chuẩn', r.k3.cho && cha(r.k3.id)==='Tủ hồ sơ/Hồ sơ vay' && ten(r.k3.id)===r.m1+' - '+r.ten1+' - 01GQVL.pdf', JSON.stringify(r.k3)+' '+cha(r.k3.id)+' '+ten(r.k3.id));
+ ok('3.298 PDF tài liệu thả tay ở Hồ sơ scan → Nhận vào app thành bản tài liệu (loại theo tên, gắn khách), giữ thư mục Hồ sơ scan', r.tl.nhom && r.tl.k && r.tl.k.tag[0]==='Giấy xác nhận' && r.tl.k.ma===r.m1 && cha(r.tl.k.d)==='Tủ hồ sơ/Hồ sơ scan' && ten(r.tl.k.d)===r.m1+' - '+r.ten1+' - Giấy xác nhận.pdf', JSON.stringify(r.tl)+' '+(r.tl.k && ten(r.tl.k.d)));
  /* ảnh tải về: tải tối đa 2 cùng lúc + dọn */
  const r2 = await p.evaluate(async(id)=>{ const w=t=>new Promise(r=>setTimeout(r,t)); const k = D.scan.find(x=>x.id===id);
    xoaFile('hs_'+k.id+'_matTruoc'); xoaFile('hs_'+k.id+'_matSau'); delete k.anhTai; await w(100);

@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.297', ds:[
+var CO_GI_MOI = {ban:'3.298', ds:[
+  ["Scan › 🔎 Rà (bước 5 kế hoạch tên + lưu): rà cả 3 thư mục Drive CCCD · Hồ sơ scan · Hồ sơ vay — file sai thư mục dời + đặt tên chuẩn (tích sẵn), tài liệu thả tay nhận vào app", "doiNgan(4)"],
   ["Hồ sơ vay › 01/TD: nút 📷 Quét bản đã ký — sang Scan, khách + loại 01TD điền sẵn, Lưu vào tủ vào thư mục Hồ sơ vay tên chuẩn; tài liệu mẫu hồ sơ vay (01TD, 01GQVL…) lưu thư mục Hồ sơ vay", "slDoiTab('hsv');doiNgan(7)"],
   ["Hồ sơ vay › 01/TD: bản lưu đặt tên chuẩn chung \"Mã KH (hộ mới: số CCCD) - Họ tên - 01TD\", tổ · ấp ở dòng phụ; bản cũ đổi tên 1 lần (giữ tên cũ)", "slDoiTab('hsv');doiNgan(7)"],
   ["Kỹ thuật (bước 1 kế hoạch tên + lưu): sổ quy tắc tên + thư mục dùng chung js/49 — Scan chuyển sang dùng, tên file không đổi", "doiNgan(4)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.297', ds:[
   ["Ảnh HEIC iPhone: app tự đổi sang JPG trong máy (thư viện heic-to) — dán, chọn file, chụp, hộp Quét CCCD đều đọc được", "doiNgan(4)"],
   ["Scan: ảnh không đọc được (HEIC iPhone, file hỏng) không làm hỏng cả lượt — ảnh tốt vẫn vào, báo tên + định dạng ảnh hỏng", "doiNgan(4)"],
   ["Dán file (Ctrl+V): chỉ tab Văn bản thành văn bản; tab Scan dán ảnh / PDF CCCD vào hàng quét Thẻ; hộp Quét CCCD đang mở nhận ảnh dán; tab khác chỉ báo", "doiNgan(4)"],
-  ["Scan: nút 🪪 Đọc số CCCD cạnh 🔎 Tra Mẫu 31 — tự đọc số (ảnh thẻ / chữ số trên trang tài liệu / chụp thẻ) rồi tự tra; gõ đủ 12 số tự tra; nút 🗑 Xóa đỏ, xóa nhiều bản đã tích", "doiNgan(4)"],
-  ["🎯 Chuẩn bị tab Phân bổ kế hoạch (gộp app Phân bổ KH của anh): lõi tính phân bổ QĐ xuống ấp + đọc dư nợ Mẫu 31 theo ấp — chưa có màn hình (bản sau)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Scan: nút 🪪 Đọc số CCCD cạnh 🔎 Tra Mẫu 31 — tự đọc số (ảnh thẻ / chữ số trên trang tài liệu / chụp thẻ) rồi tự tra; gõ đủ 12 số tự tra; nút 🗑 Xóa đỏ, xóa nhiều bản đã tích", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
