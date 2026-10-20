@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.278) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Scan › 🗂 Quản lý hồ sơ scan | 1 màn, 3 thẻ chuyển qua lại | |
+| 2 | Quét CCCD có QR › 🗄 Lưu vào tủ | Tự lưu đúng khách, tên chuẩn | |
+| 3 | Quét tài liệu, gõ số CCCD ở Tên file › 🗄 Lưu vào tủ | Lưu đúng khách | |
+
+**Ghi chú kỹ thuật 3.278:** `js/46-quan-ly-scan.js` bọc `sxVeSapXep`, `rsVe`, `sxKiemVe` (chèn `.ql-the`), `veScan` (thay nút thanh); `qlLuuTu()`; lệnh `ql.mo`, `ql.chonKH`. 35-scan: nút `luu` thay `app` + `tu`.
+
 ### Danh sách thử trên máy thật (3.277) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

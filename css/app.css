@@ -3598,3 +3598,5 @@ table.hm-so{min-width:1476px}
   .rs-ban{width:calc(50% - 6px)}.sx-nho{max-width:46%}
   #hop-in .sx-doc-bang th:nth-child(1){width:30%}
 }
+/* 3.278: màn Quản lý hồ sơ scan — dải 3 thẻ */
+.ql-the{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px;padding-bottom:8px;border-bottom:1px solid var(--vien)}

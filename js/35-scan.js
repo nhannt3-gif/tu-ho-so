@@ -35,12 +35,11 @@ scanXongHop = function(bl){
     '<label class="xp-ten">Tên file <input id="sx-ten" value="'+coChuHTML(SX.ten)+'" onfocus="this.select()" onchange="SX.ten=this.value"></label>'+
     '<div class="sx-luoi">'+
       o('in', '🖨', 'In', laThe ? 'đúng khổ thẻ' : 'A4', 'scanIn()')+
-      o('app', '🗂', 'Lưu vào app', 'chưa gắn khách → ⏳ Chờ sắp xếp (lên Drive thư mục Scan chờ sắp xếp)', 'scanLuuApp()')+   /* 3.234: thứ tự chuẩn In · Lưu vào app · Lưu vào máy · Gửi */
-      o('tu', '🗄', 'Lưu vào app + khai ngay', 'chọn khách: mã KH + tên + ấp', 'scanLuuTuHop()')+
+      o('luu', '🗄', 'Lưu vào tủ', 'tự nhận khách (đọc CCCD / 🔎 Tra Mẫu 31 ở ô Tên file) — chưa rõ thì vào ⏳ Chờ sắp xếp', 'qlLuuTu()')+   /* 3.278: gộp "Lưu vào app" + "Lưu vào app + khai ngay" */
       o('may', '💾', 'Lưu vào máy', 'chỉ ra file PDF, không lưu vào app', 'scanLuuMay()')+
       o('gui', '📤', 'Gửi Zalo', laMayBan() ? 'tải file, kéo vào Zalo' : 'bảng chia sẻ', 'scanGui()')+
     '</div>'+
-    '<div class="hop-phu">Chưa lưu gì cho tới khi anh bấm Lưu. Bản lưu vào app chỉ lên Drive khi đã khai đủ địa bàn.</div>'+
+    '<div class="hop-phu">Chưa lưu gì cho tới khi anh bấm Lưu. Rõ khách → tên chuẩn <i>MãKH - Họ tên - Loại</i>, đúng thư mục; chưa rõ → <i>Scan chờ sắp xếp</i>. <a href="#" data-lenh="ql.chonKH">Chọn khách từng người…</a></div>'+
     '<div class="hang-nut"><button class="nho" onclick="xemTruocHang()">‹ Xem lại</button><button class="nho xau" onclick="scanXongBo()">✕ Bỏ</button><button class="nho chinh" onclick="scanXongBo()">✓ Xong</button></div>', true);
 };
 function scanTenFile(){ var e = document.getElementById('sx-ten'); if(e && e.value.trim()) SX.ten = e.value.trim(); return sachTen(SX.ten)+'.pdf'; }

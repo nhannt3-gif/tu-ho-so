@@ -20,7 +20,7 @@ const fs=require('fs'), path=require('path');
    /* thanh tab Scan */
    HS.mo = true; doiNgan(4); await w(400);
    const tr = document.getElementById('tr4').textContent;
-   ok('tab Scan: bỏ thanh vàng "bản lưu tạm chưa khai", gộp vào thanh ⏳ Chờ sắp xếp (có nút ✎ Khai hàng loạt)', !/bản lưu tạm chưa khai/.test(tr) && /bản chờ sắp xếp/.test(tr) && !!document.querySelector('#tr4 [data-lenh="sx.khaiHL"]'));
+   ok('tab Scan: bỏ thanh vàng "bản lưu tạm chưa khai", gộp vào thanh ⏳ Chờ sắp xếp (có nút ✎ Khai hàng loạt)', !/bản lưu tạm chưa khai/.test(tr) && /bản chờ sắp xếp/.test(tr) && !!document.querySelector('#tr4 [data-lenh="ql.mo"]'));   /* 3.278: Khai hàng loạt dời vào thẻ Chờ sắp xếp */
    const dong = document.querySelector('#tr4 .sc-d[onclick*="t215d"]');
    ok('dòng bản chưa khai ghi nơi lưu "Scan chờ sắp xếp" (trước "Hồ sơ scan › Chưa khai")', !dong || /Scan chờ sắp xếp/.test(dong.textContent), dong ? dong.textContent.slice(0, 120) : 'không thấy dòng');
    /* hộp Chữ ký: chữ đúng cách lưu */

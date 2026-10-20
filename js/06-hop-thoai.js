@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.277', ds:[
+var CO_GI_MOI = {ban:'3.278', ds:[
+  ["Scan: 1 nút 🗂 Quản lý hồ sơ scan (Chờ sắp xếp · Rà CCCD · Kiểm tra theo tổ trong 1 màn); sau khi quét 1 nút 🗄 Lưu vào tủ tự nhận khách", "doiNgan(4)"],
   ["Scan: chữ hướng dẫn đúng cách lưu mới; gộp \"chưa khai\" vào ⏳ Chờ sắp xếp; khách có nhiều bản cùng loại → tên \" (2)\"; ảnh cắt từ PDF chưa duyệt in bằng PDF gốc; Sắp xếp / Rà xem được trên điện thoại", "doiNgan(4)"],
   ["Hôm nay: khung công cụ (Hạn trả HSSV…) cao tới đáy trang; tiêu đề gọn 1 dòng — 📌 Nổi, ✕ Đóng chỉ biểu tượng", "doiNgan(0)"],
   ["Tab Scan: nút 🔎 Tra Mẫu 31 cạnh ô tên (Sửa bản quét, Lưu mới, Chữ ký / Ảnh) — gõ số CCCD, mã KH hoặc họ tên → tên chuẩn MãKH - Họ tên - Loại, tự chọn địa bàn", "doiNgan(4)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.277', ds:[
   ["🔎 Rà CCCD đã lưu: đọc lại số trên ảnh, so Mẫu 31 (sai khách, CMND cũ, lệch số, không phải chủ hộ, hết hạn…), tìm bản trùng (so nội dung, ảnh nhỏ cạnh nhau), rà thư mục CCCD trên Drive — chỉ báo, anh chọn mới làm", "doiNgan(4)"],
   ["🧹 Màn Sắp xếp rộng hơn, 3 cột cân đối: trùng tên chọn bằng nút tròn (có \"Bỏ qua\"), gợi ý tích ☑ Đúng; nút Sắp xếp ở đáy đếm số bản đã chọn", "doiNgan(4)"],
   ["🧹 Sắp xếp tự đọc số CCCD từ ảnh (QR / mã máy đọc) của bản chưa xác định → hết trùng tên; chữ ký / ảnh cùng tên gợi ý cùng khách", "doiNgan(4)"],
-  ["🧹 Scan: chỉ xếp khi xác định chắc — khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên) với Mẫu 31 (số CCCD chuẩn nhất; tên so bỏ dấu, cho lệch nhỏ); chưa chắc để thư mục chung, anh bấm ✓ Đúng mới xếp", "doiNgan(4)"],
-  ["🗂 Scan lưu tập trung (4 thư mục phẳng, tên MãKH - Họ tên - Loại) · 🧹 Sắp xếp theo Mẫu 31 · 📊 Kiểm tra theo tổ · 📇 tự đọc số CCCD (mã QR / 3 dòng mã máy đọc) · bản photo 2 mặt · ảnh khách tự lấy từ CCCD", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🧹 Scan: chỉ xếp khi xác định chắc — khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên) với Mẫu 31 (số CCCD chuẩn nhất; tên so bỏ dấu, cho lệch nhỏ); chưa chắc để thư mục chung, anh bấm ✓ Đúng mới xếp", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

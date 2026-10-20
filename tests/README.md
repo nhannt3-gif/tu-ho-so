@@ -181,6 +181,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t205.js` | 3.259 Bộ thông tin tổ: KQGD từng điểm (24 cột, công thức), 3 sao kê chia Điểm › Hội › Tổ, Excel nhiều sheet (24). |
 | `node tests/t206.js` | 3.260 Sổ cài đặt (Sao lưu › 🧾), khóa lạ, hàm con kéo đổi tên (5). |
 | `node tests/t207.js` | 3.264 Scan lưu tập trung, Sắp xếp, Kiểm tra, đọc QR / mã máy đọc giả, bản photo 2 mặt, ảnh khách từ CCCD (25). |
+| t216 | (3.278) 🗂 Quản lý hồ sơ scan 1 nút / 3 thẻ, Khai hàng loạt trong thẻ Chờ; 🗄 Lưu vào tủ tự nhận khách (đọc CCCD / Tên file / chưa rõ → chờ) (8). |
 | t215 | (3.277) Sửa nhanh Scan: tên " (2)" khi khách nhiều bản, gộp thanh chưa khai, chữ Chữ ký, in PDF gốc khi ảnh cắt chưa duyệt (6). |
 | (3.276) | t213 thêm: khung công cụ Hạn trả HSSV cao tới đáy cửa sổ (9). |
 | t214 | (3.275) 🔎 Tra Mẫu 31 cạnh ô tên tab Scan: hộp Sửa (CCCD → gắn khách + địa bàn + tên chuẩn), mã KH, trùng tên ưu tiên tổ, Enter, Lưu mới, Chữ ký / Ảnh (11). |

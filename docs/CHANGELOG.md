@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.278 — 20/10/2026 — Bố cục tab Scan gọn
+- Theo rà soát tab Scan (mục 9, 10) — anh: "em cứ code theo ý em và gộp lên rồi thử sau, báo rõ … và kế hoạch".
+- **Thanh tab Scan**: 3 nút rời (🧹 Sắp xếp · 📊 Kiểm tra · 🔎 Rà) → **1 nút 🗂 Quản lý hồ sơ scan** (file mới `js/46-quan-ly-scan.js`). Mở ra **1 màn 3 thẻ**: ⏳ Chờ sắp xếp (n) · 🔎 Rà CCCD đã lưu · 📊 Kiểm tra theo tổ — còn bản chờ thì mở thẻ Chờ sắp xếp, không thì Kiểm tra. ✎ Khai hàng loạt dời vào đáy thẻ Chờ sắp xếp.
+- **Sau khi quét**: "🗂 Lưu vào app" + "🗄 Lưu vào app + khai ngay" → **1 nút 🗄 Lưu vào tủ** tự nhận khách: đọc CCCD ra đủ khách → lưu đúng khách; đã chọn / 🔎 Tra Mẫu 31 ở ô Tên file → lưu đúng khách; ô Tên file (số CCCD / mã KH / tên) nhận ra chắc 1 khách → lưu đúng khách; còn lại → ⏳ Chờ sắp xếp. Lối "Chọn khách từng người…" (bản nhiều người) giữ dưới dạng chữ nhỏ.
+- Chữ hướng dẫn lúc đọc CCCD theo nút mới.
+- **Kế hoạch** thống nhất tên + cấu trúc lưu hồ sơ vay: `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (chờ anh duyệt, 3 câu cần chốt).
+- Phép thử: t216 (8); t207, t208, t215 đổi đường mở (qua 🗂 Quản lý).
+
 ## 3.277 — 20/10/2026 — Sửa nhanh tab Scan sau rà soát
 - **Anh 20/10**: "em rà soát lại logic và bố cục tab Scan … có lỗ hổng nào và có đề xuất nào không" → em báo 10 mục; anh: "em cứ code theo ý em và gộp lên rồi thử sau".
 - **Chữ hướng dẫn sai** (từ 3.264 cách lưu đã đổi): "Lưu vào app" nay ghi *chưa gắn khách → ⏳ Chờ sắp xếp (lên Drive thư mục Scan chờ sắp xếp)* (trước: "khai xong mới lên Drive"); hộp Chữ ký · CCCD ghi thư mục *Chữ ký - Ảnh khách*, nút "Mở thư mục Chữ ký - Ảnh khách" (trước: "mỗi tháng một thư mục"); dòng bản chưa gắn khách ghi nơi lưu *Scan chờ sắp xếp* (trước "Hồ sơ scan › Chưa khai").
