@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.284', ds:[
+var CO_GI_MOI = {ban:'3.285', ds:[
+  ["🎯 Chuẩn bị tab Phân bổ kế hoạch (gộp app Phân bổ KH của anh): lõi tính phân bổ QĐ xuống ấp + đọc dư nợ Mẫu 31 theo ấp — chưa có màn hình (bản sau)", "doiNgan(7)"],
   ["Scan: dòng trạng thái tách 2 mặt hiện được ở khung phải máy tính; cách dò khung thẻ thứ 2 (thẻ nhiều vùng gần trắng, 2 mặt chồng dọc); bản đã báo không tách được tự thử lại 1 lần", "doiNgan(4)"],
   ["Scan: CCCD cũ không ghi chế độ (che trống) cũng tự tách + có dòng trạng thái; ảnh ghi có mà không lấy được → báo đỏ + nút Tách 2 mặt từ PDF", "doiNgan(4)"],
   ["Scan: in nhiều CCCD (4 khách / A4) — bản cũ chỉ có PDF tự tách 2 mặt trước khi in; bản không tách được không ghép, báo tên", "doiNgan(4)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.284', ds:[
   ["Scan: ô \"Bản photo 2 mặt\" không còn nhớ sang lần quét sau, ảnh chỉ 1 thẻ không bị chia đôi; bộ lọc Magic hết ám vàng / xanh", "doiNgan(4)"],
   ["🪪 Quét CCCD điền form: nút cạnh ô Họ tên (Sổ hộ vay mỗi người, 01/TD người vay) — chụp / ảnh có sẵn / lấy từ tủ, xem lại rồi Điền, lưu ảnh vào tủ", "doiNgan(7)"],
   ["Khung xem phải: dòng \"Hồ sơ của khách\" — gom CCCD · Chữ ký · Ảnh · tài liệu của cùng khách, thiếu ghi ✗, bấm để xem", "doiNgan(4)"],
-  ["CCCD lưu đủ 3 file lên Drive (PDF + ảnh mặt trước + mặt sau) để các máy dùng chung; máy khác tự tải ảnh; bản cũ chỉ có PDF → cắt 2 thẻ ra ảnh (anh duyệt ở 🔎 Rà); đọc được gì hiện hết, so Mẫu 31; lưu CMND 9 số", "doiNgan(4)"],
-  ["Mẫu 04/TD (Giao dịch xã): tên cơ quan và tiêu ngữ giãn xa hơn", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["CCCD lưu đủ 3 file lên Drive (PDF + ảnh mặt trước + mặt sau) để các máy dùng chung; máy khác tự tải ảnh; bản cũ chỉ có PDF → cắt 2 thẻ ra ảnh (anh duyệt ở 🔎 Rà); đọc được gì hiện hết, so Mẫu 31; lưu CMND 9 số", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

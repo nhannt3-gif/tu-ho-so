@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.285) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app sau khi cập nhật | Chạy bình thường như 3.284 (bản này chưa có màn hình mới) | |
+
+**Ghi chú kỹ thuật 3.285 (P1 Phân bổ KH):** lõi `js/47-phan-bo.js` chưa được tab nào gọi (P2 mới gắn giao diện) — kiem.py báo các hàm `pb…` "chỉ phép thử gọi" là đúng. `KHO.duNoAp` dùng `slBo(kỳ)` (bảng Mẫu 31 dạng cột), kết quả đơn vị đồng. Thứ tự ấp ở chế độ chính xác = thứ tự danh sách ấp truyền vào; ấp có dư nợ mà không có trong danh sách xếp cuối + cảnh báo. Chi tiết, phân công file 2 tài khoản: `docs/KE_HOACH_PHAN_BO_KH.md`.
+
 ### Danh sách thử trên máy thật (3.284) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.285 — 20/10/2026 — P1 🎯 Phân bổ kế hoạch: lõi nghiệp vụ + cửa KHO.duNoAp (chưa có màn hình)
+- **Anh chốt 20/10** (`docs/KE_HOACH_PHAN_BO_KH.md`): gộp app WPF "Phân bổ kế hoạch" vào tab con 🎯 Phân bổ KH (📈 Số liệu); bản này chỉ làm **lõi**, giao diện ở P2, Biểu 07 ở P3.
+- **Mới `js/47-phan-bo.js`** (tiền tố `pb`, ES5, không DOM): `pbPhanBo` (2 cách chia — tương đối / chính xác), `pbChiaDeu`, `pbChiaTyLe` (phần dư lớn nhất), `pbDuNoThatChenh`, `pbGioiHanGiam` (giảm không âm, dồn theo bước), `pbKiem` (QT-16), `pbSuaTay`, `pbGoiYDaGiao` + `pbTongHopCT` (QT-17), `pbChonKy`, `pbNguon`, `pbDuNoXa`, `pbTuWPF` (nhập file sao lưu QĐ của bản WPF). Đơn vị triệu đồng; dư nợ cộng theo đồng (không dồn sai số).
+- **Cửa chung mới `KHO.duNoAp(kỳ)`** (`js/29-kho.js`, chỉ đọc): dư nợ Mẫu 31 gộp xã × thôn × CT × nguồn (bỏ món CLOSE / dư nợ 0 / dòng lặp khế ước / khách chỉ gửi TK).
+- **Sổ QT:** thêm **QT-15** (phân bổ theo từng QĐ, số giao chẵn — 1 ấp lẻ, chính xác = dư nợ thật + chênh dồn 1 ấp), **QT-16** (Biểu 07 bắt buộc khớp Đã giao / Tăng giảm / Đến 31/12), **QT-17** (gợi ý Đã giao theo QĐ trước, đầu năm theo QĐ đầu tiên nhắc CT) — `QUY_CHUAN_KIEN_TRUC.md` mục 4.
+- **Đối chiếu với bản WPF** trên dữ liệu thật của anh (chỉ chạy máy làm việc, không vào repo): 45 QĐ × 2 cách chia, 186 CT, **2.229 dòng ấp khớp 100 %**. Trong lúc so phát hiện 2 lỗi đã sửa cả 2 bản: làm tròn dư nợ ,5 (thống nhất làm tròn lên như Excel) và dư nợ có tên thôn trống bị coi là 1 "ấp" không tên nhận phần chênh → nay "(Chưa rõ ấp)" xếp cuối + cảnh báo.
+- **Phép thử:** `tests/t250.js` (62 — thuật toán, 3.000 tình huống ngẫu nhiên hạt cố định), `tests/t251.js` (8 — `KHO.duNoAp` với Mẫu 31 giả, nối `pbDuNoXa`). Chạy bằng node, không cần trình duyệt.
+- **Ghi chú môi trường:** máy Windows phải `git config core.autocrlf false` (bộ nạp `tests/nhanh` tách dòng theo `\n`; CRLF làm 0 file được nạp).
+
 ## 3.284 — 20/10/2026 — Tách 2 mặt: hiện trạng thái ở khung phải, dò khung thẻ cách 2
 - **Anh 20/10** (ảnh: GIAO THỊ ÚT vẫn hiện trang A4, không có dòng báo): "nếu không tách được chỉ cần báo, kiểu anh biết có làm là được".
 - Nguyên nhân không thấy báo: khung xem phải trên máy tính chỉ hiện 1 dòng nơi lưu (3.157) — mọi dòng khác dưới tên bị ẩn (cả dòng trạng thái 3.281 và "Hồ sơ của khách" 3.272). Sửa: dòng trạng thái đặt ngay trên nội dung khung xem (phải / lớn), luôn nhìn thấy; bấm file khác thì đổi theo.

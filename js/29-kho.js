@@ -75,7 +75,25 @@ var KHO = (function(){
     /* KHO.thanhVienTW() → đối chiếu Mẫu 01/TV với app (cần cho ra khỏi tổ…) | null (bọc tvDoiChieu) · QT-14 */
     thanhVienTW: function(){ return co() && typeof tvDoiChieu==='function' ? tvDoiChieu(TO_K.B) : null; },
     /* KHO.tv01(maKH) → dòng Mẫu 01/TV của khách | null · QT-14 */
-    tv01: function(kh){ return typeof tv01Cua==='function' ? tv01Cua(kh) : null; }
+    tv01: function(kh){ return typeof tv01Cua==='function' ? tv01Cua(kh) : null; },
+    /* KHO.duNoAp(kỳ) → Promise<{ky, ds:[{xa, tenXa, thon, tenThon, ct (mã 2 số), nguon (1 TW / 2 ĐP / 0 không rõ), dn (ĐỒNG), mon}]} | null>
+       — dư nợ Mẫu 31 kỳ đó gộp theo xã × thôn × chương trình × nguồn; chỉ món còn dư nợ (> 0, chưa CLOSE), mỗi khế ước 1 lần (bỏ dòng lặp).
+       Chưa có Mẫu 31 kỳ đó → null. Chỉ đọc. Dùng: 🎯 Phân bổ KH (QT-15 chế độ chính xác) — P1 KE_HOACH_PHAN_BO_KH (anh 20/10/2026) */
+    duNoAp: function(ky){
+      if(!ky || !this.coBang('hstd', ky)) return Promise.resolve(null);
+      function nguon(v){ var s = String(v==null ? '' : v).trim(); if(/^\d+$/.test(s)) return +s;
+        s = s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/[\s.]/g, '');
+        return s==='tw' || s.indexOf('trunguong')===0 ? 1 : s==='dp' || s.indexOf('diaphuong')===0 ? 2 : 0; }
+      return slBo(ky).then(function(B){
+        var g = {}, ku = {}, ds = [];
+        ((B && B.co && B.co.hstd) || []).forEach(function(o){
+          if(!o.ku || ku[o.ku] || o.ttMon==='CLOSE' || !((+o.dn || 0) > 0)) return; ku[o.ku] = 1;
+          var nv = nguon(o.nguon), k = o.xa+'|'+o.thon+'|'+o.ct+'|'+nv, d = g[k];
+          if(!d){ d = g[k] = {xa:String(o.xa || ''), tenXa:String(o.tenXa || ''), thon:String(o.thon || ''), tenThon:String(o.tenThon || ''), ct:String(o.ct || ''), nguon:nv, dn:0, mon:0}; ds.push(d); }
+          d.dn += +o.dn; d.mon++; });
+        return {ky:ky, ds:ds};
+      });
+    }
   };
 })();
 
