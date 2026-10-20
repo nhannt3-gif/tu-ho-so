@@ -59,6 +59,16 @@ const fs=require('fs'), path=require('path'); const drive=require('./fakedrive.j
    return {hong:/Không tách được 2 mặt thẻ/.test(ht) && /không dò ra 2 khung thẻ/.test(ht), cat:!!k.catTuPDF, ds:(RS.catDs||[]).some(x=>x.id==='t217r')||!!k.catDuyet}; }, rA.k);
  ok('🔎 Rà: khối "Không tách được 2 mặt thẻ" liệt kê bản hỏng + lý do', rR.hong, JSON.stringify(rR));
  ok('🔎 Rà: bản cũ đã đọc số ở bản trước nhưng chưa tách → Rà tách 2 mặt, đưa vào khối "Ảnh cắt từ PDF"', rR.cat && rR.ds, JSON.stringify(rR));
+ /* 3.282: in nhiều CCCD (4 / A4): bản cũ chỉ có PDF tự tách trước khi in; bản không tách được → không ghép, báo tên */
+ const rI = await B.evaluate(async(kA)=>{ const w=t=>new Promise(r=>setTimeout(r,t));
+   const k = JSON.parse(JSON.stringify(kA)); k.id = 't217i'; k.ten = 'Khach In Moi'; delete k.anhDrive; delete k.matTruoc; delete k.matSau; delete k.catHong; D.scan.push(k); HS.ds = D.scan;
+   const h = D.scan.find(x=>x.id==='t217h'); h.ten = 'Khach Hong'; h.catHong = 1; delete h.catLoi;
+   let bl = null, loi = ''; const gIn = inBlob, gL = baoLoi; inBlob = b=>{ bl = b; }; baoLoi = m=>{ loi += m; };
+   await dungTrangThe(['t217o', 't217i', 't217h'], 'in'); for(let i=0;i<40 && !bl;i++) await w(200); await w(800); inBlob = gIn; baoLoi = gL;
+   let trang = 0, anh = 0; if(bl){ const doc = await PDFLib.PDFDocument.load(await bl.arrayBuffer()); trang = doc.getPageCount(); anh = ((await bl.text()).match(/\/Subtype\s*\/Image/g)||[]).length; }
+   return {in:!!bl, trang, anh, cat:!!k.catTuPDF, loi}; }, rA.k);
+ ok('3.282 in nhiều CCCD: bản cũ chỉ có PDF tự tách 2 mặt rồi ghép, 1 trang A4', rI.in && rI.trang===1 && rI.cat && rI.anh===4, JSON.stringify(rI));
+ ok('3.282 bản không tách được → không ghép (không để ô trống), báo tên để in PDF gốc', /Khach Hong/.test(rI.loi) && !/Khach In Moi/.test(rI.loi));
  /* tài liệu: 1 khách nhiều tài liệu cùng loại → đánh số 1, 2, 3; Rà chỉ báo trùng khi giống hệt */
  const rT = await B.evaluate((ma)=>{ const t = id => ({id, che:'tailieu', tag:[], maKH:ma, ten:'Khach', taoLuc:'2026-10-0'+id.slice(-1)});
    const a = t('tl1'), b2 = t('tl2'), c = t('tl3'); D.scan.push(a, b2, c);

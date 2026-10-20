@@ -260,3 +260,24 @@ GD.dangKy('sx', {catLai:function(el){ var k = timScan(el.getAttribute('data-k'))
   if(k.catTuPDF || k.catBo) return moRaSoat(false);   /* đã có ảnh cắt / anh đã bỏ → làm ở 🔎 Rà (Cắt lại / Đúng) */
   k.catLan = (k.catLan||0)+(k.catHong ? 1 : 0); delete k.catHong; delete k.catLoi; luu(); veNoiDung(k); }});
 
+
+/* ---------- 3.282 (anh: "in nhiều CCCD 1 lúc, 4 CCCD trên 1 trang A4") ----------
+   In / Lưu PDF nhiều bản (4 khách / A4, 3.35): trước khi dựng — bản CCCD cũ chỉ có PDF tự tách 2 mặt; bản vẫn không có ảnh mặt thẻ
+   (không tách được / chưa nối Drive) → bỏ ra khỏi trang ghép (trước đây để ô trống), báo tên để in riêng bằng PDF gốc. */
+var SX_DUNG_THE_282 = dungTrangThe;
+dungTrangThe = function(dsId, viec){
+  var ids = dsId || Object.keys(HS.chon||{}), ds = ids.map(function(id){ return timScan(id); }).filter(Boolean);
+  if((viec!=='in' && viec!=='luu') || ds.length<2 || ds.some(function(k){ return k.che==='tailieu'; })) return SX_DUNG_THE_282(dsId, viec);
+  var can = ds.filter(sxCanCat), n = 0;
+  if(can.length) batChay(false, 'Đang tách 2 mặt thẻ cho '+can.length+' bản CCCD cũ…');
+  return can.reduce(function(p, k){ return p.then(function(){ n++; dangLamChu('Đang tách 2 mặt thẻ '+n+'/'+can.length+'…');
+      return docAnhHS(k.id+'_matTruoc').then(function(b){ return b ? null : sxCatMot(k); }); }); }, Promise.resolve())
+    .then(function(){ if(can.length) tatChay(); return Promise.all(ds.map(function(k){ return k.matTruoc ? docAnhHS(k.id+'_matTruoc').catch(function(){ return null; }) : null; })); })
+    .then(function(a){
+      var co = ds.filter(function(_, i){ return a[i]; }), thieu = ds.filter(function(_, i){ return !a[i]; });
+      if(!co.length) return baoLoi('⚠ '+ds.length+' bản đã chọn đều chưa có ảnh 2 mặt thẻ (không tách được từ PDF) — mở từng bản để in PDF gốc.');
+      var r = SX_DUNG_THE_282(co.map(function(k){ return k.id; }), viec);
+      if(thieu.length) setTimeout(function(){ baoLoi('⚠ '+thieu.length+' bản chưa có ảnh 2 mặt thẻ nên không ghép vào trang: '+thieu.map(function(k){ return k.ten||k.maKH; }).join(', ')+' — mở từng bản để in PDF gốc (lý do ở dòng trạng thái dưới tên).'); }, 600);
+      return r;
+    }, function(e){ tatChay(); baoLoi('Chưa dựng được trang in: '+(e && e.message || e)); });
+};

@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.281', ds:[
+var CO_GI_MOI = {ban:'3.282', ds:[
+  ["Scan: in nhiều CCCD (4 khách / A4) — bản cũ chỉ có PDF tự tách 2 mặt trước khi in; bản không tách được không ghép, báo tên", "doiNgan(4)"],
   ["Scan: mỗi CCCD có dòng trạng thái tách 2 mặt (đã tách / chưa duyệt / không tách được + lý do, ↻ Thử tách lại); 🔎 Rà liệt kê bản không tách được", "doiNgan(4)"],
   ["Scan: CCCD cũ chỉ có PDF — mở xem tự tách 2 mặt thẻ; tài liệu cùng loại đánh số 1, 2, 3, Rà không báo trùng (chỉ báo khi giống hệt)", "doiNgan(4)"],
   ["Scan: sửa bản tài liệu chỉ có PDF trên Drive (máy chưa có trang) — lưu được tên / khách / địa bàn; nút ☁ Tải trang từ Drive", "doiNgan(4)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.281', ds:[
   ["CCCD lưu đủ 3 file lên Drive (PDF + ảnh mặt trước + mặt sau) để các máy dùng chung; máy khác tự tải ảnh; bản cũ chỉ có PDF → cắt 2 thẻ ra ảnh (anh duyệt ở 🔎 Rà); đọc được gì hiện hết, so Mẫu 31; lưu CMND 9 số", "doiNgan(4)"],
   ["Mẫu 04/TD (Giao dịch xã): tên cơ quan và tiêu ngữ giãn xa hơn", "doiNgan(4)"],
   ["📊 Kiểm tra scan dùng Mẫu 31 mới nhất (có Mẫu 31 ngày thì dùng ngày); 🧹 Sắp xếp / 🔎 Rà ghi rõ đang so với Mẫu 31 kỳ nào", "doiNgan(4)"],
-  ["Đọc CCCD chắc hơn: ảnh cả tờ có 2 thẻ, QR nhỏ, thẻ Căn cước mẫu mới; bản cũ đọc hỏng tự đọc lại; trùng tên → ngày sinh trên thẻ phân biệt; màn Sắp xếp hiện số CCCD Mẫu 31 + ảnh thẻ", "doiNgan(4)"],
-  ["🔎 Rà CCCD đã lưu: đọc lại số trên ảnh, so Mẫu 31 (sai khách, CMND cũ, lệch số, không phải chủ hộ, hết hạn…), tìm bản trùng (so nội dung, ảnh nhỏ cạnh nhau), rà thư mục CCCD trên Drive — chỉ báo, anh chọn mới làm", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Đọc CCCD chắc hơn: ảnh cả tờ có 2 thẻ, QR nhỏ, thẻ Căn cước mẫu mới; bản cũ đọc hỏng tự đọc lại; trùng tên → ngày sinh trên thẻ phân biệt; màn Sắp xếp hiện số CCCD Mẫu 31 + ảnh thẻ", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.282 — 20/10/2026 — In nhiều CCCD 4 khách / A4 gồm cả bản cũ
+- **Anh 20/10**: "còn chức năng in nhiều CCCD 1 lúc, cụ thể là 4 CCCD trên 1 trang A4". Chức năng có từ 3.35 / 3.58 (tích ☐ từng dòng → 🖨 In n người); nhưng bản CCCD cũ chỉ có PDF không có ảnh mặt thẻ → ô trống trên trang.
+- Sửa: 🖨 In / Lưu PDF nhiều bản → trước khi dựng, bản cũ chỉ có PDF tự tách 2 mặt (có thanh tiến độ); bản vẫn không có ảnh (không tách được / chưa nối Drive) bỏ ra khỏi trang ghép, báo tên để mở in PDF gốc.
+- Phép thử: t217 thêm 2 (15).
+
 ## 3.281 — 20/10/2026 — Báo trạng thái tách 2 mặt CCCD
 - **Anh 20/10**: "có cái app tự tách, có cái không, em nên làm thêm báo là app có làm chưa và làm không được cũng báo".
 - Khung xem (phải / lớn): dưới tên mỗi bản CCCD có 1 dòng trạng thái — 🪪 Ảnh 2 mặt thẻ lúc quét · ✂ Đang tách… · ✂ Đã tách từ PDF (chưa duyệt → xem ở 🔎 Rà / ✓ đã duyệt) · ⚠ Không tách được + lý do (không dò ra 2 khung thẻ trên trang 1 PDF; không tải / mở được PDF; chưa nối Drive; bản chưa lên Drive) · 📄 Đang dùng PDF (anh đã bỏ ảnh cắt). Có nút **↻ Thử tách lại** (lần cắt khác). Tách hỏng khi mở xem → báo lỗi ngay.

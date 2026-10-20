@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.282) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tích ☐ 4 CCCD (có bản cũ chỉ có PDF) › 🖨 In 4 người | Tách xong → 1 trang A4 đủ 4 khách, 2 mặt cạnh nhau | |
+| 2 | Tích thêm 1 bản không tách được | Không có ô trống; báo tên bản đó | |
+
+**Ghi chú kỹ thuật 3.282:** 43: bọc `dungTrangThe` lần nữa (`SX_DUNG_THE_282`, ngoài bọc 3.277) — chỉ `in` / `luu`, ≥2 bản thẻ: `sxCatMot` các bản `sxCanCat` thiếu ảnh, lọc bản không có `_matTruoc`.
+
 ### Danh sách thử trên máy thật (3.281) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
