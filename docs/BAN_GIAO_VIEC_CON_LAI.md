@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.274) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Quét CCCD lần 2 sau khi lần 1 tích "photo 2 mặt" | Ô không tích sẵn; ảnh 1 mặt thẻ cắt đủ thẻ | |
+| 2 | Chụp giấy dưới đèn vàng, chọn Magic | Nền trắng, không ám vàng | |
+
+**Ghi chú kỹ thuật 3.274:** `js/13-xu-ly-anh.js` `canBangTrang(p)` gọi trong `locMagic` sau chuẩn nền sáng; `js/41-scan-sap-xep.js` `sxMotTheLon(im)` (timKhungThe + tỉ lệ + diện tích + tỉ lệ điểm không phải nền trắng ≥ 85%).
+
 ### Danh sách thử trên máy thật (3.273) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

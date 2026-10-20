@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.273 · 20/10/2026 16:41 · 71 file · 38143 dòng · 3068 hàm cấp ngoài · 484 biến toàn cục.
+Bản 3.274 · 20/10/2026 16:52 · 71 file · 38175 dòng · 3070 hàm cấp ngoài · 484 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -23,7 +23,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/10-danh-sach.js` | 1214 | 90 | /*   14. DANH SÁCH GỌN + MENU + NHÓM + THÙNG RÁC + TRẠNG THÁI   */ |
 | `js/11-khung-tab.js` | 587 | 53 | /*   17. KHUNG CHUẨN CHO MỌI TAB Ba phần giống nhau ở mọi tab: |
 | `js/12-scan.js` | 2564 | 213 | /*   18. SCAN HỒ SƠ — máy scan trong app Hai chế độ: |
-| `js/13-xu-ly-anh.js` | 408 | 31 | /*   3.35 — XỬ LÝ ẢNH SCAN KIỂU APP SCAN CHUYÊN NGHIỆP (chạy tại chỗ, không gửi ảnh đi đâu) Tự động trước: tìm |
+| `js/13-xu-ly-anh.js` | 422 | 32 | /*   3.35 — XỬ LÝ ẢNH SCAN KIỂU APP SCAN CHUYÊN NGHIỆP (chạy tại chỗ, không gửi ảnh đi đâu) Tự động trước: tìm |
 | `js/14-tim-loc.js` | 176 | 14 | /*   19. TÌM VÀ LỌC KIỂU FINDER (macOS) + SẮP XẾP KIỂU EXPLORER Gõ vào ô tìm → app gợi ý "Nghiệp vụ: Xử lý rủi |
 | `js/15-ai-chuan-hoa.js` | 153 | 8 | /*   15. NHỜ AI CHUẨN HÓA Xuất danh sách ra bảng → anh đưa AI (Gemini, ChatGPT, Claude) |
 | `js/16-ai-dan-ket-qua.js` | 222 | 10 | /*   16. DÁN KẾT QUẢ TỪ AI Anh chép nguyên đoạn Gemini trả về, app tự đọc ra số hiệu, ngày, |
@@ -61,7 +61,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/38-goi-xem.js` | 71 | 11 | /*   3.231 (anh duyệt 17/10/2026 — KE_HOACH_CHUAN_HOA mục 8–9): 📱 GÓI SỐ LIỆU XEM cho bản điện thoại   Máy tín |
 | `js/39-gd.js` | 91 | 0 | /*   3.234 (R2 — KE_HOACH_CHUAN_HOA mục 2, 4, 5, 6): GIAO DIỆN CHUNG "GD" + ĐIỀU HƯỚNG "DH"   - Bộ nhận lệnh:  |
 | `js/40-lap-01td.js` | 110 | 0 | /*   3.242 (anh 17/10 — KE_HOACH_CHUAN_HOA mục Hồ sơ vay hướng B, ý 1–19): FORM LẬP 01/TD   Cột trái tab 01/TD |
-| `js/41-scan-sap-xep.js` | 548 | 54 | /*   3.264 (anh chốt 20/10/2026) — 🗂 LƯU SCAN TẬP TRUNG · 🧹 SẮP XẾP · 📊 KIỂM TRA · 📇 ĐỌC CCCD (QR / 3 dòng mã  |
+| `js/41-scan-sap-xep.js` | 566 | 55 | /*   3.264 (anh chốt 20/10/2026) — 🗂 LƯU SCAN TẬP TRUNG · 🧹 SẮP XẾP · 📊 KIỂM TRA · 📇 ĐỌC CCCD (QR / 3 dòng mã  |
 | `js/42-scan-ra-soat.js` | 264 | 29 | /*   3.268 (anh chốt 20/10/2026) — 🔎 RÀ CCCD ĐÃ LƯU · BẢN TRÙNG - Anh: "có nên có bước chạy kiểm tra các CCCD  |
 | `js/43-scan-anh-drive.js` | 190 | 16 | /*   3.271 (anh chốt 20/10/2026) — 🖼 ẢNH 2 MẶT CCCD LÊN DRIVE · CẮT ẢNH TỪ PDF CŨ · BẢNG ĐỐI CHIẾU · CMND 9 SỐ |
 | `js/44-quet-cccd-form.js` | 143 | 19 | /*   3.273 (anh duyệt 20/10/2026: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCC |
@@ -321,9 +321,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/41-scan-sap-xep.js:138` · 3. đọc CCCD: QR → 3 dòng mã máy đọc → dòng "Số"
 - `js/41-scan-sap-xep.js:221` · 4. quét CCCD: đọc số → tra khách → lưu thẳng đúng chỗ
 - `js/41-scan-sap-xep.js:303` · 5. bản photo 2 mặt trên 1 tờ → chia đôi tờ
-- `js/41-scan-sap-xep.js:330` · 6. 🧹 SẮP XẾP
-- `js/41-scan-sap-xep.js:486` · 7. 📊 KIỂM TRA theo cây địa bàn
-- `js/41-scan-sap-xep.js:540` · 8. tab Scan: dòng 🧹 Sắp xếp · 📊 Kiểm tra
+- `js/41-scan-sap-xep.js:348` · 6. 🧹 SẮP XẾP
+- `js/41-scan-sap-xep.js:504` · 7. 📊 KIỂM TRA theo cây địa bàn
+- `js/41-scan-sap-xep.js:558` · 8. tab Scan: dòng 🧹 Sắp xếp · 📊 Kiểm tra
 - `js/42-scan-ra-soat.js:1` · 3.268 (anh chốt 20/10/2026) — 🔎 RÀ CCCD ĐÃ LƯU · BẢN TRÙNG
 - `js/42-scan-ra-soat.js:48` · B. bản trùng: dấu vân tay nội dung
 - `js/42-scan-ra-soat.js:97` · C. Drive: thư mục CCCD

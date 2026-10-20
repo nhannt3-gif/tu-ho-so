@@ -304,12 +304,30 @@ kaXong = function(k){   /* chạy ngay sau khi lưu, trước khi đưa lên Dri
 var SX_BDS_CU = batDauScan;
 batDauScan = function(loai){
   SX_BDS_CU(loai);
-  if((SC.loai || scLoaiNho())!=='cccd') { SC.photo2 = false; return; }
+  SC.photo2 = false;   /* 3.274 (anh: "bản mới up đọc CCCD bị lỗi cắt không chuẩn"): mỗi lần quét mới bỏ tích — trước nhớ cả phiên, ảnh 1 mặt thẻ bị chia đôi */
+  if((SC.loai || scLoaiNho())!=='cccd') return;
   var e = document.querySelector('#hop-in .nguon'); if(!e) return;
   e.insertAdjacentHTML('afterend', '<label class="sx-photo2"><input type="checkbox"'+(SC.photo2 ? ' checked' : '')+' data-lenh="sx.photo2" data-su="change"> 🗎 <b>Bản photo 2 mặt trên 1 tờ</b> — chụp 1 lần cả tờ, app tự chia ra mặt trước / mặt sau</label>');
 };
+/* ảnh chỉ có 1 thẻ chiếm phần lớn ảnh (chụp 1 mặt) → không chia; tờ photo 2 thẻ (thẻ nhỏ so với tờ / bản photo đen trắng) → chia */
+function sxMotTheLon(im){
+  var k = null; try{ k = timKhungThe(im); }catch(e){} if(!k || !k.goc) return false;
+  var g = k.goc, s = 0, d = function(a, b){ return Math.sqrt(Math.pow(a[0]-b[0], 2)+Math.pow(a[1]-b[1], 2)); };
+  for(var i=0;i<4;i++){ var a = g[i], b = g[(i+1)%4]; s += a[0]*b[1]-b[0]*a[1]; }
+  var r = (d(g[0], g[1])+d(g[3], g[2]))/Math.max(1, d(g[0], g[3])+d(g[1], g[2])); r = r<1 ? 1/r : r;   /* tỉ lệ khung: 1 thẻ ≈ 1,585; 2 thẻ cạnh nhau bị gộp ≈ 3,2 */
+  var W = im.naturalWidth || im.width, H = im.naturalHeight || im.height, trong = g.every(function(q){ return q[0]>=-2 && q[1]>=-2 && q[0]<=W+2 && q[1]<=H+2; });
+  if(!(trong && r>1.35 && r<1.85 && Math.abs(s)/2 > 0.45*W*H)) return false;   /* khung trong ảnh, đúng tỉ lệ thẻ, chiếm gần nửa ảnh trở lên */
+  /* trong khung phải phần lớn là màu thẻ (tờ 2 thẻ bị gộp khung → lẫn nhiều nền giấy trắng) */
+  var z = Math.min(1, 400/Math.max(W, H)), c = document.createElement('canvas'); c.width = Math.round(W*z); c.height = Math.round(H*z); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+  var dt = c.getContext('2d').getImageData(0, 0, c.width, c.height).data, co = 0, n = 0;
+  for(var u=0.08;u<0.95;u+=0.06) for(var v=0.08;v<0.95;v+=0.06){ var x = (g[0][0]*(1-u)+g[1][0]*u)*(1-v)+(g[3][0]*(1-u)+g[2][0]*u)*v, y = (g[0][1]*(1-u)+g[1][1]*u)*(1-v)+(g[3][1]*(1-u)+g[2][1]*u)*v;
+    var j = (Math.min(c.height-1, Math.max(0, Math.round(y*z)))*c.width+Math.min(c.width-1, Math.max(0, Math.round(x*z))))*4; n++;
+    if(!(dt[j]>225 && dt[j+1]>225 && dt[j+2]>225)) co++; }   /* điểm không phải nền giấy trắng */
+  return co/n > 0.85;
+}
 function sxChiaDoi(f){
   return anhTuBlob(f).then(function(im){
+    if(sxMotTheLon(im)) return [f];
     var W = im.naturalWidth || im.width, H = im.naturalHeight || im.height, ngang = W>=H, chong = 0.04, ra = [];
     [0, 1].forEach(function(i){ var c = document.createElement('canvas');
       if(ngang){ var w = Math.round(W*(0.5+chong)), x = i ? W-w : 0; c.width = w; c.height = H; c.getContext('2d').drawImage(im, x, 0, w, H, 0, 0, w, H); }
