@@ -4,6 +4,21 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.264 — 20/10/2026 — Scan: lưu tập trung, 🧹 Sắp xếp, 📊 Kiểm tra, tự đọc CCCD, bản photo 2 mặt
+- **Anh 20/10:** "lưu sau tập trung … tốt nhất nên có tên, số CCCD, Mã KH, app tra vào Mẫu 31 tự đặt tên mã KH - họ tên" · "tạo nhiều thư mục vậy rất rối" · "khi lưu CCCD anh đặt tên dạng cccd-Võ Văn Hoàng, app lưu vào 1 thư mục chung, em làm sẵn chức năng chuẩn hóa / sắp xếp … trường hợp nào chưa có thì để 1 nơi chung … dời xong xóa luôn" · "cccd có mã vạch và số cccd kèm tên không dấu chuẩn, em cho đọc" · "CCCD có sẵn bản photo … xử lý sao cho phù hợp" · đồng ý thêm jsQR.
+- **Nơi lưu (`js/41-scan-sap-xep.js`)** — Drive chỉ 4 thư mục phẳng, không thư mục con:
+  - `Scan chờ sắp xếp/` — bản chưa rõ khách, tên anh gõ (`cccd-Võ Văn Hoàng`, `ck-…`, `01td-…`);
+  - `CCCD/` · `Chữ ký - Ảnh khách/` (bỏ chia theo tháng) · `Hồ sơ scan/` — tên `MãKH - Họ tên - Loại` (CCCD · Chữ ký · Ảnh · 01TD…).
+  - Bản "Lưu vào app" chưa khai giờ cũng lên Drive (vào thư mục chờ).
+- **🧹 Sắp xếp** (tab Scan, anh bấm khi cần): so danh bạ khách Mẫu 31 (số CCCD hoặc tên không dấu) → khớp đúng 1 khách: đặt tên chuẩn + dời; trùng tên: anh chọn khách; chưa có trên Mẫu 31: giữ ở thư mục chờ; tên khách đổi trên Mẫu 31 → đổi tên file; file cũ (CCCD / Xã / Điểm / Ấp / Tổ, Chữ ký - CCCD / tháng) dời về chỗ mới; **thư mục cũ trống → thùng rác Drive** (lấy lại 30 ngày). Nút "🔍 Rà thêm file thả tay trong thư mục chờ" cho file anh tự kéo vào Drive.
+  - Phân biệt loại: loại chọn lúc quét → chữ đầu tên (`cccd-` · `ck-` · `anh-` · còn lại = tài liệu, phần đầu là tên giấy tờ) → đuôi file.
+- **📇 Tự đọc số CCCD** khi quét CCCD: mã QR mặt trước (jsQR 1.4.0, chạy trong máy; chữ UTF-8 có dấu) → 3 dòng mã máy đọc mặt sau (Tesseract, có số kiểm tra — đọc nhầm thì bỏ) → dòng "Số" mặt trước. Có số → tra Mẫu 31 → hiện "✓ Đọc được CCCD … → mã KH · tên · ấp · tổ" + nút **🗄 Lưu đúng khách (tự nhận)**; không có trên Mẫu 31 → tên file gợi ý `cccd-<tên đọc được>`.
+- **Ảnh khách** tự tạo từ mặt trước CCCD (JPG ≤ 200 KB) khi lưu CCCD đúng khách (khách chưa có ảnh).
+- **Bản photo 2 mặt trên 1 tờ**: hộp "Quét gì?" (CCCD) có ô tích → chụp 1 lần cả tờ, app chia đôi tờ (ngang: trái / phải · dọc: trên / dưới), mỗi nửa tìm khung thẻ, nhận mặt trước / sau như ảnh thường.
+- **📊 Kiểm tra**: Xã › điểm GD › tổ — số hộ (tổ viên Mẫu 31), có CCCD / chữ ký / ảnh, thiếu; bấm tổ xem từng hộ ✓ / ✗; Excel.
+- Cửa kho mới `KHO.dsKhach()`, `KHO.toDanhBa()`; lệnh `GD` (`sx.*`), không thêm onclick. jsQR vào danh mục thư viện (QUY_CHUAN mục 10).
+- Phép thử: t207 mới (25, thẻ + QR giả tự vẽ); t151, t186 sửa theo nơi lưu mới.
+
 ## 3.263 — 19/10/2026 — Tình hình hoạt động (THHD) thay Bộ thông tin tổ
 - **Anh 19/10:** "thay thế nút Bộ thông tin chốt thành bảng Tình hình hoạt động (THHD), bao gồm các thông tin về tín dụng tại xã, có phân theo điểm, ngắn gọn 1 trang A4 dọc, tùy cấp chọn mà có chi tiết nhất có thể".
 - Nút **Bộ thông tin tổ** (Excel nhiều sheet Tổng hợp / theo xã / theo hội / Ghi chú) **bỏ**, thay bằng **📊 Tình hình hoạt động (THHD)** — 1 trang A4 dọc, triệu đồng, đơn vị tính góc phải:

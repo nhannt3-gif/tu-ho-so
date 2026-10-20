@@ -35,6 +35,9 @@ var KHO = (function(){
     toTruong: function(t){ return typeof tkTT==='function' ? tkTT(t) : {kh:'', tk:'', tu:'', ly:''}; },
     /* KHO.toTruongKH(tổ) → {kh, cc} — mã KH tổ trưởng: Mã CIF TT → Danh sách tổ → trùng tên (bọc hsoTTKH) · QT-12 */
     toTruongKH: function(t){ return t && typeof hsoTTKH==='function' ? hsoTTKH(t) : {kh:'', cc:''}; },
+    /* 3.264: KHO.dsKhach() → {maKH: {ten, cccd, xa, tenXa, thon, tenThon, to, toTen, …}} danh bạ khách Mẫu 31 các kỳ (chỉ đọc) · KHO.toDanhBa(maTo) → {ten, diem, tenThon, …} | null */
+    dsKhach: function(){ return (typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh) || {}; },
+    toDanhBa: function(ma){ return (typeof SL_DB!=='undefined' && SL_DB && SL_DB.to && ma && SL_DB.to[ma]) || null; },
     /* KHO.khach(maKH, tổ?) → {kh, ten, ns, cccd, ncap, noiCap, ap, tenXa} — danh bạ Mẫu 31 các kỳ + dòng kỳ đang xem (bọc hsoKhach) · QT-13 */
     khach: function(kh, t){ return hsoKhach(kh, t); },
     /* KHO.danhBa(maKH) → bản ghi danh bạ Mẫu 31 các kỳ (sdt, voChong, gt, danToc, to, xa, stk…) | null */
