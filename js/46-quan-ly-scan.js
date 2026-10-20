@@ -97,3 +97,21 @@ scanLuuApp = function(){
   };
   luuSauHang();
 };
+
+/* 3.291: dời 1 mặt thẻ trong lưới "Bản vừa quét" — d = ±1 (trái / phải), ±2 (người trên / dưới cùng cột); ảnh vẫn được chọn sau khi dời để bấm tiếp */
+function hcDichMat(i, d){
+  var anh = HANG.filter(function(x){ return x.kieu==='anh'; }), vt = anh.indexOf(HANG[i]), dich = anh[vt+d];
+  if(vt<0 || !dich) return false;
+  var j = HANG.indexOf(dich), t = HANG[i]; HANG[i] = HANG[j]; HANG[j] = t;
+  if(HC_CHON===i) HC_CHON = j;
+  veAnhHang(); return true;
+}
+GD.dangKy('hc', {dich:function(el){ hcDichMat(+el.getAttribute('data-i'), +el.getAttribute('data-d')); }});
+/* phím mũi tên: đang chọn 1 ảnh (chạm / bấm) trong lưới → ← → ↑ ↓ dời ảnh đó */
+document.addEventListener('keydown', function(ev){
+  if(!/^Arrow(Left|Right|Up|Down)$/.test(ev.key) || ev.ctrlKey || ev.altKey || typeof HC_CHON==='undefined' || HC_CHON<0 || !document.getElementById('hc-anh')) return;
+  var t = ev.target; if(t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+  var the = SC.che==='the', d = {ArrowLeft:-1, ArrowRight:1, ArrowUp:the ? -2 : -1, ArrowDown:the ? 2 : 1}[ev.key];
+  ev.preventDefault(); ev.stopPropagation();
+  if(the) hcDichMat(HC_CHON, d); else { var j = HC_CHON+d; if(j>=0 && j<HANG.length){ dichHang(HC_CHON, d); HC_CHON = j; veAnhHang(); } }
+}, true);

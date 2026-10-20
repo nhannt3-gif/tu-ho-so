@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.291 — 20/10/2026 — Ráp mặt CCCD nhanh: dời 4 chiều
+- **Anh 20/10**: "trong chỗ chỉnh, em cho di chuyển đa chiều để ráp các mặt CCCD lại với nhau nhanh nhất, mỗi mặt đều dời được 4 chiều, ảnh CCCD cho lật tay được luôn".
+- Bước ① Chỉnh (Bản vừa quét, chế độ Thẻ): mỗi mặt có **◀ ▶** (đổi với ảnh liền trước / sau — trong cùng người là đổi mặt trước ↔ sau) và **▲ ▼** (sang người trên / dưới, cùng cột); ở mép lưới nút tự tắt. **Máy tính:** chạm (bấm) 1 ảnh rồi bấm **phím mũi tên ← → ↑ ↓** — ảnh đi theo, vẫn được chọn để bấm tiếp. Chạm 2 ảnh để đổi chỗ, kéo thả, ▲▼ dời cả người, ⇄ đổi mặt vẫn như cũ.
+- Nút lật **🔄 Lật** (lật ngược 180° — ảnh bị ngược đầu) hiện chữ rõ trên mỗi mặt thẻ (trước chỉ là ký hiệu ⇅).
+- Chế độ Tài liệu: chọn trang rồi phím mũi tên cũng dời trang.
+- Phép thử: t221 mới (6).
+
 ## 3.290 — 20/10/2026 — Lưu CCCD đọc được tên mà tên file không kèm tên
 - **Anh 20/10**: "có file đọc được tên luôn nhưng khi lưu lại không kèm tên". Nguyên nhân: lượt quét **nhiều người** chưa đủ chắc khách → 🗄 Lưu vào tủ đưa vào ⏳ Chờ sắp xếp; chỉ bản 1 người lấy tên đọc được, bản nhiều người thành "Scan <ngày giờ> - người n" và **không lưu số CCCD** đã đọc.
 - Sửa: mỗi người đọc được thẻ → tên **`cccd-Họ tên - số CCCD`** (khớp chắc Mẫu 31 → họ tên Mẫu 31), lưu số CCCD + thông tin đọc được (CMND 9 số) vào bản → ⏳ Sắp xếp / 🔎 Rà nhận khách ngay, không đọc lại. Người chưa đọc được giữ "… - người n".

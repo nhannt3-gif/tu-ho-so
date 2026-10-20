@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.291) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Quét 1 tờ 3–4 CCCD lộn mặt › ▲ ▼ ◀ ▶ trên từng mặt | Ráp đúng cặp nhanh | |
+| 2 | Bấm 1 ảnh rồi phím mũi tên | Ảnh đi theo, vẫn đang chọn | |
+| 3 | Ảnh ngược đầu › 🔄 Lật | Ảnh xoay 180° | |
+
+**Ghi chú kỹ thuật 3.291:** 12 `veAnhHang`: thẻ dùng nút `data-lenh="hc.dich"` (d = ±1, ±2 theo thứ tự ảnh); 46 `hcDichMat` (giữ `HC_CHON` theo ảnh) + nghe `keydown` mũi tên khi có `#hc-anh` và đang chọn.
+
 ### Danh sách thử trên máy thật (3.290) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
