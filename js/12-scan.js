@@ -208,7 +208,7 @@ function chonNguon(n){
   i.type = 'file';
   if(n==='file'){ i.accept = '.pdf,.doc,.docx'; i.multiple = true; }
   else if(n==='camera'){ i.accept = 'image/*'; i.capture = 'environment'; }
-  else { i.accept = 'image/*'; i.multiple = true; }
+  else { i.accept = 'image/*,.heic,.heif'; i.multiple = true; }
   i.onchange = function(){
     var fs = Array.prototype.slice.call(i.files);
     if(!fs.length) return;
@@ -253,7 +253,7 @@ function nhanVaoScan(fs, nguon){
     if(moi.length || !hong.length) bao('Đã tự cắt, nắn và làm đẹp.'+(xem ? ' '+xem+' ảnh có dấu ⚠ nên bấm ✂ xem lại khung.' : '')+
       (soPDFBo ? ' Bỏ qua '+soPDFBo+' file PDF — PDF dùng ở chế độ Tài liệu.' : ''), 7);
     if(hong.length) setTimeout(function(){ baoLoi('Không đọc được '+hong.length+' ảnh: '+hong.map(function(f){ return (f.name||'ảnh dán')+' ('+(f.type||'không rõ định dạng')+(f.size ? ', '+kichCo(f.size) : ', 0 KB')+')'; }).join(', ')+
-      (hong.some(function(f){ return /heic|heif/i.test((f.type||'')+(f.name||'')); }) ? ' — ảnh HEIC (iPhone): trình duyệt chưa đọc được, mở ảnh lưu lại dạng JPG rồi dán / chọn lại.' : ' — file hỏng hoặc không phải ảnh; thử mở ảnh rồi Copy ảnh (không copy file) để dán.')); }, 400);
+      (hong.some(function(f){ return /heic|heif/i.test((f.type||'')+(f.name||'')); }) ? ' — ảnh HEIC (iPhone): chưa đổi được sang JPG (lần đầu cần mạng để tải bộ đọc HEIC; ảnh hỏng thì mở ảnh lưu lại JPG).' : ' — file hỏng hoặc không phải ảnh; thử mở ảnh rồi Copy ảnh (không copy file) để dán.')); }, 400);
   }).catch(function(e){
     tatChay(); moHangCho(); baoLoi('Không xử lý được: '+(e&&e.message||e));
   });
@@ -1284,7 +1284,7 @@ function moKyAnh(){
 function chupKA(loai, nguon){
   var e = document.getElementById('ka-ten'); if(e){ KA.ten = e.value; KA.tenLuc = Date.now(); }
   if(nguon==='camera' && coCamera() && (camTuDong() || !laDT())) return moCamera({muc:loai==='ky'?'ky':'cccd'});
-  var i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*';
+  var i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*,.heic,.heif';
   if(nguon==='camera') i.capture = 'environment';
   i.onchange = function(){ var f = i.files && i.files[0]; if(f) nhanKA(loai, f); };
   i.click();

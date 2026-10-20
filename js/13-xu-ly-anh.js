@@ -15,9 +15,22 @@ function anhTuBlob(b){
   return new Promise(function(ok, loi){
     var u = URL.createObjectURL(b), im = new Image();
     im.onload = function(){ URL.revokeObjectURL(u); ok(im); };
-    im.onerror = function(){ URL.revokeObjectURL(u); loi(new Error('Không đọc được ảnh')); };
+    im.onerror = function(){ URL.revokeObjectURL(u);
+      laHEIC(b).then(function(co){ if(!co) throw new Error('Không đọc được ảnh'); return heicRaJPG(b).then(anhTuBlob); }).then(ok, loi); };   /* 3.289: ảnh HEIC (iPhone) → đổi JPG trong máy */
     im.src = u;
   });
+}
+/* 3.289 (anh duyệt thư viện heic-to 20/10/2026): ảnh HEIC / HEIF iPhone — trình duyệt máy tính không mở được → đổi sang JPG ngay trong máy
+   (heic-to 1.6.5, libheif; nạp khi gặp ảnh HEIC đầu tiên, lưu trong máy dùng offline). Nhận theo 4 byte nhãn trong file, không theo tên đuôi. */
+function laHEIC(b){
+  if(!b || !b.slice) return Promise.resolve(false);
+  return b.slice(8, 12).arrayBuffer().then(function(ab){ var t = String.fromCharCode.apply(null, new Uint8Array(ab)).replace(/\0/g, ' ').trim();
+    return /^(heic|heix|hevc|hevx|mif1|msf1)$/.test(t); }, function(){ return false; });
+}
+function heicRaJPG(b){
+  var nap = window.HeicTo ? Promise.resolve() : napMotTV({ten:'heicto', url:'https://cdn.jsdelivr.net/npm/heic-to@1.6.5/dist/iife/heic-to.js'});
+  return nap.then(function(){ if(typeof window.HeicTo!=='function') throw new Error('Chưa tải được bộ đọc ảnh HEIC (cần mạng lần đầu)');
+    return window.HeicTo({blob:b, type:'image/jpeg', quality:0.92}); });
 }
 function canvasRaBlob(c, cl){ return new Promise(function(ok){ c.toBlob(function(b){ ok(b); }, 'image/jpeg', cl||0.9); }); }
 /* ảnh gốc thu còn cạnh dài 2000px — đủ nét cho thẻ và A4, đỡ nặng máy */

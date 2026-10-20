@@ -49,7 +49,7 @@ function qcChup(){
   canvasRaBlob(c, 0.92).then(function(b){ QC.tu = 'cam'; QC.anh = QC.anh.concat([b]).slice(-2); qcDoc(); });
 }
 function qcFile(chup){
-  var i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*,application/pdf'; i.multiple = !chup; if(chup) i.setAttribute('capture', 'environment');
+  var i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*,.heic,.heif,application/pdf'; i.multiple = !chup; if(chup) i.setAttribute('capture', 'environment');
   i.onchange = function(){ var fs = Array.prototype.slice.call(i.files||[]).slice(0, 2); if(!fs.length) return;
     Promise.all(fs.map(function(f){ return /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name) ? qcTrangPDF(f) : f; })).then(function(bs){ QC.tu = 'file'; QC.anh = bs.filter(Boolean); qcDoc(); }); };
   i.click();

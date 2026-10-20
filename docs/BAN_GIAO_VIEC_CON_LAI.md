@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.289) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Ctrl+F5 → v3.289; tab Scan › chọn / dán 2–4 ảnh IMG_73xx.HEIC | Lần đầu chờ tải bộ đọc; ảnh vào hàng quét, cắt nắn, đọc số | |
+| 2 | Hộp 🪪 Quét CCCD › 🖼 Ảnh có sẵn › chọn ảnh HEIC | Đọc được số | |
+| 3 | Tắt mạng, chọn ảnh HEIC (sau lần 1) | Vẫn đọc được (bộ đọc lưu trong máy) | |
+
+**Ghi chú kỹ thuật 3.289:** 13: `anhTuBlob` onerror → `laHEIC` (nhãn ftyp byte 8–12: heic/heix/hevc/hevx/mif1/msf1) → `heicRaJPG` (`napMotTV` heic-to@1.6.5 dist/iife → `window.HeicTo`). `tests/tv.js` định tuyến jsdelivr heic-to → `tests/lib/heic-to-1.6.5`; `tests/README.md` thêm heic-to@1.6.5 vào lệnh cài thư viện thử.
+
 ### Danh sách thử trên máy thật (3.288) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

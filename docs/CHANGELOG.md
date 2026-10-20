@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.289 — 20/10/2026 — Đọc ảnh HEIC iPhone
+- **Anh 20/10** (ảnh thư mục: IMG_7361…7450, "HEIC File" ~2 MB): "loại này app không đọc được" → anh **duyệt (A)** thêm thư viện **heic-to 1.6.5** (libheif, chạy trong máy, không gửi ảnh đi).
+- Bộ mở ảnh chung (`anhTuBlob`): trình duyệt không mở được ảnh → xem 4 byte nhãn trong file; là HEIC / HEIF → nạp bộ đọc (lần đầu tải ~3 MB, lưu trong máy dùng offline) → đổi sang JPG → cắt, nắn, đọc số như ảnh thường. Áp dụng mọi chỗ mở ảnh: dán (Ctrl+V), chọn file / kéo thả ở tab Scan, 📁 Chữ ký · CCCD, hộp 🪪 Quét CCCD (ô chọn file nhận cả .heic / .heif).
+- Ảnh HEIC hỏng / chưa tải được bộ đọc (lần đầu không có mạng) → báo tên ảnh + lý do (3.288), các ảnh khác vẫn vào.
+- QUY_CHUAN mục 10: thêm heic-to 1.6.5 vào danh mục thư viện (LGPL-3.0, dùng nguyên file).
+- Phép thử: t219 thêm 3 (8) — ảnh HEIC GIẢ `tests/mau_anh/the_gia.heic` (thẻ đỏ vẽ sẵn).
+
 ## 3.288 — 20/10/2026 — Ảnh hỏng không chặn cả lượt quét
 - **Anh 20/10** (ảnh Tin gần đây: 3 lần "Không xử lý được: Không đọc được ảnh" 22:12–22:14, máy còn bản 3.286): một ảnh trình duyệt không mở được (ảnh HEIC iPhone, file hỏng / 0 KB, file không phải ảnh) làm dừng cả lượt và chỉ báo chung chung.
 - Sửa: ảnh nào không đọc được thì bỏ riêng ảnh đó, các ảnh khác vẫn vào hàng quét; báo đỏ **tên + định dạng + dung lượng** từng ảnh hỏng, kèm cách xử lý (HEIC → mở ảnh lưu lại JPG; file hỏng → mở ảnh rồi Copy ảnh, không copy file).
