@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.286** — Scan: 🪪 Đọc số CCCD tự tra Mẫu 31, gõ 12 số tự tra, nút Xóa đỏ + Xóa n bản đã tích; 3.285 (TK chính) P1 🎯 Phân bổ KH: lõi `js/47-phan-bo.js` + cửa `KHO.duNoAp` (chưa màn hình; tiếp P2 giao diện); 3.284 Scan tách 2 mặt CCCD. 2 tài khoản song song: TK chính làm 🎯 Phân bổ KH (`docs/KE_HOACH_PHAN_BO_KH.md`). Kế hoạch tiếp TK phụ: `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (chờ anh chốt (a)(b)(c)). Chờ anh: thử máy thật 3.225–3.286.
+- **`main` = 3.287** — Dán file (Ctrl+V) theo tab: Văn bản → văn bản, Scan → ảnh CCCD, tab khác chỉ báo; 3.286 🪪 Đọc số CCCD tự tra Mẫu 31 + nút Xóa đỏ; 3.285 (TK chính) P1 🎯 Phân bổ KH lõi (tiếp P2 giao diện). Kế hoạch tiếp TK phụ: `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (chờ anh chốt (a)(b)(c)). Chờ anh: thử máy thật 3.225–3.287.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

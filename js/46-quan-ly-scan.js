@@ -52,3 +52,25 @@ function qlLuuTu(){
   scanLuuApp();   /* chưa rõ → ⏳ Chờ sắp xếp */
 }
 GD.dangKy('ql', {mo:function(){ qlMo(); }, chonKH:function(){ scanLuuTuHop(); }});
+
+/* 3.287 (anh: "copy dán VB ở bất cứ đâu cũng được — nên đổi lại chỉ dán trong tab Văn bản, còn trong tab Scan để copy dán CCCD"): Ctrl+V file
+   - tab 📄 Văn bản → thêm văn bản (như cũ) · tab 📈 Số liệu → file Excel vào Nạp & KT (như cũ, không thành văn bản)
+   - tab Scan → ảnh CCCD (ảnh / PDF trang 1) vào hàng quét chế độ Thẻ (cắt, nắn, đọc số, tra khách như quét)
+   - đang mở hộp 🪪 Quét CCCD (3.273 / 3.285) → ảnh dán vào hộp đó để đọc
+   - tab khác → không thêm gì, chỉ báo chỗ dán */
+function danFile(fs){
+  var hop = document.getElementById('hop'), dangHop = hop && hop.classList.contains('hien');
+  var anh = function(){ return Promise.all(fs.map(function(f){ return /pdf$/i.test(f.type||'') || /\.pdf$/i.test(f.name||'') ? qcTrangPDF(f) : (/^image\//.test(f.type||'') || /\.(jpe?g|png|webp|heic)$/i.test(f.name||'') ? f : null); }))
+    .then(function(bs){ return bs.filter(Boolean).map(function(b, i){ return b instanceof File ? b : new File([b], 'cccd-dan-'+(i+1)+'.jpg', {type:'image/jpeg'}); }); }); };
+  if(dangHop && document.getElementById('qc-kq') && typeof QC!=='undefined' && QC){   /* hộp quét CCCD đang mở */
+    return anh().then(function(a){ if(!a.length) return bao('Dán ảnh / PDF CCCD vào đây.', 3); QC.tu = 'file'; QC.anh = a.slice(0, 2); qcDoc(); });
+  }
+  if(dangHop) return bao('Đang mở hộp — đóng hộp rồi dán.', 3);
+  if(nganHienTai===1) return gioiThieuFile(fs);
+  if(nganHienTai===7 && fs.some(function(f){ return laFileExcel(f.name||''); })) return gioiThieuFile(fs.filter(function(f){ return laFileExcel(f.name||''); }));
+  if(nganHienTai===4) return anh().then(function(a){
+    if(!a.length) return bao('Tab Scan: dán ảnh hoặc PDF CCCD (văn bản thì dán ở tab 📄 Văn bản).', 5);
+    if(SC.che!=='the'){ SC.che = 'the'; bao('Chuyển chế độ quét sang Thẻ (CCCD) để nhận ảnh dán.', 4); }
+    nhanVaoScan(a, 'dan'); });
+  bao('Dán file: văn bản dán ở tab 📄 Văn bản, ảnh CCCD dán ở tab Scan.', 5);
+}
