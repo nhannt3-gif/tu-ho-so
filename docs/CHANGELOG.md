@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.274 — 20/10/2026 — Sửa cắt thẻ bị chia đôi, Magic ám màu
+- **Anh 20/10** (ảnh màn Chỉnh: ảnh gốc chỉ còn nửa thẻ): "bản mới up đọc CCCD bị lỗi cắt không chuẩn" — "à do anh tích"; "chỗ các chế độ Magic đôi khi bị ám vàng hoặc xanh".
+- Ô **🗎 Bản photo 2 mặt trên 1 tờ** (3.264) trước nhớ cả phiên → lần quét sau ảnh chụp 1 mặt thẻ vẫn bị chia đôi. Nay: mỗi lần **Quét bản mới** ô về không tích; dù đang tích, ảnh chỉ có **1 thẻ to** (khung đúng tỉ lệ thẻ, chiếm ≥ 45% ảnh, bên trong không lẫn nền giấy trắng) → **không chia** (`sxMotTheLon`); tờ photo 2 thẻ vẫn chia.
+- Bộ lọc **Magic**: thêm **cân bằng trắng** theo 3% vùng sáng nhất (giấy trắng / nền sáng của thẻ), hệ số mỗi kênh giới hạn 0,8–1,25 (giữ màu xanh thật của thẻ, dấu đỏ) (`canBangTrang`); tăng màu 1,15 → 1,08 (đỡ đẩy ám màu). Thử ảnh giả: giấy ám vàng (215,195,140) → (255,255,244), ám xanh → (253,253,253).
+- Phép thử: t213 (8).
+
 ## 3.273 — 20/10/2026 — 🪪 Quét CCCD điền form
 - **Anh 20/10**: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCCD chụp sẵn" — duyệt đề xuất: "như em đề xuất em code".
 - Nút **🪪 Quét** cạnh ô Họ tên: 📒 Sổ hộ vay (mỗi người trong hộ — 01/UQ, 03/TD… lấy từ sổ) và 01/TD (người vay; hộ cũ theo Mẫu 31 không hiện). File mới `js/44-quet-cccd-form.js`.

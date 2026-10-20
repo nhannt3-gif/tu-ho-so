@@ -181,6 +181,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t205.js` | 3.259 Bộ thông tin tổ: KQGD từng điểm (24 cột, công thức), 3 sao kê chia Điểm › Hội › Tổ, Excel nhiều sheet (24). |
 | `node tests/t206.js` | 3.260 Sổ cài đặt (Sao lưu › 🧾), khóa lạ, hàm con kéo đổi tên (5). |
 | `node tests/t207.js` | 3.264 Scan lưu tập trung, Sắp xếp, Kiểm tra, đọc QR / mã máy đọc giả, bản photo 2 mặt, ảnh khách từ CCCD (25). |
+| t213 | (3.274) Ảnh 1 thẻ không chia đôi dù tích "photo 2 mặt", tờ 2 thẻ vẫn chia, quét mới bỏ tích; Magic khử ám vàng / xanh, giữ màu thẻ (8). |
 | t212 | (3.273) 🪪 Quét CCCD điền form: nút cạnh Họ tên (Sổ hộ vay, 01/TD), ảnh có sẵn (QR giả) → hộp xác nhận → Điền + lưu tủ, lấy từ tủ, tên Mẫu 31 khi thẻ không dấu, camera giả (16). |
 | t211 | (3.272) Khung xem phải: dòng "Hồ sơ của khách" gom CCCD / chữ ký / ảnh / tài liệu, thiếu ✗, bấm chuyển xem (5). |
 | t210 | (3.271) CCCD 3 file lên Drive (Drive giả 2 máy): đổi tên / dời / thùng rác theo PDF, đưa ảnh bản cũ, máy B tự tải ảnh, cắt 2 thẻ từ PDF (PDF gốc giữ), Rà "Ảnh cắt từ PDF", bảng đối chiếu, CMND 9 số (15). |

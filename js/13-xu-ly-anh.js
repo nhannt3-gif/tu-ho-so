@@ -269,6 +269,7 @@ function locMagic(c){
   var W=c.width, H=c.height, x=c.getContext('2d'), im=x.getImageData(0,0,W,H), p=im.data, i, t;
   var bg=nenSang(p, W, H, -1, 24, 0.9);
   for(i=0;i<p.length;i+=4){ var f=235/Math.max(60,bg[i]); p[i]=Math.min(255,p[i]*f); p[i+1]=Math.min(255,p[i+1]*f); p[i+2]=Math.min(255,p[i+2]*f); }
+  canBangTrang(p);   /* 3.274 (anh: "chế độ Magic đôi khi bị ám vàng hoặc xanh") */
   var hist=new Uint32Array(256), tong=0, lo=0, hi=255, cum=0;
   for(i=0;i<p.length;i+=16){ hist[Math.round((p[i]+p[i+1]+p[i+2])/3)]++; tong++; }
   for(t=0;t<256;t++){ cum+=hist[t]; if(cum>tong*0.005){ lo=t; break; } } cum=0;
@@ -276,10 +277,23 @@ function locMagic(c){
   var he=255/Math.max(40,hi-lo);
   for(i=0;i<p.length;i+=4){
     var r=(p[i]-lo)*he, g=(p[i+1]-lo)*he, b=(p[i+2]-lo)*he, l=(r+g+b)/3;
-    p[i]=Math.max(0,Math.min(255,l+(r-l)*1.15)); p[i+1]=Math.max(0,Math.min(255,l+(g-l)*1.15)); p[i+2]=Math.max(0,Math.min(255,l+(b-l)*1.15)); }
+    p[i]=Math.max(0,Math.min(255,l+(r-l)*1.08)); p[i+1]=Math.max(0,Math.min(255,l+(g-l)*1.08)); p[i+2]=Math.max(0,Math.min(255,l+(b-l)*1.08)); }   /* 3.274: tăng màu 1,15 → 1,08 (đỡ đẩy ám màu) */
   x.putImageData(im,0,0);
   lamNet(c, 0.6);
   return c;
+}
+/* 3.274: cân bằng trắng theo vùng sáng nhất (3% điểm sáng nhất ≈ giấy trắng / nền sáng của thẻ) — mỗi kênh nhân hệ số cho vùng đó về trung tính;
+   hệ số giới hạn 0,8–1,25 để không xóa màu thật (thẻ CCCD xanh nhạt, dấu đỏ) */
+function canBangTrang(p){
+  var hist=new Uint32Array(766), n=0, i, t;
+  for(i=0;i<p.length;i+=16){ hist[p[i]+p[i+1]+p[i+2]]++; n++; }
+  var nguong=765, cum=0; for(t=765;t>=0;t--){ cum+=hist[t]; if(cum>=n*0.03){ nguong=t; break; } }
+  var sr=0, sg=0, sb=0, k=0;
+  for(i=0;i<p.length;i+=16){ if(p[i]+p[i+1]+p[i+2]>=nguong && p[i]+p[i+1]+p[i+2]<765){ sr+=p[i]; sg+=p[i+1]; sb+=p[i+2]; k++; } }   /* bỏ điểm đã cháy trắng (255,255,255) */
+  if(!k) return;
+  sr/=k; sg/=k; sb/=k; var tb=(sr+sg+sb)/3, kh=function(v){ return Math.max(0.8, Math.min(1.25, tb/Math.max(1, v))); }, gr=kh(sr), gg=kh(sg), gb=kh(sb);
+  if(Math.abs(gr-1)<0.02 && Math.abs(gg-1)<0.02 && Math.abs(gb-1)<0.02) return;
+  for(i=0;i<p.length;i+=4){ p[i]=Math.min(255,p[i]*gr); p[i+1]=Math.min(255,p[i+1]*gg); p[i+2]=Math.min(255,p[i+2]*gb); }
 }
 function lamNet(c, muc){
   var W=c.width, H=c.height, x=c.getContext('2d'), n=document.createElement('canvas'); n.width=W; n.height=H;
