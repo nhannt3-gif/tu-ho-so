@@ -290,7 +290,7 @@ function moHangCho(){
   var h = buocHTML(1, {lui:'dongHop();veScan()', tiep:'xemTruocHang()', b2:'xemTruocHang()'})+'<div class="hop-tit">Bản vừa quét ('+HANG.length+')</div>'+
     '<div class="hop-phu">'+(laThe
       ? 'App đã tự cắt, nắn và xếp <b>mặt trước | mặt sau</b> theo từng người — máy không chắc đúng 100%, anh duyệt qua. '+
-        '<b>Chạm 1 ảnh rồi chạm ảnh khác</b> để đổi chỗ (kể cả giữa 2 người)'+(laDT()?'':', hoặc kéo thả')+' · ▲▼ dời cả người · ⇄ đổi mặt · ảnh gốc bên phải: bấm để kéo viền.'
+        '<b>Chạm 1 ảnh rồi chạm ảnh khác</b> để đổi chỗ (kể cả giữa 2 người)'+(laDT()?'':', hoặc kéo thả')+' · mỗi mặt ◀ ▶ ▲ ▼ dời 4 chiều'+(laDT()?'':' (chọn ảnh rồi bấm phím mũi tên)')+' · ▲▼ cạnh "Người n" dời cả người · ⇄ đổi mặt · 🔄 Lật ảnh ngược đầu · ảnh gốc bên phải: bấm để kéo viền.'
       : 'App đã tự tìm tờ giấy, nắn thẳng và làm trắng nền. <b>Chạm 1 trang rồi chạm trang khác</b> để đổi chỗ'+(laDT()?'':', hoặc kéo thả')+
         ' · ◀ ▶ dời trang · ⟲ xoay · ✕ bỏ trang · ảnh gốc bên phải: bấm để kéo viền.')+'</div>'+
     '<div id="hc-anh" class="hc-luoi'+(laThe?' the':'')+'"></div>'+
@@ -490,12 +490,16 @@ function veAnhHang(){
       vt++;
     } else nhan = x.kieu==='trang' ? ('Trang '+(i+1)+' · PDF') : (x.kieu==='file' ? 'File giữ nguyên' : 'Trang '+(i+1));
     if(canXemLai(x)) nhan = '⚠ xem lại · '+nhan;
-    cu += '<button onclick="dichHang('+i+',-1)" title="Dời lên trước"'+(i===0?' disabled':'')+'>◀</button>'+
+    if(laThe && la){   /* 3.291 (anh: "mỗi mặt dời được 4 chiều để ráp các mặt CCCD nhanh nhất"): ◀ ▶ trong hàng · ▲ ▼ sang người trên / dưới (cùng cột); chọn ảnh rồi bấm phím mũi tên cũng được */
+      var vA = vt-1, nA = HANG.filter(function(z){ return z.kieu==='anh'; }).length, dn = function(d, ky, tit, tat){ return '<button data-lenh="hc.dich" data-i="'+i+'" data-d="'+d+'" title="'+tit+'"'+(tat?' disabled':'')+'>'+ky+'</button>'; };
+      cu += dn(-1, '◀', 'Dời sang trái (đổi với ảnh liền trước)', vA===0)+dn(1, '▶', 'Dời sang phải (đổi với ảnh liền sau)', vA>=nA-1)+
+        dn(-2, '▲', 'Dời lên người trên (cùng cột)', vA<2)+dn(2, '▼', 'Dời xuống người dưới (cùng cột)', vA+2>nA-1);
+    } else cu += '<button onclick="dichHang('+i+',-1)" title="Dời lên trước"'+(i===0?' disabled':'')+'>◀</button>'+
           '<button onclick="dichHang('+i+',1)" title="Dời ra sau"'+(i===HANG.length-1?' disabled':'')+'>▶</button>';
     if(la) cu += '<button onclick="moChinhGoc('+i+')" title="Kéo viền cắt trên ảnh gốc">✂ Chỉnh viền</button>';
     if(laThe && la) cu += '<button onclick="doiMatHang('+i+')" title="Đổi mặt trước ↔ mặt sau trong cặp">⇄</button>';
     if(!laThe && x.kieu!=='file') cu += '<button onclick="xoayHang('+i+',90)" title="Xoay 90°">⟲</button>';
-    if(x.kieu!=='file') cu += '<button onclick="xoayHang('+i+',180)" title="Lật ngược 180°">⇅</button>';
+    if(x.kieu!=='file') cu += '<button onclick="xoayHang('+i+',180)" title="Lật ngược 180° (ảnh bị ngược đầu)">'+(laThe ? '🔄 Lật' : '⇅')+'</button>';
     if(la) cu += '<button onclick="batThangHang('+i+')"'+(thangBat(x)?' class="bat"':'')+
       ' title="Tự làm thẳng (dò độ nghiêng chữ rồi xoay cho thẳng đứng) — bấm để bật / tắt'+
       (x.nghieng?' · đã chỉnh '+(Math.round(x.nghieng*10)/10)+'°':'')+'">📐</button>';
