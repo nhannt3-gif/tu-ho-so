@@ -16,9 +16,18 @@ var SXT_GIU = [SXT.cho, SXT.cccd, SXT.ka, SXT.tl];   /* thư mục mới — kh�
 
 /* ---------- 1. tên + nơi lưu ---------- */
 function sxTenChuan(maKH, ten, loai, duoi){ return sachTen(maKH+' - '+String(ten||'').trim()+' - '+loai)+duoi; }
+/* 3.277: 1 khách nhiều bản cùng loại (quét lại, quét từ form) → bản thứ 2 trở đi thêm " (2)", " (3)"… để tên trên Drive không trùng (theo thứ tự lưu) */
+function sxSoThu(k, laKA){
+  if(!k || !k.maKH) return '';
+  var loai = laKA ? sxLoaiKA(k) : sxLoaiScan(k), ds = (laKA ? D.kyAnh : D.scan) || [];
+  var cung = ds.filter(function(x){ if(x.maKH!==k.maKH) return false; if(laKA) return sxLoaiKA(x)===loai; return (x.che==='tailieu')===(k.che==='tailieu') && sxLoaiScan(x)===loai; });
+  if(cung.length<2) return '';
+  cung.sort(function(a, b){ return String(a.taoLuc||a.luc||a.ngay||'').localeCompare(String(b.taoLuc||b.luc||b.ngay||'')) || String(a.id).localeCompare(String(b.id)); });
+  var i = cung.indexOf(k); return i>0 ? ' ('+(i+1)+')' : '';
+}
 function sxLoaiScan(k){ return k.che==='tailieu' ? (((k.tag||[]).filter(function(t){ return t && t!=='CCCD'; })[0]) || 'Tài liệu') : 'CCCD'; }
 duongScan = function(k){ return [D.cauHinh.thumuc, k.maKH ? (k.che==='tailieu' ? SXT.tl : SXT.cccd) : SXT.cho].join(' / '); };
-tenScanDrive = function(k){ return k.maKH ? sxTenChuan(k.maKH, k.ten, sxLoaiScan(k), '.pdf') : (sachTen(k.ten||'Scan') || 'Scan')+'.pdf'; };
+tenScanDrive = function(k){ return k.maKH ? sxTenChuan(k.maKH, k.ten, sxLoaiScan(k)+sxSoThu(k), '.pdf') : (sachTen(k.ten||'Scan') || 'Scan')+'.pdf'; };
 duongTheCCCD = function(k){ return duongScan(k); };
 tenTheCCCD = function(k){ return tenScanDrive(k); };
 if(typeof SC_CAN_DAY_CU==='function') scanCanDay = SC_CAN_DAY_CU;   /* 3.264: bản chưa khai cũng lên Drive — vào thư mục chờ sắp xếp */
@@ -28,7 +37,7 @@ dayMotScan = function(k){   /* bản cũ chưa ghi thư mục cha → hỏi Driv
   return truoc.then(function(){ return SX_DAY_MOT_CU(k); }).then(function(r){ k.duongDrive = duongScan(k); return r; });
 };
 function sxLoaiKA(k){ return k.loai==='ky' ? 'Chữ ký' : 'Ảnh'; }
-function sxTenKA(k){ return k.maKH ? sxTenChuan(k.maKH, k.khach, sxLoaiKA(k), '.jpg') : (sachTen((k.loai==='ky' ? 'ck-' : 'anh-')+String(k.khach||'Khach').replace(/^(ck|anh)\s*-\s*/i, '')))+'.jpg'; }
+function sxTenKA(k){ return k.maKH ? sxTenChuan(k.maKH, k.khach, sxLoaiKA(k)+sxSoThu(k, true), '.jpg') : (sachTen((k.loai==='ky' ? 'ck-' : 'anh-')+String(k.khach||'Khach').replace(/^(ck|anh)\s*-\s*/i, '')))+'.jpg'; }
 function sxDuongKA(k){ return [D.cauHinh.thumuc, k.maKH ? SXT.ka : SXT.cho].join(' / '); }
 /* chữ ký / ảnh: tải lên (chưa có) hoặc đổi tên + dời (đã có) */
 dayKAMot = function(id, im){
@@ -256,7 +265,7 @@ function sxLuuTuDoc(){ if(!SX_DOC.every(function(x){ return x.tim && x.tim.ma; }
 GD.dangKy('sx', {luuDoc:function(){ sxLuuTuDoc(); }, photo2:function(el){ SC.photo2 = !!el.checked; },
   chon:function(el){ var i = +el.getAttribute('data-i'), m = el.getAttribute('data-ma'); if(m) SXP.chon[i] = m; else delete SXP.chon[i]; sxDemNut(); }, xn:function(el){ SXP.xn[+el.getAttribute('data-i')] = !!el.checked; sxDemNut(); }, dong:function(){ dongHop(); },
   driveCho:function(){ sxDriveCho(); }, apDung:function(){ sxApDung(); }, moTo:function(el){ var m = el.getAttribute('data-to'); sxKiemVe(SXK_MO===m ? '' : m); },
-  kiemExcel:function(){ sxKiemExcel(); }, sapXep:function(){ moSapXep(); }, kiem:function(){ moKiemScan(); }});
+  kiemExcel:function(){ sxKiemExcel(); }, khaiHL:function(){ khaiHangLoat(); }, sapXep:function(){ moSapXep(); }, kiem:function(){ moKiemScan(); }});
 /* lưu vào tủ theo khách đã chọn / tự nhận — như 3.155, thêm số CCCD + tự tạo ảnh khách từ mặt trước */
 scanLuuTu = function(){
   var nh = scanNhom(); if(nh.some(function(_, i){ return !SXK[i]; })) return bao(nh.length>1 ? 'Chọn khách cho đủ '+nh.length+' người.' : 'Chọn khách trước.', 4);
@@ -275,7 +284,8 @@ scanLuuTu = function(){
     return ds.filter(function(k){ return k.che==='the' && k.matTruoc; }).reduce(function(p, k){ return p.then(function(){ return sxAnhTuCCCD(k); }); }, Promise.resolve());
   }).then(function(){
     if(D.cauHinh.dbSauLuu!==false) henDongBoScan();
-    bao('Đã lưu '+ds.length+' bản đúng khách: '+ds.map(function(k){ return k.maKH+' '+k.ten; }).join(', ')+'.', 6);
+    var trung = ds.filter(function(k){ return sxSoThu(k); });   /* 3.277: khách đã có bản cùng loại */
+    bao('Đã lưu '+ds.length+' bản đúng khách: '+ds.map(function(k){ return k.maKH+' '+k.ten; }).join(', ')+'.'+(trung.length ? ' ⚠ '+trung.length+' khách đã có bản cũ — bản mới đánh số (2)…; trùng thì xóa bớt ở 🔎 Rà CCCD.' : ''), trung.length ? 9 : 6);
   }).catch(function(e){ baoLoi('Chưa lưu được: '+(e && e.message || e)); });
 };
 /* ảnh khách = mặt trước CCCD nén JPG ≤ 200 KB (khách chưa có ảnh) */
@@ -560,7 +570,10 @@ var SX_VE_CU = veScan;
 veScan = function(){
   SX_VE_CU();
   var e = document.getElementById('tr4'); if(!e || !HS.mo || !e.firstElementChild) return;
-  var n = sxDemCho();
+  var n = sxDemCho(), nk = (D.scan||[]).filter(function(k){ return k.chuaKhai; }).length;
+  /* 3.277: gộp thanh vàng "n bản lưu tạm chưa khai" (3.224) vào thanh Chờ sắp xếp — cùng là bản chưa gắn khách */
+  Array.prototype.forEach.call(e.querySelectorAll('.thanh-chon'), function(t){ if(/bản lưu tạm chưa khai/.test(t.textContent)) t.remove(); });
   e.firstElementChild.insertAdjacentHTML('afterend', '<div class="thanh-chon sx-thanh"><span>'+(n ? '⏳ <b>'+n+'</b> bản chờ sắp xếp (chưa gắn khách)' : '✓ Mọi bản đã gắn khách')+'</span>'+
-    '<button data-lenh="sx.sapXep">🧹 Sắp xếp</button><button data-lenh="sx.kiem">📊 Kiểm tra</button><button data-lenh="rs.mo">🔎 Rà CCCD đã lưu</button></div>');
+    '<button data-lenh="sx.sapXep">🧹 Sắp xếp</button><button data-lenh="sx.kiem">📊 Kiểm tra</button><button data-lenh="rs.mo">🔎 Rà CCCD đã lưu</button>'+
+    (nk ? '<button data-lenh="sx.khaiHL" title="Gõ tên + chọn địa bàn cho nhiều bản cùng lúc">✎ Khai hàng loạt ('+nk+')</button>' : '')+'</div>');
 };

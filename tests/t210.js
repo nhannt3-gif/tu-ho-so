@@ -33,7 +33,7 @@ const fs=require('fs'), path=require('path'); const drive=require('./fakedrive.j
  /* Sắp xếp gắn khách → 3 file dời + đổi tên cùng lúc */
  await A.evaluate(async(ma)=>{ const k = D.scan.find(x=>x.id==='t210b'); sxGan(k, ma, false); await sxDoiDrive([k], []); }, rA.ma);
  const kB2 = await A.evaluate(()=>JSON.parse(JSON.stringify(D.scan.find(x=>x.id==='t210b'))));
- ok('🧹 Sắp xếp: PDF + 2 ảnh cùng dời về CCCD, đổi tên chuẩn', cha(kB2.driveId)==='Tủ hồ sơ/CCCD' && cha(kB2.anhDrive.truoc.id)==='Tủ hồ sơ/CCCD' && ten(kB2.anhDrive.sau.id)===rA.ma+' - '+rA.ten+' - Mặt sau.jpg', ten(kB2.anhDrive.sau.id));
+ ok('🧹 Sắp xếp: PDF + 2 ảnh cùng dời về CCCD, đổi tên chuẩn (khách đã có 1 bản → " (2)", 3.277)', cha(kB2.driveId)==='Tủ hồ sơ/CCCD' && cha(kB2.anhDrive.truoc.id)==='Tủ hồ sơ/CCCD' && ten(kB2.anhDrive.sau.id)===rA.ma+' - '+rA.ten+' - Mặt sau (2).jpg', ten(kB2.anhDrive.sau.id));
  /* bản cũ: PDF đã lên, ảnh chưa lên, còn ảnh trong máy → lần đồng bộ tới đưa ảnh lên, không gửi lại PDF */
  const nd0 = drive.F[rA.kC.driveId].nhanNoiDung||0;
  await A.evaluate(async()=>{ const k = D.scan.find(x=>x.id==='t210c'); for(const m of Object.keys(k.anhDrive||{})) await xoaFileDrive(k.anhDrive[m].id); delete k.anhDrive; delete k.canDay; await dongBoScan(true); });

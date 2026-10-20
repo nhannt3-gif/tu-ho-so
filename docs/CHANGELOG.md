@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.277 — 20/10/2026 — Sửa nhanh tab Scan sau rà soát
+- **Anh 20/10**: "em rà soát lại logic và bố cục tab Scan … có lỗ hổng nào và có đề xuất nào không" → em báo 10 mục; anh: "em cứ code theo ý em và gộp lên rồi thử sau".
+- **Chữ hướng dẫn sai** (từ 3.264 cách lưu đã đổi): "Lưu vào app" nay ghi *chưa gắn khách → ⏳ Chờ sắp xếp (lên Drive thư mục Scan chờ sắp xếp)* (trước: "khai xong mới lên Drive"); hộp Chữ ký · CCCD ghi thư mục *Chữ ký - Ảnh khách*, nút "Mở thư mục Chữ ký - Ảnh khách" (trước: "mỗi tháng một thư mục"); dòng bản chưa gắn khách ghi nơi lưu *Scan chờ sắp xếp* (trước "Hồ sơ scan › Chưa khai").
+- **Gộp 2 kiểu chờ**: bỏ thanh vàng "n bản lưu tạm chưa khai" — gộp vào thanh ⏳ Chờ sắp xếp, thêm nút ✎ Khai hàng loạt (n) khi còn bản chưa khai.
+- **1 khách nhiều bản cùng loại** (quét lại, quét từ form): bản thứ 2 trở đi tên thêm " (2)", " (3)" (PDF + 2 ảnh + chữ ký / ảnh) — Drive không còn file trùng tên (`sxSoThu`); hộp Sửa / Lưu đúng khách báo ⚠ "khách đã có bản cũ — trùng thì xóa bớt ở 🔎 Rà".
+- **Ảnh cắt từ PDF chưa duyệt**: In / Lưu 1 bản → dùng **PDF gốc** trên Drive (không dựng lại từ ảnh cắt có thể lệch); nhiều bản lẫn bản chưa duyệt → báo tên để xem ở 🔎 Rà.
+- **Điện thoại**: bảng 3 cột của Sắp xếp / Rà / Tra xếp dọc từng dòng (khách → file → kết quả), ảnh nhỏ 2 cột.
+- Phép thử: t215 (6); t208, t210 sửa tên mong đợi " (2)".
+
 ## 3.276 — 20/10/2026 — Khung Hạn trả HSSV cao tới đáy trang, tiêu đề 1 dòng
 - **Anh 20/10** (ảnh tab Hôm nay): "mở rộng khung HSSV đến cuối trang để hiện cho đủ thông tin"; "nút Nổi lên và Esc bố trí gọn sẽ tiết kiệm được 1 dòng".
 - Nguyên nhân khung ngắn: ô công cụ tính cao "tới dải trạng thái dưới cùng" — từ 3.148 dải này ẩn trên máy tính → đo ra 0 → rơi về tối thiểu 200 px. Nay dải ẩn thì tính tới **đáy cửa sổ** (`ccVuaMan`).

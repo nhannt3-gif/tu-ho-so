@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.276** — Hôm nay: khung HSSV cao tới đáy trang, tiêu đề 1 dòng; 3.275 Scan 🔎 Tra Mẫu 31 ra tên chuẩn. Chờ anh: chọn mục rà soát tab Scan (A1–C10, đề xuất 3.276/3.277) + "code"; kế hoạch thống nhất tên + cấu trúc lưu hồ sơ vay. Thử máy thật 3.225–3.276.
+- **`main` = 3.277** — Scan sửa nhanh sau rà soát (chữ hướng dẫn, gộp chờ, " (2)", in PDF gốc, điện thoại). Tiếp: 3.278 bố cục — 1 màn Quản lý hồ sơ scan + 1 nút Lưu vào tủ. Chờ anh: thử máy thật 3.225–3.277.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.

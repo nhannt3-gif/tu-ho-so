@@ -70,7 +70,8 @@ function trGan(ma, theo){
     var db = document.getElementById('k-diaban'); if(db && typeof veDiaBan==='function') db.innerHTML = veDiaBan(k);
     if(giu[0]!=null && document.getElementById('k-ghi')) document.getElementById('k-ghi').value = giu[0];
     ten = c.ten; k.ten = ten; if(e) e.value = ten;
-    if(kq) kq.innerHTML = '<span class="xanh">✓ '+coChuHTML(sxNhanKH(ma))+'</span> <small>('+coChuHTML(theo||'anh chọn')+')</small><br><small>Lưu thành <b>'+coChuHTML(tenScanDrive(k))+'</b> ở <b>'+coChuHTML(duongScan(k).replace(D.cauHinh.thumuc+' / ', ''))+'</b> — địa bàn đã chọn theo Mẫu 31.</small>';
+    if(kq) kq.innerHTML = '<span class="xanh">✓ '+coChuHTML(sxNhanKH(ma))+'</span> <small>('+coChuHTML(theo||'anh chọn')+')</small><br><small>Lưu thành <b>'+coChuHTML(tenScanDrive(k))+'</b> ở <b>'+coChuHTML(duongScan(k).replace(D.cauHinh.thumuc+' / ', ''))+'</b> — địa bàn đã chọn theo Mẫu 31.</small>'+
+      (sxSoThu(k) ? '<br><small class="vang">⚠ Khách đã có bản '+coChuHTML(sxLoaiScan(k))+' khác trong tủ — bản này đánh số'+coChuHTML(sxSoThu(k))+'; trùng thì xóa bớt ở 🔎 Rà CCCD (khối Bản trùng).</small>' : '');   /* 3.277 */
   }
   else if(T.noi==='luu'){
     var nh = typeof scanNhom==='function' ? scanNhom() : [[]];
