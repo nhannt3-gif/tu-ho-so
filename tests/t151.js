@@ -18,7 +18,7 @@ const path=require('path');
    XH = {bl:new Blob(['%PDF-1.4 giả'], {type:'application/pdf'})};
    tiepHang(); await w(200);
    const hop = document.getElementById('hop-in').textContent;
-   ok('3.224: Đạt → bộ nút chuẩn 🖨 In · 💾 Lưu vào máy · 🗂 Lưu vào app · 🗄 Lưu + khai ngay · 📤 Gửi Zalo · ✕ Bỏ', /In/.test(hop) && /Lưu vào máy/.test(hop) && /Lưu vào app/.test(hop) && /khai ngay/.test(hop) && /Gửi Zalo/.test(hop) && /Bỏ/.test(hop) && document.querySelectorAll('#hop-in .sx-o').length===5);
+   ok('3.224 (3.278: gộp 2 nút lưu): Đạt → bộ nút chuẩn 🖨 In · 🗄 Lưu vào tủ · 💾 Lưu vào máy · 📤 Gửi Zalo · ✕ Bỏ', /In/.test(hop) && /Lưu vào máy/.test(hop) && /Lưu vào tủ/.test(hop) && !/khai ngay/.test(hop) && /Gửi Zalo/.test(hop) && /Bỏ/.test(hop) && document.querySelectorAll('#hop-in .sx-o').length===4);
    ok('thẻ: In ghi đúng khổ thẻ', /đúng khổ thẻ/.test(hop));
    ok('không tự lưu tạm vào tủ (D.scan vẫn trống), phiên quét dở giữ trong máy', D.scan.length===0 && !!localStorage.getItem(KHOA_HANG));
    /* Lưu vào máy (máy tính → tải về) */
