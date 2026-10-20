@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.279) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sửa tài liệu Võ Văn Cường › 🔎 Tra Mẫu 31 › Lưu | Lưu được; Drive đổi tên MãKH - Võ Văn Cường - … | |
+| 2 | ☁ Tải trang từ Drive | Hiện 6 trang | |
+
+**Ghi chú kỹ thuật 3.279:** `luuScanTL` (12-scan) cho lưu khi `k.driveId` dù `k.trang` trống; `veTrangScan` báo + nút lệnh `tl.taiTrang` → `tlTaiTrang()` (45: `taiPDFDrive` → `catPDFNguon` → `ghepTrangPDF`).
+
 ### Danh sách thử trên máy thật (3.278) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -2457,7 +2457,8 @@ function themTrang(chup){
 function veTrangScan(){
   var k = window.__k, e = document.getElementById('k-xem');
   if(!e) return;
-  e.innerHTML = (k.trang||[]).length ? '' : '<div class="rong">Chưa có trang nào.<br>Bấm <b>📷 Chụp trang</b>, <b>🖼 Chọn ảnh</b> hoặc <b>＋ Chọn PDF</b> ở bên trái.</div>';
+  e.innerHTML = (k.trang||[]).length ? '' : (k.driveId ? '<div class="rong">Trang đang nằm trong file PDF trên Drive — máy này chưa tải về.<br>Chỉ sửa tên / khách / địa bàn thì bấm <b>Lưu</b> được ngay.<br><button class="nho" data-lenh="tl.taiTrang">☁ Tải trang từ Drive</button> để xem / thêm trang.</div>'
+    : '<div class="rong">Chưa có trang nào.<br>Bấm <b>📷 Chụp trang</b>, <b>🖼 Chọn ảnh</b> hoặc <b>＋ Chọn PDF</b> ở bên trái.</div>');   /* 3.279 */
   var n = (k.trang||[]).length;
   (k.trang||[]).forEach(function(idT, i){
     var d = document.createElement('div');
@@ -2531,7 +2532,7 @@ function luuScanTL(){
   k.xa = gt('k-xa'); k.diem = gt('k-diem'); k.ap = gt('k-ap'); k.to = gt('k-to');
   k.ctrinh = layThe('k-ct'); k.tag = layThe('k-tag');
   if(!k.ten) return baoLoi('Chưa đặt tên tài liệu.');
-  if(!(k.trang||[]).length) return baoLoi('Chưa có trang nào.');
+  if(!(k.trang||[]).length && !k.driveId) return baoLoi('Chưa có trang nào.');   /* 3.279: bản chỉ có PDF trên Drive (máy này chưa có trang) — vẫn lưu tên / khách / địa bàn */
   if(!k.diem && k.xa && k.ap) k.diem = diemCuaAp(k.xa, k.ap) || '';   /* 3.33: không tự điền địa bàn lần trước */
   delete k.chuaKhai; k.suaLuc = new Date().toISOString(); if(k.driveId) k.canDay = true;
   D.cauHinh.hsXaCuoi = k.xa; D.cauHinh.hsApCuoi = k.ap; D.cauHinh.hsToCuoi = k.to;
@@ -2540,7 +2541,7 @@ function luuScanTL(){
   var i = D.scan.findIndex(function(x){ return x.id===k.id; });
   if(i>=0) D.scan[i] = k; else D.scan.push(k);
   luu(); dongHop(); ve();
-  bao('Đã lưu bản quét '+(k.trang||[]).length+' trang.', 4);
+  bao((k.trang||[]).length ? 'Đã lưu bản quét '+(k.trang||[]).length+' trang.' : 'Đã lưu tên / khách / địa bàn — PDF trên Drive đổi tên, dời đúng thư mục (nội dung giữ nguyên).', 5);
   if(D.cauHinh.hsTuDrive!==false && coTheNoiDrive()) dayScanNhieu([k.id]);   /* 3.33: tài liệu cũng tự lên Drive */
 }
 

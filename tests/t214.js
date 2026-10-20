@@ -49,6 +49,20 @@ const fs=require('fs'), path=require('path');
    const kb = sxBoc(KA.ten), kx = sxXacDinh({cccd:kb.cccd, ma:kb.ma, ten:kb.ten});
    ok('Chữ ký / Ảnh: gõ mã KH → ô tên "MãKH - Họ tên" → lưu ra mã KH chắc (tên chuẩn)', KA.ten===ma+' - '+c.ten && kx.ma===ma, KA.ten);
    dongHop();
+   /* 3.279: tài liệu chỉ có PDF trên Drive (máy chưa có trang) → Tra Mẫu 31 rồi Lưu được; ☁ Tải trang từ Drive */
+   const tl = {id:'t214c', che:'tailieu', ten:'Vo Gia Cuong don vay', tag:[], trang:[], driveId:'drvTL', ngay:bay.slice(0,10), suaLuc:bay}; D.scan.push(tl); HS.ds = D.scan;
+   scanTaiLieu('t214c'); await w(300);
+   ok('hộp Sửa tài liệu: có nút Tra Mẫu 31; ô Các trang báo "trang trong PDF trên Drive" + nút Tải trang', !!document.querySelector('#hop-in [data-lenh="tr.tra"][data-o="k-ten"]') && /PDF trên Drive/.test(document.getElementById('k-xem').textContent) && !!document.querySelector('#hop-in [data-lenh="tl.taiTrang"]'));
+   document.getElementById('k-ten').value = c.cccd; document.querySelector('#hop-in [data-lenh="tr.tra"][data-o="k-ten"]').click(); await w(200);
+   const cuDay = dayScanNhieu; let day = []; dayScanNhieu = ids => { day = ids; return Promise.resolve(); }; const cuN = coTheNoiDrive; coTheNoiDrive = () => true;
+   let loiBao = ''; const cuLoi = baoLoi; baoLoi = t => { loiBao = t; };
+   luuScanTL(); await w(200); baoLoi = cuLoi; dayScanNhieu = cuDay; coTheNoiDrive = cuN;
+   ok('bấm Lưu: không còn báo "Chưa có trang nào" — lưu tên chuẩn + mã KH, đưa Drive đổi tên / dời', !loiBao && tl.maKH===ma && tenScanDrive(tl)===ma+' - '+c.ten+' - Tài liệu.pdf' && day[0]==='t214c' && tl.canDay, loiBao || tenScanDrive(tl));
+   const pdf = await PDFLib.PDFDocument.create(); pdf.addPage([595, 842]); pdf.addPage([595, 842]); const pb = await pdf.save();
+   const cuT = taiPDFDrive, cuN2 = coTheNoiDrive; taiPDFDrive = () => Promise.resolve(new Blob([pb], {type:'application/pdf'})); coTheNoiDrive = () => true;
+   window.__k = tl; tlTaiTrang(); for(let i=0;i<30 && !(tl.trang||[]).length;i++) await w(200); taiPDFDrive = cuT; coTheNoiDrive = cuN2;
+   ok('☁ Tải trang từ Drive → bản có đủ trang PDF (xem / thêm trang được)', (tl.trang||[]).length===2 && laTrangPDF(tl.trang[0]), JSON.stringify(tl.trang));
+   try{ dongHop(); }catch(e){}
    D.scan = D.scan.filter(x=>!/^t214/.test(x.id)); ['9990000201', '9990000202'].forEach(m=>delete DB[m]); SX_CHI = null; luu();
    return o; }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5).join(' | '));

@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.278 · 20/10/2026 17:47 · 73 file · 38366 dòng · 3083 hàm cấp ngoài · 492 biến toàn cục.
+Bản 3.279 · 20/10/2026 19:05 · 73 file · 38378 dòng · 3084 hàm cấp ngoài · 492 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -22,7 +22,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/09-bieu-mau.js` | 552 | 45 | /*   13. BIỂU MẪU — kho mẫu đơn trắng để in cho khách điền Xếp theo chương trình vay; có nhóm dùng chung và th |
 | `js/10-danh-sach.js` | 1214 | 90 | /*   14. DANH SÁCH GỌN + MENU + NHÓM + THÙNG RÁC + TRẠNG THÁI   */ |
 | `js/11-khung-tab.js` | 587 | 53 | /*   17. KHUNG CHUẨN CHO MỌI TAB Ba phần giống nhau ở mọi tab: |
-| `js/12-scan.js` | 2564 | 213 | /*   18. SCAN HỒ SƠ — máy scan trong app Hai chế độ: |
+| `js/12-scan.js` | 2565 | 213 | /*   18. SCAN HỒ SƠ — máy scan trong app Hai chế độ: |
 | `js/13-xu-ly-anh.js` | 422 | 32 | /*   3.35 — XỬ LÝ ẢNH SCAN KIỂU APP SCAN CHUYÊN NGHIỆP (chạy tại chỗ, không gửi ảnh đi đâu) Tự động trước: tìm |
 | `js/14-tim-loc.js` | 176 | 14 | /*   19. TÌM VÀ LỌC KIỂU FINDER (macOS) + SẮP XẾP KIỂU EXPLORER Gõ vào ô tìm → app gợi ý "Nghiệp vụ: Xử lý rủi |
 | `js/15-ai-chuan-hoa.js` | 153 | 8 | /*   15. NHỜ AI CHUẨN HÓA Xuất danh sách ra bảng → anh đưa AI (Gemini, ChatGPT, Claude) |
@@ -65,7 +65,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/42-scan-ra-soat.js` | 264 | 29 | /*   3.268 (anh chốt 20/10/2026) — 🔎 RÀ CCCD ĐÃ LƯU · BẢN TRÙNG - Anh: "có nên có bước chạy kiểm tra các CCCD  |
 | `js/43-scan-anh-drive.js` | 210 | 17 | /*   3.271 (anh chốt 20/10/2026) — 🖼 ẢNH 2 MẶT CCCD LÊN DRIVE · CẮT ẢNH TỪ PDF CŨ · BẢNG ĐỐI CHIẾU · CMND 9 SỐ |
 | `js/44-quet-cccd-form.js` | 143 | 19 | /*   3.273 (anh duyệt 20/10/2026: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCC |
-| `js/45-tra-mau31.js` | 102 | 7 | /*   3.275 (anh 20/10/2026: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã K |
+| `js/45-tra-mau31.js` | 113 | 8 | /*   3.275 (anh 20/10/2026: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã K |
 | `js/46-quan-ly-scan.js` | 38 | 4 | /*   3.278 (rà soát tab Scan 20/10 — anh: "em cứ code theo ý em và gộp lên"): BỐ CỤC GỌN - Thanh tab Scan: 1 n |
 | `js/mau/01td.js` | 101 | 0 | /*   3.223 M4 — MẪU 01/TD trên nền ô (js/31-o-mau.js) — dựng theo file gốc tests/mau_goc/01td.docx   Lề 10 / 1 |
 | `js/mau/01uq.js` | 66 | 0 | /*   3.223 M4 — MẪU 01/UQ Giấy ủy quyền trên nền ô — dựng theo file gốc tests/mau_goc/01uq.docx (VB 10493, áp  |
