@@ -37,3 +37,4 @@
 ## 5. Tiến độ
 - 20/10 · **3.294 bước 0 xong**: Rà nhận file thả tay trên Drive (nhóm theo khách, Nhận vào app), tải ảnh Drive ≤ 2 cùng lúc, 🧹 dọn ảnh tải về.
 - 21/10 · **3.295 bước 1 xong**: `js/49-ten-chuan.js` (TC.thuMuc, TC.loaiMau, tcTen, tcSoThu, tcDuong) — Scan dùng chung, tên không đổi.
+- 21/10 · **3.296 bước 2 xong**: bản lưu 01/TD tên chuẩn `Mã KH / số CCCD - Họ tên - 01TD`, bản cũ đổi tên giữ `tenCu`.

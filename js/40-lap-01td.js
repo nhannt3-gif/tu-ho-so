@@ -1,7 +1,7 @@
 /* ===== 3.242 (anh 17/10 — KE_HOACH_CHUAN_HOA mục Hồ sơ vay hướng B, ý 1–19): FORM LẬP 01/TD =====
    Cột trái tab 01/TD đi ĐÚNG THỨ TỰ tờ 01/TD: Chương trình → Kính gửi → 1. Người vay (họ tên, năm sinh, CCCD, ngày cấp, nơi cấp tự tính;
    địa chỉ chọn Xã → Thôn → Tổ, xã anh quản lý lên đầu; tổ trưởng, Hội tự theo tổ; chọn Hội trước thì chỉ còn tổ của Hội) → 2. Đề nghị vay (phương án theo thẻ chương trình)
-   → phần UBND, NH chấm. Thanh nút: Làm trống · 💾 Lưu · 🖨 In · 📤 Gửi · 📄 Mẫu 03. Bản đã lưu hiện ngay dưới form (tên không dấu + tổ + ấp).
+   → phần UBND, NH chấm. Thanh nút: Làm trống · 💾 Lưu · 🖨 In · 📤 Gửi · 📄 Mẫu 03. Bản đã lưu hiện ngay dưới form (3.296: tên chuẩn Mã KH / số CCCD - Họ tên - 01TD; tổ · ấp dòng phụ).
    Một nguồn: người vay, địa chỉ lưu vào hộ của 📒 Sổ hộ vay (hộ cũ có mã KH đọc Mẫu 31, không sửa ở đây); số liệu đề nghị lưu ở phiếu hồ sơ của hộ (hsoBo).
    Phím chung: Tab / Enter sang ô kế · ↑↓ chọn trong danh sách · ← → đi trong chữ · ngày gõ liền số (QUY_CHUAN mục 11). */
 var L01 = (function(){
@@ -18,8 +18,11 @@ var L01 = (function(){
       tv:[{ten:'', ns:'', cccd:'', ncap:'', noiCap:'', qh:'', sdt:''}], dung:0, sv:[]};
     hmDs().unshift(o); var B = hmBo(o); B.ct = B.ct || HSO.vay.ct01 || (hsoCTVDs().find(function(c){ return c.bat!==false && c.kieu!=='gqvl'; }) || {}).ma || 'HSSV'; luu(); return B; }
   function canBo(){ return hsoBo() || hoMoi(); }
-  function tenBan(B){ var o = ho(B), n = nguoi(o), T = hsoBoT(B);
-    return [boDauTen(n.ten || 'Chua ten'), o && hmToTen(o) ? boDauTen(hmToTen(o)) : '', o && o.tenThon ? boDauTen(o.tenThon) : (T.ap ? boDauTen(T.ap) : '')].filter(Boolean).join(' - '); }   /* tên không dấu + tổ + ấp */
+  /* 3.296 (kế hoạch tên + lưu bước 2, anh duyệt 20/10): tên bản lưu chuẩn chung "Mã KH (hộ mới: số CCCD) - Họ tên có dấu - 01TD" (js/49); tổ · ấp hiện riêng bên dưới */
+  function tenBan(B){ var o = ho(B), n = nguoi(o); return tcTen(tcKhoa({maKH:o && o.kh, cccd:n.cccd}), n.ten || 'Chưa tên', tcLoaiMau('01td'), ''); }
+  function noiBan(B){ var o = ho(B), T = hsoBoT(B), to = o && hmToTen(o), ap = (o && o.tenThon) || T.ap; return [to ? 'Tổ '+to : '', ap || ''].filter(Boolean).join(' · '); }
+  function doiTenCu(ds){   /* bản lưu trước 3.296 (tên không dấu - tổ - ấp) → tên chuẩn 1 lần, giữ tên cũ ở tenCu */
+    var doi = 0; ds.forEach(function(b){ var t = tenBan(b); if(b.tenBan && b.tenBan!==t && !b.tenCu){ b.tenCu = b.tenBan; b.tenBan = t; doi++; } }); if(doi) luu(); }
   /* ---------- địa bàn: Xã → Thôn → Tổ (Hội lọc tổ) ---------- */
   function dsXa(){ var X = hmDiaBan(), ql = D.cauHinh.xaQuanLy || [];
     return Object.keys(X).sort(function(a, b){ var qa = ql.indexOf(X[a].tenXa), qb = ql.indexOf(X[b].tenXa); if((qa<0)!==(qb<0)) return qa<0 ? 1 : -1; return String(X[a].tenXa).localeCompare(String(X[b].tenXa), 'vi'); }).map(function(k){ return X[k]; }); }
@@ -65,7 +68,7 @@ var L01 = (function(){
     var n = nguoi(o), khoa = !!(o && o.kh), C = B ? (hsoCTV(B.ct) || {}) : {}, h = '';
     /* thanh bản + nút */
     h += '<div class="l01-thanh"><span class="l01-ban">'+(B ? (B.luu ? '📄 <b>'+e(B.tenBan || tenBan(B))+'</b>'+(B.sua && B.sua>B.luu ? ' <i class="hso-canh">· chưa lưu thay đổi</i>' : '') : '📝 <b>Bản mới</b> <i>(chưa lưu)</i>') : '📝 <b>Form trống</b>')+'</span>'+
-      GD.hang([GD.nut({chu:'Làm trống', lenh:'l01.trong', tit:'Bắt đầu 01/TD mới'}), GD.nut({chu:'💾 Lưu', lenh:'l01.luu', chinh:1, tit:'Lưu bản — tên tự đặt: tên không dấu + tổ + ấp'}),
+      GD.hang([GD.nut({chu:'Làm trống', lenh:'l01.trong', tit:'Bắt đầu 01/TD mới'}), GD.nut({chu:'💾 Lưu', lenh:'l01.luu', chinh:1, tit:'Lưu bản — tên chuẩn: Mã KH (hộ mới: số CCCD) - Họ tên - 01TD'}),
         GD.nut({chu:'🖨 In', lenh:'l01.in'}), GD.nut({chu:'📤 Gửi', lenh:'l01.gui'}), GD.nut({chu:'📄 Mẫu 03', lenh:'l01.m03', tit:'Sang 03/TD — điền sẵn từ 01/TD này'})])+'</div>';
     /* Chương trình · Kính gửi */
     h += '<div class="l01-phan">'+o1('Chương trình cho vay', '<span class="hang-nut">'+hsoCTVDs().filter(function(c){ return c.kieu!=='gqvl' && (c.bat!==false || (B && c.ma===B.ct)); }).map(function(c){ return GD.chip('<b>'+e(c.ma)+'</b>', !!B && B.ct===c.ma, 'l01.ct', {ma:c.ma}, c.ten).replace('gd-chip', 'gd-chip hso-ct'); }).join('')+
@@ -101,8 +104,9 @@ var L01 = (function(){
     h += '<div class="sl-phu">Phần UBND xác nhận, Ngân hàng phê duyệt: để chấm, ghi tay.</div>';
     /* bản đã lưu */
     var ds = hsoBoDs().filter(function(b){ return b.luu && b.hoId && hmTim(b.hoId); }).sort(function(a, b){ return a.luu<b.luu ? 1 : -1; });
+    doiTenCu(ds);
     h += '<div class="nhan-nhom">📂 Bản 01/TD đã lưu ('+ds.length+')</div>'+(ds.length ? '<div class="l01-ds">'+ds.slice(0, 30).map(function(b){
-        return '<div class="l01-dong'+(B && b.id===B.id ? ' bat' : '')+'"><a href="#" data-lenh="l01.mo" data-id="'+b.id+'">'+e(b.tenBan || tenBan(b))+'</a><small>'+ngayVNsl(b.luu.slice(0, 10))+' · '+e(b.ct||'')+'</small>'+
+        return '<div class="l01-dong'+(B && b.id===B.id ? ' bat' : '')+'"><a href="#" data-lenh="l01.mo" data-id="'+b.id+'"'+(b.tenCu ? ' title="Tên cũ: '+e(b.tenCu)+'"' : '')+'>'+e(b.tenBan || tenBan(b))+'</a><small>'+[noiBan(b), ngayVNsl(b.luu.slice(0, 10)), b.ct||''].filter(Boolean).map(e).join(' · ')+'</small>'+
           GD.nut({chu:'✕', lenh:'l01.bo', du:{id:b.id}, tit:'Bỏ khỏi danh sách (hộ vẫn còn trong sổ)'})+'</div>'; }).join('')+'</div>' : '<div class="sl-phu">Chưa có — gõ xong bấm 💾 Lưu.</div>');
     return '<div class="phim-chung l01">'+h+'</div>'+hsoKBRieng('01td', B ? {ubOng:(B.nv||{}).ten} : null);
   }
