@@ -7,7 +7,7 @@ File thật anh Nhân gửi để xem cấu trúc chỉ dùng trong máy làm vi
 ```bash
 # Playwright + Chromium cài sẵn (npm -g playwright). Thư viện CDN mà app tải → bản npm cùng phiên bản:
 cd tests && mkdir -p lib && cd lib
-for p in xlsx@0.18.5 pdfjs-dist@3.11.174 pdf-lib@1.17.1 framework7@8.3.4 dompurify@3.2.6 jsqr@1.4.0 qrcode-generator@1.4.4 tesseract.js@5.1.1 tesseract.js-core@5.1.0; do n=${p%@*}; v=${p#*@}; mkdir -p $n-$v && (cd $n-$v && npm pack $p && tar xzf *.tgz && rm *.tgz); done
+for p in xlsx@0.18.5 pdfjs-dist@3.11.174 pdf-lib@1.17.1 framework7@8.3.4 dompurify@3.2.6 jsqr@1.4.0 heic-to@1.6.5 qrcode-generator@1.4.4 tesseract.js@5.1.1 tesseract.js-core@5.1.0; do n=${p%@*}; v=${p#*@}; mkdir -p $n-$v && (cd $n-$v && npm pack $p && tar xzf *.tgz && rm *.tgz); done
 mkdir -p tesseract.js-data-eng-1.0.0 && (cd tesseract.js-data-eng-1.0.0 && npm pack @tesseract.js-data/eng@1.0.0 && tar xzf *.tgz && rm *.tgz)   # 3.269: chữ tiếng Anh cho Tesseract (đọc mã máy đọc CCCD)
 cd ../..
 # bộ file Excel GIẢ cho tab Số liệu (cùng cấu trúc hệ thống)
@@ -183,6 +183,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t207.js` | 3.264 Scan lưu tập trung, Sắp xếp, Kiểm tra, đọc QR / mã máy đọc giả, bản photo 2 mặt, ảnh khách từ CCCD (25). |
 | `node tests/t250.js` | 3.285 P1 🎯 Phân bổ KH — lõi `js/47-phan-bo.js` (node, không trình duyệt): chia đều / theo tỷ lệ, số chẵn 1 ấp lẻ, giảm không âm, chính xác = dư nợ thật + chênh, "(Chưa rõ ấp)", QT-16 khớp Đã giao / Đến 31/12, sửa tay, 3.000 tình huống ngẫu nhiên, gợi ý Đã giao, đầu năm theo QĐ, chọn kỳ, nhập file WPF. |
 | `node tests/t251.js` | 3.285 cửa `KHO.duNoAp(kỳ)` với Mẫu 31 giả (node): gộp thôn × CT × nguồn, dòng lặp khế ước, CLOSE / dư nợ 0 / khách chỉ gửi TK bỏ, kỳ chưa có → null, nối `pbDuNoXa`. |
+| (3.289) | t219 thêm: ảnh HEIC GIẢ (`tests/mau_anh/the_gia.heic`) — nhận nhãn HEIC, đổi JPG đúng cỡ / màu, dán ở tab Scan vào hàng quét (8). Thư viện thử: `heic-to@1.6.5` trong `tests/lib`. |
 | (3.288) | t219 thêm: dán 1 ảnh hỏng (HEIC) + 1 ảnh tốt — ảnh tốt vẫn vào hàng, báo tên ảnh hỏng (5). |
 | (3.287) | t219: dán file theo tab — Hôm nay chỉ báo, Văn bản thêm văn bản, Scan vào hàng quét Thẻ, hộp Quét CCCD nhận ảnh (4); t106 sửa: dán ở tab Văn bản. |
 | (3.286) | t218: 🪪 Đọc số CCCD — tài liệu đọc chữ số ra số → tự tra, không thấy → hộp quét CCCD → tự tra, gõ 12 số tự tra, nhiều số ưu tiên số trên Mẫu 31; nút Xóa đỏ + Xóa n bản đã tích (9). |

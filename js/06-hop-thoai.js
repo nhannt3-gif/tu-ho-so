@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.288', ds:[
+var CO_GI_MOI = {ban:'3.289', ds:[
+  ["Ảnh HEIC iPhone: app tự đổi sang JPG trong máy (thư viện heic-to) — dán, chọn file, chụp, hộp Quét CCCD đều đọc được", "doiNgan(4)"],
   ["Scan: ảnh không đọc được (HEIC iPhone, file hỏng) không làm hỏng cả lượt — ảnh tốt vẫn vào, báo tên + định dạng ảnh hỏng", "doiNgan(4)"],
   ["Dán file (Ctrl+V): chỉ tab Văn bản thành văn bản; tab Scan dán ảnh / PDF CCCD vào hàng quét Thẻ; hộp Quét CCCD đang mở nhận ảnh dán; tab khác chỉ báo", "doiNgan(4)"],
   ["Scan: nút 🪪 Đọc số CCCD cạnh 🔎 Tra Mẫu 31 — tự đọc số (ảnh thẻ / chữ số trên trang tài liệu / chụp thẻ) rồi tự tra; gõ đủ 12 số tự tra; nút 🗑 Xóa đỏ, xóa nhiều bản đã tích", "doiNgan(4)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.288', ds:[
   ["Scan: 1 nút 🗂 Quản lý hồ sơ scan (Chờ sắp xếp · Rà CCCD · Kiểm tra theo tổ trong 1 màn); sau khi quét 1 nút 🗄 Lưu vào tủ tự nhận khách", "doiNgan(4)"],
   ["Scan: chữ hướng dẫn đúng cách lưu mới; gộp \"chưa khai\" vào ⏳ Chờ sắp xếp; khách có nhiều bản cùng loại → tên \" (2)\"; ảnh cắt từ PDF chưa duyệt in bằng PDF gốc; Sắp xếp / Rà xem được trên điện thoại", "doiNgan(4)"],
   ["Hôm nay: khung công cụ (Hạn trả HSSV…) cao tới đáy trang; tiêu đề gọn 1 dòng — 📌 Nổi, ✕ Đóng chỉ biểu tượng", "doiNgan(0)"],
-  ["Tab Scan: nút 🔎 Tra Mẫu 31 cạnh ô tên (Sửa bản quét, Lưu mới, Chữ ký / Ảnh) — gõ số CCCD, mã KH hoặc họ tên → tên chuẩn MãKH - Họ tên - Loại, tự chọn địa bàn", "doiNgan(4)"],
-  ["Scan: ô \"Bản photo 2 mặt\" không còn nhớ sang lần quét sau, ảnh chỉ 1 thẻ không bị chia đôi; bộ lọc Magic hết ám vàng / xanh", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Tab Scan: nút 🔎 Tra Mẫu 31 cạnh ô tên (Sửa bản quét, Lưu mới, Chữ ký / Ảnh) — gõ số CCCD, mã KH hoặc họ tên → tên chuẩn MãKH - Họ tên - Loại, tự chọn địa bàn", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

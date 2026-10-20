@@ -24,7 +24,8 @@ module.exports = async function(p){
     else if(/framework7@8\.3\.4\/framework7-bundle\.min\.js/.test(u)) f=L+'framework7-8.3.4/package/framework7-bundle.min.js';
     else if(/dompurify@3\.2\.6/.test(u)) f=L+'dompurify-3.2.6/package/dist/purify.min.js';
     else if(/pdf-lib@1\.17\.1/.test(u)) f=L+'pdf-lib-1.17.1/package/dist/pdf-lib.min.js';
-    else if(/jsqr@1\.4\.0/.test(u)) f=L+'jsqr-1.4.0/package/dist/jsQR.js';   /* 3.264: đọc mã QR CCCD */
+    else if(/jsqr@1\.4\.0/.test(u)) f=L+'jsqr-1.4.0/package/dist/jsQR.js';
+    else if(/heic-to@1\.6\.5\/dist\/iife\/heic-to\.js/.test(u)) f=L+'heic-to-1.6.5/package/dist/iife/heic-to.js';   /* 3.289: đọc ảnh HEIC iPhone */   /* 3.264: đọc mã QR CCCD */
     else if(/tesseract\.js@v?5\.1\.1\/dist\/tesseract\.min\.js/.test(u)) f=L+'tesseract.js-5.1.1/package/dist/tesseract.min.js';   /* 3.269: đọc 3 dòng mã máy đọc (Tesseract) */
     else if(/tesseract\.js@v?5\.1\.1\/dist\/worker\.min\.js/.test(u)) f=L+'tesseract.js-5.1.1/package/dist/worker.min.js';
     else if(/tesseract\.js-core@v?5/.test(u)){ f=L+'tesseract.js-core-5.1.0/package/'+u.split('/').pop(); if(/\.wasm$/.test(u)) ct='application/wasm'; }

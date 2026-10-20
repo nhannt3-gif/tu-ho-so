@@ -1,11 +1,12 @@
 // 3.287 — Ctrl+V file: tab Văn bản → văn bản; tab Scan → ảnh CCCD vào hàng quét (chế độ Thẻ); hộp 🪪 Quét CCCD đang mở → ảnh vào hộp; tab khác → chỉ báo. Ảnh GIẢ.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
-const path=require('path');
+const path=require('path'), fs=require('fs');
+const heicB64 = fs.readFileSync(path.join(__dirname, 'mau_anh', 'the_gia.heic')).toString('base64');   /* ảnh HEIC GIẢ: thẻ đỏ trên nền trắng (tạo bằng pillow-heif) */
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
- const R = await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
+ const R = await p.evaluate(async(heicB64)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    const anh = await new Promise(r=>{ const c=document.createElement('canvas'); c.width=856; c.height=540; const g=c.getContext('2d'); g.fillStyle='#fff'; g.fillRect(0,0,856,540); g.fillStyle='#c33'; g.fillRect(60,60,736,420); c.toBlob(r,'image/jpeg',0.9); });
    const dan = (fs) => { const dt = new DataTransfer(); fs.forEach(f=>dt.items.add(f)); document.dispatchEvent(new ClipboardEvent('paste', {clipboardData:dt, bubbles:true, cancelable:true})); };
@@ -33,7 +34,18 @@ const path=require('path');
    dan([new File([anh], 'the.png', {type:'image/png'})]); await w(300); qcDoc = gq;
    ok('hộp 🪪 Quét CCCD đang mở: dán ảnh → hộp đọc ảnh đó', doc===1 && QC.anh.length===1 && QC.tu==='file');
    dongHop(); bao = gb; gioiThieuFile = gtf;
-   return o; });
+   /* 3.289: ảnh HEIC (iPhone) → đổi JPG trong máy rồi cắt, nắn như ảnh thường */
+   const bin = atob(heicB64), u8 = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u8[i] = bin.charCodeAt(i);
+   const fh = new File([u8], 'IMG_7369.HEIC', {type:''});
+   const la = await laHEIC(fh), im = await anhTuBlob(fh).catch(e=>null);
+   ok('3.289 nhận ra ảnh HEIC theo nhãn trong file, đổi sang JPG đọc được (đúng cỡ, đúng màu)', la && im && (im.naturalWidth||im.width)===1200 && (im.naturalHeight||im.height)===900, JSON.stringify({la, w:im && im.naturalWidth}));
+   if(im){ const c = document.createElement('canvas'); c.width = 1200; c.height = 900; c.getContext('2d').drawImage(im, 0, 0); const d = c.getContext('2d').getImageData(600, 600, 1, 1).data;
+     ok('3.289 ảnh HEIC đổi ra đúng màu (thẻ đỏ)', d[0]>150 && d[1]<90 && d[2]<90, JSON.stringify([d[0], d[1], d[2]])); }
+   doiNgan(4); await w(200); HANG.length = 0; let loi2 = ''; const gl2 = baoLoi; baoLoi = t=>{ loi2 = t; };
+   dan([fh]); for(let i=0;i<60 && !HANG.length;i++) await w(250); await w(500); baoLoi = gl2;
+   ok('3.289 tab Scan: dán ảnh HEIC iPhone → vào hàng quét (không còn "Không đọc được ảnh")', HANG.length===1 && !loi2, loi2);
+   try{ dongHop(); }catch(e){} HANG.length = 0;
+   return o; }, heicB64);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5).join(' | '));
  console.log(R.filter(x=>x[0]==='✓').length+'/'+R.length+' đạt'); await b.close(); process.exit(R.some(x=>x[0]!=='✓') || loi.length ? 1 : 0);
 })();
