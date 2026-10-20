@@ -222,7 +222,7 @@ function chonNguon(n){
    để dời, xoay, bỏ, chèn (trước đây file PDF chọn từ nguồn "File" bị bỏ mất khi lưu) */
 var HANG = [];
 function nhanVaoScan(fs, nguon){
-  var che = SC.che==='the' ? 'the' : 'tailieu', soPDFBo = 0, moi = [];
+  var che = SC.che==='the' ? 'the' : 'tailieu', soPDFBo = 0, moi = [], hong = [];   /* 3.288: ảnh không đọc được → bỏ riêng ảnh đó, báo tên + định dạng (trước dừng cả lượt) */
   batChay(false, 'Đang cắt, nắn ảnh 0/'+fs.length+'…');
   var dem = 0;
   fs.reduce(function(p, f){
@@ -244,14 +244,16 @@ function nhanVaoScan(fs, nguon){
       var x = {id:idT, kieu:'anh', ten:f.name, che:che, xoay:0};
       return thuGoc(f).then(function(b){ return luuAnhHS(idT+'_goc', b); })
         .then(function(){ return xuLyAnhScan(x, true); })
-        .then(function(){ HANG.push(x); moi.push(x); });
+        .then(function(){ HANG.push(x); moi.push(x); }, function(){ hong.push(f); });
     });
   }, Promise.resolve()).then(function(){
     if(che==='the') xepCapThe(moi);
     tatChay(); moHangCho();
     var xem = HANG.filter(canXemLai).length;
-    bao('Đã tự cắt, nắn và làm đẹp.'+(xem ? ' '+xem+' ảnh có dấu ⚠ nên bấm ✂ xem lại khung.' : '')+
+    if(moi.length || !hong.length) bao('Đã tự cắt, nắn và làm đẹp.'+(xem ? ' '+xem+' ảnh có dấu ⚠ nên bấm ✂ xem lại khung.' : '')+
       (soPDFBo ? ' Bỏ qua '+soPDFBo+' file PDF — PDF dùng ở chế độ Tài liệu.' : ''), 7);
+    if(hong.length) setTimeout(function(){ baoLoi('Không đọc được '+hong.length+' ảnh: '+hong.map(function(f){ return (f.name||'ảnh dán')+' ('+(f.type||'không rõ định dạng')+(f.size ? ', '+kichCo(f.size) : ', 0 KB')+')'; }).join(', ')+
+      (hong.some(function(f){ return /heic|heif/i.test((f.type||'')+(f.name||'')); }) ? ' — ảnh HEIC (iPhone): trình duyệt chưa đọc được, mở ảnh lưu lại dạng JPG rồi dán / chọn lại.' : ' — file hỏng hoặc không phải ảnh; thử mở ảnh rồi Copy ảnh (không copy file) để dán.')); }, 400);
   }).catch(function(e){
     tatChay(); moHangCho(); baoLoi('Không xử lý được: '+(e&&e.message||e));
   });

@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.288 — 20/10/2026 — Ảnh hỏng không chặn cả lượt quét
+- **Anh 20/10** (ảnh Tin gần đây: 3 lần "Không xử lý được: Không đọc được ảnh" 22:12–22:14, máy còn bản 3.286): một ảnh trình duyệt không mở được (ảnh HEIC iPhone, file hỏng / 0 KB, file không phải ảnh) làm dừng cả lượt và chỉ báo chung chung.
+- Sửa: ảnh nào không đọc được thì bỏ riêng ảnh đó, các ảnh khác vẫn vào hàng quét; báo đỏ **tên + định dạng + dung lượng** từng ảnh hỏng, kèm cách xử lý (HEIC → mở ảnh lưu lại JPG; file hỏng → mở ảnh rồi Copy ảnh, không copy file).
+- Phép thử: t219 thêm 1 (5).
+
 ## 3.287 — 20/10/2026 — Dán file theo tab
 - **Anh 20/10**: "copy dán VB ở bất cứ đâu cũng được — nên đổi lại là chỉ dán trong tab Văn bản, còn trong tab Scan để copy dán CCCD".
 - Ctrl+V file: **📄 Văn bản** → thêm văn bản (như cũ) · **📈 Số liệu** → file Excel vào Nạp & KT (như cũ, không thành văn bản) · **Scan** → ảnh (hoặc trang 1 PDF) CCCD vào hàng quét chế độ **Thẻ** (tự chuyển nếu đang Tài liệu) — cắt, nắn, đọc số, tra khách như quét · đang mở hộp **🪪 Quét CCCD** → ảnh dán vào hộp để đọc · **tab khác / đang mở hộp khác** → không thêm gì, chỉ báo chỗ dán. Dán chữ vào ô nhập vẫn bình thường.

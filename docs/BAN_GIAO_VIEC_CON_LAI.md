@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.288) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tải lại trang (Ctrl+F5) → góc trên ghi v3.288 | Đúng bản mới | |
+| 2 | Dán lại ảnh lúc nãy báo "Không đọc được ảnh" ở tab Scan | Ảnh tốt vào hàng; ảnh hỏng báo tên + định dạng | |
+
+**Ghi chú kỹ thuật 3.288:** `nhanVaoScan` (12): lỗi `thuGoc` / `xuLyAnhScan` từng ảnh → `hong[]`, không vào `.catch` chung; báo sau `moHangCho`.
+
 ### Danh sách thử trên máy thật (3.287) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
