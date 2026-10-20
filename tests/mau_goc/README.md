@@ -22,3 +22,4 @@ Số đo: `python3 tools/domau.py` → `so_do.json`. So với app: `node tests/t
 | 11_moi | 11/TD Hợp đồng ủy nhiệm — mẫu mới | 27/9/2026 |
 | 01bg | 01/BG Biên bản bàn giao hồ sơ Tổ | |
 | 02bg | 02/BG Bàn giao kiêm đối chiếu số dư (A4 ngang) | |
+| 07pb | Biểu 07 Phân bổ KH — Thông báo giao / điều chỉnh KH dư nợ của UBND xã + Danh mục (2 trang; ô `{{…}}` của bản WPF, mẫu trắng, đã bỏ tên máy trong thông tin file) | 3.289 · đo bằng `t253` (chưa vào `t180` — mẫu không thuộc tab Hồ sơ) |

@@ -3606,3 +3606,28 @@ table.hm-so{min-width:1476px}
 .sx-cat-tt{margin-top:4px;padding:3px 8px;border-radius:6px;background:var(--the);border:1px solid var(--vien);font-size:calc(11.5px*var(--co));white-space:normal}
 .sx-cat-tt.xanh{border-color:#9bd3a6}.sx-cat-tt.vang{border-color:#e8c76a;background:rgba(232,199,106,.16)}.sx-cat-tt.do{border-color:#e9a0a0;background:rgba(220,80,80,.12)}
 .sx-cat-lai{margin-left:6px;padding:1px 8px;font-size:inherit}
+
+
+/* ===== 3.288 P2 🎯 Phân bổ KH (js/48-phan-bo-gd.js) — chỉ lớp pb-… ===== */
+.pb-bo .pb-phai{overflow:auto}
+.pb-ds{margin-top:6px}
+.pb-nhom{border:1px solid var(--vien, #dfe3e8);border-radius:8px;margin:0 0 8px;overflow:hidden}
+.pb-nhom.bat{border-color:#2f7cc0;box-shadow:0 0 0 1px #2f7cc0 inset}
+.pb-nhom-dau{padding:5px 8px;font-size:13px;background:#eef4fa;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pb-nhom-dau.pb-gm{border-left:4px solid #2e8b57}
+.pb-nhom-dau.pb-dc{border-left:4px solid #d9822b}
+.pb-nhom-dau .pb-nho{margin-left:auto;padding:1px 8px}
+.pb-dong{padding:4px 8px 4px 14px;font-size:13px;cursor:pointer;border-top:1px solid #eef0f2}
+.pb-dong:hover{background:#f5f9fd}
+.pb-dong.bat{background:#e3effa}
+.pb-loi,.pb-loi td{background:#fdecec}
+.pb-nhac,.pb-nhac td{background:#fff8e6}
+.pb-mo td{color:#7a8590}
+.pb-ap td.so,.pb-dc td.so,.pb-f-bang td.so{text-align:right;white-space:nowrap}
+.pb-ap .gd-o-so,.pb-f-bang .gd-o-so{width:96px;text-align:right}
+.pb-ct{margin-top:10px}
+.pb-tt{margin-top:8px;line-height:1.5}
+.pb-goi{padding:14px 6px;line-height:1.6}
+.pb-f-xa{margin:6px 0;line-height:2;text-align:left;display:flex;flex-wrap:wrap;align-items:center;gap:2px 16px}
+.pb-f-xa .hso-o2{display:inline-flex;align-items:center;gap:4px;margin:0}
+.pb-f-xa-dong td{background:#eef4fa;font-weight:600}

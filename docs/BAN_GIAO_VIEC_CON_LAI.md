@@ -222,6 +222,21 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.293) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📈 Số liệu › 🎯 Phân bổ KH (máy tính: thanh bên › Số liệu › 🎯) | Cột trái "Chưa có QĐ" + 2 nút | |
+| 2 | 📥 Nhập từ bản WPF → file SaoLuu_QD_….json | Báo số lượt xã đã thêm; xã chưa ghép được báo tên | |
+| 3 | Bấm 1 dòng xã → Tương đối / Chính xác → ⚙ Phân bổ | Số giống bản máy tính; ✓ Khớp | |
+| 4 | Sửa 1 ô Tăng/giảm lệch | Báo LỆCH đỏ, nút 👁 Biểu 07 mờ; sửa bù → ✓ Khớp, nút bật | |
+| 5 | 👁 Biểu 07 | 2 trang giống file Word bản máy tính: đầu trang UBND xã, căn cứ QĐ, bảng ấp → CT; ngày thông báo = QĐ + 1 (né T7/CN) | |
+| 6 | Đổi Ngày thông báo: Để chấm / Gõ ngày | Bản xem đổi ngay (2 chỗ ngày) | |
+| 7 | 📝 Word · 🖨 In · 📄 PDF | File Word mở được, sửa được; bản in 2 trang A4 | |
+| 8 | QĐ nhiều xã → 📦 Biểu 07 mọi xã | 1 file / 1 lần in, mỗi xã 2 trang; xã chưa khớp báo đỏ, không in | |
+| 9 | So 1 QĐ thật với Biểu 07 bản máy tính | Từng ấp, từng số giống nhau | |
+
+**Ghi chú kỹ thuật 3.293:** dữ liệu ở `D.cauHinh.pb` qua `KHO1` (khóa `pb`). Biểu 07 không đăng ký nền ô `OM_MAU` (khai báo riêng gắn tab Hồ sơ) — nơi lập / tỉnh ở ⚙ Khai báo đơn vị › PGD (`hsoPGD('noi' | 'tinh')`). Bộ xuất Word chung (`hsoDocx`, js/25) không đọc cỡ chữ ở khung `om-co` → mẫu 07pb gắn lớp `s14` cho từng đoạn / bảng (TK phụ xem: các mẫu nền ô khác chọn cỡ 13,5 / 14 có thể ra Word cỡ 13 — chưa kiểm).
+
 ### Danh sách thử trên máy thật (3.292) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

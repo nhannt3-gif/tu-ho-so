@@ -3,7 +3,7 @@ var SL_TRA_Q = '';
 function slDoiTab(t){ if(t==='nap' && D.cauHinh.slTab!=='nap'){ SL_KY = ''; SL_DAI = 0; }   /* 3.163: mở tab Nạp & KT → ⦿ Gần nhất */
   D.cauHinh.slTab = t; if(t!=='nap') D.cauHinh.slTabBC = t; luu(); veSoLieu(); if(t==='tra') setTimeout(function(){ var o = document.getElementById('sl-tim'); if(o) o.focus(); }, 30); }
 function slTabConHTML(){
-  var t = ['tra','to','sk','th','kt','hst','hsv','gdx'].indexOf(D.cauHinh.slTab)>=0 ? D.cauHinh.slTab : 'nap';
+  var t = ['tra','to','sk','th','kt','hst','hsv','gdx','pb'].indexOf(D.cauHinh.slTab)>=0 ? D.cauHinh.slTab : 'nap';
   if(typeof toNutSL==='function') toNutSL();
   /* 3.144 (Q15): 📥 Nạp & Kiểm tra là tab riêng trên thanh tab (chỗ tab Tháng cũ) — không còn là tab con của Số liệu */
   if(t==='nap') return '';   /* 3.150: tab Nạp & KT tự vẽ 1 hàng công cụ (slNapThanhHTML) — giải thích chuyển vào ❓ */
@@ -15,7 +15,8 @@ function slTabConHTML(){
     '<button class="'+(t==='tra'?'bat':'')+'" onclick="slDoiTab(\'tra\')">👤 Tra cứu KH</button>'+
     '<button class="'+(t==='hst'?'bat':'')+'" onclick="slDoiTab(\'hst\')">📝 Hồ sơ Tổ</button>'+   /* 3.170 (anh chốt 11/10) */
     '<button class="'+(t==='hsv'?'bat':'')+'" onclick="slDoiTab(\'hsv\')">📄 Hồ sơ vay</button>'+
-    '<button class="'+(t==='gdx'?'bat':'')+'" onclick="slDoiTab(\'gdx\')">🏢 Giao dịch xã</button></div>';   /* 3.172 */   /* 3.89 */   /* 3.88: tab con báo cáo theo tổ (anh chốt: cạnh Tra cứu KH) */
+    '<button class="'+(t==='gdx'?'bat':'')+'" onclick="slDoiTab(\'gdx\')">🏢 Giao dịch xã</button>'+
+    '<button class="'+(t==='pb'?'bat':'')+'" onclick="slDoiTab(\'pb\')">🎯 Phân bổ KH</button></div>';   /* 3.288 P2 Phân bổ kế hoạch (js/48-phan-bo-gd.js) */   /* 3.172 */   /* 3.89 */   /* 3.88: tab con báo cáo theo tổ (anh chốt: cạnh Tra cứu KH) */
 }
 /* 3.86: tab con Tra cứu KH — ô tìm RIÊNG, độc lập với ô tìm chung của app */
 /* ===================== 3.94: 👤 TRA CỨU KH GỌN (anh chốt) =====================
@@ -262,6 +263,7 @@ function veSoLieu(){
   if(D.cauHinh.slTab==='th') return veTongHop();   /* 3.90 */
   if(D.cauHinh.slTab==='kt') return veKTGS();   /* 3.93 */
   if(D.cauHinh.slTab==='hst' || D.cauHinh.slTab==='hsv') return veHoSo();   /* 3.170: 📝 Hồ sơ Tổ · 📄 Hồ sơ vay (js/25-ho-so.js) */
+  if(D.cauHinh.slTab==='pb' && typeof pbVe==='function') return pbVe();   /* 3.288 P2: 🎯 Phân bổ KH (js/48-phan-bo-gd.js) */
   var ky = slDsKy(), kyXem = SL_KY || slKyMoi() || ngayISO(nay()).slice(0,7), soBang = Object.keys(SLM.bang).length;
   SL_KY = kyXem;
   /* 3.156 (anh chốt): 1 hàng công cụ (1 nút Nạp file cho mọi file kể cả BC0437 / 0438, chuyển tháng 1 chỗ, 🔍 Kiểm tra lại, kiểu ma trận) · 1 dòng trạng thái ·

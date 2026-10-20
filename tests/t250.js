@@ -106,6 +106,11 @@ const w = P.pbTuWPF({DanhSachQD:[{Id:'abc', SoQD:' G9 ', KyHieuVanBan:'/QĐ-GI�
 ok('nhập file sao lưu WPF: ngày, nguồn, mã CT 2 số, tên xã gọn', w.so==='G9' && w.ngay==='2026-05-17' && w.nguon===2 && w.ct[0].ma==='03' && w.ct[0].den3112===150 && w.tenXa==='Xã Giả');
 let loiFile = ''; try { P.pbTuWPF({abc:1}); } catch(e){ loiFile = e.message; }
 ok('file không đúng → báo', /không phải sao lưu/.test(loiFile));
+// 11. Tiện ích giao diện (P2)
+ok('tên ấp: xã → "Ấp …", phường → "Kp …", đã có tiền tố giữ, trống → (Chưa rõ ấp)', P.pbTenAp('Xã Giả', 'Bàu Giả')==='Ấp Bàu Giả' && P.pbTenAp('Phường Giả', 'Khu Giả')==='Kp Khu Giả' && P.pbTenAp('Xã Giả', 'Ấp  Giả 1')==='Ấp Giả 1' && P.pbTenAp('Xã Giả', '')==='(Chưa rõ ấp)');
+const dsX = [{ma:'480001', ten:'Xã Giả Một'}, {ma:'480002', ten:'Phường Giả Hai'}];
+ok('ghép tên xã file WPF với cây địa bàn (bỏ dấu, bỏ chữ Xã / Phường)', P.pbKhopXa('Xã Giả Một', dsX)==='480001' && P.pbKhopXa('gia hai', dsX)==='480002' && P.pbKhopXa('Phường  Giả Hai ', dsX)==='480002' && P.pbKhopXa('Xã Khác', dsX)==='');
+ok('đọc số anh gõ', [P.pbDocSo('1.500'), P.pbDocSo('+1.500'), P.pbDocSo('−200'), P.pbDocSo('1.234,5'), P.pbDocSo('1,234.5'), P.pbDocSo('0.5'), P.pbDocSo(''), P.pbDocSo('abc')].join('|')==='1500|1500|-200|1234.5|1234.5|0.5||');
 
 R.forEach(x => console.log(x));
 const dat = R.filter(x => x[0]==='✓').length;

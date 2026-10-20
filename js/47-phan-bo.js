@@ -193,6 +193,29 @@ function pbChonKy(dsKy, ngayQD, kyChon){
 /* dư nợ 1 xã (từ KHO.duNoAp) → [{k: mã thôn, ten: tên thôn, ct, nguon, dn triệu}] */
 function pbDuNoXa(D, xa){ return D && D.ds ? D.ds.filter(function(d){ return d.xa===xa; }).map(function(d){ return {k:d.thon, ten:d.tenThon, ct:d.ct, nguon:d.nguon, dn:d.dn/1e6}; }) : []; }
 
+/* ---------- tiện ích cho giao diện (vẫn thuần, không DOM) ---------- */
+/* tên ấp in Biểu 07: phường → "Kp …", xã → "Ấp …"; tên đã có tiền tố thì giữ */
+function pbTenAp(tenXa, tenThon){
+  var t = String(tenThon || '').replace(/\s+/g, ' ').trim(); if(!t) return PB_AP_CHUA_RO;
+  if(/^(ấp|kp|khu phố|khóm|thôn)\s/i.test(t)) return t;
+  return (/phường/i.test(String(tenXa || '')) ? 'Kp ' : 'Ấp ')+t; }
+function pbBoDau(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/\s+/g, ' ').trim(); }
+/* ghép tên xã (vd từ file WPF "Xã Phước Thạnh") với danh sách xã [{ma, ten}] — bỏ dấu, bỏ chữ "xã / phường / thị trấn" → mã | '' */
+function pbKhopXa(ten, dsXa){
+  var bo = function(s){ return pbBoDau(s).replace(/^(xa|phuong|thi tran|tt)\s+/, ''); }, a = bo(ten), kq = '';
+  if(!a) return '';
+  (dsXa || []).forEach(function(x){ if(!kq && (bo(x.ten)===a || pbBoDau(x.ten)===pbBoDau(ten))) kq = x.ma; });
+  return kq; }
+/* đọc số anh gõ: "1.500" · "1500" · "+1.500" · "−200" · "1.234,5" · "1,234.5" → số | null (trống / không phải số) */
+function pbDocSo(s){
+  if(typeof s==='number') return isNaN(s) ? null : s;
+  s = String(s==null ? '' : s).replace(/\s| /g, '').replace(/−/g, '-'); if(!s) return null;
+  var cham = s.lastIndexOf('.'), phay = s.lastIndexOf(',');
+  if(cham>=0 && phay>=0){ var tp = cham>phay ? '.' : ','; s = s.split(tp==='.' ? ',' : '.').join('').replace(tp, '.'); }
+  else if(cham>=0 || phay>=0){ var d = cham>=0 ? '.' : ',', n = s.split(d).length-1, vt = s.lastIndexOf(d), truoc = s.slice(0, vt).replace(/^[+-]/, '');
+    s = (n>1 || (s.length-vt-1===3 && truoc && truoc!=='0')) ? s.split(d).join('') : s.replace(d, '.'); }
+  return /^[+-]?\d+(\.\d+)?$/.test(s) ? +s : null; }
+
 /* ---------- nhập QĐ từ file sao lưu .json của bản WPF ("SaoLuu_QD_*.json") ---------- */
 function pbTuWPF(j){   /* → [QĐ] (xa chưa có mã — ghép theo tên ở bước nhập) */
   var ds = j && (j.DanhSachQD || j.danhSachQD); if(!Array.isArray(ds)) throw new Error('File không phải sao lưu QĐ của app Phân bổ kế hoạch (thiếu "DanhSachQD")');
@@ -201,3 +224,29 @@ function pbTuWPF(j){   /* → [QĐ] (xa chưa có mã — ghép theo tên ở b�
     luc:String(q.NgayGhiNhan || ''), ct:(q.ChiTiet || []).map(function(c){ return {ma:('0'+(+c.MaChuongTrinh || 0)).slice(-2), ten:String(c.TenChuongTrinh || ''),
       daGiao:pbSo(c.ChiTieuDaGiao), tangGiam:pbSo(c.GiaoTangGiam), den3112:pbSo(c.ChiTieuDen3112)}; })}; });
 }
+
+/* ---------- 3.289 P3: dữ liệu Biểu 07 Phân bổ KH (QT-16) — thuần, mẫu in ở js/mau/07pb.js ---------- */
+/* ngày thông báo = ngày QĐ + ch.ngayTB (mặc định 1), né thứ 7 / CN (ch.neCuoiTuan !== false) — như bản WPF */
+function pbNgayTB(ngayQD, ch){
+  ch = ch || {}; var m = String(ngayQD || '').match(/^(\d{4})-(\d{2})-(\d{2})/); if(!m) return '';
+  var n = ch.ngayTB==null || ch.ngayTB==='' || isNaN(+ch.ngayTB) ? 1 : Math.max(0, Math.floor(+ch.ngayTB)), d = new Date(Date.UTC(+m[1], +m[2]-1, +m[3]+n));
+  while(ch.neCuoiTuan!==false && (d.getUTCDay()===6 || d.getUTCDay()===0)) d.setUTCDate(d.getUTCDate()+1);
+  return d.toISOString().slice(0, 10); }
+/* tên đơn vị in: "Xã A" / "A" / "Phường B" → {cap, thuong 'xã A', hoa 'XÃ A', laPhuong, apKp 'ấp' | 'khu phố'} */
+function pbDonVi(tenXa){
+  var t = String(tenXa || '').replace(/\s+/g, ' ').trim(), cap = /^phường\s/i.test(t) ? 'phường' : /^thị trấn\s/i.test(t) ? 'thị trấn' : 'xã';
+  var ten = t.replace(/^(xã|phường|thị trấn)\s+/i, ''), th = cap+(ten ? ' '+ten : '');
+  return {cap:cap, thuong:th, hoa:th.toUpperCase(), laPhuong:cap==='phường', apKp:cap==='phường' ? 'khu phố' : 'ấp'}; }
+/* QĐ 1 xã + kết quả phân bổ → dữ liệu Biểu 07 | {loi:[…]} khi chưa khớp QĐ (QT-16 — CHẶN xuất).
+   Ấp theo thứ tự gặp đầu tiên (CT theo thứ tự QĐ), mỗi ấp chỉ các CT có tăng / giảm ≠ 0 (như bản WPF). */
+function pbBieu07DL(q, kq, tenCT){
+  var loi = [], am = [];
+  if(!kq || !kq.length) loi.push('QĐ không có chương trình nào cần phân bổ');
+  (kq || []).forEach(function(k){ var r = pbKiem(k); r.lyDo.forEach(function(l){ loi.push(k.ma+': '+l); }); if(r.coAm) am.push(k.ma); });
+  if(loi.length) return {loi:loi};
+  var theo = {}, thu = [];
+  kq.forEach(function(k){ var ten = k.ten || (tenCT ? tenCT(k.ma) : '') || 'Chương trình '+k.ma;
+    pbApCoThayDoi(k).forEach(function(a){ var kk = a.k+'|'+a.ten; if(!theo[kk]){ theo[kk] = {ten:a.ten, ds:[]}; thu.push(kk); } theo[kk].ds.push({ma:k.ma, ten:ten, dc:a.dc, nam:a.nam}); }); });
+  var dv = pbDonVi(q.tenXa || q.xa);
+  return {loi:[], coAm:am, dv:dv, laDC:/điều chỉnh/i.test(String(q.loai || '')), nam:String(q.ngay || '').slice(0, 4), so:String(q.so || '').trim(), kyHieu:String(q.kyHieu || '').trim(), ngayQD:String(q.ngay || '').slice(0, 10),
+    nguon:+q.nguon===2 ? 2 : 1, ap:thu.map(function(kk){ return theo[kk]; })}; }

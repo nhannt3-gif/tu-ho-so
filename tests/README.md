@@ -183,6 +183,8 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t207.js` | 3.264 Scan lưu tập trung, Sắp xếp, Kiểm tra, đọc QR / mã máy đọc giả, bản photo 2 mặt, ảnh khách từ CCCD (25). |
 | `node tests/t250.js` | 3.285 P1 🎯 Phân bổ KH — lõi `js/47-phan-bo.js` (node, không trình duyệt): chia đều / theo tỷ lệ, số chẵn 1 ấp lẻ, giảm không âm, chính xác = dư nợ thật + chênh, "(Chưa rõ ấp)", QT-16 khớp Đã giao / Đến 31/12, sửa tay, 3.000 tình huống ngẫu nhiên, gợi ý Đã giao, đầu năm theo QĐ, chọn kỳ, nhập file WPF. |
 | `node tests/t251.js` | 3.285 cửa `KHO.duNoAp(kỳ)` với Mẫu 31 giả (node): gộp thôn × CT × nguồn, dòng lặp khế ước, CLOSE / dư nợ 0 / khách chỉ gửi TK bỏ, kỳ chưa có → null, nối `pbDuNoXa`. |
+| `node tests/t252.js` | 3.293 P2 🎯 Phân bổ KH — giao diện (trình duyệt, bộ `gianho31`): nút tab con, cây xã → ấp, 📥 nhập file WPF giả, phân bổ tương đối / chính xác, số chẵn, sửa tay lệch → khớp, giữ ô, hộp QĐ (ngày liền số, gợi ý Đã giao, Đến 31/12 tự tính, ⚠ đứt chuỗi, lưu, tích thêm xã), không lỗi trang. |
+| `node tests/t253.js` | 3.293 P3 📄 Biểu 07 Phân bổ KH (trình duyệt, bộ `gianho31` + QĐ giả): ngày thông báo né T7/CN, đơn vị xã / phường, chặn khi lệch QĐ, đúng form gốc `mau_goc/07pb.docx` (chữ, khổ, lề, cỡ, cột), 2 trang, chỉ ấp có tăng/giảm, ngày tự tính / chấm / gõ, Word .docx, 📦 mọi xã, sửa tay lệch → khóa. |
 | (3.292) | t222: bảng Scan có cột Tổ trưởng sau Ấp — tổ khai trên bản / theo mã KH trên Mẫu 31 (2); t147 sửa thứ tự cột. |
 | (3.291) | t221: lưới Bản vừa quét (Thẻ) — ◀ ▶ ▲ ▼ từng mặt, mép tắt nút, chọn + phím mũi tên, nút 🔄 Lật (6). |
 | (3.290) | t220: lượt quét nhiều người vào Chờ sắp xếp — tên theo thẻ đọc được + số CCCD, người chưa đọc giữ tên tự đặt, bản cũ đổi tên khi Sắp xếp đọc ra số (4). |

@@ -13,6 +13,7 @@ var DH_MUC = [
   {k:'to',  bt:'👥', ten:'Tổ TK&VV',   mo:function(){ dhSL('to'); }},
   {k:'kt',  bt:'🛡', ten:'KTGS Hội',   mo:function(){ dhSL('kt'); }},
   {k:'tra', bt:'👤', ten:'Tra cứu KH', mo:function(){ dhSL('tra'); }},
+  {k:'pb',  bt:'🎯', ten:'Phân bổ KH', mo:function(){ dhSL('pb'); }},   /* 3.288 P2 — KE_HOACH_PHAN_BO_KH */
   {nhom:'Hồ sơ'},
   {k:'hst', bt:'📝', ten:'Hồ sơ Tổ',   mo:function(){ dhSL('hst'); }},   /* 3.170 */
   {k:'hsv', bt:'📄', ten:'Hồ sơ vay',  mo:function(){ dhSL('hsv'); }},

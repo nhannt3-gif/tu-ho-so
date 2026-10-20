@@ -4,6 +4,21 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.293 — 21/10/2026 — 🎯 Phân bổ kế hoạch: P2 giao diện tab con + P3 Biểu 07 (TK chính)
+- **Anh nhắn "gộp rồi code p2" (20/10), "em code hết" + "em làm luôn P3 và gộp lên luôn" (21/10)** — `docs/KE_HOACH_PHAN_BO_KH.md` mục 5–6. P2 làm xong lúc `main` = 3.287 (đặt số 3.288 trên nhánh, chưa gộp); TK phụ gộp tiếp 3.288 → 3.292 → P2 + P3 chuyển nền theo `main`, gộp chung 1 bản 3.293 (cách gỡ ở mục 9 ý 2).
+### P2 — giao diện tab con
+- **Mới `js/48-phan-bo-gd.js`** (tiền tố `pb`, lệnh qua `GD.dangKy('pb')` / `data-lenh`, không onclick mới): tab con **🎯 Phân bổ KH** trong 📈 Số liệu (đăng ký ở `slTabConHTML` + `veSoLieu`, `js/22f`) + mục thanh bên `DH_MUC` (`js/23` — máy tính ≥ 1100 px ẩn thanh tab con). Cây xã → ấp từ `KHO.nap(kỳ chung)` + `KHO.voiKy(K, KHO.dsTo)` (không gán `TO_K`); tên ấp `pbTenAp` (xã → Ấp, phường → Kp).
+- **Cột trái:** danh sách QĐ nhóm theo số + ngày + ký hiệu (mỗi dòng 1 xã, dòng nhập lệch tô đỏ, xã chưa ghép báo ⚠) · ＋ QĐ mới · 📥 Nhập từ bản WPF (`pbTuWPF` + ghép xã `pbKhopXa`; trùng giống hệt bỏ qua, trùng khác số liệu báo không nhập).
+- **Hộp QĐ (QT-17):** số, ký hiệu, ngày gõ liền số, nguồn, loại, đợt · tích nhiều xã (mở lại tích thêm → tự thêm dòng CT đang có) · ＋ Thêm CT cho các xã đã tích · Đã giao gợi ý `pbGoiYDaGiao`, Đến 31/12 tự tính, ô gõ tay giữ, xóa trắng → tự động lại · Kiểm tra ✗ / ⚠ · Lưu (Ctrl+Enter) · 🗑 Xóa cả QĐ.
+- **Cột phải:** chip xã của QĐ · Tương đối / Chính xác · kỳ dư nợ (Tự động = kỳ gần nhất trước QĐ) · ⚙ Phân bổ → bảng đối chiếu từng CT + bảng ấp (Dư nợ thật · Chỉ tiêu trước · **Tăng/giảm ✎** · Chỉ tiêu năm · Ghi chú) + dòng trạng thái xanh / vàng / đỏ; sửa ô → `pbSuaTay`, vẽ lại giữ ô đang đứng.
+- **Lưu:** `KHO1.doc/ghi('pb')` = `{qd, ch}` (đồng bộ Drive nhóm Chung). Lõi `js/47` thêm `pbTenAp`, `pbKhopXa`, `pbDocSo`. CSS `.pb-…` cuối `css/app.css`.
+### P3 — Biểu 07 Phân bổ KH
+- **Mẫu gốc `tests/mau_goc/07pb.docx`** = file Biểu 07 của bản WPF (mẫu trắng, chỉ ô `{{…}}`; đã bỏ tên máy trong thông tin file). A4 dọc · lề 20/20/20/30 · TNR 14 (đầu trang 13, tiêu đề 16) · 2 trang mỗi xã: Thông báo của UBND xã + Danh mục (STT · Chỉ tiêu · Giao tăng/giảm · Chỉ tiêu KH năm; dòng ấp "1", dòng CT "1.1" tên đầy đủ; giảm in "−").
+- **Mới `js/mau/07pb.js`:** dựng bằng khối chung của các mẫu (`hsoBang`, `hsoQH`, `hsoKe`, `hsoTrang`, `hsoDocx`) → xem trước / In / PDF / Word như mọi mẫu (bộ nút `xuatHang`). Không đăng ký `OM_MAU` (khai báo riêng của nền ô gắn tab Hồ sơ): ô số liệu nền xanh trên màn hình, trống → chấm như giấy gốc; nơi lập, tỉnh lấy ở ⚙ Khai báo đơn vị › PGD. Tắt chèn trang trắng in 2 mặt (mỗi xã đúng 2 trang).
+- **Lõi `js/47`:** `pbNgayTB` (ngày QĐ + 1, né thứ 7 / CN — như WPF), `pbDonVi` (xã / phường → ấp / khu phố), `pbBieu07DL` (QT-16: chưa khớp QĐ → trả lỗi, CHẶN xuất; chỉ ấp có tăng/giảm; ấp theo thứ tự gặp đầu tiên như WPF). Số QĐ in kèm ký hiệu (`123` + `/QĐ-BĐDHĐQT`; số đã có "/" thì giữ).
+- **Tab 🎯 (`js/48`):** dưới bảng phân bổ: **👁 Biểu 07 — xã đang xem** (khóa khi lệch QĐ) · **📦 Biểu 07 mọi xã của QĐ** (xã đang xem giữ sửa tay, xã khác chia lại theo cách chia đang chọn; xã chưa khớp / chưa có ấp bỏ qua + báo đỏ; cảnh báo dư nợ không gắn ấp báo vàng; có ấp âm → hỏi trước). Hộp Biểu 07: ngày thông báo Tự tính / Để chấm / Gõ (liền số) → xem trước tức thì; 1 file Word / 1 lần in cho mọi xã.
+- **Phép thử:** `tests/t252.js` (P2, 21), **`tests/t253.js` (P3, 20)** — đúng form gốc (38 mảnh chữ cố định của file Word đều có), khổ / lề / cỡ chữ / bề rộng cột, 2 trang, chỉ ấp có tăng/giảm, tổng = QĐ, ngày tự tính / chấm / gõ, Word .docx (2 phần A4, đủ chữ, cỡ 14 / 16), 📦 2 xã = 4 trang 1 file, sửa tay lệch → khóa + chặn. `t250` 65, `t251` 8, **`t140`** thanh tab con Số liệu nay 9 nút (thêm 🎯). Chưa vào `t180` (đo theo tab Hồ sơ) — `t253` đo riêng.
+
 ## 3.292 — 20/10/2026 — Cột Tổ trưởng ở tab Scan
 - **Anh 20/10**: "thêm cột tổ trưởng chỗ scan". Kiểu xem **▦ Bảng** tab Scan thêm cột **Tổ trưởng** sau cột Ấp: tổ đã khai trên bản; bản chưa khai tổ mà đã gắn mã KH → lấy tổ của khách trên Mẫu 31. Bấm tiêu đề cột để sắp theo tổ.
 - Phép thử: t222 mới (2); t147 đổi theo cột mới.
