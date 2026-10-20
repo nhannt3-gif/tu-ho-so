@@ -68,7 +68,7 @@ const fs=require('fs'), path=require('path');
    document.querySelector('#hop-in [data-lenh="rs.chon"][data-k="t208h"][data-v="ma:9990000083"]').click(); await w(100);
    ok('chọn → nút đáy đếm 3 việc, không vẽ lại', /Làm 3 việc/.test(document.querySelector('#hop-in [data-lenh="rs.apDung"]').textContent));
    document.querySelector('#hop-in [data-lenh="rs.apDung"]').click(); await w(400);
-   ok('sai khách → bản lưu gắn khách đúng, tên file chuẩn theo khách mới', sSai.maKH===kA && tenScanDrive(sSai)===kA+' - '+cA.ten+' - CCCD.pdf', tenScanDrive(sSai));
+   ok('sai khách → bản lưu gắn khách đúng, tên file chuẩn theo khách mới (3.277: khách đã có 1 bản CCCD → bản này " (2)")', sSai.maKH===kA && tenScanDrive(sSai)===kA+' - '+cA.ten+' - CCCD (2).pdf', tenScanDrive(sSai));
    ok('ảnh khách tạo từ thẻ đó đi theo khách mới', anhSai.maKH===kA && anhSai.ten===kA+' - '+cA.ten+' - Ảnh.jpg', anhSai.ten);
    ok('🔀 chọn mã → gắn mã đó', sHai.maKH==='9990000083');
    ok('bản trùng tích Xóa → vào 🗑 Thùng rác (lấy lại được), bản giữ còn nguyên', !D.scan.includes(sTr2) && (D.rac||[]).some(m=>m.id==='t208k' && m.khoCu==='scan') && D.scan.includes(sTr1));

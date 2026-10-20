@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.277) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Quét lại CCCD 1 khách đã có | Báo ⚠ đã có bản cũ; Drive tên "… - CCCD (2).pdf" | |
+| 2 | Bản cắt từ PDF chưa duyệt › 🖨 In | In PDF gốc | |
+| 3 | Mở 🧹 Sắp xếp / 🔎 Rà trên điện thoại | Xếp dọc, đọc được | |
+
+**Ghi chú kỹ thuật 3.277:** `sxSoThu(k, laKA)` (thứ tự theo taoLuc / id trong nhóm cùng mã KH + loại) dùng trong `tenScanDrive`, `sxTenKA`, `sxTenAnh`; `dungTrangThe` bọc (43) cho `catTuPDF && !catDuyet`; veScan (41) gỡ thanh "chưa khai".
+
 ### Danh sách thử trên máy thật (3.276) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

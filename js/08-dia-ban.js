@@ -137,7 +137,7 @@ function dongScanHTML(k){
   var t = ttScan(k), chon = HS.chon[k.id];
   var dbNgan = [k.xa, k.diem, k.ap, k.to ? 'Tổ '+k.to : ''].filter(Boolean).join(' › ');
   var noi = '<span class="duong-dong" onclick="event.stopPropagation();moNoiLuu(\'scan\',\''+k.id+'\')" title="'+coChuHTML(duongThat(k,''))+' — bấm để mở thư mục">'+
-    (k.driveId ? '☁ ' : '💻 ')+coChuHTML(dbNgan || (k.chuaKhai ? 'Hồ sơ scan › Chưa khai' : 'chưa gán địa bàn'))+'</span>';
+    (k.driveId ? '☁ ' : '💻 ')+coChuHTML(dbNgan || (k.chuaKhai || !k.maKH ? 'Scan chờ sắp xếp' : 'chưa gán địa bàn'))+'</span>';
   var nhan = (k.tag||[]).filter(function(x){ return !(x==='CCCD' && k.che!=='tailieu'); }).slice(0,2).map(function(x){ return '<span class="tg">'+coChuHTML(x)+'</span>'; }).join('')+
     (k.ctrinh||[]).slice(0,1).map(function(x){ return '<span class="tg ct">'+coChuHTML(x)+'</span>'; }).join('')+
     (k.che==='tailieu' ? '<span class="tg xam">'+((k.trang||[]).length || !k.driveId ? (k.trang||[]).length+' trang' : '☁ PDF trên Drive')+'</span>' : '');

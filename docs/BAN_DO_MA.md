@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.276 · 20/10/2026 17:23 · 72 file · 38281 dòng · 3077 hàm cấp ngoài · 487 biến toàn cục.
+Bản 3.277 · 20/10/2026 17:42 · 72 file · 38325 dòng · 3079 hàm cấp ngoài · 488 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -10,7 +10,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
 | `index.html` | 257 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 3590 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `css/app.css` | 3600 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
 | `js/02-nen.js` | 372 | 26 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
 | `js/03-doc-pdf.js` | 627 | 46 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
@@ -61,11 +61,11 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/38-goi-xem.js` | 71 | 11 | /*   3.231 (anh duyệt 17/10/2026 — KE_HOACH_CHUAN_HOA mục 8–9): 📱 GÓI SỐ LIỆU XEM cho bản điện thoại   Máy tín |
 | `js/39-gd.js` | 91 | 0 | /*   3.234 (R2 — KE_HOACH_CHUAN_HOA mục 2, 4, 5, 6): GIAO DIỆN CHUNG "GD" + ĐIỀU HƯỚNG "DH"   - Bộ nhận lệnh:  |
 | `js/40-lap-01td.js` | 110 | 0 | /*   3.242 (anh 17/10 — KE_HOACH_CHUAN_HOA mục Hồ sơ vay hướng B, ý 1–19): FORM LẬP 01/TD   Cột trái tab 01/TD |
-| `js/41-scan-sap-xep.js` | 566 | 55 | /*   3.264 (anh chốt 20/10/2026) — 🗂 LƯU SCAN TẬP TRUNG · 🧹 SẮP XẾP · 📊 KIỂM TRA · 📇 ĐỌC CCCD (QR / 3 dòng mã  |
+| `js/41-scan-sap-xep.js` | 579 | 56 | /*   3.264 (anh chốt 20/10/2026) — 🗂 LƯU SCAN TẬP TRUNG · 🧹 SẮP XẾP · 📊 KIỂM TRA · 📇 ĐỌC CCCD (QR / 3 dòng mã  |
 | `js/42-scan-ra-soat.js` | 264 | 29 | /*   3.268 (anh chốt 20/10/2026) — 🔎 RÀ CCCD ĐÃ LƯU · BẢN TRÙNG - Anh: "có nên có bước chạy kiểm tra các CCCD  |
-| `js/43-scan-anh-drive.js` | 190 | 16 | /*   3.271 (anh chốt 20/10/2026) — 🖼 ẢNH 2 MẶT CCCD LÊN DRIVE · CẮT ẢNH TỪ PDF CŨ · BẢNG ĐỐI CHIẾU · CMND 9 SỐ |
+| `js/43-scan-anh-drive.js` | 210 | 17 | /*   3.271 (anh chốt 20/10/2026) — 🖼 ẢNH 2 MẶT CCCD LÊN DRIVE · CẮT ẢNH TỪ PDF CŨ · BẢNG ĐỐI CHIẾU · CMND 9 SỐ |
 | `js/44-quet-cccd-form.js` | 143 | 19 | /*   3.273 (anh duyệt 20/10/2026: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCC |
-| `js/45-tra-mau31.js` | 101 | 7 | /*   3.275 (anh 20/10/2026: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã K |
+| `js/45-tra-mau31.js` | 102 | 7 | /*   3.275 (anh 20/10/2026: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã K |
 | `js/mau/01td.js` | 101 | 0 | /*   3.223 M4 — MẪU 01/TD trên nền ô (js/31-o-mau.js) — dựng theo file gốc tests/mau_goc/01td.docx   Lề 10 / 1 |
 | `js/mau/01uq.js` | 66 | 0 | /*   3.223 M4 — MẪU 01/UQ Giấy ủy quyền trên nền ô — dựng theo file gốc tests/mau_goc/01uq.docx (VB 10493, áp  |
 | `js/mau/03td.js` | 54 | 0 | /*   3.223 M5 — MẪU 03/TD Danh sách tổ viên đề nghị vay vốn trên nền ô — dựng theo file gốc tests/mau_goc/03td |
@@ -318,13 +318,13 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/37-kiem-ho.js:171` · hiển thị
 - `js/41-scan-sap-xep.js:1` · 3.264 (anh chốt 20/10/2026) — 🗂 LƯU SCAN TẬP TRUNG · 🧹 SẮP XẾP · 📊 KIỂM TRA · 📇 ĐỌC CCCD (QR / 3 dòng mã máy đọc)
 - `js/41-scan-sap-xep.js:17` · 1. tên + nơi lưu
-- `js/41-scan-sap-xep.js:61` · 2. tra khách trên Mẫu 31 (danh bạ)
-- `js/41-scan-sap-xep.js:138` · 3. đọc CCCD: QR → 3 dòng mã máy đọc → dòng "Số"
-- `js/41-scan-sap-xep.js:221` · 4. quét CCCD: đọc số → tra khách → lưu thẳng đúng chỗ
-- `js/41-scan-sap-xep.js:303` · 5. bản photo 2 mặt trên 1 tờ → chia đôi tờ
-- `js/41-scan-sap-xep.js:348` · 6. 🧹 SẮP XẾP
-- `js/41-scan-sap-xep.js:504` · 7. 📊 KIỂM TRA theo cây địa bàn
-- `js/41-scan-sap-xep.js:558` · 8. tab Scan: dòng 🧹 Sắp xếp · 📊 Kiểm tra
+- `js/41-scan-sap-xep.js:70` · 2. tra khách trên Mẫu 31 (danh bạ)
+- `js/41-scan-sap-xep.js:147` · 3. đọc CCCD: QR → 3 dòng mã máy đọc → dòng "Số"
+- `js/41-scan-sap-xep.js:230` · 4. quét CCCD: đọc số → tra khách → lưu thẳng đúng chỗ
+- `js/41-scan-sap-xep.js:313` · 5. bản photo 2 mặt trên 1 tờ → chia đôi tờ
+- `js/41-scan-sap-xep.js:358` · 6. 🧹 SẮP XẾP
+- `js/41-scan-sap-xep.js:514` · 7. 📊 KIỂM TRA theo cây địa bàn
+- `js/41-scan-sap-xep.js:568` · 8. tab Scan: dòng 🧹 Sắp xếp · 📊 Kiểm tra
 - `js/42-scan-ra-soat.js:1` · 3.268 (anh chốt 20/10/2026) — 🔎 RÀ CCCD ĐÃ LƯU · BẢN TRÙNG
 - `js/42-scan-ra-soat.js:48` · B. bản trùng: dấu vân tay nội dung
 - `js/42-scan-ra-soat.js:97` · C. Drive: thư mục CCCD

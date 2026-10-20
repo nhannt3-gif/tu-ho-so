@@ -35,7 +35,7 @@ scanXongHop = function(bl){
     '<label class="xp-ten">Tên file <input id="sx-ten" value="'+coChuHTML(SX.ten)+'" onfocus="this.select()" onchange="SX.ten=this.value"></label>'+
     '<div class="sx-luoi">'+
       o('in', '🖨', 'In', laThe ? 'đúng khổ thẻ' : 'A4', 'scanIn()')+
-      o('app', '🗂', 'Lưu vào app', 'vào ⏳ Chờ khai báo — khai xã, ấp, tổ sau', 'scanLuuApp()')+   /* 3.234: thứ tự chuẩn In · Lưu vào app · Lưu vào máy · Gửi */
+      o('app', '🗂', 'Lưu vào app', 'chưa gắn khách → ⏳ Chờ sắp xếp (lên Drive thư mục Scan chờ sắp xếp)', 'scanLuuApp()')+   /* 3.234: thứ tự chuẩn In · Lưu vào app · Lưu vào máy · Gửi */
       o('tu', '🗄', 'Lưu vào app + khai ngay', 'chọn khách: mã KH + tên + ấp', 'scanLuuTuHop()')+
       o('may', '💾', 'Lưu vào máy', 'chỉ ra file PDF, không lưu vào app', 'scanLuuMay()')+
       o('gui', '📤', 'Gửi Zalo', laMayBan() ? 'tải file, kéo vào Zalo' : 'bảng chia sẻ', 'scanGui()')+
@@ -53,7 +53,7 @@ scanLuuMay = function(){ if(!SX) return; var ten = scanTenFile(), bl = SX.bl;
   if(laMayBan()){ taiXuongBlob(bl, ten); bao('Đã lưu vào máy: '+ten+' (thư mục Tải xuống).', 5); } else chiaSePDF(bl, ten);
   scanDa('may'); };
 scanGui = function(){ if(!SX) return; chiaSePDF(SX.bl, scanTenFile()); scanDa('gui'); };
-function scanLuuApp(){ if(!SX) return; scanTenFile(); SAU_LUU_TAM = function(ds){ if(ds.length===1 && SX && SX.ten) { ds[0].ten = SX.ten; luu(); veScan(); } SX = null; bao('Đã lưu vào app — mục ⏳ Chờ khai báo. Khai xã, ấp, tổ xong mới lên Drive.', 6); }; luuSauHang(); }
+function scanLuuApp(){ if(!SX) return; scanTenFile(); SAU_LUU_TAM = function(ds){ if(ds.length===1 && SX && SX.ten) { ds[0].ten = SX.ten; luu(); veScan(); } SX = null; bao('Đã lưu vào app — ⏳ Chờ sắp xếp (chưa gắn khách), lên Drive thư mục Scan chờ sắp xếp. Gắn khách: 🔎 Tra Mẫu 31 ở hộp Sửa, hoặc 🧹 Sắp xếp.', 7); }; luuSauHang(); }
 /* lưu tạm (Chờ khai báo): KHÔNG tự đưa lên Drive */
 ghiLuuTam = function(ds, loiBao){
   var bay = new Date().toISOString();

@@ -3588,3 +3588,13 @@ table.hm-so{min-width:1476px}
 /* 3.275: 🔎 Tra Mẫu 31 cạnh ô tên (tab Scan) */
 .tr-o{width:100%}.tr-kq{margin:4px 0 2px;font-size:calc(12.5px*var(--co));white-space:normal}.tr-kq:empty{display:none}.xp-ten .tr-o{display:inline-flex;width:auto;min-width:60%}
   #cc-o .cc-dau .nho{padding:2px 5px}#cc-o .cc-dau{gap:3px}#cc-o .cc-dau .cc-gian{flex:1 1 0;min-width:0}   /* 3.276: tiêu đề công cụ gọn 1 dòng (📌 Nổi, ✕ Đóng chỉ biểu tượng) */
+/* 3.277: điện thoại — bảng 3 cột Sắp xếp / Rà / Tra xếp dọc từng dòng (cột khách → file → kết quả) */
+@media (max-width:700px){
+  #hop-in .sx-bang>thead{display:none}
+  #hop-in .sx-bang,#hop-in .sx-bang>tbody,#hop-in .sx-bang>tbody>tr,#hop-in .sx-bang>tbody>tr>td{display:block;width:auto !important}
+  #hop-in .sx-bang>tbody>tr{border-bottom:2px solid var(--vien);padding:4px 0}
+  #hop-in .sx-bang>tbody>tr>td{border:0;padding:2px 4px}
+  #hop-in .sx-bang>tbody>tr>td.sx-c1,#hop-in .sx-bang>tbody>tr>td.rs-c1{font-weight:700}
+  .rs-ban{width:calc(50% - 6px)}.sx-nho{max-width:46%}
+  #hop-in .sx-doc-bang th:nth-child(1){width:30%}
+}

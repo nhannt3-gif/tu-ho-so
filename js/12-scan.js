@@ -1253,9 +1253,9 @@ function moKyAnh(){
   if(BOT.tab!=='kyAnh') ds = ds.slice(0,30);   /* đang bớt thì hiện đủ để chọn */
   var thang = ngayISO(nay()).slice(0,7), thangTruoc = '';
   moHop('<div class="hop-tit">📁 Chữ ký · CCCD</div>'+
-    '<div class="hop-phu">JPG dưới 200 KB để nhập hệ thống khi tạo hồ sơ. Lưu xong tự đưa lên Drive, mỗi tháng một thư mục: <b>'+
-      coChuHTML(D.cauHinh.thumuc||'Tủ hồ sơ')+' / Chữ ký - CCCD / '+thang+'</b>.</div>'+
-    '<div class="hang-nut" style="margin:0 0 8px"><button class="nho" onclick="moThuMucKA()">☁ Mở thư mục tháng '+thang.slice(5)+'/'+thang.slice(0,4)+' trên Drive</button>'+
+    '<div class="hop-phu">JPG dưới 200 KB để nhập hệ thống khi tạo hồ sơ. Lưu xong tự đưa lên Drive: đã rõ khách → <b>'+   /* 3.277: chữ theo cách lưu mới (3.264) */
+      coChuHTML(D.cauHinh.thumuc||'Tủ hồ sơ')+' / Chữ ký - Ảnh khách</b> (tên <i>MãKH - Họ tên - Chữ ký</i>), chưa rõ → <b>Scan chờ sắp xếp</b>. Gõ tên / số CCCD / mã KH rồi 🔎 Tra Mẫu 31.</div>'+
+    '<div class="hang-nut" style="margin:0 0 8px"><button class="nho" onclick="moThuMucKA()">☁ Mở thư mục Chữ ký - Ảnh khách trên Drive</button>'+
       (D.kyAnh.length ? nutBot('kyAnh') : '')+'<button class="nho" onclick="moHuongDan(\'kyAnh\')">❓</button></div>'+thanhBot('kyAnh')+
     '<div class="cam-kieu">Chụp: '+nutKieuCam()+'</div>'+
     '<div class="o"><label>Tên khách</label><input id="ka-ten" value="'+coChuHTML(tenKhachKA())+'" placeholder="Ví dụ: Nguyễn Văn A" '+

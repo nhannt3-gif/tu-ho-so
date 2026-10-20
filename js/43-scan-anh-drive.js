@@ -8,7 +8,7 @@
    - Bản cũ chỉ có PDF: dựng trang 1 → dò khung 2 thẻ (nền trắng) → cắt thành 2 ảnh (k.catTuPDF), PDF gốc giữ nguyên (không dựng lại PDF từ ảnh cắt);
      🔎 Rà có khối "Ảnh cắt từ PDF — anh xem lại" (Đúng / Cắt lại / Bỏ ảnh cắt); đọc ra số khớp Mẫu 31 → coi là cắt đúng.
    ========================================================== */
-function sxTenAnh(k, mat){ var m = mat==='sau' ? 'Mặt sau' : 'Mặt trước'; return k.maKH ? sxTenChuan(k.maKH, k.ten, m, '.jpg') : (sachTen((k.ten||'Scan')+' - '+m) || 'Scan')+'.jpg'; }
+function sxTenAnh(k, mat){ var m = mat==='sau' ? 'Mặt sau' : 'Mặt trước'; return k.maKH ? sxTenChuan(k.maKH, k.ten, m+sxSoThu(k), '.jpg') : (sachTen((k.ten||'Scan')+' - '+m) || 'Scan')+'.jpg'; }
 function sxMaAnh(k, mat){ return k.id+(mat==='sau' ? '_matSau' : '_matTruoc'); }
 /* tải 1 file lên Drive (multipart) → id */
 function sxTaiLen(bl, ten, idTM, kieu){
@@ -188,3 +188,23 @@ xemThu = function(loai, id, i){
   if(m && m.maKH && noi) noi.insertAdjacentHTML('beforeend', sxHoSoKhach(m.maKH, id));
 };
 GD.dangKy('sx', {xemHS:function(el){ var loai = el.getAttribute('data-loai'), id = el.getAttribute('data-id'); if(loai==='scan' && typeof xemScanCP==='function') xemScanCP(id); else xemThu(loai, id); }});
+
+/* 3.277: ảnh cắt từ PDF CHƯA duyệt (k.catTuPDF, chưa catDuyet) — in / lưu / gửi dùng PDF gốc trên Drive (không dựng lại từ ảnh cắt có thể lệch).
+   1 bản → lấy thẳng PDF gốc; nhiều bản lẫn bản chưa duyệt → vẫn dựng, báo tên bản chưa duyệt để anh xem ở 🔎 Rà. */
+function sxCatChuaDuyet(k){ return !!(k && k.catTuPDF && !k.catDuyet); }
+var SX_DUNG_THE_CU = dungTrangThe;
+dungTrangThe = function(dsId, viec){
+  var ids = dsId || Object.keys(HS.chon||{}), ds = ids.map(function(id){ return timScan(id); }).filter(Boolean), chua = ds.filter(sxCatChuaDuyet);
+  if(!chua.length || viec==='drive') return SX_DUNG_THE_CU(dsId, viec);
+  if(ds.length===1 && chua[0].driveId && coTheNoiDrive()){
+    var k = chua[0];
+    return taiPDFDrive(k.driveId).then(function(bl){
+      if(viec==='blob') return bl;
+      var ten = tenScanDrive(k);
+      if(viec==='in'){ inBlob(bl, ten); bao('In PDF gốc (ảnh cắt từ PDF chưa duyệt ở 🔎 Rà).', 6); return; }
+      var a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = ten; document.body.appendChild(a); a.click(); thuHoiSau(a.href); a.remove(); bao('Đã lưu PDF gốc '+ten+'.', 5);
+    }, function(){ return SX_DUNG_THE_CU(dsId, viec); });
+  }
+  if(viec!=='blob') bao('⚠ '+chua.length+' bản có ảnh cắt từ PDF chưa duyệt ('+chua.slice(0, 3).map(function(k){ return k.ten; }).join(', ')+(chua.length>3 ? '…' : '')+') — xem lại ở 🔎 Rà CCCD.', 8);
+  return SX_DUNG_THE_CU(dsId, viec);
+};
