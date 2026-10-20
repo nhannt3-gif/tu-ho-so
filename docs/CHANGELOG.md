@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.279 — 20/10/2026 — Sửa tài liệu chỉ có PDF trên Drive
+- **Anh 20/10** (ảnh: 2 tài liệu Đơn vay 01/GQVL + Hợp đồng 07B/GQVL, hộp Sửa bản quét tài liệu "Các trang (0)"): "anh chọn sửa, chọn Tra Mẫu 31 ra đúng tên, nhưng khi bấm Lưu thì báo chưa có trang nào".
+- Nguyên nhân: hộp Sửa tài liệu bắt buộc có trang trong máy; bản quét ở máy khác / bản cũ chỉ có PDF trên Drive → không lưu được dù chỉ đổi tên, gắn khách.
+- Sửa: bản đã có trên Drive mà máy chưa có trang → **Lưu được** (tên chuẩn theo Mẫu 31, mã KH, địa bàn; PDF trên Drive đổi tên + dời đúng thư mục, nội dung giữ nguyên). Ô Các trang báo "Trang đang nằm trong file PDF trên Drive" + nút **☁ Tải trang từ Drive** (tải PDF về làm trang để xem / thêm / bỏ trang).
+- Phép thử: t214 thêm 3 (14).
+
 ## 3.278 — 20/10/2026 — Bố cục tab Scan gọn
 - Theo rà soát tab Scan (mục 9, 10) — anh: "em cứ code theo ý em và gộp lên rồi thử sau, báo rõ … và kế hoạch".
 - **Thanh tab Scan**: 3 nút rời (🧹 Sắp xếp · 📊 Kiểm tra · 🔎 Rà) → **1 nút 🗂 Quản lý hồ sơ scan** (file mới `js/46-quan-ly-scan.js`). Mở ra **1 màn 3 thẻ**: ⏳ Chờ sắp xếp (n) · 🔎 Rà CCCD đã lưu · 📊 Kiểm tra theo tổ — còn bản chờ thì mở thẻ Chờ sắp xếp, không thì Kiểm tra. ✎ Khai hàng loạt dời vào đáy thẻ Chờ sắp xếp.

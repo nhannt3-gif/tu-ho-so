@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.278** — Scan: 1 nút 🗂 Quản lý hồ sơ scan (3 thẻ), 1 nút 🗄 Lưu vào tủ; 3.277 sửa nhanh sau rà soát. Kế hoạch tiếp: `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (thống nhất tên + cấu trúc lưu hồ sơ vay — chờ anh chốt (a)(b)(c)). Chờ anh: thử máy thật 3.225–3.278.
+- **`main` = 3.279** — Scan: sửa tài liệu chỉ có PDF trên Drive lưu được + Tải trang từ Drive; 3.278 Quản lý hồ sơ scan + Lưu vào tủ. Kế hoạch tiếp: `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (chờ anh chốt (a)(b)(c)). Chờ anh: thử máy thật 3.225–3.279.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.

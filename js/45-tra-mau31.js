@@ -100,3 +100,14 @@ veAnhKhach = function(){
       if(!(bs && bs[0]) || (!k.catTuPDF && !k.anhDrive)) return;   /* không lấy được / chỉ còn cả trang PDF → để khung xem phải hiện PDF */
       TR_VE_ANH_CU(); if(k.catTuPDF) e.insertAdjacentHTML('afterbegin', '<div class="sx-hd">✂ Ảnh cắt từ PDF trên Drive — lệch thì xem lại ở 🔎 Rà CCCD.</div>'); }); });
 };
+/* 3.279 (anh: "2 tài liệu … chọn sửa, Tra Mẫu 31 ra đúng tên, nhưng bấm Lưu thì báo chưa có trang nào"): bản tài liệu chỉ có PDF trên Drive
+   → nút ☁ Tải trang từ Drive: tải PDF về làm nguồn, gắn các trang vào bản (xem / thêm / bỏ trang như bản quét trong máy) */
+function tlTaiTrang(){
+  var k = window.__k; if(!k || !k.driveId) return;
+  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive.');
+  batChay(false, 'Đang tải PDF từ Drive…');
+  taiPDFDrive(k.driveId).then(function(bl){ return catPDFNguon(new File([bl], 'drive.pdf', {type:'application/pdf'})); })
+    .then(function(ds){ tatChay(); if(window.__k!==k) return; k.trang = ds.map(function(o){ return ghepTrangPDF(o); }); if(typeof veTrangScan==='function') veTrangScan(); bao('Đã tải '+ds.length+' trang từ Drive.', 4); },
+      function(e){ tatChay(); baoLoi('Chưa tải được PDF: '+(e && e.message || e)); });
+}
+GD.dangKy('tl', {taiTrang:function(){ tlTaiTrang(); }});
