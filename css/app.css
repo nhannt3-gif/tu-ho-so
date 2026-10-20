@@ -3572,3 +3572,4 @@ table.hm-so{min-width:1476px}
 .rs-ban{display:flex;flex-direction:column;gap:4px;width:170px;padding:6px;border:1px solid var(--vien);border-radius:8px;background:var(--the)}.rs-ban img{max-width:100%;max-height:110px;object-fit:contain;align-self:center}
 .rs-khong-anh{height:60px;display:flex;align-items:center;justify-content:center;color:var(--chu-phu);font-size:12px;border:1px dashed var(--vien);border-radius:6px}
 .sx-bang .rs-c1{width:26%}#hop-in .sx-bang td,#hop-in .sx-bang th{white-space:normal;overflow-wrap:anywhere}
+.sx-nho{max-width:200px;max-height:120px;margin:4px 6px 0 0;border:1px solid var(--vien);border-radius:6px;vertical-align:top}

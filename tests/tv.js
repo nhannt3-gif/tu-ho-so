@@ -25,6 +25,10 @@ module.exports = async function(p){
     else if(/dompurify@3\.2\.6/.test(u)) f=L+'dompurify-3.2.6/package/dist/purify.min.js';
     else if(/pdf-lib@1\.17\.1/.test(u)) f=L+'pdf-lib-1.17.1/package/dist/pdf-lib.min.js';
     else if(/jsqr@1\.4\.0/.test(u)) f=L+'jsqr-1.4.0/package/dist/jsQR.js';   /* 3.264: đọc mã QR CCCD */
+    else if(/tesseract\.js@v?5\.1\.1\/dist\/tesseract\.min\.js/.test(u)) f=L+'tesseract.js-5.1.1/package/dist/tesseract.min.js';   /* 3.269: đọc 3 dòng mã máy đọc (Tesseract) */
+    else if(/tesseract\.js@v?5\.1\.1\/dist\/worker\.min\.js/.test(u)) f=L+'tesseract.js-5.1.1/package/dist/worker.min.js';
+    else if(/tesseract\.js-core@v?5/.test(u)){ f=L+'tesseract.js-core-5.1.0/package/'+u.split('/').pop(); if(/\.wasm$/.test(u)) ct='application/wasm'; }
+    else if(/@tesseract\.js-data\/eng\/.*eng\.traineddata/.test(u)){ f=L+'tesseract.js-data-eng-1.0.0/package/4.0.0_best_int/eng.traineddata.gz'; ct='application/octet-stream'; }
     return f ? r.fulfill({path:f, contentType:ct, headers:{'access-control-allow-origin':'*'}}) : r.abort();
   });
   await p.route(/cdnjs\.cloudflare\.com/, r=>{

@@ -98,27 +98,50 @@ function sxXacDinh(o){
   if(m && KH[m]){
     if(tenOK(m) || ccOK(m)) return {ma:m, theo:'mã KH + '+(tenOK(m) ? 'tên' : 'CCCD')};
     return {goiY:m, ly:t ? 'mã KH khớp, tên khác Mẫu 31 ('+tenMau(m)+')' : 'chỉ có mã KH'}; }
+  var theoNS = function(ds){ if(!o.ns) return ''; var k = ds.filter(function(ma){ return (KH[ma]||{}).ns===o.ns; }); return k.length===1 ? k[0] : ''; };   /* 3.269: trùng → ngày sinh trên thẻ phân biệt */
   if(s && X.cc[s]){
-    if(X.cc[s].length>1) return {ds:X.cc[s]};
+    if(X.cc[s].length>1) return theoNS(X.cc[s]) ? {goiY:theoNS(X.cc[s]), ly:'số CCCD có ở '+X.cc[s].length+' mã KH — khớp ngày sinh trên thẻ', ds:X.cc[s]} : {ds:X.cc[s]};
     var mc = X.cc[s][0];
     if(tenOK(mc)) return {ma:mc, theo:'CCCD + tên'};
     if(!t) return {ma:mc, theo:'số CCCD'};   /* anh: số CCCD là chuẩn nhất — có số, không có tên vẫn xác định */
     return {goiY:mc, ly:'CCCD khớp, tên khác hẳn Mẫu 31 ('+tenMau(mc)+')'}; }
   if(!t) return {};
   var ds = X.ten[t] || [];
+  if(o.db){   /* 3.269 (anh: "đã lưu là tổ Mai Văn Quang nhưng app vẫn báo"): tổ / ấp anh chọn khi quét → khách trong đó, tên gần đúng */
+    var trongDB = Object.keys(KH).filter(function(ma){ return sxHopDB(ma, o.db); });
+    var gan = trongDB.filter(function(ma){ return ds.indexOf(ma)>=0 || sxTenGan(KH[ma].ten, t); });
+    if(gan.length===1) return {goiY:gan[0], ly:'tên khớp'+(ds.indexOf(gan[0])<0 ? ' gần đúng' : '')+' + đúng tổ / ấp anh chọn khi quét'+(ds.length>1 ? ' (Mẫu 31 có '+ds.length+' khách cùng tên)' : '')};
+    if(!gan.length){ var goi = t.split(' ').pop(), cung = trongDB.filter(function(ma){ return sxChuan(KH[ma].ten).split(' ').pop()===goi; });   /* cùng tên gọi trong tổ (Mẫu 31 ghi tên khác, vd thiếu chữ lót) */
+      if(cung.length===1 && !ds.length) return {goiY:cung[0], ly:'cùng tên gọi "'+goi+'" trong tổ / ấp anh chọn khi quét — Mẫu 31 ghi '+KH[cung[0]].ten};
+      cung.forEach(function(ma){ if(ds.indexOf(ma)<0) ds = ds.concat([ma]); }); }
+  }
   if(ds.length===1) return s ? {goiY:ds[0], ly:'tên khớp, số CCCD khác Mẫu 31'} : {goiY:ds[0], ly:'chỉ khớp tên'};
+  if(ds.length>1 && theoNS(ds)) return {goiY:theoNS(ds), ly:'trùng tên '+ds.length+' khách — khớp ngày sinh trên thẻ', ds:ds};
   return ds.length ? {ds:ds} : {};
+}
+/* địa bàn anh chọn khi quét (tổ "05 — Nguyễn Văn A" / ấp) → so với tổ / ấp của khách trên Mẫu 31 */
+function sxDBQuet(k){ var p = String(k.to||'').split(' — '), to = p.pop().trim(), maTo = p.length ? p[0].trim() : ''; return to || k.ap ? {to:to, maTo:maTo, ap:k.ap||''} : null; }
+function sxHopDB(ma, q){
+  if(q.maTo && (KHO.dsKhach()[ma]||{}).to) return String(KHO.dsKhach()[ma].to)===q.maTo;   /* có mã tổ → so mã tổ Mẫu 31 */
+  var c = sxKhach(ma), bo = function(x){ return sxChuan(x).replace(/^to (truong )?/, '').trim(); }, t = bo(q.to), ct = bo(c.to);
+  if(t && ct) return ct===t || (t.length>=6 && ct.length>=6 && (ct.indexOf(t)>=0 || t.indexOf(ct)>=0));
+  return !!q.ap && sxChuan(c.ap)===sxChuan(q.ap);
 }
 function sxKhach(ma){   /* thông tin khách để gắn vào bản scan */
   var c = KHO.dsKhach()[ma] || {}, t = KHO.toDanhBa(c.to) || {};
   return {ma:ma, ten:c.ten||'', cccd:c.cccd||'', xa:c.tenXa||'', ap:c.tenThon||'', maXa:c.xa||'', maAp:c.thon||'', to:t.ten || c.toTen || '', diem:t.diem||''};
 }
 function sxNhanKH(ma){ var c = sxKhach(ma); return c.ma+' · '+c.ten+(c.ap ? ' · '+c.ap : '')+(c.to ? ' · Tổ '+c.to : '')+(c.xa ? ' · '+c.xa : ''); }
+function sxNhanKH2(ma){ var c = KHO.dsKhach()[ma] || {}; return sxNhanKH(ma)+' · '+(c.cccd ? 'CCCD '+c.cccd : 'Mẫu 31 chưa có CCCD')+(c.ns ? ' · sinh '+ngayVNsl(c.ns) : ''); }   /* 3.269: trùng tên → so số / ngày sinh với thẻ */
 
 /* ---------- 3. đọc CCCD: QR → 3 dòng mã máy đọc → dòng "Số" ---------- */
 function sxNgay8(s){ s = String(s||''); return /^\d{8}$/.test(s) ? s.slice(4)+'-'+s.slice(2, 4)+'-'+s.slice(0, 2) : ''; }   /* ddmmyyyy → ISO */
 function cccdQR(txt){   /* QR CCCD gắn chip: CCCD|CMND cũ|Họ tên|ngày sinh|giới tính|nơi thường trú|ngày cấp */
-  var p = String(txt||'').split('|'); if(p.length<5 || !/^\d{12}$/.test(p[0])) return null;
+  var p = String(txt||'').split('|');
+  if(p.length<5 || !/^\d{12}$/.test(p[0])){   /* 3.269: mẫu khác (thẻ Căn cước 2024…) — lấy số 12 chữ số + phần giống họ tên */
+    var so = (/(?:^|\D)(0\d{11})(?!\d)/.exec(String(txt||'')) || [])[1]; if(!so) return null;
+    var ten = p.filter(function(x){ x = String(x).trim(); return x.length>=5 && /\s/.test(x) && !/\d/.test(x) && x.length<60; })[0];
+    return {cccd:so, ten:ten ? String(ten).trim() : '', nguon:'QR'}; }
   return {cccd:p[0], cmnd:p[1]||'', ten:(p[2]||'').trim(), ns:sxNgay8(p[3]), gt:p[4]||'', dc:(p[5]||'').trim(), ncap:sxNgay8(p[6]), nguon:'QR'};
 }
 function icaoSo(s){ var w = [7, 3, 1], t = 0; String(s).split('').forEach(function(ch, i){ var v = ch==='<' ? 0 : /\d/.test(ch) ? +ch : ch.charCodeAt(0)-55; t += v*w[i%3]; }); return t%10; }
@@ -154,16 +177,44 @@ function sxOCR(c, chu){   /* Tesseract tiếng Anh, chỉ nhận chữ hoa + s�
       .then(function(r){ w.terminate(); return (r && r.data && r.data.text) || ''; }, function(e){ w.terminate(); throw e; }); });
 }
 function sxCat(c, y0, y1){ var o = document.createElement('canvas'), h = Math.round(c.height*(y1-y0)); o.width = c.width; o.height = h; o.getContext('2d').drawImage(c, 0, Math.round(c.height*y0), c.width, h, 0, 0, c.width, h); return o; }
-/* đọc 1 người: truoc, sau = blob ảnh 2 mặt (đã cắt thẻ) → {cccd, ten, ns, …, nguon} | null */
+/* 3.269: mảnh để tìm QR nhỏ (ảnh cả tờ / thẻ chụp xa): 4 góc chồng nhau, phóng to cho cạnh dài ~1400 */
+function sxManh(c){
+  var ra = [];
+  [[0, 0], [0.45, 0], [0, 0.45], [0.45, 0.45]].forEach(function(g){
+    var w = Math.round(c.width*0.55), h = Math.round(c.height*0.55), k = Math.max(1, Math.min(3, 1400/Math.max(w, h))), o = document.createElement('canvas');
+    o.width = Math.round(w*k); o.height = Math.round(h*k); var x = o.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(c, Math.round(c.width*g[0]), Math.round(c.height*g[1]), w, h, 0, 0, o.width, o.height); ra.push(o); });
+  return ra;
+}
+/* 3.269: ảnh để đọc số — ảnh 2 mặt trong máy; máy này không có (quét ở máy khác) → tải PDF bản lưu trên Drive, dựng trang 1 thành ảnh */
+function sxAnhDoc(k){
+  return Promise.all([docAnhHS(k.id+'_matTruoc'), k.matSau ? docAnhHS(k.id+'_matSau') : null]).then(function(b){
+    if(b[0] || b[1]) return b;
+    if(!k.driveId || !coTheNoiDrive()) return [null, null];
+    return xongTV.then(function(){ if(!sanSangPDF()) return null; return canToken(); }).then(function(co){ if(!co) return null;
+      return fetch('https://www.googleapis.com/drive/v3/files/'+k.driveId+'?alt=media', {headers:{'Authorization':'Bearer '+DR.token}}).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.arrayBuffer(); }); })
+      .then(function(ab){ if(!ab) return [null, null];
+        return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise.then(function(doc){ return doc.getPage(1); }).then(function(pg){
+          var v0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(4, 2000/v0.width)}), c = document.createElement('canvas'); c.width = Math.round(vp.width); c.height = Math.round(vp.height);
+          return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise.then(function(){ return canvasRaBlob(c, 0.92); }).then(function(bl){ return [bl, null]; }); }); })
+      .catch(function(){ return [null, null]; });
+  });
+}
+var SX_DOC_BAN = 2;   /* phiên bản bộ đọc — bản đọc không được ở phiên cũ được đọc lại 1 lần */
+/* đọc 1 người: truoc, sau = blob ảnh 2 mặt (đã cắt thẻ, hoặc cả tờ có 2 thẻ) → {cccd, ten, ns, …, nguon} | null; không tải được bộ đọc chữ (mất mạng) → lỗi (không đánh dấu "không đọc được") */
 function docCCCD(truoc, sau){
-  var c1 = null, c2 = null, kq = null;
-  var thuQR = function(c){ return c ? sxQR(c).then(function(t){ return cccdQR(t); }).catch(function(){ return null; }) : Promise.resolve(null); };
-  var thuMRZ = function(c){ return c ? sxOCR(sxCat(c, 0.55, 1)).then(cccdMRZ).catch(function(){ return null; }) : Promise.resolve(null); };
+  var c1 = null, c2 = null, kq = null, matMang = false;
+  var qr1 = function(c){ return sxQR(c).then(function(t){ return cccdQR(t); }).catch(function(){ return null; }); };
+  var thuQR = function(c){ if(!c) return Promise.resolve(null);
+    return qr1(c).then(function(r){ return r || sxManh(c).reduce(function(p, m){ return p.then(function(x){ return x || qr1(m); }); }, Promise.resolve(null)); }); };
+  var ocr = function(c, chu){ return sxOCR(c, chu).catch(function(e){ if(/tải được|load|fetch|network/i.test(String(e && e.message || e))) matMang = true; return ''; }); };
+  var thuMRZ = function(c){ if(!c) return Promise.resolve(null);
+    return ocr(sxCat(c, 0.55, 1)).then(cccdMRZ).then(function(r){ return r || sxManh(c).reduce(function(p, m){ return p.then(function(x){ return x || matMang ? x : ocr(m).then(cccdMRZ); }); }, Promise.resolve(null)); }); };   /* tờ có 2 thẻ: mã máy đọc không nằm ở đáy → đọc từng góc phóng to */
   return Promise.all([truoc ? sxCanvas(truoc) : null, sau ? sxCanvas(sau) : null]).then(function(r){ c1 = r[0]; c2 = r[1];
     return thuQR(c1); }).then(function(r){ return r || thuQR(c2); }).then(function(r){ kq = r; return kq || thuMRZ(c2); })
-    .then(function(r){ return r || (kq ? null : thuMRZ(c1)); })   /* đặt ngược mặt */
+    .then(function(r){ return r || (kq || matMang ? null : thuMRZ(c1)); })   /* đặt ngược mặt */
     .then(function(r){ if(r) return r;
-      return c1 ? sxOCR(c1, '0123456789').then(function(t){ var m = /(?:^|\D)(0\d{11})(?:\D|$)/.exec(String(t).replace(/[ \t]/g, '')); return m ? {cccd:m[1], nguon:'dòng Số mặt trước'} : null; }).catch(function(){ return null; }) : null; });
+      return c1 && !matMang ? ocr(c1, '0123456789').then(function(t){ var m = /(?:^|\D)(0\d{11})(?:\D|$)/.exec(String(t).replace(/[ \t]/g, '')); return m ? {cccd:m[1], nguon:'dòng Số mặt trước'} : null; }) : null; })
+    .then(function(r){ if(!r && matMang) throw new Error('Không tải được bộ đọc chữ (cần mạng lần đầu)'); return r; });
 }
 
 /* ---------- 4. quét CCCD: đọc số → tra khách → lưu thẳng đúng chỗ ---------- */
@@ -181,7 +232,7 @@ scanXongHop = function(bl){
     return nh.reduce(function(p, g, i){ return p.then(function(){
       return Promise.all([g[0] ? docAnhHS(g[0].id) : null, g[1] ? docAnhHS(g[1].id) : null]).then(function(b){ return docCCCD(b[0], b[1]); })
         .then(function(r){ var x = SX_DOC[i] = r || {}; x.dang = false;
-          if(r){ var t = sxXacDinh({cccd:r.cccd, ten:r.ten}); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); c.cccd = c.cccd || r.cccd; SXK[i] = c; } }
+          if(r){ var t = sxXacDinh({cccd:r.cccd, ten:r.ten, ns:r.ns}); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); c.cccd = c.cccd || r.cccd; SXK[i] = c; } }
           sxVeDoc(); }, function(){ SX_DOC[i] = {dang:false}; sxVeDoc(); }); }); }, Promise.resolve());
   }).then(function(){ var o = SX_DOC[0] || {};
     if(nh.length===1){ SX.ten = o.tim && o.tim.ma ? sxTenChuan(o.tim.ma, sxKhach(o.tim.ma).ten, 'CCCD', '') : (o.cccd || o.ten ? 'cccd-'+[o.ten, o.cccd].filter(Boolean).join(' - ') : SX.ten);   /* chưa chắc: giữ số CCCD trong tên để Sắp xếp đối chiếu */
@@ -287,7 +338,7 @@ function sxKeHoach(){
       if(tenMoi && sxChuan(tenMoi)!==sxChuan(tenGoc)) R.doiTen.push({k:k, ka:laKA, ma:k.maKH, tu:tenGoc, ten:tenMoi});
       else if(k.driveId && k.duongDrive!==(laKA ? sxDuongKA(k) : duongScan(k))) R.doi.push({k:k, ka:laKA, ma:k.maKH, tu:(k.maKH+' - '+(tenGoc||''))});
       return; }
-    var b = sxBoc(tenGoc), f = sxXacDinh({cccd:k.cccd || b.cccd, ma:b.ma, ten:b.ten});
+    var b = sxBoc(tenGoc), f = sxXacDinh({cccd:k.cccd || b.cccd, ma:b.ma, ten:b.ten, ns:(k.cccdDoc||{}).ns, db:laKA ? null : sxDBQuet(k)});
     if(f.ma) R.khop.push({k:k, ka:laKA, ma:f.ma, theo:f.theo, tu:tenGoc});
     else if(f.goiY) R.goiY.push({k:k, ka:laKA, ma:f.goiY, ly:f.ly, tu:tenGoc});
     else if(f.ds) R.trung.push({k:k, ka:laKA, ds:f.ds, tu:tenGoc});
@@ -307,14 +358,14 @@ function sxKeHoach(){
 /* 3.266 (anh hỏi "có đọc thêm số CCCD không"): bản CCCD chưa xác định khách, ảnh còn trong máy, chưa từng đọc → đọc QR / mã máy đọc từ ảnh,
    ghi số CCCD vào bản scan (đọc không được thì đánh dấu, lần sau không đọc lại) */
 function sxDocTuAnh(){
-  var ds = (D.scan||[]).filter(function(k){ return !k.maKH && k.che!=='tailieu' && !k.cccd && !k.cccdKhong && k.matTruoc; });
+  var ds = (D.scan||[]).filter(function(k){ return !k.maKH && k.che!=='tailieu' && !k.cccd && (+k.cccdKhong||0)<SX_DOC_BAN && k.matTruoc; });   /* 3.269: bản đọc hỏng ở bộ đọc cũ → đọc lại */
   if(!ds.length) return Promise.resolve(0);
-  var n = 0, duoc = 0;
+  var n = 0, duoc = 0, mang = 0;
   batChay(false, 'Đang đọc số CCCD từ ảnh 0/'+ds.length+'…');
   return ds.reduce(function(p, k){ return p.then(function(){ n++; dangLamChu('Đang đọc số CCCD từ ảnh '+n+'/'+ds.length+'…'); tienChay(Math.round((n-1)/ds.length*100));
-    return Promise.all([docAnhHS(k.id+'_matTruoc'), k.matSau ? docAnhHS(k.id+'_matSau') : null]).then(function(b){ if(!b[0]) return null; return docCCCD(b[0], b[1]); })
-      .then(function(r){ if(r && r.cccd){ k.cccd = r.cccd; k.cccdDoc = {ten:r.ten||'', ns:r.ns||'', nguon:r.nguon}; duoc++; } else k.cccdKhong = 1; }, function(){ k.cccdKhong = 1; }); }); }, Promise.resolve())
-    .then(function(){ luu(); tatChay(); if(duoc) bao('Đọc được số CCCD từ ảnh: '+duoc+'/'+ds.length+' bản.', 5); return duoc; }, function(){ tatChay(); return duoc; });
+    return sxAnhDoc(k).then(function(b){ if(!b[0] && !b[1]) return 'khongAnh'; return docCCCD(b[0], b[1]); })
+      .then(function(r){ if(r==='khongAnh') return; if(r && r.cccd){ k.cccd = r.cccd; delete k.cccdKhong; k.cccdDoc = {ten:r.ten||'', ns:r.ns||'', nguon:r.nguon}; duoc++; } else k.cccdKhong = SX_DOC_BAN; }, function(){ mang++; }); }); }, Promise.resolve())
+    .then(function(){ luu(); tatChay(); if(mang) baoLoi('Chưa tải được bộ đọc chữ (cần mạng lần đầu) — '+mang+' bản chưa đọc, có mạng bấm 🧹 lại.'); else if(duoc) bao('Đọc được số CCCD từ ảnh: '+duoc+'/'+ds.length+' bản.', 5); return duoc; }, function(){ tatChay(); return duoc; });
 }
 function moSapXep(){
   if(!SL_SAN) return slNap().then(moSapXep);
@@ -325,7 +376,11 @@ function moSapXep(){
    trùng tên = nút tròn chọn 1 khách (+ Bỏ qua), gợi ý = ô tích "Đúng — xếp vào khách này"; chọn không vẽ lại cả hộp, chỉ đổi số ở nút Sắp xếp */
 function sxDongKH(x, i, nhom){
   var ic = x.ka ? (x.k.loai==='ky' ? '✍ Chữ ký' : '🧑 Ảnh') : (x.k.che==='tailieu' ? '📄 Tài liệu' : '🪪 CCCD');
-  var kh = function(m){ return '<span class="sx-kh-ten">'+coChuHTML(sxNhanKH(m))+'</span>'; };
+  var kh = function(m){ return '<span class="sx-kh-ten">'+coChuHTML(nhom==='trung' || nhom==='goiY' ? sxNhanKH2(m) : sxNhanKH(m))+'</span>'; };
+  var d = !x.ka && x.k.che!=='tailieu' ? x.k.cccdDoc || {} : {}, the = x.k.cccd && !x.ka && x.k.che!=='tailieu' ? '<br><small>Thẻ đọc được: <b>'+coChuHTML(x.k.cccd)+'</b>'+(d.ten ? ' · '+coChuHTML(d.ten) : '')+(d.ns ? ' · sinh '+ngayVNsl(d.ns) : '')+'</small>'
+    : (!x.ka && x.k.che!=='tailieu' && x.k.cccdKhong ? '<br><small class="vang">Chưa đọc được số trên thẻ — xem ảnh</small>' : '');
+  var q = !x.ka && nhom!=='khop' ? sxDBQuet(x.k) : null; if(q) the += '<br><small>Khi quét anh chọn: '+coChuHTML([q.ap ? 'Ấp '+q.ap : '', q.to ? 'Tổ '+q.to : ''].filter(Boolean).join(' · '))+'</small>';
+  var nho = !x.ka && x.k.che!=='tailieu' && x.k.matTruoc && nhom!=='khop' ? '<br><img class="sx-nho" data-sx-anh="'+x.k.id+'" alt="">' : '';
   var phai = nhom==='khop' ? '✓ '+kh(x.ma)+' <small class="sx-ly">khớp '+coChuHTML(x.theo)+'</small>'
     : nhom==='goiY' ? '<label class="sx-r"><input type="checkbox" data-lenh="sx.xn" data-su="change" data-i="'+i+'"'+(SXP.xn[i] ? ' checked' : '')+'> <b>Đúng — xếp vào:</b> '+kh(x.ma)+'</label><small class="sx-ly vang">'+coChuHTML(x.ly)+'</small>'
     : nhom==='doiTen' ? 'tên mới theo Mẫu 31: <b>'+coChuHTML(x.ten)+'</b>'
@@ -333,7 +388,7 @@ function sxDongKH(x, i, nhom){
     : nhom==='trung' ? x.ds.map(function(m){ return '<label class="sx-r"><input type="radio" name="sx-t'+i+'" data-lenh="sx.chon" data-su="change" data-i="'+i+'" data-ma="'+m+'"'+(SXP.chon[i]===m ? ' checked' : '')+'> '+kh(m)+'</label>'; }).join('')+
         '<label class="sx-r sx-bo"><input type="radio" name="sx-t'+i+'" data-lenh="sx.chon" data-su="change" data-i="'+i+'" data-ma=""'+(SXP.chon[i] ? '' : ' checked')+'> Bỏ qua (để sau, giữ ở thư mục chờ)</label>'
     : '<small>chưa có trên Mẫu 31 — giữ ở thư mục chờ</small>';
-  return '<tr><td class="sx-c1">'+ic+'</td><td class="sx-c2">'+coChuHTML(x.tu||'')+'</td><td class="sx-c3">'+phai+'</td></tr>';
+  return '<tr><td class="sx-c1">'+ic+'</td><td class="sx-c2">'+coChuHTML(x.tu||'')+the+nho+'</td><td class="sx-c3">'+phai+'</td></tr>';
 }
 function sxViec(){ var R = SXP; return R.khop.length + R.doiTen.length + R.doi.length + Object.keys(R.chon).filter(function(i){ return R.chon[i]; }).length + Object.keys(R.xn).filter(function(i){ return R.xn[i]; }).length; }
 function sxDemNut(){ var b = document.querySelector('#hop-in [data-lenh="sx.apDung"]'), n = sxViec(); if(!b) return;
@@ -354,6 +409,9 @@ function sxVeSapXep(){
     '<div class="sx-chan">'+GD.hang([GD.nut({chu:'Đóng', lenh:'sx.dong'}), GD.nut({chu:'🔍 Rà thêm file thả tay trong thư mục chờ', lenh:'sx.driveCho'}), GD.nut({chu:'🧹', lenh:'sx.apDung', chinh:1})], true)+'</div>', true);
   var h = document.getElementById('hop-in'); if(h) h.classList.add('xem-rong', 'sx-hop');
   sxDemNut();
+  Array.prototype.forEach.call(document.querySelectorAll('#hop-in img[data-sx-anh]'), function(im){ var id = im.getAttribute('data-sx-anh');   /* ảnh nhỏ mặt thẻ để anh nhìn */
+    Promise.all([docAnhHS(id+'_matTruoc'), docAnhHS(id+'_matSau')]).then(function(b){ if(b[0]) anhTam(im, b[0]); else im.remove();
+      if(b[1]){ var i2 = document.createElement('img'); i2.className = 'sx-nho'; im.parentNode.insertBefore(i2, im.nextSibling); anhTam(i2, b[1]); } }, function(){ im.remove(); }); });
 }
 function sxGan(k, ma, laKA){
   var c = sxKhach(ma);
