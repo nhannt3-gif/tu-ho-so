@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.270) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp Mẫu 31 ngày → tab Scan › 📊 Kiểm tra | Dòng đầu ghi "Mẫu 31 ngày dd/mm/yyyy", có khách mới giải ngân | |
+
+**Ghi chú kỹ thuật 3.270:** `sxKy31Moi()` = kỳ hstd mới nhất theo `slThuTu`; `sxChuKy31()` ghi ở đầu hộp Sắp xếp / Rà.
+
 ### Danh sách thử trên máy thật (3.269) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

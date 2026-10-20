@@ -77,10 +77,20 @@ const fs=require('fs'), path=require('path');
    const r4 = bAnh[0] ? await docCCCD(bAnh[0], null) : null;
    ok('máy không có ảnh → tải PDF bản lưu trên Drive → đọc ra số CCCD', r4 && r4.cccd==='072184000902', JSON.stringify(r4));
    ['9990000094', '9990000095', '9990000096', '9990000097'].forEach(m=>delete DB[m]); SX_CHI = null;
+   /* 8. anh: "khi rà em rà Mẫu 31 ngày luôn" — Mẫu 31 ngày mới hơn chốt tháng → Kiểm tra dùng kỳ ngày; Sắp xếp ghi kỳ mới nhất */
+   const f8 = files.find(f=>/Ho_so_tin_dung_chi_tiet_31-08-2026/.test(f.n)); { const bin=atob(f8.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i);
+     const kq = await slDocFile(new File([u], 'Ho_so_tin_dung_chi_tiet_15-09-2026.XLSX')); kq.ky = '2026-09-15'; kq.ngay = '2026-09-15'; o.push('· (nạp Mẫu 31 ngày giả: kỳ '+kq.ky+(kq.loi ? ' lỗi '+kq.loi : '')+')'); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
+   await slNap(); await w(200);
+   ok('kỳ Mẫu 31 mới nhất = Mẫu 31 ngày (mới hơn chốt tháng)', sxKy31Moi()==='2026-09-15', sxKy31Moi());
+   SXK_BANG = null; moKiemScan(); for(let i=0;i<40 && !SXK_BANG;i++) await w(200); await w(200);
+   ok('📊 Kiểm tra dùng Mẫu 31 ngày mới nhất', SXK_BANG && SXK_BANG.ky==='2026-09-15' && /Mẫu 31 ngày 15\/09\/2026/.test(document.getElementById('hop-in').textContent), SXK_BANG && SXK_BANG.ky);
+   dongHop(); moSapXep(); for(let i=0;i<40 && !/Sắp xếp hồ sơ scan/.test((document.getElementById('hop-in')||{}).textContent||'');i++) await w(200);
+   ok('🧹 Sắp xếp ghi rõ: gộp Mẫu 31 tháng + ngày, mới nhất ngày 15/09/2026', /gộp mọi Mẫu 31 đã nạp \(tháng \+ ngày\), mới nhất: Mẫu 31 ngày 15\/09\/2026/.test(document.getElementById('hop-in').textContent));
+   dongHop();
    /* dọn */
    D.scan = D.scan.filter(k=>!/^t209/.test(k.id)); ['9990000091', '9990000092'].forEach(m=>delete DB[m]); SX_CHI = null; luu();
    return o;
  }, [files, qrLib]);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5).join(' | '));
- console.log(R.filter(x=>x[0]==='✓').length+'/'+R.length+' đạt'); await b.close(); process.exit(R.some(x=>x[0]!=='✓') || loi.length ? 1 : 0);
+ const KQ = R.filter(x=>x[0]!=='·'); console.log(KQ.filter(x=>x[0]==='✓').length+'/'+KQ.length+' đạt'); await b.close(); process.exit(KQ.some(x=>x[0]!=='✓') || loi.length ? 1 : 0);
 })();

@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.270 — 20/10/2026 — Rà theo Mẫu 31 ngày
+- **Anh 20/10**: "khi rà em rà mẫu 31 ngày luôn".
+- 🧹 Sắp xếp và 🔎 Rà **đã** so với danh bạ khách gộp mọi Mẫu 31 đã nạp (tháng + ngày, mỗi khách lấy kỳ mới nhất) — nay ghi rõ ở đầu hộp: "mới nhất: Mẫu 31 ngày …".
+- 📊 Kiểm tra trước chỉ lấy Mẫu 31 chốt tháng → nay lấy **Mẫu 31 mới nhất** (`sxKy31Moi`): có Mẫu 31 ngày mới hơn cuối tháng thì dùng ngày (khách mới giải ngân trong tháng có trong bảng).
+- Phép thử: t209 thêm 3 (17).
+
 ## 3.269 — 20/10/2026 — Đọc CCCD ảnh cả tờ, trùng tên theo ngày sinh
 - **Anh 20/10** (ảnh: bản "Nguyen Thi Bich Thuy" — thẻ Căn cước mẫu mới, 2 mặt trên 1 tờ — vẫn nằm "Trùng tên" 2 khách): "em ktra t/h này".
 - Nguyên nhân (em suy từ ảnh, chưa có file gốc): bộ đọc chỉ tìm 3 dòng mã máy đọc ở **đáy ảnh** và QR ở cả ảnh → ảnh **cả tờ có 2 thẻ** (mã máy đọc nằm giữa / trên tờ, QR rất nhỏ) không đọc được; bản đọc hỏng bị đánh dấu → **không bao giờ đọc lại**; trùng tên chỉ so tên.

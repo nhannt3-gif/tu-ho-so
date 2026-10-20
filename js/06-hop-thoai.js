@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.269', ds:[
+var CO_GI_MOI = {ban:'3.270', ds:[
+  ["📊 Kiểm tra scan dùng Mẫu 31 mới nhất (có Mẫu 31 ngày thì dùng ngày); 🧹 Sắp xếp / 🔎 Rà ghi rõ đang so với Mẫu 31 kỳ nào", "doiNgan(4)"],
   ["Đọc CCCD chắc hơn: ảnh cả tờ có 2 thẻ, QR nhỏ, thẻ Căn cước mẫu mới; bản cũ đọc hỏng tự đọc lại; trùng tên → ngày sinh trên thẻ phân biệt; màn Sắp xếp hiện số CCCD Mẫu 31 + ảnh thẻ", "doiNgan(4)"],
   ["🔎 Rà CCCD đã lưu: đọc lại số trên ảnh, so Mẫu 31 (sai khách, CMND cũ, lệch số, không phải chủ hộ, hết hạn…), tìm bản trùng (so nội dung, ảnh nhỏ cạnh nhau), rà thư mục CCCD trên Drive — chỉ báo, anh chọn mới làm", "doiNgan(4)"],
   ["🧹 Màn Sắp xếp rộng hơn, 3 cột cân đối: trùng tên chọn bằng nút tròn (có \"Bỏ qua\"), gợi ý tích ☑ Đúng; nút Sắp xếp ở đáy đếm số bản đã chọn", "doiNgan(4)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.269', ds:[
   ["📒 Sao kê › Thông tin tổ: KQGD tại điểm GD (Mẫu 13/GDX + thông tin tổ, mỗi điểm 1 trang) và Bộ thông tin tổ (KQGD + 3 tháng KHĐ + Nợ quá hạn + Nợ khoanh, chia Điểm › Hội › Tổ) — Excel nhiều sheet, dòng cộng là công thức", "doiNgan(7)"],
   ["🗂 Hồ sơ vay sắp lại chip theo nhóm: Sổ · 01/UQ · 01/TD HSSV · 01/TD NSVSMT · 03/TD · 06/TD · 01/GQVL · 07b/GQVL · 01/TGTV · 09A · 01/TĐCK — 01/TD tách chip theo chương trình, bấm là ra đúng mẫu đúng chương trình", "doiNgan(7)"],
   ["🔍 Rà form từng mẫu không lọt mẫu khác: 01/GQVL, 07b chỉ GQVL (hộ khác chương trình → nút chuyển, bản in không lọt phương án HSSV); 01/TGTV không ghi chương trình; 01/TD hộ GQVL chỉ nhắc mở 01/GQVL", "doiNgan(7)"],
-  ["📝 Giấy ủy quyền 01/UQ: form riêng theo thứ tự giấy — chọn hộ trong Sổ hộ vay, ngày lập, số người, thành viên ≥ 18 tuổi (báo thiếu ngày sinh / CCCD), chọn người được ủy quyền (= người đứng tên vay), trưởng thôn; người dưới 18 tuổi không vào giấy", "doiNgan(7)"],
-  ["📋 06/TD có ⚙ Khai báo riêng: đơn vị kiểm tra (theo Hội / để chấm / gõ riêng), cán bộ kiểm tra 1 (vai trò, tên theo Khai báo Hội), cán bộ 2 + chức vụ, thời điểm kiểm tra, mục đích (theo hồ sơ / để trống)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📝 Giấy ủy quyền 01/UQ: form riêng theo thứ tự giấy — chọn hộ trong Sổ hộ vay, ngày lập, số người, thành viên ≥ 18 tuổi (báo thiếu ngày sinh / CCCD), chọn người được ủy quyền (= người đứng tên vay), trưởng thôn; người dưới 18 tuổi không vào giấy", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
