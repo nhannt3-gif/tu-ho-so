@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.274', ds:[
+var CO_GI_MOI = {ban:'3.275', ds:[
+  ["Tab Scan: nút 🔎 Tra Mẫu 31 cạnh ô tên (Sửa bản quét, Lưu mới, Chữ ký / Ảnh) — gõ số CCCD, mã KH hoặc họ tên → tên chuẩn MãKH - Họ tên - Loại, tự chọn địa bàn", "doiNgan(4)"],
   ["Scan: ô \"Bản photo 2 mặt\" không còn nhớ sang lần quét sau, ảnh chỉ 1 thẻ không bị chia đôi; bộ lọc Magic hết ám vàng / xanh", "doiNgan(4)"],
   ["🪪 Quét CCCD điền form: nút cạnh ô Họ tên (Sổ hộ vay mỗi người, 01/TD người vay) — chụp / ảnh có sẵn / lấy từ tủ, xem lại rồi Điền, lưu ảnh vào tủ", "doiNgan(7)"],
   ["Khung xem phải: dòng \"Hồ sơ của khách\" — gom CCCD · Chữ ký · Ảnh · tài liệu của cùng khách, thiếu ghi ✗, bấm để xem", "doiNgan(4)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.274', ds:[
   ["🧹 Scan: chỉ xếp khi xác định chắc — khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên) với Mẫu 31 (số CCCD chuẩn nhất; tên so bỏ dấu, cho lệch nhỏ); chưa chắc để thư mục chung, anh bấm ✓ Đúng mới xếp", "doiNgan(4)"],
   ["🗂 Scan lưu tập trung (4 thư mục phẳng, tên MãKH - Họ tên - Loại) · 🧹 Sắp xếp theo Mẫu 31 · 📊 Kiểm tra theo tổ · 📇 tự đọc số CCCD (mã QR / 3 dòng mã máy đọc) · bản photo 2 mặt · ảnh khách tự lấy từ CCCD", "doiNgan(4)"],
   ["📊 Sao kê › Tình hình hoạt động (THHD) thay Bộ thông tin tổ: 1 trang A4 dọc, chi tiết theo cấp chọn (PGD › xã › điểm › hội › tổ)", "doiNgan(7)"],
-  ["📒 Bộ thông tin tổ: thêm cột Số hộ đang có dư nợ (Số hộ = tổ viên); chọn kỳ theo ngày có Mẫu 31 ngày đó thì lấy số liệu ngày; đơn vị tính góc phải trên bảng; KQGD toàn xã liền sau các điểm; 3 nút sao kê riêng (Nợ QH, Nợ khoanh — A4 dọc, 3 tháng KHĐ)", "doiNgan(7)"],
-  ["📒 Bộ thông tin tổ chốt cuối tháng như file tổng hợp: Tổng hợp · theo xã · theo hội · từng điểm · từng xã · 3 tháng KHĐ · Nợ QH · Nợ khoanh · Ghi chú; bản in hết chồng chữ", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📒 Bộ thông tin tổ: thêm cột Số hộ đang có dư nợ (Số hộ = tổ viên); chọn kỳ theo ngày có Mẫu 31 ngày đó thì lấy số liệu ngày; đơn vị tính góc phải trên bảng; KQGD toàn xã liền sau các điểm; 3 nút sao kê riêng (Nợ QH, Nợ khoanh — A4 dọc, 3 tháng KHĐ)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

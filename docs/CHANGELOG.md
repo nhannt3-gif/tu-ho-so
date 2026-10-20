@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.275 — 20/10/2026 — 🔎 Tra Mẫu 31 ra tên chuẩn (tab Scan)
+- **Anh 20/10**: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã KH, em sẽ làm 1 nút kiểm tra và cho ra tên chuẩn từ Mẫu 31"; "làm cho tab Scan trước, sau này sẽ phát triển thống nhất tên và cấu trúc lưu cho hồ sơ vay, còn VB thì kiểu khác".
+- Nút **🔎 Tra Mẫu 31** cạnh ô tên (file mới `js/45-tra-mau31.js`, tự gắn khi mở hộp): hộp **Sửa bản quét** (CCCD / tài liệu), hộp **Lưu mới** (Tên file), **Chữ ký / Ảnh khách**. Bấm nút hoặc Enter.
+- Gõ gì cũng nhận: 12 số = CCCD · 9 số = CMND cũ · 10 số = mã KH (gõ đúng mã → nhận luôn) · chữ = họ tên (bỏ dấu, lệch nhỏ) · gõ lẫn. Tra danh bạ gộp mọi Mẫu 31 (tháng + ngày), quy tắc 3.265 (số CCCD chuẩn nhất).
+- Khớp chắc 1 khách → gắn ngay: hộp Sửa — ô tên = họ tên Mẫu 31, gắn mã KH, **tự chọn xã / điểm / ấp / tổ**, báo "Lưu thành MãKH - Họ tên - CCCD.pdf ở CCCD"; Lưu mới — Tên file chuẩn + nút **🗄 Lưu đúng khách này**; Chữ ký / Ảnh — tên "MãKH - Họ tên" (lưu xong tên chuẩn). Trùng / chưa chắc → nút tròn chọn (mỗi khách kèm CCCD, ngày sinh Mẫu 31; tổ / ấp đang chọn lên đầu). Không có → giữ tên, vào Scan chờ sắp xếp.
+- Hộp **Sửa bản quét**: máy không có ảnh thẻ → lấy ảnh 2 mặt trên Drive, không có thì cắt từ PDF (3.271) và hiện (trước để trống).
+- Phép thử: t214 (11).
+
 ## 3.274 — 20/10/2026 — Sửa cắt thẻ bị chia đôi, Magic ám màu
 - **Anh 20/10** (ảnh màn Chỉnh: ảnh gốc chỉ còn nửa thẻ): "bản mới up đọc CCCD bị lỗi cắt không chuẩn" — "à do anh tích"; "chỗ các chế độ Magic đôi khi bị ám vàng hoặc xanh".
 - Ô **🗎 Bản photo 2 mặt trên 1 tờ** (3.264) trước nhớ cả phiên → lần quét sau ảnh chụp 1 mặt thẻ vẫn bị chia đôi. Nay: mỗi lần **Quét bản mới** ô về không tích; dù đang tích, ảnh chỉ có **1 thẻ to** (khung đúng tỉ lệ thẻ, chiếm ≥ 45% ảnh, bên trong không lẫn nền giấy trắng) → **không chia** (`sxMotTheLon`); tờ photo 2 thẻ vẫn chia.
