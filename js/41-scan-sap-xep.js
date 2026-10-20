@@ -200,7 +200,7 @@ function sxVeDoc(){
 }
 function sxLuuTuDoc(){ if(!SX_DOC.every(function(x){ return x.tim && x.tim.ma; })) return; scanLuuTu(); }
 GD.dangKy('sx', {luuDoc:function(){ sxLuuTuDoc(); }, photo2:function(el){ SC.photo2 = !!el.checked; },
-  chon:function(el){ SXP.chon[+el.getAttribute('data-i')] = el.getAttribute('data-ma'); sxVeSapXep(); }, xn:function(el){ var i = +el.getAttribute('data-i'); SXP.xn[i] = !SXP.xn[i]; sxVeSapXep(); }, dong:function(){ dongHop(); },
+  chon:function(el){ var i = +el.getAttribute('data-i'), m = el.getAttribute('data-ma'); if(m) SXP.chon[i] = m; else delete SXP.chon[i]; sxDemNut(); }, xn:function(el){ SXP.xn[+el.getAttribute('data-i')] = !!el.checked; sxDemNut(); }, dong:function(){ dongHop(); },
   driveCho:function(){ sxDriveCho(); }, apDung:function(){ sxApDung(); }, moTo:function(el){ var m = el.getAttribute('data-to'); sxKiemVe(SXK_MO===m ? '' : m); },
   kiemExcel:function(){ sxKiemExcel(); }, sapXep:function(){ moSapXep(); }, kiem:function(){ moKiemScan(); }});
 /* lưu vào tủ theo khách đã chọn / tự nhận — như 3.155, thêm số CCCD + tự tạo ảnh khách từ mặt trước */
@@ -320,27 +320,39 @@ function moSapXep(){
   if(!Object.keys(KHO.dsKhach()).length) return baoLoi('Chưa có danh bạ khách — nạp Mẫu 31 ở tab 📈 Số liệu › Nạp & KT trước.');
   sxDocTuAnh().then(function(){ SXP = sxKeHoach(); SXP.chon = {}; SXP.xn = {}; sxVeSapXep(); });
 }
+/* 3.267 (anh: "không thấy nút chọn hay xác định … bung lớn cửa sổ, cân đối cửa ô"): hộp rộng, 3 cột cân đối (loại · file · khách);
+   trùng tên = nút tròn chọn 1 khách (+ Bỏ qua), gợi ý = ô tích "Đúng — xếp vào khách này"; chọn không vẽ lại cả hộp, chỉ đổi số ở nút Sắp xếp */
 function sxDongKH(x, i, nhom){
-  var ic = x.ka ? (x.k.loai==='ky' ? '✍' : '🧑') : (x.k.che==='tailieu' ? '📄' : '🪪');
-  var phai = nhom==='khop' ? '→ <b>'+coChuHTML(sxNhanKH(x.ma))+'</b> <small>(theo '+x.theo+')</small>'
-    : nhom==='goiY' ? '→ gợi ý <b>'+coChuHTML(sxNhanKH(x.ma))+'</b> <small class="vang">('+coChuHTML(x.ly)+')</small> '+GD.nut({chu:SXP.xn[i] ? '✓ Đúng — sẽ xếp' : '✓ Đúng', lenh:'sx.xn', du:{i:i}, lop:SXP.xn[i] ? 'bat' : ''})
-    : nhom==='doiTen' ? '→ tên mới <b>'+coChuHTML(x.ten)+'</b>'
-    : nhom==='doi' ? '→ dời về <b>'+coChuHTML((x.ka ? sxDuongKA(x.k) : duongScan(x.k)).replace(D.cauHinh.thumuc+' / ', ''))+'</b>'
-    : nhom==='trung' ? '<div class="sx-chon">'+x.ds.map(function(m){ return GD.nut({chu:coChuHTML(sxNhanKH(m)), lenh:'sx.chon', du:{i:i, ma:m}, lop:SXP.chon[i]===m ? 'bat' : ''}); }).join('')+'</div>'
+  var ic = x.ka ? (x.k.loai==='ky' ? '✍ Chữ ký' : '🧑 Ảnh') : (x.k.che==='tailieu' ? '📄 Tài liệu' : '🪪 CCCD');
+  var kh = function(m){ return '<span class="sx-kh-ten">'+coChuHTML(sxNhanKH(m))+'</span>'; };
+  var phai = nhom==='khop' ? '✓ '+kh(x.ma)+' <small class="sx-ly">khớp '+coChuHTML(x.theo)+'</small>'
+    : nhom==='goiY' ? '<label class="sx-r"><input type="checkbox" data-lenh="sx.xn" data-su="change" data-i="'+i+'"'+(SXP.xn[i] ? ' checked' : '')+'> <b>Đúng — xếp vào:</b> '+kh(x.ma)+'</label><small class="sx-ly vang">'+coChuHTML(x.ly)+'</small>'
+    : nhom==='doiTen' ? 'tên mới theo Mẫu 31: <b>'+coChuHTML(x.ten)+'</b>'
+    : nhom==='doi' ? 'dời về <b>'+coChuHTML((x.ka ? sxDuongKA(x.k) : duongScan(x.k)).replace(D.cauHinh.thumuc+' / ', ''))+'</b>'
+    : nhom==='trung' ? x.ds.map(function(m){ return '<label class="sx-r"><input type="radio" name="sx-t'+i+'" data-lenh="sx.chon" data-su="change" data-i="'+i+'" data-ma="'+m+'"'+(SXP.chon[i]===m ? ' checked' : '')+'> '+kh(m)+'</label>'; }).join('')+
+        '<label class="sx-r sx-bo"><input type="radio" name="sx-t'+i+'" data-lenh="sx.chon" data-su="change" data-i="'+i+'" data-ma=""'+(SXP.chon[i] ? '' : ' checked')+'> Bỏ qua (để sau, giữ ở thư mục chờ)</label>'
     : '<small>chưa có trên Mẫu 31 — giữ ở thư mục chờ</small>';
-  return '<tr><td>'+ic+'</td><td>'+coChuHTML(x.tu||'')+'</td><td>'+phai+'</td></tr>';
+  return '<tr><td class="sx-c1">'+ic+'</td><td class="sx-c2">'+coChuHTML(x.tu||'')+'</td><td class="sx-c3">'+phai+'</td></tr>';
 }
+function sxViec(){ var R = SXP; return R.khop.length + R.doiTen.length + R.doi.length + Object.keys(R.chon).filter(function(i){ return R.chon[i]; }).length + Object.keys(R.xn).filter(function(i){ return R.xn[i]; }).length; }
+function sxDemNut(){ var b = document.querySelector('#hop-in [data-lenh="sx.apDung"]'), n = sxViec(); if(!b) return;
+  b.textContent = n ? '🧹 Sắp xếp '+n+' bản' : '🧹 Chưa có bản nào để xếp'; b.disabled = !n; }
 function sxVeSapXep(){
-  var R = SXP, khoi = function(ten, ds, nhom, lop){ if(!ds.length) return ''; var bd = nhom==='trung' ? R.khop.length+R.doiTen.length+R.doi.length : 0;
-    return '<details'+(nhom!=='chua' ? ' open' : '')+' class="sx-khoi"><summary class="'+(lop||'')+'"><b>'+ten+'</b> — '+ds.length+'</summary><table class="to-bang luoi"><tbody>'+
-      ds.map(function(x, j){ return sxDongKH(x, nhom==='trung' ? j : j, nhom); }).join('')+'</tbody></table></details>'; };
-  var nChonTrung = Object.keys(R.chon).length, nXn = Object.keys(R.xn).filter(function(i){ return R.xn[i]; }).length, viec = R.khop.length + R.doiTen.length + R.doi.length + nChonTrung + nXn;
-  moHop('<div class="hop-tit">🧹 Sắp xếp hồ sơ scan</div><div class="hop-phu">So với Mẫu 31: <b>xác định chắc</b> = khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên; tên so bỏ dấu, cho lệch nhỏ) hoặc có số CCCD khớp 1 khách → đặt tên <i>MãKH - Họ tên - Loại</i> theo Mẫu 31 và dời vào thư mục theo loại '+
-      '(CCCD · Chữ ký - Ảnh khách · Hồ sơ scan). Chưa chắc → giữ ở <i>'+SXT.cho+'</i>, anh bấm ✓ Đúng mới xếp. Thư mục cũ dời xong còn trống → thùng rác Drive (lấy lại được 30 ngày).</div>'+
-    khoi('✓ Xác định chắc — sẽ đặt tên + dời', R.khop, 'khop', 'xanh')+khoi('? Gợi ý — chưa chắc, anh xác nhận', R.goiY, 'goiY', 'vang')+khoi('✎ Đổi tên theo Mẫu 31', R.doiTen, 'doiTen')+khoi('↪ File cũ dời về chỗ mới', R.doi, 'doi')+
-    khoi('⚠ Trùng tên — anh chọn đúng khách', R.trung, 'trung', 'vang')+khoi('⏳ Chưa có trên Mẫu 31', R.chua, 'chua')+
-    (viec ? '' : '<div class="rong">Không có gì cần sắp xếp'+(R.chua.length ? ' (còn '+R.chua.length+' bản chưa có trên Mẫu 31)' : '')+'.</div>')+
-    GD.hang([GD.nut({chu:'Đóng', lenh:'sx.dong'}), GD.nut({chu:'🔍 Rà thêm file thả tay trong thư mục chờ', lenh:'sx.driveCho'})].concat(viec ? [GD.nut({chu:'🧹 Sắp xếp '+viec+' bản', lenh:'sx.apDung', chinh:1})] : []), true), true);
+  var R = SXP, khoi = function(ten, hd, ds, nhom, lop){ if(!ds.length) return '';
+    return '<details'+(nhom!=='chua' ? ' open' : '')+' class="sx-khoi"><summary class="'+(lop||'')+'"><b>'+ten+'</b> — '+ds.length+' bản</summary>'+(hd ? '<div class="sx-hd">'+hd+'</div>' : '')+
+      '<table class="to-bang luoi sx-bang"><thead><tr><th class="sx-c1">Loại</th><th class="sx-c2">File (tên đang có)</th><th class="sx-c3">Khách theo Mẫu 31</th></tr></thead><tbody>'+
+      ds.map(function(x, j){ return sxDongKH(x, j, nhom); }).join('')+'</tbody></table></details>'; };
+  var tong = R.khop.length+R.goiY.length+R.trung.length+R.doiTen.length+R.doi.length;
+  moHop('<div class="hop-tit">🧹 Sắp xếp hồ sơ scan</div><div class="hop-phu">So với Mẫu 31. <b>Xác định chắc</b> = có số CCCD khớp 1 khách, hoặc khớp 2 trong 3 (số CCCD · mã KH · họ tên — tên so bỏ dấu, cho lệch nhỏ) '+
+      '→ đặt tên <i>MãKH - Họ tên - Loại</i>, dời vào thư mục theo loại. Chưa chắc → giữ ở <i>'+SXT.cho+'</i> cho tới khi anh chọn. Thư mục cũ trống → thùng rác Drive (lấy lại 30 ngày).</div>'+
+    khoi('✓ Xác định chắc — tự xếp', '', R.khop, 'khop', 'xanh')+
+    khoi('? Gợi ý — chưa chắc', 'Tích ☑ <b>Đúng</b> ở dòng anh đồng ý; dòng không tích giữ ở thư mục chờ.', R.goiY, 'goiY', 'vang')+
+    khoi('⚠ Trùng tên — anh chọn đúng khách', 'Bấm nút tròn ◉ trước khách đúng (xem ấp, tổ, xã để phân biệt). Không chắc thì để <b>Bỏ qua</b>.', R.trung, 'trung', 'vang')+
+    khoi('✎ Đổi tên theo Mẫu 31', '', R.doiTen, 'doiTen')+khoi('↪ File cũ dời về chỗ mới', '', R.doi, 'doi')+khoi('⏳ Chưa có trên Mẫu 31', '', R.chua, 'chua')+
+    (tong ? '' : '<div class="rong">Không có gì cần sắp xếp'+(R.chua.length ? ' (còn '+R.chua.length+' bản chưa có trên Mẫu 31)' : '')+'.</div>')+
+    '<div class="sx-chan">'+GD.hang([GD.nut({chu:'Đóng', lenh:'sx.dong'}), GD.nut({chu:'🔍 Rà thêm file thả tay trong thư mục chờ', lenh:'sx.driveCho'}), GD.nut({chu:'🧹', lenh:'sx.apDung', chinh:1})], true)+'</div>', true);
+  var h = document.getElementById('hop-in'); if(h) h.classList.add('xem-rong', 'sx-hop');
+  sxDemNut();
 }
 function sxGan(k, ma, laKA){
   var c = sxKhach(ma);
@@ -350,6 +362,7 @@ function sxGan(k, ma, laKA){
 }
 function sxApDung(){
   var R = SXP; if(!R) return;
+  if(!sxViec()) return bao('Chưa có bản nào để xếp — tích ☑ Đúng / chọn ◉ khách trước.', 4);
   var ds = R.khop.map(function(x){ return {x:x, ma:x.ma}; }).concat(R.goiY.filter(function(x, j){ return R.xn[j]; }).map(function(x){ return {x:x, ma:x.ma}; }), R.trung.map(function(x, j){ return {x:x, ma:R.chon[j]}; }).filter(function(y){ return y.ma; }));
   ds.forEach(function(y){ sxGan(y.x.k, y.ma, y.x.ka); });
   R.doiTen.forEach(function(x){ if(x.ka) x.k.khach = x.ten; else x.k.ten = x.ten; x.k.suaLuc = new Date().toISOString(); if(!x.ka && x.k.driveId) x.k.canDay = true; });

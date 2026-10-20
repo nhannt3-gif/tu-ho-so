@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.267 — 20/10/2026 — Màn Sắp xếp rộng, nút chọn rõ
+- **Anh 20/10**: "anh ko thấy nút chọn hay xác định gì trên màn hình sắp xếp, em cho bung lớn cửa sổ chút cân đối cừa ô".
+- Hộp Sắp xếp mở rộng (`xem-rong`), mỗi khối là bảng 3 cột cân đối: Loại | File (tên đang có) | Khách theo Mẫu 31, đầu khối có dòng hướng dẫn.
+- "Trùng tên": mỗi khách 1 **nút tròn ◉** (mã KH, CCCD, tổ) + "Bỏ qua (để sau)"; "? Gợi ý": **ô tích ☑ Đúng — xếp vào …** kèm lý do; dòng đã chọn tô nền.
+- Thanh đáy dính: nút **🧹 Sắp xếp n bản** tự đếm theo lựa chọn (`sxDemNut`, không vẽ lại), 0 bản thì mờ.
+- Phép thử: t207 thêm 1 (38).
+
 ## 3.266 — 20/10/2026 — Sắp xếp đọc số CCCD từ ảnh
 - **Anh 20/10** (ảnh màn Sắp xếp: 7 bản "trùng tên"): "em có đọc thêm số CCCD không".
 - 🧹 Sắp xếp, trước khi lập kế hoạch: bản CCCD chưa xác định khách, ảnh còn trong máy, chưa từng đọc → **đọc mã QR / 3 dòng mã máy đọc từ ảnh** (`sxDocTuAnh`), ghi số CCCD vào bản scan → tra Mẫu 31 theo quy tắc 3.265 (số CCCD chuẩn nhất) → hết trùng tên. Ảnh không đọc được → đánh dấu, lần sau không đọc lại.
