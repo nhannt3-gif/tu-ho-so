@@ -13,6 +13,7 @@ var TC = {
 };
 /* thư mục cũ của Scan đọc từ đây (một nguồn) */
 if(typeof SXT!=='undefined'){ SXT.cccd = TC.thuMuc.cccd; SXT.ka = TC.thuMuc.ka; SXT.tl = TC.thuMuc.tl; SXT.cho = TC.thuMuc.cho; }
+if(typeof SXT_GIU!=='undefined' && SXT_GIU.indexOf(TC.thuMuc.hsv)<0) SXT_GIU.push(TC.thuMuc.hsv);   /* 3.297: thư mục Hồ sơ vay — không bao giờ tự xóa */
 /* khóa khách: mã KH; hộ mới chưa có mã KH → số CCCD 12 số (3.296, đề xuất (a)); không có cả hai → '' */
 function tcKhoa(o){
   o = o || {}; if(o.maKH || o.ma) return String(o.maKH || o.ma);

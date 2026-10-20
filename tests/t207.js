@@ -18,7 +18,7 @@ const fs=require('fs'), path=require('path');
    const a = {che:'the', ten:'cccd-Khách Thử', tag:['CCCD']}, bk = {che:'the', ten:c1.ten, maKH:k1, tag:['CCCD']}, tl = {che:'tailieu', ten:c1.ten, maKH:k1, tag:['01TD']};
    ok('chưa rõ khách → thư mục "Scan chờ sắp xếp", tên anh gõ', duongScan(a)===D.cauHinh.thumuc+' / Scan chờ sắp xếp' && tenScanDrive(a)==='cccd-Khách Thử.pdf', duongScan(a)+' · '+tenScanDrive(a));
    ok('đã rõ khách → CCCD / "MãKH - Họ tên - CCCD.pdf" (phẳng, không thư mục con)', duongScan(bk)===D.cauHinh.thumuc+' / CCCD' && tenScanDrive(bk)===k1+' - '+c1.ten+' - CCCD.pdf', duongScan(bk)+' · '+tenScanDrive(bk));
-   ok('tài liệu → Hồ sơ scan / "MãKH - Họ tên - 01TD.pdf"', duongScan(tl)===D.cauHinh.thumuc+' / Hồ sơ scan' && tenScanDrive(tl)===k1+' - '+c1.ten+' - 01TD.pdf', tenScanDrive(tl));
+   ok('tài liệu mẫu hồ sơ vay (01TD) → Hồ sơ vay (3.297) / "MãKH - Họ tên - 01TD.pdf"', duongScan(tl)===D.cauHinh.thumuc+' / Hồ sơ vay' && tenScanDrive(tl)===k1+' - '+c1.ten+' - 01TD.pdf', tenScanDrive(tl));
    ok('chữ ký: chưa rõ → "ck-Tên.jpg" ở thư mục chờ; rõ → Chữ ký - Ảnh khách / "MãKH - Tên - Chữ ký.jpg"', sxTenKA({loai:'ky', khach:'ck-Khách Thử'})==='ck-Khách Thử.jpg' && sxDuongKA({loai:'ky'})===D.cauHinh.thumuc+' / Scan chờ sắp xếp'
      && sxTenKA({loai:'ky', khach:c1.ten, maKH:k1})===k1+' - '+c1.ten+' - Chữ ký.jpg' && sxDuongKA({maKH:k1})===D.cauHinh.thumuc+' / Chữ ký - Ảnh khách');
    /* 2. bóc tên + tra Mẫu 31 */

@@ -50,6 +50,8 @@ var L01 = (function(){
     in:function(){ hoiLuu(function(){ xuatIn(); }); },
     gui:function(el, ev){ hoiLuu(function(){ xuatGui({currentTarget:el, target:el, stopPropagation:function(){}}); }); },
     m03:function(){ hoiLuu(function(){ hsoChonMau('03td'); }); },
+    quet:function(){ var B = hsoBo(), o = ho(B), n = nguoi(o); if(!B || !String(n.ten||'').trim()) return bao('Chưa có người vay.', 3);   /* 3.297: quét bản đã ký vào tủ */
+      hoiLuu(function(){ var t = o.to ? KHO.to(o.to) : null; scanChoKhach({ma:o.kh||'', ten:n.ten, cccd:n.cccd, loai:tcLoaiMau('01td'), xa:o.tenXa||'', ap:o.tenThon||'', maXa:o.xa||'', maAp:o.thon||'', diem:o.diem||'', to:t ? t.ten : ''}); }); },
     ct:function(el){ var B = canBo(); B.ct = el.getAttribute('data-ma'); hsoBoLuu(); hsoVe(); },
     kb:function(el){ hsoKBHop(el.getAttribute('data-k')); },
     gq:function(){ hsoChonMau('01gqvl'); },
@@ -69,7 +71,7 @@ var L01 = (function(){
     /* thanh bản + nút */
     h += '<div class="l01-thanh"><span class="l01-ban">'+(B ? (B.luu ? '📄 <b>'+e(B.tenBan || tenBan(B))+'</b>'+(B.sua && B.sua>B.luu ? ' <i class="hso-canh">· chưa lưu thay đổi</i>' : '') : '📝 <b>Bản mới</b> <i>(chưa lưu)</i>') : '📝 <b>Form trống</b>')+'</span>'+
       GD.hang([GD.nut({chu:'Làm trống', lenh:'l01.trong', tit:'Bắt đầu 01/TD mới'}), GD.nut({chu:'💾 Lưu', lenh:'l01.luu', chinh:1, tit:'Lưu bản — tên chuẩn: Mã KH (hộ mới: số CCCD) - Họ tên - 01TD'}),
-        GD.nut({chu:'🖨 In', lenh:'l01.in'}), GD.nut({chu:'📤 Gửi', lenh:'l01.gui'}), GD.nut({chu:'📄 Mẫu 03', lenh:'l01.m03', tit:'Sang 03/TD — điền sẵn từ 01/TD này'})])+'</div>';
+        GD.nut({chu:'🖨 In', lenh:'l01.in'}), GD.nut({chu:'📤 Gửi', lenh:'l01.gui'}), GD.nut({chu:'📷 Quét bản đã ký', lenh:'l01.quet', tit:'Đơn đã ký → quét vào tủ: tên chuẩn, thư mục Hồ sơ vay, hiện ở Hồ sơ của khách'}), GD.nut({chu:'📄 Mẫu 03', lenh:'l01.m03', tit:'Sang 03/TD — điền sẵn từ 01/TD này'})])+'</div>';
     /* Chương trình · Kính gửi */
     h += '<div class="l01-phan">'+o1('Chương trình cho vay', '<span class="hang-nut">'+hsoCTVDs().filter(function(c){ return c.kieu!=='gqvl' && (c.bat!==false || (B && c.ma===B.ct)); }).map(function(c){ return GD.chip('<b>'+e(c.ma)+'</b>', !!B && B.ct===c.ma, 'l01.ct', {ma:c.ma}, c.ten).replace('gd-chip', 'gd-chip hso-ct'); }).join('')+
         ' <a href="#" class="hso-nho" data-lenh="l01.kb" data-k="ct" title="Thêm / sửa chương trình">⚙</a></span>')+

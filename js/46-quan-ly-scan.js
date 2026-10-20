@@ -115,3 +115,24 @@ document.addEventListener('keydown', function(ev){
   ev.preventDefault(); ev.stopPropagation();
   if(the) hcDichMat(HC_CHON, d); else { var j = HC_CHON+d; if(j>=0 && j<HANG.length){ dichHang(HC_CHON, d); HC_CHON = j; veAnhHang(); } }
 }, true);
+
+/* ---------- 3.297 (bước 3 kế hoạch tên + lưu): 📷 QUÉT BẢN ĐÃ KÝ từ hồ sơ vay ----------
+   Form 01/TD (và mẫu khác của hộ) → nút 📷 Quét bản đã ký: sang tab Scan chế độ Tài liệu, khách + loại mẫu điền sẵn →
+   🗄 Lưu vào tủ ra tên chuẩn "Mã KH (hộ mới: số CCCD) - Họ tên - 01TD", thư mục Drive **Hồ sơ vay**; hiện ở "Hồ sơ của khách". */
+var SC_DAT = null;   /* {ma, ten, cccd, loai, xa, ap, to, maXa, maAp, diem} */
+function scanChoKhach(o){
+  if(!o || !(o.ma || o.cccd)) return baoLoi('Chưa có mã KH hoặc số CCCD của người vay — gõ số CCCD ở form trước.');
+  SC_DAT = o; SC.che = 'tailieu'; if(nganHienTai!==4) doiNgan(4);
+  bao('📷 Quét bản '+o.loai+' đã ký của '+o.ten+' — lưu xong vào thư mục Hồ sơ vay, tên chuẩn.', 6);
+  batDauScan('tailieu');   /* loại Tài liệu sáng sẵn (không theo loại nhớ lần trước) */
+}
+var QL_XONG_HOP = scanXongHop;
+scanXongHop = function(bl){
+  QL_XONG_HOP(bl);
+  if(!SC_DAT || SC.che!=='tailieu' || !SX) return;
+  var o = SC_DAT, c = o.ma ? sxKhach(o.ma) : {ma:'', ten:o.ten, cccd:o.cccd, khoa:tcKhoa({cccd:o.cccd}), xa:o.xa||'', ap:o.ap||'', maXa:o.maXa||'', maAp:o.maAp||'', diem:o.diem||'', to:o.to||''};
+  SXK[0] = c; SX.ten = tcTen(o.ma || c.khoa, c.ten || o.ten, o.loai, '');
+  var e = document.getElementById('sx-ten'); if(e) e.value = SX.ten;
+  var h = document.getElementById('hop-in'), cho = e ? (e.closest('label, div') || e) : (h && h.firstChild);
+  if(h && cho && !h.querySelector('.ql-dat')) cho.insertAdjacentHTML('beforebegin', '<div class="sx-hd ql-dat">📌 Bản <b>'+coChuHTML(o.loai)+'</b> đã ký của <b>'+coChuHTML(c.ten || o.ten)+'</b> ('+coChuHTML(o.ma ? 'mã KH '+o.ma : 'hộ mới — số CCCD '+(c.khoa||''))+') → bấm <b>🗄 Lưu vào tủ</b>: thư mục <b>Hồ sơ vay</b>, tên <i>'+coChuHTML(SX.ten)+'</i>.</div>');
+};

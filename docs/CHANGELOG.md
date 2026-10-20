@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.297 — 21/10/2026 — Bước 3: bản hồ sơ vay đã ký vào tủ, thư mục Hồ sơ vay
+- Theo `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` bước 3 (anh duyệt 20/10, đề xuất (b) 1 thư mục `Hồ sơ vay`). App không tự dựng được PDF từ mẫu in (in qua trình duyệt) nên "lưu PDF vào tủ" làm bằng **quét bản đã ký**.
+- Form 01/TD: nút **📷 Quét bản đã ký** → sang tab Scan, loại **Tài liệu** sáng sẵn; quét xong, bước lưu điền sẵn khách + tên chuẩn (dòng 📌) → **🗄 Lưu vào tủ**: tag `01TD`, tên **`Mã KH - Họ tên - 01TD`** (hộ mới: **`Số CCCD - Họ tên - 01TD`**), thư mục Drive **Hồ sơ vay**; hiện ngay ở "Hồ sơ của khách" (khung phải).
+- Tab Scan: tài liệu có loại là mẫu hồ sơ vay (01TD, 03TD, 06TD, 01UQ, 10C, 01TGTV, 01GQVL, 07BGQVL) → thư mục **Hồ sơ vay** (trước: Hồ sơ scan); bản cũ ở Hồ sơ scan → 🗂 Quản lý › ⏳ Sắp xếp đề nghị dời. Tài liệu khác vẫn Hồ sơ scan.
+- Hồ sơ vay hộ mới (khóa số CCCD) không tính là "Chờ sắp xếp"; khi Mẫu 31 có mã KH cho số CCCD đó → ⏳ Sắp xếp nhận ra, đổi khóa sang mã KH (tên + thư mục theo).
+- Thư mục Hồ sơ vay nằm trong danh sách app không bao giờ tự xóa.
+- Phép thử: t224 mới (6); t200 thêm 1 (23); t207 sửa thư mục 01TD.
+
 ## 3.296 — 21/10/2026 — Bước 2: tên bản lưu Hồ sơ vay theo quy tắc chung
 - Theo `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` bước 2 (anh duyệt 20/10, đề xuất (a) hộ mới khóa bằng số CCCD, (c) tên loại 01TD…).
 - Form 01/TD › 💾 Lưu: tên bản lưu nay **`Mã KH - Họ tên có dấu - 01TD`** (hộ cũ) / **`Số CCCD - Họ tên - 01TD`** (hộ mới chưa có mã KH; chưa gõ CCCD thì `Họ tên - 01TD`) — cùng quy tắc với Scan (trước: tên không dấu - tổ - ấp). Danh sách "📂 Bản 01/TD đã lưu": tên chuẩn + dòng phụ **Tổ · Ấp · ngày · chương trình**.

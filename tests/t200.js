@@ -61,6 +61,10 @@ const fs=require('fs'), path=require('path');
  ok('💾 Lưu (3.296): tên chuẩn "số CCCD (hộ mới) - Họ tên có dấu - 01TD", tổ · ấp ở dòng phụ, hiện trong danh sách', r.ten==='079078001234 - Nguyễn Văn Giả - 01TD' && r.ds.indexOf(r.ten)>=0 && /Tổ .*·/.test(r.phu), JSON.stringify(r));
  r = await ev(()=>{ const B = hsoBo(); B.tenBan = 'Nguyen Van Gia - To X - Ap Y'; delete B.tenCu; hsoVe(); return {ten:B.tenBan, cu:B.tenCu}; });
  ok('bản lưu trước 3.296 (tên không dấu - tổ - ấp) → đổi tên chuẩn 1 lần, giữ tên cũ', r.ten==='079078001234 - Nguyễn Văn Giả - 01TD' && r.cu==='Nguyen Van Gia - To X - Ap Y', JSON.stringify(r));
+ /* 3.297: 📷 Quét bản đã ký → sang Scan (Tài liệu), khách + loại 01TD điền sẵn */
+ r = await ev(()=>{ const nut = document.querySelector('[data-lenh="l01.quet"]'); if(!nut) return {nut:false}; HS.mo = true; nut.click(); return new Promise(ok=>setTimeout(()=>{ const x = {nut:true, dat:JSON.parse(JSON.stringify(SC_DAT||null)), che:SC.che, loai:SC.loai, ngan:nganHienTai, hop:(document.querySelector('#hop-in .hop-tit')||{}).textContent||''}; try{dongHop()}catch(e){} SC_DAT = null; slDoiTab('hsv'); doiNgan(7); ok(x); }, 600)); });
+ ok('01/TD › 📷 Quét bản đã ký → tab Scan chế độ Tài liệu, khách + loại 01TD điền sẵn', r.nut && r.dat && r.dat.loai==='01TD' && r.dat.cccd==='079078001234' && r.dat.ten==='Nguyễn Văn Giả' && r.che==='tailieu' && r.loai==='tailieu' && r.ngan===4 && /Lấy từ đâu|Quét gì/.test(r.hop), JSON.stringify(r));
+ await w(500);
  await p.click('[data-lenh="l01.trong"]'); await w(500);
  r = await ev(()=>({bo:hsoCH().boId, ten:document.querySelector('[data-l01="ng-ten"]').value, thanh:document.querySelector('.l01-ban').textContent}));
  ok('Làm trống → form trống (bản cũ vẫn trong danh sách)', !r.bo && !r.ten && /Form trống/.test(r.thanh), JSON.stringify(r));

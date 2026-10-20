@@ -24,8 +24,10 @@ function sxSoThu(k, laKA){
   var n = tcSoThu(cung, k); return n>1 ? ' ('+n+')' : '';   /* 3.295: sổ quy tắc chung (49) */
 }
 function sxLoaiScan(k){ return k.che==='tailieu' ? (((k.tag||[]).filter(function(t){ return t && t!=='CCCD'; })[0]) || 'Tài liệu') : 'CCCD'; }
-duongScan = function(k){ return tcDuong(k.maKH ? (k.che==='tailieu' ? 'tl' : 'cccd') : 'cho'); };   /* 3.295: sổ quy tắc chung (49) */
-tenScanDrive = function(k){ return k.maKH ? sxTenChuan(k.maKH, k.ten, sxLoaiScan(k)+sxSoThu(k), '.pdf') : (sachTen(k.ten||'Scan') || 'Scan')+'.pdf'; };
+duongScan = function(k){ return tcDuong(k.maKH ? (k.che==='tailieu' ? (sxLaHSV(k) ? 'hsv' : 'tl') : 'cccd') : (k.khoaCCCD && sxLaHSV(k) ? 'hsv' : 'cho')); };   /* 3.295: sổ quy tắc chung (49); 3.297: tài liệu là mẫu hồ sơ vay → Hồ sơ vay */
+/* 3.297 (bước 3): tài liệu có loại là mẫu hồ sơ vay (01TD, 03TD, 01UQ, 10C, 01TGTV, 01GQVL, 07BGQVL…) */
+function sxLaHSV(k){ if(!k || k.che!=='tailieu') return false; var l = tcLoaiMau(sxLoaiScan(k)); return Object.keys(TC.loaiMau).some(function(m){ return TC.loaiMau[m]===l; }); }
+tenScanDrive = function(k){ return k.maKH ? sxTenChuan(k.maKH, k.ten, sxLoaiScan(k)+sxSoThu(k), '.pdf') : k.khoaCCCD && sxLaHSV(k) ? tcTen(k.khoaCCCD, k.ten, sxLoaiScan(k), '.pdf') : (sachTen(k.ten||'Scan') || 'Scan')+'.pdf'; };   /* 3.297: hồ sơ vay hộ mới → khóa số CCCD */
 duongTheCCCD = function(k){ return duongScan(k); };
 tenTheCCCD = function(k){ return tenScanDrive(k); };
 if(typeof SC_CAN_DAY_CU==='function') scanCanDay = SC_CAN_DAY_CU;   /* 3.264: bản chưa khai cũng lên Drive — vào thư mục chờ sắp xếp */
@@ -268,23 +270,24 @@ GD.dangKy('sx', {luuDoc:function(){ sxLuuTuDoc(); }, photo2:function(el){ SC.pho
 /* lưu vào tủ theo khách đã chọn / tự nhận — như 3.155, thêm số CCCD + tự tạo ảnh khách từ mặt trước */
 scanLuuTu = function(){
   var nh = scanNhom(); if(nh.some(function(_, i){ return !SXK[i]; })) return bao(nh.length>1 ? 'Chọn khách cho đủ '+nh.length+' người.' : 'Chọn khách trước.', 4);
-  var loai = SC.che==='the' ? '' : layMot('sx-tag'), d = nay(), ds = [], ch = Promise.resolve();
+  var loai = SC.che==='the' ? '' : ((typeof SC_DAT!=='undefined' && SC_DAT && SC_DAT.loai) || layMot('sx-tag')), d = nay(), ds = [], ch = Promise.resolve();   /* 3.297: quét bản đã ký từ hồ sơ vay → loại theo mẫu */
   nh.forEach(function(g, i){ var c = SXK[i], r = SX_DOC[i] || {};
     var k = {id:idMoi(), che:SC.che==='the' ? 'the' : 'tailieu', ten:c.ten, maKH:c.ma, cccd:c.cccd || r.cccd || '', xa:c.xa, ap:c.ap, maXa:c.maXa, maAp:c.maAp, diem:c.diem||'', to:c.to||'', ghi:'',
       tag:SC.che==='the' ? ['CCCD'] : (loai ? [loai] : []), ctrinh:[], ngay:ngayISO(d), gioQuet:d.toISOString(), taoLuc:d.toISOString(), suaLuc:d.toISOString(), may:maMayCua()};
     if(r.cccd){ k.cccdDoc = sxGhiDoc(r); if(r.cmnd) k.cmnd = r.cmnd; }   /* 3.271: lưu đủ thông tin đọc được (bảng đối chiếu) + CMND 9 số */
+    if(!c.ma && c.khoa) k.khoaCCCD = c.khoa;   /* 3.297: hộ mới (chưa có mã KH) — khóa bằng số CCCD */
     if(k.che==='the'){ k.matTruoc = !!g[0]; k.matSau = !!g[1];
       (function(k, a, b){ ch = ch.then(function(){ return a ? doiTenAnh(a.id, k.id+'_matTruoc') : null; }).then(function(){ return b ? doiTenAnh(b.id, k.id+'_matSau') : null; }); })(k, g[0], g[1]); }
     else k.trang = g.map(hangRaTrang);
     ds.push(k); });
   ch.then(function(){
     D.scan = D.scan || []; ds.forEach(function(k){ D.scan.push(k); }); HS.ds = D.scan;
-    donGocHang(); HANG = []; SX = null; SXK = []; SX_DOC = []; ghiHang(); luu(); dongHop(); veScan();
+    donGocHang(); HANG = []; SX = null; SXK = []; SX_DOC = []; ghiHang(); luu(); dongHop(); veScan(); if(typeof SC_DAT!=='undefined') SC_DAT = null;
     return ds.filter(function(k){ return k.che==='the' && k.matTruoc; }).reduce(function(p, k){ return p.then(function(){ return sxAnhTuCCCD(k); }); }, Promise.resolve());
   }).then(function(){
     if(D.cauHinh.dbSauLuu!==false) henDongBoScan();
     var trung = ds.filter(function(k){ return k.che!=='tailieu' && sxSoThu(k); });   /* tài liệu: đánh số 1, 2, 3 là bình thường */   /* 3.277: khách đã có bản cùng loại */
-    bao('Đã lưu '+ds.length+' bản đúng khách: '+ds.map(function(k){ return k.maKH+' '+k.ten; }).join(', ')+'.'+(trung.length ? ' ⚠ '+trung.length+' khách đã có bản cũ — bản mới đánh số (2)…; trùng thì xóa bớt ở 🔎 Rà CCCD.' : ''), trung.length ? 9 : 6);
+    bao('Đã lưu '+ds.length+' bản đúng khách: '+ds.map(function(k){ return (k.maKH || k.khoaCCCD)+' '+k.ten; }).join(', ')+'.'+(trung.length ? ' ⚠ '+trung.length+' khách đã có bản cũ — bản mới đánh số (2)…; trùng thì xóa bớt ở 🔎 Rà CCCD.' : ''), trung.length ? 9 : 6);
   }).catch(function(e){ baoLoi('Chưa lưu được: '+(e && e.message || e)); });
 };
 /* ảnh khách = mặt trước CCCD nén JPG ≤ 200 KB (khách chưa có ảnh) */
@@ -356,7 +359,7 @@ nhanVaoScan = function(fs, nguon){
 
 /* ---------- 6. 🧹 SẮP XẾP ---------- */
 var SXP = null;   /* kế hoạch sắp xếp đang xem */
-function sxDangCho(k){ return !k.maKH; }
+function sxDangCho(k){ return !k.maKH && !k.khoaCCCD; }   /* 3.297: hồ sơ vay hộ mới (khóa số CCCD) không phải "chờ" */
 function sxDemCho(){ return (D.scan||[]).filter(sxDangCho).length + (D.kyAnh||[]).filter(sxDangCho).length; }
 function sxKeHoach(){
   var R = {khop:[], goiY:[], trung:[], chua:[], doiTen:[], doi:[]};
@@ -367,6 +370,7 @@ function sxKeHoach(){
       if(tenMoi && sxChuan(tenMoi)!==sxChuan(tenGoc)) R.doiTen.push({k:k, ka:laKA, ma:k.maKH, tu:tenGoc, ten:tenMoi});
       else if(k.driveId && k.duongDrive!==(laKA ? sxDuongKA(k) : duongScan(k))) R.doi.push({k:k, ka:laKA, ma:k.maKH, tu:(k.maKH+' - '+(tenGoc||''))});
       return; }
+    if(!laKA && k.khoaCCCD){ var f2 = sxXacDinh({cccd:k.khoaCCCD, ten:k.ten}); if(f2.ma) R.khop.push({k:k, ka:false, ma:f2.ma, theo:f2.theo, tu:tenGoc}); return; }   /* 3.297: hộ mới đã có mã KH trên Mẫu 31 → đổi khóa sang mã KH */
     var b = sxBoc(tenGoc), f = sxXacDinh({cccd:k.cccd || b.cccd, ma:b.ma, ten:b.ten, ns:(k.cccdDoc||{}).ns, cmnd:k.cmnd || (k.cccdDoc||{}).cmnd, db:laKA ? null : sxDBQuet(k)});
     if(f.ma) R.khop.push({k:k, ka:laKA, ma:f.ma, theo:f.theo, tu:tenGoc});
     else if(f.goiY) R.goiY.push({k:k, ka:laKA, ma:f.goiY, ly:f.ly, tu:tenGoc});
