@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.283) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Bấm lại các PDF cũ chưa tách, không báo | Tự tách 2 mặt, hoặc dòng đỏ báo lý do | |
+| 2 | Bản báo "Không có ảnh mặt thẻ" › ↻ Tách 2 mặt từ PDF | Hiện 2 mặt | |
+
+**Ghi chú kỹ thuật 3.283:** 43: `sxLaCCCD` nhận bản trong `D.scan` che trống; `sxCanCat` dùng `sxLaCCCD`; `sxCatTuPDF` ghi `che='the'`; `sxVeTTCat` kiểm `docAnhHS` khi ghi "lúc quét"; `sx.catLai` không lấy được ảnh → xóa `anhDrive` / `matTruoc` rồi tách lại (ảnh cũ trên Drive nếu còn → Rà báo "File trên Drive không qua app").
+
 ### Danh sách thử trên máy thật (3.282) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

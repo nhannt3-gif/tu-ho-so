@@ -69,6 +69,18 @@ const fs=require('fs'), path=require('path'); const drive=require('./fakedrive.j
    return {in:!!bl, trang, anh, cat:!!k.catTuPDF, loi}; }, rA.k);
  ok('3.282 in nhiều CCCD: bản cũ chỉ có PDF tự tách 2 mặt rồi ghép, 1 trang A4', rI.in && rI.trang===1 && rI.cat && rI.anh===4, JSON.stringify(rI));
  ok('3.282 bản không tách được → không ghép (không để ô trống), báo tên để in PDF gốc', /Khach Hong/.test(rI.loi) && !/Khach In Moi/.test(rI.loi));
+ /* 3.283: bản cũ không ghi chế độ (che trống, không nhãn) → vẫn tách + báo; ghi có ảnh trên Drive nhưng không tải được → báo đỏ, Tách 2 mặt từ PDF */
+ const rC = await B.evaluate(async(kA)=>{ const w=t=>new Promise(r=>setTimeout(r,t));
+   const k = JSON.parse(JSON.stringify(kA)); k.id = 't217c'; delete k.che; k.tag = []; delete k.anhDrive; delete k.matTruoc; delete k.matSau; D.scan.push(k); HS.ds = D.scan;
+   const la = sxLaCCCD(k); veVaoKhung(k, 'lon'); for(let i=0;i<40 && !document.querySelector('#x-than .the-xem img');i++) await w(200); await w(200);
+   const hai = document.querySelectorAll('#x-than .the-xem img').length, tt = (document.querySelector('#x-phu .sx-cat-tt')||{}).textContent||'';
+   const m = JSON.parse(JSON.stringify(kA)); m.id = 't217m'; m.anhDrive = {truoc:{id:'khong-co'}, sau:{id:'khong-co-2'}}; D.scan.push(m);
+   veVaoKhung(m, 'lon'); let tm = ''; for(let i=0;i<40 && !/Không có ảnh mặt thẻ/.test(tm);i++){ await w(150); tm = (document.querySelector('#x-phu .sx-cat-tt')||{}).textContent||''; }
+   const nut = document.querySelector('#x-phu .sx-cat-tt [data-lenh="sx.catLai"]'); if(nut) nut.click();
+   for(let i=0;i<40 && !m.catTuPDF;i++) await w(200);
+   return {la, hai, che:k.che, tt, tm, nut:!!nut, catM:!!m.catTuPDF}; }, rA.k);
+ ok('3.283 bản cũ không ghi chế độ / không nhãn CCCD → vẫn tự tách 2 mặt khi xem + có dòng trạng thái', rC.la && rC.hai===2 && rC.che==='the' && /Đã tách 2 mặt/.test(rC.tt), JSON.stringify(rC));
+ ok('3.283 ghi có ảnh trên Drive mà không tải được → báo đỏ "Không có ảnh mặt thẻ", bấm ↻ Tách 2 mặt từ PDF → tách được', /Không có ảnh mặt thẻ/.test(rC.tm) && rC.nut && rC.catM);
  /* tài liệu: 1 khách nhiều tài liệu cùng loại → đánh số 1, 2, 3; Rà chỉ báo trùng khi giống hệt */
  const rT = await B.evaluate((ma)=>{ const t = id => ({id, che:'tailieu', tag:[], maKH:ma, ten:'Khach', taoLuc:'2026-10-0'+id.slice(-1)});
    const a = t('tl1'), b2 = t('tl2'), c = t('tl3'); D.scan.push(a, b2, c);

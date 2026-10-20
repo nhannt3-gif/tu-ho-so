@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.283 — 20/10/2026 — CCCD cũ chưa tách mà không báo
+- **Anh 20/10**: "vẫn còn 1 vài PDF cũ chưa tách mà cũng không báo".
+- Nguyên nhân 1: bản rất cũ không ghi chế độ (không phải Thẻ, không nhãn CCCD) — app vẫn xếp vào thư mục CCCD nhưng phần tách 2 mặt (3.280) và dòng trạng thái (3.281) chỉ nhận bản Thẻ / nhãn CCCD → bỏ qua, không báo. Sửa: bản scan không phải tài liệu = CCCD (như 🔎 Rà, thư mục Drive); tách xong ghi chế độ Thẻ.
+- Nguyên nhân 2: bản ghi "có ảnh mặt thẻ" (quét ở máy khác, hoặc ảnh trên Drive đã mất) mà máy không có, Drive không tải được → hiện PDF nhưng dòng trạng thái lại ghi "Ảnh 2 mặt thẻ lúc quét". Sửa: kiểm tra thật → dòng đỏ "⚠ Không có ảnh mặt thẻ…" + nút **↻ Tách 2 mặt từ PDF**.
+- Bản Rà tách (không qua khung xem) cũng ghi chế độ Thẻ để khung xem hiện 2 mặt.
+- Phép thử: t217 thêm 2 (17).
+
 ## 3.282 — 20/10/2026 — In nhiều CCCD 4 khách / A4 gồm cả bản cũ
 - **Anh 20/10**: "còn chức năng in nhiều CCCD 1 lúc, cụ thể là 4 CCCD trên 1 trang A4". Chức năng có từ 3.35 / 3.58 (tích ☐ từng dòng → 🖨 In n người); nhưng bản CCCD cũ chỉ có PDF không có ảnh mặt thẻ → ô trống trên trang.
 - Sửa: 🖨 In / Lưu PDF nhiều bản → trước khi dựng, bản cũ chỉ có PDF tự tách 2 mặt (có thanh tiến độ); bản vẫn không có ảnh (không tách được / chưa nối Drive) bỏ ra khỏi trang ghép, báo tên để mở in PDF gốc.
