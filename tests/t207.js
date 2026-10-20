@@ -28,8 +28,10 @@ const fs=require('fs'), path=require('path');
    const X1 = sxXacDinh({cccd:c1.cccd, ten:boDau(c1.ten).toUpperCase()}), X2 = sxXacDinh({ten:c1.ten}), X3 = sxXacDinh({cccd:c1.cccd}), X4 = sxXacDinh({cccd:c1.cccd, ten:'Tên Khác Hẳn'}), X5 = sxXacDinh({ma:k1, ten:c1.ten}), X6 = sxXacDinh({ma:k1});
    ok('CCCD + tên (không dấu, hoa) khớp → chắc, xếp được', X1.ma===k1, JSON.stringify(X1));
    ok('chỉ khớp tên → chưa chắc (gợi ý), không tự xếp', !X2.ma && X2.goiY===k1 && /chỉ khớp tên/.test(X2.ly), JSON.stringify(X2));
-   ok('chỉ có số CCCD → chưa chắc', !X3.ma && X3.goiY===k1 && /chỉ có số CCCD/.test(X3.ly), JSON.stringify(X3));
-   ok('CCCD khớp mà tên khác Mẫu 31 → chưa chắc, ghi rõ lý do', !X4.ma && X4.goiY===k1 && /tên khác Mẫu 31/.test(X4.ly), JSON.stringify(X4));
+   ok('anh: số CCCD chuẩn nhất — chỉ có số CCCD (khớp 1 khách) → chắc', X3.ma===k1, JSON.stringify(X3));
+   const tenSai = c1.ten.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').slice(0, -1), X7 = sxXacDinh({cccd:c1.cccd, ten:tenSai});
+   ok('tên bỏ dấu / thiếu 1 chữ cái + CCCD → vẫn chắc (tên so gần đúng)', X7.ma===k1 && sxTenGan('Nguyễn Văn Hoàng', 'nguyen van hoang') && sxTenGan('Nguyễn Văn Hoàng', 'Nguyen Van Hong') && !sxTenGan('Nguyễn Văn Hoàng', 'Trần Thị Mai'), JSON.stringify(X7));
+   ok('CCCD khớp mà tên khác hẳn Mẫu 31 → chưa chắc, ghi rõ lý do', !X4.ma && X4.goiY===k1 && /tên khác hẳn Mẫu 31/.test(X4.ly), JSON.stringify(X4));
    ok('mã KH + tên → chắc; chỉ mã KH → chưa chắc', X5.ma===k1 && !X6.ma && X6.goiY===k1, JSON.stringify([X5, X6]));
    ok('bóc tên có số CCCD + mã KH: "cccd-Tên - 0721… " / "4800…-Tên"', sxBoc('cccd-'+c1.ten+' - '+c1.cccd).cccd===c1.cccd && sxBoc(k1+'-'+c1.ten).ma===k1, JSON.stringify([sxBoc('cccd-'+c1.ten+' - '+c1.cccd), sxBoc(k1+'-'+c1.ten)]));
    /* 3. mã QR / mã máy đọc (dữ liệu GIẢ) */

@@ -79,11 +79,21 @@ function sxBoc(ten){
   return {loai:loai, cccd:so, ma:ma, ten:conTen};
 }
 /* 3.265 (anh chốt 20/10): XÁC ĐỊNH CHẮC = khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên) với cùng 1 khách Mẫu 31 → đổi tên chuẩn + lưu đúng chỗ;
+   số CCCD là chuẩn nhất: có số CCCD khớp 1 khách mà không có tên → vẫn chắc; tên so gần đúng (bỏ dấu, lệch nhỏ — sxTenGan);
    chưa chắc (chỉ tên · chỉ số CCCD / mã KH · CCCD khớp mà tên khác) → để thư mục chung, 🧹 Sắp xếp hiện gợi ý + lý do, anh bấm ✓ mới xếp.
    → {ma, theo} (chắc) | {goiY, ly} | {ds} (trùng) | {} (không có) */
+/* tên gần đúng (anh: họ tên đôi khi bỏ dấu chưa chuẩn): bỏ dấu, hoa thường; lệch ≤ 1 ký tự (tên ngắn) / ≤ 2 (tên dài), hoặc chỉ đảo thứ tự chữ */
+function sxTenGan(a, b){
+  a = sxChuan(a); b = sxChuan(b); if(!a || !b) return false; if(a===b) return true;
+  if(a.split(' ').sort().join(' ')===b.split(' ').sort().join(' ')) return true;
+  var n = a.length, m = b.length, cho = Math.max(n, m)>=12 ? 2 : 1; if(Math.abs(n-m)>cho) return false;
+  var d = []; for(var i=0;i<=n;i++){ d[i] = [i]; } for(var j=1;j<=m;j++) d[0][j] = j;
+  for(i=1;i<=n;i++) for(j=1;j<=m;j++) d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+(a[i-1]===b[j-1] ? 0 : 1));
+  return d[n][m]<=cho;
+}
 function sxXacDinh(o){
   var X = sxChiMuc(), KH = KHO.dsKhach(), s = String(o.cccd||'').replace(/\D/g, ''), t = sxChuan(o.ten), m = String(o.ma||'');
-  var tenOK = function(ma){ return !!t && sxChuan((KH[ma]||{}).ten)===t; }, ccOK = function(ma){ return !!s && String((KH[ma]||{}).cccd||'').replace(/\D/g, '')===s; };
+  var tenOK = function(ma){ return !!t && sxTenGan((KH[ma]||{}).ten, t); }, ccOK = function(ma){ return !!s && String((KH[ma]||{}).cccd||'').replace(/\D/g, '')===s; };
   var tenMau = function(ma){ return (KH[ma]||{}).ten || ''; };
   if(m && KH[m]){
     if(tenOK(m) || ccOK(m)) return {ma:m, theo:'mã KH + '+(tenOK(m) ? 'tên' : 'CCCD')};
@@ -92,7 +102,8 @@ function sxXacDinh(o){
     if(X.cc[s].length>1) return {ds:X.cc[s]};
     var mc = X.cc[s][0];
     if(tenOK(mc)) return {ma:mc, theo:'CCCD + tên'};
-    return {goiY:mc, ly:t ? 'CCCD khớp, tên khác Mẫu 31 ('+tenMau(mc)+')' : 'chỉ có số CCCD'}; }
+    if(!t) return {ma:mc, theo:'số CCCD'};   /* anh: số CCCD là chuẩn nhất — có số, không có tên vẫn xác định */
+    return {goiY:mc, ly:'CCCD khớp, tên khác hẳn Mẫu 31 ('+tenMau(mc)+')'}; }
   if(!t) return {};
   var ds = X.ten[t] || [];
   if(ds.length===1) return s ? {goiY:ds[0], ly:'tên khớp, số CCCD khác Mẫu 31'} : {goiY:ds[0], ly:'chỉ khớp tên'};
@@ -183,7 +194,8 @@ function sxVeDoc(){
     if(!x.cccd) return '<div class="vang">'+dau+'Chưa đọc được số CCCD — gõ tên vào ô Tên file (vd <i>cccd-Võ Văn Hoàng</i>) rồi Lưu vào app, sau bấm 🧹 Sắp xếp.</div>';
     var t = x.tim || {};
     return '<div>'+dau+'✓ Đọc được CCCD <b>'+coChuHTML(x.cccd)+'</b> <small>('+coChuHTML(x.nguon)+(x.ten ? ' · '+coChuHTML(x.ten) : '')+')</small> → '+
-      (t.ma ? '<b class="xanh">'+coChuHTML(sxNhanKH(t.ma))+'</b> <small>(khớp '+coChuHTML(t.theo)+')</small>' : t.goiY ? '<span class="vang">chưa chắc — gần khớp '+coChuHTML(sxNhanKH(t.goiY))+' ('+coChuHTML(t.ly)+'). Lưu vào app → thư mục chung, anh xác nhận ở 🧹 Sắp xếp</span>' : t.ds ? '<span class="vang">'+t.ds.length+' khách trùng — lưu vào thư mục chung, chọn ở 🧹 Sắp xếp</span>' : '<span class="vang">chưa có trên Mẫu 31 (hộ mới) — lưu vào thư mục chung</span>')+'</div>'; }).join('')+
+      (t.ma ? '<b class="xanh">'+coChuHTML(sxNhanKH(t.ma))+'</b> <small>(khớp '+coChuHTML(t.theo)+')</small>'
+        : t.goiY ? '<span class="vang">chưa chắc — gần khớp '+coChuHTML(sxNhanKH(t.goiY))+' ('+coChuHTML(t.ly)+'). Lưu vào app → thư mục chung, anh xác nhận ở 🧹 Sắp xếp</span>' : t.ds ? '<span class="vang">'+t.ds.length+' khách trùng — lưu vào thư mục chung, chọn ở 🧹 Sắp xếp</span>' : '<span class="vang">chưa có trên Mẫu 31 (hộ mới) — lưu vào thư mục chung</span>')+'</div>'; }).join('')+
     (tat ? GD.hang([GD.nut({chu:'🗄 Lưu đúng khách (tự nhận)', lenh:'sx.luuDoc', chinh:1})]) : '');
 }
 function sxLuuTuDoc(){ if(!SX_DOC.every(function(x){ return x.tim && x.tim.ma; })) return; scanLuuTu(); }
@@ -304,7 +316,7 @@ function sxVeSapXep(){
     return '<details'+(nhom!=='chua' ? ' open' : '')+' class="sx-khoi"><summary class="'+(lop||'')+'"><b>'+ten+'</b> — '+ds.length+'</summary><table class="to-bang luoi"><tbody>'+
       ds.map(function(x, j){ return sxDongKH(x, nhom==='trung' ? j : j, nhom); }).join('')+'</tbody></table></details>'; };
   var nChonTrung = Object.keys(R.chon).length, nXn = Object.keys(R.xn).filter(function(i){ return R.xn[i]; }).length, viec = R.khop.length + R.doiTen.length + R.doi.length + nChonTrung + nXn;
-  moHop('<div class="hop-tit">🧹 Sắp xếp hồ sơ scan</div><div class="hop-phu">So với Mẫu 31: <b>xác định chắc</b> = khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên) với cùng 1 khách → đặt tên <i>MãKH - Họ tên - Loại</i> theo Mẫu 31 và dời vào thư mục theo loại '+
+  moHop('<div class="hop-tit">🧹 Sắp xếp hồ sơ scan</div><div class="hop-phu">So với Mẫu 31: <b>xác định chắc</b> = khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên; tên so bỏ dấu, cho lệch nhỏ) hoặc có số CCCD khớp 1 khách → đặt tên <i>MãKH - Họ tên - Loại</i> theo Mẫu 31 và dời vào thư mục theo loại '+
       '(CCCD · Chữ ký - Ảnh khách · Hồ sơ scan). Chưa chắc → giữ ở <i>'+SXT.cho+'</i>, anh bấm ✓ Đúng mới xếp. Thư mục cũ dời xong còn trống → thùng rác Drive (lấy lại được 30 ngày).</div>'+
     khoi('✓ Xác định chắc — sẽ đặt tên + dời', R.khop, 'khop', 'xanh')+khoi('? Gợi ý — chưa chắc, anh xác nhận', R.goiY, 'goiY', 'vang')+khoi('✎ Đổi tên theo Mẫu 31', R.doiTen, 'doiTen')+khoi('↪ File cũ dời về chỗ mới', R.doi, 'doi')+
     khoi('⚠ Trùng tên — anh chọn đúng khách', R.trung, 'trung', 'vang')+khoi('⏳ Chưa có trên Mẫu 31', R.chua, 'chua')+

@@ -1982,7 +1982,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.265', ds:[
-  ["🧹 Scan: chỉ xếp khi xác định chắc — khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên) với Mẫu 31; chưa chắc để thư mục chung, anh bấm ✓ Đúng mới xếp", "doiNgan(4)"],
+  ["🧹 Scan: chỉ xếp khi xác định chắc — khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên) với Mẫu 31 (số CCCD chuẩn nhất; tên so bỏ dấu, cho lệch nhỏ); chưa chắc để thư mục chung, anh bấm ✓ Đúng mới xếp", "doiNgan(4)"],
   ["🗂 Scan lưu tập trung (4 thư mục phẳng, tên MãKH - Họ tên - Loại) · 🧹 Sắp xếp theo Mẫu 31 · 📊 Kiểm tra theo tổ · 📇 tự đọc số CCCD (mã QR / 3 dòng mã máy đọc) · bản photo 2 mặt · ảnh khách tự lấy từ CCCD", "doiNgan(4)"],
   ["📊 Sao kê › Tình hình hoạt động (THHD) thay Bộ thông tin tổ: 1 trang A4 dọc, chi tiết theo cấp chọn (PGD › xã › điểm › hội › tổ)", "doiNgan(7)"],
   ["📒 Bộ thông tin tổ: thêm cột Số hộ đang có dư nợ (Số hộ = tổ viên); chọn kỳ theo ngày có Mẫu 31 ngày đó thì lấy số liệu ngày; đơn vị tính góc phải trên bảng; KQGD toàn xã liền sau các điểm; 3 nút sao kê riêng (Nợ QH, Nợ khoanh — A4 dọc, 3 tháng KHĐ)", "doiNgan(7)"],
