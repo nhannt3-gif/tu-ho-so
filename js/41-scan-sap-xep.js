@@ -253,11 +253,12 @@ function sxVeDoc(){
   var tat = SX_DOC.length && SX_DOC.every(function(x){ return x.tim && x.tim.ma; });
   e.innerHTML = SX_DOC.map(function(x, i){ var dau = SX_DOC.length>1 ? '<b>Người '+(i+1)+':</b> ' : '';
     if(x.dang) return '<div>'+dau+'🔎 Đang đọc mã QR / mã máy đọc…</div>';
-    if(!x.cccd) return '<div class="vang">'+dau+'Chưa đọc được số CCCD — gõ tên vào ô Tên file (vd <i>cccd-Võ Văn Hoàng</i>) rồi Lưu vào app, sau bấm 🧹 Sắp xếp.</div>';
+    if(!x.cccd) return '<div class="vang">'+dau+'Chưa đọc được số CCCD — gõ số CCCD / mã KH / họ tên vào ô Tên file rồi 🔎 Tra Mẫu 31, hoặc bấm 🗄 Lưu vào tủ (chưa rõ khách → ⏳ Chờ sắp xếp).</div>';
     var t = x.tim || {};
     return '<div>'+dau+'✓ Đọc được CCCD <b>'+coChuHTML(x.cccd)+'</b> <small>('+coChuHTML(x.nguon)+(x.ten ? ' · '+coChuHTML(x.ten) : '')+')</small> → '+
       (t.ma ? '<b class="xanh">'+coChuHTML(sxNhanKH(t.ma))+'</b> <small>(khớp '+coChuHTML(t.theo)+')</small>'
-        : t.goiY ? '<span class="vang">chưa chắc — gần khớp '+coChuHTML(sxNhanKH(t.goiY))+' ('+coChuHTML(t.ly)+'). Lưu vào app → thư mục chung, anh xác nhận ở 🧹 Sắp xếp</span>' : t.ds ? '<span class="vang">'+t.ds.length+' khách trùng — lưu vào thư mục chung, chọn ở 🧹 Sắp xếp</span>' : '<span class="vang">chưa có trên Mẫu 31 (hộ mới) — lưu vào thư mục chung</span>')+
+        : t.goiY ? '<span class="vang">chưa chắc — gần khớp '+coChuHTML(sxNhanKH(t.goiY))+' ('+coChuHTML(t.ly)+'). Lưu vào tủ → Chờ sắp xếp, anh xác nhận ở 🗂 Quản lý hồ sơ scan</span>'
+        : t.ds ? '<span class="vang">'+t.ds.length+' khách trùng — Lưu vào tủ → Chờ sắp xếp, chọn ở 🗂 Quản lý hồ sơ scan (hoặc 🔎 Tra Mẫu 31 ở ô Tên file)</span>' : '<span class="vang">chưa có trên Mẫu 31 (hộ mới) — lưu vào thư mục chung</span>')+
       sxXemDoc(x, t.ma || t.goiY || (t.ds||[])[0], true)+'</div>'; }).join('')+
     (tat ? GD.hang([GD.nut({chu:'🗄 Lưu đúng khách (tự nhận)', lenh:'sx.luuDoc', chinh:1})]) : '');
 }

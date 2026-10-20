@@ -75,8 +75,8 @@ const fs=require('fs'), path=require('path');
    const s3 = {id:'t207c', che:'tailieu', ten:'01td-'+tTrung, tag:['01TD'], trang:['x'], suaLuc:bay};
    D.scan.push(s3);
    doiNgan(4); await w(400);
-   ok('tab Scan: dòng "⏳ n bản chờ sắp xếp" + 🧹 Sắp xếp + 📊 Kiểm tra', /bản chờ sắp xếp/.test(document.getElementById('tr4').textContent) && document.querySelector('#tr4 [data-lenh="sx.sapXep"]') && document.querySelector('#tr4 [data-lenh="sx.kiem"]'));
-   document.querySelector('#tr4 [data-lenh="sx.sapXep"]').click(); await w(300);
+   ok('tab Scan: dòng "⏳ n bản chờ sắp xếp" + 🗂 Quản lý hồ sơ scan (3.278)', /bản chờ sắp xếp/.test(document.getElementById('tr4').textContent) && document.querySelector('#tr4 [data-lenh="ql.mo"]'));
+   document.querySelector('#tr4 [data-lenh="ql.mo"]').click(); await w(300);   /* có bản chờ → mở thẻ Chờ sắp xếp */
    const ht = document.getElementById('hop-in').textContent;
    ok('kế hoạch: CCCD + tên → chắc; chữ ký chỉ có tên → gợi ý chờ xác nhận; trùng tên; chưa có Mẫu 31', SXP.khop.some(x=>x.k===s1) && SXP.goiY.some(x=>x.k===ka) && SXP.trung.some(x=>x.k===s3 && x.ds.length===2) && SXP.chua.some(x=>x.k===s2), [SXP.khop.length, SXP.goiY.length, SXP.trung.length, SXP.chua.length].join('/'));
    ok('hộp Sắp xếp ghi quy tắc (số CCCD / khớp 2 trong 3)', /khớp 2 trong 3/.test(ht) && /số CCCD khớp 1 khách/.test(ht));

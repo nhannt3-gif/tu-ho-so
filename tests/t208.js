@@ -45,8 +45,9 @@ const fs=require('fs'), path=require('path');
    D.scan = D.scan || []; D.kyAnh = D.kyAnh || []; D.scan.push(sA, sSai, sCm, sLech, sChu, sNgoai, sKhong, sHai, sHan, sTr1, sTr2, sTS1, sTS2); D.kyAnh.push(anhSai);
    /* mở từ tab Scan */
    doiNgan(4); await w(400);
-   const nut = document.querySelector('#tr4 [data-lenh="rs.mo"]');
-   ok('tab Scan có nút "🔎 Rà CCCD đã lưu"', !!nut && /Rà CCCD đã lưu/.test(nut.textContent));
+   document.querySelector('#tr4 [data-lenh="ql.mo"]').click(); await w(400);   /* 3.278: 🗂 Quản lý hồ sơ scan → thẻ 🔎 Rà */
+   const nut = document.querySelector('#hop-in .ql-the [data-lenh="rs.mo"]');
+   ok('🗂 Quản lý hồ sơ scan có thẻ "🔎 Rà CCCD đã lưu"', !!nut && /Rà CCCD đã lưu/.test(nut.textContent));
    nut.click(); for(let i=0;i<60 && !RS;i++) await w(200); await w(300);
    const N = RS ? RS.nhom : {}, co = (n, k) => (N[n]||[]).some(x=>x.k===k), ht = (document.getElementById('hop-in')||{}).textContent||'';
    ok('đọc lại ảnh (QR giả) → số khớp Mẫu 31 → ✓ Đúng, ghi kết quả vào bản lưu (lần sau không đọc lại)', co('dung', sA) && sA.raDoc && sA.raDoc.cccd===cA.cccd, JSON.stringify(sA.raDoc));

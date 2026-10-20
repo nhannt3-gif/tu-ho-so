@@ -1,0 +1,42 @@
+// 3.278 — bố cục tab Scan: 1 nút 🗂 Quản lý hồ sơ scan → 1 màn 3 thẻ (Chờ sắp xếp · Rà · Kiểm tra); sau khi quét 1 nút 🗄 Lưu vào tủ tự nhận khách. Dữ liệu GIẢ.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs=require('fs'), path=require('path');
+(async()=>{ const b=await chromium.launch(); const loi=[];
+ const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
+   const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
+   for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
+   await slNap(); await w(200);
+   const DB = KHO.dsKhach(), ma = Object.keys(DB).find(m=>/^\d{12}$/.test(String(DB[m].cccd||'')) && DB[m].ten), c = DB[ma];
+   D.scan = D.scan || []; D.scan.push({id:'t216a', che:'the', ten:'cccd-Khong Ro Ai', tag:['CCCD'], chuaKhai:true, taoLuc:new Date().toISOString()}); HS.ds = D.scan;
+   HS.mo = true; doiNgan(4); await w(400);
+   const bar = document.querySelector('#tr4 .sx-thanh');
+   ok('thanh tab Scan: chỉ 1 nút 🗂 Quản lý hồ sơ scan (bỏ 3 nút rời)', bar && bar.querySelectorAll('button').length===1 && bar.querySelector('[data-lenh="ql.mo"]') && /bản chờ sắp xếp/.test(bar.textContent), bar && bar.textContent);
+   bar.querySelector('[data-lenh="ql.mo"]').click(); for(let i=0;i<30 && !/Sắp xếp hồ sơ scan/.test((document.getElementById('hop-in')||{}).textContent||'');i++) await w(200);
+   const the = document.querySelector('#hop-in .ql-the');
+   ok('có bản chờ → mở thẻ ⏳ Chờ sắp xếp; dải 3 thẻ trên đầu', the && the.querySelectorAll('button').length===3 && the.querySelector('.bat[data-lenh="sx.sapXep"]') && /Chờ sắp xếp \(\d+\)/.test(the.textContent), the && the.textContent);
+   ok('thẻ Chờ sắp xếp có nút ✎ Khai hàng loạt (khi còn bản chưa khai)', !!document.querySelector('#hop-in .sx-chan [data-lenh="sx.khaiHL"]'));
+   the.querySelector('[data-lenh="sx.kiem"]').click(); for(let i=0;i<30 && !SXK_BANG;i++) await w(200); await w(300);
+   ok('bấm thẻ 📊 → màn Kiểm tra, vẫn có dải thẻ (thẻ Kiểm tra sáng)', /Kiểm tra hồ sơ scan theo địa bàn/.test(document.getElementById('hop-in').textContent) && document.querySelector('#hop-in .ql-the .bat[data-lenh="sx.kiem"]'));
+   dongHop();
+   /* 🗄 Lưu vào tủ */
+   const cu = {tu:scanLuuTu, app:scanLuuApp}; let goi = ''; scanLuuTu = () => { goi = 'tu'; }; scanLuuApp = () => { goi = 'app'; };
+   SC.che = 'the'; HANG = [{kieu:'anh', id:'x1'}, {kieu:'anh', id:'x2'}]; SX = {bl:new Blob(['x']), da:{}, ten:'Scan'}; SXK = []; SX_DOC = [];
+   scanXongHop(SX.bl); await w(200);
+   const ht = document.getElementById('hop-in').textContent;
+   ok('sau khi quét: 1 nút 🗄 Lưu vào tủ (bỏ "Lưu vào app" + "Lưu vào app + khai ngay"), có lối "Chọn khách từng người…"', /Lưu vào tủ/.test(ht) && !/Lưu vào app \+ khai ngay/.test(ht) && !/🗂Lưu vào app/.test(ht.replace(/\s/g, '')) && !!document.querySelector('#hop-in [data-lenh="ql.chonKH"]'), ht.slice(0, 200));
+   document.getElementById('sx-ten').value = 'Ten Gi Do Khong Co Xyz'; qlLuuTu();
+   ok('chưa rõ khách → lưu vào ⏳ Chờ sắp xếp', goi==='app', goi);
+   goi = ''; document.getElementById('sx-ten').value = c.cccd; SXK = []; qlLuuTu();
+   ok('ô Tên file là số CCCD có trên Mẫu 31 → tự nhận khách, lưu đúng khách', goi==='tu' && SXK[0] && SXK[0].ma===ma, goi);
+   goi = ''; SXK = []; SX_DOC = [{tim:{ma:ma}}]; const cuDoc = sxLuuTuDoc; let doc = 0; sxLuuTuDoc = () => { doc++; }; qlLuuTu(); sxLuuTuDoc = cuDoc;
+   ok('đã đọc CCCD ra khách → lưu đúng khách (tự nhận)', doc===1);
+   scanLuuTu = cu.tu; scanLuuApp = cu.app; dongHop(); HANG = []; SX = null; SXK = []; SX_DOC = [];
+   D.scan = D.scan.filter(k=>k.id!=='t216a'); luu();
+   return o; }, files);
+ R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5).join(' | '));
+ console.log(R.filter(x=>x[0]==='✓').length+'/'+R.length+' đạt'); await b.close(); process.exit(R.some(x=>x[0]!=='✓') || loi.length ? 1 : 0);
+})();
