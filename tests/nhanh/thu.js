@@ -52,6 +52,10 @@ thu('diem: số hiệu 100 · trích yếu 50 · ghi chú 20 · không khớp 0'
 thu('diem: sửa trích yếu → tìm theo chữ mới (không dùng chữ nhớ cũ)', () => { const m = {trichYeu:'Cũ'}; A.diem(m, 'cu'); m.trichYeu = 'Mới đổi'; return A.diem(m, 'moi doi')===50 && A.diem(m, 'cu')===0; });
 thu('diem: chữ nhớ sẵn không lọt vào dữ liệu lưu (JSON)', () => { const m = {trichYeu:'Có dấu'}; A.diem(m, 'co'); return JSON.stringify(m).indexOf('__tim')<0 && !!m.__tim; });
 thu('loc: xếp số hiệu trước trích yếu', () => J(A.loc([{id:1, trichYeu:'quyết định 70'}, {id:2, soHieu:'70/QĐ'}], '70').map(x => x.id))===J([2, 1]));
+/* 3.295: sổ quy tắc tên + nơi lưu chung (js/49) */
+thu('tcTen: "Khóa - Họ tên - Loại"; bản thứ 2 trở đi thêm " (n)"', () => A.tcTen('4800000033', ' Võ Thị A ', 'CCCD', '.pdf')==='4800000033 - Võ Thị A - CCCD.pdf' && A.tcTen('072123456789', 'Võ Thị A', '01TD', '.pdf', 2)==='072123456789 - Võ Thị A - 01TD (2).pdf', () => A.tcTen('4800000033', ' Võ Thị A ', 'CCCD', '.pdf'));
+thu('tcSoThu: thứ tự theo lúc tạo (1, 2, 3)', () => { const a = {id:'a', taoLuc:'2026-10-02'}, b = {id:'b', taoLuc:'2026-10-01'}, c = {id:'c', taoLuc:'2026-10-03'}; return A.tcSoThu([a, b, c], a)===2 && A.tcSoThu([a, b, c], b)===1 && A.tcSoThu([a], a)===1; });
+thu('tcDuong + Scan dùng chung: CCCD / Hồ sơ scan / Chờ sắp xếp / Hồ sơ vay', () => { const t = A.D.cauHinh.thumuc; A.D.cauHinh.thumuc = 'Tủ'; try { return A.tcDuong('hsv')==='Tủ / Hồ sơ vay' && A.duongScan({maKH:'1', che:'the'})==='Tủ / CCCD' && A.duongScan({maKH:'1', che:'tailieu'})==='Tủ / Hồ sơ scan' && A.duongScan({})==='Tủ / Scan chờ sắp xếp'; } finally { A.D.cauHinh.thumuc = t; } });
 /* Giao diện chung (chuỗi HTML — không cần trình duyệt) */
 thu('coChuHTML: thoát & < > " (dùng được cả trong thuộc tính)', () => A.coChuHTML('a"b<c>&')==='a&quot;b&lt;c&gt;&amp;', () => A.coChuHTML('a"b<c>&'));
 thu('GD.nut: thoát dấu nháy trong title, gắn data-lenh', () => /title="a&quot;b"/.test(A.GD.nut({chu:'x', lenh:'k.l', tit:'a"b'})) && /data-lenh="k.l"/.test(A.GD.nut({chu:'x', lenh:'k.l'})));

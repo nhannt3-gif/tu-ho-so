@@ -15,18 +15,16 @@ var SXT = {cho:'Scan chờ sắp xếp', cccd:'CCCD', ka:'Chữ ký - Ảnh khá
 var SXT_GIU = [SXT.cho, SXT.cccd, SXT.ka, SXT.tl];   /* thư mục mới — không bao giờ xóa */
 
 /* ---------- 1. tên + nơi lưu ---------- */
-function sxTenChuan(maKH, ten, loai, duoi){ return sachTen(maKH+' - '+String(ten||'').trim()+' - '+loai)+duoi; }
+function sxTenChuan(maKH, ten, loai, duoi){ return tcTen(maKH, ten, loai, duoi); }   /* 3.295: sổ quy tắc chung (49) */
 /* 3.277: 1 khách nhiều bản cùng loại (quét lại, quét từ form) → bản thứ 2 trở đi thêm " (2)", " (3)"… để tên trên Drive không trùng (theo thứ tự lưu) */
 function sxSoThu(k, laKA){
   if(!k || !k.maKH) return '';
   var loai = laKA ? sxLoaiKA(k) : sxLoaiScan(k), ds = (laKA ? D.kyAnh : D.scan) || [];
   var cung = ds.filter(function(x){ if(x.maKH!==k.maKH) return false; if(laKA) return sxLoaiKA(x)===loai; return (x.che==='tailieu')===(k.che==='tailieu') && sxLoaiScan(x)===loai; });
-  if(cung.length<2) return '';
-  cung.sort(function(a, b){ return String(a.taoLuc||a.luc||a.ngay||'').localeCompare(String(b.taoLuc||b.luc||b.ngay||'')) || String(a.id).localeCompare(String(b.id)); });
-  var i = cung.indexOf(k); return i>0 ? ' ('+(i+1)+')' : '';
+  var n = tcSoThu(cung, k); return n>1 ? ' ('+n+')' : '';   /* 3.295: sổ quy tắc chung (49) */
 }
 function sxLoaiScan(k){ return k.che==='tailieu' ? (((k.tag||[]).filter(function(t){ return t && t!=='CCCD'; })[0]) || 'Tài liệu') : 'CCCD'; }
-duongScan = function(k){ return [D.cauHinh.thumuc, k.maKH ? (k.che==='tailieu' ? SXT.tl : SXT.cccd) : SXT.cho].join(' / '); };
+duongScan = function(k){ return tcDuong(k.maKH ? (k.che==='tailieu' ? 'tl' : 'cccd') : 'cho'); };   /* 3.295: sổ quy tắc chung (49) */
 tenScanDrive = function(k){ return k.maKH ? sxTenChuan(k.maKH, k.ten, sxLoaiScan(k)+sxSoThu(k), '.pdf') : (sachTen(k.ten||'Scan') || 'Scan')+'.pdf'; };
 duongTheCCCD = function(k){ return duongScan(k); };
 tenTheCCCD = function(k){ return tenScanDrive(k); };

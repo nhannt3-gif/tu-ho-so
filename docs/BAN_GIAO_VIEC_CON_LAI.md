@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.295) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Quét / lưu CCCD, tài liệu như thường | Tên file, thư mục y như trước | |
+
+**Ghi chú kỹ thuật 3.295:** `js/49-ten-chuan.js` nạp sau 48; `SXT` (41) lấy giá trị từ `TC.thuMuc`; `sxTenChuan` → `tcTen`; `sxSoThu` → `tcSoThu`; `duongScan` → `tcDuong`. Khóa CCCD (`tcKhoa`) + loại mẫu (`tcLoaiMau`) thêm ở bước 2 khi Hồ sơ vay dùng.
+
 ### Danh sách thử trên máy thật (3.294) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.295 — 21/10/2026 — Bước 1: sổ quy tắc tên + nơi lưu dùng chung
+- Theo `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (anh duyệt 20/10: "cách lưu, cách xem thống nhất cho các chức năng tương đồng"). Thêm **`js/49-ten-chuan.js`** (lớp Nghiệp vụ): `TC.thuMuc` (CCCD · Chữ ký - Ảnh khách · Hồ sơ scan · **Hồ sơ vay** · Scan chờ sắp xếp), `TC.loaiMau` (01TD, 03TD, 06TD, 01UQ, 10C, 01TGTV, 01GQVL, 07BGQVL), `tcTen` (Khóa - Họ tên - Loại[ (n)]), `tcSoThu`, `tcDuong`.
+- Scan chuyển sang dùng (`sxTenChuan`, `sxSoThu`, `duongScan`, tên thư mục `SXT`) — **tên file, thư mục giữ nguyên như cũ** (kỹ thuật, anh dùng không đổi). Hồ sơ vay dùng chung từ bước 2.
+- Phép thử: tests/nhanh thêm 3 (35); t200–t223 chạy lại đạt.
+
 ## 3.294 — 20/10/2026 — Bước 0 kế hoạch tên + lưu: dọn kỹ thuật Scan
 - **Anh 20/10**: "đồng ý em code và gộp lên; các vấn đề đã chốt về cách lưu, cách xem thì thống nhất cho các chức năng tương đồng" → làm theo `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (anh đồng ý đề xuất: (a) hộ mới khóa bằng số CCCD, (b) 1 thư mục `Hồ sơ vay`, (c) tên loại 01TD / 03TD / 01UQ / 10C / 01TGTV / 01GQVL / 07BGQVL).
 - **File thả tay trên Drive** (nguyên tắc mục 12: file không quản được đưa về chỗ chung): 🔎 Rà CCCD › khối "☁ File trên Drive không qua app" nay nhóm theo khách — **PDF + ảnh mặt trước / sau cùng khách = 1 bản**; tích **Nhận vào app** → thành bản CCCD: nhận ra khách → tên chuẩn `MãKH - Họ tên - CCCD` (2 ảnh `… - Mặt trước / Mặt sau.jpg`), đúng thư mục; chỉ có ảnh → app dựng PDF từ 2 ảnh; PDF không nhận ra khách → ⏳ Chờ sắp xếp; ảnh không nhận ra khách → chỉ báo (chưa biết ghép với ai). Tên ảnh có chữ "Mặt trước / Mặt sau" vẫn nhận ra khách.
