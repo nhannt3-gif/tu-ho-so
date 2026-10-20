@@ -180,6 +180,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t205.js` | 3.259 Bộ thông tin tổ: KQGD từng điểm (24 cột, công thức), 3 sao kê chia Điểm › Hội › Tổ, Excel nhiều sheet (24). |
 | `node tests/t206.js` | 3.260 Sổ cài đặt (Sao lưu › 🧾), khóa lạ, hàm con kéo đổi tên (5). |
 | `node tests/t207.js` | 3.264 Scan lưu tập trung, Sắp xếp, Kiểm tra, đọc QR / mã máy đọc giả, bản photo 2 mặt, ảnh khách từ CCCD (25). |
+| t208 | (3.268) 🔎 Rà CCCD đã lưu: đúng / sai khách / CMND cũ / lệch số / không phải chủ hộ / ngoài Mẫu 31 / 2 mã KH / hết hạn / không đọc được; bản trùng (giống hệt, trước+sau); Drive giả lập (28). |
 | (3.267) | t207 thêm: màn Sắp xếp rộng, nút tròn / ô tích, nút đáy đếm số bản (38). |
 | (3.266) | t207 thêm: Sắp xếp đọc số CCCD từ ảnh (QR giả) → hết trùng tên, chữ ký cùng tên gợi ý (37). |
 | (3.265) | t207 thêm: quy tắc khớp ≥ 2 trong 3 (CCCD · mã KH · tên), gợi ý chờ xác nhận (30). |

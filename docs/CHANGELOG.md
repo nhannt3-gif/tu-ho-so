@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.268 — 20/10/2026 — 🔎 Rà CCCD đã lưu + bản trùng
+- **Anh 20/10**: "em cũng có nên có bước chạy kiểm tra các cccd đã lưu coi đúng ko, trong lúc mới này sợ chtr chưa chuẩn luu sai"; "nếu kiểm tra thấy trùng tên thì báo để xóa 1 cái, nếu em ktra dc nội dung dc thì tốt"; "người thừa kế sẽ ko lưu cccd nổi nên tính sau, em chỉ báo".
+- Tab Scan › nút **🔎 Rà CCCD đã lưu** (file mới `js/42-scan-ra-soat.js`):
+  - **A. Đúng khách:** đọc lại số CCCD trên ảnh (QR / 3 dòng mã máy đọc) → so khách đang gắn theo Mẫu 31, so cả số CMND cũ trong QR. Nhóm: ✓ Đúng · ✗ Sai khách (Đổi sang khách đúng / Trả về thư mục chờ / Để nguyên) · 🔀 1 số có ở nhiều mã KH (anh chọn) · ⚠ Mẫu 31 còn CMND cũ · ⚠ Lệch số với Mẫu 31 · ⚠ Không phải chủ hộ · ⏳ Mã KH không có trên Mẫu 31 (Sổ hộ vay có → "khách mới chưa giải ngân") · ⏰ Thẻ hết hạn (mã máy đọc, hoặc tính theo tuổi lúc cấp 25/40/60) · ? Không đọc được.
+  - **B. Bản trùng:** 1 khách ≥ 2 bản cùng loại → so nội dung: giống hệt từng byte · cùng thẻ khác lần quét (cùng số CCCD / ảnh thu nhỏ gần giống) · khác. Giữ bản rõ nhất; bản giống hệt / cùng thẻ tích sẵn Xóa (vào 🗑 Thùng rác); khác nội dung chỉ báo; mặt trước + mặt sau tách 2 bản không tính trùng. Ảnh nhỏ cạnh nhau.
+  - **C. Drive:** đọc thẳng thư mục CCCD: tên bị sửa tay (tích để đặt lại tên chuẩn) · file không qua app (chỉ báo) · file giống hệt (md5 Drive, bản app không biết tích sẵn xóa).
+  - Chỉ báo + đề xuất, anh chọn / tích mới làm; nút đáy "✔ Làm n việc". Ảnh khách tạo từ CCCD đi theo khi đổi khách / trả về chờ / xóa bản trùng. Kết quả đọc ghi vào bản lưu (`raDoc`) → lần sau không đọc lại (nút ↻ Đọc lại); có nút Dừng, rà tiếp lần sau.
+- 3 dòng mã máy đọc: đọc thêm ngày hết hạn thẻ.
+- Phép thử: t208 (28).
+
 ## 3.267 — 20/10/2026 — Màn Sắp xếp rộng, nút chọn rõ
 - **Anh 20/10**: "anh ko thấy nút chọn hay xác định gì trên màn hình sắp xếp, em cho bung lớn cửa sổ chút cân đối cừa ô".
 - Hộp Sắp xếp mở rộng (`xem-rong`), mỗi khối là bảng 3 cột cân đối: Loại | File (tên đang có) | Khách theo Mẫu 31, đầu khối có dòng hướng dẫn.

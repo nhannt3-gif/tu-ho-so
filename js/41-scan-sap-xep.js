@@ -131,6 +131,7 @@ function cccdMRZ(txt){   /* 3 dòng mặt sau (TD1): IDVNM + 9 số + số kiể
   var l2 = /([0-9OQDIL]{6})([0-9OQDIL])([MF<])([0-9OQDIL]{6})([0-9OQDIL])VNM/.exec(s);
   if(l2){ l2 = l2.map(function(v, i){ return i===3 ? v : so(v||''); }); }
   if(l2 && icaoSo(l2[1])===+l2[2]){ var y = +l2[1].slice(0, 2); r.ns = ((y > (new Date().getFullYear()%100) ? 1900 : 2000)+y)+'-'+l2[1].slice(2, 4)+'-'+l2[1].slice(4, 6); r.gt = l2[3]==='F' ? 'Nữ' : l2[3]==='M' ? 'Nam' : ''; }
+  if(l2 && icaoSo(l2[4])===+l2[5] && !/^9{6}$/.test(l2[4])) r.han = '20'+l2[4].slice(0, 2)+'-'+l2[4].slice(2, 4)+'-'+l2[4].slice(4, 6);   /* 3.268: hạn thẻ (999999 = không thời hạn) */
   var l3 = /\n([A-Z]+(?:<[A-Z]+)*)<<([A-Z]+(?:<[A-Z]+)*)/.exec('\n'+String(txt||'').toUpperCase().replace(/[ \t]/g, '').split('\n').filter(function(x){ return /<</.test(x) && !/\d/.test(x); }).join('\n'));
   if(l3) r.ten = (l3[1]+' '+l3[2]).replace(/</g, ' ').replace(/\s+/g, ' ').trim();
   return r;
@@ -473,5 +474,5 @@ veScan = function(){
   var e = document.getElementById('tr4'); if(!e || !HS.mo || !e.firstElementChild) return;
   var n = sxDemCho();
   e.firstElementChild.insertAdjacentHTML('afterend', '<div class="thanh-chon sx-thanh"><span>'+(n ? '⏳ <b>'+n+'</b> bản chờ sắp xếp (chưa gắn khách)' : '✓ Mọi bản đã gắn khách')+'</span>'+
-    '<button data-lenh="sx.sapXep">🧹 Sắp xếp</button><button data-lenh="sx.kiem">📊 Kiểm tra</button></div>');
+    '<button data-lenh="sx.sapXep">🧹 Sắp xếp</button><button data-lenh="sx.kiem">📊 Kiểm tra</button><button data-lenh="rs.mo">🔎 Rà CCCD đã lưu</button></div>');
 };

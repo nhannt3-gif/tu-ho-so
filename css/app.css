@@ -3567,3 +3567,8 @@ table.hm-so{min-width:1476px}
 .l01 .hso-o{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px;align-items:center;margin:3px 0}.l01 .hso-o>span{color:var(--chu-phu);font-size:13px}.l01 .hso-o input,.l01 .hso-o select{max-width:420px}
 .l01 .hso-ho label{font-size:13px}.l01 .hang-nut .hso-o2{display:inline-block;margin:4px 12px 4px 0}
 @media (max-width:699px){.l01 .hso-o{grid-template-columns:1fr}}
+/* 3.268: 🔎 Rà CCCD đã lưu — bản trùng: ảnh nhỏ cạnh nhau */
+.rs-cap{border:1px solid var(--vien);border-radius:8px;padding:6px 8px;margin:6px 0}.rs-hang{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.rs-ban{display:flex;flex-direction:column;gap:4px;width:170px;padding:6px;border:1px solid var(--vien);border-radius:8px;background:var(--the)}.rs-ban img{max-width:100%;max-height:110px;object-fit:contain;align-self:center}
+.rs-khong-anh{height:60px;display:flex;align-items:center;justify-content:center;color:var(--chu-phu);font-size:12px;border:1px dashed var(--vien);border-radius:6px}
+.sx-bang .rs-c1{width:26%}#hop-in .sx-bang td,#hop-in .sx-bang th{white-space:normal;overflow-wrap:anywhere}
