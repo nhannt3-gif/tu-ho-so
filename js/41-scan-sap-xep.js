@@ -399,7 +399,7 @@ function sxVeSapXep(){
       '<table class="to-bang luoi sx-bang"><thead><tr><th class="sx-c1">Loại</th><th class="sx-c2">File (tên đang có)</th><th class="sx-c3">Khách theo Mẫu 31</th></tr></thead><tbody>'+
       ds.map(function(x, j){ return sxDongKH(x, j, nhom); }).join('')+'</tbody></table></details>'; };
   var tong = R.khop.length+R.goiY.length+R.trung.length+R.doiTen.length+R.doi.length;
-  moHop('<div class="hop-tit">🧹 Sắp xếp hồ sơ scan</div><div class="hop-phu">So với Mẫu 31. <b>Xác định chắc</b> = có số CCCD khớp 1 khách, hoặc khớp 2 trong 3 (số CCCD · mã KH · họ tên — tên so bỏ dấu, cho lệch nhỏ) '+
+  moHop('<div class="hop-tit">🧹 Sắp xếp hồ sơ scan</div><div class="hop-phu">'+sxChuKy31()+' <b>Xác định chắc</b> = có số CCCD khớp 1 khách, hoặc khớp 2 trong 3 (số CCCD · mã KH · họ tên — tên so bỏ dấu, cho lệch nhỏ) '+
       '→ đặt tên <i>MãKH - Họ tên - Loại</i>, dời vào thư mục theo loại. Chưa chắc → giữ ở <i>'+SXT.cho+'</i> cho tới khi anh chọn. Thư mục cũ trống → thùng rác Drive (lấy lại 30 ngày).</div>'+
     khoi('✓ Xác định chắc — tự xếp', '', R.khop, 'khop', 'xanh')+
     khoi('? Gợi ý — chưa chắc', 'Tích ☑ <b>Đúng</b> ở dòng anh đồng ý; dòng không tích giữ ở thư mục chờ.', R.goiY, 'goiY', 'vang')+
@@ -477,11 +477,16 @@ function sxDriveCho(){
 }
 
 /* ---------- 7. 📊 KIỂM TRA theo cây địa bàn ---------- */
+function sxKy31Moi(){   /* kỳ Mẫu 31 mới nhất đã nạp (tháng hoặc ngày) */
+  return Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return slLaHS(e.loai); }).map(function(e){ return e.ky; })
+    .sort(function(a, b){ return slThuTu(a)<slThuTu(b) ? 1 : -1; })[0] || '';
+}
+function sxChuKy31(){ var k = sxKy31Moi(); return k ? 'Danh bạ khách gộp mọi Mẫu 31 đã nạp (tháng + ngày), mới nhất: <b>Mẫu 31 '+coChuHTML(slKyChu(k))+'</b>.' : ''; }
 var SXK_BANG = null, SXK_MO = '';
 function moKiemScan(){
   if(!SL_SAN) return slNap().then(moKiemScan);
   var ds = typeof toDsKy==='function' ? toDsKy() : []; if(!ds.length) return baoLoi('Chưa có Mẫu 31 — nạp ở tab 📈 Số liệu › Nạp & KT trước.');
-  var ky = (ds.find(function(x){ return String(x.ky).length===7; }) || ds[0]).ky;
+  var ky = sxKy31Moi() || ds[0].ky;   /* 3.270 (anh: "rà Mẫu 31 ngày luôn"): Mẫu 31 mới nhất — có Mẫu 31 ngày mới hơn chốt tháng thì dùng ngày */
   batChay(false, 'Đang dựng bảng kiểm tra…');
   toNap(ky).then(function(K){ tatChay(); SXK_BANG = sxKiemDung(K); sxKiemVe(''); }, function(e){ tatChay(); baoLoi('Chưa mở được Mẫu 31: '+(e && e.message || e)); });
 }

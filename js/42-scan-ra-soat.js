@@ -198,7 +198,7 @@ function rsVe(){
   var tom = '✓ '+N.dung.length+' đúng'+(N.sai.length ? ' · ✗ '+N.sai.length+' sai khách' : '')+(N.hai.length ? ' · 🔀 '+N.hai.length : '')+(N.cmnd.length+N.lech.length+N.khongChu.length ? ' · ⚠ '+(N.cmnd.length+N.lech.length+N.khongChu.length) : '')+
     (N.ngoai.length ? ' · ⏳ '+N.ngoai.length : '')+(N.han.length ? ' · ⏰ '+N.han.length+' hết hạn' : '')+(N.khong.length ? ' · ? '+N.khong.length+' không đọc được' : '')+(R.trung.length ? ' · ⧉ '+R.trung.length+' khách có bản trùng' : '');
   moHop('<div class="hop-tit">🔎 Rà CCCD đã lưu</div><div class="hop-phu">Đọc lại số CCCD trên ảnh (QR / mã máy đọc), so khách đang gắn theo Mẫu 31; tìm bản trùng; rà thư mục CCCD trên Drive. '+
-      '<b>App chỉ báo</b> — anh chọn / tích mới làm.<br><b>'+R.tong+' bản CCCD:</b> '+tom+(R.chuaDoc ? ' · <b class="vang">'+R.chuaDoc+' bản chưa rà (anh đã dừng) — bấm 🔎 lại để rà tiếp</b>' : '')+'</div>'+
+      '<b>App chỉ báo</b> — anh chọn / tích mới làm. '+sxChuKy31()+'<br><b>'+R.tong+' bản CCCD:</b> '+tom+(R.chuaDoc ? ' · <b class="vang">'+R.chuaDoc+' bản chưa rà (anh đã dừng) — bấm 🔎 lại để rà tiếp</b>' : '')+'</div>'+
     rsKhoi('✗ Sai khách — số trên thẻ là của khách khác', 'Chọn <b>Đổi sang</b> khách đúng, hoặc trả về thư mục chờ. Ảnh khách tạo từ thẻ này đi theo.', N.sai, 'sai', 'do', true)+
     rsKhoi('🔀 1 số CCCD có ở nhiều mã KH — anh chọn mã đúng', '', N.hai, 'hai', 'vang', true)+
     rsVeTrung()+
