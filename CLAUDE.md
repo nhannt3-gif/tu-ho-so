@@ -2,6 +2,8 @@
 
 **Đọc trước khi làm bất cứ việc gì:** **bàn giao mới nhất `docs/BAN_GIAO_3224.md`** (trạng thái 3.223.x, việc anh đã duyệt làm liền: 3.224 scan → 3.225 tách lưu trữ, mục Tiến độ cuối file), bàn giao cũ `docs/BAN_GIAO_3161.md` (việc anh đã duyệt hướng, quy trình, công cụ `tools/bump.py`, `tools/hoiquy.sh`) và `docs/BAT_DAU.md` (ngắn, đủ để bắt tay vào việc: luật, lệnh, trạng thái, chỗ tìm thông tin). Hướng đi lớn: `docs/KIEN_TRUC_3_LOP.md`. **Chuẩn hóa code + bản điện thoại (anh duyệt 17/10, đang làm tuần tự R1 → điện thoại → R2…): `docs/KE_HOACH_CHUAN_HOA.md`.** **Luật kiến trúc bắt buộc cho mọi thay đổi: `docs/QUY_CHUAN_KIEN_TRUC.md`** (tách Dữ liệu – Nghiệp vụ – Giao diện, chung / riêng, sổ quy tắc QT, KTGS gói riêng + khóa mẫu, tư vấn đặt chỗ, thứ tự làm 14/10). Tìm code: `docs/BAN_DO_MA.md` (tự sinh — **không đọc cả `index.html`, `CHANGELOG.md`, `BAN_GIAO_VIEC_CON_LAI.md`**, dùng grep đọc đúng đoạn). Bàn giao đầy đủ cũ: `docs/BAN_GIAO_TIEP_TUC.md` (chỉ đọc mục cần).
 
+**20/10/2026 — 2 tài khoản song song:** tài khoản chính làm **🎯 Phân bổ kế hoạch** theo `docs/KE_HOACH_PHAN_BO_KH.md` (mục 7 = phân công file, mục 9 = tiến độ) — tài khoản phụ đọc mục 7 trước khi sửa chỗ chung.
+
 Tóm tắt bắt buộc:
 - Trả lời **tiếng Việt**, gọi người dùng là **anh Nhân** (CBTD NHCSXH PGD Gò Dầu). Ngắn gọn, thực dụng; phân biệt rõ số liệu thật / suy luận.
 - **Lên kế hoạch → anh duyệt → anh nhắn "code" mới sửa code; chỉ gộp PR khi anh nhắn "gộp".** Không làm ngoài phạm vi đã chốt; đổi / bỏ chức năng cũ phải được anh duyệt. Thiếu thông tin thì hỏi, không đoán.

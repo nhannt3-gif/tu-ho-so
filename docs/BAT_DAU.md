@@ -25,6 +25,7 @@
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
 - **`main` = 3.284** — Scan: tách 2 mặt CCCD — dòng trạng thái thấy được ở khung phải, cách dò 2, bản hỏng thử lại; 3.283 bản che trống; 3.282 in nhiều CCCD 4 / A4. Kế hoạch tiếp: `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (chờ anh chốt (a)(b)(c)). Chờ anh: thử máy thật 3.225–3.284.
+- **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.
