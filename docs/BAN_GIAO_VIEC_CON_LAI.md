@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.296) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › 01/TD › hộ mới gõ tên + CCCD › 💾 Lưu | Tên "số CCCD - Họ tên - 01TD", dòng phụ Tổ · Ấp | |
+| 2 | Mở danh sách bản đã lưu cũ | Tên đổi sang chuẩn; rê chuột thấy tên cũ | |
+
+**Ghi chú kỹ thuật 3.296:** 40 `L01.tenBan` → `tcTen(tcKhoa({maKH:o.kh, cccd:n.cccd}), n.ten, tcLoaiMau('01td'))`; `noiBan` (tổ · ấp); `doiTenCu` (tenBan cũ → `tenCu`). 49: `tcKhoa`, `tcLoaiMau`, `tcTen` khóa rỗng → "Họ tên - Loại".
+
 ### Danh sách thử trên máy thật (3.295) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

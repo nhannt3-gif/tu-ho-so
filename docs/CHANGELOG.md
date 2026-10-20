@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.296 — 21/10/2026 — Bước 2: tên bản lưu Hồ sơ vay theo quy tắc chung
+- Theo `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` bước 2 (anh duyệt 20/10, đề xuất (a) hộ mới khóa bằng số CCCD, (c) tên loại 01TD…).
+- Form 01/TD › 💾 Lưu: tên bản lưu nay **`Mã KH - Họ tên có dấu - 01TD`** (hộ cũ) / **`Số CCCD - Họ tên - 01TD`** (hộ mới chưa có mã KH; chưa gõ CCCD thì `Họ tên - 01TD`) — cùng quy tắc với Scan (trước: tên không dấu - tổ - ấp). Danh sách "📂 Bản 01/TD đã lưu": tên chuẩn + dòng phụ **Tổ · Ấp · ngày · chương trình**.
+- Bản lưu trước 3.296: tự đổi sang tên chuẩn 1 lần, tên cũ giữ lại (rê chuột vào tên thấy "Tên cũ: …").
+- Sổ quy tắc chung (`js/49`): thêm `tcKhoa` (mã KH → số CCCD), `tcLoaiMau` (01/TD → 01TD, UQ → 01UQ, 07b/GQVL → 07BGQVL…).
+- Phép thử: t200 sửa + thêm 1 (22); tests/nhanh thêm 2 (37).
+
 ## 3.295 — 21/10/2026 — Bước 1: sổ quy tắc tên + nơi lưu dùng chung
 - Theo `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (anh duyệt 20/10: "cách lưu, cách xem thống nhất cho các chức năng tương đồng"). Thêm **`js/49-ten-chuan.js`** (lớp Nghiệp vụ): `TC.thuMuc` (CCCD · Chữ ký - Ảnh khách · Hồ sơ scan · **Hồ sơ vay** · Scan chờ sắp xếp), `TC.loaiMau` (01TD, 03TD, 06TD, 01UQ, 10C, 01TGTV, 01GQVL, 07BGQVL), `tcTen` (Khóa - Họ tên - Loại[ (n)]), `tcSoThu`, `tcDuong`.
 - Scan chuyển sang dùng (`sxTenChuan`, `sxSoThu`, `duongScan`, tên thư mục `SXT`) — **tên file, thư mục giữ nguyên như cũ** (kỹ thuật, anh dùng không đổi). Hồ sơ vay dùng chung từ bước 2.

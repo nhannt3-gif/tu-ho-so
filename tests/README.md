@@ -185,6 +185,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t251.js` | 3.285 cửa `KHO.duNoAp(kỳ)` với Mẫu 31 giả (node): gộp thôn × CT × nguồn, dòng lặp khế ước, CLOSE / dư nợ 0 / khách chỉ gửi TK bỏ, kỳ chưa có → null, nối `pbDuNoXa`. |
 | `node tests/t252.js` | 3.293 P2 🎯 Phân bổ KH — giao diện (trình duyệt, bộ `gianho31`): nút tab con, cây xã → ấp, 📥 nhập file WPF giả, phân bổ tương đối / chính xác, số chẵn, sửa tay lệch → khớp, giữ ô, hộp QĐ (ngày liền số, gợi ý Đã giao, Đến 31/12 tự tính, ⚠ đứt chuỗi, lưu, tích thêm xã), không lỗi trang. |
 | `node tests/t253.js` | 3.293 P3 📄 Biểu 07 Phân bổ KH (trình duyệt, bộ `gianho31` + QĐ giả): ngày thông báo né T7/CN, đơn vị xã / phường, chặn khi lệch QĐ, đúng form gốc `mau_goc/07pb.docx` (chữ, khổ, lề, cỡ, cột), 2 trang, chỉ ấp có tăng/giảm, ngày tự tính / chấm / gõ, Word .docx, 📦 mọi xã, sửa tay lệch → khóa. |
+| (3.296) | t200 sửa: Lưu 01/TD tên chuẩn (số CCCD - Họ tên - 01TD) + dòng phụ tổ · ấp; bản cũ đổi tên giữ tên cũ (22). tests/nhanh: tcKhoa, tcLoaiMau (37). |
 | (3.295) | tests/nhanh thêm: tcTen, tcSoThu, tcDuong + duongScan dùng chung (35). |
 | (3.294) | t223: Rà Drive file thả tay — nhóm theo khách, Nhận vào app (PDF + 2 ảnh tên chuẩn; chỉ ảnh → dựng PDF; PDF lạ → Chờ sắp xếp); tải ảnh ≤ 2 cùng lúc; Dọn ảnh tải về (6). |
 | (3.292) | t222: bảng Scan có cột Tổ trưởng sau Ấp — tổ khai trên bản / theo mã KH trên Mẫu 31 (2); t147 sửa thứ tự cột. |

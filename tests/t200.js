@@ -57,8 +57,10 @@ const fs=require('fs'), path=require('path');
  ok('form 01/TD giữ khối "In kèm" (03/TD · 10C · 01/UQ · 01/TGTV) như cột cũ', await ev(()=>{ const t = document.getElementById('hso-tuy').textContent; return /In kèm/.test(t) && /01\/UQ giấy ủy quyền/.test(t) && /03\/TD danh sách/.test(t); }));
  /* 5. lưu, danh sách, làm trống, mở lại */
  await p.click('[data-lenh="l01.luu"]'); await w(500);
- r = await ev(()=>{ const B = hsoBo(); return {ten:B.tenBan, ds:[...document.querySelectorAll('#hso-tuy .l01-dong a')].map(a=>a.textContent)}; });
- ok('💾 Lưu: tên tự đặt không dấu + tổ + ấp, hiện trong danh sách dưới form', /^Nguyen Van Gia - .*To .* - /.test(r.ten) && r.ds.indexOf(r.ten)>=0, JSON.stringify(r));
+ r = await ev(()=>{ const B = hsoBo(); return {ten:B.tenBan, ds:[...document.querySelectorAll('#hso-tuy .l01-dong a')].map(a=>a.textContent), phu:(document.querySelector('#hso-tuy .l01-dong small')||{}).textContent||''}; });
+ ok('💾 Lưu (3.296): tên chuẩn "số CCCD (hộ mới) - Họ tên có dấu - 01TD", tổ · ấp ở dòng phụ, hiện trong danh sách', r.ten==='079078001234 - Nguyễn Văn Giả - 01TD' && r.ds.indexOf(r.ten)>=0 && /Tổ .*·/.test(r.phu), JSON.stringify(r));
+ r = await ev(()=>{ const B = hsoBo(); B.tenBan = 'Nguyen Van Gia - To X - Ap Y'; delete B.tenCu; hsoVe(); return {ten:B.tenBan, cu:B.tenCu}; });
+ ok('bản lưu trước 3.296 (tên không dấu - tổ - ấp) → đổi tên chuẩn 1 lần, giữ tên cũ', r.ten==='079078001234 - Nguyễn Văn Giả - 01TD' && r.cu==='Nguyen Van Gia - To X - Ap Y', JSON.stringify(r));
  await p.click('[data-lenh="l01.trong"]'); await w(500);
  r = await ev(()=>({bo:hsoCH().boId, ten:document.querySelector('[data-l01="ng-ten"]').value, thanh:document.querySelector('.l01-ban').textContent}));
  ok('Làm trống → form trống (bản cũ vẫn trong danh sách)', !r.bo && !r.ten && /Form trống/.test(r.thanh), JSON.stringify(r));
