@@ -3600,3 +3600,7 @@ table.hm-so{min-width:1476px}
 }
 /* 3.278: màn Quản lý hồ sơ scan — dải 3 thẻ */
 .ql-the{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px;padding-bottom:8px;border-bottom:1px solid var(--vien)}
+/* 3.281: trạng thái tách 2 mặt CCCD ở khung xem */
+.sx-cat-tt{margin-top:4px;padding:3px 8px;border-radius:6px;background:var(--the);border:1px solid var(--vien);font-size:calc(11.5px*var(--co));white-space:normal}
+.sx-cat-tt.xanh{border-color:#9bd3a6}.sx-cat-tt.vang{border-color:#e8c76a;background:rgba(232,199,106,.16)}.sx-cat-tt.do{border-color:#e9a0a0;background:rgba(220,80,80,.12)}
+.sx-cat-lai{margin-left:6px;padding:1px 8px;font-size:inherit}

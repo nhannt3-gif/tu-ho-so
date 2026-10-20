@@ -196,8 +196,11 @@ function rsVeDrive(){
 }
 function rsViec(){ var R = RS, dem = function(o){ return Object.keys(o||{}).filter(function(k){ return o[k]; }).length; }; return dem(R.chon)+dem(R.xoa)+dem(R.doiTen)+dem(R.boDrive)+dem(R.cat); }
 function rsVeCat(){
-  var ds = RS.catDs||[], e = coChuHTML; if(!ds.length) return '';
-  return '<details open class="sx-khoi"><summary class="vang"><b>✂ Ảnh cắt từ PDF — anh xem lại</b> — '+ds.length+' bản</summary><div class="sx-hd">Bản cũ chỉ có PDF: app cắt 2 mặt thẻ ra ảnh (PDF gốc trên Drive giữ nguyên). Cắt lệch → <b>↻ Cắt lại</b> hoặc <b>Bỏ ảnh cắt</b> (app dùng lại PDF).</div>'+
+  var ds = RS.catDs||[], e = coChuHTML, hong = (D.scan||[]).filter(function(k){ return k.maKH && !k.catTuPDF && (k.catHong || k.catLoi); });
+  var hh = hong.length ? '<details open class="sx-khoi"><summary class="do"><b>⚠ Không tách được 2 mặt thẻ</b> — '+hong.length+' bản (đang dùng PDF)</summary><table class="to-bang luoi sx-bang"><tbody>'+
+    hong.map(function(k){ return '<tr><td class="rs-c1">'+e(sxNhanKH(k.maKH))+'</td><td class="sx-c3"><small>'+e(sxLyCat(k))+'</small> <button class="sx-cat-lai" data-lenh="sx.xemHS" data-loai="scan" data-id="'+k.id+'">Xem</button></td></tr>'; }).join('')+'</tbody></table></details>' : '';   /* 3.281 */
+  if(!ds.length) return hh;
+  return hh+'<details open class="sx-khoi"><summary class="vang"><b>✂ Ảnh cắt từ PDF — anh xem lại</b> — '+ds.length+' bản</summary><div class="sx-hd">Bản cũ chỉ có PDF: app cắt 2 mặt thẻ ra ảnh (PDF gốc trên Drive giữ nguyên). Cắt lệch → <b>↻ Cắt lại</b> hoặc <b>Bỏ ảnh cắt</b> (app dùng lại PDF).</div>'+
     '<table class="to-bang luoi sx-bang"><tbody>'+ds.map(function(k, i){ var r = function(v, chu, lop){ return '<label class="sx-r'+(lop ? ' '+lop : '')+'"><input type="radio" name="rs-c'+i+'" data-lenh="rs.cat" data-su="change" data-k="'+k.id+'" data-v="'+v+'"'+((RS.cat[k.id]||'')===v ? ' checked' : '')+'> '+chu+'</label>'; };
       return '<tr><td class="rs-c1">'+e(k.maKH ? sxNhanKH(k.maKH) : k.ten||'')+'<br><small>lần cắt '+((k.catLan||0)+1)+'</small></td><td class="sx-c2"><img class="sx-nho" data-sx-anh="'+k.id+'" alt=""></td><td class="sx-c3">'+
         r('ok', '<b>Đúng</b> — giữ 2 ảnh cắt')+r('lai', '↻ Cắt lại (dò khung cách khác)')+r('bo', 'Bỏ ảnh cắt — dùng PDF')+r('', 'Để sau', 'sx-bo')+'</td></tr>'; }).join('')+'</tbody></table></details>';

@@ -113,9 +113,10 @@ function sxTrangPDF(k){
 }
 /* cắt 2 ảnh từ PDF → lưu trong máy (đánh dấu cắt từ PDF) → đưa lên Drive → [trước, sau] */
 function sxCatTuPDF(k, lan){
-  return sxTrangPDF(k).then(function(c){ if(!c) return null;
-    var hai = k.catBo ? null : sxCatThe(c, lan);
-    if(!hai) return canvasRaBlob(c, 0.92).then(function(bl){ return [bl, null]; });   /* không dò được khung → đọc cả trang */
+  return sxTrangPDF(k).then(function(c){
+    if(!c){ k.catLoi = !k.driveId ? 'bản chưa lên Drive' : coTheNoiDrive() ? 'không tải / mở được file PDF trên Drive' : 'chưa nối Drive'; return null; }
+    delete k.catLoi; var hai = k.catBo ? null : sxCatThe(c, lan);
+    if(!hai){ if(!k.catBo && !k.catHong){ k.catHong = 1; luu(); } return canvasRaBlob(c, 0.92).then(function(bl){ return [bl, null]; }); }   /* không dò được khung → đọc cả trang; 3.281: ghi "không tách được" */
     return Promise.all(hai.map(function(x){ return canvasRaBlob(x, 0.92); })).then(function(bs){
       return luuAnhHS(k.id+'_matTruoc', bs[0]).then(function(){ return luuAnhHS(k.id+'_matSau', bs[1]); }).then(function(){
         k.catTuPDF = true; k.catLan = lan||0; delete k.catDuyet; delete k.catHong; k.matTruoc = true; k.matSau = true; delete k.anhThu; if(typeof CO_ANH!=='undefined') CO_ANH[k.id] = true; luu();
@@ -216,20 +217,46 @@ function sxCanCat(k){ return !!(k && (k.che==='the' || (!k.che && (k.tag||[]).in
 var SX_CAT_DANG = {};
 function sxCatMot(k){
   if(!SX_CAT_DANG[k.id]) SX_CAT_DANG[k.id] = sxCatTuPDF(k, k.catLan||0).then(function(bs){
-    if(bs && !bs[1]){ k.catHong = 1; luu(); }   /* tải được PDF nhưng không dò ra 2 mặt thẻ */
-    else if(bs && !k.che){ k.che = 'the'; luu(); }   /* bản rất cũ chỉ gắn nhãn CCCD */
+    if(bs && bs[1] && !k.che){ k.che = 'the'; luu(); }   /* bản rất cũ chỉ gắn nhãn CCCD */
     return !!(bs && bs[1]); }, function(){ return false; }).then(function(ok){ delete SX_CAT_DANG[k.id]; return ok; });
   return SX_CAT_DANG[k.id];
 }
 var SX_VE_KHUNG_CU = veVaoKhung;
 veVaoKhung = function(m, n){
   var S = XEM[n], o = S && document.getElementById(S.id);
+  if(o && n!=='sua' && laScanMuc(m)) setTimeout(function(){ sxVeTTCat(m, n); }, 0);   /* 3.281: dòng trạng thái tách 2 mặt */
   if(!o || n==='sua' || !laScanMuc(m) || !sxCanCat(m) || !coTheNoiDrive()) return SX_VE_KHUNG_CU(m, n);
   S.m = m;
   docAnhHS(m.id+'_matTruoc').then(function(b){ if(b || S.m!==m) return null;   /* đã có ảnh trong máy → xem như cũ */
     o.innerHTML = '<div class="rong">✂ Bản CCCD cũ chỉ có PDF — đang tách 2 mặt thẻ…</div>'; return sxCatMot(m); }, function(){ return null; }).then(function(ok){
     if(S.m!==m) return;
-    SX_VE_KHUNG_CU(m, n);
+    SX_VE_KHUNG_CU(m, n); sxVeTTCat(m, n);
     if(ok) bao('✂ Đã tách 2 mặt thẻ từ PDF (PDF gốc giữ nguyên) — cắt lệch thì xem lại ở 🗂 Quản lý › 🔎 Rà CCCD.', 6);
+    else if(ok===false) baoLoi('⚠ Chưa tách được 2 mặt thẻ: '+sxLyCat(m)+' — đang xem PDF.');
   });
 };
+
+/* ---------- 3.281 (anh: "có cái app tự tách, có cái không — báo app có làm chưa, làm không được cũng báo") ----------
+   Mỗi bản CCCD khi xem: 1 dòng trạng thái dưới tên — ảnh gốc lúc quét / đã tách (chưa duyệt · đã duyệt) / đang tách / không tách được + lý do + ↻ Thử tách lại. */
+function sxLaCCCD(k){ return !!(k && (k.che==='the' || (!k.che && (k.tag||[]).indexOf('CCCD')>=0))); }
+function sxLyCat(k){ return k.catHong ? 'không dò ra 2 khung thẻ trên trang 1 của PDF (scan mờ / lệch / thẻ sát mép, hoặc 2 mặt nằm 2 trang)' : (k.catLoi || 'chưa rõ lý do'); }
+function sxTTCat(k){
+  if(!sxLaCCCD(k)) return '';
+  var t = function(lop, chu, lai){ return '<div class="sx-cat-tt'+(lop ? ' '+lop : '')+'" data-k="'+k.id+'">'+chu+(lai ? ' <button class="sx-cat-lai" data-lenh="sx.catLai" data-k="'+k.id+'">↻ Thử tách lại</button>' : '')+'</div>'; };
+  if(SX_CAT_DANG[k.id]) return t('', '✂ Đang tách 2 mặt thẻ từ PDF…');
+  if(k.catTuPDF) return k.catDuyet ? t('xanh', '✂ Đã tách 2 mặt từ PDF · ✓ đã duyệt') : t('vang', '✂ Đã tách 2 mặt từ PDF — chưa duyệt: xem lại ở 🗂 Quản lý › 🔎 Rà CCCD', 1);
+  if(k.catBo) return t('', '📄 Đang dùng PDF — anh đã bỏ ảnh cắt', 1);
+  if(k.catHong || k.catLoi) return t('do', '⚠ Không tách được 2 mặt: '+coChuHTML(sxLyCat(k))+' — đang xem PDF', 1);
+  if(sxCanCat(k) && !coTheNoiDrive()) return t('vang', '⚠ Chưa tách 2 mặt: nối Drive để app tải PDF về tách');
+  if(k.matTruoc || k.anhDrive) return t('xanh', '🪪 Ảnh 2 mặt thẻ lúc quét');
+  return t('vang', '⚠ Chưa tách 2 mặt'+(k.driveId ? '' : ': bản chưa lên Drive, máy này không có ảnh'));
+}
+function sxVeTTCat(k, n){
+  var noi = document.getElementById(n==='lon' ? 'x-phu' : 'cp-phu'); if(!noi || XEM[n].m!==k) return;
+  Array.prototype.forEach.call(noi.querySelectorAll('.sx-cat-tt'), function(x){ x.remove(); });
+  var h = sxTTCat(k); if(h) noi.insertAdjacentHTML('beforeend', h);
+}
+GD.dangKy('sx', {catLai:function(el){ var k = timScan(el.getAttribute('data-k')); if(!k) return;
+  if(k.catTuPDF || k.catBo) return moRaSoat(false);   /* đã có ảnh cắt / anh đã bỏ → làm ở 🔎 Rà (Cắt lại / Đúng) */
+  k.catLan = (k.catLan||0)+(k.catHong ? 1 : 0); delete k.catHong; delete k.catLoi; luu(); veNoiDung(k); }});
+
