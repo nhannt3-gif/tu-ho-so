@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.276 — 20/10/2026 — Khung Hạn trả HSSV cao tới đáy trang, tiêu đề 1 dòng
+- **Anh 20/10** (ảnh tab Hôm nay): "mở rộng khung HSSV đến cuối trang để hiện cho đủ thông tin"; "nút Nổi lên và Esc bố trí gọn sẽ tiết kiệm được 1 dòng".
+- Nguyên nhân khung ngắn: ô công cụ tính cao "tới dải trạng thái dưới cùng" — từ 3.148 dải này ẩn trên máy tính → đo ra 0 → rơi về tối thiểu 200 px. Nay dải ẩn thì tính tới **đáy cửa sổ** (`ccVuaMan`).
+- Tiêu đề ô công cụ: **📌** (Nổi) và **✕** (Đóng — Esc) chỉ biểu tượng, rê chuột có chữ; nút / khoảng cách gọn → Hạn trả HSSV: tiêu đề · loại · GDX · 📋 Chép · 📝 · 📌 · ✕ trên **1 dòng**.
+- Phép thử: t213 thêm 1 (9).
+
 ## 3.275 — 20/10/2026 — 🔎 Tra Mẫu 31 ra tên chuẩn (tab Scan)
 - **Anh 20/10**: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã KH, em sẽ làm 1 nút kiểm tra và cho ra tên chuẩn từ Mẫu 31"; "làm cho tab Scan trước, sau này sẽ phát triển thống nhất tên và cấu trúc lưu cho hồ sơ vay, còn VB thì kiểu khác".
 - Nút **🔎 Tra Mẫu 31** cạnh ô tên (file mới `js/45-tra-mau31.js`, tự gắn khi mở hộp): hộp **Sửa bản quét** (CCCD / tài liệu), hộp **Lưu mới** (Tên file), **Chữ ký / Ảnh khách**. Bấm nút hoặc Enter.

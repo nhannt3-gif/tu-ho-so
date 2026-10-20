@@ -33,6 +33,11 @@ const path=require('path');
    const kt = locMagic(the2), px = (x, y) => Array.from(kt.getContext('2d').getImageData(x, y, 1, 1).data.slice(0, 3));
    const nen = px(500, 100), do_ = px(660, 360);
    ok('Magic trên thẻ CCCD: nền xanh nhạt của thẻ vẫn xanh, dấu đỏ vẫn đỏ', nen[2]-nen[0]>=25 && do_[0]-do_[2]>=60, JSON.stringify([nen, do_]));
+   /* 3.276: khung công cụ (Hạn trả HSSV) cao tới đáy cửa sổ — dải dưới ẩn trên máy tính */
+   doiNgan(0); await w(300); CC.mo = 'hssv'; veCC(); await w(300);
+   const cc = document.getElementById('cc-o'), rc = cc.getBoundingClientRect();
+   ok('khung Hạn trả HSSV cao tới gần đáy cửa sổ (không còn bị cắt 200 px)', parseInt(cc.style.maxHeight)>=Math.round(innerHeight-rc.top-10) && parseInt(cc.style.maxHeight)>200, cc.style.maxHeight+' · đỉnh '+Math.round(rc.top)+' / cửa sổ '+innerHeight);
+   ccDong && ccDong();
    return o; });
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5).join(' | '));
  console.log(R.filter(x=>x[0]==='✓').length+'/'+R.length+' đạt'); await b.close(); process.exit(R.some(x=>x[0]!=='✓') || loi.length ? 1 : 0);
