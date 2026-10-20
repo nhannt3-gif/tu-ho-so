@@ -118,7 +118,7 @@ function sxCatTuPDF(k, lan){
     if(!hai) return canvasRaBlob(c, 0.92).then(function(bl){ return [bl, null]; });   /* không dò được khung → đọc cả trang */
     return Promise.all(hai.map(function(x){ return canvasRaBlob(x, 0.92); })).then(function(bs){
       return luuAnhHS(k.id+'_matTruoc', bs[0]).then(function(){ return luuAnhHS(k.id+'_matSau', bs[1]); }).then(function(){
-        k.catTuPDF = true; k.catLan = lan||0; delete k.catDuyet; k.matTruoc = true; k.matSau = true; delete k.anhThu; if(typeof CO_ANH!=='undefined') CO_ANH[k.id] = true; luu();
+        k.catTuPDF = true; k.catLan = lan||0; delete k.catDuyet; delete k.catHong; k.matTruoc = true; k.matSau = true; delete k.anhThu; if(typeof CO_ANH!=='undefined') CO_ANH[k.id] = true; luu();
         if(coTheNoiDrive()) sxDayAnh(k);
         return bs; }); });
   });
@@ -207,4 +207,29 @@ dungTrangThe = function(dsId, viec){
   }
   if(viec!=='blob') bao('⚠ '+chua.length+' bản có ảnh cắt từ PDF chưa duyệt ('+chua.slice(0, 3).map(function(k){ return k.ten; }).join(', ')+(chua.length>3 ? '…' : '')+') — xem lại ở 🔎 Rà CCCD.', 8);
   return SX_DUNG_THE_CU(dsId, viec);
+};
+
+/* ---------- 3.280 (anh: "cccd cũ app vẫn lưu PDF chưa tách ra 2 mặt"): bản CCCD cũ chỉ có PDF ----------
+   Mở xem ở khung phải / xem lớn → tự cắt 2 mặt thẻ từ trang 1 PDF trên Drive (như 🔎 Rà), lưu 2 ảnh + đưa lên Drive, hiện 2 mặt.
+   Dò không ra khung → ghi k.catHong, lần sau hiện PDF luôn (không tải lại); ↻ Cắt lại ở 🔎 Rà vẫn làm được. PDF gốc giữ nguyên. */
+function sxCanCat(k){ return !!(k && (k.che==='the' || (!k.che && (k.tag||[]).indexOf('CCCD')>=0)) && k.driveId && !k.anhDrive && !k.catBo && !k.catTuPDF && !k.catHong); }
+var SX_CAT_DANG = {};
+function sxCatMot(k){
+  if(!SX_CAT_DANG[k.id]) SX_CAT_DANG[k.id] = sxCatTuPDF(k, k.catLan||0).then(function(bs){
+    if(bs && !bs[1]){ k.catHong = 1; luu(); }   /* tải được PDF nhưng không dò ra 2 mặt thẻ */
+    else if(bs && !k.che){ k.che = 'the'; luu(); }   /* bản rất cũ chỉ gắn nhãn CCCD */
+    return !!(bs && bs[1]); }, function(){ return false; }).then(function(ok){ delete SX_CAT_DANG[k.id]; return ok; });
+  return SX_CAT_DANG[k.id];
+}
+var SX_VE_KHUNG_CU = veVaoKhung;
+veVaoKhung = function(m, n){
+  var S = XEM[n], o = S && document.getElementById(S.id);
+  if(!o || n==='sua' || !laScanMuc(m) || !sxCanCat(m) || !coTheNoiDrive()) return SX_VE_KHUNG_CU(m, n);
+  S.m = m;
+  docAnhHS(m.id+'_matTruoc').then(function(b){ if(b || S.m!==m) return null;   /* đã có ảnh trong máy → xem như cũ */
+    o.innerHTML = '<div class="rong">✂ Bản CCCD cũ chỉ có PDF — đang tách 2 mặt thẻ…</div>'; return sxCatMot(m); }, function(){ return null; }).then(function(ok){
+    if(S.m!==m) return;
+    SX_VE_KHUNG_CU(m, n);
+    if(ok) bao('✂ Đã tách 2 mặt thẻ từ PDF (PDF gốc giữ nguyên) — cắt lệch thì xem lại ở 🗂 Quản lý › 🔎 Rà CCCD.', 6);
+  });
 };

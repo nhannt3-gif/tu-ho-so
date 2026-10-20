@@ -122,7 +122,7 @@ function moRaSoat(docLai){
   if(!Object.keys(KHO.dsKhach()).length) return baoLoi('Chưa có danh bạ khách — nạp Mẫu 31 ở tab 📈 Số liệu › Nạp & KT trước.');
   var ds = (D.scan||[]).filter(function(k){ return k.maKH && k.che!=='tailieu'; });
   if(docLai) ds.forEach(function(k){ delete k.raDoc; });
-  var can = ds.filter(function(k){ return !k.raDoc || (k.raDoc.khong && (k.raDoc.ban||1)<SX_DOC_BAN); }), n = 0, tam = {};
+  var can = ds.filter(function(k){ return !k.raDoc || (k.raDoc.khong && (k.raDoc.ban||1)<SX_DOC_BAN) || (sxCanCat(k) && !k.matTruoc); })   /* 3.280: + bản cũ chỉ có PDF (đã đọc ở bản trước) → tách 2 mặt */, n = 0, tam = {};
   QUET.dung = false; dongHop();
   batChay(false, 'Đang rà CCCD đã lưu 0/'+can.length+'…', true);
   can.reduce(function(p, k){ return p.then(function(){ if(QUET.dung) return; n++; dangLamChu('Đang đọc lại CCCD '+n+'/'+can.length+'…'); tienChay(Math.round((n-1)/Math.max(1, can.length)*100));
@@ -141,6 +141,7 @@ function rsLap(ds, tam, nhom, dr, dung){
     var x = rsXet(k, r); x.k = x.k || k; x.r = r; R.nhom[x.nhom].push(x); if(x.han) R.nhom.han.push(x); });
   nhom.forEach(function(g){ var giu = rsChonGiu(g.ds);
     g.giu = giu; g.bo = g.ds.filter(function(x){ return x!==giu; }).map(function(x){ x.muc = rsSoSanh(x, giu); return x; });
+    if(!giu.ka && giu.k.che==='tailieu'){ g.bo = g.bo.filter(function(x){ return x.muc==='giong'; }); if(!g.bo.length) return; }   /* 3.280: tài liệu cùng loại đánh số 1, 2, 3 — chỉ báo khi giống hệt */
     R.trung.push(g); });
   R.trung.forEach(function(g, gi){ g.bo.forEach(function(x, j){ if(x.muc==='giong' || x.muc==='cungThe') R.xoa[gi+':'+j] = true; }); });
   (dr && dr.giong || []).forEach(function(g, gi){ g.bo.forEach(function(x, j){ if(!x.app) R.boDrive[gi+':'+j] = true; }); });

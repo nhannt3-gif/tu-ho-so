@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.280) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Bấm 1 CCCD cũ (đang hiện trang A4) | Báo đang tách → hiện Mặt trước / Mặt sau; Drive có thêm 2 file .jpg | |
+| 2 | 🗂 Quản lý › 🔎 Rà CCCD | Khối "Ảnh cắt từ PDF" có các bản vừa tách; cắt lệch → ↻ Cắt lại / Bỏ ảnh cắt | |
+| 3 | Khách có 2–3 tài liệu cùng loại › 🔎 Rà | Không báo trùng; tên … - Tài liệu (2), (3) | |
+
+**Ghi chú kỹ thuật 3.280:** 43: `sxCanCat` (che the / nhãn CCCD, có driveId, chưa anhDrive / catBo / catTuPDF / catHong), `sxCatMot` (1 lời hứa / bản, dò hỏng → `catHong`), bọc `veVaoKhung` (trừ khung 'sua'; có ảnh trong máy → như cũ). 42: `moRaSoat` thêm bản `sxCanCat && !matTruoc`; `rsLap` nhóm tài liệu chỉ giữ bản `giong`. 41 `scanLuuTu` + 45 `trGan`: cảnh báo đánh số chỉ cho CCCD.
+
 ### Danh sách thử trên máy thật (3.279) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
