@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.297) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TD (hộ cũ) › 📷 Quét bản đã ký › quét đơn › 🗄 Lưu vào tủ | Drive › Hồ sơ vay: "MãKH - Họ tên - 01TD.pdf" | |
+| 2 | 01/TD hộ mới có CCCD › 📷 Quét bản đã ký › Lưu | "Số CCCD - Họ tên - 01TD.pdf" ở Hồ sơ vay | |
+| 3 | Bấm bản scan khách đó | Khung phải "Hồ sơ của khách" có 📄 01TD | |
+
+**Ghi chú kỹ thuật 3.297:** 41: `sxLaHSV` (tài liệu loại ∈ `TC.loaiMau`), `duongScan` → `hsv`; `tenScanDrive` khóa `khoaCCCD`; `scanLuuTu` loại theo `SC_DAT`, `c.khoa` → `k.khoaCCCD`; `sxDangCho` bỏ bản `khoaCCCD`; `sxKeHoach` bản `khoaCCCD` có mã KH trên Mẫu 31 → `khop`. 46: `SC_DAT`, `scanChoKhach`, bọc `scanXongHop` (SXK[0], tên, dòng 📌). 40: lệnh `l01.quet`. 49: `SXT_GIU` thêm Hồ sơ vay.
+
 ### Danh sách thử trên máy thật (3.296) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

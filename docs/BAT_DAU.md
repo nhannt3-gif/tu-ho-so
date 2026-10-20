@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.296** — Bước 2 kế hoạch tên + lưu: bản lưu 01/TD tên chuẩn `Mã KH / số CCCD - Họ tên - 01TD`; 3.295 sổ quy tắc tên chung `js/49`; 3.294 bước 0 Scan. Tiếp: bước 3 (bản đã ký lưu vào tủ, thư mục Hồ sơ vay). 3.293 (TK chính) 🎯 Phân bổ KH xong P2 + P3 — `docs/KE_HOACH_PHAN_BO_KH.md`. Chờ anh: thử máy thật 3.225–3.296.
+- **`main` = 3.297** — Bước 3 kế hoạch tên + lưu: 01/TD › 📷 Quét bản đã ký → thư mục Hồ sơ vay tên chuẩn; tài liệu mẫu hồ sơ vay vào Hồ sơ vay; 3.296 tên bản lưu 01/TD chuẩn; 3.295 `js/49`; 3.294 bước 0. Tiếp: bước 4 Bộ hồ sơ, bước 5 rà Drive dữ liệu cũ. 3.293 (TK chính) 🎯 Phân bổ KH xong P2 + P3. Chờ anh: thử máy thật 3.225–3.297.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
