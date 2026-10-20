@@ -284,7 +284,7 @@ function sxKeHoach(){
     if(k.maKH){   /* đã có khách: tên đổi theo Mẫu 31 · file cũ chưa ở chỗ mới */
       var c = KHO.dsKhach()[k.maKH], tenMoi = c && c.ten;
       if(tenMoi && sxChuan(tenMoi)!==sxChuan(tenGoc)) R.doiTen.push({k:k, ka:laKA, ma:k.maKH, tu:tenGoc, ten:tenMoi});
-      else if(k.driveId && k.duongDrive!==(laKA ? sxDuongKA(k) : duongScan(k))) R.doi.push({k:k, ka:laKA, ma:k.maKH});
+      else if(k.driveId && k.duongDrive!==(laKA ? sxDuongKA(k) : duongScan(k))) R.doi.push({k:k, ka:laKA, ma:k.maKH, tu:(k.maKH+' - '+(tenGoc||''))});
       return; }
     var b = sxBoc(tenGoc), f = sxXacDinh({cccd:k.cccd || b.cccd, ma:b.ma, ten:b.ten});
     if(f.ma) R.khop.push({k:k, ka:laKA, ma:f.ma, theo:f.theo, tu:tenGoc});
@@ -294,12 +294,31 @@ function sxKeHoach(){
   };
   (D.scan||[]).forEach(function(k){ xet(k, false); });
   (D.kyAnh||[]).forEach(function(k){ xet(k, true); });
+  /* chữ ký / ảnh / tài liệu cùng tên với 1 CCCD đã xác định (lần này hoặc trước) → gợi ý cùng khách (anh ✓ mới xếp) */
+  var daRo = {}, ghi = function(t, ma){ t = sxChuan(t); if(!t) return; daRo[t] = (daRo[t] && daRo[t]!==ma) ? '-' : ma; };   /* 2 khách khác nhau cùng tên → không gợi ý */
+  R.khop.forEach(function(x){ if(!x.ka && x.k.che!=='tailieu') ghi(sxBoc(x.tu).ten, x.ma); });
+  (D.scan||[]).forEach(function(k){ if(k.maKH && k.che!=='tailieu') ghi(k.ten, k.maKH); });
+  var keo = function(ds){ return ds.filter(function(x){ var b = sxBoc(x.tu), ma = daRo[sxChuan(b.ten)];
+    if(!ma || ma==='-') return true; R.goiY.push({k:x.k, ka:x.ka, ma:ma, ly:'cùng tên với CCCD đã xác định', tu:x.tu}); return false; }); };
+  R.trung = keo(R.trung); R.chua = keo(R.chua);
   return R;
+}
+/* 3.266 (anh hỏi "có đọc thêm số CCCD không"): bản CCCD chưa xác định khách, ảnh còn trong máy, chưa từng đọc → đọc QR / mã máy đọc từ ảnh,
+   ghi số CCCD vào bản scan (đọc không được thì đánh dấu, lần sau không đọc lại) */
+function sxDocTuAnh(){
+  var ds = (D.scan||[]).filter(function(k){ return !k.maKH && k.che!=='tailieu' && !k.cccd && !k.cccdKhong && k.matTruoc; });
+  if(!ds.length) return Promise.resolve(0);
+  var n = 0, duoc = 0;
+  batChay(false, 'Đang đọc số CCCD từ ảnh 0/'+ds.length+'…');
+  return ds.reduce(function(p, k){ return p.then(function(){ n++; dangLamChu('Đang đọc số CCCD từ ảnh '+n+'/'+ds.length+'…'); tienChay(Math.round((n-1)/ds.length*100));
+    return Promise.all([docAnhHS(k.id+'_matTruoc'), k.matSau ? docAnhHS(k.id+'_matSau') : null]).then(function(b){ if(!b[0]) return null; return docCCCD(b[0], b[1]); })
+      .then(function(r){ if(r && r.cccd){ k.cccd = r.cccd; k.cccdDoc = {ten:r.ten||'', ns:r.ns||'', nguon:r.nguon}; duoc++; } else k.cccdKhong = 1; }, function(){ k.cccdKhong = 1; }); }); }, Promise.resolve())
+    .then(function(){ luu(); tatChay(); if(duoc) bao('Đọc được số CCCD từ ảnh: '+duoc+'/'+ds.length+' bản.', 5); return duoc; }, function(){ tatChay(); return duoc; });
 }
 function moSapXep(){
   if(!SL_SAN) return slNap().then(moSapXep);
   if(!Object.keys(KHO.dsKhach()).length) return baoLoi('Chưa có danh bạ khách — nạp Mẫu 31 ở tab 📈 Số liệu › Nạp & KT trước.');
-  SXP = sxKeHoach(); SXP.chon = {}; SXP.xn = {}; sxVeSapXep();
+  sxDocTuAnh().then(function(){ SXP = sxKeHoach(); SXP.chon = {}; SXP.xn = {}; sxVeSapXep(); });
 }
 function sxDongKH(x, i, nhom){
   var ic = x.ka ? (x.k.loai==='ky' ? '✍' : '🧑') : (x.k.che==='tailieu' ? '📄' : '🪪');
@@ -307,7 +326,7 @@ function sxDongKH(x, i, nhom){
     : nhom==='goiY' ? '→ gợi ý <b>'+coChuHTML(sxNhanKH(x.ma))+'</b> <small class="vang">('+coChuHTML(x.ly)+')</small> '+GD.nut({chu:SXP.xn[i] ? '✓ Đúng — sẽ xếp' : '✓ Đúng', lenh:'sx.xn', du:{i:i}, lop:SXP.xn[i] ? 'bat' : ''})
     : nhom==='doiTen' ? '→ tên mới <b>'+coChuHTML(x.ten)+'</b>'
     : nhom==='doi' ? '→ dời về <b>'+coChuHTML((x.ka ? sxDuongKA(x.k) : duongScan(x.k)).replace(D.cauHinh.thumuc+' / ', ''))+'</b>'
-    : nhom==='trung' ? x.ds.map(function(m){ return GD.nut({chu:coChuHTML(sxNhanKH(m)), lenh:'sx.chon', du:{i:i, ma:m}, lop:SXP.chon[i]===m ? 'bat' : ''}); }).join(' ')
+    : nhom==='trung' ? '<div class="sx-chon">'+x.ds.map(function(m){ return GD.nut({chu:coChuHTML(sxNhanKH(m)), lenh:'sx.chon', du:{i:i, ma:m}, lop:SXP.chon[i]===m ? 'bat' : ''}); }).join('')+'</div>'
     : '<small>chưa có trên Mẫu 31 — giữ ở thư mục chờ</small>';
   return '<tr><td>'+ic+'</td><td>'+coChuHTML(x.tu||'')+'</td><td>'+phai+'</td></tr>';
 }
