@@ -395,7 +395,8 @@ function sxDocTuAnh(){
   batChay(false, 'Đang đọc số CCCD từ ảnh 0/'+ds.length+'…');
   return ds.reduce(function(p, k){ return p.then(function(){ n++; dangLamChu('Đang đọc số CCCD từ ảnh '+n+'/'+ds.length+'…'); tienChay(Math.round((n-1)/ds.length*100));
     return sxAnhDoc(k).then(function(b){ if(!b[0] && !b[1]) return 'khongAnh'; return docCCCD(b[0], b[1]); })
-      .then(function(r){ if(r==='khongAnh') return; if(r && r.cccd){ k.cccd = r.cccd; delete k.cccdKhong; k.cccdDoc = sxGhiDoc(r); if(r.cmnd) k.cmnd = r.cmnd; duoc++; } else k.cccdKhong = SX_DOC_BAN; }, function(){ mang++; }); }); }, Promise.resolve())
+      .then(function(r){ if(r==='khongAnh') return; if(r && r.cccd){ k.cccd = r.cccd; delete k.cccdKhong; k.cccdDoc = sxGhiDoc(r); if(r.cmnd) k.cmnd = r.cmnd; duoc++;
+        if(!k.ten || /^Scan \d/.test(k.ten)){ k.ten = 'cccd-'+[r.ten, r.cccd].filter(Boolean).join(' - '); if(k.driveId) k.canDay = true; } }   /* 3.290: bản tên tự đặt ("Scan ngày giờ - người n") → tên theo thẻ đọc được */ else k.cccdKhong = SX_DOC_BAN; }, function(){ mang++; }); }); }, Promise.resolve())
     .then(function(){ luu(); tatChay(); if(mang) baoLoi('Chưa tải được bộ đọc chữ (cần mạng lần đầu) — '+mang+' bản chưa đọc, có mạng bấm 🧹 lại.'); else if(duoc) bao('Đọc được số CCCD từ ảnh: '+duoc+'/'+ds.length+' bản.', 5); return duoc; }, function(){ tatChay(); return duoc; });
 }
 function moSapXep(){

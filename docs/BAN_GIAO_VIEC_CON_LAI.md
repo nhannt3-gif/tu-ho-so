@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.290) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Quét 1 tờ nhiều CCCD (có người chưa có Mẫu 31) › 🗄 Lưu vào tủ | Chờ sắp xếp: tên "cccd-Họ tên - số" từng người | |
+| 2 | 🗂 Quản lý › ⏳ Chờ sắp xếp (có bản "Scan … - người n" cũ) | Đọc ra số → đổi tên theo thẻ | |
+
+**Ghi chú kỹ thuật 3.290:** 46: viết lại `scanLuuApp` (35) — `SAU_LUU_TAM` gắn `SX_DOC[i]` vào bản thứ i (`cccd`, `cccdDoc`, `cmnd`), nhiều người → `qlTenDoc`. 41 `sxDocTuAnh`: đọc ra số mà tên khớp `^Scan \d` → tên `cccd-…`, `canDay` nếu đã lên Drive.
+
 ### Danh sách thử trên máy thật (3.289) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

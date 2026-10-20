@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.290 — 20/10/2026 — Lưu CCCD đọc được tên mà tên file không kèm tên
+- **Anh 20/10**: "có file đọc được tên luôn nhưng khi lưu lại không kèm tên". Nguyên nhân: lượt quét **nhiều người** chưa đủ chắc khách → 🗄 Lưu vào tủ đưa vào ⏳ Chờ sắp xếp; chỉ bản 1 người lấy tên đọc được, bản nhiều người thành "Scan <ngày giờ> - người n" và **không lưu số CCCD** đã đọc.
+- Sửa: mỗi người đọc được thẻ → tên **`cccd-Họ tên - số CCCD`** (khớp chắc Mẫu 31 → họ tên Mẫu 31), lưu số CCCD + thông tin đọc được (CMND 9 số) vào bản → ⏳ Sắp xếp / 🔎 Rà nhận khách ngay, không đọc lại. Người chưa đọc được giữ "… - người n".
+- Bản cũ tên tự đặt ("Scan … - người n"): mở 🗂 Quản lý › ⏳ Chờ sắp xếp, app đọc ra số → đổi tên theo thẻ (Drive đổi theo ở lần đồng bộ).
+- Đã đủ chắc khách thì vẫn lưu tên chuẩn `MãKH - Họ tên - CCCD` (không đổi).
+- Phép thử: t220 mới (4).
+
 ## 3.289 — 20/10/2026 — Đọc ảnh HEIC iPhone
 - **Anh 20/10** (ảnh thư mục: IMG_7361…7450, "HEIC File" ~2 MB): "loại này app không đọc được" → anh **duyệt (A)** thêm thư viện **heic-to 1.6.5** (libheif, chạy trong máy, không gửi ảnh đi).
 - Bộ mở ảnh chung (`anhTuBlob`): trình duyệt không mở được ảnh → xem 4 byte nhãn trong file; là HEIC / HEIF → nạp bộ đọc (lần đầu tải ~3 MB, lưu trong máy dùng offline) → đổi sang JPG → cắt, nắn, đọc số như ảnh thường. Áp dụng mọi chỗ mở ảnh: dán (Ctrl+V), chọn file / kéo thả ở tab Scan, 📁 Chữ ký · CCCD, hộp 🪪 Quét CCCD (ô chọn file nhận cả .heic / .heif).
