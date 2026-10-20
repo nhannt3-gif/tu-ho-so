@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.280** — Scan: CCCD cũ chỉ có PDF mở xem tự tách 2 mặt; tài liệu đánh số 1, 2, 3 không báo trùng; 3.279 sửa tài liệu chỉ có PDF; 3.278 Quản lý hồ sơ scan. Kế hoạch tiếp: `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (chờ anh chốt (a)(b)(c)). Chờ anh: thử máy thật 3.225–3.280.
+- **`main` = 3.281** — Scan: dòng trạng thái tách 2 mặt CCCD + Thử tách lại, Rà liệt kê bản không tách được; 3.280 CCCD cũ mở xem tự tách 2 mặt, tài liệu đánh số không báo trùng. Kế hoạch tiếp: `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (chờ anh chốt (a)(b)(c)). Chờ anh: thử máy thật 3.225–3.281.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.

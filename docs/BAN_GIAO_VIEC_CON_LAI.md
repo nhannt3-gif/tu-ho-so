@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.281) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Bấm CCCD tự tách được | Dòng "✂ Đã tách 2 mặt từ PDF — chưa duyệt" | |
+| 2 | Bấm CCCD không tách được | Dòng đỏ "⚠ Không tách được" + lý do + ↻ Thử tách lại | |
+| 3 | 🔎 Rà CCCD | Khối "Không tách được 2 mặt thẻ" liệt kê đúng | |
+
+**Ghi chú kỹ thuật 3.281:** 43: `sxCatTuPDF` ghi `catLoi` (không tải PDF) / `catHong` (không dò ra khung) ở mọi nơi gọi; `sxLaCCCD`, `sxLyCat`, `sxTTCat`, `sxVeTTCat` (chèn `.sx-cat-tt` vào `cp-phu` / `x-phu`), lệnh `sx.catLai`. 42 `rsVeCat`: khối bản hỏng.
+
 ### Danh sách thử trên máy thật (3.280) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

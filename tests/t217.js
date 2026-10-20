@@ -34,16 +34,30 @@ const fs=require('fs'), path=require('path'); const drive=require('./fakedrive.j
    const goc = sxTrangPDF; sxTrangPDF = function(){ const c = document.createElement('canvas'); c.width = 1240; c.height = 1754; const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); return Promise.resolve(c); };
    veVaoKhung(k2, 'lon'); for(let i=0;i<30 && !k2.catHong;i++) await w(100); sxTrangPDF = goc; await w(300);
    const hong = !!k2.catHong, conCat = sxCanCat(k2);
-   return {canRa, dang:/đang tách 2 mặt/.test(dang), hai, cat:!!k.catTuPDF, anh:!!(k.anhDrive && k.anhDrive.truoc), hong, conCat, khongAnh:!document.querySelector('#x-than .the-xem')}; }, rA.k).catch(e=>({loi:e.message}));
+   const tt = h => { const d = document.createElement('div'); d.innerHTML = h; return d.textContent; };
+   const ttOk = tt(sxTTCat(k)), ttHong = tt(sxTTCat(k2)), coLai = /sx\.catLai/.test(sxTTCat(k2)), phu = (document.getElementById('x-phu')||{}).textContent||'';
+   const k3 = cu({id:'t217l'}); const wc = window.coTheNoiDrive; window.coTheNoiDrive = ()=>false; const ttDrive = tt(sxTTCat(k3)); window.coTheNoiDrive = wc;
+   const goc2 = sxTrangPDF; sxTrangPDF = ()=>Promise.resolve(null); await sxCatMot(k3); sxTrangPDF = goc2; const ttLoi = tt(sxTTCat(k3));
+   const kA0 = {id:'z', che:'the', matTruoc:true}; const ttGoc = tt(sxTTCat(kA0));
+   /* ↻ Thử tách lại: xóa ghi nhận hỏng, tăng lần cắt */
+   const lan0 = k2.catLan||0;
+   const btn = document.createElement('div'); btn.innerHTML = sxTTCat(k2); document.body.appendChild(btn); const sTr = sxTrangPDF; sxTrangPDF = ()=>Promise.resolve(null); btn.querySelector('[data-lenh="sx.catLai"]').click(); await w(300); sxTrangPDF = sTr; btn.remove();
+   const lai = {catLan:k2.catLan||0, hong:!!k2.catHong, loi:k2.catLoi||''};
+   return {canRa, dang:/đang tách 2 mặt/.test(dang), hai, cat:!!k.catTuPDF, anh:!!(k.anhDrive && k.anhDrive.truoc), hong, conCat, khongAnh:!document.querySelector('#x-than .the-xem'), ttOk, ttHong, coLai, phu, ttDrive, ttLoi, ttGoc, lan0, lai}; }, rA.k).catch(e=>({loi:e.message}));
  ok('CCCD cũ chỉ có PDF, đã đọc số ở bản trước → vẫn thuộc diện tách 2 mặt', rB.canRa, JSON.stringify(rB));
  ok('mở xem → báo "đang tách 2 mặt thẻ", xong hiện 2 mặt (không còn trang A4 PDF)', rB.dang && rB.hai===2 && rB.cat);
  ok('2 ảnh cắt đưa lên Drive cạnh PDF (máy khác dùng luôn)', rB.anh);
  ok('PDF không dò ra 2 mặt thẻ → ghi lại, lần sau xem PDF luôn (không tải lại)', rB.hong && !rB.conCat && rB.khongAnh);
+ ok('3.281 dòng trạng thái: đã tách → "Đã tách 2 mặt từ PDF — chưa duyệt"; không dò ra → "Không tách được" + lý do + ↻ Thử tách lại', /Đã tách 2 mặt từ PDF — chưa duyệt/.test(rB.ttOk) && /Không tách được 2 mặt: không dò ra 2 khung thẻ/.test(rB.ttHong) && rB.coLai, JSON.stringify([rB.ttOk, rB.ttHong]));
+ ok('3.281 dòng trạng thái hiện dưới tên ở khung xem', /Không tách được|Đã tách/.test(rB.phu), rB.phu);
+ ok('3.281 chưa nối Drive → "nối Drive để app tải PDF về tách"; không tải được PDF → báo lý do; bản quét có ảnh → "Ảnh 2 mặt thẻ lúc quét"', /nối Drive/.test(rB.ttDrive) && /Không tách được 2 mặt: không tải/.test(rB.ttLoi) && /lúc quét/.test(rB.ttGoc), JSON.stringify([rB.ttDrive, rB.ttLoi, rB.ttGoc]));
+ ok('3.281 ↻ Thử tách lại → bỏ ghi nhận hỏng, thử lần cắt khác (vẫn hỏng thì báo lý do mới)', rB.lai.catLan===rB.lan0+1 && !rB.lai.hong && /không tải/.test(rB.lai.loi), JSON.stringify(rB.lai));
  /* 🔎 Rà: bản cũ đã có raDoc nhưng chưa tách → vẫn đưa vào đọc lại (tách 2 mặt) */
  const rR = await B.evaluate(async(kA)=>{ const k = JSON.parse(JSON.stringify(kA)); k.id = 't217r'; delete k.anhDrive; delete k.matTruoc; delete k.matSau; k.raDoc = {cccd:'079000000111', nguon:'QR'}; D.scan.push(k);
    const w=t=>new Promise(r=>setTimeout(r,t)); D.scan.forEach(x=>{ if(x.id!=='t217r'){ x.raDoc = x.raDoc || {khong:1, ban:9}; x.catHong = x.catHong || (x.id!=='t217r' && !x.catTuPDF ? 1 : 0); } });
-   RS = null; moRaSoat(false); for(let i=0;i<80 && !(RS && RS.nhom);i++) await w(250); await w(300); dongHop();
-   return {cat:!!k.catTuPDF, ds:(RS.catDs||[]).some(x=>x.id==='t217r')||!!k.catDuyet}; }, rA.k);
+   RS = null; moRaSoat(false); for(let i=0;i<80 && !(RS && RS.nhom);i++) await w(250); await w(300); const ht = document.getElementById('hop-in').textContent; dongHop();
+   return {hong:/Không tách được 2 mặt thẻ/.test(ht) && /không dò ra 2 khung thẻ/.test(ht), cat:!!k.catTuPDF, ds:(RS.catDs||[]).some(x=>x.id==='t217r')||!!k.catDuyet}; }, rA.k);
+ ok('🔎 Rà: khối "Không tách được 2 mặt thẻ" liệt kê bản hỏng + lý do', rR.hong, JSON.stringify(rR));
  ok('🔎 Rà: bản cũ đã đọc số ở bản trước nhưng chưa tách → Rà tách 2 mặt, đưa vào khối "Ảnh cắt từ PDF"', rR.cat && rR.ds, JSON.stringify(rR));
  /* tài liệu: 1 khách nhiều tài liệu cùng loại → đánh số 1, 2, 3; Rà chỉ báo trùng khi giống hệt */
  const rT = await B.evaluate((ma)=>{ const t = id => ({id, che:'tailieu', tag:[], maKH:ma, ten:'Khach', taoLuc:'2026-10-0'+id.slice(-1)});

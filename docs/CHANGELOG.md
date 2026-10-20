@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.281 — 20/10/2026 — Báo trạng thái tách 2 mặt CCCD
+- **Anh 20/10**: "có cái app tự tách, có cái không, em nên làm thêm báo là app có làm chưa và làm không được cũng báo".
+- Khung xem (phải / lớn): dưới tên mỗi bản CCCD có 1 dòng trạng thái — 🪪 Ảnh 2 mặt thẻ lúc quét · ✂ Đang tách… · ✂ Đã tách từ PDF (chưa duyệt → xem ở 🔎 Rà / ✓ đã duyệt) · ⚠ Không tách được + lý do (không dò ra 2 khung thẻ trên trang 1 PDF; không tải / mở được PDF; chưa nối Drive; bản chưa lên Drive) · 📄 Đang dùng PDF (anh đã bỏ ảnh cắt). Có nút **↻ Thử tách lại** (lần cắt khác). Tách hỏng khi mở xem → báo lỗi ngay.
+- 🔎 Rà CCCD: khối mới **⚠ Không tách được 2 mặt thẻ** — liệt kê khách + lý do + nút Xem. Rà tách hỏng cũng ghi lại (trước chỉ ghi khi mở xem).
+- Phép thử: t217 thêm 5 (13).
+
 ## 3.280 — 20/10/2026 — CCCD cũ tách 2 mặt khi xem · tài liệu đánh số không báo trùng
 - **Anh 20/10** (ảnh: CCCD cũ hiện cả trang A4): "cccd cũ app vẫn lưu PDF chưa tách ra 2 mặt". Nguyên nhân: tách 2 mặt từ PDF (3.271) chỉ chạy ở 🔎 Rà / hộp Sửa; Rà lại bỏ qua bản đã đọc số ở bản trước. Sửa: mở xem ở khung phải / xem lớn → bản CCCD chỉ có PDF (không ảnh trong máy, không ảnh trên Drive) tự tách 2 mặt từ trang 1, lưu + đưa 2 ảnh lên Drive cạnh PDF (PDF gốc giữ nguyên), hiện 2 mặt; dò không ra khung thẻ → ghi lại, lần sau xem PDF luôn. 🔎 Rà gồm cả bản cũ chưa tách → ảnh cắt vào khối "Ảnh cắt từ PDF — anh xem lại".
 - **Anh 20/10**: "về tài liệu thì theo thứ tự 1, 2, 3, hiện tại đang báo trùng tên nếu rà soát". Sửa: tài liệu cùng loại của 1 khách giữ đánh số theo thứ tự lưu (bản 2 " (2)", bản 3 " (3)"); 🔎 Rà chỉ báo trùng tài liệu khi giống hệt từng byte; Lưu vào tủ / Tra Mẫu 31 không cảnh báo ⚠ cho tài liệu. CCCD / chữ ký / ảnh vẫn báo trùng như cũ.
