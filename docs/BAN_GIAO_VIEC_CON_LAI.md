@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.275) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sửa bản quét hộ Thủy › gõ số CCCD / mã KH › 🔎 Tra Mẫu 31 | Ô tên = họ tên Mẫu 31, địa bàn tự chọn, báo tên file chuẩn; Lưu → lên Drive đúng tên | |
+| 2 | Lưu mới sau khi quét › gõ số CCCD ở Tên file › 🔎 | Tên chuẩn + nút Lưu đúng khách | |
+| 3 | Sửa bản quét trên máy không có ảnh | Hiện 2 mặt thẻ (tải / cắt từ PDF) | |
+
+**Ghi chú kỹ thuật 3.275:** `moHop` bọc → `trGanNut()` gắn nút cho `#k-ten` (bản scan), `#sx-ten`, `#ka-ten(2)`; Enter bắt ở `window` (trước phím chung). `trTim(q, db)` (sxBoc + sxXacDinh + slTimKH); `trGan` theo nơi; `veAnhKhach` bọc → `sxAnhDoc`.
+
 ### Danh sách thử trên máy thật (3.274) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -3585,3 +3585,5 @@ table.hm-so{min-width:1476px}
 .qc-o{display:flex;gap:4px;align-items:center;min-width:0}.qc-o input{flex:1;min-width:0}.qc-nut{flex:0 0 auto;padding:3px 7px;white-space:nowrap}
 .qc-khung{margin:8px 0;text-align:center}.qc-khung video{max-width:100%;max-height:52vh;border-radius:10px;border:1px solid var(--vien);background:#000}
 .qc-bang td:first-child{width:44px;text-align:center}.qc-bang input{width:18px;height:18px}
+/* 3.275: 🔎 Tra Mẫu 31 cạnh ô tên (tab Scan) */
+.tr-o{width:100%}.tr-kq{margin:4px 0 2px;font-size:calc(12.5px*var(--co));white-space:normal}.tr-kq:empty{display:none}.xp-ten .tr-o{display:inline-flex;width:auto;min-width:60%}
