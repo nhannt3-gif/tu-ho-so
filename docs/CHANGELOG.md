@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.269 — 20/10/2026 — Đọc CCCD ảnh cả tờ, trùng tên theo ngày sinh
+- **Anh 20/10** (ảnh: bản "Nguyen Thi Bich Thuy" — thẻ Căn cước mẫu mới, 2 mặt trên 1 tờ — vẫn nằm "Trùng tên" 2 khách): "em ktra t/h này".
+- Nguyên nhân (em suy từ ảnh, chưa có file gốc): bộ đọc chỉ tìm 3 dòng mã máy đọc ở **đáy ảnh** và QR ở cả ảnh → ảnh **cả tờ có 2 thẻ** (mã máy đọc nằm giữa / trên tờ, QR rất nhỏ) không đọc được; bản đọc hỏng bị đánh dấu → **không bao giờ đọc lại**; trùng tên chỉ so tên.
+- Sửa:
+  - Bộ đọc: không thấy ở đáy → đọc **từng góc ảnh phóng to** (cả mã máy đọc lẫn QR) → ảnh cả tờ, QR nhỏ đọc được (thử trên ảnh giả: ra số + ngày sinh).
+  - QR khác mẫu (thẻ Căn cước 2024…) → vẫn lấy số 12 chữ số + họ tên.
+  - Bản đọc hỏng ở bộ đọc cũ → 🧹 Sắp xếp / 🔎 Rà **đọc lại 1 lần** với bộ đọc mới (`SX_DOC_BAN`); mất mạng (chưa tải được bộ đọc chữ) → không đánh dấu hỏng, báo để bấm lại.
+  - Trùng tên (hoặc 1 số CCCD ở nhiều mã KH): **ngày sinh trên thẻ** khớp đúng 1 khách → chuyển sang "? Gợi ý" (anh tích ✓).
+  - Màn Sắp xếp, dòng gợi ý / trùng: hiện **số + tên + ngày sinh đọc được trên thẻ**, mỗi khách kèm **CCCD / ngày sinh theo Mẫu 31**, và **ảnh nhỏ 2 mặt thẻ** để anh nhìn so.
+  - Hạn CCCD ở 🔎 Rà dùng chung quy tắc tab Tổ (`toCCCDHan`).
+- Phép thử: t209 (11) — Tesseract chạy trong máy (tests/lib).
+
 ## 3.268 — 20/10/2026 — 🔎 Rà CCCD đã lưu + bản trùng
 - **Anh 20/10**: "em cũng có nên có bước chạy kiểm tra các cccd đã lưu coi đúng ko, trong lúc mới này sợ chtr chưa chuẩn luu sai"; "nếu kiểm tra thấy trùng tên thì báo để xóa 1 cái, nếu em ktra dc nội dung dc thì tốt"; "người thừa kế sẽ ko lưu cccd nổi nên tính sau, em chỉ báo".
 - Tab Scan › nút **🔎 Rà CCCD đã lưu** (file mới `js/42-scan-ra-soat.js`):

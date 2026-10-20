@@ -7,7 +7,8 @@ File thật anh Nhân gửi để xem cấu trúc chỉ dùng trong máy làm vi
 ```bash
 # Playwright + Chromium cài sẵn (npm -g playwright). Thư viện CDN mà app tải → bản npm cùng phiên bản:
 cd tests && mkdir -p lib && cd lib
-for p in xlsx@0.18.5 pdfjs-dist@3.11.174 pdf-lib@1.17.1 framework7@8.3.4 dompurify@3.2.6; do n=${p%@*}; v=${p#*@}; mkdir -p $n-$v && (cd $n-$v && npm pack $p && tar xzf *.tgz && rm *.tgz); done
+for p in xlsx@0.18.5 pdfjs-dist@3.11.174 pdf-lib@1.17.1 framework7@8.3.4 dompurify@3.2.6 jsqr@1.4.0 qrcode-generator@1.4.4 tesseract.js@5.1.1 tesseract.js-core@5.1.0; do n=${p%@*}; v=${p#*@}; mkdir -p $n-$v && (cd $n-$v && npm pack $p && tar xzf *.tgz && rm *.tgz); done
+mkdir -p tesseract.js-data-eng-1.0.0 && (cd tesseract.js-data-eng-1.0.0 && npm pack @tesseract.js-data/eng@1.0.0 && tar xzf *.tgz && rm *.tgz)   # 3.269: chữ tiếng Anh cho Tesseract (đọc mã máy đọc CCCD)
 cd ../..
 # bộ file Excel GIẢ cho tab Số liệu (cùng cấu trúc hệ thống)
 python3 tests/taogia.py 25000 tests/gia      # bộ lớn (đo tốc độ)
@@ -180,6 +181,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t205.js` | 3.259 Bộ thông tin tổ: KQGD từng điểm (24 cột, công thức), 3 sao kê chia Điểm › Hội › Tổ, Excel nhiều sheet (24). |
 | `node tests/t206.js` | 3.260 Sổ cài đặt (Sao lưu › 🧾), khóa lạ, hàm con kéo đổi tên (5). |
 | `node tests/t207.js` | 3.264 Scan lưu tập trung, Sắp xếp, Kiểm tra, đọc QR / mã máy đọc giả, bản photo 2 mặt, ảnh khách từ CCCD (25). |
+| t209 | (3.269) Đọc CCCD ảnh cả tờ 2 thẻ (mã máy đọc + QR nhỏ, Tesseract trong máy), QR khác mẫu, đọc lại bản cũ đọc hỏng, trùng tên theo ngày sinh, màn Sắp xếp hiện số Mẫu 31 + ảnh thẻ (11). |
 | t208 | (3.268) 🔎 Rà CCCD đã lưu: đúng / sai khách / CMND cũ / lệch số / không phải chủ hộ / ngoài Mẫu 31 / 2 mã KH / hết hạn / không đọc được; bản trùng (giống hệt, trước+sau); Drive giả lập (28). |
 | (3.267) | t207 thêm: màn Sắp xếp rộng, nút tròn / ô tích, nút đáy đếm số bản (38). |
 | (3.266) | t207 thêm: Sắp xếp đọc số CCCD từ ảnh (QR giả) → hết trùng tên, chữ ký cùng tên gợi ý (37). |

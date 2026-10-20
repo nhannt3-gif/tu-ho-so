@@ -12,13 +12,7 @@
    ========================================================== */
 var RS = null;   /* kết quả rà đang xem */
 function rsSo(s){ return String(s||'').replace(/\D/g, ''); }
-/* hạn CCCD theo tuổi (Luật Căn cước công dân): cấp trước 23 tuổi → hạn 25 · trước 38 → 40 · trước 58 → 60 · từ 58 → không hạn */
-function sxHanCCCD(ns, ncap){
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(ns||'') || !/^\d{4}-\d{2}-\d{2}$/.test(ncap||'')) return '';
-  var tuoi = (+ncap.slice(0, 4)) - (+ns.slice(0, 4)) - (ncap.slice(5)<ns.slice(5) ? 1 : 0);
-  var moc = tuoi<23 ? 25 : tuoi<38 ? 40 : tuoi<58 ? 60 : 0;
-  return moc ? ((+ns.slice(0, 4))+moc)+ns.slice(4) : '';
-}
+function sxHanCCCD(ns, ncap){ if(!ns || !ncap) return ''; var h = toCCCDHan('000000000000', ns, ncap); return h.den || ''; }   /* hạn thẻ theo mốc tuổi — dùng chung quy tắc tab Tổ (toCCCDHan) */
 function rsHoMoi(s){   /* số CCCD có trong Sổ hộ vay (khách mới chưa giải ngân) → tên */
   if(!s || typeof hmDs!=='function') return '';
   var o = hmDs().find(function(h){ return (h.tv||[]).some(function(n){ return rsSo(n.cccd)===s; }); });
@@ -29,7 +23,7 @@ function rsDoc(k){
   return Promise.all([docAnhHS(k.id+'_matTruoc'), k.matSau ? docAnhHS(k.id+'_matSau') : null]).then(function(b){
     if(!b[0] && !b[1]) return {khong:1, ly:'ảnh không còn trong máy (lưu ở máy khác?)', tam:1};
     return docCCCD(b[0], b[1]).then(function(r){ return r && r.cccd ? {cccd:r.cccd, cmnd:r.cmnd||'', ten:r.ten||'', ns:r.ns||'', ncap:r.ncap||'', han:r.han||'', nguon:r.nguon, mot:!(b[0] && b[1])} : {khong:1, ly:'không đọc được mã QR / mã máy đọc'}; });
-  }).then(function(r){ if(!r.tam) k.raDoc = r; return r; }, function(){ return {khong:1, ly:'lỗi khi đọc ảnh', tam:1}; });
+  }).then(function(r){ if(r.khong && !r.tam) r.ban = SX_DOC_BAN; if(!r.tam) k.raDoc = r; return r; }, function(e){ return {khong:1, ly:(e && e.message) || 'lỗi khi đọc ảnh', tam:1}; });
 }
 /* xếp 1 bản vào nhóm từ kết quả đọc */
 function rsXet(k, r){
@@ -128,7 +122,7 @@ function moRaSoat(docLai){
   if(!Object.keys(KHO.dsKhach()).length) return baoLoi('Chưa có danh bạ khách — nạp Mẫu 31 ở tab 📈 Số liệu › Nạp & KT trước.');
   var ds = (D.scan||[]).filter(function(k){ return k.maKH && k.che!=='tailieu'; });
   if(docLai) ds.forEach(function(k){ delete k.raDoc; });
-  var can = ds.filter(function(k){ return !k.raDoc; }), n = 0, tam = {};
+  var can = ds.filter(function(k){ return !k.raDoc || (k.raDoc.khong && (k.raDoc.ban||1)<SX_DOC_BAN); }), n = 0, tam = {};
   QUET.dung = false; dongHop();
   batChay(false, 'Đang rà CCCD đã lưu 0/'+can.length+'…', true);
   can.reduce(function(p, k){ return p.then(function(){ if(QUET.dung) return; n++; dangLamChu('Đang đọc lại CCCD '+n+'/'+can.length+'…'); tienChay(Math.round((n-1)/Math.max(1, can.length)*100));

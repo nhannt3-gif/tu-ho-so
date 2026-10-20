@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.269) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🧹 Sắp xếp với bản "Nguyen Thi Bich Thuy" (có mạng) | Thanh "Đang đọc số CCCD từ ảnh…" → dòng hiện "Thẻ đọc được: số · sinh …"; khách đúng ngày sinh lên Gợi ý (hoặc ✓ chắc nếu Mẫu 31 có số CCCD) | |
+| 2 | Dòng trùng tên | Mỗi khách ghi CCCD / ngày sinh Mẫu 31, có ảnh nhỏ 2 mặt thẻ | |
+
+**Ghi chú kỹ thuật 3.269:** `docCCCD`: QR cả ảnh → 4 góc phóng to (`sxManh`); mã máy đọc đáy ảnh → 4 góc; `cccdQR` nhận mẫu khác; `SX_DOC_BAN = 2` (cccdKhong / raDoc.ban); `sxXacDinh({ns})` tách trùng theo ngày sinh; `sxNhanKH2`. tests/tv.js định tuyến Tesseract 5.1.1 + core 5.1.0 + eng → tests/lib.
+
 ### Danh sách thử trên máy thật (3.268) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
