@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.286) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sửa đơn vay / hợp đồng có in số CCCD › 🪪 Đọc số CCCD | Ô tên ra số → tự tra → tên chuẩn Mẫu 31 | |
+| 2 | Tài liệu không có số › 🪪 Đọc số CCCD | Mở hộp quét CCCD; chụp thẻ → tự về, tự tra | |
+| 3 | Gõ 12 số CCCD vào ô tên | Tự tra không cần Enter | |
+| 4 | Tích 2–3 bản scan › 🗑 Xóa n bản | Hỏi 1 lần → vào Thùng rác | |
+
+**Ghi chú kỹ thuật 3.286:** 45: `trNutDoc`, `trSoTrongChu` (dải số > 12 do nhãn đọc thành số → xét mọi đoạn 12 số bắt đầu 0), `trNguon` / `trTrangCanvas` / `trDoc`, `trQuetXong`; nghe `input` gõ đủ số → `trChay`. 44: `qcMo({loai:'tra', o:id})` → `qcDoc` gọi `trQuetXong`. 46: bọc `veScan` thêm `ql.xoaChon` → `qlXoaChon` (`xoaNhieuVaoRac`). CSS `.nut-bot:not(.bat)` đỏ.
+
 ### Danh sách thử trên máy thật (3.285) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

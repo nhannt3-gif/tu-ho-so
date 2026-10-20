@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.286 — 20/10/2026 — Đọc số CCCD tự tra Mẫu 31 · nút Xóa đỏ
+- **Anh 20/10**: "chỗ lưu tên có nút Tra Mẫu 31 sau khi đã đánh số CCCD, anh muốn app có nút đọc số CCCD điền vào và tự tra Mẫu 31 luôn, tự động". Thêm nút **🪪 Đọc số CCCD** trước 🔎 Tra Mẫu 31 (hộp Sửa bản quét, Lưu mới, Chữ ký / Ảnh). App tự tìm số: ① bản là CCCD → đọc ảnh thẻ (QR / mã máy đọc; ảnh trên Drive / cắt từ PDF); ② tài liệu (đơn vay, hợp đồng…) → đọc chữ số trang 1–2, lấy số 12 chữ số bắt đầu 0 (nhiều số → số có trên Mẫu 31; số điện thoại 10 số bỏ qua); ③ không thấy → mở hộp quét CCCD (📷 chụp / 🖼 ảnh có sẵn / 🗂 lấy từ tủ), đọc xong tự về. Có số → điền ô tên → **tự tra** → khớp chắc 1 khách thì gắn luôn (tên chuẩn, mã KH, địa bàn). Gõ đủ 12 số CCCD (9 số CMND, 10 số mã KH) vào ô → tự tra, không cần Enter.
+- **Anh 20/10**: "kế nút Quét bản mới làm 1 nút Xóa như bên Văn bản, màu đỏ". Nút 🗑 Xóa cạnh nút Thêm / Quét bản mới tô đỏ (mọi tab như nhau). Tab Scan: tích ☐ các bản → thanh "Đã chọn n bản" có thêm nút đỏ **🗑 Xóa n bản** (vào Thùng rác; 1 bản không hỏi, nhiều bản hỏi 1 lần).
+- Phép thử: t218 mới (9).
+
 ## 3.285 — 20/10/2026 — P1 🎯 Phân bổ kế hoạch: lõi nghiệp vụ + cửa KHO.duNoAp (chưa có màn hình)
 - **Anh chốt 20/10** (`docs/KE_HOACH_PHAN_BO_KH.md`): gộp app WPF "Phân bổ kế hoạch" vào tab con 🎯 Phân bổ KH (📈 Số liệu); bản này chỉ làm **lõi**, giao diện ở P2, Biểu 07 ở P3.
 - **Mới `js/47-phan-bo.js`** (tiền tố `pb`, ES5, không DOM): `pbPhanBo` (2 cách chia — tương đối / chính xác), `pbChiaDeu`, `pbChiaTyLe` (phần dư lớn nhất), `pbDuNoThatChenh`, `pbGioiHanGiam` (giảm không âm, dồn theo bước), `pbKiem` (QT-16), `pbSuaTay`, `pbGoiYDaGiao` + `pbTongHopCT` (QT-17), `pbChonKy`, `pbNguon`, `pbDuNoXa`, `pbTuWPF` (nhập file sao lưu QĐ của bản WPF). Đơn vị triệu đồng; dư nợ cộng theo đồng (không dồn sai số).
