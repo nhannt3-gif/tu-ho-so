@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.267) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🧹 Sắp xếp có bản trùng tên / gợi ý | Cửa sổ rộng, thấy nút tròn chọn khách, ô ☑ Đúng; nút đáy đếm đúng số bản | |
+
+**Ghi chú kỹ thuật 3.267:** `sxViec()` đếm việc sẽ làm, `sxDemNut()` cập nhật nút; GD `sx.chon` / `sx.xn` không vẽ lại.
+
 ### Danh sách thử trên máy thật (3.266) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
