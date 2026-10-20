@@ -1469,6 +1469,7 @@
   .nut-bot{flex:0 0 auto;background:var(--the);color:var(--chu);border:1.3px solid var(--vien);border-radius:10px;
     padding:0 12px;min-height:34px;font:inherit;font-size:calc(12.5px*var(--co));font-weight:600;cursor:pointer}
   .nut-bot.bat{background:var(--do-nen);border-color:var(--do);color:var(--do)}
+  .nut-bot:not(.bat){color:var(--do);border-color:var(--do)}   /* 3.285 (anh): nút 🗑 Xóa cạnh nút Thêm / Quét bản mới tô đỏ — mọi tab như nhau */
   .thanh-bot{background:var(--do-nen);border:1.3px solid var(--do);border-radius:11px;padding:8px 11px;margin-bottom:10px;
     font-size:calc(12px*var(--co));color:var(--do);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .thanh-bot button{border:1.3px solid var(--do);background:var(--the);color:var(--do);border-radius:8px;padding:5px 10px;

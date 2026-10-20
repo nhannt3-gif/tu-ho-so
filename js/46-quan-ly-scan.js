@@ -24,6 +24,22 @@ veScan = function(){
   Array.prototype.forEach.call(t.querySelectorAll('button'), function(b){ b.remove(); });
   t.insertAdjacentHTML('beforeend', '<button data-lenh="ql.mo" class="chinh" title="Chờ sắp xếp · Rà CCCD đã lưu · Kiểm tra theo tổ">🗂 Quản lý hồ sơ scan</button>');
 };
+/* 3.285 (anh: "kế nút Quét bản mới làm 1 nút Xóa như bên Văn bản, màu đỏ"): nút 🗑 Xóa cạnh Quét bản mới tô đỏ (css .nut-bot);
+   đã tích ☐ các bản (thanh "Đã chọn n bản" — in ghép 3.58) → thêm nút đỏ 🗑 Xóa n bản ngay trên thanh, vào 🗑 Thùng rác (quy tắc xóa chung 3.153: 1 bản không hỏi, nhiều bản hỏi 1 lần) */
+var QL_VE_SCAN2 = veScan;
+veScan = function(){
+  QL_VE_SCAN2.apply(this, arguments);
+  var t = document.querySelector('#tr4 .thanh-in'), n = Object.keys(HS.chon||{}).length; if(!t || !n || t.querySelector('[data-lenh="ql.xoaChon"]')) return;
+  var bo = t.querySelector('button[onclick^="boChonHS"]'), h = '<button class="xau" data-lenh="ql.xoaChon" title="Xóa các bản đã chọn — vào 🗑 Thùng rác, khôi phục được">🗑 Xóa '+n+' bản</button>';
+  if(bo) bo.insertAdjacentHTML('beforebegin', h); else t.insertAdjacentHTML('beforeend', h);
+};
+function qlXoaChon(){
+  var ids = Object.keys(HS.chon||{}).filter(function(id){ return timScan(id); }); if(!ids.length) return;
+  var chay = function(){ HS.chon = {}; xoaNhieuVaoRac(ids, function(){ if(nganHienTai===4) veScan(); }); };
+  if(ids.length===1) return chay();
+  hoi('Xóa '+ids.length+' bản scan?', ids.slice(0, 8).map(function(id){ var k = timScan(id); return (k.maKH ? k.maKH+' ' : '')+(k.ten||''); }).join(' · ')+(ids.length>8 ? ' … và '+(ids.length-8)+' bản nữa' : '')+'. Vào 🗑 Thùng rác — khôi phục được.', 'Xóa '+ids.length+' bản', chay);
+}
+GD.dangKy('ql', {xoaChon:function(){ qlXoaChon(); }});
 /* 🗄 Lưu vào tủ: tự nhận khách */
 function qlLuuTu(){
   if(!SX) return;

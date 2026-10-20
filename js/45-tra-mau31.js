@@ -32,7 +32,7 @@ function trGanNut(){
     var e = document.getElementById(id); if(!e || e.getAttribute('data-tr')) return;
     if(id==='k-ten' && !(window.__k && (window.__k.che || (D.scan||[]).indexOf(window.__k)>=0))) return;
     e.setAttribute('data-tr', '1');
-    var bao_ = document.createElement('span'); bao_.className = 'qc-o tr-o'; e.parentNode.insertBefore(bao_, e); bao_.appendChild(e); bao_.insertAdjacentHTML('beforeend', trNut(id));
+    var bao_ = document.createElement('span'); bao_.className = 'qc-o tr-o'; e.parentNode.insertBefore(bao_, e); bao_.appendChild(e); bao_.insertAdjacentHTML('beforeend', trNutDoc(id)+trNut(id));
     bao_.insertAdjacentHTML('afterend', '<div class="tr-kq" id="tr-kq-'+id+'"></div>');
   });
 }
@@ -112,3 +112,62 @@ function tlTaiTrang(){
       function(e){ tatChay(); baoLoi('Chưa tải được PDF: '+(e && e.message || e)); });
 }
 GD.dangKy('tl', {taiTrang:function(){ tlTaiTrang(); }});
+
+/* ---------- 3.285 (anh 20/10: "chỗ lưu tên có nút Tra Mẫu 31 sau khi đã đánh số CCCD — anh muốn app có nút đọc số CCCD điền vào và tự tra Mẫu 31 luôn, tự động") ----------
+   🪪 Đọc số CCCD cạnh 🔎 Tra Mẫu 31: app tự tìm số → điền ô tên → tự tra (khớp chắc → gắn khách, như 3.275).
+   Nguồn số theo thứ tự: ① bản này là CCCD → đọc ảnh thẻ (QR / mã máy đọc, ảnh trên Drive / cắt từ PDF như 3.271)
+   ② tài liệu (đơn vay, hợp đồng…) → đọc chữ số trang 1–2, tìm số 12 chữ số bắt đầu 0 (nhiều số → ưu tiên số có trên Mẫu 31)
+   ③ không ra → mở hộp quét CCCD (📷 chụp / 🖼 ảnh có sẵn / 🗂 lấy từ tủ, 3.273) — đọc xong tự điền + tra.
+   Gõ đủ 12 số CCCD (9 số CMND, 10 số mã KH) vào ô → tự tra luôn, không cần Enter. */
+function trNutDoc(id){ return '<button type="button" class="nho tr-nut" data-lenh="tr.doc" data-o="'+id+'" title="App tự đọc số CCCD (ảnh thẻ của bản này, hoặc chữ số trên trang tài liệu; không ra thì chụp thẻ) → điền vào ô → tự tra Mẫu 31">🪪 Đọc số CCCD</button>'; }
+/* số CCCD trong chữ đọc được: mỗi dòng bỏ khoảng trắng / dấu chấm giữa các nhóm số */
+function trSoTrongChu(t){
+  /* chữ số lẫn nhãn ("So" đọc thành "50") → dải số dài hơn 12: xét mọi đoạn 12 số bắt đầu 0, đoạn có trên Mẫu 31 trước, không có thì lấy đoạn cuối (số nằm sau nhãn) */
+  var co = [], khac = [], them = function(a, x){ if(co.indexOf(x)<0 && khac.indexOf(x)<0) a.push(x); };
+  String(t||'').split(/\n/).forEach(function(d){ (d.replace(/[ .\t]/g, '').match(/\d{12,}/g) || []).forEach(function(x){
+    var c = []; for(var i=0;i+12<=x.length;i++) if(x.charAt(i)==='0') c.push(x.substr(i, 12));
+    var dung = c.filter(function(so){ return sxXacDinh({cccd:so}).ma; });
+    if(dung.length) dung.forEach(function(so){ them(co, so); }); else if(c.length) them(khac, c[c.length-1]); }); });
+  return co.concat(khac);
+}
+/* ảnh / trang của bản đang mở trong hộp */
+function trNguon(id){
+  var noi = trNoi(id), k = noi==='sua' ? window.__k : null;
+  if(noi==='luu') return SC.che==='the' ? {the:true} : {trang:(HANG||[]).filter(function(x){ return x.kieu==='anh' || x.kieu==='trang'; }).slice(0, 2).map(hangRaTrang)};
+  if(k && k.che!=='tailieu') return {the:true, k:k};
+  if(k) return {trang:(k.trang||[]).slice(0, 2), k:k};
+  return {};
+}
+function trTrangCanvas(t){
+  if(laTrangPDF(t)) return anhTrangPDF(t, 1800).then(function(u){ return fetch(u).then(function(r){ return r.blob(); }); }).then(sxCanvas);
+  return docAnhHS(t).then(function(b){ return b ? sxCanvas(b) : null; });
+}
+function trDoc(id){
+  var e = document.getElementById(id), kq = document.getElementById('tr-kq-'+id); if(!e || !kq) return;
+  var N = trNguon(id), xong = function(so, tu){ e.value = so; e.removeAttribute('data-tr-da'); kq.innerHTML = '<small>🪪 Đọc được số <b>'+coChuHTML(so)+'</b> ('+coChuHTML(tu)+') — đang tra Mẫu 31…</small>'; trChay(id); };
+  var moQuet = function(ly){ kq.innerHTML = '<span class="vang">'+coChuHTML(ly)+' — mở quét CCCD (chụp / ảnh có sẵn / lấy từ tủ).</span>'; qcMo({loai:'tra', o:id}); };
+  /* ① bản quét CCCD đang lưu mới: bộ đọc tự chạy sau khi quét (3.264) */
+  if(trNoi(id)==='luu' && N.the){ var x = (typeof SX_DOC!=='undefined' && SX_DOC[0]) || {};
+    if(x.dang) return void(kq.innerHTML = '<small>🔎 App đang đọc thẻ vừa quét — chờ chút rồi bấm lại.</small>');
+    return x.cccd ? xong(x.cccd, 'thẻ vừa quét') : moQuet('Thẻ vừa quét chưa đọc được số'); }
+  kq.innerHTML = '<small>🪪 Đang đọc số CCCD'+(N.the ? ' trên ảnh thẻ' : N.trang && N.trang.length ? ' trên trang tài liệu (chữ số)' : '')+'…</small>';
+  var p = N.the && N.k ? sxAnhDoc(N.k).then(function(b){ return b[0] || b[1] ? docCCCD(b[0], b[1]) : null; }).then(function(r){ return r && r.cccd ? {so:r.cccd, tu:'ảnh thẻ — '+(r.nguon||'')} : null; })
+    : N.trang && N.trang.length ? N.trang.reduce(function(pp, t){ return pp.then(function(kq0){ return kq0 || trTrangCanvas(t).then(function(c){ return c ? sxOCR(c, '0123456789') : ''; })
+        .then(function(chu){ var ds = trSoTrongChu(chu); return ds.length ? {so:ds[0], tu:'chữ số trên trang tài liệu'+(ds.length>1 ? ', '+ds.length+' số — lấy số có trên Mẫu 31' : '')} : null; }); }); }, Promise.resolve(null))
+    : N.k && N.k.driveId ? sxTrangPDF(N.k).then(function(c){ return c ? sxOCR(c, '0123456789') : ''; }).then(function(chu){ var ds = trSoTrongChu(chu); return ds.length ? {so:ds[0], tu:'chữ số trên trang PDF (Drive)'} : null; })
+    : Promise.resolve(null);
+  p.then(function(r){ if(document.getElementById(id)!==e) return; if(r) xong(r.so, r.tu); else moQuet(N.the ? 'Chưa đọc được số trên ảnh thẻ' : 'Không thấy số CCCD trên trang'); },
+    function(er){ if(document.getElementById(id)===e) moQuet('Chưa đọc được ('+((er && er.message) || 'lỗi')+')'); });
+}
+/* hộp quét CCCD (3.273) mở từ ô tên: đọc xong → đóng hộp con, điền số vào ô tên, tra Mẫu 31 */
+function trQuetXong(r){
+  var id = QC && QC.dich && QC.dich.o; qcDungCam(); dongHop();
+  setTimeout(function(){ var e = document.getElementById(id); if(!e) return; e.value = r.cccd; e.removeAttribute('data-tr-da'); trChay(id); }, 50);
+}
+/* gõ đủ số → tự tra (không cần Enter) */
+document.addEventListener('input', function(ev){
+  var e = ev.target; if(!e || !e.getAttribute || !e.getAttribute('data-tr')) return;
+  var so = String(e.value||'').replace(/[\s.]/g, '');
+  if(/^\d{9}$|^\d{10}$|^\d{12}$/.test(so) && e.value!==e.getAttribute('data-tr-da')){ clearTimeout(e.__tr); e.__tr = setTimeout(function(){ if(document.body.contains(e)) trChay(e.id); }, 350); }
+}, true);
+GD.dangKy('tr', {doc:function(el){ trDoc(el.getAttribute('data-o')); }});

@@ -10,13 +10,14 @@ var QC = null;
 function qcNut(loai, i){ return '<button type="button" class="nho qc-nut" data-lenh="qc.mo" data-dich="'+loai+'"'+(i!=null ? ' data-i="'+i+'"' : '')+' title="Quét CCCD (chụp / ảnh có sẵn / lấy từ tủ) — tự điền họ tên, ngày sinh, số CCCD, ngày cấp">🪪 Quét</button>'; }
 function qcHo(){ var B = typeof hsoBo==='function' ? hsoBo() : null; return B && B.hoId ? hmTim(B.hoId) : null; }
 function qcNguoi(d){
+  if(d.loai==='tra') return {};   /* 3.285: mở từ ô tên (🪪 Đọc số CCCD) — chỉ cần số */
   if(d.loai==='hm') return (HM && HM.tv[d.i]) || null;
   var o = qcHo(); return o ? (o.tv[o.dung||0] || {}) : {};
 }
 function qcMo(d){
   QC = {dich:d, anh:[], r:null, tu:'', luuTu:true};
   var n = qcNguoi(d) || {}, h = document.getElementById('hop'), dangMo = h && h.classList.contains('hien');
-  var html = '<div class="hop-tit">🪪 Quét CCCD — điền cho '+coChuHTML(n.ten || (d.loai==='hm' ? 'người '+(d.i+1) : 'người vay'))+'</div>'+
+  var html = '<div class="hop-tit">🪪 Quét CCCD — '+(d.loai==='tra' ? 'đọc số rồi tra Mẫu 31' : 'điền cho '+coChuHTML(n.ten || (d.loai==='hm' ? 'người '+(d.i+1) : 'người vay')))+'</div>'+
     '<div class="hop-phu">Đọc mã QR (đủ họ tên có dấu, ngày sinh, số, ngày cấp) hoặc 3 dòng mã máy đọc mặt sau. Đọc xong anh xem lại rồi bấm <b>✔ Điền</b>.</div>'+
     GD.hang([GD.nut({chu:'📷 Chụp', lenh:'qc.cam', chinh:1}), GD.nut({chu:'🖼 Ảnh có sẵn', lenh:'qc.file'}), GD.nut({chu:'🗂 Lấy từ tủ', lenh:'qc.tu', tat:!qcTuDs().length, tit:qcTuDs().length ? 'CCCD đã scan của khách này' : 'Tủ chưa có CCCD của khách này'})])+
     '<div id="qc-cam"></div><div id="qc-kq" class="sx-hd">Chọn cách lấy ảnh thẻ ở trên.</div>'+
@@ -84,7 +85,7 @@ function qcDoc(){
   (QC.tu==='tu' ? Promise.resolve(goc) : Promise.all(goc.map(qcCatThe))).then(function(cat){ QC.cat = cat;
     return docCCCD(cat[0], cat[1]).then(function(r){ return r || (QC.tu==='tu' ? null : docCCCD(goc[0], goc[1])); }); })
     .then(function(r){ if(!r || !r.cccd){ e.innerHTML = '<span class="vang">Chưa đọc được.'+(QC.tu==='cam' ? ' Chụp thêm mặt còn lại (giữ ảnh vừa chụp), hoặc chụp gần, rõ hơn.' : ' Thử ảnh rõ hơn, hoặc chụp.')+'</span>'; return; }
-      QC.r = r; qcVeKQ(); }, function(er){ e.innerHTML = '<span class="vang">'+coChuHTML((er && er.message) || 'Lỗi khi đọc')+'</span>'; });
+      QC.r = r; if(QC.dich.loai==='tra') return trQuetXong(r); qcVeKQ(); }, function(er){ e.innerHTML = '<span class="vang">'+coChuHTML((er && er.message) || 'Lỗi khi đọc')+'</span>'; });
 }
 function qcGiaTri(){
   var r = QC.r, X = sxXacDinh({cccd:r.cccd, cmnd:r.cmnd, ten:r.ten}), ma = X.ma || '', c = ma ? KHO.dsKhach()[ma] : null;
