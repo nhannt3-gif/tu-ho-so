@@ -211,3 +211,9 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 - Mỗi ô có **↺ Mặc định** (ở khai báo riêng); form có **Làm trống**.
 - Form mới, mẫu mới **bắt buộc** theo bảng này; phép thử bàn phím cho mỗi form (Tab / Enter / ↑↓ / ngày liền số).
 
+
+## 12. Quản lý file — mọi file có tên, quản được (anh chốt 20/10/2026)
+- Anh: *"nguyên tắc là sau này mọi file đều có tên và quản lý được, file nào không quản được thì đem để chỗ chung để kiểm tra"*.
+- Mọi file app đưa lên Drive phải **có tên chuẩn** (đã rõ khách: `MãKH - Họ tên - Loại`; chưa rõ: tên anh gõ có chữ đầu loại `cccd- / ck- / anh- / 01td-…`) và **app biết** (ghi trong dữ liệu: mã file Drive, thư mục cha, tên đã đặt) để đổi tên / dời / xóa / rà theo.
+- File **không quản được** (thả tay, không nhận ra khách, máy khác chưa đồng bộ, tên lạ) → đưa về **1 chỗ chung** (Scan: `Scan chờ sắp xếp`) và hiện ở bước kiểm tra (🧹 Sắp xếp / 🔎 Rà) để anh xem — không để rải rác, không tự xóa.
+- Áp dụng cho chức năng mới; chức năng cũ (Văn bản, Bộ hồ sơ, Hôm nay…) rà dần theo nguyên tắc này khi sửa tới (đề xuất kế hoạch riêng, anh duyệt).
