@@ -25,7 +25,7 @@ const path=require('path');
    let henDB = 0; const hd = window.henDongBoScan; window.henDongBoScan = () => { henDB++; };
    XH = {bl:new Blob(['%PDF-1.4 giả'], {type:'application/pdf'})}; tiepHang(); await w(100);
    const h3 = document.getElementById('hop-in').textContent;
-   ok('⑤ bộ nút chuẩn: In · Lưu vào máy · Lưu vào app · Gửi Zalo · Bỏ', /In/.test(h3) && /Lưu vào máy/.test(h3) && /Lưu vào app/.test(h3) && /Gửi Zalo/.test(h3) && /Bỏ/.test(h3));
+   ok('⑤ bộ nút chuẩn (3.278): In · Lưu vào tủ · Lưu vào máy · Gửi Zalo · Bỏ', /In/.test(h3) && /Lưu vào máy/.test(h3) && /Lưu vào tủ/.test(h3) && /Gửi Zalo/.test(h3) && /Bỏ/.test(h3));
    document.getElementById('sx-ten').value = 'Ho so gia A'; scanLuuApp(); await w(600); window.henDongBoScan = hd;
    const k = (D.scan||[]).slice(-1)[0] || {};
    ok('🗂 Lưu vào app → mục Chờ khai báo, đúng tên file anh sửa, KHÔNG hẹn đưa lên Drive', k.chuaKhai && k.ten==='Ho so gia A' && henDB===0 && (k.trang||[]).length===2, JSON.stringify({ten:k.ten, ck:k.chuaKhai, henDB}));
