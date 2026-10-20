@@ -520,12 +520,19 @@ function bangCot(tab){
     return cot.concat([
       {ma:'ten', nhan:'Tên', lop:'bt-ten', k:function(k){ return k.ten||''; }},
       {ma:'ap', nhan:'Ấp', k:function(k){ return k.ap||''; }},
+      {ma:'to', nhan:'Tổ trưởng', k:function(k){ return toTruongScan(k); }},   /* 3.292 (anh): cột tổ trưởng */
       {ma:'loai', nhan:'Loại giấy tờ', k:function(k){ return k.che==='tailieu' ? ((k.tag||[]).filter(function(x){ return x!=='CCCD'; })[0] || 'Tài liệu') : 'CCCD'; }},
       {ma:'ngay', nhan:'Ngày', k:function(k){ return mocScan(k); }, o:function(k){ return ngayVN(mocScan(k).slice(0,10)); }},
       {ma:'tt', nhan:'Trạng thái', k:function(k){ return ttScan(k).dat ? '1' : '0'; }, o:function(k){
         var t = ttScan(k); return t.dat ? '<span class="bt-tt dat" title="Đạt">✓</span>' : '<span class="bt-tt" title="'+coChuHTML(t.thieu.join(' · '))+'">⚠</span>'; }}]);
   }
   return [];
+}
+/* tổ trưởng của bản scan: tổ đã khai trên bản; chưa có thì theo khách (mã KH) trên Mẫu 31 */
+function toTruongScan(k){
+  if(k.to) return String(k.to);
+  if(k.maKH && typeof sxKhach==='function'){ try{ return sxKhach(k.maKH).to || ''; }catch(e){} }
+  return '';
 }
 function bangSap(tab, ma){
   var s = BANG_SAP[tab];

@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.291** — Scan: ráp mặt CCCD — dời 4 chiều + phím mũi tên + 🔄 Lật; 3.290 lượt nhiều người lưu tên theo thẻ; 3.289 đọc ảnh HEIC iPhone; 3.285 (TK chính) P1 🎯 Phân bổ KH lõi (tiếp P2 giao diện). Kế hoạch tiếp TK phụ: `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (chờ anh chốt (a)(b)(c)). Chờ anh: thử máy thật 3.225–3.291.
+- **`main` = 3.292** — Scan: cột Tổ trưởng ở ▦ Bảng; 3.291 ráp mặt CCCD dời 4 chiều + 🔄 Lật; 3.290 lượt nhiều người lưu tên theo thẻ; 3.289 đọc ảnh HEIC; 3.285 (TK chính) P1 🎯 Phân bổ KH lõi (tiếp P2 giao diện). Kế hoạch tiếp TK phụ: `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (chờ anh chốt (a)(b)(c)). Chờ anh: thử máy thật 3.225–3.292.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
