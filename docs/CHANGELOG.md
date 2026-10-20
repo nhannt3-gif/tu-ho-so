@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.280 — 20/10/2026 — CCCD cũ tách 2 mặt khi xem · tài liệu đánh số không báo trùng
+- **Anh 20/10** (ảnh: CCCD cũ hiện cả trang A4): "cccd cũ app vẫn lưu PDF chưa tách ra 2 mặt". Nguyên nhân: tách 2 mặt từ PDF (3.271) chỉ chạy ở 🔎 Rà / hộp Sửa; Rà lại bỏ qua bản đã đọc số ở bản trước. Sửa: mở xem ở khung phải / xem lớn → bản CCCD chỉ có PDF (không ảnh trong máy, không ảnh trên Drive) tự tách 2 mặt từ trang 1, lưu + đưa 2 ảnh lên Drive cạnh PDF (PDF gốc giữ nguyên), hiện 2 mặt; dò không ra khung thẻ → ghi lại, lần sau xem PDF luôn. 🔎 Rà gồm cả bản cũ chưa tách → ảnh cắt vào khối "Ảnh cắt từ PDF — anh xem lại".
+- **Anh 20/10**: "về tài liệu thì theo thứ tự 1, 2, 3, hiện tại đang báo trùng tên nếu rà soát". Sửa: tài liệu cùng loại của 1 khách giữ đánh số theo thứ tự lưu (bản 2 " (2)", bản 3 " (3)"); 🔎 Rà chỉ báo trùng tài liệu khi giống hệt từng byte; Lưu vào tủ / Tra Mẫu 31 không cảnh báo ⚠ cho tài liệu. CCCD / chữ ký / ảnh vẫn báo trùng như cũ.
+- Phép thử: t217 mới (8).
+
 ## 3.279 — 20/10/2026 — Sửa tài liệu chỉ có PDF trên Drive
 - **Anh 20/10** (ảnh: 2 tài liệu Đơn vay 01/GQVL + Hợp đồng 07B/GQVL, hộp Sửa bản quét tài liệu "Các trang (0)"): "anh chọn sửa, chọn Tra Mẫu 31 ra đúng tên, nhưng khi bấm Lưu thì báo chưa có trang nào".
 - Nguyên nhân: hộp Sửa tài liệu bắt buộc có trang trong máy; bản quét ở máy khác / bản cũ chỉ có PDF trên Drive → không lưu được dù chỉ đổi tên, gắn khách.

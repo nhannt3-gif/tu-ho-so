@@ -285,7 +285,7 @@ scanLuuTu = function(){
     return ds.filter(function(k){ return k.che==='the' && k.matTruoc; }).reduce(function(p, k){ return p.then(function(){ return sxAnhTuCCCD(k); }); }, Promise.resolve());
   }).then(function(){
     if(D.cauHinh.dbSauLuu!==false) henDongBoScan();
-    var trung = ds.filter(function(k){ return sxSoThu(k); });   /* 3.277: khách đã có bản cùng loại */
+    var trung = ds.filter(function(k){ return k.che!=='tailieu' && sxSoThu(k); });   /* tài liệu: đánh số 1, 2, 3 là bình thường */   /* 3.277: khách đã có bản cùng loại */
     bao('Đã lưu '+ds.length+' bản đúng khách: '+ds.map(function(k){ return k.maKH+' '+k.ten; }).join(', ')+'.'+(trung.length ? ' ⚠ '+trung.length+' khách đã có bản cũ — bản mới đánh số (2)…; trùng thì xóa bớt ở 🔎 Rà CCCD.' : ''), trung.length ? 9 : 6);
   }).catch(function(e){ baoLoi('Chưa lưu được: '+(e && e.message || e)); });
 };
