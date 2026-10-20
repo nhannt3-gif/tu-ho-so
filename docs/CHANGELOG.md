@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.273 — 20/10/2026 — 🪪 Quét CCCD điền form
+- **Anh 20/10**: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCCD chụp sẵn" — duyệt đề xuất: "như em đề xuất em code".
+- Nút **🪪 Quét** cạnh ô Họ tên: 📒 Sổ hộ vay (mỗi người trong hộ — 01/UQ, 03/TD… lấy từ sổ) và 01/TD (người vay; hộ cũ theo Mẫu 31 không hiện). File mới `js/44-quet-cccd-form.js`.
+- Hộp con 3 cách lấy ảnh: **📷 Chụp** (camera sau / webcam trong hộp, chụp 1–2 mặt) · **🖼 Ảnh có sẵn** (1–2 ảnh, bản photo 2 mặt, PDF trang 1) · **🗂 Lấy từ tủ** (CCCD đã scan của khách: theo mã KH của hộ / số CCCD / tên).
+- Ảnh chụp: dò khung thẻ (bộ dò của Scan) → cắt thẳng → đọc QR / 3 dòng mã máy đọc (không ra thì đọc ảnh gốc). Tên không dấu (mã máy đọc) mà số khớp Mẫu 31 → tên có dấu theo Mẫu 31.
+- **Hộp xác nhận**: Điền · Thông tin · Trên thẻ · Đang có trong form — Họ tên, Ngày sinh, Số CCCD, Ngày cấp (+ nơi cấp tự ghi theo ngày cấp: từ 01/7/2024 "Bộ Công an", trước đó "Cục CS QLHC" — quy tắc có sẵn `hsoNoiCapGY`); xem thêm CMND cũ, giới tính, nơi thường trú, hạn thẻ. Mặc định tích ô đang trống; ô khác form tô màu, không tích sẵn. CMND 9 số lưu kèm người (`n.cmnd`).
+- **☑ Lưu ảnh CCCD vào tủ** (mặc định bật, trừ khi lấy từ tủ): thành 1 bản quét CCCD — rõ khách → "MãKH - Họ tên - CCCD", chưa rõ → "cccd-Họ tên - số" ở Scan chờ sắp xếp; lên Drive 3 file như 3.271; tự tạo ảnh khách.
+- Đóng hộp (Esc / Đóng) → tắt camera.
+- Khóa mẫu: ghi lại chuẩn `tests/chuan/gdx_m04.html` (Mẫu 04/TD giãn tiêu đề 3.271, anh đã yêu cầu).
+- Phép thử: t212 (16, camera giả của trình duyệt).
+
 ## 3.272 — 20/10/2026 — "Hồ sơ của khách" ở khung xem phải
 - Theo bố trí anh duyệt ở 3.264 (mục 3 Khung xem bên phải) — việc còn lại của phần Scan.
 - Bấm 1 bản scan / chữ ký / ảnh đã gắn mã KH → dưới đầu khung xem có dòng **Hồ sơ của khách** (mã KH · tên · ấp · tổ · xã): 🪪 CCCD · ✍ Chữ ký · 🧑 Ảnh · 📄 tài liệu theo loại (01TD…); thiếu ghi ✗ đỏ; bản đang xem tô đậm; bấm mục nào khung phải chuyển sang xem mục đó (`sxHoSoKhach`, lệnh `sx.xemHS`).

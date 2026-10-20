@@ -76,7 +76,7 @@ var L01 = (function(){
       o1('Chọn từ 📒 Sổ hộ vay', sel('chon', o ? o.id : '', [['', hmDs().length ? '— gõ mới ở dưới, hoặc chọn hộ trong sổ ('+hmDs().length+') —' : '— sổ trống: gõ mới ở dưới —']].concat(hmDs().map(function(x){ var m = x.tv[x.dung||0] || {}; return [x.id, (m.ten||'(chưa tên)')+(x.kh ? ' · '+x.kh : ' · hộ mới')+(hmToTen(x) ? ' · '+hmToTen(x) : '')]; })))+
         ' '+GD.nut({chu:'📊 Lấy từ Mẫu 31', lenh:'l01.m31'}))+
       (khoa ? '<div class="sl-phu">Hộ cũ (mã KH '+e(o.kh)+') — nhân thân theo Mẫu 31 mới nhất, không sửa ở đây.</div>' : '')+
-      o1('Họ tên người vay', oNg('ten', n.ten, 'gõ họ tên', khoa))+
+      o1('Họ tên người vay', '<span class="qc-o">'+oNg('ten', n.ten, 'gõ họ tên', khoa)+(khoa || typeof qcNut!=='function' ? '' : qcNut('l01'))+'</span>')+   /* 3.273: 🪪 Quét CCCD điền */
       o1('Năm sinh', oNg('ns', n.ns ? ngayVNsl(n.ns) : '', 'gõ liền số 150378', khoa))+
       o1('Số CC / CCCD', oNg('cccd', n.cccd, '12 số', khoa))+
       o1('Ngày cấp', oNg('ncap', n.ncap ? ngayVNsl(n.ncap) : '', 'gõ liền số 9112021', khoa))+

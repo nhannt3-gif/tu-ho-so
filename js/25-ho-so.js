@@ -1295,7 +1295,7 @@ function hmVe(){
     : '<div class="hm-dc"><input data-hm="tenXa" placeholder="Xã / phường" value="'+coChuHTML(HM.tenXa)+'" onchange="HM.tenXa=this.value"><input data-hm="tenThon" placeholder="Ấp / khu phố" value="'+coChuHTML(HM.tenThon)+'" onchange="HM.tenThon=this.value"></div>';
   /* 3.214 (anh 15/10): mỗi người 1 dòng lưới có tiêu đề cột — Enter / Tab sang ô kế (phím chung), gõ xong không vẽ lại cả hộp */
   var nguoi = HM.tv.map(function(n, i){ var o = function(f, ph){ return '<input data-hm="'+i+':'+f+'" value="'+coChuHTML(hmGiaTri(n, f))+'" placeholder="'+ph+'" onchange="hmDat('+i+',\''+f+'\',this.value,this)">'; };
-    return '<div class="hm-nguoi'+(i===HM.dung ? ' dung' : '')+'"><div class="hm-luoi"><b>'+(i+1)+'</b>'+o('ten', 'Họ tên')+o('ns', 'gõ 150378')+o('cccd', '12 số')+o('ncap', 'gõ 9112021')+o('sdt', 'Số điện thoại')+
+    return '<div class="hm-nguoi'+(i===HM.dung ? ' dung' : '')+'"><div class="hm-luoi"><b>'+(i+1)+'</b>'+'<span class="qc-o">'+o('ten', 'Họ tên')+(typeof qcNut==='function' ? qcNut('hm', i) : '')+'</span>'+o('ns', 'gõ 150378')+o('cccd', '12 số')+o('ncap', 'gõ 9112021')+o('sdt', 'Số điện thoại')+
       (i ? o('qh', 'Quan hệ') : '<span class="hm-qh">Chủ hộ</span>')+
       '<label class="hm-o-c" title="Người đứng tên vay"><input type="radio" name="hm-dung"'+(i===HM.dung ? ' checked' : '')+' onchange="HM.dung='+i+';hmVe()"></label>'+
       '<label class="hm-o-c" title="Học sinh, sinh viên vay HSSV"><input type="checkbox"'+(HM.sv.indexOf(i)>=0 ? ' checked' : '')+' onchange="hmDatSV('+i+',this.checked)"></label>'+
