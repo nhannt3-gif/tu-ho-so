@@ -151,6 +151,7 @@ function slTheKH(ma){
     '<div class="tc-so" id="tc-so"></div>'+
     '<div class="tc-nhom"><div class="tc-nhom-tit">Nhân thân</div><div class="tc-luoi">'+
       dong('CCCD', tcC(c.cccd, 'CCCD')+(c.ncap ? ' · cấp '+ngayVNsl(c.ncap) : '')+(c.noiCap ? ' · '+coChuHTML(c.noiCap) : ''))+
+      (typeof sxCmndCua==='function' && sxCmndCua(ma) ? dong('CMND cũ', tcC(sxCmndCua(ma), 'CMND cũ')+' <small>(9 số, đọc từ thẻ đã scan)</small>') : '')+   /* 3.271 */
       dong('Hạn CCCD', '<b class="'+(han.kq==='het' ? 'do' : han.kq==='sap' ? 'vang' : han.kq==='ok' ? 'xanh' : '')+'">'+(han.kq==='het' ? '⚠ ' : '')+coChuHTML(han.chu)+'</b>')+
       dong('Sinh · giới · DT', [c.ns ? tcC(ngayVNsl(c.ns), 'ngày sinh') : '', coChuHTML([{'01':'Nam','02':'Nữ'}[c.gt]||c.gt||'', c.danToc||''].filter(Boolean).join(' · '))].filter(Boolean).join(' · ') || '—')+
       dong('Vợ/chồng', c.voChong ? tcC(c.voChong, 'tên vợ/chồng')+' <small>(người thừa kế)</small>' : '—')+'</div></div>'+

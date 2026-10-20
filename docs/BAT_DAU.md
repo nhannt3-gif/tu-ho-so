@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.270** — Scan: Kiểm tra / Sắp xếp / Rà theo Mẫu 31 mới nhất (cả ngày); 3.269 đọc CCCD ảnh cả tờ, tổ chọn khi quét, PDF Drive; 3.268 🔎 Rà CCCD đã lưu. Tiếp (chờ anh chọn A/B + "code"): 2 ảnh thẻ lên Drive để các máy dùng chung. Chờ anh: thử máy thật 3.225–3.270.
+- **`main` = 3.271** — Scan: CCCD 3 file lên Drive (PDF + 2 ảnh), máy khác tự tải ảnh, cắt ảnh từ PDF cũ, bảng đối chiếu thông tin đọc được, CMND 9 số; Mẫu 04/TD giãn tiêu đề. Trước đó 3.268–3.270: 🔎 Rà CCCD, đọc ảnh cả tờ, Mẫu 31 ngày. Tiếp: "Hồ sơ của khách" khung xem phải, quét CCCD điền form. Chờ anh: thử máy thật 3.225–3.271.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.

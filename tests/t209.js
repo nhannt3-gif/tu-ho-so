@@ -74,8 +74,8 @@ const fs=require('fs'), path=require('path');
    const cu = {n:coTheNoiDrive, t:canToken, f:window.fetch}; coTheNoiDrive = () => true; canToken = () => Promise.resolve(true); DR.token = DR.token || 'gia';
    window.fetch = (u, o) => /drv209\?alt=media/.test(u) ? Promise.resolve(new Response(new Blob([pb], {type:'application/pdf'}))) : cu.f(u, o);
    const bAnh = await sxAnhDoc(k4); coTheNoiDrive = cu.n; canToken = cu.t; window.fetch = cu.f;
-   const r4 = bAnh[0] ? await docCCCD(bAnh[0], null) : null;
-   ok('máy không có ảnh → tải PDF bản lưu trên Drive → đọc ra số CCCD', r4 && r4.cccd==='072184000902', JSON.stringify(r4));
+   const r4 = bAnh[0] ? await docCCCD(bAnh[0], bAnh[1]) : null;
+   ok('máy không có ảnh → tải PDF bản lưu trên Drive → (3.271) cắt 2 khung thẻ ra ảnh → đọc ra số CCCD', r4 && r4.cccd==='072184000902' && k4.catTuPDF && bAnh[1], JSON.stringify(r4));
    ['9990000094', '9990000095', '9990000096', '9990000097'].forEach(m=>delete DB[m]); SX_CHI = null;
    /* 8. anh: "khi rà em rà Mẫu 31 ngày luôn" — Mẫu 31 ngày mới hơn chốt tháng → Kiểm tra dùng kỳ ngày; Sắp xếp ghi kỳ mới nhất */
    const f8 = files.find(f=>/Ho_so_tin_dung_chi_tiet_31-08-2026/.test(f.n)); { const bin=atob(f8.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i);

@@ -92,7 +92,8 @@ function sxTenGan(a, b){
   return d[n][m]<=cho;
 }
 function sxXacDinh(o){
-  var X = sxChiMuc(), KH = KHO.dsKhach(), s = String(o.cccd||'').replace(/\D/g, ''), t = sxChuan(o.ten), m = String(o.ma||'');
+  var X = sxChiMuc(), KH = KHO.dsKhach(), s = String(o.cccd||'').replace(/\D/g, ''), t = sxChuan(o.ten), m = String(o.ma||''), cm = String(o.cmnd||'').replace(/\D/g, '');
+  var nhanSo = 'số CCCD'; if(cm && !(s && X.cc[s]) && X.cc[cm]){ s = cm; nhanSo = 'số CMND cũ'; }   /* 3.271: Mẫu 31 còn số CMND 9 số → tra theo số CMND cũ đọc từ thẻ */
   var tenOK = function(ma){ return !!t && sxTenGan((KH[ma]||{}).ten, t); }, ccOK = function(ma){ return !!s && String((KH[ma]||{}).cccd||'').replace(/\D/g, '')===s; };
   var tenMau = function(ma){ return (KH[ma]||{}).ten || ''; };
   if(m && KH[m]){
@@ -102,8 +103,8 @@ function sxXacDinh(o){
   if(s && X.cc[s]){
     if(X.cc[s].length>1) return theoNS(X.cc[s]) ? {goiY:theoNS(X.cc[s]), ly:'số CCCD có ở '+X.cc[s].length+' mã KH — khớp ngày sinh trên thẻ', ds:X.cc[s]} : {ds:X.cc[s]};
     var mc = X.cc[s][0];
-    if(tenOK(mc)) return {ma:mc, theo:'CCCD + tên'};
-    if(!t) return {ma:mc, theo:'số CCCD'};   /* anh: số CCCD là chuẩn nhất — có số, không có tên vẫn xác định */
+    if(tenOK(mc)) return {ma:mc, theo:nhanSo.replace('số ', '')+' + tên'};
+    if(!t) return {ma:mc, theo:nhanSo};   /* anh: số CCCD là chuẩn nhất — có số, không có tên vẫn xác định */
     return {goiY:mc, ly:'CCCD khớp, tên khác hẳn Mẫu 31 ('+tenMau(mc)+')'}; }
   if(!t) return {};
   var ds = X.ten[t] || [];
@@ -232,7 +233,7 @@ scanXongHop = function(bl){
     return nh.reduce(function(p, g, i){ return p.then(function(){
       return Promise.all([g[0] ? docAnhHS(g[0].id) : null, g[1] ? docAnhHS(g[1].id) : null]).then(function(b){ return docCCCD(b[0], b[1]); })
         .then(function(r){ var x = SX_DOC[i] = r || {}; x.dang = false;
-          if(r){ var t = sxXacDinh({cccd:r.cccd, ten:r.ten, ns:r.ns}); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); c.cccd = c.cccd || r.cccd; SXK[i] = c; } }
+          if(r){ var t = sxXacDinh({cccd:r.cccd, ten:r.ten, ns:r.ns, cmnd:r.cmnd}); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); c.cccd = c.cccd || r.cccd; SXK[i] = c; } }
           sxVeDoc(); }, function(){ SX_DOC[i] = {dang:false}; sxVeDoc(); }); }); }, Promise.resolve());
   }).then(function(){ var o = SX_DOC[0] || {};
     if(nh.length===1){ SX.ten = o.tim && o.tim.ma ? sxTenChuan(o.tim.ma, sxKhach(o.tim.ma).ten, 'CCCD', '') : (o.cccd || o.ten ? 'cccd-'+[o.ten, o.cccd].filter(Boolean).join(' - ') : SX.ten);   /* chưa chắc: giữ số CCCD trong tên để Sắp xếp đối chiếu */
@@ -247,7 +248,8 @@ function sxVeDoc(){
     var t = x.tim || {};
     return '<div>'+dau+'✓ Đọc được CCCD <b>'+coChuHTML(x.cccd)+'</b> <small>('+coChuHTML(x.nguon)+(x.ten ? ' · '+coChuHTML(x.ten) : '')+')</small> → '+
       (t.ma ? '<b class="xanh">'+coChuHTML(sxNhanKH(t.ma))+'</b> <small>(khớp '+coChuHTML(t.theo)+')</small>'
-        : t.goiY ? '<span class="vang">chưa chắc — gần khớp '+coChuHTML(sxNhanKH(t.goiY))+' ('+coChuHTML(t.ly)+'). Lưu vào app → thư mục chung, anh xác nhận ở 🧹 Sắp xếp</span>' : t.ds ? '<span class="vang">'+t.ds.length+' khách trùng — lưu vào thư mục chung, chọn ở 🧹 Sắp xếp</span>' : '<span class="vang">chưa có trên Mẫu 31 (hộ mới) — lưu vào thư mục chung</span>')+'</div>'; }).join('')+
+        : t.goiY ? '<span class="vang">chưa chắc — gần khớp '+coChuHTML(sxNhanKH(t.goiY))+' ('+coChuHTML(t.ly)+'). Lưu vào app → thư mục chung, anh xác nhận ở 🧹 Sắp xếp</span>' : t.ds ? '<span class="vang">'+t.ds.length+' khách trùng — lưu vào thư mục chung, chọn ở 🧹 Sắp xếp</span>' : '<span class="vang">chưa có trên Mẫu 31 (hộ mới) — lưu vào thư mục chung</span>')+
+      sxXemDoc(x, t.ma || t.goiY || (t.ds||[])[0], true)+'</div>'; }).join('')+
     (tat ? GD.hang([GD.nut({chu:'🗄 Lưu đúng khách (tự nhận)', lenh:'sx.luuDoc', chinh:1})]) : '');
 }
 function sxLuuTuDoc(){ if(!SX_DOC.every(function(x){ return x.tim && x.tim.ma; })) return; scanLuuTu(); }
@@ -262,7 +264,7 @@ scanLuuTu = function(){
   nh.forEach(function(g, i){ var c = SXK[i], r = SX_DOC[i] || {};
     var k = {id:idMoi(), che:SC.che==='the' ? 'the' : 'tailieu', ten:c.ten, maKH:c.ma, cccd:c.cccd || r.cccd || '', xa:c.xa, ap:c.ap, maXa:c.maXa, maAp:c.maAp, diem:c.diem||'', to:c.to||'', ghi:'',
       tag:SC.che==='the' ? ['CCCD'] : (loai ? [loai] : []), ctrinh:[], ngay:ngayISO(d), gioQuet:d.toISOString(), taoLuc:d.toISOString(), suaLuc:d.toISOString(), may:maMayCua()};
-    if(r.ns) k.cccdDoc = {ns:r.ns, gt:r.gt||'', dc:r.dc||'', ncap:r.ncap||'', nguon:r.nguon};
+    if(r.cccd){ k.cccdDoc = sxGhiDoc(r); if(r.cmnd) k.cmnd = r.cmnd; }   /* 3.271: lưu đủ thông tin đọc được (bảng đối chiếu) + CMND 9 số */
     if(k.che==='the'){ k.matTruoc = !!g[0]; k.matSau = !!g[1];
       (function(k, a, b){ ch = ch.then(function(){ return a ? doiTenAnh(a.id, k.id+'_matTruoc') : null; }).then(function(){ return b ? doiTenAnh(b.id, k.id+'_matSau') : null; }); })(k, g[0], g[1]); }
     else k.trang = g.map(hangRaTrang);
@@ -338,7 +340,7 @@ function sxKeHoach(){
       if(tenMoi && sxChuan(tenMoi)!==sxChuan(tenGoc)) R.doiTen.push({k:k, ka:laKA, ma:k.maKH, tu:tenGoc, ten:tenMoi});
       else if(k.driveId && k.duongDrive!==(laKA ? sxDuongKA(k) : duongScan(k))) R.doi.push({k:k, ka:laKA, ma:k.maKH, tu:(k.maKH+' - '+(tenGoc||''))});
       return; }
-    var b = sxBoc(tenGoc), f = sxXacDinh({cccd:k.cccd || b.cccd, ma:b.ma, ten:b.ten, ns:(k.cccdDoc||{}).ns, db:laKA ? null : sxDBQuet(k)});
+    var b = sxBoc(tenGoc), f = sxXacDinh({cccd:k.cccd || b.cccd, ma:b.ma, ten:b.ten, ns:(k.cccdDoc||{}).ns, cmnd:k.cmnd || (k.cccdDoc||{}).cmnd, db:laKA ? null : sxDBQuet(k)});
     if(f.ma) R.khop.push({k:k, ka:laKA, ma:f.ma, theo:f.theo, tu:tenGoc});
     else if(f.goiY) R.goiY.push({k:k, ka:laKA, ma:f.goiY, ly:f.ly, tu:tenGoc});
     else if(f.ds) R.trung.push({k:k, ka:laKA, ds:f.ds, tu:tenGoc});
@@ -364,7 +366,7 @@ function sxDocTuAnh(){
   batChay(false, 'Đang đọc số CCCD từ ảnh 0/'+ds.length+'…');
   return ds.reduce(function(p, k){ return p.then(function(){ n++; dangLamChu('Đang đọc số CCCD từ ảnh '+n+'/'+ds.length+'…'); tienChay(Math.round((n-1)/ds.length*100));
     return sxAnhDoc(k).then(function(b){ if(!b[0] && !b[1]) return 'khongAnh'; return docCCCD(b[0], b[1]); })
-      .then(function(r){ if(r==='khongAnh') return; if(r && r.cccd){ k.cccd = r.cccd; delete k.cccdKhong; k.cccdDoc = {ten:r.ten||'', ns:r.ns||'', nguon:r.nguon}; duoc++; } else k.cccdKhong = SX_DOC_BAN; }, function(){ mang++; }); }); }, Promise.resolve())
+      .then(function(r){ if(r==='khongAnh') return; if(r && r.cccd){ k.cccd = r.cccd; delete k.cccdKhong; k.cccdDoc = sxGhiDoc(r); if(r.cmnd) k.cmnd = r.cmnd; duoc++; } else k.cccdKhong = SX_DOC_BAN; }, function(){ mang++; }); }); }, Promise.resolve())
     .then(function(){ luu(); tatChay(); if(mang) baoLoi('Chưa tải được bộ đọc chữ (cần mạng lần đầu) — '+mang+' bản chưa đọc, có mạng bấm 🧹 lại.'); else if(duoc) bao('Đọc được số CCCD từ ảnh: '+duoc+'/'+ds.length+' bản.', 5); return duoc; }, function(){ tatChay(); return duoc; });
 }
 function moSapXep(){
@@ -380,6 +382,7 @@ function sxDongKH(x, i, nhom){
   var d = !x.ka && x.k.che!=='tailieu' ? x.k.cccdDoc || {} : {}, the = x.k.cccd && !x.ka && x.k.che!=='tailieu' ? '<br><small>Thẻ đọc được: <b>'+coChuHTML(x.k.cccd)+'</b>'+(d.ten ? ' · '+coChuHTML(d.ten) : '')+(d.ns ? ' · sinh '+ngayVNsl(d.ns) : '')+'</small>'
     : (!x.ka && x.k.che!=='tailieu' && x.k.cccdKhong ? '<br><small class="vang">Chưa đọc được số trên thẻ — xem ảnh</small>' : '');
   var q = !x.ka && nhom!=='khop' ? sxDBQuet(x.k) : null; if(q) the += '<br><small>Khi quét anh chọn: '+coChuHTML([q.ap ? 'Ấp '+q.ap : '', q.to ? 'Tổ '+q.to : ''].filter(Boolean).join(' · '))+'</small>';
+  if(x.k.cccd && !x.ka && x.k.che!=='tailieu') the += sxXemDoc(Object.assign({cccd:x.k.cccd}, x.k.cccdDoc||{}), x.ma || (x.ds||[])[0], false);   /* 3.271: đọc được gì hiện hết, so Mẫu 31 */
   var nho = !x.ka && x.k.che!=='tailieu' && x.k.matTruoc && nhom!=='khop' ? '<br><img class="sx-nho" data-sx-anh="'+x.k.id+'" alt="">' : '';
   var phai = nhom==='khop' ? '✓ '+kh(x.ma)+' <small class="sx-ly">khớp '+coChuHTML(x.theo)+'</small>'
     : nhom==='goiY' ? '<label class="sx-r"><input type="checkbox" data-lenh="sx.xn" data-su="change" data-i="'+i+'"'+(SXP.xn[i] ? ' checked' : '')+'> <b>Đúng — xếp vào:</b> '+kh(x.ma)+'</label><small class="sx-ly vang">'+coChuHTML(x.ly)+'</small>'
@@ -409,7 +412,10 @@ function sxVeSapXep(){
     '<div class="sx-chan">'+GD.hang([GD.nut({chu:'Đóng', lenh:'sx.dong'}), GD.nut({chu:'🔍 Rà thêm file thả tay trong thư mục chờ', lenh:'sx.driveCho'}), GD.nut({chu:'🧹', lenh:'sx.apDung', chinh:1})], true)+'</div>', true);
   var h = document.getElementById('hop-in'); if(h) h.classList.add('xem-rong', 'sx-hop');
   sxDemNut();
-  Array.prototype.forEach.call(document.querySelectorAll('#hop-in img[data-sx-anh]'), function(im){ var id = im.getAttribute('data-sx-anh');   /* ảnh nhỏ mặt thẻ để anh nhìn */
+  sxNapNho();
+}
+function sxNapNho(){   /* ảnh nhỏ mặt thẻ để anh nhìn (img[data-sx-anh] = mã bản) */
+  Array.prototype.forEach.call(document.querySelectorAll('#hop-in img[data-sx-anh]'), function(im){ var id = im.getAttribute('data-sx-anh');
     Promise.all([docAnhHS(id+'_matTruoc'), docAnhHS(id+'_matSau')]).then(function(b){ if(b[0]) anhTam(im, b[0]); else im.remove();
       if(b[1]){ var i2 = document.createElement('img'); i2.className = 'sx-nho'; im.parentNode.insertBefore(i2, im.nextSibling); anhTam(i2, b[1]); } }, function(){ im.remove(); }); });
 }
@@ -438,7 +444,8 @@ function sxDoiDrive(dsSC, dsKA){
   var cu = {}, loi = 0;
   batChay(false, 'Đang sắp xếp trên Drive…');
   return dsSC.reduce(function(p, k){ return p.then(function(){ if(!k.driveId) return;
-      return baoDamDuong(duongScan(k)).then(function(idTM){ return sxDoi(k, idTM, tenScanDrive(k)); }).then(function(c){ if(c) cu[c] = 1; k.duongDrive = duongScan(k); delete k.canDay; }, function(){ loi++; }); }); }, Promise.resolve())
+      return baoDamDuong(duongScan(k)).then(function(idTM){ return sxDoi(k, idTM, tenScanDrive(k)); }).then(function(c){ if(c) cu[c] = 1; k.duongDrive = duongScan(k); delete k.canDay;
+        return typeof sxDayAnh==='function' ? sxDayAnh(k) : null; }, function(){ loi++; }); }); }, Promise.resolve())   /* 3.271: 2 ảnh mặt thẻ đi theo PDF */
     .then(function(){ return dsKA.reduce(function(p, k){ return p.then(function(){ var c0 = k.driveCha; return dayKAMot(k.id, true).then(function(){ if(c0 && c0!==k.driveCha) cu[c0] = 1; if(k.driveId) k.duongDrive = sxDuongKA(k); }); }); }, Promise.resolve()); })
     .then(function(){ luu(); henDongBoScan(); return sxDonThuMuc(Object.keys(cu)); })
     .then(function(xoa){ tatChay(); return {loi:loi, xoa:xoa}; }, function(){ tatChay(); return {loi:loi+1, xoa:0}; });
@@ -459,7 +466,7 @@ function sxDonThuMuc(ids){
 /* file anh thả tay vào thư mục chờ (không qua app): đọc chữ đầu tên → loại; tra Mẫu 31 → đặt tên + dời */
 function sxDriveCho(){
   if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive.');
-  var biet = {}; (D.scan||[]).concat(D.kyAnh||[]).forEach(function(k){ if(k.driveId) biet[k.driveId] = 1; });
+  var biet = {}; (D.scan||[]).concat(D.kyAnh||[]).forEach(function(k){ if(k.driveId) biet[k.driveId] = 1; Object.keys(k.anhDrive||{}).forEach(function(m){ if(k.anhDrive[m] && k.anhDrive[m].id) biet[k.anhDrive[m].id] = 1; }); });   /* 3.271: ảnh 2 mặt của app không phải file thả tay */
   batChay(false, 'Đang rà thư mục chờ trên Drive…');
   baoDamDuong([D.cauHinh.thumuc, SXT.cho].join(' / ')).then(function(idCho){
     return goiDrive('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent("'"+idCho+"' in parents and trashed=false")+'&fields=files(id,name,mimeType)&pageSize=1000').then(function(r){
@@ -497,7 +504,7 @@ function sxKiemDung(K){
   var X = {}, thu = [];
   Object.keys(K.to||{}).forEach(function(ma){ var t = K.to[ma]; if(toLaTT(t)) return;
     var kh = {}; (K.kh[ma]||[]).forEach(function(o){ if(o.kh && !kh[o.kh]) kh[o.kh] = o.ten||o.kh; });
-    var ho = Object.keys(kh).map(function(m){ return {ma:m, ten:kh[m], cccd:!!co.cccd[m], ky:!!co.ky[m], anh:!!co.anh[m]}; });
+    var ho = Object.keys(kh).map(function(m){ return {ma:m, ten:kh[m], cccd:!!co.cccd[m], ky:!!co.ky[m], anh:!!co.anh[m], cmnd:sxCmndCua(m)}; });
     var xk = (t.tenXa||'?')+'|'+(t.tenDiemDu||''), x = X[xk]; if(!x){ x = X[xk] = {xa:t.tenXa||'?', diem:t.tenDiem ? String(t.tenDiem).trim() : '(chưa rõ điểm GD)', to:[]}; thu.push(x); }
     x.to.push({ma:ma, ten:t.ten||ma, ap:t.tenThon||'', ho:ho}); });
   thu.sort(function(a, b){ return (a.xa+a.diem).localeCompare(b.xa+b.diem, 'vi'); });
@@ -514,7 +521,7 @@ function sxKiemVe(moTo){
     h += dong('<b>'+coChuHTML(x.xa)+' › '+coChuHTML(x.diem)+'</b>', tx, 'tong');
     x.to.forEach(function(t, i){ h += dong('Tổ '+coChuHTML(t.ten)+(t.ap ? ' · '+coChuHTML(t.ap) : ''), dsTo[i], '', t.ma);
       if(moTo===t.ma) h += '<tr><td colspan="6"><div class="sx-ho">'+t.ho.map(function(o){ var v = function(b){ return b ? '✓' : '<b class="do">✗</b>'; };
-        return '<span>'+coChuHTML(o.ten)+' <small>'+o.ma+'</small> 🪪'+v(o.cccd)+' ✍'+v(o.ky)+' 🧑'+v(o.anh)+'</span>'; }).join('')+'</div></td></tr>'; }); });
+        return '<span>'+coChuHTML(o.ten)+' <small>'+o.ma+'</small> 🪪'+v(o.cccd)+' ✍'+v(o.ky)+' 🧑'+v(o.anh)+(o.cmnd ? ' <small>CMND cũ '+coChuHTML(o.cmnd)+'</small>' : '')+'</span>'; }).join('')+'</div></td></tr>'; }); });
   var T = cong(tatCa);
   moHop('<div class="hop-tit">📊 Kiểm tra hồ sơ scan theo địa bàn</div><div class="hop-phu">Số hộ = tổ viên trên Mẫu 31 '+coChuHTML(slKyChu(B.ky))+'. Có CCCD / chữ ký / ảnh = đã có bản lưu gắn mã KH. Thiếu = chưa có CCCD hoặc chữ ký. Bấm 1 tổ để xem từng hộ.</div>'+
     '<div class="to-bang-cuon to-cuon-khung"><table class="to-bang luoi"><thead><tr><th>Xã › điểm GD · tổ</th><th>Số hộ</th><th>🪪 CCCD</th><th>✍ Chữ ký</th><th>🧑 Ảnh</th><th>Thiếu</th></tr></thead><tbody>'+
@@ -524,8 +531,8 @@ function sxKiemVe(moTo){
 function sxKiemExcel(){
   var B = SXK_BANG; if(!B) return;
   xongTV.then(function(){ if(!window.XLSX) return baoLoi('Chưa tải được bộ ghi Excel.');
-    var a = [['KIỂM TRA HỒ SƠ SCAN THEO ĐỊA BÀN — Mẫu 31 '+slKyChu(B.ky)], [], ['Xã', 'Điểm GD', 'Tổ', 'Ấp', 'Mã KH', 'Họ tên', 'CCCD', 'Chữ ký', 'Ảnh']];
-    B.ds.forEach(function(x){ x.to.forEach(function(t){ t.ho.forEach(function(o){ a.push([x.xa, x.diem, t.ten, t.ap, o.ma, o.ten, o.cccd ? 'x' : '', o.ky ? 'x' : '', o.anh ? 'x' : '']); }); }); });
+    var a = [['KIỂM TRA HỒ SƠ SCAN THEO ĐỊA BÀN — Mẫu 31 '+slKyChu(B.ky)], [], ['Xã', 'Điểm GD', 'Tổ', 'Ấp', 'Mã KH', 'Họ tên', 'CCCD', 'Chữ ký', 'Ảnh', 'CMND cũ (9 số, đọc từ thẻ)']];
+    B.ds.forEach(function(x){ x.to.forEach(function(t){ t.ho.forEach(function(o){ a.push([x.xa, x.diem, t.ten, t.ap, o.ma, o.ten, o.cccd ? 'x' : '', o.ky ? 'x' : '', o.anh ? 'x' : '', o.cmnd||'']); }); }); });
     var wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(a), 'Kiem tra scan');
     taiXuongBlob(new Blob([XLSX.write(wb, {type:'array', bookType:'xlsx'})], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), 'Kiem tra scan '+B.ky+'.xlsx'); });
 }
