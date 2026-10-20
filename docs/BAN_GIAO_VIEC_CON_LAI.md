@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.287) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Copy file PDF công văn, Ctrl+V ở tab Hôm nay / Hồ sơ vay | Không thêm văn bản, chỉ báo | |
+| 2 | Ctrl+V ở tab Văn bản | Thêm văn bản như cũ | |
+| 3 | Copy ảnh CCCD (Zalo / thư mục), Ctrl+V ở tab Scan | Vào hàng quét Thẻ, đọc số, tra khách | |
+
+**Ghi chú kỹ thuật 3.287:** `js/20-khoi-dong.js` sự kiện `paste` gọi `danFile(fs)` (46) thay `gioiThieuFile`; PDF → `qcTrangPDF` (trang 1 thành ảnh); Scan → `nhanVaoScan(a, 'dan')`.
+
 ### Danh sách thử trên máy thật (3.286) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

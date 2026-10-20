@@ -183,6 +183,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t207.js` | 3.264 Scan lưu tập trung, Sắp xếp, Kiểm tra, đọc QR / mã máy đọc giả, bản photo 2 mặt, ảnh khách từ CCCD (25). |
 | `node tests/t250.js` | 3.285 P1 🎯 Phân bổ KH — lõi `js/47-phan-bo.js` (node, không trình duyệt): chia đều / theo tỷ lệ, số chẵn 1 ấp lẻ, giảm không âm, chính xác = dư nợ thật + chênh, "(Chưa rõ ấp)", QT-16 khớp Đã giao / Đến 31/12, sửa tay, 3.000 tình huống ngẫu nhiên, gợi ý Đã giao, đầu năm theo QĐ, chọn kỳ, nhập file WPF. |
 | `node tests/t251.js` | 3.285 cửa `KHO.duNoAp(kỳ)` với Mẫu 31 giả (node): gộp thôn × CT × nguồn, dòng lặp khế ước, CLOSE / dư nợ 0 / khách chỉ gửi TK bỏ, kỳ chưa có → null, nối `pbDuNoXa`. |
+| (3.287) | t219: dán file theo tab — Hôm nay chỉ báo, Văn bản thêm văn bản, Scan vào hàng quét Thẻ, hộp Quét CCCD nhận ảnh (4); t106 sửa: dán ở tab Văn bản. |
 | (3.286) | t218: 🪪 Đọc số CCCD — tài liệu đọc chữ số ra số → tự tra, không thấy → hộp quét CCCD → tự tra, gõ 12 số tự tra, nhiều số ưu tiên số trên Mẫu 31; nút Xóa đỏ + Xóa n bản đã tích (9). |
 | (3.284) | t217 thêm: dòng trạng thái nhìn thấy ở khung phải máy tính, cách dò 2 (thẻ gần trắng cạnh nhau / chồng dọc / trang trắng), bản hỏng cách cũ thử lại (21). |
 | (3.283) | t217 thêm: CCCD cũ che trống vẫn tách + báo; ảnh ghi có mà không tải được → báo đỏ + Tách 2 mặt từ PDF (17). |

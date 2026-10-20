@@ -94,7 +94,7 @@ function khoiDong(){
     var cd = e.clipboardData, fs = cd && cd.files ? Array.prototype.slice.call(cd.files) : [];
     if(!fs.length && cd && cd.items) Array.prototype.forEach.call(cd.items, function(it){ if(it.kind==='file'){ var f = it.getAsFile(); if(f) fs.push(f); } });
     if(!fs.length) return;
-    e.preventDefault(); gioiThieuFile(fs);
+    e.preventDefault(); danFile(fs);
   });
 
   /* 3.13: giá trị kéo cột cũ có thể làm cột phải teo lại → kẹp về khoảng an toàn; bỏ cờ ẩn toàn cục đời cũ */

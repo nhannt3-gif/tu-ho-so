@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.287 — 20/10/2026 — Dán file theo tab
+- **Anh 20/10**: "copy dán VB ở bất cứ đâu cũng được — nên đổi lại là chỉ dán trong tab Văn bản, còn trong tab Scan để copy dán CCCD".
+- Ctrl+V file: **📄 Văn bản** → thêm văn bản (như cũ) · **📈 Số liệu** → file Excel vào Nạp & KT (như cũ, không thành văn bản) · **Scan** → ảnh (hoặc trang 1 PDF) CCCD vào hàng quét chế độ **Thẻ** (tự chuyển nếu đang Tài liệu) — cắt, nắn, đọc số, tra khách như quét · đang mở hộp **🪪 Quét CCCD** → ảnh dán vào hộp để đọc · **tab khác / đang mở hộp khác** → không thêm gì, chỉ báo chỗ dán. Dán chữ vào ô nhập vẫn bình thường.
+- Phép thử: t219 mới (4); t106 dán file chạy ở tab Văn bản.
+
 ## 3.286 — 20/10/2026 — Đọc số CCCD tự tra Mẫu 31 · nút Xóa đỏ
 - **Anh 20/10**: "chỗ lưu tên có nút Tra Mẫu 31 sau khi đã đánh số CCCD, anh muốn app có nút đọc số CCCD điền vào và tự tra Mẫu 31 luôn, tự động". Thêm nút **🪪 Đọc số CCCD** trước 🔎 Tra Mẫu 31 (hộp Sửa bản quét, Lưu mới, Chữ ký / Ảnh). App tự tìm số: ① bản là CCCD → đọc ảnh thẻ (QR / mã máy đọc; ảnh trên Drive / cắt từ PDF); ② tài liệu (đơn vay, hợp đồng…) → đọc chữ số trang 1–2, lấy số 12 chữ số bắt đầu 0 (nhiều số → số có trên Mẫu 31; số điện thoại 10 số bỏ qua); ③ không thấy → mở hộp quét CCCD (📷 chụp / 🖼 ảnh có sẵn / 🗂 lấy từ tủ), đọc xong tự về. Có số → điền ô tên → **tự tra** → khớp chắc 1 khách thì gắn luôn (tên chuẩn, mã KH, địa bàn). Gõ đủ 12 số CCCD (9 số CMND, 10 số mã KH) vào ô → tự tra, không cần Enter.
 - **Anh 20/10**: "kế nút Quét bản mới làm 1 nút Xóa như bên Văn bản, màu đỏ". Nút 🗑 Xóa cạnh nút Thêm / Quét bản mới tô đỏ (mọi tab như nhau). Tab Scan: tích ☐ các bản → thanh "Đã chọn n bản" có thêm nút đỏ **🗑 Xóa n bản** (vào Thùng rác; 1 bản không hỏi, nhiều bản hỏi 1 lần).
