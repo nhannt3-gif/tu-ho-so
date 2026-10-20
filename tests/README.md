@@ -181,6 +181,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t205.js` | 3.259 Bộ thông tin tổ: KQGD từng điểm (24 cột, công thức), 3 sao kê chia Điểm › Hội › Tổ, Excel nhiều sheet (24). |
 | `node tests/t206.js` | 3.260 Sổ cài đặt (Sao lưu › 🧾), khóa lạ, hàm con kéo đổi tên (5). |
 | `node tests/t207.js` | 3.264 Scan lưu tập trung, Sắp xếp, Kiểm tra, đọc QR / mã máy đọc giả, bản photo 2 mặt, ảnh khách từ CCCD (25). |
+| (3.284) | t217 thêm: dòng trạng thái nhìn thấy ở khung phải máy tính, cách dò 2 (thẻ gần trắng cạnh nhau / chồng dọc / trang trắng), bản hỏng cách cũ thử lại (21). |
 | (3.283) | t217 thêm: CCCD cũ che trống vẫn tách + báo; ảnh ghi có mà không tải được → báo đỏ + Tách 2 mặt từ PDF (17). |
 | (3.282) | t217 thêm: in nhiều CCCD 4 / A4 — bản cũ tự tách rồi ghép, bản không tách được không ghép + báo tên (15). |
 | (3.281) | t217 thêm: dòng trạng thái tách 2 mặt (đã tách / không tách được + lý do / chưa nối Drive / ảnh lúc quét), Thử tách lại, Rà khối bản hỏng (13). |
