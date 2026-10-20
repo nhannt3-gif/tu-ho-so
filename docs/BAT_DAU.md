@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.293** — 🎯 Phân bổ KH xong P2 + P3 (TK chính): tab con nhập QĐ nhiều xã, nhập file WPF, phân bổ tương đối / chính xác + sửa tay, **Biểu 07** đúng mẫu Word (xem / In / PDF / Word, 1 xã hoặc mọi xã) — `docs/KE_HOACH_PHAN_BO_KH.md`; việc sau: chỉ tiêu đầu năm, diễn biến, đối chiếu, Excel, cách chia 3. 3.288 – 3.292 (TK phụ): Scan (ảnh HEIC, lượt nhiều người, dời 4 chiều, cột Tổ trưởng). Chờ anh: thử máy thật 3.225–3.293.
+- **`main` = 3.294** — Bước 0 kế hoạch tên + lưu (`docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md`, anh đồng ý đề xuất (a)(b)(c) 20/10): Rà nhận file thả tay trên Drive, tải ảnh ≤ 2 cùng lúc, dọn ảnh tải về. Tiếp: bước 1 sổ quy tắc tên chung → bước 2–3 Hồ sơ vay. 3.293 (TK chính) 🎯 Phân bổ KH xong P2 + P3: tab con nhập QĐ nhiều xã, nhập file WPF, phân bổ + sửa tay, **Biểu 07** (xem / In / PDF / Word, 1 xã hoặc mọi xã) — `docs/KE_HOACH_PHAN_BO_KH.md`; việc sau: chỉ tiêu đầu năm, diễn biến, đối chiếu, Excel, cách chia 3. Chờ anh: thử máy thật 3.225–3.294.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
