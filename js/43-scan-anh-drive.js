@@ -165,3 +165,26 @@ function sxCmndCua(ma){
   var r = ''; (D.scan||[]).forEach(function(k){ if(!r && k.maKH===ma) r = k.cmnd || (k.cccdDoc||{}).cmnd || (k.raDoc||{}).cmnd || ''; });
   return r;
 }
+
+/* ---------- 3.272 (bố trí anh duyệt ở 3.264): khung xem phải — dòng "Hồ sơ của khách" ----------
+   Bản scan / chữ ký / ảnh đã gắn mã KH → gom mọi bản của khách đó: 🪪 CCCD · ✍ Chữ ký · 🧑 Ảnh · 📄 tài liệu (theo loại); thiếu ghi ✗;
+   bấm 1 mục → xem ngay ở khung phải (bản đang xem tô đậm). */
+function sxHoSoKhach(ma, dangId){
+  if(!ma) return '';
+  var sc = (D.scan||[]).filter(function(k){ return k.maKH===ma; }), ka = (D.kyAnh||[]).filter(function(k){ return k.maKH===ma; }), e = coChuHTML;
+  var nut = function(loai, id, chu){ return '<button class="sx-hs-nut'+(id===dangId ? ' dang' : '')+'" data-lenh="sx.xemHS" data-loai="'+loai+'" data-id="'+id+'">'+chu+'</button>'; };
+  var nhom = function(ico, ten, ds, loai){ return ds.length ? ds.map(function(k, i){ return nut(loai, k.id, ico+' '+ten+(ds.length>1 ? ' '+(i+1) : '')); }).join('') : '<span class="sx-hs-thieu">'+ico+' '+ten+' ✗</span>'; };
+  var tl = sc.filter(function(k){ return k.che==='tailieu'; });
+  return '<div class="sx-hskh"><b>Hồ sơ của khách</b> <small>'+e(sxNhanKH(ma))+'</small><div class="sx-hs-hang">'+
+    nhom('🪪', 'CCCD', sc.filter(function(k){ return k.che!=='tailieu'; }), 'scan')+nhom('✍', 'Chữ ký', ka.filter(function(k){ return k.loai==='ky'; }), 'ka')+
+    nhom('🧑', 'Ảnh', ka.filter(function(k){ return k.loai!=='ky'; }), 'ka')+tl.map(function(k){ return nut('scan', k.id, '📄 '+e(sxLoaiScan(k))); }).join('')+'</div></div>';
+}
+var SX_XEM_THU_CU = xemThu;
+xemThu = function(loai, id, i){
+  SX_XEM_THU_CU(loai, id, i);
+  if(loai!=='scan' && loai!=='ka') return;
+  var m = loai==='scan' ? timScan(id) : (D.kyAnh||[]).find(function(x){ return x.id===id; });
+  var cp = document.getElementById('cotphai'), noi = cp && cp.offsetParent && !anPV ? document.getElementById('cp-phu') : document.getElementById('x-phu');
+  if(m && m.maKH && noi) noi.insertAdjacentHTML('beforeend', sxHoSoKhach(m.maKH, id));
+};
+GD.dangKy('sx', {xemHS:function(el){ var loai = el.getAttribute('data-loai'), id = el.getAttribute('data-id'); if(loai==='scan' && typeof xemScanCP==='function') xemScanCP(id); else xemThu(loai, id); }});

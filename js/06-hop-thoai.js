@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.271', ds:[
+var CO_GI_MOI = {ban:'3.272', ds:[
+  ["Khung xem phải: dòng \"Hồ sơ của khách\" — gom CCCD · Chữ ký · Ảnh · tài liệu của cùng khách, thiếu ghi ✗, bấm để xem", "doiNgan(4)"],
   ["CCCD lưu đủ 3 file lên Drive (PDF + ảnh mặt trước + mặt sau) để các máy dùng chung; máy khác tự tải ảnh; bản cũ chỉ có PDF → cắt 2 thẻ ra ảnh (anh duyệt ở 🔎 Rà); đọc được gì hiện hết, so Mẫu 31; lưu CMND 9 số", "doiNgan(4)"],
   ["Mẫu 04/TD (Giao dịch xã): tên cơ quan và tiêu ngữ giãn xa hơn", "doiNgan(4)"],
   ["📊 Kiểm tra scan dùng Mẫu 31 mới nhất (có Mẫu 31 ngày thì dùng ngày); 🧹 Sắp xếp / 🔎 Rà ghi rõ đang so với Mẫu 31 kỳ nào", "doiNgan(4)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.271', ds:[
   ["📒 Bộ thông tin tổ: thêm cột Số hộ đang có dư nợ (Số hộ = tổ viên); chọn kỳ theo ngày có Mẫu 31 ngày đó thì lấy số liệu ngày; đơn vị tính góc phải trên bảng; KQGD toàn xã liền sau các điểm; 3 nút sao kê riêng (Nợ QH, Nợ khoanh — A4 dọc, 3 tháng KHĐ)", "doiNgan(7)"],
   ["📒 Bộ thông tin tổ chốt cuối tháng như file tổng hợp: Tổng hợp · theo xã · theo hội · từng điểm · từng xã · 3 tháng KHĐ · Nợ QH · Nợ khoanh · Ghi chú; bản in hết chồng chữ", "doiNgan(7)"],
   ["🧾 Sổ cài đặt (⚙ Khai báo › 💾 Sao lưu): xem mọi lựa chọn / khai báo app nhớ theo khối, dung lượng; khóa lạ (bản cũ để lại) chỉ báo để rà", "hsoKBHop('sl')"],
-  ["📒 Sao kê › Thông tin tổ: KQGD tại điểm GD (Mẫu 13/GDX + thông tin tổ, mỗi điểm 1 trang) và Bộ thông tin tổ (KQGD + 3 tháng KHĐ + Nợ quá hạn + Nợ khoanh, chia Điểm › Hội › Tổ) — Excel nhiều sheet, dòng cộng là công thức", "doiNgan(7)"],
-  ["🗂 Hồ sơ vay sắp lại chip theo nhóm: Sổ · 01/UQ · 01/TD HSSV · 01/TD NSVSMT · 03/TD · 06/TD · 01/GQVL · 07b/GQVL · 01/TGTV · 09A · 01/TĐCK — 01/TD tách chip theo chương trình, bấm là ra đúng mẫu đúng chương trình", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📒 Sao kê › Thông tin tổ: KQGD tại điểm GD (Mẫu 13/GDX + thông tin tổ, mỗi điểm 1 trang) và Bộ thông tin tổ (KQGD + 3 tháng KHĐ + Nợ quá hạn + Nợ khoanh, chia Điểm › Hội › Tổ) — Excel nhiều sheet, dòng cộng là công thức", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
