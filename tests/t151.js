@@ -41,7 +41,7 @@ const path=require('path');
    scanLuuTu(); await w(500);
    const k = D.scan[0];
    ok('lưu vào tủ: 1 bản, có mã KH + tên + ấp + xã, không "chưa khai", không tổ', D.scan.length===1 && k.maKH==='KHGIA01' && k.ten==='Nguyễn Văn Giả' && k.ap==='Ấp Giả Một' && k.xa==='Xã Giả' && !k.chuaKhai && !k.to && k.matTruoc && k.matSau, JSON.stringify({ma:k && k.maKH, ap:k && k.ap}));
-   ok('thư mục Drive: CCCD / <Xã> / <Ấp>; tên file <Mã KH> <Tên>.pdf', duongScan(k)===D.cauHinh.thumuc+' / CCCD / Xã Giả / Ấp Giả Một' && /^KHGIA01 Nguy.*Gi.*\.pdf$/.test(tenScanDrive(k)), duongScan(k)+' · '+tenScanDrive(k));
+   ok('3.264 (anh chốt): thư mục Drive phẳng CCCD; tên file <Mã KH> - <Tên> - CCCD.pdf', duongScan(k)===D.cauHinh.thumuc+' / CCCD' && /^KHGIA01 - Nguy.*Gi.* - CCCD\.pdf$/.test(tenScanDrive(k)), duongScan(k)+' · '+tenScanDrive(k));
    ok('trạng thái: đủ thông tin (chỉ còn chờ lên Drive), không đòi điểm GD / tổ', ttScan(k).thieu.join()==='Chưa lên Drive', ttScan(k).thieu.join());
    ok('ảnh mặt trước / sau đã gắn vào hồ sơ', !!(await docAnhHS(k.id+'_matTruoc')) && !!(await docAnhHS(k.id+'_matSau')));
    ok('lưu xong: bỏ phiên quét (hàng chờ trống, không còn trong máy)', HANG.length===0 && !localStorage.getItem(KHOA_HANG));

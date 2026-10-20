@@ -29,7 +29,7 @@ const path=require('path');
    document.getElementById('sx-ten').value = 'Ho so gia A'; scanLuuApp(); await w(600); window.henDongBoScan = hd;
    const k = (D.scan||[]).slice(-1)[0] || {};
    ok('🗂 Lưu vào app → mục Chờ khai báo, đúng tên file anh sửa, KHÔNG hẹn đưa lên Drive', k.chuaKhai && k.ten==='Ho so gia A' && henDB===0 && (k.trang||[]).length===2, JSON.stringify({ten:k.ten, ck:k.chuaKhai, henDB}));
-   ok('Drive không nhận bản chưa khai', scanCanDay().indexOf(k)<0);
+   ok('3.264 (anh chốt): bản chưa khai lên Drive vào thư mục "Scan chờ sắp xếp"', scanCanDay().indexOf(k)>=0 && duongScan(k)===D.cauHinh.thumuc+' / Scan chờ sắp xếp', duongScan(k));
    k.chuaKhai = false; ok('khai xong → Drive nhận', scanCanDay().indexOf(k)>=0);
    // Chữ ký: giữ nguyên mẫu — nền tối góc (bóng) được cân lại, nét mực xanh giữ màu, không ép trắng / đen; ≤ 200 KB
    const kyB = await ve(1400, 700, (g, W, H)=>{ const gr = g.createLinearGradient(0, 0, W, H); gr.addColorStop(0, '#8a8a8a'); gr.addColorStop(1, '#efefef'); g.fillStyle = gr; g.fillRect(0, 0, W, H);

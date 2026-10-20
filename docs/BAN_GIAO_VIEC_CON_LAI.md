@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.264) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Quét CCCD thẻ thật (điện thoại / webcam) | Hiện "✓ Đọc được CCCD … → mã KH · tên" → 🗄 Lưu đúng khách → Drive `CCCD/MãKH - Tên - CCCD.pdf` + `Chữ ký - Ảnh khách/… - Ảnh.jpg` | |
+| 2 | Quét bản photo 2 mặt (tích ô) | Ra 2 mặt đúng khổ, đọc được số qua 3 dòng mã máy đọc | |
+| 3 | Lưu vào app tên `cccd-Tên` | Drive `Scan chờ sắp xếp/cccd-Tên.pdf` | |
+| 4 | 🧹 Sắp xếp | Khớp → đặt tên + dời; trùng → chọn; file cũ dời; thư mục cũ trống vào thùng rác | |
+| 5 | 📊 Kiểm tra | Bảng theo tổ đúng số hộ / có CCCD | |
+
+**Ghi chú kỹ thuật 3.264:** đọc 3 dòng mã máy đọc cần tải bộ chữ tiếng Anh của Tesseract lần đầu (có mạng); QR đọc offline sau lần tải jsQR đầu. Chưa làm: dòng "Hồ sơ của khách" ở khung xem phải (gom CCCD / chữ ký / ảnh / tài liệu 1 khách) — bản sau.
+
 ### Danh sách thử trên máy thật (3.263) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
