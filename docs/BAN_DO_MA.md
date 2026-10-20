@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.283 · 20/10/2026 20:56 · 73 file · 38464 dòng · 3090 hàm cấp ngoài · 495 biến toàn cục.
+Bản 3.284 · 20/10/2026 21:16 · 73 file · 38498 dòng · 3091 hàm cấp ngoài · 497 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -10,7 +10,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
 | `index.html` | 258 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 3606 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `css/app.css` | 3607 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
 | `js/02-nen.js` | 372 | 26 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
 | `js/03-doc-pdf.js` | 627 | 46 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
@@ -63,7 +63,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/40-lap-01td.js` | 110 | 0 | /*   3.242 (anh 17/10 — KE_HOACH_CHUAN_HOA mục Hồ sơ vay hướng B, ý 1–19): FORM LẬP 01/TD   Cột trái tab 01/TD |
 | `js/41-scan-sap-xep.js` | 580 | 56 | /*   3.264 (anh chốt 20/10/2026) — 🗂 LƯU SCAN TẬP TRUNG · 🧹 SẮP XẾP · 📊 KIỂM TRA · 📇 ĐỌC CCCD (QR / 3 dòng mã  |
 | `js/42-scan-ra-soat.js` | 268 | 29 | /*   3.268 (anh chốt 20/10/2026) — 🔎 RÀ CCCD ĐÃ LƯU · BẢN TRÙNG - Anh: "có nên có bước chạy kiểm tra các CCCD  |
-| `js/43-scan-anh-drive.js` | 287 | 23 | /*   3.271 (anh chốt 20/10/2026) — 🖼 ẢNH 2 MẶT CCCD LÊN DRIVE · CẮT ẢNH TỪ PDF CŨ · BẢNG ĐỐI CHIẾU · CMND 9 SỐ |
+| `js/43-scan-anh-drive.js` | 320 | 24 | /*   3.271 (anh chốt 20/10/2026) — 🖼 ẢNH 2 MẶT CCCD LÊN DRIVE · CẮT ẢNH TỪ PDF CŨ · BẢNG ĐỐI CHIẾU · CMND 9 SỐ |
 | `js/44-quet-cccd-form.js` | 143 | 19 | /*   3.273 (anh duyệt 20/10/2026: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCC |
 | `js/45-tra-mau31.js` | 114 | 8 | /*   3.275 (anh 20/10/2026: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã K |
 | `js/46-quan-ly-scan.js` | 38 | 4 | /*   3.278 (rà soát tab Scan 20/10 — anh: "em cứ code theo ý em và gộp lên"): BỐ CỤC GỌN - Thanh tab Scan: 1 n |
@@ -334,12 +334,12 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/42-scan-ra-soat.js:237` · làm việc đã chọn
 - `js/43-scan-anh-drive.js:1` · 3.271 (anh chốt 20/10/2026) — 🖼 ẢNH 2 MẶT CCCD LÊN DRIVE · CẮT ẢNH TỪ PDF CŨ · BẢNG ĐỐI CHIẾU · CMND 9 SỐ
 - `js/43-scan-anh-drive.js:84` · cắt 2 thẻ từ trang PDF (khuôn app dựng: nền trắng, trước | sau cạnh nhau ở hàng đầu)
-- `js/43-scan-anh-drive.js:145` · bảng đối chiếu: thông tin đọc được trên thẻ ↔ Mẫu 31
-- `js/43-scan-anh-drive.js:164` · CMND 9 số đọc từ thẻ (theo mã KH)
-- `js/43-scan-anh-drive.js:170` · 3.272 (bố trí anh duyệt ở 3.264): khung xem phải — dòng "Hồ sơ của khách"
-- `js/43-scan-anh-drive.js:213` · 3.280 (anh: "cccd cũ app vẫn lưu PDF chưa tách ra 2 mặt"): bản CCCD cũ chỉ có PDF
-- `js/43-scan-anh-drive.js:239` · 3.281 (anh: "có cái app tự tách, có cái không — báo app có làm chưa, làm không được cũng báo")
-- `js/43-scan-anh-drive.js:268` · 3.282 (anh: "in nhiều CCCD 1 lúc, 4 CCCD trên 1 trang A4")
+- `js/43-scan-anh-drive.js:171` · bảng đối chiếu: thông tin đọc được trên thẻ ↔ Mẫu 31
+- `js/43-scan-anh-drive.js:190` · CMND 9 số đọc từ thẻ (theo mã KH)
+- `js/43-scan-anh-drive.js:196` · 3.272 (bố trí anh duyệt ở 3.264): khung xem phải — dòng "Hồ sơ của khách"
+- `js/43-scan-anh-drive.js:239` · 3.280 (anh: "cccd cũ app vẫn lưu PDF chưa tách ra 2 mặt"): bản CCCD cũ chỉ có PDF
+- `js/43-scan-anh-drive.js:267` · 3.281 (anh: "có cái app tự tách, có cái không — báo app có làm chưa, làm không được cũng báo")
+- `js/43-scan-anh-drive.js:301` · 3.282 (anh: "in nhiều CCCD 1 lúc, 4 CCCD trên 1 trang A4")
 - `js/44-quet-cccd-form.js:1` · 3.273 (anh duyệt 20/10/2026: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCCD chụp sẵn" — "
 - `js/44-quet-cccd-form.js:32` · lấy ảnh
 - `js/44-quet-cccd-form.js:79` · đọc + hộp xác nhận

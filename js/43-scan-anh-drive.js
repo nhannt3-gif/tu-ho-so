@@ -100,6 +100,32 @@ function sxCatThe(c, lan){
   return doan.map(function(o){ var x0 = Math.round(o[0]/s), x1 = Math.round((o[1]+1)/s), yA = Math.round(y0/s), yB = Math.round((y1+1)/s), r = document.createElement('canvas');
     r.width = x1-x0; r.height = yB-yA; r.getContext('2d').drawImage(c, x0, yA, r.width, r.height, 0, 0, r.width, r.height); return r; });
 }
+/* 3.284: cách dò thứ 2 (thẻ thật có nhiều vùng gần trắng → cách 1 đứt dải): so với màu nền giấy (đo ở 4 góc), dải hàng / cột có điểm khác nền,
+   nối khe nhỏ → các khối; chọn 2 khối lớn nhất có tỉ lệ gần thẻ (1,2–2,1), xếp trên → dưới, trái → phải. Cạnh nhau hay chồng dọc đều được. */
+function sxCatThe2(c){
+  var s = Math.min(1, 600/c.width), w = Math.round(c.width*s), h = Math.round(c.height*s);
+  var t = document.createElement('canvas'); t.width = w; t.height = h; var g = t.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); g.drawImage(c, 0, 0, w, h);
+  var d = g.getImageData(0, 0, w, h).data, L = function(i){ return d[i]*0.3+d[i+1]*0.59+d[i+2]*0.11; };
+  var goc = [[2, 2], [w-3, 2], [2, h-3], [w-3, h-3]].map(function(p){ return L((p[1]*w+p[0])*4); }).sort(function(a, b){ return a-b; }), nen = (goc[1]+goc[2])/2;
+  var M = new Uint8Array(w*h), i;
+  for(i=0;i<w*h;i++){ var j = i*4, mx = Math.max(d[j], d[j+1], d[j+2]), mn = Math.min(d[j], d[j+1], d[j+2]); M[i] = (Math.abs(L(j)-nen)>6 || mx-mn>14) ? 1 : 0; }
+  var dai = function(n, f, nguong, khe){ var ra = [], vao = -1, lo = -1, k;
+    for(k=0;k<=n;k++){ var co = k<n && f(k)>nguong; if(co){ if(vao<0) vao = k; lo = k; } else if(vao>=0 && k-lo>khe){ ra.push([vao, lo]); vao = -1; } }
+    if(vao>=0) ra.push([vao, lo]); return ra; };
+  var hop = [];
+  dai(h, function(yy){ var n = 0; for(var xx=0;xx<w;xx++) n += M[yy*w+xx]; return n/w; }, 0.12, Math.round(h*0.012)).forEach(function(b){
+    if(b[1]-b[0] < h*0.05) return;
+    dai(w, function(xx){ var n = 0; for(var yy=b[0];yy<=b[1];yy++) n += M[yy*w+xx]; return n/(b[1]-b[0]+1); }, 0.3, Math.round(w*0.006)).forEach(function(o){
+      var cw = o[1]-o[0]+1, ch = b[1]-b[0]+1;
+      if(cw/ch>2.6 && cw/ch<3.8){ var gi = o[0]+Math.round(cw/2); hop.push([o[0], b[0], gi-1, b[1]], [gi, b[0], o[1], b[1]]); }   /* 2 thẻ dính nhau → chia giữa */
+      else hop.push([o[0], b[0], o[1], b[1]]); }); });
+  var dt = function(q){ return (q[2]-q[0]+1)*(q[3]-q[1]+1); };
+  hop = hop.filter(function(q){ var cw = q[2]-q[0]+1, tl = cw/(q[3]-q[1]+1); return tl>1.2 && tl<2.1 && cw>w*0.18; }).sort(function(a, b){ return dt(b)-dt(a); }).slice(0, 2);
+  if(hop.length<2 || dt(hop[1]) < dt(hop[0])*0.6) return null;   /* 2 khối phải cỡ nhau */
+  hop.sort(function(a, b){ return Math.abs(a[1]-b[1]) < h*0.03 ? a[0]-b[0] : a[1]-b[1]; });
+  return hop.map(function(q){ var x0 = Math.round(q[0]/s), y0 = Math.round(q[1]/s), r = document.createElement('canvas');
+    r.width = Math.round((q[2]+1)/s)-x0; r.height = Math.round((q[3]+1)/s)-y0; r.getContext('2d').drawImage(c, x0, y0, r.width, r.height, 0, 0, r.width, r.height); return r; });
+}
 /* trang 1 PDF của bản (Drive) → canvas */
 function sxTrangPDF(k){
   if(!k.driveId || !coTheNoiDrive()) return Promise.resolve(null);
@@ -115,8 +141,8 @@ function sxTrangPDF(k){
 function sxCatTuPDF(k, lan){
   return sxTrangPDF(k).then(function(c){
     if(!c){ k.catLoi = !k.driveId ? 'bản chưa lên Drive' : coTheNoiDrive() ? 'không tải / mở được file PDF trên Drive' : 'chưa nối Drive'; return null; }
-    delete k.catLoi; var hai = k.catBo ? null : sxCatThe(c, lan);
-    if(!hai){ if(!k.catBo && !k.catHong){ k.catHong = 1; luu(); } return canvasRaBlob(c, 0.92).then(function(bl){ return [bl, null]; }); }   /* không dò được khung → đọc cả trang; 3.281: ghi "không tách được" */
+    delete k.catLoi; var hai = k.catBo ? null : (sxCatThe(c, lan) || sxCatThe2(c));
+    if(!hai){ if(!k.catBo && !(k.catHong>=SX_CAT_BAN)){ k.catHong = SX_CAT_BAN; luu(); } return canvasRaBlob(c, 0.92).then(function(bl){ return [bl, null]; }); }   /* không dò được khung → đọc cả trang; 3.281: ghi "không tách được" */
     return Promise.all(hai.map(function(x){ return canvasRaBlob(x, 0.92); })).then(function(bs){
       return luuAnhHS(k.id+'_matTruoc', bs[0]).then(function(){ return luuAnhHS(k.id+'_matSau', bs[1]); }).then(function(){
         k.catTuPDF = true; k.catLan = lan||0; delete k.catDuyet; delete k.catHong; if(!k.che) k.che = 'the'; k.matTruoc = true; k.matSau = true; delete k.anhThu; if(typeof CO_ANH!=='undefined') CO_ANH[k.id] = true; luu();
@@ -213,7 +239,9 @@ dungTrangThe = function(dsId, viec){
 /* ---------- 3.280 (anh: "cccd cũ app vẫn lưu PDF chưa tách ra 2 mặt"): bản CCCD cũ chỉ có PDF ----------
    Mở xem ở khung phải / xem lớn → tự cắt 2 mặt thẻ từ trang 1 PDF trên Drive (như 🔎 Rà), lưu 2 ảnh + đưa lên Drive, hiện 2 mặt.
    Dò không ra khung → ghi k.catHong, lần sau hiện PDF luôn (không tải lại); ↻ Cắt lại ở 🔎 Rà vẫn làm được. PDF gốc giữ nguyên. */
-function sxCanCat(k){ return !!(sxLaCCCD(k) && k.driveId && !k.anhDrive && !k.catBo && !k.catTuPDF && !k.catHong); }
+/* 3.284: catHong ghi số bản cách dò; cách dò mới hơn → bản đã "không tách được" tự thử lại 1 lần */
+var SX_CAT_BAN = 2;
+function sxCanCat(k){ return !!(sxLaCCCD(k) && k.driveId && !k.anhDrive && !k.catBo && !k.catTuPDF && !(k.catHong>=SX_CAT_BAN)); }
 var SX_CAT_DANG = {};
 function sxCatMot(k){
   if(!SX_CAT_DANG[k.id]) SX_CAT_DANG[k.id] = sxCatTuPDF(k, k.catLan||0).then(function(bs){
@@ -252,13 +280,18 @@ function sxTTCat(k){
   if(k.matTruoc || k.anhDrive) return t('xanh', '🪪 Ảnh 2 mặt thẻ lúc quét');
   return t('vang', '⚠ Chưa tách 2 mặt'+(k.driveId ? '' : ': bản chưa lên Drive, máy này không có ảnh'));
 }
+/* 3.284: dòng trạng thái đặt ngay trên nội dung khung xem (trước nằm ở dòng nơi lưu — máy tính chỉ hiện 1 dòng đó, 3.157, nên bị ẩn) */
 function sxVeTTCat(k, n){
-  var noi = document.getElementById(n==='lon' ? 'x-phu' : 'cp-phu'); if(!noi || XEM[n].m!==k) return;
-  Array.prototype.forEach.call(noi.querySelectorAll('.sx-cat-tt'), function(x){ x.remove(); });
-  var h = sxTTCat(k); if(h) noi.insertAdjacentHTML('beforeend', h);
+  var than = document.getElementById(XEM[n].id); if(!than || !than.parentNode || XEM[n].m!==k) return;
+  var dat = function(h){ Array.prototype.forEach.call(than.parentNode.querySelectorAll('.sx-cat-khung'), function(x){ x.remove(); });
+    if(h) than.insertAdjacentHTML('beforebegin', '<div class="sx-cat-khung">'+h+'</div>'); };
+  var h = sxTTCat(k); dat(h);
   if(/lúc quét/.test(h)) docAnhHS(k.id+'_matTruoc').then(function(b){ if(b || XEM[n].m!==k) return;   /* 3.283: ghi có ảnh nhưng máy không có, Drive không tải được → báo thật */
-    var x = noi.querySelector('.sx-cat-tt'); if(x) x.outerHTML = '<div class="sx-cat-tt do" data-k="'+k.id+'">⚠ Không có ảnh mặt thẻ: ảnh không có trong máy này'+(k.anhDrive ? ', không tải được từ Drive' : ' (quét ở máy khác trước 3.271)')+' — đang xem PDF <button class="sx-cat-lai" data-lenh="sx.catLai" data-k="'+k.id+'">↻ Tách 2 mặt từ PDF</button></div>'; }, function(){});
+    dat('<div class="sx-cat-tt do" data-k="'+k.id+'">⚠ Không có ảnh mặt thẻ: ảnh không có trong máy này'+(k.anhDrive ? ', không tải được từ Drive' : ' (quét ở máy khác trước 3.271)')+' — đang xem PDF <button class="sx-cat-lai" data-lenh="sx.catLai" data-k="'+k.id+'">↻ Tách 2 mặt từ PDF</button></div>'); }, function(){});
 }
+/* bấm file khác (không phải CCCD) → bỏ dòng trạng thái cũ */
+var SX_VE_ND_CU = veNoiDung;
+veNoiDung = function(m, noi){ Array.prototype.forEach.call(document.querySelectorAll('.sx-cat-khung'), function(x){ if(!noi || x.nextElementSibling && x.nextElementSibling.id===XEM[noi].id) x.remove(); }); return SX_VE_ND_CU(m, noi); };
 GD.dangKy('sx', {catLai:function(el){ var k = timScan(el.getAttribute('data-k')); if(!k) return;
   if(k.catTuPDF || k.catBo) return moRaSoat(false);   /* đã có ảnh cắt / anh đã bỏ → làm ở 🔎 Rà (Cắt lại / Đúng) */
   docAnhHS(k.id+'_matTruoc').then(function(b){ if(!b){ delete k.anhDrive; delete k.matTruoc; delete k.matSau; }   /* 3.283: ảnh ghi có mà không lấy được → tách lại từ PDF */

@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.284) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Bấm GIAO THỊ ÚT (đang hiện trang A4) | Tách ra 2 mặt, hoặc dòng đỏ "Không tách được" ngay trên khung xem | |
+| 2 | Bấm CCCD đã tách / ảnh lúc quét | Có dòng trạng thái trên khung xem | |
+
+**Ghi chú kỹ thuật 3.284:** 43: `sxCatThe2` (nền theo 4 góc, dải hàng ngưỡng 12 %, cột 30 %, khối tỉ lệ 1,2–2,1, 2 khối diện tích ≥ 60 % nhau); `sxCatTuPDF` dùng `sxCatThe || sxCatThe2`; `SX_CAT_BAN = 2`, `catHong` = số bản; `sxVeTTCat` chèn `.sx-cat-khung` trước `#cp-than` / `#x-than`; bọc `veNoiDung` bỏ khung trạng thái cũ.
+
 ### Danh sách thử trên máy thật (3.283) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

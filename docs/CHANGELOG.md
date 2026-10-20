@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.284 — 20/10/2026 — Tách 2 mặt: hiện trạng thái ở khung phải, dò khung thẻ cách 2
+- **Anh 20/10** (ảnh: GIAO THỊ ÚT vẫn hiện trang A4, không có dòng báo): "nếu không tách được chỉ cần báo, kiểu anh biết có làm là được".
+- Nguyên nhân không thấy báo: khung xem phải trên máy tính chỉ hiện 1 dòng nơi lưu (3.157) — mọi dòng khác dưới tên bị ẩn (cả dòng trạng thái 3.281 và "Hồ sơ của khách" 3.272). Sửa: dòng trạng thái đặt ngay trên nội dung khung xem (phải / lớn), luôn nhìn thấy; bấm file khác thì đổi theo.
+- Nguyên nhân không tách: cách dò cũ cần mỗi hàng điểm ảnh tối quá nửa bề ngang — thẻ CCCD thật nhiều vùng gần trắng → dải thẻ bị đứt. Thêm **cách dò thứ 2**: so màu nền giấy (đo 4 góc), tìm khối khác nền, nối khe nhỏ, chọn 2 khối cỡ nhau tỉ lệ gần thẻ; 2 mặt cạnh nhau hay chồng dọc đều được; 2 thẻ dính nhau thì chia giữa.
+- Bản đã ghi "không tách được" bằng cách cũ → tự thử lại 1 lần bằng cách mới khi xem / Rà / In (`catHong` ghi số bản cách dò).
+- Phép thử: t217 thêm 4 (21).
+
 ## 3.283 — 20/10/2026 — CCCD cũ chưa tách mà không báo
 - **Anh 20/10**: "vẫn còn 1 vài PDF cũ chưa tách mà cũng không báo".
 - Nguyên nhân 1: bản rất cũ không ghi chế độ (không phải Thẻ, không nhãn CCCD) — app vẫn xếp vào thư mục CCCD nhưng phần tách 2 mặt (3.280) và dòng trạng thái (3.281) chỉ nhận bản Thẻ / nhãn CCCD → bỏ qua, không báo. Sửa: bản scan không phải tài liệu = CCCD (như 🔎 Rà, thư mục Drive); tách xong ghi chế độ Thẻ.
