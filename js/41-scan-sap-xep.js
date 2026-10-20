@@ -107,9 +107,25 @@ function sxXacDinh(o){
     return {goiY:mc, ly:'CCCD khớp, tên khác hẳn Mẫu 31 ('+tenMau(mc)+')'}; }
   if(!t) return {};
   var ds = X.ten[t] || [];
+  if(o.db){   /* 3.269 (anh: "đã lưu là tổ Mai Văn Quang nhưng app vẫn báo"): tổ / ấp anh chọn khi quét → khách trong đó, tên gần đúng */
+    var trongDB = Object.keys(KH).filter(function(ma){ return sxHopDB(ma, o.db); });
+    var gan = trongDB.filter(function(ma){ return ds.indexOf(ma)>=0 || sxTenGan(KH[ma].ten, t); });
+    if(gan.length===1) return {goiY:gan[0], ly:'tên khớp'+(ds.indexOf(gan[0])<0 ? ' gần đúng' : '')+' + đúng tổ / ấp anh chọn khi quét'+(ds.length>1 ? ' (Mẫu 31 có '+ds.length+' khách cùng tên)' : '')};
+    if(!gan.length){ var goi = t.split(' ').pop(), cung = trongDB.filter(function(ma){ return sxChuan(KH[ma].ten).split(' ').pop()===goi; });   /* cùng tên gọi trong tổ (Mẫu 31 ghi tên khác, vd thiếu chữ lót) */
+      if(cung.length===1 && !ds.length) return {goiY:cung[0], ly:'cùng tên gọi "'+goi+'" trong tổ / ấp anh chọn khi quét — Mẫu 31 ghi '+KH[cung[0]].ten};
+      cung.forEach(function(ma){ if(ds.indexOf(ma)<0) ds = ds.concat([ma]); }); }
+  }
   if(ds.length===1) return s ? {goiY:ds[0], ly:'tên khớp, số CCCD khác Mẫu 31'} : {goiY:ds[0], ly:'chỉ khớp tên'};
   if(ds.length>1 && theoNS(ds)) return {goiY:theoNS(ds), ly:'trùng tên '+ds.length+' khách — khớp ngày sinh trên thẻ', ds:ds};
   return ds.length ? {ds:ds} : {};
+}
+/* địa bàn anh chọn khi quét (tổ "05 — Nguyễn Văn A" / ấp) → so với tổ / ấp của khách trên Mẫu 31 */
+function sxDBQuet(k){ var p = String(k.to||'').split(' — '), to = p.pop().trim(), maTo = p.length ? p[0].trim() : ''; return to || k.ap ? {to:to, maTo:maTo, ap:k.ap||''} : null; }
+function sxHopDB(ma, q){
+  if(q.maTo && (KHO.dsKhach()[ma]||{}).to) return String(KHO.dsKhach()[ma].to)===q.maTo;   /* có mã tổ → so mã tổ Mẫu 31 */
+  var c = sxKhach(ma), bo = function(x){ return sxChuan(x).replace(/^to (truong )?/, '').trim(); }, t = bo(q.to), ct = bo(c.to);
+  if(t && ct) return ct===t || (t.length>=6 && ct.length>=6 && (ct.indexOf(t)>=0 || t.indexOf(ct)>=0));
+  return !!q.ap && sxChuan(c.ap)===sxChuan(q.ap);
 }
 function sxKhach(ma){   /* thông tin khách để gắn vào bản scan */
   var c = KHO.dsKhach()[ma] || {}, t = KHO.toDanhBa(c.to) || {};
@@ -168,6 +184,20 @@ function sxManh(c){
     var w = Math.round(c.width*0.55), h = Math.round(c.height*0.55), k = Math.max(1, Math.min(3, 1400/Math.max(w, h))), o = document.createElement('canvas');
     o.width = Math.round(w*k); o.height = Math.round(h*k); var x = o.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(c, Math.round(c.width*g[0]), Math.round(c.height*g[1]), w, h, 0, 0, o.width, o.height); ra.push(o); });
   return ra;
+}
+/* 3.269: ảnh để đọc số — ảnh 2 mặt trong máy; máy này không có (quét ở máy khác) → tải PDF bản lưu trên Drive, dựng trang 1 thành ảnh */
+function sxAnhDoc(k){
+  return Promise.all([docAnhHS(k.id+'_matTruoc'), k.matSau ? docAnhHS(k.id+'_matSau') : null]).then(function(b){
+    if(b[0] || b[1]) return b;
+    if(!k.driveId || !coTheNoiDrive()) return [null, null];
+    return xongTV.then(function(){ if(!sanSangPDF()) return null; return canToken(); }).then(function(co){ if(!co) return null;
+      return fetch('https://www.googleapis.com/drive/v3/files/'+k.driveId+'?alt=media', {headers:{'Authorization':'Bearer '+DR.token}}).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.arrayBuffer(); }); })
+      .then(function(ab){ if(!ab) return [null, null];
+        return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise.then(function(doc){ return doc.getPage(1); }).then(function(pg){
+          var v0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(4, 2000/v0.width)}), c = document.createElement('canvas'); c.width = Math.round(vp.width); c.height = Math.round(vp.height);
+          return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise.then(function(){ return canvasRaBlob(c, 0.92); }).then(function(bl){ return [bl, null]; }); }); })
+      .catch(function(){ return [null, null]; });
+  });
 }
 var SX_DOC_BAN = 2;   /* phiên bản bộ đọc — bản đọc không được ở phiên cũ được đọc lại 1 lần */
 /* đọc 1 người: truoc, sau = blob ảnh 2 mặt (đã cắt thẻ, hoặc cả tờ có 2 thẻ) → {cccd, ten, ns, …, nguon} | null; không tải được bộ đọc chữ (mất mạng) → lỗi (không đánh dấu "không đọc được") */
@@ -308,7 +338,7 @@ function sxKeHoach(){
       if(tenMoi && sxChuan(tenMoi)!==sxChuan(tenGoc)) R.doiTen.push({k:k, ka:laKA, ma:k.maKH, tu:tenGoc, ten:tenMoi});
       else if(k.driveId && k.duongDrive!==(laKA ? sxDuongKA(k) : duongScan(k))) R.doi.push({k:k, ka:laKA, ma:k.maKH, tu:(k.maKH+' - '+(tenGoc||''))});
       return; }
-    var b = sxBoc(tenGoc), f = sxXacDinh({cccd:k.cccd || b.cccd, ma:b.ma, ten:b.ten, ns:(k.cccdDoc||{}).ns});
+    var b = sxBoc(tenGoc), f = sxXacDinh({cccd:k.cccd || b.cccd, ma:b.ma, ten:b.ten, ns:(k.cccdDoc||{}).ns, db:laKA ? null : sxDBQuet(k)});
     if(f.ma) R.khop.push({k:k, ka:laKA, ma:f.ma, theo:f.theo, tu:tenGoc});
     else if(f.goiY) R.goiY.push({k:k, ka:laKA, ma:f.goiY, ly:f.ly, tu:tenGoc});
     else if(f.ds) R.trung.push({k:k, ka:laKA, ds:f.ds, tu:tenGoc});
@@ -333,8 +363,8 @@ function sxDocTuAnh(){
   var n = 0, duoc = 0, mang = 0;
   batChay(false, 'Đang đọc số CCCD từ ảnh 0/'+ds.length+'…');
   return ds.reduce(function(p, k){ return p.then(function(){ n++; dangLamChu('Đang đọc số CCCD từ ảnh '+n+'/'+ds.length+'…'); tienChay(Math.round((n-1)/ds.length*100));
-    return Promise.all([docAnhHS(k.id+'_matTruoc'), k.matSau ? docAnhHS(k.id+'_matSau') : null]).then(function(b){ if(!b[0]) return null; return docCCCD(b[0], b[1]); })
-      .then(function(r){ if(r && r.cccd){ k.cccd = r.cccd; delete k.cccdKhong; k.cccdDoc = {ten:r.ten||'', ns:r.ns||'', nguon:r.nguon}; duoc++; } else k.cccdKhong = SX_DOC_BAN; }, function(){ mang++; }); }); }, Promise.resolve())
+    return sxAnhDoc(k).then(function(b){ if(!b[0] && !b[1]) return 'khongAnh'; return docCCCD(b[0], b[1]); })
+      .then(function(r){ if(r==='khongAnh') return; if(r && r.cccd){ k.cccd = r.cccd; delete k.cccdKhong; k.cccdDoc = {ten:r.ten||'', ns:r.ns||'', nguon:r.nguon}; duoc++; } else k.cccdKhong = SX_DOC_BAN; }, function(){ mang++; }); }); }, Promise.resolve())
     .then(function(){ luu(); tatChay(); if(mang) baoLoi('Chưa tải được bộ đọc chữ (cần mạng lần đầu) — '+mang+' bản chưa đọc, có mạng bấm 🧹 lại.'); else if(duoc) bao('Đọc được số CCCD từ ảnh: '+duoc+'/'+ds.length+' bản.', 5); return duoc; }, function(){ tatChay(); return duoc; });
 }
 function moSapXep(){
@@ -349,6 +379,7 @@ function sxDongKH(x, i, nhom){
   var kh = function(m){ return '<span class="sx-kh-ten">'+coChuHTML(nhom==='trung' || nhom==='goiY' ? sxNhanKH2(m) : sxNhanKH(m))+'</span>'; };
   var d = !x.ka && x.k.che!=='tailieu' ? x.k.cccdDoc || {} : {}, the = x.k.cccd && !x.ka && x.k.che!=='tailieu' ? '<br><small>Thẻ đọc được: <b>'+coChuHTML(x.k.cccd)+'</b>'+(d.ten ? ' · '+coChuHTML(d.ten) : '')+(d.ns ? ' · sinh '+ngayVNsl(d.ns) : '')+'</small>'
     : (!x.ka && x.k.che!=='tailieu' && x.k.cccdKhong ? '<br><small class="vang">Chưa đọc được số trên thẻ — xem ảnh</small>' : '');
+  var q = !x.ka && nhom!=='khop' ? sxDBQuet(x.k) : null; if(q) the += '<br><small>Khi quét anh chọn: '+coChuHTML([q.ap ? 'Ấp '+q.ap : '', q.to ? 'Tổ '+q.to : ''].filter(Boolean).join(' · '))+'</small>';
   var nho = !x.ka && x.k.che!=='tailieu' && x.k.matTruoc && nhom!=='khop' ? '<br><img class="sx-nho" data-sx-anh="'+x.k.id+'" alt="">' : '';
   var phai = nhom==='khop' ? '✓ '+kh(x.ma)+' <small class="sx-ly">khớp '+coChuHTML(x.theo)+'</small>'
     : nhom==='goiY' ? '<label class="sx-r"><input type="checkbox" data-lenh="sx.xn" data-su="change" data-i="'+i+'"'+(SXP.xn[i] ? ' checked' : '')+'> <b>Đúng — xếp vào:</b> '+kh(x.ma)+'</label><small class="sx-ly vang">'+coChuHTML(x.ly)+'</small>'

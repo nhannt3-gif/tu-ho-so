@@ -20,8 +20,8 @@ function rsHoMoi(s){   /* số CCCD có trong Sổ hộ vay (khách mới chưa 
 }
 /* đọc 1 bản CCCD đã lưu → k.raDoc (không còn ảnh trong máy → không ghi, lần sau thử lại) */
 function rsDoc(k){
-  return Promise.all([docAnhHS(k.id+'_matTruoc'), k.matSau ? docAnhHS(k.id+'_matSau') : null]).then(function(b){
-    if(!b[0] && !b[1]) return {khong:1, ly:'ảnh không còn trong máy (lưu ở máy khác?)', tam:1};
+  return sxAnhDoc(k).then(function(b){
+    if(!b[0] && !b[1]) return {khong:1, ly:'ảnh không có trong máy này, chưa tải được bản trên Drive', tam:1};
     return docCCCD(b[0], b[1]).then(function(r){ return r && r.cccd ? {cccd:r.cccd, cmnd:r.cmnd||'', ten:r.ten||'', ns:r.ns||'', ncap:r.ncap||'', han:r.han||'', nguon:r.nguon, mot:!(b[0] && b[1])} : {khong:1, ly:'không đọc được mã QR / mã máy đọc'}; });
   }).then(function(r){ if(r.khong && !r.tam) r.ban = SX_DOC_BAN; if(!r.tam) k.raDoc = r; return r; }, function(e){ return {khong:1, ly:(e && e.message) || 'lỗi khi đọc ảnh', tam:1}; });
 }

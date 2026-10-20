@@ -14,7 +14,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - Trùng tên (hoặc 1 số CCCD ở nhiều mã KH): **ngày sinh trên thẻ** khớp đúng 1 khách → chuyển sang "? Gợi ý" (anh tích ✓).
   - Màn Sắp xếp, dòng gợi ý / trùng: hiện **số + tên + ngày sinh đọc được trên thẻ**, mỗi khách kèm **CCCD / ngày sinh theo Mẫu 31**, và **ảnh nhỏ 2 mặt thẻ** để anh nhìn so.
   - Hạn CCCD ở 🔎 Rà dùng chung quy tắc tab Tổ (`toCCCDHan`).
-- Phép thử: t209 (11) — Tesseract chạy trong máy (tests/lib).
+  - **Anh 20/10** (hộ Thủy): "anh đã có lưu là tổ Mai Văn Quang nhưng app vẫn báo" → 🧹 Sắp xếp **dùng tổ / ấp anh chọn khi quét**: tổ dạng "mã — tên" so **mã tổ** Mẫu 31; khách trong tổ đó có tên gần đúng → "? Gợi ý" (kể cả khi Mẫu 31 có khách cùng tên ở tổ khác); không có tên gần đúng → khách trong tổ cùng tên gọi (chữ cuối) được đưa vào danh sách chọn / gợi ý, ghi rõ tên trên Mẫu 31. Dòng hiện "Khi quét anh chọn: Ấp … · Tổ …".
+  - **Ảnh thẻ không có trong máy** (quét ở máy khác, khung Sửa bản quét trống ảnh) → tải **PDF bản lưu trên Drive**, dựng trang 1 thành ảnh rồi đọc số (`sxAnhDoc`) — dùng cho 🧹 Sắp xếp và 🔎 Rà.
+- Phép thử: t209 (14) — Tesseract chạy trong máy (tests/lib).
 
 ## 3.268 — 20/10/2026 — 🔎 Rà CCCD đã lưu + bản trùng
 - **Anh 20/10**: "em cũng có nên có bước chạy kiểm tra các cccd đã lưu coi đúng ko, trong lúc mới này sợ chtr chưa chuẩn luu sai"; "nếu kiểm tra thấy trùng tên thì báo để xóa 1 cái, nếu em ktra dc nội dung dc thì tốt"; "người thừa kế sẽ ko lưu cccd nổi nên tính sau, em chỉ báo".

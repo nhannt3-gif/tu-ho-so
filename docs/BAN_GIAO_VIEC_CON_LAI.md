@@ -227,8 +227,9 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 |---|---|---|---|
 | 1 | 🧹 Sắp xếp với bản "Nguyen Thi Bich Thuy" (có mạng) | Thanh "Đang đọc số CCCD từ ảnh…" → dòng hiện "Thẻ đọc được: số · sinh …"; khách đúng ngày sinh lên Gợi ý (hoặc ✓ chắc nếu Mẫu 31 có số CCCD) | |
 | 2 | Dòng trùng tên | Mỗi khách ghi CCCD / ngày sinh Mẫu 31, có ảnh nhỏ 2 mặt thẻ | |
+| 3 | Hộ Thủy (tổ Mai Văn Quang) trên máy không có ảnh thẻ | Sắp xếp tải PDF từ Drive đọc số; khách tổ Mai Văn Quang lên Gợi ý ("đúng tổ / ấp anh chọn khi quét") | |
 
-**Ghi chú kỹ thuật 3.269:** `docCCCD`: QR cả ảnh → 4 góc phóng to (`sxManh`); mã máy đọc đáy ảnh → 4 góc; `cccdQR` nhận mẫu khác; `SX_DOC_BAN = 2` (cccdKhong / raDoc.ban); `sxXacDinh({ns})` tách trùng theo ngày sinh; `sxNhanKH2`. tests/tv.js định tuyến Tesseract 5.1.1 + core 5.1.0 + eng → tests/lib.
+**Ghi chú kỹ thuật 3.269:** `docCCCD`: QR cả ảnh → 4 góc phóng to (`sxManh`); mã máy đọc đáy ảnh → 4 góc; `cccdQR` nhận mẫu khác; `SX_DOC_BAN = 2` (cccdKhong / raDoc.ban); `sxXacDinh({ns, db})` tách trùng theo ngày sinh + tổ / ấp chọn khi quét (`sxDBQuet`, `sxHopDB` — so mã tổ); `sxAnhDoc` (ảnh trong máy → PDF Drive); `sxNhanKH2`. tests/tv.js định tuyến Tesseract 5.1.1 + core 5.1.0 + eng → tests/lib.
 
 ### Danh sách thử trên máy thật (3.268) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

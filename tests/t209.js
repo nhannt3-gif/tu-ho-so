@@ -59,6 +59,24 @@ const fs=require('fs'), path=require('path');
    await w(500);
    ok('có ảnh nhỏ mặt thẻ để anh nhìn (2 mặt; bản không còn ảnh thì bỏ)', document.querySelectorAll('#hop-in img.sx-nho').length===2, document.querySelectorAll('#hop-in img.sx-nho').length+' ảnh');
    dongHop();
+   /* 6. anh: "đã lưu là tổ Mai Văn Quang nhưng app vẫn báo" — tổ chọn khi quét (có mã tổ) → khách trong tổ đó, tên gần đúng */
+   const tB = 'Nguyễn Thị Bích Giả Thủy'; DB['9990000094'] = {ten:tB, to:'XX1', tenXa:'Xã A'}; DB['9990000095'] = {ten:tB, to:'XX2', tenXa:'Xã B'}; DB['9990000096'] = {ten:'Nguyễn Thị Bích Giả Thùyy', to:'T0099', tenXa:'Phường C'}; SX_CHI = null;
+   const k3 = {id:'t209c', che:'the', ten:'Nguyen Thi Bich Gia Thuy', to:'T0099 — Mai Văn Giả', ap:'Ấp Giả', tag:['CCCD'], cccdKhong:2, suaLuc:bay};
+   const X3 = sxXacDinh({ten:k3.ten, db:sxDBQuet(k3)}), X3b = sxXacDinh({ten:k3.ten});
+   ok('tổ chọn khi quét "mã — tên" → so mã tổ Mẫu 31: khách trong tổ (tên gần đúng) lên Gợi ý, không còn trùng 2 khách tổ khác', X3.goiY==='9990000096' && /đúng tổ/.test(X3.ly) && X3b.ds && X3b.ds.length===2, JSON.stringify(X3));
+   DB['9990000096'].ten = 'Trần Thị Thủy Giả Khác'; DB['9990000097'] = {ten:'Lê Văn Giả', to:'T0099'}; SX_CHI = null;   /* tên gọi "Khác" chỉ 1 khách trong tổ */
+   const X5 = sxXacDinh({ten:'Pham Thi Gia Khac', db:{to:'Mai Văn Giả', maTo:'T0099', ap:''}});
+   ok('tên gọi cùng ("Khác") 1 khách trong tổ, Mẫu 31 không có tên đó → gợi ý khách trong tổ, ghi tên Mẫu 31', X5.goiY==='9990000096' && /Mẫu 31 ghi Trần Thị Thủy Giả Khác/.test(X5.ly), JSON.stringify(X5));
+   /* 7. ảnh không có trong máy (quét ở máy khác) → tải PDF trên Drive, dựng trang thành ảnh, đọc số */
+   const pdf = await PDFLib.PDFDocument.create(), pg = pdf.addPage([595, 842]), jb = new Uint8Array(await (await blob(A)).arrayBuffer());
+   const im = await pdf.embedJpg(jb); pg.drawImage(im, {x:0, y:0, width:595, height:842}); const pb = await pdf.save();
+   const k4 = {id:'t209d', che:'the', ten:'x', matTruoc:true, driveId:'drv209'};
+   const cu = {n:coTheNoiDrive, t:canToken, f:window.fetch}; coTheNoiDrive = () => true; canToken = () => Promise.resolve(true); DR.token = DR.token || 'gia';
+   window.fetch = (u, o) => /drv209\?alt=media/.test(u) ? Promise.resolve(new Response(new Blob([pb], {type:'application/pdf'}))) : cu.f(u, o);
+   const bAnh = await sxAnhDoc(k4); coTheNoiDrive = cu.n; canToken = cu.t; window.fetch = cu.f;
+   const r4 = bAnh[0] ? await docCCCD(bAnh[0], null) : null;
+   ok('máy không có ảnh → tải PDF bản lưu trên Drive → đọc ra số CCCD', r4 && r4.cccd==='072184000902', JSON.stringify(r4));
+   ['9990000094', '9990000095', '9990000096', '9990000097'].forEach(m=>delete DB[m]); SX_CHI = null;
    /* dọn */
    D.scan = D.scan.filter(k=>!/^t209/.test(k.id)); ['9990000091', '9990000092'].forEach(m=>delete DB[m]); SX_CHI = null; luu();
    return o;
