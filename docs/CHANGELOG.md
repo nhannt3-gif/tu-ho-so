@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.294 — 20/10/2026 — Bước 0 kế hoạch tên + lưu: dọn kỹ thuật Scan
+- **Anh 20/10**: "đồng ý em code và gộp lên; các vấn đề đã chốt về cách lưu, cách xem thì thống nhất cho các chức năng tương đồng" → làm theo `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` (anh đồng ý đề xuất: (a) hộ mới khóa bằng số CCCD, (b) 1 thư mục `Hồ sơ vay`, (c) tên loại 01TD / 03TD / 01UQ / 10C / 01TGTV / 01GQVL / 07BGQVL).
+- **File thả tay trên Drive** (nguyên tắc mục 12: file không quản được đưa về chỗ chung): 🔎 Rà CCCD › khối "☁ File trên Drive không qua app" nay nhóm theo khách — **PDF + ảnh mặt trước / sau cùng khách = 1 bản**; tích **Nhận vào app** → thành bản CCCD: nhận ra khách → tên chuẩn `MãKH - Họ tên - CCCD` (2 ảnh `… - Mặt trước / Mặt sau.jpg`), đúng thư mục; chỉ có ảnh → app dựng PDF từ 2 ảnh; PDF không nhận ra khách → ⏳ Chờ sắp xếp; ảnh không nhận ra khách → chỉ báo (chưa biết ghép với ai). Tên ảnh có chữ "Mặt trước / Mặt sau" vẫn nhận ra khách.
+- **Tải ảnh từ Drive** (máy khác xem / in / Rà): tối đa 2 file cùng lúc, không dồn hàng chục lượt tải.
+- **🧹 Dọn ảnh tải về** (cuối 🔎 Rà): xóa ảnh mặt thẻ máy này đã tải từ Drive cho nhẹ — Drive vẫn giữ, mở xem thì app tự tải lại; ảnh quét ở máy này không đụng.
+- Phép thử: t223 mới (6).
+
 ## 3.293 — 21/10/2026 — 🎯 Phân bổ kế hoạch: P2 giao diện tab con + P3 Biểu 07 (TK chính)
 - **Anh nhắn "gộp rồi code p2" (20/10), "em code hết" + "em làm luôn P3 và gộp lên luôn" (21/10)** — `docs/KE_HOACH_PHAN_BO_KH.md` mục 5–6. P2 làm xong lúc `main` = 3.287 (đặt số 3.288 trên nhánh, chưa gộp); TK phụ gộp tiếp 3.288 → 3.292 → P2 + P3 chuyển nền theo `main`, gộp chung 1 bản 3.293 (cách gỡ ở mục 9 ý 2).
 ### P2 — giao diện tab con

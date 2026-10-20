@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.293', ds:[
+var CO_GI_MOI = {ban:'3.294', ds:[
+  ["Scan (bước 0 kế hoạch tên + lưu): 🔎 Rà nhận file thả tay trên Drive vào app (PDF + 2 ảnh cùng khách = 1 bản, tên chuẩn); tải ảnh Drive tối đa 2 cùng lúc; 🧹 dọn ảnh tải về", "doiNgan(4)"],
   ["🎯 Tab con Phân bổ KH (📈 Số liệu): danh sách QĐ nhóm theo QĐ · ＋ QĐ mới nhiều xã (Đã giao tự gợi ý theo QĐ trước, Đến 31/12 tự tính, ✗ lệch / ⚠ đứt chuỗi) · 📥 Nhập QĐ từ file sao lưu của app Phân bổ kế hoạch (bản máy tính)", "slDoiTab('pb');doiNgan(7)"],
   ["⚙ Phân bổ QĐ xuống ấp: Tương đối (chia đều chẵn 100) / Chính xác (theo dư nợ Mẫu 31 cuối tháng trước QĐ, chẵn 50) — chỉ 1 ấp lẻ, giảm không âm; đối chiếu khớp Đã giao → Tăng/giảm → Đến 31/12; sửa tay tăng/giảm từng ấp", "slDoiTab('pb');doiNgan(7)"],
   ["📄 Biểu 07 Phân bổ KH theo đúng mẫu Word (Thông báo của UBND xã + Danh mục): 👁 xem trước · 🖨 In · 📄 PDF · 📝 Word — 1 xã hoặc 📦 mọi xã của QĐ; chỉ xuất khi khớp QĐ; ngày thông báo tự tính / để chấm / gõ", "slDoiTab('pb');doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.293', ds:[
   ["🎯 Chuẩn bị tab Phân bổ kế hoạch (gộp app Phân bổ KH của anh): lõi tính phân bổ QĐ xuống ấp + đọc dư nợ Mẫu 31 theo ấp — chưa có màn hình (bản sau)", "doiNgan(7)"],
   ["Scan: dòng trạng thái tách 2 mặt hiện được ở khung phải máy tính; cách dò khung thẻ thứ 2 (thẻ nhiều vùng gần trắng, 2 mặt chồng dọc); bản đã báo không tách được tự thử lại 1 lần", "doiNgan(4)"],
   ["Scan: CCCD cũ không ghi chế độ (che trống) cũng tự tách + có dòng trạng thái; ảnh ghi có mà không lấy được → báo đỏ + nút Tách 2 mặt từ PDF", "doiNgan(4)"],
-  ["Scan: in nhiều CCCD (4 khách / A4) — bản cũ chỉ có PDF tự tách 2 mặt trước khi in; bản không tách được không ghép, báo tên", "doiNgan(4)"],
-  ["Scan: mỗi CCCD có dòng trạng thái tách 2 mặt (đã tách / chưa duyệt / không tách được + lý do, ↻ Thử tách lại); 🔎 Rà liệt kê bản không tách được", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Scan: in nhiều CCCD (4 khách / A4) — bản cũ chỉ có PDF tự tách 2 mặt trước khi in; bản không tách được không ghép, báo tên", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

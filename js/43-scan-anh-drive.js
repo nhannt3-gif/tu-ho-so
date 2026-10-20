@@ -22,7 +22,14 @@ function sxDoiId(id, cha, idTM, ten){
   return c.then(function(c0){ return goiDrive('https://www.googleapis.com/drive/v3/files/'+id+'?fields=id,parents'+(c0 && c0!==idTM ? '&addParents='+idTM+'&removeParents='+c0 : (!c0 ? '&addParents='+idTM : '')),
     {method:'PATCH', headers:{'Content-Type':'application/json'}, body:JSON.stringify(ten ? {name:ten} : {})}); });
 }
+/* 3.293 (bước 0): tải ảnh từ Drive tối đa 2 file cùng lúc (mở danh sách / Rà nhiều bản không dồn hàng chục lượt tải) */
+var SX_TAI_DANG = 0, SX_TAI_CHO = [];
 function sxTaiVe(id){
+  return new Promise(function(ok, loi){ SX_TAI_CHO.push(function(){ SX_TAI_DANG++;
+    sxTaiVe1(id).then(ok, loi).then(function(){ SX_TAI_DANG--; var f = SX_TAI_CHO.shift(); if(f) f(); }); });
+    if(SX_TAI_DANG<2){ var f = SX_TAI_CHO.shift(); if(f) f(); } });
+}
+function sxTaiVe1(id){
   return canToken().then(function(co){ if(!co) return null;
     return fetch('https://www.googleapis.com/drive/v3/files/'+id+'?alt=media', {headers:{'Authorization':'Bearer '+DR.token}}).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.blob(); }); })
     .then(function(b){ return b ? new Blob([b], {type:'image/jpeg'}) : null; });
@@ -72,7 +79,7 @@ docAnhHS = function(id){
     if(b) return b;
     var m = /^(.+)_ma[t](Truoc|Sau)$/.exec(id||''), k = m && (D.scan||[]).find(function(x){ return x.id===m[1]; }), a = k && k.anhDrive && k.anhDrive[m[2]==='Sau' ? 'sau' : 'truoc'];
     if(!a || !a.id || !coTheNoiDrive()) return null;
-    return sxTaiVe(a.id).then(function(bl){ if(!bl) return null; return luuAnhHS(id, bl).then(function(){ return bl; }); }, function(){ return null; });
+    return sxTaiVe(a.id).then(function(bl){ if(!bl) return null; return luuAnhHS(id, bl).then(function(){ k.anhTai = 1; luu(); return bl; }); }, function(){ return null; });   /* 3.293: đánh dấu ảnh tải về (dọn được) */
   });
 };
 var SX_CO_ANH_CU = coAnhTrongMay;
@@ -318,3 +325,13 @@ dungTrangThe = function(dsId, viec){
       return r;
     }, function(e){ tatChay(); baoLoi('Chưa dựng được trang in: '+(e && e.message || e)); });
 };
+
+/* ---------- 3.293 (bước 0 kế hoạch tên + lưu): 🧹 dọn ảnh tải về từ Drive ----------
+   Ảnh 2 mặt máy này tải từ Drive để xem / in (k.anhTai) → xóa bản trong máy cho nhẹ; Drive vẫn giữ, cần thì app tự tải lại. Ảnh quét ở máy này không đụng. */
+function sxDsAnhTai(){ return (D.scan||[]).filter(function(k){ return k.anhTai && k.anhDrive && k.anhDrive.truoc; }); }
+function sxDonAnhTai(){
+  var ds = sxDsAnhTai(); if(!ds.length) return bao('Không có ảnh tải về nào cần dọn.', 3);
+  ds.forEach(function(k){ xoaFile('hs_'+k.id+'_matTruoc'); xoaFile('hs_'+k.id+'_matSau'); if(typeof CO_ANH!=='undefined') delete CO_ANH[k.id]; delete k.anhTai; });
+  luu(); bao('🧹 Đã dọn ảnh tải về của '+ds.length+' bản (Drive vẫn giữ — mở xem thì app tự tải lại).', 6);
+  if(typeof RS!=='undefined' && RS && document.querySelector('#hop-in .ql-the')) rsVe();
+}

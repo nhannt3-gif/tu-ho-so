@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.294) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Thả tay 1 PDF + 2 ảnh CCCD (tên có mã KH) vào Drive › CCCD → 🗂 Quản lý › 🔎 Rà | Khối File trên Drive: 1 dòng gộp 3 file, tích Nhận vào app → 1 bản tên chuẩn | |
+| 2 | Máy khác mở nhiều CCCD | Ảnh tải dần, không treo | |
+| 3 | 🔎 Rà › 🧹 Dọn ảnh tải về | Báo đã dọn n bản; mở lại vẫn xem được | |
+
+**Ghi chú kỹ thuật 3.294:** 43: `sxTaiVe` hàng đợi 2 luồng (`SX_TAI_DANG`, `SX_TAI_CHO`, tải thật `sxTaiVe1`); `docAnhHS` tải về → `k.anhTai`; `sxDsAnhTai` / `sxDonAnhTai`. 42: `rsDrive` ghi `ma / anh / pdf / mat` cho file ngoài (bỏ chữ Mặt trước / sau trước khi `sxBoc`); `rsNhomNhan` → `dr.nhan`; `rsNhanVao` (PDF → `driveId`; ảnh → `anhDrive`, `canDay`); `rsApDung` + `RS.nhan`.
+
 ### Danh sách thử trên máy thật (3.293) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

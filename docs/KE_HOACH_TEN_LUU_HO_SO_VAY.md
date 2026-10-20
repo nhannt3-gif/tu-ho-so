@@ -2,7 +2,7 @@
 
 > Anh 20/10/2026: *"làm cho tab Scan trước, sau này sẽ phát triển thống nhất tên và cấu trúc lưu cho hồ sơ vay, còn VB thì kiểu khác rồi"*;
 > nguyên tắc file (QUY_CHUAN_KIEN_TRUC mục 12): *mọi file có tên và quản lý được, file không quản được thì để chỗ chung để kiểm tra*.
-> Trạng thái: **đề xuất — chờ anh duyệt** (chưa code). Số liệu hiện trạng dưới đây em đọc từ code 3.278.
+> Trạng thái: **anh duyệt 20/10/2026** ("đồng ý em code và gộp lên … thống nhất cho các chức năng tương đồng") — nhận đề xuất (a) số CCCD, (b) 1 thư mục `Hồ sơ vay`, (c) tên loại như mục 4. Tiến độ: mục 5. Số liệu hiện trạng dưới đây em đọc từ code 3.278.
 
 ## 1. Hiện trạng (đã kiểm tra trong code)
 | Phần | Tên đang đặt | Nơi lưu | Gắn khách |
@@ -33,3 +33,6 @@
 - **(a)** Hộ mới chưa có mã KH: khóa bằng **số CCCD** (em đề xuất) hay chữ `MOI` + họ tên?
 - **(b)** Hồ sơ vay lưu PDF lên Drive: 1 thư mục **`Hồ sơ vay`** phẳng (em đề xuất) hay chia theo chương trình (HSSV, NS&VSMT…)?
 - **(c)** Tên loại mẫu: `01TD`, `03TD`, `01UQ`, `10C`, `01TGTV` — đúng cách anh hay gọi chưa?
+
+## 5. Tiến độ
+- 20/10 · **3.294 bước 0 xong**: Rà nhận file thả tay trên Drive (nhóm theo khách, Nhận vào app), tải ảnh Drive ≤ 2 cùng lúc, 🧹 dọn ảnh tải về.
