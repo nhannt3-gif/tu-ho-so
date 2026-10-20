@@ -322,7 +322,8 @@ var CC = {mo:'', hop:'', hs:null, db:{tim:''}};
 var CONG_CU = [
   {id:'hssv',   ico:'🎓', ten:'Hạn trả HSSV', tit:'Hạn trả HSSV', ve:function(){ return ccHSSVHTML(); },
     dau:function(){ return hsChonLoaiHTML(); },
-    nut:'<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt để dán vào hồ sơ">📋 Chép</button><button class="nho" onclick="hsGhiTodo()" title="Ghi câu chốt vào to-do hôm nay">📝</button><button class="nho" onclick="hsNoi()" title="Cửa sổ nổi luôn nằm trên trình duyệt / chương trình khác (Chrome, Edge)">📌 Nổi</button>'},
+    nut:'<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt để dán vào hồ sơ">📋 Chép</button><button class="nho" onclick="hsGhiTodo()" title="Ghi câu chốt vào to-do hôm nay">📝</button><button class="nho" onclick="hsNoi()" title="Nổi — cửa sổ luôn nằm trên trình duyệt / chương trình khác (Chrome, Edge)">📌</button>'},
+    /* 3.276 (anh: "nút nổi lên và Esc bố trí gọn tiết kiệm 1 dòng"): 📌 Nổi, ✕ Đóng chỉ biểu tượng — tiêu đề công cụ 1 dòng */
   {id:'diaban', ico:'🗺', ten:'Địa bàn',      tit:'Cây địa bàn — mã xã, điểm GD, ấp/KP', ve:function(){ return ccDiaBanHTML(); }},
   {id:'ctvay',  ico:'📋', ten:'CT vay', tit:'Chương trình vay — tóm tắt đang cho vay · danh mục mã', ve:function(){ return ccCTVHTML(); },
     dau:function(){ return ctvChonHTML(); }},
@@ -583,7 +584,7 @@ function ccDong(){ CC.mo = ''; Array.prototype.forEach.call(document.querySelect
 function ccHopHTML(c){
   return '<div class="cc-hop" data-cc="'+c.id+'"><div class="cc-dau"><b>'+c.ico+' '+coChuHTML(c.tit||c.ten)+'</b>'+
     (c.dau ? c.dau() : '')+'<span class="cc-gian"></span>'+
-    (c.nut||'')+'<button class="nho" onclick="ccDong()">Đóng (Esc)</button></div>'+
+    (c.nut||'')+'<button class="nho cc-dong" onclick="ccDong()" title="Đóng (Esc)">✕</button></div>'+
     '<div class="cc-than" id="cc-than">'+(c.ve ? c.ve() : '<div class="huong-dan">Công cụ này <b>đang chuẩn bị</b> — anh gửi nghiệp vụ là em làm tiếp.</div>')+'</div></div>';
 }
 function veCC(){
@@ -604,7 +605,7 @@ function veCC(){
 /* ô công cụ gói trong màn hình: cao tới sát dải trạng thái dưới cùng, dài hơn thì cuộn bên trong */
 function ccVuaMan(){
   var o = document.getElementById('cc-o'); if(!o || !o.firstChild) return;
-  var day = document.querySelector('.day'), dayTop = day ? day.getBoundingClientRect().top : window.innerHeight;
+  var day = document.querySelector('.day'), r = day && day.offsetParent ? day.getBoundingClientRect() : null, dayTop = r && r.height ? r.top : window.innerHeight;   /* 3.276 (anh: "mở rộng khung HSSV đến cuối trang"): dải dưới ẩn trên máy tính (3.148) → tới đáy cửa sổ (trước rơi về 200 px) */
   o.style.maxHeight = Math.max(200, Math.round(dayTop - o.getBoundingClientRect().top - 8))+'px';
 }
 window.addEventListener('resize', function(){ if(CC.mo) ccVuaMan(); });
