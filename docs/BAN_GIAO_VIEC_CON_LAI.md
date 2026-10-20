@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.273) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sổ hộ vay › ✎ hộ › 🪪 Quét › 📷 Chụp (điện thoại) | Mở camera sau, chụp thẻ → bảng xác nhận → Điền đúng 4 ô | |
+| 2 | 🪪 Quét › 🖼 Ảnh có sẵn (bản photo 2 mặt) | Đọc được, điền được | |
+| 3 | 01/TD hộ mới › 🪪 Quét | Điền người vay; tab Scan có bản CCCD mới (chờ sắp xếp) | |
+
+**Ghi chú kỹ thuật 3.273:** `qcMo({loai:'hm'|'l01', i})` mở hộp con (GD.moCon khi đang có hộp); `qcCatThe` = timKhungThe + nanPhoiCanh; `qcGiaTri` (tên Mẫu 31 khi thẻ không dấu); `qcDien` → `hmChuan` rồi `hmVe` / `hsoVe`; `qcLuuTu` thêm bản `tuForm:1`. Camera: getUserMedia trong hộp, tự tắt khi hộp đóng.
+
 ### Danh sách thử trên máy thật (3.272) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
