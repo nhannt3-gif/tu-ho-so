@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.266 — 20/10/2026 — Sắp xếp đọc số CCCD từ ảnh
+- **Anh 20/10** (ảnh màn Sắp xếp: 7 bản "trùng tên"): "em có đọc thêm số CCCD không".
+- 🧹 Sắp xếp, trước khi lập kế hoạch: bản CCCD chưa xác định khách, ảnh còn trong máy, chưa từng đọc → **đọc mã QR / 3 dòng mã máy đọc từ ảnh** (`sxDocTuAnh`), ghi số CCCD vào bản scan → tra Mẫu 31 theo quy tắc 3.265 (số CCCD chuẩn nhất) → hết trùng tên. Ảnh không đọc được → đánh dấu, lần sau không đọc lại.
+- Chữ ký / ảnh / tài liệu **cùng tên** với 1 CCCD đã xác định → khối "? Gợi ý" (lý do "cùng tên với CCCD đã xác định"), anh ✓ mới xếp; 2 khách khác nhau cùng tên → không gợi ý.
+- Sửa: dòng "File cũ dời về chỗ mới" hiện tên (trước trống); nút chọn khách trùng tên xuống dòng (trước tràn ngang).
+- Phép thử: t207 thêm 6 (37).
+
 ## 3.265 — 20/10/2026 — Scan: chỉ đổi tên + xếp khi xác định chắc khách
 - **Anh 20/10:** "CCCD nào xác định được mã KH, CCCD, tên đúng thì đổi tên đúng chuẩn và lưu, chưa xác định được thì để thư mục chung, quy tắc khi lưu tương ứng với Mẫu 31".
 - `sxXacDinh` thay `sxTim`: **xác định chắc** = khớp **ít nhất 2 trong 3** (số CCCD · mã KH · họ tên không dấu) với cùng 1 khách Mẫu 31 → đặt tên `MãKH - Họ tên - Loại` theo Mẫu 31, lưu đúng thư mục.

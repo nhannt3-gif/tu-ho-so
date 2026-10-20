@@ -2965,6 +2965,7 @@ details.sl-kq > summary small,details.sl-ktgs-nap > summary small{font-weight:40
 .hkb-xls input[id$="Ngay"],.hkb-xls input[id$="-nk"]{min-width:96px}
 .hkb-xls .hkb-pc{border:none;background:none;min-height:0;padding:2px 8px}
 /* 3.155 — Scan: hộp Xong (Lưu máy · Gửi · Copy ảnh · Lưu tủ) + chọn khách */
+.sx-khoi .to-bang td{white-space:normal;vertical-align:middle}.sx-chon{display:flex;flex-wrap:wrap;gap:4px}.sx-chon .gd-nut{white-space:normal;text-align:left}   /* 3.266: nút chọn khách xuống dòng, không tràn ngang */
 .sx-luoi{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
 .sx-o{display:flex;gap:10px;align-items:center;text-align:left;padding:12px 14px;border:1.3px solid var(--vien);border-radius:12px;background:var(--the);cursor:pointer;font:inherit;color:var(--chu)}
 .sx-o:hover{border-color:var(--xanh);background:var(--xanh-nhat)}

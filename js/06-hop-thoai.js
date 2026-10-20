@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.265', ds:[
+var CO_GI_MOI = {ban:'3.266', ds:[
+  ["🧹 Sắp xếp tự đọc số CCCD từ ảnh (QR / mã máy đọc) của bản chưa xác định → hết trùng tên; chữ ký / ảnh cùng tên gợi ý cùng khách", "doiNgan(4)"],
   ["🧹 Scan: chỉ xếp khi xác định chắc — khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên) với Mẫu 31 (số CCCD chuẩn nhất; tên so bỏ dấu, cho lệch nhỏ); chưa chắc để thư mục chung, anh bấm ✓ Đúng mới xếp", "doiNgan(4)"],
   ["🗂 Scan lưu tập trung (4 thư mục phẳng, tên MãKH - Họ tên - Loại) · 🧹 Sắp xếp theo Mẫu 31 · 📊 Kiểm tra theo tổ · 📇 tự đọc số CCCD (mã QR / 3 dòng mã máy đọc) · bản photo 2 mặt · ảnh khách tự lấy từ CCCD", "doiNgan(4)"],
   ["📊 Sao kê › Tình hình hoạt động (THHD) thay Bộ thông tin tổ: 1 trang A4 dọc, chi tiết theo cấp chọn (PGD › xã › điểm › hội › tổ)", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.265', ds:[
   ["📋 06/TD có ⚙ Khai báo riêng: đơn vị kiểm tra (theo Hội / để chấm / gõ riêng), cán bộ kiểm tra 1 (vai trò, tên theo Khai báo Hội), cán bộ 2 + chức vụ, thời điểm kiểm tra, mục đích (theo hồ sơ / để trống)", "doiNgan(7)"],
   ["🔤 Khai báo riêng mọi mẫu: chọn cỡ chữ 13 · 13,5 · 14; 01/TD in thật cỡ 14 (sửa 3.247 mới đổi khung ô, thân chữ vẫn 13)", "doiNgan(7)"],
   ["📋 Mẫu 06/TD trong Hồ sơ vay: phiếu kiểm tra sử dụng vốn (dùng Mẫu 06 KTGS), nhiều hộ / phiếu theo danh sách 03/TD, phần ghi theo hồ sơ điền sẵn (giải ngân = dư nợ = số vay, mục đích); 01/TD In kèm 06/TD", "doiNgan(7)"],
-  ["⚙ Khai báo riêng mọi mẫu hồ sơ (01/TD, 01/UQ, 03/TD, 09A, 01/TĐCK, 01/TGTV, 01/GQVL, 07b, 10A–10D, 11…): 💾 Lưu đóng khung, ✕ Hủy / đóng chưa lưu thì trả lại, ↺ mặc định từng ô, ô cần gõ tự ra cột trái, ô theo chương trình mở thẻ chương trình — chỉ chỗ chấm, câu chữ mẫu giữ nguyên", "doiNgan(7)"],
-  ["📝 HSSV: đối tượng thụ hưởng mặc định \"Hộ gia đình gặp khó khăn về kinh tế, tài chính do bệnh tật\" — 03/TD tự điền, đổi / thêm ở ⚙ khai báo chương trình", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["⚙ Khai báo riêng mọi mẫu hồ sơ (01/TD, 01/UQ, 03/TD, 09A, 01/TĐCK, 01/TGTV, 01/GQVL, 07b, 10A–10D, 11…): 💾 Lưu đóng khung, ✕ Hủy / đóng chưa lưu thì trả lại, ↺ mặc định từng ô, ô cần gõ tự ra cột trái, ô theo chương trình mở thẻ chương trình — chỉ chỗ chấm, câu chữ mẫu giữ nguyên", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

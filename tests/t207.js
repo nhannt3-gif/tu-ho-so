@@ -87,6 +87,20 @@ const fs=require('fs'), path=require('path');
    ok('chữ ký "ck-Tên" → gắn mã KH, tên file chuẩn', ka.maKH===k2 && sxTenKA(ka)===k2+' - '+c2.ten+' - Chữ ký.jpg', sxTenKA(ka));
    ok('trùng tên: theo khách anh chọn', s3.maKH==='9990000002' && tenScanDrive(s3)==='9990000002 - '+tTrung+' - 01TD.pdf', tenScanDrive(s3));
    ok('chưa có trên Mẫu 31 → vẫn ở thư mục chờ', !s2.maKH && duongScan(s2)===D.cauHinh.thumuc+' / Scan chờ sắp xếp');
+   /* 3.266: Sắp xếp tự đọc số CCCD từ ảnh (QR giả) → hết trùng tên; chữ ký cùng tên → gợi ý cùng khách */
+   const tT2 = 'Hai Người Cùng Tên'; DB['9990000011'] = {ten:tT2, cccd:'079000000123', tenXa:'Xã A'}; DB['9990000012'] = {ten:tT2, cccd:'079000000999', tenXa:'Xã B'}; SX_CHI = null;
+   const s4 = {id:'t207d', che:'the', ten:'Hai Nguoi Cung Ten', tag:['CCCD'], matTruoc:true, matSau:false, suaLuc:bay};
+   const ka2 = {id:'kat207b', loai:'ky', khach:'Hai Người Cùng Tên', ten:'y.jpg', suaLuc:bay};
+   await luuAnhHS('t207d_matTruoc', blT); D.scan.push(s4); D.kyAnh.push(ka2);
+   ok('trước khi đọc ảnh: chỉ có tên → trùng 2 khách', (sxXacDinh({ten:s4.ten}).ds||[]).length===2);
+   moSapXep(); for(let i=0;i<40 && !(document.getElementById('hop-in')||{}).textContent.match(/Sắp xếp hồ sơ scan/);i++) await w(200); await w(300);
+   ok('Sắp xếp tự đọc số CCCD từ ảnh (QR) → ghi vào bản scan', s4.cccd==='079000000123' && s4.cccdDoc && s4.cccdDoc.nguon==='QR', s4.cccd);
+   ok('có số CCCD + tên → xác định chắc, hết trùng tên', SXP.khop.some(x=>x.k===s4 && x.ma==='9990000011') && !SXP.trung.some(x=>x.k===s4), [SXP.khop.length, SXP.trung.length].join('/'));
+   ok('chữ ký cùng tên với CCCD vừa xác định → gợi ý cùng khách (chờ ✓)', SXP.goiY.some(x=>x.k===ka2 && x.ma==='9990000011' && /cùng tên với CCCD/.test(x.ly)), JSON.stringify(SXP.goiY.map(x=>x.ly)));
+   ok('nút chọn khách xuống dòng (không tràn ngang)', !document.querySelector('#hop-in [data-lenh="sx.chon"]') || !!document.querySelector('#hop-in .sx-chon'));
+   dongHop(); D.scan = D.scan.filter(k=>k!==s4); D.kyAnh = D.kyAnh.filter(k=>k!==ka2); delete DB['9990000011']; delete DB['9990000012']; SX_CHI = null;
+   s1.cccdKhong = 1; const daDoc = (D.scan||[]).filter(k=>k.cccdKhong).length;
+   ok('ảnh không đọc được → đánh dấu, lần sau không đọc lại', daDoc>=1);
    /* 6. 📊 Kiểm tra */
    moKiemScan(); for(let i=0;i<30 && !SXK_BANG;i++) await w(200); await w(300);
    const T = SXK_BANG, toCo = T && [].concat(...T.ds.map(x=>x.to)).find(t=>t.ho.some(h=>h.ma===k1));
