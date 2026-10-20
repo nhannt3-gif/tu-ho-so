@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.292 — 20/10/2026 — Cột Tổ trưởng ở tab Scan
+- **Anh 20/10**: "thêm cột tổ trưởng chỗ scan". Kiểu xem **▦ Bảng** tab Scan thêm cột **Tổ trưởng** sau cột Ấp: tổ đã khai trên bản; bản chưa khai tổ mà đã gắn mã KH → lấy tổ của khách trên Mẫu 31. Bấm tiêu đề cột để sắp theo tổ.
+- Phép thử: t222 mới (2); t147 đổi theo cột mới.
+
 ## 3.291 — 20/10/2026 — Ráp mặt CCCD nhanh: dời 4 chiều
 - **Anh 20/10**: "trong chỗ chỉnh, em cho di chuyển đa chiều để ráp các mặt CCCD lại với nhau nhanh nhất, mỗi mặt đều dời được 4 chiều, ảnh CCCD cho lật tay được luôn".
 - Bước ① Chỉnh (Bản vừa quét, chế độ Thẻ): mỗi mặt có **◀ ▶** (đổi với ảnh liền trước / sau — trong cùng người là đổi mặt trước ↔ sau) và **▲ ▼** (sang người trên / dưới, cùng cột); ở mép lưới nút tự tắt. **Máy tính:** chạm (bấm) 1 ảnh rồi bấm **phím mũi tên ← → ↑ ↓** — ảnh đi theo, vẫn được chọn để bấm tiếp. Chạm 2 ảnh để đổi chỗ, kéo thả, ▲▼ dời cả người, ⇄ đổi mặt vẫn như cũ.
