@@ -74,3 +74,26 @@ function danFile(fs){
     nhanVaoScan(a, 'dan'); });
   bao('Dán file: văn bản dán ở tab 📄 Văn bản, ảnh CCCD dán ở tab Scan.', 5);
 }
+
+/* 3.290 (anh: "có file đọc được tên luôn nhưng khi lưu lại không kèm tên"): lưu 1 lượt quét NHIỀU người vào ⏳ Chờ sắp xếp (chưa đủ chắc khách)
+   — trước chỉ bản 1 người lấy tên đọc được, bản nhiều người thành "Scan <ngày giờ> - người n". Nay mỗi người: đọc được → tên "cccd-Họ tên - số CCCD"
+   (khớp chắc Mẫu 31 → họ tên Mẫu 31), lưu kèm số CCCD + thông tin đọc được (CMND 9 số) để ⏳ Sắp xếp / 🔎 Rà nhận khách ngay. */
+function qlTenDoc(x){
+  if(!x || !(x.cccd || x.ten)) return '';
+  var ten = x.tim && x.tim.ma ? (sxKhach(x.tim.ma).ten || x.ten) : x.ten;
+  return 'cccd-'+[ten, x.cccd].filter(Boolean).join(' - ');
+}
+scanLuuApp = function(){
+  if(!SX) return; scanTenFile();
+  var doc = SC.che==='the' && typeof SX_DOC!=='undefined' ? SX_DOC.slice() : [], tenGo = SX.ten;
+  SAU_LUU_TAM = function(ds){
+    var dat = 0;
+    ds.forEach(function(k, i){ var x = doc[i];
+      if(x && x.cccd){ k.cccd = x.cccd; k.cccdDoc = sxGhiDoc(x); if(x.cmnd) k.cmnd = x.cmnd; }
+      if(ds.length===1){ if(tenGo) k.ten = tenGo; }   /* 1 người: tên ở ô Tên file (đã điền sẵn theo thẻ đọc được, anh sửa được) */
+      else { var t = qlTenDoc(x); if(t){ k.ten = t; dat++; } } });
+    luu(); veScan(); SX = null;
+    bao('Đã lưu vào app — ⏳ Chờ sắp xếp (chưa gắn khách), lên Drive thư mục Scan chờ sắp xếp.'+(ds.length>1 ? ' '+dat+'/'+ds.length+' người đặt tên theo thẻ đọc được.' : '')+' Gắn khách: 🔎 Tra Mẫu 31 ở hộp Sửa, hoặc 🗂 Quản lý › ⏳ Chờ sắp xếp.', 8);
+  };
+  luuSauHang();
+};

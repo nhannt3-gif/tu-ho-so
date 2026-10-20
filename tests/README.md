@@ -183,6 +183,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t207.js` | 3.264 Scan lưu tập trung, Sắp xếp, Kiểm tra, đọc QR / mã máy đọc giả, bản photo 2 mặt, ảnh khách từ CCCD (25). |
 | `node tests/t250.js` | 3.285 P1 🎯 Phân bổ KH — lõi `js/47-phan-bo.js` (node, không trình duyệt): chia đều / theo tỷ lệ, số chẵn 1 ấp lẻ, giảm không âm, chính xác = dư nợ thật + chênh, "(Chưa rõ ấp)", QT-16 khớp Đã giao / Đến 31/12, sửa tay, 3.000 tình huống ngẫu nhiên, gợi ý Đã giao, đầu năm theo QĐ, chọn kỳ, nhập file WPF. |
 | `node tests/t251.js` | 3.285 cửa `KHO.duNoAp(kỳ)` với Mẫu 31 giả (node): gộp thôn × CT × nguồn, dòng lặp khế ước, CLOSE / dư nợ 0 / khách chỉ gửi TK bỏ, kỳ chưa có → null, nối `pbDuNoXa`. |
+| (3.290) | t220: lượt quét nhiều người vào Chờ sắp xếp — tên theo thẻ đọc được + số CCCD, người chưa đọc giữ tên tự đặt, bản cũ đổi tên khi Sắp xếp đọc ra số (4). |
 | (3.289) | t219 thêm: ảnh HEIC GIẢ (`tests/mau_anh/the_gia.heic`) — nhận nhãn HEIC, đổi JPG đúng cỡ / màu, dán ở tab Scan vào hàng quét (8). Thư viện thử: `heic-to@1.6.5` trong `tests/lib`. |
 | (3.288) | t219 thêm: dán 1 ảnh hỏng (HEIC) + 1 ảnh tốt — ảnh tốt vẫn vào hàng, báo tên ảnh hỏng (5). |
 | (3.287) | t219: dán file theo tab — Hôm nay chỉ báo, Văn bản thêm văn bản, Scan vào hàng quét Thẻ, hộp Quét CCCD nhận ảnh (4); t106 sửa: dán ở tab Văn bản. |
