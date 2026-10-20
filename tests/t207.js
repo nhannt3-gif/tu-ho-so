@@ -13,7 +13,7 @@ const fs=require('fs'), path=require('path');
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
    await slNap(); await w(200);
    const DB = KHO.dsKhach(), mas = Object.keys(DB).filter(m=>DB[m].ten);
-   const k1 = mas[0], k2 = mas[1], c1 = DB[k1], c2 = DB[k2];
+   const coSo = mas.filter(m=>/^\d{12}$/.test(String(DB[m].cccd||''))), k1 = coSo[0], k2 = mas.find(m=>m!==k1), c1 = DB[k1], c2 = DB[k2];
    /* 1. tên + nơi lưu */
    const a = {che:'the', ten:'cccd-Khách Thử', tag:['CCCD']}, bk = {che:'the', ten:c1.ten, maKH:k1, tag:['CCCD']}, tl = {che:'tailieu', ten:c1.ten, maKH:k1, tag:['01TD']};
    ok('chưa rõ khách → thư mục "Scan chờ sắp xếp", tên anh gõ', duongScan(a)===D.cauHinh.thumuc+' / Scan chờ sắp xếp' && tenScanDrive(a)==='cccd-Khách Thử.pdf', duongScan(a)+' · '+tenScanDrive(a));
@@ -24,9 +24,14 @@ const fs=require('fs'), path=require('path');
    /* 2. bóc tên + tra Mẫu 31 */
    const bb = sxBoc('cccd-'+c1.ten+'.pdf');
    ok('bóc tên: chữ đầu cccd- / ck- / anh- / 01td-', bb.loai==='cccd' && bb.ten===c1.ten && sxBoc('ck-A B').loai==='ky' && sxBoc('anh-A B').loai==='anh' && sxBoc('01td-A B').loai==='tl:01td', JSON.stringify(bb));
-   ok('tra theo tên (không dấu, hoa thường) → đúng 1 khách', sxTim('', boDau(c1.ten).toUpperCase()).ma===k1 || (sxTim('', c1.ten).ds||[]).indexOf(k1)>=0, JSON.stringify(sxTim('', c1.ten)));
-   const coCC = mas.find(m=>/^\d{12}$/.test(String(DB[m].cccd||'')));
-   ok('tra theo số CCCD → đúng mã KH', !coCC || sxTim(DB[coCC].cccd, '').ma===coCC, coCC ? DB[coCC].cccd : 'bộ giả không có CCCD 12 số');
+   /* 3.265 (anh chốt): xác định chắc = khớp ≥ 2 trong 3 (CCCD · mã KH · tên) */
+   const X1 = sxXacDinh({cccd:c1.cccd, ten:boDau(c1.ten).toUpperCase()}), X2 = sxXacDinh({ten:c1.ten}), X3 = sxXacDinh({cccd:c1.cccd}), X4 = sxXacDinh({cccd:c1.cccd, ten:'Tên Khác Hẳn'}), X5 = sxXacDinh({ma:k1, ten:c1.ten}), X6 = sxXacDinh({ma:k1});
+   ok('CCCD + tên (không dấu, hoa) khớp → chắc, xếp được', X1.ma===k1, JSON.stringify(X1));
+   ok('chỉ khớp tên → chưa chắc (gợi ý), không tự xếp', !X2.ma && X2.goiY===k1 && /chỉ khớp tên/.test(X2.ly), JSON.stringify(X2));
+   ok('chỉ có số CCCD → chưa chắc', !X3.ma && X3.goiY===k1 && /chỉ có số CCCD/.test(X3.ly), JSON.stringify(X3));
+   ok('CCCD khớp mà tên khác Mẫu 31 → chưa chắc, ghi rõ lý do', !X4.ma && X4.goiY===k1 && /tên khác Mẫu 31/.test(X4.ly), JSON.stringify(X4));
+   ok('mã KH + tên → chắc; chỉ mã KH → chưa chắc', X5.ma===k1 && !X6.ma && X6.goiY===k1, JSON.stringify([X5, X6]));
+   ok('bóc tên có số CCCD + mã KH: "cccd-Tên - 0721… " / "4800…-Tên"', sxBoc('cccd-'+c1.ten+' - '+c1.cccd).cccd===c1.cccd && sxBoc(k1+'-'+c1.ten).ma===k1, JSON.stringify([sxBoc('cccd-'+c1.ten+' - '+c1.cccd), sxBoc(k1+'-'+c1.ten)]));
    /* 3. mã QR / mã máy đọc (dữ liệu GIẢ) */
    const qrTxt = '079000000123|123456789|NGUYỄN VĂN GIẢ|01011980|Nam|Ấp Giả, Xã Thử, Tây Ninh|20082021';
    const q = cccdQR(qrTxt);
@@ -59,7 +64,7 @@ const fs=require('fs'), path=require('path');
    dongHop();
    /* 5. 🧹 Sắp xếp: bản chờ (tên anh gõ) → khớp Mẫu 31 → tên chuẩn + thư mục CCCD; trùng tên → anh chọn; chưa có → giữ chờ */
    D.scan = D.scan || []; D.kyAnh = D.kyAnh || []; const bay = new Date().toISOString();
-   const s1 = {id:'t207a', che:'the', ten:'cccd-'+c1.ten, chuaKhai:true, tag:['CCCD'], ngay:bay.slice(0,10), suaLuc:bay, matTruoc:true};
+   const s1 = {id:'t207a', che:'the', ten:'cccd-'+c1.ten+' - '+c1.cccd, chuaKhai:true, tag:['CCCD'], ngay:bay.slice(0,10), suaLuc:bay, matTruoc:true};
    const s2 = {id:'t207b', che:'the', ten:'cccd-Người Không Có Thật Xyz', chuaKhai:true, tag:['CCCD'], ngay:bay.slice(0,10), suaLuc:bay, matTruoc:true};
    const ka = {id:'kat207', loai:'ky', khach:'ck-'+c2.ten, ten:'x.jpg', ngay:bay.slice(0,10), suaLuc:bay};
    D.scan.push(s1, s2); D.kyAnh.push(ka);
@@ -71,7 +76,9 @@ const fs=require('fs'), path=require('path');
    ok('tab Scan: dòng "⏳ n bản chờ sắp xếp" + 🧹 Sắp xếp + 📊 Kiểm tra', /bản chờ sắp xếp/.test(document.getElementById('tr4').textContent) && document.querySelector('#tr4 [data-lenh="sx.sapXep"]') && document.querySelector('#tr4 [data-lenh="sx.kiem"]'));
    document.querySelector('#tr4 [data-lenh="sx.sapXep"]').click(); await w(300);
    const ht = document.getElementById('hop-in').textContent;
-   ok('kế hoạch: khớp (CCCD + chữ ký), trùng tên (2 lựa chọn), chưa có Mẫu 31', SXP.khop.some(x=>x.k===s1) && SXP.khop.some(x=>x.k===ka) && SXP.trung.some(x=>x.k===s3 && x.ds.length===2) && SXP.chua.some(x=>x.k===s2), [SXP.khop.length, SXP.trung.length, SXP.chua.length].join('/'));
+   ok('kế hoạch: CCCD + tên → chắc; chữ ký chỉ có tên → gợi ý chờ xác nhận; trùng tên; chưa có Mẫu 31', SXP.khop.some(x=>x.k===s1) && SXP.goiY.some(x=>x.k===ka) && SXP.trung.some(x=>x.k===s3 && x.ds.length===2) && SXP.chua.some(x=>x.k===s2), [SXP.khop.length, SXP.goiY.length, SXP.trung.length, SXP.chua.length].join('/'));
+   ok('hộp Sắp xếp ghi quy tắc "khớp ít nhất 2 trong 3"', /ít nhất 2 trong 3/.test(ht));
+   const iG = SXP.goiY.findIndex(x=>x.k===ka); document.querySelector('#hop-in [data-lenh="sx.xn"][data-i="'+iG+'"]').click(); await w(150);
    const iT = SXP.trung.findIndex(x=>x.k===s3); document.querySelector('#hop-in [data-lenh="sx.chon"][data-i="'+iT+'"][data-ma="9990000002"]').click(); await w(150);
    document.querySelector('#hop-in [data-lenh="sx.apDung"]').click(); await w(400);
    ok('áp dụng: bản CCCD gắn mã KH, tên theo Mẫu 31, hết "chưa khai", nơi lưu CCCD', s1.maKH===k1 && s1.ten===c1.ten && !s1.chuaKhai && duongScan(s1)===D.cauHinh.thumuc+' / CCCD' && tenScanDrive(s1)===k1+' - '+c1.ten+' - CCCD.pdf', tenScanDrive(s1));

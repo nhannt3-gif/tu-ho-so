@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.264** — Scan: lưu tập trung 4 thư mục phẳng (MãKH - Họ tên - Loại), 🧹 Sắp xếp theo Mẫu 31, 📊 Kiểm tra theo tổ, tự đọc CCCD (QR / mã máy đọc), bản photo 2 mặt. Trước đó 3.263: THHD. Tiếp: "Hồ sơ của khách" khung xem phải, 📇 quét CCCD điền form, OCR Google Drive cho tài liệu. Chờ anh: thử máy thật 3.225–3.264.
+- **`main` = 3.265** — Scan: chỉ đổi tên + xếp khi khớp ≥ 2 trong 3 (CCCD · mã KH · tên) với Mẫu 31; chưa chắc để thư mục chung, anh ✓ mới xếp. Trước đó 3.264: lưu tập trung, Sắp xếp, Kiểm tra, đọc CCCD. Tiếp: "Hồ sơ của khách" khung xem phải, quét CCCD điền form, OCR Google Drive. Chờ anh: thử máy thật 3.225–3.265.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
   2. `KE_HOACH_3206.md` mục 6 (nút 09A từ chip đến hạn, in nhiều hộ) · ô chấm tùy biến cho 01/UQ, 01/TGTV.
