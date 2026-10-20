@@ -119,7 +119,7 @@ function sxCatTuPDF(k, lan){
     if(!hai){ if(!k.catBo && !k.catHong){ k.catHong = 1; luu(); } return canvasRaBlob(c, 0.92).then(function(bl){ return [bl, null]; }); }   /* không dò được khung → đọc cả trang; 3.281: ghi "không tách được" */
     return Promise.all(hai.map(function(x){ return canvasRaBlob(x, 0.92); })).then(function(bs){
       return luuAnhHS(k.id+'_matTruoc', bs[0]).then(function(){ return luuAnhHS(k.id+'_matSau', bs[1]); }).then(function(){
-        k.catTuPDF = true; k.catLan = lan||0; delete k.catDuyet; delete k.catHong; k.matTruoc = true; k.matSau = true; delete k.anhThu; if(typeof CO_ANH!=='undefined') CO_ANH[k.id] = true; luu();
+        k.catTuPDF = true; k.catLan = lan||0; delete k.catDuyet; delete k.catHong; if(!k.che) k.che = 'the'; k.matTruoc = true; k.matSau = true; delete k.anhThu; if(typeof CO_ANH!=='undefined') CO_ANH[k.id] = true; luu();
         if(coTheNoiDrive()) sxDayAnh(k);
         return bs; }); });
   });
@@ -213,7 +213,7 @@ dungTrangThe = function(dsId, viec){
 /* ---------- 3.280 (anh: "cccd cũ app vẫn lưu PDF chưa tách ra 2 mặt"): bản CCCD cũ chỉ có PDF ----------
    Mở xem ở khung phải / xem lớn → tự cắt 2 mặt thẻ từ trang 1 PDF trên Drive (như 🔎 Rà), lưu 2 ảnh + đưa lên Drive, hiện 2 mặt.
    Dò không ra khung → ghi k.catHong, lần sau hiện PDF luôn (không tải lại); ↻ Cắt lại ở 🔎 Rà vẫn làm được. PDF gốc giữ nguyên. */
-function sxCanCat(k){ return !!(k && (k.che==='the' || (!k.che && (k.tag||[]).indexOf('CCCD')>=0)) && k.driveId && !k.anhDrive && !k.catBo && !k.catTuPDF && !k.catHong); }
+function sxCanCat(k){ return !!(sxLaCCCD(k) && k.driveId && !k.anhDrive && !k.catBo && !k.catTuPDF && !k.catHong); }
 var SX_CAT_DANG = {};
 function sxCatMot(k){
   if(!SX_CAT_DANG[k.id]) SX_CAT_DANG[k.id] = sxCatTuPDF(k, k.catLan||0).then(function(bs){
@@ -238,7 +238,8 @@ veVaoKhung = function(m, n){
 
 /* ---------- 3.281 (anh: "có cái app tự tách, có cái không — báo app có làm chưa, làm không được cũng báo") ----------
    Mỗi bản CCCD khi xem: 1 dòng trạng thái dưới tên — ảnh gốc lúc quét / đã tách (chưa duyệt · đã duyệt) / đang tách / không tách được + lý do + ↻ Thử tách lại. */
-function sxLaCCCD(k){ return !!(k && (k.che==='the' || (!k.che && (k.tag||[]).indexOf('CCCD')>=0))); }
+/* 3.283: bản cũ không ghi chế độ (che trống, không nhãn CCCD) vẫn nằm thư mục CCCD (duongScan: không phải tài liệu = CCCD) → cũng là CCCD */
+function sxLaCCCD(k){ return !!(k && (k.che==='the' || (!k.che && ((k.tag||[]).indexOf('CCCD')>=0 || (D.scan||[]).indexOf(k)>=0)))); }
 function sxLyCat(k){ return k.catHong ? 'không dò ra 2 khung thẻ trên trang 1 của PDF (scan mờ / lệch / thẻ sát mép, hoặc 2 mặt nằm 2 trang)' : (k.catLoi || 'chưa rõ lý do'); }
 function sxTTCat(k){
   if(!sxLaCCCD(k)) return '';
@@ -255,10 +256,13 @@ function sxVeTTCat(k, n){
   var noi = document.getElementById(n==='lon' ? 'x-phu' : 'cp-phu'); if(!noi || XEM[n].m!==k) return;
   Array.prototype.forEach.call(noi.querySelectorAll('.sx-cat-tt'), function(x){ x.remove(); });
   var h = sxTTCat(k); if(h) noi.insertAdjacentHTML('beforeend', h);
+  if(/lúc quét/.test(h)) docAnhHS(k.id+'_matTruoc').then(function(b){ if(b || XEM[n].m!==k) return;   /* 3.283: ghi có ảnh nhưng máy không có, Drive không tải được → báo thật */
+    var x = noi.querySelector('.sx-cat-tt'); if(x) x.outerHTML = '<div class="sx-cat-tt do" data-k="'+k.id+'">⚠ Không có ảnh mặt thẻ: ảnh không có trong máy này'+(k.anhDrive ? ', không tải được từ Drive' : ' (quét ở máy khác trước 3.271)')+' — đang xem PDF <button class="sx-cat-lai" data-lenh="sx.catLai" data-k="'+k.id+'">↻ Tách 2 mặt từ PDF</button></div>'; }, function(){});
 }
 GD.dangKy('sx', {catLai:function(el){ var k = timScan(el.getAttribute('data-k')); if(!k) return;
   if(k.catTuPDF || k.catBo) return moRaSoat(false);   /* đã có ảnh cắt / anh đã bỏ → làm ở 🔎 Rà (Cắt lại / Đúng) */
-  k.catLan = (k.catLan||0)+(k.catHong ? 1 : 0); delete k.catHong; delete k.catLoi; luu(); veNoiDung(k); }});
+  docAnhHS(k.id+'_matTruoc').then(function(b){ if(!b){ delete k.anhDrive; delete k.matTruoc; delete k.matSau; }   /* 3.283: ảnh ghi có mà không lấy được → tách lại từ PDF */
+    k.catLan = (k.catLan||0)+(k.catHong ? 1 : 0); delete k.catHong; delete k.catLoi; luu(); veNoiDung(k); }); }});
 
 
 /* ---------- 3.282 (anh: "in nhiều CCCD 1 lúc, 4 CCCD trên 1 trang A4") ----------
