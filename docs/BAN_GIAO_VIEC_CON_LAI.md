@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.265) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Lưu `cccd-Tên` (chỉ tên) → 🧹 Sắp xếp | Nằm ở "? Gợi ý — chưa chắc (chỉ khớp tên)", bấm ✓ Đúng mới xếp | |
+| 2 | Lưu `cccd-Tên - <số CCCD>` | Xác định chắc → tự đặt tên + dời | |
+
+**Ghi chú kỹ thuật 3.265:** `sxXacDinh({cccd, ma, ten})` → {ma, theo} chắc · {goiY, ly} · {ds} · {}.
+
 ### Danh sách thử trên máy thật (3.264) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.265 — 20/10/2026 — Scan: chỉ đổi tên + xếp khi xác định chắc khách
+- **Anh 20/10:** "CCCD nào xác định được mã KH, CCCD, tên đúng thì đổi tên đúng chuẩn và lưu, chưa xác định được thì để thư mục chung, quy tắc khi lưu tương ứng với Mẫu 31".
+- `sxXacDinh` thay `sxTim`: **xác định chắc** = khớp **ít nhất 2 trong 3** (số CCCD · mã KH · họ tên không dấu) với cùng 1 khách Mẫu 31 → đặt tên `MãKH - Họ tên - Loại` theo Mẫu 31, lưu đúng thư mục.
+- **Chưa chắc** (chỉ khớp tên · chỉ có số CCCD / mã KH · CCCD khớp mà tên khác Mẫu 31 · tên khớp mà CCCD khác) → giữ ở **Scan chờ sắp xếp**; 🧹 Sắp xếp có khối "? Gợi ý — chưa chắc" ghi lý do, anh bấm **✓ Đúng** mới xếp. Trùng tên / không có trên Mẫu 31 như 3.264.
+- Quét CCCD: đọc QR / mã máy đọc có cả số + tên → chắc thì hiện "✓ … (khớp CCCD + tên)" + Lưu đúng khách; chưa chắc → tên file gợi ý giữ số CCCD (`cccd-Tên - 0721…`) để Sắp xếp đối chiếu sau. Chữ ký gõ tên: chỉ gắn khách khi chắc (gõ kèm số CCCD hoặc mã KH).
+- Tên file anh gõ đọc được cả mã KH 10 số (`4800…-Tên`) và số CCCD 12 số.
+- **Anh thêm:** "họ tên đôi khi bỏ dấu chưa chuẩn nên em lưu ý, số CCCD là chuẩn nhất": tên so **gần đúng** (`sxTenGan` — bỏ dấu, hoa thường, lệch ≤ 1 ký tự tên ngắn / ≤ 2 tên dài, hoặc đảo thứ tự chữ); **có số CCCD khớp 1 khách mà không có tên → vẫn xác định chắc**; CCCD khớp mà tên khác hẳn → chưa chắc (có thể nhầm người).
+- Phép thử: t207 thêm 6 (31).
+
 ## 3.264 — 20/10/2026 — Scan: lưu tập trung, 🧹 Sắp xếp, 📊 Kiểm tra, tự đọc CCCD, bản photo 2 mặt
 - **Anh 20/10:** "lưu sau tập trung … tốt nhất nên có tên, số CCCD, Mã KH, app tra vào Mẫu 31 tự đặt tên mã KH - họ tên" · "tạo nhiều thư mục vậy rất rối" · "khi lưu CCCD anh đặt tên dạng cccd-Võ Văn Hoàng, app lưu vào 1 thư mục chung, em làm sẵn chức năng chuẩn hóa / sắp xếp … trường hợp nào chưa có thì để 1 nơi chung … dời xong xóa luôn" · "cccd có mã vạch và số cccd kèm tên không dấu chuẩn, em cho đọc" · "CCCD có sẵn bản photo … xử lý sao cho phù hợp" · đồng ý thêm jsQR.
 - **Nơi lưu (`js/41-scan-sap-xep.js`)** — Drive chỉ 4 thư mục phẳng, không thư mục con:

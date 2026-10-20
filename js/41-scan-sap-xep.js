@@ -74,15 +74,40 @@ function sxChiMuc(){   /* CCCD → [mã], tên (không dấu) → [mã] */
 function sxBoc(ten){
   var t = String(ten||'').replace(/\.(pdf|jpe?g|png)$/i, '').trim(), loai = '', m = /^([A-Za-zĐđ0-9]{1,10})\s*-\s*(.+)$/.exec(t);
   if(m){ var p = sxChuan(m[1]); loai = p==='cccd' ? 'cccd' : p==='ck' ? 'ky' : (p==='anh' ? 'anh' : (/^\d{9,12}$/.test(m[1]) ? '' : 'tl:'+m[1])); if(loai || /^\d{12}$/.test(m[1])) t = m[2]; }
-  var so = (/(\d{12})/.exec(t.replace(/\s+/g, '')) || [])[1] || '';
+  var gon = t.replace(/\s+/g, ''), so = (/(\d{12})/.exec(gon) || [])[1] || '', ma = (/(?:^|\D)(\d{10})(?:\D|$)/.exec(so ? gon.replace(so, '-') : gon) || [])[1] || '';
   var conTen = t.replace(/\d{6,}/g, ' ').replace(/\s*-\s*(CCCD|Chữ ký|Ảnh|Tài liệu)\s*$/i, '').replace(/^\s*-\s*|\s*-\s*$/g, '').trim();
-  return {loai:loai, cccd:so, ten:conTen};
+  return {loai:loai, cccd:so, ma:ma, ten:conTen};
 }
-function sxTim(cccd, ten){   /* → {ma} | {ds:[mã…]} (trùng) | {} (không có) */
-  var X = sxChiMuc(), s = String(cccd||'').replace(/\D/g, '');
-  if(s && X.cc[s]) return X.cc[s].length===1 ? {ma:X.cc[s][0], theo:'CCCD'} : {ds:X.cc[s]};
-  var t = sxChuan(ten); if(!t) return {};
-  var ds = X.ten[t] || []; return ds.length===1 ? {ma:ds[0], theo:'tên'} : ds.length ? {ds:ds} : {};
+/* 3.265 (anh chốt 20/10): XÁC ĐỊNH CHẮC = khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên) với cùng 1 khách Mẫu 31 → đổi tên chuẩn + lưu đúng chỗ;
+   số CCCD là chuẩn nhất: có số CCCD khớp 1 khách mà không có tên → vẫn chắc; tên so gần đúng (bỏ dấu, lệch nhỏ — sxTenGan);
+   chưa chắc (chỉ tên · chỉ số CCCD / mã KH · CCCD khớp mà tên khác) → để thư mục chung, 🧹 Sắp xếp hiện gợi ý + lý do, anh bấm ✓ mới xếp.
+   → {ma, theo} (chắc) | {goiY, ly} | {ds} (trùng) | {} (không có) */
+/* tên gần đúng (anh: họ tên đôi khi bỏ dấu chưa chuẩn): bỏ dấu, hoa thường; lệch ≤ 1 ký tự (tên ngắn) / ≤ 2 (tên dài), hoặc chỉ đảo thứ tự chữ */
+function sxTenGan(a, b){
+  a = sxChuan(a); b = sxChuan(b); if(!a || !b) return false; if(a===b) return true;
+  if(a.split(' ').sort().join(' ')===b.split(' ').sort().join(' ')) return true;
+  var n = a.length, m = b.length, cho = Math.max(n, m)>=12 ? 2 : 1; if(Math.abs(n-m)>cho) return false;
+  var d = []; for(var i=0;i<=n;i++){ d[i] = [i]; } for(var j=1;j<=m;j++) d[0][j] = j;
+  for(i=1;i<=n;i++) for(j=1;j<=m;j++) d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+(a[i-1]===b[j-1] ? 0 : 1));
+  return d[n][m]<=cho;
+}
+function sxXacDinh(o){
+  var X = sxChiMuc(), KH = KHO.dsKhach(), s = String(o.cccd||'').replace(/\D/g, ''), t = sxChuan(o.ten), m = String(o.ma||'');
+  var tenOK = function(ma){ return !!t && sxTenGan((KH[ma]||{}).ten, t); }, ccOK = function(ma){ return !!s && String((KH[ma]||{}).cccd||'').replace(/\D/g, '')===s; };
+  var tenMau = function(ma){ return (KH[ma]||{}).ten || ''; };
+  if(m && KH[m]){
+    if(tenOK(m) || ccOK(m)) return {ma:m, theo:'mã KH + '+(tenOK(m) ? 'tên' : 'CCCD')};
+    return {goiY:m, ly:t ? 'mã KH khớp, tên khác Mẫu 31 ('+tenMau(m)+')' : 'chỉ có mã KH'}; }
+  if(s && X.cc[s]){
+    if(X.cc[s].length>1) return {ds:X.cc[s]};
+    var mc = X.cc[s][0];
+    if(tenOK(mc)) return {ma:mc, theo:'CCCD + tên'};
+    if(!t) return {ma:mc, theo:'số CCCD'};   /* anh: số CCCD là chuẩn nhất — có số, không có tên vẫn xác định */
+    return {goiY:mc, ly:'CCCD khớp, tên khác hẳn Mẫu 31 ('+tenMau(mc)+')'}; }
+  if(!t) return {};
+  var ds = X.ten[t] || [];
+  if(ds.length===1) return s ? {goiY:ds[0], ly:'tên khớp, số CCCD khác Mẫu 31'} : {goiY:ds[0], ly:'chỉ khớp tên'};
+  return ds.length ? {ds:ds} : {};
 }
 function sxKhach(ma){   /* thông tin khách để gắn vào bản scan */
   var c = KHO.dsKhach()[ma] || {}, t = KHO.toDanhBa(c.to) || {};
@@ -155,10 +180,10 @@ scanXongHop = function(bl){
     return nh.reduce(function(p, g, i){ return p.then(function(){
       return Promise.all([g[0] ? docAnhHS(g[0].id) : null, g[1] ? docAnhHS(g[1].id) : null]).then(function(b){ return docCCCD(b[0], b[1]); })
         .then(function(r){ var x = SX_DOC[i] = r || {}; x.dang = false;
-          if(r){ var t = sxTim(r.cccd, r.ten); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); c.cccd = c.cccd || r.cccd; SXK[i] = c; } }
+          if(r){ var t = sxXacDinh({cccd:r.cccd, ten:r.ten}); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); c.cccd = c.cccd || r.cccd; SXK[i] = c; } }
           sxVeDoc(); }, function(){ SX_DOC[i] = {dang:false}; sxVeDoc(); }); }); }, Promise.resolve());
   }).then(function(){ var o = SX_DOC[0] || {};
-    if(nh.length===1){ SX.ten = o.tim && o.tim.ma ? sxTenChuan(o.tim.ma, sxKhach(o.tim.ma).ten, 'CCCD', '') : (o.ten ? 'cccd-'+o.ten : SX.ten);
+    if(nh.length===1){ SX.ten = o.tim && o.tim.ma ? sxTenChuan(o.tim.ma, sxKhach(o.tim.ma).ten, 'CCCD', '') : (o.cccd || o.ten ? 'cccd-'+[o.ten, o.cccd].filter(Boolean).join(' - ') : SX.ten);   /* chưa chắc: giữ số CCCD trong tên để Sắp xếp đối chiếu */
       var e = document.getElementById('sx-ten'); if(e) e.value = SX.ten; } });
 };
 function sxVeDoc(){
@@ -169,12 +194,13 @@ function sxVeDoc(){
     if(!x.cccd) return '<div class="vang">'+dau+'Chưa đọc được số CCCD — gõ tên vào ô Tên file (vd <i>cccd-Võ Văn Hoàng</i>) rồi Lưu vào app, sau bấm 🧹 Sắp xếp.</div>';
     var t = x.tim || {};
     return '<div>'+dau+'✓ Đọc được CCCD <b>'+coChuHTML(x.cccd)+'</b> <small>('+coChuHTML(x.nguon)+(x.ten ? ' · '+coChuHTML(x.ten) : '')+')</small> → '+
-      (t.ma ? '<b class="xanh">'+coChuHTML(sxNhanKH(t.ma))+'</b>' : t.ds ? '<span class="vang">'+t.ds.length+' khách trùng — chọn ở 🗄 Lưu vào app + khai ngay</span>' : '<span class="vang">chưa có trên Mẫu 31 (hộ mới) — lưu vào chờ sắp xếp</span>')+'</div>'; }).join('')+
+      (t.ma ? '<b class="xanh">'+coChuHTML(sxNhanKH(t.ma))+'</b> <small>(khớp '+coChuHTML(t.theo)+')</small>'
+        : t.goiY ? '<span class="vang">chưa chắc — gần khớp '+coChuHTML(sxNhanKH(t.goiY))+' ('+coChuHTML(t.ly)+'). Lưu vào app → thư mục chung, anh xác nhận ở 🧹 Sắp xếp</span>' : t.ds ? '<span class="vang">'+t.ds.length+' khách trùng — lưu vào thư mục chung, chọn ở 🧹 Sắp xếp</span>' : '<span class="vang">chưa có trên Mẫu 31 (hộ mới) — lưu vào thư mục chung</span>')+'</div>'; }).join('')+
     (tat ? GD.hang([GD.nut({chu:'🗄 Lưu đúng khách (tự nhận)', lenh:'sx.luuDoc', chinh:1})]) : '');
 }
 function sxLuuTuDoc(){ if(!SX_DOC.every(function(x){ return x.tim && x.tim.ma; })) return; scanLuuTu(); }
 GD.dangKy('sx', {luuDoc:function(){ sxLuuTuDoc(); }, photo2:function(el){ SC.photo2 = !!el.checked; },
-  chon:function(el){ SXP.chon[+el.getAttribute('data-i')] = el.getAttribute('data-ma'); sxVeSapXep(); }, dong:function(){ dongHop(); },
+  chon:function(el){ SXP.chon[+el.getAttribute('data-i')] = el.getAttribute('data-ma'); sxVeSapXep(); }, xn:function(el){ var i = +el.getAttribute('data-i'); SXP.xn[i] = !SXP.xn[i]; sxVeSapXep(); }, dong:function(){ dongHop(); },
   driveCho:function(){ sxDriveCho(); }, apDung:function(){ sxApDung(); }, moTo:function(el){ var m = el.getAttribute('data-to'); sxKiemVe(SXK_MO===m ? '' : m); },
   kiemExcel:function(){ sxKiemExcel(); }, sapXep:function(){ moSapXep(); }, kiem:function(){ moKiemScan(); }});
 /* lưu vào tủ theo khách đã chọn / tự nhận — như 3.155, thêm số CCCD + tự tạo ảnh khách từ mặt trước */
@@ -216,7 +242,7 @@ function sxAnhTuCCCD(k){
 var SX_KA_XONG_CU = kaXong;
 kaXong = function(k){   /* chạy ngay sau khi lưu, trước khi đưa lên Drive */
   if(k && !k.maKH){ var b = sxBoc(k.khach); if(b.ten) k.khach = b.ten;
-    var f = sxTim(b.cccd, b.ten || k.khach); if(f.ma){ k.maKH = f.ma; k.khach = sxKhach(f.ma).ten; } k.ten = sxTenKA(k); luu(); }
+    var f = sxXacDinh({cccd:b.cccd, ma:b.ma, ten:b.ten || k.khach}); if(f.ma){ k.maKH = f.ma; k.khach = sxKhach(f.ma).ten; } k.ten = sxTenKA(k); luu(); }
   return SX_KA_XONG_CU(k);
 };
 
@@ -252,7 +278,7 @@ var SXP = null;   /* kế hoạch sắp xếp đang xem */
 function sxDangCho(k){ return !k.maKH; }
 function sxDemCho(){ return (D.scan||[]).filter(sxDangCho).length + (D.kyAnh||[]).filter(sxDangCho).length; }
 function sxKeHoach(){
-  var R = {khop:[], trung:[], chua:[], doiTen:[], doi:[]};
+  var R = {khop:[], goiY:[], trung:[], chua:[], doiTen:[], doi:[]};
   var xet = function(k, laKA){
     var tenGoc = laKA ? (k.khach || k.ten) : k.ten;
     if(k.maKH){   /* đã có khách: tên đổi theo Mẫu 31 · file cũ chưa ở chỗ mới */
@@ -260,8 +286,9 @@ function sxKeHoach(){
       if(tenMoi && sxChuan(tenMoi)!==sxChuan(tenGoc)) R.doiTen.push({k:k, ka:laKA, ma:k.maKH, tu:tenGoc, ten:tenMoi});
       else if(k.driveId && k.duongDrive!==(laKA ? sxDuongKA(k) : duongScan(k))) R.doi.push({k:k, ka:laKA, ma:k.maKH});
       return; }
-    var b = sxBoc(tenGoc), f = sxTim(k.cccd || b.cccd, b.ten);
+    var b = sxBoc(tenGoc), f = sxXacDinh({cccd:k.cccd || b.cccd, ma:b.ma, ten:b.ten});
     if(f.ma) R.khop.push({k:k, ka:laKA, ma:f.ma, theo:f.theo, tu:tenGoc});
+    else if(f.goiY) R.goiY.push({k:k, ka:laKA, ma:f.goiY, ly:f.ly, tu:tenGoc});
     else if(f.ds) R.trung.push({k:k, ka:laKA, ds:f.ds, tu:tenGoc});
     else R.chua.push({k:k, ka:laKA, tu:tenGoc});
   };
@@ -272,11 +299,12 @@ function sxKeHoach(){
 function moSapXep(){
   if(!SL_SAN) return slNap().then(moSapXep);
   if(!Object.keys(KHO.dsKhach()).length) return baoLoi('Chưa có danh bạ khách — nạp Mẫu 31 ở tab 📈 Số liệu › Nạp & KT trước.');
-  SXP = sxKeHoach(); SXP.chon = {}; sxVeSapXep();
+  SXP = sxKeHoach(); SXP.chon = {}; SXP.xn = {}; sxVeSapXep();
 }
 function sxDongKH(x, i, nhom){
   var ic = x.ka ? (x.k.loai==='ky' ? '✍' : '🧑') : (x.k.che==='tailieu' ? '📄' : '🪪');
   var phai = nhom==='khop' ? '→ <b>'+coChuHTML(sxNhanKH(x.ma))+'</b> <small>(theo '+x.theo+')</small>'
+    : nhom==='goiY' ? '→ gợi ý <b>'+coChuHTML(sxNhanKH(x.ma))+'</b> <small class="vang">('+coChuHTML(x.ly)+')</small> '+GD.nut({chu:SXP.xn[i] ? '✓ Đúng — sẽ xếp' : '✓ Đúng', lenh:'sx.xn', du:{i:i}, lop:SXP.xn[i] ? 'bat' : ''})
     : nhom==='doiTen' ? '→ tên mới <b>'+coChuHTML(x.ten)+'</b>'
     : nhom==='doi' ? '→ dời về <b>'+coChuHTML((x.ka ? sxDuongKA(x.k) : duongScan(x.k)).replace(D.cauHinh.thumuc+' / ', ''))+'</b>'
     : nhom==='trung' ? x.ds.map(function(m){ return GD.nut({chu:coChuHTML(sxNhanKH(m)), lenh:'sx.chon', du:{i:i, ma:m}, lop:SXP.chon[i]===m ? 'bat' : ''}); }).join(' ')
@@ -287,10 +315,10 @@ function sxVeSapXep(){
   var R = SXP, khoi = function(ten, ds, nhom, lop){ if(!ds.length) return ''; var bd = nhom==='trung' ? R.khop.length+R.doiTen.length+R.doi.length : 0;
     return '<details'+(nhom!=='chua' ? ' open' : '')+' class="sx-khoi"><summary class="'+(lop||'')+'"><b>'+ten+'</b> — '+ds.length+'</summary><table class="to-bang luoi"><tbody>'+
       ds.map(function(x, j){ return sxDongKH(x, nhom==='trung' ? j : j, nhom); }).join('')+'</tbody></table></details>'; };
-  var nChonTrung = Object.keys(R.chon).length, viec = R.khop.length + R.doiTen.length + R.doi.length + nChonTrung;
-  moHop('<div class="hop-tit">🧹 Sắp xếp hồ sơ scan</div><div class="hop-phu">So với danh bạ khách (Mẫu 31). Khớp đúng 1 khách → đặt tên <i>MãKH - Họ tên - Loại</i> và dời vào thư mục theo loại '+
-      '(CCCD · Chữ ký - Ảnh khách · Hồ sơ scan). Chưa có trên Mẫu 31 → giữ ở <i>'+SXT.cho+'</i>. Thư mục cũ dời xong còn trống → thùng rác Drive (lấy lại được 30 ngày).</div>'+
-    khoi('✓ Khớp — sẽ đặt tên + dời', R.khop, 'khop', 'xanh')+khoi('✎ Đổi tên theo Mẫu 31', R.doiTen, 'doiTen')+khoi('↪ File cũ dời về chỗ mới', R.doi, 'doi')+
+  var nChonTrung = Object.keys(R.chon).length, nXn = Object.keys(R.xn).filter(function(i){ return R.xn[i]; }).length, viec = R.khop.length + R.doiTen.length + R.doi.length + nChonTrung + nXn;
+  moHop('<div class="hop-tit">🧹 Sắp xếp hồ sơ scan</div><div class="hop-phu">So với Mẫu 31: <b>xác định chắc</b> = khớp ít nhất 2 trong 3 (số CCCD · mã KH · họ tên; tên so bỏ dấu, cho lệch nhỏ) hoặc có số CCCD khớp 1 khách → đặt tên <i>MãKH - Họ tên - Loại</i> theo Mẫu 31 và dời vào thư mục theo loại '+
+      '(CCCD · Chữ ký - Ảnh khách · Hồ sơ scan). Chưa chắc → giữ ở <i>'+SXT.cho+'</i>, anh bấm ✓ Đúng mới xếp. Thư mục cũ dời xong còn trống → thùng rác Drive (lấy lại được 30 ngày).</div>'+
+    khoi('✓ Xác định chắc — sẽ đặt tên + dời', R.khop, 'khop', 'xanh')+khoi('? Gợi ý — chưa chắc, anh xác nhận', R.goiY, 'goiY', 'vang')+khoi('✎ Đổi tên theo Mẫu 31', R.doiTen, 'doiTen')+khoi('↪ File cũ dời về chỗ mới', R.doi, 'doi')+
     khoi('⚠ Trùng tên — anh chọn đúng khách', R.trung, 'trung', 'vang')+khoi('⏳ Chưa có trên Mẫu 31', R.chua, 'chua')+
     (viec ? '' : '<div class="rong">Không có gì cần sắp xếp'+(R.chua.length ? ' (còn '+R.chua.length+' bản chưa có trên Mẫu 31)' : '')+'.</div>')+
     GD.hang([GD.nut({chu:'Đóng', lenh:'sx.dong'}), GD.nut({chu:'🔍 Rà thêm file thả tay trong thư mục chờ', lenh:'sx.driveCho'})].concat(viec ? [GD.nut({chu:'🧹 Sắp xếp '+viec+' bản', lenh:'sx.apDung', chinh:1})] : []), true), true);
@@ -303,7 +331,7 @@ function sxGan(k, ma, laKA){
 }
 function sxApDung(){
   var R = SXP; if(!R) return;
-  var ds = R.khop.map(function(x){ return {x:x, ma:x.ma}; }).concat(R.trung.map(function(x, j){ return {x:x, ma:R.chon[j]}; }).filter(function(y){ return y.ma; }));
+  var ds = R.khop.map(function(x){ return {x:x, ma:x.ma}; }).concat(R.goiY.filter(function(x, j){ return R.xn[j]; }).map(function(x){ return {x:x, ma:x.ma}; }), R.trung.map(function(x, j){ return {x:x, ma:R.chon[j]}; }).filter(function(y){ return y.ma; }));
   ds.forEach(function(y){ sxGan(y.x.k, y.ma, y.x.ka); });
   R.doiTen.forEach(function(x){ if(x.ka) x.k.khach = x.ten; else x.k.ten = x.ten; x.k.suaLuc = new Date().toISOString(); if(!x.ka && x.k.driveId) x.k.canDay = true; });
   R.doi.forEach(function(x){ if(!x.ka) x.k.canDay = true; });
@@ -346,8 +374,8 @@ function sxDriveCho(){
     return goiDrive('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent("'"+idCho+"' in parents and trashed=false")+'&fields=files(id,name,mimeType)&pageSize=1000').then(function(r){
       var fs = ((r && r.files) || []).filter(function(f){ return !biet[f.id] && f.mimeType!=='application/vnd.google-apps.folder'; }), xong = 0, con = [];
       return fs.reduce(function(p, f){ return p.then(function(){
-        var b = sxBoc(f.name), anh = /\.(jpe?g|png)$/i.test(f.name), loai = b.loai || (anh ? 'anh' : 'cccd'), t = sxTim(b.cccd, b.ten);
-        if(!t.ma){ con.push(f.name+(t.ds ? ' (trùng '+t.ds.length+' khách)' : '')); return; }
+        var b = sxBoc(f.name), anh = /\.(jpe?g|png)$/i.test(f.name), loai = b.loai || (anh ? 'anh' : 'cccd'), t = sxXacDinh({cccd:b.cccd, ma:b.ma, ten:b.ten});
+        if(!t.ma){ con.push(f.name+(t.ds ? ' (trùng '+t.ds.length+' khách)' : t.goiY ? ' (chưa chắc: '+t.ly+')' : '')); return; }
         var c = sxKhach(t.ma), tm = loai==='ky' || loai==='anh' ? SXT.ka : loai==='cccd' ? SXT.cccd : SXT.tl;
         var lt = loai==='ky' ? 'Chữ ký' : loai==='anh' ? 'Ảnh' : loai==='cccd' ? 'CCCD' : String(loai).replace(/^tl:/, '').toUpperCase();
         return baoDamDuong([D.cauHinh.thumuc, tm].join(' / ')).then(function(idTM){
