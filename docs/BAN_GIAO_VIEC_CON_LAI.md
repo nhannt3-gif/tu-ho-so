@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.299) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan › ▦ Bảng, khung xem phải đang mở | Cột Tên đọc được đủ họ tên; Tổ trưởng chỉ tên | |
+
+**Ghi chú kỹ thuật 3.299:** 11 `bangCot('scan')` cột `to` lớp `bt-to`, hiện bỏ tiền tố "mã — ", title đủ; CSS `.bt-ten` min-width 13em, `.bt-to` max-width 11em + ellipsis.
+
 ### Danh sách thử trên máy thật (3.298) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

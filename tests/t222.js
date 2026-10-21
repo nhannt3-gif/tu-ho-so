@@ -17,6 +17,10 @@ const fs=require('fs'), path=require('path');
    const ci = th.findIndex(t=>/^Tổ trưởng/.test(t)), o_ = id => { const tr = Array.prototype.find.call(document.querySelectorAll('#tr4 .bang-tab tbody tr'), r=>r.textContent.indexOf(id==='a' ? 'Tổ Gia Một' : DB[ma].ten)>=0); return tr ? tr.children[ci].textContent.trim() : null; };
    ok('bảng Scan có cột "Tổ trưởng" (sau cột Ấp)', ci>0 && /^Ấp/.test(th[ci-1]), JSON.stringify(th));
    ok('tổ đã khai trên bản → hiện tổ đó; chưa khai → theo mã KH trên Mẫu 31', o_('a')==='Tổ Gia Một' && !!toMa && o_('b')===toMa, JSON.stringify([o_('a'), o_('b'), toMa]));
+   /* 3.299: tổ "mã — tên" chỉ hiện tên (đủ ở title); cột Tên rộng hơn cột Tổ trưởng */
+   D.scan.push({id:'t222c', che:'the', ten:'Nguyễn Thị Khách Có Tên Rất Dài Giả', maKH:'', to:'0026418 — Đoàn Công Thái Tổ Trưởng Giả', ngay:bay.slice(0,10), taoLuc:bay}); veScan(); await w(300);
+   const trC = Array.prototype.find.call(document.querySelectorAll('#tr4 .bang-tab tbody tr'), r=>/Khách Có Tên/.test(r.textContent)), tdTo = trC.children[ci], tdTen = trC.querySelector('td.bt-ten');
+   ok('tổ "mã — tên" chỉ hiện tên tổ trưởng (rê chuột thấy đủ); cột Tên rộng hơn cột Tổ trưởng', tdTo.textContent.trim()==='Đoàn Công Thái Tổ Trưởng Giả' && /0026418/.test(tdTo.title) && tdTen.getBoundingClientRect().width >= tdTo.getBoundingClientRect().width, JSON.stringify({to:tdTo.textContent, wTen:tdTen.getBoundingClientRect().width, wTo:tdTo.getBoundingClientRect().width}));
    return o; }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5).join(' | '));
  console.log(R.filter(x=>x[0]==='✓').length+'/'+R.length+' đạt'); await b.close(); process.exit(R.some(x=>x[0]!=='✓') || loi.length ? 1 : 0);

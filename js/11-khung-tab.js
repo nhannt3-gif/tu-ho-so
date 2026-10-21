@@ -520,7 +520,7 @@ function bangCot(tab){
     return cot.concat([
       {ma:'ten', nhan:'Tên', lop:'bt-ten', k:function(k){ return k.ten||''; }},
       {ma:'ap', nhan:'Ấp', k:function(k){ return k.ap||''; }},
-      {ma:'to', nhan:'Tổ trưởng', k:function(k){ return toTruongScan(k); }},   /* 3.292 (anh): cột tổ trưởng */
+      {ma:'to', nhan:'Tổ trưởng', lop:'bt-to', k:function(k){ return toTruongScan(k); }, o:function(k){ return coChuHTML(toTruongScan(k).replace(/^[\d\s]+[—–-]\s*/, '')); }},   /* 3.292 (anh): cột tổ trưởng; 3.299: chỉ tên tổ trưởng (bỏ mã tổ), cột gọn để tên khách là chính */
       {ma:'loai', nhan:'Loại giấy tờ', k:function(k){ return k.che==='tailieu' ? ((k.tag||[]).filter(function(x){ return x!=='CCCD'; })[0] || 'Tài liệu') : 'CCCD'; }},
       {ma:'ngay', nhan:'Ngày', k:function(k){ return mocScan(k); }, o:function(k){ return ngayVN(mocScan(k).slice(0,10)); }},
       {ma:'tt', nhan:'Trạng thái', k:function(k){ return ttScan(k).dat ? '1' : '0'; }, o:function(k){
@@ -571,7 +571,7 @@ function bangTabHTML(tab, ds){
       return '<tr class="bt-d'+(chon?' chon':'')+(dang===m.id?' dang-xem':'')+(m.hetHieuLuc?' mo':'')+'" data-id="'+m.id+'"'+botAt(m.id)+' onclick="'+mo+'(\''+m.id+'\')">'+
         '<td class="bt-o"><span class="o-chon'+(chon?' bat':'')+'" onclick="bangChon(\''+tab+'\',\''+m.id+'\',event)" title="Tích để chọn">'+(chon?'✓':'')+'</span></td>'+
         cot.map(function(c){ var v = c.k(m), o = c.o ? c.o(m) : coChuHTML(String(v));
-          return '<td class="'+(c.lop||'')+'"'+(c.lop==='bt-ten' ? ' title="'+coChuHTML(String(v))+'"' : '')+'>'+(c.lop==='bt-ten' ? toSang(String(v), tuKhoa) : o)+'</td>'; }).join('')+
+          return '<td class="'+(c.lop||'')+'"'+(c.lop==='bt-ten' || c.lop==='bt-to' ? ' title="'+coChuHTML(String(v))+'"' : '')+'>'+(c.lop==='bt-ten' ? toSang(String(v), tuKhoa) : o)+'</td>'; }).join('')+
         '<td class="bt-n">'+(tab==='scan' ? '<button onclick="event.stopPropagation();themKhach(\''+m.id+'\')" title="Sửa / khai">✎</button>'
           : '<button onclick="event.stopPropagation();moMenu(event,\''+m.id+'\')" title="Thêm lệnh">⋯</button>')+'</td></tr>';
     }).join('')+'</tbody></table></div>';

@@ -2931,6 +2931,8 @@ details.sl-kq > summary small,details.sl-ktgs-nap > summary small{font-weight:40
 .bang-tab td{padding:0 8px;height:30px;border-bottom:1px solid var(--vien);white-space:nowrap;vertical-align:middle;text-align:left}
 .bang-tab th,.bang-tab td{width:1%}
 .bang-tab th.bt-ten,.bang-tab td.bt-ten{width:100%;max-width:0;overflow:hidden;text-overflow:ellipsis}
+.bang-tab th.bt-ten,.bang-tab td.bt-ten{min-width:13em}   /* 3.299 (anh): tên khách là chính — không bị cột khác ép còn "Đo…" */
+.bang-tab td.bt-to{max-width:11em;overflow:hidden;text-overflow:ellipsis}
 .bang-tab td.s,.bang-tab th.s{text-align:right}
 .bang-tab .bt-o{width:1%;padding:0 4px 0 8px}
 .bang-tab .bt-n{width:1%;padding:0 4px;text-align:right}
