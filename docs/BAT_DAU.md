@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.299** — Bảng Scan: tên khách là chính (cột Tổ trưởng gọn); 3.298 bước 5 Rà Drive 3 thư mục; 3.297 Quét bản đã ký → Hồ sơ vay; 3.296 tên bản lưu 01/TD; 3.295 `js/49`; 3.294 bước 0. Còn: bước 4 Bộ hồ sơ (chờ anh chọn A/B). 3.293 (TK chính) 🎯 Phân bổ KH xong P2 + P3. Chờ anh: thử máy thật 3.225–3.299.
+- **`main` = 3.299** — Bảng Scan: tên khách là chính (cột Tổ trưởng gọn); 3.298 bước 5 Rà Drive 3 thư mục; 3.297 Quét bản đã ký → Hồ sơ vay; 3.296 tên bản lưu 01/TD; 3.295 `js/49`; 3.294 bước 0. Bước 4 Bộ hồ sơ: anh chốt giữ nguyên (21/10) → kế hoạch tên + lưu xong. 3.293 (TK chính) 🎯 Phân bổ KH xong P2 + P3. Chờ anh: thử máy thật 3.225–3.299.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
