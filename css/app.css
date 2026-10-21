@@ -2933,7 +2933,7 @@ details.sl-kq > summary small,details.sl-ktgs-nap > summary small{font-weight:40
 .bang-tab th.bt-ten,.bang-tab td.bt-ten{width:100%;max-width:0;overflow:hidden;text-overflow:ellipsis}
 .bang-tab th.bt-ten,.bang-tab td.bt-ten{min-width:13em}   /* 3.299 (anh): tên khách là chính — không bị cột khác ép còn "Đo…" */
 .bang-tab td.bt-to{max-width:11em;overflow:hidden;text-overflow:ellipsis}
-.bang-tab th.bt-ck,.bang-tab td.bt-ck{text-align:center;width:2.6em}   /* 3.304: cột Ck */
+.bang-tab th.bt-ck,.bang-tab td.bt-ck{text-align:center;width:2.6em}   /* 3.305: cột Ck */
 .xk-ds{display:flex;flex-direction:column;gap:8px;margin:10px 0}
 .xk-o{display:block;padding:8px 10px;border:1px solid var(--vien);border-radius:10px;cursor:pointer}
 .xk-o small{display:block;color:var(--chu-phu);margin:2px 0 0 22px;word-break:break-word}
@@ -3699,3 +3699,15 @@ table.pb-db-ct td{white-space:nowrap}
 .pb-ct,.pb-dc-nhom{background:var(--the);border:1px solid var(--vien);border-radius:12px;padding:6px 8px;margin:10px 0}
 #pb-dc table.pb-dc2 td{white-space:normal}#pb-dc table.pb-dc2 td:last-child{min-width:240px;max-width:520px}
 table.pb-db-ct tr.pb-kg td{color:var(--chu-phu)}table.pb-db-ct tr.pb-kg td.so:nth-last-child(3){color:var(--chu)}
+.pb-kpi-nguon .pb-the>b small{font-size:calc(14px*var(--co));font-weight:400;color:var(--chu-phu)}
+/* 3.305 chip màu tăng / giảm / khớp / lệch (anh 21/10 "thêm màu sắc cho trực quan") — theo biến sáng / tối */
+.pb-c{display:inline-block;border-radius:999px;padding:0 8px;font-size:calc(12px*var(--co));font-weight:600;line-height:1.65;white-space:nowrap;border:1px solid transparent;font-variant-numeric:tabular-nums}
+.pb-c.tang,.pb-c.khop{background:var(--luc-nen);color:var(--luc);border-color:var(--luc-nen)}
+.pb-c.giam,.pb-c.lech{background:var(--do-nen);color:var(--do);border-color:var(--do-nen)}
+.pb-c.canh{background:var(--vang-nen);color:var(--vang)}
+.pb-c.mo{background:var(--xanh-nhat);color:var(--xanh-dam)}
+.pb-c.pb-c-dai{white-space:normal;border-radius:10px;line-height:1.35;padding:2px 8px}
+.pb-c-ct{display:inline-block;margin:1px 6px 1px 0;white-space:nowrap}
+td.pb-tg.tang .gd-o{color:var(--luc);font-weight:600;border-color:var(--luc)}
+td.pb-tg.giam .gd-o{color:var(--do);font-weight:600;border-color:var(--do)}
+.pb-mt{font-size:1.2em;line-height:1;font-weight:800;vertical-align:-1px}

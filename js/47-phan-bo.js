@@ -294,7 +294,8 @@ function pbDoiChieu(dsQD, nam, tinhKQ, dnDau, nguong){
 
 /* ---------- DIỄN BIẾN PHÂN VỐN THEO KH (anh 21/10: "làm thêm diễn biến phân vốn … theo KH", giao diện web hiện đại) ----------
    loc = {xa:'' | mã, nguon:0 | 1 | 2, ct:'' | mã} · dn = {dau: f | null (dư nợ 31/12 năm trước), kyDau, thang:[{ky, f}] (Mẫu 31 các kỳ trong năm)} — f(xa, ct, nguon) → triệu | null
-   3.302: dn.ds = [{xa, tenXa, ct, nguon}] các nhóm có dư nợ (Mẫu 31 kỳ cuối + 31/12 năm trước) → nhóm không có QĐ giao thành dòng khongGiao (KH trống, chỉ dư nợ) — KH / % / còn phải TH / biểu đồ chỉ tính CT có giao
+   3.302: dn.ds = [{xa, tenXa, ct, nguon}] các nhóm có dư nợ (Mẫu 31 kỳ cuối + 31/12 năm trước) → nhóm không có QĐ giao thành dòng khongGiao (KH trống, chỉ dư nợ)
+   — 3.305: tổng dư nợ thực tế cộng MỌI CT để so KH · 3.305: KH của CT không giao = dư nợ 31/12 năm trước (chưa có → dư nợ trước đợt giao mới nhất, dn.khMoi) — cộng vào KH tổng, đường KH; dòng từng CT so riêng CT đó
    KH hiệu lực tại ngày d (1 nhóm xã · CT · nguồn) = Đến 31/12 của QĐ gần nhất có ngày ≤ d; trước QĐ đầu năm = Đã giao của QĐ đầu năm.
    → {nam, nhom:[{xa, tenXa, ma, ten, nguon, ds:[{q, c, daGiao, tangGiam, den}], dgDau, khCuoi, tongTG, dauNam, hienTai, conTH, pct}], theoXa:[…], thang:[{ky, kh, dn}], moc:[{so, ngay, loai, tg, kh, xa}], tong:{…}} */
 function pbDienBien(dsQD, nam, loc, dn){
@@ -312,36 +313,42 @@ function pbDienBien(dsQD, nam, loc, dn){
     dau = dau==null ? null : Math.round(dau); ht = ht==null ? null : Math.round(ht);
     return {xa:q0.xa, tenXa:q0.tenXa || q0.xa, ma:c0.ma, ten:c0.ten || '', nguon:+q0.nguon, ds:ds, dgDau:dgDau, khCuoi:chay, tongTG:pbSum(ds, function(x){ return x.tangGiam; }),
       dauNam:dau, hienTai:ht, conTH:ht==null ? null : pbR(chay - ht), pct:ht==null || !chay ? null : Math.round(ht/chay*1000)/10}; })
-    .concat(pbDBKhongGiao(dn.ds, loc, g, dn.dau, kyCuoi))   /* 3.302: CT có dư nợ mà không có QĐ giao → dòng "không giao" (anh đối chiếu đủ dư nợ) */
+    .concat(pbDBKhongGiao(dn.ds, loc, g, dn.dau, kyCuoi, dn))   /* 3.302: CT có dư nợ mà không có QĐ giao → dòng "không giao" (anh đối chiếu đủ dư nợ) */
     .sort(function(a, b){ return String(a.tenXa).localeCompare(String(b.tenXa), 'vi') || (a.ma < b.ma ? -1 : a.ma > b.ma ? 1 : a.nguon - b.nguon); });
   var khTai = function(n, d){ var v = n.dgDau; n.ds.forEach(function(x){ if(String(x.q.ngay).slice(0, 10) <= d) v = x.denT; }); return v; };
   var cong = function(ds, f){ var co = false, s = 0; ds.forEach(function(x){ var v = f(x); if(v!=null){ co = true; s += v; } }); return co ? pbR(s) : null; };
-  var tom = function(ds){   /* KH, còn phải TH, % chỉ trên CT có giao; dư nợ thực tế thêm phần CT không giao + tổng (đối chiếu Mẫu 31) */
-    var cg = ds.filter(function(n){ return !n.khongGiao; }), kh = cong(cg, function(n){ return n.khCuoi; }), ht = kyCuoi ? cong(cg, function(n){ return n.hienTai; }) : null, htAll = kyCuoi ? cong(ds, function(n){ return n.hienTai; }) : null;
-    return {dauNam:dn.dau ? cong(cg, function(n){ return n.dauNam; }) : null, dauNamTatCa:dn.dau ? cong(ds, function(n){ return n.dauNam; }) : null, dgDau:cong(cg, function(n){ return n.dgDau; }), khCuoi:kh,
+  var tom = function(ds){   /* 3.305 (anh 21/10 "so KH giao với dư nợ thực tế tại 1 thời điểm phải cộng tất cả các CT dù không có giao KH"): KH = Σ CT có giao; dư nợ thực tế = Σ MỌI CT → còn phải TH, % so tổng */
+    var cg = ds.filter(function(n){ return !n.khongGiao; }), kh = cong(ds, function(n){ return n.khCuoi; }), ht = kyCuoi ? cong(cg, function(n){ return n.hienTai; }) : null, htAll = kyCuoi ? cong(ds, function(n){ return n.hienTai; }) : null;
+    return {dauNam:dn.dau ? cong(cg, function(n){ return n.dauNam; }) : null, dauNamTatCa:dn.dau ? cong(ds, function(n){ return n.dauNam; }) : null, dgDau:cong(ds, function(n){ return n.dgDau; }), khCuoi:kh, khGiao:cong(cg, function(n){ return n.khCuoi; }), khKhongGiao:cong(ds.filter(function(n){ return n.khongGiao; }), function(n){ return n.khCuoi; }),
       tongTG:cong(cg, function(n){ return n.tongTG; }), hienTai:ht, hienTaiTatCa:htAll, khongGiao:htAll==null ? null : pbR(htAll - (ht || 0)), soKhongGiao:ds.length - cg.length,
-      conTH:ht==null || kh==null ? null : pbR(kh - ht), pct:ht==null || !kh ? null : Math.round(ht/kh*1000)/10}; };
-  var nhomKH = nhom.filter(function(n){ return !n.khongGiao; });
+      conTH:htAll==null || kh==null ? null : pbR(kh - htAll), pct:htAll==null || !kh ? null : Math.round(htAll/kh*1000)/10}; };
   var xaG = {}, xaThu = []; nhom.forEach(function(n){ if(!xaG[n.xa]){ xaG[n.xa] = []; xaThu.push(n.xa); } xaG[n.xa].push(n); });
   var theoXa = xaThu.map(function(x){ var t = tom(xaG[x]); t.xa = x; t.tenXa = xaG[x][0].tenXa; t.nhom = xaG[x]; return t; });
   var thang = [];
-  if(dn.dau && dn.kyDau) thang.push({ky:dn.kyDau, kh:cong(nhomKH, function(n){ return n.dgDau; }), dn:cong(nhomKH, function(n){ return n.dauNam; }), dau:true});
+  if(dn.dau && dn.kyDau) thang.push({ky:dn.kyDau, kh:cong(nhom, function(n){ return n.dgDau; }), dn:cong(nhom, function(n){ return n.dauNam; }), dau:true});   /* dư nợ: mọi CT (3.305) */
   (dn.thang || []).forEach(function(t){ var d = pbNgayKy(t.ky);
-    thang.push({ky:t.ky, kh:cong(nhomKH, function(n){ return khTai(n, d); }), dn:cong(nhomKH, function(n){ var v = t.f(n.xa, n.ma, n.nguon); return v==null ? null : Math.round(v); })}); });
+    thang.push({ky:t.ky, kh:cong(nhom, function(n){ return khTai(n, d); }), dn:cong(nhom, function(n){ var v = t.f(n.xa, n.ma, n.nguon); return v==null ? null : Math.round(v); })}); });
   var moc = Object.keys(soQD).map(function(k){ var q = soQD[k], d = String(q.ngay).slice(0, 10), tg = 0, xa = {};
       nhom.forEach(function(n){ n.ds.forEach(function(x){ if(pbKhoaQDChung(x.q)===k){ tg += x.tangGiam; xa[x.q.xa] = 1; } }); });
-      return {so:q.so, ngay:d, loai:q.loai, tg:pbR(tg), kh:cong(nhomKH, function(n){ return khTai(n, d); }), soXa:Object.keys(xa).length}; })
+      return {so:q.so, ngay:d, loai:q.loai, tg:pbR(tg), kh:cong(nhom, function(n){ return khTai(n, d); }), soXa:Object.keys(xa).length}; })
     .sort(function(a, b){ return a.ngay < b.ngay ? -1 : a.ngay > b.ngay ? 1 : 0; });
   var tong = tom(nhom); tong.soQD = moc.length; tong.soNhom = nhom.length;
+  tong.theoNguon = [1, 2].map(function(nv){ var ds = nhom.filter(function(n){ return n.nguon===nv; }); if(!ds.length) return null; var t = tom(ds); t.nguon = nv; return t; }).filter(Boolean);   /* 3.305: KH giao theo nguồn TW / ĐP → so riêng từng nguồn */
   return {nam:String(nam), nhom:nhom, theoXa:theoXa, thang:thang, moc:moc, tong:tong};
 }
 function pbKhoaQDChung(q){ return String(q.so || '').trim()+'|'+String(q.ngay || '').slice(0, 10)+'|'+String(q.kyHieu || '').trim(); }   /* = pbKhoa (js/48) — để lõi tự đủ */
 /* 3.302: nhóm có dư nợ (Mẫu 31) mà không có QĐ giao trong năm → dòng "không giao" — chỉ dư nợ (đầu năm, hiện tại), KH trống */
-function pbDBKhongGiao(ds, loc, coQD, fDau, kyCuoi){
-  var co = {}, kq = []; loc = loc || {};
+function pbDBKhongGiao(ds, loc, coQD, fDau, kyCuoi, dn){
+  /* 3.305 (anh 21/10 "KH không giao có nghĩa là lấy dư nợ đầu năm, dư nợ đợt giao mới nhất"): KH của CT không có QĐ giao = dư nợ 31/12 năm trước;
+     chưa nạp Mẫu 31 kỳ 12 năm trước → dư nợ Mẫu 31 kỳ trước đợt giao (QĐ) mới nhất trong năm (dn.khMoi = {ky, f}); không có → KH trống */
+  var co = {}, kq = []; loc = loc || {}; dn = dn || {};
   (ds || []).forEach(function(x){ var k = x.xa+'|'+x.ct+'|'+x.nguon; if(co[k] || coQD[k] || (loc.xa && x.xa!==loc.xa) || (+loc.nguon && +x.nguon!==+loc.nguon) || (loc.ct && x.ct!==loc.ct)) return; co[k] = 1;
     var dau = fDau ? fDau(x.xa, x.ct, x.nguon) : null, ht = kyCuoi ? kyCuoi.f(x.xa, x.ct, x.nguon) : null; dau = dau==null ? null : Math.round(dau); ht = ht==null ? null : Math.round(ht);
     if(!dau && !ht) return;
-    kq.push({xa:x.xa, tenXa:x.tenXa || x.xa, ma:x.ct, ten:'', nguon:+x.nguon, ds:[], dgDau:null, khCuoi:null, tongTG:null, dauNam:dau, hienTai:ht, conTH:null, pct:null, khongGiao:true}); });
+    var kh = null, nguonKH = '';
+    if(dau!=null){ kh = dau; nguonKH = 'dư nợ 31/12' + (dn.kyDau ? '/'+String(dn.kyDau).slice(0, 4) : ''); }
+    else if(dn.khMoi && dn.khMoi.f){ var v = dn.khMoi.f(x.xa, x.ct, x.nguon); if(v!=null){ kh = Math.round(v); nguonKH = 'dư nợ '+(dn.khMoi.nhan || dn.khMoi.ky)+' (đợt giao mới nhất)'; } }
+    kq.push({xa:x.xa, tenXa:x.tenXa || x.xa, ma:x.ct, ten:'', nguon:+x.nguon, ds:[], dgDau:kh, khCuoi:kh, khNguon:nguonKH, tongTG:kh==null ? null : 0, dauNam:dau, hienTai:ht,
+      conTH:kh==null || ht==null ? null : pbR(kh - ht), pct:kh==null || ht==null || !kh ? null : Math.round(ht/kh*1000)/10, khongGiao:true}); });
   return kq;
 }

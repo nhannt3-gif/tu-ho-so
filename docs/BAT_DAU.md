@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.304** — Chữ ký gắn cùng CCCD: bảng Scan cột Ck (✍), nút 💾 xuất CCCD (1 JPG ≤ 200 KB) + Chữ ký vào thư mục chọn trên máy; khung xem Scan gọn. 3.300 tốc độ + đồng hồ ⏱; 3.294–3.298 kế hoạch tên + lưu xong. 3.303 (TK chính) 🎯 Phân bổ KH: Biểu 07 trình bày chuẩn hành chính · 3.302 Diễn biến hiện cả CT không giao · 3.301 Diễn biến, Đối chiếu chéo, Khai báo riêng Biểu 07 — `docs/KE_HOACH_PHAN_BO_KH.md`; việc sau: chỉ tiêu đầu năm, cách chia 3. Chờ anh: thử máy thật 3.225–3.304; duyệt danh sách bỏ chức năng chữ ký cũ.
+- **`main` = 3.305** — 🎯 Phân bổ KH (TK chính): Diễn biến so KH với tổng dư nợ mọi CT, theo nguồn TW / ĐP, KH CT không giao = dư nợ đầu năm, chip màu ↑ / ↓ · 3.303 Biểu 07 chuẩn hành chính — `docs/KE_HOACH_PHAN_BO_KH.md`; việc sau: chỉ tiêu đầu năm, cách chia 3. Chờ anh: thử máy thật 3.225–3.305.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

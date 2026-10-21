@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.305 — 21/10/2026 — 📈 Diễn biến: KH so tổng dư nợ mọi CT, tách nguồn TW / ĐP, KH của CT không giao = dư nợ đầu năm · 🎨 chip màu + mũi tên ↑ + / ↓ − (TK chính)
+- **Anh 21/10:** "dư nợ KH sẽ giao theo từng chương trình và nguồn vốn TW, ĐP, để so sánh được dư nợ KH giao và dư nợ thực tế, tại 1 thời điểm phải cộng tất cả các chương trình dù không có giao KH".
+- **Lõi `pbDienBien` (js/47):** tổng xã / toàn bộ / nguồn: **KH = Σ CT có giao**, **dư nợ thực tế = Σ MỌI CT** (có giao + không giao) → **còn phải TH = KH − tổng dư nợ**, **% = tổng dư nợ / KH** (3.302 chỉ so phần CT có giao); biểu đồ theo tháng: đường dư nợ cộng mọi CT (cả điểm 31/12 năm trước); thêm `tong.theoNguon` (TW, ĐP — mỗi nguồn KH, dư nợ có giao / không giao / tổng, còn phải TH, %). Dòng từng CT vẫn so riêng CT đó.
+- **Màn (js/48):** thẻ **Còn phải thực hiện** ghi rõ "KH − tổng dư nợ thực tế (mọi CT)"; thêm hàng thẻ **Nguồn TW / Nguồn ĐP** (dư nợ thực tế / KH, thanh %, còn phải TH, phần CT không giao; nguồn không có KH ghi rõ); bảng xã xếp lại: KH cuối năm → Dư nợ CT có giao → Dư nợ CT không giao → **Tổng dư nợ thực tế** → Còn phải TH (KH − tổng) → Tiến độ (tổng / KH); nhóm CT lấy từ Mẫu 31 mọi kỳ trong năm + 31/12 năm trước; chú thích biểu đồ "mọi chương trình"; Excel thêm sheet **Theo nguon**, sheet Theo xa theo thứ tự cột mới.
+- **Phép thử:** `t255` 20 (cập nhật: % / còn phải TH / biểu đồ theo tổng mọi CT, thẻ nguồn TW / ĐP, Excel 5 sheet).
+- **Anh 21/10:** "KH không giao có nghĩa là lấy dư nợ đầu năm, dư nợ đợt giao mới nhất" · "các chip tăng giảm, khớp thêm màu sắc cho trực quan".
+- **Lõi `pbDBKhongGiao` (js/47):** CT không có QĐ giao trong năm: **KH = dư nợ 31/12 năm trước**; chưa nạp Mẫu 31 kỳ 12 năm trước → **dư nợ Mẫu 31 kỳ trước đợt giao (QĐ) mới nhất trong năm** (`dn.khMoi`); không có → KH trống. KH này cộng vào **KH tổng** (xã, toàn bộ, nguồn), đường **KH hiệu lực** trên biểu đồ và mốc QĐ; dòng CT không giao có còn phải TH, % riêng. Tổng thêm `khGiao` / `khKhongGiao`.
+- **Màn (js/48):** `pbDBKyGiaoMoi` chọn kỳ trước QĐ mới nhất (tự đọc Mẫu 31 kỳ đó); dòng chi tiết CT không giao ghi KH + nguồn KH ("không giao · dư nợ 31/12/…" / "… (đợt giao mới nhất)"); thẻ KH cuối năm ghi phần CT không giao.
+- **Chip màu** (`pbChip`, `pbChipTG`; CSS `.pb-c` theo biến sáng / tối, bản in có màu chữ): danh sách QĐ (↑ +… xanh / ↓ −… đỏ / số dư xanh nhạt, ✗ lệch số đỏ) · bảng đối chiếu phân bổ (✓ Khớp xanh, ✗ LỆCH đỏ, ⚠ cảnh báo vàng) · ô Tăng/giảm sửa tay đổi viền + chữ theo dấu · đối chiếu chéo (cột Tăng/giảm, kết luận từng dòng, nhãn nhóm ✓ khớp / ✗ lệch) · diễn biến (± trong năm, ± từng QĐ).
+- **Phép thử:** `t255` 20 (KH CT không giao = dư nợ đầu năm / đợt giao mới nhất, KH tổng); `t252` / `t253` / `t254` giữ đạt với chip mới.
+- **Anh 21/10:** "ký hiệu tăng giảm em dùng ký hiệu mũi tên, kèm +, − sao cho trực quan" → chip tăng / giảm dùng **mũi tên đậm ↑ / ↓ kèm dấu + / −** (↑ +300 xanh · ↓ −150 đỏ), cả dòng thời gian QĐ.
+
 ## 3.304 — 21/10/2026 — Chữ ký gắn cùng CCCD: cột Ck + 💾 Xuất file theo khách
 - **Anh 21/10**: "thu gọn cột xem lại vừa CCCD là được, thêm 1 cột Ck cạnh cột CCCD, khách nào có ck thì hiện ra, khi cần xuất sẽ có nút chọn 1 khách và xuất ck, CCCD mỗi loại 1 file nhẹ, chỉ định lưu trên máy tại thư mục chỉ định".
 - **Khung xem tab Scan gọn** mặc định (danh sách 3 : khung xem 1, vừa thẻ CCCD; tối thiểu 340 px). Độ rộng Scan đã kéo trước đây bỏ 1 lần để theo mặc định mới; kéo lại / bấm đúp vạch như cũ.

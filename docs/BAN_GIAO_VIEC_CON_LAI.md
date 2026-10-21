@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.305) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📈 Diễn biến, Tất cả xã, Cả 2 nguồn | Tổng dư nợ thực tế = tổng Mẫu 31 (mọi CT); Còn phải TH = KH cuối năm − tổng; thẻ Nguồn TW / ĐP đúng từng nguồn | |
+| 2 | Lọc Nguồn TW rồi ĐP | Số khớp thẻ nguồn tương ứng | |
+| 2 | Danh sách QĐ, bảng phân bổ, đối chiếu chéo | Chip ↑ + xanh / ↓ − đỏ, ✓ Khớp xanh, ✗ Lệch đỏ; chế độ tối đọc rõ | |
+
 ### Danh sách thử trên máy thật (3.304) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
