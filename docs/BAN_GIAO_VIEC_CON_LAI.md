@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.308) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🎯 Phân bổ KH | Thanh tab 4 mục; phím 1 – 4; mở lại nhớ mục; Đối chiếu có số đỏ khi có lệch | |
+| 2 | 📋 Quyết định → bấm 1 xã | Sang Phân bổ đúng QĐ · xã; ô chọn nhanh QĐ · xã | |
+| 3 | Sửa tay 1 ấp → đổi xã → quay lại | Vẫn giữ số sửa tay, có nhãn; ↺ Chia lại bỏ | |
+| 4 | 📈 Diễn biến | Ma trận xã × CT: ô dư nợ / KH, vượt KH đỏ; xoay, tách nguồn, chọn mốc, tỷ; bảng 📅 mốc cuối tháng | |
+| 5 | 🔎 Đối chiếu | Ghi nhận tổng lệch Đã giao ↔ dư nợ 31/12; báo CT phát sinh dư nợ chưa có QĐ; QĐ chưa ghép xã | |
+| 6 | 👁 Biểu 07 → Word / In | Màn Phân bổ hiện "📜 Biểu 07 đã xuất …" | |
+
 ### Danh sách thử trên máy thật (3.307) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

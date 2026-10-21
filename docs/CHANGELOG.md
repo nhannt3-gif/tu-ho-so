@@ -4,6 +4,28 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.308 — 21/10/2026 — 🎯 Phân bổ KH: thanh tab ngang · bảng ma trận gọn · so theo mốc cuối tháng · sửa lỗi rà soát (TK chính)
+- **Anh 21/10:** "tab phân bổ KH còn hiện chung các chức năng hơi rối … thanh tab ngang … điều hướng kiểu hiện đại" · "em suy nghĩ sâu hơn rà soát lại … còn lỗi nào không, phản biện … các bảng bố trí cân đối không phải lúc nào cũng tràn hết màn hình" · "theo em … có một số chương trình mới phát sinh trong năm nên tránh bỏ sót … tinh gọn các bảng để hiển thị được nhiều hơn thông tin đa chiều" · "em cứ code 1 lượt và gộp lên trước rồi chạy hồi quy sau".
+### Điều hướng
+- **Thanh tab ngang 4 mục** (đầu tab 🎯): 📋 Quyết định (số QĐ) · ⚙ Phân bổ · Biểu 07 · 📈 Diễn biến · 🔎 Đối chiếu (**số đỏ** = số nhóm đang lệch, tính nhanh theo cách chia tương đối); mỗi mục 1 màn dùng hết vùng làm việc; **nhớ mục** (`D.cauHinh.pbMuc`); **phím 1 – 4**. Mục Quyết định: danh sách QĐ dạng **lưới thẻ**; mục Phân bổ: **ô chọn nhanh QĐ · xã** (khỏi quay lại). Lưu / xóa / nhập QĐ vẽ lại cả khung (số trên thanh tab cập nhật).
+### Bảng gọn, đa chiều
+- **Bảng ma trận** (thay bảng xã ở Diễn biến): hàng xã × cột chương trình, ô **dư nợ / KH** tô màu (xanh đạt · vàng chậm · **đỏ vượt KH**), cột Tổng · % · còn / vượt · **đường diễn biến** nhỏ từng hàng; công tắc **xoay** (hàng = chương trình), **nguồn gộp / tách TW · ĐP**, **mốc** (tháng bất kỳ), **triệu / tỷ**; cố định cột tên + dòng tiêu đề khi cuộn; nhãn **"mới"** cho chương trình phát sinh trong năm; bấm tên xã → chi tiết từng chương trình · QĐ.
+- **Bảng cân đối**: bảng co theo nội dung (tối đa ~1.120 px), cột số đều, chữ 13 px; thẻ số tối đa 4 / hàng; biểu đồ ≤ 980 px.
+- **(3.306 chưa gộp, gộp vào bản này) Anh 21/10:** "có dấu cộng trừ và màu rồi nên bỏ mũi tên đi" · "lấy tổng dư nợ (bao gồm tất cả các chương trình), so các mốc cuối tháng, với KH giao (bao gồm tất cả các chương trình cả có KH giao, nếu không có thì lấy theo dư nợ đầu năm)" · chốt: (a) trước QĐ đầu năm KH = dư nợ đầu năm, Đã giao trên QĐ lệch dư nợ đầu năm chỉ ghi nhận không sửa; (b) chưa nạp Mẫu 31 tháng 12 năm trước → báo anh nạp.
+- **Lõi `pbDienBien` (js/47):** KH hiệu lực của CT có giao **trước QĐ đầu năm = dư nợ đầu năm** (trước: Đã giao QĐ đầu); mỗi mốc (31/12 năm trước + từng kỳ Mẫu 31 trong năm) giữ `kh` / `dn` tổng mọi CT, tách `khGiao` / `khKG` / `dnGiao` / `dnKG` và chi tiết từng nhóm (`ct[]`); **bỏ lấy số thay** "dư nợ đợt giao mới nhất" (3.305) — chưa có dư nợ 31/12 năm trước thì KH CT không giao trống, trả `coDau` để báo.
+- **Màn (js/48):** bảng mới **📅 So theo mốc cuối tháng** (dưới dòng thời gian QĐ): Mốc · KH giao (có giao / không giao) · Tổng dư nợ thực tế (có giao / không giao) · Chênh (dư nợ − KH, chip +/− màu) · % đạt; **bấm mốc → từng xã, bấm xã → từng CT · nguồn** (dòng không giao ghi "KH = dư nợ đầu năm"); bản in có bảng mốc; Excel sheet Theo thang thêm cột tách có giao / không giao + sheet mới **Thang x xa x CT**; dòng chi tiết CT có giao ghi nhận "QĐ ≠ dư nợ ±…" khi Đã giao trên QĐ lệch dư nợ 31/12 (không sửa); thông báo vàng **"Chưa nạp Mẫu 31 kỳ 12/…"** khi thiếu; chip tăng / giảm bỏ mũi tên (chỉ +/− và màu).
+- **Phép thử:** `t255` 22 (KH trước QĐ đầu = dư nợ đầu năm, bảng mốc: mốc → xã → CT, báo chưa nạp, Excel 6 sheet, không lấy số thay).
+### Sửa lỗi rà soát + phản biện (anh "theo em")
+- **L1** dư nợ **vượt KH** tô **đỏ** (thanh %, chênh "vượt +…", thẻ "Vượt KH", ô ma trận); còn được giải ngân xanh nhạt "còn …"; KH = 0 mà có dư nợ → "vượt — chưa có KH".
+- **L2** mở lại tab → đọc lại dư nợ Mẫu 31 (nạp lại cùng kỳ không dùng số cũ).
+- **L3** QĐ **chưa ghép xã** không cộng vào Diễn biến / Đối chiếu, có báo số lượt để anh ghép.
+- **L4** cộng dư nợ theo số chưa làm tròn, làm tròn khi hiển thị (tổng khớp Mẫu 31).
+- **L5** chương trình **phát sinh dư nợ giữa năm** (đầu năm và kỳ cuối = 0) vẫn cộng; Đối chiếu báo đỏ "phát sinh dư nợ trong năm nhưng chưa có QĐ giao".
+- **L6** **số sửa tay giữ** khi đổi xã / cách chia trong phiên (nhãn "Có ấp sửa tay", nút ↺ Chia lại; 📦 mọi xã dùng số sửa tay + cảnh báo).
+- **Bản chụp nhẹ Biểu 07 đã xuất** (In / PDF / Word): số từng ấp, lúc xuất, cách — KHO1 `pb.b07` (≤ 300 bản); màn Phân bổ hiện "📜 Biểu 07 đã xuất …".
+- **Đối chiếu**: dòng ghi nhận tổng **Đã giao QĐ đầu năm ≠ dư nợ 31/12** (chỉ ghi nhận, không sửa).
+- **Phép thử:** **`t256` mới 17** (thanh tab, nhớ mục, phím, số lệch, chọn nhanh, L1 / L3 / L5 / L6, chia lại, bản chụp Biểu 07, ô vượt đỏ, bảng gọn) · `t255` 23 (ma trận: xoay, tách nguồn, tỷ; bấm xã → chi tiết) · `t250`–`t254`, `t140`, `t143`, `t163` giữ đạt. Hồi quy đủ: chạy sau khi gộp (anh đồng ý).
+
 ## 3.307 — 21/10/2026 — Chế độ lọc cho bản photo
 - **Anh 21/10**: "tinh chỉnh thêm các chế độ cho bản scan từ photo rõ hơn — hiện tại chế độ xám hay trắng vẫn chưa đạt lắm, magic cũng vậy, em góp ý thêm".
 - Bản photo: nền xám mực in không đều, chữ xám nhạt, lấm tấm chấm mực, không màu. Cách làm chung mới (`js/52-loc-photo.js`): chia cho **nền sáng từng vùng** (khử nền xám, bóng tay; vùng tối lớn như ảnh chân dung không bị coi là nền) → nền về trắng, phần tối kéo đậm theo đường cong → **bỏ cụm chấm nhỏ** (cỡ chấm mực, nhỏ hơn dấu thanh) → làm nét.

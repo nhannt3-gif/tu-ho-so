@@ -3710,7 +3710,55 @@ table.pb-db-ct tr.pb-kg td{color:var(--chu-phu)}table.pb-db-ct tr.pb-kg td.so:nt
 .pb-c-ct{display:inline-block;margin:1px 6px 1px 0;white-space:nowrap}
 td.pb-tg.tang .gd-o{color:var(--luc);font-weight:600;border-color:var(--luc)}
 td.pb-tg.giam .gd-o{color:var(--do);font-weight:600;border-color:var(--do)}
-.pb-mt{font-size:1.2em;line-height:1;font-weight:800;vertical-align:-1px}
 .ky-ra-dong{display:flex;align-items:center;gap:9px;padding:6px 8px;border:1px solid var(--vien);border-radius:10px;margin:5px 0;cursor:pointer}   /* 3.306: ✍ Rà chữ ký */
 .ky-ra-dong img{width:96px;height:60px;object-fit:contain;background:#fff;border:1px solid var(--vien);border-radius:6px;flex:0 0 auto}
 .ky-ra-dong small{display:block;color:var(--chu-phu)}
+/* 3.308 📅 bảng so theo mốc cuối tháng */
+table.pb-db-thang tr[data-lenh]{cursor:pointer}table.pb-db-thang tr[data-lenh]:hover td{background:var(--xanh-nhat)}
+table.pb-db-thang tr.pb-db-moc-d.mo td{background:var(--xanh-nhat)}
+table.pb-db-thang tr.pb-db-moc-xa td{background:var(--nen)}table.pb-db-thang tr.pb-db-moc-xa.mo td{background:var(--xanh-nhat)}
+table.pb-db-thang tr.pb-db-moc-ct td{font-size:calc(12.5px*var(--co))}
+table.pb-db-thang td small{color:var(--chu-phu);font-weight:400}
+/* 3.308 🎯 Phân bổ KH — thanh tab ngang 4 mục · bố cục gọn · bảng ma trận (anh 21/10) */
+.pb-thanh{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:2px;padding:3px;margin:6px 0 10px;background:var(--the);border:1px solid var(--vien);border-radius:999px;width:max-content;max-width:100%}
+.pb-thanh-nut{border:0;background:transparent;color:var(--chu-phu);padding:6px 14px;border-radius:999px;font:inherit;font-size:calc(13.5px*var(--co));cursor:pointer;white-space:nowrap}
+.pb-thanh-nut:hover{background:var(--nen);color:var(--chu)}
+.pb-thanh-nut.bat{background:var(--xanh);color:#fff;font-weight:600}
+.pb-thanh-nut small{opacity:.8;font-weight:400}
+.pb-thanh-so{display:inline-block;min-width:18px;padding:0 5px;border-radius:999px;background:var(--do);color:#fff;font-size:calc(11px*var(--co));font-weight:700;text-align:center}
+.th-bo.th-bo2.pb-bo{display:block}.th-bo2.pb-bo>.th-cot{position:static;overflow:visible}
+.pb-bo.muc-qd #pb-phai,.pb-bo:not(.muc-qd) #pb-trai{display:none}
+.pb-bo #pb-trai,.pb-bo #pb-phai{width:100%;max-width:1180px;margin:0}
+.pb-bo.muc-qd .pb-ds{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px;align-items:start}
+.pb-bo.muc-qd .pb-nhom{margin:0}
+.pb-chon-qd select{max-width:440px}
+/* bảng cân đối: co theo nội dung, không kéo hết màn hình; cột số đều */
+.pb-bo .to-bang-cuon{max-width:1120px}
+.pb-bo table.to-bang{width:auto;min-width:min(100%,560px);font-size:calc(13px*var(--co))}
+.pb-bo table.to-bang td,.pb-bo table.to-bang th{padding:3px 8px}
+.pb-bo table.to-bang td.so{min-width:84px;font-variant-numeric:tabular-nums}
+.pb-bo .pb-kpi{max-width:1120px}
+.pb-bo .pb-db-bd{max-width:980px}
+.pb-bo table.pb-ap{min-width:min(100%,640px)}
+/* ma trận */
+.pb-mt-dk{align-items:center;margin:8px 0 6px}.pb-mt-nh{color:var(--chu-phu);font-size:calc(12px*var(--co));margin-left:6px}
+.pb-mt-cu{margin-left:auto;display:inline-flex;gap:4px}
+.pb-mt-cuon{max-width:1120px;overflow:auto;border:1px solid var(--vien);border-radius:10px}
+table.pb-mt{border-collapse:separate;border-spacing:0;font-size:calc(12.5px*var(--co));font-variant-numeric:tabular-nums}
+table.pb-mt th,table.pb-mt td{padding:3px 7px;border-bottom:1px solid var(--vien);border-right:1px solid var(--vien);text-align:right;white-space:nowrap}
+table.pb-mt thead th{position:sticky;top:0;z-index:2;background:var(--nen);color:var(--chu-phu);font-weight:600}
+table.pb-mt th.pb-mt-h{position:sticky;left:0;z-index:1;background:var(--the);text-align:left;font-weight:600;color:var(--chu)}
+table.pb-mt thead th.pb-mt-h{z-index:3;background:var(--nen)}
+table.pb-mt th.pb-mt-h[data-lenh]{cursor:pointer}table.pb-mt th.pb-mt-h[data-lenh]:hover,table.pb-mt th.pb-mt-h.mo{background:var(--xanh-nhat)}
+table.pb-mt th.pb-mt-h small{font-weight:400}
+td.pb-mt-o{min-width:64px;line-height:1.15}td.pb-mt-o small{display:block;color:var(--chu-phu);font-size:.86em}
+td.pb-mt-o.tot{background:var(--luc-nen)}td.pb-mt-o.cham{background:var(--vang-nen)}td.pb-mt-o.vuot{background:var(--do-nen)}td.pb-mt-o.vuot{color:var(--do)}
+td.pb-mt-o.na{color:var(--chu-phu)}td.pb-mt-o.tong{font-weight:700}
+table.pb-mt tr.tong th,table.pb-mt tr.tong td{border-top:2px solid var(--vien)}
+td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
+.pb-db-mo-bang{margin:10px 0;max-width:1120px}
+.pb-tien.vuot i{background:var(--do)}
+#tr7 .pb-bo table.to-bang{width:auto!important}
+#tr7 .pb-bo .to-bang-cuon{width:fit-content;max-width:min(100%,1120px)}
+#tr7 .pb-bo .pb-ct,#tr7 .pb-bo .pb-dc-nhom,#tr7 .pb-bo .pb-db-mo-bang{width:fit-content;max-width:100%;min-width:min(100%,520px)}
+#tr7 .pb-bo table.to-bang th{white-space:normal;min-width:70px}
