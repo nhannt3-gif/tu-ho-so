@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.311) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Màn 17 inch / laptop 125%: Hôm nay › 🎓 Hạn trả HSSV, gõ ngày vay, ra trường, tiền | Lịch thu còn 1 hàng nút; đủ ô kết quả + bảng + câu chốt trong 1 khung, không cuộn | |
+| 2 | Bấm ✕ | Lịch tháng hiện lại | |
+
+**Ghi chú kỹ thuật 3.311:** 04 `ccGonLich(mo)` — `.blv-lich.cc-gon` khi công cụ mở ở `#cc-o` và `innerHeight < 960` (gọi trong `veCC`, khi chuyển sang hộp, khi resize); CSS ẩn `.lc-dau / .lc-luoi / .lc-sap`, `.cc-cot` thành hàng; `#cc-o .cc-dau` không xuống dòng (b min-width 4em, select ≤ 84 px, nút padding 2 / 4); `@media (max-height:959px)` ô kết quả nhỏ lại.
+
 ### Danh sách thử trên máy thật (3.310) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

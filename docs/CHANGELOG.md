@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.311 — 22/10/2026 — Hạn trả HSSV vừa 1 khung trên màn nhỏ
+- **Anh 21/10**: "thẻ tính HSSV mở trên màn nhỏ 17 inch và màn laptop 125% vẫn chưa hiện hết thông tin cơ bản trong 1 khung".
+- Đo trên máy thử: 17 inch (cửa sổ ~1366 × 650) khung công cụ chỉ còn ~210 px dưới lịch tháng (cần ~500 px); laptop 125% (~1536 × 730) còn ~320 px; tiêu đề rớt dòng (nút ✕ xuống hàng 2), nhãn "Tiền vay (triệu) · gợi ý…" 2 dòng.
+- **Màn thấp (cao < 960 px) đang mở công cụ** → lịch tháng thu còn **1 hàng nút công cụ** (🎓 · 🗺 · 📋 · 🧰), công cụ dùng phần còn lại: nhập liệu, 5 ô kết quả, bảng, câu chốt hiện trọn, không phải cuộn. Đóng công cụ (✕ / Esc) → lịch hiện lại đầy đủ. Màn cao giữ như cũ.
+- Tiêu đề công cụ gọn 1 dòng (ô chọn khóa học, GDX, nút co lại); nhãn ô nhập 1 dòng; chữ ô kết quả nhỏ lại chút trên màn thấp.
+- Phép thử: t231 mới (6).
+
 ## 3.310 — 21/10/2026 — GQVL: lịch trả gốc tự phân kỳ, phương án tự tính (hệ số k), trang Phê duyệt NH
 - **Anh 21/10** (gửi 07b trống, hợp đồng 07b đã điền phân kỳ 24 tháng, Excel GQVL, 01/GQVL mới, trang cuối 01.NL): "em code theo mẫu mới nguyên mẫu 07B chuẩn, không thay đổi khi anh quyết định; 2 em tự tính và điền; 3 em tự tính và điền, riêng phương án có hệ số k ngẫu nhiên thay đổi khi cần; trang cuối cho in chọn in riêng được, và in chung khi cần".
 - **Kiểm tra mẫu**: 01/GQVL (áp dụng 01/10/2026) và 07b trống anh gửi **trùng khớp từng chữ** với file gốc app đang dùng → **giữ nguyên chữ** (07b chuẩn; các chỗ khác của hợp đồng đã điền — căn cứ 597, câu thêm ở Điều 5.4, cột Diễn giải ở Phụ lục… — chờ anh quyết).
