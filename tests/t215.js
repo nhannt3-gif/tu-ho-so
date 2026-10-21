@@ -24,9 +24,8 @@ const fs=require('fs'), path=require('path');
    const dong = document.querySelector('#tr4 .sc-d[onclick*="t215d"]');
    ok('dòng bản chưa khai ghi nơi lưu "Scan chờ sắp xếp" (trước "Hồ sơ scan › Chưa khai")', !dong || /Scan chờ sắp xếp/.test(dong.textContent), dong ? dong.textContent.slice(0, 120) : 'không thấy dòng');
    /* hộp Chữ ký: chữ đúng cách lưu */
-   moKyAnh(); await w(200); const hk = document.getElementById('hop-in').textContent;
-   ok('hộp Chữ ký · CCCD: ghi "Chữ ký - Ảnh khách" (không còn "mỗi tháng một thư mục")', /Chữ ký - Ảnh khách/.test(hk) && !/mỗi tháng một thư mục/.test(hk) && !/Mở thư mục tháng/.test(hk));
-   dongHop();
+   moKyAnh(); await w(200);
+   ok('3.309: hộp 📁 Chữ ký · CCCD cũ không còn (moKyAnh → đóng, về tab Scan)', !document.querySelector('#hop.hien .ka-nut'));
    /* ảnh cắt từ PDF chưa duyệt → in PDF gốc */
    const kp = {id:'t215e', che:'the', ten:c.ten, maKH:ma, tag:['CCCD'], matTruoc:true, matSau:true, catTuPDF:true, driveId:'drvP', taoLuc:'2026-10-07T00:00:00Z'}; D.scan.push(kp);
    const cu = {n:coTheNoiDrive, t:taiPDFDrive, i:inBlob, d:SX_DUNG_THE_CU}; let lay = '', inn = '', dung = 0;

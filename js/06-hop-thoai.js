@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.308', ds:[
+var CO_GI_MOI = {ban:'3.309', ds:[
+  ["Scan gọn: chọn 1 khách → khung xem hiện CCCD + chữ ký (lăn tay) ngay dưới; menu ⋯ bỏ Chế độ quét, Webcam, 📁 Chữ ký · CCCD (trùng); ✍ Rà chữ ký đọc thử số thẻ mọi ảnh (bắt ảnh CCCD mờ) + hiện cả nhóm đúng để tích tay, tự rà lại 1 lần", "doiNgan(4)"],
   ["🎯 Phân bổ KH có thanh tab ngang: Quyết định · Phân bổ · Biểu 07 · Diễn biến · Đối chiếu (số đỏ = nhóm lệch), nhớ mục, phím 1 – 4", "slDoiTab('pb');doiNgan(7)"],
   ["📈 Diễn biến: bảng ma trận xã × chương trình gọn (dư nợ / KH tô màu, vượt KH đỏ), xoay / tách nguồn / chọn mốc / triệu – tỷ; bảng so theo mốc cuối tháng", "slDoiTab('pb');doiNgan(7)"],
   ["Sửa lỗi: vượt KH tô đỏ, đọc lại Mẫu 31 khi mở tab, QĐ chưa ghép xã không cộng, chương trình phát sinh giữa năm không bỏ sót, giữ số sửa tay, lưu bản chụp Biểu 07 đã xuất", "slDoiTab('pb');doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.308', ds:[
   ["📈 Diễn biến phân vốn: cột dư nợ thực tế hiện cả chương trình KHÔNG có giao (dòng \"không giao\"), thêm cột Dư nợ CT không giao và Tổng dư nợ thực tế để đối chiếu đủ dư nợ Mẫu 31", "slDoiTab('pb');doiNgan(7)"],
   ["📈 Phân bổ KH › Diễn biến phân vốn theo KH: thẻ số (đầu năm, KH cuối năm, hiện tại, còn phải thực hiện), biểu đồ KH hiệu lực ↔ dư nợ từng tháng, dòng thời gian QĐ, tiến độ từng xã — In / PDF / Excel", "slDoiTab('pb');doiNgan(7)"],
   ["🔎 Phân bổ KH › Đối chiếu chéo: mỗi QĐ — Biểu 07 khớp số giao và Đến 31/12 của QĐ; chuỗi QĐ trong năm (Đã giao = Đến 31/12 QĐ trước); đầu năm so dư nợ 31/12 năm trước; dư nợ thực tế chỉ để tham khảo", "slDoiTab('pb');doiNgan(7)"],
-  ["⚙ Biểu 07 có khai báo riêng như các mẫu: nơi lập (mặc định tên xã / phường), tỉnh, số / ngày thông báo, chức danh ký, người ký, nơi nhận, cỡ chữ — mỗi ô chọn ✍ ghi tay · 🤖 tự động · ⚙ khai báo chung · ⌨ tự gõ riêng", "slDoiTab('pb');doiNgan(7)"],
-  ["🎯 Tab Phân bổ KH giao diện thẻ mới: thẻ số ở màn phân bổ và đối chiếu, danh sách QĐ dạng thẻ, hợp chế độ tối", "slDoiTab('pb');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["⚙ Biểu 07 có khai báo riêng như các mẫu: nơi lập (mặc định tên xã / phường), tỉnh, số / ngày thông báo, chức danh ký, người ký, nơi nhận, cỡ chữ — mỗi ô chọn ✍ ghi tay · 🤖 tự động · ⚙ khai báo chung · ⌨ tự gõ riêng", "slDoiTab('pb');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

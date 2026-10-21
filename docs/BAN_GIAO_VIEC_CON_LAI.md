@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.309) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Bấm 1 khách có chữ ký ở tab Scan | Khung xem: CCCD, dưới có dải ✍ Chữ ký | |
+| 2 | Menu ⋯ tab Scan | Chỉ còn Chép đường dẫn ổ G · Mở thư mục Drive · Sửa tag | |
+| 3 | Vào tab Scan (lần đầu sau cập nhật) | Hộp ✍ Rà chữ ký hiện lại: chữ ký rác còn sót tích sẵn; nhóm cuối là chữ ký đúng — sai thì tích → Bỏ | |
+
+**Ghi chú kỹ thuật 3.309:** 51: `KY_BAN = '3.309'`; `kyPhanLoai` — heuristic ra ky / lantay vẫn `docCCCD(bl, bl)`, đọc ra → 'the' (chỉ 'trong' trả ngay); `kyDaXet(a)` = `kyXetBan === KY_BAN`; Rà đẩy cả nhóm 'ok' (không tích); mốc `D.cauHinh.kyRa = KY_BAN` (khác → tự rà lại); `kaXong` ghi `kyXetBan`. Bọc `xemThu` → `.sx-ck-xem` (data-lenh `sx.xemHS` loai ka) chèn sau `#cp-than` / `#x-than` khi bản CCCD có chữ ký (`xkCuaKhach`). `moKyAnh` → đóng hộp + `veScan`. 12: `themPhu` rỗng; `dauScanDT` bỏ `.sc-che` + 📁. 43: `sxHoSoKhach` bỏ nhóm 🧑 Ảnh.
+
 ### Danh sách thử trên máy thật (3.308) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

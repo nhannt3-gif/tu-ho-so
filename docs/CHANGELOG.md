@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.309 — 21/10/2026 — Gọn tab Scan: chữ ký dưới CCCD ở khung xem, bỏ mục trùng, rà chữ ký kỹ hơn
+- **Anh 21/10**: "chỗ scan CCCD em vẫn còn để đó, có 1 số chức năng em coi có thừa hay trùng thì bỏ đi, trong nút 3 chấm, việc khác của tab này; em tối ưu; khi chọn 1 KH sẽ hiện CCCD và ck phía dưới nếu có; chữ ký rác anh chạy và xóa rồi nhưng vẫn còn hiện lên".
+- **Khung xem**: chọn 1 bản CCCD → ngay dưới nội dung thẻ có **dải ✍ Chữ ký** (🖐 Lăn tay) của khách nếu có; bấm dải → xem chữ ký lớn. Tài liệu không hiện dải. "Hồ sơ của khách" bỏ mục 🧑 Ảnh (không lưu sẵn).
+- **Menu ⋯ tab Scan** bỏ 3 mục trùng: *Chế độ quét: Thẻ / Tài liệu* (hộp Quét gì? đã quyết định), *📷 Webcam* (Quét gì? › Camera / máy quét), *📁 Chữ ký · CCCD* (nay: chụp ở Quét gì? › ✍ Chữ ký, xem ở cột Ck / khung xem, xuất ở 💾, dọn ở ✍ Rà chữ ký). Điện thoại bỏ nút Thẻ / Tài liệu và 📁. Các nút "Về danh sách / Đóng" cũ dẫn về hộp này → đóng, về tab Scan.
+- **✍ Rà chữ ký kỹ hơn** (chữ ký rác vẫn còn sau khi rà ở 3.306): 3.306 tin "nét thưa" là chữ ký nên ảnh CCCD mờ / photo có thể lọt. Nay **mọi ảnh (trừ ảnh trắng) đều đọc thử QR / mã máy đọc / số thẻ** — đọc ra là ảnh CCCD (tích sẵn). Hộp rà hiện thêm nhóm cuối **"✓ App nhận là chữ ký / lăn tay"** có ảnh nhỏ — sai thì anh tích tay rồi Bỏ. Dữ liệu đã rà ở 3.306 **tự rà lại 1 lần** khi vào tab Scan. Lưu chữ ký mới cũng đọc thử số thẻ (thêm ~1 giây).
+- Phép thử: t229 mới (9); t147, t211, t215, t227 sửa theo.
+
 ## 3.308 — 21/10/2026 — 🎯 Phân bổ KH: thanh tab ngang · bảng ma trận gọn · so theo mốc cuối tháng · sửa lỗi rà soát (TK chính)
 - **Anh 21/10:** "tab phân bổ KH còn hiện chung các chức năng hơi rối … thanh tab ngang … điều hướng kiểu hiện đại" · "em suy nghĩ sâu hơn rà soát lại … còn lỗi nào không, phản biện … các bảng bố trí cân đối không phải lúc nào cũng tràn hết màn hình" · "theo em … có một số chương trình mới phát sinh trong năm nên tránh bỏ sót … tinh gọn các bảng để hiển thị được nhiều hơn thông tin đa chiều" · "em cứ code 1 lượt và gộp lên trước rồi chạy hồi quy sau".
 ### Điều hướng

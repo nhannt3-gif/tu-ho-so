@@ -36,10 +36,15 @@ function kyTheoNet(f){
   if(f.mau<0.04 && f.dac<0.008 && f.muc<0.12 && f.mat<0.3 && f.doi<9) return {loai:'ky', ly:'nét mảnh thưa'};
   return null;
 }
+/* 3.309 (anh: "chữ ký rác anh chạy và xóa rồi nhưng vẫn còn hiện lên"): nét giống chữ ký chưa chắc — ảnh CCCD mờ / photo cũng có thể
+   ra "nét thưa" → luôn đọc thử QR / mã máy đọc / số thẻ (trừ ảnh trắng); đọc ra số thẻ là ảnh CCCD */
+var KY_BAN = '3.309';
 function kyPhanLoai(bl){
   return anhTuBlob(bl).then(function(im){
     var c = document.createElement('canvas'); c.width = im.naturalWidth || im.width; c.height = im.naturalHeight || im.height; c.getContext('2d').drawImage(im, 0, 0);
-    var f = kyDacTrung(c), r = kyTheoNet(f); if(r){ r.f = f; return r; }
+    var f = kyDacTrung(c), r = kyTheoNet(f);
+    if(r && r.loai==='trong'){ r.f = f; return r; }
+    if(r) return docCCCD(bl, bl).then(function(d){ return d ? {loai:'the', ly:'nét giống chữ ký nhưng đọc được '+(d.nguon || 'số CCCD')+(d.cccd ? ' '+d.cccd : ''), f:f} : (r.f = f, r); }, function(){ r.f = f; return r; });
     return docCCCD(bl, bl).then(function(d){ return d ? {loai:'the', ly:'đọc được '+(d.nguon || 'số CCCD')+(d.cccd ? ' '+d.cccd : ''), f:f} : {loai:'khac', ly:'không giống nét chữ ký / vân tay', f:f}; },
       function(){ return {loai:'khac', ly:'không giống nét chữ ký / vân tay (chưa đọc được chữ)', f:f}; });
   });
@@ -62,7 +67,7 @@ luuKA = function(cach){
 };
 var KY_XONG_CU = kaXong;
 kaXong = function(k){
-  if(k && k.loai==='ky' && KA.xet && (KA.xet.loai==='ky' || KA.xet.loai==='lantay')){ k.kyXet = KA.xet.loai; if(KA.xet.loai==='lantay') k.kieuKy = 'lantay'; luu(); }
+  if(k && k.loai==='ky' && KA.xet && (KA.xet.loai==='ky' || KA.xet.loai==='lantay')){ k.kyXet = KA.xet.loai; k.kyXetBan = KY_BAN; if(KA.xet.loai==='lantay') k.kieuKy = 'lantay'; luu(); }
   return KY_XONG_CU(k);
 };
 
@@ -72,22 +77,23 @@ sxAnhTuCCCD = function(){ return Promise.resolve(null); };
 /* ---------- ✍ Rà chữ ký đã lưu ---------- */
 var KYR = {dang:false, ds:[], chon:{}};
 function kyRaChon(x){ return x.loai==='the' || x.loai==='trong' || x.loai==='anh'; }
+function kyDaXet(a){ return a.kyXetBan===KY_BAN && (a.kyXet==='ky' || a.kyXet==='lantay'); }
 function kyRaChay(tuDong){
   if(KYR.dang) return Promise.resolve();
-  var ds = (D.kyAnh||[]).slice(), n = 0, can = ds.filter(function(a){ return a.loai==='ky' && a.kyXet!=='ky' && a.kyXet!=='lantay'; }).length;
+  var ds = (D.kyAnh||[]).slice(), n = 0, can = ds.filter(function(a){ return a.loai==='ky' && !kyDaXet(a); }).length;
   KYR = {dang:true, ds:[], chon:{}};
   if(!tuDong) batChay(false, 'Đang rà '+can+' chữ ký…');
   return ds.reduce(function(p, a){ return p.then(function(){
     if(a.loai!=='ky'){ KYR.ds.push({a:a, loai:'anh', ly:'từ nay không lưu sẵn — cần thì 💾 xuất từ mặt trước CCCD'}); return; }
-    if(a.kyXet==='ky' || a.kyXet==='lantay') return;
+    if(kyDaXet(a)){ KYR.ds.push({a:a, loai:'ok', ly:KY_TEN[a.kyXet]}); return; }
     n++; if(!tuDong) dangLamChu('Đang rà chữ ký '+n+'/'+can+'…');
     return layAnhKA(a).then(function(b){ return b ? kyPhanLoai(b) : {loai:'mat', ly:'ảnh không có trong máy này, chưa lên Drive'}; }).then(function(r){
-      if(r.loai==='ky' || r.loai==='lantay'){ a.kyXet = r.loai; if(r.loai==='lantay') a.kieuKy = 'lantay'; return; }
+      if(r.loai==='ky' || r.loai==='lantay'){ a.kyXet = r.loai; a.kyXetBan = KY_BAN; if(r.loai==='lantay') a.kieuKy = 'lantay'; else delete a.kieuKy; KYR.ds.push({a:a, loai:'ok', ly:KY_TEN[r.loai]+' — '+r.ly}); return; }
       KYR.ds.push({a:a, loai:r.loai, ly:r.ly});
     }).catch(function(){});
   }); }, Promise.resolve()).then(function(){
     KYR.dang = false; KYR.ds.forEach(function(x){ if(kyRaChon(x)) KYR.chon[x.a.id] = 1; });
-    D.cauHinh.kyRa = '3.306'; luu();
+    D.cauHinh.kyRa = KY_BAN; luu();
     if(!tuDong){ tatChay(); return kyRaVe(); }
     var nh = KYR.ds.filter(kyRaChon).length; if(!nh) return;
     if(!document.querySelector('#hop.hien')) kyRaVe();
@@ -95,17 +101,17 @@ function kyRaChay(tuDong){
   });
 }
 function kyRaVe(){
-  var e = coChuHTML, nh = {}, thu = ['the', 'trong', 'anh', 'khac', 'mat'];
+  var e = coChuHTML, nh = {}, thu = ['the', 'trong', 'anh', 'khac', 'mat', 'ok'];
   KYR.ds.forEach(function(x){ (nh[x.loai] = nh[x.loai] || []).push(x); });
-  var n = Object.keys(KYR.chon).length, ten = {the:'🪪 Chữ ký thật ra là ảnh CCCD (quét nhầm)', trong:'⬜ Ảnh trắng', anh:'🧑 Ảnh khách lưu sẵn', khac:'❔ Không rõ — anh xem', mat:'☁ Không có ảnh'};
+  var n = Object.keys(KYR.chon).length, ten = {the:'🪪 Chữ ký thật ra là ảnh CCCD (quét nhầm)', trong:'⬜ Ảnh trắng', anh:'🧑 Ảnh khách lưu sẵn', khac:'❔ Không rõ — anh xem', mat:'☁ Không có ảnh', ok:'✓ App nhận là chữ ký / lăn tay — anh xem, sai thì tích'};
   moHop('<div class="hop-tit">✍ Rà chữ ký đã lưu</div>'+
     '<div class="hop-phu">App nhận dạng từng ảnh: chữ ký (nét mảnh thưa) · lăn tay (khối vân dày) · ảnh CCCD (đọc được QR / số thẻ). Mục tích sẵn là nghi nhầm — bấm Bỏ thì vào 🗑 Thùng rác (khôi phục được). '+
-      'Chữ ký / lăn tay đúng không hiện ở đây.</div>'+
+      'Nhóm cuối là ảnh app nhận đúng — anh xem lướt, ảnh nào sai thì tích.</div>'+
     (KYR.ds.length ? thu.filter(function(k){ return nh[k]; }).map(function(k){
       return '<div class="nhan-nhom">'+ten[k]+' ('+nh[k].length+')</div>'+nh[k].map(function(x){ var a = x.a;
         return '<label class="ky-ra-dong"><input type="checkbox" data-lenh="ky.chon" data-su="change" data-k="'+a.id+'"'+(KYR.chon[a.id] ? ' checked' : '')+'>'+
           '<img data-ky-anh="'+a.id+'" alt=""><span><b>'+e(a.khach || a.ten || '')+'</b>'+(a.maKH ? ' · '+e(a.maKH) : '')+'<small>'+e(x.ly)+'</small></span></label>'; }).join(''); }).join('')
-      : '<div class="hop-phu">✓ Không có mục nào nghi nhầm — các chữ ký đều đúng là chữ ký / lăn tay.</div>')+
+      : '<div class="hop-phu">Chưa có chữ ký nào.</div>')+
     '<div class="hang-nut" style="margin-top:12px">'+(n ? '<button class="xau" data-lenh="ky.bo">🗑 Bỏ '+n+' mục đã tích</button>' : '')+
       '<button data-lenh="ky.lai">↻ Rà lại</button><button data-lenh="ky.dong">Đóng</button></div>', true);
   if(typeof qlGanThe==='function') qlGanThe('ky');
@@ -119,7 +125,7 @@ function kyRaBo(){
   xoaNhieuVaoRac(ids, function(){ KYR.ds = KYR.ds.filter(function(x){ return ids.indexOf(x.a.id)<0; }); KYR.chon = {}; kyRaVe(); if(nganHienTai===4) veScan(); });
 }
 GD.dangKy('ky', {
-  ra:function(){ if(KYR.ds.length || D.cauHinh.kyRa) return kyRaVe(); kyRaChay(false); },
+  ra:function(){ if(KYR.ds.length) return kyRaVe(); kyRaChay(false); },
   lai:function(){ kyRaChay(false); },
   chon:function(el){ var id = el.getAttribute('data-k'); if(el.checked) KYR.chon[id] = 1; else delete KYR.chon[id];
     var b = document.querySelector('#hop [data-lenh="ky.bo"]'), n = Object.keys(KYR.chon).length;
@@ -134,8 +140,8 @@ qlThe = function(dang){ return KY_QL_THE(dang).replace(/<\/div>$/, '<button type
 var KY_VE_SCAN = veScan;
 veScan = function(){
   KY_VE_SCAN.apply(this, arguments);
-  if(D.cauHinh.kyRa || KYR.dang || KYR.hen || !(D.kyAnh||[]).length) return;
-  KYR.hen = setTimeout(function(){ KYR.hen = 0; if(!D.cauHinh.kyRa && nganHienTai===4) kyRaChay(true); }, 4000);
+  if(D.cauHinh.kyRa===KY_BAN || KYR.dang || KYR.hen || !(D.kyAnh||[]).length) return;   /* 3.309: rà lại 1 lần theo cách xét mới */
+  KYR.hen = setTimeout(function(){ KYR.hen = 0; if(D.cauHinh.kyRa!==KY_BAN && nganHienTai===4) kyRaChay(true); }, 4000);
 };
 
 /* ---------- "Quét gì?": 🧑 Ảnh khách → 🗎 Bản photo CCCD (2 mặt trên 1 tờ) ---------- */
@@ -168,3 +174,21 @@ sxChiaDoi = function(f){
     }));
   });
 };
+
+/* ---------- 3.309 (anh: "khi chọn 1 KH sẽ hiện CCCD và ck phía dưới nếu có"): khung xem — dải chữ ký dưới nội dung CCCD ---------- */
+var KY_XEM_THU = xemThu;
+xemThu = function(loai, id, i){
+  KY_XEM_THU(loai, id, i);
+  Array.prototype.forEach.call(document.querySelectorAll('.sx-ck-xem'), function(x){ x.remove(); });
+  var m = loai==='scan' ? timScan(id) : null; if(!m || m.che==='tailieu') return;
+  var a = xkCuaKhach(m, 'ky'); if(!a) return;
+  var cp = document.getElementById('cotphai'), than = document.getElementById(cp && cp.offsetParent && !anPV ? 'cp-than' : 'x-than'); if(!than) return;
+  var lt = a.kieuKy==='lantay';
+  than.insertAdjacentHTML('afterend', '<div class="sx-ck-xem" data-lenh="sx.xemHS" data-loai="ka" data-id="'+a.id+'" title="Bấm để xem lớn">'+
+    '<span>'+(lt ? '🖐 Lăn tay' : '✍ Chữ ký')+'</span><img alt=""></div>');
+  layAnhKA(a).then(function(b){ var im = document.querySelector('.sx-ck-xem img'); if(!b || !im) return; var u = URL.createObjectURL(b); im.src = u; thuHoiSau(u); }).catch(function(){});
+};
+
+/* ---------- 3.309 (anh: "chức năng thừa hay trùng trong nút ⋯ thì bỏ"): hộp 📁 Chữ ký · CCCD cũ không còn —
+   chụp chữ ký ở Quét gì? › ✍ Chữ ký, xem ở cột Ck / khung xem, xuất ở 💾, dọn ở ✍ Rà chữ ký. Các nút "Về danh sách / Đóng" cũ → về tab Scan */
+moKyAnh = function(){ dongHop(); if(typeof BOT!=='undefined' && BOT.tab==='kyAnh'){ BOT = {tab:'', chon:{}}; document.body.classList.remove('dang-bot'); } if(nganHienTai===4) veScan(); };

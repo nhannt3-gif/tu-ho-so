@@ -22,7 +22,7 @@ const fs=require('fs'), path=require('path');
    xemScanCP('t211a'); await w(400);
    const h = document.querySelector('#cp-phu .sx-hskh'), t = h ? h.textContent : '';
    ok('xem 1 bản CCCD → dòng "Hồ sơ của khách" (tên, mã KH) dưới đầu khung xem', !!h && /Hồ sơ của khách/.test(t) && t.indexOf(ma)>=0, t);
-   ok('gom đủ: 🪪 CCCD · ✍ Chữ ký · 📄 01TD; thiếu Ảnh ghi ✗', h && h.querySelectorAll('.sx-hs-nut').length===3 && /🧑 Ảnh ✗/.test(t) && /📄 01TD/.test(t));
+   ok('gom đủ: 🪪 CCCD · ✍ Chữ ký · 📄 01TD (3.309: bỏ mục 🧑 Ảnh — không lưu sẵn)', h && h.querySelectorAll('.sx-hs-nut').length===3 && !/🧑 Ảnh/.test(t) && /📄 01TD/.test(t));
    ok('bản đang xem tô đậm', h && h.querySelector('.sx-hs-nut.dang[data-id="t211a"]'));
    h.querySelector('[data-id="kat211"]').click(); await w(400);
    const h2 = document.querySelector('#cp-phu .sx-hskh');

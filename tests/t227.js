@@ -38,11 +38,11 @@ const fs=require('fs'), path=require('path');
    D.kyAnh = []; const n0 = D.kyAnh.length;
    KA.loai = 'ky'; KA.bl = bThe; KA.ten = 'Nguyễn Văn Giả'; KA.tenLuc = Date.now(); KA.xet = null; luuKA(); await w(2500);
    ok('lưu chữ ký mà ảnh là CCCD → không lưu, báo quét ở 🪪 CCCD', D.kyAnh.length===n0 && /là CCCD/.test(baoL), baoL.slice(-120));
-   KA.loai = 'ky'; KA.bl = bKy; KA.xet = null; KA.ten = 'Nguyễn Văn Giả'; luuKA(); await w(1200);
+   KA.loai = 'ky'; KA.bl = bKy; KA.xet = null; KA.ten = 'Nguyễn Văn Giả'; luuKA(); for(let i=0;i<100 && D.kyAnh.length<n0+1;i++) await w(100);
    const k1 = D.kyAnh[D.kyAnh.length-1];
    ok('chữ ký thật → lưu, ghi đã xét là chữ ký', D.kyAnh.length===n0+1 && k1.kyXet==='ky' && !k1.kieuKy, JSON.stringify(k1 && {kyXet:k1.kyXet, kieu:k1.kieuKy}));
    try{ dongHop(); }catch(e){}
-   KA.loai = 'ky'; KA.bl = bLT; KA.xet = null; KA.ten = 'Trần Thị Lăn Tay'; luuKA(); await w(1200);
+   KA.loai = 'ky'; KA.bl = bLT; KA.xet = null; KA.ten = 'Trần Thị Lăn Tay'; luuKA(); for(let i=0;i<100 && D.kyAnh.length<n0+2;i++) await w(100);
    const k2 = D.kyAnh[D.kyAnh.length-1];
    ok('lăn tay → lưu, ghi kieuKy = lăn tay', D.kyAnh.length===n0+2 && k2.kieuKy==='lantay', JSON.stringify(k2 && {kyXet:k2.kyXet, kieu:k2.kieuKy}));
    try{ dongHop(); }catch(e){}
@@ -54,12 +54,12 @@ const fs=require('fs'), path=require('path');
    await them('kat227the', 'ky', bThe, 'Ky Nham The'); await them('kat227anh', 'anh', bThe, 'Anh Luu San'); await them('kat227ky', 'ky', bKy, 'Ky Dung');
    D.cauHinh.kyRa = ''; await kyRaChay(false); await w(300);
    const hop = document.querySelector('#hop.hien'), tich = id => { const x = hop && hop.querySelector('[data-k="'+id+'"]'); return x ? x.checked : null; };
-   ok('✍ Rà chữ ký: chữ ký thật ra là CCCD + ảnh khách lưu sẵn → hiện, tích sẵn; chữ ký đúng không hiện; có thẻ ✍ Rà chữ ký ở Quản lý', tich('kat227the')===true && tich('kat227anh')===true && tich('kat227ky')===null && !!hop.querySelector('.ql-the [data-lenh="ky.ra"].bat'),
+   ok('✍ Rà chữ ký: chữ ký thật ra là CCCD + ảnh khách lưu sẵn → hiện, tích sẵn; chữ ký đúng ở nhóm cuối không tích (3.309); có thẻ ✍ Rà chữ ký ở Quản lý', tich('kat227the')===true && tich('kat227anh')===true && tich('kat227ky')===false && !!hop.querySelector('.ql-the [data-lenh="ky.ra"].bat'),
      JSON.stringify([tich('kat227the'), tich('kat227anh'), tich('kat227ky')]));
    hop.querySelector('[data-lenh="ky.bo"]').click(); await w(500);
    const con = D.kyAnh.map(a=>a.id), rac = (D.rac||[]).map(a=>a.id);
    ok('bấm Bỏ → 2 mục vào 🗑 Thùng rác, chữ ký đúng còn', con.indexOf('kat227the')<0 && con.indexOf('kat227anh')<0 && con.indexOf('kat227ky')>=0 && rac.indexOf('kat227the')>=0, JSON.stringify({con, rac:rac.filter(x=>/227/.test(x))}));
-   ok('rà xong ghi mốc (không tự rà lại); chữ ký đúng ghi đã xét', D.cauHinh.kyRa==='3.306' && D.kyAnh.find(a=>a.id==='kat227ky').kyXet==='ky');
+   ok('rà xong ghi mốc (không tự rà lại); chữ ký đúng ghi đã xét', D.cauHinh.kyRa==='3.309' && D.kyAnh.find(a=>a.id==='kat227ky').kyXet==='ky');
    try{ dongHop(); }catch(e){}
    /* không tạo ảnh khách từ CCCD; xuất Ảnh = mặt trước CCCD ≤ 200 KB */
    const sc = {id:'t227s', che:'the', ten:'Nguyễn Văn Giả', maKH:'9990002271', tag:['CCCD'], matTruoc:true, matSau:true, ngay:bay.slice(0,10), taoLuc:bay};

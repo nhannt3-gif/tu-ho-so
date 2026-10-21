@@ -210,8 +210,7 @@ function sxHoSoKhach(ma, dangId){
   var nhom = function(ico, ten, ds, loai){ return ds.length ? ds.map(function(k, i){ return nut(loai, k.id, ico+' '+ten+(ds.length>1 ? ' '+(i+1) : '')); }).join('') : '<span class="sx-hs-thieu">'+ico+' '+ten+' ✗</span>'; };
   var tl = sc.filter(function(k){ return k.che==='tailieu'; });
   return '<div class="sx-hskh"><b>Hồ sơ của khách</b> <small>'+e(sxNhanKH(ma))+'</small><div class="sx-hs-hang">'+
-    nhom('🪪', 'CCCD', sc.filter(function(k){ return k.che!=='tailieu'; }), 'scan')+nhom('✍', 'Chữ ký', ka.filter(function(k){ return k.loai==='ky'; }), 'ka')+
-    nhom('🧑', 'Ảnh', ka.filter(function(k){ return k.loai!=='ky'; }), 'ka')+tl.map(function(k){ return nut('scan', k.id, '📄 '+e(sxLoaiScan(k))); }).join('')+'</div></div>';
+    nhom('🪪', 'CCCD', sc.filter(function(k){ return k.che!=='tailieu'; }), 'scan')+nhom('✍', 'Chữ ký', ka.filter(function(k){ return k.loai==='ky'; }), 'ka')+   /* 3.309: bỏ 🧑 Ảnh (không lưu sẵn — 💾 xuất từ mặt trước CCCD) */tl.map(function(k){ return nut('scan', k.id, '📄 '+e(sxLoaiScan(k))); }).join('')+'</div></div>';
 }
 var SX_XEM_THU_CU = xemThu;
 xemThu = function(loai, id, i){

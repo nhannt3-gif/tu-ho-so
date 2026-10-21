@@ -15,10 +15,7 @@ function veScan(){
 
   var h = laDT() ? dauScanDT() : veDauTab('scan', {kho:D.scan, nhanThem:'Quét bản mới',
     hamThem:'batDauScan()',
-    themPhu:'<button onclick="chonCheScan()">Chế độ quét: '+
-            (SC.che==='the'?'Thẻ':'Tài liệu')+'</button>'+
-            (coCamera() ? '<button onclick="moCamera({muc:\'scan\'})">📷 Webcam</button>' : '')+
-            '<button onclick="moKyAnh()">📁 Chữ ký · CCCD</button>'});
+    themPhu:''});   /* 3.309 (anh): bỏ "Chế độ quét" (Quét gì? quyết định), "📷 Webcam" (Quét gì? › Camera), "📁 Chữ ký · CCCD" (cột Ck, 💾 Xuất, ✍ Rà chữ ký) */
   /* 3.151: dòng "Ảnh xử lý trong máy…" chuyển vào ❓ */
 
   var ds = locTheoThe('scan', locChuan('scan', D.scan.slice()));
@@ -943,10 +940,7 @@ function dauScanDT(){
   window.__khoTab = D.scan || [];
   return '<div class="sc-dt">'+
     '<button class="sc-quet" onclick="quetNhanh()">📷 Quét</button>'+
-    '<div class="sc-che">'+
-      '<button class="'+(SC.che==='the'?'bat':'')+'" onclick="datChe(\'the\')">Thẻ</button>'+
-      '<button class="'+(SC.che!=='the'?'bat':'')+'" onclick="datChe(\'tailieu\')">Tài liệu</button></div>'+
-    '<button class="sc-nho" onclick="moKyAnh()" title="Chữ ký · CCCD — thư mục riêng">📁</button>'+
+    /* 3.309: bỏ Thẻ / Tài liệu (Quét gì? quyết định) và 📁 Chữ ký · CCCD */
     '<button class="sc-nho'+(BOT.tab==='scan'?' co':'')+'" onclick="'+(BOT.tab==='scan'?'thoiBot()':'batBot(\'scan\')')+'" title="Xóa nhiều file">🗑</button>'+
     '<button class="sc-nho" onclick="quetNhanh(\'photo\')" title="Lấy ảnh có sẵn trong máy">🖼</button>'+
     '<button class="sc-nho" onclick="moHuongDan(\'scan\')" title="Hướng dẫn">❓</button>'+
