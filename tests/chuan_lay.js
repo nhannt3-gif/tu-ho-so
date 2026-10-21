@@ -30,7 +30,7 @@ module.exports = async function(p){
     const tv = hsoTVTo(TO_K.to[C.to]), ho = hmTuM31(tv[0].kh); ho.tv.push({ten:'Con Giả', ns:'2004-05-06', cccd:'072204000001', ncap:'2021-03-04', qh:'Con'});
     const hoG = hmTuM31(tv[1].kh);
     for(const m of ['01uq', '01td', '01tgtv']){ hmLamHS(ho.id, m); await w(250); const B = hsoBo(); B.ct = 'HSSV'; B.pa = Object.assign(B.pa||{}, {sv:'Con Giả', soThang:'12'}); B.tien = '40000000'; B.th = '60'; hsoBoLuu(); hsoVe(); await w(250); lay('hsv_'+m+'_so', ()=>hsoLap()); }
-    hmLamHS(hoG.id, '01gqvl'); await w(250); const BG = hsoBo(); BG.ct = 'GQVL'; BG.tien = '50000000'; BG.th = '36'; hsoBoLuu(); hsoVe(); await w(250);
+    hmLamHS(hoG.id, '01gqvl'); await w(250); const BG = hsoBo(); BG.ct = 'GQVL'; BG.tien = '50000000'; BG.th = '36'; BG.pa = BG.pa || {}; BG.pa.k = 1; hsoBoLuu();   /* 3.310: hệ số phương án cố định — bản chuẩn không đổi theo số ngẫu nhiên */ hsoVe(); await w(250);
     for(const m of ['01gqvl', '07b']){ hsoChonMau(m); await w(300); lay('hsv_'+m+'_so', ()=>hsoLap()); }
     hmLamHS(ho.id, '03td'); await w(300); lay('hsv_03td_so', ()=>hsoLap());
     hsoChonMau('09a'); await w(250); const tv9 = tv.find(k=>k.mon.some(m=>(m.dn||0)>0)) || tv[0]; HSO.vay.kh = tv9.kh; hsoLuu().kemTDCK = 0; hsoVe(); await w(300); lay('hsv_09a_so', ()=>hsoLap());
