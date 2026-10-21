@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.300 — 21/10/2026 — Tối ưu tốc độ Scan / mở PDF + đồng hồ xử lý
+- **Anh 21/10**: "khi mở hay scan CCCD app xử lý 1 thời gian, em rà soát tối ưu để nhanh hơn, load các PDF cũng vậy; nên có đồng hồ đo và báo thời gian máy xử lý để không chờ sốt ruột"; "lưu ý hiện gọn trên thanh chip nào đó, không hiện che màn hình".
+- **Đo trên máy thử** (ảnh giả, thẻ không đọc được — trường hợp chậm nhất): đọc số CCCD **7,5–9 giây → 0,6–1,3 giây**; 1 lượt đọc chữ 0,47 → 0,05 giây.
+  - Bộ đọc chữ (Tesseract) **khởi động 1 lần rồi dùng lại** (trước: mỗi mảnh ảnh khởi động + tắt 1 lần, thẻ khó ~11 lần); rảnh 60 giây tự tắt cho nhẹ máy.
+  - Ảnh đã cắt đúng 1 thẻ → không đọc thêm 4 mảnh phóng to (chỉ cần cho tờ có 2 thẻ / ảnh chưa cắt).
+- **PDF**: PDF tải từ Drive và PDF dựng từ ảnh (scan tài liệu) giữ trong phiên (12 file gần nhất, ≤ 80 MB) → mở lại / chuyển qua lại tức thì; cắt 2 mặt thẻ từ PDF không tải lại.
+- **Đồng hồ ⏱** (gọn, không che màn hình): việc đang chạy ghi "· ⏱ 3,4 giây" ngay ở **ô trạng thái** (dưới thanh bên) / thanh Đang làm có nút Dừng; khung xem đang mở / đang tải / đang tách đếm giây dưới dòng chữ; việc xong ≥ 1,5 giây → tin kết quả ở ô trạng thái kèm "· ⏱ x giây".
+- Phép thử: t225 mới (8).
+
 ## 3.299 — 21/10/2026 — Bảng Scan: tên khách là chính
 - **Anh 21/10** (ảnh bảng Scan có khung xem phải: cột Tên chỉ còn "Đo…", "Hồ…" vì cột Tổ trưởng "0026418 — Đoàn Công Thái" chiếm chỗ): "em cân đối để hiện được tên là chính".
 - Cột **Tên** luôn rộng tối thiểu ~13 chữ (đủ họ tên thường gặp); cột **Tổ trưởng** chỉ hiện **tên tổ trưởng** (bỏ mã tổ), gọn tối đa ~11 chữ, dài thì "…" — rê chuột thấy đủ mã + tên. Sắp theo cột vẫn như cũ.

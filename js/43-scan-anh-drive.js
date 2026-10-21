@@ -137,7 +137,7 @@ function sxCatThe2(c){
 function sxTrangPDF(k){
   if(!k.driveId || !coTheNoiDrive()) return Promise.resolve(null);
   return xongTV.then(function(){ if(!sanSangPDF()) return null; return canToken(); }).then(function(co){ if(!co) return null;
-    return fetch('https://www.googleapis.com/drive/v3/files/'+k.driveId+'?alt=media', {headers:{'Authorization':'Bearer '+DR.token}}).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.arrayBuffer(); }); })
+    return taiPDFDrive(k.driveId).then(function(b){ return b.arrayBuffer(); }); })   /* 3.300: qua bộ nhớ tạm PDF (xem rồi cắt không tải 2 lần) */
     .then(function(ab){ if(!ab) return null;
       return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise.then(function(doc){ return doc.getPage(1); }).then(function(pg){
         var v0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(4, 2000/v0.width)}), c = document.createElement('canvas'); c.width = Math.round(vp.width); c.height = Math.round(vp.height);
@@ -257,7 +257,14 @@ function sxCatMot(k){
   return SX_CAT_DANG[k.id];
 }
 var SX_VE_KHUNG_CU = veVaoKhung;
+/* 3.300: khung xem đang mở / tải / tách (chữ "Đang …") → đếm giây dưới dòng chữ */
+function dongHoKhung(m, n){
+  var S = XEM[n], o = S && document.getElementById(S.id), bd = Date.now(); if(!o) return;
+  var h = setInterval(function(){ var r = o.querySelector('.rong'); if(S.m!==m || !r || !/Đang|đang/.test(r.textContent)){ clearInterval(h); return; }
+    var s = (Date.now()-bd)/1000; if(s<1) return; var d = r.querySelector('.dh'); if(!d){ r.insertAdjacentHTML('beforeend', '<br><small class="dh"></small>'); d = r.querySelector('.dh'); } d.textContent = '⏱ '+dongHoGiay(s); }, 300);
+}
 veVaoKhung = function(m, n){
+  if(n!=='sua') setTimeout(function(){ dongHoKhung(m, n); }, 0);
   var S = XEM[n], o = S && document.getElementById(S.id);
   if(o && n!=='sua' && laScanMuc(m)) setTimeout(function(){ sxVeTTCat(m, n); }, 0);   /* 3.281: dòng trạng thái tách 2 mặt */
   if(!o || n==='sua' || !laScanMuc(m) || !sxCanCat(m) || !coTheNoiDrive()) return SX_VE_KHUNG_CU(m, n);
@@ -335,3 +342,17 @@ function sxDonAnhTai(){
   luu(); bao('🧹 Đã dọn ảnh tải về của '+ds.length+' bản (Drive vẫn giữ — mở xem thì app tự tải lại).', 6);
   if(typeof RS!=='undefined' && RS && document.querySelector('#hop-in .ql-the')) rsVe();
 }
+
+/* ---------- 3.300 (anh: "mở / scan CCCD xử lý lâu, load các PDF cũng vậy — rà soát tối ưu"): bộ nhớ tạm PDF trong phiên ----------
+   PDF tải từ Drive (bản chỉ có trên Drive) và PDF dựng từ ảnh (bản scan tài liệu) giữ lại 12 file gần nhất (≤ 80 MB) → mở lại / chuyển qua lại tức thì,
+   cắt 2 mặt thẻ không tải lại. Bản scan sửa (suaLuc / số trang đổi) → dựng lại. Hết phiên (đóng app) thì bỏ. */
+var PDF_TAM = {ds:[], max:12, maxB:80*1024*1024};
+function pdfTamLay(khoa){ var i = PDF_TAM.ds.findIndex(function(x){ return x.k===khoa; }); if(i<0) return null; var x = PDF_TAM.ds.splice(i, 1)[0]; PDF_TAM.ds.unshift(x); return x.b; }
+function pdfTamGhi(khoa, b){ if(!b || !b.size || b.size>PDF_TAM.maxB/2) return b; PDF_TAM.ds = PDF_TAM.ds.filter(function(x){ return x.k!==khoa; }); PDF_TAM.ds.unshift({k:khoa, b:b});
+  var tong = 0; PDF_TAM.ds = PDF_TAM.ds.filter(function(x, i){ tong += x.b.size; return i<PDF_TAM.max && tong<=PDF_TAM.maxB; }); return b; }
+var SX_TAI_PDF_CU = taiPDFDrive;
+taiPDFDrive = function(driveId, kieu){ var b = pdfTamLay('dr:'+driveId); if(b) return Promise.resolve(kieu && b.type!==kieu ? new Blob([b], {type:kieu}) : b);
+  return SX_TAI_PDF_CU(driveId, kieu).then(function(x){ return pdfTamGhi('dr:'+driveId, x); }); };
+var SX_PDF_SCAN_CU = pdfCuaScan;
+pdfCuaScan = function(k){ var khoa = 'sc:'+k.id+'|'+(k.suaLuc||'')+'|'+((k.trang||[]).length)+'|'+(k.matTruoc ? 1 : 0)+(k.matSau ? 1 : 0), b = pdfTamLay(khoa); if(b) return Promise.resolve(b);
+  return SX_PDF_SCAN_CU(k).then(function(x){ return pdfTamGhi(khoa, x); }); };

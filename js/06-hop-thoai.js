@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.299', ds:[
+var CO_GI_MOI = {ban:'3.300', ds:[
+  ["Nhanh hơn: đọc số CCCD (thẻ khó đọc ~7–9 giây → ~1 giây), mở lại PDF tức thì; đồng hồ ⏱ đếm giây ở ô trạng thái + khung xem, xong báo thời gian xử lý", "doiNgan(4)"],
   ["Scan › ▦ Bảng: cột Tên khách rộng ra (không còn \"Đo…\"), cột Tổ trưởng chỉ hiện tên tổ trưởng (bỏ mã tổ, rê chuột thấy đủ)", "doiNgan(4)"],
   ["Scan › 🔎 Rà (bước 5 kế hoạch tên + lưu): rà cả 3 thư mục Drive CCCD · Hồ sơ scan · Hồ sơ vay — file sai thư mục dời + đặt tên chuẩn (tích sẵn), tài liệu thả tay nhận vào app", "doiNgan(4)"],
   ["Hồ sơ vay › 01/TD: nút 📷 Quét bản đã ký — sang Scan, khách + loại 01TD điền sẵn, Lưu vào tủ vào thư mục Hồ sơ vay tên chuẩn; tài liệu mẫu hồ sơ vay (01TD, 01GQVL…) lưu thư mục Hồ sơ vay", "slDoiTab('hsv');doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.299', ds:[
   ["Scan › Bản vừa quét (Thẻ): mỗi mặt CCCD dời 4 chiều ◀ ▶ ▲ ▼, chọn ảnh rồi bấm phím mũi tên; nút 🔄 Lật ảnh ngược đầu", "doiNgan(4)"],
   ["Scan: lượt quét nhiều người lưu vào Chờ sắp xếp — mỗi người đọc được thẻ đặt tên \"cccd-Họ tên - số CCCD\", lưu kèm số; bản cũ \"Scan … - người n\" đổi tên khi Sắp xếp đọc ra số", "doiNgan(4)"],
   ["Ảnh HEIC iPhone: app tự đổi sang JPG trong máy (thư viện heic-to) — dán, chọn file, chụp, hộp Quét CCCD đều đọc được", "doiNgan(4)"],
-  ["Scan: ảnh không đọc được (HEIC iPhone, file hỏng) không làm hỏng cả lượt — ảnh tốt vẫn vào, báo tên + định dạng ảnh hỏng", "doiNgan(4)"],
-  ["Dán file (Ctrl+V): chỉ tab Văn bản thành văn bản; tab Scan dán ảnh / PDF CCCD vào hàng quét Thẻ; hộp Quét CCCD đang mở nhận ảnh dán; tab khác chỉ báo", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Scan: ảnh không đọc được (HEIC iPhone, file hỏng) không làm hỏng cả lượt — ảnh tốt vẫn vào, báo tên + định dạng ảnh hỏng", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
