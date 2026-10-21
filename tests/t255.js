@@ -35,6 +35,12 @@ const fs = require('fs'), path = require('path');
    o.xa = d.theoXa.map(x => x.tenXa+':'+x.khCuoi+'/'+x.hienTai+'/'+x.pct).join(' ');
    const dL = pbDienBien(qd, 2026, {xa:'X', nguon:1, ct:'03'}, dn); o.loc = dL.nhom.length+' · '+dL.tong.khCuoi+' · '+dL.moc.map(m => m.so).join(',');
    o.khongDN = JSON.stringify(pbDienBien(qd, 2026, {}, {}).tong);
+   /* 3.302: CT có dư nợ mà không có QĐ giao → dòng "không giao"; KH / % / biểu đồ không đổi, tổng dư nợ thực tế cộng thêm */
+   fDN['2026-06'].X06 = 70;
+   const dn2 = Object.assign({}, dn, {ds:[{xa:'X', tenXa:'Xã X', ct:'03', nguon:1}, {xa:'X', tenXa:'Xã X', ct:'06', nguon:1}, {xa:'Z', tenXa:'Xã Z', ct:'03', nguon:1}, {xa:'X', tenXa:'Xã X', ct:'07', nguon:1}]});
+   const d2 = pbDienBien(qd, 2026, {}, dn2), t2 = d2.tong;
+   o.kg = d2.nhom.filter(n => n.khongGiao).map(n => n.tenXa+' '+n.ma+':'+n.dauNam+'/'+n.hienTai).join(' | ')+' · '+JSON.stringify([t2.khCuoi, t2.hienTai, t2.pct, t2.hienTaiTatCa, t2.khongGiao, t2.dauNamTatCa, t2.dauNam])+
+     ' · '+d2.thang.map(t => t.dn).join(',')+' · '+d2.theoXa.map(x => x.tenXa+':'+x.khCuoi+'/'+x.hienTaiTatCa).join(' ')+' · lọc 06: '+pbDienBien(qd, 2026, {ct:'06'}, dn2).nhom.map(n => n.ma+(n.khongGiao ? 'kg' : '')).join(',');
    /* ② màn hình */
    for(const fl of files){ const bin = atob(fl.b), u = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i] = bin.charCodeAt(i); await slGhi(await slDocFile(new File([u], fl.n))); }
    doiNgan(7); slDoiTab('pb'); for(let i=0;i<80 && !(PB.K && document.getElementById('pb-trai'));i++) await w(250);
@@ -47,7 +53,8 @@ const fs = require('fs'), path = require('path');
    const svg = ph.querySelector('svg.pb-db-svg'); o.svg = !!svg && !!svg.querySelector('path.pb-db-kh') && !!svg.querySelector('path.pb-db-dn') && svg.querySelectorAll('circle.pb-db-diem').length>=2 && /dư nợ/.test(svg.querySelector('circle title').textContent);
    o.moc2 = Array.from(ph.querySelectorAll('.pb-db-moc .pb-db-nut')).map(e => e.querySelector('span').textContent+' '+e.querySelector('.pb-db-chip').textContent.trim()).join(' | ');
    o.xaBang = ph.querySelectorAll('table.pb-db-xa tr[data-lenh="pb.dbXa"]').length;
-   ph.querySelector('tr[data-lenh="pb.dbXa"]').click(); await w(200);
+   Array.from(ph.querySelectorAll('tr[data-lenh="pb.dbXa"]')).find(x => /Gò Dầu/.test(x.textContent)).click(); await w(200);
+   o.kgUI = /Dư nợ CT không giao/.test(ph.textContent) && /Tổng dư nợ thực tế/.test(ph.textContent) && /CT có giao/.test(ph.querySelector('.pb-kpi').textContent);
    o.chiTiet = !!ph.querySelector('table.pb-db-ct') && /QĐ G100/.test(ph.querySelector('table.pb-db-ct').textContent) && /\+300 → 1\.300/.test(ph.querySelector('table.pb-db-ct').textContent.replace(/\s+/g, ' '));
    const selN = ph.querySelector('select[data-f="nguon"]'); selN.value = '2'; selN.dispatchEvent(new Event('change', {bubbles:true})); await w(300);
    o.locNguon = (document.querySelector('#pb-phai .pb-kpi .pb-the b') ? 1 : 0)+' · '+Array.from(document.querySelectorAll('#pb-phai .pb-db-moc .pb-db-nut span')).map(e => e.textContent).join(',');
@@ -69,15 +76,17 @@ const fs = require('fs'), path = require('path');
  ok('mốc QĐ: ± gộp các xã cùng QĐ, KH sau mốc', r.moc==='1:400→1800(2) 2:-200→1600(1) 3:50→1650(1)', r.moc);
  ok('cộng theo xã + % đạt', r.xa==='Xã X:1150/1120/97.4 Xã Y:500/480/96', r.xa);
  ok('lọc xã / nguồn / CT', r.loc==='1 · 1100 · 1,2', r.loc);
+ ok('3.302 CT không có QĐ giao nhưng có dư nợ → dòng không giao (X 06, Z 03; bỏ nhóm không có dư nợ); KH / % / biểu đồ giữ; tổng dư nợ thực tế cộng thêm', r.kg==='Xã X 06:0/70 | Xã Z 03:380/0 · [1650,1600,97,1670,70,1750,1370] · 1370,1400,1600,1600 · Xã X:1150/1190 Xã Y:500/480 Xã Z:null/0 · lọc 06: 06kg', r.kg);
  ok('không có Mẫu 31 → không lỗi, hiện tại để trống', /"hienTai":null/.test(r.khongDN) && /"khCuoi":1650/.test(r.khongDN), r.khongDN);
  ok('màn 📈: 4 thẻ số (đầu năm, KH cuối năm 2.950, hiện tại, còn phải TH)', /KH cuối năm=2\.950/.test(r.the) && r.the.split(' | ').length===4, r.the);
  ok('biểu đồ SVG: đường KH bậc thang + dư nợ, điểm có số khi rê chuột', r.svg);
  ok('dòng thời gian: đầu năm + 3 QĐ, chip ▲ / ▼', /Đầu năm/.test(r.moc2) && /QĐ G100 ▲ \+350/.test(r.moc2) && /QĐ G101 ▲ \+200/.test(r.moc2) && /QĐ G102 ▲ \+100/.test(r.moc2), r.moc2);
- ok('bảng xã (2 xã) bấm → chi tiết từng CT · nguồn · từng QĐ', r.xaBang===2 && r.chiTiet, r.xaBang);
+ ok('bảng xã (2 xã có QĐ + Phường Gia Lộc chỉ có dư nợ) bấm → chi tiết từng CT · nguồn · từng QĐ', r.xaBang===3 && r.chiTiet, r.xaBang);
+ ok('màn: cột Dư nợ CT không giao, Tổng dư nợ thực tế; thẻ Dư nợ thực tế tách CT có giao / không giao', r.kgUI);
  ok('lọc nguồn ĐP → chỉ QĐ G102', r.locNguon==='1 · Đầu năm,QĐ G102', r.locNguon);
  ok('bộ nút xuất: In · PDF · Excel bật', /🖨 In/.test(r.nut) && !/In\(mờ\)/.test(r.nut) && /Excel/.test(r.nut) && !/Excel\(mờ\)/.test(r.nut), r.nut);
  ok('bản in A4 ngang: biểu đồ + bảng chi tiết mọi xã, không dòng bấm', r.in);
- ok('Excel: 4 sheet (Theo xa, Chi tiet, Theo thang, QD)', /\.xlsx · Theo xa,Chi tiet,Theo thang,QD · 4 dòng xã/.test(r.excel || ''), r.excel);
+ ok('Excel: 4 sheet (Theo xa, Chi tiet, Theo thang, QD)', /\.xlsx · Theo xa,Chi tiet,Theo thang,QD · 5 dòng xã/.test(r.excel || ''), r.excel);
  ok('màn phân bổ có thẻ số (Số giao QĐ, Khớp QĐ…)', /Số giao QĐ/.test(r.thePB) && /Khớp QĐ/.test(r.thePB), r.thePB);
  ok('màn đối chiếu có thẻ số (Khớp, Lệch…)', /Khớp/.test(r.theDC) && /Lệch/.test(r.theDC), r.theDC);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));

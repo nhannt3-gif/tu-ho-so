@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.302 — 21/10/2026 — 📈 Diễn biến: hiện cả chương trình không có giao ở dư nợ thực tế (TK chính)
+- **Anh 21/10:** "để anh đối chiếu dư nợ thì tại cột dư nợ thực tế thì các chương trình không có giao cũng hiện ra".
+- **Lõi `pbDienBien` (js/47):** nhận thêm `dn.ds` = các nhóm (xã, CT, nguồn) có dư nợ ở Mẫu 31 kỳ cuối + 31/12 năm trước; nhóm không có QĐ giao trong năm (và có dư nợ ≠ 0) thành dòng **khongGiao** (KH trống, chỉ dư nợ) — hàm mới `pbDBKhongGiao`. Tổng: KH, còn phải TH, %, biểu đồ, mốc QĐ **chỉ tính CT có giao** (không đổi); thêm `hienTaiTatCa` / `khongGiao` / `dauNamTatCa` / `soKhongGiao`.
+- **Màn (js/48):** thẻ **Dư nợ thực tế** = tổng mọi CT (ghi rõ CT có giao / không giao), Dư nợ đầu năm = tổng mọi CT (ghi CT có giao); bảng xã thêm cột **Dư nợ CT không giao** và **Tổng dư nợ thực tế**, cột cũ đổi tên "Dư nợ CT có giao"; xã chỉ có dư nợ (không QĐ) cũng hiện; chi tiết xã có dòng "không giao" (chữ mờ, dư nợ rõ); lọc xã / CT gồm cả xã, CT chỉ có dư nợ; Excel sheet Theo xa thêm 2 cột, Chi tiet ghi "không giao".
+- **Phép thử:** `t255` 20 (thêm: dòng không giao, bỏ nhóm không có dư nợ, KH / % / biểu đồ giữ, tổng dư nợ thực tế, lọc CT; màn có 2 cột mới + thẻ tách có giao / không giao).
+
 ## 3.301 — 21/10/2026 — 🎯 Phân bổ KH: 📈 Diễn biến + 🔎 Đối chiếu chéo + ⚙ Khai báo riêng Biểu 07 + giao diện thẻ (TK chính)
 - **Anh 21/10:** "em nên làm 1 khai báo riêng cho Biểu 07 như các mẫu khác, không phụ thuộc vào các mẫu khác" · "cứ cho khai báo dạng chấm, riêng của mẫu, lấy từ khai báo chung" · "nơi lập là xã, phường mặc định" · "đối chiếu chéo là quan trọng em làm luôn, quy tắc tại mỗi QĐ tổng giao của Biểu 07 phải khớp số giao của QĐ và dư nợ đến cuối năm cũng khớp theo QĐ" · "chỉ tiêu đến 31/12 ghi trên QĐ, còn thực tế sẽ có chênh lệch" · "em làm thêm diễn biến phân vốn … theo KH" · "phần KH này tương đối độc lập với các tab, chỉ dùng số liệu chung, em có thể cải tiến theo hướng web hiện đại, để nhìn" · "đồng ý" (bản phác). Bản 3.297 trên nhánh chưa gộp thì TK phụ gộp 3.297 → 3.300 → chuyển nền, gộp chung 3.301.
 ### 📈 Diễn biến phân vốn theo KH

@@ -3691,3 +3691,4 @@ table.pb-db-ct td{white-space:nowrap}
 .pb-dong{border-top-color:var(--vien)}.pb-dong:hover{background:var(--nen)}.pb-dong.bat{background:var(--xanh-nhat)}
 .pb-ct,.pb-dc-nhom{background:var(--the);border:1px solid var(--vien);border-radius:12px;padding:6px 8px;margin:10px 0}
 #pb-dc table.pb-dc2 td{white-space:normal}#pb-dc table.pb-dc2 td:last-child{min-width:240px;max-width:520px}
+table.pb-db-ct tr.pb-kg td{color:var(--chu-phu)}table.pb-db-ct tr.pb-kg td.so:nth-last-child(3){color:var(--chu)}
