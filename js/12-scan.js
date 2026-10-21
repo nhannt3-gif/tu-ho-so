@@ -1268,9 +1268,9 @@ function moKyAnh(){
       'oninput="KA.ten=this.value;KA.tenLuc=Date.now()"></div>'+
     '<div class="ka-nut">'+
       '<button class="nho chinh" onclick="chupKA(\'ky\',\'camera\')">✍ Chụp chữ ký</button>'+
-      '<button class="nho chinh" onclick="chupKA(\'anh\',\'camera\')">🪪 Chụp CCCD<br><small>mặt trước</small></button></div>'+
+      '</div>'+   /* 3.306 (anh): bỏ chụp ảnh khách / CCCD mặt trước — ảnh xuất khi cần từ mặt trước CCCD */
     '<div class="hang-nut" style="margin-top:6px"><button class="nho" onclick="chupKA(\'ky\',\'photo\')">🖼 Chữ ký từ ảnh có sẵn</button>'+
-      '<button class="nho" onclick="chupKA(\'anh\',\'photo\')">🖼 CCCD từ ảnh có sẵn</button></div>'+
+      '</div>'+
     (ds.length ? ds.map(function(k){
       var th = (k.ngay||'').slice(0,7), dau = '';
       if(th!==thangTruoc){ thangTruoc = th; dau = '<div class="nhan-nhom">Tháng '+th.slice(5)+'/'+th.slice(0,4)+
@@ -1451,7 +1451,6 @@ function kaXong(k){
           '<button class="nho" onclick="lnKA(\''+k.id+'\')" title="Ghi thẳng file JPG vào thư mục cố định trên máy">💾 Lưu nhanh</button>'
         : '<button class="nho chinh" onclick="guiKA(\''+k.id+'\')">📤 Gửi</button>')+
       '<button class="nho" onclick="chupKA(\'ky\',\'camera\')" title="Chụp tiếp chữ ký khách khác">✍ Chữ ký</button>'+
-      '<button class="nho" onclick="chupKA(\'anh\',\'camera\')" title="Chụp tiếp CCCD khách khác">🪪 CCCD</button>'+
       '<button class="nho xp-them-nut" onclick="document.getElementById(\'ka-them\').classList.toggle(\'mo\')" title="Mở thư mục, Xóa, cài đặt Lưu nhanh">⋯</button>'+
       '<button class="nho xp-dong" onclick="moKyAnh()">Đóng</button></div>'+
       '<div class="xp-them" id="ka-them"><div class="hang-nut">'+them.join('')+'</div>'+(mayBan ? lnCaiHTML('ka') : '')+'</div></div>', true);

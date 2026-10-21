@@ -3711,3 +3711,6 @@ table.pb-db-ct tr.pb-kg td{color:var(--chu-phu)}table.pb-db-ct tr.pb-kg td.so:nt
 td.pb-tg.tang .gd-o{color:var(--luc);font-weight:600;border-color:var(--luc)}
 td.pb-tg.giam .gd-o{color:var(--do);font-weight:600;border-color:var(--do)}
 .pb-mt{font-size:1.2em;line-height:1;font-weight:800;vertical-align:-1px}
+.ky-ra-dong{display:flex;align-items:center;gap:9px;padding:6px 8px;border:1px solid var(--vien);border-radius:10px;margin:5px 0;cursor:pointer}   /* 3.306: ✍ Rà chữ ký */
+.ky-ra-dong img{width:96px;height:60px;object-fit:contain;background:#fff;border:1px solid var(--vien);border-radius:6px;flex:0 0 auto}
+.ky-ra-dong small{display:block;color:var(--chu-phu)}

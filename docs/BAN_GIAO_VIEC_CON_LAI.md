@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.306) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Vào tab Scan (lần đầu sau cập nhật) | Vài giây sau hiện ✍ Rà chữ ký: chữ ký nhầm CCCD + ảnh khách lưu sẵn tích sẵn → 🗑 Bỏ | |
+| 2 | Quét ✍ Chữ ký mà đưa ảnh CCCD | Báo "Ảnh này là CCCD… không lưu" | |
+| 3 | Quét lăn tay của hộ không ký được | Lưu được; cột Ck hiện 🖐 | |
+| 4 | 💾 cuối dòng CCCD → tích 🧑 Ảnh khách → Xuất | File `MãKH - Họ tên - Ảnh.jpg` = mặt trước thẻ, < 200 KB | |
+| 5 | Quét gì? › 🗎 Bản photo CCCD → chụp tờ photo 2 mặt | Ra 2 mặt thẻ đúng khung | |
+
+**Ghi chú kỹ thuật 3.306:** `js/51-chu-ky.js` mới — `kyDacTrung` (400 px, `nenSang` chuẩn nền; mực: sáng chuẩn < 140 hoặc màu đậm; `muc` tỉ lệ mực, `mau` vùng màu không phải mực, `mat` mực trong khung bao 1–99%, `doi` số lần đổi mực / 100 px theo hàng, `dac` mực đặc — 8 điểm cách 3 đều mực), `kyTheoNet` (trong < 0,003; lăn tay: doi ≥ 9, mat 0,22–0,8, dac < 0,03; chữ ký: mau < 0,04, dac < 0,008, muc < 0,12, mat < 0,3, doi < 9), còn lại → `docCCCD(bl, bl)` → the / khac. Bọc `luuKA` (KA.xet nhớ ảnh đã xét — "Vẫn lưu" không xét lại), `kaXong` (kyXet, kieuKy). `sxAnhTuCCCD` → không làm gì. `KYR` + `kyRaChay / kyRaVe / kyRaBo`, lệnh `ky.ra / lai / chon / bo / dong`, bọc `qlThe` (thẻ 4), bọc `veScan` (tự rà 1 lần, mốc `D.cauHinh.kyRa` đăng ký 17b). `SC_LOAI.anhkh` → `photo`, bọc `batDauScan` (bỏ `.sx-photo2`), `scChonNguon` (photo → che 'the' + `SC.photo2`), `sxChiaDoi` (`sxCatThe2 || sxCatThe` + lề 4%, không được → cách cũ). 50: Ảnh = `xkMatThe` mặt trước → `sxNen200`. 11: Ck 🖐 khi `kieuKy==='lantay'`. 12: bỏ nút chụp ảnh khách trong `moKyAnh` / `kaXong`.
+
 ### Danh sách thử trên máy thật (3.305) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -60,9 +60,9 @@ const fs=require('fs'), path=require('path');
    const blTo = await new Promise(r=>to.toBlob(r, 'image/jpeg', 0.9));
    const hai = await sxChiaDoi(new File([blTo], 'photo.jpg', {type:'image/jpeg'}));
    const kt = await Promise.all(hai.map(f=>anhTuBlob(f).then(im=>[im.naturalWidth||im.width, im.naturalHeight||im.height])));
-   ok('tờ photo ngang → 2 nửa trái / phải (chồng mép 4%), mỗi nửa 1 thẻ', hai.length===2 && kt.every(x=>Math.abs(x[0]-1080)<=2 && x[1]===900), JSON.stringify(kt));
+   ok('tờ photo ngang → 2 mảnh, mỗi mảnh đúng 1 khung thẻ (3.306: dò khung thẻ + lề 4%, trước là chia đôi tờ)', hai.length===2 && kt.every(x=>x[0]/x[1]>1.4 && x[0]/x[1]<1.8 && x[0]<1000), JSON.stringify(kt));
    HS.mo = true; batDauScan('cccd'); await w(200);
-   ok('hộp "Quét gì?" (CCCD) có ô "Bản photo 2 mặt trên 1 tờ"', /Bản photo 2 mặt trên 1 tờ/.test(document.getElementById('hop-in').textContent));
+   ok('hộp "Quét gì?" có nút 🗎 Bản photo CCCD (3.306: thay ô tích dưới CCCD)', /Bản photo CCCD/.test(document.getElementById('hop-in').textContent));
    dongHop();
    /* 5. 🧹 Sắp xếp: bản chờ (tên anh gõ) → khớp Mẫu 31 → tên chuẩn + thư mục CCCD; trùng tên → anh chọn; chưa có → giữ chờ */
    D.scan = D.scan || []; D.kyAnh = D.kyAnh || []; const bay = new Date().toISOString();
@@ -116,7 +116,7 @@ const fs=require('fs'), path=require('path');
    const blTo2 = await new Promise(r=>to2.toBlob(r, 'image/jpeg', 0.98));
    await luuAnhHS(s1.id+'_matTruoc', blTo2);
    const an = await sxAnhTuCCCD(s1);
-   ok('lưu CCCD → tự tạo Ảnh khách từ mặt trước, nén ≤ 200 KB, tên "MãKH - Tên - Ảnh.jpg"', an && an.loai==='anh' && an.co<=200*1024 && an.ten===k1+' - '+c1.ten+' - Ảnh.jpg', an ? an.ten+' '+Math.round(an.co/1024)+' KB (gốc '+Math.round(blTo2.size/1024)+' KB)' : 'không tạo');
+   ok('lưu CCCD → không tạo sẵn Ảnh khách (3.306 anh: ảnh xuất khi cần từ mặt trước CCCD)', an===null, JSON.stringify(an && an.ten));
    ok('khách đã có ảnh → không tạo trùng', (await sxAnhTuCCCD(s1))===null);
    /* dọn */
    D.scan = D.scan.filter(k=>!/^t207/.test(k.id)); D.kyAnh = D.kyAnh.filter(k=>k.id!=='kat207' && !(an && k.id===an.id)); delete DB['9990000001']; delete DB['9990000002']; luu();

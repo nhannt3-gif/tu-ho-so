@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.306 — 21/10/2026 — Chữ ký / lăn tay: nhận dạng, dọn bản quét nhầm; bỏ Ảnh khách lưu sẵn; nút Bản photo CCCD
+- **Anh 21/10**: "các ck có sẵn do quét nhầm CCCD em bỏ đi, nên có cơ chế nhận dạng chữ ký và lăn tay của hộ vay tránh lưu nhầm; nút scan ảnh nên bỏ, vì khi cần ảnh sẽ xuất 1 mặt từ CCCD, làm nhẹ đi để dùng khi cần và không lưu sẵn; nút scan ảnh thay bằng nút scan bản photo 2 mặt trên 1 tờ".
+- **Nhận dạng** (`js/51-chu-ky.js`): ảnh chữ ký được xét nét — **chữ ký** (nét mảnh thưa trên nền giấy), **lăn tay** (1 khối vân dày), **ảnh CCCD** (có vùng mực đặc như ảnh chân dung / QR / dấu tròn → đọc thử QR · mã máy đọc · số 12 chữ số), **ảnh trắng**. Nét rõ là chữ ký / lăn tay thì không cần đọc chữ (nhanh).
+  - Lưu chữ ký mà ảnh là CCCD → **không lưu**, báo quét ở 🪪 CCCD. Ảnh trắng / không rõ → hỏi "Vẫn lưu?". Lăn tay → cột Ck hiện **🖐** (chữ ký ✍).
+- **🗂 Quản lý hồ sơ scan › ✍ Rà chữ ký** (thẻ mới; tự rà 1 lần khi vào tab Scan): liệt kê chữ ký thật ra là ảnh CCCD, ảnh trắng, **ảnh khách lưu sẵn** — tích sẵn, có ảnh nhỏ; bấm 🗑 Bỏ → Thùng rác (khôi phục được). Chữ ký / lăn tay đúng không hiện, ghi đã xét để lần sau khỏi rà.
+- **Ảnh khách không lưu sẵn nữa**: lưu CCCD không tự tạo ảnh khách; 💾 Xuất file (cột Scan) thêm **🧑 Ảnh khách = mặt trước CCCD** nén ≤ 200 KB, tên `MãKH - Họ tên - Ảnh.jpg` (chọn khi cần, mặc định không tích). Hộp 📁 Chữ ký · CCCD bỏ nút "Chụp CCCD mặt trước" / "CCCD từ ảnh có sẵn" / "🪪 CCCD".
+- **"Quét gì?"**: bỏ 🧑 Ảnh khách, thêm **🗎 Bản photo CCCD** (2 mặt trên 1 tờ) — thay ô tích cũ dưới CCCD. Tờ photo nay **dò đúng 2 khung thẻ** (cách dò của bản CCCD cũ 3.284) + chừa lề 4% rồi mới nắn từng thẻ; không dò được → chia đôi tờ như cũ.
+- Phép thử: t227 mới (14); t186, t207, t226 sửa theo cách làm mới.
+
 ## 3.305 — 21/10/2026 — 📈 Diễn biến: KH so tổng dư nợ mọi CT, tách nguồn TW / ĐP, KH của CT không giao = dư nợ đầu năm · 🎨 chip màu + mũi tên ↑ + / ↓ − (TK chính)
 - **Anh 21/10:** "dư nợ KH sẽ giao theo từng chương trình và nguồn vốn TW, ĐP, để so sánh được dư nợ KH giao và dư nợ thực tế, tại 1 thời điểm phải cộng tất cả các chương trình dù không có giao KH".
 - **Lõi `pbDienBien` (js/47):** tổng xã / toàn bộ / nguồn: **KH = Σ CT có giao**, **dư nợ thực tế = Σ MỌI CT** (có giao + không giao) → **còn phải TH = KH − tổng dư nợ**, **% = tổng dư nợ / KH** (3.302 chỉ so phần CT có giao); biểu đồ theo tháng: đường dư nợ cộng mọi CT (cả điểm 31/12 năm trước); thêm `tong.theoNguon` (TW, ĐP — mỗi nguồn KH, dư nợ có giao / không giao / tổng, còn phải TH, %). Dòng từng CT vẫn so riêng CT đó.

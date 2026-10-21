@@ -522,7 +522,7 @@ function bangCot(tab){
       {ma:'ap', nhan:'Ấp', k:function(k){ return k.ap||''; }},
       {ma:'to', nhan:'Tổ trưởng', lop:'bt-to', k:function(k){ return toTruongScan(k); }, o:function(k){ return coChuHTML(toTruongScan(k).replace(/^[\d\s]+[—–-]\s*/, '')); }},   /* 3.292 (anh): cột tổ trưởng; 3.299: chỉ tên tổ trưởng (bỏ mã tổ), cột gọn để tên khách là chính */
       {ma:'loai', nhan:'Loại giấy tờ', k:function(k){ return k.che==='tailieu' ? ((k.tag||[]).filter(function(x){ return x!=='CCCD'; })[0] || 'Tài liệu') : 'CCCD'; }},
-      {ma:'ck', nhan:'Ck', lop:'bt-ck', k:function(k){ return ck(k) ? '0' : '1'; }, o:function(k){ var a = ck(k); return a ? '<span class="bt-tt dat" title="Có chữ ký: '+coChuHTML(a.ten||'')+'">✍</span>' : ''; }},   /* 3.304 (anh): cột Ck cạnh CCCD — khách có chữ ký hiện ✍ */
+      {ma:'ck', nhan:'Ck', lop:'bt-ck', k:function(k){ return ck(k) ? '0' : '1'; }, o:function(k){ var a = ck(k); return a ? '<span class="bt-tt dat" title="'+(a.kieuKy==='lantay' ? 'Có lăn tay' : 'Có chữ ký')+': '+coChuHTML(a.ten||'')+'">'+(a.kieuKy==='lantay' ? '🖐' : '✍')+'</span>' : ''; }},   /* 3.306: lăn tay 🖐 */   /* 3.304 (anh): cột Ck cạnh CCCD — khách có chữ ký hiện ✍ */
       {ma:'ngay', nhan:'Ngày', k:function(k){ return mocScan(k); }, o:function(k){ return ngayVN(mocScan(k).slice(0,10)); }},
       {ma:'tt', nhan:'Trạng thái', k:function(k){ return ttScan(k).dat ? '1' : '0'; }, o:function(k){
         var t = ttScan(k); return t.dat ? '<span class="bt-tt dat" title="Đạt">✓</span>' : '<span class="bt-tt" title="'+coChuHTML(t.thieu.join(' · '))+'">⚠</span>'; }}]);
