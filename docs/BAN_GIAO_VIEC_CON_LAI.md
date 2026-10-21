@@ -222,6 +222,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.303) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 👁 Biểu 07 → 🖨 In / 📝 Word | Tên UBND góc trên trái cả 2 trang; bảng cột Chỉ tiêu rộng, số canh phải; đoạn văn canh đều thụt đầu dòng; chấm nhỏ; lề 2 · 2 · 3 · 2 | |
+
 ### Danh sách thử trên máy thật (3.302) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

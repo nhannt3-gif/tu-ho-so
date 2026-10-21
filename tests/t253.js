@@ -12,7 +12,7 @@ function docZip(buf, ten){   /* đọc 1 file trong .docx (zip) — thư mục t
     p += 46+ln+lx+lc; }
   return ''; }
 const doanW = x => (x.match(/<w:p[ >][\s\S]*?<\/w:p>/g) || []).map(p => (p.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replace(/<[^>]+>/g, '')).join('').replace(/&amp;/g, '&')).filter(s => s.trim());
-const chuan = s => String(s).normalize('NFC').replace(/[\s\u00a0]+/g, ' ').trim();
+const chuan = s => String(s).normalize('NFC').replace(/[\s ]+/g, ' ').replace(/[.…]{3,}/g, '…').trim();   /* 3.303: chuỗi chấm mịn dài hơn (giữ bề dài) → gộp khi so chữ */
 (async()=>{ const b = await chromium.launch(); const loi = [], R = [];
  const ok = (ten, dk, chi) => R.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined && !dk ? ' — '+chi : ''));
  /* chữ cố định của file gốc: mỗi đoạn tách theo ô {{…}} → các mảnh ≥ 4 ký tự */
@@ -53,7 +53,7 @@ const chuan = s => String(s).normalize('NFC').replace(/[\s\u00a0]+/g, ' ').trim(
    const x = PB07.x, h = x.trang, d0 = PB07.dl[0];
    o.ds = x.ds.length; o.ten = x.ten;
    const tam = document.createElement('div'); tam.innerHTML = h.replace(/^[\s\S]*<body>|<\/body>[\s\S]*$/g, ''); o.chu = tam.textContent;
-   o.kho = /@page\{size:A4 portrait;margin:20mm 19.6mm 20mm 29.6mm\}/.test(h) && /class="om-co pb07" style="font-size:14pt"/.test(h) && /data-w="35,36.7,42.6,49.5"/.test(h) && /data-w="56.4,103.6"/.test(h);
+   o.kho = /@page\{size:A4 portrait;margin:20mm 19.6mm 20mm 29.6mm\}/.test(h) && /class="om-co pb07" style="font-size:14pt"/.test(h) && /data-w="13,83,32,32"/.test(h) && (h.match(/data-w="62,98"/g) || []).length===2 && /class="j thut tr om-co"/.test(h) && /class="om-min"/.test(h) && !/font-size:16pt/.test(h) && /<td class="r" style="padding-right:5pt">/.test(h);
    const kq = PB.kq, apDoi = {}; kq.forEach(k => k.ap.forEach(a => { if(a.dc) apDoi[a.ten] = 1; }));
    o.apIn = d0.ap.map(a => a.ten).sort().join('|')===Object.keys(apDoi).sort().join('|') && d0.ap.every(a => a.ds.every(c => c.dc!==0));
    const tong = {}; d0.ap.forEach(a => a.ds.forEach(c => { tong[c.ma] = (tong[c.ma] || 0) + c.dc; })); o.tong = JSON.stringify(tong);
@@ -66,7 +66,7 @@ const chuan = s => String(s).normalize('NFC').replace(/[\s\u00a0]+/g, ' ').trim(
    const chip = (k, v) => document.querySelector('[data-lenh="pb.b07KC"][data-k="'+k+'"][data-v="'+v+'"]');
    const go = async (k, v) => { const e = document.querySelector('[data-lenh="pb.b07KG"][data-k="'+k+'"]'); e.value = v; e.dispatchEvent(new Event('change', {bubbles:true})); await w(300); };
    chip('ngayTB', 'cham').click(); await w(300);
-   o.cham = (PB07.x.trang.match(/\.\.\.\.\.\. tháng \.\.\.\.\.\. năm \.\.\.\.\.\./g) || []).length;
+   o.cham = (PB07.x.trang.replace(/<[^>]+>/g, '').match(/\.{3,} tháng \.{3,} năm \.{3,}/g) || []).length;
    chip('ngayTB', 'go').click(); await w(200); await go('ngayTB', '2192026');
    o.go = (PB07.x.trang.match(/21 tháng 09 năm 2026/g) || []).length;
    /* 3.301 ⚙ KHAI BÁO RIÊNG */
@@ -143,7 +143,7 @@ const chuan = s => String(s).normalize('NFC').replace(/[\s\u00a0]+/g, ' ').trim(
  ok('1 xã = 2 trang mẫu (Thông báo + Danh mục), tên file chuẩn', r.ds===2 && /^Bieu07Pb_/.test(r.ten), r.ds+' · '+r.ten);
  const thieu = manh.filter(m => chuan(r.chu).indexOf(m)<0);
  ok('ĐÚNG FORM GỐC: '+manh.length+' mảnh chữ cố định của 07pb.docx đều có trong bản app', manh.length>=25 && !thieu.length, thieu.slice(0, 5).join(' | '));
- ok('A4 dọc · lề 20/20/20/30 (−0,4 khung) · TNR 14 · bảng 4 cột 35/36,7/42,6/49,5 mm · đầu trang 56,4/103,6', r.kho);
+ ok('A4 dọc · lề trên 2 · dưới 2 · trái 3 · phải 2 cm (−0,4 khung) · TNR 14 · 3.303 chuẩn hành chính: tên cơ quan góc trái cả 2 trang (62/98), bảng STT 13 · Chỉ tiêu 83 · số 32/32 canh phải, đoạn canh đều thụt 1 cm cách 6 pt, chấm mịn, tên loại 14 đậm', r.kho);
  ok('bảng chỉ in ấp có tăng/giảm; tổng mỗi CT = số QĐ (03 +300, 06 −150)', r.apIn && r.tong==='{"03":300,"06":-150}', r.tong);
  ok('đầu trang / kính gửi / căn cứ QĐ / nguồn vốn / số giảm in dấu −', r.dau);
  ok('ngày thông báo tự tính 17/08/2026 (né thứ 7)', r.ngayTu);
@@ -156,7 +156,7 @@ const chuan = s => String(s).normalize('NFC').replace(/[\s\u00a0]+/g, ' ').trim(
  const boTrang = s => chuan(s).replace(/ /g, ''), wChu = chuan(doanW(wx).join(' ')), wThieu = manh.filter(m => boTrang(wChu).indexOf(boTrang(m))<0);
  ok('📝 Word: file .docx, 2 phần A4 dọc, lề trái ~30 mm, đủ chữ cố định của mẫu gốc', /\.docx$/.test(r.tenWord) && (wx.match(/<w:pgSz w:w="11906" w:h="16838"\/>/g) || []).length===2 && /w:left="16[6-9]\d"/.test(wx) && !wThieu.length && /21 tháng 09 năm 2026/.test(wChu), r.tenWord+' · thiếu: '+wThieu.slice(0, 3).join(' | '));
  const szDem = (wx.match(/<w:sz w:val="\d+"/g) || []).reduce((a, x) => { const k = x.replace(/\D/g, ''); a[k] = (a[k] || 0) + 1; return a; }, {});
- ok('📝 Word cỡ chữ thân 14 (sz 28), tiêu đề 16 (sz 32)', szDem[28] > 10 && szDem[32] >= 3 && /Times New Roman/.test(ws), JSON.stringify(szDem));
+ ok('📝 Word cỡ chữ thân 14 (sz 28), tên loại 14 đậm (không còn 16 — NĐ 30)', szDem[28] > 10 && !szDem[32] && /Times New Roman/.test(ws), JSON.stringify(szDem));
  ok('📦 mọi xã của QĐ: 2 xã, mỗi xã 2 trang, 1 file', /phường Gò Dầu:\d+ \| xã Truông Mít:\d+ · ds 4 · Bieu07Pb_Qd/.test(r.het) && r.hetChu, r.het);
  ok('sửa tay lệch QĐ → nút Biểu 07 khóa, gọi thẳng cũng bị chặn', r.khoa && r.chan, r.khoa+' · '+r.chanChu);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));

@@ -43,35 +43,39 @@ function pb07Lap(d, K){
   var ngTB = pb07O(pb07NgayDai(gt('ngayTB')), '...... tháng ...... năm ......'), donVi = pb07O(dv.hoa, '...........................'), dvT = pb07O(dv.thuong, '..................');
   var soTB = gt('soTB'), soT1 = soTB ? pb07O(soTB, '') : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', soT2 = pb07O(soTB, '.......');
   var dong = function(v, lop){ return String(v || '').split(/\n/).map(function(s){ return s.trim(); }).filter(Boolean).map(function(s){ return '<p class="'+lop+'">'+pb07O(s, '')+'</p>'; }).join(''); };
-  var P = function(noi, lop, st){ return '<p'+(lop ? ' class="'+lop+'"' : '')+' style="margin:0 0 10pt;line-height:1.15;'+(st || '')+'">'+noi+'</p>'; };
+  /* 3.303 (anh 21/10 "chuẩn hành chính"): đoạn canh đều, thụt đầu dòng 1 cm, cách đoạn trước 6 pt, giãn dòng 1,15 (lớp j thut tr → Word cùng thông số); Kính gửi canh giữa */
+  var P = function(noi, lop){ return '<p class="'+(lop || 'j thut tr')+'" style="line-height:1.15">'+noi+'</p>'; };
   var ky = dong(gt('chucDanh'), 'c b'), nguoi = gt('nguoiKy');
-  var t1 = hsoBang('khung0', [56.4, 103.6],
-      '<tr><td class="c"><p class="c b s13">ỦY BAN NHÂN DÂN</p><p class="c b s13">'+donVi+'</p>'+hsoKe(22)+'</td><td class="c">'+hsoQH('-', 13).replace(/class="c b"/g, 'class="c b s13"')+'</td></tr>'+
+  var donViKhoi = '<p class="c b s13">ỦY BAN NHÂN DÂN</p><p class="c b s13">'+donVi+'</p>'+hsoKe(22);   /* tên cơ quan: góc trên bên trái, chữ canh giữa khối, gạch dưới 1/3 */
+  var t1 = hsoBang('khung0', [62, 98],
+      '<tr><td class="c">'+donViKhoi+'</td><td class="c">'+hsoQH('-', 13).replace(/class="c b"/g, 'class="c b s13"')+'</td></tr>'+
       '<tr><td class="c"><p class="c s13">Số:'+(soTB ? ' ' : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')+soT1+'/TB-UBND</p></td><td class="c"><p class="c i">'+pb07O(gt('noi'), '..............')+', ngày '+ngTB+'</p></td></tr>')+
-    '<p class="c b s16" style="font-size:16pt;margin:0">&nbsp;</p><p class="c b s16" style="font-size:16pt;margin:0">THÔNG BÁO '+loai+' KẾ HOẠCH DƯ NỢ</p><p class="c b s16" style="font-size:16pt;margin:0 0 10pt">NĂM '+pb07O(nam, '.......')+'</p>'+
-    P('Kính gửi: Trưởng các '+ap+' trên địa bàn '+dv.cap+'.')+
+    '<p class="c b tr" style="margin-top:18pt">THÔNG BÁO '+loai+' KẾ HOẠCH DƯ NỢ</p><p class="c b">NĂM '+pb07O(nam, '.......')+'</p>'+   /* tên loại + trích yếu: 14 đậm (NĐ 30) */
+    P('Kính gửi: Trưởng các '+ap+' trên địa bàn '+dv.cap+'.', 'c tr')+
     P('Căn cứ Quyết định số '+pb07O(pb07SoQD(d), '..........')+' ngày '+pb07O(pbNgayVN(d.ngayQD), '...../...../........')+' của Trưởng Ban đại diện HĐQT NHCSXH tỉnh '+pb07O(gt('tinh'), '..........')+' về việc '+loaiT+' chỉ tiêu kế hoạch tín dụng năm '+nam+' cho các '+dv.cap+';')+
     P('Căn cứ tổng hợp nhu cầu vốn tín dụng chính sách tại các '+ap+'.')+
-    P('Ủy ban nhân dân '+dv.cap+' thông báo '+loaiT+' kế hoạch dư nợ năm '+nam+' của các '+ap+' theo danh mục đính kèm.', 'j', 'text-indent:12.7mm')+
-    P('Đề nghị Trưởng các '+ap+' căn cứ Thông báo này để chỉ đạo các Tổ TK&amp;VV trong '+ap+' tổ chức bình xét cho vay và lập hồ sơ vay vốn theo quy định của NHCSXH. Việc bình xét cho vay phải đảm bảo công khai, dân chủ, đúng đối tượng và có sự tham gia giám sát của Trưởng '+ap+', đại diện lãnh đạo của tổ chức chính trị - xã hội nhận ủy thác.', 'j', 'text-indent:12.7mm')+
-    P('Trên đây là chỉ tiêu kế hoạch dư nợ năm '+nam+' được Ủy ban nhân dân '+dvT+' phê duyệt, đề nghị các Trưởng '+ap+' và các đơn vị có liên quan nghiêm túc thực hiện./.', 'j', 'text-indent:12.7mm')+
-    hsoBang('khung0', [80, 80], '<tr><td><p class="b i s12">Nơi nhận:</p>'+dong(gt('noiNhan'), 's11')+'</td><td class="c">'+ky+
-      (nguoi ? '<p class="c">&nbsp;</p><p class="c">&nbsp;</p><p class="c">&nbsp;</p><p class="c b">'+pb07O(nguoi, '')+'</p>' : '')+'</td></tr>');
-  var hang = '<thead><tr style="height:13.9mm"><td class="c b">STT</td><td class="c b">Chỉ tiêu</td><td class="c b">Giao tăng/giảm</td><td class="c b">Chỉ tiêu kế hoạch năm '+nam+'</td></tr></thead><tbody>';
+    P('Ủy ban nhân dân '+dv.cap+' thông báo '+loaiT+' kế hoạch dư nợ năm '+nam+' của các '+ap+' theo danh mục đính kèm.')+
+    P('Đề nghị Trưởng các '+ap+' căn cứ Thông báo này để chỉ đạo các Tổ TK&amp;VV trong '+ap+' tổ chức bình xét cho vay và lập hồ sơ vay vốn theo quy định của NHCSXH. Việc bình xét cho vay phải đảm bảo công khai, dân chủ, đúng đối tượng và có sự tham gia giám sát của Trưởng '+ap+', đại diện lãnh đạo của tổ chức chính trị - xã hội nhận ủy thác.')+
+    P('Trên đây là chỉ tiêu kế hoạch dư nợ năm '+nam+' được Ủy ban nhân dân '+dvT+' phê duyệt, đề nghị các Trưởng '+ap+' và các đơn vị có liên quan nghiêm túc thực hiện./.')+
+    '<p class="tr">&nbsp;</p>'+hsoBang('khung0', [80, 80], '<tr><td><p class="b i s12">Nơi nhận:</p>'+dong(gt('noiNhan'), 's11')+'</td><td class="c">'+ky+
+      '<p class="c">&nbsp;</p><p class="c">&nbsp;</p><p class="c">&nbsp;</p>'+(nguoi ? '<p class="c b">'+pb07O(nguoi, '')+'</p>' : '')+'</td></tr>');   /* chừa chỗ ký tay */
+  /* bảng: STT gọn · Chỉ tiêu rộng (tên CT canh trái) · số canh phải · ô canh giữa dọc — tổng 160 mm = bề rộng chữ (lề trái 3, phải 2 cm) */
+  var hang = '<thead><tr style="height:11mm"><td class="c b">STT</td><td class="c b">Chỉ tiêu</td><td class="c b">Giao tăng/giảm</td><td class="c b">Chỉ tiêu kế hoạch năm '+nam+'</td></tr></thead><tbody>';
   d.ap.forEach(function(a, i){
-    hang += '<tr style="height:9.8mm"><td class="c b">'+(i+1)+'</td><td class="b">'+pb07O(a.ten, '')+'</td><td></td><td></td></tr>';
-    a.ds.forEach(function(c, j){ hang += '<tr style="height:9.8mm"><td class="c">'+(i+1)+'.'+(j+1)+'</td><td>'+pb07O(c.ten, '')+'</td><td class="c">'+pb07O(pbSoVN(c.dc), '')+'</td><td class="c">'+pb07O(pbSoVN(c.nam), '')+'</td></tr>'; }); });
-  if(!d.ap.length) hang += '<tr style="height:9.8mm"><td></td><td></td><td></td><td></td></tr>';
-  var t2 = hsoBang('khung0', [56.9], '<tr><td class="c"><p class="c b s13">ỦY BAN NHÂN DÂN</p><p class="c b s13">'+donVi+'</p>'+hsoKe(22)+'</td></tr>')+
-    '<p class="c b" style="margin:6pt 0 0">DANH MỤC '+loai+'</p><p class="c b" style="margin:0">CHỈ TIÊU KẾ HOẠCH DƯ NỢ NGUỒN VỐN '+(d.nguon===2 ? 'ĐỊA PHƯƠNG' : 'TRUNG ƯƠNG')+'</p><p class="c b" style="margin:0 0 10pt">NĂM '+nam+'</p>'+
-    P('(Kèm theo Thông báo số '+soT2+'/TB-UBND ngày '+ngTB+' của Chủ tịch UBND '+dvT+')', 'c i s13')+P('Đơn vị: triệu đồng', 'r i')+
-    hsoBang('luoi', [35, 36.7, 42.6, 49.5], hang+'</tbody>');
+    hang += '<tr style="height:8mm"><td class="c b">'+(i+1)+'</td><td class="b">'+pb07O(a.ten, '')+'</td><td></td><td></td></tr>';
+    a.ds.forEach(function(c, j){ hang += '<tr style="height:8mm"><td class="c">'+(i+1)+'.'+(j+1)+'</td><td>'+pb07O(c.ten, '')+'</td><td class="r" style="padding-right:5pt">'+pb07O(pbSoVN(c.dc), '')+'</td><td class="r" style="padding-right:5pt">'+pb07O(pbSoVN(c.nam), '')+'</td></tr>'; }); });
+  if(!d.ap.length) hang += '<tr style="height:8mm"><td></td><td></td><td></td><td></td></tr>';
+  var t2 = hsoBang('khung0', [62, 98], '<tr><td class="c">'+donViKhoi+'</td><td></td></tr>')+   /* góc trên bên trái như trang Thông báo (trước nằm giữa trang) */
+    '<p class="c b tr" style="margin-top:12pt">DANH MỤC '+loai+'</p><p class="c b">CHỈ TIÊU KẾ HOẠCH DƯ NỢ NGUỒN VỐN '+(d.nguon===2 ? 'ĐỊA PHƯƠNG' : 'TRUNG ƯƠNG')+'</p><p class="c b">NĂM '+nam+'</p>'+
+    P('(Kèm theo Thông báo số '+soT2+'/TB-UBND ngày '+ngTB+' của Chủ tịch UBND '+dvT+')', 'c i s13 tr')+P('Đơn vị: triệu đồng', 'r i tr')+
+    hsoBang('luoi pb07-bang', [13, 83, 32, 32], hang+'</tbody>');
   var co = pb07CoChu(K);
   var boc = function(h){   /* cỡ chữ thân: gắn cho từng đoạn / bảng chưa có cỡ riêng (lớp om-co + font-size) — bộ xuất Word chung (hsoDocx) đọc cỡ theo đoạn / bảng, không theo khung bọc */
     h = h.replace(/<(p|table)(\s[^>]*)?>/g, function(m, the, at){ at = at || ''; var lop = (at.match(/class="([^"]*)"/) || [])[1] || '';
       if(/(^| )s\d+( |$)/.test(lop)) return m;
       var st = (at.match(/style="([^"]*)"/) || [])[1] || ''; at = at.replace(/\s*class="[^"]*"/, '').replace(/\s*style="[^"]*"/, '');
       return '<'+the+' class="'+(lop ? lop+' ' : '')+'om-co" style="font-size:'+co+'pt;'+st+'"'+at+'>'; });
+    if(typeof omChamMin==='function') h = omChamMin(h);   /* 3.303: dòng chấm nhỏ mịn như các mẫu đã chốt (Word cỡ nhỏ theo tỉ lệ) */
     return '<div class="om-co pb07" style="font-size:'+co+'pt">'+h+'</div>'; };
   return [{M:PB07_M, h:boc(t1)}, {M:PB07_M, h:boc(t2)}];
 }

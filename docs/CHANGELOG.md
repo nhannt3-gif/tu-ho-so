@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.303 — 21/10/2026 — 📄 Biểu 07 Phân bổ KH: trình bày chuẩn hành chính (TK chính)
+- **Anh 21/10:** "tên cơ quan phía trên bên trái, em đang để ở giữa, cột chỉ tiêu rộng ra, các cột kia gọn lại cho cân đối, chữ trong ô canh đều gọn chuẩn hành chính, các dấu chấm nhỏ như các mẫu đã làm, em kiểm tra canh lề chuẩn 2,2,3,3 font giãn dòng" · lề anh chọn: **trên 2 · dưới 2 · trái 3 · phải 2 cm** (giữ như cũ, đúng NĐ 30/2020).
+- **js/mau/07pb.js:** trang Danh mục — khối "ỦY BAN NHÂN DÂN / tên xã" về **góc trên bên trái** (bảng 62 / 98 mm như trang Thông báo; trước bảng 1 cột kéo hết bề ngang nên nằm giữa trang) · **bảng** STT 13 · **Chỉ tiêu 83** · Giao tăng/giảm 32 · Chỉ tiêu năm 32 mm (= 160 mm bề rộng chữ; trước 35 / 36,7 / 42,6 / 49,5 làm tên CT gãy nhiều dòng), tên CT canh trái, **số canh phải** có đệm, dòng 8 mm · **đoạn văn**: canh đều 2 bên, thụt đầu dòng 1 cm, cách đoạn trước 6 pt, giãn dòng 1,15 (lớp `j thut tr` → Word cùng thông số); Kính gửi canh giữa · tên loại "THÔNG BÁO …" **14 đậm** (trước 16 — NĐ 30: 13–14) · **dấu chấm mịn** `omChamMin` như các mẫu nền ô (Word cỡ nhỏ theo tỉ lệ) · chừa 3 dòng trống chỗ ký.
+- **Phép thử:** `t253` 35 — đo lại bố cục mới (tên cơ quan 2 trang, cột, canh, chấm mịn, không còn 16 pt; Word sz 28, không sz 32); so chữ gộp chuỗi chấm.
+
 ## 3.302 — 21/10/2026 — 📈 Diễn biến: hiện cả chương trình không có giao ở dư nợ thực tế (TK chính)
 - **Anh 21/10:** "để anh đối chiếu dư nợ thì tại cột dư nợ thực tế thì các chương trình không có giao cũng hiện ra".
 - **Lõi `pbDienBien` (js/47):** nhận thêm `dn.ds` = các nhóm (xã, CT, nguồn) có dư nợ ở Mẫu 31 kỳ cuối + 31/12 năm trước; nhóm không có QĐ giao trong năm (và có dư nợ ≠ 0) thành dòng **khongGiao** (KH trống, chỉ dư nợ) — hàm mới `pbDBKhongGiao`. Tổng: KH, còn phải TH, %, biểu đồ, mốc QĐ **chỉ tính CT có giao** (không đổi); thêm `hienTaiTatCa` / `khongGiao` / `dauNamTatCa` / `soKhongGiao`.
