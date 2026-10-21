@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.299 — 21/10/2026 — Bảng Scan: tên khách là chính
+- **Anh 21/10** (ảnh bảng Scan có khung xem phải: cột Tên chỉ còn "Đo…", "Hồ…" vì cột Tổ trưởng "0026418 — Đoàn Công Thái" chiếm chỗ): "em cân đối để hiện được tên là chính".
+- Cột **Tên** luôn rộng tối thiểu ~13 chữ (đủ họ tên thường gặp); cột **Tổ trưởng** chỉ hiện **tên tổ trưởng** (bỏ mã tổ), gọn tối đa ~11 chữ, dài thì "…" — rê chuột thấy đủ mã + tên. Sắp theo cột vẫn như cũ.
+- Phép thử: t222 thêm 1 (3).
+
 ## 3.298 — 21/10/2026 — Bước 5: rà Drive dữ liệu cũ theo quy tắc chung
 - Theo `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.md` bước 5 ("rà Drive toàn bộ → đổi tên / dời theo quy tắc, báo file không quản được — anh tích mới làm").
 - 🗂 Quản lý › 🔎 Rà CCCD đã lưu: phần Drive nay rà **3 thư mục**: **CCCD · Hồ sơ scan · Hồ sơ vay** (trước chỉ CCCD).
