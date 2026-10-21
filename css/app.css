@@ -3762,3 +3762,6 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
 #tr7 .pb-bo .to-bang-cuon{width:fit-content;max-width:min(100%,1120px)}
 #tr7 .pb-bo .pb-ct,#tr7 .pb-bo .pb-dc-nhom,#tr7 .pb-bo .pb-db-mo-bang{width:fit-content;max-width:100%;min-width:min(100%,520px)}
 #tr7 .pb-bo table.to-bang th{white-space:normal;min-width:70px}
+.sx-ck-xem{display:flex;align-items:center;gap:10px;padding:6px 12px;border-top:1px solid var(--vien);background:var(--the);cursor:pointer;flex:0 0 auto}   /* 3.308: chữ ký dưới CCCD ở khung xem */
+.sx-ck-xem span{font-size:.85em;color:var(--chu-phu);white-space:nowrap}
+.sx-ck-xem img{max-height:72px;max-width:70%;object-fit:contain;background:#fff;border:1px solid var(--vien);border-radius:6px}

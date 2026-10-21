@@ -19,7 +19,7 @@ var CH_SO = {
   chiMucDriveTG:'Giờ chỉ mục Drive (riêng máy)', chiMucThoi:'Lúc lấy chỉ mục (riêng máy)', db5p:'Đồng bộ Scan mỗi 5 phút', dbMoApp:'Đồng bộ khi mở app', dbRoiApp:'Đồng bộ khi rời app', dbSauLuu:'Đồng bộ sau khi lưu',
   gxBat:'Bật gói số liệu xem cho điện thoại', gxCho:'Gói xem chờ đẩy', gxKy:'Kỳ gói xem đã đẩy', gxLuc:'Lúc đẩy gói xem', gxSo:'Số khách trong gói xem',
   /* bố cục, khung, tab */
-  rongTrai:'Độ rộng cột trái (đời cũ, tự bỏ)', rongPhai:'Độ rộng cột phải (đời cũ, tự bỏ)', rongPV:'Độ rộng khung xem phải', rongTab:'Độ rộng khung xem theo tab', rong339:'Mốc bỏ độ rộng chung (3.39)', rong3304:'Mốc khung xem Scan gọn (3.304)', kyRa:'Mốc đã rà chữ ký quét nhầm (3.306)',
+  rongTrai:'Độ rộng cột trái (đời cũ, tự bỏ)', rongPhai:'Độ rộng cột phải (đời cũ, tự bỏ)', rongPV:'Độ rộng khung xem phải', rongTab:'Độ rộng khung xem theo tab', rong339:'Mốc bỏ độ rộng chung (3.39)', rong3304:'Mốc khung xem Scan gọn (3.304)', kyRa:'Mốc đã rà chữ ký quét nhầm (3.306; 3.309 rà lại)', pbMuc:'🎯 Phân bổ KH — mục đang mở (3.308)',
   anPV:'Cờ ẩn khung xem đời cũ (tự bỏ)', anPVTab:'Ẩn khung xem theo tab', anLocNhanh:'Ẩn thanh lọc nhanh theo tab', moLocDT:'Mở thanh lọc trên điện thoại', bangTab:'Kiểu xem bảng theo tab',
   xemChe:'Chế độ khung xem lần trước', dongGon:'Dòng danh sách gọn', tabCD:'Tab con Cài đặt đang mở', khoiMo:'Khối Hôm nay mở / gập', cayMo:'Nhánh cây đang mở', suaDM:'Đang sửa danh mục tab Tháng',
   anBangDC:'Ẩn bảng đối chiếu tab Tháng', moCXL:'Mở khối Cần xử lý', moGanDay:'Mở khối Gần đây', tvPhan:'Việc Hôm nay theo phần', taNhacKhac:'Đã nhắc tạo nhãn khác',

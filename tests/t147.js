@@ -120,7 +120,7 @@ const path=require('path');
  ok('⋯ Biểu mẫu: 📚 Bộ biểu mẫu', /Bộ biểu mẫu/.test(r.bm.them));
  ok('▦ Bảng Biểu mẫu: Tên mẫu · Chương trình · Loại · Số lần dùng · Trạng thái', r.bm.cot==='Tên mẫu|Chương trình|Loại|Số lần dùng|Trạng thái' && r.bm.dong===2, r.bm.cot);
  ok('Scan (máy tính): cùng thanh; bỏ hàng Danh sách / Ngày-Tuần-Tháng và dòng giải thích; ⇅ = nhóm theo Ngày', r.sc.co && r.sc.scXem && r.sc.ghiChu && /Ngày/.test(r.sc.sap), JSON.stringify({sap:r.sc.sap}));
- ok('⋯ Scan: Chế độ quét · Chữ ký·CCCD', /Chế độ quét/.test(r.sc.them) && /Chữ ký · CCCD/.test(r.sc.them));
+ ok('⋯ Scan: 3.309 bỏ Chế độ quét · Webcam · Chữ ký·CCCD (trùng Quét gì? / cột Ck)', !/Chế độ quét|Webcam|Chữ ký · CCCD/.test(r.sc.them), r.sc.them);
  ok('⚲ Lọc Scan: Xã · Tag · ⚠ Chưa đạt; bật → chip trên thanh, bấm ✕ bỏ', /Xã/.test(r.sc.loc) && /Chưa đạt/.test(r.sc.loc) && r.sc.chuaDat && r.sc.boCD);
  ok('▦ Bảng Scan: Tên · Ấp · Tổ trưởng (3.292) · Loại giấy tờ · Ck (3.304) · Ngày · Trạng thái', r.sc.cot==='Tên|Ấp|Tổ trưởng|Loại giấy tờ|Ck|Ngày|Trạng thái' && r.sc.dong===2, r.sc.cot);
  /* iPhone */
