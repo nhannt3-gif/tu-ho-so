@@ -109,7 +109,7 @@ function hcDichMat(i, d){
 GD.dangKy('hc', {dich:function(el){ hcDichMat(+el.getAttribute('data-i'), +el.getAttribute('data-d')); }});
 /* phím mũi tên: đang chọn 1 ảnh (chạm / bấm) trong lưới → ← → ↑ ↓ dời ảnh đó */
 document.addEventListener('keydown', function(ev){
-  if(!/^Arrow(Left|Right|Up|Down)$/.test(ev.key) || ev.ctrlKey || ev.altKey || typeof HC_CHON==='undefined' || HC_CHON<0 || !document.getElementById('hc-anh')) return;
+  if(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(ev.key)<0 || ev.ctrlKey || ev.altKey || typeof HC_CHON==='undefined' || HC_CHON<0 || !document.getElementById('hc-anh')) return;
   var t = ev.target; if(t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
   var the = SC.che==='the', d = {ArrowLeft:-1, ArrowRight:1, ArrowUp:the ? -2 : -1, ArrowDown:the ? 2 : 1}[ev.key];
   ev.preventDefault(); ev.stopPropagation();
