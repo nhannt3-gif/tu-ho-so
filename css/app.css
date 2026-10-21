@@ -3619,12 +3619,12 @@ table.hm-so{min-width:1476px}
 .pb-nhom-dau.pb-gm{border-left:4px solid #2e8b57}
 .pb-nhom-dau.pb-dc{border-left:4px solid #d9822b}
 .pb-nhom-dau .pb-nho{margin-left:auto;padding:1px 8px}
-.pb-dong{padding:4px 8px 4px 14px;font-size:13px;cursor:pointer;border-top:1px solid #eef0f2}
+.pb-dong{padding:4px 8px 4px 14px;font-size:13px;cursor:pointer;border-top:1px solid var(--vien)}
 .pb-dong:hover{background:#f5f9fd}
 .pb-dong.bat{background:#e3effa}
-.pb-loi,.pb-loi td{background:#fdecec}
-.pb-nhac,.pb-nhac td{background:#fff8e6}
-.pb-mo td{color:#7a8590}
+.pb-loi,.pb-loi td{background:var(--do-nen)}
+.pb-nhac,.pb-nhac td{background:var(--vang-nen)}
+.pb-mo td{color:var(--chu-phu)}
 .pb-ap td.so,.pb-dc td.so,.pb-f-bang td.so{text-align:right;white-space:nowrap}
 .pb-ap .gd-o-so,.pb-f-bang .gd-o-so{width:96px;text-align:right}
 .pb-ct{margin-top:10px}
@@ -3632,7 +3632,7 @@ table.hm-so{min-width:1476px}
 .pb-goi{padding:14px 6px;line-height:1.6}
 .pb-f-xa{margin:6px 0;line-height:2;text-align:left;display:flex;flex-wrap:wrap;align-items:center;gap:2px 16px}
 .pb-f-xa .hso-o2{display:inline-flex;align-items:center;gap:4px;margin:0}
-.pb-f-xa-dong td{background:#eef4fa;font-weight:600}
+.pb-f-xa-dong td{background:var(--xanh-nhat);font-weight:600}
 /* 3.301 🎯 Biểu 07 — khai báo riêng · 🔎 đối chiếu chéo */
 .pb07-kb{border:1px solid var(--vien,#ddd);border-radius:8px;padding:6px 8px;margin:6px 0}
 .pb07-kb.pb07-gon{border-style:dashed}
@@ -3642,9 +3642,9 @@ table.hm-so{min-width:1476px}
 .pb07-in{color:var(--chu-phu,#666);flex:0 1 200px}
 textarea.pb07-o{flex:1 1 240px;min-width:180px;font:inherit}
 .pb-dc-nhom{margin:8px 0}
-.pb-dc-nhom.pb-loi>.th-nhom-ten{color:#b00}
+.pb-dc-nhom.pb-loi>.th-nhom-ten{color:var(--do)}
 table.pb-dc2 tr[data-lenh]{cursor:pointer}
-table.pb-dc2 tr.pb-loi td{background:#fde2e2}
+table.pb-dc2 tr.pb-loi td{background:var(--do-nen)}
 table.pb-dc2 tr.tong td{font-weight:600}
 table.pb-dc2 td{white-space:normal}table.pb-dc2 td:last-child{min-width:180px}
 /* 3.301 🎯 Phân bổ KH — giao diện thẻ (anh 21/10 "cải tiến theo hướng web hiện đại để nhìn"): thẻ số · thanh tiến độ · 📈 diễn biến (biểu đồ SVG, dòng thời gian QĐ) · danh sách QĐ dạng thẻ — theo biến màu sáng / tối */
@@ -3690,3 +3690,4 @@ table.pb-db-ct td{white-space:nowrap}
 .pb-nhom-dau.pb-gm{border-left-color:var(--luc)}.pb-nhom-dau.pb-dc{border-left-color:#d9822b}
 .pb-dong{border-top-color:var(--vien)}.pb-dong:hover{background:var(--nen)}.pb-dong.bat{background:var(--xanh-nhat)}
 .pb-ct,.pb-dc-nhom{background:var(--the);border:1px solid var(--vien);border-radius:12px;padding:6px 8px;margin:10px 0}
+#pb-dc table.pb-dc2 td{white-space:normal}#pb-dc table.pb-dc2 td:last-child{min-width:240px;max-width:520px}
