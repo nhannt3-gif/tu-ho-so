@@ -1981,7 +1981,11 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.300', ds:[
+var CO_GI_MOI = {ban:'3.301', ds:[
+  ["📈 Phân bổ KH › Diễn biến phân vốn theo KH: thẻ số (đầu năm, KH cuối năm, hiện tại, còn phải thực hiện), biểu đồ KH hiệu lực ↔ dư nợ từng tháng, dòng thời gian QĐ, tiến độ từng xã — In / PDF / Excel", "slDoiTab('pb');doiNgan(7)"],
+  ["🔎 Phân bổ KH › Đối chiếu chéo: mỗi QĐ — Biểu 07 khớp số giao và Đến 31/12 của QĐ; chuỗi QĐ trong năm (Đã giao = Đến 31/12 QĐ trước); đầu năm so dư nợ 31/12 năm trước; dư nợ thực tế chỉ để tham khảo", "slDoiTab('pb');doiNgan(7)"],
+  ["⚙ Biểu 07 có khai báo riêng như các mẫu: nơi lập (mặc định tên xã / phường), tỉnh, số / ngày thông báo, chức danh ký, người ký, nơi nhận, cỡ chữ — mỗi ô chọn ✍ ghi tay · 🤖 tự động · ⚙ khai báo chung · ⌨ tự gõ riêng", "slDoiTab('pb');doiNgan(7)"],
+  ["🎯 Tab Phân bổ KH giao diện thẻ mới: thẻ số ở màn phân bổ và đối chiếu, danh sách QĐ dạng thẻ, hợp chế độ tối", "slDoiTab('pb');doiNgan(7)"],
   ["Nhanh hơn: đọc số CCCD (thẻ khó đọc ~7–9 giây → ~1 giây), mở lại PDF tức thì; đồng hồ ⏱ đếm giây ở ô trạng thái + khung xem, xong báo thời gian xử lý", "doiNgan(4)"],
   ["Scan › ▦ Bảng: cột Tên khách rộng ra (không còn \"Đo…\"), cột Tổ trưởng chỉ hiện tên tổ trưởng (bỏ mã tổ, rê chuột thấy đủ)", "doiNgan(4)"],
   ["Scan › 🔎 Rà (bước 5 kế hoạch tên + lưu): rà cả 3 thư mục Drive CCCD · Hồ sơ scan · Hồ sơ vay — file sai thư mục dời + đặt tên chuẩn (tích sẵn), tài liệu thả tay nhận vào app", "doiNgan(4)"],
@@ -1992,11 +1996,7 @@ var CO_GI_MOI = {ban:'3.300', ds:[
   ["🎯 Tab con Phân bổ KH (📈 Số liệu): danh sách QĐ nhóm theo QĐ · ＋ QĐ mới nhiều xã (Đã giao tự gợi ý theo QĐ trước, Đến 31/12 tự tính, ✗ lệch / ⚠ đứt chuỗi) · 📥 Nhập QĐ từ file sao lưu của app Phân bổ kế hoạch (bản máy tính)", "slDoiTab('pb');doiNgan(7)"],
   ["⚙ Phân bổ QĐ xuống ấp: Tương đối (chia đều chẵn 100) / Chính xác (theo dư nợ Mẫu 31 cuối tháng trước QĐ, chẵn 50) — chỉ 1 ấp lẻ, giảm không âm; đối chiếu khớp Đã giao → Tăng/giảm → Đến 31/12; sửa tay tăng/giảm từng ấp", "slDoiTab('pb');doiNgan(7)"],
   ["📄 Biểu 07 Phân bổ KH theo đúng mẫu Word (Thông báo của UBND xã + Danh mục): 👁 xem trước · 🖨 In · 📄 PDF · 📝 Word — 1 xã hoặc 📦 mọi xã của QĐ; chỉ xuất khi khớp QĐ; ngày thông báo tự tính / để chấm / gõ", "slDoiTab('pb');doiNgan(7)"],
-  ["Scan › ▦ Bảng: thêm cột Tổ trưởng (bấm tiêu đề để sắp theo tổ)", "doiNgan(4)"],
-  ["Scan › Bản vừa quét (Thẻ): mỗi mặt CCCD dời 4 chiều ◀ ▶ ▲ ▼, chọn ảnh rồi bấm phím mũi tên; nút 🔄 Lật ảnh ngược đầu", "doiNgan(4)"],
-  ["Scan: lượt quét nhiều người lưu vào Chờ sắp xếp — mỗi người đọc được thẻ đặt tên \"cccd-Họ tên - số CCCD\", lưu kèm số; bản cũ \"Scan … - người n\" đổi tên khi Sắp xếp đọc ra số", "doiNgan(4)"],
-  ["Ảnh HEIC iPhone: app tự đổi sang JPG trong máy (thư viện heic-to) — dán, chọn file, chụp, hộp Quét CCCD đều đọc được", "doiNgan(4)"],
-  ["Scan: ảnh không đọc được (HEIC iPhone, file hỏng) không làm hỏng cả lượt — ảnh tốt vẫn vào, báo tên + định dạng ảnh hỏng", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Scan › ▦ Bảng: thêm cột Tổ trưởng (bấm tiêu đề để sắp theo tổ)", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

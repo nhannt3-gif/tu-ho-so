@@ -3633,3 +3633,60 @@ table.hm-so{min-width:1476px}
 .pb-f-xa{margin:6px 0;line-height:2;text-align:left;display:flex;flex-wrap:wrap;align-items:center;gap:2px 16px}
 .pb-f-xa .hso-o2{display:inline-flex;align-items:center;gap:4px;margin:0}
 .pb-f-xa-dong td{background:#eef4fa;font-weight:600}
+/* 3.301 🎯 Biểu 07 — khai báo riêng · 🔎 đối chiếu chéo */
+.pb07-kb{border:1px solid var(--vien,#ddd);border-radius:8px;padding:6px 8px;margin:6px 0}
+.pb07-kb.pb07-gon{border-style:dashed}
+.pb07-dong{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;padding:3px 0;border-bottom:1px dotted var(--vien,#e3e3e3)}
+.pb07-dong:last-child{border-bottom:0}
+.pb07-ten{min-width:190px;font-weight:600}
+.pb07-in{color:var(--chu-phu,#666);flex:0 1 200px}
+textarea.pb07-o{flex:1 1 240px;min-width:180px;font:inherit}
+.pb-dc-nhom{margin:8px 0}
+.pb-dc-nhom.pb-loi>.th-nhom-ten{color:#b00}
+table.pb-dc2 tr[data-lenh]{cursor:pointer}
+table.pb-dc2 tr.pb-loi td{background:#fde2e2}
+table.pb-dc2 tr.tong td{font-weight:600}
+table.pb-dc2 td{white-space:normal}table.pb-dc2 td:last-child{min-width:180px}
+/* 3.301 🎯 Phân bổ KH — giao diện thẻ (anh 21/10 "cải tiến theo hướng web hiện đại để nhìn"): thẻ số · thanh tiến độ · 📈 diễn biến (biểu đồ SVG, dòng thời gian QĐ) · danh sách QĐ dạng thẻ — theo biến màu sáng / tối */
+.pb-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0 10px}
+.pb-the{background:var(--the);border:1px solid var(--vien);border-radius:12px;padding:10px 12px;min-width:0}
+.pb-the>span{display:block;color:var(--chu-phu);font-size:calc(12px*var(--co))}
+.pb-the>b{display:block;font-size:calc(22px*var(--co));font-weight:600;line-height:1.25;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pb-the>small{display:block;color:var(--chu-phu);font-size:calc(11.5px*var(--co))}
+.pb-tien{height:6px;background:var(--vien);border-radius:3px;margin:5px 0 2px;overflow:hidden}
+.pb-tien i{display:block;height:100%;background:var(--xanh);border-radius:3px}
+.pb-tien.tot i{background:var(--luc)}.pb-tien.cham i{background:#d99a00}
+.pb-db-loc select{width:auto;max-width:220px}
+.pb-db-chu{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;font-size:calc(12px*var(--co));color:var(--chu-phu);margin:6px 0 4px}
+.pb-db-chu small{margin-left:auto}
+.pb-db-l{display:inline-block;width:16px;height:0;border-top:2px solid #2a78d6;margin-right:6px;vertical-align:middle}.pb-db-l.kh{border-top:2px dashed #eb6834}
+.pb-db-bd{background:var(--the);border:1px solid var(--vien);border-radius:12px;padding:8px 10px}
+.pb-db-svg{display:block;width:100%;height:auto;max-height:280px}
+.pb-db-luoi{stroke:var(--vien);stroke-width:1}.pb-db-truc{fill:var(--chu-phu);font-size:11px;font-family:inherit}
+.pb-db-vung{fill:rgba(42,120,214,.12)}.pb-db-dn{fill:none;stroke:#2a78d6;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.pb-db-kh{fill:none;stroke:#eb6834;stroke-width:2;stroke-dasharray:6 4}
+.pb-db-diem{fill:#2a78d6;stroke:var(--the);stroke-width:2;cursor:help}.pb-db-diem-kh{fill:#eb6834;cursor:help}
+.pb-db-moc{display:flex;align-items:flex-start;overflow-x:auto;padding:12px 2px 6px;margin:6px 0 10px}
+.pb-db-nut{flex:0 0 auto;min-width:104px;text-align:center}
+.pb-db-nut>i{display:block;width:12px;height:12px;border-radius:50%;background:var(--xanh);margin:5px auto}
+.pb-db-nut.mo-dau>i{background:var(--chu-phu)}.pb-db-nut.cuoi>i{background:var(--xanh-dam);box-shadow:0 0 0 3px var(--xanh-nhat)}
+.pb-db-nut>b{display:block;font-size:calc(15px*var(--co));font-variant-numeric:tabular-nums}
+.pb-db-nut>span{display:block;font-weight:600;color:var(--xanh-dam);font-size:calc(12px*var(--co))}
+.pb-db-nut>small{display:block;color:var(--chu-phu);font-size:calc(11px*var(--co))}
+.pb-db-chip{display:inline-block;border-radius:999px;padding:1px 9px;font-size:calc(11.5px*var(--co));font-weight:600;min-height:1.4em}
+.pb-db-chip.tang{background:var(--luc-nen);color:var(--luc)}.pb-db-chip.giam{background:var(--do-nen);color:var(--do)}.pb-db-chip.rong{visibility:hidden}
+.pb-db-noi{flex:0 0 26px;height:2px;background:var(--vien);margin-top:36px}
+table.pb-db-xa tr[data-lenh]{cursor:pointer}table.pb-db-xa tr[data-lenh]:hover td{background:var(--xanh-nhat)}
+table.pb-db-xa tr.mo td{background:var(--xanh-nhat)}
+table.pb-db-xa tr.pb-cham td:first-child{box-shadow:inset 3px 0 0 #d99a00}
+table.pb-db-xa tr.pb-db-mo>td{background:var(--nen);padding:6px 8px 10px}
+td.pb-db-td,th.pb-db-td{min-width:150px;white-space:nowrap}
+td.pb-db-td .pb-tien{display:inline-block;width:96px;vertical-align:middle;margin:0 6px 0 0}
+table.pb-db-ct td{white-space:nowrap}
+/* danh sách QĐ + bảng: thẻ bo tròn, theo biến màu (bỏ màu cứng nền sáng của 3.293) */
+.pb-nhom{border-color:var(--vien);border-radius:12px;background:var(--the)}
+.pb-nhom.bat{border-color:var(--xanh);box-shadow:0 0 0 2px var(--xanh-nhat)}
+.pb-nhom-dau{background:var(--xanh-nhat);color:var(--chu)}
+.pb-nhom-dau.pb-gm{border-left-color:var(--luc)}.pb-nhom-dau.pb-dc{border-left-color:#d9822b}
+.pb-dong{border-top-color:var(--vien)}.pb-dong:hover{background:var(--nen)}.pb-dong.bat{background:var(--xanh-nhat)}
+.pb-ct,.pb-dc-nhom{background:var(--the);border:1px solid var(--vien);border-radius:12px;padding:6px 8px;margin:10px 0}

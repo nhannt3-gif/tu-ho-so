@@ -222,6 +222,23 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.301) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 0a | 🎯 Phân bổ KH › 📈 Diễn biến | 4 thẻ số, biểu đồ KH (gạch cam) ↔ dư nợ (xanh) các tháng đã nạp Mẫu 31, dòng thời gian QĐ, bảng xã có thanh tiến độ | |
+| 0b | Bấm 1 xã; lọc nguồn / chương trình; 📊 Excel | Chi tiết từng CT · QĐ; số đổi theo lọc; file Excel 4 sheet | |
+| 0c | Bật chế độ tối (⚙) | Thẻ, biểu đồ, bảng đọc rõ | |
+| 1 | 🎯 Phân bổ KH › 🔎 Đối chiếu chéo | Tóm tắt xanh / đỏ; mỗi xã · CT · nguồn 1 bảng: từng QĐ, dòng Cả năm, dòng Thực tế (tham khảo) | |
+| 2 | Có QĐ nhập lệch / Đã giao khác Đến 31/12 QĐ trước | Dòng đỏ ghi rõ lý do (nhập lệch / đứt chuỗi) | |
+| 3 | Đã nạp Mẫu 31 kỳ 12 năm trước | Có dòng Dư nợ 31/12 so Đã giao QĐ đầu năm | |
+| 4 | Bấm 1 dòng QĐ trong bảng đối chiếu | Về màn phân bổ QĐ đó, đã phân bổ sẵn | |
+| 5 | 🖨 In / 📄 PDF đối chiếu | A4 ngang, đủ bảng | |
+| 6 | Biểu 07 › ⚙ Khai báo riêng | 7 ô + cỡ chữ; Nơi lập mặc định tên xã / phường của từng xã | |
+| 7 | Đổi Chức danh ký sang "KT. CHỦ TỊCH / PHÓ CHỦ TỊCH", gõ Người ký → 💾 Lưu | Bản xem đổi ngay; đóng mở lại vẫn giữ; Word đúng | |
+| 8 | Sửa ô rồi ✕ Hủy / đóng hộp chưa lưu | Trả lại như lần lưu trước | |
+
+**Ghi chú kỹ thuật 3.301:** biểu đồ SVG tự vẽ (pbDBSVG) — không thêm thư viện. Diễn biến cấp xã · CT · nguồn (cấp ấp chờ cách chia 3). đối chiếu không lưu kết quả — tính lại mỗi lần mở (Biểu 07 không lưu theo QT-16 / anh chốt); ngưỡng chuỗi đọc `pb.ch.nguongLech` (chưa có ô khai báo, mặc định 1 triệu). Dòng Thực tế dùng Mẫu 31 kỳ mới nhất trong năm của dải kỳ chung.
+
 ### Danh sách thử trên máy thật (3.300) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

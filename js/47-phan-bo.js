@@ -250,3 +250,84 @@ function pbBieu07DL(q, kq, tenCT){
   var dv = pbDonVi(q.tenXa || q.xa);
   return {loi:[], coAm:am, dv:dv, laDC:/điều chỉnh/i.test(String(q.loai || '')), nam:String(q.ngay || '').slice(0, 4), so:String(q.so || '').trim(), kyHieu:String(q.kyHieu || '').trim(), ngayQD:String(q.ngay || '').slice(0, 10),
     nguon:+q.nguon===2 ? 2 : 1, ap:thu.map(function(kk){ return theo[kk]; })}; }
+
+/* ---------- 3.301: ĐỐI CHIẾU CHÉO (anh 21/10: "tại mỗi QĐ tổng giao của Biểu 07 phải khớp số giao của QĐ và dư nợ đến cuối năm cũng khớp theo QĐ") ----------
+   Theo (xã, CT, nguồn) trong năm, các QĐ theo ngày (rồi lúc ghi):
+   ① từng QĐ: Đã giao + Tăng/giảm = Đến 31/12 (nhập QĐ) · Biểu 07 (phân bổ lại theo cách chia đang chọn): Σ tăng/giảm các ấp = số giao QĐ, Σ chỉ tiêu năm = Đến 31/12, Σ chỉ tiêu trước = Đã giao
+   ② chuỗi: Đã giao QĐ sau = Đến 31/12 QĐ trước (đứt chuỗi) · ③ đầu năm (bản WPF chiều 1): Đã giao QĐ đầu năm ↔ dư nợ 31/12 năm trước · ④ cuối năm (chiều 2): Đã giao đầu + Σ tăng/giảm ↔ Đến 31/12 QĐ cuối
+   tinhKQ(q) → kết quả pbPhanBo của QĐ 1 xã | null (chưa có ấp) · dnDau(xa, ct, nguon) → triệu | null · nguong: lệch ≤ ngưỡng coi như khớp ở ② ③ ④ (mặc định 1 triệu như bản WPF); ① so đúng tuyệt đối */
+function pbDoiChieu(dsQD, nam, tinhKQ, dnDau, nguong){
+  nguong = nguong==null ? 1 : +nguong; var g = {}, thu = [], kqQD = {};
+  (dsQD || []).filter(function(q){ return String(q.ngay).slice(0, 4)===String(nam); })
+    .sort(function(a, b){ return a.ngay < b.ngay ? -1 : a.ngay > b.ngay ? 1 : String(a.luc || '') < String(b.luc || '') ? -1 : String(a.luc || '') > String(b.luc || '') ? 1 : 0; })
+    .forEach(function(q){ (q.ct || []).forEach(function(c){ var k = q.xa+'|'+c.ma+'|'+q.nguon; if(!g[k]){ g[k] = []; thu.push(k); } g[k].push({q:q, c:c}); }); });
+  var lech = function(a, b){ return a==null || b==null ? null : pbR(a - b); }, vuot = function(l){ return l!=null && Math.abs(l) > nguong; };
+  var tong = {nhom:0, dong:0, loi:0};
+  var dong = thu.map(function(k){
+    var ds = g[k], q0 = ds[0].q, c0 = ds[0].c, truoc = null, sTG = 0, loiNhom = 0;
+    var dong1 = ds.map(function(x, i){
+      var q = x.q, c = x.c, dg = pbSo(c.daGiao), tg = pbSo(c.tangGiam) || 0, den = pbSo(c.den3112), lyDo = [];
+      var denT = den!=null ? pbR(den) : pbR((dg || 0) + tg);
+      var loiNhap = pbKiemNhapQD(c); if(loiNhap) lyDo.push(loiNhap);
+      var dut = i>0 && dg!=null && truoc!=null ? lech(dg, truoc) : null; if(vuot(dut)) lyDo.push('Đã giao '+pbSoVN(dg)+' ≠ Đến 31/12 QĐ trước '+pbSoVN(truoc)+' (đứt chuỗi '+pbSoDau(dut)+')');
+      var b07 = null, s = pbSoCanPhanBo(q, c);
+      if(s){ if(!kqQD.hasOwnProperty(q.id)) kqQD[q.id] = tinhKQ ? tinhKQ(q) : null;
+        var kq = kqQD[q.id], kk = kq ? kq.filter(function(y){ return y.ma===c.ma; })[0] : null;
+        if(!kk) b07 = {chua:true};
+        else { var r = pbKiem(kk); b07 = {truoc:r.tongTruoc, dc:r.tongDc, nam:r.tongNam, so:kk.so, daGiao:kk.daGiaoXa, den:kk.den3112Xa, khopGiao:r.khop, khopDen:r.khopDen, khopDaGiao:r.khopDaGiao, coAm:r.coAm};
+          if(!r.khop) lyDo.push('Biểu 07: Σ tăng/giảm '+pbSoDau(r.tongDc)+' ≠ số giao QĐ '+pbSoDau(kk.so));
+          if(!r.khopDen) lyDo.push('Biểu 07: Σ chỉ tiêu năm '+pbSoVN(r.tongNam)+' ≠ Đến 31/12 '+pbSoVN(kk.den3112Xa));
+          if(!r.khopDaGiao) lyDo.push('Biểu 07: Σ chỉ tiêu trước '+pbSoVN(r.tongTruoc)+' ≠ Đã giao '+pbSoVN(kk.daGiaoXa));
+          if(r.coAm) lyDo.push('Biểu 07: có ấp chỉ tiêu năm âm'); } }
+      truoc = denT; sTG = pbR(sTG + tg); if(lyDo.length) loiNhom++;
+      return {q:q, c:c, daGiao:dg, tangGiam:tg, den:den, dut:dut, b07:b07, lyDo:lyDo, ok:!lyDo.length}; });
+    var dgDau = pbSo(c0.daGiao)!=null ? pbR(pbSo(c0.daGiao)) : pbR((pbSo(c0.den3112) || 0) - (pbSo(c0.tangGiam) || 0));
+    var dn = dnDau ? dnDau(q0.xa, c0.ma, q0.nguon) : null, lDau = dn==null ? null : lech(dgDau, Math.round(dn));
+    var cuoi = ds[ds.length-1].c, denCuoi = pbSo(cuoi.den3112)!=null ? pbR(pbSo(cuoi.den3112)) : pbR(dgDau + sTG), tinh = pbR(dgDau + sTG), lCuoi = lech(tinh, denCuoi);
+    var dau = {daGiao:dgDau, duNo:dn==null ? null : Math.round(dn), lech:lDau, ok:!vuot(lDau)}, ck = {tinh:tinh, den:denCuoi, tongTG:sTG, lech:lCuoi, ok:!vuot(lCuoi)};
+    if(!dau.ok || !ck.ok) loiNhom++;
+    tong.nhom++; tong.dong += dong1.length; if(loiNhom) tong.loi++;
+    return {xa:q0.xa, tenXa:q0.tenXa || q0.xa, ma:c0.ma, ten:c0.ten || '', nguon:+q0.nguon, ds:dong1, dau:dau, cuoi:ck, ok:!loiNhom}; });
+  dong.sort(function(a, b){ return String(a.tenXa).localeCompare(String(b.tenXa), 'vi') || (a.ma < b.ma ? -1 : a.ma > b.ma ? 1 : a.nguon - b.nguon); });
+  return {nam:String(nam), dong:dong, tong:tong};
+}
+
+/* ---------- DIỄN BIẾN PHÂN VỐN THEO KH (anh 21/10: "làm thêm diễn biến phân vốn … theo KH", giao diện web hiện đại) ----------
+   loc = {xa:'' | mã, nguon:0 | 1 | 2, ct:'' | mã} · dn = {dau: f | null (dư nợ 31/12 năm trước), kyDau, thang:[{ky, f}] (Mẫu 31 các kỳ trong năm)} — f(xa, ct, nguon) → triệu | null
+   KH hiệu lực tại ngày d (1 nhóm xã · CT · nguồn) = Đến 31/12 của QĐ gần nhất có ngày ≤ d; trước QĐ đầu năm = Đã giao của QĐ đầu năm.
+   → {nam, nhom:[{xa, tenXa, ma, ten, nguon, ds:[{q, c, daGiao, tangGiam, den}], dgDau, khCuoi, tongTG, dauNam, hienTai, conTH, pct}], theoXa:[…], thang:[{ky, kh, dn}], moc:[{so, ngay, loai, tg, kh, xa}], tong:{…}} */
+function pbDienBien(dsQD, nam, loc, dn){
+  loc = loc || {}; dn = dn || {}; var g = {}, thu = [], soQD = {};
+  (dsQD || []).filter(function(q){ return String(q.ngay).slice(0, 4)===String(nam) && (!loc.xa || q.xa===loc.xa) && (!+loc.nguon || +q.nguon===+loc.nguon); })
+    .sort(function(a, b){ return a.ngay < b.ngay ? -1 : a.ngay > b.ngay ? 1 : String(a.luc || '') < String(b.luc || '') ? -1 : 1; })
+    .forEach(function(q){ (q.ct || []).forEach(function(c){ if(loc.ct && c.ma!==loc.ct) return; var k = q.xa+'|'+c.ma+'|'+q.nguon; if(!g[k]){ g[k] = []; thu.push(k); }
+      var tg = pbSo(c.tangGiam) || 0, dg = pbSo(c.daGiao), den = pbSo(c.den3112);
+      g[k].push({q:q, c:c, daGiao:dg, tangGiam:tg, den:den!=null ? pbR(den) : null}); soQD[String(q.so).trim()+'|'+String(q.ngay).slice(0, 10)+'|'+String(q.kyHieu || '').trim()] = q; }); });
+  var kyCuoi = (dn.thang || []).length ? dn.thang[dn.thang.length-1] : null;
+  var nhom = thu.map(function(k){
+    var ds = g[k], q0 = ds[0].q, c0 = ds[0].c, dgDau = ds[0].daGiao!=null ? pbR(ds[0].daGiao) : pbR((ds[0].den || 0) - ds[0].tangGiam), chay = dgDau;
+    ds.forEach(function(x){ chay = x.den!=null ? x.den : pbR(chay + x.tangGiam); x.denT = chay; });
+    var dau = dn.dau ? dn.dau(q0.xa, c0.ma, q0.nguon) : null, ht = kyCuoi ? kyCuoi.f(q0.xa, c0.ma, q0.nguon) : null;
+    dau = dau==null ? null : Math.round(dau); ht = ht==null ? null : Math.round(ht);
+    return {xa:q0.xa, tenXa:q0.tenXa || q0.xa, ma:c0.ma, ten:c0.ten || '', nguon:+q0.nguon, ds:ds, dgDau:dgDau, khCuoi:chay, tongTG:pbSum(ds, function(x){ return x.tangGiam; }),
+      dauNam:dau, hienTai:ht, conTH:ht==null ? null : pbR(chay - ht), pct:ht==null || !chay ? null : Math.round(ht/chay*1000)/10}; })
+    .sort(function(a, b){ return String(a.tenXa).localeCompare(String(b.tenXa), 'vi') || (a.ma < b.ma ? -1 : a.ma > b.ma ? 1 : a.nguon - b.nguon); });
+  var khTai = function(n, d){ var v = n.dgDau; n.ds.forEach(function(x){ if(String(x.q.ngay).slice(0, 10) <= d) v = x.denT; }); return v; };
+  var cong = function(ds, f){ var co = false, s = 0; ds.forEach(function(x){ var v = f(x); if(v!=null){ co = true; s += v; } }); return co ? pbR(s) : null; };
+  var tom = function(ds){ var kh = cong(ds, function(n){ return n.khCuoi; }), ht = kyCuoi ? cong(ds, function(n){ return n.hienTai; }) : null;
+    return {dauNam:dn.dau ? cong(ds, function(n){ return n.dauNam; }) : null, dgDau:cong(ds, function(n){ return n.dgDau; }), khCuoi:kh, tongTG:cong(ds, function(n){ return n.tongTG; }),
+      hienTai:ht, conTH:ht==null || kh==null ? null : pbR(kh - ht), pct:ht==null || !kh ? null : Math.round(ht/kh*1000)/10}; };
+  var xaG = {}, xaThu = []; nhom.forEach(function(n){ if(!xaG[n.xa]){ xaG[n.xa] = []; xaThu.push(n.xa); } xaG[n.xa].push(n); });
+  var theoXa = xaThu.map(function(x){ var t = tom(xaG[x]); t.xa = x; t.tenXa = xaG[x][0].tenXa; t.nhom = xaG[x]; return t; });
+  var thang = [];
+  if(dn.dau && dn.kyDau) thang.push({ky:dn.kyDau, kh:cong(nhom, function(n){ return n.dgDau; }), dn:cong(nhom, function(n){ return n.dauNam; }), dau:true});
+  (dn.thang || []).forEach(function(t){ var d = pbNgayKy(t.ky);
+    thang.push({ky:t.ky, kh:cong(nhom, function(n){ return khTai(n, d); }), dn:cong(nhom, function(n){ var v = t.f(n.xa, n.ma, n.nguon); return v==null ? null : Math.round(v); })}); });
+  var moc = Object.keys(soQD).map(function(k){ var q = soQD[k], d = String(q.ngay).slice(0, 10), tg = 0, xa = {};
+      nhom.forEach(function(n){ n.ds.forEach(function(x){ if(pbKhoaQDChung(x.q)===k){ tg += x.tangGiam; xa[x.q.xa] = 1; } }); });
+      return {so:q.so, ngay:d, loai:q.loai, tg:pbR(tg), kh:cong(nhom, function(n){ return khTai(n, d); }), soXa:Object.keys(xa).length}; })
+    .sort(function(a, b){ return a.ngay < b.ngay ? -1 : a.ngay > b.ngay ? 1 : 0; });
+  var tong = tom(nhom); tong.soQD = moc.length; tong.soNhom = nhom.length;
+  return {nam:String(nam), nhom:nhom, theoXa:theoXa, thang:thang, moc:moc, tong:tong};
+}
+function pbKhoaQDChung(q){ return String(q.so || '').trim()+'|'+String(q.ngay || '').slice(0, 10)+'|'+String(q.kyHieu || '').trim(); }   /* = pbKhoa (js/48) — để lõi tự đủ */

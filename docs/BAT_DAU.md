@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.300** — Nhanh hơn: đọc số CCCD (bộ đọc chữ dùng lại, ảnh 1 thẻ không đọc mảnh), PDF giữ trong phiên; đồng hồ ⏱ ở ô trạng thái. 3.299 bảng Scan tên là chính; 3.294–3.298 kế hoạch tên + lưu xong (bước 4 Bộ hồ sơ giữ nguyên). 3.293 (TK chính) 🎯 Phân bổ KH xong P2 + P3. Chờ anh: thử máy thật 3.225–3.300.
+- **`main` = 3.301** — 🎯 Phân bổ KH (TK chính): + 📈 Diễn biến phân vốn theo KH (thẻ số, biểu đồ, dòng thời gian, tiến độ xã, Excel) + 🔎 Đối chiếu chéo + ⚙ Khai báo riêng Biểu 07 + giao diện thẻ — `docs/KE_HOACH_PHAN_BO_KH.md`; việc sau: chỉ tiêu đầu năm, cách chia 3. 3.297 – 3.300 (TK phụ). Chờ anh: thử máy thật 3.225–3.301.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
