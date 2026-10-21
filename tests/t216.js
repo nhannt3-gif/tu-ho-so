@@ -17,7 +17,7 @@ const fs=require('fs'), path=require('path');
    ok('thanh tab Scan: chỉ 1 nút 🗂 Quản lý hồ sơ scan (bỏ 3 nút rời)', bar && bar.querySelectorAll('button').length===1 && bar.querySelector('[data-lenh="ql.mo"]') && /bản chờ sắp xếp/.test(bar.textContent), bar && bar.textContent);
    bar.querySelector('[data-lenh="ql.mo"]').click(); for(let i=0;i<30 && !/Sắp xếp hồ sơ scan/.test((document.getElementById('hop-in')||{}).textContent||'');i++) await w(200);
    const the = document.querySelector('#hop-in .ql-the');
-   ok('có bản chờ → mở thẻ ⏳ Chờ sắp xếp; dải 3 thẻ trên đầu', the && the.querySelectorAll('button').length===3 && the.querySelector('.bat[data-lenh="sx.sapXep"]') && /Chờ sắp xếp \(\d+\)/.test(the.textContent), the && the.textContent);
+   ok('có bản chờ → mở thẻ ⏳ Chờ sắp xếp; dải thẻ trên đầu (3.306: 4 thẻ, thêm ✍ Rà chữ ký)', the && the.querySelectorAll('button').length===4 && the.querySelector('.bat[data-lenh="sx.sapXep"]') && /Chờ sắp xếp \(\d+\)/.test(the.textContent), the && the.textContent);
    ok('thẻ Chờ sắp xếp có nút ✎ Khai hàng loạt (khi còn bản chưa khai)', !!document.querySelector('#hop-in .sx-chan [data-lenh="sx.khaiHL"]'));
    the.querySelector('[data-lenh="sx.kiem"]').click(); for(let i=0;i<30 && !SXK_BANG;i++) await w(200); await w(300);
    ok('bấm thẻ 📊 → màn Kiểm tra, vẫn có dải thẻ (thẻ Kiểm tra sáng)', /Kiểm tra hồ sơ scan theo địa bàn/.test(document.getElementById('hop-in').textContent) && document.querySelector('#hop-in .ql-the .bat[data-lenh="sx.kiem"]'));

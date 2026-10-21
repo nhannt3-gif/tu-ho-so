@@ -38,7 +38,7 @@ const path=require('path');
    window.docFile = k => /^ln_tm_/.test(k) ? Promise.resolve(kho[k]||null) : docCu(k); window.luuFile = (k, v) => /^ln_tm_/.test(k) ? (kho[k] = v, Promise.resolve()) : luuCu(k, v);
    dong('t226a').querySelector('[data-lenh="xk.mo"]').click(); await w(200);
    const hop = document.querySelector('#hop.hien');
-   ok('bấm 💾 → hộp Xuất file: CCCD + Chữ ký tích sẵn, Ảnh khách chưa có thì mờ', !!hop && /Xuất file/.test(hop.textContent) && hop.querySelector('[data-xk="cccd"]').checked && hop.querySelector('[data-xk="ky"]').checked && hop.querySelector('[data-xk="anh"]').disabled);
+   ok('bấm 💾 → hộp Xuất file: CCCD + Chữ ký tích sẵn, Ảnh khách (mặt trước CCCD, 3.306) chọn được nhưng không tích', !!hop && /Xuất file/.test(hop.textContent) && hop.querySelector('[data-xk="cccd"]').checked && hop.querySelector('[data-xk="ky"]').checked && !hop.querySelector('[data-xk="anh"]').disabled && !hop.querySelector('[data-xk="anh"]').checked);
    hop.querySelector('[data-lenh="xk.xuat"]').click();
    for(let i=0;i<60 && Object.keys(ghi).length<2;i++) await w(100);
    const tenC = '9990002261 - Nguyễn Văn Giả - CCCD.jpg', tenK = '9990002261 - Nguyễn Văn Giả - Chữ ký.jpg';

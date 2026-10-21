@@ -13,7 +13,7 @@ const path=require('path');
    const ve = (W, H, f) => new Promise(r=>{ const c = document.createElement('canvas'); c.width = W; c.height = H; f(c.getContext('2d'), W, H); c.toBlob(r, 'image/jpeg', 0.95); });
    // ① chọn loại
    batDauScan(); await w(100); const h1 = document.getElementById('hop-in').textContent;
-   ok('① hộp chọn loại: CCCD · Tài liệu · Chữ ký · Ảnh khách + nguồn', /CCCD/.test(h1) && /Tài liệu/.test(h1) && /Chữ ký/.test(h1) && /Ảnh khách/.test(h1) && /Lấy từ đâu/.test(h1) && document.querySelectorAll('#hop-in .sc-loai button').length===4);
+   ok('① hộp chọn loại: CCCD · Tài liệu · Chữ ký · Bản photo CCCD + nguồn (3.306: bỏ Ảnh khách)', /CCCD/.test(h1) && /Tài liệu/.test(h1) && /Chữ ký/.test(h1) && /Bản photo CCCD/.test(h1) && !/Ảnh khách/.test(h1) && /Lấy từ đâu/.test(h1) && document.querySelectorAll('#hop-in .sc-loai button').length===4);
    // Tài liệu: chọn loại → chế độ tài liệu dù trước đó đang nhớ Thẻ; 2 ảnh → 2 trang, không ghép cặp
    SC.che = 'the'; D.cauHinh.scanChe = 'the'; batDauScan('tailieu'); const goc = window.chonNguon; let nguon = ''; window.chonNguon = n => { nguon = n; }; scChonNguon('photo'); window.chonNguon = goc;
    ok('Tài liệu: chọn loại → chế độ tài liệu (không theo chế độ Thẻ đang nhớ)', SC.che==='tailieu' && nguon==='photo' && D.cauHinh.scanLoai==='tailieu', SC.che);
@@ -45,9 +45,9 @@ const path=require('path');
    ok('chữ ký: tùy chọn Gốc — không khử bóng (góc tối giữ tối)', px(0.03, 0.05)[0] < 160, JSON.stringify(px(0.03, 0.05)));
    KA.kyLoc = ''; KA.bl = null; xemKA2(); await w(400); const hk = document.getElementById('hop-in').textContent;
    ok('✍ xem chữ ký: bộ nút chuẩn Lưu vào máy · Gửi Zalo · Lưu vào app · Bỏ', /Lưu vào máy/.test(hk) && /Gửi Zalo/.test(hk) && /Lưu vào app/.test(hk) && /Bỏ/.test(hk) && /dưới 200 KB/.test(hk));
-   // Ảnh khách = 1 mặt CCCD → đi luồng ảnh (chupKA 'anh'), không vào hàng chờ thẻ
-   let ka = ''; const ck = window.chupKA; window.chupKA = (l, n) => { ka = l+'|'+n; }; batDauScan('anhkh'); scChonNguon('camera'); window.chupKA = ck;
-   ok('🧑 Ảnh khách → luồng 1 mặt CCCD (chupKA anh), không ghép mặt sau', ka==='anh|camera', ka);
+   // 3.306: Bản photo CCCD = chế độ thẻ + tách tờ 2 mặt (thay Ảnh khách)
+   let ng = ''; const cn = window.chonNguon; window.chonNguon = n => { ng = n; }; batDauScan('photo'); scChonNguon('camera'); window.chonNguon = cn;
+   ok('🗎 Bản photo CCCD → chế độ thẻ, tách tờ 2 mặt', ng==='camera' && SC.che==='the' && SC.photo2===true, ng);
    return o; });
  R.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.join(' | ') : ''));
  console.log(R.join('\n')); console.log(R.filter(x=>x[0]==='✓').length+'/'+R.length+' đạt'); await b.close(); })();

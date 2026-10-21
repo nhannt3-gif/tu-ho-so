@@ -65,16 +65,15 @@ function xkNen(c){
 function xkMo(id, giu){
   var k = timScan(id); if(!k) return;
   XK.id = id; if(!giu) XK.chon = {cccd:1, ky:1, anh:0};   /* mỗi lần mở: CCCD + Chữ ký tích sẵn */
-  var ky = xkCuaKhach(k, 'ky'), anh = xkCuaKhach(k, 'anh'), e = coChuHTML, tm = lnCai('xuat').ten;
-  if(!anh) XK.chon.anh = 0;
+  var ky = xkCuaKhach(k, 'ky'), anh = k.che!=='tailieu', e = coChuHTML, tm = lnCai('xuat').ten;   /* 3.306: ảnh khách = mặt trước CCCD, xuất khi cần (không lưu sẵn) */
   var o = function(ma, nhan, co, chu){ return '<label class="xk-o'+(co ? '' : ' mo')+'"><input type="checkbox" data-xk="'+ma+'"'+(co && XK.chon[ma] ? ' checked' : '')+(co ? '' : ' disabled')+'> '+nhan+
     ' <small>'+chu+'</small></label>'; };
   moHop('<div class="hop-tit">💾 Xuất file · '+e((k.maKH ? k.maKH+' - ' : '')+(k.ten||''))+'</div>'+
     '<div class="hop-phu">Mỗi loại 1 file JPG nhẹ (dưới 200 KB), tên chuẩn — ghi thẳng vào thư mục trên máy.</div>'+
     '<div class="xk-ds">'+
       o('cccd', '🪪 CCCD', k.che!=='tailieu', e(xkTen(k, 'CCCD'))+' — 2 mặt ghép 1 ảnh')+
-      o('ky', '✍ Chữ ký', !!ky, ky ? e(xkTen(k, 'Chữ ký')) : 'chưa có — chụp ở 📁 Chữ ký · CCCD')+
-      o('anh', '🧑 Ảnh khách', !!anh, anh ? e(xkTen(k, 'Ảnh')) : 'chưa có')+'</div>'+
+      o('ky', ky && ky.kieuKy==='lantay' ? '🖐 Lăn tay' : '✍ Chữ ký', !!ky, ky ? e(xkTen(k, 'Chữ ký')) : 'chưa có — chụp ở 📁 Chữ ký · CCCD')+
+      o('anh', '🧑 Ảnh khách', anh, e(xkTen(k, 'Ảnh'))+' — mặt trước CCCD')+'</div>'+
     '<div class="xk-tm">📂 Lưu vào: <b>'+(coLuuNhanh() ? (tm ? e(tm) : 'chưa chọn — bấm Xuất lần đầu để chọn') : 'thư mục Tải về (trình duyệt này không chọn thư mục được — dùng Chrome / Edge)')+'</b>'+
       (coLuuNhanh() && tm ? ' <a data-lenh="xk.doi">Đổi thư mục</a>' : '')+'</div>'+
     '<div class="hang-nut" style="margin-top:12px"><button class="chinh" data-lenh="xk.xuat">💾 Xuất</button><button data-lenh="xk.dong">Đóng</button></div>');
@@ -95,11 +94,11 @@ function xkXuat(){
   xkDocChon();
   var viec = [], loi = [];
   if(XK.chon.cccd && k.che!=='tailieu') viec.push(xkGhepCCCD(k).then(function(b){ return {ten:xkTen(k, 'CCCD'), bl:b}; }, function(e){ loi.push('CCCD: '+(e && e.message || e)); return null; }));
-  [['ky', 'Chữ ký'], ['anh', 'Ảnh']].forEach(function(x){
-    var a = XK.chon[x[0]] && xkCuaKhach(k, x[0]); if(!a) return;
-    viec.push(layAnhKA(a).then(function(b){ if(!b) throw new Error('ảnh không có trong máy này và chưa lên Drive'); return {ten:xkTen(k, x[1]), bl:b}; })
-      .catch(function(e){ loi.push(x[1]+': '+(e && e.message || e)); return null; }));
-  });
+  var a = XK.chon.ky && xkCuaKhach(k, 'ky');
+  if(a) viec.push(layAnhKA(a).then(function(b){ if(!b) throw new Error('ảnh không có trong máy này và chưa lên Drive'); return {ten:xkTen(k, 'Chữ ký'), bl:b}; })
+    .catch(function(e){ loi.push('Chữ ký: '+(e && e.message || e)); return null; }));
+  if(XK.chon.anh && k.che!=='tailieu') viec.push(xkMatThe(k).then(function(r){ if(!r[0]) throw new Error('bản này chưa có ảnh mặt trước thẻ'); return sxNen200(r[0]); })
+    .then(function(b){ return {ten:xkTen(k, 'Ảnh'), bl:b}; }, function(e){ loi.push('Ảnh: '+(e && e.message || e)); return null; }));
   if(!viec.length) return bao('Chưa tích loại nào để xuất.', 3);
   batChay(false, 'Đang xuất file…');
   Promise.all(viec).then(function(ds){

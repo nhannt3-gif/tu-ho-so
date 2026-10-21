@@ -20,7 +20,7 @@ const path=require('path');
    ok('tờ photo 2 thẻ → vẫn chia 2 nửa', h2.length===2, h2.length+' ảnh');
    HS.mo = true; SC.photo2 = true; batDauScan('cccd'); await w(200);
    const cb = document.querySelector('#hop-in [data-lenh="sx.photo2"]');
-   ok('quét bản mới → ô "Bản photo 2 mặt trên 1 tờ" về không tích (không nhớ từ lần trước)', SC.photo2===false && cb && !cb.checked);
+   ok('quét 🪪 CCCD → không tách tờ (không nhớ từ lần trước); 3.306: ô tích thay bằng nút riêng Bản photo CCCD', SC.photo2===false && !cb && /Bản photo CCCD/.test(document.getElementById('hop-in').textContent));
    dongHop();
    /* 3.274: Magic khử ám vàng / xanh, giữ màu thật của thẻ */
    const giay = (mau) => { const c = document.createElement('canvas'); c.width = 600; c.height = 800; const g = c.getContext('2d'); g.fillStyle = mau; g.fillRect(0, 0, 600, 800); g.fillStyle = '#222'; for(let y=60;y<760;y+=40) g.fillRect(50, y, 480, 10); return c; };
