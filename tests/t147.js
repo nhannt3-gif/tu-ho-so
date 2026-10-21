@@ -122,7 +122,7 @@ const path=require('path');
  ok('Scan (máy tính): cùng thanh; bỏ hàng Danh sách / Ngày-Tuần-Tháng và dòng giải thích; ⇅ = nhóm theo Ngày', r.sc.co && r.sc.scXem && r.sc.ghiChu && /Ngày/.test(r.sc.sap), JSON.stringify({sap:r.sc.sap}));
  ok('⋯ Scan: Chế độ quét · Chữ ký·CCCD', /Chế độ quét/.test(r.sc.them) && /Chữ ký · CCCD/.test(r.sc.them));
  ok('⚲ Lọc Scan: Xã · Tag · ⚠ Chưa đạt; bật → chip trên thanh, bấm ✕ bỏ', /Xã/.test(r.sc.loc) && /Chưa đạt/.test(r.sc.loc) && r.sc.chuaDat && r.sc.boCD);
- ok('▦ Bảng Scan: Tên · Ấp · Tổ trưởng (3.292) · Loại giấy tờ · Ngày · Trạng thái', r.sc.cot==='Tên|Ấp|Tổ trưởng|Loại giấy tờ|Ngày|Trạng thái' && r.sc.dong===2, r.sc.cot);
+ ok('▦ Bảng Scan: Tên · Ấp · Tổ trưởng (3.292) · Loại giấy tờ · Ck (3.304) · Ngày · Trạng thái', r.sc.cot==='Tên|Ấp|Tổ trưởng|Loại giấy tờ|Ck|Ngày|Trạng thái' && r.sc.dong===2, r.sc.cot);
  /* iPhone */
  const q = await mo({width:390, height:844}, true);
  const t = await q.evaluate(async()=>{ const w=t=>new Promise(r=>setTimeout(r,t)); D.cauHinh.bangTab = {vanBan:true}; doiNgan(1); await w(300);
