@@ -7,6 +7,7 @@ var demChay = 0;
 var DL_HEN = null;
 /* thanh báo "đang làm gì" — chỉ hiện khi việc chạy quá 0,4 giây để không nhấp nháy */
 function dangLam(chu, coDung){
+  if(chu) DONGHO.chu = chu;
   if(typeof TTB!=='undefined' && chu){ TTB.chay = chu; if(typeof ttVe==='function') ttVe(); }
   var e = document.getElementById('danglam'); if(!e) return;
   e.classList.toggle('tt-an', !coDung && !!document.getElementById('tt-khoi'));   /* 3.148: việc không có nút Dừng → chỉ báo ở ô trạng thái */
@@ -17,15 +18,25 @@ function dangLam(chu, coDung){
   DL_HEN = setTimeout(function(){ e.classList.add('hien'); }, 400);
 }
 function dangLamChu(chu){
+  DONGHO.chu = chu; chu = chu+dongHoChu();
   if(typeof TTB!=='undefined'){ TTB.chay = chu; if(typeof ttVe==='function') ttVe(); }
   var c = document.getElementById('dl-chu'); if(c) c.textContent = chu;
 }
+/* 3.300 (anh: "nên có đồng hồ đo và báo thời gian máy xử lý để không chờ sốt ruột"): việc chạy (batChay … tatChay) đếm giây —
+   chữ "đang làm" ở ô trạng thái / thanh Dừng thêm "· ⏱ 3,4 giây" (từ giây thứ 1); xong việc ≥ 1,5 giây → thông báo kết quả ngay sau đó kèm "· ⏱ x giây". */
+var DONGHO = {bd:0, hen:null, chu:'', ket:null};
+function dongHoGiay(s){ return s<60 ? s.toFixed(1).replace('.', ',')+' giây' : Math.floor(s/60)+' phút '+Math.round(s%60)+' giây'; }
+function dongHoChu(){ if(!DONGHO.bd) return ''; var s = (Date.now()-DONGHO.bd)/1000; return s>=1 ? ' · ⏱ '+dongHoGiay(s) : ''; }
+function dongHoVe(){ if(!DONGHO.bd) return; var chu = (DONGHO.chu || 'Đang xử lý…')+dongHoChu();
+  if(typeof TTB!=='undefined' && TTB.chay){ TTB.chay = chu; if(typeof ttVe==='function') ttVe(); }
+  var c = document.getElementById('dl-chu'); if(c) c.textContent = chu; }
 function hetLam(){
   clearTimeout(DL_HEN);
   if(typeof TTB!=='undefined' && !demChay){ TTB.chay = ''; if(typeof ttVe==='function') ttVe(); }
   var e = document.getElementById('danglam'); if(e) e.classList.remove('hien');
 }
 function batChay(lap, chu, coDung){
+  if(!demChay){ DONGHO.bd = Date.now(); DONGHO.chu = chu || ''; clearInterval(DONGHO.hen); DONGHO.hen = setInterval(dongHoVe, 500); }   /* 3.300: bắt đầu đếm giây */
   if(typeof TTB!=='undefined'){ TTB.chay = chu || TTB.chay || 'Đang xử lý…'; TTB.pt = lap ? 101 : 8; if(typeof ttVe==='function') ttVe(); }   /* 3.148: ô trạng thái */
   if(chu) dangLam(chu, coDung);
   demChay++;
@@ -42,6 +53,7 @@ function tienChay(pt){
 function tatChay(){
   demChay = Math.max(0, demChay-1);
   if(demChay) return;
+  if(DONGHO.bd){ DONGHO.ket = {luc:Date.now(), s:(Date.now()-DONGHO.bd)/1000}; DONGHO.bd = 0; DONGHO.chu = ''; clearInterval(DONGHO.hen); }   /* 3.300: thời gian việc vừa xong */
   if(typeof TTB!=='undefined'){ TTB.chay = ''; TTB.pt = -1; if(typeof ttVe==='function') ttVe(); }
   hetLam();
   var e = document.getElementById('ttchay');
@@ -1212,3 +1224,10 @@ function nhomTheoThang(ds, khoaNgay){
   });
   return h;
 }
+
+/* 3.300: thông báo kết quả ngay sau việc chạy ≥ 1,5 giây → kèm thời gian máy xử lý */
+var DONGHO_BAO = bao;
+bao = function(t, giay, loi){
+  if(DONGHO.ket && typeof t==='string' && Date.now()-DONGHO.ket.luc<2500 && DONGHO.ket.s>=1.5 && t.indexOf('⏱')<0){ t += ' · ⏱ '+dongHoGiay(DONGHO.ket.s); DONGHO.ket = null; }
+  return DONGHO_BAO(t, giay, loi);
+};

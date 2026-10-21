@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.300) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Quét / chọn ảnh CCCD | Đọc số nhanh hơn rõ; ô trạng thái đếm ⏱ | |
+| 2 | Bấm qua lại vài bản scan / PDF trên Drive | Lần 2 mở tức thì; lần đầu thấy ⏱ đếm ở khung xem | |
+| 3 | Việc lâu (Rà, Sắp xếp) | Xong báo "· ⏱ x giây" ở ô trạng thái | |
+
+**Ghi chú kỹ thuật 3.300:** 41 `sxOCR` — `SX_OCR {w, hang, hen}` 1 worker xếp hàng, lỗi bỏ worker, rảnh 60 s terminate; `docCCCD` `laThe(c)` (tỉ lệ 1,585 ± 0,2, rộng ≤ 1700) bỏ `sxManh`. 43: `PDF_TAM` (pdfTamLay / pdfTamGhi) bọc `taiPDFDrive`, `pdfCuaScan` (khóa id|suaLuc|số trang|mặt); `sxTrangPDF` qua `taiPDFDrive`; `dongHoKhung`. 10: `DONGHO` + `dongHoGiay / dongHoChu / dongHoVe`, `batChay` bắt đầu đếm, `tatChay` ghi `ket`, bọc `bao` thêm "⏱" (tên `dh*` trùng điều hướng 23 → dùng `dongHo*`).
+
 ### Danh sách thử trên máy thật (3.299) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

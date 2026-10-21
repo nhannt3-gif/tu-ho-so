@@ -181,10 +181,19 @@ function sxQR(c){   /* canvas → chữ trong QR (bộ đọc trình duyệt n�
   return tuJS();
 }
 function sxCanvas(b){ return anhTuBlob(b).then(function(im){ var c = document.createElement('canvas'); c.width = im.naturalWidth || im.width; c.height = im.naturalHeight || im.height; c.getContext('2d').drawImage(im, 0, 0); return c; }); }
+/* 3.300 (anh: "scan / mở CCCD xử lý lâu — rà soát tối ưu"): bộ đọc chữ khởi động 1 lần rồi DÙNG LẠI (trước mỗi mảnh ảnh tạo + tắt 1 bộ —
+   thẻ khó đọc ~11 lần khởi động, 7–9 giây); việc đọc xếp hàng 1 bộ; rảnh 60 giây thì tắt cho nhẹ máy. Lỗi → bỏ bộ, lần sau tạo lại. */
+var SX_OCR = {w:null, hang:Promise.resolve(), hen:null};
 function sxOCR(c, chu){   /* Tesseract tiếng Anh, chỉ nhận chữ hoa + số + "<" (đúng kiểu chữ mã máy đọc) */
-  return napOCR().then(function(){ return Tesseract.createWorker('eng'); }).then(function(w){
-    return w.setParameters({tessedit_char_whitelist:chu || 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<'}).then(function(){ return w.recognize(c); })
-      .then(function(r){ w.terminate(); return (r && r.data && r.data.text) || ''; }, function(e){ w.terminate(); throw e; }); });
+  var O = SX_OCR, viec = O.hang.then(function(){
+    clearTimeout(O.hen);
+    if(!O.w) O.w = napOCR().then(function(){ return Tesseract.createWorker('eng'); });
+    return O.w.then(function(w){ return w.setParameters({tessedit_char_whitelist:chu || 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<'}).then(function(){ return w.recognize(c); }); })
+      .then(function(r){ return (r && r.data && r.data.text) || ''; }, function(e){ var w0 = O.w; O.w = null; if(w0) w0.then(function(w){ w.terminate(); }, function(){}); throw e; });
+  });
+  O.hang = viec.then(function(){}, function(){});
+  O.hang.then(function(){ clearTimeout(O.hen); O.hen = setTimeout(function(){ var w0 = O.w; O.w = null; if(w0) w0.then(function(w){ w.terminate(); }, function(){}); }, 60000); });
+  return viec;
 }
 function sxCat(c, y0, y1){ var o = document.createElement('canvas'), h = Math.round(c.height*(y1-y0)); o.width = c.width; o.height = h; o.getContext('2d').drawImage(c, 0, Math.round(c.height*y0), c.width, h, 0, 0, c.width, h); return o; }
 /* 3.269: mảnh để tìm QR nhỏ (ảnh cả tờ / thẻ chụp xa): 4 góc chồng nhau, phóng to cho cạnh dài ~1400 */
@@ -214,11 +223,12 @@ var SX_DOC_BAN = 2;   /* phiên bản bộ đọc — bản đọc không đư�
 function docCCCD(truoc, sau){
   var c1 = null, c2 = null, kq = null, matMang = false;
   var qr1 = function(c){ return sxQR(c).then(function(t){ return cccdQR(t); }).catch(function(){ return null; }); };
+  var laThe = function(c){ var r = c.width/c.height; return Math.abs(r-1.585)<0.2 && c.width<=1700; };   /* 3.300: ảnh đã cắt đúng 1 thẻ → không cần đọc thêm 4 mảnh phóng to (chỉ cho tờ có 2 thẻ / ảnh chưa cắt) — nhanh hơn ~2 giây khi thẻ khó đọc */
   var thuQR = function(c){ if(!c) return Promise.resolve(null);
-    return qr1(c).then(function(r){ return r || sxManh(c).reduce(function(p, m){ return p.then(function(x){ return x || qr1(m); }); }, Promise.resolve(null)); }); };
+    return qr1(c).then(function(r){ return r || laThe(c) ? r : sxManh(c).reduce(function(p, m){ return p.then(function(x){ return x || qr1(m); }); }, Promise.resolve(null)); }); };
   var ocr = function(c, chu){ return sxOCR(c, chu).catch(function(e){ if(/tải được|load|fetch|network/i.test(String(e && e.message || e))) matMang = true; return ''; }); };
   var thuMRZ = function(c){ if(!c) return Promise.resolve(null);
-    return ocr(sxCat(c, 0.55, 1)).then(cccdMRZ).then(function(r){ return r || sxManh(c).reduce(function(p, m){ return p.then(function(x){ return x || matMang ? x : ocr(m).then(cccdMRZ); }); }, Promise.resolve(null)); }); };   /* tờ có 2 thẻ: mã máy đọc không nằm ở đáy → đọc từng góc phóng to */
+    return ocr(sxCat(c, 0.55, 1)).then(cccdMRZ).then(function(r){ return r || laThe(c) ? r : sxManh(c).reduce(function(p, m){ return p.then(function(x){ return x || matMang ? x : ocr(m).then(cccdMRZ); }); }, Promise.resolve(null)); }); };   /* tờ có 2 thẻ: mã máy đọc không nằm ở đáy → đọc từng góc phóng to */
   return Promise.all([truoc ? sxCanvas(truoc) : null, sau ? sxCanvas(sau) : null]).then(function(r){ c1 = r[0]; c2 = r[1];
     return thuQR(c1); }).then(function(r){ return r || thuQR(c2); }).then(function(r){ kq = r; return kq || thuMRZ(c2); })
     .then(function(r){ return r || (kq || matMang ? null : thuMRZ(c1)); })   /* đặt ngược mặt */
