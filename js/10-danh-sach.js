@@ -1024,7 +1024,7 @@ function gopMauBaoCao(dsMoi){
 }
 /* 3.39: độ rộng 2 cột nhớ RIÊNG từng tab (tỉ lệ trái/phải, phải = 1).
    Mặc định danh sách 60% · khung xem 40%; tab Tháng 65/35 để ma trận rộng. Khung xem luôn cố định, không thu lại. */
-var RONG_MD = {duLieu:1.85};
+var RONG_MD = {duLieu:1.85, scan:3};   /* 3.304 (anh): tab Scan khung xem gọn vừa thẻ CCCD */
 function tiLeCot(tab){
   var v = parseFloat((D.cauHinh.rongTab||{})[tab]);
   return (isFinite(v) && v>=0.5 && v<=3) ? v : (RONG_MD[tab] || 1.5);
@@ -1038,6 +1038,7 @@ function suaRongCot(){
   var doi = false;
   /* 3.39: bỏ độ rộng chung đời cũ một lần — chuyển sang mặc định mới 60/40 theo từng tab (anh Nhân chốt khung xem vừa đủ) */
   if(!D.cauHinh.rong339){ delete D.cauHinh.rongTrai; delete D.cauHinh.rongPhai; D.cauHinh.rong339 = true; doi = true; }
+  if(!D.cauHinh.rong3304){ if(D.cauHinh.rongTab) delete D.cauHinh.rongTab.scan; D.cauHinh.rong3304 = true; doi = true; }   /* 3.304: bỏ độ rộng Scan đã kéo 1 lần → mặc định gọn mới */
   ['rongTrai','rongPhai'].forEach(function(k){
     var v0 = D.cauHinh[k];
     if(v0===undefined) return;

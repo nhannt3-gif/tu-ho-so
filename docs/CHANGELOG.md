@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.304 — 21/10/2026 — Chữ ký gắn cùng CCCD: cột Ck + 💾 Xuất file theo khách
+- **Anh 21/10**: "thu gọn cột xem lại vừa CCCD là được, thêm 1 cột Ck cạnh cột CCCD, khách nào có ck thì hiện ra, khi cần xuất sẽ có nút chọn 1 khách và xuất ck, CCCD mỗi loại 1 file nhẹ, chỉ định lưu trên máy tại thư mục chỉ định".
+- **Khung xem tab Scan gọn** mặc định (danh sách 3 : khung xem 1, vừa thẻ CCCD; tối thiểu 340 px). Độ rộng Scan đã kéo trước đây bỏ 1 lần để theo mặc định mới; kéo lại / bấm đúp vạch như cũ.
+- **Cột Ck** (bảng Scan, ngay sau Loại giấy tờ): bản CCCD của khách đã có chữ ký hiện ✍ (cùng mã KH; chưa có mã thì cùng họ tên) — rê chuột thấy tên file; bấm tiêu đề cột để dồn khách có / chưa có chữ ký.
+- **💾 cuối dòng bản CCCD** → hộp **Xuất file**: tích 🪪 CCCD (2 mặt ghép dọc 1 ảnh JPG, nén ≤ 200 KB) · ✍ Chữ ký · 🧑 Ảnh khách (nếu có) — mỗi loại 1 file, tên chuẩn `MãKH - Họ tên - CCCD.jpg` / `- Chữ ký.jpg` / `- Ảnh.jpg`, ghi thẳng vào **thư mục trên máy anh chọn** (lần đầu chọn, lần sau nhớ, có "Đổi thư mục"). Bản CCCD cũ chỉ có PDF → tự tách 2 mặt trước; không có ảnh mặt thẻ → báo lý do. Trình duyệt không chọn được thư mục (Firefox) → tải về thư mục Tải về.
+- Chưa bỏ chức năng cũ (hộp 📁 Chữ ký · CCCD, Lưu nhanh…) — chờ anh duyệt danh sách bỏ.
+- Phép thử: t226 mới (9).
+
 ## 3.303 — 21/10/2026 — 📄 Biểu 07 Phân bổ KH: trình bày chuẩn hành chính (TK chính)
 - **Anh 21/10:** "tên cơ quan phía trên bên trái, em đang để ở giữa, cột chỉ tiêu rộng ra, các cột kia gọn lại cho cân đối, chữ trong ô canh đều gọn chuẩn hành chính, các dấu chấm nhỏ như các mẫu đã làm, em kiểm tra canh lề chuẩn 2,2,3,3 font giãn dòng" · lề anh chọn: **trên 2 · dưới 2 · trái 3 · phải 2 cm** (giữ như cũ, đúng NĐ 30/2020).
 - **js/mau/07pb.js:** trang Danh mục — khối "ỦY BAN NHÂN DÂN / tên xã" về **góc trên bên trái** (bảng 62 / 98 mm như trang Thông báo; trước bảng 1 cột kéo hết bề ngang nên nằm giữa trang) · **bảng** STT 13 · **Chỉ tiêu 83** · Giao tăng/giảm 32 · Chỉ tiêu năm 32 mm (= 160 mm bề rộng chữ; trước 35 / 36,7 / 42,6 / 49,5 làm tên CT gãy nhiều dòng), tên CT canh trái, **số canh phải** có đệm, dòng 8 mm · **đoạn văn**: canh đều 2 bên, thụt đầu dòng 1 cm, cách đoạn trước 6 pt, giãn dòng 1,15 (lớp `j thut tr` → Word cùng thông số); Kính gửi canh giữa · tên loại "THÔNG BÁO …" **14 đậm** (trước 16 — NĐ 30: 13–14) · **dấu chấm mịn** `omChamMin` như các mẫu nền ô (Word cỡ nhỏ theo tỉ lệ) · chừa 3 dòng trống chỗ ký.
