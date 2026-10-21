@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.306 · 21/10/2026 19:30 · 79 file · 40313 dòng · 3264 hàm cấp ngoài · 529 biến toàn cục.
+Bản 3.307 · 21/10/2026 19:38 · 80 file · 40405 dòng · 3275 hàm cấp ngoài · 531 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,7 +9,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 264 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `index.html` | 265 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
 | `css/app.css` | 3716 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
 | `js/02-nen.js` | 372 | 26 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
@@ -72,6 +72,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/49-ten-chuan.js` | 33 | 5 | /*   3.295 — SỔ QUY TẮC TÊN + NƠI LƯU HỒ SƠ THEO KHÁCH (lớp Nghiệp vụ, dùng chung) — bước 1 `docs/KE_HOACH_TEN |
 | `js/50-xuat-khach.js` | 117 | 13 | /*   3.304 — CHỮ KÝ GẮN CÙNG CCCD + XUẤT FILE THEO KHÁCH (lớp Nghiệp vụ + Giao diện tab Scan) Anh 21/10/2026:  |
 | `js/51-chu-ky.js` | 170 | 7 | /*   3.306 — CHỮ KÝ / LĂN TAY: NHẬN DẠNG, DỌN BẢN QUÉT NHẦM, BỎ ẢNH KHÁCH LƯU SẴN, NÚT BẢN PHOTO 2 MẶT (lớp Ng |
+| `js/52-loc-photo.js` | 91 | 11 | /*   3.307 — CHẾ ĐỘ LỌC CHO BẢN PHOTO (lớp Nghiệp vụ xử lý ảnh, dùng chung Scan) Anh 21/10/2026: "tinh chỉnh t |
 | `js/mau/01td.js` | 101 | 0 | /*   3.223 M4 — MẪU 01/TD trên nền ô (js/31-o-mau.js) — dựng theo file gốc tests/mau_goc/01td.docx   Lề 10 / 1 |
 | `js/mau/01uq.js` | 66 | 0 | /*   3.223 M4 — MẪU 01/UQ Giấy ủy quyền trên nền ô — dựng theo file gốc tests/mau_goc/01uq.docx (VB 10493, áp  |
 | `js/mau/03td.js` | 54 | 0 | /*   3.223 M5 — MẪU 03/TD Danh sách tổ viên đề nghị vay vốn trên nền ô — dựng theo file gốc tests/mau_goc/03td |
@@ -381,6 +382,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/51-chu-ky.js:69` · không lưu sẵn ảnh khách từ CCCD (xuất khi cần — 50)
 - `js/51-chu-ky.js:72` · ✍ Rà chữ ký đã lưu
 - `js/51-chu-ky.js:141` · "Quét gì?": 🧑 Ảnh khách → 🗎 Bản photo CCCD (2 mặt trên 1 tờ)
+- `js/52-loc-photo.js:1` · 3.307 — CHẾ ĐỘ LỌC CHO BẢN PHOTO (lớp Nghiệp vụ xử lý ảnh, dùng chung Scan)
 
 ## 3. Nhóm hàm theo tiền tố (khối chức năng)
 

@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.306', ds:[
+var CO_GI_MOI = {ban:'3.307', ds:[
+  ["Scan: chế độ lọc rõ hơn cho bản photo — thêm 📠 Photo rõ (mặc định khi quét 🗎 Bản photo CCCD: nền trắng hẳn, chữ đậm, hết lấm tấm); Xám, Giấy trắng, Đen trắng, Magic (ảnh không màu) đều khử nền xám + bỏ chấm", "doiNgan(4)"],
   ["Chữ ký: app nhận dạng chữ ký / lăn tay / ảnh CCCD — lưu nhầm ảnh CCCD làm chữ ký bị chặn; 🗂 Quản lý › ✍ Rà chữ ký dọn chữ ký quét nhầm + ảnh khách lưu sẵn; bỏ nút Ảnh khách (xuất từ mặt trước CCCD khi cần), thay bằng 🗎 Bản photo CCCD (2 mặt trên 1 tờ)", "doiNgan(4)"],
   ["📈 Diễn biến: so KH giao với TỔNG dư nợ thực tế mọi chương trình (kể cả CT không giao) — còn phải thực hiện, % đạt, biểu đồ; thêm thẻ riêng nguồn TW / ĐP và sheet Excel Theo nguồn", "slDoiTab('pb');doiNgan(7)"],
   ["📈 Diễn biến: chương trình không có giao lấy KH = dư nợ đầu năm (chưa có thì dư nợ đợt giao mới nhất) — cộng vào KH tổng để so với dư nợ thực tế", "slDoiTab('pb');doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.306', ds:[
   ["🎯 Tab Phân bổ KH giao diện thẻ mới: thẻ số ở màn phân bổ và đối chiếu, danh sách QĐ dạng thẻ, hợp chế độ tối", "slDoiTab('pb');doiNgan(7)"],
   ["Nhanh hơn: đọc số CCCD (thẻ khó đọc ~7–9 giây → ~1 giây), mở lại PDF tức thì; đồng hồ ⏱ đếm giây ở ô trạng thái + khung xem, xong báo thời gian xử lý", "doiNgan(4)"],
   ["Scan › ▦ Bảng: cột Tên khách rộng ra (không còn \"Đo…\"), cột Tổ trưởng chỉ hiện tên tổ trưởng (bỏ mã tổ, rê chuột thấy đủ)", "doiNgan(4)"],
-  ["Scan › 🔎 Rà (bước 5 kế hoạch tên + lưu): rà cả 3 thư mục Drive CCCD · Hồ sơ scan · Hồ sơ vay — file sai thư mục dời + đặt tên chuẩn (tích sẵn), tài liệu thả tay nhận vào app", "doiNgan(4)"],
-  ["Hồ sơ vay › 01/TD: nút 📷 Quét bản đã ký — sang Scan, khách + loại 01TD điền sẵn, Lưu vào tủ vào thư mục Hồ sơ vay tên chuẩn; tài liệu mẫu hồ sơ vay (01TD, 01GQVL…) lưu thư mục Hồ sơ vay", "slDoiTab('hsv');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Scan › 🔎 Rà (bước 5 kế hoạch tên + lưu): rà cả 3 thư mục Drive CCCD · Hồ sơ scan · Hồ sơ vay — file sai thư mục dời + đặt tên chuẩn (tích sẵn), tài liệu thả tay nhận vào app", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

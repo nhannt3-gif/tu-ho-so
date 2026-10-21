@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.307 — 21/10/2026 — Chế độ lọc cho bản photo
+- **Anh 21/10**: "tinh chỉnh thêm các chế độ cho bản scan từ photo rõ hơn — hiện tại chế độ xám hay trắng vẫn chưa đạt lắm, magic cũng vậy, em góp ý thêm".
+- Bản photo: nền xám mực in không đều, chữ xám nhạt, lấm tấm chấm mực, không màu. Cách làm chung mới (`js/52-loc-photo.js`): chia cho **nền sáng từng vùng** (khử nền xám, bóng tay; vùng tối lớn như ảnh chân dung không bị coi là nền) → nền về trắng, phần tối kéo đậm theo đường cong → **bỏ cụm chấm nhỏ** (cỡ chấm mực, nhỏ hơn dấu thanh) → làm nét.
+  - **📠 Photo rõ** (mới; **mặc định khi quét 🗎 Bản photo CCCD**): xám, nền trắng hẳn, chữ đậm, ảnh chân dung giữ đậm nhạt.
+  - **Xám**: không đi qua Magic nữa (trước Magic rồi bỏ màu → nền photo còn xám) — khử nền + giãn tương phản + bỏ chấm + làm nét.
+  - **Giấy trắng**: như cũ (giữ dấu đỏ) + kéo đậm chữ nhạt, bỏ chấm, làm nét nhẹ.
+  - **Đen trắng**: ngưỡng theo nền từng vùng (trước 1 ngưỡng cố định → nền xám thành mảng đen, chữ nhạt mất nét) + chỉ bỏ cụm rất nhỏ (giữ dấu nặng, dấu mũ).
+  - **Magic**: ảnh gần như không màu (bản photo) → thêm khử nền + đậm chữ + bỏ chấm; **ảnh có màu (thẻ thật) giữ y như cũ**.
+- **Đo trên bản photo giả** (thẻ tự vẽ → nền xám không đều, chữ nhạt, 2.500 chấm mực, mờ nhẹ; số = độ sáng 0 đen – 255 trắng): nền / chữ / chấm còn trên nền — gốc 179 / 109 / 2,1%; Xám cũ 215 / 74 / 2,1% → mới 245 / 66 / 0,1%; Giấy trắng cũ 248 / 124 / 2,1% → mới 253 / 98 / 0,1%; Magic cũ 215 / 74 / 2,1% → mới 237 / 60 / 0,1%; Đen trắng cũ 250 / 21 / 2,1% (ảnh chân dung thành mảng trắng) → mới 254 / 9 / 0,3% (ảnh còn); **Photo rõ 251 / 44 / 0,15%**, ảnh chân dung 131 (không bị tẩy).
+- Phép thử: t228 mới (7).
+
 ## 3.306 — 21/10/2026 — Chữ ký / lăn tay: nhận dạng, dọn bản quét nhầm; bỏ Ảnh khách lưu sẵn; nút Bản photo CCCD
 - **Anh 21/10**: "các ck có sẵn do quét nhầm CCCD em bỏ đi, nên có cơ chế nhận dạng chữ ký và lăn tay của hộ vay tránh lưu nhầm; nút scan ảnh nên bỏ, vì khi cần ảnh sẽ xuất 1 mặt từ CCCD, làm nhẹ đi để dùng khi cần và không lưu sẵn; nút scan ảnh thay bằng nút scan bản photo 2 mặt trên 1 tờ".
 - **Nhận dạng** (`js/51-chu-ky.js`): ảnh chữ ký được xét nét — **chữ ký** (nét mảnh thưa trên nền giấy), **lăn tay** (1 khối vân dày), **ảnh CCCD** (có vùng mực đặc như ảnh chân dung / QR / dấu tròn → đọc thử QR · mã máy đọc · số 12 chữ số), **ảnh trắng**. Nét rõ là chữ ký / lăn tay thì không cần đọc chữ (nhanh).

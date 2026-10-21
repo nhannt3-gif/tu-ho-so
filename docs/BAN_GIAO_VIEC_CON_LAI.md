@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.307) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Quét gì? › 🗎 Bản photo CCCD → chụp 1 tờ photo | Mặc định 📠 Photo rõ: nền trắng, chữ đen rõ, hết lấm tấm | |
+| 2 | Ở bước chỉnh, bấm qua Xám · Giấy trắng · Đen trắng · Magic | Đều rõ hơn bản trước; Đen trắng còn dấu thanh | |
+| 3 | CCCD thẻ thật có màu → Magic | Như cũ (màu, dấu đỏ giữ) | |
+
+**Ghi chú kỹ thuật 3.307:** `js/52-loc-photo.js` mới — `lpTiNen` (độ sáng / `nenSang` lưới 32 phân vị 0,85, nền không dưới 80% nền giấy chung — phân vị 90% kênh sáng nhất), `lpCong(v, ngưỡng, mũ)`, `lpBoCham(g, W, H, ngưỡng tối, cỡ)` (cụm liền 8 hướng ≤ cỡ = max(6, W·H/60000) → trắng; Đen trắng cỡ W·H/120000), `lpPhanVi`, `lpItMau` (bão hòa trung bình < 0,07). `locPhoto` (giãn từ phân vị 1%, ngưỡng 0,84 mũ 1,9, bỏ chấm, nét 0,5) · `locXam2` (0,9 / 1,35) · `locTrang2` (`locGiayTrang` + mũ 1,35 giữ tỉ lệ màu + bỏ chấm) · `locDenTrang2` (v < 0,75) · `locMagic2` (ít màu → 0,88 / 1,5 + bỏ chấm). Bọc `apLoc`, `locMacDinh` (`SC.photo2` → 'photo'); `TEN_LOC.photo`, `TEN_LOC_NGAN` thêm Photo rõ. Hàm lọc cũ giữ nguyên (t228 so cũ / mới).
+
 ### Danh sách thử trên máy thật (3.306) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
