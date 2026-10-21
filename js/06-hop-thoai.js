@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.303', ds:[
+var CO_GI_MOI = {ban:'3.304', ds:[
+  ["Scan › ▦ Bảng: cột Ck cạnh Loại giấy tờ (khách có chữ ký hiện ✍); nút 💾 cuối dòng → xuất CCCD (2 mặt ghép 1 JPG ≤ 200 KB) + Chữ ký, mỗi loại 1 file tên chuẩn vào thư mục anh chọn trên máy; khung xem tab Scan gọn vừa thẻ", "doiNgan(4)"],
   ["📄 Biểu 07 chuẩn hành chính: tên cơ quan góc trên bên trái (cả trang Danh mục), cột Chỉ tiêu rộng — số canh phải, đoạn văn canh đều thụt đầu dòng, chấm mịn như các mẫu, chữ 14 · lề 2 · 2 · 3 · 2 cm", "slDoiTab('pb');doiNgan(7)"],
   ["📈 Diễn biến phân vốn: cột dư nợ thực tế hiện cả chương trình KHÔNG có giao (dòng \"không giao\"), thêm cột Dư nợ CT không giao và Tổng dư nợ thực tế để đối chiếu đủ dư nợ Mẫu 31", "slDoiTab('pb');doiNgan(7)"],
   ["📈 Phân bổ KH › Diễn biến phân vốn theo KH: thẻ số (đầu năm, KH cuối năm, hiện tại, còn phải thực hiện), biểu đồ KH hiệu lực ↔ dư nợ từng tháng, dòng thời gian QĐ, tiến độ từng xã — In / PDF / Excel", "slDoiTab('pb');doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.303', ds:[
   ["Hồ sơ vay › 01/TD: bản lưu đặt tên chuẩn chung \"Mã KH (hộ mới: số CCCD) - Họ tên - 01TD\", tổ · ấp ở dòng phụ; bản cũ đổi tên 1 lần (giữ tên cũ)", "slDoiTab('hsv');doiNgan(7)"],
   ["Kỹ thuật (bước 1 kế hoạch tên + lưu): sổ quy tắc tên + thư mục dùng chung js/49 — Scan chuyển sang dùng, tên file không đổi", "doiNgan(4)"],
   ["Scan (bước 0 kế hoạch tên + lưu): 🔎 Rà nhận file thả tay trên Drive vào app (PDF + 2 ảnh cùng khách = 1 bản, tên chuẩn); tải ảnh Drive tối đa 2 cùng lúc; 🧹 dọn ảnh tải về", "doiNgan(4)"],
-  ["🎯 Tab con Phân bổ KH (📈 Số liệu): danh sách QĐ nhóm theo QĐ · ＋ QĐ mới nhiều xã (Đã giao tự gợi ý theo QĐ trước, Đến 31/12 tự tính, ✗ lệch / ⚠ đứt chuỗi) · 📥 Nhập QĐ từ file sao lưu của app Phân bổ kế hoạch (bản máy tính)", "slDoiTab('pb');doiNgan(7)"],
-  ["⚙ Phân bổ QĐ xuống ấp: Tương đối (chia đều chẵn 100) / Chính xác (theo dư nợ Mẫu 31 cuối tháng trước QĐ, chẵn 50) — chỉ 1 ấp lẻ, giảm không âm; đối chiếu khớp Đã giao → Tăng/giảm → Đến 31/12; sửa tay tăng/giảm từng ấp", "slDoiTab('pb');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🎯 Tab con Phân bổ KH (📈 Số liệu): danh sách QĐ nhóm theo QĐ · ＋ QĐ mới nhiều xã (Đã giao tự gợi ý theo QĐ trước, Đến 31/12 tự tính, ✗ lệch / ⚠ đứt chuỗi) · 📥 Nhập QĐ từ file sao lưu của app Phân bổ kế hoạch (bản máy tính)", "slDoiTab('pb');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

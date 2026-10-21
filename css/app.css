@@ -2933,6 +2933,13 @@ details.sl-kq > summary small,details.sl-ktgs-nap > summary small{font-weight:40
 .bang-tab th.bt-ten,.bang-tab td.bt-ten{width:100%;max-width:0;overflow:hidden;text-overflow:ellipsis}
 .bang-tab th.bt-ten,.bang-tab td.bt-ten{min-width:13em}   /* 3.299 (anh): tên khách là chính — không bị cột khác ép còn "Đo…" */
 .bang-tab td.bt-to{max-width:11em;overflow:hidden;text-overflow:ellipsis}
+.bang-tab th.bt-ck,.bang-tab td.bt-ck{text-align:center;width:2.6em}   /* 3.304: cột Ck */
+.xk-ds{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.xk-o{display:block;padding:8px 10px;border:1px solid var(--vien);border-radius:10px;cursor:pointer}
+.xk-o small{display:block;color:var(--chu-phu);margin:2px 0 0 22px;word-break:break-word}
+.xk-o.mo{opacity:.55;cursor:default}
+.xk-tm{font-size:.92em}
+.xk-tm a{cursor:pointer;color:var(--xanh-dam);text-decoration:underline;margin-left:6px}
 .bang-tab td.s,.bang-tab th.s{text-align:right}
 .bang-tab .bt-o{width:1%;padding:0 4px 0 8px}
 .bang-tab .bt-n{width:1%;padding:0 4px;text-align:right}

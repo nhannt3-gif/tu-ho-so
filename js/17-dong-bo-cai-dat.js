@@ -4,7 +4,7 @@
    chBam (riêng máy) = dấu băm từng khóa lúc đồng bộ gần nhất: khóa máy này chưa sửa → lấy theo Drive (cả phần đã xóa);
    khóa máy này đã sửa → gộp, máy này ưu tiên, thêm phần chỉ Drive có; lần đầu (chưa có chBam) → gộp, Drive ưu tiên, giữ phần chỉ máy này có.
    Mỗi lần đồng bộ: hỏi Drive trước (kéo nếu file mới hơn lần trước), rồi mới đẩy phần máy này đổi — không đè bản mới của máy khác. */
-var CH_RIENG = ['chGhiLuc','chKeoLuc','chFileId','chBam','chiMucDriveTG','chiMucThoi','saoLuuNgay','camId','camGiu','camTuDong','rongPV','rongPhai','rongTrai','rongTab','rong339','coChu',
+var CH_RIENG = ['chGhiLuc','chKeoLuc','chFileId','chBam','chiMucDriveTG','chiMucThoi','saoLuuNgay','camId','camGiu','camTuDong','rongPV','rongPhai','rongTrai','rongTab','rong339','rong3304','coChu',
   'cayMo','khoiMo','xaMo','ktKBMo','ktNapMo','slMo','dongGon','moCXL','moGanDay','moLocDT','anBangDC','suaDM','slTQ','slTab','ktgs','kyBang','tcPV','thTK','toTK','skTK',
   'hsXaCuoi','hsApCuoi','hsToCuoi','hsDiemCuoi','scanXem'];
 var TEN_CH = 'cauhinh.json', CH_DANG = null, CH_CHU = null;

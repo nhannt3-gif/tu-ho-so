@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.304) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan › ▦ Bảng, khung xem phải | Khung xem gọn vừa thẻ; cột Ck có ✍ ở khách đã có chữ ký | |
+| 2 | Bấm 💾 cuối dòng 1 khách có chữ ký → 💾 Xuất (lần đầu chọn thư mục) | Thư mục có 2 file: `MãKH - Họ tên - CCCD.jpg` (2 mặt, < 200 KB) + `- Chữ ký.jpg` | |
+| 3 | Xuất khách khác | Không hỏi lại thư mục | |
+
+**Ghi chú kỹ thuật 3.304:** `js/50-xuat-khach.js` mới — `xkCuaKhach(k, 'ky'|'anh')` (maKH, không mã → `sxChuan` tên), `xkBangCK()` bảng tra 1 lần / lần vẽ; `xkGhepCCCD` (`_matTruoc` / `_matSau`, thiếu + `sxCanCat` → `sxCatMot`) ghép canvas rộng ≤ 1000 + `xkNen` (≤ 195 KB, hạ chất lượng rồi thu 0,8); `xkMo / xkXuat / xkGhi` (`lnThuMuc('xuat')` — handle IndexedDB `ln_tm_xuat`, ghi nhiều file 1 lần hỏi quyền; không có `showDirectoryPicker` → `taiXuongBlob`); lệnh `xk.mo / xuat / doi / dong`. 11 `bangCot('scan')` cột `ck` + nút 💾 `data-lenh="xk.mo"`. 10 `RONG_MD.scan = 3` + mốc `rong3304` (bỏ `rongTab.scan` 1 lần; đăng ký 17 / 17b).
+
 ### Danh sách thử trên máy thật (3.303) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

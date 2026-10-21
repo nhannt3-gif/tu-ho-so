@@ -515,13 +515,14 @@ function bangCot(tab){
     {ma:'tt', nhan:'Trạng thái', k:function(m){ return (laSao(m)?'0':'1')+(m.driveId?'1':'0'); }, o:function(m){
       return tt([laSao(m) && ['★','Quan trọng'], !m.driveId && ['☁','Chưa lên Drive'], m.thayBoi && ['↻','Đã có bản mới']]); }}];
   if(tab==='scan'){
-    var cot = [];
+    var cot = [], ck = typeof xkBangCK==='function' ? xkBangCK() : function(){ return null; };
     if((D.scan||[]).some(function(k){ return k.maKH; })) cot.push({ma:'ma', nhan:'Mã KH', k:function(k){ return k.maKH||''; }});
     return cot.concat([
       {ma:'ten', nhan:'Tên', lop:'bt-ten', k:function(k){ return k.ten||''; }},
       {ma:'ap', nhan:'Ấp', k:function(k){ return k.ap||''; }},
       {ma:'to', nhan:'Tổ trưởng', lop:'bt-to', k:function(k){ return toTruongScan(k); }, o:function(k){ return coChuHTML(toTruongScan(k).replace(/^[\d\s]+[—–-]\s*/, '')); }},   /* 3.292 (anh): cột tổ trưởng; 3.299: chỉ tên tổ trưởng (bỏ mã tổ), cột gọn để tên khách là chính */
       {ma:'loai', nhan:'Loại giấy tờ', k:function(k){ return k.che==='tailieu' ? ((k.tag||[]).filter(function(x){ return x!=='CCCD'; })[0] || 'Tài liệu') : 'CCCD'; }},
+      {ma:'ck', nhan:'Ck', lop:'bt-ck', k:function(k){ return ck(k) ? '0' : '1'; }, o:function(k){ var a = ck(k); return a ? '<span class="bt-tt dat" title="Có chữ ký: '+coChuHTML(a.ten||'')+'">✍</span>' : ''; }},   /* 3.304 (anh): cột Ck cạnh CCCD — khách có chữ ký hiện ✍ */
       {ma:'ngay', nhan:'Ngày', k:function(k){ return mocScan(k); }, o:function(k){ return ngayVN(mocScan(k).slice(0,10)); }},
       {ma:'tt', nhan:'Trạng thái', k:function(k){ return ttScan(k).dat ? '1' : '0'; }, o:function(k){
         var t = ttScan(k); return t.dat ? '<span class="bt-tt dat" title="Đạt">✓</span>' : '<span class="bt-tt" title="'+coChuHTML(t.thieu.join(' · '))+'">⚠</span>'; }}]);
@@ -572,7 +573,7 @@ function bangTabHTML(tab, ds){
         '<td class="bt-o"><span class="o-chon'+(chon?' bat':'')+'" onclick="bangChon(\''+tab+'\',\''+m.id+'\',event)" title="Tích để chọn">'+(chon?'✓':'')+'</span></td>'+
         cot.map(function(c){ var v = c.k(m), o = c.o ? c.o(m) : coChuHTML(String(v));
           return '<td class="'+(c.lop||'')+'"'+(c.lop==='bt-ten' || c.lop==='bt-to' ? ' title="'+coChuHTML(String(v))+'"' : '')+'>'+(c.lop==='bt-ten' ? toSang(String(v), tuKhoa) : o)+'</td>'; }).join('')+
-        '<td class="bt-n">'+(tab==='scan' ? '<button onclick="event.stopPropagation();themKhach(\''+m.id+'\')" title="Sửa / khai">✎</button>'
+        '<td class="bt-n">'+(tab==='scan' ? (m.che!=='tailieu' && typeof xkMo==='function' ? '<button data-lenh="xk.mo" data-k="'+m.id+'" title="Xuất file CCCD · Chữ ký của khách này vào thư mục trên máy">💾</button>' : '')+'<button onclick="event.stopPropagation();themKhach(\''+m.id+'\')" title="Sửa / khai">✎</button>'
           : '<button onclick="event.stopPropagation();moMenu(event,\''+m.id+'\')" title="Thêm lệnh">⋯</button>')+'</td></tr>';
     }).join('')+'</tbody></table></div>';
 }
