@@ -220,3 +220,10 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 - Mọi file app đưa lên Drive phải **có tên chuẩn** (đã rõ khách: `MãKH - Họ tên - Loại`; chưa rõ: tên anh gõ có chữ đầu loại `cccd- / ck- / anh- / 01td-…`) và **app biết** (ghi trong dữ liệu: mã file Drive, thư mục cha, tên đã đặt) để đổi tên / dời / xóa / rà theo.
 - File **không quản được** (thả tay, không nhận ra khách, máy khác chưa đồng bộ, tên lạ) → đưa về **1 chỗ chung** (Scan: `Scan chờ sắp xếp`) và hiện ở bước kiểm tra (🧹 Sắp xếp / 🔎 Rà) để anh xem — không để rải rác, không tự xóa.
 - Áp dụng cho chức năng mới; chức năng cũ (Văn bản, Bộ hồ sơ, Hôm nay…) rà dần theo nguyên tắc này khi sửa tới (đề xuất kế hoạch riêng, anh duyệt).
+
+## 13. Chữ dùng trên giao diện — cân đối chuẩn và gần gũi (anh chốt 21/10/2026)
+- Anh: *"cách tiếp cận, hướng dẫn như 'Quét gì' 'ở đâu' rất hay"*; *"từ ngữ quá cá nhân cũng chưa cần, em nên dung hòa giữa ý đó và chuẩn thông dụng"*; *"chỗ đó thì hợp lý rồi, anh cần đa dạng và cân đối giữa chuẩn và gần gũi khi cần"*.
+- **Mặc định theo chuẩn thông dụng** của phần mềm: tiêu đề cột, ô nhập, mục cài đặt là danh từ ngắn (Loại giấy tờ, Nguồn ảnh, Nơi lưu, Tổ trưởng); nút là động từ chuẩn (Quét, Lưu, Xuất, In, Gửi, Bỏ, Đóng); thông báo nói việc đã làm + kết quả, không xưng hô.
+- **Gần gũi khi cần**: ở bước chọn đầu một việc nhiều nhánh (vd hộp "Quét gì?" › "Lấy từ đâu?" của Scan — giữ nguyên) được dùng câu hỏi ngắn để dẫn từng bước; câu hỏi ≤ 4 chữ, không đùa, không xưng "anh / em".
+- Dòng gợi ý: 1 câu ngắn, chỉ khi thật cần; không lặp lại điều nút đã nói.
+- Không đổi chữ của chức năng đang chạy chỉ vì quy ước này — áp dụng cho chức năng mới, chỗ cũ chỉnh khi sửa tới.
