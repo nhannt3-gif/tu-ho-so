@@ -590,11 +590,12 @@ function ccHopHTML(c){
 function veCC(){
   var o = document.getElementById('cc-o'); if(!o) return;
   var c = ccTim(CC.mo);
+  ccGonLich(c && !c.an);
   if(!c || c.an){ o.innerHTML = ''; return; }   /* 3.144 */
   if(c.hop || (window.matchMedia && !window.matchMedia('(min-width:900px)').matches)){
     /* điện thoại: mở thành hộp, không giữ trạng thái "đang mở" trên nút (đóng hộp kiểu nào cũng được)
        3.83: công cụ có bảng rộng (Giao ban, Buổi GD) mở hộp rộng cả trên máy tính */
-    o.innerHTML = ''; CC.hop = c.id; CC.mo = '';
+    o.innerHTML = ''; CC.hop = c.id; CC.mo = ''; ccGonLich(false);
     Array.prototype.forEach.call(document.querySelectorAll('.cc-nut.bat'), function(b){ b.classList.remove('bat'); });
     moHop(ccHopHTML(c), !!c.hop);
     return;
@@ -608,7 +609,10 @@ function ccVuaMan(){
   var day = document.querySelector('.day'), r = day && day.offsetParent ? day.getBoundingClientRect() : null, dayTop = r && r.height ? r.top : window.innerHeight;   /* 3.276 (anh: "mở rộng khung HSSV đến cuối trang"): dải dưới ẩn trên máy tính (3.148) → tới đáy cửa sổ (trước rơi về 200 px) */
   o.style.maxHeight = Math.max(200, Math.round(dayTop - o.getBoundingClientRect().top - 8))+'px';
 }
-window.addEventListener('resize', function(){ if(CC.mo) ccVuaMan(); });
+window.addEventListener('resize', function(){ if(CC.mo){ ccGonLich(true); ccVuaMan(); } });
+/* 3.311 (anh: "thẻ tính HSSV mở trên màn nhỏ 17 inch và laptop 125% vẫn chưa hiện hết thông tin cơ bản trong 1 khung"):
+   màn thấp (cao < 960 px) đang mở công cụ → lịch tháng thu còn 1 hàng nút công cụ, nhường chỗ cho công cụ; đóng công cụ (✕) lịch hiện lại */
+function ccGonLich(mo){ var b = document.querySelector('.blv-lich'); if(b) b.classList.toggle('cc-gon', !!mo && window.innerHeight < 960); }
 /* vẽ lại riêng phần thân (giữ ô đang gõ) */
 function ccChep(t, bx){
   if(HS_PIP && HS_PIP.navigator.clipboard){   /* 3.102: đang gõ trong cửa sổ nổi → chép bằng clipboard của cửa sổ đó (cửa sổ chính không có tiêu điểm) */

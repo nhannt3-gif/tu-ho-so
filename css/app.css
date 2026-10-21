@@ -3765,3 +3765,24 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
 .sx-ck-xem{display:flex;align-items:center;gap:10px;padding:6px 12px;border-top:1px solid var(--vien);background:var(--the);cursor:pointer;flex:0 0 auto}   /* 3.308: chữ ký dưới CCCD ở khung xem */
 .sx-ck-xem span{font-size:.85em;color:var(--chu-phu);white-space:nowrap}
 .sx-ck-xem img{max-height:72px;max-width:70%;object-fit:contain;background:#fff;border:1px solid var(--vien);border-radius:6px}
+/* 3.311: màn thấp đang mở công cụ (Hạn trả HSSV…) → lịch tháng thu còn 1 hàng nút, công cụ hiện trọn trong khung */
+.blv-lich.cc-gon .lc-dau,.blv-lich.cc-gon .lc-luoi,.blv-lich.cc-gon .lc-sap{display:none !important}
+.blv-lich.cc-gon #lich{padding-top:6px;padding-bottom:6px}
+.blv-lich.cc-gon .lc-ben{display:block !important}
+.blv-lich.cc-gon .cc-cot{display:flex !important;flex-direction:row !important;gap:6px;width:auto !important;height:auto !important}
+.blv-lich.cc-gon .cc-nut{flex:1 1 0;min-height:34px !important;height:34px !important;padding:3px 8px !important;flex-direction:row !important;gap:5px;justify-content:center}
+.blv-lich.cc-gon .cc-nut i{font-size:15px}
+.blv-lich.cc-gon .cc-nut span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#cc-o .cc-dau select{max-width:84px;min-height:26px;height:26px;padding:1px 4px}
+#cc-o .cc-dau{flex-wrap:nowrap}
+#cc-o .hs-dau{flex-wrap:nowrap;gap:4px}#cc-o .hs-dau .hs-o-gon{gap:2px;font-size:calc(10px*var(--co))}#cc-o .hs-dau #hs-gdx{width:38px}
+#cc-o .cc-dau b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:4em}
+#cc-o .hs-o label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-height:959px){
+  #cc-o .hs-khoi{gap:5px;margin:5px 0}
+  #cc-o .hs-k{padding:3px 6px}
+  #cc-o .hs-k b{font-size:calc(17px*var(--co))}#cc-o .hs-k.phu b{font-size:calc(14px*var(--co))}
+  #cc-o .hs-k small,#cc-o .hs-k i{font-size:calc(9.5px*var(--co))}
+  #cc-o .hs-bang{margin-top:4px}
+}
+#cc-o .cc-dau .nho{padding:2px 4px}

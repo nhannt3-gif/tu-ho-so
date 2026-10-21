@@ -222,6 +222,25 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.311) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Màn 17 inch / laptop 125%: Hôm nay › 🎓 Hạn trả HSSV, gõ ngày vay, ra trường, tiền | Lịch thu còn 1 hàng nút; đủ ô kết quả + bảng + câu chốt trong 1 khung, không cuộn | |
+| 2 | Bấm ✕ | Lịch tháng hiện lại | |
+
+**Ghi chú kỹ thuật 3.311:** 04 `ccGonLich(mo)` — `.blv-lich.cc-gon` khi công cụ mở ở `#cc-o` và `innerHeight < 960` (gọi trong `veCC`, khi chuyển sang hộp, khi resize); CSS ẩn `.lc-dau / .lc-luoi / .lc-sap`, `.cc-cot` thành hàng; `#cc-o .cc-dau` không xuống dòng (b min-width 4em, select ≤ 84 px, nút padding 2 / 4); `@media (max-height:959px)` ô kết quả nhỏ lại.
+
+### Danh sách thử trên máy thật (3.310) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › 01/GQVL hộ GQVL 50 tr, 60 tháng, để trống kỳ hạn; gõ Ngày giải ngân | Lịch: +24 · +48 · +60 tháng, 16,6 / 16,6 / 16,8 tr | |
+| 2 | Để trống vốn tự có, doanh thu, chi phí | Ô ghi "tự tính: …", 01/GQVL in số; 🎲 Đổi số → số khác | |
+| 3 | Chip **Phê duyệt NH** | In riêng 1 trang, đủ số | |
+| 4 | 01/GQVL › In kèm "Trang Phê duyệt…" | In chung: 01/GQVL rồi trang Phê duyệt | |
+| 5 | 07b | Chữ giữ nguyên mẫu chuẩn; Kỳ hạn trả nợ gốc + hạn cuối tự điền | |
+
+**Ghi chú kỹ thuật 3.310:** 25 `hsoGQ` — `ky = +B.ky || (th>12 ? (th<=60 ? 24 : 36) : 0)` (ghi lại `A.ky`); gốc `hsoLich` = `B.ngayGN || B.ngayHD`; tự tính `tuCo / cp / dt` khi trống theo `hsoGQK(B)` (`B.pa.k`, gán 1 lần + `luu`), trả thêm `tuCo, tu{tuCo,cp,dt}, k, ky`; `hsoGQDoiK` (🎲); `hsoBoDat` nhận `ngayGN`; `hsoTuyGQ` placeholder "tự tính", dòng hệ số + nút, ô Ngày giải ngân, lịch ghi ngày. `HSO_MAU.hsv` thêm `pdnh` + `hsoLapPdnh(t, B)`; nối vào bảng hàm in, các regex mẫu theo hộ (628, 993, 994, 1826, 1913), `hsoKemCo` (`k.pd`), `hsoTuyKem` GQVL (`pd`), `hsoLapBo` (sau 01/GQVL khi `c.pd`). `js/mau/01gqvl.js` V: vốn tự có lấy `Q.tuCo` khi tự tính.
+
 ### Danh sách thử trên máy thật (3.309) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

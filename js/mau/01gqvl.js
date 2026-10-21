@@ -58,7 +58,7 @@
     V:function(t, B){
       B = B || hsoBo(); var N = hsoBoNV(B), Q = hsoLaGQ(B) ? hsoGQ(B) : {A:{dong:[], tien:0}, C:{}}, A = Q.A, Pa = (B && B.pa) || {}, L = Pa.ld || {}, d = hsoCCCDDoc(N.cccd), han = '';
       if(N.cccd && N.ns && N.ncap && typeof toCCCDHan==='function'){ var hn = toCCCDHan(String(N.cccd).replace(/\D/g, ''), N.ns, N.ncap); if(hn && hn.den) han = hn.den; }
-      var dc = B ? hsoDiaChi({ap:N.ap, tenXa:N.tenXa}, null) : '', tc = B && B.tuCo!=='' && B.tuCo!=null ? tdnTien(hsoSo(B.tuCo)) : '';
+      var dc = B ? hsoDiaChi({ap:N.ap, tenXa:N.tenXa}, null) : '', tc = B && B.tuCo!=='' && B.tuCo!=null ? tdnTien(hsoSo(B.tuCo)) : (Q.tu && Q.tu.tuCo ? tdnTien(Q.tuCo) : '');   /* 3.310: vốn tự có tự tính (hệ số k) */
       return {Q:Q, A:A, L:L, ut:Pa.ut || [], ngan:hsoPGD('ngan'), ten:N.ten, ns:N.ns, danToc:N.danToc, gt:/^(nam|nữ)$/i.test(N.gt) ? N.gt : (d ? d.gt : ''),   /* Mẫu 31 ghi giới tính dạng mã (01…) → suy theo CCCD */
          cccd:N.cccd, ncap:N.ncap, noiCap:N.noiCap, han:han, noiO:dc, sdt:N.sdt,
         dkkd:N.dkkd || Pa.gpkd, dkkdNgay:N.dkkdNgay, dkkdLan:N.dkkdLan, dkkdLanNgay:N.dkkdLanNgay, gpkd:N.gpkd, gpkdHan:N.gpkdHan, mstKD:N.mstKD || Pa.mst, utKhac:Pa.utKhac, utGT:Pa.utGT, dtKhac:Pa.dtKhac,

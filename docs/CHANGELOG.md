@@ -4,6 +4,23 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.311 — 22/10/2026 — Hạn trả HSSV vừa 1 khung trên màn nhỏ
+- **Anh 21/10**: "thẻ tính HSSV mở trên màn nhỏ 17 inch và màn laptop 125% vẫn chưa hiện hết thông tin cơ bản trong 1 khung".
+- Đo trên máy thử: 17 inch (cửa sổ ~1366 × 650) khung công cụ chỉ còn ~210 px dưới lịch tháng (cần ~500 px); laptop 125% (~1536 × 730) còn ~320 px; tiêu đề rớt dòng (nút ✕ xuống hàng 2), nhãn "Tiền vay (triệu) · gợi ý…" 2 dòng.
+- **Màn thấp (cao < 960 px) đang mở công cụ** → lịch tháng thu còn **1 hàng nút công cụ** (🎓 · 🗺 · 📋 · 🧰), công cụ dùng phần còn lại: nhập liệu, 5 ô kết quả, bảng, câu chốt hiện trọn, không phải cuộn. Đóng công cụ (✕ / Esc) → lịch hiện lại đầy đủ. Màn cao giữ như cũ.
+- Tiêu đề công cụ gọn 1 dòng (ô chọn khóa học, GDX, nút co lại); nhãn ô nhập 1 dòng; chữ ô kết quả nhỏ lại chút trên màn thấp.
+- Phép thử: t231 mới (6).
+
+## 3.310 — 21/10/2026 — GQVL: lịch trả gốc tự phân kỳ, phương án tự tính (hệ số k), trang Phê duyệt NH
+- **Anh 21/10** (gửi 07b trống, hợp đồng 07b đã điền phân kỳ 24 tháng, Excel GQVL, 01/GQVL mới, trang cuối 01.NL): "em code theo mẫu mới nguyên mẫu 07B chuẩn, không thay đổi khi anh quyết định; 2 em tự tính và điền; 3 em tự tính và điền, riêng phương án có hệ số k ngẫu nhiên thay đổi khi cần; trang cuối cho in chọn in riêng được, và in chung khi cần".
+- **Kiểm tra mẫu**: 01/GQVL (áp dụng 01/10/2026) và 07b trống anh gửi **trùng khớp từng chữ** với file gốc app đang dùng → **giữ nguyên chữ** (07b chuẩn; các chỗ khác của hợp đồng đã điền — căn cứ 597, câu thêm ở Điều 5.4, cột Diễn giải ở Phụ lục… — chờ anh quyết).
+- **Lịch trả gốc tự tính**: phiếu không gõ kỳ hạn → phân kỳ theo thời hạn: ≤ 12 tháng trả 1 lần · trên 12 – 60 tháng **24 tháng/lần** · trên 60 tháng 36 tháng/lần (trước: lấy số ghi sẵn của thẻ chương trình, vay 84 tháng vẫn 24); mỗi kỳ = vay ÷ số kỳ làm tròn xuống trăm nghìn, kỳ cuối phần còn lại (50 tr / 60 tháng → 16,6 · 16,6 · 16,8 tr — đúng Excel anh). **Gốc lịch = ngày giải ngân** (ô mới ở ③ phương án; trống → ngày ký HĐ) — hạn trả nợ cuối cùng ở 07b theo đó.
+- **Phương án tự tính** (ô anh để trống), theo cách anh tính trên Excel, nhân hệ số **k** ngẫu nhiên 0,85 – 1,25 riêng từng phiếu: vốn tự có = 20 tr × k · tổng chi phí = vay + 40 tr × k (không dưới vốn + lãi vay dự kiến + 5 % — chú thích 7, không bị cảnh báo) · lợi nhuận = vốn − 10 tr × k (≥ 10 % số vay) · doanh thu = chi phí + lợi nhuận; làm tròn triệu. Ô trống ghi "tự tính: …"; **🎲 Đổi số** đổi k; ô anh gõ tay giữ nguyên. In ra 01/GQVL (vốn tự có, doanh thu, chi phí, chênh lệch, thu nhập BQ).
+- Giới tính (theo số CCCD), hạn thẻ (theo tuổi), nơi cấp (theo ngày cấp) **đã tự điền từ trước** — giữ.
+- **Trang "Phê duyệt của Ngân hàng"** (trang cuối 01.NL, lề 20/20/20/30): chip mẫu mới **Phê duyệt NH** ở Hồ sơ vay — **in riêng**; ở 01/GQVL tích In kèm **"Trang Phê duyệt của Ngân hàng"** → **in chung** ngay sau 01/GQVL. Tự điền số tiền + bằng chữ, lãi suất / quá hạn, thời hạn, kỳ hạn tháng/lần, số tiền trả/lần, kỳ cuối, hạn trả nợ cuối cùng; ngày trả lãi hằng tháng để chấm; 3 chữ ký Cán bộ tín dụng · Trưởng phòng KH NVTD / Tổ trưởng Tổ KH-NV · Giám đốc.
+- File anh gửi không đưa vào repo (repo công khai).
+- Phép thử: t230 mới (15); t163, t170, t174, t204 sửa theo.
+
 ## 3.309 — 21/10/2026 — Gọn tab Scan: chữ ký dưới CCCD ở khung xem, bỏ mục trùng, rà chữ ký kỹ hơn
 - **Anh 21/10**: "chỗ scan CCCD em vẫn còn để đó, có 1 số chức năng em coi có thừa hay trùng thì bỏ đi, trong nút 3 chấm, việc khác của tab này; em tối ưu; khi chọn 1 KH sẽ hiện CCCD và ck phía dưới nếu có; chữ ký rác anh chạy và xóa rồi nhưng vẫn còn hiện lên".
 - **Khung xem**: chọn 1 bản CCCD → ngay dưới nội dung thẻ có **dải ✍ Chữ ký** (🖐 Lăn tay) của khách nếu có; bấm dải → xem chữ ký lớn. Tài liệu không hiện dải. "Hồ sơ của khách" bỏ mục 🧑 Ảnh (không lưu sẵn).
