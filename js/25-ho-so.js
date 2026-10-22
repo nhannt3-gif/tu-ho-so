@@ -626,7 +626,9 @@ function hsoChamNguon(mk, x){
 /* 3.222 (bổ sung 3): ⚠ NHẮC THIẾU trước khi in — gom 1 dòng đầu cột trái: nhân thân người vay, ô đã bật 🖨 mà chưa có số liệu (sẽ in chấm) */
 function hsoThieu(M, t){
   var r = [], B = hsoBo(), V = HSO.vay, mk = M.k, nv = null;
-  if(/^(01td|01uq|01gqvl|07b|pdnh|01tgtv)$/.test(mk) && B && B.hoId && hmTim(B.hoId)) nv = B.nv;
+  if(mk==='01tgtv' && typeof tgNguon==='function' && tgNguon(B)!=='bo'){   /* 3.317: 01/TGTV nhắc theo nguồn đang chọn (Mẫu 31 / tự khai), không theo Sổ hộ vay */
+    if(tgNguon(B)==='tay' && tgTayCo()) nv = tgTay(); }
+  else if(/^(01td|01uq|01gqvl|07b|pdnh|01tgtv)$/.test(mk) && B && B.hoId && hmTim(B.hoId)) nv = B.nv;
   else if(/^(09a|01tdck)$/.test(mk) && V.kh) nv = KHO.khach(V.kh, t);
   if(nv){ var th = [['cccd','số CCCD'], ['ncap','ngày cấp CCCD'], ['ns','ngày sinh']].filter(function(x){ return !nv[x[0]]; }).map(function(x){ return x[1]; });
     if(th.length) r.push('Người vay '+(nv.ten ? '<b>'+coChuHTML(nv.ten)+'</b> ' : '')+'thiếu '+th.join(', ')+' → in chấm'); }
@@ -1124,8 +1126,8 @@ function hsoKhung(K, giu){
 }
 function hsoDsHTML(){   /* 3.206 (anh chốt): mẫu chọn ở thanh tab con (hsoTabMauHTML) — cột trái chỉ còn tên mẫu đang làm + chú thích màu */
   var p = hsoTab(), M = hsoMau(p);
-  return '<div class="th-nhom-ten hso-dau-ds"><span><b>'+M.ma+'</b> '+coChuHTML(M.ten)+(M.ngang ? ' <span class="th-cap">[A4 ngang]</span>' : '')+'</span></div>'+(M.ghi ? '<div class="sl-phu">'+coChuHTML(M.ghi)+'</div>' : '')+
-    '<div class="hso-chu"><span class="hso-chu-sl">số liệu</span><span class="hso-chu-kb">khai báo</span><span class="hso-chu-tay">…… ghi tay</span></div>';
+  return '<div class="th-nhom-ten hso-dau-ds"><span><b>'+M.ma+'</b> '+coChuHTML(M.ten)+(M.ngang ? ' <span class="th-cap">[A4 ngang]</span>' : '')+'</span>'+
+    '<span class="hso-chu"><span class="hso-chu-sl">số liệu</span><span class="hso-chu-kb">khai báo</span><span class="hso-chu-tay">…… ghi tay</span></span></div>'+(M.ghi ? '<div class="sl-phu">'+coChuHTML(M.ghi)+'</div>' : '');   /* 3.317 (anh): chú thích màu cùng dòng tên mẫu */
 }
 function hsoTabMauHTML(){   /* 3.206 (anh chốt 14/10): mỗi biểu mẫu = 1 tab con, bố trí như tab Giao dịch xã · số liệu theo kỳ / ngày đã chọn */
   var p = hsoTab(), M = hsoMau(p);

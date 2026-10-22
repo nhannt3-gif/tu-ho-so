@@ -135,8 +135,8 @@ function tgTayChep(kh){   /* lấy 1 tổ viên trên Mẫu 31 vào ô tự khai
   luu(); hsoVe(); bao('Đã chép '+(x.ten || kh)+' từ Mẫu 31 — bấm vào mẫu để sửa / bổ sung.'); }
 function tgCotHTML(t, B){   /* cột trái 01/TGTV */
   var V = HSO.vay, ng = tgNguon(B), tv = hsoTVTo(t), h = '';
-  var r = function(v, nhan){ return '<label class="hso-o2"><input type="radio" name="hso-tg"'+(ng===v ? ' checked' : '')+' onchange="HSO.vay.tgNguon=\''+v+'\';hsoVe()"> '+nhan+'</label>'; };
-  h += '<div class="hang-nut tg-nguon">'+r('to', '📊 Từ Mẫu 31 — tổ viên của tổ (tích, in hàng loạt)')+r('bo', '📒 Người vay đang lập hồ sơ (Sổ hộ vay)')+r('tay', '✍ In nhanh — tự khai ngay trên mẫu')+'</div>';
+  var r = function(v, nhan, ghi){ return gdxChip(nhan, ng===v, 'HSO.vay.tgNguon=\''+v+'\';hsoVe()', 'hso-ct tg-ng', ghi); };   /* 3.317 (anh): 3 nguồn = 3 chip 1 dòng */
+  h += '<div class="om-kieu tg-nguon">'+r('to', '📊 Mẫu 31', 'Tổ viên của tổ đang chọn — tích, in hàng loạt')+r('bo', '📒 Sổ hộ vay', 'Người vay đang lập hồ sơ (📒 Sổ hộ vay → 📄 Lập HS)')+r('tay', '✍ In nhanh', 'Tự khai: form chuẩn + bấm thẳng chỗ chấm trên mẫu')+'</div>';
   if(ng==='bo') h += B ? '<div class="sl-phu">'+coChuHTML((B.nv.ten || '(chưa có tên)')+(B.hoId && hmTim(B.hoId) && hmToTen(hmTim(B.hoId)) ? ' · '+hmToTen(hmTim(B.hoId)) : ''))+'</div>' : '<div class="sl-phu">Chưa chọn hộ (📒 Sổ hộ vay → 📄 Lập HS) → mẫu trắng.</div>';
   else if(ng==='to'){ if(!V.tg) V.tg = {};
     if(!t) h += '<div class="sl-phu">Chọn tổ ở khối lọc.</div>';
