@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.315 — 22/10/2026 — 01/TGTV: lấy từ Mẫu 31 hoặc in nhanh tự khai ngay trên mẫu
+- **Anh 22/10**: "làm hoàn chỉnh bản 01TGTV để anh có thể in bằng 2 cách: 1 lấy từ Mẫu 31 hoặc in nhanh tự khai, nhưng khai nhanh tại mẫu luôn".
+- Hồ sơ vay › 01/TGTV, cột trái có 3 nguồn: **📊 Từ Mẫu 31** — tổ viên của tổ đang chọn, tích để in hàng loạt (mặc định tích người chưa có TK 105; người đã có TK 105 hiện riêng, tích để in lại) · **📒 Người vay đang lập hồ sơ** (như cũ) · **✍ In nhanh — tự khai ngay trên mẫu**.
+- **✍ Tự khai**: bấm thẳng vào chỗ chấm / ô ☐ trên bản xem bên phải → hộp nhỏ gõ đúng mục đó (ngày gõ dd/mm/yyyy; ô ☐ chọn Nam / Nữ, nghề nghiệp, thu nhập, nguồn thu, hôn nhân, SMS…). **Enter = lưu và sang mục kế**, ◀ về mục trước; nút **⌨ Khai lần lượt** đi từ Họ tên xuống hết mẫu. Chữ đã gõ luôn in (kể cả ô mặc định để chấm như Điện thoại, Email); gõ trống = giữ chấm. CCCD gõ → tự suy giới tính; ngày cấp → tự ghi nơi cấp, ngày hết hạn (sửa được). Bản xem giữ chỗ đang xem khi vẽ lại.
+- **Lấy từ Mẫu 31 rồi sửa**: chọn 1 tổ viên → chép họ tên, ngày sinh, CCCD, ngày cấp, nơi cấp, SĐT, ấp, xã, mã KH vào ô tự khai rồi bấm trên mẫu để bổ sung. **🧹 Khai người mới** xóa để khai người khác. Chữ tự khai nhớ trên máy (cài đặt) đến khi xóa.
+- 📄 Bản trắng / 📝 Bản mẫu không in chữ tự khai (cột trái nhắc chọn 🖨 Bản thật).
+- Phép thử: t234 mới (18).
+
 ## 3.314 — 22/10/2026 — Bảng kê: chọn Thu / Chi
 - **Anh 22/10**: "trong nút Bảng kê có nút chọn thu chi in được 2 loại, cơ bản giống nhau chỉ khác chữ thu, chi".
 - 📊 Giao dịch xã › 🧾 Bảng kê thêm mục đầu **Loại bảng kê**: 💸 **Chi** — CÁC LOẠI TIỀN NGÂN HÀNG CHI RA (Họ và tên người lĩnh tiền · ký Người lĩnh tiền / Người chi tiền, như cũ) hoặc 💰 **Thu** — CÁC LOẠI TIỀN NỘP VÀO NGÂN HÀNG (Họ và tên người nộp tiền · ký Người nộp tiền / Người nhận tiền). Khung, bảng mệnh giá, logo chìm, 2 tờ / A4 ngang giữ nguyên.

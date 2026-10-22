@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.314', ds:[
+var CO_GI_MOI = {ban:'3.315', ds:[
+  ["01/TGTV in 2 cách: 📊 từ Mẫu 31 (tích tổ viên, in hàng loạt) hoặc ✍ in nhanh tự khai — bấm thẳng vào chỗ chấm trên mẫu để gõ", "doiNgan(7)"],
   ["🧾 Bảng kê: chọn 💸 Chi (ngân hàng chi ra) hoặc 💰 Thu (nộp vào ngân hàng) — cùng mẫu, chỉ khác tiêu đề và chữ ký", "doiNgan(7)"],
   ["Giấy nộp tiền rà theo mẫu: Loại N.V in sẵn KHTK + kẻ liền, Tài khoản CÓ bỏ chấm, bằng chữ kẻ 3 nét 2 dòng, gạch dưới tên ngân hàng, chữ ký đậm to", "doiNgan(7)"],
   ["Giao dịch xã: mẫu mới 🏦 Giấy nộp tiền (nộp để ghi vào tài khoản) + 🧾 Bảng kê các loại tiền nộp — cùng cách Giấy lĩnh: chọn người · TK · số tiền, in Nộp / Bảng kê / chung 1 tờ, mẫu trắng", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.314', ds:[
   ["Chữ ký: app nhận dạng chữ ký / lăn tay / ảnh CCCD — lưu nhầm ảnh CCCD làm chữ ký bị chặn; 🗂 Quản lý › ✍ Rà chữ ký dọn chữ ký quét nhầm + ảnh khách lưu sẵn; bỏ nút Ảnh khách (xuất từ mặt trước CCCD khi cần), thay bằng 🗎 Bản photo CCCD (2 mặt trên 1 tờ)", "doiNgan(4)"],
   ["📈 Diễn biến: so KH giao với TỔNG dư nợ thực tế mọi chương trình (kể cả CT không giao) — còn phải thực hiện, % đạt, biểu đồ; thêm thẻ riêng nguồn TW / ĐP và sheet Excel Theo nguồn", "slDoiTab('pb');doiNgan(7)"],
   ["📈 Diễn biến: chương trình không có giao lấy KH = dư nợ đầu năm (chưa có thì dư nợ đợt giao mới nhất) — cộng vào KH tổng để so với dư nợ thực tế", "slDoiTab('pb');doiNgan(7)"],
-  ["🎨 Tab Phân bổ KH: chip màu tăng ↑ + xanh / giảm ↓ − đỏ, khớp ✓ xanh / lệch ✗ đỏ / cảnh báo vàng; ô tăng/giảm đổi màu theo dấu", "slDoiTab('pb');doiNgan(7)"],
-  ["Scan › ▦ Bảng: cột Ck cạnh Loại giấy tờ (khách có chữ ký hiện ✍); nút 💾 cuối dòng → xuất CCCD (2 mặt ghép 1 JPG ≤ 200 KB) + Chữ ký, mỗi loại 1 file tên chuẩn vào thư mục anh chọn trên máy; khung xem tab Scan gọn vừa thẻ", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🎨 Tab Phân bổ KH: chip màu tăng ↑ + xanh / giảm ↓ − đỏ, khớp ✓ xanh / lệch ✗ đỏ / cảnh báo vàng; ô tăng/giảm đổi màu theo dấu", "slDoiTab('pb');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

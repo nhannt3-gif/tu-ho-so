@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.315) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TGTV › 📊 Từ Mẫu 31, chọn tổ | Tích sẵn người chưa có TK 105; tích thêm người đã có TK → in thêm bản | |
+| 2 | ✍ In nhanh, bấm vào dòng chấm Họ tên trên mẫu | Hộp gõ Họ tên; Enter → in lên mẫu, mở mục kế | |
+| 3 | Bấm ô ☐ Nam/Nữ, Nghề nghiệp | Chọn trong hộp → ☒ đúng ô | |
+| 4 | Lấy từ Mẫu 31 rồi sửa | Chép đủ nhân thân, sửa tiếp được | |
+| 5 | In / PDF / Word | Không có viền xanh khi in | |
+
+**Ghi chú kỹ thuật 3.315:** `js/54-tgtv-khai.js` mới — `TG_O` (ô mẫu → trường gõ), `tgNguon`, `tgTay` (hsoLuu().tgTay), `tgTayP`, `tgTayDe` (đè V), bọc `OM_MAU['01tgtv'].V` + `hsoLap01tgtv` (đặt `OM_TAY`), `tgTayGan(f)` (onload khung xem: CSS hover + click `[data-o]` → `tgTayHop`, giữ scrollTop), `tgTayHop / tgTayLuu / tgTayMoi / tgTayChep / tgCotHTML`. `js/31-o-mau.js`: `OM_TAY` — `omCach` trả 'tu' cho mọi ô khi dựng bản tự khai (ô ⌨ khai riêng chưa gõ vẫn 'kb'). `js/25-ho-so.js`: `hsoTGTVDs` (nhánh 'tay'; nhánh 'to' theo `V.tg[kh]` true/false, mặc định chưa có TK), cột trái 01/TGTV → `tgCotHTML`, `hsoXem` gọi `tgTayGan` trước `xemChuan`. CSS `.tg-hop/.tg-o/.tg-nguon`.
+
 ### Danh sách thử trên máy thật (3.314) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
