@@ -204,6 +204,7 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
    | **Ngày tháng năm** | Luôn **dd/mm/yyyy liền**, không chừa khoảng như chấm; vị trí ô theo 3 dòng trên | "28/03/1978" |
 
    Trống → luôn in đúng chuỗi chấm gốc. Mẫu phải giữ số trang như mẫu gốc (có phép thử số trang). Nền ô: `G.o(k, chấm, {lien:1})` = gõ liền; mặc định = giữ khung.
+   **Chữ dài hơn ô — KHÔNG tự thu nhỏ chữ** (anh 23/10: "khi lập form đã tính đủ chữ, khi cần viết kiểu ngắn lại"): ① viết tắt chuẩn (`omTat`: Cục CS QLHC về TTXH, TP., P., TT., KP., H., T., NHCSXH, UBND) → ② vẫn dài: ô giãn, nhãn sau dịch phải, cỡ chữ giữ nguyên → ③ ⚠ báo trước khi in "dài hơn ô — xem rớt dòng, cần thì gõ ngắn lại". Canh dòng và lề: nhãn đầu dòng thẳng cột như form gốc, không để chữ tràn lề phải. Nền ô bật theo từng mẫu (`giuCo:1`) khi anh duyệt chuẩn khóa — đang bật: 01/TGTV; các mẫu khác chuyển dần (còn thu nhỏ / nén dòng kiểu cũ).
 
 ## 10. Chuẩn hóa code, giao diện, thư viện (anh duyệt 17/10/2026 — chi tiết `KE_HOACH_CHUAN_HOA.md`)
 - **Code mới:** hộp riêng mỗi khối, `data-lenh` thay `onclick` trong chuỗi, file ≤ ~150 KB; mỗi bản dọn rác trong phạm vi + kiểm toàn vẹn; thước đo `tests/kiem.py` không được vượt mốc `tests/do_moc.json` (hạ mốc khi dọn bớt: `python3 tests/kiem.py --moc`).

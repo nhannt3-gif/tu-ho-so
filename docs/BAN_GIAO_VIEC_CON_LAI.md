@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.319) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TGTV ✍ In nhanh, bấm Nơi cấp gõ "Cục Cảnh sát quản lý hành chính về trật tự xã hội" | In "Cục CS QLHC về TTXH" cỡ chữ thường | |
+| 2 | Gõ Chức vụ rất dài | ⚠ Trước khi in báo dài hơn ô; chữ không bị thu nhỏ | |
+
+**Ghi chú kỹ thuật 3.319:** `js/31-o-mau.js` — `OM_TAT` + `omTat(v)`; `G.o`: mẫu `m.giuCo` → viết tắt, còn dài thì `W = tw/0.98` (giãn) + `OM_DAI.push({…, gian:1})`; ô `hai` quá 2 dòng bỏ max-height; ô `lien` có chấm gốc → viết tắt + ⚠. `js/mau/01tgtv.js` `giuCo:1`, `diaDanh` liền. `js/25-ho-so.js` `hsoThieu`: thông báo `gian`, In nhanh dựng thử bằng `tgTayP()`. Mẫu khác giữ `OM_NHO` (chuẩn khóa không đổi).
+
 ### Danh sách thử trên máy thật (3.318) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

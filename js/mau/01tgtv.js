@@ -4,7 +4,7 @@
    Ô cũ (3.219: CIF, quốc tịch, dân tộc, cư trú, hạn CCCD, thường trú, điện thoại, ngày ký) giữ khóa + mặc định chấm. Bỏ file này → app dùng lại hsoLap01tgtv cũ. */
 (function(){
   var MK = '01tgtv';
-  omDangKy({k:MK, ma:'01/TGTV', phan:['nhs', 'kh', 'nh'], co:12,
+  omDangKy({k:MK, ma:'01/TGTV', phan:['nhs', 'kh', 'nh'], co:12, giuCo:1,   /* 3.319: không thu nhỏ chữ (QUY_CHUAN 9.7) */
     o:[{k:'ngan', n:'"chi nhánh/PGD …" (tên đơn vị)', p:'nhs', l:'tukb', md:'tu', ng:'⚙ Khai báo đơn vị › PGD (điền sau chữ NHCSXH)'},
       {k:'cif', n:'Ô đầu trang + phần D: Số CIF (mã KH Mẫu 31)', p:'nh', l:'tu', md:'cham', ng:'mã KH — M31', nhanh:1},
       {k:'ten', n:'Họ, chữ đệm, tên khai sinh', p:'kh', l:'tu', md:'tu', ng:'sổ hộ vay / M31'},
@@ -104,7 +104,7 @@
         '<p class="j">3. Tôi cam kết chịu trách nhiệm quản lý, sử dụng tài khoản theo quy định của pháp luật và của NHCSXH. Đồng ý chi trả các khoản phí liên quan đến việc quản lý và sử dụng tài khoản theo quy định của NHCSXH theo từng thời kỳ, mức phí công khai trên website chính thức của NHCSXH.</p>'+
         '<p class="j">4. Trường hợp số điện thoại liên hệ của Tôi không phải số điện thoại di động chính chủ, NHCSXH được miễn trách nhiệm trong việc gửi thông tin cho Tôi qua số điện thoại liên hệ đã khai báo ở trên.</p>'+
         '<p class="j">Giấy đề nghị này được lập thành 02 bản gốc, có giá trị pháp lý ngang nhau, khách hàng và NHCSXH mỗi bên giữ một bản.</p><p class="i">Quý khách vui lòng kiểm tra thông tin tại Hợp đồng này trước khi ký xác nhận.</p>'+
-        '<p class="c i">'+o('diaDanh', D(8))+', ngày'+nk[0]+' tháng'+nk[1]+'năm'+nk[2]+'</p><p class="c b">Khách hàng</p><p class="c i s10">(Ký và ghi rõ họ tên)</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>';
+        '<p class="c i">'+o('diaDanh', D(8), {lien:1})+', ngày'+nk[0]+' tháng'+nk[1]+'năm'+nk[2]+'</p><p class="c b">Khách hàng</p><p class="c i s10">(Ký và ghi rõ họ tên)</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>';
       var kyD = [['Cán bộ tiếp nhận', 'Ký, ghi rõ họ tên'], ['Giao dịch viên', 'Ký, ghi rõ họ tên'], ['Kiểm soát viên', 'Ký, ghi rõ họ tên'], ['Giám đốc', 'Ký, đóng dấu']];
       var tn2 = hsoNg(G.gt('tiepNhan')) ? [ngay('tiepNhan')] : G.ngay('tiepNhan', [D(4), D(4), D(7)]), gd = G.ngay('nhNgay', [D(8), D(8), D(10)], {lien:1}), hl = hsoNg(G.gt('hieuLuc')) ? [ngay('hieuLuc')] : G.ngay('hieuLuc', [D(10), D(10), D(10)]);
       var Dd = hsoBang('luoi', [2689, 2409, 2410, 2874], '<tr style="height:6.3mm"><td class="c i" style="white-space:nowrap">Tiếp nhận ngày '+tn2.join('/')+'</td><td colspan="3" class="c i">'+coChuHTML(hsoPGD('noi'))+', ngày '+gd[0]+' tháng '+gd[1]+' năm '+gd[2]+'</td></tr>'+

@@ -4,6 +4,7 @@
    Ba kiểu in (chỉ cho lần làm, không lưu): 📄 Trắng (mọi ô chấm; phần NH in sẵn có công tắc) · 🖨 Thật (theo từng ô) · 📝 Mẫu (điền theo mức: hết / chừa NH / chừa UBND + NH / tùy chọn phần).
    ĐÚNG FORM GỐC: ô trống in ĐÚNG chuỗi chấm của file gốc; ô có chữ = khung cố định bằng đúng bề rộng chuỗi chấm đó (đo bằng phông in) → không xô dòng, không đổi số trang.
      Chữ dài hơn khung: tự thu nhỏ (tối thiểu OM_NHO × cỡ chữ), quá nữa → ⚠ báo trước khi in (OM_DAI).
+     3.319 (anh 23/10 "không tự thu nhỏ chữ, điều chỉnh khoảng cách nhãn, khi cần viết ngắn lại"): mẫu đăng ký giuCo:1 → không thu nhỏ: viết tắt (omTat) → vẫn dài thì ô giãn, nhãn sau dịch phải → ⚠ báo xem rớt dòng. Chuyển dần từng mẫu khi anh duyệt chuẩn khóa (đang bật: 01/TGTV).
    CẮM – RÚT: mẫu là 1 mô-đun js/mau/<mã>.js gọi omDangKy({...}) và gán lại hàm hsoLapXX → bỏ file mô-đun = app chạy lại bản cũ trong js/25.
    Khai báo lưu chung chỗ cũ: hsoLuu().cham[mẫu][ô] (cách) · chamGT[mẫu][ô] (khai 1 lần) · chuMau[mẫu][ô] (chữ mẫu cho 📝) · nhanh[mẫu] (Chọn nhanh) · omMuc[mẫu] (mức điền) · omNHS (in sẵn phần NH ở bản trắng). */
 var OM_MAU = {}, OM_KIEU = 'that', OM_DAI = [], OM_NHO = 0.72, OM_CV = null, OM_TAY = null;   /* OM_TAY = {mk, co} khi dựng bản tự khai (3.315, 01/TGTV) */
@@ -67,8 +68,12 @@ function omG(mk, V, pt){
     var lop = 'om om-'+(v ? (c==='mau' ? 'mau' : c) : 'cham');
     var st0 = (pt!==G.pt ? 'font-size:'+pt+'pt;line-height:1;' : '')+(o.ls ? 'letter-spacing:'+o.ls+'pt;' : '');   /* ô cỡ chữ riêng (vd 11 trong đoạn 14) */
     if(!v) return '<span class="'+lop+'" data-o="'+k+'"'+(st0 ? ' style="'+st0+'"' : '')+'>'+cham+'</span>';
-    if(o.lien) return '<span class="'+lop+'" data-o="'+k+'"'+(st0 ? ' style="'+st0+'"' : '')+'>'+coChuHTML(v)+'</span>';   /* 3.247 (anh 18/10): có số liệu → chữ liền như đánh máy (không khung rộng bằng dòng chấm); trống → giữ chấm */
+    if(o.lien){ if(m.giuCo && cham){ var Wl = omRong(String(cham).replace(/<[^>]*>|&nbsp;/g, ''), pt); if(omRong(v, pt) > Wl){ v = omTat(v); if(omRong(v, pt) > Wl) OM_DAI.push({mk:mk, k:k, n:(m.oK[k]||{}).n || k, v:v, gian:1}); } }   /* 3.319: chữ liền dài hơn chấm gốc → viết tắt, còn dài ⚠ */
+      return '<span class="'+lop+'" data-o="'+k+'"'+(st0 ? ' style="'+st0+'"' : '')+'>'+coChuHTML(v)+'</span>'; }   /* 3.247 (anh 18/10): có số liệu → chữ liền như đánh máy (không khung rộng bằng dòng chấm); trống → giữ chấm */
     var ls = o.ls || 0, W = o.rong || omRong(cham, pt)+cham.length*ls*0.3528, tw = omRong(v, pt)+String(v).length*ls*0.3528, fs = pt;   /* o.ls: nén / giãn ký tự (pt) như Word */
+    if(m.giuCo && tw > W*0.98){ var Wc = o.hai ? 2*W*0.9 : W*0.98; v = omTat(v); tw = omRong(v, pt)+String(v).length*ls*0.3528;   /* 3.319: giữ cỡ chữ */
+      if(tw > Wc){ OM_DAI.push({mk:mk, k:k, n:(m.oK[k]||{}).n || k, v:v, gian:1}); if(!o.hai) W = tw/0.98; }
+      if(o.hai) return '<span class="'+lop+'" data-o="'+k+'" style="display:inline-block;width:'+W.toFixed(2)+'mm;'+(tw > Wc ? '' : 'max-height:'+o.hai+'mm;overflow:hidden;')+'white-space:normal;vertical-align:middle;line-height:1;text-indent:0;text-align:'+(o.canh==='c' ? 'center' : o.canh==='r' ? 'right' : 'left')+'">'+coChuHTML(v)+'</span>'; }
     if(o.hai && tw > W*0.98){   /* ô trong bảng: cho xuống 2 dòng trong khung cao o.hai mm (không làm cao dòng bảng) */
       var f2 = Math.min(pt, Math.floor(o.hai/0.3528/2*10)/10, Math.floor(pt*2*W*0.9/tw*10)/10);
       if(f2 >= pt*0.6){ if(f2*2*W*0.9/pt < tw*0.999 && omRong(v, f2) > 2*W*0.9) OM_DAI.push({mk:mk, k:k, n:(m.oK[k]||{}).n || k, v:v});
@@ -88,6 +93,9 @@ function omLap(mk, t, B, a, b){ var m = OM_MAU[mk]; OM_DAI = OM_DAI.filter(funct
 /* 3.248 (anh 18/10 "chấm mảnh như các mẫu đã chốt, áp cho các loại"): dòng chấm (≥ 4 dấu) nhỏ mịn như Mẫu 06 / 16 KTGS — cỡ 65 %, thêm dấu cho giữ nguyên bề dài (form không xô); line-height:0 → không đổi cao dòng (trang in có DOCTYPE nên dòng chỉ có chấm vẫn giữ cao chuẩn) */
 function omChamMin(h){ var tl = typeof KT_CHAM_TL!=='undefined' ? KT_CHAM_TL : 0.65;
   return String(h).replace(/>([^<>]*)</g, function(m0, s){ return /[.…]{2,}/.test(s) ? '>'+s.replace(/[.…]{2,}/g, function(c){ if(c.replace(/…/g, '....').length<4) return c; return '<span class="om-min" style="font-size:'+Math.round(tl*100)+'%;letter-spacing:0;line-height:0">'+(typeof ktChamDai==='function' ? ktChamDai(c, 1/tl) : c)+'</span>'; })+'<' : m0; }); }   /* a, b: tham số riêng của mẫu (vd 03/TD: danh sách hộ, chương trình) */
+/* 3.319 (anh 23/10 "khi cần có thể viết kiểu ngắn lại"): viết tắt chuẩn khi chữ dài hơn ô (mẫu giuCo) — chữ vừa ô thì giữ nguyên */
+var OM_TAT = [[/Cục Cảnh sát quản lý hành chính về trật tự xã hội/gi, 'Cục CS QLHC về TTXH'], [/Cục Cảnh sát/gi, 'Cục CS'], [/\b[Tt]hành phố\s+/g, 'TP. '], [/\bThị trấn\s+/g, 'TT. '], [/\bPhường\s+/g, 'P. '], [/\bKhu phố\s+/g, 'KP. '], [/\bHuyện\s+/g, 'H. '], [/\bTỉnh\s+/g, 'T. '], [/Ngân hàng Chính sách xã hội/gi, 'NHCSXH'], [/Ủy ban nhân dân/gi, 'UBND']];
+function omTat(v){ var r = String(v||''); OM_TAT.forEach(function(x){ r = r.replace(x[0], x[1]); }); return r; }
 function omTen(){ return OM_KIEU==='trang' ? ' - Trang' : OM_KIEU==='mau' ? ' - Mau' : ''; }
 
 /* ---------- giao diện cột trái: kiểu in · khai báo riêng (tóm tắt + Chọn nhanh) ---------- */
