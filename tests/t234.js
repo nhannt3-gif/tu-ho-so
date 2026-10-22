@@ -46,6 +46,11 @@ const fs=require('fs'), path=require('path');
    ok('ngày gõ dd/mm/yyyy lưu ISO; xã, ấp lấy theo địa bàn', T2.ns==='1985-05-02' && T2.ncap==='2021-04-10' && !!T2.xa && (!am || !!T2.ap) && new RegExp(T2.xa).test(h), JSON.stringify(T2));
    ok('tự tính: ☒ Nữ theo CCCD, dân tộc Kinh, ☒ Có cư trú, ngày hết hạn, nơi cấp', /☒ ?Nữ/.test(h) && /Dân tộc\*: ?Kinh/.test(h) && /☒ ?Có cư trú/.test(h) && /Ngày hết hạn: ?\d{2} ?\/ ?\d{2} ?\/ ?20\d\d/.test(h) && /Nơi cấp: ?Cục CS QLHC/.test(h));
    ok('dòng "Tự tính" ở form', /Tự tính: Giới tính Nữ/.test(document.getElementById('hso-tuy').textContent));
+   /* 3.319: không tự thu nhỏ chữ — viết tắt, còn dài thì ô giãn + ⚠ */
+   hsoLuu().tgTay = {ten:'Nguyễn Văn Giả', ncap:'2021-04-10', noiCap:'Cục Cảnh sát quản lý hành chính về trật tự xã hội', chucVu:'Thành viên Ban quản lý Tổ tiết kiệm và vay vốn kiêm cán bộ phụ trách công tác hội của ấp kiêm nhiệm thêm việc khác'}; hsoVe(); await w(300);
+   const hx = HSO.x.h, sp = (hx.match(/data-o="noiCap"[^>]*>/)||[''])[0];
+   ok('nơi cấp dài → viết tắt "Cục CS QLHC về TTXH", giữ cỡ chữ (không font-size nhỏ)', /Cục CS QLHC về TTXH/.test(hx) && !/font-size/.test(sp), sp);
+   ok('chữ quá dài → ⚠ trước khi in "dài hơn ô … xem có rớt dòng" (không thu nhỏ)', OM_DAI.some(x=>x.mk==='01tgtv' && x.gian) && /dài hơn ô/.test(hsoThieu(hsoMau(), null).join(' ')));
    hsoLuu().tgTay = {ten:'Nguyễn Văn Giả'}; hsoVe(); await w(1500);
    return o; }, files);
  R1.forEach(x=>o.push(x));

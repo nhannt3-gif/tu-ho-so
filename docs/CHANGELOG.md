@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.319 — 23/10/2026 — Không tự thu nhỏ chữ trên mẫu (01/TGTV trước)
+- **Anh 23/10**: "chữ gõ liền nhưng nhãn sau phải giữ form nhãn trước, chú ý canh dòng và lề, tránh rớt dòng" · "anh đã nói không tự thu nhỏ chữ, có thể điều chỉnh khoảng cách nhãn, vì khi lập form đã tính đủ chữ, khi cần có thể viết kiểu ngắn lại".
+- Nền ô: mẫu bật `giuCo` **không thu nhỏ chữ** nữa. Chữ dài hơn ô: ① **viết tắt chuẩn** (Cục Cảnh sát QLHC về TTXH → Cục CS QLHC về TTXH; Thành phố → TP.; Phường → P.; Thị trấn → TT.; Khu phố → KP.; Huyện → H.; Tỉnh → T.; Ngân hàng Chính sách xã hội → NHCSXH; Ủy ban nhân dân → UBND) → ② vẫn dài: **ô giãn, nhãn sau dịch phải**, cỡ chữ giữ nguyên → ③ **⚠ Trước khi in** báo "dài hơn ô — xem có rớt dòng không, cần thì gõ ngắn lại". Ô trong bảng (2 dòng) cũng không thu nhỏ — quá 2 dòng thì ô cao thêm, không cắt chữ.
+- **Bật trước cho 01/TGTV**. Các mẫu khác (10A, 10B, 10D, 11, 01/GQVL, 01/UQ, 07b, 09A, 01/TĐCK…) còn thu nhỏ / nén dòng kiểu cũ — bật chung làm lệch 14 chuẩn khóa anh đã duyệt (QUY_CHUAN 9.2), em chuyển từng mẫu khi anh xem.
+- 01/TGTV: địa danh "Gia Lộc, ngày … tháng … năm …" (trong câu) gõ liền, hết bị thu nhỏ 8,6pt.
+- ⚠ Trước khi in ở ✍ In nhanh dựng thử theo người đang khai (trước đây theo người vay Sổ hộ vay → không thấy cảnh báo).
+- QUY_CHUAN 9.7 thêm luật không thu nhỏ chữ. Phép thử: t234 thêm 2 (24).
+
 ## 3.318 — 23/10/2026 — 01/TGTV sát mẫu gốc + quy tắc giữ khung / gõ liền
 - **Anh 23/10** (gửi ảnh bản in): mặc định chọn sẵn cư trú, dân tộc, quốc tịch; khung họ tên kéo gần, tên lọt khung; ngày sinh gõ thì liền nhau; Tiếp nhận ngày cùng 1 dòng như mẫu; 2 dòng Ngày / Số CIF hẹp quá, khung bo góc tròn như mẫu; "khi nào cần cách xa đúng form, khi nào gõ liền tùy nội dung và vị trí — chụp lại mẫu gốc và cách cho chuẩn".
 - **Mặc định điền sẵn** (đổi ở ⚙ Khai báo riêng — Mẫu 01/TGTV): ☒ Việt Nam, dân tộc theo sổ hộ vay / Mẫu 31 (trống = **Kinh**), ☒ Có cư trú. Các ô khác giữ cách cũ (khai báo riêng chọn ✍ chấm / 📊 số liệu / ⌨ tự gõ từng ô).
