@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.313) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🏦 Giấy nộp, xem trước + in | Loại N.V: KHTK + kẻ liền; Tài khoản CÓ không chấm; bằng chữ kẻ 3 nét 2 dòng | |
+| 2 | 📄 Mẫu trắng | Giống tờ in sẵn | |
+
+**Ghi chú kỹ thuật 3.313:** `js/53-giay-nop.js` — `gdxGNTrang`: hàng `.gn-nv` (KHTK `.gn-khtk`, `gnNV`), `.gn-tk` (CÓ không chấm), `.gn-ba` (3 nét bằng `linear-gradient` nền + `print-color-adjust:exact`, `gl-bc1/gl-bc2` để `GL_JS` chia chữ), `.gn-gach`, `.gn-ky1`; bỏ quy tắc `.gn-co` trùng.
+
 ### Danh sách thử trên máy thật (3.312) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

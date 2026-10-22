@@ -34,7 +34,7 @@ function gdxGNTrang(g, c, trang){
   var p = String(g.ngay||'').split('-'), o = function(v, w){ return v ? '<span class="gl-vn">'+v+'</span>' : '<span class="gl-cn" style="width:'+w+'"></span>'; };
   var dong = function(nd, so){ return '<tr><td>'+(nd ? '<span class="gn-nd">'+gdxE(nd)+'</span>' : '')+'</td><td class="gn-so">'+(so || '')+'</td></tr>'; };
   return '<div class="gl-trang gn-trang">'+
-    '<div class="gn-dau"><div class="gn-nh"><div>NGÂN HÀNG</div><div>CHÍNH SÁCH XÃ HỘI</div>'+r('<i>Chi nhánh:</i>', gdxGLO(kb('gnCN')), 'gn-cn')+'</div>'+
+    '<div class="gn-dau"><div class="gn-nh"><div>NGÂN HÀNG</div><div>CHÍNH SÁCH XÃ HỘI</div><div class="gn-gach"></div>'+r('<b><i>Chi nhánh:</i></b>', gdxGLO(kb('gnCN')), 'gn-cn')+'</div>'+
       '<div class="gn-giua"><div class="gn-tit">GIẤY NỘP TIỀN</div><div class="gn-tit2">NỘP ĐỂ GHI VÀO TÀI KHOẢN</div>'+
         '<div class="gn-ngay">Ngày '+o(p[2], '9mm')+' tháng '+o(p[1], '11mm')+' năm '+(p[0] ? '<span class="gl-vn">'+p[0]+'</span>' : '20'+o('', '8mm'))+'</div>'+
         r('<i>Loại tiền tệ:</i>', gdxGLO(kb('gnTT', 'VND')), 'gn-tt')+'</div>'+
@@ -42,19 +42,21 @@ function gdxGNTrang(g, c, trang){
     '<div class="gn-than"><div class="gn-trai">'+
       r('<i>Người nộp:</i>', gdxGLO(g.ten, 'gl-dam'))+r('<i>Địa chỉ:</i>', gdxGLO(g.diaChi))+
       r('<i>Người nhận:</i>', gdxGLO(nhan ? g.ten : '', 'gl-dam'))+r('<i>Địa chỉ:</i>', gdxGLO(nhan ? g.diaChi : ''))+
-    '</div><div class="gn-phai">'+r('Loại N.V:', gdxGLO(kb('gnNV')))+r('Tài khoản <span class="gn-co">CÓ</span>', gdxGLO(g.tk, 'gl-dam'))+'<div class="gl-r"></div>'+r('Số:', gdxGLO(''))+'</div></div>'+
+    '</div><div class="gn-phai"><div class="gl-r gn-nv"><span class="gl-n">Loại N.V:</span><span class="gl-c gn-nv-c"><span class="gn-khtk">'+gdxE(kb('gnNV') || 'KHTK')+'</span></span></div>'+   /* 3.313 (anh): như mẫu — KHTK in sẵn giữa dòng chấm, kẻ liền dưới dòng */
+      '<div class="gl-r gn-tk"><span class="gl-n">Tài khoản</span><span class="gn-co">CÓ</span>'+(g.tk ? '<span class="gl-v gl-dam">'+gdxE(g.tk)+'</span>' : '')+'</div><div class="gl-r"></div>'+r('Số:', gdxGLO(''))+'</div></div>'+
     '<table class="gn-bang"><colgroup><col><col style="width:47mm"></colgroup><thead><tr><th><b>NỘI DUNG NỘP</b><i>(Khi nộp tiền phải ghi chi tiết từng khoản)</i></th><th><b>SỐ TIỀN</b></th></tr></thead><tbody>'+
       dong(trang ? '' : kb('gnND', gdxGNND(c)), tien)+dong('', '')+dong('', '')+dong('', '')+
-      '<tr class="gn-tong"><td><div class="gl-r"><span class="gl-n"><i>Tổng số tiền bằng chữ:</i></span>'+(chu ? '<span class="gl-v gl-bc1 gn-chu">'+gdxE(chu)+'</span>' : gdxGLO(''))+'<span class="gl-n gn-cong"><i>Cộng:</i></span></div></td><td class="gn-so"><b>'+tien+'</b></td></tr>'+
+      '<tr class="gn-tong"><td><div class="gl-r"><span class="gl-n"><i>Tổng số tiền bằng chữ:</i></span><span class="gn-ba gn-chu gl-bc1">'+gdxE(chu)+'</span><span class="gl-n gn-cong"><i>Cộng:</i></span></div>'+
+        '<div class="gl-r"><span class="gn-ba gn-chu gl-bc2"></span></div></td><td class="gn-so gn-so-cong"><b>'+tien+'</b></td></tr>'+   /* 3.313: 2 dòng kẻ 3 nét như mẫu, chữ dài tràn xuống dòng 2 */
     '</tbody></table>'+
-    '<div class="gn-ky"><div>Người nộp tiền</div><div>Thủ quỹ</div><div>Sổ phụ</div><div>Kiểm soát</div><div>Giám đốc Ngân hàng</div></div>'+
+    '<div class="gn-ky"><div class="gn-ky1">Người nộp tiền</div><div>Thủ quỹ</div><div>Sổ phụ</div><div>Kiểm soát</div><div>Giám đốc Ngân hàng</div></div>'+
   '</div>';
 }
 function gdxHTMLGN(g, c){
   c = c || gdxC(); var kho = c.gnKho;
-  if(kho==='a4x2') return '<div class="sheet-gl gl-a4 gl-x2">'+gdxGNTrang(g, c, c.glTrang)+'<div class="gl-cat"></div>'+gdxGNTrang(g, c, c.glTrang)+'</div>';
+  if(kho==='a4x2') return '<div class="sheet-gl gl-a4 gl-x2">'+gdxGNTrang(g, c, c.glTrang)+'<div class="gl-cat"></div>'+gdxGNTrang(g, c, c.glTrang)+'</div>'+GL_JS;
   if(kho==='a4bk') return '<div class="sheet-gl gl-a4 gl-kem">'+gdxGNTrang(g, c, c.glTrang)+'<div class="gl-bkk">'+gdxBKTrang(c, c.glTrang ? null : g, true)+'</div><div class="gl-cat-n"></div></div>'+GL_JS;
-  return '<div class="sheet-gl'+(kho==='a4' ? ' gl-a4' : '')+'">'+gdxGNTrang(g, c, c.glTrang)+'</div>';
+  return '<div class="sheet-gl'+(kho==='a4' ? ' gl-a4' : '')+'">'+gdxGNTrang(g, c, c.glTrang)+'</div>'+GL_JS;
 }
 function gdxDungGN(X){
   var c = X.C;
@@ -85,13 +87,18 @@ function gdxGNTom(X, lk, cb){
 }
 var GN_CSS = '.gn-trang{padding:9mm 11mm 5mm 13mm;font-size:12.5pt;line-height:1.25}'+
   '.gn-dau{display:grid;grid-template-columns:58mm 1fr 42mm;align-items:start;margin-bottom:3mm}'+
-  '.gn-nh{text-align:center;font-weight:bold;font-size:12pt;line-height:1.2}.gn-nh .gn-cn{margin-top:1.5mm;font-weight:normal;text-align:left}'+
+  '.gn-nh{text-align:center;font-weight:bold;font-size:12pt;line-height:1.2}.gn-nh .gn-cn{margin-top:1.5mm;font-weight:normal;text-align:left}.gn-gach{width:26mm;margin:.3mm auto 0;border-top:.8px solid #000}'+
+  '.gn-nv{border-bottom:.9px solid #000;padding-bottom:.6mm}.gn-nv-c{position:relative;text-align:center}.gn-khtk{position:absolute;left:0;right:0;bottom:.2mm;background:transparent}'+
+  '.gn-tk .gn-co{margin-left:12mm;margin-right:2mm}.gn-tk .gl-v{flex:1 1 auto}'+
+  '.gn-ba{flex:1 1 auto;display:block;min-width:6mm;height:6mm;box-sizing:border-box;padding:0 0 2mm 1mm;line-height:4mm;white-space:nowrap;overflow:hidden;font-style:italic;'+
+    'background:linear-gradient(#000,#000) left bottom/100% .5px no-repeat,linear-gradient(#000,#000) left calc(100% - .8mm)/100% .5px no-repeat,linear-gradient(#000,#000) left calc(100% - 1.6mm)/100% .5px no-repeat;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+   /* 3.313: 3 nét kẻ sát nhau dưới chữ như mẫu */
+  '.gn-so-cong{vertical-align:top;padding-top:1mm !important}'+
   '.gn-giua{text-align:center}.gn-tit{font-weight:bold;font-size:19pt;letter-spacing:.3px;line-height:1.1}.gn-tit2{font-weight:bold;font-size:8.5pt;margin-top:.5mm}'+
   '.gn-ngay{font-size:11.5pt;margin-top:1.5mm}.gn-giua .gn-tt{margin:0 4mm 0 10mm;min-height:6.5mm}.gn-giua .gn-tt .gl-v{flex:0 1 auto}.gn-giua .gn-tt .gl-c{max-width:30mm}.gn-so-dau{padding-left:6mm}'+
-  '.gn-than{display:grid;grid-template-columns:1fr 64mm;gap:5mm}.gn-trai .gl-r,.gn-phai .gl-r{min-height:6.8mm}.gn-co{margin-left:3mm}'+
+  '.gn-than{display:grid;grid-template-columns:1fr 64mm;gap:5mm}.gn-trai .gl-r,.gn-phai .gl-r{min-height:6.8mm}'+
   '.gn-bang{width:100%;border-collapse:collapse;margin-top:1.5mm}.gn-bang th,.gn-bang td{border:.8px solid #000;padding:0 1.5mm}'+
   '.gn-bang th{font-weight:normal;text-align:center;line-height:1.15;padding:1mm}.gn-bang th b{display:block}.gn-bang th i{display:block;font-size:10.5pt}'+
   '.gn-bang tbody td{height:6.6mm;border-top:.6px dotted #555;border-bottom:.6px dotted #555}.gn-bang tbody tr:first-child td{border-top:.8px solid #000}'+
   '.gn-so{text-align:right;font-weight:bold;white-space:nowrap}.gn-nd{font-style:italic}.gn-tong td{border-top:.8px solid #000 !important;border-bottom:.8px solid #000 !important}'+
   '.gn-tong .gl-r{min-height:6.6mm}.gn-chu{font-style:italic}.gn-cong{margin-left:2mm}'+
-  '.gn-ky{display:grid;grid-template-columns:1.1fr .9fr .9fr 1fr 1.3fr;text-align:center;font-weight:bold;font-size:11.5pt;margin-top:2mm;flex:1;min-height:20mm}';
+  '.gn-ky{display:grid;grid-template-columns:1.1fr .9fr .9fr 1fr 1.3fr;text-align:center;font-weight:bold;font-size:13pt;margin-top:1.5mm;flex:1;min-height:20mm}.gn-ky .gn-ky1{text-align:left}';

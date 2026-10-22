@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.313 — 22/10/2026 — Giấy nộp tiền: rà lại cho giống mẫu
+- **Anh 22/10**: "rà soát lại mẫu còn 1 số chỗ ngay Loại N.V còn chưa giống mẫu".
+- So bản scan, sửa 5 chỗ: (1) **Loại N.V** in sẵn **KHTK** giữa dòng chấm, **kẻ liền** dưới dòng như mẫu; (2) **Tài khoản CÓ** không có dòng chấm (số TK in đậm sau CÓ); (3) gạch ngắn dưới **CHÍNH SÁCH XÃ HỘI**, **Chi nhánh** in đậm nghiêng; (4) **Tổng số tiền bằng chữ** kẻ **3 nét sát nhau** trên 2 dòng (chữ dài tràn sang dòng 2), ô **Cộng** cuối dòng 1; (5) 5 chữ ký in đậm cỡ 13pt, "Người nộp tiền" sát trái.
+- Mẫu trắng cùng sửa. Bảng kê, Giấy lĩnh không đổi.
+- Phép thử: t232 vẫn 14/14.
+
 ## 3.312 — 22/10/2026 — Giấy nộp tiền + Bảng kê các loại tiền nộp
 - **Anh 22/10** (gửi bản scan Giấy nộp tiền NHCSXH — file không vào repo): "tạo mẫu tương tự Giấy lĩnh tiền kèm bảng kê nộp".
 - 📊 Giao dịch xã thêm mẫu **🏦 Giấy nộp** (nhóm Tiết kiệm, cấp tổ), dựng theo bản scan: NGÂN HÀNG CHÍNH SÁCH XÃ HỘI · Chi nhánh · **GIẤY NỘP TIỀN — NỘP ĐỂ GHI VÀO TÀI KHOẢN** · Ngày · Loại tiền tệ (VND) · Số; Người nộp · Địa chỉ · Người nhận · Địa chỉ | Loại N.V · **Tài khoản CÓ** · Số; bảng **NỘI DUNG NỘP / SỐ TIỀN** (4 dòng) · Tổng số tiền bằng chữ · Cộng; ký **Người nộp tiền · Thủ quỹ · Sổ phụ · Kiểm soát · Giám đốc Ngân hàng**. In mực đen giấy trắng; dòng có thông tin bỏ chấm, trống giữ chấm.
