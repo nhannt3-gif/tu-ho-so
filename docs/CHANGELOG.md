@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.314 — 22/10/2026 — Bảng kê: chọn Thu / Chi
+- **Anh 22/10**: "trong nút Bảng kê có nút chọn thu chi in được 2 loại, cơ bản giống nhau chỉ khác chữ thu, chi".
+- 📊 Giao dịch xã › 🧾 Bảng kê thêm mục đầu **Loại bảng kê**: 💸 **Chi** — CÁC LOẠI TIỀN NGÂN HÀNG CHI RA (Họ và tên người lĩnh tiền · ký Người lĩnh tiền / Người chi tiền, như cũ) hoặc 💰 **Thu** — CÁC LOẠI TIỀN NỘP VÀO NGÂN HÀNG (Họ và tên người nộp tiền · ký Người nộp tiền / Người nhận tiền). Khung, bảng mệnh giá, logo chìm, 2 tờ / A4 ngang giữ nguyên.
+- Mặc định Chi (dữ liệu cũ in như trước). Ô "Họ và tên người lĩnh tiền" đổi nhãn thành "Họ và tên" (gợi ý trong ô theo loại). Tên file mẫu Thu: BangKeThu_trang_….
+- Phép thử: t233 mới (8).
+
 ## 3.313 — 22/10/2026 — Giấy nộp tiền: rà lại cho giống mẫu
 - **Anh 22/10**: "rà soát lại mẫu còn 1 số chỗ ngay Loại N.V còn chưa giống mẫu".
 - So bản scan, sửa 5 chỗ: (1) **Loại N.V** in sẵn **KHTK** giữa dòng chấm, **kẻ liền** dưới dòng như mẫu; (2) **Tài khoản CÓ** không có dòng chấm (số TK in đậm sau CÓ); (3) gạch ngắn dưới **CHÍNH SÁCH XÃ HỘI**, **Chi nhánh** in đậm nghiêng; (4) **Tổng số tiền bằng chữ** kẻ **3 nét sát nhau** trên 2 dòng (chữ dài tràn sang dòng 2), ô **Cộng** cuối dòng 1; (5) 5 chữ ký in đậm cỡ 13pt, "Người nộp tiền" sát trái.

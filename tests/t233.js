@@ -1,0 +1,22 @@
+// 3.314 (anh 22/10): tab Giao dịch xã › 🧾 Bảng kê — chọn Thu / Chi, in được 2 loại, cùng mẫu chỉ khác chữ. Dữ liệu GIẢ.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const path=require('path');
+(async()=>{ const b=await chromium.launch(); const loi=[], o=[];
+ const p=await b.newPage({viewport:{width:1500,height:950}}); p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ const R = await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){} const o=[]; const ok=(t,d,c)=>o.push((d?'✓ ':'✗ ')+t+(c!==undefined?' — '+c:''));
+   const chu = h => h.replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+   const C = gdxC(), cu = C.bkLoai; C.form = 'bk';
+   ok('mặc định Chi (dữ liệu cũ không có bkLoai)', C.bkLoai==='chi');
+   ok('mục "Loại bảng kê" đứng đầu, có 2 lựa chọn Chi / Thu', GDX_MUC.bk[0].k==='bkloai' && /Chi — tiền ngân hàng chi ra/.test(gdxBKMuc('bkloai')) && /Thu — tiền nộp vào ngân hàng/.test(gdxBKMuc('bkloai')));
+   C.bkLoai = 'chi'; let t = chu(gdxHTMLBK(C));
+   ok('Chi: 2 tờ "CÁC LOẠI TIỀN NGÂN HÀNG CHI RA", người lĩnh tiền, Người chi tiền', (t.match(/NGÂN HÀNG CHI RA/g)||[]).length===2 && /Họ và tên người lĩnh tiền/.test(t) && /Người chi tiền/.test(t) && !/NỘP VÀO/.test(t));
+   C.bkLoai = 'thu'; t = chu(gdxHTMLBK(C));
+   ok('Thu: 2 tờ "CÁC LOẠI TIỀN NỘP VÀO NGÂN HÀNG", người nộp tiền, Người nhận tiền', (t.match(/NỘP VÀO NGÂN HÀNG/g)||[]).length===2 && /Họ và tên người nộp tiền/.test(t) && /Người nhận tiền/.test(t) && !/CHI RA|người lĩnh/.test(t));
+   ok('Thu: khung bảng mệnh giá giữ nguyên như Chi', (gdxHTMLBK(C).match(/bk-lt/g)||[]).length===(gdxHTMLBK(Object.assign({}, C, {bkLoai:'chi'})).match(/bk-lt/g)||[]).length);
+   ok('tên file: BangKeThu_trang_… / BangKe_trang_…', /^BangKeThu_trang_/.test(gdxTenFile({mau:'bk', C:C})) && /^BangKe_trang_/.test(gdxTenFile({mau:'bk', C:Object.assign({}, C, {bkLoai:'chi'})})));
+   const T = gdxTom(); ok('tóm tắt có loại Thu', JSON.stringify(T).indexOf('Thu (nộp vào)')>=0);
+   C.bkLoai = cu; C.form = 'gl'; return o; });
+ R.forEach(x=>o.push(x)); o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
+ console.log(o.join('\n')); console.log(o.filter(x=>x[0]==='✓').length+'/'+o.length+' đạt'); await b.close(); process.exit(o.some(x=>x[0]!=='✓') ? 1 : 0); })();
