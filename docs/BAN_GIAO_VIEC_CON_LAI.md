@@ -222,6 +222,24 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.313) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🏦 Giấy nộp, xem trước + in | Loại N.V: KHTK + kẻ liền; Tài khoản CÓ không chấm; bằng chữ kẻ 3 nét 2 dòng | |
+| 2 | 📄 Mẫu trắng | Giống tờ in sẵn | |
+
+**Ghi chú kỹ thuật 3.313:** `js/53-giay-nop.js` — `gdxGNTrang`: hàng `.gn-nv` (KHTK `.gn-khtk`, `gnNV`), `.gn-tk` (CÓ không chấm), `.gn-ba` (3 nét bằng `linear-gradient` nền + `print-color-adjust:exact`, `gl-bc1/gl-bc2` để `GL_JS` chia chữ), `.gn-gach`, `.gn-ky1`; bỏ quy tắc `.gn-co` trùng.
+
+### Danh sách thử trên máy thật (3.312) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giao dịch xã › 🏦 Giấy nộp, chọn khách TK 105, số tiền | Xem trước đúng bố cục bản scan; người nộp = người nhận; TK CÓ; bằng chữ | |
+| 2 | In 🏦+🧾 | 1 tờ A4: Giấy nộp trên, Bảng kê các loại tiền nộp dưới (chia mệnh giá) | |
+| 3 | 📄 Mẫu trắng | Đúng khung, không số liệu | |
+| 4 | So bản in với tờ giấy in sẵn | Anh báo chỗ lệch (khổ, vị trí dòng) để em chỉnh | |
+
+**Ghi chú kỹ thuật 3.312:** `js/53-giay-nop.js` mới — `GDX_MUC.gn`, `gdxGNMuc`, `gdxGNND`, `gdxGNTrang(g, c, trang)`, `gdxHTMLGN` (a5 · a4 · a4x2 · a4bk), `gdxDungGN`, `gdxGNTrangIn`, `gdxGNNutIn`, `gdxGNTom`, `GN_CSS` (dùng chung lớp `.gl-r / .gl-c / .gl-v` + `GL_CSS`). 26: `GDX_MAU` thêm `gn`; `gdxChup` (gn → `gdxGLDuLieu()` + `du = null`, `C.gnIn`); `gdxDung` → `gdxDungGN`; `gdxMucHTML` (gn: mục `gl*` dùng `gdxGLMuc`); chọn tổ / đổi mẫu / Phiếu mới / sau in như gl; nhãn khung xem; `gdxTenFile`; `gdxTom` → `gdxGNTom`; chip Rút hết ẩn với gn; `gdxBKTrang(c, g, nop)` + `gdxHTMLBKDL(g, c, nop)` (tiêu đề, người nộp, nội dung, chữ ký).
+
 ### Danh sách thử trên máy thật (3.311) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
