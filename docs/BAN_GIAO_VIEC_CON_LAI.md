@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.316) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TGTV › ✍ In nhanh, gõ form 7 ô (Tab qua từng ô) | Bản xem điền ngay; dân tộc Kinh, ☒ Có cư trú, giới tính, ngày hết hạn tự có | |
+| 2 | Chọn Xã → Ấp | Ấp lọc theo xã; mẫu ghi Tổ dân phố/Thôn + Phường/Xã | |
+
+**Ghi chú kỹ thuật 3.316:** `js/54-tgtv-khai.js` — `tgFormHTML(T)` (5 ô `.tg-f[data-k]` + 2 select xã / ấp theo `hmDiaBan()`, dòng tự tính), `tgTayDat(k, v)` (ngày → ISO, CCCD chỉ số, `xaMa` → `xa = hsoXaTen(tenXa)`, `apMa` → `ap = tgApTen`), `hsoVeGiuO` giữ con trỏ; `tgTayLuu` bỏ qua mục chưa khai mà trống; `tgTayChep` xóa khóa trống; `tgTayCo` không đếm `xaMa/apMa`. CSS `.tg-form`.
+
 ### Danh sách thử trên máy thật (3.315) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
