@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.316 — 23/10/2026 — 01/TGTV: form khai nhanh chuẩn
+- **Anh 23/10**: "phần khai báo hiện 1 form cứng, chuẩn, bắt đầu là họ tên, ngày tháng năm sinh, CCCD, ngày cấp, số điện thoại, chọn xã, ấp — các thông tin còn lại tự tính như giới tính, ngày hết hạn, dân tộc mặc định Kinh, tích sẵn có cư trú".
+- ✍ In nhanh: cột trái có khung **✍ Khai nhanh** cố định: **Họ và tên · Ngày sinh · Số CCCD · Ngày cấp · Số điện thoại · Xã (chọn) · Ấp (chọn theo xã)** — danh sách xã / ấp lấy từ địa bàn Mẫu 31 (chưa có số liệu thì gõ tay). Ngày gõ dd/mm/yyyy (gõ liền cũng được); Tab sang ô kế, bản xem cập nhật ngay.
+- **App tự tính** (hiện dòng 🤖 Tự tính dưới form): giới tính theo CCCD, ngày hết hạn CCCD, nơi cấp theo ngày cấp, dân tộc **Kinh**, **☒ Có cư trú**, quốc tịch Việt Nam. CCCD khác 12 số → cảnh báo.
+- Mục khác (nghề nghiệp, thu nhập, email…) vẫn bấm thẳng trên mẫu như 3.315. Hộp gõ trên mẫu: mục chưa khai mà để trống thì giữ tự tính (không xóa mất Kinh / giới tính khi Enter lướt qua). Chép từ Mẫu 31 bỏ trường trống để app tự tính.
+- Phép thử: t234 thêm 4 (22).
+
 ## 3.315 — 22/10/2026 — 01/TGTV: lấy từ Mẫu 31 hoặc in nhanh tự khai ngay trên mẫu
 - **Anh 22/10**: "làm hoàn chỉnh bản 01TGTV để anh có thể in bằng 2 cách: 1 lấy từ Mẫu 31 hoặc in nhanh tự khai, nhưng khai nhanh tại mẫu luôn".
 - Hồ sơ vay › 01/TGTV, cột trái có 3 nguồn: **📊 Từ Mẫu 31** — tổ viên của tổ đang chọn, tích để in hàng loạt (mặc định tích người chưa có TK 105; người đã có TK 105 hiện riêng, tích để in lại) · **📒 Người vay đang lập hồ sơ** (như cũ) · **✍ In nhanh — tự khai ngay trên mẫu**.

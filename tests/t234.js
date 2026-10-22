@@ -36,6 +36,16 @@ const fs=require('fs'), path=require('path');
    OM_KIEU = 'trang'; hsoVe(); await w(300); ok('📄 Bản trắng không in chữ tự khai + nhắc chọn Bản thật', !/NGUYỄN VĂN GIẢ/.test(chu(HSO.x.h)) && /chọn 🖨 Bản thật/.test(document.getElementById('hso-tuy').textContent)); OM_KIEU = 'that';
    tgTayChep(tv[0].kh); await w(300);
    ok('Lấy từ Mẫu 31 rồi sửa: chép tổ viên vào ô tự khai', hsoLuu().tgTay.ten===tv[0].ten && hsoLuu().tgTay.cif===tv[0].kh && new RegExp(tv[0].ten.toUpperCase()).test(chu(HSO.x.h)));
+   /* 3.316: form khai nhanh chuẩn 7 ô — còn lại tự tính */
+   hsoLuu().tgTay = {}; hsoVe(); await w(300);
+   const ks = [...document.querySelectorAll('#hso-tuy .tg-f')].map(e=>e.getAttribute('data-k')).join(',');
+   ok('form khai nhanh: Họ tên · Ngày sinh · CCCD · Ngày cấp · SĐT + chọn Xã, Ấp', ks==='ten,ns,cccd,ncap,sdt' && !!document.querySelector('#hso-tuy select[onchange*="xaMa"]') && !!document.querySelector('#hso-tuy select[onchange*="apMa"]'), ks);
+   tgTayDat('ten', 'Trần Thị Giả'); tgTayDat('ns', '02/05/1985'); tgTayDat('cccd', '072185000002'); tgTayDat('ncap', '10/04/2021'); tgTayDat('sdt', '0900000002');
+   const xm = Object.keys(hmDiaBan())[0]; tgTayDat('xaMa', xm); const am = Object.keys(hmDiaBan()[xm].ap)[0]; if(am) tgTayDat('apMa', am); hsoXem(); await w(300);
+   h = chu(HSO.x.h); const T2 = hsoLuu().tgTay;
+   ok('ngày gõ dd/mm/yyyy lưu ISO; xã, ấp lấy theo địa bàn', T2.ns==='1985-05-02' && T2.ncap==='2021-04-10' && !!T2.xa && (!am || !!T2.ap) && new RegExp(T2.xa).test(h), JSON.stringify(T2));
+   ok('tự tính: ☒ Nữ theo CCCD, dân tộc Kinh, ☒ Có cư trú, ngày hết hạn, nơi cấp', /☒ ?Nữ/.test(h) && /Dân tộc\*: ?Kinh/.test(h) && /☒ ?Có cư trú/.test(h) && /Ngày hết hạn: ?\d{2} ?\/ ?\d{2} ?\/ ?20\d\d/.test(h) && /Nơi cấp: ?Cục CS QLHC/.test(h));
+   ok('dòng "Tự tính" ở form', /Tự tính: Giới tính Nữ/.test(document.getElementById('hso-tuy').textContent));
    hsoLuu().tgTay = {ten:'Nguyễn Văn Giả'}; hsoVe(); await w(1500);
    return o; }, files);
  R1.forEach(x=>o.push(x));

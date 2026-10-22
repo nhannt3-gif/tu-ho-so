@@ -59,7 +59,33 @@ function tgTayDe(V, P){   /* đè giá trị tự động bằng chữ đã gõ 
     if(!(P && P._tay)) return L0(t, P);
     OM_TAY = {mk:'01tgtv', co:tgTay()}; try { return L0(t, P); } finally { OM_TAY = null; } };
 })();
-function tgTayCo(){ var T = tgTay(); return Object.keys(T).filter(function(k){ var v = T[k]; return Array.isArray(v) ? v.length : v!=null && v!==''; }).length; }
+function tgTayCo(){ var T = tgTay(); return Object.keys(T).filter(function(k){ var v = T[k]; if(/Ma$/.test(k)) return false; return Array.isArray(v) ? v.length : v!=null && v!==''; }).length; }
+
+/* ---------- 3.316 (anh 23/10 "form cứng, chuẩn: họ tên, ngày sinh, CCCD, ngày cấp, SĐT, chọn xã, ấp — còn lại tự tính: giới tính, ngày hết hạn, dân tộc Kinh, tích sẵn có cư trú") ---------- */
+function tgApTen(a){ var n = String(a.tenThon || a.thon || '').trim(); return !n ? '' : /^(ấp|khu phố|kp|thôn|tổ)/i.test(n) ? n : 'Ấp '+n; }
+function tgTayDat(k, v){
+  var T = tgTay(); v = String(v==null ? '' : v).trim();
+  if(k==='ns' || k==='ncap') v = v ? (hsoNgayTu(v) || v) : '';
+  if(k==='cccd') v = v.replace(/\D/g, '');
+  if(k==='xaMa'){ var X = hmDiaBan()[v]; T.xaMa = v; T.xa = X ? hsoXaTen(X.tenXa) : ''; T.ap = ''; T.apMa = ''; }
+  else if(k==='apMa'){ var X2 = hmDiaBan()[T.xaMa] || {ap:{}}, A = (X2.ap || {})[v]; T.apMa = v; T.ap = A ? tgApTen(A) : ''; }
+  else T[k] = v;
+  luu(); hsoVeGiuO(); }
+function tgFormHTML(T){   /* form chuẩn 7 ô — phần còn lại app tự tính */
+  var DB = hmDiaBan(), xs = Object.keys(DB).map(function(k){ return [k, DB[k].tenXa]; }).sort(function(a, b){ return String(a[1]).localeCompare(String(b[1]), 'vi'); });
+  var X = DB[T.xaMa], as = X ? Object.keys(X.ap).map(function(k){ return [k, tgApTen(X.ap[k])]; }).sort(function(a, b){ return String(a[1]).localeCompare(String(b[1]), 'vi'); }) : [];
+  var o = function(nhan, k, gt, ph, them){ return hsoTuyO(nhan, '<input class="tg-f" data-k="'+k+'" value="'+coChuHTML(gt||'')+'" placeholder="'+coChuHTML(ph)+'"'+(them||'')+' onchange="tgTayDat(\''+k+'\', this.value)">'); };
+  var xaO = xs.length ? hsoChon('tgTayDat(\'xaMa\', this.value)', T.xaMa || '', [['', '— chọn xã ('+xs.length+') —']].concat(xs)) : '<input class="tg-f" value="'+coChuHTML(T.xa||'')+'" placeholder="tên xã (chưa có địa bàn Mẫu 31)" onchange="tgTayDat(\'xa\', this.value)">';
+  var apO = xs.length ? hsoChon('tgTayDat(\'apMa\', this.value)', T.apMa || '', [['', X ? '— chọn ấp ('+as.length+') —' : '— chọn xã trước —']].concat(as)) : '<input class="tg-f" value="'+coChuHTML(T.ap||'')+'" placeholder="vd Ấp Cầu Sắt" onchange="tgTayDat(\'ap\', this.value)">';
+  var so = String(T.cccd||''), gt = T.gt || hmGT({cccd:so}), han = so.length===12 && T.ns && T.ncap && typeof toCCCDHan==='function' ? toCCCDHan(so, T.ns, T.ncap) : null;
+  var tu = [gt ? 'Giới tính <b>'+coChuHTML(gt)+'</b> (theo CCCD)' : '', han ? (han.den ? 'hết hạn <b>'+ngayVNsl(han.den)+'</b>' : coChuHTML(han.chu || '')) : '', T.ncap ? 'nơi cấp <b>'+coChuHTML(T.noiCap || hsoNoiCapGY(T.ncap))+'</b>' : '',
+    'dân tộc <b>'+coChuHTML(T.danToc==null ? 'Kinh' : T.danToc || '(chấm)')+'</b>', '☒ Có cư trú', 'quốc tịch Việt Nam'].filter(Boolean);
+  return '<div class="tg-form"><div class="nhan-nhom">✍ Khai nhanh</div>'+
+    o('Họ và tên', 'ten', T.ten, 'vd Nguyễn Văn A')+o('Ngày sinh', 'ns', hsoNgayVN(T.ns), 'dd/mm/yyyy')+
+    o('Số CCCD', 'cccd', so, '12 số', ' inputmode="numeric" maxlength="14"')+(so && so.length!==12 ? '<div class="sl-phu"><b class="hso-canh">⚠ CCCD '+so.length+' số (cần 12)</b></div>' : '')+
+    o('Ngày cấp', 'ncap', hsoNgayVN(T.ncap), 'dd/mm/yyyy')+o('Số điện thoại', 'sdt', T.sdt, 'vd 0912345678', ' inputmode="tel"')+
+    hsoTuyO('Xã', xaO)+hsoTuyO('Ấp', apO)+
+    '<div class="sl-phu tg-tu">🤖 Tự tính: '+tu.join(' · ')+'</div></div>'; }
 
 /* ---------- bấm trên bản xem ---------- */
 function tgTayGan(f){
@@ -95,6 +121,7 @@ function tgTayLuu(dong, buoc){
     else if(f[2]==='dau'){ var c = document.getElementById(id); v = c && c.checked ? 'x' : ''; }
     else { var o = document.getElementById(id); v = o ? String(o.value||'').trim() : ''; if(f[2]==='ngay' && v) v = hsoNgayTu(v) || v; if(f[2]==='so') v = v.replace(/\s+/g, f[0]==='cccd' ? '' : ' '); }
     if(f[0]==='cccd' && v && !T.gt && typeof hsoCCCDDoc==='function'){ var d = hsoCCCDDoc(v); if(d) T.gt = d.gt; }   /* giới tính suy theo CCCD (sửa được) */
+    if(T[f[0]]===undefined && (v==='' || Array.isArray(v) && !v.length)) return;   /* 3.316: mục chưa khai mà để trống → giữ tự tính (Kinh, giới tính theo CCCD…) */
     T[f[0]] = v; });
   luu(); dongHop(); hsoVe();
   if(buoc){ var a = tgTayDs(), i = a.indexOf(k) + buoc; if(i>=0 && i<a.length) setTimeout(function(){ tgTayHop(a[i]); }, 60); }
@@ -102,7 +129,9 @@ function tgTayLuu(dong, buoc){
 function tgTayMoi(){ hsoLuu().tgTay = {}; luu(); hsoVe(); bao('Đã xóa — khai người mới.'); }
 function tgTayChep(kh){   /* lấy 1 tổ viên trên Mẫu 31 vào ô tự khai để sửa tiếp */
   if(!kh) return; var S = hsoCH(), t = KHO.to(S.to), x = hsoKhach(kh, t), c = KHO.danhBa(kh) || {};
-  hsoLuu().tgTay = {cif:kh, ten:x.ten || '', ns:x.ns || '', gt:c.gt || '', cccd:String(x.cccd||'').replace(/\D/g, ''), ncap:x.ncap || '', noiCap:x.noiCap || '', sdt:c.sdt || '', danToc:c.danToc || '', ap:x.ap || '', xa:x.tenXa ? hsoXaTen(x.tenXa) : ''};
+  var T = {cif:kh, ten:x.ten, ns:x.ns, gt:c.gt, cccd:String(x.cccd||'').replace(/\D/g, ''), ncap:x.ncap, noiCap:x.noiCap, sdt:c.sdt || '', danToc:c.danToc, ap:x.ap, xa:x.tenXa ? hsoXaTen(x.tenXa) : ''};
+  Object.keys(T).forEach(function(k){ if(T[k]==null || T[k]==='') delete T[k]; });   /* trống → để app tự tính (Kinh, giới tính theo CCCD) */
+  hsoLuu().tgTay = T;
   luu(); hsoVe(); bao('Đã chép '+(x.ten || kh)+' từ Mẫu 31 — bấm vào mẫu để sửa / bổ sung.'); }
 function tgCotHTML(t, B){   /* cột trái 01/TGTV */
   var V = HSO.vay, ng = tgNguon(B), tv = hsoTVTo(t), h = '';
@@ -116,7 +145,8 @@ function tgCotHTML(t, B){   /* cột trái 01/TGTV */
       h += '<details class="hso-tick" open><summary>Tích để in — <b>'+dem+'</b> người · chưa có TK 105: '+chua.length+'</summary><div class="hso-tick-ds">'+chua.map(function(k){ return dong(k, true); }).join('')+
         (co.length ? '<div class="sl-phu">Đã có TK 105 (in lại khi cần):</div>'+co.map(function(k){ return dong(k, false); }).join('') : '')+'</div></details>'; } }
   else { var n = tgTayCo(), T = tgTay();
-    h += '<div class="sl-phu tg-goi">👉 <b>Bấm vào chỗ chấm / ô ☐ trên mẫu bên phải</b> để gõ đúng mục đó — Enter lưu và sang mục kế. Đã khai <b>'+n+'</b> mục'+(T.ten ? ': <b>'+coChuHTML(T.ten)+'</b>' : '')+'.</div>'+
+    h += tgFormHTML(T)+
+      '<div class="sl-phu tg-goi">👉 Mục khác: <b>bấm vào chỗ chấm / ô ☐ trên mẫu bên phải</b> để gõ — Enter lưu và sang mục kế. Đã khai <b>'+n+'</b> mục.</div>'+
       '<div class="hang-nut"><button class="nho chinh" onclick="tgTayHop(\'ten\')">⌨ Khai lần lượt</button><button class="nho" onclick="tgTayMoi()"'+(n ? '' : ' disabled')+'>🧹 Khai người mới</button></div>'+
       (t && tv.length ? hsoTuyO('Lấy từ Mẫu 31 rồi sửa', hsoChon('tgTayChep(this.value)', '', [['', '— chọn tổ viên ('+tv.length+') —']].concat(tv.map(function(k){ return [k.kh, k.ten+' · '+k.kh]; })))) : '')+
       (OM_KIEU!=='that' ? '<div class="sl-phu"><b>⚠ Đang xem '+(OM_KIEU==='trang' ? '📄 Bản trắng' : '📝 Bản mẫu')+'</b> — chọn 🖨 Bản thật để in chữ đã khai.</div>' : ''); }
