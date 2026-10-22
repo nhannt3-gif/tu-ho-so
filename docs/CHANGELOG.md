@@ -11,6 +11,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - 01/TGTV: địa danh "Gia Lộc, ngày … tháng … năm …" (trong câu) gõ liền, hết bị thu nhỏ 8,6pt.
 - ⚠ Trước khi in ở ✍ In nhanh dựng thử theo người đang khai (trước đây theo người vay Sổ hộ vay → không thấy cảnh báo).
 - QUY_CHUAN 9.7 thêm luật không thu nhỏ chữ. Phép thử: t234 thêm 2 (24).
+- Hồi quy 3.319: t181 (chồng khít bản mẫu) báo 01/TGTV 4 trang vì chữ mẫu giả cực dài nay không thu nhỏ → sửa phép thử: mẫu `giuCo` dùng chữ mẫu độ dài thường (phải chồng khít, 3 trang) + ý mới: chữ quá dài không thu nhỏ, có ⚠ (46).
 
 ## 3.318 — 23/10/2026 — 01/TGTV sát mẫu gốc + quy tắc giữ khung / gõ liền
 - **Anh 23/10** (gửi ảnh bản in): mặc định chọn sẵn cư trú, dân tộc, quốc tịch; khung họ tên kéo gần, tên lọt khung; ngày sinh gõ thì liền nhau; Tiếp nhận ngày cùng 1 dòng như mẫu; 2 dòng Ngày / Số CIF hẹp quá, khung bo góc tròn như mẫu; "khi nào cần cách xa đúng form, khi nào gõ liền tùy nội dung và vị trí — chụp lại mẫu gốc và cách cho chuẩn".
