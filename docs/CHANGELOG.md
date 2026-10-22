@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.312 — 22/10/2026 — Giấy nộp tiền + Bảng kê các loại tiền nộp
+- **Anh 22/10** (gửi bản scan Giấy nộp tiền NHCSXH — file không vào repo): "tạo mẫu tương tự Giấy lĩnh tiền kèm bảng kê nộp".
+- 📊 Giao dịch xã thêm mẫu **🏦 Giấy nộp** (nhóm Tiết kiệm, cấp tổ), dựng theo bản scan: NGÂN HÀNG CHÍNH SÁCH XÃ HỘI · Chi nhánh · **GIẤY NỘP TIỀN — NỘP ĐỂ GHI VÀO TÀI KHOẢN** · Ngày · Loại tiền tệ (VND) · Số; Người nộp · Địa chỉ · Người nhận · Địa chỉ | Loại N.V · **Tài khoản CÓ** · Số; bảng **NỘI DUNG NỘP / SỐ TIỀN** (4 dòng) · Tổng số tiền bằng chữ · Cộng; ký **Người nộp tiền · Thủ quỹ · Sổ phụ · Kiểm soát · Giám đốc Ngân hàng**. In mực đen giấy trắng; dòng có thông tin bỏ chấm, trống giữ chấm.
+- **Cùng cách Giấy lĩnh**: chung ô chọn **TK 104 tổ trưởng / TK 105 khách** · tìm tên · số tiền (chip nhanh, ⭐ mức hay dùng), ngày (Hôm nay / gõ / Để chấm). Người nhận mặc định = chính người nộp (gửi vào TK của mình) hoặc Để chấm. Nội dung nộp mặc định "Gửi tiết kiệm" (TK 104: "Nộp tiền vào tài khoản 104"), sửa được. Khổ A5 ngang hoặc A4 nửa trên. Không kiểm số dư (nộp, không rút).
+- **In**: 🏦 Nộp · 🧾 **Bảng kê các loại tiền NỘP vào ngân hàng** (A4 ngang, tự chia mệnh giá, ký Người nộp tiền · Người nhận tiền) · 🏦+🧾 chung 1 tờ A4 dọc; 📄 Mẫu trắng (1 mẫu / A4, 2 mẫu cắt đôi, Giấy nộp + Bảng kê). Tên file GiayNop_… / BangKeNop_… / GiayNop_BangKe_….
+- Giấy lĩnh, Bảng kê chi ra giữ nguyên.
+- Phép thử: t232 mới (14).
+
 ## 3.311 — 22/10/2026 — Hạn trả HSSV vừa 1 khung trên màn nhỏ
 - **Anh 21/10**: "thẻ tính HSSV mở trên màn nhỏ 17 inch và màn laptop 125% vẫn chưa hiện hết thông tin cơ bản trong 1 khung".
 - Đo trên máy thử: 17 inch (cửa sổ ~1366 × 650) khung công cụ chỉ còn ~210 px dưới lịch tháng (cần ~500 px); laptop 125% (~1536 × 730) còn ~320 px; tiêu đề rớt dòng (nút ✕ xuống hàng 2), nhãn "Tiền vay (triệu) · gợi ý…" 2 dòng.

@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.311', ds:[
+var CO_GI_MOI = {ban:'3.312', ds:[
+  ["Giao dịch xã: mẫu mới 🏦 Giấy nộp tiền (nộp để ghi vào tài khoản) + 🧾 Bảng kê các loại tiền nộp — cùng cách Giấy lĩnh: chọn người · TK · số tiền, in Nộp / Bảng kê / chung 1 tờ, mẫu trắng", "doiNgan(7)"],
   ["🎓 Hạn trả HSSV trên màn nhỏ (17 inch, laptop 125%): lịch tháng tự thu còn 1 hàng nút khi mở công cụ → đủ thông tin trong 1 khung, tiêu đề 1 dòng; đóng công cụ lịch hiện lại", "doiNgan(0)"],
   ["Hồ sơ vay GQVL: lịch trả gốc tự phân kỳ (≤ 60 tháng: 24 tháng/lần, kỳ cuối nhận phần lẻ) tính từ ngày giải ngân; phương án tự tính theo hệ số k (🎲 Đổi số); trang Phê duyệt của Ngân hàng in riêng hoặc in kèm 01/GQVL", "doiNgan(7)"],
   ["Scan gọn: chọn 1 khách → khung xem hiện CCCD + chữ ký (lăn tay) ngay dưới; menu ⋯ bỏ Chế độ quét, Webcam, 📁 Chữ ký · CCCD (trùng); ✍ Rà chữ ký đọc thử số thẻ mọi ảnh (bắt ảnh CCCD mờ) + hiện cả nhóm đúng để tích tay, tự rà lại 1 lần", "doiNgan(4)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.311', ds:[
   ["🎨 Tab Phân bổ KH: chip màu tăng ↑ + xanh / giảm ↓ − đỏ, khớp ✓ xanh / lệch ✗ đỏ / cảnh báo vàng; ô tăng/giảm đổi màu theo dấu", "slDoiTab('pb');doiNgan(7)"],
   ["Scan › ▦ Bảng: cột Ck cạnh Loại giấy tờ (khách có chữ ký hiện ✍); nút 💾 cuối dòng → xuất CCCD (2 mặt ghép 1 JPG ≤ 200 KB) + Chữ ký, mỗi loại 1 file tên chuẩn vào thư mục anh chọn trên máy; khung xem tab Scan gọn vừa thẻ", "doiNgan(4)"],
   ["📄 Biểu 07 chuẩn hành chính: tên cơ quan góc trên bên trái (cả trang Danh mục), cột Chỉ tiêu rộng — số canh phải, đoạn văn canh đều thụt đầu dòng, chấm mịn như các mẫu, chữ 14 · lề 2 · 2 · 3 · 2 cm", "slDoiTab('pb');doiNgan(7)"],
-  ["📈 Diễn biến phân vốn: cột dư nợ thực tế hiện cả chương trình KHÔNG có giao (dòng \"không giao\"), thêm cột Dư nợ CT không giao và Tổng dư nợ thực tế để đối chiếu đủ dư nợ Mẫu 31", "slDoiTab('pb');doiNgan(7)"],
-  ["📈 Phân bổ KH › Diễn biến phân vốn theo KH: thẻ số (đầu năm, KH cuối năm, hiện tại, còn phải thực hiện), biểu đồ KH hiệu lực ↔ dư nợ từng tháng, dòng thời gian QĐ, tiến độ từng xã — In / PDF / Excel", "slDoiTab('pb');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📈 Diễn biến phân vốn: cột dư nợ thực tế hiện cả chương trình KHÔNG có giao (dòng \"không giao\"), thêm cột Dư nợ CT không giao và Tổng dư nợ thực tế để đối chiếu đủ dư nợ Mẫu 31", "slDoiTab('pb');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
