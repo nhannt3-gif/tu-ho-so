@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.314) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🧾 Bảng kê › Loại: 💰 Thu, IN | 2 tờ "CÁC LOẠI TIỀN NỘP VÀO NGÂN HÀNG", ký Người nộp / Người nhận tiền | |
+| 2 | Đổi lại 💸 Chi | Như bản cũ (NGÂN HÀNG CHI RA) | |
+
+**Ghi chú kỹ thuật 3.314:** `GDX_MD.bkLoai` ('chi' | 'thu'), `GDX_MUC.bk` thêm `bkloai` đầu; `gdxBKMuc('bkloai')`; `gdxHTMLBK(c)` → `gdxBKTrang(c, null, c.bkLoai==='thu')` (dùng lại cờ `nop` của 3.312, nhánh mẫu trắng đổi nhãn người nộp); `gdxTom`, `gdxTenFile` (BangKeThu_trang_), nhãn khung xem.
+
 ### Danh sách thử trên máy thật (3.313) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
