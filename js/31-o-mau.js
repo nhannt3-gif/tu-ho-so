@@ -6,7 +6,7 @@
      Chữ dài hơn khung: tự thu nhỏ (tối thiểu OM_NHO × cỡ chữ), quá nữa → ⚠ báo trước khi in (OM_DAI).
    CẮM – RÚT: mẫu là 1 mô-đun js/mau/<mã>.js gọi omDangKy({...}) và gán lại hàm hsoLapXX → bỏ file mô-đun = app chạy lại bản cũ trong js/25.
    Khai báo lưu chung chỗ cũ: hsoLuu().cham[mẫu][ô] (cách) · chamGT[mẫu][ô] (khai 1 lần) · chuMau[mẫu][ô] (chữ mẫu cho 📝) · nhanh[mẫu] (Chọn nhanh) · omMuc[mẫu] (mức điền) · omNHS (in sẵn phần NH ở bản trắng). */
-var OM_MAU = {}, OM_KIEU = 'that', OM_DAI = [], OM_NHO = 0.72, OM_CV = null;
+var OM_MAU = {}, OM_KIEU = 'that', OM_DAI = [], OM_NHO = 0.72, OM_CV = null, OM_TAY = null;   /* OM_TAY = {mk, co} khi dựng bản tự khai (3.315, 01/TGTV) */
 var OM_PHAN = {kh:'Người vay / khách hàng', to:'Tổ / Hội', hoi:'Hội đoàn thể', ub:'UBND xã', nh:'Ngân hàng phê duyệt', nhs:'Ngân hàng in sẵn (đầu trang, tên PGD)', ky:'Ngày, chữ ký'};
 var OM_CACH = {cham:['✍', 'Ghi tay — để chấm'], tu:['🤖', 'Tự động — app lấy số liệu'], kb:['⌨', 'Tự gõ — nhớ riêng mẫu này'], go:['✏', 'Gõ trong lần làm (không nhớ)']};
 var OM_LOAI = {tu:['cham', 'tu', 'kb'], kb:['cham', 'kb'], go:['cham', 'go'], tukb:['cham', 'tu', 'kb']};   /* 3.229: mọi ô tự động đều cho ⌨ Tự gõ riêng mẫu (cùng nội dung nhưng mỗi mẫu khác vài chữ) */
@@ -40,6 +40,7 @@ function omCach(mk, k){   /* cách hiệu lực theo kiểu in đang chọn */
   var x = (OM_MAU[mk] || {}).oK[k] || {};
   if(OM_KIEU==='trang') return x.p==='nhs' && omNHS() ? omCachLuu(mk, k) : 'cham';
   if(OM_KIEU==='mau') return omPhanDien(mk, x.p) ? 'mau' : 'cham';
+  if(OM_TAY && OM_TAY.mk===mk) return !(k in OM_TAY.co) && omCachLuu(mk, k)==='kb' && omKB(mk, k) ? 'kb' : 'tu';   /* 3.315: tự khai trên mẫu — ô đã gõ luôn in; ô chưa gõ in như nguồn tự động */
   return omCachLuu(mk, k); }
 function omKBKhoa(mk, k){ var x = (OM_MAU[mk] || {}).oK[k] || {}; return x.ct ? k+'|'+(((hsoBo()||{}).ct) || HSO.vay.ct || '') : k; }
 function omKB(mk, k){ var v = ((hsoLuu().chamGT||{})[mk]||{})[omKBKhoa(mk, k)]; return v==null ? '' : String(v); }

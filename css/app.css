@@ -3786,3 +3786,10 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
   #cc-o .hs-bang{margin-top:4px}
 }
 #cc-o .cc-dau .nho{padding:2px 4px}
+/* 3.315: 01/TGTV tự khai trên mẫu — hộp gõ 1 mục */
+.tg-hop{display:flex;flex-direction:column;gap:8px;margin:8px 0 4px}
+.tg-o{display:flex;flex-direction:column;gap:3px}
+.tg-o .tg-n{font-size:13px;color:var(--chu-phu,#555)}
+.tg-o .gdx-i{width:100%;box-sizing:border-box}
+.tg-o .gdx-ra{display:flex;flex-wrap:wrap;gap:4px 14px}
+.tg-nguon{flex-direction:column;align-items:flex-start;gap:4px}
