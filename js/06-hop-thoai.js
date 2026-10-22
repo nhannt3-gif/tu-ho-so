@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.317', ds:[
+var CO_GI_MOI = {ban:'3.318', ds:[
+  ["01/TGTV sát mẫu gốc: quốc tịch · dân tộc Kinh · có cư trú điền sẵn, ngày gõ liền, khung Ngày / Số CIF bo góc, Tiếp nhận ngày 1 dòng; quy tắc giữ khung / gõ liền theo vị trí ô", "doiNgan(7)"],
   ["Hồ sơ vay: chú thích màu (số liệu · khai báo · ghi tay) lên cùng dòng tên mẫu — bớt 1 dòng", "doiNgan(7)"],
   ["01/TGTV ✍ In nhanh: form khai chuẩn (Họ tên · Ngày sinh · CCCD · Ngày cấp · SĐT · chọn Xã, Ấp) — giới tính, ngày hết hạn, nơi cấp, dân tộc Kinh, có cư trú app tự tính", "doiNgan(7)"],
   ["01/TGTV in 2 cách: 📊 từ Mẫu 31 (tích tổ viên, in hàng loạt) hoặc ✍ in nhanh tự khai — bấm thẳng vào chỗ chấm trên mẫu để gõ", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.317', ds:[
   ["📈 Diễn biến: bảng ma trận xã × chương trình gọn (dư nợ / KH tô màu, vượt KH đỏ), xoay / tách nguồn / chọn mốc / triệu – tỷ; bảng so theo mốc cuối tháng", "slDoiTab('pb');doiNgan(7)"],
   ["Sửa lỗi: vượt KH tô đỏ, đọc lại Mẫu 31 khi mở tab, QĐ chưa ghép xã không cộng, chương trình phát sinh giữa năm không bỏ sót, giữ số sửa tay, lưu bản chụp Biểu 07 đã xuất", "slDoiTab('pb');doiNgan(7)"],
   ["Scan: chế độ lọc rõ hơn cho bản photo — thêm 📠 Photo rõ (mặc định khi quét 🗎 Bản photo CCCD: nền trắng hẳn, chữ đậm, hết lấm tấm); Xám, Giấy trắng, Đen trắng, Magic (ảnh không màu) đều khử nền xám + bỏ chấm", "doiNgan(4)"],
-  ["Chữ ký: app nhận dạng chữ ký / lăn tay / ảnh CCCD — lưu nhầm ảnh CCCD làm chữ ký bị chặn; 🗂 Quản lý › ✍ Rà chữ ký dọn chữ ký quét nhầm + ảnh khách lưu sẵn; bỏ nút Ảnh khách (xuất từ mặt trước CCCD khi cần), thay bằng 🗎 Bản photo CCCD (2 mặt trên 1 tờ)", "doiNgan(4)"],
-  ["📈 Diễn biến: so KH giao với TỔNG dư nợ thực tế mọi chương trình (kể cả CT không giao) — còn phải thực hiện, % đạt, biểu đồ; thêm thẻ riêng nguồn TW / ĐP và sheet Excel Theo nguồn", "slDoiTab('pb');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Chữ ký: app nhận dạng chữ ký / lăn tay / ảnh CCCD — lưu nhầm ảnh CCCD làm chữ ký bị chặn; 🗂 Quản lý › ✍ Rà chữ ký dọn chữ ký quét nhầm + ảnh khách lưu sẵn; bỏ nút Ảnh khách (xuất từ mặt trước CCCD khi cần), thay bằng 🗎 Bản photo CCCD (2 mặt trên 1 tờ)", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

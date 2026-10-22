@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.318 — 23/10/2026 — 01/TGTV sát mẫu gốc + quy tắc giữ khung / gõ liền
+- **Anh 23/10** (gửi ảnh bản in): mặc định chọn sẵn cư trú, dân tộc, quốc tịch; khung họ tên kéo gần, tên lọt khung; ngày sinh gõ thì liền nhau; Tiếp nhận ngày cùng 1 dòng như mẫu; 2 dòng Ngày / Số CIF hẹp quá, khung bo góc tròn như mẫu; "khi nào cần cách xa đúng form, khi nào gõ liền tùy nội dung và vị trí — chụp lại mẫu gốc và cách cho chuẩn".
+- **Mặc định điền sẵn** (đổi ở ⚙ Khai báo riêng — Mẫu 01/TGTV): ☒ Việt Nam, dân tộc theo sổ hộ vay / Mẫu 31 (trống = **Kinh**), ☒ Có cư trú. Các ô khác giữ cách cũ (khai báo riêng chọn ✍ chấm / 📊 số liệu / ⌨ tự gõ từng ô).
+- **Khung họ tên** sát nhãn (cột 29 / 71 như Word), tên lọt giữa khung. **Khung Ngày / Số CIF** bo góc tròn, 2 dòng giãn (chữ 10, dòng 1,5) — vẫn đúng **3 trang**.
+- **Ngày**: có ngày in liền dd/mm/yyyy. Ngày sinh / ngày cấp / ngày hết hạn (còn nhãn in sẵn phía sau cùng dòng) giữ bề rộng ô chấm → Giới tính, Ngày hết hạn, Nơi cấp đứng yên như bản trắng; Tiếp nhận ngày, Hiệu lực từ ngày (cuối dòng) liền; "…, ngày … tháng … năm …" (trong câu) số gõ liền. Tên PGD trong câu đầu gõ liền ("PGD **Gò Dầu** mở hồ sơ…", hết khoảng trống thừa).
+- **Tiếp nhận ngày …/…/…** 1 dòng như mẫu.
+- **Quy tắc chung** ghi vào `QUY_CHUAN_KIEN_TRUC.md` mục 9.7: chụp mẫu gốc, xét vị trí từng ô — trong câu / cuối dòng → gõ liền; giữa dòng còn nhãn sau → chữ liền nhưng ô giữ bề rộng chấm; trong khung / bảng → theo khung; ngày luôn dd/mm/yyyy liền.
+- Chuẩn khóa 01/TGTV (trắng · số liệu · bản mẫu) ghi lại theo bản anh duyệt; t176 sửa ý mặc định (dân tộc Kinh, Việt Nam, cư trú điền sẵn).
+
 ## 3.317 — 23/10/2026 — Hồ sơ vay: chú thích màu cùng dòng tên mẫu
 - **Anh 23/10**: "dòng chip này cũng không cần tốn 2 dòng".
 - Cột trái Hồ sơ vay: 3 chip **số liệu · khai báo · …… ghi tay** dời lên cùng dòng tên mẫu (bên phải), bớt 1 dòng ở mọi mẫu. Dòng ghi chú mẫu (nếu có) vẫn ở dưới.

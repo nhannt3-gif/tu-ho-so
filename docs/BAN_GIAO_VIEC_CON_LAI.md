@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.318) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TGTV từ Mẫu 31 | ☒ Việt Nam, dân tộc Kinh, ☒ Có cư trú; ngày sinh 28/03/1978 liền, Giới tính đúng chỗ như bản trắng | |
+| 2 | Khung Ngày / Số CIF | Bo góc tròn, 2 dòng thoáng; vẫn 3 trang | |
+| 3 | Phần D | Tiếp nhận ngày …/…/… 1 dòng | |
+
+**Ghi chú kỹ thuật 3.318:** `js/mau/01tgtv.js` — md 'tu' cho `quocTich`, `danToc`, `cuTru`; `ngay(k, a, b, c)`: có ngày + có chấm gốc → `G.o` giữ bề rộng chấm, không có → `lien`; `ngayKy`, `nhNgay` `{lien:1}`; `tiepNhan`, `hieuLuc` liền; `ngan` liền; khung họ tên [29, 71]; khung Ngày / CIF `s10`, line-height 1.5, `border-radius:2.5mm` (`border-collapse:separate`), margin 1pt; td Tiếp nhận nowrap + chấm 4/4/7. `QUY_CHUAN` mục 9.7. Chuẩn khóa `hsv_01tgtv_*` ghi lại.
+
 ### Danh sách thử trên máy thật (3.317) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
