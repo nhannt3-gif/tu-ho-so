@@ -10,9 +10,9 @@
       {k:'ten', n:'Họ, chữ đệm, tên khai sinh', p:'kh', l:'tu', md:'tu', ng:'sổ hộ vay / M31'},
       {k:'ns', n:'Ngày, tháng, năm sinh', p:'kh', l:'tu', md:'tu', ng:'sổ hộ vay / M31'},
       {k:'gt', n:'Giới tính ☒', p:'kh', l:'tu', md:'tu', ng:'sổ hộ vay / suy theo CCCD'},
-      {k:'quocTich', n:'Quốc tịch ☒ Việt Nam', p:'kh', l:'tu', md:'cham', ng:'sổ hộ vay (trống = Việt Nam)', nhanh:1},
-      {k:'danToc', n:'Dân tộc', p:'kh', l:'tu', md:'cham', ng:'sổ hộ vay / M31', nhanh:1},
-      {k:'cuTru', n:'Tình trạng cư trú ☒ Có cư trú', p:'kh', l:'tu', md:'cham', ng:'ghi sẵn theo mẫu', nhanh:1},
+      {k:'quocTich', n:'Quốc tịch ☒ Việt Nam', p:'kh', l:'tu', md:'tu', ng:'sổ hộ vay (trống = Việt Nam)', nhanh:1},
+      {k:'danToc', n:'Dân tộc', p:'kh', l:'tu', md:'tu', ng:'sổ hộ vay / M31', nhanh:1},
+      {k:'cuTru', n:'Tình trạng cư trú ☒ Có cư trú', p:'kh', l:'tu', md:'tu', ng:'ghi sẵn theo mẫu', nhanh:1},
       {k:'cccd', n:'Số CCCD (12 ô) + ☒ Thẻ CC công dân', p:'kh', l:'tu', md:'tu', ng:'sổ hộ vay / M31'},
       {k:'ncap', n:'Ngày cấp', p:'kh', l:'tu', md:'tu', ng:'sổ hộ vay / M31'},
       {k:'hanCCCD', n:'Ngày hết hạn CCCD', p:'kh', l:'tu', md:'cham', ng:'tính từ ngày sinh + ngày cấp', nhanh:1},
@@ -52,13 +52,14 @@
     lap:function(t, P){
       var V = this.V(t, P), G = omG(MK, V, 12), o = G.o, C = function(k){ return omCach(MK, k)!=='cham'; }, D = function(n){ return hsoCham(n); };
       var ck = function(k, on){ return '<span class="om om-'+(C(k) ? (OM_KIEU==='mau' ? 'mau' : omCachLuu(MK, k)) : 'cham')+'" data-o="'+k+'">'+(C(k) && on ? '☒' : '☐')+'</span>'; };   /* ô đánh dấu */
-      var so = C('cccd') ? V.cccd : '', ngay = function(k, a, b, c){ var x = G.ngay(k, [D(a), D(b), D(c)]); return x[0]+' /'+x[1]+'/'+x[2]; };
+      var so = C('cccd') ? V.cccd : '', ngay = function(k, a, b, c){ var g = hsoNg(G.gt(k)); if(g) return a ? G.o(k, D(a)+' /'+D(b)+'/'+D(c), {gt:g.d+'/'+g.m+'/'+g.y}) : G.o(k, '', {gt:g.d+'/'+g.m+'/'+g.y, lien:1});   /* 3.318 (anh) — QUY_CHUAN 9.6: ngày gõ liền dd/mm/yyyy; còn nhãn in sẵn phía sau cùng dòng (a, b, c = chấm gốc) → giữ đúng bề rộng chấm cho nhãn sau đứng yên như form; cuối dòng → liền */
+        var x = G.ngay(k, [D(a), D(b), D(c)]); return x[0]+' /'+x[1]+'/'+x[2]; };
       var oSo = '<table class="luoi" data-w="'+Array(13).join('1,').slice(0, -1)+'" style="width:96mm"><tr>'+Array.apply(null, Array(12)).map(function(_, i){ return '<td class="c">'+o('cccd', '&nbsp;', {gt:so[i]||'', canh:'c', rong:6})+'</td>'; }).join('')+'</tr></table>';
       var dong = function(h){ return '<p class="tr2">'+h+'</p>'; }, NN = V.ngheNghiep, nn = function(x){ return ck('ngheNghiep', NN===x)+' '+x; };
       var tn = function(x){ return ck('thuNhap', V.thuNhap===x)+' '+x; }, ng = function(x){ return ck('nguonThu', V.nguonThu.indexOf(x)>=0)+' '+x; }, hn = function(x){ return ck('honNhan', V.honNhan===x)+' '+x; };
       var tt = C('thuongTru'), sms = G.gt('sms');
       var A = '<p class="i">Quý khách điền đầy đủ nội dung tại các trường thông tin có dấu (*)</p>'+
-        hsoBang('khung0', [36, 64], '<tr><td><p class="b">Họ, chữ đệm, tên khai sinh*:</p></td><td><table class="luoi" data-w="1"><tr><td>'+o('ten', '&nbsp;', {rong:105})+'</td></tr></table></td></tr>')+
+        hsoBang('khung0', [29, 71], '<tr><td><p class="b">Họ, chữ đệm, tên khai sinh*:</p></td><td><table class="luoi" data-w="1"><tr><td style="padding:0 1.5mm;vertical-align:middle">'+o('ten', '&nbsp;', {rong:112})+'</td></tr></table></td></tr>')+
         dong('<b>Ngày, tháng, năm sinh*:</b> '+ngay('ns', 10, 10, 10)+'          <b>Giới tính*:</b> '+ck('gt', V.gt==='Nam')+'Nam  '+ck('gt', V.gt==='Nữ')+'Nữ')+
         dong('<b>Quốc tịch*:</b> '+ck('quocTich', V.quocTich==='Việt Nam')+' Việt Nam   '+ck('quocTich', V.quocTich && V.quocTich!=='Việt Nam')+' Khác (ghi rõ)'+o('quocTich', D(18), {gt:C('quocTich') && V.quocTich!=='Việt Nam' ? V.quocTich : ''})+'   <b>Dân tộc*:</b> '+o('danToc', D(35)))+
         dong('<b>Tình trạng cư trú*:</b> '+ck('cuTru', !!V.cuTru)+' Có cư trú   ☐ Không cư trú')+
@@ -90,7 +91,7 @@
         ['1. Nộp tiền mặt vào tài khoản Tổ viên;', '2. Nộp tiền mặt vào tài khoản Tổ viên thông qua Ban quản lý Tổ Tiết kiệm và vay vốn;', '3. Nhận chuyển khoản đến tài khoản Tổ viên;', '4. Đề nghị NHCSXH trích Nợ từ tài khoản để thu nợ vay tại NHCSXH;',
           '5. NHCSXH được chủ động trích Nợ từ tài khoản Tổ viên để thu: tiền lãi, nợ gốc đến hạn, nợ gốc quá hạn của khoản vay; tiền lãi, nợ gốc của khoản vay trước khi xử lý rủi ro; chi phí phát sinh trong quá trình quản lý tài khoản Tổ viên;', '6. Rút tiền mặt hoặc chuyển khoản từ tài khoản Tổ viên sau khi đã trả hết nợ NHCSXH.'].map(function(x){ return '<p class="j">'+x+'</p>'; }).join('')+
         '<p class="tr">☐ Đăng ký SMS chủ động (nhận thông báo biến động số dư qua SMS có tính phí)      '+ck('sms', /^c/i.test(sms))+' Có      '+ck('sms', /^k/i.test(sms))+' Không</p>';
-      var nk = G.ngay('ngayKy', [D(10), D(9), D(9)]);
+      var nk = G.ngay('ngayKy', [D(10), D(9), D(9)], {lien:1});   /* trong câu "…, ngày … tháng … năm …" → số gõ liền */
       var C2 = '<p class="j">1. Với mọi trách nhiệm thuộc về mình, Tôi cam đoan mọi thông tin đưa ra tại Giấy đề nghị này đều đầy đủ và trung thực. Tôi hiểu và đồng ý rằng NHCSXH có thể yêu cầu thêm thông tin để xác thực các thông tin mà tôi xác nhận ở trên, thay mặt tôi cung cấp thông tin cho các cơ quan nhà nước có thẩm quyền theo quy định của pháp luật. Đề nghị NHCSXH cung cấp tài khoản Tổ viên mà Tôi đã đăng ký ở trên.</p>'+
         '<p class="j">2. Tôi xác nhận và đồng ý rằng:</p>'+
         '<p class="j">(a) Đã được NHCSXH cung cấp đầy đủ thông tin về Thoả thuận/Hợp đồng/Giấy đề nghị theo mẫu. Đã đọc, hiểu rõ, tự nguyện đồng ý và cam kết thực hiện “<i>Điều khoản, điều kiện giao dịch chung về mở và sử dụng tài khoản dành cho khách hàng cá nhân</i>” và “<i>Điều khoản, điều kiện chung về bảo vệ và xử lý dữ liệu cá nhân tại NHCSXH</i>”, sau đây được gọi là ĐIỀU KHOẢN, ĐIỀU KIỆN CHUNG và nội dung tại mục B Giấy đề nghị này;</p>'+
@@ -105,14 +106,14 @@
         '<p class="j">Giấy đề nghị này được lập thành 02 bản gốc, có giá trị pháp lý ngang nhau, khách hàng và NHCSXH mỗi bên giữ một bản.</p><p class="i">Quý khách vui lòng kiểm tra thông tin tại Hợp đồng này trước khi ký xác nhận.</p>'+
         '<p class="c i">'+o('diaDanh', D(8))+', ngày'+nk[0]+' tháng'+nk[1]+'năm'+nk[2]+'</p><p class="c b">Khách hàng</p><p class="c i s10">(Ký và ghi rõ họ tên)</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>';
       var kyD = [['Cán bộ tiếp nhận', 'Ký, ghi rõ họ tên'], ['Giao dịch viên', 'Ký, ghi rõ họ tên'], ['Kiểm soát viên', 'Ký, ghi rõ họ tên'], ['Giám đốc', 'Ký, đóng dấu']];
-      var tn2 = G.ngay('tiepNhan', [D(6), D(6), D(8)]), gd = G.ngay('nhNgay', [D(8), D(8), D(10)]), hl = G.ngay('hieuLuc', [D(10), D(10), D(10)]);
-      var Dd = hsoBang('luoi', [2689, 2409, 2410, 2874], '<tr style="height:6.3mm"><td class="c i">Tiếp nhận ngày '+tn2.join('/')+'</td><td colspan="3" class="c i">'+coChuHTML(hsoPGD('noi'))+', ngày '+gd[0]+' tháng '+gd[1]+' năm '+gd[2]+'</td></tr>'+
+      var tn2 = hsoNg(G.gt('tiepNhan')) ? [ngay('tiepNhan')] : G.ngay('tiepNhan', [D(4), D(4), D(7)]), gd = G.ngay('nhNgay', [D(8), D(8), D(10)], {lien:1}), hl = hsoNg(G.gt('hieuLuc')) ? [ngay('hieuLuc')] : G.ngay('hieuLuc', [D(10), D(10), D(10)]);
+      var Dd = hsoBang('luoi', [2689, 2409, 2410, 2874], '<tr style="height:6.3mm"><td class="c i" style="white-space:nowrap">Tiếp nhận ngày '+tn2.join('/')+'</td><td colspan="3" class="c i">'+coChuHTML(hsoPGD('noi'))+', ngày '+gd[0]+' tháng '+gd[1]+' năm '+gd[2]+'</td></tr>'+
           '<tr style="height:10mm">'+kyD.map(function(x){ return '<td class="c" style="vertical-align:top;border-bottom:0"><p class="c b">'+x[0]+'</p><p class="c i">('+x[1]+')</p></td>'; }).join('')+'</tr>'+
           '<tr style="height:27mm">'+kyD.map(function(){ return '<td style="border-top:0">&nbsp;</td>'; }).join('')+'</tr>').replace('<table ', '<table style="width:97%;margin:3pt auto 4pt" ')+
-        '<p class="tr"><b>Số CIF:</b> '+o('cif', D(45))+' <b>Số Tài khoản Tổ viên:</b> '+o('soTK', D(70))+'</p><p>Hiệu lực từ ngày:'+hl[0]+' /'+hl[1]+'/'+hl[2]+'</p>';
+        '<p class="tr"><b>Số CIF:</b> '+o('cif', D(45))+' <b>Số Tài khoản Tổ viên:</b> '+o('soTK', D(70))+'</p><p>Hiệu lực từ ngày: '+hl.join('/')+'</p>';
       var h = hsoBang('khung0', [17, 63, 20], '<tr><td>'+hsoLogo(MK, 16)+'</td><td class="c"><p class="c b s13">&nbsp;</p><p class="c b s13">GIẤY ĐĂNG KÝ MỞ TÀI KHOẢN TỔ VIÊN</p></td><td class="r"><table class="luoi s12" data-w="1"><tr><td class="c">Mẫu 01/TGTV</td></tr></table></td></tr>')+
-        '<p class="i j tr">Tôi đề nghị Ngân hàng Chính sách xã hội (NHCSXH) chi nhánh/PGD <b>'+o('ngan', D(20))+'</b> mở hồ sơ thông tin cá nhân và đăng ký tài khoản Tổ viên với các thông tin sau.</p>'+
-        hsoBang('luoi giua s11', [1], '<tr><td><p>Ngày:'+D(75)+'</p><p>Số Hồ sơ thông tin KH (Số CIF) '+o('cif', D(50), {pt:11})+'</p></td></tr>').replace('<table ', '<table style="width:120mm;margin:4pt auto" ')+
+        '<p class="i j tr">Tôi đề nghị Ngân hàng Chính sách xã hội (NHCSXH) chi nhánh/PGD <b>'+o('ngan', D(20), {lien:1})+'</b> mở hồ sơ thông tin cá nhân và đăng ký tài khoản Tổ viên với các thông tin sau.</p>'+
+        hsoBang('luoi giua s10', [1], '<tr><td style="padding:1pt 3pt"><p style="line-height:1.5">Ngày:'+D(75)+'</p><p style="line-height:1.5">Số Hồ sơ thông tin KH (Số CIF) '+o('cif', D(50), {pt:11})+'</p></td></tr>').replace('<table ', '<table style="width:120mm;margin:1pt auto;border:.8pt solid #000;border-radius:2.5mm;border-collapse:separate;border-spacing:0" ').replace('<td style="padding:1pt 3pt">', '<td style="padding:1pt 3pt;border:0">')+   /* 3.318 (anh): khung bo góc tròn như mẫu */
         hsoKhungNgoai([['nen', 'A- PHẦN DÀNH CHO KHÁCH HÀNG ĐĂNG KÝ THÔNG TIN CÁ NHÂN'], A, ['nen', 'B- PHẦN DÀNH CHO KHÁCH HÀNG ĐĂNG KÝ DỊCH VỤ'], Bd+'<p class="i s9 tr"><sup>1</sup> Trong thời gian NHCSXH nơi khách hàng mở tài khoản tổ chức phiên giao dịch tại điểm giao dịch nơi khách hàng đăng ký địa chỉ thường trú/tạm trú để giao dịch với NHCSXH, khách hàng được thực hiện các giao dịch trên tài khoản tại điểm giao dịch của NHCSXH, đồng thời khách hàng không được thực hiện các giao dịch rút tiền mặt, chuyển khoản từ tài khoản Tổ viên của mình tại trụ sở NHCSXH.</p>', ['nen', 'C- CAM KẾT CỦA KHÁCH HÀNG'], C2, ['tieu', 'D - PHẦN DÀNH CHO NGÂN HÀNG'], Dd]);
       return {ma:'01/TGTV', h:'<div class="tgtv">'+h+'</div>'};
     }});

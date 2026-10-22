@@ -193,6 +193,17 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 4. **Sổ mẫu — cắm và rút:** mỗi mẫu là 1 mô-đun đăng ký (mã, tên, tab, phần, ô, hàm dựng); mẫu không gọi mẫu khác; khai báo lưu theo mã mẫu. Nền ô (`js/31-o-mau.js`) là lớp riêng có hợp đồng + phép thử; sửa nền → chạy chuẩn khóa mọi mẫu.
 5. **Cửa lưu `KHO1`:** tab không tự đụng localStorage / IndexedDB; có lịch sử chụp, khôi phục, xuất / nhập.
 6. Mẫu Giao dịch xã, KTGS: không lên nền mới, chỉ được chuẩn khóa canh giữ.
+7. **Giữ khung hay gõ liền — theo VỊ TRÍ ô trên mẫu gốc** (anh 23/10/2026: "khi nào cần cách xa đúng form, khi nào gõ liền tùy nội dung và vị trí, không cứng nhắc"). Trước khi dựng / sửa mẫu: chụp mẫu gốc (`tests/mau_goc/`), xét từng ô theo bảng:
+
+   | Vị trí ô trên mẫu gốc | Có chữ thì in | Ví dụ (01/TGTV) |
+   |---|---|---|
+   | **Trong câu văn** (chữ in sẵn chảy liền trước / sau) | **Gõ liền**, 1 khoảng trắng, không giữ khung | "chi nhánh/PGD **Gò Dầu** mở hồ sơ…", "…, ngày **23** tháng **10** năm **2026**" |
+   | **Cuối dòng / cuối ô bảng** (sau nó không còn chữ in sẵn) | **Gõ liền** | Nơi cấp, Chức vụ, Tiếp nhận ngày, Hiệu lực từ ngày |
+   | **Giữa dòng kiểu cột** (sau nó còn nhãn in sẵn: "Nhãn: …… Nhãn kế: ……") | Chữ **gõ liền từ đầu ô**, ô **giữ đúng bề rộng chuỗi chấm** → nhãn kế đứng yên như bản trắng | Ngày sinh → Giới tính; Ngày cấp → Ngày hết hạn → Nơi cấp; Số nhà → Đường → Tổ dân phố |
+   | **Trong khung / bảng / ô kẻ** (khung họ tên, 12 ô CCCD, ô bảng) | Theo khung: chữ lọt giữa khung, mỗi ký tự 1 ô | Họ tên, số CCCD |
+   | **Ngày tháng năm** | Luôn **dd/mm/yyyy liền**, không chừa khoảng như chấm; vị trí ô theo 3 dòng trên | "28/03/1978" |
+
+   Trống → luôn in đúng chuỗi chấm gốc. Mẫu phải giữ số trang như mẫu gốc (có phép thử số trang). Nền ô: `G.o(k, chấm, {lien:1})` = gõ liền; mặc định = giữ khung.
 
 ## 10. Chuẩn hóa code, giao diện, thư viện (anh duyệt 17/10/2026 — chi tiết `KE_HOACH_CHUAN_HOA.md`)
 - **Code mới:** hộp riêng mỗi khối, `data-lenh` thay `onclick` trong chuỗi, file ≤ ~150 KB; mỗi bản dọn rác trong phạm vi + kiểm toàn vẹn; thước đo `tests/kiem.py` không được vượt mốc `tests/do_moc.json` (hạ mốc khi dọn bớt: `python3 tests/kiem.py --moc`).
