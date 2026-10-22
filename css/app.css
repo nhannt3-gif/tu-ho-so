@@ -3795,3 +3795,5 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
 .tg-nguon{flex-direction:column;align-items:flex-start;gap:4px}
 .tg-form{border:1px solid var(--vien,#d5dbe3);border-radius:8px;padding:6px 10px;margin:6px 0}
 .tg-form .tg-tu{margin-top:4px}
+/* 3.317 (anh): chú thích màu số liệu · khai báo · ghi tay cùng dòng tên mẫu */
+#hso-ds .hso-dau-ds .hso-chu{margin:0;flex-wrap:nowrap;text-transform:none;letter-spacing:0;font-weight:normal}

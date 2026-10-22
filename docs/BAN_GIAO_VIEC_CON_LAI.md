@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.317) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay, mở vài mẫu | Tên mẫu + 3 chip chú thích trên 1 dòng (màn hẹp tự xuống dòng) | |
+
+**Ghi chú kỹ thuật 3.317:** `hsoDsHTML` — `.hso-chu` thành span trong `.hso-dau-ds` (flex, space-between); CSS `#hso-ds .hso-dau-ds .hso-chu`.
+
 ### Danh sách thử trên máy thật (3.316) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.317 — 23/10/2026 — Hồ sơ vay: chú thích màu cùng dòng tên mẫu
+- **Anh 23/10**: "dòng chip này cũng không cần tốn 2 dòng".
+- Cột trái Hồ sơ vay: 3 chip **số liệu · khai báo · …… ghi tay** dời lên cùng dòng tên mẫu (bên phải), bớt 1 dòng ở mọi mẫu. Dòng ghi chú mẫu (nếu có) vẫn ở dưới.
+
 ## 3.316 — 23/10/2026 — 01/TGTV: form khai nhanh chuẩn
 - **Anh 23/10**: "phần khai báo hiện 1 form cứng, chuẩn, bắt đầu là họ tên, ngày tháng năm sinh, CCCD, ngày cấp, số điện thoại, chọn xã, ấp — các thông tin còn lại tự tính như giới tính, ngày hết hạn, dân tộc mặc định Kinh, tích sẵn có cư trú".
 - ✍ In nhanh: cột trái có khung **✍ Khai nhanh** cố định: **Họ và tên · Ngày sinh · Số CCCD · Ngày cấp · Số điện thoại · Xã (chọn) · Ấp (chọn theo xã)** — danh sách xã / ấp lấy từ địa bàn Mẫu 31 (chưa có số liệu thì gõ tay). Ngày gõ dd/mm/yyyy (gõ liền cũng được); Tab sang ô kế, bản xem cập nhật ngay.
