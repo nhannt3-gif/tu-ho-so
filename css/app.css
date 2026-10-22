@@ -3792,7 +3792,7 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
 .tg-o .tg-n{font-size:13px;color:var(--chu-phu,#555)}
 .tg-o .gdx-i{width:100%;box-sizing:border-box}
 .tg-o .gdx-ra{display:flex;flex-wrap:wrap;gap:4px 14px}
-.tg-nguon{flex-direction:column;align-items:flex-start;gap:4px}
+.tg-nguon{margin:4px 0}
 .tg-form{border:1px solid var(--vien,#d5dbe3);border-radius:8px;padding:6px 10px;margin:6px 0}
 .tg-form .tg-tu{margin-top:4px}
 /* 3.317 (anh): chú thích màu số liệu · khai báo · ghi tay cùng dòng tên mẫu */

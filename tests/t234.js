@@ -18,7 +18,7 @@ const fs=require('fs'), path=require('path');
    pvChon('hsv','xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(300); pvChon('hsv','diem', pvLuaChon(TO_K.to, C, 'diem', true)[0].k); await w(300); pvChon('hsv','to', pvLuaChon(TO_K.to, C, 'to', true)[0].k); await w(1200);
    const t = TO_K.to[C.to], tv = hsoTVTo(t), chua = tv.filter(k=>!k.stk.length && !k.coTK), co = tv.filter(k=>k.stk.length || k.coTK);
    hsoChonMau('01tgtv'); await w(300); HSO.vay.tgNguon = 'to'; HSO.vay.tg = {}; hsoVe(); await w(300);
-   ok('cột trái có 3 nguồn: Mẫu 31 · Sổ hộ vay · ✍ tự khai', document.querySelectorAll('input[name="hso-tg"]').length===3 && /tự khai ngay trên mẫu/.test(document.getElementById('hso-tuy').textContent));
+   ok('cột trái có 3 nguồn: Mẫu 31 · Sổ hộ vay · ✍ tự khai', document.querySelectorAll('#hso-tuy .tg-ng').length===3 && /✍ In nhanh/.test(document.getElementById('hso-tuy').textContent));
    ok('📊 Mẫu 31: mặc định tích tổ viên chưa có TK 105, mỗi người 1 bản', HSO.x.ds.length===Math.max(1, chua.length), HSO.x.ds.length+' / '+chua.length);
    if(co.length){ HSO.vay.tg[co[0].kh] = true; hsoXem(); await w(200); ok('tích thêm người đã có TK 105 → in lại được', HSO.x.ds.length===chua.length+1 && /đã có TK 105/.test(document.getElementById('hso-tuy').textContent)); delete HSO.vay.tg[co[0].kh]; }
    else ok('tổ giả không có người đã có TK 105 (bỏ qua)', true);
