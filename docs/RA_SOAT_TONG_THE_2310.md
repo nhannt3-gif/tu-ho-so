@@ -9,7 +9,7 @@
 ## 2. Số đo (thật, đo trên mã 3.325)
 | Chỉ số | 14/10 | 23/10 | Mục tiêu |
 |---|---|---|---|
-| File js · dòng · hàm cấp ngoài · biến toàn cục | 30 · ~25 nghìn | **67 · 35,3 nghìn · 3.327 · 538** | biến toàn cục giảm dần |
+| File js · dòng · hàm cấp ngoài · biến toàn cục | — | **67 · 35,3 nghìn · 3.327 · 538** | biến toàn cục giảm dần |
 | File lớn nhất | — | `04-giao-dien.js` 5.416 dòng (398 KB) · `25-ho-so.js` 1.974 dòng (325 KB) · `06-hop-thoai.js` 3.117 dòng | < 1.500 dòng / file |
 | Lời gọi `luu()` | 295 | **395** (đã có lưu theo ngăn IndexedDB `34-luu-ngan.js`, nhưng nơi gọi vẫn "lưu tất cả") | gọi theo ngăn |
 | Đọc thẳng biến số liệu thay vì `KHO` | Hồ sơ 57, GDX 60 | Hồ sơ: `KHO.` 58 / `TO_K` 8 · GDX: `KHO.` 36 / `TO_K` 5 ✅ · **Scan 0 `KHO`**, **KTGS 0 `KHO`** | 0 |
