@@ -45,7 +45,7 @@
 - Làm B trước A3–A5 (tách file xong mới đổi khung đỡ xung đột 2 tài khoản); A1–A2 làm được ngay vì ít chạm file chung.
 
 ## 5. Câu hỏi chờ anh
-1. Chọn thứ tự: em đề nghị **A1 Hôm nay bảng việc → A2 lọc gọn mặc định → B1–B2 → A3 thanh bên 2 cấp → A4–A6 → B3–B4**.
+1. Chọn thứ tự: em đề nghị (A1 dời sau — anh chốt 23/10) **A2 lọc gọn mặc định → B1–B2 → A3 thanh bên 2 cấp → A4–A6 → B3–B4**.
 2. Thanh bên 2 cấp (A3) đổi chỗ các mục quen dùng — anh đồng ý hướng này không? (cần anh duyệt vì đổi giao diện cũ)
 3. Hôm nay bảng việc (A1): anh muốn thẻ nào đứng đầu?
 
@@ -70,6 +70,8 @@
 4. **Điện thoại:** thẻ thành danh sách dọc (số + tên + ›), lịch thu gọn 1 tuần.
 
 **Cách tính (không chậm app):** chỉ đếm, tính 1 lần khi mở app / nạp số liệu mới, lưu tạm theo kỳ; danh sách chi tiết chỉ dựng khi bấm vào thẻ. Lấy số qua `KHO` (đúng QUY_CHUAN) — thẻ nào chưa có cửa `KHO` thì thêm cửa đếm, không đọc thẳng biến chung.
+
+**Anh chốt 23/10:** "Các nút dạng KPI sẽ phát triển sau khi các phần sau đi vào hoạt động ổn — hướng như vậy nhưng làm sau, **từng nút KPI một**." → A1 **duyệt hướng, chưa làm**; mỗi thẻ làm riêng khi khối nguồn đã chạy ổn (anh báo thẻ nào thì làm thẻ đó). Câu hỏi dưới để dành khi làm từng thẻ.
 
 **Câu hỏi chờ anh (A1):**
 1. Thẻ nào cần, thứ tự trên → dưới? (em đề nghị: Giao dịch xã hôm nay → Nợ cần xử lý → Đến hạn tháng sau → CCCD → Chưa TK 105 → Số liệu thiếu → Hồ sơ vay dở → còn lại)
