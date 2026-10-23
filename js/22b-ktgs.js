@@ -257,11 +257,14 @@ SG_CAY['kt-xa'] = 'Xã / phường'; SG_CAY['kt-diem'] = 'Điểm giao dịch';
 /* ---------- số liệu tổ từ BC0437 (thiếu thì tính từ Mẫu 31, ghi rõ nguồn) ---------- */
 function ktSoTo(t){
   var b = KT_BC && KT_BC.k37 && (!KT_SO_CUNG || slThang(KT_BC.k37.e.ky)===KT_K.thang) && KT_BC.k37.theoTo[t.ma];   /* 3.97: định kỳ chỉ dùng BC0437 cùng tháng số liệu */
-  if(b) return {nguon:'BC0437', ngay:KT_BC.k37.e.ngay || tdnCuoiKy(slThang(KT_BC.k37.e.ky)), stv:b.stv, dn:b.dn||0, qh:b.qh||0, kn:b.kn||0, lt:b.lt||0, tg:b.tg||0,
-    tlQH:b.tlQH, tlKN:b.tlKN, diem:b.diemTo, xl:b.xepLoai, b:b};
+  /* 3.325 (anh 23/10 "số liệu tổ lấy theo ngày chọn, còn chấm điểm tổ thì theo tháng"): dư nợ, tổ viên, QH, khoanh, lãi tồn, tiết kiệm = Mẫu 31 của ngày / kỳ đang chọn;
+     điểm + xếp loại = BC0437 (chấm điểm theo tháng) — ghi rõ tháng chấm */
   var ks = toKhach(t), dn = 0, qh = 0, kn = 0, lt = 0, tg = 0;
   ks.forEach(function(k){ dn += k.dn; qh += k.qh; kn += k.kn; lt += k.lt; tg += k.t105; });
-  return {nguon:KT_K.hsTen, ngay:KT_K.ngay, stv:ks.length, dn:dn, qh:qh, kn:kn, lt:lt, tg:tg, tlQH:dn ? qh/dn*100 : 0, tlKN:dn ? kn/dn*100 : 0, diem:'', xl:'', b:null};
+  var ngXL = b ? KT_BC.k37.e.ngay || tdnCuoiKy(slThang(KT_BC.k37.e.ky)) : '';
+  if(!ks.length && b) return {nguon:'BC0437', ngay:ngXL, stv:b.stv, dn:b.dn||0, qh:b.qh||0, kn:b.kn||0, lt:b.lt||0, tg:b.tg||0, tlQH:b.tlQH, tlKN:b.tlKN, diem:b.diemTo, xl:b.xepLoai, ngayXL:ngXL, b:b};   /* Mẫu 31 không có dòng của tổ → như cũ */
+  return {nguon:KT_K.hsTen, ngay:KT_K.ngay, stv:ks.length, dn:dn, qh:qh, kn:kn, lt:lt, tg:tg, tlQH:dn ? qh/dn*100 : 0, tlKN:dn ? kn/dn*100 : 0,
+    diem:b ? b.diemTo : '', xl:b ? b.xepLoai : '', ngayXL:ngXL, b:b || null};
 }
 function ktTr(n, le){ n = (n||0)/1e6; var s = n.toFixed(le===undefined ? 2 : le); if(s.indexOf('.')>=0) s = s.replace(/0+$/, '').replace(/\.$/, ''); var p = s.split('.'); p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.'); return p.join(','); }   /* triệu đồng, dấu phẩy thập phân */
 function ktPT(n){ return (Math.round((+n||0)*100)/100).toString().replace('.', ','); }
@@ -320,7 +323,7 @@ function ktTheHTML(t){
   var s = ktSoTo(t);
   return '<div class="to-the"><div class="to-the-ten">Tổ <b>'+coChuHTML(t.ten||'')+'</b> (mã '+t.ma+') <span class="to-the-phu">· '+coChuHTML([t.tenThon ? 'Ấp '+String(t.tenThon).replace(/^(ấp|ap)\s+/i, '') : '', t.tenXa, tdnHoi(t.dv)].filter(Boolean).join(' · '))+'</span></div>'+
     '<div class="to-the-so">'+coChuHTML(s.nguon)+' '+ngayVNsl(s.ngay)+': <b>'+(s.stv||0)+'</b> tổ viên · dư nợ <b>'+ktTr(s.dn)+'</b> tr · QH '+ktTr(s.qh)+' ('+ktPT(s.tlQH)+'%) · khoanh '+ktTr(s.kn)+' ('+ktPT(s.tlKN)+'%) · lãi tồn '+ktTr(s.lt)+' · tiết kiệm '+ktTr(s.tg)+' tr'+
-      (s.xl ? ' │ điểm <b>'+String(s.diem).replace('.', ',')+'</b> · <b class="'+(KT_XL_LOP[s.xl]||'')+'">'+coChuHTML(s.xl)+'</b>' : '')+'</div></div>';
+      (s.xl ? ' │ chấm điểm '+(s.ngayXL ? 'tháng '+slThang(s.ngayXL).slice(5, 7)+'/'+slThang(s.ngayXL).slice(0, 4)+' ' : '')+'<b>'+String(s.diem).replace('.', ',')+'</b> · <b class="'+(KT_XL_LOP[s.xl]||'')+'">'+coChuHTML(s.xl)+'</b>' : '')+'</div></div>';
 }
 
 /* ---------- phân loại hộ + gợi ý (Mẫu 06 kiểm tra đột xuất) ---------- */
@@ -637,9 +640,9 @@ function ktGiaTri06(t, dc, v){   /* 3.98: hộ theo mã KH; 1 khách nhiều kh�
   return r;
 }
 function ktGiaTri16(t, dc, v){
-  var n = ktNgayP(v.ngay); if(!v.ngay){ var tk = ktThangKT(); if(tk) n = {d:'', m:tk.slice(5, 7), y:tk.slice(0, 4), y2:tk.slice(2, 4)}; }   /* 3.109: chưa khai ngày → tháng / năm theo tháng kiểm tra, ngày ghi tay */
-  var s = ktSoTo(t), sd = ktNgayP(s.ngay), bc = s.nguon==='BC0437', le = bc ? 0 : 2;
-  var thangCD = bc ? ktNgayP(s.ngay) : null;
+  var n = ktNgayP(v.ngay); if(!v.ngay && !(typeof ktCheDo==='function' && ktCheDo()==='dx')){ var tk = ktThangKT();   /* 3.325 (anh): đột xuất chưa khai ngày → để chấm cả ngày / tháng / năm, không tự ghi tháng như định kỳ */ if(tk) n = {d:'', m:tk.slice(5, 7), y:tk.slice(0, 4), y2:tk.slice(2, 4)}; }   /* 3.109: chưa khai ngày → tháng / năm theo tháng kiểm tra, ngày ghi tay */
+  var s = ktSoTo(t), sd = ktNgayP(s.ngay), bc = s.nguon==='BC0437', le = bc ? 0 : 2;   /* 3.325: số liệu theo ngày chọn (Mẫu 31), xếp loại theo tháng BC0437 */
+  var thangCD = s.ngayXL ? ktNgayP(s.ngayXL) : null;
   var thon = ktApTen(t.tenThon), xa = ktXaTen(t.tenXa);   /* 3.98: chữ in sẵn "thôn/tổ dân phố", "xã/phường/đặc khu", "tỉnh/thành phố" → đúng chữ (ấp / khu phố, xã / phường, tỉnh); tên Hội đầy đủ theo Bảng chuẩn hóa */
   var dv16 = ktDonVi16(t, v);
   return {f:{DV0:dv16.DVA, DVA:dv16.DVA ? dv16.DVB || ' ' : '', DVB:'', ND:n.d, NM:n.m, NY:n.y2, THON:thon, CAPA:thon ? ktCapAp(t.tenXa) : '', XA:xa, CAPX:xa ? ktChuan(t).xa : '', TINH:KT_TINH, CAPT:'tỉnh',

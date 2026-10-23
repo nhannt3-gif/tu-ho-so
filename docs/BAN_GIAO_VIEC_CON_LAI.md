@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.325) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Chọn ngày 19/10 ở ô đầu trang › KTGS › tổ › Mẫu 16 | Mục I "đến thời điểm 19/10/2026", số liệu theo ngày đó; xếp loại ghi tháng BC0437 | |
+| 2 | Đột xuất, để trống Ngày kiểm tra › Mẫu 16 | "Hôm nay, ngày … tháng … năm 20…" chấm | |
+
+**Ghi chú kỹ thuật 3.325:** `ktSoTo(t)` — số liệu luôn từ `toKhach(t)` (KT_K = kỳ chung), `diem / xl / ngayXL` từ BC0437 (`KT_BC.k37`); không có dòng Mẫu 31 → BC0437 như cũ. `ktGiaTri16` `thangCD = ktNgayP(s.ngayXL)`; chưa khai ngày + `ktCheDo()==='dx'` → không lấy `ktThangKT()`. `ktTheHTML` ghi tháng chấm điểm. Chuẩn `kt_16` ghi lại.
+
 ### Danh sách thử trên máy thật (3.324) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
