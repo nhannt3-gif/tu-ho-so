@@ -159,7 +159,7 @@ ktgs = { …cũ…, khoi:'A'|'B'|'C', A:{thang:'2026-11', the:'dk'|'gn'|'bc'|'kh
 ## 6. Các bước (TK 3)
 0. **Nhớ ngày chọn** ở ô đầu trang qua lần mở app (anh thử 3.325 bị về 30/09 sau Ctrl+F5) — nhỏ, làm trước.
 1. **Dữ liệu**: `ktBo` + sổ ô `KT_O` (06, 16) + chuyển dữ liệu cũ + `ktInV` đọc từ bộ (giao diện chưa đổi; in ra trùng 3.325).
-2. **Khối A số liệu tháng trước** + lớp nguồn `ktNguon*`: ô Tháng kiểm tra; Định kỳ / Mẫu 04 lấy Mẫu 31 chốt tháng trước; Sau GN theo tháng giải ngân, 1 tổ × 1 tháng = 1 phiếu, hạn 30 ngày (mục 8) (màn cũ giữ).
+2. **Khối A số liệu tháng trước** + lớp nguồn `ktNguon*`: ô Tháng kiểm tra; Định kỳ / Mẫu 04 lấy Mẫu 31 chốt tháng trước; Sau GN chọn tháng như cũ, 1 tổ × 1 tháng = 1 phiếu, dòng nhắc 30 ngày (mục 8) (màn cũ giữ).
 3. **Thanh 3 khối** + chuyển chip cũ vào khối; gộp 2 lối Định kỳ, 2 lối Mẫu 04; Lịch năm thành thẻ trong khối A.
 4. **🧩 Bộ khai báo mẫu** (2 bộ; màn khai báo trực quan: danh sách ô + xem trước bấm ô) cho 06, 16 — Bảng II cả bảng + ▸ từng ô; hộp in gọn (chọn bộ + sửa nhanh); Mẫu 04 trong khối B.
 5. Mở rộng sổ ô cho Mẫu 04, 01/KH; dọn khai báo trùng (Ông bà 2 gõ tay, ô cũ) → hồi quy đủ → **bàn giao TK 2** (mục 9).
@@ -171,13 +171,10 @@ ktgs = { …cũ…, khoi:'A'|'B'|'C', A:{thang:'2026-11', the:'dk'|'gn'|'bc'|'kh
 4. **Đột xuất có nút Mẫu 04** (in khi cần, cùng khuôn Mẫu 04 KTGS).
 5. Làm xong phần tinh chỉnh → **giao TK 2** đưa KTGS qua `KHO` — mục 9.
 
-## 8. Sau giải ngân — hạn 30 ngày (lưu ý anh)
-- 727: kiểm tra sử dụng vốn **trong 30 ngày kể từ ngày giải ngân**. Mỗi món có **ngày GN** (`c_ngay_gn_cuoi_cung` Mẫu 31) → **hạn kiểm tra = ngày GN + 30**.
-- **Vướng "số liệu tháng liền trước"**: món GN 01/10 hạn 31/10 — đợi chọn tháng kiểm tra 11 thì đã quá hạn. Đề xuất:
-  - Thẻ Sau giải ngân chọn **tháng giải ngân** (mặc định tháng liền trước; tháng hiện tại dùng Mẫu 31 theo ngày mới nhất như 3.136) — không ép "tháng kiểm tra".
-  - Bảng món có cột **Hạn kiểm tra** (GN + 30) + màu: 🟢 còn ≥ 7 ngày · 🟡 < 7 ngày · 🔴 quá hạn.
-  - Ô **Ngày kiểm tra** từng phiếu (1 tổ × 1 tháng): gõ ngày → kiểm **≤ hạn của món GN sớm nhất trong phiếu**; quá → ⚠ đỏ trước khi in (vẫn cho in, ghi rõ món nào quá hạn). Để trống = chấm ghi tay, nhắc "trước dd/mm".
-  - Phiếu gom món GN trong tháng đó của tổ; mỗi tháng 1 phiếu riêng (đúng ý 3).
+## 8. Sau giải ngân — hạn 30 ngày (anh chốt 23/10: chỉ lưu ý, không làm cứng)
+- 727: kiểm tra trong 30 ngày sau giải ngân — nhưng **ngày ghi tay trên phiếu lùi lại được**, nên **không thêm cách chọn ngày, không chặn, không kiểm ngày**.
+- Giữ cách chọn tháng như hiện tại (mặc định tháng liền trước, gom nhiều tháng được); in **1 tổ × 1 tháng = 1 phiếu Mẫu 06**.
+- Chỉ thêm **1 dòng nhắc** ở thẻ Sau giải ngân: "Kiểm tra trong 30 ngày kể từ ngày giải ngân (727)".
 
 ## 9. Phối hợp TK 3 → TK 2 (bàn giao)
 **Phân việc**
@@ -200,5 +197,4 @@ ktgs = { …cũ…, khoi:'A'|'B'|'C', A:{thang:'2026-11', the:'dk'|'gn'|'bc'|'kh
 **Sửa QUY_CHUAN mục 1b.2** (anh duyệt): "KTGS chỉ nhận số liệu cuối tháng" → **khối A (bắt buộc) = cuối tháng liền trước; khối B (đột xuất) = Mẫu 31 theo ngày chọn**.
 
 ## 10. Còn cần anh chốt
-1. Mục 8: Sau giải ngân chọn **tháng giải ngân** (mặc định tháng liền trước, cho chọn tháng hiện tại theo Mẫu 31 ngày) + cột hạn + kiểm ngày ≤ 30 ngày — đồng ý?
-2. Bước 0 (làm ngay): **ngày chọn ở ô đầu trang nhớ qua lần mở app** (bỏ luật 3.97 "chỉ giữ trong phiên") — đồng ý?
+1. Bước 0 (làm ngay): **ngày chọn ở ô đầu trang nhớ qua lần mở app** (bỏ luật 3.97 "chỉ giữ trong phiên") — đồng ý?
