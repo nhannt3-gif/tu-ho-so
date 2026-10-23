@@ -42,6 +42,14 @@ const fs=require('fs'), path=require('path');
    ok('hộp Chọn khi in: nhãn "lựa chọn riêng kiểm tra đột xuất", ô Đơn vị / Đoàn, ô khai tên đoàn + họ tên cán bộ, Bảng II có "Chấm ghi tay"', /lựa chọn riêng kiểm tra đột xuất/.test(hop.textContent) && !!document.getElementById('ki-m16-dvc') && !!document.getElementById('ki-m16-dvt') && !!document.getElementById('ki-m16-cb1t') && /Chấm ghi tay \(theo mẫu\)/.test(hop.innerHTML));
    document.getElementById('ki-m16-dvt').value = 'Đoàn Giả Sửa'; ktInDoc(); await w(50);
    ok('sửa ô khai tên → lưu vào dx_m16', D.cauHinh.ktIn.dx_m16.dvt==='Đoàn Giả Sửa');
-   dongHop(); return o; }, files);
+   dongHop();
+   /* 3.324: dòng Khai báo đột xuất trong tab + khai 1 lần cho cả 06 / 16 */
+   D.cauHinh.ktIn = {}; const nav=[...document.querySelectorAll('.nav-i, nav button, aside button, a')].find(x=>/KTGS Hội/.test(x.textContent)); if(nav) nav.click(); await w(1500); K.che = 'dx'; ktChonTo(t.ma); await w(600);
+   ok('tab đột xuất có dòng "🎯 Khai báo đột xuất" + nút Chọn / khai tên', !!document.querySelector('.kt-dx-kb') && /Đơn vị kiểm tra: theo Hội/.test(document.querySelector('.kt-dx-kb').textContent));
+   ktDXKhai(); await w(100); document.getElementById('ki-m06-dvc').value = 'go'; ktInDoc(); await w(50); document.getElementById('ki-m06-dvt').value = 'Đoàn Chung Giả'; ktInDoc(); await w(50);
+   ok('khai đơn vị ở Mẫu 06 → Mẫu 16 nhận theo', D.cauHinh.ktIn.dx_m16.dvc==='go' && D.cauHinh.ktIn.dx_m16.dvt==='Đoàn Chung Giả');
+   dongHop(); await w(300);
+   ok('đóng hộp → dòng tóm tắt cập nhật tên đoàn', /Đoàn Chung Giả/.test((document.querySelector('.kt-dx-kb')||{}).textContent||''));
+   return o; }, files);
  R.forEach(x=>o.push(x)); o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
  console.log(o.join('\n')); console.log(o.filter(x=>x[0]==='✓').length+'/'+o.length+' đạt'); await b.close(); process.exit(o.some(x=>x[0]!=='✓') ? 1 : 0); })();

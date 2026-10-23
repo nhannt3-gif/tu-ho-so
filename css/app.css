@@ -3801,3 +3801,5 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
 .db-to-ds{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 4px}
 .db-to-ds .db-to{font-size:calc(12px*var(--co));padding:2px 8px}
 .db-to-ds .db-to.bat{background:var(--xanh);color:#fff;border-color:transparent}
+/* 3.324: KTGS đột xuất — dòng tóm tắt khai báo trong tab */
+.kt-dx-kb{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0;padding:6px 8px;border:1px dashed var(--vien);border-radius:8px;background:var(--vang-nen)}

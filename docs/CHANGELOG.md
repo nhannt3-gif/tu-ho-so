@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.324 — 23/10/2026 — Khai báo đột xuất hiện ngay trong tab
+- **Anh 23/10**: "lên 3.323 vẫn chưa thấy thay đổi" — lựa chọn 3.323 chỉ hiện trong hộp 🖨 Chọn khi in (bấm In / Word mới thấy).
+- Tab 🎯 Kiểm tra đột xuất có dòng **🎯 Khai báo đột xuất** ngay trên ô Ngày kiểm tra: tóm tắt Đơn vị kiểm tra · Người kiểm tra · Người 2 (Mẫu 16) · Bảng II · Nhận xét đang chọn + nút **✎ Chọn / khai tên** mở hộp chọn cho cả Mẫu 06 và 16 (đóng hộp → dòng tóm tắt cập nhật).
+- **Khai 1 lần cho cả 2 mẫu**: đơn vị kiểm tra (cách + tên đoàn), người kiểm tra 1 (cách + họ tên + chức vụ) sửa ở Mẫu 06 thì Mẫu 16 nhận theo và ngược lại.
+- Hồi quy: theo anh, gom nhiều bản chạy 1 lần (không chạy mỗi bản). Phép thử: t236 thêm 3 (16).
+
 ## 3.323 — 23/10/2026 — Kiểm tra đột xuất: đơn vị, cán bộ kiểm tra, nội dung kiểm tra chọn theo kiểu khai báo riêng
 - **Anh 23/10**: "khi đi kiểm tra đột xuất thì đơn vị kiểm tra có chế độ chấm ghi tay hoặc khai báo tên đoàn kiểm tra trên cả mẫu 06 và mẫu 16, tên cán bộ kiểm tra cũng vậy, phần lấy số liệu ghi sẵn còn các nội dung kiểm tra cho để trống hoặc chấm theo mẫu để ghi tay hoặc ghi đầy đủ như hiện tại, có thể cho chọn giữa các chế độ kiểu khai báo riêng".
 - Hộp **🖨 Chọn khi in** (Mẫu 06 và Mẫu 16, mỗi mẫu 1 phần):

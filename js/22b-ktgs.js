@@ -422,7 +422,7 @@ function ktChonHTML(t){
       (coHS && !dc.some(function(x){ return x.hssv; }) ? ' · <b class="do">tổ có HSSV nhưng chưa chọn món HSSV</b>' : '')+(dc.length>X.so ? ' · <span class="vang">nhiều hơn số gợi ý do món mới dưới 30 ngày / anh chọn thêm</span>' : '')+'</div>'+
     '<div class="kt-loc"><button class="to-loc'+(KT_LOC==='goi' ? ' bat' : '')+'" onclick="KT_LOC=\'goi\';ktVeThe()">Đã chọn <b>'+dc.length+'</b></button><button class="to-loc'+(KT_LOC==='tat' ? ' bat' : '')+'" onclick="KT_LOC=\'tat\';ktVeThe()">Tất cả hộ còn dư nợ <b>'+X.ds.length+'</b></button></div>'+
     '<div class="to-bang-cuon"><table class="to-bang kt-bang">'+KT_HO_TH+'<tbody>'+(h || '<tr><td colspan="8" class="rong">Chưa chọn hộ nào — bấm “Tất cả hộ còn dư nợ” để tích.</td></tr>')+'</tbody></table></div>'+
-    ktKBKhung('dx', ktHoiDsXa((function(){ var x = {}; x[t.xa] = 1; return x; })()))+
+    ktKBKhung('dx', ktHoiDsXa((function(){ var x = {}; x[t.xa] = 1; return x; })()))+ktDXTom(t)+
     '<div class="hang-nut kt-in"><label class="kt-ngay-in"><span>Ngày kiểm tra</span><input id="kb-ngay" type="date" value="'+coChuHTML(KT_KB.ngay||'')+'" onchange="ktDocKB()" aria-label="Ngày kiểm tra"></label>'+   /* 3.114: ngày kiểm tra cạnh nút In (trống = ghi tay) */
     '<span class="sl-phu">📄 Mẫu 06 · Phiếu KT sử dụng vốn:</span>'+ktXuatNut('m06')+'<span class="sl-phu">📄 Mẫu 16 · Biên bản KT tổ:</span>'+ktXuatNut('m16')+'</div>'+
     '<p class="ghi">Hộ tốt = có món giải ngân trong 12 tháng, số dư 105 tăng so với tháng trước (chưa nạp tháng trước thì xét có 105), không lãi tồn, không món KHĐ. Cần quan tâm = món không giao dịch ≥ 3 tháng (file mẫu 14; chưa nạp thì xét ngày GD gần nhất), lãi tồn, không gửi TK đều. '+
@@ -502,10 +502,23 @@ function ktInPhan(mau, hoi){
     (o.ng2==='go' && mau!=='m04' ? go('cb2t', 'Họ tên 2', 'trống = dòng chấm')+go('cv2t', 'Chức vụ 2', 'trống = dòng chấm') : '');
   return h+'</div>';
 }
+/* 3.324 (anh 23/10 "lên 3.323 vẫn chưa thấy thay đổi"): lựa chọn đột xuất hiện ngay trong tab — dòng tóm tắt + nút mở khai báo (không cần bấm In mới thấy) */
+function ktDXTom(t){
+  if(typeof ktCheDo==='function' && ktCheDo()!=='dx') return '';
+  var a = ktInLay('m06'), b = ktInLay('m16'), VT = {}; KT_IN_VT.forEach(function(x){ VT[x[0]] = x[1]; });
+  var dv = function(x){ return x.dvc==='go' ? '<b>'+coChuHTML(x.dvt || '(chưa gõ tên)')+'</b>' : x.dvc==='cham' ? 'để chấm ghi tay' : 'theo Hội'; };
+  var ng = function(x, k, ten){ var v = x[k]; return v==='go' ? '<b>'+coChuHTML(x[ten] || '(chưa gõ tên)')+'</b>' : v ? coChuHTML(VT[v] || v) : 'để trống'; };
+  var b2 = {'':'để trống', cham:'chấm ghi tay', dien:'điền đầy đủ'}[b.b2 || ''] || 'để trống';
+  return '<div class="kt-dx-kb"><span class="kt-nh vang">🎯 Khai báo đột xuất</span> <small>Đơn vị kiểm tra: '+dv(a)+(a.dvc!==b.dvc || a.dvt!==b.dvt ? ' (Mẫu 16: '+dv(b)+')' : '')+
+    ' · Người kiểm tra: '+ng(a, 'ng1', 'cb1t')+(b.ng2 ? ' · Người 2 (Mẫu 16): '+ng(b, 'ng2', 'cb2t') : '')+' · Bảng II Mẫu 16: '+b2+' · Nhận xét: '+(b.nx==='so' ? 'gợi ý theo số liệu' : 'chấm ghi tay')+'</small> '+
+    '<button class="nho" onclick="ktDXKhai()">✎ Chọn / khai tên</button></div>';
+}
+function ktDXKhai(){ var C = ktCH(), t = KT_K && KT_K.to[C.to]; ktInHop(['m06', 'm16'], '', ktHoiCuaTo(t ? [t] : []), 1); }
 function ktInNut(inJs, wordJs){ return '<button class="nho" onclick="'+inJs+'">🖨 In / PDF</button><button class="nho chinh" onclick="'+wordJs+'">📄 Word</button>'; }
 function ktInNutXem(js){ return '<button class="nho chinh" onclick="'+js+'">👁 Xem trước</button>'; }
-function ktInHop(ds, nut, hoi){
-  KT_IN_X = {ds:ds, nut:nut, hoi:hoi || ktHoiDs()};
+function ktInHop(ds, nut, hoi, veThe){
+  KT_IN_X = {ds:ds, nut:nut, hoi:hoi || ktHoiDs(), veThe:veThe || (KT_IN_X && KT_IN_X.veThe && KT_IN_X.ds===ds ? 1 : 0)};
+  KT_IN_X.cu = {}; ds.forEach(function(m){ KT_IN_X.cu[ktInKhoa(m)] = JSON.parse(JSON.stringify(ktInLay(m))); });   /* giá trị trước khi sửa — biết ô nào vừa đổi */
   var L = D.cauHinh.ktKBLuu || {}, co0616 = ds.indexOf('m06')>=0 || ds.indexOf('m16')>=0, mo = KT_IN_X.mo ? ' open' : '';
   var o = function(k, nhan, ph){ return '<label class="kt-kb"><span>'+nhan+'</span><input id="ki-'+k+'" value="'+coChuHTML(L[k]||'')+'" placeholder="'+coChuHTML(ph)+'" onchange="ktInDoc()"></label>'; };
   moHop('<div class="hop-tit">🖨 Chọn khi in</div><div class="hop-phu">Tên người kiểm tra / người ký lấy theo 🏛 Khai báo Hội đoàn thể của Hội phụ trách từng tổ. App nhớ lựa chọn cho lần sau.</div>'+
@@ -513,11 +526,15 @@ function ktInHop(ds, nut, hoi){
     (co0616 && ds.indexOf('m06')>=0 ? '<details class="kt-in-khac"'+mo+' ontoggle="if(KT_IN_X)KT_IN_X.mo=this.open"><summary>Tùy chọn khác</summary>'+o('cb2', 'Mẫu 06 — Ông (bà) 2, gõ tay', 'thường để trống')+o('cv2', 'Chức vụ 2', 'trống = dòng chấm')+'</details>' : '')+
     '<label class="kt-hai-mat"><input type="checkbox"'+(ktHaiMat() ? ' checked' : '')+' onchange="D.cauHinh.ktHaiMat=this.checked?1:0;luu()"> In 2 mặt — xuất nhiều tổ / nhiều bản: mỗi bản bắt đầu tờ mới (bản lẻ trang tự thêm 1 trang trắng; Word chắc chắn, In từ trình duyệt là ước lượng)</label>'+   /* 3.124 */
     '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button>'+(ds.some(function(m){ return m!=='kh'; }) ? '<button class="nho" onclick="ktInDayDu()" title="In sẵn mục đích, gợi ý nhận xét, Bảng II theo 727">✚ Điền đầy đủ</button>' : '')+(nut||'')+'</div>', true);
+  if(KT_IN_X.veThe) HOP_KHI_DONG = function(){ if(typeof ktVeThe==='function' && KT_K) ktVeThe(); };   /* 3.324: mở từ dòng Khai báo đột xuất → đóng hộp thì vẽ lại tóm tắt */
 }
 function ktInDoc(){   /* đọc hộp chọn → lưu (đồng bộ Drive theo cài đặt) → vẽ lại dòng nhắc */
   if(!KT_IN_X) return; var S = D.cauHinh.ktIn = D.cauHinh.ktIn || {};
   KT_IN_X.ds.forEach(function(m){ var km = ktInKhoa(m), X = S[km] = S[km] || (km!==m ? JSON.parse(JSON.stringify(ktInLay(m))) : {});   /* 3.323: đột xuất lưu riêng (lần đầu chép từ chung) */
     Object.keys(KT_IN_MD[m]).forEach(function(k){ var e = document.getElementById('ki-'+m+'-'+k); if(e) X[k] = e.tagName==='INPUT' ? String(e.value||'').replace(/\s+/g, ' ').trim() : e.value; }); });
+  var CHUNG = ['dvc', 'dvt', 'ng1', 'cb1t', 'cv1t'], a6 = ktInKhoa('m06'), a16 = ktInKhoa('m16'), cu = KT_IN_X.cu || {};   /* 3.324: đơn vị + cán bộ 1 khai ở mẫu nào thì mẫu kia nhận theo */
+  if(KT_IN_X.ds.indexOf('m06')>=0 && KT_IN_X.ds.indexOf('m16')>=0) CHUNG.forEach(function(k){ var x = (S[a6]||{})[k], y = (S[a16]||{})[k];
+    if(x===y) return; if(x!==(cu[a6]||{})[k]) (S[a16] = S[a16] || {})[k] = x; else if(y!==(cu[a16]||{})[k]) (S[a6] = S[a6] || {})[k] = y; });
   var L = D.cauHinh.ktKBLuu = D.cauHinh.ktKBLuu || {};
   ['cb2','cv2'].forEach(function(k){ var e = document.getElementById('ki-'+k); if(e){ var v = String(e.value||'').replace(/\s+/g, ' ').trim(); if(v) L[k] = v; else delete L[k]; KT_KB[k] = v; } });
   luu(); ktInHop(KT_IN_X.ds, KT_IN_X.nut, KT_IN_X.hoi);
