@@ -1,67 +1,170 @@
-# Kế hoạch gọn tab KTGS Hội (chờ anh duyệt — chưa làm)
+# Kế hoạch gọn tab KTGS Hội — bản 2 (chờ anh duyệt — chưa làm)
 
-> Anh 23/10/2026: "rà soát lại tổng thể tab KTGS, chia 2 phần: (1) kiểm tra theo KH định kỳ + kiểm tra sau 30 ngày (bắt buộc cố định Hội phải làm) lấy số liệu theo **tháng liền trước**; (2) kiểm tra đột xuất lấy số liệu theo **ngày chọn**; rà logic khai báo, mẫu biểu, phần nào trùng lắp bỏ, bố trí lại cho gọn đơn giản; phải báo plan trước; tuyệt đối không làm mất / hư KTGS đang có — dù hơi rối nhưng số liệu đúng."
+> Anh 23/10/2026: chia 2 phần — (1) **bắt buộc**: kiểm tra định kỳ theo Kế hoạch + kiểm tra sau giải ngân 30 ngày, số liệu **tháng liền trước**; (2) **đột xuất**, số liệu **ngày chọn**. Rà khai báo, mẫu biểu, bỏ trùng, bố cục gọn.
+> "Lên plan từ bố cục giao diện đến cấu trúc dữ liệu, theo hướng **khai báo tùy biến tối đa**." Tuyệt đối không làm mất / hư KTGS đang có (số liệu đang đúng).
 
-## 1. Hiện trạng (rà 3.325)
+---
 
-**6 chip ngang ở đầu tab:** 🏛 Khai báo Hội đoàn thể · 🎯 Kiểm tra đột xuất · 📅 Sau giải ngân (30 ngày) · Mẫu 06 · 🗓 Định kỳ · Mẫu 06 + 16 · 📋 Báo cáo tổng hợp · Mẫu 04 · 🗓 Kế hoạch năm · 01/KH.
+## 1. Hiện trạng (rà 3.325) — tóm tắt
 
-| Chế độ | Số liệu lấy theo | Mẫu in | Chọn tổ / hộ |
-|---|---|---|---|
-| 🎯 Đột xuất | ô Kỳ / ngày đầu trang (đã theo ngày chọn — 3.325) | 06, 16 | 1 tổ, gợi ý 6–8 hộ |
-| 📅 Sau giải ngân | **ô riêng "từ tháng → đến tháng"** (Mẫu 31 tháng đó, chưa chốt thì Mẫu 31 ngày mới nhất) | 06 | nhiều tổ, món GN trong tháng |
-| 🗓 Định kỳ | ô Kỳ đầu trang **phải là tháng** (chọn ngày → báo lỗi), tháng KT = tháng sau | 06 + 16 | nhiều tổ, gợi ý theo Kế hoạch |
-| 📋 Mẫu 04 | ô Kỳ đầu trang; ngày từng tổ tự gõ | 04 | xã / hội → tích tổ theo ấp |
-| 🗓 Kế hoạch 01/KH | năm riêng | 01/KH, + Mẫu 04 theo tháng, + chip "in theo tháng kiểm tra" (06 + 16) | lịch tổ × tháng |
+- **6 chip ngang**: 🏛 Khai báo Hội đoàn thể · 🎯 Đột xuất · 📅 Sau giải ngân · 🗓 Định kỳ · 📋 Mẫu 04 · 🗓 Kế hoạch 01/KH.
+- **Tháng / ngày số liệu chọn 4 kiểu**: đột xuất = ô đầu trang (ngày) · sau GN = ô "từ → đến tháng" riêng · định kỳ = ô đầu trang nhưng bắt buộc là tháng · Kế hoạch = bấm tháng.
+- **Trùng lối**: Định kỳ (chip + Kế hoạch › in theo tháng) · Mẫu 04 (chip + Kế hoạch › chọn tháng).
+- **Khai báo rải 6 nơi** (dữ liệu đang lưu trong `D.cauHinh`):
 
-**Khai báo đang nằm ở 6 chỗ:**
-1. 🏛 Khai báo Hội đoàn thể (lãnh đạo Hội – xã, HĐUT, KH Hội tỉnh) · Chuẩn hóa tên Hội · Thông báo phân công BTV — **giữ, là gốc**.
-2. Hộp 🖨 Chọn khi in — mỗi mẫu 1 phần (mục đích, nhận xét, Bảng II, người kiểm tra, đơn vị — 3.323) — **giữ**.
-3. "Tùy chọn khác" trong hộp in: Ông (bà) 2 + Chức vụ 2 gõ tay (Mẫu 06) — trùng với "Người kiểm tra 2 → Khai báo tên" của 3.323.
-4. Giá trị cũ trước 3.114 (`ktKBLuu.dv / cbtu / cb2 / cv2`, `ktNhanXet`, `ktMucDich`, `ktBang16`) — đọc làm mặc định, không còn ô sửa riêng.
-5. Ô "Ngày kiểm tra" — mỗi màn 1 ô riêng (đột xuất / định kỳ / Mẫu 04 từng tổ).
-6. 🎯 Khai báo đột xuất (3.324) — dòng tóm tắt + nút mở hộp in.
+| Khóa | Nội dung | Ghi chú |
+|---|---|---|
+| `ktHoiKB['xã\|hội']` | tên Hội cấp xã, CT, PCT, 5 UV BTV, HĐUT, KH Hội tỉnh | gốc — giữ |
+| `ktChuan[mã hội]` | tên chuẩn Hội, chữ đặc thù, KH Hội tỉnh chung | giữ |
+| `ktPC['xã\|hội']` | thông báo phân công BTV | giữ |
+| `ktKH['năm\|xã\|hội']` | lịch kiểm tra năm (tổ → tháng) | giữ |
+| `ktApThu[xã]` | thứ tự ấp trong kế hoạch | giữ |
+| `ktIn[mẫu]`, `ktIn['dx_'+mẫu]` | lựa chọn khi in (mục đích, nhận xét, Bảng II, người KT, đơn vị…) | chuyển vào Bộ khai báo |
+| `ktKBLuu` (dv, cbtu, cb2, cv2) · `ktNhanXet` · `ktMucDich` · `ktBang16` | lựa chọn cũ trước 3.114 | chuyển vào Bộ khai báo |
+| `ktKN04` | kiến nghị Mẫu 04 bật / chữ | chuyển vào Bộ khai báo (mẫu 04) |
+| `ktPnkt` | bảng ngành kinh tế rút gọn | giữ |
+| `ktHaiMat` | in 2 mặt | chuyển vào Bộ khai báo (chung) |
+| `ktgs` | trạng thái tab (che, ky, gnTu/gnDen, khNam, hdtTab…) | mở rộng |
 
-**Trùng lắp / rối:**
-- **Định kỳ có 2 lối**: chip 🗓 Định kỳ (chọn tự do) và Kế hoạch › bấm tháng › in 06 + 16 (3.140) — cùng làm 1 việc.
-- **Mẫu 04 có 2 lối**: chip 📋 Báo cáo tổng hợp và Kế hoạch › chọn tháng › Mẫu 04.
-- **Tháng kiểm tra chọn 3 kiểu khác nhau**: Sau giải ngân (ô từ–đến tháng riêng), Định kỳ (suy từ ô Kỳ đầu trang, phải đúng tháng), Kế hoạch (bấm tháng). Anh phải nhớ phần nào chọn ở đâu.
-- Phần "bắt buộc" (định kỳ + sau GN) nằm lẫn với đột xuất và khai báo trên cùng 1 hàng chip.
+---
 
-## 2. Bố cục đề xuất — 3 khối thay 6 chip
+## 2. Bố cục giao diện mới
+
+### 2.1 Thanh trên cùng tab — 3 khối (thay 6 chip)
 
 ```
-[ 📅 Kiểm tra bắt buộc (theo tháng) ]  [ 🎯 Kiểm tra đột xuất (theo ngày) ]  [ ⚙ Khai báo ]
+┌───────────────────────────────────────────────────────────────────────────────┐
+│ [📅 Bắt buộc · theo tháng]   [🎯 Đột xuất · theo ngày]   [⚙ Khai báo]           │
+└───────────────────────────────────────────────────────────────────────────────┘
+(cây Xã › Điểm GD › Hội › Tổ dùng chung như hiện tại)
 ```
 
-**A. 📅 Kiểm tra bắt buộc — Hội phải làm, số liệu THÁNG LIỀN TRƯỚC**
-- 1 ô **Tháng kiểm tra** (vd 11/2026) → app tự lấy **Mẫu 31 chốt cuối tháng trước** (31/10) + BC0437 tháng trước; không phụ thuộc ô Kỳ đầu trang (đổi ô đầu trang không làm lệch). Tháng trước chưa có bản chốt → dùng Mẫu 31 ngày mới nhất của tháng đó và ghi rõ (như Sau giải ngân đang làm).
-- 3 thẻ con dùng chung ô tháng đó:
-  1. **🗓 Định kỳ theo kế hoạch** (Mẫu 06 + 16) — tổ có lịch tháng đó tích sẵn, thêm tổ ngoài lịch như cũ (gộp chip Định kỳ + "in theo tháng" trong Kế hoạch thành 1).
-  2. **📅 Sau giải ngân 30 ngày** (Mẫu 06) — món giải ngân trong tháng trước (mặc định 1 tháng; vẫn mở "từ tháng → đến tháng" khi cần gom).
-  3. **📋 Báo cáo Mẫu 04** — tổ đã kiểm tra trong tháng (gộp chip 📋 + Mẫu 04 trong Kế hoạch thành 1).
-- **🗓 Kế hoạch năm 01/KH** chuyển thành nút trong khối A (lập lịch năm), không còn là chế độ ngang hàng.
+### 2.2 Khối A — 📅 Bắt buộc (Hội phải làm), số liệu THÁNG LIỀN TRƯỚC
 
-**B. 🎯 Kiểm tra đột xuất — số liệu NGÀY CHỌN** (ô Kỳ / ngày đầu trang): giữ nguyên như 3.325 (1 tổ, gợi ý hộ, 06 + 16, khai báo đột xuất riêng).
+```
+Tháng kiểm tra [◀ 11/2026 ▶]   Số liệu: Mẫu 31 chốt 31/10/2026 ✓ · BC0437 T10 ✓   Bộ khai báo: [Hội tự kiểm tra ▾] ✎
+┌ thẻ con ─────────────────────────────────────────────────────────────────────┐
+│ [🗓 Định kỳ theo kế hoạch · 12 tổ] [📅 Sau giải ngân · 5 món] [📋 Mẫu 04] [🗓 Lịch năm 01/KH] │
+└──────────────────────────────────────────────────────────────────────────────┘
+(nội dung thẻ: bảng tổ / món như hiện tại — tích, In / Word)
+```
+- **Tháng kiểm tra** là ô DUY NHẤT của khối A; app tự lấy Mẫu 31 chốt cuối tháng trước + BC0437 tháng trước. Ô Kỳ đầu trang KHÔNG ảnh hưởng khối A. Tháng trước chưa có bản chốt → Mẫu 31 ngày mới nhất của tháng đó + ghi rõ ⚠.
+- **Định kỳ**: tổ có lịch tháng đó (từ Lịch năm) tích sẵn; thêm tổ ngoài lịch như cũ. Gộp chip Định kỳ + "Kế hoạch › in theo tháng".
+- **Sau giải ngân**: mặc định món giải ngân trong tháng trước; nút "gom nhiều tháng" mở từ → đến (như cũ).
+- **Mẫu 04**: tổ đã kiểm tra tháng đó (định kỳ) tích sẵn; gộp chip 📋 + "Kế hoạch › Mẫu 04".
+- **Lịch năm 01/KH**: lập / sửa lịch, in Kế hoạch — như hiện tại, chỉ chuyển vào đây.
 
-**C. ⚙ Khai báo** — 1 nơi: Hội đoàn thể (lãnh đạo) · Chuẩn hóa · Thông báo phân công BTV · **Lựa chọn in mặc định của khối A** (đơn vị, người kiểm tra, mục đích, nhận xét, Bảng II) · Bảng ngành kinh tế. Khối B giữ lựa chọn riêng (3.323).
+### 2.3 Khối B — 🎯 Đột xuất, số liệu NGÀY CHỌN (ô Kỳ đầu trang)
 
-**Bỏ / gộp:**
-- Bỏ "Tùy chọn khác › Ông (bà) 2 gõ tay" → dùng "Người kiểm tra 2 → Khai báo tên" (chuyển giá trị cũ tự động).
-- Giá trị cũ trước 3.114 chuyển hẳn vào lựa chọn in (đọc 1 lần, không xóa bản cũ).
-- Ô "Ngày kiểm tra": khối A mặc định "…… tháng mm năm yyyy" (ngày chấm), khối B mặc định chấm hết (như 3.325).
+```
+Số liệu: Mẫu 31 ngày 19/10/2026 (ô đầu trang)   Bộ khai báo: [Đoàn NHCSXH ▾] ✎   Ngày kiểm tra [__/__/____]
+Tổ … → gợi ý hộ (tốt / cần quan tâm / trung hòa) → [In / Word Mẫu 06] [Mẫu 16] [Mẫu 04]
+```
+- Giữ nguyên logic 3.325; thêm nút Mẫu 04 (nếu anh chốt).
+- **Ngày chọn phải nhớ qua lần mở app** (anh 23/10 thử 3.325: "vẫn ghi số liệu đến 30/9" — nguyên nhân: luật 3.97 "kỳ theo ngày chỉ giữ trong lần mở app", Ctrl+F5 xong ô đầu trang tự về tháng chốt T9). Khối A đã có ô tháng riêng nên ô đầu trang được nhớ ngày; hoặc khối B có ô ngày riêng (nhớ lâu).
 
-## 3. An toàn — không mất, không hư cái đang đúng
-- **Không đổi hàm tính số liệu / dựng mẫu**: `ktGiaTri06`, `ktGiaTri16`, `ktBC04`, `ktKHGiaTri`, `ktDKHo`, `ktGN…`, `ktHTML06/16/04/01`, khuôn Word — chỉ đổi màn chọn, điều hướng, nơi lấy tháng.
-- **Không xóa dữ liệu đã lưu**: `ktKH` (lịch năm), `ktHoiKB`, `ktChuan`, `ktIn`, `ktKBLuu`… — đọc bản cũ, chép sang chỗ mới, giữ bản cũ.
-- Chuẩn khóa kt_06 / kt_16 / kt_04 / kt_kh (t179) + phép thử KTGS t106–t150, t197, t236 phải đạt ở mỗi bước; thêm phép thử: định kỳ / sau GN / Mẫu 04 chọn tháng 11 → số liệu đúng Mẫu 31 chốt 31/10 dù ô đầu trang đang chọn ngày khác.
-- Làm **4 bước, mỗi bước 1 bản gộp riêng**, anh thử xong mới sang bước sau:
-  1. Khối A: ô Tháng kiểm tra + lấy số liệu tháng trước cho Định kỳ, Sau GN, Mẫu 04 (màn cũ giữ nguyên, chỉ đổi nguồn tháng).
-  2. Thanh 3 khối A / B / C; chip cũ chuyển vào đúng khối (vẫn đủ chức năng).
-  3. Gộp 2 lối Định kỳ và 2 lối Mẫu 04; Kế hoạch năm thành nút trong khối A.
-  4. Dọn khai báo trùng (Ông bà 2, giá trị cũ) + gom vào ⚙ Khai báo.
+### 2.4 Khối C — ⚙ Khai báo (1 nơi cho tất cả)
 
-## 4. Cần anh chốt
-1. Sau giải ngân: mặc định **chỉ tháng liền trước** (1 tháng) — vẫn cho mở từ–đến khi cần gom nhiều tháng? (em đề xuất: có)
-2. Mẫu 04 thuộc khối A (theo tháng). Đột xuất có cần lập Mẫu 04 không? (727: Mẫu 04 khi kiểm tra hoạt động Tổ — đột xuất có Mẫu 16 nên em đề xuất: có nút Mẫu 04 trong khối B, dùng chung khuôn)
-3. Thứ tự 4 bước như trên, hay làm 1 lần rồi anh thử?
+Tab nhỏ: **🏛 Hội đoàn thể** (như cũ) · **🧩 Bộ khai báo mẫu** (mới) · **📖 Chuẩn hóa** · **📄 Phân công BTV** · **🏷 Ngành kinh tế** · **↕ Thứ tự ấp**.
+
+**🧩 Bộ khai báo mẫu** — khai báo tùy biến tối đa:
+```
+Bộ: [Hội tự kiểm tra ▾] [+ Tạo bộ] [⧉ Nhân bản] [✎ Đổi tên] [🗑]     Dùng mặc định cho: ☑ Khối A  ☐ Khối B
+Mẫu: [06] [16] [04] [01/KH]          Xem: [Bản điền thử ▾]
+┌ danh sách ô (trái) ──────────────────────┐ ┌ xem trước mẫu (phải) — bấm vào ô trên mẫu để chọn ┐
+│ Phần đầu                                 │ │                                                    │
+│  Đơn vị kiểm tra   🤖 Hội | ✍ | ⌨ [....] │ │   (trang Mẫu 06 / 16 / 04 thu nhỏ, ô đang chọn    │
+│  Đoàn kiểm tra     🤖 Hội | ✍ | ⌨ [....] │ │    viền đỏ, màu theo cách: 🤖 xanh, ⌨ vàng, ✍ xám) │
+│ Cán bộ kiểm tra                          │ │                                                    │
+│  Người 1  🤖 vai trò [PCT▾] | ✍ | ⌨ tên + chức vụ │                                            │
+│  Người 2  … (như trên)                   │ │                                                    │
+│ Ngày / thời điểm                         │ │                                                    │
+│  Ngày kiểm tra   ✍ | 🗓 tháng KT | ⌨ ngày │ │                                                    │
+│ Số liệu (luôn 🤖, có thể ✍ để trống)     │ │                                                    │
+│ Nội dung kiểm tra                        │ │                                                    │
+│  Mục đích (06)   ✍ | 🤖 ngành KT          │ │                                                    │
+│  Bảng II 14 ô (16) — mỗi ô: ✍ chấm | ☐ trống | 🤖 727 | ⌨ chữ riêng │                        │
+│  Nhận xét / tồn tại / kiến nghị  ✍ | 🤖 gợi ý | ⌨ chữ cố định │                               │
+│ Chung: in 2 mặt ☑, cỡ chữ …              │ │                                                    │
+└──────────────────────────────────────────┘ └────────────────────────────────────────────────────┘
+```
+- **Mỗi ô trên mẫu = 1 dòng khai báo** với 4 cách: 🤖 tự động (số liệu / khai báo Hội) · ✍ chấm ghi tay · ☐ để trống · ⌨ gõ chữ riêng (nhớ trong bộ). Ô số liệu chỉ 🤖 / ✍.
+- **Nhiều bộ khai báo có tên** (vd "Hội tự kiểm tra", "Đoàn NHCSXH đột xuất", "Đoàn huyện") — tạo, nhân bản, đổi tên, xóa; chọn bộ mặc định cho khối A, khối B; khi In vẫn đổi bộ được cho lần in đó.
+- Hộp 🖨 Chọn khi in hiện tại → gọn thành: **Bộ khai báo [▾] · ✎ sửa nhanh vài ô hay dùng (Chọn nhanh) · Ngày kiểm tra · In / Word**.
+
+---
+
+## 3. Cấu trúc dữ liệu mới
+
+### 3.1 Sổ ô mẫu (trong code, không lưu) — `KT_O[mẫu]`
+```js
+KT_O.m06 = [
+  {k:'dv',  ten:'Đơn vị kiểm tra', phan:'dau',   cach:['tu','cham','go'], md:'tu', tu:'hoi'},
+  {k:'ng1', ten:'Người kiểm tra',  phan:'canbo', cach:['tu','cham','go'], md:'tu', tu:'vaitro', vt:'pct'},
+  {k:'ngay',ten:'Ngày kiểm tra',   phan:'ngay',  cach:['cham','thang','go'], md:'cham'},
+  {k:'md',  ten:'Cột Mục đích',    phan:'noidung', cach:['cham','tu'], md:'cham', tu:'nganh'},
+  {k:'so',  ten:'Số liệu hộ / món',phan:'so',    cach:['tu','cham'], md:'tu'},
+  …]
+KT_O.m16 = [ dv, doan, ng1, ng2, ngay, so (mục I), xl (chấm điểm), b2_01 … b2_14, kq1, kq2, ud, tt, kn, sph … ]
+KT_O.m04 = [ dv, doan, ng1, ng2, ngay, kn04_* … ]
+KT_O.kh  = [ ky (người ký), hdut, khTinh, doan … ]
+```
+→ 1 chỗ khai mọi ô; giao diện khai báo, hộp in, Word đều đọc từ đây (QUY_CHUAN mục 9 — cùng cách nền ô Hồ sơ vay).
+
+### 3.2 Dữ liệu lưu — `D.cauHinh.ktBo` (mới, đồng bộ Drive cùng cài đặt)
+```js
+ktBo = {
+  ban: 1,
+  ds: {
+    'b1': {ten:'Hội tự kiểm tra', tao:'2026-10-23', chung:{haiMat:1},
+           mau:{ m06:{ dv:{c:'tu'}, ng1:{c:'tu', vt:'pct'}, md:{c:'cham'} },
+                 m16:{ dv:{c:'tu'}, b2_01:{c:'tu'}, …, ud:{c:'tu'} },
+                 m04:{…}, kh:{ky:{c:'tu', vt:'ct'}} }},
+    'b2': {ten:'Đoàn NHCSXH đột xuất', mau:{ m06:{ dv:{c:'go', v:'Đoàn kiểm tra NHCSXH PGD …'}, ng1:{c:'go', ten:'…', cv:'…'} }, … }}
+  },
+  macDinh: {A:'b1', B:'b2'},
+  nhanh: {m06:['dv','ng1','md'], m16:['dv','ng1','ng2','b2','ud']}   // ô hiện ở "sửa nhanh"
+}
+```
+- Ô không có trong bộ → dùng `md` của sổ ô (mặc định an toàn).
+- Hàm đọc duy nhất: `ktBoGT(mẫu, ô, khối) → {c, v, …}`; `ktInV(mẫu)` hiện tại được viết lại để trả đúng object `v` cũ từ bộ → **các hàm dựng mẫu (`ktGiaTri06/16`, `ktBC04`, `ktKHGiaTri`) không phải sửa**.
+
+### 3.3 Trạng thái tab — `D.cauHinh.ktgs` (mở rộng, giữ khóa cũ)
+```js
+ktgs = { …cũ…, khoi:'A'|'B'|'C', A:{thang:'2026-11', the:'dk'|'gn'|'bc'|'kh', gom:{tu, den}}, C:{tab:'hoi'|'bo'|'chuan'|'pc'|'nganh'|'ap'} }
+```
+- `che` cũ → `khoi` + `A.the` (dx → B; gn / dk / bc / kh → A; hdt → C).
+
+### 3.4 Chuyển dữ liệu cũ (1 lần, không xóa bản cũ)
+- Bộ **"Mặc định (từ bản cũ)"** = `ktIn[m06/m16/m04/kh]` + `ktKBLuu` + `ktNhanXet / ktMucDich / ktBang16` + `ktKN04` + `ktHaiMat` → dùng cho khối A.
+- Bộ **"Đột xuất (từ bản cũ)"** = `ktIn['dx_'+mẫu]` (nếu có) → khối B.
+- Ghi `ktBo.ban = 1`; khóa cũ GIỮ NGUYÊN (quay lại bản trước vẫn chạy).
+
+---
+
+## 4. Tách lớp (QUY_CHUAN mục 1 – 2)
+- **Dữ liệu**: `ktSoTo(t, ky)`, `ktHo(t, ky)`, Sau GN / Định kỳ nhận **kỳ truyền vào** (khối A = Mẫu 31 chốt tháng trước, khối B = kỳ chung) thay vì đọc `KT_K` ngầm — dựng `KT_K` theo đúng kỳ của khối đang mở.
+- **Nghiệp vụ**: gợi ý hộ, 90% định kỳ, món 30 ngày — giữ nguyên hàm.
+- **Giao diện**: file mới `js/55-ktgs-khung.js` (thanh 3 khối, khối A / B), `js/56-ktgs-bo.js` (sổ ô `KT_O`, `ktBo`, màn Bộ khai báo, chuyển dữ liệu cũ). File cũ 22b–22e chỉ gọi sang, không xóa hàm đang dùng.
+
+---
+
+## 5. An toàn
+- Không sửa hàm tính số liệu / dựng mẫu / khuôn Word; chỉ thay **nơi lấy kỳ** và **nơi lấy lựa chọn in**.
+- Chuẩn khóa kt_06 / kt_16 / kt_04 / kt_kh (t179) + t106–t150, t181, t197, t236 phải đạt mỗi bước; thêm: bộ "Mặc định (từ bản cũ)" in ra **trùng từng ký tự** bản 3.325 với cùng lựa chọn; khối A tháng 11 → số liệu đúng Mẫu 31 chốt 31/10 dù ô đầu trang chọn ngày khác.
+- Mỗi bước 1 bản gộp riêng, anh thử xong mới làm bước sau; hồi quy đủ gom cuối bước 3 và bước 5.
+
+## 6. Các bước
+1. **Dữ liệu**: `ktBo` + sổ ô `KT_O` (06, 16) + chuyển dữ liệu cũ + `ktInV` đọc từ bộ (giao diện chưa đổi; in ra trùng 3.325).
+2. **Khối A số liệu tháng trước**: ô Tháng kiểm tra; Định kỳ / Sau GN / Mẫu 04 lấy Mẫu 31 chốt tháng trước (màn cũ giữ).
+3. **Thanh 3 khối** + chuyển chip cũ vào khối; gộp 2 lối Định kỳ, 2 lối Mẫu 04; Lịch năm thành thẻ trong khối A.
+4. **🧩 Bộ khai báo mẫu** (màn khai báo trực quan: danh sách ô + xem trước bấm ô) cho 06, 16; hộp in gọn (chọn bộ + sửa nhanh).
+5. Mở rộng sổ ô cho Mẫu 04, 01/KH; dọn khai báo trùng (Ông bà 2 gõ tay, ô cũ).
+
+## 7. Cần anh chốt
+1. **Nhiều bộ khai báo có tên** (tạo / nhân bản / chọn mặc định cho khối A, B) — hay chỉ 2 bộ cố định (A, B)? Em đề xuất nhiều bộ.
+2. Bảng II Mẫu 16: khai **từng ô** (14 ô, mỗi ô chọn cách + chữ riêng) hay **cả bảng 1 cách**? Em đề xuất từng ô (mặc định cả bảng 1 cách, bấm "chi tiết" mới hiện 14 ô).
+3. Sau giải ngân mặc định 1 tháng liền trước, vẫn cho gom nhiều tháng? (em đề xuất: có)
+4. Đột xuất có nút Mẫu 04? (em đề xuất: có)
+5. Thứ tự 5 bước như mục 6?
+6. Ngày chọn ở ô đầu trang **nhớ qua lần mở app** (bỏ luật 3.97 "ngày chỉ giữ trong phiên") — làm ngay trước bước 1? (em đề xuất: có, vì khối A sẽ có ô tháng riêng)
