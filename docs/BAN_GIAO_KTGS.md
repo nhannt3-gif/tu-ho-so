@@ -3,7 +3,7 @@
 > Anh Nhân 23/10/2026: "em cứ làm theo kế hoạch, xong bàn giao đầy đủ cho TK 2 làm tiếp". Kế hoạch gốc: `docs/KE_HOACH_KTGS_GON.md` (mục 11 = tiến độ từng bước).
 > Từ bản bàn giao này **khóa file KTGS (CLAUDE.md dòng 23/10) được mở** — TK 2 sửa được `js/22b…22e`, `js/56-ktgs-bo.js` và phép thử KTGS, theo các luật dưới đây.
 
-**Trạng thái: ĐANG LÀM (TK 3 cập nhật dần đến bước 5).**
+**Trạng thái: ĐÃ BÀN GIAO — 24/10/2026, bản 3.331** (TK 3 xong bước 0–5; hồi quy đủ chạy trên 3.330 — kết quả mục 7).
 
 ## 1. Sơ đồ tab KTGS sau tinh chỉnh
 
@@ -45,8 +45,37 @@ Bảng II Mẫu 16: `b2` cả bảng (`''` trống · `cham` · `dien` 727) + `b
 
 Khối B (đột xuất) dùng `KT_K` = kỳ chung (`veKTGS` → `toNap(C.ky)`). Sau giải ngân: `ktGNNap` đọc `slBo(tháng)` từng tháng GN.
 
-**Chỗ còn đọc thẳng biến số liệu (22b–22e + 56, đếm bằng grep 23/10):** `KT_K` 104 · `KT_BC` 23 · `KT_TRUOC` 20 · `SLM.` 18 · `toKhach(` 6 · `TO_K` 5 · `slBo(` 3 · `toNap(` 2.
-→ Hướng làm cho TK 2: (1) viết cửa `KHO` theo spec mục 9 kế hoạch; (2) thay THÂN `ktNguonNap / ktNguonKy / ktNapBC / ktTruocNap / ktGNNap / veKTGS (toNap)` qua `KHO`; (3) các chỗ đọc `KT_K.to[...]`, `toKhach(t)` giữ nguyên dạng dữ liệu (KHO trả đúng dạng — QUY_CHUAN 1b.3 "bộ chuyển").
+**Ghép với 5 cửa TK 2 đã viết (3.328, `js/29-kho.js`, `docs/KE_HOACH_KHO_KTGS.md`):**
+| Thân hàm KTGS cần thay | Cửa KHO | Lưu ý |
+|---|---|---|
+| `ktKHKySL(th)` (← `ktNguonKy`) | `KHO.chotThang(kyLui(th, -1))` | giữ luật "chưa có tháng đó → tháng gần nhất trước, ghi ⚠" (`S.khong`, `S.ky!==S.can`) |
+| `ktKHNapSL(th)` (← `ktNguonNap`) | `KHO.chotThang` + `toNap` / `KHO.nap` + `KHO.bc37/bc38` + `KHO.t105Truoc` | trả `{ky, K, BC:{k37, k38}, TR, th, can, goc}` như cũ — `ktKHVoiSL` dùng `S.K / S.BC / S.TR` |
+| `veKTGS` → `toNap(C.ky)` (khối B) | `KHO.theoNgay(kyChungLay())` / `KHO.nap` | `KT_K = TO_K = K` |
+| `ktNapBC(ky)` | `KHO.bc37(ky)` / `KHO.bc38(ky)` | dạng `{e, rows, theoTo}` |
+| `ktTruocNap(K)` | `KHO.t105Truoc(K)` | giữ cache `KT_TRUOC` |
+| `ktGNNap()` (đọc `slBo(tháng)`) | `KHO.monGN(th)` | **3.329 thêm `KT_GN.kh[th][maKH] = {lt, t105, loai}`** (tổng lãi tồn / 105 / QH của khách trong Mẫu 31 tháng GN, mọi món) — cửa `monGN` cần trả thêm phần này hoặc KTGS tự tính từ bảng tháng |
+| `ktKiemTra(ky)` (đọc `slBo`, tab con kiểm tra) | `KHO.nap(ky)` | |
+
+**Chỗ còn đọc thẳng biến số liệu (đếm grep 24/10, bản 3.330):**
+| File | `KT_K` | `KT_BC` | `KT_TRUOC` | `SLM.` | `toKhach(` | `TO_K` | `slBo(` | `toNap(` |
+|---|---|---|---|---|---|---|---|---|
+| 22b-ktgs.js | 33 | 17 | 11 | 14 | 5 | 1 | 2 | 1 |
+| 22c-ktgs-m06.js | 10 | 0 | 0 | 4 | 0 | 0 | 1 | 0 |
+| 22d-ktgs-04.js | 20 | 0 | 0 | 0 | 1 | 0 | 0 | 0 |
+| 22e-ktgs-kh.js | 35 | 5 | 8 | 0 | 0 | 3 | 0 | 1 |
+| 56-ktgs-bo.js | 8 | 1 | 1 | 0 | 0 | 1 | 0 | 0 |
+`KT_K.to[...]`, `toKhach(t)`, `ktHo(t)` là **đọc kỳ đã dựng** (không cần đổi nếu `KHO.nap` trả đúng dạng); việc chính là 6 chỗ NẠP ở bảng trên.
+
+## 3b. Lối in (đường in chung `ktInMau` KHÔNG làm — giữ hàm cũ đang đúng)
+| Khối / thẻ | Mẫu | Hàm (hộp chọn → xem → in) |
+|---|---|---|
+| B Đột xuất | 06 · 16 · 04 | `ktXuat(mau, cach, ok)` · `ktDX04(ok)` → `ktBCHop` |
+| A Định kỳ | 06 + 16 | `ktDKXem(che, ok)` → `ktDKIn(cach, mau)` |
+| A Sau giải ngân | 06 | `ktGNXem(ok)` → `ktGNIn(cach)` |
+| A Mẫu 04 | 04 | `ktBCXem(ok)` → `ktBCHop` → `ktBCIn(cach)` |
+| A Lịch năm | Kế hoạch, 06/16/04 theo tháng | `ktKHXem / ktKHIn`, `ktKHIn06 / ktKHIn16 / ktKHIn04T`, `ktKH04Xem`, `ktKHInCa` |
+| C | Mẫu 06 trắng · Phân công BTV | `ktTrang06 / ktTrang06Xuat` · `ktPCHop / ktPCXuat` |
+Mọi lối đều qua hộp `ktInHop` (chọn bộ ① / ②) và `ktInV(mẫu)` (giá trị khai báo).
 
 ## 4. Không được đổi (khóa mẫu — QUY_CHUAN 1b)
 - Hàm dựng mẫu `ktGiaTri06 / ktGiaTri16 / ktBC04 / ktKHGiaTri`, bản In `ktHTML06/16/04/01`, Word `ktDocx` + khuôn `js/khuon/kt-khuon.js`.
@@ -54,9 +83,17 @@ Khối B (đột xuất) dùng `KT_K` = kỳ chung (`veKTGS` → `toNap(C.ky)`).
 - KTGS **không** dùng nền ô Hồ sơ vay (`js/31-o-mau.js`).
 
 ## 5. Phép thử phải giữ
-`t106–t137, t150, t153, t154, t177, t197` (KTGS cũ) · `t179` (chuẩn khóa kt_*) · `t236` (đột xuất, 2 bộ, Bảng II từng ô) · `t237` (khối A tháng kiểm tra, Sau GN 1 tổ × 1 tháng).
+`t106–t137, t150, t153, t154, t177, t197` (KTGS cũ) · `t179` (chuẩn khóa kt_*) · `t236` (đột xuất, 2 bộ, Bảng II từng ô) · `t237` (khối A tháng kiểm tra, Sau GN 1 tổ × 1 tháng) · `t238` (thanh 3 khối, màn Bộ khai báo, Mẫu 04 đột xuất, tích theo lịch) · `t240` (cửa KHO của TK 2). Đổi `ktgs.che` / nhãn thanh khối → sửa kèm t108, t109, t118, t238.
 
-## 6. Việc TK 2 làm tiếp
+## 6. Việc chưa làm / để lại (TK 3 quyết, ghi rõ để TK 2 biết)
+- Sổ ô `KT_O` đầy đủ (mục 3.1 kế hoạch) — không làm: màn 🧩 Bộ khai báo dùng chung ô của hộp In (`ktInPhan`), 1 nguồn duy nhất, tránh 2 hệ.
+- Ô "Ông (bà) 2, gõ tay" Mẫu 06 (`ktKBLuu.cb2/cv2`, Tùy chọn khác) vẫn dùng chung cho 06 / 16 / 04 (làm dự phòng khi không chọn người 2) — chuyển vào bộ sẽ đổi bản in Mẫu 16 / 04 nên giữ.
+- `ktInMau` — xem 3b.
+
+## 7. Hồi quy đủ
+(TK 3 ghi kết quả khi chạy xong.)
+
+## 8. Việc TK 2 làm tiếp
 1. Cửa `KHO` cho KTGS (spec `docs/KE_HOACH_KTGS_GON.md` mục 9).
 2. Thay thân các hàm `ktNguon*` + `veKTGS` qua `KHO`; thước đo "đọc thẳng biến kho" giảm dần.
 3. Chạy bộ phép thử mục 5 + hồi quy đủ.
