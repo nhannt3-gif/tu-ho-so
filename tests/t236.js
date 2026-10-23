@@ -46,7 +46,9 @@ const fs=require('fs'), path=require('path');
    /* 3.324: dòng Khai báo đột xuất trong tab + khai 1 lần cho cả 06 / 16 */
    D.cauHinh.ktIn = {}; const nav=[...document.querySelectorAll('.nav-i, nav button, aside button, a')].find(x=>/KTGS Hội/.test(x.textContent)); if(nav) nav.click(); await w(1500); K.che = 'dx'; ktChonTo(t.ma); await w(600);
    ok('tab đột xuất có dòng "🎯 Khai báo đột xuất" + nút Chọn / khai tên', !!document.querySelector('.kt-dx-kb') && /Đơn vị kiểm tra: theo Hội/.test(document.querySelector('.kt-dx-kb').textContent));
-   ktDXKhai(); await w(100); document.getElementById('ki-m06-dvc').value = 'go'; ktInDoc(); await w(50); document.getElementById('ki-m06-dvt').value = 'Đoàn Chung Giả'; ktInDoc(); await w(50);
+   document.querySelector('.kt-dx-kb [data-lenh="ktdx.khai"]').click(); await w(150);
+   ok('3.326: bấm nút ✎ Chọn / khai tên (data-lenh) → mở hộp khai', !!document.getElementById('ki-m06-dvc'));
+   document.getElementById('ki-m06-dvc').value = 'go'; ktInDoc(); await w(50); document.getElementById('ki-m06-dvt').value = 'Đoàn Chung Giả'; ktInDoc(); await w(50);
    ok('khai đơn vị ở Mẫu 06 → Mẫu 16 nhận theo', D.cauHinh.ktIn.dx_m16.dvc==='go' && D.cauHinh.ktIn.dx_m16.dvt==='Đoàn Chung Giả');
    dongHop(); await w(300);
    ok('đóng hộp → dòng tóm tắt cập nhật tên đoàn', /Đoàn Chung Giả/.test((document.querySelector('.kt-dx-kb')||{}).textContent||''));
