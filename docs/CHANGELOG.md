@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.328 — 23/10/2026 — KTGS bước 2: khối Bắt buộc theo Tháng kiểm tra; Sau giải ngân 1 tổ × 1 tháng
+- **Anh 23/10**: kiểm tra định kỳ + sau giải ngân là bắt buộc, "lấy số liệu theo tháng liền trước" · "gom nhiều tháng nhưng phiếu in ra vẫn 1 tổ 1 mẫu 06 1 tháng, lưu ý ngày kiểm tra tối đa 30 ngày sau giải ngân" · "chỉ lưu ý, không quá cứng".
+- **🗓 Định kỳ** và **📋 Mẫu 04**: ô **📅 Tháng kiểm tra** (chung) → app tự lấy Mẫu 31 chốt cuối tháng liền trước + BC0437 / BC0438 tháng đó, ghi rõ dòng "Số liệu in T…"; **ô Kỳ đầu trang không còn ảnh hưởng**. Chưa nạp tháng đó → tháng gần nhất trước đó + ⚠ (như in theo tháng Kế hoạch 3.141). Mặc định: kỳ đầu trang là tháng → tháng sau (như cũ); là ngày → chính tháng đó.
+- **📅 Sau giải ngân**: gom nhiều tháng như cũ nhưng **mỗi tổ mỗi tháng giải ngân = 1 phiếu Mẫu 06** (trước: 1 tổ 1 phiếu gom các tháng). Lãi tồn, số dư 105, quá hạn của hộ theo **Mẫu 31 tháng giải ngân**. Thêm dòng nhắc "⏱ Kiểm tra trong 30 ngày kể từ ngày giải ngân (727) — ngày kiểm tra ghi tay" (không chặn, không kiểm ngày).
+- Lớp nguồn số liệu `ktNguon*` (`js/56-ktgs-bo.js`) — chỗ TK 2 thay qua `KHO` (`docs/BAN_GIAO_KTGS.md`, nháp).
+- Bản in Mẫu 06 / 16 / 04 / Kế hoạch không đổi (t179). Phép thử: t237 mới (16); t106 đếm phiếu theo tổ × tháng; t110 dòng tháng kiểm tra.
+
 ## 3.327 — 23/10/2026 — KTGS bước 1: 2 bộ khai báo + Bảng II từng ô; 01/TGTV Giới tính cách 1 tab
 - **Anh 23/10**: "1 bộ cho Hội kiểm tra cố định và 1 cho khai báo khi cần" · "khai từng ô mở lên khi cần là 1 nút con của khai cả bảng; chọn để trống thì không chấm, tùy chỗ để trống hoặc chấm theo mẫu" · 01/TGTV "cách 1 tab, cũng không cần đẩy ra quá xa".
 - **2 bộ khai báo cố định** (`js/56-ktgs-bo.js`): **① Hội kiểm tra** (mặc định kiểm tra định kỳ / sau giải ngân) · **② Khai báo khi cần** (mặc định kiểm tra đột xuất). Hộp 🖨 Chọn khi in có dòng **Bộ khai báo** — lần in này chọn bộ kia được (vd định kỳ nhưng đoàn ngoài Hội); mở hộp in lần sau tự về bộ mặc định. Mỗi mẫu ghi rõ đang theo bộ nào.
