@@ -48,3 +48,32 @@
 1. Chọn thứ tự: em đề nghị **A1 Hôm nay bảng việc → A2 lọc gọn mặc định → B1–B2 → A3 thanh bên 2 cấp → A4–A6 → B3–B4**.
 2. Thanh bên 2 cấp (A3) đổi chỗ các mục quen dùng — anh đồng ý hướng này không? (cần anh duyệt vì đổi giao diện cũ)
 3. Hôm nay bảng việc (A1): anh muốn thẻ nào đứng đầu?
+
+## 6. Chi tiết đề xuất A1 — tab 🏠 Hôm nay thành "bàn làm việc" (anh hỏi thêm 23/10)
+**Hiện nay (đọc mã `veHomNay`, js/04):** lịch tháng + Schedule + To-do + lối tắt (Hạn trả HSSV, Địa bàn, CT vay) + 1 dòng "⚠ Cần xử lý" chỉ gom **file chờ khai · theo dõi nợ (cam kết đến hạn, khoanh sắp hết) · ghi chú đánh dấu**. Các con số nghiệp vụ đã tính sẵn ở tab khác **chưa về đây**: chip tab Tổ (`TO_LOC` js/22g: CCCD hết / sắp hết hạn, chưa TK 105, thiếu SĐT, nợ cần xử lý QH · khoanh · KHĐ, đến hạn tháng sau, mới vào / ra khỏi tổ, cần cho ra theo 01/TV), file nạp thiếu (`dhThieuNap`), văn bản chờ duyệt, cột "Cần bổ sung" Sổ hộ vay, ngày giao dịch điểm (`ngayGD`).
+
+**Đề xuất bố cục (máy tính):**
+1. **Dòng đầu:** ngày (âm lịch) · **trạng thái số liệu** ("Mẫu 31 mới nhất 31/08 — cách hôm nay N ngày", đỏ nếu cũ quá X ngày) · lọc gọn 1 dòng (🏠 PGD / xã đang quản lý).
+2. **Lưới thẻ "Việc cần xử lý"** — mỗi thẻ: **số lớn · tên · màu mức gấp** (đỏ gấp / vàng sắp / xám đã xong), bấm vào → mở đúng tab với bộ lọc đặt sẵn:
+   | Thẻ | Nguồn (đã có) | Bấm vào |
+   |---|---|---|
+   | 🏢 Giao dịch xã hôm nay / tuần này (điểm nào, ngày nào) | `ngayGD` cây địa bàn | tab Giao dịch xã chọn sẵn điểm |
+   | ⚠ Nợ cần xử lý (QH · khoanh · KHĐ) | chip `xl` tab Tổ | tab Tổ lọc chip |
+   | ⏰ Đến hạn tháng sau | chip `dh` | tab Tổ / nút lập 09A gia hạn |
+   | 🪪 CCCD hết hạn · sắp hết 30 ngày | chip `cccd`, `cccd30` | tab Tổ lọc chip |
+   | 🏦 Chưa có TK 105 | chip `ctk` | tab Tổ / 01/TGTV in hàng loạt |
+   | 👥 Cần cho ra khỏi tổ · mới vào tổ | chip `tvra`, `moi` | Hồ sơ Tổ 10C |
+   | 📥 Số liệu: file bắt buộc còn thiếu | `dhThieuNap` | Nạp & KT |
+   | 📄 Hồ sơ vay đang dở (Sổ hộ vay "Cần bổ sung") | Sổ hộ vay | 👪 Hộ vay lọc thiếu |
+   | 📑 Văn bản chờ duyệt · file chờ khai · theo dõi nợ · ghi chú cần xử lý | như hiện nay | như hiện nay |
+3. **Dưới:** 2 cột — trái lịch tháng + To-do (giữ nguyên chức năng hiện có), phải "Vừa xem gần đây" + lối tắt (Hạn trả HSSV, Địa bàn, CT vay, mẫu hay in).
+4. **Điện thoại:** thẻ thành danh sách dọc (số + tên + ›), lịch thu gọn 1 tuần.
+
+**Cách tính (không chậm app):** chỉ đếm, tính 1 lần khi mở app / nạp số liệu mới, lưu tạm theo kỳ; danh sách chi tiết chỉ dựng khi bấm vào thẻ. Lấy số qua `KHO` (đúng QUY_CHUAN) — thẻ nào chưa có cửa `KHO` thì thêm cửa đếm, không đọc thẳng biến chung.
+
+**Câu hỏi chờ anh (A1):**
+1. Thẻ nào cần, thứ tự trên → dưới? (em đề nghị: Giao dịch xã hôm nay → Nợ cần xử lý → Đến hạn tháng sau → CCCD → Chưa TK 105 → Số liệu thiếu → Hồ sơ vay dở → còn lại)
+2. Có cần **tích "đã xử lý"** từng việc (ẩn đến kỳ số liệu mới) như QUY_CHUAN mục 8 #6 không?
+3. Phạm vi mặc định: **toàn PGD** hay **các xã anh quản lý**?
+4. Số liệu cũ quá bao nhiêu ngày thì báo đỏ (em đề nghị 35 ngày với Mẫu 31 tháng)?
+5. Lịch + Schedule + To-do giữ nguyên ở dưới — đồng ý?
