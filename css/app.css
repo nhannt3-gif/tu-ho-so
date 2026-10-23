@@ -7,7 +7,7 @@
     --nen:#F1F4F8; --the:#FFFFFF; --chu:#16202B; --chu-phu:#5A6573;
     --vien:#D3DBE4; --vang:#8A6100; --vang-nen:#FDF4E0;
     --luc:#1A6E3F; --luc-nen:#E6F4EC; --do:#B42318; --do-nen:#FCEDEC;
-    --cam:#B54708; --cam-nen:#FEF0E3; --tim:#6B3FA0; --tim-nen:#F3EDFB; --xam:#5A6573; --xam-nen:#EEF1F4;   /* 3.332: bảng 7 màu chip (QUY_CHUAN mục 11) */
+    --cam:#B54708; --cam-nen:#FEF0E3; --tim:#6B3FA0; --tim-nen:#F3EDFB; --xam:#5A6573; --xam-nen:#EEF1F4;   /* 3.333: bảng 7 màu chip (QUY_CHUAN mục 11) */
   }
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
@@ -3859,7 +3859,7 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
 .dt-them-nhom > div{display:flex;flex-wrap:wrap;gap:6px}
 .dt-them-muc{flex:1 1 140px;justify-content:flex-start;text-align:left}
 
-/* ===== 3.332 (anh chốt 23–24/10): CHIP / NHÃN 7 MÀU DÙNG CHUNG TOÀN APP — 1 kiểu (cỡ, viền, bo góc), nghĩa màu cố định:
+/* ===== 3.333 (anh chốt 23–24/10): CHIP / NHÃN 7 MÀU DÙNG CHUNG TOÀN APP — 1 kiểu (cỡ, viền, bo góc), nghĩa màu cố định:
    đỏ lỗi · quá hạn · hết hạn | cam khoanh · KHĐ · lãi tồn | vàng cảnh báo nhẹ · thiếu | lục đạt · đủ · trong hạn
    xanh dương đang chọn · thông tin | tím phân loại (CT vay, HSSV) · mới | xám không có · 0 · đã tất toán. Nơi mới: dùng .nh .nh-<màu> ===== */
 .nh{display:inline-flex;align-items:center;gap:3px;font-size:calc(11.5px*var(--co));line-height:1.45;padding:0 8px;border-radius:999px;border:1px solid var(--n-v, var(--vien));background:var(--n-n, var(--the));color:var(--n-c, var(--chu));font-weight:600;white-space:nowrap;vertical-align:baseline}
@@ -3873,7 +3873,7 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
 .tc-nh.xanh,.kt-nh.xanh,.sl-chip.xanh{background:var(--luc-nen);color:var(--luc);border-color:var(--luc)}
 .tc-dl b.vang{color:var(--vang)} .tc-dl b.cam,.tc-the b.cam{color:var(--cam)}
 .to-chip.bat{border-color:var(--xanh)}
-/* ===== 3.332: Tra cứu KH — khung khách CỐ ĐỊNH (máy tính, khung phải): tiêu đề · 5 ô số · Nhân thân | Liên hệ · Tổ & địa bàn | TK 105 · Món vay (cuộn trong khung) · nút ở đáy ===== */
+/* ===== 3.333: Tra cứu KH — khung khách CỐ ĐỊNH (máy tính, khung phải): tiêu đề · 5 ô số · Nhân thân | Liên hệ · Tổ & địa bàn | TK 105 · Món vay (cuộn trong khung) · nút ở đáy ===== */
 @media(min-width:900px){
   .tc-phai{height:calc(100vh - 120px)}
   .tc-phai .tc-the.tc-khung{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto 132px 196px minmax(150px,1fr) auto;column-gap:16px;height:100%;min-height:0}
@@ -3899,6 +3899,6 @@ table.tc-bt tr.cong td{font-weight:700;background:var(--the)} table.tc-bt tr.ton
 table.tc-bt tr.tc-bt-dong{cursor:pointer} table.tc-bt tr.tc-bt-dong:hover td{background:var(--xanh-nhat)}
 table.tc-bt tr.tc-bt-dong.chon td{background:var(--xanh-nhat);box-shadow:inset 0 0 0 1px var(--xanh)}
 .tc-bt-chon{margin-right:auto;font-weight:600;color:var(--xanh-dam)}
-/* 3.332: ô chọn Xã kiểu gọn không cắt chữ "Toàn PGD" */
+/* 3.333: ô chọn Xã kiểu gọn không cắt chữ "Toàn PGD" */
 .pv-cay .loc-khoi.gon .pv-hang1 select.pv-o.pv-xa{min-width:104px;flex:0 0 auto}
 @media (min-width:700px){ .pv-cay .loc-khoi.gon .pv-hang1 .pv-sel{min-width:120px} .pv-cay .loc-khoi.gon .pv-hang1 .pv-dan{flex:0 1 auto;min-width:0;overflow:hidden} .pv-cay .loc-khoi.gon .pv-dem{display:block;overflow:hidden;text-overflow:ellipsis} }

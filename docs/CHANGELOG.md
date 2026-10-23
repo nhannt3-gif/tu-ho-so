@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.333 — 24/10/2026 — Tra cứu KH khung cố định + khối tổ + bảng tổ theo Hội (kết nạp) · QT-18 thành viên chuẩn · chip 7 màu · KTGS qua KHO
+- **Anh 23–24/10**: "khi duyệt hồ sơ cần thông tin cơ bản về tổ: số thành viên, số đang dư nợ, mã tổ…" · "tên tổ trưởng kèm mã tổ trưởng có nút chép" · "tổ hiện dạng bảng theo Hội, xem 1 lần toàn điểm GD như KQGD" · "khung cố định để quen số liệu" · "chip màu thống nhất toàn app — 7 màu" · "QĐ 70 tổ có 20–100 thành viên" · "so thử qua các tháng và chốt cách tính".
+- **QT-18 thành viên chuẩn** (`tvChuan` js/28 → `KHO.tvChuan(tổ, K)`): tổ viên Mẫu 31 (QT-01…05) + người Mẫu 01/TV gần nhất TƯ còn giữ mà Mẫu 31 không có (dư nợ 0); cùng tháng với 01/TV bù đủ (khách 2 tổ tính ở mỗi tổ), kỳ ngày không bù người đã chuyển tổ; có dư nợ = gốc > 0; tách còn TK 105 / còn lãi tồn / cần cho ra. **Đối chiếu file thật 30/09: 18.816 / 18.816 TV, 370 / 370 tổ (tổng + có dư nợ)** — trước: app thiếu 168 người (dư nợ 0, không có trên Mẫu 31) và 12 tổ lệch "có dư nợ" (còn lãi tồn).
+- **Tra cứu KH** (js/22f + js/58 mới): khung khách cố định (máy tính: 5 ô số · Nhân thân | Liên hệ · Tổ & địa bàn | TK 105 · Món vay cuộn trong khung · nút ở đáy); khối **Tổ & địa bàn**: mã tổ, tổ trưởng + mã KH tổ trưởng (`hsoTTKH`), ☎ — bấm để chép; Thành viên tổng · có / không dư nợ · còn lãi tồn · cần cho ra + chip ngưỡng; nút 🏘 Tổ của điểm GD.
+- **Bảng tổ của điểm GD** (`tcBangDiem`): gom theo Hội, cột Mã tổ · Tổ trưởng · Mã KH TT · ☎ · Ấp · Tổng TV · Có dư nợ · Không dư nợ · Tổng dư nợ · Quá hạn, cộng Hội + cộng điểm; ngưỡng QĐ 70 (20–100, theo ô ⚙ Ngưỡng tab Tổ nếu đã khai): đủ → đỏ, còn ≤ 5 chỗ / dưới 20 → vàng; chọn tổ → 👥 Mở tổ / **👪 Lập hồ sơ hộ mới vào tổ này** (gọi `hmMo` có sẵn, điền Xã › Ấp › Tổ + tên / CCCD vừa tra). Kiểm trùng "chưa vay" có nút 🏘 Chọn tổ kết nạp.
+- **Chip 7 màu** (css cuối file, QUY_CHUAN mục 14): `.nh .nh-do/cam/vang/luc/lam/tim/xam`, biến `--cam --tim --xam` (+ bản tối); `.tc-nh / .kt-nh / .sl-chip / .chip` cùng hình + cùng nghĩa màu.
+- **KTGS qua KHO** (bàn giao TK 3 — `BAN_GIAO_KTGS.md` mục 9): `ktNapBC`, `ktTruocNap`, `ktGNNgayCua`, `ktGNNap`, `veKTGS`, `ktKHNapSL` gọi `KHO.bc37/bc38`, `t105Truoc`, `chotThang`, `monGN` (thêm `kh`), `nap`.
+- Sửa: ô chọn Xã kiểu gọn bị cắt chữ "Toàn PGD".
+- **Phép thử**: mới t244 (19); KTGS t106–t154, t177, t179, t197, t236–t238, t240 chạy lại.
+
 ## 3.332 — 24/10/2026 — Hồi quy đủ sau bàn giao KTGS
 - Hồi quy đủ trên 3.330 (153 phép): hoiquy, hoiquy2 đạt; sửa 2 chỗ: `js/56-ktgs-bo.js` nạp trước `js/57-cay.js` (đúng thứ tự tên — t138), t134 theo tên thẻ Định kỳ mới.
 - Còn sai từ trước (đối chứng 3.327 / 3.328, không do KTGS): **t100** (bộ 25.000 hộ chờ dòng trạng thái Nạp & KT quá 120 giây) và **t158** (tab Tổ chưa tự thêm cột theo ưu tiên) — ghi ở `docs/BAN_GIAO_KTGS.md` mục 7.

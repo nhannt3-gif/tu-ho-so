@@ -99,7 +99,7 @@ function slTomRieng(loai, t){
   return t.n+' tài khoản · số dư '+tdnTr(t.du||0);
 }
 
-/* ---------- 3.332 QT-18 (anh chốt 24/10): THÀNH VIÊN CHUẨN 1 TỔ theo kỳ đang dựng (TO_K — chốt tháng hoặc ngày) ----------
+/* ---------- 3.333 QT-18 (anh chốt 24/10): THÀNH VIÊN CHUẨN 1 TỔ theo kỳ đang dựng (TO_K — chốt tháng hoặc ngày) ----------
    = tổ viên Mẫu 31 (toTV, QT-01…05) + người Mẫu 01/TV gần nhất TƯ còn giữ ở tổ mà Mẫu 31 kỳ này không có ở TỔ NÀO (dư nợ 0 — QT-06);
    có dư nợ = dư nợ GỐC > 0 (như TƯ); còn lãi tồn / cần cho ra (QT-14) tách riêng.
    Đối chiếu file thật 30/09: khớp 18.816 / 18.816 thành viên, 370 / 370 tổ (tổng + có dư nợ) với Mẫu 01/TV T9. */

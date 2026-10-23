@@ -1,5 +1,5 @@
 /* ==========================================================
-   3.332 (anh chốt 23–24/10): TRA CỨU KH — KHỐI TỔ + BẢNG TỔ CỦA ĐIỂM GD (kết nạp)
+   3.333 (anh chốt 23–24/10): TRA CỨU KH — KHỐI TỔ + BẢNG TỔ CỦA ĐIỂM GD (kết nạp)
    - Khi duyệt hồ sơ: tra khách → đã vay xem món; chưa vay → chọn tổ kết nạp → cần số TV, mã tổ để nhập máy.
    - Khối "Tổ & địa bàn" ở khung khách: mã tổ · tổ trưởng + mã KH tổ trưởng · ☎ (bấm để chép) · Tổng TV · có / không dư nợ · Hội · Điểm GD.
    - Bảng tổ của 1 điểm GD, gom theo Hội (như KQGD): mỗi tổ 1 dòng, cộng Hội, cộng điểm; ngưỡng QĐ 70: 20–100 thành viên.

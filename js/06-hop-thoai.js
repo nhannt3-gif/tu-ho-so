@@ -1981,7 +1981,11 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.332', ds:[
+var CO_GI_MOI = {ban:'3.333', ds:[
+  ["Tra cứu KH: khung khách cố định (số liệu luôn ở 1 chỗ) + khối Tổ & địa bàn — mã tổ, tổ trưởng + mã KH, ☎ bấm để chép, số thành viên (có / không dư nợ)", "dhSL('tra')"],
+  ["Tra cứu KH › 🏘 Tổ của điểm GD: bảng mọi tổ theo Hội (như KQGD), ngưỡng 20–100 TV (QĐ 70); khách chưa vay → 🏘 Chọn tổ kết nạp → 👪 Lập hồ sơ hộ mới vào tổ", "dhSL('tra')"],
+  ["Số thành viên tổ thống nhất 1 cách tính (QT-18): khớp Mẫu 01/TV của TƯ tháng 9 (18.816 / 18.816, 370 / 370 tổ); có dư nợ = dư nợ gốc", "dhSL('tra')"],
+  ["Chip / nhãn 7 màu dùng chung toàn app: đỏ lỗi · cam khoanh, lãi tồn · vàng cảnh báo · lục đạt · xanh dương đang chọn · tím phân loại · xám không có", "doiNgan(0)"],
   ["Sửa thứ tự nạp file KTGS sau hồi quy (không đổi giao diện)", "doiNgan(7)"],
   ["KTGS: TK 3 bàn giao cho TK 2 (tài liệu docs/BAN_GIAO_KTGS.md) — giao diện không đổi", "doiNgan(7)"],
   ["KTGS: thanh 3 khối Bắt buộc · Đột xuất · Khai báo; màn Bộ khai báo mẫu sửa 2 bộ không cần In; đột xuất có Mẫu 04", "doiNgan(7)"],
@@ -1992,11 +1996,7 @@ var CO_GI_MOI = {ban:'3.332', ds:[
   ["Form 👪 Hộ vay, 01/TD, 01/TGTV, ⚙ Khai báo chung: ô chọn Xã › Ấp › Tổ cùng 1 kiểu, 1 nguồn danh sách", "slDoiTab('hsv');doiNgan(7)"],
   ["KTGS: 2 bộ khai báo cố định (① Hội kiểm tra · ② Khai báo khi cần) chọn ngay trong hộp In; Bảng II Mẫu 16 khai cả bảng + từng ô", "doiNgan(7)"],
   ["01/TGTV: Giới tính cách ngày sinh 1 tab", "doiNgan(7)"],
-  ["Ô ngày đầu trang nhớ ngày đã chọn sau khi tải lại (Ctrl+F5) — KTGS không còn tự về cuối tháng", "doiNgan(7)"],
-  ["KTGS: số liệu tổ (Mẫu 16, Mẫu 04, thẻ tổ) theo ngày chọn — chấm điểm, xếp loại theo tháng BC0437; kiểm tra đột xuất để chấm ngày tháng năm", "doiNgan(7)"],
-  ["KTGS › Kiểm tra đột xuất: dòng 🎯 Khai báo đột xuất ngay trong tab (đơn vị, người kiểm tra, Bảng II, nhận xét) + nút Chọn / khai tên; khai 1 lần dùng cho cả Mẫu 06 và 16", "doiNgan(7)"],
-  ["KTGS › Kiểm tra đột xuất: đơn vị / đoàn kiểm tra và cán bộ kiểm tra chọn chấm ghi tay hoặc khai tên (Mẫu 06 + 16); Bảng II Mẫu 16 chấm ghi tay; lựa chọn đột xuất lưu riêng", "doiNgan(7)"],
-  ["KTGS Hội: dòng hộ đã chọn đọc rõ ở chế độ tối (trước nền sáng cố định, chữ mờ)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Ô ngày đầu trang nhớ ngày đã chọn sau khi tải lại (Ctrl+F5) — KTGS không còn tự về cuối tháng", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
