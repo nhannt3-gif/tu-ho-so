@@ -402,6 +402,17 @@ function gdxDatNhanh(m, k, v){ var C = gdxC(); C.nhanh = C.nhanh || {}; C.nhanh[
 
 /* ---------- ô điều khiển dùng chung ---------- */
 function gdxChip(chu, bat, js, lop, tit){ return '<button class="gdx-c'+(bat ? ' bat' : '')+(lop ? ' '+lop : '')+'" onclick="'+js+'"'+(tit ? ' title="'+gdxE(tit)+'"' : '')+'>'+chu+'</button>'; }
+/* 3.334 (RA_SOAT_BO_CUC_2410 #1): dải chip mẫu 1 hàng cuộn ngang + nút ‹ › (hiện khi còn mẫu bị khuất) — dùng chung Giao dịch xã / Hồ sơ Tổ / Hồ sơ vay */
+function cnHang(ruot, lop){
+  if(!cnHang.dk && typeof GD!=='undefined'){ cnHang.dk = 1; GD.dangKy('cn', {cuon:function(el){ cnCuon(el, +el.getAttribute('data-h')); }}); }   /* GD (js/39) nạp sau file này → đăng ký lệnh lúc vẽ lần đầu */
+  return '<div class="cn-khung"><button type="button" class="cn-nut cn-trai" tabindex="-1" data-lenh="cn.cuon" data-h="-1" title="Mẫu phía trước">‹</button><div class="gdx2-mau'+(lop ? ' '+lop : '')+'" onscroll="cnSoat(this.parentNode)">'+ruot+'</div>'+
+    '<button type="button" class="cn-nut cn-phai" tabindex="-1" data-lenh="cn.cuon" data-h="1" title="Còn mẫu phía sau">›</button></div>'; }
+function cnCuon(b, h){ var r = b.parentNode.querySelector('.gdx2-mau'); if(r) r.scrollLeft += h*Math.max(160, Math.round(r.clientWidth*0.7)); }
+function cnSoat(k){ var r = k && k.querySelector('.gdx2-mau'); if(!r) return; k.classList.toggle('cn-dau', r.scrollLeft>2); k.classList.toggle('cn-cuoi', r.scrollLeft+r.clientWidth<r.scrollWidth-2); }
+function cnSoatHet(){ [].forEach.call(document.querySelectorAll('.cn-khung'), function(k){ var r = k.querySelector('.gdx2-mau'), b = r && r.querySelector('.bat');
+  if(b && (b.offsetLeft<r.scrollLeft || b.offsetLeft+b.offsetWidth>r.scrollLeft+r.clientWidth)) r.scrollLeft = Math.max(0, b.offsetLeft-r.clientWidth/2+b.offsetWidth/2);   /* mẫu đang chọn luôn thấy được */
+  cnSoat(k); }); }
+window.addEventListener('resize', function(){ clearTimeout(cnSoatHet.h); cnSoatHet.h = setTimeout(cnSoatHet, 150); });
 function gdxJS(v){ return JSON.stringify(v).replace(/"/g, '&quot;'); }
 function gdxRadio(k, ds){ var C = gdxC(); return '<span class="gdx-ra">'+ds.map(function(o){ return '<label><input type="radio" name="gdx-r-'+k+'"'+(C[k]===o[0] ? ' checked' : '')+' onchange="gdxDat(\''+k+'\', '+gdxJS(o[0])+', 1)"> '+o[1]+'</label>'; }).join('')+'</span>'; }
 function gdxIn1(k, ph, kieu){ var C = gdxC(); return '<input class="gdx-i"'+(kieu ? ' type="'+kieu+'"' : '')+' value="'+gdxE(C[k])+'" placeholder="'+gdxE(ph||'')+'" oninput="gdxDat(\''+k+'\', this.value)">'; }
@@ -560,6 +571,7 @@ function gdxVeTrai(){
   var cuon = e.querySelector('.gdx2-ruot'), y = cuon ? cuon.scrollTop : 0;
   e.innerHTML = gdxDauHTML()+'<div class="gdx2-ruot">'+gdxRuotHTML()+'</div><div class="gdx2-tom" id="gdx-tom">'+gdxTomHTML()+'</div>';
   var c2 = e.querySelector('.gdx2-ruot'); if(c2) c2.scrollTop = y;
+  cnSoatHet();
   var t = document.getElementById('gdx-thanh'); if(t) t.innerHTML = gdxThanhHTML();
   gdxXem();
 }
@@ -568,7 +580,7 @@ function gdxMenu(ds, lop){ return '<details class="gdx-menu'+(lop ? ' '+lop : ''
 function gdxDauHTML(){
   var C = gdxC(), M = gdxMauHT(), ds = [['⚙ Khai báo riêng mẫu', 'gdxKBRieng()', 'Mọi mục của mẫu — tích Chọn nhanh để đưa ra khung'], ['⚙ Khai báo đơn vị', 'gdxKBChung()', 'Danh sách cán bộ · danh mục tham chiếu · TK 104'],
     ['📜 Nhật ký in', 'gdxNKMo()', 'Các lần in trong 1 tháng — in lại khi khách ký sai'], ['📦 Mini app', 'gdxMiniHop()', 'Xuất 1 file HTML gọn gửi đồng nghiệp — có thời hạn 30 / 60 / 90 ngày']];
-  return '<div class="gdx2-dau"><div class="gdx2-mau">'+GDX_MAU.map(function(m){ return gdxChip(m.bt+' '+m.ma, m.k===M.k, 'gdxDoiMau(\''+m.k+'\')', '', m.nhom+' — '+m.ten); }).join('')+'</div>'+
+  return '<div class="gdx2-dau">'+cnHang(GDX_MAU.map(function(m){ return gdxChip(m.bt+' '+m.ma, m.k===M.k, 'gdxDoiMau(\''+m.k+'\')', '', m.nhom+' — '+m.ten); }).join(''))+
     '<div class="gdx2-nut">'+(M.k==='gl' || M.k==='gn' ? '<button class="nho'+(GDX.glDaIn ? ' gdx-moi' : '')+'" onclick="gdxGLMoi()" title="'+(GDX.glDaIn ? 'Phiếu mới — in người khác: bỏ người lĩnh, tổ, số tiền; giữ ngày, khổ giấy, loại TK' : 'Phiếu mới: xóa các ô để chọn / gõ người khác (giữ ngày, khổ giấy, loại TK)')+'">↺ Phiếu mới</button>' : '')+'<button class="nho gdx-tc" onclick="dhBam(\'gd\',\'tra\')" title="Tra cứu khách hàng (khối Tra cứu KH có sẵn) — cùng địa bàn đang chọn">👤 Tra cứu KH</button>'+   /* 3.328 (anh chốt 23/10): GDX = bàn thao tác, chỉ gọi chức năng có sẵn */
       '<button class="nho'+(C.xem!==false ? ' chinh' : '')+'" onclick="gdxBatXem()" title="Bật / tắt khung xem trước">👁 Xem: '+(C.xem!==false ? 'Bật' : 'Tắt')+'</button>'+gdxMenu(ds)+'</div></div>';
 }
