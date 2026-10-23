@@ -226,3 +226,9 @@ ktgs = { …cũ…, khoi:'A'|'B'|'C', A:{thang:'2026-11', the:'dk'|'gn'|'bc'|'kh
 
 ## 10. Còn cần anh chốt
 1. Bước 0 (làm ngay): **ngày chọn ở ô đầu trang nhớ qua lần mở app** (bỏ luật 3.97 "chỉ giữ trong phiên") — đồng ý?
+
+## 11. Tiến độ (TK 3)
+| Bước | Bản | Đã làm |
+|---|---|---|
+| 0 | 3.326 | Ô ngày đầu trang nhớ ngày chọn qua lần mở app; QUY_CHUAN 1b.2 sửa (anh đã đồng ý mục 10.1 — "cách làm em quyết"). |
+| 1 | 3.327 | `js/56-ktgs-bo.js`: **2 bộ cố định** `KT_BO` (① Hội kiểm tra = `ktIn[mẫu]`, ② Khai báo khi cần = `ktIn['dx_'+mẫu]` — **dùng lại chỗ lưu cũ, không cần chuyển dữ liệu** thay cho mục 3.2/3.4); `ktInKhoa` → `ktBoKhoa`; hộp in có dòng **Bộ khai báo** (chọn bộ kia cho lần in, mở hộp mới về mặc định); **Bảng II cả bảng + Từng ô** (`b2o`, `ktB16Mang`). Sổ ô `KT_O` đầy đủ dời sang bước 4 (cùng màn Bộ khai báo — tránh mã chưa dùng). Bản in kt_06/16/04/kh trùng 3.326 (t179). |

@@ -38,9 +38,9 @@ const fs=require('fs'), path=require('path');
    ok('gợi ý lại vẫn giữ hộ bắt buộc, không gợi ý QH / khoanh', bb.every(k=>KT_CHON.chon[k]) && !ktDaChon().some(h=>h.loai && !KT_CHON.chon[h.kh].bb));
    ok('hiện số hộ theo nhóm (giải thích khi kiểu ra trùng)', /hộ tốt · .* hộ cần quan tâm/.test(document.querySelector('.kt-nhom-so').textContent));
    /* 4. khai báo theo thứ tự mẫu */
-   KT_KB = {}; ktXuat('m06', 'word'); await w(80); const id06 = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).join(',');
+   KT_KB = {}; ktXuat('m06', 'word'); await w(80); const id06 = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).filter(x=>!/-b2o-/.test(x)).join(',');
    ok('3.114: bấm In / Word Mẫu 06 → hộp chọn khi in (mục đích, người kiểm tra) + tùy chọn khác', id06==='m06-md,m06-dvc,m06-ng1,cb2,cv2' && !!document.querySelector('#hop-in .kt-in-luoi'), id06);
-   ktXuat('m16', 'in'); await w(80); const id16 = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).join(',');
+   ktXuat('m16', 'in'); await w(80); const id16 = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).filter(x=>!/-b2o-/.test(x)).join(',');
    ok('3.114: hộp Mẫu 16: nhận xét, Bảng II, người kiểm tra 1, 2', id16==='m16-nx,m16-b2,m16-dvc,m16-ng1,m16-ng2', id16); dongHop();
    ok('3.154 Khai báo Hội: tên → Chủ tịch → Phó CT → 3 BTV → nhiệm kỳ → HĐUT → KH Hội tỉnh', KT_HKB_O.map(x=>x[0]).join(',')==='ten,ct,pct,uv1,uv2,uv3,nk,hd,hdNgay,kh,khNgay');
    /* 5. định kỳ theo lịch */
@@ -56,7 +56,7 @@ const fs=require('fs'), path=require('path');
    const dung = ho.filter(y=>!y.h.loai); dung.slice(0, Math.ceil(dung.length*0.2)).forEach(y=>{ KT_DK_BO[t0.ma+'|'+y.h.kh] = 1; }); ktVeThe(); await w(150);
    ok('bỏ tích → tỷ lệ < 90% báo đỏ', ktDKTyLe(t0).pt<90 && !!document.querySelector('.kt-dk-bang b.do'));
    KT_DK_BO = {}; const qh = ho.find(y=>y.h.loai); if(qh){ ktDKHoTich(t0.ma, qh.h.kh, 1, true); await w(100); ok('tích tay hộ QH / khoanh → thêm vào, không tính vào tỷ lệ', ktDKCo(t0.ma, qh) && ktDKTyLe(t0).pt===100 && ktDKTyLe(t0).nTong===ktDKTyLe(t0).nChon+1); }
-   KT_KB = {}; ktDKXem(); await w(80); const idDK = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).join(',');
+   KT_KB = {}; ktDKXem(); await w(80); const idDK = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).filter(x=>!/-b2o-/.test(x)).join(',');
    ok('3.114: định kỳ → hộp chọn có cả Mẫu 06 và Mẫu 16, không hỏi ngày', idDK==='m06-md,m06-dvc,m06-ng1,m16-nx,m16-b2,m16-dvc,m16-ng1,m16-ng2,cb2,cv2' && !document.querySelector('#hop-in #kb-ngay'), idDK); dongHop();
    ktDKXem('', 1); await w(400); const X = KT_DK_XEM;
    ok('Mẫu 06: thời điểm "…../09/2026", ngày trống, tháng 09 năm 2026', X.g06[0].f.TD==='…../09/2026' && X.g06[0].f.ND==='' && X.g06[0].f.NM==='09' && X.g06[0].f.NY==='2026');

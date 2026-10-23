@@ -1981,7 +1981,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.326', ds:[
+var CO_GI_MOI = {ban:'3.327', ds:[
+  ["KTGS: 2 bộ khai báo cố định (① Hội kiểm tra · ② Khai báo khi cần) chọn ngay trong hộp In; Bảng II Mẫu 16 khai cả bảng + từng ô", "doiNgan(7)"],
+  ["01/TGTV: Giới tính cách ngày sinh 1 tab", "doiNgan(7)"],
   ["Ô ngày đầu trang nhớ ngày đã chọn sau khi tải lại (Ctrl+F5) — KTGS không còn tự về cuối tháng", "doiNgan(7)"],
   ["KTGS: số liệu tổ (Mẫu 16, Mẫu 04, thẻ tổ) theo ngày chọn — chấm điểm, xếp loại theo tháng BC0437; kiểm tra đột xuất để chấm ngày tháng năm", "doiNgan(7)"],
   ["KTGS › Kiểm tra đột xuất: dòng 🎯 Khai báo đột xuất ngay trong tab (đơn vị, người kiểm tra, Bảng II, nhận xét) + nút Chọn / khai tên; khai 1 lần dùng cho cả Mẫu 06 và 16", "doiNgan(7)"],
@@ -1994,9 +1996,7 @@ var CO_GI_MOI = {ban:'3.326', ds:[
   ["Hồ sơ vay: chú thích màu (số liệu · khai báo · ghi tay) lên cùng dòng tên mẫu — bớt 1 dòng", "doiNgan(7)"],
   ["01/TGTV ✍ In nhanh: form khai chuẩn (Họ tên · Ngày sinh · CCCD · Ngày cấp · SĐT · chọn Xã, Ấp) — giới tính, ngày hết hạn, nơi cấp, dân tộc Kinh, có cư trú app tự tính", "doiNgan(7)"],
   ["01/TGTV in 2 cách: 📊 từ Mẫu 31 (tích tổ viên, in hàng loạt) hoặc ✍ in nhanh tự khai — bấm thẳng vào chỗ chấm trên mẫu để gõ", "doiNgan(7)"],
-  ["🧾 Bảng kê: chọn 💸 Chi (ngân hàng chi ra) hoặc 💰 Thu (nộp vào ngân hàng) — cùng mẫu, chỉ khác tiêu đề và chữ ký", "doiNgan(7)"],
-  ["Giấy nộp tiền rà theo mẫu: Loại N.V in sẵn KHTK + kẻ liền, Tài khoản CÓ bỏ chấm, bằng chữ kẻ 3 nét 2 dòng, gạch dưới tên ngân hàng, chữ ký đậm to", "doiNgan(7)"],
-  ["Giao dịch xã: mẫu mới 🏦 Giấy nộp tiền (nộp để ghi vào tài khoản) + 🧾 Bảng kê các loại tiền nộp — cùng cách Giấy lĩnh: chọn người · TK · số tiền, in Nộp / Bảng kê / chung 1 tờ, mẫu trắng", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🧾 Bảng kê: chọn 💸 Chi (ngân hàng chi ra) hoặc 💰 Thu (nộp vào ngân hàng) — cùng mẫu, chỉ khác tiêu đề và chữ ký", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
