@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.319', ds:[
+var CO_GI_MOI = {ban:'3.320', ds:[
+  ["01/TGTV: ngày hết hạn CCCD mặc định tự tính (theo ngày sinh + ngày cấp)", "doiNgan(7)"],
   ["Mẫu không tự thu nhỏ chữ: chữ dài thì viết tắt chuẩn, còn dài thì ô giãn + ⚠ báo xem rớt dòng (bật trước cho 01/TGTV)", "doiNgan(7)"],
   ["01/TGTV sát mẫu gốc: quốc tịch · dân tộc Kinh · có cư trú điền sẵn, ngày gõ liền, khung Ngày / Số CIF bo góc, Tiếp nhận ngày 1 dòng; quy tắc giữ khung / gõ liền theo vị trí ô", "doiNgan(7)"],
   ["Hồ sơ vay: chú thích màu (số liệu · khai báo · ghi tay) lên cùng dòng tên mẫu — bớt 1 dòng", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.319', ds:[
   ["Scan gọn: chọn 1 khách → khung xem hiện CCCD + chữ ký (lăn tay) ngay dưới; menu ⋯ bỏ Chế độ quét, Webcam, 📁 Chữ ký · CCCD (trùng); ✍ Rà chữ ký đọc thử số thẻ mọi ảnh (bắt ảnh CCCD mờ) + hiện cả nhóm đúng để tích tay, tự rà lại 1 lần", "doiNgan(4)"],
   ["🎯 Phân bổ KH có thanh tab ngang: Quyết định · Phân bổ · Biểu 07 · Diễn biến · Đối chiếu (số đỏ = nhóm lệch), nhớ mục, phím 1 – 4", "slDoiTab('pb');doiNgan(7)"],
   ["📈 Diễn biến: bảng ma trận xã × chương trình gọn (dư nợ / KH tô màu, vượt KH đỏ), xoay / tách nguồn / chọn mốc / triệu – tỷ; bảng so theo mốc cuối tháng", "slDoiTab('pb');doiNgan(7)"],
-  ["Sửa lỗi: vượt KH tô đỏ, đọc lại Mẫu 31 khi mở tab, QĐ chưa ghép xã không cộng, chương trình phát sinh giữa năm không bỏ sót, giữ số sửa tay, lưu bản chụp Biểu 07 đã xuất", "slDoiTab('pb');doiNgan(7)"],
-  ["Scan: chế độ lọc rõ hơn cho bản photo — thêm 📠 Photo rõ (mặc định khi quét 🗎 Bản photo CCCD: nền trắng hẳn, chữ đậm, hết lấm tấm); Xám, Giấy trắng, Đen trắng, Magic (ảnh không màu) đều khử nền xám + bỏ chấm", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Sửa lỗi: vượt KH tô đỏ, đọc lại Mẫu 31 khi mở tab, QĐ chưa ghép xã không cộng, chương trình phát sinh giữa năm không bỏ sót, giữ số sửa tay, lưu bản chụp Biểu 07 đã xuất", "slDoiTab('pb');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

@@ -5,12 +5,12 @@ const fs = require('fs'), path = require('path');
 (async()=>{ const b = await chromium.launch(); const p = await b.newPage({viewport:{width:1440, height:900}}); const loiTrang = []; p.on('pageerror', e=>loiTrang.push(e.message));
   await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
   await p.goto('file://'+path.resolve(__dirname, '..', 'index.html')); await p.waitForTimeout(1500);
-  const {out, loi} = await require('./chuan_lay.js')(p); await b.close();
+  const {out, loi, chuan} = await require('./chuan_lay.js')(p); await b.close();
   const D = path.join(__dirname, 'chuan'), co = fs.existsSync(D) ? fs.readdirSync(D).filter(f=>/\.html$/.test(f)).map(f=>f.slice(0, -5)) : [];
   const R = [], ok = (ten, dk, chi) => R.push((dk ? '✓ ' : '✗ ')+ten+(chi ? ' — '+chi : ''));
   Object.keys(out).forEach(k=>{
     if(co.indexOf(k)<0) return ok(k, false, 'chưa có chuẩn (node tests/chuan_tao.js)');
-    const a = fs.readFileSync(path.join(D, k+'.html'), 'utf8'), c = out[k];
+    const a = chuan(fs.readFileSync(path.join(D, k+'.html'), 'utf8')), c = out[k];
     if(a===c) return ok(k, true);
     let i = 0; while(i<a.length && a[i]===c[i]) i++;
     ok(k, false, 'lệch từ ký tự '+i+': chuẩn «'+a.slice(Math.max(0, i-40), i+60).replace(/\s+/g, ' ')+'» · nay «'+c.slice(Math.max(0, i-40), i+60).replace(/\s+/g, ' ')+'»');

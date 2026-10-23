@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.320) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 01/TGTV từ Mẫu 31 / Sổ hộ vay / In nhanh | Ngày hết hạn tự có (vd sinh 1978, cấp 2021 → 28/03/2038) | |
+
+**Ghi chú kỹ thuật 3.320:** `js/mau/01tgtv.js` ô `hanCCCD` md 'tu' (người đã chọn ✍ ở khai báo riêng giữ lựa chọn). `tests/chuan_lay.js` trả thêm `chuan`; `t179` chuẩn hóa cả bản chuẩn.
+
 ### Danh sách thử trên máy thật (3.319) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
