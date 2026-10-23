@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.334 — 24/10/2026 — Đợt 1 bố cục máy tính (RA_SOAT_BO_CUC_2410) + thẻ tổ tab Tổ theo QT-18
+- **Anh 24/10**: "em cứ làm theo kế hoạch" — Đợt 1 của `docs/RA_SOAT_BO_CUC_2410.md` (TK 3 rà, ảnh chụp 1440 px).
+- **#1 Dải chip mẫu** (`cnHang` js/26, dùng chung GDX / Hồ sơ Tổ / Hồ sơ vay): 1 hàng cuộn ngang, mép mờ + nút ‹ › (lệnh `cn.cuon`, chỉ hiện khi còn mẫu khuất), mẫu đang chọn tự cuộn vào giữa (`cnSoatHet` khi vẽ / đổi cỡ cửa sổ). Hồ sơ: **📅 Số liệu + ⚙ Khai báo đơn vị** dời từ dải chip xuống dòng tên mẫu (`hsoDsHTML`) → hết bị đè.
+- **#2 Ô chọn lọc**: ô Xã bỏ chữ "Xã / Phường / Thị trấn" đầu tên (tên đủ ở title) → "Gia Lộc (24 tổ)". **Tra cứu KH**: chưa gõ → hiện sẵn khách trong phạm vi lọc (xếp theo tổ rồi tên; bộ > 6.000 khách giữ thứ tự danh bạ; 300 dòng đầu như cũ).
+- **#3 KTGS**: chip BC0437 / BC0438 / nguồn số liệu dời từ hàng lọc sang cuối thanh 3 khối (`KT_CHIP` → `ktKhoiHTML`).
+- **#5 Tiêu đề mẫu**: tên mẫu bắt đầu bằng mã (📒 Sổ hộ vay) không lặp chữ; dòng tên mẫu 1 dòng, dài thì "…" (đủ ở title); chú thích màu (3.317) giữ cùng dòng.
+- **#6 Nút xuất mờ** (Word / Excel không có): **giữ chỗ** như 3.234 (bố cục không nhảy) nhưng chỉ còn biểu tượng; khung xem 40 % nút gọn hơn → 📤 Gửi không rớt dòng (Hồ sơ Tổ 1024–1440 px).
+- **Không làm #4** (Tổng hợp: Nguồn vốn / Chương trình xuống dưới lọc địa bàn): **ngược ý anh chốt 3.168** ("Nguồn vốn + Chương trình 1 dòng, cây lọc dưới") — giữ nguyên, chờ anh quyết.
+- **Tab Tổ** (js/22g, đã đẩy trước): thẻ tổ đếm tổng / có dư nợ / còn lãi tồn theo QT-18 (`tvChuan`, gồm người 01/TV TƯ còn giữ); ô Ngưỡng chưa khai → QĐ 70 (20–100). QT-18 ghi: chưa giải ngân vẫn tính như TƯ (file thật: TƯ tính cả 21 món chưa GN, 4 món chưa có TK 105).
+- **Phép thử**: mới t245 (15); chạy lại t104–t107, t140, t145–t148, t152, t156, t160, t163–t204 (Hồ sơ / GDX), t230, t234, t241–t244.
+
 ## 3.333 — 24/10/2026 — Tra cứu KH khung cố định + khối tổ + bảng tổ theo Hội (kết nạp) · QT-18 thành viên chuẩn · chip 7 màu · KTGS qua KHO
 - **Anh 23–24/10**: "khi duyệt hồ sơ cần thông tin cơ bản về tổ: số thành viên, số đang dư nợ, mã tổ…" · "tên tổ trưởng kèm mã tổ trưởng có nút chép" · "tổ hiện dạng bảng theo Hội, xem 1 lần toàn điểm GD như KQGD" · "khung cố định để quen số liệu" · "chip màu thống nhất toàn app — 7 màu" · "QĐ 70 tổ có 20–100 thành viên" · "so thử qua các tháng và chốt cách tính".
 - **QT-18 thành viên chuẩn** (`tvChuan` js/28 → `KHO.tvChuan(tổ, K)`): tổ viên Mẫu 31 (QT-01…05) + người Mẫu 01/TV gần nhất TƯ còn giữ mà Mẫu 31 không có (dư nợ 0); cùng tháng với 01/TV bù đủ (khách 2 tổ tính ở mỗi tổ), kỳ ngày không bù người đã chuyển tổ; có dư nợ = gốc > 0; tách còn TK 105 / còn lãi tồn / cần cho ra. **Đối chiếu file thật 30/09: 18.816 / 18.816 TV, 370 / 370 tổ (tổng + có dư nợ)** — trước: app thiếu 168 người (dư nợ 0, không có trên Mẫu 31) và 12 tổ lệch "có dư nợ" (còn lãi tồn).

@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.334) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay / Hồ sơ Tổ / Giao dịch xã: dải chip mẫu | 1 hàng, nút › khi còn mẫu, bấm cuộn; mẫu đang chọn luôn thấy | |
+| 2 | Hồ sơ: dòng tên mẫu | 1 dòng: tên · chú thích màu · 📅 kỳ · ⚙ Khai báo đơn vị; Sổ hộ vay không lặp chữ | |
+| 3 | Hàng nút xuất (khung xem bên phải) | Word / Excel mờ chỉ còn biểu tượng; 📤 Gửi cùng hàng | |
+| 4 | Tra cứu KH: mở tab, đổi Xã | Có sẵn danh sách khách; đổi xã danh sách đổi theo; gõ tìm như cũ | |
+| 5 | KTGS: chip BC0437 / BC0438 | Ở cuối thanh Bắt buộc · Đột xuất · Khai báo; ô lọc không bị bóp | |
+| 6 | Tab Tổ: thẻ tổ (kỳ có 01/TV) | Tổng TV = số TƯ; có dư nợ / còn lãi tồn | |
+
+**Ghi chú kỹ thuật 3.334:** `cnHang` ở js/26 (nạp trước js/39) đăng ký lệnh `cn.cuon` lúc vẽ lần đầu. Nút mờ thu gọn bằng CSS (`font-size:0` + `::before`) → chữ "📝 Word / 📊 Excel" vẫn trong nút (t148, t196 không đổi). Tổng hợp #4 không làm (ngược 3.168).
+
 ### Danh sách thử trên máy thật (3.333) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

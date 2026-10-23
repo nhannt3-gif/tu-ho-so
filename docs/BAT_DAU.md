@@ -24,7 +24,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.333** — TK 2 (một mình làm toàn app từ 24/10, TK 3 đã bàn giao KTGS; 3.332 TK 3: hồi quy sau bàn giao, thứ tự nạp js/56): Tra cứu KH khung cố định + khối tổ + bảng tổ theo Hội (kết nạp), QT-18 thành viên chuẩn khớp 01/TV, chip 7 màu, KTGS lấy số liệu qua KHO. Trước: 3.328 cây gọn + thanh bên 2 cấp; 3.329–3.331 TK 3 KTGS bước 2–5 + bàn giao (`docs/BAN_GIAO_KTGS.md`).
+- **`main` = 3.334** — TK 2 (làm toàn app từ 24/10): Đợt 1 bố cục máy tính theo `docs/RA_SOAT_BO_CUC_2410.md` (dải chip cuộn ngang, dòng tên mẫu, nút xuất gọn, KTGS chip, Tra cứu có sẵn danh sách; #4 Tổng hợp chờ anh — ngược 3.168) + thẻ tổ tab Tổ theo QT-18. Trước: 3.333 Tra cứu KH khung cố định + bảng tổ theo Hội, QT-18, chip 7 màu, KTGS qua KHO. Tiếp: Đợt 2 điện thoại.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
