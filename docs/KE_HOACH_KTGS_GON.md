@@ -96,6 +96,34 @@ Mẫu: [06] [16] [04] [01/KH]          Xem: [Bản điền thử ▾]
 
 ---
 
+## 2b. Mẫu biểu & khai báo — điều chỉnh trước khi phối hợp TK 2 (TK 3 đề xuất 23/10)
+
+**① Khai báo 3 tầng — mỗi thông tin khai đúng 1 chỗ, tầng dưới chỉ THAM CHIẾU tầng trên, không gõ lại**
+| Tầng | Khai cái gì | Lưu | Ví dụ |
+|---|---|---|---|
+| **1. Đơn vị** (sự thật) | ai là ai: Hội – xã, CT, PCT, UV BTV, HĐUT, KH Hội tỉnh, tên chuẩn Hội, ngành kinh tế, thứ tự ấp | `ktHoiKB`, `ktChuan`, `ktPnkt`, `ktApThu` (giữ) | "PCT Hội ND xã Truông Mít = Nguyễn Văn A" |
+| **2. Bộ khai báo mẫu** (cách điền) | mỗi ô trên mẫu điền thế nào: 🤖 theo tầng 1 / số liệu · ✍ chấm · ☐ trống · ⌨ chữ riêng | `ktBo` (2 bộ cố định) | "Người kiểm tra = 🤖 PCT của Hội phụ trách tổ" |
+| **3. Lần in** (không lưu, trừ ngày đang gõ) | chọn bộ ①/②, ngày kiểm tra, sửa nhanh 1–2 ô cho lần này | phiên | "lần này đơn vị = Đoàn NHCSXH" |
+→ ô "⌨ chữ riêng" ở tầng 2 chỉ dùng khi tầng 1 không có (vd đoàn ngoài Hội); không còn ô gõ tên cán bộ ở nhiều nơi.
+
+**② Sổ mẫu KTGS `KT_MAU` — 1 bảng duy nhất cho mọi mẫu**
+| Mẫu | Khối dùng | Khuôn Word | Sổ ô `KT_O` | Ghi chú |
+|---|---|---|---|---|
+| Mẫu 06 KTGS (phiếu KT sử dụng vốn) | A Định kỳ, A Sau GN, B Đột xuất | m06 | có | 1 tổ × 1 lần (Sau GN: × 1 tháng) |
+| Mẫu 16 KTGS (biên bản KT tổ) | A Định kỳ, B Đột xuất | m16 | có | |
+| Mẫu 04 KTGS (báo cáo tổng hợp) | A (theo tháng), B (khi cần) | m04 | có | |
+| Kế hoạch KTGS 01/KH | A › Lịch năm | m01 | có (ít ô) | |
+| Thông báo phân công BTV KTGS | C | pc | không | giữ như cũ |
+→ **Mẫu trắng không còn là đường riêng**: mọi mẫu có nút "📄 Mẫu trắng" = cùng hàm dựng với **bộ ảo "Trắng"** (mọi ô ✍, số liệu ✍). Mẫu 06 trắng hiện tại (1 mặt / 2 mặt) giữ nguyên số dòng.
+
+**③ 1 đường in duy nhất** — hiện có 12 hàm mở / in riêng (`ktXuat`, `ktGNXem/In`, `ktDKXem/In`, `ktBCXem/In`, `ktKH04Xem`, `ktKHXem/In`, `ktTrang06Xuat`, `ktPCXuat`…) → gom về **`ktInMau(mẫu, dsPhiếu, {bo, cach:'xem'|'in'|'word'|'pdf'})`**: hộp in chung (chọn bộ · ngày · sửa nhanh) → xem trước → In / Word / PDF; tên file theo `QUY_CHUAN` mục 12. Các hàm cũ còn lại làm "lối tắt" gọi `ktInMau` (không xóa đến khi TK 2 nhận bàn giao). **Hàm dựng mẫu + khuôn Word không đổi.**
+
+**④ KTGS KHÔNG dùng nền ô Hồ sơ vay (`js/31-o-mau.js`)** — `KT_O` / `ktBo` giống ý tưởng nhưng là **mã riêng KTGS** (QUY_CHUAN 1b: gói riêng, mẫu khóa, không viết lại bên trong). Ghi rõ để TK 2 không gộp 2 hệ khi đưa qua `KHO`.
+
+**⑤ Nhãn giao diện** gọi đủ "Mẫu 06 KTGS / Mẫu 16 KTGS / Mẫu 04 KTGS / Kế hoạch KTGS" (QUY_CHUAN 1b.0) ở thanh khối, hộp in, tên file — tránh nhầm với Mẫu 06/TD hồ sơ vay.
+
+**Ranh giới với TK 2** (bổ sung mục 9): TK 2 chỉ chạm **tầng số liệu** (`ktNguon*` → `KHO`). Tầng 1 – 2 – 3, `KT_MAU`, `KT_O`, `ktBo`, `ktInMau`, hàm dựng mẫu, khuôn Word = **của KTGS (TK 3 làm, sau bàn giao chỉ sửa khi anh yêu cầu)**. Cây địa bàn, `inChuan`, xuất Word / PDF = dùng chung, TK 2 sửa thì chạy bộ phép thử KTGS.
+
 ## 3. Cấu trúc dữ liệu mới
 
 ### 3.1 Sổ ô mẫu (trong code, không lưu) — `KT_O[mẫu]`
@@ -161,7 +189,7 @@ ktgs = { …cũ…, khoi:'A'|'B'|'C', A:{thang:'2026-11', the:'dk'|'gn'|'bc'|'kh
 1. **Dữ liệu**: `ktBo` + sổ ô `KT_O` (06, 16) + chuyển dữ liệu cũ + `ktInV` đọc từ bộ (giao diện chưa đổi; in ra trùng 3.325).
 2. **Khối A số liệu tháng trước** + lớp nguồn `ktNguon*`: ô Tháng kiểm tra; Định kỳ / Mẫu 04 lấy Mẫu 31 chốt tháng trước; Sau GN chọn tháng như cũ, 1 tổ × 1 tháng = 1 phiếu, dòng nhắc 30 ngày (mục 8) (màn cũ giữ).
 3. **Thanh 3 khối** + chuyển chip cũ vào khối; gộp 2 lối Định kỳ, 2 lối Mẫu 04; Lịch năm thành thẻ trong khối A.
-4. **🧩 Bộ khai báo mẫu** (2 bộ; màn khai báo trực quan: danh sách ô + xem trước bấm ô) cho 06, 16 — Bảng II cả bảng + ▸ từng ô; hộp in gọn (chọn bộ + sửa nhanh); Mẫu 04 trong khối B.
+4. **🧩 Bộ khai báo mẫu + đường in chung `ktInMau`** (2 bộ + bộ ảo Trắng; màn khai báo trực quan: danh sách ô + xem trước bấm ô) cho 06, 16 — Bảng II cả bảng + ▸ từng ô; hộp in gọn (chọn bộ + sửa nhanh); Mẫu 04 trong khối B.
 5. Mở rộng sổ ô cho Mẫu 04, 01/KH; dọn khai báo trùng (Ông bà 2 gõ tay, ô cũ) → hồi quy đủ → **bàn giao TK 2** (mục 9).
 
 ## 7. Anh đã chốt (23/10)
