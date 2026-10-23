@@ -99,6 +99,26 @@ function slTomRieng(loai, t){
   return t.n+' tài khoản · số dư '+tdnTr(t.du||0);
 }
 
+/* ---------- 3.332 QT-18 (anh chốt 24/10): THÀNH VIÊN CHUẨN 1 TỔ theo kỳ đang dựng (TO_K — chốt tháng hoặc ngày) ----------
+   = tổ viên Mẫu 31 (toTV, QT-01…05) + người Mẫu 01/TV gần nhất TƯ còn giữ ở tổ mà Mẫu 31 kỳ này không có ở TỔ NÀO (dư nợ 0 — QT-06);
+   có dư nợ = dư nợ GỐC > 0 (như TƯ); còn lãi tồn / cần cho ra (QT-14) tách riêng.
+   Đối chiếu file thật 30/09: khớp 18.816 / 18.816 thành viên, 370 / 370 tổ (tổng + có dư nợ) với Mẫu 01/TV T9. */
+function tvCoMat(K){ if(!K._khMat){ var m = K._khMat = {}; Object.keys(K.kh||{}).forEach(function(to){ (K.kh[to]||[]).forEach(function(o){ if(o.kh) m[o.kh] = 1; }); }); } return K._khMat; }
+function tvChuan(t, K0){   /* K0: kỳ dựng khác TO_K (vd Tra cứu dùng TC_K) */
+  var K = K0 || TO_K; if(!K || !t || t.trucTiep || toLaTT(t)) return null;
+  var giu = TO_K; TO_K = K; var tv0; try { tv0 = toTV(t); } finally { TO_K = giu; }
+  var ds = tv0.map(function(k){ return {kh:k.kh, ten:k.ten, dn:k.dn||0, lt:k.lt||0, t105:k.t105||0, coTK:k.coTK || (k.stk||[]).length>0, nguon:'m31'}; });
+  var B = K.B, tw = B && B.co && B.co.tv01 ? B.co.tv01 : null, kyTW = tw ? (B.nguon && B.nguon.tv01) || B.ky : '', co = {}, mat = tvCoMat(K), bs = 0;
+  ds.forEach(function(x){ co[x.kh] = 1; });
+  var cung = kyTW && String(kyTW).slice(0, 7)===String(K.ky).slice(0, 7) && String(K.ky).length===7, hai = {};   /* cùng tháng chốt với 01/TV → lấy đủ như TƯ */
+  if(tw && !cung) tw.forEach(function(o){ hai[o.kh] = (hai[o.kh]||0)+1; });
+  if(tw) tw.forEach(function(o){ if(o.to!==t.ma || co[o.kh] || o.dn>0) return; if(!cung && mat[o.kh] && hai[o.kh]<2) return;   /* kỳ ngày: khách đã có món ở tổ khác (chuyển tổ) → không bù; khách TƯ ghi ở ≥ 2 tổ vẫn bù */ co[o.kh] = 1; bs++; ds.push({kh:o.kh, ten:o.ten||'', dn:0, lt:0, t105:o.t105||0, coTK:(o.t105||0)>0, nguon:'tv01'}); });
+  var r = {ma:t.ma, ky:K.ky, ngay:K.ngay, kyTW:kyTW, bs:bs, tong:ds.length, coNo:0, khongNo:0, laiTon:0, choRa:0, ds:ds};
+  ds.forEach(function(x){ if(x.dn>0){ x.loai = 'no'; r.coNo++; return; } r.khongNo++;
+    x.loai = x.lt>0 ? 'lai' : (x.t105>0 || x.coTK) ? '105' : 'ra'; if(x.loai==='lai') r.laiTon++; if(x.loai==='ra') r.choRa++; });
+  return r;
+}
+
 /* ---------- ③ ĐỐI CHIẾU THÀNH VIÊN TỔ: app (Mẫu 31) ↔ Mẫu 01/TV (TƯ) ----------
    B = slBo(kỳ) có co.hstd + co.tv01. Kết quả lưu B._tv (tính 1 lần):
    khop · thieu (TƯ có, Mẫu 31 không thể hiện) · du (app có, TƯ không) · ra (CẦN CHO RA KHỎI TỔ) · haiTo (khách ở ≥ 2 tổ) · laiTon (TƯ dư nợ 0 nhưng còn lãi tồn) */

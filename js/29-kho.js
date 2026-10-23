@@ -76,6 +76,8 @@ var KHO = (function(){
     thanhVienTW: function(){ return co() && typeof tvDoiChieu==='function' ? tvDoiChieu(TO_K.B) : null; },
     /* KHO.tv01(maKH) → dòng Mẫu 01/TV của khách | null · QT-14 */
     tv01: function(kh){ return typeof tv01Cua==='function' ? tv01Cua(kh) : null; },
+    /* KHO.tvChuan(maTo | tổ) → {tong, coNo, khongNo, laiTon, choRa, bs, kyTW, ds:[{kh, ten, dn, lt, t105, loai:'no'|'105'|'lai'|'ra', nguon}]} | null · QT-18 */
+    tvChuan: function(x, K){ var t = typeof x==='string' ? (K ? K.to[x] : toThat(x)) : x; if(!t || (!K && !co())) return null; try { return tvChuan(t, K); } catch(e){ return null; } },
     /* KHO.duNoAp(kỳ) → Promise<{ky, ds:[{xa, tenXa, thon, tenThon, ct (mã 2 số), nguon (1 TW / 2 ĐP / 0 không rõ), dn (ĐỒNG), mon}]} | null>
        — dư nợ Mẫu 31 kỳ đó gộp theo xã × thôn × chương trình × nguồn; chỉ món còn dư nợ (> 0, chưa CLOSE), mỗi khế ước 1 lần (bỏ dòng lặp).
        Chưa có Mẫu 31 kỳ đó → null. Chỉ đọc. Dùng: 🎯 Phân bổ KH (QT-15 chế độ chính xác) — P1 KE_HOACH_PHAN_BO_KH (anh 20/10/2026) */
