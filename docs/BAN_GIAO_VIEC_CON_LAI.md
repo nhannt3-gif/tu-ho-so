@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.323) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🎯 Kiểm tra đột xuất › In Mẫu 06 › Đơn vị: Khai báo tên đoàn, Người kiểm tra: Khai báo tên | Phiếu in tên đoàn + cán bộ anh gõ | |
+| 2 | Mẫu 16 cùng lựa chọn + Bảng II Chấm ghi tay | Đầu trang + ĐOÀN KIỂM TRA = tên đoàn; Bảng II dòng chấm; số liệu tổ vẫn có | |
+| 3 | Đổi Đơn vị → Để chấm | Dòng chấm ghi tay ở cả 06 và 16 | |
+| 4 | Sang Sau giải ngân / Định kỳ | Lựa chọn cũ không bị đổi | |
+
+**Ghi chú kỹ thuật 3.323:** `js/22b-ktgs.js` — `KT_IN_MD` m06 / m16 thêm `dvc, dvt, cb1t, cv1t` (+ `cb2t, cv2t` m16); `ktInKhoa(mau)` ('dx_'+mẫu khi `ktCheDo()==='dx'`, trừ m04 / kh); `ktInLay` đọc khóa riêng (chưa có → chung) + chuyển `ktKBLuu.dv` cũ; `ktInV` → `v.dv` ('-' chấm / tên / '' Hội), `ng2==='go'` → cb2 / cv2; `ktCanBo` `ng1==='go'`; `ktNguoi` / `ktNguoi2` / `ktInThieu` / `ktInVTTen` bỏ qua 'go'; `ktInPhan` ô chọn + ô gõ; `ktInDoc` / `ktInDayDu` lưu khóa riêng; `ktGiaTri16` DOAN theo `v.dv`, `b2` 'cham' → `KT_B16_CHAM`, `ktB16NX` (kq1 / kq2 chấm); bỏ `KT_DV_GOI`.
+
 ### Danh sách thử trên máy thật (3.322) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
