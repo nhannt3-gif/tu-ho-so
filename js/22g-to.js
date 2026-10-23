@@ -662,14 +662,15 @@ function toGoiY(k){ if(!k.conNo && k.chuaGN) return 'Chưa giải ngân'; return
 function toTheHTML(t, tv){
   var dn = 0, qh = 0, kn = 0, t105 = 0, co = 0;
   tv.forEach(function(k){ dn += k.dn; qh += k.qh; kn += k.kn; t105 += k.t105; if(k.conNo) co++; });
-  var dem = function(f){ return tv.filter(f).length; }, N = toNguong();
+  var dem = function(f){ return tv.filter(f).length; }, N = toNguong(), R = !toLaTT(t) && typeof tvChuan==='function' ? tvChuan(t) : null;   /* 3.334: số TV chuẩn QT-18 (khớp 01/TV TƯ) */
+  if(R && !N.max && typeof tcNguong==='function') N = tcNguong();   /* QĐ 70: mặc định 20–100 */
   var len = '';
   if(t.len){ var L1 = t.len; len = ' │ LEN_31: '+tdnTien(L1.ho||0)+' hộ · '+tdnTr(L1.dn)+' · tiền gửi '+tdnTr(L1.tg)+' · cho vay / thu nợ '+tdnTr(L1.cv)+' / '+tdnTr(L1.tn)+' · thu lãi '+tdnTr(L1.tl)+(t.lenGop>1 ? ' (gộp '+t.lenGop+' tổ trùng tên)' : ''); }
   return '<div class="to-the">'+
     '<div class="to-the-ten">'+(toLaTT(t) ? '<b>Vay trực tiếp (không qua tổ)</b>' : 'Tổ <b>'+coChuHTML(t.ten||'')+'</b> (mã '+t.ma+')')+' <span class="to-the-phu">· '+coChuHTML(toDiaChi(t))+'</span>'+(t.canDong ? ' <span class="to-dong0" title="Tổ dư nợ 0 nhưng còn trên '+(t.ds ? 'DSTO' : 'LEN_31 TO_TRUONG')+' — làm thủ tục đóng tổ">⚠ Dư nợ 0 — cần đóng tổ</span>' : '')+'</div>'+
-    '<div class="to-the-so"><b>'+tv.length+'</b> '+(toLaTT(t) ? 'khách' : 'tổ viên')+': <b>'+co+'</b> có dư nợ · <b>'+dem(toLocHam('ko105'))+'</b> không dư nợ còn 105 · <b class="do">'+dem(toLocHam('ra'))+'</b> đề xuất cho ra · <b class="do">'+dem(toLocHam('cccd'))+'</b> CCCD hết hạn'+
+    '<div class="to-the-so"><b>'+(R ? R.tong : tv.length)+'</b> '+(toLaTT(t) ? 'khách' : 'tổ viên')+(R && R.bs ? ' <small title="Người Mẫu 01/TV '+coChuHTML(slKyChu(R.kyTW))+' TƯ còn giữ mà Mẫu 31 kỳ này không có (dư nợ 0)">(gồm '+R.bs+' theo 01/TV)</small>' : '')+': <b>'+(R ? R.coNo : co)+'</b> có dư nợ'+(R && R.laiTon ? ' · <b class="cam">'+R.laiTon+'</b> còn lãi tồn' : '')+' · <b>'+dem(toLocHam('ko105'))+'</b> không dư nợ còn 105 · <b class="do">'+dem(toLocHam('ra'))+'</b> đề xuất cho ra · <b class="do">'+dem(toLocHam('cccd'))+'</b> CCCD hết hạn'+
       ' │ dư nợ <b>'+tdnTr(dn)+'</b> · QH <b>'+(qh ? tdnTr(qh) : 0)+'</b> · khoanh <b>'+(kn ? tdnTr(kn) : 0)+'</b> · 105 <b>'+tdnTr(t105)+'</b>'+
-      (N.max && !toLaTT(t) ? ' │ còn nhận thêm <b>'+Math.max(0, N.max-tv.length)+'</b> tổ viên (tối đa '+N.max+')' : '')+(toLaTT(t) ? '' : toBDChu())+coChuHTML(len)+'</div></div>';
+      (N.max && !toLaTT(t) ? ' │ còn nhận thêm <b>'+Math.max(0, N.max-(R ? R.tong : tv.length))+'</b> tổ viên (tối đa '+N.max+')' : '')+(toLaTT(t) ? '' : toBDChu())+coChuHTML(len)+'</div></div>';
 }
 function toNguong(){ var n = D.cauHinh.toNguong || {}; return {min:+n.min||0, max:+n.max||0}; }
 function toDatNguong(){
