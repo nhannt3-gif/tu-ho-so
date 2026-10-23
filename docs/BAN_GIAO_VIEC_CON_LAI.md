@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.330) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS Hội | Thanh 📅 Bắt buộc · 🎯 Đột xuất · ⚙ Khai báo; Bắt buộc có 4 thẻ con | |
+| 2 | ⚙ Khai báo › 🧩 Bộ khai báo mẫu › bộ ② › Đơn vị kiểm tra "Khai báo tên đoàn" | Lưu ngay; Đột xuất in Mẫu 16 ra tên đoàn | |
+| 3 | Đột xuất › chọn tổ › 📋 Mẫu 04 | Báo cáo 1 tổ, tháng để chấm khi chưa khai ngày | |
+
+**Ghi chú kỹ thuật 3.330:** `ktCheDoHTML()` → `ktKhoiHTML(che)` (56); `ktKhoi(c)`; `ktgs.aThe`; `ktgs.hdtTab = 'bo'` → `ktBoVe(o, h)` (KT_IN_X `tab:1` — `ktInDoc / ktInDayDu / ktKN04Doi / ktKN04Chu / ktbo.chon` vẽ lại tab thay vì mở hộp). `ktDX04(ok)` + `KT_BC_XEM.tu = 'dx'`. Lệnh `GD` khối `ktk` (khoi, che, hdt, chep, trang, dx04, kieu, so, goiYLai, loc, xuat, dkTich, dkMo, dkLich).
+
 ### Danh sách thử trên máy thật (3.329) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

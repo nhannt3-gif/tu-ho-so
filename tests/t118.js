@@ -27,7 +27,7 @@ const fs=require('fs'), path=require('path');
    /* 2. tab khai báo */
    C.xa = tA.xa; C.che = 'hdt'; ktVeThe(); await w(200);
    const the = document.getElementById('kt-the');
-   ok('nút 🏛 Khai báo Hội đoàn thể đứng đầu hàng chọn loại', /^🏛 Khai báo Hội đoàn thể/.test(the.querySelector('.kt-che button').textContent.trim()) && the.querySelector('.kt-che button').classList.contains('bat'));
+   ok('3.329: khối ⚙ Khai báo đang chọn trên thanh 3 khối, thẻ con 🏛 Hội – xã đầu hàng', /Khai báo/.test(the.querySelector('.kt-khoi .bat').textContent) && /^🏛 Hội – xã/.test(the.querySelector('.kt-che button').textContent.trim()) && the.querySelector('.kt-che button').classList.contains('bat'));
    ok('3.154: 1 bảng — mỗi Hội – xã của xã chọn 1 dòng: tên, CT, PCT, 3 BTV, nhiệm kỳ, HĐUT, KH tỉnh', the.querySelectorAll('.hkb-xls tbody tr[data-k]').length===ktHoiDs().length && the.querySelectorAll('.hkb-xls input.hkb-o').length===ktHoiDs().length*8);
    ok('3.158: tên Hội cấp xã không còn ở bảng khai báo (sang Chuẩn hóa)', !document.getElementById('hkb-'+kA.replace(/[^0-9a-z]/gi,'_')+'-ten'));
    const tD = ds.find(t=>String(t.dv)==='14' && t.xa===tA.xa);

@@ -464,19 +464,20 @@ function ktDKVeG(o, th){
   var C = ktCH(), K = KT_K;
   var h = ktCheDoHTML()+ktAThangHTML(th);
   if(!th){ o.innerHTML = h+'<div class="sl-bao vang">Kiểm tra định kỳ cần <b>số liệu cuối tháng</b> (Mẫu 31 chốt tháng) — chọn ở ô <b>Số liệu</b> phía trên. Số liệu theo ngày không dùng cho kiểm tra định kỳ.</div>'; return; }
-  h += '<div class="kt-gn-dau"><span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn xã / hội ở cây để thêm tổ ngoài lịch</span></div>';
+  var lich = ktDKLich(th), nLich = Object.keys(lich).filter(function(m){ return K.to[m]; }).length;   /* 3.329: gộp lối Kế hoạch — tích tổ có lịch tháng kiểm tra */
+  h += '<div class="kt-gn-dau"><span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn xã / hội ở cây để thêm tổ ngoài lịch</span>'+(nLich ? GD.nut({chu:'📅 Tích '+nLich+' tổ có lịch T'+(+th.slice(5)), lenh:'ktk.dkLich', tit:'Theo Kế hoạch 01/KH đã lưu (thẻ 🗓 Lịch năm)'}) : '')+'</div>';
   var ds = ktDKDs();
-  if(!ds.length){ o.innerHTML = h+'<div class="rong">Chọn xã (hoặc hội, điểm GD) ở cây phía trên để chọn tổ kiểm tra — chọn tự do, không theo Kế hoạch. In theo kế hoạch: chip 🗓 Kế hoạch năm → bấm tháng.</div>'; return; }
+  if(!ds.length){ o.innerHTML = h+'<div class="rong">Chọn xã (hoặc hội, điểm GD) ở cây phía trên để chọn tổ kiểm tra — chọn tự do, không theo Kế hoạch. Theo kế hoạch: nút 📅 Tích tổ có lịch, hoặc thẻ 🗓 Lịch năm → bấm tháng.</div>'; return; }
   var chon = ds.filter(function(r){ return r.chon; });
   h += '<div class="to-the-so">Chọn tự do (không theo Kế hoạch) · đã chọn <b>'+chon.length+'</b> tổ → '+chon.length+' phiếu Mẫu 06 + '+chon.length+' biên bản Mẫu 16</div>';
   h += '<div class="to-bang-cuon"><table class="to-bang kt-bc-bang kt-dk-bang"><thead><tr><th>Chọn</th><th>Tổ (mã)</th><th>Ấp · xã</th><th>Hội</th><th>Lịch</th><th>Hộ kiểm tra (≥ 90%)</th><th>Món</th><th></th></tr></thead><tbody>';
   var truoc = '';
   ds.forEach(function(r){ var t = r.t, m = t.ma;
     var x = r.chon || KT_DK_MO===m ? ktDKTyLe(t) : null;
-    h += '<tr class="'+(r.chon ? 'kt-co' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(r.chon ? ' checked' : '')+' onchange="ktDKTich(\''+m+'\',this.checked)" aria-label="Chọn tổ"></td>'+
+    h += '<tr class="'+(r.chon ? 'kt-co' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(r.chon ? ' checked' : '')+' data-lenh="ktk.dkTich" data-su="change" data-m="'+m+'" aria-label="Chọn tổ"></td>'+
       '<td class="to-ten"><b>'+coChuHTML(t.ten||'Tổ '+m)+'</b> ('+m+')</td><td>'+coChuHTML([t.tenThon, t.tenXa].filter(Boolean).join(' · '))+'</td><td>'+coChuHTML(tdnHoi(t.dv))+'</td><td></td>'+
       '<td>'+(x ? '<b class="'+(x.pt>=90 ? 'xanh' : 'do')+'">'+x.nChon+'/'+x.nDung+' hộ = '+ktPT(x.pt)+'%</b>'+(x.nTong>x.nChon ? ' <small>+ '+(x.nTong-x.nChon)+' QH/khoanh</small>' : '') : '')+'</td>'+
-      '<td>'+(x ? x.monC+'/'+x.monD+' món ('+ktPT(x.ptMon)+'%)' : '')+'</td><td><button class="nho" onclick="ktDKMo(\''+m+'\')">'+(KT_DK_MO===m ? '▴ Thu gọn' : '▾ Chọn hộ')+'</button></td></tr>';
+      '<td>'+(x ? x.monC+'/'+x.monD+' món ('+ktPT(x.ptMon)+'%)' : '')+'</td><td><button type="button" class="nho" data-lenh="ktk.dkMo" data-m="'+m+'">'+(KT_DK_MO===m ? '▴ Thu gọn' : '▾ Chọn hộ')+'</button></td></tr>';
     if(KT_DK_MO===m) h += '<tr><td colspan="8">'+ktDKHoHTML(t, x)+'</td></tr>'; });
   h += '</tbody></table></div>';
   var xaDK = {}; chon.forEach(function(r){ if(r.t.xa) xaDK[r.t.xa] = 1; });

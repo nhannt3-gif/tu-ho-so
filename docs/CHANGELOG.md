@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.330 — 24/10/2026 — KTGS bước 3–4: thanh 3 khối, màn Bộ khai báo mẫu, Mẫu 04 đột xuất
+- **Anh 23/10**: "phân thành 2 phần … bắt buộc cố định Hội phải thực hiện … và 1 phần kiểm tra đột xuất … bỏ trùng lắp, bố trí lại bố cục cho gọn" · "đột xuất có Mẫu 04 để in khi cần" · "em cứ làm theo kế hoạch, xong bàn giao đầy đủ cho TK 2".
+- **Thanh 3 khối** thay 6 chip: **📅 Bắt buộc · theo tháng** (thẻ con 🗓 Định kỳ · 📅 Sau giải ngân · 📋 Mẫu 04 · 🗓 Lịch năm 01/KH — nhớ thẻ đang mở) · **🎯 Đột xuất · theo ngày** · **⚙ Khai báo** (🏛 Hội – xã · 📖 Chuẩn hóa · **🧩 Bộ khai báo mẫu**).
+- **🧩 Bộ khai báo mẫu**: sửa sẵn **① Hội kiểm tra / ② Khai báo khi cần** ngay trên màn (Mẫu 06, 16, 04, Kế hoạch, kiến nghị Mẫu 04) — không cần bấm In; **⧉ Chép bộ ① sang ②**; **📄 Mẫu 06 trắng**.
+- **🎯 Đột xuất có 📋 Mẫu 04** cho tổ đang chọn (số liệu ngày chọn; chưa khai ngày → tháng / năm để chấm).
+- **🗓 Định kỳ**: nút **📅 Tích n tổ có lịch T…** theo Kế hoạch 01/KH đã lưu (gộp lối "Kế hoạch › in theo tháng"; vẫn chọn tự do như 3.140).
+- Các nút KTGS chuyển sang `data-lenh` (thước đo onclick về trong mốc sau khi gộp 3.328 TK 2). Bản in không đổi (t179).
+- Phép thử: t238 mới (17); t108 / t109 / t118 theo thanh khối mới.
+
 ## 3.329 — 24/10/2026 — KTGS bước 2: khối Bắt buộc theo Tháng kiểm tra; Sau giải ngân 1 tổ × 1 tháng
 - **Anh 23/10**: kiểm tra định kỳ + sau giải ngân là bắt buộc, "lấy số liệu theo tháng liền trước" · "gom nhiều tháng nhưng phiếu in ra vẫn 1 tổ 1 mẫu 06 1 tháng, lưu ý ngày kiểm tra tối đa 30 ngày sau giải ngân" · "chỉ lưu ý, không quá cứng".
 - **🗓 Định kỳ** và **📋 Mẫu 04**: ô **📅 Tháng kiểm tra** (chung) → app tự lấy Mẫu 31 chốt cuối tháng liền trước + BC0437 / BC0438 tháng đó, ghi rõ dòng "Số liệu in T…"; **ô Kỳ đầu trang không còn ảnh hưởng**. Chưa nạp tháng đó → tháng gần nhất trước đó + ⚠ (như in theo tháng Kế hoạch 3.141). Mặc định: kỳ đầu trang là tháng → tháng sau (như cũ); là ngày → chính tháng đó.
