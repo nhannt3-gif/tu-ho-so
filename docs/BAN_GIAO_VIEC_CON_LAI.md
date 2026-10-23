@@ -222,6 +222,10 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.332) — như 3.330
+
+**Ghi chú kỹ thuật 3.332:** thứ tự `<script>` js/54 → 56 → 57. Hồi quy 3.330: t100, t158 sai từ trước (3.327).
+
 ### Danh sách thử trên máy thật (3.331) — như 3.330 (chỉ thêm tài liệu bàn giao)
 
 **Ghi chú kỹ thuật 3.331:** chỉ tài liệu — `docs/BAN_GIAO_KTGS.md`, CLAUDE.md dòng KTGS, kế hoạch mục 11.

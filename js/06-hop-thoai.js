@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.331', ds:[
+var CO_GI_MOI = {ban:'3.332', ds:[
+  ["Sửa thứ tự nạp file KTGS sau hồi quy (không đổi giao diện)", "doiNgan(7)"],
   ["KTGS: TK 3 bàn giao cho TK 2 (tài liệu docs/BAN_GIAO_KTGS.md) — giao diện không đổi", "doiNgan(7)"],
   ["KTGS: thanh 3 khối Bắt buộc · Đột xuất · Khai báo; màn Bộ khai báo mẫu sửa 2 bộ không cần In; đột xuất có Mẫu 04", "doiNgan(7)"],
   ["KTGS Bắt buộc: ô Tháng kiểm tra (số liệu cuối tháng liền trước, không theo ô Kỳ đầu trang); Sau giải ngân 1 tổ × 1 tháng = 1 phiếu", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.331', ds:[
   ["KTGS: số liệu tổ (Mẫu 16, Mẫu 04, thẻ tổ) theo ngày chọn — chấm điểm, xếp loại theo tháng BC0437; kiểm tra đột xuất để chấm ngày tháng năm", "doiNgan(7)"],
   ["KTGS › Kiểm tra đột xuất: dòng 🎯 Khai báo đột xuất ngay trong tab (đơn vị, người kiểm tra, Bảng II, nhận xét) + nút Chọn / khai tên; khai 1 lần dùng cho cả Mẫu 06 và 16", "doiNgan(7)"],
   ["KTGS › Kiểm tra đột xuất: đơn vị / đoàn kiểm tra và cán bộ kiểm tra chọn chấm ghi tay hoặc khai tên (Mẫu 06 + 16); Bảng II Mẫu 16 chấm ghi tay; lựa chọn đột xuất lưu riêng", "doiNgan(7)"],
-  ["KTGS Hội: dòng hộ đã chọn đọc rõ ở chế độ tối (trước nền sáng cố định, chữ mờ)", "doiNgan(7)"],
-  ["Scan › Sửa bản quét: CCCD tổ trưởng (không vay) nhận ra từ bảng tổ; không có ở đâu thì lấy họ tên trên thẻ; ô Tổ bày sẵn danh sách tổ để bấm chọn", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["KTGS Hội: dòng hộ đã chọn đọc rõ ở chế độ tối (trước nền sáng cố định, chữ mờ)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

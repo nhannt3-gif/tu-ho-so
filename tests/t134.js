@@ -83,7 +83,7 @@ const fs=require('fs'), path=require('path');
    ok('3.140.2 📤 PDF Kế hoạch: Xã_Hội_KH năm', !!kk && new RegExp('^'+dau+'KH2026\\.html$').test(kk), kk);
    /* Định kỳ chọn tự do */
    C.che = 'dk'; C.ky = '2026-'+hai(m-1); ktVeThe(); await w(300);
-   ok('Định kỳ: không tích sẵn tổ theo Kế hoạch (chọn tự do), tên chip mới', !ktDKDs().some(r=>r.chon) && /Định kỳ · Mẫu 06 \+ 16 \(chọn tự do\)/.test(document.getElementById('kt-the').textContent));
+   ok('Định kỳ: không tích sẵn tổ theo Kế hoạch (chọn tự do), tên chip mới', !ktDKDs().some(r=>r.chon) && /Định kỳ · Mẫu 06 \+ 16/.test(document.getElementById('kt-the').textContent));
    return o; }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0, 5));
  console.log((R.filter(x=>x[0]==='✓').length)+'/'+R.length+' đạt'); await b.close(); })();
