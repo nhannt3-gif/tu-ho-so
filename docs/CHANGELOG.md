@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.322 — 23/10/2026 — KTGS Hội: dòng hộ đã chọn đọc rõ ở chế độ tối
+- **Anh 23/10** (ảnh bảng chọn hộ kiểm tra — chữ gần như không đọc được): "anh cần làm phần này gấp".
+- Bảng chọn hộ kiểm tra (Mẫu 06 · đột xuất / sau giải ngân / định kỳ): dòng hộ đã tích dùng nền xanh nhạt cố định `#eef7f0` → ở **chế độ tối** chữ sáng trên nền sáng, không đọc được. Đổi sang màu nền theo chế độ (`--luc-nen`: sáng = xanh nhạt như cũ, tối = xanh đậm) — chữ, số KU, dư nợ, ghi chú đọc rõ. Chế độ sáng giữ nguyên.
+
 ## 3.321 — 23/10/2026 — Sửa bản quét CCCD: nhận tổ trưởng, tên trên thẻ, chọn tổ nhanh
 - **Anh 23/10** (ảnh hộp Sửa bản quét CCCD — ô tên ra số CCCD, báo không có trên Mẫu 31): "chỗ tổ cho hiện danh sách tổ ra chọn luôn, CCCD này là của tổ trưởng nhưng app báo không nhận trong Mẫu 31".
 - **Tổ trưởng**: tổ trưởng không có món vay nên không có trong danh bạ khách Mẫu 31. 🔎 Tra Mẫu 31 / 🪪 Đọc số CCCD không thấy khách → tra tiếp **bảng tổ** (CCCD tổ trưởng đủ nguồn, hoặc đúng tên tổ trưởng): khớp → ô tên = **tên tổ trưởng** (theo danh bạ tổ, chữ hoa đầu từ), gắn **Mã CIF tổ trưởng**, xã · điểm · ấp · **tổ** tự chọn, báo "✓ Tổ trưởng … (khớp CCCD tổ trưởng)". Tab Scan chưa dựng kỳ → tự dựng kỳ chung rồi tra.

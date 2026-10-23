@@ -2219,7 +2219,7 @@
   .kt-kieu,.kt-loc{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;margin:4px 0}
   .kt-so{display:inline-flex;align-items:center;gap:4px;font-size:calc(12.5px*var(--co))}.kt-so b{min-width:22px;text-align:center}
   .kt-bang td{vertical-align:top}.kt-bang td:nth-child(5),.kt-bang td:nth-child(8){white-space:normal;min-width:180px}
-  .kt-bang tr.kt-co td{background:#eef7f0}.kt-bang tr.kt-loai td{color:var(--chu-phu)}
+  .kt-bang tr.kt-co td{background:var(--luc-nen)}   /* 3.322: theo chế độ sáng / tối (trước #eef7f0 cố định → chế độ tối chữ sáng trên nền sáng, không đọc được) */.kt-bang tr.kt-loai td{color:var(--chu-phu)}
   .kt-nh{font-size:calc(11px*var(--co));border-radius:9px;padding:0 6px;border:1px solid var(--vien);white-space:nowrap}
   .kt-nh.xanh{background:var(--luc-nen);color:var(--luc);border-color:#bfe3cb}.kt-nh.vang{background:var(--vang-nen);color:var(--vang);border-color:#e0b84a}.kt-nh.do{background:var(--do-nen);color:var(--do);border-color:#e39a8f}
   .kt-ku{color:#77808a;font-size:.88em}.kt-mon+.kt-mon{border-top:1px dotted var(--vien)}
