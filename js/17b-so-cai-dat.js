@@ -39,7 +39,7 @@ var CH_SO = {
   /* tháng, giao ban, số liệu */
   mauBaoCao:'Danh mục báo cáo tháng', maDaBo:'Mã báo cáo đã bỏ khỏi danh mục', kyBang:'Kỳ bảng tháng đang xem', soKyBang:'Số kỳ bảng tháng', kyChot:'Kỳ đã chốt (đời cũ)',
   gbSoNgay:'Giao ban: số ngày', gbTuKhoa:'Giao ban: từ khóa văn bản', slgbDaDoi:'Mốc đổi số liệu giao ban (1 lần)',
-  kyChung:'Kỳ số liệu chung mọi tab', pvChung:'Phạm vi chung (xã › điểm › hội › tổ)', pvGon:'Khối phạm vi gọn theo tab', pvGhim:'Ghim khối phạm vi theo tab',
+  kyChung:'Kỳ số liệu chung mọi tab', pvChung:'Phạm vi chung (xã › điểm › hội › tổ)', pvGon:'Khối phạm vi gọn theo tab', pvGhim:'Ghim khối phạm vi theo tab (cũ)', pvGhimBat:'📌 Ghim địa bàn + kiểu cây khi mở lại app', pvKieu:'Kiểu cây địa bàn theo tab (gọn / chip)',
   slTab:'Tab con Số liệu đang mở', slTabBC:'Tab báo cáo Số liệu lần trước', slGiu:'Số kỳ số liệu giữ trên máy', slMo:'Nhóm file Số liệu đang mở', slKqMo:'Mở kết quả kiểm tra kỳ', slKtLoc:'Lọc kết quả kiểm tra',
   slMt:'Ma trận Nạp: kiểu xem', slMtTruoc:'Ma trận Nạp: kiểu trước khi thu', slTQ:'Bảng tổng quan nhiều tháng thu gọn',
   toTK:'Tab Tổ: kỳ + phạm vi + báo cáo', skTK:'Tab Sao kê: kỳ + phạm vi + báo cáo', thTK:'Tab Tổng hợp: kỳ + phạm vi + báo cáo', tcPV:'Tab Tra cứu: phạm vi',

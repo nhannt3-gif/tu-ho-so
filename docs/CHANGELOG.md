@@ -4,12 +4,21 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.328 — 23/10/2026 — KTGS bước 2: khối Bắt buộc theo Tháng kiểm tra; Sau giải ngân 1 tổ × 1 tháng
+## 3.329 — 24/10/2026 — KTGS bước 2: khối Bắt buộc theo Tháng kiểm tra; Sau giải ngân 1 tổ × 1 tháng
 - **Anh 23/10**: kiểm tra định kỳ + sau giải ngân là bắt buộc, "lấy số liệu theo tháng liền trước" · "gom nhiều tháng nhưng phiếu in ra vẫn 1 tổ 1 mẫu 06 1 tháng, lưu ý ngày kiểm tra tối đa 30 ngày sau giải ngân" · "chỉ lưu ý, không quá cứng".
 - **🗓 Định kỳ** và **📋 Mẫu 04**: ô **📅 Tháng kiểm tra** (chung) → app tự lấy Mẫu 31 chốt cuối tháng liền trước + BC0437 / BC0438 tháng đó, ghi rõ dòng "Số liệu in T…"; **ô Kỳ đầu trang không còn ảnh hưởng**. Chưa nạp tháng đó → tháng gần nhất trước đó + ⚠ (như in theo tháng Kế hoạch 3.141). Mặc định: kỳ đầu trang là tháng → tháng sau (như cũ); là ngày → chính tháng đó.
 - **📅 Sau giải ngân**: gom nhiều tháng như cũ nhưng **mỗi tổ mỗi tháng giải ngân = 1 phiếu Mẫu 06** (trước: 1 tổ 1 phiếu gom các tháng). Lãi tồn, số dư 105, quá hạn của hộ theo **Mẫu 31 tháng giải ngân**. Thêm dòng nhắc "⏱ Kiểm tra trong 30 ngày kể từ ngày giải ngân (727) — ngày kiểm tra ghi tay" (không chặn, không kiểm ngày).
 - Lớp nguồn số liệu `ktNguon*` (`js/56-ktgs-bo.js`) — chỗ TK 2 thay qua `KHO` (`docs/BAN_GIAO_KTGS.md`, nháp).
 - Bản in Mẫu 06 / 16 / 04 / Kế hoạch không đổi (t179). Phép thử: t237 mới (16); t106 đếm phiếu theo tổ × tháng; t110 dòng tháng kiểm tra.
+
+## 3.328 — 23/10/2026 — Cây địa bàn gọn mặc định + thanh bên 2 cấp + GDX bàn thao tác + cửa KHO cho KTGS (TK 2)
+- **Anh 23/10**: "Mặc định là kiểu gọn cho tất cả, lúc nào mở app về sẵn cấp PGD, nút ghim vẫn giữ để ghim khi cần giữ kiểu cấp đang chọn … làm liên tục, gộp lên cho anh thử, xong hết hồi quy 1 lần." Gom ý + các đợt: `docs/RA_SOAT_TONG_THE_2310.md` mục 9.
+- **Cây địa bàn C1** (`pvVeCay`, js/22g): kiểu ☰ Gọn (mặc định mọi nơi) = 1 dòng ô chọn + ⬆ + 🔎; ▦ Chip = như cũ. Địa bàn chỉ giữ trong phiên (`PV_PHIEN`), kiểu theo nơi trong phiên (`PV_KIEU`); 📌 Ghim chung mọi tab (địa bàn đã dùng chung từ 3.149) → `D.cauHinh.pvGhimBat` + `pvChung` + `pvKieu` (đồng bộ khối Số liệu). Thiết lập cũ `pvGhim` / `pvGon` (ghim = luôn mở, chọn tổ tự thu gọn) thôi dùng. Điện thoại: ô chọn cuộn ngang 1 dòng + hàng nút.
+- **Cây nhúng C2** (`js/57-cay.js`, `CAY`): `dsXa / dsDiem / dsAp / dsHoi / dsTo / chuTo / o / dong` — 👪 Hộ vay (`hmVe`), lập 01/TD (js/40), khai nhanh 01/TGTV (js/54), ⚙ Khai báo chung (`hsoKBHop`) gọi chung; xử lý + dữ liệu lưu của từng nơi giữ nguyên.
+- **Cửa KHO cho KTGS (P0)** (`js/29-kho.js`): `chotThang`, `theoNgay`, `bc37` / `bc38`, `t105Truoc`, `monGN` — chỉ đọc, khớp hàm cũ, không gán `KT_*`; KTGS chưa gọi (TK 3 đang giữ file).
+- **Thanh bên 2 cấp (P1, P2)** (js/23): sổ lối vào `DH_MUC` + nhóm `DH_NHOM` (mở / gập nhớ `localStorage 'tb_mo'`, nhóm có mục đang mở tự mở); mục có ở 2 nhóm (Tra cứu KH) tô theo nhóm vừa bấm (`DH_CUOI`). Điện thoại / màn < 1100 px: thanh dưới `#thanh-duoi` 5 nút + hộp ☰ Thêm (hàng tab cũ `#hangngan` ẩn, vẫn trong trang).
+- **GDX bàn thao tác (C3)**: nút 👤 Tra cứu KH ở đầu khung GDX → khối Tra cứu có sẵn; Tra cứu vào từ GDX có ← 🏢 Giao dịch xã.
+- **Phép thử**: mới t240 (cửa KHO), t241 (cây gọn / ghim / mở lại app), t242 (cây nhúng), t243 (thanh bên 2 cấp, thanh dưới); sửa theo hành vi mới t143, t145, t156, t168, t170, t189.
 
 ## 3.327 — 23/10/2026 — KTGS bước 1: 2 bộ khai báo + Bảng II từng ô; 01/TGTV Giới tính cách 1 tab
 - **Anh 23/10**: "1 bộ cho Hội kiểm tra cố định và 1 cho khai báo khi cần" · "khai từng ô mở lên khi cần là 1 nút con của khai cả bảng; chọn để trống thì không chấm, tùy chỗ để trống hoặc chấm theo mẫu" · 01/TGTV "cách 1 tab, cũng không cần đẩy ra quá xa".

@@ -222,13 +222,26 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
-### Danh sách thử trên máy thật (3.328) — anh ghi Đạt / Chưa
+### Danh sách thử trên máy thật (3.329) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 1 | KTGS › Định kỳ › Tháng kiểm tra T11/2026 (ô đầu trang để ngày khác) | Dòng "Số liệu in T11: T10/2026"; Mẫu 16 số liệu cuối tháng 10 | |
 | 2 | Sau giải ngân, từ T8 đến T9, 1 tổ có GN cả 2 tháng | 2 phiếu Mẫu 06 (T8, T9); có dòng nhắc 30 ngày | |
 
-**Ghi chú kỹ thuật 3.328:** `KT_A_TH` (phiên) · `ktNguonThangKT / Ky / Nap / San / Voi / Ve` (56). `ktDKThang()` = `KT_DK_TH || ktNguonThangKT()`; `ktDKVe / ktBCVe` → `ktNguonVe(o, th, …G)`; `ktDKXem / ktBCXem / ktBCGiaTri` bọc `ktNguonVoi`. `ktAThangHTML` nhận cả lúc đang mượn (`S.K===KT_K`). Sau GN: `KT_GN.kh[th][kh] = {lt, t105, loai}`, `ktGNTo` → `{x, mon, thang:[th], th}`, `ktGNTichHo(ma, kh, v, th)`.
+**Ghi chú kỹ thuật 3.329:** `KT_A_TH` (phiên) · `ktNguonThangKT / Ky / Nap / San / Voi / Ve` (56). `ktDKThang()` = `KT_DK_TH || ktNguonThangKT()`; `ktDKVe / ktBCVe` → `ktNguonVe(o, th, …G)`; `ktDKXem / ktBCXem / ktBCGiaTri` bọc `ktNguonVoi`. `ktAThangHTML` nhận cả lúc đang mượn (`S.K===KT_K`). Sau GN: `KT_GN.kh[th][kh] = {lt, t105, loai}`, `ktGNTo` → `{x, mon, thang:[th], th}`, `ktGNTichHo(ma, kh, v, th)`.
+
+### Danh sách thử trên máy thật (3.328) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app › tab Tổ / Sao kê / Hồ sơ vay / GDX | Khối LỌC ĐỊA BÀN 1 dòng ô chọn Xã › Điểm › Hội › Tổ, Toàn PGD | |
+| 2 | Chọn tổ, tải lại app (chưa ghim) | Về Toàn PGD, kiểu gọn | |
+| 3 | Chọn tổ, bấm ▦ Chip rồi 📌, tải lại app | Giữ tổ + kiểu chip | |
+| 4 | Thanh bên máy tính | 7 mục cấp 1, nhóm ▸ mở / gập, KTGS trong Số liệu | |
+| 5 | GDX › 👤 Tra cứu KH › ← Giao dịch xã | Mở Tra cứu cùng địa bàn, quay về GDX | |
+| 6 | Điện thoại (trình duyệt) | Thanh dưới 5 nút, ☰ Thêm đủ mục | |
+| 7 | 👪 Hộ vay mới / 01/TD / 01/TGTV / ⚙ Khai báo chung › Trưởng ấp | Chọn Xã › Ấp › Tổ như cũ, dữ liệu lưu đúng | |
+
+**Ghi chú kỹ thuật 3.328:** `pvChungO()` trả `PV_PHIEN` khi chưa ghim; `pvGhimCua()` / `pvGonCua(p)` / `pvGonDoi(p)` / `pvGhimDoi(p)` giữ tên cũ, nghĩa mới. `gdxGonLoc` và cờ `gonDiem` không còn tác dụng (giữ, không lỗi). Lỗi có sẵn trên `main` (đã chạy đối chứng): t110 (hộp in Mẫu 06/16), t114 (Mẫu 16 chưa khai ngày), t116, t231 — vùng KTGS của TK 3 / HSSV.
 
 ### Danh sách thử trên máy thật (3.327) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
