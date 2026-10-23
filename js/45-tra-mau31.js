@@ -58,7 +58,7 @@ function trChay(id){
       return '<label class="sx-r"><input type="radio" name="tr-'+id+'" data-lenh="tr.chon" data-su="change" data-ma="'+m+'"> <span class="sx-kh-ten">'+coChuHTML(sxNhanKH2(m))+'</span></label>'; }).join('');
   else {
     if(!KHO.coKy() && !e.__napTT && typeof kyChungLay==='function' && kyChungLay()){ e.__napTT = 1; kq.innerHTML = '<small>Không có trong danh bạ khách — đang dựng bảng tổ kỳ '+coChuHTML(kyChungLay())+' để tra tổ trưởng…</small>';   /* tab Scan chưa dựng kỳ → dựng kỳ chung rồi tra lại */
-      return KHO.nap(kyChungLay()).then(function(K){ if(!TO_K) TO_K = K; }).catch(function(){}).then(function(){ trChay(id); }); }
+      return KHO.nap(kyChungLay()).then(function(K){ toGanNeuTrong(K); }).catch(function(){}).then(function(){ trChay(id); }); }
     var tt = trTimTT(e.value); if(tt) return trGanTT(tt);   /* 3.321 (anh 23/10 "CCCD này là của tổ trưởng nhưng app báo không có trong Mẫu 31"): tổ trưởng không vay → tra bảng tổ */
     var th = e.__the, so0 = String(e.value||'').replace(/\D/g, '');
     if(th && th.ten && th.so===so0){ e.value = th.ten; e.setAttribute('data-tr-da', th.ten); if(noi==='sua' && window.__k) window.__k.ten = th.ten;   /* không có ở đâu → tên đọc trên thẻ (QR), không để số trong ô tên */

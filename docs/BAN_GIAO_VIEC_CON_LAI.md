@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.326) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Chọn ngày 19/10 ở ô đầu trang › Ctrl+F5 | Ô vẫn 19/10; KTGS Mẫu 16 "đến thời điểm 19/10/2026" | |
+| 2 | KTGS đột xuất › bấm "✎ Chọn / khai tên" | Mở hộp khai đơn vị / người kiểm tra | |
+
+**Ghi chú kỹ thuật 3.326:** `kyChungLay()` = `D.cauHinh.kyChung || ''` (bỏ giữ-trong-phiên 3.97). `toGanNeuTrong(K)` (22g) cho Tra cứu sau `KHO.nap`. `ktDXTom` đăng ký `GD.dangKy('ktdx', …)` lần đầu vẽ (GD nạp sau 22b).
+
 ### Danh sách thử trên máy thật (3.325) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
