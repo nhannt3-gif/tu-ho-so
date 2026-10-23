@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.324', ds:[
+var CO_GI_MOI = {ban:'3.325', ds:[
+  ["KTGS: số liệu tổ (Mẫu 16, Mẫu 04, thẻ tổ) theo ngày chọn — chấm điểm, xếp loại theo tháng BC0437; kiểm tra đột xuất để chấm ngày tháng năm", "doiNgan(7)"],
   ["KTGS › Kiểm tra đột xuất: dòng 🎯 Khai báo đột xuất ngay trong tab (đơn vị, người kiểm tra, Bảng II, nhận xét) + nút Chọn / khai tên; khai 1 lần dùng cho cả Mẫu 06 và 16", "doiNgan(7)"],
   ["KTGS › Kiểm tra đột xuất: đơn vị / đoàn kiểm tra và cán bộ kiểm tra chọn chấm ghi tay hoặc khai tên (Mẫu 06 + 16); Bảng II Mẫu 16 chấm ghi tay; lựa chọn đột xuất lưu riêng", "doiNgan(7)"],
   ["KTGS Hội: dòng hộ đã chọn đọc rõ ở chế độ tối (trước nền sáng cố định, chữ mờ)", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.324', ds:[
   ["🧾 Bảng kê: chọn 💸 Chi (ngân hàng chi ra) hoặc 💰 Thu (nộp vào ngân hàng) — cùng mẫu, chỉ khác tiêu đề và chữ ký", "doiNgan(7)"],
   ["Giấy nộp tiền rà theo mẫu: Loại N.V in sẵn KHTK + kẻ liền, Tài khoản CÓ bỏ chấm, bằng chữ kẻ 3 nét 2 dòng, gạch dưới tên ngân hàng, chữ ký đậm to", "doiNgan(7)"],
   ["Giao dịch xã: mẫu mới 🏦 Giấy nộp tiền (nộp để ghi vào tài khoản) + 🧾 Bảng kê các loại tiền nộp — cùng cách Giấy lĩnh: chọn người · TK · số tiền, in Nộp / Bảng kê / chung 1 tờ, mẫu trắng", "doiNgan(7)"],
-  ["🎓 Hạn trả HSSV trên màn nhỏ (17 inch, laptop 125%): lịch tháng tự thu còn 1 hàng nút khi mở công cụ → đủ thông tin trong 1 khung, tiêu đề 1 dòng; đóng công cụ lịch hiện lại", "doiNgan(0)"],
-  ["Hồ sơ vay GQVL: lịch trả gốc tự phân kỳ (≤ 60 tháng: 24 tháng/lần, kỳ cuối nhận phần lẻ) tính từ ngày giải ngân; phương án tự tính theo hệ số k (🎲 Đổi số); trang Phê duyệt của Ngân hàng in riêng hoặc in kèm 01/GQVL", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🎓 Hạn trả HSSV trên màn nhỏ (17 inch, laptop 125%): lịch tháng tự thu còn 1 hàng nút khi mở công cụ → đủ thông tin trong 1 khung, tiêu đề 1 dòng; đóng công cụ lịch hiện lại", "doiNgan(0)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

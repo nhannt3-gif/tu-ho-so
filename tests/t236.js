@@ -50,6 +50,15 @@ const fs=require('fs'), path=require('path');
    ok('khai đơn vị ở Mẫu 06 → Mẫu 16 nhận theo', D.cauHinh.ktIn.dx_m16.dvc==='go' && D.cauHinh.ktIn.dx_m16.dvt==='Đoàn Chung Giả');
    dongHop(); await w(300);
    ok('đóng hộp → dòng tóm tắt cập nhật tên đoàn', /Đoàn Chung Giả/.test((document.querySelector('.kt-dx-kb')||{}).textContent||''));
+   /* 3.325: số liệu tổ theo ngày chọn (Mẫu 31), chấm điểm theo tháng (BC0437); đột xuất không tự ghi tháng */
+   const bcCu = KT_BC; KT_BC = Object.assign({}, KT_BC || {}, {k37:{e:{ky:'2026-09', ngay:'2026-09-30'}, theoTo:{}}}); KT_BC.k37.theoTo[t.ma] = {stv:99, dn:999e6, qh:0, kn:0, lt:0, tg:0, diemTo:85, xepLoai:'Khá'};
+   const s5 = ktSoTo(t), m31 = toKhach(t).reduce((a, k)=>a+k.dn, 0);
+   ok('số liệu tổ = Mẫu 31 ngày / kỳ đang chọn (không lấy dư nợ BC0437), xếp loại = BC0437 tháng 09', s5.ngay===KT_K.ngay && s5.dn===m31 && s5.dn!==999e6 && s5.xl==='Khá' && s5.ngayXL==='2026-09-30', JSON.stringify({ngay:s5.ngay, dn:s5.dn, xl:s5.xl}));
+   K.che = 'dx'; const g5 = ktGiaTri16(t, dc, Object.assign(ktInV('m16'), {ngay:''})), h5 = chu(ktHTML16(g5)), nd = ktNgayP(KT_K.ngay);
+   ok('Mẫu 16: "đến thời điểm" = ngày chọn; chấm điểm "tháng 09/2026: 85 điểm, xếp loại Khá"', h5.indexOf('đến thời điểm '+nd.d+'/'+nd.m+'/20'+nd.y2)>=0 && /tháng 09\/2026\): 85 điểm, xếp loại Khá/.test(h5), (h5.match(/đến thời điểm[^)]*\)/)||[''])[0]);
+   ok('đột xuất chưa khai ngày → "Hôm nay, ngày … tháng … năm …" để chấm (không tự ghi tháng)', g5.f.NM==='' && /Hôm nay, ngày \.+ tháng \.+ năm 20 ?\.+/.test(h5), (h5.match(/Hôm nay.{0,80}/)||[''])[0]);
+   K.che = 'dk'; ok('định kỳ vẫn tự ghi tháng kiểm tra như cũ', ktGiaTri16(t, dc, Object.assign(ktInV('m16'), {ngay:''})).f.NM!==''); K.che = 'dx';
+   KT_BC = bcCu;
    return o; }, files);
  R.forEach(x=>o.push(x)); o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
  console.log(o.join('\n')); console.log(o.filter(x=>x[0]==='✓').length+'/'+o.length+' đạt'); await b.close(); process.exit(o.some(x=>x[0]!=='✓') ? 1 : 0); })();

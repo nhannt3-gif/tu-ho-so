@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.325 — 23/10/2026 — KTGS: số liệu tổ theo ngày chọn, chấm điểm theo tháng
+- **Anh 23/10**: "số liệu tổ có thể lấy theo ngày chọn, còn chấm điểm tổ thì theo tháng" · "số liệu kiểm tra trên Mẫu 06 cũng lấy theo ngày chọn" · "phần này kiểm tra cũng để trống không mặc định ghi tháng như bên kiểm tra định kỳ" · "trong Mẫu 16 thấy vẫn ghi số liệu đến 30/09".
+- **Số liệu tổ** (tổng dư nợ, số tổ viên, quá hạn, khoanh, lãi tồn, tiết kiệm) ở Mẫu 16 mục I, Mẫu 04 và thẻ tổ: lấy **Mẫu 31 của ngày / kỳ đang chọn** ở ô đầu trang (trước: có BC0437 thì lấy hết số liệu cuối tháng → "đến thời điểm 30/09"). "Đến thời điểm" = ngày chọn.
+- **Chấm điểm, xếp loại** vẫn theo **tháng BC0437** ("Kết quả chấm điểm xếp loại Tổ (tháng 09/2026): 85 điểm, xếp loại Khá"); thẻ tổ ghi "chấm điểm tháng mm/yyyy". Tổ không có dòng Mẫu 31 → dùng BC0437 như cũ.
+- **Mẫu 06**: dư nợ, khoản vay, nợ lãi đã lấy theo ngày chọn (Mẫu 31 của ngày đang chọn) — không đổi.
+- **🎯 Kiểm tra đột xuất**: chưa khai Ngày kiểm tra → Mẫu 16 "Hôm nay, ngày … tháng … năm 20…" để chấm cả ngày / tháng / năm (định kỳ vẫn tự ghi tháng kiểm tra như cũ).
+- Chuẩn khóa kt_16 ghi lại (đột xuất không ghi tháng). Phép thử: t236 thêm 4 (20).
+
 ## 3.324 — 23/10/2026 — Khai báo đột xuất hiện ngay trong tab
 - **Anh 23/10**: "lên 3.323 vẫn chưa thấy thay đổi" — lựa chọn 3.323 chỉ hiện trong hộp 🖨 Chọn khi in (bấm In / Word mới thấy).
 - Tab 🎯 Kiểm tra đột xuất có dòng **🎯 Khai báo đột xuất** ngay trên ô Ngày kiểm tra: tóm tắt Đơn vị kiểm tra · Người kiểm tra · Người 2 (Mẫu 16) · Bảng II · Nhận xét đang chọn + nút **✎ Chọn / khai tên** mở hộp chọn cho cả Mẫu 06 và 16 (đóng hộp → dòng tóm tắt cập nhật).
