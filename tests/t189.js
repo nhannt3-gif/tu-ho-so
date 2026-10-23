@@ -50,20 +50,20 @@ const fs=require('fs'), path=require('path');
    if(t1.dv && t2.dv && String(t1.dv)!==String(t2.dv)){ pvChon('hsv', 'to', ''); pvChon('hsv', 'hoi', String(t2.dv)); await w(300); ok('chọn Hội → hộ của tổ thuộc Hội', ten().length>=2 && ten().every(x=>/Hai|Năm/.test(x)), ten().join(',')); }
    /* 📌 ghim cây */
    pvChon('hsv', 'hoi', ''); pvChon('hsv', 'to', t1.ma); await w(200);
-   ok('chưa ghim (Hồ sơ): chọn tổ → khối lọc tự thu gọn', !pvGhimCua('hsv') && !!document.querySelector('#hsv-cay .loc-khoi.gon'));
-   ok('có ⬆ Lên 1 cấp, nút 📌, mắt đường dẫn bấm được', !!document.querySelector('#hsv-cay .pv-len') && !!document.querySelector('#hsv-cay .pv-ghim-nut') && document.querySelectorAll('#hsv-cay .pv-ve').length>=2);
+   ok('3.326 mặc định kiểu gọn (Hồ sơ): chọn tổ → khối lọc 1 dòng ô chọn', !!document.querySelector('#hsv-cay .loc-khoi.gon') && C.to===t1.ma);
+   ok('có ⬆ Lên 1 cấp, nút 📌, nút đổi kiểu ▦ Chip', !!document.querySelector('#hsv-cay .pv-len') && !!document.querySelector('#hsv-cay .pv-ghim-nut') && /Chip/.test(document.querySelector('#hsv-cay .pv-gon').textContent));
    pvLen('hsv'); await w(200);
-   ok('⬆ Lên 1 cấp: bỏ tổ, mở tạm khối lọc để chọn lại', !C.to && C.xa===xa && !document.querySelector('#hsv-cay .loc-khoi.gon'));
-   pvChon('hsv', 'to', t1.ma); await w(200); ok('chọn lại tổ → tự gọn', !!document.querySelector('#hsv-cay .loc-khoi.gon'));
+   ok('⬆ Lên 1 cấp: bỏ tổ, giữ xã, vẫn kiểu gọn', !C.to && C.xa===xa && !!document.querySelector('#hsv-cay .loc-khoi.gon'));
+   pvChon('hsv', 'to', t1.ma); await w(200); ok('chọn lại tổ', C.to===t1.ma);
    document.activeElement && document.activeElement.blur && document.activeElement.blur();
    document.body.dispatchEvent(new KeyboardEvent('keydown', {key:'Backspace', bubbles:true})); await w(200);
    ok('Backspace (không ở ô nhập) = lên 1 cấp', !C.to && C.xa===xa);
    const tim = document.getElementById('hm-so-tim'); tim.focus(); tim.dispatchEvent(new KeyboardEvent('keydown', {key:'Backspace', bubbles:true})); await w(100);
    ok('Backspace trong ô nhập → không đổi địa bàn', C.xa===xa); tim.blur();
-   pvGhimDoi('hsv'); await w(100); pvChon('hsv', 'to', t1.ma); await w(200);
-   ok('📌 ghim: chọn tổ → khối lọc vẫn mở, không có nút Thu gọn', pvGhimCua('hsv') && !document.querySelector('#hsv-cay .loc-khoi.gon') && !document.querySelector('#hsv-cay .pv-gon') && /Đã ghim/.test(document.querySelector('#hsv-cay .pv-ghim-nut').textContent));
-   pvGhimDoi('hsv'); ok('bỏ ghim lưu theo tab', D.cauHinh.pvGhim.hsv===false && pvGhimCua('to')===true && pvGhimCua('gdx')===false);
-   ok('cài đặt ghim đồng bộ theo khối Số liệu', chKhoiCua('pvGhim')==='solieu');
+   pvGonDoi('hsv'); pvGhimDoi('hsv'); await w(100); pvChon('hsv', 'to', t1.ma); await w(200);
+   ok('📌 ghim: giữ kiểu chip đang chọn + địa bàn vào cài đặt', pvGhimCua('hsv') && !document.querySelector('#hsv-cay .loc-khoi.gon') && D.cauHinh.pvKieu.hsv==='chip' && D.cauHinh.pvChung.to===t1.ma && /Đã ghim/.test(document.querySelector('#hsv-cay .pv-ghim-nut').textContent));
+   pvGhimDoi('hsv'); pvGonDoi('hsv'); ok('bỏ ghim (chung mọi tab)', !D.cauHinh.pvGhimBat && !pvGhimCua('to') && !pvGhimCua('gdx'));
+   ok('cài đặt ghim đồng bộ theo khối Số liệu', chKhoiCua('pvGhimBat')==='solieu');
    pvChon('hsv', 'xa', ''); await w(300);
    /* tích → Lập 03/TD */
    HM_CHON = {}; hmSoTick(a1.id, true); hmSoTick(a2.id, true); await w(100);

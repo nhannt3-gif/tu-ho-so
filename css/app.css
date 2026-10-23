@@ -3452,7 +3452,16 @@ span.sl-chip{cursor:help}
 .pv-len,.pv-ghim-nut{flex:none;white-space:nowrap}.pv-ghim-nut{opacity:.6}.pv-ghim-nut.bat{opacity:1;border-color:var(--xanh);background:var(--xanh-nhat);color:var(--xanh-dam)}
 button.pv-dan-o.pv-ve{text-decoration:underline dotted;text-underline-offset:2px}
 .pv-cay .loc-khoi.gon .pv-nhom.cap-xa,.pv-cay .loc-khoi.gon .pv-hang2{display:none}
-@media (min-width:700px){ .pv-cay .loc-khoi.gon .pv-sel{display:none} }   /* 3.206: gọn = 1 dòng đường dẫn (điện thoại giữ ô chọn) */
+/* 3.326 (anh chốt 23/10): kiểu ☰ Gọn = 1 dòng ô sổ xuống Xã › Điểm › Hội › Tổ (máy tính cũng hiện ô chọn, ẩn chip + mắt đường dẫn trùng) */
+.pv-cay .loc-khoi.gon .pv-hang1 .pv-sel{display:flex;flex-wrap:nowrap;align-items:center;gap:4px;flex:1 1 auto;min-width:0;overflow-x:auto;scrollbar-width:thin}
+.pv-cay .loc-khoi.gon .pv-hang1 select.pv-o{max-width:180px;min-width:64px;flex:0 1 auto}
+.pv-cay .loc-khoi.gon .pv-hang1 .pv-dan .pv-dan-o,.pv-cay .loc-khoi.gon .pv-hang1 .pv-dan > .pv-sep{display:none}
+.pv-cay .loc-khoi.gon .pv-hang1 .pv-dan{flex:none;margin-left:2px;min-width:0}.pv-cay .loc-khoi.gon .pv-dem{white-space:nowrap}
+.pv-cay .loc-khoi.gon .pv-hang1 .pv-tim.to-tim{flex:0 1 170px;min-width:110px}
+.pv-cay .loc-khoi.gon{min-width:0}
+.pv-cay .loc-khoi.gon .pv-len .pv-chu{display:none}
+@media (min-width:700px){ .pv-cay .loc-khoi.gon .pv-hang1{flex-wrap:nowrap} }
+@media (max-width:699px){ .pv-cay .loc-khoi.gon .pv-hang1 .pv-sel{flex-basis:100%} .pv-cay .loc-khoi.gon .pv-hang1 select.pv-o{max-width:150px} .pv-cay .loc-khoi.gon .pv-hang1 .pv-dan{display:flex} .pv-cay .loc-khoi.gon .pv-hang1 .pv-tim.to-tim{flex:1 1 90px;min-width:80px} .pv-cay .loc-khoi.gon .pv-hang1{flex-wrap:wrap} }
 button.pv-dan-o.pv-ve{cursor:pointer;font:inherit;font-size:calc(12px*var(--co));font-weight:600;min-height:0;line-height:1.4}button.pv-dan-o.pv-ve:hover{background:var(--xanh);color:#fff}.pv-cay .loc-khoi.gon{padding-top:12px;padding-bottom:4px}
 .gdx2-dau{flex-wrap:nowrap;padding:5px 8px}.gdx2-mau{flex-wrap:nowrap;overflow-x:auto;min-width:0}.gdx2-nut{flex:none;flex-wrap:nowrap}
 .gdx-menu{position:relative;display:inline-block}.gdx-menu>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center}.gdx-menu>summary::-webkit-details-marker{display:none}

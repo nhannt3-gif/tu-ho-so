@@ -99,3 +99,27 @@
 - **P2** thanh bên 2 cấp (demo đã duyệt hướng) dùng sổ lối vào P1.
 - **P3** GDX "bàn thao tác": thêm mục con theo danh sách anh chọn (mục 7), gọi lối vào P1.
 - **P4** Hôm nay: thẻ KPI từng nút khi khối nguồn ổn.
+
+## 9. Gom ý đã chốt 23/10 + kế hoạch các đợt (anh: "làm liên tục, gộp lên cho anh thử, xong hết hồi quy 1 lần")
+**Ý đã chốt**
+1. Vai trò 3 tầng: 🏠 Hôm nay = việc cơ bản hằng ngày · 🏢 Giao dịch xã = bàn thao tác hồ sơ · 📊 Số liệu = truy vấn chuyên sâu.
+2. Hôm nay: giữ như hiện nay; nút KPI làm sau, **từng nút**, khi phần nguồn chạy ổn.
+3. Giao dịch xã: cấp 1 riêng ngay dưới Hôm nay; **chỉ gọi chức năng có sẵn**, không làm trùng; **👤 Tra cứu KH trước**.
+4. KTGS ít dùng → tab con trong 📊 Số liệu.
+5. Thanh bên 2 cấp theo demo `demo/thanh-ben-2-cap.html`; điện thoại thanh dưới Hôm nay · GD xã · Số liệu · Hồ sơ · ☰ Thêm.
+6. Cây địa bàn 1 chỗ, mọi nơi gọi: 2 kiểu Chip / Gọn; **mặc định Gọn mọi nơi; mở app về PGD; 📌 ghim giữ kiểu + cấp đang chọn**; thêm cấp Ấp; chuyển 4 bộ chọn riêng (👪 Hộ vay, 01/TD, 01/TGTV, Khai báo chung).
+7. Cửa KHO cho KTGS (5 cửa, `KE_HOACH_KHO_KTGS.md`) — phối hợp TK 3 qua `KE_HOACH_KTGS_GON.md` mục 11.
+8. Hồi quy: mỗi bản chỉ phép thử phần mới / vừa sửa; đủ khi thay đổi lớn hoặc lỗi.
+9. Không đụng file khóa của TK 3 (KTGS) và TK chính (Phân bổ KH).
+
+**Các đợt**
+| Đợt | Việc | Bản |
+|---|---|---|
+| 1 | Cây C1: kiểu gọn 1 dòng, mặc định gọn, về PGD khi mở app, 📌 ghim chung giữ địa bàn + kiểu | 3.326 ✅ |
+| 2 | Cây C2: cấp Ấp + nhúng trong hộp + `CAY.ve`; chuyển 4 bộ chọn riêng | |
+| 3 | P0 cửa KHO cho KTGS (chỉ thêm ở `js/29-kho.js`, `t240`) + P1 sổ lối vào chung | |
+| 4 | P2 thanh bên 2 cấp (KTGS tab con Số liệu, GDX cấp 1, thanh dưới điện thoại) | |
+| 5 | P3 / C3 GDX mục con 👤 Tra cứu KH gọi khối Tra cứu có sẵn | |
+| cuối | hồi quy đủ 1 lần → gộp → anh thử | |
+
+**Chỗ có thể sót (đã nêu với anh)**: (a) địa bàn dùng chung → ghim chung mọi tab; (b) mục con GDX ngoài Tra cứu KH — anh chọn dần; (c) thiết lập ghim / thu gọn cũ thôi dùng, mọi máy về gọn.

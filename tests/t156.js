@@ -11,7 +11,8 @@ const fs=require('fs'), path=require('path');
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    window.SL_KHONG_TU_KIEM = 1;
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
-   kyChungDoi('2026-08'); const C = toCH(); C.xa=''; C.diem=''; C.hoi=''; C.to=''; slDoiTab('to'); doiNgan(7);
+   kyChungDoi('2026-08'); PV_KIEU.to = 'chip'; PV_KIEU.tc = 'chip';   /* 3.326: mặc định gọn — phép thử này thử kiểu ▦ Chip */
+   const C = toCH(); C.xa=''; C.diem=''; C.hoi=''; C.to=''; slDoiTab('to'); doiNgan(7);
    for(let i=0;i<60 && !document.querySelector('#to-cay .pv-hang1');i++) await w(250); await w(300);
    const nhan = () => [...document.querySelectorAll('#to-cay .pv-nhan')].map(x=>x.textContent).join('|');
    const dan = () => document.querySelector('#to-cay .pv-dan');

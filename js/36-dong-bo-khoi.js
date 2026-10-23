@@ -112,7 +112,7 @@ function kdDoi(){ try { if(kdBat()) localStorage.setItem('tuhoso_dbk', 'tat'); e
    khóa nào trong cauhinh.json khác chCuBam = máy cũ vừa sửa → áp vào (theo luật chApDrive); máy này ghi lại cauhinh.json đầy đủ khi nội dung đổi — đến khi anh bật "Máy cũ đã cập nhật hết". */
 CH_RIENG.push('chKhoi', 'chCuBam', 'chCuKeo', 'chCuNoi');
 var CH_KHOI_LUAT = [[/^kt/, 'ktgs'], [/^(hoMoi|hso[A-Z]|loaiBoHS|boMau)$/, 'hoso'], [/^gdx/, 'gdx'],
-  [/^(ccNho|kyChot|kyChung|pvChung|pvGon|pvGhim|sl[A-Z]|slgb|tk104Tay|tkChon|toCot|toNguong|mauBaoCao|maDaBo)/, 'solieu'],
+  [/^(ccNho|kyChot|kyChung|pvChung|pvGon|pvGhim|pvKieu|sl[A-Z]|slgb|tk104Tay|tkChon|toCot|toNguong|mauBaoCao|maDaBo)/, 'solieu'],
   [/^(scan[A-Z]|ka[A-Z]|hsDS|hsKhoa|hsTuDrive)/, 'scan'], [/^(nhanGhiChu|nhanGCDaGop|nkChe|taNhacKhac)$/, 'lich'],
   [/^(loaiVB|tag[A-Z]|tuKhoa|kieuTen|vtLoai|nghiepVu|chuongTrinh|ctTen|phongSo|phongGanDay|tenCauTruc|soTrangDoc)/, 'vanban']];
 function chKhoiCua(k){ for(var i=0;i<CH_KHOI_LUAT.length;i++) if(CH_KHOI_LUAT[i][0].test(k)) return CH_KHOI_LUAT[i][1]; return 'chung'; }   /* khóa chưa có trong bảng → Chung (không mất) */
