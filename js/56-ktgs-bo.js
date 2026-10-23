@@ -40,3 +40,32 @@ GD.dangKy('ktbo', {
   doc:function(){ ktInDoc(); },
   b2mo:function(el){ if(KT_IN_X) KT_IN_X.b2mo = el.parentNode.open ? 0 : 1; }   /* bấm trước khi mở / đóng → nhớ trạng thái sau */
 });
+/* ===== 3.328 — KTGS bước 2: KHỐI BẮT BUỘC theo THÁNG KIỂM TRA + LỚP NGUỒN ktNguon* (docs/KE_HOACH_KTGS_GON.md mục 2.2, 9) =====
+   Kiểm tra định kỳ + Mẫu 04: chọn 1 ô "Tháng kiểm tra" → số liệu = Mẫu 31 chốt cuối tháng liền trước (+ BC0437 / BC0438 tháng đó); ô Kỳ đầu trang không ảnh hưởng.
+   Chưa nạp tháng đó → tháng gần nhất trước đó, ghi rõ ⚠ (như in theo tháng Kế hoạch 3.141). Sau giải ngân: số liệu theo Mẫu 31 tháng giải ngân (ktGNNap).
+   TK 2 (đưa KTGS qua KHO): chỉ viết lại THÂN các hàm ktNguon* — mọi chỗ khối Bắt buộc lấy kỳ đều đi qua đây. */
+var KT_A_TH = '';   /* tháng kiểm tra anh chọn (trong phiên); trống = mặc định */
+function ktNguonThangKT(){   /* mặc định: kỳ đầu trang là tháng → tháng sau (như cũ); là ngày → chính tháng đó */
+  if(KT_A_TH) return KT_A_TH; var k = String(ktCH().ky || kyChungLay() || ''); return k.length===7 ? kyLui(k, 1) : k.slice(0, 7);
+}
+function ktNguonKy(th){ return ktKHKySL(th); }   /* → {can: tháng cần, ky: kỳ Mẫu 31 dùng được} */
+function ktNguonNap(th){ return ktKHNapSL(th); }   /* nạp Mẫu 31 + BC0437 / BC0438 + 105 tháng trước của tháng kiểm tra th */
+function ktNguonSan(th){ var S = KT_KH_SL; return !!S && S.th===th && S.goc===KT_K; }
+function ktNguonVoi(th, fn){ return ktNguonSan(th) ? ktKHVoiSL(fn) : fn(); }   /* chạy fn với số liệu tháng kiểm tra th (KT_K / TO_K / KT_BC / KT_TRUOC tạm đổi rồi trả lại) */
+function ktNguonVe(o, th, ve){   /* vẽ thẻ khối Bắt buộc: chưa có số liệu tháng → nạp rồi vẽ lại */
+  if(!th) return ve();
+  if(!ktNguonSan(th)){ o.innerHTML = ktCheDoHTML()+ktAThangHTML(th)+'<div class="rong">Đang mở số liệu '+(ktNguonKy(th).ky ? slKyChu(ktNguonKy(th).ky) : 'cuối '+kyVN(kyLui(th, -1)))+'…</div>';
+    ktNguonNap(th).then(function(){ if(KT_K && document.getElementById('kt-the')) ktVeThe(); }); return; }
+  return ktNguonVoi(th, ve);
+}
+function ktAThangDs(th){   /* tháng chọn được: tháng sau mỗi tháng có Mẫu 31, + tháng hiện tại, + tháng đang chọn */
+  var m = {}; toDsKy().forEach(function(e){ if(String(e.ky).length===7) m[kyLui(e.ky, 1)] = 1; });
+  var d = nay(); m[d.getFullYear()+'-'+hai(d.getMonth()+1)] = 1; if(th) m[th] = 1;
+  return Object.keys(m).sort().reverse().slice(0, 18);
+}
+function ktAThangHTML(th){
+  var S = KT_KH_SL, san = !!S && S.th===th && (S.goc===KT_K || S.K===KT_K);   /* gọi cả lúc đang mượn số liệu (KT_K = S.K) */
+  return '<div class="kt-a-thang"><label><b>📅 Tháng kiểm tra</b> <select data-lenh="kta.th" data-su="change">'+ktAThangDs(th).map(function(k){ return '<option value="'+k+'"'+(k===th ? ' selected' : '')+'>'+kyVN(k)+'</option>'; }).join('')+'</select></label>'+
+    '<span class="sl-phu">số liệu cuối tháng liền trước — không theo ô Kỳ đầu trang</span></div>'+(san ? ktKHSLChu(S, +th.slice(5)) : '');
+}
+GD.dangKy('kta', {th:function(el){ KT_A_TH = el.value || ''; KT_DK_CACHE = {}; ktVeThe(); }});
