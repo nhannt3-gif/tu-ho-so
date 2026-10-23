@@ -1,7 +1,7 @@
 # Kế hoạch — CÂY ĐỊA BÀN DÙNG CHUNG (1 chỗ làm, mọi nơi gọi) + Giao dịch xã chỉ gọi chức năng có sẵn — ĐANG LÀM (anh cho làm liên tục 23/10)
 
 > Anh 23/10: "Tab Giao dịch xã chỉ gọi các chức năng có sẵn, tránh thêm trùng chỗ khác đã có; **Tra cứu KH là chức năng cần thiết trước**. Cây địa bàn bố cục lại theo 2 kiểu: (1) dạng chip và danh sách sổ ra như cũ; (2) danh sách gọn 1 dòng và linh hoạt trở về 1 cấp trên — áp dụng cho mọi nơi cần chọn, kiểu thống nhất; cây địa bàn làm 1 chỗ, các nơi chỉ gọi để sử dụng."
-> Người làm: TK 2. Phối hợp: KTGS (TK 3) dùng cây chung `pvVeCay('kt')` → báo ở `KE_HOACH_KTGS_GON.md` mục 11 trước khi đổi; Phân bổ KH (TK chính) chọn xã của QĐ — **không đụng**.
+> Người làm: TK 2. Phối hợp: KTGS (TK 3) dùng cây chung `pvVeCay('kt')` → báo ở `KE_HOACH_KTGS_GON.md` mục 12 trước khi đổi; Phân bổ KH (TK chính) chọn xã của QĐ — **không đụng**.
 
 ## 1. Hiện trạng (đọc mã 3.325)
 - **Đã có cây chung** `pvVeCay(p)` (`js/22g-to.js`): Xã → Điểm GD → Hội → Tổ, chip + ô sổ xuống, 📍 đường dẫn bấm từng mắt, ⬆ Lên 1 cấp (Backspace), ▴ Thu gọn / ▾ Mở rộng, 📌 Ghim. **7 nơi dùng:** Tổ (`to`), Tra cứu (`tc`), Sao kê (`sk`), Tổng hợp (`th`), KTGS (`kt`), Hồ sơ Tổ / Hồ sơ vay (`hst`, `hsv`), Giao dịch xã (`gdx`).
@@ -37,7 +37,7 @@
 - Thiết lập cũ `pvGhim` / `pvGon` (3.206 / 3.227: ghim = luôn mở, chọn tổ tự thu gọn) **thôi dùng** — mọi máy về gọn (đổi hành vi cũ theo ý anh chốt).
 
 ## 6. Tiến độ
-- **C1 (3.327)** ✅ kiểu gọn 1 dòng (ô sổ từng cấp, ⬆, 🔎 cùng dòng; điện thoại 2 dòng: ô chọn cuộn ngang + nút), mặc định gọn, về PGD khi mở app, 📌 ghim chung giữ địa bàn + kiểu — phép thử `t241`; sửa t168 / t170 / t189 theo hành vi mới.
-- **C2 (3.327)** ✅ cây nhúng dùng chung `CAY` (`js/57-cay.js`): `CAY.dsXa / dsDiem / dsAp / dsHoi / dsTo / chuTo` (1 nguồn danh sách qua `hmDiaBan` → cửa KHO) + `CAY.o` (ô chọn kiểu gọn) + `CAY.dong` (1 dòng › ). 4 nơi đã gọi: 👪 Hộ vay (`hmVe`), lập 01/TD (js/40), khai nhanh 01/TGTV (js/54), ⚙ Khai báo chung › Trưởng ấp / Tổ phó (`hsoKBHop`). Xử lý riêng từng nơi giữ nguyên (dữ liệu lưu không đổi). Phép thử `t242`.
-- **C3 (3.327)** ✅ Giao dịch xã: nút **👤 Tra cứu KH** gọi khối Tra cứu có sẵn (cùng địa bàn đang chọn), Tra cứu vào từ GDX có nút **← 🏢 Giao dịch xã**; thanh bên nhóm Giao dịch xã có mục con Tra cứu KH. Phép thử `t243`.
+- **C1 (3.328)** ✅ kiểu gọn 1 dòng (ô sổ từng cấp, ⬆, 🔎 cùng dòng; điện thoại 2 dòng: ô chọn cuộn ngang + nút), mặc định gọn, về PGD khi mở app, 📌 ghim chung giữ địa bàn + kiểu — phép thử `t241`; sửa t168 / t170 / t189 theo hành vi mới.
+- **C2 (3.328)** ✅ cây nhúng dùng chung `CAY` (`js/57-cay.js`): `CAY.dsXa / dsDiem / dsAp / dsHoi / dsTo / chuTo` (1 nguồn danh sách qua `hmDiaBan` → cửa KHO) + `CAY.o` (ô chọn kiểu gọn) + `CAY.dong` (1 dòng › ). 4 nơi đã gọi: 👪 Hộ vay (`hmVe`), lập 01/TD (js/40), khai nhanh 01/TGTV (js/54), ⚙ Khai báo chung › Trưởng ấp / Tổ phó (`hsoKBHop`). Xử lý riêng từng nơi giữ nguyên (dữ liệu lưu không đổi). Phép thử `t242`.
+- **C3 (3.328)** ✅ Giao dịch xã: nút **👤 Tra cứu KH** gọi khối Tra cứu có sẵn (cùng địa bàn đang chọn), Tra cứu vào từ GDX có nút **← 🏢 Giao dịch xã**; thanh bên nhóm Giao dịch xã có mục con Tra cứu KH. Phép thử `t243`.
 - Ghi chú: `CAY.ve(p, {…})` (bọc `pvVeCay` cho nơi mới) chưa cần — khối LỌC ĐỊA BÀN ở tab vẫn khai `PV_DUNG[p]` như cũ.

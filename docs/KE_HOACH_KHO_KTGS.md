@@ -1,4 +1,4 @@
-# Kế hoạch TK 2 — cửa `KHO` cho KTGS (làm song song với TK 3) — ĐÃ LÀM bước 1 (3.327)
+# Kế hoạch TK 2 — cửa `KHO` cho KTGS (làm song song với TK 3) — ĐÃ LÀM bước 1 (3.328)
 
 > Căn cứ: `KE_HOACH_KTGS_GON.md` mục 9 (TK 3 viết, anh chốt 23/10): TK 2 **làm song song** cửa mới trong `js/29-kho.js` + phép thử của cửa; **không sửa** file KTGS (22b–22e, 22k, 55, 56, t106–t150, t236–t239) cho tới khi TK 3 báo "bàn giao KTGS".
 > Người làm: TK 2 (phiên rà soát tổng thể 23/10, nhánh `claude/html-app-review-ck346k`).
@@ -31,5 +31,5 @@ Hàm nguồn chính: `toNap(ky)` → `KT_K` (kỳ dựng) · `ktNapBC(ky)` (BC04
 - Thanh bên 2 cấp (KTGS thành tab con Số liệu — `RA_SOAT_TONG_THE_2310.md` mục 7) chỉ sửa `js/23-dieu-huong.js` + giữ lối vào `dhSL('kt')` → không đụng file KTGS; làm sau khi anh duyệt.
 
 ## 5. Trạng thái
-- ✅ 3.327 bước 1: thêm 5 cửa (`js/29-kho.js`, sau `duNoAp`) + `t240` (so với `ktChonBC`/`ktNapBC`, `ktTruocNap`, `ktGNNap`, `ktGNNgayCua` — khớp; không gán `KT_TRUOC` / `KT_GN`). `theoNgay` trả thêm `ngay` (ngày số liệu; chốt tháng = ngày cuối tháng).
+- ✅ 3.328 bước 1: thêm 5 cửa (`js/29-kho.js`, sau `duNoAp`) + `t240` (so với `ktChonBC`/`ktNapBC`, `ktTruocNap`, `ktGNNap`, `ktGNNgayCua` — khớp; không gán `KT_TRUOC` / `KT_GN`). `theoNgay` trả thêm `ngay` (ngày số liệu; chốt tháng = ngày cuối tháng).
 - ☐ bước 2 (sau khi TK 3 báo "bàn giao KTGS"): thay thân `ktNguon*` gọi các cửa này.

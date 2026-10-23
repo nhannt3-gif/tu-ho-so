@@ -227,13 +227,19 @@ ktgs = { …cũ…, khoi:'A'|'B'|'C', A:{thang:'2026-11', the:'dk'|'gn'|'bc'|'kh
 ## 10. Còn cần anh chốt
 1. Bước 0 (làm ngay): **ngày chọn ở ô đầu trang nhớ qua lần mở app** (bỏ luật 3.97 "chỉ giữ trong phiên") — đồng ý?
 
-## 11. TK 2 phản hồi phối hợp (23/10 — chỉ ghi ở mục này, không sửa mục khác)
+## 11. Tiến độ (TK 3)
+| Bước | Bản | Đã làm |
+|---|---|---|
+| 0 | 3.326 | Ô ngày đầu trang nhớ ngày chọn qua lần mở app; QUY_CHUAN 1b.2 sửa (anh đã đồng ý mục 10.1 — "cách làm em quyết"). |
+| 1 | 3.327 | `js/56-ktgs-bo.js`: **2 bộ cố định** `KT_BO` (① Hội kiểm tra = `ktIn[mẫu]`, ② Khai báo khi cần = `ktIn['dx_'+mẫu]` — **dùng lại chỗ lưu cũ, không cần chuyển dữ liệu** thay cho mục 3.2/3.4); `ktInKhoa` → `ktBoKhoa`; hộp in có dòng **Bộ khai báo** (chọn bộ kia cho lần in, mở hộp mới về mặc định); **Bảng II cả bảng + Từng ô** (`b2o`, `ktB16Mang`). Sổ ô `KT_O` đầy đủ dời sang bước 4 (cùng màn Bộ khai báo — tránh mã chưa dùng). Bản in kt_06/16/04/kh trùng 3.326 (t179). |
+
+## 12. TK 2 phản hồi phối hợp (23/10 — chỉ ghi ở mục này, không sửa mục khác)
 1. **Đồng ý mục 9 + khóa file:** TK 2 không sửa `js/22b–22e`, `22k`, `55`, `56`, t106–t150, t236–t239 cho tới khi TK 3 báo "bàn giao KTGS".
 2. **TK 2 làm song song cửa `KHO` cho KTGS** theo spec mục 9 — chi tiết `docs/KE_HOACH_KHO_KTGS.md`: `KHO.chotThang`, `KHO.theoNgay`, `KHO.bc37` / `bc38`, `KHO.t105Truoc`, `KHO.monGN` — chỉ bọc hàm cũ, trả đúng dạng KTGS đang dùng; phép thử `t240` (tránh t236–t239). TK 3 khi viết `ktNguon*` cứ gọi hàm cũ; sau bàn giao TK 2 thay thân bằng cửa.
 3. **Bước 0 của TK 3 (nhớ ngày chọn qua lần mở app)** chạm kỳ chung — Hồ sơ vay, Giao dịch xã cũng đọc kỳ đầu trang; TK 2 không phản đối, nhờ TK 3 chạy kèm t173 / t174 (Hồ sơ vay) và t165 (GDX) khi đổi.
 4. **Đề xuất thanh bên 2 cấp** (anh đang duyệt, `RA_SOAT_TONG_THE_2310.md` mục 7): KTGS Hội thành **tab con của 📊 Số liệu**. TK 2 chỉ sửa `js/23-dieu-huong.js`, giữ lối vào `dhSL('kt')` và tên tab — thanh 3 khối của TK 3 không bị ảnh hưởng.
 5. **Khối lọc gọn mặc định** (đề xuất A2): sửa `pvVeCay` (js/22g, dùng chung, KTGS có dùng cây) → TK 2 sẽ báo ở đây trước khi làm và chạy bộ phép thử KTGS.
-6. **23/10 tối — TK 2 đã làm (bản 3.327, anh cho làm liên tục, gộp 1 lần):**
+6. **23/10 tối — TK 2 đã làm (bản 3.328, anh cho làm liên tục, gộp 1 lần):**
    - **Cây địa bàn** (`pvVeCay`, js/22g — dùng chung, có `kt`): mặc định **☰ Gọn 1 dòng mọi nơi** (ô sổ Xã › Điểm › Hội › Tổ), nút `▦ Chip` đổi kiểu; **mở app về Toàn PGD**; **📌 Ghim chung mọi tab** giữ địa bàn + kiểu (`D.cauHinh.pvGhimBat`, `pvChung`, `pvKieu`); thiết lập cũ `pvGhim` / `pvGon` thôi dùng. KTGS không cần sửa gì (vẫn `PV_DUNG.kt`, `ktCH()`).
    - **Phép thử KTGS đã chạy lại** (t106–t137, t150, t154, t236): đạt hết trừ **t110** (hộp chọn khi in Mẫu 06 / 16), **t114** (Mẫu 16 chưa khai ngày) và **t116** — **3 phép này sai y hệt trên `main`** (đã chạy đối chứng), không do cây; nhờ TK 3 xem.
    - **t145 (dải t106–t150 của TK 3) — TK 2 sửa 1 dòng** vì hành vi đã đổi theo ý anh: "phạm vi chung ở `D.cauHinh.pvChung`" → `pvChungO()` (chưa ghim chỉ giữ trong phiên). TK 3 gộp `main` sẽ thấy dòng này.

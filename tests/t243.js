@@ -1,4 +1,4 @@
-// 3.327 (anh chốt 23/10) — thanh bên 2 cấp (sổ lối vào DH_MUC + nhóm DH_NHOM) · Giao dịch xã = bàn thao tác gọi 👤 Tra cứu KH có sẵn · KTGS là mục con Số liệu.
+// 3.328 (anh chốt 23/10) — thanh bên 2 cấp (sổ lối vào DH_MUC + nhóm DH_NHOM) · Giao dịch xã = bàn thao tác gọi 👤 Tra cứu KH có sẵn · KTGS là mục con Số liệu.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];

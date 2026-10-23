@@ -66,7 +66,7 @@ function hsoKBHop(tab){   /* 3.208 (anh chốt 14/10): ⚙ Khai báo chung — c
   to.sort(function(a, b){ return (a.tenThon+a.ten).localeCompare(b.tenThon+b.ten, 'vi', {numeric:true}); });
   var o = function(id, nhan, gt, ph, js){ return '<label class="kt-kb"><span>'+nhan+'</span><input'+(id ? ' id="'+id+'"' : '')+' value="'+coChuHTML(gt||'')+'" placeholder="'+coChuHTML(ph||'')+'" oninput="'+js+'"></label>'; };
   var dsXa = Object.keys(X).map(function(k){ return X[k]; }).sort(function(a, b){ return a.tenXa.localeCompare(b.tenXa, 'vi'); });
-  var loc = dsXa.length ? '<div class="hang-nut hso-kb-loc">'+CAY.dong([CAY.o('xa', T.xa, '— tất cả xã ('+dsXa.length+') —', CAY.dsXa(), 'onchange="HSO_KBT.xa=this.value;HSO_KBT.diem=\'\';hsoKBHop()"'),   /* 3.327: cây nhúng dùng chung (js/57) */
+  var loc = dsXa.length ? '<div class="hang-nut hso-kb-loc">'+CAY.dong([CAY.o('xa', T.xa, '— tất cả xã ('+dsXa.length+') —', CAY.dsXa(), 'onchange="HSO_KBT.xa=this.value;HSO_KBT.diem=\'\';hsoKBHop()"'),   /* 3.328: cây nhúng dùng chung (js/57) */
     T.xa && Object.keys(X[T.xa].diem).length ? CAY.o('diem', T.diem, '— mọi điểm GD —', CAY.dsDiem(T.xa), 'onchange="HSO_KBT.diem=this.value;hsoKBHop()"') : ''])+'</div>' : '';
   var tabs = [['pgd','🏦 PGD · logo · tên đơn vị'], ['cb','👤 Cán bộ'], ['hoi','🤝 Hội'], ['ap','🏘 Trưởng ấp'], ['pho','👥 Tổ phó'], ['ct','📋 Chương trình vay'], ['tk','🏦 TK 104 / 105'], ['kiem','🔎 Kiểm tra hộ vay'], ['sl','💾 Sao lưu']];   /* 3.223 M1: + 💾 tự lưu / khôi phục / xuất – nạp file */   /* 3.222 (anh 16/10, PA B): 1 cửa sổ khai báo đơn vị cho mọi tab */
   var pane = function(k, h){ return '<div class="hso-kbp" data-kb="'+k+'"'+(T.tab===k ? '' : ' style="display:none"')+'>'+h+'</div>'; };
@@ -1294,7 +1294,7 @@ function hmVe(){
   var a = document.activeElement, giu = HM_O || (a && a.closest && a.closest('#hop-in') && a.getAttribute('data-hm')) || ''; HM_O = '';   /* 3.214: vẽ lại không mất con trỏ */
   var dsTo = hmDsTo();
   var dc = coDB ? '<div class="hm-dc">'+
-      CAY.dong([CAY.o('xa', HM.xa, '— Xã / phường —', CAY.dsXa(), 'data-hm="xa" onchange="hmDatXa(this.value)"'),   /* 3.327: cây địa bàn nhúng dùng chung (js/57) */
+      CAY.dong([CAY.o('xa', HM.xa, '— Xã / phường —', CAY.dsXa(), 'data-hm="xa" onchange="hmDatXa(this.value)"'),   /* 3.328: cây địa bàn nhúng dùng chung (js/57) */
         x ? CAY.o('diem', HM.diem, '— Điểm GD (lọc ấp, không bắt buộc) —', CAY.dsDiem(HM.xa).map(function(d){ return [d[0], 'Điểm '+d[1]]; }), 'data-hm="diem" onchange="hmDatDiem(this.value)"') : '',
         x ? CAY.o('ap', HM.thon || HM.tenThon, '— Ấp / khu phố —', CAY.dsAp(HM.xa, HM.diem), 'data-hm="ap" onchange="hmDatAp(this.value)"') : '',
         x ? CAY.o('to', HM.to, '— Tổ TK&VV ('+dsTo.length+') —', dsTo.map(function(t){ return [t.ma, CAY.chuTo(t)]; }), 'data-hm="to" onchange="HM.to=this.value;hmVe()"') : ''])+'</div>'

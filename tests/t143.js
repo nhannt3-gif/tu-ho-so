@@ -35,8 +35,8 @@ const path=require('path');
    return o; });
  await p.emulateMedia({media:'print'}); r.inAn = await p.evaluate(()=>getComputedStyle(document.getElementById('thanh-ben')).display==='none' && getComputedStyle(document.body).paddingLeft==='0px'); await p.emulateMedia({media:'screen'});
  ok('màn 1536: có thanh bên 216 px, ẩn thanh tab ngang', r.coTB===216 && r.anTab, r.coTB+' · '+r.anTab);
-ok('3.327 thanh bên 2 cấp: Hôm nay · Giao dịch xã ▸ · Nạp & KT · Số liệu ▸ · Hồ sơ ▸ · Tủ tài liệu ▸ · Công cụ ▸', r.muc==='Hôm nay,Giao dịch xã,Nạp & KT,Số liệu,Hồ sơ,Tủ tài liệu,Công cụ', r.muc);
- ok('3.327 mục con: Số liệu 6 (KTGS là mục con), Giao dịch xã có 👤 Tra cứu KH, Tủ tài liệu 4', r.con==='gd:Giao dịch xã,Tra cứu KH|sl:Tổng hợp,Sao kê,Tổ TK&VV,Tra cứu KH,KTGS Hội,Phân bổ KH|hs:Hồ sơ vay,Hồ sơ Tổ|tu:Văn bản,Biểu mẫu,Scan,Thư viện|cc:HSSV,Địa bàn,CT vay', r.con);
+ok('3.328 thanh bên 2 cấp: Hôm nay · Giao dịch xã ▸ · Nạp & KT · Số liệu ▸ · Hồ sơ ▸ · Tủ tài liệu ▸ · Công cụ ▸', r.muc==='Hôm nay,Giao dịch xã,Nạp & KT,Số liệu,Hồ sơ,Tủ tài liệu,Công cụ', r.muc);
+ ok('3.328 mục con: Số liệu 6 (KTGS là mục con), Giao dịch xã có 👤 Tra cứu KH, Tủ tài liệu 4', r.con==='gd:Giao dịch xã,Tra cứu KH|sl:Tổng hợp,Sao kê,Tổ TK&VV,Tra cứu KH,KTGS Hội,Phân bổ KH|hs:Hồ sơ vay,Hồ sơ Tổ|tu:Văn bản,Biểu mẫu,Scan,Thư viện|cc:HSSV,Địa bàn,CT vay', r.con);
  ok('bấm Văn bản / Nạp & KT / Tổ / Tổng hợp / Biểu mẫu / Hôm nay → đúng màn + tô đúng', r.van.ngan===1 && r.van.bat==='1' && r.nap.ngan===7 && r.nap.sl==='nap' && r.nap.bat==='nap' && r.to.sl==='to' && r.to.bat==='to' && r.tc.bat==='th' && r.bm.ngan===5 && r.bm.bat==='5' && r.hn.ngan===0 && r.hn.bat==='0', JSON.stringify([r.van, r.nap, r.to, r.tc, r.bm, r.hn]));
  ok('lối cũ (slDoiTab + doiNgan) vẫn tô đúng mục; tab con Số liệu ẩn', r.cuSK==='sk' && r.anCon);
  ok('lối cũ doiNgan(2) (tab Tháng cũ) → tô Nạp & KT', r.cuThang==='nap');
@@ -55,7 +55,7 @@ ok('3.327 thanh bên 2 cấp: Hôm nay · Giao dịch xã ▸ · Nạp & KT · S
  /* 1000 px + iPhone: không thanh bên, tab ngang còn, không tràn ngang */
  for(const [vp, ten] of [[{width:1000, height:700}, '1000 px'], [{width:390, height:844}, 'iPhone 390']]){
    const q = await mo(vp); const x = await q.evaluate(()=>({tb:getComputedStyle(document.getElementById('thanh-ben')).display, tab:getComputedStyle(document.getElementById('hangngan')).display, duoi:getComputedStyle(document.getElementById('thanh-duoi')).display, tran:document.documentElement.scrollWidth>window.innerWidth+1, pad:getComputedStyle(document.body).paddingLeft}));
-   ok(ten+': không thanh bên, 3.327 thanh dưới 5 nút thay thanh tab ngang, không tràn ngang', x.tb==='none' && x.tab==='none' && x.duoi==='flex' && !x.tran && x.pad==='0px', JSON.stringify(x)); await q.close(); }
+   ok(ten+': không thanh bên, 3.328 thanh dưới 5 nút thay thanh tab ngang, không tràn ngang', x.tb==='none' && x.tab==='none' && x.duoi==='flex' && !x.tran && x.pad==='0px', JSON.stringify(x)); await q.close(); }
  /* nền tối */
  const pt = await b.newPage({viewport:{width:1536,height:730}, colorScheme:'dark'}); await pt.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(pt);
  await pt.goto('file://'+path.resolve(__dirname,'..','index.html')); await pt.waitForTimeout(1500);

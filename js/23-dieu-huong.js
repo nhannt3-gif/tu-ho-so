@@ -3,7 +3,7 @@
    - Thanh tab ngang + thanh tab con Số liệu chỉ ẩn bằng CSS khi có thanh bên → màn < 1100 px (điện thoại, máy bảng) vẫn dùng như cũ.
    - Thu gọn 60 px (chỉ biểu tượng): nút « / » — nhớ riêng từng máy (localStorage 'tb_gon': '1' thu / '0' mở); chưa chọn thì màn < 1280 px tự thu.
    - Tô mục đang mở: toNutSL() (gọi mỗi lần đổi tab / tab con) gọi dhTo(). */
-var DH_MUC = [   /* sổ lối vào (3.327 P1): mỗi mục {k, bt, ten, mo, dem} — thứ tự = Alt+1…9; nhóm hiển thị ở DH_NHOM */
+var DH_MUC = [   /* sổ lối vào (3.328 P1): mỗi mục {k, bt, ten, mo, dem} — thứ tự = Alt+1…9; nhóm hiển thị ở DH_NHOM */
   {k:'0',   bt:'🏠', ten:'Hôm nay',    mo:function(){ doiNgan(0); }},
   {k:'1',   bt:'📄', ten:'Văn bản',    mo:function(){ doiNgan(1); }, dem:function(){ return (D.cho||[]).filter(function(c){ return c.nhom!=='duLieu'; }).length; }, demTit:'file chờ duyệt'},
   {k:'nap', bt:'📥', ten:'Nạp & KT',   mo:function(){ moNapSL(); }, dem:dhThieuNap, do:true, demTit:'file bắt buộc còn thiếu (tháng mới nhất)'},
@@ -20,7 +20,7 @@ var DH_MUC = [   /* sổ lối vào (3.327 P1): mỗi mục {k, bt, ten, mo, dem
   {k:'4',   bt:'🪪', ten:'Scan',       mo:function(){ doiNgan(4); }},
   {k:'3',   bt:'🖼', ten:'Thư viện',   mo:function(){ doiNgan(3); }}
 ];
-/* 3.327 (anh chốt 23/10, demo/thanh-ben-2-cap.html): THANH BÊN 2 CẤP — cấp 1: Hôm nay · Giao dịch xã ▸ · Nạp & KT · Số liệu ▸ · Hồ sơ ▸ · Tủ tài liệu ▸ · Công cụ ▸;
+/* 3.328 (anh chốt 23/10, demo/thanh-ben-2-cap.html): THANH BÊN 2 CẤP — cấp 1: Hôm nay · Giao dịch xã ▸ · Nạp & KT · Số liệu ▸ · Hồ sơ ▸ · Tủ tài liệu ▸ · Công cụ ▸;
    Giao dịch xã = bàn thao tác (chỉ gọi chức năng có sẵn — 👤 Tra cứu KH trước); KTGS là mục con của Số liệu. Nhóm mở / đóng nhớ theo máy (localStorage 'tb_mo'); nhóm có mục đang mở tự mở. */
 var DH_NHOM = [
   {k:'0'},
@@ -96,7 +96,7 @@ function dhTo(){   /* tô mục đang mở + làm mới số đếm (rẻ: chỉ
   dhDay();
   dhVe();
 }
-/* 3.327 (anh chốt 23/10, demo D5): ĐIỆN THOẠI — thanh dưới 5 nút Hôm nay · GD xã · Số liệu · Hồ sơ · ☰ Thêm (màn < 1100 px, thay hàng tab ngang trên);
+/* 3.328 (anh chốt 23/10, demo D5): ĐIỆN THOẠI — thanh dưới 5 nút Hôm nay · GD xã · Số liệu · Hồ sơ · ☰ Thêm (màn < 1100 px, thay hàng tab ngang trên);
    ☰ Thêm = hộp liệt kê đủ mục còn lại theo nhóm (cùng sổ lối vào DH_MUC / DH_NHOM / DH_CC). Hàng tab cũ #hangngan vẫn trong trang (ẩn) — lối cũ không đổi. */
 var DT_NUT = [['0', '🏠', 'Hôm nay', function(){ doiNgan(0); }], ['gd', '🏢', 'GD xã', function(){ dhBam('gd', 'gdx'); }],
   ['sl', '📊', 'Số liệu', function(){ var t = (D.cauHinh && D.cauHinh.slTab) || ''; dhBam('sl', ['th', 'sk', 'to', 'tra', 'kt', 'pb'].indexOf(t)>=0 ? t : 'th'); }],

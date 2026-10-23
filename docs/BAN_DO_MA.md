@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.327 · 23/10/2026 21:27 · 83 file · 41193 dòng · 3338 hàm cấp ngoài · 543 biến toàn cục.
+Bản 3.328 · 23/10/2026 22:20 · 84 file · 41239 dòng · 3346 hàm cấp ngoài · 547 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,8 +9,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 268 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 3853 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `index.html` | 269 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `css/app.css` | 3855 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
 | `js/02-nen.js` | 372 | 26 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
 | `js/03-doc-pdf.js` | 627 | 46 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
@@ -34,7 +34,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/20-khoi-dong.js` | 140 | 4 | /*   KHỞI ĐỘNG   */ function capNhatDau(){ document.getElementById('donvi').textContent = |
 | `js/21-ngay-gy.js` | 38 | 3 | /* 3.135 — anh Nhân: mọi ô chọn ngày ghi rõ kiểu ngày/tháng/năm (trình duyệt tiếng Anh hiện tháng/ngày → dễ nh |
 | `js/22-so-lieu.js` | 1102 | 114 | /* 3.235 (R3): file này giữ phần lõi; các khối khác tách sang js/22b…22i (nạp ngay sau theo thứ tự tên) + khuô |
-| `js/22b-ktgs.js` | 762 | 112 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1102–1816 của bản 3.234), không  |
+| `js/22b-ktgs.js` | 763 | 112 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1102–1816 của bản 3.234), không  |
 | `js/22c-ktgs-m06.js` | 439 | 56 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1817–2251 của bản 3.234), không  |
 | `js/22d-ktgs-04.js` | 695 | 101 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 2252–2945 của bản 3.234), không  |
 | `js/22e-ktgs-kh.js` | 536 | 78 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 2946–3477 của bản 3.234), không  |
@@ -84,7 +84,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/mau/07b.js` | 186 | 0 | /*   3.223 M5 — MẪU 07b/GQVL Hợp đồng tín dụng (người lao động) trên nền ô — dựng theo file gốc tests/mau_goc/ |
 | `js/mau/07pb.js` | 86 | 12 | /*   3.289 P3 (anh Nhân 21/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 6): BIỂU 07 PHÂN BỔ KH — mẫu in dựng theo |
 | `js/54-tgtv-khai.js` | 154 | 15 | /*   3.315 (anh 22/10 "làm hoàn chỉnh 01TGTV in bằng 2 cách: lấy từ Mẫu 31 hoặc in nhanh tự khai, khai nhanh t |
-| `js/57-cay.js` | 34 | 0 | /*   3.327 (anh chốt 23/10): CÂY ĐỊA BÀN NHÚNG — 1 chỗ lấy danh sách Xã › Điểm GD › Ấp › Hội › Tổ và vẽ ô chọn |
+| `js/57-cay.js` | 34 | 0 | /*   3.328 (anh chốt 23/10): CÂY ĐỊA BÀN NHÚNG — 1 chỗ lấy danh sách Xã › Điểm GD › Ấp › Hội › Tổ và vẽ ô chọn |
 | `js/mau/10c.js` | 106 | 0 | /*   3.223 M6 — MẪU 10C/TD MỚI (QĐ 70, từ 01/10/2026) Biên bản họp kết nạp, cho ra khỏi Tổ — trên nền ô, dựng  |
 | `js/mau/10ccu.js` | 84 | 0 | /*   3.223 M6 — MẪU 10C/TD CŨ (vào tổ đến 30/09/2026) Biên bản họp kết nạp bổ sung, cho ra khỏi Tổ — trên nền  |
 | `js/mau/10a.js` | 109 | 0 | /*   3.223 M6 — MẪU 10A/TD Biên bản họp thành lập Tổ TK&VV (QĐ 70) trên nền ô — dựng theo file gốc tests/mau_g |
@@ -92,6 +92,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/mau/10d.js` | 82 | 0 | /*   3.223 M6 — MẪU 10D/TD Biên bản họp giải thể Tổ TK&VV (QĐ 70) — MẪU MỚI, dựng trên nền ô theo file gốc tes |
 | `js/mau/11.js` | 141 | 0 | /*   3.223 M6 — MẪU 11/TD MỚI (QĐ 70, từ 01/10/2026) Hợp đồng ủy nhiệm — trên nền ô, dựng theo file gốc tests/ |
 | `js/mau/11cu.js` | 131 | 0 | /*   3.223 M6 — MẪU 11/TD CŨ (trước 01/10/2026, QĐ 15) Hợp đồng ủy nhiệm — trên nền ô, dựng theo file gốc test |
+| `js/56-ktgs-bo.js` | 42 | 8 | /*   3.327 — KTGS bước 1 (docs/KE_HOACH_KTGS_GON.md mục 2.4, 3): 2 BỘ KHAI BÁO CỐ ĐỊNH (anh chốt 23/10)   ① Hộ |
 
 ## 2. Mục trong mã (chú thích tiêu đề)
 
@@ -392,13 +393,13 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/53-giay-nop.js:1` · 3.312 (anh 22/10/2026 gửi bản scan Giấy nộp tiền NHCSXH — "tạo mẫu tương tự Giấy lĩnh tiền kèm bảng kê nộp"):
 - `js/54-tgtv-khai.js:64` · 3.316 (anh 23/10 "form cứng, chuẩn: họ tên, ngày sinh, CCCD, ngày cấp, SĐT, chọn xã, ấp — còn lại tự tính: giới tính, ng
 - `js/54-tgtv-khai.js:90` · bấm trên bản xem
-- `js/57-cay.js:1` · 3.327 (anh chốt 23/10): CÂY ĐỊA BÀN NHÚNG — 1 chỗ lấy danh sách Xã › Điểm GD › Ấp › Hội › Tổ và vẽ ô chọn kiểu ☰ Gọn
+- `js/57-cay.js:1` · 3.328 (anh chốt 23/10): CÂY ĐỊA BÀN NHÚNG — 1 chỗ lấy danh sách Xã › Điểm GD › Ấp › Hội › Tổ và vẽ ô chọn kiểu ☰ Gọn
 
 ## 3. Nhóm hàm theo tiền tố (khối chức năng)
 
 | Tiền tố | Số hàm | File | Ví dụ |
 |---|---|---|---|
-| `kt` KTGS Hội (Mẫu 06/16/04, KH…) | 345 | `22b-ktgs.js` 111, `22d-ktgs-04.js` 101, `22e-ktgs-kh.js` 77 | ktXepLoai, ktNgayDau, ktDocBC, ktPhanTich |
+| `kt` KTGS Hội (Mẫu 06/16/04, KH…) | 353 | `22b-ktgs.js` 111, `22d-ktgs-04.js` 101, `22e-ktgs-kh.js` 77 | ktXepLoai, ktNgayDau, ktDocBC, ktPhanTich |
 | `sl` Số liệu (nạp, kho kỳ, ma trận) | 221 | `22-so-lieu.js` 111, `22f-tra-cuu.js` 77, `22i-tong-hop.js` 18 | slLoai, slChuan, slLaNgay, slLaHS |
 | `to` Tổ TK&VV | 117 | `22g-to.js` 85, `22h-cap-hoi-sao-ke.js` 27, `04-giao-dien.js` 2 | toSang, toNutSL, toTruongScan, toStkChu |
 | `tdn` Theo dõi nợ | 92 | `04-giao-dien.js` 92 | tdnChuan, tdnSo, tdnNgay, tdnTien |

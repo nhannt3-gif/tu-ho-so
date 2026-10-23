@@ -1,5 +1,5 @@
 /* ==========================================================
-   3.327 (anh chốt 23/10): CÂY ĐỊA BÀN NHÚNG — 1 chỗ lấy danh sách Xã › Điểm GD › Ấp › Hội › Tổ và vẽ ô chọn kiểu ☰ Gọn
+   3.328 (anh chốt 23/10): CÂY ĐỊA BÀN NHÚNG — 1 chỗ lấy danh sách Xã › Điểm GD › Ấp › Hội › Tổ và vẽ ô chọn kiểu ☰ Gọn
    cho form / hộp khai báo (👪 Hộ vay, lập 01/TD, khai nhanh 01/TGTV, ⚙ Khai báo chung). Khối LỌC ĐỊA BÀN ở các tab vẫn là pvVeCay (js/22g).
    Nơi gọi giữ xử lý riêng (ghi vào hồ sơ của mình) — CAY chỉ trả danh sách + HTML ô chọn cùng 1 kiểu.
    Dữ liệu qua cửa KHO (hmDiaBan đọc KHO.maTo / KHO.to). ES5.

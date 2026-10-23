@@ -39,7 +39,7 @@ const fs=require('fs'), path=require('path');
    /* hộp chọn khi in: ô chọn + ô khai tên */
    S.dx_m16 = {dvc:'go', dvt:'Đoàn Giả', ng1:'go'}; ktInHop(['m16'], '', ktHoiCuaTo([t])); await w(100);
    const hop = document.getElementById('hop-in');
-   ok('hộp Chọn khi in: nhãn "lựa chọn riêng kiểm tra đột xuất", ô Đơn vị / Đoàn, ô khai tên đoàn + họ tên cán bộ, Bảng II có "Chấm ghi tay"', /lựa chọn riêng kiểm tra đột xuất/.test(hop.textContent) && !!document.getElementById('ki-m16-dvc') && !!document.getElementById('ki-m16-dvt') && !!document.getElementById('ki-m16-cb1t') && /Chấm ghi tay \(theo mẫu\)/.test(hop.innerHTML));
+   ok('hộp Chọn khi in: nhãn bộ "② Khai báo khi cần" (3.327), ô Đơn vị / Đoàn, ô khai tên đoàn + họ tên cán bộ, Bảng II có "Chấm ghi tay"', /② Khai báo khi cần/.test(hop.textContent) && !!document.getElementById('ki-m16-dvc') && !!document.getElementById('ki-m16-dvt') && !!document.getElementById('ki-m16-cb1t') && /Chấm ghi tay \(theo mẫu\)/.test(hop.innerHTML));
    document.getElementById('ki-m16-dvt').value = 'Đoàn Giả Sửa'; ktInDoc(); await w(50);
    ok('sửa ô khai tên → lưu vào dx_m16', D.cauHinh.ktIn.dx_m16.dvt==='Đoàn Giả Sửa');
    dongHop();
@@ -60,6 +60,23 @@ const fs=require('fs'), path=require('path');
    ok('Mẫu 16: "đến thời điểm" = ngày chọn; chấm điểm "tháng 09/2026: 85 điểm, xếp loại Khá"', h5.indexOf('đến thời điểm '+nd.d+'/'+nd.m+'/20'+nd.y2)>=0 && /tháng 09\/2026\): 85 điểm, xếp loại Khá/.test(h5), (h5.match(/đến thời điểm[^)]*\)/)||[''])[0]);
    ok('đột xuất chưa khai ngày → "Hôm nay, ngày … tháng … năm …" để chấm (không tự ghi tháng)', g5.f.NM==='' && /Hôm nay, ngày \.+ tháng \.+ năm 20 ?\.+/.test(h5), (h5.match(/Hôm nay.{0,80}/)||[''])[0]);
    K.che = 'dk'; ok('định kỳ vẫn tự ghi tháng kiểm tra như cũ', ktGiaTri16(t, dc, Object.assign(ktInV('m16'), {ngay:''})).f.NM!==''); K.che = 'dx';
+   /* 3.327: 2 bộ khai báo — định kỳ mặc định ① Hội kiểm tra; lúc In chọn ② → dùng bộ ②; mở hộp in mới → về mặc định */
+   K.che = 'dk'; ktInHop(['m06', 'm16'], '', ktHoiCuaTo([t])); await w(100);
+   ok('3.327: định kỳ — hộp in có ô chọn bộ, mặc định ① Hội kiểm tra (khóa m16)', ktBoDang()==='hoi' && !!document.querySelector('.kt-bo-chon [data-bo="can"]') && ktInKhoa('m16')==='m16');
+   document.querySelector('.kt-bo-chon [data-bo="can"]').click(); await w(150);
+   ok('3.327: bấm ② Khai báo khi cần → Mẫu 16 định kỳ in theo bộ ② (tên đoàn đã khai)', ktInKhoa('m16')==='dx_m16' && chu(ktHTML16(ktGiaTri16(t, dc, ktInV('m16')))).indexOf('Đoàn Chung Giả')>=0);
+   dongHop(); ktInHop(['m16'], '', ktHoiCuaTo([t])); await w(100);
+   ok('3.327: mở hộp in mới → về bộ mặc định ①', ktBoDang()==='hoi' && ktInKhoa('m16')==='m16');
+   /* 3.327: Bảng II khai cả bảng + ▸ Từng ô */
+   D.cauHinh.ktIn.m16 = {b2:'dien'}; ktInHop(['m16'], '', ktHoiCuaTo([t]), 0, 1); await w(100);
+   document.querySelector('.kt-b2-o summary').click(); await w(50);
+   const doi = async(id, gt)=>{ const e = document.getElementById(id); e.value = gt; e.dispatchEvent(new Event('change', {bubbles:true})); await w(100); };
+   await doi('ki-m16-b2o-0', 'cham'); await doi('ki-m16-b2o-3', 'go'); await doi('ki-m16-b2o-3-v', 'Có, chữ giả'); await doi('ki-m16-b2o-5', 'trong');
+   const gb = ktGiaTri16(t, dc, ktInV('m16')).b2;
+   ok('3.327: Bảng II cả bảng 727 + từng ô — ô 1 chấm, ô 4 gõ chữ, ô 6 để trống, ô khác theo 727; khung Từng ô vẫn mở', gb.length===14 && /^\.{20,}$/.test(gb[0]) && gb[3]==='Có, chữ giả' && gb[5]==='' && gb[1]===KT_B16[1] && document.querySelector('.kt-b2-o').open, JSON.stringify(gb.slice(0, 6)));
+   D.cauHinh.ktIn.m16 = {b2:''}; const g0 = ktGiaTri16(t, dc, ktInV('m16')).b2;
+   ok('3.327: cả bảng để trống, không khai từng ô → Bảng II trống như cũ', g0.length===0);
+   dongHop(); K.che = 'dx';
    KT_BC = bcCu;
    return o; }, files);
  R.forEach(x=>o.push(x)); o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));

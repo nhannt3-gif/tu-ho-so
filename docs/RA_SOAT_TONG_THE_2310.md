@@ -9,7 +9,7 @@
 ## 2. Số đo (thật, đo trên mã 3.325)
 | Chỉ số | 14/10 | 23/10 | Mục tiêu |
 |---|---|---|---|
-| File js · dòng · hàm cấp ngoài · biến toàn cục | — | **67 · 35,3 nghìn · 3.327 · 538** | biến toàn cục giảm dần |
+| File js · dòng · hàm cấp ngoài · biến toàn cục | — | **67 · 35,3 nghìn · 3.328 · 538** | biến toàn cục giảm dần |
 | File lớn nhất | — | `04-giao-dien.js` 5.416 dòng (398 KB) · `25-ho-so.js` 1.974 dòng (325 KB) · `06-hop-thoai.js` 3.117 dòng | < 1.500 dòng / file |
 | Lời gọi `luu()` | 295 | **395** (đã có lưu theo ngăn IndexedDB `34-luu-ngan.js`, nhưng nơi gọi vẫn "lưu tất cả") | gọi theo ngăn |
 | Đọc thẳng biến số liệu thay vì `KHO` | Hồ sơ 57, GDX 60 | Hồ sơ: `KHO.` 58 / `TO_K` 8 · GDX: `KHO.` 36 / `TO_K` 5 ✅ · **Scan 0 `KHO`**, **KTGS 0 `KHO`** | 0 |
@@ -108,18 +108,18 @@
 4. KTGS ít dùng → tab con trong 📊 Số liệu.
 5. Thanh bên 2 cấp theo demo `demo/thanh-ben-2-cap.html`; điện thoại thanh dưới Hôm nay · GD xã · Số liệu · Hồ sơ · ☰ Thêm.
 6. Cây địa bàn 1 chỗ, mọi nơi gọi: 2 kiểu Chip / Gọn; **mặc định Gọn mọi nơi; mở app về PGD; 📌 ghim giữ kiểu + cấp đang chọn**; thêm cấp Ấp; chuyển 4 bộ chọn riêng (👪 Hộ vay, 01/TD, 01/TGTV, Khai báo chung).
-7. Cửa KHO cho KTGS (5 cửa, `KE_HOACH_KHO_KTGS.md`) — phối hợp TK 3 qua `KE_HOACH_KTGS_GON.md` mục 11.
+7. Cửa KHO cho KTGS (5 cửa, `KE_HOACH_KHO_KTGS.md`) — phối hợp TK 3 qua `KE_HOACH_KTGS_GON.md` mục 12.
 8. Hồi quy: mỗi bản chỉ phép thử phần mới / vừa sửa; đủ khi thay đổi lớn hoặc lỗi.
 9. Không đụng file khóa của TK 3 (KTGS) và TK chính (Phân bổ KH).
 
 **Các đợt**
 | Đợt | Việc | Bản |
 |---|---|---|
-| 1 | Cây C1: kiểu gọn 1 dòng, mặc định gọn, về PGD khi mở app, 📌 ghim chung giữ địa bàn + kiểu | 3.327 ✅ |
-| 2 | Cây C2: cây nhúng dùng chung `CAY` (js/57, có cấp Ấp); chuyển 4 bộ chọn riêng | 3.327 ✅ |
-| 3 | P0 cửa KHO cho KTGS (chỉ thêm ở `js/29-kho.js`, `t240`) + P1 sổ lối vào chung (`DH_MUC` + `DH_NHOM`) | 3.327 ✅ |
-| 4 | P2 thanh bên 2 cấp (KTGS tab con Số liệu, GDX cấp 1, thanh dưới điện thoại) | 3.327 ✅ |
-| 5 | P3 / C3 GDX mục con 👤 Tra cứu KH gọi khối Tra cứu có sẵn | 3.327 ✅ |
+| 1 | Cây C1: kiểu gọn 1 dòng, mặc định gọn, về PGD khi mở app, 📌 ghim chung giữ địa bàn + kiểu | 3.328 ✅ |
+| 2 | Cây C2: cây nhúng dùng chung `CAY` (js/57, có cấp Ấp); chuyển 4 bộ chọn riêng | 3.328 ✅ |
+| 3 | P0 cửa KHO cho KTGS (chỉ thêm ở `js/29-kho.js`, `t240`) + P1 sổ lối vào chung (`DH_MUC` + `DH_NHOM`) | 3.328 ✅ |
+| 4 | P2 thanh bên 2 cấp (KTGS tab con Số liệu, GDX cấp 1, thanh dưới điện thoại) | 3.328 ✅ |
+| 5 | P3 / C3 GDX mục con 👤 Tra cứu KH gọi khối Tra cứu có sẵn | 3.328 ✅ |
 | cuối | hồi quy đủ 1 lần → gộp → anh thử | |
 
 **Chỗ có thể sót (đã nêu với anh)**: (a) địa bàn dùng chung → ghim chung mọi tab; (b) mục con GDX ngoài Tra cứu KH — anh chọn dần; (c) thiết lập ghim / thu gọn cũ thôi dùng, mọi máy về gọn.

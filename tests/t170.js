@@ -16,7 +16,7 @@ const fs=require('fs'), path=require('path');
    /* 1. cây địa bàn — tab Tổ */
    slDoiTab('to'); doiNgan(7); for(let i=0;i<50 && !document.querySelector('#to-cay .loc-khoi');i++) await w(200); await w(400);
    const t = Object.values(TO_K.to).find(t=>!t.trucTiep && t.ten && t.khoaDiem && hsoTVTo(t).some(k=>k.mon.some(m=>m.dn>0)));
-   ok('3.327 tab Tổ chưa chọn: mặc định kiểu gọn, nút ▦ Chip', !!document.querySelector('#to-cay .loc-khoi.gon') && /Chip/.test((document.querySelector('#to-cay .pv-gon')||{}).textContent||''));
+   ok('3.328 tab Tổ chưa chọn: mặc định kiểu gọn, nút ▦ Chip', !!document.querySelector('#to-cay .loc-khoi.gon') && /Chip/.test((document.querySelector('#to-cay .pv-gon')||{}).textContent||''));
    pvChonTo('to', t.ma); await w(400);
    const nut = () => (document.querySelector('#to-cay .pv-gon')||{}).textContent||'';
    ok('chọn tổ → vẫn gọn 1 dòng, nút "▦ Chip"', !!document.querySelector('#to-cay .loc-khoi.gon') && /Chip/.test(nut()), nut());

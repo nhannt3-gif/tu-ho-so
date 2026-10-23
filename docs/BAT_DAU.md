@@ -23,10 +23,8 @@
 - **Mốc quay lại:** nhánh `moc/v3.141-truoc-tach-file` = bản 3.141 (1 file `index.html`, trước kiến trúc 3 lớp) — **không xóa, không đẩy gì vào**. Bản sau lỗi nặng: Revert PR trên GitHub, hoặc lấy lại file từ nhánh mốc. Mốc mới đặt tên `moc/v<bản>-<gợi nhớ>`.
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
-- **Hồi quy (anh chốt 23/10, ghi bởi tài khoản phụ 2):** mỗi bản chỉ chạy **phép thử của chức năng mới / vừa sửa**; **hồi quy đầy đủ chỉ khi thay đổi lớn** (cấu trúc, lưu, khung chung) **hoặc khi có lỗi**. Rà soát tổng thể 23/10: `docs/RA_SOAT_TONG_THE_2310.md` (chờ anh duyệt).
-
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.327** — TK 2: cây địa bàn gọn mặc định (mở app về PGD, 📌 ghim giữ), cây nhúng `CAY` (js/57), thanh bên 2 cấp + thanh dưới điện thoại, GDX › 👤 Tra cứu KH, 5 cửa KHO cho KTGS. 3.326 (TK 3): ô ngày đầu trang nhớ ngày chọn. Gom ý 23/10: `docs/RA_SOAT_TONG_THE_2310.md` mục 9.
+- **`main` = 3.328** — TK 2: cây địa bàn gọn mặc định (mở app về PGD, 📌 ghim giữ), cây nhúng `CAY` (js/57), thanh bên 2 cấp + thanh dưới điện thoại, GDX › 👤 Tra cứu KH, 5 cửa KHO cho KTGS. 3.327 (TK 3): KTGS bước 1 — 2 bộ khai báo cố định; 3.326 (TK 3): ô ngày đầu trang nhớ ngày chọn. Gom ý 23/10: `docs/RA_SOAT_TONG_THE_2310.md` mục 9.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

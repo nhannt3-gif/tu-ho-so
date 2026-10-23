@@ -31,7 +31,7 @@ const fs=require('fs'), path=require('path');
    }
    ok('nhớ lựa chọn theo Hội', ktHoiKB(t0.xa+'|'+t0.dv).ccKH==='10566' && ktKHCC()==='10566');
    ktKHXem(1); await w(300); ktKHIn('word'); await w(1200);
-   ok('tên file Word có "(can cu 10566)"', Object.keys(F).some(n=>/\(can cu 10566\)/.test(n)), Object.keys(F).join(' | '));
+   ok('tên file Word theo chuẩn 3.140.2 (Xã_Hội_KHnăm)', Object.keys(F).some(n=>/_KH20\d\d\.docx$/.test(n)), Object.keys(F).join(' | '));   /* 3.327: bỏ "(can cu 10566)" — tên file anh chốt 3.140.2 */
    ktKHDoiCC('727'); ok('về 727: xóa lựa chọn đã nhớ', !ktHoiKB(t0.xa+'|'+t0.dv).ccKH && ktKHCC()==='727');
    ktKHDoiMau('1'); C.che = 'dx'; C.xa=''; C.hoi='';
    return o;

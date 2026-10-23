@@ -222,7 +222,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
-### Danh sách thử trên máy thật (3.327) — anh ghi Đạt / Chưa
+### Danh sách thử trên máy thật (3.328) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 1 | Mở app › tab Tổ / Sao kê / Hồ sơ vay / GDX | Khối LỌC ĐỊA BÀN 1 dòng ô chọn Xã › Điểm › Hội › Tổ, Toàn PGD | |
@@ -233,7 +233,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 6 | Điện thoại (trình duyệt) | Thanh dưới 5 nút, ☰ Thêm đủ mục | |
 | 7 | 👪 Hộ vay mới / 01/TD / 01/TGTV / ⚙ Khai báo chung › Trưởng ấp | Chọn Xã › Ấp › Tổ như cũ, dữ liệu lưu đúng | |
 
-**Ghi chú kỹ thuật 3.327:** `pvChungO()` trả `PV_PHIEN` khi chưa ghim; `pvGhimCua()` / `pvGonCua(p)` / `pvGonDoi(p)` / `pvGhimDoi(p)` giữ tên cũ, nghĩa mới. `gdxGonLoc` và cờ `gonDiem` không còn tác dụng (giữ, không lỗi). Lỗi có sẵn trên `main` (đã chạy đối chứng): t110 (hộp in Mẫu 06/16), t114 (Mẫu 16 chưa khai ngày), t116, t231 — vùng KTGS của TK 3 / HSSV.
+**Ghi chú kỹ thuật 3.328:** `pvChungO()` trả `PV_PHIEN` khi chưa ghim; `pvGhimCua()` / `pvGonCua(p)` / `pvGonDoi(p)` / `pvGhimDoi(p)` giữ tên cũ, nghĩa mới. `gdxGonLoc` và cờ `gonDiem` không còn tác dụng (giữ, không lỗi). Lỗi có sẵn trên `main` (đã chạy đối chứng): t110 (hộp in Mẫu 06/16), t114 (Mẫu 16 chưa khai ngày), t116, t231 — vùng KTGS của TK 3 / HSSV.
+
+### Danh sách thử trên máy thật (3.327) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS định kỳ › In Mẫu 16 | Hộp in có dòng "Bộ khai báo: ① Hội kiểm tra (mặc định) · ② Khai báo khi cần"; bấm ② → tên đoàn / cán bộ theo khai báo đột xuất | |
+| 2 | Hộp in Mẫu 16 › Bảng II "Điền đầy đủ" › Từng ô › dòng 1 "Chấm ghi tay", dòng 4 "Gõ chữ" | Bản in: dòng 1 chấm, dòng 4 chữ đã gõ, dòng khác theo 727 | |
+| 3 | 01/TGTV | "Giới tính*" cách ngày sinh khoảng 1 tab | |
+
+**Ghi chú kỹ thuật 3.327:** `KT_BO` / `KT_BO_IN` / `ktBoDang` / `ktBoKhoa` (56) — `ktInKhoa(mau)` gọi `ktBoKhoa`. `ktInHop(ds, nut, hoi, veThe, ve)`: `ve` = vẽ lại (giữ bộ, giữ khung mở); không `ve` → `KT_BO_IN = null`. Bảng II: `v.b2o[i] = {c:'trong'|'cham'|'dien'|'go', v}` trong bộ m16, `ktB16Mang(t, v)` thay biểu thức cũ trong `ktGiaTri16`; lệnh `GD` khối `ktbo` (chon, doc, b2mo). 01/TGTV: `&emsp;×3` trước "Giới tính*".
 
 ### Danh sách thử trên máy thật (3.326) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

@@ -24,7 +24,7 @@ var L01 = (function(){
   function doiTenCu(ds){   /* bản lưu trước 3.296 (tên không dấu - tổ - ấp) → tên chuẩn 1 lần, giữ tên cũ ở tenCu */
     var doi = 0; ds.forEach(function(b){ var t = tenBan(b); if(b.tenBan && b.tenBan!==t && !b.tenCu){ b.tenCu = b.tenBan; b.tenBan = t; doi++; } }); if(doi) luu(); }
   /* ---------- địa bàn: Xã → Thôn → Tổ (Hội lọc tổ) ---------- */
-  /* 3.327: danh sách địa bàn lấy ở cây nhúng dùng chung CAY (js/57) */
+  /* 3.328: danh sách địa bàn lấy ở cây nhúng dùng chung CAY (js/57) */
   function dsTo(o){ return o.xa ? CAY.dsTo({xa:o.xa, thon:o.thon, tenThon:o.tenThon, hoi:HOI}) : []; }
   function tt(k){ return 'data-l01="'+k+'" data-lenh="l01.'+k+'" data-su="change"'; }
   /* ---------- lệnh ---------- */
