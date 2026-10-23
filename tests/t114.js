@@ -37,7 +37,7 @@ const fs=require('fs'), path=require('path');
    const h4 = ktHTML04([g]);
    ok('bản In 04 cùng nội dung (ngày, III, kiến nghị)', h4.indexOf('tháng '+th.slice(5)+' năm '+th.slice(0, 4))>=0 && /Kiểm tra hoạt động của Tổ TK&amp;VV/.test(h4) && /lãi tồn cao: /.test(h4));
    /* 4. Mẫu 16 */
-   const g16 = ktGiaTri16(t, [], {nx:'so'});
+   const cheCu = ktCH().che; ktCH().che = 'dk'; const g16 = ktGiaTri16(t, [], {nx:'so'}); ktCH().che = cheCu;   /* 3.325: chỉ kiểm tra định kỳ tự ghi tháng; đột xuất để chấm */
    ok('Mẫu 16 chưa khai ngày: tháng / năm theo tháng kiểm tra, ngày để trống', g16.f.ND==='' && g16.f.NM===th.slice(5) && g16.f.NY===th.slice(2, 4), g16.f.NM+'/'+g16.f.NY);
    ok('Mẫu 16 đã khai ngày: giữ ngày khai', ktGiaTri16(t, [], {ngay:'2026-10-07', nx:'so'}).f.ND==='07');
    ok('Mẫu 16 tồn tại (3.134): nhóm chung "Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao", liệt kê tối đa 10 hộ, không ghi số tháng lãi', g16.nx.tt.some(x=>/^Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao, gồm các hộ: .* và \d+ hộ khác\./.test(x)) && !g16.nx.tt.some(x=>/tháng lãi/.test(x)), g16.nx.tt.join(' | ').slice(0, 200));

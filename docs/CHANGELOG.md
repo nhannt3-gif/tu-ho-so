@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.327 — 23/10/2026 — KTGS bước 1: 2 bộ khai báo + Bảng II từng ô; 01/TGTV Giới tính cách 1 tab
+- **Anh 23/10**: "1 bộ cho Hội kiểm tra cố định và 1 cho khai báo khi cần" · "khai từng ô mở lên khi cần là 1 nút con của khai cả bảng; chọn để trống thì không chấm, tùy chỗ để trống hoặc chấm theo mẫu" · 01/TGTV "cách 1 tab, cũng không cần đẩy ra quá xa".
+- **2 bộ khai báo cố định** (`js/56-ktgs-bo.js`): **① Hội kiểm tra** (mặc định kiểm tra định kỳ / sau giải ngân) · **② Khai báo khi cần** (mặc định kiểm tra đột xuất). Hộp 🖨 Chọn khi in có dòng **Bộ khai báo** — lần in này chọn bộ kia được (vd định kỳ nhưng đoàn ngoài Hội); mở hộp in lần sau tự về bộ mặc định. Mỗi mẫu ghi rõ đang theo bộ nào.
+- Dùng lại chỗ lưu cũ (bộ ① = lựa chọn in chung, bộ ② = lựa chọn đột xuất 3.323) → không phải chuyển dữ liệu, lựa chọn anh đã khai giữ nguyên.
+- **Bảng II Mẫu 16**: khai cả bảng (để trống · chấm ghi tay · theo 727) như cũ + nút con **Từng ô** — 14 dòng, mỗi dòng: theo cả bảng / để trống / chấm ghi tay / theo 727 / gõ chữ riêng.
+- **01/TGTV**: "Giới tính*" cách ngày sinh 1 tab (~1,27 cm). Chuẩn khóa 01/TGTV ghi lại.
+- Bản in Mẫu 06 / 16 / 04 / Kế hoạch không đổi (chuẩn khóa t179 trùng). Phép thử: t236 thêm 5 (26); t110 / t114 / t116 cập nhật theo luật mới (3.323 hộp chọn, 3.325 đột xuất để chấm ngày, 3.140.2 tên file).
+
 ## 3.326 — 23/10/2026 — Nhớ ngày chọn ở ô đầu trang (KTGS bước 0)
 - **Anh 23/10**: "vẫn ghi lấy số liệu đến 30/9" (sau Ctrl+F5). Nguyên nhân: từ 3.97 ngày chọn ở ô đầu trang chỉ giữ trong phiên → tải lại về kỳ cuối tháng.
 - **Ô ngày đầu trang nhớ ngày đã chọn** (`kyChungLay` đọc `D.cauHinh.kyChung`, lưu cùng cấu hình) — mọi tab (KTGS, Tra cứu, Tổ…) mở lại đúng ngày đó.

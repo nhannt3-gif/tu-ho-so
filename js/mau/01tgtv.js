@@ -61,7 +61,7 @@
       var tt = C('thuongTru'), sms = G.gt('sms');
       var A = '<p class="i">Quý khách điền đầy đủ nội dung tại các trường thông tin có dấu (*)</p>'+
         hsoBang('khung0', [29, 71], '<tr><td><p class="b">Họ, chữ đệm, tên khai sinh*:</p></td><td><table class="luoi" data-w="1"><tr><td style="padding:0 1.5mm;vertical-align:middle">'+o('ten', '&nbsp;', {rong:112})+'</td></tr></table></td></tr>')+
-        dong('<b>Ngày, tháng, năm sinh*:</b> '+ngay('ns', 10, 10, 10)+'          <b>Giới tính*:</b> '+ck('gt', V.gt==='Nam')+'Nam  '+ck('gt', V.gt==='Nữ')+'Nữ')+
+        dong('<b>Ngày, tháng, năm sinh*:</b> '+ngay('ns', 10, 10, 10)+'&emsp;&emsp;&emsp;<b>Giới tính*:</b> '+ck('gt', V.gt==='Nam')+'Nam  '+ck('gt', V.gt==='Nữ')+'Nữ')+
         dong('<b>Quốc tịch*:</b> '+ck('quocTich', V.quocTich==='Việt Nam')+' Việt Nam   '+ck('quocTich', V.quocTich && V.quocTich!=='Việt Nam')+' Khác (ghi rõ)'+o('quocTich', D(18), {gt:C('quocTich') && V.quocTich!=='Việt Nam' ? V.quocTich : ''})+'   <b>Dân tộc*:</b> '+o('danToc', D(35)))+
         dong('<b>Tình trạng cư trú*:</b> '+ck('cuTru', !!V.cuTru)+' Có cư trú   ☐ Không cư trú')+
         dong('<b>Thông tin giấy tờ tùy thân*:</b> '+ck('cccd', so.length===12)+'Thẻ CC công dân/Thẻ CC     ☐CC điện tử')+
