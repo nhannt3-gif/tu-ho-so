@@ -3,7 +3,7 @@
 > Anh Nhân 23/10/2026: "em cứ làm theo kế hoạch, xong bàn giao đầy đủ cho TK 2 làm tiếp". Kế hoạch gốc: `docs/KE_HOACH_KTGS_GON.md` (mục 11 = tiến độ từng bước).
 > Từ bản bàn giao này **khóa file KTGS (CLAUDE.md dòng 23/10) được mở** — TK 2 sửa được `js/22b…22e`, `js/56-ktgs-bo.js` và phép thử KTGS, theo các luật dưới đây.
 
-**Trạng thái: ĐÃ BÀN GIAO — 24/10/2026, bản 3.331** (TK 3 xong bước 0–5; hồi quy đủ chạy trên 3.330 — kết quả mục 7).
+**Trạng thái: ĐÃ BÀN GIAO — 24/10/2026, bản 3.331** (TK 3 xong bước 0–5; hồi quy mục 7).
 
 ## 1. Sơ đồ tab KTGS sau tinh chỉnh
 
@@ -91,7 +91,7 @@ Mọi lối đều qua hộp `ktInHop` (chọn bộ ① / ②) và `ktInV(mẫu)
 - `ktInMau` — xem 3b.
 
 ## 7. Hồi quy đủ
-(TK 3 ghi kết quả khi chạy xong.)
+Chạy `bash tools/hoiquy.sh 330` trên bản 3.330: **hoiquy ✓, hoiquy2 ✓**; dải t1xx–t2xx đang chạy lúc gộp (anh cho gộp trước) — TK 3 ghi tiếp kết quả vào đây / báo anh. Phép thử KTGS riêng (t106–t154, t177, t179, t197, t236–t238, t240) đã đạt trước khi gộp.
 
 ## 8. Việc TK 2 làm tiếp
 1. Cửa `KHO` cho KTGS (spec `docs/KE_HOACH_KTGS_GON.md` mục 9).

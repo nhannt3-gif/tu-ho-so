@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.331 — 24/10/2026 — Bàn giao KTGS cho TK 2
+- **Anh 24/10**: "em gộp lên rồi bàn giao TK 2 luôn".
+- `docs/BAN_GIAO_KTGS.md`: sơ đồ tab 3 khối, 3 tầng khai báo (Đơn vị · Bộ ① / ② · Lần in), lớp nguồn `ktNguon*` + bảng ghép với 5 cửa `KHO` của TK 2 (lưu ý `KT_GN.kh` 3.329), bảng chỗ còn đọc thẳng biến số liệu theo file, lối in từng khối, phần khóa mẫu không được đổi, phép thử phải giữ, việc để lại.
+- `CLAUDE.md`: mở khóa file KTGS (23/10) — TK 2 làm tiếp đưa KTGS qua `KHO`. `docs/KE_HOACH_KTGS_GON.md` mục 11 đủ bước 0–5.
+- Không đổi mã chạy.
+
 ## 3.330 — 24/10/2026 — KTGS bước 3–4: thanh 3 khối, màn Bộ khai báo mẫu, Mẫu 04 đột xuất
 - **Anh 23/10**: "phân thành 2 phần … bắt buộc cố định Hội phải thực hiện … và 1 phần kiểm tra đột xuất … bỏ trùng lắp, bố trí lại bố cục cho gọn" · "đột xuất có Mẫu 04 để in khi cần" · "em cứ làm theo kế hoạch, xong bàn giao đầy đủ cho TK 2".
 - **Thanh 3 khối** thay 6 chip: **📅 Bắt buộc · theo tháng** (thẻ con 🗓 Định kỳ · 📅 Sau giải ngân · 📋 Mẫu 04 · 🗓 Lịch năm 01/KH — nhớ thẻ đang mở) · **🎯 Đột xuất · theo ngày** · **⚙ Khai báo** (🏛 Hội – xã · 📖 Chuẩn hóa · **🧩 Bộ khai báo mẫu**).
