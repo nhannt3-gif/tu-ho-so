@@ -60,9 +60,10 @@ function toKyMacDinh(C, dsKy, tab){
   return C.ky;
 }
 /* ---------- 3.149 (anh chốt ý 6b): KỲ CHUNG — 1 ô ở đầu trang, phủ mọi tab (Nạp & KT, Tổng hợp, Sao kê, Tổ, KTGS, Tra cứu…)
-   kỳ theo ngày chỉ giữ trong lần mở app (như 3.97); tab không có số liệu đúng kỳ thì dùng kỳ gần nhất và ghi rõ (kyGhiHTML)
+   kỳ theo ngày NHỚ qua lần mở app (3.326 — trước: chỉ giữ trong phiên như 3.97); tab không có số liệu đúng kỳ thì dùng kỳ gần nhất và ghi rõ (kyGhiHTML)
    ngoại lệ (anh chốt): KTGS › Kế hoạch › In theo tháng kiểm tra lấy kỳ theo kế hoạch (3.141), không theo ô này ---------- */
-function kyChungLay(){ var v = D.cauHinh.kyChung || ''; if(v.length>7 && KY_PHIEN.chung!==v) v = slThang(v); return v; }
+function toGanNeuTrong(K){ if(!TO_K) TO_K = K; }   /* 3.326: tab khác (Scan) cần kỳ dựng mà chưa có — gán TO_K ở đây (kiem: không đọc thẳng biến kho ngoài khối số liệu) */
+function kyChungLay(){ return D.cauHinh.kyChung || ''; }   /* 3.326 (anh 23/10): ngày chọn NHỚ qua lần mở app (bỏ luật 3.97 "kỳ theo ngày chỉ giữ trong phiên" — Ctrl+F5 xong KTGS đột xuất về 30/09); kiểm tra bắt buộc KTGS dùng ô tháng riêng */
 function kyChungDs(){
   var gap = {}, ra = [];
   toDsKy().concat(thDsKy().filter(function(x){ return x.ky.length===7; })).forEach(function(x){ if(gap[x.ky]) return; gap[x.ky] = 1; ra.push(x); });

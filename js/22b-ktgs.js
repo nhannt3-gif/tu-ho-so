@@ -507,6 +507,7 @@ function ktInPhan(mau, hoi){
 }
 /* 3.324 (anh 23/10 "lên 3.323 vẫn chưa thấy thay đổi"): lựa chọn đột xuất hiện ngay trong tab — dòng tóm tắt + nút mở khai báo (không cần bấm In mới thấy) */
 function ktDXTom(t){
+  if(!ktDXTom.dk && typeof GD!=='undefined'){ ktDXTom.dk = 1; GD.dangKy('ktdx', {khai:function(){ ktDXKhai(); }}); }
   if(typeof ktCheDo==='function' && ktCheDo()!=='dx') return '';
   var a = ktInLay('m06'), b = ktInLay('m16'), VT = {}; KT_IN_VT.forEach(function(x){ VT[x[0]] = x[1]; });
   var dv = function(x){ return x.dvc==='go' ? '<b>'+coChuHTML(x.dvt || '(chưa gõ tên)')+'</b>' : x.dvc==='cham' ? 'để chấm ghi tay' : 'theo Hội'; };
@@ -514,8 +515,9 @@ function ktDXTom(t){
   var b2 = {'':'để trống', cham:'chấm ghi tay', dien:'điền đầy đủ'}[b.b2 || ''] || 'để trống';
   return '<div class="kt-dx-kb"><span class="kt-nh vang">🎯 Khai báo đột xuất</span> <small>Đơn vị kiểm tra: '+dv(a)+(a.dvc!==b.dvc || a.dvt!==b.dvt ? ' (Mẫu 16: '+dv(b)+')' : '')+
     ' · Người kiểm tra: '+ng(a, 'ng1', 'cb1t')+(b.ng2 ? ' · Người 2 (Mẫu 16): '+ng(b, 'ng2', 'cb2t') : '')+' · Bảng II Mẫu 16: '+b2+' · Nhận xét: '+(b.nx==='so' ? 'gợi ý theo số liệu' : 'chấm ghi tay')+'</small> '+
-    '<button class="nho" onclick="ktDXKhai()">✎ Chọn / khai tên</button></div>';
+    '<button type="button" class="nho" data-lenh="ktdx.khai">✎ Chọn / khai tên</button></div>';
 }
+/* 3.326: nút theo data-lenh — đăng ký khi vẽ dòng (GD nạp sau file này) */
 function ktDXKhai(){ var C = ktCH(), t = KT_K && KT_K.to[C.to]; ktInHop(['m06', 'm16'], '', ktHoiCuaTo(t ? [t] : []), 1); }
 function ktInNut(inJs, wordJs){ return '<button class="nho" onclick="'+inJs+'">🖨 In / PDF</button><button class="nho chinh" onclick="'+wordJs+'">📄 Word</button>'; }
 function ktInNutXem(js){ return '<button class="nho chinh" onclick="'+js+'">👁 Xem trước</button>'; }

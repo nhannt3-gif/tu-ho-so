@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.326 — 23/10/2026 — Nhớ ngày chọn ở ô đầu trang (KTGS bước 0)
+- **Anh 23/10**: "vẫn ghi lấy số liệu đến 30/9" (sau Ctrl+F5). Nguyên nhân: từ 3.97 ngày chọn ở ô đầu trang chỉ giữ trong phiên → tải lại về kỳ cuối tháng.
+- **Ô ngày đầu trang nhớ ngày đã chọn** (`kyChungLay` đọc `D.cauHinh.kyChung`, lưu cùng cấu hình) — mọi tab (KTGS, Tra cứu, Tổ…) mở lại đúng ngày đó.
+- `docs/QUY_CHUAN_KIEN_TRUC.md` 1b.2 ghi lại luật nguồn số liệu KTGS: **bắt buộc** (định kỳ, sau giải ngân) = Mẫu 31 chốt cuối tháng liền trước; **đột xuất** = Mẫu 31 theo ngày chọn.
+- Nút "✎ Chọn / khai tên" của dòng 🎯 Khai báo đột xuất chuyển sang `data-lenh="ktdx.khai"`; Tra cứu Mẫu 31 nạp kỳ qua `KHO.nap` (`toGanNeuTrong`). Tách dòng dài (thước đo trong mốc).
+- Kế hoạch tinh chỉnh tab KTGS: `docs/KE_HOACH_KTGS_GON.md` (3 khối Bắt buộc / Đột xuất / Khai báo, bàn giao TK 2).
+- Phép thử: t110 cập nhật hộp chọn theo 3.323 (39 đạt); t236 thêm bấm nút data-lenh (21).
+
 ## 3.325 — 23/10/2026 — KTGS: số liệu tổ theo ngày chọn, chấm điểm theo tháng
 - **Anh 23/10**: "số liệu tổ có thể lấy theo ngày chọn, còn chấm điểm tổ thì theo tháng" · "số liệu kiểm tra trên Mẫu 06 cũng lấy theo ngày chọn" · "phần này kiểm tra cũng để trống không mặc định ghi tháng như bên kiểm tra định kỳ" · "trong Mẫu 16 thấy vẫn ghi số liệu đến 30/09".
 - **Số liệu tổ** (tổng dư nợ, số tổ viên, quá hạn, khoanh, lãi tồn, tiết kiệm) ở Mẫu 16 mục I, Mẫu 04 và thẻ tổ: lấy **Mẫu 31 của ngày / kỳ đang chọn** ở ô đầu trang (trước: có BC0437 thì lấy hết số liệu cuối tháng → "đến thời điểm 30/09"). "Đến thời điểm" = ngày chọn.
