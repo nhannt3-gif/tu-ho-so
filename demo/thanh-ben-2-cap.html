@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo thanh bên 2 cấp</title>
+<style>
+:root{--xanh:#1d5fa8;--xanh-dam:#174d8a;--nen:#f4f6f9;--the:#fff;--vien:#d9dee6;--chu:#1d2733;--phu:#5d6b7c;--do:#d33;--vang:#b7791f}
+*{box-sizing:border-box}body{margin:0;font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--nen);color:var(--chu)}
+.chon-xem{display:flex;gap:6px;flex-wrap:wrap;padding:10px 16px;background:#fff;border-bottom:1px solid var(--vien);align-items:center}
+.chon-xem button{border:1px solid var(--vien);background:#fff;border-radius:16px;padding:5px 12px;cursor:pointer;font:inherit}
+.chon-xem button.bat{background:var(--xanh);color:#fff;border-color:var(--xanh)}
+.chon-xem small{color:var(--phu);margin-left:auto}
+/* ---- máy tính ---- */
+.app{display:flex;min-height:620px;margin:12px 16px;border:1px solid var(--vien);border-radius:10px;overflow:hidden;background:var(--nen)}
+.ben{width:220px;background:var(--xanh);color:#fff;display:flex;flex-direction:column;padding:8px 6px;flex:none;transition:width .15s}
+.ben .logo{display:flex;align-items:center;gap:8px;padding:6px 8px 12px;font-weight:700}
+.ben .logo b{background:#fff;color:var(--xanh);border-radius:6px;padding:2px 6px}
+.m{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;white-space:nowrap;position:relative}
+.m:hover{background:rgba(255,255,255,.12)}.m.bat{background:#fff;color:var(--xanh);font-weight:600}
+.m .bt{width:20px;text-align:center}.m .mui{margin-left:auto;opacity:.8;font-size:11px}
+.m .dem{margin-left:auto;background:var(--do);color:#fff;border-radius:10px;font-size:11px;padding:0 6px}
+.con{display:none;margin:2px 0 6px 22px;border-left:2px solid rgba(255,255,255,.3)}
+.nhom.mo .con{display:block}
+.con .m{padding:6px 10px;font-size:13px}
+.ben .duoi{margin-top:auto;font-size:12px;opacity:.85;padding:8px}
+.app.gon .ben{width:60px}.app.gon .ben .chu,.app.gon .ben .mui,.app.gon .ben .logo span,.app.gon .ben .duoi{display:none}
+.app.gon .con{display:none!important}
+.app.gon .nhom{position:relative}
+.app.gon .nhom:hover .bay{display:block}
+.bay{display:none;position:absolute;left:52px;top:0;background:#fff;color:var(--chu);border:1px solid var(--vien);border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.15);z-index:5;min-width:170px;padding:4px}
+.bay .m{color:var(--chu)}.bay .m:hover{background:var(--nen)}
+.chinh{flex:1;min-width:0;display:flex;flex-direction:column}
+.dau{display:flex;align-items:center;gap:10px;background:var(--xanh);color:#fff;padding:8px 12px}
+.dau .tim{flex:1;background:rgba(255,255,255,.15);border-radius:18px;padding:6px 14px;opacity:.9}
+.dau .ky{background:#fff;color:var(--chu);border-radius:6px;padding:4px 8px;font-size:13px}
+.vet{font-size:12px;color:var(--phu);padding:8px 14px 0}
+.tabcon{display:flex;gap:6px;padding:8px 14px 6px;flex-wrap:wrap}
+.tabcon span{border:1px solid var(--vien);background:#fff;border-radius:16px;padding:4px 12px;cursor:pointer;font-weight:600}
+.tabcon span.bat{background:var(--xanh);color:#fff;border-color:var(--xanh)}
+.loc{margin:4px 14px;background:#fff;border:1px solid var(--vien);border-radius:8px;padding:6px 10px;display:flex;gap:8px;align-items:center;font-size:13px}
+.loc .dg{flex:1}.loc .dg a{color:var(--xanh);text-decoration:none;font-weight:600}
+.loc button{border:1px solid var(--vien);background:#fff;border-radius:6px;padding:3px 8px;font:inherit;cursor:pointer}
+.noi{display:grid;grid-template-columns:1.5fr 1fr;gap:12px;padding:10px 14px;flex:1}
+.khoi{background:#fff;border:1px solid var(--vien);border-radius:8px;padding:12px;min-height:300px}
+.khoi h4{margin:0 0 8px}.khoi p{color:var(--phu);margin:4px 0}
+.giay{background:#e9ecf1;display:flex;align-items:flex-start;justify-content:center;padding:12px}
+.giay div{background:#fff;width:70%;aspect-ratio:1/1.414;box-shadow:0 2px 8px rgba(0,0,0,.12);padding:12px;font-size:10px;color:#777}
+/* ---- điện thoại ---- */
+.dt{width:390px;height:780px;margin:12px auto;border:10px solid #222;border-radius:34px;overflow:hidden;background:var(--nen);display:none;flex-direction:column;position:relative}
+.dt .dau{padding:10px}.dt .tabcon{flex-wrap:nowrap;overflow-x:auto}
+.dt .loc{margin:4px 10px}.dt .noi{grid-template-columns:1fr;padding:8px 10px}
+.dt .noi .khoi{min-height:200px}
+.thanh-duoi{position:absolute;left:0;right:0;bottom:0;display:flex;background:#fff;border-top:1px solid var(--vien)}
+.thanh-duoi div{flex:1;text-align:center;padding:6px 0 8px;font-size:11px;color:var(--phu);cursor:pointer}
+.thanh-duoi div b{display:block;font-size:18px}
+.thanh-duoi div.bat{color:var(--xanh);font-weight:700}
+.tam{position:absolute;inset:0;background:rgba(0,0,0,.35);display:none}
+.tam .ds{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:16px 16px 0 0;padding:12px 14px 70px}
+.tam .ds .m{color:var(--chu)}
+.ghi{max-width:980px;margin:8px auto 24px;padding:0 16px;color:var(--phu)}
+.ghi table{border-collapse:collapse;width:100%;background:#fff}.ghi td,.ghi th{border:1px solid var(--vien);padding:5px 8px;text-align:left;vertical-align:top;color:var(--chu)}
+@media(max-width:700px){.app{display:none}}
+</style></head><body>
+<div class="chon-xem"><b>Demo thanh bên 2 cấp</b>
+  <button class="bat" onclick="xem('mo')">Máy tính — mở</button><button onclick="xem('gon')">Máy tính — thu gọn biểu tượng</button><button onclick="xem('dt')">Điện thoại</button>
+  <small>Bấm các mục để thử. Chỉ là bản demo, chưa phải app.</small></div>
+
+<div class="app" id="app">
+  <nav class="ben" id="ben"></nav>
+  <div class="chinh">
+    <div class="dau"><span class="tim">🔎 Tìm văn bản, khách, mẫu… (Ctrl+K)</span><span class="ky">📅 T8/2026 · Mẫu 31</span></div>
+    <div class="vet" id="vet"></div>
+    <div class="tabcon" id="tabcon"></div>
+    <div class="loc"><span class="dg">📍 <a href="#">🏠 PGD</a> › <a href="#">Phường Gia Lộc</a> › <a href="#">Điểm Gia Lộc</a> › Tổ …</span><button>▾ Mở rộng</button><button>🔎</button></div>
+    <div class="noi"><div class="khoi" id="khoi"></div><div class="khoi giay"><div>Khung xem trước (A4)</div></div></div>
+  </div>
+</div>
+
+<div class="dt" id="dt">
+  <div class="dau"><b>TH</b><span class="tim">🔎 Tìm…</span><span class="ky">T8/2026</span></div>
+  <div class="tabcon" id="tabcon2"></div>
+  <div class="loc"><span class="dg">📍 <a href="#">PGD</a> › <a href="#">Gia Lộc</a> › Tổ …</span><button>▾</button></div>
+  <div class="noi"><div class="khoi" id="khoi2"></div></div>
+  <div class="thanh-duoi" id="duoi"></div>
+  <div class="tam" id="tam" onclick="this.style.display='none'"><div class="ds" id="tamds" onclick="event.stopPropagation()"></div></div>
+</div>
+
+<div class="ghi">
+<h3>So sánh</h3>
+<table><tr><th>Hiện nay (17 mục cấp 1)</th><th>Đề xuất (7 mục cấp 1, mục con mở bên dưới)</th></tr>
+<tr><td>Hôm nay · Văn bản · Nạp &amp; KT</td><td>🏠 Hôm nay · 📥 Nạp &amp; KT</td></tr>
+<tr><td>Số liệu: Tổng hợp · Sao kê · Tổ TK&amp;VV · KTGS Hội · Tra cứu KH · Phân bổ KH</td><td>📊 Số liệu ▸ Tổng hợp · Sao kê · Tổ TK&amp;VV · Tra cứu KH · Phân bổ KH<br>🛡 KTGS Hội (đứng riêng — gói khóa mẫu)</td></tr>
+<tr><td>Hồ sơ: Hồ sơ Tổ · Hồ sơ vay · Giao dịch xã · Biểu mẫu · Scan · Thư viện</td><td>📄 Hồ sơ ▸ Hồ sơ vay (👪 Hộ vay) · Hồ sơ Tổ · Giao dịch xã<br>🗂 Tủ tài liệu ▸ Văn bản · Biểu mẫu · Scan · Thư viện</td></tr>
+<tr><td>Công cụ: HSSV · Địa bàn · CT vay (ô nhỏ cuối thanh)</td><td>🧰 Công cụ ▸ Hạn trả HSSV · Địa bàn · CT vay</td></tr>
+<tr><td>Điện thoại: tab ngang cuộn 2 tầng</td><td>Điện thoại: <b>thanh dưới 5 nút</b> (Hôm nay · Số liệu · Hồ sơ · Tủ · ☰ Thêm); mục con là hàng chip trên cùng</td></tr>
+</table>
+<p><b>Không đổi:</b> nội dung, chức năng, phím tắt của từng tab; số đỏ (file thiếu, chờ duyệt) vẫn hiện ở mục cha khi thu lại. <b>Mới:</b> nhớ nhóm đang mở; dòng đường dẫn "Số liệu › Tổ TK&amp;VV" trên đầu; chế độ thu gọn chỉ còn biểu tượng, rê chuột hiện mục con.</p>
+</div>
+<script>
+var NHOM = [
+  {bt:'🏠', ten:'Hôm nay'},
+  {bt:'📥', ten:'Nạp & KT', dem:8},
+  {bt:'📊', ten:'Số liệu', con:['📊 Tổng hợp','📑 Sao kê','👥 Tổ TK&VV','👤 Tra cứu KH','🎯 Phân bổ KH']},
+  {bt:'🛡', ten:'KTGS Hội'},
+  {bt:'📄', ten:'Hồ sơ', con:['👪 Hồ sơ vay','📝 Hồ sơ Tổ','🏢 Giao dịch xã']},
+  {bt:'🗂', ten:'Tủ tài liệu', con:['📄 Văn bản','📋 Biểu mẫu','🪪 Scan','🖼 Thư viện']},
+  {bt:'🧰', ten:'Công cụ', con:['🎓 Hạn trả HSSV','🗺 Địa bàn','📚 CT vay']}
+];
+var DANG = {n:4, c:0};
+function ten(c){ return c.replace(/^\S+\s/, ''); }
+function ve(){
+  var h = '<div class="logo"><b>TH</b><span>Tủ hồ sơ v3.325</span></div>';
+  NHOM.forEach(function(g, i){
+    var mo = DANG.mo===i || (DANG.n===i && DANG.mo!==-1);
+    h += '<div class="nhom'+(mo && g.con ? ' mo' : '')+'"><div class="m'+(DANG.n===i && !g.con ? ' bat' : '')+'" onclick="bam('+i+')"><span class="bt">'+g.bt+'</span><span class="chu">'+g.ten+'</span>'+
+      (g.dem ? '<span class="dem">'+g.dem+'</span>' : g.con ? '<span class="mui">'+(mo ? '▾' : '▸')+'</span>' : '')+'</div>'+
+      (g.con ? '<div class="con">'+g.con.map(function(c, k){ return '<div class="m'+(DANG.n===i && DANG.c===k ? ' bat' : '')+'" onclick="chon('+i+','+k+')"><span class="chu">'+c+'</span></div>'; }).join('')+'</div>'+
+        '<div class="bay"><div style="padding:4px 10px;font-weight:700">'+g.ten+'</div>'+g.con.map(function(c, k){ return '<div class="m" onclick="chon('+i+','+k+')">'+c+'</div>'; }).join('')+'</div>' : '')+'</div>';
+  });
+  h += '<div class="duoi">⚙ Cài đặt · ❓ · 🗑 · ◐</div>';
+  document.getElementById('ben').innerHTML = h;
+  var g = NHOM[DANG.n], tc = g.con ? g.con.map(function(c, k){ return '<span class="'+(k===DANG.c ? 'bat' : '')+'" onclick="chon('+DANG.n+','+k+')">'+c+'</span>'; }).join('') : '<span class="bat">'+g.bt+' '+g.ten+'</span>';
+  document.getElementById('tabcon').innerHTML = tc; document.getElementById('tabcon2').innerHTML = tc;
+  var tieu = g.con ? g.ten+' › '+ten(g.con[DANG.c]) : g.ten;
+  document.getElementById('vet').textContent = tieu;
+  var nd = '<h4>'+tieu+'</h4><p>Nội dung tab giữ nguyên như app hiện nay.</p><p>Hàng chip trên = mục con của nhóm (đổi nhanh không cần mở thanh bên).</p><p>Khối lọc 1 dòng gọn: đường dẫn bấm được + ▾ Mở rộng.</p>';
+  document.getElementById('khoi').innerHTML = nd; document.getElementById('khoi2').innerHTML = nd;
+  var D5 = [[0,'🏠','Hôm nay'],[2,'📊','Số liệu'],[4,'📄','Hồ sơ'],[5,'🗂','Tủ'],[-1,'☰','Thêm']];
+  document.getElementById('duoi').innerHTML = D5.map(function(x){ return '<div class="'+(x[0]===DANG.n ? 'bat' : '')+'" onclick="duoi('+x[0]+')"><b>'+x[1]+'</b>'+x[2]+'</div>'; }).join('');
+}
+function bam(i){ var g = NHOM[i]; if(g.con){ DANG.mo = DANG.mo===i ? -1 : i; if(DANG.n!==i){ DANG.n = i; DANG.c = 0; DANG.mo = i; } } else { DANG.n = i; DANG.c = 0; DANG.mo = -1; } ve(); }
+function chon(i, k){ DANG.n = i; DANG.c = k; DANG.mo = i; ve(); }
+function duoi(i){ if(i<0){ document.getElementById('tamds').innerHTML = '<b>Thêm</b>'+[1,3,6].map(function(n){ var g = NHOM[n]; return '<div class="m" onclick="document.getElementById(\'tam\').style.display=\'none\';bam('+n+')">'+g.bt+' '+g.ten+'</div>'; }).join('')+'<div class="m">⚙ Cài đặt · ❓ Hướng dẫn · 🗑 Thùng rác</div>'; document.getElementById('tam').style.display = 'block'; return; } bam(i); }
+function xem(k){ var a = document.getElementById('app'), d = document.getElementById('dt');
+  [].forEach.call(document.querySelectorAll('.chon-xem button'), function(b, i){ b.classList.toggle('bat', ['mo','gon','dt'][i]===k); });
+  a.style.display = k==='dt' ? 'none' : 'flex'; d.style.display = k==='dt' ? 'flex' : 'none'; a.classList.toggle('gon', k==='gon'); }
+if(window.innerWidth<700) xem('dt');
+ve();
+</script></body></html>
