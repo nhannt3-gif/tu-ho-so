@@ -15,6 +15,7 @@ const path=require('path');
    const tb = document.getElementById('thanh-ben'), hien = e => !!e && getComputedStyle(e).display!=='none' && e.getBoundingClientRect().width>0;
    o.coTB = hien(tb) && Math.round(tb.getBoundingClientRect().width); o.anTab = !hien(document.getElementById('hangngan'));
    o.muc = Array.from(tb.querySelectorAll('.tb-ds > a .chu')).map(x=>x.textContent).join(',');
+   o.con = Array.from(tb.querySelectorAll('.tb-ds > .tb-con')).map(c=>c.getAttribute('data-g')+':'+Array.from(c.querySelectorAll('a .chu')).map(x=>x.textContent).join(',')).join('|');
    const bam = async k => { tb.querySelector('a[data-m="'+k+'"]').click(); await w(500); return {ngan:nganHienTai, sl:D.cauHinh.slTab, bat:(tb.querySelector('a.bat')||{}).getAttribute ? tb.querySelector('a.bat').getAttribute('data-m') : ''}; };
    o.van = await bam('1'); o.nap = await bam('nap'); o.to = await bam('to'); o.tc = await bam('th'); o.bm = await bam('5'); o.hn = await bam('0');
    slDoiTab('sk'); doiNgan(7); await w(400); o.cuSK = tb.querySelector('a.bat').getAttribute('data-m');
@@ -34,7 +35,8 @@ const path=require('path');
    return o; });
  await p.emulateMedia({media:'print'}); r.inAn = await p.evaluate(()=>getComputedStyle(document.getElementById('thanh-ben')).display==='none' && getComputedStyle(document.body).paddingLeft==='0px'); await p.emulateMedia({media:'screen'});
  ok('màn 1536: có thanh bên 216 px, ẩn thanh tab ngang', r.coTB===216 && r.anTab, r.coTB+' · '+r.anTab);
- ok('thanh bên đủ mục: 3 mục chính + 6 Số liệu + 6 Hồ sơ (3.170: + Hồ sơ Tổ, Hồ sơ vay · 3.172: + Giao dịch xã · 3.293: + 🎯 Phân bổ KH)', r.muc==='Hôm nay,Văn bản,Nạp & KT,Tổng hợp,Sao kê,Tổ TK&VV,KTGS Hội,Tra cứu KH,Phân bổ KH,Hồ sơ Tổ,Hồ sơ vay,Giao dịch xã,Biểu mẫu,Scan,Thư viện', r.muc);
+ok('3.328 thanh bên 2 cấp: Hôm nay · Giao dịch xã ▸ · Nạp & KT · Số liệu ▸ · Hồ sơ ▸ · Tủ tài liệu ▸ · Công cụ ▸', r.muc==='Hôm nay,Giao dịch xã,Nạp & KT,Số liệu,Hồ sơ,Tủ tài liệu,Công cụ', r.muc);
+ ok('3.328 mục con: Số liệu 6 (KTGS là mục con), Giao dịch xã có 👤 Tra cứu KH, Tủ tài liệu 4', r.con==='gd:Giao dịch xã,Tra cứu KH|sl:Tổng hợp,Sao kê,Tổ TK&VV,Tra cứu KH,KTGS Hội,Phân bổ KH|hs:Hồ sơ vay,Hồ sơ Tổ|tu:Văn bản,Biểu mẫu,Scan,Thư viện|cc:HSSV,Địa bàn,CT vay', r.con);
  ok('bấm Văn bản / Nạp & KT / Tổ / Tổng hợp / Biểu mẫu / Hôm nay → đúng màn + tô đúng', r.van.ngan===1 && r.van.bat==='1' && r.nap.ngan===7 && r.nap.sl==='nap' && r.nap.bat==='nap' && r.to.sl==='to' && r.to.bat==='to' && r.tc.bat==='th' && r.bm.ngan===5 && r.bm.bat==='5' && r.hn.ngan===0 && r.hn.bat==='0', JSON.stringify([r.van, r.nap, r.to, r.tc, r.bm, r.hn]));
  ok('lối cũ (slDoiTab + doiNgan) vẫn tô đúng mục; tab con Số liệu ẩn', r.cuSK==='sk' && r.anCon);
  ok('lối cũ doiNgan(2) (tab Tháng cũ) → tô Nạp & KT', r.cuThang==='nap');
@@ -52,8 +54,8 @@ const path=require('path');
  const p3 = await mo({width:1200, height:700}); const g3 = await p3.evaluate(()=>Math.round(document.getElementById('thanh-ben').getBoundingClientRect().width)); ok('màn 1200 (chưa chọn): tự thu 60 px', g3===60, g3); await p3.close();
  /* 1000 px + iPhone: không thanh bên, tab ngang còn, không tràn ngang */
  for(const [vp, ten] of [[{width:1000, height:700}, '1000 px'], [{width:390, height:844}, 'iPhone 390']]){
-   const q = await mo(vp); const x = await q.evaluate(()=>({tb:getComputedStyle(document.getElementById('thanh-ben')).display, tab:getComputedStyle(document.getElementById('hangngan')).display, tran:document.documentElement.scrollWidth>window.innerWidth+1, pad:getComputedStyle(document.body).paddingLeft}));
-   ok(ten+': không thanh bên, còn thanh tab ngang, không tràn ngang', x.tb==='none' && x.tab!=='none' && !x.tran && x.pad==='0px', JSON.stringify(x)); await q.close(); }
+   const q = await mo(vp); const x = await q.evaluate(()=>({tb:getComputedStyle(document.getElementById('thanh-ben')).display, tab:getComputedStyle(document.getElementById('hangngan')).display, duoi:getComputedStyle(document.getElementById('thanh-duoi')).display, tran:document.documentElement.scrollWidth>window.innerWidth+1, pad:getComputedStyle(document.body).paddingLeft}));
+   ok(ten+': không thanh bên, 3.328 thanh dưới 5 nút thay thanh tab ngang, không tràn ngang', x.tb==='none' && x.tab==='none' && x.duoi==='flex' && !x.tran && x.pad==='0px', JSON.stringify(x)); await q.close(); }
  /* nền tối */
  const pt = await b.newPage({viewport:{width:1536,height:730}, colorScheme:'dark'}); await pt.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(pt);
  await pt.goto('file://'+path.resolve(__dirname,'..','index.html')); await pt.waitForTimeout(1500);

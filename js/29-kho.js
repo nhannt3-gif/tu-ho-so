@@ -93,7 +93,38 @@ var KHO = (function(){
           d.dn += +o.dn; d.mon++; });
         return {ky:ky, ds:ds};
       });
-    }
+    },
+    /* ---------- 3.328 (P0 — docs/KE_HOACH_KHO_KTGS.md, TK 2 làm song song TK 3): cửa cho KTGS — chỉ đọc, trả đúng dạng KTGS đang dùng,
+       KHÔNG gán biến của KTGS (KT_K / KT_GN / KT_TRUOC); KTGS chưa gọi (TK 3 đang giữ file) — sau bàn giao thay thân ktNguon* bằng các cửa này ---------- */
+    /* tháng 'YYYY-MM' → {ky, tam}: Mẫu 31 chốt tháng; chưa chốt → Mẫu 31 ngày mới nhất trong tháng (tam:true); không có → null */
+    chotThang: function(th){ if(!th) return null; th = String(th).slice(0, 7); if(this.coBang('hstd', th)) return {ky:th, tam:false};
+      var ds = slCacNgay('hstd', th); return ds.length ? {ky:ds[ds.length-1].ky, tam:true} : null; },
+    /* ngày ISO → {ky, ngay, lui}: Mẫu 31 đúng ngày; không có → ngày gần nhất TRƯỚC đó (lui:true; chốt tháng tính là ngày cuối tháng); không có → null */
+    theoNgay: function(iso){ if(!iso) return null; var tot = null;
+      Object.keys(SLM.bang).forEach(function(k){ var e = SLM.bang[k]; if(e.loai!=='hstd') return; var ky = String(e.ky), ng = ky.length>7 ? ky : tdnCuoiKy(ky);
+        if(ng<=iso && (!tot || ng>tot.ngay || (ng===tot.ngay && ky.length===7))) tot = {ky:ky, ngay:ng}; });
+      return tot ? {ky:tot.ky, ngay:tot.ngay, lui:tot.ngay!==iso} : null; },
+    /* BC0437 / BC0438 cùng kỳ (hoặc cùng tháng, không thì bản mới nhất — như ktChonBC) → Promise {e, rows, theoTo} / {e, rows} | null */
+    bc37: function(ky){ return this._bc('k37', ky); },
+    bc38: function(ky){ return this._bc('k38', ky); },
+    _bc: function(L, ky){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===L; }).sort(function(a, b){ return slThuTu(a.ky)<slThuTu(b.ky) ? 1 : -1; });
+      var e = ds.find(function(x){ return x.ky===ky; }) || ds.find(function(x){ return slThang(x.ky)===slThang(ky); }) || ds[0]; if(!e) return Promise.resolve(null);
+      return slDocBang(L, e.ky).then(function(b){ if(!b) return null; var rows = slMoBang(b), x = {e:e, rows:rows}; if(L==='k37'){ x.theoTo = {}; rows.forEach(function(o){ x.theoTo[o.to] = o; }); } return x; }); },
+    /* số dư TK 105 từng khách tháng liền trước kỳ K (K.thang) — như ktTruocNap → Promise {ky, co, t105:{maKH: số dư}} */
+    t105Truoc: function(K){ var tr = kyLui(K && K.thang || K, -1); if(!this.coBang('hstd', tr)) return Promise.resolve({ky:tr, co:false, t105:{}});
+      return slBo(tr).then(function(B){ var t = {}; (B.co.hstd||[]).concat(B.lap||[]).forEach(function(o){ if(o.kh && (o.t105||0) > (t[o.kh]||0)) t[o.kh] = o.t105; else if(o.kh && t[o.kh]===undefined) t[o.kh] = o.t105||0; });
+        return {ky:tr, co:true, t105:t}; }).catch(function(){ return {ky:tr, co:false, t105:{}}; }); },
+    /* món giải ngân trong tháng th — như 1 tháng của ktGNNap → Promise {ky, ngay, ds:{maTo:{t, mon}}} | null (chưa có Mẫu 31) */
+    monGN: function(th){ var co = this.chotThang(th); if(!co) return Promise.resolve(null); var nd = co.tam ? co.ky : '';
+      return slBo(co.ky).then(function(B){ var hs = B.co.hstd || [], gap = {}, D1 = {};
+        hs.forEach(function(o){
+          if(!o.ku || gap[o.ku] || !o.to || o.to===TO_GIA || !((o.gnT||0)>0)) return;
+          if(nd && o.c_ngay_gn_cuoi_cung){ var g = ktGNNgay(o); if(g && /^\d{4}-\d{2}-\d{2}$/.test(g) && (slThang(g)!==th || g>nd)) return; }
+          gap[o.ku] = 1;
+          var x = D1[o.to] = D1[o.to] || {t:{ma:o.to, ten:o.toTen||'', tenThon:o.tenThon||'', tenXa:o.tenXa||'', xa:o.xa, dv:String(o.dv||'')}, mon:[]};
+          x.mon.push(o); });
+        Object.keys(D1).forEach(function(m){ D1[m].mon.sort(function(a, b){ return ktTheoKH(a, b) || (a.ku<b.ku ? -1 : 1); }); ktMaKV(D1[m].mon); });
+        return {ky:co.ky, ngay:nd, ds:D1}; }); }
   };
 })();
 

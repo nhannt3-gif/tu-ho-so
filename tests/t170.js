@@ -16,14 +16,14 @@ const fs=require('fs'), path=require('path');
    /* 1. cây địa bàn — tab Tổ */
    slDoiTab('to'); doiNgan(7); for(let i=0;i<50 && !document.querySelector('#to-cay .loc-khoi');i++) await w(200); await w(400);
    const t = Object.values(TO_K.to).find(t=>!t.trucTiep && t.ten && t.khoaDiem && hsoTVTo(t).some(k=>k.mon.some(m=>m.dn>0)));
-   ok('tab Tổ chưa chọn: không có nút thu gọn, khối mở', !document.querySelector('#to-cay .pv-gon') && !document.querySelector('#to-cay .loc-khoi.gon'));
+   ok('3.328 tab Tổ chưa chọn: mặc định kiểu gọn, nút ▦ Chip', !!document.querySelector('#to-cay .loc-khoi.gon') && /Chip/.test((document.querySelector('#to-cay .pv-gon')||{}).textContent||''));
    pvChonTo('to', t.ma); await w(400);
    const nut = () => (document.querySelector('#to-cay .pv-gon')||{}).textContent||'';
-   ok('chọn tổ → tự gọn 1 dòng, nút "▾ Mở rộng"', !!document.querySelector('#to-cay .loc-khoi.gon') && /Mở rộng/.test(nut()), nut());
+   ok('chọn tổ → vẫn gọn 1 dòng, nút "▦ Chip"', !!document.querySelector('#to-cay .loc-khoi.gon') && /Chip/.test(nut()), nut());
    const mat = [...document.querySelectorAll('#to-cay .pv-ve')].map(x=>x.textContent);
    ok('đường dẫn 🏠 PGD › Xã › Điểm … › Tổ — các mắt cấp trên bấm được', mat[0]==='🏠 PGD' && mat.length>=3, mat.join(' › '));
    pvGonDoi('to'); await w(300);
-   ok('bấm Mở rộng → hiện Xã · Điểm · Hội · Tổ, nút "▴ Thu gọn"; nhớ theo tab', !document.querySelector('#to-cay .loc-khoi.gon') && /Thu gọn/.test(nut()) && D.cauHinh.pvGon.to===false);
+   ok('bấm ▦ Chip → hiện chip Xã · Điểm · Hội · Tổ, nút "☰ Gọn" (chưa ghim: nhớ trong phiên)', !document.querySelector('#to-cay .loc-khoi.gon') && /Gọn/.test(nut()) && PV_KIEU.to==='chip');
    pvGonDoi('to'); await w(300);
    document.querySelectorAll('#to-cay .pv-ve')[1].click(); await w(300); let S = PV_DUNG.to.S();
    ok('bấm tên Xã → về cả xã (bỏ điểm, tổ)', !!S.xa && !S.diem && !S.to);

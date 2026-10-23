@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.328 — 23/10/2026 — Cây địa bàn gọn mặc định + thanh bên 2 cấp + GDX bàn thao tác + cửa KHO cho KTGS (TK 2)
+- **Anh 23/10**: "Mặc định là kiểu gọn cho tất cả, lúc nào mở app về sẵn cấp PGD, nút ghim vẫn giữ để ghim khi cần giữ kiểu cấp đang chọn … làm liên tục, gộp lên cho anh thử, xong hết hồi quy 1 lần." Gom ý + các đợt: `docs/RA_SOAT_TONG_THE_2310.md` mục 9.
+- **Cây địa bàn C1** (`pvVeCay`, js/22g): kiểu ☰ Gọn (mặc định mọi nơi) = 1 dòng ô chọn + ⬆ + 🔎; ▦ Chip = như cũ. Địa bàn chỉ giữ trong phiên (`PV_PHIEN`), kiểu theo nơi trong phiên (`PV_KIEU`); 📌 Ghim chung mọi tab (địa bàn đã dùng chung từ 3.149) → `D.cauHinh.pvGhimBat` + `pvChung` + `pvKieu` (đồng bộ khối Số liệu). Thiết lập cũ `pvGhim` / `pvGon` (ghim = luôn mở, chọn tổ tự thu gọn) thôi dùng. Điện thoại: ô chọn cuộn ngang 1 dòng + hàng nút.
+- **Cây nhúng C2** (`js/57-cay.js`, `CAY`): `dsXa / dsDiem / dsAp / dsHoi / dsTo / chuTo / o / dong` — 👪 Hộ vay (`hmVe`), lập 01/TD (js/40), khai nhanh 01/TGTV (js/54), ⚙ Khai báo chung (`hsoKBHop`) gọi chung; xử lý + dữ liệu lưu của từng nơi giữ nguyên.
+- **Cửa KHO cho KTGS (P0)** (`js/29-kho.js`): `chotThang`, `theoNgay`, `bc37` / `bc38`, `t105Truoc`, `monGN` — chỉ đọc, khớp hàm cũ, không gán `KT_*`; KTGS chưa gọi (TK 3 đang giữ file).
+- **Thanh bên 2 cấp (P1, P2)** (js/23): sổ lối vào `DH_MUC` + nhóm `DH_NHOM` (mở / gập nhớ `localStorage 'tb_mo'`, nhóm có mục đang mở tự mở); mục có ở 2 nhóm (Tra cứu KH) tô theo nhóm vừa bấm (`DH_CUOI`). Điện thoại / màn < 1100 px: thanh dưới `#thanh-duoi` 5 nút + hộp ☰ Thêm (hàng tab cũ `#hangngan` ẩn, vẫn trong trang).
+- **GDX bàn thao tác (C3)**: nút 👤 Tra cứu KH ở đầu khung GDX → khối Tra cứu có sẵn; Tra cứu vào từ GDX có ← 🏢 Giao dịch xã.
+- **Phép thử**: mới t240 (cửa KHO), t241 (cây gọn / ghim / mở lại app), t242 (cây nhúng), t243 (thanh bên 2 cấp, thanh dưới); sửa theo hành vi mới t143, t145, t156, t168, t170, t189.
+
 ## 3.327 — 23/10/2026 — KTGS bước 1: 2 bộ khai báo + Bảng II từng ô; 01/TGTV Giới tính cách 1 tab
 - **Anh 23/10**: "1 bộ cho Hội kiểm tra cố định và 1 cho khai báo khi cần" · "khai từng ô mở lên khi cần là 1 nút con của khai cả bảng; chọn để trống thì không chấm, tùy chỗ để trống hoặc chấm theo mẫu" · 01/TGTV "cách 1 tab, cũng không cần đẩy ra quá xa".
 - **2 bộ khai báo cố định** (`js/56-ktgs-bo.js`): **① Hội kiểm tra** (mặc định kiểm tra định kỳ / sau giải ngân) · **② Khai báo khi cần** (mặc định kiểm tra đột xuất). Hộp 🖨 Chọn khi in có dòng **Bộ khai báo** — lần in này chọn bộ kia được (vd định kỳ nhưng đoàn ngoài Hội); mở hộp in lần sau tự về bộ mặc định. Mỗi mẫu ghi rõ đang theo bộ nào.

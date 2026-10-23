@@ -66,8 +66,8 @@ function hsoKBHop(tab){   /* 3.208 (anh chốt 14/10): ⚙ Khai báo chung — c
   to.sort(function(a, b){ return (a.tenThon+a.ten).localeCompare(b.tenThon+b.ten, 'vi', {numeric:true}); });
   var o = function(id, nhan, gt, ph, js){ return '<label class="kt-kb"><span>'+nhan+'</span><input'+(id ? ' id="'+id+'"' : '')+' value="'+coChuHTML(gt||'')+'" placeholder="'+coChuHTML(ph||'')+'" oninput="'+js+'"></label>'; };
   var dsXa = Object.keys(X).map(function(k){ return X[k]; }).sort(function(a, b){ return a.tenXa.localeCompare(b.tenXa, 'vi'); });
-  var loc = dsXa.length ? '<div class="hang-nut hso-kb-loc"><select onchange="HSO_KBT.xa=this.value;HSO_KBT.diem=\'\';hsoKBHop()">'+[['', '— tất cả xã ('+dsXa.length+') —']].concat(dsXa.map(function(x){ return [x.xa, x.tenXa]; })).map(function(x){ return '<option value="'+coChuHTML(x[0])+'"'+(x[0]===T.xa ? ' selected' : '')+'>'+coChuHTML(x[1])+'</option>'; }).join('')+'</select>'+
-    (T.xa && Object.keys(X[T.xa].diem).length ? '<select onchange="HSO_KBT.diem=this.value;hsoKBHop()">'+[['', '— mọi điểm GD —']].concat(Object.keys(X[T.xa].diem).map(function(k){ return [k, X[T.xa].diem[k]]; })).map(function(x){ return '<option value="'+coChuHTML(x[0])+'"'+(x[0]===T.diem ? ' selected' : '')+'>'+coChuHTML(x[1])+'</option>'; }).join('')+'</select>' : '')+'</div>' : '';
+  var loc = dsXa.length ? '<div class="hang-nut hso-kb-loc">'+CAY.dong([CAY.o('xa', T.xa, '— tất cả xã ('+dsXa.length+') —', CAY.dsXa(), 'onchange="HSO_KBT.xa=this.value;HSO_KBT.diem=\'\';hsoKBHop()"'),   /* 3.328: cây nhúng dùng chung (js/57) */
+    T.xa && Object.keys(X[T.xa].diem).length ? CAY.o('diem', T.diem, '— mọi điểm GD —', CAY.dsDiem(T.xa), 'onchange="HSO_KBT.diem=this.value;hsoKBHop()"') : ''])+'</div>' : '';
   var tabs = [['pgd','🏦 PGD · logo · tên đơn vị'], ['cb','👤 Cán bộ'], ['hoi','🤝 Hội'], ['ap','🏘 Trưởng ấp'], ['pho','👥 Tổ phó'], ['ct','📋 Chương trình vay'], ['tk','🏦 TK 104 / 105'], ['kiem','🔎 Kiểm tra hộ vay'], ['sl','💾 Sao lưu']];   /* 3.223 M1: + 💾 tự lưu / khôi phục / xuất – nạp file */   /* 3.222 (anh 16/10, PA B): 1 cửa sổ khai báo đơn vị cho mọi tab */
   var pane = function(k, h){ return '<div class="hso-kbp" data-kb="'+k+'"'+(T.tab===k ? '' : ' style="display:none"')+'>'+h+'</div>'; };
   moHop('<div class="hop-tit" id="gdx-kbc">⚙ Khai báo đơn vị — dùng chung mọi tab</div><div class="hop-phu">Khai 1 lần, mọi mẫu (Hồ sơ Tổ, Hồ sơ vay, Giao dịch xã) cùng dùng. Lưu cùng cài đặt (đồng bộ Drive). Khai báo riêng từng mẫu (ô ✍ / 🖨, lý do gia hạn…) ở cuối cột trái mỗi mẫu. Người của Hội cấp xã lấy ở '+
@@ -1292,14 +1292,12 @@ function hmDsTo(){ if(!KHO.coKy() || !HM.xa) return []; return KHO.maTo().map(fu
 function hmVe(){
   var X = hmDiaBan(), x = X[HM.xa], coDB = Object.keys(X).length;
   var a = document.activeElement, giu = HM_O || (a && a.closest && a.closest('#hop-in') && a.getAttribute('data-hm')) || ''; HM_O = '';   /* 3.214: vẽ lại không mất con trỏ */
-  var dsAp = x ? Object.keys(x.ap).map(function(k){ return x.ap[k]; }).filter(function(a){ return !HM.diem || a.diem[HM.diem]; }).sort(function(a, b){ return String(a.tenThon).localeCompare(String(b.tenThon), 'vi', {numeric:true}); }) : [];
-  var sel = function(k, js, gt, ops){ return '<select data-hm="'+k+'" onchange="'+js+'">'+ops.map(function(o){ return '<option value="'+coChuHTML(o[0])+'"'+(String(o[0])===String(gt) ? ' selected' : '')+'>'+coChuHTML(o[1])+'</option>'; }).join('')+'</select>'; };
   var dsTo = hmDsTo();
   var dc = coDB ? '<div class="hm-dc">'+
-      sel('xa', 'hmDatXa(this.value)', HM.xa, [['', '— Xã / phường —']].concat(Object.keys(X).map(function(k){ return [k, X[k].tenXa]; })))+
-      (x ? sel('diem', 'hmDatDiem(this.value)', HM.diem, [['', '— Điểm GD (lọc ấp, không bắt buộc) —']].concat(Object.keys(x.diem).map(function(k){ return [k, 'Điểm '+x.diem[k]]; }))) : '')+
-      (x ? sel('ap', 'hmDatAp(this.value)', HM.thon || HM.tenThon, [['', '— Ấp / khu phố —']].concat(dsAp.map(function(a){ return [a.thon || a.tenThon, a.tenThon || a.thon]; }))) : '')+
-      (x ? sel('to', 'HM.to=this.value;hmVe()', HM.to, [['', '— Tổ TK&VV ('+dsTo.length+') —']].concat(dsTo.map(function(t){ return [t.ma, 'Tổ '+(t.ten||t.ma)+(t.tenThon ? ' · '+pvApNgan(t.tenThon) : '')]; }))) : '')+'</div>'
+      CAY.dong([CAY.o('xa', HM.xa, '— Xã / phường —', CAY.dsXa(), 'data-hm="xa" onchange="hmDatXa(this.value)"'),   /* 3.328: cây địa bàn nhúng dùng chung (js/57) */
+        x ? CAY.o('diem', HM.diem, '— Điểm GD (lọc ấp, không bắt buộc) —', CAY.dsDiem(HM.xa).map(function(d){ return [d[0], 'Điểm '+d[1]]; }), 'data-hm="diem" onchange="hmDatDiem(this.value)"') : '',
+        x ? CAY.o('ap', HM.thon || HM.tenThon, '— Ấp / khu phố —', CAY.dsAp(HM.xa, HM.diem), 'data-hm="ap" onchange="hmDatAp(this.value)"') : '',
+        x ? CAY.o('to', HM.to, '— Tổ TK&VV ('+dsTo.length+') —', dsTo.map(function(t){ return [t.ma, CAY.chuTo(t)]; }), 'data-hm="to" onchange="HM.to=this.value;hmVe()"') : ''])+'</div>'
     : '<div class="hm-dc"><input data-hm="tenXa" placeholder="Xã / phường" value="'+coChuHTML(HM.tenXa)+'" onchange="HM.tenXa=this.value"><input data-hm="tenThon" placeholder="Ấp / khu phố" value="'+coChuHTML(HM.tenThon)+'" onchange="HM.tenThon=this.value"></div>';
   /* 3.214 (anh 15/10): mỗi người 1 dòng lưới có tiêu đề cột — Enter / Tab sang ô kế (phím chung), gõ xong không vẽ lại cả hộp */
   var nguoi = HM.tv.map(function(n, i){ var o = function(f, ph){ return '<input data-hm="'+i+':'+f+'" value="'+coChuHTML(hmGiaTri(n, f))+'" placeholder="'+ph+'" onchange="hmDat('+i+',\''+f+'\',this.value,this)">'; };
