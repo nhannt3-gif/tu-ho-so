@@ -94,7 +94,7 @@ var KHO = (function(){
         return {ky:ky, ds:ds};
       });
     },
-    /* ---------- 3.326 (P0 — docs/KE_HOACH_KHO_KTGS.md, TK 2 làm song song TK 3): cửa cho KTGS — chỉ đọc, trả đúng dạng KTGS đang dùng,
+    /* ---------- 3.327 (P0 — docs/KE_HOACH_KHO_KTGS.md, TK 2 làm song song TK 3): cửa cho KTGS — chỉ đọc, trả đúng dạng KTGS đang dùng,
        KHÔNG gán biến của KTGS (KT_K / KT_GN / KT_TRUOC); KTGS chưa gọi (TK 3 đang giữ file) — sau bàn giao thay thân ktNguon* bằng các cửa này ---------- */
     /* tháng 'YYYY-MM' → {ky, tam}: Mẫu 31 chốt tháng; chưa chốt → Mẫu 31 ngày mới nhất trong tháng (tam:true); không có → null */
     chotThang: function(th){ if(!th) return null; th = String(th).slice(0, 7); if(this.coBang('hstd', th)) return {ky:th, tam:false};

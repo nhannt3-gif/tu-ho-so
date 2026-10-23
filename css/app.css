@@ -3452,7 +3452,7 @@ span.sl-chip{cursor:help}
 .pv-len,.pv-ghim-nut{flex:none;white-space:nowrap}.pv-ghim-nut{opacity:.6}.pv-ghim-nut.bat{opacity:1;border-color:var(--xanh);background:var(--xanh-nhat);color:var(--xanh-dam)}
 button.pv-dan-o.pv-ve{text-decoration:underline dotted;text-underline-offset:2px}
 .pv-cay .loc-khoi.gon .pv-nhom.cap-xa,.pv-cay .loc-khoi.gon .pv-hang2{display:none}
-/* 3.326 (anh chốt 23/10): kiểu ☰ Gọn = 1 dòng ô sổ xuống Xã › Điểm › Hội › Tổ (máy tính cũng hiện ô chọn, ẩn chip + mắt đường dẫn trùng) */
+/* 3.327 (anh chốt 23/10): kiểu ☰ Gọn = 1 dòng ô sổ xuống Xã › Điểm › Hội › Tổ (máy tính cũng hiện ô chọn, ẩn chip + mắt đường dẫn trùng) */
 .pv-cay .loc-khoi.gon .pv-hang1 .pv-sel{display:flex;flex-wrap:nowrap;align-items:center;gap:4px;flex:1 1 auto;min-width:0;overflow-x:auto;scrollbar-width:thin}
 .pv-cay .loc-khoi.gon .pv-hang1 select.pv-o{max-width:180px;min-width:64px;flex:0 1 auto}
 .pv-cay .loc-khoi.gon .pv-hang1 .pv-dan .pv-dan-o,.pv-cay .loc-khoi.gon .pv-hang1 .pv-dan > .pv-sep{display:none}
@@ -3812,14 +3812,14 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
 .db-to-ds .db-to.bat{background:var(--xanh);color:#fff;border-color:transparent}
 /* 3.324: KTGS đột xuất — dòng tóm tắt khai báo trong tab */
 .kt-dx-kb{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0;padding:6px 8px;border:1px dashed var(--vien);border-radius:8px;background:var(--vang-nen)}
-/* 3.326 (anh chốt 23/10): cây địa bàn nhúng trong form / hộp khai báo (js/57 CAY) — cùng kiểu ô chọn với khối LỌC ĐỊA BÀN kiểu gọn */
+/* 3.327 (anh chốt 23/10): cây địa bàn nhúng trong form / hộp khai báo (js/57 CAY) — cùng kiểu ô chọn với khối LỌC ĐỊA BÀN kiểu gọn */
 .cay-nhung{display:flex;flex-wrap:wrap;align-items:center;gap:5px;min-width:0}
 .cay-nhung .pv-ghim{font-size:15px}.cay-nhung .pv-sep{color:var(--chu-phu);font-weight:700}
 .cay-nhung select.pv-o{font:inherit;font-size:calc(12.5px*var(--co));padding:3px 6px;border:1px solid var(--vien);border-radius:8px;background:var(--the);color:var(--chu);max-width:260px;min-width:0}
 .cay-nhung select.pv-o.co{border-color:var(--xanh);background:var(--xanh-nhat);color:var(--xanh-dam);font-weight:600}
 @media (max-width:699px){ .cay-nhung select.pv-o{max-width:100%;flex:1 1 140px} }
 .hm-dc .cay-nhung{flex:1 1 100%}
-/* 3.326 (anh chốt 23/10): thanh bên 2 cấp — nhóm ▸ mở / gập, mục con thụt vào; thu gọn 60 px: nhóm + mục con chỉ biểu tượng */
+/* 3.327 (anh chốt 23/10): thanh bên 2 cấp — nhóm ▸ mở / gập, mục con thụt vào; thu gọn 60 px: nhóm + mục con chỉ biểu tượng */
 @media (min-width:1100px){
   #thanh-ben a.tb-cha .mui{margin-left:auto;opacity:.7;font-size:11px;flex:0 0 auto}
   #thanh-ben a.tb-cha .so + .mui{margin-left:6px}
@@ -3836,7 +3836,7 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
   body.tb-gon #thanh-ben .tb-con.tb-cc{border-top:0;margin-top:0}
   body.tb-gon #thanh-ben .tb-con.tb-cc a{justify-content:center;margin:1px 10px;background:rgba(255,255,255,.07)}
 }
-/* 3.326 (anh chốt 23/10, demo D5): điện thoại / màn < 1100 px — thanh dưới 5 nút, thay hàng tab ngang trên; thanh đáy (trạng thái · Xem trước) nằm ngay trên */
+/* 3.327 (anh chốt 23/10, demo D5): điện thoại / màn < 1100 px — thanh dưới 5 nút, thay hàng tab ngang trên; thanh đáy (trạng thái · Xem trước) nằm ngay trên */
 #thanh-duoi{display:none}
 @media (max-width:1099px){
   body.co-td #hangngan{display:none !important}

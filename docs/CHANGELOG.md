@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.327 — 23/10/2026 — Cây địa bàn gọn mặc định + thanh bên 2 cấp + GDX bàn thao tác + cửa KHO cho KTGS (TK 2)
+- **Anh 23/10**: "Mặc định là kiểu gọn cho tất cả, lúc nào mở app về sẵn cấp PGD, nút ghim vẫn giữ để ghim khi cần giữ kiểu cấp đang chọn … làm liên tục, gộp lên cho anh thử, xong hết hồi quy 1 lần." Gom ý + các đợt: `docs/RA_SOAT_TONG_THE_2310.md` mục 9.
+- **Cây địa bàn C1** (`pvVeCay`, js/22g): kiểu ☰ Gọn (mặc định mọi nơi) = 1 dòng ô chọn + ⬆ + 🔎; ▦ Chip = như cũ. Địa bàn chỉ giữ trong phiên (`PV_PHIEN`), kiểu theo nơi trong phiên (`PV_KIEU`); 📌 Ghim chung mọi tab (địa bàn đã dùng chung từ 3.149) → `D.cauHinh.pvGhimBat` + `pvChung` + `pvKieu` (đồng bộ khối Số liệu). Thiết lập cũ `pvGhim` / `pvGon` (ghim = luôn mở, chọn tổ tự thu gọn) thôi dùng. Điện thoại: ô chọn cuộn ngang 1 dòng + hàng nút.
+- **Cây nhúng C2** (`js/57-cay.js`, `CAY`): `dsXa / dsDiem / dsAp / dsHoi / dsTo / chuTo / o / dong` — 👪 Hộ vay (`hmVe`), lập 01/TD (js/40), khai nhanh 01/TGTV (js/54), ⚙ Khai báo chung (`hsoKBHop`) gọi chung; xử lý + dữ liệu lưu của từng nơi giữ nguyên.
+- **Cửa KHO cho KTGS (P0)** (`js/29-kho.js`): `chotThang`, `theoNgay`, `bc37` / `bc38`, `t105Truoc`, `monGN` — chỉ đọc, khớp hàm cũ, không gán `KT_*`; KTGS chưa gọi (TK 3 đang giữ file).
+- **Thanh bên 2 cấp (P1, P2)** (js/23): sổ lối vào `DH_MUC` + nhóm `DH_NHOM` (mở / gập nhớ `localStorage 'tb_mo'`, nhóm có mục đang mở tự mở); mục có ở 2 nhóm (Tra cứu KH) tô theo nhóm vừa bấm (`DH_CUOI`). Điện thoại / màn < 1100 px: thanh dưới `#thanh-duoi` 5 nút + hộp ☰ Thêm (hàng tab cũ `#hangngan` ẩn, vẫn trong trang).
+- **GDX bàn thao tác (C3)**: nút 👤 Tra cứu KH ở đầu khung GDX → khối Tra cứu có sẵn; Tra cứu vào từ GDX có ← 🏢 Giao dịch xã.
+- **Phép thử**: mới t240 (cửa KHO), t241 (cây gọn / ghim / mở lại app), t242 (cây nhúng), t243 (thanh bên 2 cấp, thanh dưới); sửa theo hành vi mới t143, t145, t156, t168, t170, t189.
+
 ## 3.326 — 23/10/2026 — Nhớ ngày chọn ở ô đầu trang (KTGS bước 0)
 - **Anh 23/10**: "vẫn ghi lấy số liệu đến 30/9" (sau Ctrl+F5). Nguyên nhân: từ 3.97 ngày chọn ở ô đầu trang chỉ giữ trong phiên → tải lại về kỳ cuối tháng.
 - **Ô ngày đầu trang nhớ ngày đã chọn** (`kyChungLay` đọc `D.cauHinh.kyChung`, lưu cùng cấu hình) — mọi tab (KTGS, Tra cứu, Tổ…) mở lại đúng ngày đó.

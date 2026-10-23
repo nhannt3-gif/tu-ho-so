@@ -1,4 +1,4 @@
-// 3.326 (P0 — docs/KE_HOACH_KHO_KTGS.md) — cửa KHO cho KTGS: chotThang · theoNgay · bc37 / bc38 · t105Truoc · monGN
+// 3.327 (P0 — docs/KE_HOACH_KHO_KTGS.md) — cửa KHO cho KTGS: chotThang · theoNgay · bc37 / bc38 · t105Truoc · monGN
 //   mỗi cửa so với hàm cũ của KTGS trên cùng kỳ (kết quả phải giống hệt) + không gán biến KTGS. Bộ GIẢ tests/gianho31.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');

@@ -1,4 +1,4 @@
-// 3.326 (anh chốt 23/10) — cây địa bàn dùng chung: mặc định kiểu ☰ Gọn mọi nơi (1 dòng ô sổ xuống Xã › Điểm › Hội › Tổ), đổi ▦ Chip;
+// 3.327 (anh chốt 23/10) — cây địa bàn dùng chung: mặc định kiểu ☰ Gọn mọi nơi (1 dòng ô sổ xuống Xã › Điểm › Hội › Tổ), đổi ▦ Chip;
 //   mở lại app về Toàn PGD + kiểu gọn; 📌 Ghim (chung mọi tab) giữ địa bàn + kiểu khi mở lại. Bộ GIẢ tests/gianho31.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');

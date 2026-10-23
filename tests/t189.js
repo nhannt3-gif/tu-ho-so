@@ -50,7 +50,7 @@ const fs=require('fs'), path=require('path');
    if(t1.dv && t2.dv && String(t1.dv)!==String(t2.dv)){ pvChon('hsv', 'to', ''); pvChon('hsv', 'hoi', String(t2.dv)); await w(300); ok('chọn Hội → hộ của tổ thuộc Hội', ten().length>=2 && ten().every(x=>/Hai|Năm/.test(x)), ten().join(',')); }
    /* 📌 ghim cây */
    pvChon('hsv', 'hoi', ''); pvChon('hsv', 'to', t1.ma); await w(200);
-   ok('3.326 mặc định kiểu gọn (Hồ sơ): chọn tổ → khối lọc 1 dòng ô chọn', !!document.querySelector('#hsv-cay .loc-khoi.gon') && C.to===t1.ma);
+   ok('3.327 mặc định kiểu gọn (Hồ sơ): chọn tổ → khối lọc 1 dòng ô chọn', !!document.querySelector('#hsv-cay .loc-khoi.gon') && C.to===t1.ma);
    ok('có ⬆ Lên 1 cấp, nút 📌, nút đổi kiểu ▦ Chip', !!document.querySelector('#hsv-cay .pv-len') && !!document.querySelector('#hsv-cay .pv-ghim-nut') && /Chip/.test(document.querySelector('#hsv-cay .pv-gon').textContent));
    pvLen('hsv'); await w(200);
    ok('⬆ Lên 1 cấp: bỏ tổ, giữ xã, vẫn kiểu gọn', !C.to && C.xa===xa && !!document.querySelector('#hsv-cay .loc-khoi.gon'));

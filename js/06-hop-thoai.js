@@ -1981,7 +1981,11 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.326', ds:[
+var CO_GI_MOI = {ban:'3.327', ds:[
+  ["Cây địa bàn: mặc định kiểu ☰ Gọn 1 dòng ở mọi tab (ô chọn Xã › Điểm › Hội › Tổ, ⬆ lên 1 cấp), nút ▦ Chip đổi kiểu; mở app về Toàn PGD; 📌 Ghim giữ địa bàn + kiểu cho lần mở sau", "slDoiTab('to');doiNgan(7)"],
+  ["Thanh bên 2 cấp: Hôm nay · Giao dịch xã ▸ · Nạp & KT · Số liệu ▸ (KTGS là mục con) · Hồ sơ ▸ · Tủ tài liệu ▸ · Công cụ ▸; điện thoại có thanh dưới 5 nút", "doiNgan(0)"],
+  ["Giao dịch xã: nút 👤 Tra cứu KH ngay trong bàn thao tác (cùng địa bàn), có nút quay về Giao dịch xã", "slDoiTab('gdx');doiNgan(7)"],
+  ["Form 👪 Hộ vay, 01/TD, 01/TGTV, ⚙ Khai báo chung: ô chọn Xã › Ấp › Tổ cùng 1 kiểu, 1 nguồn danh sách", "slDoiTab('hsv');doiNgan(7)"],
   ["Ô ngày đầu trang nhớ ngày đã chọn sau khi tải lại (Ctrl+F5) — KTGS không còn tự về cuối tháng", "doiNgan(7)"],
   ["KTGS: số liệu tổ (Mẫu 16, Mẫu 04, thẻ tổ) theo ngày chọn — chấm điểm, xếp loại theo tháng BC0437; kiểm tra đột xuất để chấm ngày tháng năm", "doiNgan(7)"],
   ["KTGS › Kiểm tra đột xuất: dòng 🎯 Khai báo đột xuất ngay trong tab (đơn vị, người kiểm tra, Bảng II, nhận xét) + nút Chọn / khai tên; khai 1 lần dùng cho cả Mẫu 06 và 16", "doiNgan(7)"],
@@ -1992,11 +1996,7 @@ var CO_GI_MOI = {ban:'3.326', ds:[
   ["Mẫu không tự thu nhỏ chữ: chữ dài thì viết tắt chuẩn, còn dài thì ô giãn + ⚠ báo xem rớt dòng (bật trước cho 01/TGTV)", "doiNgan(7)"],
   ["01/TGTV sát mẫu gốc: quốc tịch · dân tộc Kinh · có cư trú điền sẵn, ngày gõ liền, khung Ngày / Số CIF bo góc, Tiếp nhận ngày 1 dòng; quy tắc giữ khung / gõ liền theo vị trí ô", "doiNgan(7)"],
   ["Hồ sơ vay: chú thích màu (số liệu · khai báo · ghi tay) lên cùng dòng tên mẫu — bớt 1 dòng", "doiNgan(7)"],
-  ["01/TGTV ✍ In nhanh: form khai chuẩn (Họ tên · Ngày sinh · CCCD · Ngày cấp · SĐT · chọn Xã, Ấp) — giới tính, ngày hết hạn, nơi cấp, dân tộc Kinh, có cư trú app tự tính", "doiNgan(7)"],
-  ["01/TGTV in 2 cách: 📊 từ Mẫu 31 (tích tổ viên, in hàng loạt) hoặc ✍ in nhanh tự khai — bấm thẳng vào chỗ chấm trên mẫu để gõ", "doiNgan(7)"],
-  ["🧾 Bảng kê: chọn 💸 Chi (ngân hàng chi ra) hoặc 💰 Thu (nộp vào ngân hàng) — cùng mẫu, chỉ khác tiêu đề và chữ ký", "doiNgan(7)"],
-  ["Giấy nộp tiền rà theo mẫu: Loại N.V in sẵn KHTK + kẻ liền, Tài khoản CÓ bỏ chấm, bằng chữ kẻ 3 nét 2 dòng, gạch dưới tên ngân hàng, chữ ký đậm to", "doiNgan(7)"],
-  ["Giao dịch xã: mẫu mới 🏦 Giấy nộp tiền (nộp để ghi vào tài khoản) + 🧾 Bảng kê các loại tiền nộp — cùng cách Giấy lĩnh: chọn người · TK · số tiền, in Nộp / Bảng kê / chung 1 tờ, mẫu trắng", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["01/TGTV ✍ In nhanh: form khai chuẩn (Họ tên · Ngày sinh · CCCD · Ngày cấp · SĐT · chọn Xã, Ấp) — giới tính, ngày hết hạn, nơi cấp, dân tộc Kinh, có cư trú app tự tính", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

@@ -30,7 +30,7 @@ const fs=require('fs'), path=require('path');
    slDoiTab('to'); doiNgan(7); for(let i=0;i<60 && !(TO_K && TO_K.ky==='2026-08' && document.getElementById('to-xa'));i++) await w(250); await w(300);
    const xa = pvLuaChon(TO_K.to, toCH(), 'xa')[0].k; pvChon('to', 'xa', xa); await w(300);
    ok('chọn xã ở tab Tổ → Sao kê, KTGS, Tổng hợp, Tra cứu cùng xã đó', skCH().xa===xa && ktCH().xa===xa && thCH().xa===xa && tcCH().xa===xa, xa);
-   ok('dữ liệu: phạm vi chung 1 chỗ pvChungO() (3.326: chưa ghim → chỉ trong phiên, mở app về PGD)', pvChungO().xa===xa && (D.cauHinh.pvGhimBat || !(D.cauHinh.pvChung||{}).xa));
+   ok('dữ liệu: phạm vi chung 1 chỗ pvChungO() (3.327: chưa ghim → chỉ trong phiên, mở app về PGD)', pvChungO().xa===xa && (D.cauHinh.pvGhimBat || !(D.cauHinh.pvChung||{}).xa));
    /* cây chọn 2 hàng */
    const cay = document.getElementById('to-cay');
    const nhan = () => [...document.querySelectorAll('#to-cay .pv-nhan')].map(x=>x.textContent.replace(/[①②③]/g,'')).join('|');

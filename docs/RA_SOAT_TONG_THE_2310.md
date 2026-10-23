@@ -115,11 +115,11 @@
 **Các đợt**
 | Đợt | Việc | Bản |
 |---|---|---|
-| 1 | Cây C1: kiểu gọn 1 dòng, mặc định gọn, về PGD khi mở app, 📌 ghim chung giữ địa bàn + kiểu | 3.326 ✅ |
-| 2 | Cây C2: cấp Ấp + nhúng trong hộp + `CAY.ve`; chuyển 4 bộ chọn riêng | |
-| 3 | P0 cửa KHO cho KTGS (chỉ thêm ở `js/29-kho.js`, `t240`) + P1 sổ lối vào chung | |
-| 4 | P2 thanh bên 2 cấp (KTGS tab con Số liệu, GDX cấp 1, thanh dưới điện thoại) | |
-| 5 | P3 / C3 GDX mục con 👤 Tra cứu KH gọi khối Tra cứu có sẵn | |
+| 1 | Cây C1: kiểu gọn 1 dòng, mặc định gọn, về PGD khi mở app, 📌 ghim chung giữ địa bàn + kiểu | 3.327 ✅ |
+| 2 | Cây C2: cây nhúng dùng chung `CAY` (js/57, có cấp Ấp); chuyển 4 bộ chọn riêng | 3.327 ✅ |
+| 3 | P0 cửa KHO cho KTGS (chỉ thêm ở `js/29-kho.js`, `t240`) + P1 sổ lối vào chung (`DH_MUC` + `DH_NHOM`) | 3.327 ✅ |
+| 4 | P2 thanh bên 2 cấp (KTGS tab con Số liệu, GDX cấp 1, thanh dưới điện thoại) | 3.327 ✅ |
+| 5 | P3 / C3 GDX mục con 👤 Tra cứu KH gọi khối Tra cứu có sẵn | 3.327 ✅ |
 | cuối | hồi quy đủ 1 lần → gộp → anh thử | |
 
 **Chỗ có thể sót (đã nêu với anh)**: (a) địa bàn dùng chung → ghim chung mọi tab; (b) mục con GDX ngoài Tra cứu KH — anh chọn dần; (c) thiết lập ghim / thu gọn cũ thôi dùng, mọi máy về gọn.
