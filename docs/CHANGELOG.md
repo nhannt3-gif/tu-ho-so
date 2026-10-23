@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.320 — 23/10/2026 — 01/TGTV: hạn CCCD tự tính mặc định
+- **Anh 23/10** (rà 3 trang 01/TGTV): "hạn CCCD em tính mặc định".
+- Ô **Ngày hết hạn** CCCD mặc định 📊 tự tính theo ngày sinh + ngày cấp (mốc 25 / 40 / 60 tuổi), in liền dd/mm/yyyy, giữ chỗ để Nơi cấp đứng yên như bản trắng. Đổi lại ✍ chấm ở ⚙ Khai báo riêng nếu cần.
+- Chuẩn khóa 01/TGTV ghi lại; t164, t176 sửa ý mặc định.
+- t179 (chuẩn khóa): chuẩn hóa ngày cả ở bản chuẩn — số liệu giả 04/TD, 12/GDX có ngày 23/10/2026 trùng ngày chạy nên báo lệch nhầm (không đổi mẫu).
+
 ## 3.319 — 23/10/2026 — Không tự thu nhỏ chữ trên mẫu (01/TGTV trước)
 - **Anh 23/10**: "chữ gõ liền nhưng nhãn sau phải giữ form nhãn trước, chú ý canh dòng và lề, tránh rớt dòng" · "anh đã nói không tự thu nhỏ chữ, có thể điều chỉnh khoảng cách nhãn, vì khi lập form đã tính đủ chữ, khi cần có thể viết kiểu ngắn lại".
 - Nền ô: mẫu bật `giuCo` **không thu nhỏ chữ** nữa. Chữ dài hơn ô: ① **viết tắt chuẩn** (Cục Cảnh sát QLHC về TTXH → Cục CS QLHC về TTXH; Thành phố → TP.; Phường → P.; Thị trấn → TT.; Khu phố → KP.; Huyện → H.; Tỉnh → T.; Ngân hàng Chính sách xã hội → NHCSXH; Ủy ban nhân dân → UBND) → ② vẫn dài: **ô giãn, nhãn sau dịch phải**, cỡ chữ giữ nguyên → ③ **⚠ Trước khi in** báo "dài hơn ô — xem có rớt dòng không, cần thì gõ ngắn lại". Ô trong bảng (2 dòng) cũng không thu nhỏ — quá 2 dòng thì ô cao thêm, không cắt chữ.

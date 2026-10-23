@@ -15,7 +15,7 @@
       {k:'cuTru', n:'Tình trạng cư trú ☒ Có cư trú', p:'kh', l:'tu', md:'tu', ng:'ghi sẵn theo mẫu', nhanh:1},
       {k:'cccd', n:'Số CCCD (12 ô) + ☒ Thẻ CC công dân', p:'kh', l:'tu', md:'tu', ng:'sổ hộ vay / M31'},
       {k:'ncap', n:'Ngày cấp', p:'kh', l:'tu', md:'tu', ng:'sổ hộ vay / M31'},
-      {k:'hanCCCD', n:'Ngày hết hạn CCCD', p:'kh', l:'tu', md:'cham', ng:'tính từ ngày sinh + ngày cấp', nhanh:1},
+      {k:'hanCCCD', n:'Ngày hết hạn CCCD', p:'kh', l:'tu', md:'tu', ng:'tính từ ngày sinh + ngày cấp', nhanh:1},
       {k:'noiCap', n:'Nơi cấp', p:'kh', l:'tu', md:'tu', ng:'tự tính theo ngày cấp'},
       {k:'mst', n:'Mã số thuế cá nhân', p:'kh', l:'tu', md:'cham', ng:'sổ hộ vay'},
       {k:'ngheNghiep', n:'Nghề nghiệp hiện tại ☒ (+ ghi rõ khi Khác)', p:'kh', l:'tu', md:'cham', ng:'sổ hộ vay'},

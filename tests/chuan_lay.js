@@ -51,5 +51,5 @@ module.exports = async function(p){
     .replace(new RegExp('ngày ([^0-9]{0,40})'+dd+'([^0-9]{1,40})tháng([^0-9]{1,40})'+mm+'([^0-9]{1,40})năm([^0-9]{1,40})'+yy, 'gi'), 'ngày $1{D}$2tháng$3{M}$4năm$5{Y}')
     .replace(/\bhm[a-z0-9]{8,}\b/g, '{HO}').replace(/\?v=[0-9.]+/g, '?v={BAN}');
   const o = {}; Object.keys(R.out).sort().forEach(k=>{ o[k] = chuan(R.out[k]); });
-  return {out:o, loi:R.loi};
+  return {out:o, loi:R.loi, chuan:chuan};   /* 3.320: t179 chuẩn hóa cả bản chuẩn — ngày giả trong số liệu trùng ngày chạy (vd 23/10/2026) không báo lệch nhầm */
 };
