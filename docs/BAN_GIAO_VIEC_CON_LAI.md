@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.322) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS Hội (chế độ tối) › chọn tổ › bảng hộ | Dòng đã tích nền xanh đậm, chữ rõ | |
+
+**Ghi chú kỹ thuật 3.322:** `css/app.css` `.kt-bang tr.kt-co td{background:var(--luc-nen)}`.
+
 ### Danh sách thử trên máy thật (3.321) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
