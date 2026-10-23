@@ -79,3 +79,9 @@
 3. Phạm vi mặc định: **toàn PGD** hay **các xã anh quản lý**?
 4. Số liệu cũ quá bao nhiêu ngày thì báo đỏ (em đề nghị 35 ngày với Mẫu 31 tháng)?
 5. Lịch + Schedule + To-do giữ nguyên ở dưới — đồng ý?
+
+## 7. Thanh bên 2 cấp — demo `demo/thanh-ben-2-cap.html` (anh góp ý 23/10)
+- Anh: **"KTGS ít khi dùng → đưa vào 1 tab con"** → KTGS Hội thành mục con của 📊 Số liệu.
+- Anh: **"Giao dịch xã hay dùng khi đi GDX hay duyệt hồ sơ → bố trí ra riêng; muốn đưa 1 số cái cơ bản dùng thường xuyên khi duyệt hồ sơ ra đó"** → 🏢 Giao dịch xã **mục cấp 1 ngay dưới Hôm nay**, có mục con chứa các công cụ duyệt hồ sơ (anh chọn danh sách).
+- Cấp 1 (7): 🏠 Hôm nay · 🏢 Giao dịch xã ▸ · 📥 Nạp & KT · 📊 Số liệu ▸ (Tổng hợp, Sao kê, Tổ TK&VV, Tra cứu KH, KTGS Hội, Phân bổ KH) · 📄 Hồ sơ ▸ (Hồ sơ vay / Hộ vay, Hồ sơ Tổ) · 🗂 Tủ tài liệu ▸ (Văn bản, Biểu mẫu, Scan, Thư viện) · 🧰 Công cụ ▸. Điện thoại: thanh dưới Hôm nay · GD xã · Số liệu · Hồ sơ · ☰ Thêm.
+- Chờ anh: danh sách "cái cơ bản khi duyệt hồ sơ" đưa vào Giao dịch xã. Làm sau khi 2 tài khoản kia chốt bàn giao (đụng khung chung `js/23-dieu-huong.js`).

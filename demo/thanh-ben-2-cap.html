@@ -87,24 +87,24 @@
 <h3>So sánh</h3>
 <table><tr><th>Hiện nay (17 mục cấp 1)</th><th>Đề xuất (7 mục cấp 1, mục con mở bên dưới)</th></tr>
 <tr><td>Hôm nay · Văn bản · Nạp &amp; KT</td><td>🏠 Hôm nay · 📥 Nạp &amp; KT</td></tr>
-<tr><td>Số liệu: Tổng hợp · Sao kê · Tổ TK&amp;VV · KTGS Hội · Tra cứu KH · Phân bổ KH</td><td>📊 Số liệu ▸ Tổng hợp · Sao kê · Tổ TK&amp;VV · Tra cứu KH · Phân bổ KH<br>🛡 KTGS Hội (đứng riêng — gói khóa mẫu)</td></tr>
-<tr><td>Hồ sơ: Hồ sơ Tổ · Hồ sơ vay · Giao dịch xã · Biểu mẫu · Scan · Thư viện</td><td>📄 Hồ sơ ▸ Hồ sơ vay (👪 Hộ vay) · Hồ sơ Tổ · Giao dịch xã<br>🗂 Tủ tài liệu ▸ Văn bản · Biểu mẫu · Scan · Thư viện</td></tr>
+<tr><td>Số liệu: Tổng hợp · Sao kê · Tổ TK&amp;VV · KTGS Hội · Tra cứu KH · Phân bổ KH</td><td>📊 Số liệu ▸ Tổng hợp · Sao kê · Tổ TK&amp;VV · Tra cứu KH · 🛡 KTGS Hội (tab con — anh: ít dùng) · Phân bổ KH</td></tr>
+<tr><td>Hồ sơ: Hồ sơ Tổ · Hồ sơ vay · Giao dịch xã · Biểu mẫu · Scan · Thư viện</td><td>🏢 <b>Giao dịch xã đứng riêng, ngay dưới Hôm nay</b> (anh dùng khi đi GDX / duyệt hồ sơ) ▸ Giao dịch xã · các mục cơ bản hay dùng khi duyệt (ví dụ: Tra cứu KH, Hạn trả HSSV, In nhanh hồ sơ — anh chọn)<br>📄 Hồ sơ ▸ Hồ sơ vay (👪 Hộ vay) · Hồ sơ Tổ<br>🗂 Tủ tài liệu ▸ Văn bản · Biểu mẫu · Scan · Thư viện</td></tr>
 <tr><td>Công cụ: HSSV · Địa bàn · CT vay (ô nhỏ cuối thanh)</td><td>🧰 Công cụ ▸ Hạn trả HSSV · Địa bàn · CT vay</td></tr>
-<tr><td>Điện thoại: tab ngang cuộn 2 tầng</td><td>Điện thoại: <b>thanh dưới 5 nút</b> (Hôm nay · Số liệu · Hồ sơ · Tủ · ☰ Thêm); mục con là hàng chip trên cùng</td></tr>
+<tr><td>Điện thoại: tab ngang cuộn 2 tầng</td><td>Điện thoại: <b>thanh dưới 5 nút</b> (Hôm nay · GD xã · Số liệu · Hồ sơ · ☰ Thêm); mục con là hàng chip trên cùng</td></tr>
 </table>
 <p><b>Không đổi:</b> nội dung, chức năng, phím tắt của từng tab; số đỏ (file thiếu, chờ duyệt) vẫn hiện ở mục cha khi thu lại. <b>Mới:</b> nhớ nhóm đang mở; dòng đường dẫn "Số liệu › Tổ TK&amp;VV" trên đầu; chế độ thu gọn chỉ còn biểu tượng, rê chuột hiện mục con.</p>
 </div>
 <script>
 var NHOM = [
   {bt:'🏠', ten:'Hôm nay'},
+  {bt:'🏢', ten:'Giao dịch xã', con:['🏢 Giao dịch xã','👤 Tra cứu KH','🎓 Hạn trả HSSV','📄 In nhanh hồ sơ']},
   {bt:'📥', ten:'Nạp & KT', dem:8},
-  {bt:'📊', ten:'Số liệu', con:['📊 Tổng hợp','📑 Sao kê','👥 Tổ TK&VV','👤 Tra cứu KH','🎯 Phân bổ KH']},
-  {bt:'🛡', ten:'KTGS Hội'},
-  {bt:'📄', ten:'Hồ sơ', con:['👪 Hồ sơ vay','📝 Hồ sơ Tổ','🏢 Giao dịch xã']},
+  {bt:'📊', ten:'Số liệu', con:['📊 Tổng hợp','📑 Sao kê','👥 Tổ TK&VV','👤 Tra cứu KH','🛡 KTGS Hội','🎯 Phân bổ KH']},
+  {bt:'📄', ten:'Hồ sơ', con:['👪 Hồ sơ vay','📝 Hồ sơ Tổ']},
   {bt:'🗂', ten:'Tủ tài liệu', con:['📄 Văn bản','📋 Biểu mẫu','🪪 Scan','🖼 Thư viện']},
   {bt:'🧰', ten:'Công cụ', con:['🎓 Hạn trả HSSV','🗺 Địa bàn','📚 CT vay']}
 ];
-var DANG = {n:4, c:0};
+var DANG = {n:1, c:0};
 function ten(c){ return c.replace(/^\S+\s/, ''); }
 function ve(){
   var h = '<div class="logo"><b>TH</b><span>Tủ hồ sơ v3.325</span></div>';
@@ -123,12 +123,12 @@ function ve(){
   document.getElementById('vet').textContent = tieu;
   var nd = '<h4>'+tieu+'</h4><p>Nội dung tab giữ nguyên như app hiện nay.</p><p>Hàng chip trên = mục con của nhóm (đổi nhanh không cần mở thanh bên).</p><p>Khối lọc 1 dòng gọn: đường dẫn bấm được + ▾ Mở rộng.</p>';
   document.getElementById('khoi').innerHTML = nd; document.getElementById('khoi2').innerHTML = nd;
-  var D5 = [[0,'🏠','Hôm nay'],[2,'📊','Số liệu'],[4,'📄','Hồ sơ'],[5,'🗂','Tủ'],[-1,'☰','Thêm']];
+  var D5 = [[0,'🏠','Hôm nay'],[1,'🏢','GD xã'],[3,'📊','Số liệu'],[4,'📄','Hồ sơ'],[-1,'☰','Thêm']];
   document.getElementById('duoi').innerHTML = D5.map(function(x){ return '<div class="'+(x[0]===DANG.n ? 'bat' : '')+'" onclick="duoi('+x[0]+')"><b>'+x[1]+'</b>'+x[2]+'</div>'; }).join('');
 }
 function bam(i){ var g = NHOM[i]; if(g.con){ DANG.mo = DANG.mo===i ? -1 : i; if(DANG.n!==i){ DANG.n = i; DANG.c = 0; DANG.mo = i; } } else { DANG.n = i; DANG.c = 0; DANG.mo = -1; } ve(); }
 function chon(i, k){ DANG.n = i; DANG.c = k; DANG.mo = i; ve(); }
-function duoi(i){ if(i<0){ document.getElementById('tamds').innerHTML = '<b>Thêm</b>'+[1,3,6].map(function(n){ var g = NHOM[n]; return '<div class="m" onclick="document.getElementById(\'tam\').style.display=\'none\';bam('+n+')">'+g.bt+' '+g.ten+'</div>'; }).join('')+'<div class="m">⚙ Cài đặt · ❓ Hướng dẫn · 🗑 Thùng rác</div>'; document.getElementById('tam').style.display = 'block'; return; } bam(i); }
+function duoi(i){ if(i<0){ document.getElementById('tamds').innerHTML = '<b>Thêm</b>'+[2,5,6].map(function(n){ var g = NHOM[n]; return '<div class="m" onclick="document.getElementById(\'tam\').style.display=\'none\';bam('+n+')">'+g.bt+' '+g.ten+'</div>'; }).join('')+'<div class="m">⚙ Cài đặt · ❓ Hướng dẫn · 🗑 Thùng rác</div>'; document.getElementById('tam').style.display = 'block'; return; } bam(i); }
 function xem(k){ var a = document.getElementById('app'), d = document.getElementById('dt');
   [].forEach.call(document.querySelectorAll('.chon-xem button'), function(b, i){ b.classList.toggle('bat', ['mo','gon','dt'][i]===k); });
   a.style.display = k==='dt' ? 'none' : 'flex'; d.style.display = k==='dt' ? 'flex' : 'none'; a.classList.toggle('gon', k==='gon'); }
