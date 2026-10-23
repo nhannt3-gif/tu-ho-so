@@ -13,7 +13,7 @@ const fs=require('fs'), path=require('path');
    const K = ktCH(); K.ky = '2026-08'; K.xa=''; K.diem=''; K.hoi=''; K.to=''; K.che='dx'; KT_A_TH = ''; delete D.cauHinh.ktIn;
    kyChungDoi('2026-08'); doiNgan(7); slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    const the = () => document.getElementById('kt-the'), bam = async(sel)=>{ const e = typeof sel==='string' ? the().querySelector(sel) : sel; e.click(); await w(250); };
-   const khoi = () => [...the().querySelectorAll('.kt-khoi button')];
+   const khoi = () => [...the().querySelectorAll('.kt-khoi > button')];
    ok('thanh 3 khối: 📅 Bắt buộc · 🎯 Đột xuất · ⚙ Khai báo; đột xuất đang chọn', khoi().length===3 && /Bắt buộc/.test(khoi()[0].textContent) && /Đột xuất/.test(khoi()[1].textContent) && /Khai báo/.test(khoi()[2].textContent) && khoi()[1].classList.contains('bat'));
    ok('khối Đột xuất không có hàng thẻ con', !the().querySelector('.kt-a-the'));
    await bam(khoi()[0]);
