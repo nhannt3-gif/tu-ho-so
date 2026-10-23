@@ -16,7 +16,7 @@ const fs=require('fs'), path=require('path');
    const moZip = async (bl) => { const z = XLSX.CFB.read(new Uint8Array(await bl.arrayBuffer()), {type:'array'}); const g = n => { const f = XLSX.CFB.find(z, n) || XLSX.CFB.find(z, '/'+n); return f ? new TextDecoder().decode(f.content) : null; }; return {z, g, doc:g('word/document.xml')}; };
    const hopLe = x => !new DOMParser().parseFromString(x, 'application/xml').getElementsByTagName('parsererror').length;
    doiNgan(7); const C = ktCH(); C.ky='2026-08'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; C.khHoi=''; C.che='kh'; C.khNam = 2026; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
-   ok('có nút chế độ 🗓 Kế hoạch năm · 01/KH, chưa chọn hội thì nhắc', /Kế hoạch năm · 01\/KH/.test(document.querySelector('.kt-che').textContent) && /Chọn xã ở cây phía trên rồi chọn hội/i.test(document.getElementById('kt-the').textContent));
+   ok('có nút chế độ 🗓 Kế hoạch năm · 01/KH, chưa chọn hội thì nhắc', /Kế hoạch 01\/KH/.test(document.querySelector('.kt-a-the').textContent) && /Chọn xã ở cây phía trên rồi chọn hội/i.test(document.getElementById('kt-the').textContent));
    /* chọn Hội – xã nhiều tổ nhất */
    const dem = {}; Object.values(KT_K.to).filter(t=>!toLaTT(t) && t.dv && String(t.dv)!=='99').forEach(t=>{ const k = t.xa+'|'+t.dv; dem[k] = (dem[k]||0)+1; });
    const kMax = Object.keys(dem).sort((a, b)=>dem[b]-dem[a])[0], [xa, dv] = kMax.split('|');

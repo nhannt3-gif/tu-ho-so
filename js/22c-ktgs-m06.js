@@ -136,15 +136,7 @@ function ktDocxLam(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1:
 var KT_GN = null, KT_GN_BO = {};   /* KT_GN = {khoa, thang:[…], thieu:[…], ds:{tháng:{mã tổ:{t, mon:[…]}}}} · KT_GN_BO['tháng|KU'] = 1 → anh bỏ tích */
 function ktCheDo(){ var c = ktCH().che; return c==='gn' || c==='bc' || c==='kh' || c==='dk' || c==='hdt' ? c : 'dx'; }   /* 3.113: + 'hdt' Khai báo Hội đoàn thể */   /* 3.95: + 'bc' Mẫu 04 · 3.96: + 'kh' Kế hoạch 01/KH */
 function ktDoiCheDo(c){ ktCH().che = c; luu(); ktVeThe(); }
-function ktCheDoHTML(){
-  var c = ktCheDo();
-  return '<div class="kt-che"><button class="to-loc'+(c==='hdt' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'hdt\')">🏛 Khai báo Hội đoàn thể</button>'+
-    '<button class="to-loc'+(c==='dx' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'dx\')">🎯 Kiểm tra đột xuất</button>'+
-    '<button class="to-loc'+(c==='gn' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'gn\')">📅 Sau giải ngân (30 ngày) · Mẫu 06</button>'+
-    '<button class="to-loc'+(c==='dk' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'dk\')">🗓 Định kỳ · Mẫu 06 + 16 (chọn tự do)</button>'+
-    '<button class="to-loc'+(c==='bc' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'bc\')">📋 Báo cáo tổng hợp · Mẫu 04</button>'+
-    '<button class="to-loc'+(c==='kh' ? ' bat' : '')+'" onclick="ktDoiCheDo(\'kh\')">🗓 Kế hoạch năm · 01/KH</button></div>';
-}
+function ktCheDoHTML(){ return ktKhoiHTML(ktCheDo()); }   /* 3.329: thanh 3 khối Bắt buộc · Đột xuất · Khai báo (js/56-ktgs-bo.js) thay 6 chip */
 function ktThangHS(){   /* các tháng có Mẫu 31 chốt tháng — mới nhất trước · 3.136: + tháng chưa có bản cuối tháng nhưng đã có Mẫu 31 theo ngày */
   var m = {}; Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='hstd'; }).forEach(function(e){ m[slThang(e.ky)] = 1; });
   return Object.keys(m).sort().reverse();
