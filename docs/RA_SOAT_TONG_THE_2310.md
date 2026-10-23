@@ -85,3 +85,17 @@
 - Anh: **"Giao dịch xã hay dùng khi đi GDX hay duyệt hồ sơ → bố trí ra riêng; muốn đưa 1 số cái cơ bản dùng thường xuyên khi duyệt hồ sơ ra đó"** → 🏢 Giao dịch xã **mục cấp 1 ngay dưới Hôm nay**, có mục con chứa các công cụ duyệt hồ sơ (anh chọn danh sách).
 - Cấp 1 (7): 🏠 Hôm nay · 🏢 Giao dịch xã ▸ · 📥 Nạp & KT · 📊 Số liệu ▸ (Tổng hợp, Sao kê, Tổ TK&VV, Tra cứu KH, KTGS Hội, Phân bổ KH) · 📄 Hồ sơ ▸ (Hồ sơ vay / Hộ vay, Hồ sơ Tổ) · 🗂 Tủ tài liệu ▸ (Văn bản, Biểu mẫu, Scan, Thư viện) · 🧰 Công cụ ▸. Điện thoại: thanh dưới Hôm nay · GD xã · Số liệu · Hồ sơ · ☰ Thêm.
 - Chờ anh: danh sách "cái cơ bản khi duyệt hồ sơ" đưa vào Giao dịch xã. Làm sau khi 2 tài khoản kia chốt bàn giao (đụng khung chung `js/23-dieu-huong.js`).
+
+## 8. Anh chốt vai trò 3 tầng giao diện (23/10) — "đúng hướng là như vậy, em chuẩn bị để nối chức năng vào"
+| Tầng | Tab | Vai trò | Nguyên tắc |
+|---|---|---|---|
+| 1 | 🏠 **Hôm nay** | **làm việc cơ bản** hằng ngày | việc trong ngày + nhắc (thẻ KPI thêm dần từng nút khi khối nguồn ổn — mục 6) |
+| 2 | 🏢 **Giao dịch xã** | **bàn thao tác hồ sơ** (đi GDX, duyệt hồ sơ) | gom công cụ thao tác thường dùng: chọn điểm / tổ / khách → in · tra · kiểm ngay tại chỗ |
+| 3 | 📊 **Số liệu** (Tổng hợp, Sao kê, Tổ, Tra cứu, KTGS, Phân bổ) | **truy vấn chuyên sâu** khi cần | giữ nguyên chức năng, vào bằng tab con |
+**Cách nối (chuẩn bị):** mọi tầng lấy số liệu qua cửa `KHO` (không đọc thẳng biến chung) → tầng 1–2 chỉ "gọi" chức năng đã có ở tầng 3 / Hồ sơ (một nút → mở đúng chỗ với lọc đặt sẵn), không chép mã.
+**Bước chuẩn bị đề xuất (mỗi bước chờ anh "code"):**
+- **P0** cửa `KHO` cho KTGS (`KE_HOACH_KHO_KTGS.md`) — nền, không đổi giao diện.
+- **P1** sổ "lối vào" chung: mỗi chức năng đăng ký 1 dòng `{mã, tên, mở(lọc)}` (vd `hsv.01td`, `to.cccd`, `gdx.giayLinh`) → Hôm nay / GDX / thanh bên đều gọi cùng 1 lối; không đổi giao diện hiện có.
+- **P2** thanh bên 2 cấp (demo đã duyệt hướng) dùng sổ lối vào P1.
+- **P3** GDX "bàn thao tác": thêm mục con theo danh sách anh chọn (mục 7), gọi lối vào P1.
+- **P4** Hôm nay: thẻ KPI từng nút khi khối nguồn ổn.
