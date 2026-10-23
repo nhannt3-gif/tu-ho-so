@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.324) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › 🎯 Kiểm tra đột xuất › chọn tổ | Thấy dòng 🎯 Khai báo đột xuất trên ô Ngày kiểm tra | |
+| 2 | ✎ Chọn / khai tên → Khai báo tên đoàn + tên cán bộ ở Mẫu 06 | Mẫu 16 cùng tên; đóng hộp → dòng tóm tắt đổi | |
+
+**Ghi chú kỹ thuật 3.324:** `js/22b-ktgs.js` — `ktDXTom(t)` (chỉ khi `ktCheDo()==='dx'`), `ktDXKhai()` → `ktInHop(['m06','m16'], '', hoi, 1)`; `ktInHop(ds, nut, hoi, veThe)` giữ `KT_IN_X.cu` + `HOP_KHI_DONG = ktVeThe`; `ktInDoc` đồng bộ `dvc, dvt, ng1, cb1t, cv1t` giữa dx_m06 / dx_m16 (ô vừa đổi thắng). CSS `.kt-dx-kb`. **Quy trình (anh 23/10): hồi quy đủ gom nhiều bản chạy 1 lần; mỗi bản chạy phép thử phần sửa + kiem.py.**
+
 ### Danh sách thử trên máy thật (3.323) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
