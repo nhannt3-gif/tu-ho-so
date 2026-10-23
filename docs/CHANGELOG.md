@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.323 — 23/10/2026 — Kiểm tra đột xuất: đơn vị, cán bộ kiểm tra, nội dung kiểm tra chọn theo kiểu khai báo riêng
+- **Anh 23/10**: "khi đi kiểm tra đột xuất thì đơn vị kiểm tra có chế độ chấm ghi tay hoặc khai báo tên đoàn kiểm tra trên cả mẫu 06 và mẫu 16, tên cán bộ kiểm tra cũng vậy, phần lấy số liệu ghi sẵn còn các nội dung kiểm tra cho để trống hoặc chấm theo mẫu để ghi tay hoặc ghi đầy đủ như hiện tại, có thể cho chọn giữa các chế độ kiểu khai báo riêng".
+- Hộp **🖨 Chọn khi in** (Mẫu 06 và Mẫu 16, mỗi mẫu 1 phần):
+  - **Đơn vị kiểm tra / Đoàn kiểm tra**: Theo Hội phụ trách tổ (như cũ) · **Để chấm (ghi tay)** · **Khai báo tên đoàn kiểm tra** (ô gõ tên, nhớ lại). Mẫu 16 áp cả đầu trang lẫn dòng "ĐOÀN KIỂM TRA:" (trước luôn in tên Hội).
+  - **Người kiểm tra 1 / 2**: vai trò Hội (Chủ tịch, Phó CT, Ủy viên) · Để trống (ghi tay) · **Khai báo tên (gõ)** → ô Họ tên + Chức vụ (cán bộ ngân hàng / đoàn khác).
+  - **Nội dung kiểm tra**: Mẫu 16 Bảng II — Để trống · **Chấm ghi tay (theo mẫu)** (mới) · Điền đầy đủ theo 727; Nhận xét — Gợi ý theo số liệu · Chấm ghi tay. Mẫu 06: cột Mục đích để trống / in sẵn; phần kiểm tra thực tế, nhận xét vẫn chấm như mẫu.
+  - **Số liệu** (hộ, món vay, dư nợ, lãi tồn, tình hình chung của tổ) luôn ghi sẵn.
+- **🎯 Kiểm tra đột xuất có bộ lựa chọn riêng** (nhãn "lựa chọn riêng kiểm tra đột xuất" trong hộp) — lần đầu chép từ lựa chọn chung; Sau giải ngân / Định kỳ giữ lựa chọn của mình. Ô "Đơn vị kiểm tra" gõ ở Tùy chọn khác trước đây được chuyển lên ô chọn (gõ "-" → Để chấm, gõ tên → Khai báo tên).
+- Phép thử: t236 mới (13); t119 đọc lựa chọn theo khóa riêng.
+
 ## 3.322 — 23/10/2026 — KTGS Hội: dòng hộ đã chọn đọc rõ ở chế độ tối
 - **Anh 23/10** (ảnh bảng chọn hộ kiểm tra — chữ gần như không đọc được): "anh cần làm phần này gấp".
 - Bảng chọn hộ kiểm tra (Mẫu 06 · đột xuất / sau giải ngân / định kỳ): dòng hộ đã tích dùng nền xanh nhạt cố định `#eef7f0` → ở **chế độ tối** chữ sáng trên nền sáng, không đọc được. Đổi sang màu nền theo chế độ (`--luc-nen`: sáng = xanh nhạt như cũ, tối = xanh đậm) — chữ, số KU, dư nợ, ghi chú đọc rõ. Chế độ sáng giữ nguyên.
