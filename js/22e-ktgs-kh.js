@@ -44,7 +44,7 @@ function ktKHNapSL(th){
   var xong = function(o){ o.th = th; o.can = x.can; o.goc = goc; KT_KH_SL = o; return o; };
   if(!x.ky || !KT_K || x.ky===KT_K.ky) return Promise.resolve(xong({ky:KT_K ? KT_K.ky : '', K:KT_K, BC:KT_BC, TR:KT_TRUOC, khong:!x.ky}));
   var tr0 = KT_TRUOC, K;
-  return toNap(x.ky).then(function(k){ K = k; return Promise.all([ktNapBC(x.ky), ktTruocNap(k)]); })
+  return KHO.nap(x.ky).then(function(k){ K = k; return Promise.all([ktNapBC(x.ky), ktTruocNap(k)]); })
     .then(function(r){ var tr = r[1]; KT_TRUOC = tr0; return xong({ky:x.ky, K:K, BC:r[0], TR:tr}); }, function(){ KT_TRUOC = tr0; return xong({ky:KT_K.ky, K:KT_K, BC:KT_BC, TR:KT_TRUOC, loi:1}); });
 }
 function ktKHVoiSL(fn){   /* chạy fn với số liệu của tháng kiểm tra đang chọn (KT_KH_SL), xong trả lại số liệu đang xem */

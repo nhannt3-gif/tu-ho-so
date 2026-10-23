@@ -103,6 +103,7 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 | QT-15 | **Phân bổ 1 QĐ xuống ấp — theo TỪNG QĐ** (`js/47-phan-bo.js`, `pbPhanBo`): dòng có Tăng/giảm ≠ 0 → phân bổ số đó; giao mới thật (loại "Giao mới", Đã giao trống/0) → phân bổ Đến 31/12; còn lại bỏ qua. **Tương đối:** chia đều chẵn 100, ≤ 10 ấp, chỉ tiêu trước = Đã giao chia đều chẵn 100. **Chính xác:** kỳ Mẫu 31 cuối tháng gần nhất ≤ ngày QĐ (`KHO.duNoAp`); tăng/giảm theo tỷ lệ dư nợ ấp (cùng CT + nguồn) chẵn 50, phần dư lớn nhất; **chỉ tiêu trước = ĐÚNG dư nợ thật, phần chênh (Đã giao − tổng dư nợ) dồn ấp dư nợ lớn nhất**; dư nợ không gắn được ấp → "(Chưa rõ ấp)" + cảnh báo; CT không dư nợ → chia đều + cảnh báo. **Số giao chẵn, chỉ 1 ấp lẻ**; giảm không làm âm ấp (dồn theo bước). Bước / số ấp khai báo được | **anh chốt 20/10/2026** (P1) | bản WPF v9.20 — 45 QĐ thật, khớp 100 % 2.229 dòng ấp với lõi JS |
 | QT-16 | **Biểu 07 BẮT BUỘC khớp QĐ** (`pbKiem`): Σ tăng/giảm ấp = số QĐ · Σ chỉ tiêu trước = Đã giao · Σ chỉ tiêu năm = Đến 31/12 · QĐ tự đúng Đã giao + Tăng/giảm = Đến 31/12 → sai thì **chặn In / Xuất**; Biểu 07 chỉ in ấp có tăng/giảm; không lưu lịch sử Biểu 07 | **anh chốt 20/10/2026** | |
 | QT-17 | **Nhập QĐ:** 1 QĐ (số + ngày + ký hiệu) nhiều xã, nhập trước vài xã rồi thêm sau; **gợi ý Đã giao** = Đến 31/12 QĐ gần nhất trước (cùng xã + CT + nguồn, cùng năm; chưa có → dư nợ 31/12 năm trước) — chỉ gợi ý, sửa được; cảnh báo ✗ lệch số, ⚠ đứt chuỗi. **Chỉ tiêu đầu năm theo QĐ** = Đã giao của QĐ đầu tiên trong năm nhắc tới CT (`pbTongHopCT`) | **anh chốt 20/10/2026** | |
+| QT-18 | **Thành viên tổ chuẩn** (1 hàm `tvChuan` js/28 → cửa `KHO.tvChuan`, gom QT-01…07 + QT-14): **Tổng TV** = tổ viên Mẫu 31 kỳ đang dựng (chốt tháng hoặc ngày; QT-01…05, mỗi mã KH 1 lần / tổ, bỏ vay trực tiếp; chưa giải ngân không tính trừ khi đã tạo TK 105) **+ người Mẫu 01/TV gần nhất TƯ còn giữ ở tổ** mà Mẫu 31 không có (dư nợ 0 — QT-06); cùng tháng chốt với 01/TV → bù đủ như TƯ (khách ở ≥ 2 tổ tính ở mỗi tổ); kỳ ngày → không bù người đã có món ở tổ khác (chuyển tổ). **Có dư nợ = dư nợ GỐC > 0** (như TƯ); không dư nợ tách: còn TK 105 · **còn lãi tồn** (cam) · **cần cho ra** (TƯ còn giữ, 0 / 0 — QT-14). Ngưỡng **QĐ 70: 20–100 TV / tổ** (ô ⚙ Ngưỡng tab Tổ khai thì theo ô) | **anh chốt 24/10/2026** (3.333) | file thật 30/09: **khớp 18.816 / 18.816 TV, 370 / 370 tổ** (tổng + có dư nợ) với Mẫu 01/TV T9 |
 
 **Anh chốt 14/10 (đủ QT-11 → QT-13), chuẩn lại theo file thật ở 3.201–3.202 (bảng trên là bản đúng):** chuẩn là **file tháng**; Giấy lĩnh in số TK, số tiền gõ tay, **gợi ý số dư 105 theo Mẫu 31 mới nhất**; CCCD và TK 105 **ưu tiên Mẫu 31**; **CCCD hết hạn → cảnh báo**; **TK 104 lấy từ Sao kê 104 xuất theo tháng**, sao kê theo ngày chỉ gắn vào Mẫu 31 ngày. Tài khoản làm code: cần **mẫu tên cột Sao kê 104** (xin anh gửi file / dòng tên cột, chỉ đọc trong thư mục nháp) trước khi làm bộ đọc.
 | … | Các quy tắc cũ (3.90 thứ bậc tin cậy, 3.136 kỳ ngày, 3.137 còn lãi = còn nợ…) chuyển vào đây khi đụng tới | | KT3L 3.3, 3.5 |
@@ -240,3 +241,18 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 - **Gần gũi khi cần**: ở bước chọn đầu một việc nhiều nhánh (vd hộp "Quét gì?" › "Lấy từ đâu?" của Scan — giữ nguyên) được dùng câu hỏi ngắn để dẫn từng bước; câu hỏi ≤ 4 chữ, không đùa, không xưng "anh / em".
 - Dòng gợi ý: 1 câu ngắn, chỉ khi thật cần; không lặp lại điều nút đã nói.
 - Không đổi chữ của chức năng đang chạy chỉ vì quy ước này — áp dụng cho chức năng mới, chỗ cũ chỉnh khi sửa tới.
+
+## 14. Chip / nhãn 7 màu — 1 kiểu cho toàn app (anh chốt 23–24/10/2026, bản 3.333)
+| Màu | Nghĩa | Ví dụ |
+|---|---|---|
+| 🔴 Đỏ `.nh-do` | lỗi · quá hạn · hết hạn · sai · đủ ngưỡng không nhận thêm | nợ quá hạn, CCCD hết hạn, file bắt buộc thiếu, tổ đủ 100 TV |
+| 🟠 Cam `.nh-cam` | nợ cần theo dõi | khoanh, KHĐ, còn lãi tồn, cần đóng tổ |
+| 🟡 Vàng `.nh-vang` | cảnh báo nhẹ · thiếu thông tin | CCCD sắp hết hạn, thiếu / sai SĐT, chưa TK 105, dưới 20 TV, cần cho ra |
+| 🟢 Lục `.nh-luc` | đạt · đủ · trong hạn · xong | trong hạn, đủ file, không trùng |
+| 🔵 Xanh dương `.nh-lam` | đang chọn · thông tin · số đếm | chip đang chọn, số có dư nợ |
+| 🟣 Tím `.nh-tim` | phân loại · mới | chương trình vay, HSSV, mới vào tổ |
+| ⚪ Xám `.nh-xam` | không có · 0 · đã tất toán · tạm ẩn | chip 0, không dư nợ, ra khỏi tổ |
+- **Nơi mới chỉ dùng `.nh .nh-<màu>`** (css/app.css cuối file); biến màu `--do --cam --vang --luc --xanh --tim --xam` (+ `-nen`) có bản tối.
+- Kiểu cũ (`.tc-nh`, `.kt-nh`, `.sl-chip`, `.chip.do/.vang`) đã cùng hình + cùng màu theo bảng này; đổi tên dần khi đụng tới, không đổi chức năng.
+- **Màu cấp của cây địa bàn** (Xã / Điểm / Hội / Tổ — `--c-xa`…) giữ riêng: màu nhận diện cấp, không mang nghĩa trạng thái.
+

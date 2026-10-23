@@ -222,6 +222,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.333) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu KH › mở 2–3 khách khác nhau | Khung không nhảy: 5 ô số, Nhân thân, Tổ & địa bàn, Món vay, nút luôn ở 1 chỗ | |
+| 2 | Khối Tổ & địa bàn › bấm mã tổ / tên tổ trưởng / mã KH TT / ☎ | Chép được, báo "Đã chép" | |
+| 3 | Số thành viên tổ (kỳ chốt tháng có Mẫu 01/TV) | Trùng số TV của TƯ; có dư nợ = gốc > 0 | |
+| 4 | 🏘 Tổ của điểm GD | Đủ tổ, theo Hội, cộng Hội / điểm đúng; tổ dưới 20 / gần 100 có chip | |
+| 5 | Gõ CCCD chưa vay › 🏘 Chọn tổ kết nạp › chọn tổ › 👪 Lập hồ sơ | Form Hộ vay mở, điền sẵn tổ + tên / CCCD | |
+| 6 | Chip toàn app (Tổ, Nạp & KT, KTGS, Tra cứu) | Cùng kiểu, cùng nghĩa màu | |
+| 7 | KTGS: Mẫu 06 / 16 / 04, Sau giải ngân | In như 3.331 | |
+
+**Ghi chú kỹ thuật 3.333:** `tvChuan(t, K)` tạm đặt `TO_K = K` khi gọi `toTV` (Tra cứu dùng `TC_K`). Kỳ ngày 11/10 (file thật) so 01/TV T9: lệch do biến động tháng 10 + tổ chia tách — chờ 01/TV T10 để đối chiếu ngày. Thước đo "đọc thẳng biến kho" 58 (mốc 54): +2 từ trước, +2 `tvChuan` mượn kỳ dựng.
+
 ### Danh sách thử trên máy thật (3.332) — như 3.330
 
 **Ghi chú kỹ thuật 3.332:** thứ tự `<script>` js/54 → 56 → 57. Hồi quy 3.330: t100, t158 sai từ trước (3.327).

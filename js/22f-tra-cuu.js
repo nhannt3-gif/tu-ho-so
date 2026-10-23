@@ -129,7 +129,7 @@ function tcKiemTrung2(so, ten){
     : thuaKe ? '<div class="sl-bao vang">🟠 <b>Có thể trùng người thừa kế</b> (tên trùng vợ/chồng của người đang vay) — kiểm tra lại trước khi nhập máy.</div>'
     : (g1.length || g2.length) ? '<div class="sl-bao vang">ⓘ <b>Có trong số liệu nhưng đã tất nợ / chỉ gửi tiết kiệm</b> — không tính đang vay.</div>'
     : g4.length ? '<div class="sl-bao vang">🟡 <b>Không trùng CCCD</b>, nhưng có người cùng họ tên — xem dưới để chắc không phải 1 người.</div>'
-    : '<div class="sl-bao xanh">🟢 <b>Không trùng — chưa vay vốn, có thể nhập máy.</b></div>';
+    : '<div class="sl-bao xanh">🟢 <b>Không trùng — chưa vay vốn, có thể nhập máy.</b>'+(typeof tcKetNapNut==='function' ? ' '+tcKetNapNut() : '')+'</div>';   /* 3.333: chọn tổ kết nạp (bảng tổ của điểm GD) */
   var ky = slHSMoi();
   return kl+nhom('do', '🔴 Trùng CCCD người vay', h1)+nhom('do', '🔴 Trùng CCCD HSSV', h2)+nhom('cam', '🟠 Trùng tên vợ/chồng của người vay = người thừa kế (theo tên, cần đối chiếu)', h3)+nhom('vang', '🟡 Trùng họ tên người vay / HSSV khác', h4)+
     '<div class="ghi">Theo số liệu '+(ky ? slKyChu(ky) : '—')+(SL_PHU_KY ? '' : ' · chưa có Mẫu 31 nên chưa rà được CMND HSSV, tên vợ/chồng')+'. Vợ/chồng chỉ có tên trong Mẫu 31 (không có CCCD, ngày sinh) → so theo tên. Rà trên toàn PGD; khớp cùng xã đang chọn xếp trên. Món giải ngân sau ngày số liệu app chưa biết.</div>';
@@ -157,18 +157,18 @@ function slTheKH(ma){
       dong('Hạn CCCD', '<b class="'+(han.kq==='het' ? 'do' : han.kq==='sap' ? 'vang' : han.kq==='ok' ? 'xanh' : '')+'">'+(han.kq==='het' ? '⚠ ' : '')+coChuHTML(han.chu)+'</b>')+
       dong('Sinh · giới · DT', [c.ns ? tcC(ngayVNsl(c.ns), 'ngày sinh') : '', coChuHTML([{'01':'Nam','02':'Nữ'}[c.gt]||c.gt||'', c.danToc||''].filter(Boolean).join(' · '))].filter(Boolean).join(' · ') || '—')+
       dong('Vợ/chồng', c.voChong ? tcC(c.voChong, 'tên vợ/chồng')+' <small>(người thừa kế)</small>' : '—')+'</div></div>'+
-    '<div class="tc-nhom"><div class="tc-nhom-tit">Liên hệ &amp; địa bàn</div><div class="tc-luoi">'+
+    '<div class="tc-nhom"><div class="tc-nhom-tit">Liên hệ</div><div class="tc-luoi">'+
       dong('SĐT', c.sdt ? tcC(c.sdt, 'SĐT')+(tcSdtDat(c.sdt) ? '' : ' <b class="vang">không đạt</b>') : '<b class="vang">thiếu</b>')+
       dong('Địa chỉ', tcC(tcDiaChi(c.dc), 'địa chỉ'))+
-      dong('Tổ', coChuHTML(c.toTen||t.ten||c.to||'—')+(t.sdt ? ' · ☎ '+tcC(t.sdt, 'SĐT tổ trưởng') : '')+(c.dv||t.dv ? ' · '+coChuHTML(tdnHoi(c.dv||t.dv)) : ''))+
-      dong('Điểm GD', coChuHTML([t.diem||'', t.ngayGD ? 'ngày '+t.ngayGD : '', [c.tenThon||t.tenThon, c.tenXa].filter(Boolean).join(', ')].filter(Boolean).join(' · ') || '—'))+'</div></div>'+
+      dong('Ấp · xã', coChuHTML([c.tenThon||t.tenThon, c.tenXa].filter(Boolean).join(', ') || '—'))+'</div></div>'+
+    tcToKhoiHTML(c)+   /* 3.333 (anh chốt): khối Tổ & địa bàn — mã tổ, tổ trưởng + mã KH (chép), số TV chuẩn QT-18, bảng tổ của điểm GD */
     '<div class="tc-nhom"><div class="tc-nhom-tit">Tiết kiệm 105</div><div class="tc-luoi">'+
       dong(stk.length>1 ? 'Số TK ('+stk.length+' sổ)' : 'Số TK', stk.length ? stk.map(function(s){ return tcC(s, 'số TK 105'); }).join(' · ') : '—')+dong('Số dư', c.t105 ? '<b>'+tdnTien(c.t105)+'</b>' : '0')+'</div></div>'+
-    '<div class="tc-nhom"><div class="tc-nhom-tit">Món vay — '+slKyChu(c.ky)+'</div><div id="kh-mon"><div class="rong">Đang mở…</div></div></div>'+
+    '<div class="tc-nhom tc-nhom-mon"><div class="tc-nhom-tit">Món vay — '+slKyChu(c.ky)+'</div><div id="kh-mon"><div class="rong">Đang mở…</div></div></div>'+
     '<div class="hang-nut tc-nut"><button class="nho" onclick="slChepKH(\''+ma+'\')">📋 Chép cả khối</button>'+(c.to ? '<button class="nho" onclick="tcMoTo(\''+c.to+'\')">👥 Mở tổ</button>' : '')+
     (hai ? '' : '<button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button>')+'</div>';
-  if(hai) document.getElementById('tc-ct').innerHTML = '<div class="tc-the">'+h+'</div>';
-  else moHop('<div class="tc-the">'+h+'</div>', true);
+  if(hai) document.getElementById('tc-ct').innerHTML = '<div class="tc-the tc-khung">'+h+'</div>';   /* 3.333: khung cố định (CSS .tc-khung) */
+  else moHop('<div class="tc-the tc-khung">'+h+'</div>', true);
   slBo(c.ky).then(function(B){
     var e = document.getElementById('kh-mon'); if(!e) return;
     var ds = (B.theoKH[ma]||[]).filter(function(m){ return m.ku; }), gap = {};

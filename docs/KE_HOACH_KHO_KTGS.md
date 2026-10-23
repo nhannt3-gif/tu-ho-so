@@ -32,4 +32,4 @@ Hàm nguồn chính: `toNap(ky)` → `KT_K` (kỳ dựng) · `ktNapBC(ky)` (BC04
 
 ## 5. Trạng thái
 - ✅ 3.328 bước 1: thêm 5 cửa (`js/29-kho.js`, sau `duNoAp`) + `t240` (so với `ktChonBC`/`ktNapBC`, `ktTruocNap`, `ktGNNap`, `ktGNNgayCua` — khớp; không gán `KT_TRUOC` / `KT_GN`). `theoNgay` trả thêm `ngay` (ngày số liệu; chốt tháng = ngày cuối tháng).
-- ☐ bước 2 (sau khi TK 3 báo "bàn giao KTGS"): thay thân `ktNguon*` gọi các cửa này.
+- ✅ 3.333 bước 2 (TK 3 bàn giao 24/10): `ktNapBC`, `ktTruocNap`, `ktGNNgayCua`, `ktGNNap`, `veKTGS`, `ktKHNapSL` gọi cửa KHO (`docs/BAN_GIAO_KTGS.md` mục 9); `KHO.monGN` trả thêm `kh`.

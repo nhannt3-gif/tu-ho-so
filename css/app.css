@@ -7,6 +7,7 @@
     --nen:#F1F4F8; --the:#FFFFFF; --chu:#16202B; --chu-phu:#5A6573;
     --vien:#D3DBE4; --vang:#8A6100; --vang-nen:#FDF4E0;
     --luc:#1A6E3F; --luc-nen:#E6F4EC; --do:#B42318; --do-nen:#FCEDEC;
+    --cam:#B54708; --cam-nen:#FEF0E3; --tim:#6B3FA0; --tim-nen:#F3EDFB; --xam:#5A6573; --xam-nen:#EEF1F4;   /* 3.333: bảng 7 màu chip (QUY_CHUAN mục 11) */
   }
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
@@ -14,6 +15,7 @@
       --nen:#10151B; --the:#1A222B; --chu:#E8EDF3; --chu-phu:#9AA6B4;
       --vien:#2D3844; --vang:#E0B354; --vang-nen:#33290F;
       --luc:#5FC98A; --luc-nen:#12301F; --do:#F09A92; --do-nen:#3A1A18;
+      --cam:#F5A35C; --cam-nen:#3A2412; --tim:#C2A3EE; --tim-nen:#2A1F3D; --xam:#9AA6B4; --xam-nen:#222B35;
     }
   }
   :root[data-theme="dark"]{
@@ -21,6 +23,7 @@
       --nen:#10151B; --the:#1A222B; --chu:#E8EDF3; --chu-phu:#9AA6B4;
       --vien:#2D3844; --vang:#E0B354; --vang-nen:#33290F;
       --luc:#5FC98A; --luc-nen:#12301F; --do:#F09A92; --do-nen:#3A1A18;
+      --cam:#F5A35C; --cam-nen:#3A2412; --tim:#C2A3EE; --tim-nen:#2A1F3D; --xam:#9AA6B4; --xam-nen:#222B35;
   }
   *,*::before,*::after{box-sizing:inherit}
   html,body{height:100%}
@@ -3855,3 +3858,47 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
 .dt-them-nhom > b{display:block;font-size:calc(13px*var(--co));margin-bottom:4px}
 .dt-them-nhom > div{display:flex;flex-wrap:wrap;gap:6px}
 .dt-them-muc{flex:1 1 140px;justify-content:flex-start;text-align:left}
+
+/* ===== 3.333 (anh chốt 23–24/10): CHIP / NHÃN 7 MÀU DÙNG CHUNG TOÀN APP — 1 kiểu (cỡ, viền, bo góc), nghĩa màu cố định:
+   đỏ lỗi · quá hạn · hết hạn | cam khoanh · KHĐ · lãi tồn | vàng cảnh báo nhẹ · thiếu | lục đạt · đủ · trong hạn
+   xanh dương đang chọn · thông tin | tím phân loại (CT vay, HSSV) · mới | xám không có · 0 · đã tất toán. Nơi mới: dùng .nh .nh-<màu> ===== */
+.nh{display:inline-flex;align-items:center;gap:3px;font-size:calc(11.5px*var(--co));line-height:1.45;padding:0 8px;border-radius:999px;border:1px solid var(--n-v, var(--vien));background:var(--n-n, var(--the));color:var(--n-c, var(--chu));font-weight:600;white-space:nowrap;vertical-align:baseline}
+.nh-do{--n-c:var(--do);--n-n:var(--do-nen);--n-v:var(--do)} .nh-cam{--n-c:var(--cam);--n-n:var(--cam-nen);--n-v:var(--cam)} .nh-vang{--n-c:var(--vang);--n-n:var(--vang-nen);--n-v:var(--vang)}
+.nh-luc{--n-c:var(--luc);--n-n:var(--luc-nen);--n-v:var(--luc)} .nh-lam{--n-c:var(--xanh-dam);--n-n:var(--xanh-nhat);--n-v:var(--xanh)} .nh-tim{--n-c:var(--tim);--n-n:var(--tim-nen);--n-v:var(--tim)} .nh-xam{--n-c:var(--xam);--n-n:var(--xam-nen);--n-v:var(--vien);font-weight:500}
+/* các kiểu chip / nhãn cũ — cùng hình + cùng nghĩa màu (không đổi chức năng) */
+.tc-nh,.kt-nh,.sl-chip,.chip.do,.chip.vang{border-radius:999px;font-size:calc(11.5px*var(--co));padding:0 8px;line-height:1.45}
+.tc-nh.do,.kt-nh.do,.chip.do,.sl-chip.do{background:var(--do-nen);color:var(--do);border-color:var(--do)}
+.tc-nh.cam,.kt-nh.cam,.sl-chip.cam{background:var(--cam-nen);color:var(--cam);border-color:var(--cam)}
+.tc-nh.vang,.kt-nh.vang,.chip.vang,.sl-chip.vang{background:var(--vang-nen);color:var(--vang);border-color:var(--vang)}
+.tc-nh.xanh,.kt-nh.xanh,.sl-chip.xanh{background:var(--luc-nen);color:var(--luc);border-color:var(--luc)}
+.tc-dl b.vang{color:var(--vang)} .tc-dl b.cam,.tc-the b.cam{color:var(--cam)}
+.to-chip.bat{border-color:var(--xanh)}
+/* ===== 3.333: Tra cứu KH — khung khách CỐ ĐỊNH (máy tính, khung phải): tiêu đề · 5 ô số · Nhân thân | Liên hệ · Tổ & địa bàn | TK 105 · Món vay (cuộn trong khung) · nút ở đáy ===== */
+@media(min-width:900px){
+  .tc-phai{height:calc(100vh - 120px)}
+  .tc-phai .tc-the.tc-khung{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto 132px 196px minmax(150px,1fr) auto;column-gap:16px;height:100%;min-height:0}
+  .tc-phai .tc-khung > .tc-ct-tit,.tc-phai .tc-khung > .tc-so,.tc-phai .tc-khung > .tc-nhom-mon,.tc-phai .tc-khung > .tc-nut{grid-column:1 / -1}
+  .tc-phai .tc-khung > .tc-nhom{min-height:0;overflow:auto;margin:4px 0}   /* hàng cao cố định: số liệu luôn ở 1 chỗ; dài thì cuộn trong ô */
+  .tc-phai .tc-khung > .tc-nhom-mon{display:flex;flex-direction:column;min-height:0;overflow:hidden}
+  .tc-phai .tc-khung > .tc-nhom-mon #kh-mon{flex:1;min-height:0;overflow:auto}
+  .tc-phai .tc-khung .tc-luoi{grid-template-columns:1fr}
+  .tc-phai .tc-khung > .tc-nut{margin:4px 0 0;padding-top:4px;border-top:1px solid var(--vien)}
+}
+.tc-ghi{font-size:calc(11px*var(--co));color:var(--chu-phu);margin-top:2px}
+.tc-bang-nut{margin-left:6px;min-height:24px;padding:1px 8px}
+.tc-ket-nut{margin-left:8px}
+/* bảng tổ của điểm GD (gom theo Hội) */
+.tc-bt-khung{width:100%;min-width:0}.tc-bt-khung .hang-nut{flex-wrap:wrap}
+.tc-bt-cuon{max-height:calc(100vh - 230px);overflow:auto;border:1px solid var(--vien);border-radius:8px}
+table.tc-bt{width:100%;border-collapse:collapse;font-size:calc(12px*var(--co))}
+table.tc-bt th{position:sticky;top:0;background:var(--xanh-nhat);color:var(--xanh-dam);padding:4px 6px;text-align:left;z-index:1;white-space:nowrap}
+table.tc-bt td{padding:2px 6px;border-top:1px solid var(--vien);white-space:nowrap}
+table.tc-bt td.so{text-align:right}
+table.tc-bt tr.hoi td{background:var(--nen);font-weight:700;color:var(--xanh-dam)}
+table.tc-bt tr.cong td{font-weight:700;background:var(--the)} table.tc-bt tr.tong td{font-weight:800;background:var(--xanh-nhat)}
+table.tc-bt tr.tc-bt-dong{cursor:pointer} table.tc-bt tr.tc-bt-dong:hover td{background:var(--xanh-nhat)}
+table.tc-bt tr.tc-bt-dong.chon td{background:var(--xanh-nhat);box-shadow:inset 0 0 0 1px var(--xanh)}
+.tc-bt-chon{margin-right:auto;font-weight:600;color:var(--xanh-dam)}
+/* 3.333: ô chọn Xã kiểu gọn không cắt chữ "Toàn PGD" */
+.pv-cay .loc-khoi.gon .pv-hang1 select.pv-o.pv-xa{min-width:104px;flex:0 0 auto}
+@media (min-width:700px){ .pv-cay .loc-khoi.gon .pv-hang1 .pv-sel{min-width:120px} .pv-cay .loc-khoi.gon .pv-hang1 .pv-dan{flex:0 1 auto;min-width:0;overflow:hidden} .pv-cay .loc-khoi.gon .pv-dem{display:block;overflow:hidden;text-overflow:ellipsis} }
