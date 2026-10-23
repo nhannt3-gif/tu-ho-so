@@ -97,3 +97,15 @@ Chạy `bash tools/hoiquy.sh 330` trên bản 3.330: **hoiquy ✓, hoiquy2 ✓**
 1. Cửa `KHO` cho KTGS (spec `docs/KE_HOACH_KTGS_GON.md` mục 9).
 2. Thay thân các hàm `ktNguon*` + `veKTGS` qua `KHO`; thước đo "đọc thẳng biến kho" giảm dần.
 3. Chạy bộ phép thử mục 5 + hồi quy đủ.
+
+## 9. TK 2 đã làm (24/10, bản 3.332 — anh: "TK 3 đã bàn giao, em tiếp tục toàn bộ app theo kế hoạch")
+| Hàm KTGS | Nay đi qua | Ghi chú |
+|---|---|---|
+| `ktNapBC(ky)` | `KHO.bc37` + `KHO.bc38` | cùng luật `ktChonBC` (t240 so khớp) |
+| `ktTruocNap(K)` | `KHO.t105Truoc(K)` | giữ đệm `KT_TRUOC` |
+| `ktGNNgayCua(th)` | `KHO.chotThang(th)` | `tam` → ngày mới nhất trong tháng |
+| `ktGNNap()` | `KHO.monGN(th)` — **thêm `kh`** (lãi tồn / 105 / QH từng khách, như 3.329) | `KT_GN` giữ nguyên dạng |
+| `veKTGS` · `ktKHNapSL` (khối A) | `KHO.nap(ky)` | |
+| Còn đọc thẳng (để lại, chỉ đọc): `ktKiemTra` (`slBo` — so bảng thô BC0437 ↔ 0438 ↔ Mẫu 31), `ktDsBC` / `ktChonBC` (hiện chip BC), `toKhach` / `KT_K.to` (đọc kỳ đã dựng) | | |
+Phép thử mục 5 chạy lại sau khi đổi; mẫu khóa (t179) không đổi.
+

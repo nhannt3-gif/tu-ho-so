@@ -94,23 +94,12 @@ function ktDsBC(loai){ return Object.keys(SLM.bang).map(function(k){ return SLM.
 function ktChonBC(loai, ky){   /* cùng tháng với số liệu món vay thì lấy, không thì bản mới nhất */
   var ds = ktDsBC(loai); return ds.find(function(e){ return e.ky===ky; }) || ds.find(function(e){ return slThang(e.ky)===slThang(ky); }) || ds[0] || null;
 }
-function ktNapBC(ky){
-  var ra = {k37:null, k38:null};
-  return ['k37','k38'].reduce(function(p, L){ return p.then(function(){
-    var e = ktChonBC(L, ky); if(!e) return;
-    return slDocBang(L, e.ky).then(function(b){ if(!b) return; var rows = slMoBang(b), x = {e:e, rows:rows, theoTo:{}};
-      if(L==='k37') rows.forEach(function(o){ x.theoTo[o.to] = o; }); ra[L] = x; });
-  }); }, Promise.resolve()).then(function(){ return ra; });
-}
+function ktNapBC(ky){ return Promise.all([KHO.bc37(ky), KHO.bc38(ky)]).then(function(r){ return {k37:r[0], k38:r[1]}; }); }   /* 3.333: qua cửa KHO (cùng luật ktChonBC: cùng kỳ → cùng tháng → mới nhất) */
 /* số dư 105 từng khách tháng trước (để biết 105 tăng = gửi tiết kiệm đều) */
-function ktTruocNap(K){
+function ktTruocNap(K){   /* 3.333: qua cửa KHO.t105Truoc — giữ bộ nhớ đệm KT_TRUOC */
   var tr = kyLui(K.thang, -1);
   if(KT_TRUOC && KT_TRUOC.ky===tr) return Promise.resolve(KT_TRUOC);
-  if(!SLM.bang[slKhoa('hstd', tr)]) return Promise.resolve(KT_TRUOC = {ky:tr, co:false, t105:{}});   /* tháng trước: Mẫu 31 (3.120: bỏ Mẫu 10) */
-  return slBo(tr).then(function(B){
-    var t = {}; (B.co.hstd||[]).concat(B.lap||[]).forEach(function(o){ if(o.kh && (o.t105||0) > (t[o.kh]||0)) t[o.kh] = o.t105; else if(o.kh && t[o.kh]===undefined) t[o.kh] = o.t105||0; });
-    return KT_TRUOC = {ky:tr, co:true, t105:t};
-  }).catch(function(){ return KT_TRUOC = {ky:tr, co:false, t105:{}}; });
+  return KHO.t105Truoc(K).then(function(r){ return KT_TRUOC = r; });
 }
 function ktKhuon(){   /* 3.236 (R3 phần 2): khuôn Word KTGS (490 KB, js/khuon/kt-khuon.js) chỉ tải khi cần — mở 🛡 KTGS, tạo Word / xem Kế hoạch năm */
   if(window.KT_KHUON) return Promise.resolve(window.KT_KHUON);
@@ -127,7 +116,7 @@ function veKTGS(){
   if(!dsKy.length){ e.innerHTML = slTabConHTML()+ktDauHTML(null, [])+'<div class="rong">Chưa có số liệu món vay. Nạp Mẫu 31 (và BC0437 / BC0438) ở tab <b>📥 Nạp &amp; KT</b> trước.</div>'; return; }
   toKyMacDinh(C, dsKy, 'kt');
   e.innerHTML = slTabConHTML()+'<div class="rong">Đang mở số liệu '+slKyChu(C.ky)+'…</div>';
-  toNap(C.ky).then(function(K){ KT_K = K; TO_K = K; ktKhuon().catch(function(){}); return Promise.all([ktNapBC(C.ky), ktTruocNap(K)]); })
+  KHO.nap(C.ky).then(function(K){ KT_K = K; TO_K = K; ktKhuon().catch(function(){}); return Promise.all([ktNapBC(C.ky), ktTruocNap(K)]); })
     .then(function(r){ KT_BC = r[0]; if(nganHienTai===7 && D.cauHinh.slTab==='kt') ktVe(dsKy); })
     .catch(function(er){ var o = document.getElementById('tr7'); if(o && D.cauHinh.slTab==='kt') o.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" onclick="toThuLai()">⟳ Thử lại</button></div>'; });
 }

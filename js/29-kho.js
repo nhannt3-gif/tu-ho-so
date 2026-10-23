@@ -118,7 +118,8 @@ var KHO = (function(){
         return {ky:tr, co:true, t105:t}; }).catch(function(){ return {ky:tr, co:false, t105:{}}; }); },
     /* món giải ngân trong tháng th — như 1 tháng của ktGNNap → Promise {ky, ngay, ds:{maTo:{t, mon}}} | null (chưa có Mẫu 31) */
     monGN: function(th){ var co = this.chotThang(th); if(!co) return Promise.resolve(null); var nd = co.tam ? co.ky : '';
-      return slBo(co.ky).then(function(B){ var hs = B.co.hstd || [], gap = {}, D1 = {};
+      return slBo(co.ky).then(function(B){ var hs = B.co.hstd || [], gap = {}, D1 = {}, KH = {};
+        hs.forEach(function(o){ if(!o.kh) return; var k = KH[o.kh] = KH[o.kh] || {lt:0, t105:0, loai:false}; k.lt += laiTon(o); if((o.t105||0)>k.t105) k.t105 = o.t105; if((o.qh||0)>0 || (o.kn||0)>0) k.loai = true; });   /* 3.333: như KT_GN.kh của KTGS 3.329 */
         hs.forEach(function(o){
           if(!o.ku || gap[o.ku] || !o.to || o.to===TO_GIA || !((o.gnT||0)>0)) return;
           if(nd && o.c_ngay_gn_cuoi_cung){ var g = ktGNNgay(o); if(g && /^\d{4}-\d{2}-\d{2}$/.test(g) && (slThang(g)!==th || g>nd)) return; }
@@ -126,7 +127,7 @@ var KHO = (function(){
           var x = D1[o.to] = D1[o.to] || {t:{ma:o.to, ten:o.toTen||'', tenThon:o.tenThon||'', tenXa:o.tenXa||'', xa:o.xa, dv:String(o.dv||'')}, mon:[]};
           x.mon.push(o); });
         Object.keys(D1).forEach(function(m){ D1[m].mon.sort(function(a, b){ return ktTheoKH(a, b) || (a.ku<b.ku ? -1 : 1); }); ktMaKV(D1[m].mon); });
-        return {ky:co.ky, ngay:nd, ds:D1}; }); }
+        return {ky:co.ky, ngay:nd, ds:D1, kh:KH}; }); }
   };
 })();
 

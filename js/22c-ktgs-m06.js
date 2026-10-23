@@ -141,7 +141,7 @@ function ktThangHS(){   /* các tháng có Mẫu 31 chốt tháng — mới nh�
   var m = {}; Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='hstd'; }).forEach(function(e){ m[slThang(e.ky)] = 1; });
   return Object.keys(m).sort().reverse();
 }
-function ktGNNgayCua(th){ if(SLM.bang[slKhoa('hstd', th)]) return ''; var ds = slCacNgay('hstd', th); return ds.length ? ds[ds.length-1].ky : ''; }   /* 3.136: tháng chưa có Mẫu 31 cuối tháng → Mẫu 31 ngày mới nhất */
+function ktGNNgayCua(th){ var c = KHO.chotThang(th); return c && c.tam ? c.ky : ''; }   /* 3.333: qua cửa KHO (trước: đọc SLM) — tháng chưa có Mẫu 31 cuối tháng → Mẫu 31 ngày mới nhất */   /* 3.136: tháng chưa có Mẫu 31 cuối tháng → Mẫu 31 ngày mới nhất */
 function ktGNThangChu(k){ var n = ktGNNgayCua(k); return kyVN(k)+(n ? ' (đến '+ngayVNsl(n).slice(0, 5)+' — Mẫu 31 ngày)' : ''); }
 function ktGNKhoang(){
   var C = ktCH(), ds = ktThangHS(); if(!ds.length) return [];
@@ -153,22 +153,8 @@ function ktGNNap(){
   var ks = ktGNKhoang(), khoa = ks.map(function(th){ return th+(ktGNNgayCua(th) ? '@'+ktGNNgayCua(th) : ''); }).join(',');
   if(KT_GN && KT_GN.khoa===khoa) return Promise.resolve(KT_GN);
   var R = {khoa:khoa, thang:ks, thieu:[], ds:{}, ngay:{}, kh:{}};
-  return ks.reduce(function(p, th){ return p.then(function(){
-    var nd = ktGNNgayCua(th);   /* 3.136 (anh chốt): in phiếu kiểm tra sau giải ngân kịp thời — tháng chưa chốt dùng Mẫu 31 ngày mới nhất */
-    if(!SLM.bang[slKhoa('hstd', th)] && !nd){ R.thieu.push(th); return; }
-    if(nd) R.ngay[th] = nd;
-    return slBo(nd || th).then(function(B){
-      var hs = B.co.hstd || [], gap = {}, D1 = R.ds[th] = {}, KH = R.kh[th] = {};
-      hs.forEach(function(o){ if(!o.kh) return; var k = KH[o.kh] = KH[o.kh] || {lt:0, t105:0, loai:false}; k.lt += laiTon(o); if((o.t105||0)>k.t105) k.t105 = o.t105; if((o.qh||0)>0 || (o.kn||0)>0) k.loai = true; });   /* 3.328: lãi tồn / 105 / QH của khách theo Mẫu 31 tháng giải ngân (khối Bắt buộc = số liệu tháng liền trước tháng kiểm tra) */
-      hs.forEach(function(o){
-        if(!o.ku || gap[o.ku] || !o.to || o.to===TO_GIA || !((o.gnT||0)>0)) return;
-        if(nd && o.c_ngay_gn_cuoi_cung){ var g = ktGNNgay(o); if(g && /^\d{4}-\d{2}-\d{2}$/.test(g) && (slThang(g)!==th || g>nd)) return; }   /* món GN trong tháng, đến ngày số liệu */
-        gap[o.ku] = 1;
-        var x = D1[o.to] = D1[o.to] || {t:{ma:o.to, ten:o.toTen||'', tenThon:o.tenThon||'', tenXa:o.tenXa||'', xa:o.xa, dv:String(o.dv||'')}, mon:[]};
-        x.mon.push(o);
-      });
-      Object.keys(D1).forEach(function(m){ D1[m].mon.sort(function(a, b){ return ktTheoKH(a, b) || (a.ku<b.ku ? -1 : 1); }); ktMaKV(D1[m].mon); });
-    });
+  return ks.reduce(function(p, th){ return p.then(function(){   /* 3.333 (bàn giao KTGS mục 3): món GN trong tháng qua cửa KHO.monGN (cùng luật 3.136 / 3.329) */
+    return KHO.monGN(th).then(function(m){ if(!m){ R.thieu.push(th); return; } if(m.ngay) R.ngay[th] = m.ngay; R.ds[th] = m.ds; R.kh[th] = m.kh; });
   }); }, Promise.resolve()).then(function(){ KT_GN = R; return R; });
 }
 function ktGNTrongPV(x){   /* tổ trong phạm vi cây (điểm GD theo cây của kỳ đang mở; tổ không còn trên cây thì xét theo xã / hội) */

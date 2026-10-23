@@ -22,8 +22,8 @@ function tcTVGhi(r){ if(!r) return ''; var k = String(r.ky||'');
 /* khối "Tổ & địa bàn" trong khung khách (thay dòng Tổ / Điểm GD cũ) */
 function tcToKhoiHTML(c){
   var dong = function(nhan, gt){ return '<div class="tc-dl"><span>'+nhan+'</span><div>'+gt+'</div></div>'; };
-  var t0 = (SL_DB.to||{})[c.to]||{}, t = tcTo(c.to) || {}, tt = tcTT(tcTo(c.to)), r = c.to ? KHO.tvChuan(c.to, TC_K) : null;
-  var tenTo = c.toTen || t.ten || t0.ten || '', sdt = t.sdt || t0.sdt || '', diem = t.tenDiemDu || t.tenDiem || t0.diem || '', ngay = t.ngayGD || t0.ngayGD || '';
+  var t = tcTo(c.to) || {}, tt = tcTT(tcTo(c.to)), r = c.to ? KHO.tvChuan(c.to, TC_K) : null;
+  var tenTo = c.toTen || t.ten || '', sdt = t.sdt || '', diem = t.tenDiemDu || t.tenDiem || '', ngay = t.ngayGD || '';
   return '<div class="tc-nhom tc-to-khoi"><div class="tc-nhom-tit">Tổ &amp; địa bàn</div><div class="tc-luoi">'+
     dong('Mã tổ', c.to ? tcC(c.to, 'mã tổ') : '—')+
     dong('Tổ trưởng', tenTo ? tcC(tenTo, 'tên tổ trưởng')+(tt.kh ? ' · mã KH '+tcC(tt.kh, 'mã KH tổ trưởng') : ' · <small>chưa rõ mã KH</small>')+(sdt ? ' · ☎ '+tcC(sdt, 'SĐT tổ trưởng') : '') : '—')+
@@ -43,7 +43,7 @@ function tcBangDiem(diem, chon, ket){
   if(!ds.length) return bao('Điểm GD này chưa có tổ trong số liệu.', 3);
   var t0 = ds[0], hoi = {}, tong = {to:0, tv:0, no:0, kno:0, dn:0, qh:0}, r0 = null;
   ds.forEach(function(t){ var r = KHO.tvChuan(t, TC_K) || {tong:0, coNo:0, khongNo:0, ds:[]}; if(!r0) r0 = r; var dn = 0, qh = 0;
-    var giu = TO_K; TO_K = TC_K; try { toTV(t).forEach(function(k){ dn += k.dn||0; qh += k.qh||0; }); } finally { TO_K = giu; }
+    r.ds.forEach(function(k){ dn += k.dn||0; qh += k.qh||0; });
     var g = hoi[t.dv||''] = hoi[t.dv||''] || {dv:t.dv||'', ds:[], tv:0, no:0, kno:0, dn:0, qh:0};
     var x = {t:t, r:r, dn:dn, qh:qh, tt:tcTT(t)}; g.ds.push(x); g.tv += r.tong; g.no += r.coNo; g.kno += r.khongNo; g.dn += dn; g.qh += qh;
     tong.to++; tong.tv += r.tong; tong.no += r.coNo; tong.kno += r.khongNo; tong.dn += dn; tong.qh += qh; });
