@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.321 — 23/10/2026 — Sửa bản quét CCCD: nhận tổ trưởng, tên trên thẻ, chọn tổ nhanh
+- **Anh 23/10** (ảnh hộp Sửa bản quét CCCD — ô tên ra số CCCD, báo không có trên Mẫu 31): "chỗ tổ cho hiện danh sách tổ ra chọn luôn, CCCD này là của tổ trưởng nhưng app báo không nhận trong Mẫu 31".
+- **Tổ trưởng**: tổ trưởng không có món vay nên không có trong danh bạ khách Mẫu 31. 🔎 Tra Mẫu 31 / 🪪 Đọc số CCCD không thấy khách → tra tiếp **bảng tổ** (CCCD tổ trưởng đủ nguồn, hoặc đúng tên tổ trưởng): khớp → ô tên = **tên tổ trưởng** (theo danh bạ tổ, chữ hoa đầu từ), gắn **Mã CIF tổ trưởng**, xã · điểm · ấp · **tổ** tự chọn, báo "✓ Tổ trưởng … (khớp CCCD tổ trưởng)". Tab Scan chưa dựng kỳ → tự dựng kỳ chung rồi tra.
+- **Không có ở đâu** (khách mới): ô tên lấy **họ tên đọc trên thẻ** (mã QR, có dấu) thay vì để số CCCD; báo lưu vào Scan chờ sắp xếp như cũ.
+- **Ô Tổ TK&VV**: các tổ của ấp / điểm đang chọn bày sẵn thành **nút** dưới ô — bấm 1 lần là chọn (vẫn giữ ô chọn + Gõ giá trị khác).
+- Phép thử: t235 mới (9).
+
 ## 3.320 — 23/10/2026 — 01/TGTV: hạn CCCD tự tính mặc định
 - **Anh 23/10** (rà 3 trang 01/TGTV): "hạn CCCD em tính mặc định".
 - Ô **Ngày hết hạn** CCCD mặc định 📊 tự tính theo ngày sinh + ngày cấp (mốc 25 / 40 / 60 tuổi), in liền dd/mm/yyyy, giữ chỗ để Nơi cấp đứng yên như bản trắng. Đổi lại ✍ chấm ở ⚙ Khai báo riêng nếu cần.

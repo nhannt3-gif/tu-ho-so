@@ -56,7 +56,34 @@ function trChay(id){
   if(R.ma) return trGan(R.ma, 'khớp '+R.theo);
   if(R.ds) kq.innerHTML = '<div class="sx-hd">'+(R.ly ? coChuHTML(R.ly)+' — ' : '')+'chọn đúng khách:</div>'+R.ds.map(function(m){
       return '<label class="sx-r"><input type="radio" name="tr-'+id+'" data-lenh="tr.chon" data-su="change" data-ma="'+m+'"> <span class="sx-kh-ten">'+coChuHTML(sxNhanKH2(m))+'</span></label>'; }).join('');
-  else kq.innerHTML = '<span class="vang">Không có trên Mẫu 31 (gõ "'+coChuHTML(e.value)+'") — giữ tên anh gõ; lưu vào <i>Scan chờ sắp xếp</i>, có Mẫu 31 thì 🧹 Sắp xếp xếp lại.</span>';
+  else {
+    if(!KHO.coKy() && !e.__napTT && typeof kyChungLay==='function' && kyChungLay()){ e.__napTT = 1; kq.innerHTML = '<small>Không có trong danh bạ khách — đang dựng bảng tổ kỳ '+coChuHTML(kyChungLay())+' để tra tổ trưởng…</small>';   /* tab Scan chưa dựng kỳ → dựng kỳ chung rồi tra lại */
+      return KHO.nap(kyChungLay()).then(function(K){ if(!TO_K) TO_K = K; }).catch(function(){}).then(function(){ trChay(id); }); }
+    var tt = trTimTT(e.value); if(tt) return trGanTT(tt);   /* 3.321 (anh 23/10 "CCCD này là của tổ trưởng nhưng app báo không có trong Mẫu 31"): tổ trưởng không vay → tra bảng tổ */
+    var th = e.__the, so0 = String(e.value||'').replace(/\D/g, '');
+    if(th && th.ten && th.so===so0){ e.value = th.ten; e.setAttribute('data-tr-da', th.ten); if(noi==='sua' && window.__k) window.__k.ten = th.ten;   /* không có ở đâu → tên đọc trên thẻ (QR), không để số trong ô tên */
+      kq.innerHTML = '<span class="vang">CCCD '+coChuHTML(so0)+' không có trên Mẫu 31 / bảng tổ — lấy họ tên trên thẻ: <b>'+coChuHTML(th.ten)+'</b>; lưu vào <i>Scan chờ sắp xếp</i>, có Mẫu 31 thì 🧹 Sắp xếp xếp lại.</span>'; return; }
+    kq.innerHTML = '<span class="vang">Không có trên Mẫu 31 (gõ "'+coChuHTML(e.value)+'") — giữ tên anh gõ; lưu vào <i>Scan chờ sắp xếp</i>, có Mẫu 31 thì 🧹 Sắp xếp xếp lại.</span>'; }
+}
+/* 3.321: tổ trưởng (không có món vay nên không có trong danh bạ khách) — tra BẢNG TỔ dựng sẵn: CCCD tổ trưởng, hoặc đúng tên tổ trưởng */
+function trTimTT(q){
+  var so = String(q||'').replace(/\D/g, ''), ten = /^\d+$/.test(String(q||'').replace(/[\s.-]/g, '')) ? '' : sxChuan(q), ra = [];
+  if(!(so.length===12 || so.length===9) && !ten) return null;
+  KHO.maTo().forEach(function(m){ var t = KHO.to(m), b = KHO.bangTo(m) || {}; if(!t || toLaTT(t)) return;
+    var cc = String(b.cccd||'').replace(/\D/g, ''), tt = trTenTT(m, t);   /* tên tổ trưởng: danh bạ tổ (cột Tổ trưởng Mẫu 31) — tên tổ chỉ dùng khi danh bạ chưa có */
+    if(so && cc && cc===so) ra.push({ma:m, t:t, b:b, tt:tt, theo:'CCCD tổ trưởng (bảng tổ)'});
+    else if(!so && ten && tt && sxChuan(tt)===ten) ra.push({ma:m, t:t, b:b, tt:tt, theo:'tên tổ trưởng'}); });
+  return ra.length===1 ? ra[0] : null; }
+function trTenTT(m, t){ var d = KHO.toDanhBa(m) || {}; return tenHoaDau(d.ten || t.ten || ''); }
+function trGanTT(x){
+  var T = TR; if(!T) return; var e = document.getElementById(T.id), kq = document.getElementById('tr-kq-'+T.id), t = x.t, d = KHO.toDanhBa(x.ma) || {};
+  if(e){ e.value = x.tt; e.setAttribute('data-tr-da', x.tt); }
+  if(T.noi==='sua' && window.__k){ var k = window.__k; k.ten = x.tt; if(x.b.kh) k.maKH = x.b.kh; k.cccd = k.cccd || String(x.b.cccd||'').replace(/\D/g, ''); delete k.chuaKhai;
+    if(k.che==='the' && (k.tag||[]).indexOf('CCCD')<0) k.tag = ['CCCD'];
+    k.xa = t.tenXa || k.xa; k.ap = t.tenThon || k.ap; k.diem = d.diem || (k.xa && k.ap && typeof diemCuaAp==='function' ? diemCuaAp(k.xa, k.ap) : '') || k.diem; k.to = x.ma+' — '+(d.ten || t.ten);
+    var g = document.getElementById('k-ghi'), gv = g ? g.value : null, db = document.getElementById('k-diaban'); if(db && typeof veDiaBan==='function') db.innerHTML = veDiaBan(k);
+    if(gv!=null && document.getElementById('k-ghi')) document.getElementById('k-ghi').value = gv; }
+  if(kq) kq.innerHTML = '<span class="xanh">✓ Tổ trưởng <b>'+coChuHTML(x.tt)+'</b> · Tổ '+coChuHTML(x.ma)+(t.tenThon ? ' · '+coChuHTML(t.tenThon) : '')+(t.tenXa ? ' · '+coChuHTML(t.tenXa) : '')+(x.b.kh ? ' · CIF '+coChuHTML(x.b.kh) : '')+'</span> <small>(khớp '+coChuHTML(x.theo)+' — tổ trưởng không có món vay nên không có trong danh bạ khách Mẫu 31)</small>';
 }
 /* gắn khách đã chọn vào hộp đang mở */
 function trGan(ma, theo){
@@ -144,25 +171,25 @@ function trTrangCanvas(t){
 }
 function trDoc(id){
   var e = document.getElementById(id), kq = document.getElementById('tr-kq-'+id); if(!e || !kq) return;
-  var N = trNguon(id), xong = function(so, tu){ e.value = so; e.removeAttribute('data-tr-da'); kq.innerHTML = '<small>🪪 Đọc được số <b>'+coChuHTML(so)+'</b> ('+coChuHTML(tu)+') — đang tra Mẫu 31…</small>'; trChay(id); };
+  var N = trNguon(id), xong = function(so, tu, ten){ e.__the = {so:so, ten:ten || ''}; e.value = so; e.removeAttribute('data-tr-da'); kq.innerHTML = '<small>🪪 Đọc được số <b>'+coChuHTML(so)+'</b> ('+coChuHTML(tu)+') — đang tra Mẫu 31…</small>'; trChay(id); };
   var moQuet = function(ly){ kq.innerHTML = '<span class="vang">'+coChuHTML(ly)+' — mở quét CCCD (chụp / ảnh có sẵn / lấy từ tủ).</span>'; qcMo({loai:'tra', o:id}); };
   /* ① bản quét CCCD đang lưu mới: bộ đọc tự chạy sau khi quét (3.264) */
   if(trNoi(id)==='luu' && N.the){ var x = (typeof SX_DOC!=='undefined' && SX_DOC[0]) || {};
     if(x.dang) return void(kq.innerHTML = '<small>🔎 App đang đọc thẻ vừa quét — chờ chút rồi bấm lại.</small>');
-    return x.cccd ? xong(x.cccd, 'thẻ vừa quét') : moQuet('Thẻ vừa quét chưa đọc được số'); }
+    return x.cccd ? xong(x.cccd, 'thẻ vừa quét', x.nguon==='QR' ? x.ten : '') : moQuet('Thẻ vừa quét chưa đọc được số'); }
   kq.innerHTML = '<small>🪪 Đang đọc số CCCD'+(N.the ? ' trên ảnh thẻ' : N.trang && N.trang.length ? ' trên trang tài liệu (chữ số)' : '')+'…</small>';
-  var p = N.the && N.k ? sxAnhDoc(N.k).then(function(b){ return b[0] || b[1] ? docCCCD(b[0], b[1]) : null; }).then(function(r){ return r && r.cccd ? {so:r.cccd, tu:'ảnh thẻ — '+(r.nguon||'')} : null; })
+  var p = N.the && N.k ? sxAnhDoc(N.k).then(function(b){ return b[0] || b[1] ? docCCCD(b[0], b[1]) : null; }).then(function(r){ return r && r.cccd ? {so:r.cccd, tu:'ảnh thẻ — '+(r.nguon||''), ten:r.nguon==='QR' ? r.ten : ''} : null; })   /* 3.321: giữ họ tên trên thẻ (QR có dấu) */
     : N.trang && N.trang.length ? N.trang.reduce(function(pp, t){ return pp.then(function(kq0){ return kq0 || trTrangCanvas(t).then(function(c){ return c ? sxOCR(c, '0123456789') : ''; })
         .then(function(chu){ var ds = trSoTrongChu(chu); return ds.length ? {so:ds[0], tu:'chữ số trên trang tài liệu'+(ds.length>1 ? ', '+ds.length+' số — lấy số có trên Mẫu 31' : '')} : null; }); }); }, Promise.resolve(null))
     : N.k && N.k.driveId ? sxTrangPDF(N.k).then(function(c){ return c ? sxOCR(c, '0123456789') : ''; }).then(function(chu){ var ds = trSoTrongChu(chu); return ds.length ? {so:ds[0], tu:'chữ số trên trang PDF (Drive)'} : null; })
     : Promise.resolve(null);
-  p.then(function(r){ if(document.getElementById(id)!==e) return; if(r) xong(r.so, r.tu); else moQuet(N.the ? 'Chưa đọc được số trên ảnh thẻ' : 'Không thấy số CCCD trên trang'); },
+  p.then(function(r){ if(document.getElementById(id)!==e) return; if(r) xong(r.so, r.tu, r.ten); else moQuet(N.the ? 'Chưa đọc được số trên ảnh thẻ' : 'Không thấy số CCCD trên trang'); },
     function(er){ if(document.getElementById(id)===e) moQuet('Chưa đọc được ('+((er && er.message) || 'lỗi')+')'); });
 }
 /* hộp quét CCCD (3.273) mở từ ô tên: đọc xong → đóng hộp con, điền số vào ô tên, tra Mẫu 31 */
 function trQuetXong(r){
   var id = QC && QC.dich && QC.dich.o; qcDungCam(); dongHop();
-  setTimeout(function(){ var e = document.getElementById(id); if(!e) return; e.value = r.cccd; e.removeAttribute('data-tr-da'); trChay(id); }, 50);
+  setTimeout(function(){ var e = document.getElementById(id); if(!e) return; e.__the = {so:r.cccd, ten:r.nguon==='QR' ? r.ten || '' : ''}; e.value = r.cccd; e.removeAttribute('data-tr-da'); trChay(id); }, 50);
 }
 /* gõ đủ số → tự tra (không cần Enter) */
 document.addEventListener('input', function(ev){

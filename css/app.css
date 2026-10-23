@@ -3797,3 +3797,7 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
 .tg-form .tg-tu{margin-top:4px}
 /* 3.317 (anh): chú thích màu số liệu · khai báo · ghi tay cùng dòng tên mẫu */
 #hso-ds .hso-dau-ds .hso-chu{margin:0;flex-wrap:nowrap;text-transform:none;letter-spacing:0;font-weight:normal}
+/* 3.321: hộp Sửa bản quét — danh sách tổ bấm chọn ngay */
+.db-to-ds{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 4px}
+.db-to-ds .db-to{font-size:calc(12px*var(--co));padding:2px 8px}
+.db-to-ds .db-to.bat{background:var(--xanh);color:#fff;border-color:transparent}
