@@ -3819,3 +3819,20 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
 .cay-nhung select.pv-o.co{border-color:var(--xanh);background:var(--xanh-nhat);color:var(--xanh-dam);font-weight:600}
 @media (max-width:699px){ .cay-nhung select.pv-o{max-width:100%;flex:1 1 140px} }
 .hm-dc .cay-nhung{flex:1 1 100%}
+/* 3.326 (anh chốt 23/10): thanh bên 2 cấp — nhóm ▸ mở / gập, mục con thụt vào; thu gọn 60 px: nhóm + mục con chỉ biểu tượng */
+@media (min-width:1100px){
+  #thanh-ben a.tb-cha .mui{margin-left:auto;opacity:.7;font-size:11px;flex:0 0 auto}
+  #thanh-ben a.tb-cha .so + .mui{margin-left:6px}
+  #thanh-ben a.tb-cha.co-bat:not(.mo){background:rgba(255,255,255,.18);font-weight:700}
+  #thanh-ben .tb-con{margin:0 0 4px}
+  #thanh-ben .tb-con[hidden]{display:none !important}
+  #thanh-ben a.tb-con-muc{padding:4px 12px 4px 30px;font-size:calc(13px*var(--co))}
+  #thanh-ben a.tb-con-muc .bt{font-size:14px}
+  #thanh-ben .tb-con.tb-cc{display:block;padding:0;gap:0}
+  #thanh-ben .tb-con.tb-cc a{flex-direction:row;justify-content:flex-start;gap:10px;margin:1px 8px;background:none;font-size:calc(13px*var(--co))}
+  body.tb-gon #thanh-ben a.tb-cha .mui{display:none}
+  body.tb-gon #thanh-ben .tb-ds > a:nth-of-type(4){margin-top:2px}
+  body.tb-gon #thanh-ben a.tb-con-muc{padding:6px 0;margin:1px 10px;background:rgba(255,255,255,.07)}
+  body.tb-gon #thanh-ben .tb-con.tb-cc{border-top:0;margin-top:0}
+  body.tb-gon #thanh-ben .tb-con.tb-cc a{justify-content:center;margin:1px 10px;background:rgba(255,255,255,.07)}
+}
