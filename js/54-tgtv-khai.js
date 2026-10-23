@@ -72,11 +72,11 @@ function tgTayDat(k, v){
   else T[k] = v;
   luu(); hsoVeGiuO(); }
 function tgFormHTML(T){   /* form chuẩn 7 ô — phần còn lại app tự tính */
-  var DB = hmDiaBan(), xs = Object.keys(DB).map(function(k){ return [k, DB[k].tenXa]; }).sort(function(a, b){ return String(a[1]).localeCompare(String(b[1]), 'vi'); });
-  var X = DB[T.xaMa], as = X ? Object.keys(X.ap).map(function(k){ return [k, tgApTen(X.ap[k])]; }).sort(function(a, b){ return String(a[1]).localeCompare(String(b[1]), 'vi'); }) : [];
+  var DB = hmDiaBan(), xs = CAY.dsXa();
+  var X = DB[T.xaMa], as = X ? CAY.dsAp(T.xaMa).map(function(a){ return [a[0], tgApTen(a[2])]; }) : [];
   var o = function(nhan, k, gt, ph, them){ return hsoTuyO(nhan, '<input class="tg-f" data-k="'+k+'" value="'+coChuHTML(gt||'')+'" placeholder="'+coChuHTML(ph)+'"'+(them||'')+' onchange="tgTayDat(\''+k+'\', this.value)">'); };
-  var xaO = xs.length ? hsoChon('tgTayDat(\'xaMa\', this.value)', T.xaMa || '', [['', '— chọn xã ('+xs.length+') —']].concat(xs)) : '<input class="tg-f" value="'+coChuHTML(T.xa||'')+'" placeholder="tên xã (chưa có địa bàn Mẫu 31)" onchange="tgTayDat(\'xa\', this.value)">';
-  var apO = xs.length ? hsoChon('tgTayDat(\'apMa\', this.value)', T.apMa || '', [['', X ? '— chọn ấp ('+as.length+') —' : '— chọn xã trước —']].concat(as)) : '<input class="tg-f" value="'+coChuHTML(T.ap||'')+'" placeholder="vd Ấp Cầu Sắt" onchange="tgTayDat(\'ap\', this.value)">';
+  var xaO = xs.length ? CAY.o('xa', T.xaMa || '', '— chọn xã ('+xs.length+') —', xs, 'onchange="tgTayDat(\'xaMa\', this.value)"') :   /* 3.326: ô chọn cây nhúng dùng chung (js/57) */ '<input class="tg-f" value="'+coChuHTML(T.xa||'')+'" placeholder="tên xã (chưa có địa bàn Mẫu 31)" onchange="tgTayDat(\'xa\', this.value)">';
+  var apO = xs.length ? CAY.o('ap', T.apMa || '', X ? '— chọn ấp ('+as.length+') —' : '— chọn xã trước —', as, 'onchange="tgTayDat(\'apMa\', this.value)"') : '<input class="tg-f" value="'+coChuHTML(T.ap||'')+'" placeholder="vd Ấp Cầu Sắt" onchange="tgTayDat(\'ap\', this.value)">';
   var so = String(T.cccd||''), gt = T.gt || hmGT({cccd:so}), han = so.length===12 && T.ns && T.ncap && typeof toCCCDHan==='function' ? toCCCDHan(so, T.ns, T.ncap) : null;
   var tu = [gt ? 'Giới tính <b>'+coChuHTML(gt)+'</b> (theo CCCD)' : '', han ? (han.den ? 'hết hạn <b>'+ngayVNsl(han.den)+'</b>' : coChuHTML(han.chu || '')) : '', T.ncap ? 'nơi cấp <b>'+coChuHTML(T.noiCap || hsoNoiCapGY(T.ncap))+'</b>' : '',
     'dân tộc <b>'+coChuHTML(T.danToc==null ? 'Kinh' : T.danToc || '(chấm)')+'</b>', '☒ Có cư trú', 'quốc tịch Việt Nam'].filter(Boolean);

@@ -24,12 +24,9 @@ var L01 = (function(){
   function doiTenCu(ds){   /* bản lưu trước 3.296 (tên không dấu - tổ - ấp) → tên chuẩn 1 lần, giữ tên cũ ở tenCu */
     var doi = 0; ds.forEach(function(b){ var t = tenBan(b); if(b.tenBan && b.tenBan!==t && !b.tenCu){ b.tenCu = b.tenBan; b.tenBan = t; doi++; } }); if(doi) luu(); }
   /* ---------- địa bàn: Xã → Thôn → Tổ (Hội lọc tổ) ---------- */
-  function dsXa(){ var X = hmDiaBan(), ql = D.cauHinh.xaQuanLy || [];
-    return Object.keys(X).sort(function(a, b){ var qa = ql.indexOf(X[a].tenXa), qb = ql.indexOf(X[b].tenXa); if((qa<0)!==(qb<0)) return qa<0 ? 1 : -1; return String(X[a].tenXa).localeCompare(String(X[b].tenXa), 'vi'); }).map(function(k){ return X[k]; }); }
-  function dsTo(o){ if(!KHO.coKy() || !o.xa) return [];
-    return KHO.maTo().map(function(m){ return KHO.to(m); }).filter(function(t){ return t && !toLaTT(t) && t.xa===o.xa && (!(o.thon||o.tenThon) || t.thon===o.thon || t.tenThon===o.tenThon) && (!HOI || String(t.dv||'')===HOI); })
-      .sort(function(a, b){ return String(a.ten).localeCompare(String(b.ten), 'vi', {numeric:true}); }); }
-  function dsHoi(o){ var r = {}; if(KHO.coKy() && o.xa) KHO.maTo().forEach(function(m){ var t = KHO.to(m); if(t && !toLaTT(t) && t.xa===o.xa && t.dv) r[t.dv] = tdnHoi(t.dv) || 'Hội '+t.dv; }); return r; }
+  /* 3.326: danh sách địa bàn lấy ở cây nhúng dùng chung CAY (js/57) */
+  function dsTo(o){ return o.xa ? CAY.dsTo({xa:o.xa, thon:o.thon, tenThon:o.tenThon, hoi:HOI}) : []; }
+  function tt(k){ return 'data-l01="'+k+'" data-lenh="l01.'+k+'" data-su="change"'; }
   /* ---------- lệnh ---------- */
   GD.dangKy('l01', {
     chon:function(el){ var id = el.value; if(!id){ hsoCH().boId = ''; luu(); return hsoVe(); } hmLamHS(id, '01td'); },
@@ -86,12 +83,12 @@ var L01 = (function(){
       o1('Số CC / CCCD', oNg('cccd', n.cccd, '12 số', khoa))+
       o1('Ngày cấp', oNg('ncap', n.ncap ? ngayVNsl(n.ncap) : '', 'gõ liền số 9112021', khoa))+
       o1('Nơi cấp', '<span class="l01-tu">'+e(n.noiCap || hsoNoiCapGY(n.ncap) || 'tự điền theo ngày cấp')+'</span>');
-    var X = hmDiaBan(), x = o && X[o.xa], dsAp = x ? Object.keys(x.ap).map(function(k){ return x.ap[k]; }).sort(function(a, b){ return String(a.tenThon).localeCompare(String(b.tenThon), 'vi', {numeric:true}); }) : [];
-    if(Object.keys(X).length){ var Ho = o ? dsHoi(o) : {}, To = o ? dsTo(o) : [];
-      h += o1('Địa chỉ — Xã', sel('xa', o ? o.xa : '', [['', '— Xã / phường —']].concat(dsXa().map(function(z){ return [z.xa, z.tenXa]; }))))+
-        o1('Thôn (ấp)', sel('thon', o ? (o.thon || o.tenThon) : '', [['', x ? '— Thôn / ấp / khu phố —' : '— chọn xã trước —']].concat(dsAp.map(function(a){ return [a.thon || a.tenThon, a.tenThon || a.thon]; }))))+
-        o1('Hội (lọc tổ)', sel('hoi', HOI, [['', '— mọi Hội —']].concat(Object.keys(Ho).map(function(k){ return [k, Ho[k]]; }))))+
-        o1('Tổ TK&amp;VV', sel('to', o ? o.to : '', [['', x ? '— Tổ ('+To.length+') —' : '— chọn xã trước —']].concat(To.map(function(z){ return [z.ma, 'Tổ '+(z.ten||z.ma)+(z.tenThon ? ' · '+pvApNgan(z.tenThon) : '')]; }))));
+    var X = hmDiaBan(), x = o && X[o.xa];
+    if(Object.keys(X).length){ var To = o ? dsTo(o) : [];
+      h += o1('Địa chỉ — Xã', CAY.o('xa', o ? o.xa : '', '— Xã / phường —', CAY.dsXa(), tt('xa')))+
+        o1('Thôn (ấp)', CAY.o('ap', o ? (o.thon || o.tenThon) : '', x ? '— Thôn / ấp / khu phố —' : '— chọn xã trước —', o ? CAY.dsAp(o.xa) : [], tt('thon')))+
+        o1('Hội (lọc tổ)', CAY.o('hoi', HOI, '— mọi Hội —', o ? CAY.dsHoi(o.xa) : [], tt('hoi')))+
+        o1('Tổ TK&amp;VV', CAY.o('to', o ? o.to : '', x ? '— Tổ ('+To.length+') —' : '— chọn xã trước —', To.map(function(z){ return [z.ma, CAY.chuTo(z)]; }), tt('to')));
     } else h += '<div class="sl-phu">Chưa có cây địa bàn (nạp Mẫu 31) — địa chỉ, tổ chọn được sau khi nạp.</div>';
     if(B){ var T = hsoBoT(B); h += o1('Tổ trưởng · Hội', '<span class="l01-tu">'+(T.tt ? e(T.tt) : '— theo tổ —')+' · '+(hsoBoHoiTen(T) ? e(hsoBoHoiTen(T)) : '— theo tổ —')+'</span>'); }
     h += '</div>';
