@@ -3902,3 +3902,24 @@ table.tc-bt tr.tc-bt-dong.chon td{background:var(--xanh-nhat);box-shadow:inset 0
 /* 3.333: ô chọn Xã kiểu gọn không cắt chữ "Toàn PGD" */
 .pv-cay .loc-khoi.gon .pv-hang1 select.pv-o.pv-xa{min-width:104px;flex:0 0 auto}
 @media (min-width:700px){ .pv-cay .loc-khoi.gon .pv-hang1 .pv-sel{min-width:120px} .pv-cay .loc-khoi.gon .pv-hang1 .pv-dan{flex:0 1 auto;min-width:0;overflow:hidden} .pv-cay .loc-khoi.gon .pv-dem{display:block;overflow:hidden;text-overflow:ellipsis} }
+/* 3.334 (RA_SOAT_BO_CUC_2410 Đợt 1): dải chip mẫu cuộn ngang + nút ‹ › (cnHang, js/26) · dòng tên mẫu gọn · nút xuất mờ thu về biểu tượng */
+.cn-khung{position:relative;display:flex;align-items:center;gap:2px;min-width:0;flex:1 1 auto}
+.cn-khung>.gdx2-mau{flex:1 1 auto;min-width:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth}
+.cn-khung>.gdx2-mau::-webkit-scrollbar{display:none}
+.cn-khung.cn-cuoi>.gdx2-mau{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+.cn-khung.cn-dau>.gdx2-mau{-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px);mask-image:linear-gradient(90deg,transparent,#000 28px)}
+.cn-khung.cn-dau.cn-cuoi>.gdx2-mau{-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent,#000 28px,#000 calc(100% - 28px),transparent)}
+.cn-nut{display:none;flex:none;width:24px;height:26px;padding:0;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--xanh);font:inherit;font-size:calc(16px*var(--co));font-weight:700;line-height:1;cursor:pointer}
+.cn-nut:hover{background:var(--xanh);color:#fff}
+.cn-khung.cn-dau>.cn-trai,.cn-khung.cn-cuoi>.cn-phai{display:inline-block}
+.hso-dau .gdx2-nut:empty{display:none}
+#tr7 #hso-ds .hso-dau-ds{flex-wrap:nowrap;gap:6px}
+.hso-dau-ds .hso-tieu{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hso-dau-ds .hso-chu{flex:none;flex-wrap:nowrap;margin:0}
+.hso-dau-ds .hso-ky{flex:none;text-transform:none;letter-spacing:0;font-weight:400}
+.hso-dau-ds>button{flex:none;white-space:nowrap}
+@media(max-width:699px){ #tr7 #hso-ds .hso-dau-ds{flex-wrap:wrap} .hso-dau-ds .hso-tieu{flex-basis:100%} }
+.xuat-hang .nho[disabled].xuat-word,.xuat-hang .nho[disabled].xuat-excel{font-size:0;padding-left:7px;padding-right:7px}   /* nút mờ chỉ còn biểu tượng: giữ chỗ (3.234 không ẩn) nhưng bớt bề ngang · chữ vẫn trong nút (title nói lý do) */
+.xuat-hang .nho[disabled].xuat-word::before{content:'📝';font-size:calc(13px*var(--co))}.xuat-hang .nho[disabled].xuat-excel::before{content:'📊';font-size:calc(13px*var(--co))}
+.kt-khoi .kt-khoi-bc{margin-left:auto;display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center}
+.th-xem .xuat-hang .nho:not([disabled]){padding-left:9px;padding-right:9px}   /* 3.334: khung xem 40 % — 6 nút xuất vừa 1 hàng (Gửi không rớt dòng) */

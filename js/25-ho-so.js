@@ -1127,17 +1127,20 @@ function hsoKhung(K, giu){
   if(K) pvVeCay(p); else hsoVe();
 }
 function hsoDsHTML(){   /* 3.206 (anh chốt): mẫu chọn ở thanh tab con (hsoTabMauHTML) — cột trái chỉ còn tên mẫu đang làm + chú thích màu */
-  var p = hsoTab(), M = hsoMau(p);
-  return '<div class="th-nhom-ten hso-dau-ds"><span><b>'+M.ma+'</b> '+coChuHTML(M.ten)+(M.ngang ? ' <span class="th-cap">[A4 ngang]</span>' : '')+'</span>'+
-    '<span class="hso-chu"><span class="hso-chu-sl">số liệu</span><span class="hso-chu-kb">khai báo</span><span class="hso-chu-tay">…… ghi tay</span></span></div>'+(M.ghi ? '<div class="sl-phu">'+coChuHTML(M.ghi)+'</div>' : '');   /* 3.317 (anh): chú thích màu cùng dòng tên mẫu */
+  var p = hsoTab(), M = hsoMau(p), maChu = String(M.ma).replace(/^[^0-9A-Za-zÀ-ỹ]+/, ''),
+    lap = maChu && String(M.ten).toLowerCase().indexOf(maChu.toLowerCase())===0,   /* 3.334 (RA_SOAT_BO_CUC #5): tên mẫu bắt đầu bằng mã (📒 Sổ hộ vay) → không lặp chữ */
+    tieu = lap ? coChuHTML(M.ma.slice(0, M.ma.length-maChu.length))+coChuHTML(M.ten) : '<b>'+M.ma+'</b> '+coChuHTML(M.ten);
+  return '<div class="th-nhom-ten hso-dau-ds"><span class="hso-tieu" title="'+coChuHTML(M.ma+' — '+M.ten)+'">'+tieu+(M.ngang ? ' <span class="th-cap">[A4 ngang]</span>' : '')+'</span>'+
+    '<span class="hso-chu"><span class="hso-chu-sl">số liệu</span><span class="hso-chu-kb">khai báo</span><span class="hso-chu-tay">…… ghi tay</span></span>'+   /* 3.317 (anh): chú thích màu cùng dòng tên mẫu */
+    '<span class="hso-ky" title="Số liệu lấy theo kỳ / ngày đang chọn ở dải lịch">📅 <b>'+(KHO.coKy() ? slKyChu(KHO.ky().ky) : 'chưa có số liệu')+'</b></span>'+   /* 3.334: dời từ dải chip mẫu xuống dòng tên mẫu → dải chip không bị đè */
+    '<button class="nho" onclick="hsoKBHop()" title="PGD, logo, trưởng ấp, tổ phó thực tế, chương trình vay — dùng chung mọi mẫu">⚙ Khai báo đơn vị</button></div>'+(M.ghi ? '<div class="sl-phu">'+coChuHTML(M.ghi)+'</div>' : '');
 }
 function hsoTabMauHTML(){   /* 3.206 (anh chốt 14/10): mỗi biểu mẫu = 1 tab con, bố trí như tab Giao dịch xã · số liệu theo kỳ / ngày đã chọn */
   var p = hsoTab(), M = hsoMau(p);
-  return '<div class="gdx2-dau hso-dau"><div class="gdx2-mau">'+HSO_MAU[p].filter(function(m){ return !m.an || m.k===M.k; }).map(function(m){
+  return '<div class="gdx2-dau hso-dau">'+cnHang(HSO_MAU[p].filter(function(m){ return !m.an || m.k===M.k; }).map(function(m){
       if(p==='hsv' && m.k==='01td'){ var ctB = (hsoBo()||{}).ct || HSO.vay.ct01 || '';   /* 3.258 (anh 18/10): 01/TD tách chip theo chương trình — 01/TD HSSV · 01/TD NSVSMT · … (không GQVL — mẫu riêng) */
         return hsoCT01Ds().map(function(c){ return gdxChip('<b>01/TD '+coChuHTML(c.ma)+'</b>', M.k==='01td' && ctB===c.ma, 'hsoChon01CT(\''+c.ma+'\')', 'hso-tm', m.ten+' — chương trình '+(c.ten || c.ma)); }).join(''); }
-      return gdxChip('<b>'+m.ma+'</b>', m.k===M.k, 'hsoChonMau(\''+m.k+'\')', 'hso-tm', m.ten+(m.ngang ? ' [A4 ngang]' : '')+(m.ghi ? ' — '+m.ghi : '')); }).join('')+'</div>'+
-    '<div class="gdx2-nut"><span class="hso-ky" title="Số liệu lấy theo kỳ / ngày đang chọn ở dải lịch">📅 Số liệu: <b>'+(KHO.coKy() ? slKyChu(KHO.ky().ky) : 'chưa có')+'</b></span><button class="nho" onclick="hsoKBHop()" title="PGD, logo, trưởng ấp, tổ phó thực tế, chương trình vay — dùng chung mọi mẫu">⚙ Khai báo đơn vị</button></div></div>';
+      return gdxChip('<b>'+m.ma+'</b>', m.k===M.k, 'hsoChonMau(\''+m.k+'\')', 'hso-tm', m.ten+(m.ngang ? ' [A4 ngang]' : '')+(m.ghi ? ' — '+m.ghi : '')); }).join(''))+'</div>';   /* 3.334: 📅 Số liệu + ⚙ Khai báo đơn vị dời xuống dòng tên mẫu (hsoDsHTML) */
 }
 function hsoChonMau(k){ hsoCH()[hsoTab()] = k; luu(); hsoVe(); }
 function hsoKhoa(){ var S = hsoCH(); return [hsoTab(), hsoMau().k, S.to||'', KHO.coKy() ? KHO.ky().ky : ''].join('|'); }
@@ -1155,7 +1158,7 @@ function hsoVe(){
   }
   if(t && (M.k==='10c' || M.k==='10ccu' || M.k==='10b') && !(TO_BD && TO_BD.to===t.ma && TO_BD.ky===KHO.ky().ky)){ TO_BD = null; toBDNap(t).then(function(){ HSO.khoa = ''; if(document.getElementById('hso-ds')) hsoVe(); }); }
   ds.innerHTML = hsoDsHTML();
-  var tm = document.getElementById('hso-tabm'); if(tm) tm.innerHTML = hsoTabMauHTML();
+  var tm = document.getElementById('hso-tabm'); if(tm){ tm.innerHTML = hsoTabMauHTML(); cnSoatHet(); }
   var tu = document.getElementById('hso-tuy'); if(tu) tu.innerHTML = hsoTuyHTML(M, t);
   var bo = document.querySelector('#tr7 .hso-bo'); if(bo) bo.classList.toggle('hso-rong', M.k==='sohv');   /* 3.214: 📒 Sổ hộ vay dùng hết bề ngang (xem bản in: ⤢ Phóng to / 🖨 In) */
   hsoXem();

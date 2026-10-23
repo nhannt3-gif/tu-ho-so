@@ -60,3 +60,14 @@
 1. Làm **Đợt 1 + 2** trước (bố cục máy tính + điện thoại) rồi Đợt 3 — đồng ý? Ai làm: TK 3 (em) hay TK 2 (đang giữ khung chung `js/23`, `js/22g`)?
 2. Dải chip mẫu: **cuộn ngang** hay **6 mẫu hay dùng + ⋯ Thêm**?
 3. Điện thoại: gom 4 nút đầu trang vào ☰ Thêm — đồng ý?
+
+## 6. TK 2 đã làm — Đợt 1 (bản 3.334, 24/10)
+Anh 24/10: "em cứ làm theo kế hoạch ko cần hỏi lại" → TK 2 làm Đợt 1 (máy tính); Đợt 2 (điện thoại) làm tiếp.
+| # | Việc | Đã làm | Ghi chú |
+|---|---|---|---|
+| 1 | Dải chip mẫu | ✓ cuộn ngang + mép mờ + nút ‹ › (`cnHang` js/26, chung GDX / Hồ sơ Tổ / Hồ sơ vay); 📅 Số liệu + ⚙ Khai báo đơn vị xuống dòng tên mẫu | chọn **cuộn ngang** (câu hỏi 2) — giữ đủ mẫu, không phải chọn "6 mẫu hay dùng" |
+| 2 | Ô chọn lọc + Tra cứu | ✓ ô Xã bỏ chữ "Xã / Phường"; Tra cứu KH mở tab có sẵn danh sách theo lọc | |
+| 3 | KTGS chip BC | ✓ dời sang cuối thanh 3 khối | |
+| 4 | Tổng hợp Nguồn vốn / CT xuống dưới lọc | **✗ không làm** — anh đã chốt 3.168 "Nguồn vốn + Chương trình 1 dòng, cây lọc dưới"; chờ anh quyết | |
+| 5 | Tiêu đề lặp, chip chú thích | ✓ bỏ lặp chữ, 1 dòng "…"; chú thích màu **giữ cùng dòng** (anh 3.317), không gom vào ⓘ | |
+| 6 | Nút mờ | ✓ **giữ chỗ** (3.234 anh duyệt: mờ, không ẩn) nhưng chỉ còn biểu tượng → Gửi không rớt dòng | |

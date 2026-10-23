@@ -193,6 +193,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t242.js` | 3.328 Cây nhúng CAY: danh sách Xã / Điểm / Ấp / Tổ, 👪 Hộ vay, ⚙ Khai báo chung. |
 | `node tests/t243.js` | 3.328 Thanh bên 2 cấp (nhóm, tô theo nhóm, GDX › Tra cứu KH › quay về, thu gọn) + thanh dưới điện thoại 5 nút + ☰ Thêm. |
 | `node tests/t244.js` | 3.333 QT-18 thành viên chuẩn (bù 01/TV, có dư nợ = gốc), Tra cứu KH khung cố định + khối Tổ & địa bàn, bảng tổ của điểm GD theo Hội (cộng, ngưỡng 20–100), kết nạp gọi form Hộ vay, chip 7 màu. |
+| `node tests/t245.js` | 3.334 Đợt 1 bố cục: dải chip mẫu cuộn ngang + ‹ ›, Số liệu / Khai báo xuống dòng tên mẫu, tiêu đề không lặp, nút xuất mờ gọn (Gửi 1 hàng), chip BC0437/0438 ở thanh khối KTGS, Tra cứu KH có sẵn danh sách, ô Xã gọn. |
 | (3.332) | t134 tên thẻ Định kỳ mới (khối Bắt buộc). Hồi quy 3.330: t100, t158 sai từ trước 3.327 — chưa sửa. |
 | (3.331) | Không thêm phép thử — bàn giao KTGS: bộ phải giữ ghi ở `docs/BAN_GIAO_KTGS.md` mục 5. |
 | (3.330) | t238 mới: thanh 3 khối, thẻ con nhớ lần trước, màn Bộ khai báo sửa ① / ② không mở hộp, chép ① → ②, Mẫu 04 đột xuất, tích tổ theo lịch, ô tích data-lenh (17). t108 / t109 / t118 theo thanh khối. |

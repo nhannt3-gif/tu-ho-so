@@ -30,7 +30,7 @@ const fs=require('fs'), path=require('path');
    /* 2. Bố cục A cột trái Hồ sơ vay */
    slDoiTab('hsv'); doiNgan(7); await w(1200); const C = hsoCH(); C.xa=''; C.diem=''; C.to='';
    pvChon('hsv','xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(300); pvChon('hsv','to', pvLuaChon(TO_K.to, C, 'to', true)[0].k); await w(800);
-   ok('nút đầu tab Hồ sơ vay: "⚙ Khai báo đơn vị"', /⚙ Khai báo đơn vị/.test(document.getElementById('hso-tabm').textContent) && !/Khai báo chung/.test(document.getElementById('hso-tabm').textContent));
+   ok('nút Hồ sơ vay: "⚙ Khai báo đơn vị" (3.334: ở dòng tên mẫu)', /⚙ Khai báo đơn vị/.test(document.querySelector('#hso-ds .hso-dau-ds').textContent) && !/Khai báo chung/.test(document.getElementById('tr7').textContent));
    const ho = hmTuM31(hsoTVTo(TO_K.to[C.to])[0].kh); ho.kh = ''; ho.tv[ho.dung||0].ncap = '';   /* hộ mới (không đọc lại Mẫu 31) thiếu ngày cấp */
    hmLamHS(ho.id, '01td'); await w(300); const B = hsoBo(); B.ct = 'HSSV'; B.pa = Object.assign(B.pa||{}, {sv:'Con Giả', soThang:'12'}); B.tien = '40000000'; hsoBoLuu(); hsoVe(); await w(300);
    let tuy = document.getElementById('hso-tuy'), dau = tuy.querySelector('.nhan-nhom'), kbr = tuy.querySelector('details.hso-kbr-d');

@@ -25,6 +25,11 @@ const fs=require('fs'), path=require('path');
    ok('QT-18 có 01/TV cùng tháng: bù người TƯ còn giữ (dư nợ 0), không bù người TƯ ghi còn dư nợ', r.tong===tv.length+1 && r.bs===1 && r.ds.some(x=>x.kh==='9999999901' && x.loai==='ra' && x.nguon==='tv01') && !r.ds.some(x=>x.kh==='9999999902'), r.tong+' · bù '+r.bs);
    ok('QT-18: nhóm cần cho ra (dư nợ 0, tiền gửi 0) đếm riêng', r.choRa>=1);
    B.co.tv01 = tw0; if(ng0) B.nguon.tv01 = ng0; else delete B.nguon.tv01;
+   /* 2b. tab Tổ dùng cùng cách đếm (3.334) */
+   { const TT = TO_K; TO_K = TC_K; const B2 = TC_K.B, g0 = B2.co.tv01, n0 = B2.nguon && B2.nguon.tv01;
+     B2.co.tv01 = tv.map(k=>({kh:k.kh, to:t.ma, ten:k.ten, dn:k.dn, t105:k.t105})).concat([{kh:'9999999901', to:t.ma, ten:'Người TƯ còn giữ', dn:0, t105:0}]); B2.nguon = B2.nguon || {}; B2.nguon.tv01 = '2026-08';
+     const h = toTheHTML(t, tv); ok('3.334 tab Tổ: thẻ tổ đếm theo QT-18 (gồm người 01/TV), mặc định ngưỡng 100', new RegExp('<b>'+(tv.length+1)+'</b> tổ viên').test(h) && /gồm 1 theo 01\/TV/.test(h) && /tối đa 100/.test(h));
+     B2.co.tv01 = g0; if(n0) B2.nguon.tv01 = n0; else delete B2.nguon.tv01; TO_K = TT; }
    /* 3. khung khách cố định + khối tổ */
    const ks = Object.keys(SL_DB.kh).filter(k=>SL_DB.kh[k].to), c1 = ks[0], c2 = ks.find(k=>(SL_DB.kh[k].to!==SL_DB.kh[c1].to));
    tcMoKH(c1); await w(1500); const k1 = document.querySelector('#tc-ct .tc-khung'), b1 = k1 && k1.querySelector('.tc-nut').getBoundingClientRect().top, m1 = k1 && k1.querySelector('.tc-nhom-mon').getBoundingClientRect().top;

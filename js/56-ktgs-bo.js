@@ -75,7 +75,8 @@ var KT_A_THE = [['dk', '🗓 Định kỳ · Mẫu 06 + 16'], ['gn', '📅 Sau g
 function ktKhoi(c){ return c==='dx' ? 'B' : c==='hdt' ? 'C' : 'A'; }
 function ktKhoiHTML(c){
   var k = ktKhoi(c), h = '<div class="kt-khoi">'+GD.chip('📅 Bắt buộc <small>· theo tháng</small>', k==='A', 'ktk.khoi', {k:'A'}, 'Định kỳ theo kế hoạch, sau giải ngân, Mẫu 04, Lịch năm — số liệu cuối tháng liền trước tháng kiểm tra')+
-    GD.chip('🎯 Đột xuất <small>· theo ngày</small>', k==='B', 'ktk.khoi', {k:'B'}, 'Số liệu theo ngày chọn ở ô Kỳ đầu trang')+GD.chip('⚙ Khai báo', k==='C', 'ktk.khoi', {k:'C'}, 'Hội – xã, Chuẩn hóa, Bộ khai báo mẫu')+'</div>';
+    GD.chip('🎯 Đột xuất <small>· theo ngày</small>', k==='B', 'ktk.khoi', {k:'B'}, 'Số liệu theo ngày chọn ở ô Kỳ đầu trang')+GD.chip('⚙ Khai báo', k==='C', 'ktk.khoi', {k:'C'}, 'Hội – xã, Chuẩn hóa, Bộ khai báo mẫu')+
+    (typeof KT_CHIP==='string' && KT_CHIP ? '<span class="kt-khoi-bc">'+KT_CHIP+'</span>' : '')+'</div>';   /* 3.334: chip BC0437 / BC0438 / nguồn số liệu ở cuối thanh khối (trước ở hàng lọc) */
   if(k==='A') h += '<div class="kt-che kt-a-the">'+KT_A_THE.map(function(x){ return GD.chip(x[1], c===x[0], 'ktk.che', {c:x[0]}); }).join('')+'</div>';
   return h;
 }

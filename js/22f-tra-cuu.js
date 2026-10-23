@@ -69,11 +69,16 @@ function slTraTim(){
   var pc = document.getElementById('tc-pv-chu'); if(pc) pc.textContent = pvChu(tcCH(), TC_K);
   var q = SL_TRA_Q.trim(), so = q.replace(/[\s.\-]/g, ''), laSo = /^\d{9,12}$/.test(so);
   if(laSo){ var doi = TC_KT.so!==so, ks = document.getElementById('tc-kt-so'); TC_KT.so = so; if(ks && ks.value!==so){ ks.value = so; doi = true; } if(ks) ks.closest('details').open = true; if(doi) tcKTVe(); }   /* gõ CCCD ở ô tìm → kiểm trùng luôn */
-  if(!q){ e.innerHTML = ''; return; }
-  var qq = slChuan(q), tu = qq.split(' '), laTen = !/^\d+$/.test(qq.replace(/ /g, ''));
-  var ds = slTimKH(q, laSo ? 60 : 100000).filter(function(r){ return tcTrongPV(r.m) && (!laTen || tu.every(function(w){ return (' '+slChuan(r.ten)).indexOf(' '+w)>=0; })); });
-  var phu = (!laSo && qq.length>=2 && laTen) ? SL_PHU.filter(function(p){ return tu.every(function(w){ return p.t.indexOf(' '+w)>=0; }) && tcTrongPV(p.kh); }) : [];
+  var qq = slChuan(q), tu = qq.split(' '), laTen = !/^\d+$/.test(qq.replace(/ /g, '')), ds, phu = [];
+  if(!q){   /* 3.334 (RA_SOAT_BO_CUC #2): chưa gõ → hiện sẵn khách trong phạm vi lọc (theo tổ rồi tên; bộ quá lớn thì giữ thứ tự danh bạ) */
+    if(!SL_TIM.length){ e.innerHTML = ''; return; }
+    ds = SL_TIM.filter(function(r){ return tcTrongPV(r.m); });
+    if(ds.length<=6000){ var toCua = function(r){ return String((SL_DB.kh[r.m]||{}).to||''); }; ds.sort(function(a, b){ var ta = toCua(a), tb = toCua(b); return (!ta)-(!tb) || ta.localeCompare(tb) || String(a.ten||'').localeCompare(String(b.ten||''), 'vi'); }); }
+  } else {
+  ds = slTimKH(q, laSo ? 60 : 100000).filter(function(r){ return tcTrongPV(r.m) && (!laTen || tu.every(function(w){ return (' '+slChuan(r.ten)).indexOf(' '+w)>=0; })); });
+  phu = (!laSo && qq.length>=2 && laTen) ? SL_PHU.filter(function(p){ return tu.every(function(w){ return p.t.indexOf(' '+w)>=0; }) && tcTrongPV(p.kh); }) : [];
   if(/^\d{4,}$/.test(so) && !laSo) phu = SL_PHU.filter(function(p){ return p.so && p.so.indexOf(so)>=0 && tcTrongPV(p.kh); });
+  }
   var gioi = tcHaiCot() ? 300 : TC_SL, tong = ds.length, tongPhu = phu.length;
   ds = ds.slice(0, gioi); KH_GY = ds; phu = phu.slice(0, gioi);
   var h = (tong+tongPhu>1 ? '<div class="ghi">'+tong+' khách'+(tongPhu ? ' · '+tongPhu+' vợ/chồng, HSSV' : '')+(tong>gioi || tongPhu>gioi ? ' — đang hiện '+gioi+' dòng đầu, gõ thêm hoặc chọn 📍 phạm vi để thu hẹp' : '')+'</div>' : '');
@@ -82,10 +87,10 @@ function slTraTim(){
     return '<div class="sl-kq-dong phu" onclick="tcChonDong(this);slTheKH(\''+p.kh+'\')"><div class="tc-d1"><b>'+(p.loai==='vc' ? '👫 ' : '🎓 ')+coChuHTML(p.ten)+'</b><span class="tc-nh">'+(p.loai==='vc' ? 'vợ/chồng' : 'HSSV')+' của '+coChuHTML(c.ten||p.kh)+'</span></div>'+
       '<small>'+coChuHTML([p.loai==='hs' && p.so ? 'CCCD '+p.so : '', tcNoiGon(c), p.loai==='hs' ? (p.xong ? 'đã tất toán' : 'dư nợ '+tdnTien(p.dn)) : tcTinhTrang(c), 'mã '+p.kh].filter(Boolean).join(' · '))+'</small></div>'; }).join('');
   if(!tcHaiCot() && (tong>gioi || tongPhu>gioi)) h += '<div class="hang-nut"><button class="nho" onclick="TC_SL+=50;slTraTim()">Xem thêm 50</button></div>';
-  if(!ds.length && !phu.length) h = '<div class="rong">Không thấy khách hàng khớp “'+coChuHTML(q)+'”'+(tcCH().xa ? ' trong phạm vi '+coChuHTML(pvChu(tcCH(), TC_K)) : '')+'.</div>';
-  if(!SL_PHU_KY && !laSo) h += '<div class="ghi">Chưa có Mẫu 31 nên chưa tìm được theo tên vợ/chồng, HSSV.</div>';
+  if(!ds.length && !phu.length) h = !q ? '<div class="rong">Không có khách trong phạm vi '+coChuHTML(pvChu(tcCH(), TC_K))+'.</div>' : '<div class="rong">Không thấy khách hàng khớp “'+coChuHTML(q)+'”'+(tcCH().xa ? ' trong phạm vi '+coChuHTML(pvChu(tcCH(), TC_K)) : '')+'.</div>';
+  if(!SL_PHU_KY && !laSo && q) h += '<div class="ghi">Chưa có Mẫu 31 nên chưa tìm được theo tên vợ/chồng, HSSV.</div>';
   e.innerHTML = h;
-  if(tcHaiCot() && ds.length===1 && !phu.length){ var d1 = e.querySelector('.sl-kq-dong'); tcChonDong(d1); slTheKH(ds[0].m); }
+  if(tcHaiCot() && q && ds.length===1 && !phu.length){ var d1 = e.querySelector('.sl-kq-dong'); tcChonDong(d1); slTheKH(ds[0].m); }
 }
 
 /* ---------- kiểm trùng 2 ô ---------- */
