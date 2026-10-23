@@ -229,8 +229,15 @@ function veDiaBan(k){
     oC('Ấp / khu phố','k-ap',ap, dsAp(xa, diem),
       'Lọc theo điểm giao dịch đang chọn.','doiDB(3)') +
     oC('Tổ TK&VV','k-to',to, dsTo(xa, diem, ap),
-      'Lọc theo ấp / khu phố. Chưa khai tổ thì chọn “Gõ giá trị khác”.','doiDB(4)');
+      'Lọc theo ấp / khu phố. Chưa khai tổ thì chọn “Gõ giá trị khác”.','doiDB(4)')+
+    dbToNut(dsTo(xa, diem, ap), to);
 }
+/* 3.321 (anh 23/10 "chỗ tổ cho hiện danh sách tổ ra chọn luôn"): các tổ của ấp / điểm đang chọn bày sẵn thành nút — bấm 1 lần là chọn */
+function dbToNut(ds, to){
+  if(!ds.length || ds.length>40) return '';
+  return '<div class="db-to-ds">'+ds.map(function(x, i){ return '<button type="button" class="nho db-to'+(x===to ? ' bat' : '')+'" onclick="dbChonTo('+i+')" title="Chọn tổ này">'+coChuHTML(x)+'</button>'; }).join('')+'</div>';
+}
+function dbChonTo(i){ var k = window.__k; if(!k) return; var x = dsTo(k.xa||'', k.diem || diemCuaAp(k.xa||'', k.ap||''), k.ap||'')[i]; if(x==null) return; k.to = x; var e = document.getElementById('k-diaban'); if(e) e.innerHTML = veDiaBan(k); }
 function doiDB(cap){
   var k = window.__k;
   function lay(id){

@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.320 · 23/10/2026 11:33 · 82 file · 40943 dòng · 3318 hàm cấp ngoài · 538 biến toàn cục.
+Bản 3.321 · 23/10/2026 15:45 · 82 file · 40981 dòng · 3323 hàm cấp ngoài · 538 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -10,7 +10,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
 | `index.html` | 267 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 3799 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `css/app.css` | 3803 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
 | `js/02-nen.js` | 372 | 26 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
 | `js/03-doc-pdf.js` | 627 | 46 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
@@ -18,7 +18,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/05-them-file.js` | 1353 | 71 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
 | `js/06-hop-thoai.js` | 3117 | 213 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
 | `js/07-cccd.js` | 194 | 14 | /*   12. HỒ SƠ CCCD - 3.32: KHÔNG mã hóa nữa (anh Nhân chốt: Drive của anh là nơi lưu bảo mật). |
-| `js/08-dia-ban.js` | 576 | 47 | /*   danh mục địa bàn: Xã/phường → Điểm GD → Ấp/KP → Tổ   */ function dsXa(){ return (D.cauHinh.diaBan//[]).ma |
+| `js/08-dia-ban.js` | 583 | 49 | /*   danh mục địa bàn: Xã/phường → Điểm GD → Ấp/KP → Tổ   */ function dsXa(){ return (D.cauHinh.diaBan//[]).ma |
 | `js/09-bieu-mau.js` | 552 | 45 | /*   13. BIỂU MẪU — kho mẫu đơn trắng để in cho khách điền Xếp theo chương trình vay; có nhóm dùng chung và th |
 | `js/10-danh-sach.js` | 1234 | 93 | /*   14. DANH SÁCH GỌN + MENU + NHÓM + THÙNG RÁC + TRẠNG THÁI   */ |
 | `js/11-khung-tab.js` | 595 | 54 | /*   17. KHUNG CHUẨN CHO MỌI TAB Ba phần giống nhau ở mọi tab: |
@@ -65,7 +65,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/42-scan-ra-soat.js` | 323 | 31 | /*   3.268 (anh chốt 20/10/2026) — 🔎 RÀ CCCD ĐÃ LƯU · BẢN TRÙNG - Anh: "có nên có bước chạy kiểm tra các CCCD  |
 | `js/43-scan-anh-drive.js` | 357 | 30 | /*   3.271 (anh chốt 20/10/2026) — 🖼 ẢNH 2 MẶT CCCD LÊN DRIVE · CẮT ẢNH TỪ PDF CŨ · BẢNG ĐỐI CHIẾU · CMND 9 SỐ |
 | `js/44-quet-cccd-form.js` | 144 | 19 | /*   3.273 (anh duyệt 20/10/2026: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCC |
-| `js/45-tra-mau31.js` | 173 | 14 | /*   3.275 (anh 20/10/2026: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã K |
+| `js/45-tra-mau31.js` | 200 | 17 | /*   3.275 (anh 20/10/2026: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã K |
 | `js/46-quan-ly-scan.js` | 138 | 9 | /*   3.278 (rà soát tab Scan 20/10 — anh: "em cứ code theo ý em và gộp lên"): BỐ CỤC GỌN - Thanh tab Scan: 1 n |
 | `js/47-phan-bo.js` | 359 | 38 | /*   P1 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md): 🎯 PHÂN BỔ KẾ HOẠCH — LÕI NGHIỆP VỤ (tiền tố pb)   |
 | `js/48-phan-bo-gd.js` | 718 | 85 | /*   P2 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 5): 🎯 PHÂN BỔ KH — GIAO DIỆN tab con trong 📈 Số |
@@ -167,7 +167,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/06-hop-thoai.js:2866` · 3.50: 🗂 LẬP CHỈ MỤC — đi hết thư mục Tủ hồ sơ trên Drive để MỌI file đều được app quản lý.
 - `js/07-cccd.js:1` · 12. HỒ SƠ CCCD
 - `js/07-cccd.js:42` · 3.79.1 — KHÔI PHỤC DANH SÁCH SCAN TỪ ẢNH CÒN TRONG MÁY
-- `js/08-dia-ban.js:475` · 3.33 — ĐƯA HỒ SƠ SCAN LÊN DRIVE
+- `js/08-dia-ban.js:482` · 3.33 — ĐƯA HỒ SƠ SCAN LÊN DRIVE
 - `js/09-bieu-mau.js:1` · 13. BIỂU MẪU — kho mẫu đơn trắng để in cho khách điền
 - `js/09-bieu-mau.js:88` · BIỂU MẪU 3.24 — như một thư mục: ghim · đếm lần dùng · ghi chú cách dùng ·
 - `js/09-bieu-mau.js:221` · 3.31 — MỞ FILE WORD/EXCEL KHÔNG PHẢI TẢI VỀ (tránh rác trong thư mục Tải xuống)
@@ -355,7 +355,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/44-quet-cccd-form.js:33` · lấy ảnh
 - `js/44-quet-cccd-form.js:80` · đọc + hộp xác nhận
 - `js/45-tra-mau31.js:1` · 3.275 (anh 20/10/2026: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã KH, em làm 1 nút
-- `js/45-tra-mau31.js:116` · 3.285 (anh 20/10: "chỗ lưu tên có nút Tra Mẫu 31 sau khi đã đánh số CCCD — anh muốn app có nút đọc số CCCD điền vào và t
+- `js/45-tra-mau31.js:143` · 3.285 (anh 20/10: "chỗ lưu tên có nút Tra Mẫu 31 sau khi đã đánh số CCCD — anh muốn app có nút đọc số CCCD điền vào và t
 - `js/46-quan-ly-scan.js:1` · 3.278 (rà soát tab Scan 20/10 — anh: "em cứ code theo ý em và gộp lên"): BỐ CỤC GỌN
 - `js/46-quan-ly-scan.js:119` · 3.297 (bước 3 kế hoạch tên + lưu): 📷 QUÉT BẢN ĐÃ KÝ từ hồ sơ vay
 - `js/47-phan-bo.js:23` · QT-15.1 dòng CT nào phải phân bổ
@@ -408,7 +408,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `tc` Tra cứu KH | 26 | `22f-tra-cuu.js` 17, `49-ten-chuan.js` 5, `22h-cap-hoi-sao-ke.js` 4 | tcChep, tcC, tcDiaChi, tcSdtDat |
 | `th` Tổng hợp | 26 | `22i-tong-hop.js` 26 | thSau, thChon, thChonBC, thCH |
 | `pv` Bộ chọn phạm vi (cây địa bàn) | 19 | `22g-to.js` 19 | pvChungO, pvGan, pvLuaChon, pvApNgan |
-| `tr` Bộ in chuẩn | 14 | `45-tra-mau31.js` 13, `05-them-file.js` 1 | trLe, trNoi, trTim, trNut |
+| `tr` Bộ in chuẩn | 17 | `45-tra-mau31.js` 16, `05-them-file.js` 1 | trLe, trNoi, trTim, trNut |
 | `bm` Biểu mẫu | 12 | `09-bieu-mau.js` 12 | bmTim, bmDungThem, bmSapXep, bmGhiChu |
 | `ln` Lưu nhanh | 11 | `12-scan.js` 8, `34-luu-ngan.js` 3 | lnCai, lnGhi, lnThuMuc, lnDoi |
 | `ka` Chữ ký · CCCD (khay ảnh) | 11 | `12-scan.js` 8, `35-scan.js` 3 | kaTuTimKhung, kaXuLy, kaXoay, kaThang |

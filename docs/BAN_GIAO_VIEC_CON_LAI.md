@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.321) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan › mở bản quét CCCD của tổ trưởng › 🪪 Đọc số CCCD | Ô tên = tên tổ trưởng, CIF, địa bàn + tổ tự chọn, báo ✓ Tổ trưởng | |
+| 2 | CCCD khách mới (không có Mẫu 31) | Ô tên = họ tên trên thẻ (không để số) | |
+| 3 | Chọn ấp → các nút tổ dưới ô Tổ | Bấm 1 lần là chọn | |
+
+**Ghi chú kỹ thuật 3.321:** `js/45-tra-mau31.js` — `trChay` nhánh không thấy: chưa dựng kỳ → `KHO.nap(kyChungLay())` gán `TO_K` rồi tra lại; `trTimTT(q)` (bảng tổ `KHO.bangTo(m).cccd` / tên tổ trưởng; trùng nhiều tổ → null), `trTenTT(m, t)` (`KHO.toDanhBa(m).ten` → `tenHoaDau`), `trGanTT(x)` (ô tên, `k.maKH` = CIF TT, xa/ap/diem/to, vẽ lại địa bàn); `trDoc` / `trQuetXong` giữ `e.__the = {so, ten}` (ten chỉ khi đọc từ QR) → không khớp đâu thì ô tên = tên trên thẻ. `js/08-dia-ban.js` — `dbToNut`, `dbChonTo`. CSS `.db-to-ds`.
+
 ### Danh sách thử trên máy thật (3.320) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
