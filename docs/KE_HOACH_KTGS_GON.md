@@ -1,4 +1,6 @@
-# Kế hoạch gọn tab KTGS Hội — bản 2 (chờ anh duyệt — chưa làm)
+# Kế hoạch gọn tab KTGS Hội — bản 3 (anh đã chốt 5 ý 23/10 — chờ anh nhắn "code")
+
+> Người làm: **TK 3** (tài khoản này, anh gọi mặc định 23/10). Làm xong giao **TK 2** đưa KTGS qua `KHO` — mục 9.
 
 > Anh 23/10/2026: chia 2 phần — (1) **bắt buộc**: kiểm tra định kỳ theo Kế hoạch + kiểm tra sau giải ngân 30 ngày, số liệu **tháng liền trước**; (2) **đột xuất**, số liệu **ngày chọn**. Rà khai báo, mẫu biểu, bỏ trùng, bố cục gọn.
 > "Lên plan từ bố cục giao diện đến cấu trúc dữ liệu, theo hướng **khai báo tùy biến tối đa**." Tuyệt đối không làm mất / hư KTGS đang có (số liệu đang đúng).
@@ -69,7 +71,7 @@ Tab nhỏ: **🏛 Hội đoàn thể** (như cũ) · **🧩 Bộ khai báo mẫu
 
 **🧩 Bộ khai báo mẫu** — khai báo tùy biến tối đa:
 ```
-Bộ: [Hội tự kiểm tra ▾] [+ Tạo bộ] [⧉ Nhân bản] [✎ Đổi tên] [🗑]     Dùng mặc định cho: ☑ Khối A  ☐ Khối B
+Bộ: (●) ① Hội kiểm tra (cố định)   ( ) ② Khai báo khi cần      [⧉ Chép ① sang ②]
 Mẫu: [06] [16] [04] [01/KH]          Xem: [Bản điền thử ▾]
 ┌ danh sách ô (trái) ──────────────────────┐ ┌ xem trước mẫu (phải) — bấm vào ô trên mẫu để chọn ┐
 │ Phần đầu                                 │ │                                                    │
@@ -83,13 +85,13 @@ Mẫu: [06] [16] [04] [01/KH]          Xem: [Bản điền thử ▾]
 │ Số liệu (luôn 🤖, có thể ✍ để trống)     │ │                                                    │
 │ Nội dung kiểm tra                        │ │                                                    │
 │  Mục đích (06)   ✍ | 🤖 ngành KT          │ │                                                    │
-│  Bảng II 14 ô (16) — mỗi ô: ✍ chấm | ☐ trống | 🤖 727 | ⌨ chữ riêng │                        │
+│  Bảng II (16): cả bảng ☐ trống | ✍ chấm theo mẫu | 🤖 727  [▸ từng ô] │                        │
 │  Nhận xét / tồn tại / kiến nghị  ✍ | 🤖 gợi ý | ⌨ chữ cố định │                               │
 │ Chung: in 2 mặt ☑, cỡ chữ …              │ │                                                    │
 └──────────────────────────────────────────┘ └────────────────────────────────────────────────────┘
 ```
 - **Mỗi ô trên mẫu = 1 dòng khai báo** với 4 cách: 🤖 tự động (số liệu / khai báo Hội) · ✍ chấm ghi tay · ☐ để trống · ⌨ gõ chữ riêng (nhớ trong bộ). Ô số liệu chỉ 🤖 / ✍.
-- **Nhiều bộ khai báo có tên** (vd "Hội tự kiểm tra", "Đoàn NHCSXH đột xuất", "Đoàn huyện") — tạo, nhân bản, đổi tên, xóa; chọn bộ mặc định cho khối A, khối B; khi In vẫn đổi bộ được cho lần in đó.
+- **2 bộ cố định** (anh chốt 23/10): **① Hội kiểm tra** (cố định — khối A dùng) · **② Khai báo khi cần** (khối B dùng; khối A khi cần cũng chọn được lúc In). Không tạo thêm bộ.
 - Hộp 🖨 Chọn khi in hiện tại → gọn thành: **Bộ khai báo [▾] · ✎ sửa nhanh vài ô hay dùng (Chọn nhanh) · Ngày kiểm tra · In / Word**.
 
 ---
@@ -122,7 +124,7 @@ ktBo = {
                  m04:{…}, kh:{ky:{c:'tu', vt:'ct'}} }},
     'b2': {ten:'Đoàn NHCSXH đột xuất', mau:{ m06:{ dv:{c:'go', v:'Đoàn kiểm tra NHCSXH PGD …'}, ng1:{c:'go', ten:'…', cv:'…'} }, … }}
   },
-  macDinh: {A:'b1', B:'b2'},
+  macDinh: {A:'hoi', B:'cancan'},   // 2 bộ cố định (anh chốt): 'hoi' = ① Hội kiểm tra · 'cancan' = ② Khai báo khi cần
   nhanh: {m06:['dv','ng1','md'], m16:['dv','ng1','ng2','b2','ud']}   // ô hiện ở "sửa nhanh"
 }
 ```
@@ -154,17 +156,49 @@ ktgs = { …cũ…, khoi:'A'|'B'|'C', A:{thang:'2026-11', the:'dk'|'gn'|'bc'|'kh
 - Chuẩn khóa kt_06 / kt_16 / kt_04 / kt_kh (t179) + t106–t150, t181, t197, t236 phải đạt mỗi bước; thêm: bộ "Mặc định (từ bản cũ)" in ra **trùng từng ký tự** bản 3.325 với cùng lựa chọn; khối A tháng 11 → số liệu đúng Mẫu 31 chốt 31/10 dù ô đầu trang chọn ngày khác.
 - Mỗi bước 1 bản gộp riêng, anh thử xong mới làm bước sau; hồi quy đủ gom cuối bước 3 và bước 5.
 
-## 6. Các bước
+## 6. Các bước (TK 3)
+0. **Nhớ ngày chọn** ở ô đầu trang qua lần mở app (anh thử 3.325 bị về 30/09 sau Ctrl+F5) — nhỏ, làm trước.
 1. **Dữ liệu**: `ktBo` + sổ ô `KT_O` (06, 16) + chuyển dữ liệu cũ + `ktInV` đọc từ bộ (giao diện chưa đổi; in ra trùng 3.325).
-2. **Khối A số liệu tháng trước**: ô Tháng kiểm tra; Định kỳ / Sau GN / Mẫu 04 lấy Mẫu 31 chốt tháng trước (màn cũ giữ).
+2. **Khối A số liệu tháng trước** + lớp nguồn `ktNguon*`: ô Tháng kiểm tra; Định kỳ / Mẫu 04 lấy Mẫu 31 chốt tháng trước; Sau GN theo tháng giải ngân, 1 tổ × 1 tháng = 1 phiếu, hạn 30 ngày (mục 8) (màn cũ giữ).
 3. **Thanh 3 khối** + chuyển chip cũ vào khối; gộp 2 lối Định kỳ, 2 lối Mẫu 04; Lịch năm thành thẻ trong khối A.
-4. **🧩 Bộ khai báo mẫu** (màn khai báo trực quan: danh sách ô + xem trước bấm ô) cho 06, 16; hộp in gọn (chọn bộ + sửa nhanh).
-5. Mở rộng sổ ô cho Mẫu 04, 01/KH; dọn khai báo trùng (Ông bà 2 gõ tay, ô cũ).
+4. **🧩 Bộ khai báo mẫu** (2 bộ; màn khai báo trực quan: danh sách ô + xem trước bấm ô) cho 06, 16 — Bảng II cả bảng + ▸ từng ô; hộp in gọn (chọn bộ + sửa nhanh); Mẫu 04 trong khối B.
+5. Mở rộng sổ ô cho Mẫu 04, 01/KH; dọn khai báo trùng (Ông bà 2 gõ tay, ô cũ) → hồi quy đủ → **bàn giao TK 2** (mục 9).
 
-## 7. Cần anh chốt
-1. **Nhiều bộ khai báo có tên** (tạo / nhân bản / chọn mặc định cho khối A, B) — hay chỉ 2 bộ cố định (A, B)? Em đề xuất nhiều bộ.
-2. Bảng II Mẫu 16: khai **từng ô** (14 ô, mỗi ô chọn cách + chữ riêng) hay **cả bảng 1 cách**? Em đề xuất từng ô (mặc định cả bảng 1 cách, bấm "chi tiết" mới hiện 14 ô).
-3. Sau giải ngân mặc định 1 tháng liền trước, vẫn cho gom nhiều tháng? (em đề xuất: có)
-4. Đột xuất có nút Mẫu 04? (em đề xuất: có)
-5. Thứ tự 5 bước như mục 6?
-6. Ngày chọn ở ô đầu trang **nhớ qua lần mở app** (bỏ luật 3.97 "ngày chỉ giữ trong phiên") — làm ngay trước bước 1? (em đề xuất: có, vì khối A sẽ có ô tháng riêng)
+## 7. Anh đã chốt (23/10)
+1. **2 bộ khai báo**: ① **Hội kiểm tra** (cố định, khối A) · ② **Khai báo khi cần** (khối B, và chọn được khi in khối A). Không làm "nhiều bộ có tên".
+2. **Bảng II Mẫu 16**: khai **cả bảng 1 cách** — ☐ **để trống** (ô trống, KHÔNG chấm trong bảng) · ✍ **chấm theo mẫu** (tùy chỗ: ô nào mẫu gốc có chấm thì chấm) · 🤖 điền 727; nút con **▸ Từng ô** mở 14 ô khi cần chỉnh riêng (mỗi ô cùng 4 cách + chữ riêng).
+3. **Sau giải ngân**: gom nhiều tháng được, nhưng **in 1 tổ × 1 tháng = 1 phiếu Mẫu 06** (đổi so với 3.98 "mỗi tổ 1 phiếu gom các tháng"); lưu ý **ngày kiểm tra tối đa 30 ngày sau giải ngân** — mục 8.
+4. **Đột xuất có nút Mẫu 04** (in khi cần, cùng khuôn Mẫu 04 KTGS).
+5. Làm xong phần tinh chỉnh → **giao TK 2** đưa KTGS qua `KHO` — mục 9.
+
+## 8. Sau giải ngân — hạn 30 ngày (lưu ý anh)
+- 727: kiểm tra sử dụng vốn **trong 30 ngày kể từ ngày giải ngân**. Mỗi món có **ngày GN** (`c_ngay_gn_cuoi_cung` Mẫu 31) → **hạn kiểm tra = ngày GN + 30**.
+- **Vướng "số liệu tháng liền trước"**: món GN 01/10 hạn 31/10 — đợi chọn tháng kiểm tra 11 thì đã quá hạn. Đề xuất:
+  - Thẻ Sau giải ngân chọn **tháng giải ngân** (mặc định tháng liền trước; tháng hiện tại dùng Mẫu 31 theo ngày mới nhất như 3.136) — không ép "tháng kiểm tra".
+  - Bảng món có cột **Hạn kiểm tra** (GN + 30) + màu: 🟢 còn ≥ 7 ngày · 🟡 < 7 ngày · 🔴 quá hạn.
+  - Ô **Ngày kiểm tra** từng phiếu (1 tổ × 1 tháng): gõ ngày → kiểm **≤ hạn của món GN sớm nhất trong phiếu**; quá → ⚠ đỏ trước khi in (vẫn cho in, ghi rõ món nào quá hạn). Để trống = chấm ghi tay, nhắc "trước dd/mm".
+  - Phiếu gom món GN trong tháng đó của tổ; mỗi tháng 1 phiếu riêng (đúng ý 3).
+
+## 9. Phối hợp TK 3 → TK 2 (bàn giao)
+**Phân việc**
+| Việc | Ai | Khi nào |
+|---|---|---|
+| Tinh chỉnh KTGS: bố cục 3 khối, 2 bộ khai báo, Sau GN theo tháng + hạn 30 ngày, Mẫu 04 đột xuất, nhớ ngày chọn | **TK 3** | bước 0 → 5 (mục 6) |
+| Đưa KTGS qua `KHO` (bỏ đọc thẳng `KT_K` / `TO_K` / `SLM.bang` / `toKhach`) | **TK 2** | sau khi TK 3 báo "bàn giao KTGS" |
+| Cửa mới trong `js/29-kho.js` cho KTGS (spec bên dưới) | **TK 2** làm song song được (chỉ file 29 + phép thử của cửa) | bất kỳ lúc nào |
+
+**Khóa file (tránh đụng nhau)** — trong lúc TK 3 làm: `js/22b-ktgs.js` · `22c-ktgs-m06.js` · `22d-ktgs-04.js` · `22e-ktgs-kh.js` · `22k-kt-khuon.js` · `js/55-ktgs-khung.js` · `js/56-ktgs-bo.js` (mới) · phép thử t106–t150 (KTGS), t236–t239 → **chỉ TK 3 sửa**. TK 2 không sửa các file này đến khi bàn giao; TK 3 không sửa `js/29-kho.js`. Số bản: ai gộp trước lấy số kế tiếp, người sau gộp lại theo `main` (như 3.308 → 3.309).
+
+**TK 3 chuẩn bị sẵn cho TK 2** (trong bước 1–2):
+- Gom mọi chỗ KTGS lấy số liệu về **1 lớp nguồn** `ktNguon*` (file `js/56-ktgs-bo.js` hoặc đầu 22b): `ktNguonKy(khối)` → kỳ dựng · `ktNguonTo(t)` · `ktNguonHo(t)` · `ktNguonMonGN(thang, tổ)` · `ktNguonBC37(thang)` · `ktNguonBC38(thang)`. Code KTGS chỉ gọi `ktNguon*`; bên trong tạm đọc `KT_K` / `SLM` như cũ → **TK 2 chỉ cần viết lại thân các hàm `ktNguon*` qua `KHO`**, không đụng phần còn lại.
+- Hiện còn đọc thẳng: `SLM.` 18 chỗ · `KT_K` 100 · `TO_K` 5 · `toKhach(` 7 (22b–22e) — bảng chi tiết từng chỗ ghi vào `docs/BAN_GIAO_KTGS.md`.
+
+**Cửa `KHO` TK 2 cần có (spec)**: `KHO.chotThang(th)` → kỳ Mẫu 31 chốt tháng (hoặc ngày mới nhất trong tháng + cờ `tam`) · `KHO.ngay(iso)` → kỳ Mẫu 31 theo ngày · `KHO.bc37(th)` / `KHO.bc38(th)` → bảng BC0437 / BC0438 theo tổ / xã–hội · `KHO.monGN(th)` → món giải ngân trong tháng (ngày GN, tổ) — trả **đúng dạng KTGS đang dùng** (QUY_CHUAN 1b.3 "bộ chuyển").
+
+**Bàn giao (TK 3 làm khi xong bước 5)**: `docs/BAN_GIAO_KTGS.md` gồm — sơ đồ 3 khối · sổ ô `KT_O` · `ktBo` · danh sách `ktNguon*` + chỗ gọi · phép thử phải giữ (t106–t150, t179 kt_*, t181, t236+) · hồi quy đủ sạch · chỗ còn đọc thẳng · việc TK 2.
+
+**Sửa QUY_CHUAN mục 1b.2** (anh duyệt): "KTGS chỉ nhận số liệu cuối tháng" → **khối A (bắt buộc) = cuối tháng liền trước; khối B (đột xuất) = Mẫu 31 theo ngày chọn**.
+
+## 10. Còn cần anh chốt
+1. Mục 8: Sau giải ngân chọn **tháng giải ngân** (mặc định tháng liền trước, cho chọn tháng hiện tại theo Mẫu 31 ngày) + cột hạn + kiểm ngày ≤ 30 ngày — đồng ý?
+2. Bước 0 (làm ngay): **ngày chọn ở ô đầu trang nhớ qua lần mở app** (bỏ luật 3.97 "chỉ giữ trong phiên") — đồng ý?
