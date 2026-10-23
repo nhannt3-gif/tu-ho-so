@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.332 — 24/10/2026 — Hồi quy đủ sau bàn giao KTGS
+- Hồi quy đủ trên 3.330 (153 phép): hoiquy, hoiquy2 đạt; sửa 2 chỗ: `js/56-ktgs-bo.js` nạp trước `js/57-cay.js` (đúng thứ tự tên — t138), t134 theo tên thẻ Định kỳ mới.
+- Còn sai từ trước (đối chứng 3.327 / 3.328, không do KTGS): **t100** (bộ 25.000 hộ chờ dòng trạng thái Nạp & KT quá 120 giây) và **t158** (tab Tổ chưa tự thêm cột theo ưu tiên) — ghi ở `docs/BAN_GIAO_KTGS.md` mục 7.
+
 ## 3.331 — 24/10/2026 — Bàn giao KTGS cho TK 2
 - **Anh 24/10**: "em gộp lên rồi bàn giao TK 2 luôn".
 - `docs/BAN_GIAO_KTGS.md`: sơ đồ tab 3 khối, 3 tầng khai báo (Đơn vị · Bộ ① / ② · Lần in), lớp nguồn `ktNguon*` + bảng ghép với 5 cửa `KHO` của TK 2 (lưu ý `KT_GN.kh` 3.329), bảng chỗ còn đọc thẳng biến số liệu theo file, lối in từng khối, phần khóa mẫu không được đổi, phép thử phải giữ, việc để lại.

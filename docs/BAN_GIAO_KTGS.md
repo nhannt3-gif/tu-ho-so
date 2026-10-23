@@ -91,7 +91,7 @@ Mọi lối đều qua hộp `ktInHop` (chọn bộ ① / ②) và `ktInV(mẫu)
 - `ktInMau` — xem 3b.
 
 ## 7. Hồi quy đủ
-Chạy `bash tools/hoiquy.sh 330` trên bản 3.330: **hoiquy ✓, hoiquy2 ✓**; dải t1xx–t2xx đang chạy lúc gộp (anh cho gộp trước) — TK 3 ghi tiếp kết quả vào đây / báo anh. Phép thử KTGS riêng (t106–t154, t177, t179, t197, t236–t238, t240) đã đạt trước khi gộp.
+Chạy `bash tools/hoiquy.sh 330` trên bản 3.330 (153 phép, xong 24/10): **hoiquy ✓, hoiquy2 ✓, còn lại đạt** trừ: t134 (tên thẻ Định kỳ) + t138 (thứ tự nạp `js/56` trước `js/57`) → **đã sửa ở 3.332, chạy lại đạt**; t151 lỗi trang 1 lần, chạy lại đạt (chập chờn); **t100** (bộ 25.000 hộ — chờ `#tr7 .sl-tt-1` quá 120 giây) và **t158** (tab Tổ: chưa tự thêm cột theo ưu tiên) **sai y hệt trên 3.327 và 3.328** (chạy đối chứng) — không do KTGS, để TK 2 / anh xem.
 
 ## 8. Việc TK 2 làm tiếp
 1. Cửa `KHO` cho KTGS (spec `docs/KE_HOACH_KTGS_GON.md` mục 9).
