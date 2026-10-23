@@ -91,9 +91,10 @@ function ktBCNhom(ds){   /* tổ đã chọn → báo cáo theo Hội – xã */
   ds.filter(function(r){ return r.chon; }).forEach(function(r){ var k = ktHoiKhoa(r.t); if(!g[k]){ g[k] = {k:k, t:r.t, ds:[]}; thu.push(g[k]); } g[k].ds.push(r); });
   return thu.sort(function(a, b){ return ((a.t.tenXa||'')+'|'+a.t.dv).localeCompare((b.t.tenXa||'')+'|'+b.t.dv, 'vi'); });
 }
-function ktBCVe(o){   /* 3.98 ①: chọn xã / hội ở cây → tổ chia nhóm theo ấp; tích cả ấp hoặc từng tổ; ngày nhập tùy chọn (chỉ cho lần in này) */
+function ktBCVe(o){ var th = ktNguonThangKT(); return ktNguonVe(o, th, function(){ ktBCVeG(o, th); }); }   /* 3.328: Mẫu 04 theo tháng kiểm tra (số liệu cuối tháng liền trước) */
+function ktBCVeG(o, th){   /* 3.98 ①: chọn xã / hội ở cây → tổ chia nhóm theo ấp; tích cả ấp hoặc từng tổ; ngày nhập tùy chọn (chỉ cho lần in này) */
   var C = ktCH(), ds = ktBCDs(), nh = ktBCNhom(ds);
-  var h = ktCheDoHTML()+'<div class="kt-gn-dau"><span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn xã (hoặc hội) ở cây, tích cả ấp hoặc từng tổ. Lập theo tháng của kế hoạch: vào 🗓 Kế hoạch năm.</span></div>';
+  var h = ktCheDoHTML()+ktAThangHTML(th)+'<div class="kt-gn-dau"><span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn xã (hoặc hội) ở cây, tích cả ấp hoặc từng tổ. Lập theo tháng của kế hoạch: vào 🗓 Kế hoạch năm.</span></div>';
   if(!C.xa){ o.innerHTML = h+'<div class="rong">Chọn <b>xã</b> (hoặc hội) ở cây phía trên để chọn ấp / tổ lập Mẫu 04.</div>'+ktBCGhi(); return; }
   if(!ds.length){ o.innerHTML = h+'<div class="rong">Không có tổ trong phạm vi đã chọn.</div>'; return; }
   var soChon = ds.filter(function(r){ return r.chon; }).length;
@@ -214,8 +215,9 @@ function ktNxTo04(t, t0){   /* 3.106: nhận xét chung từng tổ theo số li
   if(!tt.length) return '- '+ten+': dư nợ '+tr(s.dn)+', không phát sinh nợ quá hạn, nợ khoanh, lãi tồn.';
   return '- '+ten+': dư nợ '+tr(s.dn)+'; '+tt.join('; ')+'. Đề nghị Ban quản lý Tổ phối hợp '+ktHoiTen(t0||t)+' đôn đốc, có kế hoạch xử lý.';
 }
-function ktBCGiaTri(){ return ktBC04(ktBCDs().filter(function(r){ return r.chon; })); }
-function ktBCXem(ok){
+function ktBCGiaTri(){ var th = ktNguonThangKT(); return ktNguonVoi(th, function(){ return ktBC04(ktBCDs().filter(function(r){ return r.chon; })); }); }   /* 3.328 */
+function ktBCXem(ok){ return ktNguonVoi(ktNguonThangKT(), function(){ return ktBCXemG(ok); }); }   /* 3.328 */
+function ktBCXemG(ok){
   if(!ok){ if(!ktBCDs().some(function(r){ return r.chon; })) return bao('Chưa chọn tổ nào.', 3); return ktInHop(['m04'], ktInNutXem('ktBCXem(1)'), ktHoiCuaTo(ktBCDs().filter(function(r){ return r.chon; }).map(function(r){ return r.t; }))); }   /* 3.114 */
   var gts = ktBCGiaTri(); if(!gts.length) return bao('Chưa chọn tổ nào.', 3);
   KT_BC_XEM = {gts:gts, tenFile:'Mau 04 Bao cao tong hop KT - '+boDauTen(gts.length>1 ? gts.length+' bao cao' : gts[0].ten).slice(0, 60)};

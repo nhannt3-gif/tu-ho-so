@@ -2169,6 +2169,8 @@
   .kt-in-luoi{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:6px 20px}.kt-in-phan .kt-kb select,.kt-in-khac .kt-kb input{width:100%;min-width:0;max-width:100%;box-sizing:border-box}.kt-in-phan{min-width:0}.kt-in-phan{border:1px solid var(--vien);border-radius:8px;padding:6px 10px}.kt-in-cam{color:#b45309}.kt-in-khac{margin:8px 0}.kt-in-khac>summary{cursor:pointer}
   /* 3.327: chọn bộ khai báo + Bảng II từng ô (js/56-ktgs-bo.js) */
   .kt-bo-chon{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin:0 0 8px}.kt-bo-nhan{font-weight:600}.kt-b2-o{margin:4px 0}.kt-b2-o>summary{cursor:pointer;color:var(--chinh,#1d4ed8)}.kt-b2-bang{width:100%;border-collapse:collapse;font-size:12px}.kt-b2-bang td{padding:2px 3px;border-bottom:1px solid var(--vien);vertical-align:middle}.kt-b2-bang select{width:auto;max-width:100%}.kt-b2-bang .gd-o{width:100%;box-sizing:border-box;margin-top:2px}
+  /* 3.328: ô Tháng kiểm tra khối Bắt buộc + nhắc 30 ngày sau giải ngân */
+  .kt-a-thang{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin:6px 0}.kt-a-thang select{width:auto}.kt-nhac30{margin:6px 0;padding:4px 8px;border-left:3px solid #d97706;background:var(--nen-vang,rgba(217,119,6,.08));font-size:13px}
   .kt-ngay-in{display:inline-flex;gap:6px;align-items:center;margin-right:8px}.kt-ngay-in input{font:inherit;padding:3px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu)}   /* 3.114 */
   .kt-pc-ap{display:flex;flex-wrap:wrap;gap:4px 10px}.kt-pc-chip{display:inline-flex;gap:3px;align-items:center;white-space:nowrap}.kt-pc-bang td{vertical-align:top}   /* 3.117 */
   .sl-giu-ds{font-size:12px;color:var(--chu-phu)}

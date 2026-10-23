@@ -192,6 +192,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t241.js` | 3.328 Cây địa bàn: mặc định ☰ Gọn mọi tab, ▦ Chip, ⬆, mở lại app về PGD, 📌 ghim giữ địa bàn + kiểu, điện thoại. |
 | `node tests/t242.js` | 3.328 Cây nhúng CAY: danh sách Xã / Điểm / Ấp / Tổ, 👪 Hộ vay, ⚙ Khai báo chung. |
 | `node tests/t243.js` | 3.328 Thanh bên 2 cấp (nhóm, tô theo nhóm, GDX › Tra cứu KH › quay về, thu gọn) + thanh dưới điện thoại 5 nút + ☰ Thêm. |
+| (3.329) | t237 mới: Tháng kiểm tra khối Bắt buộc (mặc định, đổi tháng nạp số liệu tháng trước, ô đầu trang giữ, Mẫu 16 / 04 theo tháng), Sau GN 1 tổ × 1 tháng, nhắc 30 ngày, hộ theo Mẫu 31 tháng GN (16). t106 đếm tổ × tháng; t110 dòng Tháng kiểm tra. |
 | (3.327) | t236 thêm: hộp in chọn bộ ① / ②, mở hộp mới về mặc định, Bảng II cả bảng + từng ô (chấm / gõ / trống), cả bảng trống như cũ (26). t110 bỏ ô b2o khỏi danh sách id; t114 Mẫu 16 tự ghi tháng chỉ ở định kỳ; t116 tên file KH theo 3.140.2. |
 | (3.326) | t110 hộp chọn theo 3.323 (dvc, không dv chung); t236 bấm nút data-lenh ktdx.khai (21). |
 | (3.325) | t236 thêm: số liệu tổ = Mẫu 31 ngày chọn (không lấy dư nợ BC0437 giả), xếp loại BC0437 tháng 09; Mẫu 16 đến thời điểm = ngày chọn + chấm điểm tháng 09/2026; đột xuất ngày tháng năm chấm; định kỳ vẫn ghi tháng (20). |

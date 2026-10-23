@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.328', ds:[
+var CO_GI_MOI = {ban:'3.329', ds:[
+  ["KTGS Bắt buộc: ô Tháng kiểm tra (số liệu cuối tháng liền trước, không theo ô Kỳ đầu trang); Sau giải ngân 1 tổ × 1 tháng = 1 phiếu", "doiNgan(7)"],
   ["Cây địa bàn: mặc định kiểu ☰ Gọn 1 dòng ở mọi tab (ô chọn Xã › Điểm › Hội › Tổ, ⬆ lên 1 cấp), nút ▦ Chip đổi kiểu; mở app về Toàn PGD; 📌 Ghim giữ địa bàn + kiểu cho lần mở sau", "slDoiTab('to');doiNgan(7)"],
   ["Thanh bên 2 cấp: Hôm nay · Giao dịch xã ▸ · Nạp & KT · Số liệu ▸ (KTGS là mục con) · Hồ sơ ▸ · Tủ tài liệu ▸ · Công cụ ▸; điện thoại có thanh dưới 5 nút", "doiNgan(0)"],
   ["Giao dịch xã: nút 👤 Tra cứu KH ngay trong bàn thao tác (cùng địa bàn), có nút quay về Giao dịch xã", "slDoiTab('gdx');doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.328', ds:[
   ["KTGS Hội: dòng hộ đã chọn đọc rõ ở chế độ tối (trước nền sáng cố định, chữ mờ)", "doiNgan(7)"],
   ["Scan › Sửa bản quét: CCCD tổ trưởng (không vay) nhận ra từ bảng tổ; không có ở đâu thì lấy họ tên trên thẻ; ô Tổ bày sẵn danh sách tổ để bấm chọn", "doiNgan(7)"],
   ["01/TGTV: ngày hết hạn CCCD mặc định tự tính (theo ngày sinh + ngày cấp)", "doiNgan(7)"],
-  ["Mẫu không tự thu nhỏ chữ: chữ dài thì viết tắt chuẩn, còn dài thì ô giãn + ⚠ báo xem rớt dòng (bật trước cho 01/TGTV)", "doiNgan(7)"],
-  ["01/TGTV sát mẫu gốc: quốc tịch · dân tộc Kinh · có cư trú điền sẵn, ngày gõ liền, khung Ngày / Số CIF bo góc, Tiếp nhận ngày 1 dòng; quy tắc giữ khung / gõ liền theo vị trí ô", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Mẫu không tự thu nhỏ chữ: chữ dài thì viết tắt chuẩn, còn dài thì ô giãn + ⚠ báo xem rớt dòng (bật trước cho 01/TGTV)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

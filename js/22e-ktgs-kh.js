@@ -434,7 +434,7 @@ function ktXmlHTML(xml){
    - Mẫu 16 mỗi tổ đi kèm; xuất 2 file Word (06 nhiều phiếu, 16 nhiều biên bản — mỗi tổ trang mới) + In (3.98: không ghi nhật ký) */
 var KT_DK_CHON = {}, KT_DK_BO = {}, KT_DK_THEM = {}, KT_DK_MO = '', KT_DK_XEM = null, KT_DK_CACHE = {};
 var KT_DK_TH = '';   /* 3.140: tháng kiểm tra ép (in theo tháng kế hoạch) */
-function ktDKThang(){ if(KT_DK_TH) return KT_DK_TH; var C = ktCH(); return String(C.ky||'').length===7 ? kyLui(C.ky, 1) : ''; }   /* tháng kiểm tra = tháng sau kỳ số liệu */
+function ktDKThang(){ return KT_DK_TH || ktNguonThangKT(); }   /* 3.328: tháng kiểm tra = ô Tháng kiểm tra khối Bắt buộc (mặc định tháng sau kỳ số liệu như cũ) */
 function ktDKLich(th){   /* tổ có lịch tháng th trong các Kế hoạch 01/KH đã lưu → {mã tổ: 'năm|xã|hội'} */
   var S = D.cauHinh.ktKH || {}, nam = th.slice(0, 4), m = +th.slice(5, 7), ra = {};
   Object.keys(S).forEach(function(k){ if(k.split('|')[0]!==nam) return; var to = (S[k]||{}).to || {}; Object.keys(to).forEach(function(ma){ if(+to[ma]===m) ra[ma] = k; }); });
@@ -459,12 +459,12 @@ function ktDKDs(){   /* 3.140 (anh chốt): chọn TỰ DO — tổ trong phạm
   Object.keys(KT_K.to).forEach(function(m){ var t = KT_K.to[m]; if(toLaTT(t) || !(KT_DK_CHON[m] || (C.xa && pvLoc(C, t)))) return; ds.push({t:t, lich:false, chon:!!KT_DK_CHON[m]}); });
   return ds.sort(function(a, b){ return ((a.t.tenXa||'')+'|'+String(a.t.dv||'')+'|'+ktKHAp(a.t)+'|'+(a.t.ten||'')).localeCompare((b.t.tenXa||'')+'|'+String(b.t.dv||'')+'|'+ktKHAp(b.t)+'|'+(b.t.ten||''), 'vi', {numeric:true}); });
 }
-function ktDKVe(o){
-  var C = ktCH(), th = ktDKThang();
-  var h = ktCheDoHTML();
+function ktDKVe(o){ var th = ktDKThang(); return ktNguonVe(o, th, function(){ ktDKVeG(o, th); }); }   /* 3.328: số liệu cuối tháng liền trước tháng kiểm tra */
+function ktDKVeG(o, th){
+  var C = ktCH(), K = KT_K;
+  var h = ktCheDoHTML()+ktAThangHTML(th);
   if(!th){ o.innerHTML = h+'<div class="sl-bao vang">Kiểm tra định kỳ cần <b>số liệu cuối tháng</b> (Mẫu 31 chốt tháng) — chọn ở ô <b>Số liệu</b> phía trên. Số liệu theo ngày không dùng cho kiểm tra định kỳ.</div>'; return; }
-  h += '<div class="kt-gn-dau"><span>Số liệu đến <b>'+ngayVNsl(tdnCuoiKy(C.ky))+'</b> ('+coChuHTML(KT_K.hsTen||'Mẫu 31')+') → kiểm tra <b>tháng '+th.slice(5)+'/'+th.slice(0, 4)+'</b></span>'+
-    '<span class="sl-phu">đổi tháng: chọn số liệu tháng khác ở ô Số liệu · Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn xã / hội ở cây để thêm tổ ngoài lịch</span></div>';
+  h += '<div class="kt-gn-dau"><span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn xã / hội ở cây để thêm tổ ngoài lịch</span></div>';
   var ds = ktDKDs();
   if(!ds.length){ o.innerHTML = h+'<div class="rong">Chọn xã (hoặc hội, điểm GD) ở cây phía trên để chọn tổ kiểm tra — chọn tự do, không theo Kế hoạch. In theo kế hoạch: chip 🗓 Kế hoạch năm → bấm tháng.</div>'; return; }
   var chon = ds.filter(function(r){ return r.chon; });
@@ -482,7 +482,7 @@ function ktDKVe(o){
   var xaDK = {}; chon.forEach(function(r){ if(r.t.xa) xaDK[r.t.xa] = 1; });
   h += ktKBKhung('dk', ktHoiDsXa(xaDK))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktDKXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' tổ · Mẫu 06 + 16</button></div>'+
     '<p class="ghi">Mẫu 06: hộ còn dư nợ có món giải ngân từ các năm trước (trước 01/01/'+th.slice(0, 4)+'), chỉ in các món đó; tích sẵn 100%, bỏ tích hộ không kiểm — 727: tối thiểu 90% (tính theo hộ, kèm tỷ lệ món). '+
-      'Hộ quá hạn / khoanh không tích (kiểm tra riêng) — tích tay khi cần. Mẫu 16 lấy số liệu đến '+ngayVNsl(tdnCuoiKy(C.ky))+' (BC0437 cùng tháng nếu đã nạp, không thì tính từ Mẫu 31). Ngày kiểm tra để trống, ghi tháng '+th.slice(5)+'/'+th.slice(0, 4)+'.</p>';
+      'Hộ quá hạn / khoanh không tích (kiểm tra riêng) — tích tay khi cần. Mẫu 16 lấy số liệu đến '+ngayVNsl(tdnCuoiKy(K.ky))+' (BC0437 cùng tháng nếu đã nạp, không thì tính từ Mẫu 31). Ngày kiểm tra để trống, ghi tháng '+th.slice(5)+'/'+th.slice(0, 4)+'.</p>';
   o.innerHTML = h;
 }
 function ktDKHoHTML(t, x){   /* 3.98: cột chung (mã KH, món, lãi tồn, 105, ghi chú) — theo mã KH; chỉ in các món giải ngân năm trước */
@@ -509,7 +509,8 @@ function ktDKGiaTri(v, v16, dsTo){ v16 = v16 || v;   /* 3.114: lựa chọn in r
   } finally { KT_SO_CUNG = false; }
   return {th:th, g06:g06, g16:g16};
 }
-function ktDKXem(che, ok){
+function ktDKXem(che, ok){ return ktNguonVoi(ktDKThang(), function(){ return ktDKXemG(che, ok); }); }   /* 3.328 */
+function ktDKXemG(che, ok){
   if(!che){ if(!ok) return ktInHop(['m06','m16'], ktInNutXem("ktDKXem('',1)"), ktHoiCuaTo(ktDKDs().filter(function(r){ return r.chon; }).map(function(r){ return r.t; })));
     KT_DK_XEM = ktDKGiaTri(ktInV('m06'), ktInV('m16')); che = '06'; }
   var X = KT_DK_XEM; if(!X || !X.g06.length) return bao('Chưa chọn tổ nào.', 3);

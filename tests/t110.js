@@ -47,7 +47,7 @@ const fs=require('fs'), path=require('path');
    const t0 = best; C.xa = t0.xa; C.diem = ''; C.hoi = String(t0.dv); C.to = '';
    const kKH = '2026|'+t0.xa+'|'+t0.dv; D.cauHinh.ktKH = D.cauHinh.ktKH || {}; const lich = {}; lich[t0.ma] = 9; D.cauHinh.ktKH[kKH] = {tu:2, den:10, to:lich};
    KT_DK_CHON = {}; KT_DK_BO = {}; KT_DK_THEM = {}; ktDoiCheDo('dk'); await w(300); const the = () => document.getElementById('kt-the').textContent;
-   ok('số liệu 31/08/2026 → kiểm tra tháng 09/2026', ktDKThang()==='2026-09' && /Số liệu đến 31\/08\/2026.*kiểm tra tháng 09\/2026/.test(the()));
+   ok('số liệu 31/08/2026 → kiểm tra tháng 09/2026 (3.328: ô Tháng kiểm tra + dòng số liệu)', ktDKThang()==='2026-09' && /Tháng kiểm tra/.test(the()) && /Số liệu in T9: T?8\/2026/.test(the()), (the().match(/Số liệu in.{0,40}/)||[''])[0]);
    const r0 = ktDKDs(); ok('3.140: Định kỳ chọn tự do — không tích sẵn tổ theo Kế hoạch; tích tay thì chọn', !r0.some(r=>r.chon) && r0.some(r=>r.t.ma===t0.ma));
    ktDKTich(t0.ma, true); await w(150);
    const x0 = ktDKTyLe(t0), ho = ktDKHo(t0);

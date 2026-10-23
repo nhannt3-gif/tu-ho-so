@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.329) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › Định kỳ › Tháng kiểm tra T11/2026 (ô đầu trang để ngày khác) | Dòng "Số liệu in T11: T10/2026"; Mẫu 16 số liệu cuối tháng 10 | |
+| 2 | Sau giải ngân, từ T8 đến T9, 1 tổ có GN cả 2 tháng | 2 phiếu Mẫu 06 (T8, T9); có dòng nhắc 30 ngày | |
+
+**Ghi chú kỹ thuật 3.329:** `KT_A_TH` (phiên) · `ktNguonThangKT / Ky / Nap / San / Voi / Ve` (56). `ktDKThang()` = `KT_DK_TH || ktNguonThangKT()`; `ktDKVe / ktBCVe` → `ktNguonVe(o, th, …G)`; `ktDKXem / ktBCXem / ktBCGiaTri` bọc `ktNguonVoi`. `ktAThangHTML` nhận cả lúc đang mượn (`S.K===KT_K`). Sau GN: `KT_GN.kh[th][kh] = {lt, t105, loai}`, `ktGNTo` → `{x, mon, thang:[th], th}`, `ktGNTichHo(ma, kh, v, th)`.
+
 ### Danh sách thử trên máy thật (3.328) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
