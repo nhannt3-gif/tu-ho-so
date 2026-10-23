@@ -31,6 +31,18 @@ const path=require('path');
    ok('Alt+1…9 theo sổ lối vào (Alt+3 = Nạp & KT như cũ)', DH_MUC.filter(m=>!m.nhom)[2].k==='nap');
    dhDoiGon(); await w(200); ok('thu gọn 60 px: nhóm + mục con chỉ biểu tượng', tb.getBoundingClientRect().width<=64 && getComputedStyle(tb.querySelector('a.tb-cha .chu')).display==='none'); dhDoiGon();
    return o; });
+ /* điện thoại: thanh dưới 5 nút */
+ await p.setViewportSize({width:390, height:800}); await p.waitForTimeout(500);
+ R.push(...await p.evaluate(async()=>{ const o=[], w=t=>new Promise(r=>setTimeout(r,t)), ok=(ten,dk,chi)=>o.push((dk?'✓ ':'✗ ')+ten+(chi!==undefined?' — '+chi:''));
+   doiNgan(0); await w(300); const td = document.getElementById('thanh-duoi'), nut = [...td.querySelectorAll('a .chu')].map(x=>x.textContent).join(',');
+   ok('điện thoại: thanh dưới Hôm nay · GD xã · Số liệu · Hồ sơ · Thêm, ẩn hàng tab ngang', getComputedStyle(td).display==='flex' && nut==='Hôm nay,GD xã,Số liệu,Hồ sơ,Thêm' && getComputedStyle(document.getElementById('hangngan')).display==='none', nut);
+   ok('thanh đáy (trạng thái) nằm trên thanh dưới, không đè', document.querySelector('.day').getBoundingClientRect().bottom <= td.getBoundingClientRect().top+1);
+   td.querySelector('a[data-d="gd"]').click(); await w(700); ok('GD xã → tab Giao dịch xã, nút tô', D.cauHinh.slTab==='gdx' && nganHienTai===7 && td.querySelector('a.bat').getAttribute('data-d')==='gd');
+   td.querySelector('a[data-d="hs"]').click(); await w(700); ok('Hồ sơ → Hồ sơ vay', D.cauHinh.slTab==='hsv' && td.querySelector('a.bat').getAttribute('data-d')==='hs');
+   dhSL('kt'); await w(500); ok('KTGS (Số liệu) → nút Số liệu tô', document.querySelector('#thanh-duoi a.bat').getAttribute('data-d')==='sl');
+   doiNgan(1); await w(300); ok('Văn bản (Tủ tài liệu) → nút Thêm tô', document.querySelector('#thanh-duoi a.bat').getAttribute('data-d')==='them');
+   document.querySelector('#thanh-duoi a[data-d="them"]').click(); await w(300); ok('☰ Thêm → hộp đủ mục theo nhóm (Nạp & KT, Tủ tài liệu, Công cụ, Cài đặt)', /Nạp & KT/.test(document.getElementById('hop').textContent) && /Thư viện/.test(document.getElementById('hop').textContent) && /Cài đặt/.test(document.getElementById('hop').textContent)); dongHop();
+   return o; }));
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t243 đạt'); await b.close(); process.exit(sai?1:0);
 })();

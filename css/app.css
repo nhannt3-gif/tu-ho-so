@@ -3836,3 +3836,18 @@ td.pb-mt-sp-o{padding:0 6px}.pb-mt-sp{display:block}
   body.tb-gon #thanh-ben .tb-con.tb-cc{border-top:0;margin-top:0}
   body.tb-gon #thanh-ben .tb-con.tb-cc a{justify-content:center;margin:1px 10px;background:rgba(255,255,255,.07)}
 }
+/* 3.326 (anh chốt 23/10, demo D5): điện thoại / màn < 1100 px — thanh dưới 5 nút, thay hàng tab ngang trên; thanh đáy (trạng thái · Xem trước) nằm ngay trên */
+#thanh-duoi{display:none}
+@media (max-width:1099px){
+  body.co-td #hangngan{display:none !important}
+  body.co-td #thanh-duoi{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:31;background:var(--the);border-top:1.3px solid var(--vien);padding:2px 4px calc(2px + env(safe-area-inset-bottom,0px));box-shadow:0 -2px 8px rgba(0,0,0,.08)}
+  body.co-td #thanh-duoi a{flex:1;display:flex;flex-direction:column;align-items:center;gap:0;padding:4px 2px;color:var(--chu-phu);text-decoration:none;cursor:pointer;border-radius:10px;font-size:calc(11px*var(--co));min-width:0}
+  body.co-td #thanh-duoi a .bt{font-size:19px;line-height:1.15}
+  body.co-td #thanh-duoi a.bat{color:var(--xanh-dam);background:var(--xanh-nhat);font-weight:700}
+  body.co-td .day{bottom:calc(50px + env(safe-area-inset-bottom,0px))}
+  body.co-td .than{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px)) !important}
+}
+.dt-them{display:flex;flex-direction:column;gap:10px}
+.dt-them-nhom > b{display:block;font-size:calc(13px*var(--co));margin-bottom:4px}
+.dt-them-nhom > div{display:flex;flex-wrap:wrap;gap:6px}
+.dt-them-muc{flex:1 1 140px;justify-content:flex-start;text-align:left}

@@ -91,9 +91,30 @@ function dhDoiGD(){
 }
 function dhTo(){   /* tô mục đang mở + làm mới số đếm (rẻ: chỉ đếm mảng nhỏ / meta) */
   var d = dhDang(); if(DH_CUOI && (!dhNhomCua(d) || DH_NHOM.every(function(n){ return n.g!==DH_CUOI || !n.con || n.con.indexOf(d)<0; }))) DH_CUOI = '';   /* rời nhóm vừa bấm → bỏ dấu */
+  dtVe();
   if(!document.getElementById('thanh-ben')) return;
   dhDay();
   dhVe();
+}
+/* 3.326 (anh chốt 23/10, demo D5): ĐIỆN THOẠI — thanh dưới 5 nút Hôm nay · GD xã · Số liệu · Hồ sơ · ☰ Thêm (màn < 1100 px, thay hàng tab ngang trên);
+   ☰ Thêm = hộp liệt kê đủ mục còn lại theo nhóm (cùng sổ lối vào DH_MUC / DH_NHOM / DH_CC). Hàng tab cũ #hangngan vẫn trong trang (ẩn) — lối cũ không đổi. */
+var DT_NUT = [['0', '🏠', 'Hôm nay', function(){ doiNgan(0); }], ['gd', '🏢', 'GD xã', function(){ dhBam('gd', 'gdx'); }],
+  ['sl', '📊', 'Số liệu', function(){ var t = (D.cauHinh && D.cauHinh.slTab) || ''; dhBam('sl', ['th', 'sk', 'to', 'tra', 'kt', 'pb'].indexOf(t)>=0 ? t : 'th'); }],
+  ['hs', '📁', 'Hồ sơ', function(){ var t = (D.cauHinh && D.cauHinh.slTab) || ''; dhBam('hs', t==='hst' ? 'hst' : 'hsv'); }], ['them', '☰', 'Thêm', function(){ dtThem(); }]];
+function dtDang(){ var d = dhDang(); if(d==='0') return '0'; var g = dhNhomCua(d); return g==='gd' || g==='sl' || g==='hs' ? g : 'them'; }
+function dtVe(){
+  var o = document.getElementById('thanh-duoi'); if(!o){ o = document.createElement('nav'); o.id = 'thanh-duoi'; document.body.appendChild(o); document.body.classList.add('co-td'); }
+  var dang = dtDang();
+  o.innerHTML = DT_NUT.map(function(x, i){ return '<a class="'+(x[0]===dang ? 'bat' : '')+'" data-d="'+x[0]+'" onclick="DT_NUT['+i+'][3]()"><span class="bt">'+x[1]+'</span><span class="chu">'+x[2]+'</span></a>'; }).join('');
+}
+function dtThem(){
+  var nhom = DH_NHOM.map(function(n){
+    if(n.k){ var m = dhMuc(n.k); return m && n.k!=='0' ? '<div class="dt-them-nhom"><div><button class="nho dt-them-muc" onclick="dongHop();dhBam(\'\',\''+m.k+'\')">'+m.bt+' '+coChuHTML(m.ten)+'</button></div></div>' : ''; }
+    var ds = n.cc ? DH_CC.map(function(c){ return '<button class="nho dt-them-muc" onclick="dongHop();dhCC(\''+c[0]+'\')">'+c[1]+' '+coChuHTML(c[2])+'</button>'; })
+      : n.con.map(dhMuc).filter(Boolean).map(function(m){ return '<button class="nho dt-them-muc" onclick="dongHop();dhBam(\''+n.g+'\',\''+m.k+'\')">'+m.bt+' '+coChuHTML(m.ten)+'</button>'; });
+    return '<div class="dt-them-nhom"><b>'+n.bt+' '+coChuHTML(n.ten)+'</b><div>'+ds.join('')+'</div></div>'; }).join('');
+  moHop('<div class="hop-tit">☰ Mọi mục</div><div class="dt-them">'+nhom+'<div class="dt-them-nhom"><b>⚙ Khác</b><div><button class="nho dt-them-muc" onclick="dongHop();moRac()">🗑 Thùng rác</button><button class="nho dt-them-muc" onclick="dongHop();moDonKho()">🧰 Dọn kho</button>'+
+    '<button class="nho dt-them-muc" onclick="dongHop();moHuongDan()">❓ Hướng dẫn</button><button class="nho dt-them-muc" onclick="dongHop();moCaiDat()">⚙ Cài đặt</button></div></div></div><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>');
 }
 /* Alt+1…9: mở mục theo thứ tự trên thanh bên (bỏ qua tiêu đề nhóm) */
 document.addEventListener('keydown', function(e){
@@ -161,5 +182,5 @@ function ttDung(){
 window.addEventListener('resize', function(){ clearTimeout(TTB.rz); TTB.rz = setTimeout(ttDung, 150); });
 /* khởi động (cuối file: mọi biến đã khai) */
 document.body.classList.add('co-tb');
-dhVe();
+dhVe(); dtVe();
 setTimeout(function(){ if(typeof slNap==='function' && typeof SL_SAN!=='undefined'){ if(SL_SAN) kyChungVe(); else slNap(); } }, 2500);   /* 3.149: ô Kỳ chung có ngay ở đầu trang */

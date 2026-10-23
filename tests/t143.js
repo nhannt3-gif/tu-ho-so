@@ -54,8 +54,8 @@ ok('3.326 thanh bên 2 cấp: Hôm nay · Giao dịch xã ▸ · Nạp & KT · S
  const p3 = await mo({width:1200, height:700}); const g3 = await p3.evaluate(()=>Math.round(document.getElementById('thanh-ben').getBoundingClientRect().width)); ok('màn 1200 (chưa chọn): tự thu 60 px', g3===60, g3); await p3.close();
  /* 1000 px + iPhone: không thanh bên, tab ngang còn, không tràn ngang */
  for(const [vp, ten] of [[{width:1000, height:700}, '1000 px'], [{width:390, height:844}, 'iPhone 390']]){
-   const q = await mo(vp); const x = await q.evaluate(()=>({tb:getComputedStyle(document.getElementById('thanh-ben')).display, tab:getComputedStyle(document.getElementById('hangngan')).display, tran:document.documentElement.scrollWidth>window.innerWidth+1, pad:getComputedStyle(document.body).paddingLeft}));
-   ok(ten+': không thanh bên, còn thanh tab ngang, không tràn ngang', x.tb==='none' && x.tab!=='none' && !x.tran && x.pad==='0px', JSON.stringify(x)); await q.close(); }
+   const q = await mo(vp); const x = await q.evaluate(()=>({tb:getComputedStyle(document.getElementById('thanh-ben')).display, tab:getComputedStyle(document.getElementById('hangngan')).display, duoi:getComputedStyle(document.getElementById('thanh-duoi')).display, tran:document.documentElement.scrollWidth>window.innerWidth+1, pad:getComputedStyle(document.body).paddingLeft}));
+   ok(ten+': không thanh bên, 3.326 thanh dưới 5 nút thay thanh tab ngang, không tràn ngang', x.tb==='none' && x.tab==='none' && x.duoi==='flex' && !x.tran && x.pad==='0px', JSON.stringify(x)); await q.close(); }
  /* nền tối */
  const pt = await b.newPage({viewport:{width:1536,height:730}, colorScheme:'dark'}); await pt.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(pt);
  await pt.goto('file://'+path.resolve(__dirname,'..','index.html')); await pt.waitForTimeout(1500);
