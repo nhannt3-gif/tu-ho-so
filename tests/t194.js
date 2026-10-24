@@ -7,7 +7,7 @@ const path=require('path'), G=path.resolve(__dirname,'..');
  await d.goto('file://'+G+'/dt.html'); await d.waitForTimeout(2500); const w = t=>d.waitForTimeout(t);
  const phim = async s=>{ for(const k of s) await d.click('#khoa [data-k="'+k+'"]'); };
  await phim('2580'); await d.click('#khoa [data-k="ok"]'); await phim('2580'); await d.click('#khoa [data-k="ok"]'); await w(1500); await d.evaluate(()=>DTG.app().dialog.close()); await w(300);
- ok('3.342: thanh tab dưới 4 mục: Khách · Văn bản · Scan · Cài đặt (Địa bàn = 📍 trong Khách, Giao dịch xã trong ⚙ › Công cụ)', (await d.$$eval('.dt-tab .tabbar-label', x=>x.map(e=>e.textContent))).join('|')==='Khách|Văn bản|Scan|Cài đặt');
+ ok('3.354: thanh tab dưới 5 mục: Hôm nay · Khách · Văn bản · Scan · Cài đặt (Địa bàn = 📍 trong Khách, Giao dịch xã trong ⚙ › Công cụ)', (await d.$$eval('.dt-tab .tabbar-label', x=>x.map(e=>e.textContent))).join('|')==='Hôm nay|Khách|Văn bản|Scan|Cài đặt');
  await d.evaluate(()=>{ DT.datDS('vanban', [{id:'v1', soHieu:'123/QĐ-NHCS', ngay:'2026-09-01', loai:'Quyết định', trichYeu:'Về việc điều chỉnh lãi suất cho vay', driveId:''},
    {id:'v2', soHieu:'45/CV-PGD', ngay:'2026-08-15', loai:'Công văn', trichYeu:'Hướng dẫn hồ sơ vay HSSV', driveId:'x'}]);
    DT.datDS('scan', [{id:'s1', ten:'Nguyễn Văn Giả', maKH:'4800000001', che:'cccd', ap:'Ấp 1', ngay:'2026-10-01', driveId:''}]);
