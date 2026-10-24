@@ -79,3 +79,22 @@ Anh 24/10: "em cứ làm theo kế hoạch ko cần hỏi lại" → TK 2 làm �
   2. **Kiểm sức khỏe sao lưu**: thẻ nhỏ ở ⚙ báo lần sao lưu / đồng bộ Drive gần nhất của từng ngăn, đỏ khi quá 7 ngày — giảm rủi ro mất dữ liệu khi 2 máy (đi cùng Đợt 4 #12 `luuNgan`).
   3. **Một chỗ khai báo người ký / chức danh** dùng chung Hồ sơ vay, Hồ sơ Tổ, KTGS (hiện mỗi khối có bảng riêng: Khai báo đơn vị, Hội đoàn thể, Bộ khai báo KTGS) — làm theo kiểu 3 tầng của KTGS (Đơn vị · Bộ khai báo · Lần in).
   4. **Phép thử ảnh bố cục** (Đợt 3 #9) chạy cả `dt.html` 390 px — bắt lỗi giao diện điện thoại trước khi anh thử máy thật.
+
+## 8. Anh 24/10: "các đề xuất tối ưu theo ý em" — TK 3 chốt thứ tự
+Nguyên tắc: **làm cái giảm lỗi + giảm rủi ro mất dữ liệu trước, rồi mới thêm tính năng**; mỗi việc vẫn lên kế hoạch chi tiết → anh nhắn "code" → làm; không đụng file TK 2 đang giữ (khung `js/23`, `js/22g`, `js/29-kho`, KTGS) khi chưa bàn giao.
+
+| Thứ tự | Việc | Ai | Vì sao trước / sau |
+|---|---|---|---|
+| — | Mục 4 #4 Tổng hợp (Nguồn vốn trên lọc) | **giữ như cũ** | anh đã chốt 3.168; không đổi |
+| 1 | **Công cụ kiểm** (Đợt 3): #9 phép thử ảnh bố cục tự động — 15 tab máy tính + `dt.html` iPhone (gộp góp ý 7.4); #10 hồi quy chia nhóm + 2 luồng (~2,5 giờ → ~1 giờ); #11 xem lại t100 (tốc độ nạp bộ lớn) và t158 | **TK 3** | chỉ chạm `tests/`, `tools/` → không đụng TK 2; mọi việc sau đều được kiểm nhanh hơn, bắt lỗi bị cắt chữ trước khi anh thử |
+| 2 | **Sức khỏe sao lưu** (góp ý 7.2): thẻ ⚙ báo lần đồng bộ Drive gần nhất từng ngăn, đỏ khi quá 7 ngày | TK 3 (đọc trạng thái có sẵn, không sửa luồng lưu) | rủi ro mất dữ liệu lớn nhất, việc nhỏ |
+| 3 | **Bản điện thoại 2** (`KE_HOACH_DIEN_THOAI_2.md` Đ0–Đ5) | TK 3 | anh đã chốt; chờ TK 2 bàn giao khung |
+| 4 | **Scan đọc qua `KHO`** (Đợt 4 #13) — làm cùng Đ3 điện thoại (tách lõi lọc ảnh / tên chuẩn dùng chung) | TK 3 | 1 lần chạm Scan cho cả 2 bản |
+| 5 | **`luuNgan()` thay `luu()`** ở Sổ hộ vay, Scan, GDX (Đợt 4 #12) | TK 2 (giữ `js/34-luu-ngan.js`) | sau mục 2 để có thẻ theo dõi |
+| 6 | **Nhật ký đã lập / đã in** theo khách, tổ (góp ý 7.1) | TK 3 | cần sau mục 5 (ghi theo ngăn) |
+| 7 | **Tách file lớn** `04-giao-dien.js`, `06-hop-thoai.js` + mốc giảm 50 `onclick` / bản (Đợt 4 #14) | TK 2 | đụng khung chung, làm khi ít việc song song |
+| 8 | **Khai báo người ký / chức danh 1 chỗ** (góp ý 7.3) | lên kế hoạch riêng, anh duyệt từng phần | chạm cả Hồ sơ vay, Hồ sơ Tổ, KTGS — lớn, dễ đổi bản in |
+| 9 | Tính năng (Đợt 5): KPI Hôm nay từng thẻ · Ctrl+K · GDX mục con | theo anh chọn | anh đã chốt "làm sau" |
+| — | Mục 4 #6–#8 (bản web thu hẹp cho máy tính bảng) | để sau cùng | điện thoại dùng `dt.html` |
+
+**Việc TK 3 làm được ngay, không chờ TK 2: mục 1 và 2** — chờ anh nhắn "code".
