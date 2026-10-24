@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.346** — TK 2: **đọc qua KHO xong K2–K5** — mọi tab đọc số liệu qua `KHO` (thước đo 221 → 0, mốc 0); dời file: Nạp & KT → `22k-nap-kt.js`, 22g → `22g` (lõi) + `22ga-pham-vi` + `22gb-to-giao-dien`. Trước: 3.345 thẻ tổ cân cột + tình trạng khách. Việc chờ: nguyên tắc bù Mẫu 01/TV (khi có số liệu cuối T10); mục 6 nhật ký đã lập / in; mục 8 khai báo người ký 1 chỗ (cần kế hoạch riêng).
+- **`main` = 3.346** — TK 2: **đọc qua KHO xong K2–K5** — mọi tab đọc số liệu qua `KHO` (thước đo 221 → 0, mốc 0); dời file: Nạp & KT → `22k-nap-kt.js`, 22g → `22g` (lõi) + `22ga-pham-vi` + `22gb-to-giao-dien`. Trước: 3.345 thẻ tổ cân cột + tình trạng khách. Việc chờ: nguyên tắc bù Mẫu 01/TV (khi có số liệu cuối T10); mục 6 nhật ký đã lập / in; ~~mục 8 khai báo người ký 1 chỗ~~ — anh 24/10 BỎ: "khó tập trung được, tuỳ từng mẫu".
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
