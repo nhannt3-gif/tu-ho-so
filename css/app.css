@@ -3948,6 +3948,9 @@ table.tc-kq-bang tr.tat td:first-child b{color:var(--chu-phu)}table.tc-kq-bang .
 .tc-to-tv-dong{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:2px 6px;border-bottom:1px solid var(--vien);font-size:calc(12.5px*var(--co));cursor:pointer}
 .tc-to-tv-dong:hover{background:var(--xanh-nhat)}.tc-to-tv-dong small{color:var(--chu-phu)}.tc-to-tv-dong b{text-align:right;min-width:90px}.tc-to-tv-dong.tat span{color:var(--chu-phu)}
 table.tc-kq-bang td.so{text-align:right}
+table.tc-to-ds td:first-child,table.tc-to-ds th:first-child{min-width:0}   /* 3.368: danh sách tổ vừa khung (bỏ tối thiểu 150 px chung) */
+table.tc-to-ds th,table.tc-to-ds td{padding-left:4px;padding-right:4px}table.tc-to-ds td:nth-child(3){white-space:normal;line-height:1.25}table.tc-to-ds td:nth-child(3) .nh{white-space:nowrap;font-size:calc(10px*var(--co));padding:0 4px}
+table.tc-to-ds{table-layout:fixed}table.tc-to-ds td{max-width:none}table.tc-to-ds th{white-space:normal;line-height:1.2}table.tc-to-ds th:nth-child(1){width:22%}table.tc-to-ds th:nth-child(2){width:15%}table.tc-to-ds th:nth-child(3){width:17%}table.tc-to-ds th:nth-child(4){width:9%}table.tc-to-ds th:nth-child(5){width:14%}table.tc-to-ds th:nth-child(6){width:13%}table.tc-to-ds th:nth-child(7){width:10%}table.tc-to-ds td:nth-child(2),table.tc-to-ds td:nth-child(3){text-overflow:clip}   /* chia cột theo tỷ lệ khung → luôn vừa, chữ dài hiện … (title đủ) */   /* chip ngưỡng TV xuống dòng khi chật */
 /* 3.337 (anh 24/10): Tra cứu KH — thẻ khách gọn trong 1 khung: 3 cột thông tin, món vay chiếm phần còn lại; ngày đến hạn tô màu; danh sách tình trạng chữ nhỏ sau tên */
 @media(min-width:900px){
   .tc-phai .tc-the.tc-khung{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto 170px minmax(140px,1fr) auto}
@@ -4010,6 +4013,7 @@ table.tc-to-tvb .tc-to-mo{color:var(--xanh);font-size:calc(10px*var(--co));white
 .dk-chon-hang{display:flex;flex-wrap:wrap;gap:4px 10px;margin:4px 0}.dk-chon{display:inline-flex;flex-wrap:wrap;gap:3px;align-items:center}
 .bt-tit{font-size:calc(11px*var(--co));font-weight:700;color:var(--chu-phu);text-transform:uppercase;letter-spacing:.03em;margin:8px 0 2px;text-align:left}
 /* 3.359 📅 dòng thời gian (js/65) */
+details.dtg-khoi>summary{cursor:pointer;list-style:none}details.dtg-khoi>summary::-webkit-details-marker{display:none}details.dtg-khoi>summary::before{content:'▸ ';color:var(--chu-phu)}details.dtg-khoi[open]>summary::before{content:'▾ '}details.dtg-khoi>summary small{font-weight:400;color:var(--chu-phu);text-transform:none;letter-spacing:0}details.dtg-khoi[open]>summary small{display:none}
 .dtg-nut{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0}.dtg-phu{font-size:.85em;color:var(--chu-phu);margin:3px 0}
 .dtg-ul{margin:2px 0 0;padding-left:18px;font-size:.92em}.dtg-ul li{margin:1px 0}.dtg-ul b{display:inline-block;min-width:62px}
 .dtg-ul .dtg-moi b{color:#1a7f37}.dtg-ul .dtg-ra b,.dtg-ul .dtg-qh b{color:#b42318}.dtg-ul .dtg-chuyen b{color:#9a6700}.dtg-ul .dtg-tat b{color:var(--chu-phu)}

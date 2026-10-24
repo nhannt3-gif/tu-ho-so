@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.368 — 25/10/2026 — Danh sách tổ ở Tra cứu không còn cột bị khuất
+- Anh 25/10: "ds tổ có cột bị khuất" (ảnh: cột Hội bị che bên phải, phải cuộn ngang). Nguyên nhân: bảng 7 cột rộng 634 px trong khung 494 px (máy 1366) — cột Hội ghi tên đủ, cột Thành viên có chip ngưỡng, cột tên tổ trưởng bị luật chung ép tối thiểu 150 px.
+- `js/58-tc-to.js` + `css/app.css` (chỉ bảng `.tc-to-ds`): chia cột theo tỷ lệ bề ngang khung (luôn vừa, không cuộn ngang ở mọi khổ); tiêu đề "TV" / "Có DN" (title chữ đủ); Hội viết tắt HND / HPN / CCB / ĐTN (title tên đủ); chip ngưỡng chữ nhỏ, xuống dòng dưới số khi chật; tên / xã / ấp dài hiện "…" (rê chuột thấy đủ); mã tổ luôn đủ 7 số.
+- **Phép thử**: mới t309 (1280 / 1366 / 1920); t246 sửa theo tiêu đề mới.
+
+## 3.367 — 25/10/2026 — Dòng thời gian thu gọn
+- Anh 25/10: "nên ẩn đi, mở lên khi cần để không chiếm chỗ" → khối 📅 Dòng thời gian (thẻ khách + thẻ tổ, `js/65`) thành `<details>` thu gọn 1 dòng "▸ Dòng thời gian · bấm mở"; mở → nút Xem năm như cũ; xem xong thu lại được. CSS 1 dòng `css/app.css` (mũi tên ▸ / ▾).
+- **Phép thử**: t302 thêm điểm "mặc định thu gọn".
+
 ## 3.366 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ5 xem trước bản in
 - Khung xem trước (`trDan`, `js/05`): **chụm 2 ngón trên trang in → đổi mức phóng của trang** (41% → 122%… nối với ô % và nút − +), chặn iOS phóng cả màn hình (trước chụm thì thanh nút cũng phóng theo, khó bấm). Màn ≤ 600 px: thanh công cụ 1 hàng vuốt ngang (trước 3 hàng), nút cao 34 px, ẩn ⏮ ⏭ (còn ‹ › + ô số trang). Máy tính không đổi.
 - **Phép thử**: mới t308 (điện thoại + máy tính 1440 thanh như cũ).

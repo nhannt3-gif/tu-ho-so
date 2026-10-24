@@ -30,6 +30,7 @@ const fs=require('fs'), path=require('path');
    kyChungDoi('2026-08'); dhSL('tra'); for(let i=0;i<60 && !TC_K;i++) await w(200); await w(600);
    const kh = KHO.chiMuc()[0].m; slTheKH(kh); await w(400);
    const k1 = document.querySelector('.dtg-khoi');
+   ok('3.367 khối 📅 Dòng thời gian mặc định thu gọn (bấm tiêu đề mới mở)', !!k1 && k1.tagName==='DETAILS' && !k1.open, k1 && k1.tagName+' '+k1.open);
    ok('3.359 thẻ khách có khối 📅 Dòng thời gian + nút Xem năm 2026 (chưa đọc sẵn)', !!k1 && !!k1.querySelector('[data-lenh="dtg.mo"][data-nam="2026"]') && !k1.querySelector('.dtg-ul'));
    k1.querySelector('[data-lenh="dtg.mo"]').click(); for(let i=0;i<30 && !/Theo Mẫu 31/.test(k1.textContent);i++) await w(150);
    ok('3.359 bấm Xem năm → hiện danh sách sự kiện theo Mẫu 31 07 · 08 (có mốc tháng đầu)', /Theo Mẫu 31/.test(k1.textContent) && (!!k1.querySelector('.dtg-ul li') || /Không có thay đổi/.test(k1.textContent)), k1.textContent.slice(0, 140));

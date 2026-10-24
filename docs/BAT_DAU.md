@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.366** — TK 2: điện thoại Đ5 xem trước bản in (chụm 2 ngón phóng trang, thanh 1 hàng) — **xong đợt Đ1–Đ5** (`docs/KE_HOACH_DIEN_THOAI_MAY.md`). Trước: 3.365 Đ4 Số liệu + sửa lỗi tiêu đề lệch cột, 3.364 Đ3 Hôm nay, 3.363 nhật ký lỗi (`js/67`). Chờ anh: thử máy thật Đ1–Đ5; chọn kỹ thuật tiếp (em đề xuất mục 1 Web Worker dựng kỳ — `docs/TU_VAN_KY_THUAT.md`).
+- **`main` = 3.368** — TK 2: danh sách tổ ở Tra cứu vừa khung (anh 25/10). Trước: 3.367 Dòng thời gian thu gọn, 3.366 Đ5 xem trước bản in — **xong Đ1–Đ5 điện thoại**, 3.363 nhật ký lỗi. Đang làm: kế hoạch Web Worker (anh đồng ý 25/10) — đã đo, chờ anh duyệt kế hoạch.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
