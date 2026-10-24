@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.341) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan › chọn khách cho bản scan (gõ tên / mã) | Gợi ý khách như cũ, chọn đúng ấp / xã | |
+| 2 | Scan › 📊 Kiểm tra theo cây địa bàn | Mở được, dùng Mẫu 31 mới nhất | |
+| 3 | Hồ sơ Tổ / Hồ sơ vay / Giao dịch xã đổi kỳ ở dải lịch | Số liệu đổi theo kỳ như cũ | |
+
+**Ghi chú kỹ thuật 3.341:** `js/23` nạp trước `js/29` → mọi chỗ gọi `KHO` lúc nạp phải kiểm `typeof KHO`. Tiếp: K2 Tra cứu KH (22f, 58) theo `RA_SOAT_KHO_2410.md` mục 2 — chờ anh duyệt K2–K5.
+
 ### Danh sách thử trên máy thật (3.340) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
