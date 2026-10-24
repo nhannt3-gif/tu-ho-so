@@ -40,7 +40,7 @@ const fs=require('fs'), path=require('path');
    /* Tra cứu */
    slDoiTab('tra'); doiNgan(7); for(let i=0;i<60 && !document.querySelector('#tc-cay .pv-dan');i++) await w(250); await w(200);
    ok('Tra cứu: bỏ khung gập "📍 Toàn PGD", cây lọc như các tab, số khách trên dòng 📍', !document.querySelector('.tc-pv') && /khách/.test(document.querySelector('#tc-cay .pv-dem').textContent) && !document.querySelector('#tc-cay .pv-tim'), document.querySelector('#tc-cay .pv-dem').textContent);
-   ok('Tra cứu: ô tìm khách vẫn to trên cùng', document.getElementById('sl-tim').getBoundingClientRect().top < document.getElementById('tc-cay').getBoundingClientRect().top);
+   ok('Tra cứu: ô tìm khách vẫn to trên cùng (3.335: cùng dải với LỌC ĐỊA BÀN, trên danh sách)', (()=>{ const a = document.getElementById('sl-tim').getBoundingClientRect(), c = document.getElementById('tc-cay').getBoundingClientRect(), k = document.getElementById('sl-kq').getBoundingClientRect(); return a.top < c.bottom && a.bottom < k.top && a.width >= 200; })());
    /* chế độ tối: ô thả xuống / ô nhập nền tối */
    D.cauHinh.giaoDien = 'dark'; apGiaoDien(); slDoiTab('kt'); doiNgan(7); await w(800); ktCH().che = 'hdt'; ktCH().hdtTab = 'chuan'; ktVeThe(); await w(200);
    const inp = document.querySelector('.kt-chuan tbody input'), bg = getComputedStyle(inp).backgroundColor.match(/\d+/g).map(Number);
