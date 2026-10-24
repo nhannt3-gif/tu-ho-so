@@ -41,6 +41,17 @@ var KHO = (function(){
     /* KHO.toTruongKH(tổ) → {kh, cc} — mã KH tổ trưởng: Mã CIF TT → Danh sách tổ → trùng tên (bọc hsoTTKH) · QT-12 */
     toTruongKH: function(t){ return t && typeof hsoTTKH==='function' ? hsoTTKH(t) : {kh:'', cc:''}; },
     /* 3.264: KHO.dsKhach() → {maKH: {ten, cccd, xa, tenXa, thon, tenThon, to, toTen, …}} danh bạ khách Mẫu 31 các kỳ (chỉ đọc) · KHO.toDanhBa(maTo) → {ten, diem, tenThon, …} | null */
+    /* 3.346 (K2): KHO.dsToDanhBa() → {maTo: {ten, diem, tenThon, …}} danh bạ tổ các kỳ (chỉ đọc) · KHO.chiMuc() → [{m, ten, t, c, k, s, ns}] chỉ mục tìm khách · KHO.phu() → [{loai:'vc'|'hs', ten, t, so, kh, ku}] vợ/chồng + HSSV Mẫu 31 mới nhất · KHO.bo(kỳ) → Promise bộ dữ liệu kỳ (bọc slBo) */
+    /* 3.346 (K2): cửa đọc KỲ CỦA TAB (K = KHO.nap(kỳ) giữ riêng, vd Tra cứu TC_K) — KHO.toKy(K, maTo) → tổ | null · KHO.dsToKy(K) → [tổ] · KHO.monKy(K, maKH) → [dòng món Mẫu 31 của khách] · KHO.khdKy(K) → {số KU: món 3 tháng KHĐ} · KHO.saoKeKy(K, loại) → {ky, rows} | null (gắn kỳ đó, không có thì kỳ đang dựng) */
+    toKy: function(K, ma){ return K && K.to && ma ? K.to[ma] || null : null; },
+    dsToKy: function(K){ return K && K.to ? Object.keys(K.to).map(function(m){ return K.to[m]; }) : []; },
+    monKy: function(K, kh){ return K && K.B && K.B.theoKH && kh ? K.B.theoKH[kh] || [] : []; },
+    khdKy: function(K){ return (K && K.B && K.B.khd) || {}; },
+    saoKeKy: function(K, loai){ return (K && K.tk && K.tk[loai]) || this.saoKe(loai); },
+    dsToDanhBa: function(){ return (typeof SL_DB!=='undefined' && SL_DB && SL_DB.to) || {}; },
+    chiMuc: function(){ return typeof SL_TIM!=='undefined' ? SL_TIM : []; },
+    phu: function(){ return typeof SL_PHU!=='undefined' ? SL_PHU : []; },
+    bo: function(ky){ return slBo(ky); },
     dsKhach: function(){ return (typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh) || {}; },
     toDanhBa: function(ma){ return (typeof SL_DB!=='undefined' && SL_DB && SL_DB.to && ma && SL_DB.to[ma]) || null; },
     /* KHO.khach(maKH, tổ?) → {kh, ten, ns, cccd, ncap, noiCap, ap, tenXa} — danh bạ Mẫu 31 các kỳ + dòng kỳ đang xem (bọc hsoKhach) · QT-13 */

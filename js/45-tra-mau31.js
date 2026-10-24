@@ -21,7 +21,7 @@ function trTim(q, db){
   var X = sxXacDinh(o);
   if(X.ma) return {ma:X.ma, theo:X.theo};
   var ds = (X.ds || []).slice(); if(X.goiY && ds.indexOf(X.goiY)<0) ds.unshift(X.goiY);
-  if(!ds.length && o.ten && typeof slTimKH==='function') ds = slTimKH(o.ten, 8).map(function(r){ return r.m; });   /* tìm rộng theo tên (như ô tìm khách) */
+  if(!ds.length && o.ten && typeof KHO!=='undefined') ds = KHO.tim(o.ten, 8).map(function(r){ return r.m; });   /* tìm rộng theo tên (như ô tìm khách) */
   if(db && ds.length>1) ds.sort(function(a, b){ return (sxHopDB(b, db) ? 1 : 0)-(sxHopDB(a, db) ? 1 : 0); });   /* khách ở tổ / ấp đang chọn lên đầu */
   return ds.length ? {ds:ds.slice(0, 8), ly:X.ly || (X.ds ? 'trùng tên' : 'gần khớp')} : {};
 }

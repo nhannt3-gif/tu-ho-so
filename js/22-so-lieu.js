@@ -1100,3 +1100,27 @@ function slMucCu(loai, ky){
 function slKyMoi(){ var ds = Object.keys(SLM.bang).map(function(k){ return slThang(SLM.bang[k].ky); }).sort(); return ds[ds.length-1] || ''; }   /* tháng mới nhất có số liệu */
 function slHSMoi(){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return slLaHS(e.loai); }).map(function(e){ return e.ky; }).sort(function(a, b){ return slThuTu(a)<slThuTu(b) ? -1 : 1; }); return ds[ds.length-1] || ''; }
 function slCacNgay(loai, thang){ return Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===loai && slThang(e.ky)===thang && String(e.ky).length>7; }).sort(function(a, b){ return a.ky<b.ky ? -1 : 1; }); }
+/* 3.346 (K2): bộ tìm trên chỉ mục SL_TIM (chuyển nguyên văn từ 22f — lõi dữ liệu); tab gọi qua KHO.tim */
+function slTimKH(q, toiDa){
+  if(!SL_TIM.length) return [];
+  var qq = slChuan(q); if(qq.length<2) return [];
+  var so = qq.replace(/ /g,''), laSo = /^\d+$/.test(so), ra = [];
+  var nsQ = '', x = String(q).trim().match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})$/); if(x) nsQ = x[3]+'-'+hai(+x[2])+'-'+hai(+x[1]);
+  var tu = qq.split(' ');
+  for(var i=0;i<SL_TIM.length;i++){
+    var r = SL_TIM[i], d = 0;
+    if(nsQ){ if(r.ns===nsQ) d = 80; }
+    else if(laSo){
+      if(so.length>=4 && r.c.indexOf(so)>=0) d = r.c===so ? 100 : (r.c.slice(-so.length)===so ? 90 : 60);
+      else if(so.length>=4 && r.m.indexOf(so)===0) d = r.m===so ? 100 : 70;
+      else if(so.length>=8 && r.k.indexOf(so)>=0) d = r.k.indexOf(' '+so)>=0 ? 95 : 55;   /* 3.86: số khế ước (cả món đã tất toán) */
+      else if(so.length>=6 && r.s && r.s.indexOf(so.replace(/^84/,'0'))>=0) d = 85;   /* 3.86: số điện thoại */
+      else if(so.length===4 && r.ns.slice(0,4)===so) d = 30;
+    } else if(tu.every(function(w){ return r.t.indexOf(w)>=0; })){
+      d = 40 + tu.filter(function(w){ return r.t.indexOf(' '+w)>=0; }).length*10;
+    }
+    if(d) ra.push({r:r, d:d});
+  }
+  return ra.sort(function(a,b){ return b.d-a.d || (a.r.ten<b.r.ten ? -1 : 1); }).slice(0, toiDa||8).map(function(x){ return x.r; });
+}
+var SL_KHMON = {};   /* SL_KHMON[mã KH] = món theo Mẫu 31 mới nhất (dựng ở slKhMonNap; đọc qua KHO.monKH) — 3.346 chuyển khai báo từ 22f */
