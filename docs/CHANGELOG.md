@@ -4,11 +4,30 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.342 — 24/10/2026 — Thẻ tổ ở Tra cứu: đầu thẻ 3 hàng + bảng thành viên đủ cột (anh 24/10)
+## 3.344 — 24/10/2026 — Thẻ tổ ở Tra cứu: đầu thẻ 3 hàng + bảng thành viên đủ cột (anh 24/10)
 - **Anh**: "cột danh sách thành viên thêm STT, mã KH và sắp theo mã KH, dư nợ, ngày vay, hạn trả, lãi tồn, số TK 105" + "các thông tin trên gom lại 3 dòng… có tên cột, có khung dọc" + "cân đối vừa cột, còn chỗ thì thêm thông tin".
 - **Đầu thẻ** (`tcTheTo`, `js/58-tc-to.js`): 3 bảng nhỏ có tên cột + kẻ dọc — ① Tổ (tổ trưởng) · Mã tổ · Mã KH tổ trưởng · SĐT · CCCD; ② Ấp · Xã · Điểm GD · Ngày GD · Hội quản lý; ③ Thành viên · Có dư nợ · Không dư nợ · Tổng dư nợ · Quá hạn · **Lãi tồn · 3 tháng KHĐ (số món, theo `B.khd`) · Số dư TK 105** (thêm cho đủ khung). Dòng lưu ý (còn lãi tồn / cần cho ra) + nguồn số liệu thành chữ nhỏ dưới hàng ③. Ô chép (mã tổ, mã KH, SĐT, CCCD) giữ.
-- **Bảng thành viên**: # · Họ tên · Mã KH (**sắp theo mã KH**, bỏ "có dư nợ lên trước") · **CT** (viết tắt `ctNgan`) · Dư nợ · Ngày vay · Hạn trả (màu đỏ / cam / vàng như thẻ khách, `tcHanMon(m, xong, gon)` — "còn N ngày" đưa vào chú thích) · Lãi tồn · **TGTK** (số dư TK 105). **2 kiểu xem (chip Đủ | Gọn, nhớ ở `D.cauHinh.tcTim.tvKieu`): Đủ — khách nhiều món mỗi món 1 dòng**, #, họ tên, mã KH, TGTK gộp ô (rowspan). **Bấm ô CT → dòng nhỏ dưới khách hiện mã món vay; bấm ô TGTK → số TK 105** (bấm số để chép, bấm lại ô để ẩn — `tcToHien`, không làm rộng cột). **Gọn** — mỗi khách 1 dòng (dư nợ / lãi tồn tổng, ngày vay · hạn theo món đến hạn sớm nhất), khách nhiều món có "▸n món": bấm → dòng nhỏ dưới liệt kê từng món (CT · mã món chép được · dư nợ · vay · hạn · lãi tồn), bấm lại = ẩn. Bấm chỗ khác trên dòng mở khách như cũ. Tiêu đề bảng đứng yên khi cuộn; khung hẹp (≤ 660px) năm hiện 2 số để không tràn ngang.
-- **Phép thử**: t246 thêm 4 ý (3 hàng, cột bảng + sắp theo mã, hạn trả, không tràn — kiểm ở 1600 và 1366).
+- **Bảng thành viên**: # · Họ tên · Mã KH (**sắp theo mã KH**, bỏ "có dư nợ lên trước") · **CT** (viết tắt `ctNgan`) · Dư nợ · Ngày vay · Hạn trả (màu đỏ / cam / vàng như thẻ khách, `tcHanMon(m, xong, gon)` — "còn N ngày" đưa vào chú thích) · Lãi tồn · **TGTK** (số dư TK 105). **2 kiểu xem (chip Đủ | Gọn, nhớ ở `D.cauHinh.tcTim.tvKieu`)**: **Đủ** — khách nhiều món mỗi món 1 dòng, #, họ tên, mã KH, TGTK gộp ô (rowspan); **Gọn** — mỗi khách 1 dòng (dư nợ / lãi tồn tổng, ngày vay · hạn theo món đến hạn sớm nhất), khách nhiều món có "▸n món": bấm → dòng nhỏ dưới liệt kê từng món (CT · mã món chép được · dư nợ · vay · hạn · lãi tồn), bấm lại = ẩn. **Bấm ô CT → dòng nhỏ hiện mã món vay; bấm ô TGTK → số TK 105** (bấm số để chép, bấm lại ô để ẩn — `tcToHien`, không làm rộng cột). Bấm chỗ khác trên dòng mở khách như cũ. Tiêu đề bảng đứng yên khi cuộn; khung hẹp (≤ 660px) năm hiện 2 số để không tràn ngang.
+- **Phép thử**: t246 thêm 11 ý (3 hàng, cột bảng + sắp theo mã, hạn trả, mỗi món 1 dòng, bấm CT, Đủ / Gọn, ▸, không tràn — kiểm ở 1600 và 1366); hồi quy đủ 2 luồng.
+- **Số bản**: TK 3 đã dùng 3.342 / 3.343 (bản điện thoại) → bản này 3.344.
+
+## 3.343 — 24/10/2026 — Bản điện thoại 2, bước Đ1: Khách theo Tra cứu KH máy tính (TK 3)
+- **Anh 24/10**: "tra cứu KH của TK 2 đang làm rất ổn rồi, em dựa vào đó làm bản cho điện thoại".
+- **Tìm theo** (như 3.335 máy tính, nhớ lựa chọn): Tự nhận · Tên KH · Vợ/chồng · CCCD · Mã KH · SĐT · **Khế ước** · **Tổ trưởng** (tên, mã tổ, SĐT, mã KH tổ trưởng; trống = mọi tổ). Tự nhận: số không khớp tên → tìm khế ước; chữ khớp tổ trưởng → nút "🏘 n tổ khớp — xem tổ".
+- **Danh sách**: tên + tình trạng chữ nhỏ sau tên (vay n món · quá hạn / khoanh · tất nợ), ô trống hiện **Vừa xem** (10 khách, chỉ trong lần mở app).
+- **Thẻ khách** (như 3.337): 5 ô số Dư nợ · Món còn nợ · Quá hạn · Khoanh · **Lãi tồn**; nhân thân + liên hệ (☎ gọi · Zalo); Tổ & địa bàn (bấm sang thẻ tổ); món vay **Đến hạn tô màu**: quá hạn đỏ · ≤ 30 ngày cam · ≤ 90 ngày vàng, "còn / quá n ngày", **GH** = hạn gia hạn. Bấm mã KH / CCCD / khế ước để chép.
+- **Thẻ tổ** (như 3.336): Thành viên · Có / Không dư nợ · Tổng dư nợ · Quá hạn; mã tổ, tổ trưởng, **mã KH tổ trưởng**, ☎; danh sách thành viên bấm mở khách.
+- **Gói số liệu xem** (`js/38-goi-xem.js`, máy tính đẩy): nối thêm lãi tồn món, cờ gia hạn, mã KH tổ trưởng (điện thoại bản cũ vẫn đọc). Cần máy tính đẩy gói mới (tự đẩy sau lần nạp Mẫu 31 kế tiếp, hoặc ⚙ › 💾 Sao lưu › 📱 Bản điện thoại › Đẩy ngay).
+- Phép thử: t263 mới (18).
+
+## 3.342 — 24/10/2026 — Bản điện thoại 2, bước Đ0 (TK 3)
+- **Anh 24/10**: "trên điện thoại khi cần cũng có nút chuyển sang bản web; em có thể bỏ PIN mã hóa trong lúc này, sau này cần sẽ mở lại; bản điện thoại tối ưu cho iOS" · "em làm tiếp theo kế hoạch" (`docs/KE_HOACH_DIEN_THOAI_2.md`).
+- **Tạm bỏ PIN**: mở thẳng, không tự khóa; số liệu trong máy **vẫn mã hóa** (khóa tự sinh cất trong máy). Bật lại PIN: cờ `localStorage 'tuhoso_dt_pin' = '1'` (không phải viết lại). Gói số liệu cất bằng PIN cũ → tự tải lại từ Drive.
+- **Thanh dưới 4 nút**: 🔎 Khách · 📄 Văn bản · 📷 Scan · ⚙ Cài đặt. **📍 Địa bàn** thành nút trên thanh tiêu đề trang Khách; **🏢 Giao dịch xã** chuyển vào ⚙ › Công cụ.
+- **Nút 🖥 bản web** trên thanh tiêu đề mọi trang; bản web khi mở trên điện thoại có nút **📱** góc dưới trái về lại bản điện thoại (file riêng `js/60-ve-dt.js`).
+- Sửa: dòng kỳ trang Khách vẫn ghi "chưa có số liệu" sau khi đã có số liệu → nay tự cập nhật; nút ⟳ trên thanh tiêu đề (Văn bản, Scan, Giao dịch xã) gắn được lệnh trên giao diện iOS (thanh tiêu đề nằm ngoài trang).
+- iOS: thêm `apple-mobile-web-app-status-bar-style`, tắt tự nhận số điện thoại.
+- Phép thử: t262 mới (17); t193 / t194 / t195 bật cờ PIN để vẫn kiểm phần PIN, theo thanh 4 nút.
 
 ## 3.341 — 24/10/2026 — Rà soát đọc qua KHO + đợt K1 (RA_SOAT_KHO_2410 · mục 8 việc 4)
 - **Anh 24/10**: "sau mục này rà soát mọi thứ đọc qua kho đã chuyển hết chưa" → `docs/RA_SOAT_KHO_2410.md` (đã gộp): **chưa chuyển hết** — lõi 22-so-lieu / 22g / 28 / 29 hợp lệ; còn đọc thẳng ở Tra cứu KH, Sao kê · cấp Hội · Tổng hợp · Thông tin tổ, KTGS; đề xuất đợt K1–K5. `tools/ra_kho.py` đếm theo file.

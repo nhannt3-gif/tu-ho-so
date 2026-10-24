@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.342** — TK 2: thẻ tổ ở Tra cứu gọn 3 hàng có tên cột + bảng thành viên đủ cột (sắp theo mã KH, hạn trả tô màu). Trước: 3.341 rà soát đọc qua KHO + K1 (221 mốc); 3.340 lưu nhanh khi dữ liệu lớn. Chờ anh: duyệt K2 Tra cứu → K3 → K4 KTGS → K5 tách 22g.
+- **`main` = 3.344** — TK 2: thẻ tổ ở Tra cứu gọn 3 hàng có tên cột + bảng thành viên (sắp theo mã KH, CT, hạn trả tô màu, TGTK, chip Đủ / Gọn). Trước: 3.343 / 3.342 TK 3 bản điện thoại Đ0–Đ1; 3.341 rà soát đọc qua KHO + K1 (221 mốc). Chờ anh: duyệt K2 Tra cứu → K3 → K4 KTGS → K5 tách 22g.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

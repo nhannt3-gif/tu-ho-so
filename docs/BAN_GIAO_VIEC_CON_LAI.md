@@ -222,7 +222,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
-### Danh sách thử trên máy thật (3.342) — anh ghi Đạt / Chưa
+### Danh sách thử trên máy thật (3.344) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 1 | Tra cứu › Tìm theo Tổ trưởng › chọn 1 tổ | Đầu thẻ 3 hàng có tên cột, kẻ dọc; số TV / dư nợ như trước | |
@@ -230,7 +230,26 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 3 | Chip Đủ / Gọn; khách vay nhiều món; bấm ô CT / ô TGTK / ▸ | Đủ: mỗi món 1 dòng; Gọn: mỗi khách 1 dòng, bấm ▸ hiện dòng nhỏ từng món; bấm CT hiện mã món vay, TGTK hiện số TK 105; app nhớ kiểu đã chọn | |
 | 4 | Bấm 1 dòng thành viên | Mở khách đó như cũ | |
 
-**Ghi chú kỹ thuật 3.342:** món lấy `TC_K.B.theoKH[kh]` (món còn dư nợ hoặc lãi tồn, như thẻ khách); KHĐ đếm theo `TC_K.B.khd[ku]` của món thành viên. Lớp `.tc-to-tv-dong` giữ trên `<tr>` (t246). `@container` cho năm 2 số khi khung hẹp.
+**Ghi chú kỹ thuật 3.344:** Đủ / Gọn = `tcTim().tvKieu`; dòng chi tiết `tr.tc-to-ct-mo` (Gọn dựng sẵn `hidden`, CT / TGTK chèn bằng `tcToHien`). món lấy `TC_K.B.theoKH[kh]` (món còn dư nợ hoặc lãi tồn, như thẻ khách); KHĐ đếm theo `TC_K.B.khd[ku]` của món thành viên. Lớp `.tc-to-tv-dong` giữ trên `<tr>` (t246). `@container` cho năm 2 số khi khung hẹp.
+
+### Danh sách thử trên máy thật (3.343) — iPhone, anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Máy tính: ⚙ › 💾 Sao lưu › 📱 Bản điện thoại › đẩy gói; iPhone ⟳ | Thẻ khách có Lãi tồn, món vay có ngày đến hạn tô màu | |
+| 2 | Khách › chip Tổ trưởng › gõ tên tổ trưởng | Danh sách tổ → bấm ra thẻ tổ (thành viên, có / không dư nợ) | |
+| 3 | Khách › chip Khế ước › gõ 5 số cuối | Ra đúng khách | |
+
+**Ghi chú kỹ thuật 3.343:** gói xem món `[9]` lãi tồn (`laiTon`), `[10]` 1 = hạn gia hạn; tổ `ttKH`. `dt-giao-dien.js`: `TIM_THEO`, `DT.ch.timTheo`, `timTheo / toTim / hanMon / oSo / kv / goi`, route `/to/:ma/` (`trTo`), `VUA_XEM` (bộ nhớ). CSS `.dt-theo .dt-chip .dt-oso .dt-han-*`.
+
+### Danh sách thử trên máy thật (3.342) — iPhone, anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app trên iPhone | Không hỏi PIN, vào thẳng trang Khách; thanh dưới 4 nút | |
+| 2 | Bấm 🖥 ở góc phải trên | Sang bản web; có nút 📱 góc dưới trái; bấm 📱 → về bản điện thoại | |
+| 3 | Khách › 📍 | Địa bàn theo cấp (Xã › Điểm › Hội › Tổ › Khách) | |
+| 4 | ⚙ › Công cụ › Giao dịch xã | Mở 04/TD, 12/GDX, Giấy lĩnh như cũ | |
+
+**Ghi chú kỹ thuật 3.342:** `DT.pinBat()` (cờ `tuhoso_dt_pin`), `DT.moTuDong()` (khóa AES tự sinh `khoaTu` trong IndexedDB `tuhoso_dt`), `DT.khiNap` → `refreshPage`. `trang()` luôn có `.dt-may`; gắn lệnh qua `tat(sel)` = trang + `page.navbarEl`. `nutTL` bỏ. `js/60-ve-dt.js`: nút `#ve-dt` khi `tuhoso_ban='may'` + màn cảm ứng ≤ 600 px.
 
 ### Danh sách thử trên máy thật (3.341) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
