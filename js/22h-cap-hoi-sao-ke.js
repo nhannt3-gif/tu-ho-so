@@ -121,8 +121,8 @@ function toKhach(t){
   });
   return Object.keys(kh).sort().map(function(m){ var k = kh[m]; k.stk = slStkKH(m, k.stk); return k; });   /* 3.120: số sổ 105 tham chiếu Dư nợ chi tiết (qua danh bạ) */
 }
-function slStkDB(kh){ var c = SL_DB && SL_DB.kh && SL_DB.kh[kh]; return c ? slStk(c.stk) : []; }
-function slStkKH(kh, ds){ var c = SL_DB && SL_DB.kh && SL_DB.kh[kh]; if(c && c.stkNguon==='dnct' && slStk(c.stk).length) return slStk(c.stk); return ds && ds.length ? ds : slStkDB(kh); }   /* 3.120: số sổ 105 — Dư nợ chi tiết trước, rồi Mẫu 31, rồi danh bạ */
+function slStkDB(kh){ var c = KHO.danhBa(kh); return c ? slStk(c.stk) : []; }
+function slStkKH(kh, ds){ var c = KHO.danhBa(kh); if(c && c.stkNguon==='dnct' && slStk(c.stk).length) return slStk(c.stk); return ds && ds.length ? ds : slStkDB(kh); }   /* 3.120: số sổ 105 — Dư nợ chi tiết trước, rồi Mẫu 31, rồi danh bạ */
 
 /* ---------- báo cáo: mỗi báo cáo trả {ten, tieuDe, html (phần thân), aoa (Excel)} ---------- */
 /* 3.136 (anh chốt): kỳ NGÀY — mỗi loại file lấy theo ngày nào (đúng ngày / mượn bảng liền trước) → dòng ghi chú; KTGS chỉ cảnh báo trên màn hình */
@@ -208,7 +208,7 @@ function toBCDanhSach(t){
 function toBCNo(t){
   var B = TO_K.B, th = TO_K.thang, ks = toKhach(t), dn = 0; ks.forEach(function(k){ dn += k.dn; });
   var cua = function(L){ return (B.co[L]||[]).filter(function(o){ return o.to===t.ma; }); };
-  var eNgay = function(L){ var e = B.nguon && B.nguon[L] && SLM.bang[slKhoa(L, B.nguon[L])]; return e ? e.ngay : ''; };   /* 3.136: kỳ ngày lấy bảng đúng ngày / liền trước */
+  var eNgay = function(L){ var e = B.nguon && B.nguon[L] && KHO.bang(L, B.nguon[L]); return e ? e.ngay : ''; };   /* 3.136: kỳ ngày lấy bảng đúng ngày / liền trước */
   var nqh = cua('nqh'), nk = cua('nk'), khd = cua('khd'), ngay = eNgay('nqh') || eNgay('nk') || eNgay('khd') || tdnCuoiKy(th);
   var cong = function(ds, f){ return ds.reduce(function(a, o){ return a+(o[f]||0); }, 0); };
   var aoa = [], h = '';
@@ -243,10 +243,10 @@ function toBCNo(t){
 }
 /* 3. TK 105 CỦA TỔ — nguồn Mẫu 31 (có khách đã tất nợ, khách chỉ gửi TK); tất nợ = dư nợ 0 VÀ lãi tồn 0 */
 function toBCTK105(t){
-  var th = TO_K.ky, e31 = SLM.bang[slKhoa('hstd', (TO_K.B.nguon && TO_K.B.nguon.hstd) || th)];   /* 3.136: kỳ ngày */
+  var th = TO_K.ky, e31 = KHO.bang('hstd', (TO_K.B.nguon && TO_K.B.nguon.hstd) || th);   /* 3.136: kỳ ngày */
   if(!e31) return {ten:'TK 105', tieuDe:'TK 105 CỦA TỔ', ngay:slKyChu(th), aoa:[['Cần Mẫu 31 '+slKyChu(th)]],
     html:'<div class="bc-rong">Báo cáo này cần <b>Mẫu 31 '+slKyChu(th)+'</b> (Mẫu 10 không có khách đã tất nợ / chỉ gửi tiết kiệm). Nạp Mẫu 31 ở tab 📈 Số liệu, hoặc chọn kỳ số liệu Mẫu 31 ở trên.</div>'};
-  return Promise.all([slBo(th), slBo(kyLui(slThang(th), -1))]).then(function(r){
+  return Promise.all([KHO.bo(th), KHO.bo(kyLui(slThang(th), -1))]).then(function(r){
     var B = r[0], Bt = r[1], lap = {}, kh = {};
     (B.lap||[]).forEach(function(o){ if(o.to===t.ma) (lap[o.kh] = lap[o.kh]||[]).push(o); });
     (B.co.hstd||[]).forEach(function(o){
@@ -352,33 +352,18 @@ function toExcel(tp){
    - gõ tên → tìm cả tên khách, tên vợ/chồng (người thừa kế), tên HSSV — hiện hết, có xã · ấp · tổ · tình trạng để anh tự chọn
    - kiểm trùng luôn trên TOÀN PGD (không theo phạm vi); phạm vi chỉ lọc danh sách kết quả
    ========================================================== */
-var TC_K = null, SL_PHU = [], SL_PHU_KY = '';
+var TC_K = null;   /* 3.346: chỉ mục vợ/chồng + HSSV khai báo ở 22-so-lieu */
 function tcCH(){ return pvGan(D.cauHinh.tcPV = D.cauHinh.tcPV || {xa:'', diem:'', hoi:'', to:''}); }
-PV_DUNG.tc = {S:function(){ return tcCH(); }, K:function(){ return TC_K; }, sau:function(){ slTraTim(); }, ghi:function(){ var n = SL_TIM.length, ky = slHSMoi(); return n ? n.toLocaleString('vi-VN')+' khách'+(ky ? ' · số liệu '+slKyChu(ky) : '') : ''; }};
+PV_DUNG.tc = {S:function(){ return tcCH(); }, K:function(){ return TC_K; }, sau:function(){ slTraTim(); }, ghi:function(){ var n = KHO.chiMuc().length, ky = slHSMoi(); return n ? n.toLocaleString('vi-VN')+' khách'+(ky ? ' · số liệu '+slKyChu(ky) : '') : ''; }};
 /* Mẫu 31 mới nhất: chỉ mục phụ vợ/chồng + HSSV (Mẫu 10 không có các cột này) */
-function slMau31Moi(){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='hstd'; }).map(function(e){ return e.ky; }).sort(); return ds[ds.length-1] || ''; }
-function slKhMonNap(){   /* 3.228: chỉ mục phụ theo Mẫu 31 mới nhất — món theo khách (SL_KHMON), vợ/chồng + HSSV (SL_PHU); dùng chung Tra cứu + 🔎 kiểm tra hộ vay */
-  var m31 = slMau31Moi(); if(!m31 || SL_PHU_KY===m31) return Promise.resolve();
-  return slBo(m31).then(function(B){
-    var phu = [], vc = {}, km = {}, gk = {};
-    (B.co.hstd||[]).forEach(function(o){
-      if(o.ku && o.kh && !gk[o.ku]){ gk[o.ku] = 1; (km[o.kh] = km[o.kh]||[]).push({ct:ctNgan(o.ct, o), ku:String(o.ku), dn:o.dn||0, nv:o.nv||o.ngn||'', md:ktCoNganh(o) ? ktNganh(o) : '',
-        xong:(o.ttMon==='CLOSE' || !((o.dn||0)>0)) && !(laiTon(o)>0), truong:o.c_ten_truong||'', raTruong:o.raTruong||'', gn:o.gn||0, qh:o.qh||0, kn:o.kn||0, dh:o.dhgh||o.dhg||'', to:o.to||''}); }   /* 3.94: món theo khách cho thẻ kiểm trùng · 3.228: + giải ngân, quá hạn, khoanh, đến hạn, tổ */
-      if(o.ku && (o.c_ten_hssv || o.c_cmnd_hssv)) phu.push({loai:'hs', ten:String(o.c_ten_hssv||''), so:String(o.c_cmnd_hssv||'').replace(/\D/g, ''), kh:o.kh, ku:o.ku, dn:o.dn||0, xong:o.ttMon==='CLOSE' || !(o.dn>0)});
-      if(o.voChong && o.kh && !vc[o.kh]){ vc[o.kh] = 1; phu.push({loai:'vc', ten:String(o.voChong), kh:o.kh}); }
-    });
-    phu.forEach(function(p){ p.t = ' '+slChuan(p.ten); });
-    SL_PHU = phu; SL_PHU_KY = m31; SL_KHMON = km;
-  });
-}
 function tcNap(){
   var ds = toDsKy(); if(!ds.length) return Promise.resolve();
-  return toNap(ds[0].ky).then(function(K){ TC_K = K; pvVeCay('tc'); })
+  return KHO.nap(ds[0].ky).then(function(K){ TC_K = K; pvVeCay('tc'); })
     .then(slKhMonNap).then(function(){ if(nganHienTai===7 && D.cauHinh.slTab==='tra'){ slTraTim(); tcKTVe(); } })
     .catch(function(er){ console.warn('Tra cứu: chưa mở được số liệu', er); });
 }
 function tcTinhTrang(c){ return c.mon ? 'đang vay '+c.mon+' món' : ((c.ku||[]).length ? 'đã tất nợ' : 'chỉ gửi tiết kiệm'); }
-function tcTrongPV(ma){ var S = tcCH(); if(!S.xa) return true; var c = SL_DB.kh[ma]; return !!c && pvLoc(S, TC_K && TC_K.to[c.to]); }
+function tcTrongPV(ma){ var S = tcCH(); if(!S.xa) return true; var c = KHO.danhBa(ma); return !!c && pvLoc(S, KHO.toKy(TC_K, c.to)); }
 /* kiểm trùng 1 số CCCD / CMND trên toàn PGD */
 
 /* ==========================================================
@@ -413,7 +398,7 @@ function veSaoKe(){
   if(!dsKy.length){ e.innerHTML = slTabConHTML()+'<div class="rong">Chưa có số liệu món vay. Nạp Mẫu 31 / Mẫu 10 ở tab con 📥 Nạp số liệu.</div>'; return; }
   toKyMacDinh(C, dsKy, 'sk');
   e.innerHTML = slTabConHTML()+'<div class="rong">Đang mở số liệu '+slKyChu(C.ky)+'…</div>';
-  toNap(C.ky).then(function(K){
+  KHO.nap(C.ky).then(function(K){
     SK_K = K; if(!(nganHienTai===7 && D.cauHinh.slTab==='sk')) return;
     var th = K.thang, sau = kyLui(th, 1);
     if(!C.tu || !C.den){ C.tu = sau+'-01'; C.den = tdnCuoiKy(sau); }
@@ -473,13 +458,13 @@ function skTrongPV(o){ return pvLoc(skCH(), SK_K.to[toMaCua(o)]); }   /* 3.92: m
 function skMau31(){ return SK_K.B && SK_K.B.hsTen==='Mẫu 31' ? SK_K.B : null; }
 function skCan31(ten){ return {ten:ten.slice(0, 31), tieuDe:ten.toUpperCase(), ngay:'Tháng '+kyVN(SK_K.thang), aoa:[['Cần Mẫu 31 tháng '+kyVN(SK_K.thang)]],
   html:'<div class="bc-rong">Báo cáo này cần <b>Mẫu 31 tháng '+kyVN(SK_K.thang)+'</b> (Mẫu 10 không có cột này). Nạp Mẫu 31 ở tab con 📥 Nạp số liệu.</div>'}; }
-function skNgayThang(L){ var e = SLM.bang[slKhoa(L, SK_K.thang)]; return e ? e.ngay : tdnCuoiKy(SK_K.thang); }
+function skNgayThang(L){ var e = KHO.bang(L, SK_K.thang); return e ? e.ngay : tdnCuoiKy(SK_K.thang); }
 function skBaoCao(k){
   var K = SK_K, B = K.B, th = K.thang;
   if(k==='kqgd' || k==='thhd' || k==='tqh' || k==='tkn' || k==='tkhd') return ttBaoCao(k);   /* 3.259: trả nhiều trang (mảng) */
   if(k==='qh' || k==='kh' || k==='khd'){
     var L = {qh:'nqh', kh:'nk', khd:'khd'}[k], ten = {qh:'Sao kê nợ quá hạn', kh:'Sao kê nợ khoanh', khd:'Sao kê món vay 3 tháng không hoạt động'}[k];
-    if(!SLM.bang[slKhoa(L, th)]) return {ten:ten, tieuDe:ten.toUpperCase(), ngay:'Tháng '+kyVN(th), html:'<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(L).ten)+' tháng '+kyVN(th)+'.</div>', aoa:[['Chưa nạp file']]};
+    if(!KHO.bang(L, th)) return {ten:ten, tieuDe:ten.toUpperCase(), ngay:'Tháng '+kyVN(th), html:'<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(L).ten)+' tháng '+kyVN(th)+'.</div>', aoa:[['Chưa nạp file']]};
     var ng = skNgayThang(L), ds = (B.co[L]||[]).filter(skTrongPV), r;
     if(k==='qh') r = skBang(['STT','Mã KH','Họ tên','Số KU','Chương trình','Dư nợ QH','Ngày chuyển QH','Số ngày QH','Mới trong tháng','Số dư 105'], ds.sort(function(a, b){ return (a.ncqh||'9')<(b.ncqh||'9') ? -1 : 1; }),
       function(o, i){ return [i, o.kh||'', o.ten||'', o.ku||'', ctNgan(o.ct, o), o.qh||0, ngayVNsl(o.ncqh), o.ncqh ? tdnSoNgay(o.ncqh, ng) : '', o.cqh>0 ? 'Mới' : '', o.t105||0]; }, [5, 9]);
@@ -490,7 +475,7 @@ function skBaoCao(k){
     return {ten:ten, tieuDe:ten.toUpperCase(), ngay:'Số liệu đến ngày '+ngayVNsl(ng), html:r.html, aoa:r.aoa};
   }
   var M = skMau31(); if(!M) return skCan31(SK_BC.find(function(b){ return b.k===k; }).ten);
-  var e31 = SLM.bang[slKhoa('hstd', th)], ngay = 'Số liệu đến ngày '+ngayVNsl(e31.ngay)+' (Mẫu 31 '+kyVN(th)+')';
+  var e31 = KHO.bang('hstd', th), ngay = 'Số liệu đến ngày '+ngayVNsl(e31.ngay)+' (Mẫu 31 '+kyVN(th)+')';
   var rows = (M.co.hstd||[]).filter(skTrongPV), lapKH = {};
   (M.lap||[]).forEach(function(o){ (lapKH[o.kh] = lapKH[o.kh]||[]).push(o); });
   if(k==='sdt'){   /* anh chốt: đạt = đúng 10 chữ số, bắt đầu bằng 0; trống → ô trống; không đạt → in số + ghi chú */
@@ -607,13 +592,13 @@ function skBCDH(rows, lapKH, M, e31, ngay){
 var SK_PK = null;   /* {ky, ngay, han, theoKU:{ku:[dòng kỳ]}} — file phân kỳ gần ngày số liệu */
 var SK_PK_MOC = '2026-03-01';   /* CV 597: áp dụng khoản vay mới từ 01/03/2026 */
 function skPKChon(ns){
-  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='pk' && e.ky>=ns && tdnSoNgay(ns, e.ky)<=40; }).sort(function(a, b){ return a.ky<b.ky ? -1 : 1; });
+  var ds = KHO.dsBang().filter(function(e){ return e.loai==='pk' && e.ky>=ns && tdnSoNgay(ns, e.ky)<=40; }).sort(function(a, b){ return a.ky<b.ky ? -1 : 1; });
   return ds[0] || null;
 }
 function skPKNap(ns){
   var e = skPKChon(ns); if(!e){ SK_PK = null; return Promise.resolve(); }
   if(SK_PK && SK_PK.ky===e.ky) return Promise.resolve();
-  return slDocBang('pk', e.ky).then(function(b){
+  return KHO.docBang('pk', e.ky).then(function(b){
     if(!b){ SK_PK = null; return; }
     var t = {}, max = ''; slMoBang(b).forEach(function(o){ if(o.ku) (t[o.ku] = t[o.ku]||[]).push(o); if(o.pkNgay > max) max = o.pkNgay; });
     var tuTen = slNgayTrongChu(e.tenFile);   /* tên file "… phân kỳ đến 31-12-2026" = file liệt kê kỳ đến hạn tới ngày này */
@@ -757,9 +742,9 @@ function skXem(){
   var ds = SK_BC.filter(function(b){ return C.bc[b.k]; }); if(!ds.length) return bao('Chọn 1 báo cáo.', 3);
   if(C.bc.dh && (!C.tu || !C.den || C.tu > C.den)) return bao('Chọn khoảng ngày đến hạn (từ ngày ≤ đến ngày).', 4);
   if((C.bc.kqgd || C.bc.thhd || C.bc.tqh || C.bc.tkn || C.bc.tkhd) && !skXem.ttNap) return ttChuanBi().then(function(){   /* 3.261: chốt cuối tháng + BC0437 + file phân kỳ, xong mới lập (1 lần) */
-    var K = TT_K || SK_K, e = K.B && K.B.hsTen==='Mẫu 31' && SLM.bang[slKhoa('hstd', K.thang)]; return e ? skPKNap(e.ngay) : null; }).then(function(){
+    var K = TT_K || SK_K, e = K.B && K.B.hsTen==='Mẫu 31' && KHO.bang('hstd', K.thang); return e ? skPKNap(e.ngay) : null; }).then(function(){
     var K0 = SK_K; SK_K = TT_K || K0; skXem.ttNap = true; skXem.daNap = true; try{ skXem(); } finally { skXem.ttNap = false; skXem.daNap = false; SK_K = K0; } });
-  if((C.bc.noxh || C.bc.pkto) && !skXem.daNap){ var M = skMau31(), e = M && SLM.bang[slKhoa('hstd', SK_K.thang)];   /* 3.91: nạp trước file phân kỳ */
+  if((C.bc.noxh || C.bc.pkto) && !skXem.daNap){ var M = skMau31(), e = M && KHO.bang('hstd', SK_K.thang);   /* 3.91: nạp trước file phân kỳ */
     if(e) return skPKNap(e.ngay).then(function(){ skXem.daNap = true; try{ skXem(); } finally { skXem.daNap = false; } }); }
   var pv = pvChu(C, SK_K);
   try{ SK_XEM = [].concat.apply([], ds.map(function(b){ CT_DUNG = {}; SK_KHO = skKhoCua(b.k); var x = skBaoCao(b.k);

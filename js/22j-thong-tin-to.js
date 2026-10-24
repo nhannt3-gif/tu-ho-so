@@ -78,11 +78,11 @@ var TT_HOI_TEN = {'11':'Hội nông dân', '12':'Hội liên hiệp phụ nữ',
 var TT_K = null, TT_BC37 = null, TT_NGAY = false;   /* số liệu dùng (theo ngày / chốt tháng) + BC0437 cùng tháng — nạp ở ttChuanBi trước khi lập */
 function ttChuanBi(){   /* 3.262 (anh chốt): kỳ là ngày và có Mẫu 31 đúng ngày đó → số liệu ngày; không có → Mẫu 31 chốt cuối tháng */
   var th = SK_K.thang, K0 = SK_K; TT_NGAY = K0.ky.length>7 && !!(K0.B && K0.B.nguon && K0.B.nguon.hstd===K0.ky);
-  return (SK_K.ky===th || TT_NGAY ? Promise.resolve(SK_K) : toNap(th).catch(function(){ return K0; })).then(function(K){ TT_K = K && K.B ? K : K0;
+  return (SK_K.ky===th || TT_NGAY ? Promise.resolve(SK_K) : KHO.nap(th).catch(function(){ return K0; })).then(function(K){ TT_K = K && K.B ? K : K0;
     return typeof ktNapBC==='function' ? ktNapBC(th).catch(function(){ return null; }) : null; })
     .then(function(r){ TT_BC37 = r && r.k37 && slThang(r.k37.e.ky)===th ? r.k37 : null; });
 }
-function ttNgayL(L){ var n = SK_K.B && SK_K.B.nguon && SK_K.B.nguon[L], e = n && SLM.bang[slKhoa(L, n)]; return e ? (e.ngay || (n.length>7 ? n : tdnCuoiKy(n))) : skNgayThang(L); }   /* ngày thật của file L đang dùng */
+function ttNgayL(L){ var n = SK_K.B && SK_K.B.nguon && SK_K.B.nguon[L], e = n && KHO.bang(L, n); return e ? (e.ngay || (n.length>7 ? n : tdnCuoiKy(n))) : skNgayThang(L); }   /* ngày thật của file L đang dùng */
 function ttCham(ma){ var b = TT_BC37 && TT_BC37.theoTo[ma], d = b ? b.diemTo : ''; return {d:(d===undefined || d===null || d==='') ? '' : +d, xl:b ? b.xepLoai||'' : ''}; }
 /* cột: [mã, tiêu đề, kiểu (c chữ · n đếm · t tiền · p tỷ lệ · d điểm), in (1 = có trong bản in), [tử, mẫu] cho tỷ lệ] */
 var TT_COT = [['stt','STT','c',1], ['ten','Tên tổ (Tổ trưởng)','c',1], ['ap','Ấp/Thôn','c',1], ['ma','Mã tổ','c',1], ['sdt','SĐT Tổ trưởng','c',0], ['pho','Tên Tổ phó','c',0],
@@ -228,7 +228,7 @@ function ttTHHD(){
 /* ---------- 3 sao kê chia Điểm GD › Hội › Tổ (dòng nhóm mang số cộng) ---------- */
 function ttSaoKe(o){   /* o = {ten, tieuDe, L, cot, dong(x, stt) → mảng ô, so:[cột cộng]} */
   var K = SK_K, T = K.to || {}, ma31 = {};
-  if(!(K.B.nguon && K.B.nguon[o.L]) && !SLM.bang[slKhoa(o.L, K.thang)] && o.L!=='khd') return {ten:o.ten, tieuDe:o.tieuDe, ngang:false, ctChu:'', ngay:'Tháng '+kyVN(K.thang), aoa:[['Chưa nạp file']], html:'<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(o.L).ten)+' tháng '+kyVN(K.thang)+'.</div>'};
+  if(!(K.B.nguon && K.B.nguon[o.L]) && !KHO.bang(o.L, K.thang) && o.L!=='khd') return {ten:o.ten, tieuDe:o.tieuDe, ngang:false, ctChu:'', ngay:'Tháng '+kyVN(K.thang), aoa:[['Chưa nạp file']], html:'<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(o.L).ten)+' tháng '+kyVN(K.thang)+'.</div>'};
   (K.hs||[]).forEach(function(x){ if(x.ku && !ma31[x.ku]) ma31[x.ku] = x; });
   var ds = (o.L==='khd' ? slKHD(K.B) : (K.B.co[o.L]||[])).filter(skTrongPV);
   var D0 = {}, thu = [];

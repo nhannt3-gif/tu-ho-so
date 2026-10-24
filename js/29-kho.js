@@ -48,6 +48,10 @@ var KHO = (function(){
     monKy: function(K, kh){ return K && K.B && K.B.theoKH && kh ? K.B.theoKH[kh] || [] : []; },
     khdKy: function(K){ return (K && K.B && K.B.khd) || {}; },
     saoKeKy: function(K, loai){ return (K && K.tk && K.tk[loai]) || this.saoKe(loai); },
+    /* 3.346 (K3): KHO.bang(loại, kỳ) → thông tin bảng đã nạp {loai, ky, ngay, ten, luc, dong, …} | null · KHO.dsBang(loại?) → [thông tin bảng] (mọi loại hoặc 1 loại) · KHO.docBang(loại, kỳ) → Promise bảng {rows, …} (bọc slDocBang) */
+    bang: function(loai, ky){ return (typeof SLM!=='undefined' && SLM.bang && SLM.bang[slKhoa(loai, ky)]) || null; },
+    dsBang: function(loai){ if(typeof SLM==='undefined' || !SLM.bang) return []; return Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return !loai || e.loai===loai; }); },
+    docBang: function(loai, ky){ return slDocBang(loai, ky); },
     dsToDanhBa: function(){ return (typeof SL_DB!=='undefined' && SL_DB && SL_DB.to) || {}; },
     chiMuc: function(){ return typeof SL_TIM!=='undefined' ? SL_TIM : []; },
     phu: function(){ return typeof SL_PHU!=='undefined' ? SL_PHU : []; },
