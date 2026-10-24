@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.339) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app, đi qua Hôm nay (lịch, 🧰 công cụ), Văn bản, Ghi chú, Bộ hồ sơ, Theo dõi nợ | Y như 3.338, không báo lỗi | |
+| 2 | ⚙ Cài đặt, ❓ Hướng dẫn, 🗑 Xóa nhiều file, nối Drive / ☁ đồng bộ, 🗂 Lập chỉ mục | Y như cũ | |
+
+**Ghi chú kỹ thuật 3.339:** file mới 04b–04e, 06b–06c (tìm hàm: `docs/BAN_DO_MA.md`). `CO_GI_MOI` vẫn ở `js/06-hop-thoai.js` (bump.py). **Đề xuất việc 5 (chờ anh):** khi bật lưu theo ngăn và dữ liệu > 1 MB → thôi ghi bản sao localStorage mỗi lần lưu, đi đúng đường "localStorage đầy" đã có từ 3.223 (xóa bản cũ + dấu `tuhoso_ln_cho` → lần mở sau đọc IndexedDB trước khi vẽ) → mỗi lần lưu nhanh ~3 lần; rủi ro: IndexedDB hỏng thì báo "không lưu được" như khi localStorage đầy (đã có).
+
 ### Danh sách thử trên máy thật (3.338) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

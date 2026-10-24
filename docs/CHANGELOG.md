@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.339 — 24/10/2026 — Tách file lớn (RA_SOAT_BO_CUC_2410 mục 8 việc 7) · đo chi phí lưu (việc 5)
+- **Anh 24/10**: "em cứ theo KH làm rồi gộp lên anh test".
+- **Tách nguyên văn, không đổi logic** (giữ thứ tự nạp — t138; so khớp từng dòng với bản 3.338, chỉ bỏ dòng trống cuối khối):
+  - `js/04-giao-dien.js` 5.416 dòng → `04` lõi vẽ (115) · `04b-hom-nay.js` Hôm nay: âm lịch, lịch, 🧰 công cụ, số liệu giao ban, chuẩn bị GDX, nhật ký, sổ, tính ngày (2.517) · `04c-van-ban-thang.js` Văn bản · Tháng · Ghi chú (976) · `04d-bo-ho-so.js` Bộ hồ sơ (273) · `04e-theo-doi-no.js` Theo dõi nợ · Hồ sơ hộ · Biên bản (1.537).
+  - `js/06-hop-thoai.js` 3.117 dòng → `06` hộp thoại · cài đặt · hướng dẫn + `CO_GI_MOI` (giữ chỗ cho `tools/bump.py`, t192) (2.217) · `06b-xoa-nhieu.js` (205) · `06c-drive.js` Google Drive · Picker · Lập chỉ mục (697).
+- **Việc 5 (`luuNgan`) — đo trước khi làm, chưa đổi**: kho lớn giả (10.000 mục, 1,5 MB) mỗi lần lưu ~52 ms, trong đó **ghi bản sao localStorage ~50 ms**, chuyển chuỗi ~18 ms; IndexedDB đã chỉ ghi ngăn đổi từ 3.223. `luuNgan` (chỉ chuyển chuỗi ngăn đổi) lợi ít mà dễ sót ngăn → **đề xuất khác chờ anh duyệt** (bàn giao 3.339).
+- **Phép thử**: `tests/hssv_exe.js` trỏ file mới; **t179 / `tests/chuan_lay.js`: "hôm nay" cố định 17/10/2026** (ngày ghi chuẩn) — GDX chọn điểm có ngày GD gần nhất theo hôm nay nên từ 24/10 bản 04/TD, 12/GDX lệch nhầm (trên cả 3.338). Hồi quy đủ 2 luồng (`tools/hoiquy.sh 3339 … tat 2`, ~1 giờ): chỉ còn lỗi cũ / chập chờn đã biết (t192 thước đo, t151).
+
 ## 3.338 — 24/10/2026 — 🩺 Sức khỏe sao lưu + sửa đầu công cụ Hạn trả HSSV (Đợt 3 / mục 8 việc 2)
 - **Anh 24/10**: "em rà soát tối ưu chính theo kế hoạch nâng cấp, còn TK 3 chỉ làm các việc nhỏ" · "em cứ theo KH làm rồi gộp lên anh test" — làm tiếp `RA_SOAT_BO_CUC_2410.md` mục 8 (mục 9 = phân công).
 - **🩺 Sức khỏe sao lưu** (js/59-suc-khoe.js mới, gọi 1 dòng ở `kbSaoLuuHTML`): 6 dòng — 💾 lưu trên máy (IndexedDB theo ngăn / hỏng → đỏ) · 📅 bản tự lưu đầu ngày · 📸 bản chụp cài đặt · ☁ cài đặt lên Drive (`chGhiLuc`) · ☁ danh sách hồ sơ lên Drive (`chiMucDriveTG`) · 📎 file chưa lên Drive (đếm mục chưa có `driveId`); màu ≤ 2 ngày lục · 3–7 vàng · quá 7 / chưa có đỏ; chưa nối Drive → vàng; chip tổng = mức xấu nhất. **Chỉ đọc** trạng thái có sẵn — không đổi luồng lưu.

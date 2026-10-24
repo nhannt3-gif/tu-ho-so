@@ -1,7 +1,7 @@
-// So công thức Hạn trả HSSV giữa app (js/04-giao-dien.js) và công cụ riêng tools/hssv/HanTraHSSV.exe (cần mono).
+// So công thức Hạn trả HSSV giữa app (js/04b-hom-nay.js — 3.339 tách từ js/04-giao-dien.js) và công cụ riêng tools/hssv/HanTraHSSV.exe (cần mono).
 // Chạy: tools/hssv/dung.sh && node tests/hssv_exe.js [số ca, mặc định 3000]
 const fs = require('fs'), path = require('path'), vm = require('vm'), cp = require('child_process');
-/* 3.142: app tách file → đọc nối các file js/ (công thức HSSV nằm ở js/04-giao-dien.js) */
+/* 3.142: app tách file → đọc nối các file js/ (công thức HSSV nằm ở js/04b-hom-nay.js) */
 const JSD = path.join(__dirname, '..', 'js'), html = fs.readdirSync(JSD).filter(n => n.endsWith('.js')).sort().map(n => fs.readFileSync(path.join(JSD, n), 'utf8')).join('\n');
 const a = html.indexOf('function hsDoc('), b = html.indexOf('function hsGT(');
 const ctx = {homNay: new Date(2026, 9, 4, 12)};

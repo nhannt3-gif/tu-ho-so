@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.338** — TK 2 (anh 24/10: TK 2 làm chính kế hoạch nâng cấp, TK 3 việc nhỏ — `RA_SOAT_BO_CUC_2410.md` mục 9): 🩺 Sức khỏe sao lưu ở ⚙ › Sao lưu, sửa đầu công cụ Hạn trả HSSV (t231). Đợt 3 công cụ kiểm: t260 + `hoiquy.sh` nhóm / luồng (TK 3 gộp trước). Trước: 3.337 Tra cứu KH thẻ gọn 1 khung, ngày đến hạn tô màu. Tiếp theo mục 8: `luuNgan` (việc 5) → tách file lớn (7) → Scan qua KHO (4).
+- **`main` = 3.339** — TK 2: tách `js/04-giao-dien.js` → 04 + 04b–04e, `js/06-hop-thoai.js` → 06 + 06b–06c (nguyên văn). Trước: 3.338 🩺 Sức khỏe sao lưu. Chờ anh: đề xuất việc 5 (bỏ bản sao localStorage khi dữ liệu > 1 MB — bàn giao 3.339). Tiếp mục 8: Scan qua KHO (việc 4) · nhật ký đã lập / in (6) · khai báo người ký 1 chỗ (8, kế hoạch riêng).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
