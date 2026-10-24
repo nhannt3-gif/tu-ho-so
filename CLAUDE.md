@@ -2,6 +2,8 @@
 
 **Đọc trước khi làm bất cứ việc gì:** **bàn giao mới nhất `docs/BAN_GIAO_3224.md`** (trạng thái 3.223.x, việc anh đã duyệt làm liền: 3.224 scan → 3.225 tách lưu trữ, mục Tiến độ cuối file), bàn giao cũ `docs/BAN_GIAO_3161.md` (việc anh đã duyệt hướng, quy trình, công cụ `tools/bump.py`, `tools/hoiquy.sh`) và `docs/BAT_DAU.md` (ngắn, đủ để bắt tay vào việc: luật, lệnh, trạng thái, chỗ tìm thông tin). Hướng đi lớn: `docs/KIEN_TRUC_3_LOP.md`. **Chuẩn hóa code + bản điện thoại (anh duyệt 17/10, đang làm tuần tự R1 → điện thoại → R2…): `docs/KE_HOACH_CHUAN_HOA.md`.** **Luật kiến trúc bắt buộc cho mọi thay đổi: `docs/QUY_CHUAN_KIEN_TRUC.md`** (tách Dữ liệu – Nghiệp vụ – Giao diện, chung / riêng, sổ quy tắc QT, KTGS gói riêng + khóa mẫu, tư vấn đặt chỗ, thứ tự làm 14/10). Tìm code: `docs/BAN_DO_MA.md` (tự sinh — **không đọc cả `index.html`, `CHANGELOG.md`, `BAN_GIAO_VIEC_CON_LAI.md`**, dùng grep đọc đúng đoạn). Bàn giao đầy đủ cũ: `docs/BAN_GIAO_TIEP_TUC.md` (chỉ đọc mục cần).
 
+**24/10/2026 — anh phân công: TK 2 làm chính kế hoạch nâng cấp + rà soát tối ưu; TK 3 chỉ việc nhỏ không đụng kế hoạch lớn — `docs/RA_SOAT_BO_CUC_2410.md` mục 9.**
+
 **24/10/2026 — KTGS: TK 3 ĐÃ BÀN GIAO cho TK 2 (bản 3.331) — đọc `docs/BAN_GIAO_KTGS.md` trước khi sửa KTGS** (khóa file 23/10 đã mở; TK 2 đưa KTGS qua `KHO` bằng cách thay thân `ktNguon*` / các hàm nạp, không đổi hàm dựng mẫu; giữ phép thử mục 5).
 
 **24/10/2026 — TK 2 ↔ TK 3 làm song song: đọc `docs/PHOI_HOP_TK2_TK3.md` trước khi sửa / gộp** (phân file, cách lên số bản không đụng nhau, nhật ký gộp, mục 5 = báo lỗi / việc cho bên kia).
