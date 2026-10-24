@@ -22,7 +22,7 @@ const fs=require('fs'), path=require('path');
    ok('ô Xã ở dải ngang đủ rộng (không bị bóp)', !!sel && sel.getBoundingClientRect().width >= 140, sel && Math.round(sel.getBoundingClientRect().width)+' px');
    ok('10 chip "Tìm theo" (3.336 + Tổ trưởng), mặc định Tự nhận', document.querySelectorAll('.tc-theo .gd-chip').length===10 && chip('').classList.contains('bat'));
    /* kiểu bảng ↔ thẻ */
-   ok('máy tính mặc định kiểu bảng: Tên KH · Mã KH · Xã · Ấp · Tổ trưởng · Tình trạng', [...document.querySelectorAll('#sl-kq table.tc-kq-bang th')].map(x=>x.textContent).join('|')==='Tên khách hàng|Mã KH|Xã|Ấp|Tổ trưởng|Tình trạng' && kq().length>0 && kq()[0].tagName==='TR');
+   ok('máy tính mặc định kiểu bảng: Tên KH (+ tình trạng chữ nhỏ — 3.337) · Mã KH · Xã · Ấp · Tổ trưởng', [...document.querySelectorAll('#sl-kq table.tc-kq-bang th')].map(x=>x.textContent).join('|')==='Tên khách hàng|Mã KH|Xã|Ấp|Tổ trưởng' && kq().length>0 && kq()[0].tagName==='TR' && !!kq()[0].querySelector('.tc-kq-ten .tc-tt-nho'));
    document.querySelector('#sl-kq [data-lenh="tc.kieu"]').click(); await w(150);
    ok('bấm ▦ Thẻ → danh sách thẻ 2 dòng như cũ, nhớ lựa chọn', !document.querySelector('#sl-kq table') && kq().length>0 && kq()[0].tagName==='DIV' && D.cauHinh.tcTim.kieu==='the');
    document.querySelector('#sl-kq [data-lenh="tc.kieu"]').click(); await w(150);
