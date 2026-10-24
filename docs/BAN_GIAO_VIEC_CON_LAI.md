@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.359) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › mở 1 khách có nhiều tháng số liệu › 📅 Dòng thời gian › Xem năm 2026 | Dòng "Theo Mẫu 31 T…" + các sự kiện (tất nợ, vay thêm, QH…) đúng thực tế | |
+| 2 | Thẻ tổ › 📅 › Xem năm 2026 | Khách vào / không còn món vay theo tháng, đổi tổ trưởng (nếu có) | |
+| 3 | Khách đã chuyển tổ trong năm | Có dòng "Chuyển tổ A → B" đúng tháng | |
+
+**Ghi chú kỹ thuật 3.359:** `dtgNap(năm)` → [{ky, t}] (đọc `KHO.dsBang('hstd')` kỳ tháng của năm + `<năm-1>-12`); `dtgKH(kh, T)` / `dtgTo(ma, T)` → [{ky, chu, lop}]. Chỉ dùng Mẫu 31 (chưa dùng 01/TV — tổ viên chỉ còn TK 105 không có trong dòng thời gian).
+
 ### Danh sách thử trên máy thật (3.358) — thử được từ tháng 1/2027 (khi có Mẫu 31 + 01/TV tháng 1 và vẫn giữ số liệu tháng 12/2026)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

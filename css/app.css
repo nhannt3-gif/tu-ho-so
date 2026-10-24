@@ -4008,3 +4008,7 @@ table.tc-to-tvb .tc-to-mo{color:var(--xanh);font-size:calc(10px*var(--co));white
 .bt-dong{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:4px 0}.bt-dong>b{min-width:84px}.bt-dong input{flex:1;min-width:200px}
 .dk-chon-hang{display:flex;flex-wrap:wrap;gap:4px 10px;margin:4px 0}.dk-chon{display:inline-flex;flex-wrap:wrap;gap:3px;align-items:center}
 .bt-tit{font-size:calc(11px*var(--co));font-weight:700;color:var(--chu-phu);text-transform:uppercase;letter-spacing:.03em;margin:8px 0 2px;text-align:left}
+/* 3.359 📅 dòng thời gian (js/65) */
+.dtg-nut{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0}.dtg-phu{font-size:.85em;color:var(--chu-phu);margin:3px 0}
+.dtg-ul{margin:2px 0 0;padding-left:18px;font-size:.92em}.dtg-ul li{margin:1px 0}.dtg-ul b{display:inline-block;min-width:62px}
+.dtg-ul .dtg-moi b{color:#1a7f37}.dtg-ul .dtg-ra b,.dtg-ul .dtg-qh b{color:#b42318}.dtg-ul .dtg-chuyen b{color:#9a6700}.dtg-ul .dtg-tat b{color:var(--chu-phu)}

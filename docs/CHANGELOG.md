@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.359 — 24/10/2026 — 📅 Dòng thời gian khách / tổ trong năm (KE_HOACH_CHOT_SO đợt C3)
+- **Mới `js/65-dong-thoi-gian.js`**: thẻ khách (Tra cứu) + thẻ tổ › khối **📅 Dòng thời gian** (cạnh 📜 Đã lập / in) → bấm **Xem năm …** mới đọc (không làm chậm lúc mở thẻ).
+- Nguồn: Mẫu 31 các **tháng** đã nạp của năm + tháng 12 năm trước làm mốc — đọc qua `KHO.docBang`, mỗi tháng tóm 1 lần (`DTG_T[kỳ]` = khách: tổ, dư nợ, QH, khoanh, số món; tổ: tổ trưởng), giữ trong phiên.
+- Sự kiện khách: mốc đầu, vào tổ, chuyển tổ, tất nợ, vay thêm món, phát sinh / hết quá hạn, nợ khoanh / hết khoanh, không còn trong Mẫu 31. Sự kiện tổ: mốc (số khách có món vay, tổ trưởng), khách vào, khách không còn món vay ở tổ, đổi tổ trưởng. Mới nhất ở trên, tô màu theo loại.
+- **Phép thử**: mới t302 (chuỗi tháng giả + bộ giả 07/08, thẻ khách / thẻ tổ).
+- **Việc 1 (chốt sổ tổ viên cuối năm + dòng thời gian) xong C1–C3.**
+
 ## 3.358 — 24/10/2026 — Năm sau dùng sổ chốt 31/12 (KE_HOACH_CHOT_SO đợt C2)
 - `js/64`: `STV_CHOT[năm]` = {mã KH: tổ, tên, ngày tất nợ, CT, TK 105} — sổ chốt 31/12 dựng **1 lần, ngầm, chỉ khi cần** (có khách TƯ còn giữ theo 01/TV mà Mẫu 31 năm nay không còn) từ bộ số liệu tháng 12 năm trước (`KHO.nap(<năm>-12)`); xong thì bỏ kết quả đối chiếu đã tính và vẽ lại tab Số liệu. Không có Mẫu 31 tháng 12 năm trước → như cũ.
 - `js/28` `tvChuan`: khách bù theo 01/TV gắn `chot` (sổ năm trước). `tvDoiChieu`: khách cần cho ra có trong sổ → lý do "Tất nợ <năm> (ngày) · CT (sổ chốt 31/12)"; đếm `namTruoc`. `tvKiem`: dòng "TƯ có, Mẫu 31 không thể hiện" ghi thêm "N khách tất nợ năm trước, có trong sổ chốt 31/12".
