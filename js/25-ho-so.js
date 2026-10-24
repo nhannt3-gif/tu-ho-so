@@ -1169,7 +1169,8 @@ function hsoXem(){
   var x; try { x = hsoLap(); } catch(er){ f.srcdoc = '<p style="font-family:sans-serif;color:#b00">Lập mẫu lỗi: '+coChuHTML(er && er.message || er)+'</p>'; return; }
   HSO.x = x;
   var kem = hsoMau().k==='09a' && hsoLuu().kem06, kem6 = hsoKem06();   /* 3.206: 09A in kèm Mẫu 06/TD · 3.253: 01/TD in kèm 06/TD */
-  if(n) n.innerHTML = xuatHang({ten:x.ten, html:function(){ return HSO.x.trang; }, word:'hsoWord()', dong:'thXemRong(\'hso-xem-khung\')', dongChu:'⤢ Phóng to',
+  var khV = hsoTab()==='hsv' && HSO.vay.kh && HSO.vay.kh!=='moi' ? [HSO.vay.kh] : [], Kd = KHO.kyDung();   /* 3.348: 📜 nhật ký đã lập / in */
+  if(n) n.innerHTML = xuatHang({ten:x.ten, nk:{mau:(hsoMau().ten || x.ten), to:[hsoCH().to], kh:khV, ky:Kd ? Kd.ky : ''}, html:function(){ return HSO.x.trang; }, word:'hsoWord()', dong:'thXemRong(\'hso-xem-khung\')', dongChu:'⤢ Phóng to',
     'in':kem ? 'hsoIn09Kem()' : kem6 ? 'xuatIn();setTimeout(hsoIn06HS,1500)' : '', truoc:kem ? '<button class="nho" onclick="hsoIn06()" title="In riêng Mẫu 06/TD (phiếu kiểm tra) của món đang gia hạn">🖨 06/TD</button>' : kem6 ? '<button class="nho" onclick="hsoIn06HS()" title="In riêng Mẫu 06/TD (khổ ngang) của hộ này / danh sách 03/TD">🖨 06/TD</button>' : ''});
   if(typeof tgTayGan==='function') tgTayGan(f); else f.onload = null;   /* 3.315: 01/TGTV tự khai — bấm ô trên bản xem */
   xemChuan(f, x.trang); thVuaKhung();
