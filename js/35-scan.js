@@ -16,7 +16,7 @@ batDauScan = function(loai){
       return '<button class="'+(k===loai ? 'bat' : '')+'" onclick="batDauScan(\''+k+'\')"><b>'+x.ic+' '+x.ten+'</b><small>'+x.mo+'</small></button>'; }).join('')+'</div>'+
     '<div class="hop-tit" style="margin-top:10px">Lấy từ đâu?</div><div class="nguon">'+nut('camera', '📷', 'Camera / máy quét', 'Chụp trực tiếp')+nut('photo', '🖼', 'Ảnh có sẵn', 'Ảnh trong máy')+
       (loai==='tailieu' ? nut('file', '📄', 'File', 'PDF hoặc Word') : '')+'</div>'+
-    '<div class="hang-nut" style="margin-top:12px"><button class="nho" onclick="dongHop()">Thôi</button></div>');
+    '<div class="hang-nut" style="margin-top:12px"><button class="nho" data-lenh="hop.dong">Thôi</button></div>');
 };
 function scChonNguon(n){
   var l = SC.loai || scLoaiNho(); D.cauHinh.scanLoai = l; D.cauHinh.scanNguon = n;
@@ -111,7 +111,7 @@ xemKA2 = function(){
         'oninput="KA.ten=this.value;KA.tenLuc=Date.now();document.getElementById(\'ka-tf\').textContent=\'→ \'+tenFileKA(KA.loai,this.value)">'+
         '<span id="ka-tf">→ '+coChuHTML(tenFileKA(KA.loai, ten))+'</span></div>'+
       '<div class="xp-nut"><div class="hang-nut">'+
-        '<button class="nho xau" onclick="dongHop()">✕ Bỏ</button>'+   /* 3.234: Bỏ trái … Lưu vào app · Lưu vào máy · Gửi */
+        '<button class="nho xau" data-lenh="hop.dong">✕ Bỏ</button>'+   /* 3.234: Bỏ trái … Lưu vào app · Lưu vào máy · Gửi */
         '<button class="nho" onclick="veCatKA()">‹ Cắt lại</button>'+
         '<button class="nho chinh sc-xong" onclick="luuKA()">🗂 Lưu vào app</button>'+
         '<button class="nho" onclick="kaLuuMay()">💾 Lưu vào máy</button>'+

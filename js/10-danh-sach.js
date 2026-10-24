@@ -722,7 +722,7 @@ function moGopTrung(id){
           (m.tag||m.the||[]).length ? '🏷 '+(m.tag||m.the).join(', ') : '', laSao(m) ? '⭐' : ''].filter(Boolean).map(coChuHTML).join(' · ')+'</small></span>'+
         '<button type="button" class="nho sg-ico" onclick="event.preventDefault();xemBanTrung(\''+m.id+'\')" title="Xem bản này ở khung bên phải">↗ Xem</button></label>';
     }).join('')+'</div>'+
-    '<div class="day-form"><button class="nho" onclick="dongHop()">Đóng (Esc)</button>'+
+    '<div class="day-form"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button>'+
     '<button class="nho chinh" onclick="gopTrung()">Gộp, giữ bản đã chọn</button></div>');
 }
 function xemBanTrung(id){ dongHop(); chonDong(id); baoNut('Đang xem 1 bản trùng.', 'Mở lại hộp gộp', function(){ moGopTrung(id); }); }
@@ -937,7 +937,7 @@ function kiemTraKhungXem(){
     moHop('<div class="hop-tit">Kiểm tra khung xem</div><div class="hop-phu">'+coChuHTML(kq)+'</div>'+
       '<div class="huong-dan">Khung xem chỉ hiện khi cửa sổ rộng từ 900px. Bấm nút <b>▣</b> trên thanh danh sách để bật/tắt cho từng tab.</div>'+
       '<div class="hang-nut"><button class="nho" onclick="datLaiBoCuc();dongHop()">Đặt lại toàn bộ bố cục</button>'+
-      '<button class="nho chinh" onclick="dongHop()">Xong</button></div>');
+      '<button class="nho chinh" data-lenh="hop.dong">Xong</button></div>');
   }, 80);
 }
 /* dòng tự chẩn đoán: vì sao khung xem không hiện */

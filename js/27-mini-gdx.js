@@ -47,7 +47,7 @@ function gdxMiniHop(han){
     ' → dùng tới hết ngày <b>'+gdxDMY(ngayISO(het))+'</b></div>'+
     '<div class="sl-phu">Hết hạn file tự khóa hết (không mở được số liệu, không in). Lùi giờ máy cũng khóa. Số liệu trong file được xáo mã, mở bằng Notepad không đọc được '+
     '(không có mật khẩu nên chỉ là che — chỉ gửi người trong đơn vị).</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="gdxMiniXuat('+han+')"'+(G.diem.length ? '' : ' disabled')+'>📦 Xuất file</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="gdxMiniXuat('+han+')"'+(G.diem.length ? '' : ' disabled')+'>📦 Xuất file</button></div>', true);
 }
 /* dựng file mini: hàm mẫu chép từ app (toString) + số liệu đã xáo + khung giao diện gdxMiniApp */
 function gdxMiniHTML(han, G){

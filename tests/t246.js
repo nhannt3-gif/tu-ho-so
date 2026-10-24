@@ -56,7 +56,7 @@ const fs=require('fs'), path=require('path');
    /* 3.336: tìm thẳng tổ (tổ trưởng / mã tổ) + thẻ tổ */
    const T = Object.keys(TC_K.to).map(m=>TC_K.to[m]).filter(t=>!t.trucTiep && !toLaTT(t)), t1 = T.find(t=>(KHO.tvChuan(t, TC_K)||{}).tong>=2) || T[0];
    await tim('tt', t1.ten);
-   ok('Tổ trưởng: bảng tổ (Tổ trưởng · Mã tổ · Xã · Ấp · Hội · Thành viên · Có dư nợ), có tổ cần tìm', [...document.querySelectorAll('#sl-kq th')].map(x=>x.textContent).join('|')==='Tổ trưởng|Mã tổ|Xã|Ấp|Hội|Thành viên|Có dư nợ' && kq().some(x=>x.getAttribute('data-to')===t1.ma), t1.ten+' → '+kq().length+' tổ');
+   ok('Tổ trưởng: bảng tổ (Tổ trưởng · Mã tổ · Thành viên · Có dư nợ · Xã · Ấp · Hội — 3.351), có tổ cần tìm', [...document.querySelectorAll('#sl-kq th')].map(x=>x.textContent).join('|')==='Tổ trưởng|Mã tổ|Thành viên|Có dư nợ|Xã|Ấp|Hội' && kq().some(x=>x.getAttribute('data-to')===t1.ma), t1.ten+' → '+kq().length+' tổ');
    await tim('tt', t1.ma); await w(400);
    const r1 = KHO.tvChuan(t1, TC_K), ct = document.getElementById('tc-ct');
    ok('gõ mã tổ → 1 tổ, tự mở thẻ tổ: mã tổ, tổ trưởng, số TV đúng QT-18', kq().length===1 && !!ct.querySelector('.tc-the-to') && ct.textContent.indexOf(t1.ma)>=0 && ct.textContent.indexOf(t1.ten)>=0 && ct.querySelectorAll('table.tc-to-hang')[2].querySelector('td b').textContent===String(r1.tong), 'TV '+r1.tong);
@@ -91,9 +91,13 @@ const fs=require('fs'), path=require('path');
    tcTheTo(t1.ma); await w(300);
    { const r2 = KHO.tvChuan(t1, TC_K), tt = [...document.querySelectorAll('#tc-ct .tc-to-tt')].map(x=>x.textContent);
      ok('3.344 khách không còn món: ghi rõ vẫn trong tổ / cần cho ra (khớp tvChuan)', r2.khongNo>=2 && tt.length===r2.khongNo && tt.filter(x=>/cần cho ra/.test(x)).length===r2.choRa && tt.some(x=>/còn TGTK — vẫn trong tổ/.test(x)) && tt.every(x=>/trong tổ|cho ra/.test(x)), tt.join(' | ')); }
+   { const giuM = Bk.theoKH['9900000002']; Bk.theoKH['9900000002'] = [{ku:'6600000799999901', kh:'9900000002', dn:0, ttMon:'CLOSE', ngdg:'2026-05-12'}]; tcTheTo(t1.ma); await w(300);
+     const tt2 = [...document.querySelectorAll('#tc-ct .tc-to-tt')].map(x=>x.textContent).join(' | ');
+     ok('3.350 hộ tất nợ còn trong tổ: ghi ngày tất nợ (ngày GD gần nhất món đã tất toán)', /Tất nợ 12\/05\/2026 · còn TGTK — vẫn trong tổ/.test(tt2), tt2);
+     if(giuM) Bk.theoKH['9900000002'] = giuM; else delete Bk.theoKH['9900000002']; }
    Bk.co.tv01 = giuTV; tcTheTo(t1.ma); await w(300);
    const tv1 = document.getElementById('tc-ct').querySelector('.tc-to-tv-dong[data-kh]'); if(tv1){ const kh = tv1.getAttribute('data-kh'); tv1.click(); await w(500); ok('bấm 1 thành viên → mở khách đó', document.getElementById('tc-ct').textContent.indexOf(kh)>=0); }
-   await tim('tt', ''); ok('Tổ trưởng, chưa gõ → mọi tổ trong phạm vi', kq().length===Math.min(300, T.length), kq().length+' / '+T.length);
+   await tim('tt', ''); ok('Tổ trưởng, chưa gõ → mọi tổ trong phạm vi', kq().length===T.length, kq().length+' / '+T.length);
    await tim('', t1.ten); const gy = document.querySelector('#sl-kq .tc-to-goiy');
    ok('Tự nhận: gõ tên tổ trưởng → có nút "🏘 n tổ khớp — xem tổ"', !!gy, gy && gy.textContent);
    if(gy){ gy.click(); await w(200); ok('bấm nút → chuyển Tìm theo Tổ trưởng, ra bảng tổ', chip('tt').classList.contains('bat') && kq().some(x=>x.getAttribute('data-to')===t1.ma)); }

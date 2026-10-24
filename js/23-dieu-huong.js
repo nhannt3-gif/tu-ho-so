@@ -114,7 +114,7 @@ function dtThem(){
       : n.con.map(dhMuc).filter(Boolean).map(function(m){ return '<button class="nho dt-them-muc" onclick="dongHop();dhBam(\''+n.g+'\',\''+m.k+'\')">'+m.bt+' '+coChuHTML(m.ten)+'</button>'; });
     return '<div class="dt-them-nhom"><b>'+n.bt+' '+coChuHTML(n.ten)+'</b><div>'+ds.join('')+'</div></div>'; }).join('');
   moHop('<div class="hop-tit">☰ Mọi mục</div><div class="dt-them">'+nhom+'<div class="dt-them-nhom"><b>⚙ Khác</b><div><button class="nho dt-them-muc" onclick="dongHop();moRac()">🗑 Thùng rác</button><button class="nho dt-them-muc" onclick="dongHop();moDonKho()">🧰 Dọn kho</button>'+
-    '<button class="nho dt-them-muc" onclick="dongHop();moHuongDan()">❓ Hướng dẫn</button><button class="nho dt-them-muc" onclick="dongHop();moCaiDat()">⚙ Cài đặt</button></div></div></div><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>');
+    '<button class="nho dt-them-muc" onclick="dongHop();moHuongDan()">❓ Hướng dẫn</button><button class="nho dt-them-muc" onclick="dongHop();moCaiDat()">⚙ Cài đặt</button></div></div></div><div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>');
 }
 /* Alt+1…9: mở mục theo thứ tự trên thanh bên (bỏ qua tiêu đề nhóm) */
 document.addEventListener('keydown', function(e){
@@ -162,7 +162,7 @@ function ttVe(){
 }
 function ttDs(){
   moHop('<div class="hop-tit">🔔 Tin gần đây</div>'+(TTB.ds.length ? '<div class="tt-ds">'+TTB.ds.map(function(x){ return '<div class="'+(x.loi ? 'do' : '')+'"><small>'+hai(x.luc.getHours())+':'+hai(x.luc.getMinutes())+':'+hai(x.luc.getSeconds())+'</small> '+coChuHTML(x.t)+'</div>'; }).join('')+'</div>' : '<div class="rong">Chưa có tin nào trong lần mở app này.</div>')+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>');
 }
 function ttDenBam(){ if(typeof bamChip==='function') bamChip(); }
 /* dựng khối + dời vào đúng chỗ theo bề rộng màn (thanh bên ≥ 1100 px, không thì thanh đáy) */

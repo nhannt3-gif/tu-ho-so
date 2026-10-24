@@ -222,6 +222,37 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.351) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › Tìm theo Tổ trưởng, chưa gõ (Toàn PGD) | "371 tổ", đủ 371 dòng; cột Thành viên ngay sau Mã tổ, không bị che | |
+
+**Ghi chú kỹ thuật 3.351:** 371 tổ × `KHO.tvChuan` mỗi lần vẽ — nếu máy chậm sẽ thêm đệm theo kỳ.
+
+### Danh sách thử trên máy thật (3.350) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › thẻ tổ có hộ tất nợ còn TGTK | Dòng "Tất nợ dd/mm/yyyy · còn TGTK — vẫn trong tổ" — ngày khớp ngày tất toán món cuối | |
+
+**Ghi chú kỹ thuật 3.350:** ngày tất nợ lấy `max(ngdg)` các dòng món của khách trong `KHO.monKy(TC_K, kh)` — là ngày GD gần nhất, gần đúng ngày tất toán (Mẫu 31 không có cột ngày tất toán riêng).
+
+### Danh sách thử trên máy thật (3.349) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở vài hộp bất kỳ (Thêm file, Sao lưu, Hồ sơ, KTGS…) → bấm Đóng / Thôi | Hộp đóng như cũ | |
+
+**Ghi chú kỹ thuật 3.349:** nút đóng hộp mới viết `data-lenh="hop.dong"` (hoặc `GD.nut({chu:'Đóng (Esc)', lenh:'hop.dong'})`), không viết `onclick="dongHop()"`. Còn ~1.369 onclick — đổi dần theo khối khi sửa từng tab.
+
+### Danh sách thử trên máy thật (3.348) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay: chọn khách → 🖨 In / 📝 Word 1 mẫu | Tra cứu khách đó → khối "📜 Đã lập / in" có mẫu + ngày | |
+| 2 | Hồ sơ Tổ: in 1 mẫu cho 1 tổ | Thẻ tổ (Tra cứu › Tổ trưởng) có mẫu đó | |
+| 3 | KTGS: in Mẫu 06 / 04 | Hộp 📜 (xem hết) có dòng mang tên mẫu | |
+| 4 | Máy thứ 2 sau đồng bộ Drive | Thấy nhật ký máy 1 | |
+
+**Ghi chú kỹ thuật 3.348:** `D.nkIn` thêm vào: `luuNgay` (02), đọc lúc mở (02), `LN.dungBanCu` / `datCach` (34), chỉ mục Drive xuất + `gopTuRemote` (17, `gopTheoSua`). Nơi in muốn ghi rõ khách / tổ: truyền `nk:{mau, kh:[], to:[], ky}` vào `xuatHang` (KTGS chưa gắn tổ — làm khi sửa KTGS).
+
 ### Danh sách thử trên máy thật (3.347) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

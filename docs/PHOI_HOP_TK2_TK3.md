@@ -31,6 +31,10 @@
 | 24/10 | TK 2 | 3.345 | `js/58-tc-to.js` (ttKH), `css/app.css` (cuối), `tests/t246.js` | t246, t247, t107, t156, t170, t172, hoiquy, hoiquy2 |
 | 24/10 | TK 2 | 3.346 | K2–K5 KHO: `js/22f`, `22g` → `22g` + `22ga-pham-vi` (mới) + `22gb-to-giao-dien` (mới), `22h`, `22i`, `22j`, `22k-nap-kt` (mới), `22b`, `22c`, `22e`, `56`, `25`, `26`, `45`, `58`, `22-so-lieu`, `29-kho`, `index.html`; `tests/kiem.py`, `tests/do_moc.json` (kho_thang 0) | hồi quy đủ 2 luồng |
 | 24/10 | TK 2 | 3.347 | `js/28-tv-tk.js` (tvChuan kỳ ngày không bù), `js/22h-cap-hoi-sao-ke.js` (tcNap kỳ mới nhất), `js/58-tc-to.js` (tcTVGhi), `tests/t257.js` mới | t257, t244, t246, hoiquy, hoiquy2 |
+| 24/10 | TK 2 | 3.348 | `js/61-nhat-ky-in.js` mới, `js/02-nen.js`, `js/34-luu-ngan.js`, `js/17-dong-bo-cai-dat.js` (ngăn nkIn), `js/24-xuat.js` (nkXuat), `js/25-ho-so.js`, `js/26-giao-dich-xa.js`, `js/22f`, `js/58`, `css/app.css`, `index.html`, `tests/t258.js` mới | hồi quy đủ 2 luồng |
+| 24/10 | TK 2 | 3.349 | 30 file js (100 `onclick="dongHop()"` → `data-lenh="hop.dong"`), `js/39-gd.js` (lệnh hop.dong), `tests/t258.js` | hồi quy đủ 2 luồng |
+| 24/10 | TK 2 | 3.350 | `js/58-tc-to.js` (ttKH ngày tất nợ), `tests/t246.js` | t246, hồi quy đủ 2 luồng |
+| 24/10 | TK 2 | 3.351 | `js/58-tc-to.js` (tcToTim đủ tổ, cột), `tests/t246.js` | t246, hoiquy, hoiquy2 |
 | 24/10 | TK 2 | 3.341 | K1 KHO: `js/12`, `21`, `23`, `25`, `26`, `29` (soBang, dsKyHS), `41`; `tests/kiem.py` (đếm đọc thẳng kho), `tests/do_moc.json` (kho_thang 221) | t127, t151, t165, t170, t172, t179, t207, t209, t210, t241, hoiquy, hoiquy2 |
 | 24/10 | TK 2 | 3.339 | tách `js/04-giao-dien.js` → 04 + 04b–04e, `js/06-hop-thoai.js` → 06 + 06b–06c (nguyên văn; `CO_GI_MOI` vẫn ở 06 cho bump.py), `index.html`, `tests/hssv_exe.js`, `tests/chuan_lay.js` (hôm nay cố định 17/10 — t179) | hồi quy đủ 2 luồng (`hoiquy.sh 3339 … tat 2`): chỉ t192, t151 cũ |
 | 24/10 | TK 2 | 3.338 | `js/59-suc-khoe.js` mới, `js/32-kho-luu.js` (1 dòng gọi), `css/app.css`, `index.html`, `tests/t248.js` mới | t248, t231, t138, t178, t182, t185, t193, t206, t93, t247, t260, hoiquy, hoiquy2 |

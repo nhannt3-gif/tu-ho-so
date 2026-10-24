@@ -109,7 +109,7 @@ function tgTayHop(k){
     return '<label class="tg-o"><span class="tg-n">'+coChuHTML(f[1])+'</span><input class="gdx-i" id="'+id+'" value="'+coChuHTML(gt)+'" placeholder="'+coChuHTML(f[2]==='ngay' ? 'dd/mm/yyyy — trống = chấm' : ph ? 'trống = chấm (gợi ý: '+ph+')' : 'trống = chấm')+'"'+(f[2]==='so' ? ' inputmode="numeric"' : '')+'></label>'; }).join('');
   moHop('<div class="hop-tit" id="tg-hop">✍ '+coChuHTML(x.n || k)+'</div><div class="hop-phu">01/TGTV — tự khai trên mẫu ('+(i+1)+'/'+tgTayDs().length+'). Enter = lưu và sang mục kế. Để trống = in chấm.</div>'+
     '<div class="tg-hop">'+h+'</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="tgTayLuu(0, -1)" title="Lưu, về mục trước">◀</button><button class="nho chinh" onclick="tgTayLuu(1)">Lưu</button><button class="nho" onclick="tgTayLuu(0, 1)" title="Lưu, sang mục kế (Enter)">Lưu, mục kế ▶</button><button class="nho" onclick="dongHop()">Thôi</button></div>');
+    '<div class="hang-nut"><button class="nho" onclick="tgTayLuu(0, -1)" title="Lưu, về mục trước">◀</button><button class="nho chinh" onclick="tgTayLuu(1)">Lưu</button><button class="nho" onclick="tgTayLuu(0, 1)" title="Lưu, sang mục kế (Enter)">Lưu, mục kế ▶</button><button class="nho" data-lenh="hop.dong">Thôi</button></div>');
   var e = document.getElementById('hop-in'); if(e){ var o = e.querySelector('input.gdx-i, input'); if(o){ o.focus(); if(o.select) o.select(); }
     e.onkeydown = function(ev){ if(ev.key==='Enter' && !ev.shiftKey){ ev.preventDefault(); tgTayLuu(0, 1); } }; }
 }

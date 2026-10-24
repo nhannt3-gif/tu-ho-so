@@ -422,7 +422,7 @@ function veQuet(){
       '<div class="tien"><i id="quet-tien"></i></div>'+
       '<div class="hang-nut" style="margin-top:14px">'+
       '<button class="nho xau" onclick="dungQuet()">Dừng</button>'+
-      '<button class="nho" onclick="dongHop()">Ẩn đi</button></div>');
+      '<button class="nho" data-lenh="hop.dong">Ẩn đi</button></div>');
     e = document.getElementById('hop-quet');
   }
   var pt = QUET.tong ? Math.round(QUET.xong/QUET.tong*100) : 0;

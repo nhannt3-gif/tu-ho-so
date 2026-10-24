@@ -186,7 +186,7 @@ function moThieuChiTiet(ky){
       return '<div class="nhan-nhom">'+coChuHTML(k)+' ('+nhom[k].length+')</div><div class="huong-dan">'+
         nhom[k].map(function(x){ return coChuHTML(x.bc+(x.ghi?' ('+x.ghi+')':'')); }).join('<br>')+'</div>';
     }).join('')+
-    '<div class="hang-nut"><button class="nho chinh" onclick="dongHop()">Đóng</button></div>');
+    '<div class="hang-nut"><button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>');
 }
 function batXa(xa, hien){
   D.cauHinh.xaHien = D.cauHinh.xaHien || {};
@@ -203,7 +203,7 @@ function moChonXa(){
     }).join('')+'</div>'+
     '<div class="hang-nut"><button class="nho" onclick="hetXa(true)">Hiện hết</button>'+
     '<button class="nho" onclick="hetXa(false)">Ẩn hết</button>'+
-    '<button class="nho chinh" onclick="dongHop()">Xong</button></div>');
+    '<button class="nho chinh" data-lenh="hop.dong">Xong</button></div>');
 }
 function hetXa(hien){
   D.cauHinh.xaHien = {};
@@ -324,7 +324,7 @@ function moQuetDoiTen(ma){
       return '<label class="rac-dong"><input type="checkbox" class="qdt-o" value="'+x.m.id+'" onchange="demDoiTen()">'+
         '<span class="rac-ten"><s>'+coChuHTML(x.cu)+'</s><small>→ <b>'+coChuHTML(x.moi)+'</b></small></span></label>';
     }).join('')+'</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
     '<button class="nho chinh" onclick="chayDoiTen()">Đổi tên file đã tích</button></div>', true);
   demDoiTen();
 }
@@ -557,7 +557,7 @@ function moSoSanhKy(ky){
     '<div class="o"><label>Phạm vi</label><select id="ss-pham">'+dsPhamVi().map(function(x){
       return '<option>'+coChuHTML(x)+'</option>'; }).join('')+'</select></div>'+
     '<div class="huong-dan">Báo cáo sao kê có tên, số CCCD khách hàng — cân nhắc trước khi dán sang AI bên ngoài.</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
       '<button class="nho chinh" onclick="chepSoSanh()">Chép sang AI</button></div>');
 }
 function datSSKy(k){
@@ -872,7 +872,7 @@ function veChepAI(m, b, soSheet){
     '<div class="o"><label>Xem trước (Markdown) · ước '+uocToken(md)+' token</label>'+
       '<textarea id="ca-xem" rows="9" readonly>'+coChuHTML(md)+'</textarea></div>'+
     '<div class="huong-dan">Số giữ nguyên như trong file, chỉ bỏ dòng và cột trống. Hai dòng đầu ghi bối cảnh để AI hiểu đang đọc gì.</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
     '<button class="nho" onclick="chepAI(\'thuong\')">Chép nguyên bản</button>'+
     '<button class="nho chinh" onclick="chepAI(\'md\')">Chép Markdown</button></div>', true);
 }

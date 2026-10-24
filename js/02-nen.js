@@ -14,7 +14,7 @@
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.347', APP_LUC = '24/10/2026 19:10';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.351', APP_LUC = '24/10/2026 19:35';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
@@ -188,6 +188,7 @@ function nap(){
       D.daXoaHan = j.daXoaHan||[];
       D.kyAnh = j.kyAnh||[];   /* 3.51: sửa lỗi — trước đây danh sách Chữ ký·CCCD không lưu trong máy (chỉ lấy lại qua Drive) */
       D.boHS = j.boHS||[];
+      D.nkIn = j.nkIn||[];   /* 3.348: nhật ký đã lập / in (js/61) */
       D.nguonCau = j.nguonCau||{cauChu:[], ngayXua:{}};
       D.cauHinh = j.cauHinh||{};
     }
@@ -205,7 +206,7 @@ function luuNgay(){
   var o = {
       phienBan:PHIEN_BAN, cauHinh:D.cauHinh, vanBan:D.vanBan,
       duLieu:D.duLieu, ghiChu:D.ghiChu, ganDay:D.ganDay, cho:D.cho, bieuMau:D.bieuMau, rac:D.rac, scan:D.scan, lich:D.lich, daXoaHan:D.daXoaHan||[], nguonCau:D.nguonCau||null,
-      kyAnh:D.kyAnh||[], boHS:D.boHS||[]
+      kyAnh:D.kyAnh||[], boHS:D.boHS||[], nkIn:D.nkIn||[]
     }, ln = typeof LN!=='undefined' && LN.bat(), s = ln ? LN.chuoi(o) : null, lsOk = true;   /* 3.223 M8: bật lưu theo ngăn → chuỗi ghép từ từng ngăn (không stringify 2 lần) */
   var lon = !!(ln && s && s.length > LS_TRAN);   /* 3.340 (anh duyệt 24/10, RA_SOAT_BO_CUC mục 8 việc 5): dữ liệu > 1 MB → thôi ghi bản sao localStorage mỗi lần lưu (tốn ~50 ms / lần) — đi đường "localStorage đầy" của 3.223 */
   try{

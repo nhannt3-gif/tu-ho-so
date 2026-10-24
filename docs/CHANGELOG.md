@@ -4,6 +4,28 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.351 — 24/10/2026 — Bảng tổ ở Tra cứu: đủ mọi tổ + số thành viên luôn thấy (anh 24/10)
+- **Anh** (ảnh: "371 tổ — đang hiện 300 tổ đầu", cột Thành viên bị khung phải che): "hiện số TV của tổ cho tất cả các tổ luôn".
+- `tcToTim` (js/58): bỏ cắt 300 tổ — hiện đủ mọi tổ trong phạm vi; cột xếp lại **Tổ trưởng · Mã tổ · Thành viên · Có dư nợ · Xã · Ấp · Hội** (số thành viên QT-18 + chip ngưỡng nằm ngay sau mã tổ, không bị che).
+- **Phép thử**: t246 sửa theo thứ tự cột mới + "chưa gõ → mọi tổ" (không còn giới hạn 300).
+
+## 3.350 — 24/10/2026 — Thẻ tổ: ngày tất nợ (anh 24/10)
+- **Anh**: "hộ tất nợ còn trong tổ nếu lấy được ngày tất nợ thì ghi vào luôn".
+- **Bảng thành viên thẻ tổ** (`ttKH` trong `tcTheTo`, js/58): khách không còn món loại "còn TGTK" / "TG 0" ghi **"Tất nợ dd/mm/yyyy"** — ngày = ngày giao dịch gần nhất (`ngdg`) của món đã tất toán trong Mẫu 31 kỳ đang xem (cùng cách tab Tổ tính `tatNo`, 3.128; đưa chuột vào thấy giải thích). Không có món trong Mẫu 31 (người TƯ còn giữ) → không ghi ngày.
+- **Phép thử**: t246 thêm ý (món giả đã tất toán ngày 12/05/2026 → dòng ghi đúng ngày).
+
+## 3.349 — 24/10/2026 — Bớt onclick: nút Đóng / Thôi của hộp (RA_SOAT_BO_CUC_2410 mục 8 việc 7)
+- **Kế hoạch mục 7** ("mốc giảm 50 onclick / bản" — KE_HOACH_CHUAN_HOA R2): 100 chỗ `onclick="dongHop()"` (nút Đóng / Thôi / Đóng (Esc) trong hộp, 30 file) → `data-lenh="hop.dong"`; lệnh `hop.dong` đăng ký 1 chỗ ở `js/39-gd.js` (bộ nhận lệnh chung GD). Chỉ các hộp ở trang chính (đã rà: không có trong cửa sổ nổi / trang in).
+- **Thước đo `kiem.py` onclick**: 1.468 → **1.369** (dưới mốc 1.459).
+- **Phép thử**: t258 thêm ý (nút `hop.dong` đóng hộp); t198 (đóng hộp) đạt; hồi quy đủ 2 luồng.
+
+## 3.348 — 24/10/2026 — 📜 Nhật ký đã lập / in (RA_SOAT_BO_CUC_2410 mục 8 việc 6)
+- **Kế hoạch** (góp ý 7.1, anh: "em làm tiếp theo kh đi và gộp lên rồi làm tiếp ko cần chờ anh"): tra lại "khách này đã lập 01/TD, 03/TD chưa", "tháng này đã in Mẫu 06 cho tổ nào" — trước chỉ nhớ trong phiên (GDX có nhật ký riêng 1 tháng trên 1 máy).
+- **`js/61-nhat-ky-in.js` (mới)**: ngăn `D.nkIn` — mỗi dòng {lúc, mẫu, cách In / PDF / Word / Excel, khách [], tổ [], kỳ, tab}; giữ 13 tháng, tối đa 5.000 dòng. Lưu theo ngăn (02, 34) + **đồng bộ chỉ mục Drive** (17: gộp theo id như Scan / Chữ ký — 2 máy cùng in không mất dòng).
+- **Ghi ở đâu**: hàng nút xuất chung `xuatHang` (js/24) — bấm 🖨 In · 📄 PDF · 📝 Word · 📊 Excel ghi trước khi chạy; nơi gọi cho biết khách / tổ qua `XUAT.nk` (đã gắn: Hồ sơ Tổ / Hồ sơ vay — tổ đang chọn + khách của hồ sơ vay + kỳ); chưa đặt tên thì lấy tiêu đề trang in (KTGS…). GDX: mỗi lần in (đã có 📜 nhật ký 1 tháng riêng) ghi thêm vào nhật ký chung.
+- **Xem lại**: thẻ khách (Tra cứu) + thẻ tổ — khối "📜 Đã lập / in" (mẫu · ngày, gộp cùng mẫu cùng ngày, "xem hết"); hộp 📜 Nhật ký có ô lọc (mẫu / mã khách / mã tổ), 500 dòng mới nhất.
+- **Phép thử**: `t258` mới (ghi khi bấm Word / Excel, lấy tiêu đề, thẻ khách / thẻ tổ / hộp, gộp máy khác theo id, bỏ dòng quá 13 tháng, còn sau tải lại).
+
 ## 3.347 — 24/10/2026 — Tra cứu theo ngày, không bù Mẫu 01/TV (anh 24/10)
 - **Anh**: "kiểu bù này chỉ tính cho cuối tháng, vì 01/TV là cuối tháng" + "em làm trước tra cứu theo ngày không cần bù mẫu, anh xem có đúng không" (tổ Bùi Thị Thảo: hộ dư nợ 0 đã ra khỏi tổ theo số liệu 19/10).
 - **`tvChuan` (js/28, 1 chỗ tính thành viên QT-18)**: kỳ **ngày** không dùng Mẫu 01/TV để bù → danh sách tổ = tổ viên Mẫu 31 ngày đó (người đã ra khỏi tổ theo `slDanhRaTo` không bị bù lại). Kỳ **chốt tháng** giữ nguyên (bù như cũ — khớp TƯ 30/09). Áp chung mọi nơi dùng `tvChuan` (Tra cứu, tab Tổ khi chọn kỳ ngày).

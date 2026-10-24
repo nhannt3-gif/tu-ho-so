@@ -542,7 +542,7 @@ function ktPCHop(k){
     (tc.length ? vt+'<div class="to-bang-cuon"><table class="to-bang kt-pc-bang"><thead><tr><th>Phân công</th><th>Người</th><th>'+coChuHTML(g.c.ap.charAt(0).toUpperCase()+g.c.ap.slice(1))+' phụ trách kiểm tra</th><th>Kế toán</th><th>Thủ quỹ</th></tr></thead><tbody>'+dong+'</tbody></table></div>'+
         (x.tay ? '<div class="sl-phu">Ấp đang theo lần anh chỉnh tay — đổi người phân công thì bấm ⇄ Chia lại đều nếu muốn chia lại.</div>' : '')+'<div id="kt-pc-kiem">'+ktPCKiemHTML(k)+'</div>'
       : '<div class="sl-bao vang">Chưa khai tên Ban Thường vụ — khai ở thẻ Hội – xã trước.</div>')+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button>'+(ng.length ? '<button class="nho" onclick="ktPCChiaDeu(\''+k+'\')" title="Chia lại từ đầu theo thứ tự cây: Chủ tịch ít hơn, rồi Phó, ủy viên — mỗi người 1 đoạn liền nhau">⇄ Chia lại đều</button>' : '')+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ng.length ? '<button class="nho" onclick="ktPCChiaDeu(\''+k+'\')" title="Chia lại từ đầu theo thứ tự cây: Chủ tịch ít hơn, rồi Phó, ủy viên — mỗi người 1 đoạn liền nhau">⇄ Chia lại đều</button>' : '')+
     '<button class="nho" onclick="ktPCXuat(\''+k+'\',\'xem\')">👁 Xem trước</button><button class="nho" onclick="ktPCXuat(\''+k+'\',\'in\')">🖨 In / PDF</button><button class="nho chinh" onclick="ktPCXuat(\''+k+'\',\'word\')">📄 Word</button></div>', true);
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
 }

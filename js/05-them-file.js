@@ -135,7 +135,7 @@ function baoTrung(ds){
                            : '<button class="nho" onclick="dongHop();moXem(\''+m.id+'\')">Mở</button>')+
       '</div></div>';
   });
-  moHop(h+'<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button></div>', true);
+  moHop(h+'<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button></div>', true);
 }
 /* dời mục đã có (Văn bản / Ghi chú / ô khác) vào ô ma trận anh bấm — không tạo bản sao, tên và thư mục Drive đổi theo */
 function chuyenVaoO(i){
@@ -372,7 +372,7 @@ function hoiTrungBanCuoi(m, tiep){
     '<div class="hop-phu">'+kyVN(m.ky)+' · '+coChuHTML(m.tenLoai||'')+(m.phamVi?' · '+coChuHTML(m.phamVi):'')+
     '<br>Bản đang có: <b>'+coChuHTML(cu[0].tenMoi||cu[0].tenCu||'')+'</b></div>'+
     '<div class="hang-nut">'+
-      '<button class="nho" onclick="dongHop()">Thôi</button>'+
+      '<button class="nho" data-lenh="hop.dong">Thôi</button>'+
       '<button class="nho" onclick="dongHop();thucHienDuyet(\''+m.id+'\',false)">Giữ cả hai</button>'+
       '<button class="nho chinh" onclick="dongHop();thucHienDuyet(\''+m.id+'\',true)">Thay bản cũ</button>'+
     '</div>');
@@ -893,7 +893,7 @@ function chepHoacHien(t, baoXong, tieuDe){
   var hien = function(){
     moHop('<div class="hop-tit">'+coChuHTML(tieuDe||'Chữ đã đọc')+'</div>'+
       '<div class="o"><textarea id="chep-o" rows="14" style="width:100%;font-size:13px">'+coChuHTML(t)+'</textarea></div>'+
-      '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button>'+
+      '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button>'+
       '<button class="nho chinh" onclick="var o=document.getElementById(\'chep-o\');chepChu(o.value,\'Đã chép \'+o.value.length+\' ký tự\')">📋 Chép</button></div>');
     var o = document.getElementById('chep-o'); if(o){ o.focus(); o.select(); }
   };
@@ -903,7 +903,7 @@ function chepHoacHien(t, baoXong, tieuDe){
 function hoiOCRTrang(n, t){
   moHop('<div class="hop-tit">Trang '+t+' là ảnh</div>'+
     '<div class="hop-phu">Trang này là bản chụp / scan — không có lớp chữ để chép. Bấm <b>🔍 Đọc chữ</b> để app nhận chữ từ ảnh (OCR; lần đầu cần mạng để tải bộ đọc tiếng Việt), đọc xong anh xem lại rồi chép.</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="dongHop();ocrTrang(\''+n+'\','+t+')">🔍 Đọc chữ</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="dongHop();ocrTrang(\''+n+'\','+t+')">🔍 Đọc chữ</button></div>');
 }
 /* OCR 1 trang PDF → hộp chữ để xem lại và chép (OCR có thể sai vài chữ) */
 function ocrTrang(n, t){

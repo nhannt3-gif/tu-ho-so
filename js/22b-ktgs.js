@@ -521,7 +521,7 @@ function ktInHop(ds, nut, hoi, veThe, ve){   /* ve = vẽ lại hộp đang mở
     (co0616 ? ktBoChonHTML() : '')+'<div class="kt-in-luoi">'+ds.map(function(m){ return ktInPhan(m, KT_IN_X.hoi); }).join('')+'</div>'+(ds.indexOf('m04')>=0 ? ktKN04HTML() : '')+
     (co0616 && ds.indexOf('m06')>=0 ? '<details class="kt-in-khac"'+mo+' ontoggle="if(KT_IN_X)KT_IN_X.mo=this.open"><summary>Tùy chọn khác</summary>'+o('cb2', 'Mẫu 06 — Ông (bà) 2, gõ tay', 'thường để trống')+o('cv2', 'Chức vụ 2', 'trống = dòng chấm')+'</details>' : '')+
     '<label class="kt-hai-mat"><input type="checkbox"'+(ktHaiMat() ? ' checked' : '')+' onchange="D.cauHinh.ktHaiMat=this.checked?1:0;luu()"> In 2 mặt — xuất nhiều tổ / nhiều bản: mỗi bản bắt đầu tờ mới (bản lẻ trang tự thêm 1 trang trắng; Word chắc chắn, In từ trình duyệt là ước lượng)</label>'+   /* 3.124 */
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button>'+(ds.some(function(m){ return m!=='kh'; }) ? '<button class="nho" onclick="ktInDayDu()" title="In sẵn mục đích, gợi ý nhận xét, Bảng II theo 727">✚ Điền đầy đủ</button>' : '')+(nut||'')+'</div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ds.some(function(m){ return m!=='kh'; }) ? '<button class="nho" onclick="ktInDayDu()" title="In sẵn mục đích, gợi ý nhận xét, Bảng II theo 727">✚ Điền đầy đủ</button>' : '')+(nut||'')+'</div>', true);
   if(KT_IN_X.veThe) HOP_KHI_DONG = function(){ if(typeof ktVeThe==='function' && KT_K) ktVeThe(); };   /* 3.324: mở từ dòng Khai báo đột xuất → đóng hộp thì vẽ lại tóm tắt */
 }
 function ktInDoc(){   /* đọc hộp chọn → lưu (đồng bộ Drive theo cài đặt) → vẽ lại dòng nhắc */

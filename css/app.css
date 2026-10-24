@@ -3995,3 +3995,9 @@ table.tc-to-tvb .tc-han{padding:0 2px;font-weight:600}table.tc-to-tvb .tc-han sm
 table.tc-to-tvb tr.tc-to-ct-mo td{background:var(--xanh-nhat);white-space:normal;cursor:default}
 .tc-to-tv-kieu{display:flex;gap:6px;align-items:center;font-size:calc(11.5px*var(--co));color:var(--chu-phu);margin:0 0 4px}
 table.tc-to-tvb .tc-to-mo{color:var(--xanh);font-size:calc(10px*var(--co));white-space:nowrap;cursor:pointer}table.tc-to-tvb tr.tc-to-mon-gon td div{padding:1px 0}
+/* 3.348 📜 nhật ký đã lập / in */
+.nk-khoi .nk-ds{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font-size:calc(11.5px*var(--co))}
+.nk-khoi .nk-dong small{color:var(--chu-phu)}.nk-khoi .nk-rong{font-size:calc(11px*var(--co));color:var(--chu-phu)}
+.nk-khoi .nk-het{padding:0 6px;min-height:0;font-size:calc(11px*var(--co))}
+.tc-the-to .nk-khoi{flex:0 0 auto;margin-top:4px}
+.nk-tim{width:100%;margin:4px 0 6px}.nk-bang{max-height:60vh;overflow:auto}

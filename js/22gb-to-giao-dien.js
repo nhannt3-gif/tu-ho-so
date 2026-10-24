@@ -108,7 +108,7 @@ function toDatNguong(){
   var N = toNguong();
   moHop('<div class="hop-tit">⚙ Ngưỡng tổ viên của tổ TK&VV</div><div class="hop-phu">Dùng để tô tổ quá ít / quá đông và tính "còn nhận thêm". Để trống = không dùng.</div>'+
     '<div class="hang-nut"><label>Tối thiểu <input id="tn-min" type="number" min="0" style="width:70px" value="'+(N.min||'')+'"></label><label>Tối đa <input id="tn-max" type="number" min="0" style="width:70px" value="'+(N.max||'')+'"></label></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="D.cauHinh.toNguong={min:document.getElementById(\'tn-min\').value,max:document.getElementById(\'tn-max\').value};luu();dongHop();toVeThe()">Lưu</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="D.cauHinh.toNguong={min:document.getElementById(\'tn-min\').value,max:document.getElementById(\'tn-max\').value};luu();dongHop();toVeThe()">Lưu</button></div>', true);
 }
 function toKyKQ(K){ return K.ky.length>7 ? 'Số liệu ngày '+ngayVNsl(K.ky)+' (Mẫu 31 '+slKyChu((K.B && K.B.nguon && K.B.nguon.hstd) || K.ky)+')' : 'Kết quả giao dịch tháng '+kyVN(K.thang)+' (Mẫu 31)'; }   /* 3.136 */
 function toLocNhan(l){ return (l[0]==='moi' || l[0]==='rk') && KHO.kyDung() ? l[1]+' '+(KHO.kyDung().ky.length>7 ? ngayVNsl(KHO.kyDung().ky).slice(0, 5) : kyVN(KHO.kyDung().thang).replace(/\/\d{4}$/, '')) : l[1]; }   /* 3.128 */

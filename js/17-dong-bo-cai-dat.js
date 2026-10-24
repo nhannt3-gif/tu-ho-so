@@ -210,7 +210,7 @@ function goiChiMuc(){
   return {
     xuatLuc: new Date().toISOString(), may: maMayCua(),
     vanBan:D.vanBan, duLieu:D.duLieu, ghiChu:D.ghiChu,
-    scan:(D.scan||[]), kyAnh:(D.kyAnh||[]), bieuMau:(D.bieuMau||[]), boHS:(D.boHS||[]),
+    scan:(D.scan||[]), kyAnh:(D.kyAnh||[]), bieuMau:(D.bieuMau||[]), boHS:(D.boHS||[]), nkIn:(D.nkIn||[]),
     rac:(D.rac||[]), daXoaHan:(D.daXoaHan||[]).filter(function(t){ return Date.now()-new Date(t.luc).getTime() < 366*864e5; }),
     daXoa:(D.rac||[]).filter(function(r){
       var q = new Date(r.xoaLuc||0).getTime();
@@ -354,6 +354,7 @@ function gopTuRemote(remote){
   var tong = gopChiMuc(remote);
   D.scan = D.scan||[]; tong += gopTheoSua(D.scan, remote.scan);
   D.kyAnh = D.kyAnh||[]; tong += gopTheoSua(D.kyAnh, remote.kyAnh);
+  D.nkIn = D.nkIn||[]; tong += gopTheoSua(D.nkIn, remote.nkIn); if(typeof nkDon==='function') nkDon();   /* 3.348: nhật ký đã lập / in — gộp theo id */
   /* 3.31: bản scan đã xóa ở máy khác thì máy này bỏ theo (kèm ảnh trong máy) */
   var tombS = {}; (D.daXoaHan||[]).forEach(function(t){ tombS[t.id] = 1; });
   var truocS = D.scan.length;

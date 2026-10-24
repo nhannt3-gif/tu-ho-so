@@ -46,7 +46,7 @@ const fs=require('fs'), path=require('path');
    ok('phần ý kiến Hội / UBND / phê duyệt NH vẫn chấm', /PHÊ DUYỆT CỦA NGÂN HÀNG CHÍNH SÁCH XÃ HỘI- Số tiền được gia hạn nợ là \.+đồng/.test(doc().replace(/\s+/g, ' ').replace('HỘI -', 'HỘI-')));
    /* 4b. Mẫu 06/TD kèm */
    hsoLuu().kem06 = true; hsoVe(); await w(400);
-   ok('tích In kèm Mẫu 06/TD → nút 🖨 06/TD + In gọi in kèm', !!document.querySelector('#hso-xem-nut button[onclick="hsoIn06()"]') && !!document.querySelector('#hso-xem-nut button[onclick="hsoIn09Kem()"]'));
+   ok('tích In kèm Mẫu 06/TD → nút 🖨 06/TD + In gọi in kèm', !!document.querySelector('#hso-xem-nut button[onclick="hsoIn06()"]') && !!document.querySelector('#hso-xem-nut button[onclick$="hsoIn09Kem()"]'));
    let g = hso06Gt();
    ok('Mẫu 06/TD: 1 hộ = người vay, 1 món đang gia hạn; Hội quản lý điền sẵn; cán bộ kiểm tra trống; mục đích trống (mặc định)', !!g && g.rows.length===1 && g.rows[0].R2 && g.f.DV && !g.f.CB1 && !g.f.CV1 && !g.rows[0].R7, g && JSON.stringify({dv:g.f.DV, cb:g.f.CB1, md:g.rows[0].R7}));
    hsoLuu().md06 = 'in'; g = hso06Gt();

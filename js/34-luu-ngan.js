@@ -107,7 +107,7 @@ var LN = (function(){
     /* ↩ dùng lại bản trước khi chuyển (giữ 30 ngày) — chụp bản hiện tại trước (file 'ln:truocDungLai') */
     dungBanCu: function(){
       return docFile(BAN_CU).then(function(b){ if(!b) throw new Error('Không còn bản cũ (đã quá 30 ngày hoặc máy chưa từng chuyển).'); return b.text(); }).then(function(s){
-        var j = JSON.parse(s), hien = me.chuoi({phienBan:PHIEN_BAN, cauHinh:D.cauHinh, vanBan:D.vanBan, duLieu:D.duLieu, ghiChu:D.ghiChu, ganDay:D.ganDay, cho:D.cho, bieuMau:D.bieuMau, rac:D.rac, scan:D.scan, lich:D.lich, daXoaHan:D.daXoaHan||[], nguonCau:D.nguonCau||null, kyAnh:D.kyAnh||[], boHS:D.boHS||[]});
+        var j = JSON.parse(s), hien = me.chuoi({phienBan:PHIEN_BAN, cauHinh:D.cauHinh, vanBan:D.vanBan, duLieu:D.duLieu, ghiChu:D.ghiChu, ganDay:D.ganDay, cho:D.cho, bieuMau:D.bieuMau, rac:D.rac, scan:D.scan, lich:D.lich, daXoaHan:D.daXoaHan||[], nguonCau:D.nguonCau||null, kyAnh:D.kyAnh||[], boHS:D.boHS||[], nkIn:D.nkIn||[]});
         MOI = null;
         return luuFile(TRUOC, new Blob([hien], {type:'application/json'})).then(function(){ window.LN_J = j; nap(); window.LN_J = null; if(typeof HS!=='undefined') HS.ds = D.scan; CU = {}; luuNgay(); return HANG; });
       });
@@ -115,7 +115,7 @@ var LN = (function(){
     /* công tắc: 'cu' = quay lại chỉ localStorage · 'ngan' = lưu theo ngăn */
     datCach: function(c){
       if(c==='cu'){
-        luuHuy(); var s = JSON.stringify({phienBan:PHIEN_BAN, cauHinh:D.cauHinh, vanBan:D.vanBan, duLieu:D.duLieu, ghiChu:D.ghiChu, ganDay:D.ganDay, cho:D.cho, bieuMau:D.bieuMau, rac:D.rac, scan:D.scan, lich:D.lich, daXoaHan:D.daXoaHan||[], nguonCau:D.nguonCau||null, kyAnh:D.kyAnh||[], boHS:D.boHS||[]});
+        luuHuy(); var s = JSON.stringify({phienBan:PHIEN_BAN, cauHinh:D.cauHinh, vanBan:D.vanBan, duLieu:D.duLieu, ghiChu:D.ghiChu, ganDay:D.ganDay, cho:D.cho, bieuMau:D.bieuMau, rac:D.rac, scan:D.scan, lich:D.lich, daXoaHan:D.daXoaHan||[], nguonCau:D.nguonCau||null, kyAnh:D.kyAnh||[], boHS:D.boHS||[], nkIn:D.nkIn||[]});
         try { localStorage.setItem(KHOA, s); } catch(e){ return 'Dữ liệu ('+Math.round(s.length/1024)+' KB) lớn hơn chỗ của localStorage — không quay lại cách cũ được. Giữ lưu theo ngăn.'; }
         try { localStorage.removeItem(CHO); localStorage.setItem(CACH, 'cu'); } catch(e){ return 'Không ghi được công tắc.'; }
         return '';

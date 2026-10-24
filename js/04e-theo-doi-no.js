@@ -270,7 +270,7 @@ function tdnChonFile(){
     '<div class="hang-nut"><button class="nho chinh" onclick="tdnChonTuMay()">📂 Chọn file trên máy…</button></div>'+
     (tu.length ? '<div class="nhan-nhom" style="margin-top:10px">Hoặc file đã lưu ở tab Tháng</div>'+tu.map(function(m){
       return '<div class="dk-dong" style="cursor:pointer" onclick="tdnDocTuMuc(\''+m.id+'\')"><span>📊</span><div class="dk-ten"><b>'+coChuHTML(m.tenMoi||m.tenCu)+'</b><small>'+coChuHTML(kyVN(m.ky)||'')+' · '+coChuHTML(m.tenLoai||m.maLoai)+'</small></div></div>'; }).join('') : '')+
-    '<div class="hang-nut" style="margin-top:12px"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>', true);
+    '<div class="hang-nut" style="margin-top:12px"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>', true);
 }
 function tdnChonTuMay(){
   var i = document.createElement('input'); i.type = 'file'; i.accept = '.xlsx,.xls,.xlsm'; i.multiple = true;
@@ -303,7 +303,7 @@ function tdnXemTruoc(){
         '<span class="tg">↑ '+ss.tang.length+' tăng</span><span class="tg">↓ '+ss.giam.length+' giảm</span><span class="tg xam">= '+ss.giu.length+' giữ nguyên</span>'+
         '<span class="tg xam">⇥ '+ss.ra.length+' ra khỏi DS</span></div>')+'</div>';
   });
-  h += '<div class="hang-nut" style="margin-top:12px"><button class="nho" onclick="dongHop()">Thôi (Esc)</button>'+
+  h += '<div class="hang-nut" style="margin-top:12px"><button class="nho" data-lenh="hop.dong">Thôi (Esc)</button>'+
     (ok.length ? '<button class="nho chinh" onclick="tdnGhi()">✓ Cập nhật '+ok.length+' danh sách</button>' : '')+'</div>';
   moHop(h, true);
 }
@@ -514,7 +514,7 @@ function moHoSoHo(q){
     '<div class="day-form">'+
       (H.scan.length ? '<button class="nho" onclick="var ids=HO1.scan.map(function(k){return k.id;});dongHop();moXemPDF(ids)" title="Ghép CCCD + hồ sơ quét thành 1 file để in / gửi">🖨 In / gửi bộ giấy tờ ('+H.scan.length+')</button>' : '')+
       (H.mons.length ? '<button class="nho" onclick="dongHop();tdnPhieu(\''+H.mons[0].kuoc+'\')" title="Phiếu thông tin món vay">🧾 Phiếu món vay</button>' : '')+
-      '<button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button></div>';
+      '<button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button></div>';
   moHop(h, true);
   the.forEach(function(k){ docAnhHS(k.id+'_matTruoc').then(function(b){ var i = document.getElementById('h1a-'+k.id); if(i && b) anhTam(i, b); else if(i) i.replaceWith(Object.assign(document.createElement('div'), {className:'h1-khong', textContent:k.driveId ? '☁ ảnh trên Drive' : 'chưa có ảnh'})); }).catch(function(){}); });
 }
@@ -543,7 +543,7 @@ function moTenCoDau(){
   moHop('<div class="hop-tit">✍ Đổi tên có dấu cho bản scan</div>'+
     '<div class="hop-phu">Tên lấy theo danh sách khách hàng trong Theo dõi nợ (khớp tên không dấu, cùng tổ nếu có). Anh tích bản muốn đổi — bản đã lên Drive sẽ đổi tên file trên Drive theo.</div>'+
     '<div class="ten-dau-ds">'+TDAU.map(function(x, i){ return '<label><input type="checkbox" class="tdau" value="'+i+'" checked> <s>'+coChuHTML(x.k.ten)+'</s> → <b>'+coChuHTML(x.moi)+'</b> <small>'+coChuHTML([x.k.ap, x.k.to?'Tổ '+x.k.to:''].filter(Boolean).join(' · '))+'</small></label>'; }).join('')+'</div>'+
-    '<div class="day-form"><button class="nho" onclick="dongHop()">Đóng (Esc)</button><button class="nho chinh" onclick="apTenCoDau()">Đổi tên các bản đã tích</button></div>', true);
+    '<div class="day-form"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button><button class="nho chinh" onclick="apTenCoDau()">Đổi tên các bản đã tích</button></div>', true);
 }
 function apTenCoDau(){
   var bay = new Date().toISOString(), n = 0;
@@ -638,7 +638,7 @@ function tdnSuaMuc(maKH, k){
     '<div class="tdn-chip" id="tdn-chip">'+M.chon.map(function(c){ return '<span class="'+((v.chon||[]).indexOf(c)>=0?'bat':'')+'" onclick="'+(M.mot?'var b=!this.classList.contains(\'bat\');Array.prototype.forEach.call(this.parentNode.children,function(x){x.classList.remove(\'bat\')});if(b)':'')+'this.classList.toggle(\'bat\')">'+coChuHTML(c)+'</span>'; }).join('')+'</div>'+
     M.o.map(function(o){ return '<div class="o"><label>'+o[1]+'</label><input id="tdn-o-'+o[0]+'" value="'+coChuHTML(v[o[0]]||'')+'"></div>'; }).join('')+
     '<div class="o"><label>Ghi thêm</label><textarea id="tdn-o-ghi" rows="4">'+coChuHTML(v.ghi||'')+'</textarea></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi (Esc)</button><button class="nho chinh" onclick="tdnLuuMuc(\''+maKH+'\',\''+k+'\')">✓ Lưu</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi (Esc)</button><button class="nho chinh" onclick="tdnLuuMuc(\''+maKH+'\',\''+k+'\')">✓ Lưu</button></div>', true);
   nhapDat('muc:'+maKH+':'+k);  document.getElementById('hop-in').classList.add('phim-chung');   /* 3.84: phím chung Enter / Tab / Shift / ↑ ↓ */
 }
 function tdnLuuMuc(maKH, k, nguon){
@@ -687,7 +687,7 @@ function tdnLanMoi(kuoc, id){
     t('kienNghi','5. Kiến nghị biện pháp xử lý nợ')+
     '<div class="cot2">'+o('thu','Số tiền đã thu lần này (đồng)','')+'<div class="o"><label>Trạng thái sau lần này</label><select id="tl-trangThai">'+TDN_TRANG_THAI.map(function(x){ return '<option'+(x===v.trangThai?' selected':'')+'>'+x+'</option>'; }).join('')+'</select></div></div>'+
     '<label class="tl-chon"><input type="checkbox" id="tl-capNhat" checked> Cập nhật "Nguyên nhân", "Phương án" vào hồ sơ hộ nếu hồ sơ còn trống</label>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi (Esc)</button><button class="nho chinh" onclick="tdnLuuLan(\''+kuoc+'\',\''+(id||'')+'\')">✓ Lưu</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi (Esc)</button><button class="nho chinh" onclick="tdnLuuLan(\''+kuoc+'\',\''+(id||'')+'\')">✓ Lưu</button>'+
     '<button class="nho" onclick="tdnLuuLan(\''+kuoc+'\',\''+(id||'')+'\',true)">✓ Lưu &amp; 📝 Biên bản</button></div>', true);
   nhapDat('lan:'+kuoc+':'+(id||''));  document.getElementById('hop-in').classList.add('phim-chung');   /* 3.84: phím chung Enter / Tab / Shift / ↑ ↓ */
 }
@@ -735,7 +735,7 @@ function tdnViTri(maKH){
     '<div class="hang-nut"><button class="nho chinh" onclick="tdnLayGPS(\''+maKH+'\')">📡 Lấy vị trí tại đây</button></div>'+
     '<div class="o"><label>Link Google Maps hoặc tọa độ (vĩ độ, kinh độ)</label><input id="tdn-vt" value="'+coChuHTML(vt.lat?vt.lat+', '+vt.lng:(vt.link||''))+'" placeholder="10.98, 106.26 hoặc https://maps.app.goo.gl/…"></div>'+
     '<div class="o"><label>Ghi chú đường đi</label><input id="tdn-vt-ghi" value="'+coChuHTML(vt.ghi||'')+'" placeholder="vd: hẻm cạnh chợ, nhà mái tôn xanh"></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi (Esc)</button><button class="nho chinh" onclick="tdnLuuViTri(\''+maKH+'\')">✓ Lưu</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi (Esc)</button><button class="nho chinh" onclick="tdnLuuViTri(\''+maKH+'\')">✓ Lưu</button></div>', true);
 }
 function tdnLayGPS(maKH){
   if(!navigator.geolocation) return baoLoi('Máy này không hỗ trợ định vị.');
@@ -767,7 +767,7 @@ function tdnThemFile(maKH){
   moHop('<div class="hop-tit">📎 Thêm tài liệu — '+coChuHTML(ho.ten||maKH)+'</div>'+
     '<div class="o"><label>Loại tài liệu</label><select id="tdn-nf">'+Object.keys(TDN_NHOM_FILE).map(function(k){ return '<option value="'+k+'">'+TDN_NHOM_FILE[k]+'</option>'; }).join('')+'</select></div>'+
     '<div class="hang-nut"><button class="nho chinh" onclick="tdnChonFileHo(\''+maKH+'\',true)">📷 Chụp ảnh</button><button class="nho" onclick="tdnChonFileHo(\''+maKH+'\')">📂 Chọn file (ảnh / PDF / Word)</button>'+
-    '<button class="nho" onclick="dongHop()">Thôi (Esc)</button></div>'+
+    '<button class="nho" data-lenh="hop.dong">Thôi (Esc)</button></div>'+
     '<div class="huong-dan">Hồ sơ gốc nhiều trang: quét ở tab <b>Scan</b> (chế độ Tài liệu) cho ra PDF đẹp, rồi quay lại bấm <b>🔗 Gắn file có sẵn</b>.</div>', true);
 }
 function tdnChonFileHo(maKH, chup){
@@ -819,7 +819,7 @@ function tdnGanFile(maKH){
     '<div class="hop-phu">Chỉ liên kết — file vẫn nằm ở tab của nó (vd bản scan hồ sơ gốc ở tab Scan). Tìm theo tên khách, số hiệu, tên file.</div>'+
     '<div class="o"><input id="gan-tim" value="'+coChuHTML(GAN.tim)+'" placeholder="Gõ để tìm…" oninput="GAN.tim=this.value;veGanDS()"></div>'+
     '<div id="gan-ds" class="gan-ds"></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi (Esc)</button><button class="nho chinh" onclick="xongGanFile()">Gắn các file đã tích</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi (Esc)</button><button class="nho chinh" onclick="xongGanFile()">Gắn các file đã tích</button></div>', true);
   veGanDS();
 }
 
@@ -1130,7 +1130,7 @@ function tdnPhieu(kuoc){
   var trang = tdnPhieuTrang(tdnPhieuHTML(tdnPhieuDL(m)), 'Phiếu thông tin món vay — '+m.ten);
   moHop('<div class="hop-tit">🧾 Phiếu thông tin món vay — '+coChuHTML(m.ten)+'</div>'+
     '<iframe class="phieu-xem" id="phieu-xem"></iframe>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button><button class="nho" onclick="tdnPhieuWord()">📄 Ra Word</button><button class="nho chinh" onclick="tdnPhieuIn()">🖨 In</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button><button class="nho" onclick="tdnPhieuWord()">📄 Ra Word</button><button class="nho chinh" onclick="tdnPhieuIn()">🖨 In</button></div>', true);
   var f = document.getElementById('phieu-xem'); xemChuan(f, trang);
 }
 function tdnPhieuNhanh(){
@@ -1142,7 +1142,7 @@ function tdnPhieuNhanh(){
     '<div class="hop-phu">'+coChuHTML(TDN_LOAI[L].ten)+' · '+coChuHTML(nhanh)+' · '+(TDN.loc==='dang'?'đang có':TDN.loc==='ra'?'đã ra khỏi DS':'tất cả')+(TDN.tim?' · tìm "'+coChuHTML(TDN.tim)+'"':'')+
       '. Mỗi món 1 phiếu (sang trang mới), xếp theo Xã › Điểm › Ấp › Tổ. Muốn in ít hơn: chọn một nhánh ở 🌳 Cây địa bàn hoặc gõ tìm trước.</div>'+
     (ds.length>40 ? '<div class="huong-dan">⚠ '+ds.length+' phiếu — khá nhiều giấy, nên chọn một nhánh nhỏ hơn.</div>' : '')+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi (Esc)</button><button class="nho" onclick="tdnPhieuWord()">📄 Ra Word</button><button class="nho chinh" onclick="tdnPhieuIn()">🖨 In '+ds.length+' phiếu</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi (Esc)</button><button class="nho" onclick="tdnPhieuWord()">📄 Ra Word</button><button class="nho chinh" onclick="tdnPhieuIn()">🖨 In '+ds.length+' phiếu</button></div>', true);
 }
 function tdnPhieuMon(){ return PHIEU.ds.map(function(k){ return NO.mon[k]; }).filter(Boolean); }
 function tdnPhieuIn(){
@@ -1293,7 +1293,7 @@ function tdnInDS(kieu){
     '<div class="hop-phu">'+(k==='ct' ? n+' món · '+coChuHTML(tdnInMoTa())+'. Theo đúng lọc đang xem — muốn khác thì đóng hộp, đổi lọc / chọn nhánh 🌳 rồi mở lại.'
       : 'Cả 3 danh sách, món đang có ở kỳ mới nhất (không theo lọc). '+coChuHTML(tdnInKyChu()))+'</div>'+
     '<iframe class="phieu-xem" id="tdn-in-xem"></iframe>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button><button class="nho" onclick="tdnInExcel()">📊 Xuất Excel</button><button class="nho chinh" onclick="tdnInIn()">🖨 In</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button><button class="nho" onclick="tdnInExcel()">📊 Xuất Excel</button><button class="nho chinh" onclick="tdnInIn()">🖨 In</button></div>', true);
   var f = document.getElementById('tdn-in-xem'); xemChuan(f, tdnInHTML(k));
 }
 function tdnInIn(){ inBlob(new Blob([tdnInHTML(TDN_IN.kieu)], {type:'text/html'}), 'Danh sach.html'); }
@@ -1463,7 +1463,7 @@ function ghepKy(){
         var n = D.duLieu.filter(function(x){ return x.ky===k; }).length;
         return '<option value="'+k+'">'+kyVN(k)+' — '+n+' file</option>';
       }).join('')+'</select></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
     '<button class="nho chinh" onclick="lamGhep()">Ghép</button></div>');
 }
 function lamGhep(){

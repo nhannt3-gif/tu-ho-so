@@ -261,7 +261,7 @@ function tkCanDongHop(loai){
     
     '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>STT</th><th>Mã KH</th><th>Họ tên</th><th>Số TK</th><th>Số dư</th><th>Ngày đăng ký</th>'+(loai==='tk104' ? '<th>Lý do</th>' : '')+'</tr></thead><tbody>'+
     ds.slice(0, 2000).map(function(o, i){ return '<tr><td class="c">'+(i+1)+'</td><td>'+o.kh+'</td><td>'+coChuHTML(o.ten)+'</td><td>'+o.stk+'</td><td class="s">'+tdnTien(o.t105||0)+'</td><td>'+(o.ndk ? ngayVNsl(o.ndk) : '')+'</td>'+(loai==='tk104' ? '<td>'+(o.ly||'')+'</td>' : '')+'</tr>'; }).join('')+
-    '</tbody></table></div><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button>'+(ds.length ? '<button class="nho chinh" onclick="tkCanDongXuat(\''+loai+'\')">📊 Xuất Excel</button>' : '')+'</div>', true);
+    '</tbody></table></div><div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ds.length ? '<button class="nho chinh" onclick="tkCanDongXuat(\''+loai+'\')">📊 Xuất Excel</button>' : '')+'</div>', true);
 }
 function tkCanDongXuat(loai){
   var r = tkCanDong()[loai==='tk104' ? 'k104' : 'k105']; if(!r) return; if(!window.XLSX) return baoLoi('Chưa tải được bộ Excel.');
@@ -309,7 +309,7 @@ function tkThieuHop(){
           '<td>'+(t.kh ? (t.cccd && t.ccTu!=='anh gõ' ? t.cccd : o(t, 'cccd', t.cccd, '12 số', '9.5em')) : '')+'</td><td>'+(t.kh ? (t.ncap && t.ccTu==='Mẫu 31' ? ngayVNsl(t.ncap) : o(t, 'ncap', t.ncap ? ngayVNsl(t.ncap) : '', 'dd/mm/yyyy', '7.5em')) : '')+'</td>'+
           '<td>'+(t.kh ? (t.tkTrung ? gdxGLChonTK('tk104', {kh:t.kh, tk:t.tk, tkDs:t.tkDs}) : t.tk && t.tkTu!=='anh gõ' ? t.tk : o(t, 'tk104', t.tk, '10 số', '8em')) : '')+'</td></tr>'; }).join('')+'</tbody></table></div>'
       : '<div class="sl-bao xanh">✓ Mọi tổ đủ: mã KH tổ trưởng, CCCD, ngày cấp, TK 104.</div>')+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button></div>', true);
 }
 function tkBoSung(ma, k, v){
   var t = (tkBangTo()||{})[ma]; if(!t || !t.kh) return; v = String(v||'').trim();
@@ -331,7 +331,7 @@ function tkTrungHop(){
   moHop('<div class="hop-tit">⚠ TK trùng — xác định TK đang dùng, đóng TK thừa ('+ds.length+')</div><div class="hop-phu">TK 104: tổ trưởng có ≥ 2 TK trong Sao kê TK 104 · TK 105: khách có ≥ 2 TK trong Sao kê TK 105. Chọn TK đang dùng ở Giấy lĩnh / bảng tổ thiếu — app nhớ.</div>'+
     '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Loại</th><th>Mã KH</th><th>Họ tên</th><th>Tổ</th><th>Các TK (số dư)</th><th>Đang dùng</th></tr></thead><tbody>'+
     (ds.map(function(o){ return '<tr><td>'+o.loai+'</td><td>'+o.kh+'</td><td>'+coChuHTML(o.ten)+'</td><td>'+o.to+'</td><td>'+coChuHTML(o.ds)+'</td><td>'+(o.chon || '<span class="gdx-vang">chưa chọn</span>')+'</td></tr>'; }).join('') || '<tr><td colspan="6" class="rong">Không có TK trùng.</td></tr>')+
-    '</tbody></table></div><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button>'+(ds.length ? '<button class="nho chinh" onclick="tkTrungXuat()">📊 Xuất Excel</button>' : '')+'</div>', true);
+    '</tbody></table></div><div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ds.length ? '<button class="nho chinh" onclick="tkTrungXuat()">📊 Xuất Excel</button>' : '')+'</div>', true);
 }
 function tkTrungXuat(){ var ds = tkTrungDs(); if(!window.XLSX) return baoLoi('Chưa tải được bộ Excel.');
   var ws = XLSX.utils.aoa_to_sheet([['Loại', 'Mã KH', 'Họ tên', 'Tổ', 'Các TK (số dư)', 'Đang dùng']].concat(ds.map(function(o){ return [o.loai, o.kh, o.ten, o.to, o.ds, o.chon]; })));
