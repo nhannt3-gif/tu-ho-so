@@ -22,13 +22,13 @@ const fs=require('fs'), path=require('path');
    ok('dòng danh sách 2 dòng: tên + mã KH nổi bật (3.103) + nhãn tình trạng · CCCD, địa bàn', !!d0 && d0.querySelector('.tc-d1 .tc-nh') && d0.querySelector('.tc-d1 .tc-ten') && /^\d+$/.test(d0.querySelector('.tc-d1 .tc-ma').textContent) && !/☎/.test(d0.querySelector('small').textContent));
    /* thẻ chi tiết */
    slTheKH(ma); await w(800); const the = document.getElementById('tc-ct');
-   ok('thẻ chia nhóm: số tóm tắt + Nhân thân + Liên hệ + Tiết kiệm + Món vay', the.querySelectorAll('.tc-o').length===5 && ['Nhân thân','Liên hệ','Tiết kiệm 105','Món vay'].every(x=>the.textContent.indexOf(x)>=0));
+   ok('thẻ chia nhóm: số tóm tắt + Nhân thân + Liên hệ · TK 105 (3.337 gộp) + Món vay', the.querySelectorAll('.tc-o').length===5 && ['Nhân thân','Liên hệ · TK 105','Món vay'].every(x=>the.textContent.indexOf(x)>=0));
    ok('bỏ nút Hồ sơ hộ, có Chép cả khối + Mở tổ', !/Hồ sơ hộ/.test(the.textContent) && /Chép cả khối/.test(the.textContent) && /Mở tổ/.test(the.textContent));
    ok('không còn 12 nút 📋 riêng — bấm vào giá trị', !the.querySelector('.kh-o') && the.querySelectorAll('.tc-chep').length>=4);
    const ccEl = [...the.querySelectorAll('.tc-chep')].find(x=>x.getAttribute('data-ten')==='CCCD'); ccEl.click(); await w(50);
    ok('bấm CCCD → chép đúng số', chep[chep.length-1]===c.cccd, chep[chep.length-1]);
    ok('CCCD có ngày cấp + hạn CCCD', /CCCD/.test(the.textContent) && /Hạn CCCD/.test(the.textContent) && (!c.ncap || the.textContent.indexOf('cấp '+ngayVNsl(c.ncap))>=0));
-   ok('bảng món vay có cột Mục đích', [...the.querySelectorAll('.tc-mon th')].some(x=>x.textContent==='Mục đích'));
+   ok('bảng món vay có mục đích (3.337: dòng nhỏ dưới khế ước) + cột Đến hạn', [...the.querySelectorAll('.tc-mon th')].some(x=>/mục đích/.test(x.textContent)) && [...the.querySelectorAll('.tc-mon th')].some(x=>x.textContent==='Đến hạn'));
    /* HSSV */
    const mHS = Object.keys(SL_KHMON).find(k=>SL_KHMON[k].some(m=>m.ct==='HSSV' && !m.xong));
    if(mHS){ slTheKH(mHS); await w(800); const hs = document.querySelector('#tc-ct tr.tc-hs');

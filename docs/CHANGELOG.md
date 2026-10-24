@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.337 — 24/10/2026 — Tra cứu KH: thẻ khách gọn 1 khung, ngày đến hạn tô màu, danh sách gọn
+- **Anh 24/10** (chốt trước khi code): "trong màn tra cứu KH hiện ra em cho màu nổi bật ngày đến hạn của món vay, bố cục trong 1 ô cửa sổ, bố trí gọn hợp lý lại các thông tin" · "khung ds bên trái em có thể bố cục lại cột tình trạng ngay sau tên hoặc chữ nhỏ để có thêm không gian cho cột phải" · mốc 30 / 90 ngày, hạn hiệu lực (gia hạn / hợp đồng).
+- **Thẻ khách** (`slTheKH` js/22f): 3 cột `.tc-3cot` — Nhân thân │ Liên hệ · TK 105 (gộp 2 ô cũ) │ Tổ & địa bàn; khung lưới 1 cột (tiêu đề · 5 ô số · 3 cột 170 px · món vay 1fr · nút) → luôn trọn 1 khung, món vay cuộn trong ô; vẫn giữ vị trí cố định khi đổi khách (t244).
+- **Bảng món vay**: CT · Khế ước (dòng nhỏ: ngày vay · mục đích) · **Đến hạn** (`tcHanMon`: hạn gia hạn nếu có, không thì hạn hợp đồng; so hôm nay: quá hạn đỏ · ≤ 30 ngày cam · ≤ 90 ngày vàng; "còn / quá n ngày"; GH) · Giải ngân · Dư nợ · Lãi tồn · Tình trạng. Sửa: luật chung "cột đầu bảng ≥ 150 px" làm bảng tràn ngang ở 1366 px; dòng HSSV xuống dòng ở màn hẹp.
+- **Danh sách** (`tcBangHTML`): bỏ cột Tình trạng — chữ nhỏ ngay sau tên (vay n món / tất nợ / chỉ gửi TK); màn < 1600 px chữ 12, ô hẹp; khung danh sách 45 % · chi tiết 55 %.
+- **Phép thử**: mới t247 (18 — màu hạn, gọn 1 khung + bảng không tràn ở 1366 / 1920, dòng danh sách 1 dòng); t107, t246 theo bố cục mới. **Sửa phép thử lọt từ 3.334** (dòng ✗ nhưng mã thoát 0, `hoiquy.sh` không báo): t106 (chip BC ở thanh khối), t170, t172 (📅 Số liệu / ⚙ Khai báo ở dòng tên mẫu). Chạy lại t101, t103–t107, t146, t152, t156, t160, t170, t172, t243–t247, hoiquy, hoiquy2.
+
 ## 3.336 — 24/10/2026 — Tra cứu KH: tìm thẳng tổ trưởng + thẻ tổ
 - **Anh 24/10**: "cho tìm tổ trưởng và hiện thông tin cơ bản của tổ" · "trong tìm KH có link tới tổ rồi, anh muốn tìm thẳng tổ cũng được luôn" · "chức năng tìm KH vẫn giữ, thêm chức năng tìm tổ trưởng" · "gộp bản này lên trước".
 - **Tìm theo › Tổ trưởng** (`tcToLoc` / `tcToTim` js/58): chữ → tên tổ trưởng (đầu từ, không dấu); số ≥ 3 → mã tổ / SĐT / mã KH tổ trưởng; trống → mọi tổ trong phạm vi lọc. Bảng: Tổ trưởng · Mã tổ · Xã · Ấp · Hội · Thành viên (+ chip ngưỡng QĐ 70) · Có dư nợ. Gõ ra đúng 1 tổ → tự mở thẻ.
