@@ -685,6 +685,8 @@ function slXoaHanRac(m){ xoaFile(m.kA); xoaFile(m.kG); }
 /* xóa 1 ô: không hỏi (quy tắc chung) — vào Thùng rác */
 function slXoa(loai, ky){
   var k = slKhoa(loai, ky), e = SLM.bang[k]; if(!e) return;
+  if(typeof slSoChot==='function' && slSoChot(loai, ky) && !slXoa.ok)   /* 3.357: ô của sổ chốt tổ viên 31/12 → hỏi trước */
+    return void hoi('Xóa '+slLoai(loai).ten+' '+slKyChu(ky)+'?', 'Đây là số liệu chốt sổ tổ viên 31/12 — năm sau app dùng để đối chiếu tổ viên đã tất nợ. Vẫn vào 🗑 Thùng rác (khôi phục được 30 ngày).', 'Vẫn xóa', function(){ slXoa.ok = 1; try { slXoa(loai, ky); } finally { slXoa.ok = 0; } });
   return slXoaVaoRac([k], 'Anh xóa').then(function(ids){
     return ((slLaHS(loai) || loai==='tt' || loai==='dnct') ? slDungDanhBa() : Promise.resolve()).then(slLuuMeta).then(function(){
       if(coTheNoiDrive() && DR.sanSang) ids.forEach(function(id){ xoaFileDrive(id).catch(function(){}); });

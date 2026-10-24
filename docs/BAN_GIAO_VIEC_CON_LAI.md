@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.357) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tổ TK&VV (kỳ tháng có Mẫu 01/TV) › 👁 Sổ tổ viên | Mỗi tổ viên 1 dòng; ghi chú "Đã đối chiếu Mẫu 01/TV …, bù N khách"; khách chỉ có ở 01/TV ghi nguồn 01/TV | |
+| 2 | Chọn 1 tổ / 1 điểm ở cây địa bàn rồi mở lại | Chỉ tổ viên phạm vi đó; nhóm Từng tổ có dòng cộng | |
+| 3 | Chip Gồm: chỉ "Tất nợ · còn TK 105" + "Cần cho ra khỏi tổ" | Danh sách khách đã tất nợ; dòng cần cho ra tô vàng | |
+| 4 | Nạp & KT › xóa ô Mẫu 31 tháng 12 (khi có) | App hỏi trước "số liệu chốt sổ tổ viên 31/12" | |
+
+**Ghi chú kỹ thuật 3.357:** sổ = `DANG_KY` mã `sotv` (o:'to' — kỳ `KHO.kyDung()`, phạm vi `toCH()`); dòng từ `tvChuan(t, K)` từng tổ (`KHO.dsToKy`), CT + ngày tất nợ từ `KHO.monKy(K, kh)` (`stvMon`). `slSoChot(loai, ky)` = Mẫu 31 / 01/TV kỳ `YYYY-12`.
+
 ### Danh sách thử trên máy thật (3.356) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

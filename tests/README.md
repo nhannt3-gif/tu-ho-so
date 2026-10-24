@@ -209,6 +209,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t258.js` | 3.348–3.353 📜 nhật ký đã lập / in (+ KTGS Mẫu 06 ghi tổ / hộ) + nút `hop.dong`. |
 | `node tests/t259.js` | 3.355 nền báo cáo bảng `DANG_KY` + Danh sách nợ cần xử lý (khuôn in chuẩn, nhóm, Excel, nhật ký). |
 | `node tests/t259.js` | 3.355–3.356 nền báo cáo bảng `DANG_KY` + Danh sách nợ cần xử lý + 🧩 Báo cáo của tôi (tự khai từ Mẫu 31, đối chiếu TW). |
+| `node tests/t300.js` | 3.357 Sổ tổ viên / chốt sổ 31/12 (tvChuan + bù 01/TV, tiêu đề chốt tháng 12, chip Gồm, ngày tất nợ, hỏi trước khi xóa ô tháng 12). |
 | (3.354) | t265 mới: Hôm nay trang đầu, âm lịch (24/10 = 15/9, Tết 2026), lịch tháng, thêm việc lặp tuần + lưu ý, sắp tới, tick việc lặp theo ngày, ghi chú dòng (Enter / Thêm / tick / xóa), cất mã hóa + mở lại, sửa / xóa "chỉ ngày này", gộp chéo với `gopLich` máy tính và ngược lại, Khách chưa có số liệu có nút Tải (19). |
 | (3.352) | t264 mới: chip Văn bản (năm, loại, Đã ghim), xem PDF trong app (canvas đủ trang, vừa ngang), ghim cất mã hóa, trần 200 MB, mở lại không mạng (danh sách + văn bản ghim), báo lỗi chưa ghim / chưa lên Drive, bỏ ghim (18). |
 | `python3 tools/ra_kho.py` (3.341 · 3.346) | đếm theo file chỗ đọc thẳng kho số liệu — sau K1–K5 chỉ còn lõi (22-so-lieu, 22g, 22k, 28, 29) + đọc sâu kỳ riêng của tab (`docs/RA_SOAT_KHO_2410.md` mục 4). |
