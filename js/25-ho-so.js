@@ -1245,7 +1245,7 @@ function hmM31Hop(){
     hsoTuyO('Tìm tên / CCCD', '<input placeholder="gõ số CCCD hoặc họ tên" oninput="hmM31Tim(this.value)">')+'<div id="hm-m31-kq" class="hso-tim-kq"></div>'+
     (tv.length ? '<div class="nhan-nhom">Tổ viên tổ đang chọn ('+coChuHTML('Tổ '+(t.ten||t.ma))+')</div><div class="hso-tick-ds">'+tv.map(function(k){ return '<label><input type="checkbox" class="hm-m31-tick" value="'+coChuHTML(k.kh)+'"'+(co[k.kh] ? ' disabled' : '')+'> '+coChuHTML(k.ten)+(co[k.kh] ? ' <small>(đã có trong sổ)</small>' : '')+'</label>'; }).join('')+'</div>'+
       '<div class="hang-nut"><button class="nho chinh" onclick="hmLayTo()">＋ Đưa các hộ đã tích vào sổ</button></div>' : '<div class="sl-phu">Chọn 1 tổ ở khối LỌC ĐỊA BÀN để tích nhiều tổ viên 1 lần.</div>')+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button></div>', true);
 }
 function hmM31Tim(q){ var o = document.getElementById('hm-m31-kq'); if(!o) return; q = String(q||'').trim(); if(q.length<2){ o.innerHTML = ''; return; }
   var ds = KHO.tim(q, 12);
@@ -1317,7 +1317,7 @@ function hmVe(){
     '<div class="hang-nut"><button class="nho" onclick="hmThemNguoi()">＋ Thành viên / thừa kế / HSSV</button></div>'+
     (typeof khFormHTML==='function' ? '<div class="nhan-nhom">🔎 Kiểm tra <small>(<a href="#" data-lenh="kh.luat">⚙ khai báo luật</a> — mở chồng, đóng là về form hộ)</small></div><div id="hm-kiem" class="hm-kiem">'+khFormHTML()+'</div>' : '')+
     '<div class="sl-phu hm-phim">⌨ Enter / Tab sang ô kế · Shift+Enter lùi · ↑ ↓ đổi lựa chọn ô chọn · <b>Ctrl+Enter lưu</b></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho" onclick="hmLuu(1)" title="Lưu rồi mở form trống cùng địa bàn, tổ — nhập liên tục nhiều hộ">💾 Lưu &amp; thêm hộ tiếp</button><button class="nho chinh" onclick="hmLuu()">💾 Lưu hộ</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho" onclick="hmLuu(1)" title="Lưu rồi mở form trống cùng địa bàn, tổ — nhập liên tục nhiều hộ">💾 Lưu &amp; thêm hộ tiếp</button><button class="nho chinh" onclick="hmLuu()">💾 Lưu hộ</button></div>', true);
   document.getElementById('hop-in').classList.add('phim-chung');
   if(giu){ var e = document.querySelector('#hop-in [data-hm="'+giu+'"]'); if(e){ e.focus(); if(e.select && e.tagName==='INPUT' && !e.value) e.select(); } }
 }

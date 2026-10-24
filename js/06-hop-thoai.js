@@ -96,7 +96,7 @@ function hoi(tit, phu, nhanOK, ham){
   hamDong = ham; khoaHop = false;
   moHop('<div class="hop-tit">'+coChuHTML(tit)+'</div>'+
         '<div class="hop-phu">'+coChuHTML(phu)+'</div>'+
-        '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+        '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
         '<button class="nho chinh" onclick="dongHop();hamDong&&hamDong()">'+
         coChuHTML(nhanOK)+'</button></div>');
 }
@@ -690,7 +690,7 @@ function suaCho(id){
     than+
     '<div class="day-form">'+
       (laCho?'':'<a class="xoa-nho" onclick="xoaMuc(\''+id+'\')">Xóa khỏi tủ</a>')+
-      '<button class="nho" onclick="dongHop()">Thôi</button>'+
+      '<button class="nho" data-lenh="hop.dong">Thôi</button>'+
       '<button class="nho chinh" onclick="luuSua(\''+id+'\')">Lưu <small>(Ctrl+Enter)</small></button></div>';
   moHop(h, true); nhapDat('sua:'+id);
   document.getElementById('hop-in').classList.add('sua-gon');   /* 3.69 (AJ) */
@@ -1233,7 +1233,7 @@ function xoaHanRac(ids, tieuDe){
     '<div class="hop-phu">Bỏ khỏi app, bản sao trong máy cũng xóa'+(dl?' ('+kichCo(dl)+')':'')+'. '+
     (canDrive?'File trên Drive chuyển vào <b>thùng rác Google Drive</b> — Google giữ 30 ngày rồi tự xóa, trong thời gian đó vẫn lấy lại được ở drive.google.com › Thùng rác. ':'')+
     'Máy kia cũng bỏ theo khi đồng bộ.</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
     '<button class="nho xau" onclick="thucHienXoaHan(['+ds.map(function(m){ return '\''+m.id+'\''; }).join(',')+'])">Xóa hẳn '+ds.length+' file</button></div>');
 }
 function thucHienXoaHan(ids, imLang){
@@ -1976,7 +1976,7 @@ function moHuongDan(p){
   var h = '<div class="hop-tit">❓ Hướng dẫn</div>'+
     '<div class="hd-nav">'+HD_PHAN.map(function(x){ return '<button class="'+(x[0]===p?'bat':'')+'" onclick="moHuongDan(\''+x[0]+'\')">'+x[1]+'</button>'; }).join('')+'</div>'+
     '<div class="hd-than">'+noiDungHD(p)+'</div>'+
-    '<div class="hang-nut" style="margin-top:12px"><button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button></div>';
+    '<div class="hang-nut" style="margin-top:12px"><button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button></div>';
   moHop(h, true);
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }

@@ -106,7 +106,7 @@ function moDsBo(){
         '<button class="nho" onclick="suaBo('+i+')">Sửa bộ</button>'+
         '<button class="nho xau" onclick="xoaBo('+i+')">Xóa bộ</button></div></div>';
     }).join('')+'</div>' : '<div class="rong">Chưa có bộ nào.</div>')+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+
     '<button class="nho chinh" onclick="suaBo(-1)">+ Tạo bộ mới</button></div>', true);
 }
 function suaBo(i){
@@ -182,7 +182,7 @@ function bmGhiChu(id){
     '<div class="hop-phu">'+coChuHTML(m.ten)+'</div>'+
     '<div class="o"><textarea id="bm-gc" rows="3" placeholder="Ví dụ: điền phần II, tổ trưởng ký trước khi nộp">'+
       coChuHTML(m.cachDung||'')+'</textarea></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
     '<button class="nho chinh" onclick="bmLuuGhiChu(\''+id+'\')">Lưu</button></div>');
 }
 function bmLuuGhiChu(id){
@@ -202,7 +202,7 @@ function bmThayBan(id){
     '</select></div>'+
     '<div class="o"><label>Bản mới có hiệu lực từ ngày</label>'+
       '<input id="bm-hl" inputmode="numeric" placeholder="dd/mm/yyyy" value="'+(m.hieuLucTu?ngayVN(m.hieuLucTu):'')+'" oninput="gonNgay(this)"></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
     (m.thayBoi?'<button class="nho" onclick="bmBoThay(\''+id+'\')">Bỏ đánh dấu</button>':'')+
     '<button class="nho chinh" onclick="bmLuuThay(\''+id+'\')">Lưu</button></div>');
 }
@@ -259,7 +259,7 @@ function moBangOffice(id, ung){
     '</div>'+
     '<div class="huong-dan">Google Docs mở và in được ngay; file .docx gốc trên Drive giữ nguyên định dạng. '+
     'Ổ G: dán đường dẫn vào thanh địa chỉ Explorer rồi Enter — '+tenUD+' mở thẳng file đang đồng bộ, sửa xong lưu là cập nhật lên Drive.</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button></div>');
 }
 function moOfficeCN(id, hanh){
   var m = timMucMo(id); if(!m) return;
@@ -312,7 +312,7 @@ function bmGanVB(id){
       vb.map(function(x){ return '<option value="'+x.id+'"'+(m.vbKem===x.id?' selected':'')+'>'+
         coChuHTML((x.soHieu?x.soHieu+' · ':'')+(x.tenVB||x.tenMoi||''))+'</option>'; }).join('')+
     '</select></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
     '<button class="nho chinh" onclick="bmLuuVB(\''+id+'\')">Lưu</button></div>');
 }
 function bmLuuVB(id){
@@ -470,7 +470,7 @@ function suaBieuMau(id){
       (m.huongDan?' checked':'')+'>Đây là bản đã điền mẫu để hướng dẫn</label>'+
       '<div class="huong-dan">Bản đã điền dùng để đưa khách xem cách ghi, không in cho khách điền.</div></div>'+
     '<div class="hang-nut" style="margin-top:14px">'+
-      '<button class="nho" onclick="dongHop()">Thôi</button>'+
+      '<button class="nho" data-lenh="hop.dong">Thôi</button>'+
       '<button class="nho chinh" onclick="luuBieuMau(\''+id+'\')">Lưu</button></div>'+
     '<div class="hang-nut"><button class="nho xau" onclick="xoaBieuMau(\''+id+'\')">Xóa mẫu</button></div>');
   setTimeout(thuGonTatCa, 0);

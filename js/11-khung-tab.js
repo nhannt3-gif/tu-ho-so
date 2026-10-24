@@ -236,7 +236,7 @@ function moBoLoc(tab){
   moHop('<div class="hop-tit">⚲ Lọc</div>'+boLocHTML(tab)+'<div class="hang-nut" style="margin-top:14px">'+
     '<button class="nho" onclick="boLoc(\''+tab+'\');dongHop()">Bỏ hết lọc</button>'+
     '<button class="nho" onclick="suaTagTab(\''+tab+'\')">Sửa tag</button>'+
-    '<button class="nho chinh" onclick="dongHop()">Xong</button></div>', true);
+    '<button class="nho chinh" data-lenh="hop.dong">Xong</button></div>', true);
 }
 function tlLocLai(tab){ if(laDT()) moBoLoc(tab); }
 function boLocHTML(tab){
@@ -437,7 +437,7 @@ function suaTagTab(tab){
     'sửa lúc nào cũng được; tag đã gán cho file cũ không bị mất khi anh bỏ khỏi danh sách.</div>'+
     ta('','tg-ds', dsTag(tab).join('\n'))+
     '<div class="hang-nut">'+
-      '<button class="nho" onclick="dongHop()">Thôi</button>'+
+      '<button class="nho" data-lenh="hop.dong">Thôi</button>'+
       '<button class="nho" onclick="tagMacDinh(\''+tab+'\')">Lấy lại mặc định</button>'+
       '<button class="nho chinh" onclick="luuTagTab(\''+tab+'\')">Lưu</button></div>');
 }

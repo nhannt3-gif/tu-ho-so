@@ -26,7 +26,7 @@ function moDanAI(){
     '<div class="huong-dan">Nhận nhiều dạng: danh sách gạch đầu dòng, bảng, '+
     'hay đoạn “Tên file cũ / Tên file mới”. Không cần sửa gì trước khi dán.</div></div>'+
     '<div class="hang-nut">'+
-      '<button class="nho" onclick="dongHop()">Thôi</button>'+
+      '<button class="nho" data-lenh="hop.dong">Thôi</button>'+
       '<button class="nho chinh" onclick="docDanAI()">Đọc và so sánh</button></div>', true);
   setTimeout(function(){
     var e = document.getElementById('dan-ai'); if(e) e.focus();

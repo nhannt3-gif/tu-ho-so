@@ -110,7 +110,7 @@ function khaiHangLoat(chon){
     oChonCT([], 'kl-ct')+
     oChonTag('scan', ['CCCD'], 'kl-tag')+
     '<div class="hang-nut" style="margin-top:14px">'+
-      '<button class="nho" onclick="dongHop()">Thôi</button>'+
+      '<button class="nho" data-lenh="hop.dong">Thôi</button>'+
       '<button class="nho chinh" id="kl-luu" onclick="luuKhaiHangLoat()">Khai các bản đã chọn</button></div>', true);
   demKL();
   ds.forEach(function(k, i){
@@ -172,7 +172,7 @@ function chonCheScan(){
     '<b>Tài liệu</b>: chụp lần lượt từng trang, app nắn thẳng rồi ghép thành một PDF. '+
     'Dùng cho đơn vay đã ký, biên bản họp tổ, giấy tờ nhà đất.</div>'+
     '<div class="hang-nut" style="margin-top:12px">'+
-      '<button class="nho" onclick="dongHop()">Đóng</button></div>');
+      '<button class="nho" data-lenh="hop.dong">Đóng</button></div>');
 }
 function datChe(c){ SC.che = c; dongHop(); veScan(); }
 
@@ -195,7 +195,7 @@ function batDauScan(){
         '<span class="mo-ta">PDF hoặc Word</span></button>'+
     '</div>'+
     '<div class="hang-nut" style="margin-top:12px">'+
-      '<button class="nho" onclick="dongHop()">Thôi</button></div>');
+      '<button class="nho" data-lenh="hop.dong">Thôi</button></div>');
 }
 
 function chonNguon(n){
@@ -2240,7 +2240,7 @@ function hoiCauNoiBan2(sau){
     '<div class="hang-nut" style="margin-top:12px"><button class="nho chinh" onclick="taiBoCaiCauNoi()">⬇ Tải bộ cài mới</button>'+
     '<button class="nho" onclick="dongHop();moThuCauNoi()">Mở thử</button>'+
     '<button class="nho" onclick="try{localStorage.setItem(\'tuhoso_cn_ban\',\'2\')}catch(e){};dongHop();(window.__cnSau||function(){})()">Đã cài bản mới — chép luôn</button>'+
-    '<button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>');
+    '<button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>');
 }
 function relDrive(duong, ten){ return String(duong||'').split('/').map(function(x){ return x.trim(); }).filter(Boolean).concat([ten]).join('/'); }
 /* đường dẫn trong Drive của một mục bất kỳ (văn bản, biểu mẫu, bản scan, chữ ký · CCCD) — '' nếu chưa lên Drive */
@@ -2301,7 +2301,7 @@ function hoiCaiCauNoi(duPhong){
       '<button class="nho chinh" onclick="taiBoCaiCauNoi()">⬇ Tải bộ cài</button>'+
       '<button class="nho" onclick="dongHop();moThuCauNoi()">Mở thử</button>'+
       '<button class="nho" onclick="try{localStorage.setItem(\'tuhoso_cn_an\',\'1\')}catch(e){};dongHop();if(mucDangXem)veNutCN(mucDangXem);(window.__cnDuPhong||function(){})()">Để sau (không nhắc nữa)</button>'+
-      '<button class="nho" onclick="dongHop()">Đóng (Esc)</button>'+
+      '<button class="nho" data-lenh="hop.dong">Đóng (Esc)</button>'+
     '</div>');
 }
 /* các nút cầu nối (chỉ máy tính đã cài) */
@@ -2407,7 +2407,7 @@ function scanTaiLieu(id){
       '<button class="nho sg-ico" onclick="themTrang(0)">🖼 Chọn ảnh</button>'+
       '<button class="nho sg-ico" onclick="themTrangPDF()">＋ Chọn PDF</button></div></div>'+
     '<div class="day-form">'+(id?'<span class="xoa-nho" onclick="xoaKhach(\''+id+'\')">🗑 Xóa</span>':'')+
-      '<button class="nho" onclick="dongHop()">Đóng (Esc)</button>'+
+      '<button class="nho" data-lenh="hop.dong">Đóng (Esc)</button>'+
       '<button class="nho chinh" onclick="luuScanTL()">Lưu bản quét <small>Ctrl+Enter</small></button></div>'+
     '</div>'+
     '<div class="sua-xem q-xem"><div class="q-xem-tit" id="nn-trang">Các trang ('+(k.trang||[]).length+')</div><div id="k-xem"></div></div>',

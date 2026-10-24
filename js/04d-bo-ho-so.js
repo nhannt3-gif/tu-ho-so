@@ -25,7 +25,7 @@ function taoBoHS(){
     '<div class="hop-phu">Ví dụ: loại <b>Rủi ro</b>, khách <b>Võ Văn Cường</b>. Tạo xong gắn địa bàn, ghi chú và thêm file.</div>'+
     '<div class="o"><label>Loại</label><select id="bhs-loai">'+dsLoaiBo().map(function(x){ return '<option>'+coChuHTML(x)+'</option>'; }).join('')+'</select></div>'+
     '<div class="o"><label>Tên khách / vụ việc</label><input id="bhs-khach" placeholder="Võ Văn Cường" onkeydown="if(event.key===\'Enter\')xongTaoBo()"></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="xongTaoBo()">Tạo</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="xongTaoBo()">Tạo</button></div>');
   setTimeout(function(){ var e = document.getElementById('bhs-khach'); if(e) e.focus(); }, 50);
 }
 function xongTaoBo(){
@@ -183,7 +183,7 @@ function moGanFileBo(bid){
     '<div class="hop-phu">Chỉ liên kết — file vẫn nằm ở tab của nó, không chép, không dời. Tìm theo tên khách, số hiệu, tên file.</div>'+
     '<div class="o"><input id="gan-tim" value="'+coChuHTML(GAN.tim)+'" placeholder="Gõ để tìm…" oninput="GAN.tim=this.value;veGanDS()"></div>'+
     '<div id="gan-ds" class="gan-ds"></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="xongGanFile()">Gắn các file đã tích</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="xongGanFile()">Gắn các file đã tích</button></div>', true);
   veGanDS();
 }
 function dsGanDuoc(){

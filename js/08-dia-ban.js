@@ -192,7 +192,7 @@ function themKhach(id){
         '<button class="nho sg-ico" onclick="chupThe(0,1)" title="Chụp mặt sau">📷 Chụp</button><button class="nho sg-ico" onclick="chupThe(0,0)" title="Chọn ảnh có sẵn">🖼 Ảnh</button></div>'+
     '</div>'+
     '<div class="day-form">'+(id?'<span class="xoa-nho" onclick="xoaKhach(\''+id+'\')">🗑 Xóa hồ sơ</span>':'')+
-      '<button class="nho" onclick="dongHop()">Đóng (Esc)</button>'+
+      '<button class="nho" data-lenh="hop.dong">Đóng (Esc)</button>'+
       '<button class="nho chinh" onclick="luuKhach()">Lưu hồ sơ <small>Ctrl+Enter</small></button></div>'+
     '</div>'+
     '<div class="sua-xem q-xem"><div class="q-xem-tit">🪪 Bản quét · 2 mặt thẻ</div><div id="k-xem"></div></div>');

@@ -1011,7 +1011,7 @@ function dongLenLich(id){
     '<div class="o"><label>Lặp lại</label><select id="dl-lap">'+
       Object.keys(LC_LAP).map(function(k){ return '<option value="'+k+'">'+LC_LAP[k]+'</option>'; }).join('')+
       '</select></div></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
       '<button class="nho chinh" onclick="dongLenLichOK(\''+id+'\')">Đưa lên</button></div>');
 }
 function dongLenLichOK(id){
@@ -1255,7 +1255,7 @@ function nkMenuDinh(id){
       '<button class="nho" onclick="moGanFileNK(\''+id+'\')">🔗 File có sẵn trong tủ</button></div>'+
     '<div class="hop-phu">Ảnh tự thu nhỏ (cạnh dài 1600 px, khoảng 200–400 KB) — vẫn đọc rõ giấy tờ. PDF, Word giữ nguyên. '+
       'Có nối Drive thì file lên <i>'+coChuHTML(D.cauHinh.thumuc||'Tủ hồ sơ')+' / Nhật ký / tháng</i>.</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button></div>');
 }
 function moGanFileNK(id){
   GAN = {bo:'', nk:id, tim:''};
@@ -1263,7 +1263,7 @@ function moGanFileNK(id){
     '<div class="hop-phu">Chỉ liên kết — file vẫn nằm ở tab của nó. Tìm theo tên khách, số hiệu, tên file.</div>'+
     '<div class="o"><input id="gan-tim" placeholder="Gõ để tìm…" oninput="GAN.tim=this.value;veGanDS()"></div>'+
     '<div id="gan-ds" class="gan-ds"></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="xongGanFile()">Gắn các file đã tích</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="xongGanFile()">Gắn các file đã tích</button></div>', true);
   veGanDS();
   setTimeout(function(){ var o = document.getElementById('gan-tim'); if(o) o.focus(); }, 30);
 }
@@ -1334,7 +1334,7 @@ function nkXem(nid, i){
       '<button class="nk-lb-nut trai" onclick="nkLat(-1)">‹</button><img id="nk-lb-anh" alt="">'+
       '<button class="nk-lb-nut phai" onclick="nkLat(1)">›</button></div>'+
     '<div class="hop-phu" id="nk-lb-ten"></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="nkTaiVe()">⬇ Tải về</button><button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button></div>', true);
+    '<div class="hang-nut"><button class="nho" onclick="nkTaiVe()">⬇ Tải về</button><button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button></div>', true);
   nkVeLB();
 }
 function nkDuong(m, f){
@@ -1467,7 +1467,7 @@ function lcSua(){
     '<div class="o"><label>Lặp lại</label><select id="lc-s-lap">'+Object.keys(LC_LAP).map(function(k){
       return '<option value="'+k+'"'+((v.lap||'mot')===k ? ' selected' : '')+'>'+LC_LAP[k]+'</option>'; }).join('')+'</select></div>'+
     '<label class="nk-tich"><input type="checkbox" id="lc-s-luuy"'+(v.luuY ? ' checked' : '')+'> ⚑ Lưu ý (đưa lên đầu, tô đậm)</label>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button><button class="nho chinh" onclick="lcSuaXong()">Lưu</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="lcSuaXong()">Lưu</button></div>');
   nhapDat('lc:'+v.id);  document.getElementById('hop-in').classList.add('phim-chung');   /* 3.84: phím chung Enter / Tab / Shift / ↑ ↓ */
   setTimeout(function(){ var o = document.getElementById('lc-s-ten'); if(o){ o.focus(); o.selectionStart = o.value.length; } }, 30);
 }
@@ -1569,7 +1569,7 @@ function moBoNho(){
       '<div class="hang-nut">'+(BN.giu===true ? '' : '<button class="nho" onclick="xinGiuDuLieu()">🔒 Xin giữ dữ liệu lâu dài</button>')+
         (nhom.rac ? '<button class="nho" onclick="dongHop();moDonKho(\'rac\')">🗑 Thùng rác ('+kichCoNgan(nhom.rac)+')</button>' : '')+
         '<button class="nho" onclick="dongHop();moDonKho()">🧰 Dọn kho</button>'+
-        '<button class="nho chinh" onclick="dongHop()">Đóng</button></div>';
+        '<button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>';
   });
 }
 function xinGiuDuLieu(){
@@ -1828,7 +1828,7 @@ function moNgayTot(iso){
     (nhanNgayAm(iso).length?'<div class="nhan-nhom">Ngày âm</div><div class="tot-o">'+coChuHTML(nhanNgayAm(iso).join(' · '))+'</div>':'')+
     '<div class="huong-dan">Tính theo cách phổ thông của lịch Việt (12 trực thần khởi theo tháng âm, giờ tốt tra theo chi ngày). '+
     'Mỗi sách có thể chép khác đôi chút — chỉ để tham khảo.</div>'+
-    '<div class="hang-nut"><button class="nho chinh" onclick="dongHop()">Đóng</button></div>');
+    '<div class="hang-nut"><button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>');
 }
 function tomTatNgayTot(iso){
   var cc = canChiNgay(iso), s = saoNgay(iso);
@@ -1929,7 +1929,7 @@ function moDsPhong(){
         '<div class="mp-mota">'+coChuHTML(p.mota)+'</div>'+
         '<div class="mp-thu">25/09/2026 · Gọi tổ trưởng Nguyễn Văn A — 2.237 tổ viên</div></div>';
     }).join('')+'</div>'+
-    '<div class="hang-nut"><button class="nho chinh" onclick="dongHop()">Đóng</button></div>', true);
+    '<div class="hang-nut"><button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>', true);
 }
 function apPhongSo(){
   document.documentElement.style.setProperty('--font-so', PHONG_SO[phongHienTai()].css);
@@ -2112,7 +2112,7 @@ function lcDoi(){
       '<button class="nho" onclick="lcDoiDen(\''+lcCong(tu,7)+'\')">+1 tuần</button></div>'+
     '<div class="o"><label>Hoặc chọn ngày</label><input id="lc-doi" inputmode="numeric" placeholder="dd/mm/yyyy" '+
       'value="'+lcDMY(lcCong(tu,1))+'" oninput="gonNgay(this)"></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
       '<button class="nho chinh" onclick="lcDoiDen(ngayISOo(gt(\'lc-doi\')))">Dời</button></div>');
 }
 function lcDoiDen(iso){
@@ -2133,7 +2133,7 @@ function lcXoa(){
   if(v.lap && v.lap!=='mot'){
     moHop('<div class="hop-tit">Xóa việc lặp</div>'+
       '<div class="hop-phu">'+coChuHTML(v.ten)+' — lặp '+LC_LAP[v.lap].toLowerCase()+'.</div>'+
-      '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+      '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
       '<button class="nho" onclick="lcXoaMotLan()">Chỉ lần ngày '+lcDM(LICH.chon)+'</button>'+
       '<button class="nho xau" onclick="lcXoaHan()">Xóa cả chuỗi</button></div>');
   } else lcXoaHan();   /* 3.153: không hỏi — vào Thùng rác */
@@ -2175,7 +2175,7 @@ function lcDanhSach(){
           (x.v.luuY?'⚑ ':'')+coChuHTML(x.v.ten)+(x.v.lap&&x.v.lap!=='mot'?' <small>'+LC_LAP[x.v.lap]+'</small>':'')+'</div>';
       }).join('')+'</div>';
   }).join('') : '<div class="lc-rong">Không có việc nào trong khoảng này.</div>';
-  h += '<div class="hang-nut" style="margin-top:10px"><button class="nho chinh" onclick="dongHop()">Đóng</button></div>';
+  h += '<div class="hang-nut" style="margin-top:10px"><button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>';
   moHop(h);
 }
 
@@ -2194,7 +2194,7 @@ function lcTinhNgay(){
       '<span>đến</span><input id="tn-b" inputmode="numeric" value="'+lcDMY(lcCong(ngayISOo(c)||lcISO(nay()),30))+'" oninput="gonNgay(this);lcTinh()"></div>'+
     '<div class="lc-kq" id="tn-kq2"></div>'+
     '<div class="huong-dan">Ngày làm việc = trừ Thứ Bảy, Chủ nhật (chưa trừ ngày lễ).</div>'+
-    '<div class="hang-nut" style="margin-top:10px"><button class="nho chinh" onclick="dongHop()">Đóng</button></div>');
+    '<div class="hang-nut" style="margin-top:10px"><button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>');
   lcTinh();
 }
 function lcLamViec(iso){ var t = lcNgay(iso).getDay(); return t!==0 && t!==6; }

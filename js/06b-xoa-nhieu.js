@@ -130,7 +130,7 @@ function moDonThu(){
       '<label class="dt-dong"><input type="radio" name="dt-muc" value="rac" checked onchange="demDonThu()"> Vào thùng rác — còn khôi phục được</label>'+
       '<label class="dt-dong"><input type="radio" name="dt-muc" value="han" onchange="demDonThu()"> <b>Xóa hẳn luôn</b> — file Drive vào thùng rác Google Drive (30 ngày); cần nối Drive</label></div>'+
     '<div class="dt-kq" id="dt-kq"></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
     '<button class="nho xau" onclick="thucHienDonThu()">🔄 Reset</button></div>');
   demDonThu();
 }
@@ -186,7 +186,7 @@ function moXoaSachMay(){
     '<div class="hop-phu">Mất trên máy này: toàn bộ chỉ mục, thùng rác, lịch, <b>cài đặt</b> (địa bàn, danh mục, tag…), '+
     'bản sao file và <b>ảnh CCCD</b>. <b>Drive giữ nguyên</b>. App tự tải một bản dự phòng đầy đủ trước khi xóa.</div>'+
     '<div class="o"><label>Gõ chữ <b>XOA</b> để xác nhận</label><input id="xs-go" autocomplete="off"></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
     '<button class="nho xau" onclick="xoaSachMay()">Xóa sạch</button></div>');
 }
 function xoaSachMay(){

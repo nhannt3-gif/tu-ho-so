@@ -84,5 +84,5 @@ function chSoHop(){
     (R.la.length ? '<details open class="ch-so-nhom"><summary><b class="do">⚠ Khóa lạ ('+R.la.length+')</b></summary>'+bang(R.la, true)+'</details>' : '')+
     ks.map(function(k){ var ds = R.khoi[k], kb = Math.round(ds.reduce(function(a, x){ return a+x.kb; }, 0)*10)/10;
       return '<details class="ch-so-nhom"><summary><b>'+coChuHTML(CH_SO_KHOI_TEN[k] || k)+'</b> — '+ds.length+' khóa · '+kb+' KB</summary>'+bang(ds)+'</details>'; }).join('')+
-    '<div class="hang-nut"><button class="nho chinh" onclick="dongHop()">Đóng</button></div>', true);
+    '<div class="hang-nut"><button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>', true);
 }

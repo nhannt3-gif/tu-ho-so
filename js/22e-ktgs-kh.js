@@ -519,7 +519,7 @@ function ktDKXemG(che, ok){
   moHop('<div class="hop-tit">👁 '+tit+'</div>'+
     '<div class="kt-che"><button class="to-loc'+(che==='06' ? ' bat' : '')+'" onclick="ktDKXem(\'06\')">Mẫu 06 · '+X.g06.length+' phiếu</button><button class="to-loc'+(che==='16' ? ' bat' : '')+'" onclick="ktDKXem(\'16\')">Mẫu 16 · '+X.g16.length+' biên bản</button></div>'+
     '<iframe id="kt-dk-khung" class="to-khung" title="Xem trước"></iframe>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop();ktDKXem()">‹ Đổi lựa chọn in</button><button class="nho" onclick="dongHop()">Đóng</button>'+
+    '<div class="hang-nut"><button class="nho" onclick="dongHop();ktDKXem()">‹ Đổi lựa chọn in</button><button class="nho" data-lenh="hop.dong">Đóng</button>'+
     '<button class="nho" onclick="ktDKIn(\'in\',\'06\')">🖨 In 06</button><button class="nho" onclick="ktDKIn(\'in\',\'16\')">🖨 In 16</button>'+
     '<button class="nho chinh" onclick="ktDKIn(\'word\',\'06\')">📄 Word 06</button><button class="nho chinh" onclick="ktDKIn(\'word\',\'16\')">📄 Word 16</button></div>', true);
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');

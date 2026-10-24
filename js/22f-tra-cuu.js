@@ -245,7 +245,7 @@ function slTheKH(ma){
     '<div class="tc-nhom tc-nhom-mon"><div class="tc-nhom-tit">Món vay — '+slKyChu(c.ky)+'</div><div id="kh-mon"><div class="rong">Đang mở…</div></div></div>'+
     (typeof nkKhoiHTML==='function' ? nkKhoiHTML('kh', ma, 6) : '')+   /* 3.348: 📜 đã lập / in */
     '<div class="hang-nut tc-nut"><button class="nho" onclick="slChepKH(\''+ma+'\')">📋 Chép cả khối</button>'+(c.to ? '<button class="nho" onclick="tcMoTo(\''+c.to+'\')">👥 Mở tổ</button>' : '')+
-    (hai ? '' : '<button class="nho chinh" onclick="dongHop()">Đóng (Esc)</button>')+'</div>';
+    (hai ? '' : '<button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button>')+'</div>';
   if(hai) document.getElementById('tc-ct').innerHTML = '<div class="tc-the tc-khung">'+h+'</div>';   /* 3.333: khung cố định (CSS .tc-khung) */
   else moHop('<div class="tc-the tc-khung">'+h+'</div>', true);
   KHO.bo(c.ky).then(function(B){

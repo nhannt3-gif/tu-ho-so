@@ -1081,7 +1081,7 @@ function gdxNKMo(){
       return '<tr><td>'+ngayVN(ngayISO(d))+' '+String(d.getHours()).padStart(2, '0')+':'+String(d.getMinutes()).padStart(2, '0')+'</td><td>'+(ten[x.mau]||x.mau)+'</td><td>'+gdxE(x.tom)+'</td>'+
         '<td class="gdx-nk-nut"><button class="nho chinh" onclick="gdxNKIn(\''+x.id+'\')">🖨 In lại</button><button class="nho" onclick="gdxNKIn(\''+x.id+'\', 1)">📄 PDF</button><button class="nho" onclick="gdxNKXoa(\''+x.id+'\')" title="Xóa dòng này">×</button></td></tr>'; }).join('')+'</table></div>'
       : '<div class="sl-phu">Chưa có lần in nào.</div>')+
-    '<div class="hang-nut">'+(a.length ? '<button class="nho" onclick="gdxNKXoa(\'*\')">🗑 Xóa hết</button>' : '')+'<button class="nho chinh" onclick="dongHop()">Đóng</button></div>', true);
+    '<div class="hang-nut">'+(a.length ? '<button class="nho" onclick="gdxNKXoa(\'*\')">🗑 Xóa hết</button>' : '')+'<button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>', true);
 }
 function gdxNKIn(id, pdf){ var x = gdxNKDs().find(function(o){ return o.id===id; }); if(!x) return bao('Không còn bản này.'); gdxInBan(x.X, pdf); }
 function gdxNKXoa(id){ gdxNKGhi(id==='*' ? [] : gdxNKDs().filter(function(o){ return o.id!==id; })); gdxNKMo(); }

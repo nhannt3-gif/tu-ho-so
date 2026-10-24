@@ -60,7 +60,7 @@ function tcBangDiem(diem, chon, ket){
     '<div class="tc-bt-cuon"><table class="tc-bt"><thead><tr><th>Mã tổ</th><th>Tổ trưởng</th><th>Mã KH TT</th><th>☎</th><th>Ấp</th><th>Tổng TV</th><th>Có dư nợ</th><th>Không dư nợ</th><th>Tổng dư nợ</th><th>Quá hạn</th><th></th></tr></thead><tbody>'+nhom+
     cong('Cộng điểm GD ('+tong.to+' tổ)', tong, 'tong')+'</tbody></table></div>'+
     '<div class="hang-nut"><span id="tc-bt-chon" class="tc-bt-chon">'+(TC_BANG.chon ? 'Đã chọn tổ '+e(TC_BANG.chon) : 'Chưa chọn tổ')+'</span><button class="nho" id="tc-bt-mo" onclick="if(TC_BANG.chon) tcMoTo(TC_BANG.chon)"'+(TC_BANG.chon ? '' : ' disabled')+'>👥 Mở tổ</button>'+
-    '<button class="nho chinh" id="tc-bt-ket" onclick="tcKetNap()"'+(TC_BANG.chon ? '' : ' disabled')+' title="Mở form 👪 Hộ vay có sẵn, điền sẵn Xã › Ấp › Tổ'+(ket ? ' và tên / CCCD vừa tra' : '')+'">👪 Lập hồ sơ hộ mới vào tổ này</button><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>';
+    '<button class="nho chinh" id="tc-bt-ket" onclick="tcKetNap()"'+(TC_BANG.chon ? '' : ' disabled')+' title="Mở form 👪 Hộ vay có sẵn, điền sẵn Xã › Ấp › Tổ'+(ket ? ' và tên / CCCD vừa tra' : '')+'">👪 Lập hồ sơ hộ mới vào tổ này</button><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>';
   moHop('<div class="tc-bt-khung">'+h+'</div>', true);
 }
 function tcBangChon(tr){ var ma = tr.getAttribute('data-to'); TC_BANG.chon = ma;

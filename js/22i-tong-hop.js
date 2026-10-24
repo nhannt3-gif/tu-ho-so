@@ -394,7 +394,7 @@ window.addEventListener('resize', function(){ clearTimeout(window.__thVua); wind
 function thXemRong(id){ var f = document.getElementById(id || 'th-xem-khung');
   if(f && !f.offsetParent && id==='hso-xem-khung' && typeof hsoXemHop==='function') return hsoXemHop();   /* 3.238 (anh báo): khung xem đang ẩn (📒 Sổ hộ vay) → bung toàn màn hình khung ẩn = màn trống che hộp ＋ Hộ mới; nay xem trong hộp */
   if(f && f.requestFullscreen) f.requestFullscreen(); else if(!id) thXem1(); }
-function thXem1(){ if(!TH_XEM.length) return; moHop('<div class="hop-tit">👁 '+coChuHTML(TH_XEM[0].tieuDe)+'</div><iframe id="th-khung2" class="to-khung" title="Xem"></iframe><div class="hang-nut"><button class="nho" onclick="dongHop()">Đóng (Esc)</button></div>', true);
+function thXem1(){ if(!TH_XEM.length) return; moHop('<div class="hop-tit">👁 '+coChuHTML(TH_XEM[0].tieuDe)+'</div><iframe id="th-khung2" class="to-khung" title="Xem"></iframe><div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>', true);
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong'); xemChuan(document.getElementById('th-khung2'), thHTMLIn(TH_XEM)); }
 /* số triệu đồng (biểu BCDHTD): d chữ số thập phân */
 function thTr(n, d){ return (n/1e6).toLocaleString('vi-VN', {minimumFractionDigits:d===undefined ? 3 : d, maximumFractionDigits:d===undefined ? 3 : d}); }

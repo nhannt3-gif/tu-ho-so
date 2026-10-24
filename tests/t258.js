@@ -38,6 +38,10 @@ const fs=require('fs'), path=require('path');
    /* 4. dòng quá 13 tháng tự bỏ */
    D.nkIn.push({id:'nkCu', taoLuc:'2024-01-01T00:00:00.000Z', mau:'Cũ', cach:'in', kh:[], to:[]}); nkDon();
    ok('3.348 dòng quá 13 tháng tự bỏ', !D.nkIn.some(x=>x.id==='nkCu'));
+   /* 3.349: nút Đóng / Thôi đổi sang data-lenh="hop.dong" vẫn đóng hộp */
+   moHop('<div class="hop-tit">Thử</div><div class="hang-nut"><button class="nho" id="nk-dong-thu" data-lenh="hop.dong">Thôi</button></div>'); await w(100);
+   document.getElementById('nk-dong-thu').click(); await w(200);
+   ok('3.349 nút data-lenh="hop.dong" đóng hộp (thay onclick="dongHop()")', !document.getElementById('hop').classList.contains('hien'));
    luuNgay(); await w(800);
    return o; }, files);
  /* 5. tải lại trang vẫn còn nhật ký */
