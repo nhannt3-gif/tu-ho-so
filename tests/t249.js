@@ -1,0 +1,31 @@
+// 3.340 (anh duyệt 24/10, RA_SOAT_BO_CUC_2410 mục 8 việc 5): dữ liệu > 1 MB → thôi ghi bản sao localStorage mỗi lần lưu (đường "localStorage đầy" của 3.223):
+//   chỉ IndexedDB theo ngăn + dấu chờ → mở lại đọc IndexedDB trước khi vẽ, đủ dữ liệu; không báo "bộ nhớ đầy"; dữ liệu nhỏ vẫn ghi localStorage như cũ. Dữ liệu GIẢ.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const path=require('path');
+(async()=>{ const b=await chromium.launch(); const loi=[], o=[]; const ok=(t,d,c)=>o.push((d?'✓ ':'✗ ')+t+(c!==undefined?' — '+c:''));
+ const ctx = await b.newContext({viewport:{width:1366,height:768}}); const p = await ctx.newPage(); p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ const URL = 'file://'+path.resolve(__dirname,'..','index.html');
+ await p.goto(URL); await p.waitForTimeout(1500);
+ const r1 = await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){} const w=t=>new Promise(r=>setTimeout(r,t)); for(let i=0;i<30 && LN.giu;i++) await w(100); await w(300);
+   const baoCu = window.bao, thong = []; window.bao = function(m){ thong.push(String(m)); return baoCu.apply(this, arguments); };
+   D.vanBan = [{id:'nho1', ten:'Văn bản giả nhỏ'}]; luuNgay(); await LN.xong();
+   const nho = {ls:!!localStorage.getItem(KHOA), cho:LN.cho()};
+   D.vanBan = Array.from({length:6000}, (_, i)=>({id:'vb'+i, ten:'Công văn giả số '+i+'/NHCS về việc hướng dẫn nghiệp vụ cho vay chương trình', so:i+'/NHCS', ngay:'2026-01-01', tag:['a','b'], duong:'Văn bản/2026/'+i}));
+   const t0 = performance.now(); luuNgay(); const ms = performance.now()-t0; await LN.xong(); await w(200);
+   window.bao = baoCu;
+   return {nho, lon:{ls:!!localStorage.getItem(KHOA), cho:LN.cho(), meta:!!(LN.tt().meta), n:D.vanBan.length}, ms:Math.round(ms), day:thong.some(x=>/đã đầy/.test(x))}; });
+ ok('dữ liệu nhỏ: vẫn ghi bản sao localStorage như cũ, không dấu chờ', r1.nho.ls && !r1.nho.cho, JSON.stringify(r1.nho));
+ ok('dữ liệu > 1 MB: bỏ bản sao localStorage, đặt dấu chờ, IndexedDB có bản ghi', !r1.lon.ls && r1.lon.cho && r1.lon.meta, JSON.stringify(r1.lon));
+ ok('không báo "bộ nhớ nhanh đã đầy" (chủ ý bỏ, không phải đầy)', !r1.day);
+ ok('lần lưu lớn không ghi localStorage (đo thời gian, chỉ báo)', true, r1.ms+' ms');
+ await p.reload(); await p.waitForTimeout(2500);
+ const r2 = await p.evaluate(async()=>{ await xongTV; const w=t=>new Promise(r=>setTimeout(r,t)); for(let i=0;i<40 && LN.giu;i++) await w(100); await w(500);
+   return {n:(D.vanBan||[]).length, cuoi:(D.vanBan||[]).slice(-1)[0], cho:LN.cho(), ls:!!localStorage.getItem(KHOA)}; });
+ ok('mở lại app: đọc IndexedDB trước khi vẽ — đủ 6.000 văn bản, mục cuối đúng', r2.n===6000 && r2.cuoi && r2.cuoi.id==='vb5999', r2.n+' mục');
+ ok('mở lại vẫn giữ cách lưu mới (không ghi lại localStorage lớn)', !r2.ls && r2.cho, JSON.stringify({ls:r2.ls, cho:r2.cho}));
+ const r3 = await p.evaluate(async()=>{ D.vanBan = [{id:'nho2', ten:'Văn bản giả nhỏ lại'}]; luuNgay(); await LN.xong(); return {ls:!!localStorage.getItem(KHOA), cho:LN.cho()}; });
+ ok('dữ liệu nhỏ lại dưới 1 MB → ghi lại localStorage, bỏ dấu chờ', r3.ls && !r3.cho, JSON.stringify(r3));
+ await p.evaluate(()=>{ D.vanBan = []; luuNgay(); return LN.xong(); });
+ o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
+ console.log(o.join('\n')); const sai = o.filter(x=>x[0]==='✗').length; console.log(sai ? '✗ '+sai+' sai' : '✓ t249 đạt'); await b.close(); process.exit(sai?1:0); })();

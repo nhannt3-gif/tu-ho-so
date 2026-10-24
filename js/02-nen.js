@@ -196,7 +196,7 @@ function nap(){
 }
 
 /* 3.203 (kế hoạch B1): luu() chỉ hẹn ghi sau 300 ms — nhiều lần gọi sát nhau → ghi 1 lần; luuNgay() ghi ngay (rời trang / ẩn app / trước xóa) */
-var LUU_HEN = null, LUU_LAN = 0;
+var LUU_HEN = null, LUU_LAN = 0, LS_TRAN = 1048576;   /* 3.340: ngưỡng thôi ghi bản sao localStorage (ký tự) khi đã lưu theo ngăn IndexedDB */
 function luu(){ if(!LUU_HEN) LUU_HEN = setTimeout(luuNgay, 300); return true; }
 function luuHuy(){ if(LUU_HEN){ clearTimeout(LUU_HEN); LUU_HEN = null; } }
 function luuNgay(){
@@ -207,9 +207,11 @@ function luuNgay(){
       duLieu:D.duLieu, ghiChu:D.ghiChu, ganDay:D.ganDay, cho:D.cho, bieuMau:D.bieuMau, rac:D.rac, scan:D.scan, lich:D.lich, daXoaHan:D.daXoaHan||[], nguonCau:D.nguonCau||null,
       kyAnh:D.kyAnh||[], boHS:D.boHS||[]
     }, ln = typeof LN!=='undefined' && LN.bat(), s = ln ? LN.chuoi(o) : null, lsOk = true;   /* 3.223 M8: bật lưu theo ngăn → chuỗi ghép từ từng ngăn (không stringify 2 lần) */
+  var lon = !!(ln && s && s.length > LS_TRAN);   /* 3.340 (anh duyệt 24/10, RA_SOAT_BO_CUC mục 8 việc 5): dữ liệu > 1 MB → thôi ghi bản sao localStorage mỗi lần lưu (tốn ~50 ms / lần) — đi đường "localStorage đầy" của 3.223 */
   try{
-    try{ localStorage.setItem(KHOA, s || JSON.stringify(o)); }catch(e){ if(!ln) throw e; lsOk = false; }
-    if(ln) LN.ghi(lsOk);   /* ghi IndexedDB chỉ ngăn đổi; localStorage đầy → dữ liệu vẫn an toàn ở IndexedDB, không báo lỗi */
+    if(lon) lsOk = false;
+    else try{ localStorage.setItem(KHOA, s || JSON.stringify(o)); }catch(e){ if(!ln) throw e; lsOk = false; }
+    if(ln) LN.ghi(lsOk, lon);   /* ghi IndexedDB chỉ ngăn đổi; localStorage đầy / bỏ qua → dữ liệu vẫn an toàn ở IndexedDB, không báo lỗi */
     LUU_LAN++;
     if(typeof henDongBoChiMuc==='function') henDongBoChiMuc();
     if(typeof chTheoDoi==='function') chTheoDoi();   /* 3.113: cài đặt đổi → tự đẩy lên Drive · 3.203: chỉ so 1 lần mỗi lần ghi gom */
