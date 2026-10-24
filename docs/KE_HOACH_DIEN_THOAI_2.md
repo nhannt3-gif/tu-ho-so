@@ -84,3 +84,4 @@
 |---|---|---|
 | Đ0 | 3.342 | tạm bỏ PIN (cờ `tuhoso_dt_pin`), thanh dưới 4 nút, 🖥 mọi trang + 📱 ở bản web, 📍 Địa bàn trong Khách, Giao dịch xã trong ⚙ › Công cụ, sửa dòng kỳ + nút ⟳ thanh tiêu đề iOS; t262 |
 | Đ1 | 3.343 | **Khách theo Tra cứu KH của TK 2**: 8 chip Tìm theo (cả Khế ước, Tổ trưởng), danh sách + tình trạng chữ nhỏ, Vừa xem, thẻ khách 5 ô (lãi tồn) + đến hạn tô màu / GH, gọi · Zalo, chép mã; thẻ tổ; gói xem + 3 trường; t263. Chưa: quét QR CCCD (Đ4) |
+| Đ2 | 3.352 | **Văn bản**: xem PDF trong app (pdf.js, vừa ngang màn, không mở tab ngoài), chip Tất cả · 📌 Đã ghim · năm · loại (nhớ), 📌 Ghim cất mã hóa xem không mạng ≤ 200 MB, danh sách Văn bản / Scan cất máy (mở lại không cần ⟳); scan cũng xem trong app; t264. Kế tiếp: Đ3 Scan |

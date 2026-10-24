@@ -40,3 +40,6 @@ html,body{margin:0;background:var(--dt-nen);color:var(--dt-chu);font-family:-app
 .dt-han{font-weight:600}.dt-han-do{color:var(--dt-do)}.dt-han-cam{color:#c2410c}.dt-han-vang{color:#a16207}.dt-han small{font-weight:700}
 .dt-xam{color:var(--dt-phu)}.item-title small{font-weight:400;font-size:12px;margin-left:4px}
 .dt-chep{text-decoration:underline dotted;cursor:pointer}
+/* 3.344 (Đ2): trang xem văn bản / scan trong app */
+.dt-xem-nut{display:flex;gap:8px;flex-wrap:wrap}.dt-xem-nut .button{flex:1 1 auto;width:auto}
+.dt-xem{padding:0 8px 24px;text-align:center}.dt-trang{display:block;max-width:100%;height:auto;margin:0 auto 8px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15)}
