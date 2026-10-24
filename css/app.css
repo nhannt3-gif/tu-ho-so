@@ -3969,3 +3969,9 @@ table.kh-mon.tc-mon td{vertical-align:top;padding-top:3px;padding-bottom:3px}
 @media(max-width:1599px){ .tc-the .tc-hs .hs-khoa{white-space:normal} }
 .tc-the table.tc-mon tr:not(.tc-hs):not(.tc-cong) > td:first-child{width:1%;white-space:nowrap}
 .tc-the table.tc-mon td:first-child,.tc-the table.tc-mon th:first-child{min-width:0;position:static;border-right:none}   /* thắng luật chung "cột đầu ≥ 150 px" (bảng cuộn) */
+#cc-o .cc-dau b{min-width:2.6em}   /* 3.338: 17 inch (1366) — đầu công cụ Hạn trả HSSV không tràn 7 px (t231) */
+/* 3.338: 🩺 Sức khỏe sao lưu (js/59) */
+.sk-the{text-align:left}.sk-ds{display:flex;flex-direction:column;gap:3px;margin-top:6px}.sk-dong .nh{justify-self:start}
+.sk-dong{display:grid;grid-template-columns:minmax(0,300px) auto minmax(0,1fr);gap:4px 10px;align-items:center;font-size:calc(12.5px*var(--co));padding:2px 0;border-bottom:1px dashed var(--vien)}
+.sk-dong small{color:var(--chu-phu)}
+@media(max-width:699px){ .sk-dong{grid-template-columns:1fr auto} .sk-dong small{grid-column:1 / -1} }

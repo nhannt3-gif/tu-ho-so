@@ -222,6 +222,41 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.341) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan › chọn khách cho bản scan (gõ tên / mã) | Gợi ý khách như cũ, chọn đúng ấp / xã | |
+| 2 | Scan › 📊 Kiểm tra theo cây địa bàn | Mở được, dùng Mẫu 31 mới nhất | |
+| 3 | Hồ sơ Tổ / Hồ sơ vay / Giao dịch xã đổi kỳ ở dải lịch | Số liệu đổi theo kỳ như cũ | |
+
+**Ghi chú kỹ thuật 3.341:** `js/23` nạp trước `js/29` → mọi chỗ gọi `KHO` lúc nạp phải kiểm `typeof KHO`. Tiếp: K2 Tra cứu KH (22f, 58) theo `RA_SOAT_KHO_2410.md` mục 2 — chờ anh duyệt K2–K5.
+
+### Danh sách thử trên máy thật (3.340) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sửa vài văn bản / scan rồi đóng hẳn trình duyệt, mở lại | Đủ dữ liệu, không mất mục vừa sửa | |
+| 2 | ⚙ › 💾 Sao lưu › 🩺 Sức khỏe sao lưu | Dòng "Lưu trên máy này" xanh, giờ vừa sửa | |
+| 3 | Gõ / sửa liên tục ở máy nhiều hồ sơ | Không giật sau mỗi lần sửa | |
+
+**Ghi chú kỹ thuật 3.340:** `LS_TRAN` (js/02) = ngưỡng ký tự; `LN.ghi(lsOk, boLS)` — boLS = chủ ý bỏ localStorage. Đường đọc lúc mở app không đổi (`khoiDong` bọc ở js/34: có dấu chờ → `LN.napIDB()` trước). Theo dõi: hoiquy "báo cáo đã bỏ không tự quay lại" chập chờn (~1/4) — nghi lưu hẹn 300 ms chưa kịp trước khi phép thử tải lại trang.
+
+### Danh sách thử trên máy thật (3.339) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app, đi qua Hôm nay (lịch, 🧰 công cụ), Văn bản, Ghi chú, Bộ hồ sơ, Theo dõi nợ | Y như 3.338, không báo lỗi | |
+| 2 | ⚙ Cài đặt, ❓ Hướng dẫn, 🗑 Xóa nhiều file, nối Drive / ☁ đồng bộ, 🗂 Lập chỉ mục | Y như cũ | |
+
+**Ghi chú kỹ thuật 3.339:** file mới 04b–04e, 06b–06c (tìm hàm: `docs/BAN_DO_MA.md`). `CO_GI_MOI` vẫn ở `js/06-hop-thoai.js` (bump.py). **Đề xuất việc 5 (chờ anh):** khi bật lưu theo ngăn và dữ liệu > 1 MB → thôi ghi bản sao localStorage mỗi lần lưu, đi đúng đường "localStorage đầy" đã có từ 3.223 (xóa bản cũ + dấu `tuhoso_ln_cho` → lần mở sau đọc IndexedDB trước khi vẽ) → mỗi lần lưu nhanh ~3 lần; rủi ro: IndexedDB hỏng thì báo "không lưu được" như khi localStorage đầy (đã có).
+
+### Danh sách thử trên máy thật (3.338) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ⚙ Khai báo đơn vị › 💾 Sao lưu | Thẻ 🩺 Sức khỏe sao lưu: 6 dòng có ngày giờ; máy dùng hằng ngày đa số lục | |
+| 2 | Máy lâu không mở / chưa nối Drive | Dòng tương ứng vàng / đỏ, chip tổng "cần xử lý" | |
+| 3 | 🎓 Hạn trả HSSV trên màn 17 inch | Đầu công cụ 1 dòng, không tràn | |
+
+**Ghi chú kỹ thuật 3.338:** `js/59-suc-khoe.js` chỉ đọc `LN.tt()`, `D.cauHinh.saoLuuNgay / chGhiLuc / chKeoLuc / chiMucDriveTG`, `KHO1.dsChup()`; muốn thêm đường lưu mới → thêm 1 dòng trong `skDs()`. Phân công TK 2 / TK 3: `RA_SOAT_BO_CUC_2410.md` mục 9 + `PHOI_HOP_TK2_TK3.md` mục 5.
+
 ### Danh sách thử trên máy thật (3.337) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -417,12 +417,12 @@ function scanLuuTuHop(){
 function scanKHChu(c){ return c ? '✓ <b>'+coChuHTML(c.ma)+' · '+coChuHTML(c.ten)+'</b> — '+coChuHTML([c.ap, c.xa].filter(Boolean).join(', ')) : '<span class="sl-phu">Chưa chọn khách</span>'; }
 function scanTimKH(i){
   var q = (document.getElementById('sx-tim-'+i)||{}).value||'', g = document.getElementById('sx-gy-'+i); if(!g) return;
-  var ds = slTimKH(q, 6);
-  g.innerHTML = ds.map(function(r){ var c = SL_DB.kh[r.m] || {}; return '<button onclick="scanChonKH('+i+',\''+r.m+'\')"><b>'+coChuHTML(c.ten||r.ten)+'</b> <small>'+coChuHTML([r.m, c.tenThon, c.tenXa].filter(Boolean).join(' · '))+'</small></button>'; }).join('') ||
-    (q.trim().length>=2 ? '<div class="sl-phu">Không thấy khách khớp'+(SL_TIM.length ? '' : ' — chưa có danh bạ, nạp Mẫu 31 ở tab Nạp & KT')+'.</div>' : '');
+  var ds = KHO.tim(q, 6);   /* 3.341 K1: đọc qua KHO (RA_SOAT_KHO_2410) */
+  g.innerHTML = ds.map(function(r){ var c = KHO.danhBa(r.m) || {}; return '<button onclick="scanChonKH('+i+',\''+r.m+'\')"><b>'+coChuHTML(c.ten||r.ten)+'</b> <small>'+coChuHTML([r.m, c.tenThon, c.tenXa].filter(Boolean).join(' · '))+'</small></button>'; }).join('') ||
+    (q.trim().length>=2 ? '<div class="sl-phu">Không thấy khách khớp'+(KHO.coDanhBa() ? '' : ' — chưa có danh bạ, nạp Mẫu 31 ở tab Nạp & KT')+'.</div>' : '');
 }
 function scanChonKH(i, ma){
-  var c = (SL_DB && SL_DB.kh[ma]) || {};
+  var c = KHO.danhBa(ma) || {};
   SXK[i] = {ma:ma, ten:c.ten||'', ap:c.tenThon||'', xa:c.tenXa||'', maXa:c.xa||'', maAp:c.thon||''};
   var e = document.getElementById('sx-chon-'+i); if(e) e.innerHTML = scanKHChu(SXK[i]);
   var g = document.getElementById('sx-gy-'+i); if(g) g.innerHTML = '';

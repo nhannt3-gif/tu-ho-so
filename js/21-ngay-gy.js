@@ -34,5 +34,5 @@ function ngayGYQuet(){
 /* 3.136 (anh chốt): mở app là dựng sẵn số liệu (tháng + ngày mới nhất) chạy ngầm — vào tab nào cũng dùng ngay */
 setTimeout(function(){
   if(slNapSan.da) return;
-  (SL_SAN ? Promise.resolve() : slNap()).then(function(){ if(slNapSan.da || !Object.keys(SLM.bang||{}).length) return; slNapSan.da = 1; slNapSan(); }).catch(function(){});
+  (SL_SAN ? Promise.resolve() : slNap()).then(function(){ if(slNapSan.da || !KHO.soBang()) return;   /* 3.341 K1: qua KHO */ slNapSan.da = 1; slNapSan(); }).catch(function(){});
 }, 6000);

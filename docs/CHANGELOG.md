@@ -4,6 +4,32 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.341 — 24/10/2026 — Rà soát đọc qua KHO + đợt K1 (RA_SOAT_KHO_2410 · mục 8 việc 4)
+- **Anh 24/10**: "sau mục này rà soát mọi thứ đọc qua kho đã chuyển hết chưa" → `docs/RA_SOAT_KHO_2410.md` (đã gộp): **chưa chuyển hết** — lõi 22-so-lieu / 22g / 28 / 29 hợp lệ; còn đọc thẳng ở Tra cứu KH, Sao kê · cấp Hội · Tổng hợp · Thông tin tổ, KTGS; đề xuất đợt K1–K5. `tools/ra_kho.py` đếm theo file.
+- **K1 (bản này)**: `12-scan` (tìm / chọn khách → `KHO.tim`, `KHO.danhBa`, `KHO.coDanhBa`), `41-scan-sap-xep` (kỳ Mẫu 31 mới nhất → `KHO.dsKyHS`, dựng kỳ → `KHO.nap`), `21-ngay-gy` (`KHO.soBang`), `23-dieu-huong` (`KHO.coBang`), `25-ho-so` / `26-giao-dich-xa` (`toNap` → `KHO.nap`). Cửa mới: `KHO.soBang()`, `KHO.dsKyHS()`.
+- **Thước đo `kiem.py` "đọc thẳng biến kho"** đếm đủ (TO_K, SL_DB, SL_KHMON, SL_PHU, SL_TIM, SLM.bang, slBo / slDocBang / toNap / tkBang) ở mọi file trừ lõi — trước chỉ 4 biến và bỏ qua cả nhóm 22*: 3.340 = 233 → 3.341 = **221** (mốc mới, từ nay chỉ giảm).
+- **Phép thử**: t127, t151, t165, t170, t172, t179, t207, t209, t210, t241, hoiquy, hoiquy2 (không đổi kết quả).
+
+## 3.340 — 24/10/2026 — Lưu nhanh hơn khi dữ liệu lớn (RA_SOAT_BO_CUC_2410 mục 8 việc 5 — anh duyệt "đồng ý làm tiếp")
+- **Đo (3.339)**: kho lớn giả 1,5 MB — mỗi lần lưu tốn chủ yếu ở **ghi bản sao localStorage** (~50 ms), chuyển chuỗi ~18–28 ms; IndexedDB đã chỉ ghi ngăn đổi từ 3.223 → `luuNgan` ít lợi, dễ sót ngăn → làm cách khác.
+- **Làm** (`luuNgay` js/02 + `LN.ghi` js/34): bật lưu theo ngăn và chuỗi dữ liệu > `LS_TRAN` (1 MB) → **không ghi localStorage**, đi đúng đường "localStorage đầy" đã có từ 3.223: sau khi IndexedDB ghi xong mới xóa bản localStorage cũ + đặt dấu `tuhoso_ln_cho` → lần mở sau đọc IndexedDB trước khi vẽ. Không hiện câu "bộ nhớ nhanh đã đầy" (chủ ý bỏ). **IndexedDB lỗi → ghi lại bản localStorage làm dự phòng** rồi mới báo. Dữ liệu nhỏ lại dưới 1 MB → ghi localStorage như cũ, bỏ dấu chờ.
+- Đo lại (cùng kho giả, 3 lượt, dao động lớn): cũ 22–103 ms / lần, mới 34–42 ms — trung bình nhanh ~2 lần và đều hơn.
+- **Phép thử**: mới t249 (8 — có mở lại trang thật); chạy lại t93, t103, t169, t175, t185, t187, t241, t248, hoiquy (1/4 lượt trượt mục "báo cáo đã bỏ" — chập chờn đã có từ 3.336, TK 3 báo), hoiquy2.
+
+## 3.339 — 24/10/2026 — Tách file lớn (RA_SOAT_BO_CUC_2410 mục 8 việc 7) · đo chi phí lưu (việc 5)
+- **Anh 24/10**: "em cứ theo KH làm rồi gộp lên anh test".
+- **Tách nguyên văn, không đổi logic** (giữ thứ tự nạp — t138; so khớp từng dòng với bản 3.338, chỉ bỏ dòng trống cuối khối):
+  - `js/04-giao-dien.js` 5.416 dòng → `04` lõi vẽ (115) · `04b-hom-nay.js` Hôm nay: âm lịch, lịch, 🧰 công cụ, số liệu giao ban, chuẩn bị GDX, nhật ký, sổ, tính ngày (2.517) · `04c-van-ban-thang.js` Văn bản · Tháng · Ghi chú (976) · `04d-bo-ho-so.js` Bộ hồ sơ (273) · `04e-theo-doi-no.js` Theo dõi nợ · Hồ sơ hộ · Biên bản (1.537).
+  - `js/06-hop-thoai.js` 3.117 dòng → `06` hộp thoại · cài đặt · hướng dẫn + `CO_GI_MOI` (giữ chỗ cho `tools/bump.py`, t192) (2.217) · `06b-xoa-nhieu.js` (205) · `06c-drive.js` Google Drive · Picker · Lập chỉ mục (697).
+- **Việc 5 (`luuNgan`) — đo trước khi làm, chưa đổi**: kho lớn giả (10.000 mục, 1,5 MB) mỗi lần lưu ~52 ms, trong đó **ghi bản sao localStorage ~50 ms**, chuyển chuỗi ~18 ms; IndexedDB đã chỉ ghi ngăn đổi từ 3.223. `luuNgan` (chỉ chuyển chuỗi ngăn đổi) lợi ít mà dễ sót ngăn → **đề xuất khác chờ anh duyệt** (bàn giao 3.339).
+- **Phép thử**: `tests/hssv_exe.js` trỏ file mới; **t179 / `tests/chuan_lay.js`: "hôm nay" cố định 17/10/2026** (ngày ghi chuẩn) — GDX chọn điểm có ngày GD gần nhất theo hôm nay nên từ 24/10 bản 04/TD, 12/GDX lệch nhầm (trên cả 3.338). Hồi quy đủ 2 luồng (`tools/hoiquy.sh 3339 … tat 2`, ~1 giờ): chỉ còn lỗi cũ / chập chờn đã biết (t192 thước đo, t151).
+
+## 3.338 — 24/10/2026 — 🩺 Sức khỏe sao lưu + sửa đầu công cụ Hạn trả HSSV (Đợt 3 / mục 8 việc 2)
+- **Anh 24/10**: "em rà soát tối ưu chính theo kế hoạch nâng cấp, còn TK 3 chỉ làm các việc nhỏ" · "em cứ theo KH làm rồi gộp lên anh test" — làm tiếp `RA_SOAT_BO_CUC_2410.md` mục 8 (mục 9 = phân công).
+- **🩺 Sức khỏe sao lưu** (js/59-suc-khoe.js mới, gọi 1 dòng ở `kbSaoLuuHTML`): 6 dòng — 💾 lưu trên máy (IndexedDB theo ngăn / hỏng → đỏ) · 📅 bản tự lưu đầu ngày · 📸 bản chụp cài đặt · ☁ cài đặt lên Drive (`chGhiLuc`) · ☁ danh sách hồ sơ lên Drive (`chiMucDriveTG`) · 📎 file chưa lên Drive (đếm mục chưa có `driveId`); màu ≤ 2 ngày lục · 3–7 vàng · quá 7 / chưa có đỏ; chưa nối Drive → vàng; chip tổng = mức xấu nhất. **Chỉ đọc** trạng thái có sẵn — không đổi luồng lưu.
+- **Đợt 3 (công cụ kiểm)**: TK 3 đã gộp t260 (ảnh bố cục 15 tab × 1366 / 1440 + dt.html — 38/38 đạt), `tools/hoiquy.sh` nhóm + số luồng, sửa t100 — TK 2 dùng tiếp. **t231** (sai từ trước): đầu công cụ 🎓 Hạn trả HSSV tràn 7 px ở 1366×650 — tiêu đề co còn 2,6 em (đủ "🎓 …"). **t158** đạt lại trên 3.337 (TK 3 báo sai ở 3.327).
+- **Phép thử**: mới t248 (10); chạy lại t138, t178, t182, t185, t193, t206, t93, t230, t231, t247, t260, hoiquy, hoiquy2.
+
 ## 3.337 — 24/10/2026 — Tra cứu KH: thẻ khách gọn 1 khung, ngày đến hạn tô màu, danh sách gọn
 - **Anh 24/10** (chốt trước khi code): "trong màn tra cứu KH hiện ra em cho màu nổi bật ngày đến hạn của món vay, bố cục trong 1 ô cửa sổ, bố trí gọn hợp lý lại các thông tin" · "khung ds bên trái em có thể bố cục lại cột tình trạng ngay sau tên hoặc chữ nhỏ để có thêm không gian cho cột phải" · mốc 30 / 90 ngày, hạn hiệu lực (gia hạn / hợp đồng).
 - **Thẻ khách** (`slTheKH` js/22f): 3 cột `.tc-3cot` — Nhân thân │ Liên hệ · TK 105 (gộp 2 ô cũ) │ Tổ & địa bàn; khung lưới 1 cột (tiêu đề · 5 ô số · 3 cột 170 px · món vay 1fr · nút) → luôn trọn 1 khung, món vay cuộn trong ô; vẫn giữ vị trí cố định khi đổi khách (t244).

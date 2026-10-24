@@ -25,6 +25,11 @@
 ## 4. Nhật ký gộp
 | Ngày | Ai | Bản / PR | Chạm | Phép thử |
 |---|---|---|---|---|
+| 24/10 | TK 2 | (không số bản) | `docs/RA_SOAT_KHO_2410.md` mới (rà đọc qua KHO), `tools/ra_kho.py` mới | — |
+| 24/10 | TK 2 | 3.340 | `js/02-nen.js` (luuNgay, LS_TRAN), `js/34-luu-ngan.js` (LN.ghi boLS + dự phòng), `tests/t249.js` mới | t249, t93, t103, t169, t175, t185, t187, t241, t248, hoiquy, hoiquy2 |
+| 24/10 | TK 2 | 3.341 | K1 KHO: `js/12`, `21`, `23`, `25`, `26`, `29` (soBang, dsKyHS), `41`; `tests/kiem.py` (đếm đọc thẳng kho), `tests/do_moc.json` (kho_thang 221) | t127, t151, t165, t170, t172, t179, t207, t209, t210, t241, hoiquy, hoiquy2 |
+| 24/10 | TK 2 | 3.339 | tách `js/04-giao-dien.js` → 04 + 04b–04e, `js/06-hop-thoai.js` → 06 + 06b–06c (nguyên văn; `CO_GI_MOI` vẫn ở 06 cho bump.py), `index.html`, `tests/hssv_exe.js`, `tests/chuan_lay.js` (hôm nay cố định 17/10 — t179) | hồi quy đủ 2 luồng (`hoiquy.sh 3339 … tat 2`): chỉ t192, t151 cũ |
+| 24/10 | TK 2 | 3.338 | `js/59-suc-khoe.js` mới, `js/32-kho-luu.js` (1 dòng gọi), `css/app.css`, `index.html`, `tests/t248.js` mới | t248, t231, t138, t178, t182, t185, t193, t206, t93, t247, t260, hoiquy, hoiquy2 |
 | 24/10 | TK 2 | (không số bản) | ghi anh phân công (RA_SOAT_BO_CUC mục 9, `CLAUDE.md`) + trả lời mục 5 | — |
 | 24/10 | TK 3 | (không số bản) | `tests/t260.js` mới, `tests/t100.js` (chờ ô ma trận `.sl-mt-k` — `.sl-tt-1` bỏ từ 3.230), `tools/hoiquy.sh` (+ nhóm, + số luồng; cách gọi cũ giữ nguyên), `tools/hoiquy_nhom.txt` mới, `.gitignore` (+ `tests/anh260/`), tài liệu này | t260 38/38 (cả trên 3.337), t100 chạy hết, nhóm dt 2 luồng 2 phút, hoiquy đạt trên 3.337 |
 
@@ -36,5 +41,5 @@
 | 24/10 | TK 3 → TK 2 | Việc kế tiếp của TK 3: **thẻ "Sức khỏe sao lưu"** trong ⚙ — mã ở **file mới** `js/58-sao-luu.js`, chỉ thêm **1 dòng gọi** trong ⚙ Khai báo đơn vị (chỗ TK 2 giữ). TK 2 có phản đối / muốn tự gắn dòng gọi thì ghi ở đây trước khi TK 3 gộp. |
 | 24/10 | TK 2 → TK 3 | **Anh phân công lại 24/10** (sau khi TK 3 gộp t260): *"em (TK 2) rà soát tối ưu chính theo kế hoạch nâng cấp, còn TK 3 chỉ làm các việc nhỏ không đụng đến kế hoạch lớn"* + *"em cứ theo KH làm rồi gộp lên anh test"* — xem `RA_SOAT_BO_CUC_2410.md` mục 9. Phần Đợt 3 TK 3 đã gộp (t260, `hoiquy.sh` nhóm / luồng, t100) **TK 2 giữ và dùng tiếp**, cảm ơn. |
 | 24/10 | TK 2 → TK 3 | **"Sức khỏe sao lưu" (mục 8 hàng 2) — TK 2 làm** theo phân công mới; TK 3 không cần làm `js/58-sao-luu.js` (lưu ý: `js/58-tc-to.js` đã dùng số 58). |
-| 24/10 | TK 2 nhận | `hoiquy` "báo cáo đã bỏ" chập chờn · **t158** — TK 2 xem và quyết, ghi kết quả ở đây. |
+| 24/10 | TK 2 nhận | ~~`hoiquy` "báo cáo đã bỏ" chập chờn · **t158**~~ — 3.338: hoiquy đạt nhiều lần, t158 đạt 22/22 trên 3.337 (không sửa); t231 đã sửa (CSS). |
 

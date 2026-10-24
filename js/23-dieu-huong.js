@@ -47,9 +47,9 @@ function dhDay(){   /* 3.148: máy tính chỉ hiện thanh đáy khi cần nút
 function dhSL(t){ slDoiTab(t); if(nganHienTai!==7) doiNgan(7); }
 function dhCC(id){ if(nganHienTai!==0) doiNgan(0); var c = ccTim(id); if(c && CC.mo===id && !c.hop) return; ccMo(id); }   /* công cụ mở ở cột Công cụ của Hôm nay (như cũ) */
 function dhThieuNap(){
-  if(typeof SLM==='undefined' || !SLM.bang || typeof slKyMoi!=='function') return 0;
+  if(typeof KHO==='undefined' || !KHO.soBang() || typeof slKyMoi!=='function') return 0;   /* js/23 nạp trước js/29 */
   var ky = slKyMoi(); if(!ky) return 0;
-  return SL_BAT_BUOC.filter(function(k){ return !SLM.bang[slKhoa(k, ky)]; }).length;
+  return SL_BAT_BUOC.filter(function(k){ return !KHO.coBang(k, ky); }).length;   /* 3.341 K1: qua KHO */
 }
 function dhDang(){ return nganHienTai===7 ? (D.cauHinh && D.cauHinh.slTab) || 'nap' : String(nganHienTai); }
 function dhGon(){ var v = null; try{ v = localStorage.getItem('tb_gon'); }catch(e){} return v==='1' || (v!=='0' && window.innerWidth < 1280); }
