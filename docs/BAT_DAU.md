@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.364** — TK 2: điện thoại Đ3 Hôm nay gọn (lịch ô thấp, sổ ngày lên màn hình đầu). Trước: 3.363 nhật ký lỗi tự động (`js/67`), 3.362 Đ2 thẻ khách, 3.361 Đ1 khung chung (`css/dt-may.css`). Tiếp: Đ4 Số liệu (bảng giữ cột, vuốt ngang, cột đầu đứng yên), Đ5 xem trước bản in.
+- **`main` = 3.365** — TK 2: điện thoại Đ4 Số liệu (cột tên hẹp, vuốt ngang) + sửa lỗi tiêu đề lệch cột khi cuộn ngang bảng tổ (cả máy tính). Trước: 3.364 Đ3 Hôm nay, 3.363 nhật ký lỗi (`js/67`), 3.362 Đ2 thẻ khách, 3.361 Đ1 (`css/dt-may.css`). Tiếp: Đ5 xem trước bản in (chụm phóng to, nút cỡ ngón tay).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

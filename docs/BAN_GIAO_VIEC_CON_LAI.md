@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.365)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | iPhone (bản máy tính) › Số liệu › Tổ TK&VV › vuốt ngang bảng | Cột tên đứng yên, tiêu đề thẳng cột số, thấy được Dư nợ + Quá hạn + Khoanh | |
+| 2 | Chụm 2 ngón trên bảng | Phóng to / thu nhỏ được | |
+| 3 | Máy tính, thu nhỏ cửa sổ cho bảng tổ cuộn ngang | Ô "Xã / Điểm GD" luôn nằm trên, không bị tiêu đề cột khác đè | |
+
+**Ghi chú kỹ thuật 3.365:** luật chung `td:first-child,th:first-child{position:sticky;left:0}` (app.css ~1222) + `.to-cuon-khung thead th{sticky top; z-index:2}` → ô góc cần `z-index:3`. Bảng khác có tiêu đề đứng yên + cột đầu đứng yên thì cũng cần z-index góc cao hơn.
+
 ### Danh sách thử trên máy thật (3.364) — iPhone, bản máy tính
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
