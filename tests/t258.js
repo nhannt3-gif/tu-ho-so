@@ -42,6 +42,9 @@ const fs=require('fs'), path=require('path');
    moHop('<div class="hop-tit">Thử</div><div class="hang-nut"><button class="nho" id="nk-dong-thu" data-lenh="hop.dong">Thôi</button></div>'); await w(100);
    document.getElementById('nk-dong-thu').click(); await w(200);
    ok('3.349 nút data-lenh="hop.dong" đóng hộp (thay onclick="dongHop()")', !document.getElementById('hop').classList.contains('hien'));
+   { const giu = KT_GN_XEM; KT_GN_XEM = {gts:[{p:{x:{t:{ma:'0000001'}}, mon:[{kh:'9900000101'}, {kh:'9900000102'}, {kh:'9900000101'}]}}, {p:{x:{t:{ma:'0000002'}}, mon:[{kh:'9900000103'}]}}]};
+     const r = ktGNNk(); KT_GN_XEM = giu;
+     ok('3.353 KTGS Mẫu 06 sau GN: nhật ký ghi đủ tổ + hộ của các phiếu (không trùng)', r.to.join()==='0000001,0000002' && r.kh.join()==='9900000101,9900000102,9900000103' && /Mẫu 06/.test(r.mau), JSON.stringify(r)); }
    luuNgay(); await w(800);
    return o; }, files);
  /* 5. tải lại trang vẫn còn nhật ký */

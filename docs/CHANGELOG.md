@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.353 (phần 2) — 24/10/2026 — KTGS Mẫu 06 ghi tổ / hộ vào 📜 nhật ký in (việc tồn của 3.348)
+- 3.348 ghi chú "KTGS chưa gắn tổ — làm khi sửa KTGS": Mẫu 06 sau giải ngân (`ktGNXem` → hàng nút xuất) truyền `nk` = tổ của từng phiếu + mã KH các hộ (`ktGNNk`, js/22c — chỉ đọc lựa chọn in, **không đổi hàm dựng mẫu** — khóa mẫu giữ nguyên). Mẫu 04 / KH / 06 trắng vẫn ghi theo tiêu đề trang in.
+- **Phép thử**: t258 thêm ý (2 phiếu, hộ trùng → ghi đủ tổ + hộ không trùng).
+
+## 3.353 (phần 1) — 24/10/2026 — Trả bộ nhớ ảnh tạm còn sót (KE_HOACH_CHUAN_HOA — rà 3.238 mục II.4)
+- **Kế hoạch** (bảng rà file "yêu cầu bàn giao & tối ưu 3.238", anh: "em làm tiếp theo KH"): II.4 rò bộ nhớ `URL.createObjectURL` — 3.239 đã sửa phần lớn; rà lại 41 chỗ tạo: còn **3 chỗ gắn ảnh vào `<img>` không thu hồi** → sửa:
+  - `napAnh` (Theo dõi nợ, js/04e) và ảnh nhỏ danh sách Scan (js/12) → `anhTam(im, blob)` (tự thu hồi khi ảnh hiện xong / lỗi);
+  - ảnh 2 mặt thẻ CCCD ở khung xem (js/05) → `thuHoiSau(u, 30000)`.
+  Còn lại là đệm cố ý (`NK_URL`, `KA_URL`, `HC_URL` — thu hồi khi đổi ảnh) và tải file (đã `thuHoiSau`).
+- Cập nhật bảng rà 3.238: II.3 (`index.html` còn 0 onclick), II.4, V (`diemNho` 3.239) → xong.
+- **Phép thử**: t217 + hồi quy đủ 2 luồng.
+- **Số bản**: TK 3 đã dùng 3.352 (điện thoại Đ2) → phần trả bộ nhớ ảnh tạm + KTGS nhật ký gộp chung 3.353.
+
 ## 3.352 — 24/10/2026 — Bản điện thoại 2, bước Đ2: Văn bản xem trong app + ghim không mạng (TK 3)
 - **Xem trong app**: bấm văn bản / scan → trang xem riêng, PDF vẽ từng trang vừa ngang màn hình (pdf.js 3.11.174 — đã có trong danh mục, nạp 1 lần rồi cất máy); ảnh hiện thẳng; loại khác → 📤 Gửi · ⬇ Lưu máy. Không còn mở tab ngoài (iOS hay trắng trang / mất đường về).
 - **Chip lọc** (nhớ lựa chọn): Tất cả · 📌 Đã ghim (n) · năm (mới trước) · loại (nhiều trước), năm + loại lọc cùng lúc.

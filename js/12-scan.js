@@ -118,7 +118,7 @@ function khaiHangLoat(chon){
     var t = k.che==='tailieu' ? (k.trang||[])[0] : (k.matTruoc ? k.id+'_matTruoc' : '');
     if(!t) return;
     if(k.che==='tailieu' && typeof anhTrangHS==='function') return anhTrangHS(t, im);
-    docAnhHS(t).then(function(b){ if(b) im.src = URL.createObjectURL(b); });
+    docAnhHS(t).then(function(b){ if(b) anhTam(im, b); });   /* 3.352: trả bộ nhớ ảnh tạm */
   });
 }
 function demKL(){

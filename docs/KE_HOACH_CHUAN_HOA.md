@@ -150,9 +150,9 @@ Luật mới: thêm thư viện phải anh duyệt từng cái, đạt tiêu ch�
 | I.3 | In CCCD: bỏ lề bấm lỗ 25 mm, căn giữa 2 thẻ | `js/12-scan.js` đã **căn giữa ngang** (`xT = (A4 rộng − 2 thẻ − khe)/2`), không có lề 25 mm | Không cần làm (chờ anh xác nhận bản in thật có lệch không) |
 | II.1 | Xóa 47 hàm mồ côi (datAp, datXa…) | **22/25 tên không còn** (R1 3.230 đã dọn 99 hàm); `datCap`, `capDang` đang dùng; `boBaoCao` chỉ phép thử dùng. `kiem.py` hiện báo **10** hàm mồ côi | Dọn 10 hàm `kiem.py` báo (sau khi soát từng hàm) |
 | II.2 | `batDau` trùng 3, `keo` trùng 2 | Là **hàm con cục bộ** trong 2 khối kéo thả (`js/10`) + 1 hàm toàn app (`js/20`) — không đè nhau, không lỗi | Đổi tên hàm con cho rõ (việc nhỏ, làm khi chạm tới) |
-| II.3 | 8 `onclick` trong `index.html` → `data-lenh` | Thực có **33** `onclick` | Chuyển cả 33 sang `data-lenh` (cuốn chiếu R2) |
-| II.4 | Rò bộ nhớ `URL.createObjectURL` (Safari) | **Đúng**: `xoayAnh` (`js/12`) không thu hồi; toàn app 41 lần tạo / 18 lần thu hồi | Sửa: thu hồi sau khi ảnh nạp / lỗi / tải xong; rà cả 41 chỗ |
+| II.3 | 8 `onclick` trong `index.html` → `data-lenh` | ✅ `index.html` còn 0 `onclick` (rà 24/10); trong `js/` 3.349 đổi 100 nút Đóng / Thôi | xong |
+| II.4 | Rò bộ nhớ `URL.createObjectURL` (Safari) | ✅ 3.239 sửa phần lớn (`thuHoiSau`, `anhTam`); **3.352** sửa nốt 3 chỗ gắn ảnh không thu hồi (ảnh Theo dõi nợ `napAnh`, ảnh nhỏ danh sách Scan, ảnh 2 mặt thẻ ở khung xem). Còn lại là đệm cố ý (`NK_URL`, `KA_URL`, `HC_URL` — thu hồi khi đổi) | xong |
 | III | Mô-đun Phân bổ kế hoạch Biểu 07 | **Chức năng MỚI**. Mã mẫu trong file **không chạy được nguyên văn**: gọi `App.dangKyModule`, `D.cauHinh.diaBan` (không có trong app), dữ liệu QĐ gõ cứng, Xem trước / Xuất Word để trống | Cần anh duyệt phạm vi + gửi mã C# gốc / file Biểu 07 mẫu / QĐ mẫu (dữ liệu giả) — làm sau bộ 01 · 03 · 06 · UQ |
 | IV | Điện thoại: cây PGD → Xã → Điểm · Hội → Tổ → Khách, tìm tên / CCCD, nút về bản máy tính | **Đã có** từ 3.231 (cả ĐT tổ trưởng); **chưa có**: hộ đã tất nợ, lãi tồn, nút Zalo | Thêm vào gói số liệu xem khi anh cần |
-| V | Tìm kiếm: `diem()` gọi `boDau` ~7 lần / mục / phím | **Đúng** (`js/04` `diem`) | Nhớ sẵn chữ đã bỏ dấu **từng trường** (giữ nguyên trọng số điểm — không gộp 1 chuỗi như file đề xuất vì sẽ mất thứ tự ưu tiên) |
+| V | Tìm kiếm: `diem()` gọi `boDau` ~7 lần / mục / phím | ✅ đã làm 3.239 (`diemNho` nhớ chữ bỏ dấu từng trường, giữ trọng số) | xong |
 
