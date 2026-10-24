@@ -75,3 +75,19 @@
 
 | 24/10 | TK 2 → TK 3 | Dải phép thử TK 2 `t240–t259` đã hết → **TK 2 dùng `t300–t349`** cho phép thử mới (TK 3 tiếp tục `t260–t299`). 3.356 thêm phần D5 vào cuối `t259`. |
 | 25/10 | TK 2 → TK 3 | **Anh duyệt 25/10:** ① TK 2 tinh chỉnh **bản máy tính (`index.html`) cho mượt trên điện thoại** (`docs/KE_HOACH_DIEN_THOAI_MAY.md`, CSS trong khối `@media (max-width:600px)` riêng cuối `css/app.css`) — **TK 3 giữ `dt.html`**; ② **phép thử theo mức thay đổi** (CLAUDE.md): sửa nhỏ → nhóm liên quan, đụng phần chung / trước bản lớn / định kỳ → hồi quy đủ; ③ **`tools/hoiquy.sh` sửa (3.361)**: chạy cả `t3xx` (trước bỏ sót t300–t302). |
+
+## 6. Hai bản trên điện thoại — rà chồng chéo + đề xuất phân việc (TK 3 lập 25/10, **chờ anh chốt**)
+Anh 25/10 giao TK 2 tinh chỉnh **bản máy tính trên điện thoại** (`index.html` + `css/dt-may.css`, `KE_HOACH_DIEN_THOAI_MAY.md`, đã xong Đ1–Đ5 ở 3.361–3.366); TK 3 giữ **`dt.html`** (`KE_HOACH_DIEN_THOAI_2.md`).
+
+**Chỗ đang trùng / vướng (số liệu thật từ repo):**
+| # | Việc | TK 2 (index.html trên ĐT) | TK 3 (dt.html) |
+|---|---|---|---|
+| 1 | Hôm nay (lịch + ghi chú) | 3.364 gọn lịch, sổ ngày | 3.354 tab Hôm nay riêng (đọc / ghi chung `lich.json`) |
+| 2 | Thẻ khách / món vay | 3.362 thẻ món vay chip màu | 3.343 thẻ khách 5 ô, hạn tô màu |
+| 3 | Mặc định iPhone | — | `index.html` dòng 7–9 **tự chuyển sang dt.html** → anh chỉ thấy bản TK 2 khi bấm 🖥 (nút 📱 `js/60` đưa về dt.html) |
+| 4 | Nguồn số liệu | dữ liệu đầy đủ của bản web trên máy đó | gói `xem.json.gz` máy tính đẩy (iPhone đang báo "chưa có số liệu") |
+
+**Đề xuất (TK 3):** 1 bản chính trên điện thoại = **bản máy tính tinh chỉnh (TK 2)** — đủ chức năng, cùng giao diện, không phải làm 2 lần. `dt.html` thu về **"chế độ gọn không mạng"**: tra khách + văn bản 📌 ghim + chụp scan → khay chờ; **TK 3 dừng làm thêm giao diện trùng** (Hôm nay, thẻ khách) trong dt.html.
+- TK 3 nhận phần điện thoại của **Văn bản + Scan** trên bản máy tính, theo cách TK 2 đã làm: khối riêng trong `css/dt-may.css` (đánh dấu `/* TK 3 — Văn bản / Scan */`, TK 3 chỉ sửa trong khối đó) + file JS mới cắm rút nếu cần; không sửa `css/app.css` / khung, việc cần đụng chung thì báo mục 5.
+- Mặc định iPhone (mục 3 bảng trên): **anh chốt** — giữ tự chuyển sang dt.html, hay mở thẳng bản máy tính (dt.html vào bằng nút / khi không có mạng). Bên nào sửa `index.html` dòng 7–9 + `js/60-ve-dt.js` do anh giao (đề xuất TK 3, vì 2 chỗ đó TK 3 làm từ 3.342).
+- Lịch: cả 2 bản cùng `_Hệ thống/lich.json` — giữ như 3.354.
