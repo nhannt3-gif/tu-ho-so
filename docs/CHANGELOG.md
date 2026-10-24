@@ -8,6 +8,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - `js/64`: `STV_CHOT[năm]` = {mã KH: tổ, tên, ngày tất nợ, CT, TK 105} — sổ chốt 31/12 dựng **1 lần, ngầm, chỉ khi cần** (có khách TƯ còn giữ theo 01/TV mà Mẫu 31 năm nay không còn) từ bộ số liệu tháng 12 năm trước (`KHO.nap(<năm>-12)`); xong thì bỏ kết quả đối chiếu đã tính và vẽ lại tab Số liệu. Không có Mẫu 31 tháng 12 năm trước → như cũ.
 - `js/28` `tvChuan`: khách bù theo 01/TV gắn `chot` (sổ năm trước). `tvDoiChieu`: khách cần cho ra có trong sổ → lý do "Tất nợ <năm> (ngày) · CT (sổ chốt 31/12)"; đếm `namTruoc`. `tvKiem`: dòng "TƯ có, Mẫu 31 không thể hiện" ghi thêm "N khách tất nợ năm trước, có trong sổ chốt 31/12".
 - Sổ tổ viên: "Tất nợ <năm> · còn TK 105", ngày tất nợ + CT từ sổ, nguồn "01/TV · sổ <năm>". Tra cứu › thẻ tổ: "Tất nợ <năm> (ngày) · CT … · còn TGTK — vẫn trong tổ".
+- Nền mã: `stvCoSo` đọc qua cửa `KHO.bang` (thước đo "đọc thẳng biến kho" về 0); tách 2 dòng dài (js/28, js/22k).
 - **Phép thử**: mới t301 (giả lập sang năm: sổ chốt giả + dòng 01/TV giả; dựng sổ thật từ 1 bộ số liệu); t300, t257, t244, t246, t167 đạt.
 
 ## 3.357 — 24/10/2026 — Sổ tổ viên / chốt sổ 31/12 (KE_HOACH_CHOT_SO đợt C1)

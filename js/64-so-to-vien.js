@@ -10,7 +10,7 @@
    đối chiếu 01/TV xếp vào lý do đã biết "tất nợ năm trước". ES5. */
 var STV_CHOT = {}, STV_DANG = {};
 function stvNamTruoc(ky){ var y = parseInt(String(ky||'').slice(0, 4), 10); return y ? y-1 : 0; }
-function stvCoSo(nam){ return !!(nam && SLM && SLM.bang && SLM.bang[slKhoa('hstd', nam+'-12')]); }   /* có Mẫu 31 tháng 12 năm đó */
+function stvCoSo(nam){ return !!(nam && KHO.bang('hstd', nam+'-12')); }   /* có Mẫu 31 tháng 12 năm đó */
 function stvChotNap(nam){   /* → Promise({kh: …} | null) — dựng sổ chốt 31/12/<nam> từ bộ số liệu tháng 12 */
   if(STV_CHOT[nam]!==undefined) return Promise.resolve(STV_CHOT[nam]);
   if(!stvCoSo(nam)){ STV_CHOT[nam] = null; return Promise.resolve(null); }

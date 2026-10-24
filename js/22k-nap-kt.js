@@ -821,7 +821,8 @@ function slXoaCacO(khoa){
 function slXoaThang(thang){
   var ks = Object.keys(SLM.bang).filter(function(k){ return slThang(SLM.bang[k].ky)===thang; });
   if(!ks.length) return bao('Tháng '+kyVN(thang)+' chưa có file nào.', 3);
-  hoi('Xóa cả bộ tháng '+kyVN(thang)+' ('+ks.length+' ô)?', (/-12$/.test(thang) ? '⚠ Tháng 12 là số liệu chốt sổ tổ viên 31/12 (Mẫu 31 + 01/TV) — năm sau app dùng để đối chiếu. ' : '')+ks.map(function(k){ var e = SLM.bang[k]; return slLoai(e.loai).ten+' '+slKyChu(e.ky); }).join(' · ')+'. Các ô vào 🗑 Thùng rác (ngăn Số liệu) — khôi phục được trong 30 ngày. Kết quả kiểm tra của tháng cũng bỏ.', 'Xóa cả tháng', function(){
+  var chot12 = /-12$/.test(thang) ? '⚠ Tháng 12 là số liệu chốt sổ tổ viên 31/12 (Mẫu 31 + 01/TV) — năm sau app dùng để đối chiếu. ' : '';   /* 3.357 */
+  hoi('Xóa cả bộ tháng '+kyVN(thang)+' ('+ks.length+' ô)?', chot12+ks.map(function(k){ var e = SLM.bang[k]; return slLoai(e.loai).ten+' '+slKyChu(e.ky); }).join(' · ')+'. Các ô vào 🗑 Thùng rác (ngăn Số liệu) — khôi phục được trong 30 ngày. Kết quả kiểm tra của tháng cũng bỏ.', 'Xóa cả tháng', function(){
     batChay(true, 'Đang xóa tháng '+kyVN(thang)+'…'); var ids = [];
     slXoaVaoRac(ks, 'Xóa cả bộ tháng '+kyVN(thang)).then(function(r){ ids = r; delete SLM.kt[thang]; return slDungDanhBa(); }).then(slLuuMeta).then(function(){
       tatChay(); if(coTheNoiDrive() && DR.sanSang) ids.forEach(function(id){ xoaFileDrive(id).catch(function(){}); });

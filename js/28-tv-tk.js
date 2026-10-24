@@ -112,7 +112,8 @@ function tvChuan(t, K0){   /* K0: kỳ dựng khác TO_K (vd Tra cứu dùng TC_
   ds.forEach(function(x){ co[x.kh] = 1; });
   var cung = kyTW && String(kyTW).slice(0, 7)===String(K.ky).slice(0, 7) && String(K.ky).length===7, hai = {};   /* cùng tháng chốt với 01/TV → lấy đủ như TƯ */
   if(tw && !cung) tw.forEach(function(o){ hai[o.kh] = (hai[o.kh]||0)+1; });
-  if(tw) tw.forEach(function(o){ if(o.to!==t.ma || co[o.kh] || o.dn>0) return; if(!cung && mat[o.kh] && hai[o.kh]<2) return;   /* kỳ ngày: khách đã có món ở tổ khác (chuyển tổ) → không bù; khách TƯ ghi ở ≥ 2 tổ vẫn bù */ co[o.kh] = 1; bs++; ds.push({kh:o.kh, ten:o.ten||'', dn:0, lt:0, t105:o.t105||0, coTK:(o.t105||0)>0, nguon:'tv01', chot:typeof stvChotCua==='function' ? stvChotCua(o.kh, K.ky) : null}); });   /* 3.358: + sổ chốt 31/12 năm trước */
+  if(tw) tw.forEach(function(o){ if(o.to!==t.ma || co[o.kh] || o.dn>0) return; if(!cung && mat[o.kh] && hai[o.kh]<2) return;   /* kỳ ngày: khách đã có món ở tổ khác (chuyển tổ) → không bù; khách TƯ ghi ở ≥ 2 tổ vẫn bù */ co[o.kh] = 1; bs++;
+    ds.push({kh:o.kh, ten:o.ten||'', dn:0, lt:0, t105:o.t105||0, coTK:(o.t105||0)>0, nguon:'tv01', chot:typeof stvChotCua==='function' ? stvChotCua(o.kh, K.ky) : null}); });   /* 3.358: + sổ chốt 31/12 năm trước */
   if(bs && typeof stvHen==='function') stvHen(K);
   var r = {ma:t.ma, ky:K.ky, ngay:K.ngay, kyTW:kyTW, bs:bs, tong:ds.length, coNo:0, khongNo:0, laiTon:0, choRa:0, ds:ds};
   ds.forEach(function(x){ if(x.dn>0){ x.loai = 'no'; r.coNo++; return; } r.khongNo++;
