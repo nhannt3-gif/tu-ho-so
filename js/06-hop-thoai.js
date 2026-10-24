@@ -1981,7 +1981,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.334', ds:[
+var CO_GI_MOI = {ban:'3.335', ds:[
+  ["Tra cứu KH: ô tìm + LỌC ĐỊA BÀN thành dải ngang toàn trang — ô chọn không bị bóp, danh sách và chi tiết cao hết màn", "dhSL('tra')"],
+  ["Tra cứu KH › Tìm theo: Tự nhận · Tên KH · Vợ/chồng · HSSV · CCCD · Mã KH · Mã món vay · SĐT · Số TK 105 — chỉ tìm đúng loại đã chọn", "dhSL('tra')"],
+  ["Tra cứu KH: danh sách kiểu bảng (Tên · Mã KH · Xã · Ấp · Tổ trưởng · Tình trạng), nút ▦ Thẻ / ☰ Bảng đổi qua lại", "dhSL('tra')"],
   ["Dải chip mẫu (Giao dịch xã, Hồ sơ Tổ, Hồ sơ vay) 1 hàng cuộn ngang, nút ‹ › khi còn mẫu bị khuất — mẫu đang chọn luôn thấy", "dhSL('hsv')"],
   ["Hồ sơ: 📅 Số liệu + ⚙ Khai báo đơn vị dời xuống dòng tên mẫu; tiêu đề không lặp chữ; nút xuất mờ chỉ còn biểu tượng (Gửi không rớt dòng)", "dhSL('hst')"],
   ["Tra cứu KH: mở tab là có sẵn danh sách khách theo lọc địa bàn; ô Xã gọn (bỏ chữ Phường / Xã)", "dhSL('tra')"],
@@ -1993,10 +1996,7 @@ var CO_GI_MOI = {ban:'3.334', ds:[
   ["Sửa thứ tự nạp file KTGS sau hồi quy (không đổi giao diện)", "doiNgan(7)"],
   ["KTGS: TK 3 bàn giao cho TK 2 (tài liệu docs/BAN_GIAO_KTGS.md) — giao diện không đổi", "doiNgan(7)"],
   ["KTGS: thanh 3 khối Bắt buộc · Đột xuất · Khai báo; màn Bộ khai báo mẫu sửa 2 bộ không cần In; đột xuất có Mẫu 04", "doiNgan(7)"],
-  ["KTGS Bắt buộc: ô Tháng kiểm tra (số liệu cuối tháng liền trước, không theo ô Kỳ đầu trang); Sau giải ngân 1 tổ × 1 tháng = 1 phiếu", "doiNgan(7)"],
-  ["Cây địa bàn: mặc định kiểu ☰ Gọn 1 dòng ở mọi tab (ô chọn Xã › Điểm › Hội › Tổ, ⬆ lên 1 cấp), nút ▦ Chip đổi kiểu; mở app về Toàn PGD; 📌 Ghim giữ địa bàn + kiểu cho lần mở sau", "slDoiTab('to');doiNgan(7)"],
-  ["Thanh bên 2 cấp: Hôm nay · Giao dịch xã ▸ · Nạp & KT · Số liệu ▸ (KTGS là mục con) · Hồ sơ ▸ · Tủ tài liệu ▸ · Công cụ ▸; điện thoại có thanh dưới 5 nút", "doiNgan(0)"],
-  ["Giao dịch xã: nút 👤 Tra cứu KH ngay trong bàn thao tác (cùng địa bàn), có nút quay về Giao dịch xã", "slDoiTab('gdx');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["KTGS Bắt buộc: ô Tháng kiểm tra (số liệu cuối tháng liền trước, không theo ô Kỳ đầu trang); Sau giải ngân 1 tổ × 1 tháng = 1 phiếu", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

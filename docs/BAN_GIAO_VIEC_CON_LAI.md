@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.335) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu KH: mở tab | Ô tìm + LỌC ĐỊA BÀN 1 dải trên cùng, ô Xã / Hội đọc đủ; danh sách bảng bên trái, chi tiết bên phải | |
+| 2 | Tìm theo Tên KH / Vợ chồng / HSSV | Chỉ ra đúng loại (gõ tên vợ không ra người vay trùng tên) | |
+| 3 | Tìm theo CCCD / Mã KH / Mã món vay / SĐT (gõ 1 phần) | Ra đúng khách; dưới 3 số → nhắc gõ thêm | |
+| 4 | Tìm theo Số TK 105 (đã nạp Sao kê TK 105) | Ra đúng khách, bảng có cột Số TK 105 | |
+| 5 | Bấm dòng bảng · ↑ ↓ Enter · nút ▦ Thẻ | Mở chi tiết; đổi kiểu được và nhớ | |
+
+**Ghi chú kỹ thuật 3.335:** Số TK 105 lấy `TC_K.tk.tk105.rows` (gắn khi dựng kỳ — `tkNapMoi`), dự phòng `tkBang('tk105')`. Lệnh `tc.theo` / `tc.kieu` đăng ký lúc vẽ lần đầu (`tcDangKy`). Khóa cài đặt mới `tcTim` (sổ js/17b).
+
 ### Danh sách thử trên máy thật (3.334) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
