@@ -16,8 +16,8 @@ const path=require('path'), G=path.resolve(__dirname,'..');
  await d.fill('#dt-loc', 'hssv'); await w(400);
  const loc = await d.$$eval('.page-current #dt-ds li', x=>x.map(e=>e.textContent));
  ok('lọc không dấu "hssv" → 1 văn bản', loc.length===1 && /45\/CV-PGD/.test(loc[0]), loc.length);
- await d.fill('#dt-loc', ''); await w(300); await d.click('.page-current .dt-mo[data-i="0"]'); await w(400);
- ok('mục chưa lên Drive → báo mở ở máy tính', /chưa lên Drive/.test(await d.textContent('.dialog.modal-in')||'')); await d.evaluate(()=>DTG.app().dialog.close()); await w(300);
+ await d.fill('#dt-loc', ''); await w(300); await d.click('.page-current #dt-ds li a[href*="/v1/"]'); await w(900);   /* 3.352: mở trang xem trong app */
+ ok('mục chưa lên Drive → báo mở ở máy tính', /chưa lên Drive/.test(await d.textContent('.page-current #dt-xem')||''));
  await d.evaluate(()=>DTG.app().views.main.router.navigate('/sc/', {reloadAll:true})); await w(700);
  ok('📷 Scan: danh sách + nút Chụp / chọn ảnh → PDF (3.342: Văn bản, Scan là 2 nút riêng ở thanh dưới)', /Nguyễn Văn Giả/.test(await d.textContent('.page-current')) && /Chụp \/ chọn ảnh/.test(await d.textContent('.page-current')));
  await d.evaluate(()=>DTG.app().views.main.router.navigate('/sc/moi/')); await w(700);

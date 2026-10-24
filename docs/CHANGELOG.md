@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.352 — 24/10/2026 — Bản điện thoại 2, bước Đ2: Văn bản xem trong app + ghim không mạng (TK 3)
+- **Xem trong app**: bấm văn bản / scan → trang xem riêng, PDF vẽ từng trang vừa ngang màn hình (pdf.js 3.11.174 — đã có trong danh mục, nạp 1 lần rồi cất máy); ảnh hiện thẳng; loại khác → 📤 Gửi · ⬇ Lưu máy. Không còn mở tab ngoài (iOS hay trắng trang / mất đường về).
+- **Chip lọc** (nhớ lựa chọn): Tất cả · 📌 Đã ghim (n) · năm (mới trước) · loại (nhiều trước), năm + loại lọc cùng lúc.
+- **📌 Ghim — xem không mạng**: cất file trong máy, mã hóa như gói số liệu; tổng tối đa **200 MB** (quá thì báo bỏ ghim bớt); Bỏ ghim xóa file. Văn bản đã ghim có 📌 trong danh sách.
+- **Danh sách Văn bản / Scan cất máy** (mã hóa): mở lại app hiện ngay, không cần ⟳; ⟳ vẫn lấy mới từ Drive. Xóa dữ liệu máy xóa cả danh sách + file ghim.
+- Sửa: chip Tìm theo trang Khách không bắt nhầm chip khác. CSP `dt.html` thêm `worker-src 'self' blob:` (luồng phụ vẽ PDF).
+- Phép thử: t264 mới (18).
+
 ## 3.351 — 24/10/2026 — Bảng tổ ở Tra cứu: đủ mọi tổ + số thành viên luôn thấy (anh 24/10)
 - **Anh** (ảnh: "371 tổ — đang hiện 300 tổ đầu", cột Thành viên bị khung phải che): "hiện số TV của tổ cho tất cả các tổ luôn".
 - `tcToTim` (js/58): bỏ cắt 300 tổ — hiện đủ mọi tổ trong phạm vi; cột xếp lại **Tổ trưởng · Mã tổ · Thành viên · Có dư nợ · Xã · Ấp · Hội** (số thành viên QT-18 + chip ngưỡng nằm ngay sau mã tổ, không bị che).
