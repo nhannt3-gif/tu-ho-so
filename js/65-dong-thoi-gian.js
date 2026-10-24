@@ -1,7 +1,7 @@
 /* ===== 3.359 (KE_HOACH_CHOT_SO — đợt C3): 📅 DÒNG THỜI GIAN KHÁCH / TỔ TRONG NĂM =====
    QUY_CHUAN_KIEN_TRUC mục 8 điểm 3: vào / ra / chuyển tổ, tất nợ, phát sinh QH / khoanh, đổi tổ trưởng — tab chỉ đọc kết quả.
    - Nguồn: Mẫu 31 các THÁNG đã nạp của năm (+ tháng 12 năm trước làm mốc đầu năm) — đọc bảng qua KHO.docBang, mỗi tháng tóm gọn 1 lần
-     (DTG_T[kỳ] = {kh: {to, ten, dn, qh, kn, mon}, tt: {mã tổ: tổ trưởng}}), giữ trong bộ nhớ phiên.
+     (DTG_T[kỳ] = {kh: {to, ten, dn, qh, kn, lt, mon}, tt: {mã tổ: tổ trưởng}}), giữ trong bộ nhớ phiên.
    - Thẻ khách (Tra cứu) / thẻ tổ: khối 📅 Dòng thời gian → bấm "Xem năm …" mới đọc (không làm chậm lúc mở thẻ). ES5. */
 var DTG_T = {}, DTG_DANG = {};
 function dtgThangNam(nam){   /* kỳ tháng có Mẫu 31 của năm, kèm tháng 12 năm trước (mốc) — cũ → mới */
@@ -15,8 +15,8 @@ function dtgThang(ky){   /* → Promise(tóm tắt 1 tháng | null) */
     var t = null;
     if(b){ t = {kh:{}, tt:{}};
       slMoBang(b).forEach(function(o){ if(!o.kh || !o.to) return; if(o.to && (o.toTen || o.ttKH)) t.tt[o.to] = o.toTen || o.ttKH;
-        if(!o.ku) return; var x = t.kh[o.kh] = t.kh[o.kh] || {to:o.to, ten:o.ten||'', dn:0, qh:0, kn:0, mon:0};
-        x.dn += o.dn||0; x.qh += o.qh||0; x.kn += o.kn||0; if((o.dn||0)>0){ x.mon++; x.to = o.to; } }); }
+        if(!o.ku) return; var x = t.kh[o.kh] = t.kh[o.kh] || {to:o.to, ten:o.ten||'', dn:0, qh:0, kn:0, lt:0, mon:0};
+        x.dn += o.dn||0; x.qh += o.qh||0; x.kn += o.kn||0; x.lt += laiTon(o); if((o.dn||0)>0){ x.mon++; x.to = o.to; } }); }
     DTG_T[ky] = t; delete DTG_DANG[ky]; return t;
   }).catch(function(){ delete DTG_DANG[ky]; return null; });
 }
@@ -31,7 +31,9 @@ function dtgKH(kh, T){
     else if(a && !b) ev.push({ky:x.ky, chu:'Không còn trong Mẫu 31 (đã tất toán từ năm trước / ra khỏi tổ)', lop:'ra'});
     else if(a && b){
       if(a.to!==b.to) ev.push({ky:x.ky, chu:'Chuyển tổ '+a.to+' → '+b.to, lop:'chuyen'});
-      if(a.dn>0 && !(b.dn>0)) ev.push({ky:x.ky, chu:'Tất nợ', lop:'tat'});
+      var hetA = !(a.dn>0) && !(a.lt>0), hetB = !(b.dn>0) && !(b.lt>0);   /* anh chốt: còn lãi tồn = chưa tất nợ */
+      if(!hetA && hetB) ev.push({ky:x.ky, chu:'Tất nợ', lop:'tat'});
+      else if(a.dn>0 && !(b.dn>0) && b.lt>0) ev.push({ky:x.ky, chu:'Hết gốc · còn lãi tồn '+dtgTien(b.lt)+' (chưa tất nợ)'});
       else if(b.mon>a.mon) ev.push({ky:x.ky, chu:'Vay thêm món ('+a.mon+' → '+b.mon+' món, dư nợ '+dtgTien(b.dn)+')', lop:'moi'});
       if(!(a.qh>0) && b.qh>0) ev.push({ky:x.ky, chu:'Phát sinh quá hạn '+dtgTien(b.qh), lop:'qh'}); else if(a.qh>0 && !(b.qh>0)) ev.push({ky:x.ky, chu:'Hết quá hạn'});
       if(!(a.kn>0) && b.kn>0) ev.push({ky:x.ky, chu:'Nợ khoanh '+dtgTien(b.kn), lop:'qh'}); else if(a.kn>0 && !(b.kn>0)) ev.push({ky:x.ky, chu:'Hết khoanh'});

@@ -21,6 +21,9 @@ const fs=require('fs'), path=require('path');
    const eA = dtgKH('A', G).map(e=>e.chu), eB = dtgKH('B', G).map(e=>e.chu), eC = dtgKH('C', G).map(e=>e.chu);
    ok('3.359 khách A: mốc 12/2025 → chuyển tổ + phát sinh QH (T1) → không còn trong Mẫu 31 (T2)', /^Mốc/.test(eA[0]) && eA.some(x=>/Chuyển tổ 0026001 → 0026002/.test(x)) && eA.some(x=>/Phát sinh quá hạn/.test(x)) && /Không còn trong Mẫu 31/.test(eA[eA.length-1]), eA.join(' | '));
    ok('3.359 khách B: vào tổ (T1) → vay thêm món (T2); khách C: tất nợ (T1)', /Vào tổ 0026001/.test(eB[0]) && eB.some(x=>/Vay thêm món \(1 → 2 món/.test(x)) && eC.some(x=>x==='Tất nợ'), eB.join(' | ')+' // '+eC.join(' | '));
+   { const L = [{ky:'2026-01', t:{kh:{D:{to:'1', dn:5e6, qh:0, kn:0, lt:0, mon:1}}, tt:{}}}, {ky:'2026-02', t:{kh:{D:{to:'1', dn:0, qh:0, kn:0, lt:2e5, mon:0}}, tt:{}}}, {ky:'2026-03', t:{kh:{D:{to:'1', dn:0, qh:0, kn:0, lt:0, mon:0}}, tt:{}}}];
+     const eD = dtgKH('D', L).map(e=>e.chu);
+     ok('3.359 còn lãi tồn = chưa tất nợ: T2 "Hết gốc · còn lãi tồn", T3 mới "Tất nợ"', eD.length===3 && /^Hết gốc · còn lãi tồn 200\.000/.test(eD[1]) && eD[2]==='Tất nợ', eD.join(' | ')); }
    const eT = dtgTo('0026001', G).map(e=>e.chu);
    ok('3.359 tổ 0026001: mốc, vào B, đổi tổ trưởng Trần Văn Một → Nguyễn Thị Hai, A không còn món vay ở tổ', /^Mốc 12\/2025|^Mốc T12\/2025|^Mốc/.test(eT[0]) && eT.some(x=>/^Vào 1: B/.test(x)) && eT.some(x=>/Đổi tổ trưởng: Trần Văn Một → Nguyễn Thị Hai/.test(x)) && eT.some(x=>/Không còn món vay ở tổ 1: A/.test(x)), eT.join(' | '));
    /* 3. giao diện: thẻ khách + thẻ tổ */

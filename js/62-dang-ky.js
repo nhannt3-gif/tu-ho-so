@@ -43,11 +43,12 @@ function dkHTML(o, kq, ctx){
       var j = i; while(j<kq.cot.length && kq.cot[j].nhom===c.nhom) j++; th1 += '<th colspan="'+(j-i)+'">'+e(c.nhom)+'</th>'; for(var x=i;x<j;x++) th2 += '<th>'+e(kq.cot[x].ten)+'</th>'; i = j; } }
   else th1 = kq.cot.map(function(c){ return '<th>'+e(c.ten)+'</th>'; }).join('');
   var C = dkChia(kq, ctx.chon.nhom || ''), n = kq.cot.length;
+  var g = 0; while(g<n && g<3 && !(kq.cot[g].tien || kq.cot[g].cong)) g++; g = Math.max(1, g);   /* ô gộp ghi tên nhóm / Tổng cộng: các cột trước cột số đầu tiên (≤ 3) — không nuốt cột tiền */
   var dongHTML = function(r){
-    if(r.nhom!=null){ var lop = 'dk-nhom m'+r.muc, dau = kq.cot.map(function(c, i){ return i===0 ? '' : (c.tien || c.cong ? dkO(c, r.cong[c.k], dvt) : ''); });
-      return '<tr class="'+lop+'"><td colspan="'+Math.min(n, 3)+'">'+e(r.nhom)+' <span class="dk-n">('+r.n+')</span></td>'+kq.cot.slice(Math.min(n, 3)).map(function(c){ return '<td class="s">'+(c.tien || c.cong ? dkO(c, r.cong[c.k], dvt) : '')+'</td>'; }).join('')+'</tr>'; }
+    if(r.nhom!=null){ var lop = 'dk-nhom m'+r.muc;
+      return '<tr class="'+lop+'"><td colspan="'+g+'">'+e(r.nhom)+' <span class="dk-n">('+r.n+')</span></td>'+kq.cot.slice(g).map(function(c){ return '<td class="s">'+(c.tien || c.cong ? dkO(c, r.cong[c.k], dvt) : '')+'</td>'; }).join('')+'</tr>'; }
     return '<tr'+(r.x._lop ? ' class="'+r.x._lop+'"' : '')+'>'+kq.cot.map(function(c){ var v = c.k==='stt' ? r.stt : r.x[c.k]; return '<td'+(c.so || c.tien ? ' class="s"' : c.k==='stt' ? ' class="c"' : c.xd ? ' class="x"' : c.nho ? ' class="nho"' : '')+'>'+e(dkO(c, v, dvt))+'</td>'; }).join('')+'</tr>'; };
-  var tong = '<tr class="dk-tong"><td colspan="'+Math.min(n, 3)+'">Tổng cộng ('+C.n+')</td>'+kq.cot.slice(Math.min(n, 3)).map(function(c){ return '<td class="s">'+(c.tien || c.cong ? dkO(c, C.tong[c.k], dvt) : '')+'</td>'; }).join('')+'</tr>';
+  var tong = '<tr class="dk-tong"><td colspan="'+g+'">Tổng cộng ('+C.n+')</td>'+kq.cot.slice(g).map(function(c){ return '<td class="s">'+(c.tien || c.cong ? dkO(c, C.tong[c.k], dvt) : '')+'</td>'; }).join('')+'</tr>';
   var ngay = ctx.ngay ? ngayVNsl(ctx.ngay) : '';
   var trai = bang ? '<div class="dk-dv dk-dv-n"><div>'+e(DK_DV.tinh)+'</div><div>'+e(DK_DV.pgdNgan)+'</div>'+(ctx.pv && !/^Toàn PGD/.test(ctx.pv) ? '<div>'+e(ctx.pv)+'</div>' : '')+'</div>'
                   : '<div class="dk-dv"><div>'+e(DK_DV.ten)+'</div><div>'+e(DK_DV.pgd)+'</div></div>';
