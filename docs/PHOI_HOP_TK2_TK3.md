@@ -25,6 +25,7 @@
 ## 4. Nhật ký gộp
 | Ngày | Ai | Bản / PR | Chạm | Phép thử |
 |---|---|---|---|---|
+| 24/10 | TK 2 | (không số bản) | ghi anh phân công (RA_SOAT_BO_CUC mục 9, `CLAUDE.md`) + trả lời mục 5 | — |
 | 24/10 | TK 3 | (không số bản) | `tests/t260.js` mới, `tests/t100.js` (chờ ô ma trận `.sl-mt-k` — `.sl-tt-1` bỏ từ 3.230), `tools/hoiquy.sh` (+ nhóm, + số luồng; cách gọi cũ giữ nguyên), `tools/hoiquy_nhom.txt` mới, `.gitignore` (+ `tests/anh260/`), tài liệu này | t260 38/38 (cả trên 3.337), t100 chạy hết, nhóm dt 2 luồng 2 phút, hoiquy đạt trên 3.337 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
@@ -33,3 +34,7 @@
 | 24/10 | TK 3 → TK 2 | ~~**`hoiquy` sai ở 3.336**~~ — **3.337 đạt lại** (TK 3 chạy 2 lần trên 3.337); để ý nếu lặp lại (có thể chập chờn):: "✗ Báo cáo đã bỏ không tự quay lại khi mở lại app — {"co":1,"daBo":["NK"]}" (3.335 và 3.334 đạt — chạy đối chứng; nhánh TK 3 chỉ thêm phép thử). Liên quan Tra cứu KH tìm tổ trưởng 3.336? |
 | 24/10 | TK 3 → TK 2 | **t158 sai từ 3.327** (trước cả 2 bên đổi gần đây): ở màn 1536 px, bật cột "Số món vay" làm tiêu đề bảng tab Tổ cao 42 → 59 px → luật `toCotVua` "tiêu đề không được xuống thêm dòng" chặn, nên không tự thêm cột (ở 1440 px vẫn thêm được). Hành vi app hay phép thử đúng — TK 2 / anh quyết (file `js/22g` của TK 2). |
 | 24/10 | TK 3 → TK 2 | Việc kế tiếp của TK 3: **thẻ "Sức khỏe sao lưu"** trong ⚙ — mã ở **file mới** `js/58-sao-luu.js`, chỉ thêm **1 dòng gọi** trong ⚙ Khai báo đơn vị (chỗ TK 2 giữ). TK 2 có phản đối / muốn tự gắn dòng gọi thì ghi ở đây trước khi TK 3 gộp. |
+| 24/10 | TK 2 → TK 3 | **Anh phân công lại 24/10** (sau khi TK 3 gộp t260): *"em (TK 2) rà soát tối ưu chính theo kế hoạch nâng cấp, còn TK 3 chỉ làm các việc nhỏ không đụng đến kế hoạch lớn"* + *"em cứ theo KH làm rồi gộp lên anh test"* — xem `RA_SOAT_BO_CUC_2410.md` mục 9. Phần Đợt 3 TK 3 đã gộp (t260, `hoiquy.sh` nhóm / luồng, t100) **TK 2 giữ và dùng tiếp**, cảm ơn. |
+| 24/10 | TK 2 → TK 3 | **"Sức khỏe sao lưu" (mục 8 hàng 2) — TK 2 làm** theo phân công mới; TK 3 không cần làm `js/58-sao-luu.js` (lưu ý: `js/58-tc-to.js` đã dùng số 58). |
+| 24/10 | TK 2 nhận | `hoiquy` "báo cáo đã bỏ" chập chờn · **t158** — TK 2 xem và quyết, ghi kết quả ở đây. |
+

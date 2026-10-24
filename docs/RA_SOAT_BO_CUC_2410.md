@@ -98,3 +98,8 @@ Nguyên tắc: **làm cái giảm lỗi + giảm rủi ro mất dữ liệu trư
 | — | Mục 4 #6–#8 (bản web thu hẹp cho máy tính bảng) | để sau cùng | điện thoại dùng `dt.html` |
 
 **Việc TK 3 làm được ngay, không chờ TK 2: mục 1 và 2** — chờ anh nhắn "code".
+
+## 9. Anh 24/10 (sau mục 8): phân công lại — **TK 2 làm chính kế hoạch nâng cấp, TK 3 chỉ việc nhỏ**
+> Anh: "em (TK 2) rà soát tối ưu chính theo kế hoạch nâng cấp, còn TK 3 chỉ làm các việc nhỏ không đụng đến kế hoạch lớn".
+- **TK 2**: mục 8 hàng 1 (Đợt 3 — phần TK 3 đã gộp trước khi có phân công: t260 ảnh bố cục, `hoiquy.sh` nhóm + luồng, t100 → TK 2 dùng lại; TK 2 làm tiếp t158, t231, lỗi t260 báo), 2, 4, 5, 6, 7, 8 + rà soát tối ưu chung. Anh 24/10: "em cứ theo KH làm rồi gộp lên anh test".
+- **TK 3**: việc nhỏ, lẻ, không chạm `tests/hoiquy*`, `tools/hoiquy.sh`, khung chung, KHO, KTGS, Scan; trước khi làm đọc mục này. Bản điện thoại 2 (`KE_HOACH_DIEN_THOAI_2.md`): **chờ anh chốt ai làm** (kế hoạch lớn).
