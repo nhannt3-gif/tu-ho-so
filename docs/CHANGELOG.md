@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.358 — 24/10/2026 — Năm sau dùng sổ chốt 31/12 (KE_HOACH_CHOT_SO đợt C2)
+- `js/64`: `STV_CHOT[năm]` = {mã KH: tổ, tên, ngày tất nợ, CT, TK 105} — sổ chốt 31/12 dựng **1 lần, ngầm, chỉ khi cần** (có khách TƯ còn giữ theo 01/TV mà Mẫu 31 năm nay không còn) từ bộ số liệu tháng 12 năm trước (`KHO.nap(<năm>-12)`); xong thì bỏ kết quả đối chiếu đã tính và vẽ lại tab Số liệu. Không có Mẫu 31 tháng 12 năm trước → như cũ.
+- `js/28` `tvChuan`: khách bù theo 01/TV gắn `chot` (sổ năm trước). `tvDoiChieu`: khách cần cho ra có trong sổ → lý do "Tất nợ <năm> (ngày) · CT (sổ chốt 31/12)"; đếm `namTruoc`. `tvKiem`: dòng "TƯ có, Mẫu 31 không thể hiện" ghi thêm "N khách tất nợ năm trước, có trong sổ chốt 31/12".
+- Sổ tổ viên: "Tất nợ <năm> · còn TK 105", ngày tất nợ + CT từ sổ, nguồn "01/TV · sổ <năm>". Tra cứu › thẻ tổ: "Tất nợ <năm> (ngày) · CT … · còn TGTK — vẫn trong tổ".
+- Nền mã: `stvCoSo` đọc qua cửa `KHO.bang` (thước đo "đọc thẳng biến kho" về 0); tách 2 dòng dài (js/28, js/22k).
+- **Phép thử**: mới t301 (giả lập sang năm: sổ chốt giả + dòng 01/TV giả; dựng sổ thật từ 1 bộ số liệu); t300, t257, t244, t246, t167 đạt.
+
 ## 3.357 — 24/10/2026 — Sổ tổ viên / chốt sổ 31/12 (KE_HOACH_CHOT_SO đợt C1)
 - Anh 24/10: "theo em, tiếp tục Mẫu 01/TV — anh sẽ gửi mỗi tháng kèm Mẫu 31".
 - **Mới `js/64-so-to-vien.js`**: tab Tổ TK&VV › 👁 **Sổ tổ viên** (khối `DANG_KY` — khuôn in chuẩn, Excel, Word, 📜 nhật ký): mỗi tổ viên 1 dòng theo `tvChuan` (Mẫu 31 + bù Mẫu 01/TV cùng tháng — 3.347): trạng thái, dư nợ, lãi tồn, số dư TK 105, ngày tất nợ (≈ ngày GD gần nhất của món đã tất toán), CT, nguồn (Mẫu 31 / 01/TV). Chip Gồm (còn nợ · còn lãi tồn · tất nợ còn TK 105 · cần cho ra); nhóm Từng tổ / Điểm › Hội › Tổ…; dòng cần cho ra tô vàng. Kỳ tháng 12 → tiêu đề "Sổ tổ viên Tổ TK&VV — chốt 31/12/<năm>". Ghi chú nguồn: đã đối chiếu 01/TV (bù N khách) / chưa có 01/TV cùng tháng / kỳ ngày không bù.

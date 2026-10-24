@@ -115,6 +115,7 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
     var tat = KHO.monKy(TC_K, k.kh).reduce(function(a, o){ return o.ku && o.ngdg && o.ngdg>a ? o.ngdg : a; }, ''), nt = tat ? ' '+ngayVNsl(tat) : '';   /* 3.350 (anh): ngày tất nợ ≈ ngày GD gần nhất của món đã tất toán (như toTV) */
     var x = k.loai==='lai' ? '<span class="nh nh-cam">Hết gốc · còn lãi tồn</span> — vẫn trong tổ' : k.loai==='105' ? '<span class="nh nh-xam" title="Ngày tất nợ ≈ ngày giao dịch gần nhất của món đã tất toán">Tất nợ'+nt+' · còn TGTK</span> — vẫn trong tổ'
       : k.loai==='ra' ? '<span class="nh nh-vang" title="Ngày tất nợ ≈ ngày giao dịch gần nhất của món đã tất toán">Tất nợ'+nt+' · TG 0</span> — cần cho ra khỏi tổ' : '<span class="nh nh-xam">Dư nợ 0</span>';
+    if(k.chot && k.loai!=='ra') x = '<span class="nh nh-xam" title="Theo sổ chốt tổ viên 31/12 năm trước">'+e(stvChotChu(k.chot, TC_K.ky))+' · còn TGTK</span> — vẫn trong tổ';   /* 3.358 */
     return x+(k.nguon==='tv01' ? ' <small>(TƯ còn giữ — Mẫu 01/TV)</small>' : ''); };
   var gon = tcTim().tvKieu==='gon';   /* 3.342 (anh): Đủ = mỗi món 1 dòng · Gọn = mỗi khách 1 dòng, bấm ▸ hiện dòng nhỏ từng món */
   var dongTV = function(k, i){   /* họ tên / mã KH / TGTK gộp ô; bấm CT → mã món vay, bấm TGTK → số TK 105 (dòng nhỏ dưới khách) */

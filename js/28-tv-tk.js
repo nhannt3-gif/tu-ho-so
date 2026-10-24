@@ -112,7 +112,9 @@ function tvChuan(t, K0){   /* K0: kỳ dựng khác TO_K (vd Tra cứu dùng TC_
   ds.forEach(function(x){ co[x.kh] = 1; });
   var cung = kyTW && String(kyTW).slice(0, 7)===String(K.ky).slice(0, 7) && String(K.ky).length===7, hai = {};   /* cùng tháng chốt với 01/TV → lấy đủ như TƯ */
   if(tw && !cung) tw.forEach(function(o){ hai[o.kh] = (hai[o.kh]||0)+1; });
-  if(tw) tw.forEach(function(o){ if(o.to!==t.ma || co[o.kh] || o.dn>0) return; if(!cung && mat[o.kh] && hai[o.kh]<2) return;   /* kỳ ngày: khách đã có món ở tổ khác (chuyển tổ) → không bù; khách TƯ ghi ở ≥ 2 tổ vẫn bù */ co[o.kh] = 1; bs++; ds.push({kh:o.kh, ten:o.ten||'', dn:0, lt:0, t105:o.t105||0, coTK:(o.t105||0)>0, nguon:'tv01'}); });
+  if(tw) tw.forEach(function(o){ if(o.to!==t.ma || co[o.kh] || o.dn>0) return; if(!cung && mat[o.kh] && hai[o.kh]<2) return;   /* kỳ ngày: khách đã có món ở tổ khác (chuyển tổ) → không bù; khách TƯ ghi ở ≥ 2 tổ vẫn bù */ co[o.kh] = 1; bs++;
+    ds.push({kh:o.kh, ten:o.ten||'', dn:0, lt:0, t105:o.t105||0, coTK:(o.t105||0)>0, nguon:'tv01', chot:typeof stvChotCua==='function' ? stvChotCua(o.kh, K.ky) : null}); });   /* 3.358: + sổ chốt 31/12 năm trước */
+  if(bs && typeof stvHen==='function') stvHen(K);
   var r = {ma:t.ma, ky:K.ky, ngay:K.ngay, kyTW:kyTW, bs:bs, tong:ds.length, coNo:0, khongNo:0, laiTon:0, choRa:0, ds:ds};
   ds.forEach(function(x){ if(x.dn>0){ x.loai = 'no'; r.coNo++; return; } r.khongNo++;
     x.loai = x.lt>0 ? 'lai' : (x.t105>0 || x.coTK) ? '105' : 'ra'; if(x.loai==='lai') r.laiTon++; if(x.loai==='ra') r.choRa++; });
@@ -132,12 +134,13 @@ function tvDoiChieu(B){
   (B.lap||[]).forEach(function(o){ if(o.kh && o.to) tk[o.kh+'|'+o.to] = 1; });
   var tv = {}, theoKH = {};
   B.co.tv01.forEach(function(o){ var k = o.kh+'|'+o.to; tv[k] = o; (theoKH[o.kh] = theoKH[o.kh]||[]).push(o); });
-  var r = {ky:B.nguon.tv01 || B.ky, khop:0, thieu:[], du:[], ra:[], haiTo:[], laiTon:[]};
+  var r = {ky:B.nguon.tv01 || B.ky, khop:0, thieu:[], namTruoc:0, du:[], ra:[], haiTo:[], laiTon:[]};
   Object.keys(tv).forEach(function(k){ var o = tv[k];
-    if(app[k]) r.khop++; else r.thieu.push(o);
+    if(app[k]) r.khop++; else { r.thieu.push(o); if(typeof stvChotCua==='function' && stvChotCua(o.kh, r.ky)) r.namTruoc++; }   /* 3.358: lý do đã biết — tất nợ năm trước (sổ chốt 31/12) */
     if(o.dn>0 || o.t105>0) return;
     if(no[k]){ r.laiTon.push(o); return; }   /* anh chốt: còn lãi tồn = chưa tất nợ */
-    var vi = !app[k] ? (ly[k] ? 'app đã cho ra: '+ly[k] : 'Mẫu 31 không còn món vay ở tổ này') : (tk[k] ? 'tất nợ, TK 105 số dư 0' : 'tất nợ, không có TK 105');
+    var ch = !app[k] && typeof stvChotCua==='function' ? stvChotCua(o.kh, r.ky) : null;   /* 3.358: có trong sổ chốt 31/12 năm trước */
+    var vi = !app[k] ? (ly[k] ? 'app đã cho ra: '+ly[k] : ch ? stvChotChu(ch, r.ky)+' (sổ chốt 31/12)' : 'Mẫu 31 không còn món vay ở tổ này') : (tk[k] ? 'tất nợ, TK 105 số dư 0' : 'tất nợ, không có TK 105');
     if(theoKH[o.kh].length>1) vi = 'ở '+theoKH[o.kh].length+' tổ — tổ này không còn dư nợ, tiền gửi · '+vi;
     r.ra.push(Object.assign({ly:vi}, o)); });
   Object.keys(theoKH).forEach(function(kh){ if(theoKH[kh].length>1) r.haiTo.push({kh:kh, ten:theoKH[kh][0].ten, to:theoKH[kh].map(function(o){ return o.to+(o.dn>0 || o.t105>0 ? ' (còn dư nợ / tiền gửi)' : ''); }).join(' · ')}); });
@@ -147,7 +150,7 @@ function tvDoiChieu(B){
 function tvKiem(B, them){   /* ② Kiểm tra số liệu — nhóm 6 (danh sách tổ) */
   var r = tvDoiChieu(B); if(!r) return;
   var tong = r.khop+r.thieu.length, ky = slKyChu(r.ky);
-  them(6, 'Thành viên tổ: app (Mẫu 31) ↔ Mẫu 01/TV TƯ '+ky, !r.du.length, r.khop+'/'+tong+' khớp'+(r.thieu.length ? ' · '+r.thieu.length+' TƯ có, Mẫu 31 không thể hiện (không còn món vay)' : '')+(r.du.length ? ' · '+r.du.length+' app có, TƯ không' : ''),
+  them(6, 'Thành viên tổ: app (Mẫu 31) ↔ Mẫu 01/TV TƯ '+ky, !r.du.length, r.khop+'/'+tong+' khớp'+(r.thieu.length ? ' · '+r.thieu.length+' TƯ có, Mẫu 31 không thể hiện (không còn món vay'+(r.namTruoc ? ' — '+r.namTruoc+' khách tất nợ năm trước, có trong sổ chốt 31/12' : '')+')' : '')+(r.du.length ? ' · '+r.du.length+' app có, TƯ không' : ''),
     r.du.length ? 'App có mà TƯ không có — cần xem lại' : '', ['Mã KH', 'Tổ (app)'], r.du.map(function(x){ return [x.kh, x.to]; }));
   them(6, 'Cần cho ra khỏi tổ — TƯ còn giữ, dư nợ 0 + tiền gửi 0, không còn lãi tồn ('+ky+')', !r.ra.length, r.ra.length ? r.ra.length+' khách' : 'không có', 'Theo Mẫu 01/TV; khách còn lãi tồn coi như chưa tất nợ (không đưa vào)',
     ['Mã tổ', 'Tổ trưởng', 'Mã KH', 'Họ tên', 'Lý do'], r.ra.map(function(o){ return [o.to, o.toTen, o.kh, o.ten, o.ly]; }), r.ra.length ? 'canh' : '');

@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.358) — thử được từ tháng 1/2027 (khi có Mẫu 31 + 01/TV tháng 1 và vẫn giữ số liệu tháng 12/2026)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tổ TK&VV kỳ T1/2027 › 👁 Sổ tổ viên | Khách tất nợ năm 2026 còn TK 105: "Tất nợ 2026 · còn TK 105", có ngày tất nợ + CT, nguồn "01/TV · sổ 2026" | |
+| 2 | Tra cứu › thẻ tổ có khách như trên | "Tất nợ 2026 (ngày) · CT … · còn TGTK — vẫn trong tổ" | |
+| 3 | Nạp & KT › Kiểm tra số liệu T1/2027 | Dòng thành viên tổ ghi "N khách tất nợ năm trước, có trong sổ chốt 31/12" | |
+
+**Ghi chú kỹ thuật 3.358:** `stvHen(K)` gọi trong `tvChuan` khi `bs>0`; nạp `KHO.nap(<năm-1>-12)` (giữ trong `TO_KS`, `slBot` tự bỏ khi vượt giới hạn kỳ). Tra: `stvChotCua(kh, ky)`; chữ: `stvChotChu(c, ky)`.
+
 ### Danh sách thử trên máy thật (3.357) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
