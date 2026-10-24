@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.354 — 24/10/2026 — Nền báo cáo bảng `DANG_KY` (KE_HOACH_DANG_KY đợt N1)
+- Anh 24/10: "chưa có mẫu nào bắt buộc… em cứ tạo 1 cái nền sẵn, sau này cần mẫu nào sẽ tạo khi cần"; giữ bảng tổng quan tab Tổ + các báo cáo cũ.
+- **Mới `js/62-dang-ky.js`**: sổ `DANG_KY({...})` → nút ở tab, hộp xem trước (chip tùy chọn + Nhóm theo, nhớ `D.cauHinh.dkChon`), khuôn in chuẩn (KE_HOACH_DANG_KY mục 8): danh sách A4 dọc lề 15·15·20·10 mm, đầu "NGÂN HÀNG CHÍNH SÁCH XÃ HỘI / PGD Gò Dầu - Chi nhánh Tây Ninh" đậm; bảng tổng quát A4 ngang lề 12·12·15·10 mm, đầu "Ngân hàng CSXH Tỉnh Tây Ninh / PGD Gò Dầu / phạm vi", cố 1 trang; tiêu đề cột 2 tầng, dòng cộng nhóm, Tổng cộng, ô 0 ghi 0, không dòng ký; Excel cùng đầu trang; Word .doc; 📜 nhật ký in.
+- Chia trang / Trang x/y / co chữ dùng bộ in chung `trDan` (js/05): thêm 2 thuộc tính **tùy chọn** `data-tr-cb` (bậc cỡ chữ) và `data-tr-1trang` (cố vừa 1 trang) — mẫu cũ không có thuộc tính nên in y cũ.
+- Anh 24/10 "hạn chế cho chữ xuống dòng, tối ưu các cột": mọi ô + tiêu đề cột 1 dòng (chỉ cột khai `xd` — Ghi chú — được xuống dòng), chữ viết tắt (QH · Khoanh · KHĐ 3T · Chưa GN, "Tiền QH / KN") + dòng giải thích cuối bảng; tràn bề ngang thì bộ in tự co chữ 10,5 → 8 pt.
+- **Báo cáo mẫu 1** (tab Sao kê): Danh sách nợ cần xử lý — quá hạn (`B.co.nqh`), khoanh (`B.co.nk`), 3 tháng KHĐ (`KHO.khdKy`), KU chưa GN > 1 tháng (`B.co.hstd`); lọc theo phạm vi đang chọn.
+- Phát hiện (chưa sửa, chờ anh): `trDan` chưa bao giờ co chữ 9/8,5/8 pt cho sao kê cũ (đo cỡ chữ khi bản chưa gắn vào trang) — chỉ thu lề + ẩn SĐT chạy.
+- **Phép thử**: t259 (nút, số dòng khớp bộ số liệu, nhóm + dòng cộng, đầu trang, ĐVT, A4 dọc / ngang, bảng 34 dòng co còn 1 trang, chip, Excel, nhật ký).
+
 ## 3.353 (phần 2) — 24/10/2026 — KTGS Mẫu 06 ghi tổ / hộ vào 📜 nhật ký in (việc tồn của 3.348)
 - 3.348 ghi chú "KTGS chưa gắn tổ — làm khi sửa KTGS": Mẫu 06 sau giải ngân (`ktGNXem` → hàng nút xuất) truyền `nk` = tổ của từng phiếu + mã KH các hộ (`ktGNNk`, js/22c — chỉ đọc lựa chọn in, **không đổi hàm dựng mẫu** — khóa mẫu giữ nguyên). Mẫu 04 / KH / 06 trắng vẫn ghi theo tiêu đề trang in.
 - **Phép thử**: t258 thêm ý (2 phiếu, hộ trùng → ghi đủ tổ + hộ không trùng).

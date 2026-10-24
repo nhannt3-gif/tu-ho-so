@@ -1,4 +1,4 @@
-# Kế hoạch ĐĂNG KÝ KHỐI (`DANG_KY`) — TK 2, 24/10/2026 (chờ anh duyệt)
+# Kế hoạch ĐĂNG KÝ KHỐI (`DANG_KY`) — TK 2, 24/10/2026 (anh duyệt — đang làm)
 
 > Anh 24/10: "nên làm trước việc 5, bỏ qua việc 1–3 làm sau, chia ra từng đợt, xong đợt gộp lên cho anh kiểm tra rồi làm tiếp, xong hết rồi thử 1 lần, em lên plan coi tốn bao nhiêu thời gian".
 > Nguồn thiết kế: `KIEN_TRUC_3_LOP.md` mục 5 (Lớp 3 — đăng ký khối), `QUY_CHUAN_KIEN_TRUC.md` mục 8 (đợt E).
@@ -62,4 +62,8 @@ Bản cũ chạy song song (mục "Báo cáo cũ") tới khi anh thử xong và 
 - Còn chờ anh: ô số 0 để trống hay ghi 0 (mẫu ĐVUT ghi 0 → mặc định **ghi 0**); dòng "Người lập" ký cuối (3.140 đã bỏ → mặc định **không**).
 
 ## 6. Tiến độ
-- 24/10 · TK 2: lập kế hoạch này — chờ anh duyệt / nhắn "code".
+- 24/10 · TK 2: lập kế hoạch này.
+- 24/10 · anh: "chưa có mẫu nào bắt buộc… em cứ tạo 1 cái nền sẵn, sau này cần mẫu nào sẽ tạo khi cần" + "bảng tổng quan (tab Tổ TK&VV theo Xã / Điểm GD) anh muốn giữ lại" → **không chuyển hàng loạt** báo cáo cũ (D2–D4 chỉ làm khi anh cần mẫu nào); báo cáo cũ + bảng tổng quan tab Tổ giữ nguyên.
+- **3.354 · N1 Nền xong** (`js/62-dang-ky.js`): `DANG_KY({ma, ten, o, loai:'ds'|'bang', dvt, mauSo, nhom, chon, du})` → nút ở tab (nhóm 🧩 Báo cáo chuẩn mới), hộp xem trước có chip tùy chọn + Nhóm theo (Không · Xã › Điểm · Điểm › Hội › Tổ · Từng tổ — nhớ trong cài đặt `dkChon`), khuôn in chuẩn mục 8 (logo + tên NHCSXH, tiêu đề in hoa, ngày nghiêng, phạm vi, ĐVT, tiêu đề cột 2 tầng, dòng cộng nhóm, Tổng cộng, ô 0 ghi 0, không dòng ký), chia trang + Trang x/y + tự co chữ qua bộ in chung `trDan` (bảng tổng quát cố 1 trang ngang), 🖨 In · 📄 PDF · 📝 Word (.doc HTML) · 📊 Excel (cùng đầu trang, tiêu đề 2 tầng) · 📤 Gửi, 📜 nhật ký in. Báo cáo mẫu 1: **Danh sách nợ cần xử lý** (tab Sao kê — tích Quá hạn · Khoanh · 3 tháng KHĐ · KU chưa GN > 1 tháng). Phép thử t259.
+- Phát hiện khi làm (chưa sửa — sửa sẽ đổi bản in cũ, chờ anh): bộ chia trang chung `trDan` (js/05) **chưa bao giờ co chữ 9 / 8,5 / 8 pt** cho sao kê cũ (`.trang`) — đo cỡ chữ lúc bản chưa gắn vào trang nên ra rỗng; chỉ bậc thu lề + ẩn cột SĐT chạy. Báo cáo DANG_KY không bị (đặt cỡ chữ thẳng).
+- Tiếp: mẫu mới làm khi anh cần (khai 1 khối `DANG_KY` + phép thử); D5 báo cáo tự khai ⚙ chờ anh trả lời mục 5.
