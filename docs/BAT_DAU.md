@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.335** — TK 2: Tra cứu KH dải tìm + lọc toàn trang, Tìm theo từng loại (cả Số TK 105 từ Sao kê), danh sách kiểu bảng. Trước: 3.334 Đợt 1 bố cục máy tính (`docs/RA_SOAT_BO_CUC_2410.md` mục 6; #4 Tổng hợp chờ anh — ngược 3.168) + thẻ tổ tab Tổ theo QT-18. Tiếp: Đợt 2 điện thoại.
+- **`main` = 3.336** — TK 2: Tra cứu KH tìm thẳng tổ trưởng + thẻ tổ. Trước: 3.335 Tra cứu dải tìm + lọc toàn trang, Tìm theo từng loại (cả Số TK 105), kiểu bảng; 3.334 Đợt 1 bố cục máy tính. Điện thoại (`dt.html`): TK 3 làm sau khi TK 2 bàn giao (`docs/KE_HOACH_DIEN_THOAI_2.md`). Chờ anh: #4 Tổng hợp (ngược 3.168).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

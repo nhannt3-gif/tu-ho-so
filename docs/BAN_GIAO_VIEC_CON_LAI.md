@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.336) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu KH › Tìm theo › Tổ trưởng, gõ tên tổ trưởng (không dấu) | Bảng tổ khớp, đúng xã / ấp / Hội | |
+| 2 | Gõ mã tổ / SĐT tổ trưởng | Ra đúng tổ, tự mở thẻ tổ | |
+| 3 | Thẻ tổ: số TV, có dư nợ, tổng dư nợ | Khớp tab Tổ (QT-18) | |
+| 4 | Bấm thành viên · 👤 Xem tổ trưởng · 👪 Lập hồ sơ hộ mới | Mở khách / form Hộ vay điền sẵn tổ | |
+| 5 | Tự nhận gõ tên tổ trưởng | Nút "🏘 n tổ khớp — xem tổ" | |
+
+**Ghi chú kỹ thuật 3.336:** thẻ tổ dùng `tcTo` (TC_K) + `KHO.tvChuan`, không đọc thẳng biến kho (kiểm khách qua `tcCoKH` ở js/22f). Lệnh mới `tc.to / tc.kh / tc.moTo / tc.bangDiem / tc.ketNap / tc.dong` (đăng ký trong `tcDangKy`).
+
 ### Danh sách thử trên máy thật (3.335) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.336 — 24/10/2026 — Tra cứu KH: tìm thẳng tổ trưởng + thẻ tổ
+- **Anh 24/10**: "cho tìm tổ trưởng và hiện thông tin cơ bản của tổ" · "trong tìm KH có link tới tổ rồi, anh muốn tìm thẳng tổ cũng được luôn" · "chức năng tìm KH vẫn giữ, thêm chức năng tìm tổ trưởng" · "gộp bản này lên trước".
+- **Tìm theo › Tổ trưởng** (`tcToLoc` / `tcToTim` js/58): chữ → tên tổ trưởng (đầu từ, không dấu); số ≥ 3 → mã tổ / SĐT / mã KH tổ trưởng; trống → mọi tổ trong phạm vi lọc. Bảng: Tổ trưởng · Mã tổ · Xã · Ấp · Hội · Thành viên (+ chip ngưỡng QĐ 70) · Có dư nợ. Gõ ra đúng 1 tổ → tự mở thẻ.
+- **Thẻ tổ** (`tcTheTo`): 5 ô số (Thành viên · Có / Không dư nợ · Tổng dư nợ · Quá hạn — QT-18 `KHO.tvChuan`), Tổ trưởng (tên, mã KH, ☎, CCCD — bấm chép), Địa bàn (ấp · xã, Hội, Điểm GD, còn lãi tồn / cần cho ra), danh sách thành viên + dư nợ (bấm mở khách), nút 👤 Xem tổ trưởng · 🏘 Tổ của điểm GD · 👥 Mở tổ · 👪 Lập hồ sơ hộ mới vào tổ (lệnh `tc.*`, data-lenh).
+- **Tự nhận** (tìm khách như cũ): chữ gõ khớp tổ trưởng / mã tổ → nút "🏘 n tổ khớp — xem tổ" (`tcToGoiY`).
+- Quy trình: `docs/BAT_DAU.md` ghi anh nhắc — ý mới phải chốt lại ý anh trước khi code.
+- **Phép thử**: t246 thêm 7 mục (23); t107 đặt kiểu thẻ (3.335 mặc định bảng làm t107 báo sai — lỗi phép thử, app đúng); chạy lại t104, t146, t152, t156, t160, t243–t245, hoiquy, hoiquy2.
+
 ## 3.335 — 24/10/2026 — Tra cứu KH: dải tìm + lọc toàn trang, Tìm theo từng loại (cả số TK 105), danh sách kiểu bảng
 - **Anh 24/10**: "có thể mở rộng khu vực tra cứu ra toàn trang bên phải để tối ưu lựa chọn nhanh" · gửi ảnh app "Truy vấn thông tin" nơi khác để tham khảo · "số TK nếu lấy vẫn lấy được, khi nạp số liệu em có gắn số TK 105 từ Sao kê TK 105".
 - **Dải ngang** (`slTraHTML` js/22f): ô tìm + chip Tìm theo (trái) │ khối LỌC ĐỊA BÀN (phải) ở trên 2 cột; dưới: danh sách │ chi tiết cao hết màn. Điện thoại: xếp dọc như cũ.
