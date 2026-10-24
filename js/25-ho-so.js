@@ -1115,7 +1115,7 @@ function veHoSo(){
   if(!dsKy.length){ TO_K = TO_K || null; hsoKhung(null); return; }   /* chưa có số liệu → vẫn in được mẫu trắng */
   toKyMacDinh(C, dsKy, 'hs');
   e.innerHTML = slTabConHTML()+'<div class="rong">Đang mở số liệu '+slKyChu(C.ky)+'…</div>';
-  toNap(C.ky).then(function(K){ TO_K = K; if(nganHienTai===7 && hsoTab()===p && (D.cauHinh.slTab==='hst' || D.cauHinh.slTab==='hsv')) hsoKhung(K); })
+  KHO.nap(C.ky).then(function(K){ TO_K = K; if(nganHienTai===7 && hsoTab()===p && (D.cauHinh.slTab==='hst' || D.cauHinh.slTab==='hsv')) hsoKhung(K); })
     .catch(function(er){ var o = document.getElementById('tr7'); if(o) o.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+' — vẫn in được mẫu trắng.</div>'; hsoKhung(null, 1); });
 }
 function hsoKhung(K, giu){

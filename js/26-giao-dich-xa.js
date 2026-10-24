@@ -544,7 +544,7 @@ function veGDX(){
   var S = gdxCH(); toKyMacDinh(S, dsKy, 'gdx');
   if(TO_K && TO_K.ky===S.ky){ gdxKhung(TO_K); return; }
   e.innerHTML = slTabConHTML()+'<div class="rong">Đang mở số liệu '+slKyChu(S.ky)+'…</div>';
-  toNap(S.ky).then(function(K){ TO_K = K; if(nganHienTai===7 && D.cauHinh.slTab==='gdx') gdxKhung(K); })
+  KHO.nap(S.ky).then(function(K){ TO_K = K; if(nganHienTai===7 && D.cauHinh.slTab==='gdx') gdxKhung(K); })
     .catch(function(){ gdxKhung(null); });
 }
 function gdxKhung(K){
