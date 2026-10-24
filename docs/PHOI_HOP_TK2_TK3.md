@@ -78,7 +78,7 @@
 | 24/10 | TK 2 → TK 3 | Dải phép thử TK 2 `t240–t259` đã hết → **TK 2 dùng `t300–t349`** cho phép thử mới (TK 3 tiếp tục `t260–t299`). 3.356 thêm phần D5 vào cuối `t259`. |
 | 25/10 | TK 2 → TK 3 | **Anh duyệt 25/10:** ① TK 2 tinh chỉnh **bản máy tính (`index.html`) cho mượt trên điện thoại** (`docs/KE_HOACH_DIEN_THOAI_MAY.md`, CSS trong khối `@media (max-width:600px)` riêng cuối `css/app.css`) — **TK 3 giữ `dt.html`**; ② **phép thử theo mức thay đổi** (CLAUDE.md): sửa nhỏ → nhóm liên quan, đụng phần chung / trước bản lớn / định kỳ → hồi quy đủ; ③ **`tools/hoiquy.sh` sửa (3.361)**: chạy cả `t3xx` (trước bỏ sót t300–t302). |
 
-## 6. Hai bản trên điện thoại — rà chồng chéo + đề xuất phân việc (TK 3 lập 25/10, **chờ anh chốt**)
+## 6. Hai bản trên điện thoại — rà chồng chéo + đề xuất phân việc (TK 3 lập 25/10 — **anh chốt 25/10: "bản chính như máy tính, điện thoại là bản phụ cho gọn"**)
 Anh 25/10 giao TK 2 tinh chỉnh **bản máy tính trên điện thoại** (`index.html` + `css/dt-may.css`, `KE_HOACH_DIEN_THOAI_MAY.md`, đã xong Đ1–Đ5 ở 3.361–3.366); TK 3 giữ **`dt.html`** (`KE_HOACH_DIEN_THOAI_2.md`).
 
 **Chỗ đang trùng / vướng (số liệu thật từ repo):**
@@ -93,3 +93,11 @@ Anh 25/10 giao TK 2 tinh chỉnh **bản máy tính trên điện thoại** (`in
 - TK 3 nhận phần điện thoại của **Văn bản + Scan** trên bản máy tính, theo cách TK 2 đã làm: khối riêng trong `css/dt-may.css` (đánh dấu `/* TK 3 — Văn bản / Scan */`, TK 3 chỉ sửa trong khối đó) + file JS mới cắm rút nếu cần; không sửa `css/app.css` / khung, việc cần đụng chung thì báo mục 5.
 - Mặc định iPhone (mục 3 bảng trên): **anh chốt** — giữ tự chuyển sang dt.html, hay mở thẳng bản máy tính (dt.html vào bằng nút / khi không có mạng). Bên nào sửa `index.html` dòng 7–9 + `js/60-ve-dt.js` do anh giao (đề xuất TK 3, vì 2 chỗ đó TK 3 làm từ 3.342).
 - Lịch: cả 2 bản cùng `_Hệ thống/lich.json` — giữ như 3.354.
+
+**Anh chốt 25/10:** bản chính trên điện thoại = **bản máy tính (TK 2 tinh chỉnh)**; `dt.html` = **bản phụ gọn**. Kế hoạch TK 3 (chờ anh nhắn "code"):
+| Bước | Việc | File |
+|---|---|---|
+| G1 | Điện thoại mở `index.html` **ở lại bản máy tính** (bỏ tự chuyển sang dt.html; `?dt=1` vẫn mở bản gọn); nút 📱 → "Bản gọn" hiện ở bản máy tính trên mọi điện thoại; `dt.html` nút 🖥 về bản chính, nhớ lựa chọn cũ không làm kẹt (cờ `tuhoso_ban` cũ = 'may' vẫn đọc được) | `index.html` dòng 7–9, `js/60-ve-dt.js`, `js/dt/dt-giao-dien.js`; t193 / t262 sửa theo |
+| G2 | `dt.html` **dừng thêm giao diện trùng**; giữ: Hôm nay (dùng chung lịch), tra khách, Văn bản 📌 ghim không mạng, Scan → khay chờ; chỉ sửa lỗi | `js/dt/*` |
+| G3 | Văn bản + Scan của **bản máy tính trên điện thoại** — chỉ làm nếu TK 2 đồng ý giao (mục 5), trong khối riêng `/* TK 3 — Văn bản / Scan */` của `css/dt-may.css` | `css/dt-may.css` (khối riêng) |
+| 25/10 | TK 3 → TK 2 | **Anh chốt bản chính điện thoại = bản máy tính của TK 2, dt.html = bản phụ** (mục 6). TK 3 sẽ sửa `index.html` dòng 7–9 (bỏ tự chuyển) + `js/60-ve-dt.js` (G1) khi anh nhắn "code" — TK 2 tránh sửa 2 chỗ này cùng lúc. **G3**: TK 2 có muốn giao TK 3 phần Văn bản + Scan trong `css/dt-may.css` (khối riêng) không? Trả lời ở đây. |
