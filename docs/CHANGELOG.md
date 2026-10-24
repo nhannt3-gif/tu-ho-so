@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.338 — 24/10/2026 — 🩺 Sức khỏe sao lưu + sửa đầu công cụ Hạn trả HSSV (Đợt 3 / mục 8 việc 2)
+- **Anh 24/10**: "em rà soát tối ưu chính theo kế hoạch nâng cấp, còn TK 3 chỉ làm các việc nhỏ" · "em cứ theo KH làm rồi gộp lên anh test" — làm tiếp `RA_SOAT_BO_CUC_2410.md` mục 8 (mục 9 = phân công).
+- **🩺 Sức khỏe sao lưu** (js/59-suc-khoe.js mới, gọi 1 dòng ở `kbSaoLuuHTML`): 6 dòng — 💾 lưu trên máy (IndexedDB theo ngăn / hỏng → đỏ) · 📅 bản tự lưu đầu ngày · 📸 bản chụp cài đặt · ☁ cài đặt lên Drive (`chGhiLuc`) · ☁ danh sách hồ sơ lên Drive (`chiMucDriveTG`) · 📎 file chưa lên Drive (đếm mục chưa có `driveId`); màu ≤ 2 ngày lục · 3–7 vàng · quá 7 / chưa có đỏ; chưa nối Drive → vàng; chip tổng = mức xấu nhất. **Chỉ đọc** trạng thái có sẵn — không đổi luồng lưu.
+- **Đợt 3 (công cụ kiểm)**: TK 3 đã gộp t260 (ảnh bố cục 15 tab × 1366 / 1440 + dt.html — 38/38 đạt), `tools/hoiquy.sh` nhóm + số luồng, sửa t100 — TK 2 dùng tiếp. **t231** (sai từ trước): đầu công cụ 🎓 Hạn trả HSSV tràn 7 px ở 1366×650 — tiêu đề co còn 2,6 em (đủ "🎓 …"). **t158** đạt lại trên 3.337 (TK 3 báo sai ở 3.327).
+- **Phép thử**: mới t248 (10); chạy lại t138, t178, t182, t185, t193, t206, t93, t230, t231, t247, t260, hoiquy, hoiquy2.
+
 ## 3.337 — 24/10/2026 — Tra cứu KH: thẻ khách gọn 1 khung, ngày đến hạn tô màu, danh sách gọn
 - **Anh 24/10** (chốt trước khi code): "trong màn tra cứu KH hiện ra em cho màu nổi bật ngày đến hạn của món vay, bố cục trong 1 ô cửa sổ, bố trí gọn hợp lý lại các thông tin" · "khung ds bên trái em có thể bố cục lại cột tình trạng ngay sau tên hoặc chữ nhỏ để có thêm không gian cho cột phải" · mốc 30 / 90 ngày, hạn hiệu lực (gia hạn / hợp đồng).
 - **Thẻ khách** (`slTheKH` js/22f): 3 cột `.tc-3cot` — Nhân thân │ Liên hệ · TK 105 (gộp 2 ô cũ) │ Tổ & địa bàn; khung lưới 1 cột (tiêu đề · 5 ô số · 3 cột 170 px · món vay 1fr · nút) → luôn trọn 1 khung, món vay cuộn trong ô; vẫn giữ vị trí cố định khi đổi khách (t244).

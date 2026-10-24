@@ -1981,7 +1981,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.337', ds:[
+var CO_GI_MOI = {ban:'3.338', ds:[
+  ["⚙ Khai báo đơn vị › 💾 Sao lưu: thẻ 🩺 Sức khỏe sao lưu — mỗi đường lưu (máy, tự lưu đầu ngày, chụp cài đặt, Drive, file chưa lên) 1 dòng, đỏ khi quá 7 ngày", "hsoKBHop('sl')"],
+  ["Công cụ 🎓 Hạn trả HSSV: đầu công cụ không còn tràn ở màn 17 inch (1366)", "doiNgan(0)"],
   ["Tra cứu KH: thẻ khách gọn trong 1 khung — 3 cột Nhân thân │ Liên hệ · TK 105 │ Tổ, bảng món vay chiếm phần còn lại (đủ cột cả màn 1366)", "dhSL('tra')"],
   ["Món vay: cột Đến hạn tô màu — quá hạn đỏ · còn ≤ 30 ngày cam · ≤ 90 ngày vàng, ghi còn / quá n ngày, GH = hạn gia hạn", "dhSL('tra')"],
   ["Danh sách khách: tình trạng chữ nhỏ ngay sau tên, khung chi tiết rộng hơn (45 / 55)", "dhSL('tra')"],
@@ -1994,9 +1996,7 @@ var CO_GI_MOI = {ban:'3.337', ds:[
   ["Dải chip mẫu (Giao dịch xã, Hồ sơ Tổ, Hồ sơ vay) 1 hàng cuộn ngang, nút ‹ › khi còn mẫu bị khuất — mẫu đang chọn luôn thấy", "dhSL('hsv')"],
   ["Hồ sơ: 📅 Số liệu + ⚙ Khai báo đơn vị dời xuống dòng tên mẫu; tiêu đề không lặp chữ; nút xuất mờ chỉ còn biểu tượng (Gửi không rớt dòng)", "dhSL('hst')"],
   ["Tra cứu KH: mở tab là có sẵn danh sách khách theo lọc địa bàn; ô Xã gọn (bỏ chữ Phường / Xã)", "dhSL('tra')"],
-  ["Tab Tổ: thẻ tổ đếm thành viên theo QT-18 (khớp Mẫu 01/TV của TƯ); KTGS: chip BC0437 / BC0438 dời ra thanh khối", "dhSL('to')"],
-  ["Tra cứu KH: khung khách cố định (số liệu luôn ở 1 chỗ) + khối Tổ & địa bàn — mã tổ, tổ trưởng + mã KH, ☎ bấm để chép, số thành viên (có / không dư nợ)", "dhSL('tra')"],
-  ["Tra cứu KH › 🏘 Tổ của điểm GD: bảng mọi tổ theo Hội (như KQGD), ngưỡng 20–100 TV (QĐ 70); khách chưa vay → 🏘 Chọn tổ kết nạp → 👪 Lập hồ sơ hộ mới vào tổ", "dhSL('tra')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Tab Tổ: thẻ tổ đếm thành viên theo QT-18 (khớp Mẫu 01/TV của TƯ); KTGS: chip BC0437 / BC0438 dời ra thanh khối", "dhSL('to')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

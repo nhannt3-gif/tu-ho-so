@@ -47,7 +47,8 @@ var KB_NAP = null;   /* file khai báo vừa chọn để nạp (chưa ghi) */
 function kbGioVN(iso){ var d = new Date(iso); if(isNaN(d)) return ''; var p = function(x){ return (x<10 ? '0' : '')+x; }; return p(d.getHours())+':'+p(d.getMinutes())+' '+p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear(); }
 function kbSaoLuuHTML(){
   var dem = function(g){ return g[2].filter(function(k){ return D.cauHinh[k]!=null; }).length; }, a = KHO1.dsChup();
-  return '<div class="hso-kb-nhom"><b>📸 Tự lưu trên máy này — '+a.length+' / 10 bản gần nhất</b> <small>(tự chụp mỗi ngày, trước khi nhận cài đặt từ Drive, trước khi khôi phục / nạp file)</small>'+
+  return (typeof skSaoLuuHTML==='function' ? skSaoLuuHTML() : '')+   /* 3.338: 🩺 Sức khỏe sao lưu (js/59) */
+    '<div class="hso-kb-nhom"><b>📸 Tự lưu trên máy này — '+a.length+' / 10 bản gần nhất</b> <small>(tự chụp mỗi ngày, trước khi nhận cài đặt từ Drive, trước khi khôi phục / nạp file)</small>'+
     (a.length ? '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Lúc</th><th>Lý do</th><th>Số mục</th><th></th></tr></thead><tbody>'+a.map(function(x){
       return '<tr><td>'+kbGioVN(x.luc)+'</td><td>'+coChuHTML(x.ly)+'</td><td class="so">'+x.khoa+' · '+x.kb+' KB</td><td><button class="nho" onclick="kbKhoiPhuc(\''+x.id+'\')">↩ Khôi phục</button></td></tr>'; }).join('')+'</tbody></table></div>' : '<div class="sl-phu">Chưa có bản chụp.</div>')+
     '<div class="hang-nut"><button class="nho" onclick="KHO1.chup(\'chụp tay\').then(function(r){ bao(r ? \'Đã chụp.\' : \'Không đổi so với bản mới nhất.\'); hsoKBHop(\'sl\'); })">📸 Chụp ngay</button></div></div>'+
