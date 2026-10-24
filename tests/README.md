@@ -207,7 +207,8 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t246.js` | 3.335–3.350 Tra cứu KH + thẻ tổ (3 hàng, bảng thành viên Đủ / Gọn, cột cân đối, tình trạng khách không còn món + ngày tất nợ). |
 | `node tests/t246.js` | 3.335–3.351 Tra cứu KH + thẻ tổ + bảng tổ (đủ mọi tổ, cột Thành viên sau Mã tổ). |
 | `node tests/t258.js` | 3.348–3.353 📜 nhật ký đã lập / in (+ KTGS Mẫu 06 ghi tổ / hộ) + nút `hop.dong`. |
-| `node tests/t259.js` | 3.354 nền báo cáo bảng `DANG_KY` + Danh sách nợ cần xử lý (khuôn in chuẩn, nhóm, Excel, nhật ký). |
+| `node tests/t259.js` | 3.355 nền báo cáo bảng `DANG_KY` + Danh sách nợ cần xử lý (khuôn in chuẩn, nhóm, Excel, nhật ký). |
+| (3.354) | t265 mới: Hôm nay trang đầu, âm lịch (24/10 = 15/9, Tết 2026), lịch tháng, thêm việc lặp tuần + lưu ý, sắp tới, tick việc lặp theo ngày, ghi chú dòng (Enter / Thêm / tick / xóa), cất mã hóa + mở lại, sửa / xóa "chỉ ngày này", gộp chéo với `gopLich` máy tính và ngược lại, Khách chưa có số liệu có nút Tải (19). |
 | (3.352) | t264 mới: chip Văn bản (năm, loại, Đã ghim), xem PDF trong app (canvas đủ trang, vừa ngang), ghim cất mã hóa, trần 200 MB, mở lại không mạng (danh sách + văn bản ghim), báo lỗi chưa ghim / chưa lên Drive, bỏ ghim (18). |
 | `python3 tools/ra_kho.py` (3.341 · 3.346) | đếm theo file chỗ đọc thẳng kho số liệu — sau K1–K5 chỉ còn lõi (22-so-lieu, 22g, 22k, 28, 29) + đọc sâu kỳ riêng của tab (`docs/RA_SOAT_KHO_2410.md` mục 4). |
 | (3.343) | t263 mới: gói xem có lãi tồn / GH / mã KH TT; 8 chip Tìm theo + nhớ; tìm Vợ/chồng, Tên, CCCD, Khế ước, Tổ trưởng (tên / mã tổ / trống); thẻ khách 5 ô + hạn tô màu; thẻ tổ; Vừa xem (18). |

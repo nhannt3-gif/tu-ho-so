@@ -45,12 +45,12 @@ var DT = (function(){
   function moTuDong(){ return doc('khoaTu').then(function(r){ if(r) return r; var b = ngauNhien(32); return ghi('khoaTu', b).then(function(){ return b; }); })
     .then(function(b){ return crypto.subtle.importKey('raw', b, {name:'AES-GCM'}, false, ['encrypt', 'decrypt']); })
     .then(function(k){ S.khoa = k; return docGoi().catch(function(){ return null; }); }); }   /* gói cất bằng khóa PIN cũ không giải được → tải lại từ Drive */
-  function khoa(){ S.khoa = null; S.goi = null; DS.vanban = null; DS.scan = null; GDX = null; clearTimeout(S.hen); if(DT.khiKhoa) DT.khiKhoa(); }
+  function khoa(){ LICH = null; S.khoa = null; S.goi = null; DS.vanban = null; DS.scan = null; GDX = null; clearTimeout(S.hen); if(DT.khiKhoa) DT.khiKhoa(); }
   function henKhoa(){ clearTimeout(S.hen); if(pinBat()) S.hen = setTimeout(khoa, DT_KHOA_SAU); }
   var DT_KHOA_SAU = 5*60000, AN_LUC = 0;
   document.addEventListener('visibilitychange', function(){ if(document.hidden) AN_LUC = Date.now(); else if(S.khoa && pinBat() && AN_LUC && Date.now()-AN_LUC > 2*60000) khoa(); });
   ['touchstart', 'keydown', 'click'].forEach(function(ev){ document.addEventListener(ev, function(){ if(S.khoa) henKhoa(); }, {passive:true}); });
-  function xoaMay(){ S.goi = null; S.khoa = null; GDX = null; return Promise.all([ghi('goi', null), ghi('kiem', null), ghi('muoi', null), ghi('gdx', null), ghi('khoaTu', null), ghi('ds:vanban', null), ghi('ds:scan', null)].concat(Object.keys(off()).map(function(id){ return ghi('vb:'+id, null); }))).then(function(){ CH = {}; chLuu(); }); }
+  function xoaMay(){ LICH = null; S.goi = null; S.khoa = null; GDX = null; return Promise.all([ghi('goi', null), ghi('kiem', null), ghi('muoi', null), ghi('gdx', null), ghi('khoaTu', null), ghi('ds:vanban', null), ghi('ds:scan', null), ghi('lich', null)].concat(Object.keys(off()).map(function(id){ return ghi('vb:'+id, null); }))).then(function(){ CH = {}; chLuu(); }); }
   /* ---------- gói số liệu (mã hóa trong máy) ---------- */
   function cat(g){ return nenGzip(MA.encode(JSON.stringify(g))).then(function(z){ return maHoa(S.khoa, z); }).then(function(x){ return ghi('goi', x); }); }
   function docGoi(){ return doc('goi').then(function(x){ if(!x || !S.khoa) return null; return giaiMa(S.khoa, x.c ? x : x).then(function(z){ return nenGzip(z, true); }).then(function(u){ S.goi = lapChiMuc(JSON.parse(GIAI.decode(u))); return S.goi; }); }); }
@@ -69,17 +69,19 @@ var DT = (function(){
     return napGIS().then(function(){ return new Promise(function(ok, loi){
       var tc = google.accounts.oauth2.initTokenClient({client_id:CH.cid || CID, scope:'https://www.googleapis.com/auth/drive.file',
         callback:function(kq){ if(kq && kq.access_token){ S.token = kq.access_token; S.hetHan = Date.now()+(kq.expires_in || 3500)*1000; ok(true); } else loi(new Error('Không nhận được quyền')); },
-        error_callback:function(){ loi(new Error('Đã hủy đăng nhập')); }});
+        error_callback:function(x){ var t = x && x.type;   /* 3.354: iPhone chặn cửa sổ đăng nhập khi app tự gọi (không do bấm) */
+          loi(new Error(t==='popup_failed_to_open' ? 'iPhone chặn cửa sổ đăng nhập Google — bấm lại nút; vẫn bị thì vào Cài đặt iPhone › Safari › tắt "Chặn cửa sổ bật lên".' : t==='popup_closed' ? 'Đã đóng cửa sổ đăng nhập Google.' : 'Chưa đăng nhập được Google.')); }});
       tc.requestAccessToken({prompt:im ? '' : 'consent'}); }); });
   }
   function goi(url, nhi){ return fetch(url, {headers:{Authorization:'Bearer '+S.token}}).then(function(r){ if(!r.ok) throw new Error('Drive báo lỗi '+r.status); return nhi ? r.arrayBuffer() : r.json(); }); }
   function tim(ten, cha, thuMuc){ var q = "name='"+String(ten).replace(/'/g, "\\'")+"' and trashed=false and '"+cha+"' in parents"+(thuMuc ? " and mimeType='application/vnd.google-apps.folder'" : '');
     return goi('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+'&fields=files(id,modifiedTime)&pageSize=1').then(function(k){ return (k.files || [])[0] || null; }); }
   function taiGoi(){   /* Drive → gói mới nhất (bỏ qua nếu không đổi) */
-    var duong = [CH.thuMuc || 'Tủ hồ sơ', '_Hệ thống', 'xem'];
+    var duong = [CH.thuMuc || 'Tủ hồ sơ', '_Hệ thống', 'xem'], thieu = '';
     return dangNhap(true).catch(function(){ return dangNhap(false); }).then(function(){
-      return duong.reduce(function(p, ten){ return p.then(function(cha){ if(!cha) return null; return tim(ten, cha, true).then(function(f){ return f && f.id; }); }); }, Promise.resolve('root'));
-    }).then(function(idTM){ if(!idTM) throw new Error('Chưa có số liệu cho điện thoại trên Drive — trên máy tính bật ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại');
+      return duong.reduce(function(p, ten){ return p.then(function(cha){ if(!cha) return null; return tim(ten, cha, true).then(function(f){ if(!f && !thieu) thieu = ten; return f && f.id; }); }); }, Promise.resolve('root'));
+    }).then(function(idTM){ if(!idTM) throw new Error(thieu===duong[0] ? 'Không thấy thư mục "'+duong[0]+'" trên Drive của tài khoản Google vừa đăng nhập. Kiểm tra: ① đăng nhập đúng tài khoản Google như máy tính; ② ⚙ Cài đặt › Thư mục gốc giống tên trên máy tính.'
+        : 'Chưa có số liệu cho điện thoại trên Drive — trên máy tính bật ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại (bấm Đẩy ngay).');   /* 3.354: báo kẹt ở bước nào */
       return tim('xem.json.gz', idTM); })
     .then(function(f){ if(!f) throw new Error('Chưa có gói số liệu — máy tính chưa đẩy');
       if(S.goi && CH.drive===f.modifiedTime) return {moi:false, goi:S.goi};
@@ -145,8 +147,24 @@ var DT = (function(){
   function dsCat(loai){ return S.khoa && DS[loai] ? maHoa(S.khoa, JSON.stringify(DS[loai])).then(function(x){ return ghi('ds:'+loai, x); }).catch(function(){}) : Promise.resolve(); }
   function dsNap(loai){ if(DS[loai]) return Promise.resolve(DS[loai]); if(!S.khoa) return Promise.resolve(null);
     return doc('ds:'+loai).then(function(x){ return x ? giaiMa(S.khoa, x).then(function(u){ DS[loai] = JSON.parse(GIAI.decode(u)); return DS[loai]; }) : null; }).catch(function(){ return null; }); }
+  /* 3.354: 📅 Lịch (tab Hôm nay) — cất máy mã hóa ('lich'), đồng bộ 2 chiều Drive <thư mục>/_Hệ thống/lich.json với Lịch máy tính (gộp theo suaLuc, DTL.gop) */
+  var LICH = null, LHEN = null;
+  function lichNap(){ if(LICH) return Promise.resolve(LICH); if(!S.khoa) return Promise.resolve(LICH = DTL.rong());
+    return doc('lich').then(function(x){ return x ? giaiMa(S.khoa, x).then(function(u){ return JSON.parse(GIAI.decode(u)); }) : null; }).catch(function(){ return null; })
+      .then(function(L){ LICH = DTL.chuan(LICH || L); return LICH; }); }
+  function lichCat(){ return S.khoa && LICH ? maHoa(S.khoa, JSON.stringify(LICH)).then(function(x){ return ghi('lich', x); }).catch(function(){}) : Promise.resolve(); }
+  function lichDoi(){ CH.lichCho = 1; chLuu(); clearTimeout(LHEN); if(S.token && Date.now() < S.hetHan-60000) LHEN = setTimeout(function(){ lichDongBo().catch(function(){}); }, 4000); return lichCat(); }   /* sửa xong: cất máy; đang có quyền Drive → hẹn đẩy */
+  function ghiJSON(ten, cha, obj, cu){ var bien = '----tuhosodt'+Date.now(), meta = cu ? {} : {name:ten, parents:[cha], mimeType:'application/json'};
+    var body = new Blob(['--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+'\r\n--'+bien+'\r\nContent-Type: application/json\r\n\r\n'+JSON.stringify(obj)+'\r\n--'+bien+'--'], {type:'multipart/related; boundary='+bien});
+    return fetch('https://www.googleapis.com/upload/drive/v3/files'+(cu ? '/'+cu.id : '')+'?uploadType=multipart&fields=id', {method:cu ? 'PATCH' : 'POST', headers:{Authorization:'Bearer '+S.token, 'Content-Type':'multipart/related; boundary='+bien}, body:body})
+      .then(function(r){ if(!r.ok) throw new Error('Drive báo lỗi '+r.status); return true; }); }
+  function lichDongBo(){ var idTM, doi = 0;   /* Drive → gộp → đẩy lại bản gộp (có việc chỉ điện thoại có) */
+    return lichNap().then(function(){ return duong(['_Hệ thống'], true); }).then(function(id){ idTM = id; return tim('lich.json', id); })
+      .then(function(f){ return (f ? goi('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media').then(function(r){ doi = DTL.gop(LICH, r || {}); }) : Promise.resolve())
+        .then(function(){ return ghiJSON('lich.json', idTM, DTL.goiDay(LICH), f); }); })
+      .then(function(){ CH.lichCho = 0; CH.lichLuc = new Date().toISOString(); chLuu(); return lichCat(); }).then(function(){ return doi; }); }
   function locDS(loai, q){ var ds = DS[loai] || [], t = boDau(q).split(' ').filter(Boolean); if(!t.length) return ds;
     return ds.filter(function(m){ var c = ' '+boDau([m.soHieu, m.trichYeu, m.ten, m.maKH, m.loai, m.ap, m.to, m.coQuan].join(' '))+' '; return t.every(function(w){ return c.indexOf(w)>=0; }); }); }
-  return {offLuu:offLuu, offDoc:offDoc, offXoa:offXoa, offDung:offDung, off:off, dsNap:dsNap, pinBat:pinBat, moTuDong:moTuDong, coPIN:coPIN, datPIN:datPIN, moKhoa:moKhoa, khoa:khoa, xoaMay:xoaMay, napGoi:napGoi, taiGoi:taiGoi, goi:function(){ return S.goi; }, moi:function(){ return !!S.khoa; },
+  return {lich:function(){ return LICH; }, lichNap:lichNap, lichDoi:lichDoi, lichDongBo:lichDongBo, offLuu:offLuu, offDoc:offDoc, offXoa:offXoa, offDung:offDung, off:off, dsNap:dsNap, pinBat:pinBat, moTuDong:moTuDong, coPIN:coPIN, datPIN:datPIN, moKhoa:moKhoa, khoa:khoa, xoaMay:xoaMay, napGoi:napGoi, taiGoi:taiGoi, goi:function(){ return S.goi; }, moi:function(){ return !!S.khoa; },
     tong:tong, dsTo:dsTo, nhom:nhom, taiKhoi:taiKhoi, ds:function(l){ return DS[l]; }, datDS:function(l, ds){ DS[l] = ds; return dsCat(l); }, napGDX:napGDX, docGDX:docGDX, taiGDX:taiGDX, locDS:locDS, taiFile:taiFile, guiKhay:guiKhay, timKH:timKH, kh:kh, khTo:khTo, boDau:boDau, ch:CH, chLuu:chLuu, khiKhoa:null};
 })();

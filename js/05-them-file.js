@@ -1211,7 +1211,7 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
   }
   function bac(u){   /* các bậc thử khổ: [ngang, lề t r b l, gọn, cỡ chữ pt] */
     if(loai!=='.trang'){ var an = u.getAttribute('data-tr-ngang'), am = (u.getAttribute('data-tr-mg')||'').split(/\s+/).map(parseFloat).filter(function(x){ return !isNaN(x); });   /* 3.171: mỗi bản (vd bộ hồ sơ vay) có khổ / lề riêng */
-      var cb = (u.getAttribute('data-tr-cb')||'').split(',').map(parseFloat).filter(function(x){ return x>0; }), b0 = [an ? an==='1' : C.ngang, am.length===4 ? am : C.mg, 0, 0];   /* 3.354: bậc cỡ chữ riêng (báo cáo bảng DANG_KY) */
+      var cb = (u.getAttribute('data-tr-cb')||'').split(',').map(parseFloat).filter(function(x){ return x>0; }), b0 = [an ? an==='1' : C.ngang, am.length===4 ? am : C.mg, 0, 0];   /* 3.355: bậc cỡ chữ riêng (báo cáo bảng DANG_KY) */
       return cb.length ? cb.map(function(c){ return [b0[0], b0[1], 0, c]; }) : [b0]; }
     var ng = /\bngang\b/.test(u.className), L = C.le, B = [];
     if(L) { var m = [L, L, L, L], n0 = kho==='tu' ? ng : kho==='ngang'; return [[n0, m, 0, 0], [n0, m, 1, 9], [n0, m, 1, 8.5], [n0, m, 1, 8]]; }
@@ -1225,7 +1225,7 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
     nd.className = 'tr-nd'; nd.style.cssText = 'top:'+m[0]+'mm;left:'+m[3]+'mm;width:'+(W-m[1]-m[3])+'mm;height:'+(H-m[0]-m[2])+'mm';
     tg.appendChild(nd); ds.appendChild(tg); return {tg:tg, nd:nd, b:b};
   }
-  function apBac(u, b){ u.classList.toggle('tr-gon', !!b[2]); u.style.fontSize = u.getAttribute('data-tr-co') || ''; if(b[3] && u.hasAttribute('data-tr-cb')){ u.style.fontSize = b[3]+'pt'; return; }   /* 3.354: bậc cỡ chữ khai sẵn → đặt thẳng */
+  function apBac(u, b){ u.classList.toggle('tr-gon', !!b[2]); u.style.fontSize = u.getAttribute('data-tr-co') || ''; if(b[3] && u.hasAttribute('data-tr-cb')){ u.style.fontSize = b[3]+'pt'; return; }   /* 3.355: bậc cỡ chữ khai sẵn → đặt thẳng */
     if(b[3]){ var cu = parseFloat(getComputedStyle(u).fontSize); if(b[3]*96/72<cu-0.1) u.style.fontSize = b[3]+'pt'; } }
   function coDinhCot(u){   /* cột bảng giữ nguyên bề rộng ở mọi trang (đo 1 lần trên bản liền) */
     [].slice.call(u.querySelectorAll('table')).forEach(function(t){

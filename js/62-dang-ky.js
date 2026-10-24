@@ -1,4 +1,4 @@
-/* ===== 3.354 (KE_HOACH_DANG_KY — đợt N1, anh 24/10: "chưa có mẫu nào bắt buộc… em cứ tạo 1 cái nền sẵn, sau này cần mẫu nào sẽ tạo khi cần") =====
+/* ===== 3.355 (KE_HOACH_DANG_KY — đợt N1, anh 24/10: "chưa có mẫu nào bắt buộc… em cứ tạo 1 cái nền sẵn, sau này cần mẫu nào sẽ tạo khi cần") =====
    NỀN BÁO CÁO BẢNG: mỗi báo cáo khai 1 lần bằng DANG_KY({...}) → app tự có hộp chọn tùy chọn, xem trước, 🖨 In · 📄 PDF · 📝 Word · 📊 Excel · 📤 Gửi, 📜 nhật ký in.
    KHUÔN IN CHUẨN (anh chốt 24/10 — KE_HOACH_DANG_KY mục 8):
      - danh sách (loai 'ds') → A4 dọc, lề 15 · 15 · 20 · 10 mm; đầu trang logo + "NGÂN HÀNG CHÍNH SÁCH XÃ HỘI / PGD … - Chi nhánh …" (đậm, như 05/GDX);

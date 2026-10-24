@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.354** — TK 2: nền báo cáo bảng `DANG_KY` (`js/62`, khuôn in anh chốt) + báo cáo mẫu Danh sách nợ cần xử lý ở Sao kê. Mẫu khác tạo khi anh cần. Trước: 3.353 trả bộ nhớ ảnh + KTGS nhật ký; 3.352 TK 3 điện thoại Đ2; 3.348 📜 nhật ký. Chờ anh: D5 báo cáo tự khai (KE_HOACH_DANG_KY mục 5); `trDan` chưa co chữ sao kê cũ (mục 6).
+- **`main` = 3.355** — TK 2: nền báo cáo bảng `DANG_KY` (`js/62`, khuôn in anh chốt, ô 1 dòng) + báo cáo mẫu Danh sách nợ cần xử lý ở Sao kê. Mẫu khác tạo khi anh cần. Tiếp: D5 báo cáo tự khai (đã chốt: tab Tổng hợp, nguồn Mẫu 31, đối chiếu TW — KE_HOACH_DANG_KY mục 5). Trước: 3.354 TK 3 điện thoại tab Hôm nay; 3.353 trả bộ nhớ ảnh + KTGS nhật ký. Chờ anh: `trDan` chưa co chữ sao kê cũ (KE_HOACH_DANG_KY mục 6).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

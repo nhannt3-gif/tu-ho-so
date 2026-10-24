@@ -222,7 +222,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
-### Danh sách thử trên máy thật (3.354) — anh ghi Đạt / Chưa
+### Danh sách thử trên máy thật (3.355) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 1 | Sao kê › 🧩 Báo cáo chuẩn mới › 👁 Danh sách nợ cần xử lý | Hộp xem trước: logo + NGÂN HÀNG CHÍNH SÁCH XÃ HỘI góc trái, tên giữa, ngày, Đơn vị tính: đồng, A4 dọc, Trang x/y | |
@@ -231,7 +231,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 4 | Chọn 1 xã / điểm ở cây phạm vi Sao kê rồi mở lại | Chỉ còn dòng của phạm vi đó; dòng phạm vi dưới ngày | |
 | 5 | Excel / Word / In | Excel có đầu trang + 2 tầng tiêu đề; 📜 nhật ký ghi "Danh sách nợ cần xử lý" | |
 
-**Ghi chú kỹ thuật 3.354:** báo cáo mới = 1 khối `DANG_KY({ma, ten, o:'sk'|'to', loai:'ds'|'bang', dvt, mauSo, nhom, nhomMd, chon:[{k, ten, kieu:'tich'|'mot', ds, md}], du(ctx) → {cot:[{k, ten, tien, so, nhom, nw, nho, rong}], dong:[{…, _dv:dkDV(K, maTo), _lop}], ghi}})` cuối `js/62`; ctx = {K, S, pv, chon, ngay}. Lấy số qua `KHO` / `K.B`. Bản in đi qua `inChuan` (bỏ `<script>`), chia trang do `trDan` đọc `.phieu[data-tr-ngang|mg|cb|so|1trang]`.
+**Ghi chú kỹ thuật 3.355:** báo cáo mới = 1 khối `DANG_KY({ma, ten, o:'sk'|'to', loai:'ds'|'bang', dvt, mauSo, nhom, nhomMd, chon:[{k, ten, kieu:'tich'|'mot', ds, md}], du(ctx) → {cot:[{k, ten, tien, so, nhom, nw, nho, rong}], dong:[{…, _dv:dkDV(K, maTo), _lop}], ghi}})` cuối `js/62`; ctx = {K, S, pv, chon, ngay}. Lấy số qua `KHO` / `K.B`. Bản in đi qua `inChuan` (bỏ `<script>`), chia trang do `trDan` đọc `.phieu[data-tr-ngang|mg|cb|so|1trang]`.
+
+### Danh sách thử trên máy thật (3.354) — iPhone, anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app (Safari / biểu tượng màn hình chính) | Vào thẳng Hôm nay, không hiện lỗi; thanh dưới 5 nút có biểu tượng rõ | |
+| 2 | Khách › Tải số liệu từ Drive → đăng nhập Google **đúng tài khoản máy tính** | Có số liệu; nếu lỗi thì chụp màn hình dòng báo gửi em | |
+| 3 | Hôm nay › ＋ Thêm việc → ⟳ trên cùng → máy tính mở tab Hôm nay | Việc hiện ở lịch máy tính (máy tính tự tải lịch khi mở / nối Drive) | |
+| 4 | Máy tính thêm việc → điện thoại ⟳ | Việc hiện ở điện thoại | |
+| 5 | Ghi chú: gõ dòng, Enter; tick; ✕ | Đúng như sổ gạch dòng máy tính | |
+
+**Ghi chú kỹ thuật 3.354:** `js/dt/dt-lich.js` mới (`DTL`: âm lịch chép nguyên văn js/04b, `co / xong / doiXong / viecNgay / dongNgay / mauNgay / xoaViec / xoaNote / gop / goiDay`). `dt-nen.js`: `lichNap / lichDoi / lichDongBo` (IndexedDB `lich` mã hóa, `CH.lichCho / lichLuc`, `ghiJSON` multipart), lỗi `dangNhap` theo `error_callback.type`, `taiGoi` báo thư mục thiếu. `dt-giao-dien.js`: `IC` (SVG), `trHom / veHom / veThang / oNgay / trViec / ganHom / ganViec`, `danhTab` (app `pageInit` + `pageBeforeIn`), route `/` = Hôm nay, `/tra/` = Khách, `/viec/:id/`; `moApp` bỏ `dongBo(true)`; `tongQuan / rongSL`. `dt.html` thanh `tabbar-icons` 5 nút SVG; `dt-sw.js` + `dt-lich.js`.
 
 ### Danh sách thử trên máy thật (3.353) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
