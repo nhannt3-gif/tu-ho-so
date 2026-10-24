@@ -310,7 +310,7 @@ var GDX_MAU = [
 function gdxTenMau(M){ return M.ten.indexOf(M.ma)===0 ? M.ten : M.ma+' — '+M.ten; }
 function gdxMauHT(){ var f = gdxC().form; return GDX_MAU.find(function(m){ return m.k===f; }) || GDX_MAU[0]; }
 function gdxCH(){ var C = D.cauHinh.gdxTK = D.cauHinh.gdxTK || {ky:''}; return pvGan(C); }
-PV_DUNG.gdx = {S:function(){ return gdxCH(); }, K:function(){ return TO_K; }, sau:function(){ gdxTheoLoc(); }, toBatBuoc:true, daChieu:true, gonDiem:true};
+PV_DUNG.gdx = {S:function(){ return gdxCH(); }, K:function(){ return KHO.kyDung(); }, sau:function(){ gdxTheoLoc(); }, toBatBuoc:true, daChieu:true, gonDiem:true};
 function gdxHom(){ return ngayISO(nay()); }
 function gdxMai(){ var m = nay(); m.setDate(m.getDate()+1); return ngayISO(m); }
 function gdxDMY(iso){ return iso ? ngayVN(iso) : ''; }
@@ -542,9 +542,9 @@ function veGDX(){
   var dsKy = typeof toDsKy==='function' ? toDsKy() : [];
   if(!dsKy.length){ gdxKhung(null); return; }   /* chưa có số liệu → vẫn in được (điểm theo Cài đặt › Địa bàn) */
   var S = gdxCH(); toKyMacDinh(S, dsKy, 'gdx');
-  if(TO_K && TO_K.ky===S.ky){ gdxKhung(TO_K); return; }
+  var K0 = KHO.kyDung(); if(K0 && K0.ky===S.ky){ gdxKhung(K0); return; }
   e.innerHTML = slTabConHTML()+'<div class="rong">Đang mở số liệu '+slKyChu(S.ky)+'…</div>';
-  KHO.nap(S.ky).then(function(K){ TO_K = K; if(nganHienTai===7 && D.cauHinh.slTab==='gdx') gdxKhung(K); })
+  KHO.nap(S.ky).then(function(K){ KHO.datKy(K); if(nganHienTai===7 && D.cauHinh.slTab==='gdx') gdxKhung(K); })
     .catch(function(){ gdxKhung(null); });
 }
 function gdxKhung(K){
