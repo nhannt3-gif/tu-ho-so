@@ -74,9 +74,18 @@ const fs=require('fs'), path=require('path');
    const moR = ct.querySelector('.tc-to-ct-mo');
    ok('3.342 bấm ô CT → dòng nhỏ hiện mã món vay (chép được), không mở khách', !!moR && moR.textContent.indexOf(ku0)>=0 && !!moR.querySelector('.tc-chep') && !!document.querySelector('#tc-ct .tc-the-to'), ku0);
    if(oCT){ oCT.click(); await w(100); } ok('3.342 bấm lại ô CT → ẩn dòng mã món vay', !ct.querySelector('.tc-to-ct-mo'));
-   const wb = ct.querySelector('table.tc-to-tvb').getBoundingClientRect().width, wk = ct.querySelector('.tc-to-tv-ds').clientWidth;
+   const chipK = k => ct.querySelector('[data-lenh="tc.tvKieu"][data-k="'+k+'"]');
+   chipK('gon').click(); await w(200);
+   const hien = () => [...document.querySelectorAll('#tc-ct .tc-to-tvb tbody tr')].filter(x=>!x.hidden), mo1 = document.querySelector('#tc-ct .tc-to-mo');
+   ok('3.342 kiểu Gọn: mỗi khách 1 dòng, khách nhiều món có ▸, nhớ lựa chọn', hien().length===r1.tong && D.cauHinh.tcTim.tvKieu==='gon' && (nDong===r1.tong || !!mo1), hien().length+' dòng');
+   if(mo1){ mo1.click(); await w(100); const d = mo1.closest('tr').nextElementSibling;
+     ok('3.342 Gọn: bấm ▸ → dòng nhỏ dưới hiện từng món (mã món chép được), không mở khách', !d.hidden && d.querySelectorAll('div').length>=2 && !!d.querySelector('.tc-chep') && !!document.querySelector('#tc-ct .tc-the-to'));
+     mo1.click(); await w(100); ok('3.342 Gọn: bấm lại → ẩn', d.hidden); }
+   document.querySelector('#tc-ct [data-lenh="tc.tvKieu"][data-k="du"]').click(); await w(200);
+   ok('3.342 về kiểu Đủ: mỗi món 1 dòng', document.querySelectorAll('#tc-ct .tc-to-tvb tbody tr').length===nDong && !D.cauHinh.tcTim.tvKieu);
+   const ct2 = document.getElementById('tc-ct'), wb = ct2.querySelector('table.tc-to-tvb').getBoundingClientRect().width, wk = ct2.querySelector('.tc-to-tv-ds').clientWidth;
    ok('3.342 bảng thành viên không tràn ngang khung', wb <= wk+1, Math.round(wb)+' / '+wk);
-   const tv1 = ct.querySelector('.tc-to-tv-dong[data-kh]'); if(tv1){ const kh = tv1.getAttribute('data-kh'); tv1.click(); await w(500); ok('bấm 1 thành viên → mở khách đó', document.getElementById('tc-ct').textContent.indexOf(kh)>=0); }
+   const tv1 = document.getElementById('tc-ct').querySelector('.tc-to-tv-dong[data-kh]'); if(tv1){ const kh = tv1.getAttribute('data-kh'); tv1.click(); await w(500); ok('bấm 1 thành viên → mở khách đó', document.getElementById('tc-ct').textContent.indexOf(kh)>=0); }
    await tim('tt', ''); ok('Tổ trưởng, chưa gõ → mọi tổ trong phạm vi', kq().length===Math.min(300, T.length), kq().length+' / '+T.length);
    await tim('', t1.ten); const gy = document.querySelector('#sl-kq .tc-to-goiy');
    ok('Tự nhận: gõ tên tổ trưởng → có nút "🏘 n tổ khớp — xem tổ"', !!gy, gy && gy.textContent);

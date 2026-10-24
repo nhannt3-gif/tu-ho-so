@@ -1982,7 +1982,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.342', ds:[
-  ["Tra cứu › thẻ tổ gọn 3 hàng có tên cột (Tổ · Địa bàn · Số liệu, thêm Lãi tồn, 3 tháng KHĐ, Số dư TK 105); danh sách thành viên thành bảng: STT, mã KH (sắp theo mã), CT, dư nợ, ngày vay, hạn trả tô màu, lãi tồn, TGTK — mỗi món 1 dòng; bấm CT xem mã món vay, bấm TGTK xem số TK 105", "doiNgan(7)"],
+  ["Tra cứu › thẻ tổ gọn 3 hàng có tên cột (Tổ · Địa bàn · Số liệu, thêm Lãi tồn, 3 tháng KHĐ, Số dư TK 105); danh sách thành viên thành bảng: STT, mã KH (sắp theo mã), CT, dư nợ, ngày vay, hạn trả tô màu, lãi tồn, TGTK — chip Đủ (mỗi món 1 dòng) / Gọn (mỗi khách 1 dòng, bấm ▸ xem từng món); bấm CT xem mã món vay, bấm TGTK xem số TK 105", "doiNgan(7)"],
   ["Nền mã: Scan, điều hướng, Hồ sơ, Giao dịch xã đọc số liệu qua cửa KHO (đợt K1) — app chạy y như cũ", "doiNgan(0)"],
   ["Lưu dữ liệu: máy có nhiều hồ sơ (dữ liệu > 1 MB) lưu nhanh hơn — chỉ ghi kho IndexedDB, thôi ghi bản sao localStorage mỗi lần sửa", "hsoKBHop('sl')"],
   ["Nền mã: tách 2 file lớn nhất (giao diện chung 5.416 dòng, hộp thoại 3.117 dòng) thành các file theo khối — app chạy y như cũ, dễ sửa và ít lỗi hơn", "doiNgan(0)"],

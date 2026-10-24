@@ -227,7 +227,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 |---|---|---|---|
 | 1 | Tra cứu › Tìm theo Tổ trưởng › chọn 1 tổ | Đầu thẻ 3 hàng có tên cột, kẻ dọc; số TV / dư nợ như trước | |
 | 2 | Bảng thành viên | Có #, sắp theo mã KH; CT, dư nợ, ngày vay, hạn trả (màu), lãi tồn, TGTK; không phải cuộn ngang | |
-| 3 | Khách vay nhiều món; bấm ô CT / ô TGTK | Mỗi món 1 dòng, họ tên gộp ô; bấm CT hiện mã món vay, bấm TGTK hiện số TK 105 (dòng nhỏ, bấm số để chép, bấm lại để ẩn) | |
+| 3 | Chip Đủ / Gọn; khách vay nhiều món; bấm ô CT / ô TGTK / ▸ | Đủ: mỗi món 1 dòng; Gọn: mỗi khách 1 dòng, bấm ▸ hiện dòng nhỏ từng món; bấm CT hiện mã món vay, TGTK hiện số TK 105; app nhớ kiểu đã chọn | |
 | 4 | Bấm 1 dòng thành viên | Mở khách đó như cũ | |
 
 **Ghi chú kỹ thuật 3.342:** món lấy `TC_K.B.theoKH[kh]` (món còn dư nợ hoặc lãi tồn, như thẻ khách); KHĐ đếm theo `TC_K.B.khd[ku]` của món thành viên. Lớp `.tc-to-tv-dong` giữ trên `<tr>` (t246). `@container` cho năm 2 số khi khung hẹp.

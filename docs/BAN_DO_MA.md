@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.342 · 24/10/2026 16:21 · 92 file · 41737 dòng · 3404 hàm cấp ngoài · 554 biến toàn cục.
+Bản 3.342 · 24/10/2026 16:21 · 92 file · 41743 dòng · 3405 hàm cấp ngoài · 554 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -10,7 +10,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
 | `index.html` | 277 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 3995 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `css/app.css` | 3997 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
 | `js/02-nen.js` | 374 | 26 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
 | `js/03-doc-pdf.js` | 627 | 46 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
@@ -92,7 +92,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/54-tgtv-khai.js` | 154 | 15 | /*   3.315 (anh 22/10 "làm hoàn chỉnh 01TGTV in bằng 2 cách: lấy từ Mẫu 31 hoặc in nhanh tự khai, khai nhanh t |
 | `js/56-ktgs-bo.js` | 110 | 20 | /*   3.327 — KTGS bước 1 (docs/KE_HOACH_KTGS_GON.md mục 2.4, 3): 2 BỘ KHAI BÁO CỐ ĐỊNH (anh chốt 23/10)   ① Hộ |
 | `js/57-cay.js` | 34 | 0 | /*   3.328 (anh chốt 23/10): CÂY ĐỊA BÀN NHÚNG — 1 chỗ lấy danh sách Xã › Điểm GD › Ấp › Hội › Tổ và vẽ ô chọn |
-| `js/58-tc-to.js` | 148 | 17 | /*   3.333 (anh chốt 23–24/10): TRA CỨU KH — KHỐI TỔ + BẢNG TỔ CỦA ĐIỂM GD (kết nạp) - Khi duyệt hồ sơ: tra kh |
+| `js/58-tc-to.js` | 152 | 18 | /*   3.333 (anh chốt 23–24/10): TRA CỨU KH — KHỐI TỔ + BẢNG TỔ CỦA ĐIỂM GD (kết nạp) - Khi duyệt hồ sơ: tra kh |
 | `js/59-suc-khoe.js` | 34 | 7 | /*   3.338 (RA_SOAT_BO_CUC_2410 mục 8 việc 2 — anh 24/10 "cứ theo KH làm"): 🩺 SỨC KHỎE SAO LƯU Thẻ ở ⚙ Khai bá |
 | `js/mau/10c.js` | 106 | 0 | /*   3.223 M6 — MẪU 10C/TD MỚI (QĐ 70, từ 01/10/2026) Biên bản họp kết nạp, cho ra khỏi Tổ — trên nền ô, dựng  |
 | `js/mau/10ccu.js` | 84 | 0 | /*   3.223 M6 — MẪU 10C/TD CŨ (vào tổ đến 30/09/2026) Biên bản họp kết nạp bổ sung, cho ra khỏi Tổ — trên nền  |
@@ -416,7 +416,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `sl` Số liệu (nạp, kho kỳ, ma trận) | 221 | `22-so-lieu.js` 111, `22f-tra-cuu.js` 77, `22i-tong-hop.js` 18 | slLoai, slChuan, slLaNgay, slLaHS |
 | `to` Tổ TK&VV | 117 | `22g-to.js` 85, `22h-cap-hoi-sao-ke.js` 27, `04-giao-dien.js` 2 | toSang, toNutSL, toTruongScan, toStkChu |
 | `tdn` Theo dõi nợ | 92 | `04e-theo-doi-no.js` 92 | tdnChuan, tdnSo, tdnNgay, tdnTien |
-| `tc` Tra cứu KH | 55 | `22f-tra-cuu.js` 29, `58-tc-to.js` 17, `49-ten-chuan.js` 5 | tcChep, tcC, tcDiaChi, tcSdtDat |
+| `tc` Tra cứu KH | 56 | `22f-tra-cuu.js` 29, `58-tc-to.js` 18, `49-ten-chuan.js` 5 | tcChep, tcC, tcDiaChi, tcSdtDat |
 | `sk` Sao kê | 48 | `22h-cap-hoi-sao-ke.js` 41, `59-suc-khoe.js` 7 | skChon, skKhoCua, skChonBC, skDoiKho |
 | `hs` Hồ sơ CCCD / hộ | 37 | `04b-hom-nay.js` 37 | hsDoc, hsNgay, hsCuoiThang, hsEdate |
 | `lc` Lịch | 35 | `04b-hom-nay.js` 35 | lcISO, lcNgay, lcDM, lcDMY |
