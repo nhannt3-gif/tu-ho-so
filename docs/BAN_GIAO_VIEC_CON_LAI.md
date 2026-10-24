@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.366) — iPhone, bản máy tính
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu › Sao kê › 👁 Xem | Thanh nút 1 hàng, vuốt ngang thấy đủ nút | |
+| 2 | Chụm / mở 2 ngón trên trang | Trang phóng to / thu nhỏ, ô % đổi theo, thanh nút không phóng | |
+| 3 | ‹ › / ô số trang / In / PDF | Chạy như cũ | |
+
+**Ghi chú kỹ thuật 3.366:** `trDan` gắn `touchstart` (passive) / `touchmove` (không passive, `preventDefault` khi 2 ngón) / `touchend` trên document của khung xem → `zm = z0 × khoảng cách / khoảng cách đầu`, `vua=''`, gọi `thu()` (kẹp 20–400%). CSS `@media (max-width:600px)` trong chuỗi CSS khung xem.
+
 ### Danh sách thử trên máy thật (3.365)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
