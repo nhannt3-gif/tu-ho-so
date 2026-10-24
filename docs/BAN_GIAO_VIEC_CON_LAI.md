@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.345) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › thẻ tổ › bảng thành viên | Cột Họ tên gọn, các cột khác rộng ra | |
+| 2 | Tổ có khách dư nợ 0 | Dòng ghi rõ "vẫn trong tổ" / "cần cho ra khỏi tổ"; người bù có "(TƯ còn giữ — Mẫu 01/TV)" | |
+
+**Ghi chú kỹ thuật 3.345 — VIỆC CHỜ (anh chốt 24/10):** quy tắc bù Mẫu 01/TV trong `tvChuan` (js/28) **giữ nguyên** tới khi có số liệu cuối T10. Khi anh nạp Mẫu 31 + Mẫu 01/TV cuối T10: so T10 với T9 (người ra / vào tổ, người TƯ giữ mà Mẫu 31 không có) → tìm nguyên tắc chuẩn, báo anh duyệt rồi mới sửa. Đã thấy: kỳ ngày đang bù theo 01/TV tháng trước (anh: "kiểu bù này chỉ tính cho cuối tháng"); Tra cứu dùng kỳ chốt tháng mới nhất, thẻ khách dùng Mẫu 31 mới nhất (có thể là ngày) — đề xuất thống nhất 1 kỳ, chờ anh.
+
 ### Danh sách thử trên máy thật (3.344) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
