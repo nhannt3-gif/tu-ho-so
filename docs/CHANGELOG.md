@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.366 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ5 xem trước bản in
+- Khung xem trước (`trDan`, `js/05`): **chụm 2 ngón trên trang in → đổi mức phóng của trang** (41% → 122%… nối với ô % và nút − +), chặn iOS phóng cả màn hình (trước chụm thì thanh nút cũng phóng theo, khó bấm). Màn ≤ 600 px: thanh công cụ 1 hàng vuốt ngang (trước 3 hàng), nút cao 34 px, ẩn ⏮ ⏭ (còn ‹ › + ô số trang). Máy tính không đổi.
+- **Phép thử**: mới t308 (điện thoại + máy tính 1440 thanh như cũ).
+
 ## 3.365 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ4 Số liệu + sửa lỗi tiêu đề lệch cột
 - **Sửa lỗi (cả máy tính):** bảng tab Tổ TK&VV cuộn ngang → ô tiêu đề góc "Xã / Điểm GD" (cột tên đứng yên) cùng `z-index` với các ô tiêu đề khác nên bị ô sau đè: tiêu đề "Số tổ, Tổ viên…" hiện chồng lên cột tên, lệch cột số. `css/app.css`: `.to-cuon-khung thead th:first-child{z-index:3}` (1 dòng).
 - `css/dt-may.css` (chỉ ≤ 600 px): bảng giữ đủ cột như máy tính, vuốt ngang trong khung (có sẵn), cột tên đứng yên 205 → 140 px (≈ 36% bề ngang, tên dài xuống dòng) → thấy thêm 1–2 cột số; vuốt ngang không kéo cả trang (`overscroll-behavior-x`). Chụm 2 ngón phóng to / thu nhỏ: iOS sẵn có (viewport không khóa).

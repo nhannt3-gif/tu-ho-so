@@ -48,6 +48,7 @@
 | 25/10 | TK 2 | 3.363 | **mới** `js/67-nhat-ky-loi.js` (nhật ký lỗi, chip ⚠ ở chân trang `.day`), `index.html`, `js/02`, `js/06` (CO_GI_MOI), **mới** `tests/t305.js` | t305, nhóm khung |
 | 25/10 | TK 2 | 3.364 | `css/dt-may.css` (Đ3 Hôm nay), `index.html`, **mới** `tests/t306.js` | t303, t304, t306, nhóm khung |
 | 25/10 | TK 2 | 3.365 | `css/app.css` (1 dòng: z-index ô góc `.to-cuon-khung`), `css/dt-may.css` (Đ4), `index.html`, **mới** `tests/t307.js` | t303–t307, hồi quy đủ |
+| 25/10 | TK 2 | 3.366 | `js/05-them-file.js` (`trDan` khung xem: chụm 2 ngón, CSS ≤ 600 px), `index.html`, **mới** `tests/t308.js` | t308, hồi quy đủ |
 | 24/10 | TK 2 | 3.341 | K1 KHO: `js/12`, `21`, `23`, `25`, `26`, `29` (soBang, dsKyHS), `41`; `tests/kiem.py` (đếm đọc thẳng kho), `tests/do_moc.json` (kho_thang 221) | t127, t151, t165, t170, t172, t179, t207, t209, t210, t241, hoiquy, hoiquy2 |
 | 24/10 | TK 2 | 3.339 | tách `js/04-giao-dien.js` → 04 + 04b–04e, `js/06-hop-thoai.js` → 06 + 06b–06c (nguyên văn; `CO_GI_MOI` vẫn ở 06 cho bump.py), `index.html`, `tests/hssv_exe.js`, `tests/chuan_lay.js` (hôm nay cố định 17/10 — t179) | hồi quy đủ 2 luồng (`hoiquy.sh 3339 … tat 2`): chỉ t192, t151 cũ |
 | 24/10 | TK 2 | 3.338 | `js/59-suc-khoe.js` mới, `js/32-kho-luu.js` (1 dòng gọi), `css/app.css`, `index.html`, `tests/t248.js` mới | t248, t231, t138, t178, t182, t185, t193, t206, t93, t247, t260, hoiquy, hoiquy2 |
