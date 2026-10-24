@@ -3975,3 +3975,23 @@ table.kh-mon.tc-mon td{vertical-align:top;padding-top:3px;padding-bottom:3px}
 .sk-dong{display:grid;grid-template-columns:minmax(0,300px) auto minmax(0,1fr);gap:4px 10px;align-items:center;font-size:calc(12.5px*var(--co));padding:2px 0;border-bottom:1px dashed var(--vien)}
 .sk-dong small{color:var(--chu-phu)}
 @media(max-width:699px){ .sk-dong{grid-template-columns:1fr auto} .sk-dong small{grid-column:1 / -1} }
+/* 3.342 thẻ tổ: đầu thẻ 3 hàng có tên cột + kẻ dọc, bảng thành viên đủ cột (sắp theo mã KH) */
+table.tc-to-hang{width:100%;border-collapse:collapse;margin:0 0 4px;table-layout:auto;font-size:calc(12.5px*var(--co))}
+table.tc-to-hang th,table.tc-to-hang td{border:1px solid var(--vien);padding:2px 5px;text-align:left;white-space:nowrap;min-width:0}
+table.tc-to-hang td:first-child{min-width:0}
+table.tc-to-hang th{white-space:normal;font-weight:400;font-size:calc(10.5px*var(--co));color:var(--chu-phu);background:var(--nen)}
+table.tc-to-hang td{font-variant-numeric:tabular-nums}table.tc-to-hang td.rong{white-space:normal;width:30%}table.tc-to-hang td.do b{color:var(--do)}
+table.tc-to-hang .tc-ten.to{font-size:calc(14px*var(--co))}
+.tc-the-to .tc-ghi{margin:0 0 6px}
+table.tc-to-tvb{width:100%;border-collapse:collapse;font-size:calc(11px*var(--co))}
+table.tc-to-tvb th{position:sticky;top:0;z-index:1;background:var(--nen);font-weight:600;color:var(--chu-phu);text-align:left}
+table.tc-to-tvb th,table.tc-to-tvb td{border:1px solid var(--vien);padding:2px 3px;white-space:nowrap;min-width:0;text-align:left}
+table.tc-to-tvb td:first-child{min-width:0;width:1%;color:var(--chu-phu)}
+table.tc-to-tvb td.ten{white-space:normal;width:99%;min-width:72px}
+.tc-the-to .tc-to-tv-ds{container-type:inline-size}@container (max-width:660px){ table.tc-to-tvb .nam4{display:none} }table.tc-to-tvb td.so{text-align:right;font-variant-numeric:tabular-nums}
+table.tc-to-tvb tr{cursor:pointer}table.tc-to-tvb tr.tc-to-tv-dong{display:table-row;font-size:inherit;padding:0}table.tc-to-tvb tbody tr:hover{background:var(--xanh-nhat)}table.tc-to-tvb td[rowspan]{vertical-align:top}table.tc-to-tvb td[data-lenh="tc.hien"]{text-decoration:underline dotted;text-underline-offset:2px}
+table.tc-to-tvb tr.tat td{color:var(--chu-phu)}table.tc-to-tvb .cam{color:var(--cam)}table.tc-to-tvb small{color:var(--chu-phu)}
+table.tc-to-tvb .tc-han{padding:0 2px;font-weight:600}table.tc-to-tvb .tc-han small{font-size:calc(9px*var(--co))}table.tc-to-tvb sup{color:var(--chu-phu);font-size:calc(9px*var(--co))}
+table.tc-to-tvb tr.tc-to-ct-mo td{background:var(--xanh-nhat);white-space:normal;cursor:default}
+.tc-to-tv-kieu{display:flex;gap:6px;align-items:center;font-size:calc(11.5px*var(--co));color:var(--chu-phu);margin:0 0 4px}
+table.tc-to-tvb .tc-to-mo{color:var(--xanh);font-size:calc(10px*var(--co));white-space:nowrap;cursor:pointer}table.tc-to-tvb tr.tc-to-mon-gon td div{padding:1px 0}

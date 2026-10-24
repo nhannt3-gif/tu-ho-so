@@ -80,7 +80,8 @@ function tcDangKy(){ if(tcDangKy.xong || typeof GD==='undefined') return; tcDang
   GD.dangKy('tc', {theo:function(el){ tcTim().theo = el.getAttribute('data-k') || ''; luu(); [].forEach.call(document.querySelectorAll('.tc-theo .gd-chip'), function(b){ b.classList.toggle('bat', b.getAttribute('data-k')===tcTim().theo); });
       var i = document.getElementById('sl-tim'); if(i){ i.placeholder = tcTheoPH(); i.focus(); } TC_SL = 50; slTraTim(); },
     kieu:function(){ tcTim().kieu = tcKieuBang() ? 'the' : 'bang'; luu(); slTraTim(); },
-    to:function(el){ tcChonDong(el); tcTheTo(el.getAttribute('data-to')); }, kh:function(el){ slTheKH(el.getAttribute('data-kh')); },   /* 3.336: tìm tổ trưởng (js/58) */
+    to:function(el){ tcChonDong(el); tcTheTo(el.getAttribute('data-to')); }, kh:function(el){ slTheKH(el.getAttribute('data-kh')); },
+    hien:function(el){ tcToHien(el); }, moMon:function(el){ tcToMoMon(el); }, tvKieu:function(el){ tcTim().tvKieu = el.getAttribute('data-k')==='gon' ? 'gon' : ''; luu(); tcTheTo(el.getAttribute('data-to')); },   /* 3.342: thẻ tổ — bấm CT → mã món vay, bấm TGTK → số TK 105 (dòng nhỏ dưới khách, bấm lại = ẩn) */
     moTo:function(el){ tcMoTo(el.getAttribute('data-to')); }, bangDiem:function(el){ tcBangDiem(el.getAttribute('data-diem'), el.getAttribute('data-to')); },
     ketNap:function(el){ TC_BANG = {diem:'', chon:el.getAttribute('data-to'), ket:null}; tcKetNap(); }, dong:function(){ dongHop(); }}); }
 function tcCoKH(ma){ return !!(ma && SL_DB && SL_DB.kh[ma]); }
@@ -211,13 +212,14 @@ function tcKTVe(){   /* màn rộng: trái chỉ dòng kết luận, chi tiết 
 
 /* ---------- thẻ chi tiết (phải / hộp trên điện thoại) ---------- */
 /* 3.337 (anh 24/10): ngày đến hạn món vay tô màu — hạn hiệu lực = hạn gia hạn (có) / hạn hợp đồng; so hôm nay: quá hạn đỏ · ≤ 30 ngày cam · ≤ 90 ngày vàng */
-function tcHanMon(m, xong){
+function tcHanMon(m, xong, gon){   /* gon: bỏ dòng "còn N ngày" (đưa vào title) — bảng thành viên tổ 3.342 */
   var d = m.dhgh || m.dhg; if(!d) return '';
   var x = String(d).match(/^(\d{4})-(\d{2})-(\d{2})/); if(!x) return coChuHTML(ngayVNsl(d));
   var hn = nay(), con = Math.round((new Date(+x[1], +x[2]-1, +x[3]) - new Date(hn.getFullYear(), hn.getMonth(), hn.getDate()))/864e5);
   var muc = xong ? '' : con<0 ? 'do' : con<=30 ? 'cam' : con<=90 ? 'vang' : '';
-  return '<span class="tc-han'+(muc ? ' tc-han-'+muc : '')+'" title="'+(m.dhgh ? 'Hạn gia hạn (hạn hợp đồng '+ngayVNsl(m.dhg)+')' : 'Hạn theo hợp đồng')+'">'+ngayVNsl(d)+(m.dhgh ? ' <small>GH</small>' : '')+'</span>'+
-    (xong ? '' : '<small class="tc-han-con">'+(con<0 ? 'quá '+(-con)+' ngày' : con===0 ? 'hôm nay' : 'còn '+con+' ngày')+'</small>');
+  var conChu = con<0 ? 'quá '+(-con)+' ngày' : con===0 ? 'hôm nay' : 'còn '+con+' ngày';
+  return '<span class="tc-han'+(muc ? ' tc-han-'+muc : '')+'" title="'+(m.dhgh ? 'Hạn gia hạn (hạn hợp đồng '+ngayVNsl(m.dhg)+')' : 'Hạn theo hợp đồng')+(gon && !xong ? ' · '+conChu : '')+'">'+ngayVNsl(d)+(m.dhgh ? ' <small>GH</small>' : '')+'</span>'+
+    (xong || gon ? '' : '<small class="tc-han-con">'+(con<0 ? 'quá '+(-con)+' ngày' : con===0 ? 'hôm nay' : 'còn '+con+' ngày')+'</small>');
 }
 function slTheKH(ma){
   var c = SL_DB && SL_DB.kh[ma]; if(!c) return bao('Không thấy khách hàng này trong số liệu.', 3);

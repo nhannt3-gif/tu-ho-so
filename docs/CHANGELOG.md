@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.344 — 24/10/2026 — Thẻ tổ ở Tra cứu: đầu thẻ 3 hàng + bảng thành viên đủ cột (anh 24/10)
+- **Anh**: "cột danh sách thành viên thêm STT, mã KH và sắp theo mã KH, dư nợ, ngày vay, hạn trả, lãi tồn, số TK 105" + "các thông tin trên gom lại 3 dòng… có tên cột, có khung dọc" + "cân đối vừa cột, còn chỗ thì thêm thông tin".
+- **Đầu thẻ** (`tcTheTo`, `js/58-tc-to.js`): 3 bảng nhỏ có tên cột + kẻ dọc — ① Tổ (tổ trưởng) · Mã tổ · Mã KH tổ trưởng · SĐT · CCCD; ② Ấp · Xã · Điểm GD · Ngày GD · Hội quản lý; ③ Thành viên · Có dư nợ · Không dư nợ · Tổng dư nợ · Quá hạn · **Lãi tồn · 3 tháng KHĐ (số món, theo `B.khd`) · Số dư TK 105** (thêm cho đủ khung). Dòng lưu ý (còn lãi tồn / cần cho ra) + nguồn số liệu thành chữ nhỏ dưới hàng ③. Ô chép (mã tổ, mã KH, SĐT, CCCD) giữ.
+- **Bảng thành viên**: # · Họ tên · Mã KH (**sắp theo mã KH**, bỏ "có dư nợ lên trước") · **CT** (viết tắt `ctNgan`) · Dư nợ · Ngày vay · Hạn trả (màu đỏ / cam / vàng như thẻ khách, `tcHanMon(m, xong, gon)` — "còn N ngày" đưa vào chú thích) · Lãi tồn · **TGTK** (số dư TK 105). **2 kiểu xem (chip Đủ | Gọn, nhớ ở `D.cauHinh.tcTim.tvKieu`)**: **Đủ** — khách nhiều món mỗi món 1 dòng, #, họ tên, mã KH, TGTK gộp ô (rowspan); **Gọn** — mỗi khách 1 dòng (dư nợ / lãi tồn tổng, ngày vay · hạn theo món đến hạn sớm nhất), khách nhiều món có "▸n món": bấm → dòng nhỏ dưới liệt kê từng món (CT · mã món chép được · dư nợ · vay · hạn · lãi tồn), bấm lại = ẩn. **Bấm ô CT → dòng nhỏ hiện mã món vay; bấm ô TGTK → số TK 105** (bấm số để chép, bấm lại ô để ẩn — `tcToHien`, không làm rộng cột). Bấm chỗ khác trên dòng mở khách như cũ. Tiêu đề bảng đứng yên khi cuộn; khung hẹp (≤ 660px) năm hiện 2 số để không tràn ngang.
+- **Phép thử**: t246 thêm 11 ý (3 hàng, cột bảng + sắp theo mã, hạn trả, mỗi món 1 dòng, bấm CT, Đủ / Gọn, ▸, không tràn — kiểm ở 1600 và 1366); hồi quy đủ 2 luồng.
+- **Số bản**: TK 3 đã dùng 3.342 / 3.343 (bản điện thoại) → bản này 3.344.
+
 ## 3.343 — 24/10/2026 — Bản điện thoại 2, bước Đ1: Khách theo Tra cứu KH máy tính (TK 3)
 - **Anh 24/10**: "tra cứu KH của TK 2 đang làm rất ổn rồi, em dựa vào đó làm bản cho điện thoại".
 - **Tìm theo** (như 3.335 máy tính, nhớ lựa chọn): Tự nhận · Tên KH · Vợ/chồng · CCCD · Mã KH · SĐT · **Khế ước** · **Tổ trưởng** (tên, mã tổ, SĐT, mã KH tổ trưởng; trống = mọi tổ). Tự nhận: số không khớp tên → tìm khế ước; chữ khớp tổ trưởng → nút "🏘 n tổ khớp — xem tổ".
