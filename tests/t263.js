@@ -21,7 +21,7 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  const d = await ctx.newPage(); d.on('pageerror', e=>loi.push(e.message)); await d.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(d);
  const w = t=>d.waitForTimeout(t);
  await d.goto('file://'+G+'/dt.html'); await w(2500); await d.evaluate(()=>{ try{ DTG.app().dialog.close(); }catch(e){} });
- await d.evaluate(g=>DT.napGoi(g), g); await w(800);
+ await d.evaluate(g=>DT.napGoi(g), g); await w(800); await d.evaluate(()=>DTG.app().views.main.router.navigate('/tra/', {reloadAll:true})); await w(600);   /* 3.354: trang đầu = Hôm nay */
  const chip = () => d.$$eval('.page-current .dt-chip', x=>x.map(e=>e.textContent+(e.classList.contains('bat') ? '*' : '')));
  ok('8 chip Tìm theo, mặc định Tự nhận', (await chip()).join('|')==='Tự nhận*|Tên KH|Vợ/chồng|CCCD|Mã KH|SĐT|Khế ước|Tổ trưởng', (await chip()).join('|'));
  const go = async (t, v)=>{ if(t) await d.click('.page-current .dt-chip[data-t="'+t+'"]'); await w(300); await d.fill('#dt-tim', v); await w(500); return d.$$eval('#dt-kq li', x=>x.map(e=>e.textContent.replace(/\s+/g, ' ').trim())); };
@@ -34,7 +34,7 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  ok('Tìm theo CCCD (6 số cuối) → đúng khách', r.some(x=>x.indexOf(kten[1])>=0), r.length+' dòng');
  r = await go('ku', String(kx[10][0][1]).slice(-5));
  ok('Tìm theo Khế ước (5 số cuối) → khách có món đó', r.some(x=>x.indexOf(kx[1])>=0), r.length+' dòng');
- await d.reload(); await w(2500); await d.evaluate(g=>{ try{ DTG.app().dialog.close(); }catch(e){} return DT.napGoi(g); }, g); await w(600);
+ await d.reload(); await w(2500); await d.evaluate(g=>{ try{ DTG.app().dialog.close(); }catch(e){} return DT.napGoi(g); }, g); await w(600); await d.evaluate(()=>DTG.app().views.main.router.navigate('/tra/', {reloadAll:true})); await w(600);
  ok('nhớ lựa chọn Tìm theo sau khi mở lại (Khế ước)', (await chip()).indexOf('Khế ước*')>=0, (await chip()).join('|'));
  /* thẻ khách */
  r = await go('ma', kx[0]); await d.click('#dt-kq li a'); await w(900);
@@ -49,7 +49,7 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  ok('thẻ tổ: 5 ô số (Thành viên = số khách của tổ, Có / Không dư nợ, Tổng dư nợ, Quá hạn) + tổ trưởng, mã KH TT', (await d.$$('.page-current .dt-oso>div')).length===5 && new RegExp(nTV+'\\s*Thành viên').test(tto) && /Mã KH TT|Tổ trưởng/.test(tto), nTV+' TV');
  ok('thẻ tổ: danh sách thành viên bấm mở khách', (await d.$$('.page-current a[href^="/kh/"]')).length===nTV);
  /* tìm tổ trưởng */
- await d.evaluate(()=>DTG.app().views.main.router.navigate('/', {reloadAll:true})); await w(700);
+ await d.evaluate(()=>DTG.app().views.main.router.navigate('/tra/', {reloadAll:true})); await w(700);
  r = await go('tt', String(tg.tt || tg.ten).split(' ').pop().toLowerCase());
  ok('Tìm theo Tổ trưởng → danh sách tổ (tên TT · mã tổ · số TV)', r.some(x=>x.indexOf(tg.tt || tg.ten)>=0 && /TV/.test(x)), r[0]);
  r = await go('tt', kx[7]); ok('Tổ trưởng theo mã tổ (số) → đúng tổ', r.length>=1 && r[0].indexOf(kx[7])>=0, r[0]);

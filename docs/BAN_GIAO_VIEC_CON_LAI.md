@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.354) — iPhone, anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app (Safari / biểu tượng màn hình chính) | Vào thẳng Hôm nay, không hiện lỗi; thanh dưới 5 nút có biểu tượng rõ | |
+| 2 | Khách › Tải số liệu từ Drive → đăng nhập Google **đúng tài khoản máy tính** | Có số liệu; nếu lỗi thì chụp màn hình dòng báo gửi em | |
+| 3 | Hôm nay › ＋ Thêm việc → ⟳ trên cùng → máy tính mở tab Hôm nay | Việc hiện ở lịch máy tính (máy tính tự tải lịch khi mở / nối Drive) | |
+| 4 | Máy tính thêm việc → điện thoại ⟳ | Việc hiện ở điện thoại | |
+| 5 | Ghi chú: gõ dòng, Enter; tick; ✕ | Đúng như sổ gạch dòng máy tính | |
+
+**Ghi chú kỹ thuật 3.354:** `js/dt/dt-lich.js` mới (`DTL`: âm lịch chép nguyên văn js/04b, `co / xong / doiXong / viecNgay / dongNgay / mauNgay / xoaViec / xoaNote / gop / goiDay`). `dt-nen.js`: `lichNap / lichDoi / lichDongBo` (IndexedDB `lich` mã hóa, `CH.lichCho / lichLuc`, `ghiJSON` multipart), lỗi `dangNhap` theo `error_callback.type`, `taiGoi` báo thư mục thiếu. `dt-giao-dien.js`: `IC` (SVG), `trHom / veHom / veThang / oNgay / trViec / ganHom / ganViec`, `danhTab` (app `pageInit` + `pageBeforeIn`), route `/` = Hôm nay, `/tra/` = Khách, `/viec/:id/`; `moApp` bỏ `dongBo(true)`; `tongQuan / rongSL`. `dt.html` thanh `tabbar-icons` 5 nút SVG; `dt-sw.js` + `dt-lich.js`.
+
 ### Danh sách thử trên máy thật (3.353) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -27,12 +27,12 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  ok('lần đầu: màn đặt PIN', /đặt mã PIN/i.test(await d.textContent('#khoa')));
  await phim('1357'); await d.click('#khoa [data-k="ok"]'); await phim('1357'); await d.click('#khoa [data-k="ok"]'); await w(1500);
  ok('đặt PIN 2 lần khớp → vào app (Framework7, kiểu iOS)', await d.evaluate(()=>getComputedStyle(document.getElementById('khoa')).display==='none' && !!DTG.app() && document.documentElement.classList.contains('ios')));
- ok('chưa có số liệu → báo cần lấy từ Drive', await d.evaluate(()=>!!document.querySelector('.dialog.modal-in'))); await d.evaluate(g=>{ DTG.app().dialog.close(); return DT.napGoi(g); }, M.g); await w(500);
+ ok('chưa có số liệu → trang đầu ghi "chưa có số liệu", không tự bật đăng nhập Google (3.354: iPhone chặn — dùng nút Tải)', /chưa có số liệu/.test(await d.textContent('.page-current')) && !(await d.$('.dialog.modal-in'))); await d.evaluate(g=>{ DTG.app().dialog.close(); return DT.napGoi(g); }, M.g); await w(500);
  const ma = await d.evaluate(async()=>{ const x = await new Promise(ok=>{ const r = indexedDB.open('tuhoso_dt'); r.onsuccess = e=>{ const q = e.target.result.transaction('k').objectStore('k').get('goi'); q.onsuccess = ()=>ok(q.result); }; }); return {co:!!x, chu:new TextDecoder().decode(x.c).indexOf(DT.goi().kh[0][1])>=0}; });
  ok('số liệu cất trong máy dạng mã hóa (không đọc được tên khách)', ma.co && !ma.chu);
  /* 3. tra cứu */
  const ten = M.g.kh.find(k=>k[10].some(m=>m[4]>0))[1];
- await d.evaluate(()=>DTG.app().views.main.router.navigate('/', {reloadAll:true})); await w(600);
+ await d.evaluate(()=>DTG.app().views.main.router.navigate('/tra/', {reloadAll:true})); await w(600);
  await d.fill('#dt-tim', ten.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase()); await w(500);
  const kq = await d.$$eval('#dt-kq li', x=>x.map(e=>e.textContent));
  ok('🔎 tìm tên không dấu → danh sách khách (năm sinh · ấp · tổ · dư nợ)', kq.length>=1 && kq.some(t=>t.indexOf(ten)>=0), kq.length+' dòng');

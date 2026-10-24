@@ -8,6 +8,9 @@ var DTG = (function(){
   function dg(v){ return (v||0).toLocaleString('vi-VN')+' đ'; }
   function ng(s){ s = String(s||''); return /^\d{4}-\d{2}-\d{2}/.test(s) ? s.slice(8, 10)+'/'+s.slice(5, 7)+'/'+s.slice(0, 4) : s; }
   function pt(a, b){ return b ? (a*100/b).toLocaleString('vi-VN', {maximumFractionDigits:2})+'%' : '0%'; }
+  function sv(d, lop){ return '<svg class="dt-svg'+(lop ? ' '+lop : '')+'" viewBox="0 0 24 24" aria-hidden="true">'+d+'</svg>'; }   /* 3.354: biểu tượng vẽ (như máy tính), thay emoji */
+  var IC = {may:sv('<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>'), ghim:sv('<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>'),
+    dongbo:sv('<path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4"/>'), khach:sv('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/>', 'dt-svg-lon')};
   /* ---------- màn khóa / đặt PIN ---------- */
   var PIN = {nhap:'', buoc:'mo', dau:''};
   function veKhoa(chu, loi){
@@ -41,20 +44,24 @@ var DTG = (function(){
     el('khoa').style.display = 'none'; el('app').style.visibility = '';
     if(!app){ app = new Framework7({el:'#app', theme:'ios', name:'Tủ hồ sơ', colors:{primary:'#1a5fb4'}, routes:TUYEN, darkMode:'auto',
         view:{browserHistory:location.protocol!=='file:', browserHistorySeparator:'#!', iosSwipeBack:true}});
+      app.on('pageBeforeIn', danhTab); app.on('pageInit', danhTab);
       app.views.create('.view-main', {url:'/'}); }
     else app.views.main.router.navigate('/', {reloadAll:true, ignoreCache:true});
-    if(!DT.goi()) dongBo(true);
+    DT.lichNap().then(function(){ var o = el('dt-hom'); if(o) o.innerHTML = veHom(); });   /* 3.354: không tự gọi đăng nhập Google lúc mở (iPhone chặn cửa sổ không do bấm) — nút "Tải số liệu" */
   }
-  function dongBo(dau){
+  var TAB = {hom:'hom', viec:'hom', tra:'tra', kh:'tra', to:'tra', db:'tra', vanban:'vb', scan:'sc', scmoi:'sc', cd:'cd', gdx:'cd'};
+  function danhTab(page){ var t = TAB[page.name], x = page.name==='xem' && page.el && page.el.querySelector('#dt-xem'); if(x) t = x.getAttribute('data-l')==='scan' ? 'sc' : 'vb';
+    [].forEach.call(document.querySelectorAll('.dt-tab .tab-link'), function(a){ a.classList.toggle('tab-link-active', a.getAttribute('data-tab')===t); }); }
+  function dongBo(){
     if(!app) return;
     var t = app.toast.create({destroyOnClose:true, text:'Đang lấy số liệu từ Drive…', position:'center'}); t.open();
     return DT.taiGoi().then(function(kq){ t.close(); app.toast.create({destroyOnClose:true, text:kq.moi ? 'Đã cập nhật số liệu '+kyChu() : 'Số liệu đã mới nhất', closeTimeout:2000}).open(); app.views.main.router.refreshPage(); },
-      function(er){ t.close(); app.dialog.alert(e(er.message), dau ? 'Chưa có số liệu' : 'Chưa cập nhật được'); });
+      function(er){ t.close(); app.dialog.alert(e(er.message), 'Chưa lấy được số liệu'); });
   }
   function kyChu(){ var g = DT.goi(); return g ? 'Mẫu 31 '+ng(g.ngay || g.ky) : 'chưa có số liệu'; }
   function trang(ten, noi, lui){ return '<div class="page" data-name="'+ten+'"><div class="navbar"><div class="navbar-bg"></div><div class="navbar-inner sliding">'+
     (lui ? '<div class="left"><a href="#" class="link back"><i class="icon icon-back"></i><span class="if-not-md">Lùi</span></a></div>' : '')+
-    '<div class="title">'+noi.tieu+'</div><div class="right">'+(noi.phai || '')+'<a href="#" class="link dt-may" title="Mở bản web (máy tính)">🖥</a></div>'+'</div></div><div class="page-content">'+noi.than+'</div></div>'; }
+    '<div class="title">'+noi.tieu+'</div><div class="right">'+(noi.phai || '')+'<a href="#" class="link dt-may" title="Mở bản web (máy tính)">'+IC.may+'</a></div>'+'</div></div><div class="page-content">'+noi.than+'</div></div>'; }
   function the(s, ds){ var g = DT.goi(); return '<div class="dt-the"><div class="dt-dn">'+tr(s.dn)+'</div><div class="dt-so">'+
     [[s.ho, 'hộ'], [s.to, 'tổ'], [s.mon, 'món']].map(function(x){ return '<span><b>'+x[0].toLocaleString('vi-VN')+'</b> '+x[1]+'</span>'; }).join('')+'</div>'+
     '<div class="dt-qh"><span class="'+(s.qh ? 'do' : '')+'">Quá hạn <b>'+tr(s.qh)+'</b> ('+pt(s.qh, s.dn)+')</span><span>Khoanh <b>'+tr(s.kn)+'</b></span></div>'+
@@ -68,10 +75,13 @@ var DTG = (function(){
   var VUA_XEM = [];   /* khách vừa xem trong lần mở app (chỉ trong bộ nhớ) */
   function theo(){ var t = DT.ch.timTheo; return TIM_THEO.some(function(x){ return x[0]===t; }) ? t : 'tu'; }
   function trTra(){ var g = DT.goi(), t = theo();
-    return trang('tra', {tieu:'Khách', phai:'<a href="/db/-/-/-/-/" class="link" title="Lọc theo địa bàn">📍</a><a href="#" class="link dt-dongbo">⟳</a>', than:
+    return trang('tra', {tieu:'Khách', phai:'<a href="/db/-/-/-/-/" class="link" title="Lọc theo địa bàn">'+IC.ghim+'</a><a href="#" class="link dt-dongbo" title="Lấy số liệu mới từ Drive">'+IC.dongbo+'</a>', than:
       '<div class="dt-tim"><input type="search" id="dt-tim" placeholder="'+e(t==='tt' ? 'Tên tổ trưởng, mã tổ, SĐT' : t==='tu' ? 'Tên (không dấu được), CCCD, mã KH, SĐT, khế ước' : 'Gõ '+TIM_THEO.filter(function(x){ return x[0]===t; })[0][1])+'" autocomplete="off"></div>'+
       '<div class="dt-theo">'+TIM_THEO.map(function(x){ return '<a href="#" class="dt-chip'+(x[0]===t ? ' bat' : '')+'" data-t="'+x[0]+'">'+x[1]+'</a>'; }).join('')+'</div>'+
-      '<div class="dt-ghi dt-ky">'+e(kyChu())+(g ? ' · '+g.kh.length.toLocaleString('vi-VN')+' khách · '+Object.keys(g.to).length+' tổ' : '')+'</div><div id="dt-kq">'+(g ? vuaXemHTML() : trong('Chưa có số liệu — bấm ⟳ để lấy từ Drive.'))+'</div>'}); }
+      '<div class="dt-ghi dt-ky">'+e(kyChu())+(g ? ' · '+g.kh.length.toLocaleString('vi-VN')+' khách · '+Object.keys(g.to).length+' tổ' : '')+'</div><div id="dt-kq">'+(g ? vuaXemHTML()+tongQuan() : rongSL())+'</div>'}); }
+  function tongQuan(){ return '<div class="block-title">Tổng quan PGD</div>'+the(DT.tong(DT.dsTo({})))+'<div class="block"><a href="/db/-/-/-/-/" class="button button-outline">'+IC.ghim+' Xem theo địa bàn (Xã › Điểm › Hội › Tổ)</a></div>'; }   /* 3.354 */
+  function rongSL(){ return '<div class="dt-rong">'+IC.khach+'<b>Chưa có số liệu khách hàng</b><p>Máy tính bật ⚙ Khai báo đơn vị › 💾 Sao lưu › 📱 Bản điện thoại để đẩy Mẫu 31 lên Drive. Điện thoại bấm nút dưới — lần đầu đăng nhập Google <b>đúng tài khoản của máy tính</b>.</p>'+
+    '<a href="#" class="button button-fill button-large dt-dongbo">Tải số liệu từ Drive</a></div>'; }
   function tinhTrang(k){ var mon = k[10], con = mon.filter(function(m){ return (m[4]||0)>0; }), qh = mon.some(function(m){ return (m[5]||0)>0 || (m[6]||0)>0; });
     return qh ? '<small class="do">quá hạn / khoanh</small>' : con.length ? '<small>vay '+con.length+' món</small>' : '<small class="dt-xam">'+(mon.length ? 'tất nợ' : 'chỉ gửi TK')+'</small>'; }
   function dongKH(k){ var g = DT.goi(), t = g.to[k[7]] || {}, dn = k[10].reduce(function(a, m){ return a+(m[4]||0); }, 0);
@@ -93,7 +103,7 @@ var DTG = (function(){
   function veKQ(q){ var o = el('dt-kq'); if(!o || !DT.goi()) return; var t = theo(), v = String(q||'').trim();
     if(t==='tt'){ var ds = toTim(v), it = ds.slice(0, 100);
       o.innerHTML = ds.length ? '<div class="list media-list inset"><ul>'+it.map(dongTo).join('')+'</ul></div>'+(ds.length>it.length ? '<div class="dt-ghi">… còn '+(ds.length-it.length)+' tổ</div>' : '') : trong('Không thấy tổ khớp "'+e(v)+'".'); return; }
-    if(v.length<2){ o.innerHTML = vuaXemHTML(); return; }
+    if(v.length<2){ o.innerHTML = vuaXemHTML()+tongQuan(); return; }
     var r = timTheo(v, t), toKhop = t==='tu' ? toTim(v).length : 0;
     o.innerHTML = (toKhop && toKhop<=20 ? '<div class="block"><a href="#" class="button button-small dt-sang-to">🏘 '+toKhop+' tổ khớp — xem tổ</a></div>' : '')+
       (r.ds.length ? '<div class="list media-list inset"><ul>'+r.ds.map(dongKH).join('')+'</ul></div>'+(r.du>r.ds.length ? '<div class="dt-ghi">… còn '+(r.du-r.ds.length)+' khách — gõ thêm để thu hẹp</div>' : '')
@@ -126,9 +136,84 @@ var DTG = (function(){
       '<div class="block-title">Tổ trưởng · địa bàn</div><div class="list inset dt-kv"><ul>'+kv('Mã tổ', e(ma), ma)+kv('Tổ trưởng', e(t.tt))+kv('Mã KH TT', e(t.ttKH), t.ttKH)+kv('Điện thoại', goi(t.sdt))+
         kv('Ấp', e(t.ap))+kv('Hội', e(t.tenHoi))+kv('Điểm GD', e(t.tenDiem))+kv('Xã', e(t.tenXa))+'</ul></div>'+
       '<div class="block-title">Thành viên ('+kh.length+')</div><div class="list media-list inset"><ul>'+kh.map(dongKH).join('')+'</ul></div>'}, 1); }
+  /* 📅 Hôm nay — 3.354 (anh 24/10: "tối ưu tab hôm nay bao gồm lịch và ghi chú trước"; "giao diện tương tự máy tính nhưng lược bỏ các chức năng phức tạp"):
+     lịch tháng như máy tính (âm lịch, T7 / CN đỏ, chấm có việc) · việc của ngày chọn (tick xong, thêm / sửa / xóa) · ghi chú dòng của ngày (thêm, tick, xóa) · sắp tới 7 ngày.
+     Cùng dữ liệu Lịch máy tính (DTL, DT.lich*): sửa ở đâu cũng cất máy ngay, nút ⟳ đồng bộ 2 chiều qua Drive. Bỏ: mẩu màu / ảnh / hoàn tác / kéo thả (chỉ máy tính). */
+  var H = {nam:0, thang:0, chon:''}, THU_NGAN = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+  function homDau(){ if(H.chon) return; var d = new Date(); H.nam = d.getFullYear(); H.thang = d.getMonth(); H.chon = DTL.iso(d); }
+  function chonNgay(s){ H.chon = s; var d = DTL.ngay(s); H.nam = d.getFullYear(); H.thang = d.getMonth(); }
+  function lichDL(){ return DT.lich() || DTL.rong(); }
+  function gio(s){ var d = new Date(s); return isNaN(d) ? '' : ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+' '+('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2); }
+  function trHom(){ homDau(); return trang('hom', {tieu:'Hôm nay', phai:'<a href="#" class="link dt-lichdb" title="Đồng bộ lịch với máy tính">'+IC.dongbo+'</a>', than:'<div id="dt-hom">'+veHom()+'</div>'}); }
+  function veThang(Ld){ var nay = DTL.iso(new Date()), dau = new Date(H.nam, H.thang, 1), lui = (dau.getDay()+6)%7, bd = DTL.cong(DTL.iso(dau), -lui);
+    var hang = Math.ceil((lui+new Date(H.nam, H.thang+1, 0).getDate())/7), o = [];
+    for(var i=0;i<hang*7;i++) o.push(oNgay(Ld, DTL.cong(bd, i), nay));
+    return '<div class="dt-lich"><div class="dt-lich-dau"><a href="#" class="dt-thang" data-d="-1" title="Tháng trước">‹</a><b>Tháng '+(H.thang+1)+', '+H.nam+'</b><a href="#" class="dt-thang" data-d="1" title="Tháng sau">›</a>'+
+      '<a href="#" class="dt-chip dt-vehomnay">Hôm nay</a></div><div class="dt-lich-thu">'+['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'].map(function(x){ return '<span>'+x+'</span>'; }).join('')+'</div>'+
+      '<div class="dt-lich-o">'+o.join('')+'</div></div>'; }
+  function oNgay(Ld, s, nay){ var d = DTL.ngay(s), a = DTL.am(s), vs = DTL.viecNgay(Ld, s), con = vs.filter(function(v){ return !DTL.xong(v, s); }), cl = ['dt-ng'];
+    if(d.getMonth()!==H.thang) cl.push('ngoai'); if(s===nay) cl.push('nay'); if(s===H.chon) cl.push('chon'); if(d.getDay()===0) cl.push('cn'); if(d.getDay()===6) cl.push('t7');
+    var cham = !vs.length && !DTL.dongNgay(Ld, s).length ? '' : '<s class="'+(con.some(function(v){ return v.luuY; }) ? 'luuy' : vs.length && !con.length ? 'xong' : '')+'"></s>';
+    return '<a href="#" class="'+cl.join(' ')+'" data-iso="'+s+'"><b>'+d.getDate()+'</b><i>'+(a.ngay===1 ? '1/'+a.thang : a.ngay)+'</i>'+cham+'</a>'; }
+  function veHom(){ var Ld = lichDL(), nay = DTL.iso(new Date()), c = H.chon, d = DTL.ngay(c), a = DTL.am(c), g = DT.goi(), vn = DTL.viecNgay(Ld, c), dn = DTL.dongNgay(Ld, c), sap = [];
+    var dau = '<div class="dt-homdau"><div><div class="dt-homthu">'+(c===nay ? 'Hôm nay · ' : '')+DTL.THU[d.getDay()]+'</div><div class="dt-homngay">'+ng(c)+'</div><div class="dt-homam">Âm lịch '+a.ngay+'/'+a.thang+(a.nhuan ? ' (nhuận)' : '')+'</div></div>'+
+      '<a href="/tra/" class="dt-homsl" data-reload-all="true">'+(g ? '<b>'+g.kh.length.toLocaleString('vi-VN')+'</b>khách<small>'+e(kyChu())+'</small>' : '<b>—</b>khách<small>chưa có số liệu</small>')+'</a></div>';
+    var viec = '<div class="dt-bt"><span>Việc · '+ng(c).slice(0, 5)+'</span><a href="/viec/moi/" class="dt-them">＋ Thêm việc</a></div>'+(vn.length ? '<div class="list inset dt-viec"><ul>'+vn.map(function(v){ var x = DTL.xong(v, c);
+      return '<li class="'+(x ? 'xong' : '')+'"><div class="item-content"><a href="#" class="dt-tick" data-id="'+e(v.id)+'" title="Xong / chưa xong">'+(x ? '✓' : '')+'</a><a href="/viec/'+encodeURIComponent(v.id)+'/" class="item-inner">'+
+        '<div class="item-title">'+(v.luuY ? '<span class="dt-luuy">★</span> ' : '')+e(v.ten)+'</div><div class="item-after">'+(v.lap && v.lap!=='mot' ? e(DTL.LAP[v.lap]) : '')+'</div></a></div></li>'; }).join('')+'</ul></div>'
+      : '<div class="dt-trongnho">Chưa có việc — bấm ＋ Thêm việc.</div>');
+    var gc = '<div class="dt-bt"><span>Ghi chú · '+ng(c).slice(0, 5)+'</span></div><div class="list inset dt-viec dt-dong"><ul>'+dn.map(function(m){ var x = !!m.xong;
+      return '<li class="'+(x ? 'xong' : '')+'"><div class="item-content"><a href="#" class="dt-tickd" data-id="'+e(m.id)+'" title="Xong / chưa xong">'+(x ? '✓' : '')+'</a><div class="item-inner"><div class="item-title dt-nd">'+e(m.nd)+'</div>'+
+        '<div class="item-after"><a href="#" class="dt-xoad" data-id="'+e(m.id)+'" title="Xóa dòng">✕</a></div></div></div></li>'; }).join('')+
+      '<li><div class="item-content dt-dongmoi"><input type="text" id="dt-dongmoi" placeholder="Thêm dòng ghi chú…" enterkeyhint="done" autocomplete="off"><a href="#" class="button button-small button-fill dt-themdong">Thêm</a></div></li></ul></div>'+
+      DTL.mauNgay(Ld, c).map(function(m){ return '<div class="dt-mau dt-mau-'+e(m.mau || 'trang')+'">'+e(m.nd)+'</div>'; }).join('');
+    for(var i=1;i<=7;i++) sapToi(Ld, DTL.cong(nay, i), sap);
+    var st = '<div class="dt-bt"><span>Sắp tới · 7 ngày</span></div>'+(sap.length ? '<div class="list inset dt-kv"><ul>'+sap.slice(0, 20).map(function(x){ return '<li><a href="#" class="item-link item-content dt-sangngay" data-iso="'+x[0]+'"><div class="item-inner">'+
+      '<div class="item-title">'+(x[1].luuY ? '<span class="dt-luuy">★</span> ' : '')+e(x[1].ten)+'</div><div class="item-after">'+THU_NGAN[DTL.ngay(x[0]).getDay()]+' '+ng(x[0]).slice(0, 5)+'</div></div></a></li>'; }).join('')+'</ul></div>'
+      : '<div class="dt-trongnho">Không có việc nào trong 7 ngày tới.</div>');
+    return dau+veThang(Ld)+viec+gc+st+'<div class="dt-ghi dt-homdb">'+(DT.ch.lichLuc ? 'Đã đồng bộ với máy tính lúc '+gio(DT.ch.lichLuc) : 'Chưa đồng bộ với máy tính — bấm ⟳ trên cùng')+(DT.ch.lichCho ? ' · <b class="cam">có thay đổi chưa đẩy lên Drive</b>' : '')+'</div>'; }
+  function sapToi(Ld, s, ra){ DTL.viecNgay(Ld, s).forEach(function(v){ if(!DTL.xong(v, s)) ra.push([s, v]); }); }
+  function themDong(o){ var i = o.querySelector('#dt-dongmoi'), nd = String(i && i.value || '').trim(); if(!nd) return false;
+    var Ld = lichDL(), t = new Date().toISOString(), ds = DTL.dongNgay(Ld, H.chon), cuoi = ds[ds.length-1];
+    Ld.note.push({id:DTL.idMoi(), ngay:H.chon, nd:nd, mau:'trang', kieu:'dong', xong:'', thuTu:cuoi ? (cuoi.thuTu===undefined ? ds.length-1 : cuoi.thuTu)+1 : 0, taoLuc:t, suaLuc:t}); DT.lichDoi(); return true; }
+  function trViec(id){ var Ld = lichDL(), v = id==='moi' ? null : Ld.viec.filter(function(x){ return x.id===id; })[0];
+    if(id!=='moi' && !v) return trang('viec', {tieu:'Việc', than:trong('Không thấy việc (có thể đã xóa ở máy khác).')}, 1);
+    v = v || {ten:'', ngay:H.chon, lap:'mot', luuY:false};
+    var o = function(nhan, gt){ return '<li class="item-content item-input"><div class="item-inner"><div class="item-title item-label">'+nhan+'</div><div class="item-input-wrap">'+gt+'</div></div></li>'; };
+    return trang('viec', {tieu:id==='moi' ? 'Thêm việc' : 'Sửa việc', than:'<div class="list inset dt-form"><ul>'+
+      o('Việc', '<textarea id="dt-vten" placeholder="Vd: Giao ban tổ 042, nộp báo cáo tháng…">'+e(v.ten)+'</textarea>')+o('Ngày', '<input type="date" id="dt-vngay" value="'+e(v.ngay)+'">')+
+      o('Lặp lại', '<select id="dt-vlap">'+Object.keys(DTL.LAP).map(function(k){ return '<option value="'+k+'"'+((v.lap || 'mot')===k ? ' selected' : '')+'>'+DTL.LAP[k]+'</option>'; }).join('')+'</select>')+
+      '<li><label class="item-checkbox item-content"><input type="checkbox" id="dt-vluuy"'+(v.luuY ? ' checked' : '')+'><i class="icon icon-checkbox"></i><div class="item-inner"><div class="item-title">★ Lưu ý (chấm đỏ trên lịch)</div></div></label></li></ul></div>'+
+      '<div class="block"><a href="#" class="button button-fill button-large dt-vluu" data-id="'+e(id)+'">Lưu</a></div>'+
+      (id!=='moi' ? '<div class="block"><a href="#" class="button button-large button-outline color-red dt-vxoa" data-id="'+e(id)+'">Xóa việc</a></div>' : '')}, 1); }
+  function ganHom(page, $, tat){ var veLai = function(){ var o = $('#dt-hom'); if(o) o.innerHTML = veHom(); };
+    if(!DT.lich()) DT.lichNap().then(veLai);
+    var bao = function(t){ app.toast.create({destroyOnClose:true, text:t, closeTimeout:1800}).open(); }, tim = function(ds, id){ return ds.filter(function(x){ return x.id===id; })[0]; };
+    page.el.addEventListener('click', function(ev){ var t = ev.target, a; if(!t.closest) return;
+      if((a = t.closest('.dt-ng')) || (a = t.closest('.dt-sangngay'))){ ev.preventDefault(); chonNgay(a.getAttribute('data-iso')); return veLai(); }
+      if((a = t.closest('.dt-thang'))){ ev.preventDefault(); var m = new Date(H.nam, H.thang+(+a.getAttribute('data-d')), 1); H.nam = m.getFullYear(); H.thang = m.getMonth(); return veLai(); }
+      if((a = t.closest('.dt-vehomnay'))){ ev.preventDefault(); chonNgay(DTL.iso(new Date())); return veLai(); }
+      if((a = t.closest('.dt-tick'))){ ev.preventDefault(); var v = tim(lichDL().viec, a.getAttribute('data-id')); if(v){ DTL.doiXong(v, H.chon); DT.lichDoi(); veLai(); } return; }
+      if((a = t.closest('.dt-tickd'))){ ev.preventDefault(); var n = tim(lichDL().note, a.getAttribute('data-id')); if(n){ n.xong = n.xong ? '' : new Date().toISOString(); n.suaLuc = new Date().toISOString(); DT.lichDoi(); veLai(); } return; }
+      if((a = t.closest('.dt-xoad'))){ ev.preventDefault(); DTL.xoaNote(lichDL(), a.getAttribute('data-id')); DT.lichDoi(); veLai(); return bao('Đã xóa dòng'); }
+      if((a = t.closest('.dt-themdong'))){ ev.preventDefault(); if(themDong(page.el)){ veLai(); var i = $('#dt-dongmoi'); if(i) i.focus(); } } });
+    page.el.addEventListener('keydown', function(ev){ if(ev.target.id!=='dt-dongmoi' || ev.key!=='Enter') return; ev.preventDefault(); if(themDong(page.el)){ veLai(); var i = $('#dt-dongmoi'); if(i) i.focus(); } });
+    tat('.dt-lichdb').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); var t = app.toast.create({destroyOnClose:true, text:'Đang đồng bộ lịch với máy tính…', position:'center'}); t.open();
+      DT.lichDongBo().then(function(n){ t.close(); bao(n ? 'Đã nhận '+n+' thay đổi từ máy tính' : 'Lịch đã khớp với máy tính'); veLai(); }, function(er){ t.close(); veLai(); app.dialog.alert(e(er.message), 'Chưa đồng bộ được lịch'); }); }; }); }
+  function ganViec(page, $){ var ve = function(){ app.views.main.router.back('/', {force:true, ignoreCache:true}); };
+    var nut = $('.dt-vluu'); if(nut) nut.onclick = function(ev){ ev.preventDefault(); var ten = $('#dt-vten').value.trim(), ngay = $('#dt-vngay').value || H.chon, id = nut.getAttribute('data-id'), Ld = lichDL(), t = new Date().toISOString();
+      if(!ten) return app.dialog.alert('Gõ nội dung việc.'); if(!/^\d{4}-\d{2}-\d{2}$/.test(ngay)) ngay = H.chon;
+      var v = id==='moi' ? null : Ld.viec.filter(function(x){ return x.id===id; })[0];
+      if(!v){ v = {id:DTL.idMoi(), taoLuc:t}; Ld.viec.push(v); }
+      v.ten = ten; v.ngay = ngay; v.lap = $('#dt-vlap').value; v.luuY = !!$('#dt-vluuy').checked; v.suaLuc = t; chonNgay(ngay); DT.lichDoi(); ve(); };
+    var xoa = $('.dt-vxoa'); if(xoa) xoa.onclick = function(ev){ ev.preventDefault(); var id = xoa.getAttribute('data-id'), Ld = lichDL(), v = Ld.viec.filter(function(x){ return x.id===id; })[0]; if(!v) return ve();
+      var het = function(){ DTL.xoaViec(Ld, id); DT.lichDoi(); ve(); };
+      if(!v.lap || v.lap==='mot') return app.dialog.confirm('Xóa việc "'+e(v.ten)+'"?', 'Xóa việc', het);
+      app.dialog.create({title:'Xóa việc lặp', text:e(v.ten), buttons:[{text:'Chỉ ngày '+ng(H.chon).slice(0, 5), onClick:function(){ v.bo = (v.bo || []).concat([H.chon]); v.suaLuc = new Date().toISOString(); DT.lichDoi(); ve(); }},
+        {text:'Cả chuỗi lặp', color:'red', onClick:het}, {text:'Thôi'}], verticalButtons:true}).open(); }; }
   /* 🗺 Địa bàn */
   function trDB(p){ var x = function(v){ return v && v!=='-' ? decodeURIComponent(v) : ''; }, loc = {xa:x(p.xa), diem:x(p.diem), hoi:x(p.hoi)}, to = x(p.to), g = DT.goi();
-    if(!g) return trang('db', {tieu:'Địa bàn', than:trong('Chưa có số liệu — vào 🔎 Tra cứu bấm ⟳.')});
+    if(!g) return trang('db', {tieu:'Địa bàn', than:rongSL()});
     var u = function(a, b, c, d){ return '/db/'+[a, b, c, d].map(function(v){ return encodeURIComponent(v || '-'); }).join('/')+'/'; };
     var ds = DT.dsTo(loc), tieu = 'Toàn PGD', cap = 'xa', ten = function(f){ var t = ds[0] || {}; return f==='xa' ? t.tenXa : f==='diem' ? (t.tt1 ? 'Vay trực tiếp' : t.tenDiem) : t.tenHoi; };
     if(to){ var t = g.to[to] || {}, kh = DT.khTo(to);
@@ -154,7 +239,7 @@ var DTG = (function(){
       Object.keys(nam).sort().reverse().slice(0, 6).map(function(y){ return c('nam', y, y, L.nam===y); }).join('')+
       Object.keys(loai).sort(function(a, b){ return loai[b]-loai[a]; }).slice(0, 8).map(function(x){ return c('loai', x, e(x), L.loai===x); }).join('')+'</div>'; }
   function trDS(loai){ var vb = loai==='vanban', ds = DT.ds(loai);
-    return trang(loai, {tieu:vb ? 'Văn bản' : 'Scan', phai:'<a href="#" class="link dt-tai" data-l="'+loai+'">⟳</a>', than:
+    return trang(loai, {tieu:vb ? 'Văn bản' : 'Scan', phai:'<a href="#" class="link dt-tai" data-l="'+loai+'" title="Lấy danh sách mới">'+IC.dongbo+'</a>', than:
       (vb ? '' : '<div class="block"><a href="/sc/moi/" class="button button-fill button-large">📷 Chụp / chọn ảnh → PDF</a></div>')+
       (vb ? '<div class="block"><label class="button button-outline">＋ Gửi file vào app (khay chờ)<input type="file" id="dt-them" style="display:none"></label></div>' : '')+
       '<div class="dt-tim"><input type="search" id="dt-loc" data-l="'+loai+'" placeholder="'+(vb ? 'Số hiệu, trích yếu, loại' : 'Tên khách, mã KH, ấp, tổ')+'" autocomplete="off"></div>'+
@@ -213,7 +298,7 @@ var DTG = (function(){
         var W = 595.28, H = 841.89, k = Math.min((W-36)/im.width, (H-36)/im.height), pg = doc.addPage([W, H]); pg.drawImage(im, {x:(W-im.width*k)/2, y:(H-im.height*k)/2, width:im.width*k, height:im.height*k}); }); }, Promise.resolve())
       .then(function(){ return doc.save(); }); }).then(function(u){ return new Blob([u], {type:'application/pdf'}); }); }
   /* 🏢 Giao dịch xã (3.233) — bản mini của máy tính chạy trong khung */
-  function trGDX(){ return trang('gdx', {tieu:'Giao dịch xã', phai:'<a href="#" class="link dt-taigdx">⟳</a>', than:'<div id="dt-gdx" class="dt-gdx">'+trong('Đang mở…')+'</div>'}, 1); }   /* 3.342: mở từ ⚙ › Công cụ */
+  function trGDX(){ return trang('gdx', {tieu:'Giao dịch xã', phai:'<a href="#" class="link dt-taigdx" title="Lấy bản mới">'+IC.dongbo+'</a>', than:'<div id="dt-gdx" class="dt-gdx">'+trong('Đang mở…')+'</div>'}, 1); }   /* 3.342: mở từ ⚙ › Công cụ */
   function veGDX(page){ var o = page.el.querySelector('#dt-gdx'); if(!o) return;
     DT.docGDX().then(function(h){ if(!h){ o.innerHTML = trong('Bấm ⟳ để lấy bản Giao dịch xã từ Drive (04/TD, 12/GDX, Giấy lĩnh).'); return; }
       o.innerHTML = '<iframe class="dt-gdx-khung" title="Giao dịch xã"></iframe>'; o.firstChild.srcdoc = h; }); }
@@ -241,6 +326,8 @@ var DTG = (function(){
     page.el.addEventListener('click', function(ev){ var c = ev.target.closest && ev.target.closest('.dt-chep'); if(!c) return; var v = c.getAttribute('data-chep'); if(!v) return;   /* bấm mã / số để chép */
       (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject()).then(function(){ app.toast.create({destroyOnClose:true, text:'Đã chép '+v, closeTimeout:1500}).open(); }, function(){}); });
     if(page.name==='tra' && DT.ch.timTheo==='tt') veKQ('');
+    if(page.name==='hom') ganHom(page, $, tat);
+    if(page.name==='viec') ganViec(page, $);
     tat('.dt-tai').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); var l = a.getAttribute('data-l'), t = app.toast.create({destroyOnClose:true, text:'Đang lấy danh sách…', position:'center'}); t.open();
       DT.taiKhoi(l).then(function(){ t.close(); var o = page.el.querySelector('#dt-ds'); if(o) o.innerHTML = veDS(l, ($('#dt-loc') || {}).value || ''); var c = page.el.querySelector('#dt-vbc'); if(c) c.innerHTML = chipVB(); }, function(er){ t.close(); app.dialog.alert(e(er.message)); }); }; });
     if($('#dt-loc')){ var hl; $('#dt-loc').oninput = function(){ var l = this.getAttribute('data-l'), v = this.value; clearTimeout(hl); hl = setTimeout(function(){ var o = page.el.querySelector('#dt-ds'); if(o && DT.ds(l)) o.innerHTML = veDS(l, v); }, 200); }; }
@@ -271,7 +358,9 @@ var DTG = (function(){
     if($('#dt-xoa')) $('#dt-xoa').onclick = function(ev){ ev.preventDefault(); app.dialog.confirm('Xóa số liệu và PIN trên điện thoại này?', 'Xóa dữ liệu', function(){ DT.xoaMay().then(function(){ location.reload(); }); }); };
   }
   var TUYEN = [
-    {path:'/', async:function(c){ c.resolve({content:trTra()}); }, on:{pageInit:function(ev, page){ gan(page); }}},
+    {path:'/', async:function(c){ c.resolve({content:trHom()}); }, on:{pageInit:function(ev, page){ gan(page); }}},   /* 3.354: trang đầu = Hôm nay */
+    {path:'/tra/', async:function(c){ c.resolve({content:trTra()}); }, on:{pageInit:function(ev, page){ gan(page); }}},
+    {path:'/viec/:id/', async:function(c){ c.resolve({content:trViec(decodeURIComponent(c.to.params.id))}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/to/:ma/', async:function(c){ c.resolve({content:trTo(decodeURIComponent(c.to.params.ma))}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/kh/:ma/', async:function(c){ c.resolve({content:trKH(decodeURIComponent(c.to.params.ma))}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/db/:xa/:diem/:hoi/:to/', async:function(c){ c.resolve({content:trDB(c.to.params)}); }, on:{pageInit:function(ev, page){ gan(page); }}},

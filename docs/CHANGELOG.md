@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.354 — 24/10/2026 — Bản điện thoại: tab Hôm nay + giao diện như máy tính + sửa "chưa có số liệu" trên iPhone (TK 3)
+- **Anh 24/10**: iPhone vẫn báo chưa có số liệu, giao diện thô so với web; "tối ưu tab hôm nay bao gồm lịch và ghi chú trước, rồi đến tab văn bản và scan"; "giao diện tương tự máy tính nhưng lược bỏ các chức năng phức tạp".
+- **📅 Hôm nay** (nút đầu thanh dưới, trang mở đầu): đầu trang xanh ghi thứ · ngày · âm lịch + số khách; **lịch tháng như máy tính** (âm lịch Hồ Ngọc Đức, T7 / CN đỏ, chấm vàng = có việc, đỏ = có việc lưu ý, xanh = xong hết; ‹ › đổi tháng, Hôm nay); **Việc** của ngày chọn (＋ Thêm / sửa: nội dung, ngày, lặp Một lần · Hằng tuần · tháng · năm, ★ lưu ý; tick xong; xóa việc lặp chọn "chỉ ngày này" hoặc cả chuỗi); **Ghi chú** = dòng của ngày như sổ gạch dòng máy tính (thêm bằng Enter / nút, tick, ✕ xóa; mẩu màu của máy tính chỉ xem); **Sắp tới 7 ngày**.
+- **Đồng bộ với Lịch máy tính**: cùng dữ liệu `_Hệ thống/lich.json`, nút ⟳ trên Hôm nay gộp 2 chiều (bản sửa sau thắng, đã xóa không sống lại — như `gopLich`); sửa trên điện thoại cất máy mã hóa ngay, dòng cuối ghi "có thay đổi chưa đẩy lên Drive" đến khi ⟳.
+- **Giao diện như máy tính**: đầu trang xanh, bảng màu `css/app.css`, biểu tượng vẽ thay emoji (thanh dưới 5 nút Hôm nay · Khách · Văn bản · Scan · Cài đặt — sửa biểu tượng bị cắt, nút đang mở tô xanh), ô tìm có khung + kính lúp, chip viền mảnh, thẻ trắng viền nhạt, tiêu đề mục chữ nhỏ in hoa, nút không IN HOA.
+- **Khách**: chưa gõ → Tổng quan PGD (dư nợ, hộ, tổ, món, quá hạn, khoanh) + nút Xem theo địa bàn; chưa có số liệu → thẻ hướng dẫn + nút **Tải số liệu từ Drive**.
+- **Sửa "chưa có số liệu" trên iPhone**: app không tự bật đăng nhập Google lúc mở nữa (Safari iPhone chặn cửa sổ không do bấm → báo "Đã hủy đăng nhập"); bấm nút mới đăng nhập. Lỗi báo rõ bước kẹt: iPhone chặn cửa sổ (cách tắt) · không thấy thư mục gốc (kiểm tra tài khoản Google / tên thư mục) · máy tính chưa bật 📱 Bản điện thoại.
+- Phép thử: t265 mới (19, có thử chéo gộp lịch với máy tính); t193, t194, t262, t263 theo trang đầu Hôm nay.
+
 ## 3.353 (phần 2) — 24/10/2026 — KTGS Mẫu 06 ghi tổ / hộ vào 📜 nhật ký in (việc tồn của 3.348)
 - 3.348 ghi chú "KTGS chưa gắn tổ — làm khi sửa KTGS": Mẫu 06 sau giải ngân (`ktGNXem` → hàng nút xuất) truyền `nk` = tổ của từng phiếu + mã KH các hộ (`ktGNNk`, js/22c — chỉ đọc lựa chọn in, **không đổi hàm dựng mẫu** — khóa mẫu giữ nguyên). Mẫu 04 / KH / 06 trắng vẫn ghi theo tiêu đề trang in.
 - **Phép thử**: t258 thêm ý (2 phiếu, hộ trùng → ghi đủ tổ + hộ không trùng).

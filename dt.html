@@ -11,18 +11,19 @@
 <title>Tủ hồ sơ</title>
 <script>/* 3.231: bản điện thoại — chỉ nạp mã từ chính trang, thư viện đã duyệt và Google (đăng nhập, Drive) */
 if(location.protocol==='https:') document.write('<meta http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\' \'unsafe-inline\' https://cdn.jsdelivr.net https://accounts.google.com; style-src \'self\' \'unsafe-inline\' https://accounts.google.com; connect-src \'self\' https://cdn.jsdelivr.net https://www.googleapis.com https://accounts.google.com; img-src \'self\' data: blob: https:; worker-src \'self\' blob:; frame-src https://accounts.google.com; object-src \'none\'; base-uri \'self\'">');</script>
-<link rel="stylesheet" href="css/dt.css?v=3.353">
+<link rel="stylesheet" href="css/dt.css?v=3.354">
 </head>
 <body>
 <div id="khoa" class="khoa"></div>
 <div id="app" style="visibility:hidden">
   <div class="view view-main safe-areas">
-    <div class="toolbar tabbar toolbar-bottom dt-tab">
+    <div class="toolbar tabbar tabbar-icons toolbar-bottom dt-tab">   <!-- 3.354: 5 nút, biểu tượng vẽ (như thanh bên máy tính), tabbar-icons = chữ không đè biểu tượng -->
       <div class="toolbar-inner">
-        <a href="/" class="tab-link" data-reload-all="true"><span class="dt-ic">🔎</span><span class="tabbar-label">Khách</span></a>
-        <a href="/vb/" class="tab-link" data-reload-all="true"><span class="dt-ic">📄</span><span class="tabbar-label">Văn bản</span></a>
-        <a href="/sc/" class="tab-link" data-reload-all="true"><span class="dt-ic">📷</span><span class="tabbar-label">Scan</span></a>
-        <a href="/cd/" class="tab-link" data-reload-all="true"><span class="dt-ic">⚙</span><span class="tabbar-label">Cài đặt</span></a>
+        <a href="/" class="tab-link" data-tab="hom" data-reload-all="true"><svg class="dt-svg icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="12" cy="15.5" r="1.6"/></svg><span class="tabbar-label">Hôm nay</span></a>
+        <a href="/tra/" class="tab-link" data-tab="tra" data-reload-all="true"><svg class="dt-svg icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="8" r="4"/><path d="M3 20c0-3.6 3.1-6 7-6 1.4 0 2.7.3 3.8.9"/><circle cx="17.5" cy="16.5" r="3"/><path d="M19.7 18.7 22 21"/></svg><span class="tabbar-label">Khách</span></a>
+        <a href="/vb/" class="tab-link" data-tab="vb" data-reload-all="true"><svg class="dt-svg icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg><span class="tabbar-label">Văn bản</span></a>
+        <a href="/sc/" class="tab-link" data-tab="sc" data-reload-all="true"><svg class="dt-svg icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V5.5A2.5 2.5 0 0 1 5.5 3H8M16 3h2.5A2.5 2.5 0 0 1 21 5.5V8M21 16v2.5a2.5 2.5 0 0 1-2.5 2.5H16M8 21H5.5A2.5 2.5 0 0 1 3 18.5V16"/><path d="M7 12h10"/></svg><span class="tabbar-label">Scan</span></a>
+        <a href="/cd/" class="tab-link" data-tab="cd" data-reload-all="true"><svg class="dt-svg icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span class="tabbar-label">Cài đặt</span></a>
       </div>
     </div>
   </div>
@@ -30,8 +31,9 @@ if(location.protocol==='https:') document.write('<meta http-equiv="Content-Secur
 <script>window.THU_VIEN_DT = [   /* danh mục thư viện bản điện thoại (QUY_CHUAN_KIEN_TRUC mục 10) — nạp 1 lần rồi cất máy */
   {ten:'f7css-8.3.4', url:'https://cdn.jsdelivr.net/npm/framework7@8.3.4/framework7-bundle.min.css', css:true},
   {ten:'f7js-8.3.4', url:'https://cdn.jsdelivr.net/npm/framework7@8.3.4/framework7-bundle.min.js'}];</script>
-<script src="js/01-thu-vien.js?v=3.353"></script>
-<script src="js/dt/dt-nen.js?v=3.353"></script>
-<script src="js/dt/dt-giao-dien.js?v=3.353"></script>
+<script src="js/01-thu-vien.js?v=3.354"></script>
+<script src="js/dt/dt-lich.js?v=3.354"></script>
+<script src="js/dt/dt-nen.js?v=3.354"></script>
+<script src="js/dt/dt-giao-dien.js?v=3.354"></script>
 </body>
 </html>

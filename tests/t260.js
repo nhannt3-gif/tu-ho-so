@@ -47,7 +47,7 @@ const CHI = (process.argv[2]||'').split(',').filter(Boolean);
    const coPin = await d.$('#khoa [data-k="1"]');
    if(coPin){ const phim = async s=>{ for(const c of s) await d.click('#khoa [data-k="'+c+'"]'); }; await phim('1357'); await d.click('#khoa [data-k="ok"]'); await phim('1357'); await d.click('#khoa [data-k="ok"]'); await d.waitForTimeout(1500); }
    await d.evaluate(g=>{ try{ DTG.app().dialog.close(); }catch(e){} return DT.napGoi(g); }, g); await d.waitForTimeout(400);
-   for(const [u, k] of [['/', 'tra'], ['/db/-/-/-/-/', 'db'], ['/vb/', 'vb'], ['/sc/', 'sc'], ['/sc/moi/', 'scmoi'], ['/cd/', 'cd']]){
+   for(const [u, k] of [['/', 'hom'], ['/tra/', 'tra'], ['/db/-/-/-/-/', 'db'], ['/vb/', 'vb'], ['/sc/', 'sc'], ['/sc/moi/', 'scmoi'], ['/cd/', 'cd']]){
      await d.evaluate(u=>DTG.app().views.main.router.navigate(u, {reloadAll:true}), u); await d.waitForTimeout(900);
      if(k==='tra'){ await d.fill('#dt-tim', 'nguyen'); await d.waitForTimeout(500); }
      const L = await d.evaluate(DO); await d.screenshot({path:path.join(ANH, 'dt_'+k+'.png')});
