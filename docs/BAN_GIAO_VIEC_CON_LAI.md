@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.350) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › thẻ tổ có hộ tất nợ còn TGTK | Dòng "Tất nợ dd/mm/yyyy · còn TGTK — vẫn trong tổ" — ngày khớp ngày tất toán món cuối | |
+
+**Ghi chú kỹ thuật 3.350:** ngày tất nợ lấy `max(ngdg)` các dòng món của khách trong `KHO.monKy(TC_K, kh)` — là ngày GD gần nhất, gần đúng ngày tất toán (Mẫu 31 không có cột ngày tất toán riêng).
+
 ### Danh sách thử trên máy thật (3.349) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.350 — 24/10/2026 — Thẻ tổ: ngày tất nợ (anh 24/10)
+- **Anh**: "hộ tất nợ còn trong tổ nếu lấy được ngày tất nợ thì ghi vào luôn".
+- **Bảng thành viên thẻ tổ** (`ttKH` trong `tcTheTo`, js/58): khách không còn món loại "còn TGTK" / "TG 0" ghi **"Tất nợ dd/mm/yyyy"** — ngày = ngày giao dịch gần nhất (`ngdg`) của món đã tất toán trong Mẫu 31 kỳ đang xem (cùng cách tab Tổ tính `tatNo`, 3.128; đưa chuột vào thấy giải thích). Không có món trong Mẫu 31 (người TƯ còn giữ) → không ghi ngày.
+- **Phép thử**: t246 thêm ý (món giả đã tất toán ngày 12/05/2026 → dòng ghi đúng ngày).
+
 ## 3.349 — 24/10/2026 — Bớt onclick: nút Đóng / Thôi của hộp (RA_SOAT_BO_CUC_2410 mục 8 việc 7)
 - **Kế hoạch mục 7** ("mốc giảm 50 onclick / bản" — KE_HOACH_CHUAN_HOA R2): 100 chỗ `onclick="dongHop()"` (nút Đóng / Thôi / Đóng (Esc) trong hộp, 30 file) → `data-lenh="hop.dong"`; lệnh `hop.dong` đăng ký 1 chỗ ở `js/39-gd.js` (bộ nhận lệnh chung GD). Chỉ các hộp ở trang chính (đã rà: không có trong cửa sổ nổi / trang in).
 - **Thước đo `kiem.py` onclick**: 1.468 → **1.369** (dưới mốc 1.459).

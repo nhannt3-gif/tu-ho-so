@@ -91,6 +91,10 @@ const fs=require('fs'), path=require('path');
    tcTheTo(t1.ma); await w(300);
    { const r2 = KHO.tvChuan(t1, TC_K), tt = [...document.querySelectorAll('#tc-ct .tc-to-tt')].map(x=>x.textContent);
      ok('3.344 khách không còn món: ghi rõ vẫn trong tổ / cần cho ra (khớp tvChuan)', r2.khongNo>=2 && tt.length===r2.khongNo && tt.filter(x=>/cần cho ra/.test(x)).length===r2.choRa && tt.some(x=>/còn TGTK — vẫn trong tổ/.test(x)) && tt.every(x=>/trong tổ|cho ra/.test(x)), tt.join(' | ')); }
+   { const giuM = Bk.theoKH['9900000002']; Bk.theoKH['9900000002'] = [{ku:'6600000799999901', kh:'9900000002', dn:0, ttMon:'CLOSE', ngdg:'2026-05-12'}]; tcTheTo(t1.ma); await w(300);
+     const tt2 = [...document.querySelectorAll('#tc-ct .tc-to-tt')].map(x=>x.textContent).join(' | ');
+     ok('3.350 hộ tất nợ còn trong tổ: ghi ngày tất nợ (ngày GD gần nhất món đã tất toán)', /Tất nợ 12\/05\/2026 · còn TGTK — vẫn trong tổ/.test(tt2), tt2);
+     if(giuM) Bk.theoKH['9900000002'] = giuM; else delete Bk.theoKH['9900000002']; }
    Bk.co.tv01 = giuTV; tcTheTo(t1.ma); await w(300);
    const tv1 = document.getElementById('tc-ct').querySelector('.tc-to-tv-dong[data-kh]'); if(tv1){ const kh = tv1.getAttribute('data-kh'); tv1.click(); await w(500); ok('bấm 1 thành viên → mở khách đó', document.getElementById('tc-ct').textContent.indexOf(kh)>=0); }
    await tim('tt', ''); ok('Tổ trưởng, chưa gõ → mọi tổ trong phạm vi', kq().length===Math.min(300, T.length), kq().length+' / '+T.length);

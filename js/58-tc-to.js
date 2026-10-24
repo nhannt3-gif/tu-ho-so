@@ -112,8 +112,9 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
   var luuY = (r.laiTon ? '<span class="nh nh-cam">'+r.laiTon+' còn lãi tồn</span> ' : '')+(r.choRa ? '<span class="nh nh-vang">'+r.choRa+' cần cho ra</span> ' : '');
   var nam2 = function(x){ return String(x).replace(/(>|^)(\d\d\/\d\d\/)(\d\d)(\d\d)/g, '$1$2<span class="nam4">$3</span>$4'); };   /* khung hẹp: năm 2 số (CSS container) */
   var ttKH = function(k){   /* 3.344 (anh): khách không còn món — vẫn trong tổ hay cần cho ra (QT-14 / QT-18, cùng tvChuan) */
-    var x = k.loai==='lai' ? '<span class="nh nh-cam">Hết gốc · còn lãi tồn</span> — vẫn trong tổ' : k.loai==='105' ? '<span class="nh nh-xam">Tất nợ · còn TGTK</span> — vẫn trong tổ'
-      : k.loai==='ra' ? '<span class="nh nh-vang">Tất nợ · TG 0</span> — cần cho ra khỏi tổ' : '<span class="nh nh-xam">Dư nợ 0</span>';
+    var tat = KHO.monKy(TC_K, k.kh).reduce(function(a, o){ return o.ku && o.ngdg && o.ngdg>a ? o.ngdg : a; }, ''), nt = tat ? ' '+ngayVNsl(tat) : '';   /* 3.350 (anh): ngày tất nợ ≈ ngày GD gần nhất của món đã tất toán (như toTV) */
+    var x = k.loai==='lai' ? '<span class="nh nh-cam">Hết gốc · còn lãi tồn</span> — vẫn trong tổ' : k.loai==='105' ? '<span class="nh nh-xam" title="Ngày tất nợ ≈ ngày giao dịch gần nhất của món đã tất toán">Tất nợ'+nt+' · còn TGTK</span> — vẫn trong tổ'
+      : k.loai==='ra' ? '<span class="nh nh-vang" title="Ngày tất nợ ≈ ngày giao dịch gần nhất của món đã tất toán">Tất nợ'+nt+' · TG 0</span> — cần cho ra khỏi tổ' : '<span class="nh nh-xam">Dư nợ 0</span>';
     return x+(k.nguon==='tv01' ? ' <small>(TƯ còn giữ — Mẫu 01/TV)</small>' : ''); };
   var gon = tcTim().tvKieu==='gon';   /* 3.342 (anh): Đủ = mỗi món 1 dòng · Gọn = mỗi khách 1 dòng, bấm ▸ hiện dòng nhỏ từng món */
   var dongTV = function(k, i){   /* họ tên / mã KH / TGTK gộp ô; bấm CT → mã món vay, bấm TGTK → số TK 105 (dòng nhỏ dưới khách) */

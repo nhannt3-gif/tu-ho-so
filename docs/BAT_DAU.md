@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.349** — TK 2: bớt onclick (100 nút Đóng / Thôi → `data-lenh="hop.dong"`, 1.468 → 1.369). Trước: 3.348 📜 nhật ký đã lập / in; 3.347 Tra cứu theo ngày không bù 01/TV; 3.346 đọc qua KHO K2–K5. Kế hoạch mục 8 còn: việc 9 tính năng (anh để sau); việc 8 anh bỏ; nguyên tắc bù cuối tháng chờ số liệu T10.
+- **`main` = 3.350** — TK 2: thẻ tổ ghi ngày tất nợ cho hộ tất nợ còn trong tổ. Trước: 3.349 bớt onclick (1.468 → 1.369); 3.348 📜 nhật ký đã lập / in; 3.347 Tra cứu theo ngày không bù 01/TV; 3.346 đọc qua KHO K2–K5. Chờ: nguyên tắc bù cuối tháng (số liệu T10); mục 9 tính năng (anh để sau).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
