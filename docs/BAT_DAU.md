@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.358** — TK 2: năm sau dùng sổ chốt 31/12 (KE_HOACH_CHOT_SO C2). Trước: 3.357 Sổ tổ viên / chốt sổ (`js/64`); 3.356 🧩 Báo cáo của tôi; 3.355 nền `DANG_KY`. Tiếp: C3 dòng thời gian khách / tổ. Phép thử mới TK 2 dùng `t300–t349`. Chờ anh: `trDan` chưa co chữ sao kê cũ (KE_HOACH_DANG_KY mục 6).
+- **`main` = 3.359** — TK 2: 📅 dòng thời gian khách / tổ (`js/65`) — **việc 1 (chốt sổ + dòng thời gian) xong C1–C3** (3.357–3.359). Trước: 3.356 🧩 Báo cáo của tôi; 3.355 nền `DANG_KY`. Tiếp theo kế hoạch: việc 2 "Việc cần xử lý" ở Hôm nay, việc 3 danh mục lý do lệch. Phép thử mới TK 2 dùng `t300–t349`. Chờ anh: `trDan` chưa co chữ sao kê cũ (KE_HOACH_DANG_KY mục 6).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
