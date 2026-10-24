@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.360** — TK 2: rà soát logic + code rác (dòng cộng báo cáo chuẩn không nuốt cột tiền; còn lãi tồn = chưa tất nợ ở dòng thời gian / sổ tổ viên). Trước: 3.359 📅 dòng thời gian; 3.357–3.358 sổ tổ viên / chốt 31/12 (việc 1 xong). Việc 2 anh hoãn. Tiếp: việc 3 danh mục lý do lệch (gửi anh danh sách trước khi code). Phép thử mới TK 2 dùng `t300–t349`.
+- **`main` = 3.361** — TK 2: bản máy tính trên điện thoại đợt Đ1 (`css/dt-may.css`, cắm rút) + sửa lỗi Scan có từ trước + hồi quy chạy cả t3xx; quy định phép thử theo mức thay đổi (CLAUDE.md) + QUY_CHUAN mục 13 (độc lập · cắm rút · an toàn · tốc độ; điện thoại vuốt / chụm iOS). Tiếp: Đ2 Tra cứu KH + thẻ khách / thẻ tổ (chờ anh chọn kiểu bảng món vay). Trước: 3.360 rà soát; 3.357–3.359 việc 1.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

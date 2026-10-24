@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.361) — iPhone, mở bản máy tính (nút 🖥 ở bản điện thoại)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở Số liệu › Tra cứu KH | Đầu trang 2 hàng gọn (⬅ · kỳ · ❓ 🧰 🗑 ⚙ / ô tìm); khung Lọc địa bàn gọn; hàng chip Tìm theo vuốt ngang được | |
+| 2 | Hôm nay, Tổ TK&VV, Tổng hợp | Không màn nào bị tràn ngang ngoài ý muốn; nút 📱 góc phải không che chữ quan trọng | |
+| 3 | Máy tính (Chrome) | Giao diện y như trước | |
+| 4 | Scan › quét CCCD khi vừa mở app | Đặt tên bản scan bình thường, không treo | |
+
+**Ghi chú kỹ thuật 3.361:** CSS điện thoại chỉ ở `css/dt-may.css` (không thêm vào `app.css`); thêm quy tắc mới vào đúng nhóm trong file; phép thử khổ hẹp dải `t300–t349`.
+
 ### Danh sách thử trên máy thật (3.360) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

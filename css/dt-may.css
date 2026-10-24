@@ -1,0 +1,33 @@
+/* ===== 3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI =====
+   Cắm rút: chỉ nạp khi màn ≤ 600 px (thuộc tính media trên thẻ <link> trong index.html) — máy tính không đọc file này;
+   bỏ 1 dòng <link> là app về y như cũ. Chỉ CSS, không đổi logic. */
+/* đầu trang: 1 hàng nút + ô tìm gọn (bỏ tên app / đơn vị / giờ — đã có ở ⚙ và thanh dưới) */
+.dau{padding-top:4px !important;padding-bottom:4px !important}
+.dau-hang{flex-wrap:wrap !important;gap:6px !important;row-gap:5px !important}
+.dau-hang .logo{display:none}   /* chữ TH chỉ trang trí — nhường chỗ cho ô kỳ */
+.dau-hang .ten-app,.dau-hang .dong-phu,.dau-hang .gio{display:none !important}
+.dau-hang .dh-nut button{min-width:30px;padding:2px 4px}
+.dau-hang .dh-nut button[data-lenh="dh.tien"]{display:none}   /* giữ ⬅ lùi, bỏ ➡ tiến cho đủ chỗ 1 hàng */
+.dau-hang .ky-chung{flex:1 1 0;min-width:0;overflow:hidden;display:flex;align-items:center;gap:2px}
+.dau-hang .ky-chung select{width:100%;min-width:0;max-width:100%;text-overflow:ellipsis}
+.dau-hang .nut-cd{width:34px !important;height:34px !important;min-width:34px;min-height:34px !important;padding:0 !important;font-size:15px !important}
+.dau-hang .tim-bao{order:9;flex:1 1 100%;min-width:0}
+.dau-hang .tim{min-height:0;padding-top:2px;padding-bottom:2px}
+.dau-hang .tim input{font-size:15px}
+/* thanh trạng thái chân trang: gọn 1 dòng, bỏ tên người dùng + nút khung xem (điện thoại không có khung xem bên phải) */
+.day{gap:6px !important}
+.day #tac-gia,.day #btn-mo-preview,.day .tac-gia{display:none !important}
+/* nút 📱 về bản điện thoại (js/60, TK 3): nhỏ lại, dời sang phải, mờ bớt — không che nội dung trái */
+#ve-dt{width:34px !important;height:34px !important;font-size:15px !important;left:auto !important;right:8px !important;opacity:.8}
+/* hộp (modal): không vượt chiều cao màn hình, cuộn bên trong */
+#hop-in{max-height:calc(100dvh - 8px);overflow:auto}
+/* khung "Lọc địa bàn" (bộ phạm vi chung pvVeCay): gọn — ô chọn 1 hàng, dòng đếm + nút Chip / 📌 cùng 1 hàng nhỏ */
+.loc-khoi{padding:11px 6px 4px !important;margin-top:10px !important}
+.pv-hang1{flex-wrap:wrap !important;gap:4px 6px !important;row-gap:4px !important}
+.pv-hang1 .pv-sel{flex:1 1 100%}
+.pv-hang1 .pv-dan{flex:1 1 auto;min-width:0;font-size:12px}
+.pv-hang1 .pv-gon,.pv-hang1 .pv-ghim-nut{min-height:28px !important;height:28px;padding:2px 8px !important;font-size:12px}
+/* hàng chip lựa chọn dài (Tìm theo…): 1 dòng cuộn ngang thay vì cắt */
+.tc-theo{flex-wrap:nowrap !important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tc-theo::-webkit-scrollbar{display:none}
+.tc-theo .gd-chip{flex:0 0 auto}

@@ -252,10 +252,10 @@ scanXongHop = function(bl){
     return nh.reduce(function(p, g, i){ return p.then(function(){
       return Promise.all([g[0] ? docAnhHS(g[0].id) : null, g[1] ? docAnhHS(g[1].id) : null]).then(function(b){ return docCCCD(b[0], b[1]); })
         .then(function(r){ var x = SX_DOC[i] = r || {}; x.dang = false;
-          if(r){ var t = sxXacDinh({cccd:r.cccd, ten:r.ten, ns:r.ns, cmnd:r.cmnd}); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); c.cccd = c.cccd || r.cccd; SXK[i] = c; } }
+          if(r){ var t = sxXacDinh({cccd:r.cccd, ten:r.ten, ns:r.ns, cmnd:r.cmnd}); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); if(c){ c.cccd = c.cccd || r.cccd; SXK[i] = c; } } }   /* 3.361: danh bạ chưa có / đang nạp lại → bỏ qua, không vỡ luồng */
           sxVeDoc(); }, function(){ SX_DOC[i] = {dang:false}; sxVeDoc(); }); }); }, Promise.resolve());
   }).then(function(){ var o = SX_DOC[0] || {};
-    if(nh.length===1){ SX.ten = o.tim && o.tim.ma ? sxTenChuan(o.tim.ma, sxKhach(o.tim.ma).ten, 'CCCD', '') : (o.cccd || o.ten ? 'cccd-'+[o.ten, o.cccd].filter(Boolean).join(' - ') : SX.ten);   /* chưa chắc: giữ số CCCD trong tên để Sắp xếp đối chiếu */
+    if(nh.length===1){ SX.ten = o.tim && o.tim.ma && sxKhach(o.tim.ma) ? sxTenChuan(o.tim.ma, sxKhach(o.tim.ma).ten, 'CCCD', '') : (o.cccd || o.ten ? 'cccd-'+[o.ten, o.cccd].filter(Boolean).join(' - ') : SX.ten);   /* chưa chắc: giữ số CCCD trong tên để Sắp xếp đối chiếu */
       var e = document.getElementById('sx-ten'); if(e) e.value = SX.ten; } });
 };
 function sxVeDoc(){

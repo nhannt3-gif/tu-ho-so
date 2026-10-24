@@ -1981,7 +1981,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.360', ds:[
+var CO_GI_MOI = {ban:'3.361', ds:[
+  ["Bản máy tính mở trên điện thoại (nút 🖥 ở bản điện thoại): đầu trang gọn 2 hàng, khung Lọc địa bàn thu nhỏ, hàng chip vuốt ngang, nút 📱 nhỏ lại dời sang phải — rộng chỗ xem hơn", "doiNgan(0)"],
+  ["Scan: đọc CCCD xong khi danh bạ khách chưa sẵn không còn dừng giữa chừng", "doiNgan(4)"],
   ["Rà soát: báo cáo chuẩn / Báo cáo của tôi — cột tiền đặt ở vị trí 2–3 vẫn có số ở dòng cộng nhóm + Tổng cộng", "slDoiTab('th');doiNgan(7)"],
   ["Dòng thời gian + Sổ tổ viên theo đúng quy tắc \"còn lãi tồn = chưa tất nợ\" (hết gốc còn lãi ghi riêng, không ghi ngày tất nợ)", "slDoiTab('to');doiNgan(7)"],
   ["Tra cứu › thẻ khách / thẻ tổ › 📅 Dòng thời gian: bấm \"Xem năm\" — khách: vào tổ, chuyển tổ, tất nợ, vay thêm món, phát sinh quá hạn / khoanh; tổ: khách vào / không còn món vay, đổi tổ trưởng (theo Mẫu 31 các tháng đã nạp)", "slDoiTab('tra');doiNgan(7)"],
@@ -1994,9 +1996,7 @@ var CO_GI_MOI = {ban:'3.360', ds:[
   ["Nền báo cáo chuẩn mới (khuôn in anh chốt): logo + tên NHCSXH góc trái, tên báo cáo in hoa giữa, ngày số liệu, Đơn vị tính; danh sách A4 dọc, bảng tổng quát A4 ngang cố 1 trang (tự co chữ); In · PDF · Word · Excel · Gửi + 📜 nhật ký in. Mẫu nào cần sẽ tạo thêm trên nền này", "slDoiTab('sk');doiNgan(7)"],
   ["Sao kê › 🧩 Báo cáo chuẩn mới › Danh sách nợ cần xử lý: tích Quá hạn · Khoanh · 3 tháng KHĐ · KU chưa GN > 1 tháng; nhóm theo Xã › Điểm / Điểm › Hội › Tổ / Từng tổ, có dòng cộng từng nhóm", "slDoiTab('sk');doiNgan(7)"],
   ["Điện thoại: tab 📅 Hôm nay (lịch âm lịch như máy tính, việc, ghi chú — đồng bộ với Lịch máy tính) + giao diện mới giống bản máy tính", "doiNgan(0)"],
-  ["Nền mã: trả bộ nhớ ảnh tạm ở 3 chỗ còn sót (ảnh Theo dõi nợ, ảnh nhỏ danh sách Scan, ảnh 2 mặt thẻ ở khung xem) — máy, nhất là iPhone / Safari, đỡ đầy bộ nhớ khi xem nhiều ảnh", "doiNgan(0)"],
-  ["KTGS › in Mẫu 06 sau giải ngân: 📜 nhật ký in ghi luôn tổ + hộ của từng phiếu — thẻ tổ / thẻ khách ở Tra cứu thấy \"Mẫu 06/TD — kiểm tra sau giải ngân\"", "doiNgan(7)"],
-  ["Điện thoại › Văn bản: xem PDF ngay trong app, chip Đã ghim / năm / loại, 📌 Ghim để xem khi không có mạng (≤ 200 MB)", "doiNgan(0)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Nền mã: trả bộ nhớ ảnh tạm ở 3 chỗ còn sót (ảnh Theo dõi nợ, ảnh nhỏ danh sách Scan, ảnh 2 mặt thẻ ở khung xem) — máy, nhất là iPhone / Safari, đỡ đầy bộ nhớ khi xem nhiều ảnh", "doiNgan(0)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
