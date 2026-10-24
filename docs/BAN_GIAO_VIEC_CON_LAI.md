@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.368)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › Tìm theo Tổ trưởng (không gõ gì → mọi tổ) | Đủ 7 cột đến Hội, không phải cuộn ngang | |
+| 2 | Rê chuột vào ô Hội / tên dài / tiêu đề TV | Hiện tên đủ | |
+
+**Ghi chú kỹ thuật 3.368:** `table.tc-to-ds{table-layout:fixed}` + `th:nth-child(n){width:%}` — thêm / bớt cột ở `tcToTim` thì sửa lại tỷ lệ trong `css/app.css`.
+
 ### Danh sách thử trên máy thật (3.367)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

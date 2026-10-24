@@ -56,7 +56,7 @@ const fs=require('fs'), path=require('path');
    /* 3.336: tìm thẳng tổ (tổ trưởng / mã tổ) + thẻ tổ */
    const T = Object.keys(TC_K.to).map(m=>TC_K.to[m]).filter(t=>!t.trucTiep && !toLaTT(t)), t1 = T.find(t=>(KHO.tvChuan(t, TC_K)||{}).tong>=2) || T[0];
    await tim('tt', t1.ten);
-   ok('Tổ trưởng: bảng tổ (Tổ trưởng · Mã tổ · Thành viên · Có dư nợ · Xã · Ấp · Hội — 3.351), có tổ cần tìm', [...document.querySelectorAll('#sl-kq th')].map(x=>x.textContent).join('|')==='Tổ trưởng|Mã tổ|Thành viên|Có dư nợ|Xã|Ấp|Hội' && kq().some(x=>x.getAttribute('data-to')===t1.ma), t1.ten+' → '+kq().length+' tổ');
+   ok('Tổ trưởng: bảng tổ (Tổ trưởng · Mã tổ · TV · Có DN · Xã · Ấp · Hội — 3.351; 3.368 tiêu đề gọn, title chữ đủ), có tổ cần tìm', [...document.querySelectorAll('#sl-kq th')].map(x=>x.textContent).join('|')==='Tổ trưởng|Mã tổ|TV|Có DN|Xã|Ấp|Hội' && [...document.querySelectorAll('#sl-kq th')].map(x=>x.title).slice(2,4).join('|')==='Thành viên|Có dư nợ' && kq().some(x=>x.getAttribute('data-to')===t1.ma), t1.ten+' → '+kq().length+' tổ');
    await tim('tt', t1.ma); await w(400);
    const r1 = KHO.tvChuan(t1, TC_K), ct = document.getElementById('tc-ct');
    ok('gõ mã tổ → 1 tổ, tự mở thẻ tổ: mã tổ, tổ trưởng, số TV đúng QT-18', kq().length===1 && !!ct.querySelector('.tc-the-to') && ct.textContent.indexOf(t1.ma)>=0 && ct.textContent.indexOf(t1.ten)>=0 && ct.querySelectorAll('table.tc-to-hang')[2].querySelector('td b').textContent===String(r1.tong), 'TV '+r1.tong);
