@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.349 — 24/10/2026 — Bớt onclick: nút Đóng / Thôi của hộp (RA_SOAT_BO_CUC_2410 mục 8 việc 7)
+- **Kế hoạch mục 7** ("mốc giảm 50 onclick / bản" — KE_HOACH_CHUAN_HOA R2): 100 chỗ `onclick="dongHop()"` (nút Đóng / Thôi / Đóng (Esc) trong hộp, 30 file) → `data-lenh="hop.dong"`; lệnh `hop.dong` đăng ký 1 chỗ ở `js/39-gd.js` (bộ nhận lệnh chung GD). Chỉ các hộp ở trang chính (đã rà: không có trong cửa sổ nổi / trang in).
+- **Thước đo `kiem.py` onclick**: 1.468 → **1.369** (dưới mốc 1.459).
+- **Phép thử**: t258 thêm ý (nút `hop.dong` đóng hộp); t198 (đóng hộp) đạt; hồi quy đủ 2 luồng.
+
 ## 3.348 — 24/10/2026 — 📜 Nhật ký đã lập / in (RA_SOAT_BO_CUC_2410 mục 8 việc 6)
 - **Kế hoạch** (góp ý 7.1, anh: "em làm tiếp theo kh đi và gộp lên rồi làm tiếp ko cần chờ anh"): tra lại "khách này đã lập 01/TD, 03/TD chưa", "tháng này đã in Mẫu 06 cho tổ nào" — trước chỉ nhớ trong phiên (GDX có nhật ký riêng 1 tháng trên 1 máy).
 - **`js/61-nhat-ky-in.js` (mới)**: ngăn `D.nkIn` — mỗi dòng {lúc, mẫu, cách In / PDF / Word / Excel, khách [], tổ [], kỳ, tab}; giữ 13 tháng, tối đa 5.000 dòng. Lưu theo ngăn (02, 34) + **đồng bộ chỉ mục Drive** (17: gộp theo id như Scan / Chữ ký — 2 máy cùng in không mất dòng).

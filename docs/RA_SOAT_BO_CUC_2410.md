@@ -92,7 +92,7 @@ Nguyên tắc: **làm cái giảm lỗi + giảm rủi ro mất dữ liệu trư
 | 4 | **Scan đọc qua `KHO`** (Đợt 4 #13) — làm cùng Đ3 điện thoại (tách lõi lọc ảnh / tên chuẩn dùng chung) | TK 3 | 1 lần chạm Scan cho cả 2 bản |
 | 5 | **`luuNgan()` thay `luu()`** ở Sổ hộ vay, Scan, GDX (Đợt 4 #12) | TK 2 (giữ `js/34-luu-ngan.js`) | sau mục 2 để có thẻ theo dõi |
 | 6 | ✅ **Nhật ký đã lập / đã in** theo khách, tổ (góp ý 7.1) — **TK 2 làm ở 3.348** | TK 2 | ngăn `D.nkIn`, đồng bộ Drive, thẻ khách / thẻ tổ / hộp 📜 |
-| 7 | **Tách file lớn** `04-giao-dien.js`, `06-hop-thoai.js` + mốc giảm 50 `onclick` / bản (Đợt 4 #14) | TK 2 | đụng khung chung, làm khi ít việc song song |
+| 7 | ✅ **Tách file lớn** `04-giao-dien.js`, `06-hop-thoai.js` (3.339) + giảm `onclick` (3.349: 100 nút Đóng / Thôi → `data-lenh`, 1.468 → 1.369; làm tiếp dần) | TK 2 | đụng khung chung, làm khi ít việc song song |
 | 8 | ~~**Khai báo người ký / chức danh 1 chỗ** (góp ý 7.3)~~ | **BỎ — anh 24/10: "Mục 8 khó tập trung được, tuỳ từng mẫu"** | giữ khai báo riêng từng khối (Khai báo đơn vị, Hội đoàn thể, Bộ khai báo KTGS, Hồ sơ vay) — không gom |
 | 9 | Tính năng (Đợt 5): KPI Hôm nay từng thẻ · Ctrl+K · GDX mục con | theo anh chọn | anh đã chốt "làm sau" |
 | — | Mục 4 #6–#8 (bản web thu hẹp cho máy tính bảng) | để sau cùng | điện thoại dùng `dt.html` |
