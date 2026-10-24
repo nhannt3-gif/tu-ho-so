@@ -39,7 +39,10 @@ Các báo cáo này đã trả cùng 1 dạng `{ten, tieuDe, ngang, ngay, html, 
 - **2 tài khoản sửa song song** (TK 3 bản điện thoại) → file mới `js/62-dang-ky.js` + sửa trong `22gb / 22h / 22i / 22j` (file TK 2 giữ); ghi `PHOI_HOP_TK2_TK3.md`.
 - **Việc 1 (chốt sổ tổ viên cuối năm) có hạn trước Mẫu 31 T1/2027** → sau D6 làm ngay (còn ~2 tháng, đủ).
 
-## 5. Câu hỏi chờ anh (trả lời trước D5, D1–D4 không cần)
+## 5. Câu hỏi D5 — anh trả lời 24/10: "theo em, nếu lúc làm thấy không ổn anh đổi; nguồn cơ bản trên Mẫu 31, có kiểm tra chéo nếu có số liệu chuẩn TW"
+→ **Chốt:** (1) đặt ở tab **Tổng hợp** (đổi sau nếu anh thấy không ổn); (2) nguồn chính = **Mẫu 31** (món vay → gộp được theo khách / tổ / địa bàn); có file chuẩn TW cùng kỳ (Tổng dư nợ theo CT) thì cuối báo cáo hiện dòng **đối chiếu** tổng dư nợ / QH / khoanh (dùng lại `slDoiChieu`) — khớp ✓ / lệch số tiền; không có file thì ghi "chưa có số liệu TW để đối chiếu". TK 104 / KTGS chưa làm.
+
+(câu hỏi gốc:)
 1. "🧩 Báo cáo của tôi" đặt ở đâu: (a) tab Tổng hợp (em đề xuất) · (b) tab nào tự chọn khi khai.
 2. Nguồn cho báo cáo tự khai: món vay (Mẫu 31) · khách · tổ · TK 105 — đủ chưa, cần thêm nguồn nào (TK 104, KTGS…)?
 
