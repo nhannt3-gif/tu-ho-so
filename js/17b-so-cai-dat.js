@@ -23,7 +23,7 @@ var CH_SO = {
   anPV:'Cờ ẩn khung xem đời cũ (tự bỏ)', anPVTab:'Ẩn khung xem theo tab', anLocNhanh:'Ẩn thanh lọc nhanh theo tab', moLocDT:'Mở thanh lọc trên điện thoại', bangTab:'Kiểu xem bảng theo tab',
   xemChe:'Chế độ khung xem lần trước', dongGon:'Dòng danh sách gọn', tabCD:'Tab con Cài đặt đang mở', khoiMo:'Khối Hôm nay mở / gập', cayMo:'Nhánh cây đang mở', suaDM:'Đang sửa danh mục tab Tháng',
   anBangDC:'Ẩn bảng đối chiếu tab Tháng', moCXL:'Mở khối Cần xử lý', moGanDay:'Mở khối Gần đây', tvPhan:'Việc Hôm nay theo phần', taNhacKhac:'Đã nhắc tạo nhãn khác',
-  cheCau:'Câu hay mỗi ngày: chế độ', nhomCau:'Câu hay: nhóm câu', cheChay:'Chữ chạy: tốc độ', nkChe:'Nhật ký: kiểu ghi', dkChon:'Báo cáo chuẩn: lựa chọn từng báo cáo', inThe:'In thẻ CCCD: cỡ / khe',
+  cheCau:'Câu hay mỗi ngày: chế độ', nhomCau:'Câu hay: nhóm câu', cheChay:'Chữ chạy: tốc độ', nkChe:'Nhật ký: kiểu ghi', dkChon:'Báo cáo chuẩn: lựa chọn từng báo cáo', bcToi:'Báo cáo của tôi (tự khai ở tab Tổng hợp)', inThe:'In thẻ CCCD: cỡ / khe',
   /* văn bản, nhãn, danh mục */
   nghiepVu:'Danh mục nghiệp vụ', chuongTrinh:'Danh mục chương trình vay', ctTen:'Tên chương trình anh sửa', ctNCHXAPT:'Mốc thêm chương trình NCHXAPT (1 lần)', loaiVB:'Danh mục loại văn bản',
   kieuTen:'Kiểu đặt tên file', kieuTenThang:'Kiểu tên file tháng', tenCauTruc:'Cấu trúc tên file', soTrangDoc:'Số trang PDF đọc để nhận dạng', tuKhoa:'Từ khóa nhận dạng anh sửa', vtLoai:'Viết tắt loại văn bản',

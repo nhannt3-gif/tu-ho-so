@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.356 — 24/10/2026 — 🧩 Báo cáo của tôi: báo cáo bảng tự khai (KE_HOACH_DANG_KY đợt D5)
+- Anh 24/10: "theo em, nếu lúc làm thấy không ổn anh đổi; nguồn cơ bản trên Mẫu 31, có kiểm tra chéo nếu có số liệu chuẩn TW".
+- **Mới `js/63-bao-cao-toi.js`**: tab Tổng hợp (dưới danh sách báo cáo) › 🧩 Báo cáo của tôi › ⚙ Tạo / sửa: tên · gộp theo (từng món vay / từng khách / từng tổ) · cột (chip; thứ tự theo danh mục) · chỉ lấy (còn dư nợ, có quá hạn, có khoanh, có lãi tồn) · nhóm sẵn (Không / Xã › Điểm / Điểm › Hội › Tổ / Từng tổ) · khổ (tự động: > 10 cột → A4 ngang). Lưu `D.cauHinh.bcToi` (đồng bộ Drive cùng cài đặt), sửa / xóa (hỏi trước).
+- Mỗi báo cáo đăng ký thành khối `DANG_KY` (js/62) → khuôn in chuẩn 3.355, xem trước + chip Nhóm theo, In · PDF · Word · Excel · Gửi, 📜 nhật ký in.
+- Dòng: Mẫu 31 kỳ đang xem ở tab Tổng hợp, theo phạm vi + Chương trình + Nguồn vốn đang chọn; gộp khách = số món, CT, dư nợ / QH / khoanh / lãi tồn cộng, hạn gần nhất; gộp tổ = số khách, số món, tỷ lệ QH.
+- **Đối chiếu TW** (cuối báo cáo): Mẫu 31 cả phạm vi (trước điều kiện lọc của báo cáo) so với file Tổng dư nợ theo CT cùng kỳ — dư nợ · QH · khoanh "= TW ✓" hoặc "≠ TW … (lệch …)"; phạm vi điểm GD / tổ → ghi file TW không chia tới; chưa có file → ghi rõ.
+- `js/62`: ngữ cảnh tab Tổng hợp (`o:'th'` — `TH_K`, `thCH()`), `ctx.B` (bộ số liệu kỳ) dùng chung.
+- Tiêu đề khối dùng lớp riêng `bt-tit` (không dùng `th-nhom-ten` — tab Tổng hợp vẫn đúng 3 nhóm báo cáo, t159).
+- **Phép thử**: t259 thêm 12 ý D5 (khai qua hộp, nút ở tab, số dòng / cộng khớp Mẫu 31 theo món · khách · tổ, lọc lãi tồn, khổ ngang, đối chiếu đúng chiều, phạm vi điểm, xóa).
+
 ## 3.355 — 24/10/2026 — Nền báo cáo bảng `DANG_KY` (KE_HOACH_DANG_KY đợt N1)
 - Anh 24/10: "chưa có mẫu nào bắt buộc… em cứ tạo 1 cái nền sẵn, sau này cần mẫu nào sẽ tạo khi cần"; giữ bảng tổng quan tab Tổ + các báo cáo cũ.
 - **Mới `js/62-dang-ky.js`**: sổ `DANG_KY({...})` → nút ở tab, hộp xem trước (chip tùy chọn + Nhóm theo, nhớ `D.cauHinh.dkChon`), khuôn in chuẩn (KE_HOACH_DANG_KY mục 8): danh sách A4 dọc lề 15·15·20·10 mm, đầu "NGÂN HÀNG CHÍNH SÁCH XÃ HỘI / PGD Gò Dầu - Chi nhánh Tây Ninh" đậm; bảng tổng quát A4 ngang lề 12·12·15·10 mm, đầu "Ngân hàng CSXH Tỉnh Tây Ninh / PGD Gò Dầu / phạm vi", cố 1 trang; tiêu đề cột 2 tầng, dòng cộng nhóm, Tổng cộng, ô 0 ghi 0, không dòng ký; Excel cùng đầu trang; Word .doc; 📜 nhật ký in.
