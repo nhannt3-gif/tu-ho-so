@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.335 — 24/10/2026 — Tra cứu KH: dải tìm + lọc toàn trang, Tìm theo từng loại (cả số TK 105), danh sách kiểu bảng
+- **Anh 24/10**: "có thể mở rộng khu vực tra cứu ra toàn trang bên phải để tối ưu lựa chọn nhanh" · gửi ảnh app "Truy vấn thông tin" nơi khác để tham khảo · "số TK nếu lấy vẫn lấy được, khi nạp số liệu em có gắn số TK 105 từ Sao kê TK 105".
+- **Dải ngang** (`slTraHTML` js/22f): ô tìm + chip Tìm theo (trái) │ khối LỌC ĐỊA BÀN (phải) ở trên 2 cột; dưới: danh sách │ chi tiết cao hết màn. Điện thoại: xếp dọc như cũ.
+- **Tìm theo** (`tcTimTheo`, `D.cauHinh.tcTim.theo`, nhớ lựa chọn): **Tự nhận** = cách cũ (gõ gì cũng được); Tên KH (chỉ tên người vay, không lẫn vợ/chồng, ấp, tổ); Vợ/chồng; HSSV (tên hoặc CCCD HSSV); CCCD / Mã KH / Mã món vay / SĐT (gõ một phần, ≥ 3 số); **Số TK 105** (Sao kê TK 105 đã gắn kỳ — `TC_K.tk.tk105`; chưa nạp → báo). Ô tìm đổi chữ gợi ý theo loại. Lọc địa bàn vẫn áp.
+- **Kiểu bảng** (`tcBangHTML`, `D.cauHinh.tcTim.kieu`): Tên khách hàng · Mã KH · (Số TK 105 khi tìm theo TK) · Xã · Ấp · Tổ trưởng · Tình trạng; đầu bảng dính khi cuộn; bấm dòng = mở khách như thẻ; ↑ ↓ Enter như cũ. Máy tính mặc định bảng (cột danh sách rộng 55 %), điện thoại mặc định thẻ; nút ▦ Thẻ / ☰ Bảng.
+- **Phép thử**: mới t246 (16); t156 sửa điều kiện "ô tìm to trên cùng" theo dải mới; chạy lại t103–t107, t146, t152, t160, t243–t245, hoiquy, hoiquy2.
+
 ## 3.334 — 24/10/2026 — Đợt 1 bố cục máy tính (RA_SOAT_BO_CUC_2410) + thẻ tổ tab Tổ theo QT-18
 - **Anh 24/10**: "em cứ làm theo kế hoạch" — Đợt 1 của `docs/RA_SOAT_BO_CUC_2410.md` (TK 3 rà, ảnh chụp 1440 px).
 - **#1 Dải chip mẫu** (`cnHang` js/26, dùng chung GDX / Hồ sơ Tổ / Hồ sơ vay): 1 hàng cuộn ngang, mép mờ + nút ‹ › (lệnh `cn.cuon`, chỉ hiện khi còn mẫu khuất), mẫu đang chọn tự cuộn vào giữa (`cnSoatHet` khi vẽ / đổi cỡ cửa sổ). Hồ sơ: **📅 Số liệu + ⚙ Khai báo đơn vị** dời từ dải chip xuống dòng tên mẫu (`hsoDsHTML`) → hết bị đè.

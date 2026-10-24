@@ -1,0 +1,61 @@
+// 3.335 (anh 24/10 — tham khảo app "Truy vấn thông tin") — Tra cứu KH: ô tìm + LỌC ĐỊA BÀN dải ngang toàn trang; chip "Tìm theo" (Tự nhận · Tên KH · Vợ/chồng · HSSV ·
+//   CCCD · Mã KH · Mã món vay · SĐT · Số TK 105); danh sách kiểu bảng (máy tính mặc định) ↔ thẻ. Bộ GIẢ tests/gianho31 + Sao kê TK 105 giả gắn vào kỳ.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs=require('fs'), path=require('path');
+(async()=>{ const b=await chromium.launch(); const loi=[];
+ const p=await b.newPage({viewport:{width:1600,height:900}}); p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
+   const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
+   window.SL_KHONG_TU_KIEM = 1;
+   for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
+   kyChungDoi('2026-08'); SL_TRA_Q = ''; slDoiTab('tra'); doiNgan(7);
+   for(let i=0;i<60 && !(document.querySelector('#sl-kq .sl-kq-dong') && TC_K && SL_PHU.length);i++) await w(200); await w(500);
+   const kq = () => [...document.querySelectorAll('#sl-kq .sl-kq-dong')], chip = k => document.querySelector('.tc-theo .gd-chip[data-k="'+k+'"]');
+   const tim = async(theo, q) => { chip(theo).click(); const i = document.getElementById('sl-tim'); i.value = q; i.dispatchEvent(new Event('input', {bubbles:true})); await w(150); };
+   /* bố cục */
+   const dau = document.querySelector('#tr7 .tc-dau'), cot = document.querySelector('#tr7 .tc-2cot');
+   ok('ô tìm + LỌC ĐỊA BÀN ở dải ngang trên 2 cột (không nằm trong cột trái)', !!dau && !!dau.querySelector('#sl-tim') && !!dau.querySelector('#tc-cay') && !cot.querySelector('#sl-tim') && dau.getBoundingClientRect().bottom <= cot.getBoundingClientRect().top+2);
+   const sel = document.querySelector('#tc-cay select.pv-xa');
+   ok('ô Xã ở dải ngang đủ rộng (không bị bóp)', !!sel && sel.getBoundingClientRect().width >= 140, sel && Math.round(sel.getBoundingClientRect().width)+' px');
+   ok('9 chip "Tìm theo", mặc định Tự nhận', document.querySelectorAll('.tc-theo .gd-chip').length===9 && chip('').classList.contains('bat'));
+   /* kiểu bảng ↔ thẻ */
+   ok('máy tính mặc định kiểu bảng: Tên KH · Mã KH · Xã · Ấp · Tổ trưởng · Tình trạng', [...document.querySelectorAll('#sl-kq table.tc-kq-bang th')].map(x=>x.textContent).join('|')==='Tên khách hàng|Mã KH|Xã|Ấp|Tổ trưởng|Tình trạng' && kq().length>0 && kq()[0].tagName==='TR');
+   document.querySelector('#sl-kq [data-lenh="tc.kieu"]').click(); await w(150);
+   ok('bấm ▦ Thẻ → danh sách thẻ 2 dòng như cũ, nhớ lựa chọn', !document.querySelector('#sl-kq table') && kq().length>0 && kq()[0].tagName==='DIV' && D.cauHinh.tcTim.kieu==='the');
+   document.querySelector('#sl-kq [data-lenh="tc.kieu"]').click(); await w(150);
+   /* bấm dòng bảng → chi tiết */
+   kq()[0].click(); await w(600);
+   const ten0 = KH_GY[0] && (SL_DB.kh[KH_GY[0].m]||{}).ten;
+   ok('bấm 1 dòng bảng → khung phải mở khách đó', !!ten0 && document.getElementById('tc-ct').textContent.indexOf(ten0)>=0 && kq()[0].classList.contains('chon'), ten0);
+   /* từng loại */
+   const r0 = SL_TIM.find(r=>r.c && r.c.length>=9 && (SL_DB.kh[r.m]||{}).ku && SL_DB.kh[r.m].ku.length);
+   await tim('ten', r0.ten.split(' ').slice(-1)[0]);
+   ok('Tên KH: mọi dòng là người vay có chữ đó trong TÊN, không lẫn vợ/chồng', KH_GY.length>0 && KH_GY.every(r=>(' '+slChuan(r.ten)).indexOf(' '+slChuan(r0.ten.split(' ').slice(-1)[0]))>=0) && !document.querySelector('#sl-kq tr.phu'), KH_GY.length+' dòng');
+   const vc = SL_PHU.find(p=>p.loai==='vc');
+   if(vc){ await tim('vc', vc.ten); ok('Vợ/chồng: chỉ ra dòng 👫 vợ/chồng, không ra người vay', document.querySelectorAll('#sl-kq tr.phu').length>0 && !KH_GY.length && /👫/.test(document.querySelector('#sl-kq tr.phu').textContent), vc.ten); }
+   else ok('bộ giả có vợ/chồng', false);
+   await tim('cccd', r0.c.slice(-6));
+   ok('CCCD (6 số cuối): có khách đó, mọi dòng CCCD chứa số gõ', KH_GY.some(r=>r.m===r0.m) && KH_GY.every(r=>r.c.indexOf(r0.c.slice(-6))>=0), KH_GY.length+' dòng');
+   await tim('ma', r0.m.slice(0, 8));
+   ok('Mã KH: mọi dòng mã chứa số gõ', KH_GY.length>0 && KH_GY.every(r=>r.m.indexOf(r0.m.slice(0, 8))>=0));
+   const ku = String(SL_DB.kh[r0.m].ku[0]); await tim('ku', ku);
+   ok('Mã món vay: ra đúng khách có khế ước', KH_GY.length>=1 && KH_GY.some(r=>r.m===r0.m), ku+' → '+KH_GY.length);
+   await tim('ma', '12'); ok('gõ dưới 3 số → nhắc gõ thêm', /ít nhất 3 chữ số/.test(document.getElementById('sl-kq').textContent));
+   /* Số TK 105 */
+   const giu = TC_K.tk; TC_K.tk = {};
+   await tim('tk', '7100'); ok('Số TK 105 chưa có Sao kê → báo nạp', /Chưa có Sao kê TK 105/.test(document.getElementById('sl-kq').textContent));
+   TC_K.tk = {tk105:{ky:'2026-08-31', rows:[{kh:r0.m, stk:'7100998877', ten:r0.ten}, {kh:'khongco', stk:'7100998800'}]}};
+   await tim('tk', '998877');
+   ok('Số TK 105: ra đúng khách, có cột Số TK 105', KH_GY.length===1 && KH_GY[0].m===r0.m && [...document.querySelectorAll('#sl-kq th')].some(x=>x.textContent==='Số TK 105') && /7100998877/.test(document.querySelector('#sl-kq tbody').textContent));
+   TC_K.tk = giu;
+   ok('lựa chọn "Tìm theo" nhớ (D.cauHinh.tcTim)', D.cauHinh.tcTim.theo==='tk');
+   await tim('', r0.ten); ok('Tự nhận: tìm như cũ', KH_GY.some(r=>r.m===r0.m));
+   kq()[0] && kq()[0].click(); await w(600);
+   return o; }, files);
+ await p.screenshot({path:path.join(__dirname,'t246.png')});
+ R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
+ const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t246 đạt'); await b.close(); process.exit(sai?1:0);
+})();
