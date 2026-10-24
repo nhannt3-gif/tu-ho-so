@@ -138,7 +138,7 @@ function ktCheDo(){ var c = ktCH().che; return c==='gn' || c==='bc' || c==='kh' 
 function ktDoiCheDo(c){ ktCH().che = c; luu(); ktVeThe(); }
 function ktCheDoHTML(){ return ktKhoiHTML(ktCheDo()); }   /* 3.329: thanh 3 khối Bắt buộc · Đột xuất · Khai báo (js/56-ktgs-bo.js) thay 6 chip */
 function ktThangHS(){   /* các tháng có Mẫu 31 chốt tháng — mới nhất trước · 3.136: + tháng chưa có bản cuối tháng nhưng đã có Mẫu 31 theo ngày */
-  var m = {}; Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='hstd'; }).forEach(function(e){ m[slThang(e.ky)] = 1; });
+  var m = {}; KHO.dsBang('hstd').forEach(function(e){ m[slThang(e.ky)] = 1; });
   return Object.keys(m).sort().reverse();
 }
 function ktGNNgayCua(th){ var c = KHO.chotThang(th); return c && c.tam ? c.ky : ''; }   /* 3.333: qua cửa KHO (trước: đọc SLM) — tháng chưa có Mẫu 31 cuối tháng → Mẫu 31 ngày mới nhất */   /* 3.136: tháng chưa có Mẫu 31 cuối tháng → Mẫu 31 ngày mới nhất */

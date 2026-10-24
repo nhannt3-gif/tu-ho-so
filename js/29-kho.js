@@ -63,6 +63,9 @@ var KHO = (function(){
     /* KHO.danhBa(maKH) → bản ghi danh bạ Mẫu 31 các kỳ (sdt, voChong, gt, danToc, to, xa, stk…) | null */
     danhBa: function(kh){ return typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh && kh ? SL_DB.kh[kh] || null : null; },
     /* KHO.voiKy(K, hàm) → chạy hàm với kỳ K (đã dựng bằng KHO.nap) làm kỳ đang dựng rồi trả lại kỳ cũ — đọc kỳ khác không đổi màn hình (3.231) */
+    /* 3.346 (K4): KHO.kyDung() → kỳ đang dựng (đối tượng kỳ) | null · KHO.datKy(K) → đặt K làm kỳ đang dựng (tab chủ động đổi kỳ, vd KTGS) */
+    kyDung: function(){ return typeof TO_K!=='undefined' ? TO_K : null; },
+    datKy: function(K){ TO_K = K; return K; },
     voiKy: function(K, f){ var cu = TO_K; TO_K = K; try { return f(); } finally { TO_K = cu; } },
     /* KHO.phienDanhBa() → đối tượng nhận diện bản danh bạ đang dùng (đổi khi nạp lại) — chỉ để biết khi nào dựng lại chỉ mục (3.228) */
     phienDanhBa: function(){ return typeof SL_DB!=='undefined' ? SL_DB : null; },

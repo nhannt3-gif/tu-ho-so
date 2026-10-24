@@ -49,8 +49,8 @@ function ktKHNapSL(th){
 }
 function ktKHVoiSL(fn){   /* chạy fn với số liệu của tháng kiểm tra đang chọn (KT_KH_SL), xong trả lại số liệu đang xem */
   var S = KT_KH_SL; if(!S || !S.K || S.K===KT_K || S.goc!==KT_K) return fn();
-  var a = KT_K, b = KT_BC, c = KT_TRUOC, d = TO_K; KT_K = S.K; TO_K = S.K; KT_BC = S.BC; KT_TRUOC = S.TR;
-  try { return fn(); } finally { KT_K = a; TO_K = d; KT_BC = b; KT_TRUOC = c; }
+  var a = KT_K, b = KT_BC, c = KT_TRUOC, d = KHO.kyDung(); KT_K = S.K; KHO.datKy(S.K); KT_BC = S.BC; KT_TRUOC = S.TR;
+  try { return fn(); } finally { KT_K = a; KHO.datKy(d); KT_BC = b; KT_TRUOC = c; }
 }
 function ktKHSLChu(S, m){   /* dòng ghi đúng file số liệu đang dùng cho tháng kiểm tra */
   var bc = S.BC && S.BC.k37 ? S.BC.k37.e.ky : '', bcDung = bc && slThang(bc)===slThang(S.ky);
