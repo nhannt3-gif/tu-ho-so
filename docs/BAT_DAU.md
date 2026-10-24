@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.347** — TK 2: Tra cứu dùng số liệu mới nhất (ngày) + kỳ ngày không bù Mẫu 01/TV (anh test tổ Bùi Thị Thảo). Trước: 3.346 đọc qua KHO K2–K5 (thước đo 0). Việc tiếp: mục 6 nhật ký đã lập / đã in; giảm onclick; nguyên tắc bù cuối tháng chờ số liệu T10.
+- **`main` = 3.348** — TK 2: 📜 nhật ký đã lập / in (mục 8 việc 6) — ngăn `D.nkIn`, đồng bộ Drive, xem ở thẻ khách / thẻ tổ. Trước: 3.347 Tra cứu theo ngày không bù 01/TV; 3.346 đọc qua KHO K2–K5. Việc tiếp: giảm onclick (mục 8 việc 7); nguyên tắc bù cuối tháng chờ số liệu T10; mục 8 (người ký 1 chỗ) anh bỏ.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.347', ds:[
+var CO_GI_MOI = {ban:'3.348', ds:[
+  ["📜 Nhật ký đã lập / in: mỗi lần In · PDF · Word · Excel app ghi lại mẫu nào, ngày nào, cho khách / tổ nào — xem ở thẻ khách, thẻ tổ (Tra cứu) và hộp 📜 lọc; đồng bộ giữa các máy qua Drive, giữ 13 tháng", "doiNgan(7)"],
   ["Tra cứu KH dùng số liệu MỚI NHẤT (có Mẫu 31 theo ngày thì lấy ngày); số liệu theo ngày KHÔNG bù người theo Mẫu 01/TV — chỉ đếm theo Mẫu 31 ngày đó (bù chỉ cho chốt cuối tháng)", "doiNgan(7)"],
   ["Nền mã: mọi tab đọc số liệu qua 1 cửa KHO (Tra cứu, Sao kê, cấp Hội, Tổng hợp, Thông tin tổ, KTGS, tab Tổ, Hồ sơ, GDX) — app chạy y như cũ, nhanh sửa / ít lỗi chéo về sau", "doiNgan(7)"],
   ["Tra cứu › thẻ tổ: cột Họ tên gọn lại, chia chỗ cho các cột khác; khách không còn món ghi rõ \"Tất nợ · còn TGTK — vẫn trong tổ\" / \"Tất nợ · TG 0 — cần cho ra khỏi tổ\" / \"Hết gốc · còn lãi tồn\"; người bù theo Mẫu 01/TV có chữ \"TƯ còn giữ\"", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.347', ds:[
   ["Công cụ 🎓 Hạn trả HSSV: đầu công cụ không còn tràn ở màn 17 inch (1366)", "doiNgan(0)"],
   ["Tra cứu KH: thẻ khách gọn trong 1 khung — 3 cột Nhân thân │ Liên hệ · TK 105 │ Tổ, bảng món vay chiếm phần còn lại (đủ cột cả màn 1366)", "dhSL('tra')"],
   ["Món vay: cột Đến hạn tô màu — quá hạn đỏ · còn ≤ 30 ngày cam · ≤ 90 ngày vàng, ghi còn / quá n ngày, GH = hạn gia hạn", "dhSL('tra')"],
-  ["Danh sách khách: tình trạng chữ nhỏ ngay sau tên, khung chi tiết rộng hơn (45 / 55)", "dhSL('tra')"],
-  ["Tra cứu KH › Tìm theo › Tổ trưởng: gõ tên tổ trưởng / mã tổ / SĐT → bảng tổ; bấm tổ → thẻ tổ (số TV, dư nợ, tổ trưởng, địa bàn, thành viên)", "dhSL('tra')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Danh sách khách: tình trạng chữ nhỏ ngay sau tên, khung chi tiết rộng hơn (45 / 55)", "dhSL('tra')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

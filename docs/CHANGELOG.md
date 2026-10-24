@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.348 — 24/10/2026 — 📜 Nhật ký đã lập / in (RA_SOAT_BO_CUC_2410 mục 8 việc 6)
+- **Kế hoạch** (góp ý 7.1, anh: "em làm tiếp theo kh đi và gộp lên rồi làm tiếp ko cần chờ anh"): tra lại "khách này đã lập 01/TD, 03/TD chưa", "tháng này đã in Mẫu 06 cho tổ nào" — trước chỉ nhớ trong phiên (GDX có nhật ký riêng 1 tháng trên 1 máy).
+- **`js/61-nhat-ky-in.js` (mới)**: ngăn `D.nkIn` — mỗi dòng {lúc, mẫu, cách In / PDF / Word / Excel, khách [], tổ [], kỳ, tab}; giữ 13 tháng, tối đa 5.000 dòng. Lưu theo ngăn (02, 34) + **đồng bộ chỉ mục Drive** (17: gộp theo id như Scan / Chữ ký — 2 máy cùng in không mất dòng).
+- **Ghi ở đâu**: hàng nút xuất chung `xuatHang` (js/24) — bấm 🖨 In · 📄 PDF · 📝 Word · 📊 Excel ghi trước khi chạy; nơi gọi cho biết khách / tổ qua `XUAT.nk` (đã gắn: Hồ sơ Tổ / Hồ sơ vay — tổ đang chọn + khách của hồ sơ vay + kỳ); chưa đặt tên thì lấy tiêu đề trang in (KTGS…). GDX: mỗi lần in (đã có 📜 nhật ký 1 tháng riêng) ghi thêm vào nhật ký chung.
+- **Xem lại**: thẻ khách (Tra cứu) + thẻ tổ — khối "📜 Đã lập / in" (mẫu · ngày, gộp cùng mẫu cùng ngày, "xem hết"); hộp 📜 Nhật ký có ô lọc (mẫu / mã khách / mã tổ), 500 dòng mới nhất.
+- **Phép thử**: `t258` mới (ghi khi bấm Word / Excel, lấy tiêu đề, thẻ khách / thẻ tổ / hộp, gộp máy khác theo id, bỏ dòng quá 13 tháng, còn sau tải lại).
+
 ## 3.347 — 24/10/2026 — Tra cứu theo ngày, không bù Mẫu 01/TV (anh 24/10)
 - **Anh**: "kiểu bù này chỉ tính cho cuối tháng, vì 01/TV là cuối tháng" + "em làm trước tra cứu theo ngày không cần bù mẫu, anh xem có đúng không" (tổ Bùi Thị Thảo: hộ dư nợ 0 đã ra khỏi tổ theo số liệu 19/10).
 - **`tvChuan` (js/28, 1 chỗ tính thành viên QT-18)**: kỳ **ngày** không dùng Mẫu 01/TV để bù → danh sách tổ = tổ viên Mẫu 31 ngày đó (người đã ra khỏi tổ theo `slDanhRaTo` không bị bù lại). Kỳ **chốt tháng** giữ nguyên (bù như cũ — khớp TƯ 30/09). Áp chung mọi nơi dùng `tvChuan` (Tra cứu, tab Tổ khi chọn kỳ ngày).

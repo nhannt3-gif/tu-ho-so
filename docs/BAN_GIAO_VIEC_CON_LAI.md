@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.348) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay: chọn khách → 🖨 In / 📝 Word 1 mẫu | Tra cứu khách đó → khối "📜 Đã lập / in" có mẫu + ngày | |
+| 2 | Hồ sơ Tổ: in 1 mẫu cho 1 tổ | Thẻ tổ (Tra cứu › Tổ trưởng) có mẫu đó | |
+| 3 | KTGS: in Mẫu 06 / 04 | Hộp 📜 (xem hết) có dòng mang tên mẫu | |
+| 4 | Máy thứ 2 sau đồng bộ Drive | Thấy nhật ký máy 1 | |
+
+**Ghi chú kỹ thuật 3.348:** `D.nkIn` thêm vào: `luuNgay` (02), đọc lúc mở (02), `LN.dungBanCu` / `datCach` (34), chỉ mục Drive xuất + `gopTuRemote` (17, `gopTheoSua`). Nơi in muốn ghi rõ khách / tổ: truyền `nk:{mau, kh:[], to:[], ky}` vào `xuatHang` (KTGS chưa gắn tổ — làm khi sửa KTGS).
+
 ### Danh sách thử trên máy thật (3.347) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
