@@ -149,12 +149,12 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 | Đợt KT3L | Thực tế đến 3.194 | Quyết định 14/10 |
 |---|---|---|
 | A. Tách file | ✅ 3.142 | — |
-| B. Lưu an toàn (`luu()`, đồng bộ Drive) | ❌ chưa (đã ghi "việc tiếp" sau 3.166) | **Giữ — đưa lên số 2** (sự cố mất cài đặt 09/10) |
-| C. Kho dữ liệu `KHO` | ❌ chưa | Giữ — số 3, kèm sổ QT; **làm thử bằng TK 104 / 105 / CCCD** (QT-11…13) |
+| B. Lưu an toàn (`luu()`, đồng bộ Drive) | ✅ (rà 24/10) 3.203 hẹn ghi · 3.223 lưu theo ngăn IndexedDB · 3.225–3.226 đồng bộ Drive theo khối · 3.340 bỏ bản sao localStorage khi > 1 MB | **Giữ — đưa lên số 2** (sự cố mất cài đặt 09/10) |
+| C. Kho dữ liệu `KHO` | ✅ (rà 24/10) cửa `KHO` js/29 + sổ QT-01…18; mọi tab đọc qua KHO 3.341–3.346 (thước đo 0); còn K6 đọc sâu kỳ riêng của tab — làm dần (RA_SOAT_KHO_2410 mục 4) | Giữ — số 3, kèm sổ QT; **làm thử bằng TK 104 / 105 / CCCD** (QT-11…13) |
 | D. Lớp chung | 🟡 một phần (3.149–3.167) | Giữ |
-| E. Đăng ký khối | ❌ chưa | Giữ, sau C |
+| E. Đăng ký khối | ❌ chưa (rà 24/10: chưa có `DANG_KY`) | Giữ, sau C |
 | F. Bố cục máy tính | ✅ 3.144–3.168 | — |
-| G. Nghiệp vụ nối kho | ❌ chưa | Giữ; thêm **Hồ sơ Tổ** (mới có khung → **dựng thẳng trên `KHO`**, không phải chuyển) và **phần lấy dữ liệu Giao dịch xã** |
+| G. Nghiệp vụ nối kho | 🟡 (rà 24/10) Hồ sơ Tổ / Hồ sơ vay / GDX / Scan qua KHO; Theo dõi nợ còn bộ đọc riêng | Giữ; thêm **Hồ sơ Tổ** (mới có khung → **dựng thẳng trên `KHO`**, không phải chuyển) và **phần lấy dữ liệu Giao dịch xã** |
 | H. Máy chủ nội bộ | chờ tin học | Giữ, để sau |
 | I. Mini app | 🟡 mini Giao dịch xã (3.177) chưa qua `KHO` | Giữ; mini app sau phải qua `KHO` |
 | J. Dọn mã chết | xen kẽ | Giữ |
@@ -169,6 +169,8 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 5. **Đối chiếu chéo có "danh mục lý do lệch đã biết"** (hộ chỉ còn TK 105, tất nợ trong tháng, hệ thống gỡ mã tổ sau ngày chốt, cách đếm số hộ LEN_31 — QT-09) → chỉ báo **lệch thật**.
 6. **"Việc cần xử lý"** gom ở tab Hôm nay theo địa bàn (CCCD hết hạn, chưa TK 105, BQL tổ không còn trong số liệu, tổ lệch đối chiếu, khách "không còn trong số liệu", nợ cần xử lý), tích "đã xử lý".
 7. Kỳ: **kỳ tháng (chốt)** cho báo cáo + KTGS, **kỳ ngày** cho tác nghiệp (Giao dịch xã, tra cứu) — `KHO` trả đúng loại kỳ.
+
+**Rà 24/10 (TK 2, bản 3.353):** bước 1–4 ✅ · bước 7 ✅ trừ `DANG_KY` · **còn: bước 5 (dòng thời gian + chốt sổ tổ viên cuối năm — HẠN trước khi nạp Mẫu 31 T1/2027), bước 6 (danh mục lý do lệch), bước 8 (Việc cần xử lý ở Hôm nay), `DANG_KY`, thống nhất quy tắc kiểm tra (KT3L Q15)** — chờ anh chọn thứ tự.
 
 **Thứ tự làm (mỗi bước: kế hoạch → anh duyệt → "code" → hồi quy → "gộp"):**
 
