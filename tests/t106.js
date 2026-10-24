@@ -52,8 +52,8 @@ const fs=require('fs'), path=require('path');
    /* tab KTGS */
    D.cauHinh.ktHaiMat = 0;   /* 3.124: phép này kiểm ngắt trang thường — in 2 mặt kiểm ở t126 */
    const C = ktCH(); C.ky='2026-08'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
-   await w(300); const bcChip = () => [...document.querySelectorAll('.pv-chip-o .sl-chip')].filter(x=>/BC043[78]/.test(x.textContent));
-   ok('3.163: chip BC0437 ✓ / BC0438 ✓ cuối hàng Xã', bcChip().length===2 && bcChip().every(x=>/✓/.test(x.textContent) && x.classList.contains('xanh')), bcChip().map(x=>x.textContent).join(' | '));
+   await w(300); const bcChip = () => [...document.querySelectorAll('.pv-chip-o .sl-chip, #tr7 .kt-khoi-bc .sl-chip')].filter(x=>/BC043[78]/.test(x.textContent));
+   ok('3.163: chip BC0437 ✓ / BC0438 ✓ cuối hàng Xã (3.334: cuối thanh khối KTGS)', bcChip().length===2 && bcChip().every(x=>/✓/.test(x.textContent) && x.classList.contains('xanh')), bcChip().map(x=>x.textContent).join(' | '));
    ok('3.144 / 3.149: tab KTGS không còn khối nạp BC; chip BC bấm → tab Nạp & KT', !document.querySelector('#tr7 .kt-nap') && bcChip().every(x=>/moNapSL/.test(x.getAttribute('onclick'))));
    (D.cauHinh.slMo = D.cauHinh.slMo || {}).K = true; SL_KY = '2026-08'; slDoiTab('nap'); await w(600);   /* 3.156: nhóm Ⓚ KTGS trong ma trận chính */
    const mt = [...document.querySelectorAll('#tr7 .sl-bang tbody tr')].filter(r=>/BC043[78]/.test(r.textContent));

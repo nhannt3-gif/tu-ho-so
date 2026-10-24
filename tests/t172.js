@@ -15,7 +15,7 @@ const fs=require('fs'), path=require('path');
    slDoiTab('hsv'); doiNgan(7); await w(1200);
    /* 1. khai báo chung — cửa sổ có tab con */
    hsoChonMau('01td'); await w(300);
-   ok('nút "⚙ Khai báo đơn vị" + cột trái ghi "⚙ Khai báo riêng — Mẫu 01/TD" (3.222)', /⚙ Khai báo đơn vị/.test(document.getElementById('hso-tabm').textContent) && /Khai báo riêng — Mẫu 01\/TD/.test(document.getElementById('hso-tuy').textContent));
+   ok('nút "⚙ Khai báo đơn vị" + cột trái ghi "⚙ Khai báo riêng — Mẫu 01/TD" (3.222)', /⚙ Khai báo đơn vị/.test(document.querySelector('#hso-ds .hso-dau-ds').textContent) && /Khai báo riêng — Mẫu 01\/TD/.test(document.getElementById('hso-tuy').textContent));
    hsoKBHop('ct'); await w(200);
    const hop = document.getElementById('hop-in');
    ok('cửa sổ có tab con PGD · Cán bộ · Hội · Trưởng ấp · Tổ phó · Chương trình vay · TK (3.222); mở tab Chương trình vay', [...hop.querySelectorAll('.hso-kbt')].map(e=>e.getAttribute('data-kb')).join(',')==='pgd,cb,hoi,ap,pho,ct,tk,kiem,sl' && hop.querySelector('.hso-kbp[data-kb="ct"]').style.display==='' && hop.querySelector('.hso-kbp[data-kb="pgd"]').style.display==='none');
