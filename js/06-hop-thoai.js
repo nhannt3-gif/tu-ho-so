@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.350', ds:[
+var CO_GI_MOI = {ban:'3.351', ds:[
+  ["Tra cứu › Tìm theo Tổ trưởng: hiện đủ mọi tổ (bỏ giới hạn 300); cột Thành viên · Có dư nợ đưa lên ngay sau Mã tổ — luôn thấy số thành viên", "doiNgan(7)"],
   ["Tra cứu › thẻ tổ: hộ tất nợ còn trong tổ ghi thêm ngày tất nợ (vd \"Tất nợ 12/05/2026 · còn TGTK — vẫn trong tổ\")", "doiNgan(7)"],
   ["Nền mã: 100 nút Đóng / Thôi của các hộp chuyển sang bộ nhận lệnh chung (bớt onclick) — dùng y như cũ", "doiNgan(0)"],
   ["📜 Nhật ký đã lập / in: mỗi lần In · PDF · Word · Excel app ghi lại mẫu nào, ngày nào, cho khách / tổ nào — xem ở thẻ khách, thẻ tổ (Tra cứu) và hộp 📜 lọc; đồng bộ giữa các máy qua Drive, giữ 13 tháng", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.350', ds:[
   ["Lưu dữ liệu: máy có nhiều hồ sơ (dữ liệu > 1 MB) lưu nhanh hơn — chỉ ghi kho IndexedDB, thôi ghi bản sao localStorage mỗi lần sửa", "hsoKBHop('sl')"],
   ["Nền mã: tách 2 file lớn nhất (giao diện chung 5.416 dòng, hộp thoại 3.117 dòng) thành các file theo khối — app chạy y như cũ, dễ sửa và ít lỗi hơn", "doiNgan(0)"],
   ["⚙ Khai báo đơn vị › 💾 Sao lưu: thẻ 🩺 Sức khỏe sao lưu — mỗi đường lưu (máy, tự lưu đầu ngày, chụp cài đặt, Drive, file chưa lên) 1 dòng, đỏ khi quá 7 ngày", "hsoKBHop('sl')"],
-  ["Công cụ 🎓 Hạn trả HSSV: đầu công cụ không còn tràn ở màn 17 inch (1366)", "doiNgan(0)"],
-  ["Tra cứu KH: thẻ khách gọn trong 1 khung — 3 cột Nhân thân │ Liên hệ · TK 105 │ Tổ, bảng món vay chiếm phần còn lại (đủ cột cả màn 1366)", "dhSL('tra')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Công cụ 🎓 Hạn trả HSSV: đầu công cụ không còn tràn ở màn 17 inch (1366)", "doiNgan(0)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

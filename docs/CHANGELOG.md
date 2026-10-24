@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.351 — 24/10/2026 — Bảng tổ ở Tra cứu: đủ mọi tổ + số thành viên luôn thấy (anh 24/10)
+- **Anh** (ảnh: "371 tổ — đang hiện 300 tổ đầu", cột Thành viên bị khung phải che): "hiện số TV của tổ cho tất cả các tổ luôn".
+- `tcToTim` (js/58): bỏ cắt 300 tổ — hiện đủ mọi tổ trong phạm vi; cột xếp lại **Tổ trưởng · Mã tổ · Thành viên · Có dư nợ · Xã · Ấp · Hội** (số thành viên QT-18 + chip ngưỡng nằm ngay sau mã tổ, không bị che).
+- **Phép thử**: t246 sửa theo thứ tự cột mới + "chưa gõ → mọi tổ" (không còn giới hạn 300).
+
 ## 3.350 — 24/10/2026 — Thẻ tổ: ngày tất nợ (anh 24/10)
 - **Anh**: "hộ tất nợ còn trong tổ nếu lấy được ngày tất nợ thì ghi vào luôn".
 - **Bảng thành viên thẻ tổ** (`ttKH` trong `tcTheTo`, js/58): khách không còn món loại "còn TGTK" / "TG 0" ghi **"Tất nợ dd/mm/yyyy"** — ngày = ngày giao dịch gần nhất (`ngdg`) của món đã tất toán trong Mẫu 31 kỳ đang xem (cùng cách tab Tổ tính `tatNo`, 3.128; đưa chuột vào thấy giải thích). Không có món trong Mẫu 31 (người TƯ còn giữ) → không ghi ngày.
