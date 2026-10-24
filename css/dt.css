@@ -31,3 +31,12 @@ html,body{margin:0;background:var(--dt-nen);color:var(--dt-chu);font-family:-app
 .toast{pointer-events:none}   /* thông báo chỉ để đọc — không bao giờ chặn bấm */
 .dt-gdx{padding:0}.dt-gdx-khung{display:block;width:100%;height:calc(100vh - 150px - env(safe-area-inset-bottom));border:0;background:#fff}
 .dt-tl{margin:10px 16px}
+/* 3.343 (Đ1 — theo Tra cứu KH máy tính của TK 2): chip Tìm theo · 5 ô số · đến hạn tô màu · chép */
+.dt-theo{display:flex;gap:6px;overflow-x:auto;padding:0 16px 6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}.dt-theo::-webkit-scrollbar{display:none}
+.dt-chip{flex:0 0 auto;padding:6px 12px;border-radius:16px;background:var(--dt-the);color:var(--dt-chu);font-size:14px;text-decoration:none;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.dt-chip.bat{background:var(--dt-xanh);color:#fff}
+.dt-oso{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 16px}.dt-oso>div{background:var(--dt-the);border-radius:12px;padding:8px 10px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.dt-oso b{display:block;font-size:17px}.dt-oso span{font-size:12px;color:var(--dt-phu)}.dt-oso .do b{color:var(--dt-do)}.dt-oso .cam b,.cam{color:#c2410c}
+.dt-han{font-weight:600}.dt-han-do{color:var(--dt-do)}.dt-han-cam{color:#c2410c}.dt-han-vang{color:#a16207}.dt-han small{font-weight:700}
+.dt-xam{color:var(--dt-phu)}.item-title small{font-weight:400;font-size:12px;margin-left:4px}
+.dt-chep{text-decoration:underline dotted;cursor:pointer}

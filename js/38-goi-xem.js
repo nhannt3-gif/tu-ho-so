@@ -10,7 +10,7 @@ function gxTong(ds){   /* tổng 1 nhóm tổ viên: dư nợ, quá hạn, khoan
   return r;
 }
 function gxTT(t){ if(toLaTT(t)) return ''; var k = KHO.toTruongKH(t) || {}, c = k.kh ? KHO.danhBa(k.kh) : null; return (c && c.ten) || t.ten || ''; }   /* tên tổ trưởng: Mã CIF TT → danh bạ; chưa có thì tên tổ (app đặt tên tổ = tên tổ trưởng) */
-function gxMon(m){ return [m.ct||'', String(m.ku||''), m.nv||m.ngn||'', m.gn||0, m.dn||0, m.qh||0, m.kn||0, m.dhgh||m.dhg||'', m.ttMon||'']; }   /* [CT, khế ước, ngày vay, giải ngân, dư nợ, quá hạn, khoanh, đến hạn, trạng thái] */
+function gxMon(m){ return [m.ct||'', String(m.ku||''), m.nv||m.ngn||'', m.gn||0, m.dn||0, m.qh||0, m.kn||0, m.dhgh||m.dhg||'', m.ttMon||'', typeof laiTon==='function' ? Math.round(laiTon(m)||0) : 0, m.dhgh ? 1 : 0]; }   /* [CT, khế ước, ngày vay, giải ngân, dư nợ, quá hạn, khoanh, đến hạn, trạng thái] · 3.343 (TK 3, điện thoại Đ1): + [9] lãi tồn, [10] 1 = hạn gia hạn — nối cuối, bản cũ vẫn đọc */
 function gxLapTu(K){   /* K = kỳ đã dựng (TO_K) → gói */
   var g = {v:1, ban:APP_BAN, ky:K.ky, ngay:K.ngay, luc:new Date().toISOString(), pgd:typeof hsoPGD==='function' ? hsoPGD('ngan') : '', to:{}, kh:[]};
   KHO.voiKy(K, function(){
@@ -21,7 +21,7 @@ function gxLapTu(K){   /* K = kỳ đã dựng (TO_K) → gói */
       if(!tv.length) return;
       var s = gxTong(tv);
       g.to[ma] = {ten:t.ten||'', xa:t.xa||'', tenXa:t.tenXa||'', diem:t.khoaDiem||'', tenDiem:t.tenDiem||'', hoi:String(t.dv||''), tenHoi:t.dv ? (String(t.dv)==='99' ? 'Vay trực tiếp' : tdnHoi(t.dv)) : '',
-        ap:t.tenThon||'', tt:gxTT(t), sdt:t.sdt||'', tt1:toLaTT(t) ? 1 : 0, dn:s.dn, qh:s.qh, kn:s.kn, ho:s.ho, mon:s.mon};
+        ap:t.tenThon||'', tt:gxTT(t), ttKH:toLaTT(t) ? '' : ((KHO.toTruongKH(t) || {}).kh || ''), sdt:t.sdt||'',   /* 3.343: + mã KH tổ trưởng (thẻ tổ điện thoại) */ tt1:toLaTT(t) ? 1 : 0, dn:s.dn, qh:s.qh, kn:s.kn, ho:s.ho, mon:s.mon};
       tv.forEach(function(k){ var c = KHO.danhBa(k.kh) || {}, m0 = (k.mon||[])[0] || {};
         g.kh.push([k.kh, k.ten||c.ten||'', c.ns||m0.ns||'', c.cccd||m0.cccd||'', c.ncap||m0.ncap||'', c.sdt||m0.sdt||'', c.tenThon||m0.tenThon||'', ma, c.voChong||m0.voChong||'', k.t105||0, (k.mon||[]).map(gxMon)]); });
     });
