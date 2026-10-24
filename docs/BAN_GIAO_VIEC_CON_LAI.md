@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.337) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu KH › mở khách nhiều món (máy làm việc) | Cả thẻ trong 1 khung: 3 cột thông tin + bảng món vay đủ cột, không phải cuộn ngang | |
+| 2 | Cột Đến hạn | Món quá hạn đỏ, còn ≤ 30 ngày cam, ≤ 90 ngày vàng; món gia hạn có GH | |
+| 3 | Danh sách bên trái | Tình trạng chữ nhỏ sau tên, mỗi khách 1 dòng; khung chi tiết rộng hơn | |
+
+**Ghi chú kỹ thuật 3.337:** đọc `tong.txt` của hồi quy phải lọc theo **số ✗**, không theo mã thoát (vài phép in ✗ nhưng thoát 0 — t106, t170, t172 lọt từ 3.334, nay đã sửa). Luật chung `td:first-child{min-width:150px;position:sticky}` (css ~dòng 1222) áp mọi bảng — bảng nhỏ trong khung phải tự gỡ (`.tc-the table.tc-mon td:first-child`).
+
 ### Danh sách thử trên máy thật (3.336) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
