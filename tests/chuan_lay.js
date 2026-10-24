@@ -5,6 +5,7 @@ const fs = require('fs'), path = require('path');
 module.exports = async function(p){
   const dir = path.join(__dirname, 'gianho31'), files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir, n)).toString('base64')}));
   const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const w = t=>new Promise(r=>setTimeout(r, t)); window.SL_KHONG_TU_KIEM = 1;
+    window.nay = ()=>new Date(2026, 9, 17, 9, 0, 0);   /* 3.339: "hôm nay" cố định = ngày ghi chuẩn (17/10/2026) — GDX chọn điểm có ngày GD gần nhất theo hôm nay → chạy ngày khác lệch nhầm (t179 trượt từ 24/10) */
     for(const f of files){ const bin = atob(f.b), u = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i] = bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
     const out = {}, loi = [];
     const lay = (ten, f) => { try { const x = f(); out[ten] = typeof x==='string' ? x : (x.h || (x.ds||[]).map(y=>y.h).join('\n<!--trang-->\n')); } catch(e){ out[ten] = 'LỖI '+e.message; loi.push(ten); } };
@@ -46,7 +47,7 @@ module.exports = async function(p){
     lay('kt_04', ()=>ktHTML04([ktBC04([{t:best}])[0]]));
     return {out, loi};
   }, files);
-  const hom = new Date(), dd = String(hom.getDate()).padStart(2, '0'), mm = String(hom.getMonth()+1).padStart(2, '0'), yy = hom.getFullYear();
+  const hom = new Date(2026, 9, 17), dd = String(hom.getDate()).padStart(2, '0'), mm = String(hom.getMonth()+1).padStart(2, '0'), yy = hom.getFullYear();
   const chuan = s => String(s).split(dd+'/'+mm+'/'+yy).join('{NGAY}').split(yy+'-'+mm+'-'+dd).join('{NGAY}')
     .replace(new RegExp('ngày ([^0-9]{0,40})'+dd+'([^0-9]{1,40})tháng([^0-9]{1,40})'+mm+'([^0-9]{1,40})năm([^0-9]{1,40})'+yy, 'gi'), 'ngày $1{D}$2tháng$3{M}$4năm$5{Y}')
     .replace(/\bhm[a-z0-9]{8,}\b/g, '{HO}').replace(/\?v=[0-9.]+/g, '?v={BAN}');
