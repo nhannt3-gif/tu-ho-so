@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.360 — 24/10/2026 — Rà soát logic + code rác (anh: "em luôn rà soát logic và code rác")
+- **Lỗi logic** `js/62` (`dkHTML`): dòng cộng nhóm + Tổng cộng luôn gộp 3 ô đầu để ghi chữ → báo cáo tự khai đặt cột tiền ở vị trí 2–3 bị mất số tổng. Sửa: ô gộp = các cột trước cột số đầu tiên (≤ 3). Bỏ biến thừa `dau`.
+- **Trái quy tắc anh chốt "còn lãi tồn = chưa tất nợ"**: 📅 Dòng thời gian ghi "Tất nợ" khi gốc về 0 dù còn lãi → nay ghi "Hết gốc · còn lãi tồn … (chưa tất nợ)", "Tất nợ" khi hết cả gốc lẫn lãi (tóm tháng thêm `lt`). Sổ tổ viên: dòng còn nợ / còn lãi tồn không ghi "Ngày tất nợ".
+- **Code rác**: kiem.py "chỉ phép thử gọi" 10 hàm — đã rà: `pvMo`, `thXem`, `gdxThan` là móc phép thử giữ có chủ đích (t192, 3.246); còn lại (`boBaoCao`, `gdxGLLamTrong`, `ktGNKhaiBao`, `ktDsLTC`, `pbNguon`, `pbTongHopCT`, `slKTDauHTML`) là hàm nhỏ phép thử dùng kiểm logic — giữ, ghi vào danh sách dọn khi đụng tới file đó (không xóa lẻ để khỏi sửa phép thử của khối khác). Hàm mồ côi = 0.
+- Việc 2 "Việc cần xử lý" ở Hôm nay: **anh hoãn** ("chưa cần làm, khi nào làm anh báo").
+- **Phép thử**: t259 + ý cột tiền vị trí 2; t302 + ý còn lãi tồn; t300, t301 đạt.
+
 ## 3.359 — 24/10/2026 — 📅 Dòng thời gian khách / tổ trong năm (KE_HOACH_CHOT_SO đợt C3)
 - **Mới `js/65-dong-thoi-gian.js`**: thẻ khách (Tra cứu) + thẻ tổ › khối **📅 Dòng thời gian** (cạnh 📜 Đã lập / in) → bấm **Xem năm …** mới đọc (không làm chậm lúc mở thẻ).
 - Nguồn: Mẫu 31 các **tháng** đã nạp của năm + tháng 12 năm trước làm mốc — đọc qua `KHO.docBang`, mỗi tháng tóm 1 lần (`DTG_T[kỳ]` = khách: tổ, dư nợ, QH, khoanh, số món; tổ: tổ trưởng), giữ trong phiên.

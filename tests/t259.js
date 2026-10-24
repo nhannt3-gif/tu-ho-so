@@ -48,6 +48,9 @@ const fs=require('fs'), path=require('path');
      const d2 = fr.contentDocument, t2 = d2.querySelectorAll('.tr-tg'), b2 = d2.querySelector('.tr-tg .dk-ban');
      ok('3.355 bảng tổng quát 34 dòng: 1 trang ngang, tự co chữ (< 11pt)', t2.length===1 && t2[0].classList.contains('ngang') && b2 && parseFloat(b2.style.fontSize||'11')<11, t2.length+' trang · '+(b2 && b2.style.fontSize)); }
    delete DK_DS.thu_bang;
+   { const o2 = {ma:'x', ten:'Thử cột', loai:'ds'}, kq2 = {cot:[{k:'stt', ten:'STT'}, {k:'dn', ten:'Dư nợ', tien:true}, {k:'ten', ten:'Tên'}], dong:[{dn:1000000, ten:'A', _dv:{}}, {dn:2500000, ten:'B', _dv:{}}]};
+     const h2 = dkHTML(o2, kq2, {chon:{nhom:''}, pv:'', ngay:''});
+     ok('3.360 cột tiền đứng thứ 2 vẫn có số Tổng cộng (ô gộp chỉ tới trước cột số)', /<td colspan="1">Tổng cộng \(2\)<\/td><td class="s">3\.500\.000<\/td>/.test(h2), (h2.match(/<tr class="dk-tong">.*?<\/tr>/)||[''])[0]); }
    /* 6. Excel (aoa) cùng đầu trang + tiêu đề + dòng + Tổng cộng */
    const a = dkAOA(L.o, L.kq, Object.assign({}, L.ctx, {chon:Object.assign({}, L.ctx.chon, {nhom:''})}));
    ok('3.355 Excel: đầu trang, TÊN in hoa, 2 dòng tiêu đề cột, đủ dòng + Tổng cộng', a[0][0]==='NGÂN HÀNG CHÍNH SÁCH XÃ HỘI' && a[3][0]==='DANH SÁCH NỢ CẦN XỬ LÝ' && a[7][8]==='Mốc theo dõi' && a[8][8]==='Ngày' && a.length===9+L.kq.dong.length+1+2 && /^Tổng cộng/.test(a[9+L.kq.dong.length][0]), a.length);

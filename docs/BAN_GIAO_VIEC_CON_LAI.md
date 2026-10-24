@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.360) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Báo cáo của tôi: khai cột Mã KH · Dư nợ · Họ tên (dư nợ đứng thứ 2), nhóm theo Điểm › Hội › Tổ | Dòng cộng nhóm + Tổng cộng có số ở cột Dư nợ | |
+| 2 | Thẻ khách hết gốc nhưng còn lãi tồn › 📅 Dòng thời gian | "Hết gốc · còn lãi tồn … (chưa tất nợ)", không ghi "Tất nợ" | |
+
+**Ghi chú kỹ thuật 3.360:** `dkHTML` tính `g` = số cột trước cột `tien`/`cong` đầu tiên (1–3) cho ô gộp dòng nhóm / Tổng cộng. `DTG_T[kỳ].kh[x].lt` = lãi tồn cộng các món (`laiTon`).
+
 ### Danh sách thử trên máy thật (3.359) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

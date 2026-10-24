@@ -45,7 +45,7 @@ DANG_KY({ma:'sotv', o:'to', loai:'ds', ten:'Sổ tổ viên', nhom:true, nhomMd:
       r.ds.forEach(function(x){ if(gom.indexOf(x.loai)<0) return; var m = stvMon(K, x.kh);
         var c = x.chot;   /* 3.358: khách tất nợ năm trước — lấy ngày tất nợ + CT từ sổ chốt 31/12 */
         dong.push({kh:x.kh, ten:x.ten, tt:c && x.loai!=='ra' ? 'Tất nợ '+stvNamTruoc(K.ky)+' · còn TK 105' : STV_TT[x.loai] || '', dn:x.dn||0, lt:x.lt||0, t105:x.t105||0,
-          tat:c ? (c.tat ? ngayVNsl(c.tat) : '') : (m.tat ? ngayVNsl(m.tat) : ''), ct:c ? c.ct : m.ct, nguon:x.nguon==='tv01' ? (c ? '01/TV · sổ '+stvNamTruoc(K.ky) : '01/TV') : 'Mẫu 31',
+          tat:x.loai==='no' || x.loai==='lai' ? '' : c ? (c.tat ? ngayVNsl(c.tat) : '') : (m.tat ? ngayVNsl(m.tat) : ''),   /* còn lãi tồn = chưa tất nợ → không ghi ngày */ ct:c ? c.ct : m.ct, nguon:x.nguon==='tv01' ? (c ? '01/TV · sổ '+stvNamTruoc(K.ky) : '01/TV') : 'Mẫu 31',
           _dv:dkDV(K, t.ma), _lop:x.loai==='ra' ? 'nb' : ''}); });
     });
     dong.sort(function(a, b){ var x = a._dv, y = b._dv; return (x.xa+x.diem+x.hoi+x.to).localeCompare(y.xa+y.diem+y.hoi+y.to) || String(a.kh).localeCompare(String(b.kh)); });
