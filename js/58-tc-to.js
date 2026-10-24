@@ -88,14 +88,14 @@ function tcToTim(q, e){   /* q: chữ → tên tổ trưởng (đầu từ); s�
   if(!TC_K) { e.innerHTML = '<div class="rong">Chưa có số liệu Mẫu 31 — nạp ở 📥 Nạp &amp; KT.</div>'; return; }
   q = String(q||'').trim(); var S = tcCH(), ds = tcToLoc(q);
   if(!ds){ e.innerHTML = '<div class="rong">Gõ ít nhất 3 chữ số.</div>'; return; }
-  var tong = ds.length; ds = ds.slice(0, 300);
+  var tong = ds.length;   /* 3.351 (anh): hiện đủ mọi tổ (bỏ giới hạn 300) */
   if(!tong){ e.innerHTML = '<div class="rong">'+(q ? 'Không thấy tổ có tổ trưởng / mã khớp “'+coChuHTML(q)+'”' : 'Không có tổ')+(S.xa ? ' trong phạm vi '+coChuHTML(pvChu(S, TC_K)) : '')+'.</div>'; return; }
   var xa = function(t){ return String(t.tenXa||'').replace(/^(Xã|Phường|Thị trấn)\s+/i, ''); };
-  e.innerHTML = '<div class="tc-kq-dau"><div class="ghi">'+tong+' tổ'+(tong>300 ? ' — đang hiện 300 tổ đầu, gõ thêm hoặc chọn 📍 phạm vi' : '')+'</div></div>'+
-    '<div class="tc-kq-cuon"><table class="tc-kq-bang"><thead><tr><th>Tổ trưởng</th><th>Mã tổ</th><th>Xã</th><th>Ấp</th><th>Hội</th><th>Thành viên</th><th>Có dư nợ</th></tr></thead><tbody>'+
+  e.innerHTML = '<div class="tc-kq-dau"><div class="ghi">'+tong+' tổ'+'</div></div>'+
+    '<div class="tc-kq-cuon"><table class="tc-kq-bang"><thead><tr><th>Tổ trưởng</th><th>Mã tổ</th><th>Thành viên</th><th>Có dư nợ</th><th>Xã</th><th>Ấp</th><th>Hội</th></tr></thead><tbody>'+
     ds.map(function(t){ var r = KHO.tvChuan(t, TC_K) || {tong:0, coNo:0};
-      return '<tr class="sl-kq-dong" data-lenh="tc.to" data-to="'+coChuHTML(t.ma)+'"><td><b>'+coChuHTML(t.ten||'')+'</b></td><td>'+coChuHTML(t.ma)+'</td><td>'+coChuHTML(xa(t))+'</td><td>'+coChuHTML(pvApNgan(t.tenThon||''))+'</td>'+
-        '<td>'+coChuHTML(tdnHoi(t.dv)||'')+'</td><td class="so"><b>'+r.tong+'</b> '+tcNguongChip(r.tong)+'</td><td class="so">'+r.coNo+'</td></tr>'; }).join('')+'</tbody></table></div>';
+      return '<tr class="sl-kq-dong" data-lenh="tc.to" data-to="'+coChuHTML(t.ma)+'"><td><b>'+coChuHTML(t.ten||'')+'</b></td><td>'+coChuHTML(t.ma)+'</td><td class="so"><b>'+r.tong+'</b> '+tcNguongChip(r.tong)+'</td><td class="so">'+r.coNo+'</td>'+
+        '<td>'+coChuHTML(xa(t))+'</td><td>'+coChuHTML(pvApNgan(t.tenThon||''))+'</td><td>'+coChuHTML(tdnHoi(t.dv)||'')+'</td></tr>'; }).join('')+'</tbody></table></div>';
   if(q && tong===1 && tcHaiCot()){ var d1 = e.querySelector('.sl-kq-dong'); tcChonDong(d1); tcTheTo(ds[0].ma); }
 }
 function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Địa bàn · Số liệu) có tên cột + kẻ dọc; bảng thành viên STT · mã KH (sắp theo mã) · dư nợ · ngày vay · hạn · lãi tồn · TK 105 */
