@@ -108,7 +108,7 @@ function tvChuan(t, K0){   /* K0: kỳ dựng khác TO_K (vd Tra cứu dùng TC_
   var K = K0 || TO_K; if(!K || !t || t.trucTiep || toLaTT(t)) return null;
   var giu = TO_K; TO_K = K; var tv0; try { tv0 = toTV(t); } finally { TO_K = giu; }
   var ds = tv0.map(function(k){ return {kh:k.kh, ten:k.ten, dn:k.dn||0, qh:k.qh||0, lt:k.lt||0, t105:k.t105||0, coTK:k.coTK || (k.stk||[]).length>0, nguon:'m31'}; });
-  var B = K.B, tw = B && B.co && B.co.tv01 ? B.co.tv01 : null, kyTW = tw ? (B.nguon && B.nguon.tv01) || B.ky : '', co = {}, mat = tvCoMat(K), bs = 0;
+  var B = K.B, tw = B && B.co && B.co.tv01 && String(K.ky).length===7 ? B.co.tv01 : null,   /* 3.347 (anh 24/10: "kiểu bù này chỉ tính cho cuối tháng, vì 01/TV là cuối tháng" · "tra cứu theo ngày không cần bù"): kỳ NGÀY không bù theo Mẫu 01/TV */ kyTW = tw ? (B.nguon && B.nguon.tv01) || B.ky : '', co = {}, mat = tvCoMat(K), bs = 0;
   ds.forEach(function(x){ co[x.kh] = 1; });
   var cung = kyTW && String(kyTW).slice(0, 7)===String(K.ky).slice(0, 7) && String(K.ky).length===7, hai = {};   /* cùng tháng chốt với 01/TV → lấy đủ như TƯ */
   if(tw && !cung) tw.forEach(function(o){ hai[o.kh] = (hai[o.kh]||0)+1; });

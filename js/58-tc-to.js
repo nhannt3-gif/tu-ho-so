@@ -18,7 +18,7 @@ function tcTVChu(r){ if(!r) return '<span class="nh nh-xam">chưa có số liệ
     (r.laiTon ? ' <span class="nh nh-cam" title="Gốc đã hết, còn lãi tồn — chưa tất nợ">'+r.laiTon+' còn lãi tồn</span>' : '')+
     (r.choRa ? ' <span class="nh nh-vang" title="TƯ còn giữ, dư nợ 0 + tiền gửi 0 (QT-14)">'+r.choRa+' cần cho ra</span>' : '')+' '+tcNguongChip(r.tong); }
 function tcTVGhi(r){ if(!r) return ''; var k = String(r.ky||'');
-  return 'Số liệu '+(k.length>7 ? 'ngày '+ngayVNsl(k) : slKyChu(k))+(r.kyTW ? ' · bù '+r.bs+' người TƯ còn giữ theo Mẫu 01/TV '+slKyChu(r.kyTW) : ' · chưa có Mẫu 01/TV — chỉ đếm theo Mẫu 31'); }
+  return 'Số liệu '+(k.length>7 ? 'ngày '+ngayVNsl(k) : slKyChu(k))+(k.length>7 ? ' · theo Mẫu 31 ngày này (số liệu theo ngày không bù Mẫu 01/TV)' : r.kyTW ? ' · bù '+r.bs+' người TƯ còn giữ theo Mẫu 01/TV '+slKyChu(r.kyTW) : ' · chưa có Mẫu 01/TV — chỉ đếm theo Mẫu 31'); }
 /* khối "Tổ & địa bàn" trong khung khách (thay dòng Tổ / Điểm GD cũ) */
 function tcToKhoiHTML(c){
   var dong = function(nhan, gt){ return '<div class="tc-dl"><span>'+nhan+'</span><div>'+gt+'</div></div>'; };

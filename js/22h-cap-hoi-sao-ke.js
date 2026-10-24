@@ -358,7 +358,8 @@ PV_DUNG.tc = {S:function(){ return tcCH(); }, K:function(){ return TC_K; }, sau:
 /* Mẫu 31 mới nhất: chỉ mục phụ vợ/chồng + HSSV (Mẫu 10 không có các cột này) */
 function tcNap(){
   var ds = toDsKy(); if(!ds.length) return Promise.resolve();
-  return KHO.nap(ds[0].ky).then(function(K){ TC_K = K; pvVeCay('tc'); })
+  var moi = ds.reduce(function(a, x){ return slThuTu(x.ky)>slThuTu(a.ky) ? x : a; }, ds[0]);   /* 3.347 (anh 24/10): Tra cứu dùng số liệu MỚI NHẤT — có Mẫu 31 theo ngày thì lấy ngày */
+  return KHO.nap(moi.ky).then(function(K){ TC_K = K; pvVeCay('tc'); })
     .then(slKhMonNap).then(function(){ if(nganHienTai===7 && D.cauHinh.slTab==='tra'){ slTraTim(); tcKTVe(); } })
     .catch(function(er){ console.warn('Tra cứu: chưa mở được số liệu', er); });
 }
