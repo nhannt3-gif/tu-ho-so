@@ -6,6 +6,8 @@
 
 **24/10/2026 — KTGS: TK 3 ĐÃ BÀN GIAO cho TK 2 (bản 3.331) — đọc `docs/BAN_GIAO_KTGS.md` trước khi sửa KTGS** (khóa file 23/10 đã mở; TK 2 đưa KTGS qua `KHO` bằng cách thay thân `ktNguon*` / các hàm nạp, không đổi hàm dựng mẫu; giữ phép thử mục 5).
 
+**24/10/2026 — TK 2 ↔ TK 3 làm song song: đọc `docs/PHOI_HOP_TK2_TK3.md` trước khi sửa / gộp** (phân file, cách lên số bản không đụng nhau, nhật ký gộp, mục 5 = báo lỗi / việc cho bên kia).
+
 **20/10/2026 — 2 tài khoản song song:** tài khoản chính làm **🎯 Phân bổ kế hoạch** theo `docs/KE_HOACH_PHAN_BO_KH.md` (mục 7 = phân công file, mục 9 = tiến độ) — tài khoản phụ đọc mục 7 trước khi sửa chỗ chung.
 
 Tóm tắt bắt buộc:
