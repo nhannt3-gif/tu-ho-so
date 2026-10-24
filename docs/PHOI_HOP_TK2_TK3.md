@@ -6,7 +6,7 @@
 ## 1. Phân chỗ sửa
 | Phần | TK 2 | TK 3 |
 |---|---|---|
-| Khung chung: `js/23-dieu-huong.js`, `js/22g-to.js` (cây địa bàn, tab Tổ), `js/29-kho.js`, `js/34-luu-ngan.js`, `css/app.css`, ⚙ Khai báo đơn vị | **sửa** | không sửa (báo ở mục 5) |
+| Khung chung: `js/23-dieu-huong.js`, `js/22g-to.js` (lõi dựng kỳ) + `js/22ga-pham-vi.js` (cây địa bàn) + `js/22gb-to-giao-dien.js` (tab Tổ) — tách 3.346; `js/22k-nap-kt.js` (Nạp & KT, tách từ 22f / 22i), `js/29-kho.js`, `js/34-luu-ngan.js`, `css/app.css`, ⚙ Khai báo đơn vị | **sửa** | không sửa (báo ở mục 5) |
 | KTGS (`js/22b–22e`, `js/56-ktgs-bo.js`) — đã bàn giao 3.331 (`docs/BAN_GIAO_KTGS.md`) | **sửa** | không sửa |
 | Bản điện thoại `dt.html`, `js/dt/*`, `css/dt.css` | không sửa (trừ số bản tự động) | **sửa** khi TK 2 bàn giao khung (`docs/KE_HOACH_DIEN_THOAI_2.md`) |
 | Phép thử mới | `t240–t259` | **`t260` trở lên** |
@@ -29,6 +29,7 @@
 | 24/10 | TK 2 | 3.340 | `js/02-nen.js` (luuNgay, LS_TRAN), `js/34-luu-ngan.js` (LN.ghi boLS + dự phòng), `tests/t249.js` mới | t249, t93, t103, t169, t175, t185, t187, t241, t248, hoiquy, hoiquy2 |
 | 24/10 | TK 2 | 3.344 | `js/58-tc-to.js` (tcTheTo, tcToHien, tcToMoMon), `js/22f-tra-cuu.js` (tcHanMon gon), `css/app.css` (cuối), `tests/t246.js` | t246, hồi quy đủ 2 luồng |
 | 24/10 | TK 2 | 3.345 | `js/58-tc-to.js` (ttKH), `css/app.css` (cuối), `tests/t246.js` | t246, t247, t107, t156, t170, t172, hoiquy, hoiquy2 |
+| 24/10 | TK 2 | 3.346 | K2–K5 KHO: `js/22f`, `22g` → `22g` + `22ga-pham-vi` (mới) + `22gb-to-giao-dien` (mới), `22h`, `22i`, `22j`, `22k-nap-kt` (mới), `22b`, `22c`, `22e`, `56`, `25`, `26`, `45`, `58`, `22-so-lieu`, `29-kho`, `index.html`; `tests/kiem.py`, `tests/do_moc.json` (kho_thang 0) | hồi quy đủ 2 luồng |
 | 24/10 | TK 2 | 3.341 | K1 KHO: `js/12`, `21`, `23`, `25`, `26`, `29` (soBang, dsKyHS), `41`; `tests/kiem.py` (đếm đọc thẳng kho), `tests/do_moc.json` (kho_thang 221) | t127, t151, t165, t170, t172, t179, t207, t209, t210, t241, hoiquy, hoiquy2 |
 | 24/10 | TK 2 | 3.339 | tách `js/04-giao-dien.js` → 04 + 04b–04e, `js/06-hop-thoai.js` → 06 + 06b–06c (nguyên văn; `CO_GI_MOI` vẫn ở 06 cho bump.py), `index.html`, `tests/hssv_exe.js`, `tests/chuan_lay.js` (hôm nay cố định 17/10 — t179) | hồi quy đủ 2 luồng (`hoiquy.sh 3339 … tat 2`): chỉ t192, t151 cũ |
 | 24/10 | TK 2 | 3.338 | `js/59-suc-khoe.js` mới, `js/32-kho-luu.js` (1 dòng gọi), `css/app.css`, `index.html`, `tests/t248.js` mới | t248, t231, t138, t178, t182, t185, t193, t206, t93, t247, t260, hoiquy, hoiquy2 |
@@ -48,3 +49,4 @@
 | 24/10 | TK 2 nhận | ~~`hoiquy` "báo cáo đã bỏ" chập chờn · **t158**~~ — 3.338: hoiquy đạt nhiều lần, t158 đạt 22/22 trên 3.337 (không sửa); t231 đã sửa (CSS). |
 | 24/10 | TK 3 → TK 2 | Anh 24/10: **"em làm tiếp theo kế hoạch"** + "tra cứu KH của TK 2 đang làm rất ổn, em dựa vào đó làm bản cho điện thoại" → TK 3 làm **bản điện thoại 2** (`KE_HOACH_DIEN_THOAI_2.md`), chỉ trong `dt.html`, `js/dt/*`, `css/dt.css`, file mới; Đ1 Khách sẽ **đọc** cách tra cứu của TK 2 (không sửa `js/22f`). Gói số liệu xem (`js/38-goi-xem.js`) cần thêm trường (lãi tồn, hạn…) → TK 3 báo ở đây trước khi sửa. |
 | 24/10 | TK 3 → TK 2 | Thước đo `kiem.py` trên `main` vượt mốc từ 3.335–3.341: **dòng >400 (164/163), onclick (1467/1459)** — không do TK 3 (3.342 không thêm). |
+| 24/10 | TK 2 → TK 3 | **3.346 dời file (nguyên văn, không đổi chức năng):** tab Nạp & KT từ `22f-tra-cuu.js` + phần xóa / làm mới / tìm rác từ `22i-tong-hop.js` → **`js/22k-nap-kt.js`**; `22g-to.js` tách → `22ga-pham-vi.js` (cây địa bàn `pv*`) + `22gb-to-giao-dien.js` (tab Tổ); `slTimKH`, `slMau31Moi`, `slKhMonNap`, khai báo `SL_KHMON` / `SL_PHU` → `22-so-lieu.js`. Tab đọc số liệu **chỉ qua `KHO`** (mốc `kho_thang` = 0 — kiem.py ⚠ nếu đọc thẳng `TO_K` / `SL_DB` / `SLM.bang`…; đổi kỳ đang dựng dùng `KHO.datKy` / `KHO.kyDung`). TK 3 sửa chỗ nào trong các hàm trên thì tìm ở file mới. |
