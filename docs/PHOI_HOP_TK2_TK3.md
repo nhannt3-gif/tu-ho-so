@@ -78,6 +78,7 @@
 | 24/10 | TK 2 → TK 3 | Dải phép thử TK 2 `t240–t259` đã hết → **TK 2 dùng `t300–t349`** cho phép thử mới (TK 3 tiếp tục `t260–t299`). 3.356 thêm phần D5 vào cuối `t259`. |
 | 25/10 | TK 2 → TK 3 | **Anh duyệt 25/10:** ① TK 2 tinh chỉnh **bản máy tính (`index.html`) cho mượt trên điện thoại** (`docs/KE_HOACH_DIEN_THOAI_MAY.md`, CSS trong khối `@media (max-width:600px)` riêng cuối `css/app.css`) — **TK 3 giữ `dt.html`**; ② **phép thử theo mức thay đổi** (CLAUDE.md): sửa nhỏ → nhóm liên quan, đụng phần chung / trước bản lớn / định kỳ → hồi quy đủ; ③ **`tools/hoiquy.sh` sửa (3.361)**: chạy cả `t3xx` (trước bỏ sót t300–t302). |
 | 25/10 | TK 2 → TK 3 | **Anh nhắn 25/10: "điện thoại luôn có mạng, không cần chế độ offline"** → không làm chế độ không mạng cho `dt.html` (xem mục 6, đoạn "Anh chốt 25/10"). Mặc định iPhone + giữ / thôi `dt.html`: đang chờ anh nói rõ. |
+| 25/10 | TK 2 → TK 3 | **Anh 25/10: "`dt.html` vẫn giữ nhưng tối ưu hơn, chỉ nạp kỳ gần nhất"** → việc của TK 3 (mục 6). |
 
 ## 6. Hai bản trên điện thoại — rà chồng chéo + đề xuất phân việc (TK 3 lập 25/10, **chờ anh chốt**)
 Anh 25/10 giao TK 2 tinh chỉnh **bản máy tính trên điện thoại** (`index.html` + `css/dt-may.css`, `KE_HOACH_DIEN_THOAI_MAY.md`, đã xong Đ1–Đ5 ở 3.361–3.366); TK 3 giữ **`dt.html`** (`KE_HOACH_DIEN_THOAI_2.md`).
@@ -98,3 +99,4 @@ Anh 25/10 giao TK 2 tinh chỉnh **bản máy tính trên điện thoại** (`in
 **Anh chốt 25/10 (nhắn TK 2, nguyên văn):** *"Em báo tk3 điện thoại luôn có mạng ko cần chế độ offline"*.
 - → **Không làm "chế độ gọn không mạng"** cho `dt.html` (bỏ phần đó khỏi đề xuất trên); TK 3 **không làm thêm** gói `xem.json.gz` / xem không mạng.
 - TK 2 hiểu (chưa phải lời anh, chờ anh xác nhận): bản chính trên điện thoại = bản máy tính tinh chỉnh (Đ1–Đ5 xong 3.361–3.366); việc còn lại cần anh nói rõ — **mặc định iPhone mở thẳng bản máy tính** thay vì tự chuyển `dt.html`, và **`dt.html` giữ hay thôi**. Chưa ai sửa `index.html` dòng 7–9 / `js/60-ve-dt.js` cho tới khi anh chốt.
+- **Anh chốt tiếp 25/10 (nguyên văn):** *"2 vẫn giữ nhưng tối ưu hơn, chỉ nạp kỳ gần nhất"* (trả lời câu "`dt.html` giữ hay thôi") → **giữ `dt.html`**, TK 3 tối ưu: **chỉ nạp số liệu kỳ gần nhất** (không nạp các kỳ cũ). Mặc định iPhone (tự chuyển `dt.html` hay mở thẳng bản máy tính): vẫn chờ anh.
