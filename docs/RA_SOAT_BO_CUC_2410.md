@@ -71,3 +71,11 @@ Anh 24/10: "em cứ làm theo kế hoạch ko cần hỏi lại" → TK 2 làm �
 | 4 | Tổng hợp Nguồn vốn / CT xuống dưới lọc | **✗ không làm** — anh đã chốt 3.168 "Nguồn vốn + Chương trình 1 dòng, cây lọc dưới"; chờ anh quyết | |
 | 5 | Tiêu đề lặp, chip chú thích | ✓ bỏ lặp chữ, 1 dòng "…"; chú thích màu **giữ cùng dòng** (anh 3.317), không gom vào ⓘ | |
 | 6 | Nút mờ | ✓ **giữ chỗ** (3.234 anh duyệt: mờ, không ẩn) nhưng chỉ còn biểu tượng → Gửi không rớt dòng | |
+
+## 7. TK 3 bổ sung 24/10 (sau ý anh về điện thoại)
+- **Đợt 2 (điện thoại) đổi hướng:** điện thoại thật chạy **`dt.html`** (bản riêng), không phải bản máy tính thu hẹp mà mục 2 #7 đã chụp. Anh 24/10: điện thoại sẽ là **bản riêng chuyên 🔎 Tra cứu KH · 📄 Văn bản · 📷 Scan**, TK 3 làm sau khi TK 2 bàn giao → kế hoạch **`docs/KE_HOACH_DIEN_THOAI_2.md`**. Mục 4 #6–#8 chỉ còn áp cho **máy tính bảng / cửa sổ hẹp** (ưu tiên thấp) — TK 2 không cần làm Đợt 2 cho điện thoại.
+- **Góp ý phát triển thêm (chưa có trong các bản rà trước, chờ anh chọn):**
+  1. **Nhật ký đã lập / đã in** theo khách và theo tổ (mẫu nào, ngày nào, bộ khai báo nào) — tra lại "khách này đã làm 01/TD, 03/TD chưa", KTGS "tháng này đã in Mẫu 06 cho tổ nào" (hiện chỉ nhớ trong phiên).
+  2. **Kiểm sức khỏe sao lưu**: thẻ nhỏ ở ⚙ báo lần sao lưu / đồng bộ Drive gần nhất của từng ngăn, đỏ khi quá 7 ngày — giảm rủi ro mất dữ liệu khi 2 máy (đi cùng Đợt 4 #12 `luuNgan`).
+  3. **Một chỗ khai báo người ký / chức danh** dùng chung Hồ sơ vay, Hồ sơ Tổ, KTGS (hiện mỗi khối có bảng riêng: Khai báo đơn vị, Hội đoàn thể, Bộ khai báo KTGS) — làm theo kiểu 3 tầng của KTGS (Đơn vị · Bộ khai báo · Lần in).
+  4. **Phép thử ảnh bố cục** (Đợt 3 #9) chạy cả `dt.html` 390 px — bắt lỗi giao diện điện thoại trước khi anh thử máy thật.
