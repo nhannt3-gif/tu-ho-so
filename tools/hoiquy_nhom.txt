@@ -1,0 +1,8 @@
+# Nhóm hồi quy (t260 TK 3, 24/10) — "tên: biểu thức grep -E trên nội dung phép thử". 1 phép thử có thể thuộc nhiều nhóm. hoiquy, hoiquy2 luôn chạy.
+kt: ktCH|ktXuat|KT_K|ktGiaTri|ktIn|ktDoiCheDo
+hs: hsoKB|hsoCH|HSO\.|hmDs|01tgtv|tgTay|hsoXem
+scan: scanMo|quetCCCD|qcf|SCAN|scVe|12-scan|anhDrive
+gdx: gdx|GDX
+so: slDocFile|TO_K|KHO\.nap|toCH|tcVe
+dt: dt\.html|DTG\.|DT\.napGoi
+khung: dhMuc|DH_NHOM|dhVe|pvVeCay|t260|cnHang
