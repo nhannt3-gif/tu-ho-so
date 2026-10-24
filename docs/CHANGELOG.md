@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.353 — 24/10/2026 — KTGS Mẫu 06 ghi tổ / hộ vào 📜 nhật ký in (việc tồn của 3.348)
+- 3.348 ghi chú "KTGS chưa gắn tổ — làm khi sửa KTGS": Mẫu 06 sau giải ngân (`ktGNXem` → hàng nút xuất) truyền `nk` = tổ của từng phiếu + mã KH các hộ (`ktGNNk`, js/22c — chỉ đọc lựa chọn in, **không đổi hàm dựng mẫu** — khóa mẫu giữ nguyên). Mẫu 04 / KH / 06 trắng vẫn ghi theo tiêu đề trang in.
+- **Phép thử**: t258 thêm ý (2 phiếu, hộ trùng → ghi đủ tổ + hộ không trùng).
+
 ## 3.352 — 24/10/2026 — Trả bộ nhớ ảnh tạm còn sót (KE_HOACH_CHUAN_HOA — rà 3.238 mục II.4)
 - **Kế hoạch** (bảng rà file "yêu cầu bàn giao & tối ưu 3.238", anh: "em làm tiếp theo KH"): II.4 rò bộ nhớ `URL.createObjectURL` — 3.239 đã sửa phần lớn; rà lại 41 chỗ tạo: còn **3 chỗ gắn ảnh vào `<img>` không thu hồi** → sửa:
   - `napAnh` (Theo dõi nợ, js/04e) và ảnh nhỏ danh sách Scan (js/12) → `anhTam(im, blob)` (tự thu hồi khi ảnh hiện xong / lỗi);

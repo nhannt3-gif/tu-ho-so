@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.353) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › Sau giải ngân › in Mẫu 06 cho 1 tổ | Tra cứu › thẻ tổ đó + thẻ khách trong phiếu có "Mẫu 06/TD — kiểm tra sau giải ngân" | |
+
+**Ghi chú kỹ thuật 3.353:** `ktGNNk()` đọc `KT_GN_XEM.gts[i].p` (tổ `p.x.t.ma`, món `p.mon[].kh`).
+
 ### Danh sách thử trên máy thật (3.352) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

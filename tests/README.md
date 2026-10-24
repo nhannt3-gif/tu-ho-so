@@ -207,6 +207,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t246.js` | 3.335–3.350 Tra cứu KH + thẻ tổ (3 hàng, bảng thành viên Đủ / Gọn, cột cân đối, tình trạng khách không còn món + ngày tất nợ). |
 | `node tests/t246.js` | 3.335–3.351 Tra cứu KH + thẻ tổ + bảng tổ (đủ mọi tổ, cột Thành viên sau Mã tổ). |
 | `node tests/t217.js` | (giữ) — 3.352 chạy lại sau khi trả bộ nhớ ảnh tạm. |
+| `node tests/t258.js` | 3.348–3.353 📜 nhật ký đã lập / in (+ KTGS Mẫu 06 ghi tổ / hộ) + nút `hop.dong`. |
 | `python3 tools/ra_kho.py` (3.341 · 3.346) | đếm theo file chỗ đọc thẳng kho số liệu — sau K1–K5 chỉ còn lõi (22-so-lieu, 22g, 22k, 28, 29) + đọc sâu kỳ riêng của tab (`docs/RA_SOAT_KHO_2410.md` mục 4). |
 | (3.343) | t263 mới: gói xem có lãi tồn / GH / mã KH TT; 8 chip Tìm theo + nhớ; tìm Vợ/chồng, Tên, CCCD, Khế ước, Tổ trưởng (tên / mã tổ / trống); thẻ khách 5 ô + hạn tô màu; thẻ tổ; Vừa xem (18). |
 | (3.342) | t262 mới: điện thoại tạm bỏ PIN, thanh 4 nút, 🖥 mọi trang, 📍 Địa bàn, GDX trong ⚙, dòng kỳ tự cập nhật, 📱 về bản điện thoại (17). t193–t195 bật cờ PIN. |
