@@ -72,3 +72,27 @@ table.kh-mon tr.tc-cong{background:var(--xanh-nhat,#eef4fb);font-weight:600;bord
 table.kh-mon tr.tc-cong td:empty{display:none}
 /* ô kỳ: nút ⟳ đọc lại nhỏ lại */
 .ky-chung .ky-chung-lm{min-width:26px;padding:0 4px}
+/* ===== 3.364 · đợt Đ3 — tab Hôm nay gọn 1 cột: lịch ô thấp (như bản máy tính rộng), hàng nút nhỏ, khối trống mỏng → sổ ngày lên gần đầu màn hình.
+   Chỉ cỡ chữ / khoảng cách — thứ tự, nút, chức năng giữ nguyên. */
+#lich{padding:6px 6px 5px;margin-bottom:6px;border-radius:12px}
+#lich .lc-dau{gap:4px;row-gap:4px;margin-bottom:5px}
+#lich .lc-mui,#lich .lc-nut{min-height:28px;padding:2px 8px;font-size:calc(11.5px*var(--co))}
+#lich .lc-mui{min-width:28px;padding:2px 0}
+#lich .lc-ten{font-size:calc(13.5px*var(--co))}
+#lich .lc-ben{gap:5px}
+#lich .cc-nut{min-height:28px;padding:2px 9px;font-size:calc(12px*var(--co));border-radius:999px}
+#lich .cc-nut i{font-size:13px}
+#lich .lc-luoi{gap:1px;padding:2px}
+#lich .lc-th{padding:1px 0;font-size:calc(10.5px*var(--co))}
+#lich .lc-o{min-height:34px;padding:1px 0}
+#lich .lc-o .dl{font-size:calc(13px*var(--co))}
+#lich .lc-o .al{font-size:calc(9px*var(--co))}
+#lich .lc-sap{margin-top:5px}
+.blv{gap:8px !important}
+.blv-trai,.blv-duoi{gap:6px !important}
+.blv-duoi .cxl-gon{padding-top:3px;padding-bottom:3px}
+.blv-duoi .gon-dong{padding-top:4px;padding-bottom:4px}
+/* sổ ngày: đầu trang sổ nhỏ lại, chữ ngày 20 px */
+.nk-trang .nk-dau{gap:4px}
+.nk-trang .nk-ngay{font-size:calc(20px*var(--co))}
+.nk-trang .nk-am{font-size:calc(11.5px*var(--co))}

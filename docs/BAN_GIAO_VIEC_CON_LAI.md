@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.364) — iPhone, bản máy tính
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở tab Hôm nay | Thấy trọn lịch tháng + đầu sổ ngày trong 1 màn hình | |
+| 2 | Chạm 1 ngày trên lịch, ‹ › đổi tháng, Danh sách / Tính ngày | Chạy như cũ, ô chạm không bị nhầm ngày bên cạnh | |
+| 3 | Hạn trả HSSV / Địa bàn / CT vay | Mở công cụ như cũ | |
+
+**Ghi chú kỹ thuật 3.364:** Đ3 chỉ thêm khối cuối `css/dt-may.css` (bộ chọn `#lich …`, `.blv-*`, `.nk-trang …`); ô lịch 34 px = cỡ bản máy tính ≥ 900 px (`css/app.css` khối `@media (min-width:900px)`).
+
 ### Danh sách thử trên máy thật (3.363)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.364 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ3 Hôm nay
+- `css/dt-may.css` (chỉ màn ≤ 600 px): lịch tháng ô 44 → 34 px (như bản máy tính rộng), nút ‹ › / Hôm nay / Danh sách / Tính ngày 28 px, nút công cụ (Hạn trả HSSV · Địa bàn · CT vay) dạng chip tròn 28 px, khoảng cách khối mỏng lại, chữ ngày sổ 24 → 20 px → **sổ ngày bắt đầu ở 557 px thay vì 692 px** (vào màn hình đầu iPhone). Thứ tự, nút, chức năng giữ nguyên; máy tính không đọc file này.
+- **Phép thử**: mới t306 (điện thoại + máy tính 1440 không đổi).
+
 ## 3.363 — 25/10/2026 — Nhật ký lỗi tự động (tư vấn kỹ thuật mục 5)
 - Anh 25/10: "Ok em làm tiếp" (mục 5 nhật ký lỗi + mục 2 nạp khi cần trước).
 - **Mới `js/67-nhat-ky-loi.js`** (cắm rút — bỏ 1 dòng `<script>` app chạy như cũ): bắt lỗi chạy (`error`) + lời hứa bị từ chối không ai bắt (`unhandledrejection`), bỏ qua lỗi tải ảnh / file, `ResizeObserver loop`, `Script error.`, hủy tải (`AbortError`). Ghi lúc, nội dung, file:dòng, 4 dòng stack, bản app, tab — **chỉ trên máy này** (localStorage `tuhoso_loi`, 100 lỗi gần nhất, lỗi trùng trong 1 phút → cộng dồn ×N). Không có dữ liệu khách.
