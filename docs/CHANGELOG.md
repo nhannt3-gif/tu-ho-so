@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.342 — 24/10/2026 — Bản điện thoại 2, bước Đ0 (TK 3)
+- **Anh 24/10**: "trên điện thoại khi cần cũng có nút chuyển sang bản web; em có thể bỏ PIN mã hóa trong lúc này, sau này cần sẽ mở lại; bản điện thoại tối ưu cho iOS" · "em làm tiếp theo kế hoạch" (`docs/KE_HOACH_DIEN_THOAI_2.md`).
+- **Tạm bỏ PIN**: mở thẳng, không tự khóa; số liệu trong máy **vẫn mã hóa** (khóa tự sinh cất trong máy). Bật lại PIN: cờ `localStorage 'tuhoso_dt_pin' = '1'` (không phải viết lại). Gói số liệu cất bằng PIN cũ → tự tải lại từ Drive.
+- **Thanh dưới 4 nút**: 🔎 Khách · 📄 Văn bản · 📷 Scan · ⚙ Cài đặt. **📍 Địa bàn** thành nút trên thanh tiêu đề trang Khách; **🏢 Giao dịch xã** chuyển vào ⚙ › Công cụ.
+- **Nút 🖥 bản web** trên thanh tiêu đề mọi trang; bản web khi mở trên điện thoại có nút **📱** góc dưới trái về lại bản điện thoại (file riêng `js/60-ve-dt.js`).
+- Sửa: dòng kỳ trang Khách vẫn ghi "chưa có số liệu" sau khi đã có số liệu → nay tự cập nhật; nút ⟳ trên thanh tiêu đề (Văn bản, Scan, Giao dịch xã) gắn được lệnh trên giao diện iOS (thanh tiêu đề nằm ngoài trang).
+- iOS: thêm `apple-mobile-web-app-status-bar-style`, tắt tự nhận số điện thoại.
+- Phép thử: t262 mới (17); t193 / t194 / t195 bật cờ PIN để vẫn kiểm phần PIN, theo thanh 4 nút.
+
 ## 3.341 — 24/10/2026 — Rà soát đọc qua KHO + đợt K1 (RA_SOAT_KHO_2410 · mục 8 việc 4)
 - **Anh 24/10**: "sau mục này rà soát mọi thứ đọc qua kho đã chuyển hết chưa" → `docs/RA_SOAT_KHO_2410.md` (đã gộp): **chưa chuyển hết** — lõi 22-so-lieu / 22g / 28 / 29 hợp lệ; còn đọc thẳng ở Tra cứu KH, Sao kê · cấp Hội · Tổng hợp · Thông tin tổ, KTGS; đề xuất đợt K1–K5. `tools/ra_kho.py` đếm theo file.
 - **K1 (bản này)**: `12-scan` (tìm / chọn khách → `KHO.tim`, `KHO.danhBa`, `KHO.coDanhBa`), `41-scan-sap-xep` (kỳ Mẫu 31 mới nhất → `KHO.dsKyHS`, dựng kỳ → `KHO.nap`), `21-ngay-gy` (`KHO.soBang`), `23-dieu-huong` (`KHO.coBang`), `25-ho-so` / `26-giao-dich-xa` (`toNap` → `KHO.nap`). Cửa mới: `KHO.soBang()`, `KHO.dsKyHS()`.

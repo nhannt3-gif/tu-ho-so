@@ -78,3 +78,9 @@
 | 5 | Theo đề nghị của em | **Địa bàn** gộp thành lọc 📍 trong 🔎 Khách · **Giao dịch xã mini** giữ, chuyển vào ⚙ › Công cụ (đã có sẵn, không tốn thêm) · văn bản xem không mạng giới hạn **200 MB** |
 
 **Các bước sau khi chốt** (thay mục 5): Đ0 = sửa dòng kỳ + thanh dưới 4 nút + nút 🖥 + cờ tắt PIN + lọc 📍 · Đ1 Khách · Đ2 Văn bản (xem trong app, ghim, không mạng 200 MB) · Đ3 Scan (lõi lọc ảnh / cắt mép dùng chung, CCCD 2 mặt, tên chuẩn, → khay chờ) · Đ4 quét QR CCCD + 🗂 Hồ sơ đã lưu của khách · Đ5 hồi quy (t193–t195 + phép mới chạy WebKit) và bàn giao.
+
+## 8. Tiến độ
+| Bước | Bản | Đã làm |
+|---|---|---|
+| Đ0 | 3.342 | tạm bỏ PIN (cờ `tuhoso_dt_pin`), thanh dưới 4 nút, 🖥 mọi trang + 📱 ở bản web, 📍 Địa bàn trong Khách, Giao dịch xã trong ⚙ › Công cụ, sửa dòng kỳ + nút ⟳ thanh tiêu đề iOS; t262 |
+| Đ1 | — | **Khách theo Tra cứu KH của TK 2** (anh 24/10): tìm theo loại, thẻ khách gọn, tô màu đến hạn, tìm tổ trưởng + thẻ tổ |
