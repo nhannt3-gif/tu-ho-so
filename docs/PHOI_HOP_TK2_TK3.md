@@ -77,6 +77,7 @@
 
 | 24/10 | TK 2 → TK 3 | Dải phép thử TK 2 `t240–t259` đã hết → **TK 2 dùng `t300–t349`** cho phép thử mới (TK 3 tiếp tục `t260–t299`). 3.356 thêm phần D5 vào cuối `t259`. |
 | 25/10 | TK 2 → TK 3 | **Anh duyệt 25/10:** ① TK 2 tinh chỉnh **bản máy tính (`index.html`) cho mượt trên điện thoại** (`docs/KE_HOACH_DIEN_THOAI_MAY.md`, CSS trong khối `@media (max-width:600px)` riêng cuối `css/app.css`) — **TK 3 giữ `dt.html`**; ② **phép thử theo mức thay đổi** (CLAUDE.md): sửa nhỏ → nhóm liên quan, đụng phần chung / trước bản lớn / định kỳ → hồi quy đủ; ③ **`tools/hoiquy.sh` sửa (3.361)**: chạy cả `t3xx` (trước bỏ sót t300–t302). |
+| 25/10 | TK 2 → TK 3 | **Anh nhắn 25/10: "điện thoại luôn có mạng, không cần chế độ offline"** → không làm chế độ không mạng cho `dt.html` (xem mục 6, đoạn "Anh chốt 25/10"). Mặc định iPhone + giữ / thôi `dt.html`: đang chờ anh nói rõ. |
 
 ## 6. Hai bản trên điện thoại — rà chồng chéo + đề xuất phân việc (TK 3 lập 25/10, **chờ anh chốt**)
 Anh 25/10 giao TK 2 tinh chỉnh **bản máy tính trên điện thoại** (`index.html` + `css/dt-may.css`, `KE_HOACH_DIEN_THOAI_MAY.md`, đã xong Đ1–Đ5 ở 3.361–3.366); TK 3 giữ **`dt.html`** (`KE_HOACH_DIEN_THOAI_2.md`).
@@ -93,3 +94,7 @@ Anh 25/10 giao TK 2 tinh chỉnh **bản máy tính trên điện thoại** (`in
 - TK 3 nhận phần điện thoại của **Văn bản + Scan** trên bản máy tính, theo cách TK 2 đã làm: khối riêng trong `css/dt-may.css` (đánh dấu `/* TK 3 — Văn bản / Scan */`, TK 3 chỉ sửa trong khối đó) + file JS mới cắm rút nếu cần; không sửa `css/app.css` / khung, việc cần đụng chung thì báo mục 5.
 - Mặc định iPhone (mục 3 bảng trên): **anh chốt** — giữ tự chuyển sang dt.html, hay mở thẳng bản máy tính (dt.html vào bằng nút / khi không có mạng). Bên nào sửa `index.html` dòng 7–9 + `js/60-ve-dt.js` do anh giao (đề xuất TK 3, vì 2 chỗ đó TK 3 làm từ 3.342).
 - Lịch: cả 2 bản cùng `_Hệ thống/lich.json` — giữ như 3.354.
+
+**Anh chốt 25/10 (nhắn TK 2, nguyên văn):** *"Em báo tk3 điện thoại luôn có mạng ko cần chế độ offline"*.
+- → **Không làm "chế độ gọn không mạng"** cho `dt.html` (bỏ phần đó khỏi đề xuất trên); TK 3 **không làm thêm** gói `xem.json.gz` / xem không mạng.
+- TK 2 hiểu (chưa phải lời anh, chờ anh xác nhận): bản chính trên điện thoại = bản máy tính tinh chỉnh (Đ1–Đ5 xong 3.361–3.366); việc còn lại cần anh nói rõ — **mặc định iPhone mở thẳng bản máy tính** thay vì tự chuyển `dt.html`, và **`dt.html` giữ hay thôi**. Chưa ai sửa `index.html` dòng 7–9 / `js/60-ve-dt.js` cho tới khi anh chốt.
