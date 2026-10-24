@@ -51,7 +51,7 @@ function ktNguonThangKT(){   /* mặc định: kỳ đầu trang là tháng → 
 function ktNguonKy(th){ return ktKHKySL(th); }   /* → {can: tháng cần, ky: kỳ Mẫu 31 dùng được} */
 function ktNguonNap(th){ return ktKHNapSL(th); }   /* nạp Mẫu 31 + BC0437 / BC0438 + 105 tháng trước của tháng kiểm tra th */
 function ktNguonSan(th){ var S = KT_KH_SL; return !!S && S.th===th && S.goc===KT_K; }
-function ktNguonVoi(th, fn){ return ktNguonSan(th) ? ktKHVoiSL(fn) : fn(); }   /* chạy fn với số liệu tháng kiểm tra th (KT_K / TO_K / KT_BC / KT_TRUOC tạm đổi rồi trả lại) */
+function ktNguonVoi(th, fn){ return ktNguonSan(th) ? ktKHVoiSL(fn) : fn(); }   /* chạy fn với số liệu tháng kiểm tra th (KT_K / kỳ đang dựng / KT_BC / KT_TRUOC tạm đổi rồi trả lại) */
 function ktNguonVe(o, th, ve){   /* vẽ thẻ khối Bắt buộc: chưa có số liệu tháng → nạp rồi vẽ lại */
   if(!th) return ve();
   if(!ktNguonSan(th)){ o.innerHTML = ktCheDoHTML()+ktAThangHTML(th)+'<div class="rong">Đang mở số liệu '+(ktNguonKy(th).ky ? slKyChu(ktNguonKy(th).ky) : 'cuối '+kyVN(kyLui(th, -1)))+'…</div>';

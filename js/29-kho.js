@@ -41,6 +41,21 @@ var KHO = (function(){
     /* KHO.toTruongKH(tổ) → {kh, cc} — mã KH tổ trưởng: Mã CIF TT → Danh sách tổ → trùng tên (bọc hsoTTKH) · QT-12 */
     toTruongKH: function(t){ return t && typeof hsoTTKH==='function' ? hsoTTKH(t) : {kh:'', cc:''}; },
     /* 3.264: KHO.dsKhach() → {maKH: {ten, cccd, xa, tenXa, thon, tenThon, to, toTen, …}} danh bạ khách Mẫu 31 các kỳ (chỉ đọc) · KHO.toDanhBa(maTo) → {ten, diem, tenThon, …} | null */
+    /* 3.346 (K2): KHO.dsToDanhBa() → {maTo: {ten, diem, tenThon, …}} danh bạ tổ các kỳ (chỉ đọc) · KHO.chiMuc() → [{m, ten, t, c, k, s, ns}] chỉ mục tìm khách · KHO.phu() → [{loai:'vc'|'hs', ten, t, so, kh, ku}] vợ/chồng + HSSV Mẫu 31 mới nhất · KHO.bo(kỳ) → Promise bộ dữ liệu kỳ (bọc slBo) */
+    /* 3.346 (K2): cửa đọc KỲ CỦA TAB (K = KHO.nap(kỳ) giữ riêng, vd Tra cứu TC_K) — KHO.toKy(K, maTo) → tổ | null · KHO.dsToKy(K) → [tổ] · KHO.monKy(K, maKH) → [dòng món Mẫu 31 của khách] · KHO.khdKy(K) → {số KU: món 3 tháng KHĐ} · KHO.saoKeKy(K, loại) → {ky, rows} | null (gắn kỳ đó, không có thì kỳ đang dựng) */
+    toKy: function(K, ma){ return K && K.to && ma ? K.to[ma] || null : null; },
+    dsToKy: function(K){ return K && K.to ? Object.keys(K.to).map(function(m){ return K.to[m]; }) : []; },
+    monKy: function(K, kh){ return K && K.B && K.B.theoKH && kh ? K.B.theoKH[kh] || [] : []; },
+    khdKy: function(K){ return (K && K.B && K.B.khd) || {}; },
+    saoKeKy: function(K, loai){ return (K && K.tk && K.tk[loai]) || this.saoKe(loai); },
+    /* 3.346 (K3): KHO.bang(loại, kỳ) → thông tin bảng đã nạp {loai, ky, ngay, ten, luc, dong, …} | null · KHO.dsBang(loại?) → [thông tin bảng] (mọi loại hoặc 1 loại) · KHO.docBang(loại, kỳ) → Promise bảng {rows, …} (bọc slDocBang) */
+    bang: function(loai, ky){ return (typeof SLM!=='undefined' && SLM.bang && SLM.bang[slKhoa(loai, ky)]) || null; },
+    dsBang: function(loai){ if(typeof SLM==='undefined' || !SLM.bang) return []; return Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return !loai || e.loai===loai; }); },
+    docBang: function(loai, ky){ return slDocBang(loai, ky); },
+    dsToDanhBa: function(){ return (typeof SL_DB!=='undefined' && SL_DB && SL_DB.to) || {}; },
+    chiMuc: function(){ return typeof SL_TIM!=='undefined' ? SL_TIM : []; },
+    phu: function(){ return typeof SL_PHU!=='undefined' ? SL_PHU : []; },
+    bo: function(ky){ return slBo(ky); },
     dsKhach: function(){ return (typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh) || {}; },
     toDanhBa: function(ma){ return (typeof SL_DB!=='undefined' && SL_DB && SL_DB.to && ma && SL_DB.to[ma]) || null; },
     /* KHO.khach(maKH, tổ?) → {kh, ten, ns, cccd, ncap, noiCap, ap, tenXa} — danh bạ Mẫu 31 các kỳ + dòng kỳ đang xem (bọc hsoKhach) · QT-13 */
@@ -48,6 +63,9 @@ var KHO = (function(){
     /* KHO.danhBa(maKH) → bản ghi danh bạ Mẫu 31 các kỳ (sdt, voChong, gt, danToc, to, xa, stk…) | null */
     danhBa: function(kh){ return typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh && kh ? SL_DB.kh[kh] || null : null; },
     /* KHO.voiKy(K, hàm) → chạy hàm với kỳ K (đã dựng bằng KHO.nap) làm kỳ đang dựng rồi trả lại kỳ cũ — đọc kỳ khác không đổi màn hình (3.231) */
+    /* 3.346 (K4): KHO.kyDung() → kỳ đang dựng (đối tượng kỳ) | null · KHO.datKy(K) → đặt K làm kỳ đang dựng (tab chủ động đổi kỳ, vd KTGS) */
+    kyDung: function(){ return typeof TO_K!=='undefined' ? TO_K : null; },
+    datKy: function(K){ TO_K = K; return K; },
     voiKy: function(K, f){ var cu = TO_K; TO_K = K; try { return f(); } finally { TO_K = cu; } },
     /* KHO.phienDanhBa() → đối tượng nhận diện bản danh bạ đang dùng (đổi khi nạp lại) — chỉ để biết khi nào dựng lại chỉ mục (3.228) */
     phienDanhBa: function(){ return typeof SL_DB!=='undefined' ? SL_DB : null; },

@@ -1100,3 +1100,44 @@ function slMucCu(loai, ky){
 function slKyMoi(){ var ds = Object.keys(SLM.bang).map(function(k){ return slThang(SLM.bang[k].ky); }).sort(); return ds[ds.length-1] || ''; }   /* tháng mới nhất có số liệu */
 function slHSMoi(){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return slLaHS(e.loai); }).map(function(e){ return e.ky; }).sort(function(a, b){ return slThuTu(a)<slThuTu(b) ? -1 : 1; }); return ds[ds.length-1] || ''; }
 function slCacNgay(loai, thang){ return Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===loai && slThang(e.ky)===thang && String(e.ky).length>7; }).sort(function(a, b){ return a.ky<b.ky ? -1 : 1; }); }
+/* 3.346 (K2): bộ tìm trên chỉ mục SL_TIM (chuyển nguyên văn từ 22f — lõi dữ liệu); tab gọi qua KHO.tim */
+function slTimKH(q, toiDa){
+  if(!SL_TIM.length) return [];
+  var qq = slChuan(q); if(qq.length<2) return [];
+  var so = qq.replace(/ /g,''), laSo = /^\d+$/.test(so), ra = [];
+  var nsQ = '', x = String(q).trim().match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})$/); if(x) nsQ = x[3]+'-'+hai(+x[2])+'-'+hai(+x[1]);
+  var tu = qq.split(' ');
+  for(var i=0;i<SL_TIM.length;i++){
+    var r = SL_TIM[i], d = 0;
+    if(nsQ){ if(r.ns===nsQ) d = 80; }
+    else if(laSo){
+      if(so.length>=4 && r.c.indexOf(so)>=0) d = r.c===so ? 100 : (r.c.slice(-so.length)===so ? 90 : 60);
+      else if(so.length>=4 && r.m.indexOf(so)===0) d = r.m===so ? 100 : 70;
+      else if(so.length>=8 && r.k.indexOf(so)>=0) d = r.k.indexOf(' '+so)>=0 ? 95 : 55;   /* 3.86: số khế ước (cả món đã tất toán) */
+      else if(so.length>=6 && r.s && r.s.indexOf(so.replace(/^84/,'0'))>=0) d = 85;   /* 3.86: số điện thoại */
+      else if(so.length===4 && r.ns.slice(0,4)===so) d = 30;
+    } else if(tu.every(function(w){ return r.t.indexOf(w)>=0; })){
+      d = 40 + tu.filter(function(w){ return r.t.indexOf(' '+w)>=0; }).length*10;
+    }
+    if(d) ra.push({r:r, d:d});
+  }
+  return ra.sort(function(a,b){ return b.d-a.d || (a.r.ten<b.r.ten ? -1 : 1); }).slice(0, toiDa||8).map(function(x){ return x.r; });
+}
+var SL_KHMON = {};   /* SL_KHMON[mã KH] = món theo Mẫu 31 mới nhất (dựng ở slKhMonNap; đọc qua KHO.monKH) — 3.346 chuyển khai báo từ 22f */
+/* 3.346 (K3): chỉ mục phụ theo Mẫu 31 mới nhất — chuyển nguyên văn từ 22h (lõi dữ liệu); tab đọc qua KHO.monKH / KHO.phu / KHO.hssvPhu */
+var SL_PHU = [], SL_PHU_KY = '';
+function slMau31Moi(){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='hstd'; }).map(function(e){ return e.ky; }).sort(); return ds[ds.length-1] || ''; }
+function slKhMonNap(){   /* 3.228: chỉ mục phụ theo Mẫu 31 mới nhất — món theo khách (SL_KHMON), vợ/chồng + HSSV (SL_PHU); dùng chung Tra cứu + 🔎 kiểm tra hộ vay */
+  var m31 = slMau31Moi(); if(!m31 || SL_PHU_KY===m31) return Promise.resolve();
+  return slBo(m31).then(function(B){
+    var phu = [], vc = {}, km = {}, gk = {};
+    (B.co.hstd||[]).forEach(function(o){
+      if(o.ku && o.kh && !gk[o.ku]){ gk[o.ku] = 1; (km[o.kh] = km[o.kh]||[]).push({ct:ctNgan(o.ct, o), ku:String(o.ku), dn:o.dn||0, nv:o.nv||o.ngn||'', md:ktCoNganh(o) ? ktNganh(o) : '',
+        xong:(o.ttMon==='CLOSE' || !((o.dn||0)>0)) && !(laiTon(o)>0), truong:o.c_ten_truong||'', raTruong:o.raTruong||'', gn:o.gn||0, qh:o.qh||0, kn:o.kn||0, dh:o.dhgh||o.dhg||'', to:o.to||''}); }   /* 3.94: món theo khách cho thẻ kiểm trùng · 3.228: + giải ngân, quá hạn, khoanh, đến hạn, tổ */
+      if(o.ku && (o.c_ten_hssv || o.c_cmnd_hssv)) phu.push({loai:'hs', ten:String(o.c_ten_hssv||''), so:String(o.c_cmnd_hssv||'').replace(/\D/g, ''), kh:o.kh, ku:o.ku, dn:o.dn||0, xong:o.ttMon==='CLOSE' || !(o.dn>0)});
+      if(o.voChong && o.kh && !vc[o.kh]){ vc[o.kh] = 1; phu.push({loai:'vc', ten:String(o.voChong), kh:o.kh}); }
+    });
+    phu.forEach(function(p){ p.t = ' '+slChuan(p.ten); });
+    SL_PHU = phu; SL_PHU_KY = m31; SL_KHMON = km;
+  });
+}

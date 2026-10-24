@@ -201,6 +201,8 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t249.js` | 3.340 dữ liệu > 1 MB: bỏ bản sao localStorage, dấu chờ, mở lại trang đọc IndexedDB đủ 6.000 mục, không báo đầy; nhỏ lại → ghi localStorage như cũ. |
 | `node tests/t246.js` | 3.335–3.344 Tra cứu KH: dải tìm + lọc, chip Tìm theo 10 loại, kiểu bảng ↔ thẻ, thẻ tổ (3.344: đầu thẻ 3 hàng có tên cột; bảng thành viên STT · mã KH sắp theo mã · CT · dư nợ · ngày vay · hạn trả · lãi tồn · TGTK, Đủ / Gọn, bấm CT / ▸, không tràn), gợi ý tổ. |
 | `node tests/t246.js` | 3.335–3.345 Tra cứu KH: dải tìm + lọc, chip Tìm theo 10 loại, kiểu bảng ↔ thẻ, thẻ tổ (3 hàng có tên cột; bảng thành viên Đủ / Gọn, bấm CT / ▸; 3.345: cột Họ tên cân đối, khách không còn món ghi trong tổ / cho ra), gợi ý tổ. |
+| `node tests/t257.js` | 3.347 tvChuan kỳ ngày không bù Mẫu 01/TV (kỳ tháng vẫn bù); Tra cứu dựng theo số liệu mới nhất (ngày). |
+| `python3 tools/ra_kho.py` (3.341 · 3.346) | đếm theo file chỗ đọc thẳng kho số liệu — sau K1–K5 chỉ còn lõi (22-so-lieu, 22g, 22k, 28, 29) + đọc sâu kỳ riêng của tab (`docs/RA_SOAT_KHO_2410.md` mục 4). |
 | (3.343) | t263 mới: gói xem có lãi tồn / GH / mã KH TT; 8 chip Tìm theo + nhớ; tìm Vợ/chồng, Tên, CCCD, Khế ước, Tổ trưởng (tên / mã tổ / trống); thẻ khách 5 ô + hạn tô màu; thẻ tổ; Vừa xem (18). |
 | (3.342) | t262 mới: điện thoại tạm bỏ PIN, thanh 4 nút, 🖥 mọi trang, 📍 Địa bàn, GDX trong ⚙, dòng kỳ tự cập nhật, 📱 về bản điện thoại (17). t193–t195 bật cờ PIN. |
 | `python3 tools/ra_kho.py` (3.341) | đếm theo file chỗ đọc thẳng kho số liệu (biến + hàm tầng dưới) — tiến độ chuyển qua `KHO` (`docs/RA_SOAT_KHO_2410.md`). |

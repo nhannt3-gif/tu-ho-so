@@ -94,8 +94,8 @@ if len(sys.argv)<2:
     G=ghep.GOC; tepjs=[p for l,p in ghep.tep() if l=='js']
     nd={p:open(os.path.join(G,p),encoding='utf-8').read() for p in tepjs}
     css=sum(os.path.getsize(os.path.join(G,p)) for l,p in ghep.tep() if l=='css')
-    # 3.341 (RA_SOAT_KHO_2410): đếm MỌI chỗ đọc thẳng kho số liệu (biến + hàm tầng dưới) ở mọi file trừ LÕI (22-so-lieu đọc/nạp file, 22g dựng kỳ, 28 thành viên/TK, 29 cửa KHO) — trước chỉ 4 biến và bỏ qua cả nhóm 22*
-    kho=sum(len(re.findall(r'\b(?:TO_K|SL_DB|SL_KHMON|SL_PHU|SL_TIM)\b|\bSLM\.bang\b|\b(?:slBo|slDocBang|toNap|tkBang)\(', boChuoi(t))) for p,t in nd.items() if not re.search(r'js/(22-so-lieu|22g-to|28-tv-tk|29-kho)\.js$', p))
+    # 3.341 (RA_SOAT_KHO_2410): đếm MỌI chỗ đọc thẳng kho số liệu (biến + hàm tầng dưới) ở mọi file trừ LÕI (22-so-lieu đọc/nạp file, 22g dựng kỳ, 22k Nạp & KT = cửa ghi kho (3.346), 28 thành viên/TK, 29 cửa KHO) — trước chỉ 4 biến và bỏ qua cả nhóm 22*
+    kho=sum(len(re.findall(r'\b(?:TO_K|SL_DB|SL_KHMON|SL_PHU|SL_TIM)\b|\bSLM\.bang\b|\b(?:slBo|slDocBang|toNap|tkBang)\(', boChuoi(t))) for p,t in nd.items() if not re.search(r'js/(22-so-lieu|22g-to|22k-nap-kt|28-tv-tk|29-kho)\.js$', p))
     do={'js_kb':sum(len(t.encode()) for t in nd.values())//1024, 'css_kb':css//1024, 'ham':len(top), 'bien':len(set(re.findall(r'^var\s+([\w$]+)',js,re.M))),
         'mo_coi':len(mo_coi), 'dong_dai':sum(1 for t in nd.values() for l in t.split('\n') if len(l)>400), 'onclick':len(re.findall(r'on(?:click|change|input)=\\?"',js)),
         'file_lon':sum(1 for t in nd.values() if len(t.encode())>150*1024), 'kho_thang':kho}

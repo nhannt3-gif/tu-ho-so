@@ -4,6 +4,22 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.347 — 24/10/2026 — Tra cứu theo ngày, không bù Mẫu 01/TV (anh 24/10)
+- **Anh**: "kiểu bù này chỉ tính cho cuối tháng, vì 01/TV là cuối tháng" + "em làm trước tra cứu theo ngày không cần bù mẫu, anh xem có đúng không" (tổ Bùi Thị Thảo: hộ dư nợ 0 đã ra khỏi tổ theo số liệu 19/10).
+- **`tvChuan` (js/28, 1 chỗ tính thành viên QT-18)**: kỳ **ngày** không dùng Mẫu 01/TV để bù → danh sách tổ = tổ viên Mẫu 31 ngày đó (người đã ra khỏi tổ theo `slDanhRaTo` không bị bù lại). Kỳ **chốt tháng** giữ nguyên (bù như cũ — khớp TƯ 30/09). Áp chung mọi nơi dùng `tvChuan` (Tra cứu, tab Tổ khi chọn kỳ ngày).
+- **Tra cứu (`tcNap`)**: dựng theo kỳ mới nhất (`slThuTu` lớn nhất — có Mẫu 31 ngày thì lấy ngày), trước là chốt tháng mới nhất; thẻ tổ + thẻ khách cùng 1 mốc số liệu. Dòng ghi dưới hàng Số liệu: "Số liệu ngày dd/mm/yyyy · theo Mẫu 31 ngày này (số liệu theo ngày không bù Mẫu 01/TV)".
+- **Phép thử**: `t257` mới (kỳ tháng vẫn bù, kỳ ngày không bù, dòng ghi, Tra cứu chọn kỳ ngày mới nhất); t244, t246 đạt.
+- Nguyên tắc bù chuẩn cho cuối tháng vẫn chờ số liệu cuối T10 (so T9) như đã ghi.
+
+## 3.346 — 24/10/2026 — Đọc qua KHO đợt K2–K5: mọi tab qua 1 cửa (RA_SOAT_KHO_2410 mục 4)
+- **Anh 24/10**: "em làm tiếp theo kh đi và gộp lên rồi làm tiếp ko cần chờ anh" → làm liền K2–K5 theo `RA_SOAT_KHO_2410.md` mục 2. **Không đổi chức năng / bản in** — chỉ đổi đường đọc số liệu + dời hàm nguyên văn.
+- **K2 Tra cứu (22f, 58)**: danh bạ / chỉ mục tìm / vợ-chồng-HSSV / món theo khách / bộ kỳ / sao kê qua `KHO.danhBa`, `toDanhBa`, `dsToDanhBa`, `chiMuc`, `phu`, `monKH`, `bo`, `saoKeKy`, `tim`; kỳ riêng của tab qua cửa nhận kỳ `KHO.toKy / dsToKy / monKy / khdKy`. Tab **📥 Nạp & KT** tách khỏi 22f → `js/22k-nap-kt.js` (cửa ghi kho — lõi). `slTimKH` + khai báo món theo khách → 22-so-lieu.
+- **K3 Sao kê · cấp Hội · Tổng hợp · Thông tin tổ (22h, 22i, 22j)**: đọc bảng qua `KHO.bang(loại, kỳ)`, `KHO.dsBang(loại?)`, `KHO.docBang`, `KHO.bo`, `KHO.nap`; xóa tháng / làm mới / thay ô / tải gốc / tìm rác từ 22i → 22k; chỉ mục phụ Mẫu 31 (`slMau31Moi`, `slKhMonNap`, `SL_PHU`) → 22-so-lieu.
+- **K4 KTGS (22b, 22c, 22e, 56)**: `KHO.dsBang`, `KHO.bang`, `KHO.bo`; đổi kỳ đang dựng qua `KHO.datKy` / `KHO.kyDung` (giữ nguyên hàm dựng mẫu — khóa mẫu). Hồ sơ / GDX (25, 26) cũng đổi kỳ qua `KHO.datKy`.
+- **K5 tách 22g**: `22g-to.js` giữ lõi dựng kỳ; `22ga-pham-vi.js` (bộ chọn phạm vi / cây địa bàn dùng chung); `22gb-to-giao-dien.js` (giao diện tab Tổ). Tab Tổ + báo cáo tổ (22h) đọc kỳ qua `KHO.kyDung()`.
+- **Thước đo `kiem.py` "đọc thẳng biến kho"**: 221 → **0** (mốc mới 0 — tab nào đọc thẳng `TO_K` / `SL_DB` / `SLM.bang` / `slBo`… là ⚠ ngay). Lõi được phép: 22-so-lieu, 22g, 22k, 28, 29. Còn lại (thiết kế "kỳ là của tab", không tính): đọc sâu kỳ riêng `TC_K / KT_K / TH_K / TT_K` — ghi ở RA_SOAT mục 4 (K6 làm dần khi sửa từng tab).
+- **Phép thử**: hồi quy đủ 2 luồng (`hoiquy.sh 3346 … tat 2`) + t138 (thứ tự nạp file mới), t177 / t240 (cửa KHO), t246, t158, t165.
+
 ## 3.345 — 24/10/2026 — Thẻ tổ: cân cột Họ tên + tình trạng khách không còn món (anh 24/10)
 - **Anh**: "cột họ tên còn rộng nên cân đối với các cột khác, xem lại các món vay đã tất nợ coi có ra khỏi tổ hay còn trong tổ cho chuẩn".
 - **Cột Họ tên**: bỏ chiếm hết chỗ trống (`width:99%`) → tối đa 170px, phần dư chia đều cho các cột (`css/app.css`).

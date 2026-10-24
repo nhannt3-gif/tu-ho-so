@@ -90,7 +90,7 @@ function ktTomTat(loai, t){
 /* ---------- trạng thái + nạp dữ liệu cho tab ---------- */
 var KT_K = null, KT_BC = null, KT_TRUOC = null, KT_Q = '', KT_CHON = null, KT_KB = {}, KT_LOC = 'goi';
 function ktCH(){ return pvGan(D.cauHinh.ktgs = D.cauHinh.ktgs || {ky:'', xa:'', diem:'', hoi:'', to:'', kieu:'trung'}); }
-function ktDsBC(loai){ return Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===loai; }).sort(function(a, b){ return slThuTu(a.ky)<slThuTu(b.ky) ? 1 : -1; }); }
+function ktDsBC(loai){ return KHO.dsBang(loai).sort(function(a, b){ return slThuTu(a.ky)<slThuTu(b.ky) ? 1 : -1; }); }
 function ktChonBC(loai, ky){   /* cùng tháng với số liệu món vay thì lấy, không thì bản mới nhất */
   var ds = ktDsBC(loai); return ds.find(function(e){ return e.ky===ky; }) || ds.find(function(e){ return slThang(e.ky)===slThang(ky); }) || ds[0] || null;
 }
@@ -116,7 +116,7 @@ function veKTGS(){
   if(!dsKy.length){ e.innerHTML = slTabConHTML()+ktDauHTML(null, [])+'<div class="rong">Chưa có số liệu món vay. Nạp Mẫu 31 (và BC0437 / BC0438) ở tab <b>📥 Nạp &amp; KT</b> trước.</div>'; return; }
   toKyMacDinh(C, dsKy, 'kt');
   e.innerHTML = slTabConHTML()+'<div class="rong">Đang mở số liệu '+slKyChu(C.ky)+'…</div>';
-  KHO.nap(C.ky).then(function(K){ KT_K = K; TO_K = K; ktKhuon().catch(function(){}); return Promise.all([ktNapBC(C.ky), ktTruocNap(K)]); })
+  KHO.nap(C.ky).then(function(K){ KT_K = K; KHO.datKy(K); ktKhuon().catch(function(){}); return Promise.all([ktNapBC(C.ky), ktTruocNap(K)]); })
     .then(function(r){ KT_BC = r[0]; if(nganHienTai===7 && D.cauHinh.slTab==='kt') ktVe(dsKy); })
     .catch(function(er){ var o = document.getElementById('tr7'); if(o && D.cauHinh.slTab==='kt') o.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" onclick="toThuLai()">⟳ Thử lại</button></div>'; });
 }
@@ -132,10 +132,10 @@ function ktDauHTML(C, dsKy){
 /* ---------- nạp + kiểm tra theo chuẩn tab Nạp & Kiểm tra (anh chốt): ma trận loại × tháng · 📥 nạp nhiều file (xem trước, xác nhận) · 🔍 kiểm tra lưu kết quả ---------- */
 var KT_KY_KT = '';   /* tháng đang xem kiểm tra */
 /* dấu dữ liệu dùng để kiểm: đổi file nào thì kết quả cũ thành "kiểm lại" */
-function ktDauKy(ky){ return ['k37','k38','hstd','khd'].map(function(L){ var e = SLM.bang[slKhoa(L, ky)]; return L+':'+(e ? e.luc||'' : ''); }).join('|'); }
+function ktDauKy(ky){ return ['k37','k38','hstd','khd'].map(function(L){ var e = KHO.bang(L, ky); return L+':'+(e ? e.luc||'' : ''); }).join('|'); }
 function ktKTCu(ky){ var k = SLM.ktg && SLM.ktg[ky]; return !!k && k.dau!==ktDauKy(ky); }
 function ktKTHTML(ky){
-  var co37 = !!SLM.bang[slKhoa('k37', ky)], co38 = !!SLM.bang[slKhoa('k38', ky)], k = SLM.ktg && SLM.ktg[ky];
+  var co37 = !!KHO.bang('k37', ky), co38 = !!KHO.bang('k38', ky), k = SLM.ktg && SLM.ktg[ky];
   var nut = (co37 || co38) ? '<button class="nho chinh" onclick="ktKiemTra(\''+ky+'\')">🔍 '+(k ? 'Kiểm tra lại' : 'Kiểm tra')+' tháng '+kyVN(ky)+'</button>' : '';
   if(!co37 && !co38) return '<div class="rong">Tháng '+kyVN(ky)+' chưa có BC0437 / BC0438.</div>';
   var h = '<div class="hang-nut">'+nut+(k ? '<span class="sl-phu">Đã kiểm '+ngayVNsl(k.luc.slice(0,10))+' '+k.luc.slice(11,16)+(ktKTCu(ky) ? ' · <b class="vang">dữ liệu đã đổi sau lần kiểm — bấm kiểm lại</b>' : '')+'</span>' : '')+'</div>';
@@ -149,7 +149,7 @@ function ktKTHTML(ky){
 }
 function ktKiemTra(ky, im){
   batChay(!im, 'Đang kiểm tra BC0437 / BC0438 tháng '+kyVN(ky)+'…');
-  return slBo(ky).then(function(B){
+  return KHO.bo(ky).then(function(B){
     var r37 = B.co.k37 || null, r38 = B.co.k38 || null, hs = B.co.hstd || null, lap = B.lap || [], muc = [];
     var tr = function(v){ return Math.round((v||0)/1e4)/100; }, M = 1e6;
     var tenX = function(xa){ var o = (r37||[]).find(function(x){ return x.xa===xa; }) || (r38||[]).find(function(x){ return x.xa===xa; }); return o ? o.tenXa : xa; };

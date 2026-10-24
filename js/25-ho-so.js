@@ -41,8 +41,8 @@ function hsoCH(){ var C = D.cauHinh.hsoTK = D.cauHinh.hsoTK || {ky:'', hst:'10c'
 function hsoTab(){ return D.cauHinh.slTab==='hsv' ? 'hsv' : 'hst'; }
 function hsoMau(p){ p = p || hsoTab(); var k = hsoCH()[p], ds = HSO_MAU[p]; return ds.find(function(m){ return m.k===k; }) || ds[0]; }
 function hsoLuu(){ D.cauHinh.hsoO = D.cauHinh.hsoO || {}; return D.cauHinh.hsoO; }   /* lựa chọn nhớ cho lần sau (mức tiết kiệm, vai trò Hội…) */
-PV_DUNG.hst = {S:function(){ return hsoCH(); }, K:function(){ return TO_K; }, sau:function(){ hsoVe(); }, toBatBuoc:true, daChieu:true};
-PV_DUNG.hsv = {S:function(){ return hsoCH(); }, K:function(){ return TO_K; }, sau:function(){ hsoVe(); }, toBatBuoc:true, daChieu:true};
+PV_DUNG.hst = {S:function(){ return hsoCH(); }, K:function(){ return KHO.kyDung(); }, sau:function(){ hsoVe(); }, toBatBuoc:true, daChieu:true};
+PV_DUNG.hsv = {S:function(){ return hsoCH(); }, K:function(){ return KHO.kyDung(); }, sau:function(){ hsoVe(); }, toBatBuoc:true, daChieu:true};
 
 /* ---------- ⚙ khai báo 1 lần ---------- */
 var HSO_PGD_O = [['ten','Tên trong câu','Phòng giao dịch NHCSXH Gò Dầu'], ['ngan','Chi nhánh / PGD NHCSXH (điền sau chữ "NHCSXH")','Gò Dầu'], ['kinhGui','Kính gửi (đơn vay)','Ngân hàng Chính sách xã hội Gò Dầu'],
@@ -177,8 +177,8 @@ function hsoTruoc(t){   /* tổ trưởng, tổ phó kỳ trước (Mẫu 31 th�
   if(!t || !KHO.coKy()) return null; var tr = kyLui(KHO.ky().thang, -1), k = tr+'|'+t.ma;
   if(HSO_TR[k]!==undefined) return HSO_TR[k];
   if(!KHO.coBang('hstd', tr)){ HSO_TR[k] = null; return null; }
-  HSO_TR[k] = null; var cu = TO_K;   /* đọc kỳ trước rồi trả lại kỳ đang dựng (ngoại lệ: đổi kỳ là việc của tab) */
-  KHO.nap(tr).then(function(K2){ TO_K = cu; slDung(cu.ky); var x = K2.to[t.ma]; HSO_TR[k] = x ? {ten:x.ten||'', pho:x.pho||''} : null; if(HSO_TR[k] && document.getElementById('hso-ds')) hsoVe(); }).catch(function(){ TO_K = cu; });
+  HSO_TR[k] = null; var cu = KHO.kyDung();   /* đọc kỳ trước rồi trả lại kỳ đang dựng (ngoại lệ: đổi kỳ là việc của tab) */
+  KHO.nap(tr).then(function(K2){ KHO.datKy(cu); slDung(cu.ky); var x = K2.to[t.ma]; HSO_TR[k] = x ? {ten:x.ten||'', pho:x.pho||''} : null; if(HSO_TR[k] && document.getElementById('hso-ds')) hsoVe(); }).catch(function(){ KHO.datKy(cu); });
   return null;
 }
 
@@ -1112,10 +1112,10 @@ function veHoSo(){
   var e = document.getElementById('tr7'); if(!e) return;
   if(!SL_SAN){ e.innerHTML = '<div class="rong">Đang mở số liệu…</div>'; slNap().then(veHoSo); return; }
   var C = hsoCH(), dsKy = toDsKy(), p = hsoTab();
-  if(!dsKy.length){ TO_K = TO_K || null; hsoKhung(null); return; }   /* chưa có số liệu → vẫn in được mẫu trắng */
+  if(!dsKy.length){ KHO.datKy(KHO.kyDung() || null); hsoKhung(null); return; }   /* chưa có số liệu → vẫn in được mẫu trắng */
   toKyMacDinh(C, dsKy, 'hs');
   e.innerHTML = slTabConHTML()+'<div class="rong">Đang mở số liệu '+slKyChu(C.ky)+'…</div>';
-  KHO.nap(C.ky).then(function(K){ TO_K = K; if(nganHienTai===7 && hsoTab()===p && (D.cauHinh.slTab==='hst' || D.cauHinh.slTab==='hsv')) hsoKhung(K); })
+  KHO.nap(C.ky).then(function(K){ KHO.datKy(K); if(nganHienTai===7 && hsoTab()===p && (D.cauHinh.slTab==='hst' || D.cauHinh.slTab==='hsv')) hsoKhung(K); })
     .catch(function(er){ var o = document.getElementById('tr7'); if(o) o.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+' — vẫn in được mẫu trắng.</div>'; hsoKhung(null, 1); });
 }
 function hsoKhung(K, giu){
