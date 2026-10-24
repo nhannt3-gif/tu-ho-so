@@ -40,12 +40,13 @@ function tcNoiGon(c){ var t = (SL_DB.to||{})[c.to]||{}; return [c.tenXa ? String
 /* ---------- cột trái ---------- */
 function slTraHTML(){
   var n = SL_TIM.length, ky = slHSMoi();
-  return '<div class="tc-2cot tc394"><div class="tc-trai"><div class="sl-tra">'+
+  return '<div class="tc-dau">'+   /* 3.335 (anh 24/10): ô tìm + LỌC ĐỊA BÀN thành dải ngang toàn trang (trước nằm trong cột trái hẹp) */
     '<div class="tc-hang"><div class="sl-tra-o"><span>🔎</span><input id="sl-tim" autocomplete="off" value="'+coChuHTML(SL_TRA_Q)+'" placeholder="Tên khách / vợ-chồng / HSSV, CCCD, mã KH, SĐT, khế ước…" '+
     'oninput="SL_TRA_Q=this.value;TC_SL=50;slTraTim()" onkeydown="tcPhim(event)">'+
     (SL_TRA_Q ? '<button class="sap-ico" onclick="SL_TRA_Q=\'\';veSoLieu();slDoiTab(\'tra\')" title="Xóa">✕</button>' : '')+'</div>'+
     (typeof DH_CUOI!=='undefined' && DH_CUOI==='gd' ? '<button class="nho tc-ve-gdx" onclick="dhBam(\'gd\',\'gdx\')" title="Về bàn thao tác Giao dịch xã (địa bàn giữ nguyên)">← 🏢 Giao dịch xã</button>' : '')+   /* 3.328: vào từ Giao dịch xã */
-    '</div><div id="tc-cay" class="to-cay pv-cay"></div>'+   /* 3.160: bỏ khung gập "📍 Toàn PGD" — cây lọc chung như các tab */
+    '</div><div id="tc-cay" class="to-cay pv-cay"></div></div>'+   /* 3.160: bỏ khung gập "📍 Toàn PGD" — cây lọc chung như các tab */
+    '<div class="tc-2cot tc394"><div class="tc-trai"><div class="sl-tra">'+
     '<details class="tc-kt"'+(TC_KT.so || TC_KT.ten ? ' open' : '')+'><summary>🔍 Kiểm trùng trước khi nhập máy</summary>'+
       '<div class="tc-kt-o"><input id="tc-kt-so" inputmode="numeric" autocomplete="off" placeholder="Số CCCD / CMND" value="'+coChuHTML(TC_KT.so)+'" oninput="TC_KT.so=this.value;tcKTVe()">'+
       '<input id="tc-kt-ten" autocomplete="off" placeholder="Họ tên (so cả tên vợ/chồng = người thừa kế)" value="'+coChuHTML(TC_KT.ten)+'" oninput="TC_KT.ten=this.value;tcKTVe()"></div><div id="tc-kt-kq"></div></details>'+

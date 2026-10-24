@@ -3923,3 +3923,9 @@ table.tc-bt tr.tc-bt-dong.chon td{background:var(--xanh-nhat);box-shadow:inset 0
 .xuat-hang .nho[disabled].xuat-word::before{content:'📝';font-size:calc(13px*var(--co))}.xuat-hang .nho[disabled].xuat-excel::before{content:'📊';font-size:calc(13px*var(--co))}
 .kt-khoi .kt-khoi-bc{margin-left:auto;display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center}
 .th-xem .xuat-hang .nho:not([disabled]){padding-left:9px;padding-right:9px}   /* 3.334: khung xem 40 % — 6 nút xuất vừa 1 hàng (Gửi không rớt dòng) */
+/* 3.335 (anh 24/10): Tra cứu KH — ô tìm + LỌC ĐỊA BÀN dải ngang toàn trang phía trên; dưới: danh sách | chi tiết */
+.tc-dau{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-end;margin:0 0 8px}
+.tc-dau .tc-hang{display:flex;gap:6px;align-items:center;flex:1 1 360px;min-width:0;max-width:560px;margin:0 0 6px}.tc-dau .tc-hang .sl-tra-o{flex:1 1 220px;margin:0}
+.tc-dau #tc-cay{flex:999 1 520px;min-width:0;margin:0}
+@media(max-width:899px){ .tc-dau .tc-hang{max-width:none;flex-basis:100%} .tc-dau #tc-cay{flex-basis:100%} }
+@media(min-width:900px){ .tc-dau ~ .tc-2cot .tc-phai{height:calc(100vh - var(--dau-cao,52px) - 112px);max-height:none} .tc-dau ~ .tc-2cot .tc-trai #sl-kq{max-height:calc(100vh - var(--dau-cao,52px) - 170px)} }
