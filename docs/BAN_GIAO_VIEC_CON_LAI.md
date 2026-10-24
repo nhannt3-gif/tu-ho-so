@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.355) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › 🧩 Báo cáo chuẩn mới › 👁 Danh sách nợ cần xử lý | Hộp xem trước: logo + NGÂN HÀNG CHÍNH SÁCH XÃ HỘI góc trái, tên giữa, ngày, Đơn vị tính: đồng, A4 dọc, Trang x/y | |
+| 2 | Bấm chip Quá hạn / Khoanh / 3 tháng KHĐ / KU chưa GN | Danh sách đổi theo; mở lại vẫn nhớ lựa chọn | |
+| 3 | Nhóm theo Điểm › Hội › Tổ / Xã › Điểm / Không nhóm | Có dòng cộng từng nhóm (đậm), Tổng cộng cuối | |
+| 4 | Chọn 1 xã / điểm ở cây phạm vi Sao kê rồi mở lại | Chỉ còn dòng của phạm vi đó; dòng phạm vi dưới ngày | |
+| 5 | Excel / Word / In | Excel có đầu trang + 2 tầng tiêu đề; 📜 nhật ký ghi "Danh sách nợ cần xử lý" | |
+
+**Ghi chú kỹ thuật 3.355:** báo cáo mới = 1 khối `DANG_KY({ma, ten, o:'sk'|'to', loai:'ds'|'bang', dvt, mauSo, nhom, nhomMd, chon:[{k, ten, kieu:'tich'|'mot', ds, md}], du(ctx) → {cot:[{k, ten, tien, so, nhom, nw, nho, rong}], dong:[{…, _dv:dkDV(K, maTo), _lop}], ghi}})` cuối `js/62`; ctx = {K, S, pv, chon, ngay}. Lấy số qua `KHO` / `K.B`. Bản in đi qua `inChuan` (bỏ `<script>`), chia trang do `trDan` đọc `.phieu[data-tr-ngang|mg|cb|so|1trang]`.
+
 ### Danh sách thử trên máy thật (3.354) — iPhone, anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

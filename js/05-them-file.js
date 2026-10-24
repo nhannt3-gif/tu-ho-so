@@ -1211,7 +1211,8 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
   }
   function bac(u){   /* các bậc thử khổ: [ngang, lề t r b l, gọn, cỡ chữ pt] */
     if(loai!=='.trang'){ var an = u.getAttribute('data-tr-ngang'), am = (u.getAttribute('data-tr-mg')||'').split(/\s+/).map(parseFloat).filter(function(x){ return !isNaN(x); });   /* 3.171: mỗi bản (vd bộ hồ sơ vay) có khổ / lề riêng */
-      return [[an ? an==='1' : C.ngang, am.length===4 ? am : C.mg, 0, 0]]; }
+      var cb = (u.getAttribute('data-tr-cb')||'').split(',').map(parseFloat).filter(function(x){ return x>0; }), b0 = [an ? an==='1' : C.ngang, am.length===4 ? am : C.mg, 0, 0];   /* 3.355: bậc cỡ chữ riêng (báo cáo bảng DANG_KY) */
+      return cb.length ? cb.map(function(c){ return [b0[0], b0[1], 0, c]; }) : [b0]; }
     var ng = /\bngang\b/.test(u.className), L = C.le, B = [];
     if(L) { var m = [L, L, L, L], n0 = kho==='tu' ? ng : kho==='ngang'; return [[n0, m, 0, 0], [n0, m, 1, 9], [n0, m, 1, 8.5], [n0, m, 1, 8]]; }
     var doc = [[0, [20, 15, 20, 30], 0, 0], [0, [20, 15, 20, 30], 1, 9], [0, [15, 15, 15, 20], 1, 9], [0, [15, 15, 15, 20], 1, 8]], nga = [[1, [15, 15, 15, 20], 0, 0], [1, [15, 15, 15, 20], 1, 9], [1, [15, 15, 15, 20], 1, 8.5], [1, [10, 10, 10, 15], 1, 8]];
@@ -1224,7 +1225,8 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
     nd.className = 'tr-nd'; nd.style.cssText = 'top:'+m[0]+'mm;left:'+m[3]+'mm;width:'+(W-m[1]-m[3])+'mm;height:'+(H-m[0]-m[2])+'mm';
     tg.appendChild(nd); ds.appendChild(tg); return {tg:tg, nd:nd, b:b};
   }
-  function apBac(u, b){ u.classList.toggle('tr-gon', !!b[2]); u.style.fontSize = u.getAttribute('data-tr-co') || ''; if(b[3]){ var cu = parseFloat(getComputedStyle(u).fontSize); if(b[3]*96/72<cu-0.1) u.style.fontSize = b[3]+'pt'; } }
+  function apBac(u, b){ u.classList.toggle('tr-gon', !!b[2]); u.style.fontSize = u.getAttribute('data-tr-co') || ''; if(b[3] && u.hasAttribute('data-tr-cb')){ u.style.fontSize = b[3]+'pt'; return; }   /* 3.355: bậc cỡ chữ khai sẵn → đặt thẳng */
+    if(b[3]){ var cu = parseFloat(getComputedStyle(u).fontSize); if(b[3]*96/72<cu-0.1) u.style.fontSize = b[3]+'pt'; } }
   function coDinhCot(u){   /* cột bảng giữ nguyên bề rộng ở mọi trang (đo 1 lần trên bản liền) */
     [].slice.call(u.querySelectorAll('table')).forEach(function(t){
       if(!t.tHead || t.querySelector('colgroup') || t.rows.length<3) return;
@@ -1277,7 +1279,7 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
     goc.forEach(function(g, i){
       var u = g.cloneNode(true), B = bac(u), b = B[B.length-1], t; if(u.style.fontSize) u.setAttribute('data-tr-co', u.style.fontSize);
       if(C.xem && nhan[i]){ var nh = d.createElement('div'); nh.className = 'tr-nhan'; nh.textContent = nhan[i]; ds.appendChild(nh); }
-      for(var j=0;j<B.length;j++){ t = trang(B[j]); apBac(u, B[j]); t.nd.appendChild(u); var tran = u.scrollWidth>u.clientWidth+2; t.nd.removeChild(u); ds.removeChild(t.tg); if(!tran){ b = B[j]; break; } }
+      for(var j=0;j<B.length;j++){ t = trang(B[j]); apBac(u, B[j]); t.nd.appendChild(u); var tran = u.scrollWidth>u.clientWidth+2 || (u.hasAttribute('data-tr-1trang') && u.offsetHeight>t.nd.clientHeight+1); t.nd.removeChild(u); ds.removeChild(t.tg); if(!tran){ b = B[j]; break; } }
       t = trang(b); apBac(u, b); t.nd.appendChild(u); coDinhCot(u); t.nd.removeChild(u); ds.removeChild(t.tg);
       var P = chia(u, b), N = P.length, so = u.getAttribute('data-tr-so') || C.so;   /* 3.171: số trang riêng từng bản (xy · so · khong) */
       P.forEach(function(p, k){ if(so==='khong' || (so!=='xy' && !k)) return; var s = d.createElement('div'); s.className = 'tr-so'; s.textContent = so==='xy' ? 'Trang '+(k+1)+'/'+N : String(k+1);

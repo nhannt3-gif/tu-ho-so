@@ -1,4 +1,4 @@
-# Kế hoạch ĐĂNG KÝ KHỐI (`DANG_KY`) — TK 2, 24/10/2026 (chờ anh duyệt)
+# Kế hoạch ĐĂNG KÝ KHỐI (`DANG_KY`) — TK 2, 24/10/2026 (anh duyệt — đang làm)
 
 > Anh 24/10: "nên làm trước việc 5, bỏ qua việc 1–3 làm sau, chia ra từng đợt, xong đợt gộp lên cho anh kiểm tra rồi làm tiếp, xong hết rồi thử 1 lần, em lên plan coi tốn bao nhiêu thời gian".
 > Nguồn thiết kế: `KIEN_TRUC_3_LOP.md` mục 5 (Lớp 3 — đăng ký khối), `QUY_CHUAN_KIEN_TRUC.md` mục 8 (đợt E).
@@ -39,9 +39,34 @@ Các báo cáo này đã trả cùng 1 dạng `{ten, tieuDe, ngang, ngay, html, 
 - **2 tài khoản sửa song song** (TK 3 bản điện thoại) → file mới `js/62-dang-ky.js` + sửa trong `22gb / 22h / 22i / 22j` (file TK 2 giữ); ghi `PHOI_HOP_TK2_TK3.md`.
 - **Việc 1 (chốt sổ tổ viên cuối năm) có hạn trước Mẫu 31 T1/2027** → sau D6 làm ngay (còn ~2 tháng, đủ).
 
-## 5. Câu hỏi chờ anh (trả lời trước D5, D1–D4 không cần)
+## 5. Câu hỏi D5 — anh trả lời 24/10: "theo em, nếu lúc làm thấy không ổn anh đổi; nguồn cơ bản trên Mẫu 31, có kiểm tra chéo nếu có số liệu chuẩn TW"
+→ **Chốt:** (1) đặt ở tab **Tổng hợp** (đổi sau nếu anh thấy không ổn); (2) nguồn chính = **Mẫu 31** (món vay → gộp được theo khách / tổ / địa bàn); có file chuẩn TW cùng kỳ (Tổng dư nợ theo CT) thì cuối báo cáo hiện dòng **đối chiếu** tổng dư nợ / QH / khoanh (dùng lại `slDoiChieu`) — khớp ✓ / lệch số tiền; không có file thì ghi "chưa có số liệu TW để đối chiếu". TK 104 / KTGS chưa làm.
+
+(câu hỏi gốc:)
 1. "🧩 Báo cáo của tôi" đặt ở đâu: (a) tab Tổng hợp (em đề xuất) · (b) tab nào tự chọn khi khai.
 2. Nguồn cho báo cáo tự khai: món vay (Mẫu 31) · khách · tổ · TK 105 — đủ chưa, cần thêm nguồn nào (TK 104, KTGS…)?
 
+## 7. Báo cáo Sao kê + Tổ TK&VV làm lại (anh 24/10: "tối ưu lại, làm lại từ đầu em thấy sao cho gọn nhất")
+21 báo cáo hiện có ≈ 7 nội dung → gom còn **7 báo cáo có tùy chọn** (anh "đồng ý theo em"):
+1. **Nợ cần xử lý** — tích: Quá hạn · Khoanh · 3 tháng KHĐ · KU chưa GN > 1 tháng; nhóm theo (không · Xã › Điểm · Điểm › Hội › Tổ · từng tổ) — thay 8 bản (qh, kh, khd, cgn, tqh, tkn, tkhd, tab Tổ "Nợ cần xử lý").
+2. **Nợ đến hạn** — hạn HĐ · kỳ GDXA · kỳ con phân kỳ; khoảng tháng; kiểu in "mỗi tổ 1 trang (gửi tổ trưởng — CV 597)" — thay 3 (dh, noxh, pkto).
+3. **Phát sinh trong tháng** — giải ngân · thay đổi dư nợ · cần mở TK 105 — thay 3.
+4. **Danh sách khách / hộ vay** — chọn cột (SĐT, CCCD + hạn, TK 105, dư nợ, món…), lọc (SĐT trống / không đạt, chưa TK 105, CCCD hết hạn, còn nợ / tất nợ) — thay 3 (sdt, tab Tổ DS hộ vay, TK 105 của tổ).
+5. **THHD** · 6. **KQGD tại điểm** · 7. **Dự kiến chia tách tổ** — giữ nội dung, đưa vào khuôn mới.
+Bản cũ chạy song song (mục "Báo cáo cũ") tới khi anh thử xong và duyệt bỏ. Nhóm mặc định: Điểm › Hội › Tổ.
+
+## 8. CHUẨN IN BÁO CÁO BẢNG (anh chốt 24/10 — "đồng ý theo em, góc trái có logo và tên NHCSXH"; 2 ảnh mẫu anh gửi: 05/GDX, Tổng hợp theo đơn vị ủy thác)
+- **Đầu trang (trang 1):** góc trái **logo cánh sen** + chữ: danh sách → "NGÂN HÀNG CHÍNH SÁCH XÃ HỘI / PGD Gò Dầu - Chi nhánh Tây Ninh" (đậm, như 05/GDX); bảng tổng quát → "Ngân hàng CSXH Tỉnh Tây Ninh / PGD Gò Dầu / <phạm vi: xã · điểm GD…>" (thường, 3 dòng, như mẫu Tổng hợp theo ĐVUT). Góc phải: "Mẫu số …" (nếu có). Giữa: **TÊN BÁO CÁO** in hoa; dòng nghiêng "Số liệu tính đến …" / "Ngày …"; dòng phạm vi (danh sách: "Tên điểm giao dịch: … · Mã điểm …" / xã · hội · tổ đã chọn). Trên bảng bên phải: *Đơn vị tính: đồng / triệu đồng*.
+- **Khổ:** bảng số liệu tổng quát → **A4 ngang**, cố gắng **1 trang** (tự co chữ 11 → 8 pt, thu lề; vẫn tràn → báo "2 trang — in 2 mặt"); danh sách → **A4 dọc**, đầu bảng lặp mỗi trang, "Trang x/y".
+- **Lề báo cáo bảng** (anh đồng ý thay 3/2 cm của 3.90 — chỉ báo cáo bảng; văn bản / KTGS / Hồ sơ giữ lề cũ): ngang 1,2 · 1,2 · 1,5 · 1,0 cm; dọc 1,5 · 1,5 · 2,0 · 1,0 cm.
+- **Bảng:** tiêu đề nhiều tầng (nhóm cột "Trong đó", "Phát sinh từ đầu năm…"), cột số căn phải không xuống dòng, cột tên xuống dòng; dòng **Tổng cộng** đậm; nhóm có dòng cộng đậm, tiêu đề nhóm không rơi cuối trang; tùy chọn "mỗi tổ 1 trang".
+- **Số:** tổng hợp triệu đồng (QT-10: 2 số lẻ khi cần), danh sách đồng; tỷ lệ %.
+- **Excel / Word:** cùng đầu trang + cột; Excel cài khổ ngang / dọc, co vừa 1 trang bề ngang, đóng băng tiêu đề.
+- Còn chờ anh: ô số 0 để trống hay ghi 0 (mẫu ĐVUT ghi 0 → mặc định **ghi 0**); dòng "Người lập" ký cuối (3.140 đã bỏ → mặc định **không**).
+
 ## 6. Tiến độ
-- 24/10 · TK 2: lập kế hoạch này — chờ anh duyệt / nhắn "code".
+- 24/10 · TK 2: lập kế hoạch này.
+- 24/10 · anh: "chưa có mẫu nào bắt buộc… em cứ tạo 1 cái nền sẵn, sau này cần mẫu nào sẽ tạo khi cần" + "bảng tổng quan (tab Tổ TK&VV theo Xã / Điểm GD) anh muốn giữ lại" → **không chuyển hàng loạt** báo cáo cũ (D2–D4 chỉ làm khi anh cần mẫu nào); báo cáo cũ + bảng tổng quan tab Tổ giữ nguyên.
+- **3.355 · N1 Nền xong** (TK 3 đã dùng 3.354) (`js/62-dang-ky.js`): `DANG_KY({ma, ten, o, loai:'ds'|'bang', dvt, mauSo, nhom, chon, du})` → nút ở tab (nhóm 🧩 Báo cáo chuẩn mới), hộp xem trước có chip tùy chọn + Nhóm theo (Không · Xã › Điểm · Điểm › Hội › Tổ · Từng tổ — nhớ trong cài đặt `dkChon`), khuôn in chuẩn mục 8 (logo + tên NHCSXH, tiêu đề in hoa, ngày nghiêng, phạm vi, ĐVT, tiêu đề cột 2 tầng, dòng cộng nhóm, Tổng cộng, ô 0 ghi 0, không dòng ký), chia trang + Trang x/y + tự co chữ qua bộ in chung `trDan` (bảng tổng quát cố 1 trang ngang), 🖨 In · 📄 PDF · 📝 Word (.doc HTML) · 📊 Excel (cùng đầu trang, tiêu đề 2 tầng) · 📤 Gửi, 📜 nhật ký in. Báo cáo mẫu 1: **Danh sách nợ cần xử lý** (tab Sao kê — tích Quá hạn · Khoanh · 3 tháng KHĐ · KU chưa GN > 1 tháng). Phép thử t259.
+- Phát hiện khi làm (chưa sửa — sửa sẽ đổi bản in cũ, chờ anh): bộ chia trang chung `trDan` (js/05) **chưa bao giờ co chữ 9 / 8,5 / 8 pt** cho sao kê cũ (`.trang`) — đo cỡ chữ lúc bản chưa gắn vào trang nên ra rỗng; chỉ bậc thu lề + ẩn cột SĐT chạy. Báo cáo DANG_KY không bị (đặt cỡ chữ thẳng).
+- Tiếp: mẫu mới làm khi anh cần (khai 1 khối `DANG_KY` + phép thử); D5 báo cáo tự khai ⚙ chờ anh trả lời mục 5.
