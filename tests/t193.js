@@ -19,7 +19,7 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  ok('máy tính: ⚙ Khai báo › 💾 Sao lưu có 📱 Bản điện thoại', M.kb);
  ok('tổ trưởng ghi bằng chữ (tên)', Object.keys(M.g.to).every(m=>typeof M.g.to[m].tt==='string') && Object.keys(M.g.to).some(m=>M.g.to[m].tt), JSON.stringify(Object.values(M.g.to)[0].tt));
  /* 2. điện thoại: index.html tự chuyển */
- const ctx = await b.newContext({viewport:{width:390,height:844}, isMobile:true, hasTouch:true, deviceScaleFactor:2});
+ const ctx = await b.newContext({viewport:{width:390,height:844}, isMobile:true, hasTouch:true, deviceScaleFactor:2}); await ctx.addInitScript(()=>{ try{ localStorage.setItem('tuhoso_dt_pin','1'); }catch(e){} });   /* 3.342: PIN tạm tắt mặc định — phép thử này kiểm phần PIN nên bật cờ */
  const d = await ctx.newPage(); d.on('pageerror',e=>loi.push('điện thoại: '+e.message)); await d.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(d);
  await d.goto('file://'+G+'/index.html'); await d.waitForTimeout(2500);
  ok('điện thoại mở index.html → tự chuyển dt.html', /dt\.html$/.test(d.url()), d.url().split('/').pop());
@@ -57,8 +57,8 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  await phim('1357'); await w(1500);
  ok('mở lại bằng PIN đúng → số liệu giải mã từ máy (không cần Drive)', await d.evaluate(()=>!!DT.goi() && DT.goi().kh.length>50 && getComputedStyle(document.getElementById('khoa')).display==='none'));
  await d.evaluate(()=>DTG.app().views.main.router.navigate('/cd/', {reloadAll:true})); await w(600);
- ok('⚙ Cài đặt: lấy số liệu mới · đổi PIN · khóa · bản máy tính · xóa dữ liệu', /Lấy số liệu mới/.test(await d.textContent('.page-current')) && /Mở bản máy tính/.test(await d.textContent('.page-current')));
- await d.click('#dt-may'); await w(2500);
+ ok('⚙ Cài đặt: lấy số liệu mới · đổi PIN · khóa · bản máy tính · xóa dữ liệu', /Lấy số liệu mới/.test(await d.textContent('.page-current')) && /Mở bản web/.test(await d.textContent('.page-current')) && !!(await d.$('.navbar-current .dt-may')));   /* 3.342: nút 🖥 có ở mọi trang */
+ await d.click('.navbar-current .dt-may'); await w(2500);
  ok('🖥 Mở bản máy tính → ở lại index.html (không tự chuyển nữa)', /index\.html$/.test(d.url()) && await d.evaluate(()=>typeof veSoLieu==='function'));
  o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
  console.log(o.join('\n')); console.log(o.filter(x=>x[0]==='✓').length+'/'+o.length+' đạt'); await b.close(); })();

@@ -2,12 +2,12 @@
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const path=require('path'), G=path.resolve(__dirname,'..');
 (async()=>{ const b=await chromium.launch(); const loi=[], o=[]; const ok=(t,d,c)=>o.push((d?'✓ ':'✗ ')+t+(c!==undefined?' — '+c:''));
- const ctx = await b.newContext({viewport:{width:390,height:844}, isMobile:true, hasTouch:true});
+ const ctx = await b.newContext({viewport:{width:390,height:844}, isMobile:true, hasTouch:true}); await ctx.addInitScript(()=>{ try{ localStorage.setItem('tuhoso_dt_pin','1'); }catch(e){} });   /* 3.342: PIN tạm tắt mặc định — phép thử này kiểm phần PIN nên bật cờ */
  const d = await ctx.newPage(); d.on('pageerror',e=>loi.push(e.message)); await d.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(d);
  await d.goto('file://'+G+'/dt.html'); await d.waitForTimeout(2500); const w = t=>d.waitForTimeout(t);
  const phim = async s=>{ for(const k of s) await d.click('#khoa [data-k="'+k+'"]'); };
  await phim('2580'); await d.click('#khoa [data-k="ok"]'); await phim('2580'); await d.click('#khoa [data-k="ok"]'); await w(1500); await d.evaluate(()=>DTG.app().dialog.close()); await w(300);
- ok('thanh tab dưới 5 mục: Tra cứu · Địa bàn · Giao dịch · Tài liệu · Cài đặt (3.233)', (await d.$$eval('.dt-tab .tabbar-label', x=>x.map(e=>e.textContent))).join('|')==='Tra cứu|Địa bàn|Giao dịch|Tài liệu|Cài đặt');
+ ok('3.342: thanh tab dưới 4 mục: Khách · Văn bản · Scan · Cài đặt (Địa bàn = 📍 trong Khách, Giao dịch xã trong ⚙ › Công cụ)', (await d.$$eval('.dt-tab .tabbar-label', x=>x.map(e=>e.textContent))).join('|')==='Khách|Văn bản|Scan|Cài đặt');
  await d.evaluate(()=>{ DT.datDS('vanban', [{id:'v1', soHieu:'123/QĐ-NHCS', ngay:'2026-09-01', loai:'Quyết định', trichYeu:'Về việc điều chỉnh lãi suất cho vay', driveId:''},
    {id:'v2', soHieu:'45/CV-PGD', ngay:'2026-08-15', loai:'Công văn', trichYeu:'Hướng dẫn hồ sơ vay HSSV', driveId:'x'}]);
    DT.datDS('scan', [{id:'s1', ten:'Nguyễn Văn Giả', maKH:'4800000001', che:'cccd', ap:'Ấp 1', ngay:'2026-10-01', driveId:''}]);
@@ -19,7 +19,7 @@ const path=require('path'), G=path.resolve(__dirname,'..');
  await d.fill('#dt-loc', ''); await w(300); await d.click('.page-current .dt-mo[data-i="0"]'); await w(400);
  ok('mục chưa lên Drive → báo mở ở máy tính', /chưa lên Drive/.test(await d.textContent('.dialog.modal-in')||'')); await d.evaluate(()=>DTG.app().dialog.close()); await w(300);
  await d.evaluate(()=>DTG.app().views.main.router.navigate('/sc/', {reloadAll:true})); await w(700);
- ok('📷 Scan: danh sách + nút Chụp / chọn ảnh → PDF; Tài liệu có nút chuyển Văn bản | Scan', /Nguyễn Văn Giả/.test(await d.textContent('.page-current')) && /Chụp \/ chọn ảnh/.test(await d.textContent('.page-current')) && (await d.$$('.page-current .dt-tl .button')).length===2);
+ ok('📷 Scan: danh sách + nút Chụp / chọn ảnh → PDF (3.342: Văn bản, Scan là 2 nút riêng ở thanh dưới)', /Nguyễn Văn Giả/.test(await d.textContent('.page-current')) && /Chụp \/ chọn ảnh/.test(await d.textContent('.page-current')));
  await d.evaluate(()=>DTG.app().views.main.router.navigate('/sc/moi/')); await w(700);
  await d.evaluate(async()=>{ for(const mau of ['#c33', '#36c']){ const c = document.createElement('canvas'); c.width = 1200; c.height = 1600; const g = c.getContext('2d'); g.fillStyle = mau; g.fillRect(0, 0, 1200, 1600);
    const bl = await new Promise(r=>c.toBlob(r, 'image/jpeg', 0.8)); DTG.sc.anh.push({bl:bl, url:URL.createObjectURL(bl)}); } DTG.app().views.main.router.refreshPage(); }); await w(700);

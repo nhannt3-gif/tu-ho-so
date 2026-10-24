@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.342) — iPhone, anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app trên iPhone | Không hỏi PIN, vào thẳng trang Khách; thanh dưới 4 nút | |
+| 2 | Bấm 🖥 ở góc phải trên | Sang bản web; có nút 📱 góc dưới trái; bấm 📱 → về bản điện thoại | |
+| 3 | Khách › 📍 | Địa bàn theo cấp (Xã › Điểm › Hội › Tổ › Khách) | |
+| 4 | ⚙ › Công cụ › Giao dịch xã | Mở 04/TD, 12/GDX, Giấy lĩnh như cũ | |
+
+**Ghi chú kỹ thuật 3.342:** `DT.pinBat()` (cờ `tuhoso_dt_pin`), `DT.moTuDong()` (khóa AES tự sinh `khoaTu` trong IndexedDB `tuhoso_dt`), `DT.khiNap` → `refreshPage`. `trang()` luôn có `.dt-may`; gắn lệnh qua `tat(sel)` = trang + `page.navbarEl`. `nutTL` bỏ. `js/60-ve-dt.js`: nút `#ve-dt` khi `tuhoso_ban='may'` + màn cảm ứng ≤ 600 px.
+
 ### Danh sách thử trên máy thật (3.341) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
