@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.362** — TK 2: điện thoại Đ2 thẻ khách (thẻ món vay có chip màu, chữ gọn; `js/66` ô kỳ gọn). Trước: 3.361 Đ1 khung chung (`css/dt-may.css`) + sửa lỗi Scan + hồi quy chạy t3xx. Chờ anh chọn kỹ thuật tối ưu (Web Worker, nạp module khi cần, lưu tóm tắt kỳ, PWA, nhật ký lỗi, danh sách ảo) — `docs/TU_VAN_KY_THUAT.md`. Tiếp: Đ3 Hôm nay, Đ4 Số liệu (vuốt ngang / chụm iOS).
+- **`main` = 3.363** — TK 2: nhật ký lỗi tự động (`js/67`, chip ⚠ ở chân trang, chép gửi em). Trước: 3.362 điện thoại Đ2 thẻ khách, 3.361 Đ1 khung chung (`css/dt-may.css`). Kỹ thuật tối ưu còn lại — `docs/TU_VAN_KY_THUAT.md`. Tiếp: Đ3 Hôm nay, Đ4 Số liệu (vuốt ngang / chụm iOS).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

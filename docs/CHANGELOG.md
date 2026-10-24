@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.363 — 25/10/2026 — Nhật ký lỗi tự động (tư vấn kỹ thuật mục 5)
+- Anh 25/10: "Ok em làm tiếp" (mục 5 nhật ký lỗi + mục 2 nạp khi cần trước).
+- **Mới `js/67-nhat-ky-loi.js`** (cắm rút — bỏ 1 dòng `<script>` app chạy như cũ): bắt lỗi chạy (`error`) + lời hứa bị từ chối không ai bắt (`unhandledrejection`), bỏ qua lỗi tải ảnh / file, `ResizeObserver loop`, `Script error.`, hủy tải (`AbortError`). Ghi lúc, nội dung, file:dòng, 4 dòng stack, bản app, tab — **chỉ trên máy này** (localStorage `tuhoso_loi`, 100 lỗi gần nhất, lỗi trùng trong 1 phút → cộng dồn ×N). Không có dữ liệu khách.
+- Chân trang: chip đỏ **⚠ N lỗi** (chỉ hiện khi có lỗi chưa xem) → hộp danh sách lỗi, **📋 Chép để gửi em**, **🗑 Xóa nhật ký**. Lệnh `nkl.mo / chep / xoa` qua `GD.dangKy`.
+- **Phép thử**: mới t305.
+
 ## 3.362 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ2 thẻ khách
 - Anh 25/10: "theo em" (bảng món vay → thẻ, ô kỳ chữ gọn) · "thẻ cho điện thoại nên chỉnh chữ tối ưu 1 màn hình xem trọn" · "thêm màu sắc và chip màu, không khô cứng, chữ to chiếm hết màn hình".
 - `css/dt-may.css`: thẻ khách chữ nhỏ theo biến tỷ lệ `--co` (.88); bảng món vay (js/22f) → mỗi món 1 thẻ 3 dòng (CT chip xanh dương + khế ước + ngày vay · Hạn + còn N ngày · GN + Dư nợ + chip tình trạng xanh lá / đỏ / vàng), viền trái theo tình trạng, dòng cộng nền xanh nhạt; chỉ CSS, không đổi code vẽ bảng.
