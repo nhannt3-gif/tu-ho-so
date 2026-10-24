@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.340', ds:[
+var CO_GI_MOI = {ban:'3.341', ds:[
+  ["Nền mã: Scan, điều hướng, Hồ sơ, Giao dịch xã đọc số liệu qua cửa KHO (đợt K1) — app chạy y như cũ", "doiNgan(0)"],
   ["Lưu dữ liệu: máy có nhiều hồ sơ (dữ liệu > 1 MB) lưu nhanh hơn — chỉ ghi kho IndexedDB, thôi ghi bản sao localStorage mỗi lần sửa", "hsoKBHop('sl')"],
   ["Nền mã: tách 2 file lớn nhất (giao diện chung 5.416 dòng, hộp thoại 3.117 dòng) thành các file theo khối — app chạy y như cũ, dễ sửa và ít lỗi hơn", "doiNgan(0)"],
   ["⚙ Khai báo đơn vị › 💾 Sao lưu: thẻ 🩺 Sức khỏe sao lưu — mỗi đường lưu (máy, tự lưu đầu ngày, chụp cài đặt, Drive, file chưa lên) 1 dòng, đỏ khi quá 7 ngày", "hsoKBHop('sl')"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.340', ds:[
   ["Tra cứu KH: ô tìm + LỌC ĐỊA BÀN thành dải ngang toàn trang — ô chọn không bị bóp, danh sách và chi tiết cao hết màn", "dhSL('tra')"],
   ["Tra cứu KH › Tìm theo: Tự nhận · Tên KH · Vợ/chồng · HSSV · CCCD · Mã KH · Mã món vay · SĐT · Số TK 105 — chỉ tìm đúng loại đã chọn", "dhSL('tra')"],
   ["Tra cứu KH: danh sách kiểu bảng (Tên · Mã KH · Xã · Ấp · Tổ trưởng · Tình trạng), nút ▦ Thẻ / ☰ Bảng đổi qua lại", "dhSL('tra')"],
-  ["Dải chip mẫu (Giao dịch xã, Hồ sơ Tổ, Hồ sơ vay) 1 hàng cuộn ngang, nút ‹ › khi còn mẫu bị khuất — mẫu đang chọn luôn thấy", "dhSL('hsv')"],
-  ["Hồ sơ: 📅 Số liệu + ⚙ Khai báo đơn vị dời xuống dòng tên mẫu; tiêu đề không lặp chữ; nút xuất mờ chỉ còn biểu tượng (Gửi không rớt dòng)", "dhSL('hst')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Dải chip mẫu (Giao dịch xã, Hồ sơ Tổ, Hồ sơ vay) 1 hàng cuộn ngang, nút ‹ › khi còn mẫu bị khuất — mẫu đang chọn luôn thấy", "dhSL('hsv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

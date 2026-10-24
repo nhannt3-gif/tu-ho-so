@@ -17,6 +17,11 @@ var KHO = (function(){
     maDong: function(){ return co() ? Object.keys(TO_K.kh||{}) : []; },
     /* KHO.coBang(loại, kỳ) → true khi máy đã có bảng file loại đó của kỳ (vd 'hstd' = Mẫu 31) */
     coBang: function(loai, ky){ return typeof SLM!=='undefined' && !!(SLM.bang && SLM.bang[slKhoa(loai, ky)]); },
+    /* 3.341 K1: KHO.soBang() → số bảng file đã nạp trên máy (0 = chưa nạp gì) · KHO.dsKyHS() → [kỳ có Mẫu 31 / hồ sơ chi tiết], mới nhất trước (tháng + ngày) */
+    soBang: function(){ return typeof SLM!=='undefined' && SLM.bang ? Object.keys(SLM.bang).length : 0; },
+    dsKyHS: function(){ if(typeof SLM==='undefined' || !SLM.bang) return []; var gap = {};
+      return Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return slLaHS(e.loai) && !gap[e.ky] && (gap[e.ky] = 1); }).map(function(e){ return e.ky; })
+        .sort(function(a, b){ return slThuTu(a)<slThuTu(b) ? 1 : -1; }); },
     /* KHO.ky() → {ky, ngay, ten:'Mẫu 31 dd/mm/yyyy', nguon:{loại: kỳ file}} | null — kỳ đang dựng */
     ky: function(){ return co() ? {ky:TO_K.ky, ngay:TO_K.ngay, thang:TO_K.thang, ten:TO_K.hsTen || '', hsoTen:TO_K.hsoTen, nguon:(TO_K.B && TO_K.B.nguon) || {}} : null; },
     /* KHO.nap(ky) → Promise<kỳ đã dựng> — dựng cây tổ + tổ viên của kỳ (bọc toNap; gán TO_K là việc của tab gọi) */

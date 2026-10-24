@@ -527,8 +527,7 @@ function sxDriveCho(){
 
 /* ---------- 7. 📊 KIỂM TRA theo cây địa bàn ---------- */
 function sxKy31Moi(){   /* kỳ Mẫu 31 mới nhất đã nạp (tháng hoặc ngày) */
-  return Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return slLaHS(e.loai); }).map(function(e){ return e.ky; })
-    .sort(function(a, b){ return slThuTu(a)<slThuTu(b) ? 1 : -1; })[0] || '';
+  return KHO.dsKyHS()[0] || '';   /* 3.341 K1: qua KHO */
 }
 function sxChuKy31(){ var k = sxKy31Moi(); return k ? 'Danh bạ khách gộp mọi Mẫu 31 đã nạp (tháng + ngày), mới nhất: <b>Mẫu 31 '+coChuHTML(slKyChu(k))+'</b>.' : ''; }
 var SXK_BANG = null, SXK_MO = '';
@@ -537,7 +536,7 @@ function moKiemScan(){
   var ds = typeof toDsKy==='function' ? toDsKy() : []; if(!ds.length) return baoLoi('Chưa có Mẫu 31 — nạp ở tab 📈 Số liệu › Nạp & KT trước.');
   var ky = sxKy31Moi() || ds[0].ky;   /* 3.270 (anh: "rà Mẫu 31 ngày luôn"): Mẫu 31 mới nhất — có Mẫu 31 ngày mới hơn chốt tháng thì dùng ngày */
   batChay(false, 'Đang dựng bảng kiểm tra…');
-  toNap(ky).then(function(K){ tatChay(); SXK_BANG = sxKiemDung(K); sxKiemVe(''); }, function(e){ tatChay(); baoLoi('Chưa mở được Mẫu 31: '+(e && e.message || e)); });
+  KHO.nap(ky).then(function(K){ tatChay(); SXK_BANG = sxKiemDung(K); sxKiemVe(''); }, function(e){ tatChay(); baoLoi('Chưa mở được Mẫu 31: '+(e && e.message || e)); });
 }
 function sxKiemDung(K){
   var co = {cccd:{}, ky:{}, anh:{}};

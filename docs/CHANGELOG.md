@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.341 — 24/10/2026 — Rà soát đọc qua KHO + đợt K1 (RA_SOAT_KHO_2410 · mục 8 việc 4)
+- **Anh 24/10**: "sau mục này rà soát mọi thứ đọc qua kho đã chuyển hết chưa" → `docs/RA_SOAT_KHO_2410.md` (đã gộp): **chưa chuyển hết** — lõi 22-so-lieu / 22g / 28 / 29 hợp lệ; còn đọc thẳng ở Tra cứu KH, Sao kê · cấp Hội · Tổng hợp · Thông tin tổ, KTGS; đề xuất đợt K1–K5. `tools/ra_kho.py` đếm theo file.
+- **K1 (bản này)**: `12-scan` (tìm / chọn khách → `KHO.tim`, `KHO.danhBa`, `KHO.coDanhBa`), `41-scan-sap-xep` (kỳ Mẫu 31 mới nhất → `KHO.dsKyHS`, dựng kỳ → `KHO.nap`), `21-ngay-gy` (`KHO.soBang`), `23-dieu-huong` (`KHO.coBang`), `25-ho-so` / `26-giao-dich-xa` (`toNap` → `KHO.nap`). Cửa mới: `KHO.soBang()`, `KHO.dsKyHS()`.
+- **Thước đo `kiem.py` "đọc thẳng biến kho"** đếm đủ (TO_K, SL_DB, SL_KHMON, SL_PHU, SL_TIM, SLM.bang, slBo / slDocBang / toNap / tkBang) ở mọi file trừ lõi — trước chỉ 4 biến và bỏ qua cả nhóm 22*: 3.340 = 233 → 3.341 = **221** (mốc mới, từ nay chỉ giảm).
+- **Phép thử**: t127, t151, t165, t170, t172, t179, t207, t209, t210, t241, hoiquy, hoiquy2 (không đổi kết quả).
+
 ## 3.340 — 24/10/2026 — Lưu nhanh hơn khi dữ liệu lớn (RA_SOAT_BO_CUC_2410 mục 8 việc 5 — anh duyệt "đồng ý làm tiếp")
 - **Đo (3.339)**: kho lớn giả 1,5 MB — mỗi lần lưu tốn chủ yếu ở **ghi bản sao localStorage** (~50 ms), chuyển chuỗi ~18–28 ms; IndexedDB đã chỉ ghi ngăn đổi từ 3.223 → `luuNgan` ít lợi, dễ sót ngăn → làm cách khác.
 - **Làm** (`luuNgay` js/02 + `LN.ghi` js/34): bật lưu theo ngăn và chuỗi dữ liệu > `LS_TRAN` (1 MB) → **không ghi localStorage**, đi đúng đường "localStorage đầy" đã có từ 3.223: sau khi IndexedDB ghi xong mới xóa bản localStorage cũ + đặt dấu `tuhoso_ln_cho` → lần mở sau đọc IndexedDB trước khi vẽ. Không hiện câu "bộ nhớ nhanh đã đầy" (chủ ý bỏ). **IndexedDB lỗi → ghi lại bản localStorage làm dự phòng** rồi mới báo. Dữ liệu nhỏ lại dưới 1 MB → ghi localStorage như cũ, bỏ dấu chờ.
