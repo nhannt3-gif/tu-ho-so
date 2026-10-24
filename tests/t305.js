@@ -1,0 +1,25 @@
+// 3.363 (TU_VAN_KY_THUAT mục 5) — ⚠ nhật ký lỗi tự động: bắt lỗi chạy + lời hứa bị từ chối, lưu trên máy (localStorage, cộng dồn lỗi trùng), chip "⚠ N lỗi" ở chân trang, hộp xem / chép / xóa; bỏ qua tiếng ồn (ảnh không tải, AbortError).
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const path=require('path');
+(async()=>{ const b=await chromium.launch(); const p=await b.newPage({viewport:{width:1440,height:900}}); const loi=[];
+ p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ await p.evaluate(()=>{ localStorage.removeItem('tuhoso_loi'); nklChip(); });
+ await p.evaluate(()=>{ var f = function(){ null.thuLoi; }; setTimeout(f, 0); setTimeout(f, 10); Promise.reject(new Error('Hứa hỏng thử')); var im = new Image(); document.body.appendChild(im); im.src = 'khong-co-anh.png';
+   var ab = new Error('huy'); ab.name = 'AbortError'; Promise.reject(ab); });
+ await p.waitForTimeout(800);
+ const R = await p.evaluate(()=>{ const o=[], ok=(t,d,c)=>o.push((d?'✓ ':'✗ ')+t+(c!==undefined?' — '+c:'')); const a = nklDs(), c = document.getElementById('chip-loiapp');
+   ok('3.363 ghi lỗi chạy (2 lần trùng → 1 dòng ×2) + lời hứa hỏng; bỏ qua ảnh không tải + AbortError', a.length===2 && a[0].lan===2 && /null/.test(a[0].msg) && /Hứa hỏng thử/.test(a[1].msg), JSON.stringify(a.map(x=>[x.msg.slice(0,30), x.lan])));
+   ok('3.363 dòng lỗi có bản app + file', a[0].ban===APP_BAN && a.every(x=>x.luc), a[0].nguon);
+   ok('3.363 chip "⚠ 2 lỗi" hiện ở chân trang', !!c && c.style.display!=='none' && /2 lỗi/.test(c.textContent), c && c.textContent);
+   c.click();
+   const h = document.getElementById('hop');
+   ok('3.363 bấm chip → hộp nhật ký lỗi (2 dòng), xem xong chip ẩn', /Nhật ký lỗi app \(2\)/.test(h.textContent) && h.querySelectorAll('.nk-bang tbody tr').length===2 && c.style.display==='none');
+   ok('3.363 chữ để chép gửi có đủ lỗi + bản', /nhật ký lỗi \(2\)/.test(nklChu(nklDs())) && nklChu(nklDs()).indexOf('bản '+APP_BAN)>0);
+   document.querySelector('[data-lenh="nkl.xoa"]').click();
+   ok('3.363 🗑 Xóa → nhật ký trống', nklDs().length===0 && /Chưa có lỗi/.test(document.getElementById('hop').textContent));
+   dongHop(); return o; });
+ R.forEach(x=>console.log(x));
+ const sai = R.filter(x=>x[0]==='✗').length; console.log(sai ? '✗ '+sai+' sai' : '✓ t305 đạt'); await b.close(); process.exit(sai?1:0);
+})();
