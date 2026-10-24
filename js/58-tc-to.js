@@ -111,13 +111,17 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
   var tien = function(v, lop){ return v ? '<b'+(lop ? ' class="'+lop+'"' : '')+'>'+tdnTien(v)+'</b>' : '0'; };
   var luuY = (r.laiTon ? '<span class="nh nh-cam">'+r.laiTon+' còn lãi tồn</span> ' : '')+(r.choRa ? '<span class="nh nh-vang">'+r.choRa+' cần cho ra</span> ' : '');
   var nam2 = function(x){ return String(x).replace(/(>|^)(\d\d\/\d\d\/)(\d\d)(\d\d)/g, '$1$2<span class="nam4">$3</span>$4'); };   /* khung hẹp: năm 2 số (CSS container) */
+  var ttKH = function(k){   /* 3.344 (anh): khách không còn món — vẫn trong tổ hay cần cho ra (QT-14 / QT-18, cùng tvChuan) */
+    var x = k.loai==='lai' ? '<span class="nh nh-cam">Hết gốc · còn lãi tồn</span> — vẫn trong tổ' : k.loai==='105' ? '<span class="nh nh-xam">Tất nợ · còn TGTK</span> — vẫn trong tổ'
+      : k.loai==='ra' ? '<span class="nh nh-vang">Tất nợ · TG 0</span> — cần cho ra khỏi tổ' : '<span class="nh nh-xam">Dư nợ 0</span>';
+    return x+(k.nguon==='tv01' ? ' <small>(TƯ còn giữ — Mẫu 01/TV)</small>' : ''); };
   var gon = tcTim().tvKieu==='gon';   /* 3.342 (anh): Đủ = mỗi món 1 dòng · Gọn = mỗi khách 1 dòng, bấm ▸ hiện dòng nhỏ từng món */
   var dongTV = function(k, i){   /* họ tên / mã KH / TGTK gộp ô; bấm CT → mã món vay, bấm TGTK → số TK 105 (dòng nhỏ dưới khách) */
     var mon = monCon(k.kh).sort(function(a, b){ return String(a.dhgh||a.dhg||'9').localeCompare(String(b.dhgh||b.dhg||'9')); }), s = stk[k.kh] || [], n = gon ? 1 : Math.max(1, mon.length);
     var kh = tcCoKH(k.kh) ? ' data-lenh="tc.kh" data-kh="'+e(k.kh)+'" title="Mở khách này"' : '', gop = n>1 ? ' rowspan="'+n+'"' : '';
     var moc = function(m, them){ return m ? '<td class="ct" data-lenh="tc.hien" data-v="'+e(m.ku)+'" data-ten="mã món vay" title="Bấm để xem mã món vay">'+e(ctNgan(m.ct, m))+'</td>'+
         '<td class="so"><b>'+tdnTien(them ? k.dn : m.dn||0)+'</b></td><td>'+nam2(m.nv ? ngayVNsl(m.nv) : '')+'</td><td>'+nam2(tcHanMon(m, false, true))+'</td><td class="so">'+((them ? k.lt : laiTon(m))>0 ? '<b class="cam">'+tdnTien(them ? k.lt : laiTon(m))+'</b>' : '—')+'</td>'
-      : '<td></td><td class="so">'+(k.dn>0 ? '<b>'+tdnTien(k.dn)+'</b>' : '<span class="nh nh-xam">0</span>')+'</td><td></td><td></td><td class="so">'+(k.lt>0 ? '<b class="cam">'+tdnTien(k.lt)+'</b>' : '—')+'</td>'; };
+      : '<td colspan="4" class="tc-to-tt">'+ttKH(k)+'</td><td class="so">'+(k.lt>0 ? '<b class="cam">'+tdnTien(k.lt)+'</b>' : '—')+'</td>'; };
     var tg = '<td class="so"'+gop+(s.length ? ' data-lenh="tc.hien" data-v="'+e(s.join(', '))+'" data-ten="số TK 105" title="Bấm để xem số TK 105"' : '')+'>'+(k.t105>0 ? tdnTien(k.t105) : s.length ? '0' : '—')+'</td>';
     var mo = gon && mon.length>1 ? ' <span class="tc-to-mo" data-lenh="tc.moMon" title="Bấm để xem '+mon.length+' món">▸'+mon.length+' món</span>' : '';
     var h0 = '<tr class="tc-to-tv-dong'+(k.dn>0 ? '' : ' tat')+'"'+kh+'><td class="so"'+gop+'>'+(i+1)+'</td><td class="ten"'+gop+'>'+e(k.ten||'')+mo+'</td><td'+gop+'>'+e(k.kh||'')+'</td>'+moc(mon[0], gon && mon.length>1)+tg+'</tr>';
