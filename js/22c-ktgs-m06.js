@@ -249,13 +249,16 @@ function ktGhiHo(h, ly){   /* tình trạng hộ: quá hạn / khoanh, giải ng
 }
 function ktGNKhaiBao(){ ktKhaiBao('m06'); }   /* 3.98: khung khai báo trong tab */
 var KT_GN_XEM = null;
+function ktGNNk(){ var to = [], kh = [];   /* 3.353: 📜 nhật ký đã lập / in — Mẫu 06 sau giải ngân ghi tổ + hộ của từng phiếu (chỉ đọc, không đổi mẫu) */
+  ((KT_GN_XEM && KT_GN_XEM.gts) || []).forEach(function(g){ var p = g.p || {}, t = p.x && p.x.t; if(t && t.ma && to.indexOf(t.ma)<0) to.push(t.ma); (p.mon||[]).forEach(function(o){ if(o.kh && kh.indexOf(o.kh)<0) kh.push(o.kh); }); });
+  return {mau:'Mẫu 06/TD — kiểm tra sau giải ngân', to:to, kh:kh, tab:'ktgs'}; }
 function ktGNXem(ok){   /* 3.114: hỏi lựa chọn in trước */
   if(!ok){ ktDocKB(); return ktInHop(['m06'], ktInNutXem('ktGNXem(1)'), ktHoiCuaTo(ktGNChon().map(function(p){ return (KT_K && KT_K.to[p.x.t.ma]) || p.x.t; }))); }
   var v = ktInV('m06'), gts = ktGNGiaTri(v); KT_GN_XEM = {v:v, gts:gts};
   var html = ktHTML06(gts);
   moHop('<div class="hop-tit">👁 Xem '+gts.length+' phiếu Mẫu 06 — kiểm tra sau giải ngân</div>'+
     '<iframe id="kt-gn-khung" class="to-khung" title="Xem trước"></iframe>'+
-    xuatHang({truoc:'<button class="nho" onclick="dongHop();ktGNXem()">‹ Đổi lựa chọn in</button>', html:function(){ return ktHTML06(KT_GN_XEM.gts); }, in:'ktGNIn(\'in\')', pdf:'ktGNIn(\'pdf\')', word:'ktGNIn(\'word\')'}), true);   /* 3.152 */
+    xuatHang({nk:ktGNNk(), truoc:'<button class="nho" onclick="dongHop();ktGNXem()">‹ Đổi lựa chọn in</button>', html:function(){ return ktHTML06(KT_GN_XEM.gts); }, in:'ktGNIn(\'in\')', pdf:'ktGNIn(\'pdf\')', word:'ktGNIn(\'word\')'}), true);   /* 3.152 */
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
   var f = document.getElementById('kt-gn-khung'); xemChuan(f, html);
 }
