@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.340) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sửa vài văn bản / scan rồi đóng hẳn trình duyệt, mở lại | Đủ dữ liệu, không mất mục vừa sửa | |
+| 2 | ⚙ › 💾 Sao lưu › 🩺 Sức khỏe sao lưu | Dòng "Lưu trên máy này" xanh, giờ vừa sửa | |
+| 3 | Gõ / sửa liên tục ở máy nhiều hồ sơ | Không giật sau mỗi lần sửa | |
+
+**Ghi chú kỹ thuật 3.340:** `LS_TRAN` (js/02) = ngưỡng ký tự; `LN.ghi(lsOk, boLS)` — boLS = chủ ý bỏ localStorage. Đường đọc lúc mở app không đổi (`khoiDong` bọc ở js/34: có dấu chờ → `LN.napIDB()` trước). Theo dõi: hoiquy "báo cáo đã bỏ không tự quay lại" chập chờn (~1/4) — nghi lưu hẹn 300 ms chưa kịp trước khi phép thử tải lại trang.
+
 ### Danh sách thử trên máy thật (3.339) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

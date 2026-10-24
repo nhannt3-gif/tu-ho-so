@@ -198,6 +198,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t246.js` | 3.335–3.336 Tra cứu KH: dải tìm + lọc toàn trang, chip Tìm theo 10 loại (Tên KH, Tổ trưởng, vợ/chồng, CCCD, mã KH, món vay, Số TK 105…), kiểu bảng ↔ thẻ, thẻ tổ (số TV QT-18, thành viên, nút), gợi ý tổ ở Tự nhận. |
 | `node tests/t247.js` | 3.337 Tra cứu KH: ngày đến hạn tô màu (quá hạn / 30 / 90 ngày, GH), thẻ khách gọn 1 khung + bảng món vay không tràn ở 1366 và 1920 px, danh sách tình trạng chữ nhỏ cùng dòng tên. |
 | `node tests/t248.js` | 3.338 🩺 Sức khỏe sao lưu: màu theo tuổi (≤ 2 / 3–7 / > 7 ngày, chưa có), chưa nối Drive, đếm file chưa lên Drive, mức xấu nhất, thẻ ở ⚙ › 💾 Sao lưu trước bảng 📸. |
+| `node tests/t249.js` | 3.340 dữ liệu > 1 MB: bỏ bản sao localStorage, dấu chờ, mở lại trang đọc IndexedDB đủ 6.000 mục, không báo đầy; nhỏ lại → ghi localStorage như cũ. |
 | (3.339 tách file) | `node tests/t138.js` kiểm thứ tự nạp gồm 04 + 04b–04e, 06 + 06b–06c; `tests/hssv_exe.js` đọc công thức HSSV ở `js/04b-hom-nay.js`. |
 | (3.332) | t134 tên thẻ Định kỳ mới (khối Bắt buộc). Hồi quy 3.330: t100, t158 sai từ trước 3.327 — chưa sửa. |
 | (3.331) | Không thêm phép thử — bàn giao KTGS: bộ phải giữ ghi ở `docs/BAN_GIAO_KTGS.md` mục 5. |

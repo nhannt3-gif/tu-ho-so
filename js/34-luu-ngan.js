@@ -9,7 +9,7 @@
    - Đồng bộ Drive: GIỮ NGUYÊN 2 đường hiện có (cauhinh.json + chỉ mục) — chưa tách theo ngăn (báo anh, để bản sau). */
 var LN = (function(){
   var CACH = 'tuhoso_luu', CHO = 'tuhoso_ln_cho', TEN_DB = 'tuhoso_ngan', BAN_CU = 'ln:banCu', TRUOC = 'ln:truocDungLai', HAN = 30*864e5;
-  var db = null, hong = false, tat = false, CU = {}, MOI = null, LUC = 0, LS_LUC = 0, HANG = Promise.resolve(), META = null, DEM = {ghi:0, ngan:0, lan:[]}, baoHong = false, baoDay = false, KIEM_R = {}, KIEM = new Promise(function(r){ KIEM_R.xong = r; });   /* KIEM: ghi IndexedDB chờ sauKD đọc xong dấu bản (không để lần lưu sớm làm sai bước chuyển lần đầu) */
+  var CHUOI = '', db = null, hong = false, tat = false, CU = {}, MOI = null, LUC = 0, LS_LUC = 0, HANG = Promise.resolve(), META = null, DEM = {ghi:0, ngan:0, lan:[]}, baoHong = false, baoDay = false, KIEM_R = {}, KIEM = new Promise(function(r){ KIEM_R.xong = r; });   /* KIEM: ghi IndexedDB chờ sauKD đọc xong dấu bản (không để lần lưu sớm làm sai bước chuyển lần đầu) */
   function kiemXong(){ if(KIEM_R.xong) KIEM_R.xong(); }
   function cach(){ try { return localStorage.getItem(CACH)==='cu' ? 'cu' : 'ngan'; } catch(e){ return 'ngan'; } }
   function lsDoc(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
@@ -55,11 +55,11 @@ var LN = (function(){
     chuoi: function(o){
       LUC = Math.max(Date.now(), LUC+1); MOI = {}; var p = [];
       Object.keys(o).forEach(function(k){ if(o[k]===undefined) return; var v = JSON.stringify(o[k]); MOI[k] = v; p.push(JSON.stringify(k)+':'+v); });
-      p.push('"luuLuc":'+LUC); return '{'+p.join(',')+'}';
+      p.push('"luuLuc":'+LUC); CHUOI = '{'+p.join(',')+'}'; return CHUOI;
     },
     /* gọi trong luuNgay() sau khi thử ghi localStorage: ghi IndexedDB các ngăn đổi (xếp hàng — đúng thứ tự) */
-    ghi: function(lsOk){
-      if(!MOI) return; var moi = MOI, luc = LUC, doi = {}, n = 0; MOI = null;
+    ghi: function(lsOk, boLS){   /* boLS (3.340): luuNgay chủ ý bỏ bản sao localStorage vì dữ liệu lớn — không báo "đầy" */
+      if(!MOI) return; var moi = MOI, luc = LUC, doi = {}, n = 0, chuoi = CHUOI; MOI = null;
       if(lsOk){ LS_LUC = luc; if(lsDoc(CHO)) try { localStorage.removeItem(CHO); } catch(e){} }
       Object.keys(moi).forEach(function(k){ if(CU[k]!==moi[k]){ doi[k] = moi[k]; n++; } });
       var meta = {luc:luc, ban:typeof APP_BAN!=='undefined' ? APP_BAN : '', ngan:Object.keys(moi)}; doi._meta = JSON.stringify(meta);
@@ -67,8 +67,9 @@ var LN = (function(){
         Object.keys(doi).forEach(function(k){ if(k!=='_meta') CU[k] = doi[k]; }); META = meta; DEM.ghi++; DEM.ngan = n; DEM.lan.push(n); if(DEM.lan.length>20) DEM.lan.shift();
         if(!lsOk && LS_LUC < luc){   /* localStorage đầy: bỏ bản cũ ở đó (đã cũ hơn IndexedDB) + đánh dấu đọc IndexedDB lần mở sau */
           try { localStorage.removeItem(KHOA); } catch(e){} try { localStorage.setItem(CHO, String(luc)); } catch(e){}
-          if(!baoDay){ baoDay = true; bao('Bộ nhớ nhanh của trình duyệt đã đầy — app lưu dữ liệu ở IndexedDB (dung lượng lớn hơn). Dữ liệu vẫn đủ.', 8); } }
+          if(!baoDay && !boLS){ baoDay = true; bao('Bộ nhớ nhanh của trình duyệt đã đầy — app lưu dữ liệu ở IndexedDB (dung lượng lớn hơn). Dữ liệu vẫn đủ.', 8); } }
       }, function(e){
+        if(boLS && chuoi) try { localStorage.setItem(KHOA, chuoi); LS_LUC = luc; try { localStorage.removeItem(CHO); } catch(e2){} return; } catch(e3){}   /* 3.340: IndexedDB lỗi → ghi lại bản localStorage làm dự phòng */
         if(!lsOk) baoLoi('Không lưu được — bộ nhớ trình duyệt đã đầy. Vào Cài đặt xuất dữ liệu ra file để giải phóng.');
         else if(!baoHong){ baoHong = true; bao('Không ghi được IndexedDB trên máy này — app vẫn lưu theo cách cũ (localStorage).', 6); }
       });
