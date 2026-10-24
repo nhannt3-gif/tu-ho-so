@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.345 — 24/10/2026 — Thẻ tổ: cân cột Họ tên + tình trạng khách không còn món (anh 24/10)
+- **Anh**: "cột họ tên còn rộng nên cân đối với các cột khác, xem lại các món vay đã tất nợ coi có ra khỏi tổ hay còn trong tổ cho chuẩn".
+- **Cột Họ tên**: bỏ chiếm hết chỗ trống (`width:99%`) → tối đa 170px, phần dư chia đều cho các cột (`css/app.css`).
+- **Khách không còn món** (dòng bảng thành viên, `ttKH` trong `tcTheTo`): theo đúng phân loại `tvChuan` (QT-14 / QT-18) — "Tất nợ · còn TGTK — vẫn trong tổ", "Hết gốc · còn lãi tồn — vẫn trong tổ", "Tất nợ · TG 0 — cần cho ra khỏi tổ"; người bù từ Mẫu 01/TV thêm "(TƯ còn giữ — Mẫu 01/TV)". Người đã ra khỏi tổ (`raTo`, `slDanhRaTo`) vốn không nằm trong danh sách.
+- **Rà soát (anh test tổ Bùi Thị Thảo, số liệu ngày 19/10)**: Tra cứu dựng theo kỳ chốt tháng mới nhất (`tcNap` → `toDsKy()[0]`); khi xem kỳ ngày, `tvChuan` bù người Mẫu 01/TV tháng trước dù Mẫu 31 ngày đã cho ra khỏi tổ. **Anh chốt 24/10: chưa đổi quy tắc bù** — anh test từng tổ tìm nguyên tắc khớp TƯ; khi có số liệu cuối T10, TK 2 so T10 với T9 để tìm nguyên tắc chuẩn (ghi ở BAN_GIAO_VIEC_CON_LAI).
+- **Phép thử**: t246 thêm 2 ý (cột Họ tên ≤ 30% bảng; khách không còn món ghi đúng trong tổ / cho ra — 2 khách giả TƯ còn giữ).
+
 ## 3.344 — 24/10/2026 — Thẻ tổ ở Tra cứu: đầu thẻ 3 hàng + bảng thành viên đủ cột (anh 24/10)
 - **Anh**: "cột danh sách thành viên thêm STT, mã KH và sắp theo mã KH, dư nợ, ngày vay, hạn trả, lãi tồn, số TK 105" + "các thông tin trên gom lại 3 dòng… có tên cột, có khung dọc" + "cân đối vừa cột, còn chỗ thì thêm thông tin".
 - **Đầu thẻ** (`tcTheTo`, `js/58-tc-to.js`): 3 bảng nhỏ có tên cột + kẻ dọc — ① Tổ (tổ trưởng) · Mã tổ · Mã KH tổ trưởng · SĐT · CCCD; ② Ấp · Xã · Điểm GD · Ngày GD · Hội quản lý; ③ Thành viên · Có dư nợ · Không dư nợ · Tổng dư nợ · Quá hạn · **Lãi tồn · 3 tháng KHĐ (số món, theo `B.khd`) · Số dư TK 105** (thêm cho đủ khung). Dòng lưu ý (còn lãi tồn / cần cho ra) + nguồn số liệu thành chữ nhỏ dưới hàng ③. Ô chép (mã tổ, mã KH, SĐT, CCCD) giữ.
