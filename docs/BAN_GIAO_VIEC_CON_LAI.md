@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.352) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan › danh sách có ảnh nhỏ; mở 1 bản CCCD xem 2 mặt | Ảnh hiện như cũ | |
+| 2 | Theo dõi nợ › mở món có ảnh | Ảnh hiện như cũ | |
+
+**Ghi chú kỹ thuật 3.352:** gắn ảnh từ Blob vào `<img>`: dùng `anhTam(im, b)` (js/02) — không viết `im.src = URL.createObjectURL(b)` trần.
+
 ### Danh sách thử trên máy thật (3.351) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

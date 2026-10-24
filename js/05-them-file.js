@@ -653,7 +653,8 @@ function veVaoKhung(m, n){
       if(S.m!==m) return;
       if(!a[0]) return veVaoKhungPDF(m, n, S, o);
       o.innerHTML = '<div class="the-xem">'+a.filter(Boolean).map(function(b, i){
-        return '<figure><img src="'+URL.createObjectURL(b)+'" alt=""><figcaption>'+(i?'Mặt sau':'Mặt trước')+'</figcaption></figure>'; }).join('')+'</div>';
+        var u = URL.createObjectURL(b); thuHoiSau(u, 30000);   /* 3.352: trả bộ nhớ sau khi ảnh đã hiện */
+        return '<figure><img src="'+u+'" alt=""><figcaption>'+(i?'Mặt sau':'Mặt trước')+'</figcaption></figure>'; }).join('')+'</div>';
     }).catch(function(){ if(S.m===m) veVaoKhungPDF(m, n, S, o); });
     return;
   }

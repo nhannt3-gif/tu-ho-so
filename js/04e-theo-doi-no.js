@@ -1363,7 +1363,7 @@ function napAnh(id){
   var e = document.getElementById('anh-'+id);
   if(!e || e.dataset.xong) return;
   docFile(id).then(function(b){
-    if(b && e){ e.src = URL.createObjectURL(b); e.dataset.xong='1'; }
+    if(b && e){ anhTam(e, b); e.dataset.xong='1'; }   /* 3.352: trả bộ nhớ ảnh tạm khi ảnh hiện xong */
   }).catch(function(){});
 }
 
