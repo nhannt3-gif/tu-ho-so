@@ -59,9 +59,10 @@ function dtgTo(ma, T){
 function dtgKhoiHTML(loai, ma){
   dtgDangKy(); var nam = dtgNamCo();
   if(!nam.length) return '';
-  return '<div class="tc-nhom dtg-khoi" id="dtg-'+loai+'-'+coChuHTML(ma)+'"><div class="tc-nhom-tit">📅 Dòng thời gian</div><div class="dtg-nut">'+
+  /* 3.367 (anh 25/10 "nên ẩn đi, mở lên khi cần để không chiếm chỗ"): khối thu gọn 1 dòng, bấm tiêu đề mới mở; xem xong thu lại được */
+  return '<details class="tc-nhom dtg-khoi" id="dtg-'+loai+'-'+coChuHTML(ma)+'"><summary class="tc-nhom-tit">📅 Dòng thời gian <small>bấm mở</small></summary><div class="dtg-nut">'+
     nam.slice(0, 3).map(function(n){ return GD.nut({chu:'Xem năm '+n, lenh:'dtg.mo', du:{loai:loai, ma:ma, nam:n}}); }).join('')+
-    '</div><div class="dtg-ds"></div></div>'; }
+    '</div><div class="dtg-ds"></div></details>'; }
 function dtgMo(loai, ma, nam){
   var o = document.getElementById('dtg-'+loai+'-'+ma), d = o && o.querySelector('.dtg-ds'); if(!d) return Promise.resolve();
   d.innerHTML = '<div class="nk-rong">Đang đọc Mẫu 31 các tháng năm '+nam+'…</div>';

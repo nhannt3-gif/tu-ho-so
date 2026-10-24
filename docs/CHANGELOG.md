@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.367 — 25/10/2026 — Dòng thời gian thu gọn
+- Anh 25/10: "nên ẩn đi, mở lên khi cần để không chiếm chỗ" → khối 📅 Dòng thời gian (thẻ khách + thẻ tổ, `js/65`) thành `<details>` thu gọn 1 dòng "▸ Dòng thời gian · bấm mở"; mở → nút Xem năm như cũ; xem xong thu lại được. CSS 1 dòng `css/app.css` (mũi tên ▸ / ▾).
+- **Phép thử**: t302 thêm điểm "mặc định thu gọn".
+
 ## 3.366 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ5 xem trước bản in
 - Khung xem trước (`trDan`, `js/05`): **chụm 2 ngón trên trang in → đổi mức phóng của trang** (41% → 122%… nối với ô % và nút − +), chặn iOS phóng cả màn hình (trước chụm thì thanh nút cũng phóng theo, khó bấm). Màn ≤ 600 px: thanh công cụ 1 hàng vuốt ngang (trước 3 hàng), nút cao 34 px, ẩn ⏮ ⏭ (còn ‹ › + ô số trang). Máy tính không đổi.
 - **Phép thử**: mới t308 (điện thoại + máy tính 1440 thanh như cũ).

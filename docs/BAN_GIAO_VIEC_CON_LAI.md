@@ -222,6 +222,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.367)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › thẻ tổ / thẻ khách | Dòng thời gian chỉ 1 dòng "▸ … bấm mở" | |
+| 2 | Bấm dòng đó → Xem năm 2026 | Danh sách sự kiện như cũ; bấm lại tiêu đề → thu gọn | |
+
 ### Danh sách thử trên máy thật (3.366) — iPhone, bản máy tính
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
