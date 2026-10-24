@@ -35,7 +35,7 @@
 | 24/10 | TK 2 | 3.349 | 30 file js (100 `onclick="dongHop()"` → `data-lenh="hop.dong"`), `js/39-gd.js` (lệnh hop.dong), `tests/t258.js` | hồi quy đủ 2 luồng |
 | 24/10 | TK 2 | 3.350 | `js/58-tc-to.js` (ttKH ngày tất nợ), `tests/t246.js` | t246, hồi quy đủ 2 luồng |
 | 24/10 | TK 2 | 3.351 | `js/58-tc-to.js` (tcToTim đủ tổ, cột), `tests/t246.js` | t246, hoiquy, hoiquy2 |
-| 24/10 | TK 2 | 3.352 | `js/04e`, `js/12`, `js/05` (trả bộ nhớ ảnh tạm), `docs/KE_HOACH_CHUAN_HOA.md` | t217, hồi quy đủ 2 luồng |
+| 24/10 | TK 2 | 3.353 (phần 1; TK 3 đã dùng 3.352) | `js/04e`, `js/12`, `js/05` (trả bộ nhớ ảnh tạm), `docs/KE_HOACH_CHUAN_HOA.md` | t217, hồi quy đủ 2 luồng |
 | 24/10 | TK 2 | 3.353 | `js/22c-ktgs-m06.js` (ktGNNk — chỉ truyền nk vào xuatHang, không đổi mẫu), `tests/t258.js` | t258, t106, hồi quy |
 | 24/10 | TK 2 | 3.341 | K1 KHO: `js/12`, `21`, `23`, `25`, `26`, `29` (soBang, dsKyHS), `41`; `tests/kiem.py` (đếm đọc thẳng kho), `tests/do_moc.json` (kho_thang 221) | t127, t151, t165, t170, t172, t179, t207, t209, t210, t241, hoiquy, hoiquy2 |
 | 24/10 | TK 2 | 3.339 | tách `js/04-giao-dien.js` → 04 + 04b–04e, `js/06-hop-thoai.js` → 06 + 06b–06c (nguyên văn; `CO_GI_MOI` vẫn ở 06 cho bump.py), `index.html`, `tests/hssv_exe.js`, `tests/chuan_lay.js` (hôm nay cố định 17/10 — t179) | hồi quy đủ 2 luồng (`hoiquy.sh 3339 … tat 2`): chỉ t192, t151 cũ |
@@ -44,6 +44,7 @@
 | 24/10 | TK 3 | (không số bản) | `tests/t260.js` mới, `tests/t100.js` (chờ ô ma trận `.sl-mt-k` — `.sl-tt-1` bỏ từ 3.230), `tools/hoiquy.sh` (+ nhóm, + số luồng; cách gọi cũ giữ nguyên), `tools/hoiquy_nhom.txt` mới, `.gitignore` (+ `tests/anh260/`), tài liệu này | t260 38/38 (cả trên 3.337), t100 chạy hết, nhóm dt 2 luồng 2 phút, hoiquy đạt trên 3.337 |
 | 24/10 | TK 3 | **3.342** | bản điện thoại Đ0: `dt.html`, `js/dt/*`, `js/60-ve-dt.js` mới, `tests/t262.js` mới, t193–t195 (bật cờ PIN) + 12 file số bản | t262 17/17, t193 20/20, t194 9/9, t195 7/7, t260 dt 8/8 |
 | 24/10 | TK 3 | **3.343** | điện thoại Đ1: `js/dt/dt-giao-dien.js`, `css/dt.css`, **`js/38-goi-xem.js` (nối thêm 3 trường cuối: lãi tồn món, cờ GH, mã KH tổ trưởng — không đổi trường cũ)**, `tests/t263.js` mới | t263 18/18, t193–t195, t262, t260 dt |
+| 24/10 | TK 3 | **3.352** | điện thoại Đ2: `dt.html` (CSP + `worker-src blob:`), `js/dt/dt-nen.js`, `js/dt/dt-giao-dien.js`, `css/dt.css`, `tests/tv.js` (+ đường pdf.js cho phép thử), `tests/t264.js` mới, `tests/t194.js` (bấm văn bản → trang xem thay hộp thoại) — không đụng file chung | t264 18/18, t193 20/20, t194 9/9, t195 7/7, t262 17/17, t263 18/18 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

@@ -229,13 +229,23 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 **Ghi chú kỹ thuật 3.353:** `ktGNNk()` đọc `KT_GN_XEM.gts[i].p` (tổ `p.x.t.ma`, món `p.mon[].kh`).
 
-### Danh sách thử trên máy thật (3.352) — anh ghi Đạt / Chưa
+### Danh sách thử trên máy thật (3.353 phần 1) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 1 | Scan › danh sách có ảnh nhỏ; mở 1 bản CCCD xem 2 mặt | Ảnh hiện như cũ | |
 | 2 | Theo dõi nợ › mở món có ảnh | Ảnh hiện như cũ | |
 
-**Ghi chú kỹ thuật 3.352:** gắn ảnh từ Blob vào `<img>`: dùng `anhTam(im, b)` (js/02) — không viết `im.src = URL.createObjectURL(b)` trần.
+**Ghi chú kỹ thuật 3.353 phần 1:** gắn ảnh từ Blob vào `<img>`: dùng `anhTam(im, b)` (js/02) — không viết `im.src = URL.createObjectURL(b)` trần.
+
+### Danh sách thử trên máy thật (3.352) — iPhone, anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Văn bản › ⟳ › bấm 1 văn bản PDF | Hiện trong app, đủ trang, vừa ngang màn, kéo xem được; có nút Lùi | |
+| 2 | Trong trang xem bấm 📌 Ghim → bật chế độ máy bay → mở lại app › Văn bản › chip 📌 Đã ghim › mở | Danh sách hiện ngay; văn bản ghim xem được không mạng | |
+| 3 | Chip năm / loại | Lọc đúng, lần sau mở vẫn nhớ | |
+| 4 | 📤 Gửi · ⬇ Lưu máy trong trang xem | Bảng chia sẻ iOS (Zalo, Tệp) | |
+
+**Ghi chú kỹ thuật 3.352:** `dt-nen.js`: `offLuu / offDoc / offXoa / offDung / off` (`CH.vbOff` = {id:{kt,ten,luc}}, file ở IndexedDB `vb:<id>` {iv,c,type}, trần `OFF_TOI` 200 MB), `dsCat / dsNap` (`ds:vanban`, `ds:scan`; `taiKhoi` + `datDS` tự cất). `dt-giao-dien.js`: `vbLoc / locThem / chipVB` (`DT.ch.vbLoc`), route `/xem/:l/:id/` (`trXem / veXem / vePDF / napPDF`), `tacVu(..., boXem)`; bỏ `moMuc`. pdf.js nạp qua `napMotTV` (worker giữ nguyên chữ → blob URL).
 
 ### Danh sách thử trên máy thật (3.351) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

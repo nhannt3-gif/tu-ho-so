@@ -1982,8 +1982,9 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.353', ds:[
-  ["KTGS › in Mẫu 06 sau giải ngân: 📜 nhật ký in ghi luôn tổ + hộ của từng phiếu — thẻ tổ / thẻ khách ở Tra cứu thấy \"Mẫu 06/TD — kiểm tra sau giải ngân\"", "doiNgan(7)"],
   ["Nền mã: trả bộ nhớ ảnh tạm ở 3 chỗ còn sót (ảnh Theo dõi nợ, ảnh nhỏ danh sách Scan, ảnh 2 mặt thẻ ở khung xem) — máy, nhất là iPhone / Safari, đỡ đầy bộ nhớ khi xem nhiều ảnh", "doiNgan(0)"],
+  ["KTGS › in Mẫu 06 sau giải ngân: 📜 nhật ký in ghi luôn tổ + hộ của từng phiếu — thẻ tổ / thẻ khách ở Tra cứu thấy \"Mẫu 06/TD — kiểm tra sau giải ngân\"", "doiNgan(7)"],
+  ["Điện thoại › Văn bản: xem PDF ngay trong app, chip Đã ghim / năm / loại, 📌 Ghim để xem khi không có mạng (≤ 200 MB)", "doiNgan(0)"],
   ["Tra cứu › Tìm theo Tổ trưởng: hiện đủ mọi tổ (bỏ giới hạn 300); cột Thành viên · Có dư nợ đưa lên ngay sau Mã tổ — luôn thấy số thành viên", "doiNgan(7)"],
   ["Tra cứu › thẻ tổ: hộ tất nợ còn trong tổ ghi thêm ngày tất nợ (vd \"Tất nợ 12/05/2026 · còn TGTK — vẫn trong tổ\")", "doiNgan(7)"],
   ["Nền mã: 100 nút Đóng / Thôi của các hộp chuyển sang bộ nhận lệnh chung (bớt onclick) — dùng y như cũ", "doiNgan(0)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.353', ds:[
   ["Điện thoại › Khách: tìm theo từng loại (cả khế ước, tổ trưởng), thẻ khách có lãi tồn + ngày đến hạn tô màu, thẻ tổ — theo Tra cứu KH bản máy tính", "doiNgan(0)"],
   ["Điện thoại: tạm bỏ PIN (mở thẳng), thanh dưới 4 nút Khách · Văn bản · Scan · Cài đặt, nút 🖥 sang bản web ở mọi trang (bản web có nút 📱 về lại)", "doiNgan(0)"],
   ["Nền mã: Scan, điều hướng, Hồ sơ, Giao dịch xã đọc số liệu qua cửa KHO (đợt K1) — app chạy y như cũ", "doiNgan(0)"],
-  ["Lưu dữ liệu: máy có nhiều hồ sơ (dữ liệu > 1 MB) lưu nhanh hơn — chỉ ghi kho IndexedDB, thôi ghi bản sao localStorage mỗi lần sửa", "hsoKBHop('sl')"],
-  ["Nền mã: tách 2 file lớn nhất (giao diện chung 5.416 dòng, hộp thoại 3.117 dòng) thành các file theo khối — app chạy y như cũ, dễ sửa và ít lỗi hơn", "doiNgan(0)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Lưu dữ liệu: máy có nhiều hồ sơ (dữ liệu > 1 MB) lưu nhanh hơn — chỉ ghi kho IndexedDB, thôi ghi bản sao localStorage mỗi lần sửa", "hsoKBHop('sl')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

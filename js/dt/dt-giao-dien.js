@@ -141,26 +141,61 @@ var DTG = (function(){
       nh.map(function(n){ var s = n.s, href = cap==='xa' ? u(n.k) : cap==='diem' ? u(loc.xa, n.k) : cap==='hoi' ? u(loc.xa, loc.diem, n.k) : u(loc.xa, loc.diem, loc.hoi, n.k);
         var t0 = n.ds[0] || {}, phu = cap==='to' ? [t0.ap, t0.tt ? 'TT '+t0.tt : ''].filter(Boolean).join(' · ')+' · '+s.ho+' hộ' : s.to+' tổ · '+s.ho+' hộ';
         return dong(href, e(n.ten), e(phu)+(s.qh ? ' · <span class="do">QH '+tr(s.qh)+'</span>' : '')+(s.kn ? ' · K '+tr(s.kn) : ''), tr(s.dn)); }).join('')+'</ul></div>'}, !!loc.xa); }
-  /* 📄 Văn bản · 📷 Scan (3.232) */
+  /* 📄 Văn bản · 📷 Scan — 3.344 (Đ2): chip Đã ghim · năm · loại; bấm mục → trang xem trong app (PDF vẽ bằng pdf.js — iOS mở tab ngoài kém);
+     📌 Ghim = cất file trong máy (mã hóa) xem không mạng ≤ 200 MB; danh sách cất máy mở lại không cần mạng. Scan: cùng trang xem, không ghim (Đ3). */
   var SC = {anh:[], pdf:null};
+  function vbLoc(){ var x = DT.ch.vbLoc; return x && typeof x==='object' ? x : {}; }
+  function locThem(loai, ds){ if(loai!=='vanban') return ds; var L = vbLoc(), o = DT.off();
+    return ds.filter(function(m){ return (!L.ghim || o[m.id]) && (!L.nam || String(m.ngay || '').slice(0, 4)===L.nam) && (!L.loai || (m.loai || '')===L.loai); }); }
+  function chipVB(){ var ds = DT.ds('vanban') || [], L = vbLoc(), nam = {}, loai = {}, nG = Object.keys(DT.off()).length;
+    ds.forEach(function(m){ var y = String(m.ngay || '').slice(0, 4); if(/^\d{4}$/.test(y)) nam[y] = (nam[y]||0)+1; if(m.loai) loai[m.loai] = (loai[m.loai]||0)+1; });
+    var c = function(k, v, chu, bat){ return '<a href="#" class="dt-chip dt-vbc'+(bat ? ' bat' : '')+'" data-k="'+k+'" data-v="'+e(v)+'">'+chu+'</a>'; };
+    return '<div class="dt-theo">'+c('tat', '', 'Tất cả', !L.ghim && !L.nam && !L.loai)+c('ghim', '1', '📌 Đã ghim'+(nG ? ' '+nG : ''), !!L.ghim)+
+      Object.keys(nam).sort().reverse().slice(0, 6).map(function(y){ return c('nam', y, y, L.nam===y); }).join('')+
+      Object.keys(loai).sort(function(a, b){ return loai[b]-loai[a]; }).slice(0, 8).map(function(x){ return c('loai', x, e(x), L.loai===x); }).join('')+'</div>'; }
   function trDS(loai){ var vb = loai==='vanban', ds = DT.ds(loai);
     return trang(loai, {tieu:vb ? 'Văn bản' : 'Scan', phai:'<a href="#" class="link dt-tai" data-l="'+loai+'">⟳</a>', than:
       (vb ? '' : '<div class="block"><a href="/sc/moi/" class="button button-fill button-large">📷 Chụp / chọn ảnh → PDF</a></div>')+
       (vb ? '<div class="block"><label class="button button-outline">＋ Gửi file vào app (khay chờ)<input type="file" id="dt-them" style="display:none"></label></div>' : '')+
       '<div class="dt-tim"><input type="search" id="dt-loc" data-l="'+loai+'" placeholder="'+(vb ? 'Số hiệu, trích yếu, loại' : 'Tên khách, mã KH, ấp, tổ')+'" autocomplete="off"></div>'+
-      '<div id="dt-ds">'+(ds ? veDS(loai, '') : trong('Bấm ⟳ để lấy danh sách từ Drive.'))+'</div>'}); }
-  function veDS(loai, q){ var ds = DT.locDS(loai, q), vb = loai==='vanban', it = ds.slice(0, 150);
-    if(!ds.length) return trong('Không có mục khớp.');
-    return '<div class="list media-list inset"><ul>'+it.map(function(m, i){ var ten = vb ? (m.soHieu || m.trichYeu || m.tenFile || 'Văn bản') : (m.ten || 'Scan');
+      (vb ? '<div id="dt-vbc">'+(ds ? chipVB() : '')+'</div>' : '')+
+      '<div id="dt-ds">'+(ds ? veDS(loai, '') : trong('Đang mở danh sách đã cất trong máy… (chưa có thì bấm ⟳ để lấy từ Drive)'))+'</div>'}); }
+  function veDS(loai, q){ var ds = locThem(loai, DT.locDS(loai, q)), vb = loai==='vanban', it = ds.slice(0, 150), o = DT.off();
+    if(!ds.length) return trong(vb && vbLoc().ghim ? 'Chưa ghim văn bản nào — mở văn bản rồi bấm 📌 Ghim để xem không mạng.' : 'Không có mục khớp.');
+    return '<div class="list media-list inset"><ul>'+it.map(function(m){ var ten = vb ? (m.soHieu || m.trichYeu || m.tenFile || 'Văn bản') : (m.ten || 'Scan');
       var phu = vb ? [ng(m.ngay), m.loai, m.trichYeu && m.soHieu ? m.trichYeu : ''].filter(Boolean).join(' · ') : [ng(m.ngay || String(m.taoLuc || '').slice(0, 10)), m.che==='tailieu' ? 'Tài liệu' : m.che ? 'CCCD / thẻ' : '', m.maKH, m.ap, m.to].filter(Boolean).join(' · ');
-      return '<li><a href="#" class="item-link item-content dt-mo" data-l="'+loai+'" data-i="'+i+'"><div class="item-inner"><div class="item-title-row"><div class="item-title">'+e(ten)+'</div><div class="item-after">'+(m.driveId ? '' : '<small>chưa lên Drive</small>')+'</div></div><div class="item-subtitle">'+e(phu)+'</div></div></a></li>'; }).join('')+'</ul></div>'+
+      return '<li><a href="/xem/'+loai+'/'+encodeURIComponent(m.id)+'/" class="item-link item-content"><div class="item-inner"><div class="item-title-row"><div class="item-title">'+e(ten)+'</div><div class="item-after">'+(o[m.id] ? '📌' : m.driveId ? '' : '<small>chưa lên Drive</small>')+'</div></div><div class="item-subtitle">'+e(phu)+'</div></div></a></li>'; }).join('')+'</ul></div>'+
       (ds.length>it.length ? '<div class="dt-ghi">… còn '+(ds.length-it.length)+' mục — gõ thêm để thu hẹp</div>' : ''); }
-  function moMuc(loai, i, q){ var m = DT.locDS(loai, q)[i]; if(!m) return; if(!m.driveId) return app.dialog.alert('Mục này chưa lên Drive — mở ở máy tính đã quét / lưu.');
-    var t = app.toast.create({destroyOnClose:true, text:'Đang tải…', position:'center'}); t.open();
-    DT.taiFile(m.driveId).then(function(bl){ t.close(); var ten = (m.soHieu || m.ten || 'tep').replace(/[\\/:*?"<>|]+/g, '-')+(/pdf/.test(bl.type) || !bl.type ? '.pdf' : ''); tacVu(bl, ten, false); }, function(er){ t.close(); app.dialog.alert(e(er.message)); }); }
-  function tacVu(bl, ten, vaoApp){   /* bảng nút chuẩn: Xem · (Lưu vào app) · Lưu vào máy · Gửi · Đóng */
+  function timMuc(loai, id){ return (DT.ds(loai) || []).filter(function(m){ return String(m.id)===String(id); })[0] || null; }
+  function tenTep(m, bl){ return String((m && (m.soHieu || m.ten || m.trichYeu)) || 'tep').replace(/[\\/:*?"<>|]+/g, '-').slice(0, 80)+(!bl.type || /pdf/.test(bl.type) ? '.pdf' : /png/.test(bl.type) ? '.png' : /jpe?g/.test(bl.type) ? '.jpg' : ''); }
+  function trXem(loai, id){ var m = timMuc(loai, id), vb = loai==='vanban', o = DT.off()[id], ten = m ? (vb ? (m.soHieu || m.trichYeu || 'Văn bản') : (m.ten || 'Scan')) : (o ? o.ten : 'Tệp');
+    return trang('xem', {tieu:e(ten), than:(m && vb && m.trichYeu ? '<div class="dt-ghi">'+e([ng(m.ngay), m.loai, m.trichYeu].filter(Boolean).join(' · '))+'</div>' : '')+
+      '<div class="block dt-xem-nut">'+(vb ? '<a href="#" class="button button-small button-fill dt-ghim" data-id="'+e(id)+'">'+(o ? '📌 Bỏ ghim' : '📌 Ghim — xem không mạng')+'</a>' : '')+
+        '<a href="#" class="button button-small button-outline dt-gui">📤 Gửi · ⬇ Lưu máy</a></div>'+
+      '<div id="dt-xem" class="dt-xem" data-l="'+loai+'" data-id="'+e(id)+'">'+trong('Đang mở…')+'</div>'}, 1); }
+  var PDFJS = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/';
+  function napPDF(){ if(window.pdfjsLib && pdfjsLib.GlobalWorkerOptions.workerSrc) return Promise.resolve(window.pdfjsLib);
+    return Promise.all([napMotTV({ten:'dtpdf-3.11.174', url:PDFJS+'pdf.min.js'}), napMotTV({ten:'dtpdfw-3.11.174', url:PDFJS+'pdf.worker.min.js', giuNguyen:true})]).then(function(){
+      if(!window.pdfjsLib) throw new Error('Chưa tải được bộ xem PDF — kiểm tra mạng (lần đầu cần mạng, sau đó cất trong máy)');
+      pdfjsLib.GlobalWorkerOptions.workerSrc = TV['dtpdfw-3.11.174'] ? URL.createObjectURL(new Blob([TV['dtpdfw-3.11.174']], {type:'text/javascript'})) : PDFJS+'pdf.worker.min.js';
+      return window.pdfjsLib; }); }
+  function vePDF(o, bl){ return napPDF().then(function(lib){ return bl.arrayBuffer().then(function(b){ return lib.getDocument({data:new Uint8Array(b)}).promise; }); }).then(function(pdf){
+    o.innerHTML = '<div class="dt-ghi">'+pdf.numPages+' trang</div>'; var w = Math.min(o.clientWidth || 360, 900), tl = Math.min(2, window.devicePixelRatio || 1);
+    var trang1 = function(i){ return pdf.getPage(i).then(function(pg){ var v0 = pg.getViewport({scale:1}), k = w/v0.width, v = pg.getViewport({scale:k*tl}), c = document.createElement('canvas');
+      c.width = v.width; c.height = v.height; c.style.width = Math.round(v.width/tl)+'px'; c.className = 'dt-trang'; o.appendChild(c); return pg.render({canvasContext:c.getContext('2d'), viewport:v}).promise; }); };
+    var p = Promise.resolve(); for(var i=1;i<=pdf.numPages;i++) (function(i){ p = p.then(function(){ return trang1(i); }); })(i); return p.then(function(){ return pdf.numPages; }); }); }
+  var XEM = {bl:null, m:null};
+  function veXem(page){ var o = page.el.querySelector('#dt-xem'); if(!o) return; var loai = o.getAttribute('data-l'), id = o.getAttribute('data-id'), m = timMuc(loai, id);
+    XEM = {bl:null, m:m};
+    DT.offDoc(id).then(function(bl){ if(bl) return bl; if(!m || !m.driveId) throw new Error(m ? 'Mục này chưa lên Drive — mở ở máy tính đã quét / lưu.' : 'Không thấy mục — bấm ⟳ ở danh sách.'); return DT.taiFile(m.driveId); })
+      .then(function(bl){ XEM.bl = bl;
+        if(/^image\//.test(bl.type)){ var u = URL.createObjectURL(bl); o.innerHTML = '<img class="dt-trang" src="'+u+'" alt="">'; return; }
+        if(bl.type && !/pdf/.test(bl.type)){ o.innerHTML = trong('Tệp '+e(bl.type)+' — bấm 📤 Gửi · ⬇ Lưu máy để mở bằng app khác.'); return; }
+        return vePDF(o, bl); })
+      .catch(function(er){ o.innerHTML = trong(e(er.message)); }); }
+  function tacVu(bl, ten, vaoApp, boXem){   /* bảng nút chuẩn: Xem · (Lưu vào app) · Lưu vào máy · Gửi · Đóng — 3.344: boXem = đang ở trang xem trong app */
     var url = URL.createObjectURL(bl), f = new File([bl], ten, {type:bl.type || 'application/pdf'});
-    var nut = [{text:'👁 Xem', onClick:function(){ window.open(url, '_blank'); }}];   /* thứ tự chuẩn: Xem · Lưu vào app · Lưu vào máy · Gửi */
+    var nut = boXem ? [] : [{text:'👁 Xem', onClick:function(){ window.open(url, '_blank'); }}];   /* thứ tự chuẩn: Xem · Lưu vào app · Lưu vào máy · Gửi */
     if(vaoApp) nut.push({text:'💾 Lưu vào app (khay chờ)', onClick:function(){ DT.guiKhay(bl, ten).then(function(){ app.toast.create({destroyOnClose:true, text:'Đã đưa vào khay _Chờ xử lý — máy tính Nạp khay chờ để khai báo', closeTimeout:3000}).open(); }, function(er){ app.dialog.alert(e(er.message)); }); }});
     nut.push({text:'⬇ Lưu vào máy', onClick:function(){ var a = document.createElement('a'); a.href = url; a.download = ten; document.body.appendChild(a); a.click(); a.remove(); }});
     if(navigator.canShare && navigator.canShare({files:[f]})) nut.push({text:'📤 Gửi (Zalo…)', onClick:function(){ navigator.share({files:[f], title:ten}).catch(function(){}); }});
@@ -199,7 +234,7 @@ var DTG = (function(){
     tat('.dt-may').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); try { localStorage.setItem('tuhoso_ban', 'may'); } catch(er){} location.href = 'index.html'; }; });   /* 3.342: nút 🖥 mọi trang */
     tat('.dt-dongbo').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); dongBo(); }; });
     if($('#dt-tim')){ var hen; $('#dt-tim').oninput = function(){ var v = this.value; clearTimeout(hen); hen = setTimeout(function(){ veKQ(v); }, 200); }; }
-    tat('.dt-chip').forEach(function(c){ c.onclick = function(ev){ ev.preventDefault(); DT.ch.timTheo = c.getAttribute('data-t'); DT.chLuu(); var v = ($('#dt-tim') || {}).value || '';
+    tat('.dt-chip[data-t]').forEach(function(c){ c.onclick = function(ev){ ev.preventDefault(); DT.ch.timTheo = c.getAttribute('data-t'); DT.chLuu(); var v = ($('#dt-tim') || {}).value || '';
       app.views.main.router.refreshPage(); setTimeout(function(){ var i = el('dt-tim'); if(i){ i.value = v; veKQ(v); } }, 50); }; });   /* 3.343: Tìm theo — nhớ lựa chọn */
     page.el.addEventListener('click', function(ev){ var a = ev.target.closest && ev.target.closest('.dt-sang-to'); if(!a) return; ev.preventDefault(); var v = ($('#dt-tim') || {}).value || '';
       DT.ch.timTheo = 'tt'; DT.chLuu(); app.views.main.router.refreshPage(); setTimeout(function(){ var i = el('dt-tim'); if(i){ i.value = v; veKQ(v); } }, 50); });
@@ -207,9 +242,20 @@ var DTG = (function(){
       (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject()).then(function(){ app.toast.create({destroyOnClose:true, text:'Đã chép '+v, closeTimeout:1500}).open(); }, function(){}); });
     if(page.name==='tra' && DT.ch.timTheo==='tt') veKQ('');
     tat('.dt-tai').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); var l = a.getAttribute('data-l'), t = app.toast.create({destroyOnClose:true, text:'Đang lấy danh sách…', position:'center'}); t.open();
-      DT.taiKhoi(l).then(function(){ t.close(); var o = page.el.querySelector('#dt-ds'); if(o) o.innerHTML = veDS(l, ($('#dt-loc') || {}).value || ''); }, function(er){ t.close(); app.dialog.alert(e(er.message)); }); }; });
+      DT.taiKhoi(l).then(function(){ t.close(); var o = page.el.querySelector('#dt-ds'); if(o) o.innerHTML = veDS(l, ($('#dt-loc') || {}).value || ''); var c = page.el.querySelector('#dt-vbc'); if(c) c.innerHTML = chipVB(); }, function(er){ t.close(); app.dialog.alert(e(er.message)); }); }; });
     if($('#dt-loc')){ var hl; $('#dt-loc').oninput = function(){ var l = this.getAttribute('data-l'), v = this.value; clearTimeout(hl); hl = setTimeout(function(){ var o = page.el.querySelector('#dt-ds'); if(o && DT.ds(l)) o.innerHTML = veDS(l, v); }, 200); }; }
-    page.el.addEventListener('click', function(ev){ var a = ev.target.closest && ev.target.closest('.dt-mo'); if(!a) return; ev.preventDefault(); moMuc(a.getAttribute('data-l'), +a.getAttribute('data-i'), ($('#dt-loc') || {}).value || ''); });
+    page.el.addEventListener('click', function(ev){ var c = ev.target.closest && ev.target.closest('.dt-vbc'); if(!c) return; ev.preventDefault();   /* 3.344: chip lọc văn bản */
+      var k = c.getAttribute('data-k'), v = c.getAttribute('data-v'), L = vbLoc(); if(k==='tat') L = {}; else if(L[k]===v || (k==='ghim' && L.ghim)) delete L[k]; else L[k] = v;
+      DT.ch.vbLoc = L; DT.chLuu(); var o = $('#dt-vbc'); if(o) o.innerHTML = chipVB(); var d = $('#dt-ds'); if(d) d.innerHTML = veDS('vanban', ($('#dt-loc') || {}).value || ''); });
+    if((page.name==='vanban' || page.name==='scan') && !DT.ds(page.name)) DT.dsNap(page.name).then(function(ds){ var d = $('#dt-ds'); if(!d) return;
+      d.innerHTML = ds ? veDS(page.name, ($('#dt-loc') || {}).value || '') : trong('Bấm ⟳ để lấy danh sách từ Drive.'); var c = $('#dt-vbc'); if(c && ds) c.innerHTML = chipVB(); });   /* 3.344: danh sách cất máy */
+    if(page.name==='xem'){ veXem(page);
+      tat('.dt-ghim').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); var id = a.getAttribute('data-id');
+        if(DT.off()[id]) return DT.offXoa(id).then(function(){ a.textContent = '📌 Ghim — xem không mạng'; app.toast.create({destroyOnClose:true, text:'Đã bỏ ghim', closeTimeout:1500}).open(); });
+        if(!XEM.bl) return app.dialog.alert('Đợi tệp mở xong rồi ghim.');
+        DT.offLuu(XEM.m || {id:id}, XEM.bl).then(function(){ a.textContent = '📌 Bỏ ghim'; app.toast.create({destroyOnClose:true, text:'Đã ghim — xem được khi không có mạng ('+Math.round(DT.offDung()/1048576)+' / 200 MB)', closeTimeout:2500}).open(); },
+          function(er){ app.dialog.alert(e(er.message)); }); }; });
+      tat('.dt-gui').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); if(!XEM.bl) return app.dialog.alert('Đợi tệp mở xong.'); tacVu(XEM.bl, tenTep(XEM.m, XEM.bl), false, true); }; }); }
     if($('#dt-them')) $('#dt-them').onchange = function(){ var f = this.files[0]; if(f) tacVu(f, f.name, true); this.value = ''; };
     if($('#dt-anh')) $('#dt-anh').onchange = function(){ var fs = Array.prototype.slice.call(this.files); this.value = '';
       Promise.all(fs.map(nhoAnh)).then(function(bs){ bs.forEach(function(b){ SC.anh.push({bl:b, url:URL.createObjectURL(b)}); }); app.views.main.router.refreshPage(); }); };
@@ -232,6 +278,7 @@ var DTG = (function(){
     {path:'/gdx/', async:function(c){ c.resolve({content:trGDX()}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/vb/', async:function(c){ c.resolve({content:trDS('vanban')}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/sc/', async:function(c){ c.resolve({content:trDS('scan')}); }, on:{pageInit:function(ev, page){ gan(page); }}},
+    {path:'/xem/:l/:id/', async:function(c){ c.resolve({content:trXem(c.to.params.l, decodeURIComponent(c.to.params.id))}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/sc/moi/', async:function(c){ c.resolve({content:trSCMoi()}); }, on:{pageInit:function(ev, page){ gan(page); }}},
     {path:'/cd/', async:function(c){ c.resolve({content:trCD()}); }, on:{pageInit:function(ev, page){ gan(page); }}}
   ];

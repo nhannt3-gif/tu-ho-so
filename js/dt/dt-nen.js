@@ -50,7 +50,7 @@ var DT = (function(){
   var DT_KHOA_SAU = 5*60000, AN_LUC = 0;
   document.addEventListener('visibilitychange', function(){ if(document.hidden) AN_LUC = Date.now(); else if(S.khoa && pinBat() && AN_LUC && Date.now()-AN_LUC > 2*60000) khoa(); });
   ['touchstart', 'keydown', 'click'].forEach(function(ev){ document.addEventListener(ev, function(){ if(S.khoa) henKhoa(); }, {passive:true}); });
-  function xoaMay(){ S.goi = null; S.khoa = null; GDX = null; return Promise.all([ghi('goi', null), ghi('kiem', null), ghi('muoi', null), ghi('gdx', null), ghi('khoaTu', null)]).then(function(){ CH = {}; chLuu(); }); }
+  function xoaMay(){ S.goi = null; S.khoa = null; GDX = null; return Promise.all([ghi('goi', null), ghi('kiem', null), ghi('muoi', null), ghi('gdx', null), ghi('khoaTu', null), ghi('ds:vanban', null), ghi('ds:scan', null)].concat(Object.keys(off()).map(function(id){ return ghi('vb:'+id, null); }))).then(function(){ CH = {}; chLuu(); }); }
   /* ---------- gói số liệu (mã hóa trong máy) ---------- */
   function cat(g){ return nenGzip(MA.encode(JSON.stringify(g))).then(function(z){ return maHoa(S.khoa, z); }).then(function(x){ return ghi('goi', x); }); }
   function docGoi(){ return doc('goi').then(function(x){ if(!x || !S.khoa) return null; return giaiMa(S.khoa, x.c ? x : x).then(function(z){ return nenGzip(z, true); }).then(function(u){ S.goi = lapChiMuc(JSON.parse(GIAI.decode(u))); return S.goi; }); }); }
@@ -114,7 +114,7 @@ var DT = (function(){
       return goi('https://www.googleapis.com/drive/v3/files?q='+encodeURIComponent(q)+'&fields=files(id,name,modifiedTime)&pageSize=200'); })
     .then(function(k){ return Promise.all((k.files || []).filter(function(f){ return !/__rac/.test(f.name); }).map(function(f){ return goi('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media'); })); })
     .then(function(ds){ var ra = []; ds.forEach(function(j){ ngan.forEach(function(n){ ((j && j.ngan && j.ngan[n]) || []).forEach(function(m){ if(m && !m.daXoa) ra.push(m); }); }); });
-      ra.sort(function(a, b){ return String(b.ngay || b.taoLuc || '').localeCompare(String(a.ngay || a.taoLuc || '')); }); DS[loai] = ra; return ra; });
+      ra.sort(function(a, b){ return String(b.ngay || b.taoLuc || '').localeCompare(String(a.ngay || a.taoLuc || '')); }); DS[loai] = ra; dsCat(loai); return ra; });   /* 3.344: cất máy */
   }
   function taiFile(id){ return dangNhap(true).catch(function(){ return dangNhap(false); }).then(function(){
     return fetch('https://www.googleapis.com/drive/v3/files/'+id+'?alt=media', {headers:{Authorization:'Bearer '+S.token}}); }).then(function(r){ if(!r.ok) throw new Error('Không tải được file ('+r.status+')'); return r.blob(); }); }
@@ -130,8 +130,23 @@ var DT = (function(){
   function taiGDX(){ return duong(['_Hệ thống', 'xem']).then(function(id){ if(!id) throw new Error('Chưa có trên Drive — máy tính bật 📱 Bản điện thoại');
       return tim('gdx.html.gz', id); }).then(function(f){ if(!f) throw new Error('Chưa có bản Giao dịch xã — máy tính chưa đẩy (cần có điểm GD)');
       return goi('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media', true); }).then(function(b){ return nenGzip(new Uint8Array(b), true); }).then(function(u){ return napGDX(GIAI.decode(u)); }); }
+  /* 3.344 (Đ2): 📌 ghim văn bản = cất file trong máy (mã hóa như gói) để xem không mạng, tối đa 200 MB; danh sách Văn bản / Scan cất máy để mở lại không cần mạng */
+  var OFF_TOI = 200*1024*1024;
+  function off(){ if(!CH.vbOff || typeof CH.vbOff!=='object') CH.vbOff = {}; return CH.vbOff; }
+  function offDung(){ var o = off(); return Object.keys(o).reduce(function(a, k){ return a+(o[k].kt||0); }, 0); }
+  function offLuu(m, bl){ var o = off(), cu = o[m.id] ? o[m.id].kt||0 : 0;
+    if(!S.khoa) return Promise.reject(new Error('Chưa mở kho trong máy'));
+    if(offDung()-cu+bl.size > OFF_TOI) return Promise.reject(new Error('Vượt 200 MB lưu không mạng — bỏ ghim bớt văn bản cũ trước'));
+    return bl.arrayBuffer().then(function(b){ return maHoa(S.khoa, new Uint8Array(b)); }).then(function(x){ return ghi('vb:'+m.id, {iv:x.iv, c:x.c, type:bl.type || ''}); })
+      .then(function(){ o[m.id] = {kt:bl.size, ten:m.soHieu || m.trichYeu || m.ten || '', luc:new Date().toISOString()}; chLuu(); return true; }); }
+  function offDoc(id){ if(!S.khoa || !off()[id]) return Promise.resolve(null);
+    return doc('vb:'+id).then(function(x){ return x ? giaiMa(S.khoa, x).then(function(u){ return new Blob([u], {type:x.type || 'application/pdf'}); }) : null; }).catch(function(){ return null; }); }
+  function offXoa(id){ delete off()[id]; chLuu(); return ghi('vb:'+id, null); }
+  function dsCat(loai){ return S.khoa && DS[loai] ? maHoa(S.khoa, JSON.stringify(DS[loai])).then(function(x){ return ghi('ds:'+loai, x); }).catch(function(){}) : Promise.resolve(); }
+  function dsNap(loai){ if(DS[loai]) return Promise.resolve(DS[loai]); if(!S.khoa) return Promise.resolve(null);
+    return doc('ds:'+loai).then(function(x){ return x ? giaiMa(S.khoa, x).then(function(u){ DS[loai] = JSON.parse(GIAI.decode(u)); return DS[loai]; }) : null; }).catch(function(){ return null; }); }
   function locDS(loai, q){ var ds = DS[loai] || [], t = boDau(q).split(' ').filter(Boolean); if(!t.length) return ds;
     return ds.filter(function(m){ var c = ' '+boDau([m.soHieu, m.trichYeu, m.ten, m.maKH, m.loai, m.ap, m.to, m.coQuan].join(' '))+' '; return t.every(function(w){ return c.indexOf(w)>=0; }); }); }
-  return {pinBat:pinBat, moTuDong:moTuDong, coPIN:coPIN, datPIN:datPIN, moKhoa:moKhoa, khoa:khoa, xoaMay:xoaMay, napGoi:napGoi, taiGoi:taiGoi, goi:function(){ return S.goi; }, moi:function(){ return !!S.khoa; },
-    tong:tong, dsTo:dsTo, nhom:nhom, taiKhoi:taiKhoi, ds:function(l){ return DS[l]; }, datDS:function(l, ds){ DS[l] = ds; }, napGDX:napGDX, docGDX:docGDX, taiGDX:taiGDX, locDS:locDS, taiFile:taiFile, guiKhay:guiKhay, timKH:timKH, kh:kh, khTo:khTo, boDau:boDau, ch:CH, chLuu:chLuu, khiKhoa:null};
+  return {offLuu:offLuu, offDoc:offDoc, offXoa:offXoa, offDung:offDung, off:off, dsNap:dsNap, pinBat:pinBat, moTuDong:moTuDong, coPIN:coPIN, datPIN:datPIN, moKhoa:moKhoa, khoa:khoa, xoaMay:xoaMay, napGoi:napGoi, taiGoi:taiGoi, goi:function(){ return S.goi; }, moi:function(){ return !!S.khoa; },
+    tong:tong, dsTo:dsTo, nhom:nhom, taiKhoi:taiKhoi, ds:function(l){ return DS[l]; }, datDS:function(l, ds){ DS[l] = ds; return dsCat(l); }, napGDX:napGDX, docGDX:docGDX, taiGDX:taiGDX, locDS:locDS, taiFile:taiFile, guiKhay:guiKhay, timKH:timKH, kh:kh, khTo:khTo, boDau:boDau, ch:CH, chLuu:chLuu, khiKhoa:null};
 })();
