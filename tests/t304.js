@@ -1,0 +1,23 @@
+// 3.362 (KE_HOACH_DIEN_THOAI_MAY Đ2) — bản máy tính trên điện thoại: thẻ khách món vay thành thẻ dọc (CSS, có nhãn), ô kỳ chữ gọn "T8/26 · M31" (giá trị + title giữ đủ), thẻ tổ không làm trang tràn ngang; máy tính 1440 giữ bảng + chữ kỳ đủ. Dữ liệu GIẢ.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs=require('fs'), path=require('path');
+(async()=>{ const b=await chromium.launch(); const loi=[], o=[]; const ok=(t,d,c)=>o.push((d?'✓ ':'✗ ')+t+(c!==undefined?' — '+c:''));
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const mo = async(w, h, dt)=>{ const p=await b.newPage(Object.assign({viewport:{width:w,height:h}}, dt ? {isMobile:true, hasTouch:true} : {})); p.on('pageerror',e=>loi.push(e.message));
+   await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p); await p.goto('file://'+path.resolve(__dirname,'..','index.html')+'?may=1'); await p.waitForTimeout(1500);
+   await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} window.SL_KHONG_TU_KIEM=1; for(const f of files){ const bin=atob(f.b),u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq=await slDocFile(new File([u],f.n)); if(!kq.loi&&kq.ky){ try{await slGhi(kq);}catch(e){} } } kyChungDoi('2026-08'); dhSL('tra'); const w=t=>new Promise(r=>setTimeout(r,t)); for(let i=0;i<60&&!TC_K;i++) await w(200); }, files);
+   await p.waitForTimeout(1500); return p; };
+ const kt = (p)=>p.evaluate(async()=>{ const w=t=>new Promise(r=>setTimeout(r,t)); const s=document.getElementById('ky-chung-o'), op=s && s.options[s.selectedIndex];
+   const kh = KHO.chiMuc().map(r=>r.m).find(m=>(TC_K.B.theoKH[m]||[]).some(x=>x.ku && x.dn>0)); slTheKH(kh); for(let i=0;i<30&&!document.querySelector('table.kh-mon');i++) await w(150);
+   const t=document.querySelector('table.kh-mon'), tr=t && t.querySelector('tbody tr'), td=tr && tr.children[4];
+   const r={kyChu:op?op.text:'', kyTit:op?op.title:'', kyVal:s?s.value:'', thead:t?getComputedStyle(t.querySelector('thead')).display:'', tr:tr?getComputedStyle(tr).display:'', nhan:td?getComputedStyle(td,'::before').content:''};
+   dongHop(); const to = KHO.danhBa(kh).to; tcTheTo(to); await w(500); r.tran = document.documentElement.scrollWidth-innerWidth; return r; });
+ const p = await mo(390, 844, true); const r = await kt(p); await p.close();
+ ok('3.362 điện thoại: ô kỳ chữ gọn "T8/26 · M31", title giữ chữ đủ, giá trị không đổi', r.kyChu==='T8/26 · M31' && /T8\/2026/.test(r.kyTit) && r.kyVal==='2026-08', JSON.stringify([r.kyChu, r.kyTit, r.kyVal]));
+ ok('3.362 thẻ khách: bảng món vay thành thẻ nhỏ (ẩn tiêu đề, dòng xếp tự chảy, ô có nhãn "Dư nợ")', r.thead==='none' && r.tr==='flex' && /Dư nợ/.test(r.nhan), JSON.stringify([r.thead, r.tr, r.nhan]));
+ ok('3.362 thẻ tổ: trang không tràn ngang (bảng dài cuộn trong khung)', r.tran<=1, r.tran);
+ const m = await mo(1440, 900, false); const q = await kt(m); await m.close();
+ ok('3.362 máy tính 1440: chữ kỳ đủ như cũ, bảng món vay giữ dạng bảng', /T8\/2026/.test(q.kyChu) && q.thead!=='none' && q.tr!=='flex', JSON.stringify([q.kyChu, q.thead, q.tr]));
+ o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
+ const sai = o.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t304 đạt'); await b.close(); process.exit(sai?1:0);
+})();

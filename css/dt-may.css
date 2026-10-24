@@ -31,3 +31,44 @@
 .tc-theo{flex-wrap:nowrap !important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .tc-theo::-webkit-scrollbar{display:none}
 .tc-theo .gd-chip{flex:0 0 auto}
+/* ===== 3.362 (Đ2: Tra cứu KH · thẻ khách / thẻ tổ) — anh 25/10: "thẻ gọn, 1 màn hình xem trọn" · "thêm màu sắc, chip màu, không khô cứng, chữ to chiếm hết màn hình" ===== */
+.tc-the{--co:.88}   /* cả thẻ chữ nhỏ lại theo biến tỷ lệ chung của app */
+.tc-the .tc-ten.to{font-size:18px}
+.tc-the .tc-ma.to{font-size:13px;padding:0 6px}
+.tc-the .tc-nhom{margin-top:5px}
+.tc-the .tc-luoi{grid-template-columns:1fr;gap:0 10px}
+#tc-so{gap:4px !important;margin:4px 0 !important}
+#tc-so .tc-o{padding:2px 6px !important;min-width:0}
+#tc-so .tc-o b{font-size:13px;white-space:nowrap}
+/* bảng món vay (js/22f, cột cố định: CT · Khế ước · Đến hạn · Giải ngân · Dư nợ · Lãi tồn · Tình trạng) → mỗi món 1 thẻ nhỏ 3–4 dòng, có chip màu */
+.tc-mon-cuon{overflow:visible !important}
+table.kh-mon,table.kh-mon tbody{display:block;width:100%}
+table.kh-mon thead{display:none}
+table.kh-mon tr{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;border:1px solid var(--vien,#d0d7de);border-left:4px solid var(--luc,#1a7f37);border-radius:8px;padding:4px 8px;margin:4px 0;background:var(--the,#fff);font-size:12.5px;line-height:1.4}
+table.kh-mon tr:has(b.do){border-left-color:var(--do,#b42318)}
+table.kh-mon tr:has(b.vang){border-left-color:var(--vang,#9a6700)}
+table.kh-mon tr.tc-xong{border-left-color:var(--vien,#ccc);opacity:.85}
+table.kh-mon td{display:block;border:0 !important;padding:0 !important;text-align:left !important;white-space:normal}
+table.kh-mon td small{display:inline !important;margin-left:4px;font-size:.9em}
+table.kh-mon td br{display:none}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(1) b{display:inline-block;background:var(--xanh-nhat,#e8f0fb);color:var(--xanh-dam,#1a4f8b);border:1px solid var(--xanh,#1a5fb4);border-radius:999px;padding:0 7px;font-size:11.5px}
+.tc-the table.kh-mon tr:not(.tc-cong):not(.tc-hs) > td:nth-child(1){flex:0 0 auto;width:auto !important}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(2){flex:1 1 0;min-width:150px}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(3){flex:1 1 100%}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(3)::before{content:"Hạn ";color:var(--chu-phu)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(4)::before{content:"GN ";color:var(--chu-phu)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(5)::before{content:"Dư nợ ";color:var(--chu-phu)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(5) b{color:var(--xanh-dam,#1a4f8b)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(6)::before{content:"Lãi tồn ";color:var(--chu-phu)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(6):empty{display:none}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(7){flex:1 1 100%}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(7) b{display:inline-block;border-radius:999px;padding:0 7px;font-size:11.5px;border:1px solid currentColor}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(7) b.do{background:var(--do-nen,#fdecea)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(7) b.vang{background:var(--vang-nen,#fff6db)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(7):not(:has(b)){display:inline-block;flex:0 0 auto;color:var(--luc,#1a7f37);background:var(--luc-nen,#e9f6ec);border:1px solid var(--luc,#1a7f37);border-radius:999px;padding:0 8px !important;font-size:11.5px}
+table.kh-mon td.so,table.kh-mon tr td.so{text-align:left !important}
+table.kh-mon tr.tc-hs{display:block;margin-top:-4px;border-top:0;border-radius:0 0 8px 8px;font-size:12px}
+table.kh-mon tr.tc-cong{background:var(--xanh-nhat,#eef4fb);font-weight:600;border-left-color:var(--xanh,#1a5fb4)}
+table.kh-mon tr.tc-cong td:empty{display:none}
+/* ô kỳ: nút ⟳ đọc lại nhỏ lại */
+.ky-chung .ky-chung-lm{min-width:26px;padding:0 4px}
