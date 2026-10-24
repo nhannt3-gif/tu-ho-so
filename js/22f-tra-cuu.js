@@ -211,13 +211,14 @@ function tcKTVe(){   /* màn rộng: trái chỉ dòng kết luận, chi tiết 
 
 /* ---------- thẻ chi tiết (phải / hộp trên điện thoại) ---------- */
 /* 3.337 (anh 24/10): ngày đến hạn món vay tô màu — hạn hiệu lực = hạn gia hạn (có) / hạn hợp đồng; so hôm nay: quá hạn đỏ · ≤ 30 ngày cam · ≤ 90 ngày vàng */
-function tcHanMon(m, xong){
+function tcHanMon(m, xong, gon){   /* gon: bỏ dòng "còn N ngày" (đưa vào title) — bảng thành viên tổ 3.342 */
   var d = m.dhgh || m.dhg; if(!d) return '';
   var x = String(d).match(/^(\d{4})-(\d{2})-(\d{2})/); if(!x) return coChuHTML(ngayVNsl(d));
   var hn = nay(), con = Math.round((new Date(+x[1], +x[2]-1, +x[3]) - new Date(hn.getFullYear(), hn.getMonth(), hn.getDate()))/864e5);
   var muc = xong ? '' : con<0 ? 'do' : con<=30 ? 'cam' : con<=90 ? 'vang' : '';
-  return '<span class="tc-han'+(muc ? ' tc-han-'+muc : '')+'" title="'+(m.dhgh ? 'Hạn gia hạn (hạn hợp đồng '+ngayVNsl(m.dhg)+')' : 'Hạn theo hợp đồng')+'">'+ngayVNsl(d)+(m.dhgh ? ' <small>GH</small>' : '')+'</span>'+
-    (xong ? '' : '<small class="tc-han-con">'+(con<0 ? 'quá '+(-con)+' ngày' : con===0 ? 'hôm nay' : 'còn '+con+' ngày')+'</small>');
+  var conChu = con<0 ? 'quá '+(-con)+' ngày' : con===0 ? 'hôm nay' : 'còn '+con+' ngày';
+  return '<span class="tc-han'+(muc ? ' tc-han-'+muc : '')+'" title="'+(m.dhgh ? 'Hạn gia hạn (hạn hợp đồng '+ngayVNsl(m.dhg)+')' : 'Hạn theo hợp đồng')+(gon && !xong ? ' · '+conChu : '')+'">'+ngayVNsl(d)+(m.dhgh ? ' <small>GH</small>' : '')+'</span>'+
+    (xong || gon ? '' : '<small class="tc-han-con">'+(con<0 ? 'quá '+(-con)+' ngày' : con===0 ? 'hôm nay' : 'còn '+con+' ngày')+'</small>');
 }
 function slTheKH(ma){
   var c = SL_DB && SL_DB.kh[ma]; if(!c) return bao('Không thấy khách hàng này trong số liệu.', 3);
