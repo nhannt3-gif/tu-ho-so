@@ -7,13 +7,16 @@
      - tiêu đề cột 2 tầng (cột có .nhom), nhóm theo Xã › Điểm / Điểm › Hội › Tổ / Tổ có dòng cộng đậm, dòng Tổng cộng; ô 0 ghi 0.
    Khai báo: DANG_KY({ma, ten, o:'sk'|'to', loai:'ds'|'bang', mauSo, dvt, nhom:true, chon:[{k, ten, kieu:'tich'|'mot', ds:[[giá trị, nhãn]], md}],
      du:function(ctx){ return {cot:[{k, ten, so, tien, nhom, xd (cho xuống dòng — mặc định mọi ô 1 dòng), nho (chữ nhỏ), rong (Excel)}], dong:[{… , _dv:{xa, diem, hoi, to}, _lop}], ghi}; }})
-   ctx = {K: kỳ đã dựng, S: phạm vi đang chọn, chon: {k: giá trị}, pv: chữ phạm vi, ngay: ngày số liệu ISO}. ES5. */
+   ctx = {K: kỳ đã dựng, B: bộ số liệu kỳ (B.co.hstd · nqh · nk · tdn…), S: phạm vi đang chọn, chon: {k: giá trị}, pv: chữ phạm vi, ngay: ngày số liệu ISO}. ES5. */
 var DK_DS = {}, DK_XEM = null;
 function DANG_KY(o){ DK_DS[o.ma] = o; return o; }
 var DK_NHOM = [['', 'Không nhóm'], ['xd', 'Xã › Điểm GD'], ['dht', 'Điểm GD › Hội › Tổ'], ['to', 'Từng tổ']];
 var DK_DV = {ten:'NGÂN HÀNG CHÍNH SÁCH XÃ HỘI', pgd:'PGD Gò Dầu - Chi nhánh Tây Ninh', tinh:'Ngân hàng CSXH Tỉnh Tây Ninh', pgdNgan:'PGD Gò Dầu'};
 /* nơi dùng: kỳ + phạm vi của tab */
-function dkCtxTab(o){ var K = o.o==='to' ? KHO.kyDung() : SK_K, S = o.o==='to' ? toCH() : skCH(); return {K:K, S:S, pv:K ? pvChu(S, K) : ''}; }
+function dkCtxTab(o){
+  if(o.o==='th'){ var T = typeof TH_K!=='undefined' ? TH_K : null, C = thCH();   /* 3.356: tab Tổng hợp — kỳ đang xem + phạm vi · CT · nguồn vốn của tab */
+    return {K:T && T.K, B:T && T.B, S:C, pv:T ? pvChu(C, T.K)+(C.ct ? ' · CT '+ctNgan(C.ct) : '')+(C.nguon ? ' · nguồn '+(SL_NGUON[C.nguon]||C.nguon) : '') : ''}; }
+  var K = o.o==='to' ? KHO.kyDung() : SK_K, S = o.o==='to' ? toCH() : skCH(); return {K:K, B:K && K.B, S:S, pv:K ? pvChu(S, K) : ''}; }
 /* thông tin địa bàn của 1 dòng (mã tổ) — dùng cho nhóm + cột */
 function dkDV(K, maTo){ var t = KHO.toKy(K, maTo) || {}, diem = String(t.tenDiemDu || t.tenDiem || '').replace(/\s*·?\s*ngày\s*\d+.*$/i, '');
   return {xa:String(t.tenXa||'').replace(/^(Xã|Phường|Thị trấn)\s+/i, ''), diem:diem ? 'Điểm '+diem : '', hoi:String(t.dv||'')==='99' ? 'Vay trực tiếp' : (tdnHoi(t.dv) || ''), to:t.ten ? 'Tổ '+String(t.ten).replace(/^Tổ\s+/i, '')+(t.ma ? ' ('+t.ma+')' : '') : (maTo || '')}; }
@@ -82,7 +85,7 @@ function dkAOA(o, kq, ctx){
 function dkLap(ma){
   var o = DK_DS[ma], X = dkCtxTab(o), chon = (D.cauHinh.dkChon = D.cauHinh.dkChon || {})[ma] = (D.cauHinh.dkChon||{})[ma] || {};
   (o.chon||[]).forEach(function(c){ if(chon[c.k]===undefined) chon[c.k] = c.md; }); if(o.nhom && chon.nhom===undefined) chon.nhom = o.nhomMd || 'dht';
-  var ctx = {K:X.K, S:X.S, pv:X.pv, chon:chon, ngay:X.K ? (X.K.ngay || (String(X.K.ky).length>7 ? X.K.ky : tdnCuoiKy(X.K.ky))) : ''};
+  var ctx = {K:X.K, B:X.B, S:X.S, pv:X.pv, chon:chon, ngay:X.K ? (X.K.ngay || (String(X.K.ky).length>7 ? X.K.ky : tdnCuoiKy(X.K.ky))) : ''};
   var kq = o.du(ctx); return {o:o, kq:kq, ctx:ctx};
 }
 function dkChonHTML(o, chon){
@@ -125,7 +128,7 @@ function dkDangKy(){ if(dkDangKy.xong || typeof GD==='undefined') return; dkDang
 DANG_KY({ma:'noxl', o:'sk', loai:'ds', ten:'Danh sách nợ cần xử lý', nhom:true, nhomMd:'dht', mo:'Quá hạn · khoanh · 3 tháng không hoạt động · KU đã nhập máy chưa giải ngân — chọn loại, nhóm theo địa bàn',
   chon:[{k:'loai', ten:'Loại', kieu:'tich', ds:[['qh', 'Quá hạn'], ['kn', 'Khoanh'], ['khd', '3 tháng KHĐ'], ['cgn', 'KU chưa GN > 1 tháng']], md:['qh', 'kn', 'khd']}],
   du:function(ctx){
-    var K = ctx.K, B = K.B || {co:{}}, loai = ctx.chon.loai || [], ns = ctx.ngay, dong = [];
+    var K = ctx.K, B = ctx.B || {co:{}}, loai = ctx.chon.loai || [], ns = ctx.ngay, dong = [];
     var trong = function(o){ return pvLoc(ctx.S, KHO.toKy(K, toMaCua(o))); };
     var them = function(o, x){ var r = {kh:o.kh||'', ten:o.ten||'', ku:o.ku||'', ct:ctNgan(o.ct, o), dn:o.dn||0, _dv:dkDV(K, toMaCua(o))}; for(var k in x) r[k] = x[k]; dong.push(r); };
     if(loai.indexOf('qh')>=0) (B.co.nqh||[]).filter(trong).forEach(function(o){ them(o, {loai:'QH', xl:o.qh||0, ngay:ngayVNsl(o.ncqh), so:o.ncqh ? tdnSoNgay(o.ncqh, ns) : '', ghi:(o.cqh>0 ? 'Mới trong tháng' : '')}); });

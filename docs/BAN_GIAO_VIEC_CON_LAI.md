@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.356) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tổng hợp › 🧩 Báo cáo của tôi › ⚙ Tạo / sửa › ＋ Tạo báo cáo mới; đặt tên, chọn Từng khách, bật cột SĐT, 💾 Lưu và xem | Hộp xem trước đúng khuôn in chuẩn, mỗi khách 1 dòng | |
+| 2 | Đổi phạm vi (xã / hội) ở tab Tổng hợp rồi mở lại báo cáo | Chỉ dòng trong phạm vi; dòng phạm vi dưới ngày | |
+| 3 | Kỳ có file Tổng dư nợ theo CT | Cuối báo cáo: "Đối chiếu Mẫu 31 với Tổng dư nợ theo CT (TW)…" — so số thật với file TW | |
+| 4 | Máy thứ 2 (cùng Drive) mở tab Tổng hợp | Thấy báo cáo đã tạo (đồng bộ cài đặt) | |
+| 5 | ✎ Sửa đổi cột / 🗑 Xóa | Đổi theo; xóa có hỏi | |
+
+**Ghi chú kỹ thuật 3.356:** khai báo `D.cauHinh.bcToi[] = {id, ten, gop:'mon'|'kh'|'to', cot[], loc[], nhom, kho}`; `btDangKyHet()` đăng ký lại `DANG_KY` mã `bt_<id>` mỗi lần vẽ tab; danh mục cột `BT_COT` (thêm cột = thêm 1 dòng + gán giá trị trong `btDong`). Đối chiếu `btDoiChieu(ctx)` lọc 2 phía theo `xa` / `dv` / `ct` / `nguon` của dòng.
+
 ### Danh sách thử trên máy thật (3.355) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

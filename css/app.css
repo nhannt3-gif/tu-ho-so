@@ -4001,3 +4001,9 @@ table.tc-to-tvb .tc-to-mo{color:var(--xanh);font-size:calc(10px*var(--co));white
 .nk-khoi .nk-het{padding:0 6px;min-height:0;font-size:calc(11px*var(--co))}
 .tc-the-to .nk-khoi{flex:0 0 auto;margin-top:4px}
 .nk-tim{width:100%;margin:4px 0 6px}.nk-bang{max-height:60vh;overflow:auto}
+/* 3.356 🧩 Báo cáo của tôi (js/63) */
+.bt-khoi{margin-top:6px}.bt-ds{display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding:2px 0}
+.bt-hang{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}.bt-muc{display:inline-flex;gap:3px;align-items:center;border:1px solid var(--vien,#ccc);border-radius:6px;padding:2px 6px}
+.bt-muc.bat{border-color:var(--chinh,#1a5fb4)}.bt-khai{border-top:1px solid var(--vien,#ccc);padding-top:6px}
+.bt-dong{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:4px 0}.bt-dong>b{min-width:84px}.bt-dong input{flex:1;min-width:200px}
+.dk-chon-hang{display:flex;flex-wrap:wrap;gap:4px 10px;margin:4px 0}.dk-chon{display:inline-flex;flex-wrap:wrap;gap:3px;align-items:center}

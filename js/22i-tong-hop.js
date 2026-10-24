@@ -351,7 +351,7 @@ function veTongHop(){
       '<div id="th-cay" class="to-cay pv-cay"></div></div>'+
 
       /* 3.164 (anh chốt): danh sách 3 nhóm (Chuẩn TW / LEN_31 / Tính từ Mẫu 31), nhãn cấp, chọn 1 báo cáo (◉) → xem ngay ở khung phải; bỏ nút Xem + hộp xem, bỏ in nhiều báo cáo 1 lần */
-      '<div class="th-bo th-bo2"><div class="th-cot"><div class="to-bc th-bc-gon" id="th-ds">'+thDsHTML(B, C)+'</div></div>'+
+      '<div class="th-bo th-bo2"><div class="th-cot"><div class="to-bc th-bc-gon" id="th-ds">'+thDsHTML(B, C)+'</div>'+(typeof btNutHTML==='function' ? '<div class="to-bc th-bc-gon bt-khoi">'+btNutHTML()+'</div>' : '')+'</div>'+
       '<div class="th-cot th-xem"><div id="th-xem-nut"></div><iframe id="th-xem-khung" class="to-khung th-khung" title="Xem trước"></iframe></div></div>';
     pvVeCay('th');
   }).catch(function(er){ e.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" onclick="toThuLai()">⟳ Thử lại</button></div>'; });

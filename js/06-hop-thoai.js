@@ -1981,7 +1981,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.355', ds:[
+var CO_GI_MOI = {ban:'3.356', ds:[
+  ["Tổng hợp › 🧩 Báo cáo của tôi: anh tự tạo báo cáo bảng từ Mẫu 31 (⚙ Tạo / sửa) — chọn gộp theo món / khách / tổ, cột, điều kiện (còn dư nợ, có QH, khoanh, lãi tồn), nhóm, khổ in; in theo khuôn chuẩn, Excel, Word", "slDoiTab('th');doiNgan(7)"],
+  ["Báo cáo của tôi có dòng đối chiếu với số liệu TW (Tổng dư nợ theo CT cùng kỳ): dư nợ · quá hạn · khoanh khớp ✓ hay lệch bao nhiêu", "slDoiTab('th');doiNgan(7)"],
   ["Nền báo cáo chuẩn mới (khuôn in anh chốt): logo + tên NHCSXH góc trái, tên báo cáo in hoa giữa, ngày số liệu, Đơn vị tính; danh sách A4 dọc, bảng tổng quát A4 ngang cố 1 trang (tự co chữ); In · PDF · Word · Excel · Gửi + 📜 nhật ký in. Mẫu nào cần sẽ tạo thêm trên nền này", "slDoiTab('sk');doiNgan(7)"],
   ["Sao kê › 🧩 Báo cáo chuẩn mới › Danh sách nợ cần xử lý: tích Quá hạn · Khoanh · 3 tháng KHĐ · KU chưa GN > 1 tháng; nhóm theo Xã › Điểm / Điểm › Hội › Tổ / Từng tổ, có dòng cộng từng nhóm", "slDoiTab('sk');doiNgan(7)"],
   ["Điện thoại: tab 📅 Hôm nay (lịch âm lịch như máy tính, việc, ghi chú — đồng bộ với Lịch máy tính) + giao diện mới giống bản máy tính", "doiNgan(0)"],
@@ -1994,9 +1996,7 @@ var CO_GI_MOI = {ban:'3.355', ds:[
   ["📜 Nhật ký đã lập / in: mỗi lần In · PDF · Word · Excel app ghi lại mẫu nào, ngày nào, cho khách / tổ nào — xem ở thẻ khách, thẻ tổ (Tra cứu) và hộp 📜 lọc; đồng bộ giữa các máy qua Drive, giữ 13 tháng", "doiNgan(7)"],
   ["Tra cứu KH dùng số liệu MỚI NHẤT (có Mẫu 31 theo ngày thì lấy ngày); số liệu theo ngày KHÔNG bù người theo Mẫu 01/TV — chỉ đếm theo Mẫu 31 ngày đó (bù chỉ cho chốt cuối tháng)", "doiNgan(7)"],
   ["Nền mã: mọi tab đọc số liệu qua 1 cửa KHO (Tra cứu, Sao kê, cấp Hội, Tổng hợp, Thông tin tổ, KTGS, tab Tổ, Hồ sơ, GDX) — app chạy y như cũ, nhanh sửa / ít lỗi chéo về sau", "doiNgan(7)"],
-  ["Tra cứu › thẻ tổ: cột Họ tên gọn lại, chia chỗ cho các cột khác; khách không còn món ghi rõ \"Tất nợ · còn TGTK — vẫn trong tổ\" / \"Tất nợ · TG 0 — cần cho ra khỏi tổ\" / \"Hết gốc · còn lãi tồn\"; người bù theo Mẫu 01/TV có chữ \"TƯ còn giữ\"", "doiNgan(7)"],
-  ["Tra cứu › thẻ tổ gọn 3 hàng có tên cột (Tổ · Địa bàn · Số liệu, thêm Lãi tồn, 3 tháng KHĐ, Số dư TK 105); bảng thành viên: STT, mã KH (sắp theo mã), CT, dư nợ, ngày vay, hạn trả tô màu, lãi tồn, TGTK — chip Đủ (mỗi món 1 dòng) / Gọn (mỗi khách 1 dòng, bấm ▸ xem từng món); bấm CT xem mã món vay, bấm TGTK xem số TK 105", "doiNgan(7)"],
-  ["Điện thoại › Khách: tìm theo từng loại (cả khế ước, tổ trưởng), thẻ khách có lãi tồn + ngày đến hạn tô màu, thẻ tổ — theo Tra cứu KH bản máy tính", "doiNgan(0)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Tra cứu › thẻ tổ: cột Họ tên gọn lại, chia chỗ cho các cột khác; khách không còn món ghi rõ \"Tất nợ · còn TGTK — vẫn trong tổ\" / \"Tất nợ · TG 0 — cần cho ra khỏi tổ\" / \"Hết gốc · còn lãi tồn\"; người bù theo Mẫu 01/TV có chữ \"TƯ còn giữ\"", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

@@ -58,6 +58,44 @@ const fs=require('fs'), path=require('path');
    /* 8. địa bàn của dòng */
    const diem1 = (C.ra.find(r=>r.muc===0)||{}).nhom, tos = Object.keys(SK_K.to).filter(m=>dkDV(SK_K, m).diem===diem1);
    ok('3.355 dkDV trả xã / điểm / hội / tổ cho tổ của bộ giả', tos.length>0 && !!dkDV(SK_K, tos[0]).to && !!dkDV(SK_K, tos[0]).xa, diem1);
+   /* ===== 3.356 D5: 🧩 Báo cáo của tôi (tab Tổng hợp, nguồn Mẫu 31, đối chiếu TW) ===== */
+   D.cauHinh.bcToi = []; slDoiTab('th'); doiNgan(7); for(let i=0;i<120 && !(document.getElementById('th-cay') && TH_K);i++) await w(250); await w(500);
+   const nutSua = document.querySelector('[data-lenh="bt.mo"]');
+   ok('3.356 tab Tổng hợp có khối 🧩 Báo cáo của tôi + nút ⚙ Tạo / sửa', !!nutSua && /Báo cáo của tôi/.test(document.getElementById('tr7').textContent));
+   nutSua.click(); await w(200); document.querySelector('[data-lenh="bt.tao"]').click(); await w(200);
+   document.getElementById('bt-ten').value = 'Hộ còn nợ thử';
+   document.querySelector('[data-lenh="bt.dat"][data-k="cot"][data-v="nv"]').click(); await w(150);
+   document.querySelector('[data-lenh="bt.luu"]').click(); await w(400);
+   const cfg = (D.cauHinh.bcToi||[])[0];
+   ok('3.356 khai qua hộp ⚙: lưu tên, gộp từng món, cột (thêm Ngày vay, đúng thứ tự danh mục), lọc Còn dư nợ', !!cfg && cfg.ten==='Hộ còn nợ thử' && cfg.gop==='mon' && cfg.cot.indexOf('nv')===4 && cfg.loc.join()==='conNo', JSON.stringify(cfg||{}).slice(0, 160));
+   dongHop(); veTongHop(); for(let i=0;i<40 && !document.querySelector('.bt-ds [data-lenh="dk.mo"]');i++) await w(200);
+   ok('3.356 báo cáo vừa khai hiện thành nút 👁 ở tab Tổng hợp', !!document.querySelector('.bt-ds [data-lenh="dk.mo"][data-ma="bt_'+cfg.id+'"]'));
+   const hs = TH_K.B.co.hstd.filter(o=>o.ku), conNo = hs.filter(o=>(o.dn||0)>0), tongDn = conNo.reduce((a, o)=>a+(o.dn||0), 0);
+   let Lb = dkLap('bt_'+cfg.id);
+   ok('3.356 từng món: số dòng = món Mẫu 31 còn dư nợ (toàn PGD), cộng dư nợ khớp', Lb.kq.dong.length===conNo.length && Lb.kq.dong.reduce((a, x)=>a+x.dn, 0)===tongDn && Lb.kq.cot[0].k==='stt', Lb.kq.dong.length+'/'+conNo.length);
+   ok('3.356 cuối báo cáo có dòng đối chiếu TW (bộ giả có Tổng dư nợ theo CT)', /^Đối chiếu Mẫu 31 với Tổng dư nợ theo CT \(TW\)/.test(Lb.kq.ghi) && /dư nợ .* (= TW ✓|≠ TW)/.test(Lb.kq.ghi), Lb.kq.ghi.slice(0, 150));
+   { const tw = TH_K.B.co.tdn.reduce((a, o)=>a+(o.dn||0), 0), m31 = hs.reduce((a, o)=>a+(o.dn||0), 0);
+     ok('3.356 đối chiếu đúng chiều: khớp ↔ ✓, lệch ↔ ≠', (Math.abs(tw-m31)<0.5) === /dư nợ [\d.]+ = TW ✓/.test(Lb.kq.ghi), m31+' / '+tw); }
+   /* gộp từng khách / từng tổ */
+   cfg.gop = 'kh'; cfg.cot = ['kh', 'ten', 'som', 'dn', 'lt']; D.cauHinh.bcToi[0] = cfg; btDangKyHet(); Lb = dkLap('bt_'+cfg.id);
+   const soKH = new Set(conNo.map(o=>o.kh)).size;
+   ok('3.356 từng khách: 1 dòng / khách, cộng số món + dư nợ khớp', Lb.kq.dong.length===soKH && Lb.kq.dong.reduce((a, x)=>a+x.som, 0)===conNo.length && Lb.kq.dong.reduce((a, x)=>a+x.dn, 0)===tongDn, Lb.kq.dong.length+'/'+soKH);
+   cfg.gop = 'to'; cfg.cot = ['mato', 'tt', 'sokh', 'dn', 'qh', 'tlqh']; btDangKyHet(); Lb = dkLap('bt_'+cfg.id);
+   ok('3.356 từng tổ: cộng số khách các tổ = số khách, dư nợ khớp', Lb.kq.dong.reduce((a, x)=>a+x.sokh, 0)>=soKH && Lb.kq.dong.reduce((a, x)=>a+x.dn, 0)===tongDn, Lb.kq.dong.length+' tổ');
+   /* lọc Có lãi tồn */
+   cfg.gop = 'mon'; cfg.cot = ['kh', 'ten', 'lt']; cfg.loc = ['lt']; btDangKyHet(); Lb = dkLap('bt_'+cfg.id);
+   ok('3.356 lọc Có lãi tồn → chỉ món có lãi tồn > 0', Lb.kq.dong.length===hs.filter(o=>laiTon(o)>0).length && Lb.kq.dong.every(x=>x.lt>0), Lb.kq.dong.length);
+   /* > 10 cột → A4 ngang */
+   cfg.cot = BT_COT.mon.map(c=>c.k); cfg.loc = []; btDangKyHet();
+   ok('3.356 khổ Tự động: > 10 cột → bảng A4 ngang', DK_DS['bt_'+cfg.id].loai==='bang' && /size:A4 landscape/.test(dkHTML(DK_DS['bt_'+cfg.id], dkLap('bt_'+cfg.id).kq, dkLap('bt_'+cfg.id).ctx)));
+   /* phạm vi điểm → đối chiếu báo không chia tới điểm */
+   { const C = thCH(), giu = JSON.stringify({xa:C.xa, diem:C.diem}), t0 = Object.values(TH_K.K.to)[0]; C.xa = t0.xa; C.diem = t0.khoaDiem;
+     const g = btDoiChieu({B:TH_K.B, S:C}); C.xa = JSON.parse(giu).xa; C.diem = JSON.parse(giu).diem;
+     ok('3.356 phạm vi điểm GD → đối chiếu ghi "không chia tới điểm GD / tổ"', /không chia tới điểm GD/.test(g), g.slice(0, 80)); }
+   /* xóa */
+   btHop(); document.querySelector('[data-lenh="bt.xoa"]').click(); await w(200); document.querySelector('#hop .hang-nut .chinh').click(); await w(300);
+   ok('3.356 xóa báo cáo (hỏi trước) → hết khai báo + hết khối đăng ký', !(D.cauHinh.bcToi||[]).length && !DK_DS['bt_'+cfg.id]);
+   try{ dongHop(); }catch(e){}
    return o; }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t259 đạt'); await b.close(); process.exit(sai?1:0);
