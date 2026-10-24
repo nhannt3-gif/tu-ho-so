@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.347 — 24/10/2026 — Tra cứu theo ngày, không bù Mẫu 01/TV (anh 24/10)
+- **Anh**: "kiểu bù này chỉ tính cho cuối tháng, vì 01/TV là cuối tháng" + "em làm trước tra cứu theo ngày không cần bù mẫu, anh xem có đúng không" (tổ Bùi Thị Thảo: hộ dư nợ 0 đã ra khỏi tổ theo số liệu 19/10).
+- **`tvChuan` (js/28, 1 chỗ tính thành viên QT-18)**: kỳ **ngày** không dùng Mẫu 01/TV để bù → danh sách tổ = tổ viên Mẫu 31 ngày đó (người đã ra khỏi tổ theo `slDanhRaTo` không bị bù lại). Kỳ **chốt tháng** giữ nguyên (bù như cũ — khớp TƯ 30/09). Áp chung mọi nơi dùng `tvChuan` (Tra cứu, tab Tổ khi chọn kỳ ngày).
+- **Tra cứu (`tcNap`)**: dựng theo kỳ mới nhất (`slThuTu` lớn nhất — có Mẫu 31 ngày thì lấy ngày), trước là chốt tháng mới nhất; thẻ tổ + thẻ khách cùng 1 mốc số liệu. Dòng ghi dưới hàng Số liệu: "Số liệu ngày dd/mm/yyyy · theo Mẫu 31 ngày này (số liệu theo ngày không bù Mẫu 01/TV)".
+- **Phép thử**: `t257` mới (kỳ tháng vẫn bù, kỳ ngày không bù, dòng ghi, Tra cứu chọn kỳ ngày mới nhất); t244, t246 đạt.
+- Nguyên tắc bù chuẩn cho cuối tháng vẫn chờ số liệu cuối T10 (so T9) như đã ghi.
+
 ## 3.346 — 24/10/2026 — Đọc qua KHO đợt K2–K5: mọi tab qua 1 cửa (RA_SOAT_KHO_2410 mục 4)
 - **Anh 24/10**: "em làm tiếp theo kh đi và gộp lên rồi làm tiếp ko cần chờ anh" → làm liền K2–K5 theo `RA_SOAT_KHO_2410.md` mục 2. **Không đổi chức năng / bản in** — chỉ đổi đường đọc số liệu + dời hàm nguyên văn.
 - **K2 Tra cứu (22f, 58)**: danh bạ / chỉ mục tìm / vợ-chồng-HSSV / món theo khách / bộ kỳ / sao kê qua `KHO.danhBa`, `toDanhBa`, `dsToDanhBa`, `chiMuc`, `phu`, `monKH`, `bo`, `saoKeKy`, `tim`; kỳ riêng của tab qua cửa nhận kỳ `KHO.toKy / dsToKy / monKy / khdKy`. Tab **📥 Nạp & KT** tách khỏi 22f → `js/22k-nap-kt.js` (cửa ghi kho — lõi). `slTimKH` + khai báo món theo khách → 22-so-lieu.

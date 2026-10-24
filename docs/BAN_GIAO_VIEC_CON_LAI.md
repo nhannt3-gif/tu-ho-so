@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.347) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › tổ Bùi Thị Thảo (số liệu ngày 19/10) | Dòng ghi "Số liệu ngày 19/10/2026 · theo Mẫu 31 ngày này…"; hộ dư nợ 0 đã ra khỏi tổ không còn trong danh sách | |
+| 2 | Tra cứu 1 khách bất kỳ | Món vay, dư nợ theo ngày 19/10 (cùng mốc thẻ tổ) | |
+| 3 | Tab Tổ chọn kỳ chốt T9 | Số thành viên như cũ (vẫn bù theo 01/TV T9) | |
+
+**Ghi chú kỹ thuật 3.347:** `tvChuan` bỏ bù khi `String(K.ky).length!==7`; `tcNap` chọn `toDsKy()` có `slThuTu` lớn nhất.
+
 ### Danh sách thử trên máy thật (3.346) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
