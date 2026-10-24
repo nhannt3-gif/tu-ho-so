@@ -1981,7 +1981,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.364', ds:[
+var CO_GI_MOI = {ban:'3.365', ds:[
+  ["Số liệu › Tổ TK&VV: vuốt ngang bảng, tiêu đề không còn lệch cột (ô \"Xã / Điểm GD\" luôn nằm trên) — cả máy tính khi bảng rộng hơn khung", "slDoiTab('to');doiNgan(7)"],
+  ["Điện thoại (bản máy tính) › bảng Số liệu: cột tên đứng yên hẹp lại (tên dài xuống dòng) — thấy thêm cột số; chụm 2 ngón để phóng to", "slDoiTab('to');doiNgan(7)"],
   ["Điện thoại (bản máy tính) › Hôm nay: lịch ô thấp, nút nhỏ gọn — sổ ngày (việc hôm nay) hiện ngay màn hình đầu, không phải cuộn", "doiNgan(0)"],
   ["Nhật ký lỗi tự động: app gặp lỗi → chip \"⚠ N lỗi\" ở chân trang; bấm xem, 📋 Chép dán Zalo gửi em để sửa đúng chỗ", "nklHop()"],
   ["Điện thoại (bản máy tính) › thẻ khách: mỗi món vay 1 thẻ gọn 3 dòng có chip màu (chương trình, trong hạn / quá hạn / khoanh), chữ nhỏ lại xem trọn 1 màn hình", "dhSL('tra')"],
@@ -1994,9 +1996,7 @@ var CO_GI_MOI = {ban:'3.364', ds:[
   ["Năm sau dùng sổ chốt 31/12: khách TƯ còn giữ (Mẫu 01/TV) mà Mẫu 31 năm mới không còn → app tra sổ tháng 12 năm trước, ghi \"Tất nợ 2026 (ngày) · CT …\" ở Sổ tổ viên và Tra cứu › thẻ tổ", "slDoiTab('to');doiNgan(7)"],
   ["Kiểm tra số liệu › thành viên tổ: khách tất nợ năm trước (có trong sổ chốt 31/12) ghi rõ là lý do đã biết, không coi là lệch", "slDoiTab('nap');doiNgan(7)"],
   ["Tổ TK&VV › 👁 Sổ tổ viên: mỗi tổ viên 1 dòng (còn nợ · còn lãi tồn · tất nợ còn TK 105 · cần cho ra khỏi tổ), dư nợ, TK 105, ngày tất nợ, CT — theo Mẫu 31 + Mẫu 01/TV cùng tháng; kỳ tháng 12 = sổ chốt 31/12", "slDoiTab('to');doiNgan(7)"],
-  ["Xóa Mẫu 31 / Mẫu 01/TV tháng 12 → app hỏi trước (số liệu chốt sổ tổ viên cuối năm, năm sau cần để đối chiếu)", "slDoiTab('nap');doiNgan(7)"],
-  ["Tổng hợp › 🧩 Báo cáo của tôi: anh tự tạo báo cáo bảng từ Mẫu 31 (⚙ Tạo / sửa) — chọn gộp theo món / khách / tổ, cột, điều kiện (còn dư nợ, có QH, khoanh, lãi tồn), nhóm, khổ in; in theo khuôn chuẩn, Excel, Word", "slDoiTab('th');doiNgan(7)"],
-  ["Báo cáo của tôi có dòng đối chiếu với số liệu TW (Tổng dư nợ theo CT cùng kỳ): dư nợ · quá hạn · khoanh khớp ✓ hay lệch bao nhiêu", "slDoiTab('th');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Xóa Mẫu 31 / Mẫu 01/TV tháng 12 → app hỏi trước (số liệu chốt sổ tổ viên cuối năm, năm sau cần để đối chiếu)", "slDoiTab('nap');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

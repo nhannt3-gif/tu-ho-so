@@ -217,6 +217,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t304.js` | 3.362 điện thoại Đ2: thẻ khách món vay thành thẻ (CSS), ô kỳ chữ gọn, thẻ tổ không tràn ngang; máy tính 1440 không đổi. |
 | `node tests/t305.js` | 3.363 nhật ký lỗi: bắt lỗi chạy + lời hứa, cộng dồn lỗi trùng, chip ⚠ ở chân trang, hộp xem / xóa, bỏ qua lỗi tải ảnh. |
 | `node tests/t306.js` | 3.364 điện thoại Đ3: Hôm nay — ô lịch ≤ 36 px, sổ ngày trong màn hình đầu, không tràn ngang, đủ nút; máy tính 1440 không đổi. |
+| `node tests/t307.js` | 3.365 Đ4 + sửa lỗi: bảng tổ vuốt ngang — ô tiêu đề góc không bị đè (điện thoại + máy tính 700 px), cột tên ≤ 42% bề ngang ở điện thoại. |
 | (3.354) | t265 mới: Hôm nay trang đầu, âm lịch (24/10 = 15/9, Tết 2026), lịch tháng, thêm việc lặp tuần + lưu ý, sắp tới, tick việc lặp theo ngày, ghi chú dòng (Enter / Thêm / tick / xóa), cất mã hóa + mở lại, sửa / xóa "chỉ ngày này", gộp chéo với `gopLich` máy tính và ngược lại, Khách chưa có số liệu có nút Tải (19). |
 | (3.352) | t264 mới: chip Văn bản (năm, loại, Đã ghim), xem PDF trong app (canvas đủ trang, vừa ngang), ghim cất mã hóa, trần 200 MB, mở lại không mạng (danh sách + văn bản ghim), báo lỗi chưa ghim / chưa lên Drive, bỏ ghim (18). |
 | `python3 tools/ra_kho.py` (3.341 · 3.346) | đếm theo file chỗ đọc thẳng kho số liệu — sau K1–K5 chỉ còn lõi (22-so-lieu, 22g, 22k, 28, 29) + đọc sâu kỳ riêng của tab (`docs/RA_SOAT_KHO_2410.md` mục 4). |

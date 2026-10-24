@@ -96,3 +96,8 @@ table.kh-mon tr.tc-cong td:empty{display:none}
 .nk-trang .nk-dau{gap:4px}
 .nk-trang .nk-ngay{font-size:calc(20px*var(--co))}
 .nk-trang .nk-am{font-size:calc(11.5px*var(--co))}
+/* ===== 3.365 · đợt Đ4 — Số liệu: bảng giữ đủ cột như máy tính, vuốt ngang trong khung, cột tên đứng yên (có sẵn) — ở điện thoại cột tên
+   tối đa ~42% bề ngang (tên dài xuống dòng) để thấy thêm cột số; chụm 2 ngón phóng to / thu nhỏ là của iOS (viewport không khóa). */
+.to-bang-cuon table td:first-child,.to-bang-cuon table th:first-child,.cuon table td:first-child,.cuon table th:first-child{min-width:0;max-width:42vw;white-space:normal}
+.to-bang-cuon,.cuon{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.to-bang-cuon .to-bang.luoi td.to-ten{white-space:normal;min-width:36vw}

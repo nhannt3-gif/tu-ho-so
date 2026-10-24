@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.365 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ4 Số liệu + sửa lỗi tiêu đề lệch cột
+- **Sửa lỗi (cả máy tính):** bảng tab Tổ TK&VV cuộn ngang → ô tiêu đề góc "Xã / Điểm GD" (cột tên đứng yên) cùng `z-index` với các ô tiêu đề khác nên bị ô sau đè: tiêu đề "Số tổ, Tổ viên…" hiện chồng lên cột tên, lệch cột số. `css/app.css`: `.to-cuon-khung thead th:first-child{z-index:3}` (1 dòng).
+- `css/dt-may.css` (chỉ ≤ 600 px): bảng giữ đủ cột như máy tính, vuốt ngang trong khung (có sẵn), cột tên đứng yên 205 → 140 px (≈ 36% bề ngang, tên dài xuống dòng) → thấy thêm 1–2 cột số; vuốt ngang không kéo cả trang (`overscroll-behavior-x`). Chụm 2 ngón phóng to / thu nhỏ: iOS sẵn có (viewport không khóa).
+- **Phép thử**: mới t307 (điện thoại + máy tính khung hẹp 700 px; bản cũ trượt đúng 3 điểm).
+
 ## 3.364 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ3 Hôm nay
 - `css/dt-may.css` (chỉ màn ≤ 600 px): lịch tháng ô 44 → 34 px (như bản máy tính rộng), nút ‹ › / Hôm nay / Danh sách / Tính ngày 28 px, nút công cụ (Hạn trả HSSV · Địa bàn · CT vay) dạng chip tròn 28 px, khoảng cách khối mỏng lại, chữ ngày sổ 24 → 20 px → **sổ ngày bắt đầu ở 557 px thay vì 692 px** (vào màn hình đầu iPhone). Thứ tự, nút, chức năng giữ nguyên; máy tính không đọc file này.
 - **Phép thử**: mới t306 (điện thoại + máy tính 1440 không đổi).
