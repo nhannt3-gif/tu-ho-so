@@ -258,3 +258,12 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 - Kiểu cũ (`.tc-nh`, `.kt-nh`, `.sl-chip`, `.chip.do/.vang`) đã cùng hình + cùng màu theo bảng này; đổi tên dần khi đụng tới, không đổi chức năng.
 - **Màu cấp của cây địa bàn** (Xã / Điểm / Hội / Tổ — `--c-xa`…) giữ riêng: màu nhận diện cấp, không mang nghĩa trạng thái.
 
+
+## 13. Quản lý code khi app lớn dần (anh chốt 25/10/2026)
+> Anh: "App đang lớn dần nên em luôn quản lý code đảm bảo tiêu chuẩn **độc lập, có thể cắm rút, an toàn và luôn tối ưu tốc độ chạy**." · "chức năng mới nhưng đảm bảo cái cũ chạy được".
+- **Độc lập · cắm rút:** chức năng mới = **file riêng** (`js/NN-ten.js`, `css/ten.css`) + **1 chỗ gắn** (1 dòng `<script>/<link>` trong `index.html` và tối đa 1–2 dòng gọi có `typeof … === 'function'` ở nơi hiện). Bỏ file + dòng gắn → app chạy như trước. Không rải sửa nhiều file cũ.
+- **Giao tiếp qua cửa chung:** số liệu qua `KHO`, lệnh nút qua `GD.dangKy` / `data-lenh`, báo cáo bảng qua `DANG_KY`, in qua `inChuan` / `trDan` (thuộc tính tùy chọn, không có thì như cũ).
+- **An toàn:** thao tác xóa / ghi đè dữ liệu nền phải hỏi hoặc vào Thùng rác; dữ liệu cũ đọc được; hàm đọc dữ liệu không được làm vỡ luồng khi thiếu (trả rỗng, không ném lỗi).
+- **Tốc độ:** việc nặng (đọc nhiều tháng, dựng kỳ khác) chỉ chạy **khi bấm / khi cần**, kết quả giữ trong phiên; không làm chậm lúc mở tab / mở thẻ.
+- **Điện thoại (25/10):** bản máy tính chạy trên điện thoại bằng `css/dt-may.css` (nạp với `media="(max-width:600px)"`); bảng sao kê / báo cáo **giữ cột như máy tính**, dùng **vuốt trượt + chụm phóng to / thu nhỏ của iOS** (khung cuộn ngang, cột đầu đứng yên; xem trước bản in vừa bề ngang, chụm để phóng) — không xếp lại cột.
+- **Phép thử:** theo mức thay đổi (CLAUDE.md); chức năng mới phải kèm phép thử cũ của vùng bị đụng.

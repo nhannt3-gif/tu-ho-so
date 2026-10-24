@@ -1,0 +1,74 @@
+/* ===== 3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI =====
+   Cắm rút: chỉ nạp khi màn ≤ 600 px (thuộc tính media trên thẻ <link> trong index.html) — máy tính không đọc file này;
+   bỏ 1 dòng <link> là app về y như cũ. Chỉ CSS, không đổi logic. */
+/* đầu trang: 1 hàng nút + ô tìm gọn (bỏ tên app / đơn vị / giờ — đã có ở ⚙ và thanh dưới) */
+.dau{padding-top:4px !important;padding-bottom:4px !important}
+.dau-hang{flex-wrap:wrap !important;gap:6px !important;row-gap:5px !important}
+.dau-hang .logo{display:none}   /* chữ TH chỉ trang trí — nhường chỗ cho ô kỳ */
+.dau-hang .ten-app,.dau-hang .dong-phu,.dau-hang .gio{display:none !important}
+.dau-hang .dh-nut button{min-width:30px;padding:2px 4px}
+.dau-hang .dh-nut button[data-lenh="dh.tien"]{display:none}   /* giữ ⬅ lùi, bỏ ➡ tiến cho đủ chỗ 1 hàng */
+.dau-hang .ky-chung{flex:1 1 0;min-width:0;overflow:hidden;display:flex;align-items:center;gap:2px}
+.dau-hang .ky-chung select{width:100%;min-width:0;max-width:100%;text-overflow:ellipsis}
+.dau-hang .nut-cd{width:34px !important;height:34px !important;min-width:34px;min-height:34px !important;padding:0 !important;font-size:15px !important}
+.dau-hang .tim-bao{order:9;flex:1 1 100%;min-width:0}
+.dau-hang .tim{min-height:0;padding-top:2px;padding-bottom:2px}
+.dau-hang .tim input{font-size:15px}
+/* thanh trạng thái chân trang: gọn 1 dòng, bỏ tên người dùng + nút khung xem (điện thoại không có khung xem bên phải) */
+.day{gap:6px !important}
+.day #tac-gia,.day #btn-mo-preview,.day .tac-gia{display:none !important}
+/* nút 📱 về bản điện thoại (js/60, TK 3): nhỏ lại, dời sang phải, mờ bớt — không che nội dung trái */
+#ve-dt{width:34px !important;height:34px !important;font-size:15px !important;left:auto !important;right:8px !important;opacity:.8}
+/* hộp (modal): không vượt chiều cao màn hình, cuộn bên trong */
+#hop-in{max-height:calc(100dvh - 8px);overflow:auto}
+/* khung "Lọc địa bàn" (bộ phạm vi chung pvVeCay): gọn — ô chọn 1 hàng, dòng đếm + nút Chip / 📌 cùng 1 hàng nhỏ */
+.loc-khoi{padding:11px 6px 4px !important;margin-top:10px !important}
+.pv-hang1{flex-wrap:wrap !important;gap:4px 6px !important;row-gap:4px !important}
+.pv-hang1 .pv-sel{flex:1 1 100%}
+.pv-hang1 .pv-dan{flex:1 1 auto;min-width:0;font-size:12px}
+.pv-hang1 .pv-gon,.pv-hang1 .pv-ghim-nut{min-height:28px !important;height:28px;padding:2px 8px !important;font-size:12px}
+/* hàng chip lựa chọn dài (Tìm theo…): 1 dòng cuộn ngang thay vì cắt */
+.tc-theo{flex-wrap:nowrap !important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tc-theo::-webkit-scrollbar{display:none}
+.tc-theo .gd-chip{flex:0 0 auto}
+/* ===== 3.362 (Đ2: Tra cứu KH · thẻ khách / thẻ tổ) — anh 25/10: "thẻ gọn, 1 màn hình xem trọn" · "thêm màu sắc, chip màu, không khô cứng, chữ to chiếm hết màn hình" ===== */
+.tc-the{--co:.88}   /* cả thẻ chữ nhỏ lại theo biến tỷ lệ chung của app */
+.tc-the .tc-ten.to{font-size:18px}
+.tc-the .tc-ma.to{font-size:13px;padding:0 6px}
+.tc-the .tc-nhom{margin-top:5px}
+.tc-the .tc-luoi{grid-template-columns:1fr;gap:0 10px}
+#tc-so{gap:4px !important;margin:4px 0 !important}
+#tc-so .tc-o{padding:2px 6px !important;min-width:0}
+#tc-so .tc-o b{font-size:13px;white-space:nowrap}
+/* bảng món vay (js/22f, cột cố định: CT · Khế ước · Đến hạn · Giải ngân · Dư nợ · Lãi tồn · Tình trạng) → mỗi món 1 thẻ nhỏ 3–4 dòng, có chip màu */
+.tc-mon-cuon{overflow:visible !important}
+table.kh-mon,table.kh-mon tbody{display:block;width:100%}
+table.kh-mon thead{display:none}
+table.kh-mon tr{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;border:1px solid var(--vien,#d0d7de);border-left:4px solid var(--luc,#1a7f37);border-radius:8px;padding:4px 8px;margin:4px 0;background:var(--the,#fff);font-size:12.5px;line-height:1.4}
+table.kh-mon tr:has(b.do){border-left-color:var(--do,#b42318)}
+table.kh-mon tr:has(b.vang){border-left-color:var(--vang,#9a6700)}
+table.kh-mon tr.tc-xong{border-left-color:var(--vien,#ccc);opacity:.85}
+table.kh-mon td{display:block;border:0 !important;padding:0 !important;text-align:left !important;white-space:normal}
+table.kh-mon td small{display:inline !important;margin-left:4px;font-size:.9em}
+table.kh-mon td br{display:none}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(1) b{display:inline-block;background:var(--xanh-nhat,#e8f0fb);color:var(--xanh-dam,#1a4f8b);border:1px solid var(--xanh,#1a5fb4);border-radius:999px;padding:0 7px;font-size:11.5px}
+.tc-the table.kh-mon tr:not(.tc-cong):not(.tc-hs) > td:nth-child(1){flex:0 0 auto;width:auto !important}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(2){flex:1 1 0;min-width:150px}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(3){flex:1 1 100%}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(3)::before{content:"Hạn ";color:var(--chu-phu)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(4)::before{content:"GN ";color:var(--chu-phu)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(5)::before{content:"Dư nợ ";color:var(--chu-phu)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(5) b{color:var(--xanh-dam,#1a4f8b)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(6)::before{content:"Lãi tồn ";color:var(--chu-phu)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(6):empty{display:none}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(7){flex:1 1 100%}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(7) b{display:inline-block;border-radius:999px;padding:0 7px;font-size:11.5px;border:1px solid currentColor}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(7) b.do{background:var(--do-nen,#fdecea)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(7) b.vang{background:var(--vang-nen,#fff6db)}
+table.kh-mon tr:not(.tc-cong):not(.tc-hs) td:nth-child(7):not(:has(b)){display:inline-block;flex:0 0 auto;color:var(--luc,#1a7f37);background:var(--luc-nen,#e9f6ec);border:1px solid var(--luc,#1a7f37);border-radius:999px;padding:0 8px !important;font-size:11.5px}
+table.kh-mon td.so,table.kh-mon tr td.so{text-align:left !important}
+table.kh-mon tr.tc-hs{display:block;margin-top:-4px;border-top:0;border-radius:0 0 8px 8px;font-size:12px}
+table.kh-mon tr.tc-cong{background:var(--xanh-nhat,#eef4fb);font-weight:600;border-left-color:var(--xanh,#1a5fb4)}
+table.kh-mon tr.tc-cong td:empty{display:none}
+/* ô kỳ: nút ⟳ đọc lại nhỏ lại */
+.ky-chung .ky-chung-lm{min-width:26px;padding:0 4px}

@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.362 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ2 thẻ khách
+- Anh 25/10: "theo em" (bảng món vay → thẻ, ô kỳ chữ gọn) · "thẻ cho điện thoại nên chỉnh chữ tối ưu 1 màn hình xem trọn" · "thêm màu sắc và chip màu, không khô cứng, chữ to chiếm hết màn hình".
+- `css/dt-may.css`: thẻ khách chữ nhỏ theo biến tỷ lệ `--co` (.88); bảng món vay (js/22f) → mỗi món 1 thẻ 3 dòng (CT chip xanh dương + khế ước + ngày vay · Hạn + còn N ngày · GN + Dư nợ + chip tình trạng xanh lá / đỏ / vàng), viền trái theo tình trạng, dòng cộng nền xanh nhạt; chỉ CSS, không đổi code vẽ bảng.
+- **Mới `js/66-dt-may.js`** (chỉ chạy màn ≤ 600 px — cắm rút): ô kỳ chung chữ gọn "T8/26 · M31", giá trị + title giữ đủ (bọc `kyChungVe`, hàm gốc không đổi).
+- **Phép thử**: mới t304 (điện thoại + máy tính 1440 không đổi); t303 đạt.
+
+## 3.361 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ1 khung chung + quy định phép thử mới
+- Anh 25/10 duyệt: TK 2 tinh chỉnh bản máy tính cho mượt trên điện thoại (`docs/KE_HOACH_DIEN_THOAI_MAY.md`), TK 3 giữ `dt.html`; phép thử theo mức thay đổi (CLAUDE.md); "độc lập, cắm rút, an toàn, tối ưu tốc độ" + "sao kê, báo cáo tận dụng vuốt trượt, phóng to thu nhỏ của iOS" (QUY_CHUAN mục 13).
+- **Mới `css/dt-may.css`** (cắm rút: `<link … media="(max-width:600px)">` — máy tính không đọc, bỏ 1 dòng là về như cũ): đầu trang 137 → 83 px (bỏ chữ TH / tên app / đơn vị / giờ / nút ➡ — giữ ⬅, ô kỳ co giãn, ô tìm 1 hàng); khung Lọc địa bàn 157 → 84 px; hàng chip "Tìm theo" vuốt ngang; chân trạng thái bỏ tên người dùng + nút khung xem; nút 📱 (js/60, TK 3) nhỏ + dời phải; hộp không vượt chiều cao màn hình.
+- **Lỗi có từ trước** (`js/41-scan-sap-xep.js`, lộ ra ở hồi quy 3.360 khi máy nặng — t151): đọc CCCD xong tìm ra mã khách nhưng danh bạ chưa sẵn → lỗi `null.ten`, dừng đặt tên bản scan. Nay bỏ qua an toàn.
+- **Công cụ** `tools/hoiquy.sh`: chạy cả `t3xx` (trước bỏ sót t300–t302 — đã chạy tay riêng từng phép).
+- **Phép thử**: mới t303 (khổ 390 điện thoại + khổ 1440 máy tính không đổi); t151 chạy lại đạt.
+
 ## 3.360 — 24/10/2026 — Rà soát logic + code rác (anh: "em luôn rà soát logic và code rác")
 - **Lỗi logic** `js/62` (`dkHTML`): dòng cộng nhóm + Tổng cộng luôn gộp 3 ô đầu để ghi chữ → báo cáo tự khai đặt cột tiền ở vị trí 2–3 bị mất số tổng. Sửa: ô gộp = các cột trước cột số đầu tiên (≤ 3). Bỏ biến thừa `dau`.
 - **Trái quy tắc anh chốt "còn lãi tồn = chưa tất nợ"**: 📅 Dòng thời gian ghi "Tất nợ" khi gốc về 0 dù còn lãi → nay ghi "Hết gốc · còn lãi tồn … (chưa tất nợ)", "Tất nợ" khi hết cả gốc lẫn lãi (tóm tháng thêm `lt`). Sổ tổ viên: dòng còn nợ / còn lãi tồn không ghi "Ngày tất nợ".
