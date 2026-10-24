@@ -67,7 +67,7 @@ function btDangKyHet(){
 /* khối ở tab Tổng hợp */
 function btNutHTML(){ btDangKy(); btDangKyHet();
   var ds = btDs();
-  return '<div class="th-nhom-ten">🧩 Báo cáo của tôi</div><div class="bt-ds">'+
+  return '<div class="bt-tit">🧩 Báo cáo của tôi</div><div class="bt-ds">'+
     (ds.length ? ds.map(function(c){ return GD.nut({chu:'👁 '+coChuHTML(c.ten || 'Chưa đặt tên'), lenh:'dk.mo', du:{ma:'bt_'+c.id}, lop:'bt-xem'}); }).join('') : '<span class="ghi">Chưa có — bấm ⚙ để tạo báo cáo bảng từ Mẫu 31.</span>')+
     GD.nut({chu:'⚙ Tạo / sửa', lenh:'bt.mo', lop:'bt-sua'})+'</div>'; }
 /* hộp ⚙: danh sách + khung khai */

@@ -11,6 +11,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - Dòng: Mẫu 31 kỳ đang xem ở tab Tổng hợp, theo phạm vi + Chương trình + Nguồn vốn đang chọn; gộp khách = số món, CT, dư nợ / QH / khoanh / lãi tồn cộng, hạn gần nhất; gộp tổ = số khách, số món, tỷ lệ QH.
 - **Đối chiếu TW** (cuối báo cáo): Mẫu 31 cả phạm vi (trước điều kiện lọc của báo cáo) so với file Tổng dư nợ theo CT cùng kỳ — dư nợ · QH · khoanh "= TW ✓" hoặc "≠ TW … (lệch …)"; phạm vi điểm GD / tổ → ghi file TW không chia tới; chưa có file → ghi rõ.
 - `js/62`: ngữ cảnh tab Tổng hợp (`o:'th'` — `TH_K`, `thCH()`), `ctx.B` (bộ số liệu kỳ) dùng chung.
+- Tiêu đề khối dùng lớp riêng `bt-tit` (không dùng `th-nhom-ten` — tab Tổng hợp vẫn đúng 3 nhóm báo cáo, t159).
 - **Phép thử**: t259 thêm 12 ý D5 (khai qua hộp, nút ở tab, số dòng / cộng khớp Mẫu 31 theo món · khách · tổ, lọc lãi tồn, khổ ngang, đối chiếu đúng chiều, phạm vi điểm, xóa).
 
 ## 3.355 — 24/10/2026 — Nền báo cáo bảng `DANG_KY` (KE_HOACH_DANG_KY đợt N1)

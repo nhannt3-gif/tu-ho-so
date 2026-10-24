@@ -4007,3 +4007,4 @@ table.tc-to-tvb .tc-to-mo{color:var(--xanh);font-size:calc(10px*var(--co));white
 .bt-muc.bat{border-color:var(--chinh,#1a5fb4)}.bt-khai{border-top:1px solid var(--vien,#ccc);padding-top:6px}
 .bt-dong{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:4px 0}.bt-dong>b{min-width:84px}.bt-dong input{flex:1;min-width:200px}
 .dk-chon-hang{display:flex;flex-wrap:wrap;gap:4px 10px;margin:4px 0}.dk-chon{display:inline-flex;flex-wrap:wrap;gap:3px;align-items:center}
+.bt-tit{font-size:calc(11px*var(--co));font-weight:700;color:var(--chu-phu);text-transform:uppercase;letter-spacing:.03em;margin:8px 0 2px;text-align:left}
