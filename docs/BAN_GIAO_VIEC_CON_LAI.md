@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.338) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ⚙ Khai báo đơn vị › 💾 Sao lưu | Thẻ 🩺 Sức khỏe sao lưu: 6 dòng có ngày giờ; máy dùng hằng ngày đa số lục | |
+| 2 | Máy lâu không mở / chưa nối Drive | Dòng tương ứng vàng / đỏ, chip tổng "cần xử lý" | |
+| 3 | 🎓 Hạn trả HSSV trên màn 17 inch | Đầu công cụ 1 dòng, không tràn | |
+
+**Ghi chú kỹ thuật 3.338:** `js/59-suc-khoe.js` chỉ đọc `LN.tt()`, `D.cauHinh.saoLuuNgay / chGhiLuc / chKeoLuc / chiMucDriveTG`, `KHO1.dsChup()`; muốn thêm đường lưu mới → thêm 1 dòng trong `skDs()`. Phân công TK 2 / TK 3: `RA_SOAT_BO_CUC_2410.md` mục 9 + `PHOI_HOP_TK2_TK3.md` mục 5.
+
 ### Danh sách thử trên máy thật (3.337) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
