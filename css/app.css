@@ -3940,3 +3940,10 @@ table.tc-kq-bang tr.tat td:first-child b{color:var(--chu-phu)}table.tc-kq-bang .
 @media(min-width:900px){ .tc-dau ~ .tc-2cot .tc-phai{height:calc(100vh - var(--dau-cao,52px) - 140px);max-height:none} .tc-dau ~ .tc-2cot .tc-trai #sl-kq{max-height:calc(100vh - var(--dau-cao,52px) - 200px)} }
 @media(min-width:900px){ .tc394.tc-2cot.tc-bang{grid-template-columns:minmax(0,11fr) minmax(0,9fr)} }
 .tc-kq-cuon{overflow-x:auto}
+/* 3.336: Tra cứu › Tìm theo Tổ trưởng — thẻ tổ */
+.tc-the-to{display:flex;flex-direction:column;height:100%;min-height:0}
+.tc-the-to .tc-to-tv{flex:1 1 auto;min-height:120px;display:flex;flex-direction:column}
+.tc-to-tv-ds{flex:1 1 auto;min-height:0;overflow:auto;max-height:46vh}
+.tc-to-tv-dong{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:2px 6px;border-bottom:1px solid var(--vien);font-size:calc(12.5px*var(--co));cursor:pointer}
+.tc-to-tv-dong:hover{background:var(--xanh-nhat)}.tc-to-tv-dong small{color:var(--chu-phu)}.tc-to-tv-dong b{text-align:right;min-width:90px}.tc-to-tv-dong.tat span{color:var(--chu-phu)}
+table.tc-kq-bang td.so{text-align:right}

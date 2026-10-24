@@ -16,6 +16,7 @@ const fs=require('fs'), path=require('path');
    ok('có ô kiểm trùng 2 ô (CCCD + họ tên)', !!document.getElementById('tc-kt-so') && !!document.getElementById('tc-kt-ten'));
    /* danh sách gọn */
    const ma = Object.keys(SL_KHMON).find(k=>(SL_DB.kh[k]||{}).mon>0 && SL_DB.kh[k].cccd) ; const c = SL_DB.kh[ma];
+   D.cauHinh.tcTim = {theo:'', kieu:'the'};   /* 3.335: máy tính mặc định bảng — phép này kiểm kiểu thẻ */
    SL_TRA_Q = c.ten; document.getElementById('sl-tim').value = c.ten; slTraTim(); await w(200);
    const d0 = document.querySelector('#sl-kq .sl-kq-dong');
    ok('dòng danh sách 2 dòng: tên + mã KH nổi bật (3.103) + nhãn tình trạng · CCCD, địa bàn', !!d0 && d0.querySelector('.tc-d1 .tc-nh') && d0.querySelector('.tc-d1 .tc-ten') && /^\d+$/.test(d0.querySelector('.tc-d1 .tc-ma').textContent) && !/☎/.test(d0.querySelector('small').textContent));

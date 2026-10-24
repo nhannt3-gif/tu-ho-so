@@ -6,6 +6,7 @@
 ## 1. Người dùng & luật làm việc (bắt buộc)
 - **Anh Nhân** — CBTD NHCSXH PGD Gò Dầu (Tây Ninh). Trả lời **tiếng Việt**, xưng "em", gọi "anh". Ngắn gọn, thực dụng; tách rõ số thật / suy luận.
 - **Kế hoạch → anh duyệt → anh nhắn "code" mới sửa code → hồi quy → PR → anh nhắn "gộp" mới gộp.** Không làm ngoài phạm vi; đổi / bỏ chức năng cũ phải anh duyệt; thiếu thông tin thì hỏi.
+- **Anh nhắc 24/10:** ý mới (kể cả khi anh nói "cứ làm theo kế hoạch") → **trao đổi kỹ, chốt lại ý anh bằng 1 bản tóm tắt (làm gì · ở đâu · giữ gì) → anh xác nhận → mới code**. "Làm theo kế hoạch" chỉ áp cho việc đã có trong kế hoạch anh duyệt.
 - **Repo công khai**: không đưa dữ liệu thật (tên khách, CCCD, tổ trưởng, file anh gửi) vào repo; phép thử dùng dữ liệu giả `tests/gia31`. File thật anh gửi chỉ đọc trong thư mục nháp của phiên (`python3 -I`), phiên mới không có → xin anh gửi lại.
 - Không ghi tên / mã model vào commit, PR, mã nguồn.
 - App (từ 3.142) = `index.html` (khung) + `css/app.css` + `js/01-…` → `js/22-so-lieu.js`, nạp đúng thứ tự (ES5, không build, không npm, không thêm thư viện). Ghép lại 1 file: `python3 tests/ghep.py ra.html`.

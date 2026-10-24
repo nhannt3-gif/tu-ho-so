@@ -67,19 +67,23 @@ function tcDongHTML(c, ma, i){
     '<small>'+coChuHTML([c.cccd ? 'CCCD '+c.cccd : '', tcNoiGon(c)].filter(Boolean).join(' · '))+'</small></div>';
 }
 /* 3.335 (anh 24/10 — tham khảo app "Truy vấn thông tin"): chip "Tìm theo" (Tự nhận = cách cũ) + danh sách kiểu bảng / thẻ + tìm theo số TK 105 (Sao kê gắn kỳ) */
-var TC_THEO_DS = [['', 'Tự nhận', 'Tên khách / vợ-chồng / HSSV, CCCD, mã KH, SĐT, khế ước…'], ['ten', 'Tên KH', 'Tên khách hàng (người vay)'], ['vc', 'Vợ/chồng', 'Tên vợ / chồng (người thừa kế)'],
+var TC_THEO_DS = [['', 'Tự nhận', 'Tên khách / vợ-chồng / HSSV, CCCD, mã KH, SĐT, khế ước…'], ['ten', 'Tên KH', 'Tên khách hàng (người vay)'], ['tt', 'Tổ trưởng', 'Tên tổ trưởng, mã tổ, SĐT hoặc mã KH tổ trưởng — hiện thông tin tổ'], ['vc', 'Vợ/chồng', 'Tên vợ / chồng (người thừa kế)'],
   ['hs', 'HSSV', 'Tên hoặc CCCD học sinh sinh viên'], ['cccd', 'CCCD', 'Số CCCD / CMND người vay (gõ một phần)'], ['ma', 'Mã KH', 'Mã khách hàng'], ['ku', 'Mã món vay', 'Số khế ước (cả món đã tất toán)'],
   ['sdt', 'SĐT', 'Số điện thoại'], ['tk', 'Số TK 105', 'Số tài khoản tiết kiệm TK 105 (Sao kê TK 105)']];
 function tcTim(){ return D.cauHinh.tcTim = D.cauHinh.tcTim || {theo:'', kieu:''}; }
 function tcTheo(){ var t = tcTim().theo || ''; return TC_THEO_DS.some(function(x){ return x[0]===t; }) ? t : ''; }
 function tcTheoPH(){ var t = tcTheo(); return TC_THEO_DS.filter(function(x){ return x[0]===t; })[0][2]; }
 function tcKieuBang(){ var k = tcTim().kieu; return k ? k==='bang' : window.innerWidth>=900; }   /* máy tính mặc định bảng, điện thoại thẻ */
-function tcTheoHTML(){ var t = tcTheo();
+function tcTheoHTML(){ var t = tcTheo();   /* 3.336: thêm "Tổ trưởng" (js/58 tcToTim) */
   return '<div class="tc-theo"><span class="tc-theo-nhan">Tìm theo</span>'+TC_THEO_DS.map(function(x){ return GD.chip(x[1], t===x[0], 'tc.theo', {k:x[0]}, x[2]); }).join('')+'</div>'; }
 function tcDangKy(){ if(tcDangKy.xong || typeof GD==='undefined') return; tcDangKy.xong = 1;
-  GD.dangKy('tc', {theo:function(el){ tcTim().theo = el.getAttribute('data-k') || ''; luu(); [].forEach.call(document.querySelectorAll('.tc-theo .gd-chip'), function(b){ b.classList.toggle('bat', b===el); });
+  GD.dangKy('tc', {theo:function(el){ tcTim().theo = el.getAttribute('data-k') || ''; luu(); [].forEach.call(document.querySelectorAll('.tc-theo .gd-chip'), function(b){ b.classList.toggle('bat', b.getAttribute('data-k')===tcTim().theo); });
       var i = document.getElementById('sl-tim'); if(i){ i.placeholder = tcTheoPH(); i.focus(); } TC_SL = 50; slTraTim(); },
-    kieu:function(){ tcTim().kieu = tcKieuBang() ? 'the' : 'bang'; luu(); slTraTim(); }}); }
+    kieu:function(){ tcTim().kieu = tcKieuBang() ? 'the' : 'bang'; luu(); slTraTim(); },
+    to:function(el){ tcChonDong(el); tcTheTo(el.getAttribute('data-to')); }, kh:function(el){ slTheKH(el.getAttribute('data-kh')); },   /* 3.336: tìm tổ trưởng (js/58) */
+    moTo:function(el){ tcMoTo(el.getAttribute('data-to')); }, bangDiem:function(el){ tcBangDiem(el.getAttribute('data-diem'), el.getAttribute('data-to')); },
+    ketNap:function(el){ TC_BANG = {diem:'', chon:el.getAttribute('data-to'), ket:null}; tcKetNap(); }, dong:function(){ dongHop(); }}); }
+function tcCoKH(ma){ return !!(ma && SL_DB && SL_DB.kh[ma]); }
 function tcTk105Ds(){ var b = (TC_K && TC_K.tk && TC_K.tk.tk105) || (typeof tkBang==='function' ? tkBang('tk105') : null); return b && b.rows ? b.rows : []; }
 function tcTimTheo(theo, q){   /* → {ds:[mục SL_TIM], phu:[mục SL_PHU], ghi} — chỉ tìm đúng 1 loại */
   var tu = slChuan(q).split(' ').filter(Boolean), so = String(q).replace(/\D/g, ''), ds = [], phu = [], ghi = '';
@@ -117,6 +121,7 @@ function slTraTim(){
   var pc = document.getElementById('tc-pv-chu'); if(pc) pc.textContent = pvChu(tcCH(), TC_K);
   var q = SL_TRA_Q.trim(), so = q.replace(/[\s.\-]/g, ''), laSo = /^\d{9,12}$/.test(so);
   var theo = tcTheo(), ghiTheo = '';
+  if(theo==='tt'){ var cot0 = e.closest('.tc-2cot'); if(cot0) cot0.classList.add('tc-bang'); tcToTim(q, e); return; }   /* 3.336 (anh 24/10): tìm tổ trưởng → bảng tổ + thẻ tổ */
   if(laSo && (!theo || theo==='cccd')){ var doi = TC_KT.so!==so, ks = document.getElementById('tc-kt-so'); TC_KT.so = so; if(ks && ks.value!==so){ ks.value = so; doi = true; } if(ks) ks.closest('details').open = true; if(doi) tcKTVe(); }   /* gõ CCCD ở ô tìm → kiểm trùng luôn */
   var qq = slChuan(q), tu = qq.split(' '), laTen = !/^\d+$/.test(qq.replace(/ /g, '')), ds, phu = [];
   if(!q){   /* 3.334 (RA_SOAT_BO_CUC #2): chưa gõ → hiện sẵn khách trong phạm vi lọc (theo tổ rồi tên; bộ quá lớn thì giữ thứ tự danh bạ) */
@@ -133,7 +138,7 @@ function slTraTim(){
   ds = ds.slice(0, gioi); KH_GY = ds; phu = phu.slice(0, gioi);
   var h = (tong+tongPhu>1 ? '<div class="ghi">'+tong+' khách'+(tongPhu ? ' · '+tongPhu+' vợ/chồng, HSSV' : '')+(tong>gioi || tongPhu>gioi ? ' — đang hiện '+gioi+' dòng đầu, gõ thêm hoặc chọn 📍 phạm vi để thu hẹp' : '')+'</div>' : '');
   var bang = tcKieuBang(), cot = e.closest('.tc-2cot'); if(cot) cot.classList.toggle('tc-bang', bang);   /* bảng: cột danh sách rộng hơn */
-  h = '<div class="tc-kq-dau">'+(h || '<span></span>')+GD.nut({chu:bang ? '▦ Thẻ' : '☰ Bảng', lenh:'tc.kieu', tit:bang ? 'Đổi sang kiểu thẻ 2 dòng' : 'Đổi sang kiểu bảng (Tên · Mã · Xã · Ấp · Tổ trưởng · Tình trạng)'})+'</div>';
+  h = '<div class="tc-kq-dau">'+(h || '<span></span>')+(q && !theo ? tcToGoiY(q) : '')+GD.nut({chu:bang ? '▦ Thẻ' : '☰ Bảng', lenh:'tc.kieu', tit:bang ? 'Đổi sang kiểu thẻ 2 dòng' : 'Đổi sang kiểu bảng (Tên · Mã · Xã · Ấp · Tổ trưởng · Tình trạng)'})+'</div>';
   if(bang) h += tcBangHTML(ds, phu); else {
   h += ds.map(function(r, i){ return tcDongHTML(SL_DB.kh[r.m]||{}, r.m, i); }).join('');
   h += phu.map(function(p){ var c = SL_DB.kh[p.kh]||{};
@@ -144,6 +149,7 @@ function slTraTim(){
   var pvGhi = tcCH().xa ? ' trong phạm vi '+coChuHTML(pvChu(tcCH(), TC_K)) : '', theoTen = theo ? TC_THEO_DS.filter(function(x){ return x[0]===theo; })[0][1] : '';
   if(!ds.length && !phu.length) h = ghiTheo ? '<div class="rong">'+coChuHTML(ghiTheo)+'</div>' :
     theo && q ? '<div class="rong">Không thấy khách có '+coChuHTML(theoTen)+' khớp “'+coChuHTML(q)+'”'+pvGhi+'.</div>' : !q ? '<div class="rong">Không có khách trong phạm vi '+coChuHTML(pvChu(tcCH(), TC_K))+'.</div>' : '<div class="rong">Không thấy khách hàng khớp “'+coChuHTML(q)+'”'+(tcCH().xa ? ' trong phạm vi '+coChuHTML(pvChu(tcCH(), TC_K)) : '')+'.</div>';
+  if(!ds.length && !phu.length && q && !theo){ var gy = tcToGoiY(q); if(gy) h = '<div class="tc-kq-dau"><span></span>'+gy+'</div>'+h; }   /* 3.336: không khớp khách nhưng khớp tổ trưởng / mã tổ */
   if(!SL_PHU_KY && !laSo && q) h += '<div class="ghi">Chưa có Mẫu 31 nên chưa tìm được theo tên vợ/chồng, HSSV.</div>';
   e.innerHTML = h;
   if(tcHaiCot() && q && ds.length===1 && !phu.length){ var d1 = e.querySelector('.sl-kq-dong'); tcChonDong(d1); slTheKH(ds[0].m); }

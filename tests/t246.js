@@ -20,7 +20,7 @@ const fs=require('fs'), path=require('path');
    ok('ô tìm + LỌC ĐỊA BÀN ở dải ngang trên 2 cột (không nằm trong cột trái)', !!dau && !!dau.querySelector('#sl-tim') && !!dau.querySelector('#tc-cay') && !cot.querySelector('#sl-tim') && dau.getBoundingClientRect().bottom <= cot.getBoundingClientRect().top+2);
    const sel = document.querySelector('#tc-cay select.pv-xa');
    ok('ô Xã ở dải ngang đủ rộng (không bị bóp)', !!sel && sel.getBoundingClientRect().width >= 140, sel && Math.round(sel.getBoundingClientRect().width)+' px');
-   ok('9 chip "Tìm theo", mặc định Tự nhận', document.querySelectorAll('.tc-theo .gd-chip').length===9 && chip('').classList.contains('bat'));
+   ok('10 chip "Tìm theo" (3.336 + Tổ trưởng), mặc định Tự nhận', document.querySelectorAll('.tc-theo .gd-chip').length===10 && chip('').classList.contains('bat'));
    /* kiểu bảng ↔ thẻ */
    ok('máy tính mặc định kiểu bảng: Tên KH · Mã KH · Xã · Ấp · Tổ trưởng · Tình trạng', [...document.querySelectorAll('#sl-kq table.tc-kq-bang th')].map(x=>x.textContent).join('|')==='Tên khách hàng|Mã KH|Xã|Ấp|Tổ trưởng|Tình trạng' && kq().length>0 && kq()[0].tagName==='TR');
    document.querySelector('#sl-kq [data-lenh="tc.kieu"]').click(); await w(150);
@@ -53,7 +53,20 @@ const fs=require('fs'), path=require('path');
    TC_K.tk = giu;
    ok('lựa chọn "Tìm theo" nhớ (D.cauHinh.tcTim)', D.cauHinh.tcTim.theo==='tk');
    await tim('', r0.ten); ok('Tự nhận: tìm như cũ', KH_GY.some(r=>r.m===r0.m));
-   kq()[0] && kq()[0].click(); await w(600);
+   /* 3.336: tìm thẳng tổ (tổ trưởng / mã tổ) + thẻ tổ */
+   const T = Object.keys(TC_K.to).map(m=>TC_K.to[m]).filter(t=>!t.trucTiep && !toLaTT(t)), t1 = T.find(t=>(KHO.tvChuan(t, TC_K)||{}).tong>=2) || T[0];
+   await tim('tt', t1.ten);
+   ok('Tổ trưởng: bảng tổ (Tổ trưởng · Mã tổ · Xã · Ấp · Hội · Thành viên · Có dư nợ), có tổ cần tìm', [...document.querySelectorAll('#sl-kq th')].map(x=>x.textContent).join('|')==='Tổ trưởng|Mã tổ|Xã|Ấp|Hội|Thành viên|Có dư nợ' && kq().some(x=>x.getAttribute('data-to')===t1.ma), t1.ten+' → '+kq().length+' tổ');
+   await tim('tt', t1.ma); await w(400);
+   const r1 = KHO.tvChuan(t1, TC_K), ct = document.getElementById('tc-ct');
+   ok('gõ mã tổ → 1 tổ, tự mở thẻ tổ: mã tổ, tổ trưởng, số TV đúng QT-18', kq().length===1 && !!ct.querySelector('.tc-the-to') && ct.textContent.indexOf(t1.ma)>=0 && ct.textContent.indexOf(t1.ten)>=0 && ct.querySelector('.tc-so .tc-o b').textContent===String(r1.tong), 'TV '+r1.tong);
+   ok('thẻ tổ: danh sách thành viên đủ, nút Mở tổ / Tổ của điểm GD / Lập hồ sơ hộ mới', ct.querySelectorAll('.tc-to-tv-dong').length===r1.tong && !!ct.querySelector('[data-lenh="tc.moTo"]') && !!ct.querySelector('[data-lenh="tc.ketNap"]') && (!t1.khoaDiem || !!ct.querySelector('[data-lenh="tc.bangDiem"]')));
+   const tv1 = ct.querySelector('.tc-to-tv-dong[data-kh]'); if(tv1){ const kh = tv1.getAttribute('data-kh'); tv1.click(); await w(500); ok('bấm 1 thành viên → mở khách đó', document.getElementById('tc-ct').textContent.indexOf(kh)>=0); }
+   await tim('tt', ''); ok('Tổ trưởng, chưa gõ → mọi tổ trong phạm vi', kq().length===Math.min(300, T.length), kq().length+' / '+T.length);
+   await tim('', t1.ten); const gy = document.querySelector('#sl-kq .tc-to-goiy');
+   ok('Tự nhận: gõ tên tổ trưởng → có nút "🏘 n tổ khớp — xem tổ"', !!gy, gy && gy.textContent);
+   if(gy){ gy.click(); await w(200); ok('bấm nút → chuyển Tìm theo Tổ trưởng, ra bảng tổ', chip('tt').classList.contains('bat') && kq().some(x=>x.getAttribute('data-to')===t1.ma)); }
+   await tim('', r0.ten); kq()[0] && kq()[0].click(); await w(600);
    return o; }, files);
  await p.screenshot({path:path.join(__dirname,'t246.png')});
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
