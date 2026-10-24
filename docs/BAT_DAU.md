@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.339** — TK 2: tách `js/04-giao-dien.js` → 04 + 04b–04e, `js/06-hop-thoai.js` → 06 + 06b–06c (nguyên văn). Trước: 3.338 🩺 Sức khỏe sao lưu. Chờ anh: đề xuất việc 5 (bỏ bản sao localStorage khi dữ liệu > 1 MB — bàn giao 3.339). Tiếp mục 8: Scan qua KHO (việc 4) · nhật ký đã lập / in (6) · khai báo người ký 1 chỗ (8, kế hoạch riêng).
+- **`main` = 3.340** — TK 2: lưu nhanh hơn khi dữ liệu > 1 MB (bỏ bản sao localStorage, đường dấu chờ 3.223). Trước: 3.339 tách file lớn 04 / 06; 3.338 🩺 Sức khỏe sao lưu. Tiếp (anh 24/10): **rà soát mọi chỗ đọc số liệu đã qua `KHO` chưa** → rồi Scan qua KHO (mục 8 việc 4).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

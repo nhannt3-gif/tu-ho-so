@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.339 · 24/10/2026 14:27 · 92 file · 41689 dòng · 3403 hàm cấp ngoài · 554 biến toàn cục.
+Bản 3.340 · 24/10/2026 15:42 · 92 file · 41692 dòng · 3403 hàm cấp ngoài · 554 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -12,7 +12,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `index.html` | 277 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
 | `css/app.css` | 3977 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
-| `js/02-nen.js` | 372 | 26 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
+| `js/02-nen.js` | 374 | 26 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
 | `js/03-doc-pdf.js` | 627 | 46 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
 | `js/04-giao-dien.js` | 115 | 12 | /*   6. VẼ GIAO DIỆN   */ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '', l |
 | `js/04b-hom-nay.js` | 2517 | 254 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 117–2633 của bản 3.33 |
@@ -60,7 +60,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/31-o-mau.js` | 203 | 50 | /*   3.223 M3 (anh chốt 16/10/2026 — KE_HOACH_BAN_LON, QUY_CHUAN mục 9): NỀN Ô MẪU — "OM"   Mỗi chỗ chấm trên  |
 | `js/32-kho-luu.js` | 99 | 8 | /*   3.223 M1 (anh chốt 16/10/2026 — KE_HOACH_BAN_LON, QUY_CHUAN mục 9.5): CỬA LƯU KHO1 + LƯU AN TOÀN B1   - B |
 | `js/33-so-ho-them.js` | 48 | 7 | /*   3.223 M2 (anh chốt 16/10/2026 — KE_HOACH_BAN_LON mục 0.8): SỔ HỘ VAY ĐỦ CỘT   - Rà ngược các ô của mẫu gố |
-| `js/34-luu-ngan.js` | 174 | 3 | /*   3.223 M8 (anh chốt 16/10/2026 — KE_HOACH_BAN_LON, QUY_CHUAN mục 9.5): LƯU THEO NGĂN TRONG IndexedDB (bước |
+| `js/34-luu-ngan.js` | 175 | 3 | /*   3.223 M8 (anh chốt 16/10/2026 — KE_HOACH_BAN_LON, QUY_CHUAN mục 9.5): LƯU THEO NGĂN TRONG IndexedDB (bước |
 | `js/35-scan.js` | 135 | 9 | /*   3.224 (anh chốt 17/10/2026 — docs/KE_HOACH_3224_SCAN.md): QUY TRÌNH SCAN MỚI — 1 luồng chuẩn, cắm / rút   |
 | `js/36-dong-bo-khoi.js` | 183 | 22 | /*   3.225 (anh chốt 17/10/2026 — docs/KE_HOACH_3225_LUU.md): ĐỒNG BỘ DRIVE THEO KHỐI   Khối (danh sách): vanb |
 | `js/37-kiem-ho.js` | 193 | 23 | /*   3.228 (anh 17/10/2026): 🔎 KIỂM TRA HỘ VAY — luật logic khi nhập hộ, KHAI BÁO ĐƯỢC (bật / tắt · mức · ngưỡ |
@@ -108,7 +108,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/02-nen.js:1` · TỦ HỒ SƠ — bản 1.0  (giai đoạn 1)
 - `js/02-nen.js:14` · 1. HẰNG SỐ
 - `js/02-nen.js:176` · 2. LƯU TRỮ
-- `js/02-nen.js:300` · 3. TIỆN ÍCH
+- `js/02-nen.js:302` · 3. TIỆN ÍCH
 - `js/03-doc-pdf.js:1` · 4. ĐỌC PDF & RÚT THÔNG TIN
 - `js/03-doc-pdf.js:381` · RÚT THÔNG TIN TỪ CHÍNH TÊN FILE
 - `js/03-doc-pdf.js:456` · 5. SINH TÊN CHUẨN
@@ -333,7 +333,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/31-o-mau.js:102` · giao diện cột trái: kiểu in · khai báo riêng (tóm tắt + Chọn nhanh)
 - `js/31-o-mau.js:143` · 🖼 KHAI BÁO TRỰC QUAN: mẫu như giấy thật (trái) · ô đang chọn (phải)
 - `js/32-kho-luu.js:40` · giao diện: tab 💾 Sao lưu trong ⚙ Khai báo đơn vị
-- `js/34-luu-ngan.js:152` · giao diện: nhóm 🗄 Nơi lưu trong tab 💾 Sao lưu
+- `js/34-luu-ngan.js:153` · giao diện: nhóm 🗄 Nơi lưu trong tab 💾 Sao lưu
 - `js/37-kiem-ho.js:60` · dữ liệu phụ
 - `js/37-kiem-ho.js:84` · bộ kiểm
 - `js/37-kiem-ho.js:171` · hiển thị
@@ -438,12 +438,12 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `ve` `js/04-giao-dien.js:100`
 - `doiNgan` `js/04-giao-dien.js:4`
 - `luu` `js/02-nen.js:200`
-- `luuFile` `js/02-nen.js:261`
-- `docFile` `js/02-nen.js:275`
+- `luuFile` `js/02-nen.js:263`
+- `docFile` `js/02-nen.js:277`
 - `moHop` `js/06-hop-thoai.js:3`
 - `dongHop` `js/06-hop-thoai.js:56`
 - `hoi` `js/06-hop-thoai.js:95`
-- `bao` `js/02-nen.js:331`
+- `bao` `js/02-nen.js:333`
 - `veHomNay` `js/04b-hom-nay.js:2322`
 - `veVanBan` `js/04c-van-ban-thang.js:3`
 - `veThang` `js/04c-van-ban-thang.js:899`

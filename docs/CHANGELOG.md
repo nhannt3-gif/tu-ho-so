@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.340 — 24/10/2026 — Lưu nhanh hơn khi dữ liệu lớn (RA_SOAT_BO_CUC_2410 mục 8 việc 5 — anh duyệt "đồng ý làm tiếp")
+- **Đo (3.339)**: kho lớn giả 1,5 MB — mỗi lần lưu tốn chủ yếu ở **ghi bản sao localStorage** (~50 ms), chuyển chuỗi ~18–28 ms; IndexedDB đã chỉ ghi ngăn đổi từ 3.223 → `luuNgan` ít lợi, dễ sót ngăn → làm cách khác.
+- **Làm** (`luuNgay` js/02 + `LN.ghi` js/34): bật lưu theo ngăn và chuỗi dữ liệu > `LS_TRAN` (1 MB) → **không ghi localStorage**, đi đúng đường "localStorage đầy" đã có từ 3.223: sau khi IndexedDB ghi xong mới xóa bản localStorage cũ + đặt dấu `tuhoso_ln_cho` → lần mở sau đọc IndexedDB trước khi vẽ. Không hiện câu "bộ nhớ nhanh đã đầy" (chủ ý bỏ). **IndexedDB lỗi → ghi lại bản localStorage làm dự phòng** rồi mới báo. Dữ liệu nhỏ lại dưới 1 MB → ghi localStorage như cũ, bỏ dấu chờ.
+- Đo lại (cùng kho giả, 3 lượt, dao động lớn): cũ 22–103 ms / lần, mới 34–42 ms — trung bình nhanh ~2 lần và đều hơn.
+- **Phép thử**: mới t249 (8 — có mở lại trang thật); chạy lại t93, t103, t169, t175, t185, t187, t241, t248, hoiquy (1/4 lượt trượt mục "báo cáo đã bỏ" — chập chờn đã có từ 3.336, TK 3 báo), hoiquy2.
+
 ## 3.339 — 24/10/2026 — Tách file lớn (RA_SOAT_BO_CUC_2410 mục 8 việc 7) · đo chi phí lưu (việc 5)
 - **Anh 24/10**: "em cứ theo KH làm rồi gộp lên anh test".
 - **Tách nguyên văn, không đổi logic** (giữ thứ tự nạp — t138; so khớp từng dòng với bản 3.338, chỉ bỏ dòng trống cuối khối):
