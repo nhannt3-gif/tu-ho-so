@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.342) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › Tìm theo Tổ trưởng › chọn 1 tổ | Đầu thẻ 3 hàng có tên cột, kẻ dọc; số TV / dư nợ như trước | |
+| 2 | Bảng thành viên | Có #, sắp theo mã KH; dư nợ, ngày vay, hạn trả (màu), lãi tồn, TK 105; không phải cuộn ngang | |
+| 3 | Khách vay nhiều món | 1 dòng, có "+n"; đưa chuột vào dòng hiện từng món | |
+| 4 | Bấm 1 dòng thành viên | Mở khách đó như cũ | |
+
+**Ghi chú kỹ thuật 3.342:** món lấy `TC_K.B.theoKH[kh]` (món còn dư nợ hoặc lãi tồn, như thẻ khách); KHĐ đếm theo `TC_K.B.khd[ku]` của món thành viên. Lớp `.tc-to-tv-dong` giữ trên `<tr>` (t246). `@container` cho năm 2 số khi khung hẹp.
+
 ### Danh sách thử trên máy thật (3.341) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

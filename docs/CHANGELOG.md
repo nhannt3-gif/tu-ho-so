@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.342 — 24/10/2026 — Thẻ tổ ở Tra cứu: đầu thẻ 3 hàng + bảng thành viên đủ cột (anh 24/10)
+- **Anh**: "cột danh sách thành viên thêm STT, mã KH và sắp theo mã KH, dư nợ, ngày vay, hạn trả, lãi tồn, số TK 105" + "các thông tin trên gom lại 3 dòng… có tên cột, có khung dọc" + "cân đối vừa cột, còn chỗ thì thêm thông tin".
+- **Đầu thẻ** (`tcTheTo`, `js/58-tc-to.js`): 3 bảng nhỏ có tên cột + kẻ dọc — ① Tổ (tổ trưởng) · Mã tổ · Mã KH tổ trưởng · SĐT · CCCD; ② Ấp · Xã · Điểm GD · Ngày GD · Hội quản lý; ③ Thành viên · Có dư nợ · Không dư nợ · Tổng dư nợ · Quá hạn · **Lãi tồn · 3 tháng KHĐ (số món, theo `B.khd`) · Số dư TK 105** (thêm cho đủ khung). Dòng lưu ý (còn lãi tồn / cần cho ra) + nguồn số liệu thành chữ nhỏ dưới hàng ③. Ô chép (mã tổ, mã KH, SĐT, CCCD) giữ.
+- **Bảng thành viên**: # · Họ tên · Mã KH (**sắp theo mã KH**, bỏ "có dư nợ lên trước") · Dư nợ · Ngày vay · Hạn trả (màu đỏ / cam / vàng như thẻ khách, `tcHanMon(m, xong, gon)` — "còn N ngày" đưa vào chú thích) · Lãi tồn · TK 105 (số dư; số TK ở chú thích). Khách nhiều món: 1 dòng, dư nợ tổng, ngày vay / hạn theo món đến hạn sớm nhất, dấu "+n", đưa chuột vào dòng xem từng món. Tiêu đề bảng đứng yên khi cuộn; khung hẹp (≤ 660px) năm hiện 2 số để không tràn ngang.
+- **Phép thử**: t246 thêm 4 ý (3 hàng, cột bảng + sắp theo mã, hạn trả, không tràn — kiểm ở 1600 và 1366).
+
 ## 3.341 — 24/10/2026 — Rà soát đọc qua KHO + đợt K1 (RA_SOAT_KHO_2410 · mục 8 việc 4)
 - **Anh 24/10**: "sau mục này rà soát mọi thứ đọc qua kho đã chuyển hết chưa" → `docs/RA_SOAT_KHO_2410.md` (đã gộp): **chưa chuyển hết** — lõi 22-so-lieu / 22g / 28 / 29 hợp lệ; còn đọc thẳng ở Tra cứu KH, Sao kê · cấp Hội · Tổng hợp · Thông tin tổ, KTGS; đề xuất đợt K1–K5. `tools/ra_kho.py` đếm theo file.
 - **K1 (bản này)**: `12-scan` (tìm / chọn khách → `KHO.tim`, `KHO.danhBa`, `KHO.coDanhBa`), `41-scan-sap-xep` (kỳ Mẫu 31 mới nhất → `KHO.dsKyHS`, dựng kỳ → `KHO.nap`), `21-ngay-gy` (`KHO.soBang`), `23-dieu-huong` (`KHO.coBang`), `25-ho-so` / `26-giao-dich-xa` (`toNap` → `KHO.nap`). Cửa mới: `KHO.soBang()`, `KHO.dsKyHS()`.
