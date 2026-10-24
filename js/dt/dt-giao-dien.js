@@ -32,7 +32,9 @@ var DTG = (function(){
     DT.moKhoa(p).then(function(){ DT.ch.dai = p.length; DT.chLuu(); PIN.nhap = ''; moApp(); }, function(er){ PIN.nhap = ''; veKhoa('', er.message); });
   }
   function quen(){ if(!confirm('Xóa dữ liệu trên điện thoại này và đặt PIN mới? (Số liệu tải lại từ Drive được.)')) return; DT.xoaMay().then(function(){ PIN = {nhap:'', buoc:'dat1', dau:''}; veKhoa(); }); }
-  function batDau(){ DT.khiKhoa = function(){ PIN = {nhap:'', buoc:'mo', dau:''}; el('app').style.visibility = 'hidden'; veKhoa('Đã khóa — nhập mã PIN'); };
+  function batDau(){ DT.khiNap = function(){ if(app) try { app.views.main.router.refreshPage(); } catch(e){} };   /* 3.342: có số liệu mới → vẽ lại trang đang mở */
+    if(!DT.pinBat()){ DT.moTuDong().then(moApp, function(){ moApp(); }); return; }   /* 3.342 (anh 24/10): tạm bỏ PIN — mở thẳng */
+    DT.khiKhoa = function(){ PIN = {nhap:'', buoc:'mo', dau:''}; el('app').style.visibility = 'hidden'; veKhoa('Đã khóa — nhập mã PIN'); };
     DT.coPIN().then(function(co){ PIN.buoc = co ? 'mo' : 'dat1'; veKhoa(co ? '' : 'Lần đầu: đặt mã PIN để bảo vệ số liệu khách hàng'); }); }
   /* ---------- app ---------- */
   function moApp(){
@@ -52,7 +54,7 @@ var DTG = (function(){
   function kyChu(){ var g = DT.goi(); return g ? 'Mẫu 31 '+ng(g.ngay || g.ky) : 'chưa có số liệu'; }
   function trang(ten, noi, lui){ return '<div class="page" data-name="'+ten+'"><div class="navbar"><div class="navbar-bg"></div><div class="navbar-inner sliding">'+
     (lui ? '<div class="left"><a href="#" class="link back"><i class="icon icon-back"></i><span class="if-not-md">Lùi</span></a></div>' : '')+
-    '<div class="title">'+noi.tieu+'</div>'+(noi.phai ? '<div class="right">'+noi.phai+'</div>' : '')+'</div></div><div class="page-content">'+noi.than+'</div></div>'; }
+    '<div class="title">'+noi.tieu+'</div><div class="right">'+(noi.phai || '')+'<a href="#" class="link dt-may" title="Mở bản web (máy tính)">🖥</a></div>'+'</div></div><div class="page-content">'+noi.than+'</div></div>'; }
   function the(s, ds){ var g = DT.goi(); return '<div class="dt-the"><div class="dt-dn">'+tr(s.dn)+'</div><div class="dt-so">'+
     [[s.ho, 'hộ'], [s.to, 'tổ'], [s.mon, 'món']].map(function(x){ return '<span><b>'+x[0].toLocaleString('vi-VN')+'</b> '+x[1]+'</span>'; }).join('')+'</div>'+
     '<div class="dt-qh"><span class="'+(s.qh ? 'do' : '')+'">Quá hạn <b>'+tr(s.qh)+'</b> ('+pt(s.qh, s.dn)+')</span><span>Khoanh <b>'+tr(s.kn)+'</b></span></div>'+
@@ -61,7 +63,7 @@ var DTG = (function(){
   function trong(chu){ return '<div class="block block-strong inset dt-trong">'+chu+'</div>'; }
   /* 🔎 Tra cứu */
   function trTra(){ var g = DT.goi();
-    return trang('tra', {tieu:'Tra cứu khách', phai:'<a href="#" class="link dt-dongbo">⟳</a>', than:
+    return trang('tra', {tieu:'Khách', phai:'<a href="/db/-/-/-/-/" class="link" title="Lọc theo địa bàn">📍</a><a href="#" class="link dt-dongbo">⟳</a>', than:
       '<div class="dt-tim"><input type="search" id="dt-tim" placeholder="Tên (không dấu được), CCCD, mã KH, SĐT, ấp" autocomplete="off"></div>'+
       '<div class="dt-ghi dt-ky">'+e(kyChu())+(g ? ' · '+g.kh.length.toLocaleString('vi-VN')+' khách' : '')+'</div><div id="dt-kq">'+(g ? '' : trong('Chưa có số liệu — bấm ⟳ để lấy từ Drive.'))+'</div>'}); }
   function veKQ(q){ var o = el('dt-kq'); if(!o) return; if(String(q||'').trim().length<2){ o.innerHTML = ''; return; }
@@ -101,7 +103,7 @@ var DTG = (function(){
   /* 📄 Văn bản · 📷 Scan (3.232) */
   var SC = {anh:[], pdf:null};
   function trDS(loai){ var vb = loai==='vanban', ds = DT.ds(loai);
-    return trang(loai, {tieu:'Tài liệu', phai:'<a href="#" class="link dt-tai" data-l="'+loai+'">⟳</a>', than:nutTL(loai)+
+    return trang(loai, {tieu:vb ? 'Văn bản' : 'Scan', phai:'<a href="#" class="link dt-tai" data-l="'+loai+'">⟳</a>', than:
       (vb ? '' : '<div class="block"><a href="/sc/moi/" class="button button-fill button-large">📷 Chụp / chọn ảnh → PDF</a></div>')+
       (vb ? '<div class="block"><label class="button button-outline">＋ Gửi file vào app (khay chờ)<input type="file" id="dt-them" style="display:none"></label></div>' : '')+
       '<div class="dt-tim"><input type="search" id="dt-loc" data-l="'+loai+'" placeholder="'+(vb ? 'Số hiệu, trích yếu, loại' : 'Tên khách, mã KH, ấp, tổ')+'" autocomplete="off"></div>'+
@@ -135,26 +137,28 @@ var DTG = (function(){
         var W = 595.28, H = 841.89, k = Math.min((W-36)/im.width, (H-36)/im.height), pg = doc.addPage([W, H]); pg.drawImage(im, {x:(W-im.width*k)/2, y:(H-im.height*k)/2, width:im.width*k, height:im.height*k}); }); }, Promise.resolve())
       .then(function(){ return doc.save(); }); }).then(function(u){ return new Blob([u], {type:'application/pdf'}); }); }
   /* 🏢 Giao dịch xã (3.233) — bản mini của máy tính chạy trong khung */
-  function trGDX(){ return trang('gdx', {tieu:'Giao dịch xã', phai:'<a href="#" class="link dt-taigdx">⟳</a>', than:'<div id="dt-gdx" class="dt-gdx">'+trong('Đang mở…')+'</div>'}); }
+  function trGDX(){ return trang('gdx', {tieu:'Giao dịch xã', phai:'<a href="#" class="link dt-taigdx">⟳</a>', than:'<div id="dt-gdx" class="dt-gdx">'+trong('Đang mở…')+'</div>'}, 1); }   /* 3.342: mở từ ⚙ › Công cụ */
   function veGDX(page){ var o = page.el.querySelector('#dt-gdx'); if(!o) return;
     DT.docGDX().then(function(h){ if(!h){ o.innerHTML = trong('Bấm ⟳ để lấy bản Giao dịch xã từ Drive (04/TD, 12/GDX, Giấy lĩnh).'); return; }
       o.innerHTML = '<iframe class="dt-gdx-khung" title="Giao dịch xã"></iframe>'; o.firstChild.srcdoc = h; }); }
   /* 📄 Tài liệu = Văn bản | Scan */
-  function nutTL(dang){ return '<div class="block dt-tl"><div class="segmented segmented-strong"><a href="/vb/" data-reload-all="true" class="button'+(dang==='vanban' ? ' button-active' : '')+'">📄 Văn bản</a><a href="/sc/" data-reload-all="true" class="button'+(dang==='scan' ? ' button-active' : '')+'">📷 Scan</a></div></div>'; }
   /* ⚙ Cài đặt */
   function trCD(){ var C = DT.ch;
     return trang('cd', {tieu:'Cài đặt', than:'<div class="list inset"><ul>'+
       '<li><a href="#" class="item-link item-content dt-dongbo"><div class="item-inner"><div class="item-title">⟳ Lấy số liệu mới từ Drive</div><div class="item-after">'+e(kyChu())+'</div></div></a></li>'+
-      '<li><a href="#" class="item-link item-content" id="dt-doipin"><div class="item-inner"><div class="item-title">🔑 Đổi mã PIN</div></div></a></li>'+
-      '<li><a href="#" class="item-link item-content" id="dt-khoa"><div class="item-inner"><div class="item-title">🔒 Khóa ngay</div></div></a></li>'+
-      '<li><a href="#" class="item-link item-content" id="dt-may"><div class="item-inner"><div class="item-title">🖥 Mở bản máy tính</div></div></a></li></ul></div>'+
+      (DT.pinBat() ? '<li><a href="#" class="item-link item-content" id="dt-doipin"><div class="item-inner"><div class="item-title">🔑 Đổi mã PIN</div></div></a></li>'+
+      '<li><a href="#" class="item-link item-content" id="dt-khoa"><div class="item-inner"><div class="item-title">🔒 Khóa ngay</div></div></a></li>' : '')+
+      '<li><a href="#" class="item-link item-content dt-may"><div class="item-inner"><div class="item-title">🖥 Mở bản web (máy tính)</div></div></a></li></ul></div>'+
+      '<div class="block-title">Công cụ</div><div class="list inset"><ul><li><a href="/gdx/" class="item-link item-content"><div class="item-inner"><div class="item-title">🏢 Giao dịch xã (04/TD, 12/GDX, Giấy lĩnh)</div></div></a></li></ul></div>'+
       '<div class="block-title">Drive</div><div class="list inset"><ul><li class="item-content item-input"><div class="item-inner"><div class="item-title item-label">Thư mục gốc trên Drive</div><div class="item-input-wrap"><input id="dt-tm" type="text" value="'+e(C.thuMuc || 'Tủ hồ sơ')+'"></div></div></li></ul></div>'+
       '<div class="list inset"><ul><li><a href="#" class="item-link item-content" id="dt-xoa"><div class="item-inner"><div class="item-title do">🗑 Xóa dữ liệu trên điện thoại này</div></div></a></li></ul></div>'+
-      '<div class="block dt-ghi">Số liệu khách lưu trên máy dạng mã hóa (khóa theo PIN); để yên 5 phút hoặc ẩn app 2 phút → tự khóa. Sai PIN 10 lần → xóa dữ liệu trên máy.</div>'}); }
+      '<div class="block dt-ghi">'+(DT.pinBat() ? 'Số liệu khách lưu trên máy dạng mã hóa (khóa theo PIN); để yên 5 phút hoặc ẩn app 2 phút → tự khóa. Sai PIN 10 lần → xóa dữ liệu trên máy.' : 'Đang tạm tắt PIN (anh 24/10): mở thẳng, không tự khóa — số liệu trong máy vẫn mã hóa; bảo vệ bằng khóa màn hình / Face ID của điện thoại.')+'</div>'}); }
   function gan(page){ var $ = function(s){ return page.el.querySelector(s); };
-    Array.prototype.forEach.call(page.el.querySelectorAll('.dt-dongbo'), function(a){ a.onclick = function(ev){ ev.preventDefault(); dongBo(); }; });
+    var tat = function(sel){ var r = [].slice.call(page.el.querySelectorAll(sel)); if(page.navbarEl) r = r.concat([].slice.call(page.navbarEl.querySelectorAll(sel))); return r; };   /* 3.342: thanh tiêu đề iOS nằm ngoài trang */
+    tat('.dt-may').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); try { localStorage.setItem('tuhoso_ban', 'may'); } catch(er){} location.href = 'index.html'; }; });   /* 3.342: nút 🖥 mọi trang */
+    tat('.dt-dongbo').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); dongBo(); }; });
     if($('#dt-tim')){ var hen; $('#dt-tim').oninput = function(){ var v = this.value; clearTimeout(hen); hen = setTimeout(function(){ veKQ(v); }, 200); }; }
-    Array.prototype.forEach.call(page.el.querySelectorAll('.dt-tai'), function(a){ a.onclick = function(ev){ ev.preventDefault(); var l = a.getAttribute('data-l'), t = app.toast.create({destroyOnClose:true, text:'Đang lấy danh sách…', position:'center'}); t.open();
+    tat('.dt-tai').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); var l = a.getAttribute('data-l'), t = app.toast.create({destroyOnClose:true, text:'Đang lấy danh sách…', position:'center'}); t.open();
       DT.taiKhoi(l).then(function(){ t.close(); var o = page.el.querySelector('#dt-ds'); if(o) o.innerHTML = veDS(l, ($('#dt-loc') || {}).value || ''); }, function(er){ t.close(); app.dialog.alert(e(er.message)); }); }; });
     if($('#dt-loc')){ var hl; $('#dt-loc').oninput = function(){ var l = this.getAttribute('data-l'), v = this.value; clearTimeout(hl); hl = setTimeout(function(){ var o = page.el.querySelector('#dt-ds'); if(o && DT.ds(l)) o.innerHTML = veDS(l, v); }, 200); }; }
     page.el.addEventListener('click', function(ev){ var a = ev.target.closest && ev.target.closest('.dt-mo'); if(!a) return; ev.preventDefault(); moMuc(a.getAttribute('data-l'), +a.getAttribute('data-i'), ($('#dt-loc') || {}).value || ''); });
@@ -165,10 +169,9 @@ var DTG = (function(){
     if($('#dt-taopdf')) $('#dt-taopdf').onclick = function(){ var ten = (($('#dt-tenpdf') || {}).value || 'Scan '+new Date().toLocaleDateString('vi-VN').replace(/\//g, '-')).replace(/[\\/:*?"<>|]+/g, '-')+'.pdf';
       taoPDF().then(function(bl){ SC.pdf = bl; tacVu(bl, ten, true); }, function(er){ app.dialog.alert(e(er.message)); }); };
     if($('#dt-gdx')) veGDX(page);
-    Array.prototype.forEach.call(page.el.querySelectorAll('.dt-taigdx'), function(a){ a.onclick = function(ev){ ev.preventDefault(); var t = app.toast.create({destroyOnClose:true, text:'Đang lấy Giao dịch xã…', position:'center'}); t.open();
+    tat('.dt-taigdx').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); var t = app.toast.create({destroyOnClose:true, text:'Đang lấy Giao dịch xã…', position:'center'}); t.open();
       DT.taiGDX().then(function(){ t.close(); veGDX(page); }, function(er){ t.close(); app.dialog.alert(e(er.message)); }); }; });
     if($('#dt-khoa')) $('#dt-khoa').onclick = function(ev){ ev.preventDefault(); DT.khoa(); };
-    if($('#dt-may')) $('#dt-may').onclick = function(ev){ ev.preventDefault(); try { localStorage.setItem('tuhoso_ban', 'may'); } catch(er){} location.href = 'index.html'; };
     if($('#dt-tm')) $('#dt-tm').onchange = function(){ DT.ch.thuMuc = this.value.trim() || 'Tủ hồ sơ'; DT.chLuu(); };
     if($('#dt-doipin')) $('#dt-doipin').onclick = function(ev){ ev.preventDefault(); app.dialog.password('Mã PIN mới (4–8 số)', 'Đổi PIN', function(p){ DT.datPIN(p).then(function(){ DT.ch.dai = String(p).length; DT.chLuu(); app.toast.create({destroyOnClose:true, text:'Đã đổi PIN', closeTimeout:1500}).open(); }, function(er){ app.dialog.alert(e(er.message)); }); }); };
     if($('#dt-xoa')) $('#dt-xoa').onclick = function(ev){ ev.preventDefault(); app.dialog.confirm('Xóa số liệu và PIN trên điện thoại này?', 'Xóa dữ liệu', function(){ DT.xoaMay().then(function(){ location.reload(); }); }); };

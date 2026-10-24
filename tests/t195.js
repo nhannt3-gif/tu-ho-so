@@ -12,7 +12,7 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
    const K = await KHO.nap(gxKyMoi()), cu = TO_K, h = gxMini(K); return {h:h, giuKy:TO_K===cu, g:gxLapTu(K)}; }, files);
  ok('máy tính: lập bản mini Giao dịch xã theo kỳ mới nhất (không đổi kỳ đang xem)', M.h.length>5000 && /gdxMiniApp\(\)/.test(M.h) && /MINI_GOI/.test(M.h) && M.giuKy, M.h.length+' ký tự');
  ok('bản mini không chứa tên tổ / số liệu dạng chữ thường đọc được (đã xáo như 3.177)', !/Phường Gia Lộc/.test(M.h));
- const ctx = await b.newContext({viewport:{width:390,height:844}, isMobile:true, hasTouch:true});
+ const ctx = await b.newContext({viewport:{width:390,height:844}, isMobile:true, hasTouch:true}); await ctx.addInitScript(()=>{ try{ localStorage.setItem('tuhoso_dt_pin','1'); }catch(e){} });   /* 3.342: PIN tạm tắt mặc định — phép thử này kiểm phần PIN nên bật cờ */
  const d = await ctx.newPage(); d.on('pageerror',e=>loi.push('điện thoại: '+e.message)); await d.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(d);
  await d.goto('file://'+G+'/dt.html'); await d.waitForTimeout(2500); const w = t=>d.waitForTimeout(t), phim = async s=>{ for(const k of s) await d.click('#khoa [data-k="'+k+'"]'); };
  await phim('1122'); await d.click('#khoa [data-k="ok"]'); await phim('1122'); await d.click('#khoa [data-k="ok"]'); await w(1500); await d.evaluate(()=>DTG.app().dialog.close());

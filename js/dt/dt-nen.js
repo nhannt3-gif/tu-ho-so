@@ -39,18 +39,25 @@ var DT = (function(){
       if(CH.sai>=10) return xoaMay().then(function(){ throw new Error('Sai PIN 10 lần — đã xóa dữ liệu trong máy. Đặt PIN mới và tải lại từ Drive.'); });
       throw new Error('PIN chưa đúng'+(CH.sai>=3 ? ' (sai '+CH.sai+' lần)' : '')); });
   }
+  /* 3.342 (anh 24/10 — KE_HOACH_DIEN_THOAI_2 mục 7.2): TẠM BỎ PIN — mặc định mở thẳng, không tự khóa; số liệu trong máy vẫn mã hóa bằng khóa tự sinh cất trong máy.
+     Bật lại PIN: localStorage 'tuhoso_dt_pin' = '1' (phép thử PIN t193–t195 bật cờ này). */
+  function pinBat(){ try { return localStorage.getItem('tuhoso_dt_pin')==='1'; } catch(e){ return false; } }
+  function moTuDong(){ return doc('khoaTu').then(function(r){ if(r) return r; var b = ngauNhien(32); return ghi('khoaTu', b).then(function(){ return b; }); })
+    .then(function(b){ return crypto.subtle.importKey('raw', b, {name:'AES-GCM'}, false, ['encrypt', 'decrypt']); })
+    .then(function(k){ S.khoa = k; return docGoi().catch(function(){ return null; }); }); }   /* gói cất bằng khóa PIN cũ không giải được → tải lại từ Drive */
   function khoa(){ S.khoa = null; S.goi = null; DS.vanban = null; DS.scan = null; GDX = null; clearTimeout(S.hen); if(DT.khiKhoa) DT.khiKhoa(); }
-  function henKhoa(){ clearTimeout(S.hen); S.hen = setTimeout(khoa, DT_KHOA_SAU); }
+  function henKhoa(){ clearTimeout(S.hen); if(pinBat()) S.hen = setTimeout(khoa, DT_KHOA_SAU); }
   var DT_KHOA_SAU = 5*60000, AN_LUC = 0;
-  document.addEventListener('visibilitychange', function(){ if(document.hidden) AN_LUC = Date.now(); else if(S.khoa && AN_LUC && Date.now()-AN_LUC > 2*60000) khoa(); });
+  document.addEventListener('visibilitychange', function(){ if(document.hidden) AN_LUC = Date.now(); else if(S.khoa && pinBat() && AN_LUC && Date.now()-AN_LUC > 2*60000) khoa(); });
   ['touchstart', 'keydown', 'click'].forEach(function(ev){ document.addEventListener(ev, function(){ if(S.khoa) henKhoa(); }, {passive:true}); });
-  function xoaMay(){ S.goi = null; S.khoa = null; GDX = null; return Promise.all([ghi('goi', null), ghi('kiem', null), ghi('muoi', null), ghi('gdx', null)]).then(function(){ CH = {}; chLuu(); }); }
+  function xoaMay(){ S.goi = null; S.khoa = null; GDX = null; return Promise.all([ghi('goi', null), ghi('kiem', null), ghi('muoi', null), ghi('gdx', null), ghi('khoaTu', null)]).then(function(){ CH = {}; chLuu(); }); }
   /* ---------- gói số liệu (mã hóa trong máy) ---------- */
   function cat(g){ return nenGzip(MA.encode(JSON.stringify(g))).then(function(z){ return maHoa(S.khoa, z); }).then(function(x){ return ghi('goi', x); }); }
   function docGoi(){ return doc('goi').then(function(x){ if(!x || !S.khoa) return null; return giaiMa(S.khoa, x.c ? x : x).then(function(z){ return nenGzip(z, true); }).then(function(u){ S.goi = lapChiMuc(JSON.parse(GIAI.decode(u))); return S.goi; }); }); }
   function napGoi(g){   /* gói mới (tải từ Drive / phép thử) → giữ trong bộ nhớ + cất mã hóa */
     if(!g || g.v!==1 || !g.to || !Array.isArray(g.kh)) return Promise.reject(new Error('Gói số liệu không đúng dạng'));
-    S.goi = lapChiMuc(g); CH.ky = g.ky; CH.luc = g.luc; chLuu(); return S.khoa ? cat(g).then(function(){ return S.goi; }) : Promise.resolve(S.goi);
+    S.goi = lapChiMuc(g); CH.ky = g.ky; CH.luc = g.luc; chLuu(); if(DT.khiNap) try { DT.khiNap(); } catch(e){}   /* 3.342: trang đang mở cập nhật dòng kỳ / kết quả */
+    return S.khoa ? cat(g).then(function(){ return S.goi; }) : Promise.resolve(S.goi);
   }
   function boDau(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/[^a-z0-9]+/g, ' ').trim(); }
   function lapChiMuc(g){ g.kh.forEach(function(k){ k.q = ' '+boDau([k[1], k[0], k[3], k[5], k[6]].join(' '))+' '; }); return g; }
@@ -125,6 +132,6 @@ var DT = (function(){
       return goi('https://www.googleapis.com/drive/v3/files/'+f.id+'?alt=media', true); }).then(function(b){ return nenGzip(new Uint8Array(b), true); }).then(function(u){ return napGDX(GIAI.decode(u)); }); }
   function locDS(loai, q){ var ds = DS[loai] || [], t = boDau(q).split(' ').filter(Boolean); if(!t.length) return ds;
     return ds.filter(function(m){ var c = ' '+boDau([m.soHieu, m.trichYeu, m.ten, m.maKH, m.loai, m.ap, m.to, m.coQuan].join(' '))+' '; return t.every(function(w){ return c.indexOf(w)>=0; }); }); }
-  return {coPIN:coPIN, datPIN:datPIN, moKhoa:moKhoa, khoa:khoa, xoaMay:xoaMay, napGoi:napGoi, taiGoi:taiGoi, goi:function(){ return S.goi; }, moi:function(){ return !!S.khoa; },
+  return {pinBat:pinBat, moTuDong:moTuDong, coPIN:coPIN, datPIN:datPIN, moKhoa:moKhoa, khoa:khoa, xoaMay:xoaMay, napGoi:napGoi, taiGoi:taiGoi, goi:function(){ return S.goi; }, moi:function(){ return !!S.khoa; },
     tong:tong, dsTo:dsTo, nhom:nhom, taiKhoi:taiKhoi, ds:function(l){ return DS[l]; }, datDS:function(l, ds){ DS[l] = ds; }, napGDX:napGDX, docGDX:docGDX, taiGDX:taiGDX, locDS:locDS, taiFile:taiFile, guiKhay:guiKhay, timKH:timKH, kh:kh, khTo:khTo, boDau:boDau, ch:CH, chLuu:chLuu, khiKhoa:null};
 })();
