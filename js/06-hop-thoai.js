@@ -1981,7 +1981,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.335', ds:[
+var CO_GI_MOI = {ban:'3.336', ds:[
+  ["Tra cứu KH › Tìm theo › Tổ trưởng: gõ tên tổ trưởng / mã tổ / SĐT → bảng tổ; bấm tổ → thẻ tổ (số TV, dư nợ, tổ trưởng, địa bàn, thành viên)", "dhSL('tra')"],
+  ["Thẻ tổ: 👤 Xem tổ trưởng · 🏘 Tổ của điểm GD · 👥 Mở tổ · 👪 Lập hồ sơ hộ mới vào tổ; bấm thành viên mở khách", "dhSL('tra')"],
+  ["Tìm khách giữ nguyên; gõ ở Tự nhận mà khớp tổ trưởng / mã tổ → nút 🏘 n tổ khớp — xem tổ", "dhSL('tra')"],
   ["Tra cứu KH: ô tìm + LỌC ĐỊA BÀN thành dải ngang toàn trang — ô chọn không bị bóp, danh sách và chi tiết cao hết màn", "dhSL('tra')"],
   ["Tra cứu KH › Tìm theo: Tự nhận · Tên KH · Vợ/chồng · HSSV · CCCD · Mã KH · Mã món vay · SĐT · Số TK 105 — chỉ tìm đúng loại đã chọn", "dhSL('tra')"],
   ["Tra cứu KH: danh sách kiểu bảng (Tên · Mã KH · Xã · Ấp · Tổ trưởng · Tình trạng), nút ▦ Thẻ / ☰ Bảng đổi qua lại", "dhSL('tra')"],
@@ -1993,10 +1996,7 @@ var CO_GI_MOI = {ban:'3.335', ds:[
   ["Tra cứu KH › 🏘 Tổ của điểm GD: bảng mọi tổ theo Hội (như KQGD), ngưỡng 20–100 TV (QĐ 70); khách chưa vay → 🏘 Chọn tổ kết nạp → 👪 Lập hồ sơ hộ mới vào tổ", "dhSL('tra')"],
   ["Số thành viên tổ thống nhất 1 cách tính (QT-18): khớp Mẫu 01/TV của TƯ tháng 9 (18.816 / 18.816, 370 / 370 tổ); có dư nợ = dư nợ gốc", "dhSL('tra')"],
   ["Chip / nhãn 7 màu dùng chung toàn app: đỏ lỗi · cam khoanh, lãi tồn · vàng cảnh báo · lục đạt · xanh dương đang chọn · tím phân loại · xám không có", "doiNgan(0)"],
-  ["Sửa thứ tự nạp file KTGS sau hồi quy (không đổi giao diện)", "doiNgan(7)"],
-  ["KTGS: TK 3 bàn giao cho TK 2 (tài liệu docs/BAN_GIAO_KTGS.md) — giao diện không đổi", "doiNgan(7)"],
-  ["KTGS: thanh 3 khối Bắt buộc · Đột xuất · Khai báo; màn Bộ khai báo mẫu sửa 2 bộ không cần In; đột xuất có Mẫu 04", "doiNgan(7)"],
-  ["KTGS Bắt buộc: ô Tháng kiểm tra (số liệu cuối tháng liền trước, không theo ô Kỳ đầu trang); Sau giải ngân 1 tổ × 1 tháng = 1 phiếu", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Sửa thứ tự nạp file KTGS sau hồi quy (không đổi giao diện)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

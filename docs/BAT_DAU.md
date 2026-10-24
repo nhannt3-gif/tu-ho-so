@@ -6,6 +6,7 @@
 ## 1. Người dùng & luật làm việc (bắt buộc)
 - **Anh Nhân** — CBTD NHCSXH PGD Gò Dầu (Tây Ninh). Trả lời **tiếng Việt**, xưng "em", gọi "anh". Ngắn gọn, thực dụng; tách rõ số thật / suy luận.
 - **Kế hoạch → anh duyệt → anh nhắn "code" mới sửa code → hồi quy → PR → anh nhắn "gộp" mới gộp.** Không làm ngoài phạm vi; đổi / bỏ chức năng cũ phải anh duyệt; thiếu thông tin thì hỏi.
+- **Anh nhắc 24/10:** ý mới (kể cả khi anh nói "cứ làm theo kế hoạch") → **trao đổi kỹ, chốt lại ý anh bằng 1 bản tóm tắt (làm gì · ở đâu · giữ gì) → anh xác nhận → mới code**. "Làm theo kế hoạch" chỉ áp cho việc đã có trong kế hoạch anh duyệt.
 - **Repo công khai**: không đưa dữ liệu thật (tên khách, CCCD, tổ trưởng, file anh gửi) vào repo; phép thử dùng dữ liệu giả `tests/gia31`. File thật anh gửi chỉ đọc trong thư mục nháp của phiên (`python3 -I`), phiên mới không có → xin anh gửi lại.
 - Không ghi tên / mã model vào commit, PR, mã nguồn.
 - App (từ 3.142) = `index.html` (khung) + `css/app.css` + `js/01-…` → `js/22-so-lieu.js`, nạp đúng thứ tự (ES5, không build, không npm, không thêm thư viện). Ghép lại 1 file: `python3 tests/ghep.py ra.html`.
@@ -24,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.335** — TK 2: Tra cứu KH dải tìm + lọc toàn trang, Tìm theo từng loại (cả Số TK 105 từ Sao kê), danh sách kiểu bảng. Trước: 3.334 Đợt 1 bố cục máy tính (`docs/RA_SOAT_BO_CUC_2410.md` mục 6; #4 Tổng hợp chờ anh — ngược 3.168) + thẻ tổ tab Tổ theo QT-18. Tiếp: Đợt 2 điện thoại.
+- **`main` = 3.336** — TK 2: Tra cứu KH tìm thẳng tổ trưởng + thẻ tổ. Trước: 3.335 Tra cứu dải tìm + lọc toàn trang, Tìm theo từng loại (cả Số TK 105), kiểu bảng; 3.334 Đợt 1 bố cục máy tính. Điện thoại (`dt.html`): TK 3 làm sau khi TK 2 bàn giao (`docs/KE_HOACH_DIEN_THOAI_2.md`). Chờ anh: #4 Tổng hợp (ngược 3.168).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
