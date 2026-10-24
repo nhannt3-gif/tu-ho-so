@@ -3987,9 +3987,9 @@ table.tc-to-tvb{width:100%;border-collapse:collapse;font-size:calc(11px*var(--co
 table.tc-to-tvb th{position:sticky;top:0;z-index:1;background:var(--nen);font-weight:600;color:var(--chu-phu);text-align:left}
 table.tc-to-tvb th,table.tc-to-tvb td{border:1px solid var(--vien);padding:2px 3px;white-space:nowrap;min-width:0;text-align:left}
 table.tc-to-tvb td:first-child{min-width:0;width:1%;color:var(--chu-phu)}
-table.tc-to-tvb td.ten{white-space:normal;width:99%;min-width:80px}
+table.tc-to-tvb td.ten{white-space:normal;width:99%;min-width:72px}
 .tc-the-to .tc-to-tv-ds{container-type:inline-size}@container (max-width:660px){ table.tc-to-tvb .nam4{display:none} }table.tc-to-tvb td.so{text-align:right;font-variant-numeric:tabular-nums}
-table.tc-to-tvb tr.tc-to-tv-dong{display:table-row;cursor:pointer}table.tc-to-tvb tr.tc-to-tv-dong:hover{background:var(--xanh-nhat)}
+table.tc-to-tvb tr{cursor:pointer}table.tc-to-tvb tr.tc-to-tv-dong{display:table-row;font-size:inherit;padding:0}table.tc-to-tvb tbody tr:hover{background:var(--xanh-nhat)}table.tc-to-tvb td[rowspan]{vertical-align:top}table.tc-to-tvb td[data-lenh="tc.hien"]{text-decoration:underline dotted;text-underline-offset:2px}
 table.tc-to-tvb tr.tat td{color:var(--chu-phu)}table.tc-to-tvb .cam{color:var(--cam)}table.tc-to-tvb small{color:var(--chu-phu)}
 table.tc-to-tvb .tc-han{padding:0 2px;font-weight:600}table.tc-to-tvb .tc-han small{font-size:calc(9px*var(--co))}table.tc-to-tvb sup{color:var(--chu-phu);font-size:calc(9px*var(--co))}
-
+table.tc-to-tvb tr.tc-to-ct-mo td{background:var(--xanh-nhat);white-space:normal;cursor:default}

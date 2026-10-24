@@ -80,7 +80,8 @@ function tcDangKy(){ if(tcDangKy.xong || typeof GD==='undefined') return; tcDang
   GD.dangKy('tc', {theo:function(el){ tcTim().theo = el.getAttribute('data-k') || ''; luu(); [].forEach.call(document.querySelectorAll('.tc-theo .gd-chip'), function(b){ b.classList.toggle('bat', b.getAttribute('data-k')===tcTim().theo); });
       var i = document.getElementById('sl-tim'); if(i){ i.placeholder = tcTheoPH(); i.focus(); } TC_SL = 50; slTraTim(); },
     kieu:function(){ tcTim().kieu = tcKieuBang() ? 'the' : 'bang'; luu(); slTraTim(); },
-    to:function(el){ tcChonDong(el); tcTheTo(el.getAttribute('data-to')); }, kh:function(el){ slTheKH(el.getAttribute('data-kh')); },   /* 3.336: tìm tổ trưởng (js/58) */
+    to:function(el){ tcChonDong(el); tcTheTo(el.getAttribute('data-to')); }, kh:function(el){ slTheKH(el.getAttribute('data-kh')); },
+    hien:function(el){ tcToHien(el); },   /* 3.342: thẻ tổ — bấm CT → mã món vay, bấm TGTK → số TK 105 (dòng nhỏ dưới khách, bấm lại = ẩn) */
     moTo:function(el){ tcMoTo(el.getAttribute('data-to')); }, bangDiem:function(el){ tcBangDiem(el.getAttribute('data-diem'), el.getAttribute('data-to')); },
     ketNap:function(el){ TC_BANG = {diem:'', chon:el.getAttribute('data-to'), ket:null}; tcKetNap(); }, dong:function(){ dongHop(); }}); }
 function tcCoKH(ma){ return !!(ma && SL_DB && SL_DB.kh[ma]); }
