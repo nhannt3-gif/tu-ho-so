@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.357 — 24/10/2026 — Sổ tổ viên / chốt sổ 31/12 (KE_HOACH_CHOT_SO đợt C1)
+- Anh 24/10: "theo em, tiếp tục Mẫu 01/TV — anh sẽ gửi mỗi tháng kèm Mẫu 31".
+- **Mới `js/64-so-to-vien.js`**: tab Tổ TK&VV › 👁 **Sổ tổ viên** (khối `DANG_KY` — khuôn in chuẩn, Excel, Word, 📜 nhật ký): mỗi tổ viên 1 dòng theo `tvChuan` (Mẫu 31 + bù Mẫu 01/TV cùng tháng — 3.347): trạng thái, dư nợ, lãi tồn, số dư TK 105, ngày tất nợ (≈ ngày GD gần nhất của món đã tất toán), CT, nguồn (Mẫu 31 / 01/TV). Chip Gồm (còn nợ · còn lãi tồn · tất nợ còn TK 105 · cần cho ra); nhóm Từng tổ / Điểm › Hội › Tổ…; dòng cần cho ra tô vàng. Kỳ tháng 12 → tiêu đề "Sổ tổ viên Tổ TK&VV — chốt 31/12/<năm>". Ghi chú nguồn: đã đối chiếu 01/TV (bù N khách) / chưa có 01/TV cùng tháng / kỳ ngày không bù.
+- **Không lưu bản sao riêng**: Mẫu 31 + 01/TV tháng 12 vốn lưu vĩnh viễn (máy + Drive) → sổ chốt dựng lại đúng bất cứ lúc nào; **xóa ô / cả tháng 12** của Mẫu 31 hoặc 01/TV → app **hỏi trước** (`slSoChot`; vẫn vào Thùng rác như cũ).
+- **Phép thử**: mới t300 (dải TK 2 `t300–t349`).
+
 ## 3.356 — 24/10/2026 — 🧩 Báo cáo của tôi: báo cáo bảng tự khai (KE_HOACH_DANG_KY đợt D5)
 - Anh 24/10: "theo em, nếu lúc làm thấy không ổn anh đổi; nguồn cơ bản trên Mẫu 31, có kiểm tra chéo nếu có số liệu chuẩn TW".
 - **Mới `js/63-bao-cao-toi.js`**: tab Tổng hợp (dưới danh sách báo cáo) › 🧩 Báo cáo của tôi › ⚙ Tạo / sửa: tên · gộp theo (từng món vay / từng khách / từng tổ) · cột (chip; thứ tự theo danh mục) · chỉ lấy (còn dư nợ, có quá hạn, có khoanh, có lãi tồn) · nhóm sẵn (Không / Xã › Điểm / Điểm › Hội › Tổ / Từng tổ) · khổ (tự động: > 10 cột → A4 ngang). Lưu `D.cauHinh.bcToi` (đồng bộ Drive cùng cài đặt), sửa / xóa (hỏi trước).

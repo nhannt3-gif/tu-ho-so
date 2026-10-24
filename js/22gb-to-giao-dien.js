@@ -15,7 +15,7 @@ function toNoiDrive(){ noiDrive(false).then(function(co){ if(co) toThuLai(); }).
 function toVe(K, dsKy){
   var e = document.getElementById('tr7'); if(!e) return;
   var C = toCH();
-  e.innerHTML = slTabConHTML()+kyGhiHTML(K)+'<div class="to-dau">'+
+  e.innerHTML = slTabConHTML()+kyGhiHTML(K)+'<div class="to-dau">'+(typeof dkNutHTML==='function' ? dkNutHTML('to') : '')+   /* 3.357: 🧩 báo cáo chuẩn của tab (Sổ tổ viên) */
     '</div>'+   /* 3.157: ô 🔎 tìm tổ dời vào cuối hàng cây địa bàn (pvVeCay) */
     (K.thieuBang ? '<div class="sl-bao vang">⚠ Bảng số liệu '+coChuHTML(slKyChu(C.ky))+' <b>chưa có trên máy này</b> (lưu trên Drive nhưng chưa tải về — Drive chưa nối hoặc hết phiên). Cây tổ đang lấy tạm từ danh bạ; báo cáo cần bảng số liệu.'+
       '<div class="hang-nut"><button class="nho chinh" onclick="toNoiDrive()">☁ Nối Drive và tải</button><button class="nho" onclick="toThuLai()">⟳ Thử lại</button></div></div>' : '')+
