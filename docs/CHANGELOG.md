@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.343 — 24/10/2026 — Bản điện thoại 2, bước Đ1: Khách theo Tra cứu KH máy tính (TK 3)
+- **Anh 24/10**: "tra cứu KH của TK 2 đang làm rất ổn rồi, em dựa vào đó làm bản cho điện thoại".
+- **Tìm theo** (như 3.335 máy tính, nhớ lựa chọn): Tự nhận · Tên KH · Vợ/chồng · CCCD · Mã KH · SĐT · **Khế ước** · **Tổ trưởng** (tên, mã tổ, SĐT, mã KH tổ trưởng; trống = mọi tổ). Tự nhận: số không khớp tên → tìm khế ước; chữ khớp tổ trưởng → nút "🏘 n tổ khớp — xem tổ".
+- **Danh sách**: tên + tình trạng chữ nhỏ sau tên (vay n món · quá hạn / khoanh · tất nợ), ô trống hiện **Vừa xem** (10 khách, chỉ trong lần mở app).
+- **Thẻ khách** (như 3.337): 5 ô số Dư nợ · Món còn nợ · Quá hạn · Khoanh · **Lãi tồn**; nhân thân + liên hệ (☎ gọi · Zalo); Tổ & địa bàn (bấm sang thẻ tổ); món vay **Đến hạn tô màu**: quá hạn đỏ · ≤ 30 ngày cam · ≤ 90 ngày vàng, "còn / quá n ngày", **GH** = hạn gia hạn. Bấm mã KH / CCCD / khế ước để chép.
+- **Thẻ tổ** (như 3.336): Thành viên · Có / Không dư nợ · Tổng dư nợ · Quá hạn; mã tổ, tổ trưởng, **mã KH tổ trưởng**, ☎; danh sách thành viên bấm mở khách.
+- **Gói số liệu xem** (`js/38-goi-xem.js`, máy tính đẩy): nối thêm lãi tồn món, cờ gia hạn, mã KH tổ trưởng (điện thoại bản cũ vẫn đọc). Cần máy tính đẩy gói mới (tự đẩy sau lần nạp Mẫu 31 kế tiếp, hoặc ⚙ › 💾 Sao lưu › 📱 Bản điện thoại › Đẩy ngay).
+- Phép thử: t263 mới (18).
+
 ## 3.342 — 24/10/2026 — Bản điện thoại 2, bước Đ0 (TK 3)
 - **Anh 24/10**: "trên điện thoại khi cần cũng có nút chuyển sang bản web; em có thể bỏ PIN mã hóa trong lúc này, sau này cần sẽ mở lại; bản điện thoại tối ưu cho iOS" · "em làm tiếp theo kế hoạch" (`docs/KE_HOACH_DIEN_THOAI_2.md`).
 - **Tạm bỏ PIN**: mở thẳng, không tự khóa; số liệu trong máy **vẫn mã hóa** (khóa tự sinh cất trong máy). Bật lại PIN: cờ `localStorage 'tuhoso_dt_pin' = '1'` (không phải viết lại). Gói số liệu cất bằng PIN cũ → tự tải lại từ Drive.

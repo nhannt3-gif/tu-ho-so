@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.342** — TK 3: bản điện thoại 2 bước Đ0 (tạm bỏ PIN, thanh 4 nút, 🖥 / 📱 chuyển bản web ↔ điện thoại). 3.341 TK 2: rà soát đọc qua KHO (`docs/RA_SOAT_KHO_2410.md` — chưa chuyển hết, đợt K1–K5) + làm K1 (Scan, điều hướng, Hồ sơ, GDX qua KHO); thước đo kiem.py đếm đủ: 221 (mốc). Trước: 3.340 lưu nhanh khi dữ liệu lớn; 3.339 tách file 04 / 06. Chờ anh: duyệt K2 Tra cứu → K3 Sao kê / cấp Hội / Tổng hợp → K4 KTGS → K5 tách 22g.
+- **`main` = 3.343** — TK 3: điện thoại Đ1 — Khách theo Tra cứu KH máy tính (tìm theo loại, thẻ khách lãi tồn + hạn tô màu, thẻ tổ). 3.342 TK 3: bản điện thoại 2 bước Đ0 (tạm bỏ PIN, thanh 4 nút, 🖥 / 📱 chuyển bản web ↔ điện thoại). 3.341 TK 2: rà soát đọc qua KHO (`docs/RA_SOAT_KHO_2410.md` — chưa chuyển hết, đợt K1–K5) + làm K1 (Scan, điều hướng, Hồ sơ, GDX qua KHO); thước đo kiem.py đếm đủ: 221 (mốc). Trước: 3.340 lưu nhanh khi dữ liệu lớn; 3.339 tách file 04 / 06. Chờ anh: duyệt K2 Tra cứu → K3 Sao kê / cấp Hội / Tổng hợp → K4 KTGS → K5 tách 22g.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

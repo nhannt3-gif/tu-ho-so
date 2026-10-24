@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.343) — iPhone, anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Máy tính: ⚙ › 💾 Sao lưu › 📱 Bản điện thoại › đẩy gói; iPhone ⟳ | Thẻ khách có Lãi tồn, món vay có ngày đến hạn tô màu | |
+| 2 | Khách › chip Tổ trưởng › gõ tên tổ trưởng | Danh sách tổ → bấm ra thẻ tổ (thành viên, có / không dư nợ) | |
+| 3 | Khách › chip Khế ước › gõ 5 số cuối | Ra đúng khách | |
+
+**Ghi chú kỹ thuật 3.343:** gói xem món `[9]` lãi tồn (`laiTon`), `[10]` 1 = hạn gia hạn; tổ `ttKH`. `dt-giao-dien.js`: `TIM_THEO`, `DT.ch.timTheo`, `timTheo / toTim / hanMon / oSo / kv / goi`, route `/to/:ma/` (`trTo`), `VUA_XEM` (bộ nhớ). CSS `.dt-theo .dt-chip .dt-oso .dt-han-*`.
+
 ### Danh sách thử trên máy thật (3.342) — iPhone, anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

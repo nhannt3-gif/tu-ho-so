@@ -33,6 +33,7 @@
 | 24/10 | TK 2 | (không số bản) | ghi anh phân công (RA_SOAT_BO_CUC mục 9, `CLAUDE.md`) + trả lời mục 5 | — |
 | 24/10 | TK 3 | (không số bản) | `tests/t260.js` mới, `tests/t100.js` (chờ ô ma trận `.sl-mt-k` — `.sl-tt-1` bỏ từ 3.230), `tools/hoiquy.sh` (+ nhóm, + số luồng; cách gọi cũ giữ nguyên), `tools/hoiquy_nhom.txt` mới, `.gitignore` (+ `tests/anh260/`), tài liệu này | t260 38/38 (cả trên 3.337), t100 chạy hết, nhóm dt 2 luồng 2 phút, hoiquy đạt trên 3.337 |
 | 24/10 | TK 3 | **3.342** | bản điện thoại Đ0: `dt.html`, `js/dt/*`, `js/60-ve-dt.js` mới, `tests/t262.js` mới, t193–t195 (bật cờ PIN) + 12 file số bản | t262 17/17, t193 20/20, t194 9/9, t195 7/7, t260 dt 8/8 |
+| 24/10 | TK 3 | **3.343** | điện thoại Đ1: `js/dt/dt-giao-dien.js`, `css/dt.css`, **`js/38-goi-xem.js` (nối thêm 3 trường cuối: lãi tồn món, cờ GH, mã KH tổ trưởng — không đổi trường cũ)**, `tests/t263.js` mới | t263 18/18, t193–t195, t262, t260 dt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
