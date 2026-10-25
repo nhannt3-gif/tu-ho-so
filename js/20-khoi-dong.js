@@ -116,7 +116,7 @@ function khoiDong(){
   ganKeoCot();
   ve();
   sanKhoaHS();
-  if(coTheNoiDrive()) setTimeout(function(){ noiDrive(true); }, 1200);
+  if(coTheNoiDrive()){ napGIS(); setTimeout(function(){ noiDrive(true); }, 300); }   /* 3.373: tải sẵn thư viện Google ngay; còn quyền cũ thì nối ngay (trước chờ 1,2 giây) */
   setTimeout(tuDonRac, 20000);   /* 3.50: rác quá 30 ngày (nếu anh bật) */
   setTimeout(function(){ if(!SL_SAN) slNap(); }, 900);   /* 3.85: nạp sẵn chỉ mục số liệu + danh bạ khách hàng để tra ở ô tìm */
   setTimeout(function(){ xongTV.then(hamNongPDF); }, 3000);   /* 3.51: bộ đọc PDF khởi động sẵn */

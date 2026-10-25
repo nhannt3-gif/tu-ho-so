@@ -24,7 +24,6 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `python3 tests/kiem.py` | (3.142: ghép `index.html` + `css/` + `js/` rồi kiểm; báo nếu `?v=` khác `APP_BAN`) Cú pháp mọi khối `<script>` · trùng tên hàm · gọi hàm chưa định nghĩa. Phải ra `Cú pháp OK · Trùng tên: không · Thiếu hàm: không` (riêng `CompressionStream, DecompressionStream, Response` là hàm có sẵn của trình duyệt — bỏ qua). Viết regex có `_(`/`_t(` thì dùng `[_]` để khỏi báo nhầm. |
 | `node tests/hoiquy.js` | Hồi quy chính (28 phép, máy trắng + máy có dữ liệu cũ). Thỉnh thoảng 27/28 do chờ cố định → chạy lại. |
 | `node tests/hoiquy2.js` | Hồi quy 2 (20 phép). **Mỗi bản sửa chuỗi số bản** trong file (`sed -i "s/3\.85/3.86/g" tests/hoiquy2.js`). |
-| `node tests/t87.js` … `t96.js` | Phép thử riêng các bản 3.75–3.84 (scan, gộp trùng, an toàn dữ liệu 3.81, hồ sơ hộ 3.82, giao ban 3.83, phím chung 3.84). |
 | `node tests/t100.js` (lỗi sẵn từ 3.90.1 — chờ phần tóm tắt cũ; không thuộc bộ hồi quy) | 3.86 Mẫu 31: nhận đúng loại, gộp khế ước trùng, món tất toán, khách chỉ gửi TK, công thức dư nợ 2 tháng, tab con Tra cứu KH (SĐT, khế ước), ô tìm chung ở tab Số liệu. |
 | `node tests/t101.js` | 3.120: kiểm Mẫu 10 đã bỏ (loại X, không còn bảng Mẫu 10). Phép cũ của chức năng Mẫu 10 (3.87) giữ ở `tests/t101_mau10_cu.js` — chỉ chạy với bản ≤ 3.119. |
 | `node tests/t102.js` | 3.88: tab Số liệu theo tháng (file của tháng, ② Kiểm tra lưu kết quả, dữ liệu đổi → kiểm lại, thu gọn bảng nhiều tháng) · tab con 👥 Tổ TK&VV (phím chung ở cây chọn tổ, chip, gõ tên, 3 báo cáo Xem / In / Excel) — bộ `gia31`, máy tính + điện thoại. |
@@ -70,7 +69,6 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t122.js` | 3.118 + 3.119 (đầu văn bản Phân công): rà mẫu chung 06 / 16 / 04 (Chức vụ:, cách sau dòng chấm, tách đơn vị, viết tắt chức vụ, chứng kiến ngang, Cộng đậm + không rớt dòng, bỏ nhãn đơn vị, tỷ lệ, nơi nhận 04); Phân công: đủ ấp theo cây, chia sẵn, ô nhiệm kỳ |
 | `node tests/t121.js` | 3.117: Mẫu 06 phân trang (keepNext Word, khối hộ bản In, đếm trang PDF 1 / 2 / 3 / 4 / 6 hộ); Thông báo phân công BTV (hộp, chia đều, căn cứ, người, ấp, kế toán / thủ quỹ, Word, In, Đoàn) |
 | `node tests/t120.js` | 3.115: Mẫu 06 dòng Thời điểm · Địa bàn · Tổ (gọn dần cho vừa 1 dòng), CT canh giữa, tên cán bộ kiểm tra dưới khối ký; Mẫu 16 tên Trưởng đoàn + Tổ trưởng, Bảng II như mẫu tham khảo; KH ① hết dính chữ |
-| `node tests/t99.js` | Chuyển tiếp tab Tháng: bỏ 7 dòng thuần Excel, ô XLS không tính thiếu, ô "đọc file cũ". |
 | `node tests/t144.js` | 3.148 Nút & trạng thái: bỏ 🗑 cuối dòng, nút Thêm xanh, hộp thoại Thôi trái / nút chính phải + nút không giãn, tin trong hộp vẫn nổi, tin thường vào ô trạng thái (thanh bên / thanh đáy iPhone), đèn đỏ / vàng, thanh %, hộp Đang xử lý ẩn khi không có Dừng, 🔔 danh sách tin, NhanNT trên thanh bên, thanh đáy ẩn / hiện theo tab, nút ≤ 240 px. |
 | `node tests/t145.js` | 3.149 Kỳ + phạm vi chung: ô Kỳ đầu trang, tab không còn ô kỳ riêng, đổi kỳ → mọi tab + SL_KY, phạm vi chọn ở Tổ → các tab khác + pvChung, cây 2 hàng (chip cấp kế tiếp, chọn tới tổ hết chip, bỏ chọn về PGD), KTGS bỏ dòng nạp + cảnh báo Thông tin tổ trưởng. |
 | `node tests/t146.js` | 3.150 Tab Nạp & KT gọn: 1 hàng công cụ ≤ 40 px, bỏ chữ / nút thừa, 1 dòng trạng thái (thiếu file liệt kê 1 lần, tooltip báo cáo), ma trận trọn ngang, kết quả kiểm + KTGS gập sẵn, ⋯ đủ việc phụ, ❓, tháng chưa có file, bấm tên tháng → kỳ chung. |
@@ -218,6 +216,8 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t309.js` | 3.368 Tra cứu › Tổ trưởng: danh sách tổ đủ 7 cột không cuộn ngang ở 1280 / 1366 / 1920, mã tổ đủ, Hội viết tắt (title tên đủ). |
 | `node tests/t310.js` | 3.369 tối ưu nạp: `slNen` / `slMoBang` mới = thuật toán cũ (giữ bản cũ để so), dò Mẫu 01/TV trong 100 dòng đầu vẫn nhận dòng tên cột ở dòng 30. |
 | `node tests/t311.js` | 3.372 Đ6 điện thoại: thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm, đầu trang gọn, Tra cứu gọn, ☰ Thêm có 📱 + ⏱ đo tốc độ (ghi Dựng kỳ); máy 1440 / 900 không đổi. |
+| (3.374) | t264 viết lại: chip năm / loại (không còn Đã ghim), xem PDF trong app, chỉ còn Gửi · Lưu máy, dọn file ghim cũ, danh mục cất máy, mất mạng báo "chỉ xem khi có mạng", chưa lên Drive (12). |
+| (3.373) | t268 mới: Drive — dùng lại quyền còn hạn, quyền sắp hết không dùng, tự nối hỏng không báo nổi + ⏱ ghi lý do, xin lại ngầm hỏng giữ nối, hàng chờ không báo nổi, câu chưa nối thống nhất + số chưa lên trong chip, điện thoại chip ngắn chỉ hiện khi cần (7). t269 mới: bố cục Đợt A ① ② ③ ⑥ (7). |
 | (3.371) | t267 mới: điện thoại Văn bản (hàng nút không cắt, bớt nút, trích yếu 2 dòng, ≥ 5 / màn), Scan (bỏ chữ lặp, thẻ đầu lên sớm); máy tính không đổi (6). |
 | (3.370) | t266 mới: mã điểm ngắn → TXN đủ (đúng xã / xã khác / đủ sẵn / không có → giữ / trống), số liệu giả cắt mã ngắn → tab + 12/GDX in mã đủ, khóa điểm giữ; điện thoại mở index.html ở lại bản chính, cờ cũ, 📱 → dt.html, 🖥 về (8). |
 | (3.354) | t265 mới: Hôm nay trang đầu, âm lịch (24/10 = 15/9, Tết 2026), lịch tháng, thêm việc lặp tuần + lưu ý, sắp tới, tick việc lặp theo ngày, ghi chú dòng (Enter / Thêm / tick / xóa), cất mã hóa + mở lại, sửa / xóa "chỉ ngày này", gộp chéo với `gopLich` máy tính và ngược lại, Khách chưa có số liệu có nút Tải (19). |
@@ -309,7 +309,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 
 Tiện ích: `tv.js` (định tuyến cdnjs → `tests/lib`), `fakedrive.js` (Drive giả đủ lệnh app dùng: tìm, tạo thư mục, multipart upload, PATCH, alt=media, thùng rác).
 
-Mẫu một phép thử mới: chép `t96.js`, đổi phần `p.evaluate(...)`; luôn in `lỗi` (pageerror) cuối cùng — phải là `[]`.
+Mẫu một phép thử mới: chép `t264.js` (dùng `ok(...)` in ✓ / ✗ + số đạt cuối), đổi phần `p.evaluate(...)`; luôn in `lỗi` (pageerror) cuối cùng — phải là `[]`.
 
 **Bản đồ mã:** `python3 tests/bando.py` sinh `docs/BAN_DO_MA.md` (file, mục, nhóm hàm theo tiền tố, điểm vào — vị trí `file:dòng`) — chạy lại sau mỗi bản.
 **Ghép 1 file (3.142):** `python3 tests/ghep.py ra.html` — ghép `index.html` + `css/` + `js/` thành 1 file như trước khi tách (đối chiếu / dùng offline).

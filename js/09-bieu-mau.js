@@ -296,7 +296,7 @@ function bmMoDocs(id){
   var m = timMucMo(id); if(!m) return;
   if(bmTim(id)) bmDungThem(id);
   if(m.driveId){ window.open(linkMoDrive(m), '_blank'); return; }
-  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive — vào Cài đặt › Google Drive để nối, hoặc chọn Tải về.');
+  if(!coTheNoiDrive()) return baoLoi(drChuaNoi()+' Hoặc chọn Tải về.');
   var w = window.open('about:blank', '_blank');   /* mở trước để trình duyệt không chặn cửa sổ */
   bmDamBaoDrive(m).then(function(){ if(w) w.location = linkMoDrive(m); else window.open(linkMoDrive(m), '_blank'); })
     .catch(function(e){ if(w) w.close(); baoLoi('Chưa đưa lên Drive được: '+(e&&e.message||e)); });

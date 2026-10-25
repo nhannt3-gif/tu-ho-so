@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.372** — TK 2: điện thoại Đ6 (thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm, gọn đầu / chân trang, Tra cứu gọn) + ⏱ đo tốc độ (`js/68`) + sửa lỗi Scan máy chậm. Trước: 3.371 / 3.370 TK 3 (Văn bản + Scan gọn, mở thẳng bản chính), 3.369 tối ưu nạp. Chờ anh: số đo ⏱ trên iPhone thật; 13 phép thử cũ ngoài hồi quy (t87–t99) chờ rà.
+- **`main` = 3.374** — TK 3: dt.html văn bản chỉ xem khi có mạng (bỏ 📌 ghim, dọn file ghim cũ). Trước: 3.373 TK 3 Drive báo 1 chip thống nhất + giữ quyền còn hạn khi mở lại app, bố cục Đợt A ① ② ③ ⑥, bỏ 8 phép thử không câu kiểm; 3.372 TK 2 điện thoại Đ6 + ⏱. Chờ anh: phương án B (Worker); trDan co chữ.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

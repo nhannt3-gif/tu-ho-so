@@ -25,6 +25,6 @@ const gia = ()=>{ try{ dongHop(); }catch(e){} const L=['Quyết định','Công 
  ok('ĐT · Scan: thẻ bỏ "Ấp · Tổ" + ngày lặp lại; thẻ đầu lên trong nửa màn hình đầu; không tràn ngang', s.ty && s.ngay && s.dau<450 && !s.tran, JSON.stringify(s));
  /* máy tính không đổi */
  const m = await mo({width:1440, height:900}), vm = await VB(m), sm = await SC(m);
- ok('MÁY TÍNH không đổi: nút Sắp xếp / Xóa / ✎ vẫn hiện; trích yếu 1 dòng; chip cảnh báo còn; Scan còn "Ấp · Tổ" + ngày', !vm.sap && !vm.bot && !vm.sua && vm.tyDong===1 && !vm.canh && !sm.ty && !sm.ngay, JSON.stringify({vm, sm}));
+ ok('MÁY TÍNH không đổi: nút Sắp xếp / Xóa / ✎ vẫn hiện; trích yếu 1 dòng; Scan còn "Ấp · Tổ" + ngày (chip "Thiếu…" từng thẻ gom thành 1 chip lọc từ 3.373 — t269)', !vm.sap && !vm.bot && !vm.sua && vm.tyDong===1 && !sm.ty && !sm.ngay, JSON.stringify({vm, sm}));
  o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
  console.log(o.join('\n')); console.log(o.filter(x=>x[0]==='✓').length+'/'+o.length+' đạt'); await b.close(); process.exit(o.some(x=>x[0]!=='✓') ? 1 : 0); })();

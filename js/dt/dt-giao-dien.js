@@ -47,7 +47,8 @@ var DTG = (function(){
       app.on('pageBeforeIn', danhTab); app.on('pageInit', danhTab);
       app.views.create('.view-main', {url:'/'}); }
     else app.views.main.router.navigate('/', {reloadAll:true, ignoreCache:true});
-    DT.lichNap().then(function(){ var o = el('dt-hom'); if(o) o.innerHTML = veHom(); });   /* 3.354: không tự gọi đăng nhập Google lúc mở (iPhone chặn cửa sổ không do bấm) — nút "Tải số liệu" */
+    DT.lichNap().then(function(){ var o = el('dt-hom'); if(o) o.innerHTML = veHom(); });
+    DT.donGhimCu();   /* 3.374: dọn file 📌 ghim cũ (bỏ xem không mạng) */   /* 3.354: không tự gọi đăng nhập Google lúc mở (iPhone chặn cửa sổ không do bấm) — nút "Tải số liệu" */
   }
   var TAB = {hom:'hom', viec:'hom', tra:'tra', kh:'tra', to:'tra', db:'tra', vanban:'vb', scan:'sc', scmoi:'sc', cd:'cd', gdx:'cd'};
   function danhTab(page){ var t = TAB[page.name], x = page.name==='xem' && page.el && page.el.querySelector('#dt-xem'); if(x) t = x.getAttribute('data-l')==='scan' ? 'sc' : 'vb';
@@ -226,16 +227,16 @@ var DTG = (function(){
       nh.map(function(n){ var s = n.s, href = cap==='xa' ? u(n.k) : cap==='diem' ? u(loc.xa, n.k) : cap==='hoi' ? u(loc.xa, loc.diem, n.k) : u(loc.xa, loc.diem, loc.hoi, n.k);
         var t0 = n.ds[0] || {}, phu = cap==='to' ? [t0.ap, t0.tt ? 'TT '+t0.tt : ''].filter(Boolean).join(' · ')+' · '+s.ho+' hộ' : s.to+' tổ · '+s.ho+' hộ';
         return dong(href, e(n.ten), e(phu)+(s.qh ? ' · <span class="do">QH '+tr(s.qh)+'</span>' : '')+(s.kn ? ' · K '+tr(s.kn) : ''), tr(s.dn)); }).join('')+'</ul></div>'}, !!loc.xa); }
-  /* 📄 Văn bản · 📷 Scan — 3.344 (Đ2): chip Đã ghim · năm · loại; bấm mục → trang xem trong app (PDF vẽ bằng pdf.js — iOS mở tab ngoài kém);
-     📌 Ghim = cất file trong máy (mã hóa) xem không mạng ≤ 200 MB; danh sách cất máy mở lại không cần mạng. Scan: cùng trang xem, không ghim (Đ3). */
+  /* 📄 Văn bản · 📷 Scan — 3.344 (Đ2): chip năm · loại; bấm mục → trang xem trong app (PDF vẽ bằng pdf.js — iOS mở tab ngoài kém); danh sách cất máy.
+     3.374 (anh 26/10 "chỉ xem khi có mạng"): bỏ 📌 Ghim xem không mạng — mở file luôn tải từ Drive. */
   var SC = {anh:[], pdf:null};
   function vbLoc(){ var x = DT.ch.vbLoc; return x && typeof x==='object' ? x : {}; }
-  function locThem(loai, ds){ if(loai!=='vanban') return ds; var L = vbLoc(), o = DT.off();
-    return ds.filter(function(m){ return (!L.ghim || o[m.id]) && (!L.nam || String(m.ngay || '').slice(0, 4)===L.nam) && (!L.loai || (m.loai || '')===L.loai); }); }
-  function chipVB(){ var ds = DT.ds('vanban') || [], L = vbLoc(), nam = {}, loai = {}, nG = Object.keys(DT.off()).length;
+  function locThem(loai, ds){ if(loai!=='vanban') return ds; var L = vbLoc();
+    return ds.filter(function(m){ return (!L.nam || String(m.ngay || '').slice(0, 4)===L.nam) && (!L.loai || (m.loai || '')===L.loai); }); }
+  function chipVB(){ var ds = DT.ds('vanban') || [], L = vbLoc(), nam = {}, loai = {};
     ds.forEach(function(m){ var y = String(m.ngay || '').slice(0, 4); if(/^\d{4}$/.test(y)) nam[y] = (nam[y]||0)+1; if(m.loai) loai[m.loai] = (loai[m.loai]||0)+1; });
     var c = function(k, v, chu, bat){ return '<a href="#" class="dt-chip dt-vbc'+(bat ? ' bat' : '')+'" data-k="'+k+'" data-v="'+e(v)+'">'+chu+'</a>'; };
-    return '<div class="dt-theo">'+c('tat', '', 'Tất cả', !L.ghim && !L.nam && !L.loai)+c('ghim', '1', '📌 Đã ghim'+(nG ? ' '+nG : ''), !!L.ghim)+
+    return '<div class="dt-theo">'+c('tat', '', 'Tất cả', !L.nam && !L.loai)+
       Object.keys(nam).sort().reverse().slice(0, 6).map(function(y){ return c('nam', y, y, L.nam===y); }).join('')+
       Object.keys(loai).sort(function(a, b){ return loai[b]-loai[a]; }).slice(0, 8).map(function(x){ return c('loai', x, e(x), L.loai===x); }).join('')+'</div>'; }
   function trDS(loai){ var vb = loai==='vanban', ds = DT.ds(loai);
@@ -245,18 +246,17 @@ var DTG = (function(){
       '<div class="dt-tim"><input type="search" id="dt-loc" data-l="'+loai+'" placeholder="'+(vb ? 'Số hiệu, trích yếu, loại' : 'Tên khách, mã KH, ấp, tổ')+'" autocomplete="off"></div>'+
       (vb ? '<div id="dt-vbc">'+(ds ? chipVB() : '')+'</div>' : '')+
       '<div id="dt-ds">'+(ds ? veDS(loai, '') : trong('Đang mở danh sách đã cất trong máy… (chưa có thì bấm ⟳ để lấy từ Drive)'))+'</div>'}); }
-  function veDS(loai, q){ var ds = locThem(loai, DT.locDS(loai, q)), vb = loai==='vanban', it = ds.slice(0, 150), o = DT.off();
-    if(!ds.length) return trong(vb && vbLoc().ghim ? 'Chưa ghim văn bản nào — mở văn bản rồi bấm 📌 Ghim để xem không mạng.' : 'Không có mục khớp.');
+  function veDS(loai, q){ var ds = locThem(loai, DT.locDS(loai, q)), vb = loai==='vanban', it = ds.slice(0, 150);
+    if(!ds.length) return trong('Không có mục khớp.');
     return '<div class="list media-list inset"><ul>'+it.map(function(m){ var ten = vb ? (m.soHieu || m.trichYeu || m.tenFile || 'Văn bản') : (m.ten || 'Scan');
       var phu = vb ? [ng(m.ngay), m.loai, m.trichYeu && m.soHieu ? m.trichYeu : ''].filter(Boolean).join(' · ') : [ng(m.ngay || String(m.taoLuc || '').slice(0, 10)), m.che==='tailieu' ? 'Tài liệu' : m.che ? 'CCCD / thẻ' : '', m.maKH, m.ap, m.to].filter(Boolean).join(' · ');
-      return '<li><a href="/xem/'+loai+'/'+encodeURIComponent(m.id)+'/" class="item-link item-content"><div class="item-inner"><div class="item-title-row"><div class="item-title">'+e(ten)+'</div><div class="item-after">'+(o[m.id] ? '📌' : m.driveId ? '' : '<small>chưa lên Drive</small>')+'</div></div><div class="item-subtitle">'+e(phu)+'</div></div></a></li>'; }).join('')+'</ul></div>'+
+      return '<li><a href="/xem/'+loai+'/'+encodeURIComponent(m.id)+'/" class="item-link item-content"><div class="item-inner"><div class="item-title-row"><div class="item-title">'+e(ten)+'</div><div class="item-after">'+(m.driveId ? '' : '<small>chưa lên Drive</small>')+'</div></div><div class="item-subtitle">'+e(phu)+'</div></div></a></li>'; }).join('')+'</ul></div>'+
       (ds.length>it.length ? '<div class="dt-ghi">… còn '+(ds.length-it.length)+' mục — gõ thêm để thu hẹp</div>' : ''); }
   function timMuc(loai, id){ return (DT.ds(loai) || []).filter(function(m){ return String(m.id)===String(id); })[0] || null; }
   function tenTep(m, bl){ return String((m && (m.soHieu || m.ten || m.trichYeu)) || 'tep').replace(/[\\/:*?"<>|]+/g, '-').slice(0, 80)+(!bl.type || /pdf/.test(bl.type) ? '.pdf' : /png/.test(bl.type) ? '.png' : /jpe?g/.test(bl.type) ? '.jpg' : ''); }
-  function trXem(loai, id){ var m = timMuc(loai, id), vb = loai==='vanban', o = DT.off()[id], ten = m ? (vb ? (m.soHieu || m.trichYeu || 'Văn bản') : (m.ten || 'Scan')) : (o ? o.ten : 'Tệp');
+  function trXem(loai, id){ var m = timMuc(loai, id), vb = loai==='vanban', ten = m ? (vb ? (m.soHieu || m.trichYeu || 'Văn bản') : (m.ten || 'Scan')) : 'Tệp';
     return trang('xem', {tieu:e(ten), than:(m && vb && m.trichYeu ? '<div class="dt-ghi">'+e([ng(m.ngay), m.loai, m.trichYeu].filter(Boolean).join(' · '))+'</div>' : '')+
-      '<div class="block dt-xem-nut">'+(vb ? '<a href="#" class="button button-small button-fill dt-ghim" data-id="'+e(id)+'">'+(o ? '📌 Bỏ ghim' : '📌 Ghim — xem không mạng')+'</a>' : '')+
-        '<a href="#" class="button button-small button-outline dt-gui">📤 Gửi · ⬇ Lưu máy</a></div>'+
+      '<div class="block dt-xem-nut">'+'<a href="#" class="button button-small button-outline dt-gui">📤 Gửi · ⬇ Lưu máy</a></div>'+
       '<div id="dt-xem" class="dt-xem" data-l="'+loai+'" data-id="'+e(id)+'">'+trong('Đang mở…')+'</div>'}, 1); }
   var PDFJS = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/';
   function napPDF(){ if(window.pdfjsLib && pdfjsLib.GlobalWorkerOptions.workerSrc) return Promise.resolve(window.pdfjsLib);
@@ -272,12 +272,13 @@ var DTG = (function(){
   var XEM = {bl:null, m:null};
   function veXem(page){ var o = page.el.querySelector('#dt-xem'); if(!o) return; var loai = o.getAttribute('data-l'), id = o.getAttribute('data-id'), m = timMuc(loai, id);
     XEM = {bl:null, m:m};
-    DT.offDoc(id).then(function(bl){ if(bl) return bl; if(!m || !m.driveId) throw new Error(m ? 'Mục này chưa lên Drive — mở ở máy tính đã quét / lưu.' : 'Không thấy mục — bấm ⟳ ở danh sách.'); return DT.taiFile(m.driveId); })
+    Promise.resolve().then(function(){ if(!m || !m.driveId) throw new Error(m ? 'Mục này chưa lên Drive — mở ở máy tính đã quét / lưu.' : 'Không thấy mục — bấm ⟳ ở danh sách.'); return DT.taiFile(m.driveId); })
       .then(function(bl){ XEM.bl = bl;
         if(/^image\//.test(bl.type)){ var u = URL.createObjectURL(bl); o.innerHTML = '<img class="dt-trang" src="'+u+'" alt="">'; return; }
         if(bl.type && !/pdf/.test(bl.type)){ o.innerHTML = trong('Tệp '+e(bl.type)+' — bấm 📤 Gửi · ⬇ Lưu máy để mở bằng app khác.'); return; }
         return vePDF(o, bl); })
-      .catch(function(er){ o.innerHTML = trong(e(er.message)); }); }
+      .catch(function(er){ var mat = navigator.onLine===false || /fetch|network|mạng/i.test(er && er.message || '');   /* 3.374: chỉ xem khi có mạng */
+        o.innerHTML = trong(mat ? 'Chưa có mạng — văn bản chỉ xem khi có mạng. Bật mạng rồi mở lại.' : e(er.message)); }); }
   function tacVu(bl, ten, vaoApp, boXem){   /* bảng nút chuẩn: Xem · (Lưu vào app) · Lưu vào máy · Gửi · Đóng — 3.344: boXem = đang ở trang xem trong app */
     var url = URL.createObjectURL(bl), f = new File([bl], ten, {type:bl.type || 'application/pdf'});
     var nut = boXem ? [] : [{text:'👁 Xem', onClick:function(){ window.open(url, '_blank'); }}];   /* thứ tự chuẩn: Xem · Lưu vào app · Lưu vào máy · Gửi */
@@ -332,16 +333,11 @@ var DTG = (function(){
       DT.taiKhoi(l).then(function(){ t.close(); var o = page.el.querySelector('#dt-ds'); if(o) o.innerHTML = veDS(l, ($('#dt-loc') || {}).value || ''); var c = page.el.querySelector('#dt-vbc'); if(c) c.innerHTML = chipVB(); }, function(er){ t.close(); app.dialog.alert(e(er.message)); }); }; });
     if($('#dt-loc')){ var hl; $('#dt-loc').oninput = function(){ var l = this.getAttribute('data-l'), v = this.value; clearTimeout(hl); hl = setTimeout(function(){ var o = page.el.querySelector('#dt-ds'); if(o && DT.ds(l)) o.innerHTML = veDS(l, v); }, 200); }; }
     page.el.addEventListener('click', function(ev){ var c = ev.target.closest && ev.target.closest('.dt-vbc'); if(!c) return; ev.preventDefault();   /* 3.344: chip lọc văn bản */
-      var k = c.getAttribute('data-k'), v = c.getAttribute('data-v'), L = vbLoc(); if(k==='tat') L = {}; else if(L[k]===v || (k==='ghim' && L.ghim)) delete L[k]; else L[k] = v;
+      var k = c.getAttribute('data-k'), v = c.getAttribute('data-v'), L = vbLoc(); if(k==='tat') L = {}; else if(L[k]===v) delete L[k]; else L[k] = v;
       DT.ch.vbLoc = L; DT.chLuu(); var o = $('#dt-vbc'); if(o) o.innerHTML = chipVB(); var d = $('#dt-ds'); if(d) d.innerHTML = veDS('vanban', ($('#dt-loc') || {}).value || ''); });
     if((page.name==='vanban' || page.name==='scan') && !DT.ds(page.name)) DT.dsNap(page.name).then(function(ds){ var d = $('#dt-ds'); if(!d) return;
       d.innerHTML = ds ? veDS(page.name, ($('#dt-loc') || {}).value || '') : trong('Bấm ⟳ để lấy danh sách từ Drive.'); var c = $('#dt-vbc'); if(c && ds) c.innerHTML = chipVB(); });   /* 3.344: danh sách cất máy */
     if(page.name==='xem'){ veXem(page);
-      tat('.dt-ghim').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); var id = a.getAttribute('data-id');
-        if(DT.off()[id]) return DT.offXoa(id).then(function(){ a.textContent = '📌 Ghim — xem không mạng'; app.toast.create({destroyOnClose:true, text:'Đã bỏ ghim', closeTimeout:1500}).open(); });
-        if(!XEM.bl) return app.dialog.alert('Đợi tệp mở xong rồi ghim.');
-        DT.offLuu(XEM.m || {id:id}, XEM.bl).then(function(){ a.textContent = '📌 Bỏ ghim'; app.toast.create({destroyOnClose:true, text:'Đã ghim — xem được khi không có mạng ('+Math.round(DT.offDung()/1048576)+' / 200 MB)', closeTimeout:2500}).open(); },
-          function(er){ app.dialog.alert(e(er.message)); }); }; });
       tat('.dt-gui').forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); if(!XEM.bl) return app.dialog.alert('Đợi tệp mở xong.'); tacVu(XEM.bl, tenTep(XEM.m, XEM.bl), false, true); }; }); }
     if($('#dt-them')) $('#dt-them').onchange = function(){ var f = this.files[0]; if(f) tacVu(f, f.name, true); this.value = ''; };
     if($('#dt-anh')) $('#dt-anh').onchange = function(){ var fs = Array.prototype.slice.call(this.files); this.value = '';

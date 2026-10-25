@@ -21,7 +21,7 @@ const fs=require('fs'), path=require('path');
  await p.close();
  const m = await mo(1440, 900, false);
  const q = await m.evaluate(()=>({dt:[...document.styleSheets].filter(s=>/dt-may\.css/.test(s.href||'')).map(s=>matchMedia(s.media.mediaText).matches), ten:getComputedStyle(document.querySelector('.ten-app')).display, tien:getComputedStyle(document.querySelector('[data-lenh="dh.tien"]')).display}));
- ok('3.361 máy tính 1440: dt-may.css không áp dụng, tên app + nút ➡ như cũ', q.dt.length===1 && q.dt[0]===false && q.ten!=='none' && q.tien!=='none', JSON.stringify(q));
+ ok('3.361 máy tính 1440: dt-may.css không áp dụng, nút ➡ như cũ (tên app thay bằng đường dẫn tab từ 3.373 — t269)', q.dt.length===1 && q.dt[0]===false && q.tien!=='none', JSON.stringify(q));
  await m.close();
  o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = o.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t303 đạt'); await b.close(); process.exit(sai?1:0);

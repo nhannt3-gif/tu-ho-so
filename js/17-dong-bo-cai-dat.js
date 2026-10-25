@@ -73,7 +73,7 @@ function dongBoCauHinh(cheDo){   /* cheDo: 'tu' (tự động: kéo nếu Drive 
   return CH_DANG;
 }
 function dayCauHinh(imLang){   /* giữ tên cũ cho các chỗ gọi: tự động = im lặng; anh bấm "Lưu lên Drive" = đẩy luôn */
-  if(!coTheNoiDrive()){ if(!imLang) baoLoi('Chưa nối Drive.'); return Promise.resolve(false); }
+  if(!coTheNoiDrive()){ if(!imLang) baoLoi(drChuaNoi()); return Promise.resolve(false); }
   if(!imLang) batChay(true);
   return dongBoCauHinh(imLang ? 'tu' : 'day').then(function(kq){
     if(!imLang){ tatChay(); if(kq.loi) baoLoi('Không lưu được lên Drive: '+kq.loi); else bao('Đã lưu cài đặt lên Drive'+(kq.doi ? ' (đã gộp '+kq.doi+' mục máy khác vừa sửa)' : '')+'.', 4); }
@@ -422,7 +422,7 @@ function kiemTraCauTrucChuan(){
 }
 
 function keoCauHinh(imLang){   /* 3.113: anh bấm "Lấy từ Drive" — Drive ưu tiên, giữ phần chỉ máy này có */
-  if(!coTheNoiDrive()){ if(!imLang) baoLoi('Chưa nối Drive.'); return Promise.resolve(false); }
+  if(!coTheNoiDrive()){ if(!imLang) baoLoi(drChuaNoi()); return Promise.resolve(false); }
   if(!imLang) batChay(true);
   return dongBoCauHinh('lay').then(function(kq){
     if(!imLang){ tatChay(); if(kq.loi) baoLoi('Không lấy được: '+kq.loi); else { capNhatDau(); ve(); var m = demDiaBan(); bao('Đã lấy cài đặt từ Drive · '+m.xa+' xã · '+m.ap+' ấp · '+m.to+' tổ'+(kq.doi ? ' · '+kq.doi+' mục đổi' : '')+'.', 7); } }

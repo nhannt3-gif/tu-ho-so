@@ -1237,7 +1237,7 @@ function tenFileKA(loai, ten, ngay){
 function duongKA(thang){ return [D.cauHinh.thumuc, 'Chữ ký - CCCD', thang].join(' / '); }
 function moThuMucKA(thang){
   thang = thang || ngayISO(nay()).slice(0,7);
-  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.');
+  if(!coTheNoiDrive()) return baoLoi(drChuaNoi());
   var tm = (D.cauHinh.kaTM||{})[thang], mo = function(id){ return 'https://drive.google.com/drive/folders/'+id; };
   if(tm) return window.open(mo(tm), '_blank');
   var w = window.open('about:blank', '_blank');   /* mở cửa sổ ngay lúc bấm, tránh bị chặn popup */
@@ -1471,7 +1471,7 @@ function luuKA(cach){
 }
 function dayKAMot(id, im){
   var k = (D.kyAnh||[]).find(function(x){ return x.id===id; }); if(!k) return;
-  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.');
+  if(!coTheNoiDrive()) return baoLoi(drChuaNoi());
   var thang = (k.ngay||ngayISO(nay())).slice(0,7), duong = duongKA(thang);
   return Promise.all([docAnhHS(k.id), baoDamDuong(duong)]).then(function(r){
     var bl = r[0], idTM = r[1]; if(!bl) throw new Error('Ảnh trong máy không còn');
@@ -1743,7 +1743,7 @@ var DB_DANG = false, DB_HEN = null;
 function henDongBoScan(){ clearTimeout(DB_HEN); DB_HEN = setTimeout(function(){ dongBoScan(false); }, 800); }
 /* tuTay = anh bấm: có thanh chạy + báo kết quả; tự động: chạy lặng lẽ */
 function dongBoScan(tuTay){
-  if(!coTheNoiDrive()){ if(tuTay) baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.'); return Promise.resolve(false); }
+  if(!coTheNoiDrive()){ if(tuTay) baoLoi(drChuaNoi()); return Promise.resolve(false); }
   if(!DR.sanSang){ if(tuTay) return noiDrive().then(function(ok){ return ok ? dongBoScan(true) : false; }); return Promise.resolve(false); }
   if(DR.online===false){ if(tuTay) bao('Đang mất mạng — có mạng lại app tự đẩy.', 4); return Promise.resolve(false); }
   if(DB_DANG) return Promise.resolve(false);

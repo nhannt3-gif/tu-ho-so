@@ -563,7 +563,7 @@ function dayHoSoLenDrive(k, bl){
 }
 /* đưa lần lượt nhiều hồ sơ — mỗi bản một file */
 function dayScanNhieu(ids){
-  if(!coTheNoiDrive()) return Promise.resolve(baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.'));
+  if(!coTheNoiDrive()) return Promise.resolve(baoLoi(drChuaNoi()));
   var ds = ids.map(function(id){ return (HS.ds||D.scan||[]).find(function(x){ return x.id===id; }); })
     .filter(function(k){ return k && ((k.che==='tailieu' ? (k.trang||[]).length : k.matTruoc) || k.driveId); });   /* 3.91: có PDF trên Drive → đổi tên / dời được */
   var boQua = ids.length - ds.length;

@@ -222,6 +222,25 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.374) — iPhone (bản gọn dt.html), anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📱 › Văn bản › mở 1 văn bản | Xem trong app; chỉ còn nút 📤 Gửi · ⬇ Lưu máy (không còn 📌 Ghim) | |
+| 2 | Bật chế độ máy bay › mở văn bản | Báo "Chưa có mạng — văn bản chỉ xem khi có mạng" | |
+
+**Ghi chú kỹ thuật 3.374:** `js/dt/dt-nen.js` bỏ `OFF_TOI / off / offDung / offLuu / offDoc / offXoa`, thêm `donGhimCu()` (xóa `vb:<id>` + `CH.vbOff`, gọi ở `moApp`); `dt-giao-dien.js` bỏ chip / nút / lọc ghim, `veXem` tải thẳng `DT.taiFile`.
+
+### Danh sách thử trên máy thật (3.373) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | iPhone mở app lần đầu trong ngày | Chân trang có chip "🟡 Nối Drive"; bấm 1 lần → 🟢 (chip ẩn); không còn thông báo nổi rối | |
+| 2 | Đóng app, mở lại trong 1 giờ | Nối ngay, không hỏi Google; ☰ Thêm › ⏱ ghi "Nối Drive (dùng lại quyền cũ)" | |
+| 3 | Máy tính › Văn bản (chưa chọn mục) | Danh sách rộng hết; bấm 1 văn bản → khung xem mở ra | |
+| 4 | Máy tính › đầu trang | Ghi "📊 Số liệu › 👥 Tổ TK&VV" theo tab đang mở | |
+| 5 | Máy tính › Văn bản › chip "⚠ N văn bản khai thiếu" | Bấm → chỉ hiện văn bản khai thiếu; bấm lại → hiện hết | |
+
+**Ghi chú kỹ thuật 3.373:** `js/06c-drive.js`: `DR_TK` (localStorage `tuhoso_drtk` = {t, h}), `drCatQuyen / drKhoiPhuc / drLyDo / drChuaNoi / drSauKhiNoi`, `DR.lyDo`, `DR.quyenCu`; `noiDrive(true)` khôi phục quyền trước khi gọi Google; lỗi xin lại ngầm giữ `sanSang` khi `hetHan` còn; `capNhatChip` 1 chip + `body[data-drive]` (xanh / vang / do / xam) cho `css/dt-may.css`. `js/69-bo-cuc-a.js` bọc `doiNgan / dhVe / veVanBan / veDay` + MutationObserver `#cotphai`; `DH_MUC.nap.do` thành getter.
+
 ### Danh sách thử trên máy thật (3.372) — iPhone
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
