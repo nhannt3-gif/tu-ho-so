@@ -53,6 +53,8 @@
 7. **Báo anh, chưa sửa (đổi bản in cũ):** thang co chữ `.trang` của trDan (js/05) không hề chạy (getComputedStyle trên nút chưa gắn vào trang) — sửa sẽ đổi bản in cũ, chờ anh.
 8. **Việc sau (chưa lên kế hoạch):** danh mục lý do lệch (QT-09 cần anh quyết), thống nhất quy tắc kiểm tra, quy tắc bù 01/TV cuối tháng (chờ số liệu T10), giảm onclick (K6).
 
+9. **Rà soát bố cục tổng thể 25/10 (anh yêu cầu trước bàn giao):** `docs/RA_SOAT_BO_CUC_2510.md` — 11 chỗ chưa ổn + đề xuất Đợt A (6 việc nhanh) / B / C, **chờ anh chọn**.
+
 ## 6. Bản máy tính trên điện thoại — ai sửa gì (tránh trùng như 3.370 / 3.371)
 - `css/dt-may.css` + `js/66-dt-may.js` (TK 2 làm): khung — thanh dưới (bọc `DT_NUT` / `dtDang` / `dtVe` / `dtThem` / `ttVe`), đầu / chân trang, Hôm nay, thẻ khách, Tra cứu, Số liệu. Chỉ nạp / chạy khi ≤ 600 px; máy tính bảng / máy tính giữ thanh dưới cũ (`js/23` `DT_NUT`).
 - `css/dt-may-vbsc.css` (TK 3): Văn bản + Scan. `dt.html` + `js/dt/*` (TK 3). `js/60-ve-dt.js` nút 📱 (TK 3 — giữ, anh chốt).
