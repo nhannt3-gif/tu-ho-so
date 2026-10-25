@@ -61,6 +61,7 @@
 | 24/10 | TK 3 | **3.343** | điện thoại Đ1: `js/dt/dt-giao-dien.js`, `css/dt.css`, **`js/38-goi-xem.js` (nối thêm 3 trường cuối: lãi tồn món, cờ GH, mã KH tổ trưởng — không đổi trường cũ)**, `tests/t263.js` mới | t263 18/18, t193–t195, t262, t260 dt |
 | 24/10 | TK 3 | **3.352** | điện thoại Đ2: `dt.html` (CSP + `worker-src blob:`), `js/dt/dt-nen.js`, `js/dt/dt-giao-dien.js`, `css/dt.css`, `tests/tv.js` (+ đường pdf.js cho phép thử), `tests/t264.js` mới, `tests/t194.js` (bấm văn bản → trang xem thay hộp thoại) — không đụng file chung | t264 18/18, t193 20/20, t194 9/9, t195 7/7, t262 17/17, t263 18/18 |
 | 24/10 | TK 3 | **3.354** | điện thoại: `js/dt/dt-lich.js` mới, `js/dt/dt-nen.js`, `js/dt/dt-giao-dien.js`, `css/dt.css`, `dt.html`, `dt-sw.js`, `tests/t265.js` mới, t193 / t194 / t262 / t263 (trang đầu = Hôm nay) — **đọc** `_Hệ thống/lich.json` của máy tính, không sửa js/04b | t265 19/19, t193–t195, t262–t264, t260 dt |
+| 25/10 | TK 3 | **3.370** | anh "code và gộp gấp": `js/26-giao-dich-xa.js` (**file TK 2** — chỉ thêm `gdxMaDu` + 1 chỗ gọi trong `gdxDsDiem`, mã điểm đủ TXN), `index.html` dòng 7–8 (bỏ tự chuyển dt.html — G1), `js/60-ve-dt.js`, `tests/t266.js` mới, t193 / t262 | t266 8/8, nhóm gdx + dt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
