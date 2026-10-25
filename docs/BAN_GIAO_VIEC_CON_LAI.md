@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.378) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › 🎯 Đột xuất › chọn tổ › In › hộp Chọn khi in | Mẫu 16 có 3 ô Ưu điểm / Tồn tại / Kiến nghị; Bảng II chỉ Để trống / Điền đầy đủ | |
+| 2 | Chọn Tồn tại = Để chấm, còn lại ghi → Word | III.2 Tồn tại dòng chấm; Ưu điểm, Kiến nghị có ý ghi sẵn | |
+| 3 | Bảng II Để trống → Word | Ô kết quả trống (không chấm), 2 dòng có số trống | |
+| 4 | Mẫu 04 › hộp Chọn khi in | 2 ô Nhận xét / Kiến nghị chọn riêng | |
+
+**Ghi chú kỹ thuật 3.378:** `js/22b` `KT_IN_MD` thêm `nxud, nxtt, nxkn` (m16), `nxto, nxkn` (m04); `ktInLay` khóa `nx*` chưa có → theo `nx` cũ; `b2==='cham'` → '' và `b2o[i].c==='cham'` → 'trong'. `ktNxCo(v, p)` (p = ud · tt · kn · to; v chỉ có `nx` thì theo `nx`). `ktNhanXet16` lọc từng phần, `kq1/kq2` theo `ktB16Mac(v)==='dien'`; bỏ `KT_B16_CHAM`, `ktB16NX`. `js/22d` `ktBC04`: `nx` theo `ktNxCo(v,'to')`, `kn` theo `ktNxCo(v,'kn')`. `js/56` `KT_B2_CACH` bỏ 'cham'.
+
 ### Danh sách thử trên máy thật (3.377) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

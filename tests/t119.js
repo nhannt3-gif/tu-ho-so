@@ -35,7 +35,7 @@ const fs=require('fs'), path=require('path');
    ok('Word Mẫu 06: người kiểm tra = Chủ tịch đã khai (chức danh theo Chuẩn hóa)', c6.indexOf('Nguyễn Văn Chủ⇥Chức vụ: '+c.ky)>=0, (c6.match(/1\. Ông \(bà\)[^⇥]*⇥[^⇥]{0,30}/)||[''])[0]);
    /* 3. Mẫu 16: mặc định Bảng II trống, nhận xét gợi ý; người 2 = ủy viên */
    ktXuat('m16', 'word'); await w(80);
-   ok('hộp Mẫu 16: nhận xét gợi ý, Bảng II để trống (mặc định)', document.getElementById('ki-m16-nx').value==='so' && document.getElementById('ki-m16-b2').value==='' && document.getElementById('ki-m16-ng2').value==='');
+   ok('hộp Mẫu 16: nhận xét gợi ý, Bảng II để trống (mặc định)', ['nxud','nxtt','nxkn'].every(k=>document.getElementById('ki-m16-'+k).value==='so') && document.getElementById('ki-m16-b2').value==='' && document.getElementById('ki-m16-ng2').value==='');
    chon('ki-m16-ng2', 'uv2'); await w(50);
    [...document.querySelectorAll('#hop-in button')].find(x=>/Word/.test(x.textContent)).click(); await w(800);
    const c16 = chu(await docx(F[Object.keys(F).find(x=>/Mau 16/.test(x))]));
@@ -70,7 +70,7 @@ const fs=require('fs'), path=require('path');
    ok('Xem trước Kế hoạch theo người ký đã chọn', !!document.getElementById('kt-kh-khung') && KT_KH_XEM.f.KY==='Trần Thị Phó' && /Đổi lựa chọn in/.test(document.getElementById('hop-in').textContent)); dongHop();
    /* 7. các luồng khác đều hỏi trước */
    C.che = 'bc'; ktVeThe(); await w(100); KT_BC_CHON = {}; KT_BC_CHON[t.ma] = true; ktVeThe(); await w(100); ktBCXem(); await w(80);
-   ok('Mẫu 04 → hộp chọn (nhận xét, 2 người)', !!document.getElementById('ki-m04-nx') && !!document.getElementById('ki-m04-ng2')); dongHop();
+   ok('Mẫu 04 → hộp chọn (nhận xét, 2 người)', !!document.getElementById('ki-m04-nxto') && !!document.getElementById('ki-m04-nxkn') && !!document.getElementById('ki-m04-ng2')); dongHop();
    C.che = 'dk'; ktVeThe(); await w(150); ktDKXem(); await w(80);
    ok('định kỳ → hộp chọn có cả 06 và 16', !!document.getElementById('ki-m06-md') && !!document.getElementById('ki-m16-b2')); dongHop();
    C.che = 'dx'; C.xa = ''; C.to = '';

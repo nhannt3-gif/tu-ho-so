@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.378 — 26/10/2026 — KTGS: nhận xét chọn từng phần, Bảng II không chấm (TK 3)
+- **Anh 26/10**: "chỗ nhận xét, tồn tại, kiến nghị anh muốn cho chọn 3 phần riêng nhau, em tự ghi theo số liệu hay để chấm"; "Bảng II chỉ để trống, không có chấm trong ô"; "Mẫu 04 cũng chia ra 2".
+- **Mẫu 16/TD**: hộp 🖨 Chọn khi in có 3 ô **III.1 Ưu điểm · III.2 Tồn tại · III.3 Kiến nghị**, mỗi ô **Ghi theo số liệu** / **Để chấm (ghi tay)** (trước: 1 ô chung cả 3).
+- **Bảng II**: còn **Để trống** / **Điền đầy đủ theo 727** — bỏ "Chấm ghi tay" cả bảng lẫn ▸ Từng ô; 2 dòng có số (số tổ viên, lãi tồn / quá hạn) đi theo ô Bảng II (trước theo ô Nhận xét). Lựa chọn cũ "chấm" tự thành để trống.
+- **Mẫu 04/BC-TH**: 2 ô **IV.1 Nhận xét (đối với Tổ)** / **IV.2 Kiến nghị (a, b, c)**.
+- Dữ liệu cũ: lựa chọn chung cũ (Gợi ý / Chấm) áp cho mọi phần chưa chọn riêng; bộ ① / ② nhớ riêng như cũ. ✚ Điền đầy đủ chọn mọi phần ghi theo số liệu. Dòng 🎯 Khai báo đột xuất ghi từng phần.
+- Phép thử: t272 mới (14); sửa t111, t119, t236, t238 theo luật mới.
+
 ## 3.377 — 26/10/2026 — Báo trùng CCCD lúc đọc · ▣ ở Scan · ⏱ ở thanh bên (TK 3)
 - **Anh 26/10**: "kiểm tra 1 số cccd scan rồi lưu nữa hay đọc có báo trùng hay ko" → "code báo trùng"; "đo tốc độ ở đâu"; "nút mở đóng khung xem trước scan làm tương tự bên vb".
 - **Báo trùng CCCD** (file cắm rút **`js/70-bao-trung-cccd.js`**): trước — tab Scan vẫn lưu bản mới "(2)" rồi mới báo nổi 9 giây; Quét CCCD ở form không báo; hộ chưa có mã KH không so số CCCD. Nay đọc được số CCCD (tab Scan · 🪪 Quét ở form) → so tủ theo **số CCCD hoặc mã KH** → "⚠ Đã có CCCD này trong tủ: n bản (lưu ngày …)" + chọn **◉ Thay bản cũ** (mặc định — bản cũ vào 🗑 Thùng rác, lấy lại được) / **○ Lưu thêm** (đánh số (2) như cũ). Chọn Thay → bản cũ vào 🗑 trước rồi lưu bản mới. Chỉ so bản thẻ CCCD (tài liệu không tính).

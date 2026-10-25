@@ -83,9 +83,9 @@ const fs=require('fs'), path=require('path');
    ok('Mẫu 16: 4 dòng Ông (bà) theo tab, tổ trưởng điền tên', (z16.doc.match(/w:pos="5954"/g)||[]).length===4 && c16.indexOf('- Ông (bà): '+best.ten+'⇥ Chức vụ: Tổ trưởng')>=0);
    ok('Mẫu 16 Word: đầu trang = Hội cấp xã của tổ (3.118: bỏ nhãn ĐƠN VỊ KIỂM TRA), tiêu ngữ canh tab', c16.indexOf(ktDonVi16(best, {}).DVA+'⇥CỘNG HO')>=0 && c16.indexOf('ĐƠN VỊ KIỂM TRA')<0 && /w:val="center" w:pos="6350"/.test(z16.doc), (c16.match(/[^\n]{0,40}⇥Độc lập/)||[''])[0]);
    const g16 = ktGiaTri16(best, ktDaChon(), {nx:'so'});
-   ok('gợi ý: ô kết quả số tổ viên + lãi tồn / quá hạn', /tổ viên — (đảm bảo|không đảm bảo) \(05–60\)/.test(g16.nx.kq1) && !!g16.nx.kq2 && c16.indexOf(g16.nx.kq1)>=0, g16.nx.kq1+' · '+g16.nx.kq2);
+   ok('gợi ý: ô kết quả số tổ viên + lãi tồn / quá hạn', /tổ viên — (đảm bảo|không đảm bảo) \(05–60\)/.test(g16.nx.kq1) && !!g16.nx.kq2 && c16.indexOf(g16.nx.kq1)<0 /* 3.378: bản xuất mặc định Bảng II để trống → 2 dòng có số trống */, g16.nx.kq1+' · '+g16.nx.kq2);
    ok('gợi ý: III ưu điểm / tồn tại có số, kiến nghị đi theo tồn tại', (g16.nx.ud.length+g16.nx.tt.length)>0 && g16.nx.kn.length===g16.nx.tt.length && (g16.nx.tt.length ? c16.indexOf('- '+g16.nx.tt[0])>=0 : c16.indexOf('- '+g16.nx.ud[0])>=0), JSON.stringify(g16.nx).slice(0, 200));
-   const g16b = ktGiaTri16(best, ktDaChon(), {nx:''}); const c16b = chu((await moZip(await ktDocx('m16', g16b))).doc);
+   const g16b = ktGiaTri16(best, ktDaChon(), {nx:'', b2:''}); const c16b = chu((await moZip(await ktDocx('m16', g16b))).doc);
    ok('chọn "Để trống" → III giữ dòng chấm, ô kết quả trống', !g16b.nx.kq1 && /1\. Ưu điểm: \.{20,}/.test(c16b));
    ok('khai báo Mẫu 16 có chọn gợi ý nhận xét (3.114: trong hộp chọn khi in, mặc định gợi ý)', ktInLay('m16').nx==='so' && /Gợi ý theo số liệu/.test(KT_NX_CHON));
    /* 7. Bảng chuẩn hóa + Kế hoạch ② cho Đoàn ở phường */

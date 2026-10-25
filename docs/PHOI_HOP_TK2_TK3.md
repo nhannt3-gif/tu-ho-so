@@ -69,6 +69,7 @@
 | 26/10 | TK 3 (nhận bàn giao) | **3.375** | anh "nút bật tắt khung xem trước … góc trên bên phải khi ẩn": `js/69-bo-cuc-a.js`, `tests/t269.js` | t269 9/9, t267, t303, t311 |
 | 26/10 | TK 3 (nhận bàn giao) | **3.376** | anh "chip trắng che nút xem trước", "scan cccd nắn cắt lâu": `css/app.css` (+2 dòng `.bao` khi mở hộp), `js/68-do-toc-do.js` (+ bước quét), `tests/t270.js` mới | t270 5/5, hồi quy đủ |
 | 26/10 | TK 3 (nhận bàn giao) | **3.377** | **`js/70-bao-trung-cccd.js` mới** + 1 dòng `index.html`; `js/69-bo-cuc-a.js` (⏱ ở chân thanh bên); `js/11-khung-tab.js` (Scan có ▣); `tests/t271.js` mới | t271 8/8, nhóm scan, t269, t270 |
+| 26/10 | TK 3 (nhận bàn giao) | **3.378** | `js/22b-ktgs.js` (nhận xét từng phần, Bảng II bỏ chấm), `js/22d-ktgs-04.js`, `js/56-ktgs-bo.js`; `tests/t272.js` mới; sửa t111, t119, t236, t238; `tools/hoiquy_nhom.txt` nhóm kt | t272 14/14, t111, t114, t115, t118, t119, t120, t236, t238, nhóm kt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

@@ -27,10 +27,10 @@ const fs=require('fs'), path=require('path');
    await bam([...the().querySelectorAll('.kt-che button')].find(b=>/Bộ khai báo/.test(b.textContent)));
    ok('màn Bộ khai báo: 4 phần mẫu (06, 16, 04, Kế hoạch) + chọn bộ, không mở hộp', the().querySelectorAll('.kt-in-phan').length===4 && !!the().querySelector('.kt-bo-chon') && !document.querySelector('#hop.hien'));
    /* sửa bộ ① ngay trên màn */
-   const s1 = the().querySelector('#ki-m16-b2'); s1.value = 'cham'; s1.dispatchEvent(new Event('change', {bubbles:true})); await w(250);
-   ok('sửa Bảng II bộ ① trên màn → lưu ktIn.m16, không mở hộp', D.cauHinh.ktIn.m16.b2==='cham' && !document.querySelector('#hop.hien') && /① Hội kiểm tra/.test(the().querySelector('.kt-bo-chon .bat').textContent));
+   const s1 = the().querySelector('#ki-m16-b2'); s1.value = 'dien'; s1.dispatchEvent(new Event('change', {bubbles:true})); await w(250);
+   ok('sửa Bảng II bộ ① trên màn → lưu ktIn.m16, không mở hộp', D.cauHinh.ktIn.m16.b2==='dien' && !document.querySelector('#hop.hien') && /① Hội kiểm tra/.test(the().querySelector('.kt-bo-chon .bat').textContent));
    await bam(the().querySelector('[data-lenh="ktk.chep"]'));
-   ok('⧉ Chép bộ ① sang ②', D.cauHinh.ktIn.dx_m16 && D.cauHinh.ktIn.dx_m16.b2==='cham');
+   ok('⧉ Chép bộ ① sang ②', D.cauHinh.ktIn.dx_m16 && D.cauHinh.ktIn.dx_m16.b2==='dien');
    await bam(the().querySelector('.kt-bo-chon [data-bo="can"]'));
    const s2 = the().querySelector('#ki-m16-dvc'); s2.value = 'cham'; s2.dispatchEvent(new Event('change', {bubbles:true})); await w(250);
    ok('chọn bộ ② trên màn → sửa vào dx_m16, bộ ① giữ', D.cauHinh.ktIn.dx_m16.dvc==='cham' && (D.cauHinh.ktIn.m16.dvc||'')==='' && /② Khai báo khi cần/.test(the().querySelector('.kt-bo-chon .bat').textContent));

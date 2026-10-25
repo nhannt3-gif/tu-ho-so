@@ -439,15 +439,19 @@ function ktKBKhung(loai, dsHoi){   /* 3.114: lựa chọn in chuyển vào hộp
 }
 /* ---------- 3.114 (anh chốt): HỘP CHỌN KHI IN — mỗi mẫu 1 phần, nhớ lựa chọn lần trước (D.cauHinh.ktIn[mẫu], đồng bộ Drive);
    người kiểm tra / người ký chọn theo VAI TRÒ, tên lấy theo 🏛 Khai báo Hội đoàn thể của Hội phụ trách từng tổ ---------- */
-var KT_IN_MD = {m06:{md:'', ng1:'pct', dvc:'', dvt:'', cb1t:'', cv1t:''}, m16:{nx:'so', b2:'', b2o:null, ng1:'pct', ng2:'', dvc:'', dvt:'', cb1t:'', cv1t:'', cb2t:'', cv2t:''},   /* 3.323: dvc đơn vị (''=Hội · cham · go + dvt) · ng1 / ng2 'go' = khai tên (cb1t, cv1t · cb2t, cv2t) */ m04:{nx:'so', ng1:'pct', ng2:''}, kh:{ky:'ct'}};
+var KT_IN_MD = {m06:{md:'', ng1:'pct', dvc:'', dvt:'', cb1t:'', cv1t:''}, m16:{nx:'so', nxud:'so', nxtt:'so', nxkn:'so', b2:'', b2o:null, ng1:'pct', ng2:'', dvc:'', dvt:'', cb1t:'', cv1t:'', cb2t:'', cv2t:''},   /* 3.323: dvc đơn vị (''=Hội · cham · go + dvt) · ng1 / ng2 'go' = khai tên (cb1t, cv1t · cb2t, cv2t) */ m04:{nx:'so', nxto:'so', nxkn:'so', ng1:'pct', ng2:''}, kh:{ky:'ct'}};
 var KT_IN_TEN = {m06:'Mẫu 06/TD · Phiếu kiểm tra sử dụng vốn', m16:'Mẫu 16/TD · Biên bản kiểm tra Tổ', m04:'Mẫu 04/BC-TH · Báo cáo tổng hợp', kh:'Kế hoạch KTGS 01/KH'};
 var KT_IN_VT = [['pct','Phó Chủ tịch'], ['ct','Chủ tịch'], ['uv1','Ủy viên BTV 1'], ['uv2','Ủy viên BTV 2'], ['uv3','Ủy viên BTV 3'], ['','Để trống (ghi tay)']];   /* 3.154 (anh chốt): 1 Hội = 1 CT, 1 PCT, 3 BTV */
-var KT_IN_X = null;   /* hộp đang mở: {ds:[mẫu], nut, hoi:[Hội – xã]} */
+var KT_IN_X = null;
+var KT_NX_OP = [['so','Ghi theo số liệu (sửa trong Word)'], ['','Để chấm (ghi tay)']];   /* 3.378 */
+function ktNxCo(v, p){ var x = v && v['nx'+p]; return (x!==undefined ? x : ktNxMacDinh(v || {}))==='so'; }   /* 3.378: phần p (ud · tt · kn · to) ghi theo số liệu? — v cũ chỉ có nx thì theo nx */   /* hộp đang mở: {ds:[mẫu], nut, hoi:[Hội – xã]} */
 /* 3.323 (anh 23/10 "kiểm tra đột xuất: đơn vị kiểm tra chấm ghi tay hoặc khai báo tên đoàn trên cả Mẫu 06 và 16, tên cán bộ cũng vậy; số liệu ghi sẵn, nội dung kiểm tra để trống / chấm / ghi đầy đủ — chọn như khai báo riêng"):
    🎯 Kiểm tra đột xuất có BỘ LỰA CHỌN RIÊNG (D.cauHinh.ktIn['dx_'+mẫu]) — lần đầu chép từ lựa chọn chung; các chế độ khác giữ như cũ */
 function ktInKhoa(mau){ return typeof ktBoKhoa==='function' ? ktBoKhoa(mau) : mau; }   /* 3.327: theo bộ khai báo đang dùng (js/56-ktgs-bo.js) */
 function ktInLay(mau){ var S = D.cauHinh.ktIn || {}, k = ktInKhoa(mau), L = S[k] || (k!==mau ? S[mau] : null) || {}, M = KT_IN_MD[mau], r = {};
-  Object.keys(M).forEach(function(k){ r[k] = L[k]!==undefined ? L[k] : M[k]; });
+  Object.keys(M).forEach(function(k){ r[k] = L[k]!==undefined ? L[k] : (/^nx./.test(k) && L.nx!==undefined ? L.nx : M[k]); });   /* 3.378: từng phần nhận xét — chưa chọn riêng thì theo lựa chọn chung cũ */
+  if(r.b2==='cham') r.b2 = '';   /* 3.378 (anh): Bảng II không còn chấm trong ô — lựa chọn cũ "chấm" thành để trống */
+  if(r.b2o){ var b2o = {}; Object.keys(r.b2o).forEach(function(i){ var x = r.b2o[i]; b2o[i] = x && x.c==='cham' ? {c:'trong'} : x; }); r.b2o = b2o; }
   if(mau==='m06' && L.md===undefined && D.cauHinh.ktMucDich==='nganh') r.md = 'nganh';   /* lựa chọn cột mục đích trước 3.114 */
   if(L.dvc===undefined && 'dvc' in M){ var cu = String((D.cauHinh.ktKBLuu || {}).dv || '').trim(); if(cu==='-') r.dvc = 'cham'; else if(cu){ r.dvc = 'go'; r.dvt = cu; } }   /* ô "Đơn vị kiểm tra" gõ ở Tùy chọn khác trước 3.323 */
   return r; }
@@ -481,9 +485,9 @@ function ktInThieu(vt, hoi){   /* Hội chưa khai tên cho vai trò đã chọn
 function ktInPhan(mau, hoi){
   var o = ktInLay(mau), id = function(k){ return 'ki-'+mau+'-'+k; }, h = '<div class="kt-in-phan"><div class="nhan-nhom">'+KT_IN_TEN[mau]+(mau==='m06' || mau==='m16' ? ' <span class="kt-nh'+(ktInKhoa(mau)!==mau ? ' vang' : '')+'">'+KT_BO[ktBoDang()].ten+'</span>' : '')+'</div>';
   if(mau==='m06') h += ktInChon(id('md'), 'Cột Mục đích', o.md, [['','Để trống (ghi tay theo hồ sơ)'], ['nganh','In sẵn mục đích (theo hệ thống, rút gọn)']])+'<div class="sl-phu">Tên ngành rút gọn: <a href="#" onclick="event.preventDefault();ktNganhHop()">⚙ Bảng ngành kinh tế</a></div>';
-  if(mau==='m16') h += ktInChon(id('nx'), 'Nhận xét, tồn tại, kiến nghị', o.nx, [['so','Gợi ý theo số liệu (sửa trong Word)'], ['','Chấm ghi tay']])+
-    ktInChon(id('b2'), 'Bảng II (kết quả kiểm tra)', o.b2, [['','Để trống (ghi tay)'], ['cham','Chấm ghi tay (theo mẫu)'], ['dien','Điền đầy đủ theo 727 (x / Không / định kỳ theo quý)']])+ktB2TungOHTML(mau, o);
-  if(mau==='m04') h += ktInChon(id('nx'), 'Nhận xét, kiến nghị', o.nx, [['so','Gợi ý theo số liệu (sửa trong Word)'], ['','Để trống (ghi tay)']]);
+  if(mau==='m16') h += ktInChon(id('nxud'), 'III.1 Ưu điểm', o.nxud, KT_NX_OP)+ktInChon(id('nxtt'), 'III.2 Tồn tại', o.nxtt, KT_NX_OP)+ktInChon(id('nxkn'), 'III.3 Kiến nghị', o.nxkn, KT_NX_OP)+   /* 3.378 (anh): 3 phần chọn riêng */
+    ktInChon(id('b2'), 'Bảng II (kết quả kiểm tra)', o.b2, [['','Để trống (ghi tay)'], ['dien','Điền đầy đủ theo 727 (kèm 2 dòng có số)']])+ktB2TungOHTML(mau, o);
+  if(mau==='m04') h += ktInChon(id('nxto'), 'IV.1 Nhận xét (đối với Tổ)', o.nxto, KT_NX_OP)+ktInChon(id('nxkn'), 'IV.2 Kiến nghị (a, b, c)', o.nxkn, KT_NX_OP);
   if(mau==='kh') return h+ktInChon(id('ky'), 'Người ký (luôn ghi CHỦ TỊCH)', o.ky, ktInVTTen([['ct','Chủ tịch'], ['pct','Phó Chủ tịch'], ['','Để trống (ký tay)']], hoi, o.ky))+ktInThieu(o.ky, hoi)+'</div>';
   var go = function(k, nhan, ph){ return '<label class="kt-kb kt-in-go"><span>'+nhan+'</span><input id="'+id(k)+'" value="'+coChuHTML(o[k]||'')+'" placeholder="'+coChuHTML(ph)+'" onchange="ktInDoc()"></label>'; };
   var VTG = mau==='m04' ? KT_IN_VT : KT_IN_VT.concat([['go','Khai báo tên (gõ)']]);   /* 3.323 */
@@ -502,9 +506,9 @@ function ktDXTom(t){
   var a = ktInLay('m06'), b = ktInLay('m16'), VT = {}; KT_IN_VT.forEach(function(x){ VT[x[0]] = x[1]; });
   var dv = function(x){ return x.dvc==='go' ? '<b>'+coChuHTML(x.dvt || '(chưa gõ tên)')+'</b>' : x.dvc==='cham' ? 'để chấm ghi tay' : 'theo Hội'; };
   var ng = function(x, k, ten){ var v = x[k]; return v==='go' ? '<b>'+coChuHTML(x[ten] || '(chưa gõ tên)')+'</b>' : v ? coChuHTML(VT[v] || v) : 'để trống'; };
-  var b2 = {'':'để trống', cham:'chấm ghi tay', dien:'điền đầy đủ'}[b.b2 || ''] || 'để trống';
+  var b2 = {'':'để trống', dien:'điền đầy đủ'}[b.b2 || ''] || 'để trống', nxp = function(p){ return ktNxCo(b, p) ? 'số liệu' : 'chấm'; };
   return '<div class="kt-dx-kb"><span class="kt-nh vang">🎯 Khai báo đột xuất</span> <small>Đơn vị kiểm tra: '+dv(a)+(a.dvc!==b.dvc || a.dvt!==b.dvt ? ' (Mẫu 16: '+dv(b)+')' : '')+
-    ' · Người kiểm tra: '+ng(a, 'ng1', 'cb1t')+(b.ng2 ? ' · Người 2 (Mẫu 16): '+ng(b, 'ng2', 'cb2t') : '')+' · Bảng II Mẫu 16: '+b2+' · Nhận xét: '+(b.nx==='so' ? 'gợi ý theo số liệu' : 'chấm ghi tay')+'</small> '+
+    ' · Người kiểm tra: '+ng(a, 'ng1', 'cb1t')+(b.ng2 ? ' · Người 2 (Mẫu 16): '+ng(b, 'ng2', 'cb2t') : '')+' · Bảng II Mẫu 16: '+b2+' · Nhận xét: Ưu điểm '+nxp('ud')+', Tồn tại '+nxp('tt')+', Kiến nghị '+nxp('kn')+'</small> '+
     '<button type="button" class="nho" data-lenh="ktdx.khai">✎ Chọn / khai tên</button></div>';
 }
 /* 3.326: nút theo data-lenh — đăng ký khi vẽ dòng (GD nạp sau file này) */
@@ -536,7 +540,7 @@ function ktInDoc(){   /* đọc hộp chọn → lưu (đồng bộ Drive theo c
   luu(); if(KT_IN_X.tab) ktVeThe(); else ktInHop(KT_IN_X.ds, KT_IN_X.nut, KT_IN_X.hoi, 0, 1);   /* 3.329: màn 🧩 Bộ khai báo trong tab */
 }
 function ktInDayDu(){ if(!KT_IN_X) return; var S = D.cauHinh.ktIn = D.cauHinh.ktIn || {};
-  KT_IN_X.ds.forEach(function(m){ var km = ktInKhoa(m), x = S[km] = S[km] || (km!==m ? JSON.parse(JSON.stringify(ktInLay(m))) : {}); if(m==='m06') x.md = 'nganh'; if(m==='m16'){ x.nx = 'so'; x.b2 = 'dien'; } if(m==='m04') x.nx = 'so'; });
+  KT_IN_X.ds.forEach(function(m){ var km = ktInKhoa(m), x = S[km] = S[km] || (km!==m ? JSON.parse(JSON.stringify(ktInLay(m))) : {}); if(m==='m06') x.md = 'nganh'; if(m==='m16'){ x.nx = x.nxud = x.nxtt = x.nxkn = 'so'; x.b2 = 'dien'; } if(m==='m04') x.nx = x.nxto = x.nxkn = 'so'; });
   luu(); if(KT_IN_X.tab) ktVeThe(); else ktInHop(KT_IN_X.ds, KT_IN_X.nut, KT_IN_X.hoi, 0, 1); bao('Đã chọn điền đầy đủ.', 2); }
 function ktHoiCuaTo(ds){ var g = {}; ds.forEach(function(t){ if(!t || toLaTT(t) || !t.xa || !t.dv || String(t.dv)==='99') return; var k = ktHoiKhoa(t); if(!g[k]) g[k] = {k:k, t:t, n:0}; g[k].n++; }); return Object.keys(g).map(function(k){ return g[k]; }); }
 function ktDocKB(){ ['ngay','dv','cbtu','cb2','cv2','md','nx','b2'].forEach(function(k){ var e = document.getElementById('kb-'+k); if(e) KT_KB[k] = String(e.value||'').trim(); });
@@ -643,17 +647,16 @@ function ktGiaTri16(t, dc, v){
     LCB1:ktCanBo(t, v).cb ? 'none' : '', LCV1:ktCanBo(t, v).cv ? 'none' : '', LCB2:ktNguoi2(t, v).cb ? 'none' : '', LCV2:ktNguoi2(t, v).cv ? 'none' : '', LTT:t.ten ? 'none' : '',
     SD:sd.d, SM:sd.m, SY:sd.y2, DN:ktTr(s.dn, le), STV:s.stv ? String(s.stv) : '', QH:ktTr(s.qh, le), TLQH:ktPT(s.tlQH), KN:ktTr(s.kn, le), TLKN:ktPT(s.tlKN),
     LT:ktTr(s.lt, le), TG:ktTr(s.tg, le), XM:thangCD && s.xl ? thangCD.m : '', XY:thangCD && s.xl ? thangCD.y2 : '', XL:s.xl ? String(s.diem).replace('.', ',')+' điểm, xếp loại '+s.xl : '',
-    SKH:dc.length ? (dc.length<10 ? '0' : '')+dc.length : '', SPH:dc.length ? '01' : ''}, nx:ktB16NX(ktNhanXet16(t, s, v), v), b2:ktB16Mang(t, v)};   /* 3.327: cả bảng + ▸ từng ô */
+    SKH:dc.length ? (dc.length<10 ? '0' : '')+dc.length : '', SPH:dc.length ? '01' : ''}, nx:ktNhanXet16(t, s, v), b2:ktB16Mang(t, v)};   /* 3.327: cả bảng + ▸ từng ô */
 }
 var KT_B16 = ['Theo cụm dân cư liền kề', '02 người (Tổ trưởng, Tổ phó), có phân công cụ thể', 'Không', 'Không', 'Không', 'Tại văn phòng {ấp}, định kỳ theo quý', 'Có thực hiện', 'Đảm bảo đúng thành phần', 'Có tham gia', 'Không', 'Có thực hiện', 'Có tham gia', 'Có phối hợp', 'Có lưu giữ'];   /* 3.115 · 3.116 (anh chốt): như mẫu tham khảo, bỏ chữ "đầy đủ"; điều cấm ghi rõ "Không" */
-var KT_B16_CHAM = Array(36).join('.');   /* 3.323: Bảng II — chấm ghi tay theo mẫu */
-function ktB16NX(nx, v){ if(ktB16Mac(v)==='cham'){ nx.kq1 = nx.kq1 || KT_B16_CHAM; nx.kq2 = nx.kq2 || KT_B16_CHAM; } return nx; }
-function ktB16Mac(v){ return (v && v.b2!==undefined) ? v.b2 : (D.cauHinh.ktBang16!==undefined ? D.cauHinh.ktBang16 : 'dien'); }
+function ktB16Mac(v){ var x = (v && v.b2!==undefined) ? v.b2 : (D.cauHinh.ktBang16!==undefined ? D.cauHinh.ktBang16 : 'dien'); return x==='cham' ? '' : x; }   /* 3.378: bỏ "chấm" Bảng II */
 var KT_NX_CHON = '<option value="so">Gợi ý theo số liệu (anh sửa trong Word)</option><option value="">Để trống (ghi tay)</option>';
 function ktNxMacDinh(v){ return v.nx!==undefined ? v.nx : (D.cauHinh.ktNhanXet!==undefined ? D.cauHinh.ktNhanXet : 'so'); }
 function ktNhanXet16(t, s, v){   /* 3.98: Mẫu 16 — gợi ý theo số liệu (khoản 3 Phụ lục I văn bản 727): ô kết quả 2 dòng có số + III. ưu điểm / tồn tại / kiến nghị.
      Chỉ là gợi ý có số kèm theo, anh sửa trong Word; dòng định tính (sinh hoạt, bình xét, giữ sổ…) để trống ghi tay */
-  var r = {kq1:'', kq2:'', ud:[], tt:[], kn:[]}; if(ktNxMacDinh(v)!=='so') return r;
+  var r = {kq1:'', kq2:'', ud:[], tt:[], kn:[]}, cKQ = ktB16Mac(v)==='dien';   /* 3.378 (anh): 2 dòng có số Bảng II theo ô Bảng II; III từng phần theo ô riêng */
+  if(!cKQ && !['ud', 'tt', 'kn'].some(function(p){ return ktNxCo(v, p); })) return r;
   var ks = toKhach(t).filter(function(k){ return k.mon.some(function(m){ return (m.dn||0)>0; }); }), nLT = 0, nQH = 0, nTK = 0;
   ks.forEach(function(k){ if(k.lt>0) nLT++; if(k.qh>0) nQH++; if(k.t105>0) nTK++; });
   var stv = s.stv || ks.length, tr = function(x){ return ktTr(x, 2)+' triệu đồng'; }, khd = 0;
@@ -679,6 +682,7 @@ function ktNhanXet16(t, s, v){   /* 3.98: Mẫu 16 — gợi ý theo số liệu
   if(stv && !du){ r.tt.push('Số lượng tổ viên ('+stv+') không đảm bảo quy định 05–60 tổ viên.'); r.kn.push('Kiện toàn, sắp xếp lại tổ theo quy định (05–60 tổ viên).'); }
   if(stv && ptTK<50){ r.tt.push('Chỉ '+nTK+'/'+stv+' tổ viên ('+ptTK+'%) có gửi tiết kiệm.'); r.kn.push('Vận động tổ viên thực hành tiết kiệm, gửi tiền đều hằng tháng.'); }
   if(xlKem){ r.tt.push('Kết quả chấm điểm: '+String(s.diem).replace('.', ',')+' điểm, xếp loại '+s.xl+'.'); r.kn.push('Củng cố hoạt động của Tổ và Ban quản lý Tổ để nâng xếp loại.'); }
+  if(!cKQ){ r.kq1 = ''; r.kq2 = ''; } ['ud', 'tt', 'kn'].forEach(function(p){ if(!ktNxCo(v, p)) r[p] = []; });
   return r;
 }
 function ktNxDoan(K, khoa, nhan, ds){   /* đoạn III gốc (dòng chấm) hoặc nhãn + từng ý gợi ý (mỗi ý 1 đoạn, thụt đầu dòng như mẫu) */
