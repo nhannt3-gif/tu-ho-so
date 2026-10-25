@@ -4,6 +4,11 @@
 > File này = mọi thứ TK 2 đang giữ: trạng thái, quyết định anh đã chốt (nguyên văn), việc dở / chờ anh, cách làm, bẫy hay gặp.
 > Đọc kèm: `CLAUDE.md` (luật), `docs/BAT_DAU.md` (lệnh), `docs/PHOI_HOP_TK2_TK3.md` (nhật ký gộp + mục 5 báo việc), `docs/QUY_CHUAN_KIEN_TRUC.md` (kiến trúc, mục 13 cắm rút).
 
+## 0. Quyền tiếp nhận (anh chốt 25/10: *"Em giao hết sang cho tk 3 tiếp nhận trong 2 ngày"*)
+- Trong 2 ngày này **TK 3 tiếp nhận toàn bộ phần TK 2**: được sửa cả file TK 2 đang giữ (`js/62–68`, `css/dt-may.css`, `js/22*`, `js/28`, `js/58`, khung điều hướng điện thoại…), lên số bản tiếp từ `main`, dùng dải phép thử TK 2 (`t312` trở đi) nếu cần.
+- TK 2 **tạm dừng, không sửa / không gộp gì** trong thời gian này. Khi TK 2 quay lại: đọc `docs/PHOI_HOP_TK2_TK3.md` (nhật ký gộp mục 4 + mục 5) để nắm phần TK 3 đã làm rồi mới tiếp.
+- Việc nên làm đầu tiên khi anh có thời gian: (1) anh gửi số đo ⏱ trên iPhone (mục 5.1); (2) anh chọn đợt trong `RA_SOAT_BO_CUC_2510.md` (em đề xuất Đợt A việc 1 + 2 + 3).
+
 ## 1. Trạng thái khi bàn giao
 - **`main` = 3.372** (gộp PR #334; sau đó #335 rà phép thử, #336 tài liệu). Nhánh làm việc TK 2: `claude/html-app-review-ck346k` (đã về đúng `main`, không còn commit dở).
 - Hồi quy đủ trên 3.372: **180 phép** — ✗ chỉ ở các phép **đã biết báo nhầm**: t192 (6/7 — móc thử cố ý `pvMo`, `thXem`, `gdxThan`), t207, t208, t210, t224 (✗=1 nhưng "đạt"), t254 (✗=5 nhưng 19/19 đạt). `hoiquy` "Báo cáo đã bỏ không tự quay lại khi mở lại app" thỉnh thoảng ✗ khi máy nặng (chạy riêng đạt).
