@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.379 — 26/10/2026 — KTGS: 📋 Tóm tắt tình hình tổ (TK 3)
+- **Anh 26/10**: "khi chọn kiểm tra đột xuất tổ nào đó thì thêm 1 chức năng tóm tắt tình hình tổ, từ tổng quan dư nợ, nợ quá hạn, lãi tồn, các hộ cần quan tâm tất cả trong 1 mặt A4"; duyệt demo bản 2 (8 ô số gọn, nội dung kiểm tra gom nhóm theo 727, mục V "Kết quả kiểm tra thực tế, đề nghị"); "dài hơn 2 trang vẫn được nhưng nên tóm gọn 1 mặt, nhớ ghi số liệu đến ngày".
+- File cắm rút **`js/71-ktgs-tom-tat.js`** + nút **📋 Tóm tắt tổ** cạnh 📋 Mẫu 04 ở 🎯 Kiểm tra đột xuất → bản In / PDF:
+  - Đầu trang: tổ, mã, ấp, xã, Hội, điểm GD (mã TXN đủ), ngày kiểm tra (theo ô Ngày kiểm tra, trống = chấm); dòng **"số liệu đến ngày …, nguồn …"**.
+  - I. 8 ô số: dư nợ (tổ viên, món), nợ quá hạn (tỷ lệ, số hộ), lãi tồn (số hộ, hộ > 6 tháng lãi), tiết kiệm (số hộ có gửi), nợ khoanh, chấm điểm (tháng BC0437), món không GD ≥ 3 tháng, giải ngân 30 ngày.
+  - II. Dư nợ theo chương trình. III. Hộ cần quan tâm xếp ưu tiên: quá hạn / khoanh → không giao dịch, lãi tồn cao → lãi tồn → không gửi tiết kiệm → mới giải ngân (kiểm tra sử dụng vốn); cột ghi chú để trống. Nhiều hơn 12 hộ thì chữ bảng nhỏ lại; quá 18 hộ → "… và n hộ khác".
+  - IV. Nội dung kiểm tra 4 nhóm căn cứ 727 (ô ☐). V. Kết quả kiểm tra thực tế, đề nghị (dòng chấm).
+- Chỉ đọc số liệu (ktSoTo, ktHo, ktDsDon), không ghi gì.
+- Phép thử: t273 mới (12).
+
 ## 3.378 — 26/10/2026 — KTGS: nhận xét chọn từng phần, Bảng II không chấm (TK 3)
 - **Anh 26/10**: "chỗ nhận xét, tồn tại, kiến nghị anh muốn cho chọn 3 phần riêng nhau, em tự ghi theo số liệu hay để chấm"; "Bảng II chỉ để trống, không có chấm trong ô"; "Mẫu 04 cũng chia ra 2".
 - **Mẫu 16/TD**: hộp 🖨 Chọn khi in có 3 ô **III.1 Ưu điểm · III.2 Tồn tại · III.3 Kiến nghị**, mỗi ô **Ghi theo số liệu** / **Để chấm (ghi tay)** (trước: 1 ô chung cả 3).

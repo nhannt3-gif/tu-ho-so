@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.379) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › 🎯 Đột xuất › chọn 1 tổ › 📋 Tóm tắt tổ | Mở hộp in, 1 mặt A4, dòng "số liệu đến ngày …" đúng ngày số liệu | |
+| 2 | Tổ có quá hạn / lãi tồn | Hộ quá hạn đầu bảng, chữ đỏ; số khớp tab | |
+| 3 | Điền Ngày kiểm tra rồi bấm 📋 | Đầu trang ghi ngày kiểm tra | |
+
+**Ghi chú kỹ thuật 3.379:** `js/71` (cắm rút, nạp sau js/70): `ktttSo(t)` → `{s, ngay, nguon, soMon, nTK, nLT, nLTC, nQH, monKHD, hoKHD, gn, ct:[[ten, dn]], ho:[{kh, ten, dn, v:[{chu, do}], uu}]}` (uu 1 QH/khoanh · 2 KHĐ / lãi tồn > 6 tháng · 3 lãi tồn · 4 không 105 · 5 mới GN); `ktttHTML(x)` (KTTT_TOI_DA = 18); `ktttIn()` → `inBlob`; lệnh `kttt.in`. Nút ở `ktChonHTML` (`js/22b`) chỉ hiện khi có `ktttIn`.
+
 ### Danh sách thử trên máy thật (3.378) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

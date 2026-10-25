@@ -216,6 +216,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t309.js` | 3.368 Tra cứu › Tổ trưởng: danh sách tổ đủ 7 cột không cuộn ngang ở 1280 / 1366 / 1920, mã tổ đủ, Hội viết tắt (title tên đủ). |
 | `node tests/t310.js` | 3.369 tối ưu nạp: `slNen` / `slMoBang` mới = thuật toán cũ (giữ bản cũ để so), dò Mẫu 01/TV trong 100 dòng đầu vẫn nhận dòng tên cột ở dòng 30. |
 | `node tests/t311.js` | 3.372 Đ6 điện thoại: thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm, đầu trang gọn, Tra cứu gọn, ☰ Thêm có 📱 + ⏱ đo tốc độ (ghi Dựng kỳ); máy 1440 / 900 không đổi. |
+| (3.379) | t273 mới: 📋 Tóm tắt tổ — nút ở 🎯 Đột xuất, số liệu đến ngày, đầu trang, 8 ô số khớp ktSoTo, chương trình cộng = dư nợ, hộ cần quan tâm xếp ưu tiên, quá hạn đỏ, 4 nhóm 727 + mục V, quá 18 hộ cắt, tên file, vừa 1 mặt A4 (12). |
 | (3.378) | t272 mới: Mẫu 16 Ưu điểm / Tồn tại / Kiến nghị chọn riêng (HTML + Word), Bảng II theo ô (2 dòng có số), dữ liệu cũ nx / b2 'cham', hộp 3 + 2 ô, lưu riêng bộ đột xuất, dòng tóm tắt, ✚ Điền đầy đủ, Mẫu 04 Nhận xét / Kiến nghị riêng (14). |
 | (3.377) | t271 mới: báo trùng CCCD lúc đọc ở tab Scan (theo mã KH, theo số CCCD hộ chưa có mã, thẻ mới không báo, mặc định Thay), Thay → bản cũ vào 🗑 / Lưu thêm giữ, Quét ở form Thay / Lưu thêm, ⏱ ở chân thanh bên, Scan có ▣ (8). |
 | (3.376) | t270 mới: chip báo khi mở hộp nằm đầu màn hình + bấm xuyên (máy tính, điện thoại), chip có nút vẫn bấm được, ⏱ ghi các bước quét (5). |
