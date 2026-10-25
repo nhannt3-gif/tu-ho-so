@@ -22,7 +22,8 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  const ctx = await b.newContext({viewport:{width:390,height:844}, isMobile:true, hasTouch:true, deviceScaleFactor:2}); await ctx.addInitScript(()=>{ try{ localStorage.setItem('tuhoso_dt_pin','1'); }catch(e){} });   /* 3.342: PIN tạm tắt mặc định — phép thử này kiểm phần PIN nên bật cờ */
  const d = await ctx.newPage(); d.on('pageerror',e=>loi.push('điện thoại: '+e.message)); await d.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(d);
  await d.goto('file://'+G+'/index.html'); await d.waitForTimeout(2500);
- ok('điện thoại mở index.html → tự chuyển dt.html', /dt\.html$/.test(d.url()), d.url().split('/').pop());
+ ok('3.367: điện thoại mở index.html → ở lại bản chính, có nút 📱 sang bản gọn', /index\.html$/.test(d.url()) && !!(await d.$('#ve-dt')), d.url().split('/').pop());
+ await d.click('#ve-dt'); await d.waitForTimeout(2500);
  const w = t=>d.waitForTimeout(t), phim = async s=>{ for(const k of s){ await d.click('#khoa [data-k="'+k+'"]'); } };
  ok('lần đầu: màn đặt PIN', /đặt mã PIN/i.test(await d.textContent('#khoa')));
  await phim('1357'); await d.click('#khoa [data-k="ok"]'); await phim('1357'); await d.click('#khoa [data-k="ok"]'); await w(1500);

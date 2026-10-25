@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.370 — 25/10/2026 — Mã điểm GD đủ TXN + điện thoại mở bản chính (TK 3)
+- **Anh 25/10**: "tên mã điểm giao dịch ghi đầy đủ có TXN" (ảnh: tab Giao dịch xã ghi "mã 8302", mẫu 12/GDX "Mã điểm giao dịch: 8302").
+  - `gdxMaDu` (`js/26-giao-dich-xa.js`): số liệu Mẫu 31 / danh bạ ghi mã ngắn → tra danh mục địa bàn ⚙ (mã đủ `TXN…` tận cùng bằng mã ngắn, ưu tiên cùng xã) → **TXN0548302**; không tra được giữ nguyên (không tự ghép). Áp cho dòng 📍 tab Giao dịch xã, mẫu 12/GDX, bản mini. Khóa điểm giữ nguyên (điểm đã chọn vẫn nhớ).
+- **Anh 25/10**: "bản chính như máy tính, điện thoại là bản phụ cho gọn".
+  - Điện thoại mở `index.html` **ở lại bản chính** (thôi tự chuyển `dt.html`); nút 📱 (`js/60`) hiện trên mọi điện thoại → bản gọn `dt.html`; `?dt=1` mở bản gọn; `dt.html` 🖥 về bản chính. Cờ cũ `tuhoso_ban` không còn dùng (máy còn cờ vẫn mở bình thường).
+- Phép thử: t266 mới (8); t193, t262 theo mặc định mới.
+
 ## 3.369 — 25/10/2026 — Tối ưu nạp số liệu (tư vấn kỹ thuật mục 1 — phương án A, anh duyệt 25/10)
 - **Đo trước** (Mẫu 31 giả cỡ thật 25.032 dòng × 175 cột): đọc Excel đã chạy ở Worker từ 3.86 (không đứng màn hình); chỗ đứng thật là **tách dòng / nhận dạng 2,35 giây** (điện thoại giả lập CPU ×4: 11,4 giây), ghi vào máy 0,9, dựng kỳ 0,7, vẽ tab Tổ 0,6 giây.
 - **A1** `js/28-tv-tk.js`: dò dòng tên cột Mẫu 01/TV + Sao kê TK 104/105 chỉ ở **100 dòng đầu** (trước dò cả file → mỗi ô của Mẫu 31 bị bỏ dấu ~4,4 triệu lần).

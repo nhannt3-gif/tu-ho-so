@@ -90,12 +90,18 @@ function gdxChipTien(amountNumber){
 /* ---------- điểm GD · tổ — 3.174 (anh chốt 12/10): cây địa bàn theo Mẫu 31 (kỳ chung, như các tab khác);
    chưa có số liệu → Cài đặt › Địa bàn; mã điểm / ngày GD còn thiếu → tra danh mục tham chiếu (file anh nạp) ---------- */
 function gdxNgayThang(v){ var s = String(v==null ? '' : v).trim(), m = s.match(/^\d{4}-\d{2}-(\d{2})/) || s.match(/^(\d{1,2})\/\d{1,2}\/\d{4}/) || s.match(/^(\d{1,2})$/); return m ? String(+m[1]) : ''; }
+function gdxMaDu(ma, maXa){   /* 3.367 (anh 25/10 "mã điểm giao dịch ghi đầy đủ có TXN"): số liệu Mẫu 31 / danh bạ có khi ghi mã ngắn (8302) → tra danh mục địa bàn ⚙
+     (mã đủ TXN… tận cùng bằng mã ngắn, ưu tiên cùng xã); không tra được → giữ nguyên, không tự ghép TXN */
+  var s = String(ma==null ? '' : ma).trim(), ra = '', cung = ''; if(!s || /^TXN/i.test(s)) return s;
+  (D.cauHinh.diaBan||[]).forEach(function(x){ (x.diem||[]).forEach(function(d){ var m = String(d.ma||'').trim(); if(!/^TXN/i.test(m) || m.slice(-s.length)!==s) return;
+    if(!ra) ra = m; if(!cung && maXa && String(x.ma||'')===String(maXa)) cung = m; }); });
+  return cung || ra || s; }
 function gdxDsDiem(){
   var r = [];
   if(KHO.maTo().length){
     var g = {};
     KHO.maTo().forEach(function(m){ var t = KHO.to(m); if(!t || t.trucTiep || !t.diem) return;
-      var x = g[t.khoaDiem] = g[t.khoaDiem] || {k:t.khoaDiem, maXa:t.xa||'', tenXa:t.tenXa||'', maDiem:t.diem||'', tenDiem:String(t.tenDiem||'').trim(), ngayGD:gdxNgayThang(t.ngayGD), to:[]};
+      var x = g[t.khoaDiem] = g[t.khoaDiem] || {k:t.khoaDiem, maXa:t.xa||'', tenXa:t.tenXa||'', maDiem:gdxMaDu(t.diem, t.xa), tenDiem:String(t.tenDiem||'').trim(), ngayGD:gdxNgayThang(t.ngayGD), to:[]};
       if(!x.ngayGD && t.ngayGD) x.ngayGD = gdxNgayThang(t.ngayGD);
       x.to.push({maTo:m, tenTo:t.ten||'', tenAp:t.tenThon||''}); });
     r = Object.keys(g).map(function(k){ var x = g[k];

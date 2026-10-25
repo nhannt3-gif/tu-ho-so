@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.370) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Máy tính › Giao dịch xã › chọn Truông Mít › 12/GDX | Dòng 📍 "mã TXN0548302"; mẫu in "Mã điểm giao dịch: TXN0548302" | |
+| 2 | iPhone mở app | Vào thẳng bản chính (giống máy tính); nút 📱 nhỏ góc phải → bản gọn; bản gọn bấm 🖥 về lại | |
+
+**Ghi chú kỹ thuật 3.370:** `gdxMaDu(ma, maXa)` trong `gdxDsDiem` (nhánh số liệu `KHO`); nhánh danh mục ⚙ vốn đã đủ mã. `index.html` dòng 7–8 chỉ còn `?dt=1` → `dt.html`; `js/60-ve-dt.js` bỏ điều kiện cờ `tuhoso_ban`.
+
 ### Danh sách thử trên máy thật (3.369)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
