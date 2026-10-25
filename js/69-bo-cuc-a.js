@@ -9,8 +9,8 @@
 (function(){
   var st = document.createElement('style');
   st.textContent =
-    '@media (min-width:900px){ .than.pv-gon{grid-template-columns:minmax(0,1fr) 0 0 !important;column-gap:0 !important}'+
-    ' .than.pv-gon .cot-phai,.than.pv-gon .keo-cot{visibility:hidden;border-width:0 !important;min-width:0 !important;padding:0 !important;overflow:hidden} }'+
+    '@media (min-width:900px){ .than.bca-pvgon{grid-template-columns:minmax(0,1fr) 0 0 !important;column-gap:0 !important}'+
+    ' .than.bca-pvgon .cot-phai,.than.bca-pvgon .keo-cot{visibility:hidden;border-width:0 !important;min-width:0 !important;padding:0 !important;overflow:hidden} }'+
     '#dh-duong{display:none;font-weight:700;font-size:calc(15px*var(--co));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}'+
     '#dh-duong small{font-weight:500;opacity:.8;margin-right:4px}'+
     '@media (min-width:1100px){ body.co-tb #dh-duong{display:block} body.co-tb .dau .ten-app,body.co-tb .dau #donvi{display:none !important} }'+
@@ -24,7 +24,7 @@
   var TAB_FILE = [1, 3, 4, 5];
   function bcaKhung(){ var t = document.querySelector('.than'), cp = document.getElementById('cotphai'); if(!t || !cp) return;
     var gon = TAB_FILE.indexOf(typeof nganHienTai==='number' ? nganHienTai : -1)>=0 && cp.classList.contains('pv-trong');
-    t.classList.toggle('pv-gon', gon); }
+    t.classList.toggle('bca-pvgon', gon); }
   /* ② đường dẫn tab */
   function bcaDuong(){ if(typeof dhDang!=='function' || typeof dhMuc!=='function') return; var o = document.getElementById('dh-duong');
     if(!o){ var c = document.querySelector('.dau .ten-app'); if(!c || !c.parentNode) return; o = document.createElement('div'); o.id = 'dh-duong'; c.parentNode.insertBefore(o, c); }

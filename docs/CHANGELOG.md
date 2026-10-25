@@ -29,7 +29,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - ③ Huy hiệu 📥 Nạp & KT: **chỉ đỏ ⚠ khi đang trong kỳ phải nạp** (tháng mới nhất đã nạp = tháng trước / tháng này) mà còn thiếu; kỳ cũ hơn → vàng.
   - ⑥ Văn bản: chip "⚠ Thiếu mảng, CT vay, tag" lặp từng thẻ → **1 chip lọc "⚠ N văn bản khai thiếu"** (bấm = chỉ hiện các văn bản đó).
 - **Rà phép thử**: bỏ 8 phép cũ không có câu kiểm (t87, t88, t89, t93, t94, t95, t96, t99 — TK 2 đề nghị, không bao giờ chạy trong hồi quy).
-- Phép thử: t268 (Drive, 7), t269 (bố cục, 7) mới; t267 theo ⑥.
+- Sửa trong hồi quy: lớp thu khung xem đặt tên `bca-pvgon` (lần đầu dùng `.pv-gon` **trùng** nút "gọn" có sẵn ở `css/app.css` → chữ không xuống dòng, điện thoại Scan trống tràn ngang đẩy thanh dưới ra ngoài — t311 bắt được). t303 theo ② (tên app thay bằng đường dẫn tab).
+- Phép thử: t268 (Drive, 7), t269 (bố cục, 8) mới; t267 theo ⑥.
 
 ## 3.372 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ6 (3 tab chính) + ⏱ đo tốc độ + sửa lỗi Scan máy chậm (TK 2)
 - Anh 25/10: "giao diện điện thoại còn rối, Drive nạp rất lâu, Hôm nay · Văn bản · Tra cứu KH là 3 tab chính mà không hiện chuẩn" → kế hoạch Đ6 (anh duyệt, ô 4 = Scan). Nối sau 3.370 / 3.371 của TK 3 (mở thẳng bản chính, Văn bản + Scan gọn — giữ nguyên, không làm trùng).
