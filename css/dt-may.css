@@ -101,3 +101,16 @@ table.kh-mon tr.tc-cong td:empty{display:none}
 .to-bang-cuon table td:first-child,.to-bang-cuon table th:first-child,.cuon table td:first-child,.cuon table th:first-child{min-width:0;max-width:42vw;white-space:normal}
 .to-bang-cuon,.cuon{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .to-bang-cuon .to-bang.luoi td.to-ten{white-space:normal;min-width:36vw}
+/* ===== 3.372 · đợt Đ6 — 3 tab chính (Hôm nay · Tra cứu · Văn bản) + Scan ở thanh dưới (js/66); gọn đầu / chân trang ===== */
+.dau-hang .nut-cd{display:none !important}   /* ❓ 🧰 🗑 ⚙ — có trong ☰ Thêm › Khác */
+body.co-td .day{display:none}
+body.co-td.dtm-tt .day,body.co-td .day:has(#chip-loiapp:not([style*="none"])){display:flex}
+body.co-td .day #so-lieu{display:none}        /* chip Drive / dung lượng — xem ở ⚙ Cài đặt */
+body.co-td .than{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px)) !important}
+/* Tra cứu: bỏ hàng tab con Số liệu (đã có nút riêng ở thanh dưới), Lọc địa bàn 1 hàng */
+body[data-dtm="tra"] #tr7 > .sl-con{display:none}
+#tc-cay .pv-hang1{flex-wrap:nowrap !important;gap:4px}
+#tc-cay .pv-dan{display:none}                 /* "60 tổ · 200 khách" — đã có ở dòng đếm kết quả */
+#tc-cay .pv-sel{flex:1 1 auto;min-width:0;display:flex;gap:3px}
+#tc-cay .pv-sel select{flex:1 1 0;min-width:0}
+#tc-cay .pv-gon,#tc-cay .pv-ghim-nut{flex:0 0 auto;padding:2px 6px}

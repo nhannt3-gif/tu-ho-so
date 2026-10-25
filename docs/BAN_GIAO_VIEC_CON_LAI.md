@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.372) — iPhone
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Thanh dưới | Hôm nay · Tra cứu · Văn bản · Scan · Thêm; bấm đúng tab | |
+| 2 | Tra cứu | Danh sách khách lên ngay, Lọc địa bàn 1 hàng | |
+| 3 | ☰ Thêm | Có GD xã, Số liệu, Hồ sơ, Cài đặt, Thùng rác, 📱 Bản điện thoại gọn, ⏱ Đo tốc độ | |
+| 4 | **Mở app (đã nối Drive) → dùng 1–2 phút → ☰ Thêm › ⏱ Đo tốc độ › 📋 Chép → gửi em** | Có số đo từng bước | |
+
+**Ghi chú kỹ thuật 3.372:** Đ6 bọc `DT_NUT` / `dtDang` / `dtVe` / `dtThem` / `ttVe` trong `js/66` (chỉ ≤ 600 px). `js/68` bọc hàm toàn cục theo tên (`noiDrive`, `taiChiMucTuDrive`, `dayChiMucLenDrive`, `dongBoScan`, `dongBoCauHinh`, `slTaiTuDrive`, `slTaiBlob`, `goiDrive`, `KHO.nap`) lúc `load`. `js/41` `.then` cuối luồng đọc CCCD ngầm kiểm `if(!SX) return;`. Nút 📱 nổi (`#ve-dt`, TK 3) giữ nguyên — có thêm lối ☰ Thêm.
+
 ### Danh sách thử trên máy thật (3.371) — iPhone, anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

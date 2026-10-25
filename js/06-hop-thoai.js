@@ -1981,7 +1981,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.371', ds:[
+var CO_GI_MOI = {ban:'3.372', ds:[
+  ["Điện thoại: thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · ☰ Thêm — 3 tab chính bấm 1 lần là tới; GD xã, Số liệu, Hồ sơ, Cài đặt trong ☰ Thêm", "doiNgan(0)"],
+  ["Điện thoại: đầu trang gọn (❓🧰🗑⚙ vào ☰ Thêm), dòng trạng thái chỉ hiện khi có tin; Tra cứu lên danh sách khách ngay (bỏ tab con, Lọc địa bàn 1 hàng)", "dhSL('tra')"],
+  ["⏱ Đo tốc độ (☰ Thêm): ghi thời gian nối Drive, tải, dựng kỳ trên máy anh — 📋 Chép gửi em để sửa đúng chỗ chậm", "dtdHop()"],
   ["Điện thoại (bản chính): tab Văn bản + Scan gọn — hàng nút 1 dòng, trích yếu 2 dòng, Scan danh sách lên sớm", "doiNgan(1)"],
   ["Giao dịch xã: mã điểm giao dịch ghi đủ TXN… (tab, mẫu 12/GDX, bản mini); điện thoại mở thẳng bản chính, nút 📱 sang bản gọn", "doiNgan(0)"],
   ["Nạp Mẫu 31 nhanh hơn: màn hình đứng lúc tách dòng giảm từ ~2,5 giây còn ~0,9 giây (máy tính), điện thoại đỡ treo; số liệu đọc ra y như cũ", "slDoiTab('nap');doiNgan(7)"],
@@ -1993,10 +1996,7 @@ var CO_GI_MOI = {ban:'3.371', ds:[
   ["Điện thoại (bản máy tính) › Hôm nay: lịch ô thấp, nút nhỏ gọn — sổ ngày (việc hôm nay) hiện ngay màn hình đầu, không phải cuộn", "doiNgan(0)"],
   ["Nhật ký lỗi tự động: app gặp lỗi → chip \"⚠ N lỗi\" ở chân trang; bấm xem, 📋 Chép dán Zalo gửi em để sửa đúng chỗ", "nklHop()"],
   ["Điện thoại (bản máy tính) › thẻ khách: mỗi món vay 1 thẻ gọn 3 dòng có chip màu (chương trình, trong hạn / quá hạn / khoanh), chữ nhỏ lại xem trọn 1 màn hình", "dhSL('tra')"],
-  ["Điện thoại: ô kỳ trên đầu trang ghi gọn \"T8/26 · M31\"", "doiNgan(0)"],
-  ["Bản máy tính mở trên điện thoại (nút 🖥 ở bản điện thoại): đầu trang gọn 2 hàng, khung Lọc địa bàn thu nhỏ, hàng chip vuốt ngang, nút 📱 nhỏ lại dời sang phải — rộng chỗ xem hơn", "doiNgan(0)"],
-  ["Scan: đọc CCCD xong khi danh bạ khách chưa sẵn không còn dừng giữa chừng", "doiNgan(4)"],
-  ["Rà soát: báo cáo chuẩn / Báo cáo của tôi — cột tiền đặt ở vị trí 2–3 vẫn có số ở dòng cộng nhóm + Tổng cộng", "slDoiTab('th');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Điện thoại: ô kỳ trên đầu trang ghi gọn \"T8/26 · M31\"", "doiNgan(0)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
