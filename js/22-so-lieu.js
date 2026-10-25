@@ -229,9 +229,11 @@ function slLayDong(sheet, r, co, L){
   var truong = Object.keys(cot);
   var kd = SL_KHOA_DUNG[L.khoa], ck = cot[L.khoa], tdKhoa = slChuan((rows[r]||[])[ck]);
   var kp = L.khoaPhu && cot[L.khoaPhu]!==undefined ? L.khoaPhu : '', daCo = {}, lap = [];
+  var TC = truong.map(function(f){ return cot[f]; }), TD = truong.map(dinh), NT = truong.length;   /* 3.369 (tối ưu nạp A2): cột + định dạng từng trường tính 1 lần, không tra lại ở mỗi ô */
+  var coO = function(row){ for(var j=0;j<NT;j++){ var v = row[TC[j]]; if(v!=='' && v!=null && (typeof v!=='string' || v.trim()!=='')) return true; } return false; };
   for(var i=r+1;i<rows.length;i++){
     var row = rows[i]||[];
-    if(!truong.some(function(f){ var v = row[cot[f]]; return v!=='' && v!=null && String(v).trim()!==''; })){ bo.trong++; continue; }
+    if(!coO(row)){ bo.trong++; continue; }
     var k = slMa(row[ck], SL_TRUONG[L.khoa].m);
     if(slChuan(row[ck])===tdKhoa){ bo.tieuDe++; continue; }
     var chiKH = false;
@@ -245,7 +247,7 @@ function slLayDong(sheet, r, co, L){
       continue;
     }
     var o = {};
-    truong.forEach(function(f){ o[f] = slGiaTri(row[cot[f]], dinh(f)); });
+    for(var j=0;j<NT;j++) o[truong[j]] = slGiaTri(row[TC[j]], TD[j]);
     o[L.khoa] = chiKH ? '' : k;
     if(!chiKH && (L.giuHet || L.k==='dnct') && daCo[k]){   /* 3.121: Dư nợ chi tiết cũng tách dòng lặp (cùng khuôn Mẫu 31) · 3.87: khế ước lặp dòng (khách có nhiều sổ 105) → GIỮ NGUYÊN dòng lặp ở bảng riêng, không gộp, không cộng tiền */
       bo.trung++; lap.push(o); continue;
@@ -440,26 +442,23 @@ function slGoiYKy(kq){   /* giá trị cho ô Kỳ từ ngày gợi ý trên tê
 function ngayVNsl(iso){ return iso ? iso.slice(8,10)+'/'+iso.slice(5,7)+'/'+iso.slice(0,4) : ''; }
 
 /* ---------- 6. DẠNG ĐỌC NHANH: lưu theo cột, chữ lặp thay bằng số thứ tự ---------- */
-function slNen(rows, truong){
-  var cot = {};
+function slNen(rows, truong){   /* 3.369 (tối ưu nạp A3): vòng for thay map, cột chữ không lặp mới dựng mảng gốc — kết quả y như cũ */
+  var cot = {}, n = rows.length;
   truong.forEach(function(f){
-    var a = rows.map(function(o){ return o[f]; });
-    if(((SL_TRUONG[f]||{}).t || (slNen.them && slNen.them[f] && slNen.them[f].t))==='n'){ cot[f] = a; return; }
-    var tu = {}, dsTu = [], chi = new Array(a.length);
-    for(var i=0;i<a.length;i++){ var v = a[i]==null ? '' : a[i]; var j = tu[v]; if(j===undefined){ j = tu[v] = dsTu.length; dsTu.push(v); } chi[i] = j; }
-    cot[f] = dsTu.length < a.length*0.6 ? {d:dsTu, i:chi} : a;
+    var i, a;
+    if(((SL_TRUONG[f]||{}).t || (slNen.them && slNen.them[f] && slNen.them[f].t))==='n'){ a = new Array(n); for(i=0;i<n;i++) a[i] = rows[i][f]; cot[f] = a; return; }
+    var tu = {}, dsTu = [], chi = new Array(n);
+    for(i=0;i<n;i++){ var v = rows[i][f]; if(v==null) v = ''; var j = tu[v]; if(j===undefined){ j = tu[v] = dsTu.length; dsTu.push(v); } chi[i] = j; }
+    if(dsTu.length < n*0.6){ cot[f] = {d:dsTu, i:chi}; return; }
+    a = new Array(n); for(i=0;i<n;i++) a[i] = rows[i][f]; cot[f] = a;
   });
   return cot;
 }
 function slMoBang(b){
   if(b._rows) return b._rows;
-  var n = b.n, rows = new Array(n), i;
-  for(i=0;i<n;i++) rows[i] = {};
-  Object.keys(b.cot).forEach(function(f){
-    var c = b.cot[f];
-    if(Array.isArray(c)) for(i=0;i<n;i++) rows[i][f] = c[i];
-    else for(i=0;i<n;i++) rows[i][f] = c.d[c.i[i]];
-  });
+  var n = b.n, rows = new Array(n), i, j, ks = Object.keys(b.cot), m = ks.length;   /* 3.369 (A3): dựng theo từng dòng (đủ cột rồi sang dòng sau) — nhanh hơn, thứ tự trường như cũ */
+  var gt = ks.map(function(f){ var c = b.cot[f]; return Array.isArray(c) ? c : c.d; }), cs = ks.map(function(f){ var c = b.cot[f]; return Array.isArray(c) ? null : c.i; });
+  for(i=0;i<n;i++){ var o = {}; for(j=0;j<m;j++) o[ks[j]] = cs[j] ? gt[j][cs[j][i]] : gt[j][i]; rows[i] = o; }
   Object.defineProperty(b, '_rows', {value:rows, enumerable:false, configurable:true});
   return rows;
 }
