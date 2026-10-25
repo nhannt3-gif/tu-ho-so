@@ -1981,7 +1981,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.376', ds:[
+var CO_GI_MOI = {ban:'3.377', ds:[
+  ["Quét CCCD đã có trong tủ → báo trùng ngay lúc đọc, chọn Thay bản cũ / Lưu thêm", "doiNgan(4)"],
+  ["Scan có nút ▣ bật / tắt khung xem như Văn bản; ⏱ Đo tốc độ ở chân thanh bên", "dtdHop()"],
   ["Chip thông báo không còn che nút cuối hộp (lên đầu màn hình); ⏱ Đo tốc độ ghi từng bước quét CCCD", "moHop('<div class=\"hop-tit\">⏱</div>')"],
   ["Khung xem trước đang ẩn → nút ▣ Xem trước ở góc trên bên phải để mở lại", "doiNgan(1)"],
   ["Bản gọn dt.html: văn bản chỉ xem khi có mạng — bỏ 📌 Ghim xem không mạng, dọn file đã ghim cũ", "location.href='dt.html'"],
@@ -1994,9 +1996,7 @@ var CO_GI_MOI = {ban:'3.376', ds:[
   ["Giao dịch xã: mã điểm giao dịch ghi đủ TXN… (tab, mẫu 12/GDX, bản mini); điện thoại mở thẳng bản chính, nút 📱 sang bản gọn", "doiNgan(0)"],
   ["Nạp Mẫu 31 nhanh hơn: màn hình đứng lúc tách dòng giảm từ ~2,5 giây còn ~0,9 giây (máy tính), điện thoại đỡ treo; số liệu đọc ra y như cũ", "slDoiTab('nap');doiNgan(7)"],
   ["Tra cứu › Tổ trưởng: danh sách tổ vừa khung, không còn cột bị khuất (Hội ghi tắt HND/HPN/CCB/ĐTN, rê chuột thấy tên đủ)", "dhSL('tra')"],
-  ["Tra cứu › thẻ khách / thẻ tổ: khối 📅 Dòng thời gian thu gọn 1 dòng, bấm mới mở — không chiếm chỗ", "dhSL('tra')"],
-  ["Điện thoại (bản máy tính) › xem trước bản in: chụm 2 ngón trên trang để phóng to / thu nhỏ (thanh nút đứng yên); thanh nút gọn 1 hàng vuốt ngang, nút cỡ ngón tay", "slDoiTab('sk');doiNgan(7)"],
-  ["Số liệu › Tổ TK&VV: vuốt ngang bảng, tiêu đề không còn lệch cột (ô \"Xã / Điểm GD\" luôn nằm trên) — cả máy tính khi bảng rộng hơn khung", "slDoiTab('to');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Tra cứu › thẻ khách / thẻ tổ: khối 📅 Dòng thời gian thu gọn 1 dòng, bấm mới mở — không chiếm chỗ", "dhSL('tra')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

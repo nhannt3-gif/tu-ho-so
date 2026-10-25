@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.377) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan › quét lại 1 CCCD đã lưu | Kết quả đọc có "⚠ Đã có CCCD này trong tủ (lưu ngày …)", ◉ Thay bản cũ; Lưu → bản cũ vào 🗑, bản mới không "(2)" | |
+| 2 | Sổ hộ vay › 🪪 Quét CCCD đã lưu, tích Lưu ảnh vào tủ | Có dòng báo trùng + chọn Thay / Lưu thêm | |
+| 3 | Scan (máy tính) › nút ▣ | Bật / tắt khung xem như Văn bản | |
+| 4 | Chân thanh bên › ⏱ | Mở hộp Đo tốc độ, 📋 Chép gửi em | |
+
+**Ghi chú kỹ thuật 3.377:** `js/70`: `BTC {scan:{i:'thay'|'them'}, qc}`, `btcTim(cccd, ma)` (D.scan `che==='the'`, so `cccd`/`khoaCCCD` 9+ số hoặc `maKH`), `btcScanThay()`, `btcRac()` → `chuyenVaoRac`; bọc `sxVeDoc` (chèn `.btc` vào dòng người i của `#sx-doc`), `scanLuuTu` (trước khi lưu), `qcVeKQ`, `qcLuuTu`. `js/69` `bcaNutDo()` thêm `[data-lenh=dtd.mo]` vào `#thanh-ben .tb-chan`. `js/11` `tlKieuXemHTML` + menu ⋯ không loại Scan.
+
 ### Danh sách thử trên máy thật (3.376) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
