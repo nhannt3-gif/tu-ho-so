@@ -51,11 +51,32 @@ function napGIS(){
   });
 }
 
+/* 3.373 (anh 26/10 "báo chưa nối được drive gì tùm lum rối quá" — "điện thoại và máy tính phải thống nhất, điện thoại chỉ gọn hơn"):
+   - giữ quyền Drive còn hạn (Google cấp ~1 giờ) trong máy → mở lại app trong hạn là nối ngay, không phải hỏi Google (iPhone hay chặn cửa sổ tự bật);
+   - báo Drive chỉ ở 1 chỗ: chip chân trang (🟢 / 🟡 bấm để nối / 🔴 mất mạng, kèm số bản chưa lên) — bỏ thông báo nổi; câu "chưa nối" thống nhất drChuaNoi();
+   - xin lại quyền ngầm bị chặn thì giữ quyền cũ tới khi hết hạn (trước đây đánh dấu "nối lỗi" ngay). */
+var DR_TK = 'tuhoso_drtk';
+function drCatQuyen(){ try { if(DR.token) localStorage.setItem(DR_TK, JSON.stringify({t:DR.token, h:DR.hetHan})); else localStorage.removeItem(DR_TK); } catch(e){} }
+function drKhoiPhuc(){   /* mở app: quyền cũ còn ≥ 2 phút → dùng luôn */
+  try { var x = JSON.parse(localStorage.getItem(DR_TK) || 'null'); if(!x || !x.t || !(x.h > Date.now()+2*60000)) return false;
+    DR.token = x.t; DR.hetHan = x.h; DR.sanSang = true; DR.quyenCu = true; DR.trangThai = 'Đã nối'; DR.lyDo = ''; DR.dongBoLuc = hai(nay().getHours())+':'+hai(nay().getMinutes()); return true; } catch(e){ return false; } }
+function drLyDo(x){ var t = x && x.type; return t==='popup_failed_to_open' ? 'trình duyệt chặn cửa sổ Google (cần bấm để nối)' : t==='popup_closed' ? 'đã đóng cửa sổ Google' : (x && x.message) || 'Google không cấp quyền'; }
+function drChuaNoi(){ return coTheNoiDrive() ? 'Chưa nối Drive — bấm chip 🟡 Nối Drive ở dưới để nối.' : 'Chưa cài Drive — vào ⚙ Cài đặt › Google Drive.'; }
+function drSauKhiNoi(){   /* việc chạy 1 lần sau khi có quyền (nối mới hoặc khôi phục quyền cũ) */
+  if(DR.hangCho.length) chayHangCho();
+  chayDongBoCho();
+  if(!DR.daKeoCM){ DR.daKeoCM = true; taiChiMucTuDrive(true); }
+  if(!DR.daKeoCH){ DR.daKeoCH = true; setTimeout(function(){ dongBoCauHinh('tu'); }, 800); }   /* 3.113: mở app → lấy cài đặt máy khác vừa sửa, rồi đẩy phần máy này đổi */
+  if(D.cauHinh.dbMoApp!==false) setTimeout(function(){ dongBoScan(false); }, 1500);   /* 3.46: mở app → đẩy bản còn chờ */
+  if(D.cauHinh.boThang!=='xong') setTimeout(boThangDon, 7000);   /* 3.144: sau khi kéo chỉ mục — bỏ dữ liệu tab Tháng */
+  if(!DR.daKeoLich){ DR.daKeoLich = true; taiLichTuDrive(); taiNguonCauTuDrive(); setTimeout(taiNoTuDrive, 2500); setTimeout(function(){ (SL_SAN ? Promise.resolve() : slNap()).then(slTaiTuDrive); }, 4000); }
+}
 function noiDrive(imLang){
   if(!coTheNoiDrive()){
-    if(!imLang) baoLoi('Chưa nối được. Cần đặt app ở địa chỉ https và khai Client ID trong Cài đặt.');
+    if(!imLang) baoLoi(drChuaNoi());
     return Promise.resolve(false);
   }
+  if(imLang && !DR.sanSang && drKhoiPhuc()){ capNhatChip(); drSauKhiNoi(); return Promise.resolve(true); }   /* 3.373 */
   DR.dangNoi = true; capNhatChip();
   return napGIS().then(function(co){
     if(!co){ throw new Error('Không tải được thư viện Google (mất mạng?)'); }
@@ -68,32 +89,27 @@ function noiDrive(imLang){
             if(kq && kq.access_token){
               DR.token = kq.access_token;
               DR.hetHan = Date.now() + (kq.expires_in||3500)*1000;
-              DR.sanSang = true; DR.trangThai = 'Đã nối';
+              DR.sanSang = true; DR.trangThai = 'Đã nối'; DR.lyDo = ''; DR.quyenCu = false; drCatQuyen();
               DR.dongBoLuc = hai(nay().getHours())+':'+hai(nay().getMinutes());
               luu(); capNhatChip(); ok(true);
             }else loi(new Error('Không nhận được quyền'));
           },
-          error_callback: function(){ loi(new Error('Anh đã hủy hoặc bị chặn')); }
+          error_callback: function(x){ loi(new Error(drLyDo(x))); }
         });
         tc.requestAccessToken({prompt: imLang ? '' : 'consent'});
       }catch(e){ loi(e); }
     });
   }).then(function(){
-    DR.dangNoi = false; capNhatChip();
-    if(!imLang) bao('Đã nối Google Drive.', 4);
-    if(DR.hangCho.length) chayHangCho();
-    chayDongBoCho();
-    if(!DR.daKeoCM){ DR.daKeoCM = true; taiChiMucTuDrive(true); }
-    if(!DR.daKeoCH){ DR.daKeoCH = true; setTimeout(function(){ dongBoCauHinh('tu'); }, 800); }   /* 3.113: mở app → lấy cài đặt máy khác vừa sửa, rồi đẩy phần máy này đổi */
-    if(D.cauHinh.dbMoApp!==false) setTimeout(function(){ dongBoScan(false); }, 1500);   /* 3.46: mở app → đẩy bản còn chờ */
-    if(D.cauHinh.boThang!=='xong') setTimeout(boThangDon, 7000);   /* 3.144: sau khi kéo chỉ mục — bỏ dữ liệu tab Tháng */
-    if(!DR.daKeoLich){ DR.daKeoLich = true; taiLichTuDrive(); taiNguonCauTuDrive(); setTimeout(taiNoTuDrive, 2500); setTimeout(function(){ (SL_SAN ? Promise.resolve() : slNap()).then(slTaiTuDrive); }, 4000); }
+    DR.dangNoi = false; capNhatChip();   /* 3.373: không báo nổi — chip chuyển 🟢 */
+    drSauKhiNoi();
     return true;
   }).catch(function(e){
-    DR.dangNoi = false; DR.sanSang = false;
-    DR.trangThai = 'Nối lỗi'; capNhatChip();
-    if(!imLang) baoLoi('Không nối được Drive: '+(e&&e.message||e));
-    return false;
+    DR.dangNoi = false; DR.lyDo = e && e.message || String(e); DR.quyenCu = false;
+    var conHan = !!DR.token && Date.now() < DR.hetHan-60000;   /* 3.373: xin lại ngầm bị chặn — quyền cũ còn hạn thì vẫn dùng */
+    if(!conHan){ DR.sanSang = false; DR.trangThai = 'Nối lỗi'; }
+    capNhatChip();
+    if(!imLang) baoLoi('Chưa nối được Drive: '+DR.lyDo+'.');   /* chỉ báo khi anh tự bấm nối */
+    return conHan;
   });
 }
 
@@ -103,12 +119,10 @@ function canToken(){
 }
 
 function xepHangCho(duong, tuyChon){
-  var moi = !DR.hangCho.length;
   return new Promise(function(ok, loi){
     DR.hangCho.push({duong:duong, tuyChon:tuyChon, giaiQuyet:ok, tuChoi:loi});
     capNhatChip();
-    if(moi) bao((DR.online?'Phiên Drive hết, đang nối lại':'Mất mạng')+
-      ' — việc này đã lưu tạm, sẽ tự gửi khi xong.', 5);
+    /* 3.373: không báo nổi — chip chân trang hiện 🟡 / 🔴, việc tự gửi khi nối lại */
   });
 }
 function goiDrive(duong, tuyChon){
@@ -120,7 +134,7 @@ function goiDrive(duong, tuyChon){
     t.headers['Authorization'] = 'Bearer '+DR.token;
     return fetch(duong, t);
   }).then(function(r){
-    if(r.status===401){ DR.sanSang=false; throw new Error('Phiên hết hạn, nối lại giúp'); }
+    if(r.status===401){ DR.sanSang=false; DR.token = null; drCatQuyen(); capNhatChip(); throw new Error('Phiên hết hạn, nối lại giúp'); }
     if(!r.ok) return r.text().then(function(t){ throw new Error('Drive báo lỗi: '+r.status); });
     return r.json();
   }).catch(function(e){
@@ -162,7 +176,7 @@ function baoDamDuong(duong){
 
 /* tạo cả bộ thư mục chuẩn */
 function taoBoThuMuc(){
-  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive.');
+  if(!coTheNoiDrive()) return baoLoi(drChuaNoi());
   var g = D.cauHinh.thumuc, n = nay().getFullYear();
   var ds = [g, g+'/_Chờ xử lý', g+'/Văn bản/'+n, g+'/Dữ liệu tháng/'+n,
             g+'/Ghi chú/'+n, g+'/Khác', g+'/_Hệ thống'];
@@ -212,7 +226,7 @@ function dayLenNhieu(ds){
 
 /* đọc khay _Chờ xử lý trên Drive */
 function napKhayCho(){
-  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Vào Cài đặt để khai Client ID.');
+  if(!coTheNoiDrive()) return baoLoi(drChuaNoi());
   batChay(true);
   var duong = D.cauHinh.thumuc+'/_Chờ xử lý';
   bao('Đang xem khay chờ trên Drive…', 4);
@@ -286,7 +300,7 @@ function napPicker(){
   });
 }
 function moPicker(){
-  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Nối Drive trước ở mục này.');
+  if(!coTheNoiDrive()) return baoLoi(drChuaNoi());
   var key = (D.cauHinh.apiKey||'').trim();
   if(!key) return baoLoi('Chưa có API key của Google Picker — dán vào ô phía trên rồi bấm lại.');
   canToken().then(function(co){
@@ -368,20 +382,20 @@ function capNhatChip(){
              (typeof nkChuaLen==='function' ? nkChuaLen() : 0);
   var nLoi = (D.scan||[]).concat(D.kyAnh||[]).filter(function(k){ return k.dbLoi; }).length;
   var dangGui = DR.hangCho.length ? ' · đang gửi '+DR.hangCho.length : '';
-  /* 3.53: chip Drive chỉ báo trạng thái nối; số bản chưa lên và lỗi có chip riêng */
+  /* 3.373: 1 chip duy nhất cho Drive (máy tính / điện thoại thống nhất, điện thoại chữ ngắn) — số bản chưa lên / lỗi gộp vào chip; 2 chip cũ ẩn */
   var ec = document.getElementById('chip-chua'), el = document.getElementById('chip-loi');
-  if(ec){ ec.textContent = nTen ? '☁ '+nTen+' chưa lên Drive' : ''; ec.classList.toggle('an', !nTen || !coTheNoiDrive()); }
-  if(el){ el.textContent = nLoi ? '⚠ '+nLoi+' lỗi đẩy lên' : ''; el.classList.toggle('an', !nLoi); }
+  if(ec) ec.classList.add('an'); if(el) el.classList.add('an');
   if(typeof capNhatBoNho==='function') capNhatBoNho();
-  if(!DR.online){ e.textContent='🔴 Mất mạng · lưu tạm trong máy'; e.className='chip do'; return; }
-  if(DR.dangNoi){ e.textContent='🟡 Đang nối Drive…'; e.className='chip vang'; return; }
-  if(DR.sanSang){
-    e.textContent = '🟢 Drive'+(DR.dongBoLuc?' · '+DR.dongBoLuc:' · đã nối')+dangGui;
-    e.className = 'chip luc'; return;
-  }
-  if(DR.trangThai==='Nối lỗi' || coTheNoiDrive()){ e.textContent='🟡 Drive · bấm để nối lại'; e.className='chip vang'; return; }
-  e.textContent = '⚪ Chưa cài Drive';
-  e.className = 'chip';
+  var ngan = false; try { ngan = matchMedia('(max-width:600px)').matches; } catch(x){}
+  var so = (nTen ? ' · '+nTen+(ngan ? '' : ' chưa lên') : '')+(nLoi ? ' · ⚠ '+nLoi+(ngan ? '' : ' lỗi') : '');
+  var cho = 'xanh';
+  if(!DR.online){ e.textContent = '🔴 Mất mạng'+(ngan ? '' : ' · lưu tạm trong máy')+so; e.className = 'chip do'; cho = 'do'; }
+  else if(DR.dangNoi){ e.textContent = '🟡 Đang nối'+(ngan ? '…' : ' Drive…')+so; e.className = 'chip vang'; cho = 'vang'; }
+  else if(DR.sanSang){ e.textContent = '🟢 Drive'+(ngan ? '' : DR.dongBoLuc ? ' · '+DR.dongBoLuc : ' · đã nối')+so+(ngan ? '' : dangGui); e.className = 'chip luc'+(nLoi ? ' co-loi' : ''); cho = nLoi ? 'do' : 'xanh'; }
+  else if(coTheNoiDrive()){ e.textContent = (ngan ? '🟡 Nối Drive' : '🟡 Bấm để nối Drive')+so; e.className = 'chip vang'; cho = 'vang'; }
+  else { e.textContent = '⚪ Chưa cài Drive'; e.className = 'chip'; cho = 'xam'; }
+  e.title = DR.lyDo && !DR.sanSang ? 'Chưa nối: '+DR.lyDo+' — bấm để nối' : e.textContent;
+  try { document.body.setAttribute('data-drive', cho); } catch(x){}   /* điện thoại: chip chỉ hiện khi cần anh bấm (css/dt-may.css) */
 }
 
 /* ==========================================================
@@ -473,7 +487,7 @@ function tenKhachTuFile(ten){
   return t;
 }
 function lapChiMuc(){
-  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Bấm chip Drive ở dải dưới để nối rồi làm lại.');
+  if(!coTheNoiDrive()) return baoLoi(drChuaNoi());
   if(QUET.chay) return bao('Đang chạy rồi, anh chờ chút.', 3);
   if(!DK.mo || DK.phan!=='lcm') moDonKho('lcm');
   QUET = {chay:true, dung:false, xong:0, tong:0, them:0, bo:0, dang:''};

@@ -40,7 +40,7 @@ function gxNen(obj){   /* JSON → gzip (Blob) */
 function gxKyMoi(){ var ds = toDsKy().filter(function(x){ return x.ky.length===7; }); return ds.length ? ds[0].ky : ''; }   /* Mẫu 31 chốt tháng mới nhất */
 function gxDay(tay){   /* lập + đẩy gói lên Drive */
   var ky = gxKyMoi(); if(!ky){ if(tay) baoLoi('Chưa có Mẫu 31 để đẩy cho điện thoại.'); return Promise.resolve(false); }
-  if(!coTheNoiDrive() || !DR.sanSang){ D.cauHinh.gxCho = 1; luu(); if(tay) baoLoi('Chưa nối Drive — nối Drive rồi bấm lại (hoặc app tự đẩy khi nối).'); return Promise.resolve(false); }
+  if(!coTheNoiDrive() || !DR.sanSang){ D.cauHinh.gxCho = 1; luu(); if(tay) baoLoi(drChuaNoi()+' App tự đẩy khi nối.'); return Promise.resolve(false); }
   var g, mini = '';
   return KHO.nap(ky).then(function(K){ g = gxLapTu(K); mini = gxMini(K); return gxNen(g); }).then(function(bl){
     return baoDamDuong(D.cauHinh.thumuc+'/'+GX_TM).then(function(idTM){ return timFileTrong(GX_TEN, idTM).then(function(cu){ return gxGhi(bl, idTM, cu, GX_TEN); })

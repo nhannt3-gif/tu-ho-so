@@ -114,3 +114,8 @@ body[data-dtm="tra"] #tr7 > .sl-con{display:none}
 #tc-cay .pv-sel{flex:1 1 auto;min-width:0;display:flex;gap:3px}
 #tc-cay .pv-sel select{flex:1 1 0;min-width:0}
 #tc-cay .pv-gon,#tc-cay .pv-ghim-nut{flex:0 0 auto;padding:2px 6px}
+/* ===== 3.373 (TK 3 nhận bàn giao — anh 26/10 "điện thoại và máy tính phải thống nhất, điện thoại chỉ gọn hơn"): Drive báo ở 1 chip như máy tính (chữ ngắn);
+   chân trang chỉ hiện chip khi cần anh bấm (🟡 Nối Drive · 🔴 Mất mạng · ⚠ lỗi đẩy) — đã nối 🟢 thì ẩn cho gọn. ===== */
+body.co-td[data-drive="vang"] .day,body.co-td[data-drive="do"] .day{display:flex}
+body.co-td[data-drive="vang"] .day #so-lieu,body.co-td[data-drive="do"] .day #so-lieu{display:flex}
+body.co-td .day #chip-bn{display:none}

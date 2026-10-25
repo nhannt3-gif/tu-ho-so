@@ -6,13 +6,16 @@
 var DTD = {bd:new Date().toISOString(), ban:typeof APP_BAN!=='undefined' ? APP_BAN : '', ds:[], dr:{n:0, ms:0, max:0, cham:''}, mo:{}};
 function dtdLay(){ try { return JSON.parse(localStorage.getItem('tuhoso_do') || '[]') || []; } catch(e){ return []; } }
 function dtdLuu(){ try { var a = dtdLay().filter(function(x){ return x.bd!==DTD.bd; }); a.push({bd:DTD.bd, ban:DTD.ban, ds:DTD.ds.slice(0, 80), dr:DTD.dr, mo:DTD.mo}); localStorage.setItem('tuhoso_do', JSON.stringify(a.slice(-2))); } catch(e){} }
-function dtdGhi(ten, ms, them){ if(ms<30) return; DTD.ds.push({t:ten, ms:Math.round(ms), luc:Math.round(performance.now()), x:them || ''}); clearTimeout(dtdGhi.h); dtdGhi.h = setTimeout(dtdLuu, 800); }
+function dtdGhi(ten, ms, them, luon){ if(ms<30 && !luon) return; DTD.ds.push({t:ten, ms:Math.round(ms), luc:Math.round(performance.now()), x:them || ''}); clearTimeout(dtdGhi.h); dtdGhi.h = setTimeout(dtdLuu, 800); }
 function dtdBoc(ten, chu, k){   /* bọc hàm chu[k] (toàn cục hoặc trong đối tượng) — đo tới khi lời hứa xong */
   var f = chu && chu[k]; if(typeof f!=='function' || f.dtd) return;
   var g = function(){ var t0 = performance.now(), a = arguments, r;
     try { r = f.apply(this, a); } catch(e){ dtdGhi(ten+' (lỗi)', performance.now()-t0); throw e; }
     var nhan = a.length && typeof a[0]==='string' && a[0].length<20 ? a[0] : '';
-    if(r && typeof r.then==='function') r.then(function(){ dtdGhi(ten, performance.now()-t0, nhan); }, function(){ dtdGhi(ten+' (lỗi)', performance.now()-t0, nhan); });
+    var noi = ten==='Nối Drive';   /* 3.373: ghi rõ nối được hay không + lý do; dùng lại quyền cũ */
+    if(r && typeof r.then==='function') r.then(function(v){ var ms = performance.now()-t0;
+      if(noi) dtdGhi(v===false ? ten+' — CHƯA được'+(window.DR && DR.lyDo ? ': '+DR.lyDo : '') : ten+(window.DR && DR.quyenCu ? ' (dùng lại quyền cũ)' : ''), ms, nhan, true);
+      else dtdGhi(ten, ms, nhan); }, function(){ dtdGhi(ten+' (lỗi)', performance.now()-t0, nhan, noi); });
     else dtdGhi(ten, performance.now()-t0, nhan);
     return r; };
   g.dtd = 1; chu[k] = g;

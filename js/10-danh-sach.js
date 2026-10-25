@@ -178,7 +178,7 @@ function timThuMucKhongTao(duong){
   }, Promise.resolve('root'));
 }
 function moThuMucDrive(duong, idBiet){
-  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Dùng nút 📂 để chép đường dẫn ổ G.');
+  if(!coTheNoiDrive()) return baoLoi(drChuaNoi()+' Hoặc dùng nút 📂 để chép đường dẫn ổ G.');
   var w = window.open('about:blank', '_blank');   /* mở trước để không bị chặn cửa sổ */
   (idBiet ? Promise.resolve(idBiet) : timThuMucKhongTao(duong)).then(function(id){
     if(id){ if(w) w.location = 'https://drive.google.com/drive/folders/'+id; }

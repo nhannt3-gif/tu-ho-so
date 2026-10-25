@@ -1981,7 +1981,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.372', ds:[
+var CO_GI_MOI = {ban:'3.373', ds:[
+  ["Drive: báo ở 1 chip (máy tính / điện thoại thống nhất), mở lại app còn quyền là nối ngay, bỏ thông báo nổi rối", "bamChip()"],
+  ["Bố cục: khung xem chỉ mở khi chọn mục · đầu trang ghi tab đang mở · chip lọc văn bản khai thiếu", "doiNgan(1)"],
   ["Điện thoại: thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · ☰ Thêm — 3 tab chính bấm 1 lần là tới; GD xã, Số liệu, Hồ sơ, Cài đặt trong ☰ Thêm", "doiNgan(0)"],
   ["Điện thoại: đầu trang gọn (❓🧰🗑⚙ vào ☰ Thêm), dòng trạng thái chỉ hiện khi có tin; Tra cứu lên danh sách khách ngay (bỏ tab con, Lọc địa bàn 1 hàng)", "dhSL('tra')"],
   ["⏱ Đo tốc độ (☰ Thêm): ghi thời gian nối Drive, tải, dựng kỳ trên máy anh — 📋 Chép gửi em để sửa đúng chỗ chậm", "dtdHop()"],
@@ -1994,9 +1996,7 @@ var CO_GI_MOI = {ban:'3.372', ds:[
   ["Số liệu › Tổ TK&VV: vuốt ngang bảng, tiêu đề không còn lệch cột (ô \"Xã / Điểm GD\" luôn nằm trên) — cả máy tính khi bảng rộng hơn khung", "slDoiTab('to');doiNgan(7)"],
   ["Điện thoại (bản máy tính) › bảng Số liệu: cột tên đứng yên hẹp lại (tên dài xuống dòng) — thấy thêm cột số; chụm 2 ngón để phóng to", "slDoiTab('to');doiNgan(7)"],
   ["Điện thoại (bản máy tính) › Hôm nay: lịch ô thấp, nút nhỏ gọn — sổ ngày (việc hôm nay) hiện ngay màn hình đầu, không phải cuộn", "doiNgan(0)"],
-  ["Nhật ký lỗi tự động: app gặp lỗi → chip \"⚠ N lỗi\" ở chân trang; bấm xem, 📋 Chép dán Zalo gửi em để sửa đúng chỗ", "nklHop()"],
-  ["Điện thoại (bản máy tính) › thẻ khách: mỗi món vay 1 thẻ gọn 3 dòng có chip màu (chương trình, trong hạn / quá hạn / khoanh), chữ nhỏ lại xem trọn 1 màn hình", "dhSL('tra')"],
-  ["Điện thoại: ô kỳ trên đầu trang ghi gọn \"T8/26 · M31\"", "doiNgan(0)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Nhật ký lỗi tự động: app gặp lỗi → chip \"⚠ N lỗi\" ở chân trang; bấm xem, 📋 Chép dán Zalo gửi em để sửa đúng chỗ", "nklHop()"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

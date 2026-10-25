@@ -64,6 +64,7 @@
 | 24/10 | TK 3 | **3.354** | điện thoại: `js/dt/dt-lich.js` mới, `js/dt/dt-nen.js`, `js/dt/dt-giao-dien.js`, `css/dt.css`, `dt.html`, `dt-sw.js`, `tests/t265.js` mới, t193 / t194 / t262 / t263 (trang đầu = Hôm nay) — **đọc** `_Hệ thống/lich.json` của máy tính, không sửa js/04b | t265 19/19, t193–t195, t262–t264, t260 dt |
 | 25/10 | TK 3 | **3.370** | anh "code và gộp gấp": `js/26-giao-dich-xa.js` (**file TK 2** — chỉ thêm `gdxMaDu` + 1 chỗ gọi trong `gdxDsDiem`, mã điểm đủ TXN), `index.html` dòng 7–8 (bỏ tự chuyển dt.html — G1), `js/60-ve-dt.js`, `tests/t266.js` mới, t193 / t262 | t266 8/8, nhóm gdx + dt |
 | 25/10 | TK 3 | **3.371** | G3 (anh "làm tiếp văn bản và scan"): **`css/dt-may-vbsc.css` mới** (file riêng, không sửa `css/dt-may.css` của TK 2), `index.html` +1 dòng `<link>` sau dòng dt-may.css, `tests/t267.js` mới | t267 6/6, nhóm scan, t260 |
+| 26/10 | TK 3 (nhận bàn giao) | **3.373** | Drive: `js/06c-drive.js`, `js/20-khoi-dong.js`, `js/68-do-toc-do.js`, câu chưa nối ở `js/08, 09, 10, 12, 17, 38, 41, 45`, `css/dt-may.css` (+ khối chip Drive cuối file); bố cục Đợt A: **`js/69-bo-cuc-a.js` mới** + 1 dòng `index.html`; bỏ t87–t99 (8 phép); `tests/t268.js`, `tests/t269.js` mới, t267 | t268 7/7, t269 7/7, t267, hồi quy đủ |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

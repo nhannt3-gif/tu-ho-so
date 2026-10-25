@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.372 · 25/10/2026 18:49 · 104 file · 42456 dòng · 3477 hàm cấp ngoài · 572 biến toàn cục.
+Bản 3.373 · 26/10/2026 01:23 · 104 file · 42474 dòng · 3482 hàm cấp ngoài · 573 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,7 +9,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 290 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `index.html` | 291 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
 | `css/app.css` | 4019 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
 | `js/02-nen.js` | 375 | 26 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
@@ -22,7 +22,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/05-them-file.js` | 1362 | 71 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
 | `js/06-hop-thoai.js` | 2217 | 157 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
 | `js/06b-xoa-nhieu.js` | 205 | 23 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2218–2421 của bản 3.3 |
-| `js/06c-drive.js` | 697 | 33 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2422–3118 của bản 3.3 |
+| `js/06c-drive.js` | 711 | 38 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2422–3118 của bản 3.3 |
 | `js/07-cccd.js` | 194 | 14 | /*   12. HỒ SƠ CCCD - 3.32: KHÔNG mã hóa nữa (anh Nhân chốt: Drive của anh là nơi lưu bảo mật). |
 | `js/08-dia-ban.js` | 583 | 49 | /*   danh mục địa bàn: Xã/phường → Điểm GD → Ấp/KP → Tổ   */ function dsXa(){ return (D.cauHinh.diaBan//[]).ma |
 | `js/09-bieu-mau.js` | 552 | 45 | /*   13. BIỂU MẪU — kho mẫu đơn trắng để in cho khách điền Xếp theo chương trình vay; có nhóm dùng chung và th |
@@ -105,7 +105,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/65-dong-thoi-gian.js` | 78 | 10 | /*   3.359 (KE_HOACH_CHOT_SO — đợt C3): 📅 DÒNG THỜI GIAN KHÁCH / TỔ TRONG NĂM   QUY_CHUAN_KIEN_TRUC mục 8 điểm |
 | `js/66-dt-may.js` | 34 | 2 | /*   3.362 (docs/KE_HOACH_DIEN_THOAI_MAY.md — Đ2): BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI — phần cần JS   Cắm rút: chỉ c |
 | `js/67-nhat-ky-loi.js` | 53 | 7 | /*   3.363 (docs/TU_VAN_KY_THUAT.md mục 5 — anh 25/10 "Ok em làm tiếp"): ⚠ NHẬT KÝ LỖI TỰ ĐỘNG   - Bắt mọi lỗi |
-| `js/68-do-toc-do.js` | 54 | 7 | /*   3.372 (KE_HOACH_DIEN_THOAI_MAY — Đ6 mục 5, anh duyệt 25/10: "drive nạp rất lâu"): ⏱ ĐO TỐC ĐỘ TRÊN MÁY TH |
+| `js/68-do-toc-do.js` | 57 | 7 | /*   3.372 (KE_HOACH_DIEN_THOAI_MAY — Đ6 mục 5, anh duyệt 25/10: "drive nạp rất lâu"): ⏱ ĐO TỐC ĐỘ TRÊN MÁY TH |
 | `js/mau/10c.js` | 106 | 0 | /*   3.223 M6 — MẪU 10C/TD MỚI (QĐ 70, từ 01/10/2026) Biên bản họp kết nạp, cho ra khỏi Tổ — trên nền ô, dựng  |
 | `js/mau/10ccu.js` | 84 | 0 | /*   3.223 M6 — MẪU 10C/TD CŨ (vào tổ đến 30/09/2026) Biên bản họp kết nạp bổ sung, cho ra khỏi Tổ — trên nền  |
 | `js/mau/10a.js` | 109 | 0 | /*   3.223 M6 — MẪU 10A/TD Biên bản họp thành lập Tổ TK&VV (QĐ 70) trên nền ô — dựng theo file gốc tests/mau_g |
@@ -184,9 +184,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/06-hop-thoai.js:1857` · 3.50: ❓ HƯỚNG DẪN TRỰC QUAN — chia theo tab, sơ đồ luồng dữ liệu, các bước theo logic.
 - `js/06b-xoa-nhieu.js:2` · 3.49: XÓA NHIỀU FILE (lúc đầu tên "− Bớt file", 3.49b đổi tên theo anh). Bấm "🗑 Xóa file" ở đầu tab → tích dòng (hoặc ch
 - `js/06c-drive.js:2` · 10. GOOGLE DRIVE  (tùy chọn — không có vẫn chạy bình thường)
-- `js/06c-drive.js:272` · 3.31 (mục 10 bàn giao) — GOOGLE PICKER: quét kho Drive cũ
-- `js/06c-drive.js:387` · 11. LẬP CHỈ MỤC
-- `js/06c-drive.js:446` · 3.50: 🗂 LẬP CHỈ MỤC — đi hết thư mục Tủ hồ sơ trên Drive để MỌI file đều được app quản lý.
+- `js/06c-drive.js:286` · 3.31 (mục 10 bàn giao) — GOOGLE PICKER: quét kho Drive cũ
+- `js/06c-drive.js:401` · 11. LẬP CHỈ MỤC
+- `js/06c-drive.js:460` · 3.50: 🗂 LẬP CHỈ MỤC — đi hết thư mục Tủ hồ sơ trên Drive để MỌI file đều được app quản lý.
 - `js/07-cccd.js:1` · 12. HỒ SƠ CCCD
 - `js/07-cccd.js:42` · 3.79.1 — KHÔI PHỤC DANH SÁCH SCAN TỪ ẢNH CÒN TRONG MÁY
 - `js/08-dia-ban.js:482` · 3.33 — ĐƯA HỒ SƠ SCAN LÊN DRIVE

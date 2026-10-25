@@ -42,7 +42,7 @@ function sxDuongKA(k){ return [D.cauHinh.thumuc, k.maKH ? SXT.ka : SXT.cho].join
 /* chữ ký / ảnh: tải lên (chưa có) hoặc đổi tên + dời (đã có) */
 dayKAMot = function(id, im){
   var k = (D.kyAnh||[]).find(function(x){ return x.id===id; }); if(!k) return Promise.resolve();
-  if(!coTheNoiDrive()){ if(!im) baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.'); return Promise.resolve(); }
+  if(!coTheNoiDrive()){ if(!im) baoLoi(drChuaNoi()); return Promise.resolve(); }
   var duong = sxDuongKA(k), ten = sxTenKA(k), idTM = '';
   return baoDamDuong(duong).then(function(t){ idTM = t;
     if(k.driveId) return sxDoi(k, idTM, ten);
@@ -55,7 +55,7 @@ dayKAMot = function(id, im){
   }).catch(function(e){ if(!im) baoLoi('Chưa đưa lên Drive được: '+(e && e.message || e)+' — bấm ☁ để thử lại.'); });
 };
 moThuMucKA = function(){   /* 3.264: chữ ký / ảnh ở 1 thư mục chung (bỏ chia theo tháng) */
-  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive. Vào Cài đặt › Google Drive để nối.');
+  if(!coTheNoiDrive()) return baoLoi(drChuaNoi());
   baoDamDuong([D.cauHinh.thumuc, SXT.ka].join(' / ')).then(function(id){ window.open('https://drive.google.com/drive/folders/'+id, '_blank'); }, function(e){ baoLoi('Chưa mở được thư mục: '+(e && e.message || e)); });
 };
 /* đổi tên + dời 1 file có sẵn trên Drive (cha cũ chưa biết thì hỏi Drive) — trả cha cũ để dọn thư mục trống */
@@ -508,7 +508,7 @@ function sxDonThuMuc(ids){
 }
 /* file anh thả tay vào thư mục chờ (không qua app): đọc chữ đầu tên → loại; tra Mẫu 31 → đặt tên + dời */
 function sxDriveCho(){
-  if(!coTheNoiDrive()) return baoLoi('Chưa nối Drive.');
+  if(!coTheNoiDrive()) return baoLoi(drChuaNoi());
   var biet = {}; (D.scan||[]).concat(D.kyAnh||[]).forEach(function(k){ if(k.driveId) biet[k.driveId] = 1; Object.keys(k.anhDrive||{}).forEach(function(m){ if(k.anhDrive[m] && k.anhDrive[m].id) biet[k.anhDrive[m].id] = 1; }); });   /* 3.271: ảnh 2 mặt của app không phải file thả tay */
   batChay(false, 'Đang rà thư mục chờ trên Drive…');
   baoDamDuong([D.cauHinh.thumuc, SXT.cho].join(' / ')).then(function(idCho){

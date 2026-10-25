@@ -4,6 +4,25 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.373 — 26/10/2026 — Drive báo gọn + thống nhất · bố cục Đợt A (TK 3 nhận bàn giao)
+- **Anh 26/10**: "khi mở app trên điện thoại load drive rất lâu mới kết nối", "báo chưa nối được drive gì tùm lum rối quá", "điện thoại và máy tính phải thống nhất, điện thoại chỉ gọn hơn", "code, còn gì nữa gom làm 1 lần luôn".
+- **Số đo ⏱ anh gửi (iPhone, 3.372, số thật)**: mở trang 0,5–1,4 giây (nhanh); **Drive 0 lần gọi** cả 2 phiên — tự nối lúc mở bị iPhone chặn (cửa sổ Google không do bấm), app chạy không Drive tới lần chạm đầu.
+- **Drive** (`js/06c-drive.js`, phần chung):
+  - **Giữ quyền còn hạn** (Google cấp ~1 giờ) trong máy → mở lại app trong hạn **nối ngay, không hỏi Google** (`drKhoiPhuc`, `drCatQuyen`; 401 thì bỏ).
+  - Xin lại quyền ngầm (4 phút / lần) bị chặn **không còn đánh dấu "nối lỗi"** khi quyền cũ còn hạn.
+  - Tải sẵn thư viện Google ngay khi mở (`js/20`, trước chờ 1,2 giây).
+  - **1 chip duy nhất** ở chân trang: 🟢 Drive · giờ · 🟡 Bấm để nối Drive · 🔴 Mất mạng, số bản chưa lên / lỗi gộp vào chip (2 chip riêng cũ ẩn). **Điện thoại cùng chip, chữ ngắn** (🟢 Drive · 🟡 Nối Drive · 🔴 Mất mạng), chỉ hiện khi cần bấm (đã nối thì ẩn cho gọn).
+  - **Bỏ thông báo nổi** khi tự nối / việc vào hàng chờ ("Phiên Drive hết, đang nối lại…", "Đã nối Google Drive"); chỉ báo khi anh tự bấm nối mà không được (kèm lý do).
+  - Câu "chưa nối" **thống nhất** `drChuaNoi()` (16 chỗ): "Chưa nối Drive — bấm chip 🟡 Nối Drive ở dưới để nối." / chưa cài → ⚙.
+  - ⏱ Đo tốc độ (`js/68`) ghi rõ **nối được / CHƯA được + lý do**, "dùng lại quyền cũ".
+- **Bố cục Đợt A** (`RA_SOAT_BO_CUC_2510`, file cắm rút **`js/69-bo-cuc-a.js`**):
+  - ① Văn bản · Biểu mẫu · Scan · Thư viện (máy tính): **khung xem phải thu lại khi chưa chọn mục**, bấm mục mở ra như cũ.
+  - ② Đầu trang máy tính: thay khối "Tủ hồ sơ vX · đơn vị" (trùng thanh bên) bằng **đường dẫn tab đang mở** "📊 Số liệu › 👥 Tổ TK&VV".
+  - ③ Huy hiệu 📥 Nạp & KT: **chỉ đỏ ⚠ khi đang trong kỳ phải nạp** (tháng mới nhất đã nạp = tháng trước / tháng này) mà còn thiếu; kỳ cũ hơn → vàng.
+  - ⑥ Văn bản: chip "⚠ Thiếu mảng, CT vay, tag" lặp từng thẻ → **1 chip lọc "⚠ N văn bản khai thiếu"** (bấm = chỉ hiện các văn bản đó).
+- **Rà phép thử**: bỏ 8 phép cũ không có câu kiểm (t87, t88, t89, t93, t94, t95, t96, t99 — TK 2 đề nghị, không bao giờ chạy trong hồi quy).
+- Phép thử: t268 (Drive, 7), t269 (bố cục, 7) mới; t267 theo ⑥.
+
 ## 3.372 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ6 (3 tab chính) + ⏱ đo tốc độ + sửa lỗi Scan máy chậm (TK 2)
 - Anh 25/10: "giao diện điện thoại còn rối, Drive nạp rất lâu, Hôm nay · Văn bản · Tra cứu KH là 3 tab chính mà không hiện chuẩn" → kế hoạch Đ6 (anh duyệt, ô 4 = Scan). Nối sau 3.370 / 3.371 của TK 3 (mở thẳng bản chính, Văn bản + Scan gọn — giữ nguyên, không làm trùng).
 - `js/66-dt-may.js` (chỉ ≤ 600 px): thanh dưới **Hôm nay · Tra cứu · Văn bản · Scan · ☰ Thêm** (thay DT_NUT; máy tính bảng / máy tính giữ thanh cũ); tô sáng đúng nút; ☰ Thêm thêm nhóm 📱 Điện thoại (📱 Bản điện thoại gọn — như nút 📱 của TK 3 · ⏱ Đo tốc độ); dòng trạng thái chân trang chỉ hiện khi có tin mới / đang chạy (bọc `ttVe`).
