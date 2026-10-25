@@ -25,10 +25,6 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/hoiquy.js` | Hồi quy chính (28 phép, máy trắng + máy có dữ liệu cũ). Thỉnh thoảng 27/28 do chờ cố định → chạy lại. |
 | `node tests/hoiquy2.js` | Hồi quy 2 (20 phép). **Mỗi bản sửa chuỗi số bản** trong file (`sed -i "s/3\.85/3.86/g" tests/hoiquy2.js`). |
 | `node tests/t87.js` … `t96.js` | Phép thử riêng các bản 3.75–3.84 (scan, gộp trùng, an toàn dữ liệu 3.81, hồ sơ hộ 3.82, giao ban 3.83, phím chung 3.84). |
-| `node tests/t97.js` | 3.85 tab Số liệu với bộ `tests/gia`: nạp cả bộ, ghi nhận, đối chiếu, tra KH, sai loại / lệch kỳ, tải lại trang. |
-| `node tests/t97m.js` | Ảnh giao diện tab Số liệu máy tính + điện thoại (bộ `gianho`). |
-| `node tests/t97w.js` | Đọc Excel ở Worker không làm treo màn hình. |
-| `node tests/t98.js` | 2 máy qua Drive giả (`fakedrive.js`): đẩy / kéo / thay file / xóa ô. |
 | `node tests/t100.js` (lỗi sẵn từ 3.90.1 — chờ phần tóm tắt cũ; không thuộc bộ hồi quy) | 3.86 Mẫu 31: nhận đúng loại, gộp khế ước trùng, món tất toán, khách chỉ gửi TK, công thức dư nợ 2 tháng, tab con Tra cứu KH (SĐT, khế ước), ô tìm chung ở tab Số liệu. |
 | `node tests/t101.js` | 3.120: kiểm Mẫu 10 đã bỏ (loại X, không còn bảng Mẫu 10). Phép cũ của chức năng Mẫu 10 (3.87) giữ ở `tests/t101_mau10_cu.js` — chỉ chạy với bản ≤ 3.119. |
 | `node tests/t102.js` | 3.88: tab Số liệu theo tháng (file của tháng, ② Kiểm tra lưu kết quả, dữ liệu đổi → kiểm lại, thu gọn bảng nhiều tháng) · tab con 👥 Tổ TK&VV (phím chung ở cây chọn tổ, chip, gõ tên, 3 báo cáo Xem / In / Excel) — bộ `gia31`, máy tính + điện thoại. |

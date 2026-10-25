@@ -9,7 +9,7 @@
 #        Phép thử in "✗" mà mã thoát 0 vẫn là trượt — xem cột ✗=.
 B=$1; T=${2:-/tmp/tuhoso_hq}; W=$T/wt$B; H=$T/hq$B; G=$(git rev-parse --show-toplevel)
 mkdir -p $T; cd $G; git worktree remove --force $W 2>/dev/null; git worktree add -q $W HEAD
-for d in lib gia gia31 gianho gianho31; do ln -sf $G/tests/$d $W/tests/$d; done
+for d in lib gia31 gianho31; do ln -sf $G/tests/$d $W/tests/$d; done
 mkdir -p $H; rm -f $H/*.log; cd $W
 NHOM=${3:-tat}; LUONG=${4:-1}
 DS="hoiquy hoiquy2 $(ls tests/t[1-3][0-9][0-9].js | sed 's#tests/##;s#\.js##' | sort)"
