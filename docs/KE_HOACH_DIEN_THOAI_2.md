@@ -88,3 +88,4 @@
 | Đ2b | 3.354 | **Anh 24/10: Hôm nay trước, giao diện như máy tính bỏ chức năng phức tạp.** Tab 📅 Hôm nay (lịch âm lịch, việc lặp / lưu ý, ghi chú dòng, sắp tới 7 ngày, đồng bộ 2 chiều lich.json với máy tính); giao diện bảng màu máy tính + biểu tượng SVG + thanh 5 nút; Khách có Tổng quan + nút Tải số liệu; bỏ tự đăng nhập lúc mở (iPhone chặn → "chưa có số liệu"); t265. Kế tiếp: Văn bản + Scan theo giao diện mới (Đ3) |
 
 **25/10 — anh chốt: "bản chính như máy tính, điện thoại là bản phụ cho gọn".** dt.html thành bản phụ gọn (không mạng: tra khách, văn bản ghim, scan → khay chờ, Hôm nay dùng chung lịch); các bước Đ3–Đ5 cũ dừng, thay bằng G1–G3 ở `PHOI_HOP_TK2_TK3.md` mục 6.
+- **3.371 · G3** — Văn bản + Scan của bản chính trên điện thoại: `css/dt-may-vbsc.css` (cắm rút), t267.

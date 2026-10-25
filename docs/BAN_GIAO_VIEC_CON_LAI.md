@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.371) — iPhone, anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | iPhone › Thêm › Văn bản | Hàng nút không cắt chữ; mỗi văn bản thấy số hiệu + trích yếu 2 dòng; ⋯ có Sửa thông tin | |
+| 2 | iPhone › Thêm › Scan | Danh sách bản quét lên ngay dưới nút Quét; thẻ gọn | |
+| 3 | Máy tính › Văn bản / Scan | Như cũ (không đổi) | |
+
+**Ghi chú kỹ thuật 3.371:** `css/dt-may-vbsc.css` nạp sau `css/dt-may.css` với `media="(max-width:600px)"`; chọn theo `#nam-vb .dau-tab`, `#ds-vb .d2`, `#tr4 .sc-dt / .thanh-chon.sx-thanh / .cam-kieu / .sc-d`. Phép thử t267 so khổ 390 và 1440.
+
 ### Danh sách thử trên máy thật (3.370) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
