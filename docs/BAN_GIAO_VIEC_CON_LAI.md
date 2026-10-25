@@ -228,8 +228,9 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 1 | KTGS › 🎯 Đột xuất › chọn 1 tổ › 📋 Tóm tắt tổ | Mở hộp in, 1 mặt A4, dòng "số liệu đến ngày …" đúng ngày số liệu | |
 | 2 | Tổ có quá hạn / lãi tồn | Hộ quá hạn đầu bảng, chữ đỏ; số khớp tab | |
 | 3 | Điền Ngày kiểm tra rồi bấm 📋 | Đầu trang ghi ngày kiểm tra | |
+| 4 | KTGS › 📅 Định kỳ › tích 2 tổ › 📋 Tóm tắt 2 tổ | 1 file, mỗi tổ 1 trang, số liệu đến ngày cuối tháng | |
 
-**Ghi chú kỹ thuật 3.379:** `js/71` (cắm rút, nạp sau js/70): `ktttSo(t)` → `{s, ngay, nguon, soMon, nTK, nLT, nLTC, nQH, monKHD, hoKHD, gn, ct:[[ten, dn]], ho:[{kh, ten, dn, v:[{chu, do}], uu}]}` (uu 1 QH/khoanh · 2 KHĐ / lãi tồn > 6 tháng · 3 lãi tồn · 4 không 105 · 5 mới GN); `ktttHTML(x)` (KTTT_TOI_DA = 18); `ktttIn()` → `inBlob`; lệnh `kttt.in`. Nút ở `ktChonHTML` (`js/22b`) chỉ hiện khi có `ktttIn`.
+**Ghi chú kỹ thuật 3.379:** `js/71` (cắm rút, nạp sau js/70): `ktttSo(t)` → `{s, ngay, nguon, soMon, nTK, nLT, nLTC, nQH, monKHD, hoKHD, gn, ct:[[ten, dn]], ho:[{kh, ten, dn, v:[{chu, do}], uu}]}` (uu 1 QH/khoanh · 2 KHĐ / lãi tồn > 6 tháng · 3 lãi tồn · 4 không 105 · 5 mới GN); `ktttHTML(x)` (KTTT_TOI_DA = 18); `ktttIn(ma)` / `ktttInDs(ts)` → `ktttVo(ds)` (mỗi tổ `<section class="kttt">`, sang trang) → `inBlob`; định kỳ bật `KT_SO_CUNG` khi tính; lệnh `kttt.in` (data-m) · `kttt.dk`; nút định kỳ ở `ktDKVeG` (`js/22e`). Nút ở `ktChonHTML` (`js/22b`) chỉ hiện khi có `ktttIn`.
 
 ### Danh sách thử trên máy thật (3.378) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |

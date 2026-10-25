@@ -1982,7 +1982,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.379', ds:[
-  ["KTGS 🎯 Đột xuất: nút 📋 Tóm tắt tổ — tình hình tổ 1 mặt A4 (số liệu đến ngày, 8 ô số, dư nợ theo chương trình, hộ cần quan tâm, nội dung kiểm tra theo 727) mang đi kiểm tra", "slDoiTab('kt')"],
+  ["KTGS 🎯 Đột xuất + 📅 Định kỳ: nút 📋 Tóm tắt tổ — tình hình tổ 1 mặt A4 (số liệu đến ngày, 8 ô số, dư nợ theo chương trình, hộ cần quan tâm, nội dung kiểm tra theo 727) mang đi kiểm tra", "slDoiTab('kt')"],
   ["KTGS Mẫu 16: Ưu điểm / Tồn tại / Kiến nghị chọn riêng — ghi theo số liệu hay để chấm; Mẫu 04: Nhận xét / Kiến nghị chọn riêng", "slDoiTab('kt')"],
   ["Bảng II Mẫu 16 chỉ còn Để trống / Điền đầy đủ (không chấm trong ô); 2 dòng có số theo Bảng II", "slDoiTab('kt')"],
   ["Quét CCCD đã có trong tủ → báo trùng ngay lúc đọc, chọn Thay bản cũ / Lưu thêm", "doiNgan(4)"],

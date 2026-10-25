@@ -35,6 +35,19 @@ const fs=require('fs'), path=require('path');
    window.__in = null; const goc = window.inBlob; window.inBlob = (bl, ten)=>{ window.__in = ten; };
    if(nut) nut.click(); await w(200); window.inBlob = goc;
    ok('bấm nút → In / PDF, tên file có ngày số liệu', /^Tom tat to .+ - so lieu \d\d-\d\d-\d{4}\.html$/.test(window.__in||''), window.__in);
+   /* định kỳ (anh "áp cho kiểm tra định kỳ và đột xuất luôn") */
+   const t2 = ds.find(y=>y.xa===t.xa && y.ma!==t.ma) || ds.find(y=>y.ma!==t.ma);
+   K.che = 'dk'; K.xa = t.xa; KT_DK_CHON = {}; KT_DK_CHON[t.ma] = true; KT_DK_CHON[t2.ma] = true; ktVeThe();
+   for(let i=0;i<40 && !document.querySelector('[data-lenh="kttt.dk"]');i++) await w(250);
+   const nDK = document.querySelector('[data-lenh="kttt.dk"]'), nDong = document.querySelector('[data-lenh="kttt.in"][data-m="'+t.ma+'"]');
+   ok('📅 Định kỳ: mỗi dòng tổ có 📋 + nút "📋 Tóm tắt 2 tổ"', !!nDong && !!nDK && /Tóm tắt 2 tổ/.test(nDK.textContent), nDK && nDK.textContent);
+   let kq = null; const goc2 = window.inBlob; window.inBlob = (bl, ten)=>{ kq = {bl, ten}; };
+   nDK.click(); for(let i=0;i<20 && !kq;i++) await w(100);
+   const hd = kq ? await kq.bl.text() : '', cd = chu(hd);
+   ok('bấm → 1 file In / PDF, mỗi tổ 1 trang (2 phần), số liệu đến ngày cuối tháng', !!kq && /^Tom tat to 2 to - so lieu /.test(kq.ten) && (hd.match(/<section class="kttt">/g)||[]).length===2 && /\.kttt\+\.kttt\{break-before:page\}/.test(hd) && cd.indexOf('số liệu đến ngày '+ngayVNsl(tdnCuoiKy(KT_K.ky)))>=0, kq && kq.ten);
+   kq = null; nDong.click(); for(let i=0;i<20 && !kq;i++) await w(100);
+   ok('📋 ở dòng tổ → tóm tắt riêng tổ đó', !!kq && (await kq.bl.text()).indexOf('mã '+t.ma)>=0 && !/ 2 to /.test(kq.ten), kq && kq.ten);
+   window.inBlob = goc2; K.che = 'dx'; KT_DK_CHON = {};
    return {o, h}; }, files);
  R.o.forEach(x=>o.push(x));
  /* 1 mặt A4 với tổ nhiều hộ nhất của bộ giả */

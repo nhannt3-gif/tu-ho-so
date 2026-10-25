@@ -11,8 +11,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
   - I. 8 ô số: dư nợ (tổ viên, món), nợ quá hạn (tỷ lệ, số hộ), lãi tồn (số hộ, hộ > 6 tháng lãi), tiết kiệm (số hộ có gửi), nợ khoanh, chấm điểm (tháng BC0437), món không GD ≥ 3 tháng, giải ngân 30 ngày.
   - II. Dư nợ theo chương trình. III. Hộ cần quan tâm xếp ưu tiên: quá hạn / khoanh → không giao dịch, lãi tồn cao → lãi tồn → không gửi tiết kiệm → mới giải ngân (kiểm tra sử dụng vốn); cột ghi chú để trống. Nhiều hơn 12 hộ thì chữ bảng nhỏ lại; quá 18 hộ → "… và n hộ khác".
   - IV. Nội dung kiểm tra 4 nhóm căn cứ 727 (ô ☐). V. Kết quả kiểm tra thực tế, đề nghị (dòng chấm).
+- **📅 Kiểm tra định kỳ** cũng có (anh: "tóm tắt này áp cho kiểm tra định kỳ và đột xuất luôn"): mỗi dòng tổ có nút 📋 + nút **📋 Tóm tắt n tổ** đã chọn (1 file, mỗi tổ 1 trang); số liệu cuối tháng, BC0437 cùng tháng như Mẫu 16 định kỳ.
 - Chỉ đọc số liệu (ktSoTo, ktHo, ktDsDon), không ghi gì.
-- Phép thử: t273 mới (12).
+- Phép thử: t273 mới (15).
 
 ## 3.378 — 26/10/2026 — KTGS: nhận xét chọn từng phần, Bảng II không chấm (TK 3)
 - **Anh 26/10**: "chỗ nhận xét, tồn tại, kiến nghị anh muốn cho chọn 3 phần riêng nhau, em tự ghi theo số liệu hay để chấm"; "Bảng II chỉ để trống, không có chấm trong ô"; "Mẫu 04 cũng chia ra 2".
