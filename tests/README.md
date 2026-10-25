@@ -216,6 +216,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t309.js` | 3.368 Tra cứu › Tổ trưởng: danh sách tổ đủ 7 cột không cuộn ngang ở 1280 / 1366 / 1920, mã tổ đủ, Hội viết tắt (title tên đủ). |
 | `node tests/t310.js` | 3.369 tối ưu nạp: `slNen` / `slMoBang` mới = thuật toán cũ (giữ bản cũ để so), dò Mẫu 01/TV trong 100 dòng đầu vẫn nhận dòng tên cột ở dòng 30. |
 | `node tests/t311.js` | 3.372 Đ6 điện thoại: thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm, đầu trang gọn, Tra cứu gọn, ☰ Thêm có 📱 + ⏱ đo tốc độ (ghi Dựng kỳ); máy 1440 / 900 không đổi. |
+| (3.375) | t269 + mục nút ▣ Xem trước: ẩn khi khung mở, hiện góc trên phải khi tắt ✕ / thu tự động, bấm mở khung (9). |
 | (3.374) | t264 viết lại: chip năm / loại (không còn Đã ghim), xem PDF trong app, chỉ còn Gửi · Lưu máy, dọn file ghim cũ, danh mục cất máy, mất mạng báo "chỉ xem khi có mạng", chưa lên Drive (12). |
 | (3.373) | t268 mới: Drive — dùng lại quyền còn hạn, quyền sắp hết không dùng, tự nối hỏng không báo nổi + ⏱ ghi lý do, xin lại ngầm hỏng giữ nối, hàng chờ không báo nổi, câu chưa nối thống nhất + số chưa lên trong chip, điện thoại chip ngắn chỉ hiện khi cần (7). t269 mới: bố cục Đợt A ① ② ③ ⑥ (7). |
 | (3.371) | t267 mới: điện thoại Văn bản (hàng nút không cắt, bớt nút, trích yếu 2 dòng, ≥ 5 / màn), Scan (bỏ chữ lặp, thẻ đầu lên sớm); máy tính không đổi (6). |

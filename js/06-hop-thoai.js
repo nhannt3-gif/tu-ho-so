@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.374', ds:[
+var CO_GI_MOI = {ban:'3.375', ds:[
+  ["Khung xem trước đang ẩn → nút ▣ Xem trước ở góc trên bên phải để mở lại", "doiNgan(1)"],
   ["Bản gọn dt.html: văn bản chỉ xem khi có mạng — bỏ 📌 Ghim xem không mạng, dọn file đã ghim cũ", "location.href='dt.html'"],
   ["Drive: báo ở 1 chip (máy tính / điện thoại thống nhất), mở lại app còn quyền là nối ngay, bỏ thông báo nổi rối", "bamChip()"],
   ["Bố cục: khung xem chỉ mở khi chọn mục · đầu trang ghi tab đang mở · chip lọc văn bản khai thiếu", "doiNgan(1)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.374', ds:[
   ["Tra cứu › thẻ khách / thẻ tổ: khối 📅 Dòng thời gian thu gọn 1 dòng, bấm mới mở — không chiếm chỗ", "dhSL('tra')"],
   ["Điện thoại (bản máy tính) › xem trước bản in: chụm 2 ngón trên trang để phóng to / thu nhỏ (thanh nút đứng yên); thanh nút gọn 1 hàng vuốt ngang, nút cỡ ngón tay", "slDoiTab('sk');doiNgan(7)"],
   ["Số liệu › Tổ TK&VV: vuốt ngang bảng, tiêu đề không còn lệch cột (ô \"Xã / Điểm GD\" luôn nằm trên) — cả máy tính khi bảng rộng hơn khung", "slDoiTab('to');doiNgan(7)"],
-  ["Điện thoại (bản máy tính) › bảng Số liệu: cột tên đứng yên hẹp lại (tên dài xuống dòng) — thấy thêm cột số; chụm 2 ngón để phóng to", "slDoiTab('to');doiNgan(7)"],
-  ["Điện thoại (bản máy tính) › Hôm nay: lịch ô thấp, nút nhỏ gọn — sổ ngày (việc hôm nay) hiện ngay màn hình đầu, không phải cuộn", "doiNgan(0)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Điện thoại (bản máy tính) › bảng Số liệu: cột tên đứng yên hẹp lại (tên dài xuống dòng) — thấy thêm cột số; chụm 2 ngón để phóng to", "slDoiTab('to');doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

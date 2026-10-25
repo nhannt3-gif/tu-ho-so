@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.374** — TK 3: dt.html văn bản chỉ xem khi có mạng (bỏ 📌 ghim, dọn file ghim cũ). Trước: 3.373 TK 3 Drive báo 1 chip thống nhất + giữ quyền còn hạn khi mở lại app, bố cục Đợt A ① ② ③ ⑥, bỏ 8 phép thử không câu kiểm; 3.372 TK 2 điện thoại Đ6 + ⏱. Chờ anh: phương án B (Worker); trDan co chữ.
+- **`main` = 3.375** — TK 3: nút ▣ Xem trước góc trên bên phải khi khung xem ẩn. Trước: 3.374 dt.html chỉ xem khi có mạng; 3.373 Drive 1 chip thống nhất + giữ quyền còn hạn, bố cục Đợt A; 3.372 TK 2 điện thoại Đ6 + ⏱. Chờ anh: phương án B (Worker); trDan co chữ; t158 / t246 sai cả trên main (xem lại).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

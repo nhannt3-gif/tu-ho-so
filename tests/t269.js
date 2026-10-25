@@ -12,6 +12,15 @@ const path=require('path'), G=path.resolve(__dirname,'..');
  ok('① chưa chọn văn bản → khung xem phải thu lại, danh sách rộng gần hết màn (> 1000 px)', a.gon && a.cp==='hidden' && a.ds>1000, JSON.stringify(a));
  await p.click('#ds-vb .d2'); await p.waitForTimeout(800); const b1 = await w();
  ok('① bấm 1 văn bản → khung xem mở ra như cũ (hiện tên mục)', !b1.gon && b1.cp==='visible' && b1.ds<1000 && /VB giả/.test(await p.textContent('#cp-ten')), JSON.stringify(b1));
+ /* nút ▣ Xem trước góc trên phải khi khung xem ẩn (anh 26/10) */
+ const nut = ()=>p.evaluate(()=>{ const b = document.getElementById('bca-pv-nut'), r = b && b.getBoundingClientRect(), cp = document.getElementById('cotphai');
+   return {hien:!!b && getComputedStyle(b).display!=='none', x:r ? Math.round(r.right) : 0, y:r ? Math.round(r.top) : 0, cp:getComputedStyle(cp).visibility, an:document.querySelector('.than').classList.contains('an-preview')}; });
+ const n1 = await nut();   /* đang mở khung (vừa bấm văn bản) */
+ await p.evaluate(()=>anPreview()); await p.waitForTimeout(300); const n2 = await nut();
+ await p.click('#bca-pv-nut'); await p.waitForTimeout(400); const n3 = await nut();
+ await p.evaluate(()=>{ doiNgan(5); mucDangXem = null; doiNgan(1); }); await p.waitForTimeout(500); const n4 = await nut();   /* đổi tab → thu tự động lại */
+ await p.click('#bca-pv-nut'); await p.waitForTimeout(400); const n5 = await nut();
+ ok('nút "▣ Xem trước": khung đang mở → ẩn; anh tắt ✕ → hiện ở góc trên phải; bấm → mở khung (giữ mở tới khi đổi tab); đổi tab, chưa chọn mục → thu, nút hiện; bấm → mở khung', !n1.hien && n2.hien && n2.an && n2.x>1300 && n2.y<52 && !n3.hien && !n3.an && n4.hien && !n5.hien && n5.cp==='visible', JSON.stringify({n1, n2, n3, n4, n5}));
  await p.evaluate(()=>doiNgan(0)); await p.waitForTimeout(500);
  ok('① tab Hôm nay không bị đụng (không gắn pv-gon)', !(await p.evaluate(()=>document.querySelector('.than').classList.contains('bca-pvgon'))));
  await p.evaluate(()=>dhSL('to')); await p.waitForTimeout(1200);

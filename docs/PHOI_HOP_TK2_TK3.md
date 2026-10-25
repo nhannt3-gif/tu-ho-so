@@ -66,6 +66,7 @@
 | 25/10 | TK 3 | **3.371** | G3 (anh "làm tiếp văn bản và scan"): **`css/dt-may-vbsc.css` mới** (file riêng, không sửa `css/dt-may.css` của TK 2), `index.html` +1 dòng `<link>` sau dòng dt-may.css, `tests/t267.js` mới | t267 6/6, nhóm scan, t260 |
 | 26/10 | TK 3 (nhận bàn giao) | **3.373** | Drive: `js/06c-drive.js`, `js/20-khoi-dong.js`, `js/68-do-toc-do.js`, câu chưa nối ở `js/08, 09, 10, 12, 17, 38, 41, 45`, `css/dt-may.css` (+ khối chip Drive cuối file); bố cục Đợt A: **`js/69-bo-cuc-a.js` mới** + 1 dòng `index.html`; bỏ t87–t99 (8 phép); `tests/t268.js`, `tests/t269.js` mới, t267 | t268 7/7, t269 7/7, t267, hồi quy đủ |
 | 26/10 | TK 3 (nhận bàn giao) | **3.374** | anh "chỉ xem khi có mạng": `js/dt/dt-nen.js`, `js/dt/dt-giao-dien.js` (bỏ 📌 ghim xem không mạng, dọn file ghim cũ), `tests/t264.js` viết lại | t264 12/12, t193–t195, t262, t263, t265 |
+| 26/10 | TK 3 (nhận bàn giao) | **3.375** | anh "nút bật tắt khung xem trước … góc trên bên phải khi ẩn": `js/69-bo-cuc-a.js`, `tests/t269.js` | t269 9/9, t267, t303, t311 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

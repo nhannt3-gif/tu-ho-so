@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.375 — 26/10/2026 — Nút ▣ Xem trước góc trên bên phải (TK 3)
+- **Anh 26/10**: "nút bật tắt khung xem trước em bố trí góc trên bên phải khi ẩn".
+- Máy tính (≥ 900 px), các tab có khung xem (Văn bản · Dữ liệu · Thư viện · Scan · Biểu mẫu · Khay chờ): khung xem **đang ẩn** (anh bấm ✕ tắt, hoặc thu tự động khi chưa chọn mục — 3.373 ①) → hiện nút **"▣ Xem trước"** ở đầu trang, góc trên bên phải (cạnh giờ). Bấm → mở khung; khung mở thì nút ẩn.
+- Bấm nút khi khung đang thu tự động → giữ khung mở tới lần đổi tab.
+- Nút cũ "▣ Xem trước" ở dải đáy vẫn giữ (màn hẹp). Trong `js/69-bo-cuc-a.js` (cắm rút).
+- Phép thử: t269 + 1 mục (9).
+
 ## 3.374 — 26/10/2026 — dt.html: văn bản chỉ xem khi có mạng (TK 3)
 - **Anh 26/10**: "chỉ xem khi có mạng" (trả lời câu ghim văn bản xem không mạng giữ hay gỡ; trước đó anh: "điện thoại luôn có mạng, không cần chế độ offline").
 - Bỏ **📌 Ghim — xem không mạng** (3.344): nút Ghim, chip "📌 Đã ghim", cất file mã hóa trong máy (≤ 200 MB). Mở văn bản / scan luôn tải từ Drive.
