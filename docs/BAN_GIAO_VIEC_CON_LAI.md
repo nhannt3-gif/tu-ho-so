@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.374) — iPhone (bản gọn dt.html), anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📱 › Văn bản › mở 1 văn bản | Xem trong app; chỉ còn nút 📤 Gửi · ⬇ Lưu máy (không còn 📌 Ghim) | |
+| 2 | Bật chế độ máy bay › mở văn bản | Báo "Chưa có mạng — văn bản chỉ xem khi có mạng" | |
+
+**Ghi chú kỹ thuật 3.374:** `js/dt/dt-nen.js` bỏ `OFF_TOI / off / offDung / offLuu / offDoc / offXoa`, thêm `donGhimCu()` (xóa `vb:<id>` + `CH.vbOff`, gọi ở `moApp`); `dt-giao-dien.js` bỏ chip / nút / lọc ghim, `veXem` tải thẳng `DT.taiFile`.
+
 ### Danh sách thử trên máy thật (3.373) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.374 — 26/10/2026 — dt.html: văn bản chỉ xem khi có mạng (TK 3)
+- **Anh 26/10**: "chỉ xem khi có mạng" (trả lời câu ghim văn bản xem không mạng giữ hay gỡ; trước đó anh: "điện thoại luôn có mạng, không cần chế độ offline").
+- Bỏ **📌 Ghim — xem không mạng** (3.344): nút Ghim, chip "📌 Đã ghim", cất file mã hóa trong máy (≤ 200 MB). Mở văn bản / scan luôn tải từ Drive.
+- **Dọn file đã ghim cũ** trong máy 1 lần khi mở app (trả dung lượng).
+- Mất mạng mà mở văn bản → báo rõ "Chưa có mạng — văn bản chỉ xem khi có mạng" (trước báo "Failed to fetch").
+- Danh sách Văn bản / Scan vẫn nhớ trong máy (chỉ danh mục, mở lại nhanh không cần ⟳).
+- Phép thử: t264 viết lại (12).
+
 ## 3.373 — 26/10/2026 — Drive báo gọn + thống nhất · bố cục Đợt A (TK 3 nhận bàn giao)
 - **Anh 26/10**: "khi mở app trên điện thoại load drive rất lâu mới kết nối", "báo chưa nối được drive gì tùm lum rối quá", "điện thoại và máy tính phải thống nhất, điện thoại chỉ gọn hơn", "code, còn gì nữa gom làm 1 lần luôn".
 - **Số đo ⏱ anh gửi (iPhone, 3.372, số thật)**: mở trang 0,5–1,4 giây (nhanh); **Drive 0 lần gọi** cả 2 phiên — tự nối lúc mở bị iPhone chặn (cửa sổ Google không do bấm), app chạy không Drive tới lần chạm đầu.
