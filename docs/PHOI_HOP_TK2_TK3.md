@@ -51,6 +51,7 @@
 | 25/10 | TK 2 | 3.366 | `js/05-them-file.js` (`trDan` khung xem: chụm 2 ngón, CSS ≤ 600 px), `index.html`, **mới** `tests/t308.js` | t308, hồi quy đủ |
 | 25/10 | TK 2 | 3.367 | `js/65-dong-thoi-gian.js` (khối thu gọn), `css/app.css` (1 dòng `details.dtg-khoi`), `index.html`, `tests/t302.js` | t302, nhóm so |
 | 25/10 | TK 2 | 3.368 | `js/58-tc-to.js` (`tcToTim` bảng `.tc-to-ds`), `css/app.css` (luật riêng `.tc-to-ds`), `index.html`, `tests/t246.js`, **mới** `tests/t309.js` | t246, t258, t302, t304, t309 |
+| 25/10 | TK 2 | 3.369 | `js/22-so-lieu.js` (`slLayDong`, `slNen`, `slMoBang`), `js/28-tv-tk.js` (dò tên cột 100 dòng đầu), `index.html`, **mới** `tests/t310.js` | t310, vân tay 26 file, hồi quy đủ |
 | 24/10 | TK 2 | 3.341 | K1 KHO: `js/12`, `21`, `23`, `25`, `26`, `29` (soBang, dsKyHS), `41`; `tests/kiem.py` (đếm đọc thẳng kho), `tests/do_moc.json` (kho_thang 221) | t127, t151, t165, t170, t172, t179, t207, t209, t210, t241, hoiquy, hoiquy2 |
 | 24/10 | TK 2 | 3.339 | tách `js/04-giao-dien.js` → 04 + 04b–04e, `js/06-hop-thoai.js` → 06 + 06b–06c (nguyên văn; `CO_GI_MOI` vẫn ở 06 cho bump.py), `index.html`, `tests/hssv_exe.js`, `tests/chuan_lay.js` (hôm nay cố định 17/10 — t179) | hồi quy đủ 2 luồng (`hoiquy.sh 3339 … tat 2`): chỉ t192, t151 cũ |
 | 24/10 | TK 2 | 3.338 | `js/59-suc-khoe.js` mới, `js/32-kho-luu.js` (1 dòng gọi), `css/app.css`, `index.html`, `tests/t248.js` mới | t248, t231, t138, t178, t182, t185, t193, t206, t93, t247, t260, hoiquy, hoiquy2 |

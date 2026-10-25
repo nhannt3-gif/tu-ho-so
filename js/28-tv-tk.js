@@ -13,11 +13,11 @@ function tkNgayVN(s){   /* "13/10/2026" / "ngày 30 tháng 09 năm 2026" → ISO
   if(!x) return ''; var d = +x[1], m = +x[2], y = +x[3]; return (y>2000 && y<2100 && m>=1 && m<=12 && d>=1 && d<=31) ? y+'-'+hai(m)+'-'+hai(d) : '';
 }
 function tkO(r, i){ return i>=0 && r ? String(r[i]==null ? '' : r[i]).trim() : ''; }
-/* ① Mẫu 01/TV */
+/* ① Mẫu 01/TV — 3.369 (tối ưu nạp A1): dòng tên cột chỉ dò ở 100 dòng đầu (trước dò cả file → Mẫu 31 25.000 dòng × 175 ô bị bỏ dấu từng ô, đứng màn hình ~1,3 giây) */
 function tv01Doc(sheets){
   for(var s = 0; s < (sheets||[]).length; s++){
     var a = sheets[s].rows || [], dau = a.slice(0, 12).map(function(r){ return slChuan((r||[]).join(' ')); }).join(' | ');
-    var hi = a.findIndex(function(r){ var c = (r||[]).map(slChuan); return c.indexOf('stt')>=0 && c.some(function(x){ return x.indexOf('ma khach hang')===0; }) && c.some(function(x){ return x.indexOf('so du tien gui')===0; }); });
+    var hi = a.slice(0, 100).findIndex(function(r){ var c = (r||[]).map(slChuan); return c.indexOf('stt')>=0 && c.some(function(x){ return x.indexOf('ma khach hang')===0; }) && c.some(function(x){ return x.indexOf('so du tien gui')===0; }); });
     if(hi<0 || !(/mau 01 tv/.test(dau) || a.slice(0, hi).some(function(r){ return /^ma to/.test(slChuan((r||[]).join(' '))); }))) continue;
     var h = a[hi].map(slChuan), ci = function(k){ return h.findIndex(function(x){ return x.indexOf(k)===0; }); };
     var C = {stt:ci('stt'), ten:ci('ho va ten'), kh:ci('ma khach hang'), cccd:ci('cmnd'), sdt:ci('dien thoai'), dn:ci('du no'), tg:ci('so du tien gui')};
@@ -41,7 +41,7 @@ function tv01Doc(sheets){
 function tkSKDoc(sheets){
   for(var s = 0; s < (sheets||[]).length; s++){
     var a = sheets[s].rows || [];
-    var hi = a.findIndex(function(r){ var c = (r||[]).map(slChuan); return c.indexOf('ma khach hang')>=0 && c.indexOf('tai khoan')>=0 && c.indexOf('san pham')>=0; });
+    var hi = a.slice(0, 100).findIndex(function(r){ var c = (r||[]).map(slChuan); return c.indexOf('ma khach hang')>=0 && c.indexOf('tai khoan')>=0 && c.indexOf('san pham')>=0; });
     if(hi<0) continue;
     var h = a[hi].map(slChuan), ci = function(k){ return h.indexOf(k); };
     var C = {xa:ci('ma xa'), thon:ci('ma thon'), kh:ci('ma khach hang'), ten:ci('ten khach hang'), tk:ci('tai khoan'), du:h.findIndex(function(x){ return x.indexOf('so du ngay bao cao')===0; }),

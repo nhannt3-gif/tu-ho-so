@@ -4,7 +4,7 @@ Ràng buộc giữ nguyên: ES5, không build, không npm, thư viện theo danh
 
 | # | Kỹ thuật | Hiện tại | Lợi ích | Công sức | Trạng thái |
 |---|---|---|---|---|---|
-| 1 | **Web Worker** — đọc Excel + dựng số liệu kỳ ở luồng phụ | Chạy chung luồng giao diện → đơ khi nạp Mẫu 31 lớn | Nạp file không treo màn hình, điện thoại đỡ đứng | 2 phiên | chờ anh |
+| 1 | **Web Worker** — đọc Excel + dựng số liệu kỳ ở luồng phụ | Chạy chung luồng giao diện → đơ khi nạp Mẫu 31 lớn | Nạp file không treo màn hình, điện thoại đỡ đứng | 2 phiên | **3.369: đo lại → đọc Excel đã ở Worker từ 3.86; chỗ đứng thật là tách dòng 2,35 s (dò tên cột cả file). Phương án A (sửa thẳng, anh duyệt) xong: tách dòng 0,74 s, đứng màn hình 2,5 → 0,86 s (ĐT giả lập 11,4 → 3,7 s). Phương án B (Worker cho tách dòng + ghi) để sau, chờ anh** |
 | 2 | **Nạp module khi cần** (tải JS của tab lúc mở tab) | Tải ~3,6 MB JS lúc mở app | Mở app nhanh hơn rõ, nhất là điện thoại | 1–2 phiên | chờ anh (em đề xuất làm sớm) |
 | 3 | **Lưu sẵn bản tóm tắt số liệu kỳ** đã dựng vào bộ nhớ máy | Mỗi lần mở dựng lại từ bảng gốc | Mở tab Số liệu gần như tức thì | 1 phiên | chờ anh |
 | 4 | **Cài app lên màn hình chính (PWA)** cho bản máy tính | Chỉ bản điện thoại có | Mở như app thật, toàn màn hình, nhanh khi mạng yếu | 1 phiên | chờ anh |
