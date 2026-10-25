@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.376 — 26/10/2026 — Chip báo không che nút · ⏱ đo từng bước quét (TK 3)
+- **Anh 26/10**: "scan cccd, app đọc và nắn cắt ảnh tương đối lâu, chữ hiện cảnh báo che nút" + ảnh: "Đã tự cắt, nắn và làm đẹp · ⏱ 14,5 giây" (2 mặt thẻ, máy tính) + "chip trắng có khi che nút xem trước".
+- **Chip báo** (`.bao`, chỉ nổi khi đang mở hộp — lúc khác ghi vào ô trạng thái): lên **đầu màn hình** (trước ở đáy giữa, đè hàng nút cuối hộp như "Xem trước ›"); chip không có nút thì **bấm xuyên qua**. `css/app.css` 2 dòng.
+- **⏱ Đo tốc độ** (`js/68`) thêm các bước quét: thu ảnh gốc 2000 px · đổi HEIC → JPG · cắt nắn lọc 1 ảnh (trọn) · tìm khung thẻ / giấy · nắn phối cảnh · lọc màu · đọc thẻ CCCD · đọc QR · đọc chữ mã máy · tải bộ đọc chữ. Đo trên máy ảo (ảnh giả 4032×3024): 1 ảnh **0,36 s** máy tính, **1,5 s** khi CPU chậm ×4 — máy anh 14,5 s / 2 ảnh (~7 s / ảnh, gấp ~20 lần) → cần số đo thật để sửa đúng bước (nghi đổi HEIC hoặc dò khung trên nền phức tạp).
+- Phép thử: t270 mới (5).
+
 ## 3.375 — 26/10/2026 — Nút ▣ Xem trước góc trên bên phải (TK 3)
 - **Anh 26/10**: "nút bật tắt khung xem trước em bố trí góc trên bên phải khi ẩn".
 - Máy tính (≥ 900 px), các tab có khung xem (Văn bản · Dữ liệu · Thư viện · Scan · Biểu mẫu · Khay chờ): khung xem **đang ẩn** (anh bấm ✕ tắt, hoặc thu tự động khi chưa chọn mục — 3.373 ①) → hiện nút **"▣ Xem trước"** ở đầu trang, góc trên bên phải (cạnh giờ). Bấm → mở khung; khung mở thì nút ẩn.
