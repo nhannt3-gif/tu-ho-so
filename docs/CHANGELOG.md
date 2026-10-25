@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.372 — 25/10/2026 — Bản máy tính trên điện thoại · đợt Đ6 (3 tab chính) + ⏱ đo tốc độ + sửa lỗi Scan máy chậm (TK 2)
+- Anh 25/10: "giao diện điện thoại còn rối, Drive nạp rất lâu, Hôm nay · Văn bản · Tra cứu KH là 3 tab chính mà không hiện chuẩn" → kế hoạch Đ6 (anh duyệt, ô 4 = Scan). Nối sau 3.370 / 3.371 của TK 3 (mở thẳng bản chính, Văn bản + Scan gọn — giữ nguyên, không làm trùng).
+- `js/66-dt-may.js` (chỉ ≤ 600 px): thanh dưới **Hôm nay · Tra cứu · Văn bản · Scan · ☰ Thêm** (thay DT_NUT; máy tính bảng / máy tính giữ thanh cũ); tô sáng đúng nút; ☰ Thêm thêm nhóm 📱 Điện thoại (📱 Bản điện thoại gọn — như nút 📱 của TK 3 · ⏱ Đo tốc độ); dòng trạng thái chân trang chỉ hiện khi có tin mới / đang chạy (bọc `ttVe`).
+- `css/dt-may.css`: đầu trang bỏ ❓ 🧰 🗑 ⚙ (có trong ☰ Thêm › Khác), chân trang ẩn chip Drive / dung lượng (chip ⚠ lỗi vẫn hiện); Tra cứu ẩn hàng tab con Số liệu + Lọc địa bàn 1 hàng.
+- **Mới `js/68-do-toc-do.js`** (cắm rút): bọc đo nối Drive, kéo / đẩy chỉ mục văn bản, đồng bộ scan, cài đặt, chỉ mục số liệu, tải file số liệu, dựng kỳ + gộp mọi lần gọi Drive (số lần · tổng · chậm nhất); lưu trên máy (phiên này + trước); xem ☰ Thêm › ⏱ Đo tốc độ, 📋 Chép; chép nhật ký lỗi kèm số đo.
+- **Sửa lỗi có từ trước (Scan, máy chậm):** đọc CCCD chạy ngầm xong SAU khi phiên quét đã đóng → `SX.ten` vỡ (`null.ten`, js/41) — hồi quy đủ bắt được ở t151 khi máy nặng; gây lại bằng CPU chậm ×4; sửa 1 dòng.
+- **Phép thử**: mới t311.
+
 ## 3.371 — 25/10/2026 — Điện thoại: Văn bản + Scan của bản chính gọn hơn (TK 3, PHOI_HOP mục 6 G3)
 - **Anh 25/10**: "làm tiếp văn bản và scan" (sau khi chốt bản chính trên điện thoại = bản máy tính).
 - File mới **`css/dt-may-vbsc.css`** (chỉ màn ≤ 600 px, cắm rút — bỏ dòng `<link>` là về như cũ; tách riêng để không đụng `css/dt-may.css` của TK 2). Chỉ CSS, không đổi chức năng.

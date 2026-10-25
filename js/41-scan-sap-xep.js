@@ -255,6 +255,7 @@ scanXongHop = function(bl){
           if(r){ var t = sxXacDinh({cccd:r.cccd, ten:r.ten, ns:r.ns, cmnd:r.cmnd}); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); if(c){ c.cccd = c.cccd || r.cccd; SXK[i] = c; } } }   /* 3.361: danh bạ chưa có / đang nạp lại → bỏ qua, không vỡ luồng */
           sxVeDoc(); }, function(){ SX_DOC[i] = {dang:false}; sxVeDoc(); }); }); }, Promise.resolve());
   }).then(function(){ var o = SX_DOC[0] || {};
+    if(!SX) return;   /* 3.372: phiên quét đã đóng (lưu xong / Xong) trước khi đọc CCCD ngầm xong — máy chậm → bỏ kết quả muộn, không vỡ (SX null) */
     if(nh.length===1){ SX.ten = o.tim && o.tim.ma && sxKhach(o.tim.ma) ? sxTenChuan(o.tim.ma, sxKhach(o.tim.ma).ten, 'CCCD', '') : (o.cccd || o.ten ? 'cccd-'+[o.ten, o.cccd].filter(Boolean).join(' - ') : SX.ten);   /* chưa chắc: giữ số CCCD trong tên để Sắp xếp đối chiếu */
       var e = document.getElementById('sx-ten'); if(e) e.value = SX.ten; } });
 };
