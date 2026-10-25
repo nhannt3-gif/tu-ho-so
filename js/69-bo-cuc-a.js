@@ -60,9 +60,11 @@
     c.textContent = '⚠ '+n+' văn bản khai thiếu'+(CHI_THIEU ? ' — đang lọc ✕' : '');
     c.classList.toggle('bat', CHI_THIEU); ds.classList.toggle('chi-thieu', CHI_THIEU); }
   function boc(ten, sau){ var f = window[ten]; if(typeof f!=='function' || f.bca) return; window[ten] = function(){ var r = f.apply(this, arguments); try { sau(); } catch(e){} return r; }; window[ten].bca = 1; }
-  function capNhat(){ bcaKhung(); bcaDuong(); bcaNapMau(); }
+  function bcaNutDo(){ var c = document.querySelector('#thanh-ben .tb-chan'); if(!c || c.querySelector('[data-lenh="dtd.mo"]') || typeof dtdHop!=='function') return;   /* 3.377: ⏱ Đo tốc độ ở chân thanh bên (máy tính) */
+    var a = document.createElement('a'); a.setAttribute('data-lenh', 'dtd.mo'); a.title = '⏱ Đo tốc độ trên máy này — 📋 Chép gửi em để sửa đúng chỗ chậm'; a.innerHTML = '<span class="bt">⏱</span>'; c.appendChild(a); }
+  function capNhat(){ bcaKhung(); bcaDuong(); bcaNapMau(); bcaNutDo(); }
   function gan(){
-    boc('doiNgan', capNhat); boc('dhVe', function(){ bcaDuong(); bcaNapMau(); }); boc('veVanBan', bcaThieu); boc('veDay', bcaKhung); boc('anPreview', bcaKhung); boc('hienPreview', bcaKhung);
+    boc('doiNgan', capNhat); boc('dhVe', function(){ bcaDuong(); bcaNapMau(); bcaNutDo(); }); boc('veVanBan', bcaThieu); boc('veDay', bcaKhung); boc('anPreview', bcaKhung); boc('hienPreview', bcaKhung);
     var cp = document.getElementById('cotphai'); if(cp && window.MutationObserver) new MutationObserver(bcaKhung).observe(cp, {attributes:true, attributeFilter:['class']});
     capNhat(); bcaThieu(); }
   if(document.readyState==='complete') gan(); else window.addEventListener('load', gan);

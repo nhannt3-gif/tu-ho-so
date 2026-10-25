@@ -176,13 +176,14 @@ function veDauTab(tab, opt){
   return h + thanhBot(tab);
 }
 var TL_OPT = {}, TL_LOC_MO = {};
+/* 3.377 (anh 26/10 "nút mở đóng khung xem trước scan làm tương tự bên vb"): Scan cũng có nút ▣ bật / tắt khung xem như Văn bản */
 /* 3.157: kiểu xem thành chip liền nhau (máy tính) — khung xem bên phải đang mở thì chỉ biểu tượng, rê chuột thấy chữ */
 function tlKieuXemHTML(tab, o, ds, kx){
   var ham = o.hamXem ? function(k){ return o.hamXem+'(\''+k+'\')'; } : function(k){ return 'datKX(\''+tab+'\',\''+k+'\')'; };
   var h = '<span class="tl-kx">'+ds.map(function(x){ var bt = x[1].split(' '), ico = /^[^\wÀ-ỹ]/.test(x[1]) ? bt[0] : '', chu = ico ? bt.slice(1).join(' ') : x[1];
     return '<button class="'+(kx===x[0] ? 'bat' : '')+'" onclick="'+ham(x[0])+'" title="'+coChuHTML(chu)+'">'+(ico ? ico+' ' : '')+'<span class="tl-chu">'+coChuHTML(chu)+'</span></button>'; }).join('')+'</span>';
   if(tab==='vanBan' && kx==='thang') h += '<button class="phu tl-bung" onclick="bungNhom(true)" title="Bung hết nhóm">⊞</button><button class="phu tl-bung" onclick="bungNhom(false)" title="Thu gọn hết nhóm">⊟</button>';
-  if(tab!=='scan') h += '<button class="phu tl-pv'+(anPVCua(tenTabPV()) ? '' : ' bat')+'" onclick="batTatPV()" title="'+(anPVCua(tenTabPV()) ? 'Bật' : 'Tắt')+' khung xem bên phải">▣</button>';
+  h += '<button class="phu tl-pv'+(anPVCua(tenTabPV()) ? '' : ' bat')+'" onclick="batTatPV()" title="'+(anPVCua(tenTabPV()) ? 'Bật' : 'Tắt')+' khung xem bên phải">▣</button>';
   return h;
 }
 /* menu nhỏ thả xuống ngay dưới nút (dùng chung khung .menu của ⋯ từng dòng) */
@@ -216,7 +217,7 @@ function moXemTab(ev, tab){
   var h = '<div class="menu-nhan">Kiểu xem</div>'+ds.filter(function(x){ return !(x[0]==='bang' && laDT()); }).map(function(x){
     return '<button class="'+(kx===x[0]?'bat':'')+'" onclick="'+ham(x[0])+'">'+(kx===x[0]?'✓ ':'')+x[1]+'</button>'; }).join('');
   if(tab==='vanBan' && kx==='thang') h += '<button onclick="bungNhom(true)">⊞ Bung hết nhóm</button><button onclick="bungNhom(false)">⊟ Thu gọn hết nhóm</button>';
-  if(!laDT() && tab!=='scan') h += '<div class="vach"></div><button onclick="batTatPV()">'+(anPVCua(tenTabPV())?'▣ Bật':'▣ Tắt')+' khung xem bên phải</button>';
+  if(!laDT()) h += '<div class="vach"></div><button onclick="batTatPV()">'+(anPVCua(tenTabPV())?'▣ Bật':'▣ Tắt')+' khung xem bên phải</button>';
   moMenuTL(ev, h);
 }
 function moThemTab(ev, tab){

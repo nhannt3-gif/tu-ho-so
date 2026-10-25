@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.377 — 26/10/2026 — Báo trùng CCCD lúc đọc · ▣ ở Scan · ⏱ ở thanh bên (TK 3)
+- **Anh 26/10**: "kiểm tra 1 số cccd scan rồi lưu nữa hay đọc có báo trùng hay ko" → "code báo trùng"; "đo tốc độ ở đâu"; "nút mở đóng khung xem trước scan làm tương tự bên vb".
+- **Báo trùng CCCD** (file cắm rút **`js/70-bao-trung-cccd.js`**): trước — tab Scan vẫn lưu bản mới "(2)" rồi mới báo nổi 9 giây; Quét CCCD ở form không báo; hộ chưa có mã KH không so số CCCD. Nay đọc được số CCCD (tab Scan · 🪪 Quét ở form) → so tủ theo **số CCCD hoặc mã KH** → "⚠ Đã có CCCD này trong tủ: n bản (lưu ngày …)" + chọn **◉ Thay bản cũ** (mặc định — bản cũ vào 🗑 Thùng rác, lấy lại được) / **○ Lưu thêm** (đánh số (2) như cũ). Chọn Thay → bản cũ vào 🗑 trước rồi lưu bản mới. Chỉ so bản thẻ CCCD (tài liệu không tính).
+- **Scan có nút ▣** bật / tắt khung xem bên phải như Văn bản (`js/11` bỏ loại trừ Scan từ 3.157); cùng nút "▣ Xem trước" góc trên khi khung ẩn (3.375).
+- **⏱ Đo tốc độ** có nút ở **chân thanh bên** máy tính (cạnh 🗑 🧰 ❓ ⚙); điện thoại vẫn ở ☰ Thêm.
+- Phép thử: t271 mới (8).
+
 ## 3.376 — 26/10/2026 — Chip báo không che nút · ⏱ đo từng bước quét (TK 3)
 - **Anh 26/10**: "scan cccd, app đọc và nắn cắt ảnh tương đối lâu, chữ hiện cảnh báo che nút" + ảnh: "Đã tự cắt, nắn và làm đẹp · ⏱ 14,5 giây" (2 mặt thẻ, máy tính) + "chip trắng có khi che nút xem trước".
 - **Chip báo** (`.bao`, chỉ nổi khi đang mở hộp — lúc khác ghi vào ô trạng thái): lên **đầu màn hình** (trước ở đáy giữa, đè hàng nút cuối hộp như "Xem trước ›"); chip không có nút thì **bấm xuyên qua**. `css/app.css` 2 dòng.
