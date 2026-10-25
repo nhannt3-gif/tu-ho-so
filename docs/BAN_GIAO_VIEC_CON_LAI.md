@@ -222,6 +222,22 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.376) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan › Quét 1 CCCD (2 mặt) | Chip "Đã tự cắt, nắn…" hiện ở ĐẦU màn hình, không che nút "Xem trước ›" | |
+| 2 | Sau khi quét: ⚙ / ☰ Thêm › ⏱ Đo tốc độ › 📋 Chép → gửi em | Có dòng "Scan · …" từng bước (để em sửa đúng bước chậm) | |
+
+**Ghi chú kỹ thuật 3.376:** `css/app.css`: `body:has(#hop.hien) .bao:not(.goc){top…;bottom:auto}`, `.bao.hien:not(:has(button)){pointer-events:none}`. `js/68` `dtdGan()` thêm `thuGoc, heicRaJPG, xuLyAnhScan, timKhungThe, timKhungGiay, nanPhoiCanh, apLoc, docCCCD, sxQR, sxOCR, napOCR`.
+
+### Danh sách thử trên máy thật (3.375) — máy tính, anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Văn bản › mở 1 văn bản › ✕ tắt khung xem | Góc trên phải hiện "▣ Xem trước"; bấm → khung mở lại, nút ẩn | |
+| 2 | Văn bản (chưa chọn mục — khung thu) | Nút "▣ Xem trước" hiện; bấm → khung mở (trống) tới khi đổi tab | |
+
+**Ghi chú kỹ thuật 3.375:** `js/69`: `#bca-pv-nut` chèn trước `.dau .gio`, hiện khi `body.bca-pv-an` (tab `[1,2,3,4,5,6]` và (`anPV` hoặc `.than.bca-pvgon`)); `BCA_MO` = tab anh bấm mở (không thu tự động); bọc thêm `anPreview / hienPreview`.
+
 ### Danh sách thử trên máy thật (3.374) — iPhone (bản gọn dt.html), anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

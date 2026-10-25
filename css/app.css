@@ -1384,6 +1384,9 @@
   .bao.hien{display:block}
   .bao .bao-ht{margin-left:10px;border:1px solid rgba(255,255,255,.6);background:transparent;color:inherit;border-radius:8px;padding:3px 10px;font:inherit;cursor:pointer;pointer-events:auto}
   .bao.hien{pointer-events:auto}
+  /* 3.376 (anh 26/10 "chip trắng có khi che nút xem trước"): đang mở hộp → chip báo lên ĐẦU màn hình (không đè hàng nút cuối hộp); chip không có nút thì bấm xuyên qua */
+  body:has(#hop.hien) .bao:not(.goc){bottom:auto;top:calc(12px + env(safe-area-inset-top,0px))}
+  .bao.hien:not(:has(button)){pointer-events:none}
   .tien{height:5px;background:var(--vien);border-radius:3px;overflow:hidden;margin-top:9px}
   .tien i{display:block;height:100%;background:var(--xanh);width:0;transition:width .25s}
 

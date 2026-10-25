@@ -22,7 +22,10 @@ function dtdBoc(ten, chu, k){   /* bọc hàm chu[k] (toàn cục hoặc trong �
 }
 function dtdGan(){
   [['Nối Drive', 'noiDrive'], ['Kéo chỉ mục văn bản', 'taiChiMucTuDrive'], ['Đẩy chỉ mục văn bản', 'dayChiMucLenDrive'], ['Đồng bộ scan', 'dongBoScan'],
-   ['Đồng bộ cài đặt', 'dongBoCauHinh'], ['Kéo chỉ mục số liệu', 'slTaiTuDrive'], ['Tải 1 file số liệu từ Drive', 'slTaiBlob']].forEach(function(x){ dtdBoc(x[0], window, x[1]); });
+   ['Đồng bộ cài đặt', 'dongBoCauHinh'], ['Kéo chỉ mục số liệu', 'slTaiTuDrive'], ['Tải 1 file số liệu từ Drive', 'slTaiBlob'],
+   /* 3.376 (anh 26/10 "scan cccd đọc và nắn cắt ảnh tương đối lâu" — ⏱ 14,5 giây / 2 ảnh): từng bước quét */
+   ['Scan · thu ảnh gốc 2000 px', 'thuGoc'], ['Scan · đổi HEIC → JPG', 'heicRaJPG'], ['Scan · cắt nắn lọc 1 ảnh (trọn)', 'xuLyAnhScan'], ['Scan · tìm khung thẻ', 'timKhungThe'], ['Scan · tìm khung giấy', 'timKhungGiay'],
+   ['Scan · nắn phối cảnh', 'nanPhoiCanh'], ['Scan · lọc màu', 'apLoc'], ['CCCD · đọc thẻ (trọn)', 'docCCCD'], ['CCCD · đọc QR', 'sxQR'], ['CCCD · đọc chữ mã máy', 'sxOCR'], ['CCCD · tải bộ đọc chữ', 'napOCR']].forEach(function(x){ dtdBoc(x[0], window, x[1]); });
   if(typeof KHO!=='undefined'){ var nap = KHO.nap; if(typeof nap==='function' && !nap.dtd){
     KHO.nap = function(ky){ var co = typeof TO_KS!=='undefined' && TO_KS[ky], t0 = performance.now(), r = nap.apply(this, arguments);
       if(!co && r && r.then) r.then(function(){ dtdGhi('Dựng kỳ', performance.now()-t0, ky); }, function(){});
