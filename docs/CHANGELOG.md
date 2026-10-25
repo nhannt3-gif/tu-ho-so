@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.369 — 25/10/2026 — Tối ưu nạp số liệu (tư vấn kỹ thuật mục 1 — phương án A, anh duyệt 25/10)
+- **Đo trước** (Mẫu 31 giả cỡ thật 25.032 dòng × 175 cột): đọc Excel đã chạy ở Worker từ 3.86 (không đứng màn hình); chỗ đứng thật là **tách dòng / nhận dạng 2,35 giây** (điện thoại giả lập CPU ×4: 11,4 giây), ghi vào máy 0,9, dựng kỳ 0,7, vẽ tab Tổ 0,6 giây.
+- **A1** `js/28-tv-tk.js`: dò dòng tên cột Mẫu 01/TV + Sao kê TK 104/105 chỉ ở **100 dòng đầu** (trước dò cả file → mỗi ô của Mẫu 31 bị bỏ dấu ~4,4 triệu lần).
+- **A2** `js/22-so-lieu.js` `slLayDong`: cột + định dạng từng trường tính 1 lần (không tra lại mỗi ô).
+- **A3** `slNen` (vòng for, cột chữ không lặp mới dựng mảng gốc) + `slMoBang` (dựng theo từng dòng — nhanh gấp đôi, dùng ở dựng kỳ / tab Tổ / Tra cứu).
+- **Kết quả:** tách dòng 2,35 → 0,74 giây; đứng màn hình lúc đọc Mẫu 31: máy tính 2,5 → 0,86 giây, điện thoại giả lập 11,4 → 3,7 giây; dựng lại bảng 0,60 → 0,31 giây. **Số liệu đọc ra giống hệt** (vân tay 26 file giả trước / sau trùng khớp). Ghi vào máy + đọc IndexedDB là phần của trình duyệt — muốn giảm tiếp phải dời sang Worker (phương án B, để sau).
+- **Phép thử**: mới t310 (so với thuật toán cũ giữ trong phép thử; Mẫu 01/TV có dòng tên cột ở dòng 30).
+
 ## 3.368 — 25/10/2026 — Danh sách tổ ở Tra cứu không còn cột bị khuất
 - Anh 25/10: "ds tổ có cột bị khuất" (ảnh: cột Hội bị che bên phải, phải cuộn ngang). Nguyên nhân: bảng 7 cột rộng 634 px trong khung 494 px (máy 1366) — cột Hội ghi tên đủ, cột Thành viên có chip ngưỡng, cột tên tổ trưởng bị luật chung ép tối thiểu 150 px.
 - `js/58-tc-to.js` + `css/app.css` (chỉ bảng `.tc-to-ds`): chia cột theo tỷ lệ bề ngang khung (luôn vừa, không cuộn ngang ở mọi khổ); tiêu đề "TV" / "Có DN" (title chữ đủ); Hội viết tắt HND / HPN / CCB / ĐTN (title tên đủ); chip ngưỡng chữ nhỏ, xuống dòng dưới số khi chật; tên / xã / ấp dài hiện "…" (rê chuột thấy đủ); mã tổ luôn đủ 7 số.

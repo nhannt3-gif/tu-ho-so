@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.369)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp & KT › nạp lại Mẫu 31 tháng mới | Đứng màn hình ngắn hơn rõ (máy tính ~1 giây); số khách / dư nợ như trước | |
+| 2 | Nạp Mẫu 01/TV, Sao kê TK 105 | Nhận đúng loại như cũ | |
+| 3 | Tab Tổ TK&VV / Tra cứu sau khi nạp | Số liệu như cũ | |
+
+**Ghi chú kỹ thuật 3.369:** `tv01Doc` / `tkSKDoc` dò tên cột ở `a.slice(0, 100)` — file nào có dòng tên cột sau dòng 100 sẽ không nhận (thực tế dòng 5–30). `slNen` / `slMoBang` phải cho kết quả y hệt bản cũ (t310 giữ bản cũ để so) — dữ liệu đã lưu đọc được như trước. Công cụ đo: `do_nap.js` (scratchpad, không vào repo) — số đo ghi ở `docs/TU_VAN_KY_THUAT.md` mục 1.
+
 ### Danh sách thử trên máy thật (3.368)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
