@@ -60,6 +60,8 @@
 
 9. **Rà soát bố cục tổng thể 25/10 (anh yêu cầu trước bàn giao):** `docs/RA_SOAT_BO_CUC_2510.md` — 11 chỗ chưa ổn + đề xuất Đợt A (6 việc nhanh) / B / C, **chờ anh chọn**.
 
+10. **Rà lệch hướng + kỹ thuật mới 25/10 (anh yêu cầu):** `docs/RA_SOAT_HUONG_DI_2510.md` — đúng hướng (KHO 0 đọc thẳng, khung 0 onclick, cắm rút); lệch: Theo dõi nợ còn bộ đọc Excel riêng (L1), app phình (L2), CSS 146 `@media` / 303 `!important` (L3), 2 khuôn báo cáo (L4), 2 giao diện ĐT (L5); kỹ thuật mới K8–K12 (`@layer`, `content-visibility`, container queries, chia nhỏ việc nặng, Drive ETag) — **chờ anh**.
+
 ## 6. Bản máy tính trên điện thoại — ai sửa gì (tránh trùng như 3.370 / 3.371)
 - `css/dt-may.css` + `js/66-dt-may.js` (TK 2 làm): khung — thanh dưới (bọc `DT_NUT` / `dtDang` / `dtVe` / `dtThem` / `ttVe`), đầu / chân trang, Hôm nay, thẻ khách, Tra cứu, Số liệu. Chỉ nạp / chạy khi ≤ 600 px; máy tính bảng / máy tính giữ thanh dưới cũ (`js/23` `DT_NUT`).
 - `css/dt-may-vbsc.css` (TK 3): Văn bản + Scan. `dt.html` + `js/dt/*` (TK 3). `js/60-ve-dt.js` nút 📱 (TK 3 — giữ, anh chốt).

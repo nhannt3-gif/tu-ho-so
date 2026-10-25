@@ -11,3 +11,8 @@ Ràng buộc giữ nguyên: ES5, không build, không npm, thư viện theo danh
 | 5 | **Nhật ký lỗi tự động** + 1 nút gửi em | Lỗi chỉ lộ khi chạy phép thử | Bắt lỗi thật trên máy anh (như lỗi Scan 3.361) | 0,5 phiên | **xong 3.363** (`js/67-nhat-ky-loi.js`) |
 | 6 | **Danh sách ảo** (chỉ vẽ phần đang nhìn) cho ~21.000 khách | Vẽ 50 dòng, "gõ thêm để lọc" | Cuộn được toàn bộ danh sách không chậm | 1 phiên | chờ anh |
 | 7 | **Dùng chung bộ dữ liệu giả đã nạp** trong phép thử | Mỗi phép thử nạp lại (~10 s) | Hồi quy đủ ~40 → ~15–20 phút | 1 phiên | anh đã duyệt hướng (rà phép thử) |
+| 8 | **CSS `@layer`** (lớp kiểu nền → khung → khối → điện thoại) | 146 khối `@media`, 303 `!important`, 2 TK cùng thêm CSS điện thoại | Thứ tự đè rõ, bỏ dần `!important`, không giẫm nhau (Safari 15.4+) | 1 phiên | chờ anh — em đề xuất (RA_SOAT_HUONG_DI_2510 K8) |
+| 9 | **`content-visibility: auto`** cho danh sách / bảng dài | Vẽ cả phần khuất màn hình | Cuộn Tra cứu / bảng tổ / sao kê nhẹ hơn, nhất là ĐT (Safari 18+, máy cũ bỏ qua) | ½ phiên | chờ anh — em đề xuất (K9) |
+| 10 | **Container queries** (`@container`) | Khối co theo cỡ màn hình (`@media`) | Khối tự co theo khung chứa; dùng chung máy tính / khung hẹp / ĐT (Safari 16+) | dần (khối mới) | chờ anh (K10) |
+| 11 | **Chia nhỏ việc nặng theo nhịp** (lô ~16 ms, có thanh tiến độ) | Dựng kỳ / vẽ bảng tổ ĐT đứng 2,5–3,3 s | Không đứng màn hình, rẻ hơn Worker; Safari không có `requestIdleCallback` → dùng `MessageChannel` | 1 phiên | chờ anh — nên làm trước phương án B (K11) |
+| 12 | **Drive: ETag / `fields=` / gộp lời gọi** | Mở app gọi Drive nhiều lần | Giảm số lần + dung lượng gọi Drive | 1 phiên | chờ số đo ⏱ của anh (K12) |
