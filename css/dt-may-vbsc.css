@@ -1,0 +1,37 @@
+/* ===== 3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng lược bỏ các chức năng phức tạp"):
+   tab 📄 Văn bản + 🪪 Scan của BẢN MÁY TÍNH khi mở trên điện thoại. Chỉ CSS, nạp media="(max-width:600px)" — CẮM RÚT: bỏ dòng <link> trong index.html là về như cũ.
+   Không đổi chức năng: nút ẩn ở đây vẫn còn ở máy tính / menu ⋯ từng mục. ===== */
+
+/* --- Văn bản: hàng nút 1 dòng, bớt nút ít dùng (Xóa nhiều · Sắp xếp · Kiểu xem — vẫn có ở máy tính) --- */
+#nam-vb .dau-tab{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:6px;margin-bottom:8px}
+#nam-vb .dau-tab::-webkit-scrollbar{display:none}
+#nam-vb .dau-tab > button{flex:0 0 auto;white-space:nowrap;padding:5px 11px;min-height:36px}
+#nam-vb .dau-tab .nut-bot,#nam-vb .dau-tab .tl-xem,#nam-vb .dau-tab .tl-sap{display:none}
+#nam-vb .dau-phai{gap:6px}
+/* --- Văn bản: thẻ gọn — số hiệu 1 dòng, trích yếu 2 dòng đọc được, bỏ chip cảnh báo khai thiếu (chỉ cần ở máy tính) --- */
+#ds-vb .d2{padding:8px 10px;margin-bottom:6px;border-radius:12px}
+#ds-vb .d2 .h1{flex-wrap:wrap;row-gap:2px;align-items:center}
+#ds-vb .d2 .h1 .ten{max-width:none;flex:1 1 auto;font-size:15px}
+#ds-vb .d2 .h1 .ty{flex:1 0 100%;order:9;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;line-height:1.35}
+#ds-vb .d2 .h2{margin-top:4px}
+#ds-vb .d2 .tg.canh{display:none}
+#ds-vb .d2 .nut button{width:32px;height:28px}
+#ds-vb .d2 .nut button[title="Sửa"]{display:none}   /* Sửa thông tin vẫn có trong menu ⋯ */
+
+/* --- Scan: phần đầu gọn để danh sách lên màn hình đầu --- */
+#tr4 .sc-dt{margin:0 0 8px;gap:6px}
+#tr4 .sc-dt .sc-quet{min-height:44px;font-size:17px}
+#tr4 .sc-dt .sc-nho{min-width:44px;min-height:44px}
+#tr4 .thanh-chon.sx-thanh{padding:6px 8px;margin:0 0 8px;gap:6px;font-size:13px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+#tr4 .thanh-chon.sx-thanh::-webkit-scrollbar{display:none}
+#tr4 .thanh-chon.sx-thanh > *{flex:0 0 auto;white-space:nowrap}
+#tr4 .cam-kieu{margin:0 0 6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+#tr4 .cam-kieu::-webkit-scrollbar{display:none}
+#tr4 .cam-kieu button{flex:0 0 auto;white-space:nowrap;padding:4px 10px}
+#tr4 .sc-xem{margin:0 0 4px}
+/* --- Scan: thẻ — bỏ "Ấp · Tổ" và ngày lặp lại (đã có ở dòng đường dẫn và dòng nhóm ngày) --- */
+#tr4 .sc-d .h1 .ty,#tr4 .sc-d .sc-ngay{display:none}
+#tr4 .sc-d .h1 .ten{max-width:none;flex:1 1 auto;font-size:15px}
+#tr4 .sc-d .h2{flex-wrap:wrap;row-gap:3px}
+#tr4 .sc-d .duong-dong{white-space:normal}
+#tr4 .nhan-nhom{margin:10px 2px 4px}

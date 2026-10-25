@@ -221,6 +221,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t308.js` | 3.366 Đ5: khung xem trước — điện thoại thanh 1 hàng, nút ≥ 34 px, ẩn ⏮ ⏭; chụm 2 ngón đổi mức phóng + chặn phóng cả màn hình; máy tính 1440 như cũ. |
 | `node tests/t309.js` | 3.368 Tra cứu › Tổ trưởng: danh sách tổ đủ 7 cột không cuộn ngang ở 1280 / 1366 / 1920, mã tổ đủ, Hội viết tắt (title tên đủ). |
 | `node tests/t310.js` | 3.369 tối ưu nạp: `slNen` / `slMoBang` mới = thuật toán cũ (giữ bản cũ để so), dò Mẫu 01/TV trong 100 dòng đầu vẫn nhận dòng tên cột ở dòng 30. |
+| (3.371) | t267 mới: điện thoại Văn bản (hàng nút không cắt, bớt nút, trích yếu 2 dòng, ≥ 5 / màn), Scan (bỏ chữ lặp, thẻ đầu lên sớm); máy tính không đổi (6). |
 | (3.370) | t266 mới: mã điểm ngắn → TXN đủ (đúng xã / xã khác / đủ sẵn / không có → giữ / trống), số liệu giả cắt mã ngắn → tab + 12/GDX in mã đủ, khóa điểm giữ; điện thoại mở index.html ở lại bản chính, cờ cũ, 📱 → dt.html, 🖥 về (8). |
 | (3.354) | t265 mới: Hôm nay trang đầu, âm lịch (24/10 = 15/9, Tết 2026), lịch tháng, thêm việc lặp tuần + lưu ý, sắp tới, tick việc lặp theo ngày, ghi chú dòng (Enter / Thêm / tick / xóa), cất mã hóa + mở lại, sửa / xóa "chỉ ngày này", gộp chéo với `gopLich` máy tính và ngược lại, Khách chưa có số liệu có nút Tải (19). |
 | (3.352) | t264 mới: chip Văn bản (năm, loại, Đã ghim), xem PDF trong app (canvas đủ trang, vừa ngang), ghim cất mã hóa, trần 200 MB, mở lại không mạng (danh sách + văn bản ghim), báo lỗi chưa ghim / chưa lên Drive, bỏ ghim (18). |

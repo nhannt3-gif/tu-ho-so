@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.371 — 25/10/2026 — Điện thoại: Văn bản + Scan của bản chính gọn hơn (TK 3, PHOI_HOP mục 6 G3)
+- **Anh 25/10**: "làm tiếp văn bản và scan" (sau khi chốt bản chính trên điện thoại = bản máy tính).
+- File mới **`css/dt-may-vbsc.css`** (chỉ màn ≤ 600 px, cắm rút — bỏ dòng `<link>` là về như cũ; tách riêng để không đụng `css/dt-may.css` của TK 2). Chỉ CSS, không đổi chức năng.
+- **Văn bản**: hàng nút 1 dòng không còn cắt chữ ("Lọ…"); ẩn trên điện thoại: Xóa nhiều, Sắp xếp, Kiểu xem, nút ✎ (Sửa thông tin vẫn trong menu ⋯); thẻ: số hiệu to, **trích yếu 2 dòng đọc được**, bỏ chip "⚠ Thiếu mảng, CT vay, tag" (vẫn có ở máy tính) → 6 văn bản / màn hình.
+- **Scan**: phần đầu gọn (nút Quét 44 px, dòng trạng thái + chế độ chụp 1 hàng vuốt ngang) → thẻ đầu lên trong nửa màn hình đầu; thẻ bỏ "Ấp · Tổ" và ngày lặp lại (đã có ở dòng đường dẫn và dòng nhóm ngày).
+- Phép thử: t267 mới (6, có so máy tính không đổi).
+
 ## 3.370 — 25/10/2026 — Mã điểm GD đủ TXN + điện thoại mở bản chính (TK 3)
 - **Anh 25/10**: "tên mã điểm giao dịch ghi đầy đủ có TXN" (ảnh: tab Giao dịch xã ghi "mã 8302", mẫu 12/GDX "Mã điểm giao dịch: 8302").
   - `gdxMaDu` (`js/26-giao-dich-xa.js`): số liệu Mẫu 31 / danh bạ ghi mã ngắn → tra danh mục địa bàn ⚙ (mã đủ `TXN…` tận cùng bằng mã ngắn, ưu tiên cùng xã) → **TXN0548302**; không tra được giữ nguyên (không tự ghép). Áp cho dòng 📍 tab Giao dịch xã, mẫu 12/GDX, bản mini. Khóa điểm giữ nguyên (điểm đã chọn vẫn nhớ).

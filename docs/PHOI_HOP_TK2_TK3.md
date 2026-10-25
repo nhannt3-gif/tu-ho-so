@@ -62,6 +62,7 @@
 | 24/10 | TK 3 | **3.352** | điện thoại Đ2: `dt.html` (CSP + `worker-src blob:`), `js/dt/dt-nen.js`, `js/dt/dt-giao-dien.js`, `css/dt.css`, `tests/tv.js` (+ đường pdf.js cho phép thử), `tests/t264.js` mới, `tests/t194.js` (bấm văn bản → trang xem thay hộp thoại) — không đụng file chung | t264 18/18, t193 20/20, t194 9/9, t195 7/7, t262 17/17, t263 18/18 |
 | 24/10 | TK 3 | **3.354** | điện thoại: `js/dt/dt-lich.js` mới, `js/dt/dt-nen.js`, `js/dt/dt-giao-dien.js`, `css/dt.css`, `dt.html`, `dt-sw.js`, `tests/t265.js` mới, t193 / t194 / t262 / t263 (trang đầu = Hôm nay) — **đọc** `_Hệ thống/lich.json` của máy tính, không sửa js/04b | t265 19/19, t193–t195, t262–t264, t260 dt |
 | 25/10 | TK 3 | **3.370** | anh "code và gộp gấp": `js/26-giao-dich-xa.js` (**file TK 2** — chỉ thêm `gdxMaDu` + 1 chỗ gọi trong `gdxDsDiem`, mã điểm đủ TXN), `index.html` dòng 7–8 (bỏ tự chuyển dt.html — G1), `js/60-ve-dt.js`, `tests/t266.js` mới, t193 / t262 | t266 8/8, nhóm gdx + dt |
+| 25/10 | TK 3 | **3.371** | G3 (anh "làm tiếp văn bản và scan"): **`css/dt-may-vbsc.css` mới** (file riêng, không sửa `css/dt-may.css` của TK 2), `index.html` +1 dòng `<link>` sau dòng dt-may.css, `tests/t267.js` mới | t267 6/6, nhóm scan, t260 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
@@ -110,3 +111,4 @@ Anh 25/10 giao TK 2 tinh chỉnh **bản máy tính trên điện thoại** (`in
 | G1 | Điện thoại mở `index.html` **ở lại bản máy tính** (bỏ tự chuyển sang dt.html; `?dt=1` vẫn mở bản gọn); nút 📱 → "Bản gọn" hiện ở bản máy tính trên mọi điện thoại; `dt.html` nút 🖥 về bản chính, nhớ lựa chọn cũ không làm kẹt (cờ `tuhoso_ban` cũ = 'may' vẫn đọc được) | `index.html` dòng 7–9, `js/60-ve-dt.js`, `js/dt/dt-giao-dien.js`; t193 / t262 sửa theo |
 | G2 | `dt.html` **dừng thêm giao diện trùng**; giữ: Hôm nay (dùng chung lịch), tra khách, Văn bản, Scan → khay chờ; **anh chốt sau: luôn có mạng, không làm thêm chế độ không mạng; chỉ nạp kỳ gần nhất** (mục trên); chỉ sửa lỗi | `js/dt/*` |
 | G3 | Văn bản + Scan của **bản máy tính trên điện thoại** — chỉ làm nếu TK 2 đồng ý giao (mục 5), trong khối riêng `/* TK 3 — Văn bản / Scan */` của `css/dt-may.css` | `css/dt-may.css` (khối riêng) |
+| 25/10 | TK 3 → TK 2 | **3.371 — Văn bản + Scan trên điện thoại (bản chính) TK 3 làm theo anh 25/10 "làm tiếp văn bản và scan"**, để ở **file riêng `css/dt-may-vbsc.css`** (chỉ `#nam-vb`, `#ds-vb`, `#tr4`); TK 2 khỏi làm 2 tab này trong `css/dt-may.css` để tránh chồng. Nếu TK 2 đổi lớp HTML của 2 tab này thì báo TK 3. |
