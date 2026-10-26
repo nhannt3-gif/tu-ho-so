@@ -4062,3 +4062,12 @@ table.tc-to-tvb th,table.tc-to-tvb td{padding:1px 3px;line-height:1.2}
 /* 3.383.3: TT / TP cạnh tên tổ viên (thẻ tổ — Tra cứu) */
 .tc-vt{display:inline-block;margin-left:4px;padding:0 4px;border-radius:4px;font-size:calc(9.5px*var(--co));font-weight:700;line-height:1.35;color:#fff;background:var(--xanh);vertical-align:1px}
 .tc-vt.tp{background:#7c3aed}
+/* 3.383.4: cột dư nợ thẻ tổ — đỏ quá hạn · tím khoanh · cam 3 tháng không hoạt động (rê chuột xem) */
+table.tc-to-tvb td.tc-dn-qh{background:#fee2e2;color:#b91c1c;cursor:help}table.tc-to-tvb td.tc-dn-qh b{color:#b91c1c}
+table.tc-to-tvb td.tc-dn-kn{background:#ede9fe;color:#6d28d9;cursor:help}table.tc-to-tvb td.tc-dn-kn b{color:#6d28d9}
+table.tc-to-tvb td.tc-dn-khd{background:#ffedd5;color:#c2410c;cursor:help}table.tc-to-tvb td.tc-dn-khd b{color:#c2410c}
+.tc-dn-chu{margin-left:6px}.tc-dn-chu i{font-style:normal;font-size:calc(9.5px*var(--co));padding:0 4px;border-radius:3px;margin-right:3px}
+.tc-dn-chu i.tc-dn-qh{background:#fee2e2;color:#b91c1c}.tc-dn-chu i.tc-dn-kn{background:#ede9fe;color:#6d28d9}.tc-dn-chu i.tc-dn-khd{background:#ffedd5;color:#c2410c}
+/* 3.383.4 (anh 26/10 "bấm Tổ của điểm GD thì bung cửa sổ cân đối cho vừa nội dung"): hộp rộng theo bảng (không cuộn ngang), tối đa 96 % màn hình */
+.hop-in.rong:has(.tc-bt-khung){max-width:96vw;width:fit-content;min-width:min(1000px,96vw)}
+.hop-in.rong:has(.tc-bt-khung) .tc-bt-cuon{max-height:calc(100vh - 200px)}

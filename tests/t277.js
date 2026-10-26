@@ -44,6 +44,12 @@ const fs=require('fs'), path=require('path');
    const dong = kh=>[...document.querySelectorAll('#tc-ct .tc-to-tv-dong')].find(d=>d.textContent.indexOf(kh)>=0);
    ok('3.383.3 thẻ tổ: TT, TP có trong danh sách tổ viên → nhãn TT / TP màu cạnh tên', /TT/.test(dong(khTT).querySelector('.ten .tc-vt').textContent) && /TP/.test(dong(khTP).querySelector('.ten .tc-vt.tp').textContent) && document.querySelectorAll('#tc-ct .tc-vt').length===2);
    window.tcTT = tcTTcu; tA.ds = dsCu;
+   /* 3.383.4: cột dư nợ đổi màu theo QH / khoanh — gán tạm món giả */
+   const mQ = KHO.monKy(TC_K, dsA[0].kh).find(m=>m.ku && (m.dn||0)>0), mK = KHO.monKy(TC_K, dsA[1].kh).find(m=>m.ku && (m.dn||0)>0), q0 = mQ.qh, k0 = mK.kn;
+   mQ.qh = 1000000; mK.kn = 2000000; tcTheTo(tA.ma); await w(400);
+   const oQ = document.querySelector('#tc-ct td.tc-dn-qh'), oK = document.querySelector('#tc-ct td.tc-dn-kn');
+   ok('3.383.4 thẻ tổ: món quá hạn → ô dư nợ đỏ (rê chuột "Quá hạn"), món khoanh → tím; có chú thích màu', !!oQ && oQ.title==='Quá hạn' && !!oK && oK.title==='Nợ khoanh' && !!document.querySelector('#tc-ct .tc-dn-chu'));
+   mQ.qh = q0; mK.kn = k0;
    C.xa = ''; C.hoi = ''; C.ap = ''; C.to = '';
    return o; }, files);
  R.forEach(x=>o.push(x)); o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));

@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.383.4 — 26/10/2026 — Thẻ tổ: màu dư nợ QH / khoanh / 3T KHĐ · bảng Tổ của điểm GD vừa nội dung (TK 3)
+- **Anh 26/10**: "danh sách hộ vay QH, Khoanh thì đổi màu theo quy định em tự định tại cột dư, món vay 3 tháng cũng vậy".
+- Ô **Dư nợ** bảng thành viên thẻ tổ: nền đỏ = có quá hạn · tím = nợ khoanh · cam = món 3 tháng không hoạt động (ưu tiên theo thứ tự đó); rê chuột hiện giải thích + số tiền. Chú thích nhỏ cạnh "Thành viên (n)".
+- **Anh 26/10**: "khi bấm vào tổ của điểm GD em bung cửa sổ cân đối cho vừa nội dung luôn" → hộp rộng theo bảng (tối đa 96 % màn hình), không cuộn ngang; bảng cao thêm.
+- `js/58-tc-to.js` (`tvTT/tvLop/tvTit`), `css/app.css` (`td.tc-dn-*`, `.hop-in.rong:has(.tc-bt-khung)`). Phép thử t277 thêm 1 ý (15).
+
 ## 3.383.3 — 26/10/2026 — Thẻ tổ: nhãn TT / TP cạnh tên (TK 3)
 - **Anh 26/10**: "nếu tổ trưởng, tổ phó có vay trong tổ thì ghi kế bên tên (TT, TP, chữ màu nổi), nếu TT, TP không vay còn 105 trong tổ cũng báo y vậy".
 - Bảng thành viên thẻ tổ (Tra cứu): khách có mã KH = tổ trưởng (`tcTT` — cùng cách Giấy lĩnh / Mẫu 06) → nhãn **TT** nền xanh; = tổ phó (Danh sách tổ `phoKH`) → nhãn **TP** nền tím. Áp cho cả dòng đang vay lẫn dòng tất nợ còn TGTK (danh sách tổ viên đã gồm cả 2).

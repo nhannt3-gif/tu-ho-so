@@ -222,6 +222,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.383.4)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › mở tổ có khách quá hạn / khoanh / 3T KHĐ | Ô dư nợ đỏ / tím / cam; rê chuột có giải thích | |
+| 2 | Thẻ tổ › 🏘 Tổ của điểm GD (màn 1366) | Cửa sổ vừa bảng, không thanh cuộn ngang | |
+
+**Ghi chú kỹ thuật 3.383.4:** màu theo món (`m.qh`, `m.kn`, `KHO.khdKy` theo KU); dòng gộp nhiều món lấy mức nặng nhất. Hộp dùng `:has(.tc-bt-khung)` + `width:fit-content`.
+
 ### Danh sách thử trên máy thật (3.383.3)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

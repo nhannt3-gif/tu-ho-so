@@ -125,12 +125,16 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
     return x+(k.nguon==='tv01' ? ' <small>(TƯ còn giữ — Mẫu 01/TV)</small>' : ''); };
   var phoKH = String((t.ds && t.ds.phoKH) || (t.tt && t.tt.phoKH) || t.phoKH || '');   /* 3.383.3 (anh 26/10 "tổ trưởng, tổ phó có vay trong tổ thì ghi kế bên tên TT, TP chữ màu nổi; không vay còn 105 trong tổ cũng báo y vậy") */
   var vaiTro = function(kh){ kh = String(kh||''); return (kh && kh===String(tt.kh||'') ? '<span class="tc-vt" title="Tổ trưởng">TT</span>' : '')+(kh && kh===phoKH ? '<span class="tc-vt tp" title="Tổ phó">TP</span>' : ''); };
+  /* 3.383.4 (anh 26/10 "hộ vay QH, khoanh thì đổi màu tại cột dư nợ, món vay 3 tháng cũng vậy"): đỏ = quá hạn · tím = khoanh · cam = 3 tháng không hoạt động (ưu tiên theo thứ tự) */
+  var tvTT = function(ms){ return ms.some(function(m){ return (m.qh||0)>0; }) ? 'qh' : ms.some(function(m){ return (m.kn||0)>0; }) ? 'kn' : ms.some(function(m){ return khd[m.ku]; }) ? 'khd' : ''; };
+  var tvLop = function(ms){ var x = tvTT(ms); return x ? ' tc-dn-'+x : ''; };
+  var tvTit = function(ms){ var x = tvTT(ms); return x ? ' title="'+{qh:'Quá hạn', kn:'Nợ khoanh', khd:'Món vay 3 tháng không hoạt động'}[x]+'"' : ''; };
   var gon = tcTim().tvKieu==='gon';   /* 3.342 (anh): Đủ = mỗi món 1 dòng · Gọn = mỗi khách 1 dòng, bấm ▸ hiện dòng nhỏ từng món */
   var dongTV = function(k, i){   /* họ tên / mã KH / TGTK gộp ô; bấm CT → mã món vay, bấm TGTK → số TK 105 (dòng nhỏ dưới khách) */
     var mon = monCon(k.kh).sort(function(a, b){ return String(a.dhgh||a.dhg||'9').localeCompare(String(b.dhgh||b.dhg||'9')); }), s = stk[k.kh] || [], n = gon ? 1 : Math.max(1, mon.length);
     var kh = tcCoKH(k.kh) ? ' data-lenh="tc.kh" data-kh="'+e(k.kh)+'" title="Mở khách này"' : '', gop = n>1 ? ' rowspan="'+n+'"' : '';
     var moc = function(m, them){ return m ? '<td class="ct" data-lenh="tc.hien" data-v="'+e(m.ku)+'" data-ten="mã món vay" title="Bấm để xem mã món vay">'+e(ctNgan(m.ct, m))+'</td>'+
-        '<td class="so"><b>'+tdnTien(them ? k.dn : m.dn||0)+'</b></td><td>'+nam2(m.nv ? ngayVNsl(m.nv) : '')+'</td><td>'+nam2(tcHanMon(m, false, true))+'</td><td class="so">'+((them ? k.lt : laiTon(m))>0 ? '<b class="cam">'+tdnTien(them ? k.lt : laiTon(m))+'</b>' : '—')+'</td>'
+        '<td class="so'+tvLop(them ? mon : [m])+'"'+tvTit(them ? mon : [m])+'><b>'+tdnTien(them ? k.dn : m.dn||0)+'</b></td><td>'+nam2(m.nv ? ngayVNsl(m.nv) : '')+'</td><td>'+nam2(tcHanMon(m, false, true))+'</td><td class="so">'+((them ? k.lt : laiTon(m))>0 ? '<b class="cam">'+tdnTien(them ? k.lt : laiTon(m))+'</b>' : '—')+'</td>'
       : '<td colspan="4" class="tc-to-tt">'+ttKH(k)+'</td><td class="so">'+(k.lt>0 ? '<b class="cam">'+tdnTien(k.lt)+'</b>' : '—')+'</td>'; };
     var tg = '<td class="so"'+gop+(s.length ? ' data-lenh="tc.hien" data-v="'+e(s.join(', '))+'" data-ten="số TK 105" title="Bấm để xem số TK 105"' : '')+'>'+(k.t105>0 ? tdnTien(k.t105) : s.length ? '0' : '—')+'</td>';
     var mo = gon && mon.length>1 ? ' <span class="tc-to-mo" data-lenh="tc.moMon" title="Bấm để xem '+mon.length+' món">▸'+mon.length+' món</span>' : '';
@@ -146,7 +150,7 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
     hang([['Thành viên', '<b>'+r.tong+'</b>'], ['Có dư nợ', r.coNo], ['Không dư nợ', r.khongNo], ['Tổng dư nợ', tien(tong.dn)], ['Quá hạn', tien(tong.qh, 'do'), tong.qh ? 'do' : ''],
       ['Lãi tồn', tien(tong.lt, 'cam')], ['3 tháng KHĐ', tong.khd ? '<b class="vang">'+tong.khd+' món</b>' : '0'], ['Số dư TK 105', tien(tong.t105)]])+
     '<div class="tc-ghi">'+luuY+e(tcTVGhi(r))+'</div>'+
-    '<div class="tc-nhom tc-to-tv"><div class="tc-to-tv-kieu">Thành viên ('+r.tong+') '+GD.chip('Đủ', !gon, 'tc.tvKieu', {k:'du', to:t.ma}, 'Mỗi món 1 dòng')+
+    '<div class="tc-nhom tc-to-tv"><div class="tc-to-tv-kieu">Thành viên ('+r.tong+') '+'<span class="tc-dn-chu"><i class="tc-dn-qh">QH</i><i class="tc-dn-kn">Khoanh</i><i class="tc-dn-khd">3T KHĐ</i></span> '+GD.chip('Đủ', !gon, 'tc.tvKieu', {k:'du', to:t.ma}, 'Mỗi món 1 dòng')+
       GD.chip('Gọn', gon, 'tc.tvKieu', {k:'gon', to:t.ma}, 'Mỗi khách 1 dòng — bấm ▸ xem từng món')+'</div>'+
       '<div class="tc-to-tv-ds"><table class="tc-to-tvb"><thead><tr><th>#</th><th>Họ tên</th><th>Mã KH</th><th>CT</th><th>Dư nợ</th><th>Ngày vay</th><th>Hạn trả</th><th>Lãi tồn</th><th>TGTK</th></tr></thead><tbody>'+
       tv.map(dongTV).join('')+'</tbody></table></div></div>'+
