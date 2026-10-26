@@ -1,0 +1,43 @@
+// t277 (TK 3, 3.383 — anh 26/10): bộ lọc địa bàn chung — thêm Ấp / KP, lọc đa chiều (Xã + Hội, Xã + Ấp, Hội toàn PGD, Hội + Ấp), mỗi ô có "— Tất cả —" + nút ✕ bấm nhanh,
+//   1 dòng không cắt chữ; Tra cứu: lọc → ô tìm + Tìm theo cùng hàng; thẻ tổ / khách ẩn Đã lập / In + Dòng thời gian. Bộ GIẢ tests/gianho31.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs=require('fs'), path=require('path');
+(async()=>{ const b=await chromium.launch(); const loi=[], o=[];
+ const p=await b.newPage({viewport:{width:1500,height:900}}); p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t)); window.SL_KHONG_TU_KIEM = 1;
+   const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
+   for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky) await slGhi(kq); }
+   kyChungDoi('2026-08'); D.cauHinh.slTab = 'tra'; doiNgan(7); slDoiTab('tra'); for(let i=0;i<80 && !TC_K;i++) await w(250); await w(600);
+   const C = tcCH(), T = TC_K.to, ds = Object.values(T).filter(t=>!toLaTT(t) && !t.trucTiep && t.tenThon && t.dv);
+   const t0 = ds[0], xa = t0.xa, hoi = String(t0.dv), ap = pvApKhoa(t0), dem = f => Object.values(T).filter(t=>!t.trucTiep && !toLaTT(t) && pvLoc(C, t)).length;
+   const dung = f => ds.filter(f).length;
+   C.xa = xa; C.diem = ''; C.hoi = hoi; C.ap = ''; C.to = ''; pvVeCay('tc'); await w(200);
+   ok('Xã + Hội (không chọn điểm) → các tổ của Hội trong xã', dem()===dung(t=>t.xa===xa && String(t.dv)===hoi) && dem()>0, dem());
+   C.hoi = ''; C.ap = ap; pvVeCay('tc'); await w(200);
+   ok('Xã + Ấp → các tổ của ấp, mọi Hội', dem()===dung(t=>pvApKhoa(t)===ap) && dem()>0, dem());
+   C.hoi = hoi; pvVeCay('tc'); await w(200);
+   ok('Xã + Hội + Ấp → giao nhau', dem()===dung(t=>pvApKhoa(t)===ap && String(t.dv)===hoi), dem());
+   const dsAp = pvLuaChon(T, C, 'ap', true), dsHoi = pvLuaChon(T, C, 'hoi', true);
+   ok('ô Ấp chỉ còn ấp có tổ của Hội đang chọn; ô Hội chỉ còn Hội có tổ ở ấp đang chọn (kèm số tổ)', dsAp.every(a=>ds.some(t=>pvApKhoa(t)===a.k && String(t.dv)===hoi)) && dsHoi.every(h=>ds.some(t=>String(t.dv)===h.k && pvApKhoa(t)===ap)) && dsAp.every(a=>a.n>=1));
+   ok('dòng phạm vi ghi thêm ấp', new RegExp(pvApChu(t0)).test(pvChu(C, TC_K)), pvChu(C, TC_K));
+   C.xa = ''; C.ap = ''; C.hoi = hoi; pvVeCay('tc'); await w(200);
+   ok('Hội toàn PGD (chưa chọn xã)', dem()===dung(t=>String(t.dv)===hoi) && /Toàn PGD/.test(pvChu(C, TC_K)), dem());
+   C.xa = xa; C.hoi = hoi; C.ap = ap; pvVeCay('tc'); await w(200);
+   const cay = document.getElementById('tc-cay'), selAp = cay.querySelector('select.pv-ap');
+   ok('ô sổ Ấp / KP có dòng đầu "— Tất cả ấp / KP —"; mỗi ô có nút ✕', !!selAp && /Tất cả ấp/.test(selAp.options[0].text) && cay.querySelectorAll('.pv-x').length>=5);
+   const xAp = selAp.nextElementSibling; xAp.click(); await w(200);
+   ok('bấm ✕ cạnh ô Ấp → chỉ ô Ấp về tất cả, Xã + Hội giữ nguyên', !C.ap && C.xa===xa && C.hoi===hoi);
+   ok('ô đang "tất cả" thì nút ✕ mờ (disabled)', document.querySelector('#tc-cay select.pv-ap').nextElementSibling.disabled===true);
+   const tc = document.querySelector('.tc-dau'), kids = [...tc.children].map(e=>e.id || e.className);
+   ok('Tra cứu: Lọc địa bàn trên cùng → ô tìm + Tìm theo cùng hàng', kids[0]==='tc-cay' && !!tc.querySelector('.tc-hang .tc-theo') && document.querySelector('#sl-tim').getBoundingClientRect().width<700);
+   const h1 = cay.querySelector('.pv-hang1'), sel = [...h1.querySelectorAll('select.pv-o')];
+   ok('lọc 1 dòng (màn rộng): mọi ô sổ cùng hàng, không cắt chữ', sel.length>=4 && new Set(sel.map(s=>Math.round(s.getBoundingClientRect().top))).size===1 && sel.every(s=>s.scrollWidth<=s.clientWidth+24));
+   tcTheTo(t0.ma); await w(400);
+   ok('thẻ tổ: không còn Đã lập / In, Dòng thời gian; vẫn còn nút Mở tổ', !document.querySelector('#tc-ct .dtg-khoi') && !/ĐÃ LẬP|Đã lập \/ in/i.test(document.getElementById('tc-ct').textContent) && /Mở tổ/.test(document.getElementById('tc-ct').textContent));
+   C.xa = ''; C.hoi = ''; C.ap = ''; C.to = '';
+   return o; }, files);
+ R.forEach(x=>o.push(x)); o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
+ console.log(o.join('\n')); console.log(o.filter(x=>x[0]==='✓').length+'/'+o.length+' đạt'); await b.close(); process.exit(o.some(x=>x[0]!=='✓') ? 1 : 0); })();

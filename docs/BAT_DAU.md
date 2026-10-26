@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.382** — TK 3: Sao kê · Tổng hợp · Thông tin tổ · báo cáo tab Tổ đọc qua KHO CHUẨN (kcGoc / kcLap / kcBang / kcTo), t276 bản chụp 64 báo cáo giống hệt. Tiếp: 3.383 Giao dịch xã · Tra cứu · TK 104/105 qua kho. Chờ anh: số đo ⏱ quét CCCD.
+- **`main` = 3.383** — TK 3: lọc địa bàn chung thêm Ấp / KP + đa chiều + nút ✕, 1 dòng không cắt chữ; Tra cứu KH gọn 2 hàng; thẻ tổ / khách bỏ Đã lập / In, Dòng thời gian. Trước: 3.382 Sao kê · Tổng hợp · Thông tin tổ qua kho. Tiếp: 3.384 Giao dịch xã · Tra cứu · TK 104/105 qua kho. Chờ anh: số đo ⏱ quét CCCD.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

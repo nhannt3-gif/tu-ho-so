@@ -37,6 +37,8 @@ function tcHan(c){   /* hạn CCCD + mức: het / sap (< 6 tháng) / ok / ? */
 }
 function tcNoiGon(c){ var t = KHO.toDanhBa(c.to)||{}; return [c.tenXa ? String(c.tenXa).replace(/^(Xã|Phường|Thị trấn)\s+/i, '') : '', c.tenThon||t.tenThon ? 'ấp '+String(c.tenThon||t.tenThon).replace(/^(ấp|ap)\s+/i, '') : '', c.toTen||t.ten ? 'tổ '+(c.toTen||t.ten) : ''].filter(Boolean).join(' · '); }
 
+/* 3.383 (anh 26/10 "bỏ phần này chưa cần"): thẻ khách / thẻ tổ ẩn 📜 Đã lập / In + 📅 Dòng thời gian — bật lại: TC_KHOI_PHU = true (nhật ký in vẫn ghi) */
+var TC_KHOI_PHU = false;
 /* ---------- cột trái ---------- */
 function slTraHTML(){
   var n = KHO.chiMuc().length, ky = slHSMoi();
@@ -244,8 +246,8 @@ function slTheKH(ma){
       dong(stk.length>1 ? 'TK 105 ('+stk.length+')' : 'TK 105', stk.length ? stk.map(function(s){ return tcC(s, 'số TK 105'); }).join(' · ') : '—')+dong('Số dư 105', c.t105 ? '<b>'+tdnTien(c.t105)+'</b>' : '0')+'</div></div>'+
     tcToKhoiHTML(c)+'</div>'+   /* 3.333 (anh chốt): khối Tổ & địa bàn — mã tổ, tổ trưởng + mã KH (chép), số TV chuẩn QT-18, bảng tổ của điểm GD */
     '<div class="tc-nhom tc-nhom-mon"><div class="tc-nhom-tit">Món vay — '+slKyChu(c.ky)+'</div><div id="kh-mon"><div class="rong">Đang mở…</div></div></div>'+
-    (typeof nkKhoiHTML==='function' ? nkKhoiHTML('kh', ma, 6) : '')+   /* 3.348: 📜 đã lập / in */
-    (typeof dtgKhoiHTML==='function' ? dtgKhoiHTML('kh', ma) : '')+   /* 3.359: 📅 dòng thời gian */
+    (TC_KHOI_PHU && typeof nkKhoiHTML==='function' ? nkKhoiHTML('kh', ma, 6) : '')+   /* 3.348: 📜 đã lập / in */
+    (TC_KHOI_PHU && typeof dtgKhoiHTML==='function' ? dtgKhoiHTML('kh', ma) : '')+   /* 3.359: 📅 dòng thời gian */
     '<div class="hang-nut tc-nut"><button class="nho" onclick="slChepKH(\''+ma+'\')">📋 Chép cả khối</button>'+(c.to ? '<button class="nho" onclick="tcMoTo(\''+c.to+'\')">👥 Mở tổ</button>' : '')+
     (hai ? '' : '<button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button>')+'</div>';
   if(hai) document.getElementById('tc-ct').innerHTML = '<div class="tc-the tc-khung">'+h+'</div>';   /* 3.333: khung cố định (CSS .tc-khung) */

@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.383 — 26/10/2026 — Lọc địa bàn: Ấp / KP, đa chiều, nút ✕ · Tra cứu gọn (TK 3)
+- **Anh 26/10**: "ô lọc địa bàn còn bị khuất, anh cần thêm 1 lọc ấp, KP"; "vẫn có thể lọc ra xã – Hội (các tổ hay KH thuộc hội), kiểu lọc đa chiều"; "chế độ 1 dòng, ds xổ ra, mỗi ô ds có 1 chỗ khi bấm vào là về tất cả… nút nhỏ cạnh ô để bấm nhanh, trong ds xổ vẫn có"; "sửa là áp dụng cho tất cả các nơi"; "tối ưu 2–3 dòng… ô tìm vừa thôi, đem dòng chip tìm theo lên và làm nổi lên 1 chút"; "bỏ phần này chưa cần" (Đã lập / In, Dòng thời gian).
+- **Bộ lọc chung** (`js/22ga`, mọi tab: Tổ, Tra cứu, Sao kê, Tổng hợp, KTGS, Giao dịch xã, Hồ sơ): **Xã › Điểm GD · Hội · Ấp / KP › Tổ**. Ấp / KP mới (theo tên thôn Mẫu 31, khóa xã + thôn), không bắt buộc như Hội. **Đa chiều**: Hội ↔ Ấp ↔ Điểm thu danh sách theo nhau (kèm số tổ); đổi xã bỏ ấp, đổi điểm / Hội giữ ấp. Mỗi ô: dòng đầu "— Tất cả … —" + **nút ✕** bấm nhanh (ô đang tất cả thì mờ). Kiểu gọn: ô sổ không cắt chữ, cả bộ lọc 1 dòng (màn < 1100px tự xuống dòng). Phạm vi in ghi thêm ấp; Sao kê / Tổng hợp / tab Tổ lọc theo ấp qua `pvLoc`.
+- **Tra cứu KH**: hàng 1 Lọc địa bàn · hàng 2 ô tìm (vừa phải) + **Tìm theo** (khung xanh nổi) + chip báo kỳ bên phải · dưới là Kiểm trùng. Thẻ khách / thẻ tổ **ẩn** 📜 Đã lập / In + 📅 Dòng thời gian (`TC_KHOI_PHU = false`, bật lại được; nhật ký in vẫn ghi).
+- Phép thử: t277 mới (13); t258, t302 bật `TC_KHOI_PHU` để thử khối ẩn; t276 bản chụp 64 báo cáo giữ nguyên.
+
 ## 3.382 — 26/10/2026 — Sao kê · Tổng hợp · Thông tin tổ đọc qua KHO CHUẨN (TK 3)
 - **Anh 26/10**: "mọi truy vấn sẽ lấy qua kho" (lộ trình QUY_CHUAN mục 15).
 - `js/22h` (Sao kê + báo cáo tab Tổ), `js/22i` (Tổng hợp + kiểm Nạp TW), `js/22j` (Thông tin tổ) thôi đọc thẳng bảng (`B.co.*`, `B.lap`, `K.kh[...]`) — đọc qua cửa kho `kcGoc` (dòng Mẫu 31 nguyên bản) · `kcLap` · `kcBang` (bảng phụ) · `kcTo` (`js/73`).
