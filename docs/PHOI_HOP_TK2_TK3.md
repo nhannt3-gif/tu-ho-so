@@ -79,6 +79,7 @@
 | 26/10 | TK 3 (nhận bàn giao) | **3.383** | `js/22ga-pham-vi.js` (ấp, đa chiều, nút ✕), `js/22g-to.js` (pvGan 5 cấp), `js/22f-tra-cuu.js`, `js/58-tc-to.js`, `js/22b`, `js/22gb`, `js/22h`, `js/22i`, `css/app.css`; `tests/t277.js` mới; t258, t302 | t277 13/13, t276, hồi quy đủ |
 | 26/10 | TK 3 (nhận bàn giao) | **3.383.1** | `css/app.css` (canh cột bảng Tra cứu) | t277 |
 | 26/10 | TK 3 (nhận bàn giao) | **3.383.2** | `css/app.css` (bảng Tra cứu chữ nhỏ, gọn) | t309, t277, t156 |
+| 26/10 | TK 3 (nhận bàn giao) | **3.383.3** | `js/58-tc-to.js` (nhãn TT / TP), `css/app.css`; `tests/t277.js` | t277 14/14 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

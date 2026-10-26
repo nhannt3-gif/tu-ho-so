@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.383.3 — 26/10/2026 — Thẻ tổ: nhãn TT / TP cạnh tên (TK 3)
+- **Anh 26/10**: "nếu tổ trưởng, tổ phó có vay trong tổ thì ghi kế bên tên (TT, TP, chữ màu nổi), nếu TT, TP không vay còn 105 trong tổ cũng báo y vậy".
+- Bảng thành viên thẻ tổ (Tra cứu): khách có mã KH = tổ trưởng (`tcTT` — cùng cách Giấy lĩnh / Mẫu 06) → nhãn **TT** nền xanh; = tổ phó (Danh sách tổ `phoKH`) → nhãn **TP** nền tím. Áp cho cả dòng đang vay lẫn dòng tất nợ còn TGTK (danh sách tổ viên đã gồm cả 2).
+- `js/58-tc-to.js` (`vaiTro`), `css/app.css` (`.tc-vt`). Phép thử t277 thêm 1 ý (14).
+
 ## 3.383.2 — 26/10/2026 — Tra cứu: dòng dữ liệu chữ nhỏ, gọn (TK 3)
 - **Anh 26/10**: "tinh chỉnh có thể cho các dòng dữ liệu chữ nhỏ, gọn để hiển thị được nhiều thông tin".
 - Bảng khách / bảng tổ (`table.tc-kq-bang`): chữ 12px mọi khổ màn, tiêu đề 11,5px, ô đệm 2px 5px, dòng 1,25; tên in đậm cùng cỡ chữ dòng. Bảng thành viên trong thẻ tổ (`tc-to-tvb`) đệm 1px, dòng 1,2. Cùng khung xem được thêm khoảng 25% số dòng.

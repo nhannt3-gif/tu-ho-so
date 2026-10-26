@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.383.2', ds:[
+var CO_GI_MOI = {ban:'3.383.3', ds:[
+  ["Thẻ tổ (Tra cứu): tổ trưởng / tổ phó có trong danh sách tổ viên (đang vay hoặc còn TK 105) → nhãn TT / TP màu nổi cạnh tên", "doiNgan(7)"],
   ["Tra cứu KH: bảng khách / tổ / thành viên chữ nhỏ, dòng thấp — xem được nhiều dòng hơn", "doiNgan(7)"],
   ["Tra cứu KH: bảng tổ / bảng khách — tên cột canh theo nội dung, độ rộng cột cân đối", "doiNgan(7)"],
   ["Lọc địa bàn: thêm Ấp / KP, lọc đa chiều (Xã + Hội, Xã + Ấp, Hội toàn PGD…), nút ✕ cạnh mỗi ô bấm nhanh về Tất cả, 1 dòng không cắt chữ", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.383.2', ds:[
   ["Bảng II Mẫu 16 chỉ còn Để trống / Điền đầy đủ (không chấm trong ô); 2 dòng có số theo Bảng II", "slDoiTab('kt')"],
   ["Quét CCCD đã có trong tủ → báo trùng ngay lúc đọc, chọn Thay bản cũ / Lưu thêm", "doiNgan(4)"],
   ["Scan có nút ▣ bật / tắt khung xem như Văn bản; ⏱ Đo tốc độ ở chân thanh bên", "dtdHop()"],
-  ["Chip thông báo không còn che nút cuối hộp (lên đầu màn hình); ⏱ Đo tốc độ ghi từng bước quét CCCD", "moHop('<div class=\"hop-tit\">⏱</div>')"],
-  ["Khung xem trước đang ẩn → nút ▣ Xem trước ở góc trên bên phải để mở lại", "doiNgan(1)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Chip thông báo không còn che nút cuối hộp (lên đầu màn hình); ⏱ Đo tốc độ ghi từng bước quét CCCD", "moHop('<div class=\"hop-tit\">⏱</div>')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

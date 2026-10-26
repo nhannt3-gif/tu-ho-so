@@ -37,6 +37,13 @@ const fs=require('fs'), path=require('path');
    ok('lọc 1 dòng (màn rộng): mọi ô sổ cùng hàng, không cắt chữ', sel.length>=4 && new Set(sel.map(s=>Math.round(s.getBoundingClientRect().top))).size===1 && sel.every(s=>s.scrollWidth<=s.clientWidth+24));
    tcTheTo(t0.ma); await w(400);
    ok('thẻ tổ: không còn Đã lập / In, Dòng thời gian; vẫn còn nút Mở tổ', !document.querySelector('#tc-ct .dtg-khoi') && !/ĐÃ LẬP|Đã lập \/ in/i.test(document.getElementById('tc-ct').textContent) && /Mở tổ/.test(document.getElementById('tc-ct').textContent));
+   /* 3.383.3: TT / TP cạnh tên tổ viên — gán tạm tổ viên giả làm TT / TP (bộ giả không có) */
+   const tA = ds.find(t=>(KHO.tvChuan(t, TC_K)||{ds:[]}).ds.length>=2), dsA = KHO.tvChuan(tA, TC_K).ds, khTT = dsA[0].kh, khTP = dsA[1].kh, tcTTcu = window.tcTT, dsCu = tA.ds;
+   window.tcTT = t=>t===tA ? {kh:khTT, cc:''} : tcTTcu(t); tA.ds = Object.assign({}, dsCu||{}, {phoKH:khTP});
+   tcTheTo(tA.ma); await w(400);
+   const dong = kh=>[...document.querySelectorAll('#tc-ct .tc-to-tv-dong')].find(d=>d.textContent.indexOf(kh)>=0);
+   ok('3.383.3 thẻ tổ: TT, TP có trong danh sách tổ viên → nhãn TT / TP màu cạnh tên', /TT/.test(dong(khTT).querySelector('.ten .tc-vt').textContent) && /TP/.test(dong(khTP).querySelector('.ten .tc-vt.tp').textContent) && document.querySelectorAll('#tc-ct .tc-vt').length===2);
+   window.tcTT = tcTTcu; tA.ds = dsCu;
    C.xa = ''; C.hoi = ''; C.ap = ''; C.to = '';
    return o; }, files);
  R.forEach(x=>o.push(x)); o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
