@@ -222,6 +222,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.383.5)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › Tổ trưởng, lọc 1 ấp | Dòng Cộng n tổ = số dòng, TV / Có DN = tổng cột | |
+| 2 | Danh sách dài, cuộn | Dòng cộng luôn hiện ở đáy | |
+| 3 | Gõ chữ ô tìm Tra cứu → bấm ✕ | Ô trống, danh sách về ban đầu | |
+| 4 | Thẻ tổ › 🏘 Tổ của điểm GD, cuộn chuột trong bảng | Chỉ bảng cuộn, hộp đứng yên, không giật | |
+| 5 | Tra cứu › Tổ trưởng gõ "linh" (kỳ 25/10) | Không còn tổ 0231094 đã đóng | |
+
+**Ghi chú kỹ thuật 3.383.5:** cộng từ `KHO.tvChuan` của đúng các tổ đã lọc (`tcToLoc`). Hộp Tổ của điểm GD: `tcBangRong` đo bảng 1 lần đặt `width` px, hộp `overflow:hidden` + bảng `flex:1` (1 thanh cuộn); `moHop` xóa `style.width`. `toDong0`: thiếu Danh sách tổ / LEN_31 → tổ dư nợ 0, không dòng nào `t105>0` (cả `K.lap`) → `K.toAn`.
+
 ### Danh sách thử trên máy thật (3.383.4)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

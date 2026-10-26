@@ -46,8 +46,8 @@ function slTraHTML(){
   return '<div class="tc-dau">'+   /* 3.335 (anh 24/10): ô tìm + LỌC ĐỊA BÀN thành dải ngang toàn trang (trước nằm trong cột trái hẹp) */
     '<div id="tc-cay" class="to-cay pv-cay"></div>'+   /* 3.383 (anh 26/10 "tối ưu 2–3 dòng: dòng địa bàn đầu tiên, đến ô tìm, các nút tìm theo 1 dòng chip nhỏ bên dưới, bên phải ô hiện chip báo nếu có, dưới nữa là kiểm trùng") */
     '<div class="tc-tim"><div class="tc-hang"><div class="sl-tra-o"><span>🔎</span><input id="sl-tim" autocomplete="off" value="'+coChuHTML(SL_TRA_Q)+'" placeholder="'+tcTheoPH()+'" '+
-    'oninput="SL_TRA_Q=this.value;TC_SL=50;slTraTim()" onkeydown="tcPhim(event)">'+
-    (SL_TRA_Q ? '<button class="sap-ico" onclick="SL_TRA_Q=\'\';veSoLieu();slDoiTab(\'tra\')" title="Xóa">✕</button>' : '')+'</div>'+
+    'oninput="SL_TRA_Q=this.value;TC_SL=50;slTraTim();this.nextElementSibling.hidden=!this.value" onkeydown="tcPhim(event)">'+
+    '<button class="sap-ico tc-xoa-tim" onclick="tcXoaTim()" title="Xóa chữ đã gõ, tìm lại từ đầu"'+(SL_TRA_Q ? '' : ' hidden')+'>✕</button></div>'+   /* 3.383.5 (anh 26/10 "có nút xóa chọn"): nút luôn có sẵn, hiện khi ô có chữ */
     (typeof DH_CUOI!=='undefined' && DH_CUOI==='gd' ? '<button class="nho tc-ve-gdx" onclick="dhBam(\'gd\',\'gdx\')" title="Về bàn thao tác Giao dịch xã (địa bàn giữ nguyên)">← 🏢 Giao dịch xã</button>' : '')+   /* 3.328: vào từ Giao dịch xã */
     tcTheoHTML()+'<span class="pv-chip-o tc-bao">'+slChipHTML()+'</span></div></div></div>'+   /* 3.383 (anh): ô tìm vừa phải + Tìm theo cùng hàng, nổi hơn */   /* 3.160: bỏ khung gập "📍 Toàn PGD" — cây lọc chung như các tab */
     '<div class="tc-2cot tc394"><div class="tc-trai"><div class="sl-tra">'+
@@ -169,6 +169,7 @@ function tcTheTrung(c, ma, dauChu){
       : coChuHTML(tcTinhTrang(c)))+'</div>'+
     '<div class="hang-nut"><button class="nho" onclick="tcMoKH(\''+ma+'\')">Mở khách này</button></div></div>';
 }
+function tcXoaTim(){ SL_TRA_Q = ''; TC_SL = 50; var i = document.getElementById('sl-tim'); if(i){ i.value = ''; i.focus(); if(i.nextElementSibling) i.nextElementSibling.hidden = true; } slTraTim(); }
 function tcMoKH(ma){ SL_TRA_Q = ma; var i = document.getElementById('sl-tim'); if(i) i.value = ma; slTraTim(); if(!tcHaiCot()) slTheKH(ma); }
 function tcUuXa(a, b){ var S = tcCH(), ca = KHO.danhBa(a)||{}, cb = KHO.danhBa(b)||{}; return (cb.xa===S.xa)-(ca.xa===S.xa); }   /* khớp cùng xã đang chọn xếp trên */
 function tcKiemTrung2(so, ten){

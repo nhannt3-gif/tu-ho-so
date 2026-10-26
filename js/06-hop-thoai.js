@@ -5,7 +5,7 @@ function moHop(html, rong){
   if(!/cd-dau/.test(html)) document.getElementById('hop').classList.remove('trang');
   var e = document.getElementById('hop-in');
   e.classList.remove('co-xem-ben', 'sua-gon', 'quet-gon', 'q-the', 'q-tl', 'phim-chung', 'xem-rong');
-  e.innerHTML = html;
+  e.innerHTML = html; e.style.width = '';   /* 3.383.5: bỏ bề rộng hộp trước đặt riêng (tcBangRong) */
   e.classList.toggle('rong', !!rong);
   document.getElementById('hop').classList.add('hien');
   ganNutEsc(e);
@@ -1981,7 +1981,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.383.4', ds:[
+var CO_GI_MOI = {ban:'3.383.5', ds:[
+  ["Tra cứu › Tổ trưởng: danh sách tổ có dòng Cộng (số tổ, tổng TV, có dư nợ) theo lọc địa bàn", "doiNgan(7)"],
+  ["Tra cứu: ô tìm có nút ✕ xóa chữ đã gõ (hiện ngay khi gõ)", "doiNgan(7)"],
+  ["Tra cứu: ô tìm gọn, chip Tìm theo to hơn, cùng 1 hàng · bảng Tổ của điểm GD hết giật (1 thanh cuộn) · tổ đã đóng (dư nợ 0, không TK 105) không hiện khi thiếu Danh sách tổ", "doiNgan(7)"],
   ["Thẻ tổ: ô dư nợ tô màu — đỏ quá hạn, tím nợ khoanh, cam món 3 tháng không hoạt động (rê chuột xem giải thích)", "doiNgan(7)"],
   ["Bảng Tổ của điểm GD: cửa sổ bung vừa nội dung, không cuộn ngang", "doiNgan(7)"],
   ["Thẻ tổ (Tra cứu): tổ trưởng / tổ phó có trong danh sách tổ viên (đang vay hoặc còn TK 105) → nhãn TT / TP màu nổi cạnh tên", "doiNgan(7)"],
@@ -1995,8 +1998,7 @@ var CO_GI_MOI = {ban:'3.383.4', ds:[
   ["Sao kê › Thông tin tổ: Biến động TK 105 — khách chuyển vào, tổ trưởng trích 105 trả lãi / gốc, ký hiệu 🏦 ⏳ 💵? 🟠 (Mẫu 31 + Sao kê TK 105 cùng ngày)", "doiNgan(7)"],
   ["KTGS 🎯 Đột xuất + 📅 Định kỳ: nút 📋 Tóm tắt tổ — tình hình tổ 1 mặt A4 (số liệu đến ngày, 8 ô số, dư nợ theo chương trình, hộ cần quan tâm, nội dung kiểm tra theo 727) mang đi kiểm tra", "slDoiTab('kt')"],
   ["KTGS Mẫu 16: Ưu điểm / Tồn tại / Kiến nghị chọn riêng — ghi theo số liệu hay để chấm; Mẫu 04: Nhận xét / Kiến nghị chọn riêng", "slDoiTab('kt')"],
-  ["Bảng II Mẫu 16 chỉ còn Để trống / Điền đầy đủ (không chấm trong ô); 2 dòng có số theo Bảng II", "slDoiTab('kt')"],
-  ["Quét CCCD đã có trong tủ → báo trùng ngay lúc đọc, chọn Thay bản cũ / Lưu thêm", "doiNgan(4)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Bảng II Mẫu 16 chỉ còn Để trống / Điền đầy đủ (không chấm trong ô); 2 dòng có số theo Bảng II", "slDoiTab('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

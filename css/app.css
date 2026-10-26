@@ -4069,5 +4069,17 @@ table.tc-to-tvb td.tc-dn-khd{background:#ffedd5;color:#c2410c;cursor:help}table.
 .tc-dn-chu{margin-left:6px}.tc-dn-chu i{font-style:normal;font-size:calc(9.5px*var(--co));padding:0 4px;border-radius:3px;margin-right:3px}
 .tc-dn-chu i.tc-dn-qh{background:#fee2e2;color:#b91c1c}.tc-dn-chu i.tc-dn-kn{background:#ede9fe;color:#6d28d9}.tc-dn-chu i.tc-dn-khd{background:#ffedd5;color:#c2410c}
 /* 3.383.4 (anh 26/10 "bấm Tổ của điểm GD thì bung cửa sổ cân đối cho vừa nội dung"): hộp rộng theo bảng (không cuộn ngang), tối đa 96 % màn hình */
-.hop-in.rong:has(.tc-bt-khung){max-width:96vw;width:fit-content;min-width:min(1000px,96vw)}
-.hop-in.rong:has(.tc-bt-khung) .tc-bt-cuon{max-height:calc(100vh - 200px)}
+.hop-in.rong:has(.tc-bt-khung){max-width:96vw}   /* bề rộng đo 1 lần lúc mở (tcBangRong) — fit-content làm hộp co giãn theo thanh cuộn → giật */
+.hop-in.rong:has(.tc-bt-khung){max-height:94vh;overflow:hidden;display:flex;flex-direction:column}   /* 1 thanh cuộn duy nhất (trong bảng) — trước hộp + bảng cùng cuộn → cuộn chuột nhảy, giật */
+.hop-in.rong .tc-bt-khung{display:flex;flex-direction:column;min-height:0;flex:1 1 auto}.hop-in.rong .tc-bt-khung .tc-bt-cuon{max-height:none;flex:1 1 auto;min-height:0;overscroll-behavior:contain}
+/* 3.383.5 (anh 26/10 "có cột tổng, theo lọc"): dòng cộng danh sách tổ, dính đáy khung cuộn */
+table.tc-to-ds tfoot td{position:sticky;bottom:0;background:var(--xanh-nhat);color:var(--xanh-dam);font-weight:700;border-top:2px solid var(--xanh);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* 3.383.5: nút ✕ xóa chữ trong ô tìm Tra cứu */
+.sl-tra-o .tc-xoa-tim{border:none;background:var(--nen);color:var(--chu-mo,#64748b);border-radius:50%;width:22px;height:22px;min-height:0;padding:0;font-size:12px;line-height:22px;cursor:pointer;flex:0 0 auto}
+.sl-tra-o .tc-xoa-tim:hover{background:var(--do);color:#fff}.sl-tra-o .tc-xoa-tim[hidden]{display:none}
+/* 3.383.5 (anh 26/10 "thu gọn ô tìm cân đối, quá dài, để các chip lớn hơn 1 chút"): ô tìm tối đa 460 px, không giãn hết hàng; chip Tìm theo to hơn */
+.tc-dau.tc-dau .tc-hang .sl-tra-o{flex:0 1 460px;min-width:240px}
+.tc-dau.tc-dau .tc-theo{padding:4px 8px;gap:4px}
+.tc-dau.tc-dau .tc-theo .gd-chip{font-size:calc(13px*var(--co));padding:3px 11px;min-height:28px;line-height:1.4}
+.tc-dau.tc-dau .tc-theo-nhan{font-size:calc(12.5px*var(--co))}
+@media(min-width:1300px){ .tc-dau.tc-dau .tc-hang{flex-wrap:nowrap} .tc-dau.tc-dau .tc-theo{flex-wrap:nowrap;flex:0 0 auto} .tc-dau.tc-dau .tc-tim{width:100%} }   /* 1 hàng: ô tìm co (240–460 px), chip giữ nguyên cỡ */

@@ -50,6 +50,14 @@ const fs=require('fs'), path=require('path');
    const oQ = document.querySelector('#tc-ct td.tc-dn-qh'), oK = document.querySelector('#tc-ct td.tc-dn-kn');
    ok('3.383.4 thẻ tổ: món quá hạn → ô dư nợ đỏ (rê chuột "Quá hạn"), món khoanh → tím; có chú thích màu', !!oQ && oQ.title==='Quá hạn' && !!oK && oK.title==='Nợ khoanh' && !!document.querySelector('#tc-ct .tc-dn-chu'));
    mQ.qh = q0; mK.kn = k0;
+   /* 3.383.5: danh sách tổ có dòng cộng theo lọc */
+   C.xa = xa; C.hoi = ''; C.ap = ''; C.to = ''; const eD = document.createElement('div'); document.body.appendChild(eD); tcToTim('', eD);
+   const dsL = tcToLoc(''), tvL = dsL.reduce((s, t)=>s+((KHO.tvChuan(t, TC_K)||{}).tong||0), 0), cL = eD.querySelector('tfoot .tc-to-cong');
+   ok('3.383.5 danh sách tổ: dòng cộng số tổ + tổng TV theo lọc', !!cL && cL.cells[0].textContent==='Cộng '+dsL.length+' tổ' && +cL.cells[2].textContent===tvL && dsL.length>0, cL && cL.textContent);
+   eD.remove();
+   /* 3.383.5: nút ✕ xóa chữ ô tìm */
+   const iT = document.getElementById('sl-tim'), xT = document.querySelector('.tc-xoa-tim'); iT.value = 'abc'; iT.dispatchEvent(new Event('input')); const hien = xT && !xT.hidden; xT.click(); await w(200);
+   ok('3.383.5 ô tìm: gõ chữ → hiện nút ✕; bấm ✕ → ô trống, nút ẩn', hien && iT.value==='' && SL_TRA_Q==='' && xT.hidden);
    C.xa = ''; C.hoi = ''; C.ap = ''; C.to = '';
    return o; }, files);
  R.forEach(x=>o.push(x)); o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));

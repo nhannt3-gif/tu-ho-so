@@ -208,10 +208,11 @@ function toNap(ky){
 /* 3.145 (anh chốt): tổ dư nợ 0 còn trên DSTO hoặc LEN_31 TO_TRUONG → vẫn là 1 tổ, ghi "cần đóng tổ"; không còn ở cả 2 → ẩn khỏi cây (vẫn tìm được) */
 function toDong0(K, Bm){
   var T = K.to, xet = !!((Bm.co.dsto||[]).length || (Bm.co.lt||[]).length); K.toAn = {}; K.canDong = [];
+  var guiTK = function(ma){ return (K.kh[ma]||[]).concat((K.lap||[]).filter(function(o){ return o.to===ma; })).some(function(o){ return (o.t105||0)>0; }); };
   Object.keys(T).forEach(function(ma){ var t = T[ma]; if(toLaTT(t)) return;
     var dn = (K.kh[ma]||[]).reduce(function(a, o){ return a+(o.dn||0); }, 0); if(dn>0) return;
     if(t.ds || t.len){ t.canDong = true; K.canDong.push(ma); }
-    else if(xet){ K.toAn[ma] = t; delete T[ma]; } });
+    else if(xet || !guiTK(ma)){ K.toAn[ma] = t; delete T[ma]; } });   /* 3.383.5 (anh 26/10 "tổ đã đóng TK 104, đóng mã tổ nhưng vẫn hiện"): kỳ không đọc được Danh sách tổ → tổ dư nợ 0, không ai còn TK 105 = đã đóng, ẩn */
 }
 function toDien(t, o, ds){ ds.forEach(function(f){ if(!t[f[0]] && o[f[1]]) t[f[0]] = o[f[1]]; }); }   /* điền trường còn trống của tổ từ 1 dòng dữ liệu */
 /* ---------- 3.92: VAY TRỰC TIẾP (anh Nhân: món không mã tổ — GQVL hội người mù, XKLD… — vẫn có xã, điểm GD cụ thể) ----------

@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.383.5 — 26/10/2026 — Danh sách tổ có dòng cộng theo lọc (TK 3)
+- **Anh 26/10** (ảnh danh sách 6 tổ): "có cột tổng, theo lọc".
+- Tra cứu › Tìm theo Tổ trưởng: cuối bảng có dòng **Cộng n tổ · tổng TV · tổng có dư nợ** + ghi phạm vi lọc đang chọn; dòng cộng dính đáy khung cuộn.
+- **Anh 26/10**: "có nút xóa chọn" → ô tìm Tra cứu có nút ✕ hiện ngay khi gõ (trước chỉ hiện sau khi vẽ lại), bấm → xóa chữ, tìm lại từ đầu.
+- **Anh 26/10**: "thu gọn ô tìm cân đối, quá dài, để các chip lớn hơn 1 chút" → ô tìm 240–460 px, chip Tìm theo chữ 13 px; màn ≥ 1300 px ô tìm + chip cùng 1 hàng.
+- **Anh 26/10**: "khi mở cửa sổ này (Tổ của điểm GD) giao diện cảm giác giật giật" → nguyên nhân: hộp và bảng cùng có thanh cuộn (cuộn chuột nhảy qua lại). Sửa: chỉ bảng cuộn, hộp cố định; bề rộng hộp đo 1 lần lúc mở (`tcBangRong`), `moHop` xóa bề rộng riêng khi mở hộp khác.
+- **Anh 26/10**: "tổ Linh đã đóng TK 104, đóng mã tổ nhưng vẫn hiện" → kiểm file thật 25/10: tổ không còn trong file Tổ trưởng, Mẫu 31 chỉ còn 2 món CLOSE dư nợ 0; khi có file Tổ trưởng cùng kỳ app ĐÃ ẩn đúng — máy anh hiện do kỳ đó không đọc được Danh sách tổ nên bỏ qua bước xét. Thêm luật dự phòng (`toDong0`): kỳ không có Danh sách tổ / LEN_31 → tổ dư nợ 0 và không ai còn TK 105 = đã đóng → ẩn (vẫn tìm được). Quy tắc hiện tổ chờ anh chốt (mục kỹ thuật dưới).
+- `js/58-tc-to.js` (`tcToTim`, `tcBangRong`), `js/22f-tra-cuu.js` (`tcXoaTim`), `js/22g-to.js` (`toDong0`), `js/06-hop-thoai.js` (`moHop`), `css/app.css`. Phép thử: t277 +2 (17), t141 +1 (34), t157 ngưỡng STT hẹp 60 → 64 px (bớt tổ đã đóng → bảng ít dòng).
+
 ## 3.383.4 — 26/10/2026 — Thẻ tổ: màu dư nợ QH / khoanh / 3T KHĐ · bảng Tổ của điểm GD vừa nội dung (TK 3)
 - **Anh 26/10**: "danh sách hộ vay QH, Khoanh thì đổi màu theo quy định em tự định tại cột dư, món vay 3 tháng cũng vậy".
 - Ô **Dư nợ** bảng thành viên thẻ tổ: nền đỏ = có quá hạn · tím = nợ khoanh · cam = món 3 tháng không hoạt động (ưu tiên theo thứ tự đó); rê chuột hiện giải thích + số tiền. Chú thích nhỏ cạnh "Thành viên (n)".

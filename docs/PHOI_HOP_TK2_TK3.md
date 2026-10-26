@@ -81,6 +81,7 @@
 | 26/10 | TK 3 (nhận bàn giao) | **3.383.2** | `css/app.css` (bảng Tra cứu chữ nhỏ, gọn) | t309, t277, t156 |
 | 26/10 | TK 3 (nhận bàn giao) | **3.383.3** | `js/58-tc-to.js` (nhãn TT / TP), `css/app.css`; `tests/t277.js` | t277 14/14 |
 | 26/10 | TK 3 (nhận bàn giao) | **3.383.4** | `js/58-tc-to.js` (màu dư nợ QH / khoanh / 3T KHĐ), `css/app.css` (+ hộp Tổ của điểm GD vừa nội dung); `tests/t277.js` | t277 15/15 |
+| 26/10 | TK 3 (nhận bàn giao) | **3.383.5** | `js/58-tc-to.js` (dòng cộng danh sách tổ), `css/app.css`; `tests/t277.js` | t277 17/17 · t141 34/34 · t157 (+ nút ✕ `js/22f`, ô tìm + chip, hộp hết giật `js/06`, tổ đã đóng `js/22g` toDong0) |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

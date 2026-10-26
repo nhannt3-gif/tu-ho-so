@@ -34,7 +34,8 @@ const fs=require('fs'), path=require('path');
    /* bảng các tổ của xã */
    pvChon('to', 'xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(1800);
    const th = () => [...document.querySelectorAll('#to-the .to-bang thead th')].map(x=>x.textContent);
-   ok('bảng các tổ: có Hội (chưa lọc), Điểm GD là cột Tự động (3.163), STT hẹp', th().includes('Hội') && TO_COT.find(c=>c[0]==='diem')[2]===0 && document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width < 60, document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width);
+   ok('bảng các tổ: có Hội (chưa lọc), Điểm GD là cột Tự động (3.163), STT hẹp', th().includes('Hội') && TO_COT.find(c=>c[0]==='diem')[2]===0 && document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width < 64, document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width);
+   /* 3.383.5: dữ liệu giả không có Danh sách tổ → tổ dư nợ 0, không TK 105 ẩn (đã đóng) → bảng ít dòng, cột STT rộng hơn chút (60,4 px) — ngưỡng hẹp 64 px */
    ok('dòng Cộng dính đáy khung', getComputedStyle(document.querySelector('#to-the .to-cuon-khung tr.tong td')).position==='sticky');
    pvChon('to', 'hoi', '11', 1); await w(1500);
    ok('lọc 1 Hội → bỏ cột Hội (đã ghi trên tiêu đề)', !th().includes('Hội'), th().join('|'));
