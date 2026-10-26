@@ -36,7 +36,7 @@ const fs=require('fs'), path=require('path');
    ok('chưa chọn xã: hàng chip Xã (PGD + các xã) + Hội', /^Xã\|Hội$/.test(nhan()) || nhan()==='Hội', nhan());
    ok('🔎 tìm nhanh nằm cuối hàng ô chọn', !!document.querySelector('#kt-cay .pv-hang1 .pv-tim input#kt-tim'));
    const K = KT_K, xa = pvLuaChon(K.to, C, 'xa', true)[0].k; pvChon('kt', 'xa', xa); await w(200);
-   ok('chọn xã: hàng Xã vẫn hiện + hàng Điểm GD (Cả xã + điểm của xã) │ Hội (3.162)', nhan()==='Xã|Điểm GD|Hội' && /Cả xã/.test(document.querySelector('#kt-cay .pv-hang2').textContent), nhan());
+   ok('chọn xã: hàng Xã vẫn hiện + hàng Điểm GD (Cả xã + điểm của xã) │ Hội (3.162)', nhan()==='Xã|Điểm GD|Hội|Ấp / KP' && /Cả xã/.test(document.querySelector('#kt-cay .pv-hang2').textContent), nhan());
    const hoiXa = pvLuaChon(K.to, C, 'hoi', true)[0].k; pvChon('kt', 'hoi', hoiXa, 1); await w(200);
    ok('Hội chọn ngay ở cấp xã (đa chiều, chưa cần điểm GD)', C.hoi===String(hoiXa) && !C.diem && document.querySelectorAll('#kt-cay .pv-dan .pv-dan-o').length===3);   /* 3.206: + mắt 🏠 PGD */   /* 3.160: cấp đã chọn lên dòng 📍 */
    const diem = pvLuaChon(K.to, C, 'diem', true)[0].k; pvChon('kt', 'diem', diem); await w(200);
