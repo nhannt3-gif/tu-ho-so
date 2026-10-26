@@ -405,7 +405,7 @@ function thToTrongPV(TK, S){
   return TK.G.filter(function(g){
     if(!S.xa) return true;
     if(slChuan(g.o.xa)!==xa) return false;
-    if(!g.ma.length) return !S.diem && !S.hoi && !S.to;
+    if(!g.ma.length) return !S.diem && !S.hoi && !S.ap && !S.to;
     return g.ma.some(function(m){ return pvLoc(S, T[m]); });
   });
 }
@@ -433,7 +433,7 @@ function thBang2(cot, dong, dv){
 }
 function thAoa2(cot, dong, chia){ return [cot.map(function(c){ return c.replace('|', ' — '); })].concat(dong.map(function(r){ return r.o.map(function(v){ return (v && typeof v==='object') ? v.dem : (typeof v==='number' && chia ? v/chia : v); }); })); }
 function thBaoCao(k){
-  var TK = TH_K, B = TK.B, K = TK.K, S = thCH(), xa = slChuan(thTenXa(S, K)), sau = !!(S.diem || S.hoi || S.to), loc = !!(S.ct || S.nguon);
+  var TK = TH_K, B = TK.B, K = TK.K, S = thCH(), xa = slChuan(thTenXa(S, K)), sau = !!(S.diem || S.hoi || S.ap || S.to), loc = !!(S.ct || S.nguon);
   var e = function(L){ return KHO.bang(L, TK.ky); }, ngayCua = function(L){ var x = e(L); return x ? 'Số liệu ngày '+ngayVNsl(x.ngay)+' · nguồn '+slLoai(L).ten : ''; };
   var thieu = function(ten, L){ return {ten:ten.slice(0, 31), tieuDe:ten.toUpperCase(), ngay:slKyChu(TK.ky), html:'<div class="bc-rong">Chưa nạp '+coChuHTML(L.map(function(x){ return slLoai(x).ten; }).join(' / '))+' của '+coChuHTML(slKyChu(TK.ky))+'.</div>', aoa:[['Chưa nạp file']]}; };
   var ghiSau = function(){ return (sau || loc) ? '<div class="bc-ghi">Biểu TW này chỉ chia đến cấp '+(k==='ct' ? 'PGD' : 'xã')+'; phạm vi / chương trình / nguồn chi tiết hơn xem báo cáo “Lọc sâu … (tham khảo)”.</div>' : ''; };

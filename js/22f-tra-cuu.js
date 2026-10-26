@@ -289,7 +289,7 @@ function slTheKH(ma){
       (xong.length ? '<div class="hang-nut"><button class="nho" onclick="var b=document.getElementById(\'tc-xong\');b.hidden=!b.hidden;this.textContent=b.hidden?\'▾ Hiện '+xong.length+' món đã tất toán\':\'▴ Ẩn món đã tất toán\'">▾ Hiện '+xong.length+' món đã tất toán</button></div>' : '');
   });
 }
-function tcMoTo(to){ dongHop(); var C = toCH(), t = KHO.to(to); C.to = to; if(t){ C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); } else { var k = KHO.toKy(TC_K, to); if(k){ C.xa = k.xa||''; C.diem = k.khoaDiem; C.hoi = String(k.dv||''); } } luu(); slDoiTab('to'); }
+function tcMoTo(to){ dongHop(); var C = toCH(), t = KHO.to(to); C.to = to; if(t){ C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); C.ap = ''; } else { var k = KHO.toKy(TC_K, to); if(k){ C.xa = k.xa||''; C.diem = k.khoaDiem; C.hoi = String(k.dv||''); } } luu(); slDoiTab('to'); }
 function slChepKH(ma){
   var c = KHO.danhBa(ma); if(!c) return; var t = KHO.toDanhBa(c.to)||{};
   chepChu(['Họ tên: '+(c.ten||''), 'Mã KH: '+ma, 'Ngày sinh: '+ngayVNsl(c.ns), 'CCCD: '+(c.cccd||'')+(c.ncap ? ' — cấp '+ngayVNsl(c.ncap) : '')+(c.noiCap ? ' — '+c.noiCap : ''),

@@ -12,7 +12,7 @@ function toBDTNap(){   /* bản đồ khách → tổ của tháng đang xem + t
   return Promise.all([toMapKy(ky), toMapKy(tr)]).then(function(a){ return TO_BDT = {K:KHO.kyDung(), ky:ky, tr:tr, co:!!(a[0] && a[1]), Mn:a[0]||{}, Mp:a[1]||{}}; });
 }
 function toTVPV(C){   /* khách của cả phạm vi (mỗi khách gắn tổ) + biến động phạm vi — giữ sẵn theo phạm vi */
-  var bd = TO_BDT && TO_BDT.K===KHO.kyDung() && TO_BDT.ky===KHO.kyDung().ky ? TO_BDT : null, khoa = [KHO.kyDung().ky, C.xa, C.diem, C.hoi, bd && bd.co ? 1 : 0].join('|');
+  var bd = TO_BDT && TO_BDT.K===KHO.kyDung() && TO_BDT.ky===KHO.kyDung().ky ? TO_BDT : null, khoa = [KHO.kyDung().ky, C.xa, C.diem, C.hoi, C.ap, bd && bd.co ? 1 : 0].join('|');
   if(TO_PVC && TO_PVC.K===KHO.kyDung() && TO_PVC.khoa===khoa) return TO_PVC;
   var ds = toDsTo(C), tv = [];
   ds.forEach(function(t){ toTV(t).forEach(function(k){ k.to = t; k.vao = null;
@@ -656,7 +656,7 @@ function skPKKy(o, ns){   /* → {quaNgay, quaUoc, toiNgay, toiTien (null = chư
   if(L.toi){ var du = Math.max(0, (o.dn||0)-chua); r.toiNgay = L.toi; r.toiTien = L.con<=1 ? du : Math.floor(du/L.con/100000)*100000; r.uoc = true; }
   return r;
 }
-function skPVTrucTiep(o){ var C = skCH(); return !C.xa || (String(o.xa||'')===String(C.xa) && !C.diem && !C.hoi && !C.to); }
+function skPVTrucTiep(o){ var C = skCH(); return !C.xa || (String(o.xa||'')===String(C.xa) && !C.diem && !C.hoi && !C.ap && !C.to); }
 function skPKTinh(M, ns){   /* danh sách món phân kỳ trong phạm vi, kèm kỳ */
   return (kcGoc(M)||[]).filter(function(o){ return o.ku && (o.dn||0)>0 && skLaPK(o) && (toMaCua(o) ? skTrongPV(o) : skPVTrucTiep(o)); })
     .map(function(o){ o._loai = skPKLoai(o); o._pk = skPKKy(o, ns); o._chua = skNOXHChua(o); o._h08 = (o._loai==='moi' && o._pk.toiNgay) ? skHan08(o._pk.toiNgay) : ''; return o; });

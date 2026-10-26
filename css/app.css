@@ -3469,6 +3469,14 @@ button.pv-dan-o.pv-ve{text-decoration:underline dotted;text-underline-offset:2px
 .pv-cay .loc-khoi.gon .pv-hang1 .pv-dan .pv-dan-o,.pv-cay .loc-khoi.gon .pv-hang1 .pv-dan > .pv-sep{display:none}
 .pv-cay .loc-khoi.gon .pv-hang1 .pv-dan{flex:none;margin-left:2px;min-width:0}.pv-cay .loc-khoi.gon .pv-dem{white-space:nowrap}
 .pv-cay .loc-khoi.gon .pv-hang1 .pv-tim.to-tim{flex:0 1 170px;min-width:110px}
+/* 3.383 (anh 26/10 "ô lọc địa bàn còn bị khuất… thêm lọc ấp, KP… mỗi ô có chỗ bấm nhanh về tất cả"): ô sổ rộng vừa chữ (không cắt), hết chỗ thì xuống dòng; nút ✕ nhỏ cạnh mỗi ô */
+.pv-cay .loc-khoi.gon .pv-hang1 .pv-sel{flex-wrap:wrap;overflow:visible;row-gap:4px}
+.pv-cay .loc-khoi.gon .pv-hang1 select.pv-o{max-width:none;min-width:64px;width:auto;flex:0 0 auto}
+.pv-hang1 select.pv-ap{margin-left:8px}
+.pv-x{border:1px solid var(--vien);background:var(--the);color:var(--chu-phu);border-radius:50%;width:18px;height:18px;padding:0;font-size:10px;line-height:16px;cursor:pointer;flex:0 0 auto;margin-left:-2px}
+.pv-x:not(:disabled):hover{background:var(--do);color:#fff;border-color:var(--do)}
+.pv-x:disabled{opacity:.3;cursor:default}
+.tc-dau #tc-cay{flex:1 1 100% !important;max-width:none}
 .pv-cay .loc-khoi.gon{min-width:0}
 .pv-cay .loc-khoi.gon .pv-len .pv-chu{display:none}
 @media (min-width:700px){ .pv-cay .loc-khoi.gon .pv-hang1{flex-wrap:nowrap} }

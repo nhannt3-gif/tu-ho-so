@@ -3,20 +3,25 @@
    - mỗi nơi dùng 1 tiền tố p (to = tab Tổ, tc = Tra cứu KH, sk = Sao kê) + 1 đối tượng trạng thái {xa, diem, hoi, to}
    - dừng ở cấp nào thì lấy phạm vi cấp đó; Hội là bộ lọc (bỏ trống = mọi hội); tab Tổ bắt buộc chọn đến tổ
    - ô chọn theo phím chung (sgPhim nhận .pv-cay), đủ chỗ thì có chip; cấp chỉ 1 lựa chọn tự chọn; dữ liệu cây = PV_DUNG[p].K() */
-var PV_CAP = [['xa','Xã / phường'],['diem','Điểm GD'],['hoi','Hội'],['to','Tổ']];
+var PV_CAP = [['xa','Xã / phường'],['diem','Điểm GD'],['hoi','Hội'],['ap','Ấp / KP'],['to','Tổ']];   /* 3.383 (anh 26/10): + Ấp / KP — lọc như Hội (không bắt buộc, đa chiều) */
+function pvApChu(t){ var a = pvApNgan(t.tenThon || t.thon); return /^(ấp|thôn|kp) /i.test(a) ? a.replace(/^./, function(c){ return c.toUpperCase(); }) : 'Ấp '+a; }   /* "Ấp Cây Trắc" · "KP 2" · "Thôn 03" */
+function pvApKhoa(t){ var a = t && (t.thon || t.tenThon); return a ? String(t.xa||'')+'|'+String(a) : ''; }   /* ấp theo xã (tên ấp trùng giữa 2 xã không lẫn) */
 var PV_DUNG = {};
 function pvLuaChon(T, S, cap, dc){   /* dc = chọn đa chiều (3.133, tab Tổ): Hội lọc độc lập — cả xã (chưa chọn điểm) hoặc toàn PGD */
   var ra = {};
   Object.keys(T||{}).forEach(function(m){
     var t = T[m];
-    if(dc && cap==='hoi'){ if(S.xa && t.xa!==S.xa) return; if(S.diem && t.khoaDiem!==S.diem) return; }
-    else if(dc && cap==='to'){ if(t.xa!==S.xa) return; if(S.diem && t.khoaDiem!==S.diem) return; }   /* 3.160: ③ Tổ theo Điểm GD hoặc Hội (chọn cái nào trước cũng được) */
+    if(dc && (cap==='hoi' || cap==='ap')){ if(S.xa && t.xa!==S.xa) return; if(S.diem && t.khoaDiem!==S.diem) return;   /* 3.383: Hội ↔ Ấp thu danh sách theo nhau */
+      if(cap==='hoi' && S.ap && pvApKhoa(t)!==S.ap) return; if(cap==='ap' && S.hoi && String(t.dv||'')!==S.hoi) return; }
+    else if(dc && cap==='diem'){ if(t.xa!==S.xa) return; if(S.hoi && String(t.dv||'')!==S.hoi) return; if(S.ap && pvApKhoa(t)!==S.ap) return; }   /* 3.383: điểm GD có tổ của Hội / ấp đang chọn */
+    else if(dc && cap==='to'){ if(t.xa!==S.xa) return; if(S.diem && t.khoaDiem!==S.diem) return; if(S.ap && pvApKhoa(t)!==S.ap) return; }   /* 3.160: ③ Tổ theo Điểm GD hoặc Hội (chọn cái nào trước cũng được) · 3.383 + ấp */
     else {
     if(cap!=='xa' && t.xa!==S.xa) return;
     if((cap==='hoi' || cap==='to') && t.khoaDiem!==S.diem) return; }
     if(cap==='to' && S.hoi && String(t.dv||'')!==S.hoi) return;
-    var k = cap==='xa' ? t.xa : cap==='diem' ? t.khoaDiem : cap==='hoi' ? String(t.dv||'') : t.ma;
-    var chu = cap==='xa' ? (t.tenXa||t.xa) : cap==='diem' ? t.tenDiemDu : cap==='hoi' ? (String(t.dv)==='99' ? 'Trực tiếp' : (tdnHoi(t.dv)||'(chưa rõ hội)')) : (t.ten||'Tổ '+t.ma)+(t.canDong ? ' · ⚠ Dư nợ 0 — cần đóng tổ' : '')+(t.trucTiep ? ' · '+t.soMon+' món' : (t.tenThon ? ' · '+t.tenThon : ''));
+    if(cap==='ap' && !pvApKhoa(t)) return;
+    var k = cap==='xa' ? t.xa : cap==='diem' ? t.khoaDiem : cap==='hoi' ? String(t.dv||'') : cap==='ap' ? pvApKhoa(t) : t.ma;
+    var chu = cap==='ap' ? pvApChu(t)+(S.xa ? '' : ' · '+(t.tenXa||t.xa)) : cap==='xa' ? (t.tenXa||t.xa) : cap==='diem' ? t.tenDiemDu : cap==='hoi' ? (String(t.dv)==='99' ? 'Trực tiếp' : (tdnHoi(t.dv)||'(chưa rõ hội)')) : (t.ten||'Tổ '+t.ma)+(t.canDong ? ' · ⚠ Dư nợ 0 — cần đóng tổ' : '')+(t.trucTiep ? ' · '+t.soMon+' món' : (t.tenThon ? ' · '+t.tenThon : ''));
     if(k===undefined || k===null) return;
     if(!ra[k]) ra[k] = {k:k, chu:String(chu), n:0, ap:cap==='to' ? String(t.tenThon||'') : ''}; if(!t.trucTiep) ra[k].n++;   /* 3.132: số tổ không tính vay trực tiếp */
   });
@@ -28,7 +33,7 @@ function pvLuaChon(T, S, cap, dc){   /* dc = chọn đa chiều (3.133, tab Tổ
 function pvApNgan(ap){ var s = String(ap||'').trim(), m = s.match(/^(ấp|ap|thôn|khu phố|kp)\.?\s+(.+)$/i);
   if(m) return /^\d+[a-z]?$/i.test(m[2]) ? (/^(khu phố|kp)$/i.test(m[1]) ? 'KP ' : /^thôn$/i.test(m[1]) ? 'thôn ' : 'ấp ')+m[2] : m[2];
   return /^\d+[a-z]?$/i.test(s) ? 'ấp '+s : s; }
-function pvCha(S, cap, dc){ return cap==='xa' ? true : cap==='diem' ? !!S.xa : (cap==='hoi' && dc) ? true : (cap==='to' && dc) ? !!(S.xa && (S.diem || S.hoi)) : !!S.diem; }   /* hội và tổ cần điểm GD · 3.133: tab Tổ chọn Hội không cần điểm */
+function pvCha(S, cap, dc){ return cap==='xa' ? true : cap==='diem' ? !!S.xa : ((cap==='hoi' || cap==='ap') && dc) ? true : (cap==='to' && dc) ? !!(S.xa && (S.diem || S.hoi || S.ap)) : !!S.diem; }   /* 3.383: + ấp */   /* hội và tổ cần điểm GD · 3.133: tab Tổ chọn Hội không cần điểm */
 function pvVeCay(p){
   var d = PV_DUNG[p], o = document.getElementById(p+'-cay'); if(!d || !o) return;
   var K = d.K(); if(!K) return;
@@ -39,14 +44,16 @@ function pvVeCay(p){
     if(S[c[0]] && !ds.some(function(x){ return String(x.k)===S[c[0]]; })) S[c[0]] = '';
   });
   /* 3.149 (anh chốt ý 6c): cây chọn 2 hàng — hàng 1: các cấp (ô chọn gọn, nối bằng ›); hàng 2: chip của cấp cần chọn tiếp (chọn tới tổ thì hết chip) */
-  var trong = {xa:'Toàn PGD', diem:'— cả xã —', hoi:'Hội: tất cả', to:bb ? '— tất cả tổ —' : '— cả điểm GD —'}, h1 = '', tiep = null, dsTiep = null;
+  var trong = {xa:'— Tất cả xã (toàn PGD) —', diem:'— Tất cả điểm GD —', hoi:'— Tất cả Hội —', ap:'— Tất cả ấp / KP —', to:'— Tất cả tổ —'}, h1 = '', tiep = null, dsTiep = null;   /* 3.383 (anh): dòng đầu mỗi ô = Tất cả */
   PV_CAP.forEach(function(c){
     var ds = pvLuaChon(T, S, c[0], d.daChieu!==false), cha = pvCha(S, c[0], d.daChieu!==false), chon = S[c[0]];
     if(!cha && c[0]!=='hoi') return;
-    if(!tiep && cha && !chon && c[0]!=='hoi' && ds.length>1){ tiep = c[0]; dsTiep = ds; }
-    h1 += (h1 && c[0]!=='hoi' ? '<span class="pv-sep">›</span>' : '')+'<select id="'+p+'-'+c[0]+'" class="pv-o pv-'+c[0]+(chon ? ' co' : '')+'" title="'+c[1]+(c[0]==='hoi' ? ' (lọc)' : '')+'" onchange="pvChon(\''+p+'\',\''+c[0]+'\',this.value)"'+(cha ? '' : ' disabled')+'>'+
+    if(c[0]==='ap' && !ds.length && !chon) return;   /* số liệu không có ấp → không hiện ô */
+    if(!tiep && cha && !chon && c[0]!=='hoi' && c[0]!=='ap' && ds.length>1){ tiep = c[0]; dsTiep = ds; }
+    h1 += (h1 && c[0]!=='hoi' && c[0]!=='ap' ? '<span class="pv-sep">›</span>' : '')+'<select id="'+p+'-'+c[0]+'" class="pv-o pv-'+c[0]+(chon ? ' co' : '')+'" title="'+c[1]+(c[0]==='hoi' ? ' (lọc)' : '')+'" onchange="pvChon(\''+p+'\',\''+c[0]+'\',this.value)"'+(cha ? '' : ' disabled')+'>'+
       '<option value="">'+trong[c[0]]+'</option>'+ds.map(function(x){ return '<option value="'+coChuHTML(String(x.k))+'"'+(String(x.k)===chon ? ' selected' : '')+
-        ' title="'+coChuHTML(x.chu)+'">'+coChuHTML(c[0]==='xa' ? String(x.chu).replace(/^(Xã|Phường|Thị trấn)\s+/i, '') : x.chu)+(c[0]!=='to' ? (x.n ? ' ('+x.n+' tổ)' : ' (vay trực tiếp)') : '')+'</option>'; }).join('')+'</select>';   /* 3.334 (RA_SOAT_BO_CUC #2): ô Xã bỏ chữ "Xã / Phường" đầu tên → ô hẹp vẫn đọc được */
+        ' title="'+coChuHTML(x.chu)+'">'+coChuHTML(c[0]==='xa' ? String(x.chu).replace(/^(Xã|Phường|Thị trấn)\s+/i, '') : x.chu)+(c[0]!=='to' ? (x.n ? ' ('+x.n+' tổ)' : ' (vay trực tiếp)') : '')+'</option>'; }).join('')+'</select>'+
+      '<button type="button" class="pv-x" onclick="pvChon(\''+p+'\',\''+c[0]+'\',\'\')"'+(chon ? '' : ' disabled')+' title="'+coChuHTML(trong[c[0]].replace(/^— | —$/g, ''))+' (bấm nhanh)" aria-label="'+coChuHTML(c[1])+': tất cả">✕</button>';   /* 3.383 (anh): nút nhỏ ✕ cạnh ô = về Tất cả */   /* 3.334 (RA_SOAT_BO_CUC #2): ô Xã bỏ chữ "Xã / Phường" đầu tên → ô hẹp vẫn đọc được */
   });
   /* 3.162 (anh chốt — tinh chỉnh 3.160): hàng 1 = Xã (luôn hiện, PGD / xã đang chọn tô xanh — bấm để quay lại / đổi) + 📍 đường dẫn chỉ báo (chip) + 🔎;
      hàng 2 = Điểm GD │ Hội (cùng 1 dòng, luôn hiện); hàng 3 = Tổ (khi có Điểm GD hoặc Hội): chip + ô sổ xuống đủ danh sách. Điện thoại: ô thả xuống như cũ. */
@@ -61,16 +68,17 @@ function pvVeCay(p){
   var hXa = dsX.length>1 ? '<span class="pv-nhom cap-xa">'+nhan('Xã')+chip('xa', '', 'PGD', 0, 'Toàn PGD (mọi xã)')+dsX.map(function(x){ return chip('xa', x.k, x.chu, x.n); }).join('')+'</span>' : '';
   var hD = S.xa && dsD.length>1 ? '<span class="pv-nhom cap-diem">'+nhan('Điểm GD')+chip('diem', '', 'Cả xã')+dsD.map(function(x){ return chip('diem', x.k, x.chu, x.n); }).join('')+'</span>' : '';
   var hH = dsH.length>1 || S.hoi ? '<span class="pv-nhom cap-hoi">'+nhan('Hội')+chip('hoi', '', 'Tất cả')+dsH.map(function(x){ return chip('hoi', x.k, x.chu, x.n); }).join('')+'</span>' : '';
+  var dsA = S.xa ? pvLuaChon(T, S, 'ap', dc) : [], hA = dsA.length>1 || S.ap ? '<span class="pv-nhom cap-ap">'+nhan('Ấp / KP')+chip('ap', '', 'Tất cả')+dsA.map(function(x){ return chip('ap', x.k, x.chu, x.n); }).join('')+'</span>' : '';   /* 3.383 */
   /* 3.180 (anh chốt, tab Giao dịch xã — d.gonDiem): đã chọn Điểm GD → thu gọn hàng chip Xã / Điểm cho rộng; nút ▾ Đổi xã / điểm mở lại (chọn xong tự gọn) */
   /* 3.181: thu gọn cả khối (ẩn Xã · Điểm · Hội · Tổ, chỉ còn 📍 đường dẫn + 🔎) bằng lớp .gon — bấm ▾ Đổi để sổ ra; bấm vào vùng nhập thì gọn lại */
   /* 3.206 (anh chốt 14/10): mọi tab — đã chọn địa bàn thì có nút ▾ Mở rộng / ▴ Thu gọn (nhớ theo tab: D.cauHinh.pvGon[p]); gọn = 1 dòng 🏠 PGD › Xã › Điểm › Tổ (bấm từng mắt để về cấp đó) */
   /* 3.227 (anh 17/10): 📌 Ghim — ghim: khối lọc luôn mở; bỏ ghim: chọn xong tổ tự thu gọn còn 1 dòng; ⬆ Lên 1 cấp (Backspace) */
   /* 3.328 (anh chốt 23/10): 2 kiểu — ☰ Gọn (mặc định mọi nơi: 1 dòng ô sổ xuống Xã › Điểm › Hội › Tổ, ⬆ lên 1 cấp) · ▦ Chip (chip + ô sổ đủ danh sách như cũ); 📌 Ghim giữ địa bàn + kiểu khi mở lại app */
-  var coChon = !!(S.xa || S.diem || S.hoi || S.to), ghim = pvGhimCua(p), gon = pvGonCua(p),
+  var coChon = !!(S.xa || S.diem || S.hoi || S.ap || S.to), ghim = pvGhimCua(p), gon = pvGonCua(p),
     nutGon = '<button class="nho pv-gon" onclick="pvGonDoi(\''+p+'\')" title="'+(gon ? 'Đổi sang kiểu chip (chọn bằng chip, đủ danh sách)' : 'Đổi sang kiểu gọn 1 dòng (ô sổ xuống từng cấp)')+'">'+(gon ? '▦ Chip' : '☰ Gọn')+'</button>'+
       (coChon ? '<button class="nho pv-len" onclick="pvLen(\''+p+'\')" title="Về 1 cấp (phím Backspace)">⬆<span class="pv-chu"> Lên 1 cấp</span></button>' : '')+
       '<button class="nho pv-ghim-nut'+(ghim ? ' bat' : '')+'" onclick="pvGhimDoi(\''+p+'\')" title="'+(ghim ? 'Đang ghim: mở lại app vẫn giữ địa bàn và kiểu đang chọn (mọi tab) — bấm để bỏ ghim' : 'Chưa ghim: mở lại app về Toàn PGD, kiểu gọn — bấm để ghim địa bàn và kiểu đang chọn')+'">📌'+(ghim ? ' Đã ghim' : '')+'</button>';
-  if(hD || hH) hh += '<div class="pv-hang2 to-chips" data-cap="diem-hoi">'+hD+hH+'</div>';   /* 3.167 (anh chốt): Điểm GD và Hội 2 thanh riêng (bỏ vạch │) */
+  if(hD || hH || hA) hh += '<div class="pv-hang2 to-chips" data-cap="diem-hoi">'+hD+hH+hA+'</div>';   /* 3.167 (anh chốt): Điểm GD và Hội 2 thanh riêng (bỏ vạch │) */
   if(dsT.length) hh += '<div class="pv-hang2 to-chips cap-to" data-cap="to">'+nhan('Tổ')+dsT.slice(0, 30).map(function(x){ return chip('to', x.k, x.chu.split(' · ')[0], 0, toTit(x), x.ap ? pvApNgan(x.ap) : ''); }).join('')+
     '<select class="pv-to-ds'+(S.to ? ' co' : '')+'" onchange="pvChon(\''+p+'\',\'to\',this.value)" title="Đủ danh sách tổ ('+dsT.length+')"><option value="">'+(dsT.length>30 ? 'Còn '+(dsT.length-30)+' tổ — chọn ▾' : 'Chọn tổ ▾')+'</option>'+
       dsT.map(function(x){ return '<option value="'+coChuHTML(String(x.k))+'"'+(String(x.k)===S.to ? ' selected' : '')+' title="'+coChuHTML(toTit(x))+'">'+coChuHTML(chuTo(x))+'</option>'; }).join('')+'</select></div>';
@@ -78,10 +86,10 @@ function pvVeCay(p){
   var tenCua = function(cap, ds){ var x = ds.find(function(z){ return String(z.k)===String(S[cap]); }); return x ? x.chu.split(' · ')[0] : S[cap]; };
   var o1 = function(chu, ve){ return ve ? '<button class="pv-dan-o pv-ve" onclick="'+ve+'" title="Về '+coChuHTML(chu)+'">'+coChuHTML(chu)+'</button>' : '<span class="pv-dan-o">'+coChuHTML(chu)+'</span>'; };   /* 3.206: mắt đường dẫn bấm được → về cấp đó */
   var ve = function(cap){ return 'pvVe(\''+p+'\',\''+cap+'\')'; };
-  var dsHall = pvLuaChon(T, S, 'hoi', dc), dsTall = S.to ? pvLuaChon(T, S, 'to', dc) : [];
-  var giua = [S.diem ? o1('Điểm '+tenCua('diem', dsD), S.to ? ve('to') : '') : '', S.hoi ? o1(tenCua('hoi', dsHall), S.to ? ve('to') : '') : ''].filter(Boolean).join('<span class="pv-sep">·</span>');
+  var dsHall = pvLuaChon(T, S, 'hoi', dc), dsAall = S.ap ? pvLuaChon(T, S, 'ap', dc) : [], dsTall = S.to ? pvLuaChon(T, S, 'to', dc) : [];
+  var giua = [S.diem ? o1('Điểm '+tenCua('diem', dsD), S.to ? ve('to') : '') : '', S.hoi ? o1(tenCua('hoi', dsHall), S.to ? ve('to') : '') : '', S.ap ? o1(tenCua('ap', dsAall), S.to ? ve('to') : '') : ''].filter(Boolean).join('<span class="pv-sep">·</span>');
   var nTo = Object.keys(T||{}).filter(function(m){ var t = T[m]; return !t.trucTiep && !toLaTT(t) && pvLoc(S, t); }).length;
-  var dan = '<span class="pv-chip-o">'+slChipHTML()+'</span><span class="pv-dan">'+(S.xa ? o1('🏠 PGD', ve('xa'))+'<span class="pv-sep">›</span>'+o1(tenCua('xa', dsX), S.diem || S.hoi || S.to ? ve('diem') : '') : o1('🏠 Toàn PGD'))+(giua ? '<span class="pv-sep">›</span>'+giua : '')+(S.to ? '<span class="pv-sep">›</span>'+o1('Tổ '+tenCua('to', dsTall)) : '')+
+  var dan = '<span class="pv-chip-o">'+slChipHTML()+'</span><span class="pv-dan">'+(S.xa ? o1('🏠 PGD', ve('xa'))+'<span class="pv-sep">›</span>'+o1(tenCua('xa', dsX), S.diem || S.hoi || S.ap || S.to ? ve('diem') : '') : o1('🏠 Toàn PGD'))+(giua ? '<span class="pv-sep">›</span>'+giua : '')+(S.to ? '<span class="pv-sep">›</span>'+o1('Tổ '+tenCua('to', dsTall)) : '')+
     '<small class="pv-dem">'+nTo+' tổ'+(d.ghi ? ' · '+d.ghi() : '')+'</small></span>';
   var tim = p==='tc' ? '' : (function(){ var q = p==='to' ? TO_Q : p==='kt' ? KT_Q : (PV_Q[p]||''), ham = p==='to' ? 'TO_Q=this.value;toTim()' : p==='kt' ? 'KT_Q=this.value;ktTim()' : 'PV_Q[\''+p+'\']=this.value;pvTim(\''+p+'\')';
     return '<span class="pv-tim to-tim"><span>🔎</span><input id="'+p+'-tim" autocomplete="off" value="'+coChuHTML(q||'')+'" placeholder="Tìm tổ / tổ trưởng / ấp…" oninput="'+ham+'" onkeydown="if(event.key===\'Enter\'){var b=document.querySelector(\'#'+p+'-gy button\');if(b){event.preventDefault();b.click();}}"><div id="'+p+'-gy" class="pv-gy"></div></span>'; })();
@@ -107,12 +115,12 @@ var PV_KIEU = {};
 function pvGhimCua(){ return !!(D.cauHinh && D.cauHinh.pvGhimBat); }
 function pvGhimDoi(p){ var c = D.cauHinh, g = !pvGhimCua(), cu = pvChungO(), kieu = pvKieuBang();
   c.pvGhimBat = g;
-  if(g){ c.pvChung = {xa:cu.xa||'', diem:cu.diem||'', hoi:cu.hoi||'', to:cu.to||''}; c.pvKieu = JSON.parse(JSON.stringify(kieu)); }
-  else { PV_PHIEN = {xa:cu.xa||'', diem:cu.diem||'', hoi:cu.hoi||'', to:cu.to||''}; PV_KIEU = JSON.parse(JSON.stringify(kieu)); }
+  if(g){ c.pvChung = {xa:cu.xa||'', diem:cu.diem||'', hoi:cu.hoi||'', ap:cu.ap||'', to:cu.to||''}; c.pvKieu = JSON.parse(JSON.stringify(kieu)); }
+  else { PV_PHIEN = {xa:cu.xa||'', diem:cu.diem||'', hoi:cu.hoi||'', ap:cu.ap||'', to:cu.to||''}; PV_KIEU = JSON.parse(JSON.stringify(kieu)); }
   PV_MO[p] = ''; luu(); pvVeCay(p); bao(g ? '📌 Đã ghim — mở lại app vẫn giữ địa bàn và kiểu đang chọn (mọi tab).' : 'Bỏ ghim — mở lại app về Toàn PGD, kiểu gọn.'); }
 function pvKieuBang(){ return pvGhimCua() ? (D.cauHinh.pvKieu = D.cauHinh.pvKieu || {}) : PV_KIEU; }
 function pvVe(p, cap){ pvChon(p, cap, ''); }   /* 3.328: bấm mắt đường dẫn / ⬆ = về cấp đó (kiểu giữ nguyên) */
-function pvLen(p){ var d = PV_DUNG[p]; if(!d) return false; var S = d.S(), cap = S.to ? 'to' : S.hoi ? 'hoi' : S.diem ? 'diem' : S.xa ? 'xa' : ''; if(!cap) return false; pvVe(p, cap); return true; }
+function pvLen(p){ var d = PV_DUNG[p]; if(!d) return false; var S = d.S(), cap = S.to ? 'to' : S.ap ? 'ap' : S.hoi ? 'hoi' : S.diem ? 'diem' : S.xa ? 'xa' : ''; if(!cap) return false; pvVe(p, cap); return true; }
 document.addEventListener('keydown', function(e){   /* 3.227: Backspace (không ở ô nhập, không mở hộp) = ⬆ Lên 1 cấp ở khối lọc đang hiện */
   if(e.key!=='Backspace' || e.ctrlKey || e.altKey || e.metaKey || e.defaultPrevented) return;
   var a = e.target; if(a && (/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) || a.isContentEditable)) return;
@@ -125,7 +133,7 @@ function pvGonDoi(p){ pvKieuBang()[p] = pvGonCua(p) ? 'chip' : 'gon'; PV_MO[p] =
 function pvMo(p, cap){ PV_MO[p] = PV_MO[p]===cap ? '' : cap; pvVeCay(p); }
 function pvChonTo(p, ma){
   var d = PV_DUNG[p], K = d && d.K(), t = K && K.to[ma]; if(!t) return;
-  var S = d.S(); S.xa = t.xa||''; S.diem = t.khoaDiem; S.hoi = String(t.dv||''); S.to = ma; PV_Q[p] = ''; PV_MO[p] = '';
+  var S = d.S(); S.xa = t.xa||''; S.diem = t.khoaDiem; S.hoi = String(t.dv||''); S.ap = ''; S.to = ma; PV_Q[p] = ''; PV_MO[p] = '';
   luu(); pvVeCay(p);
 }
 function pvBoTT(T){ var r = {}; Object.keys(T||{}).forEach(function(m){ if(!toLaTT(T[m])) r[m] = T[m]; }); return r; }   /* 3.107: tab KTGS Hội kiểm tra theo tổ → cây bỏ mục vay trực tiếp */
@@ -134,23 +142,28 @@ function pvChon(p, cap, v, chip){
   var S = d.S(), i = PV_CAP.map(function(c){ return c[0]; }).indexOf(cap);
   v = String(v||''); if(chip && S[cap]===v) v = '';   /* bấm lại chip đang chọn = bỏ chọn */
   PV_MO[p] = '';
-  S[cap] = v; for(var j=i+1;j<PV_CAP.length;j++){ if(PV_CAP[j][0]==='hoi' && (d.daChieu!==false || (cap!=='xa' && cap!=='diem'))) continue; S[PV_CAP[j][0]] = ''; }   /* 3.133: tab Tổ đổi xã / điểm giữ Hội (Hội không có ở phạm vi mới thì cây tự bỏ) */
+  S[cap] = v; for(var j=i+1;j<PV_CAP.length;j++){ var cj = PV_CAP[j][0];
+    if(cj==='hoi' && (d.daChieu!==false || (cap!=='xa' && cap!=='diem'))) continue;
+    if(cj==='ap' && d.daChieu!==false && cap!=='xa') continue;   /* 3.383: đổi điểm / Hội giữ ấp (không còn khớp thì cây tự bỏ); đổi xã bỏ ấp */
+    S[cj] = ''; }   /* 3.133: tab Tổ đổi xã / điểm giữ Hội (Hội không có ở phạm vi mới thì cây tự bỏ) */
   luu(); pvVeCay(p);
 }
 /* dòng / tổ có nằm trong phạm vi không (t = thông tin tổ; dòng không có tổ chỉ thuộc phạm vi Toàn PGD) */
 function pvLoc(S, t){
-  if(!S.xa) return !S.hoi || (!!t && String(t.dv||'')===S.hoi); if(!t) return false;   /* 3.133: Hội toàn PGD (chỉ tab Tổ chọn được Hội khi chưa chọn xã) */
+  if(!S.xa) return (!S.hoi || (!!t && String(t.dv||'')===S.hoi)) && (!S.ap || (!!t && pvApKhoa(t)===S.ap)); if(!t) return false;   /* 3.133: Hội toàn PGD (chỉ tab Tổ chọn được Hội khi chưa chọn xã) */
   if(t.xa!==S.xa) return false; if(S.diem && t.khoaDiem!==S.diem) return false;
-  if(S.hoi && String(t.dv||'')!==S.hoi) return false; if(S.to && t.ma!==S.to) return false;
+  if(S.hoi && String(t.dv||'')!==S.hoi) return false; if(S.ap && pvApKhoa(t)!==S.ap) return false; if(S.to && t.ma!==S.to) return false;
   return true;
 }
 function pvChu(S, K){
   var hoiTen = function(h){ return String(h)==='99' ? 'Vay trực tiếp' : (tdnHoi(h)||'Hội '+h); };
-  if(!S.xa) return 'Toàn PGD'+(S.hoi ? ' · '+hoiTen(S.hoi) : '');
-  var T = (K && K.to) || {}, mot = function(f, v){ var k = Object.keys(T).find(function(m){ return String(T[m][f]||'')===v; }); return k ? T[k] : {}; };
+  var T = (K && K.to) || {}, apTen = function(){ var k = Object.keys(T).find(function(m){ return pvApKhoa(T[m])===S.ap; }), t = k ? T[k] : null; return t ? pvApChu(t) : S.ap; };   /* 3.383 */
+  if(!S.xa) return 'Toàn PGD'+(S.hoi ? ' · '+hoiTen(S.hoi) : '')+(S.ap ? ' · '+apTen() : '');
+  var mot = function(f, v){ var k = Object.keys(T).find(function(m){ return String(T[m][f]||'')===v; }); return k ? T[k] : {}; };
   var r = [mot('xa', S.xa).tenXa || S.xa];
   if(S.diem){ var td = mot('khoaDiem', S.diem); r.push('Điểm '+(td.tenDiemDu||S.diem)); }
-  if(S.hoi) r.push(hoiTen(S.hoi)+(S.diem ? '' : ' (cả xã)'));
+  if(S.hoi) r.push(hoiTen(S.hoi)+(S.diem || S.ap ? '' : ' (cả xã)'));
+  if(S.ap) r.push(apTen());
   if(S.to){ var tt = T[S.to] || {}; r.push('Tổ '+(tt.ten||S.to)); }
   return r.join(' · ');
 }
