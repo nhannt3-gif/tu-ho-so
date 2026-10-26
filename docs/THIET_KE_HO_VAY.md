@@ -49,8 +49,11 @@
 1. Báo cáo **Sao kê biến động TK 105 và thu lãi, gốc** (theo tổ; cột: STT, mã KH, họ tên, dư nợ + ghi chú CT, số TK 105, số dư cuối tháng trước, **khách chuyển vào**, tăng / giảm, số dư đến ngày, **trả lãi**, **trả gốc**, lãi phải thu, ngày GD, ký hiệu) + dòng cộng tổ.
 2. Sau (anh duyệt từng việc): 📋 Tóm tắt tổ KTGS, Giao dịch xã, Tra cứu khách đọc chung bảng này.
 
-## 6. Chờ file anh gửi (Mẫu 31 + Sao kê TK 105 cùng ngày) để chốt
-- [ ] Số TK trong Sao kê: 10 số hay 13–14 số; khớp với Mẫu 31 không.
-- [ ] Khách nhiều TK 105: cộng hết hay chỉ TK chính.
-- [ ] "Số dư tháng trước" của Sao kê = số dư cuối tháng trước thật (so với Mẫu 31 chốt 30/09 đã có).
-- [ ] Thử công thức "khách chuyển vào" trên vài tổ: tỷ lệ khách ra âm (dấu hiệu tiền mặt).
+## 6. Đã kiểm trên file thật 25/10 (Mẫu 31 + Sao kê TK 105 + TK 104 + Tổ trưởng cùng ngày — chỉ đếm, không lưu số liệu)
+- Mẫu 31: 28.434 món · 21.027 khách. Sao kê TK 105: 21.102 TK · 21.048 khách, **số TK 10 chữ số** (Mẫu 31 ghi số TK hệ thống 13–14 ký tự → KHÔNG nối theo số TK) → **nối theo Mã KH**.
+- Khách còn dư nợ 17.739: có trong Sao kê 105 = 17.702; không có = 37. Khách nhiều TK 105: 21 → **cộng các TK**.
+- Số dư 105 Mẫu 31 (lấy số lớn nhất giữa các món — các món cùng khách có thể ghi khác nhau) = tổng Sao kê ở 20.906 khách; lệch 17 (khách 2 TK, Mẫu 31 chỉ ghi 1 TK) → **số dư lấy theo Sao kê**, Mẫu 31 chỉ dự phòng.
+- Công thức "khách chuyển vào" (Sao kê: số dư ngày BC − số dư tháng trước, + thu lãi + thu gốc tháng): 15.863 khách > 0 · 1.831 = 0 (1.720 trong đó có lãi phải thu → **chưa chuyển**) · **chỉ 8 khách âm** + 15 khách không TK 105 mà có thu → dấu hiệu **tiền mặt rất ít**; "Số dư tháng trước" khớp vai trò số dư đầu tháng.
+- Tổng toàn PGD 1/10 → 25/10: khách chuyển vào ≈ 12.985 tr · trả lãi ≈ 4.543 tr · trả gốc ≈ 6.858 tr (chỉ khách có TK).
+- Khách vay ≥ 2 chương trình: 3.569 → cột ghi chú chương trình cần thiết.
+- File Tổ trưởng (369 tổ) có thêm cột so với DSTO cũ: `TENPGD TENTINH TT105 LOAITO SOTVDN SOTVTK TP105 NGAYTT MBTT MBTP SYNC_DATE TUOITT TUOITP`. Sao kê TK 104 cùng khuôn Sao kê 105 (Sản phẩm = 104).
