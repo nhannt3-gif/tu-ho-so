@@ -1995,8 +1995,6 @@ var CO_GI_MOI = {ban:'3.383.6', ds:[
   ["Tra cứu KH gọn: lọc địa bàn trên cùng, ô tìm + Tìm theo cùng hàng; thẻ tổ / khách bỏ Đã lập / In, Dòng thời gian", "doiNgan(7)"],
   ["Sao kê, Tổng hợp, Thông tin tổ, báo cáo tab Tổ đọc số liệu qua KHO CHUẨN — kết quả giữ nguyên", "doiNgan(7)"],
   ["KHO CHUẨN: Mẫu 31 nguyên bản làm gốc, gắn thêm TK 105 / 104, Nợ QH / khoanh / KHĐ, tổ theo khóa — các tab truy vấn qua kho (bắt đầu: KTGS, tab Tổ, Sao kê)", "doiNgan(7)"],
-  ["Sao kê biến động TK 105: tiêu đề ghi rõ ngày số dư (cuối tháng trước · đến hết ngày), cột liên quan cạnh nhau, chữ 10, Ghi chú không mất chữ", "doiNgan(7)"],
-  ["Sao kê › Thông tin tổ: Biến động TK 105 — khách chuyển vào, tổ trưởng trích 105 trả lãi / gốc, ký hiệu 🏦 ⏳ 💵? 🟠 (Mẫu 31 + Sao kê TK 105 cùng ngày)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

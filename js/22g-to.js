@@ -207,18 +207,19 @@ function toNap(ky){
 }
 /* 3.145 (anh chốt): tổ dư nợ 0 còn trên DSTO hoặc LEN_31 TO_TRUONG → vẫn là 1 tổ, ghi "cần đóng tổ"; không còn ở cả 2 → ẩn khỏi cây (vẫn tìm được) */
 function toDong0(K, Bm){   /* 3.383.6 (anh 26/10 "chỉ hiện các tổ chưa đóng; tổ đóng rồi không hiện nữa, cần thì sao kê bên tab Sao kê") — QUY_CHUAN mục 16:
-     tổ CHƯA ĐÓNG = có mã trên Danh sách tổ của kỳ (hệ thống chỉ xuất tổ còn mở); thiếu Danh sách tổ → LEN_31 TO_TRUONG; thiếu cả 2 → Mẫu 31 (còn dư nợ / còn khách TK 105).
+     tổ CHƯA ĐÓNG = có mã trên Danh sách tổ của kỳ (hệ thống chỉ xuất tổ còn mở); thiếu → Thông tin tổ trưởng → LEN_31 TO_TRUONG → Mẫu 31 (còn khách TK 105); có thu trong tháng thì luôn giữ.
      Dư nợ 0 mà chưa đóng → "cần đóng tổ". Đã đóng → bỏ khỏi cây (K.toAn, không tìm, không hiện). Còn dư nợ mà không có trên Danh sách tổ → vẫn hiện + cảnh báo (không giấu món vay). */
-  var T = K.to, coDS = !!(Bm.co.dsto||[]).length, coLen = !!(Bm.co.lt||[]).length; K.toAn = {}; K.canDong = []; K.ngoaiDS = [];
+  var T = K.to, coDS = !!(Bm.co.dsto||[]).length, coTT = !!(Bm.co.tt||[]).length, coLen = !!(Bm.co.lt||[]).length; K.toAn = {}; K.canDong = []; K.ngoaiDS = [];
+  var thuThang = function(ma){ return (K.kh[ma]||[]).some(function(o){ return (o.tnTH||0)+(o.tnQH||0)+(o.tnK||0)+(+o.c_thu_lai_th_thang||0)+(+o.c_thu_lai_qh_thang||0)>0; }); };   /* tất toán + đóng ngay trong tháng → còn số thu tháng: giữ để báo cáo tháng đủ số */
   var guiTK = function(ma){ return (K.kh[ma]||[]).concat((K.lap||[]).filter(function(o){ return o.to===ma; })).some(function(o){ return (o.t105||0)>0; }); };
   Object.keys(T).forEach(function(ma){ var t = T[ma]; if(toLaTT(t)) return;
     var dn = (K.kh[ma]||[]).reduce(function(a, o){ return a+(o.dn||0); }, 0);
     if(dn>0){ if(coDS && !t.ds){ t.ngoaiDS = true; K.ngoaiDS.push(ma); } return; }
-    var mo = coDS ? !!t.ds : coLen ? !!t.len : guiTK(ma);
+    var mo = (coDS ? !!t.ds : coTT ? !!t.tt : coLen ? !!t.len : guiTK(ma)) || thuThang(ma);   /* chuỗi căn cứ: Danh sách tổ → Thông tin tổ trưởng → LEN_31 → Mẫu 31 */
     if(mo){ t.canDong = true; K.canDong.push(ma); } else { K.toAn[ma] = t; delete T[ma]; } });
 }
 function toDongNguon(t){   /* căn cứ "cần đóng tổ" + TK 104 (Danh sách tổ có cột TK 104) */
-  return (t.ds ? 'Danh sách tổ'+(t.ds.tk104 ? ' · còn TK 104' : ' · đã đóng TK 104') : t.len ? 'LEN_31 TO_TRUONG' : 'Mẫu 31 — còn khách có TK 105'); }
+  return (t.ds ? 'Danh sách tổ'+(t.ds.tk104 ? ' · còn TK 104' : ' · đã đóng TK 104') : t.tt ? 'Thông tin tổ trưởng' : t.len ? 'LEN_31 TO_TRUONG' : 'Mẫu 31 — còn khách có TK 105 hoặc có thu trong tháng'); }
 function toDien(t, o, ds){ ds.forEach(function(f){ if(!t[f[0]] && o[f[1]]) t[f[0]] = o[f[1]]; }); }   /* điền trường còn trống của tổ từ 1 dòng dữ liệu */
 /* ---------- 3.92: VAY TRỰC TIẾP (anh Nhân: món không mã tổ — GQVL hội người mù, XKLD… — vẫn có xã, điểm GD cụ thể) ----------
    mỗi xã + điểm GD có món trực tiếp → 1 mục giả trong cây (mã TT…, hội 99 "Trực tiếp", tên "Vay trực tiếp (không qua tổ)");

@@ -285,8 +285,9 @@ Một chỗ quyết định: `toDong0` (`js/22g-to.js`) lúc dựng cây tổ c�
 | 2 | 〃 | có mã trên DS, dư nợ 0 | chưa đóng, **cần đóng tổ** | hiện + nhãn "cần đóng tổ" (căn cứ: Danh sách tổ · còn / đã đóng TK 104) |
 | 3 | 〃 | không có trên DS, dư nợ 0 | **đã đóng** | KHÔNG hiện, không tìm ra (cần xem → tab Sao kê) |
 | 4 | 〃 | không có trên DS, còn dư nợ (số liệu lệch) | chưa rõ | vẫn hiện + "⚠ không có trên Danh sách tổ" (không giấu món vay) |
-| 5 | Không có DS, có LEN_31 TO_TRUONG | dư nợ 0 | theo LEN_31 (có → cần đóng, không → đã đóng) | như 2 / 3 |
+| 5 | Không có DS, có Thông tin tổ trưởng (hoặc chỉ LEN_31 TO_TRUONG) | dư nợ 0 | theo file đó (có → cần đóng, không → đã đóng) | như 2 / 3 |
 | 6 | Không có cả 2 (chỉ Mẫu 31) | dư nợ 0 | còn khách có TK 105 → cần đóng; không → đã đóng | như 2 / 3 |
+- Tổ có thu nợ / thu lãi trong tháng (tất toán rồi đóng ngay trong tháng) → luôn giữ ("cần đóng tổ") để báo cáo tháng đủ số.
 - Danh sách tổ là căn cứ chính: khi có DS thì KHÔNG xét LEN_31 (LEN_31 ghép tổ theo tên tổ trưởng → dễ kéo tổ đã đóng hiện lại).
 - Số liệu 25/10 (file thật, chỉ đếm): 322 tổ có dư nợ trên DS · 47 cần đóng (32 còn TK 104, 15 đã đóng TK 104) · 9 đã đóng · 0 lệch.
-- Phép thử: t141 (luật 1–3, 6).
+- Phép thử: t141 (luật 1–3, 6), t276 (bản chụp 64 báo cáo không đổi).
