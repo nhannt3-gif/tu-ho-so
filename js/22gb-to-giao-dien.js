@@ -25,7 +25,7 @@ function toVe(K, dsKy){
 function toVeCay(){ pvVeCay('to'); }
 function toChonTo(ma){
   var t = KHO.kyDung() && KHO.kyDung().to[ma]; if(!t){ var an = KHO.kyDung() && KHO.kyDung().toAn && KHO.kyDung().toAn[ma]; if(an) bao('Tổ '+(an.ten||ma)+' (mã '+ma+'): dư nợ 0 và không còn trên Danh sách tổ / LEN_31 TO_TRUONG kỳ này — đã ẩn khỏi cây tổ.', 6); return; }
-  var C = toCH(); C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); C.to = ma;
+  var C = toCH(); C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); C.ap = ''; C.to = ma;
   TO_Q = ''; var i = document.getElementById('to-tim'); if(i) i.value = '';
   var g = document.getElementById('to-gy'); if(g) g.innerHTML = '';
   luu(); pvVeCay('to');
@@ -44,7 +44,7 @@ function toVeThe(){
   var C = toCH(), t = KHO.kyDung() && KHO.kyDung().to[C.to];
   if(!t){   /* 3.132 (anh chốt): chưa chọn tổ → dòng tóm tắt + chip của cả phạm vi (Hội / điểm GD / xã / PGD); mặc định bảng các tổ (PGD: bảng theo xã, điểm GD) */
     o.innerHTML = toPVHTML(C);
-    var khoa = [KHO.kyDung().ky, C.xa, C.diem, C.hoi].join('|');
+    var khoa = [KHO.kyDung().ky, C.xa, C.diem, C.hoi, C.ap].join('|');
     Promise.all([toTruocNap(), toBDTNap()]).then(function(){ var x = document.getElementById('to-the'), C2 = toCH(); if(x && !C2.to && [KHO.kyDung().ky, C2.xa, C2.diem, C2.hoi].join('|')===khoa && !(TO_PVC && TO_PVC.khoa.slice(-2)==='|1' && TO_PVC.K===KHO.kyDung() && TO_PVC.ve)) { x.innerHTML = toPVHTML(C2); if(TO_PVC) TO_PVC.ve = 1; } });
     return;
   }

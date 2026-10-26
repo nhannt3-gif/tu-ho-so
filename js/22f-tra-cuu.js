@@ -37,16 +37,19 @@ function tcHan(c){   /* hạn CCCD + mức: het / sap (< 6 tháng) / ok / ? */
 }
 function tcNoiGon(c){ var t = KHO.toDanhBa(c.to)||{}; return [c.tenXa ? String(c.tenXa).replace(/^(Xã|Phường|Thị trấn)\s+/i, '') : '', c.tenThon||t.tenThon ? 'ấp '+String(c.tenThon||t.tenThon).replace(/^(ấp|ap)\s+/i, '') : '', c.toTen||t.ten ? 'tổ '+(c.toTen||t.ten) : ''].filter(Boolean).join(' · '); }
 
+/* 3.383 (anh 26/10 "bỏ phần này chưa cần"): thẻ khách / thẻ tổ ẩn 📜 Đã lập / In + 📅 Dòng thời gian — bật lại: TC_KHOI_PHU = true (nhật ký in vẫn ghi) */
+var TC_KHOI_PHU = false;
 /* ---------- cột trái ---------- */
 function slTraHTML(){
   var n = KHO.chiMuc().length, ky = slHSMoi();
   tcDangKy();
   return '<div class="tc-dau">'+   /* 3.335 (anh 24/10): ô tìm + LỌC ĐỊA BÀN thành dải ngang toàn trang (trước nằm trong cột trái hẹp) */
+    '<div id="tc-cay" class="to-cay pv-cay"></div>'+   /* 3.383 (anh 26/10 "tối ưu 2–3 dòng: dòng địa bàn đầu tiên, đến ô tìm, các nút tìm theo 1 dòng chip nhỏ bên dưới, bên phải ô hiện chip báo nếu có, dưới nữa là kiểm trùng") */
     '<div class="tc-tim"><div class="tc-hang"><div class="sl-tra-o"><span>🔎</span><input id="sl-tim" autocomplete="off" value="'+coChuHTML(SL_TRA_Q)+'" placeholder="'+tcTheoPH()+'" '+
     'oninput="SL_TRA_Q=this.value;TC_SL=50;slTraTim()" onkeydown="tcPhim(event)">'+
     (SL_TRA_Q ? '<button class="sap-ico" onclick="SL_TRA_Q=\'\';veSoLieu();slDoiTab(\'tra\')" title="Xóa">✕</button>' : '')+'</div>'+
     (typeof DH_CUOI!=='undefined' && DH_CUOI==='gd' ? '<button class="nho tc-ve-gdx" onclick="dhBam(\'gd\',\'gdx\')" title="Về bàn thao tác Giao dịch xã (địa bàn giữ nguyên)">← 🏢 Giao dịch xã</button>' : '')+   /* 3.328: vào từ Giao dịch xã */
-    '</div>'+tcTheoHTML()+'</div><div id="tc-cay" class="to-cay pv-cay"></div></div>'+   /* 3.160: bỏ khung gập "📍 Toàn PGD" — cây lọc chung như các tab */
+    tcTheoHTML()+'<span class="pv-chip-o tc-bao">'+slChipHTML()+'</span></div></div></div>'+   /* 3.383 (anh): ô tìm vừa phải + Tìm theo cùng hàng, nổi hơn */   /* 3.160: bỏ khung gập "📍 Toàn PGD" — cây lọc chung như các tab */
     '<div class="tc-2cot tc394"><div class="tc-trai"><div class="sl-tra">'+
     '<details class="tc-kt"'+(TC_KT.so || TC_KT.ten ? ' open' : '')+'><summary>🔍 Kiểm trùng trước khi nhập máy</summary>'+
       '<div class="tc-kt-o"><input id="tc-kt-so" inputmode="numeric" autocomplete="off" placeholder="Số CCCD / CMND" value="'+coChuHTML(TC_KT.so)+'" oninput="TC_KT.so=this.value;tcKTVe()">'+
@@ -243,8 +246,8 @@ function slTheKH(ma){
       dong(stk.length>1 ? 'TK 105 ('+stk.length+')' : 'TK 105', stk.length ? stk.map(function(s){ return tcC(s, 'số TK 105'); }).join(' · ') : '—')+dong('Số dư 105', c.t105 ? '<b>'+tdnTien(c.t105)+'</b>' : '0')+'</div></div>'+
     tcToKhoiHTML(c)+'</div>'+   /* 3.333 (anh chốt): khối Tổ & địa bàn — mã tổ, tổ trưởng + mã KH (chép), số TV chuẩn QT-18, bảng tổ của điểm GD */
     '<div class="tc-nhom tc-nhom-mon"><div class="tc-nhom-tit">Món vay — '+slKyChu(c.ky)+'</div><div id="kh-mon"><div class="rong">Đang mở…</div></div></div>'+
-    (typeof nkKhoiHTML==='function' ? nkKhoiHTML('kh', ma, 6) : '')+   /* 3.348: 📜 đã lập / in */
-    (typeof dtgKhoiHTML==='function' ? dtgKhoiHTML('kh', ma) : '')+   /* 3.359: 📅 dòng thời gian */
+    (TC_KHOI_PHU && typeof nkKhoiHTML==='function' ? nkKhoiHTML('kh', ma, 6) : '')+   /* 3.348: 📜 đã lập / in */
+    (TC_KHOI_PHU && typeof dtgKhoiHTML==='function' ? dtgKhoiHTML('kh', ma) : '')+   /* 3.359: 📅 dòng thời gian */
     '<div class="hang-nut tc-nut"><button class="nho" onclick="slChepKH(\''+ma+'\')">📋 Chép cả khối</button>'+(c.to ? '<button class="nho" onclick="tcMoTo(\''+c.to+'\')">👥 Mở tổ</button>' : '')+
     (hai ? '' : '<button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button>')+'</div>';
   if(hai) document.getElementById('tc-ct').innerHTML = '<div class="tc-the tc-khung">'+h+'</div>';   /* 3.333: khung cố định (CSS .tc-khung) */
@@ -289,7 +292,7 @@ function slTheKH(ma){
       (xong.length ? '<div class="hang-nut"><button class="nho" onclick="var b=document.getElementById(\'tc-xong\');b.hidden=!b.hidden;this.textContent=b.hidden?\'▾ Hiện '+xong.length+' món đã tất toán\':\'▴ Ẩn món đã tất toán\'">▾ Hiện '+xong.length+' món đã tất toán</button></div>' : '');
   });
 }
-function tcMoTo(to){ dongHop(); var C = toCH(), t = KHO.to(to); C.to = to; if(t){ C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); } else { var k = KHO.toKy(TC_K, to); if(k){ C.xa = k.xa||''; C.diem = k.khoaDiem; C.hoi = String(k.dv||''); } } luu(); slDoiTab('to'); }
+function tcMoTo(to){ dongHop(); var C = toCH(), t = KHO.to(to); C.to = to; if(t){ C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); C.ap = ''; } else { var k = KHO.toKy(TC_K, to); if(k){ C.xa = k.xa||''; C.diem = k.khoaDiem; C.hoi = String(k.dv||''); } } luu(); slDoiTab('to'); }
 function slChepKH(ma){
   var c = KHO.danhBa(ma); if(!c) return; var t = KHO.toDanhBa(c.to)||{};
   chepChu(['Họ tên: '+(c.ten||''), 'Mã KH: '+ma, 'Ngày sinh: '+ngayVNsl(c.ns), 'CCCD: '+(c.cccd||'')+(c.ncap ? ' — cấp '+ngayVNsl(c.ncap) : '')+(c.noiCap ? ' — '+c.noiCap : ''),

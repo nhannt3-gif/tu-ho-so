@@ -143,8 +143,8 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
       GD.chip('Gọn', gon, 'tc.tvKieu', {k:'gon', to:t.ma}, 'Mỗi khách 1 dòng — bấm ▸ xem từng món')+'</div>'+
       '<div class="tc-to-tv-ds"><table class="tc-to-tvb"><thead><tr><th>#</th><th>Họ tên</th><th>Mã KH</th><th>CT</th><th>Dư nợ</th><th>Ngày vay</th><th>Hạn trả</th><th>Lãi tồn</th><th>TGTK</th></tr></thead><tbody>'+
       tv.map(dongTV).join('')+'</tbody></table></div></div>'+
-    (typeof nkKhoiHTML==='function' ? nkKhoiHTML('to', t.ma, 5) : '')+   /* 3.348: 📜 đã lập / in */
-    (typeof dtgKhoiHTML==='function' ? dtgKhoiHTML('to', t.ma) : '')+   /* 3.359: 📅 dòng thời gian */
+    (TC_KHOI_PHU && typeof nkKhoiHTML==='function' ? nkKhoiHTML('to', t.ma, 5) : '')+   /* 3.348: 📜 đã lập / in */
+    (TC_KHOI_PHU && typeof dtgKhoiHTML==='function' ? dtgKhoiHTML('to', t.ma) : '')+   /* 3.359: 📅 dòng thời gian */
     '<div class="hang-nut tc-nut">'+(coKH ? GD.nut({chu:'👤 Xem tổ trưởng', lenh:'tc.kh', du:{kh:tt.kh}}) : '')+
       (t.khoaDiem ? GD.nut({chu:'🏘 Tổ của điểm GD', lenh:'tc.bangDiem', du:{diem:t.khoaDiem, to:t.ma}}) : '')+
       GD.nut({chu:'👥 Mở tổ', lenh:'tc.moTo', du:{to:t.ma}})+GD.nut({chu:'👪 Lập hồ sơ hộ mới vào tổ', lenh:'tc.ketNap', du:{to:t.ma}, chinh:1, tit:'Mở form 👪 Hộ vay, điền sẵn Xã › Ấp › Tổ'})+'</div>';

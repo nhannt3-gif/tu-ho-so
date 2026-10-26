@@ -33,11 +33,11 @@ function toCH(){ return pvGan(D.cauHinh.toTK = D.cauHinh.toTK || {ky:'', xa:'', 
 /* 3.149 (anh chốt "dùng chung hết"): phạm vi xã › điểm › hội › tổ DÙNG CHUNG cho Tổ, Sao kê, Tổng hợp, KTGS, Tra cứu —
    các ô xa / diem / hoi / to của từng tab trỏ vào 1 chỗ D.cauHinh.pvChung (getter / setter); lần đầu lấy theo tab Tổ */
 /* 3.328 (anh chốt 23/10): mở app = về Toàn PGD — địa bàn chỉ giữ trong phiên (PV_PHIEN); 📌 Ghim (chung mọi tab) = giữ địa bàn + kiểu cho lần mở sau (D.cauHinh.pvChung) */
-var PV_PHIEN = {xa:'', diem:'', hoi:'', to:''};
-function pvChungO(){ var c = D.cauHinh; if(!pvGhimCua()) return PV_PHIEN; if(!c.pvChung){ var t = c.toTK || {}, g = c.pvChung = {}; ['xa','diem','hoi','to'].forEach(function(f){ var d = Object.getOwnPropertyDescriptor(t, f); g[f] = (d && !d.get && d.value) || ''; }); } return c.pvChung; }
+var PV_PHIEN = {xa:'', diem:'', hoi:'', ap:'', to:''};
+function pvChungO(){ var c = D.cauHinh; if(!pvGhimCua()) return PV_PHIEN; if(!c.pvChung){ var t = c.toTK || {}, g = c.pvChung = {}; ['xa','diem','hoi','ap','to'].forEach(function(f){ var d = Object.getOwnPropertyDescriptor(t, f); g[f] = (d && !d.get && d.value) || ''; }); } return c.pvChung; }
 function pvGan(C){
-  if(!C || (Object.getOwnPropertyDescriptor(C, 'xa')||{}).get) return C;
-  ['xa','diem','hoi','to'].forEach(function(f){ Object.defineProperty(C, f, {enumerable:true, configurable:true, get:function(){ return pvChungO()[f]||''; }, set:function(v){ pvChungO()[f] = v||''; }}); });
+  if(!C || (Object.getOwnPropertyDescriptor(C, 'ap')||{}).get) return C;   /* 3.383: + ap (bộ cũ đã gắn 4 cấp → gắn lại đủ 5) */
+  ['xa','diem','hoi','ap','to'].forEach(function(f){ Object.defineProperty(C, f, {enumerable:true, configurable:true, get:function(){ return pvChungO()[f]||''; }, set:function(v){ pvChungO()[f] = v||''; }}); });
   return C;
 }
 /* các kỳ số liệu có bảng món vay: Mẫu 31 theo tháng, Mẫu 10 theo ngày — mới nhất trước */
