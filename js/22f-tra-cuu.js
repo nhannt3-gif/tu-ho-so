@@ -47,7 +47,7 @@ function slTraHTML(){
     'oninput="SL_TRA_Q=this.value;TC_SL=50;slTraTim()" onkeydown="tcPhim(event)">'+
     (SL_TRA_Q ? '<button class="sap-ico" onclick="SL_TRA_Q=\'\';veSoLieu();slDoiTab(\'tra\')" title="Xóa">✕</button>' : '')+'</div>'+
     (typeof DH_CUOI!=='undefined' && DH_CUOI==='gd' ? '<button class="nho tc-ve-gdx" onclick="dhBam(\'gd\',\'gdx\')" title="Về bàn thao tác Giao dịch xã (địa bàn giữ nguyên)">← 🏢 Giao dịch xã</button>' : '')+   /* 3.328: vào từ Giao dịch xã */
-    '<span class="pv-chip-o tc-bao">'+slChipHTML()+'</span></div>'+tcTheoHTML()+'</div></div>'+   /* 3.160: bỏ khung gập "📍 Toàn PGD" — cây lọc chung như các tab */
+    tcTheoHTML()+'<span class="pv-chip-o tc-bao">'+slChipHTML()+'</span></div></div></div>'+   /* 3.383 (anh): ô tìm vừa phải + Tìm theo cùng hàng, nổi hơn */   /* 3.160: bỏ khung gập "📍 Toàn PGD" — cây lọc chung như các tab */
     '<div class="tc-2cot tc394"><div class="tc-trai"><div class="sl-tra">'+
     '<details class="tc-kt"'+(TC_KT.so || TC_KT.ten ? ' open' : '')+'><summary>🔍 Kiểm trùng trước khi nhập máy</summary>'+
       '<div class="tc-kt-o"><input id="tc-kt-so" inputmode="numeric" autocomplete="off" placeholder="Số CCCD / CMND" value="'+coChuHTML(TC_KT.so)+'" oninput="TC_KT.so=this.value;tcKTVe()">'+
