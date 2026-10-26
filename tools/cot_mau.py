@@ -69,6 +69,7 @@ out += ['## Ghi chú nghiệp vụ (đã xác minh với anh)', '',
   '- **Mẫu 31 lãi**: `Lũy kế thu lãi*` = cộng dồn từ khi vay; **trong tháng** = `Lãi DT trong tháng` (dự thu) · `Lãi TT trong tháng` (thực thu) · `Thu lãi TH tháng` + `Thu lãi QH Tháng`; quý / năm có cột riêng.',
   '- **Mẫu 31 gốc trong tháng**: `Thu nợ TH tháng` + `Thu nợ QH tháng` + `Thu nợ khoanh tháng`.',
   '- **TK 105**: Mẫu 31 chỉ có `Số dư tiền gửi 105` tại ngày số liệu (không có số dư đầu tháng) — số dư cuối tháng trước lấy Mẫu 31 chốt tháng trước hoặc Sao kê TK 105 cột `Số dư tháng trước`.',
+  '- **Đã kiểm trên file thật 19/10 (chỉ đếm, không lưu số liệu)**: `Tài khoản TH / QH / khoanh / thu lãi` là **tài khoản hạch toán** (212x/252x/213x · 292x/293x · 702x/714x), KHÔNG phải TK 105 → Mẫu 31 không tách được thu qua 105 hay tiền mặt. `Lãi TT trong tháng` = `Thu lãi TH tháng` + `Thu lãi QH Tháng` (gần như mọi món). `Sổ tiết kiệm 105` 13–14 ký tự, khoảng 1/4 món trống.',
   '- Thu lãi bằng chuyển khoản (anh 26/10): khách CK vào TK 105 của mình → ngày GD tổ trưởng trích 105 nộp lãi / gốc. Khách CK vào = (số dư 105 ngày chọn − cuối tháng trước) + thu lãi tháng + thu gốc tháng.', '']
 open(os.path.join(G, 'docs/COT_FILE_MAU.md'), 'w', encoding='utf8').write('\n'.join(out))
 print('Đã ghi docs/COT_FILE_MAU.md')
