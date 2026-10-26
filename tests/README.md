@@ -216,6 +216,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t309.js` | 3.368 Tra cứu › Tổ trưởng: danh sách tổ đủ 7 cột không cuộn ngang ở 1280 / 1366 / 1920, mã tổ đủ, Hội viết tắt (title tên đủ). |
 | `node tests/t310.js` | 3.369 tối ưu nạp: `slNen` / `slMoBang` mới = thuật toán cũ (giữ bản cũ để so), dò Mẫu 01/TV trong 100 dòng đầu vẫn nhận dòng tên cột ở dòng 30. |
 | `node tests/t311.js` | 3.372 Đ6 điện thoại: thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm, đầu trang gọn, Tra cứu gọn, ☰ Thêm có 📱 + ⏱ đo tốc độ (ghi Dựng kỳ); máy 1440 / 900 không đổi. |
+| (3.382) | t276 mới: bản chụp kết quả 64 báo cáo (Sao kê, tab Tổ, Tổng hợp, kiểm Nạp TW) — chuyển sang đọc kho phải giống hệt; `--chup` ghi lại khi anh duyệt đổi báo cáo. |
 | (3.381) | t275 mới: KHO CHUẨN — toKhach qua kho giống hệt cách cũ (mọi tổ, mọi khách), gốc = mảng Mẫu 31 + chỉ mục, gắn TK 105 (2 TK) / 104 / tổ / Nợ QH theo khóa, kỳ từng nguồn, hoVay, gốc không bị sửa, KU hủy giữ riêng (9). |
 | (3.380.1) | t274: cột theo thứ tự dòng tiền + tiêu đề có ngày số dư, bảng hv105 / ô gc. |
 | (3.380) | t274 mới: dữ liệu Hộ vay + báo cáo biến động TK 105 — cột, xếp mã KH, 🏦 công thức khách chuyển vào, 2 CT ghi chú, ⏳, 💵? âm, 2 TK 105 cộng, 💵? không TK, 🟠, tổng cộng, tóm tắt, KHO.hoVay / hoVayKH, chưa nạp Sao kê (17). |

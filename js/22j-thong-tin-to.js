@@ -47,14 +47,14 @@ function ttMon(o, s, N, khd){   /* cộng 1 món vào s (s = tổ hoặc chươn
 function ttDuLieu(){   /* → [{khoa, ten, tenXa, ngayGD, hoi:[{dv, ten, to:[{t, s}], ct:{ma:s}, s}], ct:{ma:s}, s}] trong phạm vi */
   var K = SK_K, C = skCH(), T = K.to || {}, N = ttNgu(K), khd = {}, t105 = {}, lap = {};
   slKHD(K.B).forEach(function(o){ if(o.ku) khd[o.ku] = 1; });
-  (K.lap||[]).forEach(function(o){ if(o.kh && (o.t105||0)>(lap[o.kh]||0)) lap[o.kh] = o.t105; });
+  (kcLap(K)||[]).forEach(function(o){ if(o.kh && (o.t105||0)>(lap[o.kh]||0)) lap[o.kh] = o.t105; });   /* 3.382: qua kho chuẩn */
   var D0 = {}, ds = [];
   Object.keys(T).map(function(m){ return T[m]; }).filter(function(t){ return pvLoc(C, t); }).forEach(function(t){
     var kd = t.khoaDiem || ttDiemTen(t), d = D0[kd];
     if(!d){ d = D0[kd] = {khoa:kd, ten:ttDiemTen(t), tenXa:t.tenXa||'', ngayGD:t.ngayGD||'', H:{}, ct:{}, s:ttSoMoi()}; ds.push(d); }
     var dv = String(t.dv||''), h = d.H[dv] = d.H[dv] || {dv:dv, ten:ttHoiTen(dv), to:[], ct:{}, s:ttSoMoi()};
     var s = ttSoMoi(), kh105 = {};
-    (K.kh[t.ma]||[]).forEach(function(o){
+    kcTo(K, t.ma).dong.forEach(function(o){
       if(o.kh) s._kh[o.kh] = 1;   /* 3.262 (anh chốt): Số hộ = tổ viên của tổ (như tab Tổ), kể cả hộ chỉ gửi TK 105 */
       ttMon(o, s, N, khd);
       var v = Math.max(o.t105||0, lap[o.kh]||0); if(o.kh && v>(kh105[o.kh]||0)) kh105[o.kh] = v; });
@@ -179,7 +179,7 @@ function ttTHHD(){
   var xs = ttXaGom(ds), T = ttSoMoi(), to = [], N = ttNgu(K), khd = {}, ct = {};
   ds.forEach(function(d){ ttCong(T, d.s); d.hoi.forEach(function(g){ g.to.forEach(function(z){ to.push({t:z.t, s:z.s, d:d, g:g}); }); }); }); ttChot(T);
   slKHD(K.B).forEach(function(o){ if(o.ku) khd[o.ku] = 1; });
-  to.forEach(function(z){ (K.kh[z.t.ma]||[]).forEach(function(o){ if(!o.ku) return; var c = ctHT(o.ct, o) || '?'; ttMon(o, ct[c] = ct[c] || ttSoMoi(), N, khd); }); });
+  to.forEach(function(z){ kcTo(K, z.t.ma).dong.forEach(function(o){ if(!o.ku) return; var c = ctHT(o.ct, o) || '?'; ttMon(o, ct[c] = ct[c] || ttSoMoi(), N, khd); }); });
   Object.keys(ct).forEach(function(c){ ttChot(ct[c]); });
   /* ① chỉ tiêu chính — 4 cột (chỉ tiêu, giá trị) × 2 */
   var toT = to.filter(function(z){ return !toLaTT(z.t); }), xl = ttDemXL(toT), dtb = ttDTBTo(toT);
@@ -211,7 +211,7 @@ function ttTHHD(){
       return ly.length ? {nhan:(z.t.ten||z.t.ma)+' · '+z.g.ten.replace(/^Hội |^Đoàn /, ''), s:z.s, ly:ly.join(', ')} : null; }).filter(Boolean).sort(function(a, b){ return ttRR(b.s)-ttRR(a.s); });
     if(lu.length) h += ttTHBang(so+++'. Tổ cần lưu ý ('+lu.length+' / '+toT.length+' tổ)', [['Tổ · hội','c',function(r){ return r.nhan; }], TT_TH_COT[2], TT_TH_COT[4], TT_TH_COT[6], TT_TH_COT[8], TT_TH_COT[9], TT_TH_COT[10], ['Lưu ý','c',function(r){ return r.ly; }]], lu, aoa); }
   if(cap==='to'){   /* hộ cần lưu ý trong tổ */
-    var KH = {}; to.forEach(function(z){ (K.kh[z.t.ma]||[]).forEach(function(o){ if(!o.ku) return; var x = KH[o.kh] = KH[o.kh] || {ten:o.ten||o.kh, dn:0, qh:0, kn:0, lt:0, khd:0, ct:{}}; x.dn += o.dn||0; x.qh += o.qh||0; x.kn += o.kn||0; x.lt += laiTon(o); if(khd[o.ku]) x.khd += o.dn||0; if((o.dn||0)>0) x.ct[ctHT(o.ct, o)] = 1; }); });
+    var KH = {}; to.forEach(function(z){ kcTo(K, z.t.ma).dong.forEach(function(o){ if(!o.ku) return; var x = KH[o.kh] = KH[o.kh] || {ten:o.ten||o.kh, dn:0, qh:0, kn:0, lt:0, khd:0, ct:{}}; x.dn += o.dn||0; x.qh += o.qh||0; x.kn += o.kn||0; x.lt += laiTon(o); if(khd[o.ku]) x.khd += o.dn||0; if((o.dn||0)>0) x.ct[ctHT(o.ct, o)] = 1; }); });
     var hk = Object.keys(KH).map(function(k){ return KH[k]; }).filter(function(x){ return x.qh || x.kn || x.khd || x.lt>0; }).sort(function(a, b){ return (b.qh+b.kn+b.khd)-(a.qh+a.kn+a.khd) || b.lt-a.lt; });
     var cotH = [['Hộ','c',function(r){ return r.ten; }], ['Chương trình','c',function(r){ return Object.keys(r.ct).join(', '); }], ['Dư nợ','tr',function(r){ return r.dn; }], ['Nợ quá hạn','tr',function(r){ return r.qh; }],
       ['Nợ khoanh','tr',function(r){ return r.kn; }], ['KHĐ 3 tháng','tr',function(r){ return r.khd; }], ['Lãi tồn','tr',function(r){ return r.lt; }]];
@@ -230,7 +230,7 @@ function ttSaoKe(o){   /* o = {ten, tieuDe, L, cot, dong(x, stt) → mảng ô, 
   var K = SK_K, T = K.to || {}, ma31 = {};
   if(!(K.B.nguon && K.B.nguon[o.L]) && !KHO.bang(o.L, K.thang) && o.L!=='khd') return {ten:o.ten, tieuDe:o.tieuDe, ngang:false, ctChu:'', ngay:'Tháng '+kyVN(K.thang), aoa:[['Chưa nạp file']], html:'<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(o.L).ten)+' tháng '+kyVN(K.thang)+'.</div>'};
   (K.hs||[]).forEach(function(x){ if(x.ku && !ma31[x.ku]) ma31[x.ku] = x; });
-  var ds = (o.L==='khd' ? slKHD(K.B) : (K.B.co[o.L]||[])).filter(skTrongPV);
+  var ds = (o.L==='khd' ? slKHD(K.B) : (kcBang(K, o.L)||[])).filter(skTrongPV);
   var D0 = {}, thu = [];
   ds.forEach(function(x){ var ma = toMaCua(x), t = T[ma] || {}, kd = t.khoaDiem || ttDiemTen(t), d = D0[kd];
     if(!d){ d = D0[kd] = {ten:ttDiemTen(t), tenXa:t.tenXa||'', ngayGD:t.ngayGD||'', H:{}}; thu.push(d); }
