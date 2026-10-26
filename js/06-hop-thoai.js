@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.380.1', ds:[
+var CO_GI_MOI = {ban:'3.381', ds:[
+  ["KHO CHUẨN: Mẫu 31 nguyên bản làm gốc, gắn thêm TK 105 / 104, Nợ QH / khoanh / KHĐ, tổ theo khóa — các tab truy vấn qua kho (bắt đầu: KTGS, tab Tổ, Sao kê)", "doiNgan(7)"],
   ["Sao kê biến động TK 105: tiêu đề ghi rõ ngày số dư (cuối tháng trước · đến hết ngày), cột liên quan cạnh nhau, chữ 10, Ghi chú không mất chữ", "doiNgan(7)"],
   ["Sao kê › Thông tin tổ: Biến động TK 105 — khách chuyển vào, tổ trưởng trích 105 trả lãi / gốc, ký hiệu 🏦 ⏳ 💵? 🟠 (Mẫu 31 + Sao kê TK 105 cùng ngày)", "doiNgan(7)"],
   ["KTGS 🎯 Đột xuất + 📅 Định kỳ: nút 📋 Tóm tắt tổ — tình hình tổ 1 mặt A4 (số liệu đến ngày, 8 ô số, dư nợ theo chương trình, hộ cần quan tâm, nội dung kiểm tra theo 727) mang đi kiểm tra", "slDoiTab('kt')"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.380.1', ds:[
   ["Drive: báo ở 1 chip (máy tính / điện thoại thống nhất), mở lại app còn quyền là nối ngay, bỏ thông báo nổi rối", "bamChip()"],
   ["Bố cục: khung xem chỉ mở khi chọn mục · đầu trang ghi tab đang mở · chip lọc văn bản khai thiếu", "doiNgan(1)"],
   ["Điện thoại: thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · ☰ Thêm — 3 tab chính bấm 1 lần là tới; GD xã, Số liệu, Hồ sơ, Cài đặt trong ☰ Thêm", "doiNgan(0)"],
-  ["Điện thoại: đầu trang gọn (❓🧰🗑⚙ vào ☰ Thêm), dòng trạng thái chỉ hiện khi có tin; Tra cứu lên danh sách khách ngay (bỏ tab con, Lọc địa bàn 1 hàng)", "dhSL('tra')"],
-  ["⏱ Đo tốc độ (☰ Thêm): ghi thời gian nối Drive, tải, dựng kỳ trên máy anh — 📋 Chép gửi em để sửa đúng chỗ chậm", "dtdHop()"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Điện thoại: đầu trang gọn (❓🧰🗑⚙ vào ☰ Thêm), dòng trạng thái chỉ hiện khi có tin; Tra cứu lên danh sách khách ngay (bỏ tab con, Lọc địa bàn 1 hàng)", "dhSL('tra')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

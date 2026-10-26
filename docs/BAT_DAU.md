@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.380.1** — TK 3: Sao kê biến động TK 105 bố trí lại cột (ngày số dư trên tiêu đề, cột theo dòng tiền, chữ 10, ghi chú không mất chữ). 3.380: dữ liệu Hộ vay KHO.hoVay + báo cáo biến động TK 105. Chờ anh: chốt kho chuẩn (định dạng) → 3.381; số đo ⏱ quét CCCD.
+- **`main` = 3.381** — TK 3: KHO CHUẨN `js/73` (Mẫu 31 gốc + gắn TK 105/104, QH/khoanh/KHĐ, tổ; cửa KHO.kc / kcKH / kcKU / kcTo), toKhach + KHO.hoVay đọc qua kho; luật QUY_CHUAN mục 15. Tiếp: 3.382 Sao kê · Tổng hợp · Thông tin tổ qua kho. Chờ anh: số đo ⏱ quét CCCD.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

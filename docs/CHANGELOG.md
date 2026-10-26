@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.381 — 26/10/2026 — KHO CHUẨN (TK 3)
+- **Anh 26/10**: "khi nạp dữ liệu, dùng khóa liên kết với nhau thành 1 data hoàn chỉnh, mọi truy vấn lấy qua kho; data chuẩn lấy nguyên bản từ Mẫu 31, bổ sung số TK 105, 104, không đổi bất cứ gì; các nơi khác chỉ truy vấn…"; "không đổi bản chất số liệu là được".
+- **`js/73-kho-chuan.js`** + cửa **`KHO.kc()` · `KHO.kcKH(kh)` · `KHO.kcKU(ku)` · `KHO.kcTo(ma)`**: gốc = dòng Mẫu 31 của kỳ (không chép, không sửa; KU hủy giữ riêng); gắn thêm Sao kê TK 105 / 104 theo mã KH, Nợ QH / khoanh / KHĐ theo số KU, tổ theo mã tổ; ghi kỳ từng nguồn (`kcNguon`).
+- `toKhach` (KTGS Mẫu 06/16/04, 📋 Tóm tắt tổ, tab Tổ, Sao kê) và `KHO.hoVay` đọc qua kho — kết quả như cũ.
+- Luật mới `docs/QUY_CHUAN_KIEN_TRUC.md` mục 15. Lộ trình chuyển các tab còn lại: 3.382 → 3.384.
+- Chạy lại báo cáo TK 105 trên file thật 25/10 (máy em): số giống hệt 3.380.
+- Phép thử: t275 mới (9) — mọi tổ / khách toKhach giống hệt cách cũ, gốc không bị sửa sau mọi truy vấn.
+
 ## 3.380.1 — 26/10/2026 — Sao kê biến động TK 105: bố trí lại cột (TK 3)
 - **Anh xem bản in 26/10**: "cột cuối còn mất chữ; ghi rõ trên tiêu đề số dư cuối tháng trước 30/09/2026, số dư đến hết ngày 25/10/2026; bố trí các cột có liên quan kế bên nhau; hạ font chữ 10–11".
 - Tiêu đề cột: **Số dư cuối tháng trước dd/mm/yyyy** (cuối tháng liền trước ngày Sao kê) · **Số dư đến hết ngày dd/mm/yyyy** (ngày Sao kê; chưa nạp Sao kê → ngày Mẫu 31).

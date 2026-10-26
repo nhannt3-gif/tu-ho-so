@@ -4,6 +4,10 @@
 > "nếu tách được thu qua 105 và thu qua tiền mặt thì tốt… ký hiệu theo dõi"; "em cứ coi cấu trúc file và thiết kế data, anh sẽ gửi Mẫu 31 và Sao kê TK 105 cùng ngày".
 > Tên cột: `docs/COT_FILE_MAU.md`. Chưa code — chờ anh gửi 2 file cùng ngày để chốt khóa nối + cách tách tiền mặt, rồi anh duyệt → "code".
 
+## 0. KHO CHUẨN (3.381 — `js/73-kho-chuan.js`, luật `QUY_CHUAN_KIEN_TRUC.md` mục 15)
+- Gốc Mẫu 31 nguyên bản + gắn thêm TK 105 / 104 (mã KH), Nợ QH / khoanh / KHĐ (số KU), tổ (mã tổ). Cửa `KHO.kc / kcKH / kcKU / kcTo`.
+- `KHO.hoVay` và `toKhach` (KTGS, tab Tổ, Sao kê) đọc qua kho — phép thử t275 so mọi tổ, mọi khách giống hệt cách cũ; gốc không bị sửa sau mọi truy vấn.
+
 ## 1. Nguồn và cột dùng
 
 | Nguồn | Cột (tên gốc) | Trường app | Ghi chú |

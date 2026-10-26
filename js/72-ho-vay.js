@@ -6,11 +6,7 @@
    Chỉ ĐỌC. Cửa: KHO.hoVay(maTo) · KHO.hoVayKH(kh) (js/29); báo cáo Sao kê 'b105' (js/22h). */
 var HV_KY = {ok:'🏦', cho:'⏳ chưa chuyển', tm:'💵? có thể tiền mặt', khongTK:'💵? không có TK 105', thieu:'🟠 thu < phải thu'};
 function hvSo(v){ return typeof slSo==='function' ? slSo(v) : (+v || 0); }
-function hvSaoKe(K){   /* Sao kê TK 105 gắn vào kỳ (K.tk.tk105 — js/28 tkNapMoi) → {ky, theo:{kh:[{stk, t105, t105d}]}} */
-  var b = K && K.tk && K.tk.tk105; if(!b || !b.rows) return null;
-  if(!b.hvTheo){ b.hvTheo = {}; b.rows.forEach(function(o){ if(o.kh) (b.hvTheo[o.kh] = b.hvTheo[o.kh] || []).push(o); }); }
-  return {ky:b.ky, theo:b.hvTheo};
-}
+function hvSaoKe(K){ return typeof kcTK==='function' ? kcTK(K, 'tk105') : null; }   /* 3.381: Sao kê TK 105 gắn theo mã KH ở KHO CHUẨN (js/73) → {ky, theo:{kh:[{stk, t105, t105d}]}} */
 function hvGhep(rows, sk){   /* rows = dòng Mẫu 31 (món + dòng TK riêng) · sk = hvSaoKe(K) → [hộ vay] theo mã KH */
   var m = {}, ds = [];
   (rows||[]).forEach(function(o){ if(!o || !o.kh) return;
@@ -43,8 +39,8 @@ function hvTinh(x, sk){
   return x;
 }
 function ktTrHV(n){ var s = (Math.round((n||0)/1e5)/10).toString().replace('.', ','); return s+' tr'; }   /* "HN 30 tr + GQVL 50 tr" */
-function hvDung(maTo){ var K = KHO.kyDung(); if(!K || !maTo) return []; return hvGhep((K.kh||{})[maTo], hvSaoKe(K)); }
-function hvDungKH(kh){ var K = KHO.kyDung(); if(!K || !kh) return null; var r = hvGhep(((K.B && K.B.co && K.B.co.hstd) || []).filter(function(o){ return o.kh===kh; }), hvSaoKe(K)); return r[0] || null; }
+function hvDung(maTo){ var K = KHO.kyDung(); if(!K || !maTo) return []; return hvGhep(kcTo(K, maTo).dong, hvSaoKe(K)); }
+function hvDungKH(kh){ var K = KHO.kyDung(); if(!K || !kh) return null; var x = kcKH(K, kh), r = hvGhep(x ? x.dong : [], hvSaoKe(K)); return r[0] || null; }
 
 /* ---------- báo cáo Sao kê 'b105' (js/22h skBaoCao): phạm vi cây, chia theo tổ, cộng tổ ---------- */
 function hvBaoCao(rows, ngay){

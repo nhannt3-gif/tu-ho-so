@@ -110,9 +110,10 @@ function toDiaChi(t){
     t.pho ? 'Tổ phó '+t.pho : '', t.sdt ? '☎ '+t.sdt : ''].filter(Boolean).join(' · ');
 }
 /* gom số theo khách của tổ (món theo dòng chính, 105 = số lớn nhất mỗi khách kể cả dòng lặp) */
-function toKhach(t){
-  var ds = (KHO.kyDung().kh[t.ma]||[]), lap = {}, kh = {};
-  (KHO.kyDung().lap||[]).forEach(function(o){ if(o.to===t.ma) (lap[o.kh] = lap[o.kh]||[]).push(o); });
+function toKhach(t){   /* 3.381: đọc qua KHO CHUẨN (js/73 kcTo) — kết quả như cũ */
+  var x = typeof kcTo==='function' ? kcTo(KHO.kyDung(), t.ma) : {dong:KHO.kyDung().kh[t.ma] || [], lap:(KHO.kyDung().lap || []).filter(function(o){ return o.to===t.ma; })};
+  var ds = x.dong, lap = {}, kh = {};
+  x.lap.forEach(function(o){ (lap[o.kh] = lap[o.kh]||[]).push(o); });
   ds.forEach(function(o){
     var k = kh[o.kh] = kh[o.kh] || {kh:o.kh, ten:o.ten||'', mon:[], dn:0, qh:0, kn:0, lt:0, t105:0, stk:[], coTK:false};
     if(!k.ten && o.ten) k.ten = o.ten;
