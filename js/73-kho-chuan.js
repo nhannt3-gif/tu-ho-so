@@ -5,7 +5,8 @@
    - GẮN THÊM (không ghi đè dòng gốc): Sao kê TK 105 / TK 104 theo mã KH · Nợ QH / khoanh / KHĐ theo số KU · tổ (Danh sách tổ) theo mã tổ.
    - CHỈ MỤC: theo KH · theo KU · theo tổ.  Bảng tính sẵn (KHO.hoVay…) luôn tính lại từ kho, không lưu đè.
    - Cửa: KHO.kc() · KHO.kcKH(kh) · KHO.kcKU(ku) · KHO.kcTo(ma) (js/29). Tab KHÔNG tự ghép file — hỏi kho. Chi tiết: docs/THIET_KE_HO_VAY.md mục 0. */
-function kcDung(K){
+function kcDung(K){   /* K = kỳ đã dựng (KHO.nap) hoặc bộ bảng B (KHO.bo — Tổng hợp, Sao kê tháng trước) */
+  if(K && !K.B && K.co){ var B0 = K; if(!B0.kc0) B0.kc0 = {B:B0}; K = B0.kc0; }
   if(!K || !K.B) return null;
   if(K.kc && K.kc.B===K.B) return K.kc;
   var B = K.B;
@@ -15,6 +16,10 @@ function kcDung(K){
     nqh:B.nqh || {}, nk:B.nk || {}, khd:B.khd || {}, gan:{}};
   return K.kc;
 }
+/* 3.382: cửa gốc cho báo cáo — giữ đúng ngữ nghĩa cũ (bảng chưa nạp → undefined, không đổi thành []) */
+function kcGoc(x){ var B = x && (x.B || (x.co ? x : null)); return B && B.co ? B.co.hstd : undefined; }   /* dòng Mẫu 31 nguyên bản */
+function kcLap(x){ var B = x && (x.B || (x.co ? x : null)); return B ? B.lap : undefined; }   /* dòng TK riêng / khách ra tổ */
+function kcBang(x, loai){ var B = x && (x.B || (x.co ? x : null)); return B && B.co ? B.co[loai] : undefined; }   /* bảng phụ khác (BCDHTD, LEN_31…) */
 function kcNguon(K){   /* kỳ của từng nguồn đã nối — ghi trên báo cáo */
   var B = K && K.B || {}, n = B.nguon || {}, tk = (K && K.tk) || {};
   return {hstd:n.hstd || '', dsto:n.dsto || '', nqh:n.nqh || '', nk:n.nk || '', khd:n.khd || '', tk105:tk.tk105 ? tk.tk105.ky : '', tk104:tk.tk104 ? tk.tk104.ky : ''};

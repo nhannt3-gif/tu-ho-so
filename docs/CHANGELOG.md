@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.382 — 26/10/2026 — Sao kê · Tổng hợp · Thông tin tổ đọc qua KHO CHUẨN (TK 3)
+- **Anh 26/10**: "mọi truy vấn sẽ lấy qua kho" (lộ trình QUY_CHUAN mục 15).
+- `js/22h` (Sao kê + báo cáo tab Tổ), `js/22i` (Tổng hợp + kiểm Nạp TW), `js/22j` (Thông tin tổ) thôi đọc thẳng bảng (`B.co.*`, `B.lap`, `K.kh[...]`) — đọc qua cửa kho `kcGoc` (dòng Mẫu 31 nguyên bản) · `kcLap` · `kcBang` (bảng phụ) · `kcTo` (`js/73`).
+- Phép thử mới **t276 = bản chụp kết quả** 64 báo cáo (mọi báo cáo Sao kê toàn PGD + 1 xã, 4 báo cáo tab Tổ × 5 tổ, Tổng hợp, kiểm Nạp TW) trên bộ giả — sau khi chuyển: **giống hệt 100%**. Bản chụp `tests/t276_chup.json` dùng tiếp cho 3.383 / 3.384.
+
 ## 3.381 — 26/10/2026 — KHO CHUẨN (TK 3)
 - **Anh 26/10**: "khi nạp dữ liệu, dùng khóa liên kết với nhau thành 1 data hoàn chỉnh, mọi truy vấn lấy qua kho; data chuẩn lấy nguyên bản từ Mẫu 31, bổ sung số TK 105, 104, không đổi bất cứ gì; các nơi khác chỉ truy vấn…"; "không đổi bản chất số liệu là được".
 - **`js/73-kho-chuan.js`** + cửa **`KHO.kc()` · `KHO.kcKH(kh)` · `KHO.kcKU(ku)` · `KHO.kcTo(ma)`**: gốc = dòng Mẫu 31 của kỳ (không chép, không sửa; KU hủy giữ riêng); gắn thêm Sao kê TK 105 / 104 theo mã KH, Nợ QH / khoanh / KHĐ theo số KU, tổ theo mã tổ; ghi kỳ từng nguồn (`kcNguon`).
