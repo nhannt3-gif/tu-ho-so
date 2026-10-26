@@ -384,7 +384,8 @@ var SK_BC = [{k:'qh', ten:'Sao kê nợ quá hạn', nhom:'xl', kho:'doc'}, {k:'
   {k:'kqgd', ten:'Kết quả giao dịch tại điểm GD — chốt cuối tháng, mỗi điểm 1 trang', nhom:'tt', kho:'ngang'},
   {k:'thhd', ten:'Tình hình hoạt động (THHD) — tín dụng theo cấp chọn (PGD › xã › điểm › hội › tổ), 1 trang A4 dọc', nhom:'tt', kho:'doc'},
   {k:'tqh', ten:'Sao kê nợ quá hạn — chia Điểm GD › Hội › Tổ (như file tổng hợp)', nhom:'tt', kho:'doc'}, {k:'tkn', ten:'Sao kê nợ khoanh — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'doc'},
-  {k:'tkhd', ten:'Sao kê 3 tháng không hoạt động — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'ngang'}];
+  {k:'tkhd', ten:'Sao kê 3 tháng không hoạt động — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'ngang'},
+  {k:'b105', ten:'Sao kê biến động TK 105 — khách chuyển vào, trích trả lãi / gốc (Mẫu 31 + Sao kê TK 105 cùng ngày)', nhom:'tt', kho:'ngang'}];   /* 3.380 (js/72) */
 function skChon(){ var C = skCH(); if(!C.chon || !SK_BC.some(function(b){ return b.k===C.chon; })){ var c = SK_BC.find(function(b){ return C.bc[b.k]; }); C.chon = c ? c.k : 'qh'; } return C.chon; }
 function skKhoCua(k){ var C = skCH(), b = SK_BC.find(function(x){ return x.k===k; }) || {}; return (C.kho && C.kho[k]) || b.kho || 'doc'; }
 function skChonBC(k){ var C = skCH(); C.chon = k; C.bc = {}; C.bc[k] = true; luu(); veSaoKe(); }
@@ -475,6 +476,7 @@ function skBaoCao(k){
       function(o, i){ return [i, o.kh||'', o.ten||'', o.ku||'', ctNgan(o.ct, o), o.dn||0, ngayVNsl(o.ngdg), o.ngdg ? tdnSoNgay(o.ngdg, ng) : '', ngayVNsl(o.dhgh||o.dhg||o.dhgd), laiTon(o)]; }, [5, 9]);
     return {ten:ten, tieuDe:ten.toUpperCase(), ngay:'Số liệu đến ngày '+ngayVNsl(ng), html:r.html, aoa:r.aoa};
   }
+  if(k==='b105' && typeof hvBaoCao==='function') return hvBaoCao(((B && B.co && B.co.hstd)||[]).filter(skTrongPV), 'Số liệu đến ngày '+ngayVNsl(K.ngay)+' ('+(K.hsTen||'Mẫu 31')+')');   /* 3.380: theo ngày hoặc tháng */
   var M = skMau31(); if(!M) return skCan31(SK_BC.find(function(b){ return b.k===k; }).ten);
   var e31 = KHO.bang('hstd', th), ngay = 'Số liệu đến ngày '+ngayVNsl(e31.ngay)+' (Mẫu 31 '+kyVN(th)+')';
   var rows = (M.co.hstd||[]).filter(skTrongPV), lapKH = {};

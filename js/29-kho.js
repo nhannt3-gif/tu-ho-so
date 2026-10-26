@@ -90,6 +90,9 @@ var KHO = (function(){
     /* KHO.hanCCCD(số, ngày sinh, ngày cấp) → {kq:'ok'|'sap'|'het'|'?', chu, den} (bọc toCCCDHan) · QT-13 */
     hanCCCD: function(so, ns, ncap){ return toCCCDHan(so, ns, ncap); },
     /* KHO.tk105(maKH) → {ds:[{stk, t105, ndk}], ky, trung, daChon} | null — Sao kê TK 105 gắn kỳ đang dựng; TK anh chọn đứng đầu (bọc tkCua) · QT-11 */
+    /* 3.380 KHO.hoVay(maTo) → [hộ vay] 1 dòng / khách: Mẫu 31 + Sao kê TK 105 cùng ngày + tổ (js/72, docs/THIET_KE_HO_VAY.md) · KHO.hoVayKH(kh) → 1 hộ */
+    hoVay: function(ma){ return typeof hvDung==='function' ? hvDung(ma) : []; },
+    hoVayKH: function(kh){ return typeof hvDungKH==='function' ? hvDungKH(kh) : null; },
     tk105: function(kh){ return typeof tkCua==='function' ? tkCua('tk105', kh) : null; },
     /* KHO.tk104(maKH tổ trưởng) → như tk105, Sao kê TK 104 (chỉ tham khảo — TK đang dùng ở KHO.bangTo) · QT-12 */
     tk104: function(kh){ return typeof tkCua==='function' ? tkCua('tk104', kh) : null; },

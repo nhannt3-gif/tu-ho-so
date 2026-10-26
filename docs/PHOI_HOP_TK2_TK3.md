@@ -72,6 +72,7 @@
 | 26/10 | TK 3 (nhận bàn giao) | **3.378** | `js/22b-ktgs.js` (nhận xét từng phần, Bảng II bỏ chấm), `js/22d-ktgs-04.js`, `js/56-ktgs-bo.js`; `tests/t272.js` mới; sửa t111, t119, t236, t238; `tools/hoiquy_nhom.txt` nhóm kt | t272 14/14, t111, t114, t115, t118, t119, t120, t236, t238, nhóm kt |
 | 26/10 | TK 3 (nhận bàn giao) | **3.379** | **`js/71-ktgs-tom-tat.js` mới** + 1 dòng `index.html`; `js/22b-ktgs.js` + `js/22e-ktgs-kh.js` (nút 📋 Tóm tắt tổ đột xuất + định kỳ); `tests/t273.js` mới | t273 15/15, t111, t119, t238, t272 |
 | 26/10 | TK 3 | (tài liệu) | **`docs/COT_FILE_MAU.md` mới** (từ điển cột file hệ thống, tự sinh) + `tools/cot_mau.py`; 1 dòng `CLAUDE.md`, `docs/BAT_DAU.md` | không đổi code app |
+| 26/10 | TK 3 (nhận bàn giao) | **3.380** | **`js/72-ho-vay.js` mới** + 1 dòng `index.html`; `js/29-kho.js` (cửa hoVay, hoVayKH); `js/22h-cap-hoi-sao-ke.js` (báo cáo b105); `tests/t274.js` mới; `docs/THIET_KE_HO_VAY.md` | t274 17/17, hồi quy đủ (đụng KHO) |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
