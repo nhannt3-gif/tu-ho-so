@@ -77,6 +77,7 @@
 | 26/10 | TK 3 (nhận bàn giao) | **3.381** | **`js/73-kho-chuan.js` mới** + 1 dòng `index.html`; `js/29-kho.js` (cửa kc*); `js/22h` (toKhach qua kho); `js/72` (đọc kho); `tests/t275.js` mới; `docs/QUY_CHUAN_KIEN_TRUC.md` mục 15 | t275 9/9, t274, hồi quy đủ (đụng KHO) |
 | 26/10 | TK 3 (nhận bàn giao) | **3.382** | `js/22h`, `js/22i`, `js/22j` (đọc qua kho), `js/73` (kcGoc / kcLap / kcBang); `tests/t276.js` + `tests/t276_chup.json` mới | t276 bản chụp 64 báo cáo giống hệt, hồi quy đủ |
 | 26/10 | TK 3 (nhận bàn giao) | **3.383** | `js/22ga-pham-vi.js` (ấp, đa chiều, nút ✕), `js/22g-to.js` (pvGan 5 cấp), `js/22f-tra-cuu.js`, `js/58-tc-to.js`, `js/22b`, `js/22gb`, `js/22h`, `js/22i`, `css/app.css`; `tests/t277.js` mới; t258, t302 | t277 13/13, t276, hồi quy đủ |
+| 26/10 | TK 3 (nhận bàn giao) | **3.383.1** | `css/app.css` (canh cột bảng Tra cứu) | t277 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

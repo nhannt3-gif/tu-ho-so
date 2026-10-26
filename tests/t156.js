@@ -21,11 +21,11 @@ const fs=require('fs'), path=require('path');
    ok('máy tính: không còn hàng ô thả xuống (chỉ điện thoại)', getComputedStyle(document.querySelector('#to-cay .pv-sel')).display==='none');
    ok('📍 đường dẫn chỉ báo (không có nút ✕ / bấm)', !dan().querySelector('button'));
    const T = TO_K.to, xa = pvLuaChon(T, C, 'xa', true)[0].k; pvChon('to', 'xa', xa, 1); await w(200);
-   ok('chọn xã: hàng Xã vẫn hiện, xã đang chọn xanh; hàng Điểm GD · Hội cùng 1 dòng, 2 thanh riêng (3.167)', nhan()==='Xã|Điểm GD|Hội' && document.querySelector('#to-cay .pv-hang1 .to-chip.bat').textContent.indexOf(T[Object.keys(T).find(m=>T[m].xa===xa)].tenXa)===0 && !!document.querySelector('#to-cay [data-cap="diem-hoi"] .pv-nhom.cap-diem') && !!document.querySelector('#to-cay [data-cap="diem-hoi"] .pv-nhom.cap-hoi'), nhan());
+   ok('chọn xã: hàng Xã vẫn hiện, xã đang chọn xanh; hàng Điểm GD · Hội cùng 1 dòng, 2 thanh riêng (3.167)', nhan()==='Xã|Điểm GD|Hội|Ấp / KP' && document.querySelector('#to-cay .pv-hang1 .to-chip.bat').textContent.indexOf(T[Object.keys(T).find(m=>T[m].xa===xa)].tenXa)===0 && !!document.querySelector('#to-cay [data-cap="diem-hoi"] .pv-nhom.cap-diem') && !!document.querySelector('#to-cay [data-cap="diem-hoi"] .pv-nhom.cap-hoi'), nhan());
    /* Hội trước, chưa chọn điểm */
    const hoi = pvLuaChon(T, C, 'hoi', true).find(x=>x.k!=='99').k; pvChon('to', 'hoi', hoi, 1); await w(200);
    const toH = pvLuaChon(T, C, 'to', true), selT = document.querySelector('#to-cay .pv-to-ds');
-   ok('chọn Hội trước (chưa chọn điểm): hàng Tổ = chip + ô sổ xuống đủ mọi tổ của Hội trong xã', nhan()==='Xã|Điểm GD|Hội|Tổ' && toH.length>0 && toH.every(x=>T[x.k].xa===xa && String(T[x.k].dv)===hoi) && document.querySelectorAll('#to-cay [data-cap="to"] .to-chip').length===Math.min(30, toH.length) && selT && selT.options.length===toH.length+1, nhan()+' · '+toH.length+' tổ');
+   ok('chọn Hội trước (chưa chọn điểm): hàng Tổ = chip + ô sổ xuống đủ mọi tổ của Hội trong xã', nhan()==='Xã|Điểm GD|Hội|Ấp / KP|Tổ' && toH.length>0 && toH.every(x=>T[x.k].xa===xa && String(T[x.k].dv)===hoi) && document.querySelectorAll('#to-cay [data-cap="to"] .to-chip').length===Math.min(30, toH.length) && selT && selT.options.length===toH.length+1, nhan()+' · '+toH.length+' tổ');
    const diem = pvLuaChon(T, C, 'diem', true)[0].k; pvChon('to', 'diem', diem, 1); await w(200);
    const toHD = pvLuaChon(T, C, 'to', true);
    ok('rồi chọn Điểm GD: giữ Hội; Tổ chỉ của điểm + Hội; 📍 Xã › Điểm · Hội', C.hoi===hoi && toHD.every(x=>T[x.k].khoaDiem===diem && String(T[x.k].dv)===hoi) && /›.*·/.test(dan().textContent), dan().textContent);
@@ -40,7 +40,7 @@ const fs=require('fs'), path=require('path');
    /* Tra cứu */
    slDoiTab('tra'); doiNgan(7); for(let i=0;i<60 && !document.querySelector('#tc-cay .pv-dan');i++) await w(250); await w(200);
    ok('Tra cứu: bỏ khung gập "📍 Toàn PGD", cây lọc như các tab, số khách trên dòng 📍', !document.querySelector('.tc-pv') && /khách/.test(document.querySelector('#tc-cay .pv-dem').textContent) && !document.querySelector('#tc-cay .pv-tim'), document.querySelector('#tc-cay .pv-dem').textContent);
-   ok('Tra cứu: ô tìm khách vẫn to trên cùng (3.335: cùng dải với LỌC ĐỊA BÀN, trên danh sách)', (()=>{ const a = document.getElementById('sl-tim').getBoundingClientRect(), c = document.getElementById('tc-cay').getBoundingClientRect(), k = document.getElementById('sl-kq').getBoundingClientRect(); return a.top < c.bottom && a.bottom < k.top && a.width >= 200; })());
+   ok('Tra cứu (3.383 anh chốt): LỌC ĐỊA BÀN trên cùng → ô tìm khách ngay dưới, trên danh sách', (()=>{ const a = document.getElementById('sl-tim').getBoundingClientRect(), c = document.getElementById('tc-cay').getBoundingClientRect(), k = document.getElementById('sl-kq').getBoundingClientRect(); return a.top >= c.bottom-2 && a.bottom < k.top && a.width >= 200; })());
    /* chế độ tối: ô thả xuống / ô nhập nền tối */
    D.cauHinh.giaoDien = 'dark'; apGiaoDien(); slDoiTab('kt'); doiNgan(7); await w(800); ktCH().che = 'hdt'; ktCH().hdtTab = 'chuan'; ktVeThe(); await w(200);
    const inp = document.querySelector('.kt-chuan tbody input'), bg = getComputedStyle(inp).backgroundColor.match(/\d+/g).map(Number);

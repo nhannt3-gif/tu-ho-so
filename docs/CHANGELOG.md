@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.383.1 — 26/10/2026 — Tra cứu: canh tên cột (TK 3)
+- **Anh 26/10**: "tên cột canh đều và cân đối độ rộng phù hợp" (bảng tổ khi Tìm theo Tổ trưởng).
+- Bảng tổ: Mã tổ canh giữa (tiêu đề + số), TV · Có DN canh phải, Xã · Ấp · Hội canh trái; độ rộng Tổ trưởng 27% · Mã tổ 13% · TV 12% · Có DN 10% · Xã 15% · Ấp 12% · Hội 11%.
+- Bảng khách: tiêu đề Mã KH · Xã · Ấp · Tổ trưởng canh giữa theo nội dung.
+- Anh "cảnh báo chỉ báo màu, khi rê chuột hiện ra diễn giải… bảng gọn nhất, font chữ nhỏ": bảng tổ thôi chip chữ "dưới 20 TV / còn n chỗ / đủ 50 TV" — **số TV tô màu** (vàng: dưới ngưỡng / sắp đủ · đỏ: đủ), rê chuột hiện giải thích (`tcNguongSo`, js/58); chữ bảng 12 px. Thẻ tổ giữ chip như cũ.
+- **Sửa lỗi hồi quy 3.383**: tab Tổ cấp PGD / xã mất dòng "Biến động … → …" (khóa so phạm vi thiếu ấp — `js/22gb`); lọc 1 dòng chỉ ở màn ≥ 1500px, màn 1366 tự xuống dòng (hết tràn ngang); t145, t153, t156 cập nhật theo ô Ấp / KP và bố cục Tra cứu mới anh chốt.
+- `css/app.css`, `js/58-tc-to.js`, `js/22gb-to-giao-dien.js`.
+
 ## 3.383 — 26/10/2026 — Lọc địa bàn: Ấp / KP, đa chiều, nút ✕ · Tra cứu gọn (TK 3)
 - **Anh 26/10**: "ô lọc địa bàn còn bị khuất, anh cần thêm 1 lọc ấp, KP"; "vẫn có thể lọc ra xã – Hội (các tổ hay KH thuộc hội), kiểu lọc đa chiều"; "chế độ 1 dòng, ds xổ ra, mỗi ô ds có 1 chỗ khi bấm vào là về tất cả… nút nhỏ cạnh ô để bấm nhanh, trong ds xổ vẫn có"; "sửa là áp dụng cho tất cả các nơi"; "tối ưu 2–3 dòng… ô tìm vừa thôi, đem dòng chip tìm theo lên và làm nổi lên 1 chút"; "bỏ phần này chưa cần" (Đã lập / In, Dòng thời gian).
 - **Bộ lọc chung** (`js/22ga`, mọi tab: Tổ, Tra cứu, Sao kê, Tổng hợp, KTGS, Giao dịch xã, Hồ sơ): **Xã › Điểm GD · Hội · Ấp / KP › Tổ**. Ấp / KP mới (theo tên thôn Mẫu 31, khóa xã + thôn), không bắt buộc như Hội. **Đa chiều**: Hội ↔ Ấp ↔ Điểm thu danh sách theo nhau (kèm số tổ); đổi xã bỏ ấp, đổi điểm / Hội giữ ấp. Mỗi ô: dòng đầu "— Tất cả … —" + **nút ✕** bấm nhanh (ô đang tất cả thì mờ). Kiểu gọn: ô sổ không cắt chữ, cả bộ lọc 1 dòng (màn < 1100px tự xuống dòng). Phạm vi in ghi thêm ấp; Sao kê / Tổng hợp / tab Tổ lọc theo ấp qua `pvLoc`.

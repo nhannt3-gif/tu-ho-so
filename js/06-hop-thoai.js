@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.383', ds:[
+var CO_GI_MOI = {ban:'3.383.1', ds:[
+  ["Tra cứu KH: bảng tổ / bảng khách — tên cột canh theo nội dung, độ rộng cột cân đối", "doiNgan(7)"],
   ["Lọc địa bàn: thêm Ấp / KP, lọc đa chiều (Xã + Hội, Xã + Ấp, Hội toàn PGD…), nút ✕ cạnh mỗi ô bấm nhanh về Tất cả, 1 dòng không cắt chữ", "doiNgan(7)"],
   ["Tra cứu KH gọn: lọc địa bàn trên cùng, ô tìm + Tìm theo cùng hàng; thẻ tổ / khách bỏ Đã lập / In, Dòng thời gian", "doiNgan(7)"],
   ["Sao kê, Tổng hợp, Thông tin tổ, báo cáo tab Tổ đọc số liệu qua KHO CHUẨN — kết quả giữ nguyên", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.383', ds:[
   ["Scan có nút ▣ bật / tắt khung xem như Văn bản; ⏱ Đo tốc độ ở chân thanh bên", "dtdHop()"],
   ["Chip thông báo không còn che nút cuối hộp (lên đầu màn hình); ⏱ Đo tốc độ ghi từng bước quét CCCD", "moHop('<div class=\"hop-tit\">⏱</div>')"],
   ["Khung xem trước đang ẩn → nút ▣ Xem trước ở góc trên bên phải để mở lại", "doiNgan(1)"],
-  ["Bản gọn dt.html: văn bản chỉ xem khi có mạng — bỏ 📌 Ghim xem không mạng, dọn file đã ghim cũ", "location.href='dt.html'"],
-  ["Drive: báo ở 1 chip (máy tính / điện thoại thống nhất), mở lại app còn quyền là nối ngay, bỏ thông báo nổi rối", "bamChip()"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Bản gọn dt.html: văn bản chỉ xem khi có mạng — bỏ 📌 Ghim xem không mạng, dọn file đã ghim cũ", "location.href='dt.html'"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

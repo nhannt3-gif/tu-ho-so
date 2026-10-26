@@ -11,6 +11,11 @@ function tcNguongChip(tong){ var N = tcNguong();
   if(tong>=N.max-5) return '<span class="nh nh-vang" title="Sắp đủ '+N.max+' thành viên">còn '+(N.max-tong)+' chỗ</span>';
   if(tong<N.min) return '<span class="nh nh-vang" title="Dưới '+N.min+' thành viên (QĐ 70)">dưới '+N.min+' TV</span>';
   return ''; }
+function tcNguongSo(tong){ var N = tcNguong(), lop = '', tit = '';   /* 3.383.1 (anh 26/10 "cảnh báo chỉ báo màu, rê chuột hiện diễn giải… bảng gọn nhất"): số TV tô màu, giải thích ở title */
+  if(tong>=N.max){ lop = 'tc-ng-do'; tit = 'Đủ '+N.max+' thành viên (QĐ 70) — không kết nạp thêm'; }
+  else if(tong>=N.max-5){ lop = 'tc-ng-vang'; tit = 'Sắp đủ '+N.max+' thành viên — còn '+(N.max-tong)+' chỗ'; }
+  else if(tong<N.min){ lop = 'tc-ng-vang'; tit = 'Dưới '+N.min+' thành viên (QĐ 70)'; }
+  return '<b'+(lop ? ' class="'+lop+'" title="'+tit+'"' : '')+'>'+tong+'</b>'; }
 function tcTo(ma){ return KHO.toKy(TC_K, ma); }
 function tcTT(t){ var r = typeof hsoTTKH==='function' && t ? hsoTTKH(t) : {kh:'', cc:''}; return r || {kh:'', cc:''}; }   /* mã KH tổ trưởng — cùng cách Giấy lĩnh / Mẫu 06 */
 function tcTVChu(r){ if(!r) return '<span class="nh nh-xam">chưa có số liệu</span>';
@@ -95,7 +100,7 @@ function tcToTim(q, e){   /* q: chữ → tên tổ trưởng (đầu từ); s�
   e.innerHTML = '<div class="tc-kq-dau"><div class="ghi">'+tong+' tổ'+'</div></div>'+
     '<div class="tc-kq-cuon"><table class="tc-kq-bang tc-to-ds"><thead><tr><th>Tổ trưởng</th><th>Mã tổ</th><th title="Thành viên">TV</th><th title="Có dư nợ">Có DN</th><th>Xã</th><th>Ấp</th><th>Hội</th></tr></thead><tbody>'+   /* 3.368 (anh 25/10 "ds tổ có cột bị khuất"): tiêu đề + Hội viết tắt (đủ ở title) → vừa khung không cuộn ngang */
     ds.map(function(t){ var r = KHO.tvChuan(t, TC_K) || {tong:0, coNo:0};
-      return '<tr class="sl-kq-dong" data-lenh="tc.to" data-to="'+coChuHTML(t.ma)+'"><td title="'+coChuHTML(t.ten||'')+'"><b>'+coChuHTML(t.ten||'')+'</b></td><td>'+coChuHTML(t.ma)+'</td><td class="so"><b>'+r.tong+'</b> '+tcNguongChip(r.tong)+'</td><td class="so">'+r.coNo+'</td>'+
+      return '<tr class="sl-kq-dong" data-lenh="tc.to" data-to="'+coChuHTML(t.ma)+'"><td title="'+coChuHTML(t.ten||'')+'"><b>'+coChuHTML(t.ten||'')+'</b></td><td>'+coChuHTML(t.ma)+'</td><td class="so">'+tcNguongSo(r.tong)+'</td><td class="so">'+r.coNo+'</td>'+
         '<td title="'+coChuHTML(xa(t))+'">'+coChuHTML(xa(t))+'</td><td title="'+coChuHTML(t.tenThon||'')+'">'+coChuHTML(pvApNgan(t.tenThon||''))+'</td><td title="'+coChuHTML(tdnHoi(t.dv)||'')+'">'+coChuHTML(TC_HOI_VT[String(t.dv||'').trim()] || tdnHoi(t.dv) || '')+'</td></tr>'; }).join('')+'</tbody></table></div>';
   if(q && tong===1 && tcHaiCot()){ var d1 = e.querySelector('.sl-kq-dong'); tcChonDong(d1); tcTheTo(ds[0].ma); }
 }
