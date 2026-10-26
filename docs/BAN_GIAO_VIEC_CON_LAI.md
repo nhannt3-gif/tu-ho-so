@@ -222,6 +222,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.380.1)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › Biến động TK 105 › Xem / In | Tiêu đề ghi ngày 2 cột số dư; cột Ghi chú đủ chữ; chữ nhỏ gọn | |
+
+**Ghi chú kỹ thuật 3.380.1:** `hvBaoCao` (js/72): bảng lớp `hv105` (10 pt, `td.gc` cho xuống dòng — thắng `.trang td{white-space:nowrap}` của skInTu); ngày đầu = `tdnCuoiKy(kyLui(tháng Sao kê, −1))`.
+
 ### Danh sách thử trên máy thật (3.380) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

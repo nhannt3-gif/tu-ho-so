@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.380.1 — 26/10/2026 — Sao kê biến động TK 105: bố trí lại cột (TK 3)
+- **Anh xem bản in 26/10**: "cột cuối còn mất chữ; ghi rõ trên tiêu đề số dư cuối tháng trước 30/09/2026, số dư đến hết ngày 25/10/2026; bố trí các cột có liên quan kế bên nhau; hạ font chữ 10–11".
+- Tiêu đề cột: **Số dư cuối tháng trước dd/mm/yyyy** (cuối tháng liền trước ngày Sao kê) · **Số dư đến hết ngày dd/mm/yyyy** (ngày Sao kê; chưa nạp Sao kê → ngày Mẫu 31).
+- Thứ tự cột theo dòng tiền: Số dư đầu → Khách chuyển vào → Lãi phải thu tháng → Trích trả lãi → Trích trả gốc → Số dư cuối → Tăng / giảm → Ngày GD gần nhất → Ghi chú.
+- Bảng chữ 10 pt, tiêu đề cột tự xuống dòng; cột Ghi chú xuống dòng (không mất chữ). Anh "ghi chú thu nhỏ chữ hết mức cho gọn": cột Ghi chú + dòng giải thích 7,5 pt.
+- Anh "chuẩn hóa cột TK 105, KH nào 2 TK thì in đậm và báo ghi chú": cột Số TK 105 chỉ ghi **1 TK chính** (TK anh đã chọn ở Giao dịch xã, không có thì TK số dư lớn nhất), khách ≥ 2 TK → **in đậm** + ghi chú "2 TK 105 (số dư cộng chung): số TK – số dư · …"; số TK hệ thống 13–14 ký tự của Mẫu 31 không in. Khách có trong Mẫu 31 mà không có trong Sao kê → ghi chú "số dư theo Mẫu 31".
+- Phép thử: t274 sửa theo cột mới (17).
+
 ## 3.380 — 26/10/2026 — Dữ liệu Hộ vay + Sao kê biến động TK 105 (TK 3)
 - **Anh 26/10**: "mẫu sao kê biến động số dư TK 105 của hộ vay trong tổ…"; "nên có 1 data dựng sẵn từ kết hợp Mẫu 31, TK 105 và tổ"; "1 cột số tiền KH đã CK vào riêng… cột CK trả lãi và gốc để biết tổ đã CK bao nhiêu từ 105"; "ký hiệu theo dõi". Thiết kế + kiểm file thật 25/10 (chỉ đếm): `docs/THIET_KE_HO_VAY.md`; tên cột: `docs/COT_FILE_MAU.md`.
 - **Lớp dữ liệu** `js/72-ho-vay.js` + cửa **`KHO.hoVay(maTo)` / `KHO.hoVayKH(kh)`**: 1 dòng / khách — món Mẫu 31 (dư nợ theo CT, Lãi DT trong tháng, Thu lãi TH / QH tháng, Thu nợ TH / QH / khoanh tháng, ngày GD gần nhất) + Sao kê TK 105 cùng ngày (nối theo **mã KH**, cộng các TK; số dư ngày BC + số dư tháng trước) + tổ. Thiếu Sao kê → số dư Mẫu 31, không có số đầu tháng. Không cần nạp lại file (Mẫu 31 giữ mọi cột).
