@@ -3980,6 +3980,12 @@ table.tc-kq-bang td.so{text-align:right}
 table.tc-to-ds td:first-child,table.tc-to-ds th:first-child{min-width:0}   /* 3.368: danh sách tổ vừa khung (bỏ tối thiểu 150 px chung) */
 table.tc-to-ds th,table.tc-to-ds td{padding-left:4px;padding-right:4px}table.tc-to-ds td:nth-child(3){white-space:normal;line-height:1.25}table.tc-to-ds td:nth-child(3) .nh{white-space:nowrap;font-size:calc(10px*var(--co));padding:0 4px}
 table.tc-to-ds{table-layout:fixed}table.tc-to-ds td{max-width:none}table.tc-to-ds th{white-space:normal;line-height:1.2}table.tc-to-ds th:nth-child(1){width:22%}table.tc-to-ds th:nth-child(2){width:15%}table.tc-to-ds th:nth-child(3){width:17%}table.tc-to-ds th:nth-child(4){width:9%}table.tc-to-ds th:nth-child(5){width:14%}table.tc-to-ds th:nth-child(6){width:13%}table.tc-to-ds th:nth-child(7){width:10%}table.tc-to-ds td:nth-child(2),table.tc-to-ds td:nth-child(3){text-overflow:clip}   /* chia cột theo tỷ lệ khung → luôn vừa, chữ dài hiện … (title đủ) */   /* chip ngưỡng TV xuống dòng khi chật */
+/* 3.383 (anh 26/10 "tên cột canh đều và cân đối độ rộng phù hợp"): tiêu đề canh theo nội dung cột (số canh phải, mã canh giữa), độ rộng theo nội dung */
+table.tc-to-ds th:nth-child(1){width:27%}table.tc-to-ds th:nth-child(2){width:13%}table.tc-to-ds th:nth-child(3){width:12%}table.tc-to-ds th:nth-child(4){width:10%}table.tc-to-ds th:nth-child(5){width:15%}table.tc-to-ds th:nth-child(6){width:12%}table.tc-to-ds th:nth-child(7){width:11%}
+table.tc-to-ds th:nth-child(2),table.tc-to-ds td:nth-child(2){text-align:center}
+table.tc-to-ds th:nth-child(3),table.tc-to-ds th:nth-child(4),table.tc-to-ds td:nth-child(3),table.tc-to-ds td:nth-child(4){text-align:right;padding-right:8px}
+table.tc-to-ds th:nth-child(n+5),table.tc-to-ds td:nth-child(n+5){text-align:left}
+table.tc-kq-bang:not(.tc-to-ds) th:nth-child(n+2){text-align:center}   /* bảng khách: cột mã / xã / ấp / tổ trưởng canh giữa → tiêu đề canh giữa theo */
 /* 3.337 (anh 24/10): Tra cứu KH — thẻ khách gọn trong 1 khung: 3 cột thông tin, món vay chiếm phần còn lại; ngày đến hạn tô màu; danh sách tình trạng chữ nhỏ sau tên */
 @media(min-width:900px){
   .tc-phai .tc-the.tc-khung{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto 170px minmax(140px,1fr) auto}
