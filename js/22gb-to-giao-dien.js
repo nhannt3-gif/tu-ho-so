@@ -24,7 +24,7 @@ function toVe(K, dsKy){
 }
 function toVeCay(){ pvVeCay('to'); }
 function toChonTo(ma){
-  var t = KHO.kyDung() && KHO.kyDung().to[ma]; if(!t){ var an = KHO.kyDung() && KHO.kyDung().toAn && KHO.kyDung().toAn[ma]; if(an) bao('Tổ '+(an.ten||ma)+' (mã '+ma+'): dư nợ 0 và không còn trên Danh sách tổ / LEN_31 TO_TRUONG kỳ này — đã ẩn khỏi cây tổ.', 6); return; }
+  var t = KHO.kyDung() && KHO.kyDung().to[ma]; if(!t){ var an = KHO.kyDung() && KHO.kyDung().toAn && KHO.kyDung().toAn[ma]; if(an) bao('Tổ '+(an.ten||ma)+' (mã '+ma+') đã đóng (không còn trên Danh sách tổ kỳ này) — không hiện; cần xem thì sao kê ở tab Sao kê.', 6); return; }
   var C = toCH(); C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); C.ap = ''; C.to = ma;
   TO_Q = ''; var i = document.getElementById('to-tim'); if(i) i.value = '';
   var g = document.getElementById('to-gy'); if(g) g.innerHTML = '';
@@ -33,9 +33,9 @@ function toChonTo(ma){
 function toTim(){
   var g = document.getElementById('to-gy'); if(!g || !KHO.kyDung()) return;
   var q = slChuan(TO_Q); if(q.length<2){ g.innerHTML = ''; return; }
-  var an = KHO.kyDung().toAn || {}, tu = q.split(' '), ds = Object.keys(KHO.kyDung().to).map(function(k){ return KHO.kyDung().to[k]; }).concat(Object.keys(an).map(function(k){ return an[k]; })).filter(function(t){
+  var tu = q.split(' '), ds = Object.keys(KHO.kyDung().to).map(function(k){ return KHO.kyDung().to[k]; }).filter(function(t){
     var chu = ' '+slChuan([t.ma, t.ten, t.tenThon, t.tenXa, t.tenDiem].join(' ')); return tu.every(function(w){ return chu.indexOf(w)>=0; }); }).slice(0, 12);
-  g.innerHTML = ds.length ? ds.map(function(t){ return '<button onclick="toChonTo(\''+t.ma+'\')"><b>'+coChuHTML(t.ten||('Tổ '+t.ma))+'</b>'+(an[t.ma] ? ' <small class="do">· dư nợ 0, không còn trên DSTO / LEN_31 — đã ẩn</small>' : t.canDong ? ' <small class="do">· ⚠ cần đóng tổ</small>' : '')+' <small>'+coChuHTML([t.ma, t.tenThon, t.tenXa, tdnHoi(t.dv)].filter(Boolean).join(' · '))+'</small></button>'; }).join('')
+  g.innerHTML = ds.length ? ds.map(function(t){ return '<button onclick="toChonTo(\''+t.ma+'\')"><b>'+coChuHTML(t.ten||('Tổ '+t.ma))+'</b>'+(t.canDong ? ' <small class="do">· ⚠ cần đóng tổ</small>' : t.ngoaiDS ? ' <small class="do">· ⚠ không có trên Danh sách tổ</small>' : '')+' <small>'+coChuHTML([t.ma, t.tenThon, t.tenXa, tdnHoi(t.dv)].filter(Boolean).join(' · '))+'</small></button>'; }).join('')
     : '<div class="rong">Không thấy tổ khớp “'+coChuHTML(TO_Q)+'”.</div>';
 }
 /* 3.92: tổ đang chọn → thẻ gọn + danh sách tổ viên có lọc + báo cáo; chưa chọn tổ (đã chọn xã) → bảng các tổ trong phạm vi */
@@ -98,7 +98,7 @@ function toTheHTML(t, tv){
   var len = '';
   if(t.len){ var L1 = t.len; len = ' │ LEN_31: '+tdnTien(L1.ho||0)+' hộ · '+tdnTr(L1.dn)+' · tiền gửi '+tdnTr(L1.tg)+' · cho vay / thu nợ '+tdnTr(L1.cv)+' / '+tdnTr(L1.tn)+' · thu lãi '+tdnTr(L1.tl)+(t.lenGop>1 ? ' (gộp '+t.lenGop+' tổ trùng tên)' : ''); }
   return '<div class="to-the">'+
-    '<div class="to-the-ten">'+(toLaTT(t) ? '<b>Vay trực tiếp (không qua tổ)</b>' : 'Tổ <b>'+coChuHTML(t.ten||'')+'</b> (mã '+t.ma+')')+' <span class="to-the-phu">· '+coChuHTML(toDiaChi(t))+'</span>'+(t.canDong ? ' <span class="to-dong0" title="Tổ dư nợ 0 nhưng còn trên '+(t.ds ? 'DSTO' : 'LEN_31 TO_TRUONG')+' — làm thủ tục đóng tổ">⚠ Dư nợ 0 — cần đóng tổ</span>' : '')+'</div>'+
+    '<div class="to-the-ten">'+(toLaTT(t) ? '<b>Vay trực tiếp (không qua tổ)</b>' : 'Tổ <b>'+coChuHTML(t.ten||'')+'</b> (mã '+t.ma+')')+' <span class="to-the-phu">· '+coChuHTML(toDiaChi(t))+'</span>'+(t.canDong ? ' <span class="to-dong0" title="Tổ dư nợ 0 nhưng chưa đóng ('+coChuHTML(toDongNguon(t))+') — làm thủ tục đóng tổ">⚠ Dư nợ 0 — cần đóng tổ</span>' : t.ngoaiDS ? ' <span class="to-dong0" title="Tổ còn dư nợ nhưng không có trên Danh sách tổ kỳ này — kiểm lại mã tổ trên hệ thống">⚠ Không có trên Danh sách tổ</span>' : '')+'</div>'+
     '<div class="to-the-so"><b>'+(R ? R.tong : tv.length)+'</b> '+(toLaTT(t) ? 'khách' : 'tổ viên')+(R && R.bs ? ' <small title="Người Mẫu 01/TV '+coChuHTML(slKyChu(R.kyTW))+' TƯ còn giữ mà Mẫu 31 kỳ này không có (dư nợ 0)">(gồm '+R.bs+' theo 01/TV)</small>' : '')+': <b>'+(R ? R.coNo : co)+'</b> có dư nợ'+(R && R.laiTon ? ' · <b class="cam">'+R.laiTon+'</b> còn lãi tồn' : '')+' · <b>'+dem(toLocHam('ko105'))+'</b> không dư nợ còn 105 · <b class="do">'+dem(toLocHam('ra'))+'</b> đề xuất cho ra · <b class="do">'+dem(toLocHam('cccd'))+'</b> CCCD hết hạn'+
       ' │ dư nợ <b>'+tdnTr(dn)+'</b> · QH <b>'+(qh ? tdnTr(qh) : 0)+'</b> · khoanh <b>'+(kn ? tdnTr(kn) : 0)+'</b> · 105 <b>'+tdnTr(t105)+'</b>'+
       (N.max && !toLaTT(t) ? ' │ còn nhận thêm <b>'+Math.max(0, N.max-(R ? R.tong : tv.length))+'</b> tổ viên (tối đa '+N.max+')' : '')+(toLaTT(t) ? '' : toBDChu())+coChuHTML(len)+'</div></div>';

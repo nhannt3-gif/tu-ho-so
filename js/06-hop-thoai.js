@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.383.5', ds:[
+var CO_GI_MOI = {ban:'3.383.6', ds:[
+  ["Chỉ hiện tổ chưa đóng (theo Danh sách tổ của kỳ): tổ đã đóng không hiện, không tìm ra — cần xem thì Sao kê; tổ dư nợ 0 chưa đóng ghi \"cần đóng tổ\" (còn / đã đóng TK 104)", "doiNgan(7)"],
   ["Tra cứu › Tổ trưởng: danh sách tổ có dòng Cộng (số tổ, tổng TV, có dư nợ) theo lọc địa bàn", "doiNgan(7)"],
   ["Tra cứu: ô tìm có nút ✕ xóa chữ đã gõ (hiện ngay khi gõ)", "doiNgan(7)"],
   ["Tra cứu: ô tìm gọn, chip Tìm theo to hơn, cùng 1 hàng · bảng Tổ của điểm GD hết giật (1 thanh cuộn) · tổ đã đóng (dư nợ 0, không TK 105) không hiện khi thiếu Danh sách tổ", "doiNgan(7)"],
@@ -1995,10 +1996,7 @@ var CO_GI_MOI = {ban:'3.383.5', ds:[
   ["Sao kê, Tổng hợp, Thông tin tổ, báo cáo tab Tổ đọc số liệu qua KHO CHUẨN — kết quả giữ nguyên", "doiNgan(7)"],
   ["KHO CHUẨN: Mẫu 31 nguyên bản làm gốc, gắn thêm TK 105 / 104, Nợ QH / khoanh / KHĐ, tổ theo khóa — các tab truy vấn qua kho (bắt đầu: KTGS, tab Tổ, Sao kê)", "doiNgan(7)"],
   ["Sao kê biến động TK 105: tiêu đề ghi rõ ngày số dư (cuối tháng trước · đến hết ngày), cột liên quan cạnh nhau, chữ 10, Ghi chú không mất chữ", "doiNgan(7)"],
-  ["Sao kê › Thông tin tổ: Biến động TK 105 — khách chuyển vào, tổ trưởng trích 105 trả lãi / gốc, ký hiệu 🏦 ⏳ 💵? 🟠 (Mẫu 31 + Sao kê TK 105 cùng ngày)", "doiNgan(7)"],
-  ["KTGS 🎯 Đột xuất + 📅 Định kỳ: nút 📋 Tóm tắt tổ — tình hình tổ 1 mặt A4 (số liệu đến ngày, 8 ô số, dư nợ theo chương trình, hộ cần quan tâm, nội dung kiểm tra theo 727) mang đi kiểm tra", "slDoiTab('kt')"],
-  ["KTGS Mẫu 16: Ưu điểm / Tồn tại / Kiến nghị chọn riêng — ghi theo số liệu hay để chấm; Mẫu 04: Nhận xét / Kiến nghị chọn riêng", "slDoiTab('kt')"],
-  ["Bảng II Mẫu 16 chỉ còn Để trống / Điền đầy đủ (không chấm trong ô); 2 dòng có số theo Bảng II", "slDoiTab('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Sao kê › Thông tin tổ: Biến động TK 105 — khách chuyển vào, tổ trưởng trích 105 trả lãi / gốc, ký hiệu 🏦 ⏳ 💵? 🟠 (Mẫu 31 + Sao kê TK 105 cùng ngày)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

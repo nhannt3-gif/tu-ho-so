@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.383.5** — TK 3: danh sách tổ có dòng cộng theo lọc. 3.383.4: màu dư nợ QH / khoanh / 3T KHĐ; hộp Tổ của điểm GD vừa nội dung. 3.383.3: nhãn TT / TP. Chờ anh: "code" kế hoạch hồi quy theo phụ thuộc; 3.384 Giao dịch xã · Tra cứu · TK 104/105 qua kho.
+- **`main` = 3.383.6** — TK 3: chỉ hiện tổ chưa đóng (QUY_CHUAN mục 16). 3.383.5: dòng cộng ds tổ, ✕ ô tìm, ô tìm + chip, hộp Tổ của điểm GD hết giật. 3.383.4: màu dư nợ. 3.383.3: TT / TP. Chờ anh: "code" kế hoạch hồi quy theo phụ thuộc; 3.384 Giao dịch xã · Tra cứu · TK 104/105 qua kho.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

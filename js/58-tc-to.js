@@ -6,6 +6,9 @@
    - Số thành viên: 1 chỗ tính KHO.tvChuan (QT-18, js/28) — kỳ của Tra cứu (TC_K). ES5.
    ========================================================== */
 function tcNguong(){ var n = (D.cauHinh && D.cauHinh.toNguong) || {}; return {min:+n.min || 20, max:+n.max || 100}; }   /* QĐ 70: tổ 20–100 thành viên; ô ⚙ Ngưỡng của tab Tổ khai thì theo ô đó */
+function tcDongChip(t){   /* 3.383.6: tổ chưa đóng mà dư nợ 0 → "cần đóng tổ" (thay chip số TV) · còn dư nợ mà không có trên Danh sách tổ → cảnh báo */
+  return t.canDong ? '<span class="nh nh-do" title="Dư nợ 0, tổ chưa đóng ('+coChuHTML(toDongNguon(t))+') — làm thủ tục đóng tổ">cần đóng tổ</span>'
+    : t.ngoaiDS ? '<span class="nh nh-do" title="Còn dư nợ nhưng không có trên Danh sách tổ kỳ này — kiểm lại mã tổ">không có trên DS tổ</span>' : ''; }
 function tcNguongChip(tong){ var N = tcNguong();
   if(tong>=N.max) return '<span class="nh nh-do" title="Đủ '+N.max+' thành viên (QĐ 70) — không kết nạp thêm">đủ '+N.max+' TV</span>';
   if(tong>=N.max-5) return '<span class="nh nh-vang" title="Sắp đủ '+N.max+' thành viên">còn '+(N.max-tong)+' chỗ</span>';
@@ -58,7 +61,7 @@ function tcBangDiem(diem, chon, ket){
     g.ds.sort(function(a, b){ return String(a.t.ma).localeCompare(String(b.t.ma), 'vi', {numeric:true}); });
     return '<tr class="hoi"><td colspan="11">'+e(tdnHoi(k) || '(chưa rõ hội)')+' — '+g.ds.length+' tổ</td></tr>'+g.ds.map(function(x){ var t = x.t;
       return '<tr class="tc-bt-dong'+(t.ma===TC_BANG.chon ? ' chon' : '')+'" data-to="'+e(t.ma)+'" onclick="tcBangChon(this)"><td>'+ma(t.ma, 'mã tổ')+'</td><td>'+ma(t.ten, 'tên tổ trưởng')+'</td><td>'+ma(x.tt.kh, 'mã KH tổ trưởng')+'</td><td>'+ma(t.sdt, 'SĐT tổ trưởng')+'</td><td>'+e(t.tenThon ? pvApNgan(t.tenThon) : '')+'</td>'+
-        '<td class="so"><b>'+x.r.tong+'</b></td><td class="so">'+x.r.coNo+'</td><td class="so">'+x.r.khongNo+'</td><td class="so">'+tdnTien(x.dn)+'</td><td class="so">'+(x.qh ? '<span class="nh nh-do">'+tdnTien(x.qh)+'</span>' : '')+'</td><td>'+tcNguongChip(x.r.tong)+'</td></tr>'; }).join('')+
+        '<td class="so"><b>'+x.r.tong+'</b></td><td class="so">'+x.r.coNo+'</td><td class="so">'+x.r.khongNo+'</td><td class="so">'+tdnTien(x.dn)+'</td><td class="so">'+(x.qh ? '<span class="nh nh-do">'+tdnTien(x.qh)+'</span>' : '')+'</td><td>'+(tcDongChip(t) || tcNguongChip(x.r.tong))+'</td></tr>'; }).join('')+
       cong('Cộng '+e(tdnHoi(k) || '(chưa rõ hội)'), g, 'cong'); }).join('');
   var ket = TC_BANG.ket, h = '<div class="hop-tit">🏘 Tổ của Điểm '+e(t0.tenDiemDu || t0.tenDiem || diem)+(t0.ngayGD && !/ngày/i.test(t0.tenDiemDu || t0.tenDiem || '') ? ' · ngày GD '+e(t0.ngayGD) : '')+' · '+e(t0.tenXa||'')+'</div>'+
     '<div class="hop-phu">'+tong.to+' tổ · <b>'+tong.tv+'</b> thành viên · '+tong.no+' có dư nợ · '+tong.kno+' không dư nợ — '+e(tcTVGhi(r0))+'. Bấm mã / tên / số để chép; bấm dòng để chọn tổ.'+(ket ? ' <b>Kết nạp: '+e(ket.ten || '')+(ket.cccd ? ' · CCCD '+e(ket.cccd) : '')+'</b>' : '')+'</div>'+
@@ -148,7 +151,7 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
     else if(mon.length>1) h0 += '<tr class="tc-to-ct-mo tc-to-mon-gon" hidden><td colspan="9">'+mon.map(function(m){ return '<div><b>'+e(ctNgan(m.ct, m))+'</b> '+tcC(m.ku, 'mã món vay')+' · dư nợ <b>'+tdnTien(m.dn||0)+'</b>'+
       (m.nv ? ' · vay '+ngayVNsl(m.nv) : '')+' · hạn '+tcHanMon(m, false, true)+(laiTon(m)>0 ? ' · lãi tồn <b class="cam">'+tdnTien(laiTon(m))+'</b>' : '')+'</div>'; }).join('')+'</td></tr>';
     return h0; };
-  var h = hang([['Tổ (tổ trưởng)', '🏘 <b class="tc-ten to">'+tcC(t.ten, 'tên tổ trưởng')+'</b> '+tcNguongChip(r.tong), 'rong'], ['Mã tổ', tcC(t.ma, 'mã tổ')], ['Mã KH tổ trưởng', tt.kh ? tcC(tt.kh, 'mã KH tổ trưởng') : '<small>chưa rõ</small>'],
+  var h = hang([['Tổ (tổ trưởng)', '🏘 <b class="tc-ten to">'+tcC(t.ten, 'tên tổ trưởng')+'</b> '+(tcDongChip(t) || tcNguongChip(r.tong)), 'rong'], ['Mã tổ', tcC(t.ma, 'mã tổ')], ['Mã KH tổ trưởng', tt.kh ? tcC(tt.kh, 'mã KH tổ trưởng') : '<small>chưa rõ</small>'],
       ['☎ SĐT', t.sdt ? tcC(t.sdt, 'SĐT tổ trưởng') : '—'], ['CCCD', tt.cc ? tcC(tt.cc, 'CCCD tổ trưởng') : '—']])+
     hang([['Ấp · Xã', e([pvApNgan(t.tenThon||''), String(t.tenXa||'')].filter(Boolean).join(', ') || '—'), 'rong'], ['Điểm GD', e(diem ? 'Điểm '+diem.replace(/\s*·?\s*ngày\s*\d+.*$/i, '') : '—')],
       ['Ngày GD', e(t.ngayGD || (diem.match(/ngày\s*(\d+)/i)||[])[1] || '—')], ['Hội quản lý', e(tdnHoi(t.dv) || '—')]])+

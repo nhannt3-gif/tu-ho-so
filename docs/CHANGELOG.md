@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.383.6 — 26/10/2026 — Quy tắc hiện tổ: chỉ hiện tổ chưa đóng (TK 3)
+- **Anh 26/10**: "về tổ chỉ hiện các tổ chưa đóng, còn tổ đóng rồi như Linh thì không hiện nữa, nếu cần sẽ sao kê ở bên tab Sao kê, nguyên tắc chỉ hiện các tổ chưa đóng, còn tổ chưa đóng em tìm chốt nguyên tắc"; "em tự chốt quy tắc, anh sẽ kiểm tra và phản hồi nếu chưa chuẩn".
+- Chốt `QUY_CHUAN_KIEN_TRUC.md` mục 16: tổ chưa đóng = có mã trên **Danh sách tổ** của kỳ (hệ thống chỉ xuất tổ còn mở). Có DS thì không xét LEN_31 (ghép theo tên → dễ kéo tổ đã đóng hiện lại). Thiếu DS → LEN_31; thiếu cả 2 → Mẫu 31 (dư nợ 0 + không ai còn TK 105 = đã đóng).
+- Tổ đã đóng: không hiện ở cây / bộ lọc / Tra cứu / Tổ của điểm GD, ô tìm tổ (tab Tổ) không trả về nữa. Tổ dư nợ 0 chưa đóng: chip **cần đóng tổ** thay chip số TV, rê chuột ghi căn cứ (Danh sách tổ · còn / đã đóng TK 104). Tổ còn dư nợ mà không có trên DS: vẫn hiện + "⚠ không có trên Danh sách tổ".
+- Kiểm file thật 25/10 (chỉ đếm): có DS → 47 cần đóng (32 còn TK 104), 9 đã đóng (gồm tổ 0231094), 0 lệch. Chỉ Mẫu 31 → ẩn 48 (9 đã đóng + 39 tổ chưa đóng nhưng không còn TV — Mẫu 31 không phân biệt được, cần nạp Danh sách tổ).
+- `js/22g-to.js` (`toDong0`, `toDongNguon`), `js/22gb-to-giao-dien.js`, `js/22h-cap-hoi-sao-ke.js`, `js/58-tc-to.js` (`tcDongChip`). Phép thử t141 +1, sửa 2 ý theo luật mới (35).
+
 ## 3.383.5 — 26/10/2026 — Danh sách tổ có dòng cộng theo lọc (TK 3)
 - **Anh 26/10** (ảnh danh sách 6 tổ): "có cột tổng, theo lọc".
 - Tra cứu › Tìm theo Tổ trưởng: cuối bảng có dòng **Cộng n tổ · tổng TV · tổng có dư nợ** + ghi phạm vi lọc đang chọn; dòng cộng dính đáy khung cuộn.

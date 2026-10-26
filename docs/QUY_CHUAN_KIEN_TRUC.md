@@ -275,3 +275,18 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 - **Cửa** (`js/29` → `js/73`): `KHO.kc()` · `KHO.kcKH(kh)` · `KHO.kcKU(ku)` · `KHO.kcTo(ma)`; bảng tính sẵn `KHO.hoVay(maTo)` / `KHO.hoVayKH(kh)` tính lại từ kho.
 - **Cấm**: tab tự đọc file / tự ghép nguồn / sửa dòng gốc. Chỉnh hiển thị (tên có dấu, viết hoa đầu từ…) làm ở lớp hiển thị, ghi rõ nguồn sửa.
 - Chuyển dần các tab sang cửa này (3.382 Sao kê · Tổng hợp · Thông tin tổ → 3.383 Giao dịch xã · Tra cứu · TK 104/105 → 3.384 rà phần còn lại + luật trong `tests/kiem.py`); mỗi bản so kết quả trước / sau giống hệt.
+
+## 16. Hiện tổ — chỉ hiện tổ CHƯA ĐÓNG (anh 26/10/2026: "nguyên tắc chỉ hiện các tổ chưa đóng; tổ đóng rồi không hiện nữa, nếu cần sẽ sao kê bên tab Sao kê"; "em tự chốt quy tắc, anh kiểm tra phản hồi" — bản 3.383.6)
+Một chỗ quyết định: `toDong0` (`js/22g-to.js`) lúc dựng cây tổ của kỳ — mọi tab đọc `K.to` (cây, bộ lọc, Tra cứu, Tổ của điểm GD, KTGS…) nên theo cùng 1 luật. Tab không tự lọc lại.
+
+| # | Dữ liệu kỳ | Tổ | Kết luận | Hiện |
+|---|---|---|---|---|
+| 1 | Có Danh sách tổ (file Tổ trưởng hệ thống — chỉ xuất tổ còn mở) | có mã trên DS, còn dư nợ | chưa đóng | bình thường |
+| 2 | 〃 | có mã trên DS, dư nợ 0 | chưa đóng, **cần đóng tổ** | hiện + nhãn "cần đóng tổ" (căn cứ: Danh sách tổ · còn / đã đóng TK 104) |
+| 3 | 〃 | không có trên DS, dư nợ 0 | **đã đóng** | KHÔNG hiện, không tìm ra (cần xem → tab Sao kê) |
+| 4 | 〃 | không có trên DS, còn dư nợ (số liệu lệch) | chưa rõ | vẫn hiện + "⚠ không có trên Danh sách tổ" (không giấu món vay) |
+| 5 | Không có DS, có LEN_31 TO_TRUONG | dư nợ 0 | theo LEN_31 (có → cần đóng, không → đã đóng) | như 2 / 3 |
+| 6 | Không có cả 2 (chỉ Mẫu 31) | dư nợ 0 | còn khách có TK 105 → cần đóng; không → đã đóng | như 2 / 3 |
+- Danh sách tổ là căn cứ chính: khi có DS thì KHÔNG xét LEN_31 (LEN_31 ghép tổ theo tên tổ trưởng → dễ kéo tổ đã đóng hiện lại).
+- Số liệu 25/10 (file thật, chỉ đếm): 322 tổ có dư nợ trên DS · 47 cần đóng (32 còn TK 104, 15 đã đóng TK 104) · 9 đã đóng · 0 lệch.
+- Phép thử: t141 (luật 1–3, 6).

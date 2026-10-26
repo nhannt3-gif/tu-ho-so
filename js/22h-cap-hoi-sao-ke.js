@@ -37,7 +37,7 @@ function toPVHTML(C){
 }
 function toDong0HTML(ds){   /* 3.145: chip "cần đóng tổ" — bấm mở danh sách, bấm tên mở tổ */
   var d = ds.filter(function(t){ return t.canDong; }); if(!d.length) return '';
-  return ' <details class="to-dong0-ds"><summary class="to-dong0">⚠ '+d.length+' tổ dư nợ 0 — cần đóng tổ</summary>'+d.map(function(t){ return '<a href="#" onclick="toChonTo(\''+t.ma+'\');return false">'+coChuHTML((t.ten||'Tổ '+t.ma)+(t.tenThon ? ' · '+t.tenThon : ''))+'</a> <small>('+(t.ds && t.len ? 'Danh sách tổ + LEN_31' : t.ds ? 'Danh sách tổ' : 'LEN_31')+')</small>'; }).join(' · ')+'</details>';
+  return ' <details class="to-dong0-ds"><summary class="to-dong0">⚠ '+d.length+' tổ dư nợ 0 — cần đóng tổ</summary>'+d.map(function(t){ return '<a href="#" onclick="toChonTo(\''+t.ma+'\');return false">'+coChuHTML((t.ten||'Tổ '+t.ma)+(t.tenThon ? ' · '+t.tenThon : ''))+'</a> <small>('+coChuHTML(toDongNguon(t))+')</small>'; }).join(' · ')+'</details>';
 }
 var TO_PV_MAX = 800;   /* màn hình hiện tối đa ngần này dòng; In / Excel đủ */
 function toDsPVHTML(C, X){
