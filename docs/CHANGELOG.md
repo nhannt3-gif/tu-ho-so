@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.383.2 — 26/10/2026 — Tra cứu: dòng dữ liệu chữ nhỏ, gọn (TK 3)
+- **Anh 26/10**: "tinh chỉnh có thể cho các dòng dữ liệu chữ nhỏ, gọn để hiển thị được nhiều thông tin".
+- Bảng khách / bảng tổ (`table.tc-kq-bang`): chữ 12px mọi khổ màn, tiêu đề 11,5px, ô đệm 2px 5px, dòng 1,25; tên in đậm cùng cỡ chữ dòng. Bảng thành viên trong thẻ tổ (`tc-to-tvb`) đệm 1px, dòng 1,2. Cùng khung xem được thêm khoảng 25% số dòng.
+- Chỉ CSS (`css/app.css`).
+
 ## 3.383.1 — 26/10/2026 — Tra cứu: canh tên cột (TK 3)
 - **Anh 26/10**: "tên cột canh đều và cân đối độ rộng phù hợp" (bảng tổ khi Tìm theo Tổ trưởng).
 - Bảng tổ: Mã tổ canh giữa (tiêu đề + số), TV · Có DN canh phải, Xã · Ấp · Hội canh trái; độ rộng Tổ trưởng 27% · Mã tổ 13% · TV 12% · Có DN 10% · Xã 15% · Ấp 12% · Hội 11%.
