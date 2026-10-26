@@ -3476,7 +3476,18 @@ button.pv-dan-o.pv-ve{text-decoration:underline dotted;text-underline-offset:2px
 .pv-x{border:1px solid var(--vien);background:var(--the);color:var(--chu-phu);border-radius:50%;width:18px;height:18px;padding:0;font-size:10px;line-height:16px;cursor:pointer;flex:0 0 auto;margin-left:-2px}
 .pv-x:not(:disabled):hover{background:var(--do);color:#fff;border-color:var(--do)}
 .pv-x:disabled{opacity:.3;cursor:default}
-.tc-dau #tc-cay{flex:1 1 100% !important;max-width:none}
+.tc-dau.tc-dau{display:flex;flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:3px}   /* 3.383: 1) Lọc địa bàn · 2) ô tìm + chip báo bên phải · 3) Tìm theo chip nhỏ 1 dòng */
+.tc-dau.tc-dau #tc-cay{flex:none !important;max-width:none;margin:0}
+.tc-dau #tc-cay .pv-chip-o{display:none}
+.tc-dau.tc-dau .tc-tim{flex:none;max-width:none;margin:0}
+.tc-dau.tc-dau .tc-hang .sl-tra-o{flex:0 1 640px}
+.tc-dau.tc-dau .tc-bao{margin-left:auto;display:inline-flex;align-items:center}
+.tc-dau .tc-bao:empty{display:none}
+.tc-dau.tc-dau .tc-theo{flex-wrap:nowrap;overflow-x:auto;gap:3px;margin-top:2px;scrollbar-width:thin}
+.tc-dau .tc-theo .gd-chip{font-size:calc(11px*var(--co));padding:1px 7px;min-height:20px;white-space:nowrap}
+.tc-dau .tc-theo-nhan{font-size:calc(11px*var(--co));white-space:nowrap}
+.tc-dau .pv-cay .loc-khoi{margin:10px 0 2px;padding:10px 6px 4px}
+.pv-cay .loc-khoi.gon .pv-hang1 select.pv-o{font-size:calc(12px*var(--co));padding:2px 4px}
 .pv-cay .loc-khoi.gon{min-width:0}
 .pv-cay .loc-khoi.gon .pv-len .pv-chu{display:none}
 @media (min-width:700px){ .pv-cay .loc-khoi.gon .pv-hang1{flex-wrap:nowrap} }
@@ -3937,7 +3948,7 @@ table.tc-bt tr.tc-bt-dong.chon td{background:var(--xanh-nhat);box-shadow:inset 0
 .th-xem .xuat-hang .nho:not([disabled]){padding-left:9px;padding-right:9px}   /* 3.334: khung xem 40 % — 6 nút xuất vừa 1 hàng (Gửi không rớt dòng) */
 /* 3.335 (anh 24/10): Tra cứu KH — ô tìm + LỌC ĐỊA BÀN dải ngang toàn trang phía trên; dưới: danh sách | chi tiết */
 .tc-dau{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-end;margin:0 0 8px}
-.tc-dau .tc-tim{flex:1 1 420px;min-width:0;max-width:640px;margin:0 0 4px}.tc-dau .tc-hang{display:flex;gap:6px;align-items:center;min-width:0}.tc-dau .tc-hang .sl-tra-o{flex:1 1 220px;margin:0}
+.tc-dau .tc-tim{flex:1 1 420px;min-width:0;max-width:640px;margin:0 0 4px}.tc-dau .tc-hang{display:flex;gap:6px;align-items:center;min-width:0}.tc-dau.tc-dau .tc-hang .sl-tra-o{flex:1 1 220px;margin:0}
 .tc-theo{display:flex;flex-wrap:wrap;gap:3px;align-items:center;margin-top:5px}.tc-theo-nhan{font-size:calc(11.5px*var(--co));color:var(--chu-phu);margin-right:2px}
 .tc-theo .gd-chip{font-size:calc(11.5px*var(--co));padding:1px 8px;min-height:0;line-height:1.5}
 .tc-kq-dau{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:2px 0}.tc-kq-dau .ghi{margin:0}

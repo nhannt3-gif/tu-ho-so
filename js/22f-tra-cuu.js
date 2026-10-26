@@ -42,11 +42,12 @@ function slTraHTML(){
   var n = KHO.chiMuc().length, ky = slHSMoi();
   tcDangKy();
   return '<div class="tc-dau">'+   /* 3.335 (anh 24/10): ô tìm + LỌC ĐỊA BÀN thành dải ngang toàn trang (trước nằm trong cột trái hẹp) */
+    '<div id="tc-cay" class="to-cay pv-cay"></div>'+   /* 3.383 (anh 26/10 "tối ưu 2–3 dòng: dòng địa bàn đầu tiên, đến ô tìm, các nút tìm theo 1 dòng chip nhỏ bên dưới, bên phải ô hiện chip báo nếu có, dưới nữa là kiểm trùng") */
     '<div class="tc-tim"><div class="tc-hang"><div class="sl-tra-o"><span>🔎</span><input id="sl-tim" autocomplete="off" value="'+coChuHTML(SL_TRA_Q)+'" placeholder="'+tcTheoPH()+'" '+
     'oninput="SL_TRA_Q=this.value;TC_SL=50;slTraTim()" onkeydown="tcPhim(event)">'+
     (SL_TRA_Q ? '<button class="sap-ico" onclick="SL_TRA_Q=\'\';veSoLieu();slDoiTab(\'tra\')" title="Xóa">✕</button>' : '')+'</div>'+
     (typeof DH_CUOI!=='undefined' && DH_CUOI==='gd' ? '<button class="nho tc-ve-gdx" onclick="dhBam(\'gd\',\'gdx\')" title="Về bàn thao tác Giao dịch xã (địa bàn giữ nguyên)">← 🏢 Giao dịch xã</button>' : '')+   /* 3.328: vào từ Giao dịch xã */
-    '</div>'+tcTheoHTML()+'</div><div id="tc-cay" class="to-cay pv-cay"></div></div>'+   /* 3.160: bỏ khung gập "📍 Toàn PGD" — cây lọc chung như các tab */
+    '<span class="pv-chip-o tc-bao">'+slChipHTML()+'</span></div>'+tcTheoHTML()+'</div></div>'+   /* 3.160: bỏ khung gập "📍 Toàn PGD" — cây lọc chung như các tab */
     '<div class="tc-2cot tc394"><div class="tc-trai"><div class="sl-tra">'+
     '<details class="tc-kt"'+(TC_KT.so || TC_KT.ten ? ' open' : '')+'><summary>🔍 Kiểm trùng trước khi nhập máy</summary>'+
       '<div class="tc-kt-o"><input id="tc-kt-so" inputmode="numeric" autocomplete="off" placeholder="Số CCCD / CMND" value="'+coChuHTML(TC_KT.so)+'" oninput="TC_KT.so=this.value;tcKTVe()">'+
