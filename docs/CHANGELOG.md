@@ -10,7 +10,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - Tổ đã đóng: không hiện ở cây / bộ lọc / Tra cứu / Tổ của điểm GD, ô tìm tổ (tab Tổ) không trả về nữa. Tổ dư nợ 0 chưa đóng: chip **cần đóng tổ** thay chip số TV, rê chuột ghi căn cứ (Danh sách tổ · còn / đã đóng TK 104). Tổ còn dư nợ mà không có trên DS: vẫn hiện + "⚠ không có trên Danh sách tổ".
 - Kiểm file thật 25/10 (chỉ đếm): có DS → 47 cần đóng (32 còn TK 104), 9 đã đóng (gồm tổ 0231094), 0 lệch. Chỉ Mẫu 31 → ẩn 48 (9 đã đóng + 39 tổ chưa đóng nhưng không còn TV — Mẫu 31 không phân biệt được, cần nạp Danh sách tổ).
 - Chuỗi căn cứ khi thiếu Danh sách tổ: **Thông tin tổ trưởng** (cũng là danh sách tổ hệ thống) → LEN_31 → Mẫu 31. Tổ có **thu nợ / thu lãi trong tháng** (tất toán rồi đóng ngay trong tháng) luôn giữ → báo cáo tháng đủ số. Hồi quy 3.383.5 bắt lỗi: luật Mẫu 31 của 3.383.5 ẩn 5 tổ giả có trên Thông tin tổ trưởng chưa có món → 4 báo cáo Sao kê (KQGD, THHĐ) đổi; sửa xong t276 giống hệt bản chụp, t157 trả ngưỡng STT 60 px như cũ.
-- "Có gì mới" cắt về 15 dòng (t192).
+- "Có gì mới" đúng 15 dòng (t192 — 3.383.5 thêm tay 2 dòng thành 17; bump 3.383.6 tự cắt).
 - `js/22g-to.js` (`toDong0`, `toDongNguon`), `js/22gb-to-giao-dien.js`, `js/22h-cap-hoi-sao-ke.js`, `js/58-tc-to.js` (`tcDongChip`). Phép thử t141 +1, sửa 2 ý theo luật mới (35).
 
 ## 3.383.5 — 26/10/2026 — Danh sách tổ có dòng cộng theo lọc (TK 3)
