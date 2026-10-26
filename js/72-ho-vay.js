@@ -48,11 +48,14 @@ function hvDungKH(kh){ var K = KHO.kyDung(); if(!K || !kh) return null; var r = 
 function hvBaoCao(rows, ngay){
   var K = SK_K, sk = hvSaoKe(K), ds = hvGhep(rows, sk).sort(function(a, b){ return a.kh<b.kh ? -1 : 1; });
   var ten = 'Sao kê biến động TK 105 — khách chuyển vào, trích trả lãi / gốc';
-  var nhan = function(x){ return [x.tinh.ky ? HV_KY[x.tinh.ky] : '', x.tinh.ctGhi].filter(Boolean).join(' · '); };
-  var r = skBang(['STT','Mã KH','Họ tên','Dư nợ','Số TK 105','Số dư cuối tháng trước','Khách chuyển vào','Tăng / giảm','Số dư đến ngày','Trích trả lãi','Trích trả gốc','Lãi phải thu tháng','Ngày GD','Ghi chú'], ds,
-    function(x, i){ var t = x.tinh, tk = x.tk; return [i, x.kh, x.ten, x.dn, tk ? tk.ds.join(', ') : '', tk && tk.dau!==null ? tk.dau : '', t.vao===null ? '' : t.vao, t.tangGiam===null ? '' : t.tangGiam,
-      tk ? tk.cuoi : '', t.traLai, t.traGoc, x.laiDT, ngayVNsl(x.ngayGD), nhan(x)]; },
+  var nhan = function(x){ return [x.tinh.ky ? HV_KY[x.tinh.ky] : '', sk && x.tk && x.tk.nguon==='Mẫu 31' ? 'số dư theo Mẫu 31 (không có trong Sao kê)' : '', x.tinh.ctGhi].filter(Boolean).join(' · '); };
+  /* 3.380.1 (anh xem bản in 26/10): tiêu đề ghi rõ ngày số dư; cột liên quan đứng cạnh nhau (đầu kỳ → khách vào → phải thu / trả lãi → trả gốc → cuối kỳ); chữ 10 pt; Ghi chú xuống dòng, không mất chữ */
+  var nC = sk ? String(sk.ky) : String(K.ngay), nD = tdnCuoiKy(kyLui(nC.slice(0, 7), -1));
+  var r = skBang(['STT','Mã KH','Họ tên','Dư nợ','Số TK 105','Số dư cuối tháng trước '+ngayVNsl(nD),'Khách chuyển vào','Lãi phải thu tháng','Trích trả lãi','Trích trả gốc','Số dư đến hết ngày '+ngayVNsl(nC),'Tăng / giảm','Ngày GD gần nhất','Ghi chú'], ds,
+    function(x, i){ var t = x.tinh, tk = x.tk; return [i, x.kh, x.ten, x.dn, tk ? tk.ds.join(', ') : '', tk && tk.dau!==null ? tk.dau : '', t.vao===null ? '' : t.vao, x.laiDT, t.traLai, t.traGoc,
+      tk ? tk.cuoi : '', t.tangGiam===null ? '' : t.tangGiam, ngayVNsl(x.ngayGD), {h:coChuHTML(nhan(x)), lop:'gc'}]; },
     [3, 5, 6, 7, 8, 9, 10, 11], function(x){ return x.tinh.ky==='tm' || x.tinh.ky==='khongTK' || x.tinh.ky==='cho' ? 'nb' : ''; });
+  r.html = '<style>.trang table.hv105,.trang.doc table.hv105{font-size:10pt}.trang table.hv105 th{white-space:normal;font-size:9.5pt}.trang table.hv105 td.gc{white-space:normal;min-width:30mm}</style>'+r.html.replace('<table class="bc-bang">', '<table class="bc-bang hv105">');
   var dem = {}, cong = {vao:0, lai:0, goc:0}; ds.forEach(function(x){ dem[x.tinh.ky||'khac'] = (dem[x.tinh.ky||'khac']||0)+1; if((x.tinh.vao||0) > 0) cong.vao += x.tinh.vao; cong.lai += x.tinh.traLai; cong.goc += x.tinh.traGoc; });
   var nVao = ds.filter(function(x){ return (x.tinh.vao||0) > 1; }).length;
   var skChu = sk ? 'Sao kê TK 105 ngày '+ngayVNsl(String(sk.ky))+(String(sk.ky)!==String(K.ngay) ? ' <b class="do">(khác ngày Mẫu 31 '+ngayVNsl(K.ngay)+' — nạp Sao kê cùng ngày cho đúng)</b>' : '') : '<b class="do">chưa nạp Sao kê TK 105</b> — số dư lấy Mẫu 31, không tính được khách chuyển vào';
