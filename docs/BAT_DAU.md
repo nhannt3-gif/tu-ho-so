@@ -49,6 +49,7 @@
 |---|---|---|
 | Hướng đi lớn, quyết định anh đã chốt | `docs/KIEN_TRUC_3_LOP.md` | Đọc mục 0 + mục 8 (lộ trình) |
 | Code nằm đâu | `docs/BAN_DO_MA.md` (tự sinh) | Tra khối / tiền tố → `grep -n "function tên"` → Read đúng khoảng dòng (offset/limit). **Không đọc cả file js lớn** (`04-giao-dien` 5.500 dòng, `06-hop-thoai` 3.350, `22-so-lieu` 6.350). |
+| Tên cột file hệ thống (Mẫu 31 175 cột, Nợ QH, Khoanh, KHĐ, Tổng dư nợ, Sao kê TK 104/105, DSTO) | `docs/COT_FILE_MAU.md` (tự sinh `python3 tools/cot_mau.py`) | Cột → trường app (`SL_TRUONG` hoặc `c_<tên chuẩn>`); Mẫu 31 giữ mọi cột → dùng thêm cột không cần nạp lại file. Ghi chú nghiệp vụ lãi / TK 105 cuối file. |
 | Một bản cũ đã làm gì | `docs/CHANGELOG.md` (≈ 280 KB) | `grep -n "^## 3.13" docs/CHANGELOG.md` rồi đọc đúng mục. **Không đọc cả file.** |
 | Bảng thử máy thật, ghi chú kỹ thuật từng bản | `docs/BAN_GIAO_VIEC_CON_LAI.md` (≈ 260 KB) | `grep -n "3.138" …` rồi đọc khoảng nhỏ |
 | Nghiệp vụ chi tiết, quy tắc số liệu, kiến trúc cũ | `docs/BAN_GIAO_TIEP_TUC.md` (≈ 70 KB) | Chỉ đọc mục cần (mục 4 Số liệu, 4a quy tắc kỳ ngày) |
