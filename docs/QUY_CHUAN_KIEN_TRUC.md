@@ -267,3 +267,11 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 - **Tốc độ:** việc nặng (đọc nhiều tháng, dựng kỳ khác) chỉ chạy **khi bấm / khi cần**, kết quả giữ trong phiên; không làm chậm lúc mở tab / mở thẻ.
 - **Điện thoại (25/10):** bản máy tính chạy trên điện thoại bằng `css/dt-may.css` (nạp với `media="(max-width:600px)"`); bảng sao kê / báo cáo **giữ cột như máy tính**, dùng **vuốt trượt + chụm phóng to / thu nhỏ của iOS** (khung cuộn ngang, cột đầu đứng yên; xem trước bản in vừa bề ngang, chụm để phóng) — không xếp lại cột.
 - **Phép thử:** theo mức thay đổi (CLAUDE.md); chức năng mới phải kèm phép thử cũ của vùng bị đụng.
+
+## 15. KHO CHUẨN — một kho dữ liệu gốc, mọi tab chỉ truy vấn (anh chốt 26/10/2026, bản 3.381)
+- **Anh 26/10**: "khi nạp dữ liệu, dùng khóa liên kết với nhau thành 1 data hoàn chỉnh, mọi truy vấn lấy qua kho; data chuẩn lấy nguyên bản từ Mẫu 31, bổ sung số TK 105, 104, không đổi bất cứ gì; các nơi khác chỉ truy vấn, khi cần chỉnh nhẹ (vd tên tổ trưởng không dấu → bổ sung dấu)"; "không đổi bản chất số liệu là được".
+- **Gốc** = dòng Mẫu 31 của kỳ (`K.B.co.hstd`), nguyên bản — lúc nạp chỉ đổi cách viết (số, ngày, mã thêm 0, bỏ khoảng trắng thừa), không đổi giá trị; KU hủy giữ riêng (`huy`), không xóa.
+- **Gắn thêm, không ghi đè**: Sao kê TK 105 / 104 theo **mã KH** · Nợ QH / khoanh / KHĐ theo **số KU** · tổ (Danh sách tổ) theo **mã tổ**. Kỳ từng nguồn: `kcNguon(K)`.
+- **Cửa** (`js/29` → `js/73`): `KHO.kc()` · `KHO.kcKH(kh)` · `KHO.kcKU(ku)` · `KHO.kcTo(ma)`; bảng tính sẵn `KHO.hoVay(maTo)` / `KHO.hoVayKH(kh)` tính lại từ kho.
+- **Cấm**: tab tự đọc file / tự ghép nguồn / sửa dòng gốc. Chỉnh hiển thị (tên có dấu, viết hoa đầu từ…) làm ở lớp hiển thị, ghi rõ nguồn sửa.
+- Chuyển dần các tab sang cửa này (3.382 Sao kê · Tổng hợp · Thông tin tổ → 3.383 Giao dịch xã · Tra cứu · TK 104/105 → 3.384 rà phần còn lại + luật trong `tests/kiem.py`); mỗi bản so kết quả trước / sau giống hệt.

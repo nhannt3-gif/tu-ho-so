@@ -91,6 +91,11 @@ var KHO = (function(){
     hanCCCD: function(so, ns, ncap){ return toCCCDHan(so, ns, ncap); },
     /* KHO.tk105(maKH) → {ds:[{stk, t105, ndk}], ky, trung, daChon} | null — Sao kê TK 105 gắn kỳ đang dựng; TK anh chọn đứng đầu (bọc tkCua) · QT-11 */
     /* 3.380 KHO.hoVay(maTo) → [hộ vay] 1 dòng / khách: Mẫu 31 + Sao kê TK 105 cùng ngày + tổ (js/72, docs/THIET_KE_HO_VAY.md) · KHO.hoVayKH(kh) → 1 hộ */
+    /* 3.381 KHO CHUẨN (js/73): gốc Mẫu 31 nguyên bản + gắn thêm TK 105 / 104 (mã KH), Nợ QH / khoanh / KHĐ (số KU), tổ (mã tổ) — tab chỉ truy vấn, không tự ghép */
+    kc: function(){ return co() && typeof kcDung==='function' ? kcDung(TO_K) : null; },
+    kcKH: function(kh){ return co() && typeof kcKH==='function' ? kcKH(TO_K, kh) : null; },
+    kcKU: function(ku){ return co() && typeof kcKU==='function' ? kcKU(TO_K, ku) : null; },
+    kcTo: function(ma){ return co() && typeof kcTo==='function' ? kcTo(TO_K, ma) : {dong:[], lap:[]}; },
     hoVay: function(ma){ return typeof hvDung==='function' ? hvDung(ma) : []; },
     hoVayKH: function(kh){ return typeof hvDungKH==='function' ? hvDungKH(kh) : null; },
     tk105: function(kh){ return typeof tkCua==='function' ? tkCua('tk105', kh) : null; },

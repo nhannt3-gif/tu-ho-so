@@ -74,6 +74,7 @@
 | 26/10 | TK 3 | (tài liệu) | **`docs/COT_FILE_MAU.md` mới** (từ điển cột file hệ thống, tự sinh) + `tools/cot_mau.py`; 1 dòng `CLAUDE.md`, `docs/BAT_DAU.md` | không đổi code app |
 | 26/10 | TK 3 (nhận bàn giao) | **3.380** | **`js/72-ho-vay.js` mới** + 1 dòng `index.html`; `js/29-kho.js` (cửa hoVay, hoVayKH); `js/22h-cap-hoi-sao-ke.js` (báo cáo b105); `tests/t274.js` mới; `docs/THIET_KE_HO_VAY.md` | t274 17/17, hồi quy đủ (đụng KHO) |
 | 26/10 | TK 3 (nhận bàn giao) | **3.380.1** | `js/72-ho-vay.js` (bố trí cột báo cáo TK 105); `tests/t274.js` | t274 17/17, t105, t131 |
+| 26/10 | TK 3 (nhận bàn giao) | **3.381** | **`js/73-kho-chuan.js` mới** + 1 dòng `index.html`; `js/29-kho.js` (cửa kc*); `js/22h` (toKhach qua kho); `js/72` (đọc kho); `tests/t275.js` mới; `docs/QUY_CHUAN_KIEN_TRUC.md` mục 15 | t275 9/9, t274, hồi quy đủ (đụng KHO) |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
