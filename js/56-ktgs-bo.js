@@ -15,13 +15,13 @@ function ktBoChonHTML(){ var d = ktBoDang(), md = ktBoMacDinh();
 var KT_B2_TEN = ['Thành lập theo cụm dân cư', 'Ban quản lý mấy người, phân công', 'Tổ trưởng – Tổ phó có quan hệ gia đình', 'Ban QL tham gia BTV CT-XH xã', 'Kiêm tổ trưởng ngân hàng khác',
   'Sinh hoạt Tổ định kỳ', 'Tuyên truyền, vận động tiết kiệm', 'Họp bình xét, thành phần', 'Tham gia giao dịch, giao ban', 'Thu phí, vay ké, chiếm dụng',
   'Ủy nhiệm thu lãi, biên lai', 'Chứng kiến kiểm tra, đối chiếu', 'Phối hợp xử lý nợ', 'Lưu giữ hồ sơ Tổ'];
-var KT_B2_CACH = [['', 'Theo cả bảng'], ['trong', 'Để trống'], ['cham', 'Chấm ghi tay'], ['dien', 'Theo 727'], ['go', 'Gõ chữ']];
+var KT_B2_CACH = [['', 'Theo cả bảng'], ['trong', 'Để trống'], ['dien', 'Theo 727'], ['go', 'Gõ chữ']];
 function ktB16Mang(t, v){   /* → mảng 14 ô Bảng II theo lựa chọn cả bảng + từng ô */
   var ca = ktB16Mac(v), o = (v && v.b2o) || {}, co = Object.keys(o).some(function(i){ return o[i] && o[i].c; });
-  if(!co) return ca==='dien' || ca==='cham' ? KT_B16.map(function(x, i){ return ktB2Chu(t, ca, i); }) : [];
+  if(!co) return ca==='dien' ? KT_B16.map(function(x, i){ return ktB2Chu(t, ca, i); }) : [];
   return KT_B16.map(function(x, i){ var r = o[i] || {}; return r.c==='go' ? String(r.v || '') : ktB2Chu(t, r.c==='trong' ? '' : r.c || ca, i); });
 }
-function ktB2Chu(t, c, i){ return c==='dien' ? KT_B16[i].replace('{ấp}', ktCapAp(t.tenXa)) : c==='cham' ? KT_B16_CHAM : ''; }
+function ktB2Chu(t, c, i){ return c==='dien' ? KT_B16[i].replace('{ấp}', ktCapAp(t.tenXa)) : ''; }
 function ktB2TungOHTML(mau, o){
   var b2o = o.b2o || {}, n = Object.keys(b2o).filter(function(i){ return b2o[i] && b2o[i].c; }).length;
   return '<details class="kt-b2-o"'+(KT_IN_X && KT_IN_X.b2mo ? ' open' : '')+'><summary data-lenh="ktbo.b2mo">Từng ô'+(n ? ' ('+n+' ô khai riêng)' : '')+'</summary><table class="kt-b2-bang">'+

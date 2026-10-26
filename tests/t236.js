@@ -21,13 +21,13 @@ const fs=require('fs'), path=require('path');
    ok('mặc định: Đoàn kiểm tra = Hội phụ trách tổ (như cũ)', h.indexOf(hoiTen)>=0, hoiTen);
    /* khai tên đoàn + cán bộ */
    const S = D.cauHinh.ktIn = {}; S.dx_m06 = {dvc:'go', dvt:'Đoàn kiểm tra NHCSXH Giả', ng1:'go', cb1t:'Nguyễn Kiểm Tra Giả', cv1t:'Cán bộ tín dụng'};
-   S.dx_m16 = {dvc:'go', dvt:'Đoàn kiểm tra NHCSXH Giả', ng1:'go', cb1t:'Nguyễn Kiểm Tra Giả', cv1t:'Cán bộ tín dụng', ng2:'go', cb2t:'Trần Đoàn Viên Giả', cv2t:'Kế toán', b2:'cham', nx:''};
+   S.dx_m16 = {dvc:'go', dvt:'Đoàn kiểm tra NHCSXH Giả', ng1:'go', cb1t:'Nguyễn Kiểm Tra Giả', cv1t:'Cán bộ tín dụng', ng2:'go', cb2t:'Trần Đoàn Viên Giả', cv2t:'Kế toán', b2:'cham', nx:''};   /* 3.378: "chấm" cũ → để trống */
    v = ktInV('m06'); let g6 = ktGiaTri06(t, dc, v), h6 = chu(ktHTML06(g6));
    ok('Mẫu 06: Đơn vị kiểm tra = tên đoàn khai báo; cán bộ = tên + chức vụ khai báo', /Đơn vị kiểm tra: Đoàn kiểm tra NHCSXH Giả/.test(h6) && /Nguyễn Kiểm Tra Giả/.test(h6) && /Cán bộ tín dụng/.test(h6), h6.slice(0, 200));
    ok('Mẫu 06: số liệu hồ sơ vẫn ghi sẵn (họ tên, mã khoản vay)', dc.length ? h6.indexOf(tenHoaDau(dc[0].ten))>=0 : true);
    v = ktInV('m16'); let g16 = ktGiaTri16(t, dc, v), h16 = chu(ktHTML16(g16));
    ok('Mẫu 16: ĐOÀN KIỂM TRA + đầu trang = tên đoàn khai báo; 2 cán bộ khai báo', /ĐOÀN KIỂM TRA: Đoàn kiểm tra NHCSXH Giả/.test(h16) && /ĐOÀN KIỂM TRA NHCSXH GIẢ/.test(h16) && /Nguyễn Kiểm Tra Giả/.test(h16) && /Trần Đoàn Viên Giả/.test(h16) && /Kế toán/.test(h16));
-   ok('Mẫu 16: Bảng II "chấm ghi tay" — ô kết quả là dòng chấm, không chữ điền sẵn', g16.b2.length===14 && g16.b2.every(x=>/^\.{20,}$/.test(x)) && !/Theo cụm dân cư liền kề/.test(h16) && /^\.{20,}$/.test(g16.nx.kq1));
+   ok('3.378: Bảng II lựa chọn cũ "chấm ghi tay" → để trống (không chấm trong ô), 2 dòng có số trống', g16.b2.length===0 && !/Theo cụm dân cư liền kề/.test(h16) && !g16.nx.kq1 && !g16.nx.kq2);
    ok('Mẫu 16: số liệu tổ vẫn ghi sẵn (dư nợ, số tổ viên)', !!g16.f.DN && !!g16.f.STV);
    /* chấm ghi tay */
    S.dx_m16 = {dvc:'cham', ng1:'', ng2:''}; v = ktInV('m16'); h16 = chu(ktHTML16(ktGiaTri16(t, dc, v)));
@@ -39,7 +39,7 @@ const fs=require('fs'), path=require('path');
    /* hộp chọn khi in: ô chọn + ô khai tên */
    S.dx_m16 = {dvc:'go', dvt:'Đoàn Giả', ng1:'go'}; ktInHop(['m16'], '', ktHoiCuaTo([t])); await w(100);
    const hop = document.getElementById('hop-in');
-   ok('hộp Chọn khi in: nhãn bộ "② Khai báo khi cần" (3.327), ô Đơn vị / Đoàn, ô khai tên đoàn + họ tên cán bộ, Bảng II có "Chấm ghi tay"', /② Khai báo khi cần/.test(hop.textContent) && !!document.getElementById('ki-m16-dvc') && !!document.getElementById('ki-m16-dvt') && !!document.getElementById('ki-m16-cb1t') && /Chấm ghi tay \(theo mẫu\)/.test(hop.innerHTML));
+   ok('hộp Chọn khi in: nhãn bộ "② Khai báo khi cần" (3.327), ô Đơn vị / Đoàn, ô khai tên đoàn + họ tên cán bộ, 3.378: Bảng II không còn "Chấm ghi tay"', /② Khai báo khi cần/.test(hop.textContent) && !!document.getElementById('ki-m16-dvc') && !!document.getElementById('ki-m16-dvt') && !!document.getElementById('ki-m16-cb1t') && !/Chấm ghi tay \(theo mẫu\)/.test(hop.innerHTML));
    document.getElementById('ki-m16-dvt').value = 'Đoàn Giả Sửa'; ktInDoc(); await w(50);
    ok('sửa ô khai tên → lưu vào dx_m16', D.cauHinh.ktIn.dx_m16.dvt==='Đoàn Giả Sửa');
    dongHop();
@@ -71,9 +71,9 @@ const fs=require('fs'), path=require('path');
    D.cauHinh.ktIn.m16 = {b2:'dien'}; ktInHop(['m16'], '', ktHoiCuaTo([t]), 0, 1); await w(100);
    document.querySelector('.kt-b2-o summary').click(); await w(50);
    const doi = async(id, gt)=>{ const e = document.getElementById(id); e.value = gt; e.dispatchEvent(new Event('change', {bubbles:true})); await w(100); };
-   await doi('ki-m16-b2o-0', 'cham'); await doi('ki-m16-b2o-3', 'go'); await doi('ki-m16-b2o-3-v', 'Có, chữ giả'); await doi('ki-m16-b2o-5', 'trong');
+   await doi('ki-m16-b2o-0', 'trong'); await doi('ki-m16-b2o-3', 'go'); await doi('ki-m16-b2o-3-v', 'Có, chữ giả'); await doi('ki-m16-b2o-5', 'trong');
    const gb = ktGiaTri16(t, dc, ktInV('m16')).b2;
-   ok('3.327: Bảng II cả bảng 727 + từng ô — ô 1 chấm, ô 4 gõ chữ, ô 6 để trống, ô khác theo 727; khung Từng ô vẫn mở', gb.length===14 && /^\.{20,}$/.test(gb[0]) && gb[3]==='Có, chữ giả' && gb[5]==='' && gb[1]===KT_B16[1] && document.querySelector('.kt-b2-o').open, JSON.stringify(gb.slice(0, 6)));
+   ok('3.327: Bảng II cả bảng 727 + từng ô — ô 1 để trống, ô 4 gõ chữ, ô 6 để trống, ô khác theo 727; khung Từng ô vẫn mở', gb.length===14 && gb[0]==='' && gb[3]==='Có, chữ giả' && gb[5]==='' && gb[1]===KT_B16[1] && document.querySelector('.kt-b2-o').open, JSON.stringify(gb.slice(0, 6)));
    D.cauHinh.ktIn.m16 = {b2:''}; const g0 = ktGiaTri16(t, dc, ktInV('m16')).b2;
    ok('3.327: cả bảng để trống, không khai từng ô → Bảng II trống như cũ', g0.length===0);
    dongHop(); K.che = 'dx';

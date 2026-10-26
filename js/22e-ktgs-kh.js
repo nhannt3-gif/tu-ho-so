@@ -477,11 +477,11 @@ function ktDKVeG(o, th){
     h += '<tr class="'+(r.chon ? 'kt-co' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(r.chon ? ' checked' : '')+' data-lenh="ktk.dkTich" data-su="change" data-m="'+m+'" aria-label="Chọn tổ"></td>'+
       '<td class="to-ten"><b>'+coChuHTML(t.ten||'Tổ '+m)+'</b> ('+m+')</td><td>'+coChuHTML([t.tenThon, t.tenXa].filter(Boolean).join(' · '))+'</td><td>'+coChuHTML(tdnHoi(t.dv))+'</td><td></td>'+
       '<td>'+(x ? '<b class="'+(x.pt>=90 ? 'xanh' : 'do')+'">'+x.nChon+'/'+x.nDung+' hộ = '+ktPT(x.pt)+'%</b>'+(x.nTong>x.nChon ? ' <small>+ '+(x.nTong-x.nChon)+' QH/khoanh</small>' : '') : '')+'</td>'+
-      '<td>'+(x ? x.monC+'/'+x.monD+' món ('+ktPT(x.ptMon)+'%)' : '')+'</td><td><button type="button" class="nho" data-lenh="ktk.dkMo" data-m="'+m+'">'+(KT_DK_MO===m ? '▴ Thu gọn' : '▾ Chọn hộ')+'</button></td></tr>';
+      '<td>'+(x ? x.monC+'/'+x.monD+' món ('+ktPT(x.ptMon)+'%)' : '')+'</td><td><button type="button" class="nho" data-lenh="ktk.dkMo" data-m="'+m+'">'+(KT_DK_MO===m ? '▴ Thu gọn' : '▾ Chọn hộ')+'</button>'+(typeof ktttIn==='function' ? ' <button type="button" class="nho" data-lenh="kttt.in" data-m="'+m+'" title="Tóm tắt tình hình tổ 1 mặt A4 (js/71)">📋</button>' : '')+'</td></tr>';   /* 3.379 */
     if(KT_DK_MO===m) h += '<tr><td colspan="8">'+ktDKHoHTML(t, x)+'</td></tr>'; });
   h += '</tbody></table></div>';
   var xaDK = {}; chon.forEach(function(r){ if(r.t.xa) xaDK[r.t.xa] = 1; });
-  h += ktKBKhung('dk', ktHoiDsXa(xaDK))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktDKXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' tổ · Mẫu 06 + 16</button></div>'+
+  h += ktKBKhung('dk', ktHoiDsXa(xaDK))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktDKXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' tổ · Mẫu 06 + 16</button>'+(typeof ktttIn==='function' ? '<button type="button" class="nho" data-lenh="kttt.dk"'+(chon.length ? '' : ' disabled')+'>📋 Tóm tắt '+chon.length+' tổ</button>' : '')+'</div>'+
     '<p class="ghi">Mẫu 06: hộ còn dư nợ có món giải ngân từ các năm trước (trước 01/01/'+th.slice(0, 4)+'), chỉ in các món đó; tích sẵn 100%, bỏ tích hộ không kiểm — 727: tối thiểu 90% (tính theo hộ, kèm tỷ lệ món). '+
       'Hộ quá hạn / khoanh không tích (kiểm tra riêng) — tích tay khi cần. Mẫu 16 lấy số liệu đến '+ngayVNsl(tdnCuoiKy(K.ky))+' (BC0437 cùng tháng nếu đã nạp, không thì tính từ Mẫu 31). Ngày kiểm tra để trống, ghi tháng '+th.slice(5)+'/'+th.slice(0, 4)+'.</p>';
   o.innerHTML = h;

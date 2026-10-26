@@ -1981,7 +1981,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.377', ds:[
+var CO_GI_MOI = {ban:'3.379', ds:[
+  ["KTGS 🎯 Đột xuất + 📅 Định kỳ: nút 📋 Tóm tắt tổ — tình hình tổ 1 mặt A4 (số liệu đến ngày, 8 ô số, dư nợ theo chương trình, hộ cần quan tâm, nội dung kiểm tra theo 727) mang đi kiểm tra", "slDoiTab('kt')"],
+  ["KTGS Mẫu 16: Ưu điểm / Tồn tại / Kiến nghị chọn riêng — ghi theo số liệu hay để chấm; Mẫu 04: Nhận xét / Kiến nghị chọn riêng", "slDoiTab('kt')"],
+  ["Bảng II Mẫu 16 chỉ còn Để trống / Điền đầy đủ (không chấm trong ô); 2 dòng có số theo Bảng II", "slDoiTab('kt')"],
   ["Quét CCCD đã có trong tủ → báo trùng ngay lúc đọc, chọn Thay bản cũ / Lưu thêm", "doiNgan(4)"],
   ["Scan có nút ▣ bật / tắt khung xem như Văn bản; ⏱ Đo tốc độ ở chân thanh bên", "dtdHop()"],
   ["Chip thông báo không còn che nút cuối hộp (lên đầu màn hình); ⏱ Đo tốc độ ghi từng bước quét CCCD", "moHop('<div class=\"hop-tit\">⏱</div>')"],
@@ -1993,10 +1996,7 @@ var CO_GI_MOI = {ban:'3.377', ds:[
   ["Điện thoại: đầu trang gọn (❓🧰🗑⚙ vào ☰ Thêm), dòng trạng thái chỉ hiện khi có tin; Tra cứu lên danh sách khách ngay (bỏ tab con, Lọc địa bàn 1 hàng)", "dhSL('tra')"],
   ["⏱ Đo tốc độ (☰ Thêm): ghi thời gian nối Drive, tải, dựng kỳ trên máy anh — 📋 Chép gửi em để sửa đúng chỗ chậm", "dtdHop()"],
   ["Điện thoại (bản chính): tab Văn bản + Scan gọn — hàng nút 1 dòng, trích yếu 2 dòng, Scan danh sách lên sớm", "doiNgan(1)"],
-  ["Giao dịch xã: mã điểm giao dịch ghi đủ TXN… (tab, mẫu 12/GDX, bản mini); điện thoại mở thẳng bản chính, nút 📱 sang bản gọn", "doiNgan(0)"],
-  ["Nạp Mẫu 31 nhanh hơn: màn hình đứng lúc tách dòng giảm từ ~2,5 giây còn ~0,9 giây (máy tính), điện thoại đỡ treo; số liệu đọc ra y như cũ", "slDoiTab('nap');doiNgan(7)"],
-  ["Tra cứu › Tổ trưởng: danh sách tổ vừa khung, không còn cột bị khuất (Hội ghi tắt HND/HPN/CCB/ĐTN, rê chuột thấy tên đủ)", "dhSL('tra')"],
-  ["Tra cứu › thẻ khách / thẻ tổ: khối 📅 Dòng thời gian thu gọn 1 dòng, bấm mới mở — không chiếm chỗ", "dhSL('tra')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Giao dịch xã: mã điểm giao dịch ghi đủ TXN… (tab, mẫu 12/GDX, bản mini); điện thoại mở thẳng bản chính, nút 📱 sang bản gọn", "doiNgan(0)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

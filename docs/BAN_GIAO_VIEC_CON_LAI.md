@@ -222,6 +222,26 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.379) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › 🎯 Đột xuất › chọn 1 tổ › 📋 Tóm tắt tổ | Mở hộp in, 1 mặt A4, dòng "số liệu đến ngày …" đúng ngày số liệu | |
+| 2 | Tổ có quá hạn / lãi tồn | Hộ quá hạn đầu bảng, chữ đỏ; số khớp tab | |
+| 3 | Điền Ngày kiểm tra rồi bấm 📋 | Đầu trang ghi ngày kiểm tra | |
+| 4 | KTGS › 📅 Định kỳ › tích 2 tổ › 📋 Tóm tắt 2 tổ | 1 file, mỗi tổ 1 trang, số liệu đến ngày cuối tháng | |
+
+**Ghi chú kỹ thuật 3.379:** `js/71` (cắm rút, nạp sau js/70): `ktttSo(t)` → `{s, ngay, nguon, soMon, nTK, nLT, nLTC, nQH, monKHD, hoKHD, gn, ct:[[ten, dn]], ho:[{kh, ten, dn, v:[{chu, do}], uu}]}` (uu 1 QH/khoanh · 2 KHĐ / lãi tồn > 6 tháng · 3 lãi tồn · 4 không 105 · 5 mới GN); `ktttHTML(x)` (KTTT_TOI_DA = 18); `ktttIn(ma)` / `ktttInDs(ts)` → `ktttVo(ds)` (mỗi tổ `<section class="kttt">`, sang trang) → `inBlob`; định kỳ bật `KT_SO_CUNG` khi tính; lệnh `kttt.in` (data-m) · `kttt.dk`; nút định kỳ ở `ktDKVeG` (`js/22e`). Nút ở `ktChonHTML` (`js/22b`) chỉ hiện khi có `ktttIn`.
+
+### Danh sách thử trên máy thật (3.378) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › 🎯 Đột xuất › chọn tổ › In › hộp Chọn khi in | Mẫu 16 có 3 ô Ưu điểm / Tồn tại / Kiến nghị; Bảng II chỉ Để trống / Điền đầy đủ | |
+| 2 | Chọn Tồn tại = Để chấm, còn lại ghi → Word | III.2 Tồn tại dòng chấm; Ưu điểm, Kiến nghị có ý ghi sẵn | |
+| 3 | Bảng II Để trống → Word | Ô kết quả trống (không chấm), 2 dòng có số trống | |
+| 4 | Mẫu 04 › hộp Chọn khi in | 2 ô Nhận xét / Kiến nghị chọn riêng | |
+
+**Ghi chú kỹ thuật 3.378:** `js/22b` `KT_IN_MD` thêm `nxud, nxtt, nxkn` (m16), `nxto, nxkn` (m04); `ktInLay` khóa `nx*` chưa có → theo `nx` cũ; `b2==='cham'` → '' và `b2o[i].c==='cham'` → 'trong'. `ktNxCo(v, p)` (p = ud · tt · kn · to; v chỉ có `nx` thì theo `nx`). `ktNhanXet16` lọc từng phần, `kq1/kq2` theo `ktB16Mac(v)==='dien'`; bỏ `KT_B16_CHAM`, `ktB16NX`. `js/22d` `ktBC04`: `nx` theo `ktNxCo(v,'to')`, `kn` theo `ktNxCo(v,'kn')`. `js/56` `KT_B2_CACH` bỏ 'cham'.
+
 ### Danh sách thử trên máy thật (3.377) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

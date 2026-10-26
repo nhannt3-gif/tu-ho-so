@@ -144,9 +144,9 @@ function ktBC04(ds, th, v){ v = v || ktInV('m04');   /* 3.114: v = lựa chọn 
     });
     var thg = th || rows.reduce(function(a, r){ var m = r.ngay ? String(r.ngay).slice(0, 7) : ''; return m>a ? m : a; }, '') || ktThangKT();   /* 3.109: dòng ngày đầu báo cáo theo tháng kiểm tra */
     var bc = {k:g.k, ten:ktHoiTen(g.t), f:Object.assign(ktDV04(ktHoiTen(g.t).toUpperCase()), {SP:'', NOI04:ktXaTen(g.t.tenXa), TH04:thg ? thg.slice(5, 7) : '', NAM04:thg ? thg.slice(0, 4) : '', NN04:ktNoiNhanNH()}),
-      doan:ktDoan04(g.t, v), nx:v.nx==='' ? [] : rows.map(function(x){ return ktNxTo04(x.t, g.t); }), nd:KT_ND04.slice(), rows:rows};
+      doan:ktDoan04(g.t, v), nx:!ktNxCo(v, 'to') ? [] : rows.map(function(x){ return ktNxTo04(x.t, g.t); }), nd:KT_ND04.slice(), rows:rows};
     bc.f.TD04 = ktNguoi(g.t, v.ng1).cb;   /* 3.114: tên người 1 dưới TRƯỞNG ĐOÀN KIỂM TRA */
-    bc.kn = v.nx==='' ? {a:[], b:[], c:[]} : ktKN04(bc); return bc;
+    bc.kn = !ktNxCo(v, 'kn') ? {a:[], b:[], c:[]} : ktKN04(bc);   /* 3.378: Nhận xét / Kiến nghị chọn riêng */ return bc;
   });
 }
 function ktLaiThang(m){ var ls = +m.ls || 0; if(!ls) return 0; return (m.dn||0)*(ls>2 ? ls/1200 : ls/100); }   /* 3.109: lãi 1 tháng của món — cột Lãi suất (%/năm; ≤ 2 coi là %/tháng) */
