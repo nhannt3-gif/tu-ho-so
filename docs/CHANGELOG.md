@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.380 — 26/10/2026 — Dữ liệu Hộ vay + Sao kê biến động TK 105 (TK 3)
+- **Anh 26/10**: "mẫu sao kê biến động số dư TK 105 của hộ vay trong tổ…"; "nên có 1 data dựng sẵn từ kết hợp Mẫu 31, TK 105 và tổ"; "1 cột số tiền KH đã CK vào riêng… cột CK trả lãi và gốc để biết tổ đã CK bao nhiêu từ 105"; "ký hiệu theo dõi". Thiết kế + kiểm file thật 25/10 (chỉ đếm): `docs/THIET_KE_HO_VAY.md`; tên cột: `docs/COT_FILE_MAU.md`.
+- **Lớp dữ liệu** `js/72-ho-vay.js` + cửa **`KHO.hoVay(maTo)` / `KHO.hoVayKH(kh)`**: 1 dòng / khách — món Mẫu 31 (dư nợ theo CT, Lãi DT trong tháng, Thu lãi TH / QH tháng, Thu nợ TH / QH / khoanh tháng, ngày GD gần nhất) + Sao kê TK 105 cùng ngày (nối theo **mã KH**, cộng các TK; số dư ngày BC + số dư tháng trước) + tổ. Thiếu Sao kê → số dư Mẫu 31, không có số đầu tháng. Không cần nạp lại file (Mẫu 31 giữ mọi cột).
+- **Báo cáo** Số liệu › Sao kê › Thông tin tổ › **Sao kê biến động TK 105**: STT · Mã KH · Họ tên · Dư nợ · Số TK 105 · Số dư cuối tháng trước · **Khách chuyển vào** · Tăng / giảm · Số dư đến ngày · **Trích trả lãi** · **Trích trả gốc** · Lãi phải thu tháng · Ngày GD · Ghi chú; xếp theo mã KH, chia theo tổ, cộng tổ + tổng; dòng tóm tắt "tổ trưởng đã trích 105 trả lãi … trả gốc …". Khách chuyển vào = (số dư đến ngày − cuối tháng trước) + trả lãi + trả gốc.
+- Ký hiệu: 🏦 khớp · ⏳ chưa chuyển (có lãi phải thu, chưa thu) · 💵? có thể tiền mặt (chuyển vào ra âm) / không có TK 105 mà có thu · 🟠 thu < phải thu; ghi chú "HN 30 tr + GQVL 50 tr" khi vay ≥ 2 chương trình. Sao kê khác ngày Mẫu 31 → báo đỏ.
+- Chạy thử trên file thật 25/10 (máy em, không lưu): 17.852 khách — khớp đếm tay; trả gốc khớp file; ⏳ 760 · 💵? 32 · 🟠 137.
+- Phép thử: t274 mới (17).
+
 ## 3.379 — 26/10/2026 — KTGS: 📋 Tóm tắt tình hình tổ (TK 3)
 - **Anh 26/10**: "khi chọn kiểm tra đột xuất tổ nào đó thì thêm 1 chức năng tóm tắt tình hình tổ, từ tổng quan dư nợ, nợ quá hạn, lãi tồn, các hộ cần quan tâm tất cả trong 1 mặt A4"; duyệt demo bản 2 (8 ô số gọn, nội dung kiểm tra gom nhóm theo 727, mục V "Kết quả kiểm tra thực tế, đề nghị"); "dài hơn 2 trang vẫn được nhưng nên tóm gọn 1 mặt, nhớ ghi số liệu đến ngày".
 - File cắm rút **`js/71-ktgs-tom-tat.js`** + nút **📋 Tóm tắt tổ** cạnh 📋 Mẫu 04 ở 🎯 Kiểm tra đột xuất → bản In / PDF:

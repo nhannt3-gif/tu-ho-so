@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.380) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp Mẫu 31 + Sao kê TK 105 cùng ngày → Số liệu › Sao kê › kỳ ngày đó › chọn 1 tổ › Biến động TK 105 › Xem | Bảng đủ 14 cột, xếp mã KH, dòng tóm tắt "tổ trưởng đã trích 105…" | |
+| 2 | So 2–3 khách với Sao kê TK 105 / Mẫu 31 | Số dư, trả lãi, trả gốc khớp file; khách chuyển vào = công thức | |
+| 3 | In / Excel | Đủ cột, có dòng cộng tổ | |
+
+**Ghi chú kỹ thuật 3.380:** `js/72`: `hvSaoKe(K)` (K.tk.tk105 theo mã KH), `hvGhep(rows, sk)` → [{kh, ten, to, mon[], dn, ct{}, laiDT, thuLai{th,qh}, thuGoc{th,qh,kn}, ngayGD, tk{ds, cuoi, dau, nguon}, tinh{traLai, traGoc, tangGiam, vao, ctGhi, ky}}] — trường Mẫu 31 `c_lai_dt_trong_thang`, `c_thu_lai_th_thang`, `c_thu_lai_qh_thang`, `tnTH/tnQH/tnK`; bỏ khách không dư nợ và không phát sinh tháng. `hvBaoCao(rows, ngay)` dùng `skBang`. `js/29` cửa `hoVay`, `hoVayKH`. `js/22h` SK_BC `b105` (nhóm tt), gọi trước `skMau31()` để chạy cả kỳ ngày. Lệch nhỏ đã biết (file thật): ~16 KU lặp + 27 món không tổ → trả lãi app thấp hơn tổng file ~0,07%.
+
 ### Danh sách thử trên máy thật (3.379) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
