@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.383.1** — TK 3: Tra cứu canh tên cột bảng tổ / khách. 3.383: lọc địa bàn Ấp / KP, đa chiều, nút ↺; Tra cứu gọn. Chờ anh: "code" kế hoạch hồi quy theo phụ thuộc (đánh dấu đã chốt) + dọn phép thử; 3.384 Giao dịch xã · Tra cứu · TK 104/105 qua kho.
+- **`main` = 3.383.2** — TK 3: Tra cứu dòng dữ liệu chữ nhỏ, gọn. 3.383.1: canh cột, cảnh báo TV tô màu, sửa lỗi hồi quy 3.383. Chờ anh: "code" kế hoạch hồi quy theo phụ thuộc; 3.384 Giao dịch xã · Tra cứu · TK 104/105 qua kho.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

@@ -4052,3 +4052,10 @@ details.dtg-khoi>summary{cursor:pointer;list-style:none}details.dtg-khoi>summary
 .dtg-nut{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0}.dtg-phu{font-size:.85em;color:var(--chu-phu);margin:3px 0}
 .dtg-ul{margin:2px 0 0;padding-left:18px;font-size:.92em}.dtg-ul li{margin:1px 0}.dtg-ul b{display:inline-block;min-width:62px}
 .dtg-ul .dtg-moi b{color:#1a7f37}.dtg-ul .dtg-ra b,.dtg-ul .dtg-qh b{color:#b42318}.dtg-ul .dtg-chuyen b{color:#9a6700}.dtg-ul .dtg-tat b{color:var(--chu-phu)}
+/* 3.383.2 (anh 26/10 "tinh chỉnh các dòng dữ liệu chữ nhỏ, gọn để hiển thị được nhiều thông tin"): bảng Tra cứu (khách · tổ · thành viên) chữ nhỏ, dòng thấp */
+table.tc-kq-bang{font-size:calc(12px*var(--co))}
+table.tc-kq-bang th{padding:3px 5px;font-size:calc(11.5px*var(--co))}
+table.tc-kq-bang td{padding:2px 5px;line-height:1.25}
+table.tc-kq-bang td b,table.tc-kq-bang td .tc-ten{font-weight:600;font-size:inherit}
+table.tc-kq-bang .tc-tt-nho{font-size:calc(10px*var(--co))}
+table.tc-to-tvb th,table.tc-to-tvb td{padding:1px 3px;line-height:1.2}
