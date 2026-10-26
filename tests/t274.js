@@ -49,7 +49,7 @@ const fs=require('fs'), path=require('path');
    const h3 = hang(k3);
    ok('💵? có thể tiền mặt: khách chuyển vào ra âm (−800.000), trả gốc 1.000.000', h3[c('Khách chuyển vào')]===-800000 && h3[c('Trích trả gốc')]===1000000 && /💵\? có thể tiền mặt/.test(h3[c('Ghi chú')]), JSON.stringify(h3));
    const h4 = hang(k4);
-   ok('khách 2 TK 105 → cộng số dư 2 TK (400.000 / 100.000), trả lãi TH + QH = 100.000, ghi 2 số TK', h4[c('Số dư đến hết ngày 31/08/2026')]===400000 && h4[c('Số dư cuối tháng trước 31/07/2026')]===100000 && h4[c('Trích trả lãi')]===100000 && /0010000004, 0010000044/.test(h4[c('Số TK 105')]), JSON.stringify(h4));
+   ok('khách 2 TK 105 → cộng số dư 2 TK (400.000 / 100.000), trả lãi TH + QH = 100.000, ghi TK chính in đậm + ghi chú 2 TK (anh 26/10)', h4[c('Số dư đến hết ngày 31/08/2026')]===400000 && h4[c('Số dư cuối tháng trước 31/07/2026')]===100000 && h4[c('Trích trả lãi')]===100000 && h4[c('Số TK 105')]==='0010000004' && /2 TK 105 \(số dư cộng chung\): 0010000004 300\.000 · 0010000044 100\.000/.test(h4[c('Ghi chú')]) && /<td><b>0010000004<\/b><\/td>/.test(r.html), JSON.stringify(h4));
    ok('💵? không có TK 105 mà có thu', /💵\? không có TK 105/.test(hang(k5)[c('Ghi chú')]) && hang(k5)[c('Khách chuyển vào')]==='');
    ok('🟠 thu < phải thu', /🟠/.test(hang(k6)[c('Ghi chú')]));
    ok('dòng TỔNG CỘNG cộng trả lãi / trả gốc / khách chuyển vào', (()=>{ const t = r.aoa.find(x=>x[2]==='TỔNG CỘNG'); return t && t[c('Trích trả gốc')]>=1000000 && t[c('Trích trả lãi')]===800000; })());
