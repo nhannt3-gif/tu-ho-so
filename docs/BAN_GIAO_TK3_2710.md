@@ -66,3 +66,22 @@ Anh: *"rà soát cấu trúc bố cục, code em làm 2 hôm nay, chú ý dọn 
 4. Tổng hợp → khuôn 2 màn như Sao kê; Tổ TK&VV (mục 3.3).
 5. **KTGS sau cùng**, giữ dữ liệu cũ (mục 3.3).
 6. Ngày khách CK vào TK 105: chờ anh có file sao kê giao dịch chi tiết (mục 5).
+
+## 7. Đề xuất tinh gọn code + hướng phát triển (TK 3, 27/10 — anh: "em cứ ghi vào")
+Số đo `tests/kiem.py` 3.387: 93 file js (~3,6 MB), 192 phép thử, 4 file >150 KB (`25-ho-so` 320 KB, `12-scan` 176, `04b-hom-nay` 176, `06-hop-thoai` 160), 159 dòng >400 ký tự, 1.371 `onclick/onchange/oninput` trong chuỗi (đã giảm 88 so với mốc — anh dọn).
+
+### Tinh gọn (giữ chức năng, không đổi giao diện) — thứ tự đề xuất
+1. **A1 — Cắm rút hết báo cáo Sao kê**: `skBaoCao` (js/22h) còn ~17 nhánh → mỗi báo cáo ra file riêng `SK_BC.push({…lap})` như b105 / ndt; mỗi lần 1 báo cáo, t276 phải giống hệt.
+2. **A2 — Tách 4 file lớn theo khối** (dữ liệu / mẫu in / màn hình), như R3 đã tách `22-so-lieu`; không đổi tên hàm, chỉ chia file + cập nhật `index.html` + `tools/hoiquy_pt.py` phụ thuộc.
+3. **A4 — Dọn onclick theo màn**: sửa màn nào thì đổi nút màn đó sang 1 bộ bắt sự kiện chung (`data-lenh`), không dọn đồng loạt. Nhiều nhất: `12-scan` 142, `04b-hom-nay` 103, `06-hop-thoai` 76, `04e` 62, `04c` 60, `25-ho-so` 59. Mỗi bản số `onclick` của `kiem.py` không được tăng.
+4. **A5 — Rà phép thử định kỳ**: gộp phép trùng ý (nhiều phép cùng mở Sao kê bằng bộ giả), bỏ phép chức năng đã gỡ.
+- ~~A3 gom localStorage~~ — **bỏ**: rà kỹ, `localStorage` chỉ còn cho cài đặt riêng máy (phiên Scan quét dở `js/12`, bản dự phòng khi IndexedDB hỏng + công tắc cách lưu cũ `js/34`, thanh bên `tb_gon`/`tb_mo`, PIN / cài đặt điện thoại, nhật ký lỗi, đo tốc độ). Dữ liệu nghiệp vụ đã ở kho chung (IndexedDB qua `js/34`, `D.cauHinh`). **Quy ước:** khóa `localStorage` mới chỉ dùng cho cài đặt riêng máy, tên `tuhoso_…`.
+
+### Hướng phát triển (chờ anh chọn)
+- B1 Tốc độ mở: đo `slBo` từng bảng (~0,9 s lần đầu) trước khi tính lưu tạm (mục 6).
+- B2 Một khuôn màn cho mọi tab Số liệu (mục 3).
+- B3 Báo cáo đối chiếu tự động mỗi kỳ: Mẫu 31 ↔ TK 105 / Thông tin tổ, báo tổ / khách lệch (1 báo cáo cắm rút đọc kho).
+- B4 `dt.html` đọc kho chuẩn chung, tránh 2 cách tính.
+- B5 Loại file sao kê giao dịch chi tiết TK 105 → ngày khách CK (mục 5).
+
+**Thứ tự đề xuất cho TK 2:** A1 → B2 → A2 → A4 (dần) → A5; B3 xen khi anh cần.
