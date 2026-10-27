@@ -546,7 +546,7 @@ function bangChon(tab, id, ev){
   if(tab==='bieuMau') return doiChonBM(id);
   if(tab==='scan') return doiChonHS(id);
   /* Văn bản: tích = chọn để xóa (quy tắc xóa chung — thanh 🗑 Xóa N file) */
-  if(BOT.tab!==tab){ BOT = {tab:tab, chon:{}, muc:'xoa'}; CN_CHEP_CON = []; document.body.classList.add('dang-bot'); }
+  if(BOT.tab!==tab){ BOT = {tab:tab, chon:{}, muc:'xoa'}; CN_CHEP_CON = []; document.body.classList.add('dang-bot'); document.body.classList.remove('bot-chon-chep'); }
   if(BOT.chon[id]) delete BOT.chon[id]; else BOT.chon[id] = 1;
   ve();
 }

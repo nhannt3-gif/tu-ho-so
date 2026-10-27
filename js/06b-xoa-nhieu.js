@@ -18,11 +18,11 @@ function nutChep(tab){
 }
 function chepBat(tab){ if(!coCauNoi()){ window.__cnDuPhong = null; return hoiCaiCauNoi(function(){ if(coCauNoi()) batBot(tab, 'chep'); else bao('Cần cài cầu nối máy tính để chép file thật: ⚙ Cài đặt › Cầu nối máy tính (Windows).', 8); }); } batBot(tab, 'chep'); }
 function batBot(tab, muc){
-  BOT = {tab:tab, chon:{}, muc:muc==='chep' ? 'chep' : 'xoa'}; CN_CHEP_CON = []; document.body.classList.add('dang-bot');
+  BOT = {tab:tab, chon:{}, muc:muc==='chep' ? 'chep' : 'xoa'}; CN_CHEP_CON = []; document.body.classList.add('dang-bot'); document.body.classList.toggle('bot-chon-chep', BOT.muc==='chep');   /* 3.389.2: chọn để chép → xanh lục (xóa vẫn đỏ) */
   if(tab==='kyAnh') moKyAnh(); else ve();
 }
 function thoiBot(){
-  var t = BOT.tab; BOT = {tab:'', chon:{}}; CN_CHEP_CON = []; document.body.classList.remove('dang-bot');
+  var t = BOT.tab; BOT = {tab:'', chon:{}}; CN_CHEP_CON = []; document.body.classList.remove('dang-bot', 'bot-chon-chep');
   if(t==='kyAnh'){ if(document.querySelector('.ka-nut')) moKyAnh(); } else ve();
 }
 /* bấm vào dòng khi đang chọn: chỉ tích/bỏ tích, không mở file (chặn ở pha capture — mọi onclick bên trong đều bỏ qua) */
