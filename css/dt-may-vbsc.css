@@ -2,11 +2,11 @@
    tab 📄 Văn bản + 🪪 Scan của BẢN MÁY TÍNH khi mở trên điện thoại. Chỉ CSS, nạp media="(max-width:600px)" — CẮM RÚT: bỏ dòng <link> trong index.html là về như cũ.
    Không đổi chức năng: nút ẩn ở đây vẫn còn ở máy tính / menu ⋯ từng mục. ===== */
 
-/* --- Văn bản: hàng nút 1 dòng, bớt nút ít dùng (Xóa nhiều · Sắp xếp · Kiểu xem — vẫn có ở máy tính) --- */
+/* --- Văn bản: hàng nút 1 dòng, bớt nút ít dùng (Xóa nhiều · Sắp xếp — vẫn có ở máy tính) --- */
 #nam-vb .dau-tab{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:6px;margin-bottom:8px}
 #nam-vb .dau-tab::-webkit-scrollbar{display:none}
 #nam-vb .dau-tab > button{flex:0 0 auto;white-space:nowrap;padding:5px 11px;min-height:36px}
-#nam-vb .dau-tab .nut-bot,#nam-vb .dau-tab .tl-xem,#nam-vb .dau-tab .tl-sap{display:none}
+#nam-vb .dau-tab .nut-bot,#nam-vb .dau-tab .tl-sap{display:none}   /* 3.390 (anh 28/10 "vb trên dt ko có nút kiểu xem"): hiện lại ☰ Kiểu xem */
 #nam-vb .dau-phai{gap:6px}
 /* --- Văn bản: thẻ gọn — số hiệu 1 dòng, trích yếu 2 dòng đọc được, bỏ chip cảnh báo khai thiếu (chỉ cần ở máy tính) --- */
 #ds-vb .d2{padding:8px 10px;margin-bottom:6px;border-radius:12px}

@@ -223,6 +223,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t309.js` | 3.368 Tra cứu › Tổ trưởng: danh sách tổ đủ 7 cột không cuộn ngang ở 1280 / 1366 / 1920, mã tổ đủ, Hội viết tắt (title tên đủ). |
 | `node tests/t310.js` | 3.369 tối ưu nạp: `slNen` / `slMoBang` mới = thuật toán cũ (giữ bản cũ để so), dò Mẫu 01/TV trong 100 dòng đầu vẫn nhận dòng tên cột ở dòng 30. |
 | `node tests/t311.js` | 3.372 Đ6 điện thoại: thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm, đầu trang gọn, Tra cứu gọn, ☰ Thêm có 📱 + ⏱ đo tốc độ (ghi Dựng kỳ); máy 1440 / 900 không đổi. |
+| `node tests/t312.js` | 3.390: bộ lọc chuẩn — nút 🔎 Tìm tổ trên dải LỌC ĐỊA BÀN (5 tab), mở / gõ / Enter chọn tổ / Esc đóng, vẽ lại giữ mở khi có chữ, Tra cứu không 🔎 / chip trên dải, chip 📅 nguồn số liệu kỳ ngày (KTGS giữ chip cũ), điện thoại hàng lọc 1 dòng 5 tab + ô tìm hàng riêng — bộ `gianho31`. |
 | (3.389.2) | Chỉ CSS. |
 | (3.389.1) | Thử goiCauNoi bằng node trong lượt sửa. |
 | (3.389) | t147 thêm nút 📋 Chép. |

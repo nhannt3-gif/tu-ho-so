@@ -20,7 +20,7 @@ const gia = ()=>{ try{ dongHop(); }catch(e){} const L=['Quyết định','Công 
  /* điện thoại */
  const d = await mo({width:390, height:844}, 1), v = await VB(d), s = await SC(d);
  ok('ĐT · Văn bản: hàng nút 1 dòng, không nút nào cắt chữ / thò mép; không tràn ngang', !v.cat.length && !v.tran, JSON.stringify(v.cat));
- ok('ĐT · Văn bản: bớt nút ít dùng (Xóa nhiều · Sắp xếp · Kiểu xem) + ✎ Sửa (còn trong menu ⋯)', v.sap && v.bot && v.xem && v.sua);
+ ok('ĐT · Văn bản: bớt nút ít dùng (Xóa nhiều · Sắp xếp) + ✎ Sửa (còn trong menu ⋯); 3.390 (anh 28/10): CÓ nút Kiểu xem', v.sap && v.bot && !v.xem && v.sua);
  ok('ĐT · Văn bản: trích yếu đọc được 2 dòng, bỏ chip "Thiếu mảng…"; ≥ 5 văn bản / màn hình', v.tyDong===2 && v.canh && v.day>=5, JSON.stringify({dong:v.tyDong, day:v.day}));
  ok('ĐT · Scan: thẻ bỏ "Ấp · Tổ" + ngày lặp lại; thẻ đầu lên trong nửa màn hình đầu; không tràn ngang', s.ty && s.ngay && s.dau<450 && !s.tran, JSON.stringify(s));
  /* máy tính không đổi */

@@ -137,10 +137,13 @@ function slNguonChu(B){   /* dạng chữ (bản in / Excel): chỉ nêu loại 
 function slNguonHTML(B, kt){
   if(!B || String(B.ky).length<=7) return '';
   var ds = slNguonDs(B), co = ds.filter(function(x){ return x.ky; }), dung = co.filter(function(x){ return x.dung; }), muon = co.filter(function(x){ return !x.dung; }), khong = ds.filter(function(x){ return !x.ky; });
-  if(kt) return '<span class="sl-chip '+(muon.length || !dung.length ? 'vang' : 'xanh')+'" title="'+coChuHTML('Kỳ ngày '+ngayVNsl(B.ky)+': '+(dung.length ? 'có '+dung.map(function(x){ return x.ten; }).join(', ') : 'chưa có file nào đúng ngày')+
+  var vang = muon.length || !dung.length, tit = 'Kỳ ngày '+ngayVNsl(B.ky)+': '+(dung.length ? 'có '+dung.map(function(x){ return x.ten; }).join(', ') : 'chưa có file nào đúng ngày')+
     (muon.length ? ' · thiếu '+muon.map(function(x){ return x.ten; }).join(', ')+' → lấy theo '+muon.map(function(x){ return slNguonKy(x.ky); }).filter(function(v, i, a){ return a.indexOf(v)===i; }).join(', ') : '')+
-    (khong.length ? ' · không có '+khong.map(function(x){ return x.ten; }).join(', ')+' (bỏ qua phần đó)' : ''))+'">'+(muon.length || !dung.length ? '⚠' : '📌')+' Ngày '+ngayVNsl(B.ky).slice(0, 5)+'</span>';   /* 3.163: thành chip */
-  return '<div class="sl-nguon">📌 Số liệu ngày <b>'+ngayVNsl(B.ky)+'</b> · '+co.map(function(x){ return '<span'+(x.dung ? '' : ' class="muon" title="Ngày này chưa nạp file — lấy bảng liền trước"')+'>'+x.ten+': '+slNguonKy(x.ky)+'</span>'; }).join(' · ')+'</div>';
+    (khong.length ? ' · không có '+khong.map(function(x){ return x.ten; }).join(', ')+' (bỏ qua phần đó)' : '');
+  if(kt) return '<span class="sl-chip '+(vang ? 'vang' : 'xanh')+'" title="'+coChuHTML(tit)+'">'+(vang ? '⚠' : '📌')+' Ngày '+ngayVNsl(B.ky).slice(0, 5)+'</span>';   /* 3.163: thành chip */
+  /* 3.390 (BAN_GIAO_TK3_2710 mục 3.1): dòng cam "📌 Số liệu ngày … · Mẫu 31: … · KHĐ: …" → 1 chip trên dải LỌC ĐỊA BÀN, rê chuột xem từng file */
+  slChipThem('<span class="sl-chip '+(vang ? 'vang' : 'xanh')+' sl-nguon-chip" title="'+coChuHTML(tit)+'">📅 Số liệu '+ngayVNsl(B.ky)+(muon.length ? ' · ⚠ '+muon.length+' file lấy ngày trước' : '')+'</span>');
+  return '';
 }
 function toNgayChu(){ var m = slNguonChu(KHO.kyDung().B); return 'Số liệu đến ngày '+ngayVNsl(KHO.kyDung().ngay)+' ('+KHO.kyDung().hsTen+(m ? '; '+m : '')+')'; }
 function toDauBC(t, tieuDe, ngayChu){

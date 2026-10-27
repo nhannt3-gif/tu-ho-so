@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Ghi chú kỹ thuật 3.390
+- Ô tìm tổ vẫn nằm trong `.pv-hang1` (id `<p>-tim`, kết quả `<p>-gy`) — chỉ ẩn bằng `.loc-khoi:not(.tim-mo) .pv-hang1 .pv-tim`; nút `.pv-tim-nut` ở `.pv-dau-nut`. Chọn tổ (pvChonTo / toChonTo / ktChonTo) đặt `PV_TIM_MO[p] = 0`.
+- Điện thoại (css/dt-may.css): hàng lọc 1 dòng áp chung `.pv-cay` (trước chỉ `#tc-cay`); ô chọn dùng `!important` vì app.css có luật `.gon … select.pv-o.pv-xa` độ ưu tiên cao — dọn khi làm K8 `@layer`.
+
+### Danh sách thử trên máy thật (3.390)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tổ TK&VV / Sao kê / Tổng hợp / KTGS / GD xã: dải LỌC ĐỊA BÀN | Có nút 🔎 Tìm tổ bên trái ▦ Chip; hàng lọc không còn ô tìm | |
+| 2 | Bấm 🔎, gõ tên tổ, Enter | Chọn đúng tổ, ô tìm tự đóng | |
+| 3 | Chọn kỳ theo ngày (Tổ TK&VV / Sao kê) | Không còn dòng cam; chip 📅 Số liệu dd/mm/yyyy trên dải lọc, rê chuột thấy từng file | |
+| 4 | Điện thoại: các tab Số liệu | Hàng lọc 1 dòng, đọc được chữ trong ô; bấm 🔎 → ô tìm hàng riêng | |
+
 ### Danh sách thử trên máy thật (3.389.2)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -504,6 +504,7 @@ function sgPhim(e){
     e.preventDefault(); e.stopPropagation(); sgSang(t, e.key==='ArrowLeft');
     return;
   }
+  if(e.key==='Enter' && t.closest('.pv-tim')) return;   /* 3.390: ô 🔎 tìm tổ của khối lọc — Enter = chọn gợi ý đầu (js/22ga), không sang ô kế */
   if((e.key==='Enter' || e.key==='Tab') && /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName) && sgO(t).indexOf(t)>=0){
     e.preventDefault(); e.stopPropagation(); sgSang(t, e.shiftKey);
   }
@@ -1981,7 +1982,11 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.389.2', ds:[
+var CO_GI_MOI = {ban:'3.390', ds:[
+  ["🔎", "Lọc địa bàn: ô tìm tổ thu vào nút 🔎 Tìm tổ trên dải LỌC ĐỊA BÀN — bấm mới mở ô gõ, Enter chọn tổ, Esc đóng (mọi tab Số liệu)"],
+  ["📅", "Số liệu theo ngày: dòng cam nguồn file → 1 chip 📅 Số liệu dd/mm/yyyy trên dải lọc, rê chuột xem từng file"],
+  ["📱", "Điện thoại: hàng lọc 1 dòng ở mọi tab, ẩn ↺ / 📌 khi ô đang Tất cả cho đủ chỗ chữ"],
+  ["📄", "Điện thoại: tab Văn bản có lại nút ☰ Kiểu xem (Danh sách · Năm · tháng)"],
   ["Nút 📋 Chép viền xanh lục (Xóa vẫn đỏ)", "doiNgan(1)"],
   ["Chép file: đường dẫn sai thì app báo rõ đường dẫn; cầu nối mới so tên thư mục không phân biệt kiểu gõ dấu (tải lại bộ cài)", "doiNgan(1)"],
   ["Nút 📋 Chép cạnh 🗑 Xóa (Văn bản / Biểu mẫu / Scan): bấm → tick file → 📋 Chép → Ctrl+V vào thư mục hoặc Zalo", "doiNgan(1)"],
@@ -1992,11 +1997,7 @@ var CO_GI_MOI = {ban:'3.389.2', ds:[
   ["Thanh nút tab Văn bản / Biểu mẫu / Scan: nút nổi khỏi nền, kiểu xem luôn kèm tên chữ nhỏ (Danh sách · Nhóm · Bảng · Khung xem)", "doiNgan(1)"],
   ["Dọn code: bỏ CSS / biến không dùng, hồi quy chỉ còn 2 chế độ doi · tat", "doiNgan(7)"],
   ["Khuôn đầu trang in chung (logo + đơn vị + ngày + tiêu đề) cho Sao kê, Tổng hợp, Tổ TK&VV", "doiNgan(7)"],
-  ["Báo cáo Sao kê cắm rút: Biến động TK 105 và Nhà đầu tư nằm trong file riêng", "doiNgan(7)"],
-  ["Biến động TK 105: cột Ghi chú chữ 6,5 pt, cột hẹp lại", "doiNgan(7)"],
-  ["Bản in Sao kê · Tổng hợp · tab Tổ có logo cánh sen góc trái; Biến động TK 105 chữ nhỏ, hiện đủ cột Ghi chú", "doiNgan(7)"],
-  ["Sao kê 2 màn: màn 1 danh sách báo cáo gọn (bấm là xem) · màn 2 xem ngay trải ngang, đổi báo cáo / lọc / khổ tự vẽ lại, ← Danh sách, ⤢ Phóng to", "doiNgan(7)"],
-  ["Sao kê: báo cáo dạng danh sách mặc định khổ dọc (KU chưa GN, nợ đến hạn, kỳ con, thay đổi dư nợ, 3T KHĐ chia tổ, theo nhà đầu tư)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Báo cáo Sao kê cắm rút: Biến động TK 105 và Nhà đầu tư nằm trong file riêng", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

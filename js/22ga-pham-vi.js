@@ -90,12 +90,15 @@ function pvVeCay(p){
   var dsHall = pvLuaChon(T, S, 'hoi', dc), dsAall = S.ap ? pvLuaChon(T, S, 'ap', dc) : [], dsTall = S.to ? pvLuaChon(T, S, 'to', dc) : [];
   var giua = [S.diem ? o1('Điểm '+tenCua('diem', dsD), S.to ? ve('to') : '') : '', S.hoi ? o1(tenCua('hoi', dsHall), S.to ? ve('to') : '') : '', S.ap ? o1(tenCua('ap', dsAall), S.to ? ve('to') : '') : ''].filter(Boolean).join('<span class="pv-sep">·</span>');
   var nTo = Object.keys(T||{}).filter(function(m){ var t = T[m]; return !t.trucTiep && !toLaTT(t) && pvLoc(S, t); }).length;
-  var dan = '<span class="pv-chip-o">'+slChipHTML()+'</span><span class="pv-dan">'+(S.xa ? o1('🏠 PGD', ve('xa'))+'<span class="pv-sep">›</span>'+o1(tenCua('xa', dsX), S.diem || S.hoi || S.ap || S.to ? ve('diem') : '') : o1('🏠 Toàn PGD'))+(giua ? '<span class="pv-sep">›</span>'+giua : '')+(S.to ? '<span class="pv-sep">›</span>'+o1('Tổ '+tenCua('to', dsTall)) : '')+
+  var dan = (p==='tc' ? '' : '<span class="pv-chip-o">'+slChipHTML()+'</span>')+'<span class="pv-dan">'+(S.xa ? o1('🏠 PGD', ve('xa'))+'<span class="pv-sep">›</span>'+o1(tenCua('xa', dsX), S.diem || S.hoi || S.ap || S.to ? ve('diem') : '') : o1('🏠 Toàn PGD'))+(giua ? '<span class="pv-sep">›</span>'+giua : '')+(S.to ? '<span class="pv-sep">›</span>'+o1('Tổ '+tenCua('to', dsTall)) : '')+
     '<small class="pv-dem">'+nTo+' tổ'+(d.ghi ? ' · '+d.ghi() : '')+'</small></span>';
-  var tim = p==='tc' ? '' : (function(){ var q = p==='to' ? TO_Q : p==='kt' ? KT_Q : (PV_Q[p]||''), ham = p==='to' ? 'TO_Q=this.value;toTim()' : p==='kt' ? 'KT_Q=this.value;ktTim()' : 'PV_Q[\''+p+'\']=this.value;pvTim(\''+p+'\')';
-    return '<span class="pv-tim to-tim"><span>🔎</span><input id="'+p+'-tim" autocomplete="off" value="'+coChuHTML(q||'')+'" placeholder="Tìm tổ / tổ trưởng / ấp…" oninput="'+ham+'" onkeydown="if(event.key===\'Enter\'){var b=document.querySelector(\'#'+p+'-gy button\');if(b){event.preventDefault();b.click();}}"><div id="'+p+'-gy" class="pv-gy"></div></span>'; })();
+  var timMo = p!=='tc' && (!!pvTimQ(p) || !!PV_TIM_MO[p]);
+  var tim = p==='tc' ? '' : (function(){ var q = pvTimQ(p), ham = p==='to' ? 'TO_Q=this.value;toTim()' : p==='kt' ? 'KT_Q=this.value;ktTim()' : 'PV_Q[\''+p+'\']=this.value;pvTim(\''+p+'\')';
+    return '<span class="pv-tim to-tim"><span>🔎</span><input id="'+p+'-tim" autocomplete="off" value="'+coChuHTML(q||'')+'" placeholder="Tìm tổ / tổ trưởng / ấp…" oninput="'+ham+'" onkeydown="if(event.key===\'Escape\'){pvTimMo(\''+p+'\',0);}else if(event.key===\'Enter\'){var b=document.querySelector(\'#'+p+'-gy button\');if(b){event.preventDefault();b.click();}}"><div id="'+p+'-gy" class="pv-gy"></div></span>'; })();
+  /* 3.390 (BAN_GIAO_TK3_2710 mục 3.1, anh duyệt hướng 27/10): ô 🔎 tìm tổ ẩn trong hàng lọc — nút 🔎 trên dải tiêu đề bấm mới mở ô gõ (đang có chữ thì luôn mở) */
+  if(tim) nutGon = '<button class="nho pv-tim-nut'+(timMo ? ' bat' : '')+'" onclick="pvTimMo(\''+p+'\')" title="Tìm tổ / tổ trưởng / ấp (bấm mở ô gõ, Esc đóng)">🔎<span class="pv-chu"> Tìm tổ</span></button>'+nutGon;
   /* 3.383.7 (anh 27/10 "các dòng chip em cho cùng dòng với chữ LỌC ĐỊA BÀN nhìn hay hơn"): dòng số liệu + ▦ Chip · ⬆ · 📌 lên dải tiêu đề → hàng lọc chỉ còn ô chọn */
-  h = '<div class="loc-khoi co-dau'+(gon ? ' gon' : '')+'"><div class="pv-dau"><span class="pv-dau-nhan">LỌC ĐỊA BÀN</span>'+dan+'<span class="pv-dau-nut">'+nutGon+'</span></div>'+
+  h = '<div class="loc-khoi co-dau'+(gon ? ' gon' : '')+(timMo ? ' tim-mo' : '')+'"><div class="pv-dau"><span class="pv-dau-nhan">LỌC ĐỊA BÀN</span>'+dan+'<span class="pv-dau-nut">'+nutGon+'</span></div>'+
     '<div class="pv-hang1'+(hXa ? ' cap-xa' : '')+'">'+hXa+'<span class="pv-sel"><span class="pv-ghim">📍</span>'+h1+'</span>'+tim+'</div>'+hh+'</div>';   /* 3.167 (anh chốt 11/10): khối LỌC ĐỊA BÀN, mỗi cấp 1 màu, đồng bộ mọi tab */
   o.innerHTML = h;
   if(dang){ var f = document.getElementById(dang); if(f) f.focus(); }
@@ -104,6 +107,17 @@ function pvVeCay(p){
 }
 /* 3.157: 🔎 tìm nhanh tổ cho tab không có ô tìm riêng (Sao kê, Tổng hợp) — chọn → tự điền Xã › Điểm › Hội › Tổ */
 var PV_Q = {};
+var PV_TIM_MO = {};   /* 3.390: ô 🔎 tìm tổ đang mở (theo tab, trong phiên) */
+function pvTimQ(p){ return (p==='to' ? TO_Q : p==='kt' ? KT_Q : PV_Q[p])||''; }
+function pvTimMo(p, mo){   /* bấm 🔎: mở ô gõ + đặt con trỏ; bấm lại / Esc: đóng, xóa chữ đang gõ */
+  var o = document.getElementById(p+'-cay'), k = o && o.querySelector('.loc-khoi'); if(!k) return;
+  mo = mo===undefined ? !k.classList.contains('tim-mo') : !!mo; PV_TIM_MO[p] = mo;
+  k.classList.toggle('tim-mo', mo); var n = k.querySelector('.pv-tim-nut'); if(n) n.classList.toggle('bat', mo);
+  var i = document.getElementById(p+'-tim'), g = document.getElementById(p+'-gy');
+  if(mo){ if(i) i.focus(); return; }
+  if(p==='to') TO_Q = ''; else if(p==='kt') KT_Q = ''; else PV_Q[p] = '';
+  if(i) i.value = ''; if(g) g.innerHTML = '';
+}
 function pvTim(p){
   var d = PV_DUNG[p], g = document.getElementById(p+'-gy'); if(!d || !g) return; var K = d.K(); if(!K) return;
   var q = slChuan(PV_Q[p]||''); if(q.length<2){ g.innerHTML = ''; return; }
@@ -128,7 +142,7 @@ function pvGonCua(p){ return pvKieuBang()[p]!=='chip'; }   /* 3.328 (anh chốt 
 function pvGonDoi(p){ pvKieuBang()[p] = pvGonCua(p) ? 'chip' : 'gon'; PV_MO[p] = ''; luu(); pvVeCay(p); }
 function pvChonTo(p, ma){
   var d = PV_DUNG[p], K = d && d.K(), t = K && K.to[ma]; if(!t) return;
-  var S = d.S(); S.xa = t.xa||''; S.diem = t.khoaDiem; S.hoi = String(t.dv||''); S.ap = ''; S.to = ma; PV_Q[p] = ''; PV_MO[p] = '';
+  var S = d.S(); S.xa = t.xa||''; S.diem = t.khoaDiem; S.hoi = String(t.dv||''); S.ap = ''; S.to = ma; PV_Q[p] = ''; PV_MO[p] = ''; PV_TIM_MO[p] = 0;
   luu(); pvVeCay(p);
 }
 function pvBoTT(T){ var r = {}; Object.keys(T||{}).forEach(function(m){ if(!toLaTT(T[m])) r[m] = T[m]; }); return r; }   /* 3.107: tab KTGS Hội kiểm tra theo tổ → cây bỏ mục vay trực tiếp */
