@@ -4128,3 +4128,5 @@ table.tc-to-ds tfoot td{position:sticky;bottom:0;background:var(--xanh-nhat);col
 .dau-hang>div[style*="min-width"]{flex:0 0 auto;max-width:200px;overflow:hidden}
 @media (max-width:1100px){.dau-hang .dong-phu{display:none}}
 @media (max-width:1100px){.dau-hang .tim-bao{flex:1 1 140px;min-width:120px;max-width:none}.dau-hang .gio{display:none}}
+/* 3.389: nút 📋 Chép trên thanh tab file — đang chọn thì xanh */
+.tl-thanh .nut-chep.bat{background:var(--xanh-nhat);border-color:var(--xanh);color:var(--xanh)}

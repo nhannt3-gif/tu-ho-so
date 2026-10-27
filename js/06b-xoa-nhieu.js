@@ -9,8 +9,14 @@ function botAt(id){ return BOT.tab ? ' data-bot="'+id+'"'+(BOT.chon[id]?' data-b
 function nutBot(tab){
   var bat = BOT.tab===tab && BOT.muc!=='chep';
   return '<button class="nut-bot'+(bat?' bat':'')+'" onclick="'+(bat?'thoiBot()':'batBot(\''+tab+'\')')+'" '+
-    'title="Chọn nhiều file để xóa một lần (vào thùng rác)">🗑 Xóa</button>';
+    'title="Chọn nhiều file để xóa một lần (vào thùng rác)">🗑 Xóa</button>'+(laDT() || tab==='kyAnh' ? '' : nutChep(tab));
 }
+/* 3.389 (anh 27/10 "để sẵn 1 nút copy trên mỗi khung, khi cần sẽ chọn như chức năng xóa"): 📋 Chép cạnh 🗑 Xóa — bấm → tick file → 📋 Chép n file → Ctrl+V vào thư mục / Zalo (qua cầu nối máy tính) */
+function nutChep(tab){
+  var bat = BOT.tab===tab && BOT.muc==='chep';
+  return '<button class="phu nut-chep'+(bat?' bat':'')+'" onclick="'+(bat?'thoiBot()':'chepBat(\''+tab+'\')')+'" title="Chọn nhiều file để chép, rồi Ctrl+V vào thư mục trên máy hoặc Zalo (cần cầu nối máy tính)">📋 Chép</button>';
+}
+function chepBat(tab){ if(!coCauNoi()){ window.__cnDuPhong = null; return hoiCaiCauNoi(function(){ if(coCauNoi()) batBot(tab, 'chep'); else bao('Cần cài cầu nối máy tính để chép file thật: ⚙ Cài đặt › Cầu nối máy tính (Windows).', 8); }); } batBot(tab, 'chep'); }
 function batBot(tab, muc){
   BOT = {tab:tab, chon:{}, muc:muc==='chep' ? 'chep' : 'xoa'}; CN_CHEP_CON = []; document.body.classList.add('dang-bot');
   if(tab==='kyAnh') moKyAnh(); else ve();

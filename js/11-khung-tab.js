@@ -223,7 +223,7 @@ function moXemTab(ev, tab){
 function moThemTab(ev, tab){
   var o = TL_OPT[tab] || {};
   var h = (o.themPhu||'')+(o.nutThem||'')+(o.them||'');
-  if(coCauNoi() && !laDT()) h += '<button onclick="batBot(\''+tab+'\',\'chep\')">☑ Chọn nhiều file để chép</button>';
+  /* 3.389: ☑ Chọn nhiều file để chép → nút 📋 Chép trên thanh (nutChep, js/06b) */
   if(h) h += '<div class="vach"></div>';
   h += '<button onclick="chepDuongMay(thuMucTab(\''+tab+'\'))">📂 Chép đường dẫn thư mục ổ G</button>'+
     '<button onclick="moThuMucDrive(thuMucTab(\''+tab+'\'))">☁ Mở thư mục trên Drive</button>'+
