@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.385 — 27/10/2026 — Sao kê theo nhà đầu tư (TK 3)
+- **Anh 27/10**: "làm thêm 1 sao kê hay truy vấn theo mã nhà đầu tư"; "mã NĐT có mấy loại nên em sổ sẵn ra"; "không cần (tra cứu), tra cứu đã nhiều rồi, cần bên sao kê, theo chương trình, đến tổ"; "có sao kê cho vay trực tiếp coi như 1 cấp lọc" (sẵn: ô Hội "Trực tiếp", ô Tổ "Vay trực tiếp (không qua tổ)").
+- Tab Sao kê › Thông tin tổ: báo cáo **Sao kê theo nhà đầu tư** (khổ ngang). Ô chọn NĐT sổ sẵn mọi mã có trong Mẫu 31 kỳ đang xem (cột 136 "Mã nhà đầu tư"; mã trống = Vốn TW không qua NĐT), kèm nguồn · số món · dư nợ; "Tất cả" hoặc 1 NĐT. Chia **NĐT › chương trình › tổ › món** (vay trực tiếp = nhóm "Vay trực tiếp (không qua tổ)"); cột STT, mã KH, họ tên, số KU, ngày vay, hạn trả, dư nợ, quá hạn, khoanh, lãi tồn; cộng tổ / chương trình / NĐT / tổng; theo bộ lọc địa bàn; In / PDF / Excel.
+- ✏ Tên NĐT (không bắt buộc): Mẫu 31 chỉ có mã → anh gõ tên, lưu `D.cauHinh.slNdtTen` (đồng bộ khối Số liệu, không vào repo).
+- Kiểm file thật 25/10 (chỉ đếm): 5 mã (trống / TW 18.590 món · INV…3650 / ĐP 2.807 món · INV…0215 / TW 221 · INV…6659 / ĐP 8 · INV…6658 hết dư nợ).
+- `js/74-sk-ndt.js` (mới), `js/22h-cap-hoi-sao-ke.js` (SK_BC 'ndt', ô chọn, skBaoCao), `index.html`, `css/app.css`, `js/17b`. Phép thử t279 (8).
+
 ## 3.384.1 — 27/10/2026 — Dọn hàm + phép thử không còn dùng (TK 3)
 - **Anh 27/10**: "có, luôn kiểm tra xóa các phép thử không còn dùng".
 - Bỏ khỏi app (không chỗ nào gọi, chỉ phép thử gọi):

@@ -222,6 +222,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.385)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › Sao kê theo nhà đầu tư › ô Nhà đầu tư | Sổ sẵn 5 mã (Vốn TW + 4 mã INV), có số món · dư nợ | |
+| 2 | Chọn 1 NĐT, lọc 1 xã › 👁 Xem | Chia chương trình › tổ › món, cộng khớp | |
+| 3 | ✏ Tên NĐT gõ tên | Ô chọn + bản in ghi tên | |
+| 4 | Lọc Hội = Trực tiếp | Chỉ món vay trực tiếp | |
+
+**Ghi chú kỹ thuật 3.385:** món tính = có số KU và (dư nợ / QH / khoanh > 0). `skCH().ndt`: '' tất cả · '-' mã trống · mã.
+
 ### Danh sách thử trên máy thật (3.384.1)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

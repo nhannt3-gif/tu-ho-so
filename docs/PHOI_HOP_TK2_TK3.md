@@ -87,6 +87,7 @@
 | 27/10 | TK 3 (nhận bàn giao) | 3.383.7 (sửa phép thử) | `tests/t128.js` (đổi xã → Hội về Tất cả), `tests/t162.js` + `tests/t158.js` (nhãn / chip trên dải tiêu đề), `tests/chuan_lay.js` (chọn lại Hội cũ sau đổi Xã → giữ kịch bản chuẩn khóa, không ghi lại chuẩn) — không đổi mã app | hồi quy đủ: chỉ còn lỗi sẵn có (t158 cột Tự động) + báo nhầm quen |
 | 27/10 | TK 3 (nhận bàn giao) | **3.384** | `js/28`, `js/29` (cửa dongTo / monKy / saoKeKy), `js/22b`, `js/22f`, `js/22gb`, `js/62`, `js/63`, `js/73` (kcDung) qua kho; ngắt dòng dài `22b / 22ga / 22gb / 22k`; `tools/hoiquy_pt.py` + `hoiquy.sh doi`, `tests/kiem.py` (bang_goc), `tests/t158.js`; CLAUDE.md + tests/README (luật hồi quy theo đổi) | hồi quy đủ → ghi mốc đã chốt đầu tiên |
 | 27/10 | TK 3 (nhận bàn giao) | **3.384.1** | bỏ hàm `js/04c` boBaoCao, `js/26` gdxGLLamTrong + gdxThan, `js/22d` ktDsLTC, `js/22c` ktGNKhaiBao, `js/22b` ktKhaiBao, `js/22ga` pvMo, `js/22k` slKTDauHTML, `js/22i` thXem (→ `tests/tro_thxem.js`); phép thử theo | hồi quy `doi` |
+| 27/10 | TK 3 (nhận bàn giao) | **3.385** | `js/74-sk-ndt.js` (mới), `js/22h` (SK_BC ndt), `index.html`, `css/app.css`, `js/17b`; `tests/t279.js` | t279 8/8 + hồi quy doi |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

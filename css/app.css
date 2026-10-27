@@ -4104,3 +4104,7 @@ table.tc-to-ds tfoot td{position:sticky;bottom:0;background:var(--xanh-nhat);col
 .pv-cay select.pv-o:has(+ .pv-x + .pv-gh.bat){border-width:2px;border-color:var(--xanh);font-weight:700}
 .pv-cay .loc-khoi.gon .pv-dau .pv-dan .pv-dan-o,.pv-cay .loc-khoi.gon .pv-dau .pv-dan>.pv-sep{display:none}   /* kiểu gọn: ô chọn đã ghi địa bàn → dải tiêu đề chỉ còn số liệu */
 .pv-cay .loc-khoi.gon .pv-dau .pv-dem{margin-left:0}
+/* 3.385: Sao kê theo nhà đầu tư — ô chọn NĐT, hộp tên, dòng nhóm NĐT / chương trình */
+.sk-ndt select{max-width:min(560px,100%);font:inherit;padding:3px 6px;border:1px solid var(--xanh);border-radius:8px;background:var(--the);color:var(--chu)}
+#hop-in .ndt-ten{display:flex;align-items:center;gap:8px;margin:4px 0}#hop-in .ndt-ten span{flex:0 0 220px;text-align:left}#hop-in .ndt-ten input{flex:1}
+.bc-bang tr.ndt-n td{background:#dbeafe;font-weight:800}.bc-bang tr.ndt-c td{background:#eef2ff;font-weight:700;padding-left:14px}

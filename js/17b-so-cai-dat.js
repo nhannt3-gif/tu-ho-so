@@ -42,7 +42,7 @@ var CH_SO = {
   kyChung:'Kỳ số liệu chung mọi tab', pvChung:'Phạm vi chung (xã › điểm › hội › tổ)', pvGon:'Khối phạm vi gọn theo tab', pvGhim:'Ghim khối phạm vi theo tab (cũ)', pvGhimBat:'📌 Ghim địa bàn chung (cũ — 3.383.7 chuyển thành ghim từng ô)', pvGhimO:'📌 Ô lọc địa bàn đã ghim (mở app luôn về đây)', pvKieu:'Kiểu cây địa bàn theo tab (gọn / chip)',
   slTab:'Tab con Số liệu đang mở', slTabBC:'Tab báo cáo Số liệu lần trước', slGiu:'Số kỳ số liệu giữ trên máy', slMo:'Nhóm file Số liệu đang mở', slKqMo:'Mở kết quả kiểm tra kỳ', slKtLoc:'Lọc kết quả kiểm tra',
   slMt:'Ma trận Nạp: kiểu xem', slMtTruoc:'Ma trận Nạp: kiểu trước khi thu', slTQ:'Bảng tổng quan nhiều tháng thu gọn',
-  toTK:'Tab Tổ: kỳ + phạm vi + báo cáo', skTK:'Tab Sao kê: kỳ + phạm vi + báo cáo', thTK:'Tab Tổng hợp: kỳ + phạm vi + báo cáo', tcPV:'Tab Tra cứu: phạm vi', tcTim:'Tab Tra cứu: tìm theo + kiểu bảng / thẻ',
+  toTK:'Tab Tổ: kỳ + phạm vi + báo cáo', skTK:'Tab Sao kê: kỳ + phạm vi + báo cáo', slNdtTen:'Tên nhà đầu tư (Sao kê theo NĐT)', thTK:'Tab Tổng hợp: kỳ + phạm vi + báo cáo', tcPV:'Tab Tra cứu: phạm vi', tcTim:'Tab Tra cứu: tìm theo + kiểu bảng / thẻ',
   toCot:'Bảng các tổ: cột hiện / ẩn', toCotKH:'Danh sách khách: cột hiện / ẩn', toNguong:'Ngưỡng số tổ viên',
   tk104Tay:'TK 104 anh gõ tay', tkChon:'TK 104 / 105 anh đã chọn', ccNho:'CCCD anh gõ tay theo mã KH',
   /* KTGS */

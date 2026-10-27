@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.384.1** — TK 3: dọn 9 hàm không còn dùng + phép thử theo. 3.384: Giao dịch xã · Tra cứu · TK 104/105 qua kho chuẩn; hồi quy theo đổi (`hoiquy.sh … doi`, mốc `tests/hoiquy_moc.json`, `docs/DA_CHOT.md`).
+- **`main` = 3.385** — TK 3: Sao kê theo nhà đầu tư (js/74). 3.384.1: dọn 9 hàm không dùng. 3.384: Giao dịch xã · Tra cứu · TK 104/105 qua kho; hồi quy theo đổi (`hoiquy.sh … doi`).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
