@@ -4114,6 +4114,6 @@ table.tc-to-ds tfoot td{position:sticky;bottom:0;background:var(--xanh-nhat);col
 /* 3.388 (anh 27/10 "2 nút tiến lùi làm nổi lên cho dễ nhận biết", "các nút hiện nổi lên phân biệt với nền"): nút ⬅ ➡ có nền + viền; nút thanh tab file có viền đậm + bóng */
 .dh-nut{gap:4px}.dh-nut .nho{padding:3px 11px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.45);border-radius:8px;font-size:17px;box-shadow:0 1px 3px rgba(0,0,0,.35)}
 .dh-nut .nho:hover{background:rgba(255,255,255,.32)}
-.tl-thanh .phu,.tl-thanh .nut-bot,.tl-kx{box-shadow:0 1px 3px rgba(0,0,0,.28);border-color:var(--chu-mo,#8a94a6)}
+.tl-thanh .phu,.tl-thanh .nut-bot,.tl-kx{box-shadow:0 1px 3px rgba(0,0,0,.28)}.tl-thanh .phu,.tl-kx{border-color:var(--chu-mo,#8a94a6)}   /* nút 🗑 Xóa giữ viền đỏ (3.285) */
 .tl-thanh .phu,.tl-thanh .nut-bot,.tl-kx button:not(.bat){background-image:linear-gradient(rgba(255,255,255,.07),rgba(255,255,255,.07))}
 .tl-kx button{padding:4px 8px}

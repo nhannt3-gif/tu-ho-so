@@ -1981,7 +1981,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.388', ds:[
+var CO_GI_MOI = {ban:'3.388.1', ds:[
+  ["Nút 🗑 Xóa giữ viền đỏ như cũ (3.388 lỡ làm mất)", "doiNgan(1)"],
   ["Nút ⬅ ➡ đầu trang có nền + viền, dễ nhận biết", "doiNgan(1)"],
   ["Thanh nút tab Văn bản / Biểu mẫu / Scan: nút nổi khỏi nền, kiểu xem luôn kèm tên chữ nhỏ (Danh sách · Nhóm · Bảng · Khung xem)", "doiNgan(1)"],
   ["Dọn code: bỏ CSS / biến không dùng, hồi quy chỉ còn 2 chế độ doi · tat", "doiNgan(7)"],
@@ -1995,8 +1996,7 @@ var CO_GI_MOI = {ban:'3.388', ds:[
   ["Dọn mã: bỏ 9 hàm app không còn dùng (chức năng đã gỡ / lớp bọc thừa); phép thử theo đó", "doiNgan(7)"],
   ["Giao dịch xã, Tra cứu, thành viên / TK 104–105 đọc chung kho chuẩn (Mẫu 31 + TK 105 / 104 + tổ) — số liệu các tab thống nhất", "doiNgan(7)"],
   ["Lọc địa bàn: mở app giữ địa bàn phiên trước; 📌 nhỏ cạnh mỗi ô = ghim ô đó (mở app luôn về đây); 📌 Về ghim; đổi Xã thì các ô dưới về Tất cả", "doiNgan(7)"],
-  ["Lọc địa bàn: dòng số liệu + nút ▦ Chip · ⬆ · 📌 lên dải tiêu đề LỌC ĐỊA BÀN — hàng lọc rộng hơn", "doiNgan(7)"],
-  ["Tra cứu: thẻ tổ có nút 📊 Biến động TK 105 (mở Sao kê của tổ); dòng cộng danh sách tổ ghi cấp lọc cuối", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Lọc địa bàn: dòng số liệu + nút ▦ Chip · ⬆ · 📌 lên dải tiêu đề LỌC ĐỊA BÀN — hàng lọc rộng hơn", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
