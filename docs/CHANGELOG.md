@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.388 — 27/10/2026 — Nút nổi, kiểu xem kèm tên (TK 3)
+- **Anh 27/10**: "2 nút tiến lùi làm nổi lên cho dễ nhận biết, các nút kiểu xem kèm tên luôn, ghi nhỏ gọn"; "các nút hiện nổi lên phân biệt với nền".
+- `css/app.css` cuối file: `.dh-nut` nền + viền + bóng; `.tl-thanh .phu`, `.tl-kx` viền đậm + bóng; `.tl-chu` luôn hiện 11 px (trước ẩn khi khung xem mở). `js/11-khung-tab.js`: ⊞ Bung · ⊟ Gọn · ▣ Khung xem kèm chữ.
+- Chưa làm (chờ anh chọn): thêm nút chức năng ở khoảng trống bên phải; tên cán bộ Giao dịch xã bị mất — chờ anh trả lời máy / bản sao lưu (bàn giao mục 8).
+
 ## 3.387 — 27/10/2026 — Rà soát: dọn rác, khuôn in chung, cắm rút báo cáo Sao kê (TK 3)
 - **Anh 27/10**: "rà soát cấu trúc bố cục, code em làm 2 hôm nay, chú ý dọn code rác, hồi quy cũ không còn dùng, quy tắc cắm rút, mọi thứ đọc qua kho, dữ liệu tập trung, mẫu biểu tập trung…, tối ưu lưu trữ".
 - Dọn: CSS `.sk-thanh*`, `.sk-bc`, nhãn "LỌC ĐỊA BÀN" cũ, `PV_KIEU`; bỏ chế độ nhóm `tools/hoiquy_nhom.txt` (chỉ còn `doi` / `tat`).
