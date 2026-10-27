@@ -222,6 +222,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.389.1)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📋 Chép 1 file văn bản | Chép được; nếu không: app hoặc cầu nối báo kèm đường dẫn → chụp gửi | |
+| 2 | ⚙ Cài đặt › Cầu nối › Tải bộ cài → cài lại → Chép | Hộp lỗi (nếu có) hiện đường dẫn + thư mục gốc | |
+
 ### Danh sách thử trên máy thật (3.389)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
