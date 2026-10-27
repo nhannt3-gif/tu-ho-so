@@ -4117,3 +4117,9 @@ table.tc-to-ds tfoot td{position:sticky;bottom:0;background:var(--xanh-nhat);col
 .tl-thanh .phu,.tl-thanh .nut-bot,.tl-kx{box-shadow:0 1px 3px rgba(0,0,0,.28)}.tl-thanh .phu,.tl-kx{border-color:var(--chu-mo,#8a94a6)}   /* nút 🗑 Xóa giữ viền đỏ (3.285) */
 .tl-thanh .phu,.tl-thanh .nut-bot,.tl-kx button:not(.bat){background-image:linear-gradient(rgba(255,255,255,.07),rgba(255,255,255,.07))}
 .tl-kx button{padding:4px 8px}
+/* 3.388.2 (anh 27/10 "các nút kiểu xem cho rời nhau và 2 nút cùng 1 cỡ"): chip kiểu xem tách rời từng nút; ⬅ ➡ cùng kích thước */
+.tl-kx{border:none;overflow:visible;gap:6px;box-shadow:none}
+.tl-kx button{border:1.3px solid var(--chu-mo,#8a94a6);border-radius:var(--nut-bo,10px);box-shadow:0 1px 3px rgba(0,0,0,.28)}
+.tl-kx button:last-child{border-right:1.3px solid var(--chu-mo,#8a94a6)}
+.tl-kx button.bat{border-color:var(--xanh)}
+.dh-nut .nho{width:42px;height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;line-height:1}
