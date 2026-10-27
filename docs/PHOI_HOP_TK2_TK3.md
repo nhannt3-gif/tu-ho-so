@@ -94,6 +94,7 @@
 | 27/10 | TK 3 (nhận bàn giao) | **3.386.2** | `js/72` (ghi chú 6,5 pt); `tests/t276_chup.json` | t276 |
 | 27/10 | TK 3 (nhận bàn giao) | **3.387** | dọn rác (`css/app.css`, `js/22ga`, `tools/hoiquy.sh`, bỏ `tools/hoiquy_nhom.txt`); khuôn in chung `js/75-khuon-in.js` (`js/22h`, `js/22i`); cắm rút SK_BC (`js/72`, `js/74`) | t276 t205 t279 t278 t148 t157 t179 t105 t308 |
 | 27/10 | TK 3 (nhận bàn giao) | **3.388** | `css/app.css` cuối file (nút ⬅ ➡, thanh tab file); `js/11-khung-tab.js` (nhãn ⊞ ⊟ ▣) | hồi quy doi |
+| 27/10 | TK 3 (nhận bàn giao) | **3.388.1** | `css/app.css` (nút Xóa giữ đỏ) | t147 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

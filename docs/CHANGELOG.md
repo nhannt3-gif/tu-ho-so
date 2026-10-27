@@ -4,6 +4,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.388.1 — 27/10/2026 — Nút Xóa giữ màu đỏ (TK 3)
+- **Anh 27/10**: "nút xóa em lại làm mất đi màu đỏ" → quy tắc viền mới của 3.388 chỉ áp cho `.phu`, `.tl-kx`; `.nut-bot` giữ viền đỏ (3.285).
+
 ## 3.388 — 27/10/2026 — Nút nổi, kiểu xem kèm tên (TK 3)
 - **Anh 27/10**: "2 nút tiến lùi làm nổi lên cho dễ nhận biết, các nút kiểu xem kèm tên luôn, ghi nhỏ gọn"; "các nút hiện nổi lên phân biệt với nền".
 - `css/app.css` cuối file: `.dh-nut` nền + viền + bóng; `.tl-thanh .phu`, `.tl-kx` viền đậm + bóng; `.tl-chu` luôn hiện 11 px (trước ẩn khi khung xem mở). `js/11-khung-tab.js`: ⊞ Bung · ⊟ Gọn · ▣ Khung xem kèm chữ.
