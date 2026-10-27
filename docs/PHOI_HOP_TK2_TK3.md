@@ -96,6 +96,7 @@
 | 27/10 | TK 3 (nhận bàn giao) | **3.388** | `css/app.css` cuối file (nút ⬅ ➡, thanh tab file); `js/11-khung-tab.js` (nhãn ⊞ ⊟ ▣) | hồi quy doi |
 | 27/10 | TK 3 (nhận bàn giao) | **3.388.1** | `css/app.css` (nút Xóa giữ đỏ) | t147 |
 | 27/10 | TK 3 (nhận bàn giao) | **3.388.2** | `css/app.css` cuối file (kiểu xem rời, ⬅ ➡ cùng cỡ) | t147 |
+| 27/10 | TK 3 (nhận bàn giao) | **3.388.3** | `css/app.css` cuối file (đầu trang cửa sổ hẹp) | t147 t196 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
