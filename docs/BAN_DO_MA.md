@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.385 · 27/10/2026 15:30 · 104 file · 42639 dòng · 3489 hàm cấp ngoài · 574 biến toàn cục.
+Bản 3.385.1 · 27/10/2026 20:04 · 104 file · 42639 dòng · 3489 hàm cấp ngoài · 574 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 

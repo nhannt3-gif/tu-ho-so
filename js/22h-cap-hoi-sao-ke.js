@@ -375,19 +375,19 @@ function tcTrongPV(ma){ var S = tcCH(); if(!S.xa) return true; var c = KHO.danhB
 /* 3.92 (anh chốt): chọn 1 báo cáo mỗi lần, xếp theo nhóm 2 cột (chừa chỗ mẫu mới); kho = khổ in mặc định; ngay = cần khoảng ngày */
 var SK_NHOM = [{k:'xl', ten:'Nợ cần xử lý'}, {k:'dh', ten:'Nợ đến hạn'}, {k:'ps', ten:'Phát sinh tháng'}, {k:'kh', ten:'Khách hàng'}, {k:'tt', ten:'Thông tin tổ'}];   /* 3.259: + Thông tin tổ (js/22j) */
 var SK_BC = [{k:'qh', ten:'Sao kê nợ quá hạn', nhom:'xl', kho:'doc'}, {k:'kh', ten:'Sao kê nợ khoanh', nhom:'xl', kho:'doc'}, {k:'khd', ten:'Sao kê món vay 3 tháng không hoạt động', nhom:'xl', kho:'doc'},
-  {k:'cgn', ten:'KU đã nhập máy chưa giải ngân (quá 1 tháng → cần đóng KU)', nhom:'xl', kho:'ngang'},
-  {k:'dh', ten:'Sao kê nợ đến hạn (hạn hợp đồng + kỳ GDXA chuyển quá hạn)', nhom:'dh', kho:'ngang', ngay:1},
-  {k:'noxh', ten:'Sao kê nợ đến hạn kỳ con — món vay trả gốc phân kỳ (NOXH · cho vay trực tiếp · ủy thác vay từ 01/03/2026)', nhom:'dh', kho:'ngang', ngay:1},
+  {k:'cgn', ten:'KU đã nhập máy chưa giải ngân (quá 1 tháng → cần đóng KU)', nhom:'xl', kho:'doc'},
+  {k:'dh', ten:'Sao kê nợ đến hạn (hạn hợp đồng + kỳ GDXA chuyển quá hạn)', nhom:'dh', kho:'doc', ngay:1},
+  {k:'noxh', ten:'Sao kê nợ đến hạn kỳ con — món vay trả gốc phân kỳ (NOXH · cho vay trực tiếp · ủy thác vay từ 01/03/2026)', nhom:'dh', kho:'doc', ngay:1},
   {k:'pkto', ten:'Danh sách nợ gốc đến hạn phân kỳ theo tổ — gửi tổ trưởng (CV 597)', nhom:'dh', kho:'doc', ngay:1},
-  {k:'gn', ten:'Sao kê giải ngân trong tháng', nhom:'ps', kho:'doc'}, {k:'ddn', ten:'Sao kê món vay có thay đổi dư nợ trong tháng', nhom:'ps', kho:'ngang'},
+  {k:'gn', ten:'Sao kê giải ngân trong tháng', nhom:'ps', kho:'doc'}, {k:'ddn', ten:'Sao kê món vay có thay đổi dư nợ trong tháng', nhom:'ps', kho:'doc'},
   {k:'m105', ten:'Sao kê khách giải ngân cần mở TK 105', nhom:'ps', kho:'doc'},
   {k:'sdt', ten:'Sao kê số điện thoại khách hàng (đánh dấu số trống / không đạt)', nhom:'kh', kho:'doc'},
   {k:'kqgd', ten:'Kết quả giao dịch tại điểm GD — chốt cuối tháng, mỗi điểm 1 trang', nhom:'tt', kho:'ngang'},
   {k:'thhd', ten:'Tình hình hoạt động (THHD) — tín dụng theo cấp chọn (PGD › xã › điểm › hội › tổ), 1 trang A4 dọc', nhom:'tt', kho:'doc'},
   {k:'tqh', ten:'Sao kê nợ quá hạn — chia Điểm GD › Hội › Tổ (như file tổng hợp)', nhom:'tt', kho:'doc'}, {k:'tkn', ten:'Sao kê nợ khoanh — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'doc'},
-  {k:'tkhd', ten:'Sao kê 3 tháng không hoạt động — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'ngang'},
+  {k:'tkhd', ten:'Sao kê 3 tháng không hoạt động — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'doc'},
   {k:'b105', ten:'Sao kê biến động TK 105 — khách chuyển vào, trích trả lãi / gốc (Mẫu 31 + Sao kê TK 105 cùng ngày)', nhom:'tt', kho:'ngang'},
-  {k:'ndt', ten:'Sao kê theo nhà đầu tư — chia chương trình › tổ (Mẫu 31 · mã NĐT)', nhom:'tt', kho:'ngang', ndt:1}];   /* 3.385 (js/74) */   /* 3.380 (js/72) */
+  {k:'ndt', ten:'Sao kê theo nhà đầu tư — chia chương trình › tổ (Mẫu 31 · mã NĐT)', nhom:'tt', kho:'doc', ndt:1}];   /* 3.385 (js/74) · 3.385.1 (anh 27/10 "nếu dạng DS thì nên in dọc cho tối ưu"): danh sách mặc định khổ dọc — cgn, dh, noxh, ddn, tkhd, ndt (giữ ngang: kqgd biểu mỗi điểm, b105 13 cột) */   /* 3.380 (js/72) */
 function skChon(){ var C = skCH(); if(!C.chon || !SK_BC.some(function(b){ return b.k===C.chon; })){ var c = SK_BC.find(function(b){ return C.bc[b.k]; }); C.chon = c ? c.k : 'qh'; } return C.chon; }
 function skKhoCua(k){ var C = skCH(), b = SK_BC.find(function(x){ return x.k===k; }) || {}; return (C.kho && C.kho[k]) || b.kho || 'doc'; }
 function skChonBC(k){ var C = skCH(); C.chon = k; C.bc = {}; C.bc[k] = true; luu(); veSaoKe(); }
