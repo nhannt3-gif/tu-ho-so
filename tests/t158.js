@@ -58,7 +58,7 @@ const fs=require('fs'), path=require('path');
    /* ---- chip báo số liệu ---- */
    kyChungDoi('2026-09'); TO_LOC_PV='bang'; await w(300); toVeThe(); await w(1500);
    const chip = document.querySelector('.pv-chip-o .sl-chip');
-   ok('chip "⚠ Dùng T8/2026" cuối hàng Xã (trước 📍), rê chuột đủ câu; bỏ dòng vàng riêng', !!chip && /⚠ Dùng T8\/2026/.test(chip.textContent) && /chưa có số liệu cho tab này/.test(chip.title) && chip.closest('.pv-hang1') && !document.querySelector('#tr7 .ky-ghi'), chip && chip.textContent);
+   ok('chip "⚠ Dùng T8/2026" trên dải tiêu đề LỌC ĐỊA BÀN (3.383.7 — trước cuối hàng Xã), rê chuột đủ câu; bỏ dòng vàng riêng', !!chip && /⚠ Dùng T8\/2026/.test(chip.textContent) && /chưa có số liệu cho tab này/.test(chip.title) && chip.closest('.pv-dau') && !document.querySelector('#tr7 .ky-ghi'), chip && chip.textContent);
    ok('ô kỳ đầu trang có ⚠ khi tháng chọn chưa có số liệu cho tab', !!document.querySelector('#ky-chung .ky-canh'));
    chip.click(); await w(500);
    ok('bấm chip → mở 📥 Nạp & KT đúng tháng T9', D.cauHinh.slTab==='nap' && SL_KY==='2026-09', D.cauHinh.slTab+' '+SL_KY);
