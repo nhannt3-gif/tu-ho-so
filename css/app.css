@@ -4083,3 +4083,24 @@ table.tc-to-ds tfoot td{position:sticky;bottom:0;background:var(--xanh-nhat);col
 .tc-dau.tc-dau .tc-theo .gd-chip{font-size:calc(13px*var(--co));padding:3px 11px;min-height:28px;line-height:1.4}
 .tc-dau.tc-dau .tc-theo-nhan{font-size:calc(12.5px*var(--co))}
 @media(min-width:1300px){ .tc-dau.tc-dau .tc-hang{flex-wrap:nowrap} .tc-dau.tc-dau .tc-theo{flex-wrap:nowrap;flex:0 0 auto} .tc-dau.tc-dau .tc-tim{width:100%} }   /* 1 hàng: ô tìm co (240–460 px), chip giữ nguyên cỡ */
+/* 3.383.7 (anh 27/10): dải tiêu đề khối LỌC ĐỊA BÀN — nhãn + dòng số liệu + ▦ Chip · ⬆ · 📌 Về ghim nằm trên đường viền (hàng lọc chỉ còn ô chọn) */
+.pv-cay .loc-khoi.co-dau::before{content:none}
+.pv-cay .loc-khoi.co-dau,.pv-cay .loc-khoi.co-dau.gon{padding-top:17px;margin-top:14px}
+.pv-cay .loc-khoi .pv-dau{position:absolute;top:-12px;left:10px;right:10px;display:flex;align-items:center;gap:6px;min-width:0;pointer-events:none;height:23px}
+.pv-cay .loc-khoi .pv-dau>*{pointer-events:auto}
+.pv-cay .loc-khoi .pv-dau-nhan{flex:none;background:var(--xanh);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:1px 8px;border-radius:5px;line-height:1.6}
+.pv-cay .loc-khoi .pv-dau .pv-dan{flex:0 1 auto;min-width:0;overflow:hidden;white-space:nowrap;flex-wrap:nowrap;margin:0;background:var(--the);border:1px solid var(--xanh);border-radius:6px;padding:0 7px;line-height:20px;display:flex}
+.pv-cay .loc-khoi .pv-dau .pv-dem{margin-left:4px;overflow:hidden;text-overflow:ellipsis;font-size:calc(11.5px*var(--co))}
+.pv-cay .loc-khoi .pv-dau .pv-dan-o{font-size:calc(11px*var(--co));padding:0 7px}
+.pv-cay .loc-khoi .pv-dau-nut{flex:none;margin-left:auto;display:flex;gap:4px}
+.pv-cay .loc-khoi .pv-dau-nut button{min-height:21px;height:21px;padding:0 8px;font-size:calc(11.5px*var(--co));background:var(--the);line-height:1}
+.pv-cay .loc-khoi .pv-dau-nut .pv-ghim-nut{opacity:1}.pv-cay .loc-khoi .pv-dau-nut .pv-ghim-nut:disabled{opacity:.45}
+.pv-cay .loc-khoi .pv-dau .pv-dan .pv-sep{margin:0 1px}
+@media (max-width:699px){ .pv-cay .loc-khoi .pv-dau .pv-dan{display:flex} .pv-cay .loc-khoi .pv-dau-nut .pv-chu{display:none} }
+/* 📌 nhỏ cạnh ↺ — ghim từng ô lọc; ô đang ghim viền đậm */
+.pv-cay button.pv-gh{border:none;background:none;min-height:0;width:18px;height:20px;padding:0;margin-left:-2px;font-size:11px;line-height:20px;cursor:pointer;opacity:.28;filter:grayscale(1);flex:none}
+.pv-cay button.pv-gh:hover:not(:disabled){opacity:.8;filter:none}.pv-cay button.pv-gh:disabled{opacity:.12;cursor:default}
+.pv-cay button.pv-gh.bat{opacity:1;filter:none}.pv-cay button.pv-gh.khac{opacity:.6;filter:none}
+.pv-cay select.pv-o:has(+ .pv-x + .pv-gh.bat){border-width:2px;border-color:var(--xanh);font-weight:700}
+.pv-cay .loc-khoi.gon .pv-dau .pv-dan .pv-dan-o,.pv-cay .loc-khoi.gon .pv-dau .pv-dan>.pv-sep{display:none}   /* kiểu gọn: ô chọn đã ghi địa bàn → dải tiêu đề chỉ còn số liệu */
+.pv-cay .loc-khoi.gon .pv-dau .pv-dem{margin-left:0}

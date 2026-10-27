@@ -291,3 +291,11 @@ Một chỗ quyết định: `toDong0` (`js/22g-to.js`) lúc dựng cây tổ c�
 - Danh sách tổ là căn cứ chính: khi có DS thì KHÔNG xét LEN_31 (LEN_31 ghép tổ theo tên tổ trưởng → dễ kéo tổ đã đóng hiện lại).
 - Số liệu 25/10 (file thật, chỉ đếm): 322 tổ có dư nợ trên DS · 47 cần đóng (32 còn TK 104, 15 đã đóng TK 104) · 9 đã đóng · 0 lệch.
 - Phép thử: t141 (luật 1–3, 6), t276 (bản chụp 64 báo cáo không đổi).
+
+## 17. Bộ lọc địa bàn — nhớ phiên trước, ghim từng ô, đổi cấp (anh 27/10/2026, bản 3.383.7 — thay quy tắc 3.328 "mở app về Toàn PGD")
+- **Nhớ:** địa bàn (Xã · Điểm GD · Hội · Ấp/KP · Tổ) và kiểu (☰ Gọn / ▦ Chip) LUÔN lưu cho lần mở sau (`D.cauHinh.pvChung`, `pvKieu`) — dùng chung mọi tab.
+- **📌 Ghim từng ô** (nút nhỏ cạnh ↺): `D.cauHinh.pvGhimO {cap: giá trị}`. Mở app ô ghim luôn về giá trị ghim (ưu tiên cao nhất); ô chưa ghim lấy phiên trước, không còn hợp với ô ghim cấp trên thì về Tất cả. Bấm lại 📌 nhỏ = bỏ ghim.
+- **📌 Về ghim** (dải tiêu đề): ô ghim → giá trị ghim, ô khác → Tất cả; sáng khi đang ở đúng địa bàn ghim.
+- **Đổi cấp** (`pvDatCap`): đổi Xã → Điểm GD · Hội · Ấp · Tổ về Tất cả; đổi Điểm GD / Hội / Ấp (ngang cấp, lọc đa chiều — giữ nhau) → Tổ về Tất cả. Ô cấp dưới đang ghim giữ nguyên.
+- **Dải tiêu đề** "LỌC ĐỊA BÀN": dòng số liệu (n tổ · khách · số liệu ngày) + ▦ Chip · ⬆ · 📌 Về ghim nằm trên đường viền khung; hàng lọc chỉ còn ô chọn.
+- Dữ liệu cũ: `pvGhimBat` (ghim chung 3.328) tự chuyển thành ghim các ô đang có giá trị. Phép thử: t241 (mở lại app), t278, t189.

@@ -60,10 +60,10 @@ const fs=require('fs'), path=require('path');
    ok('Backspace (không ở ô nhập) = lên 1 cấp', !C.to && C.xa===xa);
    const tim = document.getElementById('hm-so-tim'); tim.focus(); tim.dispatchEvent(new KeyboardEvent('keydown', {key:'Backspace', bubbles:true})); await w(100);
    ok('Backspace trong ô nhập → không đổi địa bàn', C.xa===xa); tim.blur();
-   pvGonDoi('hsv'); pvGhimDoi('hsv'); await w(100); pvChon('hsv', 'to', t1.ma); await w(200);
-   ok('📌 ghim: giữ kiểu chip đang chọn + địa bàn vào cài đặt', pvGhimCua('hsv') && !document.querySelector('#hsv-cay .loc-khoi.gon') && D.cauHinh.pvKieu.hsv==='chip' && D.cauHinh.pvChung.to===t1.ma && /Đã ghim/.test(document.querySelector('#hsv-cay .pv-ghim-nut').textContent));
-   pvGhimDoi('hsv'); pvGonDoi('hsv'); ok('bỏ ghim (chung mọi tab)', !D.cauHinh.pvGhimBat && !pvGhimCua('to') && !pvGhimCua('gdx'));
-   ok('cài đặt ghim đồng bộ theo khối Số liệu', chKhoiCua('pvGhimBat')==='solieu');
+   pvGonDoi('hsv'); await w(100); pvChon('hsv', 'to', t1.ma); await w(200); pvGhimODoi('hsv', 'xa'); await w(200);
+   ok('3.383.7 📌 nhỏ cạnh ô Xã → ghim xã + kiểu chip nhớ vào cài đặt', D.cauHinh.pvGhimO && D.cauHinh.pvGhimO.xa===xa && pvGhimCua() && !document.querySelector('#hsv-cay .loc-khoi.gon') && D.cauHinh.pvKieu.hsv==='chip' && !!document.querySelector('#hsv-cay .pv-gh.bat'));
+   pvGhimODoi('hsv', 'xa'); pvGonDoi('hsv'); ok('bỏ ghim ô (chung mọi tab)', !D.cauHinh.pvGhimO && !pvGhimCua());
+   ok('cài đặt ghim / kiểu đồng bộ theo khối Số liệu', chKhoiCua('pvGhimO')==='solieu' && chKhoiCua('pvKieu')==='solieu');
    pvChon('hsv', 'xa', ''); await w(300);
    /* tích → Lập 03/TD */
    HM_CHON = {}; hmSoTick(a1.id, true); hmSoTick(a2.id, true); await w(100);

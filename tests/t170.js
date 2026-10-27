@@ -23,7 +23,7 @@ const fs=require('fs'), path=require('path');
    const mat = [...document.querySelectorAll('#to-cay .pv-ve')].map(x=>x.textContent);
    ok('đường dẫn 🏠 PGD › Xã › Điểm … › Tổ — các mắt cấp trên bấm được', mat[0]==='🏠 PGD' && mat.length>=3, mat.join(' › '));
    pvGonDoi('to'); await w(300);
-   ok('bấm ▦ Chip → hiện chip Xã · Điểm · Hội · Tổ, nút "☰ Gọn" (chưa ghim: nhớ trong phiên)', !document.querySelector('#to-cay .loc-khoi.gon') && /Gọn/.test(nut()) && PV_KIEU.to==='chip');
+   ok('bấm ▦ Chip → hiện chip Xã · Điểm · Hội · Tổ, nút "☰ Gọn" (3.383.7: kiểu luôn nhớ)', !document.querySelector('#to-cay .loc-khoi.gon') && /Gọn/.test(nut()) && D.cauHinh.pvKieu.to==='chip');
    pvGonDoi('to'); await w(300);
    document.querySelectorAll('#to-cay .pv-ve')[1].click(); await w(300); let S = PV_DUNG.to.S();
    ok('bấm tên Xã → về cả xã (bỏ điểm, tổ)', !!S.xa && !S.diem && !S.to);

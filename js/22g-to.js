@@ -32,9 +32,16 @@ var TO_K = null, TO_Q = '';
 function toCH(){ return pvGan(D.cauHinh.toTK = D.cauHinh.toTK || {ky:'', xa:'', diem:'', hoi:'', to:'', bc:{ds:true}}); }
 /* 3.149 (anh chốt "dùng chung hết"): phạm vi xã › điểm › hội › tổ DÙNG CHUNG cho Tổ, Sao kê, Tổng hợp, KTGS, Tra cứu —
    các ô xa / diem / hoi / to của từng tab trỏ vào 1 chỗ D.cauHinh.pvChung (getter / setter); lần đầu lấy theo tab Tổ */
-/* 3.328 (anh chốt 23/10): mở app = về Toàn PGD — địa bàn chỉ giữ trong phiên (PV_PHIEN); 📌 Ghim (chung mọi tab) = giữ địa bàn + kiểu cho lần mở sau (D.cauHinh.pvChung) */
-var PV_PHIEN = {xa:'', diem:'', hoi:'', ap:'', to:''};
-function pvChungO(){ var c = D.cauHinh; if(!pvGhimCua()) return PV_PHIEN; if(!c.pvChung){ var t = c.toTK || {}, g = c.pvChung = {}; ['xa','diem','hoi','ap','to'].forEach(function(f){ var d = Object.getOwnPropertyDescriptor(t, f); g[f] = (d && !d.get && d.value) || ''; }); } return c.pvChung; }
+/* 3.383.7 (anh 27/10 "giữ lại chọn của phiên làm việc trước"; "ghim theo từng ô lọc"): địa bàn LUÔN nhớ cho lần mở sau (D.cauHinh.pvChung);
+   ô nào 📌 ghim (D.cauHinh.pvGhimO {cap: giá trị}) thì mở app luôn về giá trị ghim — ưu tiên cao nhất, ô cấp dưới chưa ghim không còn hợp thì về Tất cả.
+   (thay 3.328: mở app về Toàn PGD, 📌 ghim chung cả địa bàn — D.cauHinh.pvGhimBat cũ chuyển thành ghim từng ô đang có giá trị) */
+var PV_PHIEN = null;   /* đã áp ghim cho phiên này chưa */
+function pvChungO(){ var c = D.cauHinh;
+  if(!c.pvChung){ var t = c.toTK || {}, g = c.pvChung = {}; ['xa','diem','hoi','ap','to'].forEach(function(f){ var d = Object.getOwnPropertyDescriptor(t, f); g[f] = (d && !d.get && d.value) || ''; }); }
+  if(PV_PHIEN!==c){ PV_PHIEN = c;   /* đầu phiên (hoặc cài đặt vừa nạp lại) → áp ghim */
+    if(c.pvGhimBat){ var o = c.pvGhimO = c.pvGhimO || {}; PV_CAP.forEach(function(x){ if(c.pvChung[x[0]] && !o[x[0]]) o[x[0]] = c.pvChung[x[0]]; }); delete c.pvGhimBat; }
+    pvApGhim(c.pvChung, true); }
+  return c.pvChung; }
 function pvGan(C){
   if(!C || (Object.getOwnPropertyDescriptor(C, 'ap')||{}).get) return C;   /* 3.383: + ap (bộ cũ đã gắn 4 cấp → gắn lại đủ 5) */
   ['xa','diem','hoi','ap','to'].forEach(function(f){ Object.defineProperty(C, f, {enumerable:true, configurable:true, get:function(){ return pvChungO()[f]||''; }, set:function(v){ pvChungO()[f] = v||''; }}); });

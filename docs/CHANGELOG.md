@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.383.7 — 27/10/2026 — Lọc địa bàn: nhớ phiên, ghim từng ô, đổi cấp, dải tiêu đề · Tra cứu: 📊 Biến động TK 105 (TK 3)
+- Anh gom 5 ý rồi nhắn "em code" (27/10):
+  1. Dòng cộng danh sách tổ (anh gửi ảnh, chữ phạm vi bị cắt) → chỉ ghi cấp lọc cuối, rê chuột đủ phạm vi.
+  2. "khi chọn ở 1 cấp cao hơn sẽ về theo cấp đó và mặc định tất cả của cấp thấp hơn" → `pvDatCap`: đổi Xã → Điểm GD · Hội · Ấp · Tổ về Tất cả; đổi Điểm GD / Hội / Ấp (ngang cấp) → Tổ về Tất cả.
+  3. "giữ lại chọn của phiên làm việc trước"; "nay đã có nút về nhanh cấp trên nên giữ lại địa bàn đang làm, nút ghim anh thấy vẫn để coi như ưu tiên cao nhất"; "có thể nghiên cứu ghim theo từng ô lọc được không" → địa bàn + kiểu luôn nhớ; 📌 nhỏ cạnh từng ô = ghim ô đó (mở app luôn về đây, ưu tiên cao nhất); 📌 Về ghim ở dải tiêu đề. Thay quy tắc 3.328 (mở app về Toàn PGD); `pvGhimBat` cũ tự chuyển thành ghim các ô đang có giá trị.
+  4. "gắn nút mở sao kê biến động 105 ở chỗ tra cứu khi chọn tổ mở nhanh" → thẻ tổ Tra cứu có nút **📊 Biến động TK 105**: mở Sao kê, chọn sẵn tổ + báo cáo b105, tự Xem.
+  5. "các dòng chip em cho cùng dòng với chữ LỌC ĐỊA BÀN nhìn hay hơn" → dòng số liệu + ▦ Chip · ⬆ · 📌 lên dải tiêu đề trên đường viền khung, hàng lọc chỉ còn ô chọn (mọi tab).
+- Luật ghi `QUY_CHUAN_KIEN_TRUC.md` mục 17. `js/22ga-pham-vi.js` (`pvDatCap`, `pvApGhim`, `pvGhimODoi`, `pvVeGhim`, `pvNutGhimO`, `pvNutVeGhim`), `js/22g-to.js` (`pvChungO`), `js/22f-tra-cuu.js` (`tcB105`), `js/58-tc-to.js`, `js/17b-so-cai-dat.js`, `css/app.css`. Phép thử mới t278 (9); sửa theo luật mới t241 (mở lại app 3 lần), t189, t145, t156, t170.
+
 ## 3.383.6 — 26/10/2026 — Quy tắc hiện tổ: chỉ hiện tổ chưa đóng (TK 3)
 - **Anh 26/10**: "về tổ chỉ hiện các tổ chưa đóng, còn tổ đóng rồi như Linh thì không hiện nữa, nếu cần sẽ sao kê ở bên tab Sao kê, nguyên tắc chỉ hiện các tổ chưa đóng, còn tổ chưa đóng em tìm chốt nguyên tắc"; "em tự chốt quy tắc, anh sẽ kiểm tra và phản hồi nếu chưa chuẩn".
 - Chốt `QUY_CHUAN_KIEN_TRUC.md` mục 16: tổ chưa đóng = có mã trên **Danh sách tổ** của kỳ (hệ thống chỉ xuất tổ còn mở). Có DS thì không xét LEN_31 (ghép theo tên → dễ kéo tổ đã đóng hiện lại). Thiếu DS → LEN_31; thiếu cả 2 → Mẫu 31 (dư nợ 0 + không ai còn TK 105 = đã đóng).
