@@ -144,7 +144,7 @@ function slNguonHTML(B, kt){
 }
 function toNgayChu(){ var m = slNguonChu(KHO.kyDung().B); return 'Số liệu đến ngày '+ngayVNsl(KHO.kyDung().ngay)+' ('+KHO.kyDung().hsTen+(m ? '; '+m : '')+')'; }
 function toDauBC(t, tieuDe, ngayChu){
-  return '<div class="bc-dau"><div>'+'<b>'+coChuHTML(BC_DV)+'</b>'+'</div><div class="bc-ngay">'+coChuHTML(ngayChu)+'</div></div>'+
+  return '<div class="bc-dau"><div>'+bcLogo()+'<b>'+coChuHTML(BC_DV)+'</b>'+'</div><div class="bc-ngay">'+coChuHTML(ngayChu)+'</div></div>'+
     '<h1>'+tieuDe+'</h1><div class="bc-to">'+(t.pv ? 'Phạm vi: <b>'+coChuHTML(t.ten)+'</b>' : 'Tổ TK&VV: <b>'+coChuHTML(t.ten||'')+'</b> (mã '+t.ma+') · '+coChuHTML(toDiaChi(t)))+'</div>';
 }
 function toO(v, lop){ return '<td'+(lop ? ' class="'+lop+'"' : '')+'>'+v+'</td>'; }
@@ -775,9 +775,10 @@ function skXem(){
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');   /* 3.92: khung xem trước rộng */
   var f = document.getElementById('sk-khung'); xemChuan(f, skHTMLIn(SK_XEM));
 }
+function bcLogo(){ var src = typeof hsoLogoSrc==='function' ? hsoLogoSrc() : ''; return src ? '<img src="'+src+'" alt="" style="height:10mm;vertical-align:middle;margin-right:2mm">' : ''; }   /* 3.386.1 (anh 27/10 "em quên đưa logo cánh sen lên"): logo NHCSXH (hoặc logo anh nạp ở ⚙ Khai báo) góc trái đầu bản in Sao kê · Tổng hợp */
 function skHTMLIn(R){
   return '<!doctype html><html><head><meta charset="utf-8"><title>Sao ke</title><style>'+TO_IN_CSS+'</style></head><body>'+R.map(function(x){
-    return '<div class="trang'+(x.ngang ? ' ngang' : ' doc')+'"><div class="bc-dau"><div>'+'<b>'+coChuHTML(BC_DV)+'</b>'+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
+    return '<div class="trang'+(x.ngang ? ' ngang' : ' doc')+'"><div class="bc-dau"><div>'+bcLogo()+'<b>'+coChuHTML(BC_DV)+'</b>'+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
       '<h1>'+coChuHTML(x.tieuDe)+'</h1><div class="bc-to">Phạm vi: <b>'+coChuHTML(x.pv)+'</b></div>'+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+SK_IN_TU+'</body></html>';
 }
 /* 3.92 (anh chốt): mỗi món 1 dòng (ô không xuống dòng); đo từng trang theo khổ (dọc 16 cm, ngang 24,7 cm với lề chuẩn), tràn thì lần lượt:

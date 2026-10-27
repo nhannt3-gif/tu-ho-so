@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.386 · 27/10/2026 20:08 · 104 file · 42659 dòng · 3492 hàm cấp ngoài · 575 biến toàn cục.
+Bản 3.386.1 · 27/10/2026 20:34 · 104 file · 42660 dòng · 3493 hàm cấp ngoài · 575 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -48,7 +48,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/22g-to.js` | 450 | 57 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 4546–5436 của bản 3.234), không  |
 | `js/22ga-pham-vi.js` | 201 | 27 | /* Tủ hồ sơ — bộ chọn phạm vi / cây địa bàn dùng chung mọi tab (tách nguyên văn khỏi 22g-to.js ở 3.346 — K5).  |
 | `js/22gb-to-giao-dien.js` | 317 | 50 | /* Tủ hồ sơ — giao diện tab 👥 Tổ TK&VV: vẽ tab, thẻ tổ, chip lọc, bảng cột, in / Excel danh sách (tách nguyên  |
-| `js/22h-cap-hoi-sao-ke.js` | 806 | 83 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 5437–6227 của bản 3.234), không  |
+| `js/22h-cap-hoi-sao-ke.js` | 807 | 84 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 5437–6227 của bản 3.234), không  |
 | `js/22i-tong-hop.js` | 586 | 41 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 6228–6963 của bản 3.234), không  |
 | `js/22j-thong-tin-to.js` | 298 | 39 | /*   3.259 → 3.263 (anh chốt 18–19/10) — 📒 Sao kê › nhóm "Thông tin tổ" (theo file tổng hợp anh dùng hằng thán |
 | `js/22k-nap-kt.js` | 933 | 81 | /* Tủ hồ sơ — tab 📥 Nạp & KT (tách khỏi 22f-tra-cuu.js ở 3.346, nguyên văn): tóm tắt kỳ, ma trận file, kiểm tr |
