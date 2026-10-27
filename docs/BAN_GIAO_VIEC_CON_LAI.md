@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.386)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › bấm 1 báo cáo | Sang màn xem, bản in hiện ngay | |
+| 2 | Màn xem: đổi xã / khổ / NĐT | Tự vẽ lại | |
+| 3 | ← Danh sách, tắt mở lại app | Về đúng màn lần trước | |
+
+**Ghi chú kỹ thuật 3.386:** còn lại theo `docs/BAN_GIAO_TK3_2710.md` mục 3 (chip nguồn số liệu + nút 🔎 trên dải tiêu đề, Tổng hợp / Tổ TK&VV cùng khuôn, KTGS sau cùng).
+
 ### Danh sách thử trên máy thật (3.385.1)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

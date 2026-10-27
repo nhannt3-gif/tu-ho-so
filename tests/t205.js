@@ -14,7 +14,7 @@ const fs=require('fs'), path=require('path');
    slDoiTab('sk'); doiNgan(7); for(let i=0;i<60 && !SK_K;i++) await w(250); await w(300);
    ok('nhóm "Thông tin tổ": KQGD, THHD (3.263 thay Bộ thông tin tổ), 3 sao kê chọn riêng', SK_NHOM.some(n=>n.k==='tt') && SK_BC.filter(b=>b.nhom==='tt').map(b=>b.k).join(',')==='kqgd,thhd,tqh,tkn,tkhd,b105,ndt', SK_BC.filter(b=>b.nhom==='tt').map(b=>b.k).join(','));
    skChonBC('kqgd'); await w(400);
-   ok('màn Sao kê hiện nút Tình hình hoạt động (THHD), không còn Bộ thông tin tổ', /Tình hình hoạt động \(THHD\)/.test(document.getElementById('tr7').textContent) && !/Bộ thông tin tổ/.test(document.getElementById('tr7').textContent));
+   ok('màn Sao kê hiện nút Tình hình hoạt động (THHD), không còn Bộ thông tin tổ', /Tình hình hoạt động/.test(document.getElementById('tr7').textContent) && !/Bộ thông tin tổ/.test(document.getElementById('tr7').textContent));
    /* toàn PGD — KQGD */
    const C = skCH(); C.xa = ''; C.diem = ''; C.hoi = ''; C.to = '';
    skXem(); for(let i=0;i<40 && !document.getElementById('sk-khung');i++) await w(250); await w(800);

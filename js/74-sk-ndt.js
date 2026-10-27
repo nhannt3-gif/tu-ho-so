@@ -18,7 +18,7 @@ function ndtDs(K){   /* [{k, nguon, mon, kh, dn}] — mọi mã NĐT trong Mẫu
 function ndtOHTML(){   /* dòng chọn NĐT dưới bộ lọc (chỉ khi đang chọn báo cáo ndt) */
   var C = skCH(), ds = ndtDs(SK_K), tr = function(n){ return (n/1e6).toLocaleString('vi-VN', {maximumFractionDigits:0}); };
   if(C.ndt && !ds.some(function(x){ return x.k===C.ndt; })) C.ndt = '';
-  return '<div class="sk-ngay sk-ndt">Nhà đầu tư: <select id="sk-ndt" onchange="skCH().ndt=this.value;luu()"><option value="">— Tất cả nhà đầu tư ('+ds.length+') —</option>'+
+  return '<div class="sk-ngay sk-ndt">Nhà đầu tư: <select id="sk-ndt" onchange="skCH().ndt=this.value;luu();skXemHen()"><option value="">— Tất cả nhà đầu tư ('+ds.length+') —</option>'+
     ds.map(function(x){ return '<option value="'+coChuHTML(x.k)+'"'+(x.k===C.ndt ? ' selected' : '')+'>'+coChuHTML(ndtTen(x.k)+(x.nguon ? ' · '+x.nguon : '')+' · '+x.mon+' món · '+tr(x.dn)+' tr')+'</option>'; }).join('')+
     '</select> <button class="nho" onclick="ndtSuaTen()" title="Gõ tên cho mã nhà đầu tư (không bắt buộc)">✏ Tên NĐT</button></div>';
 }
