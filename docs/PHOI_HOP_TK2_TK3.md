@@ -100,6 +100,7 @@
 | 27/10 | TK 3 (nhận bàn giao) | **3.389** | `js/06b-xoa-nhieu.js` (nutChep, chepBat), `js/11-khung-tab.js` (bỏ mục ⋯ trùng), `css/app.css` cuối | t147 t149 t161 t111 |
 | 27/10 | TK 3 (nhận bàn giao) | **3.389.1** | `js/12-scan.js` (goiCauNoi kiểm đường dẫn, script cầu nối Normalize + báo đường dẫn) | node goiCauNoi |
 | 28/10 | TK 3 (nhận bàn giao) | **3.389.2** | `css/app.css` cuối (nút Chép xanh lục) | t147 |
+| 28/10 | TK 2 | 3.390 | `js/22ga` (nút 🔎 Tìm tổ, `pvTimMo`), `js/22h` (`slNguonHTML` → chip), `js/06` (`sgPhim` bỏ Enter ô tìm tổ), `js/22gb`, `js/22b` (1 dòng), `css/app.css` (bỏ `#tc-cay`/`#kt-cay`/`.sl-nguon`), `css/dt-may.css`, `css/dt-may-vbsc.css` (hiện Kiểu xem — anh 28/10), `tests/t312` mới, `t130`, `t267` | hồi quy đủ 192/193 (t130 trượt do đổi chip → sửa phép thử) + t130 · t267 · t147 · t312 đạt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

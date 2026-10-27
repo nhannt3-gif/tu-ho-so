@@ -1997,8 +1997,7 @@ var CO_GI_MOI = {ban:'3.390', ds:[
   ["Thanh nút tab Văn bản / Biểu mẫu / Scan: nút nổi khỏi nền, kiểu xem luôn kèm tên chữ nhỏ (Danh sách · Nhóm · Bảng · Khung xem)", "doiNgan(1)"],
   ["Dọn code: bỏ CSS / biến không dùng, hồi quy chỉ còn 2 chế độ doi · tat", "doiNgan(7)"],
   ["Khuôn đầu trang in chung (logo + đơn vị + ngày + tiêu đề) cho Sao kê, Tổng hợp, Tổ TK&VV", "doiNgan(7)"],
-  ["Báo cáo Sao kê cắm rút: Biến động TK 105 và Nhà đầu tư nằm trong file riêng", "doiNgan(7)"],
-  ["Biến động TK 105: cột Ghi chú chữ 6,5 pt, cột hẹp lại", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Báo cáo Sao kê cắm rút: Biến động TK 105 và Nhà đầu tư nằm trong file riêng", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
