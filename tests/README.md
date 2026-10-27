@@ -18,6 +18,13 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 ```
 `tests/lib`, `tests/gia*` (gồm `gia31`), `tests/*.png` nằm trong `.gitignore`.
 
+## Hồi quy theo đổi — chức năng đã chốt không chạy lại (3.384, anh 26/10)
+- `bash tools/hoiquy.sh <tên> <tmp> doi 2` — **mặc định mỗi bản**: chỉ chạy phép thử **chưa chốt** hoặc có **file phụ thuộc đã đổi** (`tools/hoiquy_pt.py` dò: phần chung + file JS định nghĩa hàm phép thử gọi + `css/app.css` nếu đo bố cục + tệp phụ / bộ sinh dữ liệu giả). Đổi 1 file **phần chung** (khung, KHO, bộ lọc, hộp thoại, lưu…) → chạy lại hết.
+- `bash tools/hoiquy.sh <tên> <tmp> tat 2` — **hồi quy đủ**: định kỳ 3–4 bản và trước bản lớn (bắt chỗ phụ thuộc dò sót — phép dò chỉ 1 tầng).
+- Mọi lượt xong tự ghi mốc `tests/hoiquy_moc.json`: phép đạt → **đã chốt** (dấu vân tay file phụ thuộc, bỏ phần đổi theo mỗi bản: số bản, `?v=`, Có gì mới), phép trượt → bỏ chốt. Commit mốc cùng bản.
+- `python3 tools/hoiquy_pt.py xem t278` — phép thử dựa vào file nào, file nào đổi (✱) so với mốc · `python3 tools/hoiquy_pt.py bang` → `docs/DA_CHOT.md` (bảng chức năng đã chốt, chốt từ bản nào).
+- Cột `✗=` chỉ đếm dòng **bắt đầu** bằng ✗ (✗ trong câu mô tả của ý đạt không tính — hết 6 báo nhầm t192 / t207 / t208 / t210 / t224 / t254).
+
 ## Chạy (từ thư mục gốc repo)
 | Lệnh | Kiểm gì |
 |---|---|
@@ -216,6 +223,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t309.js` | 3.368 Tra cứu › Tổ trưởng: danh sách tổ đủ 7 cột không cuộn ngang ở 1280 / 1366 / 1920, mã tổ đủ, Hội viết tắt (title tên đủ). |
 | `node tests/t310.js` | 3.369 tối ưu nạp: `slNen` / `slMoBang` mới = thuật toán cũ (giữ bản cũ để so), dò Mẫu 01/TV trong 100 dòng đầu vẫn nhận dòng tên cột ở dòng 30. |
 | `node tests/t311.js` | 3.372 Đ6 điện thoại: thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm, đầu trang gọn, Tra cứu gọn, ☰ Thêm có 📱 + ⏱ đo tốc độ (ghi Dựng kỳ); máy 1440 / 900 không đổi. |
+| (3.384) | t158 sửa ý cột Tự động (hết chỗ thì không thêm là đúng). Hồi quy theo đổi: `tools/hoiquy_pt.py` + `hoiquy.sh … doi`, mốc `tests/hoiquy_moc.json`, bảng `docs/DA_CHOT.md`. |
 | t278 | (3.383.7) Lọc địa bàn: đổi cấp cao → cấp thấp về Tất cả, dải tiêu đề, 📌 từng ô; Tra cứu: dòng cộng cấp lọc cuối, nút 📊 Biến động TK 105 (9). t241 viết lại: mở lại app giữ địa bàn / ghim từng ô / Về ghim. |
 | (3.383.6) | t141: tìm tổ đã đóng không ra; có DS → tổ còn dư nợ không trên DS cảnh báo, dư nợ 0 không trên DS ẩn; thiếu DS → còn TK 105 = cần đóng (35). |
 | (3.383.5) | t277 +2: danh sách tổ có dòng cộng theo lọc; nút ✕ ô tìm (17). |

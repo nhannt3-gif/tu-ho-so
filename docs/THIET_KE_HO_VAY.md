@@ -6,6 +6,7 @@
 
 ## 0. KHO CHUẨN (3.381 — `js/73-kho-chuan.js`, luật `QUY_CHUAN_KIEN_TRUC.md` mục 15)
 - Gốc Mẫu 31 nguyên bản + gắn thêm TK 105 / 104 (mã KH), Nợ QH / khoanh / KHĐ (số KU), tổ (mã tổ). Cửa `KHO.kc / kcKH / kcKU / kcTo`.
+- 3.384: Giao dịch xã, Tra cứu, TK 104/105 (`js/28`), `js/62`, `js/63` cũng đọc qua kho; thước đo `kiem.py` "đọc thẳng bảng gốc" = 0.
 - `KHO.hoVay` và `toKhach` (KTGS, tab Tổ, Sao kê) đọc qua kho — phép thử t275 so mọi tổ, mọi khách giống hệt cách cũ; gốc không bị sửa sau mọi truy vấn.
 
 ## 1. Nguồn và cột dùng

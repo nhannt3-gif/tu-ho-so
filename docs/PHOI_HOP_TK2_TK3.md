@@ -85,6 +85,7 @@
 | 26/10 | TK 3 (nhận bàn giao) | **3.383.6** | `js/22g-to.js` (toDong0 — chỉ hiện tổ chưa đóng), `js/22gb`, `js/22h`, `js/58-tc-to.js`; `docs/QUY_CHUAN_KIEN_TRUC.md` mục 16; `tests/t141.js` | t141 35/35 + hồi quy đủ |
 | 27/10 | TK 3 (nhận bàn giao) | **3.383.7** | `js/22ga-pham-vi.js` (pvDatCap, ghim từng ô, dải tiêu đề), `js/22g-to.js` (pvChungO), `js/22f`, `js/58`, `js/17b`, `css/app.css`; QUY_CHUAN mục 17; t278 mới, t241 / t189 / t145 / t156 / t170 theo luật mới | t278 9/9 + hồi quy đủ |
 | 27/10 | TK 3 (nhận bàn giao) | 3.383.7 (sửa phép thử) | `tests/t128.js` (đổi xã → Hội về Tất cả), `tests/t162.js` + `tests/t158.js` (nhãn / chip trên dải tiêu đề), `tests/chuan_lay.js` (chọn lại Hội cũ sau đổi Xã → giữ kịch bản chuẩn khóa, không ghi lại chuẩn) — không đổi mã app | hồi quy đủ: chỉ còn lỗi sẵn có (t158 cột Tự động) + báo nhầm quen |
+| 27/10 | TK 3 (nhận bàn giao) | **3.384** | `js/28`, `js/29` (cửa dongTo / monKy / saoKeKy), `js/22b`, `js/22f`, `js/22gb`, `js/62`, `js/63`, `js/73` (kcDung) qua kho; ngắt dòng dài `22b / 22ga / 22gb / 22k`; `tools/hoiquy_pt.py` + `hoiquy.sh doi`, `tests/kiem.py` (bang_goc), `tests/t158.js`; CLAUDE.md + tests/README (luật hồi quy theo đổi) | hồi quy đủ → ghi mốc đã chốt đầu tiên |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

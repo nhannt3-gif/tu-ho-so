@@ -108,7 +108,7 @@ function tvChuan(t, K0){   /* K0: kỳ dựng khác TO_K (vd Tra cứu dùng TC_
   var K = K0 || TO_K; if(!K || !t || t.trucTiep || toLaTT(t)) return null;
   var giu = TO_K; TO_K = K; var tv0; try { tv0 = toTV(t); } finally { TO_K = giu; }
   var ds = tv0.map(function(k){ return {kh:k.kh, ten:k.ten, dn:k.dn||0, qh:k.qh||0, lt:k.lt||0, t105:k.t105||0, coTK:k.coTK || (k.stk||[]).length>0, nguon:'m31'}; });
-  var B = K.B, tw = B && B.co && B.co.tv01 && String(K.ky).length===7 ? B.co.tv01 : null,   /* 3.347 (anh 24/10: "kiểu bù này chỉ tính cho cuối tháng, vì 01/TV là cuối tháng" · "tra cứu theo ngày không cần bù"): kỳ NGÀY không bù theo Mẫu 01/TV */ kyTW = tw ? (B.nguon && B.nguon.tv01) || B.ky : '', co = {}, mat = tvCoMat(K), bs = 0;
+  var B = K.B, tw = B && kcBang(B, 'tv01') && String(K.ky).length===7 ? kcBang(B, 'tv01') : null,   /* 3.384: đọc qua kho chuẩn */   /* 3.347 (anh 24/10: "kiểu bù này chỉ tính cho cuối tháng, vì 01/TV là cuối tháng" · "tra cứu theo ngày không cần bù"): kỳ NGÀY không bù theo Mẫu 01/TV */ kyTW = tw ? (B.nguon && B.nguon.tv01) || B.ky : '', co = {}, mat = tvCoMat(K), bs = 0;
   ds.forEach(function(x){ co[x.kh] = 1; });
   var cung = kyTW && String(kyTW).slice(0, 7)===String(K.ky).slice(0, 7) && String(K.ky).length===7, hai = {};   /* cùng tháng chốt với 01/TV → lấy đủ như TƯ */
   if(tw && !cung) tw.forEach(function(o){ hai[o.kh] = (hai[o.kh]||0)+1; });
@@ -125,15 +125,15 @@ function tvChuan(t, K0){   /* K0: kỳ dựng khác TO_K (vd Tra cứu dùng TC_
    B = slBo(kỳ) có co.hstd + co.tv01. Kết quả lưu B._tv (tính 1 lần):
    khop · thieu (TƯ có, Mẫu 31 không thể hiện) · du (app có, TƯ không) · ra (CẦN CHO RA KHỎI TỔ) · haiTo (khách ở ≥ 2 tổ) · laiTon (TƯ dư nợ 0 nhưng còn lãi tồn) */
 function tvDoiChieu(B){
-  if(!B || !B.co || !B.co.tv01 || !B.co.hstd) return null;
+  if(!B || !kcBang(B, 'tv01') || !kcGoc(B)) return null;   /* 3.384: qua kho chuẩn */
   if(B._tv) return B._tv;
   var app = {}, no = {}, ly = {}, tk = {};
-  B.co.hstd.forEach(function(o){ if(!o.kh || !o.to) return; var k = o.kh+'|'+o.to;
+  kcGoc(B).forEach(function(o){ if(!o.kh || !o.to) return; var k = o.kh+'|'+o.to;
     if(o.raTo){ ly[k] = o.raTo; return; } if(o.to===TO_GIA) return; app[k] = 1;
     if(o.ku && ((o.dn||0)>0 || laiTon(o)>0)) no[k] = 1; if(slCoTK(o.stk) || slStk(o.stk).length || (o.t105||0)>0) tk[k] = 1; });
   (B.lap||[]).forEach(function(o){ if(o.kh && o.to) tk[o.kh+'|'+o.to] = 1; });
   var tv = {}, theoKH = {};
-  B.co.tv01.forEach(function(o){ var k = o.kh+'|'+o.to; tv[k] = o; (theoKH[o.kh] = theoKH[o.kh]||[]).push(o); });
+  kcBang(B, 'tv01').forEach(function(o){ var k = o.kh+'|'+o.to; tv[k] = o; (theoKH[o.kh] = theoKH[o.kh]||[]).push(o); });
   var r = {ky:B.nguon.tv01 || B.ky, khop:0, thieu:[], namTruoc:0, du:[], ra:[], haiTo:[], laiTon:[]};
   Object.keys(tv).forEach(function(k){ var o = tv[k];
     if(app[k]) r.khop++; else { r.thieu.push(o); if(typeof stvChotCua==='function' && stvChotCua(o.kh, r.ky)) r.namTruoc++; }   /* 3.358: lý do đã biết — tất nợ năm trước (sổ chốt 31/12) */
@@ -186,7 +186,7 @@ function tkNapMoi(K){   /* gắn K.tk = {tk104:{ky, rows, theo}, tk105:{…}} �
   return Promise.all(['tk104', 'tk105'].map(function(loai){ var e = tkChonBan(loai, K.ngay); if(!e) return null;
     return slDocBang(loai, e.ky).then(function(b){ if(b) K.tk[loai] = {ky:e.ky, rows:slMoBang(b)}; }).catch(function(){}); }));
 }
-function tkBang(loai){ var t = TO_K && TO_K.tk; return t && t[loai] ? t[loai] : null; }
+function tkBang(loai){ var t = TO_K && TO_K.tk; return t && t[loai] ? (TO_K.B && kcTK(TO_K, loai)) || t[loai] : null; }   /* 3.384: Sao kê TK gắn trong kho chuẩn (theo mã KH) */
 function tkCua(loai, kh){   /* {ds:[{stk, t105, ndk…}] (TK anh chọn đứng đầu, rồi TK mở gần nhất), ky, trung} */
   var b = tkBang(loai); if(!b || !kh) return null;
   if(!b.theo){ b.theo = {}; b.rows.forEach(function(o){ (b.theo[o.kh] = b.theo[o.kh] || []).push(o); }); }
@@ -229,14 +229,14 @@ function toBangDung(K){
       tkLy:ds4 || tay || x ? '' : !kh ? 'chưa có mã KH tổ trưởng' : !t.ds && !b ? 'chưa nạp Danh sách tổ / Sao kê TK 104' : 'tổ trưởng (mã KH '+kh+') không có TK 104 ở Danh sách tổ'+(b ? ' / Sao kê '+slKyChu(b.ky) : ''),
       diem:t.diem || '', tenDiem:t.tenDiem || '', ap:t.tenThon || '', xa:t.tenXa || ''};
     o.thieu = [!o.kh && 'mã KH tổ trưởng', !o.cccd && 'CCCD', o.cccd && !o.ncap && 'ngày cấp', !o.tk && 'TK 104', o.tkTrung && !o.tkDaChon && 'TK 104 trùng', o.dsLech && 'tổ trưởng lệch Danh sách tổ'].filter(Boolean);
-    o.ngung = !(K.kh[m]||[]).length && (!!(t.ds && t.ds.stv===0 && !(t.ds.dn>0)) || !(K.B && K.B.co && K.B.co.tv01 && K.B.co.tv01.some(function(v){ return v.to===m; })));   /* 3.202: Danh sách tổ ghi 0 thành viên, 0 dư nợ → tổ ngừng */   /* tổ không còn thành viên (mọi món đã tất nợ, không có trong 01/TV) → không tính thiếu */
+    o.ngung = !(K.kh[m]||[]).length && (!!(t.ds && t.ds.stv===0 && !(t.ds.dn>0)) || !(K.B && kcBang(K.B, 'tv01') && kcBang(K.B, 'tv01').some(function(v){ return v.to===m; })));   /* 3.202: Danh sách tổ ghi 0 thành viên, 0 dư nợ → tổ ngừng */   /* tổ không còn thành viên (mọi món đã tất nợ, không có trong 01/TV) → không tính thiếu */
     if(o.ngung) o.thieu = [];
     T[m] = o; });
   TO_K = cu; K.bangTo = T; return T;
 }
 function tkBangTo(){ return TO_K ? (TO_K.bangTo || toBangDung(TO_K)) : null; }
 function tkBangTom(){ var T = tkBangTo(); if(!T) return null; var all = Object.keys(T).map(function(m){ return T[m]; }), ds = all.filter(function(o){ return !o.ngung; }); return {n:ds.length, ngung:all.length-ds.length, du:ds.filter(function(o){ return !o.thieu.length; }).length, thieu:ds.filter(function(o){ return o.thieu.length; })}; }
-function tv01Cua(kh){ var B = TO_K && TO_K.B; return B && B.co && B.co.tv01 ? B.co.tv01.find(function(o){ return o.kh===kh; }) || null : null; }
+function tv01Cua(kh){ var B = TO_K && TO_K.B, v = B && kcBang(B, 'tv01'); return v ? v.find(function(o){ return o.kh===kh; }) || null : null; }   /* 3.384: qua kho chuẩn */
 /* TK 104 cần đóng: chủ TK không còn là tổ trưởng (Mã CIF TT) của tổ nào · TK 105 cần đóng: khách không còn là thành viên tổ nào (Mẫu 01/TV, thiếu thì theo app) */
 function tkCanDong(){
   var r = {k104:null, k105:null}, B = TO_K && TO_K.B; if(!B) return r;
@@ -244,8 +244,8 @@ function tkCanDong(){
   var b4 = tkBang('tk104'), dung = {}; Object.keys(tkBangTo()||{}).forEach(function(m){ var o = TO_K.bangTo[m]; if(o.tk) dung[o.tk] = 1; });
   if(b4) r.k104 = {ky:b4.ky, ds:b4.rows.filter(function(o){ return !tt[o.kh] || (Object.keys(dung).length && !dung[o.stk]); }).map(function(o){ return Object.assign({ly:!tt[o.kh] ? 'không còn là tổ trưởng' : 'tổ trưởng đang dùng TK khác (Danh sách tổ)'}, o); })};   /* 3.202: TK 104 chưa đóng — Sao kê chỉ để tham khảo */
   var b5 = tkBang('tk105');
-  if(b5){ var tv = {}; if(B.co.tv01) B.co.tv01.forEach(function(o){ tv[o.kh] = 1; }); else Object.keys(TO_K.kh||{}).forEach(function(m){ (TO_K.kh[m]||[]).forEach(function(o){ tv[o.kh] = 1; }); });
-    r.k105 = {ky:b5.ky, theo:B.co.tv01 ? 'Mẫu 01/TV '+slKyChu(B.nguon.tv01) : 'thành viên app (Mẫu 31) — chưa có Mẫu 01/TV', ds:b5.rows.filter(function(o){ return !tv[o.kh]; })}; }
+  if(b5){ var tv = {}, v01 = kcBang(B, 'tv01'); if(v01) v01.forEach(function(o){ tv[o.kh] = 1; }); else Object.keys(TO_K.kh||{}).forEach(function(m){ (TO_K.kh[m]||[]).forEach(function(o){ tv[o.kh] = 1; }); });
+    r.k105 = {ky:b5.ky, theo:v01 ? 'Mẫu 01/TV '+slKyChu(B.nguon.tv01) : 'thành viên app (Mẫu 31) — chưa có Mẫu 01/TV', ds:b5.rows.filter(function(o){ return !tv[o.kh]; })}; }
   return r;
 }
 function tkDamBao(cb){   /* 3.205: kỳ đang mở chưa gắn Sao kê mới nhất (nạp sau khi dựng kỳ) → gắn rồi mới chạy */

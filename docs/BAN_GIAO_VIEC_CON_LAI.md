@@ -222,6 +222,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.384)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Giao dịch xã › Giấy lĩnh tiền 1 tổ | Số liệu như bản trước | |
+| 2 | Tra cứu › 1 khách › danh sách món | Như bản trước | |
+| 3 | Tab Tổ › TK 105 của tổ / TK cần đóng | Như bản trước | |
+
+**Ghi chú kỹ thuật 3.384:** chỗ đọc bảng gốc còn được phép: lõi nạp (`22-so-lieu`, `22g-to`, `22k-nap-kt`) + kho (`29-kho`, `73-kho-chuan`). Hồi quy: `tools/hoiquy_pt.py` (CHUNG = danh sách file phần chung — đổi 1 file trong đó → chạy lại hết).
+
 ### Danh sách thử trên máy thật (3.383.7)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

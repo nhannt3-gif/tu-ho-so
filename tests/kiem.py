@@ -96,10 +96,12 @@ if len(sys.argv)<2:
     css=sum(os.path.getsize(os.path.join(G,p)) for l,p in ghep.tep() if l=='css')
     # 3.341 (RA_SOAT_KHO_2410): đếm MỌI chỗ đọc thẳng kho số liệu (biến + hàm tầng dưới) ở mọi file trừ LÕI (22-so-lieu đọc/nạp file, 22g dựng kỳ, 22k Nạp & KT = cửa ghi kho (3.346), 28 thành viên/TK, 29 cửa KHO) — trước chỉ 4 biến và bỏ qua cả nhóm 22*
     kho=sum(len(re.findall(r'\b(?:TO_K|SL_DB|SL_KHMON|SL_PHU|SL_TIM)\b|\bSLM\.bang\b|\b(?:slBo|slDocBang|toNap|tkBang)\(', boChuoi(t))) for p,t in nd.items() if not re.search(r'js/(22-so-lieu|22g-to|22k-nap-kt|28-tv-tk|29-kho)\.js$', p))
+    # 3.384 (anh 26/10 "tất cả đều đọc từ kho chung" — QUY_CHUAN mục 15): đọc thẳng BẢNG GỐC (B.co.hstd / tv01 / nqh…, B.theoKH, B.mon) ngoài lõi nạp + kho → phải qua kcGoc / kcBang / kcKH / kcTK (js/73)
+    bang=sum(len(re.findall(r'\.co\.(?:hstd|tv01|dsto|tt|nqh|nk|khd|lt|dnct)\b|\.theoKH\b|\bB\.mon\b', re.sub(r'/\*.*?\*/', '', boChuoi(t), flags=re.S))) for p,t in nd.items() if not re.search(r'js/(22-so-lieu|22g-to|22k-nap-kt|29-kho|73-kho-chuan)\.js$', p))
     do={'js_kb':sum(len(t.encode()) for t in nd.values())//1024, 'css_kb':css//1024, 'ham':len(top), 'bien':len(set(re.findall(r'^var\s+([\w$]+)',js,re.M))),
         'mo_coi':len(mo_coi), 'dong_dai':sum(1 for t in nd.values() for l in t.split('\n') if len(l)>400), 'onclick':len(re.findall(r'on(?:click|change|input)=\\?"',js)),
-        'file_lon':sum(1 for t in nd.values() if len(t.encode())>150*1024), 'kho_thang':kho}
-    ten={'js_kb':'JS KB','css_kb':'CSS KB','ham':'hàm chung','bien':'biến chung','mo_coi':'mồ côi','dong_dai':'dòng >400','onclick':'onclick','file_lon':'file >150 KB','kho_thang':'đọc thẳng biến kho'}
+        'file_lon':sum(1 for t in nd.values() if len(t.encode())>150*1024), 'kho_thang':kho, 'bang_goc':bang}
+    ten={'js_kb':'JS KB','css_kb':'CSS KB','ham':'hàm chung','bien':'biến chung','mo_coi':'mồ côi','dong_dai':'dòng >400','onclick':'onclick','file_lon':'file >150 KB','kho_thang':'đọc thẳng biến kho','bang_goc':'đọc thẳng bảng gốc'}
     pm=os.path.join(G,'tests','do_moc.json'); moc=json.load(open(pm,encoding='utf-8')) if os.path.exists(pm) else {}
     if MOC or not moc: json.dump(do,open(pm,'w',encoding='utf-8'),ensure_ascii=False,indent=1); moc=do
     vuot=[k for k in do if k in moc and do[k]>moc[k] and k not in ('js_kb','css_kb','ham','bien')]

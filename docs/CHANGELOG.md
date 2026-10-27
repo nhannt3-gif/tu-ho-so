@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.384 — 27/10/2026 — Kho chuẩn cho Giao dịch xã · Tra cứu · TK 104/105 + hồi quy theo đổi (TK 3)
+- Anh nhắn "cả 2" (27/10) cho 2 việc đã trình:
+**1. Kho chuẩn (tiếp 3.381–3.382):** Giao dịch xã, Tra cứu (qua cửa `KHO.dongTo` / `monKy` / `saoKeKy` / `saoKe`), thành viên – TK 104/105 (`js/28`: Mẫu 01/TV, Mẫu 31, Sao kê TK gắn theo mã KH), Đăng ký báo cáo (`js/62`), Báo cáo tối (`js/63`), chỗ sót ở KTGS (`22b`) và tab Tổ (`22gb`) thôi đọc thẳng bảng — đi qua `kcGoc` / `kcBang` / `kcLap` / `kcTK` / `kcTo`. Kết quả không đổi: t276 (64 báo cáo giống hệt bản chụp), t275, t167 (Giấy lĩnh tiền 85/85), t168, t177, t235, t244, t246, t257, t277, t300, t301, t310 đạt. `kcDung` chịu được bộ chưa có `co`. `tests/kiem.py` thêm thước đo **đọc thẳng bảng gốc** (mốc 0) — QUY_CHUAN mục 15.
+**2. Hồi quy theo đổi** (anh 26/10 "chức năng nào đã chốt đánh dấu ổn thì chỉ đọc từ nó, không làm thay đổi nên không cần chạy lại"): `tools/hoiquy_pt.py` dò file mỗi phép thử dựa vào (phần chung + file định nghĩa hàm phép thử gọi + CSS nếu đo bố cục + tệp phụ / bộ sinh dữ liệu giả); phép đạt → **đã chốt** (`tests/hoiquy_moc.json`, bảng `docs/DA_CHOT.md`); `bash tools/hoiquy.sh <tên> <tmp> doi 2` chỉ chạy phép chưa chốt / có file phụ thuộc đổi; hồi quy đủ định kỳ 3–4 bản. Cột ✗= chỉ đếm dòng bắt đầu bằng ✗ → hết 6 báo nhầm (t192, t207, t208, t210, t224, t254). t158 (cột Tự động): phép thử đòi cứng cột Số món dù bảng hết chỗ → sửa: hết chỗ thì không thêm là đúng. t192 thước đo "dòng >400": ngắt 12 dòng dài (chỉ xuống dòng ở chỗ nối chuỗi) → 158 < mốc 163. Không có phép thử trùng để gộp (1 cặp mô tả trùng t108 / t109 kiểm 2 mẫu Word khác nhau). 10 hàm chỉ phép thử gọi (boBaoCao, gdxGLLamTrong, gdxThan, ktDsLTC, ktGNKhaiBao, pbNguon, pbTongHopCT, pvMo, slKTDauHTML, thXem) **chưa xóa** — chờ anh duyệt (bỏ mã app).
+
 ## 3.383.7 — 27/10/2026 — Lọc địa bàn: nhớ phiên, ghim từng ô, đổi cấp, dải tiêu đề · Tra cứu: 📊 Biến động TK 105 (TK 3)
 - Anh gom 5 ý rồi nhắn "em code" (27/10):
   1. Dòng cộng danh sách tổ (anh gửi ảnh, chữ phạm vi bị cắt) → chỉ ghi cấp lọc cuối, rê chuột đủ phạm vi.
