@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.388.3 — 27/10/2026 — Đầu trang không vỡ khi thu nhỏ (TK 3)
+- **Anh 27/10** (ảnh cửa sổ ~936 px): "khi thu nhỏ là bể bố cục" — tên app / đơn vị xuống dòng từng chữ, đầu trang cao gấp 3 (có từ trước 3.388).
+- `css/app.css` cuối file: `.ten-app` / `.dong-phu` 1 dòng + "…", khối tên không co; ≤1100 px ẩn dòng đơn vị + đồng hồ, ô tìm kiếm co (`flex:1 1 140px`).
+
 ## 3.388.2 — 27/10/2026 — Kiểu xem tách rời, ⬅ ➡ cùng cỡ (TK 3)
 - **Anh 27/10**: "các nút kiểu xem cho rời nhau và 2 nút cùng 1 cỡ" → `.tl-kx` cách 6 px, mỗi nút viền + bóng riêng; `.dh-nut .nho` 42×32 px.
 
