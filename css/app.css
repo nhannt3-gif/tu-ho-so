@@ -2266,14 +2266,10 @@
   .tc-ten{color:var(--xanh-dam)}.tc-ten.to{font-size:calc(19px*var(--co));font-weight:800;letter-spacing:.2px}.tc-ten.to *{color:inherit}.tc-ma{display:inline-block;background:var(--xanh-nhat);color:var(--xanh-dam);border:1px solid var(--xanh);border-radius:6px;padding:0 6px;font-weight:700;font-size:calc(12.5px*var(--co));font-variant-numeric:tabular-nums;white-space:nowrap}.tc-ma.to{font-size:calc(15px*var(--co));padding:1px 8px}.tc-ma.to *{color:inherit}.tc-ct-phu{color:var(--chu-phu);font-size:calc(12px*var(--co));margin-bottom:6px}
   .tc-phai .kh-luoi{gap:4px 10px}.tc-phai table.kh-mon{font-size:calc(12px*var(--co))}
   /* ===== 3.92 — Sao kê: thanh trên (số liệu · khổ · Xem) · chọn 1 báo cáo, nhóm 2 cột · khung xem trước rộng ===== */
-  .sk-thanh{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;position:sticky;top:0;z-index:3;background:var(--nen);padding:6px 0;border-bottom:1px solid var(--vien);margin-bottom:6px}
-  .sk-thanh select{font:inherit;font-size:calc(13px*var(--co));padding:3px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu)}
   .sk-kho{display:inline-flex;align-items:center;gap:4px;font-size:calc(12.5px*var(--co));color:var(--chu-phu)}.sk-kho button.bat{background:var(--xanh);border-color:var(--xanh);color:#fff}
-  .sk-thanh .sk-xem{margin-left:auto;min-width:120px}
   .sk-luoi{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:900px){.sk-luoi{grid-template-columns:1fr 1fr}}
   .sk-nhom{border:1px solid var(--vien);border-radius:8px;padding:6px 10px;background:var(--the);min-width:0}
   .sk-nhom-ten{font-size:calc(11px*var(--co));text-transform:uppercase;letter-spacing:.04em;color:var(--chu-phu);font-weight:600;margin-bottom:2px}
-  .sk-bc{display:flex;gap:6px;align-items:flex-start;padding:2px 4px;border-radius:6px;cursor:pointer;font-size:calc(13px*var(--co))}.sk-bc:hover{background:var(--nen)}.sk-bc input{margin-top:3px}.sk-bc small{color:var(--chu-phu)}
   #tr7 .sk-ngay1{margin:6px 0;padding:5px 8px;border-radius:8px;background:var(--nen)}
   #hop-in.xem-rong{max-width:min(1600px,97vw);width:97vw}#hop-in.xem-rong .to-khung{height:80vh}
   /* ===== 3.92 — Tổ TK&VV gọn: ô tìm cùng hàng · chip nhỏ · thẻ tổ 2 dòng · danh sách tổ viên có lọc · bảng các tổ (tiền tố #tr7 để thắng khối 3.88 phía sau) ===== */
@@ -3249,7 +3245,6 @@ span.sl-chip{cursor:help}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c-xa:#7DB8EE;--c-xa-n:#15304A;--c-diem:#6FD39A;--c-diem-n:#12301F;--c-hoi:#F0B070;--c-hoi-n:#3A2810;--c-to:#C6A6F0;--c-to-n:#2C2140}}
 :root[data-theme="dark"]{--c-xa:#7DB8EE;--c-xa-n:#15304A;--c-diem:#6FD39A;--c-diem-n:#12301F;--c-hoi:#F0B070;--c-hoi-n:#3A2810;--c-to:#C6A6F0;--c-to-n:#2C2140}
 .pv-cay .loc-khoi{position:relative;display:flex;flex-direction:column;gap:5px;background:var(--xanh-nhat);border:2px solid var(--xanh);border-radius:10px;padding:14px 8px 7px;margin:12px 0 6px}
-.pv-cay .loc-khoi::before{content:"LỌC ĐỊA BÀN";position:absolute;top:-10px;left:12px;background:var(--xanh);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:1px 8px;border-radius:5px}
 .pv-cay .loc-khoi .pv-hang1,.pv-cay .loc-khoi .pv-hang2.cap-to,.pv-cay .loc-khoi .pv-nhom.cap-diem,.pv-cay .loc-khoi .pv-nhom.cap-hoi{background:var(--the);border-radius:7px;padding:4px 8px;margin:0;box-shadow:inset 4px 0 0 var(--c, var(--c-xa)),0 1px 2px rgba(0,0,0,.12)}
 .pv-cay .loc-khoi .pv-hang2[data-cap="diem-hoi"]{background:none;box-shadow:none;padding:0;margin:0;gap:6px;flex-wrap:wrap}
 .pv-cay .loc-khoi .pv-nhom.cap-diem,.pv-cay .loc-khoi .pv-nhom.cap-hoi{flex:1 1 auto}
@@ -3274,7 +3269,6 @@ span.sl-chip{cursor:help}
   body.ngan7 .than{padding-top:4px}
   body.ngan7 #tr7 .pv-cay{position:sticky;top:var(--dau-cao,52px);z-index:6;background:var(--nen);padding:1px 0 3px}
   body.ngan7 #tr7 .pv-cay .loc-khoi{margin:10px 0 2px}
-  body.ngan7 #tr7 .sk-thanh{position:static}
 
 }
 #tr7 .to-bc.to-bc-dau{margin:2px 0 6px;padding:4px 10px;background:var(--the);border:1px solid var(--vien);border-radius:8px}
@@ -4084,7 +4078,6 @@ table.tc-to-ds tfoot td{position:sticky;bottom:0;background:var(--xanh-nhat);col
 .tc-dau.tc-dau .tc-theo-nhan{font-size:calc(12.5px*var(--co))}
 @media(min-width:1300px){ .tc-dau.tc-dau .tc-hang{flex-wrap:nowrap} .tc-dau.tc-dau .tc-theo{flex-wrap:nowrap;flex:0 0 auto} .tc-dau.tc-dau .tc-tim{width:100%} }   /* 1 hàng: ô tìm co (240–460 px), chip giữ nguyên cỡ */
 /* 3.383.7 (anh 27/10): dải tiêu đề khối LỌC ĐỊA BÀN — nhãn + dòng số liệu + ▦ Chip · ⬆ · 📌 Về ghim nằm trên đường viền (hàng lọc chỉ còn ô chọn) */
-.pv-cay .loc-khoi.co-dau::before{content:none}
 .pv-cay .loc-khoi.co-dau,.pv-cay .loc-khoi.co-dau.gon{padding-top:17px;margin-top:14px}
 .pv-cay .loc-khoi .pv-dau{position:absolute;top:-12px;left:10px;right:10px;display:flex;align-items:center;gap:6px;min-width:0;pointer-events:none;height:23px}
 .pv-cay .loc-khoi .pv-dau>*{pointer-events:auto}

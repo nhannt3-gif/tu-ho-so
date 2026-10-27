@@ -1981,7 +1981,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.386.2', ds:[
+var CO_GI_MOI = {ban:'3.387', ds:[
+  ["Dọn code: bỏ CSS / biến không dùng, hồi quy chỉ còn 2 chế độ doi · tat", "doiNgan(7)"],
+  ["Khuôn đầu trang in chung (logo + đơn vị + ngày + tiêu đề) cho Sao kê, Tổng hợp, Tổ TK&VV", "doiNgan(7)"],
+  ["Báo cáo Sao kê cắm rút: Biến động TK 105 và Nhà đầu tư nằm trong file riêng", "doiNgan(7)"],
   ["Biến động TK 105: cột Ghi chú chữ 6,5 pt, cột hẹp lại", "doiNgan(7)"],
   ["Bản in Sao kê · Tổng hợp · tab Tổ có logo cánh sen góc trái; Biến động TK 105 chữ nhỏ, hiện đủ cột Ghi chú", "doiNgan(7)"],
   ["Sao kê 2 màn: màn 1 danh sách báo cáo gọn (bấm là xem) · màn 2 xem ngay trải ngang, đổi báo cáo / lọc / khổ tự vẽ lại, ← Danh sách, ⤢ Phóng to", "doiNgan(7)"],
@@ -1993,10 +1996,7 @@ var CO_GI_MOI = {ban:'3.386.2', ds:[
   ["Lọc địa bàn: dòng số liệu + nút ▦ Chip · ⬆ · 📌 lên dải tiêu đề LỌC ĐỊA BÀN — hàng lọc rộng hơn", "doiNgan(7)"],
   ["Tra cứu: thẻ tổ có nút 📊 Biến động TK 105 (mở Sao kê của tổ); dòng cộng danh sách tổ ghi cấp lọc cuối", "doiNgan(7)"],
   ["Chỉ hiện tổ chưa đóng (theo Danh sách tổ của kỳ): tổ đã đóng không hiện, không tìm ra — cần xem thì Sao kê; tổ dư nợ 0 chưa đóng ghi \"cần đóng tổ\" (còn / đã đóng TK 104)", "doiNgan(7)"],
-  ["Tra cứu › Tổ trưởng: danh sách tổ có dòng Cộng (số tổ, tổng TV, có dư nợ) theo lọc địa bàn", "doiNgan(7)"],
-  ["Tra cứu: ô tìm có nút ✕ xóa chữ đã gõ (hiện ngay khi gõ)", "doiNgan(7)"],
-  ["Tra cứu: ô tìm gọn, chip Tìm theo to hơn, cùng 1 hàng · bảng Tổ của điểm GD hết giật (1 thanh cuộn) · tổ đã đóng (dư nợ 0, không TK 105) không hiện khi thiếu Danh sách tổ", "doiNgan(7)"],
-  ["Thẻ tổ: ô dư nợ tô màu — đỏ quá hạn, tím nợ khoanh, cam món 3 tháng không hoạt động (rê chuột xem giải thích)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Tra cứu › Tổ trưởng: danh sách tổ có dòng Cộng (số tổ, tổng TV, có dư nợ) theo lọc địa bàn", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

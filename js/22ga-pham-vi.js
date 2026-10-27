@@ -114,7 +114,6 @@ function pvTim(p){
 }
 var PV_MO = {};   /* 3.160: cấp đang mở lại để đổi (bấm tên trên dòng 📍) */
 /* 3.383.7: kiểu gọn / chip luôn nhớ cho lần mở sau (D.cauHinh.pvKieu) — trước 3.328 chỉ nhớ khi ghim */
-var PV_KIEU = {};
 function pvKieuBang(){ return (D.cauHinh.pvKieu = D.cauHinh.pvKieu || {}); }
 function pvVe(p, cap){ pvChon(p, cap, ''); }   /* 3.328: bấm mắt đường dẫn / ⬆ = về cấp đó (kiểu giữ nguyên) */
 function pvLen(p){ var d = PV_DUNG[p]; if(!d) return false; var S = d.S(), cap = S.to ? 'to' : S.ap ? 'ap' : S.hoi ? 'hoi' : S.diem ? 'diem' : S.xa ? 'xa' : ''; if(!cap) return false; pvVe(p, cap); return true; }

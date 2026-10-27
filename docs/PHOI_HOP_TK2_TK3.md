@@ -20,7 +20,7 @@
 
 ## 3. Phép thử khi gộp
 - Phần mình sửa: phép thử của phần đó + `t260` (ảnh bố cục, ~3 phút) nếu chạm giao diện.
-- Nhanh theo nhóm: `bash tools/hoiquy.sh <tên> /tmp/hq <nhóm> 2` — nhóm trong `tools/hoiquy_nhom.txt` (kt · hs · scan · gdx · so · dt · khung); `hoiquy`, `hoiquy2` luôn chạy kèm. Toàn bộ: `bash tools/hoiquy.sh <tên>` (như cũ, ~2,5 giờ) hoặc thêm `tat 2` (2 luồng).
+- Nhanh theo đổi (3.387 bỏ chế độ nhóm): `bash tools/hoiquy.sh <tên> /tmp/hq doi 2` — chỉ phép chưa chốt / file phụ thuộc đổi (`tools/hoiquy_pt.py`).
 
 ## 4. Nhật ký gộp
 | Ngày | Ai | Bản / PR | Chạm | Phép thử |
@@ -92,6 +92,7 @@
 | 27/10 | TK 3 (nhận bàn giao) | **3.386** | `js/22h` (Sao kê 2 màn), `js/22f` (tcB105), `js/74`, `css/app.css`; `tests/t205.js` | t279 t278 t276 t205 |
 | 27/10 | TK 3 (nhận bàn giao) | **3.386.1** | `js/72` (chữ b105), `js/22h` (bcLogo, toDauBC, skHTMLIn), `js/22i` (thHTMLIn); `tests/t276_chup.json` (b105) | t276 |
 | 27/10 | TK 3 (nhận bàn giao) | **3.386.2** | `js/72` (ghi chú 6,5 pt); `tests/t276_chup.json` | t276 |
+| 27/10 | TK 3 (nhận bàn giao) | **3.387** | dọn rác (`css/app.css`, `js/22ga`, `tools/hoiquy.sh`, bỏ `tools/hoiquy_nhom.txt`); khuôn in chung `js/75-khuon-in.js` (`js/22h`, `js/22i`); cắm rút SK_BC (`js/72`, `js/74`) | t276 t205 t279 t278 t148 t157 t179 t105 t308 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

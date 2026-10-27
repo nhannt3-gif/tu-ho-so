@@ -1,6 +1,6 @@
 #!/bin/bash
 # Dùng: bash tools/hoiquy.sh <tên lượt> [thư mục tạm] [nhóm] [số luồng]
-#   nhóm (t260 TK 3, 24/10): tat (mặc định = toàn bộ như cũ) · hoặc tên trong tools/hoiquy_nhom.txt (kt, hs, scan, gdx, so, dt, khung) — chỉ chạy phép thử có chữ khớp nhóm + hoiquy, hoiquy2
+#   chế độ: tat = hồi quy đủ (định kỳ 3–4 bản / trước bản lớn) · doi = chỉ phép chưa chốt / file phụ thuộc đổi (mỗi bản). 3.387 bỏ chế độ nhóm chữ (tools/hoiquy_nhom.txt).
 #   nhóm doi (3.384, anh 26/10 "chức năng đã chốt ổn thì không cần chạy lại"): chỉ chạy phép thử CHƯA CHỐT hoặc có file phụ thuộc đã đổi (tools/hoiquy_pt.py · mốc tests/hoiquy_moc.json).
 #   Mọi lượt xong tự ghi mốc: phép đạt → đã chốt (dấu vân tay file phụ thuộc), phép trượt → bỏ chốt. Bảng đã chốt: python3 tools/hoiquy_pt.py bang → docs/DA_CHOT.md
 #   số luồng: 1 (mặc định, như cũ) · 2–3 chạy song song (nhanh hơn; máy yếu dễ trượt chập chờn → chạy lại phép trượt riêng)
@@ -16,8 +16,7 @@ mkdir -p $H; rm -f $H/*.log; cd $W
 NHOM=${3:-tat}; LUONG=${4:-1}
 DS="hoiquy hoiquy2 $(ls tests/t[1-3][0-9][0-9].js | sed 's#tests/##;s#\.js##' | sort)"
 if [ "$NHOM" = doi ]; then DS="$(python3 $G/tools/hoiquy_pt.py chon --goc $W 2>$H/chon.txt)"; cat $H/chon.txt
-elif [ "$NHOM" != tat ]; then MAU=$(grep "^$NHOM:" $G/tools/hoiquy_nhom.txt | cut -d: -f2-); [ -z "$MAU" ] && { echo "Không có nhóm $NHOM trong tools/hoiquy_nhom.txt"; exit 1; }
-  DS="hoiquy hoiquy2 $(for t in $DS; do case $t in hoiquy|hoiquy2) ;; *) grep -qE "$MAU" tests/$t.js && echo $t;; esac; done)"; fi
+elif [ "$NHOM" != tat ]; then echo "Chỉ còn 2 chế độ: doi (mỗi bản) · tat (hồi quy đủ) — 3.387 bỏ nhóm chữ tools/hoiquy_nhom.txt"; exit 1; fi
 chay(){ for t in $1; do timeout 900 node tests/$t.js > $H/$t.log 2>&1; echo "$t $? ✗=$(grep -cE '^\s*✗' $H/$t.log) $(tail -1 $H/$t.log | cut -c1-60)"; done; }
 if [ "$LUONG" -le 1 ]; then chay "$DS" > $H/tong.txt 2>&1
 else i=0; for t in $DS; do echo $t >> $H/phan$((i % LUONG)).txt; i=$((i+1)); done

@@ -565,8 +565,7 @@ function thBaoCao(k){
 /* 3.164: giao diện không còn nút Xem / in nhiều báo cáo 1 lần (anh chốt) — hàm giữ lại để phép thử đối chiếu cả 9 báo cáo 1 lượt */
 function thHTMLIn(R){   /* 3.92: khuôn 01.1 — A4 ngang, lề 7 mm, chữ 9,5 pt, "Đơn vị" canh phải, mỗi dòng 1 hàng; tràn thì tự co */
   return '<!doctype html><html><head><meta charset="utf-8"><title>Tong hop</title><style>'+bcCSS(true)+'body{font-size:9.5pt}.th-bang th{vertical-align:middle;text-align:center}tr.th-so td{text-align:center;font-style:italic;font-size:.85em;background:#f7f9fb}.th-dv{text-align:right;font-style:italic;font-size:9pt;margin:-2px 0 2px}</style></head><body>'+R.map(function(x){
-    return '<div class="trang ngang"><div class="bc-dau"><div>'+bcLogo()+'<b>'+coChuHTML(BC_DV)+'</b>'+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+
-      '<h1>'+coChuHTML(x.tieuDe)+'</h1><div class="bc-to">Phạm vi: <b>'+coChuHTML(x.pv)+'</b></div>'+(x.dv ? '<div class="th-dv">'+coChuHTML(x.dv)+'</div>' : '')+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+skInTu('7mm')+'</body></html>';
+    return '<div class="trang ngang">'+bcDauTrang(x.ngay, coChuHTML(x.tieuDe), 'Phạm vi: <b>'+coChuHTML(x.pv)+'</b>')+(x.dv ? '<div class="th-dv">'+coChuHTML(x.dv)+'</div>' : '')+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+skInTu('7mm')+'</body></html>';
 }
 function thIn(){ if(TH_XEM.length) inBlob(new Blob([thHTMLIn(TH_XEM)], {type:'text/html'}), 'Tong hop.html'); }
 function thExcel(){
