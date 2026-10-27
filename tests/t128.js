@@ -97,7 +97,7 @@ const fs=require('fs'), path=require('path');
      const nP = Tt.filter(x=>String(x.dv)===h && !x.trucTiep).length, hp = [...document.querySelectorAll('.to-bang-pgd tbody tr')];
      ok('3.133: PGD + Hội → bảng PGD chỉ cộng tổ của Hội (Cộng trên đầu ghi tên Hội)', C.hoi===h && hp[0] && new RegExp('CỘNG TOÀN PGD · ').test(hp[0].textContent) && +hp[0].cells[1].textContent===nP, hp[0] && hp[0].textContent.slice(0, 80)+' / '+nP);
      const xa2 = Tt.find(x=>x.xa!==xa && String(x.dv)===h); if(xa2){ pvChon('to', 'xa', xa2.xa, 1); await w(300); }
-     ok('3.133: đổi xã vẫn giữ Hội đang lọc', !xa2 || C.hoi===h);
+     ok('3.383.7 (anh 27/10): đổi xã (cấp cao) → Hội về Tất cả (trước 3.133 giữ Hội)', !xa2 || !C.hoi);
      ok('3.133: tab khác (KTGS) giữ như cũ — Hội cần điểm GD', pvCha({xa:'x', diem:''}, 'hoi')===false && pvCha({xa:'x', diem:''}, 'hoi', true)===true);
      /* bảng chi tiết vào / ra (biến động giả T8 của tổ t) */
      C.xa = t.xa; C.diem = t.khoaDiem; C.hoi = ''; C.to = t.ma; TO_MAP = {}; TO_BD = null;

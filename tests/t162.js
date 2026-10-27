@@ -14,7 +14,7 @@ const fs=require('fs'), path=require('path');
    kyChungDoi('2026-08');
    for(const t of ['to','kt','sk','th','tra']){ slDoiTab(t); doiNgan(7); for(let i=0;i<50 && !document.querySelector('#tr7 .pv-cay .loc-khoi');i++) await w(200); await w(300);
      const k = document.querySelector('#tr7 .pv-cay .loc-khoi');
-     ok('tab '+t+': có khối LỌC ĐỊA BÀN, dòng Xã có màu cấp', !!k && getComputedStyle(k, '::before').content.includes('LỌC ĐỊA BÀN') && !!k.querySelector('.pv-hang1.cap-xa .pv-nhan')); }
+     ok('tab '+t+': có khối LỌC ĐỊA BÀN, dòng Xã có màu cấp', !!k && /LỌC ĐỊA BÀN/.test((k.querySelector('.pv-dau .pv-dau-nhan')||{}).textContent||'') && !!k.querySelector('.pv-hang1.cap-xa .pv-nhan')); }
    slDoiTab('to'); doiNgan(7); await w(800); const C = toCH(); C.xa=''; C.diem=''; C.hoi=''; C.to='';
    pvChon('to','xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(800);
    const k = () => document.querySelector('#tr7 .pv-cay .loc-khoi');

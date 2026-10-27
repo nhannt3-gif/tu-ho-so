@@ -21,13 +21,13 @@ module.exports = async function(p){
     /* ---- Hồ sơ Tổ ---- */
     slDoiTab('hst'); doiNgan(7); await w(1500); const C2 = hsoCH(); C2.xa=''; C2.diem=''; C2.to='';
     for(const M of HSO_MAU.hst){ hsoChonMau(M.k); await w(250); lay('hst_'+M.k+'_trang', ()=>hsoLap()); }
-    pvChon('hst', 'xa', pvLuaChon(TO_K.to, C2, 'xa', true)[0].k); await w(300); pvChon('hst', 'to', pvLuaChon(TO_K.to, C2, 'to', true)[0].k); await w(1500);
+    const h2 = C2.hoi; pvChon('hst', 'xa', pvLuaChon(TO_K.to, C2, 'xa', true)[0].k); if(h2) pvChon('hst', 'hoi', h2); await w(300);   /* 3.383.7: đổi Xã nay bỏ Hội → chọn lại Hội cũ cho giữ đúng kịch bản chuẩn */ pvChon('hst', 'to', pvLuaChon(TO_K.to, C2, 'to', true)[0].k); await w(1500);
     for(const M of HSO_MAU.hst){ hsoChonMau(M.k); await w(400); lay('hst_'+M.k+'_so', ()=>hsoLap()); }
     /* ---- Hồ sơ vay ---- */
     slDoiTab('hsv'); doiNgan(7); await w(1200); const C = hsoCH(); C.xa=''; C.diem=''; C.to='';
     const VAY = ['01uq', '01td', '01gqvl', '03td', '07b', '01tgtv', '09a', '01tdck'];
     for(const m of VAY){ hsoChonMau(m); await w(250); lay('hsv_'+m+'_trang', ()=>hsoLap()); }
-    pvChon('hsv', 'xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(300); pvChon('hsv', 'to', pvLuaChon(TO_K.to, C, 'to', true)[0].k); await w(800);
+    const h1 = C.hoi; pvChon('hsv', 'xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); if(h1) pvChon('hsv', 'hoi', h1); await w(300); pvChon('hsv', 'to', pvLuaChon(TO_K.to, C, 'to', true)[0].k); await w(800);
     const tv = hsoTVTo(TO_K.to[C.to]), ho = hmTuM31(tv[0].kh); ho.tv.push({ten:'Con Giả', ns:'2004-05-06', cccd:'072204000001', ncap:'2021-03-04', qh:'Con'});
     const hoG = hmTuM31(tv[1].kh);
     for(const m of ['01uq', '01td', '01tgtv']){ hmLamHS(ho.id, m); await w(250); const B = hsoBo(); B.ct = 'HSSV'; B.pa = Object.assign(B.pa||{}, {sv:'Con Giả', soThang:'12'}); B.tien = '40000000'; B.th = '60'; hsoBoLuu(); hsoVe(); await w(250); lay('hsv_'+m+'_so', ()=>hsoLap()); }
