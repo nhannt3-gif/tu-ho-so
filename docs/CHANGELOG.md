@@ -4,6 +4,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.389.2 — 28/10/2026 — Nút Chép màu xanh lục (TK 3)
+- **Anh 28/10**: "nút xóa màu đỏ, còn nút chép nên có màu khác" → `.nut-chep` viền xanh lục (`--luc`), đang chọn nền `--luc-nen`.
+
 ## 3.389.1 — 27/10/2026 — Chép file: báo rõ đường dẫn sai (TK 3)
 - **Anh 27/10** (ảnh): bấm 📋 Chép 1 file → cầu nối báo "Đường dẫn không hợp lệ." (cầu nối đã chạy, thấy thư mục gốc trên ổ G).
 - Chưa rõ nguyên nhân (không thử được PowerShell). Hai chỗ nghi: đường dẫn file không bắt đầu bằng thư mục gốc (file "Lập chỉ mục" / đường dẫn tùy chọn `duongTuy`), hoặc tên thư mục khác kiểu mã hóa dấu (NFC / NFD).

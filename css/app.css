@@ -4130,3 +4130,6 @@ table.tc-to-ds tfoot td{position:sticky;bottom:0;background:var(--xanh-nhat);col
 @media (max-width:1100px){.dau-hang .tim-bao{flex:1 1 140px;min-width:120px;max-width:none}.dau-hang .gio{display:none}}
 /* 3.389: nút 📋 Chép trên thanh tab file — đang chọn thì xanh */
 .tl-thanh .nut-chep.bat{background:var(--xanh-nhat);border-color:var(--xanh);color:var(--xanh)}
+/* 3.389.2 (anh 28/10 "nút xóa màu đỏ, còn nút chép nên có màu khác"): 📋 Chép viền + chữ xanh lục */
+.tl-thanh .nut-chep{color:var(--luc);border-color:var(--luc)}
+.tl-thanh .nut-chep.bat{background:var(--luc-nen);border-color:var(--luc);color:var(--luc)}
