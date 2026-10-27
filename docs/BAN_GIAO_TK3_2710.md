@@ -6,6 +6,7 @@
 ## 1. Trạng thái
 - `main` = **3.386.2** (TK 3, nhánh `claude/busy-curie-2qescm`). Hồi quy: mốc đã chốt `tests/hoiquy_moc.json` (192 phép), bảng `docs/DA_CHOT.md`.
 - **Cách chạy hồi quy mới (3.384):** `bash tools/hoiquy.sh <tên> <tmp> doi 2` — chỉ chạy phép chưa chốt / có file phụ thuộc đổi (`tools/hoiquy_pt.py`); đổi file phần chung (`CHUNG` trong `tools/hoiquy_pt.py`: index.html, KHO, bộ lọc 22ga, hộp thoại 06…) → chạy hết. Hồi quy đủ `tat` định kỳ 3–4 bản. Cột ✗= chỉ đếm dòng bắt đầu bằng ✗. Thêm báo cáo Sao kê mới → nhớ `node tests/t276.js --chup` (chỉ khi báo cáo cũ không đổi) + danh sách nhóm ở t205.
+- Hồi quy đủ trên 3.386: 191/192 đạt; t308 trượt do phép thử bấm nút 👁 Xem cũ (Sao kê 2 màn không còn nút này) → sửa gọi `skPhongTo()`, đạt. 3.386.1–3.386.2 (logo, chữ b105) sau lượt đó: chạy `doi` sẽ chạy lại phép phụ thuộc `js/22h`, `js/22i`, `js/72`.
 - Không có việc chạy dở trong code.
 
 ## 2. TK 3 đã làm (26–27/10) — chi tiết `docs/CHANGELOG.md`
@@ -37,3 +38,6 @@
 - Giữ `pbNguon`, `pbTongHopCT` (lớp nghiệp vụ Phân bổ KH — t250).
 - Quy tắc hiện tổ (QUY_CHUAN 16): kỳ chỉ có Mẫu 31 (thiếu Danh sách tổ) thì ẩn cả tổ chưa đóng mà hết TV — nhắc anh nạp file Tổ trưởng cùng ngày.
 - Repo công khai: file thật anh gửi chỉ phân tích trong thư mục nháp, chỉ báo số đếm.
+
+## 5. Câu anh hỏi cuối (27/10) — chưa làm
+- *"ngày hộ vay CK vào TK em lấy được không"*: file Sao kê TK 105 hiện chỉ có số dư (ngày báo cáo, tháng trước) + ngày đăng ký TK — **không có ngày từng lần chuyển khoản**. Mẫu 31 chỉ có "Ngày giao dịch gần nhất" của món vay (ngày tổ trưởng thu). Muốn có ngày khách CK cần file **sao kê giao dịch chi tiết TK 105** (từng lần nộp / rút) — hỏi anh hệ thống xuất được không, có thì thêm loại file mới + cột "Ngày CK gần nhất" vào báo cáo Biến động TK 105.

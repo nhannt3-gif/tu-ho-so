@@ -8,7 +8,7 @@ const fs=require('fs'), path=require('path');
    await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p); await p.goto('file://'+path.resolve(__dirname,'..','index.html')+'?may=1'); await p.waitForTimeout(1500);
    await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} window.SL_KHONG_TU_KIEM=1; for(const f of files){ const bin=atob(f.b),u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq=await slDocFile(new File([u],f.n)); if(!kq.loi&&kq.ky){ try{await slGhi(kq);}catch(e){} } } kyChungDoi('2026-08'); slDoiTab('sk'); doiNgan(7); }, files);
    await p.waitForTimeout(1500);
-   await p.evaluate(()=>{ const x=[...document.querySelectorAll('#tr7 button')].find(x=>/Xem/.test(x.textContent)&&x.offsetParent); x&&x.click(); }); await p.waitForTimeout(3000);
+   await p.evaluate(async()=>{ skChonBC(skChon()); await new Promise(r=>setTimeout(r,800)); skPhongTo(); });   /* 3.386: Sao kê 2 màn — mở hộp xem lớn bằng ⤢ Phóng to */ await p.waitForTimeout(3000);
    const f = p.frames().find(f=>f!==p.mainFrame() && f.url().indexOf('google')<0);
    const r = f ? await f.evaluate(async()=>{ const w=t=>new Promise(r=>setTimeout(r,t)); for(let i=0;i<30&&!document.getElementById('tr-thanh');i++) await w(150);
      const t=document.getElementById('tr-thanh'); if(!t) return {};
