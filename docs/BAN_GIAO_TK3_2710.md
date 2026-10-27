@@ -4,7 +4,7 @@
 > File này là trạng thái + việc dở + thiết kế anh đã duyệt (nguyên văn) để TK 2 làm tiếp. Đọc kèm: `CLAUDE.md`, `docs/BAT_DAU.md`, `docs/PHOI_HOP_TK2_TK3.md` (nhật ký gộp), `docs/QUY_CHUAN_KIEN_TRUC.md` (mục 15 kho chuẩn · 16 hiện tổ · 17 bộ lọc), `docs/CHANGELOG.md` (3.377 → 3.385.x).
 
 ## 1. Trạng thái
-- `main` = **3.386.2** (TK 3, nhánh `claude/busy-curie-2qescm`). Hồi quy: mốc đã chốt `tests/hoiquy_moc.json` (192 phép), bảng `docs/DA_CHOT.md`.
+- `main` = **3.387** (rà soát cuối của TK 3 — mục 6). Trước đó 3.386.2 (TK 3, nhánh `claude/busy-curie-2qescm`). Hồi quy: mốc đã chốt `tests/hoiquy_moc.json` (192 phép), bảng `docs/DA_CHOT.md`.
 - **Cách chạy hồi quy mới (3.384):** `bash tools/hoiquy.sh <tên> <tmp> doi 2` — chỉ chạy phép chưa chốt / có file phụ thuộc đổi (`tools/hoiquy_pt.py`); đổi file phần chung (`CHUNG` trong `tools/hoiquy_pt.py`: index.html, KHO, bộ lọc 22ga, hộp thoại 06…) → chạy hết. Hồi quy đủ `tat` định kỳ 3–4 bản. Cột ✗= chỉ đếm dòng bắt đầu bằng ✗. Thêm báo cáo Sao kê mới → nhớ `node tests/t276.js --chup` (chỉ khi báo cáo cũ không đổi) + danh sách nhóm ở t205.
 - Hồi quy đủ trên 3.386: 191/192 đạt; t308 trượt do phép thử bấm nút 👁 Xem cũ (Sao kê 2 màn không còn nút này) → sửa gọi `skPhongTo()`, đạt. 3.386.1–3.386.2 (logo, chữ b105) sau lượt đó: chạy `doi` sẽ chạy lại phép phụ thuộc `js/22h`, `js/22i`, `js/72`.
 - Không có việc chạy dở trong code.
@@ -19,6 +19,8 @@
 | 3.385 | **Sao kê theo nhà đầu tư** (`js/74-sk-ndt.js`, t279) |
 | 3.385.1 | Khổ **dọc** mặc định cho báo cáo dạng danh sách (mục 3.2) |
 | 3.386 | **Sao kê 2 màn ĐÃ LÀM** (mục 3.2): màn chọn + màn xem trải ngang tự vẽ lại (`skCH().man`, `#sk-xem-khung`, `skXemHen`, `skPhongTo`) |
+| 3.386.1–2 | Logo cánh sen bản in; Biến động TK 105 cột Ghi chú 6,5 pt |
+| 3.387 | Rà soát: dọn rác, khuôn in chung `js/75`, báo cáo Sao kê cắm rút (mục 6) |
 
 ## 3. VIỆC TIẾP THEO — anh đã duyệt hướng (27/10), TK 2 làm
 ### 3.1 Khuôn chuẩn các tab Số liệu = bố cục Tra cứu KH
@@ -41,3 +43,26 @@
 
 ## 5. Câu anh hỏi cuối (27/10) — chưa làm
 - *"ngày hộ vay CK vào TK em lấy được không"*: file Sao kê TK 105 hiện chỉ có số dư (ngày báo cáo, tháng trước) + ngày đăng ký TK — **không có ngày từng lần chuyển khoản**. Mẫu 31 chỉ có "Ngày giao dịch gần nhất" của món vay (ngày tổ trưởng thu). Muốn có ngày khách CK cần file **sao kê giao dịch chi tiết TK 105** (từng lần nộp / rút) — hỏi anh hệ thống xuất được không, có thì thêm loại file mới + cột "Ngày CK gần nhất" vào báo cáo Biến động TK 105.
+
+## 6. Rà soát 3.387 (anh 27/10) — đã làm + quy ước TK 2 phải giữ
+Anh: *"rà soát cấu trúc bố cục, code em làm 2 hôm nay, chú ý dọn code rác, hồi quy cũ không còn dùng, quy tắc cắm rút, mọi thứ đọc qua kho, dữ liệu tập trung, mẫu biểu tập trung (cái này anh chưa nắm rõ), tối ưu lưu trữ nên lưu các dữ liệu tạm khi mở trên máy tính"*.
+
+| Ý anh | Hiện trạng sau 3.387 | TK 2 làm tiếp |
+|---|---|---|
+| Dọn code rác | Bỏ CSS `.sk-thanh*`, `.sk-bc`, nhãn "LỌC ĐỊA BÀN" cũ, `PV_KIEU`; `kiem.py` mồ côi = 0 | Mỗi bản giữ mồ côi 0 (`python3 tests/kiem.py --mo-coi`) |
+| Hồi quy cũ | `hoiquy.sh` chỉ còn `doi` (mỗi bản) / `tat` (định kỳ); bỏ `tools/hoiquy_nhom.txt` | Gỡ chức năng → xóa phép thử của nó + chạy `python3 tools/hoiquy_pt.py` cập nhật mốc |
+| Cắm rút | **Báo cáo Sao kê mới = 1 file riêng + 1 dòng** `SK_BC.push({k, ten, nhom, kho:'doc'|'ngang', lap:function(){…return {html, aoa, tieuDe…}}, tuyChon:fn trả HTML ô riêng})`; `skBaoCao(k)` gọi `lap()` trước, `veSaoKe` gọi `tuyChon()`. Mẫu: b105 cuối `js/72`, ndt cuối `js/74`. File mới phải nạp SAU `js/22h` trong `index.html` | Chuyển dần báo cáo còn nằm trong `skBaoCao` (js/22h: cgn, dh, noxh, ddn, tkhd, kqgd…) sang `lap()` — mỗi lần 1 báo cáo, t276 phải giống hệt |
+| Đọc qua kho | `kiem.py`: "đọc thẳng biến kho" 0, "đọc thẳng bảng gốc" 0 (mốc 0 — vượt là trượt) | Báo cáo mới lấy món từ `kcGoc(K.B)`, tổ từ `K.to` / `kcTo`, TK từ `kcTK` — không đọc bảng nạp |
+| Dữ liệu tập trung | Cấu hình lưu `D.cauHinh.*` theo khối (`chKhoiCua`); tên NĐT `slNdtTen`, ghim `pvGhimO`, lọc chung `pvChung` | Khóa mới phải khai khối, không lưu localStorage rời |
+| **Mẫu biểu tập trung** (anh chưa nắm rõ) | Nghĩa là: mọi bản in dùng **chung 1 khuôn đầu trang** + chung khung in. Nay `js/75-khuon-in.js`: `bcDauTrang(ngay, tieuDeHTML, pvHTML)` (logo + đơn vị `BC_DV` + ngày + tiêu đề + phạm vi) — `toDauBC` (Tổ TK&VV), `skHTMLIn` (Sao kê), `thHTMLIn` (Tổng hợp) cùng gọi. Đổi logo / tên đơn vị / cỡ chữ đầu trang → sửa 1 chỗ | Gom tiếp vào `js/75`: chân trang ký tên, CSS bảng in dùng chung (`.bc-khung`, khổ dọc/ngang); KTGS và Hồ sơ vay giữ khuôn Word riêng (không gộp) |
+| Lưu tạm khi mở máy tính | **Đo trên số liệu thật 25/10 (thư mục nháp, 379 tổ):** đọc bảng lần đầu ~885 ms; dựng kho `KHO.nap` 63 ms; `kcDung`+gắn TK 105 17 ms; lần 2 trong phiên 0 ms (đã nhớ). → Lưu kho đã dựng vào IndexedDB chỉ bớt ~80 ms, lại phải lo khóa hết hạn khi nạp file mới → **không làm** | Nếu muốn nhanh hơn: phần đáng là 885 ms đọc bảng (giải nén / dựng bảng từ chỗ lưu) — đo kỹ `slBo` từng bảng trước khi làm; chỉ máy tính; khóa = kỳ + dấu thời gian nạp file; tối đa 3 kỳ |
+
+**Hồi quy đủ trên 3.387 (27/10): 191/192 đạt;** t133 trượt vì bản in Tổ TK&VV nay có logo (khuôn chung) → sửa phép thử nhận logo, 12/12 đạt. Mốc 192/192.
+
+### Việc còn lại cho TK 2 (thứ tự đề xuất)
+1. Mục 3.1: chip nguồn số liệu + nút 🔎 tìm tổ trên dải `.pv-dau`; bỏ CSS bộ lọc riêng từng tab (`#tc-cay`, KTGS, GDX).
+2. Mục 3.2 phần còn: báo cáo tổng hợp / biểu mẫu tự co vừa 1 trang trong khung xem.
+3. Chuyển các báo cáo Sao kê còn lại sang cắm rút (mục 6).
+4. Tổng hợp → khuôn 2 màn như Sao kê; Tổ TK&VV (mục 3.3).
+5. **KTGS sau cùng**, giữ dữ liệu cũ (mục 3.3).
+6. Ngày khách CK vào TK 105: chờ anh có file sao kê giao dịch chi tiết (mục 5).
