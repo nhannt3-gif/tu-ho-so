@@ -3077,7 +3077,7 @@ details.sl-kq > summary{padding:6px 10px}
 .tl-kx button{border:none;border-right:1px solid var(--vien);background:var(--the);padding:5px 10px;font:inherit;font-size:calc(12.5px*var(--co));font-weight:600;color:var(--chu);cursor:pointer;white-space:nowrap;min-height:var(--nut-cao,34px)}
 .tl-kx button:last-child{border-right:none}
 .tl-kx button.bat{background:var(--xanh);color:#fff}
-.than:not(.an-preview) .tl-kx .tl-chu{display:none}
+.tl-thanh .tl-chu{font-size:calc(11px*var(--co));font-weight:500}   /* 3.388: kiểu xem luôn kèm tên, chữ nhỏ (trước: khung xem mở thì ẩn chữ) */
 .tl-thanh .tl-pv.bat{background:var(--xanh-nhat);border-color:var(--xanh)}
 .tl-panel{border:1.3px solid var(--xanh);border-radius:12px;background:var(--the);padding:8px 12px 6px;margin:-2px 0 9px}
 .tl-panel .lg{margin:4px 0}
@@ -4110,3 +4110,10 @@ table.tc-to-ds tfoot td{position:sticky;bottom:0;background:var(--xanh-nhat);col
 .sk-thao .sk-gian{flex:1}.sk-thao .sk-ndt{margin:0;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}.sk-thao .sk-ndt select{max-width:260px}
 .sk-xem-khung{display:block;width:100%;height:calc(100vh - 230px);min-height:420px;border:1px solid var(--vien);border-radius:10px;background:#fff}
 @media(min-width:1300px){ .sk-thao{flex-wrap:nowrap} .sk-thao .sk-chon{max-width:300px} .sk-thao .sk-ndt select{max-width:220px} .sk-thao button{white-space:nowrap} }
+
+/* 3.388 (anh 27/10 "2 nút tiến lùi làm nổi lên cho dễ nhận biết", "các nút hiện nổi lên phân biệt với nền"): nút ⬅ ➡ có nền + viền; nút thanh tab file có viền đậm + bóng */
+.dh-nut{gap:4px}.dh-nut .nho{padding:3px 11px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.45);border-radius:8px;font-size:17px;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.dh-nut .nho:hover{background:rgba(255,255,255,.32)}
+.tl-thanh .phu,.tl-thanh .nut-bot,.tl-kx{box-shadow:0 1px 3px rgba(0,0,0,.28);border-color:var(--chu-mo,#8a94a6)}
+.tl-thanh .phu,.tl-thanh .nut-bot,.tl-kx button:not(.bat){background-image:linear-gradient(rgba(255,255,255,.07),rgba(255,255,255,.07))}
+.tl-kx button{padding:4px 8px}

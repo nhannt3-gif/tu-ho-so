@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.387** — TK 3: rà soát — dọn rác, khuôn in chung `js/75`, báo cáo Sao kê cắm rút. Bàn giao TK 2: `docs/BAN_GIAO_TK3_2710.md`.
+- **`main` = 3.388** — TK 3: nút ⬅ ➡ nổi, kiểu xem kèm tên; trước đó rà soát 3.387. Bàn giao TK 2: `docs/BAN_GIAO_TK3_2710.md`.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

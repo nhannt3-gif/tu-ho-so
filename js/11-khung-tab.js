@@ -182,8 +182,8 @@ function tlKieuXemHTML(tab, o, ds, kx){
   var ham = o.hamXem ? function(k){ return o.hamXem+'(\''+k+'\')'; } : function(k){ return 'datKX(\''+tab+'\',\''+k+'\')'; };
   var h = '<span class="tl-kx">'+ds.map(function(x){ var bt = x[1].split(' '), ico = /^[^\wÀ-ỹ]/.test(x[1]) ? bt[0] : '', chu = ico ? bt.slice(1).join(' ') : x[1];
     return '<button class="'+(kx===x[0] ? 'bat' : '')+'" onclick="'+ham(x[0])+'" title="'+coChuHTML(chu)+'">'+(ico ? ico+' ' : '')+'<span class="tl-chu">'+coChuHTML(chu)+'</span></button>'; }).join('')+'</span>';
-  if(tab==='vanBan' && kx==='thang') h += '<button class="phu tl-bung" onclick="bungNhom(true)" title="Bung hết nhóm">⊞</button><button class="phu tl-bung" onclick="bungNhom(false)" title="Thu gọn hết nhóm">⊟</button>';
-  h += '<button class="phu tl-pv'+(anPVCua(tenTabPV()) ? '' : ' bat')+'" onclick="batTatPV()" title="'+(anPVCua(tenTabPV()) ? 'Bật' : 'Tắt')+' khung xem bên phải">▣</button>';
+  if(tab==='vanBan' && kx==='thang') h += '<button class="phu tl-bung" onclick="bungNhom(true)" title="Bung hết nhóm">⊞ <span class="tl-chu">Bung</span></button><button class="phu tl-bung" onclick="bungNhom(false)" title="Thu gọn hết nhóm">⊟ <span class="tl-chu">Gọn</span></button>';
+  h += '<button class="phu tl-pv'+(anPVCua(tenTabPV()) ? '' : ' bat')+'" onclick="batTatPV()" title="'+(anPVCua(tenTabPV()) ? 'Bật' : 'Tắt')+' khung xem bên phải">▣ <span class="tl-chu">Khung xem</span></button>';   /* 3.388 (anh 27/10 "các nút kiểu xem kèm tên luôn, ghi nhỏ gọn") */
   return h;
 }
 /* menu nhỏ thả xuống ngay dưới nút (dùng chung khung .menu của ⋯ từng dòng) */

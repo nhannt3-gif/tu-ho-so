@@ -85,3 +85,8 @@ Số đo `tests/kiem.py` 3.387: 93 file js (~3,6 MB), 192 phép thử, 4 file >1
 - B5 Loại file sao kê giao dịch chi tiết TK 105 → ngày khách CK (mục 5).
 
 **Thứ tự đề xuất cho TK 2:** A1 → B2 → A2 → A4 (dần) → A5; B3 xen khi anh cần.
+
+## 8. Việc anh nêu 27/10 tối — trạng thái
+- **3.388 ĐÃ LÀM:** nút ⬅ ➡ đầu trang nổi (nền + viền); thanh nút tab file nổi khỏi nền; kiểu xem luôn kèm tên chữ nhỏ (⊞ Bung · ⊟ Gọn · ▣ Khung xem).
+- **CHƯA LÀM — chờ anh chọn:** thêm nút chức năng ở khoảng trống bên phải thanh tab file (`veDauTab`, `js/11-khung-tab.js`, phần `.dau-phai`). TK 3 đề xuất: 🔎 Tìm trong tab · ☑ Chọn nhiều · 📊 Xuất danh sách Excel · ☁ Đồng bộ ngay.
+- **CHƯA RÕ NGUYÊN NHÂN — tên cán bộ Giao dịch xã bị mất** (ảnh anh 27/10: ô GDV / KSV / Tổ trưởng chỉ còn "— chấm ghi tay —"). Danh sách nằm ở `D.cauHinh.gdx.danhSachCanBo` (khối đồng bộ `gdx`, `CH_KHOI_LUAT` js/36); thêm / xóa: `gdxThemCanBo` / `gdxBoCanBo` (js/26). TK 3 rà các bản 3.380–3.388: không chỗ nào ghi đè / xóa danh sách. Nghi: máy / trình duyệt khác, hoặc nhận bản đồng bộ khối gdx cũ từ Drive. **Đã hỏi anh:** (1) có đúng máy / trình duyệt hay khai không; (2) ⚙ Sao lưu còn bản cũ không. Có trả lời → hướng dẫn khôi phục; nếu do app → sửa + thêm phép thử đồng bộ khối gdx không làm mất `danhSachCanBo`.
