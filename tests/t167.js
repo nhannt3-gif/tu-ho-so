@@ -72,7 +72,7 @@ const fs=require('fs'), path=require('path');
    ip('ten').value = 'Người Giả Sửa Tay'; ip('ten').oninput(); ip('ncap').value = '230421'; ip('ncap').oninput(); await w(200);
    g = gdxGLDuLieu(); t = chu(fd().body.innerHTML);
    ok('sửa tay trên form → in theo form (chỉ lần in này), ngày cấp gõ nhanh 230421 → 23/04/2021', g.ten==='Người Giả Sửa Tay' && g.ncap==='2021-04-23' && t.indexOf('Người Giả Sửa Tay')>=0 && (SL_DB.kh[kA.kh]||{}).ten!=='Người Giả Sửa Tay');
-   gdxGLLamTrong(); await w(200); g = gdxGLDuLieu();
+   gdxGLMoi(); await w(200); g = gdxGLDuLieu();
    ok('✕ Làm trống form → gõ người khác từ đầu (không cần tìm); 3.185: bỏ luôn chọn tổ ở cây địa bàn, giữ Xã / Điểm', !g.ten && !g.tk && !!fd().querySelector('.gl-r .gl-c') && !S.to && !!S.diem);
    pvChonTo('gdx', tA.ma); await w(300); gdxGLChonKH(kA.kh); await w(200);
    gdxGLTrangIn(2); await w(400); let dIn = document.getElementById('gdx-in-tam').contentDocument;
@@ -183,7 +183,7 @@ const fs=require('fs'), path=require('path');
    ok('hộp 📜 Nhật ký in: dòng + 🖨 In lại + 📄 PDF + ×', /In lại/.test(document.getElementById('hop-in').textContent) && document.querySelectorAll('#hop-in .gdx-nk-nut button').length===3); dongHop();
    /* ---- 3.201: tổ trưởng rút TK 104 — Sao kê TK 104 theo ngày (dữ liệu GIẢ), ghép Mã CIF TT / mã KH tổ trưởng; bỏ danh mục tổ ---- */
    gdxDat('glLoai', '104', 1); await w(200);
-   { const tk0 = gdxGLDuLieu().tk; gdxGLLamTrong(); await w(100); const trong = !gdxGLDuLieu().tk; pvChonTo('gdx', tA.ma); await w(300);
+   { const tk0 = gdxGLDuLieu().tk; gdxGLMoi(); await w(100); const trong = !gdxGLDuLieu().tk; pvChonTo('gdx', tA.ma); await w(300);
      ok('3.179: Làm trống rồi chọn lại đúng tổ cũ ở khối lọc → điền lại TK 104 theo số liệu', !tk0 || (trong && gdxGLDuLieu().tk===tk0), tk0); }
    g = gdxGLDuLieu();
    ok('3.201: bỏ hẳn danh mục tổ (không còn hàm / khối 📚)', typeof dmtTimTo==='undefined' && typeof gdxTC==='undefined' && typeof dmtKhoiHTML==='undefined');

@@ -37,7 +37,9 @@ const fs=require('fs'), path=require('path');
    for(let i=0;i<60 && !document.querySelector('#to-the .to-bang');i++) await w(250); await w(1200);
    pvChon('to', 'xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(1800);
    const khung = () => document.querySelector('#to-the .to-cuon-khung');
-   ok('bảng các tổ: không tràn ngang, đã tự thêm cột Tự động theo ưu tiên (Số món vay đầu tiên)', khung().scrollWidth<=khung().clientWidth+1 && (TO_TU_HIEN.bang||[])[0]==='mon', khung().scrollWidth+'/'+khung().clientWidth+' · '+(TO_TU_HIEN.bang||[]).join(','));
+   const tbT = khung().querySelector('table[data-tu]'), thuMon = () => { const o = [...tbT.querySelectorAll('.tc-mon')], h0 = tbT.tHead ? tbT.tHead.offsetHeight : 0; o.forEach(x=>x.classList.add('tu-hien')); const tran = tbT.scrollWidth > khung().clientWidth+1 || (tbT.tHead && tbT.tHead.offsetHeight > h0+2);   /* như toCotVua: tràn ngang hoặc ép tiêu đề cột khác xuống dòng */ o.forEach(x=>x.classList.remove('tu-hien')); return tran; };
+   const hienT = TO_TU_HIEN.bang||[];   /* 3.384: bảng nhiều cột hơn trước → hết chỗ thì không thêm cột Tự động là ĐÚNG (trước đòi cứng cột Số món) */
+   ok('bảng các tổ: không tràn ngang; cột Tự động thêm theo ưu tiên (Số món vay đầu tiên) — hết chỗ thì không thêm', khung().scrollWidth<=khung().clientWidth+1 && (hienT[0]==='mon' || (!hienT.length && thuMon())), khung().scrollWidth+'/'+khung().clientWidth+' · '+hienT.join(',')+' · tu='+tbT.getAttribute('data-tu')+' · thuMon='+thuMon());
    ok('cột thêm mới của bảng tổ có trong danh mục: Nợ lãi · Món ĐH tháng sau · CCCD hết/sắp hết · chưa có TK 105', ['lt','dhs','cch','ctk'].every(m=>TO_COT.some(c=>c[0]===m && !c[2])));
    toCotHop(); await w(100); const sel = document.querySelector('#hop-in .to-cot-ds select');
    ok('⚙ Cột: mỗi cột 3 lựa chọn Tự động / Luôn hiện / Ẩn', !!sel && [...sel.options].map(x=>x.textContent).join('|')==='Tự động|Luôn hiện|Ẩn'); dongHop();

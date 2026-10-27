@@ -11,8 +11,7 @@ const fs=require('fs'), path=require('path'), cp=require('child_process');
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
    kyChungDoi('2026-08'); const x = {};
    x.moi = CO_GI_MOI.ds.length; x.link = /CHANGELOG\.md/.test(noiDungCoGiMoi()); x.thu = CO_GI_MOI.thu.length;
-   x.bo = ['datXa','ktKBGT','tcKiemTrung','theTrong','khaiVaLuu','hangLocNhanh','menuDong','moBaoCaoQuet','gopNhanh','apToanPGD'].filter(n=>typeof window[n]!=='undefined');
-   x.giu = ['pvMo','thXem','gdxThan'].filter(n=>typeof window[n]==='function').length;
+   x.bo = ['datXa','ktKBGT','tcKiemTrung','theTrong','khaiVaLuu','hangLocNhanh','menuDong','moBaoCaoQuet','gopNhanh','apToanPGD','boBaoCao','gdxGLLamTrong','gdxThan','ktDsLTC','ktGNKhaiBao','ktKhaiBao','pvMo','slKTDauHTML','thXem'].filter(n=>typeof window[n]!=='undefined');
    slDoiTab('hsv'); doiNgan(7); await w(1200); hsoChonMau('sohv'); await w(500);
    const tim = document.getElementById('hm-so-tim'), sel = [...document.querySelectorAll('.hm-so-loc select')];
    x.tim = Math.round(tim.getBoundingClientRect().width); x.sel = Math.max.apply(null, sel.map(e=>e.getBoundingClientRect().width));
@@ -20,7 +19,6 @@ const fs=require('fs'), path=require('path'), cp=require('child_process');
    return x; }, files);
  ok('"Có gì mới" chỉ 15 dòng gần nhất + link CHANGELOG + 3 bước thử mới', r.moi===15 && r.link && r.thu===3, JSON.stringify([r.moi, r.link, r.thu]));
  ok('hàm mồ côi đã dọn không còn trong app', !r.bo.length, r.bo.join(','));
- ok('hàm phép thử còn dùng vẫn giữ (pvMo, thXem, gdxThan; 3.246: hmLapHS gỡ cùng Bộ HS cũ)', r.giu===3);
  ok('Sổ hộ vay tắt khung xem: ô Tìm ≤ 340 px, ô chọn ≤ 240 px, chữ ô tìm = chữ nút', r.tim<=340 && r.sel<=240 && r.co[0]===r.co[1], JSON.stringify([r.tim, r.sel, r.co]));
  const k = cp.execSync('python3 '+path.join(__dirname, 'kiem.py')).toString();
  ok('kiem.py: cú pháp OK, thước đo trong mốc', /Cú pháp OK/.test(k) && /Thước đo:.*— trong mốc/.test(k), k.split('\n').pop() || k.split('\n').slice(-2)[0]);

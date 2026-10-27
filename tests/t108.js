@@ -22,8 +22,8 @@ const fs=require('fs'), path=require('path');
    const A = ds[0], A2 = ds.find(t=>t.xa===A.xa && String(t.dv)===String(A.dv) && t.ma!==A.ma), B = ds.find(t=>ktHoiKhoa(t)!==ktHoiKhoa(A));
    const B2 = ds.find(t=>t.xa===A.xa && String(t.dv)!==String(A.dv)) || B;
    /* 3.98: không theo dõi — xuất 16 / 06 không ghi nhật ký, lịch sử */
-   ktChonTo(A.ma); await w(300); KT_KB = {ngay:'2026-09-05'}; ktKhaiBao('m16'); await w(50); ktXuat('m16', 'word', 1); await w(600);
-   ktKhaiBao('m06'); await w(50); ktXuat('m06', 'in', 1); await w(300);
+   ktChonTo(A.ma); await w(300); KT_KB = {ngay:'2026-09-05'}; ktInHop(['m16'], '', ktHoiDs()); await w(50); ktXuat('m16', 'word', 1); await w(600);
+   ktInHop(['m06'], '', ktHoiDs()); await w(50); ktXuat('m06', 'in', 1); await w(300);
    ok('3.98: xuất Biên bản 16 / Mẫu 06 không ghi nhật ký, lịch sử', !((D.cauHinh.ktgsNK||{})[A.ma]||[]).length && !((D.cauHinh.ktgsLS||{})[A.ma]||[]).length);
    /* màn Mẫu 04 ① — chọn theo cây địa bàn */
    C.xa=''; C.diem=''; C.hoi=''; C.to=''; KT_BC_CHON = {}; KT_BC_NGAY = {}; ktDoiCheDo('bc'); await w(300);

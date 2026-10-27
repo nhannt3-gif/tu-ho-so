@@ -6,7 +6,7 @@ const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const ctx = await b.newContext({viewport:{width:1536,height:730}, permissions:['clipboard-read','clipboard-write']});
  const p=await ctx.newPage(); p.on('pageerror',e=>loi.push(e.message));
- await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p); await require('./tro_thxem.js')(p);   /* 3.384: thXem chuyển khỏi app */
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
  const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));

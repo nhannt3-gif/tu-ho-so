@@ -4,7 +4,7 @@ const { chromium } = require(require('child_process').execSync('npm root -g').to
 const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[], o=[]; const ok=(t,d,c)=>o.push((d?'✓ ':'✗ ')+t+(c!==undefined?' — '+c:''));
  const p=await b.newPage({viewport:{width:1440,height:900}}); p.on('pageerror',e=>loi.push(e.message));
- await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p); await require('./tro_thxem.js')(p);   /* 3.384: thXem chuyển khỏi app */
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
  const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const w = t=>p.waitForTimeout(t), ev = f=>p.evaluate(f);

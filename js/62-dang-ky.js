@@ -132,10 +132,10 @@ DANG_KY({ma:'noxl', o:'sk', loai:'ds', ten:'Danh sách nợ cần xử lý', nho
     var K = ctx.K, B = ctx.B || {co:{}}, loai = ctx.chon.loai || [], ns = ctx.ngay, dong = [];
     var trong = function(o){ return pvLoc(ctx.S, KHO.toKy(K, toMaCua(o))); };
     var them = function(o, x){ var r = {kh:o.kh||'', ten:o.ten||'', ku:o.ku||'', ct:ctNgan(o.ct, o), dn:o.dn||0, _dv:dkDV(K, toMaCua(o))}; for(var k in x) r[k] = x[k]; dong.push(r); };
-    if(loai.indexOf('qh')>=0) (B.co.nqh||[]).filter(trong).forEach(function(o){ them(o, {loai:'QH', xl:o.qh||0, ngay:ngayVNsl(o.ncqh), so:o.ncqh ? tdnSoNgay(o.ncqh, ns) : '', ghi:(o.cqh>0 ? 'Mới trong tháng' : '')}); });
-    if(loai.indexOf('kn')>=0) (B.co.nk||[]).filter(trong).forEach(function(o){ them(o, {loai:'Khoanh', dn:o.dn||o.kn||0, xl:o.kn||0, ngay:ngayVNsl(o.nhh), so:o.nhh ? tdnSoNgay(ns, o.nhh) : '', ghi:o.nn ? 'Hết khoanh · '+o.nn : 'Hết khoanh'}); });
+    if(loai.indexOf('qh')>=0) (kcBang(B, 'nqh')||[]).filter(trong).forEach(function(o){ them(o, {loai:'QH', xl:o.qh||0, ngay:ngayVNsl(o.ncqh), so:o.ncqh ? tdnSoNgay(o.ncqh, ns) : '', ghi:(o.cqh>0 ? 'Mới trong tháng' : '')}); });
+    if(loai.indexOf('kn')>=0) (kcBang(B, 'nk')||[]).filter(trong).forEach(function(o){ them(o, {loai:'Khoanh', dn:o.dn||o.kn||0, xl:o.kn||0, ngay:ngayVNsl(o.nhh), so:o.nhh ? tdnSoNgay(ns, o.nhh) : '', ghi:o.nn ? 'Hết khoanh · '+o.nn : 'Hết khoanh'}); });
     if(loai.indexOf('khd')>=0){ var kd = KHO.khdKy(K); Object.keys(kd).map(function(k){ return kd[k]; }).filter(trong).forEach(function(o){ them(o, {loai:'KHĐ 3T', xl:0, ngay:ngayVNsl(o.ngdg), so:o.ngdg ? tdnSoNgay(o.ngdg, ns) : '', ghi:laiTon(o)>0 ? 'Lãi tồn '+dkTien(laiTon(o)) : ''}); }); }
-    if(loai.indexOf('cgn')>=0 && B.co.hstd) B.co.hstd.filter(function(o){ return slKUChuaGN(o) && trong(o) && skQua1Thang(o.nv, ns); }).forEach(function(o){ them(o, {loai:'Chưa GN', dn:0, xl:o.mucVay||0, ngay:ngayVNsl(o.nv), so:o.nv ? tdnSoNgay(String(o.nv).slice(0, 10), ns) : '', ghi:'Cần đóng KU', _lop:'nb'}); });
+    if(loai.indexOf('cgn')>=0 && kcGoc(B)) kcGoc(B).filter(function(o){ return slKUChuaGN(o) && trong(o) && skQua1Thang(o.nv, ns); }).forEach(function(o){ them(o, {loai:'Chưa GN', dn:0, xl:o.mucVay||0, ngay:ngayVNsl(o.nv), so:o.nv ? tdnSoNgay(String(o.nv).slice(0, 10), ns) : '', ghi:'Cần đóng KU', _lop:'nb'}); });
     var thu = {'QH':1, 'Khoanh':2, 'KHĐ 3T':3, 'Chưa GN':4};
     dong.sort(function(a, b){ return (a._dv.diem+a._dv.hoi+a._dv.to).localeCompare(b._dv.diem+b._dv.hoi+b._dv.to) || thu[a.loai]-thu[b.loai] || String(a.kh).localeCompare(String(b.kh)); });
     return {cot:[{k:'stt', ten:'STT'}, {k:'kh', ten:'Mã KH'}, {k:'ten', ten:'Họ tên', rong:24}, {k:'ku', ten:'Số KU', nho:1}, {k:'ct', ten:'CT'}, {k:'loai', ten:'Loại'},

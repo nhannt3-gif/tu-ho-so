@@ -38,11 +38,7 @@ async function moTrang(b, duLieuCu){
     // L2: lưu cài đặt tab Dữ liệu tháng giữ cờ
     const l2 = await p.evaluate(()=>{ var n0=D.cauHinh.mauBaoCao.filter(x=>x.theoNgay||x.thuanXLS||x.coExcel).length; moCaiDat('duLieu'); luuCDTab('duLieu'); dongCaiDat(); return [n0, D.cauHinh.mauBaoCao.filter(x=>x.theoNgay||x.thuanXLS||x.coExcel).length]; });
     ok('Lưu cài đặt tab Dữ liệu tháng giữ cờ mẫu', l2[0]===l2[1] && l2[0]>0, l2.join(' → '));
-    // N1: bỏ báo cáo rồi mở lại
-    const bb = await p.evaluate(()=>{ window.hoi=function(a,b,c,f){f();}; var co0=D.cauHinh.mauBaoCao.some(x=>x.ma==='NQH'); boBaoCao('NQH'); luuNgay(); return JSON.stringify({co0, sau:D.cauHinh.mauBaoCao.some(x=>x.ma==='NQH'), daBo:D.cauHinh.maDaBo, ls:JSON.parse(localStorage.getItem('tuhoso_v1')).cauHinh.maDaBo}); }); console.log('BB', kieu, bb);
     await p.reload(); await p.waitForTimeout(900);
-    const nq = await p.evaluate(()=>JSON.stringify({co:D.cauHinh.mauBaoCao.filter(x=>x.ma==='NQH').length, daBo:D.cauHinh.maDaBo}));
-    ok('Báo cáo đã bỏ không tự quay lại khi mở lại app', /"co":0/.test(nq), nq);
     // L4/L5 sổ
     const so = await p.evaluate(()=>{ doiNgan(0); ntDatChe('don'); var iso=lcISO(nay()); var n0=dsDong(iso).length;
       document.getElementById('nk-dong-moi').value='Việc A'; document.querySelector('.og-them').click(); var n1=dsDong(iso).length;

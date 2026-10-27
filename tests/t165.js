@@ -126,7 +126,7 @@ const path=require('path');
    ok('chọn "Ngày tiêu hủy = ngày GD" (riêng) → ngày in sẵn, giờ vẫn chấm', /3\. Thời gian tiêu hủy: …….. giờ…… phút, ngày \d\d\/\d\d\/\d{4}/.test(t));
    gdxDat('m12GioHuy', 'san', 1); await w(100); t = chu(fd().body.innerHTML);
    ok('giờ ghi sẵn (khai báo ⚙, mặc định 11 giờ 30 phút) — chọn riêng', /3\. Thời gian tiêu hủy: 11 giờ 30 phút, ngày \d\d\/\d\d\/\d{4}/.test(t));
-   const html = {}; for(const n of [10, 15, 20, 30, 36, 45]){ C.m12NumRows = n; html[n] = gdxTrang(gdxThan()); }
+   const html = {}; for(const n of [10, 15, 20, 30, 36, 45]){ C.m12NumRows = n; html[n] = gdxTrang(gdxDung(gdxChup()).than); }
    C.m12NumRows = 12;
    /* khai báo cũ "ghi sẵn giờ, ngày" (3.172) → 2 lựa chọn riêng */
    D.cauHinh.gdx = {m12TimeMode:'prefill', quickAmounts:[20000000, 30000000, 50000000, 80000000, 90000000, 100000000]}; const Cm = gdxC();

@@ -21,7 +21,7 @@ function btDs(){ return D.cauHinh.bcToi = D.cauHinh.bcToi || []; }
 function btMoi(){ return {id:'bt'+Date.now().toString(36), ten:'', gop:'mon', cot:BT_COT.mon.filter(function(c){ return c.md; }).map(function(c){ return c.k; }), loc:['conNo'], nhom:'dht', kho:'tu'}; }
 /* dòng Mẫu 31 trong phạm vi + Chương trình + Nguồn vốn của tab (chưa áp điều kiện lọc của báo cáo) */
 function btMon(ctx){ var S = ctx.S, K = ctx.K;
-  return ((ctx.B && ctx.B.co && ctx.B.co.hstd) || []).filter(function(o){ return o.ku && pvLoc(S, KHO.toKy(K, toMaCua(o))) && (!S.ct || String(o.ct)===S.ct) && (!S.nguon || String(o.nguon)===S.nguon); }); }
+  return (kcGoc(ctx.B) || []).filter(function(o){ return o.ku && pvLoc(S, KHO.toKy(K, toMaCua(o))) && (!S.ct || String(o.ct)===S.ct) && (!S.nguon || String(o.nguon)===S.nguon); }); }
 function btQua(o, loc){ return (loc.indexOf('conNo')<0 || (o.dn||0)>0) && (loc.indexOf('qh')<0 || (o.qh||0)>0) && (loc.indexOf('kn')<0 || (o.kn||0)>0) && (loc.indexOf('lt')<0 || laiTon(o)>0); }
 function btDong(cfg, ctx){
   var K = ctx.K, ds = btMon(ctx).filter(function(o){ return btQua(o, cfg.loc||[]); }), ra = [];
@@ -47,7 +47,7 @@ function btDoiChieu(ctx){
   if(!tw) return 'Đối chiếu TW: chưa có số liệu TW (Tổng dư nợ theo CT) cùng kỳ để đối chiếu.';
   if(S.diem || S.to) return 'Đối chiếu TW: file Tổng dư nợ theo CT không chia tới điểm GD / tổ — chọn Toàn PGD, xã hoặc hội để đối chiếu.';
   var hop = function(o){ return (!S.xa || String(o.xa)===String(S.xa)) && (!S.hoi || String(o.dv||'')===S.hoi) && (!S.ct || String(o.ct)===S.ct) && (!S.nguon || String(o.nguon)===S.nguon); };
-  var a = (B.co.hstd||[]).filter(function(o){ return o.ku && hop(o); }), b = tw.filter(hop);
+  var a = (kcGoc(B)||[]).filter(function(o){ return o.ku && hop(o); }), b = tw.filter(hop);
   var cong = function(r, f){ return r.reduce(function(s, o){ return s+(o[f]||0); }, 0); }, lech = 0;
   var p = [['dn', 'dư nợ'], ['qh', 'QH'], ['kn', 'khoanh']].map(function(f){ var x = cong(a, f[0]), y = cong(b, f[0]), ok = Math.abs(x-y)<0.5; if(!ok) lech++;
     return f[1]+' '+dkTien(x)+(ok ? ' = TW ✓' : ' ≠ TW '+dkTien(y)+' (lệch '+dkTien(x-y)+')'); });

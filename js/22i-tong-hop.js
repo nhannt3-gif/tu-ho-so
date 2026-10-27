@@ -563,17 +563,6 @@ function thBaoCao(k){
   }
 }
 /* 3.164: giao diện không còn nút Xem / in nhiều báo cáo 1 lần (anh chốt) — hàm giữ lại để phép thử đối chiếu cả 9 báo cáo 1 lượt */
-function thXem(){
-  var C = thCH(); if(!TH_K) return;
-  var ds = TH_BC.filter(function(b){ return C.bc[b.k]; }); if(!ds.length) return bao('Tích ít nhất 1 báo cáo.', 3);
-  var pv = pvChu(C, TH_K.K)+(C.ct ? ' · CT '+ctNgan(C.ct) : '')+(C.nguon ? ' · nguồn '+(SL_NGUON[C.nguon]||C.nguon) : '');
-  try{ TH_XEM = ds.map(function(b){ CT_DUNG = {}; var x = thBaoCao(b.k); x.pv = pv; x.ctChu = ctChuThich(); CT_DUNG = null; return x; }); }
-  catch(er){ CT_DUNG = null; return baoLoi('Lập báo cáo lỗi: '+(er && er.message || er)); }
-  moHop('<div class="hop-tit">👁 Xem tổng hợp — '+coChuHTML(pv)+'</div><iframe id="th-khung" class="to-khung" title="Xem trước"></iframe>'+
-    xuatHang({ten:xuatTen(TH_XEM.length>1 ? 'Tong hop' : TH_XEM[0].ten, pv, TH_K.ky), html:function(){ return thHTMLIn(TH_XEM); }, excel:'thExcel()'}), true);   /* 3.152 */
-  var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
-  var f = document.getElementById('th-khung'); xemChuan(f, thHTMLIn(TH_XEM));
-}
 function thHTMLIn(R){   /* 3.92: khuôn 01.1 — A4 ngang, lề 7 mm, chữ 9,5 pt, "Đơn vị" canh phải, mỗi dòng 1 hàng; tràn thì tự co */
   return '<!doctype html><html><head><meta charset="utf-8"><title>Tong hop</title><style>'+bcCSS(true)+'body{font-size:9.5pt}.th-bang th{vertical-align:middle;text-align:center}tr.th-so td{text-align:center;font-style:italic;font-size:.85em;background:#f7f9fb}.th-dv{text-align:right;font-style:italic;font-size:9pt;margin:-2px 0 2px}</style></head><body>'+R.map(function(x){
     return '<div class="trang ngang"><div class="bc-dau"><div>'+'<b>'+coChuHTML(BC_DV)+'</b>'+'</div><div class="bc-ngay">'+coChuHTML(x.ngay)+'</div></div>'+

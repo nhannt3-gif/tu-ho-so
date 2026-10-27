@@ -255,7 +255,7 @@ function slTheKH(ma){
   else moHop('<div class="tc-the tc-khung">'+h+'</div>', true);
   KHO.bo(c.ky).then(function(B){
     var e = document.getElementById('kh-mon'); if(!e) return;
-    var ds = (B.theoKH[ma]||[]).filter(function(m){ return m.ku; }), gap = {};
+    var ds = KHO.monKy(B, ma).filter(function(m){ return m.ku; }), gap = {};   /* 3.384: qua kho chuẩn (cửa món theo khách) */
     ds = ds.filter(function(m){ if(gap[m.ku]) return false; gap[m.ku] = 1; return true; });
     var daTT = function(m){ return (m.ttMon==='CLOSE' || !((m.dn||0)>0)) && !(laiTon(m)>0); };
     var con = ds.filter(function(m){ return !daTT(m); }), xong = ds.filter(daTT);

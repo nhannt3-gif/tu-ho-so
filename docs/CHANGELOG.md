@@ -4,6 +4,27 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.385 — 27/10/2026 — Sao kê theo nhà đầu tư (TK 3)
+- **Anh 27/10**: "làm thêm 1 sao kê hay truy vấn theo mã nhà đầu tư"; "mã NĐT có mấy loại nên em sổ sẵn ra"; "không cần (tra cứu), tra cứu đã nhiều rồi, cần bên sao kê, theo chương trình, đến tổ"; "có sao kê cho vay trực tiếp coi như 1 cấp lọc" (sẵn: ô Hội "Trực tiếp", ô Tổ "Vay trực tiếp (không qua tổ)").
+- Tab Sao kê › Thông tin tổ: báo cáo **Sao kê theo nhà đầu tư** (khổ ngang). Ô chọn NĐT sổ sẵn mọi mã có trong Mẫu 31 kỳ đang xem (cột 136 "Mã nhà đầu tư"; mã trống = Vốn TW không qua NĐT), kèm nguồn · số món · dư nợ; "Tất cả" hoặc 1 NĐT. Chia **NĐT › chương trình › tổ › món** (vay trực tiếp = nhóm "Vay trực tiếp (không qua tổ)"); cột STT, mã KH, họ tên, số KU, ngày vay, hạn trả, dư nợ, quá hạn, khoanh, lãi tồn; cộng tổ / chương trình / NĐT / tổng; theo bộ lọc địa bàn; In / PDF / Excel.
+- ✏ Tên NĐT (không bắt buộc): Mẫu 31 chỉ có mã → anh gõ tên, lưu `D.cauHinh.slNdtTen` (đồng bộ khối Số liệu, không vào repo).
+- Kiểm file thật 25/10 (chỉ đếm): 5 mã (trống / TW 18.590 món · INV…3650 / ĐP 2.807 món · INV…0215 / TW 221 · INV…6659 / ĐP 8 · INV…6658 hết dư nợ).
+- `js/74-sk-ndt.js` (mới), `js/22h-cap-hoi-sao-ke.js` (SK_BC 'ndt', ô chọn, skBaoCao), `index.html`, `css/app.css`, `js/17b`. Phép thử t279 (8).
+
+## 3.384.1 — 27/10/2026 — Dọn hàm + phép thử không còn dùng (TK 3)
+- **Anh 27/10**: "có, luôn kiểm tra xóa các phép thử không còn dùng".
+- Bỏ khỏi app (không chỗ nào gọi, chỉ phép thử gọi):
+  - chức năng đã gỡ: `boBaoCao` (bỏ mẫu báo cáo — không còn nút) + đoạn N1 của `tests/hoiquy.js`; `ktDsLTC` (lời văn danh sách lãi tồn cũ) + 2 ý t114; `slKTDauHTML` (khối Kiểm tra kỳ cũ) + đoạn t105.
+  - lớp bọc 1 dòng: `gdxGLLamTrong` (→ `gdxGLMoi`), `gdxThan` (→ `gdxDung(gdxChup()).than`), `ktGNKhaiBao` / `ktKhaiBao` (→ `ktInHop([mẫu], '', ktHoiDs())`, sửa t106 t108 t111 t126 t132 t236 t272), `pvMo` (bỏ lời gọi thừa t168).
+  - `thXem` (lập mọi báo cáo Tổng hợp 1 lần — giao diện dùng `thXemNgay`): chuyển nguyên văn sang `tests/tro_thxem.js` để t105 / t148 / t196 vẫn kiểm đủ Tổng hợp.
+- Giữ `pbNguon`, `pbTongHopCT` (lớp nghiệp vụ Phân bổ KH — phần của tài khoản chính, t250 thử trực tiếp).
+- Không có file phép thử bỏ hoang: `do_bo_cuc.js`, `chuan_tao.js`, `hssv_exe.js`, `nguon.js`, `fakedrive.js` là công cụ / tệp phụ đang dùng; không phép thử trùng. t192 thêm 9 hàm vào danh sách "đã gỡ không được quay lại".
+
+## 3.384 — 27/10/2026 — Kho chuẩn cho Giao dịch xã · Tra cứu · TK 104/105 + hồi quy theo đổi (TK 3)
+- Anh nhắn "cả 2" (27/10) cho 2 việc đã trình:
+**1. Kho chuẩn (tiếp 3.381–3.382):** Giao dịch xã, Tra cứu (qua cửa `KHO.dongTo` / `monKy` / `saoKeKy` / `saoKe`), thành viên – TK 104/105 (`js/28`: Mẫu 01/TV, Mẫu 31, Sao kê TK gắn theo mã KH), Đăng ký báo cáo (`js/62`), Báo cáo tối (`js/63`), chỗ sót ở KTGS (`22b`) và tab Tổ (`22gb`) thôi đọc thẳng bảng — đi qua `kcGoc` / `kcBang` / `kcLap` / `kcTK` / `kcTo`. Kết quả không đổi: t276 (64 báo cáo giống hệt bản chụp), t275, t167 (Giấy lĩnh tiền 85/85), t168, t177, t235, t244, t246, t257, t277, t300, t301, t310 đạt. `kcDung` chịu được bộ chưa có `co`. `tests/kiem.py` thêm thước đo **đọc thẳng bảng gốc** (mốc 0) — QUY_CHUAN mục 15.
+**2. Hồi quy theo đổi** (anh 26/10 "chức năng nào đã chốt đánh dấu ổn thì chỉ đọc từ nó, không làm thay đổi nên không cần chạy lại"): `tools/hoiquy_pt.py` dò file mỗi phép thử dựa vào (phần chung + file định nghĩa hàm phép thử gọi + CSS nếu đo bố cục + tệp phụ / bộ sinh dữ liệu giả); phép đạt → **đã chốt** (`tests/hoiquy_moc.json`, bảng `docs/DA_CHOT.md`); `bash tools/hoiquy.sh <tên> <tmp> doi 2` chỉ chạy phép chưa chốt / có file phụ thuộc đổi; hồi quy đủ định kỳ 3–4 bản. Cột ✗= chỉ đếm dòng bắt đầu bằng ✗ → hết 6 báo nhầm (t192, t207, t208, t210, t224, t254). t158 (cột Tự động): phép thử đòi cứng cột Số món dù bảng hết chỗ → sửa: hết chỗ thì không thêm là đúng. t192 thước đo "dòng >400": ngắt 12 dòng dài (chỉ xuống dòng ở chỗ nối chuỗi) → 158 < mốc 163. Không có phép thử trùng để gộp (1 cặp mô tả trùng t108 / t109 kiểm 2 mẫu Word khác nhau). 10 hàm chỉ phép thử gọi (boBaoCao, gdxGLLamTrong, gdxThan, ktDsLTC, ktGNKhaiBao, pbNguon, pbTongHopCT, pvMo, slKTDauHTML, thXem) **chưa xóa** — chờ anh duyệt (bỏ mã app).
+
 ## 3.383.7 — 27/10/2026 — Lọc địa bàn: nhớ phiên, ghim từng ô, đổi cấp, dải tiêu đề · Tra cứu: 📊 Biến động TK 105 (TK 3)
 - Anh gom 5 ý rồi nhắn "em code" (27/10):
   1. Dòng cộng danh sách tổ (anh gửi ảnh, chữ phạm vi bị cắt) → chỉ ghi cấp lọc cuối, rê chuột đủ phạm vi.

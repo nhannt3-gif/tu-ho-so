@@ -386,7 +386,8 @@ var SK_BC = [{k:'qh', ten:'Sao kê nợ quá hạn', nhom:'xl', kho:'doc'}, {k:'
   {k:'thhd', ten:'Tình hình hoạt động (THHD) — tín dụng theo cấp chọn (PGD › xã › điểm › hội › tổ), 1 trang A4 dọc', nhom:'tt', kho:'doc'},
   {k:'tqh', ten:'Sao kê nợ quá hạn — chia Điểm GD › Hội › Tổ (như file tổng hợp)', nhom:'tt', kho:'doc'}, {k:'tkn', ten:'Sao kê nợ khoanh — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'doc'},
   {k:'tkhd', ten:'Sao kê 3 tháng không hoạt động — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'ngang'},
-  {k:'b105', ten:'Sao kê biến động TK 105 — khách chuyển vào, trích trả lãi / gốc (Mẫu 31 + Sao kê TK 105 cùng ngày)', nhom:'tt', kho:'ngang'}];   /* 3.380 (js/72) */
+  {k:'b105', ten:'Sao kê biến động TK 105 — khách chuyển vào, trích trả lãi / gốc (Mẫu 31 + Sao kê TK 105 cùng ngày)', nhom:'tt', kho:'ngang'},
+  {k:'ndt', ten:'Sao kê theo nhà đầu tư — chia chương trình › tổ (Mẫu 31 · mã NĐT)', nhom:'tt', kho:'ngang', ndt:1}];   /* 3.385 (js/74) */   /* 3.380 (js/72) */
 function skChon(){ var C = skCH(); if(!C.chon || !SK_BC.some(function(b){ return b.k===C.chon; })){ var c = SK_BC.find(function(b){ return C.bc[b.k]; }); C.chon = c ? c.k : 'qh'; } return C.chon; }
 function skKhoCua(k){ var C = skCH(), b = SK_BC.find(function(x){ return x.k===k; }) || {}; return (C.kho && C.kho[k]) || b.kho || 'doc'; }
 function skChonBC(k){ var C = skCH(); C.chon = k; C.bc = {}; C.bc[k] = true; luu(); veSaoKe(); }
@@ -413,6 +414,7 @@ function veSaoKe(){
       slNguonHTML(K.B)+'<div id="sk-cay" class="to-cay pv-cay"></div>'+
       (bc && bc.ngay ? '<div class="sk-ngay sk-ngay1">Khoảng ngày: từ <input type="date" value="'+C.tu+'" onchange="skCH().tu=this.value;luu()"> đến <input type="date" value="'+C.den+'" onchange="skCH().den=this.value;luu()">'+
         ' <button class="nho" onclick="skDatNgay(\'thang\')">Tháng sau</button><button class="nho" onclick="skDatNgay(\'quy\')">Đến cuối quý</button><button class="nho" onclick="skDatNgay(\'nam\')">Đến hết năm</button></div>' : '')+
+      (bc && bc.ndt && typeof ndtOHTML==='function' ? ndtOHTML() : '')+   /* 3.385: ô chọn nhà đầu tư sổ sẵn */
       '<div class="sk-luoi">'+SK_NHOM.map(function(n){ return '<div class="sk-nhom"><div class="sk-nhom-ten">'+n.ten+'</div>'+SK_BC.filter(function(b){ return b.nhom===n.k; }).map(function(b){
         return '<label class="sk-bc"><input type="radio" name="sk-bc"'+(b.k===k ? ' checked' : '')+' onchange="skChonBC(\''+b.k+'\')"> <span>'+coChuHTML(b.ten)+' <small>· '+(b.kho==='ngang' ? 'ngang' : 'dọc')+'</small></span></label>'; }).join('')+'</div>'; }).join('')+(typeof dkNutHTML==='function' ? dkNutHTML('sk') : '')+'</div>'+
       '<p class="ghi">Nợ quá hạn, khoanh, KHĐ lấy từ 3 file tháng '+kyVN(th)+'; các sao kê còn lại cần <b>Mẫu 31 tháng '+kyVN(th)+'</b>. In: mỗi món 1 dòng; khổ dọc bỏ Số KU (đã có cột CT), tràn thì bỏ SĐT rồi co chữ; Excel luôn đủ cột.</p>';
@@ -492,6 +494,7 @@ function skBaoCao(k){
     return {ten:'So dien thoai', tieuDe:'DANH SÁCH SỐ ĐIỆN THOẠI KHÁCH HÀNG', ngay:ngay, aoa:r.aoa,
       html:'<div class="bc-tom">'+dsK.length+' khách đang vay · SĐT đạt '+(dsK.length-nTrong-nSai)+' · <b>chưa có '+nTrong+'</b> · <b>không đạt '+nSai+'</b> (dòng tô nền cần bổ sung; SĐT đạt = đúng 10 chữ số, bắt đầu bằng 0)</div>'+r.html};
   }
+  if(k==='ndt') return skBCNDT(rows, ngay);   /* 3.385 (js/74) */
   if(k==='dh') return skBCDH(rows, lapKH, M, e31, ngay);   /* 3.91 */
   if(k==='cgn') return skBCChuaGN(rows, ngay);   /* 3.138 */
   if(k==='noxh') return skBCNOXH(rows, M, ngay, e31);   /* 3.91 */

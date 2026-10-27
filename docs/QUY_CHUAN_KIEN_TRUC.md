@@ -276,6 +276,8 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 - **Cấm**: tab tự đọc file / tự ghép nguồn / sửa dòng gốc. Chỉnh hiển thị (tên có dấu, viết hoa đầu từ…) làm ở lớp hiển thị, ghi rõ nguồn sửa.
 - Chuyển dần các tab sang cửa này (3.382 Sao kê · Tổng hợp · Thông tin tổ → 3.383 Giao dịch xã · Tra cứu · TK 104/105 → 3.384 rà phần còn lại + luật trong `tests/kiem.py`); mỗi bản so kết quả trước / sau giống hệt.
 
+- **3.384:** Giao dịch xã, Tra cứu, thành viên / TK 104–105 (`js/28`), Đăng ký báo cáo (`js/62`), Báo cáo tối (`js/63`), KTGS / tab Tổ còn sót đều đọc qua kho (`kcGoc`, `kcBang`, `kcLap`, `kcTK`, `KHO.monKy` / `dongTo` / `saoKeKy`). `tests/kiem.py` có thước đo **đọc thẳng bảng gốc** (`B.co.hstd / tv01 / nqh…`, `B.theoKH`, `B.mon` ngoài lõi nạp + kho) — mốc 0, tăng thì ⚠.
+
 ## 16. Hiện tổ — chỉ hiện tổ CHƯA ĐÓNG (anh 26/10/2026: "nguyên tắc chỉ hiện các tổ chưa đóng; tổ đóng rồi không hiện nữa, nếu cần sẽ sao kê bên tab Sao kê"; "em tự chốt quy tắc, anh kiểm tra phản hồi" — bản 3.383.6)
 Một chỗ quyết định: `toDong0` (`js/22g-to.js`) lúc dựng cây tổ của kỳ — mọi tab đọc `K.to` (cây, bộ lọc, Tra cứu, Tổ của điểm GD, KTGS…) nên theo cùng 1 luật. Tab không tự lọc lại.
 

@@ -31,7 +31,7 @@ var KHO = (function(){
     /* KHO.dsTo() → [tổ] (bỏ tổ giả "trực tiếp") của kỳ đang dựng */
     dsTo: function(){ return co() ? Object.keys(TO_K.to||{}).map(function(m){ return TO_K.to[m]; }).filter(function(t){ return t && !(typeof toLaTT==='function' && toLaTT(t)); }) : []; },
     /* KHO.dongTo(maTo) → [dòng Mẫu 31 kỳ đang dựng của tổ] (kh, ten, cccd, tenThon, tenXa, món…) */
-    dongTo: function(ma){ return co() && ma && TO_K.kh ? TO_K.kh[ma] || [] : []; },
+    dongTo: function(ma){ return co() && ma ? kcTo(TO_K, ma).dong : []; },   /* 3.384: qua kho chuẩn (theoTo = K.kh) */
     /* KHO.toVien(maTo | tổ) → [tổ viên + trạng thái: còn nợ / tất nợ còn TK 105 / vào / ra…] (bọc toTV) · QT-01…07 */
     toVien: function(x){ var t = typeof x==='string' ? toThat(x) : x; if(!t || !co()) return []; try { return toTV(t); } catch(e){ return []; } },
     /* KHO.bangTo(maTo) → dòng BẢNG TỔ DỰNG SẴN {kh tổ trưởng (Mã CIF TT), cccd, ncap, ccTu, ccLy, han, tk (104), tkTu, tkLy, tkDs, tkTrung, diem…, thieu} | null · QT-12, 13 */
@@ -45,9 +45,9 @@ var KHO = (function(){
     /* 3.346 (K2): cửa đọc KỲ CỦA TAB (K = KHO.nap(kỳ) giữ riêng, vd Tra cứu TC_K) — KHO.toKy(K, maTo) → tổ | null · KHO.dsToKy(K) → [tổ] · KHO.monKy(K, maKH) → [dòng món Mẫu 31 của khách] · KHO.khdKy(K) → {số KU: món 3 tháng KHĐ} · KHO.saoKeKy(K, loại) → {ky, rows} | null (gắn kỳ đó, không có thì kỳ đang dựng) */
     toKy: function(K, ma){ return K && K.to && ma ? K.to[ma] || null : null; },
     dsToKy: function(K){ return K && K.to ? Object.keys(K.to).map(function(m){ return K.to[m]; }) : []; },
-    monKy: function(K, kh){ return K && K.B && K.B.theoKH && kh ? K.B.theoKH[kh] || [] : []; },
+    monKy: function(K, kh){ var c = kh && kcDung(K); return c ? c.theoKH[kh] || [] : []; },   /* 3.384: qua kho chuẩn */
     khdKy: function(K){ return (K && K.B && K.B.khd) || {}; },
-    saoKeKy: function(K, loai){ return (K && K.tk && K.tk[loai]) || this.saoKe(loai); },
+    saoKeKy: function(K, loai){ return (K && K.tk && K.tk[loai] && (kcTK(K, loai) || K.tk[loai])) || this.saoKe(loai); },   /* 3.384: qua kho chuẩn (gắn theo mã KH) */
     /* 3.346 (K3): KHO.bang(loại, kỳ) → thông tin bảng đã nạp {loai, ky, ngay, ten, luc, dong, …} | null · KHO.dsBang(loại?) → [thông tin bảng] (mọi loại hoặc 1 loại) · KHO.docBang(loại, kỳ) → Promise bảng {rows, …} (bọc slDocBang) */
     bang: function(loai, ky){ return (typeof SLM!=='undefined' && SLM.bang && SLM.bang[slKhoa(loai, ky)]) || null; },
     dsBang: function(loai){ if(typeof SLM==='undefined' || !SLM.bang) return []; return Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return !loai || e.loai===loai; }); },

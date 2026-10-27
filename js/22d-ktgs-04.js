@@ -168,7 +168,6 @@ function ktDsChu(L, f){ var a = L.slice(0, KT_DS_TOI).map(f); return a.join('; '
 function ktDsQH(L){ return ktDsChu(L, function(x){ return x.ten+' (quá hạn '+ktTr(x.tien, 2)+' triệu đồng)'; }); }   /* 3.114 */
 function ktDsKN(L){ return ktDsChu(L, function(x){ return x.ten+' (nợ khoanh '+ktTr(x.tien, 2)+' triệu đồng)'; }); }
 function ktDsTen(L){ return ktDsChu(L, function(x){ return x.ten; }); }
-function ktDsLTC(L){ return ktDsChu(L, function(x){ return x.ten+' (lãi tồn '+tdnTien(x.lt)+' đồng)'; }); }   /* 3.134 (anh chốt): lời văn không ghi số tháng lãi */
 /* 3.134 (anh chốt): tính vẫn theo số tháng (không giao dịch từ 3 tháng, lãi tồn > 6 tháng lãi) để phân nặng nhẹ; hành văn nhóm chung "Món vay không có giao dịch từ 3 tháng trở lên, lãi tồn cao" */
 function ktDsGop(d){
   var m = {}, ds = [], lay = function(ten){ if(!m[ten]){ m[ten] = {ten:ten, dn:0, n:0, lt:0, th:0}; ds.push(m[ten]); } return m[ten]; };

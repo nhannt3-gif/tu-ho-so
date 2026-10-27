@@ -11,7 +11,7 @@ function kcDung(K){   /* K = kỳ đã dựng (KHO.nap) hoặc bộ bảng B (KH
   if(K.kc && K.kc.B===K.B) return K.kc;
   var B = K.B;
   K.kc = {B:B, ky:K.ky, ngay:K.ngay,
-    dong:B.co.hstd || [], huy:B.huy || [], lap:B.lap || [],   /* gốc Mẫu 31 · KU hủy (giữ riêng) · dòng TK riêng / khách ra tổ */
+    dong:(B.co || {}).hstd || [], huy:B.huy || [], lap:B.lap || [],   /* 3.384: bộ chưa có co (kỳ dựng dở / phép thử) vẫn đọc được theoKH */   /* gốc Mẫu 31 · KU hủy (giữ riêng) · dòng TK riêng / khách ra tổ */
     theoKH:B.theoKH || {}, theoKU:B.mon || {}, theoTo:K.kh || {}, to:K.to || {},
     nqh:B.nqh || {}, nk:B.nk || {}, khd:B.khd || {}, gan:{}};
   return K.kc;
