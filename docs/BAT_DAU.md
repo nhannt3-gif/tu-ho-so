@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.389.2** — TK 3: nút 📋 Chép (xanh lục) chép file thật qua cầu nối, đã chạy trên máy anh. Bàn giao TK 2: `docs/BAN_GIAO_TK3_2710.md`.
+- **`main` = 3.390** — TK 2: bộ lọc chuẩn mọi tab (nút 🔎 Tìm tổ + chip 📅 nguồn số liệu trên dải LỌC ĐỊA BÀN; bỏ CSS lọc riêng). Bàn giao TK 3 → TK 2: `docs/BAN_GIAO_TK3_2710.md` (mục 3.1 xong).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

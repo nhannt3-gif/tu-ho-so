@@ -238,7 +238,7 @@ function ktTim(){
 function ktChonTo(ma){
   var t = KT_K && KT_K.to[ma]; if(!t) return;
   var C = ktCH(); C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); C.ap = ''; C.to = ma;
-  KT_Q = ''; var i = document.getElementById('kt-tim'); if(i) i.value = '';
+  KT_Q = ''; PV_TIM_MO.kt = 0; var i = document.getElementById('kt-tim'); if(i) i.value = '';
   var g = document.getElementById('kt-gy'); if(g) g.innerHTML = '';
   luu(); pvVeCay('kt');
 }

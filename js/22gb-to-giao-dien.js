@@ -26,7 +26,7 @@ function toVeCay(){ pvVeCay('to'); }
 function toChonTo(ma){
   var t = KHO.kyDung() && KHO.kyDung().to[ma]; if(!t){ var an = KHO.kyDung() && KHO.kyDung().toAn && KHO.kyDung().toAn[ma]; if(an) bao('Tổ '+(an.ten||ma)+' (mã '+ma+') đã đóng (không còn trên Danh sách tổ kỳ này) — không hiện; cần xem thì sao kê ở tab Sao kê.', 6); return; }
   var C = toCH(); C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); C.ap = ''; C.to = ma;
-  TO_Q = ''; var i = document.getElementById('to-tim'); if(i) i.value = '';
+  TO_Q = ''; PV_TIM_MO.to = 0; var i = document.getElementById('to-tim'); if(i) i.value = '';
   var g = document.getElementById('to-gy'); if(g) g.innerHTML = '';
   luu(); pvVeCay('to');
 }
