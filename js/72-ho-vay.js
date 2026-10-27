@@ -62,3 +62,6 @@ function hvBaoCao(rows, ngay){
       ' · ⏳ chưa chuyển '+(dem.cho||0)+' · 💵? '+((dem.tm||0)+(dem.khongTK||0))+' · 🟠 thu &lt; phải thu '+(dem.thieu||0)+'<span class="hv105-gc">'+skChu+'. Khách chuyển vào = (số dư đến ngày − số dư cuối tháng trước) + trích trả lãi + trích trả gốc (coi như trả qua TK 105; '+
       'Mẫu 31 không ghi thu từ TK nào → 💵? = nghi nộp tiền mặt / rút tiền). Lãi tiền gửi 105 nhập vào TK (nếu có) tính chung vào khách chuyển vào.</span></div>'+r.html};
 }
+/* 3.387 cắm rút (QUY_CHUAN 13): báo cáo Sao kê tự đăng ký — gỡ file này là mất báo cáo, không sửa js/22h */
+SK_BC.push({k:'b105', ten:'Sao kê biến động TK 105 — khách chuyển vào, trích trả lãi / gốc (Mẫu 31 + Sao kê TK 105 cùng ngày)', nhom:'tt', kho:'ngang',
+  lap:function(){ var K = SK_K; return hvBaoCao((kcGoc(K.B)||[]).filter(skTrongPV), 'Số liệu đến ngày '+ngayVNsl(K.ngay)+' ('+(K.hsTen||'Mẫu 31')+')'); }});

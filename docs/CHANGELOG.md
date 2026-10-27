@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.387 — 27/10/2026 — Rà soát: dọn rác, khuôn in chung, cắm rút báo cáo Sao kê (TK 3)
+- **Anh 27/10**: "rà soát cấu trúc bố cục, code em làm 2 hôm nay, chú ý dọn code rác, hồi quy cũ không còn dùng, quy tắc cắm rút, mọi thứ đọc qua kho, dữ liệu tập trung, mẫu biểu tập trung…, tối ưu lưu trữ".
+- Dọn: CSS `.sk-thanh*`, `.sk-bc`, nhãn "LỌC ĐỊA BÀN" cũ, `PV_KIEU`; bỏ chế độ nhóm `tools/hoiquy_nhom.txt` (chỉ còn `doi` / `tat`).
+- **Khuôn in chung `js/75-khuon-in.js`**: `bcDauTrang(ngay, tieuDeHTML, pvHTML)` + `bcLogo()` — `toDauBC`, `skHTMLIn`, `thHTMLIn` cùng gọi.
+- **Cắm rút báo cáo Sao kê**: mỗi báo cáo mới = `SK_BC.push({k, ten, nhom, kho, lap, tuyChon})` trong file riêng; `skBaoCao` gọi `lap()`. Đã chuyển b105 (`js/72`), ndt (`js/74`).
+- Lưu tạm kho đã dựng: đo trên số liệu thật 25/10 — đọc bảng lần đầu ~0,9 s, dựng kho ~0,08 s, lần sau 0 ms → **không làm** (lợi ít, rủi ro dữ liệu cũ); ghi ở bàn giao.
+- 66 báo cáo t276 giống hệt.
+
 ## 3.386.2 — 27/10/2026 — Biến động TK 105: Ghi chú gọn hơn (TK 3)
 - **Anh 27/10**: "cột ghi chú thì chữ nhỏ, không cần lớn để cho gọn cột" → Ghi chú 6,5 pt, cột 14–30 mm. t276 chụp lại b105.
 

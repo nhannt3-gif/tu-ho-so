@@ -184,7 +184,7 @@ const fs=require('fs'), path=require('path');
      const C = skCH(); C.xa=''; C.diem=''; C.hoi=''; C.to=''; skChonBC('dh'); await w(800); C.tu='2029-01-01'; C.den='2029-03-31';
      const kq = []; for(const kho of ['ngang','doc']){ skDoiKho(kho); skXem(); await w(1500); const d = new DOMParser().parseFromString(document.getElementById('sk-khung').trGoc||'', 'text/html');
        kq.push(kho+': '+Array.from(d.querySelectorAll('.bc-khung thead th')).slice(0,14).map(x=>x.textContent).join(',')+' · lớp trang '+d.querySelector('.trang').className); dongHop(); await w(200); }
-     o.kho = kq.join(' // '); o.nhomSK = document.querySelectorAll('.sk-nhom').length+' nhóm · '+document.querySelectorAll('.sk-bc input[type=radio]').length+' nút chọn'; }
+     o.kho = kq.join(' // '); skVeDS(); await w(300); o.nhomSK = document.querySelectorAll('.sk-nhom').length+' nhóm · '+document.querySelectorAll('.sk-bc2').length+' báo cáo'; }
    /* 3.92: tổng hợp tiêu đề 2 tầng + hàng số cột */
    { const h = thBang2(['TT','Tên','Doanh số cho vay|Trong tháng','Doanh số cho vay|Lũy kế năm','Tổng dư nợ'], [{o:[1,'A',1e6,2e6,3e6]}], function(v){ return thTr(v,2); });
      o.th2tang = (h.match(/<tr/g)||[]).length+' hàng · colspan '+/colspan="2"/.test(h)+' · số cột (5) '+/\(5\)/.test(h)+' · '+/1,00/.test(h); }

@@ -75,3 +75,7 @@ function skBCNDT(rows, ngay){
   return {ten:ten, tieuDe:tde, ngay:ngay, aoa:aoa,
     html:'<div class="bc-tom">'+tom.map(coChuHTML).join('<br>')+'</div><table class="bc-bang ndt-bang"><thead><tr>'+cot.map(function(c){ return '<th>'+c+'</th>'; }).join('')+'</tr></thead><tbody>'+h+'</tbody></table>'};
 }
+/* 3.387 cắm rút (QUY_CHUAN 13): tự đăng ký vào Sao kê — lap (cần Mẫu 31) + tuyChon (ô chọn NĐT) */
+SK_BC.push({k:'ndt', ten:'Sao kê theo nhà đầu tư — chia chương trình › tổ (Mẫu 31 · mã NĐT)', nhom:'tt', kho:'doc', ndt:1, tuyChon:ndtOHTML,
+  lap:function(){ var M = skMau31(); if(!M) return skCan31('Sao kê theo nhà đầu tư'); var th = SK_K.thang, e31 = KHO.bang('hstd', th);
+    return skBCNDT((kcGoc(M)||[]).filter(skTrongPV), 'Số liệu đến ngày '+ngayVNsl(e31.ngay)+' (Mẫu 31 '+kyVN(th)+')'); }});
