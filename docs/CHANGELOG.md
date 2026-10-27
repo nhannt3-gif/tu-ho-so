@@ -4,6 +4,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.386.2 — 27/10/2026 — Biến động TK 105: Ghi chú gọn hơn (TK 3)
+- **Anh 27/10**: "cột ghi chú thì chữ nhỏ, không cần lớn để cho gọn cột" → Ghi chú 6,5 pt, cột 14–30 mm. t276 chụp lại b105.
+
 ## 3.386.1 — 27/10/2026 — Logo cánh sen + Biến động TK 105 chữ gọn (TK 3)
 - **Anh 27/10**: "cột ghi chú bị mất, có thể cho font nhỏ lại để hiện gọn hơn" → bảng Biến động TK 105: 8,5 pt (tiêu đề cột 8, ghi chú 7), ô sát hơn — đủ 14 cột khổ ngang. Bản chụp t276: chỉ b105 đổi — chụp lại.
 - **Anh 27/10**: "em quên đưa logo cánh sen lên" → `bcLogo()` (logo NHCSXH có sẵn `LOGO_NHCSXH`, hoặc logo anh nạp ở ⚙ Khai báo — `hsoLogoSrc`) góc trái đầu bản in Sao kê (`skHTMLIn`), Tổng hợp (`thHTMLIn`), báo cáo tab Tổ (`toDauBC`).

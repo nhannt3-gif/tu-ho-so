@@ -91,6 +91,7 @@
 | 27/10 | TK 3 (nhận bàn giao) | **3.385.1** | `js/22h` (SK_BC khổ dọc mặc định 6 báo cáo); `tests/t276_chup.json` (dh); **bàn giao `docs/BAN_GIAO_TK3_2710.md`** | t276 |
 | 27/10 | TK 3 (nhận bàn giao) | **3.386** | `js/22h` (Sao kê 2 màn), `js/22f` (tcB105), `js/74`, `css/app.css`; `tests/t205.js` | t279 t278 t276 t205 |
 | 27/10 | TK 3 (nhận bàn giao) | **3.386.1** | `js/72` (chữ b105), `js/22h` (bcLogo, toDauBC, skHTMLIn), `js/22i` (thHTMLIn); `tests/t276_chup.json` (b105) | t276 |
+| 27/10 | TK 3 (nhận bàn giao) | **3.386.2** | `js/72` (ghi chú 6,5 pt); `tests/t276_chup.json` | t276 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

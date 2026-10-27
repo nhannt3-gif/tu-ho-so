@@ -4,7 +4,7 @@
 > File này là trạng thái + việc dở + thiết kế anh đã duyệt (nguyên văn) để TK 2 làm tiếp. Đọc kèm: `CLAUDE.md`, `docs/BAT_DAU.md`, `docs/PHOI_HOP_TK2_TK3.md` (nhật ký gộp), `docs/QUY_CHUAN_KIEN_TRUC.md` (mục 15 kho chuẩn · 16 hiện tổ · 17 bộ lọc), `docs/CHANGELOG.md` (3.377 → 3.385.x).
 
 ## 1. Trạng thái
-- `main` = **3.386.1** (TK 3, nhánh `claude/busy-curie-2qescm`). Hồi quy: mốc đã chốt `tests/hoiquy_moc.json` (192 phép), bảng `docs/DA_CHOT.md`.
+- `main` = **3.386.2** (TK 3, nhánh `claude/busy-curie-2qescm`). Hồi quy: mốc đã chốt `tests/hoiquy_moc.json` (192 phép), bảng `docs/DA_CHOT.md`.
 - **Cách chạy hồi quy mới (3.384):** `bash tools/hoiquy.sh <tên> <tmp> doi 2` — chỉ chạy phép chưa chốt / có file phụ thuộc đổi (`tools/hoiquy_pt.py`); đổi file phần chung (`CHUNG` trong `tools/hoiquy_pt.py`: index.html, KHO, bộ lọc 22ga, hộp thoại 06…) → chạy hết. Hồi quy đủ `tat` định kỳ 3–4 bản. Cột ✗= chỉ đếm dòng bắt đầu bằng ✗. Thêm báo cáo Sao kê mới → nhớ `node tests/t276.js --chup` (chỉ khi báo cáo cũ không đổi) + danh sách nhóm ở t205.
 - Không có việc chạy dở trong code.
 
