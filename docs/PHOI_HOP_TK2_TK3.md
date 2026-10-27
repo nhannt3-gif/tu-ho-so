@@ -79,6 +79,10 @@
 | 26/10 | TK 3 (nhận bàn giao) | **3.383** | `js/22ga-pham-vi.js` (ấp, đa chiều, nút ✕), `js/22g-to.js` (pvGan 5 cấp), `js/22f-tra-cuu.js`, `js/58-tc-to.js`, `js/22b`, `js/22gb`, `js/22h`, `js/22i`, `css/app.css`; `tests/t277.js` mới; t258, t302 | t277 13/13, t276, hồi quy đủ |
 | 26/10 | TK 3 (nhận bàn giao) | **3.383.1** | `css/app.css` (canh cột bảng Tra cứu) | t277 |
 | 26/10 | TK 3 (nhận bàn giao) | **3.383.2** | `css/app.css` (bảng Tra cứu chữ nhỏ, gọn) | t309, t277, t156 |
+| 26/10 | TK 3 (nhận bàn giao) | **3.383.3** | `js/58-tc-to.js` (nhãn TT / TP), `css/app.css`; `tests/t277.js` | t277 14/14 |
+| 26/10 | TK 3 (nhận bàn giao) | **3.383.4** | `js/58-tc-to.js` (màu dư nợ QH / khoanh / 3T KHĐ), `css/app.css` (+ hộp Tổ của điểm GD vừa nội dung); `tests/t277.js` | t277 15/15 |
+| 26/10 | TK 3 (nhận bàn giao) | **3.383.5** | `js/58-tc-to.js` (dòng cộng danh sách tổ), `css/app.css`; `tests/t277.js` | t277 17/17 · t141 34/34 · t157 (+ nút ✕ `js/22f`, ô tìm + chip, hộp hết giật `js/06`, tổ đã đóng `js/22g` toDong0) |
+| 26/10 | TK 3 (nhận bàn giao) | **3.383.6** | `js/22g-to.js` (toDong0 — chỉ hiện tổ chưa đóng), `js/22gb`, `js/22h`, `js/58-tc-to.js`; `docs/QUY_CHUAN_KIEN_TRUC.md` mục 16; `tests/t141.js` | t141 35/35 + hồi quy đủ |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

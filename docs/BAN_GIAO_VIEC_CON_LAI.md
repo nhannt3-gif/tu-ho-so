@@ -222,6 +222,42 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.383.6)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp Mẫu 31 + file Tổ trưởng 25/10 → Tra cứu › Tổ trưởng "linh" | Không còn tổ 0231094 | |
+| 2 | Tab Tổ › ô tìm gõ mã tổ đã đóng | "Không thấy tổ khớp" | |
+| 3 | Tổ của điểm GD có tổ dư nợ 0 | Chip "cần đóng tổ", rê chuột ghi còn / đã đóng TK 104 | |
+
+**Ghi chú kỹ thuật 3.383.6:** `toDong0` là chỗ DUY NHẤT quyết định tổ hiện / ẩn (K.to / K.toAn / K.canDong / K.ngoaiDS); tab không lọc lại. `toDongNguon(t)` = căn cứ cần đóng.
+
+### Danh sách thử trên máy thật (3.383.5)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › Tổ trưởng, lọc 1 ấp | Dòng Cộng n tổ = số dòng, TV / Có DN = tổng cột | |
+| 2 | Danh sách dài, cuộn | Dòng cộng luôn hiện ở đáy | |
+| 3 | Gõ chữ ô tìm Tra cứu → bấm ✕ | Ô trống, danh sách về ban đầu | |
+| 4 | Thẻ tổ › 🏘 Tổ của điểm GD, cuộn chuột trong bảng | Chỉ bảng cuộn, hộp đứng yên, không giật | |
+| 5 | Tra cứu › Tổ trưởng gõ "linh" (kỳ 25/10) | Không còn tổ 0231094 đã đóng | |
+
+**Ghi chú kỹ thuật 3.383.5:** cộng từ `KHO.tvChuan` của đúng các tổ đã lọc (`tcToLoc`). Hộp Tổ của điểm GD: `tcBangRong` đo bảng 1 lần đặt `width` px, hộp `overflow:hidden` + bảng `flex:1` (1 thanh cuộn); `moHop` xóa `style.width`. `toDong0`: thiếu Danh sách tổ / LEN_31 → tổ dư nợ 0, không dòng nào `t105>0` (cả `K.lap`) → `K.toAn`.
+
+### Danh sách thử trên máy thật (3.383.4)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › mở tổ có khách quá hạn / khoanh / 3T KHĐ | Ô dư nợ đỏ / tím / cam; rê chuột có giải thích | |
+| 2 | Thẻ tổ › 🏘 Tổ của điểm GD (màn 1366) | Cửa sổ vừa bảng, không thanh cuộn ngang | |
+
+**Ghi chú kỹ thuật 3.383.4:** màu theo món (`m.qh`, `m.kn`, `KHO.khdKy` theo KU); dòng gộp nhiều món lấy mức nặng nhất. Hộp dùng `:has(.tc-bt-khung)` + `width:fit-content`.
+
+### Danh sách thử trên máy thật (3.383.3)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › mở 1 tổ có tổ trưởng / tổ phó đang vay | Nhãn TT / TP cạnh tên | |
+| 2 | Tổ có TT đã tất nợ còn 105 | Dòng "Tất nợ · còn TGTK" vẫn có nhãn TT | |
+
+**Ghi chú kỹ thuật 3.383.3:** mã KH tổ phó = `t.ds.phoKH` (Danh sách tổ) → `t.tt.phoKH` → `t.phoKH`.
+
 ### Danh sách thử trên máy thật (3.383.2)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

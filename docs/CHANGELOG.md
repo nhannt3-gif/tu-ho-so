@@ -4,6 +4,35 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.383.6 — 26/10/2026 — Quy tắc hiện tổ: chỉ hiện tổ chưa đóng (TK 3)
+- **Anh 26/10**: "về tổ chỉ hiện các tổ chưa đóng, còn tổ đóng rồi như Linh thì không hiện nữa, nếu cần sẽ sao kê ở bên tab Sao kê, nguyên tắc chỉ hiện các tổ chưa đóng, còn tổ chưa đóng em tìm chốt nguyên tắc"; "em tự chốt quy tắc, anh sẽ kiểm tra và phản hồi nếu chưa chuẩn".
+- Chốt `QUY_CHUAN_KIEN_TRUC.md` mục 16: tổ chưa đóng = có mã trên **Danh sách tổ** của kỳ (hệ thống chỉ xuất tổ còn mở). Có DS thì không xét LEN_31 (ghép theo tên → dễ kéo tổ đã đóng hiện lại). Thiếu DS → LEN_31; thiếu cả 2 → Mẫu 31 (dư nợ 0 + không ai còn TK 105 = đã đóng).
+- Tổ đã đóng: không hiện ở cây / bộ lọc / Tra cứu / Tổ của điểm GD, ô tìm tổ (tab Tổ) không trả về nữa. Tổ dư nợ 0 chưa đóng: chip **cần đóng tổ** thay chip số TV, rê chuột ghi căn cứ (Danh sách tổ · còn / đã đóng TK 104). Tổ còn dư nợ mà không có trên DS: vẫn hiện + "⚠ không có trên Danh sách tổ".
+- Kiểm file thật 25/10 (chỉ đếm): có DS → 47 cần đóng (32 còn TK 104), 9 đã đóng (gồm tổ 0231094), 0 lệch. Chỉ Mẫu 31 → ẩn 48 (9 đã đóng + 39 tổ chưa đóng nhưng không còn TV — Mẫu 31 không phân biệt được, cần nạp Danh sách tổ).
+- Chuỗi căn cứ khi thiếu Danh sách tổ: **Thông tin tổ trưởng** (cũng là danh sách tổ hệ thống) → LEN_31 → Mẫu 31. Tổ có **thu nợ / thu lãi trong tháng** (tất toán rồi đóng ngay trong tháng) luôn giữ → báo cáo tháng đủ số. Hồi quy 3.383.5 bắt lỗi: luật Mẫu 31 của 3.383.5 ẩn 5 tổ giả có trên Thông tin tổ trưởng chưa có món → 4 báo cáo Sao kê (KQGD, THHĐ) đổi; sửa xong t276 giống hệt bản chụp, t157 trả ngưỡng STT 60 px như cũ.
+- "Có gì mới" đúng 15 dòng (t192 — 3.383.5 thêm tay 2 dòng thành 17; bump 3.383.6 tự cắt).
+- `js/22g-to.js` (`toDong0`, `toDongNguon`), `js/22gb-to-giao-dien.js`, `js/22h-cap-hoi-sao-ke.js`, `js/58-tc-to.js` (`tcDongChip`). Phép thử t141 +1, sửa 2 ý theo luật mới (35).
+
+## 3.383.5 — 26/10/2026 — Danh sách tổ có dòng cộng theo lọc (TK 3)
+- **Anh 26/10** (ảnh danh sách 6 tổ): "có cột tổng, theo lọc".
+- Tra cứu › Tìm theo Tổ trưởng: cuối bảng có dòng **Cộng n tổ · tổng TV · tổng có dư nợ** + ghi phạm vi lọc đang chọn; dòng cộng dính đáy khung cuộn.
+- **Anh 26/10**: "có nút xóa chọn" → ô tìm Tra cứu có nút ✕ hiện ngay khi gõ (trước chỉ hiện sau khi vẽ lại), bấm → xóa chữ, tìm lại từ đầu.
+- **Anh 26/10**: "thu gọn ô tìm cân đối, quá dài, để các chip lớn hơn 1 chút" → ô tìm 240–460 px, chip Tìm theo chữ 13 px; màn ≥ 1300 px ô tìm + chip cùng 1 hàng.
+- **Anh 26/10**: "khi mở cửa sổ này (Tổ của điểm GD) giao diện cảm giác giật giật" → nguyên nhân: hộp và bảng cùng có thanh cuộn (cuộn chuột nhảy qua lại). Sửa: chỉ bảng cuộn, hộp cố định; bề rộng hộp đo 1 lần lúc mở (`tcBangRong`), `moHop` xóa bề rộng riêng khi mở hộp khác.
+- **Anh 26/10**: "tổ Linh đã đóng TK 104, đóng mã tổ nhưng vẫn hiện" → kiểm file thật 25/10: tổ không còn trong file Tổ trưởng, Mẫu 31 chỉ còn 2 món CLOSE dư nợ 0; khi có file Tổ trưởng cùng kỳ app ĐÃ ẩn đúng — máy anh hiện do kỳ đó không đọc được Danh sách tổ nên bỏ qua bước xét. Thêm luật dự phòng (`toDong0`): kỳ không có Danh sách tổ / LEN_31 → tổ dư nợ 0 và không ai còn TK 105 = đã đóng → ẩn (vẫn tìm được). Quy tắc hiện tổ chờ anh chốt (mục kỹ thuật dưới).
+- `js/58-tc-to.js` (`tcToTim`, `tcBangRong`), `js/22f-tra-cuu.js` (`tcXoaTim`), `js/22g-to.js` (`toDong0`), `js/06-hop-thoai.js` (`moHop`), `css/app.css`. Phép thử: t277 +2 (17), t141 +1 (34), t157 ngưỡng STT hẹp 60 → 64 px (bớt tổ đã đóng → bảng ít dòng).
+
+## 3.383.4 — 26/10/2026 — Thẻ tổ: màu dư nợ QH / khoanh / 3T KHĐ · bảng Tổ của điểm GD vừa nội dung (TK 3)
+- **Anh 26/10**: "danh sách hộ vay QH, Khoanh thì đổi màu theo quy định em tự định tại cột dư, món vay 3 tháng cũng vậy".
+- Ô **Dư nợ** bảng thành viên thẻ tổ: nền đỏ = có quá hạn · tím = nợ khoanh · cam = món 3 tháng không hoạt động (ưu tiên theo thứ tự đó); rê chuột hiện giải thích + số tiền. Chú thích nhỏ cạnh "Thành viên (n)".
+- **Anh 26/10**: "khi bấm vào tổ của điểm GD em bung cửa sổ cân đối cho vừa nội dung luôn" → hộp rộng theo bảng (tối đa 96 % màn hình), không cuộn ngang; bảng cao thêm.
+- `js/58-tc-to.js` (`tvTT/tvLop/tvTit`), `css/app.css` (`td.tc-dn-*`, `.hop-in.rong:has(.tc-bt-khung)`). Phép thử t277 thêm 1 ý (15).
+
+## 3.383.3 — 26/10/2026 — Thẻ tổ: nhãn TT / TP cạnh tên (TK 3)
+- **Anh 26/10**: "nếu tổ trưởng, tổ phó có vay trong tổ thì ghi kế bên tên (TT, TP, chữ màu nổi), nếu TT, TP không vay còn 105 trong tổ cũng báo y vậy".
+- Bảng thành viên thẻ tổ (Tra cứu): khách có mã KH = tổ trưởng (`tcTT` — cùng cách Giấy lĩnh / Mẫu 06) → nhãn **TT** nền xanh; = tổ phó (Danh sách tổ `phoKH`) → nhãn **TP** nền tím. Áp cho cả dòng đang vay lẫn dòng tất nợ còn TGTK (danh sách tổ viên đã gồm cả 2).
+- `js/58-tc-to.js` (`vaiTro`), `css/app.css` (`.tc-vt`). Phép thử t277 thêm 1 ý (14).
+
 ## 3.383.2 — 26/10/2026 — Tra cứu: dòng dữ liệu chữ nhỏ, gọn (TK 3)
 - **Anh 26/10**: "tinh chỉnh có thể cho các dòng dữ liệu chữ nhỏ, gọn để hiển thị được nhiều thông tin".
 - Bảng khách / bảng tổ (`table.tc-kq-bang`): chữ 12px mọi khổ màn, tiêu đề 11,5px, ô đệm 2px 5px, dòng 1,25; tên in đậm cùng cỡ chữ dòng. Bảng thành viên trong thẻ tổ (`tc-to-tvb`) đệm 1px, dòng 1,2. Cùng khung xem được thêm khoảng 25% số dòng.
