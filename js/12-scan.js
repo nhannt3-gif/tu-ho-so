@@ -2154,14 +2154,14 @@ function scriptCauNoi(){
 "  $ds = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($b)) -split \"`n\"",
 "  $c = New-Object System.Collections.Specialized.StringCollection; $thieu = @()",
 "  foreach($r in $ds){ $pp = @($r -split '/' | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' })",
-"   if($pp.Count -lt 2 -or $pp[0] -ne $goc -or @($pp | Where-Object { $_ -eq '..' -or $_ -eq '.' -or $_ -match '[\\\\:*?\"<>|]' }).Count -gt 0){ continue }",
+"   if($pp.Count -lt 2 -or $pp[0].Normalize() -ne $goc.Normalize() -or @($pp | Where-Object { $_ -eq '..' -or $_ -eq '.' -or $_ -match '[\\\\:*?\"<>|]' }).Count -gt 0){ continue }",
 "   $f = Join-Path $root ($pp -join [IO.Path]::DirectorySeparatorChar); if(Test-Path -LiteralPath $f){ [void]$c.Add($f) } else { $thieu += $pp[-1] } }",
 "  if($env:TUHOSO_THU){ Write-Output ('chepn|'+$c.Count+'|'+$thieu.Count); exit }",
 "  if($c.Count){ Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.Clipboard]::SetFileDropList($c) }",
 "  if($thieu.Count){ Bao (\"Đã chép \"+$c.Count+\" file.`nChưa thấy \"+$thieu.Count+\" file trên máy (Google Drive có thể đang chép về):`n\"+($thieu -join \"`n\")) }",
 "  exit }",
 " $parts = @($rel -split '/' | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' })",
-" if($parts.Count -lt 2 -or $parts[0] -ne $goc -or @($parts | Where-Object { $_ -eq '..' -or $_ -eq '.' -or $_ -match '[\\\\:*?\"<>|]' }).Count -gt 0){ Bao 'Đường dẫn không hợp lệ.'; exit }",
+" if($parts.Count -lt 2 -or $parts[0].Normalize() -ne $goc.Normalize() -or @($parts | Where-Object { $_ -eq '..' -or $_ -eq '.' -or $_ -match '[\\\\:*?\"<>|]' }).Count -gt 0){ Bao (\"Đường dẫn không hợp lệ:`n\"+$rel+\"`n(thư mục gốc: \"+$goc+\")\"); exit }",
 " $path = Join-Path $root ($parts -join [IO.Path]::DirectorySeparatorChar)",
 " $ext = [IO.Path]::GetExtension($path).ToLower()",
 " if(@('.pdf','.doc','.docx','.xls','.xlsx','.xlsm','.csv','.jpg','.jpeg','.png','.rtf','.odt','.ods') -notcontains $ext){ Bao 'Loại file này không mở qua cầu nối.'; exit }",
@@ -2200,6 +2200,10 @@ function taiBoCaiCauNoi(go){
 }
 /* gọi cầu nối: rel = đường dẫn trong Drive "Tủ hồ sơ/…/tên file" */
 function goiCauNoi(hanh, rel){
+  /* 3.389.1 (anh 27/10: cầu nối báo "Đường dẫn không hợp lệ"): đường dẫn phải bắt đầu bằng thư mục gốc — sai thì báo rõ đường dẫn ngay ở app */
+  var nf = function(t){ t = String(t||'').trim(); return t.normalize ? t.normalize('NFC') : t; };
+  if(hanh!=='thu' && hanh!=='chepn' && nf(String(rel||'').split('/')[0])!==nf(D.cauHinh.thumuc||'Tủ hồ sơ'))
+    return baoLoi('File này không nằm trong thư mục gốc "'+(D.cauHinh.thumuc||'Tủ hồ sơ')+'" nên cầu nối không chép được. Đường dẫn: '+rel);
   var u = 'tuhoso:'+hanh+'/'+encodeURIComponent(String(rel||'')).replace(/'/g,'%27').replace(/%2F/g,'/');
   var f = document.createElement('iframe'); f.style.display = 'none'; f.src = u; document.body.appendChild(f);
   setTimeout(function(){ f.remove(); }, 3000);

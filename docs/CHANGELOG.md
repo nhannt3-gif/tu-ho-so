@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.389.1 — 27/10/2026 — Chép file: báo rõ đường dẫn sai (TK 3)
+- **Anh 27/10** (ảnh): bấm 📋 Chép 1 file → cầu nối báo "Đường dẫn không hợp lệ." (cầu nối đã chạy, thấy thư mục gốc trên ổ G).
+- Chưa rõ nguyên nhân (không thử được PowerShell). Hai chỗ nghi: đường dẫn file không bắt đầu bằng thư mục gốc (file "Lập chỉ mục" / đường dẫn tùy chọn `duongTuy`), hoặc tên thư mục khác kiểu mã hóa dấu (NFC / NFD).
+- `goiCauNoi` (js/12): kiểm tra trước — đường dẫn không bắt đầu bằng thư mục gốc → báo ngay, kèm đường dẫn. Script cầu nối: so `.Normalize()` tên thư mục gốc; hộp lỗi hiện đường dẫn + thư mục gốc (cần **tải lại bộ cài**).
+
 ## 3.389 — 27/10/2026 — Nút 📋 Chép trên thanh tab file (TK 3)
 - **Anh 27/10**: "anh cần chép file thật"; "em nên để sẵn 1 nút copy trên mỗi khung, khi cần sẽ chọn như chức năng xóa".
 - `js/06b-xoa-nhieu.js`: `nutChep(tab)` + `chepBat(tab)` cạnh nút Xóa (máy tính, trừ chữ ký); bấm → chế độ chọn (`batBot(tab,'chep')`) → thanh "📋 Chép n file" (`chepNhieu`, cầu nối). Máy chưa cài cầu nối → hộp hướng dẫn cài (`hoiCaiCauNoi`).
