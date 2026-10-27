@@ -4133,3 +4133,10 @@ table.tc-to-ds tfoot td{position:sticky;bottom:0;background:var(--xanh-nhat);col
 /* 3.389.2 (anh 28/10 "nút xóa màu đỏ, còn nút chép nên có màu khác"): 📋 Chép viền + chữ xanh lục */
 .tl-thanh .nut-chep{color:var(--luc);border-color:var(--luc)}
 .tl-thanh .nut-chep.bat{background:var(--luc-nen);border-color:var(--luc);color:var(--luc)}
+/* 3.389.2 (anh 28/10 "khi mở chép cũng không hiện đỏ như xóa"): chế độ chọn để CHÉP — thanh, ô tick, viền dòng xanh lục */
+body.bot-chon-chep .thanh-bot{background:var(--luc-nen);border-color:var(--luc);color:var(--luc)}
+body.bot-chon-chep .thanh-bot button{border-color:var(--luc);color:var(--luc)}
+body.bot-chon-chep .thanh-bot button.chinh{background:var(--luc);color:#fff}
+body.bot-chon-chep [data-bot]::after{border-color:var(--luc)}
+body.bot-chon-chep [data-bot][data-botc]::after{background:var(--luc)}
+body.bot-chon-chep [data-bot][data-botc]{outline-color:var(--luc)}
