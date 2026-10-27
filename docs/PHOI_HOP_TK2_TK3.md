@@ -97,6 +97,7 @@
 | 27/10 | TK 3 (nhận bàn giao) | **3.388.1** | `css/app.css` (nút Xóa giữ đỏ) | t147 |
 | 27/10 | TK 3 (nhận bàn giao) | **3.388.2** | `css/app.css` cuối file (kiểu xem rời, ⬅ ➡ cùng cỡ) | t147 |
 | 27/10 | TK 3 (nhận bàn giao) | **3.388.3** | `css/app.css` cuối file (đầu trang cửa sổ hẹp) | t147 t196 |
+| 27/10 | TK 3 (nhận bàn giao) | **3.389** | `js/06b-xoa-nhieu.js` (nutChep, chepBat), `js/11-khung-tab.js` (bỏ mục ⋯ trùng), `css/app.css` cuối | t147 t149 t161 t111 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

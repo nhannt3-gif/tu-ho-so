@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.389 — 27/10/2026 — Nút 📋 Chép trên thanh tab file (TK 3)
+- **Anh 27/10**: "anh cần chép file thật"; "em nên để sẵn 1 nút copy trên mỗi khung, khi cần sẽ chọn như chức năng xóa".
+- `js/06b-xoa-nhieu.js`: `nutChep(tab)` + `chepBat(tab)` cạnh nút Xóa (máy tính, trừ chữ ký); bấm → chế độ chọn (`batBot(tab,'chep')`) → thanh "📋 Chép n file" (`chepNhieu`, cầu nối). Máy chưa cài cầu nối → hộp hướng dẫn cài (`hoiCaiCauNoi`).
+- Bỏ mục "☑ Chọn nhiều file để chép" trong ⋯ (trùng). t147 thêm nút.
+- Còn lại (bàn giao mục 8): cầu nối bản 3 — bỏ giới hạn 20 file, không cần ổ G.
+
 ## 3.388.3 — 27/10/2026 — Đầu trang không vỡ khi thu nhỏ (TK 3)
 - **Anh 27/10** (ảnh cửa sổ ~936 px): "khi thu nhỏ là bể bố cục" — tên app / đơn vị xuống dòng từng chữ, đầu trang cao gấp 3 (có từ trước 3.388).
 - `css/app.css` cuối file: `.ten-app` / `.dong-phu` 1 dòng + "…", khối tên không co; ≤1100 px ẩn dòng đơn vị + đồng hồ, ô tìm kiếm co (`flex:1 1 140px`).

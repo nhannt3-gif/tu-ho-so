@@ -222,6 +222,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.389)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Văn bản › 📋 Chép (máy chưa cài cầu nối) | Hiện hướng dẫn cài cầu nối | |
+| 2 | Cài cầu nối › 📋 Chép › tick 2 file › 📋 Chép 2 file › Ctrl+V vào thư mục / Zalo | Dán được 2 file thật | |
+
 ### Danh sách thử trên máy thật (3.388.3)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
