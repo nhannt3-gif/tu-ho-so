@@ -57,6 +57,8 @@ Anh: *"rà soát cấu trúc bố cục, code em làm 2 hôm nay, chú ý dọn 
 | **Mẫu biểu tập trung** (anh chưa nắm rõ) | Nghĩa là: mọi bản in dùng **chung 1 khuôn đầu trang** + chung khung in. Nay `js/75-khuon-in.js`: `bcDauTrang(ngay, tieuDeHTML, pvHTML)` (logo + đơn vị `BC_DV` + ngày + tiêu đề + phạm vi) — `toDauBC` (Tổ TK&VV), `skHTMLIn` (Sao kê), `thHTMLIn` (Tổng hợp) cùng gọi. Đổi logo / tên đơn vị / cỡ chữ đầu trang → sửa 1 chỗ | Gom tiếp vào `js/75`: chân trang ký tên, CSS bảng in dùng chung (`.bc-khung`, khổ dọc/ngang); KTGS và Hồ sơ vay giữ khuôn Word riêng (không gộp) |
 | Lưu tạm khi mở máy tính | **Đo trên số liệu thật 25/10 (thư mục nháp, 379 tổ):** đọc bảng lần đầu ~885 ms; dựng kho `KHO.nap` 63 ms; `kcDung`+gắn TK 105 17 ms; lần 2 trong phiên 0 ms (đã nhớ). → Lưu kho đã dựng vào IndexedDB chỉ bớt ~80 ms, lại phải lo khóa hết hạn khi nạp file mới → **không làm** | Nếu muốn nhanh hơn: phần đáng là 885 ms đọc bảng (giải nén / dựng bảng từ chỗ lưu) — đo kỹ `slBo` từng bảng trước khi làm; chỉ máy tính; khóa = kỳ + dấu thời gian nạp file; tối đa 3 kỳ |
 
+**Hồi quy đủ trên 3.387 (27/10): 191/192 đạt;** t133 trượt vì bản in Tổ TK&VV nay có logo (khuôn chung) → sửa phép thử nhận logo, 12/12 đạt. Mốc 192/192.
+
 ### Việc còn lại cho TK 2 (thứ tự đề xuất)
 1. Mục 3.1: chip nguồn số liệu + nút 🔎 tìm tổ trên dải `.pv-dau`; bỏ CSS bộ lọc riêng từng tab (`#tc-cay`, KTGS, GDX).
 2. Mục 3.2 phần còn: báo cáo tổng hợp / biểu mẫu tự co vừa 1 trang trong khung xem.
