@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.385.1 — 27/10/2026 — Sao kê: danh sách mặc định khổ dọc · bàn giao TK 2 (TK 3)
+- **Anh 27/10**: "khi hiện báo cáo nên tối ưu để hiện trong 1 khung, in trong 1 trang, nếu dạng DS thì nên in dọc cho tối ưu" → mặc định **dọc**: cgn, dh, noxh, ddn, tkhd, ndt (giữ ngang: kqgd biểu mỗi điểm 1 trang, b105 13 cột — anh chốt ngang 26/10). Báo cáo anh đã tự chọn khổ trước vẫn giữ (`skCH().kho`). Bản chụp t276: chỉ `dh` đổi (khổ dọc bỏ cột Số KU) — chụp lại.
+- **Anh 27/10**: "còn khoảng 7% token giới hạn tuần, em tranh thủ làm và chốt bàn giao cho TK2 làm tiếp" → `docs/BAN_GIAO_TK3_2710.md` (trạng thái, việc đã duyệt: khuôn Tra cứu cho các tab Số liệu, Sao kê 2 màn, KTGS sau cùng).
+
 ## 3.385 — 27/10/2026 — Sao kê theo nhà đầu tư (TK 3)
 - **Anh 27/10**: "làm thêm 1 sao kê hay truy vấn theo mã nhà đầu tư"; "mã NĐT có mấy loại nên em sổ sẵn ra"; "không cần (tra cứu), tra cứu đã nhiều rồi, cần bên sao kê, theo chương trình, đến tổ"; "có sao kê cho vay trực tiếp coi như 1 cấp lọc" (sẵn: ô Hội "Trực tiếp", ô Tổ "Vay trực tiếp (không qua tổ)").
 - Tab Sao kê › Thông tin tổ: báo cáo **Sao kê theo nhà đầu tư** (khổ ngang). Ô chọn NĐT sổ sẵn mọi mã có trong Mẫu 31 kỳ đang xem (cột 136 "Mã nhà đầu tư"; mã trống = Vốn TW không qua NĐT), kèm nguồn · số món · dư nợ; "Tất cả" hoặc 1 NĐT. Chia **NĐT › chương trình › tổ › món** (vay trực tiếp = nhóm "Vay trực tiếp (không qua tổ)"); cột STT, mã KH, họ tên, số KU, ngày vay, hạn trả, dư nợ, quá hạn, khoanh, lãi tồn; cộng tổ / chương trình / NĐT / tổng; theo bộ lọc địa bàn; In / PDF / Excel.

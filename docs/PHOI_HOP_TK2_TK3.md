@@ -88,6 +88,7 @@
 | 27/10 | TK 3 (nhận bàn giao) | **3.384** | `js/28`, `js/29` (cửa dongTo / monKy / saoKeKy), `js/22b`, `js/22f`, `js/22gb`, `js/62`, `js/63`, `js/73` (kcDung) qua kho; ngắt dòng dài `22b / 22ga / 22gb / 22k`; `tools/hoiquy_pt.py` + `hoiquy.sh doi`, `tests/kiem.py` (bang_goc), `tests/t158.js`; CLAUDE.md + tests/README (luật hồi quy theo đổi) | hồi quy đủ → ghi mốc đã chốt đầu tiên |
 | 27/10 | TK 3 (nhận bàn giao) | **3.384.1** | bỏ hàm `js/04c` boBaoCao, `js/26` gdxGLLamTrong + gdxThan, `js/22d` ktDsLTC, `js/22c` ktGNKhaiBao, `js/22b` ktKhaiBao, `js/22ga` pvMo, `js/22k` slKTDauHTML, `js/22i` thXem (→ `tests/tro_thxem.js`); phép thử theo | hồi quy `doi` |
 | 27/10 | TK 3 (nhận bàn giao) | **3.385** | `js/74-sk-ndt.js` (mới), `js/22h` (SK_BC ndt), `index.html`, `css/app.css`, `js/17b`; `tests/t279.js` | t279 8/8 + hồi quy doi |
+| 27/10 | TK 3 (nhận bàn giao) | **3.385.1** | `js/22h` (SK_BC khổ dọc mặc định 6 báo cáo); `tests/t276_chup.json` (dh); **bàn giao `docs/BAN_GIAO_TK3_2710.md`** | t276 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

@@ -1,4 +1,6 @@
 # Tủ hồ sơ — hướng dẫn cho Claude
+**27/10/2026 — TK 3 BÀN GIAO cho TK 2: đọc `docs/BAN_GIAO_TK3_2710.md` trước (trạng thái 3.385.x, việc anh đã duyệt: khuôn Tra cứu cho các tab Số liệu, Sao kê 2 màn, KTGS sau cùng).**
+
 
 **25/10/2026 — TK 2 BÀN GIAO TOÀN BỘ cho TK 3 (anh làm TK 3 trong 2 ngày): đọc `docs/BAN_GIAO_TK2_2510.md` TRƯỚC (trạng thái 3.372, việc dở, việc chờ anh, quy trình, bẫy).**
 
