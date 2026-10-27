@@ -1986,6 +1986,7 @@ var CO_GI_MOI = {ban:'3.390', ds:[
   ["🔎", "Lọc địa bàn: ô tìm tổ thu vào nút 🔎 Tìm tổ trên dải LỌC ĐỊA BÀN — bấm mới mở ô gõ, Enter chọn tổ, Esc đóng (mọi tab Số liệu)"],
   ["📅", "Số liệu theo ngày: dòng cam nguồn file → 1 chip 📅 Số liệu dd/mm/yyyy trên dải lọc, rê chuột xem từng file"],
   ["📱", "Điện thoại: hàng lọc 1 dòng ở mọi tab, ẩn ↺ / 📌 khi ô đang Tất cả cho đủ chỗ chữ"],
+  ["📄", "Điện thoại: tab Văn bản có lại nút ☰ Kiểu xem (Danh sách · Năm · tháng)"],
   ["Nút 📋 Chép viền xanh lục (Xóa vẫn đỏ)", "doiNgan(1)"],
   ["Chép file: đường dẫn sai thì app báo rõ đường dẫn; cầu nối mới so tên thư mục không phân biệt kiểu gõ dấu (tải lại bộ cài)", "doiNgan(1)"],
   ["Nút 📋 Chép cạnh 🗑 Xóa (Văn bản / Biểu mẫu / Scan): bấm → tick file → 📋 Chép → Ctrl+V vào thư mục hoặc Zalo", "doiNgan(1)"],

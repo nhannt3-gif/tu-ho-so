@@ -9,6 +9,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - Dòng cam `.sl-nguon` (kỳ theo ngày, Tổ TK&VV / Sao kê) → chip `📅 Số liệu dd/mm/yyyy · ⚠ n file lấy ngày trước` gom vào chip báo trên dải tiêu đề (`slNguonHTML` → `slChipThem`); KTGS giữ chip `⚠ Ngày dd/mm`.
 - Bỏ CSS lọc riêng: `#tc-cay` (5 chỗ app.css + 5 dòng dt-may.css → luật chung `.pv-cay`), `#kt-cay .to-cap` (lớp không còn), `.sl-nguon`. Giữ `#gdx-cay.gdx-cap-khong` (Bảng kê mẫu trắng không cần lọc — là hành vi, không phải kiểu).
 - Sửa lỗi có sẵn: Enter ở ô tìm tổ không chọn được tổ (luật phím chung `sgPhim` js/06 nuốt Enter để sang ô kế).
+- **Anh 28/10** "vb trên dt ko có nút kiểu xem": hiện lại nút ☰ Kiểu xem ở tab Văn bản trên điện thoại (css/dt-may-vbsc.css — 3.371 đã ẩn; menu không có Bảng trên ĐT); t267 sửa theo.
 - Phép thử mới `t312`.
 
 ## 3.389.2 — 28/10/2026 — Nút Chép màu xanh lục (TK 3)
