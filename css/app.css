@@ -4108,3 +4108,12 @@ table.tc-to-ds tfoot td{position:sticky;bottom:0;background:var(--xanh-nhat);col
 .sk-ndt select{max-width:min(560px,100%);font:inherit;padding:3px 6px;border:1px solid var(--xanh);border-radius:8px;background:var(--the);color:var(--chu)}
 #hop-in .ndt-ten{display:flex;align-items:center;gap:8px;margin:4px 0}#hop-in .ndt-ten span{flex:0 0 220px;text-align:left}#hop-in .ndt-ten input{flex:1}
 .bc-bang tr.ndt-n td{background:#dbeafe;font-weight:800}.bc-bang tr.ndt-c td{background:#eef2ff;font-weight:700;padding-left:14px}
+/* 3.386 (anh 27/10): Sao kê 2 màn — màn 1 danh sách báo cáo gọn (bấm = xem) · màn 2 hàng thao tác 1 dòng + khung xem trải ngang */
+.sk-luoi2 .sk-bc2{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;border:none;background:none;text-align:left;padding:4px 8px;border-radius:6px;font:inherit;font-size:calc(13.5px*var(--co));color:var(--chu);cursor:pointer;min-height:0}
+.sk-luoi2 .sk-bc2 small{color:var(--chu-phu);font-size:calc(11px*var(--co));flex:none}.sk-luoi2 .sk-bc2:hover{background:var(--xanh-nhat)}
+.sk-luoi2 .sk-bc2.chon{background:var(--xanh);color:#fff;font-weight:700}.sk-luoi2 .sk-bc2.chon small{color:#dbeafe}
+.sk-thao{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:6px 0;padding:5px 10px;background:var(--xanh-nhat);border:1px solid var(--xanh);border-radius:10px}
+.sk-thao .sk-chon{font:inherit;font-size:calc(14px*var(--co));font-weight:700;color:var(--xanh-dam);border:1.5px solid var(--xanh);border-radius:8px;padding:3px 8px;max-width:360px;background:var(--the)}
+.sk-thao .sk-gian{flex:1}.sk-thao .sk-ndt{margin:0;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}.sk-thao .sk-ndt select{max-width:260px}
+.sk-xem-khung{display:block;width:100%;height:calc(100vh - 230px);min-height:420px;border:1px solid var(--vien);border-radius:10px;background:#fff}
+@media(min-width:1300px){ .sk-thao{flex-wrap:nowrap} .sk-thao .sk-chon{max-width:300px} .sk-thao .sk-ndt select{max-width:220px} .sk-thao button{white-space:nowrap} }

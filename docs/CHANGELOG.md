@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.386 — 27/10/2026 — Sao kê 2 màn (TK 3)
+- **Anh 27/10**: "tab tra cứu KH là chuẩn cho các tab số liệu"; "có khung view sẽ trực quan, nhưng cảm thấy hơi tốn chỗ"; "demo 2 là phần xem của chọn báo cáo"; "anh nghĩ em làm hết kịp, sau khi làm gộp lên vừa làm vừa bàn giao, hồi quy chạy sau cùng".
+- **Màn 1** (chọn báo cáo): danh sách theo nhóm, tên ngắn (mô tả đủ ở rê chuột), ghi khổ; bấm = sang màn 2. Bỏ hàng Khổ / 👁 Xem trên đầu.
+- **Màn 2** (xem): hàng thao tác 1 dòng — ← Danh sách · ô sổ đổi báo cáo (theo nhóm) · Khổ · tùy chọn riêng (ô NĐT; khoảng ngày ở hàng dưới) · 📊 Excel · ⤢ Phóng to (hộp lớn như cũ); khung xem trải hết bề ngang, đổi báo cáo / lọc / khổ / ngày / NĐT → tự vẽ lại. Nhớ màn + báo cáo (`skCH().man`, `chon`).
+- `skChonBC` = mở màn xem; `skXem` vẽ vào `#sk-xem-khung` khi có (⤢ `skPhongTo` mới mở hộp); `PV_DUNG.sk.sau` → `skXemHen`. Tra cứu › 📊 Biến động TK 105 mở thẳng màn xem.
+- `js/22h-cap-hoi-sao-ke.js`, `js/22f-tra-cuu.js`, `js/74-sk-ndt.js`, `css/app.css`. t205 nới tên ngắn.
+
 ## 3.385.1 — 27/10/2026 — Sao kê: danh sách mặc định khổ dọc · bàn giao TK 2 (TK 3)
 - **Anh 27/10**: "khi hiện báo cáo nên tối ưu để hiện trong 1 khung, in trong 1 trang, nếu dạng DS thì nên in dọc cho tối ưu" → mặc định **dọc**: cgn, dh, noxh, ddn, tkhd, ndt (giữ ngang: kqgd biểu mỗi điểm 1 trang, b105 13 cột — anh chốt ngang 26/10). Báo cáo anh đã tự chọn khổ trước vẫn giữ (`skCH().kho`). Bản chụp t276: chỉ `dh` đổi (khổ dọc bỏ cột Số KU) — chụp lại.
 - **Anh 27/10**: "còn khoảng 7% token giới hạn tuần, em tranh thủ làm và chốt bàn giao cho TK2 làm tiếp" → `docs/BAN_GIAO_TK3_2710.md` (trạng thái, việc đã duyệt: khuôn Tra cứu cho các tab Số liệu, Sao kê 2 màn, KTGS sau cùng).

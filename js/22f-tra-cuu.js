@@ -296,9 +296,9 @@ function slTheKH(ma){
 function tcMoTo(to){ dongHop(); var C = toCH(), t = KHO.to(to); C.to = to; if(t){ C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); C.ap = ''; } else { var k = KHO.toKy(TC_K, to); if(k){ C.xa = k.xa||''; C.diem = k.khoaDiem; C.hoi = String(k.dv||''); } } luu(); slDoiTab('to'); }
 /* 3.383.7 (anh 27/10 "gắn nút mở sao kê biến động 105 ở chỗ tra cứu khi chọn tổ mở nhanh"): Sao kê › chọn sẵn tổ + báo cáo b105 → Xem */
 function tcB105(to){ dongHop(); var t = KHO.toKy(TC_K, to) || KHO.to(to); if(!t) return bao('Không thấy tổ '+to+'.', 3);
-  var S = skCH(); S.xa = t.xa||''; S.diem = t.khoaDiem; S.hoi = String(t.dv||''); S.ap = ''; S.to = to; S.bc = {b105:true}; luu();
+  var S = skCH(); S.xa = t.xa||''; S.diem = t.khoaDiem; S.hoi = String(t.dv||''); S.ap = ''; S.to = to; S.bc = {b105:true}; S.chon = 'b105'; S.man = 'xem'; luu();   /* 3.386: màn xem tự vẽ */
   D.cauHinh.slTab = 'sk'; doiNgan(7); slDoiTab('sk');
-  var n = 0, cho = function(){ if(typeof SK_K!=='undefined' && SK_K) return skXem(); if(++n<120) setTimeout(cho, 250); }; setTimeout(cho, 50); }
+ }
 function slChepKH(ma){
   var c = KHO.danhBa(ma); if(!c) return; var t = KHO.toDanhBa(c.to)||{};
   chepChu(['Họ tên: '+(c.ten||''), 'Mã KH: '+ma, 'Ngày sinh: '+ngayVNsl(c.ns), 'CCCD: '+(c.cccd||'')+(c.ncap ? ' — cấp '+ngayVNsl(c.ncap) : '')+(c.noiCap ? ' — '+c.noiCap : ''),

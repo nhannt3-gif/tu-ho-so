@@ -89,6 +89,7 @@
 | 27/10 | TK 3 (nhận bàn giao) | **3.384.1** | bỏ hàm `js/04c` boBaoCao, `js/26` gdxGLLamTrong + gdxThan, `js/22d` ktDsLTC, `js/22c` ktGNKhaiBao, `js/22b` ktKhaiBao, `js/22ga` pvMo, `js/22k` slKTDauHTML, `js/22i` thXem (→ `tests/tro_thxem.js`); phép thử theo | hồi quy `doi` |
 | 27/10 | TK 3 (nhận bàn giao) | **3.385** | `js/74-sk-ndt.js` (mới), `js/22h` (SK_BC ndt), `index.html`, `css/app.css`, `js/17b`; `tests/t279.js` | t279 8/8 + hồi quy doi |
 | 27/10 | TK 3 (nhận bàn giao) | **3.385.1** | `js/22h` (SK_BC khổ dọc mặc định 6 báo cáo); `tests/t276_chup.json` (dh); **bàn giao `docs/BAN_GIAO_TK3_2710.md`** | t276 |
+| 27/10 | TK 3 (nhận bàn giao) | **3.386** | `js/22h` (Sao kê 2 màn), `js/22f` (tcB105), `js/74`, `css/app.css`; `tests/t205.js` | t279 t278 t276 t205 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

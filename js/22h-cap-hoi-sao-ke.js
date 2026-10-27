@@ -390,12 +390,16 @@ var SK_BC = [{k:'qh', ten:'Sao kê nợ quá hạn', nhom:'xl', kho:'doc'}, {k:'
   {k:'ndt', ten:'Sao kê theo nhà đầu tư — chia chương trình › tổ (Mẫu 31 · mã NĐT)', nhom:'tt', kho:'doc', ndt:1}];   /* 3.385 (js/74) · 3.385.1 (anh 27/10 "nếu dạng DS thì nên in dọc cho tối ưu"): danh sách mặc định khổ dọc — cgn, dh, noxh, ddn, tkhd, ndt (giữ ngang: kqgd biểu mỗi điểm, b105 13 cột) */   /* 3.380 (js/72) */
 function skChon(){ var C = skCH(); if(!C.chon || !SK_BC.some(function(b){ return b.k===C.chon; })){ var c = SK_BC.find(function(b){ return C.bc[b.k]; }); C.chon = c ? c.k : 'qh'; } return C.chon; }
 function skKhoCua(k){ var C = skCH(), b = SK_BC.find(function(x){ return x.k===k; }) || {}; return (C.kho && C.kho[k]) || b.kho || 'doc'; }
-function skChonBC(k){ var C = skCH(); C.chon = k; C.bc = {}; C.bc[k] = true; luu(); veSaoKe(); }
+function skChonBC(k){ var C = skCH(); C.chon = k; C.bc = {}; C.bc[k] = true; C.man = 'xem'; luu(); veSaoKe(); }   /* 3.386: chọn báo cáo = mở màn xem */
+function skVeDS(){ var C = skCH(); C.man = 'ds'; luu(); veSaoKe(); }
+function skPhongTo(){ skXem.hop = true; try{ skXem(); } finally { skXem.hop = false; } }
+var SK_XEM_HEN = null;
+function skXemHen(){ clearTimeout(SK_XEM_HEN); SK_XEM_HEN = setTimeout(function(){ if(document.getElementById('sk-xem-khung')) skXem(); }, 120); }
 function skDoiKho(v){ var C = skCH(), k = skChon(); C.kho = C.kho || {}; C.kho[k] = v; luu();
-  ['ngang','doc'].forEach(function(x){ var b = document.getElementById('sk-kho-'+x); if(b) b.classList.toggle('bat', x===v); }); }
+  ['ngang','doc'].forEach(function(x){ var b = document.getElementById('sk-kho-'+x); if(b) b.classList.toggle('bat', x===v); }); skXemHen(); }
 var SK_K = null, SK_XEM = [];
 function skCH(){ var C = D.cauHinh.skTK = D.cauHinh.skTK || {ky:'', xa:'', diem:'', hoi:'', to:'', bc:{qh:true}, tu:'', den:''}; C.bc = C.bc || {}; return pvGan(C); }
-PV_DUNG.sk = {S:function(){ return skCH(); }, K:function(){ return SK_K; }};
+PV_DUNG.sk = {S:function(){ return skCH(); }, K:function(){ return SK_K; }, sau:function(){ if(skCH().man==='xem') skXemHen(); }};   /* 3.386: đổi lọc → vẽ lại khung xem */
 function veSaoKe(){
   var e = document.getElementById('tr7'); if(!e) return;
   var C = skCH(), dsKy = toDsKy();
@@ -407,18 +411,24 @@ function veSaoKe(){
     var th = K.thang, sau = kyLui(th, 1);
     if(!C.tu || !C.den){ C.tu = sau+'-01'; C.den = tdnCuoiKy(sau); }
     var k = skChon(), bc = SK_BC.find(function(b){ return b.k===k; }), kho = skKhoCua(k);
-    e.innerHTML = slTabConHTML()+kyGhiHTML(K)+'<div class="sk-thanh">'+
-      '<span class="sk-kho" role="group" aria-label="Khổ in">Khổ <button id="sk-kho-ngang" class="nho'+(kho==='ngang' ? ' bat' : '')+'" onclick="skDoiKho(\'ngang\')" title="A4 ngang — đủ cột">Ngang</button><button id="sk-kho-doc" class="nho'+(kho==='doc' ? ' bat' : '')+'" onclick="skDoiKho(\'doc\')" title="A4 dọc — gọn cột (bỏ Số KU khi có cột CT; tràn thì bỏ SĐT, co chữ)">Dọc</button></span>'+
-      '<button class="nho chinh sk-xem" onclick="skXem()">👁 Xem</button></div>'+
+    var man = C.man==='xem' ? 'xem' : 'ds';   /* 3.386 (anh 27/10 "demo 2 là phần xem của chọn báo cáo"): màn 1 chọn báo cáo · màn 2 xem (khung trải ngang, đổi lọc tự vẽ lại) */
+    var ngan = function(b){ return b.ten.split(' — ')[0].split(' (')[0]; }, khoChu = function(b){ return skKhoCua(b.k)==='ngang' ? 'ngang' : 'dọc'; };
+    var dau = slTabConHTML()+kyGhiHTML(K)+
       (K.thieuBang ? '<div class="sl-bao vang">⚠ Bảng số liệu chưa có trên máy này (lưu trên Drive, chưa tải về).<div class="hang-nut"><button class="nho chinh" onclick="toNoiDrive()">☁ Nối Drive và tải</button><button class="nho" onclick="toThuLai()">⟳ Thử lại</button></div></div>' : '')+
-      slNguonHTML(K.B)+'<div id="sk-cay" class="to-cay pv-cay"></div>'+
-      (bc && bc.ngay ? '<div class="sk-ngay sk-ngay1">Khoảng ngày: từ <input type="date" value="'+C.tu+'" onchange="skCH().tu=this.value;luu()"> đến <input type="date" value="'+C.den+'" onchange="skCH().den=this.value;luu()">'+
-        ' <button class="nho" onclick="skDatNgay(\'thang\')">Tháng sau</button><button class="nho" onclick="skDatNgay(\'quy\')">Đến cuối quý</button><button class="nho" onclick="skDatNgay(\'nam\')">Đến hết năm</button></div>' : '')+
-      (bc && bc.ndt && typeof ndtOHTML==='function' ? ndtOHTML() : '')+   /* 3.385: ô chọn nhà đầu tư sổ sẵn */
-      '<div class="sk-luoi">'+SK_NHOM.map(function(n){ return '<div class="sk-nhom"><div class="sk-nhom-ten">'+n.ten+'</div>'+SK_BC.filter(function(b){ return b.nhom===n.k; }).map(function(b){
-        return '<label class="sk-bc"><input type="radio" name="sk-bc"'+(b.k===k ? ' checked' : '')+' onchange="skChonBC(\''+b.k+'\')"> <span>'+coChuHTML(b.ten)+' <small>· '+(b.kho==='ngang' ? 'ngang' : 'dọc')+'</small></span></label>'; }).join('')+'</div>'; }).join('')+(typeof dkNutHTML==='function' ? dkNutHTML('sk') : '')+'</div>'+
+      slNguonHTML(K.B)+'<div id="sk-cay" class="to-cay pv-cay"></div>';
+    if(man==='ds') e.innerHTML = dau+'<div class="sk-luoi sk-luoi2">'+SK_NHOM.map(function(n){ return '<div class="sk-nhom"><div class="sk-nhom-ten">'+n.ten+'</div>'+SK_BC.filter(function(b){ return b.nhom===n.k; }).map(function(b){
+        return '<button class="sk-bc2'+(b.k===k ? ' chon' : '')+'" onclick="skChonBC(\''+b.k+'\')" title="'+coChuHTML(b.ten)+'"><span>'+coChuHTML(ngan(b))+'</span><small>'+khoChu(b)+'</small></button>'; }).join('')+'</div>'; }).join('')+(typeof dkNutHTML==='function' ? dkNutHTML('sk') : '')+'</div>'+
       '<p class="ghi">Nợ quá hạn, khoanh, KHĐ lấy từ 3 file tháng '+kyVN(th)+'; các sao kê còn lại cần <b>Mẫu 31 tháng '+kyVN(th)+'</b>. In: mỗi món 1 dòng; khổ dọc bỏ Số KU (đã có cột CT), tràn thì bỏ SĐT rồi co chữ; Excel luôn đủ cột.</p>';
-    pvVeCay('sk');
+    else e.innerHTML = dau+'<div class="sk-thao"><button class="nho" onclick="skVeDS()" title="Về danh sách báo cáo">← Danh sách</button>'+
+      '<select class="sk-chon" title="Đổi báo cáo" onchange="skChonBC(this.value)">'+SK_NHOM.map(function(n){ return '<optgroup label="'+coChuHTML(n.ten)+'">'+SK_BC.filter(function(b){ return b.nhom===n.k; }).map(function(b){
+        return '<option value="'+b.k+'"'+(b.k===k ? ' selected' : '')+'>'+coChuHTML(ngan(b))+' · '+khoChu(b)+'</option>'; }).join('')+'</optgroup>'; }).join('')+'</select>'+
+      '<span class="sk-kho" role="group" aria-label="Khổ in">Khổ <button id="sk-kho-ngang" class="nho'+(kho==='ngang' ? ' bat' : '')+'" onclick="skDoiKho(\'ngang\')" title="A4 ngang — đủ cột">Ngang</button><button id="sk-kho-doc" class="nho'+(kho==='doc' ? ' bat' : '')+'" onclick="skDoiKho(\'doc\')" title="A4 dọc — gọn cột (bỏ Số KU khi có cột CT; tràn thì bỏ SĐT, co chữ)">Dọc</button></span>'+
+      (bc && bc.ndt && typeof ndtOHTML==='function' ? ndtOHTML() : '')+'<span class="sk-gian"></span>'+
+      '<button class="nho" onclick="if(SK_XEM.length) skExcel()" title="Xuất Excel báo cáo đang xem">📊 Excel</button><button class="nho" onclick="skPhongTo()" title="Mở hộp xem lớn">⤢ Phóng to</button></div>'+
+      (bc && bc.ngay ? '<div class="sk-ngay sk-ngay1">Khoảng ngày: từ <input type="date" value="'+C.tu+'" onchange="skCH().tu=this.value;luu();skXemHen()"> đến <input type="date" value="'+C.den+'" onchange="skCH().den=this.value;luu();skXemHen()">'+
+        ' <button class="nho" onclick="skDatNgay(\'thang\')">Tháng sau</button><button class="nho" onclick="skDatNgay(\'quy\')">Đến cuối quý</button><button class="nho" onclick="skDatNgay(\'nam\')">Đến hết năm</button></div>' : '')+
+      '<iframe id="sk-xem-khung" class="sk-xem-khung" title="Xem báo cáo"></iframe>';
+    pvVeCay('sk'); if(man==='xem') skXemHen();
   }).catch(function(er){ e.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" onclick="toThuLai()">⟳ Thử lại</button></div>'; });
 }
 /* bảng có chia theo tổ: cot = tên cột, ds = dòng (có .to), dong(x, stt) → mảng ô, so = chỉ số cột cộng tiền, lop(x) = lớp dòng (vd nổi bật) */
@@ -759,6 +769,7 @@ function skXem(){
       else { x.pv = pv; x.ctChu = ctChuThich(); x.ngang = SK_KHO==='ngang'; }
       CT_DUNG = null; return x; })); SK_KHO = 'ngang'; }
   catch(er){ CT_DUNG = null; SK_KHO = 'ngang'; return baoLoi('Lập báo cáo lỗi: '+(er && er.message || er)); }
+  var fk = document.getElementById('sk-xem-khung'); if(fk && !skXem.hop){ xemChuan(fk, skHTMLIn(SK_XEM)); return; }   /* 3.386: màn xem — vẽ thẳng vào khung, ⤢ Phóng to mới mở hộp */
   moHop('<div class="hop-tit">👁 Xem sao kê — '+coChuHTML(pv)+'</div><iframe id="sk-khung" class="to-khung" title="Xem trước"></iframe>'+
     xuatHang({ten:xuatTen(SK_XEM.length>1 ? 'Sao ke' : SK_XEM[0].ten, pv, SK_K.thang), html:function(){ return skHTMLIn(SK_XEM); }, excel:'skExcel()'}), true);   /* 3.152 */
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');   /* 3.92: khung xem trước rộng */
