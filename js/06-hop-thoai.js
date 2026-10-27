@@ -1981,7 +1981,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.383.6', ds:[
+var CO_GI_MOI = {ban:'3.383.7', ds:[
+  ["Lọc địa bàn: mở app giữ địa bàn phiên trước; 📌 nhỏ cạnh mỗi ô = ghim ô đó (mở app luôn về đây); 📌 Về ghim; đổi Xã thì các ô dưới về Tất cả", "doiNgan(7)"],
+  ["Lọc địa bàn: dòng số liệu + nút ▦ Chip · ⬆ · 📌 lên dải tiêu đề LỌC ĐỊA BÀN — hàng lọc rộng hơn", "doiNgan(7)"],
+  ["Tra cứu: thẻ tổ có nút 📊 Biến động TK 105 (mở Sao kê của tổ); dòng cộng danh sách tổ ghi cấp lọc cuối", "doiNgan(7)"],
   ["Chỉ hiện tổ chưa đóng (theo Danh sách tổ của kỳ): tổ đã đóng không hiện, không tìm ra — cần xem thì Sao kê; tổ dư nợ 0 chưa đóng ghi \"cần đóng tổ\" (còn / đã đóng TK 104)", "doiNgan(7)"],
   ["Tra cứu › Tổ trưởng: danh sách tổ có dòng Cộng (số tổ, tổng TV, có dư nợ) theo lọc địa bàn", "doiNgan(7)"],
   ["Tra cứu: ô tìm có nút ✕ xóa chữ đã gõ (hiện ngay khi gõ)", "doiNgan(7)"],
@@ -1993,10 +1996,7 @@ var CO_GI_MOI = {ban:'3.383.6', ds:[
   ["Tra cứu KH: bảng tổ / bảng khách — tên cột canh theo nội dung, độ rộng cột cân đối", "doiNgan(7)"],
   ["Lọc địa bàn: thêm Ấp / KP, lọc đa chiều (Xã + Hội, Xã + Ấp, Hội toàn PGD…), nút ✕ cạnh mỗi ô bấm nhanh về Tất cả, 1 dòng không cắt chữ", "doiNgan(7)"],
   ["Tra cứu KH gọn: lọc địa bàn trên cùng, ô tìm + Tìm theo cùng hàng; thẻ tổ / khách bỏ Đã lập / In, Dòng thời gian", "doiNgan(7)"],
-  ["Sao kê, Tổng hợp, Thông tin tổ, báo cáo tab Tổ đọc số liệu qua KHO CHUẨN — kết quả giữ nguyên", "doiNgan(7)"],
-  ["KHO CHUẨN: Mẫu 31 nguyên bản làm gốc, gắn thêm TK 105 / 104, Nợ QH / khoanh / KHĐ, tổ theo khóa — các tab truy vấn qua kho (bắt đầu: KTGS, tab Tổ, Sao kê)", "doiNgan(7)"],
-  ["Sao kê biến động TK 105: tiêu đề ghi rõ ngày số dư (cuối tháng trước · đến hết ngày), cột liên quan cạnh nhau, chữ 10, Ghi chú không mất chữ", "doiNgan(7)"],
-  ["Sao kê › Thông tin tổ: Biến động TK 105 — khách chuyển vào, tổ trưởng trích 105 trả lãi / gốc, ký hiệu 🏦 ⏳ 💵? 🟠 (Mẫu 31 + Sao kê TK 105 cùng ngày)", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Sao kê, Tổng hợp, Thông tin tổ, báo cáo tab Tổ đọc số liệu qua KHO CHUẨN — kết quả giữ nguyên", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

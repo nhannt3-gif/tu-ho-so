@@ -11,13 +11,13 @@ const fs=require('fs'), path=require('path');
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    window.SL_KHONG_TU_KIEM = 1;
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
-   kyChungDoi('2026-08'); PV_KIEU.to = 'chip'; PV_KIEU.tc = 'chip';   /* 3.328: mặc định gọn — phép thử này thử kiểu ▦ Chip */
+   kyChungDoi('2026-08'); D.cauHinh.pvKieu = {to:'chip', tc:'chip'};   /* 3.328: mặc định gọn — phép thử này thử kiểu ▦ Chip (3.383.7: kiểu luôn nhớ ở D.cauHinh.pvKieu) */
    const C = toCH(); C.xa=''; C.diem=''; C.hoi=''; C.to=''; slDoiTab('to'); doiNgan(7);
    for(let i=0;i<60 && !document.querySelector('#to-cay .pv-hang1');i++) await w(250); await w(300);
    const nhan = () => [...document.querySelectorAll('#to-cay .pv-nhan')].map(x=>x.textContent).join('|');
    const dan = () => document.querySelector('#to-cay .pv-dan');
    const xanh = () => [...document.querySelectorAll('#to-cay .to-chip.bat')].map(x=>x.textContent.replace(/\s*\d+$/, '')).join('|');
-   ok('chưa chọn: hàng Xã (PGD xanh) + 📍 Toàn PGD · n tổ cùng hàng + hàng Hội', /Toàn PGD/.test(dan().textContent) && /\d+ tổ/.test(dan().textContent) && nhan()==='Xã|Hội' && dan().closest('.pv-hang1') && xanh().split('|')[0]==='PGD', nhan()+' · '+xanh());
+   ok('chưa chọn: hàng Xã (PGD xanh) + 📍 Toàn PGD · n tổ trên dải tiêu đề LỌC ĐỊA BÀN (3.383.7) + hàng Hội', /Toàn PGD/.test(dan().textContent) && /\d+ tổ/.test(dan().textContent) && nhan()==='Xã|Hội' && dan().closest('.pv-dau') && xanh().split('|')[0]==='PGD', nhan()+' · '+xanh());
    ok('máy tính: không còn hàng ô thả xuống (chỉ điện thoại)', getComputedStyle(document.querySelector('#to-cay .pv-sel')).display==='none');
    ok('📍 đường dẫn chỉ báo (không có nút ✕ / bấm)', !dan().querySelector('button'));
    const T = TO_K.to, xa = pvLuaChon(T, C, 'xa', true)[0].k; pvChon('to', 'xa', xa, 1); await w(200);
@@ -51,7 +51,7 @@ const fs=require('fs'), path=require('path');
  /* điện thoại */
  await p.setViewportSize({width:390, height:844}); await p.evaluate(()=>{ slDoiTab('to'); doiNgan(7); }); await p.waitForTimeout(1200);
  const dt = await p.evaluate(()=>({sel:getComputedStyle(document.querySelector('#to-cay .pv-sel')).display, dan:getComputedStyle(document.querySelector('#to-cay .pv-dan')).display}));
- R.push((dt.sel!=='none' && dt.dan==='none' ? '✓ ' : '✗ ')+'điện thoại: giữ ô thả xuống, ẩn dòng 📍 chip — '+JSON.stringify(dt));
+ R.push((dt.sel!=='none' && dt.dan!=='none' ? '✓ ' : '✗ ')+'điện thoại: giữ ô thả xuống; dòng số liệu ở dải tiêu đề LỌC ĐỊA BÀN (3.383.7 — trước ẩn) — '+JSON.stringify(dt));
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));
  const sai = R.filter(x=>x[0]==='✗').length; console.log((R.length-sai)+'/'+R.length+' đạt'); await b.close(); process.exit(sai||loi.length ? 1 : 0);
 })();

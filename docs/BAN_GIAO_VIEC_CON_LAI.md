@@ -222,6 +222,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
   - **Số đếm:** `capNhatDemTab` điền `.dem-tab` từ `BOT_DS[tab]`.
   - **Phép thử mới:** `t58.js` (4 mẫu văn bản), `t59.js` (giao diện Hôm nay, thanh đáy, bộ nhớ, số đếm).
 
+### Danh sách thử trên máy thật (3.383.7)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Chọn Xã › Hội › Tổ, tắt app, mở lại | Vẫn đúng địa bàn đó | |
+| 2 | Bấm 📌 nhỏ cạnh ô Xã, đổi sang xã khác, tắt mở lại | Về xã đã ghim, các ô dưới Tất cả | |
+| 3 | Đổi Xã khi đang chọn Hội + Tổ | Hội, Ấp, Tổ về Tất cả | |
+| 4 | Đổi Điểm GD khi đang chọn Hội | Hội giữ, Tổ về Tất cả | |
+| 5 | Dải LỌC ĐỊA BÀN | Số tổ · khách · ngày + ▦ Chip ⬆ 📌 Về ghim nằm trên viền | |
+| 6 | Tra cứu › thẻ tổ › 📊 Biến động TK 105 | Mở Sao kê đúng tổ, hiện báo cáo | |
+
+**Ghi chú kỹ thuật 3.383.7:** `pvChungO` luôn trả `D.cauHinh.pvChung`; đầu phiên (PV_PHIEN !== D.cauHinh) áp ghim `pvApGhim(S, true)`. Ghim: `D.cauHinh.pvGhimO` (đồng bộ khối Số liệu theo tiền tố pvGhim). Dải tiêu đề `.pv-dau` (absolute top:-12px) thay `::before`; kiểu gọn ẩn mắt đường dẫn trên dải.
+
 ### Danh sách thử trên máy thật (3.383.6)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

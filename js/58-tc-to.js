@@ -109,7 +109,7 @@ function tcToTim(q, e){   /* q: chữ → tên tổ trưởng (đầu từ); s�
     ds.map(function(t){ var r = KHO.tvChuan(t, TC_K) || {tong:0, coNo:0}; cg.tv += r.tong||0; cg.no += r.coNo||0;
       return '<tr class="sl-kq-dong" data-lenh="tc.to" data-to="'+coChuHTML(t.ma)+'"><td title="'+coChuHTML(t.ten||'')+'"><b>'+coChuHTML(t.ten||'')+'</b></td><td>'+coChuHTML(t.ma)+'</td><td class="so">'+tcNguongSo(r.tong)+'</td><td class="so">'+r.coNo+'</td>'+
         '<td title="'+coChuHTML(xa(t))+'">'+coChuHTML(xa(t))+'</td><td title="'+coChuHTML(t.tenThon||'')+'">'+coChuHTML(pvApNgan(t.tenThon||''))+'</td><td title="'+coChuHTML(tdnHoi(t.dv)||'')+'">'+coChuHTML(TC_HOI_VT[String(t.dv||'').trim()] || tdnHoi(t.dv) || '')+'</td></tr>'; }).join('')+'</tbody>'+
-    '<tfoot><tr class="tc-to-cong"><td>Cộng '+tong+' tổ</td><td></td><td class="so">'+cg.tv+'</td><td class="so">'+cg.no+'</td><td colspan="3">'+coChuHTML(S.xa ? pvChu(S, TC_K) : 'toàn PGD')+'</td></tr></tfoot></table></div>';   /* 3.383.5 (anh 26/10 "có cột tổng, theo lọc") */
+    '<tfoot><tr class="tc-to-cong"><td>Cộng '+tong+' tổ</td><td></td><td class="so">'+cg.tv+'</td><td class="so">'+cg.no+'</td><td colspan="3" title="'+coChuHTML(pvChu(S, TC_K))+'">'+coChuHTML(pvChu(S, TC_K).split(' · ').pop())+'</td></tr></tfoot></table></div>';   /* 3.383.5 (anh 26/10 "có cột tổng, theo lọc") · 3.383.7: chỉ ghi cấp lọc cuối, rê chuột đủ phạm vi */
   if(q && tong===1 && tcHaiCot()){ var d1 = e.querySelector('.sl-kq-dong'); tcChonDong(d1); tcTheTo(ds[0].ma); }
 }
 function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Địa bàn · Số liệu) có tên cột + kẻ dọc; bảng thành viên STT · mã KH (sắp theo mã) · dư nợ · ngày vay · hạn · lãi tồn · TK 105 */
@@ -166,7 +166,8 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
     (TC_KHOI_PHU && typeof dtgKhoiHTML==='function' ? dtgKhoiHTML('to', t.ma) : '')+   /* 3.359: 📅 dòng thời gian */
     '<div class="hang-nut tc-nut">'+(coKH ? GD.nut({chu:'👤 Xem tổ trưởng', lenh:'tc.kh', du:{kh:tt.kh}}) : '')+
       (t.khoaDiem ? GD.nut({chu:'🏘 Tổ của điểm GD', lenh:'tc.bangDiem', du:{diem:t.khoaDiem, to:t.ma}}) : '')+
-      GD.nut({chu:'👥 Mở tổ', lenh:'tc.moTo', du:{to:t.ma}})+GD.nut({chu:'👪 Lập hồ sơ hộ mới vào tổ', lenh:'tc.ketNap', du:{to:t.ma}, chinh:1, tit:'Mở form 👪 Hộ vay, điền sẵn Xã › Ấp › Tổ'})+'</div>';
+      GD.nut({chu:'📊 Biến động TK 105', lenh:'tc.b105', du:{to:t.ma}, tit:'Mở Sao kê biến động TK 105 của tổ (khách chuyển vào, trích trả lãi / gốc)'})+GD.nut({chu:'👥 Mở tổ', lenh:'tc.moTo', du:{to:t.ma}})+
+      GD.nut({chu:'👪 Lập hồ sơ hộ mới vào tổ', lenh:'tc.ketNap', du:{to:t.ma}, chinh:1, tit:'Mở form 👪 Hộ vay, điền sẵn Xã › Ấp › Tổ'})+'</div>';
   var ct = document.getElementById('tc-ct');
   if(ct && tcHaiCot()) ct.innerHTML = '<div class="tc-the tc-the-to">'+h+'</div>'; else moHop('<div class="tc-the tc-the-to">'+h+GD.hang([GD.nut({chu:'Đóng (Esc)', lenh:'tc.dong'})])+'</div>', true);
 }

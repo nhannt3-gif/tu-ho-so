@@ -85,7 +85,7 @@ function tcDangKy(){ if(tcDangKy.xong || typeof GD==='undefined') return; tcDang
     kieu:function(){ tcTim().kieu = tcKieuBang() ? 'the' : 'bang'; luu(); slTraTim(); },
     to:function(el){ tcChonDong(el); tcTheTo(el.getAttribute('data-to')); }, kh:function(el){ slTheKH(el.getAttribute('data-kh')); },
     hien:function(el){ tcToHien(el); }, moMon:function(el){ tcToMoMon(el); }, tvKieu:function(el){ tcTim().tvKieu = el.getAttribute('data-k')==='gon' ? 'gon' : ''; luu(); tcTheTo(el.getAttribute('data-to')); },   /* 3.342: thẻ tổ — bấm CT → mã món vay, bấm TGTK → số TK 105 (dòng nhỏ dưới khách, bấm lại = ẩn) */
-    moTo:function(el){ tcMoTo(el.getAttribute('data-to')); }, bangDiem:function(el){ tcBangDiem(el.getAttribute('data-diem'), el.getAttribute('data-to')); },
+    moTo:function(el){ tcMoTo(el.getAttribute('data-to')); }, b105:function(el){ tcB105(el.getAttribute('data-to')); }, bangDiem:function(el){ tcBangDiem(el.getAttribute('data-diem'), el.getAttribute('data-to')); },
     ketNap:function(el){ TC_BANG = {diem:'', chon:el.getAttribute('data-to'), ket:null}; tcKetNap(); }, dong:function(){ dongHop(); }}); }
 function tcCoKH(ma){ return !!KHO.danhBa(ma); }
 function tcTk105Ds(){ var b = KHO.saoKeKy(TC_K, 'tk105'); return b && b.rows ? b.rows : []; }
@@ -294,6 +294,11 @@ function slTheKH(ma){
   });
 }
 function tcMoTo(to){ dongHop(); var C = toCH(), t = KHO.to(to); C.to = to; if(t){ C.xa = t.xa||''; C.diem = t.khoaDiem; C.hoi = String(t.dv||''); C.ap = ''; } else { var k = KHO.toKy(TC_K, to); if(k){ C.xa = k.xa||''; C.diem = k.khoaDiem; C.hoi = String(k.dv||''); } } luu(); slDoiTab('to'); }
+/* 3.383.7 (anh 27/10 "gắn nút mở sao kê biến động 105 ở chỗ tra cứu khi chọn tổ mở nhanh"): Sao kê › chọn sẵn tổ + báo cáo b105 → Xem */
+function tcB105(to){ dongHop(); var t = KHO.toKy(TC_K, to) || KHO.to(to); if(!t) return bao('Không thấy tổ '+to+'.', 3);
+  var S = skCH(); S.xa = t.xa||''; S.diem = t.khoaDiem; S.hoi = String(t.dv||''); S.ap = ''; S.to = to; S.bc = {b105:true}; luu();
+  D.cauHinh.slTab = 'sk'; doiNgan(7); slDoiTab('sk');
+  var n = 0, cho = function(){ if(typeof SK_K!=='undefined' && SK_K) return skXem(); if(++n<120) setTimeout(cho, 250); }; setTimeout(cho, 50); }
 function slChepKH(ma){
   var c = KHO.danhBa(ma); if(!c) return; var t = KHO.toDanhBa(c.to)||{};
   chepChu(['Họ tên: '+(c.ten||''), 'Mã KH: '+ma, 'Ngày sinh: '+ngayVNsl(c.ns), 'CCCD: '+(c.cccd||'')+(c.ncap ? ' — cấp '+ngayVNsl(c.ncap) : '')+(c.noiCap ? ' — '+c.noiCap : ''),
