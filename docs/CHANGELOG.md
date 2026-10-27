@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.384.1 — 27/10/2026 — Dọn hàm + phép thử không còn dùng (TK 3)
+- **Anh 27/10**: "có, luôn kiểm tra xóa các phép thử không còn dùng".
+- Bỏ khỏi app (không chỗ nào gọi, chỉ phép thử gọi):
+  - chức năng đã gỡ: `boBaoCao` (bỏ mẫu báo cáo — không còn nút) + đoạn N1 của `tests/hoiquy.js`; `ktDsLTC` (lời văn danh sách lãi tồn cũ) + 2 ý t114; `slKTDauHTML` (khối Kiểm tra kỳ cũ) + đoạn t105.
+  - lớp bọc 1 dòng: `gdxGLLamTrong` (→ `gdxGLMoi`), `gdxThan` (→ `gdxDung(gdxChup()).than`), `ktGNKhaiBao` / `ktKhaiBao` (→ `ktInHop([mẫu], '', ktHoiDs())`, sửa t106 t108 t111 t126 t132 t236 t272), `pvMo` (bỏ lời gọi thừa t168).
+  - `thXem` (lập mọi báo cáo Tổng hợp 1 lần — giao diện dùng `thXemNgay`): chuyển nguyên văn sang `tests/tro_thxem.js` để t105 / t148 / t196 vẫn kiểm đủ Tổng hợp.
+- Giữ `pbNguon`, `pbTongHopCT` (lớp nghiệp vụ Phân bổ KH — phần của tài khoản chính, t250 thử trực tiếp).
+- Không có file phép thử bỏ hoang: `do_bo_cuc.js`, `chuan_tao.js`, `hssv_exe.js`, `nguon.js`, `fakedrive.js` là công cụ / tệp phụ đang dùng; không phép thử trùng. t192 thêm 9 hàm vào danh sách "đã gỡ không được quay lại".
+
 ## 3.384 — 27/10/2026 — Kho chuẩn cho Giao dịch xã · Tra cứu · TK 104/105 + hồi quy theo đổi (TK 3)
 - Anh nhắn "cả 2" (27/10) cho 2 việc đã trình:
 **1. Kho chuẩn (tiếp 3.381–3.382):** Giao dịch xã, Tra cứu (qua cửa `KHO.dongTo` / `monKy` / `saoKeKy` / `saoKe`), thành viên – TK 104/105 (`js/28`: Mẫu 01/TV, Mẫu 31, Sao kê TK gắn theo mã KH), Đăng ký báo cáo (`js/62`), Báo cáo tối (`js/63`), chỗ sót ở KTGS (`22b`) và tab Tổ (`22gb`) thôi đọc thẳng bảng — đi qua `kcGoc` / `kcBang` / `kcLap` / `kcTK` / `kcTo`. Kết quả không đổi: t276 (64 báo cáo giống hệt bản chụp), t275, t167 (Giấy lĩnh tiền 85/85), t168, t177, t235, t244, t246, t257, t277, t300, t301, t310 đạt. `kcDung` chịu được bộ chưa có `co`. `tests/kiem.py` thêm thước đo **đọc thẳng bảng gốc** (mốc 0) — QUY_CHUAN mục 15.

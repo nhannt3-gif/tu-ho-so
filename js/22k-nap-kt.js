@@ -370,25 +370,6 @@ function slDanhGia(ky){
   r.bc = SL_BC_CAN.map(function(b){ return {ten:b[0], thieu:b[1].filter(function(k){ return !SLM.bang[slKhoa(k, ky)]; }).map(ten)}; });
   return r;
 }
-function slKTDauHTML(ky){
-  var g = slDanhGia(ky), kt = slCoFileChinh(ky) ? SLM.kt[ky] : null;
-  var buoc = [['Đủ file', !g.thieu.length], ['Đúng kỳ', !g.thieu.length && !g.ky.length], ['Đúng cấu trúc', !g.thieu.length && !g.ct.length], ['Đã kiểm', g.daKiem]];
-  var h = '<div class="sl-kt-thang"><span>Kiểm tra kỳ:</span><b>'+kyVN(ky)+'</b><span class="sl-kt-thang-nut"><button class="nho" onclick="slChonThang(-1)" title="Tháng trước">‹</button><button class="nho" onclick="slChonThangHop()">Chọn tháng</button><button class="nho" onclick="slChonThang(1)" title="Tháng sau">›</button></span></div>'+
-    '<div class="sl-4buoc">'+buoc.map(function(b, i){ return '<span class="'+(b[1] ? 'xong' : '')+'">'+(b[1] ? '✓ ' : (i+1)+'. ')+b[0]+'</span>'; }).join('')+'</div>';
-  if(g.dat) h += '<div class="sl-bao xanh sl-dat">✅ <b>Đạt</b> — đủ '+SL_BAT_BUOC.length+' file, đúng kỳ, đúng cấu trúc. '+(kt.dem.lech || kt.dem.canh ? 'Chênh lệch giữa các file: '+kt.dem.lech+' mục · lưu ý '+kt.dem.canh+' — <b>chỉ ghi nhận để biết</b>, không ảnh hưởng Đạt, không sửa số.' : 'Các file khớp nhau.')+'</div>';
-  else {
-    var ly = [];
-    if(g.thieu.length) ly.push('<b>Thiếu file:</b> '+g.thieu.join(', '));
-    if(g.ky.length) ly.push('<b>Sai kỳ:</b> '+g.ky.join(', '));
-    if(g.ct.length) ly.push('<b>Sai cấu trúc:</b> '+g.ct.join(', '));
-    if(!g.daKiem && !ly.length) ly.push('Đủ file — bấm <b>🔍 '+(SLM.kt[ky] ? 'Kiểm lại' : 'Kiểm tra kỳ')+'</b> bên dưới.');
-    else if(!g.daKiem) ly.push(SLM.kt[ky] ? 'Dữ liệu đã đổi sau lần kiểm — bấm Kiểm lại.' : 'Chưa bấm kiểm.');
-    h += '<div class="sl-bao vang">Chưa Đạt — '+ly.join(' · ')+'</div>';
-  }
-  if(g.luuY.length) h += '<div class="sl-phu sl-luu-y">ⓘ '+coChuHTML(g.luuY.join(' · '))+'</div>';
-  h += '<div class="sl-bc-can">'+g.bc.map(function(b){ return '<span class="sl-pill '+(b.thieu.length ? 'vang' : 'xanh')+'" title="'+(b.thieu.length ? 'Thiếu: '+coChuHTML(b.thieu.join(', ')) : 'Đủ file')+'">'+(b.thieu.length ? '○ ' : '✓ ')+coChuHTML(b.ten)+(b.thieu.length ? ' — thiếu '+b.thieu.length : '')+'</span>'; }).join('')+'</div>';
-  return h;
-}
 /* điện thoại: 2 khung vuốt ngang */
 /* 1 mục kiểm tra (có bảng chi tiết thì bấm mở); loc = chỉ lấy dòng có chữ này ở cột đầu (lọc theo xã) */
 function slKTFile(x){ var t = ' '+slChuan(x.ten+' '+(x.chu||''))+' '; return Object.keys(SL_KT_KHOP).filter(function(l){ return SL_KT_KHOP[l].some(function(w){ return t.indexOf(' '+w+' ')>=0; }); }); }   /* 3.165: mục kiểm tra → các file liên quan */

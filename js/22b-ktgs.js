@@ -424,7 +424,6 @@ function ktChonHTML(t){
 }
 
 /* ---------- khai báo khi in (mặc định trống) → Word đúng khuôn / In PDF ---------- */
-function ktKhaiBao(mau){ ktInHop([mau==='m16' ? 'm16' : (mau==='m04' ? 'm04' : 'm06')], '', ktHoiDs()); }   /* 3.114: mở hộp chọn khi in để đặt trước lựa chọn */
 function ktXuatNut(mau){ var n = mau==='m06' ? 'Mẫu 06' : 'Mẫu 16'; return GD.nut({chu:'🖨 In '+n, lenh:'ktk.xuat', du:{m:mau, c:'in'}})+GD.nut({chu:'📄 Word '+n, lenh:'ktk.xuat', du:{m:mau, c:'word'}, chinh:1}); }   /* 3.329: data-lenh */
 /* ---------- 3.98 (anh chốt): khai báo nằm ngay trong tab của mẫu (khung ✎ thu gọn được), lưu lâu dài trừ ngày; cán bộ kiểm tra lấy theo bảng Hội – xã ---------- */
 var KT_KB_LUU = ['dv','cbtu','cb2','cv2'];

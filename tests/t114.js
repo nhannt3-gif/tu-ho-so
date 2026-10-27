@@ -22,8 +22,6 @@ const fs=require('fs'), path=require('path');
    hs.forEach((h, i)=>{ h.mon.forEach(m=>{ m.ls = 8.4; m.lt = i<12 ? Math.round((m.dn||0)*0.0075*9) : (i===12 ? Math.round((m.dn||0)*0.007*3) : 0); }); });
    const d = ktDsDon(t);
    ok('lãi tồn > 6 tháng lãi: đúng 12 hộ (hộ 3 tháng lãi không vào), có lãi suất', d.ltc.length===12 && d.coLS && d.nLT===13, d.ltc.length+' / '+d.nLT);
-   ok('danh sách tối đa 10 hộ + "và n hộ khác"', /và 2 hộ khác$/.test(ktDsLTC(d.ltc)) && ktDsLTC(d.ltc).split('; ').length===10, ktDsLTC(d.ltc).slice(-60));
-   ok('3.134: mỗi hộ ghi lãi tồn, không ghi số tháng lãi', /\(lãi tồn [\d.]+ đồng\)/.test(ktDsLTC(d.ltc)) && !/tháng lãi/.test(ktDsLTC(d.ltc)));
    /* 3. Mẫu 04 */
    const g = ktBC04([{t:t}])[0], th = ktThangKT();
    ok('Mẫu 04 dòng ngày: địa danh xã + tháng / năm kiểm tra (tháng sau số liệu)', g.f.NOI04===ktXaTen(t.tenXa) && g.f.TH04===th.slice(5) && g.f.NAM04===th.slice(0, 4), g.f.NOI04+' '+g.f.TH04+'/'+g.f.NAM04);

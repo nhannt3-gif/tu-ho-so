@@ -5,7 +5,7 @@ const { chromium } = require(require('child_process').execSync('npm root -g').to
 const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
- await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p); await require('./tro_thxem.js')(p);   /* 3.384: thXem chuyển khỏi app */
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
  const dir = path.join(__dirname,'gia31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const r = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o={}, w=t=>new Promise(r=>setTimeout(r,t));
@@ -99,7 +99,7 @@ const fs=require('fs'), path=require('path');
    /* tháng trống: không kiểm */
    const truocKT = Object.keys(SLM.kt).length; await slKiemTra('2026-11'); o.thangTrong = 'kiểm tháng trống: '+(Object.keys(SLM.kt).length===truocKT && !SLM.kt['2026-11'] ? 'không chạy, có báo' : 'VẪN CHẠY');
    SLM.kt['2026-11'] = {luc:'2026-10-02T07:15:00', dau:'cu', dem:{ok:2, lech:1, canh:0}, kq:[{nhom:2, ten:'Toàn vẹn các file', kq:'ok', chu:'', ds:[]}]};   /* kết quả cũ lưu từ bản trước */
-   { const h = slKTHTML('2026-11'), d = slKTDauHTML('2026-11'); o.thangTrong += ' · kết quả cũ tháng trống: '+(/mục đạt|Kiểm lại/.test(h) ? 'VẪN HIỆN' : 'ẩn')+' · bước 2 '+(/xong">2\./.test(d) ? 'SAI (Đã kiểm)' : 'chưa'); } delete SLM.kt['2026-11'];
+   { const h = slKTHTML('2026-11'); o.thangTrong += ' · kết quả cũ tháng trống: '+(/mục đạt|Kiểm lại/.test(h) ? 'VẪN HIỆN' : 'ẩn'); } delete SLM.kt['2026-11'];
    /* tải file gốc: bắt tên file */
    const tai = []; const cuTai = taiXuongBlob; taiXuongBlob = (bl, ten)=>tai.push(ten+' '+bl.size+'B');
    slTaiGoc('bx', '2026-07'); await w(800); slTaiGocThang('2026-07'); for(let i=0;i<40 && tai.length<9;i++) await w(300);

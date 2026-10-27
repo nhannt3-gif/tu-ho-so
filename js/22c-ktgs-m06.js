@@ -247,7 +247,6 @@ function ktGhiHo(h, ly){   /* tình trạng hộ: quá hạn / khoanh, giải ng
   if(h.hssv) b.push('<span class="kt-nh">🎓 HSSV</span>');
   return b.join(' ')+(ly ? '<div><small>'+coChuHTML(ly)+'</small></div>' : '');
 }
-function ktGNKhaiBao(){ ktKhaiBao('m06'); }   /* 3.98: khung khai báo trong tab */
 var KT_GN_XEM = null;
 function ktGNNk(){ var to = [], kh = [];   /* 3.353: 📜 nhật ký đã lập / in — Mẫu 06 sau giải ngân ghi tổ + hộ của từng phiếu (chỉ đọc, không đổi mẫu) */
   ((KT_GN_XEM && KT_GN_XEM.gts) || []).forEach(function(g){ var p = g.p || {}, t = p.x && p.x.t; if(t && t.ma && to.indexOf(t.ma)<0) to.push(t.ma); (p.mon||[]).forEach(function(o){ if(o.kh && kh.indexOf(o.kh)<0) kh.push(o.kh); }); });

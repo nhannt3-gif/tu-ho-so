@@ -46,7 +46,6 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    document.getElementById('gdx-bo').dispatchEvent(new MouseEvent('mousedown', {bubbles:true})); await w(100); m180.gonNhap = lk().classList.contains('gon');
    m180.menu = !!document.querySelector('.gdx2-dau details.gdx-menu') && [...document.querySelectorAll('.gdx2-dau .gdx-menu button')].map(b=>b.textContent).join('|');
    m180.dau1 = document.querySelector('.gdx2-dau').offsetHeight;
-   pvMo('gdx', 'xd'); await w(200);
    pvChon('gdx', 'diem', d.k); await w(200); m180.gonLai = lk().classList.contains('gon');
    { const S2 = gdxCH(); S2.diem = ''; S2.to = t.maTo; pvVeCay('gdx'); await w(200); m180.gonTo = lk().classList.contains('gon'); pvChon('gdx', 'diem', d.k); await w(200); }
    const khacTT = tKhac ? boDau(tKhac.ten) : '';

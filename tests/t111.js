@@ -72,7 +72,7 @@ const fs=require('fs'), path=require('path');
    const hN = ktHTML06([g, gT, g]);
    ok('xem trước nhiều phiếu: mỗi phiếu 1 tờ có nhãn, in sang trang', (hN.match(/class="kt-to"/g)||[]).length===3 && /Phiếu 2\/3 · Tổ /.test(hN) && (hN.match(/break-before:page/g)||[]).length===2 && /@media print\{\.kt-to-nhan\{display:none\}/.test(hN));
    /* 5. không theo dõi */
-   KT_KB = {ngay:'2026-10-03'}; ktKhaiBao('m06'); await w(50); ktXuat('m06', 'word', 1); await w(600); ktKhaiBao('m16'); await w(50); ktXuat('m16', 'word', 1); await w(600);
+   KT_KB = {ngay:'2026-10-03'}; ktInHop(['m06'], '', ktHoiDs()); await w(50); ktXuat('m06', 'word', 1); await w(600); ktInHop(['m16'], '', ktHoiDs()); await w(50); ktXuat('m16', 'word', 1); await w(600);
    ok('xuất 06 / 16: không ghi lịch sử, nhật ký', !Object.keys(D.cauHinh.ktgsLS||{}).length && !Object.keys(D.cauHinh.ktgsNK||{}).length && !Object.keys(D.cauHinh.ktgsGN||{}).length);
    /* 6. Mẫu 16: địa danh đúng chữ, Hội đầy đủ, Chức vụ tab, gợi ý nhận xét */
    const f16 = Object.keys(F).find(n=>/Mau 16/.test(n)), z16 = await moZip(F[f16]), c16 = chu(z16.doc);

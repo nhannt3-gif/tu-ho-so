@@ -127,7 +127,6 @@ document.addEventListener('keydown', function(e){   /* 3.227: Backspace (không 
 });
 function pvGonCua(p){ return pvKieuBang()[p]!=='chip'; }   /* 3.328 (anh chốt 23/10): mặc định kiểu gọn mọi nơi */
 function pvGonDoi(p){ pvKieuBang()[p] = pvGonCua(p) ? 'chip' : 'gon'; PV_MO[p] = ''; luu(); pvVeCay(p); }
-function pvMo(p, cap){ PV_MO[p] = PV_MO[p]===cap ? '' : cap; pvVeCay(p); }
 function pvChonTo(p, ma){
   var d = PV_DUNG[p], K = d && d.K(), t = K && K.to[ma]; if(!t) return;
   var S = d.S(); S.xa = t.xa||''; S.diem = t.khoaDiem; S.hoi = String(t.dv||''); S.ap = ''; S.to = ma; PV_Q[p] = ''; PV_MO[p] = '';

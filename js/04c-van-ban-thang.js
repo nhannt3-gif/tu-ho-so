@@ -290,18 +290,6 @@ function luuThietLapBC(ma){
   bao('Đã lưu thiết lập “'+m.ten+'”: tính thiếu ở '+capChu(m)+
     ' · '+{thang:'hằng tháng',ngay:'theo ngày',quy:'quý',sau:'6 tháng',nam:'năm'}[ck], 6);
 }
-function boBaoCao(ma){
-  var mau = D.cauHinh.mauBaoCao || [], m = mau.find(function(x){ return x.ma===ma; });
-  if(!m) return;
-  var so = D.duLieu.filter(function(x){ return (x.maLoai||'')===ma; }).length;
-  hoi('Bỏ báo cáo "'+m.ten+'" khỏi danh mục?',
-    so ? (so+' file đã lưu vẫn còn nguyên, chỉ không tính vào bộ đủ thiếu nữa.')
-       : 'Chưa có file nào thuộc loại này.', 'Bỏ khỏi danh mục', function(){
-    D.cauHinh.mauBaoCao = mau.filter(function(x){ return x.ma!==ma; });
-    ghiMaDaBo([ma]);
-    luu(); veThang();
-  });
-}
 /* ==========================================================
    QUÉT ĐỔI TÊN (3.26) — đổi tên báo cáo xong, muốn đổi tên file đã lưu thì bấm nút này.
    Bảng tên cũ → tên mới, tick từng dòng + Chọn tất cả, có hoàn tác.

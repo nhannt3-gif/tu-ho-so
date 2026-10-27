@@ -355,7 +355,6 @@ function gdxDung(X){   /* → {than, css} */
   var x = {soNguoi:c.soNguoi || 1, soTien:c.soTien || ''}, m = '<div class="sheet-a4">'+gdxHTML04(x, c)+'</div>';
   return {than:+c.soBan===1 ? m : m+m, css:GDX_CSS};   /* mặc định 2 bản giống nhau (1 lưu tổ, 1 lưu NH) — chọn được 1 bản */
 }
-function gdxThan(){ return gdxDung(gdxChup()).than; }
 
 /* ---------- mục của từng mẫu — theo thứ tự trên mẫu; nhanh = mặc định ra khung chọn nhanh (anh đổi ở ⚙) ---------- */
 var GDX_MUC = {
@@ -858,7 +857,6 @@ function gdxGLSua(o){ GDX.glSua = GDX.glSua || {}; GDX.glSua[o.getAttribute('dat
 function gdxGLNoiCapChu(g){ return (gdxNoiCapCu(g.ncap) && !(GDX.glSua && GDX.glSua.noiCap!==undefined) ? '⚠ ' : '')+'Nơi cấp: '+(g.noiCap || '— gõ ngày cấp')+(GDX.glSua && GDX.glSua.noiCap!==undefined ? ' ✎' : ''); }
 function gdxGLNoiCapTay(){ var g = gdxGLDuLieu(), v = prompt('Nơi cấp (để trống = tự tính theo ngày cấp):', g.noiCap || ''); if(v===null) return;
   GDX.glSua = GDX.glSua || {}; if(String(v).trim()) GDX.glSua.noiCap = String(v).trim(); else delete GDX.glSua.noiCap; gdxVe(); }
-function gdxGLLamTrong(){ gdxGLMoi(); }   /* 3.185 (anh chốt): Làm trống trước / sau in như nhau — bỏ người lĩnh, form, số tiền và bỏ luôn chọn tổ ở cây địa bàn (giữ Xã / Điểm) */
 function gdxCCCDCua(kh, t){ var c = KHO.danhBa(kh), v = c && c.cccd;
   if(!v && t && KHO.dongTo(t.ma).length){ var r = KHO.dongTo(t.ma).find(function(o){ return o.kh===kh && o.cccd; }); v = r ? r.cccd : ''; } return String(v||'').replace(/\D/g, ''); }
 function gdxGLTim(){
