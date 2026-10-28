@@ -255,6 +255,19 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 ### Ghi chú kỹ thuật 3.397
 - `js/78-ktgs-gon.js` chạy SAU khi KTGS vẽ — sửa màn KTGS không cần biết js/78, miễn giữ lớp `.kt-khoi`, `.kt-a-the`, `.kt-a-thang`, `.to-the-so`, `.kt-gn-dau`, `.hang-nut.kt-in`, `p.ghi`. Phép thử KTGS cũ chọn theo các lớp này vẫn đúng (khối chỉ đổi chỗ).
 
+### Ghi chú kỹ thuật 3.398
+- Kế hoạch năm: mọi chỗ đọc lịch kế hoạch NGOÀI màn Kế hoạch phải qua `ktKHBanDung(S)` (bản chốt khi đang sửa dở). Màn Kế hoạch (`ktKHLich`) đọc bản nháp.
+- `ktKHGhi` trả `false` khi đang khóa (bao báo) — hàm mới gọi ghi kế hoạch phải chịu được.
+- Khai báo Hội: ghi qua `ktHoiKBSua` / `ktChuanSua` (đã bọc khóa + nhật ký ở js/79). Không ghi thẳng `D.cauHinh.ktHoiKB`.
+
+### Danh sách thử trên máy thật (3.398)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Kế hoạch năm → 📌 Chốt | ✅ Đã chốt ngày hôm nay, ô tháng khóa | |
+| 2 | ✏ Sửa → đổi tháng 1 ấp → Định kỳ "Tích n tổ có lịch" | Định kỳ vẫn theo bản chốt cũ; bấm 📌 Chốt lại → theo bản mới; 📜 Lịch sử 2 lần | |
+| 3 | ⚙ Khai báo → 🔒 Khóa → thử sửa / dán / ↺ | Không đổi được, báo đang khóa | |
+| 4 | 🔓 Mở → sửa tên CT → 📜 Nhật ký → ↶ Khôi phục | Về tên cũ | |
+
 ### Danh sách thử trên máy thật (3.397)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

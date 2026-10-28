@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.398 — 28/10/2026 — KTGS: chốt Kế hoạch năm · khóa + nhật ký khai báo Hội (TK 2)
+- **Anh 28/10**: "KH năm em đang tự lưu phải ko — anh muốn chốt lưu và chốt ngày lưu luôn, sau này có sửa thì lưu lại theo ngày sửa" · "các khai báo tên hội nên có nút khóa lại để khỏi đổi nhầm và em nên lưu lại nhật ký để còn biết phục hồi nếu lỡ tay bấm nhầm nút reset".
+- **Kế hoạch năm** (js/22e): `ktKH[khóa].chot = [{luc, tu, den, cach, thang, to, snap, n}]`, `khoa` = 1 đã chốt / 0 đang sửa. 📌 Chốt (`ktKHChot`, đủ 100% tổ mới cho chốt) → khóa ô đổi tháng / cách / thứ tự ấp / xếp lại / xóa (`ktKHGhi`, `ktKHXoa` chặn); ✏ Sửa (`ktKHMoSua`) → nháp tự lưu; 📌 Chốt lại → bản mới theo ngày sửa; ↶ Bỏ sửa (`ktKHBoSua`); 📜 Lịch sử chốt (`ktKHLichSu`). Định kỳ (`ktDKLich`) / Mẫu 04 (`ktBCKH`, `ktBCTheoKH`) dùng **bản chốt mới nhất** (`ktKHBanDung`). Khuôn Word 01/KH vẫn để trống ngày tháng (không sửa khuôn — t179).
+- **Khai báo Hội – xã + Chuẩn hóa**: khối mới **`js/79-ktgs-khoa.js`** (cắm rút) bọc `ktHoiKBSua` / `ktChuanSua` — 🔒 Khóa (`D.cauHinh.ktKBKhoa`) chặn mọi đường ghi (gõ, dán khối, ↺, sửa theo gợi ý, ô Nhiệm kỳ / HĐ hộp Phân công), ô chỉ xem; `mauKH` / `ccKH` (khuôn / căn cứ KH) không khóa. 📜 Nhật ký `D.cauHinh.ktKBNK` (1.000 dòng, khối ktgs đồng bộ Drive), ↶ Khôi phục.
+- Chip "🗓 Kế hoạch năm · 01/KH" (KT_A_THE); nút "📋 Phân công" ở bảng Hội – xã.
+- **Sửa lỗi 3.397**: js/78 dời dòng đầu bảng Hội – xã (⚙ Khai báo) xuống cuối → bỏ qua màn ⚙ Khai báo.
+- Phép thử mới `t319`; t109, t125, t154, t318 sửa theo chữ mới; nhóm KTGS + t179 đạt.
+
 ## 3.397 — 28/10/2026 — KTGS gọn D1–D4 (TK 2)
 - **Anh 28/10 duyệt demo** ("em làm luôn"): khối mới **`js/78-ktgs-gon.js`** (cắm rút) — **chỉ dời các khối đã vẽ** trong `#kt-the` (MutationObserver trên `#tr7`, chạy lại được nhiều lần), không đổi hàm dựng màn / chỗ lưu / hàm dựng mẫu (luật `BAN_GIAO_KTGS`, t179 45/45).
   - D1: `.kt-a-the` vào hàng `.kt-khoi`; phần " · Mẫu …" của nhãn bọc `<small class="kt-con-phu">` ẩn bằng CSS (chữ đủ giữ nguyên, rê chuột thấy).

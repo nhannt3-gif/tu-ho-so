@@ -1982,7 +1982,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.397', ds:[
+var CO_GI_MOI = {ban:'3.398', ds:[
+  ["📌", "KTGS Kế hoạch năm: 📌 Chốt (ghi ngày chốt + khóa) · ✏ Sửa → 📌 Chốt lại theo ngày sửa · 📜 Lịch sử chốt; Định kỳ / Mẫu 04 dùng bản chốt mới nhất"],
+  ["🔒", "KTGS Khai báo Hội – xã / Chuẩn hóa: 🔒 Khóa chống sửa nhầm + 📜 Nhật ký (cũ → mới) có ↶ Khôi phục"],
+  ["🏷", "Chip đổi tên 🗓 Kế hoạch năm; nút 📋 Phân công ở bảng Hội – xã"],
   ["🛡", "KTGS gọn: thẻ Định kỳ · Sau giải ngân · Mẫu 04 · Lịch năm chung hàng 3 khối; Tháng kiểm tra + số liệu + Đã chọn + nút 👁 Xem / 📋 Tóm tắt gom 1 hàng trên bảng; ghi chú dài → ⓘ"],
   ["🔽", "Tra cứu KH › Tìm theo Tổ trưởng: bấm tiêu đề cột để sắp xếp ▲▼; hàng lọc từng cột (tên · mã gõ; TV · Có DN = 0 / > 0 / ngưỡng; Xã · Ấp · Hội chọn); dòng Cộng theo dòng đang lọc"],
   ["📱", "Điện thoại: chip báo trên dải LỌC ĐỊA BÀN (KTGS BC0437 · BC0438) 1 dòng, không đè khung"],
@@ -1994,10 +1997,7 @@ var CO_GI_MOI = {ban:'3.397', ds:[
   ["🧩", "Sao kê: 11 báo cáo danh sách (quá hạn, khoanh, đến hạn, giải ngân, SĐT…) tách thành khối riêng cắm rút — nội dung báo cáo giữ y nguyên"],
   ["📄", "Sao kê: Kết quả giao dịch tại điểm GD và THHD tự co lề / chữ cho vừa 1 trang (xem và in); co tới 8 pt vẫn không vừa thì sang trang 2"],
   ["👥", "Tổ TK&VV: báo cáo Nợ cần xử lý cũng tự co vừa 1 trang"],
-  ["🔎", "Lọc địa bàn: ô tìm tổ thu vào nút 🔎 Tìm tổ trên dải LỌC ĐỊA BÀN — bấm mới mở ô gõ, Enter chọn tổ, Esc đóng (mọi tab Số liệu)"],
-  ["📅", "Số liệu theo ngày: dòng cam nguồn file → 1 chip 📅 Số liệu dd/mm/yyyy trên dải lọc, rê chuột xem từng file"],
-  ["📱", "Điện thoại: hàng lọc 1 dòng ở mọi tab, ẩn ↺ / 📌 khi ô đang Tất cả cho đủ chỗ chữ"],
-  ["📄", "Điện thoại: tab Văn bản có lại nút ☰ Kiểu xem (Danh sách · Năm · tháng)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🔎", "Lọc địa bàn: ô tìm tổ thu vào nút 🔎 Tìm tổ trên dải LỌC ĐỊA BÀN — bấm mới mở ô gõ, Enter chọn tổ, Esc đóng (mọi tab Số liệu)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

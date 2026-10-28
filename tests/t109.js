@@ -16,7 +16,7 @@ const fs=require('fs'), path=require('path');
    const moZip = async (bl) => { const z = XLSX.CFB.read(new Uint8Array(await bl.arrayBuffer()), {type:'array'}); const g = n => { const f = XLSX.CFB.find(z, n) || XLSX.CFB.find(z, '/'+n); return f ? new TextDecoder().decode(f.content) : null; }; return {z, g, doc:g('word/document.xml')}; };
    const hopLe = x => !new DOMParser().parseFromString(x, 'application/xml').getElementsByTagName('parsererror').length;
    doiNgan(7); const C = ktCH(); C.ky='2026-08'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; C.khHoi=''; C.che='kh'; C.khNam = 2026; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
-   ok('có nút chế độ 🗓 Kế hoạch năm · 01/KH, chưa chọn hội thì nhắc', /Kế hoạch 01\/KH/.test(document.querySelector('.kt-a-the').textContent) && /Chọn xã ở cây phía trên rồi chọn hội/i.test(document.getElementById('kt-the').textContent));
+   ok('có nút chế độ 🗓 Kế hoạch năm · 01/KH, chưa chọn hội thì nhắc', /Kế hoạch năm · 01\/KH/.test(document.querySelector('.kt-a-the').textContent) && /Chọn xã ở cây phía trên rồi chọn hội/i.test(document.getElementById('kt-the').textContent));
    /* chọn Hội – xã nhiều tổ nhất */
    const dem = {}; Object.values(KT_K.to).filter(t=>!toLaTT(t) && t.dv && String(t.dv)!=='99').forEach(t=>{ const k = t.xa+'|'+t.dv; dem[k] = (dem[k]||0)+1; });
    const kMax = Object.keys(dem).sort((a, b)=>dem[b]-dem[a])[0], [xa, dv] = kMax.split('|');
@@ -27,7 +27,7 @@ const fs=require('fs'), path=require('path');
    ok('100% tổ của Hội tại xã, gom theo ấp', N===dem[kMax] && N>=3 && L.ds.every(t=>t.xa===xa && String(t.dv)===dv), N+' tổ');
    ok('mặc định xếp sẵn 02 → 10, đủ 100% tổ, chia đều', L.tu===2 && L.den===10 && Object.keys(L.gan).length===N && Object.values(L.gan).every(m=>m>=2 && m<=10) && (()=>{ const c = {}; Object.values(L.gan).forEach(m=>c[m]=(c[m]||0)+1); const v = Object.values(c); return Math.max(...v)-Math.min(...v)<=1; })());
    ok('thứ tự theo ấp: tháng không giảm theo danh sách', L.ds.every((t, i)=>!i || L.gan[t.ma]>=L.gan[L.ds[i-1].ma]));
-   ok('chưa đổi thì chưa lưu (ghi "app xếp sẵn")', !L.luu && /app xếp sẵn/.test(document.getElementById('kt-the').textContent));
+   ok('chưa đổi thì chưa lưu (ghi "app xếp sẵn")', !L.luu && /xếp sẵn/i.test(document.getElementById('kt-the').textContent));
    /* đổi cả ấp + từng tổ */
    const ap0 = ktKHAp(L.ds[0]); ktKHDoiThang('', 7, ap0); await w(100);
    const L2 = ktKHLich(); ok('đổi tháng cả ấp → mọi tổ của ấp sang tháng 7, đã lưu', L2.luu && L2.ds.filter(t=>ktKHAp(t)===ap0).every(t=>L2.gan[t.ma]===7) && !!D.cauHinh.ktKH['2026|'+xa+'|'+dv]);
