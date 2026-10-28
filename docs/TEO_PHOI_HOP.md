@@ -1,6 +1,6 @@
 # Tèo — bộ não công việc của anh Nhân · phối hợp App Tủ hồ sơ ↔ Giao ban
 
-> **Bản 1.2 · 28/10/2026** · soạn từ phiên Project giao ban (chat) 28/10/2026, anh Nhân duyệt từng ý trong phiên.
+> **Bản 1.3 · 28/10/2026** · soạn từ phiên Project giao ban (chat) 28/10/2026, anh Nhân duyệt từng ý trong phiên.
 > **Đọc file này trước** khi đụng tới: nạp file / kho số liệu gốc · luật số liệu dùng chung (tổ viên, điểm GD, 3 tháng KHĐ…) · cây điểm giao dịch từ 11/2026 · báo cáo chuyển giữa app và giao ban.
 > File này **chỉ ghi định hướng và việc đã thống nhất**. Mọi sửa code vẫn theo quy trình repo: lên kế hoạch → anh duyệt → anh nhắn "code" → PR → anh nhắn "gộp".
 > Repo công khai: file này **không có dữ liệu khách, tên tổ trưởng, mã tổ** — chỉ số đếm tổng.
@@ -71,6 +71,13 @@ Còn 9 điểm: Gia Lộc · Truông Mít · Truông Mít 2 · Phước Thạnh 
   - **Món vay ở ấp khác ấp của tổ → coi là sai, cần sửa lại trên hệ thống**: báo vào danh sách kiểm tra (món · tổ · ấp của món · ấp của tổ), **không tự sửa**, vẫn tính món theo tổ cho tới khi sửa.
   - Kiểm thêm: các tổ cùng ấp phải cùng điểm; điểm của tổ trên File Tổ trưởng phải trùng điểm của ấp → lệch thì báo.
   - Anh cho biết Mẫu 31 sẽ đổi logic theo cơ cấu mới.
+- **Ngày đến hạn / chuyển quá hạn theo điểm GD (anh chốt 28/10/2026):**
+  - Món gắn mã tổ → **ngày đến hạn GDXA mặc định = ngày giao dịch của điểm** của tổ. Điểm đổi ngày giao dịch, hoặc món / tổ điều chuyển sang điểm khác (sắp xếp) → **theo ngày giao dịch của điểm mới**.
+  - **Ngày chuyển quá hạn = phiên giao dịch đầu tiên của điểm KỂ TỪ ngày đến hạn** (ngày đến hạn trùng ngày phiên → chuyển ngay phiên đó). Ví dụ: hợp đồng đến hạn ngày 10, điểm giao dịch ngày 05 → chuyển quá hạn ngày 05 tháng sau.
+  - Ví dụ gộp điểm 11/2026: tổ cũ Gia Lộc 2 (ngày 07) sang Gia Lộc (ngày 23), món đến hạn 10/11 → chuyển quá hạn **23/11**.
+  - **Món vay trực tiếp** (không theo ngày giao dịch xã): chuyển quá hạn **ngay sau ngày đến hạn** (hợp đồng / gia hạn).
+  - **Kỳ gốc phân kỳ (CV 597) của món qua tổ**: đến hạn theo ngày giao dịch của điểm, như trên.
+  - Món đã gia hạn: mốc là ngày đến hạn sau gia hạn — **đang hỏi lại anh để xác nhận**.
 - **Món vay trực tiếp (anh chốt 28/10/2026):** dư nợ điểm, xã, PGD đều cộng cả món trực tiếp (dòng "Trực tiếp" cạnh phần Ủy thác, như mẫu 08/GDX). Món trực tiếp **không theo ngày giao dịch xã cố định** → gán về điểm **theo ấp của món vay**; **1 ấp chỉ thuộc 1 điểm GD** (ấp thuộc điểm của các tổ trong ấp). Dữ liệu thấy 1 ấp có tổ ở 2 điểm → báo lệch, không tự chọn. Không dùng ngày GDXA cho món trực tiếp.
 - Bảng "điểm bỏ → điểm nhận" ở trên chỉ là **dự phòng** khi file chưa cập nhật; áp **từ kỳ số liệu tháng 11/2026**, các tháng cũ giữ nguyên.
 - So file Tổ trưởng 27/10 với DSTO 10/10: 49 tổ đã đổi điểm (Gia Lộc 2 → Gia Lộc 18 · Gia Bình → Thanh Phước 21 · Thanh Phước → Phường Gò Dầu 10); Phước Trạch lúc đó chưa chuyển. Phần lớn chênh lệch giữa hai file là do **khác ngày**, không phải lỗi dữ liệu.
@@ -97,7 +104,7 @@ So trên: app (repo bản gộp PR #387 — `QUY_CHUAN_KIEN_TRUC.md` mục 4, `D
 | K3 | Điểm GD của tổ | suy từ xã + GDXA phần lớn dư nợ | mã điểm trên file (nay là File Tổ trưởng) | ✅ **Anh chốt 28/10: theo chuỗi tổ → ấp → điểm (1 ấp 1 điểm)**, đối chiếu với mã điểm trên File Tổ trưởng; món lệch ấp so với tổ = sai, báo để sửa (mục 5) |
 | K4 | Khoản vay mới (kiểm tra 30 ngày, HD 727 "giải ngân kỳ đầu") | giải ngân lần 1 | mọi món có GN trong tháng, kể cả HSSV lần sau | **Lần 1**; lần 2+ thành danh sách theo dõi riêng |
 | K5 | Món 3 tháng KHĐ | so ngày "trước hẳn" mốc lùi 3 tháng; nước sạch mã QĐ 37 < 9 tháng từ Ngày vay; loại mọi món khoanh; trống ngày GD kỳ giữa tháng lấy Mẫu 31 cuối tháng trước | MONTHS_BETWEEN kiểu Oracle; chưa GD lần nào tính từ ngày GN đầu; ân hạn CT 06 (6+3), CT 05/07/18 (60+3), CT 01 SC2/MC2/LC2 (24+3); loại lãi suất 0; khoanh chỉ loại khi gia hạn trong tháng | **Chạy cả hai hàm trên các kỳ có file TW** rồi chọn; dự kiến hàm app làm gốc + điều kiện kỳ giữa tháng của giao ban |
-| K6 | Ngày chuyển QH khi hệ thống trống | ngày đến hạn cuối | kỳ GDXA đầu tiên sau ngày đến hạn | Món qua tổ: **cột "Ngày ĐH theo GDXA"** của Mẫu 31 · **món trực tiếp: ngày đến hạn** (gia hạn, không có thì hợp đồng), không theo GDXA |
+| K6 | Ngày chuyển QH khi hệ thống trống | ngày đến hạn cuối | kỳ GDXA đầu tiên sau ngày đến hạn | ✅ **Anh chốt 28/10 (theo app):** món qua tổ = phiên đầu tiên của điểm (hiện tại) kể từ ngày đến hạn, trùng ngày phiên thì chuyển ngay phiên đó · món trực tiếp = ngay sau ngày đến hạn (mục 5) |
 | K7 | Nợ đến hạn tháng tới | chỉ cột "Ngày ĐH theo Gia hạn" (nguy cơ sót nếu trống) | GH có thì dùng, không thì HĐ; + kỳ con phân kỳ CV 597 | **Theo app**; riêng kỳ con của **món trực tiếp** lấy theo **file Nợ đến hạn phân kỳ** — không có file thì ghi "cần file", không tự suy ngày kỳ theo GDXA |
 | K8 | Tổ trưởng | tên theo Mẫu 31 cuối tháng | danh sách tổ hệ thống (mã KH TT) | **Theo File Tổ trưởng**, không có mới lấy Mẫu 31 |
 | K9 | Thứ bậc nguồn tổng hợp | tính từ Mẫu 31 | lấy thẳng biểu TW cấp PGD / xã | Giao ban giữ cách tính + **thêm bước kiểm khớp từng xã** với BCDHTD |
@@ -139,6 +146,7 @@ B1 bảng đối chiếu ✓ (mục 6) · **B1b bộ file chung ✓ (mục 3)** 
 
 | Bản | Ngày | Nội dung |
 |---|---|---|
+| 1.3 | 28/10/2026 | Anh chốt K6: ngày đến hạn / chuyển QH theo ngày giao dịch của điểm (kể cả điểm mới sau điều chuyển); món trực tiếp ngay sau ngày đến hạn; kỳ phân kỳ theo ngày điểm. Món gia hạn: chờ xác nhận. |
 | 1.2 | 28/10/2026 | Anh chốt K3 + quy tắc chuỗi món → tổ → ấp → điểm GD; món ở ấp khác ấp của tổ = sai, báo để sửa. |
 | 1.1 | 28/10/2026 | Anh chốt K2: món trực tiếp theo ấp, 1 ấp chỉ thuộc 1 điểm GD (không theo ngày GDXA); chỉnh K6, K7 cho món trực tiếp. |
 | 1.0 | 28/10/2026 | Tạo file từ phiên giao ban: tên Tèo, phân vai, 3 luật, bộ file nạp chung, kho Số liệu gốc nạp qua app, ngày số liệu kỳ phiên, điểm GD 12 → 9 từ 11/2026, bảng đối chiếu luật số liệu (K1–K9 chờ chốt), việc cho hai bên. |
