@@ -1,6 +1,6 @@
 # Tèo — bộ não công việc của anh Nhân · phối hợp App Tủ hồ sơ ↔ Giao ban
 
-> **Bản 1.4 · 28/10/2026** · soạn từ phiên Project giao ban (chat) 28/10/2026, anh Nhân duyệt từng ý trong phiên.
+> **Bản 1.5 · 28/10/2026** · soạn từ phiên Project giao ban (chat) 28/10/2026, anh Nhân duyệt từng ý trong phiên.
 > **Đọc file này trước** khi đụng tới: nạp file / kho số liệu gốc · luật số liệu dùng chung (tổ viên, điểm GD, 3 tháng KHĐ…) · cây điểm giao dịch từ 11/2026 · báo cáo chuyển giữa app và giao ban.
 > File này **chỉ ghi định hướng và việc đã thống nhất**. Mọi sửa code vẫn theo quy trình repo: lên kế hoạch → anh duyệt → anh nhắn "code" → PR → anh nhắn "gộp".
 > Repo công khai: file này **không có dữ liệu khách, tên tổ trưởng, mã tổ** — chỉ số đếm tổng.
@@ -21,11 +21,23 @@ Hai cách anh giao tiếp = **hai cửa vào cùng một bộ não**: (1) chat P
 
 ## 2. Ba luật giữ "một bộ não"
 
-1. **Một nơi ghi quyết định chung:** `docs/TEO_PHOI_HOP.md` (file này) + `docs/TEO_QUY_TAC_CHUNG.md` (sổ luật số liệu QT-xx — **lập ở bước B2, sau khi anh chốt mục 6**). Anh chốt ở cửa nào cũng ghi về đây. Luật **riêng** giữ chỗ cũ: giao diện / kho app → `QUY_CHUAN_KIEN_TRUC.md`; văn bản giao ban → `QUY_CHUAN_GIAO_BAN` (Drive). Hai file riêng chỉ ghi "theo QT-xx".
+1. **Một nơi ghi quyết định chung:** `docs/TEO_PHOI_HOP.md` (file này) + `docs/TEO_QUY_TAC_CHUNG.md` (sổ luật số liệu QT-C-xx — đã lập 28/10 với các luật anh chốt; luật còn chờ ghi rõ "chờ"). Anh chốt ở cửa nào cũng ghi về đây. Luật **riêng** giữ chỗ cũ: giao diện / kho app → `QUY_CHUAN_KIEN_TRUC.md`; văn bản giao ban → `QUY_CHUAN_GIAO_BAN` (Drive). Hai file riêng chỉ ghi "theo QT-xx".
 2. **Mở phiên ở cửa nào cũng đọc sổ chung trước** (app: dòng trỏ đầu `CLAUDE.md`; giao ban: bước "Đọc trạng thái").
 3. **Cùng một bộ lệnh, cùng nghĩa:** "Đọc trạng thái" · "Chốt QT: …" · "Chốt phiên" · "code" · "gộp".
 
 Giữ hai bên không lệch (anh duyệt hướng 28/10): **chung sổ quy tắc + chung bộ phép thử** (dữ liệu giả + đáp án cho từng QT; hàm JS của app và hàm Python của giao ban đều phải ra đúng đáp án — như các trình duyệt cùng chạy một bộ test chuẩn web). Mỗi QT có số bản; đổi QT thì cả hai bên qua phép thử trước khi dùng cho kỳ mới. Kiểm số thật (kỳ 30/09/2026) làm riêng, không đưa vào repo.
+
+## 2a. Gọi Tèo — cách anh giao việc (anh chốt 28/10/2026: "sau này anh sẽ gọi Tèo làm")
+
+Anh mở **bất kỳ cửa nào** (chat Project giao ban, hoặc Claude Code trên repo) và gọi **"Tèo, …"**. Claude ở cửa đó **là Tèo**:
+
+1. Đọc `docs/TEO_PHOI_HOP.md` (file này) + `docs/TEO_QUY_TAC_CHUNG.md` trước khi làm; xem **mục 12 Hộp thư** có việc bên kia gửi không.
+2. Xác định việc thuộc tay nào (mục 1, mục 7): số liệu cố định / tra cứu / nạp → app; phân tích, nhận định, văn bản hành chính → giao ban. Việc của tay kia → **ghi vào Hộp thư** (mục 12), không tự làm thay.
+3. Làm theo quy trình của cửa đó (app: kế hoạch → "code" → PR → "gộp"; giao ban: Quy chuẩn giao ban + skill).
+4. Luật số liệu mới anh chốt ("Tèo, chốt QT: …") → ghi `TEO_QUY_TAC_CHUNG.md` (PR, anh "gộp") + ghi Hộp thư "QT-xx mới, bên kia cần áp".
+5. Kết thúc ("Tèo, chốt phiên") → cập nhật **mục 13 Trạng thái chung** + nhật ký riêng của cửa đó.
+
+Lệnh chung: **"Tèo, đọc trạng thái"** · **"Tèo, chốt QT: …"** · **"Tèo, chốt phiên"** · "code" · "gộp".
 
 ## 3. Bộ file nạp chung (anh chốt 28/10/2026)
 
@@ -147,8 +159,24 @@ B1 bảng đối chiếu ✓ (mục 6) · **B1b bộ file chung ✓ (mục 3)** 
 
 | Bản | Ngày | Nội dung |
 |---|---|---|
+| 1.5 | 28/10/2026 | Thêm mục 2a "Gọi Tèo", mục 12 Hộp thư, mục 13 Trạng thái chung; lập `TEO_QUY_TAC_CHUNG.md`. |
 | 1.4 | 28/10/2026 | Món gia hạn: mốc chuyển QH là ngày đến hạn sau gia hạn (anh xác nhận); gia hạn tối đa ½ thời hạn với trung hạn — chờ văn bản gia hạn. |
 | 1.3 | 28/10/2026 | Anh chốt K6: ngày đến hạn / chuyển QH theo ngày giao dịch của điểm (kể cả điểm mới sau điều chuyển); món trực tiếp ngay sau ngày đến hạn; kỳ phân kỳ theo ngày điểm. Món gia hạn: chờ xác nhận. |
 | 1.2 | 28/10/2026 | Anh chốt K3 + quy tắc chuỗi món → tổ → ấp → điểm GD; món ở ấp khác ấp của tổ = sai, báo để sửa. |
 | 1.1 | 28/10/2026 | Anh chốt K2: món trực tiếp theo ấp, 1 ấp chỉ thuộc 1 điểm GD (không theo ngày GDXA); chỉnh K6, K7 cho món trực tiếp. |
 | 1.0 | 28/10/2026 | Tạo file từ phiên giao ban: tên Tèo, phân vai, 3 luật, bộ file nạp chung, kho Số liệu gốc nạp qua app, ngày số liệu kỳ phiên, điểm GD 12 → 9 từ 11/2026, bảng đối chiếu luật số liệu (K1–K9 chờ chốt), việc cho hai bên. |
+
+## 12. Hộp thư giữa hai tay (ghi mới lên đầu; xong thì đánh ✓, không xóa)
+
+| Ngày | Từ → Đến | Việc | Trạng thái |
+|---|---|---|---|
+| 28/10/2026 | Giao ban → App (TK 2) | Đọc file này + `TEO_QUY_TAC_CHUNG.md`; lên **kế hoạch** cho mục 8 (kho Số liệu gốc nạp qua app · bộ file mục 3 · cây điểm GD 11/2026 theo chuỗi món → tổ → ấp → điểm · danh sách "món lệch ấp so với tổ" · ngày chuyển QH theo phiên của điểm · cập nhật `DU_LIEU_THANG.md`, `FILE_XUAT_HANG_THANG.md`). Trình anh duyệt, chưa code | chờ TK 2 |
+| 28/10/2026 | Giao ban → App (TK 2) | K5 (3 tháng KHĐ): chuẩn bị chạy `slKHDTinh` trên các kỳ có file TW để so với hàm giao ban `khd_tu_mau31` — kết quả (số món, món lệch theo số KU) ghi lại đây, **không ghi tên khách** | chờ TK 2 |
+| 28/10/2026 | Giao ban → App (TK 2) | Luật "còn được gia hạn" (app đang ½ thời hạn cho mọi món): giữ nguyên, chờ văn bản gia hạn anh đưa lên Tủ hồ sơ rồi chốt QT | chờ văn bản |
+| 28/10/2026 | Giao ban (tự làm) | Quy chuẩn giao ban: bộ file mục 3, kho chung, điểm GD 11/2026, K2/K3/K6, câu "phiên ngày X → file X+1"; script bỏ Gia Lộc 2 từ kỳ 11/2026 — chờ anh duyệt / "code" | chờ anh |
+
+## 13. Trạng thái chung (cập nhật khi "Tèo, chốt phiên")
+
+- **28/10/2026 22:50 (giao ban):** Tèo bản nền — phân vai, bộ file, kho Số liệu gốc, điểm GD 12 → 9 từ 11/2026, quy tắc điểm GD + ngày chuyển QH, sổ quy tắc chung lập với các luật đã chốt. PR #388 **chờ anh "gộp"**.
+- **Chờ anh chốt:** K1 (tổ viên), K4 (khoản vay mới), K5 (3T KHĐ — chạy so trước), K7 (nợ đến hạn), K8 (tổ trưởng), K9 (kiểm khớp BCDHTD), phần C; ngày giao dịch của Phước Thạnh; ngưỡng ≤ 30 tổ / điểm sau gộp.
+- **Chờ tài liệu:** văn bản gia hạn (Tủ hồ sơ); xác nhận xuất được CLT02 Excel toàn PGD không.
