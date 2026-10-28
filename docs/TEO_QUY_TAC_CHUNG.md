@@ -1,0 +1,49 @@
+# Tèo — SỔ QUY TẮC SỐ LIỆU CHUNG (app Tủ hồ sơ + giao ban)
+
+> **Bản 1.0 · 28/10/2026.** Một nơi duy nhất cho **luật số liệu dùng chung** của hai tay (app, giao ban). Phối hợp, phân vai, thành viên, hộp thư: `docs/TEO_PHOI_HOP.md` (mục 12–14). Lập bởi **TK 1** (giao ban).
+> Mã **QT-C-xx** (C = chung) để không trùng QT-01…QT-18 riêng của app (`QUY_CHUAN_KIEN_TRUC.md` mục 4). Luật riêng app / riêng văn bản giao ban vẫn ở chỗ cũ, chỉ ghi "theo QT-C-xx".
+> **Sửa luật = sửa dòng ở đây (PR, anh "gộp") + ghi Hộp thư cho bên kia + sửa hàm hai bên + chạy phép thử.** Mỗi luật một hàm ở mỗi bên; chú thích hàm ghi số QT-C.
+> Repo công khai: không dữ liệu khách / tên tổ trưởng / mã tổ.
+
+Trạng thái: ✅ anh chốt · ⏳ chờ anh chốt · 🔧 đã chốt nhưng một bên chưa áp.
+
+## 1. Luật đã chốt
+
+| Số | Quy tắc | TT | Chốt | App (hiện tại) | Giao ban (hiện tại) |
+|---|---|---|---|---|---|
+| QT-C-01 | **Nguồn tính duy nhất là Mẫu 31.** Khế ước lặp dòng (khách nhiều sổ TK 105) → số của món vay (dư nợ, giải ngân, thu nợ, lãi tồn) tính **1 lần / số khế ước**; tiền gửi tính theo từng sổ | ✅ | 28/10 | lõi nạp `js/22-so-lieu.js` | `mon_vay()` |
+| QT-C-02 | **Cho vay = Giải ngân trong tháng − Đảo khoản GN tháng; Thu nợ = Thu nợ TH + QH + khoanh** (khớp BCDHTD 01.1) | ✅ | 28/10 | `js/22-so-lieu.js` | `chi_tieu_to()` |
+| QT-C-03 | **Lãi tồn = Lãi tồn TH + Lãi tồn QH** (không gồm lãi tồn ân hạn) | ✅ | 28/10 | `laiTon` (`js/22g-to.js`) | `chi_tieu_to()` |
+| QT-C-04 | **Số tháng lãi = lãi tồn ÷ (dư nợ × lãi suất năm ÷ 12).** Ngưỡng dùng là luật riêng từng báo cáo (KTGS > 6; giao ban 3 / 6 / 12) | ✅ | 28/10 | `ktLaiThang` (`js/22d-ktgs-04.js`) | `so_thang_lai()` |
+| QT-C-05 | **Xếp loại tổ theo điểm:** < 50 Yếu · < 70 Trung bình · < 85 Khá · ≥ 85 Tốt. **Nguồn điểm: CLT02** (chuẩn TW); BC0437 dự phòng khi chưa có CLT02 | ✅ / 🔧 | 28/10 | công thức `js/22b-ktgs.js` (nguồn BC0437 — cần thêm CLT02) | `xl_diem()`, CLT02 trước |
+| QT-C-06 | **Mã ĐVUT:** 11 HND · 12 HPN · 13 HCCB · 14 ĐTN; khác (99 / trống, không mã tổ) = **vay trực tiếp** | ✅ | 28/10 | | `DV` |
+| QT-C-07 | **Mã tổ là khóa** ghép mọi nguồn; cây địa bàn dựng lại theo từng kỳ số liệu | ✅ | 28/10 | | `cay_dia_ban()` |
+| QT-C-08 | **Hai nguồn lệch → báo, không tự chọn, không sửa nguồn** | ✅ | 28/10 | | |
+| QT-C-09 | **Bộ file nạp chung + ngày số liệu:** theo `TEO_PHOI_HOP.md` mục 3–4 (app 3.400: `Tủ hồ sơ\Số liệu\<YYYY-MM>\<MÃ>_<YYYY-MM-DD>.<đuôi>` + `DANH_MUC_NAP.csv`; giao ban đọc sổ nạp). Ngày trong tên = **ngày số liệu đọc trong file** (kỳ phiên: Mẫu 31 phiên 19/10 mang ngày 19/10 = số đến cuối ngày sau khóa sổ). **Mẫu 31 và File Tổ trưởng phải cùng ngày**, lệch → chặn / báo | ✅ / 🔧 | 28/10 | đã làm ở 3.400 | cần sửa đường đọc (đọc sổ nạp) |
+| QT-C-10 | **Điểm GD — chuỗi duy nhất: món vay → mã tổ → ấp của tổ → điểm GD; 1 ấp chỉ thuộc 1 điểm.** Ấp của tổ = mã thôn trên File Tổ trưởng. **Món ở ấp khác ấp của tổ = sai, báo để sửa trên hệ thống**, không tự sửa (tạm tính theo tổ). Kiểm: tổ cùng ấp phải cùng điểm; điểm của tổ trên File Tổ trưởng phải trùng điểm của ấp | ✅ / 🔧 | 28/10 | đang suy xã + ngày GDXA / Dư nợ chi tiết → sửa | đang suy xã + GDXA phần lớn dư nợ → sửa |
+| QT-C-11 | **Món vay trực tiếp** (không qua Hội): **dư nợ điểm, xã, PGD đều cộng**, tách dòng "Trực tiếp" cạnh "Ủy thác" (mẫu 08/GDX). Gán điểm **theo ấp của món vay** (QT-C-10), **không theo ngày GDXA** | ✅ / 🔧 | 28/10 | xã + GDXA → sửa | theo ấp (bỏ dự phòng "ấp không có tổ → GDXA") |
+| QT-C-12 | **Ngày đến hạn / chuyển quá hạn theo phiên của điểm:** món gắn mã tổ → ngày đến hạn GDXA = ngày giao dịch của điểm; điểm đổi lịch / món, tổ điều chuyển → theo **điểm mới**. **Chuyển QH = phiên đầu tiên của điểm KỂ TỪ ngày đến hạn** (trùng ngày phiên → chính phiên đó). Mốc = ngày đến hạn **sau gia hạn** nếu đã gia hạn, không thì theo hợp đồng. **Món trực tiếp: ngay sau ngày đến hạn.** Kỳ gốc phân kỳ (CV 597) của món qua tổ: theo ngày điểm như trên | ✅ / 🔧 | 28/10 | gần đúng (kỳ GDXA đầu tiên sau ngày đến hạn) — rà lại "kể từ" và món trực tiếp | đang lấy ngày đến hạn cuối → sửa |
+| QT-C-13 | **Cấu hình điểm GD từ kỳ 11/2026:** 12 → 9 điểm (bỏ ngày 06, 07, 12: Phước Trạch → Phước Thạnh · Gia Lộc 2 → Gia Lộc ngày 23 · Gia Bình → Thanh Phước). Điểm lấy theo File Tổ trưởng cùng ngày; bảng chuyển chỉ là dự phòng; tháng cũ giữ nguyên | ✅ / 🔧 | 28/10 | | bỏ Gia Lộc 2 khỏi khai báo từ kỳ 11/2026 |
+
+## 2. Luật chờ anh chốt (đề xuất — chưa áp)
+
+| Số dự kiến | Nội dung | Khuyến nghị (chi tiết `TEO_PHOI_HOP.md` mục 6) |
+|---|---|---|
+| ⏳ QT-C-14 (K1) | Tổ viên | Theo QT-18 app: + khách chưa giải ngân + bù Mẫu 01/TV (khớp TW 100%) |
+| ⏳ QT-C-15 (K4) | Khoản vay mới (kiểm tra 30 ngày, HD 727) | Giải ngân lần 1; lần 2+ danh sách theo dõi riêng |
+| ⏳ QT-C-16 (K5) | Món 3 tháng KHĐ | Chạy cả hai hàm trên các kỳ có file TW rồi chọn |
+| ⏳ QT-C-17 (K7) | Nợ đến hạn tháng tới | Gia hạn có thì dùng, không thì HĐ; + kỳ con CV 597 (món trực tiếp lấy file phân kỳ) |
+| ⏳ QT-C-18 (K8) | Tổ trưởng | File Tổ trưởng; không có mới Mẫu 31 |
+| ⏳ QT-C-19 (K9) | Số tổng hợp cấp xã | Tính từ Mẫu 31 + kiểm khớp BCDHTD từng xã |
+| ⏳ QT-C-20 | Gia hạn tối đa | ½ thời hạn với **trung hạn** (anh nêu); ngắn / dài hạn chờ văn bản gia hạn |
+| ⏳ phần C | Mức A–D NQH · đèn tín hiệu · TK < 500 nghìn · khoanh hết hạn 120 ngày · lãi tồn chỉ so tháng trước · QT-03/04/05/14 app · kỳ con CV 597 · số lượt KH vay | Đưa vào sổ chung |
+
+## 3. Phép thử chung (bước B4 — chưa có)
+
+Mỗi QT-C có **dữ liệu giả + đáp án** trong `tests/` (ví dụ: món trực tiếp ở ấp thuộc điểm A → điểm A; món ở ấp khác ấp của tổ → vào danh sách lệch; đến hạn trùng ngày phiên → chuyển QH chính phiên đó). Hàm JS app và hàm Python giao ban phải ra đúng đáp án. Kiểm số thật (kỳ 30/09/2026) làm riêng, không đưa vào repo.
+
+## 4. Nhật ký
+
+| Bản | Ngày | Nội dung |
+|---|---|---|
+| 1.0 | 28/10/2026 | Lập sổ: QT-C-01…13 anh chốt trong phiên giao ban 28/10; QT-C-14…20 + phần C chờ chốt. |
