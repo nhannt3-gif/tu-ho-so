@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.394 — 28/10/2026 — Tổ TK&VV: báo cáo lên hàng thao tác (TK 2)
+- **Bàn giao TK 3 mục 3.3** ("Tổ TK&VV: chip DS · Nợ · TK · Chia tách lên hàng thao tác"): bỏ khối "🧩 Báo cáo chuẩn mới" trên đầu tab + hàng "Báo cáo của tổ" riêng. `toBangDau` thêm `toNutBC()` vào hàng thao tác của mọi bảng tab Tổ: 🧩 Sổ tổ viên (`dkNutHTML(o, gon)` — kiểu gọn mới, js/62) luôn có; đang chọn 1 tổ: chip bật / tắt DS hộ vay · Nợ · TK 105 · Chia tách (`TO_BC_NGAN`, vẫn chọn nhiều, lưu `toCH().bc`) + 👁 Xem (`toXem` như cũ).
+- **Sửa lỗi 3.390 (điện thoại)**: chọn sâu tới tổ (5 ô) hàng lọc 1 dòng bóp ô còn mũi tên → từ 4 ô trở lên xuống 2 dòng (`:has(select:nth-of-type(4))`, css/dt-may.css).
+- Phép thử mới `t315`; t300 sửa (Sổ tổ viên trên hàng thao tác); t102, t133, t153, t156, t246, t259, t260, t276, t311, t312, t313 đạt.
+
 ## 3.393 — 28/10/2026 — Tổng hợp 2 màn như Sao kê (TK 2)
 - **Bàn giao TK 3 mục 3.3** (anh duyệt hướng 27/10 "tab Tra cứu KH là chuẩn… Sao kê → Tổng hợp cùng 2 màn"): bỏ bố cục 2 cột (danh sách ◉ hẹp + khung phải). **Màn 1**: lưới nhóm Chuẩn TW · LEN_31 · Tính từ Mẫu 31 · 🧩 Báo cáo của tôi (dùng chung `.sk-luoi2` / `.sk-bc2` của Sao kê), tên ngắn + nhãn cấp, chưa nạp mờ ⚠, biểu không chia được phạm vi đang chọn mờ (rê chuột xem lý do). **Màn 2**: `.sk-thao` ← Danh sách · ô sổ đổi báo cáo (optgroup) · bộ nút xuất chuẩn; khung xem trải ngang (`.sk-xem-khung`), đổi lọc tự vẽ lại. Nhớ màn (`thTK.man`) + báo cáo.
 - `thChonBC` → mở màn xem; `thVeDS` mới; `thXemNgay` ở màn danh sách tô lại lưới. Điện thoại: ô đổi báo cáo rộng hết, nút xuất 1 dòng vuốt ngang.

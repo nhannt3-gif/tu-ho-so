@@ -115,7 +115,11 @@ body[data-dtm="tra"] #tr7 > .sl-con{display:none}
 .pv-cay .loc-khoi .pv-hang1 .pv-sel,.pv-cay .loc-khoi.gon .pv-hang1 .pv-sel{flex:1 1 auto;min-width:0;display:flex;gap:3px}
 .pv-cay .pv-hang1 .pv-sel select.pv-o{flex:1 1 0 !important;min-width:0 !important;max-width:none !important}   /* !important: app.css có luật .gon / .pv-xa độ ưu tiên cao hơn (trước đây dùng #tc-cay) */
 .pv-cay .loc-khoi.tim-mo .pv-hang1 .pv-tim.to-tim{flex:1 1 100%;margin-left:0}
-.pv-cay .pv-hang1 .pv-sel .pv-x:disabled,.pv-cay .pv-hang1 .pv-sel .pv-gh:disabled{display:none}   /* ↺ / 📌 chưa dùng được (ô đang Tất cả) → ẩn, nhường chỗ cho chữ trong ô */
+.pv-cay .pv-hang1 .pv-sel .pv-x:disabled,.pv-cay .pv-hang1 .pv-sel .pv-gh:disabled{display:none}
+/* 3.394: chọn sâu (≥ 4 ô: Xã › Điểm › Hội › Ấp › Tổ) → 2 dòng, mỗi ô ~ nửa bề ngang (1 dòng thì ô chỉ còn mũi tên) */
+.pv-cay .loc-khoi .pv-hang1 .pv-sel:has(select:nth-of-type(4)){flex-wrap:wrap;row-gap:4px}
+.pv-cay .loc-khoi .pv-hang1 .pv-sel:has(select:nth-of-type(4)) select.pv-o{flex:1 1 38% !important}
+.pv-cay .loc-khoi .pv-hang1 .pv-sel:has(select:nth-of-type(4)) .pv-sep{display:none}   /* ↺ / 📌 chưa dùng được (ô đang Tất cả) → ẩn, nhường chỗ cho chữ trong ô */
 /* ===== 3.373 (TK 3 nhận bàn giao — anh 26/10 "điện thoại và máy tính phải thống nhất, điện thoại chỉ gọn hơn"): Drive báo ở 1 chip như máy tính (chữ ngắn);
    chân trang chỉ hiện chip khi cần anh bấm (🟡 Nối Drive · 🔴 Mất mạng · ⚠ lỗi đẩy) — đã nối 🟢 thì ẩn cho gọn. ===== */
 body.co-td[data-drive="vang"] .day,body.co-td[data-drive="do"] .day{display:flex}

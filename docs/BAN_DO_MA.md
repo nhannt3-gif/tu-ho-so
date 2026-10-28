@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.393 · 28/10/2026 07:52 · 114 file · 43296 dòng · 3539 hàm cấp ngoài · 580 biến toàn cục.
+Bản 3.394 · 28/10/2026 08:00 · 114 file · 43313 dòng · 3540 hàm cấp ngoài · 581 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -10,8 +10,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
 | `index.html` | 298 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 4144 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
-| `css/dt-may.css` | 123 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
+| `css/app.css` | 4149 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `css/dt-may.css` | 127 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
 | `js/02-nen.js` | 375 | 26 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
@@ -49,7 +49,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/22f-tra-cuu.js` | 326 | 38 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 3486–4545 của bản 3.234), không  |
 | `js/22g-to.js` | 450 | 57 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 4546–5436 của bản 3.234), không  |
 | `js/22ga-pham-vi.js` | 214 | 29 | /* Tủ hồ sơ — bộ chọn phạm vi / cây địa bàn dùng chung mọi tab (tách nguyên văn khỏi 22g-to.js ở 3.346 — K5).  |
-| `js/22gb-to-giao-dien.js` | 317 | 50 | /* Tủ hồ sơ — giao diện tab 👥 Tổ TK&VV: vẽ tab, thẻ tổ, chip lọc, bảng cột, in / Excel danh sách (tách nguyên  |
+| `js/22gb-to-giao-dien.js` | 324 | 51 | /* Tủ hồ sơ — giao diện tab 👥 Tổ TK&VV: vẽ tab, thẻ tổ, chip lọc, bảng cột, in / Excel danh sách (tách nguyên  |
 | `js/22h-cap-hoi-sao-ke.js` | 637 | 80 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 5437–6227 của bản 3.234), không  |
 | `js/22i-tong-hop.js` | 595 | 43 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 6228–6963 của bản 3.234), không  |
 | `js/22j-thong-tin-to.js` | 298 | 39 | /*   3.259 → 3.263 (anh chốt 18–19/10) — 📒 Sao kê › nhóm "Thông tin tổ" (theo file tổng hợp anh dùng hằng thán |
@@ -101,7 +101,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/59-suc-khoe.js` | 34 | 7 | /*   3.338 (RA_SOAT_BO_CUC_2410 mục 8 việc 2 — anh 24/10 "cứ theo KH làm"): 🩺 SỨC KHỎE SAO LƯU Thẻ ở ⚙ Khai bá |
 | `js/60-ve-dt.js` | 12 | 0 | /*   3.342 (TK 3): NÚT 📱 SANG BẢN GỌN dt.html — 3.367 (anh 25/10 "bản chính như máy tính, điện thoại là bản ph |
 | `js/61-nhat-ky-in.js` | 52 | 9 | /*   3.348 (RA_SOAT_BO_CUC_2410 mục 8 việc 6 — góp ý 7.1): NHẬT KÝ ĐÃ LẬP / ĐÃ IN   - Mỗi lần bấm 🖨 In · 📄 PDF |
-| `js/62-dang-ky.js` | 144 | 15 | /*   3.355 (KE_HOACH_DANG_KY — đợt N1, anh 24/10: "chưa có mẫu nào bắt buộc… em cứ tạo 1 cái nền sẵn, sau này  |
+| `js/62-dang-ky.js` | 145 | 15 | /*   3.355 (KE_HOACH_DANG_KY — đợt N1, anh 24/10: "chưa có mẫu nào bắt buộc… em cứ tạo 1 cái nền sẵn, sau này  |
 | `js/63-bao-cao-toi.js` | 122 | 12 | /*   3.356 (KE_HOACH_DANG_KY — đợt D5): 🧩 BÁO CÁO CỦA TÔI — anh tự khai báo cáo bảng, không sửa code   Anh chố |
 | `js/64-so-to-vien.js` | 60 | 8 | /*   3.357 (KE_HOACH_CHOT_SO — đợt C1): SỔ TỔ VIÊN / CHỐT SỔ 31/12   Anh 24/10: "theo em, tiếp tục Mẫu 01/TV — |
 | `js/65-dong-thoi-gian.js` | 78 | 10 | /*   3.359 (KE_HOACH_CHOT_SO — đợt C3): 📅 DÒNG THỜI GIAN KHÁCH / TỔ TRONG NĂM   QUY_CHUAN_KIEN_TRUC mục 8 điểm |
@@ -438,7 +438,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 |---|---|---|---|
 | `kt` KTGS Hội (Mẫu 06/16/04, KH…) | 368 | `22b-ktgs.js` 110, `22d-ktgs-04.js` 102, `22e-ktgs-kh.js` 79 | ktXepLoai, ktNgayDau, ktDocBC, ktPhanTich |
 | `sl` Số liệu (nạp, kho kỳ, ma trận) | 221 | `22-so-lieu.js` 114, `22k-nap-kt.js` 80, `22f-tra-cuu.js` 7 | slLoai, slChuan, slLaNgay, slLaHS |
-| `to` Tổ TK&VV | 118 | `22gb-to-giao-dien.js` 48, `22g-to.js` 38, `22h-cap-hoi-sao-ke.js` 27 | toSang, toNutSL, toTruongScan, toStkChu |
+| `to` Tổ TK&VV | 119 | `22gb-to-giao-dien.js` 49, `22g-to.js` 38, `22h-cap-hoi-sao-ke.js` 27 | toSang, toNutSL, toTruongScan, toStkChu |
 | `tdn` Theo dõi nợ | 92 | `04e-theo-doi-no.js` 92 | tdnChuan, tdnSo, tdnNgay, tdnTien |
 | `tc` Tra cứu KH | 61 | `22f-tra-cuu.js` 31, `58-tc-to.js` 21, `49-ten-chuan.js` 5 | tcChep, tcC, tcDiaChi, tcSdtDat |
 | `sk` Sao kê | 55 | `22h-cap-hoi-sao-ke.js` 41, `59-suc-khoe.js` 7, `76-sk-danh-sach.js` 6 | skChon, skKhoCua, skChonBC, skVeDS |

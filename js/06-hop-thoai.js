@@ -1982,7 +1982,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.393', ds:[
+var CO_GI_MOI = {ban:'3.394', ds:[
+  ["👥", "Tổ TK&VV: báo cáo lên hàng thao tác của bảng — 🧩 Sổ tổ viên luôn có; chọn tổ có chip DS hộ vay · Nợ · TK 105 · Chia tách + 👁 Xem (bớt 2 hàng)"],
+  ["📱", "Điện thoại: chọn sâu tới tổ → hàng lọc 2 dòng, ô đọc được tên"],
   ["📊", "Tổng hợp 2 màn như Sao kê: màn 1 lưới báo cáo theo nhóm (chưa nạp mờ ⚠) · màn 2 hàng thao tác ← Danh sách · đổi báo cáo · In / PDF / Excel / Gửi + khung xem rộng"],
   ["🧩", "Sao kê: 11 báo cáo danh sách (quá hạn, khoanh, đến hạn, giải ngân, SĐT…) tách thành khối riêng cắm rút — nội dung báo cáo giữ y nguyên"],
   ["📄", "Sao kê: Kết quả giao dịch tại điểm GD và THHD tự co lề / chữ cho vừa 1 trang (xem và in); co tới 8 pt vẫn không vừa thì sang trang 2"],
@@ -1995,9 +1997,7 @@ var CO_GI_MOI = {ban:'3.393', ds:[
   ["Chép file: đường dẫn sai thì app báo rõ đường dẫn; cầu nối mới so tên thư mục không phân biệt kiểu gõ dấu (tải lại bộ cài)", "doiNgan(1)"],
   ["Nút 📋 Chép cạnh 🗑 Xóa (Văn bản / Biểu mẫu / Scan): bấm → tick file → 📋 Chép → Ctrl+V vào thư mục hoặc Zalo", "doiNgan(1)"],
   ["Cửa sổ hẹp (thu nhỏ): đầu trang gọn 1 dòng, tên app không còn xuống dòng từng chữ", "doiNgan(1)"],
-  ["Nút kiểu xem tách rời từng nút; nút ⬅ ➡ cùng 1 cỡ", "doiNgan(1)"],
-  ["Nút 🗑 Xóa giữ viền đỏ như cũ (3.388 lỡ làm mất)", "doiNgan(1)"],
-  ["Nút ⬅ ➡ đầu trang có nền + viền, dễ nhận biết", "doiNgan(1)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Nút kiểu xem tách rời từng nút; nút ⬅ ➡ cùng 1 cỡ", "doiNgan(1)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

@@ -4142,3 +4142,8 @@ body.bot-chon-chep [data-bot][data-botc]{outline-color:var(--luc)}
 .th-thao #th-xem-nut .xuat-hang{margin:0;gap:4px;flex-wrap:wrap;justify-content:flex-end}
 .th-thao #th-xem-nut .xuat-hang button{min-height:28px;padding:2px 9px;font-size:calc(12.5px*var(--co))}
 @media(max-width:600px){ .th-thao .sk-chon{flex:1 1 100%;max-width:100%;min-width:0;width:100%;order:-1} .th-thao #th-xem-nut{flex:1 1 100%} .th-thao #th-xem-nut .xuat-hang{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto} .th-thao #th-xem-nut .xuat-hang button{flex:0 0 auto} }
+/* 3.394: Tổ TK&VV — báo cáo trên hàng thao tác của bảng */
+.to-bang-nut .to-bc-chip{display:inline-flex;align-items:center;gap:4px;flex-wrap:wrap;margin-right:6px;padding-right:8px;border-right:1px solid var(--vien)}
+.to-bang-nut .to-bc-chip .nhan-nhom{font-size:calc(11px*var(--co));color:var(--chu-phu);margin:0 2px 0 0}
+.to-bang-nut .to-bc-chip .to-chip{cursor:pointer}.to-bang-nut .to-bc-chip .to-chip input{display:none}
+.to-bang-nut .dk-gon{display:inline-flex;gap:4px;margin-right:6px}

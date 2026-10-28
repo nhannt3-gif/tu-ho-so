@@ -15,8 +15,7 @@ function toNoiDrive(){ noiDrive(false).then(function(co){ if(co) toThuLai(); }).
 function toVe(K, dsKy){
   var e = document.getElementById('tr7'); if(!e) return;
   var C = toCH();
-  e.innerHTML = slTabConHTML()+kyGhiHTML(K)+'<div class="to-dau">'+(typeof dkNutHTML==='function' ? dkNutHTML('to') : '')+   /* 3.357: 🧩 báo cáo chuẩn của tab (Sổ tổ viên) */
-    '</div>'+   /* 3.157: ô 🔎 tìm tổ dời vào cuối hàng cây địa bàn (pvVeCay) */
+  e.innerHTML = slTabConHTML()+kyGhiHTML(K)+   /* 3.394: 🧩 Sổ tổ viên (3.357) dời lên hàng thao tác của bảng (toNutBC) */
     (K.thieuBang ? '<div class="sl-bao vang">⚠ Bảng số liệu '+coChuHTML(slKyChu(C.ky))+' <b>chưa có trên máy này</b> (lưu trên Drive nhưng chưa tải về — Drive chưa nối hoặc hết phiên). Cây tổ đang lấy tạm từ danh bạ; báo cáo cần bảng số liệu.'+
       '<div class="hang-nut"><button class="nho chinh" onclick="toNoiDrive()">☁ Nối Drive và tải</button><button class="nho" onclick="toThuLai()">⟳ Thử lại</button></div></div>' : '')+
     slNguonHTML(K.B)+'<div id="to-cay" class="to-cay pv-cay"></div><div id="to-the"></div>';
@@ -51,9 +50,7 @@ function toVeThe(){
   }
   if(!(TO_BD && TO_BD.to===t.ma && TO_BD.ky===KHO.kyDung().ky)){ TO_BD = null; toBDNap(t).then(function(){ var C2 = toCH(); if(C2.to===t.ma && document.getElementById('to-the')) toVeThe(); }); }   /* 3.128 */
   var tv = toTV(t);
-  o.innerHTML = '<div class="to-bc to-bc-dau"><span class="nhan-nhom">Báo cáo của tổ</span>'+TO_BC.map(function(b){   /* 3.169 (anh 11/10): đem lên đầu khung xem (trước khuất dưới bảng) */
-      return '<label class="to-bc-dong"><input type="checkbox"'+(C.bc && C.bc[b.k] ? ' checked' : '')+' onchange="toCH().bc[\''+b.k+'\']=this.checked;luu()"> '+coChuHTML(b.ten)+'</label>'; }).join('')+
-    '<button class="nho chinh" onclick="toXem()">👁 Xem</button></div>'+toTheHTML(t, tv)+toDsTVHTML(t, tv);
+  o.innerHTML = toTheHTML(t, tv)+toDsTVHTML(t, tv);   /* 3.394: hàng "Báo cáo của tổ" dời lên hàng thao tác của bảng (toNutBC) */
 }
 /* 3.161: nhãn CCCD + cảnh báo khi in (anh chốt): tất nợ còn TK 105 · CCCD hết hạn / sắp hết hạn (30 ngày) · khách còn mã tổ chưa có TK 105 → in đậm + cột Lưu ý */
 function toChipKhung(xem, tv, mo, bien, B){   /* 3.161 (anh chốt): chip gom 3 nhóm Xem · Khách · Cần xử lý, tối đa 2 dòng (dư → ⋯ thêm) */
@@ -263,7 +260,17 @@ function toCotHop(kho){
         [['tu','Tự động'], ['hien','Luôn hiện'], ['an','Ẩn']].map(function(x){ return '<option value="'+x[0]+'"'+(x[0]===m ? ' selected' : '')+'>'+x[1]+'</option>'; }).join('')+'</select></label>'; }).join('')+'</div>'+
     '<div class="hang-nut"><button class="nho" onclick="delete D.cauHinh.'+kho+';luu();dongHop();toVeThe()">↺ Mặc định</button><button class="nho chinh" onclick="dongHop();toVeThe()">Xong</button></div>', true);
 }
-function toBangDau(tieu, nut){ return '<div class="to-bang-dau"><div class="to-bang-tieu">'+tieu+'</div><div class="to-bang-nut">'+nut+'</div></div>'; }
+function toBangDau(tieu, nut){ return '<div class="to-bang-dau"><div class="to-bang-tieu">'+tieu+'</div><div class="to-bang-nut">'+toNutBC()+nut+'</div></div>'; }
+/* 3.394 (BAN_GIAO_TK3_2710 mục 3.3 "chip DS · Nợ · TK · Chia tách lên hàng thao tác"): báo cáo của tab trên hàng thao tác của bảng —
+   🧩 Sổ tổ viên (báo cáo chuẩn) luôn có; đang chọn 1 tổ: chip bật / tắt 4 báo cáo của tổ (vẫn chọn nhiều, in chung như cũ) + 👁 Xem */
+var TO_BC_NGAN = {ds:'DS hộ vay', no:'Nợ', tk:'TK 105', ct:'Chia tách'};
+function toNutBC(){
+  var C = toCH(), h = typeof dkNutHTML==='function' ? dkNutHTML('to', 1) : '';
+  if(!C.to) return h;
+  return '<span class="to-bc-chip"><span class="nhan-nhom">Báo cáo tổ</span>'+TO_BC.map(function(b){ var bat = !!(C.bc && C.bc[b.k]);
+      return '<label class="to-chip'+(bat ? ' bat' : '')+'" title="'+coChuHTML(b.ten)+'"><input type="checkbox"'+(bat ? ' checked' : '')+' onchange="toCH().bc[\''+b.k+'\']=this.checked;luu();this.parentNode.classList.toggle(\'bat\',this.checked)">'+coChuHTML(TO_BC_NGAN[b.k]||b.ten)+'</label>'; }).join('')+
+    '<button class="nho chinh" onclick="toXem()" title="Xem các báo cáo tổ đang bật">👁 Xem</button></span>'+h;
+}
 function toNutXuat(ds){ return (ds!==undefined ? '<button class="nho" onclick="toInDS'+ds+'()" title="A4 ngang — các cột chính">🖨 In danh sách</button><button class="nho" onclick="toInDuDS('+(ds ? 1 : 0)+
   ')" title="A4 ngang — mọi cột đang hiện, tự co chữ">🖨 In đầy đủ</button><button class="nho" onclick="toExcelDS'+ds+'()">📊 Excel</button><button class="nho" onclick="toCotHop(\'toCotKH\')" title="Chọn cột: Tự động / Luôn hiện / Ẩn">⚙ Cột</button>'
   : '<button class="nho" onclick="toBangXuat(\'in\')" title="A4 dọc — các cột chính">🖨 In</button><button class="nho" onclick="toBangXuat(\'inDu\')" title="A4 ngang — mọi cột đang xem">🖨 In đầy đủ</button><button class="nho" onclick="toBangXuat(\'excel\')">📊 Excel</button><button class="nho" onclick="toCotHop()" title="Chọn cột: Tự động / Luôn hiện / Ẩn">⚙ Cột</button>'); }
