@@ -1982,7 +1982,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.395.1', ds:[
+var CO_GI_MOI = {ban:'3.396', ds:[
+  ["🔽", "Tra cứu KH › Tìm theo Tổ trưởng: bấm tiêu đề cột để sắp xếp ▲▼; hàng lọc từng cột (tên · mã gõ; TV · Có DN = 0 / > 0 / ngưỡng; Xã · Ấp · Hội chọn); dòng Cộng theo dòng đang lọc"],
   ["📱", "Điện thoại: chip báo trên dải LỌC ĐỊA BÀN (KTGS BC0437 · BC0438) 1 dòng, không đè khung"],
   ["🪪", "Scan CCCD: hàng chờ còn ảnh thẻ chưa lưu (quá 30 phút) → quét mới thì hỏi Bỏ ảnh cũ / Giữ — hết ghép nhầm mặt sau thẻ người trước; Đọc số CCCD không lấy kết quả lượt trước"],
   ["🛡", "KTGS: chip BC0437 / BC0438 lên dải LỌC ĐỊA BÀN như mọi tab"],
@@ -1996,8 +1997,7 @@ var CO_GI_MOI = {ban:'3.395.1', ds:[
   ["📅", "Số liệu theo ngày: dòng cam nguồn file → 1 chip 📅 Số liệu dd/mm/yyyy trên dải lọc, rê chuột xem từng file"],
   ["📱", "Điện thoại: hàng lọc 1 dòng ở mọi tab, ẩn ↺ / 📌 khi ô đang Tất cả cho đủ chỗ chữ"],
   ["📄", "Điện thoại: tab Văn bản có lại nút ☰ Kiểu xem (Danh sách · Năm · tháng)"],
-  ["Nút 📋 Chép viền xanh lục (Xóa vẫn đỏ)", "doiNgan(1)"],
-  ["Chép file: đường dẫn sai thì app báo rõ đường dẫn; cầu nối mới so tên thư mục không phân biệt kiểu gõ dấu (tải lại bộ cài)", "doiNgan(1)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Nút 📋 Chép viền xanh lục (Xóa vẫn đỏ)", "doiNgan(1)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

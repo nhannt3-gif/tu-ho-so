@@ -4150,3 +4150,9 @@ body.bot-chon-chep [data-bot][data-botc]{outline-color:var(--luc)}
 .pv-cay .loc-khoi .pv-dau .pv-chip-o{flex-wrap:nowrap;flex:0 1 auto;min-width:0;overflow:hidden;white-space:nowrap}
 .pv-cay .loc-khoi .pv-dau .pv-chip-o .sl-chip{white-space:nowrap;flex:none}
 @media(max-width:600px){ .pv-cay .loc-khoi .pv-dau .pv-chip-o .sl-chip{font-size:10px;padding:0 5px;line-height:18px} .pv-cay .loc-khoi .pv-dau:has(.pv-chip-o .sl-chip) .pv-dan{display:none} .pv-cay .loc-khoi .pv-dau .pv-chip-o{flex:0 0 auto} }
+/* 3.396: lọc + sắp xếp cột (js/77) */
+table .bl-sx{cursor:pointer;user-select:none}table .bl-sx:hover{text-decoration:underline}
+table .bl-tang::after{content:" ▲";font-size:.8em}table .bl-giam::after{content:" ▼";font-size:.8em}
+table tr.bl-loc th{position:sticky;top:var(--bl-top,26px);z-index:1;background:var(--xanh-nhat);padding:2px 3px}
+table tr.bl-loc input,table tr.bl-loc select{width:100%;min-width:0;box-sizing:border-box;font:inherit;font-size:calc(11.5px*var(--co));padding:1px 4px;border:1px solid var(--vien);border-radius:5px;background:var(--the);color:var(--chu)}
+table.bl-dang-loc tr.bl-loc{box-shadow:inset 0 -2px 0 var(--cam)}

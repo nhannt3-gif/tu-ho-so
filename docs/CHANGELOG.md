@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.396 — 28/10/2026 — Lọc + sắp xếp cột bảng tổ (Tra cứu KH) (TK 2)
+- **Anh 28/10** (ảnh Tra cứu KH › Tìm theo Tổ trưởng): "làm bộ lọc và sắp xếp của các cột này". Khối mới **`js/77-bang-loc.js`** (cắm rút, dùng chung cho bảng khác): `blGan(table, khoa, cot)` — bấm tiêu đề ▲ tăng → ▼ giảm → thứ tự gốc; hàng lọc dưới tiêu đề: `chu` ô gõ (không dấu), `chon` ô chọn giá trị có trong cột, `so` = 0 · > 0 · mục riêng (TV: dưới ngưỡng 20 / vượt ngưỡng 100 theo ⚙ Ngưỡng); tfoot `[data-bl-dem]` / `[data-bl-cong]` tính lại theo dòng đang hiện; nhớ trong phiên (vẽ lại bảng vẫn giữ). Làm trên dòng đã vẽ — không đọc kho.
+- `js/58` `tcToTim` gắn `blGan(…, 'tcto', 7 cột)`; dòng ghi "n tổ" → "x / n tổ (đang lọc cột)" khi lọc.
+- Phép thử mới `t317` (gồm rút js/77); t309, t246 sửa (đếm hàng tiêu đề đầu — thead có thêm hàng lọc); t277, t278, t156, t311, t312, t107 đạt.
+
 ## 3.395.1 — 28/10/2026 — Chip dải lọc 1 dòng trên điện thoại (TK 2)
 - Sửa lỗi 3.395 (KTGS chip lên dải lọc): điện thoại 2 chip BC0437 / BC0438 xuống 2 dòng đè khung LỌC ĐỊA BÀN → chip báo trên dải luôn 1 dòng (mọi tab), ĐT chữ nhỏ 10px, có chip thì ẩn ô đếm "n tổ" nhường chỗ.
 - Phép thử: t312, t311, t245, t153, t315, t260 đạt.

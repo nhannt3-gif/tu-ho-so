@@ -108,6 +108,7 @@
 | 28/10 | TK 2 | (không số bản) | hồi quy đủ trên 3.394: **196/196 đạt**; `tests/hoiquy_moc.json` cập nhật mốc | 196/196 |
 | 28/10 | TK 2 | 3.395 | `js/12` (scanCuSot/scanHoiCu/scanCuXong, ghiHang cham), `js/41` (nhanVaoScan daHoi, SX_DOC.luc), `js/45` (trDoc đúng lượt), `js/22b` + `js/56` (KTGS chip lên dải lọc), `css/app.css`, `tests/t316` mới, `t245` | t316 · t245 · nhóm KTGS 41 phép · Scan 13 phép đạt |
 | 28/10 | TK 2 | 3.395.1 | `css/app.css` (chip dải lọc 1 dòng, ĐT ẩn ô đếm khi có chip) | t312 · t311 · t245 · t153 · t315 · t260 đạt |
+| 28/10 | TK 2 | 3.396 | `js/77-bang-loc.js` mới (lọc + sắp xếp cột, cắm rút), `js/58` (gắn blGan), `index.html`, `css/app.css`, `tests/t317` mới, `t309`, `t246` | t317 · t309 · t246 · t277 · t278 · t156 · t311 · t312 · t107 đạt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

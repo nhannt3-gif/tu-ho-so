@@ -10,7 +10,7 @@ const fs=require('fs'), path=require('path');
    kyChungDoi('2026-08'); dhSL('tra'); const w=t=>new Promise(r=>setTimeout(r,t)); for(let i=0;i<60&&!TC_K;i++) await w(200);
    const c=[...document.querySelectorAll('.tc-theo [data-lenh], .tc-theo button, .tc-theo .chip')].find(x=>/Tổ trưởng/.test(x.textContent)&&x.offsetParent); c&&c.click(); await w(800); }, files);
  for(const W of [1280, 1366, 1920]){ await p.setViewportSize({width:W, height:800}); await p.waitForTimeout(400);
-   const r = await p.evaluate(()=>{ const t=document.querySelector('table.tc-to-ds'); if(!t) return {}; const k=t.closest('.tc-kq-cuon'), td=t.querySelector('tbody tr td:nth-child(2)'), h=t.querySelector('tbody tr td:nth-child(7)'), th=t.querySelectorAll('thead th');
+   const r = await p.evaluate(()=>{ const t=document.querySelector('table.tc-to-ds'); if(!t) return {}; const k=t.closest('.tc-kq-cuon'), td=t.querySelector('tbody tr td:nth-child(2)'), h=t.querySelector('tbody tr td:nth-child(7)'), th=t.querySelectorAll('thead tr:first-child th');   /* 3.396: thead có thêm hàng lọc (js/77) */
      return {cot:th.length, du:k.scrollWidth-k.clientWidth, ma:td.scrollWidth-td.clientWidth, hoi:h.textContent, hoiT:h.title}; });
    ok('3.368 khổ '+W+': danh sách tổ đủ 7 cột, không cuộn ngang, mã tổ đủ', r.cot===7 && r.du<=1 && r.ma<=1, JSON.stringify(r)); }
  const r = await p.evaluate(()=>{ const h=document.querySelector('table.tc-to-ds tbody tr td:nth-child(7)'); return {hoi:h.textContent, t:h.title}; });
