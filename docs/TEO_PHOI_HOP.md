@@ -22,7 +22,7 @@ Hai cách anh giao tiếp = **hai cửa vào cùng một bộ não**: (1) chat P
 ## 2. Ba luật giữ "một bộ não"
 
 1. **Một nơi ghi quyết định chung:** `docs/TEO_PHOI_HOP.md` (file này) + `docs/TEO_QUY_TAC_CHUNG.md` (sổ luật số liệu QT-xx — **lập ở bước B2, sau khi anh chốt mục 6**). Anh chốt ở cửa nào cũng ghi về đây. Luật **riêng** giữ chỗ cũ: giao diện / kho app → `QUY_CHUAN_KIEN_TRUC.md`; văn bản giao ban → `QUY_CHUAN_GIAO_BAN` (Drive). Hai file riêng chỉ ghi "theo QT-xx".
-2. **Mở phiên ở cửa nào cũng đọc sổ chung trước** (app: dòng trỏ đầu `CLAUDE.md`; giao ban: bước "Đọc trạng thái").
+2. **Mở phiên ở cửa nào cũng đọc sổ chung trước** — mục 12 (thành viên), 13 (chờ anh), 14 (hộp thư) — app: `AGENTS.md` / dòng trỏ đầu `CLAUDE.md`; giao ban / AI không vào repo: link raw công khai `https://raw.githubusercontent.com/nhannt3-gif/tu-ho-so/main/docs/TEO_PHOI_HOP.md` (lệnh "Đọc trạng thái").
 3. **Cùng một bộ lệnh, cùng nghĩa:** "Đọc trạng thái" · "Chốt QT: …" · "Chốt phiên" · "code" · "gộp".
 
 Giữ hai bên không lệch (anh duyệt hướng 28/10): **chung sổ quy tắc + chung bộ phép thử** (dữ liệu giả + đáp án cho từng QT; hàm JS của app và hàm Python của giao ban đều phải ra đúng đáp án — như các trình duyệt cùng chạy một bộ test chuẩn web). Mỗi QT có số bản; đổi QT thì cả hai bên qua phép thử trước khi dùng cho kỳ mới. Kiểm số thật (kỳ 30/09/2026) làm riêng, không đưa vào repo.
@@ -137,3 +137,41 @@ B1 bảng đối chiếu ✓ (mục 6) · **B1b bộ file chung ✓ (mục 3)** 
 |---|---|---|
 | 1.0 | 28/10/2026 | Tạo file từ phiên giao ban: tên Tèo, phân vai, 3 luật, bộ file nạp chung, kho Số liệu gốc nạp qua app, ngày số liệu kỳ phiên, điểm GD 12 → 9 từ 11/2026, bảng đối chiếu luật số liệu (K1–K9 chờ chốt), việc cho hai bên. |
 | 1.1 | 28/10/2026 | Mục 4: chốt tên chuẩn `<MÃ>_<YYYY-MM-DD>` (loại trước, ngày sau), giữ thư mục `Số liệu`, sổ `DANH_MUC_NAP.csv` — app làm ở bản 3.400. Anh 28/10 về cách tính: "tận dụng tối đa suy luận linh hoạt của chat so với ghi cứng trong app" (cách phối hợp cụ thể chờ anh duyệt). |
+| 1.2 | 28/10/2026 | Anh 28/10: "3 tk cùng phối hợp 1 nơi và sau này sẽ có tk gemini" → thêm mục 12 Thành viên, 13 Chờ anh, 14 Hộp thư chung (gom việc mở từ `PHOI_HOP_TK2_TK3.md` mục 5); luật chung cho mọi AI ở `AGENTS.md` (gốc repo), `GEMINI.md` trỏ về đó. |
+
+## 12. Thành viên Tèo (anh 28/10: "3 tk cùng phối hợp 1 nơi, sau này có tk Gemini")
+
+| Tài khoản | Vai trò | Cửa làm việc | Ghi vào repo |
+|---|---|---|---|
+| **TK 1** | Giao ban: phân tích, nhận định, đề xuất, văn bản hành chính (mục 7) | Project claude.ai "THHD - Hop giao ban" | Qua PR nhánh riêng (như PR #388) — không ghi thẳng `main` |
+| **TK 2** | App chính (`index.html`, kho số liệu, báo cáo khuôn cố định); giữ sổ này gọn | Claude Code trên repo | Có — PR rồi gộp khi anh nhắn "gộp" |
+| **TK 3** | App phụ: `dt.html`, Văn bản + Scan (`css/dt-may-vbsc.css`), việc nhỏ không đụng kế hoạch lớn (phân công 24–25/10, anh sửa nếu khác) | Claude Code trên repo | Có — như TK 2, số bản theo `PHOI_HOP_TK2_TK3.md` mục 2 |
+| **Gemini** | *Chờ anh giao* | *Chờ anh* | *Chờ anh* — không ghi được thì soạn dòng hộp thư, anh dán sang TK có quyền |
+
+Luật làm chung:
+- Mỗi lần ghi sổ phải **xưng tên tài khoản** (TK 1 / TK 2 / TK 3 / Gemini). **Chỉ thêm dòng mới ở cuối** hộp thư, không sửa / xóa dòng của bên khác — xong việc thì **bên nhận** ghi dòng "✓ xong …" trỏ lại dòng cũ.
+- Chỉ **TK đang làm app** lên số bản app; giao ban không sửa code app, app không sửa script / quy chuẩn giao ban.
+- Quyết định anh chốt ở cửa nào → ghi vào sổ này **trong cùng lượt** (luật 1 mục 2).
+- AI mới vào: đọc `AGENTS.md` → sổ này mục 2, 12–14 → làm. Không đoán việc của bên khác; hỏi qua hộp thư.
+
+## 13. Chờ anh quyết (một danh sách — anh trả lời ở cửa nào cũng được, bên nhận gạch + ghi ngày)
+
+| # | Việc | Ai cần | Chi tiết |
+|---|---|---|---|
+| C1 | Chốt K1–K9 (luật số liệu lệch giữa app ↔ giao ban) | TK 1, TK 2 | mục 6B, có khuyến nghị từng dòng |
+| C2 | Cách tính: chat linh hoạt ↔ app ghi cứng — duyệt "chat là phòng thử luật, app là nơi luật đã chốt; số đi văn bản phải đối chiếu được với app" | TK 1, TK 2 | anh 28/10: "tận dụng tối đa suy luận linh hoạt của chat" |
+| C3 | Ngày giao dịch Phước Thạnh sau khi gộp Phước Trạch | TK 1, TK 2 | mục 5 |
+| C4 | Ngoại lệ ngưỡng ≤ 30 tổ / điểm sau gộp (Gia Lộc ≈ 46, Phước Thạnh ≈ 54) | TK 1 | mục 5 |
+| C5 | File mẫu CLT02, LEN18 (anh gửi sau) — để app nhận dạng + MÃ | TK 2 | `FILE_XUAT_HANG_THANG.md` mục F |
+| C6 | Sao kê nợ đến hạn mẫu cột mới: file Excel hệ thống + công thức số tháng còn gia hạn / ngày gia hạn cuối | TK 2 | `BAN_GIAO_TK3_2710.md` mục 9.1 |
+| C7 | Vai trò + quyền GitHub của Gemini | tất cả | mục 12 |
+| C8 | Ngày khách chuyển khoản vào TK 105: cần file sao kê giao dịch chi tiết | TK 2 | `BAN_GIAO_TK3_2710.md` mục 5 |
+
+## 14. Hộp thư chung (chỉ thêm dòng ở cuối · trạng thái: mở / ✓ xong)
+
+| Ngày | Từ → tới | Nội dung | Trạng thái |
+|---|---|---|---|
+| 28/10 | TK 2 → TK 1 | App bản **3.400**: file gốc lưu `Tủ hồ sơ\Số liệu\<YYYY-MM>\<MÃ>_<YYYY-MM-DD>.<đuôi>` (vd `MAU31_2026-10-31.xlsx` cuối tháng, `MAU31_2026-10-19.xlsx` kỳ phiên) — **không** lập `Số liệu gốc`. Mỗi tháng có `DANH_MUC_NAP.csv` — giao ban đọc sổ này để tìm file. Mẫu 31 ↔ File Tổ trưởng khác ngày: app chỉ báo. Việc giao ban: sửa Quy chuẩn mục 3–4 + script đọc đường dẫn / tên mới (khi anh nói "code"). Chi tiết mục 4 + `FILE_XUAT_HANG_THANG.md` mục F. | mở |
+| 28/10 | TK 2 → TK 1, TK 3 | Từ nay phối hợp **chỉ ở sổ này** (mục 12–14). `PHOI_HOP_TK2_TK3.md` giữ làm lưu trữ + luật số bản / phân file app (mục 1–2). | mở |
+| 28/10 | TK 2 → TK 3 | (chuyển từ `PHOI_HOP_TK2_TK3.md` mục 5) **G3:** TK 2 chưa trả lời việc giao TK 3 phần Văn bản + Scan trong `css/dt-may.css` — TK 2 đồng ý: phần Văn bản + Scan để ở `css/dt-may-vbsc.css` (TK 3), `css/dt-may.css` giữ khung (TK 2). TK 3 xác nhận. | mở |
+| 28/10 | TK 2 → TK 3 | (chuyển từ mục 5) `dt.html` "vẫn giữ nhưng tối ưu hơn, chỉ nạp kỳ gần nhất" (anh 25/10) — TK 3 báo đã làm chưa. Âm lịch đang chép ở `js/dt/dt-lich.js`: khi tiện TK 2 tách file chung, báo trước ở đây. | mở |

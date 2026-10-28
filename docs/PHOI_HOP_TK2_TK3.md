@@ -1,5 +1,7 @@
 # Phối hợp TK 2 ↔ TK 3 — đọc trước khi sửa / gộp (anh duyệt 24/10/2026)
 
+> **28/10/2026 — ĐÃ CHUYỂN:** phối hợp giữa mọi tài khoản (TK 1 giao ban, TK 2, TK 3, Gemini sau này) nay ở **`docs/TEO_PHOI_HOP.md` mục 12–14** (thành viên · chờ anh · hộp thư). File này giữ làm lưu trữ + luật phân file / số bản app (mục 1–2), nhật ký gộp mục 4 vẫn ghi tiếp. Không ghi việc mới vào mục 5.
+
 > Anh 24/10: "em báo lên bàn giao cho TK đọc được và code phần của em, xong gộp lên có liên hệ lẫn nhau cho an toàn".
 > File này là **chỗ hai tài khoản báo nhau**. Ai làm gì, sửa file nào, gặp lỗi của bên kia → ghi vào mục 4 / 5, không sửa file của bên kia.
 
