@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.399 — 28/10/2026 — Gỡ ⚠ Theo dõi nợ, dọn code (TK 2)
+- **Anh 28/10**: "theo dõi nợ tạm thời bỏ, xóa code rác, sẽ phát triển sau cho gọn" · "gỡ luôn cho gọn code" (kể cả Biên bản làm việc, ô Giao ban, gợi ý tên có dấu).
+- `js/04e-theo-doi-no.js` (135 KB) → **`js/04e-chung.js`** (17 KB) chỉ giữ phần dùng chung, giữ nguyên tên: `TDN_DVUT`, `TDN_CT`, `CT_APP_MA` / `ctMaCua` / `ctVTAppCua`, `TDN_MD`, `tdnNgay`, `tdnTien`, `tdnTr`, `tdnCuoiKy`, `tdnSoNgay`, `tdnHoi`, `tdnCT`, `boDauTen`, `xmlEsc`, `giaoFile`, tab Thư viện (`veGhiChu` — Bộ hồ sơ · Ghi chú ảnh), `anhHTML`, `napAnh`, `ganVuot`, `timMuc`, dải đáy, `ghepKy`, `bamChip`, `nutChinh`.
+- Gỡ: mục ⚠ Theo dõi nợ ở Thư viện (cấu hình cũ `tvPhan = 'no'` → Bộ hồ sơ); Hôm nay: nhắc "⚠ Theo dõi nợ: n việc", ô 📊 Giao ban, 📅 Buổi GD (lệnh cũ mở công cụ → báo đã bỏ, không vỡ); Bộ hồ sơ gắn file vào hồ sơ hộ; ô tìm chung gợi ý 🏠 hồ sơ hộ; Địa bàn nút 🏠 hồ sơ hộ từ scan; Scan thanh "tên không dấu → có dấu theo Theo dõi nợ"; 🗑 Mục nhỏ "Lần làm việc"; nạp (`napNo`) / lưu / đồng bộ Drive (`taiNoTuDrive`) / sao lưu trong máy dữ liệu nợ; hướng dẫn ❓ Thư viện phần Theo dõi nợ; `ngayISOtu` (js/06, chỉ phần nợ dùng); 75 luật CSS `tdn-*`, `gb-*`, `bgd-*`, `phieu-*`.
+- **Dữ liệu cũ KHÔNG xóa**: IndexedDB `tdn_du_lieu`, Drive `_Hệ thống/theodoino.json` vẫn còn.
+- JS −130 KB · CSS −5,7 KB · onclick −140. Phép thử t149 bỏ phần lần làm việc; t140 (lệnh cũ Giao ban) đạt; hồi quy đủ.
+
 ## 3.398 — 28/10/2026 — KTGS: chốt Kế hoạch năm · khóa + nhật ký khai báo Hội (TK 2)
 - **Anh 28/10**: "KH năm em đang tự lưu phải ko — anh muốn chốt lưu và chốt ngày lưu luôn, sau này có sửa thì lưu lại theo ngày sửa" · "các khai báo tên hội nên có nút khóa lại để khỏi đổi nhầm và em nên lưu lại nhật ký để còn biết phục hồi nếu lỡ tay bấm nhầm nút reset".
 - **Kế hoạch năm** (js/22e): `ktKH[khóa].chot = [{luc, tu, den, cach, thang, to, snap, n}]`, `khoa` = 1 đã chốt / 0 đang sửa. 📌 Chốt (`ktKHChot`, đủ 100% tổ mới cho chốt) → khóa ô đổi tháng / cách / thứ tự ấp / xếp lại / xóa (`ktKHGhi`, `ktKHXoa` chặn); ✏ Sửa (`ktKHMoSua`) → nháp tự lưu; 📌 Chốt lại → bản mới theo ngày sửa; ↶ Bỏ sửa (`ktKHBoSua`); 📜 Lịch sử chốt (`ktKHLichSu`). Định kỳ (`ktDKLich`) / Mẫu 04 (`ktBCKH`, `ktBCTheoKH`) dùng **bản chốt mới nhất** (`ktKHBanDung`). Khuôn Word 01/KH vẫn để trống ngày tháng (không sửa khuôn — t179).

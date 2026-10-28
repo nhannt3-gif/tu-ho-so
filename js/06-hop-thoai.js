@@ -773,14 +773,6 @@ function homNay(id){
   var e = document.getElementById(id);
   if(e){ e.value = ngayVN(ngayISO(nay())); xemTenTruoc(); }
 }
-/* đổi dd/mm/yyyy về yyyy-mm-dd */
-function ngayISOtu(v){
-  if(!v) return '';
-  var m = v.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);
-  if(m) return m[3]+'-'+hai(+m[2])+'-'+hai(+m[1]);
-  if(/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
-  return '';
-}
 /* ô ngày: anh gõ dd/mm/yyyy, app lưu ngược yyyy-mm-dd để sắp đúng thời gian */
 function oNgay(nhan, id, gtri){
   return '<div class="o"><label>'+coChuHTML(nhan)+'</label>'+
@@ -1194,9 +1186,6 @@ function khoiPhucRac(ids){
    cũng vào 🗑 Thùng rác (ngăn Mục nhỏ) — xóa 1 mục không hỏi, khôi phục về đúng chỗ. */
 var MUC_NHO = {
   lich:{ten:'Việc lịch', kp:function(m){ var L = lcData(); L.viec.push(m.data); L.daXoa = (L.daXoa||[]).filter(function(x){ return x.id!==m.data.id; }); m.data.suaLuc = new Date().toISOString(); if(typeof henDongBoLich==='function') henDongBoLich(); }},
-  lanLV:{ten:'Lần làm việc', kp:function(m){ m.data.suaLuc = new Date().toISOString(); NO.lan.push(m.data); NO.lanXoa = (NO.lanXoa||[]).filter(function(x){ return x.id!==m.data.id; });
-    if(m.viec){ var L = lcData(); L.viec.push(m.viec); L.daXoa = (L.daXoa||[]).filter(function(x){ return x.id!==m.viec.id; }); }
-    luuNo(); }},
   ktKH:{ten:'Kế hoạch KTGS', kp:function(m){ var S = D.cauHinh.ktKH = D.cauHinh.ktKH || {}; var o = JSON.parse(JSON.stringify(m.data)); o.luc = new Date().toISOString(); S[m.khoa] = o; }},
   boBM:{ten:'Bộ biểu mẫu', kp:function(m){ dsBo().push(m.data); }}
 };
@@ -1908,7 +1897,7 @@ function noiDungHD(p){
       'Bấm ✓ ở đầu dòng để chọn nhiều mẫu → '+hdNut('In cả bộ')+'.',
       hdNut('📚 Bộ biểu mẫu')+': lưu sẵn bộ mẫu hay dùng (ví dụ bộ hồ sơ vay HN).',
       'Word: máy đã cài cầu nối thì '+hdNut('🖥 Mở máy')+' mở thẳng bằng Word.']);
-  if(p==='ghiChu') return '<h3>Tab Thư viện — 📁 Bộ hồ sơ · 🖼 Ghi chú ảnh · ⚠ Theo dõi nợ</h3>'+
+  if(p==='ghiChu') return '<h3>Tab Thư viện — 📁 Bộ hồ sơ · 🖼 Ghi chú ảnh</h3>'+
     '<p><b>Bộ hồ sơ</b> là một vụ việc gom đủ giấy tờ một chỗ, ví dụ <i>Rủi ro · Võ Văn Cường</i>: ghi chú tự do + biên bản rủi ro, giấy chứng tử, bản scan HĐ lưu…</p>'+
     hdLuong([hdNut('+ Tạo bộ hồ sơ'), '🏷 <b>Loại + tên khách</b><br><small>Rủi ro · Hồ sơ vay · Gia hạn…</small>', '📍 <b>Địa bàn</b><br><small>Xã › Điểm GD › Ấp/KP › Tổ (Hội tự điền)</small>', '📝 <b>Ghi chú</b> + 📎 <b>File</b>'])+
     hdBuoc(['Bên trái là <b>cây địa bàn</b> Xã › Điểm GD › Ấp/KP › Tổ (kèm Hội của tổ) và danh sách Hội — bấm để lọc các bộ; số bên cạnh là số bộ.',
@@ -1918,16 +1907,7 @@ function noiDungHD(p){
       'Bấm tên file để xem thử. ✕ = gỡ khỏi bộ (file gắn) hoặc bỏ vào thùng rác (file riêng). '+hdNut('🗑 Xóa bộ','xau')+' → thùng rác, ngăn Bộ hồ sơ.',
       'Xem một văn bản ở tab khác: khung xem ghi "📁 Thuộc bộ: …", bấm là mở bộ.'])+
     '<p><b>Ghi chú ảnh</b>: chụp / chọn ảnh ghi chú (bảng phân bổ vốn, thông báo…), gõ mô tả.</p>'+
-    '<h3>⚠ Theo dõi nợ — 3 danh sách riêng: ⏳ 3 tháng KHD · 🔴 Nợ quá hạn · 🔒 Nợ khoanh</h3>'+
-    hdLuong([hdNut('📥 Cập nhật tháng'), '📊 <b>Chọn file sao kê</b><br><small>xuất từ hệ thống, app tự nhận loại + kỳ</small>', '👁 <b>Xem trước</b><br><small>mới · phát sinh lại · tăng/giảm · ra khỏi DS</small>', '✓ <b>Cập nhật</b>'])+
-    hdBuoc(['Mỗi tháng bấm '+hdNut('📥 Cập nhật tháng')+', chọn file trên máy hoặc file đã lưu ở tab Tháng (chọn được cả 3 file một lần). App nhận món theo <b>số khế ước</b>, hộ theo <b>mã khách hàng</b>.',
-      '<b>Không bao giờ xóa:</b> món không còn trong danh sách chỉ chuyển sang lọc "Đã ra khỏi DS"; tháng sau có lại thì ghi <b>↻ phát sinh lại</b>. Thông tin anh bổ sung, nhật ký, tài liệu giữ nguyên. Nhập lại cùng tháng = thay số liệu tháng đó; file cũ hơn chỉ bổ sung lịch sử.',
-      'Danh sách xếp theo nghiệp vụ: 3T KHD theo số tháng không giao dịch; quá hạn — mới phát sinh lên đầu, số ngày quá hạn; khoanh — sắp hết hạn khoanh (≤ 6 tháng). '+hdNut('🌳 Cây địa bàn')+' Xã › Điểm › Ấp › Tổ có số món + tổng tiền, bấm để lọc.',
-      'Bấm một món → thẻ món: số liệu, lịch sử từng tháng, món này ở danh sách khác, món khác cùng hộ.',
-      '<b>🗂 Hồ sơ hộ vay</b> (dùng chung 3 danh sách): người vay & hộ · thừa kế / người trả nợ thay · thực trạng · tài sản · sử dụng vốn · nguyên nhân · phương án — bấm ✎ chọn nhanh + ghi thêm; mỗi lần sửa giữ lịch sử 🕘.',
-      hdNut('➕ Ghi lần làm việc')+': ngày, địa điểm (mặc định ấp của khách), hình thức, thành phần + mục 2–5 đúng biên bản (điền sẵn từ hồ sơ hộ). Hạn cam kết tự lên lịch Hôm nay. '+hdNut('📝 Biên bản')+' → file Word điền sẵn để sửa, in, ký.',
-      hdNut('📎 Thêm tài liệu')+' (chụp / chọn file: hồ sơ gốc, biên bản đã ký, ảnh, giấy tờ thừa kế) · '+hdNut('🔗 Gắn file có sẵn')+' (bản scan ở tab Scan…) · '+hdNut('📍 Vị trí nhà')+' (lấy GPS tại nhà khách hoặc dán link Google Maps → 🧭 Chỉ đường).',
-      'Tab Hôm nay › ⚠ Cần xử lý nhắc: cam kết trả nợ đến hạn, nợ khoanh sắp hết hạn. Dữ liệu đồng bộ các máy qua Drive (_Hệ thống/theodoino.json).']);
+    '';
   if(p==='scan') return '<h3>Tab Scan — CCCD và hồ sơ giấy</h3>'+
     '<p>Ảnh xử lý trong máy, không gửi tới AI · lưu hồ sơ là bản PDF lên Drive: <b>Tủ hồ sơ/CCCD</b> (thẻ) và <b>Tủ hồ sơ/Hồ sơ scan</b> (tài liệu), chia theo xã › điểm › ấp › tổ.</p>'+
     '<p><b>Thanh lọc chung (3.151):</b> '+hdNut('⚲ Lọc')+' Xã / Tag / ⚠ Chưa đạt · '+hdNut('⇅')+' nhóm theo Ngày / Tuần / Tháng · '+hdNut('☰ ▾')+' Danh sách / Cây địa bàn / ▦ Bảng · '+hdNut('⋯')+' Chế độ quét, Webcam, Chữ ký·CCCD.</p>'+
@@ -1982,7 +1962,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.398', ds:[
+var CO_GI_MOI = {ban:'3.399', ds:[
+  ["🧹", "Tạm bỏ ⚠ Theo dõi nợ (Thư viện) — gỡ hết code (thẻ món, hồ sơ hộ, biên bản làm việc, phiếu món vay, nhắc Hôm nay, ô Giao ban / Buổi GD, gợi ý tên có dấu ở Scan); dữ liệu cũ giữ nguyên, làm lại sau"],
   ["📌", "KTGS Kế hoạch năm: 📌 Chốt (ghi ngày chốt + khóa) · ✏ Sửa → 📌 Chốt lại theo ngày sửa · 📜 Lịch sử chốt; Định kỳ / Mẫu 04 dùng bản chốt mới nhất"],
   ["🔒", "KTGS Khai báo Hội – xã / Chuẩn hóa: 🔒 Khóa chống sửa nhầm + 📜 Nhật ký (cũ → mới) có ↶ Khôi phục"],
   ["🏷", "Chip đổi tên 🗓 Kế hoạch năm; nút 📋 Phân công ở bảng Hội – xã"],
@@ -1996,8 +1977,7 @@ var CO_GI_MOI = {ban:'3.398', ds:[
   ["📊", "Tổng hợp 2 màn như Sao kê: màn 1 lưới báo cáo theo nhóm (chưa nạp mờ ⚠) · màn 2 hàng thao tác ← Danh sách · đổi báo cáo · In / PDF / Excel / Gửi + khung xem rộng"],
   ["🧩", "Sao kê: 11 báo cáo danh sách (quá hạn, khoanh, đến hạn, giải ngân, SĐT…) tách thành khối riêng cắm rút — nội dung báo cáo giữ y nguyên"],
   ["📄", "Sao kê: Kết quả giao dịch tại điểm GD và THHD tự co lề / chữ cho vừa 1 trang (xem và in); co tới 8 pt vẫn không vừa thì sang trang 2"],
-  ["👥", "Tổ TK&VV: báo cáo Nợ cần xử lý cũng tự co vừa 1 trang"],
-  ["🔎", "Lọc địa bàn: ô tìm tổ thu vào nút 🔎 Tìm tổ trên dải LỌC ĐỊA BÀN — bấm mới mở ô gõ, Enter chọn tổ, Esc đóng (mọi tab Số liệu)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["👥", "Tổ TK&VV: báo cáo Nợ cần xử lý cũng tự co vừa 1 trang"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

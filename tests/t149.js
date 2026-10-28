@@ -28,10 +28,7 @@ const path=require('path');
    ok('xóa việc lịch: không hỏi, vào ngăn Mục nhỏ', !hopMo() && !lcTim('lc1') && D.rac.length===1 && nganRac(D.rac[0])==='mucNho' && /Họp tổ giả/.test(D.rac[0].tenMoi));
    khoiPhucRac([D.rac[0].id]); ok('khôi phục việc lịch về lịch', !!lcTim('lc1') && !lcData().daXoa.some(x=>x.id==='lc1') && D.rac.length===0);
    /* lần làm việc */
-   NO.lan = NO.lan || []; NO.lanXoa = NO.lanXoa || []; NO.lan.push({id:'ln1', ngay:'2026-10-05', maKH:'KH-GIA', nd:'Đôn đốc trả nợ'});
-   tdnXoaLan('ln1'); await w(100);
-   ok('xóa lần làm việc: không hỏi, vào ngăn Mục nhỏ', !hopMo() && !NO.lan.some(x=>x.id==='ln1') && D.rac.length===1 && D.rac[0].loaiNho==='lanLV');
-   khoiPhucRac([D.rac[0].id]); ok('khôi phục lần làm việc', NO.lan.some(x=>x.id==='ln1') && !NO.lanXoa.some(x=>x.id==='ln1'));
+   /* 3.399: bỏ phần thử 🗑 lần làm việc (⚠ Theo dõi nợ đã gỡ) */
    /* bộ biểu mẫu */
    dsBo().push({ten:'Bộ giả', mau:[]}); const nb = dsBo().length; xoaBo(nb-1); await w(100);
    ok('xóa bộ biểu mẫu: không hỏi, vào Thùng rác', dsBo().length===nb-1 && D.rac.some(m=>m.loaiNho==='boBM')); dongHop();
