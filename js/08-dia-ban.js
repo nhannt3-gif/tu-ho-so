@@ -149,7 +149,6 @@ function dongScanHTML(k){
       '<span class="ty">'+coChuHTML([k.ap, k.to?('Tổ '+k.to):''].filter(Boolean).join(' · '))+'</span>'+
       '<span class="sc-ngay">'+ngayVN(mocScan(k).slice(0,10))+'</span>'+
       '<div class="nut">'+
-        '<button onclick="event.stopPropagation();moHoSoTuScan(\''+k.id+'\')" title="Hồ sơ hộ 1 trang: CCCD, hồ sơ quét, món vay, lần làm việc">🏠</button>'+
         '<button onclick="event.stopPropagation();inGhep([\''+k.id+'\'])" title="In">🖨</button>'+
         '<button onclick="event.stopPropagation();themKhach(\''+k.id+'\')" title="Sửa / khai">✎</button>'+
         '</div></div>'+   /* 3.148 (anh chốt): bỏ 🗑 cuối dòng — xóa bằng nút 🗑 Xóa file chung đầu tab */

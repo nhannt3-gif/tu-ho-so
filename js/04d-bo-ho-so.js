@@ -173,7 +173,6 @@ var GAN = {bo:'', nk:'', tim:''};
 /* 3.52: danh sách file đích của hộp Gắn file — một bộ hồ sơ hoặc một dòng ở Hôm nay */
 function ganDich(){
   if(GAN.nk){ var m = ntTim(GAN.nk); if(!m) return null; m.dinh = m.dinh||[]; return m.dinh; }
-  if(GAN.tdn){ var ho = NO.ho[GAN.tdn]; if(!ho) return null; ho.file = ho.file||[]; return ho.file; }   /* 3.64: hồ sơ hộ vay */
   var b = timBo(GAN.bo); return b ? b.file : null;
 }
 function moGanFileBo(bid){
@@ -205,15 +204,6 @@ function veGanDS(){
   }).join('') : '<div class="huong-dan">Không thấy file nào khớp.</div>';
 }
 function xongGanFile(){
-  if(GAN.tdn){   /* 3.64: gắn vào hồ sơ hộ vay (Theo dõi nợ) */
-    var dsF = ganDich(), hoG = NO.ho[GAN.tdn], tenG = {}, kG = 0; if(!dsF || !hoG) return;
-    dsGanDuoc().forEach(function(x){ tenG[x.k+':'+x.id] = x.ten; });
-    Array.prototype.forEach.call(document.querySelectorAll('.gan-o:checked:not(:disabled)'), function(c){
-      var p = c.value.split(':'); dsF.push({k:p[0], id:p.slice(1).join(':'), ten:tenG[c.value]||'', nhom:p[0]==='scan'?'goc':'khac', themLuc:new Date().toISOString()}); kG++;
-    });
-    hoG.suaLuc = new Date().toISOString(); luuNo(); dongHop(); veGhiChu();
-    return bao(kG ? 'Đã gắn '+kG+' file vào hồ sơ hộ.' : 'Chưa tích file nào.', 3);
-  }
   if(GAN.nk){   /* 3.52: gắn vào dòng ở Hôm nay — giữ kèm tên để máy kia / file đã xóa vẫn biết là file gì */
     var dich = ganDich(), m = ntTim(GAN.nk), ten = {}, k = 0; if(!dich || !m) return;
     dsGanDuoc().forEach(function(x){ ten[x.k+':'+x.id] = x.ten; });

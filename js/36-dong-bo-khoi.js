@@ -7,7 +7,7 @@
      cài đặt theo khóa — chApDrive (mốc chBam chỉ đánh dấu đúng các khóa của file vừa đồng bộ).
    - Chuyển tiếp: vẫn đọc / ghi chimuc.json + cauhinh.json cho máy chưa cập nhật (chimuc.json ghi tối đa 1 lần / giờ);
      anh bật "Máy cũ đã cập nhật hết" (D.cauHinh.kdBoCu, đồng bộ) → thôi ghi chimuc.json. Tắt hẳn trên 1 máy: localStorage 'tuhoso_dbk' = 'tat'.
-   - Lịch (lich.json), Theo dõi nợ, Số liệu (meta / khach_hang) giữ đường riêng như cũ. */
+   - Lịch (lich.json), Số liệu (meta / khach_hang) giữ đường riêng như cũ. */
 var KD_TM = '_Hệ thống/khoi', KD_DANG = null, KD_HEN = null, KD_BAO = false;
 CH_RIENG.push('kdBam', 'kdKeo');   /* mốc đồng bộ riêng từng máy — không lên Drive */
 var KD_KHOI_DS = {vanBan:'vanban', ghiChu:'lich', scan:'scan', kyAnh:'scan', duLieu:'solieu', boHS:'hoso', bieuMau:'gdx'};

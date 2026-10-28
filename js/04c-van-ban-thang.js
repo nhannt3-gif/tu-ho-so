@@ -952,13 +952,12 @@ function nhacKhac(){
    Kho là thư viện dữ liệu, bảo trì chuẩn hóa làm thường xuyên nên để ngoài, không giấu trong Cài đặt (Cài đặt vẫn còn lối vào). */
 /* 3.51 (anh chốt): Thư viện = 📁 Bộ hồ sơ (ghi chú tự do + gom file liên quan theo từng vụ việc) · 🖼 Ghi chú ảnh.
    Bảo trì kho đã gộp vào 🧰 Dọn kho (nút trên thanh trên cùng). */
-function tvPhan(){ return D.cauHinh.tvPhan==='gc' ? 'gc' : (D.cauHinh.tvPhan==='no' ? 'no' : 'bo'); }
+function tvPhan(){ return D.cauHinh.tvPhan==='gc' ? 'gc' : 'bo'; }   /* 3.399: bỏ ⚠ Theo dõi nợ — cấu hình cũ 'no' về Bộ hồ sơ */
 function datTvPhan(k){ D.cauHinh.tvPhan = k; BO.mo = ''; luu(); veGhiChu(); }
 function thanhTV(){
   var p = tvPhan();
   return '<div class="tv-chon">'+
     '<button class="'+(p==='bo'?'bat':'')+'" onclick="datTvPhan(\'bo\')">📁 Bộ hồ sơ <small>'+(D.boHS||[]).length+'</small></button>'+
     '<button class="'+(p==='gc'?'bat':'')+'" onclick="datTvPhan(\'gc\')">🖼 Ghi chú ảnh <small>'+D.ghiChu.length+'</small></button>'+
-    '<button class="'+(p==='no'?'bat':'')+'" onclick="TDN.mo=\'\';datTvPhan(\'no\')">⚠ Theo dõi nợ <small>'+(NO_SAN?Object.keys(NO.mon).length:'')+'</small></button>'+
     '<button class="nho nut-hd" onclick="moHuongDan(\'ghiChu\')" title="Hướng dẫn">❓</button></div>';
 }

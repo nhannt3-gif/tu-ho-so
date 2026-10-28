@@ -120,21 +120,18 @@ function veGoiY(tab, kho){
   var q = document.getElementById('otim').value.trim();
   var e = document.getElementById('goiy');
   if(!e) return;
-  var ds = goiYLoc(tab, kho, q), hoDs = timHo(q);   /* 3.82: kèm hồ sơ hộ khớp tên */
+  var ds = goiYLoc(tab, kho, q);   /* 3.399: bỏ gợi ý 🏠 hồ sơ hộ (gỡ Theo dõi nợ) */
   var khH = nganHienTai===7 ? slNhayTabHTML(q) : '';   /* 3.86: ô tìm chung không tra khách hàng (tab con Tra cứu KH có ô riêng); đang ở tab Số liệu thì gợi ý nhảy sang tab có kết quả */
-  if(!ds.length && !hoDs.length && !khH){ e.classList.remove('hien'); return; }
-  HO_GY = hoDs;
+  if(!ds.length && !khH){ e.classList.remove('hien'); return; }
   e.innerHTML = (ds.length ? '<div class="gy-dau">Lọc nhanh</div>'+
     ds.map(function(x){
       return '<button onclick="themThe(\'' +x.loai+ '\',\'' +
         String(x.gt).replace(/'/g,"\\'")+ '\',\'' +
         x.nhan.replace(/'/g,"\\'")+ '\')">'+coChuHTML(x.nhan)+'</button>';
     }).join('') : '')+
-    (hoDs.length ? '<div class="gy-dau">🏠 Hồ sơ hộ</div>'+hoDs.map(function(x, i){
-      return '<button onclick="dongGoiY();moHoSoHo(HO_GY['+i+'])">🏠 '+coChuHTML(x.ten)+(x.phu?' <small>'+coChuHTML(x.phu)+'</small>':'')+'</button>'; }).join('') : '')+khH;
+    ''+khH;
   e.classList.add('hien');
 }
-var HO_GY = [];
 function dongGoiY(){
   var e = document.getElementById('goiy');
   if(e) e.classList.remove('hien');

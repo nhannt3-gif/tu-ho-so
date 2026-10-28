@@ -13,7 +13,6 @@ function capNhatGio(){
 
 function khoiDong(){
   nap();
-  napNo();   /* 3.64: dữ liệu Theo dõi nợ nằm ở IndexedDB */
   setTimeout(function(){ saoLuuTrongMay(); }, 4000);   /* 3.81: bản sao lưu trong máy của hôm nay (lúc mở app, trước khi làm gì) */
   var eb = document.getElementById('ban-goc'); if(eb) eb.textContent = 'v'+APP_BAN;
   napPhanLoai();

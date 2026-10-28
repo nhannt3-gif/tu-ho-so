@@ -29,8 +29,6 @@ function veScan(){
     '<span><b>'+HANG.length+'</b> bản vừa quét chưa lưu</span>'+
     '<button onclick="moHangCho()">Mở lại</button><button onclick="boHangCho()">🗑 Bỏ</button></div>';
   demScanKhoiPhuc();   /* 3.79.1 */
-  var nTD = (typeof NO_SAN==='undefined' || NO_SAN) ? goiYTenCoDau().length : 0;   /* 3.84 */
-  if(nTD) h += '<div class="thanh-chon"><span>✍ <b>'+nTD+'</b> bản scan tên không dấu — có thể đổi theo tên khách trong Theo dõi nợ</span><button onclick="moTenCoDau()">Xem & đổi</button></div>';
   if(KP_DEM) h += '<div class="thanh-chon" style="background:var(--do-nen);border-color:var(--do);color:var(--do)">'+
     '<span>⚠ Còn <b>'+KP_DEM+'</b> bản scan có ảnh trong máy chưa gắn vào danh sách (do lỗi cũ làm mất danh sách) — bấm Khôi phục để gắn lại</span>'+
     '<button onclick="KP_DEM=null;khoiPhucScan()">♻ Khôi phục</button></div>';

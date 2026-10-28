@@ -103,7 +103,7 @@ function henDongBoChiMuc(){
 }
 /* ==========================================================
    3.81 — SAO LƯU & KHÔI PHỤC
-   - Trong máy: mỗi ngày 1 bản (trạng thái lúc mở app đầu ngày) trong IndexedDB, giữ 7 ngày — có cả Theo dõi nợ
+   - Trong máy: mỗi ngày 1 bản (trạng thái lúc mở app đầu ngày) trong IndexedDB, giữ 7 ngày
    - Trên Drive: _Hệ thống/du_phong/chimuc_YYYY-MM-DD.json (bản đầu ngày, giữ 7)
    - Khôi phục = LẤY LẠI MỤC BỊ THIẾU (chỉ thêm vào, không ghi đè, không đụng mục đang có / trong thùng rác / đã xóa hẳn)
    ========================================================== */
@@ -111,8 +111,7 @@ function saoLuuTrongMay(){
   var ngay = ngayISO(nay()), khoa = 'saoluu_'+ngay;
   if(D.cauHinh.saoLuuNgay===ngay) return Promise.resolve(false);
   var goi = goiChiMuc();
-  if(!demChiMuc(goi) && !Object.keys(NO.mon||{}).length) return Promise.resolve(false);   /* máy trống — không ghi bản rỗng */
-  goi.no = (typeof NO_SAN==='undefined' || NO_SAN) ? NO : null;
+  if(!demChiMuc(goi)) return Promise.resolve(false);   /* máy trống — không ghi bản rỗng · 3.399: bỏ dữ liệu Theo dõi nợ (đã gỡ) */
   return luuFile(khoa, JSON.stringify(goi)).then(function(){
     D.cauHinh.saoLuuNgay = ngay; luu();
     return dsSaoLuuMay().then(function(ds){ return Promise.all(ds.slice(7).map(function(x){ return xoaFile(x.khoa); })); });
@@ -149,8 +148,6 @@ function mucThieuTuSaoLuu(j){
   KHO_SAO_LUU.concat([['rac','']]).forEach(function(k){ (D[k[0]]||[]).forEach(function(m){ co[m.id] = 1; }); });
   (D.daXoaHan||[]).forEach(function(t){ co[t.id] = 1; });
   KHO_SAO_LUU.forEach(function(k){ ra[k[0]] = ((j && j[k[0]])||[]).filter(function(m){ return m && m.id && !co[m.id] && !laFileHeThong(m); }); });
-  ra.no = 0;
-  if(j && j.no && j.no.mon){ ra.noMon = Object.keys(j.no.mon).filter(function(id){ return !(NO.mon||{})[id]; }); ra.no = ra.noMon.length; }
   return ra;
 }
 var SL_DS = [], SL_CHON = null;
@@ -170,7 +167,7 @@ function napDsSaoLuu(){
       return '<div class="sl-dong"><span>'+(x.noi==='may'?'💻 Trong máy':'☁ Drive')+' · <b>'+lcDMY(x.ngay)+'</b></span><span class="sl-so" id="sl-so-'+i+'">…</span>'+
         '<button class="nho" onclick="xemSaoLuu('+i+')">So sánh</button></div>'; }).join('')+'</div><div id="sl-ct"></div>';
     SL_DS.forEach(function(x, i){ docSaoLuu(x).then(function(j){ x.j = j; var t = document.getElementById('sl-so-'+i); if(!t) return;
-      var th = mucThieuTuSaoLuu(j), n = KHO_SAO_LUU.reduce(function(s, k){ return s + th[k[0]].length; }, 0) + (th.no||0);
+      var th = mucThieuTuSaoLuu(j), n = KHO_SAO_LUU.reduce(function(s, k){ return s + th[k[0]].length; }, 0);
       t.innerHTML = demChiMuc(j)+' mục'+(n ? ' · <b class="sl-thieu">máy đang thiếu '+n+'</b>' : ' · <span class="sl-du">không thiếu</span>'); })
       .catch(function(){ var t = document.getElementById('sl-so-'+i); if(t) t.textContent = 'không đọc được'; }); });
   });
@@ -181,11 +178,10 @@ function xemSaoLuu(i){
   chay.then(function(j){
     x.j = j; SL_CHON = x;
     var th = mucThieuTuSaoLuu(j), dong = KHO_SAO_LUU.filter(function(k){ return th[k[0]].length; });
-    var n = dong.reduce(function(s, k){ return s + th[k[0]].length; }, 0) + (th.no||0);
+    var n = dong.reduce(function(s, k){ return s + th[k[0]].length; }, 0);
     e.innerHTML = '<div class="sl-ct"><b>Bản '+(x.noi==='may'?'trong máy':'trên Drive')+' ngày '+lcDMY(x.ngay)+'</b> · '+demChiMuc(j)+' mục'+
       (n ? dong.map(function(k){ return '<div class="sl-kho"><b>'+k[1]+'</b> — thiếu '+th[k[0]].length+': <small>'+
           th[k[0]].slice(0, 8).map(function(m){ return coChuHTML(m.tenMoi||m.ten||m.tenCu||m.soHieu||m.id); }).join(' · ')+(th[k[0]].length>8?' …':'')+'</small></div>'; }).join('')+
-        (th.no ? '<div class="sl-kho"><b>Theo dõi nợ</b> — thiếu '+th.no+' món vay</div>' : '')+
         '<div class="hang-nut"><button class="nho chinh" onclick="layLaiSaoLuu()">♻ Lấy lại '+n+' mục thiếu</button></div>'
       : '<div class="huong-dan">Máy này không thiếu mục nào so với bản này.</div>')+'</div>';
   }).catch(function(err){ e.innerHTML = '<div class="rong">Không đọc được bản sao lưu: '+coChuHTML(err&&err.message||String(err))+'</div>'; });
@@ -195,10 +191,6 @@ function layLaiSaoLuu(){
   var th = mucThieuTuSaoLuu(x.j), n = 0, bay = new Date().toISOString();
   KHO_SAO_LUU.forEach(function(k){ D[k[0]] = D[k[0]] || []; th[k[0]].forEach(function(m){ m.suaLuc = bay; D[k[0]].push(m); n++; }); });
   if(typeof HS!=='undefined') HS.ds = D.scan;
-  if(th.no && x.j.no){
-    th.noMon.forEach(function(id){ NO.mon[id] = x.j.no.mon[id]; var mh = x.j.no.mon[id] && x.j.no.mon[id].ma; if(mh && x.j.no.ho && x.j.no.ho[mh] && !NO.ho[mh]) NO.ho[mh] = x.j.no.ho[mh]; n++; });
-    luuNo();
-  }
   luu(); ve(); napDsSaoLuu();
   bao('Đã lấy lại '+n+' mục từ bản sao lưu ngày '+lcDMY(x.ngay)+'.', 6);
 }
