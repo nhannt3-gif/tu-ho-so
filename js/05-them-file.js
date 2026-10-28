@@ -1218,6 +1218,7 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
     if(L) { var m = [L, L, L, L], n0 = kho==='tu' ? ng : kho==='ngang'; return [[n0, m, 0, 0], [n0, m, 1, 9], [n0, m, 1, 8.5], [n0, m, 1, 8]]; }
     var doc = [[0, [20, 15, 20, 30], 0, 0], [0, [20, 15, 20, 30], 1, 9], [0, [15, 15, 15, 20], 1, 9], [0, [15, 15, 15, 20], 1, 8]], nga = [[1, [15, 15, 15, 20], 0, 0], [1, [15, 15, 15, 20], 1, 9], [1, [15, 15, 15, 20], 1, 8.5], [1, [10, 10, 10, 15], 1, 8]];
     if(kho==='doc') return doc; if(kho==='ngang') return nga;
+    if(!ng && u.hasAttribute('data-tr-1trang')) return doc;   /* 3.391: bản khổ dọc cố vừa 1 trang — co lề / chữ ở khổ dọc (sang ngang thì trang thấp hơn, càng tràn) */
     return ng ? nga : [doc[0], doc[1]].concat(nga);
   }
   function trang(b){   /* 1 trang trống theo bậc b → {tg, nd} */
@@ -1226,7 +1227,7 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
     nd.className = 'tr-nd'; nd.style.cssText = 'top:'+m[0]+'mm;left:'+m[3]+'mm;width:'+(W-m[1]-m[3])+'mm;height:'+(H-m[0]-m[2])+'mm';
     tg.appendChild(nd); ds.appendChild(tg); return {tg:tg, nd:nd, b:b};
   }
-  function apBac(u, b){ u.classList.toggle('tr-gon', !!b[2]); u.style.fontSize = u.getAttribute('data-tr-co') || ''; if(b[3] && u.hasAttribute('data-tr-cb')){ u.style.fontSize = b[3]+'pt'; return; }   /* 3.355: bậc cỡ chữ khai sẵn → đặt thẳng */
+  function apBac(u, b){ u.classList.toggle('tr-gon', !!b[2]); u.style.fontSize = u.getAttribute('data-tr-co') || ''; if(b[3] && (u.hasAttribute('data-tr-cb') || u.hasAttribute('data-tr-1trang'))){ u.style.fontSize = b[3]+'pt'; return; }   /* 3.355: bậc cỡ chữ khai sẵn → đặt thẳng; 3.391: bản cố vừa 1 trang cũng đặt thẳng (u chưa gắn vào trang → getComputedStyle rỗng, nhánh dưới không co được) */
     if(b[3]){ var cu = parseFloat(getComputedStyle(u).fontSize); if(b[3]*96/72<cu-0.1) u.style.fontSize = b[3]+'pt'; } }
   function coDinhCot(u){   /* cột bảng giữ nguyên bề rộng ở mọi trang (đo 1 lần trên bản liền) */
     [].slice.call(u.querySelectorAll('table')).forEach(function(t){

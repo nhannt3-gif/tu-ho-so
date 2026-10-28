@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.391 — 28/10/2026 — Báo cáo tổng hợp tự co vừa 1 trang (TK 2)
+- **Bàn giao TK 3 mục 3.2 phần còn** (anh 27/10 "in trong 1 trang"; anh 28/10 đồng ý: không vừa thì sang trang 2, chữ ≥ 8 pt): `SK_BC` khai `motTrang:1` cho **kqgd** (mỗi điểm 1 trang) và **thhd**; `skXem` gắn cờ cho từng trang, `skHTMLIn` / `toHTMLIn` ghi `data-tr-1trang` (Tổ TK&VV "Nợ cần xử lý" đã khai `motTrang` từ trước nhưng chưa dùng).
+- **Sửa lỗi bộ in chung (js/05 `trDan`)**: bậc co chữ 9 → 8,5 → 8 pt của bản `.trang` chưa bao giờ chạy (đo cỡ chữ khi bản chưa gắn vào trang). Sửa có giới hạn: chỉ bản có `data-tr-1trang` (như `data-tr-cb`) → báo cáo danh sách in không đổi. Bản khổ dọc cố vừa 1 trang co ở khổ dọc (không nhảy sang ngang).
+- Phép thử mới `t313`; t276, t133 đạt.
+
 ## 3.390 — 28/10/2026 — Bộ lọc chuẩn mọi tab: nút 🔎 + chip nguồn số liệu (TK 2)
 - **Bàn giao TK 3 mục 3.1 (anh duyệt hướng 27/10)**: ô 🔎 tìm tổ không còn chiếm chỗ trong hàng lọc — nút **🔎 Tìm tổ** trên dải `.pv-dau` (js/22ga `pvTimMo`, `PV_TIM_MO`, `pvTimQ`); đang có chữ thì luôn mở; chọn tổ / Esc → đóng. Tra cứu KH giữ nguyên (ô tìm khách riêng, chip báo cạnh ô tìm — bỏ `.pv-chip-o` trên dải bằng JS thay cho CSS riêng).
 - Dòng cam `.sl-nguon` (kỳ theo ngày, Tổ TK&VV / Sao kê) → chip `📅 Số liệu dd/mm/yyyy · ⚠ n file lấy ngày trước` gom vào chip báo trên dải tiêu đề (`slNguonHTML` → `slChipThem`); KTGS giữ chip `⚠ Ngày dd/mm`.

@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.390 · 28/10/2026 00:19 · 104 file · 42700 dòng · 3496 hàm cấp ngoài · 575 biến toàn cục.
+Bản 3.391 · 28/10/2026 07:36 · 104 file · 42701 dòng · 3496 hàm cấp ngoài · 575 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -19,7 +19,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/04c-van-ban-thang.js` | 964 | 81 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 2634–3608 của bản 3.3 |
 | `js/04d-bo-ho-so.js` | 273 | 23 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 3609–3880 của bản 3.3 |
 | `js/04e-theo-doi-no.js` | 1537 | 135 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 3881–5417 của bản 3.3 |
-| `js/05-them-file.js` | 1362 | 71 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
+| `js/05-them-file.js` | 1363 | 71 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
 | `js/06-hop-thoai.js` | 2218 | 157 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
 | `js/06b-xoa-nhieu.js` | 211 | 25 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2218–2421 của bản 3.3 |
 | `js/06c-drive.js` | 711 | 38 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2422–3118 của bản 3.3 |
@@ -474,9 +474,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `veKTGS` `js/22b-ktgs.js:112`
 - `veSaoKe` `js/22h-cap-hoi-sao-ke.js:403`
 - `veTongHop` `js/22i-tong-hop.js:333`
-- `inChuan` `js/05-them-file.js:1342`
+- `inChuan` `js/05-them-file.js:1343`
 - `inBlob` `js/05-them-file.js:1142`
-- `xemChuan` `js/05-them-file.js:1350`
+- `xemChuan` `js/05-them-file.js:1351`
 - `pvLuaChon` `js/22ga-pham-vi.js:10`
 - `chTheoDoi` `js/17-dong-bo-cai-dat.js:42`
 - `slDay` `js/22-so-lieu.js:765`
