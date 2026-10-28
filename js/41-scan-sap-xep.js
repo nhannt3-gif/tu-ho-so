@@ -246,7 +246,7 @@ scanXongHop = function(bl){
   var nh = scanNhom(), luoi = document.querySelector('#hop-in .sx-luoi');
   if(!luoi || !nh.length) return;
   if(SX.docLuc===bl && SX_DOC.length){ sxVeDoc(); return; }
-  SX.docLuc = bl; SX_DOC = nh.map(function(){ return {dang:true}; });
+  SX.docLuc = bl; SX_DOC = nh.map(function(){ return {dang:true}; }); SX_DOC.luc = bl;   /* 3.395: kết quả đọc gắn với lượt quét (Đọc số CCCD không lấy kết quả lượt trước) */
   luoi.insertAdjacentHTML('beforebegin', '<div id="sx-doc" class="sx-doc"></div>'); sxVeDoc();
   (SL_SAN ? Promise.resolve() : slNap()).then(function(){
     return nh.reduce(function(p, g, i){ return p.then(function(){
@@ -360,8 +360,8 @@ function sxChiaDoi(f){
   });
 }
 var SX_NHAN_CU = nhanVaoScan;
-nhanVaoScan = function(fs, nguon){
-  if(SC.che!=='the' || !SC.photo2) return SX_NHAN_CU(fs, nguon);
+nhanVaoScan = function(fs, nguon, daHoi){
+  if(SC.che!=='the' || !SC.photo2 || daHoi) return SX_NHAN_CU(fs, nguon, daHoi);   /* 3.395: daHoi = đã hỏi ảnh cũ còn sót (js/12 scanCuXong) — ảnh lúc hỏi đã chia đôi rồi, không chia lại */
   var ds = Array.prototype.slice.call(fs||[]);
   batChay(false, 'Đang chia đôi tờ photo…');
   return ds.reduce(function(p, f){ return p.then(function(ra){ return /^image\//.test(f.type) || /\.(jpe?g|png|webp)$/i.test(f.name) ? sxChiaDoi(f).then(function(h){ return ra.concat(h); }) : ra.concat([f]); }); }, Promise.resolve([]))

@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.395 — 28/10/2026 — Sửa Scan CCCD đọc nhầm thẻ cũ · KTGS bước 1 (TK 2)
+- **Anh 28/10 (ảnh)**: quét CCCD người mới, ở bước Lưu bấm 🪪 Đọc số CCCD ra số thẻ quét trước. Nguyên nhân: hàng chờ còn sót **1 mặt sau thẻ người trước** (phiên 27/10 chưa lưu hết) → chụp mặt trước người mới, `xepCapThe` ghép 2 ảnh thành 1 người (mặt trước mới + mặt sau cũ) → bộ đọc lấy mã máy đọc mặt sau = số người cũ. Sửa: chế độ Thẻ, hàng chờ còn ảnh mà lần đụng gần nhất quá 30 phút (`tuhoso_hang.cham` mới) → nhận ảnh mới thì **hỏi** "🗑 Bỏ ảnh cũ, quét mới" / "Giữ, ghép tiếp" (`scanCuSot`, `scanHoiCu`, `scanCuXong`, js/12); quét liền tay không hỏi. js/41 bọc `nhanVaoScan` chuyển tham số `daHoi` (photo 2 thẻ không chia lại).
+- 🪪 Đọc số CCCD ở bước Lưu: chỉ dùng kết quả đọc của đúng lượt đang mở (`SX_DOC.luc === SX.docLuc`); không có → đọc ngay ảnh thẻ đang có trong hàng (trước: lấy `SX_DOC[0]` dù của lượt trước).
+- **KTGS bước 1** (anh 28/10 "áp cây địa bàn chuẩn"): chip BC0437 / BC0438 / nguồn số liệu dời từ cuối thanh 3 khối lên dải LỌC ĐỊA BÀN (`slChipThem`) như mọi tab; bỏ `KT_CHIP`, `.kt-khoi-bc`. Giữ luật riêng KTGS: tự chọn khi chỉ 1 xã / điểm, bỏ mục vay trực tiếp. Không đụng chỗ lưu / hàm dựng mẫu.
+- Phép thử mới `t316`; t245 sửa (chip trên dải lọc); nhóm KTGS 39 phép + t179 (khóa mẫu) đạt; Scan t151, t186, t207, t210, t213, t216, t218, t220, t223, t224, t227, t271 đạt.
+
 ## 3.394 — 28/10/2026 — Tổ TK&VV: báo cáo lên hàng thao tác (TK 2)
 - **Bàn giao TK 3 mục 3.3** ("Tổ TK&VV: chip DS · Nợ · TK · Chia tách lên hàng thao tác"): bỏ khối "🧩 Báo cáo chuẩn mới" trên đầu tab + hàng "Báo cáo của tổ" riêng. `toBangDau` thêm `toNutBC()` vào hàng thao tác của mọi bảng tab Tổ: 🧩 Sổ tổ viên (`dkNutHTML(o, gon)` — kiểu gọn mới, js/62) luôn có; đang chọn 1 tổ: chip bật / tắt DS hộ vay · Nợ · TK 105 · Chia tách (`TO_BC_NGAN`, vẫn chọn nhiều, lưu `toCH().bc`) + 👁 Xem (`toXem` như cũ).
 - **Sửa lỗi 3.390 (điện thoại)**: chọn sâu tới tổ (5 ô) hàng lọc 1 dòng bóp ô còn mũi tên → từ 4 ô trở lên xuống 2 dòng (`:has(select:nth-of-type(4))`, css/dt-may.css).
