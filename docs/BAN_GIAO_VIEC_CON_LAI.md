@@ -248,6 +248,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - `nhanVaoScan(fs, nguon, daHoi)` — tham số 3 mới; mọi chỗ bọc hàm này phải chuyển tiếp `daHoi`.
 - KTGS: chip báo nay qua `slChipThem` trong `ktDauHTML` (sau `kyGhiHTML` — thứ tự quan trọng vì `kyGhiHTML` xóa chip cũ).
 
+### Danh sách thử trên máy thật (3.395.1)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Điện thoại: KTGS chưa nạp BC0437 / BC0438 | 2 chip ⚠ nằm 1 dòng trên dải lọc, không đè khung | |
+
 ### Danh sách thử trên máy thật (3.395)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

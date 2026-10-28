@@ -4146,3 +4146,7 @@ body.bot-chon-chep [data-bot][data-botc]{outline-color:var(--luc)}
 .to-bang-nut .to-bc-chip .nhan-nhom{font-size:calc(11px*var(--co));color:var(--chu-phu);margin:0 2px 0 0}
 .to-bang-nut .to-bc-chip .to-chip{cursor:pointer}.to-bang-nut .to-bc-chip .to-chip input{display:none}
 .to-bang-nut .dk-gon{display:inline-flex;gap:4px;margin-right:6px}
+/* 3.395.1: chip báo trên dải tiêu đề LỌC ĐỊA BÀN — luôn 1 dòng (nhiều chip như KTGS BC0437 · BC0438 không xuống hàng đè khung) */
+.pv-cay .loc-khoi .pv-dau .pv-chip-o{flex-wrap:nowrap;flex:0 1 auto;min-width:0;overflow:hidden;white-space:nowrap}
+.pv-cay .loc-khoi .pv-dau .pv-chip-o .sl-chip{white-space:nowrap;flex:none}
+@media(max-width:600px){ .pv-cay .loc-khoi .pv-dau .pv-chip-o .sl-chip{font-size:10px;padding:0 5px;line-height:18px} .pv-cay .loc-khoi .pv-dau:has(.pv-chip-o .sl-chip) .pv-dan{display:none} .pv-cay .loc-khoi .pv-dau .pv-chip-o{flex:0 0 auto} }
