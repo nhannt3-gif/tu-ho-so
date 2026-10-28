@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.392 — 28/10/2026 — Sao kê: báo cáo danh sách thành khối cắm rút (TK 2)
+- **Bàn giao TK 3 mục 6** ("chuyển dần báo cáo còn trong `skBaoCao` sang `lap()`"): 11 báo cáo nhóm Nợ cần xử lý · Nợ đến hạn · Phát sinh tháng · Khách hàng (qh, kh, khd, cgn, dh, noxh, pkto, gn, ddn, m105, sdt) chuyển sang **`js/76-sk-danh-sach.js`** (`SK_BC.push` + `lap`), thân hàm chép nguyên (`skBCDanhSach`, `skBC31`, `skBCChuaGN`, `skBCDH`, `skBCNOXH`, `skBCPKTo`). `skBaoCao` chỉ còn: Thông tin tổ (`ttBaoCao`) + báo cáo tự lập. Nền chung Mẫu 31: `skNen31` (js/22h). Thứ tự danh mục giữ như cũ.
+- Rút `js/76` (bỏ dòng `<script>`): app chạy, Sao kê còn nhóm Thông tin tổ; báo cáo mặc định = báo cáo đầu danh mục (trước cố định `qh`).
+- **Sửa công cụ kiểm** `tests/ghep.py`: dòng `<script>` / `<link>` có chú thích `<!-- … -->` phía sau (và CSS `media=`) trước đây bị bỏ qua → `js/70`–`75`, `css/dt-may*.css` chưa từng được `kiem.py` / `bando.py` đọc. Nay đọc đủ 113 file: cửa KHO vẫn 0, mồ côi 0.
+- t276 (bản chụp 66 báo cáo) **giống hệt**; phép thử mới `t314`; t104, t105, t313 đạt.
+
 ## 3.391 — 28/10/2026 — Báo cáo tổng hợp tự co vừa 1 trang (TK 2)
 - **Bàn giao TK 3 mục 3.2 phần còn** (anh 27/10 "in trong 1 trang"; anh 28/10 đồng ý: không vừa thì sang trang 2, chữ ≥ 8 pt): `SK_BC` khai `motTrang:1` cho **kqgd** (mỗi điểm 1 trang) và **thhd**; `skXem` gắn cờ cho từng trang, `skHTMLIn` / `toHTMLIn` ghi `data-tr-1trang` (Tổ TK&VV "Nợ cần xử lý" đã khai `motTrang` từ trước nhưng chưa dùng).
 - **Sửa lỗi bộ in chung (js/05 `trDan`)**: bậc co chữ 9 → 8,5 → 8 pt của bản `.trang` chưa bao giờ chạy (đo cỡ chữ khi bản chưa gắn vào trang). Sửa có giới hạn: chỉ bản có `data-tr-1trang` (như `data-tr-cb`) → báo cáo danh sách in không đổi. Bản khổ dọc cố vừa 1 trang co ở khổ dọc (không nhảy sang ngang).

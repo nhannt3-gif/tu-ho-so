@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.391** — TK 2: Sao kê Kết quả GD tại điểm / THHD / Tổ "Nợ" tự co vừa 1 trang (≥ 8 pt). Trước: 3.390 bộ lọc chuẩn. Bàn giao TK 3 → TK 2: `docs/BAN_GIAO_TK3_2710.md` (mục 3.1, 3.2 xong).
+- **`main` = 3.392** — TK 2: Sao kê 11 báo cáo danh sách thành khối cắm rút `js/76` (t276 giống hệt); `tests/ghep.py` đọc đủ file có chú thích. Trước: 3.391 vừa 1 trang, 3.390 bộ lọc chuẩn. Bàn giao TK 3 → TK 2: `docs/BAN_GIAO_TK3_2710.md`.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

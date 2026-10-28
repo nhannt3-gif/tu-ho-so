@@ -3,8 +3,9 @@
 # Dùng cho kiem.py / bando.py, và để đối chiếu: python3 tests/ghep.py [file ra] (mặc định in kích thước).
 import os, re, sys
 GOC = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-CSS = re.compile(r'^<link rel="stylesheet" href="([^"?]+)(?:\?v=[^"]*)?">$')
-JS = re.compile(r'^<script src="([^"?]+)(?:\?v=[^"]*)?"></script>$')
+# 3.392: cho phép chú thích <!-- … --> sau thẻ và media="…" ở CSS (trước đây các dòng này bị bỏ qua → js/70–75, css/dt-may*.css không được kiem.py / bando.py đọc)
+CSS = re.compile(r'^<link rel="stylesheet" href="([^"?]+)(?:\?v=[^"]*)?"(?: media="([^"]*)")?>(?:\s*<!--.*-->)?\s*$')
+JS = re.compile(r'^<script src="([^"?]+)(?:\?v=[^"]*)?"></script>(?:\s*<!--.*-->)?\s*$')
 
 def tep(goc=GOC):
     """Danh sách (loại, đường dẫn tương đối) theo đúng thứ tự index.html nạp."""
@@ -21,7 +22,8 @@ def ghep(goc=GOC):
         if m:
             the = 'style' if m.re is CSS else 'script'
             noi = open(os.path.join(goc, m.group(1)), encoding='utf-8').read()
-            ra.append('<%s>\n%s</%s>' % (the, noi, the))
+            mo = ' media="%s"' % m.group(2) if m.re is CSS and m.group(2) else ''
+            ra.append('<%s%s>\n%s</%s>' % (the, mo, noi, the))
         else:
             ra.append(x)
     return '\n'.join(ra)
