@@ -561,6 +561,8 @@ function slKiemTra(ky, im){   /* im = tự kiểm ngầm (3.156): không khung c
           ds6.length || lch.length ? 'Số liệu chính là Mẫu 31; Dư nợ chi tiết chỉ tham chiếu số TK 105 + điểm GD — lệch thì xem lại 2 file có cùng ngày số liệu không.' : '', ['Số KU', 'Mã KH', 'Họ tên', 'Mẫu 31', 'Dư nợ CT', 'Chênh'], ds6);
       }
     }
+    return (co.hstd && co.dsto ? toNap(ky).then(function(K){ slKTAp(K, them); }).catch(function(er){ console.warn('Chưa kiểm được ấp / điểm GD', er); }) : null);   /* 3.401 QT-C-10 / 11 */
+  }).then(function(){
     var dem = {ok:0, lech:0, canh:0};
     kq.forEach(function(x){ if(dem[x.kq]!==undefined) dem[x.kq]++; });
     SLM.kt[ky] = {luc:new Date().toISOString(), ban:APP_BAN, dau:slDauKy(ky), kq:kq, dem:dem, dc:slDCTinh(B)};   /* 3.90.1: bảng đối chiếu chéo */
@@ -1012,4 +1014,14 @@ function slTenCuDoi(){
     bao('Đã đổi tên '+n+' file gốc'+(hong ? ' · '+hong+' file chưa đổi được (thử lại sau)' : '')+'.', 5);
     return luuFile('sl_dmn', {}).then(slDmnDay);   /* ghi lại sổ nạp các tháng */
   });
+}
+/* ---------- 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11): KIỂM ẤP / ĐIỂM GD — nhóm 6 Bất thường dữ liệu, chỉ báo để anh sửa trên hệ thống (không sửa số, món tính theo tổ) ---------- */
+function slKTAp(K, them){
+  var q = K && (K.qtc || (typeof toKiemAp==='function' ? toKiemAp(K) : null)); if(!q) return;
+  them(6, 'QT-C-10 · Món vay ở ấp khác ấp của tổ (ấp tổ theo File Tổ trưởng)', !q.lechAp.length, q.lechAp.length ? q.lechAp.length+' món — cần sửa ấp trên hệ thống, app tạm tính theo tổ' : 'không có',
+    q.lechAp.length ? 'Luật chung: món vay → mã tổ → ấp của tổ → điểm GD (1 ấp 1 điểm).' : '', ['Số KU', 'Mã KH', 'Họ tên', 'Mã tổ', 'Ấp của món', 'Ấp của tổ', 'Dư nợ'], q.lechAp, q.lechAp.length ? 'canh' : '');
+  them(6, 'QT-C-10 · Ấp có tổ thuộc nhiều điểm GD (1 ấp chỉ thuộc 1 điểm)', !q.apNhieu.length, q.apNhieu.length ? q.apNhieu.length+' ấp — món trực tiếp ở các ấp này tạm theo điểm nhiều tổ hơn' : 'không có',
+    '', ['Xã', 'Mã ấp', 'Tên ấp', 'Các điểm GD (số tổ)'], q.apNhieu, q.apNhieu.length ? 'canh' : '');
+  them(6, 'QT-C-11 · Món vay trực tiếp chưa gán được điểm theo ấp', !q.ttTam.length, q.ttTam.length ? q.ttTam.length+' món — gán tạm, xem cột Cách gán' : 'mọi món trực tiếp gán theo ấp',
+    '', ['Số KU', 'Mã KH', 'Họ tên', 'Xã', 'Mã ấp', 'Điểm GD tạm', 'Cách gán'], q.ttTam, q.ttTam.length ? 'canh' : '');
 }

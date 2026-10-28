@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.400** — TK 2: tên chuẩn file nạp MÃ_ngày + sổ DANH_MUC_NAP.csv + 🏷 chuẩn hóa tên tháng cũ (Tèo). Trước: 3.399.1 sửa Có gì mới. Tèo: PR #388 `docs/TEO_PHOI_HOP.md` (chờ gộp).
+- **`main` = 3.401** — TK 2: điểm GD theo chuỗi món → tổ → ấp → điểm (Tèo QT-C-10 / 11) + Kiểm tra kỳ báo lệch ấp. Trước: 3.400 tên chuẩn file nạp. Tèo: `docs/TEO_PHOI_HOP.md` mục 12–14.
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
