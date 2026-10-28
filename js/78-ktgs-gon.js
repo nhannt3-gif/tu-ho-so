@@ -8,22 +8,23 @@ function ktGonChu(e){ return (e && e.textContent || '').replace(/\s+/g, ' ').tri
 function ktGon(){
   var T = document.getElementById('kt-the'); if(!T) return;
   var khoi = T.querySelector(':scope > .kt-khoi'), the = T.querySelector(':scope > .kt-a-the');
-  if(khoi && the){ the.classList.remove('kt-che'); the.classList.add('kt-con'); khoi.children[0].insertAdjacentElement('afterend', the);   /* D1 */
-    [].forEach.call(the.querySelectorAll('.gd-chip'), function(c){ if(c.getAttribute('data-kt-gon')) return; var du = ktGonChu(c); c.setAttribute('data-kt-gon', 1); c.title = du; c.innerHTML = c.innerHTML.replace(/ · [^<]*$/, ''); }); }
-  var thang = T.querySelector(':scope > .kt-a-thang'), sl = [].filter.call(T.querySelectorAll(':scope > .to-the-so'), function(e){ return /^📌 Số liệu in/.test(ktGonChu(e)); })[0],
-    chon = [].filter.call(T.querySelectorAll('.to-the-so'), function(e){ return /đã chọn/i.test(ktGonChu(e)) && !e.closest('.kt-thao'); })[0],
-    pv = [].filter.call(T.querySelectorAll('.kt-gn-dau'), function(e){ return !e.closest('.kt-thao') && e.querySelector('.sl-phu') && /^Phạm vi:/.test(ktGonChu(e.querySelector('.sl-phu'))); })[0],
-    xem = [].filter.call(T.querySelectorAll('.hang-nut.kt-in'), function(e){ return !e.closest('.kt-thao'); })[0];
+  if(khoi && the){ the.classList.add('kt-con'); khoi.children[0].insertAdjacentElement('afterend', the);   /* D1: dời nguyên khối; phần " · Mẫu …" bọc <small> ẩn bằng CSS (chữ đủ giữ nguyên) */
+    [].forEach.call(the.querySelectorAll('.gd-chip'), function(c){ if(c.querySelector('.kt-con-phu')) return; c.title = ktGonChu(c); c.innerHTML = c.innerHTML.replace(/( · [^<]*)$/, '<small class="kt-con-phu">$1</small>'); }); }
+  if(typeof ktCH==='function' && ktCH().che==='kh') return ktGonGhi(T);   /* Lịch năm: bảng lịch + nút PDF dưới bảng — giữ nguyên */
+  var la = function(sel, dk){ return [].filter.call(T.querySelectorAll(sel), function(e){ return !e.closest('.kt-thao') && (!dk || dk(e)); })[0]; };
+  var thang = la(':scope > .kt-a-thang'), sl = la(':scope > .to-the-so', function(e){ return /^📌 Số liệu in/.test(ktGonChu(e)); }),
+    chon = la('.to-the-so', function(e){ return /đã chọn/i.test(ktGonChu(e)); }),
+    pv = la('.kt-gn-dau', function(e){ return e.querySelector('.sl-phu') && /^Phạm vi:/.test(ktGonChu(e.querySelector('.sl-phu'))); }),
+    xem = la('.hang-nut.kt-in');
   if(!thang && !sl && !chon && !pv && !xem) return ktGonGhi(T);
   var h = T.querySelector('.kt-thao'); if(!h){ h = document.createElement('div'); h.className = 'kt-thao'; h.innerHTML = '<span class="kt-thao-trai"></span><span class="kt-thao-gian"></span><span class="kt-thao-phai"></span>'; }
-  var tr = h.children[0], ph = h.children[2], dat = function(cho, k, el){ var cu = cho.querySelector('[data-kt-k="'+k+'"]'); if(cu) cu.remove(); el.setAttribute('data-kt-k', k); cho.appendChild(el); };
-  if(thang){ var lb = thang.querySelector('label'), ph1 = thang.querySelector('.sl-phu'); if(lb){ lb.title = ph1 ? ktGonChu(ph1) : ''; dat(tr, 'thang', lb); } thang.remove(); }   /* D2 */
-  if(sl){ var s = document.createElement('span'); s.className = 'kt-thao-sl'; s.innerHTML = sl.innerHTML.replace(/^📌 Số liệu in T\d+:\s*/, 'số liệu ').replace(/ · tự lấy[\s\S]*$/, ''); s.title = ktGonChu(sl); dat(tr, 'sl', s); sl.remove(); }
-  if(pv){ var nut = document.createElement('span'); nut.className = 'kt-thao-pv'; [].slice.call(pv.childNodes).forEach(function(n){ if(n.nodeType===1 && n.classList.contains('sl-phu') && /^Phạm vi:/.test(ktGonChu(n))) return; nut.appendChild(n); });
-    if(nut.childNodes.length) dat(tr, 'pv', nut); else { var c0 = tr.querySelector('[data-kt-k="pv"]'); if(c0) c0.remove(); } pv.remove(); }
-  if(chon){ var c = document.createElement('span'); c.className = 'kt-thao-chon'; c.innerHTML = chon.innerHTML.replace(/^Chọn tự do \(không theo Kế hoạch\) · đã chọn/, 'Đã chọn'); c.title = ktGonChu(chon); dat(ph, 'chon', c); chon.remove(); }
-  if(xem){ var x = document.createElement('span'); x.className = 'kt-thao-nut'; [].slice.call(xem.childNodes).forEach(function(n){ x.appendChild(n); }); dat(ph, 'xem', x); xem.remove(); }   /* D3 */
-  if(!h.parentNode){ var moc = T.querySelector(':scope > .to-bang-cuon, :scope > #kt-gn, :scope > .rong, :scope > .sl-bao') ; if(moc) T.insertBefore(h, moc); else T.appendChild(h); }
+  var tr = h.children[0], ph = h.children[2], dat = function(cho, k, el){ var cu = cho.querySelector(':scope > [data-kt-k="'+k+'"]'); if(cu && cu!==el) cu.remove(); el.setAttribute('data-kt-k', k); cho.appendChild(el); };
+  if(thang) dat(tr, 'thang', thang);   /* D2: dời nguyên khối (chữ phụ ẩn bằng CSS) */
+  if(sl) dat(tr, 'sl', sl);
+  if(pv){ var p0 = pv.querySelector(':scope > .sl-phu'); if(p0 && /^Phạm vi:/.test(ktGonChu(p0))) pv.classList.add('kt-pv-gon'); dat(tr, 'pv', pv); }   /* chữ "Phạm vi: …" ẩn bằng CSS (đã có trên dải LỌC ĐỊA BÀN), giữ ô / nút */
+  if(chon) dat(ph, 'chon', chon);
+  if(xem) dat(ph, 'xem', xem);   /* D3 */
+  if(!h.parentNode){ var moc = T.querySelector(':scope > .to-bang-cuon, :scope > #kt-gn, :scope > .rong, :scope > .sl-bao'); if(moc) T.insertBefore(h, moc); else T.appendChild(h); }
   ktGonGhi(T);
 }
 function ktGonGhi(T){   /* D4 */

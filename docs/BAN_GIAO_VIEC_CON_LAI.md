@@ -252,6 +252,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - `js/77-bang-loc.js` `blGan(table, khoa, cot)`: gắn được cho bảng bất kỳ đã vẽ xong (thead 1 hàng + tbody). Ô cần giá trị sắp xếp khác chữ hiện → đặt `data-v`. Trạng thái `BL_TT[khoa]` (phiên).
 - Thead nay có 2 hàng ở bảng tổ Tra cứu — phép thử đếm cột dùng `thead tr:first-child th`.
 
+### Ghi chú kỹ thuật 3.397
+- `js/78-ktgs-gon.js` chạy SAU khi KTGS vẽ — sửa màn KTGS không cần biết js/78, miễn giữ lớp `.kt-khoi`, `.kt-a-the`, `.kt-a-thang`, `.to-the-so`, `.kt-gn-dau`, `.hang-nut.kt-in`, `p.ghi`. Phép thử KTGS cũ chọn theo các lớp này vẫn đúng (khối chỉ đổi chỗ).
+
+### Danh sách thử trên máy thật (3.397)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › Định kỳ: chọn xã, tích tổ | 1 hàng thao tác trên bảng: Tháng kiểm tra · số liệu · đã chọn n tổ · 👁 Xem · 📋 Tóm tắt | |
+| 2 | Bấm 👁 Xem → In / Word Mẫu 06 + 16 | Như trước (mẫu không đổi) | |
+| 3 | Sau giải ngân / Mẫu 04 | Ô tháng + nút Xem trên hàng thao tác | |
+| 4 | Lịch năm | Như cũ | |
+
 ### Danh sách thử trên máy thật (3.396)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

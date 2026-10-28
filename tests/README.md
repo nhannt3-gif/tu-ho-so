@@ -229,6 +229,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t315.js` | 3.394: Tổ TK&VV báo cáo trên hàng thao tác — bảng tổ có 🧩 Sổ tổ viên, không khối trên đầu; chọn tổ: chip DS hộ vay* · Nợ · TK 105 · Chia tách + 👁 Xem, bấm chip bật thêm (lưu), Xem mở đủ báo cáo; điện thoại chọn tới tổ ô ≥ 100 px — bộ `gianho31`. |
 | `node tests/t316.js` | 3.395: Scan CCCD — hàng chờ Thẻ còn ảnh quá 30 phút → quét mới thì hỏi (Bỏ ảnh cũ / Giữ ghép tiếp), bỏ → chỉ ảnh mới, giữ → như cũ, quét liền tay không hỏi; Đọc số CCCD không dùng `SX_DOC` lượt trước — ảnh GIẢ. |
 | `node tests/t317.js` | 3.396: lọc + sắp xếp cột bảng tổ Tra cứu KH (js/77) — hàng lọc 7 cột, bấm TV ▲ / ▼ / về gốc, xếp tên chữ Việt, lọc Xã (+ Hội), dòng Cộng theo lọc, TV dưới ngưỡng, ô tên gõ không dấu, vẽ lại giữ lọc, rút js/77 bảng như cũ — bộ `gianho31`. |
+| `node tests/t318.js` | 3.397: KTGS gọn (js/78) — D1 thẻ con trong hàng 3 khối (chữ phụ ẩn CSS), D2 1 hàng thao tác (Tháng kiểm tra · số liệu · đã chọn), không hiện "Phạm vi", D3 nút Xem / Tóm tắt trên bảng, D4 ghi chú ⓘ, tích tổ vẽ lại vẫn 1 hàng, Xem mở hộp, Sau giải ngân / Mẫu 04, rút js/78 như cũ — bộ `gianho31`. |
 | (3.389.2) | Chỉ CSS. |
 | (3.389.1) | Thử goiCauNoi bằng node trong lượt sửa. |
 | (3.389) | t147 thêm nút 📋 Chép. |

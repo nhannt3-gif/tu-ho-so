@@ -13,25 +13,25 @@ const fs=require('fs'), path=require('path');
      kyChungDoi('2026-08'); doiNgan(7); const C=ktCH(); C.che='dk'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; slDoiTab('kt'); }, files);
    await p.waitForTimeout(3000); await p.evaluate(()=>{ pvChon('kt','xa',String(Object.values(KT_K.to).find(t=>!toLaTT(t)&&t.xa).xa)); }); await p.waitForTimeout(2500); return p; };
  const xem = p=>p.evaluate(()=>{ const T=document.getElementById('kt-the'), h=T.querySelectorAll('.kt-thao');
-   return {thao:h.length, conTrongKhoi:!!T.querySelector('.kt-khoi .kt-con'), nhan:[...T.querySelectorAll('.kt-con .gd-chip')].map(x=>x.textContent.trim()).join('|'), tit:(T.querySelector('.kt-con .gd-chip')||{}).title||'',
-     thang:!!T.querySelector('.kt-thao select[data-lenh="kta.th"]'), sl:/số liệu/.test((T.querySelector('.kt-thao-sl')||{}).textContent||''), pham:/Phạm vi:/.test(T.textContent),
-     chon:((T.querySelector('.kt-thao-chon')||{}).textContent||''), nut:[...T.querySelectorAll('.kt-thao .kt-thao-nut button')].map(x=>x.textContent.trim()).join('|'),
+   return {thao:h.length, conTrongKhoi:!!T.querySelector('.kt-khoi .kt-con'), nhan:[...T.querySelectorAll('.kt-con .gd-chip')].map(x=>x.textContent.trim()).join('|'), nhanThay:[...T.querySelectorAll('.kt-con .gd-chip')].map(x=>x.innerText.trim()).join('|'), tit:(T.querySelector('.kt-con .gd-chip')||{}).title||'',
+     thang:!!T.querySelector('.kt-thao select[data-lenh="kta.th"]'), sl:/Số liệu in/.test((T.querySelector('.kt-thao .to-the-so')||{}).textContent||''), pham:[...T.querySelectorAll('.sl-phu')].some(x=>/^Phạm vi:/.test(x.textContent.trim()) && !!x.offsetParent),
+     chon:((T.querySelector('.kt-thao-phai .to-the-so')||{}).textContent||''), nut:[...T.querySelectorAll('.kt-thao .hang-nut.kt-in button')].map(x=>x.textContent.trim()).join('|'),
      cuoi:!!T.querySelector(':scope > .hang-nut.kt-in'), ghi:!!T.querySelector('details.kt-ghi p.ghi'), truocBang:(()=>{ const a=T.querySelector('.kt-thao'), t=T.querySelector('.to-bang-cuon'); return !!(a && t && (a.compareDocumentPosition(t) & 4)); })()}; });
  const p = await mo(false);
  let r = await xem(p);
- ok('D1: thẻ con Bắt buộc trong hàng 3 khối, nhãn ngắn, đủ chữ ở title', r.conTrongKhoi && r.nhan==='🗓 Định kỳ|📅 Sau giải ngân|📋 Báo cáo tổng hợp|🗓 Lịch năm' && /Mẫu 06 \+ 16/.test(r.tit), r.nhan);
- ok('D2: 1 hàng thao tác có Tháng kiểm tra + số liệu + Đã chọn; bỏ dòng "Phạm vi:"', r.thao===1 && r.thang && r.sl && /Đã chọn 0 tổ/.test(r.chon) && !r.pham, JSON.stringify(r));
+ ok('D1: thẻ con Bắt buộc trong hàng 3 khối, nhãn ngắn, đủ chữ ở title', r.conTrongKhoi && r.nhanThay==='🗓 Định kỳ|📅 Sau giải ngân|📋 Báo cáo tổng hợp|🗓 Lịch năm' && /Mẫu 06 \+ 16/.test(r.tit), r.nhan);
+ ok('D2: 1 hàng thao tác có Tháng kiểm tra + số liệu + Đã chọn; bỏ dòng "Phạm vi:"', r.thao===1 && r.thang && r.sl && /đã chọn 0 tổ/i.test(r.chon) && !r.pham, JSON.stringify(r));
  ok('D3: 👁 Xem + 📋 Tóm tắt lên hàng thao tác, trên bảng; cuối trang không còn hàng nút', /Xem 0 tổ/.test(r.nut) && /Tóm tắt/.test(r.nut) && !r.cuoi && r.truocBang, r.nut);
  ok('D4: ghi chú dài thu vào ⓘ (bấm mở)', r.ghi);
  await p.evaluate(()=>document.querySelector('#kt-the input[data-lenh="ktk.dkTich"]').click()); await p.waitForTimeout(1500); r = await xem(p);
- ok('tích 1 tổ (vẽ lại) → vẫn 1 hàng thao tác, Đã chọn 1 tổ, nút Xem 1 tổ bấm được', r.thao===1 && /Đã chọn 1 tổ/.test(r.chon) && /Xem 1 tổ/.test(r.nut) && await p.evaluate(()=>!document.querySelector('.kt-thao .kt-thao-nut button.chinh').disabled), r.chon);
- await p.evaluate(()=>document.querySelector('.kt-thao .kt-thao-nut button.chinh').click()); await p.waitForTimeout(2500);
+ ok('tích 1 tổ (vẽ lại) → vẫn 1 hàng thao tác, Đã chọn 1 tổ, nút Xem 1 tổ bấm được', r.thao===1 && /đã chọn 1 tổ/i.test(r.chon) && /Xem 1 tổ/.test(r.nut) && await p.evaluate(()=>!document.querySelector('.kt-thao .hang-nut.kt-in button.chinh').disabled), r.chon);
+ await p.evaluate(()=>document.querySelector('.kt-thao .hang-nut.kt-in button.chinh').click()); await p.waitForTimeout(2500);
  ok('bấm 👁 Xem trên hàng thao tác → mở hộp xem Mẫu 06 + 16', await p.evaluate(()=>/Mẫu 06|Mẫu 16/.test((document.getElementById('hop-in')||{}).textContent||'')));
  await p.evaluate(()=>{ try{dongHop()}catch(e){} });
  await p.evaluate(()=>{ ktCH().che='gn'; ktVeThe(); }); await p.waitForTimeout(2500); r = await xem(p);
  ok('Sau giải ngân: ô tháng GN + nút Xem phiếu Mẫu 06 trên hàng thao tác', r.thao===1 && await p.evaluate(()=>document.querySelectorAll('.kt-thao select').length>=2) && /Xem \d+ phiếu Mẫu 06/.test(r.nut), r.nut);
  await p.evaluate(()=>{ ktCH().che='bc'; ktVeThe(); }); await p.waitForTimeout(2500); r = await xem(p);
- ok('Mẫu 04: Tháng kiểm tra + Đã chọn n/… tổ + nút Xem báo cáo Mẫu 04 trên 1 hàng', r.thao===1 && r.thang && /Đã chọn 0\/\d+ tổ/.test(r.chon) && /Xem 0 báo cáo Mẫu 04/.test(r.nut), r.chon+' · '+r.nut);
+ ok('Mẫu 04: Tháng kiểm tra + Đã chọn n/… tổ + nút Xem báo cáo Mẫu 04 trên 1 hàng', r.thao===1 && r.thang && /đã chọn 0\/\d+ tổ/i.test(r.chon) && /Xem 0 báo cáo Mẫu 04/.test(r.nut), r.chon+' · '+r.nut);
  await p.close();
  const q = await mo(true); r = await xem(q);
  ok('rút js/78 → như cũ (không hàng thao tác, nút Xem cuối trang, còn dòng Phạm vi)', r.thao===0 && r.cuoi && r.pham && !r.conTrongKhoi); await q.close();
