@@ -30,7 +30,7 @@ const fs=require('fs'), path=require('path');
    ok('cột: Hội (tổ) · CT · PCT · BTV 1–3 · Nhiệm kỳ · Số HĐUT · Ngày HĐ (bỏ Xã, Tên Hội, KH tỉnh, ⋯)', cot==='Hội (tổ)|Chủ tịch|Phó CT|BTV 1|BTV 2|BTV 3|Nhiệm kỳ|Số HĐUT|Ngày HĐ', cot);
    const nhom = [...bang.querySelectorAll('tr.hkb-nhom')];
    ok('dòng nhóm theo xã: "Xã · n Hội · m tổ"', nhom.length===new Set(ktHoiDs().map(x=>x.t.xa)).size && /· \d+ Hội · \d+ tổ/.test(nhom[0].textContent), nhom.length && nhom[0].textContent);
-   ok('mỗi Hội – xã 1 dòng, 📋 Phân công cạnh tên Hội', bang.querySelectorAll('tbody tr[data-k]').length===ktHoiDs().length && [...bang.querySelectorAll('tbody tr[data-k]')].every(r=>r.querySelector('td.hkb-hoi .hkb-pc') && r.querySelector('.hkb-pc').textContent==='📋'));
+   ok('mỗi Hội – xã 1 dòng, 📋 Phân công cạnh tên Hội', bang.querySelectorAll('tbody tr[data-k]').length===ktHoiDs().length && [...bang.querySelectorAll('tbody tr[data-k]')].every(r=>r.querySelector('td.hkb-hoi .hkb-pc') && r.querySelector('.hkb-pc').textContent==='📋 Phân công'));
    ok('bỏ nút ⇩ Chép KH Hội tỉnh', !/Chép KH/.test(the.textContent) && typeof ktHoiKBChep==='undefined');
    C.xa = tA.xa; ktVeThe(); await w(150);
    const b2 = the.querySelector('.hkb-xls');

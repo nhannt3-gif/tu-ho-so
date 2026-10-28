@@ -4168,3 +4168,13 @@ table.bl-dang-loc tr.bl-loc{box-shadow:inset 0 -2px 0 var(--cam)}
 .kt-thao .hang-nut{display:inline-flex;gap:6px;flex-wrap:wrap;padding:0;border:0}
 #kt-the .kt-dk-bang tbody td,#kt-the .kt-bc-bang tbody td{padding-top:2px;padding-bottom:2px}#kt-the .kt-dk-bang tbody td button{min-height:24px;padding:0 8px}
 details.kt-ghi{margin-top:6px}details.kt-ghi summary{cursor:pointer;color:var(--xanh-dam);font-size:calc(12.5px*var(--co))}
+/* 3.398: Kế hoạch năm chốt / khóa · khai báo Hội khóa + nhật ký */
+.kt-kh-tt{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0;padding:5px 10px;border-radius:10px;border:1px solid var(--vien);font-size:calc(13px*var(--co))}
+.kt-kh-tt.da{background:var(--luc-nen,#e8f6ec);border-color:var(--luc,#2e8b57)}.kt-kh-tt.sua{background:#fff7e0;border-color:var(--cam)}.kt-kh-tt.chua{background:var(--xanh-nhat);border-color:var(--xanh)}
+.kt-kh-khoa .kt-kh-bang select:disabled{opacity:.7}
+details.kt-kh-ls{border:1px solid var(--vien);border-radius:8px;padding:4px 8px;margin:4px 0}details.kt-kh-ls summary{cursor:pointer}
+.kt-kb-khoa{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0;padding:5px 10px;border-radius:10px;border:1px solid var(--vien);font-size:calc(13px*var(--co))}
+.kt-kb-khoa.khoa{background:var(--luc-nen,#e8f6ec);border-color:var(--luc,#2e8b57)}
+.kt-kb-dong-khoa input,.kt-kb-dong-khoa textarea{background:var(--nen)!important;cursor:not-allowed}.kt-kb-dong-khoa .hkb-ve{display:none!important}
+.kt-nk-bang{width:100%;border-collapse:collapse;font-size:calc(12.5px*var(--co))}.kt-nk-bang td,.kt-nk-bang th{border-bottom:1px solid var(--vien);padding:3px 6px;text-align:left;vertical-align:top}
+.kt-nk-bang .cu{color:var(--do);text-decoration:line-through}.kt-nk-bang .moi{color:var(--luc,#2e8b57)}

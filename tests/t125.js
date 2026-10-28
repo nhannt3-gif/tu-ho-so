@@ -103,7 +103,7 @@ const fs=require('fs'), path=require('path');
    ok('nhớ cách chọn theo Hội – xã (lưu cauHinh, đồng bộ Drive)', D.cauHinh.ktKH['2026|'+xa+'|'+dv].cach==='chip' && !chRieng('ktKH'));
    /* 10. tự lưu khi Xem; tổ không còn trong số liệu; xóa */
    delete D.cauHinh.ktKH['2026|'+xa+'|'+dv]; ktVeThe(); await w(100); ok('chưa lưu trước khi Xem', !ktKHLich().luu);
-   ktKHXem(1); await w(300); dongHop(); ok('bấm Xem Kế hoạch → tự lưu kế hoạch (để quay lại in báo cáo tổ)', ktKHLich().luu && /Đã lưu kế hoạch năm 2026/.test(document.getElementById('kt-the').textContent));
+   ktKHXem(1); await w(300); dongHop(); ok('bấm Xem Kế hoạch → tự lưu kế hoạch (để quay lại in báo cáo tổ)', ktKHLich().luu && /đã lưu nháp/.test(document.getElementById('kt-the').textContent));
    L = ktKHLich(); const tMat = L.ds[L.ds.length-1], thMat = L.gan[tMat.ma], toGoc = KT_K.to[tMat.ma]; delete KT_K.to[tMat.ma]; ktVeThe(); await w(100);
    L = ktKHLich(); ok('tổ không còn trong số liệu → giữ trong kế hoạch, báo ⚠ kèm tên tổ đã lưu', L.mat.length===1 && L.mat[0].ma===tMat.ma && L.mat[0].ten===(tMat.ten||'') && /không còn trong số liệu/.test(document.getElementById('kt-the').textContent));
    ktKHDoiThang(L.ds[0].ma, L.thang[0]); ok('sửa kế hoạch sau đó vẫn giữ tổ đã mất trong lịch đã lưu', +D.cauHinh.ktKH['2026|'+xa+'|'+dv].to[tMat.ma]===thMat);
