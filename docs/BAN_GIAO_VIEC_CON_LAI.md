@@ -264,6 +264,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Theo dõi nợ đã gỡ: làm lại sau nên đọc dữ liệu cũ ở IndexedDB khóa `tdn_du_lieu` (cấu trúc `NO = {ho, mon, lan, lanXoa, nhap, toAp, suaLuc}` — xem git `js/04e-theo-doi-no.js` bản 3.398) và Drive `_Hệ thống/theodoino.json`; nên đọc số liệu qua `KHO` (không bộ đọc Excel riêng — lý do gỡ, L1 RA_SOAT_HUONG_DI_2510).
 - Hàm tiện ích tên `tdn*` (tdnTien, tdnHoi, tdnCuoiKy…) vẫn dùng khắp app — ở `js/04e-chung.js`, không đổi tên.
 
+### Danh sách thử trên máy thật (3.401)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp Mẫu 31 + File Tổ trưởng cùng ngày → Kiểm tra kỳ | Nhóm Bất thường dữ liệu có 3 mục QT-C-10 / 11 (số món lệch ấp, ấp nhiều điểm, món trực tiếp gán tạm) | |
+| 2 | Tab Tổ / cây địa bàn | Tổ nằm đúng ấp theo File Tổ trưởng; dư nợ tổng xã / PGD không đổi | |
+| 3 | Món vay trực tiếp | Nằm đúng điểm của ấp | |
+
+_Ghi chú kỹ thuật 3.401:_ `toNap` (js/22g-to.js) vòng Danh sách tổ ghi đè `t.thon` theo MADP (`t.thonTT`, `t.thonM31`); `toGanTrucTiep` thứ tự ấp-tổ → danh mục → GDXA tạm → xã 1 điểm, ghi `o._ttCach`; `toKiemAp(K)` → `K.qtc`; Kiểm tra kỳ gọi `slKTAp` (cuối js/22k-nap-kt.js) qua `toNap(ky)` khi có hstd + dsto.
+
 ### Danh sách thử trên máy thật (3.400)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

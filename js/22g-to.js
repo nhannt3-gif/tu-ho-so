@@ -180,6 +180,7 @@ function toNap(ky){
     (Bm.co.dsto||[]).forEach(function(o){ var t = lay(o.to), co = !!t.diem; t.ds = o;   /* 3.145 (anh chốt Q16): DSTO là file bắt buộc → điền TRƯỚC Thông tin tổ trưởng (SĐT, tổ phó lấy theo DSTO) */
       toDien(t, o, [['diem','diem'],['tenDiem','tenDiem'],['tenXa','tenXa'],['tenThon','tenThon'],['ten','toTen'],['sdt','sdt'],['pho','phoTen']]);
       if(!t.dv && o.dvTen) t.dv = toDvTuTen(o.dvTen);
+      if(o.thon){ if(t.thon && String(t.thon)!==String(o.thon)) t.thonM31 = t.thon; t.thon = String(o.thon); if(o.tenThon) t.tenThon = o.tenThon; t.thonTT = true; }   /* 3.401 QT-C-10 (anh chốt 28/10): ấp của tổ = mã thôn (MADP) trên File Tổ trưởng */
       if(!co && t.diem && !coTT[o.to]) t.diemTu = 'Danh sách tổ '+slKyChu(Bm.nguon.dsto || K.thang); });
     (Bm.co.tt||[]).forEach(function(o){ var t = lay(o.to); t.tt = o; toDien(t, o, chung.concat([['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD'],['sdt','sdt'],['pho','phoTen']])); });   /* Thông tin tổ trưởng: file phụ — chỉ bù chỗ DSTO trống */
     if(K.thieuBang && SL_DB){
@@ -200,6 +201,7 @@ function toNap(ky){
     toDanhBaDiem(K);   /* 3.107: bảng tháng trước không mở được → danh bạ tổ (lưu từ các lần nạp Thông tin tổ trưởng) */
     toSuyDiem(K);   /* 3.98: tổ chưa có trong Thông tin tổ trưởng → suy điểm GD theo ấp / ngày GDXA */
     toGanTrucTiep(K, Bm);   /* 3.92: món vay trực tiếp (không mã tổ) → mục "Vay trực tiếp" ở đúng xã / điểm GD */
+    toKiemAp(K);   /* 3.401 QT-C-10 / 11: món lệch ấp so với tổ · ấp nhiều điểm · món trực tiếp gán điểm tạm — chỉ báo */
     var ngD = {}; Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.diem && t.ngayGD && !ngD[t.diem]) ngD[t.diem] = t.ngayGD; });
     Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.diem && !t.ngayGD && ngD[t.diem]) t.ngayGD = ngD[t.diem]; });   /* 3.108: DSTO không có ngày GDXA → theo mã điểm GD */
     Object.keys(T).forEach(function(ma){ var t = T[ma]; t.tenDiemDu = t.tenDiem ? String(t.tenDiem).trim()+(t.ngayGD ? ' · ngày '+t.ngayGD : '') : '(chưa rõ điểm GD)'; t.khoaDiem = t.diem || t.tenDiemDu; });
@@ -243,18 +245,39 @@ function toGanTrucTiep(K, Bm){
     if(t.thon){ var a = ap[t.xa+'|'+t.thon] = ap[t.xa+'|'+t.thon] || {}; a[t.diem] = a[t.diem] || {n:0, t:t}; a[t.diem].n++; }
     var x = xa[t.xa] = xa[t.xa] || {}; if(!x[t.diem]) x[t.diem] = t; });
   var nhieu = function(a){ var tot = null; Object.keys(a||{}).forEach(function(k){ if(!tot || a[k].n>tot.n) tot = a[k]; }); return tot && tot.t; };
-  var theoAp = function(o){ var g = null; if(!o.thon) return null;
+  var theoAp = function(o){ var g = null; if(!o.thon) return null;   /* 3.401 QT-C-10 / 11: ấp của món → điểm của các tổ cùng ấp (File Tổ trưởng) trước, danh mục địa bàn sau */
+    g = nhieu(ap[o.xa+'|'+o.thon]); if(g){ o._ttCach = 'ap'; return g; }
     (D.cauHinh.diaBan||[]).forEach(function(x){ if(g || (x.ma && String(x.ma)!==String(o.xa))) return;
       (x.diem||[]).forEach(function(z){ if(!g && (z.ap||[]).some(function(a){ return String(a.ma)===String(o.thon); })){ var c = Object.keys(T).map(function(m){ return T[m]; }).find(function(t){ return !t.trucTiep && t.xa===o.xa && String(t.diem)===String(z.ma); }); g = c || {diem:z.ma, tenDiem:z.ten, ngayGD:''}; } }); });
-    return g || nhieu(ap[o.xa+'|'+o.thon]); };
+    if(g) o._ttCach = 'danhMuc'; return g; };
   (K.hs||[]).forEach(function(o){
     if(o.to || !o.ku || !o.xa) return;
-    var mot = Object.keys(xa[o.xa]||{}), d = theoAp(o) || diem[o.xa+'|'+(+(o.ngayGD||0))] || (mot.length===1 ? xa[o.xa][mot[0]] : null), ma = 'TT'+o.xa+'_'+(d ? String(d.diem||d.tenDiem) : 'd'+(o.ngayGD||''));
+    var mot = Object.keys(xa[o.xa]||{}), d = theoAp(o), ma;
+    if(!d && (d = diem[o.xa+'|'+(+(o.ngayGD||0))])) o._ttCach = 'gdxa';   /* ấp chưa có tổ nào → tạm theo ngày GDXA (như giao ban), báo ở Kiểm tra kỳ */
+    if(!d && mot.length===1){ d = xa[o.xa][mot[0]]; o._ttCach = 'xa1'; }
+    if(!d) o._ttCach = 'chua';
+    ma = 'TT'+o.xa+'_'+(d ? String(d.diem||d.tenDiem) : 'd'+(o.ngayGD||''));
     var t = T[ma] = T[ma] || {ma:ma, trucTiep:true, xa:o.xa, tenXa:o.tenXa||'', dv:'99', ten:'Vay trực tiếp (không qua tổ)', diem:d ? d.diem : '', tenDiem:d ? d.tenDiem : '', ngayGD:d ? d.ngayGD : (o.ngayGD||''), soMon:0};
     if((o.dn||0)>0 || (o.qh||0)>0 || laiTon(o)>0) t.soMon++;   /* món còn lãi = chưa tất toán (anh chốt) */
     (KH[ma] = KH[ma] || []).push(o); o._tt = ma; ku[o.ku] = ma;
   });
   ['nqh','nk','khd'].forEach(function(L){ ((Bm && Bm.co[L])||[]).forEach(function(o){ if(!o.to && ku[o.ku]) o._tt = ku[o.ku]; }); });
+}
+/* 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11, docs/TEO_QUY_TAC_CHUNG.md): kiểm chuỗi món → tổ → ấp → điểm. Chỉ BÁO (QT-C-08), không sửa số liệu, món vẫn tính theo tổ.
+   K.qtc = {lechAp: món ở ấp khác ấp của tổ (ấp tổ theo File Tổ trưởng), apNhieu: ấp có tổ thuộc nhiều điểm GD, ttTam: món trực tiếp chưa gán được theo ấp} */
+var TO_TT_CACH = {gdxa:'tạm theo ngày GDXA (ấp chưa có tổ)', xa1:'xã chỉ có 1 điểm GD', chua:'chưa rõ điểm GD'};
+function toKiemAp(K){
+  var T = K.to, q = {lechAp:[], apNhieu:[], ttTam:[]}, ap = {};
+  Object.keys(T).forEach(function(m){ var t = T[m]; if(t.trucTiep) return;
+    if(t.thon && t.diem){ var k = t.xa+'|'+t.thon, a = ap[k] = ap[k] || {xa:t.tenXa||t.xa, thon:t.thon, ten:t.tenThon||'', d:{}}; a.d[t.diem] = a.d[t.diem] || {ten:t.tenDiem||t.diem, n:0}; a.d[t.diem].n++; }
+    if(!t.thonTT) return;
+    (K.kh[m]||[]).forEach(function(o){ if(o.ku && o.thon && String(o.thon)!==String(t.thon) && ((o.dn||0)>0 || (o.qh||0)>0)) q.lechAp.push([o.ku, o.kh||'', o.ten||'', m, String(o.thon), String(t.thon), o.dn||0]); });
+  });
+  Object.keys(ap).forEach(function(k){ var a = ap[k], ds = Object.keys(a.d); if(ds.length<2) return;
+    q.apNhieu.push([a.xa, a.thon, a.ten, ds.map(function(d){ return a.d[d].ten+' ('+a.d[d].n+' tổ)'; }).join(' · ')]); });
+  (K.hs||[]).forEach(function(o){ if(o.to || !o.ku || !o._ttCach || !TO_TT_CACH[o._ttCach] || !((o.dn||0)>0 || (o.qh||0)>0)) return;
+    var t = T[o._tt]; q.ttTam.push([o.ku, o.kh||'', o.ten||'', o.tenXa||o.xa||'', String(o.thon||''), t ? (t.tenDiem||'(chưa rõ)') : '(chưa rõ)', TO_TT_CACH[o._ttCach]]); });
+  K.qtc = q; return q;
 }
 /* ---------- 3.92: TAB TỔ — mục đích (anh Nhân): biết số tổ viên để KẾT NẠP thêm hoặc CHO RA khỏi tổ, căn cứ dư nợ và số dư 105 ----------
    chọn 1 tổ → mặc định hiện toàn bộ tổ viên (Mã KH · Họ tên · CT vay · Dư nợ · 105 · Số TK 105 · CCCD) + hàng nút lọc;

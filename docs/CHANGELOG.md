@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.401 — 28/10/2026 — Điểm GD theo chuỗi món → tổ → ấp → điểm (Tèo QT-C-10 / 11, TK 2)
+- **Anh chốt 28/10** (ở cửa giao ban, TK 1 ghi `docs/TEO_QUY_TAC_CHUNG.md`; anh 28/10 ở app: "đọc trạng thái và làm tiếp"): điểm GD = chuỗi món vay → mã tổ → ấp của tổ → điểm, 1 ấp 1 điểm; món vay trực tiếp gán theo ấp, không theo ngày GDXA.
+- **Ấp của tổ = mã thôn (MADP) trên File Tổ trưởng** (trước lấy theo dòng Mẫu 31 đầu tiên của tổ); ấp cũ theo Mẫu 31 giữ ở `t.thonM31`.
+- **Món vay trực tiếp** (`toGanTrucTiep`): ① điểm của các tổ cùng ấp (File Tổ trưởng) → ② danh mục địa bàn (Cài đặt) → ③ ấp chưa có tổ: **tạm** theo ngày GDXA (như script giao ban 1.3) → ④ xã chỉ 1 điểm; ghi cách gán từng món.
+- **Kiểm tra kỳ, nhóm 6 Bất thường dữ liệu** (khi có Mẫu 31 + File Tổ trưởng): ⚠ món vay ở ấp khác ấp của tổ (cần sửa trên hệ thống, app tạm tính theo tổ) · ⚠ ấp có tổ thuộc nhiều điểm · ⚠ món trực tiếp gán tạm. Chỉ báo, không sửa số, không làm trượt Đạt.
+- Phép thử `tests/t321.js` (12 ý).
+
 ## 3.400 — 28/10/2026 — Tên chuẩn file nạp + sổ nạp (Tèo, TK 2)
 - **Anh chốt 28/10** ("code A, lưu ý file có cuối tháng và theo ngày"; "tên file trước rồi đến phân loại theo thời gian"; "đổi đồng bộ các nơi hiện trên app cho thống nhất"): anh đặt tên nhanh thế nào cũng được — app nhận loại theo nội dung, ngày theo trong file, lưu file gốc lên Drive tên **`<MÃ>_<YYYY-MM-DD>.<đuôi gốc>`** (`Số liệu/<tháng>/`): ô tháng → ngày cuối tháng, ô ngày (kỳ phiên, sao kê, phân kỳ) → đúng ngày. Danh mục MÃ: `docs/FILE_XUAT_HANG_THANG.md` mục F.
 - Mọi chỗ hiện tên file của Số liệu (ô ma trận, hộp ô, 📅 đổi ngày, ⬇ tải file gốc, thùng rác) dùng tên chuẩn, tên anh đặt hiện kèm "(anh đặt: …)"; xem trước khi nạp có dòng "→ lưu tên …".
