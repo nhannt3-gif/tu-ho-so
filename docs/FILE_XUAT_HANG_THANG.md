@@ -38,3 +38,21 @@
 
 ## E. KHÔNG cần xuất nữa
 B32 · Mẫu 10 · Mẫu 7 · Sao kê khách hàng · KHĐ mẫu 08/KTNB.
+
+## F. Tên chuẩn khi lưu (từ 3.400 — anh chốt 28/10/2026, Tèo)
+Anh đặt tên file thế nào cũng được: app **nhận loại theo nội dung**, **ngày theo trong file** (không có → anh khai), rồi lưu file gốc lên Drive với tên chuẩn:
+
+`Tủ hồ sơ/Số liệu/<YYYY-MM>/<MÃ>_<YYYY-MM-DD>.<đuôi gốc>` — **loại trước, ngày sau**; ngày = **ngày số liệu**: file cuối tháng → ngày cuối tháng (vd `MAU31_2026-10-31.xlsx`), file theo ngày / kỳ phiên → đúng ngày đó (vd `MAU31_2026-10-19.xlsx`).
+
+| MÃ | File | MÃ | File |
+|---|---|---|---|
+| `MAU31` | Mẫu 31 | `TOTRUONG` | File Tổ trưởng (Danh sách tổ hệ thống) |
+| `KHD14` | 3 tháng KHĐ mẫu 14 | `TV01` | Mẫu 01/TV |
+| `BCDHTD011` · `BCDHTD012` | BCDHTD 01.1 / 01.2 | `LEN31XA` · `LEN31HOI` · `LEN31CT` · `LEN31TT` | 4 biểu LEN_31 |
+| `NOKHOANH` · `PHANKY` | Nợ khoanh · Nợ đến hạn phân kỳ | `TK104` · `TK105` | Sao kê tiết kiệm |
+| `BC0437` · `BC0438` | KTGS | `DNCT` · `NQH` · `TDNCT` · `TTTT` | loại thôi dùng (tháng cũ) |
+
+- Tên anh đặt **không mất**: ghi ở mô tả file trên Drive ("Tên gốc: …") và sổ **`DANH_MUC_NAP.csv`** trong mỗi thư mục tháng (Tên chuẩn · Tên anh đặt · Mã · Loại · Kỳ Cuối tháng / Theo ngày · Ngày số liệu · Ngày lấy từ · Số dòng · Ngày nạp · Kiểm · Lần thay · Tên trước khi thay). Giao ban đọc sổ này.
+- **Mẫu 31 và File Tổ trưởng phải cùng ngày số liệu** — lệch thì app báo (xem trước khi nạp + cột Kiểm của sổ), không tự ghép.
+- File tháng cũ: tab Nạp & KT › ⋯ › **🏷 Chuẩn hóa tên file gốc trên Drive** — app liệt kê tên cũ → tên chuẩn, anh bấm mới đổi (chỉ đổi tên, nội dung giữ nguyên).
+- Loại mới (CLT02, LEN18…): anh gửi file mẫu → thêm nhận dạng + MÃ.

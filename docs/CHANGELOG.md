@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.400 — 28/10/2026 — Tên chuẩn file nạp + sổ nạp (Tèo, TK 2)
+- **Anh chốt 28/10** ("code A, lưu ý file có cuối tháng và theo ngày"; "tên file trước rồi đến phân loại theo thời gian"; "đổi đồng bộ các nơi hiện trên app cho thống nhất"): anh đặt tên nhanh thế nào cũng được — app nhận loại theo nội dung, ngày theo trong file, lưu file gốc lên Drive tên **`<MÃ>_<YYYY-MM-DD>.<đuôi gốc>`** (`Số liệu/<tháng>/`): ô tháng → ngày cuối tháng, ô ngày (kỳ phiên, sao kê, phân kỳ) → đúng ngày. Danh mục MÃ: `docs/FILE_XUAT_HANG_THANG.md` mục F.
+- Mọi chỗ hiện tên file của Số liệu (ô ma trận, hộp ô, 📅 đổi ngày, ⬇ tải file gốc, thùng rác) dùng tên chuẩn, tên anh đặt hiện kèm "(anh đặt: …)"; xem trước khi nạp có dòng "→ lưu tên …".
+- Tên anh đặt giữ ở mô tả file trên Drive + sổ **`DANH_MUC_NAP.csv`** mỗi tháng (12 cột, mở bằng Excel; giao ban đọc sổ này) — chỉ ghi lại khi sổ đổi; 🧹 Tìm file rác không coi sổ là rác.
+- **Mẫu 31 ↔ File Tổ trưởng khác ngày số liệu → báo** (xem trước + cột Kiểm), không chặn, không tự ghép.
+- Nạp lại cùng ô: ghi Lần thay + Tên trước khi thay.
+- ⋯ Nạp & KT › **🏷 Chuẩn hóa tên file gốc trên Drive**: liệt kê tên cũ → tên chuẩn, anh bấm mới đổi (chỉ tên + mô tả, nội dung giữ nguyên). File tháng cũ chưa đổi vẫn đọc bình thường (app tìm theo mã Drive).
+- Phép thử `tests/t320.js` (23 ý, Drive giả).
+
 ## 3.399.1 — 28/10/2026 — Sửa "Có gì mới" chỉ hiện biểu tượng (TK 2)
 - **Anh 28/10** (ảnh ❓ Hướng dẫn › Có gì mới: các dòng trống): từ 3.390 em khai `CO_GI_MOI.ds` ngược dạng `[biểu tượng, chữ]` (đúng: `[chữ, lệnh mở]`) → chỉ hiện biểu tượng, chữ thành lệnh bấm. Sửa 15 dòng (gộp biểu tượng vào chữ, gắn lệnh mở đúng tab).
 - Chặn tái phạm: `tools/bump.py` kiểm từng mục `moi` (chữ ≥ 8 ký tự + lệnh JS) — sai dạng không cho lên số; t192 thêm ý kiểm mọi dòng Có gì mới có chữ + lệnh.

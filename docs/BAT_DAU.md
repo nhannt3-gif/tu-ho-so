@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.399.1** — TK 2: sửa "Có gì mới" chỉ hiện biểu tượng. Trước: 3.399 gỡ Theo dõi nợ. Bàn giao TK 3 → TK 2: `docs/BAN_GIAO_TK3_2710.md`.
+- **`main` = 3.400** — TK 2: tên chuẩn file nạp MÃ_ngày + sổ DANH_MUC_NAP.csv + 🏷 chuẩn hóa tên tháng cũ (Tèo). Trước: 3.399.1 sửa Có gì mới. Tèo: PR #388 `docs/TEO_PHOI_HOP.md` (chờ gộp).
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
