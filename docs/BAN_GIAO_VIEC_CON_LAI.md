@@ -248,6 +248,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - `nhanVaoScan(fs, nguon, daHoi)` — tham số 3 mới; mọi chỗ bọc hàm này phải chuyển tiếp `daHoi`.
 - KTGS: chip báo nay qua `slChipThem` trong `ktDauHTML` (sau `kyGhiHTML` — thứ tự quan trọng vì `kyGhiHTML` xóa chip cũ).
 
+### Ghi chú kỹ thuật 3.396
+- `js/77-bang-loc.js` `blGan(table, khoa, cot)`: gắn được cho bảng bất kỳ đã vẽ xong (thead 1 hàng + tbody). Ô cần giá trị sắp xếp khác chữ hiện → đặt `data-v`. Trạng thái `BL_TT[khoa]` (phiên).
+- Thead nay có 2 hàng ở bảng tổ Tra cứu — phép thử đếm cột dùng `thead tr:first-child th`.
+
+### Danh sách thử trên máy thật (3.396)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu KH › Tổ trưởng: bấm tiêu đề TV | Xếp tăng ▲, bấm lại giảm ▼, lần 3 về như cũ | |
+| 2 | Hàng lọc: chọn Xã + Hội, TV "< 20" | Chỉ còn tổ khớp; dòng Cộng tính lại; ghi "x / n tổ (đang lọc cột)" | |
+| 3 | Gõ ô tìm / đổi địa bàn | Lọc / xếp vẫn giữ | |
+
 ### Danh sách thử trên máy thật (3.395.1)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

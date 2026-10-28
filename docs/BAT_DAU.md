@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.395.1** — TK 2: chip dải lọc 1 dòng trên ĐT. Hôm nay 28/10: 3.391–3.395.1. Tiếp: KTGS tối ưu giao diện — **chờ anh duyệt demo**. Bàn giao TK 3 → TK 2: `docs/BAN_GIAO_TK3_2710.md`.
+- **`main` = 3.396** — TK 2: lọc + sắp xếp cột bảng tổ Tra cứu KH (`js/77`, dùng chung). Hôm nay 28/10: 3.391–3.396. Tiếp: KTGS D1–D4 (anh duyệt 28/10). Bàn giao TK 3 → TK 2: `docs/BAN_GIAO_TK3_2710.md`.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.
