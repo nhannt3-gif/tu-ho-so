@@ -1,6 +1,6 @@
 # Tèo — KẾ HOẠCH KỲ ĐỐI CHIẾU SỐ LIỆU 31/10/2026 (app ↔ giao ban)
 
-> **Bản 1.0 · 28/10/2026 · TK 1 soạn theo yêu cầu anh Nhân** ("khi có số liệu cuối tháng sẽ so sánh và quyết định sử dụng dữ liệu như thế nào, plan làm gì ghi rõ để TK 2 và TK 1 chia ra làm").
+> **Bản 1.1 · 28/10/2026 · TK 1 soạn theo yêu cầu anh Nhân** ("khi có số liệu cuối tháng sẽ so sánh và quyết định sử dụng dữ liệu như thế nào, plan làm gì ghi rõ để TK 2 và TK 1 chia ra làm").
 > Đây là **bước B5** của lộ trình (`TEO_PHOI_HOP.md` mục 10). Mọi việc có sửa code vẫn theo quy trình: kế hoạch → anh duyệt → "code" → PR → "gộp".
 > Repo công khai: kết quả đối chiếu chi tiết (có mã tổ, tên) **chỉ lưu trên Drive**; vào repo chỉ ghi **số đếm tổng**.
 
@@ -26,7 +26,7 @@ App ghi `DANH_MUC_NAP.csv` tháng 2026-10; giao ban **đọc sổ này** để l
 
 ## 3. Hợp đồng cột — file đối chiếu hai bên cùng xuất (một dòng một tổ, thêm dòng "TT|<ấp>" cho món trực tiếp)
 
-Tên file: app `DOI_CHIEU_APP_2026-10-31.csv` · giao ban `DOI_CHIEU_GB_2026-10-31.csv` — **lưu Drive** (`Tủ hồ sơ\Số liệu\2026-10\`), không đưa vào repo.
+Tên file: app `DOI_CHIEU_APP_2026-10-31.csv` (lưu kho `Tủ hồ sơ\Số liệu\2026-10\`) · giao ban `DOI_CHIEU_GB_2026-10-31.csv` (lưu `0 Hop giao ban\04_DU_LIEU_XU_LY\2026-11\` — giao ban chỉ đọc kho) — **chỉ trên Drive**, không đưa vào repo. CSV UTF-8 có BOM; dòng 1 bắt đầu `#` = ghi chú (bên, bản, luật); dòng 2 = tiêu đề cột; tiền đồng nguyên.
 
 | Cột | Nghĩa (theo luật) |
 |---|---|
@@ -38,7 +38,7 @@ Tên file: app `DOI_CHIEU_APP_2026-10-31.csv` · giao ban `DOI_CHIEU_GB_2026-10-
 | `cho_vay` · `thu_no` | tháng (QT-C-02) |
 | `so_mon_khd` | món 3 tháng KHĐ (hàm của bên đó — K5) |
 | `so_mon_lech_ap` | món vay ở ấp khác ấp của tổ (QT-C-10) |
-| `so_mon_den_han_t11` | món đến hạn tháng 11 (K7) |
+| `so_mon_den_han_thang_toi` | món đến hạn tháng kế tiếp ngày số liệu (kỳ 31/10 = tháng 11; K7) |
 
 Dòng đầu file ghi: bên xuất · bản (app `APP_BAN` / script `PHIEN_BAN`) · luật K1/K5/K7 đang dùng · ngày số liệu.
 
@@ -101,3 +101,4 @@ Dòng đầu file ghi: bên xuất · bản (app `APP_BAN` / script `PHIEN_BAN`)
 | Bản | Ngày | Nội dung |
 |---|---|---|
 | 1.0 | 28/10/2026 | TK 1 lập kế hoạch kỳ đối chiếu 31/10/2026 theo yêu cầu anh. |
+| 1.1 | 28/10/2026 | TK 1: cột `so_mon_den_han_thang_toi`; chỗ lưu file GB / APP; định dạng CSV. Việc TK 1 mục 8 (1–4, 6) xong — `bang_so_lieu.py` v1.3, `doi_chieu_teo.py` v1.0, Quy chuẩn giao ban 2.2; `tong_hop.py` chưa áp. |
