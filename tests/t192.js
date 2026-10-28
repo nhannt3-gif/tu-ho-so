@@ -18,7 +18,7 @@ const fs=require('fs'), path=require('path'), cp=require('child_process');
    x.co = [getComputedStyle(tim).fontSize, getComputedStyle(document.querySelector('.hm-so-loc .nho')).fontSize];
    return x; }, files);
  ok('"Có gì mới" chỉ 15 dòng gần nhất + link CHANGELOG + 3 bước thử mới', r.moi===15 && r.link && r.thu===3, JSON.stringify([r.moi, r.link, r.thu]));
- ok('3.399.1: mỗi dòng "Có gì mới" có chữ đủ (không chỉ biểu tượng) + lệnh mở (đúng dạng [chữ, lệnh])', await p.evaluate(()=>CO_GI_MOI.ds.every(x=>String(x[0]).replace(/[^\p{L}\p{N}]/gu, '').length>=8 && /^[a-zA-Z_$][\w$]*\(/.test(String(x[1])))), JSON.stringify(await p.evaluate(()=>CO_GI_MOI.ds.filter(x=>!(String(x[0]).replace(/[^\p{L}\p{N}]/gu, '').length>=8 && /^[a-zA-Z_$][\w$]*\(/.test(String(x[1])))).map(x=>x[0]).slice(0,3))));
+ ok('3.399.1: mỗi dòng "Có gì mới" có chữ đủ (không chỉ biểu tượng) + lệnh mở (đúng dạng [chữ, lệnh])', await p.evaluate(()=>CO_GI_MOI.ds.every(x=>String(x[0]).replace(/[^\p{L}\p{N}]/gu, '').length>=8 && (x[1]==='' || /^[a-zA-Z_$][\w$.]*\(/.test(String(x[1]))))), JSON.stringify(await p.evaluate(()=>CO_GI_MOI.ds.filter(x=>!(String(x[0]).replace(/[^\p{L}\p{N}]/gu, '').length>=8 && (x[1]==='' || /^[a-zA-Z_$][\w$.]*\(/.test(String(x[1]))))).map(x=>x[0]).slice(0,3))));
  ok('hàm mồ côi đã dọn không còn trong app', !r.bo.length, r.bo.join(','));
  ok('Sổ hộ vay tắt khung xem: ô Tìm ≤ 340 px, ô chọn ≤ 240 px, chữ ô tìm = chữ nút', r.tim<=340 && r.sel<=240 && r.co[0]===r.co[1], JSON.stringify([r.tim, r.sel, r.co]));
  const k = cp.execSync('python3 '+path.join(__dirname, 'kiem.py')).toString();

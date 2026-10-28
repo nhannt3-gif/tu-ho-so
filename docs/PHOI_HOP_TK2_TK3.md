@@ -114,6 +114,7 @@
 | 28/10 | TK 2 | 3.398 | `js/22e` (chốt / khóa / lịch sử KH), `js/22d` (bản chốt cho Mẫu 04, nút Phân công), `js/56` (tên chip), `js/78` (bỏ qua ⚙ Khai báo), `js/79-ktgs-khoa.js` mới, `js/17b` (2 khóa), `css/app.css`, `tests/t319` mới, `t109`, `t125`, `t154`, `t318` | t319 · nhóm KTGS + t179 · t245 · t318 · t192 đạt |
 | 28/10 | TK 2 | 3.399 | gỡ `js/04e-theo-doi-no.js` → `js/04e-chung.js` (phần dùng chung), `js/04b`, `04c`, `04d`, `06`, `06c`, `08`, `12`, `14`, `17`, `20`, `36`, `css/app.css` (75 luật), `tests/t149`, `t155` | hồi quy đủ 199/200 → t155 (CSS in TDN đã gỡ) sửa → 200/200 |
 | 28/10 | TK 2 | 3.399.1 | `js/06` (CO_GI_MOI 15 dòng đúng dạng [chữ, lệnh]), `tools/bump.py` (kiểm dạng moi), `tests/t192` | t192 7/7 |
+| 28/10 | TK 2 | (không số bản) | `tools/bump.py` (kiểm dạng Có gì mới TRƯỚC khi ghi file, cho lệnh rỗng), `tests/t192` — sửa lỗi 3.399.1 gộp kèm t192 hỏng (ống `| tail` che mã thoát) | t192 7/7 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

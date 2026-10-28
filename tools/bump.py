@@ -2,6 +2,8 @@
 import json, re, sys, datetime
 sp = json.load(open(sys.argv[1], encoding='utf-8'))
 v, cu = sp['ban'], sp['cu']
+for x in sp['moi']:   # 3.399.1: dạng [chữ hiển thị, lệnh mở] — khai ngược [biểu tượng, chữ] làm "Có gì mới" chỉ hiện biểu tượng
+    assert len(re.sub(r'[^\w]', '', x[0]))>=8 and (x[1]=='' or re.match(r'^[A-Za-z_$][\w$.]*\(', x[1])), 'moi phải là [chữ, lệnh JS hoặc ""] — sai: %r' % (x,)
 luc = (datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(hours=7)).strftime('%d/%m/%Y %H:%M')
 def rw(p, f):
     s = open(p, encoding='utf-8').read(); t = f(s); assert t != s, p; open(p, 'w', encoding='utf-8').write(t)
@@ -11,8 +13,6 @@ import os
 if os.path.exists('dt-sw.js'): rw('dt-sw.js', lambda s: s.replace("'tuhoso-dt-%s'" % cu, "'tuhoso-dt-%s'" % v) if ("'tuhoso-dt-%s'" % cu) in s else s+'')   # 3.233 bộ đệm chạy không mạng
 if os.path.exists('dt.html'): rw('dt.html', lambda s: s.replace('?v='+cu, '?v='+v) if ('?v='+cu) in s else s+'')   # 3.231 bản điện thoại
 rw('tests/hoiquy2.js', lambda s: s.replace("APP_BAN==='%s'" % cu, "APP_BAN==='%s'" % v))
-for x in sp['moi']:   # 3.399.1: dạng [chữ hiển thị, lệnh mở] — khai ngược [biểu tượng, chữ] làm "Có gì mới" chỉ hiện biểu tượng
-    assert len(re.sub(r'[^\w]', '', x[0]))>=8 and re.match(r'^[A-Za-z_$][\w$]*\(', x[1]), 'moi phải là [chữ, lệnh JS] — sai: %r' % (x,)
 moi = ''.join("  [%s, %s],\n" % (json.dumps(x[0], ensure_ascii=False), json.dumps(x[1], ensure_ascii=False)) for x in sp['moi'])
 rw('js/06-hop-thoai.js', lambda s: s.replace("var CO_GI_MOI = {ban:'%s', ds:[\n" % cu, "var CO_GI_MOI = {ban:'%s', ds:[\n" % v + moi, 1))
 def cat15(s):   # 3.230: "Có gì mới" chỉ giữ 15 dòng gần nhất (lịch sử đủ ở CHANGELOG)
