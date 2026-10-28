@@ -112,6 +112,7 @@
 | 28/10 | TK 2 | 3.397 | `js/78-ktgs-gon.js` mới (KTGS gọn, chỉ dời khối, cắm rút), `index.html`, `css/app.css`, `tests/t318` mới | t318 · nhóm KTGS (t108–t137, t179 45/45, t237…) · t245 · t260 · t312 đạt |
 | 28/10 | TK 2 | (không số bản) | hồi quy đủ cuối ngày trên 3.397: **199/199 đạt**; `tests/hoiquy_moc.json` cập nhật mốc | 199/199 |
 | 28/10 | TK 2 | 3.398 | `js/22e` (chốt / khóa / lịch sử KH), `js/22d` (bản chốt cho Mẫu 04, nút Phân công), `js/56` (tên chip), `js/78` (bỏ qua ⚙ Khai báo), `js/79-ktgs-khoa.js` mới, `js/17b` (2 khóa), `css/app.css`, `tests/t319` mới, `t109`, `t125`, `t154`, `t318` | t319 · nhóm KTGS + t179 · t245 · t318 · t192 đạt |
+| 28/10 | TK 2 | 3.399 | gỡ `js/04e-theo-doi-no.js` → `js/04e-chung.js` (phần dùng chung), `js/04b`, `04c`, `04d`, `06`, `06c`, `08`, `12`, `14`, `17`, `20`, `36`, `css/app.css` (75 luật), `tests/t149`, `t155` | hồi quy đủ 199/200 → t155 (CSS in TDN đã gỡ) sửa → 200/200 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

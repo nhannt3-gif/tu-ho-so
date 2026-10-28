@@ -40,7 +40,7 @@ const fs=require('fs'), path=require('path');
    doiNgan(1); await w(500); sai.push(...ra().map(x=>'vb: '+x));
    ok('nền tối: không còn chữ sáng trên nền sáng (Nạp & KT, Tổ, KTGS, Sao kê, Tổng hợp, Tra cứu, Văn bản)', !sai.length, sai.slice(0, 5).join(' | '));
    ok('dòng xã bảng Tổ / chip đỏ dùng màu theo giao diện (không còn nền hồng / xanh nhạt cố định)', getComputedStyle(document.documentElement).getPropertyValue('--do-nen').trim().toLowerCase()==='#3a1a18');
-   ok('bản in giữ nền trắng chữ đen (CSS bản in không đổi)', /color:#000/.test(TDN_IN_CSS) && /#eef3f9/.test(TDN_IN_CSS));
+   ok('bản in giữ nền trắng chữ đen (CSS bản in Tổ / Sao kê — 3.399: CSS in Theo dõi nợ đã gỡ)', /color:#000/.test(TO_IN_CSS) && /background:#fff/.test(TO_IN_CSS));
    nut().click(); await w(100); ok('bấm lần nữa → về Theo máy ◐', D.cauHinh.giaoDien==='auto' && !document.documentElement.getAttribute('data-theme') && nut().textContent==='◐');
    return o;
  }, files);
