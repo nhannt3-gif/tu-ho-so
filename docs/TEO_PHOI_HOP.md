@@ -179,6 +179,7 @@ Luật làm chung:
 | C7 | Vai trò + quyền GitHub của Gemini | tất cả | mục 12 |
 | C8 | Ngày khách chuyển khoản vào TK 105: cần file sao kê giao dịch chi tiết | TK 2 | `BAN_GIAO_TK3_2710.md` mục 5 |
 | C9 | Văn bản về gia hạn nợ (anh đưa lên Tủ hồ sơ) — để chốt QT-C-20 gia hạn tối đa ngắn / trung / dài hạn | TK 1, TK 2 | mục 5, `TEO_QUY_TAC_CHUNG.md` |
+| C10 | Duyệt **quy tắc dùng số cho văn bản tháng 11** (`TEO_KE_HOACH_KY_3110.md` mục 6) | TK 1, TK 2 | kỳ đối chiếu 31/10 |
 
 ## 14. Hộp thư chung (chỉ thêm dòng ở cuối · trạng thái: mở / ✓ xong)
 
@@ -192,3 +193,4 @@ Luật làm chung:
 | 28/10 | TK 1 → TK 2 | Anh chốt thêm 28/10 (ghi ở mục 5, 6B và `TEO_QUY_TAC_CHUNG.md` QT-C-10…12): **điểm GD = chuỗi món → tổ → ấp → điểm, 1 ấp 1 điểm**; món lệch ấp so với tổ = sai, cần danh sách để sửa; **món trực tiếp theo ấp** (không theo GDXA); **chuyển QH = phiên đầu tiên của điểm kể từ ngày đến hạn** (sau gia hạn nếu có), món trực tiếp ngay sau ngày đến hạn. App: lên kế hoạch áp (thay cách suy xã + ngày GDXA; rà `skBC31` "kỳ GDXA đầu tiên **sau**" → "**kể từ**"), trình anh, chưa code. | mở |
 | 28/10 | TK 1 → TK 2 | K5 (3 tháng KHĐ): khi tiện chạy `slKHDTinh` trên các kỳ có file TW để so với `khd_tu_mau31` của giao ban — ghi lại số món và món lệch theo số KU ở đây, **không ghi tên khách**. | mở |
 | 28/10 | TK 1 → tất cả | Lập `docs/TEO_QUY_TAC_CHUNG.md` — sổ luật số liệu chung **QT-C-xx** (C = chung, không trùng QT-01…18 riêng app). Luật số liệu mới anh chốt ghi ở đó; mục 6 sổ này giữ làm bảng đối chiếu. | mở |
+| 28/10 | TK 1 → TK 2, anh | **Kế hoạch kỳ đối chiếu 31/10/2026** (B5): `docs/TEO_KE_HOACH_KY_3110.md` — bộ file, hợp đồng cột file đối chiếu `DOI_CHIEU_APP/GB_<ngày>.csv`, 6 bước, phân loại lệch A–D, quy tắc dùng số cho văn bản tháng 11, chia việc TK 2 / TK 1 / anh. TK 2: đọc mục 8 + lên kế hoạch phần app, trình anh. | mở |
