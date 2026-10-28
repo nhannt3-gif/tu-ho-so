@@ -110,6 +110,7 @@
 | 28/10 | TK 2 | 3.395.1 | `css/app.css` (chip dải lọc 1 dòng, ĐT ẩn ô đếm khi có chip) | t312 · t311 · t245 · t153 · t315 · t260 đạt |
 | 28/10 | TK 2 | 3.396 | `js/77-bang-loc.js` mới (lọc + sắp xếp cột, cắm rút), `js/58` (gắn blGan), `index.html`, `css/app.css`, `tests/t317` mới, `t309`, `t246` | t317 · t309 · t246 · t277 · t278 · t156 · t311 · t312 · t107 đạt |
 | 28/10 | TK 2 | 3.397 | `js/78-ktgs-gon.js` mới (KTGS gọn, chỉ dời khối, cắm rút), `index.html`, `css/app.css`, `tests/t318` mới | t318 · nhóm KTGS (t108–t137, t179 45/45, t237…) · t245 · t260 · t312 đạt |
+| 28/10 | TK 2 | (không số bản) | hồi quy đủ cuối ngày trên 3.397: **199/199 đạt**; `tests/hoiquy_moc.json` cập nhật mốc | 199/199 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
