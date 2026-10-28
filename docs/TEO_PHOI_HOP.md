@@ -1,6 +1,6 @@
 # Tèo — bộ não công việc của anh Nhân · phối hợp App Tủ hồ sơ ↔ Giao ban
 
-> **Bản 1.1 · 28/10/2026** · soạn từ phiên Project giao ban (chat) 28/10/2026, anh Nhân duyệt từng ý trong phiên.
+> **Bản 1.2 · 28/10/2026** · soạn từ phiên Project giao ban (chat) 28/10/2026, anh Nhân duyệt từng ý trong phiên.
 > **Đọc file này trước** khi đụng tới: nạp file / kho số liệu gốc · luật số liệu dùng chung (tổ viên, điểm GD, 3 tháng KHĐ…) · cây điểm giao dịch từ 11/2026 · báo cáo chuyển giữa app và giao ban.
 > File này **chỉ ghi định hướng và việc đã thống nhất**. Mọi sửa code vẫn theo quy trình repo: lên kế hoạch → anh duyệt → anh nhắn "code" → PR → anh nhắn "gộp".
 > Repo công khai: file này **không có dữ liệu khách, tên tổ trưởng, mã tổ** — chỉ số đếm tổng.
@@ -66,7 +66,11 @@ Toàn PGD **giảm 3 điểm (12 → 9)** — bỏ các điểm giao dịch **ng
 
 Còn 9 điểm: Gia Lộc · Truông Mít · Truông Mít 2 · Phước Thạnh · Phước Thạnh 2 · Thạnh Đức · Cẩm Giang · Phường Gò Dầu · Thanh Phước.
 
-- **Điểm GD của tổ = mã điểm trên File Tổ trưởng cùng ngày.** Anh cho biết Mẫu 31 sẽ đổi logic theo cơ cấu mới.
+- **Quy tắc điểm giao dịch (anh chốt 28/10/2026) — một chuỗi duy nhất: món vay → mã tổ → ấp của tổ → điểm GD.**
+  - Mỗi món vay qua tổ có **mã tổ**; mỗi tổ có **một ấp** (địa chỉ tổ — mã thôn MADP trên File Tổ trưởng); **mỗi ấp chỉ thuộc 1 điểm GD**.
+  - **Món vay ở ấp khác ấp của tổ → coi là sai, cần sửa lại trên hệ thống**: báo vào danh sách kiểm tra (món · tổ · ấp của món · ấp của tổ), **không tự sửa**, vẫn tính món theo tổ cho tới khi sửa.
+  - Kiểm thêm: các tổ cùng ấp phải cùng điểm; điểm của tổ trên File Tổ trưởng phải trùng điểm của ấp → lệch thì báo.
+  - Anh cho biết Mẫu 31 sẽ đổi logic theo cơ cấu mới.
 - **Món vay trực tiếp (anh chốt 28/10/2026):** dư nợ điểm, xã, PGD đều cộng cả món trực tiếp (dòng "Trực tiếp" cạnh phần Ủy thác, như mẫu 08/GDX). Món trực tiếp **không theo ngày giao dịch xã cố định** → gán về điểm **theo ấp của món vay**; **1 ấp chỉ thuộc 1 điểm GD** (ấp thuộc điểm của các tổ trong ấp). Dữ liệu thấy 1 ấp có tổ ở 2 điểm → báo lệch, không tự chọn. Không dùng ngày GDXA cho món trực tiếp.
 - Bảng "điểm bỏ → điểm nhận" ở trên chỉ là **dự phòng** khi file chưa cập nhật; áp **từ kỳ số liệu tháng 11/2026**, các tháng cũ giữ nguyên.
 - So file Tổ trưởng 27/10 với DSTO 10/10: 49 tổ đã đổi điểm (Gia Lộc 2 → Gia Lộc 18 · Gia Bình → Thanh Phước 21 · Thanh Phước → Phường Gò Dầu 10); Phước Trạch lúc đó chưa chuyển. Phần lớn chênh lệch giữa hai file là do **khác ngày**, không phải lỗi dữ liệu.
@@ -90,7 +94,7 @@ So trên: app (repo bản gộp PR #387 — `QUY_CHUAN_KIEN_TRUC.md` mục 4, `D
 |---|---|---|---|---|
 | K1 | Tổ viên | còn dư nợ + tất nợ còn TK 105: 18.636 / 369 tổ (30/09) | QT-18: + khách chưa giải ngân + bù Mẫu 01/TV: 18.816 / 370, khớp 100% TW | **Theo QT-18** |
 | K2 | Điểm GD món vay trực tiếp | theo ấp | xã + ngày GDXA của món | ✅ **Anh chốt 28/10: theo ấp của món vay, 1 ấp chỉ thuộc 1 điểm GD** (món trực tiếp không theo ngày GDXA cố định) — app sửa theo |
-| K3 | Điểm GD của tổ | suy từ xã + GDXA phần lớn dư nợ | mã điểm trên file (nay là File Tổ trưởng) | **Theo file** (mục 5) |
+| K3 | Điểm GD của tổ | suy từ xã + GDXA phần lớn dư nợ | mã điểm trên file (nay là File Tổ trưởng) | ✅ **Anh chốt 28/10: theo chuỗi tổ → ấp → điểm (1 ấp 1 điểm)**, đối chiếu với mã điểm trên File Tổ trưởng; món lệch ấp so với tổ = sai, báo để sửa (mục 5) |
 | K4 | Khoản vay mới (kiểm tra 30 ngày, HD 727 "giải ngân kỳ đầu") | giải ngân lần 1 | mọi món có GN trong tháng, kể cả HSSV lần sau | **Lần 1**; lần 2+ thành danh sách theo dõi riêng |
 | K5 | Món 3 tháng KHĐ | so ngày "trước hẳn" mốc lùi 3 tháng; nước sạch mã QĐ 37 < 9 tháng từ Ngày vay; loại mọi món khoanh; trống ngày GD kỳ giữa tháng lấy Mẫu 31 cuối tháng trước | MONTHS_BETWEEN kiểu Oracle; chưa GD lần nào tính từ ngày GN đầu; ân hạn CT 06 (6+3), CT 05/07/18 (60+3), CT 01 SC2/MC2/LC2 (24+3); loại lãi suất 0; khoanh chỉ loại khi gia hạn trong tháng | **Chạy cả hai hàm trên các kỳ có file TW** rồi chọn; dự kiến hàm app làm gốc + điều kiện kỳ giữa tháng của giao ban |
 | K6 | Ngày chuyển QH khi hệ thống trống | ngày đến hạn cuối | kỳ GDXA đầu tiên sau ngày đến hạn | Món qua tổ: **cột "Ngày ĐH theo GDXA"** của Mẫu 31 · **món trực tiếp: ngày đến hạn** (gia hạn, không có thì hợp đồng), không theo GDXA |
@@ -117,7 +121,7 @@ So trên: app (repo bản gộp PR #387 — `QUY_CHUAN_KIEN_TRUC.md` mục 4, `D
 
 1. **Kế hoạch kho "Số liệu gốc" + nạp qua app** (mục 4): tạo thư mục, đặt tên chuẩn, đọc ngày số liệu trong file, kiểm cặp Mẫu 31 + Tổ trưởng cùng ngày, sổ `DANH_MUC_NAP`.
 2. **Cập nhật tài liệu cũ:** `DU_LIEU_THANG.md` dòng "Mẫu 31 chỉ xuất được số chốt tháng" (02/10) → nay đã xuất được theo ngày; `FILE_XUAT_HANG_THANG.md` theo bộ file mục 3 (bỏ Dư nợ chi tiết, DSTO; thêm File Tổ trưởng, CLT02).
-3. **Cây điểm GD tháng 11** theo mục 5 (điểm của tổ từ File Tổ trưởng; món trực tiếp theo ấp, 1 ấp 1 điểm — thay cách suy theo xã + ngày GDXA hiện nay; dự phòng bảng điểm bỏ → điểm nhận từ kỳ 11/2026).
+3. **Cây điểm GD tháng 11** theo mục 5 (chuỗi món → tổ → ấp → điểm, danh sách "món lệch ấp so với tổ" ở Cần xử lý / Kiểm tra kỳ; điểm của tổ đối chiếu File Tổ trưởng; món trực tiếp theo ấp, 1 ấp 1 điểm — thay cách suy theo xã + ngày GDXA hiện nay; dự phòng bảng điểm bỏ → điểm nhận từ kỳ 11/2026).
 4. **K5:** chuẩn bị chạy hàm KHĐ của app trên các kỳ có file TW để so với giao ban.
 5. Thêm 1 dòng trỏ `docs/TEO_PHOI_HOP.md` vào `docs/BAT_DAU.md` khi làm bản kế tiếp (dòng trỏ đầu `CLAUDE.md` đã thêm cùng file này).
 
@@ -135,5 +139,6 @@ B1 bảng đối chiếu ✓ (mục 6) · **B1b bộ file chung ✓ (mục 3)** 
 
 | Bản | Ngày | Nội dung |
 |---|---|---|
+| 1.2 | 28/10/2026 | Anh chốt K3 + quy tắc chuỗi món → tổ → ấp → điểm GD; món ở ấp khác ấp của tổ = sai, báo để sửa. |
 | 1.1 | 28/10/2026 | Anh chốt K2: món trực tiếp theo ấp, 1 ấp chỉ thuộc 1 điểm GD (không theo ngày GDXA); chỉnh K6, K7 cho món trực tiếp. |
 | 1.0 | 28/10/2026 | Tạo file từ phiên giao ban: tên Tèo, phân vai, 3 luật, bộ file nạp chung, kho Số liệu gốc nạp qua app, ngày số liệu kỳ phiên, điểm GD 12 → 9 từ 11/2026, bảng đối chiếu luật số liệu (K1–K9 chờ chốt), việc cho hai bên. |
