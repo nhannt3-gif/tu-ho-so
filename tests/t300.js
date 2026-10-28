@@ -11,7 +11,7 @@ const fs=require('fs'), path=require('path');
    window.SL_KHONG_TU_KIEM = 1;
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
    kyChungDoi('2026-08'); slDoiTab('to'); doiNgan(7); for(let i=0;i<120 && !(KHO.kyDung() && document.getElementById('to-cay'));i++) await w(250); await w(600);
-   ok('3.357 tab Tổ TK&VV có nút 👁 Sổ tổ viên', !!document.querySelector('.to-dau [data-lenh="dk.mo"][data-ma="sotv"]'));
+   ok('3.357 tab Tổ TK&VV có nút Sổ tổ viên (3.394: trên hàng thao tác của bảng)', !!document.querySelector('.to-bang-nut [data-lenh="dk.mo"][data-ma="sotv"]'));
    const K = KHO.kyDung(); D.cauHinh.dkChon = {};
    const tos = KHO.dsToKy(K).map(t=>tvChuan(t, K)).filter(Boolean), tong = tos.reduce((a, r)=>a+r.ds.length, 0);
    let L = dkLap('sotv');

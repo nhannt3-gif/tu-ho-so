@@ -117,7 +117,8 @@ function dkExcel(){ var L = DK_XEM; if(!L) return; xongTV.then(function(){
   taiXuongBlob(new Blob([XLSX.write(wb, {type:'array', bookType:'xlsx'})], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), xuatTen(L.o.ten, L.ctx.pv, L.ctx.K.ky)+'.xlsx'); }); }
 function dkWord(){ var L = DK_XEM; if(!L) return; taiXuongBlob(new Blob(['﻿'+dkHTML(L.o, L.kq, L.ctx)], {type:'application/msword'}), xuatTen(L.o.ten, L.ctx.pv, L.ctx.K.ky)+'.doc'); }
 /* nút ở tab: danh sách báo cáo đã đăng ký của tab */
-function dkNutHTML(o){ dkDangKy(); var ds = Object.keys(DK_DS).map(function(k){ return DK_DS[k]; }).filter(function(x){ return x.o===o; }); if(!ds.length) return '';
+function dkNutHTML(o, gon){ dkDangKy(); var ds = Object.keys(DK_DS).map(function(k){ return DK_DS[k]; }).filter(function(x){ return x.o===o; }); if(!ds.length) return '';
+  if(gon) return '<span class="dk-ds dk-gon">'+ds.map(function(x){ return GD.nut({chu:'🧩 '+x.ten, lenh:'dk.mo', du:{ma:x.ma}, tit:(x.mo || x.ten)+' · khổ '+(x.loai==='bang' ? 'ngang' : 'dọc')}); }).join('')+'</span>';   /* 3.394: gọn trên hàng thao tác (tab Tổ TK&VV) */
   return '<div class="sk-nhom dk-ds"><div class="sk-nhom-ten">🧩 Báo cáo chuẩn mới</div>'+ds.map(function(x){ return GD.nut({chu:'👁 '+x.ten+' <small>· '+(x.loai==='bang' ? 'ngang' : 'dọc')+'</small>', lenh:'dk.mo', du:{ma:x.ma}, tit:x.mo || ''}); }).join('')+'</div>'; }
 function dkDangKy(){ if(dkDangKy.xong || typeof GD==='undefined') return; dkDangKy.xong = 1;
   GD.dangKy('dk', {mo:function(el){ dkMo(el.getAttribute('data-ma')); },
