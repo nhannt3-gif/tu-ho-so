@@ -1,6 +1,6 @@
 # Tèo — bộ não công việc của anh Nhân · phối hợp App Tủ hồ sơ ↔ Giao ban
 
-> **Bản 1.3 · 28/10/2026** · soạn từ phiên Project giao ban (chat) 28/10/2026, anh Nhân duyệt từng ý trong phiên.
+> **Bản 1.4 · 28/10/2026** · soạn từ phiên Project giao ban (chat) 28/10/2026, anh Nhân duyệt từng ý trong phiên.
 > **Đọc file này trước** khi đụng tới: nạp file / kho số liệu gốc · luật số liệu dùng chung (tổ viên, điểm GD, 3 tháng KHĐ…) · cây điểm giao dịch từ 11/2026 · báo cáo chuyển giữa app và giao ban.
 > File này **chỉ ghi định hướng và việc đã thống nhất**. Mọi sửa code vẫn theo quy trình repo: lên kế hoạch → anh duyệt → anh nhắn "code" → PR → anh nhắn "gộp".
 > Repo công khai: file này **không có dữ liệu khách, tên tổ trưởng, mã tổ** — chỉ số đếm tổng.
@@ -77,7 +77,8 @@ Còn 9 điểm: Gia Lộc · Truông Mít · Truông Mít 2 · Phước Thạnh 
   - Ví dụ gộp điểm 11/2026: tổ cũ Gia Lộc 2 (ngày 07) sang Gia Lộc (ngày 23), món đến hạn 10/11 → chuyển quá hạn **23/11**.
   - **Món vay trực tiếp** (không theo ngày giao dịch xã): chuyển quá hạn **ngay sau ngày đến hạn** (hợp đồng / gia hạn).
   - **Kỳ gốc phân kỳ (CV 597) của món qua tổ**: đến hạn theo ngày giao dịch của điểm, như trên.
-  - Món đã gia hạn: mốc là ngày đến hạn sau gia hạn — **đang hỏi lại anh để xác nhận**.
+  - **Món đã gia hạn:** mốc là **ngày đến hạn sau gia hạn**, rồi lấy phiên đầu tiên của điểm kể từ ngày đó (ví dụ HĐ 10/06, gia hạn đến 10/12, điểm ngày 05 → chuyển QH 05/01 năm sau) — anh xác nhận 28/10.
+  - **Thời gian gia hạn tối đa:** ½ thời hạn cho vay **đối với khoản vay trung hạn** (anh nêu 28/10). Ngắn hạn / dài hạn và chi tiết khác: **chờ văn bản về gia hạn anh đưa lên Tủ hồ sơ** — đọc xong mới ghi luật "còn được gia hạn" (app hiện tính ½ thời hạn cho mọi món — đối chiếu lại khi có văn bản).
 - **Món vay trực tiếp (anh chốt 28/10/2026):** dư nợ điểm, xã, PGD đều cộng cả món trực tiếp (dòng "Trực tiếp" cạnh phần Ủy thác, như mẫu 08/GDX). Món trực tiếp **không theo ngày giao dịch xã cố định** → gán về điểm **theo ấp của món vay**; **1 ấp chỉ thuộc 1 điểm GD** (ấp thuộc điểm của các tổ trong ấp). Dữ liệu thấy 1 ấp có tổ ở 2 điểm → báo lệch, không tự chọn. Không dùng ngày GDXA cho món trực tiếp.
 - Bảng "điểm bỏ → điểm nhận" ở trên chỉ là **dự phòng** khi file chưa cập nhật; áp **từ kỳ số liệu tháng 11/2026**, các tháng cũ giữ nguyên.
 - So file Tổ trưởng 27/10 với DSTO 10/10: 49 tổ đã đổi điểm (Gia Lộc 2 → Gia Lộc 18 · Gia Bình → Thanh Phước 21 · Thanh Phước → Phường Gò Dầu 10); Phước Trạch lúc đó chưa chuyển. Phần lớn chênh lệch giữa hai file là do **khác ngày**, không phải lỗi dữ liệu.
@@ -146,6 +147,7 @@ B1 bảng đối chiếu ✓ (mục 6) · **B1b bộ file chung ✓ (mục 3)** 
 
 | Bản | Ngày | Nội dung |
 |---|---|---|
+| 1.4 | 28/10/2026 | Món gia hạn: mốc chuyển QH là ngày đến hạn sau gia hạn (anh xác nhận); gia hạn tối đa ½ thời hạn với trung hạn — chờ văn bản gia hạn. |
 | 1.3 | 28/10/2026 | Anh chốt K6: ngày đến hạn / chuyển QH theo ngày giao dịch của điểm (kể cả điểm mới sau điều chuyển); món trực tiếp ngay sau ngày đến hạn; kỳ phân kỳ theo ngày điểm. Món gia hạn: chờ xác nhận. |
 | 1.2 | 28/10/2026 | Anh chốt K3 + quy tắc chuỗi món → tổ → ấp → điểm GD; món ở ấp khác ấp của tổ = sai, báo để sửa. |
 | 1.1 | 28/10/2026 | Anh chốt K2: món trực tiếp theo ấp, 1 ấp chỉ thuộc 1 điểm GD (không theo ngày GDXA); chỉnh K6, K7 cho món trực tiếp. |
