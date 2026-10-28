@@ -40,8 +40,8 @@ const fs=require('fs'), path=require('path');
    ok('Giao dịch xã: dải chip mẫu trong khung cuộn có nút ‹ ›', !!document.querySelector('#gdx-trai .cn-khung .cn-phai') && document.querySelectorAll('#gdx-trai .cn-khung .gdx-c').length===GDX_MAU.length);
    /* ⑤ KTGS: chip BC0437 / BC0438 ở thanh 3 khối, không còn ở hàng lọc */
    await mo('kt', '#tr7 .kt-khoi'); await w(800);
-   ok('KTGS: chip BC0437 / BC0438 ở cuối thanh khối', [...document.querySelectorAll('#tr7 .kt-khoi .kt-khoi-bc .sl-chip')].filter(x=>/BC043[78]/.test(x.textContent)).length===2);
-   ok('KTGS: hàng lọc không còn chip BC0437 / BC0438', ![...document.querySelectorAll('.pv-chip-o .sl-chip')].some(x=>/BC043[78]/.test(x.textContent)));
+   ok('KTGS: chip BC0437 / BC0438 trên dải LỌC ĐỊA BÀN như mọi tab (3.395 — trước: cuối thanh khối)', [...document.querySelectorAll('#kt-cay .pv-dau .pv-chip-o .sl-chip')].filter(x=>/BC043[78]/.test(x.textContent)).length===2 && !document.querySelector('#tr7 .kt-khoi .sl-chip'));
+   ok('KTGS: hàng ô chọn lọc không có chip BC0437 / BC0438 (chip ở dải tiêu đề — ô chọn không bị bóp)', ![...document.querySelectorAll('#kt-cay .pv-hang1 .sl-chip')].some(x=>/BC043[78]/.test(x.textContent)));
    /* ⑥ Tra cứu KH: mở tab là có danh sách khách theo lọc; ô Xã bỏ chữ "Phường / Xã" */
    SL_TRA_Q = ''; await mo('tra', '#sl-kq .sl-kq-dong');
    const n0 = document.querySelectorAll('#sl-kq .sl-kq-dong').length;
