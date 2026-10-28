@@ -1962,22 +1962,22 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.399', ds:[
-  ["🧹", "Tạm bỏ ⚠ Theo dõi nợ (Thư viện) — gỡ hết code (thẻ món, hồ sơ hộ, biên bản làm việc, phiếu món vay, nhắc Hôm nay, ô Giao ban / Buổi GD, gợi ý tên có dấu ở Scan); dữ liệu cũ giữ nguyên, làm lại sau"],
-  ["📌", "KTGS Kế hoạch năm: 📌 Chốt (ghi ngày chốt + khóa) · ✏ Sửa → 📌 Chốt lại theo ngày sửa · 📜 Lịch sử chốt; Định kỳ / Mẫu 04 dùng bản chốt mới nhất"],
-  ["🔒", "KTGS Khai báo Hội – xã / Chuẩn hóa: 🔒 Khóa chống sửa nhầm + 📜 Nhật ký (cũ → mới) có ↶ Khôi phục"],
-  ["🏷", "Chip đổi tên 🗓 Kế hoạch năm; nút 📋 Phân công ở bảng Hội – xã"],
-  ["🛡", "KTGS gọn: thẻ Định kỳ · Sau giải ngân · Mẫu 04 · Lịch năm chung hàng 3 khối; Tháng kiểm tra + số liệu + Đã chọn + nút 👁 Xem / 📋 Tóm tắt gom 1 hàng trên bảng; ghi chú dài → ⓘ"],
-  ["🔽", "Tra cứu KH › Tìm theo Tổ trưởng: bấm tiêu đề cột để sắp xếp ▲▼; hàng lọc từng cột (tên · mã gõ; TV · Có DN = 0 / > 0 / ngưỡng; Xã · Ấp · Hội chọn); dòng Cộng theo dòng đang lọc"],
-  ["📱", "Điện thoại: chip báo trên dải LỌC ĐỊA BÀN (KTGS BC0437 · BC0438) 1 dòng, không đè khung"],
-  ["🪪", "Scan CCCD: hàng chờ còn ảnh thẻ chưa lưu (quá 30 phút) → quét mới thì hỏi Bỏ ảnh cũ / Giữ — hết ghép nhầm mặt sau thẻ người trước; Đọc số CCCD không lấy kết quả lượt trước"],
-  ["🛡", "KTGS: chip BC0437 / BC0438 lên dải LỌC ĐỊA BÀN như mọi tab"],
-  ["👥", "Tổ TK&VV: báo cáo lên hàng thao tác của bảng — 🧩 Sổ tổ viên luôn có; chọn tổ có chip DS hộ vay · Nợ · TK 105 · Chia tách + 👁 Xem (bớt 2 hàng)"],
-  ["📱", "Điện thoại: chọn sâu tới tổ → hàng lọc 2 dòng, ô đọc được tên"],
-  ["📊", "Tổng hợp 2 màn như Sao kê: màn 1 lưới báo cáo theo nhóm (chưa nạp mờ ⚠) · màn 2 hàng thao tác ← Danh sách · đổi báo cáo · In / PDF / Excel / Gửi + khung xem rộng"],
-  ["🧩", "Sao kê: 11 báo cáo danh sách (quá hạn, khoanh, đến hạn, giải ngân, SĐT…) tách thành khối riêng cắm rút — nội dung báo cáo giữ y nguyên"],
-  ["📄", "Sao kê: Kết quả giao dịch tại điểm GD và THHD tự co lề / chữ cho vừa 1 trang (xem và in); co tới 8 pt vẫn không vừa thì sang trang 2"],
-  ["👥", "Tổ TK&VV: báo cáo Nợ cần xử lý cũng tự co vừa 1 trang"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+var CO_GI_MOI = {ban:'3.399.1', ds:[
+  ["🔧 Hướng dẫn › Có gì mới: các dòng bản 3.390–3.399 hiện đủ chữ (trước chỉ hiện biểu tượng), bấm mở đúng chỗ", "moHuongDan('moi')"],
+  ["🧹 Tạm bỏ ⚠ Theo dõi nợ (Thư viện) — gỡ hết code (thẻ món, hồ sơ hộ, biên bản làm việc, phiếu món vay, nhắc Hôm nay, ô Giao ban / Buổi GD, gợi ý tên có dấu ở Scan); dữ liệu cũ giữ nguyên, làm lại sau", "doiNgan(3)"],
+  ["📌 KTGS Kế hoạch năm: 📌 Chốt (ghi ngày chốt + khóa) · ✏ Sửa → 📌 Chốt lại theo ngày sửa · 📜 Lịch sử chốt; Định kỳ / Mẫu 04 dùng bản chốt mới nhất", "doiNgan(7);slDoiTab('kt')"],
+  ["🔒 KTGS Khai báo Hội – xã / Chuẩn hóa: 🔒 Khóa chống sửa nhầm + 📜 Nhật ký (cũ → mới) có ↶ Khôi phục", "doiNgan(7);slDoiTab('kt')"],
+  ["🏷 Chip đổi tên 🗓 Kế hoạch năm; nút 📋 Phân công ở bảng Hội – xã", "doiNgan(7);slDoiTab('kt')"],
+  ["🛡 KTGS gọn: thẻ Định kỳ · Sau giải ngân · Mẫu 04 · Lịch năm chung hàng 3 khối; Tháng kiểm tra + số liệu + Đã chọn + nút 👁 Xem / 📋 Tóm tắt gom 1 hàng trên bảng; ghi chú dài → ⓘ", "doiNgan(7);slDoiTab('kt')"],
+  ["🔽 Tra cứu KH › Tìm theo Tổ trưởng: bấm tiêu đề cột để sắp xếp ▲▼; hàng lọc từng cột (tên · mã gõ; TV · Có DN = 0 / > 0 / ngưỡng; Xã · Ấp · Hội chọn); dòng Cộng theo dòng đang lọc", "doiNgan(7);slDoiTab('tra')"],
+  ["📱 Điện thoại: chip báo trên dải LỌC ĐỊA BÀN (KTGS BC0437 · BC0438) 1 dòng, không đè khung", "doiNgan(7);slDoiTab('kt')"],
+  ["🪪 Scan CCCD: hàng chờ còn ảnh thẻ chưa lưu (quá 30 phút) → quét mới thì hỏi Bỏ ảnh cũ / Giữ — hết ghép nhầm mặt sau thẻ người trước; Đọc số CCCD không lấy kết quả lượt trước", "doiNgan(4)"],
+  ["🛡 KTGS: chip BC0437 / BC0438 lên dải LỌC ĐỊA BÀN như mọi tab", "doiNgan(7);slDoiTab('kt')"],
+  ["👥 Tổ TK&VV: báo cáo lên hàng thao tác của bảng — 🧩 Sổ tổ viên luôn có; chọn tổ có chip DS hộ vay · Nợ · TK 105 · Chia tách + 👁 Xem (bớt 2 hàng)", "doiNgan(7);slDoiTab('to')"],
+  ["📱 Điện thoại: chọn sâu tới tổ → hàng lọc 2 dòng, ô đọc được tên", "doiNgan(7);slDoiTab('to')"],
+  ["📊 Tổng hợp 2 màn như Sao kê: màn 1 lưới báo cáo theo nhóm (chưa nạp mờ ⚠) · màn 2 hàng thao tác ← Danh sách · đổi báo cáo · In / PDF / Excel / Gửi + khung xem rộng", "doiNgan(7);slDoiTab('th')"],
+  ["🧩 Sao kê: 11 báo cáo danh sách (quá hạn, khoanh, đến hạn, giải ngân, SĐT…) tách thành khối riêng cắm rút — nội dung báo cáo giữ y nguyên", "doiNgan(7);slDoiTab('sk')"],
+  ["📄 Sao kê: Kết quả giao dịch tại điểm GD và THHD tự co lề / chữ cho vừa 1 trang (xem và in); co tới 8 pt vẫn không vừa thì sang trang 2", "doiNgan(7);slDoiTab('sk')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

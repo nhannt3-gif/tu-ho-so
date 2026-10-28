@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.399.1 — 28/10/2026 — Sửa "Có gì mới" chỉ hiện biểu tượng (TK 2)
+- **Anh 28/10** (ảnh ❓ Hướng dẫn › Có gì mới: các dòng trống): từ 3.390 em khai `CO_GI_MOI.ds` ngược dạng `[biểu tượng, chữ]` (đúng: `[chữ, lệnh mở]`) → chỉ hiện biểu tượng, chữ thành lệnh bấm. Sửa 15 dòng (gộp biểu tượng vào chữ, gắn lệnh mở đúng tab).
+- Chặn tái phạm: `tools/bump.py` kiểm từng mục `moi` (chữ ≥ 8 ký tự + lệnh JS) — sai dạng không cho lên số; t192 thêm ý kiểm mọi dòng Có gì mới có chữ + lệnh.
+
 ## 3.399 — 28/10/2026 — Gỡ ⚠ Theo dõi nợ, dọn code (TK 2)
 - **Anh 28/10**: "theo dõi nợ tạm thời bỏ, xóa code rác, sẽ phát triển sau cho gọn" · "gỡ luôn cho gọn code" (kể cả Biên bản làm việc, ô Giao ban, gợi ý tên có dấu).
 - `js/04e-theo-doi-no.js` (135 KB) → **`js/04e-chung.js`** (17 KB) chỉ giữ phần dùng chung, giữ nguyên tên: `TDN_DVUT`, `TDN_CT`, `CT_APP_MA` / `ctMaCua` / `ctVTAppCua`, `TDN_MD`, `tdnNgay`, `tdnTien`, `tdnTr`, `tdnCuoiKy`, `tdnSoNgay`, `tdnHoi`, `tdnCT`, `boDauTen`, `xmlEsc`, `giaoFile`, tab Thư viện (`veGhiChu` — Bộ hồ sơ · Ghi chú ảnh), `anhHTML`, `napAnh`, `ganVuot`, `timMuc`, dải đáy, `ghepKy`, `bamChip`, `nutChinh`.
