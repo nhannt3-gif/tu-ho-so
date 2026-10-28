@@ -104,6 +104,7 @@
 | 28/10 | TK 2 | 3.391 | `js/22h` (SK_BC motTrang kqgd/thhd, skXem, skHTMLIn, toHTMLIn), `js/05` (trDan.apBac + bac — chỉ bản data-tr-1trang), `tests/t313` mới | t313 · t276 · t133 đạt (hồi quy đủ gom cuối ngày — anh 28/10) |
 | 28/10 | TK 2 | 3.392 | `js/76-sk-danh-sach.js` mới (11 báo cáo Sao kê danh sách, cắm rút), `js/22h` (skBaoCao gọn, skNen31, SK_BC tĩnh chỉ nhóm tt, skChon), `index.html`, `tests/ghep.py` (đọc dòng có chú thích), `tests/t314` mới | t276 giống hệt · t314 · t104 · t105 · t313 đạt |
 | 28/10 | TK 2 | 3.393 | `js/22i` (veTongHop 2 màn, thDsHTML lưới, thChonHTML, thVeDS, thChonBC, thXemNgay), `css/app.css` (cuối: .th-luoi, .th-thao), `tests/t153`, `t159` | t153 · t159 + 16 phép Tổng hợp / bố cục đạt |
+| 28/10 | TK 2 | 3.394 | `js/22gb` (toBangDau + toNutBC, bỏ hàng Báo cáo của tổ, bỏ khối dk trên đầu), `js/62` (dkNutHTML gon), `css/app.css`, `css/dt-may.css` (≥ 4 ô lọc 2 dòng), `tests/t315` mới, `t300` | t315 + 12 phép tab Tổ / lọc đạt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

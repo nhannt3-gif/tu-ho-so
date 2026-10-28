@@ -239,6 +239,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Tổng hợp dùng lại lớp CSS Sao kê (`.sk-luoi2`, `.sk-bc2`, `.sk-thao`, `.sk-chon`, `.sk-xem-khung`) — sửa kiểu 2 màn thì 2 tab cùng đổi (đúng hướng "khuôn chuẩn"). Riêng Tổng hợp: `.th-luoi`, `.th-thao` (cuối `css/app.css`).
 - Lớp `.th-bo`, `.th-bo2`, `.th-cot`, `.th-bc-gon` vẫn dùng ở Hồ sơ (js/25) và Phân bổ (js/48) — không xóa.
 
+### Ghi chú kỹ thuật 3.394
+- `toBangDau(tieu, nut)` (js/22gb) nay luôn chèn `toNutBC()` đầu hàng nút — chỉ dùng ở tab Tổ TK&VV (4 chỗ: bảng xã / điểm, danh sách tổ, tổ viên, danh sách khách phạm vi).
+- `dkNutHTML(o, gon)`: `gon` = nút 🧩 rời (không khung nhóm) — Sao kê vẫn dùng kiểu khung.
+
+### Danh sách thử trên máy thật (3.394)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tổ TK&VV chưa chọn tổ | Không còn khối Báo cáo chuẩn mới trên đầu; 🧩 Sổ tổ viên cạnh In / Excel | |
+| 2 | Chọn 1 tổ → bật Nợ + TK 105 → 👁 Xem | Hộp xem đủ báo cáo đang bật | |
+| 3 | Điện thoại: chọn tới tổ | Hàng lọc 2 dòng, đọc được tên xã / điểm / tổ | |
+
 ### Danh sách thử trên máy thật (3.393)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
