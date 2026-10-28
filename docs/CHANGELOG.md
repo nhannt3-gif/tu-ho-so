@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.395.1 — 28/10/2026 — Chip dải lọc 1 dòng trên điện thoại (TK 2)
+- Sửa lỗi 3.395 (KTGS chip lên dải lọc): điện thoại 2 chip BC0437 / BC0438 xuống 2 dòng đè khung LỌC ĐỊA BÀN → chip báo trên dải luôn 1 dòng (mọi tab), ĐT chữ nhỏ 10px, có chip thì ẩn ô đếm "n tổ" nhường chỗ.
+- Phép thử: t312, t311, t245, t153, t315, t260 đạt.
+
 ## 3.395 — 28/10/2026 — Sửa Scan CCCD đọc nhầm thẻ cũ · KTGS bước 1 (TK 2)
 - **Anh 28/10 (ảnh)**: quét CCCD người mới, ở bước Lưu bấm 🪪 Đọc số CCCD ra số thẻ quét trước. Nguyên nhân: hàng chờ còn sót **1 mặt sau thẻ người trước** (phiên 27/10 chưa lưu hết) → chụp mặt trước người mới, `xepCapThe` ghép 2 ảnh thành 1 người (mặt trước mới + mặt sau cũ) → bộ đọc lấy mã máy đọc mặt sau = số người cũ. Sửa: chế độ Thẻ, hàng chờ còn ảnh mà lần đụng gần nhất quá 30 phút (`tuhoso_hang.cham` mới) → nhận ảnh mới thì **hỏi** "🗑 Bỏ ảnh cũ, quét mới" / "Giữ, ghép tiếp" (`scanCuSot`, `scanHoiCu`, `scanCuXong`, js/12); quét liền tay không hỏi. js/41 bọc `nhanVaoScan` chuyển tham số `daHoi` (photo 2 thẻ không chia lại).
 - 🪪 Đọc số CCCD ở bước Lưu: chỉ dùng kết quả đọc của đúng lượt đang mở (`SX_DOC.luc === SX.docLuc`); không có → đọc ngay ảnh thẻ đang có trong hàng (trước: lấy `SX_DOC[0]` dù của lượt trước).
