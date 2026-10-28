@@ -4156,3 +4156,15 @@ table .bl-tang::after{content:" ▲";font-size:.8em}table .bl-giam::after{conten
 table tr.bl-loc th{position:sticky;top:var(--bl-top,26px);z-index:1;background:var(--xanh-nhat);padding:2px 3px}
 table tr.bl-loc input,table tr.bl-loc select{width:100%;min-width:0;box-sizing:border-box;font:inherit;font-size:calc(11.5px*var(--co));padding:1px 4px;border:1px solid var(--vien);border-radius:5px;background:var(--the);color:var(--chu)}
 table.bl-dang-loc tr.bl-loc{box-shadow:inset 0 -2px 0 var(--cam)}
+/* 3.397: KTGS gọn (js/78) — chỉ dời khối, chữ phụ ẩn bằng CSS */
+#kt-the .kt-khoi{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+#kt-the .kt-khoi .kt-con{display:inline-flex;gap:3px;flex-wrap:wrap;padding:2px 4px;border:1px solid var(--vien);border-radius:999px;background:var(--the);margin:0}
+#kt-the .kt-khoi .kt-con .gd-chip{font-size:calc(12.5px*var(--co));padding:2px 9px;min-height:26px}#kt-the .kt-con .kt-con-phu{display:none}
+.kt-thao{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0;padding:5px 10px;background:var(--xanh-nhat);border:1px solid var(--xanh);border-radius:10px;font-size:calc(13px*var(--co))}
+.kt-thao .kt-thao-trai,.kt-thao .kt-thao-phai{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap}.kt-thao .kt-thao-gian{flex:1}
+.kt-thao > span > *{margin:0!important}.kt-thao .kt-a-thang{display:inline-flex}.kt-thao .kt-a-thang .sl-phu{display:none}.kt-thao label{margin:0}
+.kt-thao .to-the-so{font-size:calc(12px*var(--co));color:var(--chu-phu);padding:0;border:0;background:none}.kt-thao .kt-thao-phai .to-the-so{font-size:calc(13px*var(--co));color:var(--chu)}
+.kt-thao .kt-gn-dau{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}.kt-thao .kt-pv-gon > .sl-phu{display:none}
+.kt-thao .hang-nut{display:inline-flex;gap:6px;flex-wrap:wrap;padding:0;border:0}
+#kt-the .kt-dk-bang tbody td,#kt-the .kt-bc-bang tbody td{padding-top:2px;padding-bottom:2px}#kt-the .kt-dk-bang tbody td button{min-height:24px;padding:0 8px}
+details.kt-ghi{margin-top:6px}details.kt-ghi summary{cursor:pointer;color:var(--xanh-dam);font-size:calc(12.5px*var(--co))}

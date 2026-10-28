@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.397 — 28/10/2026 — KTGS gọn D1–D4 (TK 2)
+- **Anh 28/10 duyệt demo** ("em làm luôn"): khối mới **`js/78-ktgs-gon.js`** (cắm rút) — **chỉ dời các khối đã vẽ** trong `#kt-the` (MutationObserver trên `#tr7`, chạy lại được nhiều lần), không đổi hàm dựng màn / chỗ lưu / hàm dựng mẫu (luật `BAN_GIAO_KTGS`, t179 45/45).
+  - D1: `.kt-a-the` vào hàng `.kt-khoi`; phần " · Mẫu …" của nhãn bọc `<small class="kt-con-phu">` ẩn bằng CSS (chữ đủ giữ nguyên, rê chuột thấy).
+  - D2: `.kt-a-thang` + dòng "📌 Số liệu in…" + `.kt-gn-dau` (ô tháng GN, nút 📅 Tích tổ có lịch; chữ "Phạm vi: …" ẩn — đã có trên dải lọc) + dòng "đã chọn n tổ" gom vào `.kt-thao` trên bảng.
+  - D3: `.hang-nut.kt-in` (👁 Xem · 📋 Tóm tắt · Mẫu 06 trắng…) lên `.kt-thao`; bảng tổ dòng thấp hơn.
+  - D4: `p.ghi` dài → `<details>` ⓘ bấm mở.
+  - Lịch năm (`che = kh`) giữ nguyên bố cục (bảng lịch + nút PDF dưới bảng).
+- Lần thử đầu (rút gọn chữ / bỏ vỏ khối) làm 8 phép KTGS cũ trượt → đổi sang chỉ dời nguyên khối + ẩn bằng CSS: t108, t109, t110, t111, t119, t134, t137, t237 đạt lại.
+- Phép thử mới `t318` (gồm rút js/78); nhóm KTGS + t179, t245, t260, t312 đạt.
+
 ## 3.396 — 28/10/2026 — Lọc + sắp xếp cột bảng tổ (Tra cứu KH) (TK 2)
 - **Anh 28/10** (ảnh Tra cứu KH › Tìm theo Tổ trưởng): "làm bộ lọc và sắp xếp của các cột này". Khối mới **`js/77-bang-loc.js`** (cắm rút, dùng chung cho bảng khác): `blGan(table, khoa, cot)` — bấm tiêu đề ▲ tăng → ▼ giảm → thứ tự gốc; hàng lọc dưới tiêu đề: `chu` ô gõ (không dấu), `chon` ô chọn giá trị có trong cột, `so` = 0 · > 0 · mục riêng (TV: dưới ngưỡng 20 / vượt ngưỡng 100 theo ⚙ Ngưỡng); tfoot `[data-bl-dem]` / `[data-bl-cong]` tính lại theo dòng đang hiện; nhớ trong phiên (vẽ lại bảng vẫn giữ). Làm trên dòng đã vẽ — không đọc kho.
 - `js/58` `tcToTim` gắn `blGan(…, 'tcto', 7 cột)`; dòng ghi "n tổ" → "x / n tổ (đang lọc cột)" khi lọc.
