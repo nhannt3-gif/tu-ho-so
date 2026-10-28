@@ -264,6 +264,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Theo dõi nợ đã gỡ: làm lại sau nên đọc dữ liệu cũ ở IndexedDB khóa `tdn_du_lieu` (cấu trúc `NO = {ho, mon, lan, lanXoa, nhap, toAp, suaLuc}` — xem git `js/04e-theo-doi-no.js` bản 3.398) và Drive `_Hệ thống/theodoino.json`; nên đọc số liệu qua `KHO` (không bộ đọc Excel riêng — lý do gỡ, L1 RA_SOAT_HUONG_DI_2510).
 - Hàm tiện ích tên `tdn*` (tdnTien, tdnHoi, tdnCuoiKy…) vẫn dùng khắp app — ở `js/04e-chung.js`, không đổi tên.
 
+### Danh sách thử trên máy thật (3.400)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp Mẫu 31 tên đặt nhanh (vd "m31 t10.xlsx") | Xem trước có "→ lưu tên MAU31_2026-10-31.xlsx"; trên Drive Số liệu/2026-10/ đúng tên đó | |
+| 2 | Nạp Mẫu 31 kỳ phiên 19/10 | Tên MAU31_2026-10-19.xlsx | |
+| 3 | Nạp Mẫu 31 mà chưa có File Tổ trưởng cùng ngày | Báo "Chưa có File Tổ trưởng cùng ngày …", vẫn ghi nhận được | |
+| 4 | Mở Drive Số liệu/2026-10/DANH_MUC_NAP.csv bằng Excel | Đủ cột, tiếng Việt không lỗi font | |
+| 5 | ⋯ › 🏷 Chuẩn hóa tên file gốc → Đổi tên | Tên cũ đổi sang MÃ_ngày; app vẫn mở / tải file gốc được | |
+
+_Ghi chú kỹ thuật 3.400:_ `slTenGoc` / `slNgaySo` / `SL_MA` (js/22-so-lieu.js); sổ nạp + chuẩn hóa tên ở cuối js/22k-nap-kt.js (`slDmnDay` gọi cuối `slDay`, chữ ký sổ lưu `sl_dmn` trong máy; lệnh GD `slten.xem` / `slten.doi`).
+
 ### Danh sách thử trên máy thật (3.399.1)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

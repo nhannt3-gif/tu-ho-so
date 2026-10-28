@@ -1962,7 +1962,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.399.1', ds:[
+var CO_GI_MOI = {ban:'3.400', ds:[
+  ["🏷 Số liệu: file gốc lưu tên chuẩn MÃ_ngày số liệu (vd MAU31_2026-10-31) · sổ DANH_MUC_NAP.csv mỗi tháng · ⋯ › 🏷 Chuẩn hóa tên file tháng cũ", "doiNgan(7);slDoiTab('nap')"],
   ["🔧 Hướng dẫn › Có gì mới: các dòng bản 3.390–3.399 hiện đủ chữ (trước chỉ hiện biểu tượng), bấm mở đúng chỗ", "moHuongDan('moi')"],
   ["🧹 Tạm bỏ ⚠ Theo dõi nợ (Thư viện) — gỡ hết code (thẻ món, hồ sơ hộ, biên bản làm việc, phiếu món vay, nhắc Hôm nay, ô Giao ban / Buổi GD, gợi ý tên có dấu ở Scan); dữ liệu cũ giữ nguyên, làm lại sau", "doiNgan(3)"],
   ["📌 KTGS Kế hoạch năm: 📌 Chốt (ghi ngày chốt + khóa) · ✏ Sửa → 📌 Chốt lại theo ngày sửa · 📜 Lịch sử chốt; Định kỳ / Mẫu 04 dùng bản chốt mới nhất", "doiNgan(7);slDoiTab('kt')"],
@@ -1976,8 +1977,7 @@ var CO_GI_MOI = {ban:'3.399.1', ds:[
   ["👥 Tổ TK&VV: báo cáo lên hàng thao tác của bảng — 🧩 Sổ tổ viên luôn có; chọn tổ có chip DS hộ vay · Nợ · TK 105 · Chia tách + 👁 Xem (bớt 2 hàng)", "doiNgan(7);slDoiTab('to')"],
   ["📱 Điện thoại: chọn sâu tới tổ → hàng lọc 2 dòng, ô đọc được tên", "doiNgan(7);slDoiTab('to')"],
   ["📊 Tổng hợp 2 màn như Sao kê: màn 1 lưới báo cáo theo nhóm (chưa nạp mờ ⚠) · màn 2 hàng thao tác ← Danh sách · đổi báo cáo · In / PDF / Excel / Gửi + khung xem rộng", "doiNgan(7);slDoiTab('th')"],
-  ["🧩 Sao kê: 11 báo cáo danh sách (quá hạn, khoanh, đến hạn, giải ngân, SĐT…) tách thành khối riêng cắm rút — nội dung báo cáo giữ y nguyên", "doiNgan(7);slDoiTab('sk')"],
-  ["📄 Sao kê: Kết quả giao dịch tại điểm GD và THHD tự co lề / chữ cho vừa 1 trang (xem và in); co tới 8 pt vẫn không vừa thì sang trang 2", "doiNgan(7);slDoiTab('sk')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🧩 Sao kê: 11 báo cáo danh sách (quá hạn, khoanh, đến hạn, giải ngân, SĐT…) tách thành khối riêng cắm rút — nội dung báo cáo giữ y nguyên", "doiNgan(7);slDoiTab('sk')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

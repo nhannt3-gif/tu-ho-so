@@ -115,6 +115,7 @@
 | 28/10 | TK 2 | 3.399 | gỡ `js/04e-theo-doi-no.js` → `js/04e-chung.js` (phần dùng chung), `js/04b`, `04c`, `04d`, `06`, `06c`, `08`, `12`, `14`, `17`, `20`, `36`, `css/app.css` (75 luật), `tests/t149`, `t155` | hồi quy đủ 199/200 → t155 (CSS in TDN đã gỡ) sửa → 200/200 |
 | 28/10 | TK 2 | 3.399.1 | `js/06` (CO_GI_MOI 15 dòng đúng dạng [chữ, lệnh]), `tools/bump.py` (kiểm dạng moi), `tests/t192` | t192 7/7 |
 | 28/10 | TK 2 | (không số bản) | `tools/bump.py` (kiểm dạng Có gì mới TRƯỚC khi ghi file, cho lệnh rỗng), `tests/t192` — sửa lỗi 3.399.1 gộp kèm t192 hỏng (ống `| tail` che mã thoát) | t192 7/7 |
+| 28/10 | TK 2 | 3.400 | `js/22-so-lieu` (SL_MA, slMaTen, slNgaySo, slTenGoc mới, slGhiBlob thêm meta, slDay ghi sổ nạp, slGhi lanThay), `js/22k-nap-kt` (tên chuẩn ở mọi chỗ hiện, báo lệch ngày Mẫu 31 ↔ Tổ trưởng, DANH_MUC_NAP.csv, 🏷 chuẩn hóa tên tháng cũ), `docs/FILE_XUAT_HANG_THANG` mục F, `tests/t320` | t320 23/23 + hồi quy đủ |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

@@ -101,3 +101,11 @@ Số đo `tests/kiem.py` 3.387: 93 file js (~3,6 MB), 192 phép thử, 4 file >1
   5. Phụ (không cầu nối): kéo file từ dòng danh sách ra ngoài (`dataTransfer.setData('DownloadURL', mime+':'+tên+':'+url)`, Chrome) — thả ra Desktop / thư mục được; thả thẳng vào Zalo chưa chắc, cần anh thử.
   - Phép thử: script PowerShell chạy chế độ `TUHOSO_THU` (đã có) cho `chepclip`; phần trình duyệt giả lập `goiCauNoi`. Anh phải thử máy Windows thật.
 - **3.389.1 — chép lỗi "Đường dẫn không hợp lệ" — ĐÃ CHÉP ĐƯỢC (anh 28/10: "ok đã cho chép", sau khi lên 3.389.1). Nguyên nhân gốc chưa tách rõ (kiểu dấu NFC/NFD hay cài lại cầu nối); nếu lỗi lại, hộp lỗi mới in đường dẫn để dò.** Ghi cũ: cầu nối đã chạy và thấy thư mục gốc, nhưng nhánh `chep` 1 file từ chối đường dẫn — điều kiện: `$parts[0]` ≠ thư mục gốc, hoặc có ký tự `\ : * ? " < > |`. Đã thêm: app kiểm trước (`goiCauNoi`, báo kèm đường dẫn), script so `.Normalize()` + hộp lỗi in đường dẫn (anh phải tải lại bộ cài). Chờ anh gửi ảnh thông báo mới → biết nguyên nhân: đường dẫn thiếu gốc (sửa `thuMucCua` / `duongTuy`) hay kiểu dấu (NFD trên ổ G).
+
+## 9. Việc chờ — TK 2 ghi 28/10 (anh: "sẽ quay lại mẫu này sau")
+### 9.1 Sao kê nợ đến hạn — mẫu cột mới (anh gửi ảnh 28/10, chưa làm)
+- Tiêu đề "SAO KÊ MÓN VAY ĐẾN HẠN" · "Tháng mm năm yyyy" · "Đơn vị: đồng"; nhóm **Xã → Tổ** (dòng Xã: "Xã: mã - tên"; dòng Tổ: "Tổ: mã - tên tổ trưởng"), dòng Xã / Tổ có cộng (đậm nghiêng), STT tổ trong xã, STT khách trong tổ; hàng đánh số cột.
+- 12 cột: STT · Tên khách hàng · Mã món vay · Chương trình · Ngày vay · Ngày đến hạn · Số tháng đã gia hạn · Số tháng còn gia hạn · Ngày gia hạn cuối · Số tiền đến hạn · Lãi tồn · Dư tiết kiệm đến ngày báo cáo.
+- Có sẵn trong Mẫu 31: `ten`, `ku`, `ct`, `nv`, `dhg` / `dhgh`, lãi tồn, `t105`; "Số lần đã gia hạn" / "Tổng gia hạn nợ".
+- **Chờ anh** (hỏi 28/10): ① ảnh là báo cáo xuất từ hệ thống? — gửi file Excel (chỉ đọc ở thư mục nháp); ② công thức **số tháng còn gia hạn** + **ngày gia hạn cuối** (thử suy từ ảnh không khớp 1 luật: Hằng ĐH 20/11/2026 còn 29 → 21/04/2029; Loan ĐH 07/10/2026 còn 28 → 06/03/2029); ③ "Dư tiết kiệm" = TK 105 hay tiết kiệm tổ.
+- Khi làm: sửa `skBCDH` ở `js/76-sk-danh-sach.js` (báo cáo `dh`), giữ t276 cho các báo cáo khác; bản chụp `dh` của t276 sẽ đổi → chụp lại có anh duyệt.

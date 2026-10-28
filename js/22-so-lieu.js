@@ -611,7 +611,7 @@ function slGhi(kq){
   slNen.them = null;
   var e = {loai:kq.loai, ky:ky, ngay:kq.ngay, nguonKy:kq.nguonKy, ngayXuat:kq.ngayXuat||'', tenFile:kq.ten, kich:kq.kich, hash:kq.hash, sheet:kq.sheet, hang:kq.hang,
            soDong:kq.rows.length, bo:kq.bo, tong:kq.tong, ngayLap:kq.ngayLap||'', donVi:kq.donVi||'', ban:APP_BAN, luc:new Date().toISOString(), may:maMayCua(), choDay:true, cuGoc:'', cuDl:''};
-  if(cu){ e.cuGoc = [cu.goc, cu.cuGoc].filter(Boolean).join(','); e.cuDl = [cu.dl, cu.cuDl].filter(Boolean).join(','); }   /* bản cũ trên Drive → thùng rác Drive khi đẩy bản mới */
+  if(cu){ e.cuGoc = [cu.goc, cu.cuGoc].filter(Boolean).join(','); e.cuDl = [cu.dl, cu.cuDl].filter(Boolean).join(','); e.lanThay = (cu.lanThay||0)+1; e.tenTruoc = cu.tenFile||''; }   /* 3.400: sổ nạp ghi lần thay */   /* bản cũ trên Drive → thùng rác Drive khi đẩy bản mới */
   var giu = Promise.resolve();
   if(cu) giu = slRacVao(k, 'Thay bằng file mới “'+(kq.ten||'')+'”');   /* 3.153 (anh chốt): bản cũ vào 🗑 Thùng rác (ngăn Số liệu) — bỏ ↩ hoàn tác lần thay */
   return giu.then(function(){ return Promise.all([luuFile(slIDB(kq.loai, ky), b), luuFile('sl_g_'+kq.loai+'_'+ky, kq.file)]); }).then(function(){
@@ -637,7 +637,7 @@ function slRacCho(ids){   /* file Drive → Thùng rác ngay nếu đang nối, 
 function slRacMuc(e, lyDo, kA, kG){
   var L = slLoai(e.loai) || {ten:e.loai}, id = 'slr'+Date.now().toString(36)+Math.random().toString(36).slice(2, 6), now = new Date().toISOString();
   var c = {}; Object.keys(e).forEach(function(f){ if(f!=='truoc' && f!=='canTai') c[f] = e[f]; });
-  var m = {id:id, khoCu:'soLieu', tenMoi:L.ten+' · '+slKyChu(e.ky)+(e.tenFile ? ' — '+e.tenFile : ''), co:+e.kich||0, xoaLuc:now, suaLuc:now, lyDoXoa:lyDo||'Anh xóa',
+  var m = {id:id, khoCu:'soLieu', tenMoi:L.ten+' · '+slKyChu(e.ky)+' — '+slTenGoc(e), co:+e.kich||0, xoaLuc:now, suaLuc:now, lyDoXoa:lyDo||'Anh xóa',
            sl:{loai:e.loai, ky:e.ky, e:c}, kA:kA || 'slr_'+id+'_a', kG:kG || 'slr_'+id+'_g'};
   D.rac = D.rac || []; D.rac.push(m); return m;
 }
@@ -753,10 +753,17 @@ function slBoLoaiDon(){
 var SL_HEN = null, SL_DANG_DAY = false;
 function slHenDay(){ if(coTheNoiDrive() && DR.sanSang){ clearTimeout(SL_HEN); SL_HEN = setTimeout(slDay, 3000); } }
 function slThuMuc(){ return D.cauHinh.thumuc+'/_Hệ thống/so_lieu'; }
-function slTenGoc(e){ var d = (e.tenFile||'').match(/\.[a-z0-9]+$/i); return (e.ngay||e.ky)+' '+slLoai(e.loai).ten+(d ? d[0].toLowerCase() : '.xlsx'); }
-function slGhiBlob(ten, idTM, blob, cuId){
+/* 3.400 (anh chốt 28/10 — Tèo, docs/TEO_PHOI_HOP.md mục 4): TÊN CHUẨN file gốc = <MÃ>_<YYYY-MM-DD>.<đuôi gốc> (loại trước, ngày sau),
+   ngày = ngày số liệu: ô tháng → ngày cuối tháng, ô ngày (kỳ phiên, sao kê…) → đúng ngày đó. Tên anh đặt giữ ở e.tenFile + mô tả file trên Drive + sổ DANH_MUC_NAP. */
+var SL_MA = {hstd:'MAU31', dsto:'TOTRUONG', dnct:'DNCT', tt:'TTTT', khd:'KHD14', nqh:'NQH', nk:'NOKHOANH', pk:'PHANKY', tdn:'TDNCT', tv01:'TV01', tk104:'TK104', tk105:'TK105',
+  bx:'BCDHTD011', bc:'BCDHTD012', lx:'LEN31XA', lh:'LEN31HOI', lc:'LEN31CT', lt:'LEN31TT', k37:'BC0437', k38:'BC0438', m10:'MAU10', kh:'SKKH', kttk:'MAU7', b32:'B32', khd08:'KHD08'};
+function slMaTen(loai){ return SL_MA[loai] || String(loai||'').toUpperCase(); }
+function slNgaySo(e){ var k = String(e.ky||''); if(k.length>7) return k; return (e.ngay && slThang(e.ngay)===k) ? e.ngay : (k ? tdnCuoiKy(k) : ''); }
+function slTenGoc(e){ var d = (e.tenFile||'').match(/\.[a-z0-9]+$/i); return slMaTen(e.loai)+'_'+slNgaySo(e)+(d ? d[0].toLowerCase() : '.xlsx'); }
+function slGhiBlob(ten, idTM, blob, cuId, them){
   var bien = '----tuhoso'+Date.now();
   var meta = cuId ? {} : {name:ten, parents:[idTM]};
+  Object.keys(them||{}).forEach(function(f){ meta[f] = them[f]; });
   var body = new Blob(['--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+'\r\n--'+bien+'\r\nContent-Type: '+(blob.type||'application/octet-stream')+'\r\n\r\n', blob, '\r\n--'+bien+'--']);
   return goiDrive(cuId ? 'https://www.googleapis.com/upload/drive/v3/files/'+cuId+'?uploadType=multipart&fields=id'
                        : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',
@@ -772,7 +779,7 @@ function slDay(){
       return Promise.all([docFile('sl_g_'+e.loai+'_'+e.ky), docFile(slIDB(e.loai, e.ky))]).then(function(r){
         var buoc = Promise.resolve();
         if(r[0] && !e.goc) buoc = buoc.then(function(){ return baoDamDuong(D.cauHinh.thumuc+'/Số liệu/'+slThang(e.ky)); })
-          .then(function(idTM){ return dayBlobLenDrive(slTenGoc(e), r[0].type, r[0], idTM); })
+          .then(function(idTM){ return slGhiBlob(slTenGoc(e), idTM, r[0], null, {description:'Tên gốc: '+(e.tenFile||'')}); })
           .then(function(x){ if(x && x.id){ e.goc = x.id; return xoaFile('sl_g_'+e.loai+'_'+e.ky); } });   /* file gốc đã lên Drive → bỏ bản trong máy cho nhẹ */
         if(r[1] && !e.dl) buoc = buoc.then(function(){ return Promise.all([baoDamDuong(slThuMuc()+'/'+slThang(e.ky)), slGZ(JSON.stringify(r[1]))]); })
           .then(function(x){ return slGhiBlob(e.loai+(e.ky.length>7 ? '_'+e.ky : '')+x[1].duoi, x[0], x[1].blob, null); })
@@ -792,7 +799,7 @@ function slDay(){
       return timFileTrong('khach_hang.json.gz', x[0]).then(function(cu){ return cu ? cu : timFileTrong('khach_hang.json', x[0]); })
         .then(function(cu){ return slGhiBlob('khach_hang'+x[1].duoi, x[0], x[1].blob, cu ? cu.id : null); });
     }).then(function(){ SLM.choDayDB = false; });
-  }).then(slDayMeta).then(function(){
+  }).then(slDayMeta).then(function(){ return typeof slDmnDay==='function' ? slDmnDay() : null; }).then(function(){
     luuFile('sl_meta', JSON.stringify(SLM));
     SL_DANG_DAY = false; if(nganHienTai===7) veSoLieu();
   }).catch(function(er){ SL_DANG_DAY = false; console.warn('Đồng bộ số liệu lỗi', er); });

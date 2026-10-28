@@ -231,6 +231,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t317.js` | 3.396: lọc + sắp xếp cột bảng tổ Tra cứu KH (js/77) — hàng lọc 7 cột, bấm TV ▲ / ▼ / về gốc, xếp tên chữ Việt, lọc Xã (+ Hội), dòng Cộng theo lọc, TV dưới ngưỡng, ô tên gõ không dấu, vẽ lại giữ lọc, rút js/77 bảng như cũ — bộ `gianho31`. |
 | `node tests/t318.js` | 3.397: KTGS gọn (js/78) — D1 thẻ con trong hàng 3 khối (chữ phụ ẩn CSS), D2 1 hàng thao tác (Tháng kiểm tra · số liệu · đã chọn), không hiện "Phạm vi", D3 nút Xem / Tóm tắt trên bảng, D4 ghi chú ⓘ, tích tổ vẽ lại vẫn 1 hàng, Xem mở hộp, Sau giải ngân / Mẫu 04, rút js/78 như cũ — bộ `gianho31`. |
 | `node tests/t319.js` | 3.398: Kế hoạch năm chốt (khóa, chặn đổi tháng, ✏ Sửa nháp — Định kỳ vẫn bản chốt, Chốt lại → bản 2, ↶ Bỏ sửa, 📜 Lịch sử 2 lần) · khai báo Hội khóa (chặn ghi, ô chỉ xem, mauKH vẫn đổi), 📜 Nhật ký cũ → mới, ↶ Khôi phục · tên chip / nút mới · dòng đầu Hội – xã đúng chỗ — bộ `gianho31`. |
+| `node tests/t320.js` | 3.400 (Tèo): tên chuẩn file gốc `<MÃ>_<YYYY-MM-DD>` (ô tháng / ô ngày), MÃ riêng từng loại, tên hiện + (anh đặt), xem trước "→ lưu tên" + báo lệch ngày Mẫu 31 ↔ Tổ trưởng, lần thay, sổ DANH_MUC_NAP.csv (BOM, 12 cột, không ghi lại khi không đổi), 🏷 chuẩn hóa tên tháng cũ (PATCH tên + mô tả) — bộ `gianho31`, Drive giả. |
 | (3.389.2) | Chỉ CSS. |
 | (3.389.1) | Thử goiCauNoi bằng node trong lượt sửa. |
 | (3.389) | t147 thêm nút 📋 Chép. |
