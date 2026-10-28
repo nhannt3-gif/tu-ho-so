@@ -15,12 +15,14 @@ const fs=require('fs'), path=require('path');
    kyChungDoi('2026-08'); const C = thCH(); C.xa=''; C.diem=''; C.hoi=''; C.to=''; C.ct=''; C.nguon=''; C.bc = {xa:true, nv:true}; delete C.bcChon;
    slDoiTab('th'); doiNgan(7); for(let i=0;i<60 && !document.querySelector('#tr7 .th-nguon');i++) await w(250); await w(800);
    const tr7 = document.getElementById('tr7'), goc = () => (document.getElementById('th-xem-khung')||{}).trGoc || '';
-   ok('3 nhóm: Chuẩn TW · LEN_31 · Tính từ Mẫu 31; mỗi báo cáo có nhãn cấp', [...tr7.querySelectorAll('.th-nhom-ten')].map(x=>x.textContent).join('|')==='Chuẩn TW|LEN_31|Tính từ Mẫu 31' && tr7.querySelectorAll('.th-bc-gon .th-cap').length===9);
-   ok('chọn 1 báo cáo (◉), không còn ô tích nhiều + không còn nút 👁 Xem', tr7.querySelectorAll('.th-bc-gon input[type=radio]').length===9 && !tr7.querySelector('.th-bc-gon input[type=checkbox]') && ![...tr7.querySelectorAll('button')].some(x=>/👁 Xem/.test(x.textContent)));
+   ok('3 nhóm: Chuẩn TW · LEN_31 · Tính từ Mẫu 31; mỗi báo cáo có nhãn cấp', [...tr7.querySelectorAll('.th-nhom-ten')].map(x=>x.textContent).join('|')==='Chuẩn TW|LEN_31|Tính từ Mẫu 31' && tr7.querySelectorAll('.th-luoi .th-bc2 .th-cap').length===9);
+   ok('3.393 màn 1: lưới 9 nút báo cáo (bấm = mở màn xem), không ô tích + không nút 👁 Xem', tr7.querySelectorAll('.th-luoi .th-bc2').length===9 && !tr7.querySelector('#tr7 input[type=checkbox][name]') && ![...tr7.querySelectorAll('button')].some(x=>/👁 Xem/.test(x.textContent)));
    ok('dữ liệu cũ tích nhiều → giữ cái đầu (01.1)', thChon()==='xa');
-   ok('xem ngay ở khung phải (01.1 chưa nạp → báo chưa nạp file)', /Chưa nạp/.test(goc()));
+   thChonBC(thChon()); for(let i=0;i<40 && !goc();i++) await w(200);
+   ok('3.393 màn 2: ← Danh sách + ô sổ đổi báo cáo + khung xem rộng', !!tr7.querySelector('.th-thao button') && /Danh sách/.test(tr7.querySelector('.th-thao button').textContent) && !!tr7.querySelector('.th-thao select.sk-chon') && document.getElementById('th-xem-khung').getBoundingClientRect().width > 900);
+   ok('xem ngay ở khung xem (01.1 chưa nạp → báo chưa nạp file)', /Chưa nạp/.test(goc()));
    thChonBC('nv'); for(let i=0;i<40 && !/NGUỒN VỐN/.test(goc());i++) await w(200);
-   ok('bấm báo cáo khác → khung phải đổi ngay, app nhớ', /NGUỒN VỐN/.test(goc()) && thCH().bcChon==='nv' && !!document.querySelector('#tr7 .xuat-hang'));
+   ok('bấm báo cáo khác → khung xem đổi ngay, app nhớ', /NGUỒN VỐN/.test(goc()) && thCH().bcChon==='nv' && !!document.querySelector('#tr7 .xuat-hang'));
    /* sửa lỗi lọc nguồn vốn */
    const T = TH_K.K.to, t0 = Object.values(T).find(t=>!toLaTT(t) && t.dv && t.xa);
    const tong = x => { const r = x.aoa[x.aoa.length-1]; return r; };
@@ -35,7 +37,7 @@ const fs=require('fs'), path=require('path');
    /* phạm vi sâu hơn biểu */
    const b01 = TH_BC.find(x=>x.k==='xa');
    ok('phạm vi sâu hơn biểu: 01.1 với Hội / Tổ → thSau báo; Lọc sâu không báo', thSau(b01, C).length>0 && thSau(TH_BC.find(x=>x.k==='tk'), C).length===0);
-   veTongHop(); for(let i=0;i<40 && !document.querySelector('#th-ds .th-mo2');i++) await w(200); o.push('  (phạm vi sau vẽ: '+[C.xa,C.diem,C.hoi,C.to].join('|')+')');
+   thVeDS(); for(let i=0;i<40 && !document.querySelector('#th-ds .th-mo2');i++) await w(200); o.push('  (phạm vi sau vẽ: '+[C.xa,C.diem,C.hoi,C.to].join('|')+')');
    ok('danh sách: 01.1 mờ (rê chuột "chỉ chia tới xã")', !!document.querySelector('#th-ds .th-mo2') && /chỉ chia tới xã/.test(document.querySelector('#th-ds .th-mo2').title));
    thChonBC('xa'); await w(800);
    const bnv = TH_BC.find(x=>x.k==='nv'); C.ct = Object.keys((TH_K.K.hs||[]).reduce((a,o)=>{ if(o.ct) a[o.ct]=1; return a; }, {}))[0]||'01'; thChonBC('nv'); for(let i=0;i<30 && !/không lọc được/.test(goc());i++) await w(200);

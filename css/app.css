@@ -4136,3 +4136,9 @@ body.bot-chon-chep .thanh-bot button.chinh{background:var(--luc);color:#fff}
 body.bot-chon-chep [data-bot]::after{border-color:var(--luc)}
 body.bot-chon-chep [data-bot][data-botc]::after{background:var(--luc)}
 body.bot-chon-chep [data-bot][data-botc]{outline-color:var(--luc)}
+/* 3.393: Tổng hợp 2 màn — dùng chung lưới / hàng thao tác / khung xem của Sao kê (.sk-luoi2 · .sk-thao · .sk-xem-khung) */
+.th-luoi .sk-bc2.th-mo{color:var(--chu-phu)}.th-luoi .sk-bc2.th-mo2{opacity:.6}.th-luoi .sk-bc2.chon.th-mo{color:#fff}
+.th-luoi .bt-khoi{display:flex;flex-direction:column;gap:4px}
+.th-thao #th-xem-nut .xuat-hang{margin:0;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.th-thao #th-xem-nut .xuat-hang button{min-height:28px;padding:2px 9px;font-size:calc(12.5px*var(--co))}
+@media(max-width:600px){ .th-thao .sk-chon{flex:1 1 100%;max-width:100%;min-width:0;width:100%;order:-1} .th-thao #th-xem-nut{flex:1 1 100%} .th-thao #th-xem-nut .xuat-hang{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto} .th-thao #th-xem-nut .xuat-hang button{flex:0 0 auto} }
