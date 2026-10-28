@@ -227,6 +227,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t313.js` | 3.391: báo cáo tổng hợp vừa 1 trang — biểu ngang 34 dòng / dọc 55 dòng có cờ `motTrang` co còn 1 trang (dọc giữ khổ dọc), 200 dòng sang trang 2 ở 8 pt, bảng ngắn không co thừa, SK_BC khai kqgd + thhd, Sao kê kqgd / thhd gắn cờ, danh sách không — bộ `gianho31`. |
 | `node tests/t314.js` | 3.392: Sao kê báo cáo danh sách ở `js/76` (cắm rút) — có file: 18 báo cáo, thứ tự nhóm như cũ, 13 báo cáo `lap`, thiếu Mẫu 31 → trang nhắc (`skNen31`); rút file (chặn tải js/76): còn 7 báo cáo nhóm Thông tin tổ, mở Kết quả GD được, không lỗi trang — bộ `gianho31`. Nội dung từng báo cáo: t276. |
 | `node tests/t315.js` | 3.394: Tổ TK&VV báo cáo trên hàng thao tác — bảng tổ có 🧩 Sổ tổ viên, không khối trên đầu; chọn tổ: chip DS hộ vay* · Nợ · TK 105 · Chia tách + 👁 Xem, bấm chip bật thêm (lưu), Xem mở đủ báo cáo; điện thoại chọn tới tổ ô ≥ 100 px — bộ `gianho31`. |
+| `node tests/t316.js` | 3.395: Scan CCCD — hàng chờ Thẻ còn ảnh quá 30 phút → quét mới thì hỏi (Bỏ ảnh cũ / Giữ ghép tiếp), bỏ → chỉ ảnh mới, giữ → như cũ, quét liền tay không hỏi; Đọc số CCCD không dùng `SX_DOC` lượt trước — ảnh GIẢ. |
 | (3.389.2) | Chỉ CSS. |
 | (3.389.1) | Thử goiCauNoi bằng node trong lượt sửa. |
 | (3.389) | t147 thêm nút 📋 Chép. |

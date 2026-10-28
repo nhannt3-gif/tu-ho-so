@@ -243,6 +243,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - `toBangDau(tieu, nut)` (js/22gb) nay luôn chèn `toNutBC()` đầu hàng nút — chỉ dùng ở tab Tổ TK&VV (4 chỗ: bảng xã / điểm, danh sách tổ, tổ viên, danh sách khách phạm vi).
 - `dkNutHTML(o, gon)`: `gon` = nút 🧩 rời (không khung nhóm) — Sao kê vẫn dùng kiểu khung.
 
+### Ghi chú kỹ thuật 3.395
+- `tuhoso_hang` (localStorage hàng chờ) thêm `cham` = lần ghi gần nhất; `scanCuSot()` dùng `cham` (bản cũ chưa có → `luc`).
+- `nhanVaoScan(fs, nguon, daHoi)` — tham số 3 mới; mọi chỗ bọc hàm này phải chuyển tiếp `daHoi`.
+- KTGS: chip báo nay qua `slChipThem` trong `ktDauHTML` (sau `kyGhiHTML` — thứ tự quan trọng vì `kyGhiHTML` xóa chip cũ).
+
+### Danh sách thử trên máy thật (3.395)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Quét CCCD 1 người, KHÔNG lưu, để > 30 phút → quét người mới | Hỏi "Hàng chờ còn n ảnh thẻ chưa lưu" — Bỏ ảnh cũ → chỉ còn thẻ mới; Đọc số CCCD ra đúng người mới | |
+| 2 | Quét liền 2 mặt 1 người | Không hỏi, ghép như cũ | |
+| 3 | KTGS | Chip BC0437 / BC0438 nằm trên dải LỌC ĐỊA BÀN | |
+
 ### Danh sách thử trên máy thật (3.394)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

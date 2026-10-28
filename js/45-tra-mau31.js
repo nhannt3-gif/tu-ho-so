@@ -174,9 +174,15 @@ function trDoc(id){
   var N = trNguon(id), xong = function(so, tu, ten){ e.__the = {so:so, ten:ten || ''}; e.value = so; e.removeAttribute('data-tr-da'); kq.innerHTML = '<small>🪪 Đọc được số <b>'+coChuHTML(so)+'</b> ('+coChuHTML(tu)+') — đang tra Mẫu 31…</small>'; trChay(id); };
   var moQuet = function(ly){ kq.innerHTML = '<span class="vang">'+coChuHTML(ly)+' — mở quét CCCD (chụp / ảnh có sẵn / lấy từ tủ).</span>'; qcMo({loai:'tra', o:id}); };
   /* ① bản quét CCCD đang lưu mới: bộ đọc tự chạy sau khi quét (3.264) */
-  if(trNoi(id)==='luu' && N.the){ var x = (typeof SX_DOC!=='undefined' && SX_DOC[0]) || {};
+  if(trNoi(id)==='luu' && N.the){ var dung = typeof SX_DOC!=='undefined' && typeof SX!=='undefined' && SX && SX_DOC.length && SX_DOC.luc && SX_DOC.luc===SX.docLuc, x = (dung && SX_DOC[0]) || {};   /* 3.395: chỉ kết quả của đúng lượt đang mở */
     if(x.dang) return void(kq.innerHTML = '<small>🔎 App đang đọc thẻ vừa quét — chờ chút rồi bấm lại.</small>');
-    return x.cccd ? xong(x.cccd, 'thẻ vừa quét', x.nguon==='QR' ? x.ten : '') : moQuet('Thẻ vừa quét chưa đọc được số'); }
+    if(x.cccd) return xong(x.cccd, 'thẻ vừa quét', x.nguon==='QR' ? x.ten : '');
+    var g = (typeof scanNhom==='function' && scanNhom()[0]) || [];   /* chưa có kết quả của lượt này → đọc ngay ảnh thẻ đang có trong hàng */
+    if(!g.length) return moQuet('Thẻ vừa quét chưa đọc được số');
+    kq.innerHTML = '<small>🪪 Đang đọc số CCCD trên ảnh thẻ vừa quét…</small>';
+    return Promise.all([g[0] ? docAnhHS(g[0].id) : null, g[1] ? docAnhHS(g[1].id) : null]).then(function(b){ return b[0] || b[1] ? docCCCD(b[0], b[1]) : null; })
+      .then(function(r){ if(document.getElementById(id)!==e) return; if(r && r.cccd) xong(r.cccd, 'thẻ vừa quét', r.nguon==='QR' ? r.ten : ''); else moQuet('Thẻ vừa quét chưa đọc được số'); },
+        function(){ if(document.getElementById(id)===e) moQuet('Thẻ vừa quét chưa đọc được số'); }); }
   kq.innerHTML = '<small>🪪 Đang đọc số CCCD'+(N.the ? ' trên ảnh thẻ' : N.trang && N.trang.length ? ' trên trang tài liệu (chữ số)' : '')+'…</small>';
   var p = N.the && N.k ? sxAnhDoc(N.k).then(function(b){ return b[0] || b[1] ? docCCCD(b[0], b[1]) : null; }).then(function(r){ return r && r.cccd ? {so:r.cccd, tu:'ảnh thẻ — '+(r.nguon||''), ten:r.nguon==='QR' ? r.ten : ''} : null; })   /* 3.321: giữ họ tên trên thẻ (QR có dấu) */
     : N.trang && N.trang.length ? N.trang.reduce(function(pp, t){ return pp.then(function(kq0){ return kq0 || trTrangCanvas(t).then(function(c){ return c ? sxOCR(c, '0123456789') : ''; })

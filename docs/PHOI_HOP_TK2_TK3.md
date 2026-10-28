@@ -106,6 +106,7 @@
 | 28/10 | TK 2 | 3.393 | `js/22i` (veTongHop 2 màn, thDsHTML lưới, thChonHTML, thVeDS, thChonBC, thXemNgay), `css/app.css` (cuối: .th-luoi, .th-thao), `tests/t153`, `t159` | t153 · t159 + 16 phép Tổng hợp / bố cục đạt |
 | 28/10 | TK 2 | 3.394 | `js/22gb` (toBangDau + toNutBC, bỏ hàng Báo cáo của tổ, bỏ khối dk trên đầu), `js/62` (dkNutHTML gon), `css/app.css`, `css/dt-may.css` (≥ 4 ô lọc 2 dòng), `tests/t315` mới, `t300` | t315 + 12 phép tab Tổ / lọc đạt |
 | 28/10 | TK 2 | (không số bản) | hồi quy đủ trên 3.394: **196/196 đạt**; `tests/hoiquy_moc.json` cập nhật mốc | 196/196 |
+| 28/10 | TK 2 | 3.395 | `js/12` (scanCuSot/scanHoiCu/scanCuXong, ghiHang cham), `js/41` (nhanVaoScan daHoi, SX_DOC.luc), `js/45` (trDoc đúng lượt), `js/22b` + `js/56` (KTGS chip lên dải lọc), `css/app.css`, `tests/t316` mới, `t245` | t316 · t245 · nhóm KTGS 41 phép · Scan 13 phép đạt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

@@ -218,7 +218,22 @@ function chonNguon(n){
    3.35: ảnh → giữ ảnh gốc (hs_<id>_goc) rồi tự cắt, nắn, xoay/lật, lọc; PDF (chế độ Tài liệu) → tách từng trang
    để dời, xoay, bỏ, chèn (trước đây file PDF chọn từ nguồn "File" bị bỏ mất khi lưu) */
 var HANG = [];
-function nhanVaoScan(fs, nguon){
+/* 3.395 (anh 28/10: quét CCCD mới mà "Đọc số CCCD" ra thẻ quét trước — hàng chờ còn sót 1 mặt thẻ cũ, app tự ghép với mặt mới):
+   chế độ Thẻ, hàng chờ còn ảnh chưa lưu đã để quá 30 phút → hỏi Bỏ ảnh cũ / Giữ ghép tiếp trước khi nhận ảnh mới */
+var SC_CHO = null;
+function scanCuSot(){ if(SC.che!=='the' || !HANG.some(function(x){ return x.kieu==='anh'; })) return 0;
+  var j = null; try{ j = JSON.parse(localStorage.getItem(KHOA_HANG)||'null'); }catch(e){} var t = j && (j.cham || j.luc); return t && Date.now()-new Date(t).getTime() > 30*60000 ? t : 0; }
+function scanHoiCu(fs, nguon, t){
+  SC_CHO = {fs:fs, nguon:nguon}; var n = HANG.filter(function(x){ return x.kieu==='anh'; }).length, d = new Date(t);
+  moHop('<div class="hop-tit">Hàng chờ còn '+n+' ảnh thẻ chưa lưu</div><div class="hop-phu">Quét lúc '+hai(d.getHours())+':'+hai(d.getMinutes())+' ngày '+hai(d.getDate())+'/'+hai(d.getMonth()+1)+
+    ' — chưa Lưu vào tủ. Quét thẻ người mới thì nên <b>bỏ ảnh cũ</b>, tránh ghép nhầm mặt thẻ người trước với người mới.</div>'+
+    '<div class="hang-nut"><button class="nho" onclick="scanCuXong(0)">Giữ, ghép tiếp</button><button class="nho chinh" onclick="scanCuXong(1)">🗑 Bỏ ảnh cũ, quét mới</button></div>', true);
+}
+function scanCuXong(bo){ var c = SC_CHO; SC_CHO = null; dongHop(); if(!c) return;
+  if(bo){ donGocHang(); HANG.forEach(function(x){ xoaFileHang(x, []); }); HANG = []; SX = null; if(typeof SXK!=='undefined') SXK = []; if(typeof SX_DOC!=='undefined') SX_DOC = []; ghiHang(); }
+  nhanVaoScan(c.fs, c.nguon, 1); }
+function nhanVaoScan(fs, nguon, daHoi){
+  var tCu = !daHoi && scanCuSot(); if(tCu) return scanHoiCu(fs, nguon, tCu);
   var che = SC.che==='the' ? 'the' : 'tailieu', soPDFBo = 0, moi = [], hong = [];   /* 3.288: ảnh không đọc được → bỏ riêng ảnh đó, báo tên + định dạng (trước dừng cả lượt) */
   batChay(false, 'Đang cắt, nắn ảnh 0/'+fs.length+'…');
   var dem = 0;
@@ -916,7 +931,7 @@ function ghiHang(){
   try{
     var ds = HANG.filter(function(x){ return x.kieu!=='file'; });
     var cu = null; try{ cu = JSON.parse(localStorage.getItem(KHOA_HANG)||'null'); }catch(e){}
-    if(ds.length) localStorage.setItem(KHOA_HANG, JSON.stringify({che:SC.che, ds:ds, luc:(cu && cu.luc) || new Date().toISOString()}));   /* 3.155: mốc bắt đầu phiên — quá 7 ngày tự bỏ */
+    if(ds.length) localStorage.setItem(KHOA_HANG, JSON.stringify({che:SC.che, ds:ds, luc:(cu && cu.luc) || new Date().toISOString(), cham:new Date().toISOString()}));   /* 3.395: cham = lần đụng gần nhất (scanCuSot) */   /* 3.155: mốc bắt đầu phiên — quá 7 ngày tự bỏ */
     else localStorage.removeItem(KHOA_HANG);
   }catch(e){}
 }
