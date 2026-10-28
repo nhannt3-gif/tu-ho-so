@@ -235,6 +235,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Hàm dùng chung còn ở `js/22h`: `skBang`, `skTrongPV`, `skNen31`, nợ đến hạn (`skNhomDH`, `skHL`, `skConGH`), phân kỳ (`skPK*`, `SK_PK`), `skQua1Thang` (js/62 dùng).
 - `tests/ghep.py` nay đọc cả dòng có chú thích → `docs/BAN_DO_MA.md` có thêm js/70–76.
 
+### Ghi chú kỹ thuật 3.393
+- Tổng hợp dùng lại lớp CSS Sao kê (`.sk-luoi2`, `.sk-bc2`, `.sk-thao`, `.sk-chon`, `.sk-xem-khung`) — sửa kiểu 2 màn thì 2 tab cùng đổi (đúng hướng "khuôn chuẩn"). Riêng Tổng hợp: `.th-luoi`, `.th-thao` (cuối `css/app.css`).
+- Lớp `.th-bo`, `.th-bo2`, `.th-cot`, `.th-bc-gon` vẫn dùng ở Hồ sơ (js/25) và Phân bổ (js/48) — không xóa.
+
+### Danh sách thử trên máy thật (3.393)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở Tổng hợp | Lưới báo cáo theo nhóm; báo cáo chưa có file mờ ⚠ | |
+| 2 | Bấm 1 báo cáo → đổi lọc xã / hội | Khung xem rộng, tự vẽ lại; ← Danh sách quay lại | |
+| 3 | Điện thoại: Tổng hợp màn xem | Ô đổi báo cáo rộng, nút In / PDF / Excel 1 dòng vuốt ngang | |
+
 ### Danh sách thử trên máy thật (3.392)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

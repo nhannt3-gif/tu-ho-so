@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.393 — 28/10/2026 — Tổng hợp 2 màn như Sao kê (TK 2)
+- **Bàn giao TK 3 mục 3.3** (anh duyệt hướng 27/10 "tab Tra cứu KH là chuẩn… Sao kê → Tổng hợp cùng 2 màn"): bỏ bố cục 2 cột (danh sách ◉ hẹp + khung phải). **Màn 1**: lưới nhóm Chuẩn TW · LEN_31 · Tính từ Mẫu 31 · 🧩 Báo cáo của tôi (dùng chung `.sk-luoi2` / `.sk-bc2` của Sao kê), tên ngắn + nhãn cấp, chưa nạp mờ ⚠, biểu không chia được phạm vi đang chọn mờ (rê chuột xem lý do). **Màn 2**: `.sk-thao` ← Danh sách · ô sổ đổi báo cáo (optgroup) · bộ nút xuất chuẩn; khung xem trải ngang (`.sk-xem-khung`), đổi lọc tự vẽ lại. Nhớ màn (`thTK.man`) + báo cáo.
+- `thChonBC` → mở màn xem; `thVeDS` mới; `thXemNgay` ở màn danh sách tô lại lưới. Điện thoại: ô đổi báo cáo rộng hết, nút xuất 1 dòng vuốt ngang.
+- Phép thử: t153, t159 sửa theo bố cục mới; t105, t140, t143, t145, t148, t155, t156, t162, t172, t196, t241, t246, t247, t259, t260, t312 đạt.
+
 ## 3.392 — 28/10/2026 — Sao kê: báo cáo danh sách thành khối cắm rút (TK 2)
 - **Bàn giao TK 3 mục 6** ("chuyển dần báo cáo còn trong `skBaoCao` sang `lap()`"): 11 báo cáo nhóm Nợ cần xử lý · Nợ đến hạn · Phát sinh tháng · Khách hàng (qh, kh, khd, cgn, dh, noxh, pkto, gn, ddn, m105, sdt) chuyển sang **`js/76-sk-danh-sach.js`** (`SK_BC.push` + `lap`), thân hàm chép nguyên (`skBCDanhSach`, `skBC31`, `skBCChuaGN`, `skBCDH`, `skBCNOXH`, `skBCPKTo`). `skBaoCao` chỉ còn: Thông tin tổ (`ttBaoCao`) + báo cáo tự lập. Nền chung Mẫu 31: `skNen31` (js/22h). Thứ tự danh mục giữ như cũ.
 - Rút `js/76` (bỏ dòng `<script>`): app chạy, Sao kê còn nhóm Thông tin tổ; báo cáo mặc định = báo cáo đầu danh mục (trước cố định `qh`).
