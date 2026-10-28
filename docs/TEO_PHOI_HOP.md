@@ -46,12 +46,13 @@ Nguyên tắc: **nạp ít file nhất, còn lại tự tính từ Mẫu 31.** H
 ## 4. Kho "Số liệu gốc" — app tạo, nạp qua app (anh chốt 28/10/2026)
 
 - **Anh nạp file qua app**; app là "cửa nhập kho" duy nhất: kiểm ngày số liệu, đặt tên chuẩn, lưu. **Giao ban chỉ đọc.**
-- Nơi lưu (đề xuất, app chốt chi tiết khi lên kế hoạch): `Tủ hồ sơ\Số liệu gốc\<YYYY-MM>\<YYYY-MM-DD>_<Loại>.<đuôi gốc>`
-  - Ví dụ: `2026-10-31_Mau31.xlsx` · `2026-10-31_ToTruong.xlsx` · `2026-10-31_CLT02_<Xa>.pdf` · `2026-10-31_KHD-M14.xlsx` · `2026-10-31_BCDHTD-01.1.xls` · `2026-10-19_Mau31.xlsx` (kỳ phiên).
+- **Nơi lưu + tên chuẩn (anh chốt 28/10, app làm ở bản 3.400):** `Tủ hồ sơ\Số liệu\<YYYY-MM>\<MÃ>_<YYYY-MM-DD>.<đuôi gốc>` — **loại trước, ngày sau** (anh: "tên file trước rồi đến phân loại theo thời gian"); giữ thư mục `Số liệu` app đang dùng (không lập `Số liệu gốc`, khỏi dời tháng cũ).
+  - Ví dụ: `MAU31_2026-10-31.xlsx` (cuối tháng) · `MAU31_2026-10-19.xlsx` (kỳ phiên) · `TOTRUONG_2026-10-31.xlsx` · `KHD14_2026-10-31.xlsx` · `BCDHTD011_2026-10-31.xls`. Danh mục MÃ đủ: `docs/FILE_XUAT_HANG_THANG.md` mục F.
+  - Anh đặt tên nhanh thế nào cũng được — app nhận loại theo **nội dung**, ngày theo **trong file**, tự đổi sang tên chuẩn; tên anh đặt giữ ở mô tả file Drive + sổ nạp. File tháng cũ: ⋯ › 🏷 Chuẩn hóa tên (anh bấm mới đổi).
 - **Ngày trong tên = ngày số liệu** — app đọc trong file (cột Ngày số liệu / NGAYBC / dòng tiêu đề), không lấy ngày xuất. Thư mục tháng theo ngày số liệu. Không đọc được ngày → hỏi anh, không đoán.
 - **Ngày số liệu kỳ phiên (anh chốt):** Mẫu 31 của phiên 19/10 mang ngày **19/10** = số liệu đến cuối ngày 19/10 sau khóa sổ (anh xuất file ngày hôm sau). Ngày trong file khác ngày trong tên → báo, không tự sửa.
-- **Mẫu 31 và File Tổ trưởng phải cùng ngày** (anh chốt: cùng ngày thì logic khớp) — lệch ngày thì app chặn / báo, không tự ghép.
-- **Sổ nạp mỗi tháng `DANH_MUC_NAP`** (đề xuất): mỗi dòng = tên gốc · tên chuẩn · loại · ngày số liệu · ngày nạp · kết quả kiểm (✓ / lý do). Giao ban đọc sổ này thay vì dò tên file; giữ tên gốc → vẫn đúng nguyên tắc "không đổi tên file gốc" của giao ban.
+- **Mẫu 31 và File Tổ trưởng phải cùng ngày** (anh chốt: cùng ngày thì logic khớp) — lệch ngày thì app **báo** (xem trước + cột Kiểm của sổ), không tự ghép.
+- **Sổ nạp mỗi tháng `DANH_MUC_NAP.csv`** (có từ 3.400, trong thư mục tháng, mở bằng Excel; cột: Tên chuẩn · Tên anh đặt · Mã · Loại · Kỳ Cuối tháng / Theo ngày · Ngày số liệu · Ngày lấy từ · Số dòng · Ngày nạp · Kiểm · Lần thay · Tên trước khi thay): mỗi dòng = tên gốc · tên chuẩn · loại · ngày số liệu · ngày nạp · kết quả kiểm (✓ / lý do). Giao ban đọc sổ này thay vì dò tên file; giữ tên gốc → vẫn đúng nguyên tắc "không đổi tên file gốc" của giao ban.
 - Bản app đã đọc (`_Hệ thống\so_lieu\…json.gz`) vẫn là của app; giao ban **không** đọc định dạng nội bộ này. Về sau, khi app ổn định, có thể có "gói số liệu kỳ" với định dạng + số phiên bản rõ ràng để giao ban đọc thẳng.
 
 ## 5. Điểm giao dịch từ tháng 11/2026 (anh xác nhận 28/10/2026)
@@ -114,11 +115,11 @@ So trên: app (repo bản gộp PR #387 — `QUY_CHUAN_KIEN_TRUC.md` mục 4, `D
 
 ## 8. Việc đề xuất cho app (TK 2) — chờ anh duyệt theo quy trình repo
 
-1. **Kế hoạch kho "Số liệu gốc" + nạp qua app** (mục 4): tạo thư mục, đặt tên chuẩn, đọc ngày số liệu trong file, kiểm cặp Mẫu 31 + Tổ trưởng cùng ngày, sổ `DANH_MUC_NAP`.
+1. ✓ **3.400** (trừ CLT02 / LEN18 chờ file mẫu) — **Kế hoạch kho "Số liệu gốc" + nạp qua app** (mục 4): tạo thư mục, đặt tên chuẩn, đọc ngày số liệu trong file, kiểm cặp Mẫu 31 + Tổ trưởng cùng ngày, sổ `DANH_MUC_NAP`.
 2. **Cập nhật tài liệu cũ:** `DU_LIEU_THANG.md` dòng "Mẫu 31 chỉ xuất được số chốt tháng" (02/10) → nay đã xuất được theo ngày; `FILE_XUAT_HANG_THANG.md` theo bộ file mục 3 (bỏ Dư nợ chi tiết, DSTO; thêm File Tổ trưởng, CLT02).
 3. **Cây điểm GD tháng 11** theo mục 5 (điểm từ File Tổ trưởng; dự phòng bảng điểm bỏ → điểm nhận từ kỳ 11/2026).
 4. **K5:** chuẩn bị chạy hàm KHĐ của app trên các kỳ có file TW để so với giao ban.
-5. Thêm 1 dòng trỏ `docs/TEO_PHOI_HOP.md` vào `docs/BAT_DAU.md` khi làm bản kế tiếp (dòng trỏ đầu `CLAUDE.md` đã thêm cùng file này).
+5. ✓ Thêm 1 dòng trỏ `docs/TEO_PHOI_HOP.md` vào `docs/BAT_DAU.md` khi làm bản kế tiếp (dòng trỏ đầu `CLAUDE.md` đã thêm cùng file này).
 
 ## 9. Việc bên giao ban (Project chat)
 
@@ -135,3 +136,4 @@ B1 bảng đối chiếu ✓ (mục 6) · **B1b bộ file chung ✓ (mục 3)** 
 | Bản | Ngày | Nội dung |
 |---|---|---|
 | 1.0 | 28/10/2026 | Tạo file từ phiên giao ban: tên Tèo, phân vai, 3 luật, bộ file nạp chung, kho Số liệu gốc nạp qua app, ngày số liệu kỳ phiên, điểm GD 12 → 9 từ 11/2026, bảng đối chiếu luật số liệu (K1–K9 chờ chốt), việc cho hai bên. |
+| 1.1 | 28/10/2026 | Mục 4: chốt tên chuẩn `<MÃ>_<YYYY-MM-DD>` (loại trước, ngày sau), giữ thư mục `Số liệu`, sổ `DANH_MUC_NAP.csv` — app làm ở bản 3.400. Anh 28/10 về cách tính: "tận dụng tối đa suy luận linh hoạt của chat so với ghi cứng trong app" (cách phối hợp cụ thể chờ anh duyệt). |
