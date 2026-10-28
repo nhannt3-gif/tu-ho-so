@@ -226,6 +226,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Ô tìm tổ vẫn nằm trong `.pv-hang1` (id `<p>-tim`, kết quả `<p>-gy`) — chỉ ẩn bằng `.loc-khoi:not(.tim-mo) .pv-hang1 .pv-tim`; nút `.pv-tim-nut` ở `.pv-dau-nut`. Chọn tổ (pvChonTo / toChonTo / ktChonTo) đặt `PV_TIM_MO[p] = 0`.
 - Điện thoại (css/dt-may.css): hàng lọc 1 dòng áp chung `.pv-cay` (trước chỉ `#tc-cay`); ô chọn dùng `!important` vì app.css có luật `.gon … select.pv-o.pv-xa` độ ưu tiên cao — dọn khi làm K8 `@layer`.
 
+### Ghi chú kỹ thuật 3.391
+- Báo cáo Sao kê mới muốn "vừa 1 trang": thêm `motTrang:1` vào mục `SK_BC` (hoặc trả `motTrang:1` trong kết quả `lap()`); bộ in tự co lề 20→15→10 mm, chữ 9 → 8,5 → 8 pt.
+- `trDan.apBac`: nhánh `getComputedStyle` trên bản chưa gắn trang trả rỗng → bậc co chữ của `.trang` thường không có tác dụng. Chưa sửa chung (sẽ đổi bản in danh sách đang dùng) — cần anh duyệt nếu muốn.
+
+### Danh sách thử trên máy thật (3.391)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › Kết quả giao dịch tại điểm GD (số liệu thật) | Mỗi điểm 1 trang ngang; điểm nhiều tổ chữ nhỏ lại, không tràn trang 2 (trừ điểm quá nhiều tổ) | |
+| 2 | Sao kê › THHD | 1 trang dọc | |
+| 3 | Sao kê › Nợ quá hạn (danh sách) | Không đổi so với trước | |
+
 ### Danh sách thử trên máy thật (3.390)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -1982,7 +1982,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.390', ds:[
+var CO_GI_MOI = {ban:'3.391', ds:[
+  ["📄", "Sao kê: Kết quả giao dịch tại điểm GD và THHD tự co lề / chữ cho vừa 1 trang (xem và in); co tới 8 pt vẫn không vừa thì sang trang 2"],
+  ["👥", "Tổ TK&VV: báo cáo Nợ cần xử lý cũng tự co vừa 1 trang"],
   ["🔎", "Lọc địa bàn: ô tìm tổ thu vào nút 🔎 Tìm tổ trên dải LỌC ĐỊA BÀN — bấm mới mở ô gõ, Enter chọn tổ, Esc đóng (mọi tab Số liệu)"],
   ["📅", "Số liệu theo ngày: dòng cam nguồn file → 1 chip 📅 Số liệu dd/mm/yyyy trên dải lọc, rê chuột xem từng file"],
   ["📱", "Điện thoại: hàng lọc 1 dòng ở mọi tab, ẩn ↺ / 📌 khi ô đang Tất cả cho đủ chỗ chữ"],
@@ -1995,9 +1997,7 @@ var CO_GI_MOI = {ban:'3.390', ds:[
   ["Nút 🗑 Xóa giữ viền đỏ như cũ (3.388 lỡ làm mất)", "doiNgan(1)"],
   ["Nút ⬅ ➡ đầu trang có nền + viền, dễ nhận biết", "doiNgan(1)"],
   ["Thanh nút tab Văn bản / Biểu mẫu / Scan: nút nổi khỏi nền, kiểu xem luôn kèm tên chữ nhỏ (Danh sách · Nhóm · Bảng · Khung xem)", "doiNgan(1)"],
-  ["Dọn code: bỏ CSS / biến không dùng, hồi quy chỉ còn 2 chế độ doi · tat", "doiNgan(7)"],
-  ["Khuôn đầu trang in chung (logo + đơn vị + ngày + tiêu đề) cho Sao kê, Tổng hợp, Tổ TK&VV", "doiNgan(7)"],
-  ["Báo cáo Sao kê cắm rút: Biến động TK 105 và Nhà đầu tư nằm trong file riêng", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Dọn code: bỏ CSS / biến không dùng, hồi quy chỉ còn 2 chế độ doi · tat", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

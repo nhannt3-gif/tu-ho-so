@@ -333,7 +333,7 @@ function toXem(){
 }
 function toHTMLIn(R, t){
   return '<!doctype html><html><head><meta charset="utf-8"><title>Bao cao to '+t.ma+'</title><style>'+TO_IN_CSS+'</style></head><body>'+R.map(function(x){
-    return '<div class="trang'+(x.ngang ? ' ngang' : '')+'"'+(x.coChu ? ' style="font-size:'+x.coChu+'pt"' : '')+'>'+toDauBC(t, x.tieuDe, x.ngay)+x.html+bcCT(x)+(x.ky || bcKy())+'</div>'; }).join('')+SK_IN_NGANG+SK_IN_TU+'</body></html>';   /* 3.139: báo cáo có khối ký riêng (Tổ trưởng) */   /* 3.92: 1 dòng mỗi món, tự co */
+    return '<div class="trang'+(x.ngang ? ' ngang' : '')+'"'+(x.motTrang ? ' data-tr-1trang="1"' : '')+(x.coChu ? ' style="font-size:'+x.coChu+'pt"' : '')+'>'+toDauBC(t, x.tieuDe, x.ngay)+x.html+bcCT(x)+(x.ky || bcKy())+'</div>'; }).join('')+SK_IN_NGANG+SK_IN_TU+'</body></html>';   /* 3.139: báo cáo có khối ký riêng (Tổ trưởng) */   /* 3.92: 1 dòng mỗi món, tự co */
 }
 function toExcel(tp){
   var C = toCH(), t = tp || (KHO.kyDung() && KHO.kyDung().to[C.to]); if(!t || !TO_XEM.length) return;   /* 3.132: tp = phạm vi (chưa chọn tổ) */
@@ -384,8 +384,8 @@ var SK_BC = [{k:'qh', ten:'Sao kê nợ quá hạn', nhom:'xl', kho:'doc'}, {k:'
   {k:'gn', ten:'Sao kê giải ngân trong tháng', nhom:'ps', kho:'doc'}, {k:'ddn', ten:'Sao kê món vay có thay đổi dư nợ trong tháng', nhom:'ps', kho:'doc'},
   {k:'m105', ten:'Sao kê khách giải ngân cần mở TK 105', nhom:'ps', kho:'doc'},
   {k:'sdt', ten:'Sao kê số điện thoại khách hàng (đánh dấu số trống / không đạt)', nhom:'kh', kho:'doc'},
-  {k:'kqgd', ten:'Kết quả giao dịch tại điểm GD — chốt cuối tháng, mỗi điểm 1 trang', nhom:'tt', kho:'ngang'},
-  {k:'thhd', ten:'Tình hình hoạt động (THHD) — tín dụng theo cấp chọn (PGD › xã › điểm › hội › tổ), 1 trang A4 dọc', nhom:'tt', kho:'doc'},
+  {k:'kqgd', ten:'Kết quả giao dịch tại điểm GD — chốt cuối tháng, mỗi điểm 1 trang', nhom:'tt', kho:'ngang', motTrang:1},
+  {k:'thhd', ten:'Tình hình hoạt động (THHD) — tín dụng theo cấp chọn (PGD › xã › điểm › hội › tổ), 1 trang A4 dọc', nhom:'tt', kho:'doc', motTrang:1},
   {k:'tqh', ten:'Sao kê nợ quá hạn — chia Điểm GD › Hội › Tổ (như file tổng hợp)', nhom:'tt', kho:'doc'}, {k:'tkn', ten:'Sao kê nợ khoanh — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'doc'},
   {k:'tkhd', ten:'Sao kê 3 tháng không hoạt động — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'doc'}];   /* 3.387 cắm rút: báo cáo mới tự SK_BC.push({k, ten, nhom, kho, lap, tuyChon}) trong file riêng — b105 (js/72), ndt (js/74) */   /* 3.385 (js/74) · 3.385.1 (anh 27/10 "nếu dạng DS thì nên in dọc cho tối ưu"): danh sách mặc định khổ dọc — cgn, dh, noxh, ddn, tkhd, ndt (giữ ngang: kqgd biểu mỗi điểm, b105 13 cột) */   /* 3.380 (js/72) */
 function skChon(){ var C = skCH(); if(!C.chon || !SK_BC.some(function(b){ return b.k===C.chon; })){ var c = SK_BC.find(function(b){ return C.bc[b.k]; }); C.chon = c ? c.k : 'qh'; } return C.chon; }
@@ -764,8 +764,8 @@ function skXem(){
     if(e) return skPKNap(e.ngay).then(function(){ skXem.daNap = true; try{ skXem(); } finally { skXem.daNap = false; } }); }
   var pv = pvChu(C, SK_K);
   try{ SK_XEM = [].concat.apply([], ds.map(function(b){ CT_DUNG = {}; SK_KHO = skKhoCua(b.k); var x = skBaoCao(b.k);
-      if(Array.isArray(x)) x.forEach(function(y){ y.pv = pv; });   /* 3.259: bộ nhiều trang — mỗi trang giữ khổ, chú thích riêng */
-      else { x.pv = pv; x.ctChu = ctChuThich(); x.ngang = SK_KHO==='ngang'; }
+      if(Array.isArray(x)) x.forEach(function(y){ y.pv = pv; if(b.motTrang) y.motTrang = 1; });   /* 3.259: bộ nhiều trang — mỗi trang giữ khổ, chú thích riêng */
+      else { x.pv = pv; x.ctChu = ctChuThich(); x.ngang = SK_KHO==='ngang'; if(b.motTrang) x.motTrang = 1; }   /* 3.391: báo cáo tổng hợp / biểu (SK_BC motTrang) cố vừa 1 trang */
       CT_DUNG = null; return x; })); SK_KHO = 'ngang'; }
   catch(er){ CT_DUNG = null; SK_KHO = 'ngang'; return baoLoi('Lập báo cáo lỗi: '+(er && er.message || er)); }
   var fk = document.getElementById('sk-xem-khung'); if(fk && !skXem.hop){ xemChuan(fk, skHTMLIn(SK_XEM)); return; }   /* 3.386: màn xem — vẽ thẳng vào khung, ⤢ Phóng to mới mở hộp */
@@ -776,7 +776,7 @@ function skXem(){
 }
 function skHTMLIn(R){
   return '<!doctype html><html><head><meta charset="utf-8"><title>Sao ke</title><style>'+TO_IN_CSS+'</style></head><body>'+R.map(function(x){
-    return '<div class="trang'+(x.ngang ? ' ngang' : ' doc')+'">'+bcDauTrang(x.ngay, coChuHTML(x.tieuDe), 'Phạm vi: <b>'+coChuHTML(x.pv)+'</b>')+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+SK_IN_TU+'</body></html>';
+    return '<div class="trang'+(x.ngang ? ' ngang' : ' doc')+'"'+(x.motTrang ? ' data-tr-1trang="1"' : '')+'>'+bcDauTrang(x.ngay, coChuHTML(x.tieuDe), 'Phạm vi: <b>'+coChuHTML(x.pv)+'</b>')+x.html+bcCT(x)+bcKy()+'</div>'; }).join('')+SK_IN_NGANG+SK_IN_TU+'</body></html>';
 }
 /* 3.92 (anh chốt): mỗi món 1 dòng (ô không xuống dòng); đo từng trang theo khổ (dọc 16 cm, ngang 24,7 cm với lề chuẩn), tràn thì lần lượt:
    lề 15 mm → lề 10 mm → bỏ cột SĐT (.c-sdt, chỉ bảng khổ dọc) → chữ 9 → 8,5 → 8 pt; dừng ở bậc đầu tiên vừa */
