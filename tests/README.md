@@ -225,6 +225,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t311.js` | 3.372 Đ6 điện thoại: thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm, đầu trang gọn, Tra cứu gọn, ☰ Thêm có 📱 + ⏱ đo tốc độ (ghi Dựng kỳ); máy 1440 / 900 không đổi. |
 | `node tests/t312.js` | 3.390: bộ lọc chuẩn — nút 🔎 Tìm tổ trên dải LỌC ĐỊA BÀN (5 tab), mở / gõ / Enter chọn tổ / Esc đóng, vẽ lại giữ mở khi có chữ, Tra cứu không 🔎 / chip trên dải, chip 📅 nguồn số liệu kỳ ngày (KTGS giữ chip cũ), điện thoại hàng lọc 1 dòng 5 tab + ô tìm hàng riêng — bộ `gianho31`. |
 | `node tests/t313.js` | 3.391: báo cáo tổng hợp vừa 1 trang — biểu ngang 34 dòng / dọc 55 dòng có cờ `motTrang` co còn 1 trang (dọc giữ khổ dọc), 200 dòng sang trang 2 ở 8 pt, bảng ngắn không co thừa, SK_BC khai kqgd + thhd, Sao kê kqgd / thhd gắn cờ, danh sách không — bộ `gianho31`. |
+| `node tests/t314.js` | 3.392: Sao kê báo cáo danh sách ở `js/76` (cắm rút) — có file: 18 báo cáo, thứ tự nhóm như cũ, 13 báo cáo `lap`, thiếu Mẫu 31 → trang nhắc (`skNen31`); rút file (chặn tải js/76): còn 7 báo cáo nhóm Thông tin tổ, mở Kết quả GD được, không lỗi trang — bộ `gianho31`. Nội dung từng báo cáo: t276. |
 | (3.389.2) | Chỉ CSS. |
 | (3.389.1) | Thử goiCauNoi bằng node trong lượt sửa. |
 | (3.389) | t147 thêm nút 📋 Chép. |

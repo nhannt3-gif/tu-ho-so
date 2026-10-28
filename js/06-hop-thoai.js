@@ -1982,7 +1982,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.391', ds:[
+var CO_GI_MOI = {ban:'3.392', ds:[
+  ["🧩", "Sao kê: 11 báo cáo danh sách (quá hạn, khoanh, đến hạn, giải ngân, SĐT…) tách thành khối riêng cắm rút — nội dung báo cáo giữ y nguyên"],
   ["📄", "Sao kê: Kết quả giao dịch tại điểm GD và THHD tự co lề / chữ cho vừa 1 trang (xem và in); co tới 8 pt vẫn không vừa thì sang trang 2"],
   ["👥", "Tổ TK&VV: báo cáo Nợ cần xử lý cũng tự co vừa 1 trang"],
   ["🔎", "Lọc địa bàn: ô tìm tổ thu vào nút 🔎 Tìm tổ trên dải LỌC ĐỊA BÀN — bấm mới mở ô gõ, Enter chọn tổ, Esc đóng (mọi tab Số liệu)"],
@@ -1996,8 +1997,7 @@ var CO_GI_MOI = {ban:'3.391', ds:[
   ["Nút kiểu xem tách rời từng nút; nút ⬅ ➡ cùng 1 cỡ", "doiNgan(1)"],
   ["Nút 🗑 Xóa giữ viền đỏ như cũ (3.388 lỡ làm mất)", "doiNgan(1)"],
   ["Nút ⬅ ➡ đầu trang có nền + viền, dễ nhận biết", "doiNgan(1)"],
-  ["Thanh nút tab Văn bản / Biểu mẫu / Scan: nút nổi khỏi nền, kiểu xem luôn kèm tên chữ nhỏ (Danh sách · Nhóm · Bảng · Khung xem)", "doiNgan(1)"],
-  ["Dọn code: bỏ CSS / biến không dùng, hồi quy chỉ còn 2 chế độ doi · tat", "doiNgan(7)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Thanh nút tab Văn bản / Biểu mẫu / Scan: nút nổi khỏi nền, kiểu xem luôn kèm tên chữ nhỏ (Danh sách · Nhóm · Bảng · Khung xem)", "doiNgan(1)"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

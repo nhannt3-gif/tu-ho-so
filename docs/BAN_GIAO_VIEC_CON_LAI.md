@@ -230,6 +230,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Báo cáo Sao kê mới muốn "vừa 1 trang": thêm `motTrang:1` vào mục `SK_BC` (hoặc trả `motTrang:1` trong kết quả `lap()`); bộ in tự co lề 20→15→10 mm, chữ 9 → 8,5 → 8 pt.
 - `trDan.apBac`: nhánh `getComputedStyle` trên bản chưa gắn trang trả rỗng → bậc co chữ của `.trang` thường không có tác dụng. Chưa sửa chung (sẽ đổi bản in danh sách đang dùng) — cần anh duyệt nếu muốn.
 
+### Ghi chú kỹ thuật 3.392
+- Báo cáo Sao kê danh sách ở `js/76-sk-danh-sach.js` (nạp sau `js/22h`). Thêm báo cáo mới cần Mẫu 31: `lap:function(){ var N = skNen31('k'); if(N.can) return N.can; … N.rows / N.M / N.e31 / N.ngay / N.lapKH … }`.
+- Hàm dùng chung còn ở `js/22h`: `skBang`, `skTrongPV`, `skNen31`, nợ đến hạn (`skNhomDH`, `skHL`, `skConGH`), phân kỳ (`skPK*`, `SK_PK`), `skQua1Thang` (js/62 dùng).
+- `tests/ghep.py` nay đọc cả dòng có chú thích → `docs/BAN_DO_MA.md` có thêm js/70–76.
+
+### Danh sách thử trên máy thật (3.392)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê: danh mục báo cáo | Đủ 18 báo cáo, thứ tự như cũ | |
+| 2 | Mở vài báo cáo (Nợ quá hạn, Nợ đến hạn, Giải ngân, SĐT) | Nội dung / In / Excel như trước | |
+
 ### Danh sách thử trên máy thật (3.391)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
