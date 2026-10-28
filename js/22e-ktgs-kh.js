@@ -209,13 +209,50 @@ function ktKHLich(){   /* {tu, den, thang:[…], cach, gan:{mã: tháng}, thieu:
 }
 function ktKHGhi(L){   /* 3.123: lưu cả cách chọn tháng, tên tổ / ấp lúc lập (snap) và giữ tổ không còn trong số liệu */
   var S = D.cauHinh.ktKH = D.cauHinh.ktKH || {}, cu = ktKHLuu() || {}, to = {}, snap = {};
+  if(cu.khoa){ bao('Kế hoạch năm '+ktKHNam()+' đã chốt ngày '+ktKHNgay((ktKHChotCuoi(cu)||{}).luc)+' — bấm ✏ Sửa kế hoạch để đổi.', 5); return false; }   /* 3.398 (anh 28/10): chốt = khóa */
   L.mat.forEach(function(r){ to[r.ma] = r.thang; snap[r.ma] = (cu.snap || {})[r.ma] || {ten:r.ten, ap:r.ap}; });
   L.ds.forEach(function(t){ if(L.gan[t.ma]){ to[t.ma] = L.gan[t.ma]; snap[t.ma] = {ten:t.ten || '', ap:ktKHAp(t)}; } });
   var o = {v:2, tu:L.tu, den:L.den, to:to, snap:snap, luc:new Date().toISOString()};
   if(L.cach==='chip'){ o.cach = 'chip'; o.thang = L.thang.slice(); }
   if(L.tay) o.tay = 1;
-  S[ktKHKhoa()] = o; luu();
+  if(cu.chot) o.chot = cu.chot; if(cu.khoa===0) o.khoa = 0;   /* 3.398: giữ lịch sử chốt; đang sửa sau chốt */
+  S[ktKHKhoa()] = o; luu(); return true;
 }
+/* ---------- 3.398 (anh 28/10: "KH năm em đang tự lưu phải ko — anh muốn chốt lưu và chốt ngày lưu luôn, sau này có sửa thì lưu lại theo ngày sửa"; "nên có nút khóa lại để khỏi đổi nhầm"):
+   📌 Chốt kế hoạch = lưu 1 bản chốt (ngày chốt) + KHÓA; ✏ Sửa kế hoạch = mở khóa (bản chốt cũ vẫn dùng cho Định kỳ / Mẫu 04 tới khi chốt lại);
+   📌 Chốt lại = bản mới theo ngày sửa; 📜 Lịch sử chốt giữ mọi bản. Lưu trong D.cauHinh.ktKH[khóa]: chot = [{luc, tu, den, cach, thang, to, snap, n}], khoa = 1 (đã chốt) / 0 (đang sửa).
+   Khuôn Word 01/KH để trống ngày tháng (viết tay) — không sửa khuôn (luật KTGS / t179). ---------- */
+function ktKHChotCuoi(S){ return S && S.chot && S.chot.length ? S.chot[S.chot.length-1] : null; }
+function ktKHBanDung(S){ return S && S.khoa===0 && ktKHChotCuoi(S) ? ktKHChotCuoi(S) : S; }   /* Định kỳ / Mẫu 04 dùng bản chốt mới nhất (đang sửa dở chưa chốt lại → vẫn bản chốt) */
+function ktKHChot(){
+  var L = ktKHLich(), S = D.cauHinh.ktKH = D.cauHinh.ktKH || {}, k = ktKHKhoa();
+  if(L.thieu.length) return bao('Còn '+L.thieu.length+' tổ chưa xếp tháng — xếp đủ 100% tổ rồi mới chốt.', 5);
+  var cu = ktKHLuu(); if(cu && cu.khoa) return;
+  if(!ktKHGhi(L)) return;   /* lưu đúng lịch đang hiện (chưa lưu lần nào: app xếp sẵn) */
+  var o = S[k], ban = {luc:new Date().toISOString(), tu:o.tu, den:o.den, to:JSON.parse(JSON.stringify(o.to||{})), snap:JSON.parse(JSON.stringify(o.snap||{})), n:Object.keys(o.to||{}).length};
+  if(o.cach) ban.cach = o.cach; if(o.thang) ban.thang = o.thang.slice();
+  o.chot = (o.chot || []).concat([ban]); o.khoa = 1; luu(); ktVeThe();
+  bao('📌 Đã chốt Kế hoạch năm '+ktKHNam()+' ngày '+ktKHNgay(ban.luc)+' (lần '+o.chot.length+') — đã khóa.', 5);
+}
+function ktKHMoSua(){ var o = ktKHLuu(); if(!o || !o.khoa) return; o.khoa = 0; luu(); ktVeThe(); bao('✏ Đang sửa kế hoạch — Định kỳ / Mẫu 04 vẫn dùng bản chốt ngày '+ktKHNgay((ktKHChotCuoi(o)||{}).luc)+' tới khi bấm 📌 Chốt lại.', 6); }
+function ktKHBoSua(){ var o = ktKHLuu(), b = ktKHChotCuoi(o); if(!o || !b) return;   /* bỏ phần sửa dở → về đúng bản chốt cuối, khóa lại */
+  ['tu','den','to','snap','cach','thang'].forEach(function(f){ if(b[f]!==undefined) o[f] = JSON.parse(JSON.stringify(b[f])); else delete o[f]; }); o.khoa = 1; o.tay = 1; o.luc = b.luc; luu(); ktVeThe(); bao('Đã bỏ phần sửa, về bản chốt ngày '+ktKHNgay(b.luc)+'.', 4); }
+function ktKHLichSu(){
+  var o = ktKHLuu(), ds = (o && o.chot) || [], nam = ktKHNam();
+  var xem = function(b){ var th = {}; Object.keys(b.to||{}).forEach(function(ma){ var m = +b.to[ma], sn = (b.snap||{})[ma] || {}; (th[m] = th[m] || []).push((sn.ten || ma)+(sn.ap ? ' ('+sn.ap+')' : '')); });
+    return Object.keys(th).map(Number).sort(function(a, c){ return a-c; }).map(function(m){ return '<div><b>T'+m+'</b> · '+th[m].length+' tổ: <small>'+coChuHTML(th[m].join(', '))+'</small></div>'; }).join(''); };
+  var gio = function(iso){ var d = new Date(iso); return hai(d.getHours())+':'+hai(d.getMinutes()); };
+  moHop('<div class="hop-tit">📜 Lịch sử chốt — Kế hoạch năm '+nam+'</div>'+(ds.length ? ds.slice().reverse().map(function(b, i){ var lan = ds.length-i;
+      return '<details class="kt-kh-ls"'+(i ? '' : ' open')+'><summary><b>Lần '+lan+'</b> · chốt ngày '+ktKHNgay(b.luc)+' '+gio(b.luc)+' · '+(b.n||0)+' tổ'+(i ? '' : ' <b class="xanh">(đang dùng)</b>')+'</summary>'+xem(b)+'</details>'; }).join('')
+    : '<div class="rong">Chưa chốt lần nào.</div>')+'<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button></div>');
+}
+function ktKHTrangThaiHTML(L, nam){   /* dòng trạng thái + nút Chốt / Sửa / Lịch sử */
+  var o = ktKHLuu(), b = ktKHChotCuoi(o), n = o && o.chot ? o.chot.length : 0, ls = n ? '<button class="nho" onclick="ktKHLichSu()">📜 Lịch sử chốt ('+n+')</button>' : '';
+  if(o && o.khoa) return '<div class="kt-kh-tt da">✅ <b>Đã chốt</b> Kế hoạch năm '+nam+' ngày <b>'+ktKHNgay(b.luc)+'</b>'+(n>1 ? ' (lần '+n+')' : '')+' — đã khóa <button class="nho" onclick="ktKHMoSua()">✏ Sửa kế hoạch</button>'+ls+'</div>';
+  if(o && b) return '<div class="kt-kh-tt sua">✏ <b>Đang sửa</b> (sửa là tự lưu nháp) — Định kỳ / Mẫu 04 vẫn dùng bản chốt ngày '+ktKHNgay(b.luc)+' <button class="nho chinh" onclick="ktKHChot()">📌 Chốt lại (ngày '+ktKHNgay(new Date().toISOString())+')</button><button class="nho" onclick="ktKHBoSua()">↶ Bỏ sửa, về bản chốt</button>'+ls+'</div>';
+  return '<div class="kt-kh-tt chua">'+(L.luu ? '💾 Đang soạn — đã lưu nháp'+(L.luc ? ' ngày '+ktKHNgay(L.luc) : '')+', chưa chốt' : '<i>App xếp sẵn — chưa lưu</i>')+' <button class="nho chinh" onclick="ktKHChot()">📌 Chốt kế hoạch</button></div>';
+}
+
 function ktKHDoiThang(ma, v, ap){   /* đổi tháng 1 tổ, hoặc cả ấp (ap = tên ấp) */
   var L = ktKHLich(); v = +v;
   L.ds.forEach(function(t){ if(ap ? ktKHAp(t)===ap : t.ma===ma){ if(v) L.gan[t.ma] = v; else delete L.gan[t.ma]; } });
@@ -238,7 +275,7 @@ function ktKHXepLai(ok){ var L = ktKHLich();
   if(L.luu && !ok) return hoi('Xếp lại tự động?', 'Kế hoạch đã lưu sẽ chia lại từ đầu: các ấp (trọn ấp, theo thứ tự ấp) chia vào các tháng đang chọn, số tổ mỗi tháng gần bằng nhau; tháng anh đã chỉnh tay sẽ mất.', '↺ Xếp lại', function(){ ktKHXepLai(1); });
   L.gan = ktKHMacDinh(L.ds, L.thang); L.tay = false; ktKHGhi(L); ktVeThe(); }
 function ktKHXoa(){   /* 3.123: xóa kế hoạch đã lưu của Hội – xã → về xếp tự động · 3.153: không hỏi, kế hoạch cũ vào 🗑 Thùng rác (khôi phục được) */
-  var L = ktKHLich(); if(!L.luu) return;
+  var L = ktKHLich(); if(!L.luu) return; if((ktKHLuu()||{}).khoa) return bao('Kế hoạch đã chốt (đã khóa) — bấm ✏ Sửa kế hoạch trước.', 4);   /* 3.398 */
   var S = D.cauHinh.ktKH = D.cauHinh.ktKH || {}, k = ktKHKhoa(), ten = ktHoiTenTD(L.ds[0] || {dv:ktKHHoi(), tenXa:''});
   racMucNho('ktKH', 'Kế hoạch KTGS năm '+ktKHNam()+' · '+ten, 'KTGS Hội › Kế hoạch năm '+ktKHNam(), S[k], {khoa:k});
   S[k] = {xoa:1, luc:new Date().toISOString()}; luu(); ktVeThe();
@@ -260,8 +297,7 @@ function ktKHVe(o){
   if(L.cach==='chip') h += '<div class="kt-kh-chip">'+ktKHKhoangTh(1, 12).map(function(m){ var co = L.thang.indexOf(m)>=0;   /* 3.123: chip T1–T12, dưới chip số tổ đã xếp */
       return '<button class="kt-kh-th'+(co ? ' bat' : '')+'" onclick="ktKHTichThang('+m+')" aria-pressed="'+co+'"><b>T'+m+'</b><small>'+(co ? (dem[m]||0)+' tổ' : '&nbsp;')+'</small></button>'; }).join('')+
     '<span class="kt-kh-nhanh"><small>Chọn nhanh:</small><button class="to-loc" onclick="ktKHNhanh(\'quy\')">Cuối quý</button><button class="to-loc" onclick="ktKHNhanh(\'le\')">Tháng lẻ</button><button class="to-loc" onclick="ktKHNhanh(\'chan\')">Tháng chẵn</button><button class="to-loc" onclick="ktKHNhanh(\'bo\')">Bỏ hết</button></span></div>';
-  h += '<div class="to-the-so">'+(L.cach==='khoang' ? 'Lịch: '+Object.keys(dem).sort(function(a, b){ return a-b; }).map(function(m){ return 'T'+m+' <b>'+dem[m]+'</b> tổ'; }).join(' · ')+' · ' : '')+
-    (L.luu ? '💾 Đã lưu kế hoạch năm '+nam+(L.luc ? ' · ngày '+ktKHNgay(L.luc) : '')+' — sửa là tự lưu' : '<i>app xếp sẵn — đổi tháng / Xem / In là lưu kế hoạch</i>')+'</div>';
+  h += ktKHTrangThaiHTML(L, nam)+(L.cach==='khoang' ? '<div class="to-the-so">Lịch: '+Object.keys(dem).sort(function(a, b){ return a-b; }).map(function(m){ return 'T'+m+' <b>'+dem[m]+'</b> tổ'; }).join(' · ')+'</div>' : '');   /* 3.398: chốt / khóa thay dòng "đã lưu — sửa là tự lưu" */
   if(L.cach==='chip' && !L.thang.length) h += '<div class="sl-bao vang">Chưa chọn tháng nào — bấm chip tháng hoặc Chọn nhanh.</div>';
   if(L.thieu.length) h += '<div class="sl-bao vang">⚠ '+L.thieu.length+' tổ chưa xếp tháng ('+L.thieu.map(function(t){ return coChuHTML(t.ten||t.ma); }).join(', ')+') — 727: kiểm tra 100% tổ / năm. Chọn tháng cho tổ hoặc ↺ Xếp lại tự động.</div>';
   if(L.mat.length) h += '<div class="sl-bao vang">⚠ '+L.mat.length+' tổ trong kế hoạch không còn trong số liệu ('+L.mat.map(function(r){ return coChuHTML((r.ten || r.ma)+(r.ap ? ' – '+r.ap : '')+' · T'+r.thang); }).join(', ')+') — vẫn giữ trong kế hoạch; khi in Mẫu 04 theo kế hoạch không tự tích tổ này.</div>';
@@ -287,6 +323,9 @@ function ktKHVe(o){
     '<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktKHXem()">👁 Xem Kế hoạch '+nam+'</button><button class="nho" onclick="ktKHXepLai()">↺ Xếp lại tự động</button>'+(L.luu ? '<button class="nho" onclick="ktKHXoa()" title="Xóa lịch kế hoạch đã lưu của Hội – xã này (cả trên Drive) để làm lại">🗑 Xóa kế hoạch</button>' : '')+'</div>'+
     '<p class="ghi">Khuôn theo dự thảo của Hội cấp tỉnh (HĐT cấp xã), căn cứ văn bản '+(ccK==='10566' ? '10566/HD-NHCS 29/12/2022 (trước 727)' : '727/HD-NHCS 11/02/2026')+', tỷ lệ tối thiểu 90% món vay các năm trước; không ghi số hộ cụ thể. Số hợp đồng ủy thác, kế hoạch Hội tỉnh, người ký (Chủ tịch) khai ở 🏛 Khai báo Hội đoàn thể — trống thì để dòng chấm. Xuất Word để sửa.</p>';
   o.innerHTML = h;
+  if((ktKHLuu()||{}).khoa){ o.classList.add('kt-kh-khoa');   /* 3.398: đã chốt → khóa ô đổi tháng / cách / thứ tự ấp / xếp lại (năm, xem, in vẫn dùng được) */
+    [].forEach.call(o.querySelectorAll('.kt-kh-bang select, .kt-kh-cach button, .kt-kh-chip button, .kt-gn-dau select[onchange*="ktKHDoiKhoang"], button[onclick^="ktKHXepLai"], button[onclick^="ktKHXoa"], button[onclick^="ktKHApDoi"], button[onclick^="ktKHApMacDinhVe"], button[onclick*="KT_KH_SAP"]'), function(e){ e.disabled = true; e.title = 'Kế hoạch đã chốt — bấm ✏ Sửa kế hoạch để đổi'; }); }
+  else o.classList.remove('kt-kh-khoa');
 }
 function ktKHMau(){ var C = ktCH(), k = C.xa+'|'+ktKHHoi(), kb = ktHoiKB(k); return kb.mauKH==='2' ? 'm01b' : 'm01'; }   /* 3.97: ① dự thảo HĐT cấp xã · ② mẫu gọn (bản kế hoạch mẫu Hội cấp xã) — nhớ theo Hội */
 function ktKHDoiMau(v){ var C = ktCH(); ktHoiKBSua(C.xa+'|'+ktKHHoi(), 'mauKH', v==='2' ? '2' : ''); ktVeThe(); }
@@ -437,7 +476,7 @@ var KT_DK_TH = '';   /* 3.140: tháng kiểm tra ép (in theo tháng kế hoạc
 function ktDKThang(){ return KT_DK_TH || ktNguonThangKT(); }   /* 3.328: tháng kiểm tra = ô Tháng kiểm tra khối Bắt buộc (mặc định tháng sau kỳ số liệu như cũ) */
 function ktDKLich(th){   /* tổ có lịch tháng th trong các Kế hoạch 01/KH đã lưu → {mã tổ: 'năm|xã|hội'} */
   var S = D.cauHinh.ktKH || {}, nam = th.slice(0, 4), m = +th.slice(5, 7), ra = {};
-  Object.keys(S).forEach(function(k){ if(k.split('|')[0]!==nam) return; var to = (S[k]||{}).to || {}; Object.keys(to).forEach(function(ma){ if(+to[ma]===m) ra[ma] = k; }); });
+  Object.keys(S).forEach(function(k){ if(k.split('|')[0]!==nam) return; var to = (ktKHBanDung(S[k])||{}).to || {};   /* 3.398: bản chốt mới nhất */ Object.keys(to).forEach(function(ma){ if(+to[ma]===m) ra[ma] = k; }); });
   return ra;
 }
 function ktDKHo(t){   /* hộ của tổ cho kiểm tra định kỳ: có món còn dư nợ giải ngân trước 01/01 năm kiểm tra */

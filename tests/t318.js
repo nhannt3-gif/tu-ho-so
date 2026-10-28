@@ -19,7 +19,7 @@ const fs=require('fs'), path=require('path');
      cuoi:!!T.querySelector(':scope > .hang-nut.kt-in'), ghi:!!T.querySelector('details.kt-ghi p.ghi'), truocBang:(()=>{ const a=T.querySelector('.kt-thao'), t=T.querySelector('.to-bang-cuon'); return !!(a && t && (a.compareDocumentPosition(t) & 4)); })()}; });
  const p = await mo(false);
  let r = await xem(p);
- ok('D1: thẻ con Bắt buộc trong hàng 3 khối, nhãn ngắn, đủ chữ ở title', r.conTrongKhoi && r.nhanThay==='🗓 Định kỳ|📅 Sau giải ngân|📋 Báo cáo tổng hợp|🗓 Lịch năm' && /Mẫu 06 \+ 16/.test(r.tit), r.nhan);
+ ok('D1: thẻ con Bắt buộc trong hàng 3 khối, nhãn ngắn, đủ chữ ở title', r.conTrongKhoi && r.nhanThay==='🗓 Định kỳ|📅 Sau giải ngân|📋 Báo cáo tổng hợp|🗓 Kế hoạch năm' && /Mẫu 06 \+ 16/.test(r.tit), r.nhan);
  ok('D2: 1 hàng thao tác có Tháng kiểm tra + số liệu + Đã chọn; bỏ dòng "Phạm vi:"', r.thao===1 && r.thang && r.sl && /đã chọn 0 tổ/i.test(r.chon) && !r.pham, JSON.stringify(r));
  ok('D3: 👁 Xem + 📋 Tóm tắt lên hàng thao tác, trên bảng; cuối trang không còn hàng nút', /Xem 0 tổ/.test(r.nut) && /Tóm tắt/.test(r.nut) && !r.cuoi && r.truocBang, r.nut);
  ok('D4: ghi chú dài thu vào ⓘ (bấm mở)', r.ghi);

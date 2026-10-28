@@ -71,7 +71,7 @@ function ktAThangHTML(th){
 GD.dangKy('kta', {th:function(el){ KT_A_TH = el.value || ''; KT_DK_CACHE = {}; ktVeThe(); }});
 /* ===== 3.329 — KTGS bước 3–4: THANH 3 KHỐI + MÀN 🧩 BỘ KHAI BÁO MẪU + Mẫu 04 đột xuất (docs/KE_HOACH_KTGS_GON.md mục 2.1, 2.4) =====
    khối A 📅 Bắt buộc (che dk · gn · bc · kh — thẻ con), B 🎯 Đột xuất (dx), C ⚙ Khai báo (hdt: Hội – xã · Chuẩn hóa · Bộ khai báo). Khóa che cũ giữ nguyên. */
-var KT_A_THE = [['dk', '🗓 Định kỳ · Mẫu 06 + 16'], ['gn', '📅 Sau giải ngân · Mẫu 06'], ['bc', '📋 Báo cáo tổng hợp · Mẫu 04'], ['kh', '🗓 Lịch năm · Kế hoạch 01/KH']];
+var KT_A_THE = [['dk', '🗓 Định kỳ · Mẫu 06 + 16'], ['gn', '📅 Sau giải ngân · Mẫu 06'], ['bc', '📋 Báo cáo tổng hợp · Mẫu 04'], ['kh', '🗓 Kế hoạch năm · 01/KH']];
 function ktKhoi(c){ return c==='dx' ? 'B' : c==='hdt' ? 'C' : 'A'; }
 function ktKhoiHTML(c){
   var k = ktKhoi(c), h = '<div class="kt-khoi">'+GD.chip('📅 Bắt buộc <small>· theo tháng</small>', k==='A', 'ktk.khoi', {k:'A'}, 'Định kỳ theo kế hoạch, sau giải ngân, Mẫu 04, Lịch năm — số liệu cuối tháng liền trước tháng kiểm tra')+

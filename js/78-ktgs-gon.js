@@ -10,7 +10,7 @@ function ktGon(){
   var khoi = T.querySelector(':scope > .kt-khoi'), the = T.querySelector(':scope > .kt-a-the');
   if(khoi && the){ the.classList.add('kt-con'); khoi.children[0].insertAdjacentElement('afterend', the);   /* D1: dời nguyên khối; phần " · Mẫu …" bọc <small> ẩn bằng CSS (chữ đủ giữ nguyên) */
     [].forEach.call(the.querySelectorAll('.gd-chip'), function(c){ if(c.querySelector('.kt-con-phu')) return; c.title = ktGonChu(c); c.innerHTML = c.innerHTML.replace(/( · [^<]*)$/, '<small class="kt-con-phu">$1</small>'); }); }
-  if(typeof ktCH==='function' && ktCH().che==='kh') return ktGonGhi(T);   /* Lịch năm: bảng lịch + nút PDF dưới bảng — giữ nguyên */
+  if(typeof ktCH==='function' && (ktCH().che==='kh' || ktCH().che==='hdt')) return ktGonGhi(T);   /* Kế hoạch năm: bảng lịch + nút PDF dưới bảng; ⚙ Khai báo: dòng đầu bảng Hội – xã (3.398 sửa: 3.397 dời xuống cuối) — giữ nguyên */
   var la = function(sel, dk){ return [].filter.call(T.querySelectorAll(sel), function(e){ return !e.closest('.kt-thao') && (!dk || dk(e)); })[0]; };
   var thang = la(':scope > .kt-a-thang'), sl = la(':scope > .to-the-so', function(e){ return /^📌 Số liệu in/.test(ktGonChu(e)); }),
     chon = la('.to-the-so', function(e){ return /đã chọn/i.test(ktGonChu(e)); }),

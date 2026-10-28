@@ -116,7 +116,7 @@ function ktBCVeG(o, th){   /* 3.98 ①: chọn xã / hội ở cây → tổ chi
 function ktBCKH(){   /* 3.123: kế hoạch đã lưu của xã đang chọn (năm kế hoạch) → [{k, dv, to:{mã: tháng}}]; chọn hội ở cây → chỉ hội đó */
   var C = ktCH(), S = D.cauHinh.ktKH || {}, nam = String(ktKHNam()); if(!C.xa) return [];
   return Object.keys(S).filter(function(k){ var p = k.split('|'); return p[0]===nam && p[1]===String(C.xa) && (!C.hoi || p[2]===String(C.hoi)) && S[k] && !S[k].xoa && S[k].to; })
-    .map(function(k){ return {k:k, dv:k.split('|')[2], to:S[k].to}; });
+    .map(function(k){ return {k:k, dv:k.split('|')[2], to:(typeof ktKHBanDung==='function' ? ktKHBanDung(S[k]) : S[k]).to || {}}; });   /* 3.398: bản chốt mới nhất */
 }
 function ktBCTheoKHHTML(ds){   /* 3.123 (anh chốt): hàng "Theo kế hoạch" — bấm tháng = tích sẵn các tổ của tháng đó (anh vẫn sửa) */
   var kh = ktBCKH(); if(!kh.length) return ''; var nam = ktKHNam(), thNay = nay().getFullYear()===nam ? nay().getMonth()+1 : 0;
@@ -125,7 +125,7 @@ function ktBCTheoKHHTML(ds){   /* 3.123 (anh chốt): hàng "Theo kế hoạch" 
     return '<div class="kt-che kt-bc-kh"><span class="sl-phu">📅 Theo kế hoạch '+nam+' · <b>'+coChuHTML(t0 ? ktHoiTenTD(t0.t) : tdnHoi(x.dv))+'</b>:</span>'+
       Object.keys(dem).map(Number).sort(function(a, b){ return a-b; }).map(function(m){ return '<button class="to-loc'+(m===thNay ? ' bat' : '')+'" onclick="ktBCTheoKH(\''+x.k+'\','+m+')" title="Tích sẵn các tổ có lịch tháng '+m+'">T'+m+' · '+dem[m]+' tổ</button>'; }).join('')+'</div>'; }).join('');
 }
-function ktBCTheoKH(k, m){ var S = (D.cauHinh.ktKH || {})[k]; if(!S || !S.to) return; var ds = ktBCDs(), co = {}, mat = 0;
+function ktBCTheoKH(k, m){ var S = (D.cauHinh.ktKH || {})[k]; if(S && typeof ktKHBanDung==='function') S = ktKHBanDung(S); if(!S || !S.to) return;   /* 3.398: bản chốt mới nhất */ var ds = ktBCDs(), co = {}, mat = 0;
   ds.forEach(function(r){ co[r.t.ma] = 1; }); KT_BC_CHON = {};
   Object.keys(S.to).forEach(function(ma){ if(+S.to[ma]!==m) return; if(co[ma]) KT_BC_CHON[ma] = true; else mat++; });
   ktVeThe(); bao('Đã tích '+Object.keys(KT_BC_CHON).length+' tổ có lịch tháng '+m+(mat ? ' · '+mat+' tổ không còn trong số liệu (không tích)' : '')+'.', 5);
@@ -635,7 +635,7 @@ function ktHdtBang(ds){
     var kb = ktHoiKB(x.k), c = ktChuan(x.t), id = x.k.replace(/[^0-9a-z]/gi, '_');
     var ph = {ct:c.ky, pct:c.pho, uv1:c.uv+' 1', uv2:c.uv+' 2', uv3:c.uv+' 3', nk:'2025 – 2030', hd:'…/HĐUT', hdNgay:'dd/mm/yyyy', kh:'06-KH/…', khNgay:'dd/mm/yyyy'};
     var du = (kb.du || []).map(function(d){ return ktTenNhan(d.vt, c)+': '+d.ten; });
-    return nhom+'<tr data-k="'+coChuHTML(x.k)+'"><td class="hkb-hoi"><button class="nho hkb-pc" onclick="ktPCHop(\''+x.k+'\')" title="Thông báo phân công nhiệm vụ Ban Thường vụ (Word / In)">📋</button> '+coChuHTML(ktChuan(x.t).ten)+' <small>('+x.n+')</small>'+(du.length ? ' <span class="hkb-du" title="'+coChuHTML('Còn giữ (bản cũ có nhiều hơn 1 PCT / 3 BTV):\n'+du.join('\n'))+'">ⓘ</span>' : '')+'</td>'+
+    return nhom+'<tr data-k="'+coChuHTML(x.k)+'"><td class="hkb-hoi"><button class="nho hkb-pc" onclick="ktPCHop(\''+x.k+'\')" title="Thông báo phân công nhiệm vụ Ban Thường vụ (Word / In)">📋 Phân công</button> '+coChuHTML(ktChuan(x.t).ten)+' <small>('+x.n+')</small>'+(du.length ? ' <span class="hkb-du" title="'+coChuHTML('Còn giữ (bản cũ có nhiều hơn 1 PCT / 3 BTV):\n'+du.join('\n'))+'">ⓘ</span>' : '')+'</td>'+
       KT_HKB_COT.map(function(o, cI){ var v = kb[o] || '', loi = KT_PC_VT.indexOf(o)>=0 && v ? ktTenLoiO(kb, o, c) : {loi:[]};
         return '<td><input id="hkb-'+id+'-'+o+'" class="hkb-o'+(ktHkbNgaySai(o, v) ? ' sai' : '')+(loi.loi.length ? ' canh' : '')+'" data-r="'+r+'" data-c="'+cI+'" value="'+coChuHTML(v)+'" placeholder="'+coChuHTML(ph[o]||'')+'" aria-label="'+coChuHTML(ph[o]||o)+'"'+
           (loi.loi.length ? ' title="'+coChuHTML('⚠ '+loi.loi.join('; ')+(loi.goiY ? ' → '+loi.goiY+' (bấm đúp để sửa theo gợi ý)' : ''))+'" ondblclick="ktTenSua(\''+x.k+'\',\''+o+'\',\''+id+'\')"' : '')+
