@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.406 — 29/10/2026 — 🗺 Địa bàn theo số liệu + kiểm tổ không chuẩn + so ấp trước 07/2026 (TK 2)
+- **Anh 29/10:** "tab hôm nay có nút địa bàn em ktra lại có lấy đúng theo mẫu 31 và file tổ mới nhất hay ko" → **trước đây không** (hiện danh mục khai tay ⚙ Cài đặt › Địa bàn). "Về gộp điểm em lấy theo mẫu 31 và ds tổ cho chuẩn, ko phải 12 gộp còn 9 — sẽ theo tiến độ" · "kiểm tra xem tất cả các tổ có dư nợ có thuộc địa bàn điểm GD xã, có tổ nào ko chuẩn" · "so sánh số liệu trước tháng 7 và sau đó vì Gia Lộc có đổi tên ấp… ghi chú cho anh nhớ riêng 4 KP của điểm GD Gia Lộc".
+- File cắm rút `js/82-dia-ban-so-lieu.js`: 🗺 Địa bàn dựng cây **xã → điểm GD (mã, tên, ngày GD) → ấp (mã thôn) → số tổ** từ kỳ mới nhất (File Tổ trưởng + Mẫu 31, tổ chưa đóng); đầu cây ghi nguồn + ngày; chip xem lại 📒 Danh mục Cài đặt; 📋 Chép bảng theo số liệu.
+- **Lệch danh mục Cài đặt** (ấp đổi điểm · ấp mới · ấp không còn tổ) + **⟳ Cập nhật danh mục theo số liệu** (xem trước, anh bấm mới ghi, giữ bản cũ `D.cauHinh.diaBanCu` → ↶ Khôi phục). Ấp có tổ thuộc nhiều điểm → ⚠.
+- **Tổ còn dư nợ không chuẩn địa bàn** (`toKiemAp` js/22g → `q.toLech`, chạy sau `toDong0`): chưa rõ xã / điểm / ấp · điểm suy (không có trên File Tổ trưởng) · không có trên Danh sách tổ · ấp có tổ thuộc điểm khác · điểm GD phần lớn tổ ở xã khác — hiện ở 🗺 Địa bàn và Kiểm tra kỳ nhóm 6.
+- **So trước 07/2026** (kỳ mới nhất trước mốc) ↔ hiện tại theo **mã tổ**: ấp cũ (mã, tên) → ấp hiện nay, số tổ. **📝 Ghi chú riêng từng điểm GD** (`D.cauHinh.dbGhi`), 💡 gợi ý từ số liệu (danh sách ấp / KP + tên trước 07/2026), hiện ngay dưới tên điểm.
+- Sổ chung: mục 5 + QT-C-13 — không cài cứng bảng gộp điểm, theo tiến độ thực tế; thư TK 1.
+- Phép thử `tests/t326.js` (11 ý); t321 4 mục nhóm 6.
+
 ## 3.405 — 29/10/2026 — File đối chiếu Tèo DOI_CHIEU_APP (TK 2)
 - **Kế hoạch kỳ đối chiếu 31/10** (`docs/TEO_KE_HOACH_KY_3110.md` mục 3, 8 — TK 1 lập, anh 29/10 "làm tiếp theo kh lớn đã đề ra"): nút **📤 File đối chiếu Tèo (DOI_CHIEU_APP)** ở ⋯ Nạp & KT.
 - `DOI_CHIEU_APP_<YYYY-MM-DD>.csv`: UTF-8 BOM; dòng 1 `#` ghi chú (bên, bản, ngày số liệu, luật K1 QT-18 · K5 file KHĐ / slKHDTinh · K7 gia hạn → HĐ); dòng 2 = 17 cột hợp đồng (khoa, ma_xa, ma_ap, ma_diem, hoi, so_tv, so_tv_du_no, du_no, nqh, khoanh, lai_ton, tien_gui, cho_vay, thu_no, so_mon_khd, so_mon_lech_ap, so_mon_den_han_thang_toi); 1 dòng 1 tổ + `TT|<mã thôn>` cho món vay trực tiếp; tiền đồng nguyên.

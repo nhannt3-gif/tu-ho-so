@@ -123,6 +123,7 @@
 | 29/10 | TK 2 | 3.403 | `js/81-scan-pdf-the.js` (mới, cắm rút: bọc nhanVaoScan, moHangCho, sxCatTuPDF), `index.html`, `tests/t323` | t323 11/11 + hồi quy theo đổi |
 | 29/10 | TK 2 | 3.404 | `js/22h` (skCQH… QT-C-12), `js/22g` (toNap gắn o._ngGD), `js/76` (cột Chuyển QH), `js/22gb` (chip đến hạn), `docs/TEO_*`, `tests/t324` | t324 11/11 + hồi quy theo đổi |
 | 29/10 | TK 2 | 3.405 | `js/22k-nap-kt` (DOI_CHIEU_APP), `tests/t325`, `tests/t131` | t325 9/9 + hồi quy theo đổi |
+| 29/10 | TK 2 | 3.406 | `js/82-dia-ban-so-lieu.js` (mới, cắm rút), `js/22g` (toKiemAp q.toLech, gọi sau toDong0), `js/22k` (slKTAp mục mới), `js/17b`, `css`, `docs/TEO_*`, `tests/t326`, `tests/t321` | t326 11/11, t321 12/12 + hồi quy theo đổi |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

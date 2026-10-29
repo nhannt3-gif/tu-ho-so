@@ -30,7 +30,7 @@ var CH_SO = {
   tagTab:'Nhãn theo tab', tagGan:'Nhãn đã gắn', tagDCBo:'Mốc bỏ nhãn địa chỉ biểu mẫu (1 lần)', nhanGhiChu:'Nhãn ghi chú', nhanGCDaGop:'Mốc gộp nhãn ghi chú (1 lần)', hoiDoanThe:'Danh mục hội đoàn thể (đời cũ)',
   boMau:'Bộ biểu mẫu', loaiBoHS:'Loại giấy tờ bộ hồ sơ',
   /* địa bàn */
-  diaBan:'Địa bàn: xã → điểm GD → ấp', xaQuanLy:'Xã anh quản lý', xaHien:'Xã hiện (đời cũ)', xqlDaAp:'Mốc chuyển xã quản lý (1 lần)', xaMo:'Xã đang mở ở cây', capThang:'Cấp xem tab Tháng',
+  diaBan:'Địa bàn: xã → điểm GD → ấp', diaBanCu:'Danh mục địa bàn trước lần cập nhật theo số liệu (3.406, khôi phục)', dbGhi:'Ghi chú riêng từng điểm GD ở 🗺 Địa bàn (3.406)', xaQuanLy:'Xã anh quản lý', xaHien:'Xã hiện (đời cũ)', xqlDaAp:'Mốc chuyển xã quản lý (1 lần)', xaMo:'Xã đang mở ở cây', capThang:'Cấp xem tab Tháng',
   /* scan, CCCD */
   scanChe:'Scan: chế độ (thẻ / tài liệu)', scanLoai:'Scan: loại lần trước', scanLoc:'Scan: bộ lọc ảnh', scanNguon:'Scan: nguồn (camera / file)', scanNhom:'Scan: nhóm theo ngày / tuần / tháng', scanXem:'Scan: xem danh sách / cây',
   camId:'Camera đang dùng (riêng máy)', camGiu:'Camera: thời gian giữ hình', camTuDong:'Camera: tự chụp', kaMuc:'Ký ảnh: mức', kaTM:'Ký ảnh: thư mục Drive theo tháng',

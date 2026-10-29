@@ -201,7 +201,6 @@ function toNap(ky){
     toDanhBaDiem(K);   /* 3.107: bảng tháng trước không mở được → danh bạ tổ (lưu từ các lần nạp Thông tin tổ trưởng) */
     toSuyDiem(K);   /* 3.98: tổ chưa có trong Thông tin tổ trưởng → suy điểm GD theo ấp / ngày GDXA */
     toGanTrucTiep(K, Bm);   /* 3.92: món vay trực tiếp (không mã tổ) → mục "Vay trực tiếp" ở đúng xã / điểm GD */
-    toKiemAp(K);   /* 3.401 QT-C-10 / 11: món lệch ấp so với tổ · ấp nhiều điểm · món trực tiếp gán điểm tạm — chỉ báo */
     var ngD = {}; Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.diem && t.ngayGD && !ngD[t.diem]) ngD[t.diem] = t.ngayGD; });
     Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.diem && !t.ngayGD && ngD[t.diem]) t.ngayGD = ngD[t.diem]; });   /* 3.108: DSTO không có ngày GDXA → theo mã điểm GD */
     (K.hs||[]).forEach(function(o){ var t = T[toMaCua(o)]; o._ngGD = t && !t.trucTiep && t.ngayGD ? String(+t.ngayGD || '') : ''; });   /* 3.404 QT-C-12: ngày GD của điểm cho ngày chuyển QH (skCQH) */
@@ -210,6 +209,7 @@ function toNap(ky){
     var ltR = Bm && Bm.co.lt;
     if(ltR) twGhepTo(ltR, twToTu(K.hs, T)).forEach(function(g){ g.ma.forEach(function(m){ if(T[m]){ T[m].len = g.o; T[m].lenGop = g.ma.length; } }); });
     toDong0(K, Bm);   /* 3.145 (anh chốt): tổ dư nợ 0 */
+    toKiemAp(K);   /* 3.401 QT-C-10 / 11: món lệch ấp so với tổ · ấp nhiều điểm · món trực tiếp gán điểm tạm · 3.406: tổ còn dư nợ không chuẩn (sau toDong0 để có t.ngoaiDS) — chỉ báo */
     toTenChuan(K);   /* 3.108: tên tổ trưởng / tổ phó: bỏ "Ông / Bà", lấy dấu theo Mẫu 31, hoa đầu từ — 1 lần mỗi kỳ (TO_KS giữ sẵn) */
     TO_KS[ky] = K; slDung(ky); slBot(TO_KS);
     return tkNapMoi(K).then(function(){ return K; });   /* 3.201: Sao kê TK 104 / 105 — luôn lấy file mới nhất */
@@ -278,6 +278,25 @@ function toKiemAp(K){
     q.apNhieu.push([a.xa, a.thon, a.ten, ds.map(function(d){ return a.d[d].ten+' ('+a.d[d].n+' tổ)'; }).join(' · ')]); });
   (K.hs||[]).forEach(function(o){ if(o.to || !o.ku || !o._ttCach || !TO_TT_CACH[o._ttCach] || !((o.dn||0)>0 || (o.qh||0)>0)) return;
     var t = T[o._tt]; q.ttTam.push([o.ku, o.kh||'', o.ten||'', o.tenXa||o.xa||'', String(o.thon||''), t ? (t.tenDiem||'(chưa rõ)') : '(chưa rõ)', TO_TT_CACH[o._ttCach]]); });
+  /* 3.406 (anh 29/10 "kiểm tra tất cả các tổ có dư nợ có thuộc địa bàn điểm GD xã — có tổ nào không chuẩn"): tổ còn dư nợ không chuẩn → q.toLech */
+  var apD = {}, diemXa = {}, nh = function(o){ var b = '', n = -1; Object.keys(o).forEach(function(k){ if(o[k]>n){ n = o[k]; b = k; } }); return b; };
+  Object.keys(T).forEach(function(m){ var t = T[m]; if(t.trucTiep || !t.diem) return;
+    if(t.thon){ var k = t.xa+'|'+t.thon; apD[k] = apD[k] || {}; apD[k][t.diem] = (apD[k][t.diem]||0)+1; }
+    diemXa[t.diem] = diemXa[t.diem] || {}; diemXa[t.diem][t.xa] = (diemXa[t.diem][t.xa]||0)+1; });
+  q.toLech = []; q.toDuNo = 0;
+  Object.keys(T).forEach(function(m){ var t = T[m]; if(t.trucTiep) return;
+    var dn = (K.kh[m]||[]).reduce(function(a, o){ return a+(o.dn||0); }, 0); if(!(dn>0)) return; q.toDuNo++;
+    var ly = [];
+    if(!t.xa) ly.push('chưa rõ xã');
+    if(!t.diem) ly.push('chưa rõ điểm GD');
+    else if(t.diemSuy) ly.push('điểm GD suy ('+t.diemSuy+') — không có trên File Tổ trưởng');
+    if(t.ngoaiDS) ly.push('không có trên Danh sách tổ (File Tổ trưởng)');
+    if(!t.thon) ly.push('chưa rõ ấp');
+    var ka = t.xa+'|'+t.thon, d0 = t.thon && apD[ka] ? nh(apD[ka]) : '';
+    if(t.diem && d0 && d0!==String(t.diem) && Object.keys(apD[ka]).length>1) ly.push('ấp có tổ thuộc điểm khác (đa số tổ cùng ấp ở điểm '+d0+')');
+    var x0 = t.diem && diemXa[t.diem] ? nh(diemXa[t.diem]) : '';
+    if(x0 && x0!==String(t.xa) && Object.keys(diemXa[t.diem]).length>1) ly.push('điểm GD '+t.diem+' phần lớn tổ ở xã khác ('+x0+')');
+    if(ly.length) q.toLech.push([m, t.ten||'', t.tenXa||t.xa||'', t.tenDiemDu||'', t.tenThon||t.thon||'', dn, ly.join(' · ')]); });
   K.qtc = q; return q;
 }
 /* ---------- 3.92: TAB TỔ — mục đích (anh Nhân): biết số tổ viên để KẾT NẠP thêm hoặc CHO RA khỏi tổ, căn cứ dư nợ và số dư 105 ----------

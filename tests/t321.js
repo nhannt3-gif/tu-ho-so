@@ -37,7 +37,7 @@ const fs=require('fs'), path=require('path');
    ok('QT-C-10: ấp có tổ thuộc 2 điểm → danh sách ấp nhiều điểm', q.apNhieu.length===1 && q.apNhieu[0][1]==='22' && /Điểm Hai \(1 tổ\)/.test(q.apNhieu[0][3]) && /Điểm Một \(1 tổ\)/.test(q.apNhieu[0][3]), JSON.stringify(q.apNhieu));
    ok('QT-C-11: món trực tiếp gán tạm → danh sách (không có món theo ấp / danh mục)', q.ttTam.length===1 && q.ttTam[0][0]==='M5' && q.ttTam[0][6]==='chưa rõ điểm GD', JSON.stringify(q.ttTam));
    const kq = []; slKTAp(K, function(n, ten, okk, chu, chi, cot, ds, muc){ kq.push({n, ten, okk, chu, n2:(ds||[]).length, muc}); });
-   ok('Kiểm tra kỳ: 3 mục nhóm 6, có lệch → "canh" (chỉ báo, không làm trượt Đạt)', kq.length===3 && kq.every(x=>x.n===6 && x.muc==='canh') && /1 món — cần sửa ấp/.test(kq[0].chu), JSON.stringify(kq));
+   ok('Kiểm tra kỳ: 4 mục nhóm 6 (3.406 + tổ còn dư nợ không chuẩn), có lệch → "canh" (chỉ báo, không làm trượt Đạt)', kq.length===4 && kq.every(x=>x.n===6) && kq.filter(x=>x.muc==='canh').length===3 && /1 món — cần sửa ấp/.test(kq[0].chu) && /cả 1 tổ có dư nợ đều đúng/.test(kq[2].chu), JSON.stringify(kq));
    /* 2. tích hợp: File Tổ trưởng ghi đè ấp của tổ (Mẫu 31 ghi ấp khác) + Kiểm tra kỳ chạy không lỗi */
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const k = await slDocFile(new File([u], f.n)); if(!k.loi && k.ky) await slGhi(k); }
    SL_BO = {}; TO_KS = {}; let K8 = await toNap('2026-08');

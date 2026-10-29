@@ -1023,6 +1023,8 @@ function slKTAp(K, them){
     q.lechAp.length ? 'Luật chung: món vay → mã tổ → ấp của tổ → điểm GD (1 ấp 1 điểm).' : '', ['Số KU', 'Mã KH', 'Họ tên', 'Mã tổ', 'Ấp của món', 'Ấp của tổ', 'Dư nợ'], q.lechAp, q.lechAp.length ? 'canh' : '');
   them(6, 'QT-C-10 · Ấp có tổ thuộc nhiều điểm GD (1 ấp chỉ thuộc 1 điểm)', !q.apNhieu.length, q.apNhieu.length ? q.apNhieu.length+' ấp — món trực tiếp ở các ấp này tạm theo điểm nhiều tổ hơn' : 'không có',
     '', ['Xã', 'Mã ấp', 'Tên ấp', 'Các điểm GD (số tổ)'], q.apNhieu, q.apNhieu.length ? 'canh' : '');
+  if(q.toLech) them(6, 'QT-C-10 · Tổ còn dư nợ không chuẩn địa bàn (xã → điểm GD → ấp)', !q.toLech.length, q.toLech.length ? q.toLech.length+' / '+q.toDuNo+' tổ có dư nợ — xem lý do từng tổ' : 'cả '+q.toDuNo+' tổ có dư nợ đều đúng xã · điểm GD · ấp',
+    '', ['Mã tổ', 'Tổ trưởng', 'Xã', 'Điểm GD', 'Ấp', 'Dư nợ', 'Lý do'], q.toLech, q.toLech.length ? 'canh' : '');   /* 3.406 */
   them(6, 'QT-C-11 · Món vay trực tiếp chưa gán được điểm theo ấp', !q.ttTam.length, q.ttTam.length ? q.ttTam.length+' món — gán tạm, xem cột Cách gán' : 'mọi món trực tiếp gán theo ấp',
     '', ['Số KU', 'Mã KH', 'Họ tên', 'Xã', 'Mã ấp', 'Điểm GD tạm', 'Cách gán'], q.ttTam, q.ttTam.length ? 'canh' : '');
 }
