@@ -165,6 +165,7 @@ Luật làm chung:
 - Chỉ **TK đang làm app** lên số bản app; giao ban không sửa code app, app không sửa script / quy chuẩn giao ban.
 - Quyết định anh chốt ở cửa nào → ghi vào sổ này **trong cùng lượt** (luật 1 mục 2).
 - AI mới vào: đọc `AGENTS.md` → sổ này mục 2, 12–14 → làm. Không đoán việc của bên khác; hỏi qua hộp thư.
+- **Số liệu thật nằm trên Drive — TK 1 đọc, TK 2 / TK 3 làm theo thuật toán** (anh 30/10: "tk làm trên repo đôi khi không đọc được số liệu trên Drive mở trên máy tính nên cần TK 1 đọc và đưa ra thuật toán đảm bảo TK 2 làm được"). Việc app cần số liệu thật (cột file, cách hệ thống ghi, trường hợp lạ, số đối chiếu) → TK 1 đọc file trên Drive rồi ghi vào repo: **(a) thuật toán từng bước** theo tên cột hệ thống, **(b) trường hợp mẫu dữ liệu giả + đáp án** (thêm vào `tests/teo/teo_ca.json` khi là luật chung), **(c) số đếm tổng** để TK 2 tự kiểm sau khi anh chạy trên máy. Không chép dữ liệu khách vào repo. TK 2 chưa rõ / thiếu dữ liệu → hỏi TK 1 ở hộp thư, không đoán.
 
 ## 13. Chờ anh quyết (một danh sách — anh trả lời ở cửa nào cũng được, bên nhận gạch + ghi ngày)
 
