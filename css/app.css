@@ -4110,4 +4110,4 @@ details.kt-kh-ls{border:1px solid var(--vien);border-radius:8px;padding:4px 8px;
 .dbt-bang tr.cong td{font-weight:700;border-top:2px solid var(--vien,#ccc)}
 .dbt-ds{margin-top:10px}
 .dbt-ds>summary{cursor:pointer;padding:4px 0}
-.tc-dbt-nut{margin-left:6px;white-space:nowrap}
+.tc-dbt-nut{white-space:nowrap}

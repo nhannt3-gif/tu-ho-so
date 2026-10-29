@@ -1962,7 +1962,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.402', ds:[
+var CO_GI_MOI = {ban:'3.403', ds:[
+  ["📉 Diễn biến tổ thành báo cáo tổng kẻ khung (bảng tổng + Phụ lục 1–4), nút ở thẻ tổ thay nút Lập hồ sơ hộ mới vào tổ", "doiNgan(7);slDoiTab('tra')"],
+  ["🪪 Scan: CCCD đã lưu dạng PDF — chế độ Thẻ nhận PDF, tự tìm và cắt sát thẻ như ảnh chụp; chế độ Tài liệu nhắc chuyển sang Quét CCCD", "doiNgan(4)"],
   ["📉 Tra cứu KH › Diễn biến tổ: so tổ đầu tháng với hiện tại theo xã / điểm GD / Hội — tổ đã đóng (khoảng ngày), tổ mới, đổi điểm / Hội, tổ rác chưa đóng", "doiNgan(7);slDoiTab('tra')"],
   ["🧭 Điểm GD theo luật chung Tèo: ấp của tổ theo File Tổ trưởng, món vay trực tiếp theo ấp · Kiểm tra kỳ báo món lệch ấp / ấp nhiều điểm / món trực tiếp gán tạm", "doiNgan(7);slDoiTab('nap')"],
   ["🏷 Số liệu: file gốc lưu tên chuẩn MÃ_ngày số liệu (vd MAU31_2026-10-31) · sổ DANH_MUC_NAP.csv mỗi tháng · ⋯ › 🏷 Chuẩn hóa tên file tháng cũ", "doiNgan(7);slDoiTab('nap')"],
@@ -1975,9 +1977,7 @@ var CO_GI_MOI = {ban:'3.402', ds:[
   ["🔽 Tra cứu KH › Tìm theo Tổ trưởng: bấm tiêu đề cột để sắp xếp ▲▼; hàng lọc từng cột (tên · mã gõ; TV · Có DN = 0 / > 0 / ngưỡng; Xã · Ấp · Hội chọn); dòng Cộng theo dòng đang lọc", "doiNgan(7);slDoiTab('tra')"],
   ["📱 Điện thoại: chip báo trên dải LỌC ĐỊA BÀN (KTGS BC0437 · BC0438) 1 dòng, không đè khung", "doiNgan(7);slDoiTab('kt')"],
   ["🪪 Scan CCCD: hàng chờ còn ảnh thẻ chưa lưu (quá 30 phút) → quét mới thì hỏi Bỏ ảnh cũ / Giữ — hết ghép nhầm mặt sau thẻ người trước; Đọc số CCCD không lấy kết quả lượt trước", "doiNgan(4)"],
-  ["🛡 KTGS: chip BC0437 / BC0438 lên dải LỌC ĐỊA BÀN như mọi tab", "doiNgan(7);slDoiTab('kt')"],
-  ["👥 Tổ TK&VV: báo cáo lên hàng thao tác của bảng — 🧩 Sổ tổ viên luôn có; chọn tổ có chip DS hộ vay · Nợ · TK 105 · Chia tách + 👁 Xem (bớt 2 hàng)", "doiNgan(7);slDoiTab('to')"],
-  ["📱 Điện thoại: chọn sâu tới tổ → hàng lọc 2 dòng, ô đọc được tên", "doiNgan(7);slDoiTab('to')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🛡 KTGS: chip BC0437 / BC0438 lên dải LỌC ĐỊA BÀN như mọi tab", "doiNgan(7);slDoiTab('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

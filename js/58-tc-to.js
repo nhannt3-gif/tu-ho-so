@@ -169,7 +169,7 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
     '<div class="hang-nut tc-nut">'+(coKH ? GD.nut({chu:'👤 Xem tổ trưởng', lenh:'tc.kh', du:{kh:tt.kh}}) : '')+
       (t.khoaDiem ? GD.nut({chu:'🏘 Tổ của điểm GD', lenh:'tc.bangDiem', du:{diem:t.khoaDiem, to:t.ma}}) : '')+
       GD.nut({chu:'📊 Biến động TK 105', lenh:'tc.b105', du:{to:t.ma}, tit:'Mở Sao kê biến động TK 105 của tổ (khách chuyển vào, trích trả lãi / gốc)'})+GD.nut({chu:'👥 Mở tổ', lenh:'tc.moTo', du:{to:t.ma}})+
-      GD.nut({chu:'👪 Lập hồ sơ hộ mới vào tổ', lenh:'tc.ketNap', du:{to:t.ma}, chinh:1, tit:'Mở form 👪 Hộ vay, điền sẵn Xã › Ấp › Tổ'})+'</div>';
+      (typeof dbtNut==='function' ? dbtNut() : GD.nut({chu:'👪 Lập hồ sơ hộ mới vào tổ', lenh:'tc.ketNap', du:{to:t.ma}, chinh:1, tit:'Mở form 👪 Hộ vay, điền sẵn Xã › Ấp › Tổ'}))+'</div>';   /* 3.403.2 (anh 29/10 "nút diễn biến tổ thay cho nút lập hồ sơ mới vào tổ"): bỏ js/80 thì nút cũ quay lại; lập hồ sơ vào tổ vẫn có ở 🏘 Tổ của điểm GD */
   var ct = document.getElementById('tc-ct');
   if(ct && tcHaiCot()) ct.innerHTML = '<div class="tc-the tc-the-to">'+h+'</div>'; else moHop('<div class="tc-the tc-the-to">'+h+GD.hang([GD.nut({chu:'Đóng (Esc)', lenh:'tc.dong'})])+'</div>', true);
 }

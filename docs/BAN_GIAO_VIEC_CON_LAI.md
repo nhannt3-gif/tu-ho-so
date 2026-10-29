@@ -264,6 +264,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Theo dõi nợ đã gỡ: làm lại sau nên đọc dữ liệu cũ ở IndexedDB khóa `tdn_du_lieu` (cấu trúc `NO = {ho, mon, lan, lanXoa, nhap, toAp, suaLuc}` — xem git `js/04e-theo-doi-no.js` bản 3.398) và Drive `_Hệ thống/theodoino.json`; nên đọc số liệu qua `KHO` (không bộ đọc Excel riêng — lý do gỡ, L1 RA_SOAT_HUONG_DI_2510).
 - Hàm tiện ích tên `tdn*` (tdnTien, tdnHoi, tdnCuoiKy…) vẫn dùng khắp app — ở `js/04e-chung.js`, không đổi tên.
 
+### Danh sách thử trên máy thật (3.403)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan › chế độ Thẻ › File: chọn PDF CCCD 2 trang | Hàng chờ có 2 ảnh mặt thẻ cắt sát, ghép 1 người | |
+| 2 | Chế độ Tài liệu: mở PDF CCCD | Dòng nhắc 🪪 Chuyển sang Quét CCCD; bấm → 2 ảnh thẻ | |
+| 3 | Chế độ Tài liệu: PDF văn bản thường | Không nhắc, giữ trang như cũ | |
+| 4 | Bản CCCD lưu PDF (mỗi trang 1 mặt) trên Drive › 🪪 Đọc CCCD | Cắt được 2 mặt, đọc số | |
+
+_Ghi chú kỹ thuật 3.403:_ `js/81-scan-pdf-the.js` bọc `nhanVaoScan` (chế độ Thẻ: PDF → File ảnh rồi gọi bản cũ; Tài liệu: dò để nhắc `SC_PDF_THE`), bọc `moHangCho` (nút + Thêm PDF, dòng nhắc), bọc `sxCatTuPDF` (js/43) thử trang 1 + 2. Lệnh GD `scpdf.the` / `scpdf.them`.
+
 ### Danh sách thử trên máy thật (3.402)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
