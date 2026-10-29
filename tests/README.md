@@ -238,6 +238,8 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t324.js` | 3.404 (Tèo QT-C-12): `skPhienTu` (ĐH 10 điểm 05 → 05 tháng sau, gộp điểm 23, trùng ngày, tháng 2), gia hạn, ưu tiên cột hệ thống, ⚠ lệch lịch điểm, món trực tiếp ngay sau ĐH, chưa có, chia khung ③, `toNap` gắn `o._ngGD` — bộ `gianho31`. |
 | `node tests/t325.js` | 3.405 (Tèo): DOI_CHIEU_APP csv — BOM, dòng # ghi chú, 17 cột hợp đồng, 1 dòng 1 tổ + TT|thôn, tổng dư nợ / quá hạn = Mẫu 31, tiền nguyên, lưu Drive Số liệu/<tháng>/ (Drive giả), nút ⋯ Nạp & KT — bộ `gianho31`. |
 | `node tests/t326.js` | 3.406 🗺 Địa bàn theo số liệu (js/82): so ấp trước 07/2026 theo mã tổ, cây xã → điểm → ấp → tổ, lệch danh mục (đổi điểm / mới / không còn), tổ còn dư nợ không chuẩn (điểm khác, chưa rõ, ngoài DS tổ, điểm suy), dựng thật trên `gianho31`, ⟳ cập nhật / ↶ khôi phục, 📝 ghi chú + gợi ý, Kiểm tra kỳ mục mới. |
+| `node tests/t327.js` | 3.407 ghi chú ấp / KP cũ (js/83): bảng 19 ấp theo mã, dòng Gia Lộc khi toàn PGD / Gia Lộc, nút 🏷 mặc định tắt → bật hiện ghi chú, chọn xã khác ẩn dòng, cờ gỡ, 🗺 Địa bàn 🏷 + gợi ý — bộ `gianho31`. |
+| `node tests/t328.js [mã,…]` | 3.407 **phép thử chung Tèo** `tests/teo/teo_ca.json` (TK 1): mỗi trường hợp 1 trang sạch, nạp Mẫu 31 + File Tổ trưởng giả qua slDocFile → toNap → so đáp án (dòng file đối chiếu, ngày QH, lệch ấp, ấp nhiều điểm, không ghép DS tổ khác ngày, hàm). `CHO` = lệch chờ chốt (⏳). Kết quả ghi `TEO_QUY_TAC_CHUNG.md` mục 3. |
 | (3.389.2) | Chỉ CSS. |
 | (3.389.1) | Thử goiCauNoi bằng node trong lượt sửa. |
 | (3.389) | t147 thêm nút 📋 Chép. |

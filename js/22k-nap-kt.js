@@ -1050,7 +1050,7 @@ function slDCTeoTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
   } finally { TO_K = giu; }
   var tt = {};
   (K.hs||[]).forEach(function(o){ if(o.to || !o.ku) return; var k = 'TT|'+String(o.thon||''), g = tt[k];
-    if(!g){ var d = T[o._tt]; g = tt[k] = {xa:o.xa||'', ap:String(o.thon||''), diem:d && d.diem || '', kh:{}, khNo:{}, t105:{}, dn:0, qh:0, kn:0, lt:0, cv:0, tn:0, khd:0, dh:0}; }
+    if(!g){ var d = T[o._tt]; g = tt[k] = {xa:o.xa||'', ap:String(o.thon||''), diem:d && (o._ttCach==='ap' || o._ttCach==='danhMuc') ? d.diem || '' : '',   /* QT-C-11: chỉ ghi mã điểm xác định theo ấp (tạm GDXA / xã 1 điểm → để trống, như giao ban) */ kh:{}, khNo:{}, t105:{}, dn:0, qh:0, kn:0, lt:0, cv:0, tn:0, khd:0, dh:0}; }
     g.kh[o.kh] = 1; if((o.dn||0)>0) g.khNo[o.kh] = 1; if((o.t105||0) > (g.t105[o.kh]||0)) g.t105[o.kh] = o.t105;
     g.dn += o.dn||0; g.qh += o.qh||0; g.kn += o.kn||0; g.lt += laiTon(o); g.cv += cv(o); g.tn += tn(o); if(khd[o.ku]) g.khd++; if(dh(o)) g.dh++; });
   Object.keys(tt).sort().forEach(function(k){ var g = tt[k], so = function(x){ return Object.keys(x).length; };

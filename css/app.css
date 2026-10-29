@@ -4116,3 +4116,7 @@ details.kt-kh-ls{border:1px solid var(--vien);border-radius:8px;padding:4px 8px;
 .dbsl-lech{margin:4px 0 6px;border:1px solid var(--vang,#e0b000);border-radius:6px;padding:3px 6px}.dbsl-lech>summary{cursor:pointer}.dbsl-lb{margin:4px 0}
 .dbsl-khop{margin:2px 0 6px;color:var(--xanh-dam,#1a7f37);font-size:.9em}.dbsl-nhieu{margin:2px 0 6px;font-size:.9em}.dbsl-cu{margin:2px 0 6px}
 .dbsl-gc{margin:2px 0 4px 18px;padding:3px 6px;background:var(--vang-nen);border-left:3px solid var(--vang);font-size:.92em}.dbsl-gc-nut{margin-left:4px}
+/* 3.407: ghi chú ấp / KP cũ (js/83) */
+.pv-apcu{flex-basis:100%;width:100%;margin:2px 0 0;font-size:calc(11.5px*var(--co));color:var(--chu-phu)}.pv-apcu-gl{font-style:italic;overflow-wrap:anywhere}
+.pv-apcu-dong{margin-top:2px}.pv-apcu-nut{padding:0 6px;min-height:20px;font-size:inherit}.pv-apcu-nut.bat{background:var(--vang-nen)}
+.pv-apcu-ds{margin:3px 0 0;padding:3px 6px;border-left:3px solid var(--vang);background:var(--vang-nen);color:var(--chu)}.pv-apcu-ds>div{overflow-wrap:anywhere}.db-apcu{color:var(--chu-phu);font-style:italic}

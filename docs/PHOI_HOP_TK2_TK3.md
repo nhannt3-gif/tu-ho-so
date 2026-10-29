@@ -124,6 +124,7 @@
 | 29/10 | TK 2 | 3.404 | `js/22h` (skCQH… QT-C-12), `js/22g` (toNap gắn o._ngGD), `js/76` (cột Chuyển QH), `js/22gb` (chip đến hạn), `docs/TEO_*`, `tests/t324` | t324 11/11 + hồi quy theo đổi |
 | 29/10 | TK 2 | 3.405 | `js/22k-nap-kt` (DOI_CHIEU_APP), `tests/t325`, `tests/t131` | t325 9/9 + hồi quy theo đổi |
 | 29/10 | TK 2 | 3.406 | `js/82-dia-ban-so-lieu.js` (mới, cắm rút), `js/22g` (toKiemAp q.toLech, gọi sau toDong0), `js/22k` (slKTAp mục mới), `js/17b`, `css`, `docs/TEO_*`, `tests/t326`, `tests/t321` | t326 11/11, t321 12/12 + hồi quy theo đổi |
+| 30/10 | TK 2 | 3.407 | `js/83-ap-cu.js` (mới, cắm rút), `js/82` (🏷 + gợi ý), `js/22g` (ngày GD điểm từ GDXA đa số), `js/22k` (TT ma_diem), `js/17b`, `css`, `tools/hoiquy_pt.py` (R1), `docs/RA_SOAT_HOI_QUY.md`, `docs/TEO_*`, `tests/t327`, `tests/t328` | t327 10/10, t328 28/30 · 2 chờ chốt, t324/t131/t321/t326/t322/t167/t312/t260 đạt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

@@ -202,6 +202,11 @@ function toNap(ky){
     toSuyDiem(K);   /* 3.98: tổ chưa có trong Thông tin tổ trưởng → suy điểm GD theo ấp / ngày GDXA */
     toGanTrucTiep(K, Bm);   /* 3.92: món vay trực tiếp (không mã tổ) → mục "Vay trực tiếp" ở đúng xã / điểm GD */
     var ngD = {}; Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.diem && t.ngayGD && !ngD[t.diem]) ngD[t.diem] = t.ngayGD; });
+    /* 3.407 (Tèo QT-C-12, phép thử chung teo_ca C12): File Tổ trưởng không có ngày GD, Dư nợ chi tiết đã thôi xuất → ngày GD của ĐIỂM = ngày GDXA chiếm đa số
+       trong Mẫu 31 của các tổ thuộc điểm (tổ mới chuyển đến còn mang GDXA điểm cũ vẫn theo điểm mới) — chỉ điền khi chưa có (không đè nguồn file) */
+    var demD = {}; Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.trucTiep || !t.diem || ngD[t.diem]) return;
+      (K.kh[ma]||[]).forEach(function(o){ var n = +o.ngayGD || 0; if(n){ var d = demD[t.diem] = demD[t.diem] || {}; d[n] = (d[n]||0)+1; } }); });
+    Object.keys(demD).forEach(function(dm){ var d = demD[dm], tot = 0, n = 0; Object.keys(d).forEach(function(k){ if(d[k]>n){ n = d[k]; tot = k; } }); if(tot) ngD[dm] = hai(+tot); });
     Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.diem && !t.ngayGD && ngD[t.diem]) t.ngayGD = ngD[t.diem]; });   /* 3.108: DSTO không có ngày GDXA → theo mã điểm GD */
     (K.hs||[]).forEach(function(o){ var t = T[toMaCua(o)]; o._ngGD = t && !t.trucTiep && t.ngayGD ? String(+t.ngayGD || '') : ''; });   /* 3.404 QT-C-12: ngày GD của điểm cho ngày chuyển QH (skCQH) */
     Object.keys(T).forEach(function(ma){ var t = T[ma]; t.tenDiemDu = t.tenDiem ? String(t.tenDiem).trim()+(t.ngayGD ? ' · ngày '+t.ngayGD : '') : '(chưa rõ điểm GD)'; t.khoaDiem = t.diem || t.tenDiemDu; });
