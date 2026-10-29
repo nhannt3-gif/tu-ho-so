@@ -11,6 +11,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **② Chế độ 📄 Tài liệu:** không tự cắt; PDF mà mọi trang chỉ là thẻ → dòng nhắc **🪪 Chuyển sang Quét CCCD để cắt** (không bấm thì giữ trang PDF như cũ).
 - **③ Bản CCCD lưu PDF trên Drive** (Đọc CCCD / Rà): trang 1 không có đủ 2 mặt → thử mỗi trang 1 mặt (trang 1 + 2); vẫn có ↻ Cắt lại như cũ.
 - Phép thử `tests/t323.js` (11 ý, PDF giả).
+- **Sửa lỗi 3.402** (hồi quy t260): nút 📉 Diễn biến tổ đặt trên hàng tìm làm trang Tra cứu tràn ngang ở màn 1366 / 1440 px → dời xuống cột trái, trên 🔍 Kiểm trùng.
 
 ## 3.402 — 29/10/2026 — 📉 Diễn biến tổ ở Tra cứu KH (TK 2)
 - **Anh 29/10** (đang củng cố, đóng tổ không hoạt động): "làm 1 nút trong tra cứu KH diễn biến theo xã, điểm GD, Hội về các tổ so đầu tháng với số liệu hiện tại, tổ nào đã đóng ngày nào, tổ nào đã không đủ ĐK chưa đóng" · "tổ có thành viên dưới 20, tổ không có dư nợ" · "ra tổ rác tất cả".
