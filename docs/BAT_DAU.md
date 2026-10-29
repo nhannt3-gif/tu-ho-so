@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.405** — TK 2: 📤 File đối chiếu Tèo DOI_CHIEU_APP cho kỳ 31/10. Trước: 3.404 ngày chuyển QH theo phiên điểm (QT-C-12). Kỳ đối chiếu: `docs/TEO_KE_HOACH_KY_3110.md`.
+- **`main` = 3.406** — TK 2: 🗺 Địa bàn (Hôm nay) theo Mẫu 31 + File Tổ trưởng, kiểm tổ còn dư nợ không chuẩn, so ấp trước 07/2026 + 📝 ghi chú điểm GD. Gộp điểm theo tiến độ (không cài cứng 12 → 9). Trước: 3.405 file đối chiếu Tèo.
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
