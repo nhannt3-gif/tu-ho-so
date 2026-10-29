@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.407** — TK 2: 🏷 ghi chú ấp / KP cũ (LỌC ĐỊA BÀN, dòng Gia Lộc), phép thử chung Tèo t328 (28/30 · 2 chờ chốt), ngày GD điểm từ GDXA đa số, rà soát hồi quy (`docs/RA_SOAT_HOI_QUY.md` chờ anh duyệt). Trước: 3.406 🗺 Địa bàn theo số liệu.
+- **`main` = 3.408** — TK 2: Tra cứu KH cảnh báo khách nhiều TK 105. Trước: 3.407 ghi chú ấp / KP cũ, phép thử chung Tèo t328 (29/31 · 2 chờ chốt), rà soát hồi quy (`docs/RA_SOAT_HOI_QUY.md` chờ anh).
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

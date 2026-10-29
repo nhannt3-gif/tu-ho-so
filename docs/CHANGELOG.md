@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.408 — 30/10/2026 — Tra cứu KH: cảnh báo khách nhiều TK 105 (TK 2)
+- **Anh 30/10:** "trong tra cứu KH em hiện cảnh báo KH có 2 số TK 105, và hiện cả 2 để biết và đóng".
+- Thẻ khách (`slTheKH`, js/22f): gộp số TK 105 của khách từ **danh bạ** (Mẫu 31 / Dư nợ chi tiết) **+ Sao kê TK 105** gắn kỳ (`tcTkDs`) — từ 2 sổ trở lên: **nhãn đỏ "N TK 105"** ở đầu thẻ; dòng TK 105 liệt kê **từng sổ: số TK · số dư · ngày mở** (sổ số dư 0 đánh dấu), nhắc "giữ 1, làm thủ tục đóng TK còn lại"; sổ chưa có trong Sao kê ghi rõ để nạp Sao kê xem số dư. 1 sổ → như cũ.
+- Phép thử `tests/t329.js` (5 ý).
+
 ## 3.407 — 30/10/2026 — Ghi chú ấp / KP cũ · phép thử chung Tèo · rà soát hồi quy (TK 2)
 - **Anh 30/10** ("đọc bàn giao và code tiếp"; việc anh giao qua TK 1, `docs/TEO_AP_CU.md`: "ấp, KP mới chuyển từ ấp, KP cũ nào thì ghi chú ở nút địa bàn khi bật lên để nhớ; riêng 4 KP Gia Lộc thêm 1 dòng nhỏ ở chỗ lọc địa bàn để anh quen dần, 1 thời gian rồi bỏ"): file cắm rút `js/83-ap-cu.js` — nút **🏷 Tên ấp cũ** ở LỌC ĐỊA BÀN (**mặc định tắt**, bật hiện ghi chú các ấp / KP trong phạm vi); **dòng nhỏ 4 KP Gia Lộc** khi toàn PGD / Phường Gia Lộc (cờ `AP_CU_GIA_LOC`, gỡ dễ); 🗺 Địa bàn: 🏷 cạnh ấp + gợi ý 📝. Ghép theo **mã ấp**, chỉ tên địa danh (19 ấp, chép từ TEO_AP_CU 1.0). Không đổi số.
 - **Phép thử chung Tèo B4** `tests/t328.js` đọc `tests/teo/teo_ca.json` (TK 1, 17 trường hợp / 30 ý — giao ban 30/30): **app 28/30 · 2 chờ chốt** (C01-1 tiền gửi khách 2 sổ · C09-1 File Tổ trưởng khác ngày — đã hỏi TK 1 / anh ở hộp thư). Mã giả `KU-…` / `KH-…` được ánh xạ sang dạng số hệ thống khi nạp.
