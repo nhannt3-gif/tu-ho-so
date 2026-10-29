@@ -57,7 +57,7 @@ function dbslCayHTML(){
   var h = '';
   dbslCay(DBSL.K).forEach(function(x){ var coX = khop(x.xa, x.ma), hx = '';
     x.diem.forEach(function(d){ var coD = coX || khop(d.ten, d.ma), ha = '', st = 0;
-      d.ap.forEach(function(a){ st += a.to.length; if(!(coD || khop(a.ten, a.ma))) return; ha += '<div class="db-ap">'+dbMa(a.ma)+' '+coChuHTML(a.ten)+' <small>· '+a.to.length+' tổ</small></div>'; });
+      d.ap.forEach(function(a){ st += a.to.length; if(!(coD || khop(a.ten, a.ma))) return; ha += '<div class="db-ap">'+dbMa(a.ma)+' '+coChuHTML(a.ten)+' <small>· '+a.to.length+' tổ</small>'+(typeof apCuGhi==='function' && apCuGhi(a.ma) ? ' <small class="db-apcu">🏷 '+coChuHTML(apCuGhi(a.ma))+'</small>' : '')+'</div>'; });   /* 3.407: ghi chú ấp / KP cũ (js/83) */
       if(!ha && !coD) return;
       var kg = dbslKhoaDiem(x, d), gc = dbslGC()[kg] || '';
       hx += '<details class="db-d"'+(q || gc ? ' open' : '')+'><summary>'+dbMa(d.ma)+' <b>'+coChuHTML(d.ten)+'</b>'+(d.ngay ? ' <span class="db-gd">GD ngày '+coChuHTML(d.ngay)+'</span>' : '')+' <small>· '+d.ap.length+' ấp/KP · '+st+' tổ</small> '+
@@ -137,7 +137,7 @@ function dbslDoiTenHTML(){
   if(!ds.length) return '<div id="dbsl-doi" class="dbsl-khop">✓ So với '+coChuHTML(ten)+' (trước 07/2026): không có tổ nào đổi ấp / tên ấp.</div>';
   return '<details id="dbsl-doi" class="dbsl-lech" open><summary>🔁 So với '+coChuHTML(ten)+' (trước 07/2026): '+ds.length+' ấp / KP đổi tên hoặc đổi mã (theo mã tổ)</summary><table class="sl-xt"><thead><tr><th>Xã</th><th>Điểm GD</th><th>Ấp / KP cũ</th><th>→ Ấp / KP hiện nay</th><th>Số tổ</th></tr></thead><tbody>'+
     ds.map(function(x){ return '<tr><td>'+coChuHTML(x.xa)+'</td><td>'+coChuHTML(x.diem)+'</td><td>'+coChuHTML(x.cu.ten)+' <small>'+coChuHTML(x.cu.ma)+'</small></td><td><b>'+coChuHTML(x.moi.ten)+'</b> <small>'+coChuHTML(x.moi.ma)+'</small></td><td class="so">'+x.to.length+'</td></tr>'; }).join('')+
-    '</tbody></table><small>Bấm 📝 cạnh tên điểm GD trong cây để ghi chú (có gợi ý từ bảng này).</small></details>';
+    '</tbody></table><small>Bấm 📝 cạnh tên điểm GD trong cây để ghi chú (có gợi ý từ bảng này). Lưu ý (TK 1 30/10): Mẫu 31 cũ hệ thống đã ghi tên ấp theo danh mục mới — bảng này chỉ thấy ấp <b>đổi mã / gộp</b>; tên cũ xem 🏷 ghi chú ấp / KP cũ.</small></details>';
 }
 function dbslGC(){ return (D.cauHinh.dbGhi = D.cauHinh.dbGhi || {}); }
 function dbslKhoaDiem(x, d){ return String(x.ma||x.xa)+'|'+String(d.ma||boDau(d.ten).toLowerCase()); }
@@ -145,6 +145,7 @@ function dbslTenDiem(k){ var p = String(k).split('|'), x = dbslCay(DBSL.K).find(
 function dbslGoiY(k){
   var c = dbslTenDiem(k); if(!c) return '';
   var dong = ['Điểm GD '+c.d.ten+(c.d.ngay ? ' (GD ngày '+c.d.ngay+')' : '')+' — '+c.d.ap.length+' ấp/KP: '+c.d.ap.map(function(a){ return a.ten+(a.ma ? ' ('+a.ma+')' : ''); }).join(' · ')];
+  c.d.ap.forEach(function(a){ var g = typeof apCuGhi==='function' ? apCuGhi(a.ma) : ''; if(g) dong.push('• '+a.ten+(a.ma ? ' ('+a.ma+')' : '')+': '+g); });   /* 3.407: tên ấp / KP cũ (TEO_AP_CU) */
   if(DBSL.cu) dbslDoiTen(DBSL.cu, DBSL.K).filter(function(x){ return x.maXa===String(c.x.ma) && (x.maDiem===String(c.d.ma) || x.diem===c.d.ten); }).forEach(function(x){
     dong.push('• '+x.moi.ten+(x.moi.ma ? ' ('+x.moi.ma+')' : '')+' — trước 07/2026 là '+x.cu.ten+(x.cu.ma ? ' ('+x.cu.ma+')' : '')+', '+x.to.length+' tổ'); });
   return dong.join('\n');

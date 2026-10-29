@@ -1,0 +1,59 @@
+// 3.407 (Tèo bước B4 — TK 1 30/10 "TK 2: phép thử JS đọc cùng file"): PHÉP THỬ CHUNG tests/teo/teo_ca.json — mỗi trường hợp 1 trang sạch:
+//   dựng Mẫu 31 (cột hệ thống, ô không ghi lấy mac_dinh_mau31) + File Tổ trưởng (baocao_…, cùng ngày trừ ngay_to_truong) → nạp qua slDocFile / slGhi → KHO (toNap) →
+//   so đáp án: dong (file đối chiếu DOI_CHIEU_APP, slDCTeoTinh) · ngay_qh (skCQH) · lech_ap / ap_nhieu_diem (K.qtc) · khong_ghep_to_truong · ham (so_thang_lai, xep_loai).
+//   KHÔNG sửa đáp án (đổi đáp án = đổi luật → anh chốt). App ra khác → ghi hộp thư TEO_PHOI_HOP mục 14. Chạy: node tests/t328.js [mã trường hợp,…]
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs=require('fs'), path=require('path');
+const BO = JSON.parse(fs.readFileSync(path.join(__dirname,'teo','teo_ca.json'),'utf8'));
+const CHON = (process.argv[2]||'').split(',').filter(Boolean);
+/* lệch ĐÃ BÁO, chờ chốt (không sửa đáp án) — in ⏳, không làm trượt; chốt xong thì xóa dòng + sửa app hoặc đáp án theo luật mới */
+const CHO = {'C01-1 · dong 9000001.tien_gui':'app lấy số dư 105 lớn nhất / khách (3.87) — chờ TK 1 xem file thật: cột "Số dư tiền gửi 105" Mẫu 31 ghi theo sổ hay tổng khách (hộp thư 30/10)',
+  'C09-1 · khong_ghep_to_truong':'app vẫn ghép File Tổ trưởng gần nhất + chỉ báo lệch ngày (3.400) — chờ anh quyết chặn hay báo (hộp thư 30/10)'};
+(async()=>{ const b=await chromium.launch(); const kq=[]; let loiTrang=[];
+ for(const ca of BO.truong_hop){ if(CHON.length && CHON.indexOf(ca.id)<0) continue;
+  const p=await b.newPage({viewport:{width:1280,height:800}}); p.on('pageerror',e=>loiTrang.push(ca.id+': '+e.message));
+  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1200);
+  const r = await p.evaluate(async(x)=>{ const {ca, BO} = x; await xongTV; try{dongHop()}catch(e){} window.SL_KHONG_TU_KIEM = 1; const ra = [];
+    const vn = s => { const m = String(s||'').match(/^(\d\d)\/(\d\d)\/(\d{4})$/); return m ? m[3]+'-'+m[2]+'-'+m[1] : ''; };
+    const nap = async(aoa, ten) => { const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoa), 'BCQUERY'); const k = await slDocFile(new File([XLSX.write(wb, {type:'array', bookType:'xlsx'})], ten)); if(!k.loi && k.ky) await slGhi(k); return k; };
+    let K = null, k31 = null, kTT = null;
+    /* app chỉ nhận mã đúng dạng hệ thống (số khế ước 10–20 số, mã KH 6–12 số — SL_KHOA_DUNG); mã giả "KU-01" / "KH-01" → ánh xạ cố định sang số, kết quả trả theo mã gốc */
+    const MA = {ku:{}, kh:{}}, so = (loai, v) => { if(v==null || v==='') return v; if((loai==='ku' ? /^\d{10,20}$/ : /^\d{6,12}$/).test(String(v))) return v; const m = MA[loai]; if(!m[v]) m[v] = (loai==='ku' ? '9000000000' : '900000')+String(Object.keys(m).length+1).padStart(loai==='ku' ? 5 : 3, '0'); return m[v]; };
+    const kuSo = v => MA.ku[v] || v, kuGoc = v => { const g = Object.keys(MA.ku).find(z=>MA.ku[z]===v); return g || v; };
+    if(ca.mau31 && ca.mau31.length){
+      const dong = ca.mau31.map(o=>{ const z = Object.assign({}, BO.mac_dinh_mau31, o, {'Ngày số liệu':BO.ngay_so_lieu}); z['Số khế ước'] = so('ku', z['Số khế ước']); z['Mã KH'] = so('kh', z['Mã KH']); return z; });
+      const cot = []; dong.forEach(o=>Object.keys(o).forEach(c=>{ if(cot.indexOf(c)<0) cot.push(c); }));
+      k31 = await nap([['31 - Tạo hồ sơ tín dụng chi tiết theo kỳ số liệu'], [], cot].concat(dong.map(o=>cot.map(c=>o[c]===undefined ? '' : o[c]))), 'mau31 thu.xlsx');
+      if(ca.to_truong && ca.to_truong.length){
+        const C = ['NGAYBC','MADGD','TENDGD','MADP','TENXA','TENTHON','DVUT','TENDVUT','MATO','MATT','TENTT','CMT','NGAYCAP','MOBILE','NGAYSINHTT','SOTV','DUNO','TK104','MATP','TENTP','MOBILETP'];
+        const nTT = ca.ngay_to_truong || BO.ngay_so_lieu;
+        kTT = await nap([['DANH SÁCH TỔ TIẾT KIỆM VÀ VAY VỐN'], [''], C].concat(ca.to_truong.map(o=>{ const z = Object.assign({}, BO.mac_dinh_to_truong, o, {NGAYBC:nTT, TENXA:BO.mac_dinh_mau31['Tên xã']}); return C.map(c=>z[c]===undefined ? '' : z[c]); })), 'baocao_'+vn(nTT).replace(/-/g,'')+'_000000.xlsx');
+      }
+      SL_BO = {}; TO_KS = {}; K = await toNap(slThang(vn(BO.ngay_so_lieu)));
+    }
+    const COT = SL_DC_COT, dongDC = K ? slDCTeoTinh(K).dong : [];
+    for(const e of ca.ket_qua){ let app, dung = false, nhan = e.loai+(e.cot ? ' '+e.khoa+'.'+e.cot : e.so_ku ? ' '+e.so_ku : e.ham ? ' '+e.ham+'('+JSON.stringify(e.vao)+')' : '');
+      try {
+        if(e.loai==='dong'){ const d = dongDC.find(z=>String(z[0])===String(e.khoa)); app = d ? d[COT.indexOf(e.cot)] : '(không có dòng)'; dung = String(app)===String(e.bang); }
+        else if(e.loai==='ngay_qh'){ const o = K.hs.find(z=>z.ku===kuSo(e.so_ku)); app = o ? ngayVNsl(skCQH(o).d) : '(không có món)'; dung = app===e.bang; }
+        else if(e.loai==='lech_ap'){ app = (K.qtc.lechAp||[]).map(z=>kuGoc(z[0])).join(','); dung = (K.qtc.lechAp||[]).some(z=>kuGoc(z[0])===e.so_ku); }
+        else if(e.loai==='ap_nhieu_diem'){ app = (K.qtc.apNhieu||[]).map(z=>z[1]).join(','); dung = (K.qtc.apNhieu||[]).some(z=>String(z[1])===String(e.ma_ap)); }
+        else if(e.loai==='khong_ghep_to_truong'){ const coDS = KHO.dsToKy(K).some(t=>t.ds); app = 'nguồn DS tổ '+(K.B && K.B.nguon.dsto || '—')+' · tổ có ghép DS: '+coDS; dung = !coDS; }
+        else if(e.loai==='ham' && e.ham==='so_thang_lai'){ const v = e.vao, o = {dn:v['Tổng dư nợ'], ls:v['Lãi suất'], ltTH:v['Lãi tồn TH'], ltQH:v['Lãi tồn QH']}; app = Math.round(laiTon(o)/ktLaiThang(o)*100)/100; dung = Math.abs(app-e.bang)<0.005; }
+        else if(e.loai==='ham' && e.ham==='xep_loai'){ app = ktXepLoai(e.vao); dung = app===e.bang; }
+        else app = '(chưa hỗ trợ loại '+e.loai+')';
+      } catch(er){ app = 'LỖI '+er.message; }
+      ra.push({nhan, bang:e.bang, app, dung});
+    }
+    return {ra, loi31:k31 && k31.loi, loiTT:kTT && kTT.loi, loaiTT:kTT && kTT.loai+' '+kTT.ky};
+  }, {ca, BO});
+  r.ra.forEach(x=>kq.push({id:ca.id, luat:ca.luat, ...x}));
+  if(r.loi31 || r.loiTT) kq.push({id:ca.id, luat:ca.luat, nhan:'nạp file', bang:'đọc được', app:(r.loi31||'')+' '+(r.loiTT||''), dung:false});
+  await p.close();
+ }
+ kq.forEach(x=>{ const c = !x.dung && CHO[x.id+' · '+x.nhan]; x.cho = !!c; console.log((x.dung ? '✓ ' : c ? '⏳ ' : '✗ ')+x.id+' '+x.luat+' · '+x.nhan+' — đáp án '+JSON.stringify(x.bang)+(x.dung ? '' : ' · app '+JSON.stringify(x.app))+(c ? ' · CHỜ CHỐT: '+c : '')); });
+ if(loiTrang.length) console.log('LỖI TRANG:', loiTrang.slice(0,5));
+ const sai = kq.filter(x=>!x.dung && !x.cho).length, cho = kq.filter(x=>x.cho).length; console.log((kq.length-sai-cho)+'/'+kq.length+' đạt'+(cho ? ' · '+cho+' chờ chốt' : ''));
+ await b.close(); process.exit(sai||loiTrang.length ? 1 : 0);
+})();

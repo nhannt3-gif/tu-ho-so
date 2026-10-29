@@ -1,0 +1,245 @@
+{
+ "ban": "app",
+ "ngay": "2026-10-29",
+ "dat": 28,
+ "tong": 30,
+ "ket_qua": [
+  {
+   "id": "C01-1",
+   "luat": "QT-C-01",
+   "nhan": "dong 9000001.du_no",
+   "bang": 20000000,
+   "app": 20000000,
+   "dung": true
+  },
+  {
+   "id": "C01-1",
+   "luat": "QT-C-01",
+   "nhan": "dong 9000001.tien_gui",
+   "bang": 500000,
+   "app": 300000,
+   "dung": false
+  },
+  {
+   "id": "C01-1",
+   "luat": "QT-C-01",
+   "nhan": "dong 9000001.so_tv",
+   "bang": 1,
+   "app": 1,
+   "dung": true
+  },
+  {
+   "id": "C02-1",
+   "luat": "QT-C-02",
+   "nhan": "dong 9000001.cho_vay",
+   "bang": 25000000,
+   "app": 25000000,
+   "dung": true
+  },
+  {
+   "id": "C02-1",
+   "luat": "QT-C-02",
+   "nhan": "dong 9000001.thu_no",
+   "bang": 3500000,
+   "app": 3500000,
+   "dung": true
+  },
+  {
+   "id": "C03-1",
+   "luat": "QT-C-03",
+   "nhan": "dong 9000001.lai_ton",
+   "bang": 150000,
+   "app": 150000,
+   "dung": true
+  },
+  {
+   "id": "C04-1",
+   "luat": "QT-C-04",
+   "nhan": "ham so_thang_lai({\"Tổng dư nợ\":10000000,\"Lãi suất\":7.2,\"Lãi tồn TH\":180000,\"Lãi tồn QH\":0})",
+   "bang": 3,
+   "app": 3,
+   "dung": true
+  },
+  {
+   "id": "C05-1",
+   "luat": "QT-C-05",
+   "nhan": "ham xep_loai(49.99)",
+   "bang": "Yếu",
+   "app": "Yếu",
+   "dung": true
+  },
+  {
+   "id": "C05-1",
+   "luat": "QT-C-05",
+   "nhan": "ham xep_loai(50)",
+   "bang": "Trung bình",
+   "app": "Trung bình",
+   "dung": true
+  },
+  {
+   "id": "C05-1",
+   "luat": "QT-C-05",
+   "nhan": "ham xep_loai(69.99)",
+   "bang": "Trung bình",
+   "app": "Trung bình",
+   "dung": true
+  },
+  {
+   "id": "C05-1",
+   "luat": "QT-C-05",
+   "nhan": "ham xep_loai(70)",
+   "bang": "Khá",
+   "app": "Khá",
+   "dung": true
+  },
+  {
+   "id": "C05-1",
+   "luat": "QT-C-05",
+   "nhan": "ham xep_loai(84.99)",
+   "bang": "Khá",
+   "app": "Khá",
+   "dung": true
+  },
+  {
+   "id": "C05-1",
+   "luat": "QT-C-05",
+   "nhan": "ham xep_loai(85)",
+   "bang": "Tốt",
+   "app": "Tốt",
+   "dung": true
+  },
+  {
+   "id": "C06-1",
+   "luat": "QT-C-06",
+   "nhan": "dong TT|99900101.hoi",
+   "bang": "TT",
+   "app": "TT",
+   "dung": true
+  },
+  {
+   "id": "C06-1",
+   "luat": "QT-C-06",
+   "nhan": "dong TT|99900101.du_no",
+   "bang": 15000000,
+   "app": 15000000,
+   "dung": true
+  },
+  {
+   "id": "C11-1",
+   "luat": "QT-C-11",
+   "nhan": "dong TT|99900101.ma_diem",
+   "bang": "D05",
+   "app": "D05",
+   "dung": true
+  },
+  {
+   "id": "C11-2",
+   "luat": "QT-C-11",
+   "nhan": "dong TT|99900103.ma_diem",
+   "bang": "",
+   "app": "",
+   "dung": true
+  },
+  {
+   "id": "C11-2",
+   "luat": "QT-C-11",
+   "nhan": "dong TT|99900103.du_no",
+   "bang": 15000000,
+   "app": 15000000,
+   "dung": true
+  },
+  {
+   "id": "C09-1",
+   "luat": "QT-C-09",
+   "nhan": "khong_ghep_to_truong",
+   "app": "nguồn DS tổ 2026-10-30 · tổ có ghép DS: true",
+   "dung": false
+  },
+  {
+   "id": "C10-1",
+   "luat": "QT-C-10",
+   "nhan": "lech_ap KU-10",
+   "app": "KU-10",
+   "dung": true
+  },
+  {
+   "id": "C10-1",
+   "luat": "QT-C-10",
+   "nhan": "dong 9000001.so_mon_lech_ap",
+   "bang": 1,
+   "app": 1,
+   "dung": true
+  },
+  {
+   "id": "C10-1",
+   "luat": "QT-C-10",
+   "nhan": "dong 9000001.du_no",
+   "bang": 70000000,
+   "app": 70000000,
+   "dung": true
+  },
+  {
+   "id": "C10-2",
+   "luat": "QT-C-10",
+   "nhan": "ap_nhieu_diem",
+   "app": "99900101",
+   "dung": true
+  },
+  {
+   "id": "C10-3",
+   "luat": "QT-C-10",
+   "nhan": "dong 9000001.ma_diem",
+   "bang": "D05",
+   "app": "D05",
+   "dung": true
+  },
+  {
+   "id": "C10-3",
+   "luat": "QT-C-10",
+   "nhan": "dong 9000001.ma_ap",
+   "bang": "99900101",
+   "app": "99900101",
+   "dung": true
+  },
+  {
+   "id": "C12-12a",
+   "luat": "QT-C-12",
+   "nhan": "ngay_qh KU-12a",
+   "bang": "05/09/2026",
+   "app": "05/09/2026",
+   "dung": true
+  },
+  {
+   "id": "C12-12b",
+   "luat": "QT-C-12",
+   "nhan": "ngay_qh KU-12b",
+   "bang": "05/10/2026",
+   "app": "05/10/2026",
+   "dung": true
+  },
+  {
+   "id": "C12-12c",
+   "luat": "QT-C-12",
+   "nhan": "ngay_qh KU-12c",
+   "bang": "05/09/2026",
+   "app": "05/09/2026",
+   "dung": true
+  },
+  {
+   "id": "C12-12d",
+   "luat": "QT-C-12",
+   "nhan": "ngay_qh KU-12d",
+   "bang": "07/09/2026",
+   "app": "07/09/2026",
+   "dung": true
+  },
+  {
+   "id": "C12-12e",
+   "luat": "QT-C-12",
+   "nhan": "ngay_qh KU-12e",
+   "bang": "05/10/2026",
+   "app": "05/10/2026",
+   "dung": true
+  }
+ ]
+}

@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.407 — 30/10/2026 — Ghi chú ấp / KP cũ · phép thử chung Tèo · rà soát hồi quy (TK 2)
+- **Anh 30/10** ("đọc bàn giao và code tiếp"; việc anh giao qua TK 1, `docs/TEO_AP_CU.md`: "ấp, KP mới chuyển từ ấp, KP cũ nào thì ghi chú ở nút địa bàn khi bật lên để nhớ; riêng 4 KP Gia Lộc thêm 1 dòng nhỏ ở chỗ lọc địa bàn để anh quen dần, 1 thời gian rồi bỏ"): file cắm rút `js/83-ap-cu.js` — nút **🏷 Tên ấp cũ** ở LỌC ĐỊA BÀN (**mặc định tắt**, bật hiện ghi chú các ấp / KP trong phạm vi); **dòng nhỏ 4 KP Gia Lộc** khi toàn PGD / Phường Gia Lộc (cờ `AP_CU_GIA_LOC`, gỡ dễ); 🗺 Địa bàn: 🏷 cạnh ấp + gợi ý 📝. Ghép theo **mã ấp**, chỉ tên địa danh (19 ấp, chép từ TEO_AP_CU 1.0). Không đổi số.
+- **Phép thử chung Tèo B4** `tests/t328.js` đọc `tests/teo/teo_ca.json` (TK 1, 17 trường hợp / 30 ý — giao ban 30/30): **app 28/30 · 2 chờ chốt** (C01-1 tiền gửi khách 2 sổ · C09-1 File Tổ trưởng khác ngày — đã hỏi TK 1 / anh ở hộp thư). Mã giả `KU-…` / `KH-…` được ánh xạ sang dạng số hệ thống khi nạp.
+- **Sửa theo phép thử chung:** QT-C-12 — ngày GD của điểm khi thiếu nguồn (File Tổ trưởng không có cột, Dư nợ chi tiết đã thôi) = **ngày GDXA chiếm đa số trong Mẫu 31** của các tổ thuộc điểm (tổ mới chuyển đến vẫn theo điểm mới) → ngày chuyển QH tính được; QT-C-11 — file đối chiếu: dòng `TT|<thôn>` ấp chưa có tổ để **mã điểm trống** (chỉ ghi khi xác định theo ấp).
+- **Rà soát hồi quy** (anh 30/10 "hồi quy ngày càng nhiều, em phải rà soát các hồi quy không cần thiết"): R1 `tools/hoiquy_pt.py` — 5 file Số liệu / KHO / cây địa bàn chỉ là phụ thuộc của phép có dùng số liệu (trước là phần chung của mọi phép). Bảng `docs/RA_SOAT_HOI_QUY.md` (206 phép, thời gian 1 luồng ≈ 55 phút): D1 7 phép không có câu kiểm · D2 36 phép bộ lớn `gia31` (≈ 1/3 thời gian) → chờ anh duyệt giữ / gộp / bỏ.
+- Sổ chung: QT-C-01…12 cột App kết quả phép thử chung; hộp thư 2 dòng.
+
 ## 3.406 — 29/10/2026 — 🗺 Địa bàn theo số liệu + kiểm tổ không chuẩn + so ấp trước 07/2026 (TK 2)
 - **Anh 29/10:** "tab hôm nay có nút địa bàn em ktra lại có lấy đúng theo mẫu 31 và file tổ mới nhất hay ko" → **trước đây không** (hiện danh mục khai tay ⚙ Cài đặt › Địa bàn). "Về gộp điểm em lấy theo mẫu 31 và ds tổ cho chuẩn, ko phải 12 gộp còn 9 — sẽ theo tiến độ" · "kiểm tra xem tất cả các tổ có dư nợ có thuộc địa bàn điểm GD xã, có tổ nào ko chuẩn" · "so sánh số liệu trước tháng 7 và sau đó vì Gia Lộc có đổi tên ấp… ghi chú cho anh nhớ riêng 4 KP của điểm GD Gia Lộc".
 - File cắm rút `js/82-dia-ban-so-lieu.js`: 🗺 Địa bàn dựng cây **xã → điểm GD (mã, tên, ngày GD) → ấp (mã thôn) → số tổ** từ kỳ mới nhất (File Tổ trưởng + Mẫu 31, tổ chưa đóng); đầu cây ghi nguồn + ngày; chip xem lại 📒 Danh mục Cài đặt; 📋 Chép bảng theo số liệu.

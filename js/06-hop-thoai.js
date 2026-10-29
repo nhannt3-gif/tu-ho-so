@@ -1962,7 +1962,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.406', ds:[
+var CO_GI_MOI = {ban:'3.407', ds:[
+  ["🏷 LỌC ĐỊA BÀN: nút Tên ấp cũ (mặc định tắt) + dòng nhỏ 4 KP Gia Lộc đổi tên; 🗺 Địa bàn có ghi chú ấp / KP cũ", "doiNgan(7);slDoiTab('tra')"],
   ["🗺 Hôm nay › Địa bàn theo Mẫu 31 + File Tổ trưởng mới nhất: so lệch danh mục Cài đặt (cập nhật có xem trước), kiểm tổ còn dư nợ không chuẩn, so ấp trước 07/2026, 📝 ghi chú điểm GD", "doiNgan(0);ccMo('diaban')"],
   ["📤 Nạp & KT › ⋯ › File đối chiếu Tèo: DOI_CHIEU_APP_<ngày>.csv đúng hợp đồng cột với giao ban, lưu Số liệu/<tháng>/ để so kỳ 31/10", "doiNgan(7);slDoiTab('nap')"],
   ["⏱ Sao kê nợ đến hạn: ngày chuyển quá hạn theo phiên của điểm (Tèo QT-C-12) — cột hệ thống trống thì app tính, món trực tiếp ngay sau ngày đến hạn, lệch lịch điểm báo ⚠", "doiNgan(7);slDoiTab('sk')"],
@@ -1976,8 +1977,7 @@ var CO_GI_MOI = {ban:'3.406', ds:[
   ["📌 KTGS Kế hoạch năm: 📌 Chốt (ghi ngày chốt + khóa) · ✏ Sửa → 📌 Chốt lại theo ngày sửa · 📜 Lịch sử chốt; Định kỳ / Mẫu 04 dùng bản chốt mới nhất", "doiNgan(7);slDoiTab('kt')"],
   ["🔒 KTGS Khai báo Hội – xã / Chuẩn hóa: 🔒 Khóa chống sửa nhầm + 📜 Nhật ký (cũ → mới) có ↶ Khôi phục", "doiNgan(7);slDoiTab('kt')"],
   ["🏷 Chip đổi tên 🗓 Kế hoạch năm; nút 📋 Phân công ở bảng Hội – xã", "doiNgan(7);slDoiTab('kt')"],
-  ["🛡 KTGS gọn: thẻ Định kỳ · Sau giải ngân · Mẫu 04 · Lịch năm chung hàng 3 khối; Tháng kiểm tra + số liệu + Đã chọn + nút 👁 Xem / 📋 Tóm tắt gom 1 hàng trên bảng; ghi chú dài → ⓘ", "doiNgan(7);slDoiTab('kt')"],
-  ["🔽 Tra cứu KH › Tìm theo Tổ trưởng: bấm tiêu đề cột để sắp xếp ▲▼; hàng lọc từng cột (tên · mã gõ; TV · Có DN = 0 / > 0 / ngưỡng; Xã · Ấp · Hội chọn); dòng Cộng theo dòng đang lọc", "doiNgan(7);slDoiTab('tra')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🛡 KTGS gọn: thẻ Định kỳ · Sau giải ngân · Mẫu 04 · Lịch năm chung hàng 3 khối; Tháng kiểm tra + số liệu + Đã chọn + nút 👁 Xem / 📋 Tóm tắt gom 1 hàng trên bảng; ghi chú dài → ⓘ", "doiNgan(7);slDoiTab('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

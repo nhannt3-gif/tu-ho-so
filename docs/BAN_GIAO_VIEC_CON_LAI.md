@@ -264,6 +264,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Theo dõi nợ đã gỡ: làm lại sau nên đọc dữ liệu cũ ở IndexedDB khóa `tdn_du_lieu` (cấu trúc `NO = {ho, mon, lan, lanXoa, nhap, toAp, suaLuc}` — xem git `js/04e-theo-doi-no.js` bản 3.398) và Drive `_Hệ thống/theodoino.json`; nên đọc số liệu qua `KHO` (không bộ đọc Excel riêng — lý do gỡ, L1 RA_SOAT_HUONG_DI_2510).
 - Hàm tiện ích tên `tdn*` (tdnTien, tdnHoi, tdnCuoiKy…) vẫn dùng khắp app — ở `js/04e-chung.js`, không đổi tên.
 
+### Danh sách thử trên máy thật (3.407)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu / Tổ / Sao kê: dải LỌC ĐỊA BÀN (toàn PGD) | Dòng nhỏ "Gia Lộc đổi tên KP từ 01/7/2026…" | |
+| 2 | Bấm 🏷 Tên ấp cũ | Hiện ghi chú ấp / KP trong phạm vi; bấm lại tắt | |
+| 3 | Chọn Phường Gò Dầu | Không còn dòng Gia Lộc; 🏷 hiện các KP Gò Dầu đã gộp | |
+| 4 | Sao kê nợ đến hạn (chỉ Mẫu 31 + File Tổ trưởng) | Cột Chuyển QH có ngày "(tính)" theo ngày GD điểm | |
+
+_Ghi chú kỹ thuật 3.407:_ `js/83-ap-cu.js` bọc `pvVeCay` (thêm `.pv-apcu` cuối `#<p>-cay`), `AP_CU` theo mã ấp, khóa cài đặt `pvApCu`; `toNap` (js/22g) điền ngày GD điểm từ GDXA đa số khi chưa có (`ngD`); `slDCTeoTinh` TT chỉ ghi `ma_diem` khi `_ttCach` ấp / danh mục; `tests/t328.js` (bảng `CHO` = lệch đã báo chờ chốt, in ⏳ không làm trượt); `tools/hoiquy_pt.py` `CHUNG_SL` / `DUNG_SL`.
+
 ### Danh sách thử trên máy thật (3.406)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

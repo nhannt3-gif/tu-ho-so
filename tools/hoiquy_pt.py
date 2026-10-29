@@ -20,8 +20,12 @@ G = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MOC = os.path.join(G, 'tests', 'hoiquy_moc.json')
 # phần chung: đổi → chạy lại hết (khung, khởi động, lưu, KHO, bộ lọc địa bàn, hộp thoại, lệnh GD, giao diện chung)
 CHUNG = ['index.html', 'js/01-thu-vien.js', 'js/02-nen.js', 'js/04-giao-dien.js', 'js/06-hop-thoai.js', 'js/11-khung-tab.js',
-         'js/17-dong-bo-cai-dat.js', 'js/20-khoi-dong.js', 'js/22-so-lieu.js', 'js/22g-to.js', 'js/22ga-pham-vi.js', 'js/23-dieu-huong.js',
-         'js/29-kho.js', 'js/34-luu-ngan.js', 'js/36-dong-bo-khoi.js', 'js/39-gd.js', 'js/69-bo-cuc-a.js', 'js/73-kho-chuan.js', 'tests/tv.js']
+         'js/17-dong-bo-cai-dat.js', 'js/20-khoi-dong.js', 'js/23-dieu-huong.js',
+         'js/34-luu-ngan.js', 'js/36-dong-bo-khoi.js', 'js/39-gd.js', 'js/69-bo-cuc-a.js', 'tests/tv.js']
+# 3.407 (R1 — anh 30/10 "hồi quy ngày càng nhiều, rà soát hồi quy không cần thiết"): KHO / Số liệu / cây địa bàn chỉ là phần chung của phép thử CÓ DÙNG SỐ LIỆU
+#   (trước nằm trong CHUNG → sửa Số liệu là chạy lại cả Scan, Văn bản, Hồ sơ, KTGS mẫu…). Phép thử không đụng số liệu không chạy lại khi các file này đổi.
+CHUNG_SL = ['js/22-so-lieu.js', 'js/22g-to.js', 'js/22ga-pham-vi.js', 'js/29-kho.js', 'js/73-kho-chuan.js']
+DUNG_SL = re.compile(r'gianho31|gia31|gianho\b|\bgia\b|slDocFile|slGhi\(|toNap|tcNap|KHO\.|TO_K\b|TC_K\b|SLM\b|SL_DB|pvVeCay|PV_DUNG|doiNgan\(7\)|slDoiTab|teo_ca')
 DO_BO_CUC = re.compile(r'getBoundingClientRect|getComputedStyle|scrollWidth|offsetWidth|offsetParent|clientWidth|screenshot|setViewportSize')
 LUON = re.compile(r'kiem\.py|bando\.py|CO_GI_MOI|CHANGELOG')   # phép thử chạy công cụ / đọc tài liệu đổi mỗi bản → luôn chạy
 
@@ -82,6 +86,8 @@ def phu_thuoc(goc, t, dn=None):
             s += doc(goc, 'tests/chuan_lay.js')
     if re.search(r'gianho31|gia31|gianho\b|\bgia\b', s):
         pt.add('tests/taogia.py')
+    if DUNG_SL.search(s):
+        pt |= set(CHUNG_SL)
     if DO_BO_CUC.search(s):
         pt.add('css/app.css')
     for f in re.findall(r"['\"/]((?:js|css)/[\w\-]+\.(?:js|css))", s):
