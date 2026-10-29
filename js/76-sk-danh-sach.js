@@ -84,10 +84,10 @@ function skBCDH(rows, lapKH, M, e31, ngay){
     var r = skBang(cot, ls, function(o, i){
       var t1 = !da105[o.kh] ? (s105[o.kh]||0) : '', ok = sdtDat(o.sdt); da105[o.kh] = 1;
       var coGH = o.dhgh && o.dhgh!==o.dhg;
-      aoa.push([n, i, o.kh||'', o.ten||'', o.ku||'', o.sdt||'', ctNgan(o.ct, o), SL_NGUON[o.nguon]||o.nguon||'', o.dn||0, laiTon(o), t1, ngayVNsl(o.dhg), o.dhgh && o.dhgh!==o.dhg ? ngayVNsl(o.dhgh) : '', ngayVNsl(o.dhgd), skConGH(o)]);
+      aoa.push([n, i, o.kh||'', o.ten||'', o.ku||'', o.sdt||'', ctNgan(o.ct, o), SL_NGUON[o.nguon]||o.nguon||'', o.dn||0, laiTon(o), t1, ngayVNsl(o.dhg), o.dhgh && o.dhgh!==o.dhg ? ngayVNsl(o.dhgh) : '', skCQHChu(o), skConGH(o)]);
       var dau = [i, o.kh||'', o.ten||'', o.ku||'', {h:coChuHTML(o.sdt||''), lop:ok ? '' : 'nb'}, ctNgan(o.ct, o), SL_NGUON[o.nguon]||o.nguon||'', o.dn||0, laiTon(o), t1];
       return doc ? dau.concat([coGH ? skNg(o.dhgh)+' GH' : skNg(o.dhg), skConGH(o)])
-                 : dau.concat([ngayVNsl(o.dhg), coGH ? ngayVNsl(o.dhgh) : '', o.dhgd ? ngayVNsl(o.dhgd) : '(chưa có)', skConGH(o)]); }, [7, 8, 9]);
+                 : dau.concat([ngayVNsl(o.dhg), coGH ? ngayVNsl(o.dhgh) : '', skCQHChu(o), skConGH(o)]); }, [7, 8, 9]);   /* 3.404 QT-C-12 */
     ls.forEach(function(o){ tong.mon++; tong.kh[o.kh] = 1; tong.dn += o.dn||0; tong.lt += laiTon(o); });
     h += '<div class="bc-khung"><div class="bc-khung-ten">'+TEN[n]+' — '+ls.length+' món</div>'+r.html+'</div>';
   });

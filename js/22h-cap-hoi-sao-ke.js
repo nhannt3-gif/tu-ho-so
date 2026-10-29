@@ -487,8 +487,25 @@ function skQua1Thang(nv, ns){ var moc = ngayThem1Thang(nv); return !!moc && !!ns
    ví dụ: hạn HĐ 22/10, GDXA định kỳ ngày 07 → chuyển QH 07/11. Chỉ món trong hạn (không QH, không khoanh). 3 khung:
    ① đã quá hạn HĐ (đến ngày số liệu) mà chưa chuyển QH — tra soát · ② đến hạn, chuyển QH trong kỳ · ③ đến hạn, chuyển QH kỳ sau */
 function skHL(o){ return o.dhgh || o.dhg || ''; }
+/* 3.404 (anh chốt 28/10 — Tèo QT-C-12, docs/TEO_QUY_TAC_CHUNG.md): NGÀY CHUYỂN QUÁ HẠN theo phiên của điểm GD.
+   Ưu tiên cột hệ thống "Ngày ĐH theo GDXA" (như script giao ban 1.3). Cột trống → app tính: món qua tổ = phiên đầu tiên của điểm KỂ TỪ ngày đến hạn
+   (gia hạn rồi thì ngày đến hạn sau gia hạn; trùng ngày phiên → chính ngày đó); món vay trực tiếp = ngay sau ngày đến hạn.
+   Ngày hệ thống khác lịch điểm hiện tại của tổ (vd gộp điểm 11/2026) → chỉ BÁO (lech), không sửa. o._ngGD = ngày GD của điểm (gắn ở toNap). */
+function skPhienTu(hl, n){ var y = +hl.slice(0, 4), m = +hl.slice(5, 7), d = +hl.slice(8, 10), cuoi = function(y, m){ return new Date(y, m, 0).getDate(); };
+  if(Math.min(n, cuoi(y, m)) < d){ m++; if(m>12){ m = 1; y++; } } return y+'-'+hai(m)+'-'+hai(Math.min(n, cuoi(y, m))); }
+function skSauNgay(hl){ var x = new Date(+hl.slice(0, 4), +hl.slice(5, 7)-1, +hl.slice(8, 10)+1); return x.getFullYear()+'-'+hai(x.getMonth()+1)+'-'+hai(x.getDate()); }
+function skCQH(o){
+  var hl = skHL(o), n = +(o && o._ngGD || 0), tt = !o.to || (typeof TO_GIA!=='undefined' && o.to===TO_GIA);
+  if(o.dhgd){ var lech = !tt && n>0 && hl && o.dhgd>=hl && +o.dhgd.slice(8, 10)!==Math.min(n, new Date(+o.dhgd.slice(0, 4), +o.dhgd.slice(5, 7), 0).getDate());
+    return {d:o.dhgd, cach:'ht', lech:lech, tinh:lech ? skPhienTu(hl, n) : ''}; }
+  if(!hl) return {d:'', cach:''};
+  if(tt) return {d:skSauNgay(hl), cach:'tt'};
+  return n>0 ? {d:skPhienTu(hl, n), cach:'tinh'} : {d:'', cach:''};
+}
+function skCQHChu(o){ var c = skCQH(o); if(!c.d) return '(chưa có)';
+  return ngayVNsl(c.d)+(c.cach==='tinh' ? ' (tính)' : c.cach==='tt' ? ' (trực tiếp)' : '')+(c.lech ? ' ⚠ điểm hiện tại: '+ngayVNsl(c.tinh) : ''); }
 function skNhomDH(o, tu, den, ns){
-  var hl = skHL(o), gd = o.dhgd || '';
+  var hl = skHL(o), gd = skCQH(o).d;
   if(!hl) return 0;
   if(hl<=ns && gd>ns && gd>=tu) return 1;
   if(hl>=tu && hl<=den) return (!gd || gd<=den) ? 2 : 3;   /* chưa có ngày GDXA → tính trong kỳ (ô Chuyển QH ghi “chưa có”) */

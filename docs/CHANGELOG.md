@@ -4,6 +4,20 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.405 — 29/10/2026 — File đối chiếu Tèo DOI_CHIEU_APP (TK 2)
+- **Kế hoạch kỳ đối chiếu 31/10** (`docs/TEO_KE_HOACH_KY_3110.md` mục 3, 8 — TK 1 lập, anh 29/10 "làm tiếp theo kh lớn đã đề ra"): nút **📤 File đối chiếu Tèo (DOI_CHIEU_APP)** ở ⋯ Nạp & KT.
+- `DOI_CHIEU_APP_<YYYY-MM-DD>.csv`: UTF-8 BOM; dòng 1 `#` ghi chú (bên, bản, ngày số liệu, luật K1 QT-18 · K5 file KHĐ / slKHDTinh · K7 gia hạn → HĐ); dòng 2 = 17 cột hợp đồng (khoa, ma_xa, ma_ap, ma_diem, hoi, so_tv, so_tv_du_no, du_no, nqh, khoanh, lai_ton, tien_gui, cho_vay, thu_no, so_mon_khd, so_mon_lech_ap, so_mon_den_han_thang_toi); 1 dòng 1 tổ + `TT|<mã thôn>` cho món vay trực tiếp; tiền đồng nguyên.
+- Lấy đúng số app đang tính (`toSoTo`, `tvChuan` QT-18, `slKHD`, `K.qtc` lệch ấp, đến hạn tháng kế tiếp theo HĐ / gia hạn) — không tính lại. Lưu Drive `Số liệu/<tháng>/` (chưa nối Drive → tải về máy); 🧹 Tìm file rác không coi là rác.
+- Kèm: t131 chấp nhận ⚠ lệch lịch điểm (hành vi mới 3.404).
+- Phép thử `tests/t325.js` (9 ý: tổng dư nợ / quá hạn file = Mẫu 31).
+
+## 3.404 — 29/10/2026 — Ngày chuyển quá hạn theo phiên của điểm (Tèo QT-C-12, TK 2)
+- **Anh chốt 28/10** (cửa giao ban, `docs/TEO_QUY_TAC_CHUNG.md` QT-C-12; anh 29/10 "em làm tiếp theo kh lớn đã đề ra"): chuyển QH = phiên đầu tiên của điểm KỂ TỪ ngày đến hạn (trùng ngày phiên → chính phiên đó), mốc = ngày đến hạn sau gia hạn nếu có; món trực tiếp chuyển QH ngay sau ngày đến hạn.
+- `skCQH` (js/22h): **ưu tiên cột hệ thống "Ngày ĐH theo GDXA"** (như script giao ban 1.3); cột trống → app tính theo ngày GD của điểm (`o._ngGD` gắn ở `toNap`), ghi "(tính)" / "(trực tiếp)"; ngày hệ thống khác lịch điểm hiện tại của tổ (vd gộp điểm 11/2026) → **⚠ điểm hiện tại: dd/mm/yyyy**, không sửa.
+- Áp vào: Sao kê nợ đến hạn (cột Chuyển QH + chia khung ① ② ③ — món trước kia "chưa có ngày" nay vào đúng khung), tab Tổ chip Đến hạn tháng sau, số món đến hạn tháng sau của tổ.
+- Sổ chung: QT-C-10…12 cột App ✅; mục 13 thêm **C11 Diễn biến tổ chờ anh bàn lại**; hộp thư báo TK 1.
+- Phép thử `tests/t324.js` (11 ý).
+
 ## 3.403 — 29/10/2026 — Scan: CCCD dạng PDF tự nhận + cắt thẻ (TK 2)
 - **Anh 29/10** (ảnh hàng chờ: 2 trang PDF, thẻ nhỏ giữa trang trắng): "khi cccd đã lưu dưới dạng pdf anh cũng cần nhận biết và cắt được luôn"; anh duyệt đặt ở ① + ② + ③.
 - File cắm rút `js/81-scan-pdf-the.js`: `scDoThe` dò 1–2 thẻ trên trang nền trắng (ngoài thẻ gần như toàn nền; trang tài liệu có chữ khắp trang không cắt), cắt sát chừa lề trắng.

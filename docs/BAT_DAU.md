@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.403** — TK 2: Scan nhận CCCD dạng PDF, tự cắt thẻ. Trước: 3.402 📉 Diễn biến tổ ở Tra cứu. Tèo: `docs/TEO_PHOI_HOP.md` mục 12–14.
+- **`main` = 3.405** — TK 2: 📤 File đối chiếu Tèo DOI_CHIEU_APP cho kỳ 31/10. Trước: 3.404 ngày chuyển QH theo phiên điểm (QT-C-12). Kỳ đối chiếu: `docs/TEO_KE_HOACH_KY_3110.md`.
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
