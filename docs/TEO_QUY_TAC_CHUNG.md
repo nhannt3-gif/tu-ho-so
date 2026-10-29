@@ -57,7 +57,7 @@ Bộ trường hợp **dữ liệu giả + đáp án**: `tests/teo/teo_ca.json` 
 | QT-C-12 | C12-12a trùng ngày phiên · 12b sau ngày phiên · 12c gia hạn · 12d trực tiếp · 12e tổ đổi điểm | ✓ 5/5 | ✓ 5/5 (3.407: ngày GD điểm = GDXA đa số trong Mẫu 31) |
 | QT-C-17 | C17-1 đến hạn: gia hạn / HĐ, bỏ món QH, bỏ món hết nợ | ✓ 1/1 (1.4; bản 1.3 trượt — đúng như dự kiến) | ✓ 1/1 (app 3.405 đã theo cách này) |
 
-Giao ban chạy: `python thu_teo.py` (Drive `06_CONG_CU\v2`, chép `teo_ca.json` cạnh script) — **31/31 đạt** ngày 30/10/2026 (`bang_so_lieu.py` 1.4). App: `node tests/t328.js` (3.407, đọc cùng file, mỗi trường hợp 1 trang sạch, nạp qua đúng đường nạp của app) — **29/31 đạt · 2 chờ chốt** ngày 30/10/2026 (teo_ca 1.1); mã giả `KU-…` / `KH-…` được phép thử ánh xạ sang dạng số hệ thống (app chỉ nhận số khế ước 10–20 số, mã KH 6–12 số). **Sửa luật / sửa script hay app → chạy lại; thêm luật chốt → thêm trường hợp vào file này.** Luật chờ chốt (K1, K4, K5, K7–K9) chưa có đáp án. **Sửa luật / sửa script hay app → chạy lại; thêm luật chốt → thêm trường hợp vào file này.** Luật chờ chốt (K1, K4, K5, K7–K9) chưa có đáp án.
+Giao ban chạy: `python thu_teo.py` (Drive `06_CONG_CU\v2`, chép `teo_ca.json` cạnh script) — **31/31 đạt** ngày 30/10/2026 (`bang_so_lieu.py` 1.4 và 1.5). App: `node tests/t328.js` (3.407, đọc cùng file, mỗi trường hợp 1 trang sạch, nạp qua đúng đường nạp của app) — **29/31 đạt · 2 chờ chốt** ngày 30/10/2026 (teo_ca 1.1); mã giả `KU-…` / `KH-…` được phép thử ánh xạ sang dạng số hệ thống (app chỉ nhận số khế ước 10–20 số, mã KH 6–12 số). **Sửa luật / sửa script hay app → chạy lại; thêm luật chốt → thêm trường hợp vào file này.** Luật chờ chốt (K1, K4, K5, K7–K9) chưa có đáp án.
 
 ## 4. Nhật ký
 
@@ -68,3 +68,4 @@ Giao ban chạy: `python thu_teo.py` (Drive `06_CONG_CU\v2`, chép `teo_ca.json`
 | 1.2 (TK 1) | 30/10/2026 | Mục 3: bộ phép thử chung `tests/teo/teo_ca.json` 1.0; giao ban 30/30 đạt. |
 | 1.3 (TK 1) | 30/10/2026 | Anh chốt K7 → **QT-C-17** (theo cách app 3.405); phép thử C17-1; giao ban áp ở `bang_so_lieu.py` 1.4. |
 | 1.4 (TK 1) | 30/10/2026 | Giao ban: `tong_hop.py` **2.21** áp QT-C-09…13, 17 (số văn bản + Gemini). |
+| 1.5 (TK 1) | 30/10/2026 | Giao ban: `bang_so_lieu.py` **1.5** — tổ không còn trên File Tổ trưởng (đóng / giải thể / gộp) xếp vào điểm hiện nay theo ấp của tổ (QT-C-10, 13): hết dòng điểm cũ toàn số 0, ± kỳ trước theo điểm đúng nghĩa, khớp `tong_hop.py` 2.21. |
