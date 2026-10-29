@@ -240,6 +240,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t326.js` | 3.406 🗺 Địa bàn theo số liệu (js/82): so ấp trước 07/2026 theo mã tổ, cây xã → điểm → ấp → tổ, lệch danh mục (đổi điểm / mới / không còn), tổ còn dư nợ không chuẩn (điểm khác, chưa rõ, ngoài DS tổ, điểm suy), dựng thật trên `gianho31`, ⟳ cập nhật / ↶ khôi phục, 📝 ghi chú + gợi ý, Kiểm tra kỳ mục mới. |
 | `node tests/t327.js` | 3.407 ghi chú ấp / KP cũ (js/83): bảng 19 ấp theo mã, dòng Gia Lộc khi toàn PGD / Gia Lộc, nút 🏷 mặc định tắt → bật hiện ghi chú, chọn xã khác ẩn dòng, cờ gỡ, 🗺 Địa bàn 🏷 + gợi ý — bộ `gianho31`. |
 | `node tests/t328.js [mã,…]` | 3.407 **phép thử chung Tèo** `tests/teo/teo_ca.json` (TK 1): mỗi trường hợp 1 trang sạch, nạp Mẫu 31 + File Tổ trưởng giả qua slDocFile → toNap → so đáp án (dòng file đối chiếu, ngày QH, lệch ấp, ấp nhiều điểm, không ghép DS tổ khác ngày, hàm). `CHO` = lệch chờ chốt (⏳). Kết quả ghi `TEO_QUY_TAC_CHUNG.md` mục 3. |
+| `node tests/t329.js` | 3.408 Tra cứu: khách nhiều TK 105 — gộp danh bạ + Sao kê (số dư từng sổ, ngày mở), nhãn đỏ N TK 105, liệt kê + nhắc đóng, 1 TK không cảnh báo — `gianho31` + Sao kê giả. |
 | (3.389.2) | Chỉ CSS. |
 | (3.389.1) | Thử goiCauNoi bằng node trong lượt sửa. |
 | (3.389) | t147 thêm nút 📋 Chép. |

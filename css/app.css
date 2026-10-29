@@ -4120,3 +4120,5 @@ details.kt-kh-ls{border:1px solid var(--vien);border-radius:8px;padding:4px 8px;
 .pv-apcu{flex-basis:100%;width:100%;margin:2px 0 0;font-size:calc(11.5px*var(--co));color:var(--chu-phu)}.pv-apcu-gl{font-style:italic;overflow-wrap:anywhere}
 .pv-apcu-dong{margin-top:2px}.pv-apcu-nut{padding:0 6px;min-height:20px;font-size:inherit}.pv-apcu-nut.bat{background:var(--vang-nen)}
 .pv-apcu-ds{margin:3px 0 0;padding:3px 6px;border-left:3px solid var(--vang);background:var(--vang-nen);color:var(--chu)}.pv-apcu-ds>div{overflow-wrap:anywhere}.db-apcu{color:var(--chu-phu);font-style:italic}
+/* 3.408: khách nhiều TK 105 (Tra cứu) */
+.tc-tk-nhieu>div{white-space:nowrap}.tc-tk-nhieu small{display:block;margin-top:2px}

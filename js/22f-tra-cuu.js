@@ -108,6 +108,19 @@ function tcTimTheo(theo, q){   /* → {ds:[mục KHO.chiMuc()], phu:[mục KHO.p
   phu = phu.filter(function(p){ return tcTrongPV(p.kh); });
   return {ds:ds, phu:phu, ghi:ghi};
 }
+/* 3.408 (anh 30/10 "trong tra cứu KH em hiện cảnh báo KH có 2 số TK 105, và hiện cả 2 để biết và đóng"): gộp số TK 105 của khách từ danh bạ (Mẫu 31 / Dư nợ chi tiết)
+   + Sao kê TK 105 gắn kỳ (số dư từng sổ, ngày đăng ký) → [{stk, t105 (null = chưa có Sao kê), ndk}] — ≥ 2 sổ thì cảnh báo, liệt kê đủ để đóng bớt */
+function tcTkDs(ma, stk){
+  var m = {}, ds = [];
+  (stk||[]).forEach(function(s){ var k = String(s).replace(/\D/g, ''); if(k && !m[k]){ m[k] = {stk:k, t105:null, ndk:''}; ds.push(m[k]); } });
+  tcTk105Ds().forEach(function(o){ if(o.kh!==ma) return; var k = String(o.stk||'').replace(/\D/g, ''); if(!k) return; var x = m[k]; if(!x){ x = m[k] = {stk:k, t105:null, ndk:''}; ds.push(x); }
+    x.t105 = (x.t105||0)+(+o.t105||0); if(o.ndk && !x.ndk) x.ndk = o.ndk; });
+  return ds.sort(function(a, b){ return (a.ndk||'9')<(b.ndk||'9') ? -1 : (a.ndk||'9')>(b.ndk||'9') ? 1 : 0; });
+}
+function tcTkNhieuHTML(ds){
+  return '<div class="tc-tk-nhieu">'+ds.map(function(x){ return '<div>'+tcC(x.stk, 'số TK 105')+(x.t105!==null ? ' · dư <b>'+tdnTien(x.t105)+'</b>' : '')+(x.ndk ? ' · mở '+ngayVNsl(x.ndk) : '')+(x.t105===0 ? ' <b class="vang">số dư 0</b>' : '')+'</div>'; }).join('')+
+    '<small class="do">⚠ Khách có '+ds.length+' TK 105 — giữ 1, làm thủ tục đóng TK còn lại'+(ds.some(function(x){ return x.t105===null; }) ? ' (TK chưa có trong Sao kê TK 105 — nạp Sao kê để xem số dư từng sổ)' : '')+'.</small></div>';
+}
 function tcTkCua(ma){ var r = tcTk105Ds().filter(function(o){ return o.kh===ma; }); return r.length ? r.map(function(o){ return o.stk; }).join(', ') : ''; }
 function tcBangHTML(ds, phu){   /* kiểu bảng: Tên KH (+ tình trạng chữ nhỏ ngay sau — 3.337 anh) · Mã KH · Xã · Ấp · Tổ trưởng (bấm dòng = mở khách như thẻ) */
   var to = KHO.dsToDanhBa(), xa = function(c){ return String(c.tenXa||'').replace(/^(Xã|Phường|Thị trấn)\s+/i, ''); }, tk = tcTheo()==='tk';
@@ -231,6 +244,7 @@ function slTheKH(ma){
   var nh = []; if(han.kq==='het') nh.push('<span class="tc-nh do">CCCD hết hạn</span>'); if(han.kq==='sap') nh.push('<span class="tc-nh vang">CCCD sắp hết hạn</span>'); if(!tcSdtDat(c.sdt)) nh.push('<span class="tc-nh vang">'+(c.sdt ? 'SĐT không đạt' : 'thiếu SĐT')+'</span>');
   var dong = function(nhan, gt){ return '<div class="tc-dl"><span>'+nhan+'</span><div>'+gt+'</div></div>'; };
   var stk = slStk(c.stk);   /* 3.120: chỉ số sổ 10 chữ số */
+  var tkDs = tcTkDs(ma, stk); if(tkDs.length>1) nh.unshift('<span class="tc-nh do" title="Khách có '+tkDs.length+' TK 105 — giữ 1, làm thủ tục đóng TK còn lại">'+tkDs.length+' TK 105</span>');   /* 3.408 (anh 30/10) */
   var h = '<div class="'+(hai ? 'tc-ct-tit' : 'hop-tit')+'">👤 <span class="tc-ten to">'+tcC(c.ten, 'họ tên')+'</span> <span class="tc-ma to" title="Mã khách hàng">mã '+tcC(ma, 'mã KH')+'</span><span id="tc-nhan">'+nh.join('')+'</span></div>'+
     '<div class="tc-so" id="tc-so"></div>'+
     '<div class="tc-3cot">'+   /* 3.337 (anh 24/10): 3 cột Nhân thân │ Liên hệ · TK 105 │ Tổ — gọn trong 1 khung */
@@ -244,7 +258,7 @@ function slTheKH(ma){
       dong('SĐT', c.sdt ? tcC(c.sdt, 'SĐT')+(tcSdtDat(c.sdt) ? '' : ' <b class="vang">không đạt</b>') : '<b class="vang">thiếu</b>')+
       dong('Địa chỉ', tcC(tcDiaChi(c.dc), 'địa chỉ'))+
       dong('Ấp · xã', coChuHTML([c.tenThon||t.tenThon, c.tenXa].filter(Boolean).join(', ') || '—'))+
-      dong(stk.length>1 ? 'TK 105 ('+stk.length+')' : 'TK 105', stk.length ? stk.map(function(s){ return tcC(s, 'số TK 105'); }).join(' · ') : '—')+dong('Số dư 105', c.t105 ? '<b>'+tdnTien(c.t105)+'</b>' : '0')+'</div></div>'+
+      dong(tkDs.length>1 ? 'TK 105 ('+tkDs.length+')' : 'TK 105', tkDs.length>1 ? tcTkNhieuHTML(tkDs) : (stk.length ? stk.map(function(s){ return tcC(s, 'số TK 105'); }).join(' · ') : '—'))+dong('Số dư 105', c.t105 ? '<b>'+tdnTien(c.t105)+'</b>' : '0')+'</div></div>'+
     tcToKhoiHTML(c)+'</div>'+   /* 3.333 (anh chốt): khối Tổ & địa bàn — mã tổ, tổ trưởng + mã KH (chép), số TV chuẩn QT-18, bảng tổ của điểm GD */
     '<div class="tc-nhom tc-nhom-mon"><div class="tc-nhom-tit">Món vay — '+slKyChu(c.ky)+'</div><div id="kh-mon"><div class="rong">Đang mở…</div></div></div>'+
     (TC_KHOI_PHU && typeof nkKhoiHTML==='function' ? nkKhoiHTML('kh', ma, 6) : '')+   /* 3.348: 📜 đã lập / in */
