@@ -1977,8 +1977,7 @@ var CO_GI_MOI = {ban:'3.403', ds:[
   ["🔽 Tra cứu KH › Tìm theo Tổ trưởng: bấm tiêu đề cột để sắp xếp ▲▼; hàng lọc từng cột (tên · mã gõ; TV · Có DN = 0 / > 0 / ngưỡng; Xã · Ấp · Hội chọn); dòng Cộng theo dòng đang lọc", "doiNgan(7);slDoiTab('tra')"],
   ["📱 Điện thoại: chip báo trên dải LỌC ĐỊA BÀN (KTGS BC0437 · BC0438) 1 dòng, không đè khung", "doiNgan(7);slDoiTab('kt')"],
   ["🪪 Scan CCCD: hàng chờ còn ảnh thẻ chưa lưu (quá 30 phút) → quét mới thì hỏi Bỏ ảnh cũ / Giữ — hết ghép nhầm mặt sau thẻ người trước; Đọc số CCCD không lấy kết quả lượt trước", "doiNgan(4)"],
-  ["🛡 KTGS: chip BC0437 / BC0438 lên dải LỌC ĐỊA BÀN như mọi tab", "doiNgan(7);slDoiTab('kt')"],
-  ["👥 Tổ TK&VV: báo cáo lên hàng thao tác của bảng — 🧩 Sổ tổ viên luôn có; chọn tổ có chip DS hộ vay · Nợ · TK 105 · Chia tách + 👁 Xem (bớt 2 hàng)", "doiNgan(7);slDoiTab('to')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🛡 KTGS: chip BC0437 / BC0438 lên dải LỌC ĐỊA BÀN như mọi tab", "doiNgan(7);slDoiTab('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
