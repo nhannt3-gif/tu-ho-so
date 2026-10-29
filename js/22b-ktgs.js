@@ -169,9 +169,9 @@ function ktKiemTra(ky, im){
     if(r37 && hs){
       var T = {}, sk = {};
       hs.forEach(function(x){ var t = x.to; if(!t || t===TO_GIA) return; var a = T[t] = T[t] || {dn:0, qh:0, kn:0, lt:0, khDn:{}, t105:{}};
-        if((x.t105||0) > (a.t105[x.kh]||0)) a.t105[x.kh] = x.t105;
+        a.t105[x.kh] = slT105Them(a.t105, x, x.kh);   /* 3.409 QT-C-01 cộng sổ */
         if(!x.ku || sk[x.ku]) return; sk[x.ku] = 1; a.dn += x.dn||0; a.qh += x.qh||0; a.kn += x.kn||0; a.lt += laiTon(x); if((x.dn||0)>0) a.khDn[x.kh] = 1; });
-      lap.forEach(function(x){ var a = T[x.to]; if(a && (x.t105||0) > (a.t105[x.kh]||0)) a.t105[x.kh] = x.t105; });
+      lap.forEach(function(x){ var a = T[x.to]; if(a) a.t105[x.kh] = slT105Them(a.t105, x, x.kh); });
       var lD = [], lL = [], thieu = [];
       r37.forEach(function(b){ var a = T[b.to]; if(!a){ thieu.push([b.to, b.toTen, tenX(b.xa), hoi(b.dv), 'chỉ có ở BC0437']); return; }
         var tg = Object.keys(a.t105).reduce(function(s, k){ return s+a.t105[k]; }, 0), nd = Object.keys(a.khDn).length;

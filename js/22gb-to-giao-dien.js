@@ -218,7 +218,7 @@ function toTruocNap(){
   return KHO.bo(tr).then(function(B){
     var kh = {}, t105 = {};
     (kcGoc(B)||[]).concat(kcLap(B)||[]).forEach(function(o){   /* 3.384: qua kho chuẩn */
-      var m = toMaCua(o); if(!o.kh || !m) return; kh[o.kh] = m; var k = m+'|'+o.kh; if((o.t105||0) > (t105[k]||0)) t105[k] = o.t105; });
+      var m = toMaCua(o); if(!o.kh || !m) return; kh[o.kh] = m; var k = m+'|'+o.kh; t105[k] = slT105Them(t105, o, k); });   /* 3.409 QT-C-01 cộng sổ */
     var tong = {}; Object.keys(t105).forEach(function(k){ var m = k.split('|')[0]; tong[m] = (tong[m]||0)+t105[k]; });
     return TO_TRUOC = {ky:tr, co:true, kh:kh, t105:tong};
   }).catch(function(){ return TO_TRUOC = {ky:tr, co:false}; });

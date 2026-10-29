@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.409 — 30/10/2026 — Luật chung QT-C-01 (cộng sổ TK 105) + QT-C-09 (không ghép File Tổ trưởng khác ngày) + Sao kê khách nhiều TK 105 (TK 2)
+- **Anh 30/10:** "Ko ghép nếu khác ngày, lưu ý KH có từ 2 số TK 105 em có báo sao kê ra chưa."
+- **QT-C-01 — số dư TK 105 của khách = CỘNG các sổ** (mỗi sổ lấy 1 lần dù lặp nhiều dòng món; dòng không ghi số sổ → lấy số lớn nhất như cũ). Hàm chung `slT105Them(m, o, khoa)` (js/22) thay cách "lấy lớn nhất mỗi khách" ở mọi nơi: `slTong`, KTGS (22b, 22c), tổ (22g, 22gb, 22j), Sao kê (22h, 76), kho (22k, 29), Hộ vay (72). **Thay ghi chú cũ 3.87** ("105 ngày BC là tổng của khách"): TK 1 kiểm file Mẫu 31 thật — cột "Số dư tiền gửi 105" là **theo từng sổ**, khách 2 sổ thì phải cộng. Ảnh hưởng số: chỉ khách có ≥ 2 sổ (tổng 105 tăng đúng bằng sổ thứ hai); bản chụp t276 ghi lại (kqgd, thhd toàn PGD đổi đúng vì lý do này — đã đối chứng bằng cách chạy lại luật cũ thì giống hệt).
+- **QT-C-09 — File Tổ trưởng khác ngày Mẫu 31 → KHÔNG ghép** (anh chốt): `toNap` so ngày File Tổ trưởng với ngày Mẫu 31; khác → `K.dsLech`, tổ trưởng / ấp / số TV lấy theo Mẫu 31; không còn mượn File Tổ trưởng tháng khác. Báo ở **Kiểm tra kỳ** (mục QT-C-09) và dòng nguồn **🗺 Địa bàn** ("⚠ khác ngày Mẫu 31 — không ghép").
+- **Sao kê mới "Khách có từ 2 TK 105"** (nhóm Khách hàng, khổ dọc): gộp số sổ từ Mẫu 31 (cả dòng lặp) + Sao kê TK 105 (số dư, ngày mở) + danh bạ; mỗi sổ 1 dòng, khách ghi ở dòng đầu kèm tổng 105; sổ số dư 0 tô nền "nên đóng"; theo phạm vi Sao kê, In / Excel như các báo cáo khác.
+- Phép thử chung Tèo `t328`: **31/31** (C01-1, C09-1 hết chờ). Phép thử mới `tests/t330.js` (10 ý).
+
 ## 3.408 — 30/10/2026 — Tra cứu KH: cảnh báo khách nhiều TK 105 (TK 2)
 - **Anh 30/10:** "trong tra cứu KH em hiện cảnh báo KH có 2 số TK 105, và hiện cả 2 để biết và đóng".
 - Thẻ khách (`slTheKH`, js/22f): gộp số TK 105 của khách từ **danh bạ** (Mẫu 31 / Dư nợ chi tiết) **+ Sao kê TK 105** gắn kỳ (`tcTkDs`) — từ 2 sổ trở lên: **nhãn đỏ "N TK 105"** ở đầu thẻ; dòng TK 105 liệt kê **từng sổ: số TK · số dư · ngày mở** (sổ số dư 0 đánh dấu), nhắc "giữ 1, làm thủ tục đóng TK còn lại"; sổ chưa có trong Sao kê ghi rõ để nạp Sao kê xem số dư. 1 sổ → như cũ.

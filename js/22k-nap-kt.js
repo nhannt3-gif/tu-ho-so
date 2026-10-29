@@ -1019,6 +1019,8 @@ function slTenCuDoi(){
 /* ---------- 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11): KIỂM ẤP / ĐIỂM GD — nhóm 6 Bất thường dữ liệu, chỉ báo để anh sửa trên hệ thống (không sửa số, món tính theo tổ) ---------- */
 function slKTAp(K, them){
   var q = K && (K.qtc || (typeof toKiemAp==='function' ? toKiemAp(K) : null)); if(!q) return;
+  if(K.dsLech) them(6, 'QT-C-09 · File Tổ trưởng khác ngày Mẫu 31 — không ghép', false, 'File Tổ trưởng ngày '+ngayVNsl(K.dsLech.ds)+' ≠ Mẫu 31 ngày '+ngayVNsl(K.dsLech.m31)+' — app KHÔNG ghép (tổ trưởng, ấp, số TV lấy theo Mẫu 31)',
+    'Nạp File Tổ trưởng cùng ngày với Mẫu 31 để ghép (anh chốt 30/10).', null, null, 'canh');   /* 3.409 */
   them(6, 'QT-C-10 · Món vay ở ấp khác ấp của tổ (ấp tổ theo File Tổ trưởng)', !q.lechAp.length, q.lechAp.length ? q.lechAp.length+' món — cần sửa ấp trên hệ thống, app tạm tính theo tổ' : 'không có',
     q.lechAp.length ? 'Luật chung: món vay → mã tổ → ấp của tổ → điểm GD (1 ấp 1 điểm).' : '', ['Số KU', 'Mã KH', 'Họ tên', 'Mã tổ', 'Ấp của món', 'Ấp của tổ', 'Dư nợ'], q.lechAp, q.lechAp.length ? 'canh' : '');
   them(6, 'QT-C-10 · Ấp có tổ thuộc nhiều điểm GD (1 ấp chỉ thuộc 1 điểm)', !q.apNhieu.length, q.apNhieu.length ? q.apNhieu.length+' ấp — món trực tiếp ở các ấp này tạm theo điểm nhiều tổ hơn' : 'không có',
@@ -1051,7 +1053,7 @@ function slDCTeoTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
   var tt = {};
   (K.hs||[]).forEach(function(o){ if(o.to || !o.ku) return; var k = 'TT|'+String(o.thon||''), g = tt[k];
     if(!g){ var d = T[o._tt]; g = tt[k] = {xa:o.xa||'', ap:String(o.thon||''), diem:d && (o._ttCach==='ap' || o._ttCach==='danhMuc') ? d.diem || '' : '',   /* QT-C-11: chỉ ghi mã điểm xác định theo ấp (tạm GDXA / xã 1 điểm → để trống, như giao ban) */ kh:{}, khNo:{}, t105:{}, dn:0, qh:0, kn:0, lt:0, cv:0, tn:0, khd:0, dh:0}; }
-    g.kh[o.kh] = 1; if((o.dn||0)>0) g.khNo[o.kh] = 1; if((o.t105||0) > (g.t105[o.kh]||0)) g.t105[o.kh] = o.t105;
+    g.kh[o.kh] = 1; if((o.dn||0)>0) g.khNo[o.kh] = 1; g.t105[o.kh] = slT105Them(g.t105, o, o.kh);
     g.dn += o.dn||0; g.qh += o.qh||0; g.kn += o.kn||0; g.lt += laiTon(o); g.cv += cv(o); g.tn += tn(o); if(khd[o.ku]) g.khd++; if(dh(o)) g.dh++; });
   Object.keys(tt).sort().forEach(function(k){ var g = tt[k], so = function(x){ return Object.keys(x).length; };
     dong.push([k, g.xa, g.ap, g.diem, 'TT', so(g.kh), so(g.khNo), R(g.dn), R(g.qh), R(g.kn), R(g.lt), R(Object.keys(g.t105).reduce(function(a, m){ return a+g.t105[m]; }, 0)), R(g.cv), R(g.tn), g.khd, 0, g.dh]); });

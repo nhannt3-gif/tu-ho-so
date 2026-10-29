@@ -12,7 +12,7 @@ function hvGhep(rows, sk){   /* rows = dòng Mẫu 31 (món + dòng TK riêng) �
   (rows||[]).forEach(function(o){ if(!o || !o.kh) return;
     var x = m[o.kh]; if(!x){ x = m[o.kh] = {kh:o.kh, ten:o.ten||'', to:'', mon:[], dn:0, ct:{}, laiDT:0, thuLai:{th:0, qh:0}, thuGoc:{th:0, qh:0, kn:0}, ngayGD:'', t31:0, stk31:[]}; ds.push(x); }
     if(!x.ten && o.ten) x.ten = o.ten;
-    if((o.t105||0) > x.t31) x.t31 = o.t105;   /* số dư Mẫu 31 lặp ở mỗi món → lấy 1 lần (lớn nhất) */
+    x.t31 = slT105Them(x, o);   /* 3.409 QT-C-01: số dư 105 theo từng sổ, mỗi sổ 1 lần, cộng các sổ (trước: lớn nhất) */
     String(o.stk||'').split(/[,;\s]+/).forEach(function(s){ if(s && x.stk31.indexOf(s)<0) x.stk31.push(s); });
     if(!o.ku) return;
     if(o.to && !x.to) x.to = o.to;

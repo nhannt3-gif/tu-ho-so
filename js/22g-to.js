@@ -177,7 +177,12 @@ function toNap(ky){
     K.hs.forEach(function(o){ if(!o.to || o.to===TO_GIA) return; var t0 = lay(o.to); toDien(t0, o, chung); if(o.ttKH && !t0.cif) t0.cif = o.ttKH; if(o.raTo) return; (KH[o.to] = KH[o.to] || []).push(o); });   /* 3.138.1: khách đã ra khỏi tổ không tính tổ viên */   /* 3.92: tổ 0000000 = khách chỉ gửi TK (xã giả 482000), không lên cây */
     (Bm.co.dnct||[]).forEach(function(o){ var t = o.to && T[o.to]; if(t && o.ttKH && !t.cif) t.cif = o.ttKH; if(!t || t.diem || !o.diem) return; toDien(t, o, [['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD']]); t.diemTu = 'Dư nợ chi tiết '+slKyChu(Bm.nguon.dnct || K.thang); });   /* 3.120 (anh chốt): điểm GD xã lấy thẳng từ file Dư nợ chi tiết (ưu tiên) */
     var coTT = {}; (Bm.co.tt||[]).forEach(function(o){ coTT[o.to] = 1; });
-    (Bm.co.dsto||[]).forEach(function(o){ var t = lay(o.to), co = !!t.diem; t.ds = o;   /* 3.145 (anh chốt Q16): DSTO là file bắt buộc → điền TRƯỚC Thông tin tổ trưởng (SĐT, tổ phó lấy theo DSTO) */
+    /* 3.409 (anh chốt 30/10 — Tèo QT-C-09 / C09-1: "không ghép nếu khác ngày"): File Tổ trưởng khác ngày số liệu Mẫu 31 → KHÔNG dùng (điểm GD / ấp / tổ trưởng / đóng tổ),
+       báo ở K.dsLech; tổ thiếu điểm suy theo ấp / danh mục như khi chưa có file */
+    var eDS = Bm.nguon.dsto ? SLM.bang[slKhoa('dsto', Bm.nguon.dsto)] : null, e31 = SLM.bang[slKhoa('hstd', Bm.nguon.hstd || ky)];
+    var ngDS = eDS ? slNgaySo(eDS) : '', ng31 = e31 ? slNgaySo(e31) : K.ngay;
+    K.dsLech = (ngDS && ng31 && ngDS!==ng31) ? {ds:ngDS, m31:ng31} : null; K.dsDung = K.dsLech ? [] : (Bm.co.dsto||[]);
+    K.dsDung.forEach(function(o){ var t = lay(o.to), co = !!t.diem; t.ds = o;   /* 3.145 (anh chốt Q16): DSTO là file bắt buộc → điền TRƯỚC Thông tin tổ trưởng (SĐT, tổ phó lấy theo DSTO) */
       toDien(t, o, [['diem','diem'],['tenDiem','tenDiem'],['tenXa','tenXa'],['tenThon','tenThon'],['ten','toTen'],['sdt','sdt'],['pho','phoTen']]);
       if(!t.dv && o.dvTen) t.dv = toDvTuTen(o.dvTen);
       if(o.thon){ if(t.thon && String(t.thon)!==String(o.thon)) t.thonM31 = t.thon; t.thon = String(o.thon); if(o.tenThon) t.tenThon = o.tenThon; t.thonTT = true; }   /* 3.401 QT-C-10 (anh chốt 28/10): ấp của tổ = mã thôn (MADP) trên File Tổ trưởng */
@@ -192,7 +197,7 @@ function toNap(ky){
     var thieu = function(){ return Object.keys(T).some(function(ma){ return !T[ma].diem; }); };
     /* 3.107: chỉ lấy bảng chốt tháng (bỏ bảng theo ngày), tháng gần kỳ đang xem nhất trước (trước rồi sau), tối đa 6 bảng; ghi căn cứ t.diemTu */
     var cach = function(ky){ var a = ky.split('-'), b = K.thang.split('-'); return Math.abs((+a[0]*12 + +a[1]) - (+b[0]*12 + +b[1])) + (ky>K.thang ? 0.5 : 0); };
-    var khac = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return (e.loai==='dsto' || e.loai==='tt') && String(e.ky).length===7 && e.ky!==K.thang; })
+    var khac = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='tt' && String(e.ky).length===7 && e.ky!==K.thang; })   /* 3.409 QT-C-09: không lấy File Tổ trưởng tháng khác bù điểm GD (khác ngày) */
       .sort(function(a, b){ return cach(a.ky)-cach(b.ky) || (a.loai==='dsto' ? -1 : 1); }).slice(0, 6);
     return khac.reduce(function(p, e){ return p.then(function(){ if(!thieu()) return; return slDocBang(e.loai, e.ky).then(function(b){
       if(!b) return; slMoBang(b).forEach(function(o){ var t = T[o.to]; if(t && !t.diem && o.diem){ toDien(t, o, [['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD'],['sdt','sdt'],['pho','phoTen'],['dv','dv'],['tenThon','tenThon'],['tenXa','tenXa']]); t.diemTu = (e.loai==='tt' ? 'Thông tin tổ trưởng ' : 'Danh sách tổ ')+kyVN(e.ky); } }); }); }); }, Promise.resolve());
@@ -224,7 +229,7 @@ function toNap(ky){
 function toDong0(K, Bm){   /* 3.383.6 (anh 26/10 "chỉ hiện các tổ chưa đóng; tổ đóng rồi không hiện nữa, cần thì sao kê bên tab Sao kê") — QUY_CHUAN mục 16:
      tổ CHƯA ĐÓNG = có mã trên Danh sách tổ của kỳ (hệ thống chỉ xuất tổ còn mở); thiếu → Thông tin tổ trưởng → LEN_31 TO_TRUONG → Mẫu 31 (còn khách TK 105); có thu trong tháng thì luôn giữ.
      Dư nợ 0 mà chưa đóng → "cần đóng tổ". Đã đóng → bỏ khỏi cây (K.toAn, không tìm, không hiện). Còn dư nợ mà không có trên Danh sách tổ → vẫn hiện + cảnh báo (không giấu món vay). */
-  var T = K.to, coDS = !!(Bm.co.dsto||[]).length, coTT = !!(Bm.co.tt||[]).length, coLen = !!(Bm.co.lt||[]).length; K.toAn = {}; K.canDong = []; K.ngoaiDS = [];
+  var T = K.to, coDS = !!(K.dsDung || Bm.co.dsto || []).length, coTT = !!(Bm.co.tt||[]).length, coLen = !!(Bm.co.lt||[]).length; K.toAn = {}; K.canDong = []; K.ngoaiDS = [];
   var thuThang = function(ma){ return (K.kh[ma]||[]).some(function(o){ return (o.tnTH||0)+(o.tnQH||0)+(o.tnK||0)+(+o.c_thu_lai_th_thang||0)+(+o.c_thu_lai_qh_thang||0)>0; }); };   /* tất toán + đóng ngay trong tháng → còn số thu tháng: giữ để báo cáo tháng đủ số */
   var guiTK = function(ma){ return (K.kh[ma]||[]).concat((K.lap||[]).filter(function(o){ return o.to===ma; })).some(function(o){ return (o.t105||0)>0; }); };
   Object.keys(T).forEach(function(ma){ var t = T[ma]; if(toLaTT(t)) return;
@@ -335,8 +340,8 @@ function toMapKy(ky){
     (B.raTo||[]).forEach(function(x){ R[x.kh] = x.ly; }); Object.defineProperty(M, '_ra', {value:R});   /* 3.138.1: lý do ra khỏi tổ */
     (B.co.hstd||[]).forEach(function(o){ var m = toMaCua(o); if(!o.kh || !m || o.raTo) return; var x = M[o.kh] = M[o.kh] || {to:m, ten:o.ten||'', dn:0, lt:0, t105:0, nv:'', gd:''};
       if(o.ngdg && o.ngdg>x.gd) x.gd = String(o.ngdg).slice(0, 10);   /* 3.133: ngày GD gần nhất (≈ ngày ra) */
-      x.dn += o.dn||0; if(o.ku) x.lt += laiTon(o); if((o.t105||0)>x.t105) x.t105 = o.t105; var d = o.nv || o.ngn || ''; if(d && (!x.nv || d<x.nv)) x.nv = d; });
-    (B.lap||[]).forEach(function(o){ var x = M[o.kh]; if(x && (o.t105||0)>x.t105) x.t105 = o.t105; });
+      x.dn += o.dn||0; if(o.ku) x.lt += laiTon(o); x.t105 = slT105Them(x, o); var d = o.nv || o.ngn || ''; if(d && (!x.nv || d<x.nv)) x.nv = d; });
+    (B.lap||[]).forEach(function(o){ var x = M[o.kh]; if(x) x.t105 = slT105Them(x, o); });   /* 3.409 QT-C-01 cộng sổ */
     return TO_MAP[ky] = M;
   }).catch(function(){ return null; });
 }

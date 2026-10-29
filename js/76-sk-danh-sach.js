@@ -31,6 +31,7 @@ function skBC31(k){   /* báo cáo tính từ Mẫu 31 */
   }
   if(k==='dh') return skBCDH(rows, lapKH, M, e31, ngay);   /* 3.91 */
   if(k==='cgn') return skBCChuaGN(rows, ngay);   /* 3.138 */
+  if(k==='tk2') return skBCTk2(rows, M, ngay);   /* 3.409 */
   if(k==='noxh') return skBCNOXH(rows, M, ngay, e31);   /* 3.91 */
   if(k==='pkto') return skBCPKTo(M, ngay, e31);
   if(k==='gn' || k==='m105'){
@@ -55,6 +56,30 @@ function skBC31(k){   /* báo cáo tính từ Mẫu 31 */
     return {ten:'Thay doi du no', tieuDe:'SAO KÊ MÓN VAY CÓ THAY ĐỔI DƯ NỢ THÁNG '+kyVN(th).replace('T', ''), ngay:ngay, html:r.html, aoa:r.aoa};
   }
 }
+/* 3.409 (anh 30/10 "KH có từ 2 số TK 105 em có báo sao kê ra chưa"): khách có ≥ 2 sổ TK 105 — gộp số sổ từ Mẫu 31 (cả dòng lặp) + Sao kê TK 105 (số dư từng sổ, ngày mở) + danh bạ;
+   mỗi sổ 1 dòng, khách ghi ở dòng đầu kèm tổng 105 (QT-C-01 cộng sổ); sổ số dư 0 tô nền = nên đóng. Theo phạm vi Sao kê. */
+function skBCTk2(rows, M, ngay){
+  var trong = {}, ds = [], kh = {};
+  rows.forEach(function(o){ if(o.kh) trong[o.kh] = o; });
+  var them = function(m, stk, t105, ndk, nguon){ var k = String(stk||'').replace(/\D/g, ''); if(!k || !trong[m]) return; var x = kh[m] = kh[m] || {kh:m, o:trong[m], so:{}, thu:[]};
+    var s = x.so[k]; if(!s){ s = x.so[k] = {stk:k, t105:null, ndk:'', nguon:{}}; x.thu.push(s); } if(t105!=null && t105!=='') s.t105 = Math.max(s.t105||0, +t105||0); if(ndk && !s.ndk) s.ndk = ndk; s.nguon[nguon] = 1; };
+  (kcGoc(M)||[]).concat(kcLap(M)||[]).forEach(function(o){ slStk(o.stk).forEach(function(k){ them(o.kh, k, o.t105, '', 'Mẫu 31'); }); });
+  var sk = KHO.saoKeKy(SK_K, 'tk105'), rSK = sk && sk.rows || [];
+  rSK.forEach(function(o){ them(o.kh, o.stk, o.t105, o.ndk, 'Sao kê'); });
+  Object.keys(trong).forEach(function(m){ slStkDB(m).forEach(function(k){ them(m, k, null, '', 'Danh bạ'); }); });
+  var nKH = 0, n0 = 0, tong = 0;
+  Object.keys(kh).sort().forEach(function(m){ var x = kh[m]; if(x.thu.length<2) return; nKH++;
+    x.thu.sort(function(a, b){ return (a.ndk||'9')<(b.ndk||'9') ? -1 : (a.ndk||'9')>(b.ndk||'9') ? 1 : (a.stk<b.stk ? -1 : 1); });
+    var t = x.thu.reduce(function(a, s){ return a+(s.t105||0); }, 0); tong += t;
+    x.thu.forEach(function(s, i){ if(s.t105===0) n0++; ds.push({to:x.o.to, _tt:x.o._tt, toTen:x.o.toTen, tenXa:x.o.tenXa, _x:x, _s:s, _dau:i===0, _n:nKH, _t:t}); }); });
+  var r = skBang(['STT','Mã KH','Họ tên','Số TK 105','Số dư','Ngày mở','Có trong','Tổng 105 của khách','Ghi chú'], ds, function(d){ var x = d._x, s = d._s;
+      return [d._dau ? d._n : '', d._dau ? x.kh : '', d._dau ? (x.o.ten||'') : '', s.stk, s.t105===null ? '' : s.t105, ngayVNsl(s.ndk), Object.keys(s.nguon).join(', '), d._dau ? d._t : '',
+        s.t105===0 ? 'Số dư 0 — nên đóng' : s.t105===null ? 'Chưa có trong Sao kê TK 105' : '']; }, [4], function(d){ return d._s.t105===0 ? 'nb' : ''; });
+  var ghiSK = sk ? 'Sao kê TK 105 '+(sk.ky ? kyVN(sk.ky) : '') : '<b>chưa nạp Sao kê TK 105</b> (số dư từng sổ lấy từ Mẫu 31 nếu có)';
+  return {ten:'Khach 2 TK 105', tieuDe:'DANH SÁCH KHÁCH HÀNG CÓ TỪ 2 TÀI KHOẢN TIỀN GỬI 105', ngay:ngay, aoa:r.aoa,
+    html:'<div class="bc-tom"><b>'+nKH+'</b> khách có từ 2 TK 105 · '+(ds.length)+' sổ · số dư cộng <b>'+tdnTien(tong)+'</b> · <b>'+n0+'</b> sổ số dư 0 (tô nền) · nguồn: Mẫu 31 + '+ghiSK+' + danh bạ</div>'+r.html+
+      '<div class="bc-ghi">Mỗi sổ 1 dòng; Tổng 105 của khách = cộng số dư các sổ (QT-C-01). Khách nhiều sổ: giữ 1 sổ, hướng dẫn khách làm thủ tục đóng sổ còn lại (ưu tiên sổ số dư 0). "Có trong" = sổ thấy ở file nào.</div>'};
+}
 function skBCChuaGN(rows, ngay){
   var ns = SK_K.ngay, T = SK_K.to || {};
   var ds = rows.filter(slKUChuaGN).map(function(o){ return {o:o, qua:skQua1Thang(o.nv, ns), so:o.nv ? tdnSoNgay(String(o.nv).slice(0, 10), ns) : ''}; })
@@ -68,7 +93,7 @@ function skBCChuaGN(rows, ngay){
 }
 function skBCDH(rows, lapKH, M, e31, ngay){
   var C = skCH(), tu = C.tu, den = C.den, ns = e31.ngay;
-  var s105 = {}; (kcGoc(M)||[]).concat(kcLap(M)||[]).forEach(function(o){ if(o.kh && (o.t105||0) > (s105[o.kh]||0)) s105[o.kh] = o.t105; });
+  var s105 = {}; (kcGoc(M)||[]).concat(kcLap(M)||[]).forEach(function(o){ if(o.kh) s105[o.kh] = slT105Them(s105, o, o.kh); });   /* 3.409 QT-C-01 cộng sổ */
   var ds = rows.filter(function(o){ return o.ku && o.ttMon!=='CLOSE' && (o.dn||0)>0 && !(o.qh>0) && !(o.kn>0); });
   var nh = {1:[], 2:[], 3:[]};
   ds.forEach(function(o){ var n = skNhomDH(o, tu, den, ns); if(n) nh[n].push(o); });
@@ -106,7 +131,7 @@ function skBCDH(rows, lapKH, M, e31, ngay){
 }
 function skBCNOXH(rows, M, ngay, e31){
   var C = skCH(), ns = e31.ngay, den = C.den || tdnCuoiKy(kyLui(SK_K.thang, 1));
-  var s105 = {}; (kcGoc(M)||[]).concat(kcLap(M)||[]).forEach(function(o){ if(o.kh && (o.t105||0) > (s105[o.kh]||0)) s105[o.kh] = o.t105; });
+  var s105 = {}; (kcGoc(M)||[]).concat(kcLap(M)||[]).forEach(function(o){ if(o.kh) s105[o.kh] = slT105Them(s105, o, o.kh); });   /* 3.409 QT-C-01 cộng sổ */
   var ds = skPKTinh(M, ns), nh = {1:[], 2:[], 3:[]}, dem = {noxh:0, tt:0, moi:0};
   ds.forEach(function(o){ dem[o._loai]++; nh[o._chua>0 ? 1 : (o._pk.toiNgay && o._pk.toiNgay<=den ? 2 : 3)].push(o); });
   var xep = function(a, b){ var x = a._pk.quaNgay||a._pk.toiNgay||'9', y = b._pk.quaNgay||b._pk.toiNgay||'9'; return x<y ? -1 : x>y ? 1 : (a.kh<b.kh ? -1 : 1); };
@@ -183,5 +208,6 @@ SK_BC.push(
   {k:'gn', ten:'Sao kê giải ngân trong tháng', nhom:'ps', kho:'doc', lap:function(){ return skBC31('gn'); }},
   {k:'ddn', ten:'Sao kê món vay có thay đổi dư nợ trong tháng', nhom:'ps', kho:'doc', lap:function(){ return skBC31('ddn'); }},
   {k:'m105', ten:'Sao kê khách giải ngân cần mở TK 105', nhom:'ps', kho:'doc', lap:function(){ return skBC31('m105'); }},
-  {k:'sdt', ten:'Sao kê số điện thoại khách hàng (đánh dấu số trống / không đạt)', nhom:'kh', kho:'doc', lap:function(){ return skBC31('sdt'); }}
+  {k:'sdt', ten:'Sao kê số điện thoại khách hàng (đánh dấu số trống / không đạt)', nhom:'kh', kho:'doc', lap:function(){ return skBC31('sdt'); }},
+  {k:'tk2', ten:'Sao kê khách có từ 2 TK 105 — từng sổ, số dư, ngày mở (giữ 1, đóng bớt)', nhom:'kh', kho:'doc', lap:function(){ return skBC31('tk2'); }}
 );
