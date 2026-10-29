@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.403 — 29/10/2026 — Scan: CCCD dạng PDF tự nhận + cắt thẻ (TK 2)
+- **Anh 29/10** (ảnh hàng chờ: 2 trang PDF, thẻ nhỏ giữa trang trắng): "khi cccd đã lưu dưới dạng pdf anh cũng cần nhận biết và cắt được luôn"; anh duyệt đặt ở ① + ② + ③.
+- File cắm rút `js/81-scan-pdf-the.js`: `scDoThe` dò 1–2 thẻ trên trang nền trắng (ngoài thẻ gần như toàn nền; trang tài liệu có chữ khắp trang không cắt), cắt sát chừa lề trắng.
+- **① Chế độ 🪪 Thẻ nhận PDF** (trước bỏ qua): mỗi trang → ảnh mặt thẻ, đi đúng luồng ảnh chụp (nắn, mặt trước / sau, ghép cặp, đọc số, lưu, in). Hàng chờ thẻ có lại **+ Thêm PDF**.
+- **② Chế độ 📄 Tài liệu:** không tự cắt; PDF mà mọi trang chỉ là thẻ → dòng nhắc **🪪 Chuyển sang Quét CCCD để cắt** (không bấm thì giữ trang PDF như cũ).
+- **③ Bản CCCD lưu PDF trên Drive** (Đọc CCCD / Rà): trang 1 không có đủ 2 mặt → thử mỗi trang 1 mặt (trang 1 + 2); vẫn có ↻ Cắt lại như cũ.
+- Phép thử `tests/t323.js` (11 ý, PDF giả).
+
 ## 3.402 — 29/10/2026 — 📉 Diễn biến tổ ở Tra cứu KH (TK 2)
 - **Anh 29/10** (đang củng cố, đóng tổ không hoạt động): "làm 1 nút trong tra cứu KH diễn biến theo xã, điểm GD, Hội về các tổ so đầu tháng với số liệu hiện tại, tổ nào đã đóng ngày nào, tổ nào đã không đủ ĐK chưa đóng" · "tổ có thành viên dưới 20, tổ không có dư nợ" · "ra tổ rác tất cả".
 - Nút **📉 Diễn biến tổ** cạnh "Tìm theo" (file cắm rút `js/80-dien-bien-to.js`): đầu tháng = Mẫu 31 chốt tháng trước, hiện tại = kỳ Tra cứu (mới nhất); theo dải LỌC ĐỊA BÀN — toàn PGD gom theo xã, chọn xã → điểm GD, chọn điểm → Hội.

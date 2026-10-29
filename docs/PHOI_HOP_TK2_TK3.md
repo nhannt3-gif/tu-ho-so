@@ -120,6 +120,7 @@
 | 28/10 | TK 2 | 3.400 | `js/22-so-lieu` (SL_MA, slMaTen, slNgaySo, slTenGoc mới, slGhiBlob thêm meta, slDay ghi sổ nạp, slGhi lanThay), `js/22k-nap-kt` (tên chuẩn ở mọi chỗ hiện, báo lệch ngày Mẫu 31 ↔ Tổ trưởng, DANH_MUC_NAP.csv, 🏷 chuẩn hóa tên tháng cũ), `docs/FILE_XUAT_HANG_THANG` mục F, `tests/t320` | t320 23/23 + hồi quy đủ |
 | 28/10 | TK 2 | 3.401 | `js/22g-to` (toNap ấp theo File Tổ trưởng, toGanTrucTiep theo ấp, toKiemAp), `js/22k-nap-kt` (slKTAp trong Kiểm tra kỳ), `tests/t321` | t321 12/12 + hồi quy đủ |
 | 29/10 | TK 2 | 3.402 | `js/80-dien-bien-to.js` (mới, cắm rút), `js/22f` (1 dòng gọi nút), `index.html`, `css/app.css`, `tests/t322` | t322 14/14 + hồi quy 202 phép |
+| 29/10 | TK 2 | 3.403 | `js/81-scan-pdf-the.js` (mới, cắm rút: bọc nhanVaoScan, moHangCho, sxCatTuPDF), `index.html`, `tests/t323` | t323 11/11 + hồi quy theo đổi |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
