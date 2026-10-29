@@ -236,6 +236,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t322.js` | 3.402 📉 Diễn biến tổ (js/80): gom theo xã / điểm / Hội theo dải lọc, tổ đóng + khoảng ngày theo các bản Danh sách tổ, tổ mới, đổi điểm / Hội, tổ rác (dưới 20 TV, không dư nợ, không có trên DS tổ), màn + Excel 5 sheet, nút ở Tra cứu mở trên `gianho31` T7 → T8. |
 | `node tests/t323.js` | 3.403 CCCD dạng PDF (js/81): `scDoThe` 1 thẻ / trang, mặt sau sáng, 2 thẻ / trang, trang tài liệu không cắt; `scPDFThe`; chế độ Thẻ nhận PDF → 2 ảnh + nút + Thêm PDF; chế độ Tài liệu nhắc chuyển → bấm thành ảnh thẻ; PDF tài liệu không nhắc — PDF giả. |
 | `node tests/t324.js` | 3.404 (Tèo QT-C-12): `skPhienTu` (ĐH 10 điểm 05 → 05 tháng sau, gộp điểm 23, trùng ngày, tháng 2), gia hạn, ưu tiên cột hệ thống, ⚠ lệch lịch điểm, món trực tiếp ngay sau ĐH, chưa có, chia khung ③, `toNap` gắn `o._ngGD` — bộ `gianho31`. |
+| `node tests/t325.js` | 3.405 (Tèo): DOI_CHIEU_APP csv — BOM, dòng # ghi chú, 17 cột hợp đồng, 1 dòng 1 tổ + TT|thôn, tổng dư nợ / quá hạn = Mẫu 31, tiền nguyên, lưu Drive Số liệu/<tháng>/ (Drive giả), nút ⋯ Nạp & KT — bộ `gianho31`. |
 | (3.389.2) | Chỉ CSS. |
 | (3.389.1) | Thử goiCauNoi bằng node trong lượt sửa. |
 | (3.389) | t147 thêm nút 📋 Chép. |

@@ -60,7 +60,7 @@ const fs=require('fs'), path=require('path');
    /* chip Đến hạn tháng sau: 2 cột */
    const kF = tvX.find(k=>k.kh===f.kh), kG = tvX.find(k=>k.kh===g.kh), vF = toNgayGT(kF, 'dh'), vG = toNgayGT(kG, 'dh');
    ok('chip Đến hạn: tiêu đề 2 cột', toNgayH(toNgayCot('dh')).length===2 && /ĐH theo HĐ/.test(toNgayCot('dh')) && /GDXA/.test(toNgayCot('dh')));
-   ok('món HĐ 20/09, GDXA 07/10 → "ĐH HĐ T09, chuyển QH ngày 07/10"', kF.dhSau && /20\/09\/2026/.test(vF[0]) && /07\/10\/2026 — ĐH HĐ T09, chuyển QH ngày 07\/10/.test(vF[1]), vF.join(' | '));
+   ok('món HĐ 20/09, GDXA 07/10 → "ĐH HĐ T09, chuyển QH ngày 07/10"', kF.dhSau && /20\/09\/2026/.test(vF[0]) && /07\/10\/2026( ⚠ điểm hiện tại \d\d\/\d\d\/\d{4})? — ĐH HĐ T09, chuyển QH ngày 07\/10/.test(vF[1])   /* 3.404 QT-C-12: GDXA hệ thống lệch lịch điểm hiện tại → kèm ⚠ */, vF.join(' | '));
    ok('món đã quá ĐH HĐ 25/08 (GDXA 07/09) → "đã quá ĐH HĐ — chưa chuyển QH do ngày GD xã"', kG.dhSau && /25\/08\/2026/.test(vG[0]) && /chưa chuyển QH do ngày GD xã/.test(vG[1]), vG.join(' | '));
    C.to = a.to; TO_LOC_MO = 'dh'; const bc = toBCDS(TO_K.to[a.to]);
    ok('In / Excel chip Đến hạn: có 2 cột ĐH theo HĐ + ĐH theo GDXA, dòng cùng số cột', bc.aoa[0].includes('ĐH theo HĐ (gia hạn)') && bc.aoa[0].includes('ĐH theo GDXA · ghi chú') && bc.aoa.every(r=>r.length===bc.aoa[0].length), bc.aoa[0].join(','));

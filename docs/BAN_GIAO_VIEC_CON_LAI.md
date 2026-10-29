@@ -264,6 +264,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Theo dõi nợ đã gỡ: làm lại sau nên đọc dữ liệu cũ ở IndexedDB khóa `tdn_du_lieu` (cấu trúc `NO = {ho, mon, lan, lanXoa, nhap, toAp, suaLuc}` — xem git `js/04e-theo-doi-no.js` bản 3.398) và Drive `_Hệ thống/theodoino.json`; nên đọc số liệu qua `KHO` (không bộ đọc Excel riêng — lý do gỡ, L1 RA_SOAT_HUONG_DI_2510).
 - Hàm tiện ích tên `tdn*` (tdnTien, tdnHoi, tdnCuoiKy…) vẫn dùng khắp app — ở `js/04e-chung.js`, không đổi tên.
 
+### Danh sách thử trên máy thật (3.405)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp bộ 31/10 → ⋯ Nạp & KT › 📤 File đối chiếu Tèo | Drive Số liệu/2026-10/DOI_CHIEU_APP_2026-10-31.csv | |
+| 2 | Mở file bằng Excel | Dòng 1 ghi chú #, dòng 2 17 cột, tiếng Việt đúng | |
+| 3 | Cộng cột du_no | = tổng dư nợ PGD (BCDHTD 01.1) | |
+
+_Ghi chú kỹ thuật 3.405:_ cuối js/22k-nap-kt.js: `slDCTeoTinh(K)` (đổi TO_K tạm như tvChuan), `slDCCsv`, `slDCXuat(ky)`, lệnh GD `sldc.xuat`; hợp đồng cột `SL_DC_COT`.
+
 ### Danh sách thử trên máy thật (3.404)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
