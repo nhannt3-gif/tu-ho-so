@@ -1,10 +1,10 @@
 {
- "ban": "1.0",
+ "ban": "1.1",
  "ngay": "30/10/2026",
  "ngay_so_lieu": "31/10/2026",
  "ghi_chu": [
   "Bộ phép thử chung Tèo (bước B4) — DỮ LIỆU GIẢ, không có khách thật. Nguồn duy nhất: repo tu-ho-so tests/teo/teo_ca.json; giao ban chép bản sang Drive 06_CONG_CU\\v2.",
-  "Chỉ luật đã chốt (TEO_QUY_TAC_CHUNG.md mục 1). Luật chờ chốt (K1, K4, K5, K7–K9) không có đáp án.",
+  "Chỉ luật đã chốt (TEO_QUY_TAC_CHUNG.md mục 1). Luật chờ chốt (K1, K4, K5, K8, K9) không có đáp án. 1.1: thêm C17-1 (K7 chốt 30/10).",
   "Mỗi trường hợp chạy riêng: Mẫu 31 (cột theo tên cột hệ thống, ô không ghi lấy 'mac_dinh_mau31') + File Tổ trưởng (cột hệ thống) cùng ngày số liệu, trừ khi có 'ngay_to_truong'.",
   "Loại kết quả: dong = dòng file đối chiếu (hợp đồng cột TEO_KE_HOACH_KY_3110.md mục 3, tiền đồng) · ngay_qh = ngày chuyển quá hạn của khế ước (dd/mm/yyyy) · lech_ap = khế ước nằm trong danh sách món lệch ấp · ap_nhieu_diem = mã ấp nằm trong danh sách ấp nhiều điểm · khong_ghep_to_truong = không dùng File Tổ trưởng khác ngày · ham = gọi hàm trực tiếp."
  ],
@@ -1128,6 +1128,95 @@
      "MADGD": "D05",
      "TENDGD": "Điểm Thử 05",
      "DVUT": "13",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C17-1",
+   "luat": "QT-C-17",
+   "mo_ta": "Nợ đến hạn tháng tới (ngày số liệu 31/10 → tháng 11): còn dư nợ, chưa quá hạn; ngày ĐH theo gia hạn, chưa gia hạn thì hợp đồng → tính 2 món (a gia hạn 15/11; b hợp đồng 20/11); không tính c (đã quá hạn), d (gia hạn sang 15/12 dù hợp đồng 15/11), e (hết dư nợ)",
+   "mau31": [
+    {
+     "Số khế ước": "KU-17a",
+     "Mã KH": "KH-KU-17a",
+     "Tổng dư nợ": 10000000,
+     "Dư nợ trong hạn": 10000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05",
+     "Ngày ĐH theo Gia hạn": "15/11/2026",
+     "Ngày ĐH theo hợp đồng": "15/05/2026"
+    },
+    {
+     "Số khế ước": "KU-17b",
+     "Mã KH": "KH-KU-17b",
+     "Tổng dư nợ": 10000000,
+     "Dư nợ trong hạn": 10000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05",
+     "Ngày ĐH theo hợp đồng": "20/11/2026"
+    },
+    {
+     "Số khế ước": "KU-17c",
+     "Mã KH": "KH-KU-17c",
+     "Tổng dư nợ": 10000000,
+     "Dư nợ trong hạn": 0,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05",
+     "Dư nợ quá hạn": 10000000,
+     "Ngày ĐH theo hợp đồng": "10/11/2026"
+    },
+    {
+     "Số khế ước": "KU-17d",
+     "Mã KH": "KH-KU-17d",
+     "Tổng dư nợ": 10000000,
+     "Dư nợ trong hạn": 10000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05",
+     "Ngày ĐH theo Gia hạn": "15/12/2026",
+     "Ngày ĐH theo hợp đồng": "15/11/2026"
+    },
+    {
+     "Số khế ước": "KU-17e",
+     "Mã KH": "KH-KU-17e",
+     "Tổng dư nợ": 0,
+     "Dư nợ trong hạn": 0,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05",
+     "Ngày ĐH theo hợp đồng": "25/11/2026"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "dong",
+     "khoa": "9000001",
+     "cot": "so_mon_den_han_thang_toi",
+     "bang": 2
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
      "TENTT": "Tổ trưởng Giả"
     }
    ]

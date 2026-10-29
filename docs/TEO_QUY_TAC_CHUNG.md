@@ -24,6 +24,7 @@ Trạng thái: ✅ anh chốt · ⏳ chờ anh chốt · 🔧 đã chốt nhưng
 | QT-C-11 | **Món vay trực tiếp** (không qua Hội): **dư nợ điểm, xã, PGD đều cộng**, tách dòng "Trực tiếp" cạnh "Ủy thác" (mẫu 08/GDX). Gán điểm **theo ấp của món vay** (QT-C-10), **không theo ngày GDXA** | ✅ / 🔧 | 28/10 | ✅ 3.401: tổ cùng ấp → danh mục → ấp chưa có tổ tạm GDXA (báo) → xã 1 điểm (`toGanTrucTiep`) | ✅ `bang_so_lieu.py` 1.3 theo ấp của File Tổ trưởng (ấp chưa có tổ nào: tạm GDXA, ghi nhật ký); `tong_hop.py` chưa |
 | QT-C-12 | **Ngày đến hạn / chuyển quá hạn theo phiên của điểm:** món gắn mã tổ → ngày đến hạn GDXA = ngày giao dịch của điểm; điểm đổi lịch / món, tổ điều chuyển → theo **điểm mới**. **Chuyển QH = phiên đầu tiên của điểm KỂ TỪ ngày đến hạn** (trùng ngày phiên → chính phiên đó). Mốc = ngày đến hạn **sau gia hạn** nếu đã gia hạn, không thì theo hợp đồng. **Món trực tiếp: ngay sau ngày đến hạn.** Kỳ gốc phân kỳ (CV 597) của món qua tổ: theo ngày điểm như trên | ✅ / 🔧 | 28/10 | ✅ 3.404: ưu tiên cột hệ thống; trống → phiên đầu tiên của điểm kể từ ngày ĐH (sau gia hạn), trực tiếp ngay sau ngày ĐH; lệch lịch điểm → ⚠ (`skCQH`) | ✅ `bang_so_lieu.py` 1.3 (`phien_ke_tu`, sheet 5a); `tong_hop.py` chưa |
 | QT-C-13 | **Cấu hình điểm GD theo tiến độ thực tế** (anh chốt 29/10: "lấy theo Mẫu 31 và DS tổ cho chuẩn, không phải 12 gộp còn 9 — sẽ theo tiến độ"): điểm của tổ / ấp = File Tổ trưởng + Mẫu 31 **cùng kỳ**; kế hoạch 12 → 9 điểm (bỏ ngày 06, 07, 12) chỉ để biết, **không cài cứng bảng chuyển hay mốc kỳ**; tháng cũ giữ nguyên theo file tháng đó | ✅ / 🔧 | 28/10 | ✅ 3.401 / 3.406: điểm theo File Tổ trưởng, không có bảng gộp cứng; 🗺 Địa bàn theo số liệu
+| QT-C-17 | **Nợ đến hạn tháng tới (K7)** = món **còn dư nợ, chưa quá hạn**; ngày đến hạn = "Ngày ĐH theo Gia hạn", **chưa gia hạn thì "Ngày ĐH theo hợp đồng"**; rơi vào tháng kế tiếp ngày số liệu. Chưa gồm kỳ con phân kỳ CV 597 (chờ chốt riêng) | ✅ | 30/10 | ✅ 3.405 (`so_mon_den_han_thang_toi`) | ✅ `bang_so_lieu.py` 1.4 (`den_han_k7`, sheet 5c + file đối chiếu); `tong_hop.py` chưa |
 
 ## 2. Luật chờ anh chốt (đề xuất — chưa áp)
 
@@ -32,7 +33,7 @@ Trạng thái: ✅ anh chốt · ⏳ chờ anh chốt · 🔧 đã chốt nhưng
 | ⏳ QT-C-14 (K1) | Tổ viên | Theo QT-18 app: + khách chưa giải ngân + bù Mẫu 01/TV (khớp TW 100%) |
 | ⏳ QT-C-15 (K4) | Khoản vay mới (kiểm tra 30 ngày, HD 727) | Giải ngân lần 1; lần 2+ danh sách theo dõi riêng |
 | ⏳ QT-C-16 (K5) | Món 3 tháng KHĐ | Chạy cả hai hàm trên các kỳ có file TW rồi chọn |
-| ⏳ QT-C-17 (K7) | Nợ đến hạn tháng tới | Gia hạn có thì dùng, không thì HĐ; + kỳ con CV 597 (món trực tiếp lấy file phân kỳ) |
+| ⏳ (K7 phần còn lại) | Kỳ con phân kỳ CV 597 trong nợ đến hạn | Món trực tiếp lấy file phân kỳ — chờ chốt |
 | ⏳ QT-C-18 (K8) | Tổ trưởng | File Tổ trưởng; không có mới Mẫu 31 |
 | ⏳ QT-C-19 (K9) | Số tổng hợp cấp xã | Tính từ Mẫu 31 + kiểm khớp BCDHTD từng xã |
 | ⏳ QT-C-20 | Gia hạn tối đa | ½ thời hạn với **trung hạn** (anh nêu); ngắn / dài hạn chờ văn bản gia hạn |
@@ -40,7 +41,7 @@ Trạng thái: ✅ anh chốt · ⏳ chờ anh chốt · 🔧 đã chốt nhưng
 
 ## 3. Phép thử chung (bước B4)
 
-Bộ trường hợp **dữ liệu giả + đáp án**: `tests/teo/teo_ca.json` (bản 1.0 · 30/10/2026 · 17 trường hợp, 30 ý) — **nguồn duy nhất cho cả hai bên**. Cột Mẫu 31 / File Tổ trưởng ghi đúng tên cột hệ thống; kết quả so theo hợp đồng cột file đối chiếu (`TEO_KE_HOACH_KY_3110.md` mục 3).
+Bộ trường hợp **dữ liệu giả + đáp án**: `tests/teo/teo_ca.json` (bản 1.1 · 30/10/2026 · 18 trường hợp, 31 ý) — **nguồn duy nhất cho cả hai bên**. Cột Mẫu 31 / File Tổ trưởng ghi đúng tên cột hệ thống; kết quả so theo hợp đồng cột file đối chiếu (`TEO_KE_HOACH_KY_3110.md` mục 3).
 
 | Luật | Trường hợp | Giao ban (`thu_teo.py` · `bang_so_lieu.py` 1.3) | App |
 |---|---|---|---|
@@ -54,8 +55,9 @@ Bộ trường hợp **dữ liệu giả + đáp án**: `tests/teo/teo_ca.json` 
 | QT-C-10 | C10-1 món lệch ấp · C10-2 ấp 2 điểm · C10-3 điểm theo File Tổ trưởng | ✓ 6/6 | chưa |
 | QT-C-11 | C11-1 trực tiếp theo ấp, không theo GDXA · C11-2 ấp chưa có tổ | ✓ 3/3 | chưa |
 | QT-C-12 | C12-12a trùng ngày phiên · 12b sau ngày phiên · 12c gia hạn · 12d trực tiếp · 12e tổ đổi điểm | ✓ 5/5 | chưa |
+| QT-C-17 | C17-1 đến hạn: gia hạn / HĐ, bỏ món QH, bỏ món hết nợ | ✓ 1/1 (1.4; bản 1.3 trượt — đúng như dự kiến) | chưa |
 
-Giao ban chạy: `python thu_teo.py` (Drive `06_CONG_CU\v2`, chép `teo_ca.json` cạnh script) — **30/30 đạt** ngày 30/10/2026. App: TK 2 viết phép thử JS đọc cùng file (trình anh). **Sửa luật / sửa script hay app → chạy lại; thêm luật chốt → thêm trường hợp vào file này.** Luật chờ chốt (K1, K4, K5, K7–K9) chưa có đáp án.
+Giao ban chạy: `python thu_teo.py` (Drive `06_CONG_CU\v2`, chép `teo_ca.json` cạnh script) — **31/31 đạt** ngày 30/10/2026 (`bang_so_lieu.py` 1.4). App: TK 2 viết phép thử JS đọc cùng file (trình anh). **Sửa luật / sửa script hay app → chạy lại; thêm luật chốt → thêm trường hợp vào file này.** Luật chờ chốt (K1, K4, K5, K7–K9) chưa có đáp án.
 
 ## 4. Nhật ký
 
@@ -64,3 +66,4 @@ Giao ban chạy: `python thu_teo.py` (Drive `06_CONG_CU\v2`, chép `teo_ca.json`
 | 1.0 | 28/10/2026 | Lập sổ: QT-C-01…13 anh chốt trong phiên giao ban 28/10; QT-C-14…20 + phần C chờ chốt. |
 | 1.1 | 28/10/2026 | Cột Giao ban: QT-C-09…13 đã áp ở `bang_so_lieu.py` 1.3; `tong_hop.py` chưa. |
 | 1.2 (TK 1) | 30/10/2026 | Mục 3: bộ phép thử chung `tests/teo/teo_ca.json` 1.0; giao ban 30/30 đạt. |
+| 1.3 (TK 1) | 30/10/2026 | Anh chốt K7 → **QT-C-17** (theo cách app 3.405); phép thử C17-1; giao ban áp ở `bang_so_lieu.py` 1.4. |
