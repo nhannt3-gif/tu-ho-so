@@ -1,12 +1,13 @@
 {
- "ban": "1.1",
+ "ban": "1.2",
  "ngay": "30/10/2026",
  "ngay_so_lieu": "31/10/2026",
  "ghi_chu": [
   "Bộ phép thử chung Tèo (bước B4) — DỮ LIỆU GIẢ, không có khách thật. Nguồn duy nhất: repo tu-ho-so tests/teo/teo_ca.json; giao ban chép bản sang Drive 06_CONG_CU\\v2.",
-  "Chỉ luật đã chốt (TEO_QUY_TAC_CHUNG.md mục 1). Luật chờ chốt (K1, K4, K5, K8, K9) không có đáp án. 1.1: thêm C17-1 (K7 chốt 30/10).",
+  "Chỉ luật đã chốt (TEO_QUY_TAC_CHUNG.md mục 1). Luật chờ chốt (K1, K4, K5, K8, K9) không có đáp án. 1.1: thêm C17-1 (K7 chốt 30/10). 1.2: thêm C21-1, C21-2 (QT-C-21 so sánh kỳ theo khế ước; tổ đóng không hiện trên cây — anh duyệt 30/10); mã khế ước / KH dạng số như hệ thống (góp ý TK 2).",
   "Mỗi trường hợp chạy riêng: Mẫu 31 (cột theo tên cột hệ thống, ô không ghi lấy 'mac_dinh_mau31') + File Tổ trưởng (cột hệ thống) cùng ngày số liệu, trừ khi có 'ngay_to_truong'.",
-  "Loại kết quả: dong = dòng file đối chiếu (hợp đồng cột TEO_KE_HOACH_KY_3110.md mục 3, tiền đồng) · ngay_qh = ngày chuyển quá hạn của khế ước (dd/mm/yyyy) · lech_ap = khế ước nằm trong danh sách món lệch ấp · ap_nhieu_diem = mã ấp nằm trong danh sách ấp nhiều điểm · khong_ghep_to_truong = không dùng File Tổ trưởng khác ngày · ham = gọi hàm trực tiếp."
+  "Loại kết quả: dong = dòng file đối chiếu (hợp đồng cột TEO_KE_HOACH_KY_3110.md mục 3, tiền đồng) · ngay_qh = ngày chuyển quá hạn của khế ước (dd/mm/yyyy) · lech_ap = khế ước nằm trong danh sách món lệch ấp · ap_nhieu_diem = mã ấp nằm trong danh sách ấp nhiều điểm · khong_ghep_to_truong = không dùng File Tổ trưởng khác ngày · ham = gọi hàm trực tiếp.",
+  "1.2 — trường hợp NHIỀU KỲ: thêm 'ky_truoc' = {'ngay': dd/mm/yyyy, 'mau31': [...], 'to_truong': [...] (tùy chọn)}; chạy kỳ này với kỳ trước = ngày đó. Loại kết quả mới: ky_truoc_to = số kỳ trước xếp vào tổ (ma_to, cot du_no / tien_gui, đồng) theo QT-C-21 · ky_truoc_diem = số kỳ trước xếp vào điểm (ma_diem như MADGD File Tổ trưởng kỳ này, cot du_no, đồng) · to_khong_hien = mã tổ KHÔNG có trên cây địa bàn / bảng theo tổ kỳ này · bien_dong = mã tổ có trong danh sách biến động với loai 'to_dong' (tổ đã đóng) / 'to_moi' / 'chuyen_diem'."
  ],
  "mac_dinh_mau31": {
   "Mã PGD": "004820",
@@ -1218,6 +1219,243 @@
      "TENDGD": "Điểm Thử 05",
      "DVUT": "11",
      "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C21-1",
+   "luat": "QT-C-21",
+   "mo_ta": "Tổ đóng, tổ viên chuyển sang tổ khác cùng ấp: số kỳ trước (dư nợ, tiền gửi theo sổ) đi theo khế ước sang tổ mới; tổ đóng không hiện trên cây, có ở biến động",
+   "ky_truoc": {
+    "ngay": "30/09/2026",
+    "mau31": [
+     {
+      "Số khế ước": "9000000000101",
+      "Mã KH": "900101",
+      "Tổng dư nợ": 30000000,
+      "Dư nợ trong hạn": 30000000,
+      "Mã tổ": "9000001",
+      "Mã ĐVUT": "11",
+      "Mã thôn": "99900101",
+      "Tên thôn": "Ấp 01",
+      "Ngày GDXA": "05",
+      "Sổ tiết kiệm 105": "9100000000101",
+      "Số dư tiền gửi 105": 1000000
+     },
+     {
+      "Số khế ước": "9000000000102",
+      "Mã KH": "900102",
+      "Tổng dư nợ": 20000000,
+      "Dư nợ trong hạn": 20000000,
+      "Mã tổ": "9000001",
+      "Mã ĐVUT": "11",
+      "Mã thôn": "99900101",
+      "Tên thôn": "Ấp 01",
+      "Ngày GDXA": "05"
+     },
+     {
+      "Số khế ước": "9000000000103",
+      "Mã KH": "900103",
+      "Tổng dư nợ": 10000000,
+      "Dư nợ trong hạn": 10000000,
+      "Mã tổ": "9000002",
+      "Mã ĐVUT": "12",
+      "Mã thôn": "99900101",
+      "Tên thôn": "Ấp 01",
+      "Ngày GDXA": "05"
+     }
+    ]
+   },
+   "mau31": [
+    {
+     "Số khế ước": "9000000000101",
+     "Mã KH": "900101",
+     "Tổng dư nợ": 28000000,
+     "Dư nợ trong hạn": 28000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05",
+     "Sổ tiết kiệm 105": "9100000000101",
+     "Số dư tiền gửi 105": 1200000,
+     "Thu nợ TH tháng": 2000000
+    },
+    {
+     "Số khế ước": "9000000000102",
+     "Mã KH": "900102",
+     "Tổng dư nợ": 20000000,
+     "Dư nợ trong hạn": 20000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "9000000000103",
+     "Mã KH": "900103",
+     "Tổng dư nợ": 10000000,
+     "Dư nợ trong hạn": 10000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000002",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "ky_truoc_to",
+     "ma_to": "9000002",
+     "cot": "du_no",
+     "bang": 60000000
+    },
+    {
+     "loai": "ky_truoc_to",
+     "ma_to": "9000002",
+     "cot": "tien_gui",
+     "bang": 1000000
+    },
+    {
+     "loai": "dong",
+     "khoa": "9000002",
+     "cot": "du_no",
+     "bang": 58000000
+    },
+    {
+     "loai": "to_khong_hien",
+     "ma_to": "9000001"
+    },
+    {
+     "loai": "bien_dong",
+     "ma_to": "9000001",
+     "loai_bd": "to_dong"
+    }
+   ]
+  },
+  {
+   "id": "C21-2",
+   "luat": "QT-C-21",
+   "mo_ta": "Tổ viên chuyển sang tổ ở ẤP / ĐIỂM khác (tổ cũ vẫn hoạt động): số kỳ trước của món đi theo khế ước sang điểm mới, không theo ấp của tổ cũ",
+   "ky_truoc": {
+    "ngay": "30/09/2026",
+    "mau31": [
+     {
+      "Số khế ước": "9000000000201",
+      "Mã KH": "900201",
+      "Tổng dư nợ": 40000000,
+      "Dư nợ trong hạn": 40000000,
+      "Mã tổ": "9000001",
+      "Mã ĐVUT": "11",
+      "Mã thôn": "99900101",
+      "Tên thôn": "Ấp 01",
+      "Ngày GDXA": "05"
+     },
+     {
+      "Số khế ước": "9000000000202",
+      "Mã KH": "900202",
+      "Tổng dư nợ": 10000000,
+      "Dư nợ trong hạn": 10000000,
+      "Mã tổ": "9000003",
+      "Mã ĐVUT": "11",
+      "Mã thôn": "99900103",
+      "Tên thôn": "Ấp 03",
+      "Ngày GDXA": "06"
+     }
+    ]
+   },
+   "mau31": [
+    {
+     "Số khế ước": "9000000000201",
+     "Mã KH": "900201",
+     "Tổng dư nợ": 40000000,
+     "Dư nợ trong hạn": 40000000,
+     "Mã tổ": "9000003",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900103",
+     "Tên thôn": "Ấp 03",
+     "Ngày GDXA": "06"
+    },
+    {
+     "Số khế ước": "9000000000202",
+     "Mã KH": "900202",
+     "Tổng dư nợ": 10000000,
+     "Dư nợ trong hạn": 10000000,
+     "Mã tổ": "9000003",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900103",
+     "Tên thôn": "Ấp 03",
+     "Ngày GDXA": "06"
+    },
+    {
+     "Số khế ước": "9000000000203",
+     "Mã KH": "900203",
+     "Tổng dư nợ": 5000000,
+     "Dư nợ trong hạn": 5000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05",
+     "Giải ngân trong tháng": 5000000
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000003",
+     "MADP": "99900103",
+     "TENTHON": "Ấp 03",
+     "MADGD": "D06",
+     "TENDGD": "Điểm Thử 06",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "ky_truoc_to",
+     "ma_to": "9000003",
+     "cot": "du_no",
+     "bang": 50000000
+    },
+    {
+     "loai": "ky_truoc_to",
+     "ma_to": "9000001",
+     "cot": "du_no",
+     "bang": 0
+    },
+    {
+     "loai": "ky_truoc_diem",
+     "ma_diem": "D05",
+     "cot": "du_no",
+     "bang": 0
+    },
+    {
+     "loai": "ky_truoc_diem",
+     "ma_diem": "D06",
+     "cot": "du_no",
+     "bang": 50000000
     }
    ]
   }
