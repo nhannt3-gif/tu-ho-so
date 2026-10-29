@@ -264,6 +264,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Theo dõi nợ đã gỡ: làm lại sau nên đọc dữ liệu cũ ở IndexedDB khóa `tdn_du_lieu` (cấu trúc `NO = {ho, mon, lan, lanXoa, nhap, toAp, suaLuc}` — xem git `js/04e-theo-doi-no.js` bản 3.398) và Drive `_Hệ thống/theodoino.json`; nên đọc số liệu qua `KHO` (không bộ đọc Excel riêng — lý do gỡ, L1 RA_SOAT_HUONG_DI_2510).
 - Hàm tiện ích tên `tdn*` (tdnTien, tdnHoi, tdnCuoiKy…) vẫn dùng khắp app — ở `js/04e-chung.js`, không đổi tên.
 
+### Danh sách thử trên máy thật (3.404)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › Nợ đến hạn tháng 11 | Cột Chuyển QH: món có ngày hệ thống giữ nguyên; món trống ghi ngày + "(tính)" theo ngày GD điểm | |
+| 2 | Món của tổ Gia Lộc 2 cũ (gộp vào Gia Lộc ngày 23) | Nếu hệ thống còn ngày 07 → ⚠ điểm hiện tại 23/… | |
+| 3 | Món vay trực tiếp đến hạn | Chuyển QH = ngày sau ngày đến hạn "(trực tiếp)" | |
+
+_Ghi chú kỹ thuật 3.404:_ `skCQH(o)` / `skCQHChu(o)` / `skPhienTu(hl, n)` / `skSauNgay` (js/22h, ngay trên `skNhomDH`); `skNhomDH` dùng `skCQH(o).d` thay `o.dhgd`; `toNap` gắn `o._ngGD` (ngày GD điểm của tổ) cho từng dòng Mẫu 31.
+
 ### Danh sách thử trên máy thật (3.403)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

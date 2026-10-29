@@ -117,9 +117,9 @@ function toNgayCot(mo){ mo = mo || TO_LOC_MO; return mo==='dh' ? 'ĐH theo HĐ (
 function toDHMon(k){
   var K = KHO.kyDung(), sau = kyLui(K.thang, 1), tu = sau+'-01', den = tdnCuoiKy(sau), ns = K.ngay, nhieu = k.mon.length>1;
   return k.mon.filter(function(m){ return !(m.qh>0) && (m.dn||0)>0; }).map(function(m){ var n = skNhomDH(m, tu, den, ns); if(!n) return null;
-    var hl = skHL(m), gd = m.dhgd || '', ct = nhieu ? ctNgan(m.ct, m)+': ' : '';
+    var hl = skHL(m), cq = skCQH(m), gd = cq.d || '', ct = nhieu ? ctNgan(m.ct, m)+': ' : '';   /* 3.404 QT-C-12 */
     var ghi = n===1 ? 'đã quá ĐH HĐ — chưa chuyển QH do ngày GD xã' : n===3 ? 'ĐH HĐ T'+hai(+hl.slice(5, 7))+', chuyển QH ngày '+ngayVNsl(gd).slice(0, 5) : (gd && gd>hl ? 'chuyển QH ngày '+ngayVNsl(gd).slice(0, 5) : '');
-    return {hd:ct+ngayVNsl(hl)+(m.dhgh && m.dhgh!==m.dhg ? ' (gia hạn)' : ''), gd:ct+(gd ? ngayVNsl(gd) : 'chưa có')+(ghi ? ' — '+ghi : '')}; }).filter(Boolean);
+    return {hd:ct+ngayVNsl(hl)+(m.dhgh && m.dhgh!==m.dhg ? ' (gia hạn)' : ''), gd:ct+(gd ? ngayVNsl(gd)+(cq.cach==='tinh' ? ' (tính)' : cq.cach==='tt' ? ' (trực tiếp)' : '') : 'chưa có')+(cq.lech ? ' ⚠ điểm hiện tại '+ngayVNsl(cq.tinh) : '')+(ghi ? ' — '+ghi : '')}; }).filter(Boolean);
 }
 function toNgayGT(k, mo){ mo = mo || TO_LOC_MO; if(mo==='dh'){ var L = toDHMon(k); return [L.map(function(x){ return x.hd; }).join('; '), L.map(function(x){ return x.gd; }).join('; ')]; } return [toNgayO(k, mo)]; }
 function toNgayH(nc){ return nc ? nc.split('|') : []; }

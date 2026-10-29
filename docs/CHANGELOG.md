@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.404 — 29/10/2026 — Ngày chuyển quá hạn theo phiên của điểm (Tèo QT-C-12, TK 2)
+- **Anh chốt 28/10** (cửa giao ban, `docs/TEO_QUY_TAC_CHUNG.md` QT-C-12; anh 29/10 "em làm tiếp theo kh lớn đã đề ra"): chuyển QH = phiên đầu tiên của điểm KỂ TỪ ngày đến hạn (trùng ngày phiên → chính phiên đó), mốc = ngày đến hạn sau gia hạn nếu có; món trực tiếp chuyển QH ngay sau ngày đến hạn.
+- `skCQH` (js/22h): **ưu tiên cột hệ thống "Ngày ĐH theo GDXA"** (như script giao ban 1.3); cột trống → app tính theo ngày GD của điểm (`o._ngGD` gắn ở `toNap`), ghi "(tính)" / "(trực tiếp)"; ngày hệ thống khác lịch điểm hiện tại của tổ (vd gộp điểm 11/2026) → **⚠ điểm hiện tại: dd/mm/yyyy**, không sửa.
+- Áp vào: Sao kê nợ đến hạn (cột Chuyển QH + chia khung ① ② ③ — món trước kia "chưa có ngày" nay vào đúng khung), tab Tổ chip Đến hạn tháng sau, số món đến hạn tháng sau của tổ.
+- Sổ chung: QT-C-10…12 cột App ✅; mục 13 thêm **C11 Diễn biến tổ chờ anh bàn lại**; hộp thư báo TK 1.
+- Phép thử `tests/t324.js` (11 ý).
+
 ## 3.403 — 29/10/2026 — Scan: CCCD dạng PDF tự nhận + cắt thẻ (TK 2)
 - **Anh 29/10** (ảnh hàng chờ: 2 trang PDF, thẻ nhỏ giữa trang trắng): "khi cccd đã lưu dưới dạng pdf anh cũng cần nhận biết và cắt được luôn"; anh duyệt đặt ở ① + ② + ③.
 - File cắm rút `js/81-scan-pdf-the.js`: `scDoThe` dò 1–2 thẻ trên trang nền trắng (ngoài thẻ gần như toàn nền; trang tài liệu có chữ khắp trang không cắt), cắt sát chừa lề trắng.
