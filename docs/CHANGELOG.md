@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.402 — 29/10/2026 — 📉 Diễn biến tổ ở Tra cứu KH (TK 2)
+- **Anh 29/10** (đang củng cố, đóng tổ không hoạt động): "làm 1 nút trong tra cứu KH diễn biến theo xã, điểm GD, Hội về các tổ so đầu tháng với số liệu hiện tại, tổ nào đã đóng ngày nào, tổ nào đã không đủ ĐK chưa đóng" · "tổ có thành viên dưới 20, tổ không có dư nợ" · "ra tổ rác tất cả".
+- Nút **📉 Diễn biến tổ** cạnh "Tìm theo" (file cắm rút `js/80-dien-bien-to.js`): đầu tháng = Mẫu 31 chốt tháng trước, hiện tại = kỳ Tra cứu (mới nhất); theo dải LỌC ĐỊA BÀN — toàn PGD gom theo xã, chọn xã → điểm GD, chọn điểm → Hội.
+- Bảng tổng: tổ đầu tháng · mới · đã đóng · hiện tại · tăng / giảm · tổ rác chưa đóng (dưới 20 TV · không dư nợ · không có trên DS tổ).
+- Danh sách: 🔒 tổ đã đóng — **khoảng ngày đóng** (không file nào ghi ngày đóng: bản Danh sách tổ cuối còn tổ → bản đầu tiên không còn; nạp File Tổ trưởng càng dày càng hẹp) · ⚠ tổ rác (dưới 20 thành viên QT-18, không dư nợ, còn dư nợ mà không có trên Danh sách tổ) · 🆕 tổ mới · 🔀 đổi điểm GD / Hội; bấm tên mở thẻ tổ; 📊 Excel 5 sheet.
+- Chỉ đọc qua KHO, không sửa số liệu. Phép thử `tests/t322.js` (14 ý).
+
 ## 3.401 — 28/10/2026 — Điểm GD theo chuỗi món → tổ → ấp → điểm (Tèo QT-C-10 / 11, TK 2)
 - **Anh chốt 28/10** (ở cửa giao ban, TK 1 ghi `docs/TEO_QUY_TAC_CHUNG.md`; anh 28/10 ở app: "đọc trạng thái và làm tiếp"): điểm GD = chuỗi món vay → mã tổ → ấp của tổ → điểm, 1 ấp 1 điểm; món vay trực tiếp gán theo ấp, không theo ngày GDXA.
 - **Ấp của tổ = mã thôn (MADP) trên File Tổ trưởng** (trước lấy theo dòng Mẫu 31 đầu tiên của tổ); ấp cũ theo Mẫu 31 giữ ở `t.thonM31`.

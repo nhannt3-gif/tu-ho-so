@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.401 · 29/10/2026 05:58 · 117 file · 42141 dòng · 3453 hàm cấp ngoài · 563 biến toàn cục.
+Bản 3.402 · 29/10/2026 07:51 · 118 file · 42252 dòng · 3464 hàm cấp ngoài · 565 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,8 +9,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 301 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 4107 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `index.html` | 302 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `css/app.css` | 4113 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 127 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
@@ -119,6 +119,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/77-bang-loc.js` | 51 | 4 | /*   3.396 (anh 28/10, ảnh Tra cứu KH › Tìm theo Tổ trưởng: "làm bộ lọc và sắp xếp của các cột này") — LỌC + S |
 | `js/78-ktgs-gon.js` | 35 | 3 | /*   3.397 (anh 28/10 duyệt demo D1–D4 "em làm luôn"): KTGS gọn — CHỈ SẮP XẾP LẠI phần đã vẽ trong #kt-the (CẮ |
 | `js/79-ktgs-khoa.js` | 56 | 9 | /*   3.398 (anh 28/10: "các khai báo tên hội nên có nút khóa lại để khỏi đổi nhầm và em nên lưu lại nhật ký để |
+| `js/80-dien-bien-to.js` | 104 | 11 | /*   3.402 (anh Nhân 29/10/2026 — đang củng cố, đóng tổ không hoạt động): 📉 DIỄN BIẾN TỔ ở Tra cứu KH (cắm rút |
 | `js/mau/10c.js` | 106 | 0 | /*   3.223 M6 — MẪU 10C/TD MỚI (QĐ 70, từ 01/10/2026) Biên bản họp kết nạp, cho ra khỏi Tổ — trên nền ô, dựng  |
 | `js/mau/10ccu.js` | 84 | 0 | /*   3.223 M6 — MẪU 10C/TD CŨ (vào tổ đến 30/09/2026) Biên bản họp kết nạp bổ sung, cho ra khỏi Tổ — trên nền  |
 | `js/mau/10a.js` | 109 | 0 | /*   3.223 M6 — MẪU 10A/TD Biên bản họp thành lập Tổ TK&VV (QĐ 70) trên nền ô — dựng theo file gốc tests/mau_g |
@@ -422,6 +423,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/58-tc-to.js:88` · 3.336 (anh 24/10): "cho tìm tổ trưởng và hiện thông tin cơ bản của tổ" — chip Tìm theo › Tổ trưởng
 - `js/59-suc-khoe.js:1` · 3.338 (RA_SOAT_BO_CUC_2410 mục 8 việc 2 — anh 24/10 "cứ theo KH làm"): 🩺 SỨC KHỎE SAO LƯU
 - `js/72-ho-vay.js:45` · báo cáo Sao kê 'b105' (js/22h skBaoCao): phạm vi cây, chia theo tổ, cộng tổ
+- `js/80-dien-bien-to.js:1` · 3.402 (anh Nhân 29/10/2026 — đang củng cố, đóng tổ không hoạt động): 📉 DIỄN BIẾN TỔ ở Tra cứu KH (cắm rút — bỏ dòng nạp 
 
 ## 3. Nhóm hàm theo tiền tố (khối chức năng)
 
