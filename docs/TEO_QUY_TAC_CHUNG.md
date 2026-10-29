@@ -38,9 +38,24 @@ Trạng thái: ✅ anh chốt · ⏳ chờ anh chốt · 🔧 đã chốt nhưng
 | ⏳ QT-C-20 | Gia hạn tối đa | ½ thời hạn với **trung hạn** (anh nêu); ngắn / dài hạn chờ văn bản gia hạn |
 | ⏳ phần C | Mức A–D NQH · đèn tín hiệu · TK < 500 nghìn · khoanh hết hạn 120 ngày · lãi tồn chỉ so tháng trước · QT-03/04/05/14 app · kỳ con CV 597 · số lượt KH vay | Đưa vào sổ chung |
 
-## 3. Phép thử chung (bước B4 — chưa có)
+## 3. Phép thử chung (bước B4)
 
-Mỗi QT-C có **dữ liệu giả + đáp án** trong `tests/` (ví dụ: món trực tiếp ở ấp thuộc điểm A → điểm A; món ở ấp khác ấp của tổ → vào danh sách lệch; đến hạn trùng ngày phiên → chuyển QH chính phiên đó). Hàm JS app và hàm Python giao ban phải ra đúng đáp án. Kiểm số thật (kỳ 30/09/2026) làm riêng, không đưa vào repo.
+Bộ trường hợp **dữ liệu giả + đáp án**: `tests/teo/teo_ca.json` (bản 1.0 · 30/10/2026 · 17 trường hợp, 30 ý) — **nguồn duy nhất cho cả hai bên**. Cột Mẫu 31 / File Tổ trưởng ghi đúng tên cột hệ thống; kết quả so theo hợp đồng cột file đối chiếu (`TEO_KE_HOACH_KY_3110.md` mục 3).
+
+| Luật | Trường hợp | Giao ban (`thu_teo.py` · `bang_so_lieu.py` 1.3) | App |
+|---|---|---|---|
+| QT-C-01 | C01-1 khế ước lặp 2 sổ TK 105 | ✓ 3/3 | chưa |
+| QT-C-02 | C02-1 cho vay − đảo khoản; thu nợ 3 loại | ✓ 2/2 | chưa |
+| QT-C-03 | C03-1 lãi tồn TH + QH | ✓ 1/1 | chưa |
+| QT-C-04 | C04-1 số tháng lãi | ✓ 1/1 | chưa |
+| QT-C-05 | C05-1 6 điểm sát ngưỡng | ✓ 6/6 | chưa |
+| QT-C-06 | C06-1 ĐVUT 99 → TT | ✓ 2/2 | chưa |
+| QT-C-09 | C09-1 File Tổ trưởng khác ngày → không ghép | ✓ 1/1 | chưa |
+| QT-C-10 | C10-1 món lệch ấp · C10-2 ấp 2 điểm · C10-3 điểm theo File Tổ trưởng | ✓ 6/6 | chưa |
+| QT-C-11 | C11-1 trực tiếp theo ấp, không theo GDXA · C11-2 ấp chưa có tổ | ✓ 3/3 | chưa |
+| QT-C-12 | C12-12a trùng ngày phiên · 12b sau ngày phiên · 12c gia hạn · 12d trực tiếp · 12e tổ đổi điểm | ✓ 5/5 | chưa |
+
+Giao ban chạy: `python thu_teo.py` (Drive `06_CONG_CU\v2`, chép `teo_ca.json` cạnh script) — **30/30 đạt** ngày 30/10/2026. App: TK 2 viết phép thử JS đọc cùng file (trình anh). **Sửa luật / sửa script hay app → chạy lại; thêm luật chốt → thêm trường hợp vào file này.** Luật chờ chốt (K1, K4, K5, K7–K9) chưa có đáp án.
 
 ## 4. Nhật ký
 
@@ -48,3 +63,4 @@ Mỗi QT-C có **dữ liệu giả + đáp án** trong `tests/` (ví dụ: món 
 |---|---|---|
 | 1.0 | 28/10/2026 | Lập sổ: QT-C-01…13 anh chốt trong phiên giao ban 28/10; QT-C-14…20 + phần C chờ chốt. |
 | 1.1 | 28/10/2026 | Cột Giao ban: QT-C-09…13 đã áp ở `bang_so_lieu.py` 1.3; `tong_hop.py` chưa. |
+| 1.2 | 30/10/2026 | Mục 3: bộ phép thử chung `tests/teo/teo_ca.json` 1.0; giao ban 30/30 đạt. |

@@ -1,0 +1,1136 @@
+{
+ "ban": "1.0",
+ "ngay": "30/10/2026",
+ "ngay_so_lieu": "31/10/2026",
+ "ghi_chu": [
+  "Bộ phép thử chung Tèo (bước B4) — DỮ LIỆU GIẢ, không có khách thật. Nguồn duy nhất: repo tu-ho-so tests/teo/teo_ca.json; giao ban chép bản sang Drive 06_CONG_CU\\v2.",
+  "Chỉ luật đã chốt (TEO_QUY_TAC_CHUNG.md mục 1). Luật chờ chốt (K1, K4, K5, K7–K9) không có đáp án.",
+  "Mỗi trường hợp chạy riêng: Mẫu 31 (cột theo tên cột hệ thống, ô không ghi lấy 'mac_dinh_mau31') + File Tổ trưởng (cột hệ thống) cùng ngày số liệu, trừ khi có 'ngay_to_truong'.",
+  "Loại kết quả: dong = dòng file đối chiếu (hợp đồng cột TEO_KE_HOACH_KY_3110.md mục 3, tiền đồng) · ngay_qh = ngày chuyển quá hạn của khế ước (dd/mm/yyyy) · lech_ap = khế ước nằm trong danh sách món lệch ấp · ap_nhieu_diem = mã ấp nằm trong danh sách ấp nhiều điểm · khong_ghep_to_truong = không dùng File Tổ trưởng khác ngày · ham = gọi hàm trực tiếp."
+ ],
+ "mac_dinh_mau31": {
+  "Mã PGD": "004820",
+  "Mã xã": "999001",
+  "Tên xã": "Xã Thử",
+  "Tên KH": "Khách Giả",
+  "Tên tổ": "Tổ trưởng Giả",
+  "Loại tổ": "TK&VV",
+  "Ngày vay": "01/01/2026",
+  "Tình trạng món vay": "OPEN",
+  "Mã chương trình": "01",
+  "Tên chương trình": "Hộ nghèo",
+  "Mã Quyết định": "",
+  "Lãi suất": 6.6,
+  "Dư nợ trong hạn": 0,
+  "Dư nợ quá hạn": 0,
+  "Dư nợ khoanh": 0,
+  "Tổng dư nợ": 0,
+  "Lãi tồn TH": 0,
+  "Lãi tồn QH": 0,
+  "Giải ngân trong tháng": 0,
+  "Đảo khoản GN tháng": 0,
+  "Thu nợ TH tháng": 0,
+  "Thu nợ QH tháng": 0,
+  "Thu nợ khoanh tháng": 0,
+  "Chuyển QH trong tháng": 0,
+  "Ngày CNQH gần nhất": "",
+  "Ngày hết hạn Khoanh": "",
+  "Ngày ĐH theo Gia hạn": "",
+  "Ngày ĐH theo hợp đồng": "01/01/2029",
+  "Ngày giao dịch gần nhất": "05/10/2026",
+  "Ngày GN đầu tiên": "01/01/2026",
+  "Ngày GN cuối cùng": "01/01/2026",
+  "Sổ tiết kiệm 105": "",
+  "Số dư tiền gửi 105": 0
+ },
+ "mac_dinh_to_truong": {
+  "MADGD": "D05",
+  "TENDGD": "Điểm Thử 05",
+  "DVUT": "11",
+  "TENTT": "Tổ trưởng Giả"
+ },
+ "truong_hop": [
+  {
+   "id": "C01-1",
+   "luat": "QT-C-01",
+   "mo_ta": "1 khế ước lặp 2 dòng do khách có 2 sổ TK 105: dư nợ tính 1 lần, tiền gửi cộng cả 2 sổ",
+   "mau31": [
+    {
+     "Số khế ước": "KU-01",
+     "Mã KH": "KH-01",
+     "Tổng dư nợ": 20000000,
+     "Dư nợ trong hạn": 20000000,
+     "Sổ tiết kiệm 105": "S-01a",
+     "Số dư tiền gửi 105": 300000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-01",
+     "Mã KH": "KH-01",
+     "Tổng dư nợ": 20000000,
+     "Dư nợ trong hạn": 20000000,
+     "Sổ tiết kiệm 105": "S-01b",
+     "Số dư tiền gửi 105": 200000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "dong",
+     "khoa": "9000001",
+     "cot": "du_no",
+     "bang": 20000000
+    },
+    {
+     "loai": "dong",
+     "khoa": "9000001",
+     "cot": "tien_gui",
+     "bang": 500000
+    },
+    {
+     "loai": "dong",
+     "khoa": "9000001",
+     "cot": "so_tv",
+     "bang": 1
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C02-1",
+   "luat": "QT-C-02",
+   "mo_ta": "Cho vay = giải ngân − đảo khoản; thu nợ = TH + QH + khoanh",
+   "mau31": [
+    {
+     "Số khế ước": "KU-02a",
+     "Mã KH": "KH-02",
+     "Tổng dư nợ": 30000000,
+     "Dư nợ trong hạn": 30000000,
+     "Giải ngân trong tháng": 30000000,
+     "Đảo khoản GN tháng": 5000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-02b",
+     "Mã KH": "KH-03",
+     "Tổng dư nợ": 10000000,
+     "Dư nợ trong hạn": 10000000,
+     "Thu nợ TH tháng": 1000000,
+     "Thu nợ QH tháng": 2000000,
+     "Thu nợ khoanh tháng": 500000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "dong",
+     "khoa": "9000001",
+     "cot": "cho_vay",
+     "bang": 25000000
+    },
+    {
+     "loai": "dong",
+     "khoa": "9000001",
+     "cot": "thu_no",
+     "bang": 3500000
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C03-1",
+   "luat": "QT-C-03",
+   "mo_ta": "Lãi tồn = lãi tồn TH + lãi tồn QH",
+   "mau31": [
+    {
+     "Số khế ước": "KU-03",
+     "Mã KH": "KH-03",
+     "Tổng dư nợ": 10000000,
+     "Dư nợ trong hạn": 10000000,
+     "Lãi tồn TH": 120000,
+     "Lãi tồn QH": 30000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "dong",
+     "khoa": "9000001",
+     "cot": "lai_ton",
+     "bang": 150000
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C04-1",
+   "luat": "QT-C-04",
+   "mo_ta": "Số tháng lãi = lãi tồn ÷ (dư nợ × lãi suất năm ÷ 12): 10 triệu, 7,2%/năm, lãi tồn 180 nghìn → 3,0 tháng",
+   "mau31": [],
+   "ket_qua": [
+    {
+     "loai": "ham",
+     "ham": "so_thang_lai",
+     "vao": {
+      "Tổng dư nợ": 10000000,
+      "Lãi suất": 7.2,
+      "Lãi tồn TH": 180000,
+      "Lãi tồn QH": 0
+     },
+     "bang": 3.0
+    }
+   ],
+   "to_truong": []
+  },
+  {
+   "id": "C05-1",
+   "luat": "QT-C-05",
+   "mo_ta": "Xếp loại tổ theo điểm, sát ngưỡng: < 50 Yếu · < 70 Trung bình · < 85 Khá · ≥ 85 Tốt",
+   "mau31": [],
+   "ket_qua": [
+    {
+     "loai": "ham",
+     "ham": "xep_loai",
+     "vao": 49.99,
+     "bang": "Yếu"
+    },
+    {
+     "loai": "ham",
+     "ham": "xep_loai",
+     "vao": 50,
+     "bang": "Trung bình"
+    },
+    {
+     "loai": "ham",
+     "ham": "xep_loai",
+     "vao": 69.99,
+     "bang": "Trung bình"
+    },
+    {
+     "loai": "ham",
+     "ham": "xep_loai",
+     "vao": 70,
+     "bang": "Khá"
+    },
+    {
+     "loai": "ham",
+     "ham": "xep_loai",
+     "vao": 84.99,
+     "bang": "Khá"
+    },
+    {
+     "loai": "ham",
+     "ham": "xep_loai",
+     "vao": 85,
+     "bang": "Tốt"
+    }
+   ],
+   "to_truong": []
+  },
+  {
+   "id": "C06-1",
+   "luat": "QT-C-06",
+   "mo_ta": "Mã ĐVUT 99, không mã tổ = vay trực tiếp (dòng TT|<mã thôn>, Hội TT)",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-06",
+     "Mã KH": "KH-06",
+     "Tổng dư nợ": 15000000,
+     "Dư nợ trong hạn": 15000000,
+     "Mã tổ": "",
+     "Mã ĐVUT": "99",
+     "Loại tổ": "",
+     "Tên tổ": "",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "dong",
+     "khoa": "TT|99900101",
+     "cot": "hoi",
+     "bang": "TT"
+    },
+    {
+     "loai": "dong",
+     "khoa": "TT|99900101",
+     "cot": "du_no",
+     "bang": 15000000
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C11-1",
+   "luat": "QT-C-11",
+   "mo_ta": "Món trực tiếp gán điểm theo ẤP của món (ấp 01 thuộc điểm D05), không theo ngày GDXA ghi trên món (10)",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-11",
+     "Mã KH": "KH-11",
+     "Tổng dư nợ": 15000000,
+     "Dư nợ trong hạn": 15000000,
+     "Mã tổ": "",
+     "Mã ĐVUT": "99",
+     "Loại tổ": "",
+     "Tên tổ": "",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "10"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "dong",
+     "khoa": "TT|99900101",
+     "cot": "ma_diem",
+     "bang": "D05"
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C11-2",
+   "luat": "QT-C-11",
+   "mo_ta": "Món trực tiếp ở ấp chưa có tổ nào: chưa xác định được điểm theo ấp (giao ban tạm theo ngày GDXA, mã điểm để trống, ghi nhật ký)",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-11b",
+     "Mã KH": "KH-11b",
+     "Tổng dư nợ": 15000000,
+     "Dư nợ trong hạn": 15000000,
+     "Mã tổ": "",
+     "Mã ĐVUT": "99",
+     "Loại tổ": "",
+     "Tên tổ": "",
+     "Mã thôn": "99900103",
+     "Tên thôn": "Ấp 03",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "dong",
+     "khoa": "TT|99900103",
+     "cot": "ma_diem",
+     "bang": ""
+    },
+    {
+     "loai": "dong",
+     "khoa": "TT|99900103",
+     "cot": "du_no",
+     "bang": 15000000
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C09-1",
+   "luat": "QT-C-09",
+   "mo_ta": "File Tổ trưởng khác ngày Mẫu 31 → không ghép, báo (điểm GD suy cách cũ)",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "khong_ghep_to_truong"
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ],
+   "ngay_to_truong": "30/10/2026"
+  },
+  {
+   "id": "C10-1",
+   "luat": "QT-C-10",
+   "mo_ta": "Món ở ấp khác ấp của tổ → vào danh sách cần sửa; dư nợ vẫn tính cho tổ",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-10",
+     "Mã KH": "KH-10",
+     "Tổng dư nợ": 20000000,
+     "Dư nợ trong hạn": 20000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "lech_ap",
+     "so_ku": "KU-10"
+    },
+    {
+     "loai": "dong",
+     "khoa": "9000001",
+     "cot": "so_mon_lech_ap",
+     "bang": 1
+    },
+    {
+     "loai": "dong",
+     "khoa": "9000001",
+     "cot": "du_no",
+     "bang": 70000000
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C10-2",
+   "luat": "QT-C-10",
+   "mo_ta": "Ấp có tổ thuộc 2 điểm GD → báo (1 ấp chỉ thuộc 1 điểm)",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-10c",
+     "Mã KH": "KH-10c",
+     "Tổng dư nợ": 20000000,
+     "Dư nợ trong hạn": 20000000,
+     "Mã tổ": "9000003",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "15"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "ap_nhieu_diem",
+     "ma_ap": "99900101"
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000003",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D15",
+     "TENDGD": "Điểm Thử 15",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C10-3",
+   "luat": "QT-C-10",
+   "mo_ta": "Điểm GD của tổ lấy theo File Tổ trưởng (chuỗi món → tổ → ấp → điểm)",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "dong",
+     "khoa": "9000001",
+     "cot": "ma_diem",
+     "bang": "D05"
+    },
+    {
+     "loai": "dong",
+     "khoa": "9000001",
+     "cot": "ma_ap",
+     "bang": "99900101"
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C12-12a",
+   "luat": "QT-C-12",
+   "mo_ta": "Đến hạn trùng ngày phiên (05/09) → chuyển quá hạn chính phiên đó",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-12a",
+     "Mã KH": "KH-12a",
+     "Tổng dư nợ": 5000000,
+     "Dư nợ trong hạn": 0,
+     "Dư nợ quá hạn": 5000000,
+     "Ngày CNQH gần nhất": "",
+     "Ngày ĐH theo hợp đồng": "05/09/2026",
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "ngay_qh",
+     "so_ku": "KU-12a",
+     "bang": "05/09/2026"
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C12-12b",
+   "luat": "QT-C-12",
+   "mo_ta": "Đến hạn sau ngày phiên (06/09) → phiên đầu tiên KỂ TỪ ngày đến hạn = 05/10",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-12b",
+     "Mã KH": "KH-12b",
+     "Tổng dư nợ": 5000000,
+     "Dư nợ trong hạn": 0,
+     "Dư nợ quá hạn": 5000000,
+     "Ngày CNQH gần nhất": "",
+     "Ngày ĐH theo hợp đồng": "06/09/2026",
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "ngay_qh",
+     "so_ku": "KU-12b",
+     "bang": "05/10/2026"
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C12-12c",
+   "luat": "QT-C-12",
+   "mo_ta": "Đã gia hạn: mốc là ngày đến hạn sau gia hạn (20/08), không phải hợp đồng (01/06) → 05/09",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-12c",
+     "Mã KH": "KH-12c",
+     "Tổng dư nợ": 5000000,
+     "Dư nợ trong hạn": 0,
+     "Dư nợ quá hạn": 5000000,
+     "Ngày CNQH gần nhất": "",
+     "Ngày ĐH theo hợp đồng": "01/06/2026",
+     "Ngày ĐH theo Gia hạn": "20/08/2026",
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "ngay_qh",
+     "so_ku": "KU-12c",
+     "bang": "05/09/2026"
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C12-12d",
+   "luat": "QT-C-12",
+   "mo_ta": "Món trực tiếp: chuyển quá hạn ngay sau ngày đến hạn (06/09 → 07/09)",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-12d",
+     "Mã KH": "KH-12d",
+     "Tổng dư nợ": 5000000,
+     "Dư nợ trong hạn": 0,
+     "Dư nợ quá hạn": 5000000,
+     "Ngày CNQH gần nhất": "",
+     "Ngày ĐH theo hợp đồng": "06/09/2026",
+     "Mã tổ": "",
+     "Mã ĐVUT": "99",
+     "Loại tổ": "",
+     "Tên tổ": "",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "ngay_qh",
+     "so_ku": "KU-12d",
+     "bang": "07/09/2026"
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  },
+  {
+   "id": "C12-12e",
+   "luat": "QT-C-12",
+   "mo_ta": "Tổ điều chuyển sang điểm mới ngày 05 (món còn mang GDXA 10) → theo điểm mới: đến hạn 06/09 → 05/10",
+   "mau31": [
+    {
+     "Số khế ước": "KU-NEN-1",
+     "Mã KH": "KH-NEN-1",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000001",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-NEN-2",
+     "Mã KH": "KH-NEN-2",
+     "Tổng dư nợ": 50000000,
+     "Dư nợ trong hạn": 50000000,
+     "Mã tổ": "9000002",
+     "Mã ĐVUT": "12",
+     "Mã thôn": "99900102",
+     "Tên thôn": "Ấp 02",
+     "Ngày GDXA": "05"
+    },
+    {
+     "Số khế ước": "KU-12e",
+     "Mã KH": "KH-12e",
+     "Tổng dư nợ": 5000000,
+     "Dư nợ trong hạn": 0,
+     "Dư nợ quá hạn": 5000000,
+     "Ngày CNQH gần nhất": "",
+     "Ngày ĐH theo hợp đồng": "06/09/2026",
+     "Mã tổ": "9000004",
+     "Mã ĐVUT": "11",
+     "Mã thôn": "99900101",
+     "Tên thôn": "Ấp 01",
+     "Ngày GDXA": "10"
+    }
+   ],
+   "ket_qua": [
+    {
+     "loai": "ngay_qh",
+     "so_ku": "KU-12e",
+     "bang": "05/10/2026"
+    }
+   ],
+   "to_truong": [
+    {
+     "MATO": "9000001",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "11",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000002",
+     "MADP": "99900102",
+     "TENTHON": "Ấp 02",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "12",
+     "TENTT": "Tổ trưởng Giả"
+    },
+    {
+     "MATO": "9000004",
+     "MADP": "99900101",
+     "TENTHON": "Ấp 01",
+     "MADGD": "D05",
+     "TENDGD": "Điểm Thử 05",
+     "DVUT": "13",
+     "TENTT": "Tổ trưởng Giả"
+    }
+   ]
+  }
+ ]
+}
