@@ -233,6 +233,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t319.js` | 3.398: Kế hoạch năm chốt (khóa, chặn đổi tháng, ✏ Sửa nháp — Định kỳ vẫn bản chốt, Chốt lại → bản 2, ↶ Bỏ sửa, 📜 Lịch sử 2 lần) · khai báo Hội khóa (chặn ghi, ô chỉ xem, mauKH vẫn đổi), 📜 Nhật ký cũ → mới, ↶ Khôi phục · tên chip / nút mới · dòng đầu Hội – xã đúng chỗ — bộ `gianho31`. |
 | `node tests/t320.js` | 3.400 (Tèo): tên chuẩn file gốc `<MÃ>_<YYYY-MM-DD>` (ô tháng / ô ngày), MÃ riêng từng loại, tên hiện + (anh đặt), xem trước "→ lưu tên" + báo lệch ngày Mẫu 31 ↔ Tổ trưởng, lần thay, sổ DANH_MUC_NAP.csv (BOM, 12 cột, không ghi lại khi không đổi), 🏷 chuẩn hóa tên tháng cũ (PATCH tên + mô tả) — bộ `gianho31`, Drive giả. |
 | `node tests/t321.js` | 3.401 (Tèo QT-C-10 / 11): ấp của tổ theo MADP File Tổ trưởng (ghi đè Mẫu 31), món trực tiếp theo tổ cùng ấp → danh mục → GDXA tạm → chưa rõ, danh sách món lệch ấp / ấp nhiều điểm / món trực tiếp gán tạm, Kiểm tra kỳ nhóm 6 ⚠ — bộ `gianho31` + File Tổ trưởng giả. |
+| `node tests/t322.js` | 3.402 📉 Diễn biến tổ (js/80): gom theo xã / điểm / Hội theo dải lọc, tổ đóng + khoảng ngày theo các bản Danh sách tổ, tổ mới, đổi điểm / Hội, tổ rác (dưới 20 TV, không dư nợ, không có trên DS tổ), màn + Excel 5 sheet, nút ở Tra cứu mở trên `gianho31` T7 → T8. |
 | (3.389.2) | Chỉ CSS. |
 | (3.389.1) | Thử goiCauNoi bằng node trong lượt sửa. |
 | (3.389) | t147 thêm nút 📋 Chép. |

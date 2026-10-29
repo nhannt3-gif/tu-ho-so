@@ -264,6 +264,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Theo dõi nợ đã gỡ: làm lại sau nên đọc dữ liệu cũ ở IndexedDB khóa `tdn_du_lieu` (cấu trúc `NO = {ho, mon, lan, lanXoa, nhap, toAp, suaLuc}` — xem git `js/04e-theo-doi-no.js` bản 3.398) và Drive `_Hệ thống/theodoino.json`; nên đọc số liệu qua `KHO` (không bộ đọc Excel riêng — lý do gỡ, L1 RA_SOAT_HUONG_DI_2510).
 - Hàm tiện ích tên `tdn*` (tdnTien, tdnHoi, tdnCuoiKy…) vẫn dùng khắp app — ở `js/04e-chung.js`, không đổi tên.
 
+### Danh sách thử trên máy thật (3.402)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu KH › 📉 Diễn biến tổ (toàn PGD) | Bảng theo xã: tổ đầu tháng 30/09 → hiện tại; dòng Cộng | |
+| 2 | Chọn 1 xã / 1 điểm | Gom theo điểm GD / Hội | |
+| 3 | Tổ anh vừa đóng | Có trong 🔒 Tổ đã đóng, khoảng ngày giữa 2 lần nạp File Tổ trưởng | |
+| 4 | Tổ rác | Đúng các tổ dưới 20 TV / không dư nợ; bấm tên mở thẻ tổ | |
+| 5 | 📊 Excel | 5 sheet | |
+
+_Ghi chú kỹ thuật 3.402:_ `js/80-dien-bien-to.js` (cắm rút: `dbtNut` gọi ở `slTraHTML` js/22f qua typeof); `dbtTinh(K0, K1, moc)` thuần (phép thử gọi thẳng); khoảng ngày `dbtKhoang` từ `KHO.dsBang('dsto')` trong khoảng; số TV / dư nợ qua `KHO.tvChuan(t, K)`; ngưỡng `tcNguong()` (QĐ 70, ô ⚙ Ngưỡng). Lệnh GD `dbt.mo` / `dbt.xls` / `dbt.to`.
+
 ### Danh sách thử trên máy thật (3.401)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

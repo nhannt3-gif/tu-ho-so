@@ -4105,3 +4105,9 @@ details.kt-kh-ls{border:1px solid var(--vien);border-radius:8px;padding:4px 8px;
 .kt-kb-dong-khoa input,.kt-kb-dong-khoa textarea{background:var(--nen)!important;cursor:not-allowed}.kt-kb-dong-khoa .hkb-ve{display:none!important}
 .kt-nk-bang{width:100%;border-collapse:collapse;font-size:calc(12.5px*var(--co))}.kt-nk-bang td,.kt-nk-bang th{border-bottom:1px solid var(--vien);padding:3px 6px;text-align:left;vertical-align:top}
 .kt-nk-bang .cu{color:var(--do);text-decoration:line-through}.kt-nk-bang .moi{color:var(--luc,#2e8b57)}
+/* 3.402: 📉 Diễn biến tổ (js/80) */
+.dbt-bang td.so{text-align:right;white-space:nowrap}
+.dbt-bang tr.cong td{font-weight:700;border-top:2px solid var(--vien,#ccc)}
+.dbt-ds{margin-top:10px}
+.dbt-ds>summary{cursor:pointer;padding:4px 0}
+.tc-dbt-nut{margin-left:6px;white-space:nowrap}
