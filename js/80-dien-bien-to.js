@@ -47,7 +47,7 @@ function dbtTinh(K0, K1, moc){
   var T0 = {}, T1 = {};
   KHO.dsToKy(K0).forEach(function(t){ if(!dbtTT(t)) T0[t.ma] = t; });
   KHO.dsToKy(K1).forEach(function(t){ if(!dbtTT(t)) T1[t.ma] = t; });
-  var nhom = {}, thu = [], g = function(t){ var k = khoa(t); if(!nhom[k]){ nhom[k] = {ten:ten(t), dau:0, moi:0, dong:0, nay:0, chua:0, duoi:0, ko:0, lech:0}; thu.push(k); } return nhom[k]; };
+  var nhom = {}, thu = [], g = function(t){ var k = khoa(t); if(!nhom[k]){ nhom[k] = {k:k, ten:ten(t), dau:0, moi:0, dong:0, nay:0, chua:0, duoi:0, ko:0, lech:0}; thu.push(k); } return nhom[k]; };
   var ds = {dong:[], moi:[], doi:[], chua:[]};
   Object.keys(T0).forEach(function(m){ var t = T0[m]; if(!trong(t)) return; g(t).dau++;
     if(!T1[m]){ var s = dbtSo(t, K0), kh = dbtKhoang(m, moc, K0.ngay, K1.ngay); g(t).dong++; ds.dong.push({t:t, tv:s.tv, dn:s.dn, tu:kh.tu, den:kh.den}); } });
@@ -62,43 +62,64 @@ function dbtTinh(K0, K1, moc){
     if(ly.length){ x.chua++; ds.chua.push({t:t, tv:s.tv, dn:s.dn, ly:ly.join(' · ')}); } });
   var xep = function(a, b){ var x = [a.t.tenXa, a.t.tenDiemDu, a.t.ten].join('|'), y = [b.t.tenXa, b.t.tenDiemDu, b.t.ten].join('|'); return x<y ? -1 : x>y ? 1 : 0; };
   ['dong', 'moi', 'doi', 'chua'].forEach(function(k){ ds[k].sort(xep); });
+  thu.sort(function(a, b){ return String(nhom[a].ten).localeCompare(String(nhom[b].ten), 'vi'); });
   return {K0:K0, K1:K1, moc:moc, cap:cap, N:N, nhom:thu.map(function(k){ return nhom[k]; }), ds:ds, pham:typeof pvChu==='function' ? pvChu(S, K1) : 'Toàn PGD'};
 }
 var DBT_CAP = {xa:'Xã', diem:'Điểm GD', hoi:'Hội'};
+/* 3.403.2 (anh 29/10 "kẻ khung như 1 báo cáo tổng"): khuôn in chung (skHTMLIn — logo, đơn vị, ngày, tiêu đề, phạm vi; bảng kẻ khung)
+   trang 1 = BẢNG TỔNG (tiêu đề 2 tầng, dòng TỔNG CỘNG) · trang sau = PHỤ LỤC (chỉ phụ lục có tổ), dòng nhóm theo xã, STT, cộng */
+var DBT_PL = [['dong', 'PHỤ LỤC 1 — DANH SÁCH TỔ ĐÃ ĐÓNG TRONG KỲ'], ['chua', 'PHỤ LỤC 2 — TỔ CHƯA ĐỦ ĐIỀU KIỆN HOẠT ĐỘNG, CHƯA ĐÓNG'], ['moi', 'PHỤ LỤC 3 — TỔ THÀNH LẬP MỚI TRONG KỲ'], ['doi', 'PHỤ LỤC 4 — TỔ ĐỔI ĐIỂM GIAO DỊCH / HỘI QUẢN LÝ']];
+function dbtHoi(t){ return String(t.dv)==='99' ? 'Trực tiếp' : (tdnHoi(t.dv)||t.dv||''); }
+function dbtTong(R){ var t = {dau:0, moi:0, dong:0, nay:0, chua:0, duoi:0, ko:0, lech:0, doi:0}; R.nhom.forEach(function(x){ Object.keys(t).forEach(function(f){ t[f] += x[f]||0; }); }); return t; }
+function dbtTrang(R){
+  var e = coChuHTML, so = function(v){ return '<td class="s">'+(v ? v : '')+'</td>'; }, tg = function(v){ return '<td class="s">'+(v>0 ? '+'+v : v<0 ? '−'+(-v) : '')+'</td>'; };
+  var doi = {}; R.ds.doi.forEach(function(x){ var k = R.cap==='xa' ? String(x.t.xa||'') : R.cap==='diem' ? String(x.t.khoaDiem||'') : String(x.t.dv||''); doi[k] = (doi[k]||0)+1; });
+  R.nhom.forEach(function(x){ x.doi = doi[x.k]||0; });
+  var T = dbtTong(R), ngay = 'Từ ngày '+ngayVNsl(R.K0.ngay)+' đến ngày '+ngayVNsl(R.K1.ngay);
+  var dong = function(x, i){ return '<tr'+(i===null ? ' class="tong"' : '')+'><td class="c">'+(i===null ? '' : i)+'</td><td>'+(i===null ? '<b>TỔNG CỘNG</b>' : e(x.ten))+'</td>'+so(x.dau)+so(x.moi)+so(x.dong)+so(x.nay)+tg(x.nay-x.dau)+so(x.chua)+so(x.duoi)+so(x.ko)+so(x.lech)+so(x.doi)+'</tr>'; };
+  var tong = '<table class="bc-bang"><thead><tr><th rowspan="2">STT</th><th rowspan="2">'+DBT_CAP[R.cap]+'</th><th rowspan="2">Số tổ<br>đầu kỳ</th><th colspan="2">Biến động trong kỳ</th><th rowspan="2">Số tổ<br>cuối kỳ</th><th rowspan="2">Tăng (+)<br>giảm (−)</th>'+
+    '<th colspan="4">Tổ chưa đủ điều kiện, chưa đóng</th><th rowspan="2">Đổi điểm GD<br>/ Hội</th></tr>'+
+    '<tr><th>Thành lập mới</th><th>Đã đóng</th><th>Tổng số</th><th>Dưới '+R.N.min+' TV</th><th>Không dư nợ</th><th>Không có trên DS tổ</th></tr>'+
+    '<tr>'+['A', 'B', '1', '2', '3', '4 = 1+2−3', '5 = 4−1', '6', '7', '8', '9', '10'].map(function(c){ return '<th>'+c+'</th>'; }).join('')+'</tr></thead><tbody>'+
+    R.nhom.map(function(x, i){ return dong(x, i+1); }).join('')+dong(T, null)+'</tbody></table>'+
+    '<div class="bc-ghi">Đầu kỳ: Mẫu 31 chốt ngày '+ngayVNsl(R.K0.ngay)+'; cuối kỳ: số liệu ngày '+ngayVNsl(R.K1.ngay)+'. Tổ đã đóng = có ở đầu kỳ, không còn trên Danh sách tổ hệ thống (ngày đóng ghi theo khoảng giữa 2 lần nạp File Tổ trưởng: '+
+      (R.moc.length ? R.moc.map(function(m){ return ngayVNsl(m.ngay); }).join(', ') : 'chưa có bản nào trong kỳ')+'). Cột 6: một tổ có thể thuộc nhiều lý do (cột 7–9). Thành viên tính theo QT-18.</div>';
+  var ra = [{ten:'Dien bien to', tieuDe:'BÁO CÁO DIỄN BIẾN TỔ TIẾT KIỆM VÀ VAY VỐN', ngay:ngay, html:tong, ngang:true, motTrang:1, pv:R.pham}];
+  var noi = function(t){ return [t.tenDiemDu, dbtHoi(t)].filter(Boolean).join(' · '); }, tr = function(v){ return '<td class="s">'+(v ? tdnTien(v) : '')+'</td>'; };
+  var COT = {dong:['STT', 'Tổ trưởng', 'Mã tổ', 'Điểm GD · Hội', 'TV lần cuối', 'Dư nợ lần cuối', 'Ngày đóng (khoảng)'], chua:['STT', 'Tổ trưởng', 'Mã tổ', 'Điểm GD · Hội', 'Thành viên', 'Dư nợ', 'Lý do'],
+    moi:['STT', 'Tổ trưởng', 'Mã tổ', 'Điểm GD · Hội', 'Thành viên', 'Dư nợ'], doi:['STT', 'Tổ trưởng', 'Mã tổ', 'Điểm GD · Hội hiện tại', 'Thay đổi']};
+  var DONG = {dong:function(x){ return ['<td>'+e(x.t.ten||'')+'</td>', '<td>'+e(x.t.ma)+'</td>', '<td>'+e(noi(x.t))+'</td>', so(x.tv), tr(x.dn), '<td>sau '+ngayVNsl(x.tu)+' – đến '+ngayVNsl(x.den)+'</td>']; },
+    chua:function(x){ return ['<td>'+e(x.t.ten||'')+'</td>', '<td>'+e(x.t.ma)+'</td>', '<td>'+e(noi(x.t))+'</td>', so(x.tv), tr(x.dn), '<td>'+e(x.ly)+'</td>']; },
+    moi:function(x){ return ['<td>'+e(x.t.ten||'')+'</td>', '<td>'+e(x.t.ma)+'</td>', '<td>'+e(noi(x.t))+'</td>', so(x.tv), tr(x.dn)]; },
+    doi:function(x){ return ['<td>'+e(x.t.ten||'')+'</td>', '<td>'+e(x.t.ma)+'</td>', '<td>'+e(noi(x.t))+'</td>', '<td>'+e(x.chu)+'</td>']; }};
+  DBT_PL.forEach(function(pl){ var ls = R.ds[pl[0]]; if(!ls.length) return; var c = COT[pl[0]], h = '', xa = null, stt = 0, nx = 0, dnx = 0, dnT = 0;
+    var cong = function(nhan, n, dn, lop){ return '<tr class="'+lop+'"><td></td><td colspan="2"><b>'+nhan+'</b></td><td class="c">'+n+' tổ</td>'+c.slice(4).map(function(x){ return /^Dư nợ/.test(x) ? tr(dn) : '<td></td>'; }).join('')+'</tr>'; };
+    ls.forEach(function(x){ var tx = x.t.tenXa||x.t.xa||'(chưa rõ xã)';
+      if(tx!==xa){ if(xa!==null) h += cong('Cộng '+xa, nx, dnx, 'cong'); xa = tx; nx = 0; dnx = 0; h += '<tr class="nhom"><td colspan="'+c.length+'">'+e(tx)+'</td></tr>'; }
+      nx++; dnx += x.dn||0; dnT += x.dn||0; h += '<tr><td class="c">'+(++stt)+'</td>'+DONG[pl[0]](x).join('')+'</tr>'; });
+    if(xa!==null) h += cong('Cộng '+xa, nx, dnx, 'cong'); h += cong('TỔNG CỘNG', stt, dnT, 'tong');
+    ra.push({ten:'PL '+pl[0], tieuDe:pl[1], ngay:ngay+' · Đơn vị: đồng', html:'<table class="bc-bang"><thead><tr>'+c.map(function(x){ return '<th>'+x+'</th>'; }).join('')+'</tr></thead><tbody>'+h+'</tbody></table>', ngang:false, pv:R.pham}); });
+  return ra;
+}
 function dbtVe(){
   var R = DBT; if(!R) return; dbtDK();
-  var c = function(v){ return '<td class="so">'+(v ? v : '')+'</td>'; }, tong = {dau:0, moi:0, dong:0, nay:0, chua:0, duoi:0, ko:0, lech:0};
-  R.nhom.forEach(function(x){ Object.keys(tong).forEach(function(f){ tong[f] += x[f]; }); });
-  var dong = function(x, b){ var tg = x.nay-x.dau; return '<tr'+(b ? ' class="cong"' : '')+'><td>'+coChuHTML(x.ten)+'</td>'+c(x.dau)+c(x.moi)+c(x.dong)+c(x.nay)+'<td class="so">'+(tg>0 ? '+'+tg : tg<0 ? tg : '')+'</td>'+c(x.chua)+c(x.duoi)+c(x.ko)+c(x.lech)+'</tr>'; };
-  var nutTo = function(t){ return '<a href="#" data-lenh="dbt.to" data-to="'+coChuHTML(t.ma)+'">'+coChuHTML(t.ten||('Tổ '+t.ma))+'</a>'; };
-  var noi = function(t){ return coChuHTML([t.tenXa, t.tenDiemDu, String(t.dv)==='99' ? 'Trực tiếp' : tdnHoi(t.dv)].filter(Boolean).join(' · ')); };
-  var bang = function(tit, cot, ls, f){ return '<details class="dbt-ds"'+(ls.length ? ' open' : '')+'><summary><b>'+tit+'</b> — '+ls.length+' tổ</summary>'+(ls.length ? '<div class="sl-xt-cuon"><table class="sl-xt dbt-bang"><thead><tr>'+cot.map(function(x){ return '<th>'+x+'</th>'; }).join('')+'</tr></thead><tbody>'+ls.map(f).join('')+'</tbody></table></div>' : '<div class="rong">Không có.</div>')+'</details>'; };
-  var tr = function(v){ return typeof soTr==='function' ? soTr(v) : tdnTien(v); };
-  var mocChu = R.moc.length ? R.moc.map(function(m){ return ngayVNsl(m.ngay); }).join(' · ') : 'chưa có bản nào trong khoảng';
-  moHop('<div class="hop-tit">📉 Diễn biến tổ · '+coChuHTML(R.pham)+'</div>'+
-    '<div class="hop-phu">Đầu tháng: Mẫu 31 <b>'+ngayVNsl(R.K0.ngay)+'</b> → hiện tại: <b>'+ngayVNsl(R.K1.ngay)+'</b>. Bản Danh sách tổ dùng dò ngày đóng: '+mocChu+'. '+
-    'Tổ rác (cần dọn): dưới '+R.N.min+' thành viên (QT-18) · không có dư nợ · còn dư nợ nhưng không có trên Danh sách tổ.</div>'+
-    '<div class="sl-xt-cuon"><table class="sl-xt dbt-bang"><thead><tr><th>'+DBT_CAP[R.cap]+'</th><th>Tổ đầu tháng</th><th>Tổ mới</th><th>Đã đóng</th><th>Tổ hiện tại</th><th>Tăng / giảm</th><th>Tổ rác chưa đóng</th><th>· dưới '+R.N.min+' TV</th><th>· không dư nợ</th><th>· không có trên DS tổ</th></tr></thead><tbody>'+
-      R.nhom.map(function(x){ return dong(x); }).join('')+dong({ten:'Cộng', dau:tong.dau, moi:tong.moi, dong:tong.dong, nay:tong.nay, chua:tong.chua, duoi:tong.duoi, ko:tong.ko, lech:tong.lech}, true)+'</tbody></table></div>'+
-    bang('🔒 Tổ đã đóng', ['Tổ trưởng', 'Mã tổ', 'Xã · Điểm GD · Hội', 'TV lần cuối', 'Dư nợ lần cuối (tr.đ)', 'Đóng trong khoảng'], R.ds.dong, function(x){
-      return '<tr><td>'+coChuHTML(x.t.ten||'')+'</td><td>'+coChuHTML(x.t.ma)+'</td><td>'+noi(x.t)+'</td><td class="so">'+x.tv+'</td><td class="so">'+tr(x.dn)+'</td><td>sau '+ngayVNsl(x.tu)+' – đến '+ngayVNsl(x.den)+'</td></tr>'; })+
-    bang('⚠ Tổ rác — chưa đủ điều kiện / lệch danh sách, chưa đóng', ['Tổ trưởng', 'Mã tổ', 'Xã · Điểm GD · Hội', 'Thành viên', 'Dư nợ (tr.đ)', 'Lý do'], R.ds.chua, function(x){
-      return '<tr><td>'+nutTo(x.t)+'</td><td>'+coChuHTML(x.t.ma)+'</td><td>'+noi(x.t)+'</td><td class="so">'+x.tv+'</td><td class="so">'+tr(x.dn)+'</td><td>'+coChuHTML(x.ly)+'</td></tr>'; })+
-    bang('🆕 Tổ mới trong tháng', ['Tổ trưởng', 'Mã tổ', 'Xã · Điểm GD · Hội', 'Thành viên', 'Dư nợ (tr.đ)'], R.ds.moi, function(x){
-      return '<tr><td>'+nutTo(x.t)+'</td><td>'+coChuHTML(x.t.ma)+'</td><td>'+noi(x.t)+'</td><td class="so">'+x.tv+'</td><td class="so">'+tr(x.dn)+'</td></tr>'; })+
-    bang('🔀 Tổ đổi điểm GD / Hội', ['Tổ trưởng', 'Mã tổ', 'Xã', 'Thay đổi'], R.ds.doi, function(x){
-      return '<tr><td>'+nutTo(x.t)+'</td><td>'+coChuHTML(x.t.ma)+'</td><td>'+coChuHTML(x.t.tenXa||'')+'</td><td>'+coChuHTML(x.chu)+'</td></tr>'; })+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button><button class="nho chinh" data-lenh="dbt.xls">📊 Excel</button></div>', true);
+  var ds = dbtTrang(R), ten = typeof xuatTen==='function' ? xuatTen('Dien bien to', R.pham, String(R.K1.ky)) : 'Dien bien to';
+  moHop('<div class="hop-tit">📉 Diễn biến tổ · '+coChuHTML(R.pham)+'</div><iframe id="dbt-khung" class="to-khung" title="Xem trước"></iframe>'+
+    xuatHang({ten:ten, html:function(){ return skHTMLIn(ds); }, excel:'dbtExcel()'}), true);
+  var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
+  xemChuan(document.getElementById('dbt-khung'), skHTMLIn(ds));
 }
 function dbtExcel(){
   var R = DBT; if(!R || typeof XLSX==='undefined') return;
-  var hoi = function(t){ return String(t.dv)==='99' ? 'Trực tiếp' : (tdnHoi(t.dv)||t.dv||''); }, wb = XLSX.utils.book_new();
-  var them = function(ten, aoa){ XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoa), ten); };
-  them('Tong hop', [['DIỄN BIẾN TỔ TK&VV — '+R.pham], ['Đầu tháng '+ngayVNsl(R.K0.ngay)+' → hiện tại '+ngayVNsl(R.K1.ngay)], [DBT_CAP[R.cap], 'Tổ đầu tháng', 'Tổ mới', 'Đã đóng', 'Tổ hiện tại', 'Tăng / giảm', 'Tổ rác chưa đóng', 'Dưới '+R.N.min+' TV', 'Không dư nợ', 'Không có trên DS tổ']]
-    .concat(R.nhom.map(function(x){ return [x.ten, x.dau, x.moi, x.dong, x.nay, x.nay-x.dau, x.chua, x.duoi, x.ko, x.lech]; })));
-  them('Da dong', [['Tổ trưởng', 'Mã tổ', 'Xã', 'Điểm GD', 'Hội', 'TV lần cuối', 'Dư nợ lần cuối (đồng)', 'Còn đến ngày', 'Không còn từ ngày']].concat(R.ds.dong.map(function(x){ return [x.t.ten||'', x.t.ma, x.t.tenXa||'', x.t.tenDiemDu||'', hoi(x.t), x.tv, x.dn, ngayVNsl(x.tu), ngayVNsl(x.den)]; })));
-  them('To rac', [['Tổ trưởng', 'Mã tổ', 'Xã', 'Điểm GD', 'Hội', 'Thành viên', 'Dư nợ (đồng)', 'Lý do']].concat(R.ds.chua.map(function(x){ return [x.t.ten||'', x.t.ma, x.t.tenXa||'', x.t.tenDiemDu||'', hoi(x.t), x.tv, x.dn, x.ly]; })));
-  them('To moi', [['Tổ trưởng', 'Mã tổ', 'Xã', 'Điểm GD', 'Hội', 'Thành viên', 'Dư nợ (đồng)']].concat(R.ds.moi.map(function(x){ return [x.t.ten||'', x.t.ma, x.t.tenXa||'', x.t.tenDiemDu||'', hoi(x.t), x.tv, x.dn]; })));
-  them('Doi diem Hoi', [['Tổ trưởng', 'Mã tổ', 'Xã', 'Thay đổi']].concat(R.ds.doi.map(function(x){ return [x.t.ten||'', x.t.ma, x.t.tenXa||'', x.chu]; })));
+  var wb = XLSX.utils.book_new(), T = dbtTong(R), dau = [['BÁO CÁO DIỄN BIẾN TỔ TIẾT KIỆM VÀ VAY VỐN'], ['Phạm vi: '+R.pham], ['Từ ngày '+ngayVNsl(R.K0.ngay)+' đến ngày '+ngayVNsl(R.K1.ngay)], []];
+  var them = function(ten, aoa){ XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(dau.concat(aoa)), ten); };
+  them('Tong hop', [['STT', DBT_CAP[R.cap], 'Số tổ đầu kỳ', 'Thành lập mới', 'Đã đóng', 'Số tổ cuối kỳ', 'Tăng / giảm', 'Chưa đủ ĐK chưa đóng', 'Dưới '+R.N.min+' TV', 'Không dư nợ', 'Không có trên DS tổ', 'Đổi điểm GD / Hội']]
+    .concat(R.nhom.map(function(x, i){ return [i+1, x.ten, x.dau, x.moi, x.dong, x.nay, x.nay-x.dau, x.chua, x.duoi, x.ko, x.lech, x.doi||0]; }))
+    .concat([['', 'TỔNG CỘNG', T.dau, T.moi, T.dong, T.nay, T.nay-T.dau, T.chua, T.duoi, T.ko, T.lech, T.doi]]));
+  var hang = function(x, them2){ return [x.t.tenXa||'', x.t.ten||'', x.t.ma, x.t.tenDiemDu||'', dbtHoi(x.t)].concat(them2); };
+  them('PL1 Da dong', [['STT', 'Xã', 'Tổ trưởng', 'Mã tổ', 'Điểm GD', 'Hội', 'TV lần cuối', 'Dư nợ lần cuối (đồng)', 'Còn đến ngày', 'Không còn từ ngày']].concat(R.ds.dong.map(function(x, i){ return [i+1].concat(hang(x, [x.tv, x.dn, ngayVNsl(x.tu), ngayVNsl(x.den)])); })));
+  them('PL2 Chua du DK', [['STT', 'Xã', 'Tổ trưởng', 'Mã tổ', 'Điểm GD', 'Hội', 'Thành viên', 'Dư nợ (đồng)', 'Lý do']].concat(R.ds.chua.map(function(x, i){ return [i+1].concat(hang(x, [x.tv, x.dn, x.ly])); })));
+  them('PL3 To moi', [['STT', 'Xã', 'Tổ trưởng', 'Mã tổ', 'Điểm GD', 'Hội', 'Thành viên', 'Dư nợ (đồng)']].concat(R.ds.moi.map(function(x, i){ return [i+1].concat(hang(x, [x.tv, x.dn])); })));
+  them('PL4 Doi diem Hoi', [['STT', 'Xã', 'Tổ trưởng', 'Mã tổ', 'Điểm GD', 'Hội', 'Thay đổi']].concat(R.ds.doi.map(function(x, i){ return [i+1].concat(hang(x, [x.chu])); })));
   XLSX.writeFile(wb, 'Dien_bien_to_'+String(R.K1.ngay).replace(/-/g, '')+'.xlsx');
 }

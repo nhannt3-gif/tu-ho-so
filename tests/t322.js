@@ -34,21 +34,26 @@ const fs=require('fs'), path=require('path');
    Object.assign(tcCH(), {xa:'X1', diem:'D1'});
    const D3 = dbtTinh(K0, K1, moc);
    ok('chọn điểm → gom theo Hội', D3.cap==='hoi' && D3.nhom.length===2, D3.nhom.map(x=>x.ten).join());
-   Object.assign(tcCH(), {xa:'', diem:''}); DBT = D1; dbtVe(); await w(200);
-   const hop = document.querySelector('.hop-tit') && document.querySelector('.hop-tit').parentNode, ht = hop ? hop.textContent : '';
-   ok('màn: bảng tổng có dòng Cộng + 4 danh sách (đã đóng, tổ rác, tổ mới, đổi điểm / Hội)', /Cộng/.test(ht) && /Tổ đã đóng — 1 tổ/.test(ht) && /Tổ rác — chưa đủ điều kiện \/ lệch danh sách, chưa đóng — 2 tổ/.test(ht) && /Tổ mới trong tháng — 1 tổ/.test(ht) && /đổi điểm GD \/ Hội — 1 tổ/.test(ht), ht.slice(0, 300));
-   ok('màn: tổ đóng ghi "sau 19/10/2026 – đến 25/10/2026"', /sau 19\/10\/2026 – đến 25\/10\/2026/.test(ht));
+   Object.assign(tcCH(), {xa:'', diem:''}); const tg = dbtTrang(D1), t1 = tg[0].html, hT = tg.map(x=>x.html).join(' ');
+   ok('báo cáo tổng: trang 1 ngang, tiêu đề, bảng kẻ khung 2 tầng + hàng số cột + TỔNG CỘNG', tg[0].ngang && tg[0].tieuDe==='BÁO CÁO DIỄN BIẾN TỔ TIẾT KIỆM VÀ VAY VỐN' && /class="bc-bang"/.test(t1) && /rowspan="2">Số tổ<br>đầu kỳ/.test(t1) && /colspan="2">Biến động trong kỳ/.test(t1) && /4 = 1\+2−3/.test(t1) && /<tr class="tong">.*TỔNG CỘNG/.test(t1), t1.slice(0, 200));
+   ok('báo cáo tổng: dòng Xã X2 — đầu 2 · cuối 2 · chưa đủ ĐK 2 · đổi điểm 1', /Xã X2<\/td><td class="s">2<\/td><td class="s"><\/td><td class="s"><\/td><td class="s">2<\/td><td class="s"><\/td><td class="s">2<\/td><td class="s">1<\/td><td class="s">1<\/td><td class="s">1<\/td><td class="s">1<\/td>/.test(t1), (t1.match(/Xã X2.*?<\/tr>/)||[''])[0]);
+   ok('phụ lục: 4 trang (đã đóng, chưa đủ ĐK, tổ mới, đổi điểm / Hội), nhóm theo xã + TỔNG CỘNG', tg.length===5 && /PHỤ LỤC 1/.test(tg[1].tieuDe) && /PHỤ LỤC 4/.test(tg[4].tieuDe) && tg.slice(1).every(x=>/tr class="nhom"/.test(x.html) && /TỔNG CỘNG/.test(x.html)), tg.map(x=>x.tieuDe).join(' | '));
+   ok('phụ lục tổ đóng ghi "sau 19/10/2026 – đến 25/10/2026"; dòng cộng đủ số cột', /sau 19\/10\/2026 – đến 25\/10\/2026/.test(tg[1].html) && tg.slice(1).every(x=>{ const th=(x.html.match(/<th>/g)||[]).length; const r=x.html.match(/<tr class="tong">(.*?)<\/tr>/)[1]; const n=(r.match(/<td/g)||[]).length+((r.match(/colspan="2"/g)||[]).length); return n===th; }));
+   DBT = D1; dbtVe(); await w(400);
+   ok('màn xem: khung xem trước + thanh xuất chuẩn', !!document.getElementById('dbt-khung') && /BÁO CÁO DIỄN BIẾN TỔ/.test(document.getElementById('dbt-khung').srcdoc||''));
    let tep = ''; const giuW = XLSX.writeFile; XLSX.writeFile = (wb, ten) => { tep = ten+'|'+wb.SheetNames.join(','); };
-   document.querySelector('[data-lenh="dbt.xls"]').click(); await w(100); XLSX.writeFile = giuW;
-   ok('📊 Excel 5 sheet', tep==='Dien_bien_to_20261028.xlsx|Tong hop,Da dong,To rac,To moi,Doi diem Hoi', tep);
+   dbtExcel(); XLSX.writeFile = giuW;
+   ok('📊 Excel 5 sheet', tep==='Dien_bien_to_20261028.xlsx|Tong hop,PL1 Da dong,PL2 Chua du DK,PL3 To moi,PL4 Doi diem Hoi', tep);
    dongHop(); KHO.tvChuan = giu; Object.assign(tcCH(), giuS);
    /* 2. tích hợp: Tra cứu có nút, mở được trên Mẫu 31 T7 → T8 */
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const k = await slDocFile(new File([u], f.n)); if(!k.loi && k.ky) await slGhi(k); }
    SL_BO = {}; TO_KS = {}; doiNgan(7); slDoiTab('tra'); await tcNap(); await w(500); slDoiTab('tra'); await w(400);
+   ok('cột trái Tra cứu không còn nút (dời vào thẻ tổ)', !document.querySelector('.tc-trai [data-lenh="dbt.mo"]'));
+   const ma1 = KHO.dsToKy(TC_K).find(t=>!t.trucTiep).ma; tcTheTo(ma1); await w(500);
    const nut = document.querySelector('[data-lenh="dbt.mo"]');
-   ok('Tra cứu có nút 📉 Diễn biến tổ', !!nut && /Diễn biến tổ/.test(nut.textContent));
+   ok('thẻ tổ: 📉 Diễn biến tổ thay nút "Lập hồ sơ hộ mới vào tổ"', !!nut && /Diễn biến tổ/.test(nut.textContent) && !document.querySelector('.tc-the-to [data-lenh="tc.ketNap"]'));
    nut.click(); for(let i=0;i<40 && !DBT;i++) await w(250); await w(300);
-   const h2 = (document.querySelector('.hop-tit')||{}).textContent || '';
+   const h2 = (document.querySelector('.hop-tit')||{}).textContent || '';   /* màn báo cáo */
    ok('mở trên số liệu thật giả T7 → T8: tiêu đề + đầu tháng 31/07 → hiện tại 31/08', /Diễn biến tổ/.test(h2) && DBT && DBT.K0.ngay==='2026-07-31' && DBT.K1.ngay==='2026-08-31', DBT && DBT.K0.ngay+' → '+DBT.K1.ngay);
    ok('không có Danh sách tổ: không báo nhầm tổ đóng; số tổ đầu tháng > 0', DBT && DBT.nhom.reduce((a, x)=>a+x.dau, 0)>0, DBT && JSON.stringify(DBT.nhom.slice(0,2)));
    dongHop();

@@ -51,7 +51,6 @@ function slTraHTML(){
     (typeof DH_CUOI!=='undefined' && DH_CUOI==='gd' ? '<button class="nho tc-ve-gdx" onclick="dhBam(\'gd\',\'gdx\')" title="Về bàn thao tác Giao dịch xã (địa bàn giữ nguyên)">← 🏢 Giao dịch xã</button>' : '')+   /* 3.328: vào từ Giao dịch xã */
     tcTheoHTML()+'<span class="pv-chip-o tc-bao">'+slChipHTML()+'</span></div></div></div>'+   /* 3.383 (anh): ô tìm vừa phải + Tìm theo cùng hàng, nổi hơn */   /* 3.160: bỏ khung gập "📍 Toàn PGD" — cây lọc chung như các tab */
     '<div class="tc-2cot tc394"><div class="tc-trai"><div class="sl-tra">'+
-    (typeof dbtNut==='function' ? '<div class="tc-dbt-o">'+dbtNut()+'</div>' : '')+   /* 3.403.1: nút 📉 Diễn biến tổ (js/80) ở cột trái — trên hàng tìm làm tràn ngang 1366 px (t260) */
     '<details class="tc-kt"'+(TC_KT.so || TC_KT.ten ? ' open' : '')+'><summary>🔍 Kiểm trùng trước khi nhập máy</summary>'+
       '<div class="tc-kt-o"><input id="tc-kt-so" inputmode="numeric" autocomplete="off" placeholder="Số CCCD / CMND" value="'+coChuHTML(TC_KT.so)+'" oninput="TC_KT.so=this.value;tcKTVe()">'+
       '<input id="tc-kt-ten" autocomplete="off" placeholder="Họ tên (so cả tên vợ/chồng = người thừa kế)" value="'+coChuHTML(TC_KT.ten)+'" oninput="TC_KT.ten=this.value;tcKTVe()"></div><div id="tc-kt-kq"></div></details>'+

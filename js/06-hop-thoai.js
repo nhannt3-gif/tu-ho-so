@@ -1963,6 +1963,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.403', ds:[
+  ["📉 Diễn biến tổ thành báo cáo tổng kẻ khung (bảng tổng + Phụ lục 1–4), nút ở thẻ tổ thay nút Lập hồ sơ hộ mới vào tổ", "doiNgan(7);slDoiTab('tra')"],
   ["🪪 Scan: CCCD đã lưu dạng PDF — chế độ Thẻ nhận PDF, tự tìm và cắt sát thẻ như ảnh chụp; chế độ Tài liệu nhắc chuyển sang Quét CCCD", "doiNgan(4)"],
   ["📉 Tra cứu KH › Diễn biến tổ: so tổ đầu tháng với hiện tại theo xã / điểm GD / Hội — tổ đã đóng (khoảng ngày), tổ mới, đổi điểm / Hội, tổ rác chưa đóng", "doiNgan(7);slDoiTab('tra')"],
   ["🧭 Điểm GD theo luật chung Tèo: ấp của tổ theo File Tổ trưởng, món vay trực tiếp theo ấp · Kiểm tra kỳ báo món lệch ấp / ấp nhiều điểm / món trực tiếp gán tạm", "doiNgan(7);slDoiTab('nap')"],
