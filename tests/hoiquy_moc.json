@@ -28,7 +28,7 @@
 }
 },
 "hoiquy2": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "✓ [iPhone] không lỗi đỏ trong Console",
 "dau": {
@@ -52,7 +52,7 @@
 "js/36-dong-bo-khoi.js": "3a8c80a25db3",
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
-"tests/hoiquy2.js": "e871e7e92f34",
+"tests/hoiquy2.js": "41849e0b381e",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
@@ -119,7 +119,7 @@
 }
 },
 "t102": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "15/15 đạt",
 "dau": {
@@ -147,7 +147,7 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t102.js": "7248670fd87e",
+"tests/t102.js": "d08658160baf",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
@@ -262,7 +262,7 @@
 }
 },
 "t106": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "lỗi []",
 "dau": {
@@ -294,13 +294,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t106.js": "4a234ca08078",
+"tests/t106.js": "e32262aa2c80",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t107": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "lỗi []",
 "dau": {
@@ -327,13 +327,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t107.js": "9c060c3ac0b8",
+"tests/t107.js": "306f53e36c5e",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t108": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "lỗi []",
 "dau": {
@@ -365,13 +365,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t108.js": "349cce2afad5",
+"tests/t108.js": "a5da76fcd03d",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t109": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "lỗi []",
 "dau": {
@@ -402,7 +402,7 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t109.js": "33f438d1b3d5",
+"tests/t109.js": "761dbc7d7b3a",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
@@ -492,7 +492,7 @@
 }
 },
 "t112": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "22/22 đạt",
 "dau": {
@@ -520,13 +520,13 @@
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
 "tests/nguon.js": "7f8d3c66b72d",
-"tests/t112.js": "b8abb083a380",
+"tests/t112.js": "b115c4b64740",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t113": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "35/35 đạt",
 "dau": {
@@ -557,7 +557,7 @@
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
 "tests/nguon.js": "7f8d3c66b72d",
-"tests/t113.js": "78f1d545eec4",
+"tests/t113.js": "d11b03af673d",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
@@ -597,7 +597,7 @@
 }
 },
 "t115": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "21/21 đạt",
 "dau": {
@@ -625,13 +625,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t115.js": "03fd84e692f4",
+"tests/t115.js": "d7003c4e3c8a",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t116": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "12/12 đạt",
 "dau": {
@@ -661,7 +661,7 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t116.js": "5204b6814ae8",
+"tests/t116.js": "16f2c7c4bb64",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
@@ -694,7 +694,7 @@
 }
 },
 "t118": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "22/22 đạt",
 "dau": {
@@ -722,13 +722,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t118.js": "50488b76a6dc",
+"tests/t118.js": "f5aad1269bf2",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t119": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "22/22 đạt",
 "dau": {
@@ -759,13 +759,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t119.js": "865e7555f3f4",
+"tests/t119.js": "2abf607fd9b2",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t120": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "13/13 đạt",
 "dau": {
@@ -792,7 +792,7 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t120.js": "ea7121a1d2d6",
+"tests/t120.js": "27ebbbbbcd5f",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
@@ -831,7 +831,7 @@
 }
 },
 "t122": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "27/27 đạt",
 "dau": {
@@ -859,13 +859,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t122.js": "cdc1b104e58e",
+"tests/t122.js": "2b2eb065004c",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t123": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "19/19 đạt",
 "dau": {
@@ -892,13 +892,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t123.js": "07040fb26b1f",
+"tests/t123.js": "dc2818c321be",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t124": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "10/10 đạt",
 "dau": {
@@ -923,13 +923,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t124.js": "122b341ef0fc",
+"tests/t124.js": "39eb15849a54",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t125": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "53/53 đạt",
 "dau": {
@@ -960,13 +960,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t125.js": "7d071b0d83c8",
+"tests/t125.js": "479a3f83c4b1",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t126": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "19/19 đạt",
 "dau": {
@@ -995,13 +995,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t126.js": "7f15f661ccfb",
+"tests/t126.js": "d2aafe5e4d57",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t127": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "13/13 đạt",
 "dau": {
@@ -1026,7 +1026,7 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t127.js": "fafb84c22216",
+"tests/t127.js": "d23a73d5332d",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
@@ -1068,7 +1068,7 @@
 }
 },
 "t129": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "19/19 đạt",
 "dau": {
@@ -1097,13 +1097,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t129.js": "ea643006f912",
+"tests/t129.js": "30611f679c0b",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t130": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "29/29 đạt",
 "dau": {
@@ -1132,7 +1132,7 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t130.js": "6db4067c24f6",
+"tests/t130.js": "e7def5caa5f9",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
@@ -1173,7 +1173,7 @@
 }
 },
 "t132": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "31/31 đạt",
 "dau": {
@@ -1202,13 +1202,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t132.js": "60d2142b4d18",
+"tests/t132.js": "344578098b37",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t133": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "12/12 đạt",
 "dau": {
@@ -1235,13 +1235,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t133.js": "37e040bb0b9a",
+"tests/t133.js": "c8dac8f7635a",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t134": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "31/31 đạt",
 "dau": {
@@ -1269,13 +1269,13 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t134.js": "bad58040f85e",
+"tests/t134.js": "4020254ff793",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
 "t135": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "16/16 đạt",
 "dau": {
@@ -1302,7 +1302,7 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t135.js": "8389b25ad447",
+"tests/t135.js": "529102421353",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
@@ -1334,7 +1334,7 @@
 }
 },
 "t137": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "8/8 đạt",
 "dau": {
@@ -1362,7 +1362,7 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t137.js": "1a5d62dee705",
+"tests/t137.js": "4f13384853d8",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
@@ -1745,7 +1745,7 @@
 }
 },
 "t150": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "22/22 đạt",
 "dau": {
@@ -1772,7 +1772,7 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t150.js": "1b2dad091382",
+"tests/t150.js": "e23911db00a7",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
@@ -1876,7 +1876,7 @@
 }
 },
 "t154": {
-"ban": "3.411.2",
+"ban": "3.411.3",
 "ngay": "2026-10-30",
 "kq": "17/17 đạt",
 "dau": {
@@ -1904,7 +1904,7 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t154.js": "dbeb22a02476",
+"tests/t154.js": "7d1b1d9e1793",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
