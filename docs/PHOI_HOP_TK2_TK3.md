@@ -129,7 +129,7 @@
 | 30/10 | TK 2 | 3.409 | `js/22` (slT105Them) + 10 file đổi cách cộng 105, `js/22g` (QT-C-09 dsLech), `js/22k`, `js/76` (Sao kê tk2), `js/82`, `tests/t328`, `t330`, bản chụp t276 | t330 10/10, t328 31/31, t276 (chụp lại — chỉ kqgd/thhd đổi do cộng sổ), t324, t326, t329, t131, t321 đạt; hồi quy đủ 207/211 — t124, t275, t314 sửa phép theo luật mới (đạt), t167 đạt sau khi anh đổi lại QT-C-09 (ghép như cũ, Mẫu 31 chính) + toTenXa; t328 30/31 (C09-1 chờ TK 1); + js/84 nút tạm so cách cũ / mới (t330 16/16) |
 | 30/10 | TK 2 | 3.409.1 | `css/app.css` (cột danh sách tổ Tra cứu) | t309, t317, t260 đạt |
 | 31/10 | TK 2 | 3.410 | gỡ `js/80`, `js/84`, `tests/t322`; `js/22g`, `js/22gb`, `js/22h` (bỏ biến động cả năm, cột Mới vào / 105 tăng giảm, chip Mới vào; `slStkKH` + Sao kê), `js/58`, `css`, `tests/t128`, `t130`, `t330`, `t331` | t331 8/8, t128 38/38, t130, t330 đạt; hồi quy đủ 209/211 — t157, t246 sửa phép theo phần đã gỡ (đạt); + A1 (5 báo cáo Thông tin tổ gắn lap, t276 giống hệt) |
-| 31/10 | TK 2 | 3.411 | tách `js/25` → 25/25b/25c, `js/12` → 12/12b/12c/12d, `js/04b` → 04b/04b2/04b3, `js/06` → 06/06d (chép nguyên); `js/22h` A1; `index.html`, `tools/hoiquy_pt.py`, `tests/t177` | kiem sạch, nhanh 37/37, t177, t276 đạt; hồi quy đủ |
+| 31/10 | TK 2 | 3.411 | tách `js/25` → 25/25b/25c, `js/12` → 12/12b/12c/12d, `js/04b` → 04b/04b2/04b3, `js/06` → 06/06a (chép nguyên); `js/22h` A1; `index.html`, `tools/hoiquy_pt.py`, `tests/t177` | kiem sạch, nhanh 37/37, t177, t276 đạt; hồi quy đủ |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

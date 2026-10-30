@@ -1,5 +1,5 @@
 /* ===== 3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): đồng bộ mục lên file thật trên Drive · xóa / thùng rác / xóa hẳn · bỏ tab Tháng · chờ khai · ảnh ghi chú · ⚙ Cài đặt.
-   Chép nguyên từ js/06-hop-thoai.js (không đổi tên hàm; "Có gì mới" CO_GI_MOI vẫn ở js/06 — tools/bump.py sửa thẳng); nạp ngay sau js/06. ===== */
+   Chép nguyên từ js/06-hop-thoai.js (không đổi tên hàm; "Có gì mới" CO_GI_MOI vẫn ở js/06 — tools/bump.py sửa thẳng); nạp ngay sau js/06 (tên 06a: thứ tự nạp = thứ tự tên file, t138). ===== */
 /* ==========================================================
    ĐỒNG BỘ MỤC LÊN FILE THẬT TRÊN DRIVE (bản 3.6)
    Một lệnh PATCH: tên file + thư mục chứa + description + appProperties.

@@ -270,7 +270,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 1 | Mở app, đi các tab Hôm nay · Scan · Hồ sơ Tổ · Hồ sơ vay · Sổ hộ vay · ⚙ Cài đặt | Như cũ, không báo lỗi | |
 | 2 | Sao kê › Thông tin tổ: Kết quả GD tại điểm, THHD | Như cũ | |
 
-_Ghi chú kỹ thuật 3.411:_ tách file chép nguyên, thứ tự nạp liền nhau trong `index.html`; không có câu lệnh chạy ngay (top-level) gọi hàm ở phần sau. File mới: 25b, 25c, 12b, 12c, 12d, 04b2, 04b3, 06d.
+_Ghi chú kỹ thuật 3.411:_ tách file chép nguyên, thứ tự nạp liền nhau trong `index.html`; không có câu lệnh chạy ngay (top-level) gọi hàm ở phần sau. File mới: 25b, 25c, 12b, 12c, 12d, 04b2, 04b3, 06a.
 
 ### Danh sách thử trên máy thật (3.410)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
