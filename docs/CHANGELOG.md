@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.416.4 — 31/10/2026 — Thẻ tổ: chip lãi tồn rõ nghĩa (TK 2)
+- **Anh 31/10** (ảnh thẻ tổ: Lãi tồn 15.477.563 nhưng chip dưới bảng "1 còn lãi tồn"): "chip báo 1 lãi tồn không chính xác".
+- **Kiểm:** số không sai mà **nhãn sai nghĩa** — chip đếm người **dư nợ 0 (hết gốc) nhưng còn lãi tồn** (`tvChuan` loai 'lai', js/28), còn ô Lãi tồn là **tổng lãi tồn cả tổ** (gồm người còn dư nợ). Đặt cạnh nhau dễ hiểu là chỉ 1 người có lãi tồn.
+- **Sửa (js/58):** bỏ chip dưới bảng; ô Lưu ý ghi "n không dư nợ · m hết gốc còn lãi" (rê chuột giải thích) và "n cần cho ra" khi có. Không đổi cách tính.
+- `t246` +1 ý; thẻ tổ `t107`, `t244`, `t277` đạt.
+
 ## 3.416.3 — 31/10/2026 — Thẻ tổ: hàng số kẻ ô như cũ (TK 2)
 - **Anh 31/10** (ảnh hàng số thẻ tổ 3.416.2): "nên kẻ khung như cũ".
 - Hàng số trở lại bảng kẻ ô kiểu cũ (`table.tc-to-hang`): Thành viên (n có nợ) · Tổng dư nợ · Số dư TK 105 · **Lưu ý** (quá hạn / lãi tồn / 3T KHĐ / không dư nợ khi ≠ 0, không có → ✓). Dòng tên, dòng phụ giữ như 3.416.2 (js/58 + CSS).
