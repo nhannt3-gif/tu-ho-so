@@ -146,6 +146,7 @@
 | 31/10 | TK 2 | 3.416.4 | `js/58` (chip lãi tồn → ô Lưu ý), `tests/t246` | t246 + 3 phép thẻ tổ đạt |
 | 31/10 | TK 2 | 3.416.5 | `js/58`, CSS, `tests/t246` | t246 + 3 phép thẻ tổ đạt |
 | 31/10 | TK 2 | 3.417 | `css/app.css` (−289 luật chết), **mới** `tools/css_chet.py`, `tools/chup_man.js`, `docs/KE_HOACH_NANG_CAP_0111.md`, `js/58` | 16/16 màn 0,00% khác (1366 + 400); hồi quy theo đổi |
+| 31/10 | TK 2 | 3.418 | `js/22f`, `js/58` (onclick → data-lenh tc.*), `docs/KE_HOACH_NANG_CAP_0111.md` | 135 phép liên quan đạt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

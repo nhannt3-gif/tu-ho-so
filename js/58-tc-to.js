@@ -37,7 +37,7 @@ function tcToKhoiHTML(c){
     dong('Tổ trưởng', tenTo ? tcC(tenTo, 'tên tổ trưởng')+(tt.kh ? ' · mã KH '+tcC(tt.kh, 'mã KH tổ trưởng') : ' · <small>chưa rõ mã KH</small>')+(sdt ? ' · ☎ '+tcC(sdt, 'SĐT tổ trưởng') : '') : '—')+
     dong('Thành viên', c.to ? tcTVChu(r) : '—')+
     dong('Hội · Điểm GD', coChuHTML([c.dv||t.dv ? tdnHoi(c.dv||t.dv) : '', diem ? 'Điểm '+diem : '', ngay && !/ngày/i.test(diem) ? 'ngày '+ngay : ''].filter(Boolean).join(' · ') || '—')+
-      (t.khoaDiem ? ' <button class="nho tc-bang-nut" onclick="tcBangDiem(\''+String(t.khoaDiem).replace(/'/g, "\\'")+'\',\''+c.to+'\')" title="Xem toàn bộ tổ của điểm GD, theo Hội">🏘 Tổ của điểm GD</button>' : ''))+
+      (t.khoaDiem ? ' <button class="nho tc-bang-nut" data-lenh="tc.bangDiem" data-diem="'+coChuHTML(String(t.khoaDiem))+'" data-to="'+coChuHTML(c.to||'')+'" title="Xem toàn bộ tổ của điểm GD, theo Hội">🏘 Tổ của điểm GD</button>' : ''))+
     '</div>'+(r ? '<div class="tc-ghi">'+coChuHTML(tcTVGhi(r))+'</div>' : '')+'</div>';
 }
 /* ---------- bảng tổ của 1 điểm GD, gom theo Hội ---------- */
@@ -55,20 +55,20 @@ function tcBangDiem(diem, chon, ket){
     var g = hoi[t.dv||''] = hoi[t.dv||''] || {dv:t.dv||'', ds:[], tv:0, no:0, kno:0, dn:0, qh:0};
     var x = {t:t, r:r, dn:dn, qh:qh, tt:tcTT(t)}; g.ds.push(x); g.tv += r.tong; g.no += r.coNo; g.kno += r.khongNo; g.dn += dn; g.qh += qh;
     tong.to++; tong.tv += r.tong; tong.no += r.coNo; tong.kno += r.khongNo; tong.dn += dn; tong.qh += qh; });
-  var e = coChuHTML, ma = function(v, ten){ return v ? '<span class="tc-chep" data-chep="'+e(String(v))+'" data-ten="'+e(ten)+'" onclick="event.stopPropagation();tcChep(this)" title="Bấm để chép">'+e(String(v))+'</span>' : ''; };
+  var e = coChuHTML, ma = function(v, ten){ return v ? '<span class="tc-chep" data-chep="'+e(String(v))+'" data-ten="'+e(ten)+'" data-lenh="tc.chep" title="Bấm để chép">'+e(String(v))+'</span>' : ''; };
   var cong = function(nhan, g, lop){ return '<tr class="'+lop+'"><td colspan="5">'+nhan+'</td><td class="so">'+g.tv+'</td><td class="so">'+g.no+'</td><td class="so">'+g.kno+'</td><td class="so">'+tdnTien(g.dn)+'</td><td class="so">'+(g.qh ? tdnTien(g.qh) : '')+'</td><td></td></tr>'; };
   var nhom = Object.keys(hoi).sort(function(a, b){ return ttHoiThu(a)-ttHoiThu(b); }).map(function(k){ var g = hoi[k];
     g.ds.sort(function(a, b){ return String(a.t.ma).localeCompare(String(b.t.ma), 'vi', {numeric:true}); });
     return '<tr class="hoi"><td colspan="11">'+e(tdnHoi(k) || '(chưa rõ hội)')+' — '+g.ds.length+' tổ</td></tr>'+g.ds.map(function(x){ var t = x.t;
-      return '<tr class="tc-bt-dong'+(t.ma===TC_BANG.chon ? ' chon' : '')+'" data-to="'+e(t.ma)+'" onclick="tcBangChon(this)"><td>'+ma(t.ma, 'mã tổ')+'</td><td>'+ma(t.ten, 'tên tổ trưởng')+'</td><td>'+ma(x.tt.kh, 'mã KH tổ trưởng')+'</td><td>'+ma(t.sdt, 'SĐT tổ trưởng')+'</td><td>'+e(t.tenThon ? pvApNgan(t.tenThon) : '')+'</td>'+
+      return '<tr class="tc-bt-dong'+(t.ma===TC_BANG.chon ? ' chon' : '')+'" data-to="'+e(t.ma)+'" data-lenh="tc.bangChon"><td>'+ma(t.ma, 'mã tổ')+'</td><td>'+ma(t.ten, 'tên tổ trưởng')+'</td><td>'+ma(x.tt.kh, 'mã KH tổ trưởng')+'</td><td>'+ma(t.sdt, 'SĐT tổ trưởng')+'</td><td>'+e(t.tenThon ? pvApNgan(t.tenThon) : '')+'</td>'+
         '<td class="so"><b>'+x.r.tong+'</b></td><td class="so">'+x.r.coNo+'</td><td class="so">'+x.r.khongNo+'</td><td class="so">'+tdnTien(x.dn)+'</td><td class="so">'+(x.qh ? '<span class="nh nh-do">'+tdnTien(x.qh)+'</span>' : '')+'</td><td>'+(tcDongChip(t) || tcNguongChip(x.r.tong))+'</td></tr>'; }).join('')+
       cong('Cộng '+e(tdnHoi(k) || '(chưa rõ hội)'), g, 'cong'); }).join('');
   var ket = TC_BANG.ket, h = '<div class="hop-tit">🏘 Tổ của Điểm '+e(t0.tenDiemDu || t0.tenDiem || diem)+(t0.ngayGD && !/ngày/i.test(t0.tenDiemDu || t0.tenDiem || '') ? ' · ngày GD '+e(t0.ngayGD) : '')+' · '+e(t0.tenXa||'')+'</div>'+
     '<div class="hop-phu">'+tong.to+' tổ · <b>'+tong.tv+'</b> thành viên · '+tong.no+' có dư nợ · '+tong.kno+' không dư nợ — '+e(tcTVGhi(r0))+'. Bấm mã / tên / số để chép; bấm dòng để chọn tổ.'+(ket ? ' <b>Kết nạp: '+e(ket.ten || '')+(ket.cccd ? ' · CCCD '+e(ket.cccd) : '')+'</b>' : '')+'</div>'+
     '<div class="tc-bt-cuon"><table class="tc-bt"><thead><tr><th>Mã tổ</th><th>Tổ trưởng</th><th>Mã KH TT</th><th>☎</th><th>Ấp</th><th>Tổng TV</th><th>Có dư nợ</th><th>Không dư nợ</th><th>Tổng dư nợ</th><th>Quá hạn</th><th></th></tr></thead><tbody>'+nhom+
     cong('Cộng điểm GD ('+tong.to+' tổ)', tong, 'tong')+'</tbody></table></div>'+
-    '<div class="hang-nut"><span id="tc-bt-chon" class="tc-bt-chon">'+(TC_BANG.chon ? 'Đã chọn tổ '+e(TC_BANG.chon) : 'Chưa chọn tổ')+'</span><button class="nho" id="tc-bt-mo" onclick="if(TC_BANG.chon) tcMoTo(TC_BANG.chon)"'+(TC_BANG.chon ? '' : ' disabled')+'>👥 Mở tổ</button>'+
-    '<button class="nho chinh" id="tc-bt-ket" onclick="tcKetNap()"'+(TC_BANG.chon ? '' : ' disabled')+' title="Mở form 👪 Hộ vay có sẵn, điền sẵn Xã › Ấp › Tổ'+(ket ? ' và tên / CCCD vừa tra' : '')+'">👪 Lập hồ sơ hộ mới vào tổ này</button><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>';
+    '<div class="hang-nut"><span id="tc-bt-chon" class="tc-bt-chon">'+(TC_BANG.chon ? 'Đã chọn tổ '+e(TC_BANG.chon) : 'Chưa chọn tổ')+'</span><button class="nho" id="tc-bt-mo" data-lenh="tc.bangMo"'+(TC_BANG.chon ? '' : ' disabled')+'>👥 Mở tổ</button>'+
+    '<button class="nho chinh" id="tc-bt-ket" data-lenh="tc.ketNapB"'+(TC_BANG.chon ? '' : ' disabled')+' title="Mở form 👪 Hộ vay có sẵn, điền sẵn Xã › Ấp › Tổ'+(ket ? ' và tên / CCCD vừa tra' : '')+'">👪 Lập hồ sơ hộ mới vào tổ này</button><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>';
   moHop('<div class="tc-bt-khung">'+h+'</div>', true); tcBangRong();
 }
 function tcBangRong(){   /* 3.383.5 (anh 26/10 "mở cửa sổ này giao diện giật giật"): đo bảng 1 lần → đặt bề rộng cố định cho hộp (không co giãn theo thanh cuộn) */
@@ -84,7 +84,7 @@ function tcKetNap(){ var t = tcTo(TC_BANG.chon); if(!t) return bao('Chọn 1 t�
   var k = TC_BANG.ket || {}, n = typeof hmNguoi==='function' ? hmNguoi() : {}; if(k.ten) n.ten = k.ten; if(k.cccd) n.cccd = k.cccd;
   dongHop(); hmMo(null, {xa:t.xa||'', tenXa:t.tenXa||'', diem:t.khoaDiem||'', tenDiem:t.tenDiem||'', thon:t.thon||'', tenThon:t.tenThon||'', to:t.ma, tv:[n], dung:0}); }
 /* nút ở kết quả kiểm trùng "chưa vay": mở bảng tổ của điểm GD đang chọn ở cây */
-function tcKetNapNut(){ return '<button class="nho chinh tc-ket-nut" onclick="tcBangDiem(tcDiemCua(), \'\', {ten:TC_KT.ten||\'\', cccd:TC_KT.so||\'\'})" title="Chọn tổ của điểm GD (khối LỌC ĐỊA BÀN) để kết nạp — xem số thành viên, mã tổ">🏘 Chọn tổ kết nạp</button>'; }
+function tcKetNapNut(){ return '<button class="nho chinh tc-ket-nut" data-lenh="tc.ketKT" title="Chọn tổ của điểm GD (khối LỌC ĐỊA BÀN) để kết nạp — xem số thành viên, mã tổ">🏘 Chọn tổ kết nạp</button>'; }
 /* ---------- 3.336 (anh 24/10): "cho tìm tổ trưởng và hiện thông tin cơ bản của tổ" — chip Tìm theo › Tổ trưởng ---------- */
 function tcToLoc(q){   /* tổ khớp q (chữ → tên tổ trưởng đầu từ; số ≥ 3 → mã tổ / SĐT / mã KH tổ trưởng; trống → mọi tổ) trong phạm vi lọc · null = gõ chưa đủ số */
   if(!TC_K) return []; q = String(q||'').trim(); var S = tcCH(), so = q.replace(/\D/g, ''), chu = /[^\d\s.\-]/.test(q), tu = slChuan(q).split(' ').filter(Boolean);
