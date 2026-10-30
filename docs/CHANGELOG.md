@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.411.2 — 31/10/2026 — Rà phép thử D1 + sửa lỗi cây tổ rỗng trên máy 2 (TK 2)
+- **Anh 31/10:** "chốt làm tuần tự rồi gộp lên luôn" — thứ tự: A2 (sổ luật, đã gộp) → **B1 = D1 thêm câu kiểm thật** → B2 (D2) → B3 (đo tốc độ).
+- **D1 (`docs/RA_SOAT_HOI_QUY.md`):** 5 phép thử trước chỉ in số (luôn "đạt") nay có câu kiểm thật: `t100` 6 ý (Mẫu 31 giả, đối chiếu, Tra cứu, ô tìm chung) · `t102` 15 ý (② Kiểm tra, ma trận, tab Tổ, phím, 3 báo cáo tổ — máy tính + điện thoại) · `t103` 4 ý (máy 2 chưa tải bảng) · `t104` 9 ý (kiểm trùng CCCD, tìm vợ/chồng · HSSV, phạm vi, Sao kê 8 báo cáo) · `t105` 8 ý (bắt mọi chữ HOA tự báo sai + mục chính). `t101`, `t276` vốn đã có câu kiểm.
+- **Lỗi thật câu kiểm bắt được — đã sửa:** từ **3.383.6** (QUY_CHUAN 16 "chỉ hiện tổ chưa đóng"), máy chưa tải bảng số liệu (máy 2, Drive hết phiên) dựng cây tổ tạm từ danh bạ nhưng `toDong0` ẩn **hết** tổ (không có món để biết tổ đóng) → cây rỗng dù báo "cây tổ đang lấy tạm từ danh bạ". Nay `toDong0` bỏ qua khi `K.thieuBang` (js/22g) → cây tạm đủ tổ như trước 3.383.6.
+- `t105`: ý vay trực tiếp lấy nhầm mục TT đầu tiên (bộ giả có sẵn mục TT khác) → kiểm đúng mục của món giả (`_tt`), theo QT-C-11.
+
 ## 3.411.1 — 31/10/2026 — Sửa thứ tự nạp sau tách file (TK 2)
 - Hồi quy đủ 3.411: 209/211. **t138** (luật thứ tự nạp = thứ tự tên file): `js/06d-dong-bo-cai-dat.js` nạp ngay sau `js/06` nhưng tên xếp sau `06b`, `06c` → đổi tên **`js/06a-dong-bo-cai-dat.js`** (nội dung không đổi). **t314** đếm báo cáo tự lập: 14 → 19 (A1 thêm 5 báo cáo Thông tin tổ) — sửa phép.
 

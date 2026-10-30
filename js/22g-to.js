@@ -231,6 +231,7 @@ function toDong0(K, Bm){   /* 3.383.6 (anh 26/10 "chỉ hiện các tổ chưa �
      tổ CHƯA ĐÓNG = có mã trên Danh sách tổ của kỳ (hệ thống chỉ xuất tổ còn mở); thiếu → Thông tin tổ trưởng → LEN_31 TO_TRUONG → Mẫu 31 (còn khách TK 105); có thu trong tháng thì luôn giữ.
      Dư nợ 0 mà chưa đóng → "cần đóng tổ". Đã đóng → bỏ khỏi cây (K.toAn, không tìm, không hiện). Còn dư nợ mà không có trên Danh sách tổ → vẫn hiện + cảnh báo (không giấu món vay). */
   var T = K.to, coDS = !!(K.dsDung || Bm.co.dsto || []).length, coTT = !!(Bm.co.tt||[]).length, coLen = !!(Bm.co.lt||[]).length; K.toAn = {}; K.canDong = []; K.ngoaiDS = [];
+  if(K.thieuBang) return;   /* 3.411.2 (sửa lỗi từ 3.383.6, lộ ra khi thêm câu kiểm t103): bảng số liệu chưa tải (máy 2, Drive hết phiên) → cây tổ dựng tạm từ danh bạ, không có món để biết tổ đóng → giữ nguyên, không ẩn (trước: ẩn hết → cây rỗng) */
   var thuThang = function(ma){ return (K.kh[ma]||[]).some(function(o){ return (o.tnTH||0)+(o.tnQH||0)+(o.tnK||0)+(+o.c_thu_lai_th_thang||0)+(+o.c_thu_lai_qh_thang||0)>0; }); };   /* tất toán + đóng ngay trong tháng → còn số thu tháng: giữ để báo cáo tháng đủ số */
   var guiTK = function(ma){ return (K.kh[ma]||[]).concat((K.lap||[]).filter(function(o){ return o.to===ma; })).some(function(o){ return (o.t105||0)>0; }); };
   Object.keys(T).forEach(function(ma){ var t = T[ma]; if(toLaTT(t)) return;

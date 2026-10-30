@@ -11,6 +11,7 @@
 | # | Nhóm | Phép | Tốn | Đề xuất |
 |---|---|---|---|---|
 | D1 | **Không có câu kiểm** (chỉ in số, luôn "đạt") | t105, t102, t104, t100, t103, t276, t101 | 253 giây | Thêm câu kiểm thật cho phần còn giá trị (đọc Mẫu 31, Tra cứu, Nợ quá hạn…) **hoặc bỏ** nếu đã có phép khác kiểm (nhiều phần đã có ở t1xx sau) |
+| ✅ D1 | **3.411.2 đã làm** (anh 31/10 "chốt làm tuần tự"): thêm câu kiểm thật — t100 (6), t102 (15), t103 (4), t104 (9), t105 (8); t101, t276 vốn đã có câu kiểm (in ✓/✗). **Câu kiểm t103 bắt được 1 lỗi thật** (cây tổ rỗng trên máy 2 khi bảng chưa tải — từ 3.383.6) → đã sửa. t105: sửa ý vay trực tiếp lấy nhầm mục TT. | | | |
 | D2 | **Bộ dữ liệu lớn `gia31`** (25.000 dòng) | 36 phép | 1279 giây | **R3:** chuyển sang `gianho31` (300 dòng) — trừ phép cần đo số lớn / tốc độ (giữ 2–3 phép đại diện). Dự kiến bớt 60–70% thời gian nhóm này |
 | D3 | Phép cũ t87–t99 (chờ anh từ 25/10) | đã không còn trong `tests/` | — | Không còn việc — gạch khỏi danh sách chờ |
 | D4 | **Gộp phép trùng** (cùng nạp bộ giả, kiểm cùng màn) | rà tay ở lượt sau, ghi bổ sung bảng này | — | Gộp thành 1 phép / màn |

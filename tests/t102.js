@@ -3,7 +3,7 @@
 // Bộ GIẢ: tests/gia31 (taogia.py 25000 tests/gia31 m31)
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
-(async()=>{ const b=await chromium.launch(); const loi=[];
+(async()=>{ const b=await chromium.launch(); const loi=[], kq=[], ok=(ten, dk, chi)=>kq.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
  for(const [ten,vp] of [['may',{width:1366,height:900}],['dt',{width:390,height:844}]]){
  const p=await b.newPage({viewport:vp}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
@@ -49,8 +49,17 @@ const fs=require('fs'), path=require('path');
    o.excel = typeof toExcel; 
    return o; }, files);
  console.log('=== '+ten); for(const k in r) console.log(k.padEnd(10), typeof r[k]==='object' ? JSON.stringify(r[k]) : r[k]);
+ /* 3.411.2 (RA_SOAT_HOI_QUY D1): câu kiểm thật — trước chỉ in */
+ ok(ten+': ma trận đủ dòng file, tháng chưa đủ bộ ghi rõ file thiếu', /\d+ dòng ma trận/.test(r.file) && /chưa Đạt — thiếu \d+ file/.test(r.buoc||''), r.file);
+ ok(ten+': ② Kiểm tra — trước khi kiểm báo "Chưa kiểm", sau khi kiểm có kết quả, mở lại không chạy lại', r.chuaKiem && r.kiem && r.kiem.ok>0 && Array.isArray(r.muc) && r.muc.length>5 && /true/.test(r.giuKetQua), JSON.stringify(r.kiem));
+ ok(ten+': thay 1 file → kết quả kiểm cũ + báo vàng kiểm lại', r.cu==='true · true', r.cu);
+ ok(ten+': thu gọn bảng nhiều tháng được nhớ', /true/.test(r.tq));
+ ok(ten+': tab Tổ — 2 kỳ Mẫu 31, có tổ, Enter ô Xã trống đứng lại, chọn xã → sang ô Điểm GD', /T8\/2026/.test(r.ky) && /T7\/2026/.test(r.ky) && r.soTo>0 && r.phimTrong==='to-xa' && /→ ô đang đứng: to-diem/.test(r.phim), r.phim);
+ ok(ten+': gõ tên tổ → gợi ý, chọn → cây chọn đúng tổ, thẻ tổ có mã + tổ viên', r.tim>=1 && /Tổ /.test(r.chon) && /\(mã \d+\)/.test(r.the) && /tổ viên/.test(r.the), r.chon);
+ ok(ten+': 3 báo cáo tổ (Danh sách hộ vay · Nợ cần xử lý · TK 105) có dòng, tên CT ngắn, có Excel', /DANH SÁCH HỘ VAY/.test(r.bc) && /NỢ CẦN XỬ LÝ/.test(r.bc) && /TK 105/.test(r.bc) && /NỢ QUÁ HẠN/.test(r.khung) && /Tổng số dư 105/.test(r.tk105) && r.ct==='tên CT ngắn ✓' && r.excel==='function', r.bc);
  await p.screenshot({path:__dirname+'/t102_'+ten+'_xem.png'});
  await p.evaluate(()=>dongHop()); await p.screenshot({path:__dirname+'/t102_'+ten+'_to.png', fullPage:true});
  await p.evaluate(()=>slDoiTab('nap')); await p.waitForTimeout(800); await p.screenshot({path:__dirname+'/t102_'+ten+'_sl.png', fullPage:true});
  await p.close(); }
- console.log('lỗi', loi); await b.close(); })();
+ ok('không lỗi trang', !loi.length, loi.slice(0, 2).join(' | '));
+ kq.forEach(x=>console.log(x)); const sai = kq.filter(x=>x[0]==='✗').length; console.log((kq.length-sai)+'/'+kq.length+' đạt'); await b.close(); process.exit(sai ? 1 : 0); })();
