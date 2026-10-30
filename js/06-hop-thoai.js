@@ -1040,7 +1040,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.416.4', ds:[
+var CO_GI_MOI = {ban:'3.416.5', ds:[
+  ["🏘 Thẻ tổ: chip Lưu ý nhiều thì xuống dòng; ngày số liệu ở góc phải dòng Thành viên", ""],
   ["🏘 Thẻ tổ: bỏ chip \"n còn lãi tồn\" gây hiểu nhầm — ghi rõ \"hết gốc còn lãi\" ở ô Lưu ý", ""],
   ["🏘 Thẻ tổ: hàng số kẻ ô như cũ (Thành viên · Tổng dư nợ · TK 105 · Lưu ý)", ""],
   ["🏘 Thẻ tổ gọn: dòng tên, dòng phụ, 3 số chính; quá hạn / lãi tồn / 3T KHĐ chỉ hiện khi có", ""],
@@ -1054,8 +1055,7 @@ var CO_GI_MOI = {ban:'3.416.4', ds:[
   ["🪪 Scan CCCD tổ trưởng CŨ (đã thôi): khớp File Tổ trưởng các kỳ → lưu tên chuẩn CIF - Họ tên - CCCD", ""],
   ["🪪 Scan CCCD tổ trưởng (không vay, không có trong Mẫu 31): khớp bảng tổ → tên chuẩn CIF - Họ tên - CCCD, Lưu vào tủ đúng người", ""],
   ["🔧 Tab Tổ: nút 📊 Excel danh sách khách (cấp xã / PGD) nay tải được file; nút chạy qua bộ lệnh chung", "doiNgan(7);slDoiTab('to')"],
-  ["⚡ Tab Tổ TK&VV mở nhanh hơn ≈ 3 lần (toàn PGD 2,2 s → 0,7 s): chip Ra khỏi tổ bấm mới so tháng trước", "doiNgan(7);slDoiTab('to')"],
-  ["🔧 Sửa đồng bộ: máy mới (danh sách trống) không còn đè tên cán bộ Giao dịch xã đã khai trên máy khác", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["⚡ Tab Tổ TK&VV mở nhanh hơn ≈ 3 lần (toàn PGD 2,2 s → 0,7 s): chip Ra khỏi tổ bấm mới so tháng trước", "doiNgan(7);slDoiTab('to')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

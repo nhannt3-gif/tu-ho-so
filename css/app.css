@@ -4121,5 +4121,7 @@ details.kt-kh-ls{border:1px solid var(--vien);border-radius:8px;padding:4px 8px;
 .tc-to-dau{padding:4px 2px 2px}.tc-to-dong1{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}.tc-to-dong1 .tc-ten{font-size:calc(17px*var(--co))}
 .tc-to-dc{color:var(--chu-phu);font-size:calc(13px*var(--co))}.tc-to-dc i,.tc-to-dong2 i{font-style:normal;opacity:.5}
 .tc-to-dong2{color:var(--chu-phu);font-size:calc(12.5px*var(--co));margin:2px 0 6px;overflow-wrap:anywhere}
-.tc-to-hang td.tc-to-canh{font-size:calc(12.5px*var(--co));line-height:1.9}.tc-to-hang td.tc-to-canh .nh{white-space:nowrap}
+table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5px*var(--co));line-height:1.9}.tc-to-hang td.tc-to-canh .nh{white-space:nowrap}
 .tc-to-dau .tc-ghi{margin-top:4px}
+/* 3.416.5 (anh 31/10): "Số liệu ngày …" dời về góc phải dòng Thành viên (n) — không tốn dòng riêng */
+.tc-to-tv-kieu{flex-wrap:wrap}.tc-to-tv-kieu .tc-to-ngay{margin-left:auto;white-space:nowrap}

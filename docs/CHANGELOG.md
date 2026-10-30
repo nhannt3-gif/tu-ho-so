@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.416.5 — 31/10/2026 — Thẻ tổ: chip Lưu ý xuống dòng, ngày số liệu không tốn dòng (TK 2)
+- **Anh 31/10:** "nếu có nhiều chip lưu ý thì xuống dòng, dữ liệu đến ngày dời góc phải dòng có chữ Thành viên, cho cố định, không mất 1 dòng".
+- Ô Lưu ý (`td.tc-to-canh`) cho xuống dòng (trước bị cắt ngang); dòng "Số liệu ngày … ⓘ" dời vào góc phải dòng "Thành viên (n) · QH · Khoanh · 3T KHĐ · Đủ · Gọn" (js/58 + CSS).
+- `t246` sửa theo; thẻ tổ `t107`, `t244`, `t277` đạt.
+
 ## 3.416.4 — 31/10/2026 — Thẻ tổ: chip lãi tồn rõ nghĩa (TK 2)
 - **Anh 31/10** (ảnh thẻ tổ: Lãi tồn 15.477.563 nhưng chip dưới bảng "1 còn lãi tồn"): "chip báo 1 lãi tồn không chính xác".
 - **Kiểm:** số không sai mà **nhãn sai nghĩa** — chip đếm người **dư nợ 0 (hết gốc) nhưng còn lãi tồn** (`tvChuan` loai 'lai', js/28), còn ô Lãi tồn là **tổng lãi tồn cả tổ** (gồm người còn dư nợ). Đặt cạnh nhau dễ hiểu là chỉ 1 người có lãi tồn.
