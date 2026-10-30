@@ -35,7 +35,7 @@ function dbslCay(K){
   return thu.map(function(k){ var x = xa[k]; return {ma:x.ma, xa:x.xa, diem:x.thu.map(function(m){ var d = x.diem[m]; return {ma:d.ma, ten:d.ten, ngay:d.ngay, ap:d.thu.map(function(a){ return d.ap[a]; }).sort(dbSoMa)}; }).sort(dbSoMa)}; }).sort(dbSoMa);
 }
 function dbslNguon(K){ var n = (K && K.B && K.B.nguon) || {}, ng = function(l){ var e = n[l] && KHO.bang(l, n[l]); return e ? ngayVNsl(e.ngay || (String(n[l]).length>7 ? n[l] : tdnCuoiKy(n[l]))) : ''; };
-  return [n.dsto ? 'File Tổ trưởng '+ng('dsto') : 'chưa có File Tổ trưởng (điểm GD lấy dự phòng)', n.hstd ? 'Mẫu 31 '+ng('hstd') : ''].filter(Boolean).join(' · '); }
+  return [n.dsto ? 'File Tổ trưởng '+ng('dsto')+(K.dsLech ? ' ⚠ khác ngày Mẫu 31 — Mẫu 31 là chính' : '') : 'chưa có File Tổ trưởng (điểm GD lấy dự phòng)', n.hstd ? 'Mẫu 31 '+ng('hstd') : ''].filter(Boolean).join(' · '); }
 function dbslKhung(){
   var cay = dbslCay(DBSL.K), L = dbslLech(cay), soD = 0, soA = 0, soT = 0;
   cay.forEach(function(x){ soD += x.diem.length; x.diem.forEach(function(d){ soA += d.ap.length; d.ap.forEach(function(a){ soT += a.to.length; }); }); });

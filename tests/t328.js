@@ -7,8 +7,7 @@ const fs=require('fs'), path=require('path');
 const BO = JSON.parse(fs.readFileSync(path.join(__dirname,'teo','teo_ca.json'),'utf8'));
 const CHON = (process.argv[2]||'').split(',').filter(Boolean);
 /* lệch ĐÃ BÁO, chờ chốt (không sửa đáp án) — in ⏳, không làm trượt; chốt xong thì xóa dòng + sửa app hoặc đáp án theo luật mới */
-const CHO = {'C01-1 · dong 9000001.tien_gui':'app lấy số dư 105 lớn nhất / khách (3.87) — chờ TK 1 xem file thật: cột "Số dư tiền gửi 105" Mẫu 31 ghi theo sổ hay tổng khách (hộp thư 30/10)',
-  'C09-1 · khong_ghep_to_truong':'app vẫn ghép File Tổ trưởng gần nhất + chỉ báo lệch ngày (3.400) — chờ anh quyết chặn hay báo (hộp thư 30/10)'};
+const CHO = {'C09-1 · khong_ghep_to_truong':'anh 30/10 đổi lại: "lấy như cũ nhưng Mẫu 31 vẫn là chính" — app vẫn ghép File Tổ trưởng gần nhất, khác ngày chỉ bù chỗ trống + báo; TK 1 sửa đáp án C09-1 theo luật mới'};   /* 3.409: C01-1 xong (cộng sổ) */
 (async()=>{ const b=await chromium.launch(); const kq=[]; let loiTrang=[];
  for(const ca of BO.truong_hop){ if(CHON.length && CHON.indexOf(ca.id)<0) continue;
   const p=await b.newPage({viewport:{width:1280,height:800}}); p.on('pageerror',e=>loiTrang.push(ca.id+': '+e.message));
@@ -19,10 +18,10 @@ const CHO = {'C01-1 · dong 9000001.tien_gui':'app lấy số dư 105 lớn nh�
     const nap = async(aoa, ten) => { const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoa), 'BCQUERY'); const k = await slDocFile(new File([XLSX.write(wb, {type:'array', bookType:'xlsx'})], ten)); if(!k.loi && k.ky) await slGhi(k); return k; };
     let K = null, k31 = null, kTT = null;
     /* app chỉ nhận mã đúng dạng hệ thống (số khế ước 10–20 số, mã KH 6–12 số — SL_KHOA_DUNG); mã giả "KU-01" / "KH-01" → ánh xạ cố định sang số, kết quả trả theo mã gốc */
-    const MA = {ku:{}, kh:{}}, so = (loai, v) => { if(v==null || v==='') return v; if((loai==='ku' ? /^\d{10,20}$/ : /^\d{6,12}$/).test(String(v))) return v; const m = MA[loai]; if(!m[v]) m[v] = (loai==='ku' ? '9000000000' : '900000')+String(Object.keys(m).length+1).padStart(loai==='ku' ? 5 : 3, '0'); return m[v]; };
+    const MA = {ku:{}, kh:{}, so:{}}, DANG = {ku:[/^\d{10,20}$/, '9000000000', 5], kh:[/^\d{6,12}$/, '900000', 3], so:[/^\d{10}$/, '1050', 6]}, so = (loai, v) => { if(v==null || v==='') return v; const d = DANG[loai]; if(d[0].test(String(v))) return v; const m = MA[loai]; if(!m[v]) m[v] = d[1]+String(Object.keys(m).length+1).padStart(d[2], '0'); return m[v]; };   /* số sổ 105 giả "S-01a" → 10 số */
     const kuSo = v => MA.ku[v] || v, kuGoc = v => { const g = Object.keys(MA.ku).find(z=>MA.ku[z]===v); return g || v; };
     if(ca.mau31 && ca.mau31.length){
-      const dong = ca.mau31.map(o=>{ const z = Object.assign({}, BO.mac_dinh_mau31, o, {'Ngày số liệu':BO.ngay_so_lieu}); z['Số khế ước'] = so('ku', z['Số khế ước']); z['Mã KH'] = so('kh', z['Mã KH']); return z; });
+      const dong = ca.mau31.map(o=>{ const z = Object.assign({}, BO.mac_dinh_mau31, o, {'Ngày số liệu':BO.ngay_so_lieu}); z['Số khế ước'] = so('ku', z['Số khế ước']); z['Mã KH'] = so('kh', z['Mã KH']); z['Sổ tiết kiệm 105'] = so('so', z['Sổ tiết kiệm 105']); return z; });
       const cot = []; dong.forEach(o=>Object.keys(o).forEach(c=>{ if(cot.indexOf(c)<0) cot.push(c); }));
       k31 = await nap([['31 - Tạo hồ sơ tín dụng chi tiết theo kỳ số liệu'], [], cot].concat(dong.map(o=>cot.map(c=>o[c]===undefined ? '' : o[c]))), 'mau31 thu.xlsx');
       if(ca.to_truong && ca.to_truong.length){
@@ -52,7 +51,7 @@ const CHO = {'C01-1 · dong 9000001.tien_gui':'app lấy số dư 105 lớn nh�
   if(r.loi31 || r.loiTT) kq.push({id:ca.id, luat:ca.luat, nhan:'nạp file', bang:'đọc được', app:(r.loi31||'')+' '+(r.loiTT||''), dung:false});
   await p.close();
  }
- kq.forEach(x=>{ const c = !x.dung && CHO[x.id+' · '+x.nhan]; x.cho = !!c; console.log((x.dung ? '✓ ' : c ? '⏳ ' : '✗ ')+x.id+' '+x.luat+' · '+x.nhan+' — đáp án '+JSON.stringify(x.bang)+(x.dung ? '' : ' · app '+JSON.stringify(x.app))+(c ? ' · CHỜ CHỐT: '+c : '')); });
+ kq.forEach(x=>{ const c = !x.dung && (CHO[x.id+' · '+x.nhan] || (/^\(chưa hỗ trợ loại /.test(String(x.app)) && 'luật mới chưa làm ở app (teo_ca 1.2: QT-C-21 kỳ trước theo khế ước) — việc tiếp, anh duyệt')); x.cho = !!c; console.log((x.dung ? '✓ ' : c ? '⏳ ' : '✗ ')+x.id+' '+x.luat+' · '+x.nhan+' — đáp án '+JSON.stringify(x.bang)+(x.dung ? '' : ' · app '+JSON.stringify(x.app))+(c ? ' · CHỜ CHỐT: '+c : '')); });
  if(loiTrang.length) console.log('LỖI TRANG:', loiTrang.slice(0,5));
  const sai = kq.filter(x=>!x.dung && !x.cho).length, cho = kq.filter(x=>x.cho).length; console.log((kq.length-sai-cho)+'/'+kq.length+' đạt'+(cho ? ' · '+cho+' chờ chốt' : ''));
  await b.close(); process.exit(sai||loiTrang.length ? 1 : 0);

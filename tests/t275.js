@@ -19,10 +19,10 @@ const fs=require('fs'), path=require('path');
    for(const k in TO_KS) delete TO_KS[k]; const K = KHO.datKy(await KHO.nap('2026-08'));
    const goc = JSON.stringify(K.B.co.hstd);
    /* toKhach cũ (trước 3.381) — tham chiếu */
-   const cu = t => { const ds = (K.kh[t.ma]||[]), lap = {}, kh = {}; (K.lap||[]).forEach(o=>{ if(o.to===t.ma) (lap[o.kh] = lap[o.kh]||[]).push(o); });
+   const cu = t => { const ds = (K.kh[t.ma]||[]), lap = {}, kh = {}, s5 = {}; (K.lap||[]).forEach(o=>{ if(o.to===t.ma) (lap[o.kh] = lap[o.kh]||[]).push(o); });
      ds.forEach(o=>{ const k = kh[o.kh] = kh[o.kh] || {kh:o.kh, ten:o.ten||'', mon:[], dn:0, qh:0, kn:0, lt:0, t105:0, stk:[], coTK:false}; if(!k.ten && o.ten) k.ten = o.ten;
        if(o.ku){ k.mon.push(o); k.dn += o.dn||0; k.qh += o.qh||0; k.kn += o.kn||0; k.lt += laiTon(o); }
-       [o].concat(lap[o.kh]||[]).forEach(x=>{ if((x.t105||0) > k.t105) k.t105 = x.t105; if(slCoTK(x.stk)) k.coTK = true; slStk(x.stk).forEach(z=>{ if(k.stk.indexOf(z)<0) k.stk.push(z); }); }); });
+       [o].concat(lap[o.kh]||[]).forEach(x=>{ k.t105 = slT105Them(s5, x, o.kh);   /* 3.409 QT-C-01 cộng sổ */ if(slCoTK(x.stk)) k.coTK = true; slStk(x.stk).forEach(z=>{ if(k.stk.indexOf(z)<0) k.stk.push(z); }); }); });
      return Object.keys(kh).sort().map(m=>{ const k = kh[m]; k.stk = slStkKH(m, k.stk); return k; }); };
    const dsTo = Object.values(K.to); let lech = 0, nKH = 0;
    dsTo.forEach(t=>{ const a = JSON.stringify(cu(t)), m = toKhach(t); nKH += m.length; if(a!==JSON.stringify(m)) lech++; });

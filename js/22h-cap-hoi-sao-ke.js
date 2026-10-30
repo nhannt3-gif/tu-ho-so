@@ -118,7 +118,7 @@ function toKhach(t){   /* 3.381: đọc qua KHO CHUẨN (js/73 kcTo) — kết q
     var k = kh[o.kh] = kh[o.kh] || {kh:o.kh, ten:o.ten||'', mon:[], dn:0, qh:0, kn:0, lt:0, t105:0, stk:[], coTK:false};
     if(!k.ten && o.ten) k.ten = o.ten;
     if(o.ku){ k.mon.push(o); k.dn += o.dn||0; k.qh += o.qh||0; k.kn += o.kn||0; k.lt += laiTon(o); }
-    [o].concat(lap[o.kh]||[]).forEach(function(x){ if((x.t105||0) > k.t105) k.t105 = x.t105; if(slCoTK(x.stk)) k.coTK = true; slStk(x.stk).forEach(function(z){ if(k.stk.indexOf(z)<0) k.stk.push(z); }); });
+    [o].concat(lap[o.kh]||[]).forEach(function(x){ k.t105 = slT105Them(k, x); if(slCoTK(x.stk)) k.coTK = true; slStk(x.stk).forEach(function(z){ if(k.stk.indexOf(z)<0) k.stk.push(z); }); });
   });
   return Object.keys(kh).sort().map(function(m){ var k = kh[m]; k.stk = slStkKH(m, k.stk); return k; });   /* 3.120: số sổ 105 tham chiếu Dư nợ chi tiết (qua danh bạ) */
 }
@@ -256,7 +256,7 @@ function toBCTK105(t){
       if(o.to!==t.ma || !o.kh || o.raTo) return;   /* 3.138.1 */
       var k = kh[o.kh] = kh[o.kh] || {kh:o.kh, ten:o.ten||'', vay:false, dn:0, lt:0, t105:0, stk:[], nv:'', coTK:false};
       if(o.ku){ if(slKUChuaGN(o)) k.chuaGN = true; k.vay = true; k.dn += o.dn||0; k.lt += laiTon(o); var n = o.nv||o.ngn; if(n && (!k.nv || n<k.nv)) k.nv = n; }
-      [o].concat(lap[o.kh]||[]).forEach(function(x){ if((x.t105||0) > k.t105) k.t105 = x.t105; if(slCoTK(x.stk)) k.coTK = true; slStk(x.stk).forEach(function(z){ if(k.stk.indexOf(z)<0) k.stk.push(z); }); });
+      [o].concat(lap[o.kh]||[]).forEach(function(x){ k.t105 = slT105Them(k, x); if(slCoTK(x.stk)) k.coTK = true; slStk(x.stk).forEach(function(z){ if(k.stk.indexOf(z)<0) k.stk.push(z); }); });
     });
     var ds = Object.keys(kh).sort().map(function(m){ var k = kh[m]; k.stk = slStkKH(m, k.stk); return k; });   /* 3.120 */
     var conNo = ds.filter(function(k){ return k.dn>0; }), conLai = ds.filter(function(k){ return !(k.dn>0) && k.lt>0; }), tatNo = ds.filter(function(k){ return !(k.dn>0) && !(k.lt>0) && !k.chuaGN; });   /* 3.138: KU đã nhập máy chưa giải ngân — không phải tất nợ */

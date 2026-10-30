@@ -185,7 +185,7 @@ function ktGNHo(p){   /* món của tổ → hộ (theo mã KH); 3.328: lãi t�
   var KH = (KT_GN && KT_GN.kh && KT_GN.kh[p.th]) || {}, ho = [], g = {};
   p.mon.forEach(function(o){ var h = g[o.kh]; if(!h){ var k = KH[o.kh];
       h = g[o.kh] = {kh:o.kh, ten:o.ten||'', mon:[], lt:k ? k.lt : 0, t105:k ? k.t105 : 0, loai:k ? k.loai : false, gnMon:true, _k:!!k}; ho.push(h); }
-    h.mon.push(o); if(!h._k){ h.lt += laiTon(o); if((o.t105||0)>h.t105) h.t105 = o.t105; if((o.qh||0)>0 || (o.kn||0)>0) h.loai = true; } });
+    h.mon.push(o); if(!h._k){ h.lt += laiTon(o); h.t105 = slT105Them(h, o); if((o.qh||0)>0 || (o.kn||0)>0) h.loai = true; } });
   return ho.sort(ktTheoKH);
 }
 function ktGNNgay(o){ return o.c_ngay_gn_cuoi_cung ? (ngayISOTuVN(o.c_ngay_gn_cuoi_cung) || o.c_ngay_gn_cuoi_cung) : (o.ngn||''); }

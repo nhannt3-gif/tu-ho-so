@@ -47,7 +47,7 @@ function ttMon(o, s, N, khd){   /* cộng 1 món vào s (s = tổ hoặc chươn
 function ttDuLieu(){   /* → [{khoa, ten, tenXa, ngayGD, hoi:[{dv, ten, to:[{t, s}], ct:{ma:s}, s}], ct:{ma:s}, s}] trong phạm vi */
   var K = SK_K, C = skCH(), T = K.to || {}, N = ttNgu(K), khd = {}, t105 = {}, lap = {};
   slKHD(K.B).forEach(function(o){ if(o.ku) khd[o.ku] = 1; });
-  (kcLap(K)||[]).forEach(function(o){ if(o.kh && (o.t105||0)>(lap[o.kh]||0)) lap[o.kh] = o.t105; });   /* 3.382: qua kho chuẩn */
+  (kcLap(K)||[]).forEach(function(o){ if(o.kh) (lap[o.kh] = lap[o.kh] || []).push(o); });   /* 3.409: giữ dòng lặp để cộng sổ */   /* 3.382: qua kho chuẩn */
   var D0 = {}, ds = [];
   Object.keys(T).map(function(m){ return T[m]; }).filter(function(t){ return pvLoc(C, t); }).forEach(function(t){
     var kd = t.khoaDiem || ttDiemTen(t), d = D0[kd];
@@ -57,7 +57,7 @@ function ttDuLieu(){   /* → [{khoa, ten, tenXa, ngayGD, hoi:[{dv, ten, to:[{t,
     kcTo(K, t.ma).dong.forEach(function(o){
       if(o.kh) s._kh[o.kh] = 1;   /* 3.262 (anh chốt): Số hộ = tổ viên của tổ (như tab Tổ), kể cả hộ chỉ gửi TK 105 */
       ttMon(o, s, N, khd);
-      var v = Math.max(o.t105||0, lap[o.kh]||0); if(o.kh && v>(kh105[o.kh]||0)) kh105[o.kh] = v; });
+      if(o.kh){ kh105[o.kh] = slT105Them(kh105, o, o.kh); (lap[o.kh]||[]).forEach(function(x){ kh105[o.kh] = slT105Them(kh105, x, o.kh); }); } });   /* 3.409 QT-C-01 cộng sổ */
     Object.keys(kh105).forEach(function(k){ s.t105 += kh105[k]; });
     s.soTo = toLaTT(t) ? 0 : 1; ttChot(s);
     h.to.push({t:t, s:s}); ttCong(h.s, s); ttCong(d.s, s);

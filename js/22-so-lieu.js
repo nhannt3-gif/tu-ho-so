@@ -305,15 +305,25 @@ function slTimKy(sheet, r, rows, tenFile){
   return kq;
 }
 
+/* 3.409 (Tèo QT-C-01 · TK 1 kiểm file thật 30/10: cột "Số dư tiền gửi 105" của Mẫu 31 là số dư TỪNG SỔ — khách nhiều sổ các sổ khác số; 1 sổ lặp nhiều dòng luôn cùng số
+   · anh 30/10 "lưu ý KH có từ 2 số TK 105"): tiền gửi khách = CỘNG các sổ, mỗi sổ lấy 1 lần (trước 3.87–3.408: lấy số lớn nhất / khách).
+   slT105Them(m, o, khoa) — cộng dồn vào kho ẩn của m (không hiện khi duyệt khóa), trả tổng hiện tại của khoa; dòng không ghi số sổ chỉ tính khi khách không có sổ nào ghi số. */
+function slT105Them(m, o, khoa){
+  if(!m.__s105) Object.defineProperty(m, '__s105', {value:{}, enumerable:false});
+  var k = khoa==null ? '' : String(khoa), g = m.__s105[k] = m.__s105[k] || {}, so = (slStk(o && o.stk)[0]) || '_', v = +(o && o.t105) || 0;
+  if(g[so]===undefined || v>g[so]) g[so] = v;
+  var coSo = Object.keys(g).some(function(x){ return x!=='_'; });
+  return Object.keys(g).reduce(function(a, x){ return a+(x==='_' && coSo ? 0 : g[x]); }, 0);
+}
 /* ---------- 4. TỔNG CHÍNH của từng loại ---------- */
 function slTong(loai, rows, lap){
   var t = {n:rows.length}, cong = function(f){ return rows.reduce(function(a, o){ return a+(o[f]||0); }, 0); };
   var dem = function(f){ var x = {}; rows.forEach(function(o){ if(o[f]) x[o[f]] = 1; }); return Object.keys(x).length; };
   if(slLaHS(loai) || loai==='dnct'){   /* 3.121: Dư nợ chi tiết tính tổng như Mẫu 31 để đối chiếu */
     t.kh = dem('kh'); ['dn','th','qh','kn','gn','lt'].forEach(function(f){ t[f] = cong(f); });   /* dòng lặp khế ước ở bảng riêng → dư nợ không cộng trùng */
-    /* 3.87: '105 ngày BC' là TỔNG 105 của khách (anh Nhân xác nhận) → lấy 1 lần mỗi khách, không cộng theo dòng */
+    /* 3.409 QT-C-01: số dư 105 theo TỪNG SỔ (mỗi sổ 1 lần) → tiền gửi khách = cộng các sổ (3.87 lấy số lớn nhất / khách) */
     var s105 = {}, so = {};
-    rows.concat(lap||[]).forEach(function(o){ if(!o.kh) return; if((o.t105||0) > (s105[o.kh]||0)) s105[o.kh] = o.t105; if(o.stk) (so[o.kh] = so[o.kh]||{})[o.stk] = 1; });
+    rows.concat(lap||[]).forEach(function(o){ if(!o.kh) return; s105[o.kh] = slT105Them(s105, o, o.kh); if(o.stk) (so[o.kh] = so[o.kh]||{})[o.stk] = 1; });
     t.t105 = Object.keys(s105).reduce(function(a, k){ return a+s105[k]; }, 0);
     t.khNhieuSo = Object.keys(so).filter(function(k){ return Object.keys(so[k]).length>1; }).length;
     t.lap = (lap||[]).length;

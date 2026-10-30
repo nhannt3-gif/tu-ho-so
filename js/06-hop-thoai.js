@@ -1962,7 +1962,11 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.408', ds:[
+var CO_GI_MOI = {ban:'3.409', ds:[
+  ["⚖ Nút tạm So cách cũ / mới (🗺 Địa bàn + Kiểm tra kỳ) — xem 6 thay đổi gần đây có chênh không", ""],
+  ["📋 Sao kê mới: khách có từ 2 TK 105 — từng sổ, số dư, ngày mở, tổng cộng sổ (giữ 1, đóng bớt)", "doiNgan(7);slDoiTab('sk')"],
+  ["🔢 Số dư TK 105 của khách = cộng các sổ (trước lấy sổ lớn nhất) — theo kiểm file thật của Tèo", ""],
+  ["🗺 Cây địa bàn: tên xã theo Mẫu 31 (hết lỗi xã hiện \"Vay trực tiếp\"); File Tổ trưởng khác ngày vẫn ghép như cũ, Mẫu 31 là chính", ""],
   ["🏦 Tra cứu KH: khách có từ 2 TK 105 → nhãn đỏ + liệt kê đủ số TK, số dư từng sổ, ngày mở để đóng bớt", "doiNgan(7);slDoiTab('tra')"],
   ["🏷 LỌC ĐỊA BÀN: nút Tên ấp cũ (mặc định tắt) + dòng nhỏ 4 KP Gia Lộc đổi tên; 🗺 Địa bàn có ghi chú ấp / KP cũ", "doiNgan(7);slDoiTab('tra')"],
   ["🗺 Hôm nay › Địa bàn theo Mẫu 31 + File Tổ trưởng mới nhất: so lệch danh mục Cài đặt (cập nhật có xem trước), kiểm tổ còn dư nợ không chuẩn, so ấp trước 07/2026, 📝 ghi chú điểm GD", "doiNgan(0);ccMo('diaban')"],
@@ -1973,11 +1977,7 @@ var CO_GI_MOI = {ban:'3.408', ds:[
   ["📉 Tra cứu KH › Diễn biến tổ: so tổ đầu tháng với hiện tại theo xã / điểm GD / Hội — tổ đã đóng (khoảng ngày), tổ mới, đổi điểm / Hội, tổ rác chưa đóng", "doiNgan(7);slDoiTab('tra')"],
   ["🧭 Điểm GD theo luật chung Tèo: ấp của tổ theo File Tổ trưởng, món vay trực tiếp theo ấp · Kiểm tra kỳ báo món lệch ấp / ấp nhiều điểm / món trực tiếp gán tạm", "doiNgan(7);slDoiTab('nap')"],
   ["🏷 Số liệu: file gốc lưu tên chuẩn MÃ_ngày số liệu (vd MAU31_2026-10-31) · sổ DANH_MUC_NAP.csv mỗi tháng · ⋯ › 🏷 Chuẩn hóa tên file tháng cũ", "doiNgan(7);slDoiTab('nap')"],
-  ["🔧 Hướng dẫn › Có gì mới: các dòng bản 3.390–3.399 hiện đủ chữ (trước chỉ hiện biểu tượng), bấm mở đúng chỗ", "moHuongDan('moi')"],
-  ["🧹 Tạm bỏ ⚠ Theo dõi nợ (Thư viện) — gỡ hết code (thẻ món, hồ sơ hộ, biên bản làm việc, phiếu món vay, nhắc Hôm nay, ô Giao ban / Buổi GD, gợi ý tên có dấu ở Scan); dữ liệu cũ giữ nguyên, làm lại sau", "doiNgan(3)"],
-  ["📌 KTGS Kế hoạch năm: 📌 Chốt (ghi ngày chốt + khóa) · ✏ Sửa → 📌 Chốt lại theo ngày sửa · 📜 Lịch sử chốt; Định kỳ / Mẫu 04 dùng bản chốt mới nhất", "doiNgan(7);slDoiTab('kt')"],
-  ["🔒 KTGS Khai báo Hội – xã / Chuẩn hóa: 🔒 Khóa chống sửa nhầm + 📜 Nhật ký (cũ → mới) có ↶ Khôi phục", "doiNgan(7);slDoiTab('kt')"],
-  ["🏷 Chip đổi tên 🗓 Kế hoạch năm; nút 📋 Phân công ở bảng Hội – xã", "doiNgan(7);slDoiTab('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🔧 Hướng dẫn › Có gì mới: các dòng bản 3.390–3.399 hiện đủ chữ (trước chỉ hiện biểu tượng), bấm mở đúng chỗ", "moHuongDan('moi')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

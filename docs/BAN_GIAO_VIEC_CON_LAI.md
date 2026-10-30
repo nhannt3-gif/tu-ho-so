@@ -264,6 +264,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Theo dõi nợ đã gỡ: làm lại sau nên đọc dữ liệu cũ ở IndexedDB khóa `tdn_du_lieu` (cấu trúc `NO = {ho, mon, lan, lanXoa, nhap, toAp, suaLuc}` — xem git `js/04e-theo-doi-no.js` bản 3.398) và Drive `_Hệ thống/theodoino.json`; nên đọc số liệu qua `KHO` (không bộ đọc Excel riêng — lý do gỡ, L1 RA_SOAT_HUONG_DI_2510).
 - Hàm tiện ích tên `tdn*` (tdnTien, tdnHoi, tdnCuoiKy…) vẫn dùng khắp app — ở `js/04e-chung.js`, không đổi tên.
 
+### Danh sách thử trên máy thật (3.409)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › Khách hàng › Khách có từ 2 TK 105 (đã nạp Sao kê TK 105) | Mỗi sổ 1 dòng, số dư + ngày mở, tổng 105 khách = cộng sổ, sổ 0 tô nền | |
+| 2 | Khách 2 sổ: so số dư 105 ở thẻ tổ / KTGS với Sao kê TK 105 | Bằng tổng 2 sổ | |
+| 3 | Nạp File Tổ trưởng khác ngày Mẫu 31 | Kiểm tra kỳ báo QT-C-09, 🗺 Địa bàn ghi ⚠ Mẫu 31 là chính; vẫn có CCCD / TK 104 tổ trưởng; ấp theo Mẫu 31 | |
+| 5 | 🗺 Địa bàn › ⚖ So cách cũ / mới (kỳ 29/10) | 6 mục, mục nào chênh có bảng từng tổ / khách — anh xem rồi báo, bản sau gỡ nút | |
+| 4 | 🗺 Địa bàn kỳ 29/10 | 5 xã đúng tên (Gia Lộc, Thạnh Đức, Truông Mít không còn "Vay trực tiếp") | |
+
+_Ghi chú kỹ thuật 3.409:_ `slT105Them` (js/22, gắn `__s105` không đếm được vào đối tượng gom); `K.dsLech` / `K.dsDung` (js/22g toNap; khác ngày không đè `t.thon`), `toTenXa` (js/22g); `skBCTk2` (js/76); mục QT-C-09 ở `slKTAp` (js/22k); `dbslNguon` (js/82).
+
 ### Danh sách thử trên máy thật (3.408)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

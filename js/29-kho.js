@@ -145,12 +145,12 @@ var KHO = (function(){
       return slDocBang(L, e.ky).then(function(b){ if(!b) return null; var rows = slMoBang(b), x = {e:e, rows:rows}; if(L==='k37'){ x.theoTo = {}; rows.forEach(function(o){ x.theoTo[o.to] = o; }); } return x; }); },
     /* số dư TK 105 từng khách tháng liền trước kỳ K (K.thang) — như ktTruocNap → Promise {ky, co, t105:{maKH: số dư}} */
     t105Truoc: function(K){ var tr = kyLui(K && K.thang || K, -1); if(!this.coBang('hstd', tr)) return Promise.resolve({ky:tr, co:false, t105:{}});
-      return slBo(tr).then(function(B){ var t = {}; (B.co.hstd||[]).concat(B.lap||[]).forEach(function(o){ if(o.kh && (o.t105||0) > (t[o.kh]||0)) t[o.kh] = o.t105; else if(o.kh && t[o.kh]===undefined) t[o.kh] = o.t105||0; });
+      return slBo(tr).then(function(B){ var t = {}; (B.co.hstd||[]).concat(B.lap||[]).forEach(function(o){ if(o.kh) t[o.kh] = slT105Them(t, o, o.kh); });   /* 3.409 QT-C-01 cộng sổ */
         return {ky:tr, co:true, t105:t}; }).catch(function(){ return {ky:tr, co:false, t105:{}}; }); },
     /* món giải ngân trong tháng th — như 1 tháng của ktGNNap → Promise {ky, ngay, ds:{maTo:{t, mon}}} | null (chưa có Mẫu 31) */
     monGN: function(th){ var co = this.chotThang(th); if(!co) return Promise.resolve(null); var nd = co.tam ? co.ky : '';
       return slBo(co.ky).then(function(B){ var hs = B.co.hstd || [], gap = {}, D1 = {}, KH = {};
-        hs.forEach(function(o){ if(!o.kh) return; var k = KH[o.kh] = KH[o.kh] || {lt:0, t105:0, loai:false}; k.lt += laiTon(o); if((o.t105||0)>k.t105) k.t105 = o.t105; if((o.qh||0)>0 || (o.kn||0)>0) k.loai = true; });   /* 3.333: như KT_GN.kh của KTGS 3.329 */
+        hs.forEach(function(o){ if(!o.kh) return; var k = KH[o.kh] = KH[o.kh] || {lt:0, t105:0, loai:false}; k.lt += laiTon(o); k.t105 = slT105Them(k, o); if((o.qh||0)>0 || (o.kn||0)>0) k.loai = true; });   /* 3.333: như KT_GN.kh của KTGS 3.329 */
         hs.forEach(function(o){
           if(!o.ku || gap[o.ku] || !o.to || o.to===TO_GIA || !((o.gnT||0)>0)) return;
           if(nd && o.c_ngay_gn_cuoi_cung){ var g = ktGNNgay(o); if(g && /^\d{4}-\d{2}-\d{2}$/.test(g) && (slThang(g)!==th || g>nd)) return; }
