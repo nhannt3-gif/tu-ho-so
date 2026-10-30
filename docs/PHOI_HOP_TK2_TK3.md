@@ -131,6 +131,7 @@
 | 31/10 | TK 2 | 3.410 | gỡ `js/80`, `js/84`, `tests/t322`; `js/22g`, `js/22gb`, `js/22h` (bỏ biến động cả năm, cột Mới vào / 105 tăng giảm, chip Mới vào; `slStkKH` + Sao kê), `js/58`, `css`, `tests/t128`, `t130`, `t330`, `t331` | t331 8/8, t128 38/38, t130, t330 đạt; hồi quy đủ 209/211 — t157, t246 sửa phép theo phần đã gỡ (đạt); + A1 (5 báo cáo Thông tin tổ gắn lap, t276 giống hệt) |
 | 31/10 | TK 2 | 3.411 | tách `js/25` → 25/25b/25c, `js/12` → 12/12b/12c/12d, `js/04b` → 04b/04b2/04b3, `js/06` → 06/06a (chép nguyên); `js/22h` A1; `index.html`, `tools/hoiquy_pt.py`, `tests/t177` | kiem sạch, nhanh 37/37, t177, t276 đạt; hồi quy đủ |
 | 31/10 | TK 2 | 3.411.1 | đổi tên `js/06d` → `js/06a` (t138), `tests/t314` (19 báo cáo lap) | hồi quy đủ 3.411: 209/211 → 2 phép sửa, đạt |
+| 31/10 | TK 2 | 3.411.2 | `js/22g` (toDong0 bỏ qua khi thieuBang), `tests/t100`–`t105` câu kiểm D1, `docs/RA_SOAT_HOI_QUY.md` | t100 6/6, t102 15/15, t103 4/4, t104 9/9, t105 8/8; hồi quy theo đổi |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

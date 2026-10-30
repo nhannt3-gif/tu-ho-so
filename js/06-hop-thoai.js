@@ -1040,7 +1040,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.411.1', ds:[
+var CO_GI_MOI = {ban:'3.411.2', ds:[
+  ["🔧 Sửa: máy chưa tải bảng số liệu (Drive hết phiên) — cây tổ tạm từ danh bạ không còn rỗng", "doiNgan(7);slDoiTab('to')"],
   ["🔧 Sửa thứ tự nạp file mã sau khi tách (đúng thứ tự tên file)", ""],
   ["⚙ Bên trong: tách 4 file mã lớn thành file nhỏ theo khối — app chạy như cũ, mở nhanh / sửa an toàn hơn", ""],
   ["🧹 Dọn theo dõi tổ: bỏ Diễn biến tổ, Biến động cả năm, dòng biến động, cột Mới vào / 105 tăng giảm, nút tạm So cách cũ / mới", ""],
@@ -1054,8 +1055,7 @@ var CO_GI_MOI = {ban:'3.411.1', ds:[
   ["🏷 LỌC ĐỊA BÀN: nút Tên ấp cũ (mặc định tắt) + dòng nhỏ 4 KP Gia Lộc đổi tên; 🗺 Địa bàn có ghi chú ấp / KP cũ", "doiNgan(7);slDoiTab('tra')"],
   ["🗺 Hôm nay › Địa bàn theo Mẫu 31 + File Tổ trưởng mới nhất: so lệch danh mục Cài đặt (cập nhật có xem trước), kiểm tổ còn dư nợ không chuẩn, so ấp trước 07/2026, 📝 ghi chú điểm GD", "doiNgan(0);ccMo('diaban')"],
   ["📤 Nạp & KT › ⋯ › File đối chiếu Tèo: DOI_CHIEU_APP_<ngày>.csv đúng hợp đồng cột với giao ban, lưu Số liệu/<tháng>/ để so kỳ 31/10", "doiNgan(7);slDoiTab('nap')"],
-  ["⏱ Sao kê nợ đến hạn: ngày chuyển quá hạn theo phiên của điểm (Tèo QT-C-12) — cột hệ thống trống thì app tính, món trực tiếp ngay sau ngày đến hạn, lệch lịch điểm báo ⚠", "doiNgan(7);slDoiTab('sk')"],
-  ["📉 Diễn biến tổ thành báo cáo tổng kẻ khung (bảng tổng + Phụ lục 1–4), nút ở thẻ tổ thay nút Lập hồ sơ hộ mới vào tổ", "doiNgan(7);slDoiTab('tra')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["⏱ Sao kê nợ đến hạn: ngày chuyển quá hạn theo phiên của điểm (Tèo QT-C-12) — cột hệ thống trống thì app tính, món trực tiếp ngay sau ngày đến hạn, lệch lịch điểm báo ⚠", "doiNgan(7);slDoiTab('sk')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

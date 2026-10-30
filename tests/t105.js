@@ -177,7 +177,8 @@ const fs=require('fs'), path=require('path');
    { TO_KS = {}; const K7 = await toNap('2026-07'); const tv = Object.keys(K7.to).map(m=>K7.to[m]).find(t=>t.diem && t.ngayGD);
      const r0 = K7.hs.find(x=>x.ku && x.to===tv.ma); const gia = Object.assign({}, r0, {to:'', ku:'6600000999999901', kh:'7000009999', _tt:undefined}); K7.hs.push(gia); delete K7.to['TT'];
      toGanTrucTiep(K7, K7.B); const tt = Object.keys(K7.to).map(m=>K7.to[m]).filter(t=>t.trucTiep);
-     o.trucTiep = tt.length+' mục TT · '+(tt[0] ? (+tt[0].ngayGD===+gia.ngayGD && tt[0].xa===gia.xa ? 'đúng xã + ngày GD của điểm' : 'SAI ĐIỂM')+' · hội '+tt[0].dv+' · '+tt[0].soMon+' món · _tt '+(gia._tt===tt[0].ma) : 'KHÔNG CÓ') + ' · gốc o.to giữ "'+gia.to+'"';
+     const t9 = gia._tt && K7.to[gia._tt];   /* 3.411.2: mục TT của CHÍNH món giả (bộ giả có sẵn mục TT khác — trước lấy nhầm tt[0]); 3.401 QT-C-11: điểm theo ấp của món (tổ cùng ấp) trước, GDXA sau */
+     o.trucTiep = tt.length+' mục TT · '+(t9 && t9.trucTiep ? (t9.xa===gia.xa && (String(t9.diem)===String(tv.diem) || +t9.ngayGD===+gia.ngayGD) ? 'đúng xã + điểm (theo ấp / ngày GD)' : 'SAI ĐIỂM')+' · hội '+t9.dv+' · '+t9.soMon+' món · _tt true' : 'KHÔNG CÓ') + ' · gốc o.to giữ "'+gia.to+'"';
      K7.hs.pop(); TO_KS = {}; }
    /* 3.92: sao kê in 2 khổ — dọc bỏ Số KU (có CT), ngang đủ */
    { slDoiTab('sk'); for(let i=0;i<80 && !document.getElementById('sk-cay');i++) await w(250); await w(400);
@@ -206,4 +207,17 @@ const fs=require('fs'), path=require('path');
  for(const k in r) console.log(k.padEnd(9), r[k]);
  await p.setViewportSize({width:390, height:844});
  await p.evaluate(async()=>{ D.cauHinh.slTab='th'; veSoLieu(); await new Promise(r=>setTimeout(r,800)); });
- await p.screenshot({path:__dirname+'/t105.png'}); console.log('lỗi', loi); await b.close(); })();
+ /* 3.411.2 (RA_SOAT_HOI_QUY D1): câu kiểm thật — phép này tự ghi chữ HOA khi sai (CHƯA THAY, VẪN CHẠY, SAI ĐIỂM, LỀ SAI, THIẾU…) → bắt các chữ đó + mục chính có số */
+ const kq = [], ok = (ten, dk, chi) => kq.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
+ const SAI = /CHƯA THAY|VẪN CHẠY|SAI ĐIỂM|LỀ SAI|DỌC\?|THIẾU|VẪN HIỆN|BỊ MẤT|KHÔNG NẠP ĐƯỢC|KHÔNG CÓ|CÒN DÒNG CUỐI|CHƯA ĐẠT|VẪN ĐỌC|ĐỌC THIẾU/;
+ const xau = Object.keys(r).filter(k=>SAI.test(String(r[k])));
+ ok('không mục nào tự báo sai (chữ HOA: CHƯA THAY, VẪN CHẠY, SAI ĐIỂM, LỀ SAI, THIẾU…)', !xau.length, xau.map(k=>k+': '+String(r[k]).slice(0, 80)).join(' ‖ '));
+ ok('B32 đã bỏ: không đọc nữa', !/VẪN ĐỌC/.test(r.b32||'') && /B32/.test(r.b32||''), r.b32);
+ ok('đối chiếu TW: có bảng chỉ tiêu × nguồn, có ô khớp', /\d+ chỉ tiêu × \d+ nguồn/.test(r.dc||'') && /ô khớp [1-9]/.test(r.dc||''), r.dc);
+ ok('kiểm tháng trống: không chạy, có báo', /không chạy, có báo/.test(r.thangTrong||''), r.thangTrong);
+ ok('vay trực tiếp: món không mã tổ vào mục TT đúng xã + điểm, giữ gốc o.to trống', /đúng xã \+ điểm/.test(r.trucTiep||'') && /_tt true/.test(r.trucTiep||''), r.trucTiep);
+ ok('Tổng hợp in A4 ngang, lề đúng, có số trang', /A4 ngang/.test(r.in||'') && /lề 2\/2\/3\/2 cm/.test(r.in||''), (r.in||'').slice(0, 80));
+ ok('làm mới toàn bộ: xóa sạch số liệu, giữ văn bản', /^0 ô · danh bạ 0 KH · kiểm tra 0/.test(r.lamMoi||''), (r.lamMoi||'').slice(0, 60));
+ ok('không lỗi trang', !loi.length, loi.slice(0, 2).join(' | '));
+ kq.forEach(x=>console.log(x)); const sai = kq.filter(x=>x[0]==='✗').length; console.log((kq.length-sai)+'/'+kq.length+' đạt');
+ await p.screenshot({path:__dirname+'/t105.png'}); await b.close(); process.exit(sai ? 1 : 0); })();
