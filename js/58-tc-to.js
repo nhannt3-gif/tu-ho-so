@@ -163,13 +163,21 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
     else if(mon.length>1) h0 += '<tr class="tc-to-ct-mo tc-to-mon-gon" hidden><td colspan="9">'+mon.map(function(m){ return '<div><b>'+e(ctNgan(m.ct, m))+'</b> '+tcC(m.ku, 'mã món vay')+' · dư nợ <b>'+tdnTien(m.dn||0)+'</b>'+
       (m.nv ? ' · vay '+ngayVNsl(m.nv) : '')+' · hạn '+tcHanMon(m, false, true)+(laiTon(m)>0 ? ' · lãi tồn <b class="cam">'+tdnTien(laiTon(m))+'</b>' : '')+'</div>'; }).join('')+'</td></tr>';
     return h0; };
-  var h = hang([['Tổ (tổ trưởng)', '🏘 <b class="tc-ten to">'+tcC(t.ten, 'tên tổ trưởng')+'</b> '+(tcDongChip(t) || tcNguongChip(r.tong)), 'rong'], ['Mã tổ', tcC(t.ma, 'mã tổ')], ['Mã KH tổ trưởng', tt.kh ? tcC(tt.kh, 'mã KH tổ trưởng') : '<small>chưa rõ</small>'],
-      ['☎ SĐT', t.sdt ? tcC(t.sdt, 'SĐT tổ trưởng') : '—'], ['CCCD', tt.cc ? tcC(tt.cc, 'CCCD tổ trưởng') : '—']])+
-    hang([['Ấp · Xã', e([pvApNgan(t.tenThon||''), String(t.tenXa||'')].filter(Boolean).join(', ') || '—'), 'rong'], ['Điểm GD', e(diem ? 'Điểm '+diem.replace(/\s*·?\s*ngày\s*\d+.*$/i, '') : '—')],
-      ['Ngày GD', e(t.ngayGD || (diem.match(/ngày\s*(\d+)/i)||[])[1] || '—')], ['Hội quản lý', e(tdnHoi(t.dv) || '—')]])+
-    hang([['Thành viên', '<b>'+r.tong+'</b>'], ['Có dư nợ', r.coNo], ['Không dư nợ', r.khongNo], ['Tổng dư nợ', tien(tong.dn)], ['Quá hạn', tien(tong.qh, 'do'), tong.qh ? 'do' : ''],
-      ['Lãi tồn', tien(tong.lt, 'cam')], ['3 tháng KHĐ', tong.khd ? '<b class="vang">'+tong.khd+' món</b>' : '0'], ['Số dư TK 105', tien(tong.t105)]])+
-    '<div class="tc-ghi">'+luuY+e(tcTVGhi(r))+'</div>'+
+  /* 3.416.2 (anh 31/10 "còn rối chưa dễ nhìn"): đầu thẻ 3 hàng ô (17 ô) → 1 dòng tên + 1 dòng phụ + hàng 3 số chính; QH / lãi tồn / 3T KHĐ / không dư nợ chỉ hiện khi ≠ 0.
+     CCCD tổ trưởng = Danh sách tổ / Thông tin tổ trưởng / Mẫu 31 (trước ô CCCD hiện nhầm tt.cc = căn cứ tìm mã KH) */
+  var ccTT = String((t.ds && t.ds.cccd) || (t.tt && t.tt.cccd) || (tt.kh && (KHO.dsKhach() || {})[tt.kh] || {}).cccd || '').replace(/\D/g, '');
+  var ngGD = t.ngayGD || (diem.match(/ngày\s*(\d+)/i)||[])[1] || '', diemTen = diem.replace(/\s*·?\s*ngày\s*\d+.*$/i, '');
+  var phu = [tt.kh ? 'Mã KH '+tcC(tt.kh, 'mã KH tổ trưởng') : '', t.sdt ? '☎ '+tcC(t.sdt, 'SĐT tổ trưởng') : '', ccTT ? 'CCCD '+tcC(ccTT, 'CCCD tổ trưởng') : '',
+    diemTen ? e('Điểm '+diemTen)+(ngGD ? ', GD ngày '+e(ngGD) : '') : ''].filter(Boolean).join(' <i>·</i> ');
+  var so = function(nhan, gt, lop){ return '<div class="tc-to-so'+(lop ? ' '+lop : '')+'"><span>'+nhan+'</span><b>'+gt+'</b></div>'; };
+  var canh = [tong.qh ? '<span class="nh nh-do">Quá hạn '+tdnTien(tong.qh)+'</span>' : '', tong.lt ? '<span class="nh nh-cam">Lãi tồn '+tdnTien(tong.lt)+'</span>' : '',
+    tong.khd ? '<span class="nh nh-vang">3T KHĐ '+tong.khd+' món</span>' : '', r.khongNo ? '<span class="nh nh-xam">'+r.khongNo+' không dư nợ</span>' : ''].filter(Boolean).join(' ');
+  var h = '<div class="tc-to-dau"><div class="tc-to-dong1">🏘 <b class="tc-ten to">'+tcC(t.ten, 'tên tổ trưởng')+'</b> '+(tcDongChip(t) || tcNguongChip(r.tong))+
+      '<span class="tc-to-dc">Tổ '+tcC(t.ma, 'mã tổ')+' <i>·</i> '+e([pvApNgan(t.tenThon||''), String(t.tenXa||'')].filter(Boolean).join(', ') || '—')+(tdnHoi(t.dv) ? ' <i>·</i> '+e(tdnHoi(t.dv)) : '')+'</span></div>'+
+    (phu ? '<div class="tc-to-dong2">'+phu+'</div>' : '')+
+    '<div class="tc-to-sos">'+so('Thành viên', r.tong+' <small>('+r.coNo+' có nợ)</small>')+so('Tổng dư nợ', tdnTien(tong.dn))+so('Số dư TK 105', tdnTien(tong.t105))+
+      '<div class="tc-to-canh">'+(canh || '<span class="xanh">✓ Không quá hạn · lãi tồn · 3T KHĐ</span>')+'</div></div>'+
+    '<div class="tc-ghi">'+luuY+'<span title="'+e(tcTVGhi(r))+'">'+e(tcTVGhi(r).split(' · ')[0])+' ⓘ</span></div></div>'+
     '<div class="tc-nhom tc-to-tv"><div class="tc-to-tv-kieu">Thành viên ('+r.tong+') '+'<span class="tc-dn-chu"><i class="tc-dn-qh">QH</i><i class="tc-dn-kn">Khoanh</i><i class="tc-dn-khd">3T KHĐ</i></span> '+GD.chip('Đủ', !gon, 'tc.tvKieu', {k:'du', to:t.ma}, 'Mỗi món 1 dòng')+
       GD.chip('Gọn', gon, 'tc.tvKieu', {k:'gon', to:t.ma}, 'Mỗi khách 1 dòng — bấm ▸ xem từng món')+'</div>'+
       '<div class="tc-to-tv-ds"><table class="tc-to-tvb"><thead><tr><th>#</th><th>Họ tên</th><th>Mã KH</th><th>CT</th><th>Dư nợ</th><th>Ngày vay</th><th>Hạn trả</th><th>Lãi tồn</th><th>TGTK</th></tr></thead><tbody>'+

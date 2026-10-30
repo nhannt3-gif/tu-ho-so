@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.416.2 — 31/10/2026 — Đầu thẻ tổ gọn (TK 2)
+- **Anh 31/10** (ảnh thẻ tổ Tra cứu): "còn rối chưa dễ nhìn".
+- **Trước:** 3 hàng ô kẻ (17 ô), nhiều ô 0, ghi chú kỹ thuật; ô CCCD hiện nhầm "Mã CIF TT (Mẫu 31 / Mẫu 18)" (là căn cứ tìm mã KH tổ trưởng `hsoTTKH().cc`, không phải số CCCD).
+- **Nay (`tcTheTo` js/58 + CSS):** dòng 1 = 🏘 tên tổ trưởng (chữ to) · Tổ mã · ấp, xã · hội; dòng 2 chữ nhỏ = Mã KH · ☎ SĐT · CCCD (Danh sách tổ / Thông tin tổ trưởng / Mẫu 31) · Điểm GD, GD ngày; hàng số = Thành viên (n có nợ) · Tổng dư nợ · Số dư TK 105; Quá hạn / Lãi tồn / 3T KHĐ / không dư nợ chỉ hiện khi ≠ 0 (đỏ / cam / vàng), đều 0 → "✓ Không quá hạn · lãi tồn · 3T KHĐ"; ghi chú còn "Số liệu …" (rê chuột ⓘ xem đủ). Bảng thành viên, nút dưới giữ nguyên; bấm mã / SĐT / CCCD vẫn chép được.
+- Sửa `t246` theo đầu thẻ mới (+ bỏ cột Xã 3.416.1); thẻ tổ `t107`, `t244`, `t247`, `t258`, `t277`, `t278`, `t302`, `t304`, `t329` đạt. Hồi quy 3.416.1: 141/142 (t246 cột Xã — đã sửa).
+
 ## 3.416.1 — 31/10/2026 — 6 chỉnh sửa theo anh 31/10 (TK 2)
 - **① Quét nhiều CCCD** (anh: "quét 1 lần nhiều CCCD cũng đọc xác nhận nhưng khi bấm lưu lại đưa vào hàng chờ khai lại từng cái"): trước chỉ 1 người chưa chắc là cả lượt vào ⏳ Chờ sắp xếp. Nay 🗄 Lưu vào tủ **tách từng người** — đã xác định (Mẫu 31 / tổ trưởng / tổ trưởng cũ) vào tủ tên chuẩn, chưa chắc vào Chờ sắp xếp (giữ tên + số CCCD đọc được), báo rõ 2 nhóm; bấm Lưu khi còn đang đọc → đọc xong tự lưu (`scanLuuTu('tach')` js/41, `qlLuuTu` js/46). Lượt 1 người / không ai xác định: như cũ.
 - **② Danh sách tổ** (Tra cứu, Tổ trưởng): bỏ cột Xã; đầu khung "Xã Truông Mít (48 tổ) - Ấp 1 (3 tổ)" theo cây lọc, có gõ tìm thêm "· tìm thấy n tổ" (`tcToDauChu` js/58); rê chuột ô Ấp thấy xã.
