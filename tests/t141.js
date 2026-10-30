@@ -102,7 +102,7 @@ const path=require('path'); const drive=require('./fakedrive.js')();
    const nhan = pvLuaChon(K.to, {xa:t1.xa, diem:t1.khoaDiem, hoi:'', to:''}, 'to').map(x=>x.chu).join(' | ');
    ok('danh sách tổ: tổ dư nợ 0 có nhãn "⚠ Dư nợ 0 — cần đóng tổ", tổ đang vay không', /0000002 · ⚠ Dư nợ 0 — cần đóng tổ/.test(nhan) && !/0000001 · ⚠/.test(nhan), nhan);
    const chip = toDong0HTML(Object.keys(K.to).map(k=>K.to[k]));
-   ok('chip "⚠ 2 tổ dư nợ 0 — cần đóng tổ" (bấm mở danh sách tổ)', /⚠ 2 tổ dư nợ 0 — cần đóng tổ/.test(chip) && (chip.match(/toChonTo/g)||[]).length===2);
+   ok('chip "⚠ 2 tổ dư nợ 0 — cần đóng tổ" (bấm mở danh sách tổ)', /⚠ 2 tổ dư nợ 0 — cần đóng tổ/.test(chip) && (chip.match(/data-lenh="to.chon"/g)||[]).length===2);
    ok('thẻ tổ cần đóng có nhãn đỏ', /to-dong0/.test(toTheHTML(t2, [])));
    /* 3.383.5 (anh 26/10): kỳ không có Danh sách tổ / LEN_31 → tổ dư nợ 0 và không ai còn TK 105 = đã đóng → ẩn; còn TK 105 → giữ */
    SL_BO['2026-10'] = {ky:'2026-10', co:{hstd:[r31('0000001', 'K1', 5e6), r31('0000007', 'K7', 2e6), r31('0000008', 'K8', 0)], dsto:[{to:'0000001', diem:'D1', tenDiem:'Điểm Giả', tk104:'123'}]},
