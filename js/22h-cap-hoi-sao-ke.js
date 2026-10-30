@@ -28,7 +28,7 @@ function toPVHTML(C){
   var the = '<div class="to-the"><div class="to-the-ten"><b>'+coChuHTML(pvChu(C, KHO.kyDung()))+'</b> · <b>'+soTo+'</b> tổ'+(ttKh ? ' <span class="to-the-phu">+ vay trực tiếp '+ttKh+' khách (không tính là tổ)</span>' : '')+toDong0HTML(X.ds)+'</div>'+
     '<div class="to-the-so"><b>'+tv.length+'</b> tổ viên: <b>'+co+'</b> có dư nợ · <b>'+dem('ko105')+'</b> không dư nợ còn 105 · <b class="do">'+dem('ra')+'</b> đề xuất cho ra · <b class="do">'+dem('cccd')+'</b> CCCD hết hạn'+
       ' │ dư nợ <b>'+tdnTr(dn)+'</b> · QH <b>'+(qh ? tdnTr(qh) : 0)+'</b> · khoanh <b>'+(kn ? tdnTr(kn) : 0)+'</b> · 105 <b>'+tdnTr(t105)+'</b>'+'</div></div>';
-  var xem = '<button class="to-loc'+(TO_LOC_PV==='bang' ? ' bat' : '')+'" onclick="TO_LOC_PV=\'bang\';toVeThe()">📋 '+(C.xa ? 'Bảng các tổ' : 'Bảng theo xã, điểm GD')+'</button>';
+  var xem = '<button class="to-loc'+(TO_LOC_PV==='bang' ? ' bat' : '')+'" data-lenh="to.loc" data-bien="TO_LOC_PV" data-k="bang">📋 '+(C.xa ? 'Bảng các tổ' : 'Bảng theo xã, điểm GD')+'</button>';
   var than = TO_LOC_PV==='bang' ? (C.xa ? toBangToHTML(C) : toBangPGDHTML()) : toDsPVHTML(C, X);
   setTimeout(toChipGon, 0);
   TO_TV_MA = '';
@@ -36,7 +36,7 @@ function toPVHTML(C){
 }
 function toDong0HTML(ds){   /* 3.145: chip "cần đóng tổ" — bấm mở danh sách, bấm tên mở tổ */
   var d = ds.filter(function(t){ return t.canDong; }); if(!d.length) return '';
-  return ' <details class="to-dong0-ds"><summary class="to-dong0">⚠ '+d.length+' tổ dư nợ 0 — cần đóng tổ</summary>'+d.map(function(t){ return '<a href="#" onclick="toChonTo(\''+t.ma+'\');return false">'+coChuHTML((t.ten||'Tổ '+t.ma)+(t.tenThon ? ' · '+t.tenThon : ''))+'</a> <small>('+coChuHTML(toDongNguon(t))+')</small>'; }).join(' · ')+'</details>';
+  return ' <details class="to-dong0-ds"><summary class="to-dong0">⚠ '+d.length+' tổ dư nợ 0 — cần đóng tổ</summary>'+d.map(function(t){ return '<a href="#" data-lenh="to.chon" data-ma="'+coChuHTML(t.ma)+'">'+coChuHTML((t.ten||'Tổ '+t.ma)+(t.tenThon ? ' · '+t.tenThon : ''))+'</a> <small>('+coChuHTML(toDongNguon(t))+')</small>'; }).join(' · ')+'</details>';
 }
 var TO_PV_MAX = 800;   /* màn hình hiện tối đa ngần này dòng; In / Excel đủ */
 function toDsPVHTML(C, X){
@@ -66,6 +66,7 @@ function toBCDSPV(C){   /* danh sách đang lọc của phạm vi → In / Excel
       '<div class="bc-ghi">Có dư nợ = còn món chưa tất toán (còn gốc hoặc còn lãi); dư nợ 0 mà còn nợ lãi vẫn là chưa tất nợ (cột Nợ lãi). Tất nợ = dư nợ 0 và nợ lãi 0; TK 105 còn trên 100.000 đ in đậm (chờ vay lại); 105 = 0 → cho ra. Nền nhạt xen kẽ theo tổ. Vay trực tiếp không phải tổ.</div>'};
 }
 function toInDSPV(){ var C = toCH(); CT_DUNG = {}; var x = toBCDSPV(C); x.ctChu = ctChuThich(); CT_DUNG = null; inBlob(new Blob([toHTMLIn([x], toGiaPV(C))], {type:'text/html'}), x.ten+'.html'); }
+function toExcelDSPV(){ var C = toCH(); CT_DUNG = {}; var x = toBCDSPV(C); x.ctChu = ctChuThich(); CT_DUNG = null; TO_XEM = [x]; toExcel(toGiaPV(C)); }   /* 3.414: nút 📊 Excel danh sách khách cấp phạm vi gọi hàm này nhưng hàm chưa từng có → bấm không ra gì; nay như toExcelDS (Excel đủ cột) */
 function toChonPV(xa, diem){ var C = toCH(); C.xa = xa||''; C.diem = diem||''; C.to = ''; luu(); pvVeCay('to'); }   /* 3.133: giữ Hội đang lọc */
 /* bảng cấp PGD: Cộng PGD trên đầu (bảng dài khỏi cuộn) → từng xã (dòng tổng) → các điểm GD; số tổ không tính vay trực tiếp */
 function toBangPGDHTML(){

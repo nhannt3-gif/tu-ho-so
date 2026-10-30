@@ -245,6 +245,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t332.js` | 3.412 thứ tự dựng sẵn khi mở app: kỳ đang dùng / mới nhất → tháng liền trước → các tháng khác (ngầm, nghỉ 1 giây) — `toNap` giả ghi thứ tự. |
 | `node tests/t333.js` | 3.412.1 đồng bộ cài đặt: lá rỗng của máy này (mặc định, vd `gdx.danhSachCanBo: []`) không đè giá trị trên Drive; máy đã khai vẫn ưu tiên; máy chưa sửa theo Drive. |
 | `node tests/t334.js` | 3.413 R1 tab Tổ cấp phạm vi nạp tháng trước khi bấm chip Ra khỏi tổ (không nạp khi mở), cấp tổ giữ như cũ — `gianho31`. |
+| `node tests/t335.js` | 3.414 nút tab Tổ qua bộ lệnh chung `data-lenh` (chip, chọn tổ, In / Excel / Cột / Ngưỡng) + Excel danh sách khách cấp phạm vi (`toExcelDSPV`) — `gianho31`. |
 
 
 
