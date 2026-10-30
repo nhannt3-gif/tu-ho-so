@@ -144,6 +144,7 @@
 | 31/10 | TK 2 | 3.416.2 | `js/58` (tcTheTo đầu thẻ gọn, sửa ô CCCD), CSS, `tests/t246` | 10 phép thẻ tổ đạt; hồi quy 3.416.1 141/142 (t246 đã sửa) |
 | 31/10 | TK 2 | 3.416.3 | `js/58` (hàng số kẻ ô), CSS, `tests/t246` | 10 phép thẻ tổ đạt |
 | 31/10 | TK 2 | 3.416.4 | `js/58` (chip lãi tồn → ô Lưu ý), `tests/t246` | t246 + 3 phép thẻ tổ đạt |
+| 31/10 | TK 2 | 3.416.5 | `js/58`, CSS, `tests/t246` | t246 + 3 phép thẻ tổ đạt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

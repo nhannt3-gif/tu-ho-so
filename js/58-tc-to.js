@@ -176,9 +176,9 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
     (phu ? '<div class="tc-to-dong2">'+phu+'</div>' : '')+
     hang([['Thành viên', '<b>'+r.tong+'</b> <small>('+r.coNo+' có nợ)</small>'], ['Tổng dư nợ', '<b>'+tdnTien(tong.dn)+'</b>'], ['Số dư TK 105', '<b>'+tdnTien(tong.t105)+'</b>'],
       ['Lưu ý', canh || '<span class="xanh">✓ Không quá hạn · lãi tồn · 3T KHĐ</span>', 'tc-to-canh']])+   /* 3.416.3 (anh 31/10 "nên kẻ khung như cũ"): hàng số kẻ ô như bảng cũ */
-    '<div class="tc-ghi"><span title="'+e(tcTVGhi(r))+'">'+e(tcTVGhi(r).split(' · ')[0])+' ⓘ</span></div></div>'+
+    '</div>'+
     '<div class="tc-nhom tc-to-tv"><div class="tc-to-tv-kieu">Thành viên ('+r.tong+') '+'<span class="tc-dn-chu"><i class="tc-dn-qh">QH</i><i class="tc-dn-kn">Khoanh</i><i class="tc-dn-khd">3T KHĐ</i></span> '+GD.chip('Đủ', !gon, 'tc.tvKieu', {k:'du', to:t.ma}, 'Mỗi món 1 dòng')+
-      GD.chip('Gọn', gon, 'tc.tvKieu', {k:'gon', to:t.ma}, 'Mỗi khách 1 dòng — bấm ▸ xem từng món')+'</div>'+
+      GD.chip('Gọn', gon, 'tc.tvKieu', {k:'gon', to:t.ma}, 'Mỗi khách 1 dòng — bấm ▸ xem từng món')+'<span class="tc-to-ngay" title="'+e(tcTVGhi(r))+'">'+e(tcTVGhi(r).split(' · ')[0])+' ⓘ</span></div>'+   /* 3.416.5: ngày số liệu góc phải dòng Thành viên */
       '<div class="tc-to-tv-ds"><table class="tc-to-tvb"><thead><tr><th>#</th><th>Họ tên</th><th>Mã KH</th><th>CT</th><th>Dư nợ</th><th>Ngày vay</th><th>Hạn trả</th><th>Lãi tồn</th><th>TGTK</th></tr></thead><tbody>'+
       tv.map(dongTV).join('')+'</tbody></table></div></div>'+
     (TC_KHOI_PHU && typeof nkKhoiHTML==='function' ? nkKhoiHTML('to', t.ma, 5) : '')+   /* 3.348: 📜 đã lập / in */
