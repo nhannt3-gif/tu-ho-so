@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.416.2)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › Tổ trưởng › bấm 1 tổ | Đầu thẻ 1 dòng tên + 1 dòng phụ + 3 số; ô CCCD là số CCCD (hoặc không hiện) | |
+| 2 | Tổ có quá hạn / lãi tồn | Hiện nhãn đỏ / cam bên phải hàng số | |
+
 ### Danh sách thử trên máy thật (3.416.1)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
