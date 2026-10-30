@@ -1,12 +1,12 @@
 // 3.134 — Mẫu 06: mục đích cùng cỡ 8 pt, cột đúng / sai mục đích hẹp lại + Hiệu quả đầu tư rộng ra, tên Hội không đậm, "Mẫu số 06/TD" nhỏ + canh phải;
-//        Mẫu 06 trắng ghi tay (dòng 0,8 cm): 1 mặt (4 dòng) / 1 tờ 2 mặt (21 dòng) — đếm trang PDF thật; Word hợp lệ. Bộ GIẢ: tests/gia31.
+//        Mẫu 06 trắng ghi tay (dòng 0,8 cm): 1 mặt (4 dòng) / 1 tờ 2 mặt (21 dòng) — đếm trang PDF thật; Word hợp lệ. Bộ GIẢ: tests/gianho31.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
- const dir = path.join(__dirname,'gia31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi) await slGhi(kq); }

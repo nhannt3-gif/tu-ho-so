@@ -1,14 +1,14 @@
 // 3.118 — Rà mẫu chung (06 / 16 / 04): "Chức vụ:" có hai chấm, chữ sau dòng chấm cách 1 khoảng, đơn vị dài xuống dòng trước "xã / phường",
 //        Mẫu 06: Cán bộ chứng kiến ngang Cán bộ kiểm tra, dòng Cộng in đậm; Mẫu 16 / 04: có tên đơn vị thì bỏ dòng "ĐƠN VỊ KIỂM TRA";
 //        "(tỷ lệ 0%)"; chức vụ dài viết tắt BTV; Mẫu 04 nơi nhận PGD NHCSXH …; Phân công BTV: đủ ấp của xã theo cây, chia sẵn (Chủ tịch ít hơn), ô nhiệm kỳ / HĐUT.
-// Bộ GIẢ: tests/gia31.
+// Bộ GIẢ: tests/gianho31.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
- const dir = path.join(__dirname,'gia31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi) await slGhi(kq); }

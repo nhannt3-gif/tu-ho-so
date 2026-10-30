@@ -1,12 +1,12 @@
 // 3.120 — Nạp số liệu: dòng riêng "Dư nợ chi tiết" (chỉ tham chiếu số TK 105 + điểm GD xã; Mẫu 31 là số liệu chính), bỏ hẳn Mẫu 10.
-// Bộ GIẢ: tests/gia31 (Mẫu 31) + file Dư nợ chi tiết GIẢ dựng ngay trong phép thử từ Mẫu 31 T8 (số sổ 105 giả).
+// Bộ GIẢ: tests/gianho31 (Mẫu 31) + file Dư nợ chi tiết GIẢ dựng ngay trong phép thử từ Mẫu 31 T8 (số sổ 105 giả).
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
- const dir = path.join(__dirname,'gia31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    const mk = (b64, n) => { const bin=atob(b64), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return new File([u], n); };

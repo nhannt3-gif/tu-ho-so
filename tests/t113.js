@@ -1,13 +1,13 @@
 // 3.108 — Danh sách tổ TK&VV (DSTO): đọc (vùng dữ liệu khai sai, dòng tên cột phụ, chữ ký), bổ sung tổ thiếu trong Thông tin tổ trưởng,
 //        đối chiếu Thông tin tổ trưởng ↔ DSTO ↔ Mẫu 31, tên tổ trưởng chuẩn (bỏ Ông / Bà, lấy dấu, hoa đầu từ).
-// Bộ GIẢ: tests/gia31 + bảng tổ T7 (= T8 bỏ 3 tổ) + DSTO T7 dựng từ bảng tổ T8 (cài lệch: 1 điểm GD, 1 Hội, thiếu 1 tổ).
+// Bộ GIẢ: tests/gianho31 + bảng tổ T7 (= T8 bỏ 3 tổ) + DSTO T7 dựng từ bảng tổ T8 (cài lệch: 1 điểm GD, 1 Hội, thiếu 1 tổ).
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500); await p.evaluate(s=>{ window.NGUON_APP=s; }, require('./nguon.js')());   /* 3.142: mã ở file riêng */
- const dir = path.join(__dirname,'gia31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[];
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    const tep = f => { const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return u; };
