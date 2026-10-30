@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.414 — 31/10/2026 — B4: dọn onclick tab Tổ + sửa nút Excel cấp phạm vi + dọn hộp thư (TK 2)
+- Thứ tự anh chốt 31/10 — **B4** (dọn `onclick` màn vừa sửa — A4 · đóng dòng hộp thư đã xong). **Không đổi giao diện, chức năng.**
+- **A4 tab Tổ:** chip lọc (Tất cả / Có dư nợ / Ra khỏi tổ…, cả cấp tổ và phạm vi), 📋 Bảng, chọn tổ (gợi ý tìm, cột Tổ, danh sách tổ cần đóng), 🖨 In / 📊 Excel / ⚙ Cột / ⚙ Ngưỡng, ⟳ Thử lại / ☁ Nối Drive → bộ lệnh chung `GD` (`data-lenh="to.*"`, `toDK` đăng ký lúc vẽ — js/39 nạp sau). `onclick` toàn app 1.316 → 1.297.
+- **Lỗi cũ tìm ra khi dọn:** nút **📊 Excel** của danh sách khách **cấp phạm vi** (xã / điểm / PGD, chưa chọn tổ) gọi `toExcelDSPV` — **hàm chưa từng có** → bấm không ra gì. Nay có `toExcelDSPV` (js/22h, như Excel danh sách 1 tổ, đủ cột).
+- **Hộp thư Tèo:** đánh ✓ 18 dòng đã xong (chỉ sửa ô trạng thái + ghi chú), ghi luật đóng dòng ở đầu mục 14.
+- Phép thử mới `t335` (9 ý); `t128`, `t157`, `t130`, `t331`, `t334`, `t246`, `t102`, `t133`, `t103` đạt.
+
 ## 3.413 — 31/10/2026 — Tab Tổ mở nhanh hơn (R1) (TK 2)
 - **Anh 31/10:** "vẽ lại giao diện và thay đổi khung cửa sổ có làm giật lag, có cách tối ưu nhất không" → đo (`docs/DO_TOC_DO.md`), đề xuất R1–R5 → anh "code theo em đề xuất" (R1 + R2).
 - **R1:** tab Tổ ở cấp phạm vi (chưa chọn tổ) **không nạp Mẫu 31 tháng trước khi mở** — sau 3.410 tháng trước chỉ còn phục vụ chip **Ra khỏi tổ**; chip hiện "…" (rê chuột: bấm để so với tháng trước), bấm mới nạp + hiện danh sách. Bỏ luôn lượt vẽ lại cả màn lần 2. Đo bộ giả 25.000 món: **2.214 ms → 684 ms**. Cấp tổ (thẻ tổ) và Hồ sơ tổ (biên bản kết nạp / ra khỏi tổ) giữ như cũ.
