@@ -175,6 +175,24 @@ function tkChonBan(loai, ngay){
   if(!ds.length) return null; var truoc = ds.filter(function(e){ return !ngay || e.ky<=ngay; });
   return truoc.length ? truoc[truoc.length-1] : ds[0];
 }
+/* 3.416 (anh 31/10 "gặp CCCD tổ trưởng dù cũ hay mới cũng lưu trữ"): tìm số CCCD trong MỌI File Tổ trưởng đã nạp (mới nhất trước) → tổ trưởng cũ / hiện tại
+   → Promise {cif, ten, to, tenXa, tenThon, thon, ky} | null. Đọc bảng gốc ở đây (js/28 — chỗ được phép), nơi khác gọi hàm này. */
+var DS_CCCD = {};
+function dsTimCCCD(cccd){
+  var so = String(cccd||'').replace(/\D/g, ''); if(so.length!==12 && so.length!==9) return Promise.resolve(null);
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto'; }).sort(function(a, b){ return a.ky<b.ky ? 1 : -1; });
+  return ds.reduce(function(p, e){ return p.then(function(x){ if(x) return x;
+    var khoa = e.ky+'|'+(e.luc||''), idx = DS_CCCD[khoa];
+    var lay = idx ? Promise.resolve(idx) : slDocBang('dsto', e.ky).then(function(b){ var m = {}; if(b) slMoBang(b).forEach(function(o){ if(o.cccd) m[o.cccd] = o; }); return DS_CCCD[khoa] = m; }).catch(function(){ return {}; });
+    return lay.then(function(m){ var o = m[so]; return o ? {cif:o.ttKH||'', ten:o.toTen||'', to:o.to||'', tenXa:o.tenXa||'', tenThon:o.tenThon||'', thon:o.thon||'', ky:e.ky} : null; }); }); }, Promise.resolve(null));
+}
+var DS_TT = {};
+function dsTTDs(){   /* 3.416.1: mọi File Tổ trưởng đã nạp (mới nhất trước) → Promise [{ky, rows}] — 👑 Tổ trưởng cũ (js/84) */
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto'; }).sort(function(a, b){ return a.ky<b.ky ? 1 : -1; });
+  return Promise.all(ds.map(function(e){ var khoa = e.ky+'|'+(e.luc||'');
+    return (DS_TT[khoa] ? Promise.resolve(DS_TT[khoa]) : slDocBang('dsto', e.ky).then(function(b){ return DS_TT[khoa] = b ? slMoBang(b) : []; }).catch(function(){ return []; }))
+      .then(function(rows){ return {ky:e.ky, rows:rows}; }); }));
+}
 function dsChonKy(ky){   /* 3.202 (anh chốt 14/10: nạp theo tháng là chính, theo ngày khi thay đổi lớn; giữ 1 danh sách tổ): bản Danh sách tổ hệ thống CỦA THÁNG (mới nhất ≤ ngày kỳ); tháng không có → bản mới nhất; không có bản hệ thống nào → '' (DSTO cũ theo kỳ) */
   var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto' && e.tong && e.tong.rieng; }).sort(function(a, b){ return a.ky<b.ky ? -1 : 1; });
   if(!ds.length) return ''; ky = String(ky||''); var th = ky.slice(0, 7), den = ky.length<=7 ? tdnCuoiKy(ky) : ky;

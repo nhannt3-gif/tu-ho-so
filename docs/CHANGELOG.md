@@ -4,6 +4,27 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.416.1 — 31/10/2026 — 6 chỉnh sửa theo anh 31/10 (TK 2)
+- **① Quét nhiều CCCD** (anh: "quét 1 lần nhiều CCCD cũng đọc xác nhận nhưng khi bấm lưu lại đưa vào hàng chờ khai lại từng cái"): trước chỉ 1 người chưa chắc là cả lượt vào ⏳ Chờ sắp xếp. Nay 🗄 Lưu vào tủ **tách từng người** — đã xác định (Mẫu 31 / tổ trưởng / tổ trưởng cũ) vào tủ tên chuẩn, chưa chắc vào Chờ sắp xếp (giữ tên + số CCCD đọc được), báo rõ 2 nhóm; bấm Lưu khi còn đang đọc → đọc xong tự lưu (`scanLuuTu('tach')` js/41, `qlLuuTu` js/46). Lượt 1 người / không ai xác định: như cũ.
+- **② Danh sách tổ** (Tra cứu, Tổ trưởng): bỏ cột Xã; đầu khung "Xã Truông Mít (48 tổ) - Ấp 1 (3 tổ)" theo cây lọc, có gõ tìm thêm "· tìm thấy n tổ" (`tcToDauChu` js/58); rê chuột ô Ấp thấy xã.
+- **③ 👑 Kiểm CCCD tổ trưởng**: bỏ tổ phó (anh "tạm chỉ kiểm tổ trưởng"); chọn **👑 Tổ trưởng cũ** = mọi người từng là tổ trưởng ở các File Tổ trưởng đã nạp mà nay không còn (kỳ cuối làm TT), đã lưu / **thiếu** để quét bổ sung; Chỉ thiếu dùng cho cả 2 (`dsTTDs` js/28, js/84).
+- **④ Thêm file lớn** (anh: "đọc lâu nhưng không báo tiến độ"): báo "Đang đọc [file i/n ·] tên · dò trùng (x MB) → lưu vào máy → đọc chữ PDF trang i/n", thanh tiến độ theo bước (`themBuoc` js/05, `docChuPDF` thêm báo trang js/03).
+- **⑤ Tên ấp cũ** (anh: "tốn 2 dòng … chỉ hiện khi mở xã liên quan"): toàn PGD không hiện; mở xã có ấp đổi tên → nút 🏷 cuối hàng cây lọc; chữ Gia Lộc lên dải tiêu đề LỌC ĐỊA BÀN (js/83).
+- **⑥ Sửa bản quét** (anh: "cho hiện ds tổ của ấp ra chọn luôn"): danh mục địa bàn chưa khai tổ → ô Tổ TK&VV + nút chọn nhanh lấy tổ của ấp từ Mẫu 31 (khớp tên bỏ chữ Xã / Ấp; `dsToM31` js/08); danh mục đã khai tổ dùng như cũ.
+- Phép thử mới `t338` (8), `t339` (5), `t340` (5); sửa theo thay đổi `t309`, `t317` (6 cột), `t327`, `t337` (15); các phép liên quan đạt.
+
+## 3.416 — 31/10/2026 — CCCD tổ trưởng: lưu cả tổ trưởng cũ + màn kiểm đủ (TK 2)
+- **Anh 31/10:** "đặc biệt khi gặp CCCD tổ trưởng dù cũ hay mới cũng lưu trữ, sau này có 1 chỗ lọc ra CCCD của tổ trưởng xem có lưu đủ hay chưa" → "có kiểm tổ phó hiện tại, tổ trưởng cũ cũng lưu và lọc riêng".
+- **① Tổ trưởng cũ:** CCCD không có trong Mẫu 31 và không phải tổ trưởng hiện tại → tra **mọi File Tổ trưởng đã nạp** (mới nhất trước — `dsTimCCCD`, js/28) → "✓ Tổ trưởng CŨ … (khớp CCCD File Tổ trưởng kỳ …)", lưu tên chuẩn `CIF - Họ tên - CCCD`, gắn vai trò `ttCu` (Lưu vào tủ đúng xã / ấp, không vào Chờ sắp xếp). Bản lưu ghi `vaiTro` (tt / ttCu).
+- **② 👑 Kiểm CCCD tổ trưởng · tổ phó** (gói cắm rút mới `js/84-cccd-to-truong.js`, nút trong 📊 Kiểm tra hồ sơ scan): mỗi tổ của kỳ mới nhất — tổ trưởng + tổ phó hiện tại, đã lưu CCCD chưa (khớp mã KH / CIF hoặc số CCCD), ngày lưu; chip Tất cả / Chỉ thiếu / 👑 Tổ trưởng cũ đã lưu (lọc riêng); 📥 Excel 2 trang.
+- Phép thử mới `t337` (13 ý); `t336`, Scan `t210`, `t216`, `t220`, `t223`, `t224`, `t235`, `t271`, `t316` đạt.
+
+## 3.415 — 31/10/2026 — Scan: CCCD tổ trưởng lưu theo tên chuẩn (TK 2)
+- **Anh 31/10** (ảnh hộp "Đạt · 1 người — làm gì với bản này?"): "sau khi đọc được CCCD và xác định được thì phải lưu theo tên kiểu đã xác nhận nhưng app chỉ lưu theo tên".
+- **Nguyên nhân:** CCCD khớp **tổ trưởng** (bảng tổ — tổ trưởng không vay nên không có trong danh bạ khách Mẫu 31) → 🔎 Tra Mẫu 31 chỉ điền **họ tên** vào ô Tên file, không ghi nhận người đã xác định → Lưu vào máy / In / Gửi ra file chỉ có tên; Lưu vào tủ coi là chưa rõ → ⏳ Chờ sắp xếp; đọc CCCD tự động báo "chưa có trên Mẫu 31 (hộ mới)".
+- **Sửa:** tổ trưởng khớp bảng tổ = **đã xác định người**: mã = **CIF tổ trưởng** (cột MATT Danh sách tổ; chưa có CIF → khóa số CCCD như hộ mới), họ tên theo Danh sách tổ (TENTT), xã / ấp / tổ của tổ (`sxKhachTT`, `sxTenTT` — js/45). Ô Tên file + mọi nút dùng **tên chuẩn `CIF - Họ tên - CCCD`**; 🗄 Lưu vào tủ gắn đúng người, đúng thư mục (không vào Chờ sắp xếp). Đọc CCCD tự động: không có trong Mẫu 31 → tra bảng tổ (tab Scan chưa dựng kỳ thì tự dựng như 🔎 Tra Mẫu 31), hiện "✓ Tổ trưởng … · CIF …" (js/41, js/46).
+- Phép thử mới `t336` (7 ý); Scan `t210`, `t216`, `t220`, `t223`, `t224`, `t235`, `t271`, `t316` đạt.
+
 ## 3.414 — 31/10/2026 — B4: dọn onclick tab Tổ + sửa nút Excel cấp phạm vi + dọn hộp thư (TK 2)
 - Thứ tự anh chốt 31/10 — **B4** (dọn `onclick` màn vừa sửa — A4 · đóng dòng hộp thư đã xong). **Không đổi giao diện, chức năng.**
 - **A4 tab Tổ:** chip lọc (Tất cả / Có dư nợ / Ra khỏi tổ…, cả cấp tổ và phạm vi), 📋 Bảng, chọn tổ (gợi ý tìm, cột Tổ, danh sách tổ cần đóng), 🖨 In / 📊 Excel / ⚙ Cột / ⚙ Ngưỡng, ⟳ Thử lại / ☁ Nối Drive → bộ lệnh chung `GD` (`data-lenh="to.*"`, `toDK` đăng ký lúc vẽ — js/39 nạp sau). `onclick` toàn app 1.316 → 1.297.

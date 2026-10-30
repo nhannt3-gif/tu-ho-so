@@ -24,7 +24,7 @@ function dsAp(xa, diem){
 }
 function dsTo(xa, diem, ap){
   var x = (D.cauHinh.diaBan||[]).find(function(y){ return y.xa===xa; });
-  if(!x) return [];
+  if(!x) return dsToM31(xa, diem, ap);
   var ra = [];
   (x.diem||[]).forEach(function(z){
     if(diem && z.ten!==diem) return;
@@ -36,7 +36,19 @@ function dsTo(xa, diem, ap){
       });
     });
   });
-  return ra;
+  return ra.length ? ra : dsToM31(xa, diem, ap);
+}
+/* 3.416.1 (anh 31/10, hộp Sửa bản quét: "cho hiện ds tổ của ấp ra chọn luôn"): danh mục chưa khai tổ → lấy tổ của ấp từ Mẫu 31 (kỳ đang dựng; chưa dựng thì dựng rồi vẽ lại) */
+function dsToM31(xa, diem, ap){
+  if(!xa || typeof KHO==='undefined') return [];
+  if(!KHO.coKy()){ if(!dsToM31.nap && typeof kyChungLay==='function' && kyChungLay()){ dsToM31.nap = 1;
+      KHO.nap(kyChungLay()).then(function(K){ if(typeof toGanNeuTrong==='function') toGanNeuTrong(K); var k = window.__k, e = document.getElementById('k-diaban'); if(k && e) e.innerHTML = veDiaBan(k); }).catch(function(){}); }
+    return []; }
+  var bo = function(v, re){ return slChuan(String(v||'').replace(re, '')); }, rx = /^(xã|phường|thị trấn)\s+/i, ra = /^(ấp|khu phố|kp|thôn)\s+/i;
+  var X = bo(xa, rx), A = bo(ap, ra), Dm = slChuan(diem||'');
+  var ds = KHO.maTo().map(function(m){ return KHO.to(m); }).filter(function(t){ return t && !t.trucTiep && !toLaTT(t) && bo(t.tenXa, rx)===X && (!A || bo(t.tenThon, ra)===A); });
+  if(!A && Dm){ var d2 = ds.filter(function(t){ return slChuan(String(t.tenDiemDu||t.tenDiem||'').trim())===Dm; }); if(d2.length) ds = d2; }
+  return ds.sort(function(a, b){ return String(a.ma).localeCompare(String(b.ma)); }).map(function(t){ return t.ma+' — '+(t.ten||''); });
 }
 function diemCuaAp(xa, ap){
   var x = (D.cauHinh.diaBan||[]).find(function(y){ return y.xa===xa; });

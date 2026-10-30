@@ -4,7 +4,7 @@ var dangDoc = false;
 function veThem(){
   var tt = document.getElementById('tt-them');
   if(dangDoc){
-    tt.innerHTML = '<div class="thanh-tt cho">Đang đọc file… <div class="tien"><i id="tienI"></i></div></div>';
+    tt.innerHTML = '<div class="thanh-tt cho"><span id="tienChu">'+coChuHTML(THEM_TD ? THEM_TD.chu : 'Đang đọc file…')+'</span> <div class="tien"><i id="tienI"></i></div></div>';   /* 3.416.1: chữ bước đang làm */
   }else if(D.cho.length){
     var kho = D.cho.filter(function(c){ return !c.chac; }).length;
     tt.innerHTML = '<div class="thanh-tt">Đã đọc '+D.cho.length+' file · '+
@@ -81,18 +81,16 @@ function gioiThieuFile(dsFile){
     if(!dsFile.length){ moNapSL(); slDocNhieu(exSL); return; }
     bao(exSL.length+' file Excel sẽ nạp ở tab 📥 Nạp & KT sau khi đọc xong các file còn lại.', 5);
   }
-  dangDoc = true; batChay(); doiNgan(6);
-  var xong = 0, tong = dsFile.length;
-  var lan = Array.prototype.slice.call(dsFile).map(function(f){
+  var xong = 0, tong = dsFile.length, mang = Array.prototype.slice.call(dsFile);
+  THEM_TD = {ds:mang, chu:'Đang đọc file…'}; mang.forEach(function(f, i){ f.__b = 0; f.__i = i; });
+  dangDoc = true; batChay(false, 'Đang đọc file…'); doiNgan(6);
+  var lan = mang.map(function(f){
     return xuLyMotFile(f, khoTab).then(function(){
-      xong++;
-      var i = document.getElementById('tienI');
-      if(i) i.style.width = Math.round(xong/tong*100)+'%';
-      tienChay(Math.round(xong/tong*100));
+      xong++; f.__b = 3; themBuoc(f, 3, 'xong');
     });
   });
   Promise.all(lan).then(function(){
-    dangDoc = false; tatChay(); luu(); ve();
+    THEM_TD = null; dangDoc = false; tatChay(); luu(); ve();
     if(exSL.length){ var nCho = D.cho.length; moNapSL(); slDocNhieu(exSL); if(nCho) bao('Các file khác đang ở khay chờ ('+nCho+') — duyệt sau.', 6); return; }   /* 3.144 */
     var trung = DS_TRUNG.splice(0);
     if(trung.length){
@@ -104,11 +102,23 @@ function gioiThieuFile(dsFile){
     if(D.cho.length) bao('Đã đọc xong '+tong+' file. Xem rồi bấm Duyệt.', 4);
     else baoLoi('Không nhận được file nào. Thử tải file app về máy rồi mở trực tiếp.');
   }).catch(function(e){
-    dangDoc = false; tatChay(); ve();
+    THEM_TD = null; dangDoc = false; tatChay(); ve();
     baoLoi('Lỗi khi đọc file: '+(e&&e.message||e));
   });
 }
 
+/* 3.416.1 (anh 31/10: "khi add 1 file lớn app đọc lâu nhưng không báo tiến độ"): mỗi file 3 bước — dò trùng (0) · lưu vào máy (1) · đọc chữ PDF (2) · xong (3);
+   thanh tiến độ = tổng bước các file / (3 × số file), chữ ghi file + bước đang làm (đồng hồ giây có sẵn) */
+var THEM_TD = null;
+function themBuoc(f, n, chu){
+  if(!THEM_TD || !f || THEM_TD.ds.indexOf(f)<0) return; if(n>(f.__b||0) || n===3) f.__b = n;
+  var ds = THEM_TD.ds, tong = ds.length, pt = Math.round(ds.reduce(function(s, x){ return s+(x.__b||0); }, 0)/(3*tong)*100), xong = ds.filter(function(x){ return x.__b===3; }).length;
+  if(n<3) THEM_TD.chu = 'Đang đọc '+(tong>1 ? 'file '+(f.__i+1)+'/'+tong+' · ' : '')+f.name+' · '+chu+'…';
+  else THEM_TD.chu = xong<tong ? 'Đã đọc '+xong+'/'+tong+' file…' : 'Đọc xong '+tong+' file';
+  dangLamChu(THEM_TD.chu); tienChay(pt);
+  var i = document.getElementById('tienI'); if(i) i.style.width = pt+'%';
+  var c = document.getElementById('tienChu'); if(c) c.textContent = THEM_TD.chu;
+}
 function laFileExcel(ten){ return /\.(xlsx|xls|xlsm|csv)$/i.test(ten||''); }
 /* 3.34: file trùng nội dung — báo rõ đã nằm ở tab nào; thêm từ ô ma trận thì cho chuyển mục cũ vào ô đó */
 var DS_TRUNG = [], TRUNG = [];
@@ -241,6 +251,7 @@ function xuLyMotFile0(f, khoTab){
   var id = idMoi();
   var oLuc = CHO_O ? {ky:CHO_O.ky, ma:CHO_O.ma, ten:CHO_O.ten, pham:CHO_O.pham} : null;
 
+  themBuoc(f, 0, 'dò trùng (' + (f.size>=1048576 ? (f.size/1048576).toFixed(1).replace('.', ',')+' MB' : Math.max(1, Math.round(f.size/1024))+' KB') + ')');
   return vanTay(f).then(function(van){
     var tr = timTrung(van);
     if(tr){
@@ -249,6 +260,7 @@ function xuLyMotFile0(f, khoTab){
       if(oLuc) CHO_O = null;
       return null;
     }
+    themBuoc(f, 1, 'lưu vào máy');
     return luuFile(id, f).then(function(){ return {van:van}; });
   }).then(function(kq){
     if(!kq) return;
@@ -280,7 +292,8 @@ function xuLyMotFile0(f, khoTab){
       v.tenMoi = tenVanBan(v, duoi);
       D.cho.push(CHO_O ? apChoO(v, f.name) : v); return;
     }
-    return docChuPDF(f, D.cauHinh.soTrangDoc||2).then(function(r){
+    themBuoc(f, 2, 'đọc chữ PDF');
+    return docChuPDF(f, D.cauHinh.soTrangDoc||2, function(i, n){ themBuoc(f, 2, 'đọc chữ PDF trang '+i+'/'+n); }).then(function(r){
       var chu = r.chu||'';
       var mau = khopMauNoiDung(chu);
       /* 3.40: PDF thêm từ tab Văn bản chỉ sang Dữ liệu tháng khi nội dung rõ là BẢNG số liệu */

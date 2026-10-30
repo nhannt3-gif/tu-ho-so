@@ -59,7 +59,10 @@ function trChay(id){
   else {
     if(!KHO.coKy() && !e.__napTT && typeof kyChungLay==='function' && kyChungLay()){ e.__napTT = 1; kq.innerHTML = '<small>Không có trong danh bạ khách — đang dựng bảng tổ kỳ '+coChuHTML(kyChungLay())+' để tra tổ trưởng…</small>';   /* tab Scan chưa dựng kỳ → dựng kỳ chung rồi tra lại */
       return KHO.nap(kyChungLay()).then(function(K){ toGanNeuTrong(K); }).catch(function(){}).then(function(){ trChay(id); }); }
-    var tt = trTimTT(e.value); if(tt) return trGanTT(tt);   /* 3.321 (anh 23/10 "CCCD này là của tổ trưởng nhưng app báo không có trong Mẫu 31"): tổ trưởng không vay → tra bảng tổ */
+    var tt = trTimTT(e.value); if(tt) return trGanTT(tt);
+    var soC = String(e.value||'').replace(/\D/g, '');   /* 3.416: tổ trưởng CŨ — File Tổ trưởng các kỳ trước (js/84) */
+    if(!e.__ttCu && e.__ttCuKhong!==soC && (soC.length===12 || soC.length===9) && typeof dsTimCCCD==='function' && typeof trGanTTCu==='function'){   /* đã tra mà không có → không tra lại (tránh vòng lặp) */ e.__ttCu = 1; kq.innerHTML = '<small>Đang tra File Tổ trưởng các kỳ trước…</small>';
+      return dsTimCCCD(soC).then(function(c){ e.__ttCu = 0; if(c) return trGanTTCu(c, soC, id); e.__ttCuKhong = soC; trChay(id); }); }   /* 3.321 (anh 23/10 "CCCD này là của tổ trưởng nhưng app báo không có trong Mẫu 31"): tổ trưởng không vay → tra bảng tổ */
     var th = e.__the, so0 = String(e.value||'').replace(/\D/g, '');
     if(th && th.ten && th.so===so0){ e.value = th.ten; e.setAttribute('data-tr-da', th.ten); if(noi==='sua' && window.__k) window.__k.ten = th.ten;   /* không có ở đâu → tên đọc trên thẻ (QR), không để số trong ô tên */
       kq.innerHTML = '<span class="vang">CCCD '+coChuHTML(so0)+' không có trên Mẫu 31 / bảng tổ — lấy họ tên trên thẻ: <b>'+coChuHTML(th.ten)+'</b>; lưu vào <i>Scan chờ sắp xếp</i>, có Mẫu 31 thì 🧹 Sắp xếp xếp lại.</span>'; return; }
@@ -74,6 +77,12 @@ function trTimTT(q){
     if(so && cc && cc===so) ra.push({ma:m, t:t, b:b, tt:tt, theo:'CCCD tổ trưởng (bảng tổ)'});
     else if(!so && ten && tt && sxChuan(tt)===ten) ra.push({ma:m, t:t, b:b, tt:tt, theo:'tên tổ trưởng'}); });
   return ra.length===1 ? ra[0] : null; }
+/* 3.415 (anh 31/10: "sau khi đọc được CCCD và xác định được thì phải lưu theo tên kiểu đã xác nhận nhưng app chỉ lưu theo tên"): tổ trưởng khớp bảng tổ → thông tin "khách" để lưu như khách Mẫu 31
+   mã = CIF tổ trưởng (mã KH hệ thống, cột CIF Danh sách tổ); chưa có CIF → khóa số CCCD (như hộ mới) */
+function sxKhachTT(x, cccd){ var t = x.t || {}, d = KHO.toDanhBa(x.ma) || {}, so = String(cccd || (x.b && x.b.cccd) || '').replace(/\D/g, ''), cif = String((x.b && x.b.kh) || '').trim();
+  var ten = t.ds && t.ds.toTen ? tenHoaDau(t.ds.toTen) : x.tt;   /* họ tên tổ trưởng theo Danh sách tổ (TENTT) trước, rồi danh bạ tổ */
+  return {ma:cif, khoa:cif ? '' : so, ten:ten, cccd:so, xa:t.tenXa||'', ap:t.tenThon||'', maXa:t.xa||'', maAp:t.thon||'', to:d.ten || t.ten || '', diem:d.diem||'', laTT:true, vaiTro:'tt', maTo:x.ma}; }
+function sxTenTT(c, loai){ return tcTen(c.ma || c.khoa, c.ten, loai || 'CCCD', ''); }
 function trTenTT(m, t){ var d = KHO.toDanhBa(m) || {}; return tenHoaDau(d.ten || t.ten || ''); }
 function trGanTT(x){
   var T = TR; if(!T) return; var e = document.getElementById(T.id), kq = document.getElementById('tr-kq-'+T.id), t = x.t, d = KHO.toDanhBa(x.ma) || {};
@@ -83,6 +92,8 @@ function trGanTT(x){
     k.xa = t.tenXa || k.xa; k.ap = t.tenThon || k.ap; k.diem = d.diem || (k.xa && k.ap && typeof diemCuaAp==='function' ? diemCuaAp(k.xa, k.ap) : '') || k.diem; k.to = x.ma+' — '+(d.ten || t.ten);
     var g = document.getElementById('k-ghi'), gv = g ? g.value : null, db = document.getElementById('k-diaban'); if(db && typeof veDiaBan==='function') db.innerHTML = veDiaBan(k);
     if(gv!=null && document.getElementById('k-ghi')) document.getElementById('k-ghi').value = gv; }
+  if(T.noi==='luu' && typeof SXK!=='undefined'){ var nh = typeof scanNhom==='function' ? scanNhom() : [[]];   /* 3.415: hộp Lưu sau quét — gắn tổ trưởng như khách đã xác định, tên chuẩn */
+    if(nh.length===1){ SXK[0] = sxKhachTT(x, (typeof SX_DOC!=='undefined' && SX_DOC[0] && SX_DOC[0].cccd) || ''); var tn = sxTenTT(SXK[0], SC.che==='the' ? 'CCCD' : 'Tài liệu'); if(SX) SX.ten = tn; if(e){ e.value = tn; e.setAttribute('data-tr-da', tn); } } }
   if(kq) kq.innerHTML = '<span class="xanh">✓ Tổ trưởng <b>'+coChuHTML(x.tt)+'</b> · Tổ '+coChuHTML(x.ma)+(t.tenThon ? ' · '+coChuHTML(t.tenThon) : '')+(t.tenXa ? ' · '+coChuHTML(t.tenXa) : '')+(x.b.kh ? ' · CIF '+coChuHTML(x.b.kh) : '')+'</span> <small>(khớp '+coChuHTML(x.theo)+' — tổ trưởng không có món vay nên không có trong danh bạ khách Mẫu 31)</small>';
 }
 /* gắn khách đã chọn vào hộp đang mở */
