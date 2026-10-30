@@ -169,14 +169,13 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
   var ngGD = t.ngayGD || (diem.match(/ngày\s*(\d+)/i)||[])[1] || '', diemTen = diem.replace(/\s*·?\s*ngày\s*\d+.*$/i, '');
   var phu = [tt.kh ? 'Mã KH '+tcC(tt.kh, 'mã KH tổ trưởng') : '', t.sdt ? '☎ '+tcC(t.sdt, 'SĐT tổ trưởng') : '', ccTT ? 'CCCD '+tcC(ccTT, 'CCCD tổ trưởng') : '',
     diemTen ? e('Điểm '+diemTen)+(ngGD ? ', GD ngày '+e(ngGD) : '') : ''].filter(Boolean).join(' <i>·</i> ');
-  var so = function(nhan, gt, lop){ return '<div class="tc-to-so'+(lop ? ' '+lop : '')+'"><span>'+nhan+'</span><b>'+gt+'</b></div>'; };
   var canh = [tong.qh ? '<span class="nh nh-do">Quá hạn '+tdnTien(tong.qh)+'</span>' : '', tong.lt ? '<span class="nh nh-cam">Lãi tồn '+tdnTien(tong.lt)+'</span>' : '',
     tong.khd ? '<span class="nh nh-vang">3T KHĐ '+tong.khd+' món</span>' : '', r.khongNo ? '<span class="nh nh-xam">'+r.khongNo+' không dư nợ</span>' : ''].filter(Boolean).join(' ');
   var h = '<div class="tc-to-dau"><div class="tc-to-dong1">🏘 <b class="tc-ten to">'+tcC(t.ten, 'tên tổ trưởng')+'</b> '+(tcDongChip(t) || tcNguongChip(r.tong))+
       '<span class="tc-to-dc">Tổ '+tcC(t.ma, 'mã tổ')+' <i>·</i> '+e([pvApNgan(t.tenThon||''), String(t.tenXa||'')].filter(Boolean).join(', ') || '—')+(tdnHoi(t.dv) ? ' <i>·</i> '+e(tdnHoi(t.dv)) : '')+'</span></div>'+
     (phu ? '<div class="tc-to-dong2">'+phu+'</div>' : '')+
-    '<div class="tc-to-sos">'+so('Thành viên', r.tong+' <small>('+r.coNo+' có nợ)</small>')+so('Tổng dư nợ', tdnTien(tong.dn))+so('Số dư TK 105', tdnTien(tong.t105))+
-      '<div class="tc-to-canh">'+(canh || '<span class="xanh">✓ Không quá hạn · lãi tồn · 3T KHĐ</span>')+'</div></div>'+
+    hang([['Thành viên', '<b>'+r.tong+'</b> <small>('+r.coNo+' có nợ)</small>'], ['Tổng dư nợ', '<b>'+tdnTien(tong.dn)+'</b>'], ['Số dư TK 105', '<b>'+tdnTien(tong.t105)+'</b>'],
+      ['Lưu ý', canh || '<span class="xanh">✓ Không quá hạn · lãi tồn · 3T KHĐ</span>', 'tc-to-canh']])+   /* 3.416.3 (anh 31/10 "nên kẻ khung như cũ"): hàng số kẻ ô như bảng cũ */
     '<div class="tc-ghi">'+luuY+'<span title="'+e(tcTVGhi(r))+'">'+e(tcTVGhi(r).split(' · ')[0])+' ⓘ</span></div></div>'+
     '<div class="tc-nhom tc-to-tv"><div class="tc-to-tv-kieu">Thành viên ('+r.tong+') '+'<span class="tc-dn-chu"><i class="tc-dn-qh">QH</i><i class="tc-dn-kn">Khoanh</i><i class="tc-dn-khd">3T KHĐ</i></span> '+GD.chip('Đủ', !gon, 'tc.tvKieu', {k:'du', to:t.ma}, 'Mỗi món 1 dòng')+
       GD.chip('Gọn', gon, 'tc.tvKieu', {k:'gon', to:t.ma}, 'Mỗi khách 1 dòng — bấm ▸ xem từng món')+'</div>'+

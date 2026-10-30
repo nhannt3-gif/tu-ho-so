@@ -1040,7 +1040,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.416.2', ds:[
+var CO_GI_MOI = {ban:'3.416.3', ds:[
+  ["🏘 Thẻ tổ: hàng số kẻ ô như cũ (Thành viên · Tổng dư nợ · TK 105 · Lưu ý)", ""],
   ["🏘 Thẻ tổ gọn: dòng tên, dòng phụ, 3 số chính; quá hạn / lãi tồn / 3T KHĐ chỉ hiện khi có", ""],
   ["🗄 Quét nhiều CCCD: người đã xác định vào thẳng tủ, chỉ người chưa chắc vào Chờ sắp xếp", ""],
   ["👑 Kiểm CCCD: chỉ tổ trưởng; chọn 👑 Tổ trưởng cũ để quét bổ sung người còn thiếu", "ttkMo("],
@@ -1054,8 +1055,7 @@ var CO_GI_MOI = {ban:'3.416.2', ds:[
   ["🔧 Tab Tổ: nút 📊 Excel danh sách khách (cấp xã / PGD) nay tải được file; nút chạy qua bộ lệnh chung", "doiNgan(7);slDoiTab('to')"],
   ["⚡ Tab Tổ TK&VV mở nhanh hơn ≈ 3 lần (toàn PGD 2,2 s → 0,7 s): chip Ra khỏi tổ bấm mới so tháng trước", "doiNgan(7);slDoiTab('to')"],
   ["🔧 Sửa đồng bộ: máy mới (danh sách trống) không còn đè tên cán bộ Giao dịch xã đã khai trên máy khác", ""],
-  ["⚡ Mở app: dựng sẵn kỳ đang dùng (mặc định kỳ mới nhất) + tháng liền trước trước tiên, các tháng khác chạy ngầm sau", ""],
-  ["⚙ Bên trong: phép thử chạy nhanh hơn (27 phép sang bộ dữ liệu giả nhỏ) — app không đổi", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["⚡ Mở app: dựng sẵn kỳ đang dùng (mặc định kỳ mới nhất) + tháng liền trước trước tiên, các tháng khác chạy ngầm sau", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

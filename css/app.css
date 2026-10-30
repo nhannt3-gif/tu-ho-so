@@ -4121,7 +4121,5 @@ details.kt-kh-ls{border:1px solid var(--vien);border-radius:8px;padding:4px 8px;
 .tc-to-dau{padding:4px 2px 2px}.tc-to-dong1{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}.tc-to-dong1 .tc-ten{font-size:calc(17px*var(--co))}
 .tc-to-dc{color:var(--chu-phu);font-size:calc(13px*var(--co))}.tc-to-dc i,.tc-to-dong2 i{font-style:normal;opacity:.5}
 .tc-to-dong2{color:var(--chu-phu);font-size:calc(12.5px*var(--co));margin:2px 0 6px;overflow-wrap:anywhere}
-.tc-to-sos{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px 18px;padding:6px 10px;border:1px solid var(--vien);border-radius:8px;background:var(--the)}
-.tc-to-so{display:flex;flex-direction:column;min-width:0}.tc-to-so span{font-size:calc(11.5px*var(--co));color:var(--chu-phu)}.tc-to-so b{font-size:calc(16px*var(--co))}.tc-to-so small{font-weight:400;color:var(--chu-phu)}
-.tc-to-canh{margin-left:auto;display:flex;flex-wrap:wrap;align-items:center;gap:4px;font-size:calc(12.5px*var(--co))}
+.tc-to-hang td.tc-to-canh{font-size:calc(12.5px*var(--co));line-height:1.9}.tc-to-hang td.tc-to-canh .nh{white-space:nowrap}
 .tc-to-dau .tc-ghi{margin-top:4px}
