@@ -1,6 +1,6 @@
 // 3.88 — tab Số liệu: luồng theo tháng (file của tháng, ② Kiểm tra lưu kết quả, dữ liệu đổi → báo kiểm lại, bảng nhiều tháng thu gọn)
 //        tab con 👥 Tổ TK&VV (trong Số liệu): cây xã → điểm GD → hội → tổ (phím chung + chip), gõ tên tổ, 3 báo cáo (Danh sách hộ vay · Nợ cần xử lý · TK 105) → Xem → In / Excel
-// Bộ GIẢ: tests/gia31 (taogia.py 25000 tests/gia31 m31)
+// Bộ GIẢ: tests/gianho31 (taogia.py 25000 tests/gianho31 m31)
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[], kq=[], ok=(ten, dk, chi)=>kq.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
@@ -8,7 +8,7 @@ const fs=require('fs'), path=require('path');
  const p=await b.newPage({viewport:vp}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
- const dir = path.join(__dirname,'gia31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const r = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o={}, w=t=>new Promise(r=>setTimeout(r,t));
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); await slGhi(await slDocFile(new File([u], f.n))); }
    doiNgan(7); SL_KY='2026-08'; veSoLieu(); await w(400);

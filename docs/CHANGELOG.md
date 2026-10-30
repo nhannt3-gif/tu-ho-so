@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.411.3 — 31/10/2026 — Rà phép thử D2: bộ dữ liệu giả nhỏ (TK 2)
+- Thứ tự anh chốt 31/10 — bước B2 = **D2** (`docs/RA_SOAT_HOI_QUY.md`). **Chỉ đổi phép thử, app không đổi.**
+- 27 phép chuyển bộ giả lớn `gia31` (25.000 dòng) → `gianho31` (300 dòng), **giữ nguyên mọi câu kiểm, đều đạt**: t102, t106–t109, t112, t113, t115, t116, t118–t120, t122–t127, t129, t130, t132–t135, t137, t150, t154 — 871 giây → 215 giây (bớt ≈ 11 phút mỗi lượt hồi quy 1 luồng).
+- Giữ `gia31` 9 phép (đại diện số lớn / cần dữ liệu đủ lớn, không hạ câu kiểm cho vừa bộ nhỏ): t100, t105, t104, t110, t111, t114, t121, t128, t131.
+
 ## 3.411.2 — 31/10/2026 — Rà phép thử D1 + sửa lỗi cây tổ rỗng trên máy 2 (TK 2)
 - **Anh 31/10:** "chốt làm tuần tự rồi gộp lên luôn" — thứ tự: A2 (sổ luật, đã gộp) → **B1 = D1 thêm câu kiểm thật** → B2 (D2) → B3 (đo tốc độ).
 - **D1 (`docs/RA_SOAT_HOI_QUY.md`):** 5 phép thử trước chỉ in số (luôn "đạt") nay có câu kiểm thật: `t100` 6 ý (Mẫu 31 giả, đối chiếu, Tra cứu, ô tìm chung) · `t102` 15 ý (② Kiểm tra, ma trận, tab Tổ, phím, 3 báo cáo tổ — máy tính + điện thoại) · `t103` 4 ý (máy 2 chưa tải bảng) · `t104` 9 ý (kiểm trùng CCCD, tìm vợ/chồng · HSSV, phạm vi, Sao kê 8 báo cáo) · `t105` 8 ý (bắt mọi chữ HOA tự báo sai + mục chính). `t101`, `t276` vốn đã có câu kiểm.

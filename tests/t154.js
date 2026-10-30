@@ -1,13 +1,13 @@
 // 3.158 — Khai báo Hội vừa 1 trang (anh chốt 11/10, docs/KE_HOACH_GON_GIAO_DIEN.md Gói 2): bỏ cột Xã (dòng nhóm "Xã · n Hội · m tổ"),
 //   bỏ cột Tên Hội cấp xã + Số / Ngày KH Hội tỉnh (sang 📖 Chuẩn hóa: khai 1 lần / Hội + ngoại lệ riêng xã), 📋 Phân công cạnh tên Hội, bỏ ⇩ Chép;
-//   dữ liệu cũ tự chuyển (KH nhiều xã khai nhất → chung của Hội, xã khác giữ làm ngoại lệ). Bộ GIẢ: tests/gia31.
+//   dữ liệu cũ tự chuyển (KH nhiều xã khai nhất → chung của Hội, xã khác giữ làm ngoại lệ). Bộ GIẢ: tests/gianho31.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1536,height:730}}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
- const dir = path.join(__dirname,'gia31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    window.SL_KHONG_TU_KIEM = 1;
