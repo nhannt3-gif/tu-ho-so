@@ -1040,7 +1040,13 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.416', ds:[
+var CO_GI_MOI = {ban:'3.416.1', ds:[
+  ["🗄 Quét nhiều CCCD: người đã xác định vào thẳng tủ, chỉ người chưa chắc vào Chờ sắp xếp", ""],
+  ["👑 Kiểm CCCD: chỉ tổ trưởng; chọn 👑 Tổ trưởng cũ để quét bổ sung người còn thiếu", "ttkMo("],
+  ["📥 Thêm file lớn: báo từng bước dò trùng · lưu · đọc chữ PDF trang i/n", ""],
+  ["👤 Danh sách tổ: bỏ cột Xã, đầu khung ghi Xã (n tổ) - Ấp (n tổ)", ""],
+  ["🏷 Tên ấp cũ: chỉ hiện khi mở xã liên quan, không tốn thêm dòng", ""],
+  ["🧾 Sửa bản quét: chọn ấp là hiện sẵn danh sách tổ của ấp (từ Mẫu 31)", ""],
   ["👑 Kiểm CCCD tổ trưởng · tổ phó: lọc tổ nào đã lưu / còn thiếu, tổ trưởng cũ lọc riêng (📊 Kiểm tra hồ sơ scan)", "ttkMo("],
   ["🪪 Scan CCCD tổ trưởng CŨ (đã thôi): khớp File Tổ trưởng các kỳ → lưu tên chuẩn CIF - Họ tên - CCCD", ""],
   ["🪪 Scan CCCD tổ trưởng (không vay, không có trong Mẫu 31): khớp bảng tổ → tên chuẩn CIF - Họ tên - CCCD, Lưu vào tủ đúng người", ""],
@@ -1049,13 +1055,7 @@ var CO_GI_MOI = {ban:'3.416', ds:[
   ["🔧 Sửa đồng bộ: máy mới (danh sách trống) không còn đè tên cán bộ Giao dịch xã đã khai trên máy khác", ""],
   ["⚡ Mở app: dựng sẵn kỳ đang dùng (mặc định kỳ mới nhất) + tháng liền trước trước tiên, các tháng khác chạy ngầm sau", ""],
   ["⚙ Bên trong: phép thử chạy nhanh hơn (27 phép sang bộ dữ liệu giả nhỏ) — app không đổi", ""],
-  ["🔧 Sửa: máy chưa tải bảng số liệu (Drive hết phiên) — cây tổ tạm từ danh bạ không còn rỗng", "doiNgan(7);slDoiTab('to')"],
-  ["🔧 Sửa thứ tự nạp file mã sau khi tách (đúng thứ tự tên file)", ""],
-  ["⚙ Bên trong: tách 4 file mã lớn thành file nhỏ theo khối — app chạy như cũ, mở nhanh / sửa an toàn hơn", ""],
-  ["🧹 Dọn theo dõi tổ: bỏ Diễn biến tổ, Biến động cả năm, dòng biến động, cột Mới vào / 105 tăng giảm, nút tạm So cách cũ / mới", ""],
-  ["🔢 Tab Tổ: cột Số TK 105 khách tất nợ lâu (Mẫu 31 không còn số sổ) lấy từ Sao kê TK 105 bản gần nhất", "doiNgan(7);slDoiTab('to')"],
-  ["🔍 Tra cứu › danh sách tổ: cột Ấp rộng hơn, tên ấp dài không còn bị khuất", "doiNgan(7);slDoiTab('tra')"],
-  ["⚖ Nút tạm So cách cũ / mới (🗺 Địa bàn + Kiểm tra kỳ) — xem 6 thay đổi gần đây có chênh không", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🔧 Sửa: máy chưa tải bảng số liệu (Drive hết phiên) — cây tổ tạm từ danh bạ không còn rỗng", "doiNgan(7);slDoiTab('to')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

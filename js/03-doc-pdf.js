@@ -66,15 +66,15 @@ function nenChu(t){
 }
 
 /* Đọc chữ của n trang đầu. Trả về chuỗi, hoặc '' nếu không đọc được */
-function docChuPDF(file, soTrang){
+function docChuPDF(file, soTrang, moiTrang){   /* 3.416.1: moiTrang(i, n) — báo tiến độ từng trang (Thêm file) */
   return new Promise(function(ok){
     if(!sanSangPDF()){ return ok({chu:'', trang:0}); }
     var fr = new FileReader();
     fr.onload = function(){
       pdfjsLib.getDocument({data:new Uint8Array(fr.result)}).promise.then(function(pdf){
-        var n = Math.min(soTrang||2, pdf.numPages), ds = [];
+        var n = Math.min(soTrang||2, pdf.numPages), ds = [], da = 0;
         for(var i=1;i<=n;i++) ds.push(pdf.getPage(i).then(function(p){
-          return p.getTextContent().then(function(tc){ return ghepDong(tc.items); });
+          return p.getTextContent().then(function(tc){ da++; if(moiTrang) try{ moiTrang(da, n); }catch(e){} return ghepDong(tc.items); });
         }));
         Promise.all(ds).then(function(a){
           ok({chu:nenChu(a.join('\n')), trang:pdf.numPages});

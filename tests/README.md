@@ -248,6 +248,9 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t335.js` | 3.414 nút tab Tổ qua bộ lệnh chung `data-lenh` (chip, chọn tổ, In / Excel / Cột / Ngưỡng) + Excel danh sách khách cấp phạm vi (`toExcelDSPV`) — `gianho31`. |
 | `node tests/t336.js` | 3.415 Scan CCCD tổ trưởng khớp bảng tổ (CIF) → tên chuẩn CIF - Họ tên - CCCD, Lưu vào tủ gắn đúng người — `gianho31` + Danh sách tổ giả. |
 | `node tests/t337.js` | 3.416 Tổ trưởng cũ (tra mọi File Tổ trưởng) lưu tên chuẩn + màn 👑 Kiểm CCCD tổ trưởng · tổ phó (đã lưu / thiếu, lọc tổ trưởng cũ, Excel) — `gianho31` + Danh sách tổ giả. |
+| `node tests/t338.js` | 3.416.1 Quét nhiều CCCD: lưu tách — đã xác định vào tủ, chưa chắc → Chờ sắp xếp; đang đọc → chờ đọc xong tự lưu. |
+| `node tests/t339.js` | 3.416.1 Thêm file: báo bước dò trùng · lưu · đọc chữ PDF trang i/n, thanh tiến độ theo bước (PDF giả). |
+| `node tests/t340.js` | 3.416.1 Sửa bản quét: danh mục chưa khai tổ → tổ của ấp từ Mẫu 31 (`gianho31`). |
 
 
 

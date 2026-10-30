@@ -140,6 +140,7 @@
 | 31/10 | TK 2 | 3.414 | `js/22gb` (toDK, data-lenh to.*), `js/22h` (toExcelDSPV, chip Bảng, link tổ), `docs/TEO_PHOI_HOP.md` (✓ 18 dòng), `tests/t335` | t335 9/9 + 9 phép tab Tổ đạt; hồi quy theo đổi |
 | 31/10 | TK 2 | 3.415 | `js/45` (sxKhachTT, sxTenTT, trGanTT nhánh luu), `js/41` (đọc CCCD tra bảng tổ), `js/46` (qlLuuTu), `tests/t336` | t336 7/7 + 8 phép Scan đạt; hồi quy theo đổi |
 | 31/10 | TK 2 | 3.416 | `js/28` (dsTimCCCD), `js/41` (tổ trưởng cũ), `js/45` (trChay ttCu, vaiTro), `js/46`, **mới** `js/84-cccd-to-truong.js` (cắm rút: 👑 kiểm CCCD tổ trưởng · tổ phó), `index.html`, `tests/t337` | t337 13/13 + t336 + 8 phép Scan đạt; hồi quy theo đổi |
+| 31/10 | TK 2 | 3.416.1 | `js/41`, `js/46` (lưu tách), `js/58` + CSS (bỏ cột Xã), `js/28` (dsTTDs), `js/84`, `js/05` + `js/03` (tiến độ), `js/83` + CSS (ấp cũ), `js/08` (dsToM31), tests t338–t340 + sửa t309/t317/t327/t337 | phép mới + phép liên quan đạt; hồi quy theo đổi |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

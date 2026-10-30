@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.416.1 — 31/10/2026 — 6 chỉnh sửa theo anh 31/10 (TK 2)
+- **① Quét nhiều CCCD** (anh: "quét 1 lần nhiều CCCD cũng đọc xác nhận nhưng khi bấm lưu lại đưa vào hàng chờ khai lại từng cái"): trước chỉ 1 người chưa chắc là cả lượt vào ⏳ Chờ sắp xếp. Nay 🗄 Lưu vào tủ **tách từng người** — đã xác định (Mẫu 31 / tổ trưởng / tổ trưởng cũ) vào tủ tên chuẩn, chưa chắc vào Chờ sắp xếp (giữ tên + số CCCD đọc được), báo rõ 2 nhóm; bấm Lưu khi còn đang đọc → đọc xong tự lưu (`scanLuuTu('tach')` js/41, `qlLuuTu` js/46). Lượt 1 người / không ai xác định: như cũ.
+- **② Danh sách tổ** (Tra cứu, Tổ trưởng): bỏ cột Xã; đầu khung "Xã Truông Mít (48 tổ) - Ấp 1 (3 tổ)" theo cây lọc, có gõ tìm thêm "· tìm thấy n tổ" (`tcToDauChu` js/58); rê chuột ô Ấp thấy xã.
+- **③ 👑 Kiểm CCCD tổ trưởng**: bỏ tổ phó (anh "tạm chỉ kiểm tổ trưởng"); chọn **👑 Tổ trưởng cũ** = mọi người từng là tổ trưởng ở các File Tổ trưởng đã nạp mà nay không còn (kỳ cuối làm TT), đã lưu / **thiếu** để quét bổ sung; Chỉ thiếu dùng cho cả 2 (`dsTTDs` js/28, js/84).
+- **④ Thêm file lớn** (anh: "đọc lâu nhưng không báo tiến độ"): báo "Đang đọc [file i/n ·] tên · dò trùng (x MB) → lưu vào máy → đọc chữ PDF trang i/n", thanh tiến độ theo bước (`themBuoc` js/05, `docChuPDF` thêm báo trang js/03).
+- **⑤ Tên ấp cũ** (anh: "tốn 2 dòng … chỉ hiện khi mở xã liên quan"): toàn PGD không hiện; mở xã có ấp đổi tên → nút 🏷 cuối hàng cây lọc; chữ Gia Lộc lên dải tiêu đề LỌC ĐỊA BÀN (js/83).
+- **⑥ Sửa bản quét** (anh: "cho hiện ds tổ của ấp ra chọn luôn"): danh mục địa bàn chưa khai tổ → ô Tổ TK&VV + nút chọn nhanh lấy tổ của ấp từ Mẫu 31 (khớp tên bỏ chữ Xã / Ấp; `dsToM31` js/08); danh mục đã khai tổ dùng như cũ.
+- Phép thử mới `t338` (8), `t339` (5), `t340` (5); sửa theo thay đổi `t309`, `t317` (6 cột), `t327`, `t337` (15); các phép liên quan đạt.
+
 ## 3.416 — 31/10/2026 — CCCD tổ trưởng: lưu cả tổ trưởng cũ + màn kiểm đủ (TK 2)
 - **Anh 31/10:** "đặc biệt khi gặp CCCD tổ trưởng dù cũ hay mới cũng lưu trữ, sau này có 1 chỗ lọc ra CCCD của tổ trưởng xem có lưu đủ hay chưa" → "có kiểm tổ phó hiện tại, tổ trưởng cũ cũng lưu và lọc riêng".
 - **① Tổ trưởng cũ:** CCCD không có trong Mẫu 31 và không phải tổ trưởng hiện tại → tra **mọi File Tổ trưởng đã nạp** (mới nhất trước — `dsTimCCCD`, js/28) → "✓ Tổ trưởng CŨ … (khớp CCCD File Tổ trưởng kỳ …)", lưu tên chuẩn `CIF - Họ tên - CCCD`, gắn vai trò `ttCu` (Lưu vào tủ đúng xã / ấp, không vào Chờ sắp xếp). Bản lưu ghi `vaiTro` (tt / ttCu).

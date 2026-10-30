@@ -261,7 +261,8 @@ scanXongHop = function(bl){
             return KHO.nap(kyChungLay()).then(function(K){ if(typeof toGanNeuTrong==='function') toGanNeuTrong(K); }).catch(function(){}).then(xong); }   /* tab Scan chưa dựng kỳ → dựng bảng tổ như 🔎 Tra Mẫu 31 */
           sxVeDoc(); }, function(){ SX_DOC[i] = {dang:false}; sxVeDoc(); }); }); }, Promise.resolve());
   }).then(function(){ var o = SX_DOC[0] || {};
-    if(!SX) return;   /* 3.372: phiên quét đã đóng (lưu xong / Xong) trước khi đọc CCCD ngầm xong — máy chậm → bỏ kết quả muộn, không vỡ (SX null) */
+    if(!SX) return;
+    if(SX.choLuu){ SX.choLuu = false; setTimeout(function(){ if(SX && typeof qlLuuTu==='function') qlLuuTu(); }, 0); }   /* 3.416.1: anh bấm Lưu khi đang đọc → đọc xong lưu luôn */   /* 3.372: phiên quét đã đóng (lưu xong / Xong) trước khi đọc CCCD ngầm xong — máy chậm → bỏ kết quả muộn, không vỡ (SX null) */
     if(nh.length===1){ SX.ten = o.tim && o.tim.ma && sxKhach(o.tim.ma) ? sxTenChuan(o.tim.ma, sxKhach(o.tim.ma).ten, 'CCCD', '') : o.tim && (o.tim.tt || o.tim.ttCu) && SXK[0] ? sxTenTT(SXK[0], 'CCCD') : (o.cccd || o.ten ? 'cccd-'+[o.ten, o.cccd].filter(Boolean).join(' - ') : SX.ten);   /* chưa chắc: giữ số CCCD trong tên để Sắp xếp đối chiếu */
       var e = document.getElementById('sx-ten'); if(e) e.value = SX.ten; } });
 };
@@ -287,10 +288,16 @@ GD.dangKy('sx', {luuDoc:function(){ sxLuuTuDoc(); }, photo2:function(el){ SC.pho
   driveCho:function(){ sxDriveCho(); }, apDung:function(){ sxApDung(); }, moTo:function(el){ var m = el.getAttribute('data-to'); sxKiemVe(SXK_MO===m ? '' : m); },
   kiemExcel:function(){ sxKiemExcel(); }, khaiHL:function(){ khaiHangLoat(); }, sapXep:function(){ moSapXep(); }, kiem:function(){ moKiemScan(); }});
 /* lưu vào tủ theo khách đã chọn / tự nhận — như 3.155, thêm số CCCD + tự tạo ảnh khách từ mặt trước */
-scanLuuTu = function(){
-  var nh = scanNhom(); if(nh.some(function(_, i){ return !SXK[i]; })) return bao(nh.length>1 ? 'Chọn khách cho đủ '+nh.length+' người.' : 'Chọn khách trước.', 4);
+scanLuuTu = function(tach){   /* 3.416.1 (anh 31/10 "quét 1 lần nhiều CCCD cũng đọc xác nhận nhưng khi bấm lưu lại đưa vào hàng chờ khai lại từng cái"): tach = 'tach' → người đã xác định vào tủ, người chưa chắc → ⏳ Chờ sắp xếp */
+  var nh = scanNhom(); tach = tach==='tach' && SC.che==='the';
+  if(!tach && nh.some(function(_, i){ return !SXK[i]; })) return bao(nh.length>1 ? 'Chọn khách cho đủ '+nh.length+' người.' : 'Chọn khách trước.', 4);
   var loai = SC.che==='the' ? '' : ((typeof SC_DAT!=='undefined' && SC_DAT && SC_DAT.loai) || layMot('sx-tag')), d = nay(), ds = [], ch = Promise.resolve();   /* 3.297: quét bản đã ký từ hồ sơ vay → loại theo mẫu */
   nh.forEach(function(g, i){ var c = SXK[i], r = SX_DOC[i] || {};
+    if(!c){ var kc = {id:idMoi(), che:'the', chuaKhai:true, ten:(typeof qlTenDoc==='function' && qlTenDoc(r)) || tenLuuTam(d, '- người '+(i+1)), ngay:ngayISO(d), gioQuet:d.toISOString(), taoLuc:d.toISOString(), suaLuc:d.toISOString(), may:maMayCua(),
+        xa:'', diem:'', ap:'', to:'', ghi:'', tag:[], ctrinh:[], matTruoc:!!g[0], matSau:!!g[1]};   /* chưa chắc khách → như Lưu tạm (Chờ sắp xếp), giữ số CCCD đọc được */
+      if(r.cccd){ kc.cccd = r.cccd; kc.cccdDoc = sxGhiDoc(r); if(r.cmnd) kc.cmnd = r.cmnd; }
+      (function(k, a, b){ ch = ch.then(function(){ return a ? doiTenAnh(a.id, k.id+'_matTruoc') : null; }).then(function(){ return b ? doiTenAnh(b.id, k.id+'_matSau') : null; }); })(kc, g[0], g[1]);
+      ds.push(kc); return; }
     var k = {id:idMoi(), che:SC.che==='the' ? 'the' : 'tailieu', ten:c.ten, maKH:c.ma, cccd:c.cccd || r.cccd || '', xa:c.xa, ap:c.ap, maXa:c.maXa, maAp:c.maAp, diem:c.diem||'', to:c.to||'', ghi:'',
       tag:SC.che==='the' ? ['CCCD'] : (loai ? [loai] : []), ctrinh:[], ngay:ngayISO(d), gioQuet:d.toISOString(), taoLuc:d.toISOString(), suaLuc:d.toISOString(), may:maMayCua()};
     if(r.cccd){ k.cccdDoc = sxGhiDoc(r); if(r.cmnd) k.cmnd = r.cmnd; }   /* 3.271: lưu đủ thông tin đọc được (bảng đối chiếu) + CMND 9 số */
@@ -303,11 +310,12 @@ scanLuuTu = function(){
   ch.then(function(){
     D.scan = D.scan || []; ds.forEach(function(k){ D.scan.push(k); }); HS.ds = D.scan;
     donGocHang(); HANG = []; SX = null; SXK = []; SX_DOC = []; ghiHang(); luu(); dongHop(); veScan(); if(typeof SC_DAT!=='undefined') SC_DAT = null;
-    return ds.filter(function(k){ return k.che==='the' && k.matTruoc; }).reduce(function(p, k){ return p.then(function(){ return sxAnhTuCCCD(k); }); }, Promise.resolve());
+    return ds.filter(function(k){ return k.che==='the' && k.matTruoc && !k.chuaKhai; }).reduce(function(p, k){ return p.then(function(){ return sxAnhTuCCCD(k); }); }, Promise.resolve());
   }).then(function(){
     if(D.cauHinh.dbSauLuu!==false) henDongBoScan();
+    var cho = ds.filter(function(k){ return k.chuaKhai; }); ds = ds.filter(function(k){ return !k.chuaKhai; });
     var trung = ds.filter(function(k){ return k.che!=='tailieu' && sxSoThu(k); });   /* tài liệu: đánh số 1, 2, 3 là bình thường */   /* 3.277: khách đã có bản cùng loại */
-    bao('Đã lưu '+ds.length+' bản đúng khách: '+ds.map(function(k){ return (k.maKH || k.khoaCCCD)+' '+k.ten; }).join(', ')+'.'+(trung.length ? ' ⚠ '+trung.length+' khách đã có bản cũ — bản mới đánh số (2)…; trùng thì xóa bớt ở 🔎 Rà CCCD.' : ''), trung.length ? 9 : 6);
+    bao('Đã lưu '+ds.length+' bản đúng khách: '+ds.map(function(k){ return (k.maKH || k.khoaCCCD)+' '+k.ten; }).join(', ')+'.'+(trung.length ? ' ⚠ '+trung.length+' khách đã có bản cũ — bản mới đánh số (2)…; trùng thì xóa bớt ở 🔎 Rà CCCD.' : '')+(cho.length ? ' ⏳ '+cho.length+' người chưa chắc khách → Chờ sắp xếp: '+cho.map(function(k){ return k.ten; }).join(', ')+'.' : ''), trung.length || cho.length ? 9 : 6);
   }).catch(function(e){ baoLoi('Chưa lưu được: '+(e && e.message || e)); });
 };
 /* ảnh khách = mặt trước CCCD nén JPG ≤ 200 KB (khách chưa có ảnh) */

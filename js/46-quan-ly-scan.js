@@ -45,7 +45,9 @@ function qlLuuTu(){
   if(!SX) return;
   var nh = scanNhom(), e = document.getElementById('sx-ten');
   if(SC.che==='the' && SX_DOC.length===nh.length && SX_DOC.every(function(x){ return x.tim && (x.tim.ma || x.tim.tt || x.tim.ttCu); })) return sxLuuTuDoc();   /* đọc CCCD ra đủ khách (3.415: + tổ trưởng theo bảng tổ) */
+  if(SC.che==='the' && SX_DOC.some(function(x){ return x.dang; })){ SX.choLuu = true; return bao('Đang đọc CCCD — đọc xong app tự lưu.', 4); }   /* 3.416.1 */
   if(nh.length && nh.every(function(_, i){ return SXK[i]; })) return scanLuuTu();   /* đã chọn / Tra Mẫu 31 */
+  if(SC.che==='the' && nh.length>1 && nh.some(function(_, i){ return SXK[i]; })) return scanLuuTu('tach');   /* 3.416.1: nhiều người — ai đã xác định vào tủ, ai chưa chắc → Chờ sắp xếp (trước: cả lượt vào Chờ) */
   if(nh.length===1 && e && e.value.trim()){
     var R = trTim(e.value); if(R.ma){ SXK[0] = sxKhach(R.ma); return scanLuuTu(); }   /* tên file nhận ra chắc 1 khách */
   }
