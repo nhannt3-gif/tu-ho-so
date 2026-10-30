@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.409** — TK 2: QT-C-01 cộng sổ TK 105, QT-C-09 File Tổ trưởng khác ngày vẫn ghép, Mẫu 31 là chính; tên xã cây địa bàn theo Mẫu 31; Sao kê khách có từ 2 TK 105; nút TẠM ⚖ so cách cũ / mới (js/84 — bản sau gỡ); t328 Tèo 30/31 (C09-1 chờ TK 1 sửa đáp án). Trước: 3.408 Tra cứu KH cảnh báo khách nhiều TK 105.
+- **`main` = 3.409.1** — TK 2: nới cột Ấp danh sách tổ. Trước: 3.409 cộng sổ TK 105, File Tổ trưởng ghép như cũ (Mẫu 31 chính), tên xã cây địa bàn, Sao kê khách nhiều TK 105, nút tạm ⚖ so cách cũ / mới.
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

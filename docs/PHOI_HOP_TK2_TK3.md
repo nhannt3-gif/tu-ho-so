@@ -127,6 +127,7 @@
 | 30/10 | TK 2 | 3.407 | `js/83-ap-cu.js` (mới, cắm rút), `js/82` (🏷 + gợi ý), `js/22g` (ngày GD điểm từ GDXA đa số), `js/22k` (TT ma_diem), `js/17b`, `css`, `tools/hoiquy_pt.py` (R1), `docs/RA_SOAT_HOI_QUY.md`, `docs/TEO_*`, `tests/t327`, `tests/t328` | t327 10/10, t328 28/30 · 2 chờ chốt, t324/t131/t321/t326/t322/t167/t312/t260 đạt |
 | 30/10 | TK 2 | 3.408 | `js/22f` (tcTkDs, nhãn nhiều TK 105), `css`, `tests/t329` | t329 5/5, t246, t260 tra đạt |
 | 30/10 | TK 2 | 3.409 | `js/22` (slT105Them) + 10 file đổi cách cộng 105, `js/22g` (QT-C-09 dsLech), `js/22k`, `js/76` (Sao kê tk2), `js/82`, `tests/t328`, `t330`, bản chụp t276 | t330 10/10, t328 31/31, t276 (chụp lại — chỉ kqgd/thhd đổi do cộng sổ), t324, t326, t329, t131, t321 đạt; hồi quy đủ 207/211 — t124, t275, t314 sửa phép theo luật mới (đạt), t167 đạt sau khi anh đổi lại QT-C-09 (ghép như cũ, Mẫu 31 chính) + toTenXa; t328 30/31 (C09-1 chờ TK 1); + js/84 nút tạm so cách cũ / mới (t330 16/16) |
+| 30/10 | TK 2 | 3.409.1 | `css/app.css` (cột danh sách tổ Tra cứu) | t309, t317, t260 đạt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
