@@ -13,7 +13,7 @@ const fs=require('fs'), path=require('path');
    for(const f of files){ const kq = await slDocFile(mk(f.b, f.n)); if(!kq.loi) await slGhi(kq); }
    const B8 = await slBo('2026-08'), hs = B8.co.hstd.filter(x=>x.ku && x.kh);
    const H = ['Mã xã','Tên xã','Mã thôn','Tên thôn','Mã điểm giao dịch','Tên điểm giao dịch','Mã tổ','Mã KH','Tên KH','Số khế ước','Tình trạng món vay','Dư nợ trong hạn','Dư nợ quá hạn','Dư nợ khoanh','Tổng dư nợ','Giải ngân trong tháng','Thu nợ TH tháng','Sổ tiết kiệm 105','Số dư tiền gửi 105','Ngày số liệu'];
-   const dung = (sua) => { const rows = hs.concat((B8.lap||[]).filter(x=>x.ku && x.kh)).map(x=>[x.xa, x.tenXa, x.thon, x.tenThon, 'TXN01', 'Điểm Giả', x.to, x.kh, x.ten, x.ku, x.ttMon||'OPEN', x.th||0, x.qh||0, x.kn||0, x.dn||0, x.gnT||0, x.tnTH||0, '70'+String(x.kh).slice(-8), x.t105||0, '31/08/2026']);
+   const dung = (sua) => { const rows = hs.concat((B8.lap||[]).filter(x=>x.ku && x.kh)).map(x=>[x.xa, x.tenXa, x.thon, x.tenThon, 'TXN01', 'Điểm Giả', x.to, x.kh, x.ten, x.ku, x.ttMon||'OPEN', x.th||0, x.qh||0, x.kn||0, x.dn||0, x.gnT||0, x.tnTH||0, (slStk(x.stk)[0] || '70'+String(x.kh).slice(-8)), x.t105||0, '31/08/2026']);
      const r = sua ? sua(rows) : rows; const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([H].concat(r)), 'Sheet 1');
      return new File([XLSX.write(wb, {type:'array', bookType:'xlsx'})], '004820_DU_NO_CHI_tiet_DEN_31-08-2026.xlsx'); };
    /* 1. khớp */
