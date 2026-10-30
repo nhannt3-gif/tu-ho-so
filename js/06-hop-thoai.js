@@ -1962,7 +1962,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.409', ds:[
+var CO_GI_MOI = {ban:'3.409.1', ds:[
+  ["🔍 Tra cứu › danh sách tổ: cột Ấp rộng hơn, tên ấp dài không còn bị khuất", "doiNgan(7);slDoiTab('tra')"],
   ["⚖ Nút tạm So cách cũ / mới (🗺 Địa bàn + Kiểm tra kỳ) — xem 6 thay đổi gần đây có chênh không", ""],
   ["📋 Sao kê mới: khách có từ 2 TK 105 — từng sổ, số dư, ngày mở, tổng cộng sổ (giữ 1, đóng bớt)", "doiNgan(7);slDoiTab('sk')"],
   ["🔢 Số dư TK 105 của khách = cộng các sổ (trước lấy sổ lớn nhất) — theo kiểm file thật của Tèo", ""],
@@ -1976,8 +1977,7 @@ var CO_GI_MOI = {ban:'3.409', ds:[
   ["🪪 Scan: CCCD đã lưu dạng PDF — chế độ Thẻ nhận PDF, tự tìm và cắt sát thẻ như ảnh chụp; chế độ Tài liệu nhắc chuyển sang Quét CCCD", "doiNgan(4)"],
   ["📉 Tra cứu KH › Diễn biến tổ: so tổ đầu tháng với hiện tại theo xã / điểm GD / Hội — tổ đã đóng (khoảng ngày), tổ mới, đổi điểm / Hội, tổ rác chưa đóng", "doiNgan(7);slDoiTab('tra')"],
   ["🧭 Điểm GD theo luật chung Tèo: ấp của tổ theo File Tổ trưởng, món vay trực tiếp theo ấp · Kiểm tra kỳ báo món lệch ấp / ấp nhiều điểm / món trực tiếp gán tạm", "doiNgan(7);slDoiTab('nap')"],
-  ["🏷 Số liệu: file gốc lưu tên chuẩn MÃ_ngày số liệu (vd MAU31_2026-10-31) · sổ DANH_MUC_NAP.csv mỗi tháng · ⋯ › 🏷 Chuẩn hóa tên file tháng cũ", "doiNgan(7);slDoiTab('nap')"],
-  ["🔧 Hướng dẫn › Có gì mới: các dòng bản 3.390–3.399 hiện đủ chữ (trước chỉ hiện biểu tượng), bấm mở đúng chỗ", "moHuongDan('moi')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🏷 Số liệu: file gốc lưu tên chuẩn MÃ_ngày số liệu (vd MAU31_2026-10-31) · sổ DANH_MUC_NAP.csv mỗi tháng · ⋯ › 🏷 Chuẩn hóa tên file tháng cũ", "doiNgan(7);slDoiTab('nap')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.409.1 — 30/10/2026 — Danh sách tổ: nới cột Ấp (TK 2)
+- **Anh 30/10:** "cột ấp tên dài bị khuất 1 chút" (anh xác nhận 🗺 Địa bàn đã đúng tên xã).
+- `css/app.css` `table.tc-to-ds`: Ấp 12 → 20%, Mã tổ 15 → 14%, Tổ trưởng 25 → 23%, TV 12 → 10%, Có DN 10 → 9%, Xã 15 → 14%, Hội 11 → 10% — vẫn vừa khung, mã tổ đủ 7 số (t309 đạt khổ 1280 / 1366).
+
 ## 3.409 — 30/10/2026 — Luật chung QT-C-01 (cộng sổ TK 105) + QT-C-09 (không ghép File Tổ trưởng khác ngày) + Sao kê khách nhiều TK 105 (TK 2)
 - **Anh 30/10:** "Ko ghép nếu khác ngày, lưu ý KH có từ 2 số TK 105 em có báo sao kê ra chưa."
 - **QT-C-01 — số dư TK 105 của khách = CỘNG các sổ** (mỗi sổ lấy 1 lần dù lặp nhiều dòng món; dòng không ghi số sổ → lấy số lớn nhất như cũ). Hàm chung `slT105Them(m, o, khoa)` (js/22) thay cách "lấy lớn nhất mỗi khách" ở mọi nơi: `slTong`, KTGS (22b, 22c), tổ (22g, 22gb, 22j), Sao kê (22h, 76), kho (22k, 29), Hộ vay (72). **Thay ghi chú cũ 3.87** ("105 ngày BC là tổng của khách"): TK 1 kiểm file Mẫu 31 thật — cột "Số dư tiền gửi 105" là **theo từng sổ**, khách 2 sổ thì phải cộng. Ảnh hưởng số: chỉ khách có ≥ 2 sổ (tổng 105 tăng đúng bằng sổ thứ hai); bản chụp t276 ghi lại (kqgd, thhd toàn PGD đổi đúng vì lý do này — đã đối chứng bằng cách chạy lại luật cũ thì giống hệt).
