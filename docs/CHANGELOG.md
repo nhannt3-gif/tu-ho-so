@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.415 — 31/10/2026 — Scan: CCCD tổ trưởng lưu theo tên chuẩn (TK 2)
+- **Anh 31/10** (ảnh hộp "Đạt · 1 người — làm gì với bản này?"): "sau khi đọc được CCCD và xác định được thì phải lưu theo tên kiểu đã xác nhận nhưng app chỉ lưu theo tên".
+- **Nguyên nhân:** CCCD khớp **tổ trưởng** (bảng tổ — tổ trưởng không vay nên không có trong danh bạ khách Mẫu 31) → 🔎 Tra Mẫu 31 chỉ điền **họ tên** vào ô Tên file, không ghi nhận người đã xác định → Lưu vào máy / In / Gửi ra file chỉ có tên; Lưu vào tủ coi là chưa rõ → ⏳ Chờ sắp xếp; đọc CCCD tự động báo "chưa có trên Mẫu 31 (hộ mới)".
+- **Sửa:** tổ trưởng khớp bảng tổ = **đã xác định người**: mã = **CIF tổ trưởng** (cột MATT Danh sách tổ; chưa có CIF → khóa số CCCD như hộ mới), họ tên theo Danh sách tổ (TENTT), xã / ấp / tổ của tổ (`sxKhachTT`, `sxTenTT` — js/45). Ô Tên file + mọi nút dùng **tên chuẩn `CIF - Họ tên - CCCD`**; 🗄 Lưu vào tủ gắn đúng người, đúng thư mục (không vào Chờ sắp xếp). Đọc CCCD tự động: không có trong Mẫu 31 → tra bảng tổ (tab Scan chưa dựng kỳ thì tự dựng như 🔎 Tra Mẫu 31), hiện "✓ Tổ trưởng … · CIF …" (js/41, js/46).
+- Phép thử mới `t336` (7 ý); Scan `t210`, `t216`, `t220`, `t223`, `t224`, `t235`, `t271`, `t316` đạt.
+
 ## 3.414 — 31/10/2026 — B4: dọn onclick tab Tổ + sửa nút Excel cấp phạm vi + dọn hộp thư (TK 2)
 - Thứ tự anh chốt 31/10 — **B4** (dọn `onclick` màn vừa sửa — A4 · đóng dòng hộp thư đã xong). **Không đổi giao diện, chức năng.**
 - **A4 tab Tổ:** chip lọc (Tất cả / Có dư nợ / Ra khỏi tổ…, cả cấp tổ và phạm vi), 📋 Bảng, chọn tổ (gợi ý tìm, cột Tổ, danh sách tổ cần đóng), 🖨 In / 📊 Excel / ⚙ Cột / ⚙ Ngưỡng, ⟳ Thử lại / ☁ Nối Drive → bộ lệnh chung `GD` (`data-lenh="to.*"`, `toDK` đăng ký lúc vẽ — js/39 nạp sau). `onclick` toàn app 1.316 → 1.297.

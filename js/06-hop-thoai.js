@@ -1040,7 +1040,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.414', ds:[
+var CO_GI_MOI = {ban:'3.415', ds:[
+  ["🪪 Scan CCCD tổ trưởng (không vay, không có trong Mẫu 31): khớp bảng tổ → tên chuẩn CIF - Họ tên - CCCD, Lưu vào tủ đúng người", ""],
   ["🔧 Tab Tổ: nút 📊 Excel danh sách khách (cấp xã / PGD) nay tải được file; nút chạy qua bộ lệnh chung", "doiNgan(7);slDoiTab('to')"],
   ["⚡ Tab Tổ TK&VV mở nhanh hơn ≈ 3 lần (toàn PGD 2,2 s → 0,7 s): chip Ra khỏi tổ bấm mới so tháng trước", "doiNgan(7);slDoiTab('to')"],
   ["🔧 Sửa đồng bộ: máy mới (danh sách trống) không còn đè tên cán bộ Giao dịch xã đã khai trên máy khác", ""],
@@ -1054,8 +1055,7 @@ var CO_GI_MOI = {ban:'3.414', ds:[
   ["🔍 Tra cứu › danh sách tổ: cột Ấp rộng hơn, tên ấp dài không còn bị khuất", "doiNgan(7);slDoiTab('tra')"],
   ["⚖ Nút tạm So cách cũ / mới (🗺 Địa bàn + Kiểm tra kỳ) — xem 6 thay đổi gần đây có chênh không", ""],
   ["📋 Sao kê mới: khách có từ 2 TK 105 — từng sổ, số dư, ngày mở, tổng cộng sổ (giữ 1, đóng bớt)", "doiNgan(7);slDoiTab('sk')"],
-  ["🔢 Số dư TK 105 của khách = cộng các sổ (trước lấy sổ lớn nhất) — theo kiểm file thật của Tèo", ""],
-  ["🗺 Cây địa bàn: tên xã theo Mẫu 31 (hết lỗi xã hiện \"Vay trực tiếp\"); File Tổ trưởng khác ngày vẫn ghép như cũ, Mẫu 31 là chính", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🔢 Số dư TK 105 của khách = cộng các sổ (trước lấy sổ lớn nhất) — theo kiểm file thật của Tèo", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

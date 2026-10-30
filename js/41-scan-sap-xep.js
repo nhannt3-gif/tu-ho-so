@@ -252,28 +252,33 @@ scanXongHop = function(bl){
     return nh.reduce(function(p, g, i){ return p.then(function(){
       return Promise.all([g[0] ? docAnhHS(g[0].id) : null, g[1] ? docAnhHS(g[1].id) : null]).then(function(b){ return docCCCD(b[0], b[1]); })
         .then(function(r){ var x = SX_DOC[i] = r || {}; x.dang = false;
-          if(r){ var t = sxXacDinh({cccd:r.cccd, ten:r.ten, ns:r.ns, cmnd:r.cmnd}); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); if(c){ c.cccd = c.cccd || r.cccd; SXK[i] = c; } } }   /* 3.361: danh bạ chưa có / đang nạp lại → bỏ qua, không vỡ luồng */
+          if(r){ var t = sxXacDinh({cccd:r.cccd, ten:r.ten, ns:r.ns, cmnd:r.cmnd}); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); if(c){ c.cccd = c.cccd || r.cccd; SXK[i] = c; } } }
+          var timTT = function(){ var tt = trTimTT(r.cccd); if(tt){ x.tim.tt = tt; SXK[i] = sxKhachTT(tt, r.cccd); } };   /* 3.415: không có trong Mẫu 31 → tổ trưởng (bảng tổ, CCCD tổ trưởng) = đã xác định người */
+          if(r && r.cccd && x.tim && !x.tim.ma && !x.tim.goiY && !(x.tim.ds||[]).length && typeof trTimTT==='function'){
+            if(KHO.coKy() || typeof kyChungLay!=='function' || !kyChungLay()) timTT();
+            else return KHO.nap(kyChungLay()).then(function(K){ if(typeof toGanNeuTrong==='function') toGanNeuTrong(K); }).catch(function(){}).then(function(){ timTT(); sxVeDoc(); }); }   /* tab Scan chưa dựng kỳ → dựng bảng tổ như 🔎 Tra Mẫu 31 */
           sxVeDoc(); }, function(){ SX_DOC[i] = {dang:false}; sxVeDoc(); }); }); }, Promise.resolve());
   }).then(function(){ var o = SX_DOC[0] || {};
     if(!SX) return;   /* 3.372: phiên quét đã đóng (lưu xong / Xong) trước khi đọc CCCD ngầm xong — máy chậm → bỏ kết quả muộn, không vỡ (SX null) */
-    if(nh.length===1){ SX.ten = o.tim && o.tim.ma && sxKhach(o.tim.ma) ? sxTenChuan(o.tim.ma, sxKhach(o.tim.ma).ten, 'CCCD', '') : (o.cccd || o.ten ? 'cccd-'+[o.ten, o.cccd].filter(Boolean).join(' - ') : SX.ten);   /* chưa chắc: giữ số CCCD trong tên để Sắp xếp đối chiếu */
+    if(nh.length===1){ SX.ten = o.tim && o.tim.ma && sxKhach(o.tim.ma) ? sxTenChuan(o.tim.ma, sxKhach(o.tim.ma).ten, 'CCCD', '') : o.tim && o.tim.tt && SXK[0] ? sxTenTT(SXK[0], 'CCCD') : (o.cccd || o.ten ? 'cccd-'+[o.ten, o.cccd].filter(Boolean).join(' - ') : SX.ten);   /* chưa chắc: giữ số CCCD trong tên để Sắp xếp đối chiếu */
       var e = document.getElementById('sx-ten'); if(e) e.value = SX.ten; } });
 };
 function sxVeDoc(){
   var e = document.getElementById('sx-doc'); if(!e) return;
-  var tat = SX_DOC.length && SX_DOC.every(function(x){ return x.tim && x.tim.ma; });
+  var tat = SX_DOC.length && SX_DOC.every(function(x){ return x.tim && (x.tim.ma || x.tim.tt); });   /* 3.415: + tổ trưởng */
   e.innerHTML = SX_DOC.map(function(x, i){ var dau = SX_DOC.length>1 ? '<b>Người '+(i+1)+':</b> ' : '';
     if(x.dang) return '<div>'+dau+'🔎 Đang đọc mã QR / mã máy đọc…</div>';
     if(!x.cccd) return '<div class="vang">'+dau+'Chưa đọc được số CCCD — gõ số CCCD / mã KH / họ tên vào ô Tên file rồi 🔎 Tra Mẫu 31, hoặc bấm 🗄 Lưu vào tủ (chưa rõ khách → ⏳ Chờ sắp xếp).</div>';
     var t = x.tim || {};
     return '<div>'+dau+'✓ Đọc được CCCD <b>'+coChuHTML(x.cccd)+'</b> <small>('+coChuHTML(x.nguon)+(x.ten ? ' · '+coChuHTML(x.ten) : '')+')</small> → '+
       (t.ma ? '<b class="xanh">'+coChuHTML(sxNhanKH(t.ma))+'</b> <small>(khớp '+coChuHTML(t.theo)+')</small>'
+        : t.tt ? '<b class="xanh">Tổ trưởng '+coChuHTML(t.tt.tt)+' · Tổ '+coChuHTML(t.tt.ma)+(t.tt.t && t.tt.t.tenThon ? ' · '+coChuHTML(t.tt.t.tenThon) : '')+(t.tt.b && t.tt.b.kh ? ' · CIF '+coChuHTML(t.tt.b.kh) : '')+'</b> <small>(khớp CCCD tổ trưởng — bảng tổ; tổ trưởng không vay nên không có trong Mẫu 31)</small>'
         : t.goiY ? '<span class="vang">chưa chắc — gần khớp '+coChuHTML(sxNhanKH(t.goiY))+' ('+coChuHTML(t.ly)+'). Lưu vào tủ → Chờ sắp xếp, anh xác nhận ở 🗂 Quản lý hồ sơ scan</span>'
         : t.ds ? '<span class="vang">'+t.ds.length+' khách trùng — Lưu vào tủ → Chờ sắp xếp, chọn ở 🗂 Quản lý hồ sơ scan (hoặc 🔎 Tra Mẫu 31 ở ô Tên file)</span>' : '<span class="vang">chưa có trên Mẫu 31 (hộ mới) — lưu vào thư mục chung</span>')+
       sxXemDoc(x, t.ma || t.goiY || (t.ds||[])[0], true)+'</div>'; }).join('')+
     (tat ? GD.hang([GD.nut({chu:'🗄 Lưu đúng khách (tự nhận)', lenh:'sx.luuDoc', chinh:1})]) : '');
 }
-function sxLuuTuDoc(){ if(!SX_DOC.every(function(x){ return x.tim && x.tim.ma; })) return; scanLuuTu(); }
+function sxLuuTuDoc(){ if(!SX_DOC.every(function(x){ return x.tim && (x.tim.ma || x.tim.tt); })) return; scanLuuTu(); }   /* 3.415: + tổ trưởng */
 GD.dangKy('sx', {luuDoc:function(){ sxLuuTuDoc(); }, photo2:function(el){ SC.photo2 = !!el.checked; },
   chon:function(el){ var i = +el.getAttribute('data-i'), m = el.getAttribute('data-ma'); if(m) SXP.chon[i] = m; else delete SXP.chon[i]; sxDemNut(); }, xn:function(el){ SXP.xn[+el.getAttribute('data-i')] = !!el.checked; sxDemNut(); }, dong:function(){ dongHop(); },
   driveCho:function(){ sxDriveCho(); }, apDung:function(){ sxApDung(); }, moTo:function(el){ var m = el.getAttribute('data-to'); sxKiemVe(SXK_MO===m ? '' : m); },

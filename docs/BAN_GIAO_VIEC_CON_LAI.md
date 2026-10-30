@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.415)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Quét CCCD 1 tổ trưởng (không vay) → bước Lưu & gửi | Báo ✓ Tổ trưởng … CIF …; ô Tên file = CIF - Họ tên - CCCD | |
+| 2 | Bấm 💾 Lưu vào máy / 🗄 Lưu vào tủ | File đúng tên chuẩn; vào tủ đúng xã / ấp, không vào Chờ sắp xếp | |
+
 ### Danh sách thử trên máy thật (3.414)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

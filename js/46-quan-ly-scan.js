@@ -44,7 +44,7 @@ GD.dangKy('ql', {xoaChon:function(){ qlXoaChon(); }});
 function qlLuuTu(){
   if(!SX) return;
   var nh = scanNhom(), e = document.getElementById('sx-ten');
-  if(SC.che==='the' && SX_DOC.length===nh.length && SX_DOC.every(function(x){ return x.tim && x.tim.ma; })) return sxLuuTuDoc();   /* đọc CCCD ra đủ khách */
+  if(SC.che==='the' && SX_DOC.length===nh.length && SX_DOC.every(function(x){ return x.tim && (x.tim.ma || x.tim.tt); })) return sxLuuTuDoc();   /* đọc CCCD ra đủ khách (3.415: + tổ trưởng theo bảng tổ) */
   if(nh.length && nh.every(function(_, i){ return SXK[i]; })) return scanLuuTu();   /* đã chọn / Tra Mẫu 31 */
   if(nh.length===1 && e && e.value.trim()){
     var R = trTim(e.value); if(R.ma){ SXK[0] = sxKhach(R.ma); return scanLuuTu(); }   /* tên file nhận ra chắc 1 khách */

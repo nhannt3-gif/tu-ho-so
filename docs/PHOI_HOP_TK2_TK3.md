@@ -138,6 +138,7 @@
 | 31/10 | TK 2 | 3.412.1 | `js/17-dong-bo-cai-dat.js` (`chGopGiu`, `chRong`), `tests/t333` | t333 5/5; t117, t136, t182, t185, t187, t188 đạt; hồi quy đủ (js/17 chung) |
 | 31/10 | TK 2 | 3.413 | `js/22gb` (toVeThe nạp tháng trước khi chip rk, toChipKhung "…"), `js/22h` (B.chuaNap), `tests/t334`, `docs/DO_TOC_DO.md` | t334 5/5, t128, t157, t130, t331, t246, t102 đạt; hồi quy đủ (gồm 3.412.1) |
 | 31/10 | TK 2 | 3.414 | `js/22gb` (toDK, data-lenh to.*), `js/22h` (toExcelDSPV, chip Bảng, link tổ), `docs/TEO_PHOI_HOP.md` (✓ 18 dòng), `tests/t335` | t335 9/9 + 9 phép tab Tổ đạt; hồi quy theo đổi |
+| 31/10 | TK 2 | 3.415 | `js/45` (sxKhachTT, sxTenTT, trGanTT nhánh luu), `js/41` (đọc CCCD tra bảng tổ), `js/46` (qlLuuTu), `tests/t336` | t336 7/7 + 8 phép Scan đạt; hồi quy theo đổi |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

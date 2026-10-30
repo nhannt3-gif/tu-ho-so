@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.414** — TK 2: B4 dọn onclick tab Tổ, sửa nút Excel cấp phạm vi, dọn hộp thư. Trước: 3.413 tab Tổ nhanh ≈ 3 lần; 3.412.1 sửa mất tên cán bộ GDX.
+- **`main` = 3.415** — TK 2: Scan CCCD tổ trưởng lưu theo tên chuẩn (CIF). Trước: 3.414 dọn onclick tab Tổ, sửa nút Excel cấp phạm vi.
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
