@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.421 — 31/10/2026 — Nâng cấp B: rà bố cục tự động, sửa cuộn ngang khổ laptop (TK 2)
+- Kế hoạch `docs/KE_HOACH_NANG_CAP_0111.md` bước B. Dò tự động 15 màn × 4 khổ (1180 · 1280 · 1366 · 400): trang cuộn ngang, chữ nút / tiêu đề bị cắt.
+- **Lỗi thật:** khổ 1280 (laptop phổ biến) tab **Văn bản, Scan, Biểu mẫu, Thư viện** cuộn ngang 30–60 px — ô tìm thanh trên không co được (độ rộng tối thiểu theo chữ gợi ý) → **đồng hồ ngày giờ bị đẩy ra ngoài màn hình**. Sửa CSS (khổ 1101–1366): ô tìm co tối thiểu 160 px, đồng hồ không co. Dò lại 4 khổ: không còn cuộn ngang, không chữ bị cắt.
+- So ảnh `tools/chup_man.js` với `main`: khổ 1366 Văn bản / Thư viện / Biểu mẫu khác 3,9–4,2% (ô tìm hẹp lại cho đủ chỗ — đúng ý), 13 màn còn lại 0%; khổ 400: 16/16 0%.
+- Kế hoạch ghi kết quả đo: **T4 bảng ảo chưa cần** (bảng dài nhất 4.545 dòng mở 0,76 s, sao kê là trang in), **D2 Scan không đổi hàng loạt** (chuyển dần khi sửa khối).
+
 ## 3.420 — 31/10/2026 — Nâng cấp kỹ thuật P2: ô lệnh Ctrl+K (TK 2)
 - Kế hoạch `docs/KE_HOACH_NANG_CAP_0111.md` bước P2. Gói cắm rút mới `js/86-o-lenh.js`: **Ctrl+K** (Mac ⌘K) ở bất kỳ đâu mở hộp gõ — tìm tab / chức năng (sổ lối vào `DH_MUC`, công cụ `DH_CC`, Kiểm tra scan, 👑 Kiểm CCCD tổ trưởng, Quản lý scan) gõ không dấu được; gõ ≥ 2 ký tự thêm **👤 Tra khách “…”** (mở Tra cứu KH Tự nhận) và **👥 Tìm tổ “…”** (Tra cứu theo Tổ trưởng). ↑ ↓ chọn · Enter mở · Esc / Ctrl+K lần 2 đóng.
 - Phép thử mới `t342` (6 ý); thứ tự nạp `t138` đạt.
