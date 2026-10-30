@@ -29,7 +29,7 @@ const fs=require('fs'), path=require('path');
    ok('cuối tháng: không có dòng ghi chú', slNguonHTML(Km.B)==='' && slNguonChu(Km.B)==='');
    TO_K = K; const t = K.to[toDi]; TO_BD = null; await toBDNap(t);
    ok('Ra khỏi tổ kỳ ngày: so 10/09 với cuối T8', TO_BD.co && TO_BD.ky==='2026-09-10' && TO_BD.tr==='2026-08' && TO_BD.ra.some(r=>r.kh===khDi), JSON.stringify({ky:TO_BD.ky, tr:TO_BD.tr, ra:TO_BD.ra.length}));
-   ok('nhãn chip: "Mới vào 10/09"', toLocNhan(['moi','Mới vào'])==='Mới vào 10/09' && /Số liệu ngày 10\/09\/2026/.test(toKyKQ(TO_K)), toLocNhan(['moi','Mới vào']));
+   ok('nhãn chip: "Ra khỏi tổ 10/09" (3.410 bỏ chip Mới vào)', toLocNhan(['rk','Ra khỏi tổ'])==='Ra khỏi tổ 10/09' && /Số liệu ngày 10\/09\/2026/.test(toKyKQ(TO_K)), toLocNhan(['rk','Ra khỏi tổ']));
    ok('bản in tab Tổ: "Số liệu đến ngày 10/09/2026 (Mẫu 31 ngày 10/09/2026; Quá hạn cuối T8 …)"', /^Số liệu đến ngày 10\/09\/2026 \(Mẫu 31 ngày 10\/09\/2026; .*Quá hạn cuối T8/.test(toNgayChu()), toNgayChu());
    /* ngày chỉ có Dư nợ chi tiết */
    const H = ['Mã xã','Tên xã','Mã thôn','Tên thôn','Ngày GDXA','Mã điểm giao dịch','Tên điểm giao dịch','Mã tổ','Mã KH','Tên KH','Số khế ước','Tình trạng món vay','Tổng dư nợ','Ngày vay','Sổ tiết kiệm 105','Số dư tiền gửi 105','Ngày số liệu'];

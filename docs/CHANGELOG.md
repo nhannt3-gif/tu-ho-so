@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.410 — 31/10/2026 — Dọn rác theo dõi tổ + số TK 105 theo Sao kê gần nhất (TK 2)
+- **Anh 31/10:** "các theo dõi về tổ có lẽ gỡ dọn rác, để làm lại từ đầu đơn giản hơn" → duyệt gỡ 5 mục; "chip ra khỏi tổ để lại, em code dọn rác luôn các chức năng ko dùng… số dư hay so sánh cần cùng 1 ngày, còn khi cần lấy số TK 105 hay các thông tin tổ thì chỉ cần rà các dữ liệu gần nhất có là được".
+- **Đã gỡ:** ① 📉 Diễn biến tổ (`js/80-dien-bien-to.js` + CSS `.dbt-*`, phép t322) — thẻ tổ Tra cứu trở lại nút 👪 Lập hồ sơ hộ mới vào tổ · ② 📅 Biến động tổ viên cả năm (`toBDNam*`, `TO_BDN`, 2 nút) · ③ dòng "Biến động +x vào · −y ra" (`toBDChu`, `toBDDem`) ở đầu thẻ tổ / phạm vi · ④ cột **Mới vào** và **105 tăng/giảm** ở bảng tổ / bảng xã–điểm (`TO_TRUOC`, `toTruocNap`, `S.moi`, `S.d105`) + chip lọc **Mới vào tổ** · ⑤ ⚖ So cách cũ / mới (`js/84-so-cach.js`, `K.ngDaSo`).
+- **Giữ:** chip **Ra khỏi tổ** (thẻ tổ + phạm vi), cột **Đề xuất cho ra** (tình trạng hiện tại, không phải so tháng trước), máy so tháng trước `toBDNap` / `toBienDong` / `toBDTNap` (dùng cho chip Ra khỏi tổ và điền sẵn danh sách kết nạp / ra khỏi tổ ở biên bản Hồ sơ tổ), cần đóng tổ, Sổ tổ viên, 01/TV, báo cáo TK 105 của tổ.
+- **Số TK 105** (`slStkKH`, js/22h): thứ tự Dư nợ chi tiết → Mẫu 31 → danh bạ → **Sao kê TK 105 bản gần nhất** (`tkCua`) — khách tất nợ trước 2026 Mẫu 31 không còn số sổ thì vẫn hiện số TK. Chỉ bù chỗ trống, không đổi số dư.
+- Làm lại "Biến động tổ" một màn đơn giản (QT-C-21) — sau, anh duyệt mẫu trước.
+- Phép thử: mới `t331` (8 ý); sửa `t128` (bỏ ý biến động cả năm / chip Mới vào), `t130` (nhãn chip theo Ra khỏi tổ), `t330` (bỏ khối So cách).
+
 ## 3.409.1 — 30/10/2026 — Danh sách tổ: nới cột Ấp (TK 2)
 - **Anh 30/10:** "cột ấp tên dài bị khuất 1 chút" (anh xác nhận 🗺 Địa bàn đã đúng tên xã).
 - `css/app.css` `table.tc-to-ds`: Ấp 12 → 20%, Mã tổ 15 → 14%, Tổ trưởng 25 → 23%, TV 12 → 10%, Có DN 10 → 9%, Xã 15 → 14%, Hội 11 → 10% — vẫn vừa khung, mã tổ đủ 7 số (t309 đạt khổ 1280 / 1366).
