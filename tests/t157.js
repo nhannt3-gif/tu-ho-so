@@ -30,11 +30,11 @@ const fs=require('fs'), path=require('path');
    ok('kẻ ô mờ (bảng lưới)', khung.querySelector('table').classList.contains('luoi') && getComputedStyle(khung.querySelector('tbody td')).borderTopStyle==='solid');
    const r0 = khung.querySelector('tbody tr');
    ok('bảng PGD: Cộng toàn PGD trên đầu, dư nợ triệu đồng 2 số lẻ (12.910,00)', /CỘNG TOÀN PGD/.test(r0.textContent) && /12\.910,00/.test(r0.textContent), r0.textContent.slice(0, 80));
-   ok('mốc so sánh ghi đủ ngày (so với dd/mm/yyyy; biến động dd/mm/yyyy → dd/mm/yyyy)', /so với \d\d\/\d\d\/\d{4}/.test(document.getElementById('to-the').textContent) && /Biến động \d\d\/\d\d\/\d{4} → \d\d\/\d\d\/\d{4}/.test(document.getElementById('to-the').textContent));
+   ok('3.410: bỏ mốc so tháng trước (Mới vào / 105 tăng giảm / Biến động) — anh dọn theo dõi tổ', !/so với \d\d\/\d\d\/\d{4}/.test(document.getElementById('to-the').textContent) && !/Biến động \d\d\/\d\d\/\d{4} →/.test(document.getElementById('to-the').textContent));
    /* bảng các tổ của xã */
    pvChon('to', 'xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(1800);
    const th = () => [...document.querySelectorAll('#to-the .to-bang thead th')].map(x=>x.textContent);
-   ok('bảng các tổ: có Hội (chưa lọc), Điểm GD là cột Tự động (3.163), STT hẹp', th().includes('Hội') && TO_COT.find(c=>c[0]==='diem')[2]===0 && document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width < 60, document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width);
+   ok('bảng các tổ: có Hội (chưa lọc), Điểm GD là cột Tự động (3.163), STT hẹp', th().includes('Hội') && TO_COT.find(c=>c[0]==='diem')[2]===0 && document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width < 70,   /* 3.410: bảng bớt 2 cột (Mới vào, 105 tăng giảm) → khoảng trống chia đều, STT 62 px */ document.querySelector('#to-the .to-bang tbody td').getBoundingClientRect().width);
    ok('dòng Cộng dính đáy khung', getComputedStyle(document.querySelector('#to-the .to-cuon-khung tr.tong td')).position==='sticky');
    pvChon('to', 'hoi', '11', 1); await w(1500);
    ok('lọc 1 Hội → bỏ cột Hội (đã ghi trên tiêu đề)', !th().includes('Hội'), th().join('|'));

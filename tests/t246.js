@@ -60,7 +60,7 @@ const fs=require('fs'), path=require('path');
    await tim('tt', t1.ma); await w(400);
    const r1 = KHO.tvChuan(t1, TC_K), ct = document.getElementById('tc-ct');
    ok('gõ mã tổ → 1 tổ, tự mở thẻ tổ: mã tổ, tổ trưởng, số TV đúng QT-18', kq().length===1 && !!ct.querySelector('.tc-the-to') && ct.textContent.indexOf(t1.ma)>=0 && ct.textContent.indexOf(t1.ten)>=0 && ct.querySelectorAll('table.tc-to-hang')[2].querySelector('td b').textContent===String(r1.tong), 'TV '+r1.tong);
-   ok('thẻ tổ: danh sách thành viên đủ, nút Mở tổ / Tổ của điểm GD / 📉 Diễn biến tổ (3.403: thay Lập hồ sơ hộ mới — anh 29/10)', ct.querySelectorAll('.tc-to-tv-dong').length===r1.tong && !!ct.querySelector('[data-lenh="tc.moTo"]') && !!ct.querySelector('[data-lenh="dbt.mo"]') && (!t1.khoaDiem || !!ct.querySelector('[data-lenh="tc.bangDiem"]')));
+   ok('thẻ tổ: danh sách thành viên đủ, nút Mở tổ / Tổ của điểm GD / 👪 Lập hồ sơ hộ mới (3.410: gỡ Diễn biến tổ, trả lại nút cũ)', ct.querySelectorAll('.tc-to-tv-dong').length===r1.tong && !!ct.querySelector('[data-lenh="tc.moTo"]') && !!ct.querySelector('[data-lenh="tc.ketNap"]') && (!t1.khoaDiem || !!ct.querySelector('[data-lenh="tc.bangDiem"]')));
    /* 3.342: đầu thẻ 3 hàng có tên cột; bảng thành viên STT · mã KH (sắp theo mã) · dư nợ · ngày vay · hạn · lãi tồn · TK 105 */
    const H = [...ct.querySelectorAll('table.tc-to-hang')].map(t=>[...t.querySelectorAll('th')].map(x=>x.textContent).join('|'));
    ok('3.342 đầu thẻ 3 hàng: Tổ · Địa bàn · Số liệu (có 3 tháng KHĐ, TK 105)', H.length===3 && /^Tổ \(tổ trưởng\)\|Mã tổ\|Mã KH tổ trưởng\|☎ SĐT\|CCCD$/.test(H[0]) && H[1]==='Ấp · Xã|Điểm GD|Ngày GD|Hội quản lý' && H[2]==='Thành viên|Có dư nợ|Không dư nợ|Tổng dư nợ|Quá hạn|Lãi tồn|3 tháng KHĐ|Số dư TK 105', H.join(' / '));
