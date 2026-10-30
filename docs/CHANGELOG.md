@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.418 — 31/10/2026 — Nâng cấp kỹ thuật D2: Tra cứu onclick → data-lenh (TK 2)
+- Kế hoạch `docs/KE_HOACH_NANG_CAP_0111.md` bước D2. **29 `onclick` trong chuỗi** ở `js/22f-tra-cuu.js` (dải tab con Số liệu, dòng khách / gợi ý, Mở khách, Chép cả khối, Mở tổ, Xem thêm 50, Hiện món tất toán, Xóa tìm, Về Giao dịch xã, chép ô) và `js/58-tc-to.js` (Tổ của điểm GD, bảng tổ của điểm, Mở tổ, Kết nạp, chép ô) → `data-lenh="tc.*"` (đăng ký trong `tcDangKy`, gọi cả khi vẽ dải tab con). Hành vi như cũ; riêng ô chép trong dòng khách: bấm chép không mở dòng nữa (như thẻ tổ).
+- `onclick` toàn app 1.297 → 1.268. Kế hoạch sửa theo hiện trạng: D3 đã có từ 3.363 (nhật ký lỗi), đọc Excel đã ở Worker từ 3.86.
+- 135 phép liên quan (dải tab con Số liệu, Tra cứu, thẻ tổ) đạt; hồi quy 3.417 85/85.
+
 ## 3.417 — 31/10/2026 — Nâng cấp kỹ thuật D1 + D4: dọn CSS chết, chụp ảnh hồi quy giao diện (TK 2)
 - **Anh 31/10:** "làm theo thứ tự em thấy ổn nhất, làm xong gộp lên luôn" — kế hoạch `docs/KE_HOACH_NANG_CAP_0111.md`.
 - **D1:** công cụ `tools/css_chet.py` dò luật CSS mà mọi lớp trong bộ chọn không còn xuất hiện ở `js/**`, `*.html` (lớp ghép động `'gl-c'+x`, `'tc-dn-'+x`, `x+'-dong'` coi là còn dùng; lớp thư viện pdf.js giữ; chú thích đứng trước giữ). Xóa **289 luật / 21,6 KB** của chức năng đã gỡ (Giao dịch xã bản cũ `gdx-*`, Hôm nay cũ `h1-*`, Số liệu cũ `sl-ft-*`, `sl-tt-*`, `kt-nap`…).
