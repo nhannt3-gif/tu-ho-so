@@ -4118,3 +4118,8 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 .tc-to-tv-kieu{flex-wrap:wrap}.tc-to-tv-kieu .tc-to-ngay{margin-left:auto;white-space:nowrap}
 .tc-to-hang .tc-to-cono{color:var(--xanh);font-weight:600;white-space:nowrap}   /* 3.417: "n có nợ" dưới số thành viên */
 .tc-to-dau table.tc-to-hang th{white-space:nowrap}
+/* 3.420 P2: ô lệnh Ctrl+K (js/86) */
+.ol-o{width:100%;box-sizing:border-box;font-size:calc(15px*var(--co));padding:8px 10px;margin:4px 0 6px}
+.ol-ds{max-height:60vh;overflow:auto;border:1px solid var(--vien);border-radius:8px}
+.ol-dong{display:flex;align-items:baseline;gap:8px;padding:6px 10px;cursor:pointer;border-bottom:1px solid var(--vien)}.ol-dong:last-child{border-bottom:0}
+.ol-dong small{margin-left:auto;color:var(--chu-phu);white-space:nowrap}.ol-dong.bat,.ol-dong:hover{background:var(--xanh-nhat)}.ol-bt{width:1.4em;text-align:center}

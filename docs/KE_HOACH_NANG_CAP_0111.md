@@ -17,7 +17,7 @@ JS 4,4 MB / 109 file (lớn nhất 139 KB) · CSS 396 KB · `onclick` trong chu�
 | T2 | ~~Đọc Excel ở luồng nền~~ — **đã ở Worker từ 3.86** (3.369 giảm đứng màn hình 2,5 → 0,86 s). Còn lại: chia nhỏ việc nặng theo nhịp (`TU_VAN_KY_THUAT.md` mục 11) | trung bình | |
 | T4 | Bảng ảo (chỉ vẽ phần đang nhìn) cho bảng > 500 dòng | trung bình | |
 | P1 | Bản máy tính chạy không mạng (có mạng luôn lấy bản mới) | trung bình — hồi quy đủ | ✅ 3.419 (`js/85`, `dt-sw.js`; cài như phần mềm cần thêm biểu tượng + manifest — để sau) |
-| P2 | Ô lệnh Ctrl+K tìm chức năng / khách | thấp | |
+| P2 | Ô lệnh Ctrl+K tìm chức năng / khách | thấp | ✅ 3.420 (`js/86`) |
 | B | Rà bố cục từng màn theo khuôn thẻ tổ (dòng tên · dòng phụ · bảng kẻ ô · Lưu ý) — gửi ảnh trước / sau | thấp | |
 
 ## 3. Không làm (đã cân nhắc)

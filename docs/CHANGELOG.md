@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.420 — 31/10/2026 — Nâng cấp kỹ thuật P2: ô lệnh Ctrl+K (TK 2)
+- Kế hoạch `docs/KE_HOACH_NANG_CAP_0111.md` bước P2. Gói cắm rút mới `js/86-o-lenh.js`: **Ctrl+K** (Mac ⌘K) ở bất kỳ đâu mở hộp gõ — tìm tab / chức năng (sổ lối vào `DH_MUC`, công cụ `DH_CC`, Kiểm tra scan, 👑 Kiểm CCCD tổ trưởng, Quản lý scan) gõ không dấu được; gõ ≥ 2 ký tự thêm **👤 Tra khách “…”** (mở Tra cứu KH Tự nhận) và **👥 Tìm tổ “…”** (Tra cứu theo Tổ trưởng). ↑ ↓ chọn · Enter mở · Esc / Ctrl+K lần 2 đóng.
+- Phép thử mới `t342` (6 ý); thứ tự nạp `t138` đạt.
+
 ## 3.419 — 31/10/2026 — Nâng cấp kỹ thuật P1: bản máy tính chạy không mạng (TK 2)
 - Kế hoạch `docs/KE_HOACH_NANG_CAP_0111.md` bước P1. Gói cắm rút mới `js/85-khong-mang.js` đăng ký bộ đệm `dt-sw.js` (chung với bản điện thoại — cùng phạm vi trình duyệt chỉ cho 1 bộ). `dt-sw.js` thêm nhánh bản máy tính: `index.html`, `js/**`, `css/**` — **có mạng luôn lấy bản mới** rồi cất (kho `tuhoso-may`, khóa theo URL đủ `?v=` nên không trộn bản), **mất mạng** dùng bản đã cất. Thư viện pdf.js / Excel đã cất sẵn ở `js/01` (IndexedDB). Chỉ chạy trên https / localhost; bản điện thoại giữ nguyên.
 - Phép thử mới `t341` (máy chủ tạm localhost: đăng ký → cất 129 tệp → tắt mạng vẫn mở đúng bản); bản điện thoại `t194`, `t195`, `t260`, `t262`–`t266`, thứ tự nạp `t138` đạt.

@@ -1,0 +1,27 @@
+// 3.420 P2 (KE_HOACH_NANG_CAP_0111): ô lệnh Ctrl+K — tìm tab / công cụ, gõ chữ → Tra khách / Tìm tổ; ↑ ↓ Enter, Esc. Bộ GIẢ gianho31.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs=require('fs'), path=require('path');
+(async()=>{ const b=await chromium.launch(); const loi=[];
+ const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).filter(n=>/31-08-2026\.XLSX$/.test(n)).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} window.SL_KHONG_TU_KIEM = 1;
+   for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const k = await slDocFile(new File([u], f.n)); if(!k.loi && k.ky) await slGhi(k); } doiNgan(0); }, files);
+ const o = [], ok = (t, d, c)=>o.push((d ? '✓ ' : '✗ ')+t+(c!==undefined ? ' — '+c : ''));
+ await p.keyboard.press('Control+k'); await p.waitForTimeout(300);
+ ok('Ctrl+K mở ô lệnh, con trỏ ở ô gõ', await p.evaluate(()=>document.activeElement && document.activeElement.id==='ol-o' && document.querySelectorAll('.ol-dong').length>5));
+ await p.keyboard.type('sao ke'); await p.waitForTimeout(200);
+ ok('gõ "sao ke" (không dấu) → mục Sao kê đứng đầu', await p.evaluate(()=>/Sao kê/.test(document.querySelector('.ol-dong.bat').textContent)), await p.evaluate(()=>document.querySelector('.ol-dong.bat').textContent));
+ await p.keyboard.press('Enter'); await p.waitForTimeout(800);
+ ok('Enter → mở tab Sao kê, hộp đóng', await p.evaluate(()=>nganHienTai===7 && D.cauHinh.slTab==='sk' && !document.querySelector('#hop.hien #ol-o')));
+ await p.keyboard.press('Control+k'); await p.waitForTimeout(200); await p.keyboard.type('tổ 00'); await p.waitForTimeout(200);
+ const ds = await p.evaluate(()=>[...document.querySelectorAll('.ol-dong')].map(x=>x.textContent));
+ ok('gõ chữ → có "Tra khách" + "Tìm tổ"', ds.some(x=>/Tra khách/.test(x)) && ds.some(x=>/Tìm tổ/.test(x)), ds.slice(-2).join(' | '));
+ const iTo = ds.findIndex(x=>/Tìm tổ/.test(x)); for(let i=0;i<iTo;i++) await p.keyboard.press('ArrowDown'); await p.keyboard.press('Enter'); await p.waitForTimeout(1500);
+ ok('↓ chọn "Tìm tổ" + Enter → Tra cứu theo Tổ trưởng, có bảng tổ', await p.evaluate(()=>D.cauHinh.slTab==='tra' && tcTim().theo==='tt' && !!document.querySelector('.tc-to-ds')));
+ await p.keyboard.press('Control+k'); await p.waitForTimeout(200); await p.keyboard.press('Control+k'); await p.waitForTimeout(200);
+ ok('Ctrl+K lần 2 → đóng', await p.evaluate(()=>!document.querySelector('#hop.hien #ol-o')));
+ o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));
+ const sai = o.filter(x=>x[0]==='✗').length; console.log((o.length-sai)+'/'+o.length+' đạt'); await b.close(); process.exit(sai||loi.length ? 1 : 0);
+})();
