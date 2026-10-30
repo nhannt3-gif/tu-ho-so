@@ -135,7 +135,6 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
   var coKH = tt.kh && tcCoKH(tt.kh), diem = t.tenDiemDu || t.tenDiem || '';
   var hang = function(cot){ return '<table class="tc-to-hang"><tr>'+cot.map(function(c){ return '<th>'+c[0]+'</th>'; }).join('')+'</tr><tr>'+cot.map(function(c){ return '<td'+(c[2] ? ' class="'+c[2]+'"' : '')+'>'+c[1]+'</td>'; }).join('')+'</tr></table>'; };
   var tien = function(v, lop){ return v ? '<b'+(lop ? ' class="'+lop+'"' : '')+'>'+tdnTien(v)+'</b>' : '0'; };
-  var luuY = (r.laiTon ? '<span class="nh nh-cam">'+r.laiTon+' còn lãi tồn</span> ' : '')+(r.choRa ? '<span class="nh nh-vang">'+r.choRa+' cần cho ra</span> ' : '');
   var nam2 = function(x){ return String(x).replace(/(>|^)(\d\d\/\d\d\/)(\d\d)(\d\d)/g, '$1$2<span class="nam4">$3</span>$4'); };   /* khung hẹp: năm 2 số (CSS container) */
   var ttKH = function(k){   /* 3.344 (anh): khách không còn món — vẫn trong tổ hay cần cho ra (QT-14 / QT-18, cùng tvChuan) */
     var tat = KHO.monKy(TC_K, k.kh).reduce(function(a, o){ return o.ku && o.ngdg && o.ngdg>a ? o.ngdg : a; }, ''), nt = tat ? ' '+ngayVNsl(tat) : '';   /* 3.350 (anh): ngày tất nợ ≈ ngày GD gần nhất của món đã tất toán (như toTV) */
@@ -170,13 +169,14 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
   var phu = [tt.kh ? 'Mã KH '+tcC(tt.kh, 'mã KH tổ trưởng') : '', t.sdt ? '☎ '+tcC(t.sdt, 'SĐT tổ trưởng') : '', ccTT ? 'CCCD '+tcC(ccTT, 'CCCD tổ trưởng') : '',
     diemTen ? e('Điểm '+diemTen)+(ngGD ? ', GD ngày '+e(ngGD) : '') : ''].filter(Boolean).join(' <i>·</i> ');
   var canh = [tong.qh ? '<span class="nh nh-do">Quá hạn '+tdnTien(tong.qh)+'</span>' : '', tong.lt ? '<span class="nh nh-cam">Lãi tồn '+tdnTien(tong.lt)+'</span>' : '',
-    tong.khd ? '<span class="nh nh-vang">3T KHĐ '+tong.khd+' món</span>' : '', r.khongNo ? '<span class="nh nh-xam">'+r.khongNo+' không dư nợ</span>' : ''].filter(Boolean).join(' ');
+    tong.khd ? '<span class="nh nh-vang">3T KHĐ '+tong.khd+' món</span>' : '', r.khongNo ? '<span class="nh nh-xam" title="Thành viên dư nợ 0'+(r.laiTon ? ' — trong đó '+r.laiTon+' người hết gốc nhưng còn lãi tồn' : '')+'">'+r.khongNo+' không dư nợ'+(r.laiTon ? ' · '+r.laiTon+' hết gốc còn lãi' : '')+'</span>' : '',
+    r.choRa ? '<span class="nh nh-vang" title="TƯ còn giữ, dư nợ 0 + tiền gửi 0 (QT-14)">'+r.choRa+' cần cho ra</span>' : ''].filter(Boolean).join(' ');   /* 3.416.4 (anh 31/10 "chip báo 1 lãi tồn không chính xác"): chip cũ "n còn lãi tồn" = số người HẾT GỐC còn lãi (khác tổng lãi tồn cả tổ) → ghi rõ trong ô Lưu ý, bỏ chip dưới bảng */
   var h = '<div class="tc-to-dau"><div class="tc-to-dong1">🏘 <b class="tc-ten to">'+tcC(t.ten, 'tên tổ trưởng')+'</b> '+(tcDongChip(t) || tcNguongChip(r.tong))+
       '<span class="tc-to-dc">Tổ '+tcC(t.ma, 'mã tổ')+' <i>·</i> '+e([pvApNgan(t.tenThon||''), String(t.tenXa||'')].filter(Boolean).join(', ') || '—')+(tdnHoi(t.dv) ? ' <i>·</i> '+e(tdnHoi(t.dv)) : '')+'</span></div>'+
     (phu ? '<div class="tc-to-dong2">'+phu+'</div>' : '')+
     hang([['Thành viên', '<b>'+r.tong+'</b> <small>('+r.coNo+' có nợ)</small>'], ['Tổng dư nợ', '<b>'+tdnTien(tong.dn)+'</b>'], ['Số dư TK 105', '<b>'+tdnTien(tong.t105)+'</b>'],
       ['Lưu ý', canh || '<span class="xanh">✓ Không quá hạn · lãi tồn · 3T KHĐ</span>', 'tc-to-canh']])+   /* 3.416.3 (anh 31/10 "nên kẻ khung như cũ"): hàng số kẻ ô như bảng cũ */
-    '<div class="tc-ghi">'+luuY+'<span title="'+e(tcTVGhi(r))+'">'+e(tcTVGhi(r).split(' · ')[0])+' ⓘ</span></div></div>'+
+    '<div class="tc-ghi"><span title="'+e(tcTVGhi(r))+'">'+e(tcTVGhi(r).split(' · ')[0])+' ⓘ</span></div></div>'+
     '<div class="tc-nhom tc-to-tv"><div class="tc-to-tv-kieu">Thành viên ('+r.tong+') '+'<span class="tc-dn-chu"><i class="tc-dn-qh">QH</i><i class="tc-dn-kn">Khoanh</i><i class="tc-dn-khd">3T KHĐ</i></span> '+GD.chip('Đủ', !gon, 'tc.tvKieu', {k:'du', to:t.ma}, 'Mỗi món 1 dòng')+
       GD.chip('Gọn', gon, 'tc.tvKieu', {k:'gon', to:t.ma}, 'Mỗi khách 1 dòng — bấm ▸ xem từng món')+'</div>'+
       '<div class="tc-to-tv-ds"><table class="tc-to-tvb"><thead><tr><th>#</th><th>Họ tên</th><th>Mã KH</th><th>CT</th><th>Dư nợ</th><th>Ngày vay</th><th>Hạn trả</th><th>Lãi tồn</th><th>TGTK</th></tr></thead><tbody>'+
