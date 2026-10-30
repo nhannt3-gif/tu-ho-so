@@ -251,6 +251,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t338.js` | 3.416.1 Quét nhiều CCCD: lưu tách — đã xác định vào tủ, chưa chắc → Chờ sắp xếp; đang đọc → chờ đọc xong tự lưu. |
 | `node tests/t339.js` | 3.416.1 Thêm file: báo bước dò trùng · lưu · đọc chữ PDF trang i/n, thanh tiến độ theo bước (PDF giả). |
 | `node tests/t340.js` | 3.416.1 Sửa bản quét: danh mục chưa khai tổ → tổ của ấp từ Mẫu 31 (`gianho31`). |
+| (3.417) | Công cụ: `python3 tools/css_chet.py` (dò / `--xoa` CSS chết) · `node tools/chup_man.js` (chụp 16 màn, `--so` so 2 lần chụp). |
 | (3.416.5) | Thẻ tổ Lưu ý xuống dòng, ngày số liệu — `t246` sửa theo. |
 | (3.416.4) | Thẻ tổ chip lãi tồn — `t246` +1 ý. |
 | (3.416.3) | Thẻ tổ kẻ ô — `t246` sửa theo. |

@@ -174,7 +174,7 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
   var h = '<div class="tc-to-dau"><div class="tc-to-dong1">🏘 <b class="tc-ten to">'+tcC(t.ten, 'tên tổ trưởng')+'</b> '+(tcDongChip(t) || tcNguongChip(r.tong))+
       '<span class="tc-to-dc">Tổ '+tcC(t.ma, 'mã tổ')+' <i>·</i> '+e([pvApNgan(t.tenThon||''), String(t.tenXa||'')].filter(Boolean).join(', ') || '—')+(tdnHoi(t.dv) ? ' <i>·</i> '+e(tdnHoi(t.dv)) : '')+'</span></div>'+
     (phu ? '<div class="tc-to-dong2">'+phu+'</div>' : '')+
-    hang([['Thành viên', '<b>'+r.tong+'</b> <small>('+r.coNo+' có nợ)</small>'], ['Tổng dư nợ', '<b>'+tdnTien(tong.dn)+'</b>'], ['Số dư TK 105', '<b>'+tdnTien(tong.t105)+'</b>'],
+    hang([['Thành viên', '<b>'+r.tong+'</b><br><small class="tc-to-cono">'+r.coNo+' có nợ</small>'],   /* 3.417 (anh 31/10): "có nợ" xuống dòng, màu khác */ ['Tổng dư nợ', '<b>'+tdnTien(tong.dn)+'</b>'], ['Số dư TK 105', '<b>'+tdnTien(tong.t105)+'</b>'],
       ['Lưu ý', canh || '<span class="xanh">✓ Không quá hạn · lãi tồn · 3T KHĐ</span>', 'tc-to-canh']])+   /* 3.416.3 (anh 31/10 "nên kẻ khung như cũ"): hàng số kẻ ô như bảng cũ */
     '</div>'+
     '<div class="tc-nhom tc-to-tv"><div class="tc-to-tv-kieu">Thành viên ('+r.tong+') '+'<span class="tc-dn-chu"><i class="tc-dn-qh">QH</i><i class="tc-dn-kn">Khoanh</i><i class="tc-dn-khd">3T KHĐ</i></span> '+GD.chip('Đủ', !gon, 'tc.tvKieu', {k:'du', to:t.ma}, 'Mỗi món 1 dòng')+

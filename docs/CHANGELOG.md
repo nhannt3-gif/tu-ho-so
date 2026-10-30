@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.417 — 31/10/2026 — Nâng cấp kỹ thuật D1 + D4: dọn CSS chết, chụp ảnh hồi quy giao diện (TK 2)
+- **Anh 31/10:** "làm theo thứ tự em thấy ổn nhất, làm xong gộp lên luôn" — kế hoạch `docs/KE_HOACH_NANG_CAP_0111.md`.
+- **D1:** công cụ `tools/css_chet.py` dò luật CSS mà mọi lớp trong bộ chọn không còn xuất hiện ở `js/**`, `*.html` (lớp ghép động `'gl-c'+x`, `'tc-dn-'+x`, `x+'-dong'` coi là còn dùng; lớp thư viện pdf.js giữ; chú thích đứng trước giữ). Xóa **289 luật / 21,6 KB** của chức năng đã gỡ (Giao dịch xã bản cũ `gdx-*`, Hôm nay cũ `h1-*`, Số liệu cũ `sl-ft-*`, `sl-tt-*`, `kt-nap`…).
+- **D4:** công cụ `tools/chup_man.js` chụp 16 màn chính (bộ GIẢ gianho31) và so % điểm ảnh khác giữa 2 bản. So `main` 3.416.5 ↔ 3.417 sau khi xóa CSS: **16/16 màn 0,00% khác** ở khổ 1366 và khổ 400.
+- Thẻ tổ (anh 31/10 "lần sau cho 59 … xuống dòng và màu khác"): ô Thành viên = số lớn, dòng dưới "n có nợ" màu xanh; tiêu đề ô không xuống dòng.
+- `t246` đạt.
+
 ## 3.416.5 — 31/10/2026 — Thẻ tổ: chip Lưu ý xuống dòng, ngày số liệu không tốn dòng (TK 2)
 - **Anh 31/10:** "nếu có nhiều chip lưu ý thì xuống dòng, dữ liệu đến ngày dời góc phải dòng có chữ Thành viên, cho cố định, không mất 1 dòng".
 - Ô Lưu ý (`td.tc-to-canh`) cho xuống dòng (trước bị cắt ngang); dòng "Số liệu ngày … ⓘ" dời vào góc phải dòng "Thành viên (n) · QH · Khoanh · 3T KHĐ · Đủ · Gọn" (js/58 + CSS).

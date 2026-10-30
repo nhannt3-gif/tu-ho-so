@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.416.5** — TK 2: thẻ tổ chip Lưu ý xuống dòng, ngày số liệu góc phải. Trước: 3.416.4 chip lãi tồn rõ nghĩa.
+- **`main` = 3.417** — TK 2: kế hoạch nâng cấp `docs/KE_HOACH_NANG_CAP_0111.md` — D1 dọn 289 luật CSS chết, D4 chụp ảnh hồi quy giao diện. Trước: 3.416.5 thẻ tổ.
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
