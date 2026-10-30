@@ -4123,3 +4123,4 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 .ol-ds{max-height:60vh;overflow:auto;border:1px solid var(--vien);border-radius:8px}
 .ol-dong{display:flex;align-items:baseline;gap:8px;padding:6px 10px;cursor:pointer;border-bottom:1px solid var(--vien)}.ol-dong:last-child{border-bottom:0}
 .ol-dong small{margin-left:auto;color:var(--chu-phu);white-space:nowrap}.ol-dong.bat,.ol-dong:hover{background:var(--xanh-nhat)}.ol-bt{width:1.4em;text-align:center}
+@media (min-width:1101px){.dau-hang .tim-bao{min-width:160px}.dau-hang .tim-bao input{min-width:0;width:100%;box-sizing:border-box}.dau-hang .gio{flex:0 0 auto}}   /* 3.421 (rà bố cục): khổ 1101–1366 ô tìm co lại, đồng hồ không bị đẩy tràn → hết cuộn ngang ở Văn bản / Scan / Biểu mẫu / Thư viện */
