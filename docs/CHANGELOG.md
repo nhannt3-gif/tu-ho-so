@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.411 — 31/10/2026 — Tinh gọn A1 (xong) + A2: tách 4 file lớn (TK 2)
+- **Anh 31/10:** "gộp và làm theo kh… 2 ngày cuối tuần cố gắng phát triển thêm app cho hoàn thiện" → làm tiếp thứ tự tinh gọn `BAN_GIAO_TK3_2710.md` mục 7 (A1 → B2 → A2 → A4 → A5; B2 đã xong 3.390–3.394). **Không đổi chức năng, giao diện, luật.**
+- **A1 xong:** 5 báo cáo nhóm Thông tin tổ (kqgd, thhd, tqh, tkn, tkhd) gắn `lap` → `skBaoCao` chỉ còn gọi `lap()` của từng báo cáo (t276 giống hệt).
+- **A2 — tách file > 150 KB theo khối, chép nguyên (không đổi tên hàm, nội dung ghép lại giống hệt):**
+  - `js/25-ho-so.js` 325 KB → `25` (khai báo + mẫu hồ sơ tổ 10C/10A/10B/11, 01–02/BG) · `25b-ho-so-vay` (mẫu hồ sơ vay, bộ hồ sơ, lập mẫu, Word) · `25c-ho-so-giao-dien` (giao diện tab, hộ vay mới, Sổ hộ vay, 03/TD nhiều hộ, GQVL, cột trái / tùy chọn).
+  - `js/12-scan.js` 181 KB → `12` (scan lõi) · `12b-scan-dien-thoai` (Lens, Lưu nhanh / Copy, chữ ký · ảnh) · `12c-scan-camera-drive` (camera, đồng bộ Drive) · `12d-scan-ocr-cau-noi` (OCR, đọc theo bố cục, cầu nối Windows).
+  - `js/04b-hom-nay.js` 163 KB → `04b` (âm lịch, lịch, công cụ, hạn HSSV, cây địa bàn) · `04b2-hom-nay-ghi-chu` (ghi chú, to-do, hoàn tác, đính kèm, bộ nhớ máy) · `04b3-hom-nay-lich-viec` (câu chữ, can chi, việc, tính ngày, đồng bộ lich.json, tab tháng).
+  - `js/06-hop-thoai.js` 160 KB → `06` (hộp thoại chung, phân loại, hộp sửa gọn, hướng dẫn, **Có gì mới** — `tools/bump.py` vẫn sửa ở đây) · `06d-dong-bo-cai-dat` (đồng bộ mục Drive, xóa / thùng rác, bỏ tab Tháng, chờ khai, ảnh ghi chú, Cài đặt) — `06d` thêm vào phần chung hồi quy (`tools/hoiquy_pt.py` CHUNG).
+  - Số đo `kiem.py`: file > 150 KB 4 → **0**. Dòng `<script>` file mới không kèm ghi chú (bộ thử nhanh `tests/nhanh/nen.js` chỉ nạp dòng script trơn).
+- Phép thử: `t177` đọc đủ 3 file Hồ sơ.
+
 ## 3.410 — 31/10/2026 — Dọn rác theo dõi tổ + số TK 105 theo Sao kê gần nhất (TK 2)
 - **Anh 31/10:** "các theo dõi về tổ có lẽ gỡ dọn rác, để làm lại từ đầu đơn giản hơn" → duyệt gỡ 5 mục; "chip ra khỏi tổ để lại, em code dọn rác luôn các chức năng ko dùng… số dư hay so sánh cần cùng 1 ngày, còn khi cần lấy số TK 105 hay các thông tin tổ thì chỉ cần rà các dữ liệu gần nhất có là được".
 - **Đã gỡ:** ① 📉 Diễn biến tổ (`js/80-dien-bien-to.js` + CSS `.dbt-*`, phép t322) — thẻ tổ Tra cứu trở lại nút 👪 Lập hồ sơ hộ mới vào tổ · ② 📅 Biến động tổ viên cả năm (`toBDNam*`, `TO_BDN`, 2 nút) · ③ dòng "Biến động +x vào · −y ra" (`toBDChu`, `toBDDem`) ở đầu thẻ tổ / phạm vi · ④ cột **Mới vào** và **105 tăng/giảm** ở bảng tổ / bảng xã–điểm (`TO_TRUOC`, `toTruocNap`, `S.moi`, `S.d105`) + chip lọc **Mới vào tổ** · ⑤ ⚖ So cách cũ / mới (`js/84-so-cach.js`, `K.ngDaSo`).

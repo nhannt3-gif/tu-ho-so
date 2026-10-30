@@ -19,7 +19,7 @@ import sys, os, re, json, glob, hashlib, datetime
 G = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MOC = os.path.join(G, 'tests', 'hoiquy_moc.json')
 # phần chung: đổi → chạy lại hết (khung, khởi động, lưu, KHO, bộ lọc địa bàn, hộp thoại, lệnh GD, giao diện chung)
-CHUNG = ['index.html', 'js/01-thu-vien.js', 'js/02-nen.js', 'js/04-giao-dien.js', 'js/06-hop-thoai.js', 'js/11-khung-tab.js',
+CHUNG = ['index.html', 'js/01-thu-vien.js', 'js/02-nen.js', 'js/04-giao-dien.js', 'js/06-hop-thoai.js', 'js/06d-dong-bo-cai-dat.js', 'js/11-khung-tab.js',
          'js/17-dong-bo-cai-dat.js', 'js/20-khoi-dong.js', 'js/23-dieu-huong.js',
          'js/34-luu-ngan.js', 'js/36-dong-bo-khoi.js', 'js/39-gd.js', 'js/69-bo-cuc-a.js', 'tests/tv.js']
 # 3.407 (R1 — anh 30/10 "hồi quy ngày càng nhiều, rà soát hồi quy không cần thiết"): KHO / Số liệu / cây địa bàn chỉ là phần chung của phép thử CÓ DÙNG SỐ LIỆU

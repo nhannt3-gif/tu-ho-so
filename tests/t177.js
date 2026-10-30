@@ -35,10 +35,10 @@ const fs=require('fs'), path=require('path');
  }, files);
  /* kiểm tĩnh: js/25 (Hồ sơ Tổ / Hồ sơ vay / sổ hộ vay) + js/26 (Giao dịch xã) không còn đọc thẳng biến kho — chỉ còn chỗ TAB ĐẶT KỲ (TO_K = …), cây chọn (PV_DUNG K) và đọc kỳ trước */
  const choPhep = /PV_DUNG\.|TO_K = |toNap\(|var cu = TO_K|TO_K && TO_K\.ky===S\.ky/;
- const con = []; ['25-ho-so.js', '26-giao-dich-xa.js'].forEach(f=>fs.readFileSync(path.join(__dirname, '..', 'js', f), 'utf8').split('\n').forEach((l, i)=>{ const x = l.replace(/\/\*.*?\*\//g, ''); if(/\b(TO_K|SL_DB|SLM|KT_K)\b/.test(x) && !choPhep.test(x)) con.push(f+':'+(i+1)); }));
+ const con = []; ['25-ho-so.js', '25b-ho-so-vay.js', '25c-ho-so-giao-dien.js', '26-giao-dich-xa.js'].forEach(f=>fs.readFileSync(path.join(__dirname, '..', 'js', f), 'utf8').split('\n').forEach((l, i)=>{ const x = l.replace(/\/\*.*?\*\//g, ''); if(/\b(TO_K|SL_DB|SLM|KT_K)\b/.test(x) && !choPhep.test(x)) con.push(f+':'+(i+1)); }));
  R.push((con.length ? '✗ ' : '✓ ')+'js/25 + js/26 chỉ hỏi qua KHO (còn lại: đặt kỳ của tab, cây chọn, kỳ trước) — '+(con.length ? con.slice(0, 8).join(' · ') : 'sạch'));
  const k29 = fs.readFileSync(path.join(__dirname, '..', 'js', '29-kho.js'), 'utf8');
- R.push((/function hsoKhach\(/.test(k29) && /function hsoTTKH\(/.test(k29) && !/function hsoKhach\(/.test(fs.readFileSync(path.join(__dirname, '..', 'js', '25-ho-so.js'), 'utf8')) ? '✓ ' : '✗ ')+'lõi kho hsoKhach / hsoTTKH dời về js/29 (giữ tên cũ)');
+ R.push((/function hsoKhach\(/.test(k29) && /function hsoTTKH\(/.test(k29) && !['25-ho-so.js', '25b-ho-so-vay.js', '25c-ho-so-giao-dien.js'].some(f=>/function hsoKhach\(/.test(fs.readFileSync(path.join(__dirname, '..', 'js', f), 'utf8'))) ? '✓ ' : '✗ ')+'lõi kho hsoKhach / hsoTTKH dời về js/29 (giữ tên cũ)');
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));
  const sai = R.filter(x=>x[0]==='✗').length; console.log((R.length-sai)+'/'+R.length+' đạt'); await b.close(); process.exit(sai||loi.length ? 1 : 0);
 })();
