@@ -888,14 +888,20 @@ function slBoXoa(ky){   /* số liệu kỳ vừa đổi (nạp / xóa / kéo t�
 function slNapSan(lai){   /* nạp ngầm: ngày mới nhất + tháng mới nhất trước, rồi các tháng còn lại lúc rảnh; chip ⚡ báo tiến độ từng kỳ
      3.136 (anh chốt): dựng sẵn cả kỳ NGÀY mới nhất; nạp file xong gọi lại (lai) — đang chạy thì chạy thêm 1 lượt khi xong */
   if(SL_SAN_NAP.chay){ if(lai) SL_SAN_NAP.lai = true; return; } var gioi = laDT() ? 1 : slGiuToiDa();
-  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='hstd' && String(e.ky).length===7; }).map(function(e){ return e.ky; })
+  var th = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='hstd' && String(e.ky).length===7; }).map(function(e){ return e.ky; })
     .sort().reverse().slice(0, gioi), ng = toDsKy().filter(function(x){ return x.ky.length>7; }).map(function(x){ return x.ky; }).sort().pop();
-  if(ng) ds.splice(ds.length ? 1 : 0, 0, ng);   /* tháng mới nhất → ngày mới nhất → các tháng cũ hơn */
+  /* 3.412 (anh 31/10 "tối ưu dựng trước kỳ mới nhất và tháng liền trước rồi chạy ngầm các tháng khác"): thứ tự ưu tiên
+     ① kỳ đang dùng (kỳ chung anh chọn — mặc định kỳ mới nhất) ② tháng liền trước của nó ③ kỳ mới nhất (ngày / tháng) + tháng liền trước, nếu khác ④ các tháng còn lại mới → cũ (ngầm, nghỉ lâu hơn) */
+  var moiNhat = ng && (!th[0] || ng.slice(0, 7)>th[0]) ? ng : (th[0] || ng), dang = (typeof kyChungLay==='function' && kyChungLay()) || moiNhat;
+  var truoc = function(ky){ var t = kyLui(String(ky).slice(0, 7), -1);   /* ngày 29/10 → chốt T9 · tháng T9 → chốt T8 */ return SLM.bang[slKhoa('hstd', t)] ? t : ''; };
+  var ds = []; [dang, truoc(dang), moiNhat, truoc(moiNhat)].concat(ng ? [ng] : [], th).forEach(function(k){ if(k && ds.indexOf(k)<0 && (SLM.bang[slKhoa('hstd', k)] || k===ng)) ds.push(k); });
+  ds = ds.slice(0, Math.max(gioi, 1));   /* điện thoại giữ 1 kỳ (luật cũ, máy nhẹ); máy tính tới 12 tháng (⚡ Giữ sẵn) */
+  var uuTien = ds.slice(0, ds.indexOf(truoc(moiNhat))>=0 ? ds.indexOf(truoc(moiNhat))+1 : 2);
   var can = ds.filter(function(ky){ return !TO_KS[ky]; });
   SL_SAN_NAP = {chay:true, xong:ds.length-can.length, tong:ds.length, ds:ds, dang:''}; slNapSanChip();
-  var ranh = function(){ return new Promise(function(r){ setTimeout(r, 250); }); };   /* nghỉ giữa các kỳ cho máy kịp vẽ, không giật */
+  var ranh = function(ky){ return new Promise(function(r){ setTimeout(r, uuTien.indexOf(ky)>=0 ? 50 : 1000); }); };   /* nghỉ giữa các kỳ cho máy kịp vẽ, không giật — 3.412: kỳ ưu tiên dựng liền, các tháng khác nghỉ 1 giây (ngầm, không làm chậm thao tác) */
   var het = function(){ SL_SAN_NAP.xong++; SL_SAN_NAP.dang = ''; slNapSanChip(); };
-  return can.reduce(function(p, ky){ return p.then(ranh).then(function(){ SL_SAN_NAP.dang = ky; slNapSanChip(); return TO_KS[ky] ? null : toNap(ky); }).then(het, het); }, Promise.resolve())
+  return can.reduce(function(p, ky){ return p.then(function(){ return ranh(ky); }).then(function(){ SL_SAN_NAP.dang = ky; slNapSanChip(); return TO_KS[ky] ? null : toNap(ky); }).then(het, het); }, Promise.resolve())
     .then(function(){ var l = SL_SAN_NAP.lai; SL_SAN_NAP.chay = false; SL_SAN_NAP.lai = false; slNapSanChip(); if(l) slNapSan(); });
 }
 function slKyNgan(k){ return k.length>7 ? 'ngày '+ngayVNsl(k).slice(0, 5) : 'T'+(+k.slice(5))+(k.slice(0, 4)!==String(nay().getFullYear()) ? '/'+k.slice(2, 4) : ''); }

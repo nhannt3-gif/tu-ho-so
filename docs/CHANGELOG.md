@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.412 — 31/10/2026 — Dựng sẵn ưu tiên kỳ mới nhất + tháng liền trước (TK 2)
+- **Anh 31/10:** "nếu app đã dựng sẵn 12 tháng thì ok rồi nhưng anh muốn tối ưu dựng trước kỳ mới nhất và tháng liền trước rồi chạy ngầm các tháng khác" (hỏi thêm: tắt trình duyệt mở lại không phải nạp lại — **đã có**: file nạp lưu trong máy, chỉ dựng lại; lưu cả bộ đã dựng (P2) đo được lợi ≈ 0,4 s / tháng nhưng tốn ≈ 85 MB / tháng → chưa làm).
+- `slNapSan` (js/22): thứ tự ① **kỳ đang dùng** (kỳ chung anh chọn — chưa chọn thì kỳ mới nhất, kể cả kỳ NGÀY mới hơn tháng) ② **tháng liền trước** (ngày 29/10 → chốt T9; T9 → T8) ③ kỳ mới nhất + tháng liền trước nếu khác ④ các tháng còn lại mới → cũ. Kỳ ưu tiên dựng liền (nghỉ 50 ms), các tháng khác **ngầm, nghỉ 1 giây** giữa các tháng — không làm chậm thao tác. Vẫn giữ tới 12 tháng (⚡ Giữ sẵn); điện thoại giữ 1 kỳ như cũ.
+- Phép thử mới `t332` (4 ý); `t127`, `t130`, `t131` đạt.
+
 ## 3.411.3 — 31/10/2026 — Rà phép thử D2: bộ dữ liệu giả nhỏ (TK 2)
 - Thứ tự anh chốt 31/10 — bước B2 = **D2** (`docs/RA_SOAT_HOI_QUY.md`). **Chỉ đổi phép thử, app không đổi.**
 - 27 phép chuyển bộ giả lớn `gia31` (25.000 dòng) → `gianho31` (300 dòng), **giữ nguyên mọi câu kiểm, đều đạt**: t102, t106–t109, t112, t113, t115, t116, t118–t120, t122–t127, t129, t130, t132–t135, t137, t150, t154 — 871 giây → 215 giây (bớt ≈ 11 phút mỗi lượt hồi quy 1 luồng).
