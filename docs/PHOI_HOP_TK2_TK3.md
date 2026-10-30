@@ -142,6 +142,7 @@
 | 31/10 | TK 2 | 3.416 | `js/28` (dsTimCCCD), `js/41` (tổ trưởng cũ), `js/45` (trChay ttCu, vaiTro), `js/46`, **mới** `js/84-cccd-to-truong.js` (cắm rút: 👑 kiểm CCCD tổ trưởng · tổ phó), `index.html`, `tests/t337` | t337 13/13 + t336 + 8 phép Scan đạt; hồi quy theo đổi |
 | 31/10 | TK 2 | 3.416.1 | `js/41`, `js/46` (lưu tách), `js/58` + CSS (bỏ cột Xã), `js/28` (dsTTDs), `js/84`, `js/05` + `js/03` (tiến độ), `js/83` + CSS (ấp cũ), `js/08` (dsToM31), tests t338–t340 + sửa t309/t317/t327/t337 | phép mới + phép liên quan đạt; hồi quy theo đổi |
 | 31/10 | TK 2 | 3.416.2 | `js/58` (tcTheTo đầu thẻ gọn, sửa ô CCCD), CSS, `tests/t246` | 10 phép thẻ tổ đạt; hồi quy 3.416.1 141/142 (t246 đã sửa) |
+| 31/10 | TK 2 | 3.416.3 | `js/58` (hàng số kẻ ô), CSS, `tests/t246` | 10 phép thẻ tổ đạt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

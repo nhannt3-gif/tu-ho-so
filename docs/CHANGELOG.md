@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.416.3 — 31/10/2026 — Thẻ tổ: hàng số kẻ ô như cũ (TK 2)
+- **Anh 31/10** (ảnh hàng số thẻ tổ 3.416.2): "nên kẻ khung như cũ".
+- Hàng số trở lại bảng kẻ ô kiểu cũ (`table.tc-to-hang`): Thành viên (n có nợ) · Tổng dư nợ · Số dư TK 105 · **Lưu ý** (quá hạn / lãi tồn / 3T KHĐ / không dư nợ khi ≠ 0, không có → ✓). Dòng tên, dòng phụ giữ như 3.416.2 (js/58 + CSS).
+- `t246` sửa theo; thẻ tổ `t107`, `t244`, `t247`, `t258`, `t277`, `t278`, `t302`, `t304`, `t329` đạt.
+
 ## 3.416.2 — 31/10/2026 — Đầu thẻ tổ gọn (TK 2)
 - **Anh 31/10** (ảnh thẻ tổ Tra cứu): "còn rối chưa dễ nhìn".
 - **Trước:** 3 hàng ô kẻ (17 ô), nhiều ô 0, ghi chú kỹ thuật; ô CCCD hiện nhầm "Mã CIF TT (Mẫu 31 / Mẫu 18)" (là căn cứ tìm mã KH tổ trưởng `hsoTTKH().cc`, không phải số CCCD).
