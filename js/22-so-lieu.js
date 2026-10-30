@@ -495,7 +495,12 @@ var SL_SAN = false, SL_DB = null, SL_TIM = [], SL_BO = {}, SL_KY = '', SL_LECH =
 function slKhoa(loai, ky){ return loai+'|'+ky; }
 function slIDB(loai, ky){ return 'sl_b_'+loai+'_'+ky; }
 function slChuanMeta(j){ j = j||{}; return {bang:j.bang||{}, xoa:j.xoa||{}, ndt:j.ndt||{}, kt:j.kt||{}, ktg:j.ktg||{}, dbLuc:j.dbLuc||'', suaLuc:j.suaLuc||''}; }   /* 3.91: chot = chốt / mở khóa theo tháng */   /* 3.88: kt = kết quả kiểm tra theo tháng */
+var SL_NAP_DANG = null;   /* 3.422: slNap đang chạy thì nơi gọi sau dùng chung (trước: mở app đọc sổ nạp + danh bạ 2 lần) */
 function slNap(){
+  if(SL_NAP_DANG) return SL_NAP_DANG;
+  var p = SL_NAP_DANG = slNap0(), bo = function(){ if(SL_NAP_DANG===p) SL_NAP_DANG = null; }; p.then(bo, bo); return p;
+}
+function slNap0(){
   return docFile('sl_meta').then(function(s){
     if(s){ try{ SLM = slChuanMeta(typeof s==='string' ? JSON.parse(s) : s); }catch(e){ console.warn('sl_meta hỏng', e); } }
     SL_SAN = true;
@@ -922,8 +927,15 @@ function slKyDung(loai, ky){
   var ng = slCacNgay(loai, slThang(ky)).filter(function(e){ return e.ky<ky; }); if(ng.length) return ng[ng.length-1].ky;
   var tr = kyLui(slThang(ky), -1); return SLM.bang[slKhoa(loai, tr)] ? tr : '';
 }
+var SL_BO_DANG = {};   /* 3.422 (đo mở lại app): 2 nơi cùng gọi dựng 1 kỳ (dựng sẵn ngầm + tab đang mở) → đọc bảng gốc + dựng 2 lần. Đang dựng thì dùng chung lời hứa (cùng lứa SL_BO — SL_BO làm mới thì không dùng) */
 function slBo(ky){
   if(SL_BO[ky]){ slDung(ky); return Promise.resolve(SL_BO[ky]); }
+  var d = SL_BO_DANG[ky]; if(d && d.bo===SL_BO) return d.p;
+  var x = {bo:SL_BO}; x.p = slBo0(ky); SL_BO_DANG[ky] = x;
+  var bo = function(){ if(SL_BO_DANG[ky]===x) delete SL_BO_DANG[ky]; }; x.p.then(bo, bo);
+  return x.p;
+}
+function slBo0(ky){
   var B = {ky:ky, co:{}, mon:{}, theoKH:{}, lap:[], to:{}, nqh:{}, nk:{}, khd:{}, tdn:[], nguon:{}};
   return SL_LOAI.reduce(function(p, L){
     return p.then(function(){

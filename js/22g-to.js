@@ -161,8 +161,15 @@ function toSuyDiem(K){   /* 3.98: tổ không có điểm GD (không có trong T
     t.diem = g.diem; t.tenDiem = g.tenDiem; if(!t.ngayGD && (g.ngayGD || n)) t.ngayGD = g.ngayGD || n; t.diemSuy = ly;
   });
 }
+var TO_NAP_DANG = {};   /* 3.422: như SL_BO_DANG — 2 nơi cùng dựng 1 kỳ → dùng chung (cùng lứa TO_KS) */
 function toNap(ky){
   if(TO_KS[ky]){ slDung(ky); return Promise.resolve(TO_KS[ky]); }
+  var d = TO_NAP_DANG[ky]; if(d && d.ks===TO_KS) return d.p;
+  var x = {ks:TO_KS}; x.p = toNap0(ky); TO_NAP_DANG[ky] = x;
+  var bo = function(){ if(TO_NAP_DANG[ky]===x) delete TO_NAP_DANG[ky]; }; x.p.then(bo, bo);
+  return x.p;
+}
+function toNap0(ky){
   var K = {ky:ky, ngay:ky.length>7 ? ky : tdnCuoiKy(ky), thang:slThang(ky)}, Bm;
   return slBo(ky).then(function(b){ Bm = b;   /* 3.136: kỳ ngày — mỗi loại lấy bảng đúng ngày, thiếu thì bảng liền trước (slKyDung) */
     K.hs = Bm.co.hstd || []; K.lap = Bm.lap || []; var nh = Bm.nguon.hstd || ky;
