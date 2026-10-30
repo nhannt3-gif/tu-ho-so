@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.419 — 31/10/2026 — Nâng cấp kỹ thuật P1: bản máy tính chạy không mạng (TK 2)
+- Kế hoạch `docs/KE_HOACH_NANG_CAP_0111.md` bước P1. Gói cắm rút mới `js/85-khong-mang.js` đăng ký bộ đệm `dt-sw.js` (chung với bản điện thoại — cùng phạm vi trình duyệt chỉ cho 1 bộ). `dt-sw.js` thêm nhánh bản máy tính: `index.html`, `js/**`, `css/**` — **có mạng luôn lấy bản mới** rồi cất (kho `tuhoso-may`, khóa theo URL đủ `?v=` nên không trộn bản), **mất mạng** dùng bản đã cất. Thư viện pdf.js / Excel đã cất sẵn ở `js/01` (IndexedDB). Chỉ chạy trên https / localhost; bản điện thoại giữ nguyên.
+- Phép thử mới `t341` (máy chủ tạm localhost: đăng ký → cất 129 tệp → tắt mạng vẫn mở đúng bản); bản điện thoại `t194`, `t195`, `t260`, `t262`–`t266`, thứ tự nạp `t138` đạt.
+
 ## 3.418 — 31/10/2026 — Nâng cấp kỹ thuật D2: Tra cứu onclick → data-lenh (TK 2)
 - Kế hoạch `docs/KE_HOACH_NANG_CAP_0111.md` bước D2. **29 `onclick` trong chuỗi** ở `js/22f-tra-cuu.js` (dải tab con Số liệu, dòng khách / gợi ý, Mở khách, Chép cả khối, Mở tổ, Xem thêm 50, Hiện món tất toán, Xóa tìm, Về Giao dịch xã, chép ô) và `js/58-tc-to.js` (Tổ của điểm GD, bảng tổ của điểm, Mở tổ, Kết nạp, chép ô) → `data-lenh="tc.*"` (đăng ký trong `tcDangKy`, gọi cả khi vẽ dải tab con). Hành vi như cũ; riêng ô chép trong dòng khách: bấm chép không mở dòng nữa (như thẻ tổ).
 - `onclick` toàn app 1.297 → 1.268. Kế hoạch sửa theo hiện trạng: D3 đã có từ 3.363 (nhật ký lỗi), đọc Excel đã ở Worker từ 3.86.

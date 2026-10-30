@@ -1040,7 +1040,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.418', ds:[
+var CO_GI_MOI = {ban:'3.419', ds:[
+  ["📴 Bản máy tính mở được khi mất mạng (có mạng luôn lấy bản mới)", ""],
   ["🔧 Tra cứu: 29 nút chuyển sang bộ nhận lệnh chung (data-lenh), bấm như cũ", ""],
   ["🧹 Dọn 289 luật CSS không còn dùng (−21 KB), giao diện không đổi", ""],
   ["🏘 Thẻ tổ: \"n có nợ\" xuống dòng dưới số thành viên, màu xanh", ""],
@@ -1054,8 +1055,7 @@ var CO_GI_MOI = {ban:'3.418', ds:[
   ["👤 Danh sách tổ: bỏ cột Xã, đầu khung ghi Xã (n tổ) - Ấp (n tổ)", ""],
   ["🏷 Tên ấp cũ: chỉ hiện khi mở xã liên quan, không tốn thêm dòng", ""],
   ["🧾 Sửa bản quét: chọn ấp là hiện sẵn danh sách tổ của ấp (từ Mẫu 31)", ""],
-  ["👑 Kiểm CCCD tổ trưởng · tổ phó: lọc tổ nào đã lưu / còn thiếu, tổ trưởng cũ lọc riêng (📊 Kiểm tra hồ sơ scan)", "ttkMo("],
-  ["🪪 Scan CCCD tổ trưởng CŨ (đã thôi): khớp File Tổ trưởng các kỳ → lưu tên chuẩn CIF - Họ tên - CCCD", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["👑 Kiểm CCCD tổ trưởng · tổ phó: lọc tổ nào đã lưu / còn thiếu, tổ trưởng cũ lọc riêng (📊 Kiểm tra hồ sơ scan)", "ttkMo("]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
