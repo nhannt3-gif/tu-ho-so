@@ -270,6 +270,7 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 | 1 | Sao kê › Khách hàng › Khách có từ 2 TK 105 (đã nạp Sao kê TK 105) | Mỗi sổ 1 dòng, số dư + ngày mở, tổng 105 khách = cộng sổ, sổ 0 tô nền | |
 | 2 | Khách 2 sổ: so số dư 105 ở thẻ tổ / KTGS với Sao kê TK 105 | Bằng tổng 2 sổ | |
 | 3 | Nạp File Tổ trưởng khác ngày Mẫu 31 | Kiểm tra kỳ báo QT-C-09, 🗺 Địa bàn ghi ⚠ Mẫu 31 là chính; vẫn có CCCD / TK 104 tổ trưởng; ấp theo Mẫu 31 | |
+| 5 | 🗺 Địa bàn › ⚖ So cách cũ / mới (kỳ 29/10) | 6 mục, mục nào chênh có bảng từng tổ / khách — anh xem rồi báo, bản sau gỡ nút | |
 | 4 | 🗺 Địa bàn kỳ 29/10 | 5 xã đúng tên (Gia Lộc, Thạnh Đức, Truông Mít không còn "Vay trực tiếp") | |
 
 _Ghi chú kỹ thuật 3.409:_ `slT105Them` (js/22, gắn `__s105` không đếm được vào đối tượng gom); `K.dsLech` / `K.dsDung` (js/22g toNap; khác ngày không đè `t.thon`), `toTenXa` (js/22g); `skBCTk2` (js/76); mục QT-C-09 ở `slKTAp` (js/22k); `dbslNguon` (js/82).
