@@ -59,7 +59,10 @@ function trChay(id){
   else {
     if(!KHO.coKy() && !e.__napTT && typeof kyChungLay==='function' && kyChungLay()){ e.__napTT = 1; kq.innerHTML = '<small>Không có trong danh bạ khách — đang dựng bảng tổ kỳ '+coChuHTML(kyChungLay())+' để tra tổ trưởng…</small>';   /* tab Scan chưa dựng kỳ → dựng kỳ chung rồi tra lại */
       return KHO.nap(kyChungLay()).then(function(K){ toGanNeuTrong(K); }).catch(function(){}).then(function(){ trChay(id); }); }
-    var tt = trTimTT(e.value); if(tt) return trGanTT(tt);   /* 3.321 (anh 23/10 "CCCD này là của tổ trưởng nhưng app báo không có trong Mẫu 31"): tổ trưởng không vay → tra bảng tổ */
+    var tt = trTimTT(e.value); if(tt) return trGanTT(tt);
+    var soC = String(e.value||'').replace(/\D/g, '');   /* 3.416: tổ trưởng CŨ — File Tổ trưởng các kỳ trước (js/84) */
+    if(!e.__ttCu && e.__ttCuKhong!==soC && (soC.length===12 || soC.length===9) && typeof dsTimCCCD==='function' && typeof trGanTTCu==='function'){   /* đã tra mà không có → không tra lại (tránh vòng lặp) */ e.__ttCu = 1; kq.innerHTML = '<small>Đang tra File Tổ trưởng các kỳ trước…</small>';
+      return dsTimCCCD(soC).then(function(c){ e.__ttCu = 0; if(c) return trGanTTCu(c, soC, id); e.__ttCuKhong = soC; trChay(id); }); }   /* 3.321 (anh 23/10 "CCCD này là của tổ trưởng nhưng app báo không có trong Mẫu 31"): tổ trưởng không vay → tra bảng tổ */
     var th = e.__the, so0 = String(e.value||'').replace(/\D/g, '');
     if(th && th.ten && th.so===so0){ e.value = th.ten; e.setAttribute('data-tr-da', th.ten); if(noi==='sua' && window.__k) window.__k.ten = th.ten;   /* không có ở đâu → tên đọc trên thẻ (QR), không để số trong ô tên */
       kq.innerHTML = '<span class="vang">CCCD '+coChuHTML(so0)+' không có trên Mẫu 31 / bảng tổ — lấy họ tên trên thẻ: <b>'+coChuHTML(th.ten)+'</b>; lưu vào <i>Scan chờ sắp xếp</i>, có Mẫu 31 thì 🧹 Sắp xếp xếp lại.</span>'; return; }
@@ -78,7 +81,7 @@ function trTimTT(q){
    mã = CIF tổ trưởng (mã KH hệ thống, cột CIF Danh sách tổ); chưa có CIF → khóa số CCCD (như hộ mới) */
 function sxKhachTT(x, cccd){ var t = x.t || {}, d = KHO.toDanhBa(x.ma) || {}, so = String(cccd || (x.b && x.b.cccd) || '').replace(/\D/g, ''), cif = String((x.b && x.b.kh) || '').trim();
   var ten = t.ds && t.ds.toTen ? tenHoaDau(t.ds.toTen) : x.tt;   /* họ tên tổ trưởng theo Danh sách tổ (TENTT) trước, rồi danh bạ tổ */
-  return {ma:cif, khoa:cif ? '' : so, ten:ten, cccd:so, xa:t.tenXa||'', ap:t.tenThon||'', maXa:t.xa||'', maAp:t.thon||'', to:d.ten || t.ten || '', diem:d.diem||'', laTT:true, maTo:x.ma}; }
+  return {ma:cif, khoa:cif ? '' : so, ten:ten, cccd:so, xa:t.tenXa||'', ap:t.tenThon||'', maXa:t.xa||'', maAp:t.thon||'', to:d.ten || t.ten || '', diem:d.diem||'', laTT:true, vaiTro:'tt', maTo:x.ma}; }
 function sxTenTT(c, loai){ return tcTen(c.ma || c.khoa, c.ten, loai || 'CCCD', ''); }
 function trTenTT(m, t){ var d = KHO.toDanhBa(m) || {}; return tenHoaDau(d.ten || t.ten || ''); }
 function trGanTT(x){

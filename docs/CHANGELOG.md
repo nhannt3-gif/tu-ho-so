@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.416 — 31/10/2026 — CCCD tổ trưởng: lưu cả tổ trưởng cũ + màn kiểm đủ (TK 2)
+- **Anh 31/10:** "đặc biệt khi gặp CCCD tổ trưởng dù cũ hay mới cũng lưu trữ, sau này có 1 chỗ lọc ra CCCD của tổ trưởng xem có lưu đủ hay chưa" → "có kiểm tổ phó hiện tại, tổ trưởng cũ cũng lưu và lọc riêng".
+- **① Tổ trưởng cũ:** CCCD không có trong Mẫu 31 và không phải tổ trưởng hiện tại → tra **mọi File Tổ trưởng đã nạp** (mới nhất trước — `dsTimCCCD`, js/28) → "✓ Tổ trưởng CŨ … (khớp CCCD File Tổ trưởng kỳ …)", lưu tên chuẩn `CIF - Họ tên - CCCD`, gắn vai trò `ttCu` (Lưu vào tủ đúng xã / ấp, không vào Chờ sắp xếp). Bản lưu ghi `vaiTro` (tt / ttCu).
+- **② 👑 Kiểm CCCD tổ trưởng · tổ phó** (gói cắm rút mới `js/84-cccd-to-truong.js`, nút trong 📊 Kiểm tra hồ sơ scan): mỗi tổ của kỳ mới nhất — tổ trưởng + tổ phó hiện tại, đã lưu CCCD chưa (khớp mã KH / CIF hoặc số CCCD), ngày lưu; chip Tất cả / Chỉ thiếu / 👑 Tổ trưởng cũ đã lưu (lọc riêng); 📥 Excel 2 trang.
+- Phép thử mới `t337` (13 ý); `t336`, Scan `t210`, `t216`, `t220`, `t223`, `t224`, `t235`, `t271`, `t316` đạt.
+
 ## 3.415 — 31/10/2026 — Scan: CCCD tổ trưởng lưu theo tên chuẩn (TK 2)
 - **Anh 31/10** (ảnh hộp "Đạt · 1 người — làm gì với bản này?"): "sau khi đọc được CCCD và xác định được thì phải lưu theo tên kiểu đã xác nhận nhưng app chỉ lưu theo tên".
 - **Nguyên nhân:** CCCD khớp **tổ trưởng** (bảng tổ — tổ trưởng không vay nên không có trong danh bạ khách Mẫu 31) → 🔎 Tra Mẫu 31 chỉ điền **họ tên** vào ô Tên file, không ghi nhận người đã xác định → Lưu vào máy / In / Gửi ra file chỉ có tên; Lưu vào tủ coi là chưa rõ → ⏳ Chờ sắp xếp; đọc CCCD tự động báo "chưa có trên Mẫu 31 (hộ mới)".

@@ -247,6 +247,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t334.js` | 3.413 R1 tab Tổ cấp phạm vi nạp tháng trước khi bấm chip Ra khỏi tổ (không nạp khi mở), cấp tổ giữ như cũ — `gianho31`. |
 | `node tests/t335.js` | 3.414 nút tab Tổ qua bộ lệnh chung `data-lenh` (chip, chọn tổ, In / Excel / Cột / Ngưỡng) + Excel danh sách khách cấp phạm vi (`toExcelDSPV`) — `gianho31`. |
 | `node tests/t336.js` | 3.415 Scan CCCD tổ trưởng khớp bảng tổ (CIF) → tên chuẩn CIF - Họ tên - CCCD, Lưu vào tủ gắn đúng người — `gianho31` + Danh sách tổ giả. |
+| `node tests/t337.js` | 3.416 Tổ trưởng cũ (tra mọi File Tổ trưởng) lưu tên chuẩn + màn 👑 Kiểm CCCD tổ trưởng · tổ phó (đã lưu / thiếu, lọc tổ trưởng cũ, Excel) — `gianho31` + Danh sách tổ giả. |
 
 
 
