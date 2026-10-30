@@ -1069,10 +1069,11 @@ function slDCXuat(ky){
   batChay(true, 'Đang lập file đối chiếu '+kyVN(ky)+'…');
   var ten = '';
   toNap(ky).then(function(K){
+    if(K.dsLech) return 'lech:'+ngayVNsl(K.dsLech.ds)+' ≠ Mẫu 31 '+ngayVNsl(K.dsLech.m31);   /* 3.409 QT-C-09 (anh chốt 30/10): chốt / so sánh phải cùng ngày — lệch thì chặn */
     var csv = slDCCsv(K); ten = 'DOI_CHIEU_APP_'+K.ngay+'.csv'; var bl = new Blob([csv], {type:'text/csv'});
     if(!(coTheNoiDrive() && DR.sanSang)){ taiXuongBlob(bl, ten); return 'may'; }
     return baoDamDuong(D.cauHinh.thumuc+'/Số liệu/'+slThang(K.ngay)).then(function(idTM){
       return timFileTrong(ten, idTM).then(function(cu){ return slGhiBlob(ten, idTM, bl, cu ? cu.id : null); }); }).then(function(){ return 'drive'; });
-  }).then(function(noi){ tatChay(); bao(noi==='drive' ? 'Đã lưu '+ten+' vào Số liệu/'+slThang(ky)+'/ trên Drive — giao ban đọc file này để so.' : 'Chưa nối Drive — đã tải '+ten+' về máy.', 6); })
+  }).then(function(noi){ tatChay(); if(/^lech:/.test(noi)) return bao('Chưa lập file đối chiếu: File Tổ trưởng '+noi.slice(5)+' — chốt / so sánh phải cùng ngày (QT-C-09). Nạp File Tổ trưởng cùng ngày Mẫu 31 rồi xuất lại.', 8); bao(noi==='drive' ? 'Đã lưu '+ten+' vào Số liệu/'+slThang(ky)+'/ trên Drive — giao ban đọc file này để so.' : 'Chưa nối Drive — đã tải '+ten+' về máy.', 6); })
     .catch(function(er){ tatChay(); baoLoi('Lập file đối chiếu lỗi: '+(er && er.message || er)); });
 }

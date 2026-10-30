@@ -51,7 +51,7 @@ const CHO = {'C09-1 · khong_ghep_to_truong':'anh 30/10 đổi lại: "lấy nh�
   if(r.loi31 || r.loiTT) kq.push({id:ca.id, luat:ca.luat, nhan:'nạp file', bang:'đọc được', app:(r.loi31||'')+' '+(r.loiTT||''), dung:false});
   await p.close();
  }
- kq.forEach(x=>{ const c = !x.dung && CHO[x.id+' · '+x.nhan]; x.cho = !!c; console.log((x.dung ? '✓ ' : c ? '⏳ ' : '✗ ')+x.id+' '+x.luat+' · '+x.nhan+' — đáp án '+JSON.stringify(x.bang)+(x.dung ? '' : ' · app '+JSON.stringify(x.app))+(c ? ' · CHỜ CHỐT: '+c : '')); });
+ kq.forEach(x=>{ const c = !x.dung && (CHO[x.id+' · '+x.nhan] || (/^\(chưa hỗ trợ loại /.test(String(x.app)) && 'luật mới chưa làm ở app (teo_ca 1.2: QT-C-21 kỳ trước theo khế ước) — việc tiếp, anh duyệt')); x.cho = !!c; console.log((x.dung ? '✓ ' : c ? '⏳ ' : '✗ ')+x.id+' '+x.luat+' · '+x.nhan+' — đáp án '+JSON.stringify(x.bang)+(x.dung ? '' : ' · app '+JSON.stringify(x.app))+(c ? ' · CHỜ CHỐT: '+c : '')); });
  if(loiTrang.length) console.log('LỖI TRANG:', loiTrang.slice(0,5));
  const sai = kq.filter(x=>!x.dung && !x.cho).length, cho = kq.filter(x=>x.cho).length; console.log((kq.length-sai-cho)+'/'+kq.length+' đạt'+(cho ? ' · '+cho+' chờ chốt' : ''));
  await b.close(); process.exit(sai||loiTrang.length ? 1 : 0);

@@ -46,6 +46,8 @@ const fs=require('fs'), path=require('path');
    const kq = []; slKTAp(K, function(n, ten, okk, chu){ kq.push({ten, okk, chu}); });
    ok('Kiểm tra kỳ: mục QT-C-09 báo khác ngày, Mẫu 31 là chính', kq.some(x=>/QT-C-09/.test(x.ten) && !x.okk && /25\/08\/2026/.test(x.chu)), JSON.stringify(kq.map(x=>x.ten)));
    ok('🗺 Địa bàn: dòng nguồn ghi ⚠ khác ngày — Mẫu 31 là chính', /khác ngày Mẫu 31 — Mẫu 31 là chính/.test(dbslNguon(K)), dbslNguon(K));
+   let baoChu = ''; const giuBao = window.bao; window.bao = (c)=>{ baoChu = c; }; slDCXuat('2026-08'); for(let i=0;i<40 && !baoChu;i++) await w(100); window.bao = giuBao;
+   ok('📤 file đối chiếu: khác ngày → CHẶN, báo nạp File Tổ trưởng cùng ngày (QT-C-09 anh chốt: chốt / so sánh phải cùng ngày)', /Chưa lập file đối chiếu/.test(baoChu) && /QT-C-09/.test(baoChu), baoChu);
    /* ④ tên xã theo đa số Mẫu 31 (anh 30/10: 3 xã hiện "Vay trực tiếp") */
    const Kx = {hs:[{xa:'X9', tenXa:'Xã Đúng'}, {xa:'X9', tenXa:'Xã Đúng'}, {xa:'X9', tenXa:'Vay trực tiếp'}], to:{A:{ma:'A', xa:'X9', tenXa:'Vay trực tiếp'}, B:{ma:'B', xa:'X8', tenXa:'Vay trực tiếp'}}};
    const dmGiu = D.cauHinh.diaBan; D.cauHinh.diaBan = [{ma:'X8', xa:'Xã Danh Mục', diem:[]}]; toTenXa(Kx); D.cauHinh.diaBan = dmGiu;
