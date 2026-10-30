@@ -181,7 +181,7 @@ Luật làm chung:
 | C8 | Ngày khách chuyển khoản vào TK 105: cần file sao kê giao dịch chi tiết | TK 2 | `BAN_GIAO_TK3_2710.md` mục 5 |
 | C9 | Văn bản về gia hạn nợ (anh đưa lên Tủ hồ sơ) — để chốt QT-C-20 gia hạn tối đa ngắn / trung / dài hạn | TK 1, TK 2 | mục 5, `TEO_QUY_TAC_CHUNG.md` |
 | C10 | Duyệt **quy tắc dùng số cho văn bản tháng 11** (`TEO_KE_HOACH_KY_3110.md` mục 6) | TK 1, TK 2 | kỳ đối chiếu 31/10 |
-| C11 | **📉 Diễn biến tổ** (Tra cứu, thẻ tổ — app 3.402/3.403): anh 29/10 "chưa đúng ý anh, sẽ bàn lại" — cần: mục đích dùng, mẫu biểu (nếu có, vd KH 958 củng cố tổ), mốc so | TK 2 | `js/80-dien-bien-to.js` (cắm rút) |
+| C11 | **Màn Biến động tổ — làm lại từ đầu, đơn giản** (3.410 đã gỡ 📉 Diễn biến tổ, 📅 Biến động cả năm, cột Mới vào / 105 tăng giảm): anh 31/10 "sẽ bàn lại làm sau" — cần: mục đích dùng, mẫu biểu (vd KH 958 củng cố tổ), mốc so; số so sánh theo QT-C-21 (vị trí hiện nay của khế ước), cùng 1 ngày | TK 2 | chưa có code |
 
 ## 14. Hộp thư chung (chỉ thêm dòng ở cuối · trạng thái: mở / ✓ xong)
 
