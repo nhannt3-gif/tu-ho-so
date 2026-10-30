@@ -244,6 +244,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t331.js` | 3.410 dọn theo dõi tổ (đã gỡ Diễn biến tổ, Biến động cả năm, dòng biến động, cột Mới vào / 105 tăng giảm, So cách; giữ chip Ra khỏi tổ, máy so tháng trước cho Hồ sơ tổ) · Số TK 105 bù từ Sao kê gần nhất — `gianho31` + Sao kê giả. |
 
 
+
 | (3.389.2) | Chỉ CSS. |
 | (3.389.1) | Thử goiCauNoi bằng node trong lượt sửa. |
 | (3.389) | t147 thêm nút 📋 Chép. |

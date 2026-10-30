@@ -4,6 +4,9 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.411.1 — 31/10/2026 — Sửa thứ tự nạp sau tách file (TK 2)
+- Hồi quy đủ 3.411: 209/211. **t138** (luật thứ tự nạp = thứ tự tên file): `js/06d-dong-bo-cai-dat.js` nạp ngay sau `js/06` nhưng tên xếp sau `06b`, `06c` → đổi tên **`js/06a-dong-bo-cai-dat.js`** (nội dung không đổi). **t314** đếm báo cáo tự lập: 14 → 19 (A1 thêm 5 báo cáo Thông tin tổ) — sửa phép.
+
 ## 3.411 — 31/10/2026 — Tinh gọn A1 (xong) + A2: tách 4 file lớn (TK 2)
 - **Anh 31/10:** "gộp và làm theo kh… 2 ngày cuối tuần cố gắng phát triển thêm app cho hoàn thiện" → làm tiếp thứ tự tinh gọn `BAN_GIAO_TK3_2710.md` mục 7 (A1 → B2 → A2 → A4 → A5; B2 đã xong 3.390–3.394). **Không đổi chức năng, giao diện, luật.**
 - **A1 xong:** 5 báo cáo nhóm Thông tin tổ (kqgd, thhd, tqh, tkn, tkhd) gắn `lap` → `skBaoCao` chỉ còn gọi `lap()` của từng báo cáo (t276 giống hệt).
