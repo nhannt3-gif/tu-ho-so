@@ -13,6 +13,7 @@
 
 ## 3. Quy trình (mọi tài khoản)
 - **Lên kế hoạch → anh duyệt → anh nhắn "code" mới sửa → anh nhắn "gộp" mới gộp.** Không làm ngoài phạm vi đã chốt; đổi / bỏ chức năng cũ phải được anh duyệt. Thiếu thông tin thì hỏi, không đoán.
+- **Luật số liệu (anh 31/10: "các luật thay đổi hơi nhiều, khi nào cần em cũng nên hỏi lại anh để tránh đi sai hướng"):** muốn đổi / bổ sung luật (sổ `TEO_QUY_TAC_CHUNG.md` hay cách tính trong app / script) → **hỏi lại anh trước**, nêu luật cũ · luật mới · căn cứ (file thật / văn bản / anh nói) · ảnh hưởng số. Không tự đổi theo suy luận hay theo đề nghị của tài khoản khác.
 - Lệnh chung, cùng nghĩa ở mọi cửa: **"Đọc trạng thái"** (đọc sổ chung + hộp thư) · **"Chốt QT: …"** · **"Chốt phiên"** (ghi kết quả + việc mới vào sổ) · **"code"** · **"gộp"**.
 - Quyết định anh chốt → ghi vào `docs/TEO_PHOI_HOP.md` **trong cùng lượt**. Việc cho bên khác → **thêm dòng cuối** hộp thư (mục 14), xưng tên tài khoản; không sửa dòng của bên khác.
 - Không ghi được repo → soạn sẵn dòng hộp thư, anh dán sang tài khoản có quyền.

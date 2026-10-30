@@ -53,14 +53,6 @@ const fs=require('fs'), path=require('path');
    const dmGiu = D.cauHinh.diaBan; D.cauHinh.diaBan = [{ma:'X8', xa:'Xã Danh Mục', diem:[]}]; toTenXa(Kx); D.cauHinh.diaBan = dmGiu;
    ok('toTenXa: tên xã = đa số Mẫu 31 (bỏ tên "trực tiếp"); không có → danh mục Cài đặt', Kx.to.A.tenXa==='Xã Đúng' && Kx.to.B.tenXa==='Xã Danh Mục', JSON.stringify(Kx.to));
    ok('cây 🗺 Địa bàn: không xã nào mang tên "trực tiếp"', !dbslCay(K).some(x=>/trực tiếp/i.test(x.xa)), dbslCay(K).map(x=>x.xa).join());
-   /* ⑤ 3.409 TẠM — ⚖ so cách cũ / mới (js/84, bản sau gỡ cùng các dòng này) */
-   const R2 = socTinh(K);
-   ok('⚖ so cách: TK 105 khách nhiều sổ ra chênh (cũ lớn nhất ≠ mới cộng sổ), có mục ①–⑥', SOC_MUC.length===6 && R2.t105.length>0 && R2.t105.every(r=>r[5]>r[4]) && SOC_MUC.every(m=>Array.isArray(R2[m[0]])), JSON.stringify(SOC_MUC.map(m=>m[0]+':'+R2[m[0]].length)));
-   DBSL.K = K; document.querySelector('[data-lenh="socach.mo"]') || document.body.insertAdjacentHTML('beforeend', socNut()); document.querySelector('[data-lenh="socach.mo"]').click(); await w(300);
-   const hop = (document.getElementById('hop-in')||document.body).textContent;
-   ok('⚖ nút mở hộp so 6 mục, ghi rõ tạm / chỉ đọc', /So cách cũ \/ mới/.test(hop) && /⑥ Ngày chuyển quá hạn/.test(hop) && /bản sau gỡ/.test(hop), hop.slice(0, 120));
-   const kq2 = []; slKTAp(K, function(n, ten){ kq2.push(ten); }); try{ dongHop(); }catch(e){}
-   ok('⚖ Kiểm tra kỳ có 6 mục "So cách cũ / mới"', kq2.filter(x=>/So cách cũ \/ mới/.test(x)).length===6);
    return o;
  }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));
