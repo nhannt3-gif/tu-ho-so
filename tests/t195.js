@@ -25,6 +25,6 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  await d.evaluate(()=>DTG.app().views.main.router.navigate('/gdx/', {reloadAll:true})); await w(2500);
  ok('khóa → mở lại bằng PIN: Giao dịch xã giải mã từ máy, không cần Drive', await d.evaluate(()=>{ const ifr = document.querySelector('.page-current .dt-gdx-khung'); return !!(ifr && ifr.contentDocument && /04\/TD/.test(ifr.contentDocument.body.innerText)); }));
  const sw = fs.readFileSync(G+'/dt-sw.js', 'utf8'), ban = /var APP_BAN = '([^']+)'/.exec(fs.readFileSync(G+'/js/02-nen.js', 'utf8'))[1];
- ok('chạy không mạng: dt-sw.js giữ đủ tệp bản điện thoại, tên bộ đệm theo bản, bỏ qua tệp bản máy tính', ["dt.html", "css/dt.css", "js/01-thu-vien.js", "js/dt/dt-nen.js", "js/dt/dt-giao-dien.js"].every(t=>sw.indexOf("'"+t+"'")>=0) && sw.indexOf("'tuhoso-dt-"+ban+"'")>=0 && /if\(!co\) return;/.test(sw));
+ ok('chạy không mạng: dt-sw.js giữ đủ tệp bản điện thoại, tên bộ đệm theo bản; tệp bản máy tính vào kho riêng tuhoso-may (3.419 P1)', ["dt.html", "css/dt.css", "js/01-thu-vien.js", "js/dt/dt-nen.js", "js/dt/dt-giao-dien.js"].every(t=>sw.indexOf("'"+t+"'")>=0) && sw.indexOf("'tuhoso-dt-"+ban+"'")>=0 && /if\(!co\)\{/.test(sw) && sw.indexOf("'tuhoso-may'")>=0);
  o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
  console.log(o.join('\n')); console.log(o.filter(x=>x[0]==='✓').length+'/'+o.length+' đạt'); await b.close(); })();
