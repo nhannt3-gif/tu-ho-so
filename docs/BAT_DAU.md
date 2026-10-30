@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.412** — TK 2: dựng sẵn ưu tiên kỳ mới nhất + tháng liền trước. Trước: 3.411.3 D2 phép thử bộ nhỏ; 3.411.2 câu kiểm D1 + sửa cây tổ rỗng.
+- **`main` = 3.413** — TK 2: tab Tổ mở nhanh hơn ≈ 3 lần (R1). Trước: 3.412.1 sửa mất tên cán bộ GDX khi đồng bộ; 3.412 dựng sẵn ưu tiên kỳ mới nhất.
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

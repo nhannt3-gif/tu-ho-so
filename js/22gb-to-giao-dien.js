@@ -45,7 +45,7 @@ function toVeThe(){
   if(!t){   /* 3.132 (anh chốt): chưa chọn tổ → dòng tóm tắt + chip của cả phạm vi (Hội / điểm GD / xã / PGD); mặc định bảng các tổ (PGD: bảng theo xã, điểm GD) */
     o.innerHTML = toPVHTML(C);
     var khoa = [KHO.kyDung().ky, C.xa, C.diem, C.hoi, C.ap].join('|');
-    toBDTNap().then(function(){ var x = document.getElementById('to-the'), C2 = toCH(); if(x && !C2.to && [KHO.kyDung().ky, C2.xa, C2.diem, C2.hoi, C2.ap].join('|')===khoa && !(TO_PVC && TO_PVC.khoa.slice(-2)==='|1' && TO_PVC.K===KHO.kyDung() && TO_PVC.ve)) { x.innerHTML = toPVHTML(C2); if(TO_PVC) TO_PVC.ve = 1; } });
+    if(TO_LOC_PV==='rk') toBDTNap().then(function(){   /* 3.413 R1 (đo B3: tab Tổ toàn PGD 2,2 s — 1 s nạp tháng trước + vẽ lại cả màn): tháng trước chỉ còn phục vụ chip Ra khỏi tổ → nạp khi anh bấm chip */ var x = document.getElementById('to-the'), C2 = toCH(); if(x && !C2.to && [KHO.kyDung().ky, C2.xa, C2.diem, C2.hoi, C2.ap].join('|')===khoa && !(TO_PVC && TO_PVC.khoa.slice(-2)==='|1' && TO_PVC.K===KHO.kyDung() && TO_PVC.ve)) { x.innerHTML = toPVHTML(C2); if(TO_PVC) TO_PVC.ve = 1; } });
     return;
   }
   if(!(TO_BD && TO_BD.to===t.ma && TO_BD.ky===KHO.kyDung().ky)){ TO_BD = null; toBDNap(t).then(function(){ var C2 = toCH(); if(C2.to===t.ma && document.getElementById('to-the')) toVeThe(); }); }   /* 3.128 */
@@ -55,8 +55,8 @@ function toVeThe(){
 /* 3.161: nhãn CCCD + cảnh báo khi in (anh chốt): tất nợ còn TK 105 · CCCD hết hạn / sắp hết hạn (30 ngày) · khách còn mã tổ chưa có TK 105 → in đậm + cột Lưu ý */
 function toChipKhung(xem, tv, mo, bien, B){   /* 3.161 (anh chốt): chip gom 3 nhóm Xem · Khách · Cần xử lý, tối đa 2 dòng (dư → ⋯ thêm) */
   var g = {kh:'', xl:''};
-  TO_LOC.forEach(function(l){ if(l[4]) return; if(l[0]==='tvra' && !TO_TV_MA) return; var n = l[0]==='rk' ? (B && B.co ? B.ra.length : 0) : l[0]==='tvra' ? (tvRaCuaTo(TO_TV_MA)||[]).length : tv.filter(l[2]).length;
-    g[TO_LOC_NHOM[l[0]]||'kh'] += '<button class="to-loc '+l[3]+(l[0]===mo ? ' bat' : '')+(n || l[0]==='tat' ? '' : ' mo0')+'" onclick="'+bien+'=\''+l[0]+'\';toVeThe()">'+coChuHTML(toLocNhan(l))+' <b>'+n+'</b></button>'; });
+  TO_LOC.forEach(function(l){ if(l[4]) return; if(l[0]==='tvra' && !TO_TV_MA) return; var n = l[0]==='rk' ? (B && B.co ? B.ra.length : B && B.chuaNap ? '…' : 0) : l[0]==='tvra' ? (tvRaCuaTo(TO_TV_MA)||[]).length : tv.filter(l[2]).length;
+    g[TO_LOC_NHOM[l[0]]||'kh'] += '<button class="to-loc '+l[3]+(l[0]===mo ? ' bat' : '')+(n || l[0]==='tat' ? '' : ' mo0')+(n==='…' ? '" title="Bấm để so với tháng trước (nạp khi cần)' : '')+'" onclick="'+bien+'=\''+l[0]+'\';toVeThe()">'+coChuHTML(toLocNhan(l))+' <b>'+n+'</b></button>'; });
   var nh = function(ten, h){ return h ? '<span class="to-nhom"><span class="to-nhom-ten">'+ten+'</span>'+h+'</span>' : ''; };
   return '<div class="to-loc-hang to-chip-khung">'+nh('Xem', xem)+nh('Khách', g.kh)+nh('Cần xử lý', g.xl)+'</div>';
 }
