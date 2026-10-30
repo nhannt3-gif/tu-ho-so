@@ -244,6 +244,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t331.js` | 3.410 dọn theo dõi tổ (đã gỡ Diễn biến tổ, Biến động cả năm, dòng biến động, cột Mới vào / 105 tăng giảm, So cách; giữ chip Ra khỏi tổ, máy so tháng trước cho Hồ sơ tổ) · Số TK 105 bù từ Sao kê gần nhất — `gianho31` + Sao kê giả. |
 | `node tests/t332.js` | 3.412 thứ tự dựng sẵn khi mở app: kỳ đang dùng / mới nhất → tháng liền trước → các tháng khác (ngầm, nghỉ 1 giây) — `toNap` giả ghi thứ tự. |
 | `node tests/t333.js` | 3.412.1 đồng bộ cài đặt: lá rỗng của máy này (mặc định, vd `gdx.danhSachCanBo: []`) không đè giá trị trên Drive; máy đã khai vẫn ưu tiên; máy chưa sửa theo Drive. |
+| `node tests/t334.js` | 3.413 R1 tab Tổ cấp phạm vi nạp tháng trước khi bấm chip Ra khỏi tổ (không nạp khi mở), cấp tổ giữ như cũ — `gianho31`. |
 
 
 

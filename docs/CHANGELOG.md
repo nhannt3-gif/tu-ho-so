@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.413 — 31/10/2026 — Tab Tổ mở nhanh hơn (R1) (TK 2)
+- **Anh 31/10:** "vẽ lại giao diện và thay đổi khung cửa sổ có làm giật lag, có cách tối ưu nhất không" → đo (`docs/DO_TOC_DO.md`), đề xuất R1–R5 → anh "code theo em đề xuất" (R1 + R2).
+- **R1:** tab Tổ ở cấp phạm vi (chưa chọn tổ) **không nạp Mẫu 31 tháng trước khi mở** — sau 3.410 tháng trước chỉ còn phục vụ chip **Ra khỏi tổ**; chip hiện "…" (rê chuột: bấm để so với tháng trước), bấm mới nạp + hiện danh sách. Bỏ luôn lượt vẽ lại cả màn lần 2. Đo bộ giả 25.000 món: **2.214 ms → 684 ms**. Cấp tổ (thẻ tổ) và Hồ sơ tổ (biên bản kết nạp / ra khỏi tổ) giữ như cũ.
+- **R2 không làm:** thử cách tìm cột Tự động mới (chia đôi) — đo lại chậm hơn (58 → 110 ms) → giữ cách cũ. CSS `contain` khi đổi khung cửa sổ: đo không đỡ → không làm. Đổi khung cửa sổ hiện chỉ khựng 50–90 ms ở bảng 255 dòng (nhẹ).
+- Phép thử mới `t334` (5 ý); `t128`, `t157`, `t130`, `t331`, `t246`, `t102` đạt.
+
 ## 3.412.1 — 31/10/2026 — Sửa mất tên cán bộ Giao dịch xã khi đồng bộ (TK 2)
 - **Lỗi anh báo 27/10** (ô GDV / KSV / Tổ trưởng chỉ còn "— chấm ghi tay —"; thứ tự anh chốt 31/10: D1). **Nguyên nhân thật** (phép thử `t333` tái hiện): máy mới mở tab 🏢 Giao dịch xã → `gdxC()` tạo khối `gdx` mặc định (`danhSachCanBo: []`) → khi đồng bộ, máy này bị coi là "đã sửa" khóa `gdx` → `chApDrive` gộp **máy này ưu tiên ở lá** → mảng RỖNG đè danh sách Laptop trên Drive; lượt sau Laptop nhận lại bản rỗng.
 - **Sửa** (js/17): nhánh gộp "máy này đã sửa" dùng `chGopGiu` — lá **rỗng** (mảng / chuỗi trống) của máy này **không đè** lá **có giá trị** trên Drive; máy này đã khai (có giá trị) vẫn ưu tiên như cũ; máy chưa sửa khóa vẫn theo Drive như cũ. **Đánh đổi:** cố ý xóa sạch 1 danh sách trên 1 máy thì lần đồng bộ sau giá trị trên Drive quay lại (khôi phục hơn mất).

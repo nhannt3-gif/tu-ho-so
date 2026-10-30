@@ -31,3 +31,8 @@
 
 ## 3. Cách đo lại
 Phép đo (chỉ đọc) ở thư mục nháp của phiên; khi cần đưa vào `tools/` thì anh duyệt. Mỗi lần tối ưu: đo trước / sau cùng máy.
+
+## 4. Đã làm
+- **3.413 R1 (= T1)** — anh 31/10 "code theo em đề xuất": tab Tổ cấp phạm vi không nạp tháng trước khi mở; chip Ra khỏi tổ hiện "…", bấm mới nạp. Đo lại: tab Tổ toàn PGD (bộ lớn) **2.214 ms → 684 ms**.
+- **R2 (đo một lần thay vì thêm từng cột — `toCotVua`) — thử chia đôi, đo lại CHẬM HƠN (58 → 110 ms: bật / tắt nhiều cột cùng lúc trên 255 dòng) → bỏ, giữ cách cũ.**
+- Thử CSS `contain` cho khung bảng khi đổi khung cửa sổ: không đỡ → không làm.

@@ -18,7 +18,7 @@ function toTVPV(C){   /* khách của cả phạm vi (mỗi khách gắn tổ) +
   ds.forEach(function(t){ toTV(t).forEach(function(k){ k.to = t; k.vao = null;
     if(bd && bd.co){ var p = bd.Mp[k.kh]; if(!(p && p.to===t.ma)){ var x = bd.Mn[k.kh]; k.vao = Object.assign({ngay:x ? x.nv : ''}, toVaoTu(k.kh, bd.Mp)); } }
     tv.push(k); }); });
-  var B = bd && bd.co ? Object.assign(toBienDong(toPVFn(Object.assign({}, C)), bd.Mn, bd.Mp), {co:true, ky:bd.ky, tr:bd.tr}) : {co:false, ky:KHO.kyDung().ky, tr:kyLui(KHO.kyDung().thang, -1), vao:{}, ra:[]};
+  var B = bd && bd.co ? Object.assign(toBienDong(toPVFn(Object.assign({}, C)), bd.Mn, bd.Mp), {co:true, ky:bd.ky, tr:bd.tr}) : {co:false, chuaNap:!bd, ky:KHO.kyDung().ky, tr:kyLui(KHO.kyDung().thang, -1), vao:{}, ra:[]};   /* 3.413: chuaNap = chưa so tháng trước (nạp khi bấm chip Ra khỏi tổ) */
   return TO_PVC = {K:KHO.kyDung(), khoa:khoa, ds:ds, tv:tv, B:B};
 }
 function toPVHTML(C){
@@ -41,7 +41,7 @@ function toDong0HTML(ds){   /* 3.145: chip "cần đóng tổ" — bấm mở da
 var TO_PV_MAX = 800;   /* màn hình hiện tối đa ngần này dòng; In / Excel đủ */
 function toDsPVHTML(C, X){
   var mo = TO_LOC_PV, B = X.B, coXa = !C.xa, nut = '', dauDS = function(n){ return toBangDau('<b>'+n+'</b> khách · '+coChuHTML(pvChu(C, KHO.kyDung()))+' · '+coChuHTML(toLocNhan(TO_LOC.find(function(l){ return l[0]===mo; }) || TO_LOC[0])), toNutXuat('PV')); };   /* 3.161: nút In / Excel ở đầu bảng */
-  if(mo==='rk'){ if(!B.co) return '<div class="rong">Chưa có Mẫu 31 '+toNgayDu(B.tr)+' để so — nạp Mẫu 31 tháng trước để biết ai ra khỏi tổ.</div>';
+  if(mo==='rk'){ if(B.chuaNap) return '<div class="rong">Đang so với Mẫu 31 tháng trước…</div>'; if(!B.co) return '<div class="rong">Chưa có Mẫu 31 '+toNgayDu(B.tr)+' để so — nạp Mẫu 31 tháng trước để biết ai ra khỏi tổ.</div>';
     return dauDS(B.ra.length)+'<div class="to-bang-cuon to-cuon-khung"><table class="to-bang luoi"><thead><tr><th>STT</th><th>Mã KH</th><th>Tổ cũ</th><th>Họ tên</th><th>Dư nợ '+toNgayDu(B.tr)+'</th><th>Nợ lãi '+toNgayDu(B.tr)+'</th><th>Số dư 105 '+toNgayDu(B.tr)+'</th><th>Đi đâu</th></tr></thead><tbody>'+
       (B.ra.slice(0, TO_PV_MAX).map(function(r, i){ return '<tr><td class="c">'+(i+1)+'</td><td>'+r.kh+'</td><td>'+coChuHTML(toTenToMa(r.to))+'</td><td class="to-ten">'+coChuHTML(r.ten)+'</td><td class="s">'+tdnTien(r.dn)+'</td><td class="s">'+(r.lt>0 ? tdnTien(r.lt) : '')+'</td><td class="s">'+tdnTien(r.t105)+'</td><td>'+coChuHTML(r.di)+'</td></tr>'; }).join('')
         || '<tr><td colspan="8" class="rong">Không có khách ra khỏi tổ trong tháng.</td></tr>')+'</tbody></table></div>'+(B.ra.length>TO_PV_MAX ? '<p class="ghi">Màn hình hiện '+TO_PV_MAX+' / '+B.ra.length+' dòng — In / Excel có đủ.</p>' : '')+nut; }
