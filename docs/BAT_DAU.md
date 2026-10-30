@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.418** — TK 2: D2 Tra cứu onclick → data-lenh. Trước: 3.417 dọn CSS chết + chụp ảnh hồi quy giao diện.
+- **`main` = 3.419** — TK 2: P1 bản máy tính chạy không mạng (`js/85`, `dt-sw.js`). Trước: 3.418 D2 Tra cứu data-lenh.
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

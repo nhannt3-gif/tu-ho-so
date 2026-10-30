@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.419)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app 2 lần khi có mạng, rồi tắt Wi-Fi, tải lại trang | App vẫn mở, số liệu đã lưu trong máy vẫn xem được (Drive không đồng bộ khi mất mạng) | |
+| 2 | Có mạng lại, tải lại | Lên bản mới nhất như thường | |
+
 ### Danh sách thử trên máy thật (3.418)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
