@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.412.1)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Laptop (máy đã khai tên cán bộ GDX): bấm ☁ đồng bộ | Đẩy danh sách lên Drive | |
+| 2 | Máy kia: đồng bộ, mở 🏢 Giao dịch xã | Ô GDV / KSV có tên cán bộ | |
+
 ### Danh sách thử trên máy thật (3.412)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

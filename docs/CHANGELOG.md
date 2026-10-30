@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.412.1 — 31/10/2026 — Sửa mất tên cán bộ Giao dịch xã khi đồng bộ (TK 2)
+- **Lỗi anh báo 27/10** (ô GDV / KSV / Tổ trưởng chỉ còn "— chấm ghi tay —"; thứ tự anh chốt 31/10: D1). **Nguyên nhân thật** (phép thử `t333` tái hiện): máy mới mở tab 🏢 Giao dịch xã → `gdxC()` tạo khối `gdx` mặc định (`danhSachCanBo: []`) → khi đồng bộ, máy này bị coi là "đã sửa" khóa `gdx` → `chApDrive` gộp **máy này ưu tiên ở lá** → mảng RỖNG đè danh sách Laptop trên Drive; lượt sau Laptop nhận lại bản rỗng.
+- **Sửa** (js/17): nhánh gộp "máy này đã sửa" dùng `chGopGiu` — lá **rỗng** (mảng / chuỗi trống) của máy này **không đè** lá **có giá trị** trên Drive; máy này đã khai (có giá trị) vẫn ưu tiên như cũ; máy chưa sửa khóa vẫn theo Drive như cũ. **Đánh đổi:** cố ý xóa sạch 1 danh sách trên 1 máy thì lần đồng bộ sau giá trị trên Drive quay lại (khôi phục hơn mất).
+- **Danh sách đã mất trên Drive không tự về** — anh mở Laptop (máy đã khai) bấm ☁ đồng bộ để đẩy lại; nếu Laptop cũng mất thì khai lại 1 lần.
+- Phép thử mới `t333` (5 ý); phép đồng bộ `t117`, `t136`, `t182`, `t185`, `t187`, `t188` đạt.
+
 ## 3.412 — 31/10/2026 — Dựng sẵn ưu tiên kỳ mới nhất + tháng liền trước (TK 2)
 - **Anh 31/10:** "nếu app đã dựng sẵn 12 tháng thì ok rồi nhưng anh muốn tối ưu dựng trước kỳ mới nhất và tháng liền trước rồi chạy ngầm các tháng khác" (hỏi thêm: tắt trình duyệt mở lại không phải nạp lại — **đã có**: file nạp lưu trong máy, chỉ dựng lại; lưu cả bộ đã dựng (P2) đo được lợi ≈ 0,4 s / tháng nhưng tốn ≈ 85 MB / tháng → chưa làm).
 - `slNapSan` (js/22): thứ tự ① **kỳ đang dùng** (kỳ chung anh chọn — chưa chọn thì kỳ mới nhất, kể cả kỳ NGÀY mới hơn tháng) ② **tháng liền trước** (ngày 29/10 → chốt T9; T9 → T8) ③ kỳ mới nhất + tháng liền trước nếu khác ④ các tháng còn lại mới → cũ. Kỳ ưu tiên dựng liền (nghỉ 50 ms), các tháng khác **ngầm, nghỉ 1 giây** giữa các tháng — không làm chậm thao tác. Vẫn giữ tới 12 tháng (⚡ Giữ sẵn); điện thoại giữ 1 kỳ như cũ.

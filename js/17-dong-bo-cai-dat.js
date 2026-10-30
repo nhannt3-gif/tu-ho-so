@@ -20,6 +20,13 @@ function chGop(a, b, sau){   /* gộp b vào a, b ưu tiên ở lá, sâu tối 
   Object.keys(b).forEach(function(k){ r[k] = (sau>0 && chLaDT(a[k]) && chLaDT(b[k])) ? chGop(a[k], b[k], sau-1) : b[k]; });
   return r;
 }
+function chRong(v){ return v===undefined || v===null || v==='' || (Array.isArray(v) && !v.length); }
+function chGopGiu(a, b, sau){   /* 3.412.1 (lỗi tên cán bộ Giao dịch xã mất, anh báo 27/10): như chGop (b = máy này ưu tiên) nhưng lá RỖNG của b (mảng / chuỗi trống — thường là mặc định app tự tạo trên máy mới) không đè lá CÓ GIÁ TRỊ của a (Drive) */
+  if(!chLaDT(a) || !chLaDT(b)) return chRong(b) && !chRong(a) ? a : b;
+  var r = {}; Object.keys(a).forEach(function(k){ r[k] = a[k]; });
+  Object.keys(b).forEach(function(k){ r[k] = (sau>0 && chLaDT(a[k]) && chLaDT(b[k])) ? chGopGiu(a[k], b[k], sau-1) : (chRong(b[k]) && !chRong(a[k]) ? a[k] : b[k]); });
+  return r;
+}
 function chApDrive(j, layHet){   /* áp file Drive vào máy này; layHet = anh bấm "Lấy từ Drive" (Drive ưu tiên mọi khóa) — trả số khóa đổi */
   var bam = layHet ? null : D.cauHinh.chBam, lanDau = !chLaDT(bam), doi = 0;
   Object.keys(j).forEach(function(k){
@@ -28,7 +35,7 @@ function chApDrive(j, layHet){   /* áp file Drive vào máy này; layHet = anh 
     if(cu===undefined) moi = j[k];
     else if(lanDau) moi = chGop(cu, j[k], 3);
     else if(bam[k] && bam[k]===chBamKhoa(k)) moi = j[k];   /* máy này chưa sửa khóa này → theo Drive */
-    else moi = chGop(j[k], cu, 3);                         /* máy này đã sửa → gộp, máy này ưu tiên */
+    else moi = chGopGiu(j[k], cu, 3);                      /* máy này đã sửa → gộp, máy này ưu tiên — 3.412.1: lá rỗng của máy này không đè Drive */
     if(JSON.stringify(moi)!==JSON.stringify(cu)){ D.cauHinh[k] = moi; doi++; }
   });
   return doi;
