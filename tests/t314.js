@@ -14,7 +14,7 @@ const fs=require('fs'), path=require('path');
  let {p, loi} = await mo(false);
  let r = await p.evaluate(()=>({n:SK_BC.length, nhom:SK_NHOM.map(n=>n.k+':'+SK_BC.filter(b=>b.nhom===n.k).map(b=>b.k).join(',')).join('|'), lap:SK_BC.filter(b=>b.lap).length, nut:document.querySelectorAll('.sk-bc2').length}));
  ok('có js/76: 19 báo cáo (3.409 + tk2), thứ tự nhóm như cũ, danh mục hiện đủ', r.n===19 && r.nhom==='xl:qh,kh,khd,cgn|dh:dh,noxh,pkto|ps:gn,ddn,m105|kh:sdt,tk2|tt:kqgd,thhd,tqh,tkn,tkhd,b105,ndt' && r.nut===19, JSON.stringify(r));
- ok('14 báo cáo tự lập (lap) — 12 ở js/76 + b105 + ndt', r.lap===14, r.lap);
+ ok('19 báo cáo tự lập (lap) — 12 ở js/76 + b105 + ndt + 5 Thông tin tổ (3.411 A1)', r.lap===19, r.lap);
  r = await p.evaluate(()=>{ const K0 = SK_K; SK_K = Object.assign({}, K0, {B:Object.assign({}, K0.B, {hsTen:'Mẫu 10'})}); const x = skBaoCao('gn'); SK_K = K0; return x.html; });
  ok('chưa có Mẫu 31 → báo cáo cần Mẫu 31 hiện trang nhắc (skNen31)', /cần <b>Mẫu 31/.test(r), r.slice(0, 80));
  ok('không lỗi trang (có file)', !loi.length, loi.slice(0, 2).join(' | ')); await p.close();

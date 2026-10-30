@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.411** — TK 2: tinh gọn A1 xong + A2 tách 4 file lớn (không đổi chức năng). Trước: 3.410 dọn rác theo dõi tổ, số TK 105 bù từ Sao kê gần nhất.
+- **`main` = 3.411.1** — TK 2: sửa thứ tự nạp sau tách file (06d → 06a). Trước: 3.411 tinh gọn A1 + A2 tách 4 file lớn.
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
