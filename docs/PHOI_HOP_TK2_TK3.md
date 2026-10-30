@@ -134,6 +134,7 @@
 | 31/10 | TK 2 | 3.411.2 | `js/22g` (toDong0 bỏ qua khi thieuBang), `tests/t100`–`t105` câu kiểm D1, `docs/RA_SOAT_HOI_QUY.md` | t100 6/6, t102 15/15, t103 4/4, t104 9/9, t105 8/8; hồi quy theo đổi |
 | 31/10 | TK 2 | 3.411.3 | 27 `tests/t1xx` gia31 → gianho31 (chỉ phép thử) | 27 phép đạt nguyên câu kiểm; hồi quy theo đổi |
 | 31/10 | TK 2 | (tài liệu) | `docs/DO_TOC_DO.md` — B3 đo tốc độ (không sửa code) | — |
+| 31/10 | TK 2 | 3.412 | `js/22-so-lieu.js` (`slNapSan` thứ tự ưu tiên), `tests/t332` | t332 4/4, t127, t130, t131 đạt; hồi quy theo đổi |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

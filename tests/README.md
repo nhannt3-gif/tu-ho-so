@@ -242,6 +242,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t329.js` | 3.408 Tra cứu: khách nhiều TK 105 — gộp danh bạ + Sao kê (số dư từng sổ, ngày mở), nhãn đỏ N TK 105, liệt kê + nhắc đóng, 1 TK không cảnh báo — `gianho31` + Sao kê giả. |
 | `node tests/t330.js` | 3.409 QT-C-01 cộng sổ TK 105 (`slT105Them`) · Sao kê khách có từ 2 TK 105 · QT-C-09 File Tổ trưởng khác ngày vẫn ghép, Mẫu 31 là chính (ấp theo Mẫu 31) · toTenXa · nút tạm ⚖ so cách cũ / mới (js/84) — `gianho31` + Sao kê giả. |
 | `node tests/t331.js` | 3.410 dọn theo dõi tổ (đã gỡ Diễn biến tổ, Biến động cả năm, dòng biến động, cột Mới vào / 105 tăng giảm, So cách; giữ chip Ra khỏi tổ, máy so tháng trước cho Hồ sơ tổ) · Số TK 105 bù từ Sao kê gần nhất — `gianho31` + Sao kê giả. |
+| `node tests/t332.js` | 3.412 thứ tự dựng sẵn khi mở app: kỳ đang dùng / mới nhất → tháng liền trước → các tháng khác (ngầm, nghỉ 1 giây) — `toNap` giả ghi thứ tự. |
 
 
 
