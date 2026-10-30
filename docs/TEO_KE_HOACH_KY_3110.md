@@ -47,7 +47,7 @@ Dòng đầu file ghi: bên xuất · bản (app `APP_BAN` / script `PHIEN_BAN`)
 | Bước | Việc | Ai | Khi |
 |---|---|---|---|
 | **0** | **Chuẩn bị** (trước 31/10, cần anh "code"): mỗi bên áp QT-C-10…12 + xuất file đối chiếu đúng mục 3 | TK 2 · TK 1 | 29–31/10 |
-| **1** | **Xuất + nạp** bộ file mục 2 qua app; kiểm `DANH_MUC_NAP.csv` đủ, đúng ngày | Anh (app kiểm) | 01–02/11 |
+| **1** | **Xuất + nạp** bộ file mục 2 qua app; kiểm `DANH_MUC_NAP.csv` đủ, đúng ngày | Anh (app kiểm) | **02/11** (anh 31/10: số liệu cuối tháng đến 02/11 mới đủ) |
 | **2** | **Tính độc lập**: app xuất `DOI_CHIEU_APP_…`; giao ban chạy `bang_so_lieu.py` + xuất `DOI_CHIEU_GB_…` | TK 2 · TK 1 | ngay sau bước 1 |
 | **3** | **So**: script `doi_chieu_teo.py` (giao ban, Python) đọc 2 file + biểu TW → `04_DU_LIEU_XU_LY\2026-11\DOI_CHIEU_TEO_31-10-2026.xlsx` (sheet: Tổng xã · Theo điểm · Theo tổ · Lệch · Kiểm TW) | TK 1 | trong ngày |
 | **4** | **Phân loại lệch** (mục 5) → ghi hộp thư **số đếm** từng loại; chi tiết ở file Drive | TK 1 | trong ngày |
@@ -102,3 +102,4 @@ Dòng đầu file ghi: bên xuất · bản (app `APP_BAN` / script `PHIEN_BAN`)
 |---|---|---|
 | 1.0 | 28/10/2026 | TK 1 lập kế hoạch kỳ đối chiếu 31/10/2026 theo yêu cầu anh. |
 | 1.1 | 28/10/2026 | TK 1: cột `so_mon_den_han_thang_toi`; chỗ lưu file GB / APP; định dạng CSV. Việc TK 1 mục 8 (1–4, 6) xong — `bang_so_lieu.py` v1.3, `doi_chieu_teo.py` v1.0, Quy chuẩn giao ban 2.2; `tong_hop.py` chưa áp. |
+| 1.2 (TK 2) | 31/10/2026 | Anh 31/10: số liệu cuối tháng 02/11 mới đủ → bước 1 dời 02/11, bước 2–4 ngay sau (02–03/11). Luật mới áp cho kỳ này: QT-C-18, QT-C-22 (sổ luật 1.7). |
