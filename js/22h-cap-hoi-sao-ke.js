@@ -380,6 +380,7 @@ var SK_BC = [   /* 3.392: báo cáo nhóm Nợ cần xử lý · Nợ đến h�
   {k:'thhd', ten:'Tình hình hoạt động (THHD) — tín dụng theo cấp chọn (PGD › xã › điểm › hội › tổ), 1 trang A4 dọc', nhom:'tt', kho:'doc', motTrang:1},
   {k:'tqh', ten:'Sao kê nợ quá hạn — chia Điểm GD › Hội › Tổ (như file tổng hợp)', nhom:'tt', kho:'doc'}, {k:'tkn', ten:'Sao kê nợ khoanh — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'doc'},
   {k:'tkhd', ten:'Sao kê 3 tháng không hoạt động — chia Điểm GD › Hội › Tổ', nhom:'tt', kho:'doc'}];   /* 3.387 cắm rút: báo cáo mới tự SK_BC.push({k, ten, nhom, kho, lap, tuyChon}) trong file riêng — b105 (js/72), ndt (js/74) */   /* 3.385 (js/74) · 3.385.1 (anh 27/10 "nếu dạng DS thì nên in dọc cho tối ưu"): danh sách mặc định khổ dọc — cgn, dh, noxh, ddn, tkhd, ndt (giữ ngang: kqgd biểu mỗi điểm, b105 13 cột) */   /* 3.380 (js/72) */
+SK_BC.forEach(function(b){ b.lap = function(){ return ttBaoCao(b.k); }; });   /* 3.411 (A1): 5 báo cáo nhóm Thông tin tổ lập ở js/22j (ttBaoCao — trả nhiều trang) */
 function skChon(){ var C = skCH(); if(!C.chon || !SK_BC.some(function(b){ return b.k===C.chon; })){ var c = SK_BC.find(function(b){ return C.bc[b.k]; }) || SK_BC.find(function(b){ return b.k==='qh'; }) || SK_BC[0]; C.chon = c ? c.k : ''; }   /* 3.392: rút js/76 (không còn qh) → báo cáo đầu danh mục */ return C.chon; }
 function skKhoCua(k){ var C = skCH(), b = SK_BC.find(function(x){ return x.k===k; }) || {}; return (C.kho && C.kho[k]) || b.kho || 'doc'; }
 function skChonBC(k){ var C = skCH(); C.chon = k; C.bc = {}; C.bc[k] = true; C.man = 'xem'; luu(); veSaoKe(); }   /* 3.386: chọn báo cáo = mở màn xem */
@@ -467,8 +468,7 @@ function skCan31(ten){ return {ten:ten.slice(0, 31), tieuDe:ten.toUpperCase(), n
   html:'<div class="bc-rong">Báo cáo này cần <b>Mẫu 31 tháng '+kyVN(SK_K.thang)+'</b> (Mẫu 10 không có cột này). Nạp Mẫu 31 ở tab con 📥 Nạp số liệu.</div>'}; }
 function skNgayThang(L){ var e = KHO.bang(L, SK_K.thang); return e ? e.ngay : tdnCuoiKy(SK_K.thang); }
 function skBaoCao(k){
-  if(k==='kqgd' || k==='thhd' || k==='tqh' || k==='tkn' || k==='tkhd') return ttBaoCao(k);   /* 3.259: trả nhiều trang (mảng) */
-  var dk = SK_BC.find(function(b){ return b.k===k; }); if(dk && dk.lap) return dk.lap();   /* 3.387 cắm rút: báo cáo tự lập (file riêng) — 3.392: báo cáo danh sách ở js/76 */
+  var dk = SK_BC.find(function(b){ return b.k===k; }); if(dk && dk.lap) return dk.lap();   /* 3.387 cắm rút: báo cáo tự lập (file riêng) — 3.392: báo cáo danh sách ở js/76 · 3.411 (A1 xong): nhóm Thông tin tổ ở js/22j */
 }
 /* 3.392: nền chung báo cáo tính từ Mẫu 31 (js/76): {M, e31, ngay, rows = món trong phạm vi, lapKH} — chưa có Mẫu 31 → {can: trang báo cần Mẫu 31} */
 function skNen31(k){
