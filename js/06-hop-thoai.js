@@ -1965,7 +1965,7 @@ function moHuongDan(p){
 var CO_GI_MOI = {ban:'3.409', ds:[
   ["📋 Sao kê mới: khách có từ 2 TK 105 — từng sổ, số dư, ngày mở, tổng cộng sổ (giữ 1, đóng bớt)", "doiNgan(7);slDoiTab('sk')"],
   ["🔢 Số dư TK 105 của khách = cộng các sổ (trước lấy sổ lớn nhất) — theo kiểm file thật của Tèo", ""],
-  ["⚠ File Tổ trưởng khác ngày Mẫu 31 → không ghép, báo ở Kiểm tra kỳ và 🗺 Địa bàn", ""],
+  ["🗺 Cây địa bàn: tên xã theo Mẫu 31 (hết lỗi xã hiện \"Vay trực tiếp\"); File Tổ trưởng khác ngày vẫn ghép như cũ, Mẫu 31 là chính", ""],
   ["🏦 Tra cứu KH: khách có từ 2 TK 105 → nhãn đỏ + liệt kê đủ số TK, số dư từng sổ, ngày mở để đóng bớt", "doiNgan(7);slDoiTab('tra')"],
   ["🏷 LỌC ĐỊA BÀN: nút Tên ấp cũ (mặc định tắt) + dòng nhỏ 4 KP Gia Lộc đổi tên; 🗺 Địa bàn có ghi chú ấp / KP cũ", "doiNgan(7);slDoiTab('tra')"],
   ["🗺 Hôm nay › Địa bàn theo Mẫu 31 + File Tổ trưởng mới nhất: so lệch danh mục Cài đặt (cập nhật có xem trước), kiểm tổ còn dư nợ không chuẩn, so ấp trước 07/2026, 📝 ghi chú điểm GD", "doiNgan(0);ccMo('diaban')"],

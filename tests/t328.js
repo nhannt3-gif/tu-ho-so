@@ -7,7 +7,7 @@ const fs=require('fs'), path=require('path');
 const BO = JSON.parse(fs.readFileSync(path.join(__dirname,'teo','teo_ca.json'),'utf8'));
 const CHON = (process.argv[2]||'').split(',').filter(Boolean);
 /* lệch ĐÃ BÁO, chờ chốt (không sửa đáp án) — in ⏳, không làm trượt; chốt xong thì xóa dòng + sửa app hoặc đáp án theo luật mới */
-const CHO = {};   /* 3.409: C01-1 (TK 1 kiểm file thật — số dư từng sổ, cộng sổ) và C09-1 (anh chốt không ghép khác ngày) đã xong */
+const CHO = {'C09-1 · khong_ghep_to_truong':'anh 30/10 đổi lại: "lấy như cũ nhưng Mẫu 31 vẫn là chính" — app vẫn ghép File Tổ trưởng gần nhất, khác ngày chỉ bù chỗ trống + báo; TK 1 sửa đáp án C09-1 theo luật mới'};   /* 3.409: C01-1 xong (cộng sổ) */
 (async()=>{ const b=await chromium.launch(); const kq=[]; let loiTrang=[];
  for(const ca of BO.truong_hop){ if(CHON.length && CHON.indexOf(ca.id)<0) continue;
   const p=await b.newPage({viewport:{width:1280,height:800}}); p.on('pageerror',e=>loiTrang.push(ca.id+': '+e.message));

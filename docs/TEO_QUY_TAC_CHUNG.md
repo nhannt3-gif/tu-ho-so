@@ -51,13 +51,13 @@ Bộ trường hợp **dữ liệu giả + đáp án**: `tests/teo/teo_ca.json` 
 | QT-C-04 | C04-1 số tháng lãi | ✓ 1/1 | ✓ 1/1 |
 | QT-C-05 | C05-1 6 điểm sát ngưỡng | ✓ 6/6 | ✓ 6/6 |
 | QT-C-06 | C06-1 ĐVUT 99 → TT | ✓ 2/2 | ✓ 2/2 |
-| QT-C-09 | C09-1 File Tổ trưởng khác ngày → không ghép | ✓ 1/1 | ✓ 1/1 — 3.409 anh chốt 30/10 không ghép khác ngày (`K.dsLech`, báo Kiểm tra kỳ + Địa bàn) |
+| QT-C-09 | C09-1 File Tổ trưởng khác ngày → không ghép | ✓ 1/1 | ⏳ 0/1 — anh 30/10 đổi lại: "lấy như cũ nhưng Mẫu 31 vẫn là chính" → app 3.409 vẫn ghép, khác ngày chỉ bù chỗ trống, ấp theo Mẫu 31 + báo; **đáp án C09-1 cần sửa theo luật mới** |
 | QT-C-10 | C10-1 món lệch ấp · C10-2 ấp 2 điểm · C10-3 điểm theo File Tổ trưởng | ✓ 6/6 | ✓ 6/6 |
 | QT-C-11 | C11-1 trực tiếp theo ấp, không theo GDXA · C11-2 ấp chưa có tổ | ✓ 3/3 | ✓ 3/3 (3.407: món trực tiếp ấp chưa có tổ → mã điểm trống) |
 | QT-C-12 | C12-12a trùng ngày phiên · 12b sau ngày phiên · 12c gia hạn · 12d trực tiếp · 12e tổ đổi điểm | ✓ 5/5 | ✓ 5/5 (3.407: ngày GD điểm = GDXA đa số trong Mẫu 31) |
 | QT-C-17 | C17-1 đến hạn: gia hạn / HĐ, bỏ món QH, bỏ món hết nợ | ✓ 1/1 (1.4; bản 1.3 trượt — đúng như dự kiến) | ✓ 1/1 (app 3.405 đã theo cách này) |
 
-Giao ban chạy: `python thu_teo.py` (Drive `06_CONG_CU\v2`, chép `teo_ca.json` cạnh script) — **31/31 đạt** ngày 30/10/2026 (`bang_so_lieu.py` 1.4 và 1.5). App: `node tests/t328.js` (3.407, đọc cùng file, mỗi trường hợp 1 trang sạch, nạp qua đúng đường nạp của app) — **31/31 đạt** ngày 30/10/2026 (bản 3.409, teo_ca 1.1; trước 3.407: 29/31 · 2 chờ chốt C01-1, C09-1); mã giả `KU-…` / `KH-…` được phép thử ánh xạ sang dạng số hệ thống (app chỉ nhận số khế ước 10–20 số, mã KH 6–12 số). **Sửa luật / sửa script hay app → chạy lại; thêm luật chốt → thêm trường hợp vào file này.** Luật chờ chốt (K1, K4, K5, K7–K9) chưa có đáp án.
+Giao ban chạy: `python thu_teo.py` (Drive `06_CONG_CU\v2`, chép `teo_ca.json` cạnh script) — **31/31 đạt** ngày 30/10/2026 (`bang_so_lieu.py` 1.4 và 1.5). App: `node tests/t328.js` (3.407, đọc cùng file, mỗi trường hợp 1 trang sạch, nạp qua đúng đường nạp của app) — **30/31 đạt · C09-1 chờ sửa đáp án** ngày 30/10/2026 (bản 3.409, teo_ca 1.1; C01-1 đạt); mã giả `KU-…` / `KH-…` được phép thử ánh xạ sang dạng số hệ thống (app chỉ nhận số khế ước 10–20 số, mã KH 6–12 số). **Sửa luật / sửa script hay app → chạy lại; thêm luật chốt → thêm trường hợp vào file này.** Luật chờ chốt (K1, K4, K5, K7–K9) chưa có đáp án.
 
 ## 4. Nhật ký
 

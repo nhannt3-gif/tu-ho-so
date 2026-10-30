@@ -1,6 +1,6 @@
 // 3.409 (anh 30/10 "Ko ghép nếu khác ngày, lưu ý KH có từ 2 số TK 105 em có báo sao kê ra chưa"):
 //   ① Sao kê "Khách có từ 2 TK 105" (js/76, nhóm Khách hàng): mỗi sổ 1 dòng, số dư từng sổ + ngày mở, tổng 105 cộng sổ (QT-C-01), sổ số dư 0 tô nền;
-//   ② slT105Them: số dư 105 của khách = cộng các sổ (mỗi sổ lấy 1 lần); ③ File Tổ trưởng khác ngày Mẫu 31 → không ghép, Kiểm tra kỳ + 🗺 Địa bàn báo (QT-C-09).
+//   ② slT105Them: số dư 105 của khách = cộng các sổ (mỗi sổ lấy 1 lần); ③ File Tổ trưởng khác ngày Mẫu 31 → vẫn ghép như cũ nhưng Mẫu 31 là chính (ấp theo Mẫu 31), báo Kiểm tra kỳ + 🗺 Địa bàn (anh 30/10); ④ tên xã theo đa số Mẫu 31.
 //   Bộ GIẢ tests/gianho31 + Sao kê TK 105 giả.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
@@ -41,10 +41,16 @@ const fs=require('fs'), path=require('path');
    const t0 = vay[0].to, wb2 = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb2, XLSX.utils.aoa_to_sheet([['DANH SÁCH TỔ TIẾT KIỆM VÀ VAY VỐN'], [''], C, ['25/08/2026','D1','Điểm Giả','540035','Phường Giả','Ấp Giả','11','HND',t0,'1','Tổ Trưởng Giả','','','','','30','0','0','','','']]), 'BCQUERY');
    const kT = await slDocFile(new File([XLSX.write(wb2, {type:'array', bookType:'xlsx'})], 'baocao_20260825_000000.xlsx')); if(!kT.loi && kT.ky) await slGhi(kT);
    SL_BO = {}; TO_KS = {}; const K = await toNap('2026-08');
-   ok('File Tổ trưởng 25/08 ≠ Mẫu 31 31/08 → K.dsLech, không tổ nào ghép DS', !!K.dsLech && K.dsLech.ds==='2026-08-25' && !KHO.dsToKy(K).some(t=>t.ds), JSON.stringify(K.dsLech)+' · nguồn '+(K.B.nguon.dsto||'—'));
+   ok('File Tổ trưởng 25/08 ≠ Mẫu 31 31/08 → K.dsLech (báo) nhưng VẪN ghép như cũ (anh 30/10)', !!K.dsLech && K.dsLech.ds==='2026-08-25' && !!(K.to[t0] && K.to[t0].ds), JSON.stringify(K.dsLech));
+   ok('khác ngày: Mẫu 31 là chính — ấp của tổ giữ theo Mẫu 31, không đè bằng File Tổ trưởng', String(K.to[t0].thon)===String(vay[0].thon) && !K.to[t0].thonTT, K.to[t0].thon+' / '+vay[0].thon);
    const kq = []; slKTAp(K, function(n, ten, okk, chu){ kq.push({ten, okk, chu}); });
-   ok('Kiểm tra kỳ: mục QT-C-09 báo khác ngày, không ghép', kq.some(x=>/QT-C-09/.test(x.ten) && !x.okk && /25\/08\/2026/.test(x.chu)), JSON.stringify(kq.map(x=>x.ten)));
-   ok('🗺 Địa bàn: dòng nguồn ghi ⚠ khác ngày — không ghép', /khác ngày Mẫu 31 — không ghép/.test(dbslNguon(K)), dbslNguon(K));
+   ok('Kiểm tra kỳ: mục QT-C-09 báo khác ngày, Mẫu 31 là chính', kq.some(x=>/QT-C-09/.test(x.ten) && !x.okk && /25\/08\/2026/.test(x.chu)), JSON.stringify(kq.map(x=>x.ten)));
+   ok('🗺 Địa bàn: dòng nguồn ghi ⚠ khác ngày — Mẫu 31 là chính', /khác ngày Mẫu 31 — Mẫu 31 là chính/.test(dbslNguon(K)), dbslNguon(K));
+   /* ④ tên xã theo đa số Mẫu 31 (anh 30/10: 3 xã hiện "Vay trực tiếp") */
+   const Kx = {hs:[{xa:'X9', tenXa:'Xã Đúng'}, {xa:'X9', tenXa:'Xã Đúng'}, {xa:'X9', tenXa:'Vay trực tiếp'}], to:{A:{ma:'A', xa:'X9', tenXa:'Vay trực tiếp'}, B:{ma:'B', xa:'X8', tenXa:'Vay trực tiếp'}}};
+   const dmGiu = D.cauHinh.diaBan; D.cauHinh.diaBan = [{ma:'X8', xa:'Xã Danh Mục', diem:[]}]; toTenXa(Kx); D.cauHinh.diaBan = dmGiu;
+   ok('toTenXa: tên xã = đa số Mẫu 31 (bỏ tên "trực tiếp"); không có → danh mục Cài đặt', Kx.to.A.tenXa==='Xã Đúng' && Kx.to.B.tenXa==='Xã Danh Mục', JSON.stringify(Kx.to));
+   ok('cây 🗺 Địa bàn: không xã nào mang tên "trực tiếp"', !dbslCay(K).some(x=>/trực tiếp/i.test(x.xa)), dbslCay(K).map(x=>x.xa).join());
    return o;
  }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));

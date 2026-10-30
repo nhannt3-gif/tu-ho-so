@@ -1019,8 +1019,8 @@ function slTenCuDoi(){
 /* ---------- 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11): KIỂM ẤP / ĐIỂM GD — nhóm 6 Bất thường dữ liệu, chỉ báo để anh sửa trên hệ thống (không sửa số, món tính theo tổ) ---------- */
 function slKTAp(K, them){
   var q = K && (K.qtc || (typeof toKiemAp==='function' ? toKiemAp(K) : null)); if(!q) return;
-  if(K.dsLech) them(6, 'QT-C-09 · File Tổ trưởng khác ngày Mẫu 31 — không ghép', false, 'File Tổ trưởng ngày '+ngayVNsl(K.dsLech.ds)+' ≠ Mẫu 31 ngày '+ngayVNsl(K.dsLech.m31)+' — app KHÔNG ghép (tổ trưởng, ấp, số TV lấy theo Mẫu 31)',
-    'Nạp File Tổ trưởng cùng ngày với Mẫu 31 để ghép (anh chốt 30/10).', null, null, 'canh');   /* 3.409 */
+  if(K.dsLech) them(6, 'QT-C-09 · File Tổ trưởng khác ngày Mẫu 31 — Mẫu 31 là chính', false, 'File Tổ trưởng ngày '+ngayVNsl(K.dsLech.ds)+' ≠ Mẫu 31 ngày '+ngayVNsl(K.dsLech.m31)+' — vẫn dùng File Tổ trưởng gần nhất, chỉ bù chỗ Mẫu 31 trống (ấp theo Mẫu 31)',
+    'Nạp File Tổ trưởng cùng ngày với Mẫu 31 để khớp đủ (anh 30/10: lấy như cũ, Mẫu 31 là chính).', null, null, 'canh');   /* 3.409 */
   them(6, 'QT-C-10 · Món vay ở ấp khác ấp của tổ (ấp tổ theo File Tổ trưởng)', !q.lechAp.length, q.lechAp.length ? q.lechAp.length+' món — cần sửa ấp trên hệ thống, app tạm tính theo tổ' : 'không có',
     q.lechAp.length ? 'Luật chung: món vay → mã tổ → ấp của tổ → điểm GD (1 ấp 1 điểm).' : '', ['Số KU', 'Mã KH', 'Họ tên', 'Mã tổ', 'Ấp của món', 'Ấp của tổ', 'Dư nợ'], q.lechAp, q.lechAp.length ? 'canh' : '');
   them(6, 'QT-C-10 · Ấp có tổ thuộc nhiều điểm GD (1 ấp chỉ thuộc 1 điểm)', !q.apNhieu.length, q.apNhieu.length ? q.apNhieu.length+' ấp — món trực tiếp ở các ấp này tạm theo điểm nhiều tổ hơn' : 'không có',

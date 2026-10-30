@@ -177,15 +177,15 @@ function toNap(ky){
     K.hs.forEach(function(o){ if(!o.to || o.to===TO_GIA) return; var t0 = lay(o.to); toDien(t0, o, chung); if(o.ttKH && !t0.cif) t0.cif = o.ttKH; if(o.raTo) return; (KH[o.to] = KH[o.to] || []).push(o); });   /* 3.138.1: khách đã ra khỏi tổ không tính tổ viên */   /* 3.92: tổ 0000000 = khách chỉ gửi TK (xã giả 482000), không lên cây */
     (Bm.co.dnct||[]).forEach(function(o){ var t = o.to && T[o.to]; if(t && o.ttKH && !t.cif) t.cif = o.ttKH; if(!t || t.diem || !o.diem) return; toDien(t, o, [['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD']]); t.diemTu = 'Dư nợ chi tiết '+slKyChu(Bm.nguon.dnct || K.thang); });   /* 3.120 (anh chốt): điểm GD xã lấy thẳng từ file Dư nợ chi tiết (ưu tiên) */
     var coTT = {}; (Bm.co.tt||[]).forEach(function(o){ coTT[o.to] = 1; });
-    /* 3.409 (anh chốt 30/10 — Tèo QT-C-09 / C09-1: "không ghép nếu khác ngày"): File Tổ trưởng khác ngày số liệu Mẫu 31 → KHÔNG dùng (điểm GD / ấp / tổ trưởng / đóng tổ),
-       báo ở K.dsLech; tổ thiếu điểm suy theo ấp / danh mục như khi chưa có file */
+    /* 3.409 (anh 30/10 "nên quay lại lấy như cũ nhưng Mẫu 31 vẫn là chính"): File Tổ trưởng vẫn lấy bản gần nhất như cũ (3.202);
+       khác ngày Mẫu 31 → K.dsLech (báo), File Tổ trưởng chỉ BÙ chỗ trống — không đè ấp của Mẫu 31; cùng ngày → ấp theo File Tổ trưởng (3.401 QT-C-10) */
     var eDS = Bm.nguon.dsto ? SLM.bang[slKhoa('dsto', Bm.nguon.dsto)] : null, e31 = SLM.bang[slKhoa('hstd', Bm.nguon.hstd || ky)];
     var ngDS = eDS ? slNgaySo(eDS) : '', ng31 = e31 ? slNgaySo(e31) : K.ngay;
-    K.dsLech = (ngDS && ng31 && ngDS!==ng31) ? {ds:ngDS, m31:ng31} : null; K.dsDung = K.dsLech ? [] : (Bm.co.dsto||[]);
+    K.dsLech = (ngDS && ng31 && ngDS!==ng31) ? {ds:ngDS, m31:ng31} : null; K.dsDung = Bm.co.dsto||[];
     K.dsDung.forEach(function(o){ var t = lay(o.to), co = !!t.diem; t.ds = o;   /* 3.145 (anh chốt Q16): DSTO là file bắt buộc → điền TRƯỚC Thông tin tổ trưởng (SĐT, tổ phó lấy theo DSTO) */
       toDien(t, o, [['diem','diem'],['tenDiem','tenDiem'],['tenXa','tenXa'],['tenThon','tenThon'],['ten','toTen'],['sdt','sdt'],['pho','phoTen']]);
       if(!t.dv && o.dvTen) t.dv = toDvTuTen(o.dvTen);
-      if(o.thon){ if(t.thon && String(t.thon)!==String(o.thon)) t.thonM31 = t.thon; t.thon = String(o.thon); if(o.tenThon) t.tenThon = o.tenThon; t.thonTT = true; }   /* 3.401 QT-C-10 (anh chốt 28/10): ấp của tổ = mã thôn (MADP) trên File Tổ trưởng */
+      if(o.thon && !(K.dsLech && t.thon)){ if(t.thon && String(t.thon)!==String(o.thon)) t.thonM31 = t.thon; t.thon = String(o.thon); if(o.tenThon) t.tenThon = o.tenThon; t.thonTT = true; }   /* 3.401 QT-C-10 (anh chốt 28/10): ấp của tổ = mã thôn (MADP) trên File Tổ trưởng */
       if(!co && t.diem && !coTT[o.to]) t.diemTu = 'Danh sách tổ '+slKyChu(Bm.nguon.dsto || K.thang); });
     (Bm.co.tt||[]).forEach(function(o){ var t = lay(o.to); t.tt = o; toDien(t, o, chung.concat([['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD'],['sdt','sdt'],['pho','phoTen']])); });   /* Thông tin tổ trưởng: file phụ — chỉ bù chỗ DSTO trống */
     if(K.thieuBang && SL_DB){
@@ -197,7 +197,7 @@ function toNap(ky){
     var thieu = function(){ return Object.keys(T).some(function(ma){ return !T[ma].diem; }); };
     /* 3.107: chỉ lấy bảng chốt tháng (bỏ bảng theo ngày), tháng gần kỳ đang xem nhất trước (trước rồi sau), tối đa 6 bảng; ghi căn cứ t.diemTu */
     var cach = function(ky){ var a = ky.split('-'), b = K.thang.split('-'); return Math.abs((+a[0]*12 + +a[1]) - (+b[0]*12 + +b[1])) + (ky>K.thang ? 0.5 : 0); };
-    var khac = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='tt' && String(e.ky).length===7 && e.ky!==K.thang; })   /* 3.409 QT-C-09: không lấy File Tổ trưởng tháng khác bù điểm GD (khác ngày) */
+    var khac = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return (e.loai==='dsto' || e.loai==='tt') && String(e.ky).length===7 && e.ky!==K.thang; })
       .sort(function(a, b){ return cach(a.ky)-cach(b.ky) || (a.loai==='dsto' ? -1 : 1); }).slice(0, 6);
     return khac.reduce(function(p, e){ return p.then(function(){ if(!thieu()) return; return slDocBang(e.loai, e.ky).then(function(b){
       if(!b) return; slMoBang(b).forEach(function(o){ var t = T[o.to]; if(t && !t.diem && o.diem){ toDien(t, o, [['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD'],['sdt','sdt'],['pho','phoTen'],['dv','dv'],['tenThon','tenThon'],['tenXa','tenXa']]); t.diemTu = (e.loai==='tt' ? 'Thông tin tổ trưởng ' : 'Danh sách tổ ')+kyVN(e.ky); } }); }); }); }, Promise.resolve());
@@ -206,6 +206,7 @@ function toNap(ky){
     toDanhBaDiem(K);   /* 3.107: bảng tháng trước không mở được → danh bạ tổ (lưu từ các lần nạp Thông tin tổ trưởng) */
     toSuyDiem(K);   /* 3.98: tổ chưa có trong Thông tin tổ trưởng → suy điểm GD theo ấp / ngày GDXA */
     toGanTrucTiep(K, Bm);   /* 3.92: món vay trực tiếp (không mã tổ) → mục "Vay trực tiếp" ở đúng xã / điểm GD */
+    toTenXa(K);   /* 3.409 */
     var ngD = {}; Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.diem && t.ngayGD && !ngD[t.diem]) ngD[t.diem] = t.ngayGD; });
     /* 3.407 (Tèo QT-C-12, phép thử chung teo_ca C12): File Tổ trưởng không có ngày GD, Dư nợ chi tiết đã thôi xuất → ngày GD của ĐIỂM = ngày GDXA chiếm đa số
        trong Mẫu 31 của các tổ thuộc điểm (tổ mới chuyển đến còn mang GDXA điểm cũ vẫn theo điểm mới) — chỉ điền khi chưa có (không đè nguồn file) */
@@ -248,6 +249,15 @@ function toDien(t, o, ds){ ds.forEach(function(f){ if(!t[f[0]] && o[f[1]]) t[f[0
 var TO_GIA = '0000000';
 function toMaCua(o){ return (o && o.to && o.to!==TO_GIA) ? o.to : ((o && o._tt) || ''); }
 function toLaTT(t){ return !!(t && t.trucTiep); }
+/* 3.409 (anh 30/10: cây địa bàn 3 xã hiện tên "Vay trực tiếp"): tên xã của tổ = tên chiếm đa số trong Mẫu 31 của mã xã đó (Mẫu 31 là chính),
+   bỏ tên dạng "… trực tiếp"; Mẫu 31 không có → danh mục ⚙ Cài đặt. Trước: lấy tên ở dòng đầu tiên gặp của tổ. */
+function toTenXa(K){
+  var dem = {}, T = K.to, laTT = function(s){ return /tr[ựu]c ti[ếe]p/i.test(String(s||'')); };
+  (K.hs||[]).forEach(function(o){ if(!o.xa || !o.tenXa || laTT(o.tenXa)) return; var d = dem[o.xa] = dem[o.xa] || {}; d[o.tenXa] = (d[o.tenXa]||0)+1; });
+  var dm = {}; (D.cauHinh.diaBan||[]).forEach(function(x){ if(x.ma && x.xa) dm[String(x.ma)] = x.xa; });
+  var ten = {}; Object.keys(dem).forEach(function(m){ var d = dem[m], tot = ''; Object.keys(d).forEach(function(k){ if(!tot || d[k]>d[tot]) tot = k; }); ten[m] = tot; });
+  Object.keys(T).forEach(function(m){ var t = T[m], v = ten[t.xa] || (laTT(t.tenXa) || !t.tenXa ? dm[String(t.xa)] : ''); if(v && v!==t.tenXa) t.tenXa = v; });
+}
 function toGanTrucTiep(K, Bm){
   /* 3.107: điểm GD của món vay trực tiếp: ① ấp của món (danh mục địa bàn / tổ cùng ấp) → ② ngày GDXA trùng tổ cùng xã → ③ xã chỉ có 1 điểm GD */
   var T = K.to, KH = K.kh, diem = {}, ap = {}, xa = {}, ku = {};
