@@ -172,11 +172,29 @@ function ktGNVe(o){
     .catch(function(er){ var e = document.getElementById('kt-gn'); if(e) e.innerHTML = '<div class="sl-bao do">Chưa mở được Mẫu 31: '+coChuHTML(er && er.message || er)+'</div>'; });
 }
 function ktGNTo(){   /* 3.328 (anh chốt 23/10): gom nhiều tháng được nhưng 1 tổ × 1 tháng = 1 phiếu Mẫu 06 (trước: mỗi tổ 1 phiếu gom các tháng) */
-  var R = KT_GN, thu = []; if(!R) return [];
+  var R = KT_GN, C = ktCH(), thu = []; if(!R) return [];
   R.thang.forEach(function(th){ var D1 = R.ds[th]; if(!D1) return;
     Object.keys(D1).forEach(function(m){ var x = D1[m]; if(!ktGNTrongPV(x)) return;
-      var mon = x.mon.slice(); mon.forEach(function(o){ o._th = th; }); ktMaKV(mon); thu.push({x:x, mon:mon, thang:[th], th:th}); }); });
+      var mon = x.mon.slice(); mon.forEach(function(o){ o._th = th; }); if(C.gnLan==='1') mon = mon.filter(function(o){ return ktGNLan1(o, th); }); if(!mon.length) return;
+      ktMaKV(mon); thu.push({x:x, mon:mon, thang:[th], th:th}); }); });
   return thu.sort(function(a, b){ return ((a.x.t.tenXa||'')+'|'+ktKHAp(a.x.t)+'|'+(a.x.t.ten||'')+'|'+a.th).localeCompare((b.x.t.tenXa||'')+'|'+ktKHAp(b.x.t)+'|'+(b.x.t.ten||'')+'|'+b.th, 'vi', {numeric:true}); });
+}
+/* 3.429 (anh chốt K4 / QT-C-15, 01/11 — tạm, chốt lại sau kỳ mới): kiểm tra 30 ngày cho chọn Tất cả (mặc định, mọi món GN trong tháng) / Lần 1
+   (727 chỉ quy định giải ngân lần 1 — mức tối thiểu khi giao nhiệm vụ Hội). Lần 1 = "Ngày GN đầu tiên" (Mẫu 31, ngn) trong tháng GN; không có ngày → không tính Lần 1 (không đoán). */
+function ktGNLan1(o, th){ return !!o.ngn && /^\d{4}-\d{2}/.test(o.ngn) && slThang(o.ngn)===th; }
+function ktGNDem(){   /* số món trong phạm vi: {tat, lan1, khong} — khong = món thiếu Ngày GN đầu tiên */
+  var R = KT_GN, d = {tat:0, lan1:0, khong:0}; if(!R) return d;
+  R.thang.forEach(function(th){ var D1 = R.ds[th]; if(!D1) return;
+    Object.keys(D1).forEach(function(m){ var x = D1[m]; if(!ktGNTrongPV(x)) return;
+      x.mon.forEach(function(o){ d.tat++; if(ktGNLan1(o, th)) d.lan1++; else if(!o.ngn) d.khong++; }); }); });
+  return d;
+}
+function ktGNLanHTML(){
+  if(!ktGNLanHTML.dk && typeof GD!=='undefined'){ ktGNLanHTML.dk = 1; GD.dangKy('ktgn', {lan:function(el){ ktCH().gnLan = el.getAttribute('data-k')==='1' ? '1' : ''; luu(); ktGNVeLai(); }}); }
+  var d = ktGNDem(), l1 = ktCH().gnLan==='1';
+  return '<div class="kt-che"><span class="sl-phu">Món kiểm tra:</span>'+GD.chip('Tất cả ('+d.tat+')', !l1, 'ktgn.lan', {k:'tat'}, 'Mọi món có giải ngân trong tháng, kể cả HSSV nhận tiền lần 2 trở đi — khi mình cần kiểm tra hết')+
+    GD.chip('Lần 1 ('+d.lan1+')', l1, 'ktgn.lan', {k:'1'}, '727: giải ngân lần 1 (Ngày GN đầu tiên trong tháng) — mức tối thiểu theo văn bản')+
+    (d.khong ? '<span class="sl-phu"> · '+d.khong+' món thiếu Ngày GN đầu tiên (không tính Lần 1)</span>' : '')+'</div>';
 }
 function ktGNChon(){   /* [{x, thang, th, mon:[đã tích]}] — 1 tổ × 1 tháng = 1 phiếu */
   return ktGNTo().map(function(p){ return {x:p.x, thang:p.thang, th:p.th, mon:p.mon.filter(function(o){ return !KT_GN_BO[o._th+'|'+o.ku]; })}; }).filter(function(p){ return p.mon.length; });
@@ -193,7 +211,7 @@ function ktGNDsHTML(){
   var C = ktCH(), R = KT_GN, h = '';
   if(R.thieu.length) h += '<div class="sl-bao vang">⚠ Chưa có Mẫu 31 tháng '+R.thieu.map(kyVN).join(', ')+' — tháng này không lập phiếu được.</div>';
   var nds = Object.keys(R.ngay||{}); if(nds.length) h += '<div class="sl-chip-hang">'+nds.map(function(th){ return '<span class="sl-chip vang" title="'+coChuHTML(kyVN(th)+' chưa có Mẫu 31 cuối tháng — lấy món giải ngân đến ngày '+ngayVNsl(R.ngay[th])+' (Mẫu 31 ngày). Khi nạp Mẫu 31 cuối tháng, danh sách tự theo bản cuối tháng.')+'">📌 '+kyVN(th).replace(/\/\d{4}$/, '')+': GN đến '+ngayVNsl(R.ngay[th]).slice(0, 5)+'</span>'; }).join('')+'</div>';   /* 3.136: chỉ trên màn hình · 3.163: thành chip */
-  var ds = ktGNTo();
+  h += ktGNLanHTML(); var ds = ktGNTo();
   if(!ds.length) return h+'<div class="rong">Không có món giải ngân trong '+(R.thang.length>1 ? 'các tháng đã chọn' : 'tháng '+kyVN(R.thang[0]))+' ở phạm vi này.</div>';
   var chon = ktGNChon(), soMon = chon.reduce(function(a, p){ return a+p.mon.length; }, 0);
   h += '<div class="kt-nhac30">⏱ Kiểm tra trong 30 ngày kể từ ngày giải ngân (727) — ngày kiểm tra ghi tay trên phiếu.</div>';   /* 3.328 (anh chốt): chỉ nhắc, không chặn */
@@ -214,7 +232,8 @@ function ktGNDsHTML(){
           ghi:ktGhiHo(y, 'Giải ngân '+p.thang.map(kyVN).join(', ')+' — 727: kiểm tra sử dụng vốn trong 30 ngày')}); }).join('')+'</tbody></table></div>'; });
   var xaGN = {}; chon.forEach(function(p){ var t = (KT_K && KT_K.to[p.x.t.ma]) || p.x.t; if(t.xa) xaGN[t.xa] = 1; });
   h += ktKBKhung('gn', ktHoiDsXa(xaGN))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktGNXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' phiếu Mẫu 06</button><button class="nho" onclick="ktTrang06()" title="Phiếu trống để ghi tay — 1 mặt hoặc 1 tờ 2 mặt">📄 Mẫu 06 trắng</button></div>'+
-    '<p class="ghi">Món = mọi lần giải ngân trong các tháng đã chọn theo Mẫu 31 tháng đó (kể cả HSSV nhận tiền lần 2 trở đi), chỉ món qua tổ. Mỗi tổ mỗi tháng giải ngân 1 phiếu; lãi tồn, số dư 105 theo Mẫu 31 tháng giải ngân. Cột Dư nợ trên phiếu = tổng dư nợ của món cuối tháng; Tổng số tiền giải ngân = tổng đã giải ngân của món. '+
+    '<p class="ghi">Món = '+
+      (C.gnLan==='1' ? 'giải ngân LẦN 1 (Ngày GN đầu tiên trong tháng — mức 727)' : 'mọi lần giải ngân (kể cả HSSV nhận tiền lần 2 trở đi)')+' trong các tháng đã chọn theo Mẫu 31 tháng đó, chỉ món qua tổ. Mỗi tổ mỗi tháng giải ngân 1 phiếu; lãi tồn, số dư 105 theo Mẫu 31 tháng giải ngân. Cột Dư nợ trên phiếu = tổng dư nợ của món cuối tháng; Tổng số tiền giải ngân = tổng đã giải ngân của món. '+
       (C.to ? 'Bỏ tích hộ / món không cần lập phiếu.' : 'Chọn đến 1 tổ để tích / bỏ tích từng hộ, từng món.')+'</p>';
   return h;
 }

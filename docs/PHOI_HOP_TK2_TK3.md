@@ -157,6 +157,7 @@
 | 31/10 | TK 2 | 3.426 | **mới** `js/89-tb-kl.js`, `js/87` (BC.Kp), `js/88` (tên tổ), `index.html`, **mới** `tests/t346` | t346 10/10, t345 10/10, t344 đạt |
 | 01/11 | TK 2 | 3.427 | **mới** `js/90-so-gb.js`, **mới** `tools/trang_thai_chung.py` + `docs/TRANG_THAI_CHUNG.md`, `tools/bump.py`, `AGENTS.md`, `docs/QUY_TAC_SO_LIEU.md` 1.10, `index.html`, **mới** `tests/t347` | t347 10/10, t138 đạt |
 | 01/11 | TK 2 | 3.428 | đổi tên 6 tài liệu TEO_* (+ dòng trỏ), `tools/trang_thai_chung.py`, **mới** `docs/nhat_ky/`, `AGENTS.md`, `CLAUDE.md`, `BAT_DAU.md`, chữ nút `js/22k` · `js/87` · `js/90` · `js/06`, tests | t325, t328, t344, t347, t138 đạt |
+| 01/11 | TK 2 | 3.429 | `js/22c-ktgs-m06.js` (K4 Tất cả / Lần 1), **mới** `tests/t348.js`, `docs/luu_tru/` (3 bàn giao cũ), `CLAUDE.md`, `QUY_TAC_SO_LIEU.md`, `tests/do_moc.json` (chốt lại mốc sau hồi quy đủ 227/227) |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
@@ -179,8 +180,8 @@
 | 25/10 | TK 2 → TK 3 | **Trùng số + trùng việc 3.370 / 3.371:** TK 2 đã làm "mở thẳng bản máy tính" song song với TK 3 → TK 2 bỏ bản của mình, giữ bản TK 3, nối Đ6 thành **3.372**. Đ6 thêm 📱 vào ☰ Thêm (giữ nút 📱 nổi của TK 3, không đổi t193 / t262 / t266). **Để tránh trùng lần sau:** việc điện thoại trong `index.html` — TK 2: khung (thanh dưới, đầu / chân trang, Tra cứu, Hôm nay, Số liệu); TK 3: Văn bản + Scan (`css/dt-may-vbsc.css`) + `dt.html`. |
 | 25/10 | TK 2 → TK 3 | **Rà phép thử (anh duyệt "bỏ phép của chức năng đã gỡ"):** bỏ t97, t97m, t97w, t98, t101_mau10_cu (Mẫu 10 đã bỏ từ 3.120 + tab Số liệu đời 3.85; t98 đồng bộ Số liệu Drive → đã có t103). 2 bộ dữ liệu `tests/gia`, `tests/gianho` không còn phép nào dùng (vốn không vào repo — `.gitignore`); `tools/hoiquy.sh` thôi nối 2 thư mục đó. Còn 8 phép cũ ngoài hồi quy (t87, t88, t89, t93–t96, t99) chỉ in số đo, không có câu kiểm — chờ anh quyết bỏ / giữ. |
 | 25/10 | TK 2 → TK 3 | **Anh chốt 25/10: "Nên giữ nút chuyển bên ngoài"** → nút 📱 nổi (`#ve-dt`, `js/60`) GIỮ trên điện thoại, không ẩn; lối 📱 trong ☰ Thêm (3.372) chỉ là lối phụ. |
-| 25/10 | TK 2 → TK 3 | **BÀN GIAO TOÀN BỘ (anh 25/10: "Sau phần này anh sẽ qua tk 3 làm tiếp trong 2 ngày em bàn giao toàn bộ")** → đọc **`docs/BAN_GIAO_TK2_2510.md`**: trạng thái `main` 3.372, quyết định anh chốt (nguyên văn), việc dở / chờ anh, ai sửa gì ở bản điện thoại, quy trình 1 bản, bẫy. |
-| 25/10 | TK 2 → TK 3 | **Anh chốt: "Em giao hết sang cho tk 3 tiếp nhận trong 2 ngày"** → TK 3 tiếp nhận toàn bộ, được sửa cả file TK 2; TK 2 tạm dừng (không sửa / gộp). Xem `docs/BAN_GIAO_TK2_2510.md` mục 0. |
+| 25/10 | TK 2 → TK 3 | **BÀN GIAO TOÀN BỘ (anh 25/10: "Sau phần này anh sẽ qua tk 3 làm tiếp trong 2 ngày em bàn giao toàn bộ")** → đọc **`docs/luu_tru/BAN_GIAO_TK2_2510.md`**: trạng thái `main` 3.372, quyết định anh chốt (nguyên văn), việc dở / chờ anh, ai sửa gì ở bản điện thoại, quy trình 1 bản, bẫy. |
+| 25/10 | TK 2 → TK 3 | **Anh chốt: "Em giao hết sang cho tk 3 tiếp nhận trong 2 ngày"** → TK 3 tiếp nhận toàn bộ, được sửa cả file TK 2; TK 2 tạm dừng (không sửa / gộp). Xem `docs/luu_tru/BAN_GIAO_TK2_2510.md` mục 0. |
 | 25/10 | TK 3 → TK 2 | **Anh chốt bản chính điện thoại = bản máy tính của TK 2, dt.html = bản phụ** (mục 6). TK 3 sẽ sửa `index.html` dòng 7–9 (bỏ tự chuyển) + `js/60-ve-dt.js` (G1) khi anh nhắn "code" — TK 2 tránh sửa 2 chỗ này cùng lúc. **G3**: TK 2 có muốn giao TK 3 phần Văn bản + Scan trong `css/dt-may.css` (khối riêng) không? Trả lời ở đây. |
 
 ## 6. Hai bản trên điện thoại — rà chồng chéo + đề xuất phân việc (TK 3 lập 25/10 — **anh chốt 25/10: "bản chính như máy tính, điện thoại là bản phụ cho gọn"**)

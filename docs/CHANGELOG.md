@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.429 — 01/11/2026 — K4: kiểm tra 30 ngày chọn Tất cả / Lần 1; dọn bàn giao cũ (TK 2)
+- **Anh chốt 01/11 (K4 / QT-C-15, tạm — chốt lại sau kỳ mới):** "kiểm tra 30 ngày cho chọn lần 1 và tất cả, tính món giải ngân tất cả; 727 chỉ quy định lần 1 nên khi giao kế hoạch cần tối thiểu theo văn bản, còn khi mình cần nên kiểm tra hết".
+- **Mẫu 06 kiểm tra sau giải ngân:** chip **Tất cả (n)** (mặc định — như cũ) / **Lần 1 (m)** = món có "Ngày GN đầu tiên" trong tháng GN; thiếu ngày → báo, không tính Lần 1. Ghi chú cuối màn theo lựa chọn. `ktGNLan1`, `ktGNDem`, `ktGNLanHTML` (lệnh GD `ktgn.lan`), `ktGNTo` lọc theo `ktCH().gnLan`.
+- **Dọn tài liệu (anh duyệt):** `BAN_GIAO_3224`, `BAN_GIAO_TK2_2510`, `BAN_GIAO_TIEP_TUC` → `docs/luu_tru/` (README); CLAUDE.md dòng đầu trỏ trạng thái hiện nay (`docs/nhat_ky/APP.md`, `TRANG_THAI_CHUNG.md`).
+- Phép thử mới `t348` (dữ liệu giả). Hồi quy đủ, chốt lại mốc thước đo.
+
 ## 3.428 — 01/11/2026 — Bỏ tên "Tèo", bảng vai, nhật ký theo vai (TK 2)
 - **Anh 01/11:** "anh muốn đổi đồng bộ bỏ Tèo … sau này anh sẽ gọi app, giao ban, TK 1, 2, 3 và Gemini — ai sẽ làm gì và ở đâu; các TK khi làm sẽ ghi nhật ký và bàn giao để có thể đổi vai trò".
 - **Đổi tên tài liệu** (giữ file tên cũ 1 dòng trỏ — link raw giao ban đang dùng — tới ~01/12): `PHOI_HOP_CHUNG.md` · `QUY_TAC_SO_LIEU.md` · `TRANG_THAI_CHUNG.md` (+ `tools/trang_thai_chung.py`) · `GIAO_BAN_KY_NANG.md` · `KE_HOACH_KY_DOI_CHIEU.md` · `AP_KP_CU.md`; sửa mọi chỗ trỏ trong repo (30 file). Tên kỹ thuật `tests/teo/teo_ca.json` giữ tới khi TK 1 đổi cùng script giao ban.
