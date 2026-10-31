@@ -569,7 +569,8 @@ function slVaoDanhBa(loai, ky, rows, lap){
   });
 }
 var SL_STK_NHO = {}, SL_STK_N = 0;
-function slStk(v){ var k = String(v||''); if(!k) return []; var r = SL_STK_NHO[k]; if(!r){ r = k.split(/[,;\s]+/).filter(function(t){ return /^\d{10}$/.test(t); }); if(++SL_STK_N>50000){ SL_STK_NHO = {}; SL_STK_N = 0; } SL_STK_NHO[k] = r; } return r.slice(); }   /* 3.422: nhớ kết quả theo chuỗi (dựng kỳ gọi lại hàng chục nghìn lần), trả bản sao */   /* 3.120: số sổ TK 105 hợp lệ = 10 chữ số (bỏ số tài khoản hệ thống dạng 1482… của Mẫu 10) */
+function slStk(v){ var k = String(v||''); if(!k) return []; var r = SL_STK_NHO[k];
+  if(!r){ r = k.split(/[,;\s]+/).filter(function(t){ return /^\d{10}$/.test(t); }); if(++SL_STK_N>50000){ SL_STK_NHO = {}; SL_STK_N = 0; } SL_STK_NHO[k] = r; } return r.slice(); }   /* 3.422: nhớ kết quả theo chuỗi (dựng kỳ gọi lại hàng chục nghìn lần), trả bản sao */   /* 3.120: số sổ TK 105 hợp lệ = 10 chữ số (bỏ số tài khoản hệ thống dạng 1482… của Mẫu 10) */
 function slCoTK(v){ return /(^|\D)\d{13,14}(?!\d)/.test(String(v||'')); }   /* 3.138 (anh chốt): Mẫu 31 có số tài khoản 105 hệ thống (13–14 số, kể cả số dư 0) = đã mở TK */
 function toStkChu(k){ return k.stk.length ? k.stk.join(', ') : (k.coTK && (k.conNo || k.dn>0 || k.lt>0 || k.chuaGN) ? 'đã mở TK' : ''); }   /* 3.138: chưa có số sổ 10 số nhưng đã có TK → "đã mở TK" · 3.138.1 (anh chốt): chỉ khách đang vay / chưa giải ngân — khách đã tất nợ (kể cả trước 2026) không ghi */
 function slDungTim(){
