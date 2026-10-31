@@ -25,8 +25,8 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.427** — TK 2: 🔎 so file giao ban tự phân loại lệch (`js/90`), bảng trạng thái Tèo tự sinh (`docs/TEO_TRANG_THAI.md`), luật chốt phải có phép thử. Trước: 3.426 nháp TB kết luận theo phiên.
-- **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
+- **`main` = 3.428** — TK 2: bỏ tên "Tèo" (gọi App · Giao ban · TK 1, 2, 3 · Gemini), bảng vai `PHOI_HOP_CHUNG.md` mục 1, nhật ký theo vai `docs/nhat_ky/`. Trước: 3.427 so file giao ban tự phân loại lệch.
+- **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
   1. Chờ anh so bản in 01/GQVL, 07b với mẫu giấy (dựng theo nội dung Word anh gửi; file gốc không vào repo) → chỉnh bố cục nếu lệch. Đợt sau GQVL: "mẫu tính" hiệu quả theo từng mục đích.

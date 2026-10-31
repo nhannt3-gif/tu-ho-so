@@ -266,11 +266,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.428)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ⋯ Nạp & KT | Nút "📤 File đối chiếu giao ban" (không còn chữ Tèo) | |
+| 2 | Mở link cũ docs/TEO_PHOI_HOP.md | Dòng trỏ sang PHOI_HOP_CHUNG.md | |
+
 ### Danh sách thử trên máy thật (3.427)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 1 | Kỳ 02/11: ⋯ Nạp & KT › 🔎 So file giao ban → chọn DOI_CHIEU_GB_<ngày>.csv | Bảng tổng tiền hai bên; lệch chia loại A / B / C / D / ? | |
-| 2 | Mở docs/TEO_TRANG_THAI.md trên GitHub | Thấy luật chờ chốt, việc chờ anh, hộp thư mở theo bên nhận | |
+| 2 | Mở docs/TRANG_THAI_CHUNG.md trên GitHub | Thấy luật chờ chốt, việc chờ anh, hộp thư mở theo bên nhận | |
 
 ### Danh sách thử trên máy thật (3.426)
 | # | Việc thử | Kết quả mong đợi | Đạt? |

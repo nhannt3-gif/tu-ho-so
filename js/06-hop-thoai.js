@@ -1040,22 +1040,22 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.427', ds:[
+var CO_GI_MOI = {ban:'3.428', ds:[
+  ["🏷 Bỏ tên \"Tèo\": gọi App · Giao ban · TK 1, 2, 3 · Gemini; nút \"📤 File đối chiếu giao ban\"", ""],
   ["🔎 So file giao ban: app tự so DOI_CHIEU_GB với số app, tự phân loại lệch A–D (⋯ Nạp & KT)", ""],
-  ["📋 Bảng trạng thái Tèo tự sinh mỗi bản (docs/TEO_TRANG_THAI.md) · luật chỉ chốt khi có phép thử chung", ""],
+  ["📋 Bảng trạng thái chung tự sinh mỗi bản (docs/TRANG_THAI_CHUNG.md) · luật chỉ chốt khi có phép thử chung", ""],
   ["📄 Nháp Thông báo kết luận theo phiên (08/GDX, Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""],
   ["📝 Nháp Nội dung họp mẫu 08 (Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""],
   ["📐 Sửa: kỳ so sánh của bộ số chuẩn là cuối tháng TRƯỚC (3.424 lấy nhầm tháng sau)", ""],
   ["📐 Bộ số chuẩn đối chiếu giao ban: chỉ tiêu theo điểm × Hội, kiểm cân đối, so với file đáp án (⋯ Nạp & KT)", ""],
   ["🔁 Số kỳ trước theo vị trí hiện nay của khế ước (QT-C-21) — tổ viên chuyển tổ không làm sai tăng giảm", ""],
-  ["📤 File đối chiếu Tèo: thu nợ đủ (cả món tất nợ, tổ đã đóng), bù mã xã, bỏ dòng vay trực tiếp toàn 0", ""],
+  ["📤 File đối chiếu giao ban: thu nợ đủ (cả món tất nợ, tổ đã đóng), bù mã xã, bỏ dòng vay trực tiếp toàn 0", ""],
   ["⚡ Mở lại app khi có nhiều số liệu: bớt đứng máy khoảng một nửa (không đọc / dựng kỳ 2 lần)", ""],
   ["🖥 Khổ laptop 1280: hết cuộn ngang ở Văn bản / Scan / Biểu mẫu / Thư viện (thanh trên gọn lại)", ""],
   ["⌨ Ctrl+K: ô lệnh — gõ tên tab, công cụ, tên / mã khách, tổ rồi Enter là mở", "olMo("],
   ["📴 Bản máy tính mở được khi mất mạng (có mạng luôn lấy bản mới)", ""],
   ["🔧 Tra cứu: 29 nút chuyển sang bộ nhận lệnh chung (data-lenh), bấm như cũ", ""],
-  ["🧹 Dọn 289 luật CSS không còn dùng (−21 KB), giao diện không đổi", ""],
-  ["🏘 Thẻ tổ: \"n có nợ\" xuống dòng dưới số thành viên, màu xanh", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🧹 Dọn 289 luật CSS không còn dùng (−21 KB), giao diện không đổi", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

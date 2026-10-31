@@ -770,7 +770,7 @@ function slBoLoaiDon(){
 var SL_HEN = null, SL_DANG_DAY = false;
 function slHenDay(){ if(coTheNoiDrive() && DR.sanSang){ clearTimeout(SL_HEN); SL_HEN = setTimeout(slDay, 3000); } }
 function slThuMuc(){ return D.cauHinh.thumuc+'/_Hệ thống/so_lieu'; }
-/* 3.400 (anh chốt 28/10 — Tèo, docs/TEO_PHOI_HOP.md mục 4): TÊN CHUẨN file gốc = <MÃ>_<YYYY-MM-DD>.<đuôi gốc> (loại trước, ngày sau),
+/* 3.400 (anh chốt 28/10 — Tèo, docs/PHOI_HOP_CHUNG.md mục 4): TÊN CHUẨN file gốc = <MÃ>_<YYYY-MM-DD>.<đuôi gốc> (loại trước, ngày sau),
    ngày = ngày số liệu: ô tháng → ngày cuối tháng, ô ngày (kỳ phiên, sao kê…) → đúng ngày đó. Tên anh đặt giữ ở e.tenFile + mô tả file trên Drive + sổ DANH_MUC_NAP. */
 var SL_MA = {hstd:'MAU31', dsto:'TOTRUONG', dnct:'DNCT', tt:'TTTT', khd:'KHD14', nqh:'NQH', nk:'NOKHOANH', pk:'PHANKY', tdn:'TDNCT', tv01:'TV01', tk104:'TK104', tk105:'TK105',
   bx:'BCDHTD011', bc:'BCDHTD012', lx:'LEN31XA', lh:'LEN31HOI', lc:'LEN31CT', lt:'LEN31TT', k37:'BC0437', k38:'BC0438', m10:'MAU10', kh:'SKKH', kttk:'MAU7', b32:'B32', khd08:'KHD08'};

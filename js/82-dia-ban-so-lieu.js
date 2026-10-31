@@ -145,7 +145,7 @@ function dbslTenDiem(k){ var p = String(k).split('|'), x = dbslCay(DBSL.K).find(
 function dbslGoiY(k){
   var c = dbslTenDiem(k); if(!c) return '';
   var dong = ['Điểm GD '+c.d.ten+(c.d.ngay ? ' (GD ngày '+c.d.ngay+')' : '')+' — '+c.d.ap.length+' ấp/KP: '+c.d.ap.map(function(a){ return a.ten+(a.ma ? ' ('+a.ma+')' : ''); }).join(' · ')];
-  c.d.ap.forEach(function(a){ var g = typeof apCuGhi==='function' ? apCuGhi(a.ma) : ''; if(g) dong.push('• '+a.ten+(a.ma ? ' ('+a.ma+')' : '')+': '+g); });   /* 3.407: tên ấp / KP cũ (TEO_AP_CU) */
+  c.d.ap.forEach(function(a){ var g = typeof apCuGhi==='function' ? apCuGhi(a.ma) : ''; if(g) dong.push('• '+a.ten+(a.ma ? ' ('+a.ma+')' : '')+': '+g); });   /* 3.407: tên ấp / KP cũ (AP_KP_CU) */
   if(DBSL.cu) dbslDoiTen(DBSL.cu, DBSL.K).filter(function(x){ return x.maXa===String(c.x.ma) && (x.maDiem===String(c.d.ma) || x.diem===c.d.ten); }).forEach(function(x){
     dong.push('• '+x.moi.ten+(x.moi.ma ? ' ('+x.moi.ma+')' : '')+' — trước 07/2026 là '+x.cu.ten+(x.cu.ma ? ' ('+x.cu.ma+')' : '')+', '+x.to.length+' tổ'); });
   return dong.join('\n');

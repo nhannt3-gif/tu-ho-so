@@ -1,7 +1,7 @@
 // 3.407 (Tèo bước B4 — TK 1 30/10 "TK 2: phép thử JS đọc cùng file"): PHÉP THỬ CHUNG tests/teo/teo_ca.json — mỗi trường hợp 1 trang sạch:
 //   dựng Mẫu 31 (cột hệ thống, ô không ghi lấy mac_dinh_mau31) + File Tổ trưởng (baocao_…, cùng ngày trừ ngay_to_truong) → nạp qua slDocFile / slGhi → KHO (toNap) →
 //   so đáp án: dong (file đối chiếu DOI_CHIEU_APP, slDCTeoTinh) · ngay_qh (skCQH) · lech_ap / ap_nhieu_diem (K.qtc) · khong_ghep_to_truong · ham (so_thang_lai, xep_loai).
-//   KHÔNG sửa đáp án (đổi đáp án = đổi luật → anh chốt). App ra khác → ghi hộp thư TEO_PHOI_HOP mục 14. Chạy: node tests/t328.js [mã trường hợp,…]
+//   KHÔNG sửa đáp án (đổi đáp án = đổi luật → anh chốt). App ra khác → ghi hộp thư PHOI_HOP_CHUNG mục 14. Chạy: node tests/t328.js [mã trường hợp,…]
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
 const BO = JSON.parse(fs.readFileSync(path.join(__dirname,'teo','teo_ca.json'),'utf8'));

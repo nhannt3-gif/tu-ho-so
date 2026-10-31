@@ -1,4 +1,4 @@
-/* ===== 3.424 (docs/TEO_GIAO_BAN_KY_NANG.md — TK 1 bàn giao 31/10; anh 31/10 "em chờ TK 1 bàn giao skill rồi đọc và làm luôn") =====
+/* ===== 3.424 (docs/GIAO_BAN_KY_NANG.md — TK 1 bàn giao 31/10; anh 31/10 "em chờ TK 1 bàn giao skill rồi đọc và làm luôn") =====
    📐 BỘ SỐ CHUẨN — app dựng song song với giao ban để ANH ĐỐI CHIẾU độ tin cậy (văn bản chính thức vẫn do giao ban phát hành — mục 8 bàn giao).
    - Chỉ tiêu đúng từ điển `so_lieu_tong_hop.json` (bàn giao mục 2): theo điểm × Hội (HND · HPN · HCCB · DTN) + trực tiếp; tiền triệu đồng.
    - Kỳ so sánh = Mẫu 31 cuối tháng trước; số kỳ trước xếp theo vị trí hiện nay của khế ước (QT-C-21 — toKyTruoc, js/22g).
@@ -128,6 +128,6 @@ function bcSoFile(){
   function dk(){ if(dk.xong || typeof GD==='undefined') return; dk.xong = 1;
     GD.dangKy('bc', {mo:function(el){ dongHop(); bcMo(el.getAttribute('data-ky')); }, diem:function(el){ BC.diem = el.getAttribute('data-d'); bcVe(); }, dong:function(){ dongHop(); },
       csv:function(){ if(BC.B) taiXuongBlob(new Blob([bcCsv(BC.B)], {type:'text/csv'}), 'BO_SO_CHUAN_APP_'+BC.K.ngay+'.csv'); }, so:function(){ bcSoFile(); }}); }
-  if(typeof slDCNut!=='function') return; var cu = slDCNut;   /* nút 📐 cạnh 📤 File đối chiếu Tèo (⋯ Nạp & KT) */
+  if(typeof slDCNut!=='function') return; var cu = slDCNut;   /* nút 📐 cạnh 📤 File đối chiếu giao ban (⋯ Nạp & KT) */
   slDCNut = function(ky){ dk(); return cu.apply(this, arguments)+'<button class="nho" data-lenh="bc.mo" data-ky="'+coChuHTML(ky)+'" title="Bộ số chuẩn theo chỉ tiêu giao ban + kiểm tầng A + so với file đáp án">📐 Bộ số chuẩn (đối chiếu giao ban)</button>'; };
 })();

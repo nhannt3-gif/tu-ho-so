@@ -1,4 +1,4 @@
-// 3.426 (TEO_GIAO_BAN_KY_NANG mục 4.2 — GĐ 3): 📄 nháp Thông báo kết luận theo phiên 08/GDX (js/89) — đầu "Số: /TB-KLGB", ngày ký = ngày làm việc kế tiếp phiên,
+// 3.426 (GIAO_BAN_KY_NANG mục 4.2 — GĐ 3): 📄 nháp Thông báo kết luận theo phiên 08/GDX (js/89) — đầu "Số: /TB-KLGB", ngày ký = ngày làm việc kế tiếp phiên,
 //   THÔNG BÁO / Kết luận … / Tại điểm …, không "(Số liệu đến ngày …)", I–IV, bảng 11 cột, "Biểu Kết quả giao dịch … kèm theo.", tồn tại II.2, nơi nhận điểm phụ, ký GIÁM ĐỐC;
 //   có kỳ trước → "(… so với ngày <cuối tháng trước>)". Bộ GIẢ gianho31 + C21-1 (teo_ca).
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');

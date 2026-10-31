@@ -31,5 +31,5 @@ def rd(s):
 rw('tests/README.md', rd)
 if sp.get('batdau'):
     rw('docs/BAT_DAU.md', lambda s: re.sub(r"- \*\*`main` = [^\n]*", sp['batdau'], s, count=1))
-if os.path.exists('tools/teo_trang_thai.py'): os.system('python3 tools/teo_trang_thai.py')   # 3.427: bảng trạng thái Tèo tự sinh mỗi bản
+if os.path.exists('tools/trang_thai_chung.py'): os.system('python3 tools/trang_thai_chung.py')   # 3.427: bảng trạng thái Tèo tự sinh mỗi bản
 print('ok', v, luc)

@@ -215,7 +215,7 @@
 | t220 | 4 | 4 |  | 3.290 — lưu 1 lượt quét nhiều người vào Chờ sắp xếp: mỗi người đọc được thẻ → tên "cccd-Họ tên - số CCCD" + lư | giữ |
 | t221 | 4 | 6 |  | 3.291 — lưới "Bản vừa quét" chế độ Thẻ: mỗi mặt dời 4 chiều (◀ ▶ ▲ ▼), chọn ảnh rồi bấm phím mũi tên, nút 🔄 Lậ | giữ |
 | t305 | 4 | 6 |  | 3.363 (TU_VAN_KY_THUAT mục 5) — ⚠ nhật ký lỗi tự động: bắt lỗi chạy + lời hứa bị từ chối, lưu trên máy (localS | giữ |
-| t321 | 4 | 12 |  | 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11, docs/TEO_QUY_TAC_CHUNG.md): chuỗi món → tổ → ấp → điểm GD. | giữ |
+| t321 | 4 | 12 |  | 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11, docs/QUY_TAC_SO_LIEU.md): chuỗi món → tổ → ấp → điểm GD. | giữ |
 | t326 | 4 | 11 |  | 3.406 (anh 29/10): 🗺 Địa bàn (Hôm nay) theo Mẫu 31 + File Tổ trưởng mới nhất (js/82, cắm rút) — không cài cứng | giữ |
 | t101 | 3 | 0 |  | 3.87 → 3.120: Mẫu 10 (sao kê chi tiết theo ngày) ĐÃ BỎ HẲN từ bản 3.120 (anh chốt) — dùng Mẫu 31 (số liệu chín | D1 — thêm câu kiểm / bỏ |
 | t166 | 3 | 17 |  | 3.173 (anh duyệt 12/10) — KHĐ tự tính theo ĐÚNG luật hệ thống (câu 14 "Sao kê món vay N tháng không hoạt động" | giữ |
@@ -225,7 +225,7 @@
 | t248 | 3 | 10 |  | 3.338 (RA_SOAT_BO_CUC_2410 mục 8 việc 2): 🩺 Sức khỏe sao lưu ở ⚙ Khai báo đơn vị › 💾 Sao lưu — mỗi đường lưu 1 | giữ |
 | t310 | 3 | 3 |  | 3.369 (tối ưu nạp — phương án A anh duyệt 25/10): slNen / slMoBang viết lại cho nhanh phải cho KẾT QUẢ Y HỆT t | giữ |
 | t324 | 3 | 11 |  | 3.404 (anh chốt 28/10 — Tèo QT-C-12): ngày chuyển quá hạn theo phiên của điểm GD — ưu tiên cột hệ thống "Ngày  | giữ |
-| t325 | 3 | 9 |  | 3.405 (Tèo — TEO_KE_HOACH_KY_3110 mục 3): file đối chiếu DOI_CHIEU_APP_<ngày>.csv — đúng hợp đồng cột với giao | giữ |
+| t325 | 3 | 9 |  | 3.405 (Tèo — KE_HOACH_KY_DOI_CHIEU mục 3): file đối chiếu DOI_CHIEU_APP_<ngày>.csv — đúng hợp đồng cột với giao | giữ |
 | t250 | 1 | 46 |  | P1 🎯 PHÂN BỔ KH — lõi nghiệp vụ js/47-phan-bo.js (QT-15…17, docs/KE_HOACH_PHAN_BO_KH.md). Chạy bằng node, khôn | giữ |
 | t251 | 0 | 8 |  | P1 🎯 PHÂN BỔ KH — cửa chung KHO.duNoAp(kỳ) (js/29-kho.js): dư nợ Mẫu 31 gộp xã × thôn × CT × nguồn. Chạy bằng  | giữ |
 

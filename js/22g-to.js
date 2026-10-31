@@ -292,7 +292,7 @@ function toGanTrucTiep(K, Bm){
   });
   ['nqh','nk','khd'].forEach(function(L){ ((Bm && Bm.co[L])||[]).forEach(function(o){ if(!o.to && ku[o.ku]) o._tt = ku[o.ku]; }); });
 }
-/* 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11, docs/TEO_QUY_TAC_CHUNG.md): kiểm chuỗi món → tổ → ấp → điểm. Chỉ BÁO (QT-C-08), không sửa số liệu, món vẫn tính theo tổ.
+/* 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11, docs/QUY_TAC_SO_LIEU.md): kiểm chuỗi món → tổ → ấp → điểm. Chỉ BÁO (QT-C-08), không sửa số liệu, món vẫn tính theo tổ.
    K.qtc = {lechAp: món ở ấp khác ấp của tổ (ấp tổ theo File Tổ trưởng), apNhieu: ấp có tổ thuộc nhiều điểm GD, ttTam: món trực tiếp chưa gán được theo ấp} */
 var TO_TT_CACH = {gdxa:'tạm theo ngày GDXA (ấp chưa có tổ)', xa1:'xã chỉ có 1 điểm GD', chua:'chưa rõ điểm GD'};
 function toKiemAp(K){
@@ -430,7 +430,7 @@ function toSoTo(t){
     k.mon.forEach(function(m){ s.tn += (m.tnTH||0)+(m.tnQH||0)+(m.tnK||0); s.tl += (slSo(m.c_thu_lai_th_thang)||0)+(slSo(m.c_thu_lai_qh_thang)||0); }); });
   return s;
 }
-/* 3.424 QT-C-21 (anh duyệt 30/10 — sổ luật TEO_QUY_TAC_CHUNG): SỐ KỲ TRƯỚC THEO VỊ TRÍ HIỆN NAY CỦA KHẾ ƯỚC.
+/* 3.424 QT-C-21 (anh duyệt 30/10 — sổ luật QUY_TAC_SO_LIEU): SỐ KỲ TRƯỚC THEO VỊ TRÍ HIỆN NAY CỦA KHẾ ƯỚC.
    K = kỳ này, Kp = kỳ so sánh (đã toNap). Mỗi khế ước kỳ trước (1 lần / số khế ước) → tổ / điểm / Hội mà khế ước đang thuộc ở K; không còn ở K → tổ cũ
    (tổ cũ đã đóng → điểm hiện nay theo ấp). Sổ TK 105: theo vị trí sổ ở K chỉ khi cả hai kỳ đều gắn tổ, không thì vị trí kỳ trước.
    → {to:{ma:{dn,t105,lt}}, diem:{maDiem:{…}}, hoi:{'diem|hoi':{…}}, tt:{maAp:{…}}} (lt = lãi tồn QT-C-03) (hoi 'TT' = trực tiếp). Số tổ kỳ trước vẫn là số tổ thật (không ở đây). */

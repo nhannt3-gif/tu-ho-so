@@ -1,4 +1,4 @@
-// 3.405 (Tèo — TEO_KE_HOACH_KY_3110 mục 3): file đối chiếu DOI_CHIEU_APP_<ngày>.csv — đúng hợp đồng cột với giao ban (17 cột), dòng "#" ghi chú,
+// 3.405 (Tèo — KE_HOACH_KY_DOI_CHIEU mục 3): file đối chiếu DOI_CHIEU_APP_<ngày>.csv — đúng hợp đồng cột với giao ban (17 cột), dòng "#" ghi chú,
 //   1 dòng 1 tổ + "TT|<mã thôn>" món vay trực tiếp, tổng dư nợ / quá hạn / khoanh = Mẫu 31; lưu Drive Số liệu/<tháng>/ (Drive giả); nút ở ⋯ Nạp & KT; 🧹 không coi là rác.
 //   Bộ GIẢ tests/gianho31.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
@@ -31,7 +31,7 @@ const fs=require('fs'), path=require('path');
    slDCXuat('2026-08'); for(let i=0;i<40 && !ghi.length;i++) await w(150);
    ok('lưu Drive: Số liệu/2026-08/DOI_CHIEU_APP_2026-08-31.csv', ghi.length===1 && ghi[0].ten==='DOI_CHIEU_APP_2026-08-31.csv' && /\/Số liệu\/2026-08$/.test(ghi[0].idTM), JSON.stringify(ghi));
    slNapThem('2026-08'); await w(200);
-   ok('⋯ Nạp & KT có nút 📤 File đối chiếu Tèo', !!document.querySelector('[data-lenh="sldc.xuat"][data-ky="2026-08"]')); dongHop();
+   ok('⋯ Nạp & KT có nút 📤 File đối chiếu giao ban', !!document.querySelector('[data-lenh="sldc.xuat"][data-ky="2026-08"]')); dongHop();
    return o;
  }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));
