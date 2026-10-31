@@ -1,6 +1,6 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 01/11/2026 05:41 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 01/11/2026 05:46 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
@@ -8,7 +8,7 @@
 | Sổ luật | bản 1.10 · ✅ 18 · 🔧 6 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | teo_ca 1.2 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 20 dòng |
+| Hộp thư còn mở | 21 dòng |
 
 ## Phép thử chung chưa đạt hai bên
 
@@ -31,7 +31,7 @@
 - **C4** Ngoại lệ ngưỡng ≤ 30 tổ / điểm sau gộp (Gia Lộc ≈ 46, Phước Thạnh ≈ 54) _(cần: TK 1)_
 - **C5** File mẫu CLT02, LEN18 (anh gửi sau) — để app nhận dạng + MÃ _(cần: TK 2)_
 - **C6** Sao kê nợ đến hạn mẫu cột mới: file Excel hệ thống + công thức số tháng còn gia hạn / ngày gia hạn cuối _(cần: TK 2)_
-- **C7** Vai trò + quyền GitHub của Gemini _(cần: tất cả)_
+- **C7** Vai trò + quyền GitHub của Gemini — ✓ 01/11 anh chốt: Gemini tham gia khi cần, không quyền repo cố định (mục 1) _(cần: tất cả)_
 - **C8** Ngày khách chuyển khoản vào TK 105: cần file sao kê giao dịch chi tiết _(cần: TK 2)_
 - **C9** Văn bản về gia hạn nợ (anh đưa lên Tủ hồ sơ) — để chốt QT-C-20 gia hạn tối đa ngắn / trung / dài hạn _(cần: TK 1, TK 2)_
 - **C10** Duyệt quy tắc dùng số cho văn bản tháng 11 (KE_HOACH_KY_DOI_CHIEU.md mục 6) _(cần: TK 1, TK 2)_
@@ -41,6 +41,9 @@
 
 **→ TK 1 (anh chốt)** (1)
 - 31/10 · TK 2 → TK 1 (anh chốt): Anh chốt 31/10: "cách đếm số tổ còn hoạt động của app hiện đúng rồi nên giữ như vậy, số hộ cũng đang đúng" — giữ nguyên:…
+
+**→ TK 1, TK 3, Gemini** (1)
+- 01/11 · TK 2 → TK 1, TK 3, Gemini: BÀN GIAO đổi tên + vai (app 3.428 đã gộp, PR #445) — anh sẽ báo TK 1 đọc. TK 1 đọc theo thứ tự: ① dòng thư gấp ngay trên…
 
 **→ TK 1, TK 3, Gemini (GẤP — anh chốt)** (1)
 - 01/11 · TK 2 → TK 1, TK 3, Gemini (GẤP…: Anh 01/11: BỎ TÊN "TÈO", đổi đồng bộ — từ nay gọi App · Giao ban · TK 1, 2, 3 · Gemini, mỗi bên làm gì / ở đâu theo bảng…
