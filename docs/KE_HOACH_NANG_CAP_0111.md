@@ -18,6 +18,7 @@ JS 4,4 MB / 109 file (lớn nhất 139 KB) · CSS 396 KB · `onclick` trong chu�
 | T4 | Bảng ảo (chỉ vẽ phần đang nhìn) cho bảng > 500 dòng | trung bình | ⏸ **đo 31/10 (bộ 25.000 món): chưa cần** — sao kê là trang in (phải đủ dòng): SĐT 4.545 dòng 0,76 s, thay đổi dư nợ 2.030 dòng 0,62 s; Tra cứu vẽ 50 dòng / lần; tab Tổ 0,68 s. Bảng ảo vướng lọc cột (js/77) + in → để khi anh thấy chậm thật |
 | P1 | Bản máy tính chạy không mạng (có mạng luôn lấy bản mới) | trung bình — hồi quy đủ | ✅ 3.419 (`js/85`, `dt-sw.js`; cài như phần mềm cần thêm biểu tượng + manifest — để sau) |
 | P2 | Ô lệnh Ctrl+K tìm chức năng / khách | thấp | ✅ 3.420 (`js/86`) |
+| T5 | Mở lại app: không đọc / dựng kỳ 2 lần (đo bằng bộ đo trình duyệt) | trung bình — hồi quy đủ | ✅ 3.422: đứng máy giảm ~½ (Tổ 3,0 → 1,4 s) |
 | B | Rà bố cục từng màn theo khuôn thẻ tổ (dòng tên · dòng phụ · bảng kẻ ô · Lưu ý) — gửi ảnh trước / sau | thấp | 3.421: dò tự động cuộn ngang / chữ bị cắt 15 màn × 4 khổ (1180 · 1280 · 1366 · 400) → sửa thanh trên khổ 1101–1366 (đồng hồ bị đẩy tràn ở Văn bản / Scan / Biểu mẫu / Thư viện). Đổi khuôn từng màn: chờ anh xem ảnh |
 
 ## 3. Không làm (đã cân nhắc)

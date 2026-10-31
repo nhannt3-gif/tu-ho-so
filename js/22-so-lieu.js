@@ -495,7 +495,12 @@ var SL_SAN = false, SL_DB = null, SL_TIM = [], SL_BO = {}, SL_KY = '', SL_LECH =
 function slKhoa(loai, ky){ return loai+'|'+ky; }
 function slIDB(loai, ky){ return 'sl_b_'+loai+'_'+ky; }
 function slChuanMeta(j){ j = j||{}; return {bang:j.bang||{}, xoa:j.xoa||{}, ndt:j.ndt||{}, kt:j.kt||{}, ktg:j.ktg||{}, dbLuc:j.dbLuc||'', suaLuc:j.suaLuc||''}; }   /* 3.91: chot = chốt / mở khóa theo tháng */   /* 3.88: kt = kết quả kiểm tra theo tháng */
+var SL_NAP_DANG = null;   /* 3.422: slNap đang chạy thì nơi gọi sau dùng chung (trước: mở app đọc sổ nạp + danh bạ 2 lần) */
 function slNap(){
+  if(SL_NAP_DANG) return SL_NAP_DANG;
+  var p = SL_NAP_DANG = slNap0(), bo = function(){ if(SL_NAP_DANG===p) SL_NAP_DANG = null; }; p.then(bo, bo); return p;
+}
+function slNap0(){
   return docFile('sl_meta').then(function(s){
     if(s){ try{ SLM = slChuanMeta(typeof s==='string' ? JSON.parse(s) : s); }catch(e){ console.warn('sl_meta hỏng', e); } }
     SL_SAN = true;
@@ -563,7 +568,8 @@ function slVaoDanhBa(loai, ky, rows, lap){
     SL_DB.kh[ma] = moi;
   });
 }
-function slStk(v){ return String(v||'').split(/[,;\s]+/).filter(function(t){ return /^\d{10}$/.test(t); }); }   /* 3.120: số sổ TK 105 hợp lệ = 10 chữ số (bỏ số tài khoản hệ thống dạng 1482… của Mẫu 10) */
+var SL_STK_NHO = {}, SL_STK_N = 0;
+function slStk(v){ var k = String(v||''); if(!k) return []; var r = SL_STK_NHO[k]; if(!r){ r = k.split(/[,;\s]+/).filter(function(t){ return /^\d{10}$/.test(t); }); if(++SL_STK_N>50000){ SL_STK_NHO = {}; SL_STK_N = 0; } SL_STK_NHO[k] = r; } return r.slice(); }   /* 3.422: nhớ kết quả theo chuỗi (dựng kỳ gọi lại hàng chục nghìn lần), trả bản sao */   /* 3.120: số sổ TK 105 hợp lệ = 10 chữ số (bỏ số tài khoản hệ thống dạng 1482… của Mẫu 10) */
 function slCoTK(v){ return /(^|\D)\d{13,14}(?!\d)/.test(String(v||'')); }   /* 3.138 (anh chốt): Mẫu 31 có số tài khoản 105 hệ thống (13–14 số, kể cả số dư 0) = đã mở TK */
 function toStkChu(k){ return k.stk.length ? k.stk.join(', ') : (k.coTK && (k.conNo || k.dn>0 || k.lt>0 || k.chuaGN) ? 'đã mở TK' : ''); }   /* 3.138: chưa có số sổ 10 số nhưng đã có TK → "đã mở TK" · 3.138.1 (anh chốt): chỉ khách đang vay / chưa giải ngân — khách đã tất nợ (kể cả trước 2026) không ghi */
 function slDungTim(){
@@ -922,8 +928,15 @@ function slKyDung(loai, ky){
   var ng = slCacNgay(loai, slThang(ky)).filter(function(e){ return e.ky<ky; }); if(ng.length) return ng[ng.length-1].ky;
   var tr = kyLui(slThang(ky), -1); return SLM.bang[slKhoa(loai, tr)] ? tr : '';
 }
+var SL_BO_DANG = {};   /* 3.422 (đo mở lại app): 2 nơi cùng gọi dựng 1 kỳ (dựng sẵn ngầm + tab đang mở) → đọc bảng gốc + dựng 2 lần. Đang dựng thì dùng chung lời hứa (cùng lứa SL_BO — SL_BO làm mới thì không dùng) */
 function slBo(ky){
   if(SL_BO[ky]){ slDung(ky); return Promise.resolve(SL_BO[ky]); }
+  var d = SL_BO_DANG[ky]; if(d && d.bo===SL_BO) return d.p;
+  var x = {bo:SL_BO}; x.p = slBo0(ky); SL_BO_DANG[ky] = x;
+  var bo = function(){ if(SL_BO_DANG[ky]===x) delete SL_BO_DANG[ky]; }; x.p.then(bo, bo);
+  return x.p;
+}
+function slBo0(ky){
   var B = {ky:ky, co:{}, mon:{}, theoKH:{}, lap:[], to:{}, nqh:{}, nk:{}, khd:{}, tdn:[], nguon:{}};
   return SL_LOAI.reduce(function(p, L){
     return p.then(function(){

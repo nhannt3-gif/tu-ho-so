@@ -36,3 +36,5 @@ Phép đo (chỉ đọc) ở thư mục nháp của phiên; khi cần đưa vào
 - **3.413 R1 (= T1)** — anh 31/10 "code theo em đề xuất": tab Tổ cấp phạm vi không nạp tháng trước khi mở; chip Ra khỏi tổ hiện "…", bấm mới nạp. Đo lại: tab Tổ toàn PGD (bộ lớn) **2.214 ms → 684 ms**.
 - **R2 (đo một lần thay vì thêm từng cột — `toCotVua`) — thử chia đôi, đo lại CHẬM HƠN (58 → 110 ms: bật / tắt nhiều cột cùng lúc trên 255 dòng) → bỏ, giữ cách cũ.**
 - Thử CSS `contain` cho khung bảng khi đổi khung cửa sổ: không đỡ → không làm.
+
+- **3.422 (31/10)** — mở lại app (bộ lớn 25.000 món): bảng Mẫu 31 / danh bạ / sổ nạp bị đọc + dựng 2 lần (dựng sẵn ngầm + tab cùng gọi) → dùng chung khi đang chạy; `slStk` nhớ theo chuỗi. Tổng đứng máy: Tra cứu 2,4 → 1,2 s · Tổ 3,0 → 1,4 s · Tổng hợp 1,7 → 1,0 s · Sao kê 2,1 → 0,9 s. Nhớ `toKhach` theo kỳ: bỏ (t114 — đổi dữ liệu cùng kỳ phải tính lại).

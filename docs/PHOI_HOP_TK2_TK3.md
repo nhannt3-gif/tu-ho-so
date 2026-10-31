@@ -150,6 +150,7 @@
 | 31/10 | TK 2 | 3.419 | **mới** `js/85-khong-mang.js`, `dt-sw.js` (nhánh bản máy tính), `index.html`, `tests/t341` | t341 3/3 + phép bản ĐT đạt; hồi quy theo đổi |
 | 31/10 | TK 2 | 3.420 | **mới** `js/86-o-lenh.js` (Ctrl+K), CSS, `index.html`, `tests/t342` | t342 6/6, t138 đạt |
 | 31/10 | TK 2 | 3.421 | CSS thanh trên (khổ 1101–1366), `docs/KE_HOACH_NANG_CAP_0111.md` | dò 15 màn × 4 khổ sạch; so ảnh 1366 / 400 |
+| 31/10 | TK 2 | 3.422 | `js/22` (slNap, slBo dùng chung khi đang chạy; slStk nhớ), `js/22g` (toNap dùng chung), docs kế hoạch / đo tốc độ | hồi quy đủ 222/222 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
