@@ -32,6 +32,8 @@ const fs=require('fs'), path=require('path');
    /* nút 📐 cạnh 📤 File đối chiếu Tèo, mở hộp */
    const h = slDCNut('2026-08'); ok('nút 📐 Bộ số chuẩn cạnh 📤 File đối chiếu Tèo', /bc\.mo/.test(h) && /File đối chiếu/.test(h));
    bcMo('2026-08'); for(let j=0;j<40 && !document.querySelector('.bc-bang');j++) await w(100);
+   { const hoi = []; const g = KHO.coBang; KHO.coBang = function(l, k){ if(l==='hstd') hoi.push(k); return g.apply(this, arguments); }; dongHop(); bcMo('2026-08'); await w(1500); KHO.coBang = g; dongHop();
+     ok('3.425: kỳ so sánh của nút 📐 = cuối THÁNG TRƯỚC 2026-07 (3.424 lấy nhầm tháng sau — kyLui(kỳ, n) cộng n tháng)', hoi.indexOf('2026-07')>=0 && hoi.indexOf('2026-09')<0, hoi.join(',')); }
    ok('mở hộp 📐: bảng chỉ tiêu × Hội + kiểm tầng A + nút CSV / So đáp án', !!document.querySelector('.bc-bang') && /Kiểm tầng A/.test(document.getElementById('hop-in').textContent) && !!document.querySelector('[data-lenh="bc.so"]'));
    /* có kỳ trước — dữ liệu giả C21-1 (teo_ca, TK 1): tổ cũ đóng, tổ viên sang tổ mới cùng ấp */
    dongHop(); const vn = s => { const m = String(s||'').match(/^(\d\d)\/(\d\d)\/(\d{4})$/); return m ? m[3]+'-'+m[2]+'-'+m[1] : ''; };

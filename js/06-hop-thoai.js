@@ -1040,7 +1040,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.424', ds:[
+var CO_GI_MOI = {ban:'3.425', ds:[
+  ["📝 Nháp Nội dung họp mẫu 08 (Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""],
+  ["📐 Sửa: kỳ so sánh của bộ số chuẩn là cuối tháng TRƯỚC (3.424 lấy nhầm tháng sau)", ""],
   ["📐 Bộ số chuẩn đối chiếu giao ban: chỉ tiêu theo điểm × Hội, kiểm cân đối, so với file đáp án (⋯ Nạp & KT)", ""],
   ["🔁 Số kỳ trước theo vị trí hiện nay của khế ước (QT-C-21) — tổ viên chuyển tổ không làm sai tăng giảm", ""],
   ["📤 File đối chiếu Tèo: thu nợ đủ (cả món tất nợ, tổ đã đóng), bù mã xã, bỏ dòng vay trực tiếp toàn 0", ""],
@@ -1053,9 +1055,7 @@ var CO_GI_MOI = {ban:'3.424', ds:[
   ["🏘 Thẻ tổ: \"n có nợ\" xuống dòng dưới số thành viên, màu xanh", ""],
   ["🏘 Thẻ tổ: chip Lưu ý nhiều thì xuống dòng; ngày số liệu ở góc phải dòng Thành viên", ""],
   ["🏘 Thẻ tổ: bỏ chip \"n còn lãi tồn\" gây hiểu nhầm — ghi rõ \"hết gốc còn lãi\" ở ô Lưu ý", ""],
-  ["🏘 Thẻ tổ: hàng số kẻ ô như cũ (Thành viên · Tổng dư nợ · TK 105 · Lưu ý)", ""],
-  ["🏘 Thẻ tổ gọn: dòng tên, dòng phụ, 3 số chính; quá hạn / lãi tồn / 3T KHĐ chỉ hiện khi có", ""],
-  ["🗄 Quét nhiều CCCD: người đã xác định vào thẳng tủ, chỉ người chưa chắc vào Chờ sắp xếp", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🏘 Thẻ tổ: hàng số kẻ ô như cũ (Thành viên · Tổng dư nợ · TK 105 · Lưu ý)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

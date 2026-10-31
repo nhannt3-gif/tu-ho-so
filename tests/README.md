@@ -255,6 +255,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t342.js` | 3.420 Ô lệnh Ctrl+K: tìm tab không dấu, Tra khách / Tìm tổ, ↑ ↓ Enter, Ctrl+K lần 2 đóng (`gianho31`). |
 | `node tests/t343.js` | 3.423 File đối chiếu Tèo: thu nợ mọi khế ước (kể cả tất nợ, tổ đã đóng), bù mã xã từ mã ấp, bỏ dòng TT\| toàn 0 (`gianho31` + dòng giả). |
 | `node tests/t344.js` | 3.424 Bộ số chuẩn (js/87): chỉ tiêu giao ban theo điểm × Hội, kiểm tầng A, CSV dạng dài, so đáp án; kỳ trước QT-C-21 (dữ liệu giả C21-1). |
+| `node tests/t345.js` | 3.425 Nháp Nội dung họp mẫu 08 (js/88): đề mục I–IV, bảng II.1 = bộ số chuẩn, QT-C-14, cách viết, ô vàng giao ban điền, xuất Word (`gianho31`). |
 | (3.422) | Tăng tốc mở lại app — hồi quy đủ 222/222. |
 | (3.421) | Rà bố cục: cuộn ngang khổ 1280 — dò tự động 15 màn × 4 khổ (nháp phiên), so ảnh `tools/chup_man.js`. |
 | (3.418) | D2 Tra cứu data-lenh — phép Tra cứu / thẻ tổ / dải tab con đạt. |
