@@ -12,6 +12,13 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 01/11/2026 — TK 2 · PHIÊN (3.429)
+- Đã làm: K4 / QT-C-15 — Mẫu 06 sau giải ngân chip Tất cả (mặc định) / Lần 1; 3 bàn giao cũ → `docs/luu_tru/`; hồi quy đủ 227/227, chốt lại mốc thước đo (`tests/do_moc.json`); K9 ghi sổ luật.
+- Đang dở: nháp biên bản làm việc với khách hàng (người lập CBTD / cán bộ Hội) — anh đang duyệt chữ, chưa đưa vào repo.
+- Bước tiếp: anh duyệt chữ → đưa mẫu vào app (tự điền khoản vay từ Mẫu 31) sau kỳ đối chiếu 02/11; TB kết luận thêm nhiệm vụ tháng sau (số món Lần 1 từng Hội).
+- Chờ ai: anh (duyệt biên bản, số hiệu VB gia hạn nợ; so Gia Lộc 2); TK 1 (trường hợp mẫu C15, C19).
+- Lưu ý / bẫy: luật chống rác anh duyệt — không thêm chức năng mới đến hết 02/11; 3–4 bản có 1 bản dọn.
+
 ### 01/11/2026 — TK 2 · PHIÊN (bàn giao đổi tên cho TK 1)
 - Đã làm: gộp 3.428 (PR #445 — bỏ tên Tèo, bảng vai, nhật ký vai); ghi anh chốt Gemini tham gia khi cần (C7 ✓); dòng BÀN GIAO cho TK 1 ở `PHOI_HOP_CHUNG.md` mục 14 (anh báo TK 1 đọc).
 - Đang dở: không.

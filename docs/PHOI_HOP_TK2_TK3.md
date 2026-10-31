@@ -157,6 +157,7 @@
 | 31/10 | TK 2 | 3.426 | **mới** `js/89-tb-kl.js`, `js/87` (BC.Kp), `js/88` (tên tổ), `index.html`, **mới** `tests/t346` | t346 10/10, t345 10/10, t344 đạt |
 | 01/11 | TK 2 | 3.427 | **mới** `js/90-so-gb.js`, **mới** `tools/trang_thai_chung.py` + `docs/TRANG_THAI_CHUNG.md`, `tools/bump.py`, `AGENTS.md`, `docs/QUY_TAC_SO_LIEU.md` 1.10, `index.html`, **mới** `tests/t347` | t347 10/10, t138 đạt |
 | 01/11 | TK 2 | 3.428 | đổi tên 6 tài liệu TEO_* (+ dòng trỏ), `tools/trang_thai_chung.py`, **mới** `docs/nhat_ky/`, `AGENTS.md`, `CLAUDE.md`, `BAT_DAU.md`, chữ nút `js/22k` · `js/87` · `js/90` · `js/06`, tests | t325, t328, t344, t347, t138 đạt |
+| 01/11 | TK 2 | 3.429 | `js/22c-ktgs-m06.js` (K4 Tất cả / Lần 1), **mới** `tests/t348.js`, `docs/luu_tru/` (3 bàn giao cũ), `CLAUDE.md`, `QUY_TAC_SO_LIEU.md`, `tests/do_moc.json` (chốt lại mốc sau hồi quy đủ 227/227) |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
