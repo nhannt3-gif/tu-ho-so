@@ -8,6 +8,8 @@
    `https://raw.githubusercontent.com/nhannt3-gif/tu-ho-so/main/docs/TEO_PHOI_HOP.md`
 2. Làm app: `docs/BAT_DAU.md` (luật, lệnh, trạng thái) · `docs/QUY_CHUAN_KIEN_TRUC.md` (luật kiến trúc) · `docs/BAN_DO_MA.md` (tìm code — không đọc cả `index.html`, `docs/CHANGELOG.md`).
 
+- **Nhìn nhanh trạng thái Tèo:** `docs/TEO_TRANG_THAI.md` (tự sinh mỗi bản — `python3 tools/teo_trang_thai.py`; luật chốt / chờ, phép thử chung, chờ anh, hộp thư mở theo bên nhận).
+
 ## 2. Người dùng
 - Anh **Nhân** — CBTD NHCSXH PGD Gò Dầu. Trả lời **tiếng Việt**, gọi "anh Nhân"; ngắn gọn, thực dụng; phân biệt rõ **số liệu thật / suy luận / mức chắc chắn**.
 
@@ -17,6 +19,8 @@
 - Lệnh chung, cùng nghĩa ở mọi cửa: **"Đọc trạng thái"** (đọc sổ chung + hộp thư) · **"Chốt QT: …"** · **"Chốt phiên"** (ghi kết quả + việc mới vào sổ) · **"code"** · **"gộp"**.
 - Quyết định anh chốt → ghi vào `docs/TEO_PHOI_HOP.md` **trong cùng lượt**. Việc cho bên khác → **thêm dòng cuối** hộp thư (mục 14), xưng tên tài khoản; không sửa dòng của bên khác.
 - Không ghi được repo → soạn sẵn dòng hộp thư, anh dán sang tài khoản có quyền.
+
+- **Phân quyền (anh 01/11):** **kỹ thuật code và thao tác GitHub** (cách tổ chức code, nhánh / PR / gộp, công cụ, phép thử) → TK tự chọn cách tối ưu, làm rồi báo; **việc ảnh hưởng cách anh làm việc / nghiệp vụ / luật số liệu** → nêu ưu, khuyết, khuyến nghị để anh chọn. Luật chỉ chốt khi có phép thử chung (`TEO_QUY_TAC_CHUNG.md` đầu file).
 
 ## 4. Bảo mật — repo CÔNG KHAI
 - Không đưa dữ liệu thật vào repo (tên khách, CCCD, tổ trưởng, mã tổ thật, ảnh / file anh gửi), kể cả phép thử và tài liệu — chỉ số đếm tổng. Phép thử dùng dữ liệu giả.

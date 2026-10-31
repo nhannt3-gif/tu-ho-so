@@ -155,6 +155,7 @@
 | 31/10 | TK 2 | 3.424 | `js/22g` (toKyTruoc QT-C-21), **mới** `js/87-bo-chuan.js`, `index.html`, `js/22` (tách dòng slStk), `tests/t328` (kỳ trước), **mới** `tests/t344` | t328 38/40, t344 15/15, t325, t343 đạt |
 | 31/10 | TK 2 | 3.425 | **mới** `js/88-nd-hop.js`, `js/87` (bcViTri, kỳ so sánh tháng trước), `index.html`, **mới** `tests/t345`, `tests/t344` | t345 10/10, t344 16/16, t328 38/40 |
 | 31/10 | TK 2 | 3.426 | **mới** `js/89-tb-kl.js`, `js/87` (BC.Kp), `js/88` (tên tổ), `index.html`, **mới** `tests/t346` | t346 10/10, t345 10/10, t344 đạt |
+| 01/11 | TK 2 | 3.427 | **mới** `js/90-so-gb.js`, **mới** `tools/teo_trang_thai.py` + `docs/TEO_TRANG_THAI.md`, `tools/bump.py`, `AGENTS.md`, `docs/TEO_QUY_TAC_CHUNG.md` 1.10, `index.html`, **mới** `tests/t347` | t347 10/10, t138 đạt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
