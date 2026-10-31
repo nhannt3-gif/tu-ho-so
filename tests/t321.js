@@ -1,4 +1,4 @@
-// 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11, docs/TEO_QUY_TAC_CHUNG.md): chuỗi món → tổ → ấp → điểm GD.
+// 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11, docs/QUY_TAC_SO_LIEU.md): chuỗi món → tổ → ấp → điểm GD.
 //   Ấp của tổ = mã thôn (MADP) File Tổ trưởng (ghi đè ấp theo Mẫu 31) · món trực tiếp theo tổ cùng ấp trước danh mục địa bàn, ấp chưa có tổ → tạm GDXA (báo)
 //   · Kiểm tra kỳ nhóm 6: món lệch ấp so với tổ, ấp nhiều điểm, món trực tiếp gán tạm — chỉ báo. Bộ GIẢ tests/gianho31 + File Tổ trưởng giả dựng trong phép thử.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');

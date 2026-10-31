@@ -487,7 +487,7 @@ function skQua1Thang(nv, ns){ var moc = ngayThem1Thang(nv); return !!moc && !!ns
    ví dụ: hạn HĐ 22/10, GDXA định kỳ ngày 07 → chuyển QH 07/11. Chỉ món trong hạn (không QH, không khoanh). 3 khung:
    ① đã quá hạn HĐ (đến ngày số liệu) mà chưa chuyển QH — tra soát · ② đến hạn, chuyển QH trong kỳ · ③ đến hạn, chuyển QH kỳ sau */
 function skHL(o){ return o.dhgh || o.dhg || ''; }
-/* 3.404 (anh chốt 28/10 — Tèo QT-C-12, docs/TEO_QUY_TAC_CHUNG.md): NGÀY CHUYỂN QUÁ HẠN theo phiên của điểm GD.
+/* 3.404 (anh chốt 28/10 — Tèo QT-C-12, docs/QUY_TAC_SO_LIEU.md): NGÀY CHUYỂN QUÁ HẠN theo phiên của điểm GD.
    Ưu tiên cột hệ thống "Ngày ĐH theo GDXA" (như script giao ban 1.3). Cột trống → app tính: món qua tổ = phiên đầu tiên của điểm KỂ TỪ ngày đến hạn
    (gia hạn rồi thì ngày đến hạn sau gia hạn; trùng ngày phiên → chính ngày đó); món vay trực tiếp = ngay sau ngày đến hạn.
    Ngày hệ thống khác lịch điểm hiện tại của tổ (vd gộp điểm 11/2026) → chỉ BÁO (lech), không sửa. o._ngGD = ngày GD của điểm (gắn ở toNap). */

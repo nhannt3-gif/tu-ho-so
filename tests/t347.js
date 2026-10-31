@@ -29,7 +29,7 @@ const fs=require('fs'), path=require('path');
    ok('tổng tiền 2 bên: chênh dư nợ = tổng lệch', Math.round(q.tong.du_no.app - q.tong.du_no.gb)===Math.round(+bo[i('du_no')] - 1000000), Math.round(q.tong.du_no.app - q.tong.du_no.gb));
    const q2 = sgSo(dong, sgDoc(csv.replace('2026-08-31', '2026-08-30')), K.ngay);
    ok('khác ngày số liệu → lệch cùng luật chuyển thành C', q2.dem.A===0 && q2.dem.C===1, JSON.stringify(q2.dem));
-   ok('nút 🔎 So file giao ban cạnh 📤 File đối chiếu Tèo', /sg\.mo/.test(slDCNut('2026-08')));
+   ok('nút 🔎 So file giao ban cạnh 📤 File đối chiếu giao ban', /sg\.mo/.test(slDCNut('2026-08')));
    SG.kq = q; SG.kq.ten = 'DOI_CHIEU_GB_2026-08-31.csv'; SG.loc = 'A'; sgVe();
    ok('hộp kết quả: chip A–D/?, bảng tổng tiền, bảng lệch, nút CSV', /Tổng giao ban/.test(document.getElementById('hop-in').textContent) && document.querySelectorAll('[data-lenh="sg.loc"]').length===6 && !!document.querySelector('[data-lenh="sg.csv"]'));
    return o; }, files);

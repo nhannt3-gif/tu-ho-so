@@ -1,4 +1,4 @@
-// 3.425 (TEO_GIAO_BAN_KY_NANG mục 4.1, 4.4, 4.5 — GĐ 2): 📝 nháp Nội dung họp mẫu 08 (js/88) — đủ đề mục I–IV, bảng II.1 = bộ số chuẩn,
+// 3.425 (GIAO_BAN_KY_NANG mục 4.1, 4.4, 4.5 — GĐ 2): 📝 nháp Nội dung họp mẫu 08 (js/88) — đủ đề mục I–IV, bảng II.1 = bộ số chuẩn,
 //   "… khách hàng còn dư nợ" (QT-C-14), cách viết (không "……", "yêu cầu", "ấp/khu phố", số chẵn không ",0"), ô vàng phần giao ban điền, xuất Word. Bộ GIẢ gianho31.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');

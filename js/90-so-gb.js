@@ -1,4 +1,4 @@
-/* ===== 3.427 (anh 01/11 chốt ý 3 TK 2 đề xuất — TEO_KE_HOACH_KY_3110 mục 5, bàn giao TEO_GIAO_BAN_KY_NANG mục 6 tầng C) =====
+/* ===== 3.427 (anh 01/11 chốt ý 3 TK 2 đề xuất — KE_HOACH_KY_DOI_CHIEU mục 5, bàn giao GIAO_BAN_KY_NANG mục 6 tầng C) =====
    🔎 SO FILE GIAO BAN: nạp DOI_CHIEU_GB_<ngày>.csv (giao ban) → so từng tổ × từng cột với số app (slDCTeoTinh — cùng hợp đồng 17 cột) → TỰ PHÂN LOẠI lệch:
      A cùng luật mà lệch (lỗi code — phải sửa) · B luật chưa chốt / khác định nghĩa (so_tv: QT-C-14 tổng tổ viên khác định nghĩa; so_mon_khd: K5 chờ chốt)
      · C khác phạm vi / thời điểm (khác ngày số liệu) · D làm tròn (tiền lệch ≤ 1 đồng) · ? chưa phân loại (dòng chỉ có ở 1 bên, cột chưa có luật) — KHÔNG đoán.
@@ -64,6 +64,6 @@ function sgCsv(){ var q = SG.kq; if(!q) return;
 (function(){
   function dk(){ if(dk.xong || typeof GD==='undefined') return; dk.xong = 1;
     GD.dangKy('sg', {mo:function(el){ dongHop(); sgMo(el.getAttribute('data-ky')); }, loc:function(el){ SG.loc = el.getAttribute('data-k'); sgVe(); }, dong:function(){ dongHop(); }, csv:function(){ sgCsv(); }}); }
-  if(typeof slDCNut!=='function') return; var cu = slDCNut;   /* nút 🔎 cạnh 📤 File đối chiếu Tèo */
+  if(typeof slDCNut!=='function') return; var cu = slDCNut;   /* nút 🔎 cạnh 📤 File đối chiếu giao ban */
   slDCNut = function(ky){ dk(); return cu.apply(this, arguments)+'<button class="nho" data-lenh="sg.mo" data-ky="'+coChuHTML(ky)+'" title="Nạp DOI_CHIEU_GB_<ngày>.csv của giao ban → so với số app, tự phân loại lệch A–D">🔎 So file giao ban</button>'; };
 })();

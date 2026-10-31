@@ -238,7 +238,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t325.js` | 3.405 (Tèo): DOI_CHIEU_APP csv — BOM, dòng # ghi chú, 17 cột hợp đồng, 1 dòng 1 tổ + TT|thôn, tổng dư nợ / quá hạn = Mẫu 31, tiền nguyên, lưu Drive Số liệu/<tháng>/ (Drive giả), nút ⋯ Nạp & KT — bộ `gianho31`. |
 | `node tests/t326.js` | 3.406 🗺 Địa bàn theo số liệu (js/82): so ấp trước 07/2026 theo mã tổ, cây xã → điểm → ấp → tổ, lệch danh mục (đổi điểm / mới / không còn), tổ còn dư nợ không chuẩn (điểm khác, chưa rõ, ngoài DS tổ, điểm suy), dựng thật trên `gianho31`, ⟳ cập nhật / ↶ khôi phục, 📝 ghi chú + gợi ý, Kiểm tra kỳ mục mới. |
 | `node tests/t327.js` | 3.407 ghi chú ấp / KP cũ (js/83): bảng 19 ấp theo mã, dòng Gia Lộc khi toàn PGD / Gia Lộc, nút 🏷 mặc định tắt → bật hiện ghi chú, chọn xã khác ẩn dòng, cờ gỡ, 🗺 Địa bàn 🏷 + gợi ý — bộ `gianho31`. |
-| `node tests/t328.js [mã,…]` | 3.407 **phép thử chung Tèo** `tests/teo/teo_ca.json` (TK 1): mỗi trường hợp 1 trang sạch, nạp Mẫu 31 + File Tổ trưởng giả qua slDocFile → toNap → so đáp án (dòng file đối chiếu, ngày QH, lệch ấp, ấp nhiều điểm, không ghép DS tổ khác ngày, hàm). `CHO` = lệch chờ chốt (⏳). Kết quả ghi `TEO_QUY_TAC_CHUNG.md` mục 3. |
+| `node tests/t328.js [mã,…]` | 3.407 **phép thử chung Tèo** `tests/teo/teo_ca.json` (TK 1): mỗi trường hợp 1 trang sạch, nạp Mẫu 31 + File Tổ trưởng giả qua slDocFile → toNap → so đáp án (dòng file đối chiếu, ngày QH, lệch ấp, ấp nhiều điểm, không ghép DS tổ khác ngày, hàm). `CHO` = lệch chờ chốt (⏳). Kết quả ghi `QUY_TAC_SO_LIEU.md` mục 3. |
 | `node tests/t329.js` | 3.408 Tra cứu: khách nhiều TK 105 — gộp danh bạ + Sao kê (số dư từng sổ, ngày mở), nhãn đỏ N TK 105, liệt kê + nhắc đóng, 1 TK không cảnh báo — `gianho31` + Sao kê giả. |
 | `node tests/t330.js` | 3.409 QT-C-01 cộng sổ TK 105 (`slT105Them`) · Sao kê khách có từ 2 TK 105 · QT-C-09 File Tổ trưởng khác ngày vẫn ghép, Mẫu 31 là chính (ấp theo Mẫu 31) · toTenXa · nút tạm ⚖ so cách cũ / mới (js/84) — `gianho31` + Sao kê giả. |
 | `node tests/t331.js` | 3.410 dọn theo dõi tổ (đã gỡ Diễn biến tổ, Biến động cả năm, dòng biến động, cột Mới vào / 105 tăng giảm, So cách; giữ chip Ra khỏi tổ, máy so tháng trước cho Hồ sơ tổ) · Số TK 105 bù từ Sao kê gần nhất — `gianho31` + Sao kê giả. |
@@ -258,6 +258,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t345.js` | 3.425 Nháp Nội dung họp mẫu 08 (js/88): đề mục I–IV, bảng II.1 = bộ số chuẩn, QT-C-14, cách viết, ô vàng giao ban điền, xuất Word (`gianho31`). |
 | `node tests/t346.js` | 3.426 Nháp TB kết luận theo phiên 08/GDX (js/89): đầu văn bản, ngày ký, I–IV, bảng, tồn tại, nơi nhận điểm phụ, kỳ trước so cuối tháng trước (`gianho31` + C21-1). |
 | `node tests/t347.js` | 3.427 So file giao ban (js/90): đọc CSV hợp đồng, tự phân loại lệch A / B / C / D / ?, nút + hộp kết quả (`gianho31`). |
+| (3.428) | Bỏ tên Tèo — chữ nút trong `t325`, `t344`, `t347` sửa theo. |
 | (3.422) | Tăng tốc mở lại app — hồi quy đủ 222/222. |
 | (3.421) | Rà bố cục: cuộn ngang khổ 1280 — dò tự động 15 màn × 4 khổ (nháp phiên), so ảnh `tools/chup_man.js`. |
 | (3.418) | D2 Tra cứu data-lenh — phép Tra cứu / thẻ tổ / dải tab con đạt. |

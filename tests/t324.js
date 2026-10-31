@@ -1,6 +1,6 @@
 // 3.404 (anh chốt 28/10 — Tèo QT-C-12): ngày chuyển quá hạn theo phiên của điểm GD — ưu tiên cột hệ thống "Ngày ĐH theo GDXA";
 //   trống → món qua tổ = phiên đầu tiên của điểm KỂ TỪ ngày đến hạn (sau gia hạn), món trực tiếp = ngay sau ngày đến hạn; hệ thống lệch lịch điểm → ⚠ báo.
-//   Ví dụ trong TEO_QUY_TAC_CHUNG: ĐH 10, điểm ngày 05 → 05 tháng sau; tổ Gia Lộc 2 sang Gia Lộc (ngày 23), ĐH 10/11 → 23/11; HĐ 10/06 gia hạn 10/12, điểm 05 → 05/01.
+//   Ví dụ trong QUY_TAC_SO_LIEU: ĐH 10, điểm ngày 05 → 05 tháng sau; tổ Gia Lộc 2 sang Gia Lộc (ngày 23), ĐH 10/11 → 23/11; HĐ 10/06 gia hạn 10/12, điểm 05 → 05/01.
 //   Bộ GIẢ tests/gianho31 (gắn o._ngGD khi dựng cây).
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');

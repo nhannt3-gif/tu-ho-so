@@ -1,4 +1,4 @@
-/* ===== 3.425 (docs/TEO_GIAO_BAN_KY_NANG.md mục 4.1, 4.4, 4.5, 5 — anh 31/10 "bàn giao cho TK 2 làm tiếp", "em làm luôn") =====
+/* ===== 3.425 (docs/GIAO_BAN_KY_NANG.md mục 4.1, 4.4, 4.5, 5 — anh 31/10 "bàn giao cho TK 2 làm tiếp", "em làm luôn") =====
    📝 NHÁP NỘI DUNG HỌP GIAO BAN — "bản theo mẫu 08" (GĐ 2 kế hoạch bộ chuẩn đối chiếu). App dựng NHÁP để anh ĐỐI CHIẾU với bản giao ban
    phát hành (giao ban vẫn làm văn bản chính thức). Số lấy từ 📐 Bộ số chuẩn (js/87) + dòng Mẫu 31 cùng kỳ → mỗi số một nguồn.
    - Số khách hàng = tổ viên CÒN DƯ NỢ (QT-C-14, từ số liệu 31/10/2026): "với … khách hàng còn dư nợ".

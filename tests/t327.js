@@ -1,4 +1,4 @@
-// 3.407 (anh 30/10 qua TK 1 — docs/TEO_AP_CU.md): ghi chú ấp / KP cũ (js/83, cắm rút) — chỉ tham khảo, không đổi số.
+// 3.407 (anh 30/10 qua TK 1 — docs/AP_KP_CU.md): ghi chú ấp / KP cũ (js/83, cắm rút) — chỉ tham khảo, không đổi số.
 //   ① LỌC ĐỊA BÀN: nút 🏷 Tên ấp cũ mặc định TẮT, bật → ghi chú các ấp / KP trong phạm vi; ② dòng nhỏ 4 KP Gia Lộc khi toàn PGD / Phường Gia Lộc (cờ AP_CU_GIA_LOC);
 //   ③ 🗺 Địa bàn: ghi chú cạnh ấp + gợi ý 📝. Ghép theo mã ấp. Bộ GIẢ tests/gianho31 (có ấp 54003407 ở Phường Gia Lộc 540034).
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
@@ -11,7 +11,7 @@ const fs=require('fs'), path=require('path');
  const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    window.SL_KHONG_TU_KIEM = 1;
-   ok('bảng 19 ấp / KP theo mã (TEO_AP_CU), có 4 KP Gia Lộc', Object.keys(AP_CU).length===19 && ['54003406','54003407','54003408','54003409'].every(m=>AP_CU[m] && AP_CU[m][0]==='Phường Gia Lộc') && /Phước Đức B/.test(apCuGhi('54003407')));
+   ok('bảng 19 ấp / KP theo mã (AP_KP_CU), có 4 KP Gia Lộc', Object.keys(AP_CU).length===19 && ['54003406','54003407','54003408','54003409'].every(m=>AP_CU[m] && AP_CU[m][0]==='Phường Gia Lộc') && /Phước Đức B/.test(apCuGhi('54003407')));
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const k = await slDocFile(new File([u], f.n)); if(!k.loi && k.ky) await slGhi(k); }
    SL_BO = {}; TO_KS = {}; delete D.cauHinh.pvApCu; Object.assign(tcCH(), {xa:'', diem:'', hoi:'', ap:'', to:''});
    doiNgan(7); slDoiTab('tra'); await tcNap(); await w(500); pvVeCay('tc'); await w(100);

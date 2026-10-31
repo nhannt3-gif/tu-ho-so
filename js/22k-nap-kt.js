@@ -937,7 +937,7 @@ function slXoaRac(){
   }).catch(function(er){ tatChay(); baoLoi('Xóa lỗi: '+(er && er.message || er)); });
 }
 
-/* ---------- 3.400 (anh chốt 28/10 — Tèo, docs/TEO_PHOI_HOP.md mục 4): TÊN CHUẨN file gốc + SỔ NẠP + CHUẨN HÓA TÊN THÁNG CŨ ----------
+/* ---------- 3.400 (anh chốt 28/10 — Tèo, docs/PHOI_HOP_CHUNG.md mục 4): TÊN CHUẨN file gốc + SỔ NẠP + CHUẨN HÓA TÊN THÁNG CŨ ----------
    - Tên chuẩn: slTenGoc (js/22) = <MÃ>_<YYYY-MM-DD>.<đuôi> — mọi chỗ hiện tên file của Số liệu dùng tên này, tên anh đặt hiện kèm (anh đặt: …).
    - Sổ nạp: Số liệu/<YYYY-MM>/DANH_MUC_NAP.csv (UTF-8, mở bằng Excel; giao ban đọc sổ này) — viết lại sau mỗi lần đồng bộ nếu nội dung đổi.
    - Mẫu 31 và File Tổ trưởng phải cùng ngày số liệu: lệch → chỉ BÁO (xem trước khi nạp + cột Kiểm của sổ), không tự ghép, không chặn số liệu cũ.
@@ -1030,12 +1030,12 @@ function slKTAp(K, them){
   them(6, 'QT-C-11 · Món vay trực tiếp chưa gán được điểm theo ấp', !q.ttTam.length, q.ttTam.length ? q.ttTam.length+' món — gán tạm, xem cột Cách gán' : 'mọi món trực tiếp gán theo ấp',
     '', ['Số KU', 'Mã KH', 'Họ tên', 'Xã', 'Mã ấp', 'Điểm GD tạm', 'Cách gán'], q.ttTam, q.ttTam.length ? 'canh' : '');
 }
-/* ---------- 3.405 (Tèo — docs/TEO_KE_HOACH_KY_3110.md mục 3, bước 2): FILE ĐỐI CHIẾU APP DOI_CHIEU_APP_<YYYY-MM-DD>.csv ----------
+/* ---------- 3.405 (Tèo — docs/KE_HOACH_KY_DOI_CHIEU.md mục 3, bước 2): FILE ĐỐI CHIẾU APP DOI_CHIEU_APP_<YYYY-MM-DD>.csv ----------
    1 dòng 1 tổ + dòng "TT|<mã thôn>" cho món vay trực tiếp; đúng hợp đồng cột với giao ban (DOI_CHIEU_GB_…). UTF-8 BOM, dòng 1 "#" ghi chú (bên, bản, luật K1/K5/K7, ngày),
    dòng 2 tiêu đề, tiền đồng nguyên. Lưu kho Drive Số liệu/<tháng>/ (chưa nối Drive → tải về máy). Chỉ đọc số app đang tính (toSoTo, tvChuan QT-18, slKHD, K.qtc), không tính lại. */
 var SL_DC_COT = ['khoa', 'ma_xa', 'ma_ap', 'ma_diem', 'hoi', 'so_tv', 'so_tv_du_no', 'du_no', 'nqh', 'khoanh', 'lai_ton', 'tien_gui', 'cho_vay', 'thu_no', 'so_mon_khd', 'so_mon_lech_ap', 'so_mon_den_han_thang_toi'];
 var SL_DC_HOI = {'11':'HND', '12':'HPN', '13':'HCCB', '14':'ĐTN'};
-function slDCNut(ky){ slDCDK(); return '<button class="nho" data-lenh="sldc.xuat" data-ky="'+coChuHTML(ky)+'" title="File đối chiếu số liệu với giao ban (Tèo — kỳ đối chiếu): 1 dòng 1 tổ + món vay trực tiếp theo ấp, lưu vào Số liệu/'+coChuHTML(ky)+'/">📤 File đối chiếu Tèo (DOI_CHIEU_APP)</button>'; }
+function slDCNut(ky){ slDCDK(); return '<button class="nho" data-lenh="sldc.xuat" data-ky="'+coChuHTML(ky)+'" title="File đối chiếu số liệu với giao ban (kỳ đối chiếu): 1 dòng 1 tổ + món vay trực tiếp theo ấp, lưu vào Số liệu/'+coChuHTML(ky)+'/">📤 File đối chiếu giao ban (DOI_CHIEU_APP)</button>'; }
 function slDCDK(){ if(slDCDK.xong || typeof GD==='undefined') return; slDCDK.xong = 1; GD.dangKy('sldc', {xuat:function(el){ dongHop(); slDCXuat(el.getAttribute('data-ky')); }}); }
 function slDCTeoTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
   var sau = kyLui(K.thang, 1), tu = sau+'-01', den = tdnCuoiKy(sau), khd = {}, lech = {}, dong = [], T = K.to;

@@ -1,6 +1,6 @@
 # Tủ hồ sơ — hướng dẫn cho Claude
-**28/10/2026 — Luật chung cho mọi AI (Claude TK 1/2/3, Gemini…): `AGENTS.md`; phối hợp giữa các tài khoản CHỈ ở `docs/TEO_PHOI_HOP.md` mục 12–14 (thành viên · chờ anh · hộp thư).**
-**28/10/2026 — Tèo (bộ não công việc của anh: app Tủ hồ sơ + Project giao ban): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng tới nạp file / kho số liệu gốc, luật số liệu chung (tổ viên, điểm GD, 3 tháng KHĐ…), cây điểm GD từ 11/2026, báo cáo chuyển giữa app và giao ban.**
+**28/10/2026 — Luật chung cho mọi AI (Claude TK 1/2/3, Gemini…): `AGENTS.md`; phối hợp giữa các tài khoản CHỈ ở `docs/PHOI_HOP_CHUNG.md` mục 12–14 (thành viên · chờ anh · hộp thư).**
+**01/11/2026 — Sổ chung App ↔ Giao ban (bỏ tên "Tèo"; vai + nhật ký vai `docs/nhat_ky/` — `PHOI_HOP_CHUNG.md` mục 1, 1a; trạng thái `docs/TRANG_THAI_CHUNG.md`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng tới nạp file / kho số liệu gốc, luật số liệu chung (tổ viên, điểm GD, 3 tháng KHĐ…), cây điểm GD từ 11/2026, báo cáo chuyển giữa app và giao ban.**
 **27/10/2026 — TK 3 BÀN GIAO cho TK 2: đọc `docs/BAN_GIAO_TK3_2710.md` trước (trạng thái 3.385.x, việc anh đã duyệt: khuôn Tra cứu cho các tab Số liệu, Sao kê 2 màn, KTGS sau cùng).**
 
 

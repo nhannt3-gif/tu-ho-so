@@ -1,4 +1,4 @@
-// 3.423 (TK 1 thử đối chiếu kỳ 29/10 — hộp thư TEO_PHOI_HOP 31/10): file đối chiếu DOI_CHIEU_APP —
+// 3.423 (TK 1 thử đối chiếu kỳ 29/10 — hộp thư PHOI_HOP_CHUNG 31/10): file đối chiếu DOI_CHIEU_APP —
 //   ① thu_no = Thu nợ TH + QH + khoanh tháng của MỌI khế ước Mẫu 31 (kể cả món tất nợ trong tháng), theo tổ; tổ đã đóng còn thu nợ vẫn có dòng có số;
 //   ② thiếu mã xã → 6 số đầu mã ấp; ③ bỏ dòng vay trực tiếp TT| không còn dư nợ / lãi tồn / thu nợ. Bộ GIẢ gianho31 + dòng giả thêm.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');

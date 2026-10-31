@@ -4,9 +4,9 @@
  "ngay_so_lieu": "31/10/2026",
  "ghi_chu": [
   "Bộ phép thử chung Tèo (bước B4) — DỮ LIỆU GIẢ, không có khách thật. Nguồn duy nhất: repo tu-ho-so tests/teo/teo_ca.json; giao ban chép bản sang Drive 06_CONG_CU\\v2.",
-  "Chỉ luật đã chốt (TEO_QUY_TAC_CHUNG.md mục 1). Luật chờ chốt (K1, K4, K5, K8, K9) không có đáp án. 1.1: thêm C17-1 (K7 chốt 30/10). 1.2: thêm C21-1, C21-2 (QT-C-21 so sánh kỳ theo khế ước; tổ đóng không hiện trên cây — anh duyệt 30/10); mã khế ước / KH dạng số như hệ thống (góp ý TK 2).",
+  "Chỉ luật đã chốt (QUY_TAC_SO_LIEU.md mục 1). Luật chờ chốt (K1, K4, K5, K8, K9) không có đáp án. 1.1: thêm C17-1 (K7 chốt 30/10). 1.2: thêm C21-1, C21-2 (QT-C-21 so sánh kỳ theo khế ước; tổ đóng không hiện trên cây — anh duyệt 30/10); mã khế ước / KH dạng số như hệ thống (góp ý TK 2).",
   "Mỗi trường hợp chạy riêng: Mẫu 31 (cột theo tên cột hệ thống, ô không ghi lấy 'mac_dinh_mau31') + File Tổ trưởng (cột hệ thống) cùng ngày số liệu, trừ khi có 'ngay_to_truong'.",
-  "Loại kết quả: dong = dòng file đối chiếu (hợp đồng cột TEO_KE_HOACH_KY_3110.md mục 3, tiền đồng) · ngay_qh = ngày chuyển quá hạn của khế ước (dd/mm/yyyy) · lech_ap = khế ước nằm trong danh sách món lệch ấp · ap_nhieu_diem = mã ấp nằm trong danh sách ấp nhiều điểm · khong_ghep_to_truong = không dùng File Tổ trưởng khác ngày · ham = gọi hàm trực tiếp.",
+  "Loại kết quả: dong = dòng file đối chiếu (hợp đồng cột KE_HOACH_KY_DOI_CHIEU.md mục 3, tiền đồng) · ngay_qh = ngày chuyển quá hạn của khế ước (dd/mm/yyyy) · lech_ap = khế ước nằm trong danh sách món lệch ấp · ap_nhieu_diem = mã ấp nằm trong danh sách ấp nhiều điểm · khong_ghep_to_truong = không dùng File Tổ trưởng khác ngày · ham = gọi hàm trực tiếp.",
   "1.2 — trường hợp NHIỀU KỲ: thêm 'ky_truoc' = {'ngay': dd/mm/yyyy, 'mau31': [...], 'to_truong': [...] (tùy chọn)}; chạy kỳ này với kỳ trước = ngày đó. Loại kết quả mới: ky_truoc_to = số kỳ trước xếp vào tổ (ma_to, cot du_no / tien_gui, đồng) theo QT-C-21 · ky_truoc_diem = số kỳ trước xếp vào điểm (ma_diem như MADGD File Tổ trưởng kỳ này, cot du_no, đồng) · to_khong_hien = mã tổ KHÔNG có trên cây địa bàn / bảng theo tổ kỳ này · bien_dong = mã tổ có trong danh sách biến động với loai 'to_dong' (tổ đã đóng) / 'to_moi' / 'chuyen_diem'."
  ],
  "mac_dinh_mau31": {

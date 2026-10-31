@@ -1,4 +1,4 @@
-// 3.424 (TEO_GIAO_BAN_KY_NANG — TK 1 bàn giao 31/10): 📐 bộ số chuẩn (js/87) — chỉ tiêu so_lieu_tong_hop theo điểm × Hội + trực tiếp, kiểm tầng A,
+// 3.424 (GIAO_BAN_KY_NANG — TK 1 bàn giao 31/10): 📐 bộ số chuẩn (js/87) — chỉ tiêu so_lieu_tong_hop theo điểm × Hội + trực tiếp, kiểm tầng A,
 //   CSV dạng dài ky,diem,hoi,chi_tieu,gia_tri (như tools/teo_dap_an.py), so với file đáp án (sai số 0,05). Bộ GIẢ gianho31.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
@@ -29,8 +29,8 @@ const fs=require('fs'), path=require('path');
    kq = bcSo(B, L2.join('\r\n'));
    ok('đáp án lệch 1 số (1 triệu) → báo đúng 1 lệch', kq.lech.length===1 && kq.lech[0][2]==='du_no', JSON.stringify(kq.lech));
    ok('file sai dạng → báo lỗi', !!bcSo(B, 'a,b,c\n1,2,3').loi);
-   /* nút 📐 cạnh 📤 File đối chiếu Tèo, mở hộp */
-   const h = slDCNut('2026-08'); ok('nút 📐 Bộ số chuẩn cạnh 📤 File đối chiếu Tèo', /bc\.mo/.test(h) && /File đối chiếu/.test(h));
+   /* nút 📐 cạnh 📤 File đối chiếu giao ban, mở hộp */
+   const h = slDCNut('2026-08'); ok('nút 📐 Bộ số chuẩn cạnh 📤 File đối chiếu giao ban', /bc\.mo/.test(h) && /File đối chiếu/.test(h));
    bcMo('2026-08'); for(let j=0;j<40 && !document.querySelector('.bc-bang');j++) await w(100);
    { const hoi = []; const g = KHO.coBang; KHO.coBang = function(l, k){ if(l==='hstd') hoi.push(k); return g.apply(this, arguments); }; dongHop(); bcMo('2026-08'); await w(1500); KHO.coBang = g; dongHop();
      ok('3.425: kỳ so sánh của nút 📐 = cuối THÁNG TRƯỚC 2026-07 (3.424 lấy nhầm tháng sau — kyLui(kỳ, n) cộng n tháng)', hoi.indexOf('2026-07')>=0 && hoi.indexOf('2026-09')<0, hoi.join(',')); }

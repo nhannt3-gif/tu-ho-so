@@ -1,4 +1,4 @@
-/* ===== 3.426 (docs/TEO_GIAO_BAN_KY_NANG.md mục 4.2, 4.4, 4.5, 5 — anh 31/10 "em làm luôn GĐ 3 và gộp lên") =====
+/* ===== 3.426 (docs/GIAO_BAN_KY_NANG.md mục 4.2, 4.4, 4.5, 5 — anh 31/10 "em làm luôn GĐ 3 và gộp lên") =====
    📄 NHÁP THÔNG BÁO KẾT LUẬN THEO PHIÊN — mẫu 08/GDX (VB 4368). App dựng NHÁP để anh ĐỐI CHIẾU với bản giao ban phát hành.
    - Kỳ số liệu = ngày phiên (Mẫu 31 ngày phiên), so với cuối tháng trước (📐 Bộ số chuẩn js/87, kỳ trước QT-C-21); cho vay / thu nợ = lũy kế tháng (cột tháng Mẫu 31).
    - II.2 tồn tại: NQH · khoanh · KHĐ (± so cuối tháng trước, theo Hội) · chất lượng Tổ (không chấm điểm → NQH, món lãi tồn > 3 tháng lãi, tổ viên tiền gửi < 500 nghìn)

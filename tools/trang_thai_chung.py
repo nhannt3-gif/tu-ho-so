@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Dùng: python3 tools/teo_trang_thai.py — tự sinh docs/TEO_TRANG_THAI.md (BẢNG TRẠNG THÁI TÈO, 1 trang) từ tài liệu sẵn có:
-#   sổ luật docs/TEO_QUY_TAC_CHUNG.md (mục 1 luật · mục 2 chờ chốt · mục 3 phép thử chung) + docs/TEO_PHOI_HOP.md (mục 13 chờ anh · mục 14 hộp thư)
+# Dùng: python3 tools/trang_thai_chung.py — tự sinh docs/TRANG_THAI_CHUNG.md (BẢNG TRẠNG THÁI CHUNG, 1 trang) từ tài liệu sẵn có:
+#   sổ luật docs/QUY_TAC_SO_LIEU.md (mục 1 luật · mục 2 chờ chốt · mục 3 phép thử chung) + docs/PHOI_HOP_CHUNG.md (mục 13 chờ anh · mục 14 hộp thư)
 #   + bản app (js/02-nen.js) + bản teo_ca. Không ai ghi tay file đầu ra — sửa nguồn rồi chạy lại (tools/bump.py tự chạy mỗi bản). Anh duyệt 01/11 (ý 1 TK 2 đề xuất).
 import re, json, os, datetime
 G = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,7 +11,7 @@ def bang(t):      # các dòng bảng (bỏ tiêu đề, dòng kẻ)
     r = [[c.strip() for c in l.strip().strip('|').split('|')] for l in t.split('\n') if l.startswith('|')]
     return [x for x in r[2:] if x and not re.match(r'^-+$', x[0])] if len(r) > 2 else []
 gon = lambda s, n=110: re.sub(r'\*\*|`|~~', '', s)[:n] + ('…' if len(re.sub(r'\*\*|`|~~', '', s)) > n else '')
-Q, P = doc('docs/TEO_QUY_TAC_CHUNG.md'), doc('docs/TEO_PHOI_HOP.md')
+Q, P = doc('docs/QUY_TAC_SO_LIEU.md'), doc('docs/PHOI_HOP_CHUNG.md')
 ban = (re.search(r"APP_BAN = '([0-9.]+)'", doc('js/02-nen.js')) or [None, '?'])[1]
 try: teo = json.load(open(os.path.join(G, 'tests/teo/teo_ca.json'), encoding='utf-8')).get('ban', '?')
 except Exception: teo = '?'
@@ -28,9 +28,9 @@ theo = {}
 for r in hop:
     nhan = re.sub(r'\s+', ' ', r[1]).split('→')[-1].strip() if '→' in r[1] else r[1]
     theo.setdefault(nhan, []).append(r)
-L = ['# Tèo — bảng trạng thái (tự sinh — không sửa tay)', '',
-     '> Sinh bởi `python3 tools/teo_trang_thai.py` lúc ' + (datetime.datetime.utcnow() + datetime.timedelta(hours=7)).strftime('%d/%m/%Y %H:%M') +
-     ' từ `TEO_QUY_TAC_CHUNG.md` + `TEO_PHOI_HOP.md`. Sửa nguồn rồi chạy lại.', '',
+L = ['# Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)', '',
+     '> Sinh bởi `python3 tools/trang_thai_chung.py` lúc ' + (datetime.datetime.utcnow() + datetime.timedelta(hours=7)).strftime('%d/%m/%Y %H:%M') +
+     ' từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.', '',
      '| Mục | Hiện trạng |', '|---|---|',
      '| App | **%s** |' % ban, '| Sổ luật | bản %s · ✅ %d · 🔧 %d · ⏳ %d luật · %d luật chờ chốt (mục 2) |' % (so, dem['✅'], dem['🔧'], dem['⏳'], len(cho)),
      '| Phép thử chung | teo_ca %s · %d luật có trường hợp mẫu · %d luật chưa đạt / chưa chạy ở một bên |' % (teo, len(thu), len(thu_lech)),
@@ -45,5 +45,5 @@ if theo:
         L.append('**→ %s** (%d)' % (nhan, len(theo[nhan])))
         L += ['- %s · %s: %s' % (r[0], gon(r[1], 30), gon(r[2], 120)) for r in theo[nhan]]
         L.append('')
-open(os.path.join(G, 'docs/TEO_TRANG_THAI.md'), 'w', encoding='utf-8').write('\n'.join(L).rstrip() + '\n')
-print('Đã ghi docs/TEO_TRANG_THAI.md — hộp thư mở %d, chờ anh %d, luật chờ chốt %d' % (len(hop), len(anh), len(cho)))
+open(os.path.join(G, 'docs/TRANG_THAI_CHUNG.md'), 'w', encoding='utf-8').write('\n'.join(L).rstrip() + '\n')
+print('Đã ghi docs/TRANG_THAI_CHUNG.md — hộp thư mở %d, chờ anh %d, luật chờ chốt %d' % (len(hop), len(anh), len(cho)))

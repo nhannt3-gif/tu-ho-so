@@ -1,6 +1,6 @@
 # Phối hợp TK 2 ↔ TK 3 — đọc trước khi sửa / gộp (anh duyệt 24/10/2026)
 
-> **28/10/2026 — ĐÃ CHUYỂN:** phối hợp giữa mọi tài khoản (TK 1 giao ban, TK 2, TK 3, Gemini sau này) nay ở **`docs/TEO_PHOI_HOP.md` mục 12–14** (thành viên · chờ anh · hộp thư). File này giữ làm lưu trữ + luật phân file / số bản app (mục 1–2), nhật ký gộp mục 4 vẫn ghi tiếp. Không ghi việc mới vào mục 5.
+> **28/10/2026 — ĐÃ CHUYỂN:** phối hợp giữa mọi tài khoản (TK 1 giao ban, TK 2, TK 3, Gemini sau này) nay ở **`docs/PHOI_HOP_CHUNG.md` mục 12–14** (thành viên · chờ anh · hộp thư). File này giữ làm lưu trữ + luật phân file / số bản app (mục 1–2), nhật ký gộp mục 4 vẫn ghi tiếp. Không ghi việc mới vào mục 5.
 
 > Anh 24/10: "em báo lên bàn giao cho TK đọc được và code phần của em, xong gộp lên có liên hệ lẫn nhau cho an toàn".
 > File này là **chỗ hai tài khoản báo nhau**. Ai làm gì, sửa file nào, gặp lỗi của bên kia → ghi vào mục 4 / 5, không sửa file của bên kia.
@@ -137,7 +137,7 @@
 | 31/10 | TK 2 | 3.412 | `js/22-so-lieu.js` (`slNapSan` thứ tự ưu tiên), `tests/t332` | t332 4/4, t127, t130, t131 đạt; hồi quy theo đổi |
 | 31/10 | TK 2 | 3.412.1 | `js/17-dong-bo-cai-dat.js` (`chGopGiu`, `chRong`), `tests/t333` | t333 5/5; t117, t136, t182, t185, t187, t188 đạt; hồi quy đủ (js/17 chung) |
 | 31/10 | TK 2 | 3.413 | `js/22gb` (toVeThe nạp tháng trước khi chip rk, toChipKhung "…"), `js/22h` (B.chuaNap), `tests/t334`, `docs/DO_TOC_DO.md` | t334 5/5, t128, t157, t130, t331, t246, t102 đạt; hồi quy đủ (gồm 3.412.1) |
-| 31/10 | TK 2 | 3.414 | `js/22gb` (toDK, data-lenh to.*), `js/22h` (toExcelDSPV, chip Bảng, link tổ), `docs/TEO_PHOI_HOP.md` (✓ 18 dòng), `tests/t335` | t335 9/9 + 9 phép tab Tổ đạt; hồi quy theo đổi |
+| 31/10 | TK 2 | 3.414 | `js/22gb` (toDK, data-lenh to.*), `js/22h` (toExcelDSPV, chip Bảng, link tổ), `docs/PHOI_HOP_CHUNG.md` (✓ 18 dòng), `tests/t335` | t335 9/9 + 9 phép tab Tổ đạt; hồi quy theo đổi |
 | 31/10 | TK 2 | 3.415 | `js/45` (sxKhachTT, sxTenTT, trGanTT nhánh luu), `js/41` (đọc CCCD tra bảng tổ), `js/46` (qlLuuTu), `tests/t336` | t336 7/7 + 8 phép Scan đạt; hồi quy theo đổi |
 | 31/10 | TK 2 | 3.416 | `js/28` (dsTimCCCD), `js/41` (tổ trưởng cũ), `js/45` (trChay ttCu, vaiTro), `js/46`, **mới** `js/84-cccd-to-truong.js` (cắm rút: 👑 kiểm CCCD tổ trưởng · tổ phó), `index.html`, `tests/t337` | t337 13/13 + t336 + 8 phép Scan đạt; hồi quy theo đổi |
 | 31/10 | TK 2 | 3.416.1 | `js/41`, `js/46` (lưu tách), `js/58` + CSS (bỏ cột Xã), `js/28` (dsTTDs), `js/84`, `js/05` + `js/03` (tiến độ), `js/83` + CSS (ấp cũ), `js/08` (dsToM31), tests t338–t340 + sửa t309/t317/t327/t337 | phép mới + phép liên quan đạt; hồi quy theo đổi |
@@ -155,7 +155,8 @@
 | 31/10 | TK 2 | 3.424 | `js/22g` (toKyTruoc QT-C-21), **mới** `js/87-bo-chuan.js`, `index.html`, `js/22` (tách dòng slStk), `tests/t328` (kỳ trước), **mới** `tests/t344` | t328 38/40, t344 15/15, t325, t343 đạt |
 | 31/10 | TK 2 | 3.425 | **mới** `js/88-nd-hop.js`, `js/87` (bcViTri, kỳ so sánh tháng trước), `index.html`, **mới** `tests/t345`, `tests/t344` | t345 10/10, t344 16/16, t328 38/40 |
 | 31/10 | TK 2 | 3.426 | **mới** `js/89-tb-kl.js`, `js/87` (BC.Kp), `js/88` (tên tổ), `index.html`, **mới** `tests/t346` | t346 10/10, t345 10/10, t344 đạt |
-| 01/11 | TK 2 | 3.427 | **mới** `js/90-so-gb.js`, **mới** `tools/teo_trang_thai.py` + `docs/TEO_TRANG_THAI.md`, `tools/bump.py`, `AGENTS.md`, `docs/TEO_QUY_TAC_CHUNG.md` 1.10, `index.html`, **mới** `tests/t347` | t347 10/10, t138 đạt |
+| 01/11 | TK 2 | 3.427 | **mới** `js/90-so-gb.js`, **mới** `tools/trang_thai_chung.py` + `docs/TRANG_THAI_CHUNG.md`, `tools/bump.py`, `AGENTS.md`, `docs/QUY_TAC_SO_LIEU.md` 1.10, `index.html`, **mới** `tests/t347` | t347 10/10, t138 đạt |
+| 01/11 | TK 2 | 3.428 | đổi tên 6 tài liệu TEO_* (+ dòng trỏ), `tools/trang_thai_chung.py`, **mới** `docs/nhat_ky/`, `AGENTS.md`, `CLAUDE.md`, `BAT_DAU.md`, chữ nút `js/22k` · `js/87` · `js/90` · `js/06`, tests | t325, t328, t344, t347, t138 đạt |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
