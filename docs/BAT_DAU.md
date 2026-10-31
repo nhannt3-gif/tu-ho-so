@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.424** — TK 2: bộ số chuẩn đối chiếu giao ban (GĐ 1, `js/87`) + QT-C-21 kỳ trước theo khế ước. Trước: 3.423 file đối chiếu Tèo sửa 3 lệch.
+- **`main` = 3.425** — TK 2: nháp Nội dung họp mẫu 08 (`js/88`, GĐ 2) + sửa kỳ so sánh bộ số chuẩn. Trước: 3.424 bộ số chuẩn + QT-C-21.
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.424 · 31/10/2026 09:52 · 132 file · 43017 dòng · 3528 hàm cấp ngoài · 586 biến toàn cục.
+Bản 3.425 · 31/10/2026 21:24 · 133 file · 43140 dòng · 3538 hàm cấp ngoài · 587 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,7 +9,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 316 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `index.html` | 317 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
 | `css/app.css` | 4126 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 127 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
@@ -133,7 +133,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/84-cccd-to-truong.js` | 82 | 7 | /*   3.416 (anh 31/10: "gặp CCCD tổ trưởng dù cũ hay mới cũng lưu trữ, sau này có 1 chỗ lọc ra CCCD của tổ trư |
 | `js/85-khong-mang.js` | 7 | 0 | /*   3.419 P1 (docs/KE_HOACH_NANG_CAP_0111.md — anh 31/10 "làm theo thứ tự em thấy ổn nhất"): BẢN MÁY TÍNH CHẠ |
 | `js/86-o-lenh.js` | 51 | 6 | /*   3.420 P2 (docs/KE_HOACH_NANG_CAP_0111.md): ⌨ Ô LỆNH Ctrl+K   Ctrl+K (Mac: ⌘K) ở bất kỳ đâu → hộp gõ: tìm  |
-| `js/87-bo-chuan.js` | 131 | 9 | /*   3.424 (docs/TEO_GIAO_BAN_KY_NANG.md — TK 1 bàn giao 31/10; anh 31/10 "em chờ TK 1 bàn giao skill rồi đọc  |
+| `js/87-bo-chuan.js` | 133 | 10 | /*   3.424 (docs/TEO_GIAO_BAN_KY_NANG.md — TK 1 bàn giao 31/10; anh 31/10 "em chờ TK 1 bàn giao skill rồi đọc  |
+| `js/88-nd-hop.js` | 120 | 9 | /*   3.425 (docs/TEO_GIAO_BAN_KY_NANG.md mục 4.1, 4.4, 4.5, 5 — anh 31/10 "bàn giao cho TK 2 làm tiếp", "em là |
 | `js/mau/10c.js` | 106 | 0 | /*   3.223 M6 — MẪU 10C/TD MỚI (QĐ 70, từ 01/10/2026) Biên bản họp kết nạp, cho ra khỏi Tổ — trên nền ô, dựng  |
 | `js/mau/10ccu.js` | 84 | 0 | /*   3.223 M6 — MẪU 10C/TD CŨ (vào tổ đến 30/09/2026) Biên bản họp kết nạp bổ sung, cho ra khỏi Tổ — trên nền  |
 | `js/mau/10a.js` | 109 | 0 | /*   3.223 M6 — MẪU 10A/TD Biên bản họp thành lập Tổ TK&VV (QĐ 70) trên nền ô — dựng theo file gốc tests/mau_g |

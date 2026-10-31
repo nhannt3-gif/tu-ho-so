@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.425)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📐 Bộ số chuẩn kỳ 30/09 → chọn Gia Lộc 2 → 📝 Nháp Nội dung họp | File Word mở được; so với A1 (Drive) đề mục, bảng II.1, câu nhận định | |
+| 2 | 📐 kỳ 30/09: dòng tiêu đề ghi "so với 31/08" | Kỳ so sánh là tháng trước | |
+
 ### Danh sách thử trên máy thật (3.424)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

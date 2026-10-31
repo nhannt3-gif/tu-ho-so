@@ -153,6 +153,7 @@
 | 31/10 | TK 2 | 3.422 | `js/22` (slNap, slBo dùng chung khi đang chạy; slStk nhớ), `js/22g` (toNap dùng chung), docs kế hoạch / đo tốc độ | hồi quy đủ 222/222 |
 | 31/10 | TK 2 | 3.423 | `js/22k` (slDCTeoTinh: thu nợ theo Mẫu 31, tổ đóng, mã xã, bỏ TT toàn 0), `tests/t343` | t343 5/5, t325 9/9, t328 như trước |
 | 31/10 | TK 2 | 3.424 | `js/22g` (toKyTruoc QT-C-21), **mới** `js/87-bo-chuan.js`, `index.html`, `js/22` (tách dòng slStk), `tests/t328` (kỳ trước), **mới** `tests/t344` | t328 38/40, t344 15/15, t325, t343 đạt |
+| 31/10 | TK 2 | 3.425 | **mới** `js/88-nd-hop.js`, `js/87` (bcViTri, kỳ so sánh tháng trước), `index.html`, **mới** `tests/t345`, `tests/t344` | t345 10/10, t344 16/16, t328 38/40 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

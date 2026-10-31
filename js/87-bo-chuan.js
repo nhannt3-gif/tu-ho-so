@@ -11,13 +11,15 @@ var BC_CT_TT = ['du_no', 'nqh', 'khoanh', 'cho_vay', 'thu_no', 'lai_ton', 'so_ho
 var BC = {B:null, diem:''};
 function bcKhoaDiem(ten){ var s = boDau(String(ten||'').replace(/\s*[·(-]?\s*ngày\s*\d+.*$/i, '').replace(/^\s*(điểm( gd| giao dịch)?)\s+/i, '')).replace(/[^a-z0-9 ]/gi, ' ').trim();   /* "Điểm Gia Lộc 2" → GiaLoc2 */
   return s.split(/\s+/).map(function(w){ return w ? w.charAt(0).toUpperCase()+w.slice(1) : ''; }).join('') || '(chưa rõ)'; }
+function bcViTri(K, o){   /* vị trí 1 dòng Mẫu 31: {d: mã điểm, h: HND|HPN|HCCB|DTN|TT, to} — dùng chung với nháp văn bản (js/88) */
+  var T = K.to || {}, t = o.to && T[o.to]; if(t && !t.trucTiep && !toLaTT(t)) return {d:t.diem||'', h:BC_HOI[String(t.dv)] || 'TT', to:o.to};
+  var g = o._tt && T[o._tt]; return {d:(g && g.diem) || '', h:'TT', to:''}; }
 function bcTinh(K, Kp){
   var T = K.to || {}, tenD = {}, sau = kyLui(K.thang, 1), tu = sau+'-01', den = tdnCuoiKy(sau), khd = {}, ra = {ky:ngayVNsl(K.ngay), kyTruoc:Kp ? ngayVNsl(Kp.ngay) : '', diem:{}, pgd:{dn:0, qh:0, kn:0, t105:0}, kiem:[]};
   Object.keys(T).forEach(function(m){ var t = T[m]; if(t && t.diem && !tenD[t.diem]) tenD[t.diem] = String(t.tenDiem || t.tenDiemDu || t.diem).trim(); });
   slKHD(K.B).forEach(function(o){ if(o.ku) khd[o.ku] = 1; });
   var R6 = function(v){ return Math.round((v||0)/1000)/1000; };   /* đồng → triệu, giữ 3 số lẻ */
-  var viTri = function(o){ var t = o.to && T[o.to]; if(t && !t.trucTiep && !toLaTT(t)) return {d:t.diem||'', h:BC_HOI[String(t.dv)] || 'TT', to:o.to};
-    var g = o._tt && T[o._tt]; return {d:(g && g.diem) || '', h:'TT', to:''}; };
+  var viTri = function(o){ return bcViTri(K, o); };
   var nhom = function(d, h){ var D = ra.diem[d] = ra.diem[d] || {ten:tenD[d] || d, khoa:bcKhoaDiem(tenD[d] || d), hoi:{}, ds:{nqh_list:{n:0, t:0}, khoanh_list:{n:0, t:0}, khd_list:{n:0, t:0}, gn_list:{n:0, t:0}, ndh_list:{n:0, t:0}}, tong:{dn:0, qh:0, kn:0, t105:0}};
     return D.hoi[h] = D.hoi[h] || {dn:0, qh:0, kn:0, cv:0, tn:0, lt:0, t105:0, khd:0, khdDu:0, ndh:0, kh:{}, khNo:{}, khSo:{}, ndhKh:{}, to:{}}; };
   var soKU = {}, dongM31 = 0;
@@ -89,7 +91,7 @@ function bcSo(ra, chu){   /* so với CSV đáp án (teo_dap_an.py) — chỉ so
 function bcMo(ky){
   if(!ky || !KHO.coBang('hstd', ky)) return bao('Kỳ '+kyVN(ky)+' chưa có Mẫu 31.', 4);
   batChay(true, 'Đang dựng bộ số chuẩn '+kyVN(ky)+'…');
-  KHO.nap(ky).then(function(K){ var kt = kyLui(K.thang, 1), coT = KHO.coBang('hstd', kt);
+  KHO.nap(ky).then(function(K){ var kt = kyLui(K.thang, -1), coT = KHO.coBang('hstd', kt);
     return (coT ? KHO.nap(kt) : Promise.resolve(null)).then(function(Kp){ return KHO.nap(ky).then(function(K2){ BC.B = bcTinh(K2, Kp); BC.K = K2; return Kp; }); }); })
     .then(function(Kp){ tatChay(); if(!BC.diem || !BC.B.diem[BC.diem]) BC.diem = Object.keys(BC.B.diem)[0] || ''; BC.coTruoc = !!Kp; bcVe(); }, function(e){ tatChay(); baoLoi('Chưa dựng được bộ số chuẩn: '+(e && e.message || e)); });
 }
