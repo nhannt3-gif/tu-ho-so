@@ -24,7 +24,7 @@ function ndDung(K, B, d){
   ['so_to', 'so_kh_du_no', 'cho_vay', 'thu_no', 'du_no', 'nqh', 'khoanh', 'khd_mon', 'khd_du', 'lai_ton', 'lai_ton_tang', 'du_no_tang', 'tien_gui', 'tien_gui_tang', 'ndh'].forEach(function(k){ tongM[k] = hang(k); });
   var rows = (K.hs||[]).filter(function(o){ return o.ku && bcViTri(K, o).d===d; }), khd = {}; slKHD(K.B).forEach(function(o){ if(o.ku) khd[o.ku] = 1; });
   rows.forEach(function(o){ if(!xa && o.tenXa) xa = o.tenXa; });
-  var laAp = /^phường/i.test(xa) ? 'khu phố' : 'ấp', toTen = function(m){ var t = T[m]; return t ? 'tổ '+(t.ten || m) : 'tổ '+m; };
+  var laAp = /^phường/i.test(xa) ? 'khu phố' : 'ấp', toTen = function(m){ var t = T[m], x = String(t && t.ten || m); return /^tổ\s/i.test(x) ? 'tổ '+x.replace(/^tổ\s+/i, '') : 'tổ '+x; };
   var hoiCua = function(o){ return bcViTri(K, o).h; };
   /* ---- đầu văn bản ---- */
   var p = function(x, st){ return '<p style="margin:0 0 3pt;line-height:1.15;'+(st||'')+'">'+x+'</p>'; }, h = '';

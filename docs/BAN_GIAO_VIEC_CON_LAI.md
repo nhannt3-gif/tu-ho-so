@@ -266,6 +266,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.426)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📐 Bộ số chuẩn kỳ ngày phiên 07/10 → Gia Lộc 2 → 📄 Nháp TB kết luận | File Word mở được; so với B1 (Drive): đề mục, bảng II.1, câu tồn tại | |
+
 ### Danh sách thử trên máy thật (3.425)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

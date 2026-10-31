@@ -92,7 +92,7 @@ function bcMo(ky){
   if(!ky || !KHO.coBang('hstd', ky)) return bao('Kỳ '+kyVN(ky)+' chưa có Mẫu 31.', 4);
   batChay(true, 'Đang dựng bộ số chuẩn '+kyVN(ky)+'…');
   KHO.nap(ky).then(function(K){ var kt = kyLui(K.thang, -1), coT = KHO.coBang('hstd', kt);
-    return (coT ? KHO.nap(kt) : Promise.resolve(null)).then(function(Kp){ return KHO.nap(ky).then(function(K2){ BC.B = bcTinh(K2, Kp); BC.K = K2; return Kp; }); }); })
+    return (coT ? KHO.nap(kt) : Promise.resolve(null)).then(function(Kp){ return KHO.nap(ky).then(function(K2){ BC.B = bcTinh(K2, Kp); BC.K = K2; BC.Kp = Kp; return Kp; }); }); })
     .then(function(Kp){ tatChay(); if(!BC.diem || !BC.B.diem[BC.diem]) BC.diem = Object.keys(BC.B.diem)[0] || ''; BC.coTruoc = !!Kp; bcVe(); }, function(e){ tatChay(); baoLoi('Chưa dựng được bộ số chuẩn: '+(e && e.message || e)); });
 }
 function bcVe(){
