@@ -433,11 +433,11 @@ function toSoTo(t){
 /* 3.424 QT-C-21 (anh duyệt 30/10 — sổ luật TEO_QUY_TAC_CHUNG): SỐ KỲ TRƯỚC THEO VỊ TRÍ HIỆN NAY CỦA KHẾ ƯỚC.
    K = kỳ này, Kp = kỳ so sánh (đã toNap). Mỗi khế ước kỳ trước (1 lần / số khế ước) → tổ / điểm / Hội mà khế ước đang thuộc ở K; không còn ở K → tổ cũ
    (tổ cũ đã đóng → điểm hiện nay theo ấp). Sổ TK 105: theo vị trí sổ ở K chỉ khi cả hai kỳ đều gắn tổ, không thì vị trí kỳ trước.
-   → {to:{ma:{dn,t105}}, diem:{maDiem:{dn,t105}}, hoi:{'diem|hoi':{dn,t105}}, tt:{maAp:{dn,t105}}} (hoi 'TT' = trực tiếp). Số tổ kỳ trước vẫn là số tổ thật (không ở đây). */
+   → {to:{ma:{dn,t105,lt}}, diem:{maDiem:{…}}, hoi:{'diem|hoi':{…}}, tt:{maAp:{…}}} (lt = lãi tồn QT-C-03) (hoi 'TT' = trực tiếp). Số tổ kỳ trước vẫn là số tổ thật (không ở đây). */
 function toKyTruoc(K, Kp){
   var R = {to:{}, diem:{}, hoi:{}, tt:{}}, T = K.to || {}, apDiem = {};
   Object.keys(T).forEach(function(m){ var t = T[m]; if(t && t.thon && t.diem && !apDiem[t.thon]) apDiem[t.thon] = t.diem; });
-  var cong = function(viTri, f, v){ if(!v) return; var c = function(o, k){ var x = o[k] = o[k] || {dn:0, t105:0}; x[f] += v; };
+  var cong = function(viTri, f, v){ if(!v) return; var c = function(o, k){ var x = o[k] = o[k] || {dn:0, t105:0, lt:0}; x[f] += v; };
     if(viTri.to) c(R.to, viTri.to); if(viTri.ap && !viTri.to) c(R.tt, viTri.ap); if(viTri.diem) c(R.diem, viTri.diem); c(R.hoi, (viTri.diem||'')+'|'+(viTri.hoi||'')); };
   var viTriNay = function(o){   /* vị trí của 1 dòng Mẫu 31 kỳ này */
     if(o.to && T[o.to] && !T[o.to].trucTiep) return {to:o.to, diem:T[o.to].diem||'', hoi:String(T[o.to].dv||o.dv||'')};
@@ -449,7 +449,7 @@ function toKyTruoc(K, Kp){
   };
   var nay = {}; (K.hs||[]).forEach(function(o){ if(o.ku) nay[o.ku] = o; });
   var gap = {}; (Kp.hs||[]).forEach(function(o){ if(!o.ku || gap[o.ku]) return; gap[o.ku] = 1;
-    var n = nay[o.ku]; cong(n ? viTriNay(n) : viTriCu(o), 'dn', o.dn||0); });
+    var n = nay[o.ku], vt = n ? viTriNay(n) : viTriCu(o); cong(vt, 'dn', o.dn||0); cong(vt, 'lt', laiTon(o)); });
   var soNay = {}; (K.hs||[]).concat(K.lap||[]).forEach(function(o){ slStk(o.stk).forEach(function(s){ if(!soNay[s]) soNay[s] = o; }); });
   var soCu = {}; (Kp.hs||[]).concat(Kp.lap||[]).forEach(function(o){ var s = slStk(o.stk)[0]; if(!s) return; var v = +o.t105 || 0; if(!soCu[s] || v>soCu[s].v) soCu[s] = {v:v, o:o}; });   /* mỗi sổ 1 lần (QT-C-01) */
   Object.keys(soCu).forEach(function(s){ var c = soCu[s], n = soNay[s]; cong(n && n.to && c.o.to ? viTriNay(n) : viTriCu(c.o), 't105', c.v); });
