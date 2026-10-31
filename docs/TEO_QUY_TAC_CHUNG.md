@@ -4,6 +4,7 @@
 > Mã **QT-C-xx** (C = chung) để không trùng QT-01…QT-18 riêng của app (`QUY_CHUAN_KIEN_TRUC.md` mục 4). Luật riêng app / riêng văn bản giao ban vẫn ở chỗ cũ, chỉ ghi "theo QT-C-xx".
 > **Sửa luật = sửa dòng ở đây (PR, anh "gộp") + ghi Hộp thư cho bên kia + sửa hàm hai bên + chạy phép thử.** Mỗi luật một hàm ở mỗi bên; chú thích hàm ghi số QT-C.
 > Repo công khai: không dữ liệu khách / tên tổ trưởng / mã tổ.
+> **Chốt luật = có phép thử (anh chốt 01/11/2026, sổ 1.10):** một luật chỉ ghi ✅ khi đủ **3 điều**: ① câu chữ ở bảng mục 1 · ② **ít nhất 1 trường hợp mẫu** trong `tests/teo/teo_ca.json` (TK 1 viết, số giả) · ③ **cả hai bên chạy đạt** (giao ban `thu_teo.py`, app `node tests/t328.js`) — ghi kết quả ở mục 3. Thiếu ② hoặc ③ → ghi 🔧 (đã chốt câu chữ, chưa đủ phép thử / một bên chưa đạt). Luật cũ chưa có trường hợp mẫu: bổ sung dần, không hạ trạng thái ngay.
 
 Trạng thái: ✅ anh chốt · ⏳ chờ anh chốt · 🔧 đã chốt nhưng một bên chưa áp.
 
@@ -77,3 +78,4 @@ Giao ban chạy: `python thu_teo.py` (Drive `06_CONG_CU\v2`, chép `teo_ca.json`
 | 1.7 (TK 2) | 31/10/2026 | Anh chốt ("chốt làm tuần tự" — duyệt A2): **QT-C-22** hai loại dữ liệu (số dư / so sánh cùng ngày · thông tin nhận dạng lấy gần nhất); **QT-C-18 (K8)** tổ trưởng theo File Tổ trưởng cùng ngày → gần nhất → Mẫu 31; **QT-C-09** ghi bản cuối "lấy như cũ nhưng Mẫu 31 vẫn là chính". |
 | 1.8 (TK 1) | 31/10/2026 | Thử đối chiếu kỳ 29/10 (anh 31/10): giao ban `bang_so_lieu.py` **1.7** sửa file đối chiếu — giữ tổ đã đóng / nhóm vay trực tiếp hết dư nợ còn thu nợ, lãi tồn; mã Hội Đoàn Thanh niên ghi **ĐTN** đúng hợp đồng cột (anh chốt 31/10). Phép thử 40/40. |
 | 1.9 (TK 1) | 31/10/2026 | Anh chốt **K1 → QT-C-14**: văn bản mẫu 08 dùng tổ viên còn dư nợ ("… khách hàng còn dư nợ"); tổng tổ viên (gồm tất nợ chưa ra khỏi tổ) theo app cho mẫu biểu tổ + quy mô tổ. Giao ban `tb_kl.py` 3.3, `nd_hop_m08.py` 1.10, Quy chuẩn 2.3. Cột app QT-C-21 cập nhật theo 3.424. |
+| 1.10 (TK 2) | 01/11/2026 | Anh chốt (TK 2 đề xuất ý 2 — 01/11): **chốt luật = câu chữ + ≥ 1 trường hợp mẫu teo_ca + hai bên chạy đạt**; thiếu → 🔧. |

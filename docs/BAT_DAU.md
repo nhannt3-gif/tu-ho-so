@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.426** — TK 2: nháp TB kết luận theo phiên 08/GDX (`js/89`, GĐ 3). Trước: 3.425 nháp Nội dung họp mẫu 08.
+- **`main` = 3.427** — TK 2: 🔎 so file giao ban tự phân loại lệch (`js/90`), bảng trạng thái Tèo tự sinh (`docs/TEO_TRANG_THAI.md`), luật chốt phải có phép thử. Trước: 3.426 nháp TB kết luận theo phiên.
 - **Tèo** (app + Project giao ban = một bộ não): đọc `docs/TEO_PHOI_HOP.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
