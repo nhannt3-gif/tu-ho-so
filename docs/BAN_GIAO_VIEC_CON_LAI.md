@@ -3,7 +3,7 @@
 **Bản hiện tại:** 3.144 · build 10/10/2026
 **Kho:** `nhannt3-gif/tu-ho-so` → `index.html` + `css/app.css` + `js/*.js` (từ 3.142 tách file; ghép lại 1 file: `python3 tests/ghep.py ra.html`)
 **App đang chạy thật:** https://nhannt3-gif.github.io/tu-ho-so/
-**ĐỌC TRƯỚC khi làm tiếp:** `docs/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
+**ĐỌC TRƯỚC khi làm tiếp:** `docs/luu_tru/BAN_GIAO_TIEP_TUC.md` (người dùng, quy tắc, kiến trúc, quy trình, việc đang dở) · phép thử: `tests/README.md` · `CLAUDE.md`
 **Tài liệu kèm:** `docs/CHANGELOG.md` (đã làm gì) · `docs/REVIEW.md` (rà soát lỗi, rủi ro, tình trạng từng mục)
 **Dự án tách riêng:** `docs/DAC_TA_APP_SCAN_EXE.md` — đặc tả app Scan + Chữ ký·CCCD chạy offline dạng .exe (anh làm riêng)
 
@@ -265,6 +265,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 - Hàm tiện ích tên `tdn*` (tdnTien, tdnHoi, tdnCuoiKy…) vẫn dùng khắp app — ở `js/04e-chung.js`, không đổi tên.
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
+
+### Danh sách thử trên máy thật (3.429)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS → Mẫu 06 sau giải ngân | Có chip Tất cả (n) / Lần 1 (m); mặc định Tất cả, số phiếu như cũ | |
+| 2 | Bấm Lần 1 | Chỉ còn món giải ngân lần đầu trong tháng (HSSV lần 2+ ẩn); ghi chú đổi theo | |
 
 ### Danh sách thử trên máy thật (3.428)
 | # | Việc thử | Kết quả mong đợi | Đạt? |

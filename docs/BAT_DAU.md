@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.428** — TK 2: bỏ tên "Tèo" (gọi App · Giao ban · TK 1, 2, 3 · Gemini), bảng vai `PHOI_HOP_CHUNG.md` mục 1, nhật ký theo vai `docs/nhat_ky/`. Trước: 3.427 so file giao ban tự phân loại lệch.
+- **`main` = 3.429** — TK 2: K4 / QT-C-15 Mẫu 06 sau giải ngân chọn Tất cả / Lần 1; bàn giao cũ chuyển `docs/luu_tru/`. Trước: 3.428 bỏ tên Tèo, bảng vai, nhật ký vai.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
@@ -53,7 +53,7 @@
 | Tên cột file hệ thống (Mẫu 31 175 cột, Nợ QH, Khoanh, KHĐ, Tổng dư nợ, Sao kê TK 104/105, DSTO) | `docs/COT_FILE_MAU.md` (tự sinh `python3 tools/cot_mau.py`) | Cột → trường app (`SL_TRUONG` hoặc `c_<tên chuẩn>`); Mẫu 31 giữ mọi cột → dùng thêm cột không cần nạp lại file. Ghi chú nghiệp vụ lãi / TK 105 cuối file. |
 | Một bản cũ đã làm gì | `docs/CHANGELOG.md` (≈ 280 KB) | `grep -n "^## 3.13" docs/CHANGELOG.md` rồi đọc đúng mục. **Không đọc cả file.** |
 | Bảng thử máy thật, ghi chú kỹ thuật từng bản | `docs/BAN_GIAO_VIEC_CON_LAI.md` (≈ 260 KB) | `grep -n "3.138" …` rồi đọc khoảng nhỏ |
-| Nghiệp vụ chi tiết, quy tắc số liệu, kiến trúc cũ | `docs/BAN_GIAO_TIEP_TUC.md` (≈ 70 KB) | Chỉ đọc mục cần (mục 4 Số liệu, 4a quy tắc kỳ ngày) |
+| Nghiệp vụ chi tiết, quy tắc số liệu, kiến trúc cũ | `docs/luu_tru/BAN_GIAO_TIEP_TUC.md` (≈ 70 KB) | Chỉ đọc mục cần (mục 4 Số liệu, 4a quy tắc kỳ ngày) |
 | Phép thử nào kiểm gì | `tests/README.md` | `grep` tên chức năng |
 | Cấu trúc file Excel hệ thống | `docs/DU_LIEU_THANG.md` | Khi làm phần nạp |
 | File anh xuất hằng tháng (mẫu nào, tên file) | `docs/FILE_XUAT_HANG_THANG.md` | Ngắn, đọc khi bàn về file |
