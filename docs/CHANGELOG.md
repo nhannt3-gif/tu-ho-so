@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.423 — 31/10/2026 — File đối chiếu Tèo: sửa 3 lệch TK 1 báo (TK 2)
+- **TK 1 thử đối chiếu kỳ 29/10** (hộp thư `TEO_PHOI_HOP.md` 31/10): app khớp tuyệt đối tổng PGD dư nợ / QH / khoanh / tiền gửi / cho vay / tổ viên còn dư nợ / KHĐ / đến hạn / lãi tồn; lệch 3 chỗ ở file `DOI_CHIEU_APP` — anh 31/10 "em kiểm tra và code".
+- **① Thu nợ thiếu 1.195,4 triệu** (app 7.053.065.552 đ / Mẫu 31 8.248.465.552 đ): cột thu nợ cộng qua danh sách khách của tổ (`toKhach` bỏ món đã tất nợ) → (a) món **tất nợ trong tháng** ở tổ đang hoạt động không vào (20 tổ, 305 triệu), (b) **tổ đã đóng** còn thu nợ ra dòng 0 (890,4 triệu). Sửa (`slDCTeoTinh` js/22k): thu nợ = Thu nợ TH + QH + khoanh tháng của **mọi khế ước Mẫu 31** (QT-C-02, 1 lần / khế ước) theo tổ; tổ đã đóng (bỏ khỏi cây) còn thu nợ / lãi tồn / dư nợ vẫn xuất dòng (tổ viên chỉ đếm khách còn dư nợ — K1 chờ chốt).
+- **② Tổ thiếu mã xã:** lấy 6 số đầu mã ấp (cả dòng vay trực tiếp).
+- **③ 13 dòng `TT|` toàn 0:** như giao ban, không xuất nhóm vay trực tiếp không còn dư nợ / lãi tồn / thu nợ.
+- Màn hình app không đổi (chỉ file đối chiếu). Phép thử mới `t343` (5 ý); `t325` 9/9, `t328` (teo_ca) như trước.
+
 ## 3.422 — 31/10/2026 — Tăng tốc mở lại app (TK 2)
 - Anh 31/10 "tiếp tục" (kế hoạch nâng cấp `docs/KE_HOACH_NANG_CAP_0111.md`). Đo bằng bộ đo của trình duyệt khi mở lại app có bộ GIẢ lớn `gia31` (25.000 món): **bảng Mẫu 31, danh bạ, sổ nạp đều bị đọc + dựng 2 lần** — bộ dựng sẵn ngầm (`slNapSan`) và tab đang mở cùng gọi `slNap` / `slBo` / `toNap` một lúc.
 - **Sửa:** `slNap`, `slBo`, `toNap` đang chạy thì nơi gọi sau dùng chung kết quả (cùng lứa `SL_BO` / `TO_KS` — làm mới thì không dùng bản cũ) (js/22, js/22g); `slStk` (tách số sổ TK 105) nhớ kết quả theo chuỗi, trả bản sao (js/22). Thử nhớ `toKhach` theo kỳ → `t114` trượt (đổi dữ liệu trong cùng kỳ phải tính lại) → **bỏ**, giữ như cũ.
