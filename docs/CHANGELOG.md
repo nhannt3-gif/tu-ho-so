@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.422 — 31/10/2026 — Tăng tốc mở lại app (TK 2)
+- Anh 31/10 "tiếp tục" (kế hoạch nâng cấp `docs/KE_HOACH_NANG_CAP_0111.md`). Đo bằng bộ đo của trình duyệt khi mở lại app có bộ GIẢ lớn `gia31` (25.000 món): **bảng Mẫu 31, danh bạ, sổ nạp đều bị đọc + dựng 2 lần** — bộ dựng sẵn ngầm (`slNapSan`) và tab đang mở cùng gọi `slNap` / `slBo` / `toNap` một lúc.
+- **Sửa:** `slNap`, `slBo`, `toNap` đang chạy thì nơi gọi sau dùng chung kết quả (cùng lứa `SL_BO` / `TO_KS` — làm mới thì không dùng bản cũ) (js/22, js/22g); `slStk` (tách số sổ TK 105) nhớ kết quả theo chuỗi, trả bản sao (js/22). Thử nhớ `toKhach` theo kỳ → `t114` trượt (đổi dữ liệu trong cùng kỳ phải tính lại) → **bỏ**, giữ như cũ.
+- **Đo (tổng thời gian máy đứng sau khi mở lại):** Tra cứu 2,4 → 1,2 s · Tổ TK&VV 3,0 → 1,4 s · Tổng hợp 1,7 → 1,0 s · Sao kê 2,1 → 0,9 s. Số liệu không đổi.
+- Hồi quy đủ 222/222 (bản chặn đọc trùng); 36 phép số liệu / Tổ / KTGS đạt với `slStk` nhớ.
+
 ## 3.421 — 31/10/2026 — Nâng cấp B: rà bố cục tự động, sửa cuộn ngang khổ laptop (TK 2)
 - Kế hoạch `docs/KE_HOACH_NANG_CAP_0111.md` bước B. Dò tự động 15 màn × 4 khổ (1180 · 1280 · 1366 · 400): trang cuộn ngang, chữ nút / tiêu đề bị cắt.
 - **Lỗi thật:** khổ 1280 (laptop phổ biến) tab **Văn bản, Scan, Biểu mẫu, Thư viện** cuộn ngang 30–60 px — ô tìm thanh trên không co được (độ rộng tối thiểu theo chữ gợi ý) → **đồng hồ ngày giờ bị đẩy ra ngoài màn hình**. Sửa CSS (khổ 1101–1366): ô tìm co tối thiểu 160 px, đồng hồ không co. Dò lại 4 khổ: không còn cuộn ngang, không chữ bị cắt.
