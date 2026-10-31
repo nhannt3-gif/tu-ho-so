@@ -1,6 +1,6 @@
 # Tèo — bàn giao kỹ năng làm bộ văn bản giao ban (TK 1 → TK 2)
 
-> **Bản 1.0 · 31/10/2026** · TK 1 (Project giao ban) soạn theo thư TK 2 (mục 14, 31/10) và lời anh Nhân 31/10: *"bàn giao đầy đủ để app có thể làm được 1 bộ chuẩn như bên giao ban, có kiểm tra đối chiếu độ tin cậy"*. Anh chọn **cách 1**: **repo chỉ giữ khuôn + luật**; **dữ liệu thật** (bộ ví dụ, đáp án số, văn bản đã phát hành) để trên **Drive** — repo này công khai.
+> **Bản 1.1 · 31/10/2026** · TK 1 (Project giao ban) soạn theo thư TK 2 (mục 14, 31/10) và lời anh Nhân 31/10: *"bàn giao đầy đủ để app có thể làm được 1 bộ chuẩn như bên giao ban, có kiểm tra đối chiếu độ tin cậy"*. Anh chọn **cách 1**: **repo chỉ giữ khuôn + luật**; **dữ liệu thật** (bộ ví dụ, đáp án số, văn bản đã phát hành) để trên **Drive** — repo này công khai.
 > **Vai trò anh chốt 31/10:** *"chủ yếu anh đối chiếu, còn làm chính vẫn là dự án giao ban"*. → **Giao ban (Project chat) làm văn bản chính thức**; app dựng **một bộ chuẩn song song** (số + bản nháp văn bản) để **đối chiếu độ tin cậy**, không thay giao ban. Mục 7 `TEO_PHOI_HOP.md` giữ nguyên.
 > **Căn cứ cao nhất** cho văn bản vẫn là Google Doc **QUY_CHUAN_GIAO_BAN** (Drive `0 Hop giao ban\00_CLAUDE`, bản 2.2). Luật số liệu chung: `docs/TEO_QUY_TAC_CHUNG.md` (QT-C-xx). File này **tóm lại để app làm theo**; khác nhau thì theo Quy chuẩn / sổ QT và báo TK 1.
 > Không có tên khách, tên tổ trưởng, mã tổ, số tiền của khách trong file này. Ví dụ dùng tên giả ("Tổ A", "hộ X").
@@ -70,12 +70,12 @@ Hội theo **Mã ĐVUT** (QT-C-06): 11 HND · 12 HPN · 13 HCCB · 14 ĐTN (json
 | `tien_gui` | Tiền gửi TK 105 | Σ "Số dư tiền gửi 105" **mỗi sổ 1 lần**, sổ gắn tổ |
 | `so_kh_du_no` | Tổ viên còn dư nợ | số Mã KH có dư nợ > 0 |
 | `so_kh_tat_no_con_tg` | Tổ viên tất nợ còn TK 105 | Mã KH không còn dư nợ nhưng sổ 105 > 0 |
-| `so_ho` | **Số khách hàng trong văn bản** | `so_kh_du_no + so_kh_tat_no_con_tg` (anh chốt 28/10) — câu ghi "với … khách hàng", **không** thêm "còn dư nợ" |
-| `so_to` | Số tổ | tổ có khách hàng (so_kh > 0) hoặc dư nợ > 0 |
+| `so_ho` | Số khách hàng (json) | `so_kh_du_no + so_kh_tat_no_con_tg`. **Văn bản từ số liệu 31/10/2026 dùng `so_kh_du_no`** — câu ghi "với … khách hàng còn dư nợ" (QT-C-14, anh chốt 31/10; script `ap_k1` gán `so_ho = so_kh_du_no` lúc dựng văn bản). Văn bản đã phát hành (đến 30/10) dùng `so_ho` cũ, câu "với … khách hàng" |
+| `so_to` | Số tổ | tổ có khách hàng (Mã KH còn dư nợ, hoặc tất nợ còn TK 105 > 0) hoặc dư nợ > 0 — app cùng cách là đúng |
 | `du_no_truoc`, `so_to_truoc` | Kỳ so sánh | `du_no_truoc` xếp theo **vị trí hiện nay của khế ước** (QT-C-21, từ `tong_hop.py` 2.22); `so_to_truoc` = số tổ thật kỳ trước |
 | `du_no_tang`, `tien_gui_tang`, `lai_ton_tang` | ± so kỳ trước | kỳ này − kỳ so sánh (đã xếp theo QT-C-21) |
 | `khd_mon`, `khd_du` | Món 3 tháng KHĐ: số món, dư nợ | danh sách mục 3.3 |
-| `ndh`, `ndh_ho` | Nợ đến hạn **tháng tới**: tiền, số hộ | QT-C-17 (mục 3.4) |
+| `ndh`, `ndh_ho` | Nợ đến hạn **tháng tới**: tiền, số hộ | QT-C-17 (mục 3.4). Tiền = **toàn bộ dư nợ của món** có ngày đến hạn (gia hạn / HĐ) rơi vào tháng tới — **không** phải số tiền kỳ trả; chưa tính kỳ con phân kỳ CV 597 |
 
 ### 2.2 Trực tiếp — `diem.<D>.truc_tiep`
 
@@ -226,7 +226,7 @@ Mỗi bộ chuẩn app dựng phải chạy đủ 4 tầng, ra **bảng kiểm**
 5. **Ngày**: Mẫu 31 và File Tổ trưởng cùng ngày (QT-C-09/22) — khác ngày thì **không chốt số**.
 
 ### Tầng C — đối chiếu chéo app ↔ giao ban (`DOI_CHIEU_APP_<ngày>.csv` ↔ `DOI_CHIEU_GB_<ngày>.csv`, `doi_chieu_teo.py`)
-Phân loại lệch (`TEO_KE_HOACH_KY_3110.md`): **A** cùng luật mà lệch (lỗi code, phải sửa) · **B** luật chưa chốt (K1, K4, K5, K9 — chờ anh) · **C** khác phạm vi / thời điểm nguồn · **D** làm tròn. Kỳ 29/10 đã khớp tuyệt đối các tổng tiền; còn mở: thu nợ (món tất nợ trong tháng, tổ đã đóng), 1 tổ thiếu mã xã, dòng trực tiếp toàn 0, tổ viên +59 (K1) — hộp thư 31/10.
+Phân loại lệch (`TEO_KE_HOACH_KY_3110.md`): **A** cùng luật mà lệch (lỗi code, phải sửa) · **B** luật chưa chốt (K4, K5, K9 — chờ anh) hoặc **khác định nghĩa** (tổng tổ viên app / giao ban — QT-C-14) · **C** khác phạm vi / thời điểm nguồn · **D** làm tròn. Kỳ 29/10 đã khớp tuyệt đối các tổng tiền; còn mở: thu nợ (món tất nợ trong tháng, tổ đã đóng), 1 tổ thiếu mã xã, dòng trực tiếp toàn 0, tổ viên +59 (K1) — hộp thư 31/10.
 
 ### Tầng D — đối chiếu văn bản đã phát hành (bộ ví dụ chuẩn, mục 7)
 - Mọi số trong bảng II.1, III.1, câu nhận định của văn bản đã phát hành phải khớp số app dựng (sai số làm tròn 0,05).
@@ -237,7 +237,7 @@ Phân loại lệch (`TEO_KE_HOACH_KY_3110.md`): **A** cùng luật mà lệch (
 |---|---|
 | **Thực tế** | tính thẳng từ Mẫu 31 / file nguồn cùng ngày, qua tầng A–B |
 | **Suy luận** | có bước suy ra: ngày chuyển QH theo QT-C-12, điểm của món trực tiếp theo ấp, KHĐ kỳ giữa tháng (điều kiện 7), ghép CLT02 theo thứ tự mã tổ, số tháng lãi khi lãi suất = 0 |
-| **Chờ chốt** | phụ thuộc luật chưa chốt (K1 đếm tổ viên, K4, K5, K9) hoặc nguồn lệch chưa xử lý |
+| **Chờ chốt** | phụ thuộc luật chưa chốt (K4, K5, K9) hoặc nguồn lệch chưa xử lý |
 
 Văn bản chính thức chỉ dùng số **Thực tế**; số **Suy luận** dùng được khi luật đã chốt (QT-C) và ghi trong bảng kiểm; **Chờ chốt** không đưa vào văn bản.
 
@@ -263,17 +263,19 @@ Văn bản chính thức chỉ dùng số **Thực tế**; số **Suy luận** d
 - Phiên 07/10: 1 món trực tiếp Hồ sơ tín dụng để trống ngày GDXA → giao ban gán theo KQGD (khóa `truc_tiep` trong `B4`) nên văn bản có dòng TRỰC TIẾP và Cộng gồm món này, json thì không. Từ QT-C-11 gán theo ấp → app phải tự ra đúng.
 - Số 30/09 tính trước QT-C-21 (± theo vị trí kỳ trước). App theo QT-C-21 có thể lệch phần ± nếu trong tháng có tổ đổi Hội / chuyển tổ → báo, ghi loại lệch.
 - `A4` cập nhật 19/10 (thêm 2 văn bản cho phiên sau) nên Phần I của `A1` ít hơn `A4`.
+- Văn bản tháng 10 đã phát hành dùng số khách hàng cách cũ (912 khách hàng ngày 30/09; 926 phiên 07/10). Theo QT-C-14 (từ số liệu 31/10) số khách hàng còn dư nợ là 873 / 889 (888 ủy thác + 1 trực tiếp) — app so `so_kh_du_no`.
 - `B1` còn ghi CV 18047 ngày 29/09 (đúng 30/09) — văn bản đã phát hành giữ nguyên; bản app dựng phải ghi 30/09.
 
 ---
 
 ## 8. Ranh giới và việc chưa chốt
 - **Văn bản chính thức do giao ban phát hành**; bản app chỉ để đối chiếu (anh 31/10). Hai bản lệch → giao ban kiểm lại số, báo anh.
-- Chờ anh: K1 (đếm tổ viên — gây lệch tổ viên app / giao ban), K4, K5, K9 (`TEO_PHOI_HOP.md` mục 6B, 13). Báo cáo BĐD: làm sau cùng.
+- K1 đã chốt 31/10 (QT-C-14). Chờ anh: K4, K5, K9 (`TEO_PHOI_HOP.md` mục 6B, 13). Báo cáo BĐD: làm sau cùng.
 - Kỳ đối chiếu tới: số cuối tháng 10 (anh báo **02/11 mới đủ**) — chạy bộ chuẩn 4 điểm, so 4 tầng.
 - TK 2 nhận xong lên kế hoạch trình anh (thư 31/10); câu hỏi gửi TK 1 qua hộp thư mục 14.
 
 ## 9. Nhật ký
 | Bản | Ngày | Nội dung |
 |---|---|---|
+| 1.1 | 31/10/2026 | QT-C-14 (K1): số khách hàng văn bản = tổ viên còn dư nợ từ số liệu 31/10; trả lời câu hỏi TK 2 (số tổ, nợ đến hạn) ở mục 2.1. |
 | 1.0 | 31/10/2026 | TK 1 lập: quy trình, từ điển chỉ tiêu, luật văn bản, luật nhận định, 4 tầng kiểm độ tin cậy, bộ ví dụ Gia Lộc 2 (Drive) + `tools/teo_dap_an.py` |
