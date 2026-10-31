@@ -1043,20 +1043,29 @@ function slDCTeoTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
   ((K.qtc || (typeof toKiemAp==='function' ? toKiemAp(K) : {lechAp:[]})).lechAp||[]).forEach(function(r){ lech[r[3]] = (lech[r[3]]||0)+1; });
   var dh = function(m){ var hl = skHL(m); return (m.dn||0)>0 && !(m.qh>0) && hl>=tu && hl<=den; };
   var tn = function(m){ return (m.tnTH||0)+(m.tnQH||0)+(m.tnK||0); }, cv = function(m){ return (m.gnT||0)-(m.dkT||0); }, R = function(v){ return Math.round(v||0); };
-  var giu = TO_K; TO_K = K;
+  /* 3.423 (TK 1 thử đối chiếu kỳ 29/10 — hộp thư 31/10): thu nợ = Thu nợ TH + QH + khoanh tháng của MỌI khế ước trên Mẫu 31 (QT-C-02, 1 lần / khế ước, kể cả món đã
+     tất nợ trong tháng), gắn theo tổ trên Mẫu 31 — trước cộng qua toKhach (bỏ món tất nợ) → thiếu 1.195 triệu; tổ đã đóng còn thu nợ / lãi tồn vẫn xuất dòng có số */
+  var hsT = {}; (K.hs||[]).forEach(function(o){ if(!o.to || !o.ku) return; var g = hsT[o.to] = hsT[o.to] || {tn:0, lt:0, dn:0, qh:0, kn:0, cv:0, khd:0, dh:0, kh:{}, khNo:{}, o:o};
+    g.tn += tn(o); g.lt += laiTon(o); g.dn += o.dn||0; g.qh += o.qh||0; g.kn += o.kn||0; g.cv += cv(o); if(khd[o.ku]) g.khd++; if(dh(o)) g.dh++; g.kh[o.kh] = 1; if((o.dn||0)>0) g.khNo[o.kh] = 1; });
+  var maXa = function(xa, thon){ return String(xa||'') || String(thon||'').slice(0, 6); };   /* 3.423: thiếu mã xã → 6 số đầu mã ấp */
+  var daRa = {}, giu = TO_K; TO_K = K;
   try {
-    Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.trucTiep || toLaTT(t)) return;
+    Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.trucTiep || toLaTT(t)) return; daRa[ma] = 1;
       var s = toSoTo(t, null), r = tvChuan(t, K), mon = (K.kh[ma]||[]).filter(function(o){ return o.ku; });
-      dong.push([ma, t.xa||'', t.thon||'', t.diem||'', SL_DC_HOI[String(t.dv)] || String(t.dv||''), r ? r.tong : s.tv, r ? r.coNo : s.co, R(s.dn), R(s.qh), R(s.kn), R(s.lt), R(s.t105),
-        R(mon.reduce(function(a, m){ return a+cv(m); }, 0)), R(s.tn), mon.filter(function(m){ return khd[m.ku]; }).length, lech[ma]||0, mon.filter(dh).length]); });
+      dong.push([ma, maXa(t.xa, t.thon), t.thon||'', t.diem||'', SL_DC_HOI[String(t.dv)] || String(t.dv||''), r ? r.tong : s.tv, r ? r.coNo : s.co, R(s.dn), R(s.qh), R(s.kn), R(s.lt), R(s.t105),
+        R(mon.reduce(function(a, m){ return a+cv(m); }, 0)), R(hsT[ma] ? hsT[ma].tn : 0), mon.filter(function(m){ return khd[m.ku]; }).length, lech[ma]||0, mon.filter(dh).length]); });
   } finally { TO_K = giu; }
+  Object.keys(hsT).sort().forEach(function(ma){ var g = hsT[ma], t = (K.toAn && K.toAn[ma]) || {}, o = g.o, so = function(x){ return Object.keys(x).length; };   /* tổ đã đóng (bỏ khỏi cây) còn thu nợ / lãi tồn / dư nợ — tổ viên: chỉ đếm khách còn dư nợ (tổ đóng không còn tổ viên; K1 chờ chốt) */
+    if(daRa[ma] || (T[ma] && (T[ma].trucTiep || toLaTT(T[ma]))) || !(g.tn || g.lt || g.dn)) return;
+    dong.push([ma, maXa(t.xa || o.xa, t.thon || o.thon), String(t.thon || o.thon || ''), t.diem||'', SL_DC_HOI[String(t.dv)] || String(t.dv||''), so(g.khNo), so(g.khNo), R(g.dn), R(g.qh), R(g.kn), R(g.lt), 0, R(g.cv), R(g.tn), g.khd, 0, g.dh]); });
   var tt = {};
   (K.hs||[]).forEach(function(o){ if(o.to || !o.ku) return; var k = 'TT|'+String(o.thon||''), g = tt[k];
     if(!g){ var d = T[o._tt]; g = tt[k] = {xa:o.xa||'', ap:String(o.thon||''), diem:d && (o._ttCach==='ap' || o._ttCach==='danhMuc') ? d.diem || '' : '',   /* QT-C-11: chỉ ghi mã điểm xác định theo ấp (tạm GDXA / xã 1 điểm → để trống, như giao ban) */ kh:{}, khNo:{}, t105:{}, dn:0, qh:0, kn:0, lt:0, cv:0, tn:0, khd:0, dh:0}; }
     g.kh[o.kh] = 1; if((o.dn||0)>0) g.khNo[o.kh] = 1; g.t105[o.kh] = slT105Them(g.t105, o, o.kh);
     g.dn += o.dn||0; g.qh += o.qh||0; g.kn += o.kn||0; g.lt += laiTon(o); g.cv += cv(o); g.tn += tn(o); if(khd[o.ku]) g.khd++; if(dh(o)) g.dh++; });
   Object.keys(tt).sort().forEach(function(k){ var g = tt[k], so = function(x){ return Object.keys(x).length; };
-    dong.push([k, g.xa, g.ap, g.diem, 'TT', so(g.kh), so(g.khNo), R(g.dn), R(g.qh), R(g.kn), R(g.lt), R(Object.keys(g.t105).reduce(function(a, m){ return a+g.t105[m]; }, 0)), R(g.cv), R(g.tn), g.khd, 0, g.dh]); });
+    if(!R(g.dn) && !R(g.lt) && !R(g.tn) && !R(g.qh) && !R(g.kn)) return;   /* 3.423: như giao ban — không xuất nhóm vay trực tiếp không còn dư nợ / lãi tồn / thu nợ */
+    dong.push([k, maXa(g.xa, g.ap), g.ap, g.diem, 'TT', so(g.kh), so(g.khNo), R(g.dn), R(g.qh), R(g.kn), R(g.lt), R(Object.keys(g.t105).reduce(function(a, m){ return a+g.t105[m]; }, 0)), R(g.cv), R(g.tn), g.khd, 0, g.dh]); });
   return {ngay:K.ngay, dong:dong};
 }
 function slDCCsv(K){

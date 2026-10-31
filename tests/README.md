@@ -253,6 +253,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t340.js` | 3.416.1 Sửa bản quét: danh mục chưa khai tổ → tổ của ấp từ Mẫu 31 (`gianho31`). |
 | `node tests/t341.js` | 3.419 Bản máy tính chạy không mạng: bộ đệm dt-sw.js cất khung app, tắt mạng vẫn mở (máy chủ tạm localhost). |
 | `node tests/t342.js` | 3.420 Ô lệnh Ctrl+K: tìm tab không dấu, Tra khách / Tìm tổ, ↑ ↓ Enter, Ctrl+K lần 2 đóng (`gianho31`). |
+| `node tests/t343.js` | 3.423 File đối chiếu Tèo: thu nợ mọi khế ước (kể cả tất nợ, tổ đã đóng), bù mã xã từ mã ấp, bỏ dòng TT\| toàn 0 (`gianho31` + dòng giả). |
 | (3.422) | Tăng tốc mở lại app — hồi quy đủ 222/222. |
 | (3.421) | Rà bố cục: cuộn ngang khổ 1280 — dò tự động 15 màn × 4 khổ (nháp phiên), so ảnh `tools/chup_man.js`. |
 | (3.418) | D2 Tra cứu data-lenh — phép Tra cứu / thẻ tổ / dải tab con đạt. |
