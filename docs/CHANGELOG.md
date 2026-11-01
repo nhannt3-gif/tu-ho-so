@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.432 — 01/11/2026 — Có gì mới: hướng dẫn thử + chức năng đã bỏ (TK 2)
+- **Anh 01/11:** "mấy hướng dẫn này em luôn ghi vào Có gì mới, và bỏ đi chức năng nào".
+- Hộp ✨ Có gì mới: mục **"Thử trên máy — nút mới ở đâu"** (thay "Thử nhanh (5 phút)" cũ — 3 bước của bản 3.2xx) ghi từng nút mới theo bản: Tab › nút: bấm gì → thấy gì (17 dòng 3.415 → 3.431); mục mới **"Đã bỏ / thay thế"** (3.410 gỡ theo dõi tổ, 3.416.x thẻ tổ / danh sách tổ / 👑 bỏ tổ phó).
+- `tools/bump.py`: spec **bắt buộc** `thu` (nút mới ở đâu, `[]` nếu không có), `bo` khi bỏ / thay chức năng — tự thêm lên đầu, giữ 20 dòng; mẫu `tools/mau_spec.json`, luật ghi `AGENTS.md`.
+- `t192` kiểm 2 mục mới.
+
 ## 3.431 — 01/11/2026 — 06A số liệu mặc định cuối tháng trước; đổi tên hàm đối chiếu giao ban (TK 2)
 - **Anh 01/11:** "lãi chỉ tính lãi tồn đến ngày báo cáo hoặc số liệu gần nhất có được, nên lấy đến cuối tháng trước làm mặc định".
 - **Mẫu 06A:** khi VÀO 06A (bấm chip ở Hồ sơ vay / nút 📄 06A từ KTGS) app đặt kỳ số liệu = **Mẫu 31 chốt tháng trước**; chưa có → số liệu gần nhất trước cuối tháng trước; món chỉ có từ kỳ sau (giải ngân trong tháng này, mở từ KTGS) → kỳ có món. Báo "📅 06A: số liệu đến …"; sau đó anh đổi ô kỳ đầu trang tự do. `hso06aKyMD(kyCo)` (`js/mau/06a.js`), nút KTGS mang `data-ky`.

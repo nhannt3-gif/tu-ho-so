@@ -160,6 +160,7 @@
 | 01/11 | TK 2 | 3.429 | `js/22c-ktgs-m06.js` (K4 Tất cả / Lần 1), **mới** `tests/t348.js`, `docs/luu_tru/` (3 bàn giao cũ), `CLAUDE.md`, `QUY_TAC_SO_LIEU.md`, `tests/do_moc.json` (chốt lại mốc sau hồi quy đủ 227/227) |
 | 01/11 | TK 2 | 3.430 | **mới** `js/mau/06a.js`, `tests/mau_goc/06a.docx`, `tests/t349.js`; `js/25-ho-so.js` (HSO_MAU + HSO_DEN), `js/25b` (dispatcher + hàm thay), `js/25c` (chọn người vay / món, nhận HSO_DEN), `js/22c` (nút 06A), `index.html`; `t163`, `t170`, `t204` đếm chip Hồ sơ vay 12 → 13 · hồi quy theo đổi 226/229 → sửa 3 phép đếm chip, đạt |
 | 01/11 | TK 2 | 3.431 | `js/mau/06a.js` (kỳ mặc định), `js/25b`, `js/22c` (data-ky), đổi tên `slDCGBTinh` ở `js/22k`, `js/90`, `js/87` (chú thích), t328, t343, t344, t347, t349 |
+| 01/11 | TK 2 | 3.432 | `js/06-hop-thoai.js` (CO_GI_MOI thu + bo, noiDungCoGiMoi), `tools/bump.py` (spec bắt buộc `thu`, tùy `bo`), `tools/mau_spec.json`, `AGENTS.md`, `t192` — **TK 3 lưu ý: spec bump từ nay phải có `thu`** |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

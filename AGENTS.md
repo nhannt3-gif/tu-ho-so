@@ -31,3 +31,6 @@
 - `index.html` + `css/app.css` + `js/NN-*.js` (ES5, không build, không npm; thư viện chỉ theo danh mục anh duyệt). Mỗi bản đổi `?v=` cùng `APP_BAN` (`tools/bump.py`). Không phá chức năng đang chạy; dữ liệu cũ phải đọc được.
 - Mỗi bản: `python3 tests/kiem.py` sạch + phép thử theo mức thay đổi (`tests/README.md`) + cập nhật tài liệu theo `CLAUDE.md`.
 - Chỉ tài khoản đang làm app lên số bản; số bản / phân file giữa TK 2 ↔ TK 3: `docs/PHOI_HOP_TK2_TK3.md` mục 1–2.
+
+## "Có gì mới" trong app (anh 01/11/2026)
+- Mỗi bản app, spec `tools/bump.py` **bắt buộc** có `thu` = hướng dẫn thử: nút / chip mới **ở đâu** (Tab › nút: bấm gì → thấy gì), `[]` nếu không có nút mới; và `bo` = chức năng / nút / cột **đã bỏ hoặc thay thế** (khi có). App hiện ở hộp ✨ Có gì mới: "Thử trên máy — nút mới ở đâu" và "Đã bỏ / thay thế" (giữ 20 dòng gần nhất, đủ lịch sử ở `docs/CHANGELOG.md`).
