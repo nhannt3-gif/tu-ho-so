@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.431 — 01/11/2026 — 06A số liệu mặc định cuối tháng trước; đổi tên hàm đối chiếu giao ban (TK 2)
+- **Anh 01/11:** "lãi chỉ tính lãi tồn đến ngày báo cáo hoặc số liệu gần nhất có được, nên lấy đến cuối tháng trước làm mặc định".
+- **Mẫu 06A:** khi VÀO 06A (bấm chip ở Hồ sơ vay / nút 📄 06A từ KTGS) app đặt kỳ số liệu = **Mẫu 31 chốt tháng trước**; chưa có → số liệu gần nhất trước cuối tháng trước; món chỉ có từ kỳ sau (giải ngân trong tháng này, mở từ KTGS) → kỳ có món. Báo "📅 06A: số liệu đến …"; sau đó anh đổi ô kỳ đầu trang tự do. `hso06aKyMD(kyCo)` (`js/mau/06a.js`), nút KTGS mang `data-ky`.
+- **Đổi tên theo TK 1 (bỏ Tèo):** `slDCTeoTinh` → `slDCGBTinh` (`js/22k`, `js/90`, t328, t343, t347); chú thích `js/87`, t344 trỏ `tools/dap_an_giao_ban.py`. Đã gộp PR #449 của TK 1.
+- t349 thêm 4 phép (kỳ mặc định 06A).
+
 ## 3.430 — 01/11/2026 — Mẫu 06A/TD vào kho mẫu (TK 2)
 - **Anh chốt 01/11:** "Mẫu 06 kiểm tra nhiều hộ (hộ vay đúng); khi có sai cần kiểm tra đánh giá từng hộ dùng Mẫu 06A" (sai mục đích, 3 tháng KHĐ) · **mỗi món 1 phiếu** · **số tiền nợ lãi = lãi tồn tất cả** (Mẫu 31 chỉ có Lãi tồn TH + QH — `laiTon`) · "đưa vào kho mẫu, chỗ nào cần thì gọi".
 - **Kho mẫu:** file gốc trống `tests/mau_goc/06a.docx` (đã bỏ tên người soạn) + mô-đun `js/mau/06a.js` (nền ô, nguyên văn mẫu, lề 20/20/18/27,5, TNR 13,5, dòng 18 pt) — tab **Hồ sơ vay › 06A/TD**: chọn người vay + món; ô tự điền: tên, mã KH, tổ trưởng, Hội, ngày số liệu, chương trình, số khế ước, giải ngân, dư nợ, nợ lãi, TK 105, mục đích (ngành nghề). Món đã chọn mà kỳ đang mở không còn dư nợ → để chấm (không lấy nhầm món khác).

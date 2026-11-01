@@ -19,7 +19,8 @@ const fs=require('fs'), path=require('path');
    let t=null, k=null; for(const ma of Object.keys(TO_K.to)){ const tt = KHO.to(ma); if(!tt || toLaTT(tt)) continue; const ds = hsoTVTo(tt).filter(x=>x.mon.filter(m=>(m.dn||0)>0).length>0); const k2 = ds.find(x=>x.mon.filter(m=>(m.dn||0)>0).length>1) || ds[0]; if(k2){ t=tt; k=k2; if(k2.mon.filter(m=>(m.dn||0)>0).length>1) break; } }
    ok('bộ giả có tổ + người vay còn dư nợ', !!t && !!k, t && t.ma);
    const mon = k.mon.filter(m=>(m.dn||0)>0), m = mon[mon.length-1];
-   hso06aMo(t.ma, k.kh, m.ku); await w(400);
+   hso06aMo(t.ma, k.kh, m.ku); await w(600);
+   ok('mở 06A → kỳ chung = kỳ mặc định 06A', kyChungLay()===hso06aKyMD(), kyChungLay()+' / '+hso06aKyMD());
    ok('hso06aMo → tab Hồ sơ vay, mẫu 06A, chọn sẵn người vay + món', nganHienTai===7 && D.cauHinh.slTab==='hsv' && hsoMau().k==='06a' && HSO.vay.kh===k.kh && HSO.vay.ku===m.ku, [nganHienTai, D.cauHinh.slTab, hsoMau().k, HSO.vay.kh===k.kh, HSO.vay.ku===m.ku].join(' '));
    const x = hsoLap(), chu = x.h.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
    ok('phiếu: tên mẫu + tiêu đề', /Mẫu số: 06A\/TD/.test(chu) && /PHIẾU KIỂM TRA SỬ DỤNG VỐN VAY/.test(chu));
@@ -37,7 +38,16 @@ const fs=require('fs'), path=require('path');
    /* nút từ KTGS Mẫu 06 */
    window.KT_GN = {khoa:'gia', thang:['2026-09'], thieu:[], ds:{'2026-09':{[t.ma]:{t:{ma:t.ma, ten:t.ten, xa:t.xa, dv:t.dv}, mon:[Object.assign({}, m, {gnT:1e6, ngn:'2026-09-02'})]}}}, ngay:{}, kh:{}};
    const C = ktCH(), giu = C.to; window.ktGNTrongPV = () => true; C.to = t.ma; const h = ktGNDsHTML(); C.to = giu;
-   ok('KTGS Mẫu 06 (chọn đến tổ): mỗi món có nút 📄 06A đúng tổ / khách / món', new RegExp('data-lenh="ktgn.m06a" data-to="'+t.ma+'" data-kh="'+k.kh+'" data-ku="'+m.ku+'"').test(h));
+   ok('KTGS Mẫu 06 (chọn đến tổ): mỗi món có nút 📄 06A đúng tổ / khách / món', new RegExp('data-lenh="ktgn.m06a" data-ky="[^"]*" data-to="'+t.ma+'" data-kh="'+k.kh+'" data-ku="'+m.ku+'"').test(h));
+   /* 3.431: kỳ mặc định 06A = cuối tháng trước / số liệu gần nhất trước đó / kỳ có món */
+   const dsGoc = window.toDsKy, nayGoc = window.nay; window.nay = () => new Date(2026, 10, 5);
+   window.toDsKy = () => [{ky:'2026-10'}, {ky:'2026-09'}, {ky:'2026-11-03'}, {ky:'2026-10-20'}];
+   ok('kỳ mặc định 06A: có Mẫu 31 chốt tháng trước → T10', hso06aKyMD()==='2026-10', hso06aKyMD());
+   window.toDsKy = () => [{ky:'2026-09'}, {ky:'2026-11-03'}, {ky:'2026-10-25'}];
+   ok('chưa chốt T10 → số liệu gần nhất trước cuối tháng trước (25/10)', hso06aKyMD()==='2026-10-25', hso06aKyMD());
+   window.toDsKy = () => [{ky:'2026-10'}, {ky:'2026-11-03'}];
+   ok('món chỉ có từ kỳ sau (GN tháng này) → kỳ có món', hso06aKyMD('2026-11-03')==='2026-11-03' && hso06aKyMD('2026-09')==='2026-10');
+   window.toDsKy = dsGoc; window.nay = nayGoc;
    return o; }, [files, doan]);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t349 đạt'); await b.close(); process.exit(sai?1:0);

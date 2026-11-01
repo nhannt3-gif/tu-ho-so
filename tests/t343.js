@@ -20,7 +20,7 @@ const fs=require('fs'), path=require('path');
    K.toAn = K.toAn || {}; K.toAn['0999999'] = {ma:'0999999', xa:'', thon:'54007901', dv:'12'};
    K.hs.push({ku:'6600000799990003', kh:'9900009993', to:'', xa:'540035', thon:'54009998', dn:0, qh:0, kn:0, tnTH:0});   /* vay trực tiếp toàn 0 */
    K.hs.push({ku:'6600000799990004', kh:'9900009994', to:'', xa:'', thon:'54009997', dn:0, qh:0, kn:0, tnQH:2000000});   /* vay trực tiếp còn thu nợ, thiếu mã xã */
-   const d = slDCTeoTinh(K).dong, dong = k=>d.find(r=>r[0]===k);
+   const d = slDCGBTinh(K).dong, dong = k=>d.find(r=>r[0]===k);
    ok('① tổ đang hoạt động: thu_no gồm cả món tất nợ trong tháng (Mẫu 31, 1 lần / khế ước)', dong(A) && dong(A)[13]===Math.round(tnA0+12000000), dong(A) && dong(A)[13]+' / '+(tnA0+12000000));
    ok('① tổ đã đóng (bỏ khỏi cây) còn thu nợ → có dòng, thu_no 3.000.000', dong('0999999') && dong('0999999')[13]===3000000 && dong('0999999')[4]==='HPN', JSON.stringify(dong('0999999')));
    ok('② thiếu mã xã → 6 số đầu mã ấp (tổ + vay trực tiếp)', dong('0999999') && dong('0999999')[1]==='540079' && dong('TT|54009997') && dong('TT|54009997')[1]==='540099', JSON.stringify(dong('TT|54009997')));

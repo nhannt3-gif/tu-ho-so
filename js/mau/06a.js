@@ -77,7 +77,21 @@
       return {ma:'06A/TD', h:'<div class="om-goc" style="font-size:13.5pt;line-height:1.15">'+h+'</div>'};
     }});
   hsoLap06a = function(t){ return omLap(MK, t); };
+  /* 3.431 (anh 01/11): lãi tồn (và mọi số trên phiếu) tính đến ngày báo cáo / số liệu gần nhất có được — MẶC ĐỊNH CUỐI THÁNG TRƯỚC:
+     Mẫu 31 chốt tháng trước; chưa có → số liệu gần nhất trước cuối tháng trước; món chỉ có từ kỳ sau (giải ngân trong tháng này) → kỳ có món (kyCo).
+     Chỉ đặt khi VÀO 06A (bấm chip / mở từ chỗ khác); sau đó anh đổi ô kỳ đầu trang tự do. */
+  function ngayCua(ky){ ky = String(ky||''); return ky.length===7 ? tdnCuoiKy(ky) : ky; }
+  hso06aKyMD = function(kyCo){
+    var ds = typeof toDsKy==='function' ? toDsKy() : []; if(!ds.length) return '';
+    var tr = kyLui(slThang(ngayISO(nay())), -1), cuoi = tdnCuoiKy(tr), chon = '';
+    ds.forEach(function(x){ var n = ngayCua(x.ky); if(n<=cuoi && (!chon || n>ngayCua(chon) || n===ngayCua(chon) && x.ky.length===7)) chon = x.ky; });
+    if(!chon) chon = ds[ds.length-1].ky;
+    if(kyCo && ngayCua(kyCo)>ngayCua(chon) && ds.some(function(x){ return x.ky===kyCo; })) chon = kyCo;
+    return chon; };
+  function datKy(kyCo){ var v = hso06aKyMD(kyCo); if(!v || v===kyChungLay()) return 0; kyChungDoi(v); bao('📅 06A: số liệu đến '+slKyChu(v)+' (mặc định cuối tháng trước) — đổi ở ô kỳ đầu trang nếu cần.', 4); return 1; }   /* kyChungDoi tự vẽ lại tab */
   /* gọi từ chỗ khác (KTGS Mẫu 06 · sau này danh sách 3 tháng KHĐ): mở tab Hồ sơ vay, mẫu 06A, chọn sẵn người vay + món — tổ theo phạm vi đang chọn */
-  hso06aMo = function(maTo, kh, ku){ var S = hsoCH(), t = maTo ? KHO.to(maTo) : null; if(t && S.to!==maTo){ S.xa = t.xa || ''; S.diem = t.khoaDiem || ''; S.hoi = String(t.dv||''); S.ap = ''; S.to = maTo; }   /* phạm vi chung đặt đúng tổ (như pvChonTo) */ S.hsv = MK; HSO_DEN = {kh:kh, ku:ku || ''}; luu(); dhSL('hsv'); };
+  hso06aMo = function(maTo, kh, ku, kyCo){ var S = hsoCH(), t = maTo ? KHO.to(maTo) : null; if(t && S.to!==maTo){ S.xa = t.xa || ''; S.diem = t.khoaDiem || ''; S.hoi = String(t.dv||''); S.ap = ''; S.to = maTo; }   /* phạm vi chung đặt đúng tổ (như pvChonTo) */
+    S.hsv = MK; HSO_DEN = {kh:kh, ku:ku || ''}; luu(); datKy(kyCo); dhSL('hsv'); };
+  if(typeof hsoChonMau==='function'){ var cu = hsoChonMau; hsoChonMau = function(k){ if(k===MK && hsoTab()==='hsv' && hsoCH().hsv!==MK){ hsoCH().hsv = MK; luu(); if(datKy()) return; } return cu.apply(this, arguments); }; }
   var M = hsoMauK(MK); if(M) M.mg = omMg([20, 20, 18, 27.5]);   /* lề theo file gốc */
 })();

@@ -240,6 +240,7 @@ function hsoWord06HS(){ var g = hso06GtHS(); if(!g.length) return bao('Chưa có
 function hsoKem06(){ var B = hsoBo(), M = hsoMau(); return M.k==='01td' && !!(B && B.kem && B.kem.k06); }
 function hsoLap06a(){ return {ma:'06A/TD', h:'<p>Thiếu mô-đun mẫu 06A (js/mau/06a.js).</p>'}; }   /* 3.430: js/mau/06a.js gán lại */
 function hso06aMo(){ baoLoi('Thiếu mô-đun mẫu 06A (js/mau/06a.js).'); }
+function hso06aKyMD(){ return ''; }   /* 3.431: js/mau/06a.js gán lại — kỳ mặc định cuối tháng trước */
 function hsoLap09a(t){
   var T = hsoTo(t), c = hsoKhachChon(t), V = HSO.vay, mon = hsoMonGH(t), m = mon.find(function(x){ return x.ku===V.ku; }) || mon[0] || null, han = m ? skHL(m) : '', tien = hsoSo(hsoChamGT('09a', 'tienGH', m ? m.dn : 0));
   var h = hsoBang('khung0', [74, 26], '<tr><td class="c">'+hsoQH('–', 13)+'</td><td><p class="b i s12">Mẫu số: 09A/TD</p><p class="i s12">Lập 01 liên lưu NH</p></td></tr>')+

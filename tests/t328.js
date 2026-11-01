@@ -1,6 +1,6 @@
 // 3.407 (Tèo bước B4 — TK 1 30/10 "TK 2: phép thử JS đọc cùng file"): PHÉP THỬ CHUNG tests/chung/truong_hop_mau.json — mỗi trường hợp 1 trang sạch:
 //   dựng Mẫu 31 (cột hệ thống, ô không ghi lấy mac_dinh_mau31) + File Tổ trưởng (baocao_…, cùng ngày trừ ngay_to_truong) → nạp qua slDocFile / slGhi → KHO (toNap) →
-//   so đáp án: dong (file đối chiếu DOI_CHIEU_APP, slDCTeoTinh) · ngay_qh (skCQH) · lech_ap / ap_nhieu_diem (K.qtc) · khong_ghep_to_truong · ham (so_thang_lai, xep_loai).
+//   so đáp án: dong (file đối chiếu DOI_CHIEU_APP, slDCGBTinh) · ngay_qh (skCQH) · lech_ap / ap_nhieu_diem (K.qtc) · khong_ghep_to_truong · ham (so_thang_lai, xep_loai).
 //   KHÔNG sửa đáp án (đổi đáp án = đổi luật → anh chốt). App ra khác → ghi hộp thư PHOI_HOP_CHUNG mục 14. Chạy: node tests/t328.js [mã trường hợp,…]
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
@@ -38,7 +38,7 @@ const CHO = {'C21-1 · bien_dong':'màn Biến động tổ đã gỡ ở 3.410 
       }
       SL_BO = {}; TO_KS = {}; K = await toNap(slThang(vn(BO.ngay_so_lieu)));
     }
-    const COT = SL_DC_COT, dongDC = K ? slDCTeoTinh(K).dong : [];
+    const COT = SL_DC_COT, dongDC = K ? slDCGBTinh(K).dong : [];
     for(const e of ca.ket_qua){ let app, dung = false, nhan = e.loai+(e.cot ? ' '+e.khoa+'.'+e.cot : e.so_ku ? ' '+e.so_ku : e.ham ? ' '+e.ham+'('+JSON.stringify(e.vao)+')' : '');
       try {
         if(e.loai==='dong'){ const d = dongDC.find(z=>String(z[0])===String(e.khoa)); app = d ? d[COT.indexOf(e.cot)] : '(không có dòng)'; dung = String(app)===String(e.bang); }

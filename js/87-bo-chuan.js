@@ -3,7 +3,7 @@
    - Chỉ tiêu đúng từ điển `so_lieu_tong_hop.json` (bàn giao mục 2): theo điểm × Hội (HND · HPN · HCCB · DTN) + trực tiếp; tiền triệu đồng.
    - Kỳ so sánh = Mẫu 31 cuối tháng trước; số kỳ trước xếp theo vị trí hiện nay của khế ước (QT-C-21 — toKyTruoc, js/22g).
    - Kiểm tầng A (bàn giao mục 6): Σ Hội + trực tiếp = điểm · Σ điểm = toàn PGD · đầu kỳ + cho vay − thu nợ = cuối kỳ · danh sách = tổng · khế ước lặp dòng.
-   - 📥 CSV dạng dài `ky, diem, hoi, chi_tieu, gia_tri` (cùng dạng tools/teo_dap_an.py) · 📂 So với file đáp án → bảng lệch (sai số 0,05 triệu).
+   - 📥 CSV dạng dài `ky, diem, hoi, chi_tieu, gia_tri` (cùng dạng tools/dap_an_giao_ban.py) · 📂 So với file đáp án → bảng lệch (sai số 0,05 triệu).
    Cắm rút: bỏ dòng <script> là mất nút 📐, phần khác như cũ. Chỉ đọc số (KHO / toNap), không ghi gì. ES5. */
 var BC_HOI = {'11':'HND', '12':'HPN', '13':'HCCB', '14':'DTN'}, BC_HOI_DS = ['HND', 'HPN', 'HCCB', 'DTN'];
 var BC_CT = ['so_to', 'so_kh_du_no', 'so_kh_tat_no_con_tg', 'so_ho', 'du_no', 'du_no_truoc', 'du_no_tang', 'nqh', 'khoanh', 'cho_vay', 'thu_no', 'tien_gui', 'tien_gui_tang', 'lai_ton', 'lai_ton_tang', 'khd_mon', 'khd_du', 'ndh', 'ndh_ho'];
@@ -67,7 +67,7 @@ function bcKiemA(ra, dong, nKU){   /* tầng A — bàn giao mục 6; sai số 0
   k.push(['PGD', 'Σ điểm = toàn PGD (dư nợ, NQH, khoanh, tiền gửi)', l2.length ? 'Lệch' : 'Đạt', l2.join(', ')]);
   k.push(['PGD', 'Số dòng Mẫu 31 / số khế ước', dong===nKU ? 'Đạt' : 'Có lặp', dong+' dòng / '+nKU+' khế ước'+(dong===nKU ? '' : ' (dòng lặp chỉ tính 1 lần — QT-C-01)')]);
 }
-function bcCsvDong(ra){   /* dạng dài như tools/teo_dap_an.py */
+function bcCsvDong(ra){   /* dạng dài như tools/dap_an_giao_ban.py */
   var r = [];
   Object.keys(ra.diem).forEach(function(d){ var D = ra.diem[d];
     BC_CT.forEach(function(f){ var c = 0, du = true;
@@ -78,7 +78,7 @@ function bcCsvDong(ra){   /* dạng dài như tools/teo_dap_an.py */
   return r;
 }
 function bcCsv(ra){ return '﻿'+[['ky', 'diem', 'hoi', 'chi_tieu', 'gia_tri']].concat(bcCsvDong(ra)).map(function(h){ return h.map(slCsvO).join(','); }).join('\r\n')+'\r\n'; }
-function bcSo(ra, chu){   /* so với CSV đáp án (teo_dap_an.py) — chỉ so khóa có ở cả hai bên, cùng kỳ */
+function bcSo(ra, chu){   /* so với CSV đáp án (dap_an_giao_ban.py) — chỉ so khóa có ở cả hai bên, cùng kỳ */
   var dong = String(chu||'').replace(/^﻿/, '').split(/\r?\n/).filter(Boolean).map(function(l){ return l.split(','); }), dau = dong.shift() || [];
   var i = {}; dau.forEach(function(c, j){ i[c.trim()] = j; }); if(i.chi_tieu===undefined) return {loi:'File không đúng dạng ky, diem, hoi, chi_tieu, gia_tri'};
   var app = {}; bcCsvDong(ra).forEach(function(x){ app[x[0]+'|'+x[1]+'|'+x[2]+'|'+x[3]] = x[4]; });
@@ -110,7 +110,7 @@ function bcVe(){
     'Chỉ tiêu theo <code>so_lieu_tong_hop.json</code>, triệu đồng; kỳ trước xếp theo vị trí hiện nay của khế ước (QT-C-21).'+
     (BC.coTruoc ? '' : ' <b class="do">Chưa có Mẫu 31 cuối tháng trước → không có số kỳ trước / tăng giảm.</b>')+'</div>'+
     GD.hang(chip)+'<div class="to-bang-cuon to-cuon-khung">'+h+'<h4>Kiểm tầng A — cân đối nội bộ</h4>'+kiem+'<div id="bc-so"></div></div>'+
-    GD.hang([GD.nut({chu:'Đóng', lenh:'bc.dong'}), GD.nut({chu:'📥 CSV bộ số (so bằng máy)', lenh:'bc.csv'}), GD.nut({chu:'📂 So với file đáp án…', lenh:'bc.so', chinh:1, tit:'Chọn DAP_AN_<Điểm>.csv dựng bằng tools/teo_dap_an.py từ json giao ban'})], true), true);
+    GD.hang([GD.nut({chu:'Đóng', lenh:'bc.dong'}), GD.nut({chu:'📥 CSV bộ số (so bằng máy)', lenh:'bc.csv'}), GD.nut({chu:'📂 So với file đáp án…', lenh:'bc.so', chinh:1, tit:'Chọn DAP_AN_<Điểm>.csv dựng bằng tools/dap_an_giao_ban.py từ json giao ban'})], true), true);
 }
 function bcSoFile(){
   var i = document.createElement('input'); i.type = 'file'; i.accept = '.csv,text/csv';

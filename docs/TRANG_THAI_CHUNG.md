@@ -1,14 +1,14 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 01/11/2026 15:18 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 01/11/2026 15:25 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
-| App | **3.430** |
+| App | **3.431** |
 | Sổ luật | bản 1.10 · ✅ 18 · 🔧 6 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.2 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 23 dòng |
+| Hộp thư còn mở | 24 dòng |
 
 ## Phép thử chung chưa đạt hai bên
 
@@ -38,6 +38,9 @@
 - **C11** Màn Biến động tổ — làm lại từ đầu, đơn giản (3.410 đã gỡ 📉 Diễn biến tổ, 📅 Biến động cả năm, cột Mới vào / 105 tăng giảm… _(cần: TK 2)_
 
 ## Hộp thư còn mở — theo bên nhận
+
+**→ TK 1** (1)
+- 01/11 · TK 2 → TK 1: Đã gộp PR #449 (đổi tên kỹ thuật — gộp main vào nhánh, chỉ sinh lại TRANG_THAI_CHUNG.md + mốc hồi quy; t328 38/40 · 2 ch…
 
 **→ TK 1 (anh chốt)** (1)
 - 31/10 · TK 2 → TK 1 (anh chốt): Anh chốt 31/10: "cách đếm số tổ còn hoạt động của app hiện đúng rồi nên giữ như vậy, số hộ cũng đang đúng" — giữ nguyên:…
