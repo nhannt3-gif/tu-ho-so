@@ -10,7 +10,7 @@
 ## 1. Ai làm gì, ở đâu (anh chốt 01/11/2026 — bỏ tên "Tèo", gọi theo việc)
 
 > Anh 01/11: *"đổi đồng bộ bỏ Tèo … sau này anh sẽ gọi app, giao ban, TK 1, 2, 3 và Gemini — ai sẽ làm gì và ở đâu; các TK khi làm sẽ ghi nhật ký và bàn giao để có thể đổi vai trò"*.
-> Tên cũ "Tèo" (28–31/10) = sổ chung này; lịch sử ghi chép giữ nguyên chữ cũ. File phép thử `tests/teo/teo_ca.json`, script giao ban `thu_teo.py` giữ tên kỹ thuật cho tới khi TK 1 đổi.
+> Tên cũ "Tèo" (28–31/10) = sổ chung này; lịch sử ghi chép giữ nguyên chữ cũ. Tên kỹ thuật đã đổi 01/11 (TK 1): `tests/teo/teo_ca.json` → **`tests/chung/truong_hop_mau.json`** · `tools/teo_dap_an.py` → **`tools/dap_an_giao_ban.py`** · Drive giao ban `thu_teo.py` → **`chay_truong_hop_mau.py`**, `doi_chieu_teo.py` → **`doi_chieu_app.py`** (ra `KQ_DOI_CHIEU_APP_<ngày>.xlsx`), thư mục `TEO_BAN_GIAO` → **`BAN_GIAO_APP`**. Luật đặt tên (anh 01/11): **đọc là hiểu**, không dùng biệt danh.
 
 **Hai nơi làm việc (cổng) — một sổ chung:**
 
@@ -18,7 +18,7 @@
 |---|---|---|
 | **App** (Tủ hồ sơ) | Kho và trí nhớ: nạp file, kiểm ngày, đặt tên, tra cứu, scan, hồ sơ, sao kê, KTGS, báo cáo theo khuôn cố định; **bộ số + nháp văn bản để anh đối chiếu** | repo `nhannt3-gif/tu-ho-so` · Drive `Tủ hồ sơ` |
 | **Giao ban** | Phân tích, nhận định, đề xuất; **văn bản chính thức** (Nội dung họp mẫu 08, Thông báo kết luận 08/GDX, báo cáo BĐD) | Project claude.ai "THHD - Hop giao ban" · Drive `0 Hop giao ban` (script `06_CONG_CU\v2`) |
-| **Sổ chung** | Luật số liệu, phép thử chung, hộp thư, trạng thái — **mọi quyết định anh chốt ghi về đây** | `docs/PHOI_HOP_CHUNG.md` (file này) · `docs/QUY_TAC_SO_LIEU.md` · `docs/TRANG_THAI_CHUNG.md` (tự sinh) · `tests/teo/teo_ca.json` |
+| **Sổ chung** | Luật số liệu, phép thử chung, hộp thư, trạng thái — **mọi quyết định anh chốt ghi về đây** | `docs/PHOI_HOP_CHUNG.md` (file này) · `docs/QUY_TAC_SO_LIEU.md` · `docs/TRANG_THAI_CHUNG.md` (tự sinh) · `tests/chung/truong_hop_mau.json` |
 
 **Vai — vai gắn với việc, tài khoản (TK) có thể đổi vai** (anh giao; đổi vai theo mục 1a):
 

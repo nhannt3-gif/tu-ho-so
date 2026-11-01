@@ -1,12 +1,12 @@
 // 3.424 (GIAO_BAN_KY_NANG — TK 1 bàn giao 31/10): 📐 bộ số chuẩn (js/87) — chỉ tiêu so_lieu_tong_hop theo điểm × Hội + trực tiếp, kiểm tầng A,
-//   CSV dạng dài ky,diem,hoi,chi_tieu,gia_tri (như tools/teo_dap_an.py), so với file đáp án (sai số 0,05). Bộ GIẢ gianho31.
+//   CSV dạng dài ky,diem,hoi,chi_tieu,gia_tri (như tools/dap_an_giao_ban.py), so với file đáp án (sai số 0,05). Bộ GIẢ gianho31.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
- const TEO = JSON.parse(fs.readFileSync(path.join(__dirname,'teo','teo_ca.json'),'utf-8')), C21 = TEO.truong_hop.find(c=>c.id==='C21-1');
+ const TEO = JSON.parse(fs.readFileSync(path.join(__dirname,'chung','truong_hop_mau.json'),'utf-8')), C21 = TEO.truong_hop.find(c=>c.id==='C21-1');
  const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).filter(n=>/31-08-2026\.XLSX$/.test(n)).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R = await p.evaluate(async([files, C21, BO])=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
@@ -35,7 +35,7 @@ const fs=require('fs'), path=require('path');
    { const hoi = []; const g = KHO.coBang; KHO.coBang = function(l, k){ if(l==='hstd') hoi.push(k); return g.apply(this, arguments); }; dongHop(); bcMo('2026-08'); await w(1500); KHO.coBang = g; dongHop();
      ok('3.425: kỳ so sánh của nút 📐 = cuối THÁNG TRƯỚC 2026-07 (3.424 lấy nhầm tháng sau — kyLui(kỳ, n) cộng n tháng)', hoi.indexOf('2026-07')>=0 && hoi.indexOf('2026-09')<0, hoi.join(',')); }
    ok('mở hộp 📐: bảng chỉ tiêu × Hội + kiểm tầng A + nút CSV / So đáp án', !!document.querySelector('.bc-bang') && /Kiểm tầng A/.test(document.getElementById('hop-in').textContent) && !!document.querySelector('[data-lenh="bc.so"]'));
-   /* có kỳ trước — dữ liệu giả C21-1 (teo_ca, TK 1): tổ cũ đóng, tổ viên sang tổ mới cùng ấp */
+   /* có kỳ trước — dữ liệu giả C21-1 (truong_hop_mau, TK 1): tổ cũ đóng, tổ viên sang tổ mới cùng ấp */
    dongHop(); const vn = s => { const m = String(s||'').match(/^(\d\d)\/(\d\d)\/(\d{4})$/); return m ? m[3]+'-'+m[2]+'-'+m[1] : ''; };
    const nap = async(aoa, ten) => { const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoa), 'BCQUERY'); const k = await slDocFile(new File([XLSX.write(wb, {type:'array', bookType:'xlsx'})], ten)); if(!k.loi && k.ky) await slGhi(k); return k; };
    const m31 = async(ds, ngay, ten) => { const d = ds.map(x=>{ const z = Object.assign({}, BO.mac_dinh_mau31, x, {'Ngày số liệu':ngay}); if(z['Sổ tiết kiệm 105']) z['Sổ tiết kiệm 105'] = '1050000001'; return z; });   /* app nhận số sổ 10 chữ số */ const cot = []; d.forEach(x=>Object.keys(x).forEach(c=>{ if(cot.indexOf(c)<0) cot.push(c); }));

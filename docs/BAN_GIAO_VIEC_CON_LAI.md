@@ -299,7 +299,7 @@ _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` 
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
 | 1 | ⋯ Nạp & KT › 📐 Bộ số chuẩn (kỳ 30/09) | Bảng chỉ tiêu × Hội từng điểm; kiểm tầng A Đạt | |
-| 2 | Chạy `python3 tools/teo_dap_an.py GiaLoc2 <A3>.json` (Drive TEO_BAN_GIAO) → 📂 So với file đáp án | Báo số khớp / lệch; lệch → báo TK 1 | |
+| 2 | Chạy `python3 tools/dap_an_giao_ban.py GiaLoc2 <A3>.json` (Drive BAN_GIAO_APP) → 📂 So với file đáp án | Báo số khớp / lệch; lệch → báo TK 1 | |
 
 ### Danh sách thử trên máy thật (3.423)
 | # | Việc thử | Kết quả mong đợi | Đạt? |

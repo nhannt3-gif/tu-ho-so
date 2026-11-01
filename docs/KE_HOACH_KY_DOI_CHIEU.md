@@ -49,7 +49,7 @@ Dòng đầu file ghi: bên xuất · bản (app `APP_BAN` / script `PHIEN_BAN`)
 | **0** | **Chuẩn bị** (trước 31/10, cần anh "code"): mỗi bên áp QT-C-10…12 + xuất file đối chiếu đúng mục 3 | TK 2 · TK 1 | 29–31/10 |
 | **1** | **Xuất + nạp** bộ file mục 2 qua app; kiểm `DANH_MUC_NAP.csv` đủ, đúng ngày | Anh (app kiểm) | **02/11** (anh 31/10: số liệu cuối tháng đến 02/11 mới đủ) |
 | **2** | **Tính độc lập**: app xuất `DOI_CHIEU_APP_…`; giao ban chạy `bang_so_lieu.py` + xuất `DOI_CHIEU_GB_…` | TK 2 · TK 1 | ngay sau bước 1 |
-| **3** | **So**: script `doi_chieu_teo.py` (giao ban, Python) đọc 2 file + biểu TW → `04_DU_LIEU_XU_LY\2026-11\DOI_CHIEU_TEO_31-10-2026.xlsx` (sheet: Tổng xã · Theo điểm · Theo tổ · Lệch · Kiểm TW) | TK 1 | trong ngày |
+| **3** | **So**: script `doi_chieu_app.py` (giao ban, Python; tên cũ `doi_chieu_teo.py`) đọc 2 file + biểu TW → `04_DU_LIEU_XU_LY\2026-11\KQ_DOI_CHIEU_APP_31-10-2026.xlsx` (sheet: Tổng xã · Theo điểm · Theo tổ · Lệch · Kiểm TW) | TK 1 | trong ngày |
 | **4** | **Phân loại lệch** (mục 5) → ghi hộp thư **số đếm** từng loại; chi tiết ở file Drive | TK 1 | trong ngày |
 | **5** | **Xử lý**: anh chốt luật còn treo · bên lỗi sửa + chạy lại · danh sách dữ liệu sai gửi anh sửa trên hệ thống | Anh · TK 2 · TK 1 | trước 15/11 |
 | **6** | **Quyết định dùng số** (mục 6) → anh duyệt → giao ban làm văn bản tháng 11 | Anh duyệt · TK 1 | trước 19/11 |
