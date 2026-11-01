@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.438 — 01/11/2026 — Tag nguồn văn bản theo số hiệu + loại văn bản Trung ương (TK 2)
+- **Anh 01/11:** "Nghị định của CP có dạng số hiệu như vậy (54/2026/NĐ-CP) nên em nên có 1 tag riêng để chọn các VB của ban ngành TW" + "của ngân hàng tỉnh thường có dạng NHCS-KHTD, gặp loại này em lọc riêng 1 dạng tag gọi là chỉ đạo của Tỉnh" → "đồng ý em code".
+- **Gói cắm rút mới `js/91-nguon-vb.js`:** `vbnNhom(số hiệu)` → 🏛 **VB Trung ương** (số/NĂM/ký hiệu, -CP, -TTg, -BTC, -NHNN, …/QH15…), 🏦 **NHCSXH Trung ương** (HĐQT, NHCS-TDNN / TDSV / KHNV, HD-NHCS), 📍 **Chỉ đạo của Tỉnh** (NHCS-KHTD); ký hiệu khác chưa có trong danh sách → không gắn. Khai / sửa văn bản: gõ số hiệu → tự thêm chip tag (gỡ được). Văn bản cũ: nút **🏷 Gắn tag nguồn (n)** đầu tab Văn bản — hỏi trước, chỉ thêm tag (`suaLuc` để đồng bộ). Lọc: bộ lọc tag sẵn có.
+- **Trước:** số hiệu 54/2026/NĐ-CP đoán loại "Công văn". **Nay:** `doanLoai` nhận Nghị định · Thông tư · Nghị quyết · Chỉ thị · Luật · Quyết định (TTg) cho văn bản Trung ương; danh mục loại thêm 5 loại mới (1 lần, giữ loại cũ — anh bỏ thì không tự thêm lại; khóa `loaiVB3438` ghi sổ cài đặt).
+- Phép thử mới `t354` (18 ý); thứ tự nạp `t138` đạt.
+
 ## 3.437 — 01/11/2026 — Nút đổi chữ ô Tên văn bản (TK 2)
 - **Anh 01/11** (ảnh khai văn bản tên viết HOA hết): "anh muốn có nút sang chữ thường, viết hoa đầu câu, hoặc chuyển hết sang chữ hoa, hoặc sang chữ hoa đầu từ như tên".
 - Ô **Tên văn bản** (khai / sửa văn bản): 4 nút góc phải **aa** (thường) · **Aa.** (hoa đầu câu) · **AA** (hoa hết) · **Aa Aa** (hoa đầu mỗi từ) — `chuDoi`, `chuDoiNut` (js/06, lệnh GD `chu.doi`). Giữ nguyên ký hiệu / viết tắt: từ có số, "/", "-" hoặc trong danh sách (NHCSXH, HĐQT, QĐ, UBND, TK&VV…); gọn khoảng trắng thừa; đổi xong xem trước tên file cập nhật.

@@ -166,6 +166,7 @@
 | 01/11 | TK 2 | 3.435 | `js/22h` (**mới** `tcKyDung`), `js/22f` (thẻ khách theo kỳ), `css/app.css` (.tc-ky), `AGENTS.md`, **mới** `tests/t351.js` |
 | 01/11 | TK 2 | 3.436 | `js/22g-to.js` (**mới** `toLaiTonNgay`, `toPhienGan`), `QUY_TAC_SO_LIEU.md` QT-C-03, **mới** `tests/t352.js` |
 | 01/11 | TK 2 | 3.437 | `js/06-hop-thoai.js` (**mới** `chuDoi`, `chuDoiNut` — ô s-ty), `css/app.css`, **mới** `tests/t353.js` |
+| 01/11 | TK 2 | 3.438 | **mới** `js/91-nguon-vb.js` (cắm rút), `js/04c` (nút đầu tab Văn bản), `js/17b` (khóa loaiVB3438), `index.html`, **mới** `tests/t354.js` |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

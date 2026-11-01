@@ -264,6 +264,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t351.js` | 3.435: Tra cứu theo ô kỳ góc phải (mặc định mới nhất), ghi rõ kỳ. |
 | `node tests/t352.js` | 3.436: QT-C-03 bổ sung — lãi tồn Mẫu 31 theo ngày bỏ lãi dồn khi đã GD phiên gần nhất. |
 | `node tests/t353.js` | 3.437: nút đổi chữ ô Tên văn bản. |
+| `node tests/t354.js` | 3.438: tag nguồn văn bản theo số hiệu + loại văn bản Trung ương. |
 | (3.434) | `t244` khối tổ: mã tổ ở dòng tiêu đề. |
 | (3.432) | `t192` kiểm mục hướng dẫn thử + đã bỏ trong Có gì mới. |
 | (3.431) | t349 + kỳ mặc định 06A; t328, t343, t347 đổi tên hàm `slDCGBTinh`. |

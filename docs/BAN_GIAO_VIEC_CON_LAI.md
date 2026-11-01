@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.438)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Văn bản › thêm VB, số 54/2026/NĐ-CP | Loại Nghị định, chip tag VB Trung ương | |
+| 2 | Số …/NHCS-KHTD | Chip tag Chỉ đạo của Tỉnh | |
+| 3 | Nút 🏷 Gắn tag nguồn (n) | Hỏi trước, gắn đúng nhóm, tag cũ giữ nguyên | |
+
 ### Danh sách thử trên máy thật (3.437)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
