@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.435 — 01/11/2026 — Tra cứu theo ô kỳ góc phải, ghi rõ kỳ số liệu (TK 2)
+- **Anh 01/11:** "anh chọn dữ liệu trên góc phải tháng 9 mà vẫn tính tháng 10" → "app sẽ mặc định lấy kỳ mới nhất nhưng khi anh chọn thì phải theo cột số liệu" + "em luôn ghi là lấy dữ liệu theo kỳ nào ở các bảng".
+- **Trước (3.347, anh 24/10):** Tra cứu luôn lấy số liệu MỚI NHẤT, không theo ô kỳ. **Nay:** `tcKyDung()` (js/22h) = kỳ chung có số liệu → kỳ đó; chưa chọn / không có → mới nhất. Thẻ khách: món vay, Tổng dư nợ / QH / khoanh / lãi tồn, **Số dư 105 (QT-C-01, theo kỳ)** lấy kỳ đang dùng; đầu thẻ ghi **📅 kỳ**; khách không có ở kỳ chọn → báo "không có trong số liệu … (có ở …)"; nhân thân / SĐT / CCCD theo bản gần nhất (QT-C-22), dòng Số dư 105 khối Liên hệ ghi kỳ nguồn khi khác. Thẻ tổ + cây phạm vi + dòng LỌC ĐỊA BÀN theo kỳ đang dùng.
+- Luật ghi `AGENTS.md`: mọi bảng / thẻ có số liệu ghi rõ kỳ.
+- Phép thử mới `t351` (9 ý); Tra cứu `t107`, `t244`, `t246`, `t247`, `t277`, `t350` đạt.
+
 ## 3.434 — 01/11/2026 — Tra cứu khách: khối Tổ & địa bàn trọn trong ô (TK 2)
 - **Anh 01/11** (ảnh thẻ khách): "khối tổ phải cuộn do số liệu nhiều, cân đối lại cho trọn trong ô".
 - **Sửa (js/58 `tcToKhoiHTML` + CSS):** mã tổ (chép được) + nút 🏘 Tổ của điểm GD lên dòng tiêu đề khối; ghi chú "Số liệu ngày … theo Mẫu 31 …" → ⓘ rê chuột cuối dòng Thành viên; nhãn "Hội · Điểm". Hàng 3 cột: tối thiểu 170px như 3.337, nhiều số liệu thì cao thêm (không cuộn trong ô); cột Tổ rộng 1,3 phần.

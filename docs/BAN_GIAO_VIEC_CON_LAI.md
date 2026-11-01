@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.435)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Góc phải T9/2026 → Tra cứu › khách | 📅 T9/2026, số liệu tháng 9 | |
+| 2 | Góc phải về kỳ mới nhất | Thẻ khách đổi theo, ghi kỳ mới | |
+
 ### Danh sách thử trên máy thật (3.434)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

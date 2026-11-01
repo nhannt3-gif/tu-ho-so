@@ -4132,4 +4132,4 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
   .tc-phai .tc-khung > .tc-3cot{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)}
   .tc-phai .tc-khung > .tc-3cot > .tc-nhom{overflow:visible}
 }
-
+.tc-ky{margin-left:auto;font-size:calc(11px*var(--co));color:var(--chu-phu);font-weight:500;white-space:nowrap}   /* 3.435: kỳ số liệu của thẻ khách */
