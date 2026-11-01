@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.434 — 01/11/2026 — Tra cứu khách: khối Tổ & địa bàn trọn trong ô (TK 2)
+- **Anh 01/11** (ảnh thẻ khách): "khối tổ phải cuộn do số liệu nhiều, cân đối lại cho trọn trong ô".
+- **Sửa (js/58 `tcToKhoiHTML` + CSS):** mã tổ (chép được) + nút 🏘 Tổ của điểm GD lên dòng tiêu đề khối; ghi chú "Số liệu ngày … theo Mẫu 31 …" → ⓘ rê chuột cuối dòng Thành viên; nhãn "Hội · Điểm". Hàng 3 cột: tối thiểu 170px như 3.337, nhiều số liệu thì cao thêm (không cuộn trong ô); cột Tổ rộng 1,3 phần.
+- Chụp khổ 1366 / 1920 (bộ giả): khối Tổ cao vừa nội dung, không thanh cuộn. `t244` sửa theo (mã tổ ở tiêu đề); `t246`, `t247` đạt.
+
 ## 3.433 — 01/11/2026 — Tên xã không còn "Vay trực tiếp" (TK 2)
 - **Anh 01/11** (ảnh Tra cứu khách có món GQVL): "chỗ khối liên hệ dòng địa chỉ sao lại có vay trực tiếp" — dòng Ấp · xã ghi "Thuận Tân, Vay trực tiếp".
 - **Nguyên nhân:** dòng món vay trực tiếp trong Mẫu 31 ghi cột Tên xã dạng "… Vay trực tiếp"; 3.409 đã sửa cho cây địa bàn (`toTenXa`) nhưng danh bạ khách vẫn lấy nguyên chữ này.

@@ -1040,7 +1040,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.433', ds:[
+var CO_GI_MOI = {ban:'3.434', ds:[
+  ["🔍 Tra cứu khách: khối Tổ & địa bàn trọn trong ô, không phải cuộn", ""],
   ["🏷 Sửa: tên xã không còn hiện \"Vay trực tiếp\" (Tra cứu khách, danh sách, địa chỉ trên mẫu hồ sơ)", ""],
   ["✨ Có gì mới: thêm hướng dẫn thử (nút mới ở đâu) và mục Đã bỏ / thay thế", "moHuongDan('moi')"],
   ["📅 Mẫu 06A: số liệu mặc định cuối tháng trước (hoặc gần nhất có được)", ""],
@@ -1054,9 +1055,9 @@ var CO_GI_MOI = {ban:'3.433', ds:[
   ["📐 Sửa: kỳ so sánh của bộ số chuẩn là cuối tháng TRƯỚC (3.424 lấy nhầm tháng sau)", ""],
   ["📐 Bộ số chuẩn đối chiếu giao ban: chỉ tiêu theo điểm × Hội, kiểm cân đối, so với file đáp án (⋯ Nạp & KT)", ""],
   ["🔁 Số kỳ trước theo vị trí hiện nay của khế ước (QT-C-21) — tổ viên chuyển tổ không làm sai tăng giảm", ""],
-  ["📤 File đối chiếu giao ban: thu nợ đủ (cả món tất nợ, tổ đã đóng), bù mã xã, bỏ dòng vay trực tiếp toàn 0", ""],
-  ["⚡ Mở lại app khi có nhiều số liệu: bớt đứng máy khoảng một nửa (không đọc / dựng kỳ 2 lần)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📤 File đối chiếu giao ban: thu nợ đủ (cả món tất nợ, tổ đã đóng), bù mã xã, bỏ dòng vay trực tiếp toàn 0", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.434 · Tra cứu › mở 1 khách → khối Tổ & địa bàn: mã tổ + nút 🏘 Tổ của điểm GD ở dòng tiêu đề, ghi chú số liệu ở ⓘ cuối dòng Thành viên, không thanh cuộn",
     "3.433 · Tra cứu › mở khách có món vay trực tiếp (vd GQVL) → khối Liên hệ, dòng Ấp · xã ghi đúng tên xã (không còn \"Vay trực tiếp\")",
     "3.432 · ⚙ Cài đặt › ✨ Có gì mới (hoặc ❓ › Có gì mới): xem 2 mục \"Thử trên máy — nút mới ở đâu\" và \"Đã bỏ / thay thế\"",
     "3.431 · Hồ sơ vay › bấm 06A/TD: kỳ số liệu tự về Mẫu 31 cuối tháng trước, báo \"📅 06A: số liệu đến …\"",
@@ -1077,6 +1078,7 @@ var CO_GI_MOI = {ban:'3.433', ds:[
     "3.416 · 📊 Kiểm tra hồ sơ scan › 👑 Kiểm CCCD tổ trưởng: chip Tổ trưởng cũ, Chỉ thiếu",
     "3.415 · Quét CCCD tổ trưởng → lưu tên chuẩn CIF - Họ tên - CCCD (cả tổ trưởng cũ)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.434 · Khối Tổ & địa bàn: bỏ dòng \"Mã tổ\" riêng (lên dòng tiêu đề) và dòng ghi chú số liệu dài (thành ⓘ rê chuột)",
     "3.416.4 · Thẻ tổ: bỏ chip \"n còn lãi tồn\" dưới bảng → ô Lưu ý ghi \"n không dư nợ · m hết gốc còn lãi\"",
     "3.416.2 · Thẻ tổ: bỏ 3 hàng ô kẻ (17 ô) và ô CCCD ghi nhầm căn cứ → đầu thẻ gọn",
     "3.416.1 · Danh sách tổ (Tra cứu): bỏ cột Xã (xã ghi ở đầu khung)",

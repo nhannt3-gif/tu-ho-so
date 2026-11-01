@@ -162,6 +162,7 @@
 | 01/11 | TK 2 | 3.431 | `js/mau/06a.js` (kỳ mặc định), `js/25b`, `js/22c` (data-ky), đổi tên `slDCGBTinh` ở `js/22k`, `js/90`, `js/87` (chú thích), t328, t343, t344, t347, t349 |
 | 01/11 | TK 2 | 3.432 | `js/06-hop-thoai.js` (CO_GI_MOI thu + bo, noiDungCoGiMoi), `tools/bump.py` (spec bắt buộc `thu`, tùy `bo`), `tools/mau_spec.json`, `AGENTS.md`, `t192` — **TK 3 lưu ý: spec bump từ nay phải có `thu`** |
 | 01/11 | TK 2 | 3.433 | `js/22-so-lieu.js` (danh bạ tên xã), `js/22g-to.js` (**mới** `xaTenSach`), `js/22f-tra-cuu.js`, `js/25b` (`hsoDiaChi`), **mới** `tests/t350.js` |
+| 01/11 | TK 2 | 3.434 | `js/58-tc-to.js` (`tcToKhoiHTML`), `css/app.css` (cuối file, khung Tra cứu khách), `t244` |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

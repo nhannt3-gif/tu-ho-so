@@ -28,17 +28,16 @@ function tcTVChu(r){ if(!r) return '<span class="nh nh-xam">chưa có số liệ
 function tcTVGhi(r){ if(!r) return ''; var k = String(r.ky||'');
   return 'Số liệu '+(k.length>7 ? 'ngày '+ngayVNsl(k) : slKyChu(k))+(k.length>7 ? ' · theo Mẫu 31 ngày này (số liệu theo ngày không bù Mẫu 01/TV)' : r.kyTW ? ' · bù '+r.bs+' người TƯ còn giữ theo Mẫu 01/TV '+slKyChu(r.kyTW) : ' · chưa có Mẫu 01/TV — chỉ đếm theo Mẫu 31'); }
 /* khối "Tổ & địa bàn" trong khung khách (thay dòng Tổ / Điểm GD cũ) */
-function tcToKhoiHTML(c){
+function tcToKhoiHTML(c){   /* 3.434 (anh 01/11 "khối tổ phải cuộn do số liệu nhiều, cân đối lại cho trọn trong ô"): mã tổ lên dòng tiêu đề, ghi chú số liệu → ⓘ, nút Tổ của điểm GD lên dòng tiêu đề — bớt 3 dòng */
   var dong = function(nhan, gt){ return '<div class="tc-dl"><span>'+nhan+'</span><div>'+gt+'</div></div>'; };
   var t = tcTo(c.to) || {}, tt = tcTT(tcTo(c.to)), r = c.to ? KHO.tvChuan(c.to, TC_K) : null;
-  var tenTo = c.toTen || t.ten || '', sdt = t.sdt || '', diem = t.tenDiemDu || t.tenDiem || '', ngay = t.ngayGD || '';
-  return '<div class="tc-nhom tc-to-khoi"><div class="tc-nhom-tit">Tổ &amp; địa bàn</div><div class="tc-luoi">'+
-    dong('Mã tổ', c.to ? tcC(c.to, 'mã tổ') : '—')+
+  var tenTo = c.toTen || t.ten || '', sdt = t.sdt || '', diem = t.tenDiemDu || t.tenDiem || '', ngay = t.ngayGD || '', ghi = r ? tcTVGhi(r) : '';
+  return '<div class="tc-nhom tc-to-khoi"><div class="tc-nhom-tit tc-to-khoi-tit"><span>Tổ &amp; địa bàn'+(c.to ? ' · mã tổ '+tcC(c.to, 'mã tổ') : '')+'</span>'+
+      (t.khoaDiem ? '<button class="nho tc-bang-nut" data-lenh="tc.bangDiem" data-diem="'+coChuHTML(String(t.khoaDiem))+'" data-to="'+coChuHTML(c.to||'')+'" title="Xem toàn bộ tổ của điểm GD, theo Hội">🏘 Tổ của điểm GD</button>' : '')+'</div><div class="tc-luoi">'+
     dong('Tổ trưởng', tenTo ? tcC(tenTo, 'tên tổ trưởng')+(tt.kh ? ' · mã KH '+tcC(tt.kh, 'mã KH tổ trưởng') : ' · <small>chưa rõ mã KH</small>')+(sdt ? ' · ☎ '+tcC(sdt, 'SĐT tổ trưởng') : '') : '—')+
-    dong('Thành viên', c.to ? tcTVChu(r) : '—')+
-    dong('Hội · Điểm GD', coChuHTML([c.dv||t.dv ? tdnHoi(c.dv||t.dv) : '', diem ? 'Điểm '+diem : '', ngay && !/ngày/i.test(diem) ? 'ngày '+ngay : ''].filter(Boolean).join(' · ') || '—')+
-      (t.khoaDiem ? ' <button class="nho tc-bang-nut" data-lenh="tc.bangDiem" data-diem="'+coChuHTML(String(t.khoaDiem))+'" data-to="'+coChuHTML(c.to||'')+'" title="Xem toàn bộ tổ của điểm GD, theo Hội">🏘 Tổ của điểm GD</button>' : ''))+
-    '</div>'+(r ? '<div class="tc-ghi">'+coChuHTML(tcTVGhi(r))+'</div>' : '')+'</div>';
+    dong('Thành viên', (c.to ? tcTVChu(r) : '—')+(ghi ? ' <span class="tc-i" title="'+coChuHTML(ghi)+'">ⓘ</span>' : ''))+
+    dong('Hội · Điểm', coChuHTML([c.dv||t.dv ? tdnHoi(c.dv||t.dv) : '', diem ? 'Điểm '+diem : '', ngay && !/ngày/i.test(diem) ? 'ngày '+ngay : ''].filter(Boolean).join(' · ') || '—'))+
+    '</div></div>';
 }
 /* ---------- bảng tổ của 1 điểm GD, gom theo Hội ---------- */
 var TC_BANG = {diem:'', chon:'', ket:null};
