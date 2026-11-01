@@ -8,7 +8,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Anh 01/11:** "Nghị định của CP có dạng số hiệu như vậy (54/2026/NĐ-CP) nên em nên có 1 tag riêng để chọn các VB của ban ngành TW" + "của ngân hàng tỉnh thường có dạng NHCS-KHTD, gặp loại này em lọc riêng 1 dạng tag gọi là chỉ đạo của Tỉnh" → "đồng ý em code".
 - **Gói cắm rút mới `js/91-nguon-vb.js`:** `vbnNhom(số hiệu)` → 🏛 **VB Trung ương** (số/NĂM/ký hiệu, -CP, -TTg, -BTC, -NHNN, …/QH15…), 🏦 **NHCSXH Trung ương** (HĐQT, NHCS-TDNN / TDSV / KHNV, HD-NHCS), 📍 **Chỉ đạo của Tỉnh** (NHCS-KHTD); ký hiệu khác chưa có trong danh sách → không gắn. Khai / sửa văn bản: gõ số hiệu → tự thêm chip tag (gỡ được). Văn bản cũ: nút **🏷 Gắn tag nguồn (n)** đầu tab Văn bản — hỏi trước, chỉ thêm tag (`suaLuc` để đồng bộ). Lọc: bộ lọc tag sẵn có.
 - **Trước:** số hiệu 54/2026/NĐ-CP đoán loại "Công văn". **Nay:** `doanLoai` nhận Nghị định · Thông tư · Nghị quyết · Chỉ thị · Luật · Quyết định (TTg) cho văn bản Trung ương; danh mục loại thêm 5 loại mới (1 lần, giữ loại cũ — anh bỏ thì không tự thêm lại; khóa `loaiVB3438` ghi sổ cài đặt).
-- Phép thử mới `t354` (18 ý); thứ tự nạp `t138` đạt.
+- **Tự động khi thêm file (anh 01/11 "dạng 54/2026/NĐ-CP hiện em chưa có tự động"):** đọc chữ PDF "Số: 54/2026/NĐ-CP" trước chỉ ra "54" → nay đủ số hiệu (`rutSoHieu`, js/03); tên file "54_2026_NĐ-CP", "54-2026-NĐ-CP", "54 2026 NĐ-CP" → 54/2026/NĐ-CP (`tuTenFile`; ký hiệu phải VIẾT HOA để không nhận nhầm chữ thường); loại đoán theo số hiệu đủ (Nghị định dù nội dung có chữ "quyết định"). Mở hộp khai (`suaCho`): số hiệu Trung ương có sẵn → tự gắn tag; loại đang "Công văn" (đoán cũ) → đúng loại.
+- Phép thử mới `t354` (23 ý); thứ tự nạp `t138`, phép thử nhanh 37/37 đạt.
 
 ## 3.437 — 01/11/2026 — Nút đổi chữ ô Tên văn bản (TK 2)
 - **Anh 01/11** (ảnh khai văn bản tên viết HOA hết): "anh muốn có nút sang chữ thường, viết hoa đầu câu, hoặc chuyển hết sang chữ hoa, hoặc sang chữ hoa đầu từ như tên".

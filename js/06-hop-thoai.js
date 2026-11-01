@@ -1073,6 +1073,7 @@ var CO_GI_MOI = {ban:'3.438', ds:[
   ["📄 Nháp Thông báo kết luận theo phiên (08/GDX, Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""],
   ["📝 Nháp Nội dung họp mẫu 08 (Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.438 · Văn bản › ＋ Thêm file PDF Nghị định (Số: 54/2026/NĐ-CP) hoặc tên file 54_2026_NĐ-CP → app tự nhận số hiệu đủ, loại Nghị định, tag VB Trung ương",
     "3.438 · Văn bản › khai văn bản số 54/2026/NĐ-CP → Loại tự chọn Nghị định, tự thêm chip tag \"VB Trung ương\"; số …/NHCS-KHTD → tag \"Chỉ đạo của Tỉnh\"; …/NHCS-TDNN, …/QĐ-HĐQT → \"NHCSXH Trung ương\"",
     "3.438 · Văn bản › đầu tab nút 🏷 Gắn tag nguồn (n) → gắn tag cho văn bản cũ (hỏi trước, chỉ thêm tag)",
     "3.438 · Văn bản › bộ lọc tag: chọn \"Chỉ đạo của Tỉnh\" / \"VB Trung ương\" để xem riêng",

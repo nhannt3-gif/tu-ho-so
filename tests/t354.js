@@ -19,7 +19,15 @@ const path=require('path');
    vbnGanCu(); await w(200); const okBt = [...document.querySelectorAll('.hang-nut button')].find(x=>/Gắn tag/.test(x.textContent)); if(okBt) okBt.click(); await w(200);
    ok('bấm Gắn tag → chỉ thêm tag, giữ tag cũ, không gắn ký hiệu chưa có trong danh sách', D.vanBan[0].the.join()==='VB Trung ương' && D.vanBan[1].the.join()==='Tín dụng,Chỉ đạo của Tỉnh' && D.vanBan[2].the.length===0 && D.vanBan[3].the.length===1, JSON.stringify(D.vanBan.map(v=>v.the)));
    THE_LOC = [{loai:'tag', gt:'Chỉ đạo của Tỉnh'}]; ok('bộ lọc tag sẵn có lọc được nhóm Tỉnh', locTheoThe('vanBan', D.vanBan).map(v=>v.id).join()==='b'); THE_LOC = [];
-   D.vanBan = giu; return o; });
+   D.vanBan = giu;
+   /* đọc tự động: chữ trong PDF + tên file */
+   ok('đọc chữ PDF "Số: 54/2026/NĐ-CP" → đủ số hiệu (trước chỉ ra 54)', rutSoHieu('CHÍNH PHỦ\nSố: 54/2026/NĐ-CP\nHà Nội, ngày') === '54/2026/NĐ-CP' && rutSoHieu('Số: 05/2024/TT-NHNN') === '05/2024/TT-NHNN', rutSoHieu('Số: 54/2026/NĐ-CP'));
+   ok('đọc chữ PDF số hiệu ngành như cũ', rutSoHieu('Số: 7442/NHCS-TDNN') === '7442/NHCS-TDNN' && rutSoHieu('Số: 54/QĐ-HĐQT') === '54/QĐ-HĐQT');
+   const f1 = tuTenFile('54_2026_NĐ-CP quy dinh tin dung.pdf'), f2 = tuTenFile('54-2026-NĐ-CP.pdf'), f3 = tuTenFile('7442 NHCS-TDNN gia han no.pdf'), f4 = tuTenFile('Bao cao 15-2026-Tong ket.pdf');
+   ok('tên file 54_2026_NĐ-CP / 54-2026-NĐ-CP → số hiệu 54/2026/NĐ-CP', f1.soHieu==='54/2026/NĐ-CP' && f2.soHieu==='54/2026/NĐ-CP', f1.soHieu+' · '+f2.soHieu);
+   ok('tên file ngành như cũ; chữ thường không nhận nhầm là số hiệu', f3.soHieu==='7442/NHCS-TDNN' && f4.soHieu!=='15/2026/Tong', f3.soHieu+' · '+f4.soHieu);
+   ok('đoán loại khi thêm file (doanLoai chữ + số hiệu đủ) → Nghị định dù nội dung có chữ "quyết định"', doanLoai('NGHỊ ĐỊNH … Thủ tướng quyết định …', '54/2026/NĐ-CP')==='Nghị định');
+   return o; });
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t354 đạt'); await b.close(); process.exit(sai?1:0);
 })();

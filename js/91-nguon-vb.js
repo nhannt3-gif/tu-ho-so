@@ -57,5 +57,7 @@ function vbnNut(){
 }
 (function(){
   if(typeof doanLoai==='function'){ var cu = doanLoai; doanLoai = function(chu, soHieu){ var l = soHieu ? vbnLoai(soHieu) || vbnLoai('1/'+soHieu) : ''; return l || cu.apply(this, arguments); }; }
+  if(typeof suaCho==='function'){ var cu3 = suaCho; suaCho = function(){ var r = cu3.apply(this, arguments); try{ vbnTuGan(); var e = document.getElementById('s-so'), sl = document.getElementById('s-loai'), l = e ? vbnLoai(e.value) : '';
+      if(l && sl && sl.value==='Công văn'){ sl.value = l; if(typeof xemTenTruoc==='function') xemTenTruoc(); } }catch(er){} return r; }; }   /* mở hộp khai: số hiệu Trung ương có sẵn → tự gắn tag; loại đang "Công văn" (đoán cũ) → đúng loại */
   if(typeof goiYLoaiTuSo==='function'){ var cu2 = goiYLoaiTuSo; goiYLoaiTuSo = function(){ try{ vbnTuGan(); }catch(e){} return cu2.apply(this, arguments); }; }
 })();

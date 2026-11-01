@@ -89,6 +89,8 @@ function docChuPDF(file, soTrang, moiTrang){   /* 3.416.1: moiTrang(i, n) — b�
 /* Rút SỐ HIỆU: dạng 1234/NHCS-TDNN hoặc 70/QĐ-HĐQT */
 function rutSoHieu(chu){
   if(!chu) return null;
+  var tw = chu.match(/\b(\d{1,5})\s*\/\s*((?:19|20)\d{2})\s*\/\s*([A-ZĐ][A-ZĐa-z0-9]{1,10}(?:\s*-\s*[A-ZĐ][A-ZĐa-z0-9]{1,10}){0,2})\b/);   /* 3.438: văn bản Trung ương "54/2026/NĐ-CP", "05/2024/TT-NHNN", "28/2015/QĐ-TTg" */
+  if(tw) return tw[1]+'/'+tw[2]+'/'+tw[3].replace(/\s*-\s*/g,'-').replace(/\s+/g,'');
   var m = chu.match(/\b(\d{1,5})\s*\/\s*([A-ZĐ][A-ZĐ0-9]{1,10}(?:\s*-\s*[A-ZĐ][A-ZĐ0-9]{1,10}){0,2})\b/);
   if(m) return m[1]+'/'+m[2].replace(/\s*-\s*/g,'-').replace(/\s+/g,'');
   m = chu.match(/\bSố\s*:?\s*(\d{1,5})\b/i);
@@ -414,9 +416,13 @@ function tuTenFile(ten){
   var HOA = 'A-ZĐ', cum = '['+HOA+']['+HOA+'0-9&]{0,11}';
   /* ngăn cách số với ký hiệu: "/" (có thể cách), "-" hay "." liền, hoặc một khoảng trắng — " - " có cách là kiểu "số - trích yếu" */
   var reSo = new RegExp('([^0-9A-Za-zÀ-ỹ])(\\d{1,6})(?:\\s*\\/\\s*|[.-]| )('+cum+'(?:-'+cum+'){0,3})(?=[^A-Za-zÀ-ỹ0-9]|$)');
-  m = t.match(reSo);
+  var reTW = new RegExp('([^0-9A-Za-zÀ-ỹ])(\\d{1,6})(?:\\s*[\\/_.-]\\s*|\\s+)((?:19|20)\\d{2})(?:\\s*[\\/_.-]\\s*|\\s+)('+cum+'(?:-'+cum+'){0,3})(?=[^A-Za-zÀ-ỹ0-9]|$)', 'i');   /* 3.438: tên file văn bản Trung ương "54_2026_NĐ-CP", "54-2026-ND-CP" */
+  var mTW = t.match(reTW);
+  if(mTW && /^[A-ZĐ][A-ZĐ0-9&-]*$/.test(mTW[4])){ ra.soHieu = mTW[2]+'/'+mTW[3]+'/'+mTW[4]; t = t.replace(mTW[0], mTW[1]+' '); }
+  m = ra.soHieu ? null : t.match(reSo);
   var tienTo = t.match(/\s(CV|QĐ|QD|KH|TB|BC|HD|TTr|VB)\s?(\d{1,6})(?=[^0-9])/);
-  if(m && !(tienTo && tienTo.index < m.index)){
+  if(ra.soHieu){ /* 3.438: đã nhận số hiệu Trung ương */ }
+  else if(m && !(tienTo && tienTo.index < m.index)){
     ra.soHieu = m[2]+'/'+m[3];
     t = t.replace(m[0], m[1]+' ');
   }else if(tienTo){
