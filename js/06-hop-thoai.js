@@ -1040,7 +1040,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.429', ds:[
+var CO_GI_MOI = {ban:'3.430', ds:[
+  ["📄 Mẫu 06A/TD (727) — kiểm tra từng hộ, mỗi món 1 phiếu; nút 06A ở Mẫu 06 KTGS", ""],
   ["🧾 Mẫu 06 kiểm tra sau giải ngân: chọn Tất cả / Lần 1 (727)", ""],
   ["🏷 Bỏ tên \"Tèo\": gọi App · Giao ban · TK 1, 2, 3 · Gemini; nút \"📤 File đối chiếu giao ban\"", ""],
   ["🔎 So file giao ban: app tự so DOI_CHIEU_GB với số app, tự phân loại lệch A–D (⋯ Nạp & KT)", ""],
@@ -1054,8 +1055,7 @@ var CO_GI_MOI = {ban:'3.429', ds:[
   ["⚡ Mở lại app khi có nhiều số liệu: bớt đứng máy khoảng một nửa (không đọc / dựng kỳ 2 lần)", ""],
   ["🖥 Khổ laptop 1280: hết cuộn ngang ở Văn bản / Scan / Biểu mẫu / Thư viện (thanh trên gọn lại)", ""],
   ["⌨ Ctrl+K: ô lệnh — gõ tên tab, công cụ, tên / mã khách, tổ rồi Enter là mở", "olMo("],
-  ["📴 Bản máy tính mở được khi mất mạng (có mạng luôn lấy bản mới)", ""],
-  ["🔧 Tra cứu: 29 nút chuyển sang bộ nhận lệnh chung (data-lenh), bấm như cũ", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📴 Bản máy tính mở được khi mất mạng (có mạng luôn lấy bản mới)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
     'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
     'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};

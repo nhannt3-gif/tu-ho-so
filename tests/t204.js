@@ -29,7 +29,7 @@ const fs=require('fs'), path=require('path');
    t = await tuy('01gqvl'); ok('01/GQVL khi hộ đang GQVL: phương án GQVL + In kèm GQVL (03/TD, 10C, 07b, 01/TGTV), không 01/UQ', /Phương án GQVL/.test(t) && /07b\/GQVL hợp đồng/.test(t) && !/01\/UQ/.test(t));
    /* 3.258: thứ tự chip Hồ sơ vay + 01/TD tách theo chương trình */
    hsoChonMau('sohv'); await w(500); const chip = [...document.querySelectorAll('#hso-tabm .hso-tm')].map(x=>x.textContent.trim());
-   ok('thứ tự chip Hồ sơ vay: Sổ · 01/UQ · 01/TD HSSV · 01/TD NSVSMT · 03/TD · 06/TD · 01/GQVL · 07b/GQVL · Phê duyệt NH (3.310) · 01/TGTV · 09A · 01/TĐCK', chip.join('|')==='📒 Sổ hộ vay|01/UQ|01/TD HSSV|01/TD NSVSMT|03/TD|06/TD|01/GQVL|07b/GQVL|Phê duyệt NH|01/TGTV|09A/TD|01/TĐCK', chip.join('|'));
+   ok('thứ tự chip Hồ sơ vay: Sổ · 01/UQ · 01/TD HSSV · 01/TD NSVSMT · 03/TD · 06A/TD (3.430) · 06/TD · 01/GQVL · 07b/GQVL · Phê duyệt NH (3.310) · 01/TGTV · 09A · 01/TĐCK', chip.join('|')==='📒 Sổ hộ vay|01/UQ|01/TD HSSV|01/TD NSVSMT|03/TD|06A/TD|06/TD|01/GQVL|07b/GQVL|Phê duyệt NH|01/TGTV|09A/TD|01/TĐCK', chip.join('|'));
    hsoChon01CT('NSVSMT'); await w(600);
    ok('bấm "01/TD NSVSMT" → mở 01/TD, phiếu đang mở sang NSVSMT, chip NSVSMT sáng', hsoMau().k==='01td' && hsoBo().ct==='NSVSMT' && /01\/TD NSVSMT/.test((document.querySelector('#hso-tabm .hso-tm.bat')||{}).textContent||''), (document.querySelector('#hso-tabm .hso-tm.bat')||{}).textContent);
    B.ct = 'HSSV'; hsoBoLuu();

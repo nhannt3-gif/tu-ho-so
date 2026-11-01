@@ -259,6 +259,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t346.js` | 3.426 Nháp TB kết luận theo phiên 08/GDX (js/89): đầu văn bản, ngày ký, I–IV, bảng, tồn tại, nơi nhận điểm phụ, kỳ trước so cuối tháng trước (`gianho31` + C21-1). |
 | `node tests/t347.js` | 3.427 So file giao ban (js/90): đọc CSV hợp đồng, tự phân loại lệch A / B / C / D / ?, nút + hộp kết quả (`gianho31`). |
 | `node tests/t348.js` | 3.429: Mẫu 06 sau giải ngân chọn Tất cả / Lần 1 (QT-C-15) — dữ liệu giả. |
+| `node tests/t349.js` | 3.430: Mẫu 06A/TD (727) — kho mẫu, mỗi món 1 phiếu, tự điền từ Mẫu 31 giả, nút từ KTGS Mẫu 06. |
 | (3.428) | Bỏ tên Tèo — chữ nút trong `t325`, `t344`, `t347` sửa theo. |
 | (3.422) | Tăng tốc mở lại app — hồi quy đủ 222/222. |
 | (3.421) | Rà bố cục: cuộn ngang khổ 1280 — dò tự động 15 màn × 4 khổ (nháp phiên), so ảnh `tools/chup_man.js`. |

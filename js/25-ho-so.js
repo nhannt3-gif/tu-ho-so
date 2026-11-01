@@ -25,6 +25,7 @@ var HSO_MAU = {
     {k:'01uq', ma:'01/UQ',  ten:'Giấy ủy quyền', mg:[18, 18, 18, 30]},
     {k:'01td', ma:'01/TD',  ten:'Giấy đề nghị vay vốn kiêm phương án sử dụng vốn vay', mg:[12, 18, 10, 22]},
     {k:'03td', ma:'03/TD',  ten:'Danh sách tổ viên đề nghị vay vốn', ngang:true, mg:[10, 12, 10, 9]},
+    {k:'06a',  ma:'06A/TD', ten:'Phiếu kiểm tra sử dụng vốn vay — từng hộ, mỗi món 1 phiếu (khi phát hiện sai: sai mục đích, 3 tháng KHĐ…) — 727', mg:[20, 20, 18, 27.5]},   /* 3.430 (anh chốt 01/11) */
     {k:'06td', ma:'06/TD',  ten:'Phiếu kiểm tra sử dụng vốn vay — dùng Mẫu 06 KTGS (khóa mẫu), nhiều hộ / phiếu', ngang:true, mg:[10, 10, 10, 10]},   /* 3.253 (anh chốt 17–18/10, ý 12–14) */
     {k:'01gqvl', ma:'01/GQVL', ten:'Phương án sử dụng vốn vay GQVL (người lao động) — mẫu từ 01/10/2026 (VB 4039)', mg:[15, 20, 15, 25]},   /* 3.211 */
     {k:'07b',  ma:'07b/GQVL', ten:'Hợp đồng tín dụng GQVL (người lao động) — mẫu từ 01/10/2026 (VB 4039)', mg:[15, 20, 15, 25]},   /* 3.211 */
@@ -37,6 +38,7 @@ var HSO_MAU = {
 var HSO = {khoa:'', kn:{}, ra:{}, tv:{}, vay:{}, o:{}};   /* lựa chọn trong lần làm việc (đổi tổ / mẫu → làm lại) */
 var HSO_TR = {};   /* tổ trưởng / tổ phó kỳ trước theo mã tổ (gợi ý bàn giao, bầu thay) */
 var HSO_HEN = null;
+var HSO_DEN = null;   /* 3.430: {kh, ku} — chỗ khác mở tab Hồ sơ vay chọn sẵn người vay + món (hso06aMo) */
 function hsoCH(){ var C = D.cauHinh.hsoTK = D.cauHinh.hsoTK || {ky:'', hst:'10c', hsv:'sohv', v209:1}; if(!C.v209){ if(C.hsv==='bo') C.hsv = 'sohv'; C.v209 = 1; } if(C.hsv==='homoi') C.hsv = 'sohv'; return pvGan(C); }   /* 3.211: mở tab Hồ sơ vay vào 👪 Hộ vay (Bộ HS đã ẩn ở 3.209) */
 function hsoTab(){ return D.cauHinh.slTab==='hsv' ? 'hsv' : 'hst'; }
 function hsoMau(p){ p = p || hsoTab(); var k = hsoCH()[p], ds = HSO_MAU[p]; return ds.find(function(m){ return m.k===k; }) || ds[0]; }
