@@ -1,0 +1,22 @@
+// 3.437 (anh 01/11): nút đổi chữ ô Tên văn bản — thường · Hoa đầu câu · HOA hết · Hoa Đầu Từ; giữ ký hiệu / viết tắt.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const path=require('path');
+(async()=>{ const b=await chromium.launch(); const loi=[];
+ const p=await b.newPage({viewport:{width:1280,height:800}}); p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1200);
+ const R = await p.evaluate(async()=>{ await xongTV; const o=[]; const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
+   const s = 'THỰC HIỆN GIA HẠN NỢ TRONG HỆ THỐNG NHCSXH THEO QUYẾT ĐỊNH 54/QĐ-HĐQT';
+   ok('chữ thường (giữ NHCSXH, 54/QĐ-HĐQT)', chuDoi(s, 'thuong')==='thực hiện gia hạn nợ trong hệ thống NHCSXH theo quyết định 54/QĐ-HĐQT', chuDoi(s, 'thuong'));
+   ok('Hoa đầu câu', chuDoi(s, 'cau')==='Thực hiện gia hạn nợ trong hệ thống NHCSXH theo quyết định 54/QĐ-HĐQT', chuDoi(s, 'cau'));
+   ok('HOA hết', chuDoi('thực hiện quyết định 70/QĐ-HĐQT', 'hoa')==='THỰC HIỆN QUYẾT ĐỊNH 70/QĐ-HĐQT');
+   ok('Hoa Đầu Từ (như tên)', chuDoi('nguyễn văn an', 'tu')==='Nguyễn Văn An' && chuDoi(s, 'tu').indexOf('Thực Hiện Gia Hạn Nợ')===0 && chuDoi(s, 'tu').indexOf('NHCSXH')>0, chuDoi(s, 'tu'));
+   ok('khoảng trắng thừa gọn lại', chuDoi('  THỰC   HIỆN  ', 'cau')==='Thực hiện');
+   const d = document.createElement('div'); d.innerHTML = '<input id="t-chu" value="'+s+'">'+chuDoiNut('t-chu'); document.body.appendChild(d);
+   let n = 0; document.getElementById('t-chu').addEventListener('input', ()=>n++);
+   ok('4 nút đổi chữ', d.querySelectorAll('[data-lenh="chu.doi"]').length===4);
+   d.querySelector('[data-k="cau"]').click(); ok('bấm Aa. → ô đổi + báo input (xem trước tên file cập nhật)', document.getElementById('t-chu').value.indexOf('Thực hiện')===0 && n===1, document.getElementById('t-chu').value);
+   d.remove(); return o; });
+ R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
+ const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t353 đạt'); await b.close(); process.exit(sai?1:0);
+})();

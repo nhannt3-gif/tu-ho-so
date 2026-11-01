@@ -631,7 +631,7 @@ function suaCho(id){
         loaiDS.map(function(x){ return '<option'+(m.loai===x?' selected':'')+'>'+coChuHTML(x)+'</option>'; }).join('')+
       '</select></div></div>';
     nd += '<div id="canh-trung"></div>';
-    nd += '<div class="o"><label>Tên văn bản <small>— vào tên file</small></label><input id="s-ty" autocomplete="off" value="'+
+    nd += '<div class="o o-chu"><label for="s-ty">Tên văn bản <small>— vào tên file</small></label>'+chuDoiNut('s-ty')+'<input id="s-ty" autocomplete="off" value="'+
       coChuHTML(m.tenVB||m.trichYeu||'')+'" placeholder="Triển khai thực hiện Quyết định 70/QĐ-HĐQT" oninput="xemTenTruoc()"></div>';
     nd += '<div class="o"><label>Trích yếu <small>— không bắt buộc, chỉ ghi thêm ý chính để tìm (không lặp lại tên)</small></label>'+
       '<textarea id="s-tom" rows="1" placeholder="vd: thành lập, củng cố Tổ; bình xét cho vay">'+coChuHTML(m.tomTat||'')+'</textarea></div>';
@@ -806,6 +806,22 @@ function o(nhan,id,gt,hd){
   return '<div class="o"><label>'+coChuHTML(nhan)+'</label>'+
     '<input id="'+id+'" value="'+coChuHTML(gt)+'" oninput="xemTenTruoc()">'+
     (hd?'<div class="huong-dan">'+coChuHTML(hd)+'</div>':'')+'</div>';
+}
+/* 3.437 (anh 01/11, ảnh khai văn bản tên viết HOA hết): nút đổi chữ cho ô tên — thường · Hoa đầu câu · HOA hết · Hoa Đầu Từ.
+   Giữ nguyên từ viết tắt / ký hiệu: có số, "/", "-" hoặc nằm trong danh sách (NHCSXH, HĐQT, QĐ, UBND…). Đổi xong cập nhật xem trước tên file. */
+var CHU_TAT = ['NHCSXH','NHCS','HĐQT','HĐND','UBND','QĐ','TW','TƯ','CP','TTG','TTg','BĐD','KTGS','TK','TK&VV','CCCD','HSSV','GQVL','NSVSMT','NOXH','XKLĐ','PGD','CBTD','BCĐ','HĐ','NĐ','TT','CV','KH','TB','BC','VB','HND','HPN','HCCB','ĐTN','MTTQ','CT','TCTD','CNTT','QH','TDNN','VBSP'];
+function chuGiu(w){ var g = w.replace(/^[^\wÀ-ỹĐđ]+|[^\wÀ-ỹĐđ&]+$/g, ''); return /[\d\/-]/.test(g) || CHU_TAT.indexOf(g.toLocaleUpperCase('vi'))>=0 && g===g.toLocaleUpperCase('vi'); }
+function chuDoi(s, kieu){
+  s = String(s||'').replace(/\s+/g, ' ').trim(); if(!s) return s;
+  if(kieu==='hoa') return s.toLocaleUpperCase('vi');
+  var w = s.split(' ').map(function(x){ if(chuGiu(x)) return x; var t = x.toLocaleLowerCase('vi'); return kieu==='tu' ? t.charAt(0).toLocaleUpperCase('vi')+t.slice(1) : t; });
+  if(kieu==='cau'){ var i = 0; while(i<w.length && chuGiu(w[i])) i++; if(i<w.length) w[i] = w[i].charAt(0).toLocaleUpperCase('vi')+w[i].slice(1); }
+  return w.join(' ');
+}
+function chuDoiNut(id){
+  if(!chuDoiNut.dk && typeof GD!=='undefined'){ chuDoiNut.dk = 1; GD.dangKy('chu', {doi:function(el){ var o = document.getElementById(el.getAttribute('data-o')); if(!o) return; o.value = chuDoi(o.value, el.getAttribute('data-k')); o.dispatchEvent(new Event('input', {bubbles:true})); o.focus(); }}); }
+  return ' <span class="chu-doi">'+[['thuong','aa','chữ thường'], ['cau','Aa.','Viết hoa đầu câu'], ['hoa','AA','VIẾT HOA HẾT'], ['tu','Aa Aa','Viết Hoa Đầu Mỗi Từ (như tên)']].map(function(x){
+    return '<button type="button" class="nho" data-lenh="chu.doi" data-o="'+id+'" data-k="'+x[0]+'" title="'+x[2]+' — giữ nguyên ký hiệu, từ viết tắt (NHCSXH, 54/QĐ-HĐQT…)">'+x[1]+'</button>'; }).join('')+'</span>';
 }
 function ta(nhan,id,gt){
   return '<div class="o">'+(nhan?'<label>'+coChuHTML(nhan)+'</label>':'')+
@@ -1040,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.436', ds:[
+var CO_GI_MOI = {ban:'3.437', ds:[
+  ["🔤 Khai văn bản: nút đổi chữ ô Tên — thường · Hoa đầu câu · HOA · Hoa Đầu Từ", ""],
   ["💰 Lãi tồn số liệu theo ngày: món đã trả lãi ở phiên gần nhất không còn lãi tồn (QT-C-03)", ""],
   ["📅 Tra cứu theo ô kỳ góc phải (mặc định mới nhất), thẻ khách ghi rõ kỳ số liệu", ""],
   ["🔍 Tra cứu khách: khối Tổ & địa bàn trọn trong ô, không phải cuộn", ""],
@@ -1054,9 +1071,9 @@ var CO_GI_MOI = {ban:'3.436', ds:[
   ["📋 Bảng trạng thái chung tự sinh mỗi bản (docs/TRANG_THAI_CHUNG.md) · luật chỉ chốt khi có phép thử chung", ""],
   ["📄 Nháp Thông báo kết luận theo phiên (08/GDX, Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""],
   ["📝 Nháp Nội dung họp mẫu 08 (Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""],
-  ["📐 Sửa: kỳ so sánh của bộ số chuẩn là cuối tháng TRƯỚC (3.424 lấy nhầm tháng sau)", ""],
-  ["📐 Bộ số chuẩn đối chiếu giao ban: chỉ tiêu theo điểm × Hội, kiểm cân đối, so với file đáp án (⋯ Nạp & KT)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📐 Sửa: kỳ so sánh của bộ số chuẩn là cuối tháng TRƯỚC (3.424 lấy nhầm tháng sau)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.437 · Văn bản › khai / sửa 1 văn bản → ô Tên văn bản, góc phải có 4 nút aa · Aa. · AA · Aa Aa → bấm thử, ký hiệu (NHCSXH, 54/QĐ-HĐQT) giữ nguyên, xem trước tên file đổi theo",
     "3.436 · Góc phải chọn ngày 30/10 → Tra cứu › thẻ tổ: cột Lãi tồn chỉ còn người chưa trả lãi phiên gần nhất / có lãi quá hạn; chọn T9 → như tab Tổ (chốt tháng)",
     "3.435 · Góc phải chọn T9/2026 → Tra cứu › mở 1 khách: đầu thẻ ghi 📅 T9/2026, \"Món vay — T9/2026\", dư nợ / lãi tồn / số dư 105 theo T9; đổi lại kỳ mới nhất → số đổi theo",
     "3.435 · Tra cứu › thẻ tổ (Tổ trưởng): \"Số liệu …\" theo kỳ đang chọn",
@@ -1075,8 +1092,7 @@ var CO_GI_MOI = {ban:'3.436', ds:[
     "3.419 · Mở app 1 lần khi có mạng → tắt mạng, mở lại vẫn chạy",
     "3.416.5 · Tra cứu › thẻ tổ: hàng số kẻ ô, Thành viên (n có nợ chữ xanh), chip Lưu ý xuống dòng, \"Số liệu ngày ⓘ\" góc phải",
     "3.416.1 · Tra cứu › Danh sách tổ: đầu khung \"Xã … (n tổ) - Ấp … (n tổ)\"",
-    "3.416.1 · Thêm file lớn: có báo tiến độ (đang đọc, đọc chữ PDF trang i/n)",
-    "3.416.1 · Scan quét nhiều CCCD 1 lượt → 🗄 Lưu vào tủ tách từng người"],
+    "3.416.1 · Thêm file lớn: có báo tiến độ (đang đọc, đọc chữ PDF trang i/n)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.435 · Tra cứu: bỏ luật \"luôn lấy số liệu mới nhất\" (3.347) → theo ô kỳ góc phải, chưa chọn thì vẫn mới nhất",
     "3.434 · Thẻ tổ (Tra cứu): bỏ nút 👪 Lập hồ sơ hộ mới vào tổ (anh đã bỏ 29/10, 3.410 trả lại nhầm) — vẫn lập được ở 🏘 Tổ của điểm GD",

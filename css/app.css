@@ -4133,3 +4133,4 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
   .tc-phai .tc-khung > .tc-3cot > .tc-nhom{overflow:visible}
 }
 .tc-ky{margin-left:auto;font-size:calc(11px*var(--co));color:var(--chu-phu);font-weight:500;white-space:nowrap}   /* 3.435: kỳ số liệu của thẻ khách */
+.o-chu{position:relative}.chu-doi{position:absolute;top:0;right:0;display:inline-flex;gap:3px}.chu-doi button{padding:0 6px;font-size:calc(11px*var(--co));line-height:1.6;min-height:0}   /* 3.437: nút đổi chữ ô tên văn bản */

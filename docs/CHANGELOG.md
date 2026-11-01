@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.437 — 01/11/2026 — Nút đổi chữ ô Tên văn bản (TK 2)
+- **Anh 01/11** (ảnh khai văn bản tên viết HOA hết): "anh muốn có nút sang chữ thường, viết hoa đầu câu, hoặc chuyển hết sang chữ hoa, hoặc sang chữ hoa đầu từ như tên".
+- Ô **Tên văn bản** (khai / sửa văn bản): 4 nút góc phải **aa** (thường) · **Aa.** (hoa đầu câu) · **AA** (hoa hết) · **Aa Aa** (hoa đầu mỗi từ) — `chuDoi`, `chuDoiNut` (js/06, lệnh GD `chu.doi`). Giữ nguyên ký hiệu / viết tắt: từ có số, "/", "-" hoặc trong danh sách (NHCSXH, HĐQT, QĐ, UBND, TK&VV…); gọn khoảng trắng thừa; đổi xong xem trước tên file cập nhật.
+- Phép thử mới `t353` (8 ý).
+
 ## 3.436 — 01/11/2026 — Lãi tồn số liệu theo ngày (QT-C-03 bổ sung) (TK 2)
 - **Anh 01/11:** "cách tính lãi tồn trước đây đúng, ví dụ món vay đã trả lãi đến ngày GD của tháng trước coi như không có lãi tồn, nếu chưa đến ngày GD tháng sau" → "code rồi gộp".
 - **Kiểm:** công thức không đổi từ 24/10 (TH + QH); khác do loại file — Mẫu 31 **theo ngày** ghi Lãi tồn TH gồm lãi tính dồn từ phiên gần nhất đến ngày báo cáo, Mẫu 31 **chốt tháng** thì không (anh so tab Tổ T9: chỉ 3 người có nợ lãi ↔ 30/10: cả tổ có lãi tồn nhỏ).
