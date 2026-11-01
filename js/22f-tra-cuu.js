@@ -36,7 +36,7 @@ function tcHan(c){   /* hạn CCCD + mức: het / sap (< 6 tháng) / ok / ? */
   if(h.kq==='ok' && m){ var den = new Date(+m[3], +m[2]-1, +m[1]), con = (den - nay())/864e5; if(con < 183) return {kq:'sap', chu:'sắp hết hạn — '+h.chu}; }
   return h;
 }
-function tcNoiGon(c){ var t = KHO.toDanhBa(c.to)||{}; return [c.tenXa ? String(c.tenXa).replace(/^(Xã|Phường|Thị trấn)\s+/i, '') : '', c.tenThon||t.tenThon ? 'ấp '+String(c.tenThon||t.tenThon).replace(/^(ấp|ap)\s+/i, '') : '', c.toTen||t.ten ? 'tổ '+(c.toTen||t.ten) : ''].filter(Boolean).join(' · '); }
+function tcNoiGon(c){ var t = KHO.toDanhBa(c.to)||{}, tx = xaTenSach(c.xa, c.tenXa); return [tx ? String(tx).replace(/^(Xã|Phường|Thị trấn)\s+/i, '') : '', c.tenThon||t.tenThon ? 'ấp '+String(c.tenThon||t.tenThon).replace(/^(ấp|ap)\s+/i, '') : '', c.toTen||t.ten ? 'tổ '+(c.toTen||t.ten) : ''].filter(Boolean).join(' · '); }
 
 /* 3.383 (anh 26/10 "bỏ phần này chưa cần"): thẻ khách / thẻ tổ ẩn 📜 Đã lập / In + 📅 Dòng thời gian — bật lại: TC_KHOI_PHU = true (nhật ký in vẫn ghi) */
 var TC_KHOI_PHU = false;
@@ -132,7 +132,7 @@ function tcTkNhieuHTML(ds){
 }
 function tcTkCua(ma){ var r = tcTk105Ds().filter(function(o){ return o.kh===ma; }); return r.length ? r.map(function(o){ return o.stk; }).join(', ') : ''; }
 function tcBangHTML(ds, phu){   /* kiểu bảng: Tên KH (+ tình trạng chữ nhỏ ngay sau — 3.337 anh) · Mã KH · Xã · Ấp · Tổ trưởng (bấm dòng = mở khách như thẻ) */
-  var to = KHO.dsToDanhBa(), xa = function(c){ return String(c.tenXa||'').replace(/^(Xã|Phường|Thị trấn)\s+/i, ''); }, tk = tcTheo()==='tk';
+  var to = KHO.dsToDanhBa(), xa = function(c){ return String(xaTenSach(c.xa, c.tenXa)||'').replace(/^(Xã|Phường|Thị trấn)\s+/i, ''); }, tk = tcTheo()==='tk';
   var o = function(c, ma){ var t = to[c.to] || tcTo(c.to) || {}; return '<td>'+coChuHTML(xa(c))+'</td><td>'+coChuHTML(pvApNgan(c.tenThon||t.tenThon||''))+'</td><td>'+coChuHTML(c.toTen||t.ten||'')+'</td>'; };
   return '<div class="tc-kq-cuon"><table class="tc-kq-bang"><thead><tr><th>Tên khách hàng</th><th>Mã KH</th>'+(tk ? '<th>Số TK 105</th>' : '')+'<th>Xã</th><th>Ấp</th><th>Tổ trưởng</th></tr></thead><tbody>'+
     ds.map(function(r, i){ var c = KHO.danhBa(r.m)||{};
@@ -266,7 +266,7 @@ function slTheKH(ma){
     '<div class="tc-nhom"><div class="tc-nhom-tit">Liên hệ · TK 105</div><div class="tc-luoi">'+   /* 3.337: gộp Liên hệ + Tiết kiệm 105 */
       dong('SĐT', c.sdt ? tcC(c.sdt, 'SĐT')+(tcSdtDat(c.sdt) ? '' : ' <b class="vang">không đạt</b>') : '<b class="vang">thiếu</b>')+
       dong('Địa chỉ', tcC(tcDiaChi(c.dc), 'địa chỉ'))+
-      dong('Ấp · xã', coChuHTML([c.tenThon||t.tenThon, c.tenXa].filter(Boolean).join(', ') || '—'))+
+      dong('Ấp · xã', coChuHTML([c.tenThon||t.tenThon, xaTenSach(c.xa, c.tenXa) || t.tenXa].filter(Boolean).join(', ') || '—'))+
       dong(tkDs.length>1 ? 'TK 105 ('+tkDs.length+')' : 'TK 105', tkDs.length>1 ? tcTkNhieuHTML(tkDs) : (stk.length ? stk.map(function(s){ return tcC(s, 'số TK 105'); }).join(' · ') : '—'))+dong('Số dư 105', c.t105 ? '<b>'+tdnTien(c.t105)+'</b>' : '0')+'</div></div>'+
     tcToKhoiHTML(c)+'</div>'+   /* 3.333 (anh chốt): khối Tổ & địa bàn — mã tổ, tổ trưởng + mã KH (chép), số TV chuẩn QT-18, bảng tổ của điểm GD */
     '<div class="tc-nhom tc-nhom-mon"><div class="tc-nhom-tit">Món vay — '+slKyChu(c.ky)+'</div><div id="kh-mon"><div class="rong">Đang mở…</div></div></div>'+

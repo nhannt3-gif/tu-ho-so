@@ -2,7 +2,7 @@
    Chép nguyên từ js/25-ho-so.js (không đổi tên hàm); nạp ngay sau js/25. ===== */
 /* ---------- HỒ SƠ VAY: 01/TD · 03/TD · 04/TD · 09A/TD ---------- */
 function hsoKhachChon(t){ var kh = HSO.vay.kh; if(!kh || kh==='moi' || !t) return null; var c = hsoKhach(kh, t); return c.ten ? c : null; }
-function hsoDiaChi(c, t){ var tenXa = (c && c.tenXa) || (t && t.tenXa) || '', ap = (c && c.ap) || (t ? hsoApTen(t) : '');
+function hsoDiaChi(c, t){ var tenXa = (c && xaTenSach(c.xa, c.tenXa)) || (t && t.tenXa) || '',   /* 3.433: bỏ tên xã "… Vay trực tiếp" */ ap = (c && c.ap) || (t ? hsoApTen(t) : '');
   return [ap ? ktCapAp(tenXa)+' '+ap : '', tenXa ? ktXaChu(tenXa) : '', 'tỉnh '+hsoPGD('tinh')].filter(Boolean).join(', '); }
 function hsoLap01td(t, B){
   B = B || hsoBo(); var N = hsoBoNV(B), T = hsoBoT(B), A = hsoPA(B), C = A.C || {ubnd:true, nhcsxh:true, kieu:'hssv'}, hssv = C.nhcsxh, tuCo = hsoTuCo(B), sp = '        ';

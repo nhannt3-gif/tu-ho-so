@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.433)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › khách có món GQVL / vay trực tiếp | Ấp · xã: "Thuận Tân, Xã Truông Mít" (không còn "Vay trực tiếp") | |
+| 2 | Hồ sơ vay › 09A hoặc 06A cho khách đó | Địa chỉ đúng tên xã | |
+
 ### Danh sách thử trên máy thật (3.432)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

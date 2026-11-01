@@ -259,6 +259,11 @@ function toMaCua(o){ return (o && o.to && o.to!==TO_GIA) ? o.to : ((o && o._tt) 
 function toLaTT(t){ return !!(t && t.trucTiep); }
 /* 3.409 (anh 30/10: cây địa bàn 3 xã hiện tên "Vay trực tiếp"): tên xã của tổ = tên chiếm đa số trong Mẫu 31 của mã xã đó (Mẫu 31 là chính),
    bỏ tên dạng "… trực tiếp"; Mẫu 31 không có → danh mục ⚙ Cài đặt. Trước: lấy tên ở dòng đầu tiên gặp của tổ. */
+function xaTenSach(ma, ten){   /* 3.433 (anh 01/11: Tra cứu khách "Ấp · xã: Thuận Tân, Vay trực tiếp"): tên xã bỏ dạng "… trực tiếp" — lấy tên xã của tổ cùng mã xã ở kỳ đang dựng, không có → danh mục ⚙ Cài đặt */
+  if(ten && !/tr[ựu]c ti[ếe]p/i.test(String(ten))) return ten; ma = String(ma||''); if(!ma) return '';
+  var T = (TO_K && TO_K.to) || {}, v = ''; Object.keys(T).some(function(m){ var t = T[m]; if(String(t.xa)===ma && t.tenXa && !/tr[ựu]c ti[ếe]p/i.test(t.tenXa)){ v = t.tenXa; return true; } return false; });
+  if(!v){ var x = (D.cauHinh.diaBan||[]).find(function(z){ return String(z.ma)===ma; }); v = x && x.xa ? x.xa : ''; }
+  return v; }
 function toTenXa(K){
   var dem = {}, T = K.to, laTT = function(s){ return /tr[ựu]c ti[ếe]p/i.test(String(s||'')); };
   (K.hs||[]).forEach(function(o){ if(!o.xa || !o.tenXa || laTT(o.tenXa)) return; var d = dem[o.xa] = dem[o.xa] || {}; d[o.tenXa] = (d[o.tenXa]||0)+1; });

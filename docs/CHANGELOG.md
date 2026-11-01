@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.433 — 01/11/2026 — Tên xã không còn "Vay trực tiếp" (TK 2)
+- **Anh 01/11** (ảnh Tra cứu khách có món GQVL): "chỗ khối liên hệ dòng địa chỉ sao lại có vay trực tiếp" — dòng Ấp · xã ghi "Thuận Tân, Vay trực tiếp".
+- **Nguyên nhân:** dòng món vay trực tiếp trong Mẫu 31 ghi cột Tên xã dạng "… Vay trực tiếp"; 3.409 đã sửa cho cây địa bàn (`toTenXa`) nhưng danh bạ khách vẫn lấy nguyên chữ này.
+- **Sửa:** danh bạ khách lấy tên xã ở dòng không phải "trực tiếp" (js/22); hàm chung `xaTenSach(mã xã, tên)` (js/22g) — tên dạng "trực tiếp" → tên xã của tổ cùng mã xã, không có → danh mục ⚙ Cài đặt; dùng ở Tra cứu (Ấp · xã, nơi ở gọn, danh sách) và địa chỉ mẫu hồ sơ (`hsoDiaChi` — 09A, 06A…). Danh bạ đã lưu cũng hiện đúng (sửa ở chỗ hiển thị).
+- Phép thử mới `t350` (6 ý).
+
 ## 3.432 — 01/11/2026 — Có gì mới: hướng dẫn thử + chức năng đã bỏ (TK 2)
 - **Anh 01/11:** "mấy hướng dẫn này em luôn ghi vào Có gì mới, và bỏ đi chức năng nào".
 - Hộp ✨ Có gì mới: mục **"Thử trên máy — nút mới ở đâu"** (thay "Thử nhanh (5 phút)" cũ — 3 bước của bản 3.2xx) ghi từng nút mới theo bản: Tab › nút: bấm gì → thấy gì (17 dòng 3.415 → 3.431); mục mới **"Đã bỏ / thay thế"** (3.410 gỡ theo dõi tổ, 3.416.x thẻ tổ / danh sách tổ / 👑 bỏ tổ phó).

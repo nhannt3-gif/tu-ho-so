@@ -1040,7 +1040,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.432', ds:[
+var CO_GI_MOI = {ban:'3.433', ds:[
+  ["🏷 Sửa: tên xã không còn hiện \"Vay trực tiếp\" (Tra cứu khách, danh sách, địa chỉ trên mẫu hồ sơ)", ""],
   ["✨ Có gì mới: thêm hướng dẫn thử (nút mới ở đâu) và mục Đã bỏ / thay thế", "moHuongDan('moi')"],
   ["📅 Mẫu 06A: số liệu mặc định cuối tháng trước (hoặc gần nhất có được)", ""],
   ["📄 Mẫu 06A/TD (727) — kiểm tra từng hộ, mỗi món 1 phiếu; nút 06A ở Mẫu 06 KTGS", ""],
@@ -1054,9 +1055,9 @@ var CO_GI_MOI = {ban:'3.432', ds:[
   ["📐 Bộ số chuẩn đối chiếu giao ban: chỉ tiêu theo điểm × Hội, kiểm cân đối, so với file đáp án (⋯ Nạp & KT)", ""],
   ["🔁 Số kỳ trước theo vị trí hiện nay của khế ước (QT-C-21) — tổ viên chuyển tổ không làm sai tăng giảm", ""],
   ["📤 File đối chiếu giao ban: thu nợ đủ (cả món tất nợ, tổ đã đóng), bù mã xã, bỏ dòng vay trực tiếp toàn 0", ""],
-  ["⚡ Mở lại app khi có nhiều số liệu: bớt đứng máy khoảng một nửa (không đọc / dựng kỳ 2 lần)", ""],
-  ["🖥 Khổ laptop 1280: hết cuộn ngang ở Văn bản / Scan / Biểu mẫu / Thư viện (thanh trên gọn lại)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["⚡ Mở lại app khi có nhiều số liệu: bớt đứng máy khoảng một nửa (không đọc / dựng kỳ 2 lần)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.433 · Tra cứu › mở khách có món vay trực tiếp (vd GQVL) → khối Liên hệ, dòng Ấp · xã ghi đúng tên xã (không còn \"Vay trực tiếp\")",
     "3.432 · ⚙ Cài đặt › ✨ Có gì mới (hoặc ❓ › Có gì mới): xem 2 mục \"Thử trên máy — nút mới ở đâu\" và \"Đã bỏ / thay thế\"",
     "3.431 · Hồ sơ vay › bấm 06A/TD: kỳ số liệu tự về Mẫu 31 cuối tháng trước, báo \"📅 06A: số liệu đến …\"",
     "3.430 · Hồ sơ vay › 06A/TD: chọn tổ → người vay → món → phiếu 2 trang mẫu 727, ô tự điền",
