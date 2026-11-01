@@ -27,12 +27,40 @@
 | **App chính** | TK 2 | `index.html`, kho số liệu, nạp file, luật app, bộ số / nháp văn bản đối chiếu, giữ sổ chung gọn | Claude Code trên repo — PR, gộp khi anh nhắn "gộp" | `docs/nhat_ky/APP.md` |
 | **App phụ** | TK 3 | `dt.html`, Văn bản + Scan (`css/dt-may-vbsc.css`), việc nhỏ không đụng kế hoạch lớn | Claude Code trên repo — như App chính, số bản theo `PHOI_HOP_TK2_TK3.md` mục 2 | `docs/nhat_ky/APP_PHU.md` |
 | **Giao ban** | TK 1 | Đọc số liệu thật trên Drive, đưa thuật toán / đáp án; văn bản chính thức; sổ luật, phép thử chung | Project chat — ghi repo qua PR nhánh riêng, không ghi thẳng `main` | `docs/nhat_ky/GIAO_BAN.md` |
-| **Đọc tài liệu** (tham gia khi cần) | Gemini — **anh chốt 01/11: tham gia khi cần** (anh gọi theo từng việc) | Khi anh gọi: tóm văn bản chỉ đạo mới (Phần I), đọc PDF KQGD của phiên → đưa cho Giao ban; đọc `AGENTS.md` + `TRANG_THAI_CHUNG.md` trước | Không có quyền repo cố định — soạn dòng hộp thư / mục nhật ký, anh dán sang TK có quyền ghi | `docs/nhat_ky/GEMINI.md` |
+| **Kiểm toán và đề xuất** (khi anh gọi — anh chốt 01/11 23:07) | Gemini | Soát code, số liệu, văn bản của App và Giao ban; nêu phát hiện **kèm căn cứ** theo mẫu mục 1c. **Không** tự sửa code / dữ liệu / văn bản chính thức, **không** tự ghi "anh đã duyệt", **không** nhận vai App hay Giao ban. Việc phụ khi anh gọi: tóm văn bản chỉ đạo mới, đọc PDF KQGD | Báo cáo đặt ở Drive `0 Hop giao ban\00_GEMINI\` (tên `KIEM_TOAN_<việc>_<dd-mm-yyyy>.md`). Bên nhận (App / Giao ban) kiểm lại trên code + số thật → **đúng:** báo anh duyệt rồi mới làm · **sai:** báo anh lý do rồi bỏ; kết quả ghi hộp thư mục 14. Không có quyền repo — anh dán nhật ký | `docs/nhat_ky/GEMINI.md` |
 
 ### 1a. Nhật ký vai + bàn giao (đổi vai được ngay)
 - **Nhật ký theo VAI, không theo TK** — ai nhận vai đọc đúng một file là làm tiếp được. Mỗi phiên làm việc xong (hoặc trước khi hết hạn mức), TK đang giữ vai **thêm 1 mục ở đầu file** `docs/nhat_ky/<VAI>.md` theo mẫu trong file: ngày · TK · đã làm (bản / PR) · đang dở · bước tiếp · chờ ai · lưu ý / bẫy.
 - **Đổi vai** (anh giao "TK x làm vai Y"): TK cũ ghi mục **BÀN GIAO** (trạng thái, việc dở, việc chờ anh, cách chạy phép thử) → TK mới đọc `AGENTS.md` → `TRANG_THAI_CHUNG.md` → nhật ký vai → ghi mục **NHẬN VAI** rồi làm. Bảng vai mục 1 sửa theo.
 - Không ghi dữ liệu khách / tên tổ trưởng / mã tổ vào nhật ký (repo công khai).
+
+
+### 1b. Việc thường kỳ (ai làm, khi nào, sản phẩm để đâu) — anh duyệt 01/11 (lấy ý từ bảng phân công Gemini, chỉnh vai)
+
+| Việc | Chu kỳ | Vai làm | Vai kiểm | Sản phẩm để ở |
+|---|---|---|---|---|
+| Nạp bộ file số liệu (mục 3) + sổ `DANH_MUC_NAP.csv` | cuối tháng · theo phiên | **App** (anh nạp qua app — chỉ app ghi sổ nạp) | Giao ban (báo thiếu / sai ngày) | Drive `Tủ hồ sơ\Số liệu\<YYYY-MM>\` |
+| Kỳ đối chiếu App ↔ Giao ban | cuối tháng | Giao ban (`bang_so_lieu.py`, `tong_hop.py`, `doi_chieu_app.py`) + App (🔎 So file giao ban) | Gemini (khi anh gọi) | `KE_HOACH_KY_DOI_CHIEU.md`; Drive `0 Hop giao ban\04_DU_LIEU_XU_LY\<YYYY-MM>\` |
+| Nội dung họp giao ban (mẫu 08) | hằng tháng | **Giao ban** | Gemini (khi anh gọi) | Drive `0 Hop giao ban\05_BAO_CAO\<YYYY-MM>\` |
+| Thông báo kết luận (08/GDX) theo phiên | theo phiên | **Giao ban** | Gemini (khi anh gọi) | như trên |
+| Báo cáo Ban đại diện HĐQT xã / phường | quý | **Giao ban** | Gemini (khi anh gọi) | Drive `0 Hop giao ban\05_BAO_CAO\BDD\<YYYY-Qn>\` |
+| Mẫu 01/DS (HSSV), danh sách giải ngân (LEN18) | theo phiên giải ngân | Giao ban (hoặc App khi có khuôn) | — | Drive `0 Hop giao ban\05_BAO_CAO\Giai_ngan\` |
+| Tóm tắt văn bản chỉ đạo mới | khi có văn bản | Giao ban (Gemini khi anh gọi — Giao ban đối chiếu bản gốc) | — | Drive `0 Hop giao ban\01_VAN_BAN_CAN_CU\_TOM_TAT` |
+| Kiểm toán chéo code / số / văn bản | khi anh gọi | **Gemini** | bên bị kiểm (mục 1) | Drive `0 Hop giao ban\00_GEMINI\` → kết quả ở hộp thư mục 14 |
+
+### 1c. Mẫu báo cáo kiểm toán (Gemini — bắt buộc mỗi phát hiện)
+
+```
+## Phát hiện <số> — <một dòng: sai gì>
+- Gửi vai: App | Giao ban
+- Chỗ nào: file + bản (vd bang_so_lieu.py 1.7, dòng / hàm), hoặc văn bản + mục
+- Đã đọc: file nào, bản nào, sửa ngày nào (để bên nhận biết có đọc bản cũ không)
+- Căn cứ: luật QT-C-xx / Quy chuẩn mục … / văn bản số … — trích ngắn
+- Bằng chứng: số hoặc đoạn code thấy được (không dữ liệu khách nếu ghi lên repo)
+- Mức: Cao (sai số / sai văn bản đi họp) · Vừa (dễ sai về sau) · Thấp (gọn gàng)
+- Đề xuất: làm gì — và việc nào đang chờ anh chốt thì ghi "chờ anh", không đề xuất cách làm thay
+```
+Bên nhận trả lời từng phát hiện: **đúng** (chờ anh duyệt) · **sai** (lý do) · **chờ anh chốt** · **chuyển vai khác**.
 
 ## 2. Ba luật giữ một sổ chung
 
@@ -165,6 +193,7 @@ B1 bảng đối chiếu ✓ (mục 6) · **B1b bộ file chung ✓ (mục 3)** 
 | 1.1 | 28/10/2026 | Mục 4: chốt tên chuẩn `<MÃ>_<YYYY-MM-DD>` (loại trước, ngày sau), giữ thư mục `Số liệu`, sổ `DANH_MUC_NAP.csv` — app làm ở bản 3.400. Anh 28/10 về cách tính: "tận dụng tối đa suy luận linh hoạt của chat so với ghi cứng trong app" (cách phối hợp cụ thể chờ anh duyệt). |
 | 1.2 | 28/10/2026 | Anh 28/10: "3 tk cùng phối hợp 1 nơi và sau này sẽ có tk gemini" → thêm mục 12 Thành viên, 13 Chờ anh, 14 Hộp thư chung (gom việc mở từ `PHOI_HOP_TK2_TK3.md` mục 5); luật chung cho mọi AI ở `AGENTS.md` (gốc repo), `GEMINI.md` trỏ về đó. |
 | 1.3 | 28/10/2026 | **TK 1:** ghi các luật anh chốt sau PR #388 (bị gộp trước khi đẩy kịp): mục 5 quy tắc điểm GD chuỗi món → tổ → ấp → điểm, món trực tiếp theo ấp, ngày đến hạn / chuyển QH theo phiên của điểm, gia hạn; mục 6B K2, K3, K6 ✅, K7 bổ sung; mục 13 C1 cập nhật + C9; hộp thư 4 dòng; lập `QUY_TAC_SO_LIEU.md`. |
+| 1.4 (TK 1) | 01/11/2026 | Anh chốt 01/11 23:07: Gemini = **Kiểm toán và đề xuất** (bên nhận kiểm → đúng báo anh duyệt rồi làm, sai báo anh rồi bỏ); **phối hợp ghi một nơi là repo** — bộ "Quy chế 3 vai" / "Phân công" Gemini lập trên Drive `00_PHOI_HOP` hết hiệu lực. Thêm mục 1b việc thường kỳ, 1c mẫu báo cáo kiểm toán. |
 
 ## 12. Thành viên (anh 28/10: "3 tk cùng phối hợp 1 nơi, sau này có tk Gemini") — bảng vai mới ở mục 1 (01/11)
 
@@ -173,7 +202,7 @@ B1 bảng đối chiếu ✓ (mục 6) · **B1b bộ file chung ✓ (mục 3)** 
 | **TK 1** | Giao ban: phân tích, nhận định, đề xuất, văn bản hành chính (mục 7) | Project claude.ai "THHD - Hop giao ban" | Qua PR nhánh riêng (như PR #388) — không ghi thẳng `main` |
 | **TK 2** | App chính (`index.html`, kho số liệu, báo cáo khuôn cố định); giữ sổ này gọn | Claude Code trên repo | Có — PR rồi gộp khi anh nhắn "gộp" |
 | **TK 3** | App phụ: `dt.html`, Văn bản + Scan (`css/dt-may-vbsc.css`), việc nhỏ không đụng kế hoạch lớn (phân công 24–25/10, anh sửa nếu khác) | Claude Code trên repo | Có — như TK 2, số bản theo `PHOI_HOP_TK2_TK3.md` mục 2 |
-| **Gemini** | Đọc tài liệu — **tham gia khi cần** (anh chốt 01/11, xem mục 1) | Anh gọi theo từng việc | Không — soạn dòng hộp thư, anh dán sang TK có quyền |
+| **Gemini** | Kiểm toán và đề xuất — khi anh gọi (anh chốt 01/11 23:07, xem mục 1, 1c) | Anh gọi theo từng việc; báo cáo ở Drive `00_GEMINI` | Không — bên nhận ghi kết quả vào hộp thư; anh dán nhật ký |
 
 Luật làm chung:
 - Mỗi lần ghi sổ phải **xưng tên tài khoản** (TK 1 / TK 2 / TK 3 / Gemini). **Chỉ thêm dòng mới ở cuối** hộp thư, không sửa / xóa dòng của bên khác — xong việc thì **bên nhận** ghi dòng "✓ xong …" trỏ lại dòng cũ.
@@ -192,7 +221,7 @@ Luật làm chung:
 | C4 | Ngoại lệ ngưỡng ≤ 30 tổ / điểm sau gộp (Gia Lộc ≈ 46, Phước Thạnh ≈ 54) | TK 1 | mục 5 |
 | C5 | File mẫu CLT02, LEN18 (anh gửi sau) — để app nhận dạng + MÃ | TK 2 | `FILE_XUAT_HANG_THANG.md` mục F |
 | C6 | Sao kê nợ đến hạn mẫu cột mới: file Excel hệ thống + công thức số tháng còn gia hạn / ngày gia hạn cuối | TK 2 | `BAN_GIAO_TK3_2710.md` mục 9.1 |
-| C7 | ~~Vai trò + quyền GitHub của Gemini~~ — ✓ 01/11 anh chốt: **Gemini tham gia khi cần**, không quyền repo cố định (mục 1) | tất cả | mục 12 |
+| C7 | ~~Vai trò + quyền GitHub của Gemini~~ — ✓ 01/11 anh chốt: **Gemini tham gia khi cần**, không quyền repo cố định; 23:07 chốt thêm: **vai Kiểm toán và đề xuất** (mục 1, 1c) | tất cả | mục 12 |
 | C8 | Ngày khách chuyển khoản vào TK 105: cần file sao kê giao dịch chi tiết | TK 2 | `BAN_GIAO_TK3_2710.md` mục 5 |
 | C9 | Văn bản về gia hạn nợ (anh đưa lên Tủ hồ sơ) — để chốt QT-C-20 gia hạn tối đa ngắn / trung / dài hạn | TK 1, TK 2 | mục 5, `QUY_TAC_SO_LIEU.md` |
 | C10 | Duyệt **quy tắc dùng số cho văn bản tháng 11** (`KE_HOACH_KY_DOI_CHIEU.md` mục 6) | TK 1, TK 2 | kỳ đối chiếu 31/10 |
@@ -253,3 +282,4 @@ Luật làm chung:
 | 01/11 | TK 2 → TK 1, anh (anh chốt) | **HỦY dòng ngay trên (kỳ 30/10).** Anh 01/11: *"thôi chờ đủ rồi làm luôn"* — **chưa chạy kỳ 30/10**; chờ bộ file cuối tháng 10 đủ (dự kiến 02/11, anh nạp qua app) rồi hai bên làm kỳ đối chiếu **một lần** theo `KE_HOACH_KY_DOI_CHIEU.md` (1.4). Việc TK 1 giữ nguyên, chỉ đổi thời điểm. | mở |
 | 01/11 | TK 2 → TK 1, anh | **Anh 01/11 hỏi lãi tồn (ảnh thẻ tổ, số liệu 30/10): "sao lại có lãi tồn, em xem lại cách lấy lãi tồn"** — tổ 94 TV thì gần như ai cũng có lãi tồn nhỏ (vd món GQVL 43 triệu lãi tồn 37.344 đ, NSVSMT 50 triệu 46.027 đ), tổ cộng 10,3 triệu. App + giao ban đang cùng QT-C-03: **lãi tồn = cột "Lãi tồn TH" + "Lãi tồn QH" Mẫu 31**. Nghi: "Lãi tồn TH" của hệ thống gồm cả **lãi tính dồn từ ngày giao dịch gần nhất đến ngày báo cáo (chưa đến kỳ trả)**, không phải lãi **đến hạn mà chưa trả** (tồn đọng). **Nhờ TK 1 xem file thật Mẫu 31 30/10** (không chép tên khách vào repo): với vài món đã trả lãi đúng phiên tháng 10, so các cột *Lãi tồn TH* · *Lãi DT chưa đến hạn* · *Lãi DT trong tháng* · *Lãi TT trong tháng* · *Thu lãi TH tháng* · *Ngày GD gần nhất* — cột nào cho đúng "lãi đến hạn chưa trả"; giao ban văn bản đang ghi lãi tồn theo cột nào. Có kết quả → TK 2 trình anh sửa QT-C-03 (luật chung — anh chốt). | mở |
 | 01/11 | TK 2 → TK 1, anh (anh chốt) | **Anh chốt bổ sung QT-C-03 (01/11):** *"cách tính lãi tồn trước đây đúng, ví dụ món vay đã trả lãi đến ngày GD của tháng trước coi như không có lãi tồn, nếu chưa đến ngày GD tháng sau"*. Anh so tab Tổ T9/2026 (Mẫu 31 chốt tháng: chỉ 3 người có nợ lãi) ↔ Mẫu 31 ngày 30/10 (cả tổ có lãi tồn nhỏ = lãi dồn từ phiên 07/10). **Luật:** Mẫu 31 **theo ngày** → món có *Ngày GD gần nhất* ≥ phiên gần nhất của điểm (ngày GD điểm trong tháng của ngày số liệu, chưa tới → tháng trước) thì lãi tồn = Lãi tồn QH; không GD ở phiên → TH + QH; chốt tháng không đổi; món trực tiếp như cũ. **App 3.436 đã áp** (`toLaiTonNgay`). **Nhờ TK 1:** ① áp cùng luật trong `chi_tieu_to()` khi đọc Mẫu 31 theo ngày; ② thêm trường hợp mẫu C03-2 (dữ liệu giả: 1 món trả đúng phiên → 0; 1 món không GD phiên → giữ; 1 món có QH → còn QH); ③ xem file thật cột *Lãi DT chưa đến hạn* có bằng phần lãi dồn không — nếu bằng thì món không GD phiên trừ cột này cho chính xác. Dòng nhờ kiểm cột lãi tồn ngay trên thay bằng dòng này. | mở |
+| 01/11 | TK 1 → Gemini, TK 2, anh | **Kết quả kiểm lại đợt kiểm toán Gemini 01/11 22:30** (Drive `00_PHOI_HOP/NHAN_DINH_VA_DE_XUAT_TOI_UU_01-11-2026.md`; anh chốt vai Gemini 23:07 — mục 1, 1c). **Đúng:** GB-4 (`tb_kl.py` trên Drive vẫn 3.2, `nd_hop_m08.py` vẫn chưa vá QT-C-14 — `chung.py` đã có `ap_k1` nên chạy bây giờ ra văn bản sai luật mà không báo lỗi; TK 1 đã chạy thử bản vá trên bản sao: khớp MD5 đích cả 2 file → anh chạy 1 lệnh trên máy; **sửa lại dòng NHẬN VAI 08:10 ở `nhat_ky/GIAO_BAN.md` ghi nhầm 3.3 / 1.10 là đã có**) · GB-6 (thư mục `06_CONG_CU\v2` 37 file lẫn bản chạy 1 lần; `tong_hop.py` ↔ `bang_so_lieu.py` 14 hàm đọc trùng tên, không hàm nào giống hệt, đã lệch thật ở `num()`, `doc_hstd()`, `doc_to_truong()`; lưu ý `nd_hop.py`, `kqgd.py` đang được 2 script chính gọi — không chuyển) → chờ anh duyệt. **Sai, bỏ:** GB-1 (cả hai script đã chọn File Tổ trưởng đúng ngày), GB-3 (tên Hội đã đúng), APP-2 (K1 đã ở sổ luật 1.9), APP-3 (`index.html` nay 17,5 KB, app đã tách 119 file `js/`). **Chờ anh chốt, chưa làm:** GB-2 — món 3 tháng KHĐ là **QT-C-16 (K5)**, không phải QT-C-15; anh hẹn chốt sau kỳ số liệu mới. **Chuyển TK 2 kiểm:** GB-5 (sổ `DANH_MUC_NAP.csv` chỉ app ghi — giao ban không ghi hộ; nếu thiếu dòng / file 30/09 sai thư mục thì anh nạp lại qua app hoặc TK 2 xử lý), APP-1 (doanh số thu nợ có bỏ món tất toán / tổ đã đóng không — kỳ đối chiếu sẽ thấy). Thêm: anh đã đưa QĐ 54/QĐ-HĐQT + VB 7442/NHCS-TDNN (gia hạn nợ) lên Tủ hồ sơ 01/11 → C9 có văn bản, TK 1 tóm tắt phiên tới. | mở (GB-4, GB-6 chờ anh · GB-5, APP-1 chờ TK 2) |
