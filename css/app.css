@@ -4124,3 +4124,13 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 .ol-dong{display:flex;align-items:baseline;gap:8px;padding:6px 10px;cursor:pointer;border-bottom:1px solid var(--vien)}.ol-dong:last-child{border-bottom:0}
 .ol-dong small{margin-left:auto;color:var(--chu-phu);white-space:nowrap}.ol-dong.bat,.ol-dong:hover{background:var(--xanh-nhat)}.ol-bt{width:1.4em;text-align:center}
 @media (min-width:1101px){.dau-hang .tim-bao{min-width:160px}.dau-hang .tim-bao input{min-width:0;width:100%;box-sizing:border-box}.dau-hang .gio{flex:0 0 auto}}   /* 3.421 (rà bố cục): khổ 1101–1366 ô tìm co lại, đồng hồ không bị đẩy tràn → hết cuộn ngang ở Văn bản / Scan / Biểu mẫu / Thư viện */
+/* 3.434: khối Tổ & địa bàn (Tra cứu khách) trọn trong ô — mã tổ + nút Tổ của điểm GD trên dòng tiêu đề, ghi chú số liệu thành ⓘ */
+.tc-to-khoi-tit{display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}.tc-to-khoi-tit .tc-bang-nut{text-transform:none;letter-spacing:0;font-weight:500;padding:0 6px;margin:0 0 2px}
+.tc-i{cursor:help;color:var(--chu-phu);font-size:calc(11px*var(--co))}
+@media(min-width:900px){   /* 3.434: hàng 3 cột cao tối thiểu 170px như cũ, số liệu nhiều thì hàng cao thêm (không cuộn trong ô); cột Tổ rộng hơn — món vay chiếm phần còn lại */
+  .tc-phai .tc-the.tc-khung{grid-template-rows:auto auto minmax(170px,max-content) minmax(140px,1fr) auto}
+  .tc-phai .tc-khung > .tc-3cot{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)}
+  .tc-phai .tc-khung > .tc-3cot > .tc-nhom{overflow:visible}
+}
+.tc-ky{margin-left:auto;font-size:calc(11px*var(--co));color:var(--chu-phu);font-weight:500;white-space:nowrap}   /* 3.435: kỳ số liệu của thẻ khách */
+.o-chu{position:relative}.chu-doi{position:absolute;top:0;right:0;display:inline-flex;gap:3px}.chu-doi button{padding:0 6px;font-size:calc(11px*var(--co));line-height:1.6;min-height:0}   /* 3.437: nút đổi chữ ô tên văn bản */

@@ -266,6 +266,41 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.438)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Văn bản › thêm VB, số 54/2026/NĐ-CP | Loại Nghị định, chip tag VB Trung ương | |
+| 2 | Số …/NHCS-KHTD | Chip tag Chỉ đạo của Tỉnh | |
+| 3 | Nút 🏷 Gắn tag nguồn (n) | Hỏi trước, gắn đúng nhóm, tag cũ giữ nguyên | |
+
+### Danh sách thử trên máy thật (3.437)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Văn bản › sửa 1 văn bản tên viết HOA → bấm Aa. | "Thực hiện gia hạn nợ … NHCSXH … 54QĐHĐQT", tên file xem trước đổi theo | |
+
+### Danh sách thử trên máy thật (3.436)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Góc phải ngày 30/10 → Tra cứu › tổ Võ Văn Trừ | Lãi tồn chỉ ở người chưa trả phiên 07/10 / có lãi QH | |
+| 2 | Góc phải T9 → cùng tổ | Như tab Tổ T9 (3 người có nợ lãi) | |
+
+### Danh sách thử trên máy thật (3.435)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Góc phải T9/2026 → Tra cứu › khách | 📅 T9/2026, số liệu tháng 9 | |
+| 2 | Góc phải về kỳ mới nhất | Thẻ khách đổi theo, ghi kỳ mới | |
+
+### Danh sách thử trên máy thật (3.434)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › khách có tổ nhiều TV | Khối Tổ & địa bàn hiện đủ, không thanh cuộn; ⓘ rê chuột thấy ngày số liệu | |
+
+### Danh sách thử trên máy thật (3.433)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu › khách có món GQVL / vay trực tiếp | Ấp · xã: "Thuận Tân, Xã Truông Mít" (không còn "Vay trực tiếp") | |
+| 2 | Hồ sơ vay › 09A hoặc 06A cho khách đó | Địa chỉ đúng tên xã | |
+
 ### Danh sách thử trên máy thật (3.432)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

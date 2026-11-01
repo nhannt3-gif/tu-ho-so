@@ -4,6 +4,43 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.438 — 01/11/2026 — Tag nguồn văn bản theo số hiệu + loại văn bản Trung ương (TK 2)
+- **Anh 01/11:** "Nghị định của CP có dạng số hiệu như vậy (54/2026/NĐ-CP) nên em nên có 1 tag riêng để chọn các VB của ban ngành TW" + "của ngân hàng tỉnh thường có dạng NHCS-KHTD, gặp loại này em lọc riêng 1 dạng tag gọi là chỉ đạo của Tỉnh" → "đồng ý em code".
+- **Gói cắm rút mới `js/91-nguon-vb.js`:** `vbnNhom(số hiệu)` → 🏛 **VB Trung ương** (số/NĂM/ký hiệu, -CP, -TTg, -BTC, -NHNN, …/QH15…), 🏦 **NHCSXH Trung ương** (HĐQT, NHCS-TDNN / TDSV / KHNV, HD-NHCS), 📍 **Chỉ đạo của Tỉnh** (NHCS-KHTD); ký hiệu khác chưa có trong danh sách → không gắn. Khai / sửa văn bản: gõ số hiệu → tự thêm chip tag (gỡ được). Văn bản cũ: nút **🏷 Gắn tag nguồn (n)** đầu tab Văn bản — hỏi trước, chỉ thêm tag (`suaLuc` để đồng bộ). Lọc: bộ lọc tag sẵn có.
+- **Trước:** số hiệu 54/2026/NĐ-CP đoán loại "Công văn". **Nay:** `doanLoai` nhận Nghị định · Thông tư · Nghị quyết · Chỉ thị · Luật · Quyết định (TTg) cho văn bản Trung ương; danh mục loại thêm 5 loại mới (1 lần, giữ loại cũ — anh bỏ thì không tự thêm lại; khóa `loaiVB3438` ghi sổ cài đặt).
+- **Tự động khi thêm file (anh 01/11 "dạng 54/2026/NĐ-CP hiện em chưa có tự động"):** đọc chữ PDF "Số: 54/2026/NĐ-CP" trước chỉ ra "54" → nay đủ số hiệu (`rutSoHieu`, js/03); tên file "54_2026_NĐ-CP", "54-2026-NĐ-CP", "54 2026 NĐ-CP" → 54/2026/NĐ-CP (`tuTenFile`; ký hiệu phải VIẾT HOA để không nhận nhầm chữ thường); loại đoán theo số hiệu đủ (Nghị định dù nội dung có chữ "quyết định"). Mở hộp khai (`suaCho`): số hiệu Trung ương có sẵn → tự gắn tag; loại đang "Công văn" (đoán cũ) → đúng loại.
+- Phép thử mới `t354` (23 ý); thứ tự nạp `t138`, phép thử nhanh 37/37 đạt.
+
+## 3.437 — 01/11/2026 — Nút đổi chữ ô Tên văn bản (TK 2)
+- **Anh 01/11** (ảnh khai văn bản tên viết HOA hết): "anh muốn có nút sang chữ thường, viết hoa đầu câu, hoặc chuyển hết sang chữ hoa, hoặc sang chữ hoa đầu từ như tên".
+- Ô **Tên văn bản** (khai / sửa văn bản): 4 nút góc phải **aa** (thường) · **Aa.** (hoa đầu câu) · **AA** (hoa hết) · **Aa Aa** (hoa đầu mỗi từ) — `chuDoi`, `chuDoiNut` (js/06, lệnh GD `chu.doi`). Giữ nguyên ký hiệu / viết tắt: từ có số, "/", "-" hoặc trong danh sách (NHCSXH, HĐQT, QĐ, UBND, TK&VV…); gọn khoảng trắng thừa; đổi xong xem trước tên file cập nhật.
+- Phép thử mới `t353` (8 ý).
+
+## 3.436 — 01/11/2026 — Lãi tồn số liệu theo ngày (QT-C-03 bổ sung) (TK 2)
+- **Anh 01/11:** "cách tính lãi tồn trước đây đúng, ví dụ món vay đã trả lãi đến ngày GD của tháng trước coi như không có lãi tồn, nếu chưa đến ngày GD tháng sau" → "code rồi gộp".
+- **Kiểm:** công thức không đổi từ 24/10 (TH + QH); khác do loại file — Mẫu 31 **theo ngày** ghi Lãi tồn TH gồm lãi tính dồn từ phiên gần nhất đến ngày báo cáo, Mẫu 31 **chốt tháng** thì không (anh so tab Tổ T9: chỉ 3 người có nợ lãi ↔ 30/10: cả tổ có lãi tồn nhỏ).
+- **Sửa (js/22g `toLaiTonNgay`, gọi trong dựng kỳ):** kỳ theo ngày — phiên gần nhất = ngày GD của điểm trong tháng của ngày số liệu (chưa tới → tháng trước, `toPhienGan`); món có Ngày GD gần nhất ≥ phiên → lãi tồn = Lãi tồn QH; không giao dịch ở phiên → giữ TH + QH; chốt tháng, món trực tiếp, dòng có cột lãi tồn riêng (Mẫu 10) không đổi. Mọi chỗ dùng `laiTon` theo (thẻ tổ, thẻ khách, số tháng lãi, bộ số, file đối chiếu, 06A).
+- Sổ luật QT-C-03 ghi bổ sung (🔧 — giao ban chưa áp); hộp thư nhờ TK 1 áp + thêm trường hợp mẫu C03-2 + kiểm cột *Lãi DT chưa đến hạn*.
+- Phép thử mới `t352` (10 ý); `t328` 38/40 như cũ.
+
+## 3.435 — 01/11/2026 — Tra cứu theo ô kỳ góc phải, ghi rõ kỳ số liệu (TK 2)
+- **Anh 01/11:** "anh chọn dữ liệu trên góc phải tháng 9 mà vẫn tính tháng 10" → "app sẽ mặc định lấy kỳ mới nhất nhưng khi anh chọn thì phải theo cột số liệu" + "em luôn ghi là lấy dữ liệu theo kỳ nào ở các bảng".
+- **Trước (3.347, anh 24/10):** Tra cứu luôn lấy số liệu MỚI NHẤT, không theo ô kỳ. **Nay:** `tcKyDung()` (js/22h) = kỳ chung có số liệu → kỳ đó; chưa chọn / không có → mới nhất. Thẻ khách: món vay, Tổng dư nợ / QH / khoanh / lãi tồn, **Số dư 105 (QT-C-01, theo kỳ)** lấy kỳ đang dùng; đầu thẻ ghi **📅 kỳ**; khách không có ở kỳ chọn → báo "không có trong số liệu … (có ở …)"; nhân thân / SĐT / CCCD theo bản gần nhất (QT-C-22), dòng Số dư 105 khối Liên hệ ghi kỳ nguồn khi khác. Thẻ tổ + cây phạm vi + dòng LỌC ĐỊA BÀN theo kỳ đang dùng.
+- Luật ghi `AGENTS.md`: mọi bảng / thẻ có số liệu ghi rõ kỳ.
+- Phép thử mới `t351` (9 ý); Tra cứu `t107`, `t244`, `t246`, `t247`, `t277`, `t350` đạt.
+
+## 3.434 — 01/11/2026 — Tra cứu khách: khối Tổ & địa bàn trọn trong ô (TK 2)
+- **Anh 01/11** (ảnh thẻ khách): "khối tổ phải cuộn do số liệu nhiều, cân đối lại cho trọn trong ô".
+- **Sửa (js/58 `tcToKhoiHTML` + CSS):** mã tổ (chép được) + nút 🏘 Tổ của điểm GD lên dòng tiêu đề khối; ghi chú "Số liệu ngày … theo Mẫu 31 …" → ⓘ rê chuột cuối dòng Thành viên; nhãn "Hội · Điểm". Hàng 3 cột: tối thiểu 170px như 3.337, nhiều số liệu thì cao thêm (không cuộn trong ô); cột Tổ rộng 1,3 phần.
+- **Thẻ tổ (Tra cứu): bỏ nút 👪 Lập hồ sơ hộ mới vào tổ** — anh 01/11 "nút lập hs mới của tổ anh đã yêu cầu bỏ đi" (anh 29/10 đã bỏ; 3.410 gỡ Diễn biến tổ đã trả lại nhầm). Lập hồ sơ vào tổ vẫn có ở 🏘 Tổ của điểm GD (chọn tổ → 👪 Lập hồ sơ hộ mới vào tổ này) và Hồ sơ vay › Sổ hộ vay. Bỏ lệnh `tc.ketNap`; `t246` sửa theo.
+- Chụp khổ 1366 / 1920 (bộ giả): khối Tổ cao vừa nội dung, không thanh cuộn. `t244` sửa theo (mã tổ ở tiêu đề); `t246`, `t247` đạt.
+
+## 3.433 — 01/11/2026 — Tên xã không còn "Vay trực tiếp" (TK 2)
+- **Anh 01/11** (ảnh Tra cứu khách có món GQVL): "chỗ khối liên hệ dòng địa chỉ sao lại có vay trực tiếp" — dòng Ấp · xã ghi "Thuận Tân, Vay trực tiếp".
+- **Nguyên nhân:** dòng món vay trực tiếp trong Mẫu 31 ghi cột Tên xã dạng "… Vay trực tiếp"; 3.409 đã sửa cho cây địa bàn (`toTenXa`) nhưng danh bạ khách vẫn lấy nguyên chữ này.
+- **Sửa:** danh bạ khách lấy tên xã ở dòng không phải "trực tiếp" (js/22); hàm chung `xaTenSach(mã xã, tên)` (js/22g) — tên dạng "trực tiếp" → tên xã của tổ cùng mã xã, không có → danh mục ⚙ Cài đặt; dùng ở Tra cứu (Ấp · xã, nơi ở gọn, danh sách) và địa chỉ mẫu hồ sơ (`hsoDiaChi` — 09A, 06A…). Danh bạ đã lưu cũng hiện đúng (sửa ở chỗ hiển thị).
+- Phép thử mới `t350` (6 ý).
+
 ## 3.432 — 01/11/2026 — Có gì mới: hướng dẫn thử + chức năng đã bỏ (TK 2)
 - **Anh 01/11:** "mấy hướng dẫn này em luôn ghi vào Có gì mới, và bỏ đi chức năng nào".
 - Hộp ✨ Có gì mới: mục **"Thử trên máy — nút mới ở đâu"** (thay "Thử nhanh (5 phút)" cũ — 3 bước của bản 3.2xx) ghi từng nút mới theo bản: Tab › nút: bấm gì → thấy gì (17 dòng 3.415 → 3.431); mục mới **"Đã bỏ / thay thế"** (3.410 gỡ theo dõi tổ, 3.416.x thẻ tổ / danh sách tổ / 👑 bỏ tổ phó).

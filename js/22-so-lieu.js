@@ -549,7 +549,8 @@ function slVaoDanhBa(loai, ky, rows, lap){
       if(slLaHS(loai)){ c.ku = c.ku||[]; ds.forEach(function(x){ if(x.ku && c.ku.indexOf(x.ku)<0) c.ku.push(x.ku); }); }
       return;
     }
-    var moi = {ten:o.ten, ns:o.ns, cccd:o.cccd, ncap:o.ncap, noiCap:o.noiCap, dc:o.dc, xa:o.xa, tenXa:o.tenXa, thon:o.thon, tenThon:o.tenThon, to:o.to, toTen:o.toTen, dv:o.dv,
+    var oX = ds.find(function(x){ return x.tenXa && !/tr[ựu]c ti[ếe]p/i.test(x.tenXa); }), tenXa = oX ? oX.tenXa : (c && c.tenXa && !/tr[ựu]c ti[ếe]p/i.test(c.tenXa) ? c.tenXa : '');   /* 3.433: dòng vay trực tiếp Mẫu 31 ghi Tên xã "… Vay trực tiếp" → không lấy làm tên xã */
+    var moi = {ten:o.ten, ns:o.ns, cccd:o.cccd, ncap:o.ncap, noiCap:o.noiCap, dc:o.dc, xa:o.xa, tenXa:tenXa, thon:o.thon, tenThon:o.tenThon, to:o.to, toTen:o.toTen, dv:o.dv,
                sdt:o.sdt||'', gt:o.gt||'', voChong:o.voChong||'', danToc:o.danToc||'', ky:ky};
     var tat = ds.concat(theoLap[ma]||[]), stk = [];   /* 3.87: mọi sổ 105 kể cả ở dòng lặp; số dư 105 = tổng của khách → lấy 1 lần (số lớn nhất) */
     tat.forEach(function(x){ slStk(x.stk).forEach(function(t){ if(stk.indexOf(t)<0) stk.push(t); }); });   /* 3.120: chỉ nhận số sổ 10 chữ số */

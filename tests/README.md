@@ -260,6 +260,12 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t347.js` | 3.427 So file giao ban (js/90): đọc CSV hợp đồng, tự phân loại lệch A / B / C / D / ?, nút + hộp kết quả (`gianho31`). |
 | `node tests/t348.js` | 3.429: Mẫu 06 sau giải ngân chọn Tất cả / Lần 1 (QT-C-15) — dữ liệu giả. |
 | `node tests/t349.js` | 3.430: Mẫu 06A/TD (727) — kho mẫu, mỗi món 1 phiếu, tự điền từ Mẫu 31 giả, nút từ KTGS Mẫu 06. |
+| `node tests/t350.js` | 3.433: tên xã bỏ dạng "Vay trực tiếp" (xaTenSach, danh bạ, Tra cứu, địa chỉ hồ sơ). |
+| `node tests/t351.js` | 3.435: Tra cứu theo ô kỳ góc phải (mặc định mới nhất), ghi rõ kỳ. |
+| `node tests/t352.js` | 3.436: QT-C-03 bổ sung — lãi tồn Mẫu 31 theo ngày bỏ lãi dồn khi đã GD phiên gần nhất. |
+| `node tests/t353.js` | 3.437: nút đổi chữ ô Tên văn bản. |
+| `node tests/t354.js` | 3.438: tag nguồn văn bản theo số hiệu + loại văn bản Trung ương. |
+| (3.434) | `t244` khối tổ: mã tổ ở dòng tiêu đề. |
 | (3.432) | `t192` kiểm mục hướng dẫn thử + đã bỏ trong Có gì mới. |
 | (3.431) | t349 + kỳ mặc định 06A; t328, t343, t347 đổi tên hàm `slDCGBTinh`. |
 | (3.428) | Bỏ tên Tèo — chữ nút trong `t325`, `t344`, `t347` sửa theo. |

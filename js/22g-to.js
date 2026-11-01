@@ -222,6 +222,7 @@ function toNap0(ky){
     Object.keys(demD).forEach(function(dm){ var d = demD[dm], tot = 0, n = 0; Object.keys(d).forEach(function(k){ if(d[k]>n){ n = d[k]; tot = k; } }); if(tot) ngD[dm] = hai(+tot); });
     Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.diem && !t.ngayGD && ngD[t.diem]) t.ngayGD = ngD[t.diem]; });   /* 3.108: DSTO không có ngày GDXA → theo mã điểm GD */
     (K.hs||[]).forEach(function(o){ var t = T[toMaCua(o)]; o._ngGD = t && !t.trucTiep && t.ngayGD ? String(+t.ngayGD || '') : ''; });   /* 3.404 QT-C-12: ngày GD của điểm cho ngày chuyển QH (skCQH) */
+    toLaiTonNgay(K);   /* 3.436 QT-C-03 (anh chốt 01/11): Mẫu 31 THEO NGÀY — món đã giao dịch ở phiên gần nhất → lãi tồn chỉ còn phần quá hạn */
     Object.keys(T).forEach(function(ma){ var t = T[ma]; t.tenDiemDu = t.tenDiem ? String(t.tenDiem).trim()+(t.ngayGD ? ' · ngày '+t.ngayGD : '') : '(chưa rõ điểm GD)'; t.khoaDiem = t.diem || t.tenDiemDu; });
     /* 3.90: chỉ tiêu chuẩn TW của tổ — dòng LEN_31 TO_TRUONG cùng kỳ (ghép theo tên tổ trưởng trong xã) */
     var ltR = Bm && Bm.co.lt;
@@ -255,10 +256,27 @@ function toDien(t, o, ds){ ds.forEach(function(f){ if(!t[f[0]] && o[f[1]]) t[f[0
    điểm GD suy từ XÃ + NGÀY GDXA (mỗi điểm trong xã có ngày GD riêng; thôn không dùng được vì 19/59 thôn có tổ thuộc 2 điểm).
    Không đổi o.to của dữ liệu (kiểm tra vẫn thấy món không tổ) — chỉ gắn o._tt; tra tổ của 1 dòng dùng toMaCua(o). */
 var TO_GIA = '0000000';
+/* 3.436 QT-C-03 (anh chốt 01/11: "món vay đã trả lãi đến ngày GD của tháng trước coi như không có lãi tồn, nếu chưa đến ngày GD tháng sau"):
+   Mẫu 31 THEO NGÀY ghi cột Lãi tồn TH gồm cả lãi tính dồn từ phiên gần nhất đến ngày báo cáo (chưa đến kỳ trả); Mẫu 31 CHỐT THÁNG thì không (anh so T9 ↔ 30/10).
+   → kỳ theo ngày: phiên gần nhất = ngày GD của điểm trong tháng của ngày số liệu (chưa tới → tháng trước); món có Ngày GD gần nhất ≥ phiên → lãi tồn = Lãi tồn QH (bỏ phần TH dồn);
+   món không giao dịch ở phiên → giữ TH + QH. Ghi vào o.lt (laiTon đọc o.lt trước) — chỉ dòng Mẫu 31 chưa có cột lt; kỳ chốt tháng không đổi. Món trực tiếp (không có ngày GD điểm) giữ như cũ. */
+function toPhienGan(ngay, gd){ var x = String(ngay||'').match(/^(\d{4})-(\d{2})-(\d{2})/); gd = +gd; if(!x || !gd) return '';
+  var y = +x[1], m = +x[2], d = +x[3]; if(d < gd){ m--; if(!m){ m = 12; y--; } }
+  var cuoi = new Date(y, m, 0).getDate(), dd = Math.min(gd, cuoi); return y+'-'+String(m).padStart(2, '0')+'-'+String(dd).padStart(2, '0'); }
+function toLaiTonNgay(K){
+  if(!K || String(K.ky||'').length<=7) return; var nd = K.ngay || K.ky, dem = 0;
+  (K.hs||[]).forEach(function(o){ if(o._ltNgay || !o.ku || typeof o.lt==='number') return; var ph = toPhienGan(nd, o._ngGD); if(!ph) return;
+    o._ltNgay = ph; if(o.ngdg && String(o.ngdg)>=ph && (o.ltTH||0)>0){ o.lt = o.ltQH||0; dem++; } });
+  K.ltNgay = dem; }
 function toMaCua(o){ return (o && o.to && o.to!==TO_GIA) ? o.to : ((o && o._tt) || ''); }
 function toLaTT(t){ return !!(t && t.trucTiep); }
 /* 3.409 (anh 30/10: cây địa bàn 3 xã hiện tên "Vay trực tiếp"): tên xã của tổ = tên chiếm đa số trong Mẫu 31 của mã xã đó (Mẫu 31 là chính),
    bỏ tên dạng "… trực tiếp"; Mẫu 31 không có → danh mục ⚙ Cài đặt. Trước: lấy tên ở dòng đầu tiên gặp của tổ. */
+function xaTenSach(ma, ten){   /* 3.433 (anh 01/11: Tra cứu khách "Ấp · xã: Thuận Tân, Vay trực tiếp"): tên xã bỏ dạng "… trực tiếp" — lấy tên xã của tổ cùng mã xã ở kỳ đang dựng, không có → danh mục ⚙ Cài đặt */
+  if(ten && !/tr[ựu]c ti[ếe]p/i.test(String(ten))) return ten; ma = String(ma||''); if(!ma) return '';
+  var T = (TO_K && TO_K.to) || {}, v = ''; Object.keys(T).some(function(m){ var t = T[m]; if(String(t.xa)===ma && t.tenXa && !/tr[ựu]c ti[ếe]p/i.test(t.tenXa)){ v = t.tenXa; return true; } return false; });
+  if(!v){ var x = (D.cauHinh.diaBan||[]).find(function(z){ return String(z.ma)===ma; }); v = x && x.xa ? x.xa : ''; }
+  return v; }
 function toTenXa(K){
   var dem = {}, T = K.to, laTT = function(s){ return /tr[ựu]c ti[ếe]p/i.test(String(s||'')); };
   (K.hs||[]).forEach(function(o){ if(!o.xa || !o.tenXa || laTT(o.tenXa)) return; var d = dem[o.xa] = dem[o.xa] || {}; d[o.tenXa] = (d[o.tenXa]||0)+1; });

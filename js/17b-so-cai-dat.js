@@ -25,7 +25,7 @@ var CH_SO = {
   anBangDC:'Ẩn bảng đối chiếu tab Tháng', moCXL:'Mở khối Cần xử lý', moGanDay:'Mở khối Gần đây', tvPhan:'Việc Hôm nay theo phần', taNhacKhac:'Đã nhắc tạo nhãn khác',
   cheCau:'Câu hay mỗi ngày: chế độ', nhomCau:'Câu hay: nhóm câu', cheChay:'Chữ chạy: tốc độ', nkChe:'Nhật ký: kiểu ghi', dkChon:'Báo cáo chuẩn: lựa chọn từng báo cáo', bcToi:'Báo cáo của tôi (tự khai ở tab Tổng hợp)', inThe:'In thẻ CCCD: cỡ / khe',
   /* văn bản, nhãn, danh mục */
-  nghiepVu:'Danh mục nghiệp vụ', chuongTrinh:'Danh mục chương trình vay', ctTen:'Tên chương trình anh sửa', ctNCHXAPT:'Mốc thêm chương trình NCHXAPT (1 lần)', loaiVB:'Danh mục loại văn bản',
+  nghiepVu:'Danh mục nghiệp vụ', chuongTrinh:'Danh mục chương trình vay', ctTen:'Tên chương trình anh sửa', ctNCHXAPT:'Mốc thêm chương trình NCHXAPT (1 lần)', loaiVB3438:'Mốc thêm loại văn bản Trung ương (Nghị định, Thông tư… — 1 lần, 3.438)', loaiVB:'Danh mục loại văn bản',
   kieuTen:'Kiểu đặt tên file', kieuTenThang:'Kiểu tên file tháng', tenCauTruc:'Cấu trúc tên file', soTrangDoc:'Số trang PDF đọc để nhận dạng', tuKhoa:'Từ khóa nhận dạng anh sửa', vtLoai:'Viết tắt loại văn bản',
   tagTab:'Nhãn theo tab', tagGan:'Nhãn đã gắn', tagDCBo:'Mốc bỏ nhãn địa chỉ biểu mẫu (1 lần)', nhanGhiChu:'Nhãn ghi chú', nhanGCDaGop:'Mốc gộp nhãn ghi chú (1 lần)', hoiDoanThe:'Danh mục hội đoàn thể (đời cũ)',
   boMau:'Bộ biểu mẫu', loaiBoHS:'Loại giấy tờ bộ hồ sơ',

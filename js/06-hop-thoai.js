@@ -631,7 +631,7 @@ function suaCho(id){
         loaiDS.map(function(x){ return '<option'+(m.loai===x?' selected':'')+'>'+coChuHTML(x)+'</option>'; }).join('')+
       '</select></div></div>';
     nd += '<div id="canh-trung"></div>';
-    nd += '<div class="o"><label>Tên văn bản <small>— vào tên file</small></label><input id="s-ty" autocomplete="off" value="'+
+    nd += '<div class="o o-chu"><label for="s-ty">Tên văn bản <small>— vào tên file</small></label>'+chuDoiNut('s-ty')+'<input id="s-ty" autocomplete="off" value="'+
       coChuHTML(m.tenVB||m.trichYeu||'')+'" placeholder="Triển khai thực hiện Quyết định 70/QĐ-HĐQT" oninput="xemTenTruoc()"></div>';
     nd += '<div class="o"><label>Trích yếu <small>— không bắt buộc, chỉ ghi thêm ý chính để tìm (không lặp lại tên)</small></label>'+
       '<textarea id="s-tom" rows="1" placeholder="vd: thành lập, củng cố Tổ; bình xét cho vay">'+coChuHTML(m.tomTat||'')+'</textarea></div>';
@@ -806,6 +806,22 @@ function o(nhan,id,gt,hd){
   return '<div class="o"><label>'+coChuHTML(nhan)+'</label>'+
     '<input id="'+id+'" value="'+coChuHTML(gt)+'" oninput="xemTenTruoc()">'+
     (hd?'<div class="huong-dan">'+coChuHTML(hd)+'</div>':'')+'</div>';
+}
+/* 3.437 (anh 01/11, ảnh khai văn bản tên viết HOA hết): nút đổi chữ cho ô tên — thường · Hoa đầu câu · HOA hết · Hoa Đầu Từ.
+   Giữ nguyên từ viết tắt / ký hiệu: có số, "/", "-" hoặc nằm trong danh sách (NHCSXH, HĐQT, QĐ, UBND…). Đổi xong cập nhật xem trước tên file. */
+var CHU_TAT = ['NHCSXH','NHCS','HĐQT','HĐND','UBND','QĐ','TW','TƯ','CP','TTG','TTg','BĐD','KTGS','TK','TK&VV','CCCD','HSSV','GQVL','NSVSMT','NOXH','XKLĐ','PGD','CBTD','BCĐ','HĐ','NĐ','TT','CV','KH','TB','BC','VB','HND','HPN','HCCB','ĐTN','MTTQ','CT','TCTD','CNTT','QH','TDNN','VBSP'];
+function chuGiu(w){ var g = w.replace(/^[^\wÀ-ỹĐđ]+|[^\wÀ-ỹĐđ&]+$/g, ''); return /[\d\/-]/.test(g) || CHU_TAT.indexOf(g.toLocaleUpperCase('vi'))>=0 && g===g.toLocaleUpperCase('vi'); }
+function chuDoi(s, kieu){
+  s = String(s||'').replace(/\s+/g, ' ').trim(); if(!s) return s;
+  if(kieu==='hoa') return s.toLocaleUpperCase('vi');
+  var w = s.split(' ').map(function(x){ if(chuGiu(x)) return x; var t = x.toLocaleLowerCase('vi'); return kieu==='tu' ? t.charAt(0).toLocaleUpperCase('vi')+t.slice(1) : t; });
+  if(kieu==='cau'){ var i = 0; while(i<w.length && chuGiu(w[i])) i++; if(i<w.length) w[i] = w[i].charAt(0).toLocaleUpperCase('vi')+w[i].slice(1); }
+  return w.join(' ');
+}
+function chuDoiNut(id){
+  if(!chuDoiNut.dk && typeof GD!=='undefined'){ chuDoiNut.dk = 1; GD.dangKy('chu', {doi:function(el){ var o = document.getElementById(el.getAttribute('data-o')); if(!o) return; o.value = chuDoi(o.value, el.getAttribute('data-k')); o.dispatchEvent(new Event('input', {bubbles:true})); o.focus(); }}); }
+  return ' <span class="chu-doi">'+[['thuong','aa','chữ thường'], ['cau','Aa.','Viết hoa đầu câu'], ['hoa','AA','VIẾT HOA HẾT'], ['tu','Aa Aa','Viết Hoa Đầu Mỗi Từ (như tên)']].map(function(x){
+    return '<button type="button" class="nho" data-lenh="chu.doi" data-o="'+id+'" data-k="'+x[0]+'" title="'+x[2]+' — giữ nguyên ký hiệu, từ viết tắt (NHCSXH, 54/QĐ-HĐQT…)">'+x[1]+'</button>'; }).join('')+'</span>';
 }
 function ta(nhan,id,gt){
   return '<div class="o">'+(nhan?'<label>'+coChuHTML(nhan)+'</label>':'')+
@@ -1040,7 +1056,13 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.432', ds:[
+var CO_GI_MOI = {ban:'3.438', ds:[
+  ["🏷 Văn bản: tự gắn tag nguồn theo số hiệu — VB Trung ương · NHCSXH Trung ương · Chỉ đạo của Tỉnh", ""],
+  ["🔤 Khai văn bản: nút đổi chữ ô Tên — thường · Hoa đầu câu · HOA · Hoa Đầu Từ", ""],
+  ["💰 Lãi tồn số liệu theo ngày: món đã trả lãi ở phiên gần nhất không còn lãi tồn (QT-C-03)", ""],
+  ["📅 Tra cứu theo ô kỳ góc phải (mặc định mới nhất), thẻ khách ghi rõ kỳ số liệu", ""],
+  ["🔍 Tra cứu khách: khối Tổ & địa bàn trọn trong ô, không phải cuộn", ""],
+  ["🏷 Sửa: tên xã không còn hiện \"Vay trực tiếp\" (Tra cứu khách, danh sách, địa chỉ trên mẫu hồ sơ)", ""],
   ["✨ Có gì mới: thêm hướng dẫn thử (nút mới ở đâu) và mục Đã bỏ / thay thế", "moHuongDan('moi')"],
   ["📅 Mẫu 06A: số liệu mặc định cuối tháng trước (hoặc gần nhất có được)", ""],
   ["📄 Mẫu 06A/TD (727) — kiểm tra từng hộ, mỗi món 1 phiếu; nút 06A ở Mẫu 06 KTGS", ""],
@@ -1049,14 +1071,18 @@ var CO_GI_MOI = {ban:'3.432', ds:[
   ["🔎 So file giao ban: app tự so DOI_CHIEU_GB với số app, tự phân loại lệch A–D (⋯ Nạp & KT)", ""],
   ["📋 Bảng trạng thái chung tự sinh mỗi bản (docs/TRANG_THAI_CHUNG.md) · luật chỉ chốt khi có phép thử chung", ""],
   ["📄 Nháp Thông báo kết luận theo phiên (08/GDX, Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""],
-  ["📝 Nháp Nội dung họp mẫu 08 (Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""],
-  ["📐 Sửa: kỳ so sánh của bộ số chuẩn là cuối tháng TRƯỚC (3.424 lấy nhầm tháng sau)", ""],
-  ["📐 Bộ số chuẩn đối chiếu giao ban: chỉ tiêu theo điểm × Hội, kiểm cân đối, so với file đáp án (⋯ Nạp & KT)", ""],
-  ["🔁 Số kỳ trước theo vị trí hiện nay của khế ước (QT-C-21) — tổ viên chuyển tổ không làm sai tăng giảm", ""],
-  ["📤 File đối chiếu giao ban: thu nợ đủ (cả món tất nợ, tổ đã đóng), bù mã xã, bỏ dòng vay trực tiếp toàn 0", ""],
-  ["⚡ Mở lại app khi có nhiều số liệu: bớt đứng máy khoảng một nửa (không đọc / dựng kỳ 2 lần)", ""],
-  ["🖥 Khổ laptop 1280: hết cuộn ngang ở Văn bản / Scan / Biểu mẫu / Thư viện (thanh trên gọn lại)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📝 Nháp Nội dung họp mẫu 08 (Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.438 · Văn bản › ＋ Thêm file PDF Nghị định (Số: 54/2026/NĐ-CP) hoặc tên file 54_2026_NĐ-CP → app tự nhận số hiệu đủ, loại Nghị định, tag VB Trung ương",
+    "3.438 · Văn bản › khai văn bản số 54/2026/NĐ-CP → Loại tự chọn Nghị định, tự thêm chip tag \"VB Trung ương\"; số …/NHCS-KHTD → tag \"Chỉ đạo của Tỉnh\"; …/NHCS-TDNN, …/QĐ-HĐQT → \"NHCSXH Trung ương\"",
+    "3.438 · Văn bản › đầu tab nút 🏷 Gắn tag nguồn (n) → gắn tag cho văn bản cũ (hỏi trước, chỉ thêm tag)",
+    "3.438 · Văn bản › bộ lọc tag: chọn \"Chỉ đạo của Tỉnh\" / \"VB Trung ương\" để xem riêng",
+    "3.437 · Văn bản › khai / sửa 1 văn bản → ô Tên văn bản, góc phải có 4 nút aa · Aa. · AA · Aa Aa → bấm thử, ký hiệu (NHCSXH, 54/QĐ-HĐQT) giữ nguyên, xem trước tên file đổi theo",
+    "3.436 · Góc phải chọn ngày 30/10 → Tra cứu › thẻ tổ: cột Lãi tồn chỉ còn người chưa trả lãi phiên gần nhất / có lãi quá hạn; chọn T9 → như tab Tổ (chốt tháng)",
+    "3.435 · Góc phải chọn T9/2026 → Tra cứu › mở 1 khách: đầu thẻ ghi 📅 T9/2026, \"Món vay — T9/2026\", dư nợ / lãi tồn / số dư 105 theo T9; đổi lại kỳ mới nhất → số đổi theo",
+    "3.435 · Tra cứu › thẻ tổ (Tổ trưởng): \"Số liệu …\" theo kỳ đang chọn",
+    "3.434 · Tra cứu › mở 1 khách → khối Tổ & địa bàn: mã tổ + nút 🏘 Tổ của điểm GD ở dòng tiêu đề, ghi chú số liệu ở ⓘ cuối dòng Thành viên, không thanh cuộn",
+    "3.433 · Tra cứu › mở khách có món vay trực tiếp (vd GQVL) → khối Liên hệ, dòng Ấp · xã ghi đúng tên xã (không còn \"Vay trực tiếp\")",
     "3.432 · ⚙ Cài đặt › ✨ Có gì mới (hoặc ❓ › Có gì mới): xem 2 mục \"Thử trên máy — nút mới ở đâu\" và \"Đã bỏ / thay thế\"",
     "3.431 · Hồ sơ vay › bấm 06A/TD: kỳ số liệu tự về Mẫu 31 cuối tháng trước, báo \"📅 06A: số liệu đến …\"",
     "3.430 · Hồ sơ vay › 06A/TD: chọn tổ → người vay → món → phiếu 2 trang mẫu 727, ô tự điền",
@@ -1066,16 +1092,11 @@ var CO_GI_MOI = {ban:'3.432', ds:[
     "3.426 · ⋯ Nạp & KT › 📐 Bộ số chuẩn › 📄 Nháp TB kết luận (Word)",
     "3.425 · ⋯ Nạp & KT › 📐 Bộ số chuẩn › 📝 Nháp Nội dung họp mẫu 08 (Word)",
     "3.424 · ⋯ Nạp & KT › 📐 Bộ số chuẩn: chỉ tiêu theo điểm × Hội, 📥 CSV, 📂 So với file đáp án",
-    "3.420 · Ở bất kỳ đâu bấm Ctrl+K → gõ tên tab / công cụ / khách / tổ (không dấu) → Enter",
-    "3.419 · Mở app 1 lần khi có mạng → tắt mạng, mở lại vẫn chạy",
-    "3.416.5 · Tra cứu › thẻ tổ: hàng số kẻ ô, Thành viên (n có nợ chữ xanh), chip Lưu ý xuống dòng, \"Số liệu ngày ⓘ\" góc phải",
-    "3.416.1 · Tra cứu › Danh sách tổ: đầu khung \"Xã … (n tổ) - Ấp … (n tổ)\"",
-    "3.416.1 · Thêm file lớn: có báo tiến độ (đang đọc, đọc chữ PDF trang i/n)",
-    "3.416.1 · Scan quét nhiều CCCD 1 lượt → 🗄 Lưu vào tủ tách từng người",
-    "3.416.1 · Scan › Sửa bản quét: ô Tổ TK&VV có nút chọn nhanh tổ của ấp",
-    "3.416 · 📊 Kiểm tra hồ sơ scan › 👑 Kiểm CCCD tổ trưởng: chip Tổ trưởng cũ, Chỉ thiếu",
-    "3.415 · Quét CCCD tổ trưởng → lưu tên chuẩn CIF - Họ tên - CCCD (cả tổ trưởng cũ)"],
+    "3.420 · Ở bất kỳ đâu bấm Ctrl+K → gõ tên tab / công cụ / khách / tổ (không dấu) → Enter"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.435 · Tra cứu: bỏ luật \"luôn lấy số liệu mới nhất\" (3.347) → theo ô kỳ góc phải, chưa chọn thì vẫn mới nhất",
+    "3.434 · Thẻ tổ (Tra cứu): bỏ nút 👪 Lập hồ sơ hộ mới vào tổ (anh đã bỏ 29/10, 3.410 trả lại nhầm) — vẫn lập được ở 🏘 Tổ của điểm GD",
+    "3.434 · Khối Tổ & địa bàn: bỏ dòng \"Mã tổ\" riêng (lên dòng tiêu đề) và dòng ghi chú số liệu dài (thành ⓘ rê chuột)",
     "3.416.4 · Thẻ tổ: bỏ chip \"n còn lãi tồn\" dưới bảng → ô Lưu ý ghi \"n không dư nợ · m hết gốc còn lãi\"",
     "3.416.2 · Thẻ tổ: bỏ 3 hàng ô kẻ (17 ô) và ô CCCD ghi nhầm căn cứ → đầu thẻ gọn",
     "3.416.1 · Danh sách tổ (Tra cứu): bỏ cột Xã (xã ghi ở đầu khung)",

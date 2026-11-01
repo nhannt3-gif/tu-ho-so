@@ -357,12 +357,15 @@ function toExcel(tp){
    ========================================================== */
 var TC_K = null;   /* 3.346: chỉ mục vợ/chồng + HSSV khai báo ở 22-so-lieu */
 function tcCH(){ return pvGan(D.cauHinh.tcPV = D.cauHinh.tcPV || {xa:'', diem:'', hoi:'', to:''}); }
-PV_DUNG.tc = {S:function(){ return tcCH(); }, K:function(){ return TC_K; }, sau:function(){ slTraTim(); }, ghi:function(){ var n = KHO.chiMuc().length, ky = slHSMoi(); return n ? n.toLocaleString('vi-VN')+' khách'+(ky ? ' · số liệu '+slKyChu(ky) : '') : ''; }};
+PV_DUNG.tc = {S:function(){ return tcCH(); }, K:function(){ return TC_K; }, sau:function(){ slTraTim(); }, ghi:function(){ var n = KHO.chiMuc().length, ky = tcKyDung() || slHSMoi();   /* 3.435: ghi đúng kỳ đang dùng */ return n ? n.toLocaleString('vi-VN')+' khách'+(ky ? ' · số liệu '+slKyChu(ky) : '') : ''; }};
 /* Mẫu 31 mới nhất: chỉ mục phụ vợ/chồng + HSSV (Mẫu 10 không có các cột này) */
+function tcKyDung(){   /* 3.435 (anh 01/11 "app mặc định lấy kỳ mới nhất nhưng khi anh chọn thì phải theo cột số liệu"): kỳ chung (ô góc phải) có số liệu → kỳ đó; chưa chọn / không có → MỚI NHẤT (3.347) */
+  var ds = toDsKy(); if(!ds.length) return '';
+  var kc = kyChungLay(); if(kc && ds.some(function(x){ return x.ky===kc; })) return kc;
+  return ds.reduce(function(a, x){ return slThuTu(x.ky)>slThuTu(a.ky) ? x : a; }, ds[0]).ky; }
 function tcNap(){
-  var ds = toDsKy(); if(!ds.length) return Promise.resolve();
-  var moi = ds.reduce(function(a, x){ return slThuTu(x.ky)>slThuTu(a.ky) ? x : a; }, ds[0]);   /* 3.347 (anh 24/10): Tra cứu dùng số liệu MỚI NHẤT — có Mẫu 31 theo ngày thì lấy ngày */
-  return KHO.nap(moi.ky).then(function(K){ TC_K = K; pvVeCay('tc'); })
+  var ky = tcKyDung(); if(!ky) return Promise.resolve();
+  return KHO.nap(ky).then(function(K){ TC_K = K; pvVeCay('tc'); })
     .then(slKhMonNap).then(function(){ if(nganHienTai===7 && D.cauHinh.slTab==='tra'){ slTraTim(); tcKTVe(); } })
     .catch(function(er){ console.warn('Tra cứu: chưa mở được số liệu', er); });
 }

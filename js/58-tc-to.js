@@ -28,17 +28,16 @@ function tcTVChu(r){ if(!r) return '<span class="nh nh-xam">chưa có số liệ
 function tcTVGhi(r){ if(!r) return ''; var k = String(r.ky||'');
   return 'Số liệu '+(k.length>7 ? 'ngày '+ngayVNsl(k) : slKyChu(k))+(k.length>7 ? ' · theo Mẫu 31 ngày này (số liệu theo ngày không bù Mẫu 01/TV)' : r.kyTW ? ' · bù '+r.bs+' người TƯ còn giữ theo Mẫu 01/TV '+slKyChu(r.kyTW) : ' · chưa có Mẫu 01/TV — chỉ đếm theo Mẫu 31'); }
 /* khối "Tổ & địa bàn" trong khung khách (thay dòng Tổ / Điểm GD cũ) */
-function tcToKhoiHTML(c){
+function tcToKhoiHTML(c){   /* 3.434 (anh 01/11 "khối tổ phải cuộn do số liệu nhiều, cân đối lại cho trọn trong ô"): mã tổ lên dòng tiêu đề, ghi chú số liệu → ⓘ, nút Tổ của điểm GD lên dòng tiêu đề — bớt 3 dòng */
   var dong = function(nhan, gt){ return '<div class="tc-dl"><span>'+nhan+'</span><div>'+gt+'</div></div>'; };
   var t = tcTo(c.to) || {}, tt = tcTT(tcTo(c.to)), r = c.to ? KHO.tvChuan(c.to, TC_K) : null;
-  var tenTo = c.toTen || t.ten || '', sdt = t.sdt || '', diem = t.tenDiemDu || t.tenDiem || '', ngay = t.ngayGD || '';
-  return '<div class="tc-nhom tc-to-khoi"><div class="tc-nhom-tit">Tổ &amp; địa bàn</div><div class="tc-luoi">'+
-    dong('Mã tổ', c.to ? tcC(c.to, 'mã tổ') : '—')+
+  var tenTo = c.toTen || t.ten || '', sdt = t.sdt || '', diem = t.tenDiemDu || t.tenDiem || '', ngay = t.ngayGD || '', ghi = r ? tcTVGhi(r) : '';
+  return '<div class="tc-nhom tc-to-khoi"><div class="tc-nhom-tit tc-to-khoi-tit"><span>Tổ &amp; địa bàn'+(c.to ? ' · mã tổ '+tcC(c.to, 'mã tổ') : '')+'</span>'+
+      (t.khoaDiem ? '<button class="nho tc-bang-nut" data-lenh="tc.bangDiem" data-diem="'+coChuHTML(String(t.khoaDiem))+'" data-to="'+coChuHTML(c.to||'')+'" title="Xem toàn bộ tổ của điểm GD, theo Hội">🏘 Tổ của điểm GD</button>' : '')+'</div><div class="tc-luoi">'+
     dong('Tổ trưởng', tenTo ? tcC(tenTo, 'tên tổ trưởng')+(tt.kh ? ' · mã KH '+tcC(tt.kh, 'mã KH tổ trưởng') : ' · <small>chưa rõ mã KH</small>')+(sdt ? ' · ☎ '+tcC(sdt, 'SĐT tổ trưởng') : '') : '—')+
-    dong('Thành viên', c.to ? tcTVChu(r) : '—')+
-    dong('Hội · Điểm GD', coChuHTML([c.dv||t.dv ? tdnHoi(c.dv||t.dv) : '', diem ? 'Điểm '+diem : '', ngay && !/ngày/i.test(diem) ? 'ngày '+ngay : ''].filter(Boolean).join(' · ') || '—')+
-      (t.khoaDiem ? ' <button class="nho tc-bang-nut" data-lenh="tc.bangDiem" data-diem="'+coChuHTML(String(t.khoaDiem))+'" data-to="'+coChuHTML(c.to||'')+'" title="Xem toàn bộ tổ của điểm GD, theo Hội">🏘 Tổ của điểm GD</button>' : ''))+
-    '</div>'+(r ? '<div class="tc-ghi">'+coChuHTML(tcTVGhi(r))+'</div>' : '')+'</div>';
+    dong('Thành viên', (c.to ? tcTVChu(r) : '—')+(ghi ? ' <span class="tc-i" title="'+coChuHTML(ghi)+'">ⓘ</span>' : ''))+
+    dong('Hội · Điểm', coChuHTML([c.dv||t.dv ? tdnHoi(c.dv||t.dv) : '', diem ? 'Điểm '+diem : '', ngay && !/ngày/i.test(diem) ? 'ngày '+ngay : ''].filter(Boolean).join(' · ') || '—'))+
+    '</div></div>';
 }
 /* ---------- bảng tổ của 1 điểm GD, gom theo Hội ---------- */
 var TC_BANG = {diem:'', chon:'', ket:null};
@@ -185,8 +184,8 @@ function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Đ�
     (TC_KHOI_PHU && typeof dtgKhoiHTML==='function' ? dtgKhoiHTML('to', t.ma) : '')+   /* 3.359: 📅 dòng thời gian */
     '<div class="hang-nut tc-nut">'+(coKH ? GD.nut({chu:'👤 Xem tổ trưởng', lenh:'tc.kh', du:{kh:tt.kh}}) : '')+
       (t.khoaDiem ? GD.nut({chu:'🏘 Tổ của điểm GD', lenh:'tc.bangDiem', du:{diem:t.khoaDiem, to:t.ma}}) : '')+
-      GD.nut({chu:'📊 Biến động TK 105', lenh:'tc.b105', du:{to:t.ma}, tit:'Mở Sao kê biến động TK 105 của tổ (khách chuyển vào, trích trả lãi / gốc)'})+GD.nut({chu:'👥 Mở tổ', lenh:'tc.moTo', du:{to:t.ma}})+
-      GD.nut({chu:'👪 Lập hồ sơ hộ mới vào tổ', lenh:'tc.ketNap', du:{to:t.ma}, chinh:1, tit:'Mở form 👪 Hộ vay, điền sẵn Xã › Ấp › Tổ'})+'</div>';   /* 3.403.2 (anh 29/10 "nút diễn biến tổ thay cho nút lập hồ sơ mới vào tổ"): bỏ js/80 thì nút cũ quay lại; lập hồ sơ vào tổ vẫn có ở 🏘 Tổ của điểm GD */
+      GD.nut({chu:'📊 Biến động TK 105', lenh:'tc.b105', du:{to:t.ma}, tit:'Mở Sao kê biến động TK 105 của tổ (khách chuyển vào, trích trả lãi / gốc)'})+
+      GD.nut({chu:'👥 Mở tổ', lenh:'tc.moTo', du:{to:t.ma}})+'</div>';   /* 3.434 (anh 01/11 "nút lập hs mới của tổ anh đã yêu cầu bỏ đi" — anh 29/10 đã bỏ, 3.410 trả lại nhầm khi gỡ Diễn biến tổ): bỏ hẳn ở thẻ tổ; lập hồ sơ vào tổ vẫn có ở 🏘 Tổ của điểm GD và Hồ sơ vay › Sổ hộ vay */
   var ct = document.getElementById('tc-ct');
   if(ct && tcHaiCot()) ct.innerHTML = '<div class="tc-the tc-the-to">'+h+'</div>'; else moHop('<div class="tc-the tc-the-to">'+h+GD.hang([GD.nut({chu:'Đóng (Esc)', lenh:'tc.dong'})])+'</div>', true);
 }

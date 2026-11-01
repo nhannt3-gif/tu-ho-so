@@ -34,3 +34,6 @@
 
 ## "Có gì mới" trong app (anh 01/11/2026)
 - Mỗi bản app, spec `tools/bump.py` **bắt buộc** có `thu` = hướng dẫn thử: nút / chip mới **ở đâu** (Tab › nút: bấm gì → thấy gì), `[]` nếu không có nút mới; và `bo` = chức năng / nút / cột **đã bỏ hoặc thay thế** (khi có). App hiện ở hộp ✨ Có gì mới: "Thử trên máy — nút mới ở đâu" và "Đã bỏ / thay thế" (giữ 20 dòng gần nhất, đủ lịch sử ở `docs/CHANGELOG.md`).
+
+## Ghi rõ kỳ số liệu (anh 01/11/2026)
+- Mọi bảng / thẻ / hộp có số liệu phải **ghi rõ lấy theo kỳ nào** (vd "📅 T9/2026", "Số liệu ngày 30/10/2026"). Tab số liệu **theo ô kỳ góc phải**; chưa chọn → kỳ mới nhất. Thông tin nhận dạng (CCCD, SĐT, số TK) theo bản gần nhất (QT-C-22) — ghi kỳ nguồn khi khác kỳ đang xem.

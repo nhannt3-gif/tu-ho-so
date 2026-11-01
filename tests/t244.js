@@ -34,7 +34,7 @@ const fs=require('fs'), path=require('path');
    const ks = Object.keys(SL_DB.kh).filter(k=>SL_DB.kh[k].to), c1 = ks[0], c2 = ks.find(k=>(SL_DB.kh[k].to!==SL_DB.kh[c1].to));
    tcMoKH(c1); await w(1500); const k1 = document.querySelector('#tc-ct .tc-khung'), b1 = k1 && k1.querySelector('.tc-nut').getBoundingClientRect().top, m1 = k1 && k1.querySelector('.tc-nhom-mon').getBoundingClientRect().top;
    const to1 = document.querySelector('#tc-ct .tc-to-khoi');
-   ok('khung khách có khối "Tổ & địa bàn": mã tổ chép được, Tổ trưởng, Thành viên, Hội · Điểm GD', !!to1 && /Mã tổ/.test(to1.textContent) && /Tổ trưởng/.test(to1.textContent) && /Thành viên/.test(to1.textContent) && !!to1.querySelector('.tc-chep[data-ten="mã tổ"]'));
+   ok('khung khách có khối "Tổ & địa bàn": mã tổ chép được, Tổ trưởng, Thành viên, Hội · Điểm (3.434: mã tổ lên tiêu đề)', !!to1 && /mã tổ/i.test(to1.textContent) && /Tổ trưởng/.test(to1.textContent) && /Thành viên/.test(to1.textContent) && !!to1.querySelector('.tc-chep[data-ten="mã tổ"]'));
    ok('khối tổ: số TV + chip có / không dư nợ + nút 🏘 Tổ của điểm GD', /TV/.test(to1.textContent) && !!to1.querySelector('.nh.nh-lam') && !!to1.querySelector('.tc-bang-nut'));
    tcMoKH(c2); await w(1500); const k2 = document.querySelector('#tc-ct .tc-khung');
    ok('khung cố định: đổi khách → nút dưới đáy + khối Món vay giữ nguyên vị trí', Math.abs(k2.querySelector('.tc-nut').getBoundingClientRect().top-b1)<2 && Math.abs(k2.querySelector('.tc-nhom-mon').getBoundingClientRect().top-m1)<2, Math.round(b1)+' / '+Math.round(k2.querySelector('.tc-nut').getBoundingClientRect().top));
