@@ -1,6 +1,6 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 01/11/2026 22:05 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 01/11/2026 23:11 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
@@ -8,7 +8,7 @@
 | Sổ luật | bản 1.10 · ✅ 17 · 🔧 7 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.2 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 25 dòng |
+| Hộp thư còn mở | 26 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -35,13 +35,16 @@
 - **C4** Ngoại lệ ngưỡng ≤ 30 tổ / điểm sau gộp (Gia Lộc ≈ 46, Phước Thạnh ≈ 54) _(cần: TK 1)_
 - **C5** File mẫu CLT02, LEN18 (anh gửi sau) — để app nhận dạng + MÃ _(cần: TK 2)_
 - **C6** Sao kê nợ đến hạn mẫu cột mới: file Excel hệ thống + công thức số tháng còn gia hạn / ngày gia hạn cuối _(cần: TK 2)_
-- **C7** Vai trò + quyền GitHub của Gemini — ✓ 01/11 anh chốt: Gemini tham gia khi cần, không quyền repo cố định (mục 1) _(cần: tất cả)_
+- **C7** Vai trò + quyền GitHub của Gemini — ✓ 01/11 anh chốt: Gemini tham gia khi cần, không quyền repo cố định; 23:07 chốt thêm… _(cần: tất cả)_
 - **C8** Ngày khách chuyển khoản vào TK 105: cần file sao kê giao dịch chi tiết _(cần: TK 2)_
 - **C9** Văn bản về gia hạn nợ (anh đưa lên Tủ hồ sơ) — để chốt QT-C-20 gia hạn tối đa ngắn / trung / dài hạn _(cần: TK 1, TK 2)_
 - **C10** Duyệt quy tắc dùng số cho văn bản tháng 11 (KE_HOACH_KY_DOI_CHIEU.md mục 6) _(cần: TK 1, TK 2)_
 - **C11** Màn Biến động tổ — làm lại từ đầu, đơn giản (3.410 đã gỡ 📉 Diễn biến tổ, 📅 Biến động cả năm, cột Mới vào / 105 tăng giảm… _(cần: TK 2)_
 
 ## Hộp thư còn mở — theo bên nhận
+
+**→ Gemini, TK 2, anh** (1)
+- 01/11 · TK 1 → Gemini, TK 2, anh: Kết quả kiểm lại đợt kiểm toán Gemini 01/11 22:30 (Drive 00_PHOI_HOP/NHAN_DINH_VA_DE_XUAT_TOI_UU_01-11-2026.md; anh chốt…
 
 **→ TK 1** (1)
 - 01/11 · TK 2 → TK 1: Đã gộp PR #449 (đổi tên kỹ thuật — gộp main vào nhánh, chỉ sinh lại TRANG_THAI_CHUNG.md + mốc hồi quy; t328 38/40 · 2 ch…

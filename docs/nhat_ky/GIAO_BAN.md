@@ -12,6 +12,14 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 01/11/2026 23:15 — TK 1 · PHIÊN (rà kiểm toán Gemini, vai Gemini)
+- Đã làm: rà 3 góp ý code + đợt kiểm toán Gemini 01/11 trên file Drive thật (kết quả hộp thư mục 14); anh chốt vai Gemini = kiểm toán và đề xuất, phối hợp ghi ở repo → `PHOI_HOP_CHUNG.md` 1.4 (mục 1, 1b, 1c), `GEMINI.md`, `nhat_ky/GEMINI.md`. Chạy thử `cap_nhat_QTC14.py` trên bản sao `tb_kl.py` / `nd_hop_m08.py` lấy từ Drive: khớp MD5 đích cả 2.
+- **Sửa mục NHẬN VAI 08:10:** `tb_kl.py` trên Drive vẫn **3.2**, `nd_hop_m08.py` **chưa vá QT-C-14** (ghi 3.3 / 1.10 là nhầm) — chờ anh chạy `python cap_nhat_QTC14.py` trong `06_CONG_CU\v2`.
+- Đang dở: GB-4 (anh chạy bản vá); GB-6 dọn `06_CONG_CU\v2` + README (chờ anh duyệt); tách module đọc chung (sau kỳ đối chiếu).
+- Bước tiếp: tóm tắt QĐ 54/QĐ-HĐQT + VB 7442/NHCS-TDNN (gia hạn nợ, C9) vào `_TOM_TAT`; kỳ đối chiếu khi đủ bộ cuối tháng 10.
+- Chờ ai: anh (chạy bản vá; duyệt GB-6); TK 2 (GB-5 sổ nạp, APP-1 thu nợ).
+- Lưu ý / bẫy: bản lưu `99_LUU_TRU\CLAUDE\nd_hop_m08_v1.9.py` giống hệt file đang dùng có đầu file ghi v1.8 — tên bản lưu lệch số bản trong file, không đổi gì khác.
+
 ### 01/11/2026 08:40 — TK 1 · PHIÊN (đổi tên bỏ "Tèo")
 - Đã làm: đổi tên kỹ thuật đọc là hiểu — repo `tests/chung/truong_hop_mau.json`, `tools/dap_an_giao_ban.py` (PR nhánh `giao-ban/doi-ten-bo-teo`, phép thử y hệt trước khi đổi, mốc hồi quy 228); Drive `chay_truong_hop_mau.py` 1.2, `doi_chieu_app.py` 1.1 (ra `KQ_DOI_CHIEU_APP_<ngày>.xlsx`), thư mục `00_PHOI_HOP\BAN_GIAO_APP`, bản cũ ở `99_LUU_TRU\CLAUDE`; Quy chuẩn giao ban 2.4 (bỏ "Tèo", tên sổ mới, luật đặt tên đọc là hiểu — mục 6).
 - Đang dở: không.
