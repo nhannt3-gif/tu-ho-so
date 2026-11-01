@@ -164,6 +164,7 @@
 | 01/11 | TK 2 | 3.433 | `js/22-so-lieu.js` (danh bạ tên xã), `js/22g-to.js` (**mới** `xaTenSach`), `js/22f-tra-cuu.js`, `js/25b` (`hsoDiaChi`), **mới** `tests/t350.js` |
 | 01/11 | TK 2 | 3.434 | `js/58-tc-to.js` (`tcToKhoiHTML`), `css/app.css` (cuối file, khung Tra cứu khách), `t244` |
 | 01/11 | TK 2 | 3.435 | `js/22h` (**mới** `tcKyDung`), `js/22f` (thẻ khách theo kỳ), `css/app.css` (.tc-ky), `AGENTS.md`, **mới** `tests/t351.js` |
+| 01/11 | TK 2 | 3.436 | `js/22g-to.js` (**mới** `toLaiTonNgay`, `toPhienGan`), `QUY_TAC_SO_LIEU.md` QT-C-03, **mới** `tests/t352.js` |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

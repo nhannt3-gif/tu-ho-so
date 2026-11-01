@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.436 — 01/11/2026 — Lãi tồn số liệu theo ngày (QT-C-03 bổ sung) (TK 2)
+- **Anh 01/11:** "cách tính lãi tồn trước đây đúng, ví dụ món vay đã trả lãi đến ngày GD của tháng trước coi như không có lãi tồn, nếu chưa đến ngày GD tháng sau" → "code rồi gộp".
+- **Kiểm:** công thức không đổi từ 24/10 (TH + QH); khác do loại file — Mẫu 31 **theo ngày** ghi Lãi tồn TH gồm lãi tính dồn từ phiên gần nhất đến ngày báo cáo, Mẫu 31 **chốt tháng** thì không (anh so tab Tổ T9: chỉ 3 người có nợ lãi ↔ 30/10: cả tổ có lãi tồn nhỏ).
+- **Sửa (js/22g `toLaiTonNgay`, gọi trong dựng kỳ):** kỳ theo ngày — phiên gần nhất = ngày GD của điểm trong tháng của ngày số liệu (chưa tới → tháng trước, `toPhienGan`); món có Ngày GD gần nhất ≥ phiên → lãi tồn = Lãi tồn QH; không giao dịch ở phiên → giữ TH + QH; chốt tháng, món trực tiếp, dòng có cột lãi tồn riêng (Mẫu 10) không đổi. Mọi chỗ dùng `laiTon` theo (thẻ tổ, thẻ khách, số tháng lãi, bộ số, file đối chiếu, 06A).
+- Sổ luật QT-C-03 ghi bổ sung (🔧 — giao ban chưa áp); hộp thư nhờ TK 1 áp + thêm trường hợp mẫu C03-2 + kiểm cột *Lãi DT chưa đến hạn*.
+- Phép thử mới `t352` (10 ý); `t328` 38/40 như cũ.
+
 ## 3.435 — 01/11/2026 — Tra cứu theo ô kỳ góc phải, ghi rõ kỳ số liệu (TK 2)
 - **Anh 01/11:** "anh chọn dữ liệu trên góc phải tháng 9 mà vẫn tính tháng 10" → "app sẽ mặc định lấy kỳ mới nhất nhưng khi anh chọn thì phải theo cột số liệu" + "em luôn ghi là lấy dữ liệu theo kỳ nào ở các bảng".
 - **Trước (3.347, anh 24/10):** Tra cứu luôn lấy số liệu MỚI NHẤT, không theo ô kỳ. **Nay:** `tcKyDung()` (js/22h) = kỳ chung có số liệu → kỳ đó; chưa chọn / không có → mới nhất. Thẻ khách: món vay, Tổng dư nợ / QH / khoanh / lãi tồn, **Số dư 105 (QT-C-01, theo kỳ)** lấy kỳ đang dùng; đầu thẻ ghi **📅 kỳ**; khách không có ở kỳ chọn → báo "không có trong số liệu … (có ở …)"; nhân thân / SĐT / CCCD theo bản gần nhất (QT-C-22), dòng Số dư 105 khối Liên hệ ghi kỳ nguồn khi khác. Thẻ tổ + cây phạm vi + dòng LỌC ĐỊA BÀN theo kỳ đang dùng.

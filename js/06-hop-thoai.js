@@ -1040,7 +1040,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.435', ds:[
+var CO_GI_MOI = {ban:'3.436', ds:[
+  ["💰 Lãi tồn số liệu theo ngày: món đã trả lãi ở phiên gần nhất không còn lãi tồn (QT-C-03)", ""],
   ["📅 Tra cứu theo ô kỳ góc phải (mặc định mới nhất), thẻ khách ghi rõ kỳ số liệu", ""],
   ["🔍 Tra cứu khách: khối Tổ & địa bàn trọn trong ô, không phải cuộn", ""],
   ["🏷 Sửa: tên xã không còn hiện \"Vay trực tiếp\" (Tra cứu khách, danh sách, địa chỉ trên mẫu hồ sơ)", ""],
@@ -1054,9 +1055,9 @@ var CO_GI_MOI = {ban:'3.435', ds:[
   ["📄 Nháp Thông báo kết luận theo phiên (08/GDX, Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""],
   ["📝 Nháp Nội dung họp mẫu 08 (Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""],
   ["📐 Sửa: kỳ so sánh của bộ số chuẩn là cuối tháng TRƯỚC (3.424 lấy nhầm tháng sau)", ""],
-  ["📐 Bộ số chuẩn đối chiếu giao ban: chỉ tiêu theo điểm × Hội, kiểm cân đối, so với file đáp án (⋯ Nạp & KT)", ""],
-  ["🔁 Số kỳ trước theo vị trí hiện nay của khế ước (QT-C-21) — tổ viên chuyển tổ không làm sai tăng giảm", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📐 Bộ số chuẩn đối chiếu giao ban: chỉ tiêu theo điểm × Hội, kiểm cân đối, so với file đáp án (⋯ Nạp & KT)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.436 · Góc phải chọn ngày 30/10 → Tra cứu › thẻ tổ: cột Lãi tồn chỉ còn người chưa trả lãi phiên gần nhất / có lãi quá hạn; chọn T9 → như tab Tổ (chốt tháng)",
     "3.435 · Góc phải chọn T9/2026 → Tra cứu › mở 1 khách: đầu thẻ ghi 📅 T9/2026, \"Món vay — T9/2026\", dư nợ / lãi tồn / số dư 105 theo T9; đổi lại kỳ mới nhất → số đổi theo",
     "3.435 · Tra cứu › thẻ tổ (Tổ trưởng): \"Số liệu …\" theo kỳ đang chọn",
     "3.434 · Tra cứu › mở 1 khách → khối Tổ & địa bàn: mã tổ + nút 🏘 Tổ của điểm GD ở dòng tiêu đề, ghi chú số liệu ở ⓘ cuối dòng Thành viên, không thanh cuộn",
@@ -1075,8 +1076,7 @@ var CO_GI_MOI = {ban:'3.435', ds:[
     "3.416.5 · Tra cứu › thẻ tổ: hàng số kẻ ô, Thành viên (n có nợ chữ xanh), chip Lưu ý xuống dòng, \"Số liệu ngày ⓘ\" góc phải",
     "3.416.1 · Tra cứu › Danh sách tổ: đầu khung \"Xã … (n tổ) - Ấp … (n tổ)\"",
     "3.416.1 · Thêm file lớn: có báo tiến độ (đang đọc, đọc chữ PDF trang i/n)",
-    "3.416.1 · Scan quét nhiều CCCD 1 lượt → 🗄 Lưu vào tủ tách từng người",
-    "3.416.1 · Scan › Sửa bản quét: ô Tổ TK&VV có nút chọn nhanh tổ của ấp"],
+    "3.416.1 · Scan quét nhiều CCCD 1 lượt → 🗄 Lưu vào tủ tách từng người"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.435 · Tra cứu: bỏ luật \"luôn lấy số liệu mới nhất\" (3.347) → theo ô kỳ góc phải, chưa chọn thì vẫn mới nhất",
     "3.434 · Thẻ tổ (Tra cứu): bỏ nút 👪 Lập hồ sơ hộ mới vào tổ (anh đã bỏ 29/10, 3.410 trả lại nhầm) — vẫn lập được ở 🏘 Tổ của điểm GD",
