@@ -1,5 +1,5 @@
 // 3.288 P2 🎯 PHÂN BỔ KH — giao diện tab con (js/48-phan-bo-gd.js) trên trình duyệt, bộ GIẢ tests/gianho31 (taogia.py 300 tests/gianho31 m31 — 2 kỳ Mẫu 31 31/07, 31/08/2026).
-//   Nút tab con · cây xã → ấp (tiền tố Ấp / Kp) · 📥 nhập file sao lưu WPF giả (ghép xã, xã lạ báo) · phân bổ tương đối / chính xác (kỳ tự động trước QĐ) · sửa tay → lệch → khớp lại
+//   Nút tab con · cây xã → ấp (tiền tố Ấp / Kp) · 📥 nạp QĐ Excel mẫu giả (3.439 — ghép xã, xã lạ báo, trùng → bỏ qua) · phân bổ tương đối / chính xác (kỳ tự động trước QĐ) · sửa tay → lệch → khớp lại
 //   · hộp QĐ mới: ngày gõ liền số, tích xã, thêm CT, gợi ý Đã giao theo QĐ trước, Đến 31/12 tự tính, ⚠ đứt chuỗi, lưu · mở lại tích thêm xã · Tab giữ ô · không lỗi trang.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs = require('fs'), path = require('path');
@@ -7,7 +7,7 @@ const fs = require('fs'), path = require('path');
  const ok = (ten, dk, chi) => R.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined && !dk ? ' — '+chi : ''));
  const p = await b.newPage({viewport:{width:1440, height:900}}); p.on('pageerror', e => loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r => r.abort()); await require('./tv.js')(p);
- await p.goto('file://'+path.resolve(__dirname, '..', 'index.html')); await p.waitForTimeout(1500);
+ await p.goto('file://'+path.resolve(__dirname, '..', 'index.html')); await p.waitForTimeout(1500); await p.evaluate(require('./pb_gia.js'));
  const dir = path.join(__dirname, 'gianho31'); const files = fs.readdirSync(dir).map(n => ({n, b:fs.readFileSync(path.join(dir, n)).toString('base64')}));
  const wpf = {DanhSachQD:[
    {Id:'w1', SoQD:'G100', KyHieuVanBan:'/QĐ-GIẢ', NgayQD:'2026-08-15T00:00:00', NguonVon:1, Loai:'Điều chỉnh', Dot:'1', TenXa:'Phường Gò Dầu', NgayGhiNhan:'2026-08-16T08:00:00',
@@ -25,17 +25,13 @@ const fs = require('fs'), path = require('path');
    o.kp = (PB.dsXa.find(x => /Phường/.test(x.ten)) || {ap:[]}).ap.every(a => /^(Kp|Khu phố|Thôn) /.test(a.ten)) && pbTenAp('Phường Giả', 'Bàu Giả')==='Kp Bàu Giả';   /* bộ giả ghi "Thôn 01" → giữ, không thành "Kp Thôn 01" */
    o.trong = /Chưa có QĐ/.test(document.getElementById('pb-trai').textContent);
    // 📥 nhập file WPF giả
-   const inp = document.querySelector('input[data-lenh="pb.nhapWPF"]'), dt = new DataTransfer();
-   dt.items.add(new File([JSON.stringify(wpf)], 'SaoLuu_QD_gia.json', {type:'application/json'})); inp.files = dt.files; inp.dispatchEvent(new Event('change', {bubbles:true}));
+   o.nhapBao = await pbNhapGia(wpf, 'moi');   /* 3.439: nạp qua mẫu Excel, xem trước rồi Lưu */
    for(let i=0;i<40 && pbDL().qd.length<3;i++) await w(100);
-   o.nhap = pbDL().qd.length; o.nhapBao = (document.querySelector('#hop-in .sl-bao') || {}).textContent || '';
+   o.nhap = pbDL().qd.length;
    o.ghepXa = pbDL().qd.filter(q => q.xa).length; dongHop(); await w(100);
    // nhập lại cùng file → bỏ qua giống hệt
-   const dt2 = new DataTransfer(); dt2.items.add(new File([JSON.stringify(wpf)], 'SaoLuu_QD_gia.json', {type:'application/json'}));
-   const inp2 = document.querySelector('input[data-lenh="pb.nhapWPF"]');   /* cột trái đã vẽ lại → lấy ô mới */
-   document.getElementById('hop-in').innerHTML = ''; inp2.files = dt2.files; inp2.dispatchEvent(new Event('change', {bubbles:true}));
-   for(let i=0;i<40 && !document.querySelector('#hop-in .sl-bao');i++) await w(100);
-   o.nhapLai = pbDL().qd.length+' · '+((document.querySelector('#hop-in .sl-bao') || {}).textContent || '').slice(0, 60); dongHop(); await w(100);
+   const bao2 = await pbNhapGia(wpf, 'bo');   /* nạp lại cùng file → báo trùng, chọn bỏ qua */
+   o.nhapLai = pbDL().qd.length+' · '+(/đã có trong app/.test(bao2) ? 'trùng' : bao2.slice(0, 60)); dongHop(); await w(100);
    // chọn xã Gò Dầu → phân bổ tương đối
    const dong = Array.from(document.querySelectorAll('.pb-dong')).find(x => /Gò Dầu/.test(x.textContent)); dong.click(); await w(100);
    document.querySelector('[data-lenh="pb.chay"]').click(); await w(300);
@@ -90,8 +86,8 @@ const fs = require('fs'), path = require('path');
  ok('cây địa bàn: 3 xã, có ấp', /Gò Dầu:\d+/.test(r.xa) && r.xa.split(' | ').length===3, r.xa);
  ok('phường → tên ấp có tiền tố Kp / Khu phố', r.kp);
  ok('chưa có QĐ → hướng dẫn', r.trong);
- ok('📥 nhập file WPF: 3 lượt xã, 2 ghép được xã, xã lạ báo', r.nhap===3 && r.ghepXa===2 && /Chưa ghép được xã.*Xã Lạ Giả/.test(r.nhapBao), r.nhap+' · '+r.ghepXa+' · '+r.nhapBao);
- ok('nhập lại cùng file → bỏ qua giống hệt', /^3 · .*trùng giống hệt \(bỏ qua\) 3/.test(r.nhapLai), r.nhapLai);
+ ok('📥 3.439 nạp QĐ Excel mẫu: xem trước báo xã lạ, Lưu → 3 lượt xã, 2 ghép được xã', r.nhap===3 && r.ghepXa===2 && /Xã Lạ Giả.*chưa ghép được xã/.test(r.nhapBao), r.nhap+' · '+r.ghepXa+' · '+r.nhapBao.slice(0, 200));
+ ok('nạp lại cùng file → báo QĐ đã có, chọn bỏ qua → vẫn 3', r.nhapLai==='3 · trùng', r.nhapLai);
  ok('phân bổ tương đối: 2 CT khớp QĐ, hiện bảng ấp', r.td==='03:true 06:true' && r.tdHien, r.td);
  ok('tương đối: số giao chẵn (≤ 1 ấp lẻ)', r.tdChan);
  ok('chính xác: kỳ tự động = Mẫu 31 trước QĐ (T7/2026), khớp QĐ', /T7\/2026/.test(r.cxKy) && /03:true/.test(r.cx) && /06:true/.test(r.cx) && r.cxCot, r.cxKy+' · '+r.cx);

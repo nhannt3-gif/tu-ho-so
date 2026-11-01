@@ -6,7 +6,7 @@ const fs = require('fs'), path = require('path');
  const ok = (ten, dk, chi) => R.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined && !dk ? ' — '+chi : ''));
  const p = await b.newPage({viewport:{width:1440, height:900}}); p.on('pageerror', e => loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r => r.abort()); await require('./tv.js')(p);
- await p.goto('file://'+path.resolve(__dirname, '..', 'index.html')); await p.waitForTimeout(1500);
+ await p.goto('file://'+path.resolve(__dirname, '..', 'index.html')); await p.waitForTimeout(1500); await p.evaluate(require('./pb_gia.js'));
  const dir = path.join(__dirname, 'gianho31'); const files = fs.readdirSync(dir).map(n => ({n, b:fs.readFileSync(path.join(dir, n)).toString('base64')}));
  const Q = (Id, So, Ngay, TenXa, ChiTiet) => ({Id, SoQD:So, KyHieuVanBan:'/QĐ-GIẢ', NgayQD:Ngay+'T00:00:00', NguonVon:1, Loai:'Điều chỉnh', Dot:'', TenXa, NgayGhiNhan:Ngay+'T09:00:00', ChiTiet});
  const C = (Ma, dg, tg, den) => ({MaChuongTrinh:Ma, TenChuongTrinh:'', ChiTieuDaGiao:dg, GiaoTangGiam:tg, ChiTieuDen3112:den});
@@ -25,8 +25,7 @@ const fs = require('fs'), path = require('path');
    for(const f of files){ const bin = atob(f.b), u = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i] = bin.charCodeAt(i); await slGhi(await slDocFile(new File([u], f.n))); }
    delete D.cauHinh.pbMuc; PB.daMoMuc = 0;
    doiNgan(7); slDoiTab('pb'); for(let i=0;i<80 && !(PB.K && document.getElementById('pb-trai'));i++) await w(250);
-   const inp = document.querySelector('input[data-lenh="pb.nhapWPF"]'), dt = new DataTransfer();
-   dt.items.add(new File([JSON.stringify(wpf)], 'SaoLuu_QD_gia.json', {type:'application/json'})); inp.files = dt.files; inp.dispatchEvent(new Event('change', {bubbles:true}));
+   await pbNhapGia(wpf, 'de');   /* 3.439: nạp QĐ giả qua mẫu Excel (bỏ nhập file WPF) */
    for(let i=0;i<40 && pbDL().qd.length<2;i++) await w(100); dongHop(); await w(300);
    const thanh = () => Array.from(document.querySelectorAll('.pb-thanh .pb-thanh-nut')), lop = () => (document.querySelector('.pb-bo') || {}).className || '';
    o.thanh = thanh().map(x => x.textContent.replace(/\s+/g, ' ').trim()).join(' | ');

@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.439 — 01/11/2026 — Phân bổ KH: nạp QĐ từ mẫu Excel chuẩn, bỏ nhập file app cũ (TK 2)
+- **Anh 01/11:** chọn "bỏ app cũ, nạp QĐ mới" + "file scan và chụp không chuẩn để đọc 100%, nên anh cần em đưa ra bố cục Xls chuẩn để anh cho Gemini tạo" → duyệt mẫu → "code rồi gộp".
+- **Mẫu Excel** (⬇ Tải mẫu trong tab): HUONG_DAN (luật + lời nhắc cho Gemini) · QD (mỗi QĐ 1 dòng) · CHI_TIET (1 QĐ × 1 xã × 1 CT, triệu đồng, giảm ghi âm) · TONG (dòng tổng trên QĐ) · DM_CT (mã chương trình app).
+- **📥 Nạp QĐ (Excel mẫu):** `pbTuXls` (js/47, thuần) đọc + kiểm; giao diện `pbNhapXls` / `pbXlsVe` / `pbXlsLuu` (js/48): **xem trước** — lỗi đỏ (thiếu cột, số QĐ không có ở QD, mã CT ngoài danh mục, số không đọc được, lặp) thì không cho lưu; tô vàng: đến 31/12 ≠ đã giao + tăng/giảm, tổng các xã ≠ dòng tổng QĐ, Gemini ghi "KHÔNG CHẮC", đã giao ≠ đến 31/12 QĐ trước, chưa ghép được xã; QĐ trùng (số + ngày + nguồn + xã) → **ghi đè / bỏ qua**. Bấm Lưu mới ghi.
+- **Bỏ:** nút 📥 Nhập từ bản WPF + `pbTuWPF`, `pbNhapWPF` (anh chọn bỏ app cũ); QĐ đã nhập trước đây giữ nguyên.
+- Phép thử: `t250` thay ý WPF bằng 6 ý mẫu Excel (69/69); `t252`–`t256` nạp QĐ giả qua mẫu Excel (tiện ích `tests/pb_gia.js`); mới `t355` (5 ý).
+
 ## 3.438 — 01/11/2026 — Tag nguồn văn bản theo số hiệu + loại văn bản Trung ương (TK 2)
 - **Anh 01/11:** "Nghị định của CP có dạng số hiệu như vậy (54/2026/NĐ-CP) nên em nên có 1 tag riêng để chọn các VB của ban ngành TW" + "của ngân hàng tỉnh thường có dạng NHCS-KHTD, gặp loại này em lọc riêng 1 dạng tag gọi là chỉ đạo của Tỉnh" → "đồng ý em code".
 - **Gói cắm rút mới `js/91-nguon-vb.js`:** `vbnNhom(số hiệu)` → 🏛 **VB Trung ương** (số/NĂM/ký hiệu, -CP, -TTg, -BTC, -NHNN, …/QH15…), 🏦 **NHCSXH Trung ương** (HĐQT, NHCS-TDNN / TDSV / KHNV, HD-NHCS), 📍 **Chỉ đạo của Tỉnh** (NHCS-KHTD); ký hiệu khác chưa có trong danh sách → không gắn. Khai / sửa văn bản: gõ số hiệu → tự thêm chip tag (gỡ được). Văn bản cũ: nút **🏷 Gắn tag nguồn (n)** đầu tab Văn bản — hỏi trước, chỉ thêm tag (`suaLuc` để đồng bộ). Lọc: bộ lọc tag sẵn có.

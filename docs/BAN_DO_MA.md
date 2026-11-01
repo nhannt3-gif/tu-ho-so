@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.438 · 01/11/2026 22:05 · 137 file · 43586 dòng · 3568 hàm cấp ngoài · 593 biến toàn cục.
+Bản 3.439 · 02/11/2026 02:21 · 137 file · 43674 dòng · 3575 hàm cấp ngoài · 595 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -15,7 +15,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
 | `js/02-nen.js` | 375 | 26 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
-| `js/03-doc-pdf.js` | 627 | 46 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
+| `js/03-doc-pdf.js` | 633 | 46 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
 | `js/04-giao-dien.js` | 115 | 12 | /*   6. VẼ GIAO DIỆN   */ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '', l |
 | `js/04b-hom-nay.js` | 702 | 91 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 117–2633 của bản 3.33 |
 | `js/04b2-hom-nay-ghi-chu.js` | 750 | 77 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): HÔM NAY — ghi chú 2 chế độ · sổ gạch dòng (to-do) · ho |
@@ -24,7 +24,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/04d-bo-ho-so.js` | 263 | 23 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 3609–3880 của bản 3.3 |
 | `js/04e-chung.js` | 277 | 25 | /*   3.399 (anh 28/10: "theo dõi nợ tạm thời bỏ, xóa code rác, sẽ phát triển sau cho gọn" · "gỡ luôn cho gọn c |
 | `js/05-them-file.js` | 1376 | 72 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
-| `js/06-hop-thoai.js` | 1320 | 106 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
+| `js/06-hop-thoai.js` | 1321 | 106 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
 | `js/06a-dong-bo-cai-dat.js` | 924 | 53 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): đồng bộ mục lên file thật trên Drive · xóa / thùng rác |
 | `js/06b-xoa-nhieu.js` | 211 | 25 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2218–2421 của bản 3.3 |
 | `js/06c-drive.js` | 711 | 38 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2422–3118 của bản 3.3 |
@@ -86,8 +86,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/44-quet-cccd-form.js` | 144 | 19 | /*   3.273 (anh duyệt 20/10/2026: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCC |
 | `js/45-tra-mau31.js` | 217 | 19 | /*   3.275 (anh 20/10/2026: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã K |
 | `js/46-quan-ly-scan.js` | 140 | 9 | /*   3.278 (rà soát tab Scan 20/10 — anh: "em cứ code theo ý em và gộp lên"): BỐ CỤC GỌN - Thanh tab Scan: 1 n |
-| `js/47-phan-bo.js` | 359 | 38 | /*   P1 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md): 🎯 PHÂN BỔ KẾ HOẠCH — LÕI NGHIỆP VỤ (tiền tố pb)   |
-| `js/48-phan-bo-gd.js` | 718 | 85 | /*   P2 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 5): 🎯 PHÂN BỔ KH — GIAO DIỆN tab con trong 📈 Số |
+| `js/47-phan-bo.js` | 399 | 41 | /*   P1 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md): 🎯 PHÂN BỔ KẾ HOẠCH — LÕI NGHIỆP VỤ (tiền tố pb)   |
+| `js/48-phan-bo-gd.js` | 757 | 89 | /*   P2 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 5): 🎯 PHÂN BỔ KH — GIAO DIỆN tab con trong 📈 Số |
 | `js/49-ten-chuan.js` | 33 | 5 | /*   3.295 — SỔ QUY TẮC TÊN + NƠI LƯU HỒ SƠ THEO KHÁCH (lớp Nghiệp vụ, dùng chung) — bước 1 `docs/KE_HOACH_TEN |
 | `js/50-xuat-khach.js` | 117 | 13 | /*   3.304 — CHỮ KÝ GẮN CÙNG CCCD + XUẤT FILE THEO KHÁCH (lớp Nghiệp vụ + Giao diện tab Scan) Anh 21/10/2026:  |
 | `js/51-chu-ky.js` | 194 | 8 | /*   3.306 — CHỮ KÝ / LĂN TAY: NHẬN DẠNG, DỌN BẢN QUÉT NHẦM, BỎ ẢNH KHÁCH LƯU SẴN, NÚT BẢN PHOTO 2 MẶT (lớp Ng |
@@ -138,7 +138,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/88-nd-hop.js` | 120 | 9 | /*   3.425 (docs/GIAO_BAN_KY_NANG.md mục 4.1, 4.4, 4.5, 5 — anh 31/10 "bàn giao cho TK 2 làm tiếp", "em làm lu |
 | `js/89-tb-kl.js` | 103 | 3 | /*   3.426 (docs/GIAO_BAN_KY_NANG.md mục 4.2, 4.4, 4.5, 5 — anh 31/10 "em làm luôn GĐ 3 và gộp lên")   📄 NHÁP  |
 | `js/90-so-gb.js` | 69 | 6 | /*   3.427 (anh 01/11 chốt ý 3 TK 2 đề xuất — KE_HOACH_KY_DOI_CHIEU mục 5, bàn giao GIAO_BAN_KY_NANG mục 6 tần |
-| `js/91-nguon-vb.js` | 61 | 7 | /*   3.438 (anh 01/11 "đồng ý em code") — NGUỒN VĂN BẢN THEO SỐ HIỆU: tự gắn tag 3 nhóm + nhận đúng loại văn b |
+| `js/91-nguon-vb.js` | 63 | 7 | /*   3.438 (anh 01/11 "đồng ý em code") — NGUỒN VĂN BẢN THEO SỐ HIỆU: tự gắn tag 3 nhóm + nhận đúng loại văn b |
 | `js/mau/10c.js` | 106 | 0 | /*   3.223 M6 — MẪU 10C/TD MỚI (QĐ 70, từ 01/10/2026) Biên bản họp kết nạp, cho ra khỏi Tổ — trên nền ô, dựng  |
 | `js/mau/10ccu.js` | 84 | 0 | /*   3.223 M6 — MẪU 10C/TD CŨ (vào tổ đến 30/09/2026) Biên bản họp kết nạp bổ sung, cho ra khỏi Tổ — trên nền  |
 | `js/mau/10a.js` | 109 | 0 | /*   3.223 M6 — MẪU 10A/TD Biên bản họp thành lập Tổ TK&VV (QĐ 70) trên nền ô — dựng theo file gốc tests/mau_g |
@@ -155,8 +155,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/02-nen.js:176` · 2. LƯU TRỮ
 - `js/02-nen.js:303` · 3. TIỆN ÍCH
 - `js/03-doc-pdf.js:1` · 4. ĐỌC PDF & RÚT THÔNG TIN
-- `js/03-doc-pdf.js:381` · RÚT THÔNG TIN TỪ CHÍNH TÊN FILE
-- `js/03-doc-pdf.js:456` · 5. SINH TÊN CHUẨN
+- `js/03-doc-pdf.js:383` · RÚT THÔNG TIN TỪ CHÍNH TÊN FILE
+- `js/03-doc-pdf.js:462` · 5. SINH TÊN CHUẨN
 - `js/04-giao-dien.js:1` · 6. VẼ GIAO DIỆN
 - `js/04b-hom-nay.js:71` · LỊCH (tab Hôm nay) — bản 3.9, theo tab Lịch của CBTD AI
 - `js/04b-hom-nay.js:91` · NGÀY CHAY · MÙNG 1 · RẰM · LỄ ÂM (3.12)
@@ -409,21 +409,21 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/47-phan-bo.js:95` · phân bổ 1 QĐ (1 xã)
 - `js/47-phan-bo.js:161` · QT-17 nhập QĐ: gợi ý "Đã giao" + tổng hợp đầu năm
 - `js/47-phan-bo.js:196` · tiện ích cho giao diện (vẫn thuần, không DOM)
-- `js/47-phan-bo.js:219` · nhập QĐ từ file sao lưu .json của bản WPF ("SaoLuu_QD_*.json")
-- `js/47-phan-bo.js:228` · 3.289 P3: dữ liệu Biểu 07 Phân bổ KH (QT-16) — thuần, mẫu in ở js/mau/07pb.js
-- `js/47-phan-bo.js:254` · 3.301: ĐỐI CHIẾU CHÉO (anh 21/10: "tại mỗi QĐ tổng giao của Biểu 07 phải khớp số giao của QĐ và dư nợ đến cuối năm cũng 
-- `js/47-phan-bo.js:296` · DIỄN BIẾN PHÂN VỐN THEO KH (anh 21/10: "làm thêm diễn biến phân vốn … theo KH", giao diện web hiện đại)
+- `js/47-phan-bo.js:219` · 3.439 (anh 01/11 "bỏ app cũ, nạp QĐ mới" — file scan / chụp không đọc chuẩn 100% → anh cho Gemini điền MẪU EXCEL CHUẨN):
+- `js/47-phan-bo.js:268` · 3.289 P3: dữ liệu Biểu 07 Phân bổ KH (QT-16) — thuần, mẫu in ở js/mau/07pb.js
+- `js/47-phan-bo.js:294` · 3.301: ĐỐI CHIẾU CHÉO (anh 21/10: "tại mỗi QĐ tổng giao của Biểu 07 phải khớp số giao của QĐ và dư nợ đến cuối năm cũng 
+- `js/47-phan-bo.js:336` · DIỄN BIẾN PHÂN VỐN THEO KH (anh 21/10: "làm thêm diễn biến phân vốn … theo KH", giao diện web hiện đại)
 - `js/48-phan-bo-gd.js:22` · dựng: kỳ chung → cây địa bàn (xã → ấp)
 - `js/48-phan-bo-gd.js:53` · 3.308 (anh 21/10 "tab phân bổ còn hiện chung các chức năng hơi rối … thanh tab ngang"): THANH TAB NGANG 4 MỤC — 📋 Quyết 
 - `js/48-phan-bo-gd.js:68` · 📋 Quyết định: danh sách QĐ (thẻ)
-- `js/48-phan-bo-gd.js:87` · cột phải: phân bổ 1 xã của QĐ
-- `js/48-phan-bo-gd.js:153` · hộp nhập / sửa QĐ (QT-17)
-- `js/48-phan-bo-gd.js:260` · 📥 nhập file sao lưu QĐ của bản WPF
-- `js/48-phan-bo-gd.js:291` · 3.289 P3: BIỂU 07 (QT-16 — chỉ xuất khi khớp QĐ) · xem trước / In / PDF / Word · 1 xã hoặc mọi xã của QĐ
-- `js/48-phan-bo-gd.js:330` · 3.301: ⚙ KHAI BÁO RIÊNG Biểu 07 (ô kiểu nền ô — js/mau/07pb.js PB07_O) · lưu KHO1 'pb' → ch.b07 = {cach, gt, co}; ✏ gõ t
-- `js/48-phan-bo-gd.js:377` · 3.301: 🔎 ĐỐI CHIẾU CHÉO (pbDoiChieu ở js/47) — cột phải; cấp xã (cấp ấp chờ cách chia 3)
-- `js/48-phan-bo-gd.js:459` · 3.301: 📈 DIỄN BIẾN PHÂN VỐN THEO KH (pbDienBien ở js/47) — thẻ số · biểu đồ SVG (KH hiệu lực bậc thang ↔ dư nợ Mẫu 31) ·
-- `js/48-phan-bo-gd.js:655` · lệnh
+- `js/48-phan-bo-gd.js:88` · cột phải: phân bổ 1 xã của QĐ
+- `js/48-phan-bo-gd.js:154` · hộp nhập / sửa QĐ (QT-17)
+- `js/48-phan-bo-gd.js:261` · 3.439 (anh 01/11 "bỏ app cũ, nạp QĐ mới" + mẫu Excel chuẩn cho Gemini điền): 📥 Nạp QĐ (Excel mẫu) · ⬇ Tải mẫu
+- `js/48-phan-bo-gd.js:330` · 3.289 P3: BIỂU 07 (QT-16 — chỉ xuất khi khớp QĐ) · xem trước / In / PDF / Word · 1 xã hoặc mọi xã của QĐ
+- `js/48-phan-bo-gd.js:369` · 3.301: ⚙ KHAI BÁO RIÊNG Biểu 07 (ô kiểu nền ô — js/mau/07pb.js PB07_O) · lưu KHO1 'pb' → ch.b07 = {cach, gt, co}; ✏ gõ t
+- `js/48-phan-bo-gd.js:416` · 3.301: 🔎 ĐỐI CHIẾU CHÉO (pbDoiChieu ở js/47) — cột phải; cấp xã (cấp ấp chờ cách chia 3)
+- `js/48-phan-bo-gd.js:498` · 3.301: 📈 DIỄN BIẾN PHÂN VỐN THEO KH (pbDienBien ở js/47) — thẻ số · biểu đồ SVG (KH hiệu lực bậc thang ↔ dư nợ Mẫu 31) ·
+- `js/48-phan-bo-gd.js:694` · lệnh
 - `js/49-ten-chuan.js:1` · 3.295 — SỔ QUY TẮC TÊN + NƠI LƯU HỒ SƠ THEO KHÁCH (lớp Nghiệp vụ, dùng chung) — bước 1 `docs/KE_HOACH_TEN_LUU_HO_SO_VAY.
 - `js/50-xuat-khach.js:1` · 3.304 — CHỮ KÝ GẮN CÙNG CCCD + XUẤT FILE THEO KHÁCH (lớp Nghiệp vụ + Giao diện tab Scan)
 - `js/51-chu-ky.js:1` · 3.306 — CHỮ KÝ / LĂN TAY: NHẬN DẠNG, DỌN BẢN QUÉT NHẦM, BỎ ẢNH KHÁCH LƯU SẴN, NÚT BẢN PHOTO 2 MẶT (lớp Nghiệp vụ + Giao 

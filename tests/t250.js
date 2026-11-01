@@ -96,20 +96,29 @@ ok('khác nguồn, chưa có QĐ → dư nợ 31/12 năm trước', (g => g.v===
 ok('không có gì → null', P.pbGoiYDaGiao(ds, 'X1', '06', 1, '2026-06-01', null, null).v===null);
 const th = P.pbTongHopCT(ds, 2026)['X1|03|1'];
 ok('đầu năm theo QĐ đầu tiên nhắc CT; KH cuối năm = QĐ mới nhất', th && th.daGiaoDau===34685 && th.khCuoiNam===39685 && th.tongTG===5000 && th.soQD===3, JSON.stringify(th));
-// 10. Kỳ dư nợ, nguồn, nhập file WPF
+// 10. Kỳ dư nợ, nguồn, nạp mẫu Excel QĐ
 ok('kỳ tự động = kỳ gần nhất ≤ ngày QĐ', P.pbChonKy(['2026-07', '2026-08', '2026-09'], '2026-09-04').ky==='2026-08');
 ok('kỳ anh chọn được ưu tiên', P.pbChonKy(['2026-07', '2026-08'], '2026-09-04', '2026-07').ky==='2026-07');
 ok('không có kỳ trước QĐ → kỳ mới nhất', P.pbChonKy(['2026-07'], '2026-01-15').ky==='2026-07');
 ok('nguồn: TW / ĐP / DP / Địa phương / 1 / 2', [P.pbNguon('TW'), P.pbNguon('ĐP'), P.pbNguon('DP'), P.pbNguon('Địa phương'), P.pbNguon('1'), P.pbNguon(2)].join()==='1,2,2,2,1,2');
-const w = P.pbTuWPF({DanhSachQD:[{Id:'abc', SoQD:' G9 ', KyHieuVanBan:'/QĐ-GIẢ', NgayQD:'2026-05-17T00:00:00.0000000+07:00', NguonVon:2, Loai:'Điều chỉnh', Dot:'3', TenXa:'Xã  Giả ', NgayGhiNhan:'2026-05-18T08:00:00',
-  ChiTiet:[{MaChuongTrinh:3, TenChuongTrinh:'CT giả', ChiTieuDaGiao:100, GiaoTangGiam:50, ChiTieuDen3112:150}]}]})[0];
-ok('nhập file sao lưu WPF: ngày, nguồn, mã CT 2 số, tên xã gọn', w.so==='G9' && w.ngay==='2026-05-17' && w.nguon===2 && w.ct[0].ma==='03' && w.ct[0].den3112===150 && w.tenXa==='Xã Giả');
-let loiFile = ''; try { P.pbTuWPF({abc:1}); } catch(e){ loiFile = e.message; }
-ok('file không đúng → báo', /không phải sao lưu/.test(loiFile));
+// 3.439: bỏ nhập file sao lưu WPF → đọc mẫu Excel chuẩn (pbTuXls)
+const SH = (ct, tong) => ({QD:[['so_qd','ky_hieu','ngay_qd','nguon','loai','dot'], ['G9', '/QĐ-GIẢ', '17/05/2026', 'ĐP', 'Điều chỉnh', 3]],
+  CHI_TIET:[['so_qd','xa','ma_ct','ten_ct','da_giao','tang_giam','den_31_12','ghi_chu']].concat(ct), TONG:tong ? [['so_qd','ma_ct','tong_da_giao','tong_tang_giam','tong_den_31_12']].concat(tong) : null});
+const x1 = P.pbTuXls(SH([['G9', 'Xã  Giả ', 3, 'CT giả', 100, 50, 150, ''], ['G9', 'Xã Giả', '06', 'CT giả 2', 20, '', 20, '']], [['G9', '03', 100, 50, 150]]), ['03', '06']);
+const w = x1.qd[0];
+ok('mẫu Excel: ngày, nguồn ĐP, mã CT 2 số, tên xã gọn, 1 xã gom các CT', x1.loi.length===0 && x1.qd.length===1 && w.so==='G9' && w.ngay==='2026-05-17' && w.nguon===2 && w.loai==='Điều chỉnh' && w.ct[0].ma==='03' && w.ct[0].den3112===150 && w.ct[1].tangGiam===null && w.tenXa==='Xã Giả', JSON.stringify(x1));
+ok('mẫu Excel: khớp phép tính + dòng tổng → không cảnh báo', x1.canh.length===0, JSON.stringify(x1.canh));
+const x2 = P.pbTuXls(SH([['G9', 'Xã Giả', '03', 'CT', 100, 50, 140, 'KHÔNG CHẮC: số mờ']], [['G9', '03', 100, 50, 150]]), ['03']);
+ok('đến 31/12 ≠ đã giao + tăng/giảm · Gemini ghi KHÔNG CHẮC · tổng các xã ≠ dòng tổng → cảnh báo', x2.canh.length===3, JSON.stringify(x2.canh));
+const x3 = P.pbTuXls(SH([['G1', 'Xã Giả', '03', 'CT', 1, 0, 1, ''], ['G9', 'Xã Giả', '77', 'CT', 1, 0, 1, ''], ['G9', 'Xã Giả', '03', 'CT', 'mười', 0, 1, '']]), ['03']);
+ok('lỗi: số QĐ không có ở sheet QD · mã CT ngoài danh mục · số không đọc được', x3.loi.length===3, JSON.stringify(x3.loi));
+const x4 = P.pbTuXls({QD:[['so','ngay']], CHI_TIET:[['x']]}, ['03']);
+ok('file không đúng mẫu (thiếu cột) → báo, không đọc', x4.loi.length>=1 && x4.qd.length===0 && /thiếu cột/.test(x4.loi[0]), JSON.stringify(x4.loi));
+ok('ngày số Excel (serial) đọc được', P.pbXlsNgay(46159)==='2026-05-17' && P.pbXlsNgay('2026-05-17')==='2026-05-17' && P.pbXlsNgay('5/9/2026')==='2026-09-05');
 // 11. Tiện ích giao diện (P2)
 ok('tên ấp: xã → "Ấp …", phường → "Kp …", đã có tiền tố giữ, trống → (Chưa rõ ấp)', P.pbTenAp('Xã Giả', 'Bàu Giả')==='Ấp Bàu Giả' && P.pbTenAp('Phường Giả', 'Khu Giả')==='Kp Khu Giả' && P.pbTenAp('Xã Giả', 'Ấp  Giả 1')==='Ấp Giả 1' && P.pbTenAp('Xã Giả', '')==='(Chưa rõ ấp)');
 const dsX = [{ma:'480001', ten:'Xã Giả Một'}, {ma:'480002', ten:'Phường Giả Hai'}];
-ok('ghép tên xã file WPF với cây địa bàn (bỏ dấu, bỏ chữ Xã / Phường)', P.pbKhopXa('Xã Giả Một', dsX)==='480001' && P.pbKhopXa('gia hai', dsX)==='480002' && P.pbKhopXa('Phường  Giả Hai ', dsX)==='480002' && P.pbKhopXa('Xã Khác', dsX)==='');
+ok('ghép tên xã (file QĐ) với cây địa bàn (bỏ dấu, bỏ chữ Xã / Phường)', P.pbKhopXa('Xã Giả Một', dsX)==='480001' && P.pbKhopXa('gia hai', dsX)==='480002' && P.pbKhopXa('Phường  Giả Hai ', dsX)==='480002' && P.pbKhopXa('Xã Khác', dsX)==='');
 ok('đọc số anh gõ', [P.pbDocSo('1.500'), P.pbDocSo('+1.500'), P.pbDocSo('−200'), P.pbDocSo('1.234,5'), P.pbDocSo('1,234.5'), P.pbDocSo('0.5'), P.pbDocSo(''), P.pbDocSo('abc')].join('|')==='1500|1500|-200|1234.5|1234.5|0.5||');
 
 R.forEach(x => console.log(x));

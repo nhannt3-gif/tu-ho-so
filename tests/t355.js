@@ -1,0 +1,35 @@
+// 3.439 (anh 01/11): Phân bổ KH — ⬇ Tải mẫu Excel nhập QĐ (đủ sheet, cột, danh mục CT) · 📥 Nạp: lỗi → không cho lưu; cảnh báo tô vàng; trùng → ghi đè / bỏ qua.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs = require('fs'), path = require('path');
+(async()=>{ const b = await chromium.launch(); const loi = [], R = [];
+ const ok = (ten, dk, chi) => R.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined && !dk ? ' — '+chi : ''));
+ const p = await b.newPage({viewport:{width:1440, height:900}}); p.on('pageerror', e => loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r => r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+path.resolve(__dirname, '..', 'index.html')); await p.waitForTimeout(1500); await p.evaluate(require('./pb_gia.js'));
+ const dir = path.join(__dirname, 'gianho31'); const files = fs.readdirSync(dir).map(n => ({n, b:fs.readFileSync(path.join(dir, n)).toString('base64')}));
+ const r = await p.evaluate(async(files) => { await xongTV; try { dongHop(); } catch(e){} const o = {}, w = t => new Promise(r => setTimeout(r, t));
+   for(const f of files){ const bin = atob(f.b), u = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i] = bin.charCodeAt(i); await slGhi(await slDocFile(new File([u], f.n))); }
+   doiNgan(7); slDoiTab('pb'); for(let i=0;i<80 && !(PB.K && document.getElementById('pb-trai'));i++) await w(250);
+   o.nut = !!document.querySelector('input[data-lenh="pb.nhapXls"]') && !!document.querySelector('[data-lenh="pb.xlsMau"]') && !document.querySelector('[data-lenh="pb.nhapWPF"]');
+   let bl = null; const g0 = window.giaoFile; window.giaoFile = (x, ten) => { bl = {x, ten}; }; document.querySelector('[data-lenh="pb.xlsMau"]').click(); window.giaoFile = g0;
+   const wb = XLSX.read(await bl.x.arrayBuffer(), {type:'array'});
+   o.mau = bl.ten+' | '+wb.SheetNames.join(',')+' | '+XLSX.utils.sheet_to_json(wb.Sheets.CHI_TIET, {header:1})[0].join(',')+' | '+XLSX.utils.sheet_to_json(wb.Sheets.DM_CT, {header:1, raw:false})[1].slice(0, 1).join('');
+   const Q = (so, xa, ma, dg, tg, den) => ({Id:so+xa, SoQD:so, KyHieuVanBan:'/QĐ-GIẢ', NgayQD:'2026-08-15T00:00:00', NguonVon:1, Loai:'Điều chỉnh', TenXa:xa, ChiTiet:[{MaChuongTrinh:ma, ChiTieuDaGiao:dg, GiaoTangGiam:tg, ChiTieuDen3112:den}]});
+   const t1 = await pbNhapGia({DanhSachQD:[Q('G7', 'Xã Truông Mít', 3, 500, 200, 650)]}, '');
+   o.vang = /cần soát/.test(t1) && !!document.querySelector('#hop-in tr.nb') && !!document.querySelector('[data-lenh="pb.xlsLuu"][data-k="moi"]'); document.querySelector('[data-lenh="pb.xlsLuu"]').click(); await w(200);
+   o.luu = pbDL().qd.filter(q => q.so==='G7').length;
+   const t2 = await pbNhapGia({DanhSachQD:[Q('G7', 'Xã Truông Mít', 3, 500, 200, 700)]}, '');
+   o.trung = /đã có trong app/.test(t2) && !!document.querySelector('[data-k="de"]') && !!document.querySelector('[data-k="bo"]');
+   document.querySelector('[data-k="de"]').click(); await w(200);
+   o.de = pbDL().qd.filter(q => q.so==='G7').map(q => q.ct[0].den3112).join(',');
+   const t3 = await pbNhapGia({DanhSachQD:[Q('G8', 'Xã Truông Mít', 77, 1, 0, 1)]}, '');
+   o.loi = /chưa đúng mẫu/.test(t3) && !document.querySelector('[data-lenh="pb.xlsLuu"]'); dongHop();
+   return o; }, files);
+ ok('nút 📥 Nạp QĐ (Excel mẫu) + ⬇ Tải mẫu, không còn nút nhập WPF', r.nut);
+ ok('mẫu tải về: đủ 5 sheet, cột CHI_TIET đúng, mã CT dạng chữ "01"', /^MAU_NHAP_QD_PHAN_BO_KH\.xlsx \| HUONG_DAN,QD,CHI_TIET,TONG,DM_CT \| so_qd,xa,ma_ct,ten_ct,da_giao,tang_giam,den_31_12,ghi_chu \| 01$/.test(r.mau), r.mau);
+ ok('đến 31/12 ≠ đã giao + tăng/giảm → tô vàng, vẫn cho Lưu', r.vang && r.luu===1, r.vang+' · '+r.luu);
+ ok('nạp lại QĐ trùng → hỏi ghi đè / bỏ qua; ghi đè → 1 bản số mới', r.trung && r.de==='700', r.trung+' · '+r.de);
+ ok('file lỗi (mã CT ngoài danh mục) → báo, không có nút Lưu', r.loi);
+ if(loi.length) R.push('✗ lỗi trang: '+loi.slice(0, 3).join(' | '));
+ R.forEach(x => console.log(x)); const sai = R.filter(x => x[0]==='✗').length; console.log(sai ? '✗ '+sai+' sai' : '✓ t355 đạt'); await b.close(); process.exit(sai ? 1 : 0);
+})();
