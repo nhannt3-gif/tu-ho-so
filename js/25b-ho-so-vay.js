@@ -238,6 +238,8 @@ function hsoLap06td(){ var g = hso06GtHS(); return {ma:'06/TD', k06:g, trang:g.l
 function hsoIn06HS(){ var g = hso06GtHS(); if(!g.length) return bao('Chưa có hộ cho Mẫu 06/TD.'); inBlob(new Blob([ktHTML06(g.length===1 ? g[0] : g)], {type:'text/html'}), hso06TenHS()+'.html'); }
 function hsoWord06HS(){ var g = hso06GtHS(); if(!g.length) return bao('Chưa có hộ cho Mẫu 06/TD.'); ktDocx('m06', g.length===1 ? g[0] : g).then(function(bl){ giaoFile(bl, hso06TenHS()+'.docx'); }).catch(function(er){ baoLoi('Tạo Word Mẫu 06/TD lỗi: '+(er && er.message || er)); }); }
 function hsoKem06(){ var B = hsoBo(), M = hsoMau(); return M.k==='01td' && !!(B && B.kem && B.kem.k06); }
+function hsoLap06a(){ return {ma:'06A/TD', h:'<p>Thiếu mô-đun mẫu 06A (js/mau/06a.js).</p>'}; }   /* 3.430: js/mau/06a.js gán lại */
+function hso06aMo(){ baoLoi('Thiếu mô-đun mẫu 06A (js/mau/06a.js).'); }
 function hsoLap09a(t){
   var T = hsoTo(t), c = hsoKhachChon(t), V = HSO.vay, mon = hsoMonGH(t), m = mon.find(function(x){ return x.ku===V.ku; }) || mon[0] || null, han = m ? skHL(m) : '', tien = hsoSo(hsoChamGT('09a', 'tienGH', m ? m.dn : 0));
   var h = hsoBang('khung0', [74, 26], '<tr><td class="c">'+hsoQH('–', 13)+'</td><td><p class="b i s12">Mẫu số: 09A/TD</p><p class="i s12">Lập 01 liên lưu NH</p></td></tr>')+
@@ -486,9 +488,9 @@ function hsoLap(){
   else if(M.k==='01tgtv'){ var P = hsoTGTVDs(t, B); x = {ma:'01/TGTV', ds:(P.length ? P : [null]).map(function(y){ return {M:M, h:hsoLap01tgtv(t, y).h}; })}; ai = P.length===1 ? P[0].ten : ''; }
   else if(M.k==='03td' && (hsoD03().ds.length || (B && B.hoId)) && (!B || B.hoId)){ var D3 = hsoD03(), t3 = hsoD03To(D3); hsoD03TuBo(D3); x = hsoLap03td(t3, null, hsoD03Hang(D3), D3.ct); }   /* 3.209: 03/TD nhiều hộ cùng chương trình */
   else if(M.k==='03td' && !B && t){ var ch = HSO.vay.chon || {}; x = hsoLap03td(t, null, hsoTVTo(t).filter(function(k){ return ch[k.kh]; }).map(function(k){ return {ten:k.ten}; })); }
-  else { var f = {'10c':function(t){ return hsoLap10c(t, {moiChon:1}); }, '10ccu':hsoLap10cCu, '10a':hsoLap10a, '10b':hsoLap10b, '10d':function(t){ return hsoLap10d(t); }, '11':hsoLap11, '11cu':hsoLap11Cu, '01bg':hsoLap01bg, '02bg':hsoLap02bg, '01uq':hsoLap01uq, '01td':hsoLap01td, '03td':hsoLap03td, '09a':hsoLap09a, '01tdck':hsoLap01tdck, '01gqvl':hsoLap01gqvl, '07b':hsoLap07b, 'pdnh':hsoLapPdnh}[M.k];
+  else { var f = {'10c':function(t){ return hsoLap10c(t, {moiChon:1}); }, '10ccu':hsoLap10cCu, '10a':hsoLap10a, '10b':hsoLap10b, '10d':function(t){ return hsoLap10d(t); }, '11':hsoLap11, '11cu':hsoLap11Cu, '01bg':hsoLap01bg, '02bg':hsoLap02bg, '01uq':hsoLap01uq, '01td':hsoLap01td, '03td':hsoLap03td, '09a':hsoLap09a, '06a':hsoLap06a, '01tdck':hsoLap01tdck, '01gqvl':hsoLap01gqvl, '07b':hsoLap07b, 'pdnh':hsoLapPdnh}[M.k];
     x = f(t, p==='hsv' && /^(01uq|01td|03td|01gqvl|07b|pdnh)$/.test(M.k) ? B : undefined);
-    ai = /^(01uq|01td|01gqvl|07b|pdnh)$/.test(M.k) ? hsoBoNV(B).ten || '' : /^(09a|01tdck)$/.test(M.k) ? ((hsoKhachChon(t)||{}).ten || '') : ''; }
+    ai = /^(01uq|01td|01gqvl|07b|pdnh)$/.test(M.k) ? hsoBoNV(B).ten || '' : /^(09a|01tdck|06a)$/.test(M.k) ? ((hsoKhachChon(t)||{}).ten || '') : ''; }
   if(!x.ds) x.ds = [{M:M, h:x.h}];
   if(M.k==='09a' && hsoLuu().kemTDCK) x.ds.push({M:hsoMauK('01tdck'), h:hsoLap01tdck(t).h});   /* 3.206: 09A in kèm 01/TĐCK (cùng khổ dọc → 1 lần in, 1 file Word) */
   x.ds.forEach(function(u){ if(u.M && !/^(01td|01tgtv)$/.test(u.M.k) && hsoLogoCo(u.M.k)) u.h = '<p>'+hsoLogo(u.M.k, 16)+'</p>'+u.h; });   /* 3.171: logo ở mẫu anh tích (mẫu gốc có logo đã đặt sẵn đúng chỗ) */

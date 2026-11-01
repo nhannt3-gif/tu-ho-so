@@ -13,6 +13,7 @@ Số đo: `python3 tools/domau.py` → `so_do.json`. So với app: `node tests/t
 | 01tgtv | 01/TGTV Giấy đăng ký mở TK tổ viên | 03-2026 (3 trang + 1 trang trắng in 2 mặt) |
 | 01gqvl | 01/GQVL Phương án SDVV (GQVL) | áp dụng 01/10/2026 |
 | 07b | 07b/GQVL Hợp đồng tín dụng | |
+| 06a | 06A/TD Phiếu kiểm tra sử dụng vốn vay — từng hộ, mỗi món 1 phiếu (anh gửi 01/11/2026; đã bỏ tên người soạn) | 727/HD-NHCS 11/02/2026 · đo bằng `t349` (chưa vào `t180`) |
 | 10c_cu | 10C/TD mẫu cũ (bổ sung tổ viên) | đến 30/9/2026 |
 | 10c_moi | 10C/TD mẫu mới | VB 4336, T10-2026 |
 | 10a | 10A/TD Biên bản họp thành lập Tổ | |

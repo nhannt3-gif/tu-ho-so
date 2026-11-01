@@ -12,6 +12,13 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 01/11/2026 — TK 2 · PHIÊN (3.430)
+- Đã làm: Mẫu 06A/TD (727) vào kho mẫu — tab Hồ sơ vay, mỗi món 1 phiếu, lãi = lãi tồn tất cả (TH + QH); nút 📄 06A ở KTGS Mẫu 06 (chọn đến tổ); `hso06aMo` để chỗ khác gọi. Biên bản tự soạn (nháp 1) bỏ — anh chọn dùng 06A chuẩn 727.
+- Đang dở: không.
+- Bước tiếp: nút 06A ở danh sách 3 tháng KHĐ sau khi chốt K5; gộp PR #449 của TK 1 (đổi tên kỹ thuật) khi anh nhắn.
+- Chờ ai: anh (cột "Lãi DT chưa đến hạn" có tính vào nợ lãi 06A không — đang để TH + QH; thử 06A trên máy).
+- Lưu ý / bẫy: thêm mẫu vào HSO_MAU.hsv → sửa đếm chip ở t163, t170, t204; `pkill -f wt<tên>` giết luôn shell gọi.
+
 ### 01/11/2026 — TK 2 · PHIÊN (3.429)
 - Đã làm: K4 / QT-C-15 — Mẫu 06 sau giải ngân chip Tất cả (mặc định) / Lần 1; 3 bàn giao cũ → `docs/luu_tru/`; hồi quy đủ 227/227, chốt lại mốc thước đo (`tests/do_moc.json`); K9 ghi sổ luật.
 - Đang dở: nháp biên bản làm việc với khách hàng (người lập CBTD / cán bộ Hội) — anh đang duyệt chữ, chưa đưa vào repo.

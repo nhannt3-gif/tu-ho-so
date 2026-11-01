@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.430)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › 06A/TD, chọn tổ → người vay → món | Phiếu đúng mẫu 727 (2 trang), ô tên / mã KH / khế ước / giải ngân / dư nợ / lãi tồn / TK 105 tự điền | |
+| 2 | KTGS › Mẫu 06 sau giải ngân, chọn đến 1 tổ, bấm 📄 06A ở 1 món | Sang Hồ sơ vay, mẫu 06A, đúng người vay + món | |
+| 3 | Word / In | Ra 2 trang như file gốc anh gửi | |
+
 ### Danh sách thử trên máy thật (3.429)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
