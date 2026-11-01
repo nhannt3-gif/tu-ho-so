@@ -7,6 +7,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 ## 3.434 — 01/11/2026 — Tra cứu khách: khối Tổ & địa bàn trọn trong ô (TK 2)
 - **Anh 01/11** (ảnh thẻ khách): "khối tổ phải cuộn do số liệu nhiều, cân đối lại cho trọn trong ô".
 - **Sửa (js/58 `tcToKhoiHTML` + CSS):** mã tổ (chép được) + nút 🏘 Tổ của điểm GD lên dòng tiêu đề khối; ghi chú "Số liệu ngày … theo Mẫu 31 …" → ⓘ rê chuột cuối dòng Thành viên; nhãn "Hội · Điểm". Hàng 3 cột: tối thiểu 170px như 3.337, nhiều số liệu thì cao thêm (không cuộn trong ô); cột Tổ rộng 1,3 phần.
+- **Thẻ tổ (Tra cứu): bỏ nút 👪 Lập hồ sơ hộ mới vào tổ** — anh 01/11 "nút lập hs mới của tổ anh đã yêu cầu bỏ đi" (anh 29/10 đã bỏ; 3.410 gỡ Diễn biến tổ đã trả lại nhầm). Lập hồ sơ vào tổ vẫn có ở 🏘 Tổ của điểm GD (chọn tổ → 👪 Lập hồ sơ hộ mới vào tổ này) và Hồ sơ vay › Sổ hộ vay. Bỏ lệnh `tc.ketNap`; `t246` sửa theo.
 - Chụp khổ 1366 / 1920 (bộ giả): khối Tổ cao vừa nội dung, không thanh cuộn. `t244` sửa theo (mã tổ ở tiêu đề); `t246`, `t247` đạt.
 
 ## 3.433 — 01/11/2026 — Tên xã không còn "Vay trực tiếp" (TK 2)

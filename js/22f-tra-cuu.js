@@ -87,7 +87,7 @@ function tcDangKy(){ if(tcDangKy.xong || typeof GD==='undefined') return; tcDang
     to:function(el){ tcChonDong(el); tcTheTo(el.getAttribute('data-to')); }, kh:function(el){ slTheKH(el.getAttribute('data-kh')); },
     hien:function(el){ tcToHien(el); }, moMon:function(el){ tcToMoMon(el); }, tvKieu:function(el){ tcTim().tvKieu = el.getAttribute('data-k')==='gon' ? 'gon' : ''; luu(); tcTheTo(el.getAttribute('data-to')); },   /* 3.342: thẻ tổ — bấm CT → mã món vay, bấm TGTK → số TK 105 (dòng nhỏ dưới khách, bấm lại = ẩn) */
     moTo:function(el){ tcMoTo(el.getAttribute('data-to')); }, b105:function(el){ tcB105(el.getAttribute('data-to')); }, bangDiem:function(el){ tcBangDiem(el.getAttribute('data-diem'), el.getAttribute('data-to')); },
-    ketNap:function(el){ TC_BANG = {diem:'', chon:el.getAttribute('data-to'), ket:null}; tcKetNap(); }, dong:function(){ dongHop(); },
+    dong:function(){ dongHop(); },   /* 3.434: bỏ lệnh ketNap (nút Lập hồ sơ hộ mới ở thẻ tổ đã bỏ) */
     /* 3.418 D2 (KE_HOACH_NANG_CAP_0111): onclick trong chuỗi → data-lenh (js/22f, js/58) */
     slTab:function(el){ slDoiTab(el.getAttribute('data-k')); }, chep:function(el){ tcChep(el); }, xoaTim:function(){ tcXoaTim(); }, veGdx:function(){ dhBam('gd', 'gdx'); },
     gy:function(el){ tcChonDong(el); var x = KH_GY[+el.getAttribute('data-i')]; if(x) slTheKH(x.m); }, dongKH:function(el){ tcChonDong(el); slTheKH(el.getAttribute('data-kh')); },
