@@ -1,6 +1,6 @@
 /* ===== P2 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 5): 🎯 PHÂN BỔ KH — GIAO DIỆN tab con trong 📈 Số liệu (tiền tố pb) =====
    - Chỉ VẼ + nhận lệnh (GD.dangKy('pb', …), data-lenh="pb.…"); mọi phép tính ở js/47-phan-bo.js; số liệu chung qua KHO (dsTo, duNoAp); lưu qua KHO1 ('pb').
-   - Cột trái: danh sách QĐ (nhóm theo QĐ = số + ngày + ký hiệu, mỗi dòng 1 xã) · ＋ QĐ mới · 📥 Nhập file sao lưu QĐ của bản WPF.
+   - Cột trái: danh sách QĐ (nhóm theo QĐ = số + ngày + ký hiệu, mỗi dòng 1 xã) · ＋ QĐ mới · 📥 Nạp QĐ (Excel mẫu) · ⬇ Tải mẫu (3.439 — bỏ nhập file sao lưu WPF).
    - Hộp QĐ (QT-17): tích nhiều xã (nhập trước vài xã, mở lại tích thêm) · thêm CT cho các xã đã tích · Đã giao gợi ý theo QĐ trước / dư nợ 31/12 · Đến 31/12 tự tính · Kiểm tra ✗ / ⚠.
    - Cột phải: chọn xã của QĐ · cách chia · kỳ dư nợ (chính xác) · ⚙ Phân bổ → đối chiếu từng CT (QT-16) + bảng ấp, SỬA TAY tăng/giảm (QT-15.6) → 👁 Biểu 07 xã đang xem · 📦 mọi xã của QĐ (3.289 P3, mẫu js/mau/07pb.js).
    - Lưu: KHO1.doc('pb') = {qd:[QĐ…], ch:{buocTD, buocCX, soApToiDa}} — mỗi xã 1 bản ghi QĐ (schema ở đầu js/47). */
@@ -70,7 +70,8 @@ function pbVeTrai(){
   var o = document.getElementById('pb-trai'); if(!o) return;
   var nh = pbNhom();
   o.innerHTML = '<div class="th-nhom-ten"><b>📋 Quyết định</b> <small>'+nh.length+' QĐ · '+pbDL().qd.length+' lượt xã</small></div>'+
-    GD.hang([GD.nut({chu:'＋ QĐ mới', lenh:'pb.moi', chinh:1, tit:'Nhập 1 QĐ cho 1 hoặc nhiều xã'}), '<label class="nut-tep nho" title="File SaoLuu_QD_….json xuất từ app Phân bổ kế hoạch (bản máy tính)">📥 Nhập từ bản WPF<input type="file" accept=".json,application/json" style="display:none" data-lenh="pb.nhapWPF" data-su="change"></label>'])+
+    GD.hang([GD.nut({chu:'＋ QĐ mới', lenh:'pb.moi', chinh:1, tit:'Nhập 1 QĐ cho 1 hoặc nhiều xã'}), '<label class="nut-tep nho" title="File Excel theo mẫu chuẩn (Gemini điền từ QĐ scan / chụp) — xem trước, soát rồi mới lưu">📥 Nạp QĐ (Excel mẫu)<input type="file" accept=".xlsx,.xls" style="display:none" data-lenh="pb.nhapXls" data-su="change"></label>',
+      GD.nut({chu:'⬇ Tải mẫu Excel', lenh:'pb.xlsMau', tit:'Mẫu trống + hướng dẫn + lời nhắc cho Gemini'})])+
     (nh.length ? '<div class="pb-ds">'+nh.map(function(g){
       var q0 = g.ds[0], giao = /giao mới/i.test(q0.loai), dangChon = PB.chon.khoa===g.k;
       return '<div class="pb-nhom'+(dangChon ? ' bat' : '')+'"><div class="pb-nhom-dau '+(giao ? 'pb-gm' : 'pb-dc')+'">'+
@@ -81,7 +82,7 @@ function pbVeTrai(){
             '<b>'+coChuHTML(q.tenXa || q.xa)+'</b>'+(q.xa ? '' : ' <span class="vang" title="Chưa ghép được xã trong cây địa bàn">⚠ chưa ghép xã</span>')+' — '+
             (loi ? pbChip('✗ lệch số', 'lech')+' ' : '')+(q.ct || []).map(function(c){ var tg = pbSo(c.tangGiam);
               return '<span class="pb-c-ct">'+coChuHTML(pbVT(c.ma))+' '+(tg!=null && tg!==0 ? pbChipTG(tg) : pbChip(pbSoVN(pbSo(c.den3112) || 0), 'mo'))+'</span>'; }).join(' ')+'</div>'; }).join('')+'</div>'; }).join('')+'</div>'
-      : '<div class="sl-phu">Chưa có QĐ. Bấm <b>＋ QĐ mới</b> hoặc <b>📥 Nhập từ bản WPF</b> (file sao lưu QĐ của app máy tính).</div>');
+      : '<div class="sl-phu">Chưa có QĐ. Bấm <b>＋ QĐ mới</b> hoặc <b>📥 Nạp QĐ (Excel mẫu)</b> — <b>⬇ Tải mẫu Excel</b> cho Gemini điền từ QĐ.</div>');
 }
 
 /* ---------- cột phải: phân bổ 1 xã của QĐ ---------- */
@@ -257,24 +258,62 @@ function pbFXoa(){
   PB.F = null; PB.chon = {khoa:'', xa:''}; PB.kq = null; dongHop(); bao('Đã xóa QĐ '+F.so+'.', 3); pbKhung();
 }
 
-/* ---------- 📥 nhập file sao lưu QĐ của bản WPF ---------- */
-function pbNhapWPF(el){
+/* ---------- 3.439 (anh 01/11 "bỏ app cũ, nạp QĐ mới" + mẫu Excel chuẩn cho Gemini điền): 📥 Nạp QĐ (Excel mẫu) · ⬇ Tải mẫu ----------
+   Đọc (pbTuXls, js/47) → XEM TRƯỚC: lỗi (đỏ, không cho lưu) · cảnh báo vàng (đến 31/12 ≠ đã giao + tăng/giảm, tổng các xã ≠ dòng tổng QĐ, Gemini ghi KHÔNG CHẮC,
+   đã giao ≠ đến 31/12 của QĐ trước, chưa ghép được xã) · QĐ trùng (số + ngày + nguồn + xã) → anh chọn ghi đè / bỏ qua. Bấm Lưu mới ghi (KHO1 'pb'). Thay nút nhập file sao lưu WPF. */
+var PB_X = null;
+function pbNhapXls(el){
   var f = el.files && el.files[0]; if(!f) return; el.value = '';
-  f.text().then(function(s){ var j = JSON.parse(s.replace(/^﻿/, '')), moi = pbTuWPF(j), dl = pbDL(), them = 0, giong = 0, khac = [], chuaXa = {};
-    moi.forEach(function(q){
-      q.xa = pbKhopXa(q.tenXa, PB.dsXa); if(!q.xa) chuaXa[q.tenXa] = 1;
-      var t = dl.qd.filter(function(c){ return String(c.so).trim()===q.so && (c.xa ? c.xa===q.xa : pbBoDau(c.tenXa)===pbBoDau(q.tenXa)) && c.ngay===q.ngay && +c.nguon===+q.nguon; })[0];
-      if(t){ if(JSON.stringify(t.ct)===JSON.stringify(q.ct)) giong++; else khac.push('QĐ '+q.so+' · '+q.tenXa); return; }
-      if(dl.qd.some(function(c){ return c.id===q.id; })) q.id = 'pb'+Date.now().toString(36)+Math.random().toString(36).slice(2, 7);
-      dl.qd.push(q); them++; });
-    if(them) pbGhi(dl);
-    var cx = Object.keys(chuaXa);
-    moHop('<div class="hop-tit">📥 Nhập QĐ từ bản WPF</div><div class="sl-bao '+(khac.length || cx.length ? 'vang' : 'xanh')+'">Đã thêm <b>'+them+'</b> lượt xã · trùng giống hệt (bỏ qua) '+giong+
-      (khac.length ? '<br>⚠ Trùng số nhưng KHÁC số liệu — CHƯA nhập (kiểm tra tay): '+khac.map(coChuHTML).join('; ') : '')+
-      (cx.length ? '<br>⚠ Chưa ghép được xã trong cây địa bàn kỳ đang mở (vẫn nhập, sửa QĐ để chọn xã): '+cx.map(coChuHTML).join(', ') : '')+'</div>'+
-      GD.hang([GD.nut({chu:'Đóng', lenh:'pb.fBo', chinh:1})], 1));
-    pbKhung();
-  }).catch(function(er){ baoLoi('Không đọc được file: '+(er && er.message || er)); });
+  if(typeof XLSX==='undefined') return baoLoi('Chưa tải được thư viện đọc Excel — kiểm tra mạng rồi thử lại.');
+  f.arrayBuffer().then(function(b){
+    var wb = XLSX.read(b, {type:'array'}), sh = {}; ['QD', 'CHI_TIET', 'TONG'].forEach(function(t){ var w = wb.Sheets[t]; sh[t] = w ? XLSX.utils.sheet_to_json(w, {header:1, raw:true, defval:''}) : null; });
+    var r = pbTuXls(sh, Object.keys(typeof TDN_CT!=='undefined' ? TDN_CT : {})), dl = pbDL();
+    r.qd.forEach(function(q){ q.xa = pbKhopXa(q.tenXa, PB.dsXa); if(!q.xa) r.canh.push({so:q.so, xa:q.tenXa, ma:'', ly:'chưa ghép được xã trong cây địa bàn kỳ đang mở (vẫn nhập, sửa QĐ để chọn xã)'});
+      q.ct.forEach(function(c){ if(c.daGiao==null) return; var g = pbGoiYDaGiao(dl.qd, q.xa, c.ma, q.nguon, q.ngay, [], null);
+        if(g && g.tuQD && g.v!=null && Math.abs(g.v-c.daGiao)>0.0005) r.canh.push({so:q.so, xa:q.tenXa, ma:c.ma, ly:'đã giao '+c.daGiao+' ≠ đến 31/12 của '+g.moTa+' ('+g.v+')'}); }); });
+    r.trung = r.qd.filter(function(q){ return dl.qd.some(function(c){ return pbTrungQD(c, q); }); });
+    PB_X = {ten:f.name, r:r}; pbXlsVe();
+  }).catch(function(er){ baoLoi('Không đọc được file Excel: '+(er && er.message || er)); });
+}
+function pbTrungQD(c, q){ return String(c.so).trim()===q.so && c.ngay===q.ngay && +c.nguon===+q.nguon && (c.xa && q.xa ? c.xa===q.xa : pbBoDau(c.tenXa)===pbBoDau(q.tenXa)); }
+function pbXlsVe(){
+  var X = PB_X; if(!X) return; var r = X.r, e = coChuHTML, so = function(v){ return v==null ? '' : pbSoVN(v); };
+  var canhK = {}; r.canh.forEach(function(c){ var k = c.so+'|'+pbBoDau(c.xa)+'|'+c.ma; (canhK[k] = canhK[k] || []).push(c.ly); });
+  var bang = r.qd.length ? '<div class="to-bang-cuon to-cuon-khung"><table class="to-bang luoi"><thead><tr><th>QĐ</th><th>Ngày</th><th>Nguồn</th><th>Xã</th><th>CT</th><th>Đã giao</th><th>Tăng / giảm</th><th>Đến 31/12</th><th>Cần soát</th></tr></thead><tbody>'+
+    r.qd.map(function(q){ return q.ct.map(function(c, i){ var cc = (canhK[q.so+'|'+pbBoDau(q.tenXa)+'|'+c.ma] || []).concat(i ? [] : canhK[q.so+'|'+pbBoDau(q.tenXa)+'|'] || []);
+      return '<tr'+(cc.length ? ' class="nb"' : '')+'><td>'+e(q.so+(q.kyHieu || ''))+'</td><td>'+e(pbNgay(q.ngay))+'</td><td class="c">'+pbNguonChu(q.nguon)+'</td><td>'+e(q.tenXa)+(q.xa ? '' : ' <b class="vang">?</b>')+'</td><td class="c" title="'+e(c.ten)+'">'+e(c.ma)+'</td>'+
+        '<td class="s">'+so(c.daGiao)+'</td><td class="s">'+so(c.tangGiam)+'</td><td class="s"><b>'+so(c.den3112)+'</b></td><td>'+cc.map(e).join('<br>')+'</td></tr>'; }).join(''); }).join('')+'</tbody></table></div>' : '';
+  var tong = r.canh.filter(function(c){ return c.xa==='(tổng)' || (!c.xa && !c.ma); });
+  var nut = r.loi.length ? [GD.nut({chu:'Đóng', lenh:'pb.xlsDong', chinh:1})] : r.trung.length ?
+    [GD.nut({chu:'Đóng', lenh:'pb.xlsDong'}), GD.nut({chu:'💾 Lưu — bỏ qua '+r.trung.length+' QĐ trùng', lenh:'pb.xlsLuu', du:{k:'bo'}}), GD.nut({chu:'💾 Lưu — ghi đè '+r.trung.length+' QĐ trùng', lenh:'pb.xlsLuu', du:{k:'de'}, chinh:1})] :
+    [GD.nut({chu:'Đóng', lenh:'pb.xlsDong'}), GD.nut({chu:'💾 Lưu '+r.qd.length+' lượt xã', lenh:'pb.xlsLuu', du:{k:'moi'}, chinh:1})];
+  moHop('<div class="hop-tit">📥 Nạp QĐ từ Excel mẫu — '+e(X.ten)+'</div>'+
+    '<div class="hop-phu">'+r.dem.qd+' QĐ · '+r.dem.xa+' lượt xã · '+r.dem.dong+' dòng chi tiết · đơn vị triệu đồng. Soát dòng tô vàng rồi bấm Lưu — chưa lưu thì chưa ghi gì.</div>'+
+    (r.loi.length ? '<div class="sl-bao do">✗ File chưa đúng mẫu — sửa rồi nạp lại:<br>'+r.loi.slice(0, 30).map(e).join('<br>')+(r.loi.length>30 ? '<br>… còn '+(r.loi.length-30)+' lỗi' : '')+'</div>' : '')+
+    (r.canh.length ? '<div class="sl-bao vang">⚠ '+r.canh.length+' chỗ cần soát (tô vàng)'+(tong.length ? ':<br>'+tong.map(function(c){ return e('QĐ '+c.so+(c.ma ? ' · CT '+c.ma : '')+': '+c.ly); }).join('<br>') : '')+'</div>' : (r.loi.length ? '' : '<div class="sl-bao xanh">✓ Khớp phép tính, khớp dòng tổng.</div>'))+
+    (r.trung.length ? '<div class="sl-bao vang">QĐ đã có trong app (cùng số, ngày, nguồn, xã): '+r.trung.map(function(q){ return e('QĐ '+q.so+' · '+q.tenXa); }).join('; ')+'</div>' : '')+
+    bang+GD.hang(nut, 1), true);
+}
+function pbXlsLuu(k){
+  var X = PB_X; if(!X || X.r.loi.length) return; var dl = pbDL(), them = 0, de = 0, bo = 0, luc = new Date().toISOString();
+  X.r.qd.forEach(function(q){ var cu = dl.qd.filter(function(c){ return pbTrungQD(c, q); });
+    if(cu.length && k==='bo'){ bo++; return; }
+    if(cu.length){ dl.qd = dl.qd.filter(function(c){ return cu.indexOf(c)<0; }); de++; }
+    var x = JSON.parse(JSON.stringify(q)); x.id = 'pb'+Date.now().toString(36)+Math.random().toString(36).slice(2, 7); x.luc = luc; dl.qd.push(x); them++; });
+  pbGhi(dl); PB_X = null; dongHop(); bao('Đã lưu '+them+' lượt xã'+(de ? ' (ghi đè '+de+')' : '')+(bo ? ' · bỏ qua '+bo+' trùng' : '')+'.', 4); pbKhung();
+}
+function pbXlsMau(){   /* ⬇ mẫu Excel trống (cùng bố cục mẫu anh duyệt 01/11) */
+  if(typeof XLSX==='undefined') return baoLoi('Chưa tải được thư viện Excel — kiểm tra mạng rồi thử lại.');
+  var wb = XLSX.utils.book_new(), ct = typeof TDN_CT!=='undefined' ? TDN_CT : {};
+  var hd = [['MẪU NHẬP QUYẾT ĐỊNH GIAO / ĐIỀU CHỈNH KẾ HOẠCH TÍN DỤNG — Tủ hồ sơ (tab 🎯 Phân bổ KH)'], ['Không đổi tên sheet, tên cột; không gộp ô; không thêm dòng cộng / dòng trống vào CHI_TIET. 1 file chứa được nhiều QĐ.'],
+    ['QD: mỗi QĐ 1 dòng — so_qd (chỉ phần số) · ky_hieu (vd /QĐ-BĐDHĐQT) · ngay_qd dd/mm/yyyy · nguon TW hoặc ĐP · loai Giao mới hoặc Điều chỉnh · dot · co_quan · trich_yeu.'],
+    ['CHI_TIET: mỗi dòng = 1 QĐ × 1 xã × 1 chương trình — da_giao · tang_giam · den_31_12 đơn vị TRIỆU ĐỒNG, số thuần, giảm ghi số âm, ô không có để trống; den_31_12 = da_giao + tang_giam; mã CT theo DM_CT.'],
+    ['Chỗ không chắc: ghi_chu bắt đầu bằng "KHÔNG CHẮC: …" — app tô vàng để soát.'], ['TONG: dòng tổng cộng theo chương trình in trên QĐ (nếu có) — app đối chiếu với tổng các xã.'], [''],
+    ['Lời nhắc cho Gemini: "Đọc quyết định giao / điều chỉnh kế hoạch tín dụng đính kèm. Điền đúng file Excel mẫu: sheet QD, CHI_TIET (mỗi dòng 1 xã × 1 chương trình), TONG (dòng tổng trên QĐ). '+
+      'Giữ nguyên tên sheet, tên cột; không gộp ô; đơn vị triệu đồng, số thuần, giảm ghi số âm, ô không có để trống; mã chương trình theo sheet DM_CT; kiểm tra den_31_12 = da_giao + tang_giam và tổng các xã = dòng tổng; chỗ không chắc ghi ở ghi_chu bắt đầu bằng KHÔNG CHẮC; không tự suy đoán số không có trên QĐ."']];
+  [['HUONG_DAN', hd], ['QD', [PB_XLS_COT.QD]], ['CHI_TIET', [PB_XLS_COT.CHI_TIET]], ['TONG', [PB_XLS_COT.TONG]], ['DM_CT', [['ma_ct', 'ten_ct', 'viet_tat']].concat(Object.keys(ct).sort().map(function(m){ return [m, ct[m][1], ct[m][0]]; }))]]
+    .forEach(function(x){ var w = XLSX.utils.aoa_to_sheet(x[1]); if(x[0]==='DM_CT') Object.keys(w).forEach(function(c){ if(/^A\d+$/.test(c) && c!=='A1') w[c].t = 's'; }); XLSX.utils.book_append_sheet(wb, w, x[0]); });
+  giaoFile(new Blob([XLSX.write(wb, {type:'array', bookType:'xlsx'})], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), 'MAU_NHAP_QD_PHAN_BO_KH.xlsx');
 }
 
 /* vẽ lại bảng sau khi đổi 1 ô mà KHÔNG mất chỗ con trỏ: Tab / Enter đã sang ô kế → vẽ xong đặt lại đúng ô đó (QUY_CHUAN mục 11) */
@@ -600,7 +639,7 @@ function pbDBNoi(r, inRa){   /* phần thân dùng chung màn hình / bản in *
 function pbDBVe(){
   var o = document.getElementById('pb-phai'); if(!o) return;
   var dsN = pbDCNam(), D = PB.db, dau = '<div class="th-nhom-ten"><b>📈 Diễn biến phân vốn theo KH</b></div>';
-  if(!dsN.length){ o.innerHTML = dau+'<div class="sl-phu">Chưa có QĐ — nhập QĐ hoặc 📥 nhập từ bản WPF.</div>'; return; }
+  if(!dsN.length){ o.innerHTML = dau+'<div class="sl-phu">Chưa có QĐ — nhập QĐ hoặc 📥 Nạp QĐ (Excel mẫu).</div>'; return; }
   D.nam = dsN.indexOf(D.nam)>=0 ? D.nam : dsN[0];
   var can = {}, kyDau = (+D.nam-1)+'-12'; if(pbDsKyCX().indexOf(kyDau)>=0) can[kyDau] = 1; pbDBKyNam(D.nam).forEach(function(k){ can[k] = 1; });
   var thieu = Object.keys(can).filter(function(k){ return !PB.dn[k] && !PB.dc.daDoc[k]; });
@@ -665,7 +704,7 @@ GD.dangKy('pb', {
   suaTay:function(el){ var k = (PB.kq || [])[+el.getAttribute('data-ct')], v = pbDocSo(el.value); if(!k) return;
     if(v==null && String(el.value).trim()) return baoLoi('"'+el.value+'" không phải số — gõ ví dụ 300 hoặc -200 (triệu đồng).');
     pbSuaTay(k, +el.getAttribute('data-i'), v || 0); (PB.kqNho = PB.kqNho || {})[PB.kqLuc] = {kq:PB.kq, moTa:PB.kqMoTa}; pbGiuO(function(){ var o = document.getElementById('pb-kq'), q = pbQDChon(); if(o && q) o.innerHTML = pbKQHTML(q, pbCheDo()); }); },
-  nhapWPF:function(el){ pbNhapWPF(el); },
+  nhapXls:function(el){ pbNhapXls(el); }, xlsLuu:function(el){ pbXlsLuu(el.getAttribute('data-k')); }, xlsDong:function(){ PB_X = null; dongHop(); }, xlsMau:function(){ pbXlsMau(); },
   chiaLai:function(){ if(!confirm('Bỏ số sửa tay và chia lại?')) return; pbChay(); },
   dc:function(){ pbDoiMuc('dc'); },
   db:function(){ pbDoiMuc('db'); },

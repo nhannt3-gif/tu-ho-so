@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.438', ds:[
+var CO_GI_MOI = {ban:'3.439', ds:[
+  ["🎯 Phân bổ KH: 📥 Nạp QĐ từ Excel mẫu (Gemini điền từ QĐ scan) — xem trước, soát rồi Lưu", ""],
   ["🏷 Văn bản: tự gắn tag nguồn theo số hiệu — VB Trung ương · NHCSXH Trung ương · Chỉ đạo của Tỉnh", ""],
   ["🔤 Khai văn bản: nút đổi chữ ô Tên — thường · Hoa đầu câu · HOA · Hoa Đầu Từ", ""],
   ["💰 Lãi tồn số liệu theo ngày: món đã trả lãi ở phiên gần nhất không còn lãi tồn (QT-C-03)", ""],
@@ -1070,9 +1071,9 @@ var CO_GI_MOI = {ban:'3.438', ds:[
   ["🏷 Bỏ tên \"Tèo\": gọi App · Giao ban · TK 1, 2, 3 · Gemini; nút \"📤 File đối chiếu giao ban\"", ""],
   ["🔎 So file giao ban: app tự so DOI_CHIEU_GB với số app, tự phân loại lệch A–D (⋯ Nạp & KT)", ""],
   ["📋 Bảng trạng thái chung tự sinh mỗi bản (docs/TRANG_THAI_CHUNG.md) · luật chỉ chốt khi có phép thử chung", ""],
-  ["📄 Nháp Thông báo kết luận theo phiên (08/GDX, Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""],
-  ["📝 Nháp Nội dung họp mẫu 08 (Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📄 Nháp Thông báo kết luận theo phiên (08/GDX, Word) từ bộ số chuẩn — để đối chiếu với bản giao ban", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.439 · Số liệu › 🎯 Phân bổ KH › ⬇ Tải mẫu Excel → đưa Gemini kèm ảnh QĐ → 📥 Nạp QĐ (Excel mẫu) → xem trước (dòng vàng cần soát) → 💾 Lưu",
     "3.438 · Văn bản › ＋ Thêm file PDF Nghị định (Số: 54/2026/NĐ-CP) hoặc tên file 54_2026_NĐ-CP → app tự nhận số hiệu đủ, loại Nghị định, tag VB Trung ương",
     "3.438 · Văn bản › khai văn bản số 54/2026/NĐ-CP → Loại tự chọn Nghị định, tự thêm chip tag \"VB Trung ương\"; số …/NHCS-KHTD → tag \"Chỉ đạo của Tỉnh\"; …/NHCS-TDNN, …/QĐ-HĐQT → \"NHCSXH Trung ương\"",
     "3.438 · Văn bản › đầu tab nút 🏷 Gắn tag nguồn (n) → gắn tag cho văn bản cũ (hỏi trước, chỉ thêm tag)",
@@ -1091,9 +1092,9 @@ var CO_GI_MOI = {ban:'3.438', ds:[
     "3.427 · ⋯ Nạp & KT › 🔎 So file giao ban: nạp DOI_CHIEU_GB_<ngày>.csv → bảng lệch A–D, 📥 CSV lệch",
     "3.426 · ⋯ Nạp & KT › 📐 Bộ số chuẩn › 📄 Nháp TB kết luận (Word)",
     "3.425 · ⋯ Nạp & KT › 📐 Bộ số chuẩn › 📝 Nháp Nội dung họp mẫu 08 (Word)",
-    "3.424 · ⋯ Nạp & KT › 📐 Bộ số chuẩn: chỉ tiêu theo điểm × Hội, 📥 CSV, 📂 So với file đáp án",
-    "3.420 · Ở bất kỳ đâu bấm Ctrl+K → gõ tên tab / công cụ / khách / tổ (không dấu) → Enter"],
+    "3.424 · ⋯ Nạp & KT › 📐 Bộ số chuẩn: chỉ tiêu theo điểm × Hội, 📥 CSV, 📂 So với file đáp án"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.439 · Phân bổ KH: bỏ nút 📥 Nhập từ bản WPF (file sao lưu json app cũ) → thay bằng 📥 Nạp QĐ (Excel mẫu); QĐ đã nhập trước đây giữ nguyên",
     "3.435 · Tra cứu: bỏ luật \"luôn lấy số liệu mới nhất\" (3.347) → theo ô kỳ góc phải, chưa chọn thì vẫn mới nhất",
     "3.434 · Thẻ tổ (Tra cứu): bỏ nút 👪 Lập hồ sơ hộ mới vào tổ (anh đã bỏ 29/10, 3.410 trả lại nhầm) — vẫn lập được ở 🏘 Tổ của điểm GD",
     "3.434 · Khối Tổ & địa bàn: bỏ dòng \"Mã tổ\" riêng (lên dòng tiêu đề) và dòng ghi chú số liệu dài (thành ⓘ rê chuột)",

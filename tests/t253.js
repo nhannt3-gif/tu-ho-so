@@ -20,7 +20,7 @@ const chuan = s => String(s).normalize('NFC').replace(/[\s ]+/g, ' ').replace(/
  const manh = []; goc.forEach(d => d.split(/\{\{[A-Z_0-9]+\}\}/).forEach(m => { m = chuan(m.replace(/^[\s,.;:]+|[\s,;:]+$/g, '')); if(m.length>=4) manh.push(m); }));
  const p = await b.newPage({viewport:{width:1440, height:900}}); p.on('pageerror', e => loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r => r.abort()); await require('./tv.js')(p);
- await p.goto('file://'+path.resolve(__dirname, '..', 'index.html')); await p.waitForTimeout(1500);
+ await p.goto('file://'+path.resolve(__dirname, '..', 'index.html')); await p.waitForTimeout(1500); await p.evaluate(require('./pb_gia.js'));
  const dir = path.join(__dirname, 'gianho31'); const files = fs.readdirSync(dir).map(n => ({n, b:fs.readFileSync(path.join(dir, n)).toString('base64')}));
  const wpf = {DanhSachQD:[
    {Id:'w1', SoQD:'G100', KyHieuVanBan:'/QĐ-GIẢ', NgayQD:'2026-08-14T00:00:00', NguonVon:1, Loai:'Điều chỉnh', Dot:'1', TenXa:'Phường Gò Dầu', NgayGhiNhan:'2026-08-16T08:00:00',
@@ -41,8 +41,7 @@ const chuan = s => String(s).normalize('NFC').replace(/[\s ]+/g, ' ').replace(/
    /* dữ liệu + QĐ giả */
    for(const f of files){ const bin = atob(f.b), u = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i] = bin.charCodeAt(i); await slGhi(await slDocFile(new File([u], f.n))); }
    doiNgan(7); slDoiTab('pb'); for(let i=0;i<80 && !(PB.K && document.getElementById('pb-trai'));i++) await w(250);
-   const inp = document.querySelector('input[data-lenh="pb.nhapWPF"]'), dt = new DataTransfer();
-   dt.items.add(new File([JSON.stringify(wpf)], 'SaoLuu_QD_gia.json', {type:'application/json'})); inp.files = dt.files; inp.dispatchEvent(new Event('change', {bubbles:true}));
+   await pbNhapGia(wpf, 'de');   /* 3.439: nạp QĐ giả qua mẫu Excel (bỏ nhập file WPF) */
    for(let i=0;i<40 && pbDL().qd.length<2;i++) await w(100); dongHop(); await w(100);
    Array.from(document.querySelectorAll('.pb-dong')).find(x => /Gò Dầu/.test(x.textContent)).click(); await w(100);
    document.querySelector('[data-lenh="pb.chay"]').click(); await w(300);
