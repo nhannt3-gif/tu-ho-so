@@ -190,12 +190,14 @@ function ktGNDem(){   /* số món trong phạm vi: {tat, lan1, khong} — khong
   return d;
 }
 function ktGNLanHTML(){
-  if(!ktGNLanHTML.dk && typeof GD!=='undefined'){ ktGNLanHTML.dk = 1; GD.dangKy('ktgn', {lan:function(el){ ktCH().gnLan = el.getAttribute('data-k')==='1' ? '1' : ''; luu(); ktGNVeLai(); }}); }
+  if(!ktGNLanHTML.dk && typeof GD!=='undefined'){ ktGNLanHTML.dk = 1; GD.dangKy('ktgn', {lan:function(el){ ktCH().gnLan = el.getAttribute('data-k')==='1' ? '1' : ''; luu(); ktGNVeLai(); },
+    m06a:function(el){ hso06aMo(el.getAttribute('data-to'), el.getAttribute('data-kh'), el.getAttribute('data-ku')); }}); }   /* 3.430: hộ phát hiện sai → Mẫu 06A từng món */
   var d = ktGNDem(), l1 = ktCH().gnLan==='1';
   return '<div class="kt-che"><span class="sl-phu">Món kiểm tra:</span>'+GD.chip('Tất cả ('+d.tat+')', !l1, 'ktgn.lan', {k:'tat'}, 'Mọi món có giải ngân trong tháng, kể cả HSSV nhận tiền lần 2 trở đi — khi mình cần kiểm tra hết')+
     GD.chip('Lần 1 ('+d.lan1+')', l1, 'ktgn.lan', {k:'1'}, '727: giải ngân lần 1 (Ngày GN đầu tiên trong tháng) — mức tối thiểu theo văn bản')+
     (d.khong ? '<span class="sl-phu"> · '+d.khong+' món thiếu Ngày GN đầu tiên (không tính Lần 1)</span>' : '')+'</div>';
 }
+function ktGN06aNut(ma, o){ return '<button class="nho" data-lenh="ktgn.m06a" data-to="'+coChuHTML(ma)+'" data-kh="'+coChuHTML(o.kh)+'" data-ku="'+coChuHTML(o.ku)+'" title="Phát hiện sai (sai mục đích…) → lập Mẫu 06A/TD kiểm tra riêng món này (tab Hồ sơ vay)">📄 06A</button>'; }
 function ktGNChon(){   /* [{x, thang, th, mon:[đã tích]}] — 1 tổ × 1 tháng = 1 phiếu */
   return ktGNTo().map(function(p){ return {x:p.x, thang:p.thang, th:p.th, mon:p.mon.filter(function(o){ return !KT_GN_BO[o._th+'|'+o.ku]; })}; }).filter(function(p){ return p.mon.length; });
 }
@@ -228,7 +230,7 @@ function ktGNDsHTML(){
         return ktHoDongHTML({stt:i+1, h:y, lop:het ? 'kt-loai' : 'kt-co',
           chon:'<input type="checkbox"'+(het ? '' : ' checked')+' onchange="ktGNTichHo(\''+p.x.t.ma+'\',\''+y.kh+'\',this.checked,\''+p.th+'\')" aria-label="Chọn hộ">',
           mon:y.mon.map(function(o){ var k = o._th+'|'+o.ku; return ktMonDong(o, nhieu ? '<input type="checkbox"'+(KT_GN_BO[k] ? '' : ' checked')+' onchange="ktGNTich(\''+k+'\',this.checked)" aria-label="Chọn món"> ' : '',
-            ' · GN '+ngayVNsl(ktGNNgay(o))+' ('+ktTr(o.gnT)+' tr)'); }).join(''),
+            ' · GN '+ngayVNsl(ktGNNgay(o))+' ('+ktTr(o.gnT)+' tr) '+ktGN06aNut(p.x.t.ma, o)); }).join(''),
           ghi:ktGhiHo(y, 'Giải ngân '+p.thang.map(kyVN).join(', ')+' — 727: kiểm tra sử dụng vốn trong 30 ngày')}); }).join('')+'</tbody></table></div>'; });
   var xaGN = {}; chon.forEach(function(p){ var t = (KT_K && KT_K.to[p.x.t.ma]) || p.x.t; if(t.xa) xaGN[t.xa] = 1; });
   h += ktKBKhung('gn', ktHoiDsXa(xaGN))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktGNXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' phiếu Mẫu 06</button><button class="nho" onclick="ktTrang06()" title="Phiếu trống để ghi tay — 1 mặt hoặc 1 tờ 2 mặt">📄 Mẫu 06 trắng</button></div>'+

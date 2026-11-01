@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.429** — TK 2: K4 / QT-C-15 Mẫu 06 sau giải ngân chọn Tất cả / Lần 1; bàn giao cũ chuyển `docs/luu_tru/`. Trước: 3.428 bỏ tên Tèo, bảng vai, nhật ký vai.
+- **`main` = 3.430** — TK 2: Mẫu 06A/TD vào kho mẫu (Hồ sơ vay; nút 06A ở KTGS Mẫu 06). Trước: 3.429 K4 Tất cả / Lần 1, dọn bàn giao cũ.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

@@ -49,6 +49,7 @@ function hsoVe(){
       tv.forEach(function(x){ if(x.vao) HSO.kn[x.kh] = true; if(!x.conNo && !x.chuaGN && !(x.t105>0)) HSO.ra[x.kh] = true; });
       if(TO_BD && TO_BD.to===t.ma && TO_BD.co) TO_BD.ra.forEach(function(r){ HSO.ra[r.kh] = true; }); }
   }
+  if(HSO_DEN){ HSO.vay.kh = HSO_DEN.kh; HSO.vay.ku = HSO_DEN.ku; HSO_DEN = null; }   /* 3.430: mở từ chỗ khác (KTGS Mẫu 06 → 06A) */
   if(t && (M.k==='10c' || M.k==='10ccu' || M.k==='10b') && !(TO_BD && TO_BD.to===t.ma && TO_BD.ky===KHO.ky().ky)){ TO_BD = null; toBDNap(t).then(function(){ HSO.khoa = ''; if(document.getElementById('hso-ds')) hsoVe(); }); }
   ds.innerHTML = hsoDsHTML();
   var tm = document.getElementById('hso-tabm'); if(tm){ tm.innerHTML = hsoTabMauHTML(); cnSoatHet(); }
@@ -855,6 +856,12 @@ function hsoTuyVay(M, t, tv){
   if(M.k==='01tdck'){   /* 3.206: người đề nghị = tổ viên đang chọn (chung lựa chọn với 09A) */
     h += hsoTuyO('Người đề nghị', hsoChon('HSO.vay.kh=this.value;HSO.vay.ku=\'\';hsoVe()', HSO.vay.kh||'', [['', t ? '— chọn tổ viên ('+tv.length+') —' : '— chọn tổ trước —']].concat(tv.map(function(k){ return [k.kh, k.ten+' · '+k.kh]; }))))+
       hsoKBRieng('01tdck', {});   /* 3.222: cùng khung với các mẫu */
+  }
+  if(M.k==='06a'){   /* 3.430: mỗi món 1 phiếu — chọn người vay + món (như 09A) */
+    var mon6 = hsoMonGH(t), ds6 = tv.filter(function(k){ return k.mon.some(function(m){ return (m.dn||0)>0; }); });
+    h += hsoTuyO('Người vay', hsoChon('HSO.vay.kh=this.value;HSO.vay.ku=\'\';hsoVe()', V.kh||'', [['', t ? '— chọn tổ viên ('+ds6.length+') —' : '— chọn tổ trước —']].concat(ds6.map(function(k){ return [k.kh, k.ten+' · '+k.kh]; }))))+
+      (mon6.length ? hsoTuyO('Món vay', hsoChon('HSO.vay.ku=this.value;hsoVe()', V.ku || mon6[0].ku, mon6.map(function(m){ return [m.ku, m.ku+' · '+ctNgan(m.ct, m)+' · '+tdnTien(m.dn)+' đ']; }))) : '')+
+      '<div class="hso-cham"><small>Mỗi món 1 phiếu (anh chốt 01/11). Số tiền nợ lãi = lãi tồn tất cả (Lãi tồn TH + QH). Phần thực tế, sử dụng vốn, ý kiến ghi tay tại nhà khách.</small></div>';
   }
   if(M.k==='09a'){
     var mon = hsoMonGH(t), ds9 = tv.filter(function(k){ return k.mon.some(function(m){ return (m.dn||0)>0; }); });

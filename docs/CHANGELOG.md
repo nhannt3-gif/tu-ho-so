@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.430 — 01/11/2026 — Mẫu 06A/TD vào kho mẫu (TK 2)
+- **Anh chốt 01/11:** "Mẫu 06 kiểm tra nhiều hộ (hộ vay đúng); khi có sai cần kiểm tra đánh giá từng hộ dùng Mẫu 06A" (sai mục đích, 3 tháng KHĐ) · **mỗi món 1 phiếu** · **số tiền nợ lãi = lãi tồn tất cả** (Mẫu 31 chỉ có Lãi tồn TH + QH — `laiTon`) · "đưa vào kho mẫu, chỗ nào cần thì gọi".
+- **Kho mẫu:** file gốc trống `tests/mau_goc/06a.docx` (đã bỏ tên người soạn) + mô-đun `js/mau/06a.js` (nền ô, nguyên văn mẫu, lề 20/20/18/27,5, TNR 13,5, dòng 18 pt) — tab **Hồ sơ vay › 06A/TD**: chọn người vay + món; ô tự điền: tên, mã KH, tổ trưởng, Hội, ngày số liệu, chương trình, số khế ước, giải ngân, dư nợ, nợ lãi, TK 105, mục đích (ngành nghề). Món đã chọn mà kỳ đang mở không còn dư nợ → để chấm (không lấy nhầm món khác).
+- **Gọi mẫu:** `hso06aMo(mã tổ, mã KH, số khế ước)` → tab Hồ sơ vay chọn sẵn (`HSO_DEN`). KTGS › Mẫu 06 sau giải ngân (chọn đến tổ): mỗi món có nút **📄 06A**. Danh sách 3 tháng KHĐ: thêm nút sau khi chốt K5.
+- Phép thử mới `t349` (Mẫu 31 giả: tự điền, mỗi món 1 phiếu, chữ đúng file gốc, Word, nút KTGS).
+
 ## 3.429 — 01/11/2026 — K4: kiểm tra 30 ngày chọn Tất cả / Lần 1; dọn bàn giao cũ (TK 2)
 - **Anh chốt 01/11 (K4 / QT-C-15, tạm — chốt lại sau kỳ mới):** "kiểm tra 30 ngày cho chọn lần 1 và tất cả, tính món giải ngân tất cả; 727 chỉ quy định lần 1 nên khi giao kế hoạch cần tối thiểu theo văn bản, còn khi mình cần nên kiểm tra hết".
 - **Mẫu 06 kiểm tra sau giải ngân:** chip **Tất cả (n)** (mặc định — như cũ) / **Lần 1 (m)** = món có "Ngày GN đầu tiên" trong tháng GN; thiếu ngày → báo, không tính Lần 1. Ghi chú cuối màn theo lựa chọn. `ktGNLan1`, `ktGNDem`, `ktGNLanHTML` (lệnh GD `ktgn.lan`), `ktGNTo` lọc theo `ktCH().gnLan`.
