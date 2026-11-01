@@ -1092,8 +1092,7 @@ var CO_GI_MOI = {ban:'3.438', ds:[
     "3.426 · ⋯ Nạp & KT › 📐 Bộ số chuẩn › 📄 Nháp TB kết luận (Word)",
     "3.425 · ⋯ Nạp & KT › 📐 Bộ số chuẩn › 📝 Nháp Nội dung họp mẫu 08 (Word)",
     "3.424 · ⋯ Nạp & KT › 📐 Bộ số chuẩn: chỉ tiêu theo điểm × Hội, 📥 CSV, 📂 So với file đáp án",
-    "3.420 · Ở bất kỳ đâu bấm Ctrl+K → gõ tên tab / công cụ / khách / tổ (không dấu) → Enter",
-    "3.419 · Mở app 1 lần khi có mạng → tắt mạng, mở lại vẫn chạy"],
+    "3.420 · Ở bất kỳ đâu bấm Ctrl+K → gõ tên tab / công cụ / khách / tổ (không dấu) → Enter"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.435 · Tra cứu: bỏ luật \"luôn lấy số liệu mới nhất\" (3.347) → theo ô kỳ góc phải, chưa chọn thì vẫn mới nhất",
     "3.434 · Thẻ tổ (Tra cứu): bỏ nút 👪 Lập hồ sơ hộ mới vào tổ (anh đã bỏ 29/10, 3.410 trả lại nhầm) — vẫn lập được ở 🏘 Tổ của điểm GD",
