@@ -151,7 +151,7 @@
 | 31/10 | TK 2 | 3.420 | **mới** `js/86-o-lenh.js` (Ctrl+K), CSS, `index.html`, `tests/t342` | t342 6/6, t138 đạt |
 | 31/10 | TK 2 | 3.421 | CSS thanh trên (khổ 1101–1366), `docs/KE_HOACH_NANG_CAP_0111.md` | dò 15 màn × 4 khổ sạch; so ảnh 1366 / 400 |
 | 31/10 | TK 2 | 3.422 | `js/22` (slNap, slBo dùng chung khi đang chạy; slStk nhớ), `js/22g` (toNap dùng chung), docs kế hoạch / đo tốc độ | hồi quy đủ 222/222 |
-| 31/10 | TK 2 | 3.423 | `js/22k` (slDCTeoTinh: thu nợ theo Mẫu 31, tổ đóng, mã xã, bỏ TT toàn 0), `tests/t343` | t343 5/5, t325 9/9, t328 như trước |
+| 31/10 | TK 2 | 3.423 | `js/22k` (slDCGBTinh: thu nợ theo Mẫu 31, tổ đóng, mã xã, bỏ TT toàn 0), `tests/t343` | t343 5/5, t325 9/9, t328 như trước |
 | 31/10 | TK 2 | 3.424 | `js/22g` (toKyTruoc QT-C-21), **mới** `js/87-bo-chuan.js`, `index.html`, `js/22` (tách dòng slStk), `tests/t328` (kỳ trước), **mới** `tests/t344` | t328 38/40, t344 15/15, t325, t343 đạt |
 | 31/10 | TK 2 | 3.425 | **mới** `js/88-nd-hop.js`, `js/87` (bcViTri, kỳ so sánh tháng trước), `index.html`, **mới** `tests/t345`, `tests/t344` | t345 10/10, t344 16/16, t328 38/40 |
 | 31/10 | TK 2 | 3.426 | **mới** `js/89-tb-kl.js`, `js/87` (BC.Kp), `js/88` (tên tổ), `index.html`, **mới** `tests/t346` | t346 10/10, t345 10/10, t344 đạt |
@@ -159,6 +159,7 @@
 | 01/11 | TK 2 | 3.428 | đổi tên 6 tài liệu TEO_* (+ dòng trỏ), `tools/trang_thai_chung.py`, **mới** `docs/nhat_ky/`, `AGENTS.md`, `CLAUDE.md`, `BAT_DAU.md`, chữ nút `js/22k` · `js/87` · `js/90` · `js/06`, tests | t325, t328, t344, t347, t138 đạt |
 | 01/11 | TK 2 | 3.429 | `js/22c-ktgs-m06.js` (K4 Tất cả / Lần 1), **mới** `tests/t348.js`, `docs/luu_tru/` (3 bàn giao cũ), `CLAUDE.md`, `QUY_TAC_SO_LIEU.md`, `tests/do_moc.json` (chốt lại mốc sau hồi quy đủ 227/227) |
 | 01/11 | TK 2 | 3.430 | **mới** `js/mau/06a.js`, `tests/mau_goc/06a.docx`, `tests/t349.js`; `js/25-ho-so.js` (HSO_MAU + HSO_DEN), `js/25b` (dispatcher + hàm thay), `js/25c` (chọn người vay / món, nhận HSO_DEN), `js/22c` (nút 06A), `index.html`; `t163`, `t170`, `t204` đếm chip Hồ sơ vay 12 → 13 · hồi quy theo đổi 226/229 → sửa 3 phép đếm chip, đạt |
+| 01/11 | TK 2 | 3.431 | `js/mau/06a.js` (kỳ mặc định), `js/25b`, `js/22c` (data-ky), đổi tên `slDCGBTinh` ở `js/22k`, `js/90`, `js/87` (chú thích), t328, t343, t344, t347, t349 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

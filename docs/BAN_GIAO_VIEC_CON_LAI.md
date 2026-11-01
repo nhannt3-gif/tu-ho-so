@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.431)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Ô kỳ đầu trang để ngày khác, vào Hồ sơ vay › bấm 06A/TD | Kỳ tự về Mẫu 31 cuối tháng trước, báo "📅 06A: số liệu đến …" | |
+| 2 | Đổi ô kỳ sau đó | 06A theo kỳ anh chọn (không tự đổi lại) | |
+
 ### Danh sách thử trên máy thật (3.430)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
@@ -474,7 +480,7 @@ _Ghi chú kỹ thuật 3.408:_ `tcTkDs(ma, stk)` / `tcTkNhieuHTML` (js/22f, trê
 | 3 | Chọn Phường Gò Dầu | Không còn dòng Gia Lộc; 🏷 hiện các KP Gò Dầu đã gộp | |
 | 4 | Sao kê nợ đến hạn (chỉ Mẫu 31 + File Tổ trưởng) | Cột Chuyển QH có ngày "(tính)" theo ngày GD điểm | |
 
-_Ghi chú kỹ thuật 3.407:_ `js/83-ap-cu.js` bọc `pvVeCay` (thêm `.pv-apcu` cuối `#<p>-cay`), `AP_CU` theo mã ấp, khóa cài đặt `pvApCu`; `toNap` (js/22g) điền ngày GD điểm từ GDXA đa số khi chưa có (`ngD`); `slDCTeoTinh` TT chỉ ghi `ma_diem` khi `_ttCach` ấp / danh mục; `tests/t328.js` (bảng `CHO` = lệch đã báo chờ chốt, in ⏳ không làm trượt); `tools/hoiquy_pt.py` `CHUNG_SL` / `DUNG_SL`.
+_Ghi chú kỹ thuật 3.407:_ `js/83-ap-cu.js` bọc `pvVeCay` (thêm `.pv-apcu` cuối `#<p>-cay`), `AP_CU` theo mã ấp, khóa cài đặt `pvApCu`; `toNap` (js/22g) điền ngày GD điểm từ GDXA đa số khi chưa có (`ngD`); `slDCGBTinh` TT chỉ ghi `ma_diem` khi `_ttCach` ấp / danh mục; `tests/t328.js` (bảng `CHO` = lệch đã báo chờ chốt, in ⏳ không làm trượt); `tools/hoiquy_pt.py` `CHUNG_SL` / `DUNG_SL`.
 
 ### Danh sách thử trên máy thật (3.406)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
@@ -494,7 +500,7 @@ _Ghi chú kỹ thuật 3.406:_ `js/82-dia-ban-so-lieu.js` bọc `ccDiaBanHTML` (
 | 2 | Mở file bằng Excel | Dòng 1 ghi chú #, dòng 2 17 cột, tiếng Việt đúng | |
 | 3 | Cộng cột du_no | = tổng dư nợ PGD (BCDHTD 01.1) | |
 
-_Ghi chú kỹ thuật 3.405:_ cuối js/22k-nap-kt.js: `slDCTeoTinh(K)` (đổi TO_K tạm như tvChuan), `slDCCsv`, `slDCXuat(ky)`, lệnh GD `sldc.xuat`; hợp đồng cột `SL_DC_COT`.
+_Ghi chú kỹ thuật 3.405:_ cuối js/22k-nap-kt.js: `slDCGBTinh(K)` (đổi TO_K tạm như tvChuan), `slDCCsv`, `slDCXuat(ky)`, lệnh GD `sldc.xuat`; hợp đồng cột `SL_DC_COT`.
 
 ### Danh sách thử trên máy thật (3.404)
 | # | Việc thử | Kết quả mong đợi | Đạt? |

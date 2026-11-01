@@ -1,5 +1,5 @@
 /* ===== 3.427 (anh 01/11 chốt ý 3 TK 2 đề xuất — KE_HOACH_KY_DOI_CHIEU mục 5, bàn giao GIAO_BAN_KY_NANG mục 6 tầng C) =====
-   🔎 SO FILE GIAO BAN: nạp DOI_CHIEU_GB_<ngày>.csv (giao ban) → so từng tổ × từng cột với số app (slDCTeoTinh — cùng hợp đồng 17 cột) → TỰ PHÂN LOẠI lệch:
+   🔎 SO FILE GIAO BAN: nạp DOI_CHIEU_GB_<ngày>.csv (giao ban) → so từng tổ × từng cột với số app (slDCGBTinh — cùng hợp đồng 17 cột) → TỰ PHÂN LOẠI lệch:
      A cùng luật mà lệch (lỗi code — phải sửa) · B luật chưa chốt / khác định nghĩa (so_tv: QT-C-14 tổng tổ viên khác định nghĩa; so_mon_khd: K5 chờ chốt)
      · C khác phạm vi / thời điểm (khác ngày số liệu) · D làm tròn (tiền lệch ≤ 1 đồng) · ? chưa phân loại (dòng chỉ có ở 1 bên, cột chưa có luật) — KHÔNG đoán.
    Lệch → báo anh và TK 1, không tự chọn nguồn (QT-C-08). Chỉ đọc, không ghi kho. Cắm rút: bỏ dòng <script> là mất nút 🔎. ES5. */
@@ -41,7 +41,7 @@ function sgMo(ky){
   i.onchange = function(){ var f = i.files && i.files[0]; if(!f) return; var r = new FileReader();
     r.onload = function(){ var gb = sgDoc(r.result); if(gb.loi) return baoLoi(gb.loi);
       batChay(true, 'Đang so với file giao ban…');
-      KHO.nap(ky).then(function(K){ tatChay(); SG.kq = sgSo(slDCTeoTinh(K).dong, gb, K.ngay); SG.kq.ten = f.name; SG.loc = SG.kq.dem.A ? 'A' : 'tat'; sgVe(); }, function(e){ tatChay(); baoLoi('Chưa mở được kỳ '+ky+': '+(e && e.message || e)); }); };
+      KHO.nap(ky).then(function(K){ tatChay(); SG.kq = sgSo(slDCGBTinh(K).dong, gb, K.ngay); SG.kq.ten = f.name; SG.loc = SG.kq.dem.A ? 'A' : 'tat'; sgVe(); }, function(e){ tatChay(); baoLoi('Chưa mở được kỳ '+ky+': '+(e && e.message || e)); }); };
     r.readAsText(f, 'utf-8'); };
   i.click();
 }

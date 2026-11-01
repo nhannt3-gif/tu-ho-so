@@ -191,13 +191,13 @@ function ktGNDem(){   /* số món trong phạm vi: {tat, lan1, khong} — khong
 }
 function ktGNLanHTML(){
   if(!ktGNLanHTML.dk && typeof GD!=='undefined'){ ktGNLanHTML.dk = 1; GD.dangKy('ktgn', {lan:function(el){ ktCH().gnLan = el.getAttribute('data-k')==='1' ? '1' : ''; luu(); ktGNVeLai(); },
-    m06a:function(el){ hso06aMo(el.getAttribute('data-to'), el.getAttribute('data-kh'), el.getAttribute('data-ku')); }}); }   /* 3.430: hộ phát hiện sai → Mẫu 06A từng món */
+    m06a:function(el){ hso06aMo(el.getAttribute('data-to'), el.getAttribute('data-kh'), el.getAttribute('data-ku'), el.getAttribute('data-ky')); }}); }   /* 3.430: hộ phát hiện sai → Mẫu 06A từng món */
   var d = ktGNDem(), l1 = ktCH().gnLan==='1';
   return '<div class="kt-che"><span class="sl-phu">Món kiểm tra:</span>'+GD.chip('Tất cả ('+d.tat+')', !l1, 'ktgn.lan', {k:'tat'}, 'Mọi món có giải ngân trong tháng, kể cả HSSV nhận tiền lần 2 trở đi — khi mình cần kiểm tra hết')+
     GD.chip('Lần 1 ('+d.lan1+')', l1, 'ktgn.lan', {k:'1'}, '727: giải ngân lần 1 (Ngày GN đầu tiên trong tháng) — mức tối thiểu theo văn bản')+
     (d.khong ? '<span class="sl-phu"> · '+d.khong+' món thiếu Ngày GN đầu tiên (không tính Lần 1)</span>' : '')+'</div>';
 }
-function ktGN06aNut(ma, o){ return '<button class="nho" data-lenh="ktgn.m06a" data-to="'+coChuHTML(ma)+'" data-kh="'+coChuHTML(o.kh)+'" data-ku="'+coChuHTML(o.ku)+'" title="Phát hiện sai (sai mục đích…) → lập Mẫu 06A/TD kiểm tra riêng món này (tab Hồ sơ vay)">📄 06A</button>'; }
+function ktGN06aNut(ma, o){ var ky = KT_GN && KT_GN.ngay && KT_GN.ngay[o._th] || o._th || ''; return '<button class="nho" data-lenh="ktgn.m06a" data-ky="'+coChuHTML(ky)+'" data-to="'+coChuHTML(ma)+'" data-kh="'+coChuHTML(o.kh)+'" data-ku="'+coChuHTML(o.ku)+'" title="Phát hiện sai (sai mục đích…) → lập Mẫu 06A/TD kiểm tra riêng món này (tab Hồ sơ vay)">📄 06A</button>'; }
 function ktGNChon(){   /* [{x, thang, th, mon:[đã tích]}] — 1 tổ × 1 tháng = 1 phiếu */
   return ktGNTo().map(function(p){ return {x:p.x, thang:p.thang, th:p.th, mon:p.mon.filter(function(o){ return !KT_GN_BO[o._th+'|'+o.ku]; })}; }).filter(function(p){ return p.mon.length; });
 }

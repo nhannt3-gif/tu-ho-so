@@ -1037,7 +1037,7 @@ var SL_DC_COT = ['khoa', 'ma_xa', 'ma_ap', 'ma_diem', 'hoi', 'so_tv', 'so_tv_du_
 var SL_DC_HOI = {'11':'HND', '12':'HPN', '13':'HCCB', '14':'ĐTN'};
 function slDCNut(ky){ slDCDK(); return '<button class="nho" data-lenh="sldc.xuat" data-ky="'+coChuHTML(ky)+'" title="File đối chiếu số liệu với giao ban (kỳ đối chiếu): 1 dòng 1 tổ + món vay trực tiếp theo ấp, lưu vào Số liệu/'+coChuHTML(ky)+'/">📤 File đối chiếu giao ban (DOI_CHIEU_APP)</button>'; }
 function slDCDK(){ if(slDCDK.xong || typeof GD==='undefined') return; slDCDK.xong = 1; GD.dangKy('sldc', {xuat:function(el){ dongHop(); slDCXuat(el.getAttribute('data-ky')); }}); }
-function slDCTeoTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
+function slDCGBTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
   var sau = kyLui(K.thang, 1), tu = sau+'-01', den = tdnCuoiKy(sau), khd = {}, lech = {}, dong = [], T = K.to;
   slKHD(K.B).forEach(function(o){ if(o.ku) khd[o.ku] = 1; });
   ((K.qtc || (typeof toKiemAp==='function' ? toKiemAp(K) : {lechAp:[]})).lechAp||[]).forEach(function(r){ lech[r[3]] = (lech[r[3]]||0)+1; });
@@ -1069,7 +1069,7 @@ function slDCTeoTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
   return {ngay:K.ngay, dong:dong};
 }
 function slDCCsv(K){
-  var r = slDCTeoTinh(K), ghi = '# bên=APP Tủ hồ sơ · bản='+APP_BAN+' · ngày số liệu='+r.ngay+' · K1=QT-18 (Mẫu 31 + bù Mẫu 01/TV khi chốt tháng) · K5=file KHĐ mẫu 14 nếu có — không thì slKHDTinh'+
+  var r = slDCGBTinh(K), ghi = '# bên=APP Tủ hồ sơ · bản='+APP_BAN+' · ngày số liệu='+r.ngay+' · K1=QT-18 (Mẫu 31 + bù Mẫu 01/TV khi chốt tháng) · K5=file KHĐ mẫu 14 nếu có — không thì slKHDTinh'+
     ' · K7=ĐH gia hạn có thì gia hạn, không thì HĐ (chưa gồm kỳ con phân kỳ) · điểm GD QT-C-10/11 · tiền: đồng';
   return '﻿'+ghi.replace(/[,\r\n]/g, ' ')+'\r\n'+[SL_DC_COT].concat(r.dong).map(function(h){ return h.map(slCsvO).join(','); }).join('\r\n')+'\r\n';   /* dòng 1 '#' ghi nguyên văn (hợp đồng: dòng bắt đầu '#' là ghi chú) */
 }

@@ -11,7 +11,7 @@ const fs=require('fs'), path=require('path');
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    window.SL_KHONG_TU_KIEM = 1;
    for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const k = await slDocFile(new File([u], f.n)); if(!k.loi && k.ky) await slGhi(k); }
-   SL_BO = {}; TO_KS = {}; const K = await KHO.nap('2026-08'), dong = slDCTeoTinh(K).dong, C = SL_DC_COT;
+   SL_BO = {}; TO_KS = {}; const K = await KHO.nap('2026-08'), dong = slDCGBTinh(K).dong, C = SL_DC_COT;
    const gb = dong.map(r=>r.slice()); const i = (c)=>C.indexOf(c);
    gb[0][i('du_no')] += 1000000;   /* A */
    gb[1][i('so_tv')] += 2;          /* B (QT-C-14) */
