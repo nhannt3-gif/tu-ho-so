@@ -260,6 +260,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t347.js` | 3.427 So file giao ban (js/90): đọc CSV hợp đồng, tự phân loại lệch A / B / C / D / ?, nút + hộp kết quả (`gianho31`). |
 | `node tests/t348.js` | 3.429: Mẫu 06 sau giải ngân chọn Tất cả / Lần 1 (QT-C-15) — dữ liệu giả. |
 | `node tests/t349.js` | 3.430: Mẫu 06A/TD (727) — kho mẫu, mỗi món 1 phiếu, tự điền từ Mẫu 31 giả, nút từ KTGS Mẫu 06. |
+| (3.432) | `t192` kiểm mục hướng dẫn thử + đã bỏ trong Có gì mới. |
 | (3.431) | t349 + kỳ mặc định 06A; t328, t343, t347 đổi tên hàm `slDCGBTinh`. |
 | (3.428) | Bỏ tên Tèo — chữ nút trong `t325`, `t344`, `t347` sửa theo. |
 | (3.422) | Tăng tốc mở lại app — hồi quy đủ 222/222. |

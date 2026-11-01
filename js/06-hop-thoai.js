@@ -1040,7 +1040,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.431', ds:[
+var CO_GI_MOI = {ban:'3.432', ds:[
+  ["✨ Có gì mới: thêm hướng dẫn thử (nút mới ở đâu) và mục Đã bỏ / thay thế", "moHuongDan('moi')"],
   ["📅 Mẫu 06A: số liệu mặc định cuối tháng trước (hoặc gần nhất có được)", ""],
   ["📄 Mẫu 06A/TD (727) — kiểm tra từng hộ, mỗi món 1 phiếu; nút 06A ở Mẫu 06 KTGS", ""],
   ["🧾 Mẫu 06 kiểm tra sau giải ngân: chọn Tất cả / Lần 1 (727)", ""],
@@ -1054,16 +1055,38 @@ var CO_GI_MOI = {ban:'3.431', ds:[
   ["🔁 Số kỳ trước theo vị trí hiện nay của khế ước (QT-C-21) — tổ viên chuyển tổ không làm sai tăng giảm", ""],
   ["📤 File đối chiếu giao ban: thu nợ đủ (cả món tất nợ, tổ đã đóng), bù mã xã, bỏ dòng vay trực tiếp toàn 0", ""],
   ["⚡ Mở lại app khi có nhiều số liệu: bớt đứng máy khoảng một nửa (không đọc / dựng kỳ 2 lần)", ""],
-  ["🖥 Khổ laptop 1280: hết cuộn ngang ở Văn bản / Scan / Biểu mẫu / Thư viện (thanh trên gọn lại)", ""],
-  ["⌨ Ctrl+K: ô lệnh — gõ tên tab, công cụ, tên / mã khách, tổ rồi Enter là mở", "olMo("]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
-  thu:['Hồ sơ vay › 📒 Sổ hộ vay: ＋ Hộ mới → gõ ngày sinh, CCCD → xem khung 🔎 Kiểm tra; tích hộ → 📋 Lập 03/TD.',
-    'Sổ hộ vay: bấm Tháng này / Tháng trước, bỏ tích "Nhóm theo tháng"; chọn Xã → Tổ ở khối LỌC ĐỊA BÀN, bấm ⬆ Lên 1 cấp, 📌 Ghim.',
-    'Hồ sơ Tổ › 11/TD › 🖼 Khai báo trực quan → ô Bên A → ⧉ Chép từ Khai báo chung, sửa vài chữ → chỉ mẫu đó đổi.']};
+  ["🖥 Khổ laptop 1280: hết cuộn ngang ở Văn bản / Scan / Biểu mẫu / Thư viện (thanh trên gọn lại)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.432 · ⚙ Cài đặt › ✨ Có gì mới (hoặc ❓ › Có gì mới): xem 2 mục \"Thử trên máy — nút mới ở đâu\" và \"Đã bỏ / thay thế\"",
+    "3.431 · Hồ sơ vay › bấm 06A/TD: kỳ số liệu tự về Mẫu 31 cuối tháng trước, báo \"📅 06A: số liệu đến …\"",
+    "3.430 · Hồ sơ vay › 06A/TD: chọn tổ → người vay → món → phiếu 2 trang mẫu 727, ô tự điền",
+    "3.430 · KTGS › Mẫu 06 sau giải ngân › chọn đến 1 tổ → nút 📄 06A ở từng món → sang Hồ sơ vay đúng người vay, món",
+    "3.429 · KTGS › Mẫu 06 sau giải ngân: chip Tất cả (n) / Lần 1 (m)",
+    "3.427 · ⋯ Nạp & KT › 🔎 So file giao ban: nạp DOI_CHIEU_GB_<ngày>.csv → bảng lệch A–D, 📥 CSV lệch",
+    "3.426 · ⋯ Nạp & KT › 📐 Bộ số chuẩn › 📄 Nháp TB kết luận (Word)",
+    "3.425 · ⋯ Nạp & KT › 📐 Bộ số chuẩn › 📝 Nháp Nội dung họp mẫu 08 (Word)",
+    "3.424 · ⋯ Nạp & KT › 📐 Bộ số chuẩn: chỉ tiêu theo điểm × Hội, 📥 CSV, 📂 So với file đáp án",
+    "3.420 · Ở bất kỳ đâu bấm Ctrl+K → gõ tên tab / công cụ / khách / tổ (không dấu) → Enter",
+    "3.419 · Mở app 1 lần khi có mạng → tắt mạng, mở lại vẫn chạy",
+    "3.416.5 · Tra cứu › thẻ tổ: hàng số kẻ ô, Thành viên (n có nợ chữ xanh), chip Lưu ý xuống dòng, \"Số liệu ngày ⓘ\" góc phải",
+    "3.416.1 · Tra cứu › Danh sách tổ: đầu khung \"Xã … (n tổ) - Ấp … (n tổ)\"",
+    "3.416.1 · Thêm file lớn: có báo tiến độ (đang đọc, đọc chữ PDF trang i/n)",
+    "3.416.1 · Scan quét nhiều CCCD 1 lượt → 🗄 Lưu vào tủ tách từng người",
+    "3.416.1 · Scan › Sửa bản quét: ô Tổ TK&VV có nút chọn nhanh tổ của ấp",
+    "3.416 · 📊 Kiểm tra hồ sơ scan › 👑 Kiểm CCCD tổ trưởng: chip Tổ trưởng cũ, Chỉ thiếu",
+    "3.415 · Quét CCCD tổ trưởng → lưu tên chuẩn CIF - Họ tên - CCCD (cả tổ trưởng cũ)"],
+  bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.416.4 · Thẻ tổ: bỏ chip \"n còn lãi tồn\" dưới bảng → ô Lưu ý ghi \"n không dư nợ · m hết gốc còn lãi\"",
+    "3.416.2 · Thẻ tổ: bỏ 3 hàng ô kẻ (17 ô) và ô CCCD ghi nhầm căn cứ → đầu thẻ gọn",
+    "3.416.1 · Danh sách tổ (Tra cứu): bỏ cột Xã (xã ghi ở đầu khung)",
+    "3.416.1 · 👑 Kiểm CCCD: tạm bỏ tổ phó (chỉ kiểm tổ trưởng)",
+    "3.410 · Tab Tổ: gỡ 📉 Diễn biến tổ, 📅 Biến động tổ viên cả năm, dòng \"Biến động +x vào · −y ra\", cột Mới vào / 105 tăng giảm, chip Mới vào tổ, ⚖ So cách cũ / mới (giữ chip Ra khỏi tổ) — làm lại đơn giản sau (C11)"]};
 function noiDungCoGiMoi(){
   return '<h3>Bản '+CO_GI_MOI.ban+' có gì mới</h3><div class="hd-moi">'+CO_GI_MOI.ds.map(function(x){
       return '<button class="hd-moi-dong" onclick="'+x[1]+'">'+coChuHTML(x[0])+' <span>›</span></button>'; }).join('')+'</div>'+
     '<p class="sl-phu">Lịch sử đầy đủ các bản: <a href="https://github.com/nhannt3-gif/tu-ho-so/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener">docs/CHANGELOG.md</a></p>'+
-    '<h3>Thử nhanh (5 phút)</h3>'+hdBuoc(CO_GI_MOI.thu.map(coChuHTML));
+    '<h3>Thử trên máy — nút mới ở đâu</h3>'+hdBuoc(CO_GI_MOI.thu.map(coChuHTML))+
+    ((CO_GI_MOI.bo||[]).length ? '<h3>Đã bỏ / thay thế</h3>'+hdBuoc(CO_GI_MOI.bo.map(coChuHTML)) : '');   /* 3.432 (anh 01/11) */
 }
 function kiemCoGiMoi(){
   if(D.cauHinh.daXemMoi===CO_GI_MOI.ban) return;

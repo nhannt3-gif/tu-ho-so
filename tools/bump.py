@@ -21,6 +21,18 @@ def cat15(s):   # 3.230: "Có gì mới" chỉ giữ 15 dòng gần nhất (lị
     if len(ds) <= 15: return s
     ds = ds[:15]; ds[-1] = ds[-1].rstrip(',')
     return s[:a] + '\n'.join(ds) + s[j:]
+# 3.432 (anh 01/11 "mấy hướng dẫn này em luôn ghi vào Có gì mới, và bỏ đi chức năng nào"): spec BẮT BUỘC có 'thu' (nút mới ở đâu — [] nếu bản không có nút mới), 'bo' khi bỏ / thay chức năng
+assert 'thu' in sp, "spec thiếu 'thu' (hướng dẫn thử: nút mới ở đâu — ghi [] nếu không có)"
+def themDs(s, khoa, ds, giu=20):   # mỗi mục 1 dòng '    "…",' — dòng cuối kết thúc '"],' (thu) hoặc '"]};' (bo)
+    if not ds: return s
+    L = s.split('\n'); i = next(k for k, l in enumerate(L) if l.startswith('  %s:[' % khoa))
+    j = i+1
+    while not (L[j].endswith('"],') or L[j].endswith('"]};')): j += 1
+    duoi = '],' if L[j].endswith('"],') else ']};'
+    cu = [l.strip().rstrip(',') for l in L[i+1:j]] + [L[j].strip()[:-len(duoi)]]
+    tat = ([json.dumps(v+' · '+x, ensure_ascii=False) for x in ds] + cu)[:giu]
+    return '\n'.join(L[:i+1] + ['    '+x+',' for x in tat[:-1]] + ['    '+tat[-1]+duoi] + L[j+1:])
+if sp['thu'] or sp.get('bo'): rw('js/06-hop-thoai.js', lambda s: themDs(themDs(s, 'thu', sp['thu']), 'bo', sp.get('bo', [])))
 s0 = open('js/06-hop-thoai.js', encoding='utf-8').read(); s1 = cat15(s0)
 if s1 != s0: open('js/06-hop-thoai.js', 'w', encoding='utf-8').write(s1)
 rw('docs/CHANGELOG.md', lambda s: s.replace('\n## ', '\n' + sp['changelog'].rstrip() + '\n\n## ', 1))
