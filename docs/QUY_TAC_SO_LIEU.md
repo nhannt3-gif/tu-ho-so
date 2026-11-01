@@ -45,9 +45,9 @@ Trạng thái: ✅ anh chốt · ⏳ chờ anh chốt · 🔧 đã chốt nhưng
 
 ## 3. Phép thử chung (bước B4)
 
-Bộ trường hợp **dữ liệu giả + đáp án**: `tests/teo/teo_ca.json` (bản 1.2 · 30/10/2026 · 20 trường hợp, 40 ý; 1.2 thêm trường hợp **nhiều kỳ** — khóa `ky_truoc`) — **nguồn duy nhất cho cả hai bên**. Cột Mẫu 31 / File Tổ trưởng ghi đúng tên cột hệ thống; kết quả so theo hợp đồng cột file đối chiếu (`KE_HOACH_KY_DOI_CHIEU.md` mục 3).
+Bộ trường hợp **dữ liệu giả + đáp án**: `tests/chung/truong_hop_mau.json` (tên cũ `teo_ca.json`, đổi 01/11/2026) (bản 1.2 · 30/10/2026 · 20 trường hợp, 40 ý; 1.2 thêm trường hợp **nhiều kỳ** — khóa `ky_truoc`) — **nguồn duy nhất cho cả hai bên**. Cột Mẫu 31 / File Tổ trưởng ghi đúng tên cột hệ thống; kết quả so theo hợp đồng cột file đối chiếu (`KE_HOACH_KY_DOI_CHIEU.md` mục 3).
 
-| Luật | Trường hợp | Giao ban (`thu_teo.py` 1.1 · `bang_so_lieu.py` 1.6) | App |
+| Luật | Trường hợp | Giao ban (`chay_truong_hop_mau.py` 1.2 · `bang_so_lieu.py` 1.6) | App |
 |---|---|---|---|
 | QT-C-01 | C01-1 khế ước lặp 2 sổ TK 105 | ✓ 3/3 | ✓ 3/3 — 3.409 cộng sổ (`slT105Them`; TK 1 kiểm file thật: cột 105 theo từng sổ) |
 | QT-C-02 | C02-1 cho vay − đảo khoản; thu nợ 3 loại | ✓ 2/2 | ✓ 2/2 |
@@ -62,7 +62,7 @@ Bộ trường hợp **dữ liệu giả + đáp án**: `tests/teo/teo_ca.json` 
 | QT-C-17 | C17-1 đến hạn: gia hạn / HĐ, bỏ món QH, bỏ món hết nợ | ✓ 1/1 (1.4; bản 1.3 trượt — đúng như dự kiến) | ✓ 1/1 (app 3.405 đã theo cách này) |
 | QT-C-21 | C21-1 tổ đóng, tổ viên sang tổ cùng ấp: kỳ trước (dư nợ, tiền gửi) theo khế ước, tổ đóng không hiện, có ở biến động · C21-2 tổ viên sang tổ ở điểm khác | ✓ 9/9 (1.6; bản 1.5 trượt 8 — đúng như dự kiến) | ✓ 7/7 ý kỳ trước + `to_khong_hien` (3.424, `t328` 38/40); `bien_dong` chờ màn biến động tổ |
 
-Giao ban chạy: `python thu_teo.py` (Drive `06_CONG_CU\v2`, chép `teo_ca.json` cạnh script) — **40/40 đạt** ngày 31/10/2026 (teo_ca 1.2 · `bang_so_lieu.py` 1.7). App: `node tests/t328.js` (3.407, đọc cùng file, mỗi trường hợp 1 trang sạch, nạp qua đúng đường nạp của app) — bản 3.409 với teo_ca 1.1: **30/31 · C09-1 chờ** (C01-1 đạt); teo_ca 1.2 (C21 `ky_truoc`) app chưa chạy; mã giả `KU-…` / `KH-…` được phép thử ánh xạ sang dạng số hệ thống (app chỉ nhận số khế ước 10–20 số, mã KH 6–12 số). **Sửa luật / sửa script hay app → chạy lại; thêm luật chốt → thêm trường hợp vào file này.** Luật chờ chốt (K1, K4, K5, K8, K9) chưa có đáp án.
+Giao ban chạy: `python chay_truong_hop_mau.py` (Drive `06_CONG_CU\v2`, chép `truong_hop_mau.json` cạnh script; tên cũ `thu_teo.py`) — **40/40 đạt** ngày 31/10/2026 (teo_ca 1.2 · `bang_so_lieu.py` 1.7). App: `node tests/t328.js` (3.407, đọc cùng file, mỗi trường hợp 1 trang sạch, nạp qua đúng đường nạp của app) — bản 3.409 với teo_ca 1.1: **30/31 · C09-1 chờ** (C01-1 đạt); teo_ca 1.2 (C21 `ky_truoc`) app chưa chạy; mã giả `KU-…` / `KH-…` được phép thử ánh xạ sang dạng số hệ thống (app chỉ nhận số khế ước 10–20 số, mã KH 6–12 số). **Sửa luật / sửa script hay app → chạy lại; thêm luật chốt → thêm trường hợp vào file này.** Luật chờ chốt (K1, K4, K5, K8, K9) chưa có đáp án.
 
 ## 4. Nhật ký
 

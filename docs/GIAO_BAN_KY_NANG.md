@@ -42,7 +42,7 @@ nd_hop_m08.py <json> <cau_hinh_ky.json> <05>/<YYYY-MM> <Diem>        → Nội d
 tb_kl.py <json> <cau_hinh_kl.json> <05>/<YYYY-MM> <Diem>             → Thông báo KL (theo phiên: "theo_phien": true)
 xuat_pdf.py <ND.docx> <PHU_LUC.docx> <thư mục> "<tên điểm>"          → PDF gửi Hội (thân bài + Phụ lục 1)
 bc_bdd_so_lieu.py / bc_bdd_9t.py                                     → báo cáo Ban đại diện (theo xã, theo quý)
-doi_chieu_teo.py                                                     → DOI_CHIEU_TEO_<ngày>.xlsx (so với DOI_CHIEU_APP của app)
+doi_chieu_app.py                                                     → KQ_DOI_CHIEU_APP_<ngày>.xlsx (so với DOI_CHIEU_APP của app)
 ```
 
 - `cau_hinh_ky.json` / `cau_hinh_kl.json` = phần **người viết** (văn bản mới, nhận định, kiến nghị, cờ trình bày). Số liệu luôn từ `so_lieu_tong_hop.json`.
@@ -58,7 +58,7 @@ Cấu trúc: `{ngay_sl, ngay_truoc, nguon_dia_ban, ban, diem: {<Diem>: {...}}}`.
 
 ### 2.1 Theo Hội — `diem.<D>.hoi.<HND|HPN|HCCB|DTN>`
 
-Hội theo **Mã ĐVUT** (QT-C-06): 11 HND · 12 HPN · 13 HCCB · 14 ĐTN (json ghi `DTN`; file đối chiếu Tèo ghi `ĐTN`). Khác / trống = **trực tiếp** (2.2). Mỗi số món vay chỉ tính **1 lần / số khế ước** (QT-C-01).
+Hội theo **Mã ĐVUT** (QT-C-06): 11 HND · 12 HPN · 13 HCCB · 14 ĐTN (json ghi `DTN`; file đối chiếu giao ban ghi `ĐTN`). Khác / trống = **trực tiếp** (2.2). Mỗi số món vay chỉ tính **1 lần / số khế ước** (QT-C-01).
 
 | Khóa | Nghĩa | Cách tính từ Mẫu 31 |
 |---|---|---|
@@ -225,7 +225,7 @@ Mỗi bộ chuẩn app dựng phải chạy đủ 4 tầng, ra **bảng kiểm**
 4. File Tổ trưởng: tổ có Hội khác Mẫu 31 · món ở ấp khác ấp của tổ · ấp thuộc nhiều điểm (QT-C-10) — đếm và liệt kê.
 5. **Ngày**: Mẫu 31 và File Tổ trưởng cùng ngày (QT-C-09/22) — khác ngày thì **không chốt số**.
 
-### Tầng C — đối chiếu chéo app ↔ giao ban (`DOI_CHIEU_APP_<ngày>.csv` ↔ `DOI_CHIEU_GB_<ngày>.csv`, `doi_chieu_teo.py`)
+### Tầng C — đối chiếu chéo app ↔ giao ban (`DOI_CHIEU_APP_<ngày>.csv` ↔ `DOI_CHIEU_GB_<ngày>.csv`, `doi_chieu_app.py`)
 Phân loại lệch (`KE_HOACH_KY_DOI_CHIEU.md`): **A** cùng luật mà lệch (lỗi code, phải sửa) · **B** luật chưa chốt (K4, K5, K9 — chờ anh) hoặc **khác định nghĩa** (tổng tổ viên app / giao ban — QT-C-14) · **C** khác phạm vi / thời điểm nguồn · **D** làm tròn. Kỳ 29/10 đã khớp tuyệt đối các tổng tiền; còn mở: thu nợ (món tất nợ trong tháng, tổ đã đóng), 1 tổ thiếu mã xã, dòng trực tiếp toàn 0, tổ viên +59 (K1) — hộp thư 31/10.
 
 ### Tầng D — đối chiếu văn bản đã phát hành (bộ ví dụ chuẩn, mục 7)
@@ -245,7 +245,7 @@ Văn bản chính thức chỉ dùng số **Thực tế**; số **Suy luận** d
 
 ## 7. Bộ ví dụ chuẩn (dữ liệu thật — trên Drive, không vào repo)
 
-**Thư mục:** Drive `0 Hop giao ban\00_PHOI_HOP\TEO_BAN_GIAO\VD_GiaLoc2_2026-10\` (bản sao; bản gốc ở `04_DU_LIEU_XU_LY\2026-10`, `05_BAO_CAO\2026-10` — không sửa).
+**Thư mục:** Drive `0 Hop giao ban\00_PHOI_HOP\BAN_GIAO_APP\VD_GiaLoc2_2026-10\` (bản sao; bản gốc ở `04_DU_LIEU_XU_LY\2026-10`, `05_BAO_CAO\2026-10` — không sửa).
 
 | File | Nội dung |
 |---|---|
@@ -255,7 +255,7 @@ Văn bản chính thức chỉ dùng số **Thực tế**; số **Suy luận** d
 | `B3`, `B4`, `B5`, `B6`, `B7` | `so_lieu_tong_hop.json` phiên 07/10 · `cau_hinh_kl.json` · Bảng số liệu chuẩn 07/10 · `doi_chieu.txt` · KQGD 07/10 |
 | `C1_DAP_AN_GiaLoc2.md` | **Đáp án số**: theo Hội × chỉ tiêu, số dòng / tổng từng danh sách, mốc 31/12, ghi chú đọc |
 
-**Chạy đáp án đầy đủ (kèm từng tổ):** `python3 tools/teo_dap_an.py GiaLoc2 <A3>.json <B3>.json` → `DAP_AN_GiaLoc2.xlsx` (hiện lưới) + `.csv` dạng dài `ky, diem, hoi, chi_tieu, gia_tri` — app xuất cùng dạng là so được bằng máy. Chạy ở máy / thư mục ngoài repo; **không commit** file đầu ra.
+**Chạy đáp án đầy đủ (kèm từng tổ):** `python3 tools/dap_an_giao_ban.py GiaLoc2 <A3>.json <B3>.json` → `DAP_AN_GiaLoc2.xlsx` (hiện lưới) + `.csv` dạng dài `ky, diem, hoi, chi_tieu, gia_tri` — app xuất cùng dạng là so được bằng máy. Chạy ở máy / thư mục ngoài repo; **không commit** file đầu ra.
 
 **Tiêu chí đạt:** (1) bảng Hội × chỉ tiêu 2 kỳ khớp đáp án (sai số 0,05 triệu); (2) số dòng + tổng các danh sách khớp; (3) bản nháp văn bản app dựng có đủ đề mục, bảng, câu của A1 / B1, các số trong câu trùng văn bản đã phát hành.
 

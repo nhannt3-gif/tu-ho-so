@@ -25,7 +25,7 @@ CHUNG = ['index.html', 'js/01-thu-vien.js', 'js/02-nen.js', 'js/04-giao-dien.js'
 # 3.407 (R1 — anh 30/10 "hồi quy ngày càng nhiều, rà soát hồi quy không cần thiết"): KHO / Số liệu / cây địa bàn chỉ là phần chung của phép thử CÓ DÙNG SỐ LIỆU
 #   (trước nằm trong CHUNG → sửa Số liệu là chạy lại cả Scan, Văn bản, Hồ sơ, KTGS mẫu…). Phép thử không đụng số liệu không chạy lại khi các file này đổi.
 CHUNG_SL = ['js/22-so-lieu.js', 'js/22g-to.js', 'js/22ga-pham-vi.js', 'js/29-kho.js', 'js/73-kho-chuan.js']
-DUNG_SL = re.compile(r'gianho31|gia31|gianho\b|\bgia\b|slDocFile|slGhi\(|toNap|tcNap|KHO\.|TO_K\b|TC_K\b|SLM\b|SL_DB|pvVeCay|PV_DUNG|doiNgan\(7\)|slDoiTab|teo_ca')
+DUNG_SL = re.compile(r'gianho31|gia31|gianho\b|\bgia\b|slDocFile|slGhi\(|toNap|tcNap|KHO\.|TO_K\b|TC_K\b|SLM\b|SL_DB|pvVeCay|PV_DUNG|doiNgan\(7\)|slDoiTab|teo_ca|truong_hop_mau')
 DO_BO_CUC = re.compile(r'getBoundingClientRect|getComputedStyle|scrollWidth|offsetWidth|offsetParent|clientWidth|screenshot|setViewportSize')
 LUON = re.compile(r'kiem\.py|bando\.py|CO_GI_MOI|CHANGELOG')   # phép thử chạy công cụ / đọc tài liệu đổi mỗi bản → luôn chạy
 

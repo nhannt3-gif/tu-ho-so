@@ -1,13 +1,13 @@
 // 3.426 (GIAO_BAN_KY_NANG mục 4.2 — GĐ 3): 📄 nháp Thông báo kết luận theo phiên 08/GDX (js/89) — đầu "Số: /TB-KLGB", ngày ký = ngày làm việc kế tiếp phiên,
 //   THÔNG BÁO / Kết luận … / Tại điểm …, không "(Số liệu đến ngày …)", I–IV, bảng 11 cột, "Biểu Kết quả giao dịch … kèm theo.", tồn tại II.2, nơi nhận điểm phụ, ký GIÁM ĐỐC;
-//   có kỳ trước → "(… so với ngày <cuối tháng trước>)". Bộ GIẢ gianho31 + C21-1 (teo_ca).
+//   có kỳ trước → "(… so với ngày <cuối tháng trước>)". Bộ GIẢ gianho31 + C21-1 (truong_hop_mau).
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
  const p=await b.newPage({viewport:{width:1366,height:900}}); p.on('pageerror',e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
- const TEO = JSON.parse(fs.readFileSync(path.join(__dirname,'teo','teo_ca.json'),'utf-8')), C21 = TEO.truong_hop.find(c=>c.id==='C21-1');
+ const TEO = JSON.parse(fs.readFileSync(path.join(__dirname,'chung','truong_hop_mau.json'),'utf-8')), C21 = TEO.truong_hop.find(c=>c.id==='C21-1');
  const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).filter(n=>/31-08-2026\.XLSX$/.test(n)).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R = await p.evaluate(async([files, C21, BO])=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));

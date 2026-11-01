@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Teo — dựng bảng ĐÁP ÁN số từ so_lieu_tong_hop.json của giao ban (docs/GIAO_BAN_KY_NANG.md mục 7).
-Chạy: python3 tools/teo_dap_an.py <Diem> <json kỳ 1> [<json kỳ 2> ...]  -> DAP_AN_<Diem>.xlsx (hiện lưới) + DAP_AN_<Diem>.csv
-File json là DỮ LIỆU THẬT (Drive 00_PHOI_HOP/TEO_BAN_GIAO) — chạy ngoài repo, KHÔNG commit đầu ra.
+"""Dựng bảng ĐÁP ÁN số từ so_lieu_tong_hop.json của giao ban (docs/GIAO_BAN_KY_NANG.md mục 7).
+Chạy: python3 tools/dap_an_giao_ban.py <Diem> <json kỳ 1> [<json kỳ 2> ...]  -> DAP_AN_<Diem>.xlsx (hiện lưới) + DAP_AN_<Diem>.csv
+File json là DỮ LIỆU THẬT (Drive 00_PHOI_HOP/BAN_GIAO_APP) — chạy ngoài repo, KHÔNG commit đầu ra.
 CSV dạng dài: ky, diem, hoi (HND|HPN|HCCB|DTN|TT|CONG|trống), chi_tieu, gia_tri — app xuất cùng dạng để so bằng máy."""
 import json, sys, csv, openpyxl
 from openpyxl.styles import Font
