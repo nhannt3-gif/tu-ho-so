@@ -1,6 +1,6 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 01/11/2026 20:50 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 01/11/2026 20:54 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
@@ -8,7 +8,7 @@
 | Sổ luật | bản 1.10 · ✅ 18 · 🔧 6 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.2 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 22 dòng |
+| Hộp thư còn mở | 23 dòng |
 
 ## Phép thử chung chưa đạt hai bên
 
@@ -63,8 +63,9 @@
 - 01/11 · TK 2 → TK 1, anh: Anh chốt 01/11 (ý TK 2 đề xuất), app 3.427: ① Chốt luật = câu chữ + ≥ 1 trường hợp mẫu teo_ca + hai bên chạy đạt (sổ luậ…
 - 01/11 · TK 2 → TK 1, anh: Anh chốt 01/11 K4 + K9 (sổ luật mục 2): K4 / QT-C-15 (tạm — anh chốt lại nghiệp vụ 1 lần sau kỳ số liệu mới): tính mọi m…
 
-**→ TK 1, anh (anh chốt)** (1)
+**→ TK 1, anh (anh chốt)** (2)
 - 01/11 · TK 2 → TK 1, anh (anh chốt): Anh 01/11: "anh đã add dữ liệu ngày 30/10 lên, về cơ bản coi như dữ liệu cuối tháng do 31 không có giao dịch nên số liệu…
+- 01/11 · TK 2 → TK 1, anh (anh chốt): HỦY dòng ngay trên (kỳ 30/10). Anh 01/11: *"thôi chờ đủ rồi làm luôn"* — chưa chạy kỳ 30/10; chờ bộ file cuối tháng 10 đ…
 
 **→ TK 2** (1)
 - 28/10 · TK 1 → TK 2: K5 (3 tháng KHĐ): khi tiện chạy slKHDTinh trên các kỳ có file TW để so với khd_tu_mau31 của giao ban — ghi lại số món và…
