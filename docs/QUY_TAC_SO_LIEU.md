@@ -47,7 +47,7 @@ Trạng thái: ✅ anh chốt · ⏳ chờ anh chốt · 🔧 đã chốt nhưng
 
 Bộ trường hợp **dữ liệu giả + đáp án**: `tests/chung/truong_hop_mau.json` (tên cũ `teo_ca.json`, đổi 01/11/2026) (bản 1.2 · 30/10/2026 · 20 trường hợp, 40 ý; 1.2 thêm trường hợp **nhiều kỳ** — khóa `ky_truoc`) — **nguồn duy nhất cho cả hai bên**. Cột Mẫu 31 / File Tổ trưởng ghi đúng tên cột hệ thống; kết quả so theo hợp đồng cột file đối chiếu (`KE_HOACH_KY_DOI_CHIEU.md` mục 3).
 
-| Luật | Trường hợp | Giao ban (`chay_truong_hop_mau.py` 1.1 · `bang_so_lieu.py` 1.6) | App |
+| Luật | Trường hợp | Giao ban (`chay_truong_hop_mau.py` 1.2 · `bang_so_lieu.py` 1.6) | App |
 |---|---|---|---|
 | QT-C-01 | C01-1 khế ước lặp 2 sổ TK 105 | ✓ 3/3 | ✓ 3/3 — 3.409 cộng sổ (`slT105Them`; TK 1 kiểm file thật: cột 105 theo từng sổ) |
 | QT-C-02 | C02-1 cho vay − đảo khoản; thu nợ 3 loại | ✓ 2/2 | ✓ 2/2 |

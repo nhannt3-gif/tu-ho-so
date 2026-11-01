@@ -12,4 +12,14 @@
 > - Lưu ý / bẫy: …
 > ```
 
-_(chưa có mục — TK 1 ghi khi làm phiên tới; việc gần nhất: bàn giao kỹ năng `GIAO_BAN_KY_NANG.md` 1.1, sổ luật 1.9, đáp án `C2_DAP_AN_GiaLoc2.csv`)_
+### 01/11/2026 08:40 — TK 1 · PHIÊN (đổi tên bỏ "Tèo")
+- Đã làm: đổi tên kỹ thuật đọc là hiểu — repo `tests/chung/truong_hop_mau.json`, `tools/dap_an_giao_ban.py` (PR nhánh `giao-ban/doi-ten-bo-teo`, phép thử y hệt trước khi đổi, mốc hồi quy 228); Drive `chay_truong_hop_mau.py` 1.2, `doi_chieu_app.py` 1.1 (ra `KQ_DOI_CHIEU_APP_<ngày>.xlsx`), thư mục `00_PHOI_HOP\BAN_GIAO_APP`, bản cũ ở `99_LUU_TRU\CLAUDE`; Quy chuẩn giao ban 2.4 (bỏ "Tèo", tên sổ mới, luật đặt tên đọc là hiểu — mục 6).
+- Đang dở: không.
+- Bước tiếp: 02/11 số liệu cuối tháng đủ → `bang_so_lieu.py` + `tong_hop.py` kỳ 31/10, so với file app bằng `doi_chieu_app.py`, rồi văn bản tháng 11; áp K4 / QT-C-15 và K9 / QT-C-19 vào script, thêm trường hợp mẫu C15, C19 (file trường hợp mẫu bản 1.3).
+- Chờ ai: anh (dán đoạn hướng dẫn Project mới; gộp PR); TK 2 (đổi tên hàm `slDCTeoTinh` khi lên bản app kế tiếp).
+- Lưu ý / bẫy: `bang_so_lieu.py`, `tong_hop.py` trên Drive còn chú thích nhắc tên sổ cũ `TEO_*.md` — file trỏ còn tới ~01/12, sửa chú thích ở lần lên bản kế tiếp của từng script, không sửa riêng trước ngày chạy số. Bản `truong_hop_mau.json` trên Drive chép từ bản 1.2 cũ, dòng ghi chú đầu còn ghi đường dẫn cũ (đáp án giống hệt) — chép lại từ repo khi lên 1.3.
+
+### 01/11/2026 08:10 — TK 1 · NHẬN VAI
+- Trạng thái: kỹ năng văn bản giao ban đã bàn giao cho App (`GIAO_BAN_KY_NANG.md` 1.1); giao ban vẫn làm văn bản chính thức. Script đang dùng (Drive `06_CONG_CU\v2`): `bang_so_lieu.py` 1.7, `tong_hop.py` 2.22, `tb_kl.py` 3.3, `nd_hop_m08.py` 1.10; Quy chuẩn giao ban 2.3 → 2.4.
+- Việc dở: kỳ đối chiếu 31/10 (số liệu đủ 02/11); văn bản tháng 11; sửa đáp án C09-1 (đo ở file đối chiếu); trả lời TK 2 cách nhận biết điểm chính / phụ; chạy lại so sánh kỳ 29/10 với app 3.423; tóm tắt văn bản mới trong Tủ hồ sơ (18 văn bản từ 27/10 chưa đọc).
+- Chờ anh: K5 (sau kỳ 02/11); C3, C4, C9, C10 (`PHOI_HOP_CHUNG.md` mục 13).
