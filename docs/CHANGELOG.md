@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.451 — 02/11/2026 — Thông báo kế hoạch dư nợ: giãn tiêu đề, gọn số (TK 2)
+- **Anh 02/11** (ảnh Thông báo điều chỉnh KH dư nợ, tab Phân bổ KH): "giãn thêm dòng tiêu đề như hình, thu gọn khoảng trống số QĐ".
+- `js/mau/07pb.js`: 2 dòng tiêu đề "THÔNG BÁO … KẾ HOẠCH DƯ NỢ" / "NĂM …" cách 6 pt giữa và sau (lớp `sau` — Word cùng thông số); chỗ trống số thông báo khi chưa có số 10 → 5 khoảng trắng.
+- Phép thử `t253`, `t256` đạt.
+
 ## 3.450 — 02/11/2026 — Mẫu 10A: sửa thụt dòng Chủ trì (TK 2)
 - **Anh 02/11** (ảnh): "chủ trì bị thụt vào".
 - Nguyên nhân: khung tên trước tab thừa hưởng thụt đầu dòng 12,7 mm → thụt gấp đôi (cả III a / b). Sửa: khung tên `text-indent:0`.

@@ -41,7 +41,7 @@ function pb07SoQD(d){ return d.so.indexOf('/')>=0 || !d.kyHieu ? d.so : d.so+(d.
 function pb07Lap(d, K){
   K = K || {}; var dv = d.dv, loai = d.laDC ? 'ĐIỀU CHỈNH' : 'GIAO', loaiT = d.laDC ? 'điều chỉnh' : 'giao', ap = dv.apKp, nam = d.nam, gt = function(k){ return pb07GT(K, k, d); };
   var ngTB = pb07O(pb07NgayDai(gt('ngayTB')), '...... tháng ...... năm ......'), donVi = pb07O(dv.hoa, '...........................'), dvT = pb07O(dv.thuong, '..................');
-  var soTB = gt('soTB'), soT1 = soTB ? pb07O(soTB, '') : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', soT2 = pb07O(soTB, '.......');
+  var soTB = gt('soTB'), soT1 = soTB ? pb07O(soTB, '') : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',   /* 3.451 (anh 02/11): thu gọn khoảng trống số TB */ soT2 = pb07O(soTB, '.......');
   var dong = function(v, lop){ return String(v || '').split(/\n/).map(function(s){ return s.trim(); }).filter(Boolean).map(function(s){ return '<p class="'+lop+'">'+pb07O(s, '')+'</p>'; }).join(''); };
   /* 3.303 (anh 21/10 "chuẩn hành chính"): đoạn canh đều, thụt đầu dòng 1 cm, cách đoạn trước 6 pt, giãn dòng 1,15 (lớp j thut tr → Word cùng thông số); Kính gửi canh giữa */
   var P = function(noi, lop){ return '<p class="'+(lop || 'j thut tr')+'" style="line-height:1.15">'+noi+'</p>'; };
@@ -49,8 +49,8 @@ function pb07Lap(d, K){
   var donViKhoi = '<p class="c b s13">ỦY BAN NHÂN DÂN</p><p class="c b s13">'+donVi+'</p>'+hsoKe(22);   /* tên cơ quan: góc trên bên trái, chữ canh giữa khối, gạch dưới 1/3 */
   var t1 = hsoBang('khung0', [62, 98],
       '<tr><td class="c">'+donViKhoi+'</td><td class="c">'+hsoQH('-', 13).replace(/class="c b"/g, 'class="c b s13"')+'</td></tr>'+
-      '<tr><td class="c"><p class="c s13">Số:'+(soTB ? ' ' : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')+soT1+'/TB-UBND</p></td><td class="c"><p class="c i">'+pb07O(gt('noi'), '..............')+', ngày '+ngTB+'</p></td></tr>')+
-    '<p class="c b tr" style="margin-top:18pt">THÔNG BÁO '+loai+' KẾ HOẠCH DƯ NỢ</p><p class="c b">NĂM '+pb07O(nam, '.......')+'</p>'+   /* tên loại + trích yếu: 14 đậm (NĐ 30) */
+      '<tr><td class="c"><p class="c s13">Số:'+(soTB ? ' ' : '&nbsp;&nbsp;&nbsp;')+soT1+'/TB-UBND</p></td><td class="c"><p class="c i">'+pb07O(gt('noi'), '..............')+', ngày '+ngTB+'</p></td></tr>')+
+    '<p class="c b tr sau" style="margin-top:18pt">THÔNG BÁO '+loai+' KẾ HOẠCH DƯ NỢ</p><p class="c b sau">NĂM '+pb07O(nam, '.......')+'</p>'+   /* 3.451 (anh 02/11 "giãn thêm dòng tiêu đề"): cách 6 pt giữa 2 dòng tiêu đề và trước Kính gửi (Word cùng thông số) */   /* tên loại + trích yếu: 14 đậm (NĐ 30) */
     P('Kính gửi: Trưởng các '+ap+' trên địa bàn '+dv.cap+'.', 'c tr')+
     P('Căn cứ Quyết định số '+pb07O(pb07SoQD(d), '..........')+' ngày '+pb07O(pbNgayVN(d.ngayQD), '...../...../........')+' của Trưởng Ban đại diện HĐQT NHCSXH tỉnh '+pb07O(gt('tinh'), '..........')+' về việc '+loaiT+' chỉ tiêu kế hoạch tín dụng năm '+nam+' cho các '+dv.cap+';')+
     P('Căn cứ tổng hợp nhu cầu vốn tín dụng chính sách tại các '+ap+'.')+
