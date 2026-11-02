@@ -798,7 +798,8 @@ function hsoTuyHTML(M, t){
   }
   else if(M.k==='10a'){
     h += hsoNgayTuy()+hsoHoiTuy(t)+hsoTuyO('Ngày họp định kỳ', hsoIn('hsoDatLuu(\'ngayDK\',this.value)', L.ngayDK||'', 'vd 15 hằng tháng'))+hsoTuyO('Tiết kiệm tối thiểu (đ)', hsoIn('hsoDatLuu(\'tkMin\',this.value)', L.tkMin||'', 'trống = chấm'));
-    if(t){ tv.forEach(function(k){ if(HSO.tv[k.kh]===undefined) HSO.tv[k.kh] = true; }); h += hsoDsTick('tv', tv.map(function(k){ return {kh:k.kh, ten:k.ten}; }), '👥 Danh sách tổ viên in vào biên bản'); }
+    if(t){ tv.forEach(function(k){ if(HSO.tv[k.kh]===undefined) HSO.tv[k.kh] = true; }); h += hsoDsTick('tv', tv.map(function(k){ return {kh:k.kh, ten:k.ten}; }), '👥 Danh sách tổ viên in vào biên bản');
+      var nTV = tv.filter(function(k){ return HSO.tv[k.kh]!==false; }).length; if(nTV>HSO_10A_TV) h += '<div class="sl-phu hso-canh">⚠ Đang tích '+nTV+' tổ viên — khung 10A tối đa '+HSO_10A_TV+' (QĐ 70), chỉ in '+HSO_10A_TV+' người đầu. Bỏ tích bớt hoặc tách tổ.</div>'; }
   }
   else if(M.k==='10b'){
     var B = t ? hsoBau(t) : {tt:'', ttCu:'', pho:'', phoCu:''};

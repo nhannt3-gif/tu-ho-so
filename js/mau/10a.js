@@ -1,5 +1,5 @@
 /* ===== 3.223 M6 — MẪU 10A/TD Biên bản họp thành lập Tổ TK&VV (QĐ 70) trên nền ô — dựng theo file gốc tests/mau_goc/10a.docx =====
-   Lề 20 / 20 / 20 / 30 mm · Times New Roman 14 · thân bài dòng cố định 17 pt, cách 6 pt, thụt 12,7 mm · danh sách 2 cột 20 dòng (gốc: 1–20 │ 21–27, … , Tổng số).
+   Lề 20 / 20 / 20 / 30 mm · Times New Roman 14 · thân bài dòng cố định 17 pt, cách 6 pt, thụt 12,7 mm · danh sách: 3.443 khung cố định 100 tổ viên 3 cột × 34 dòng (trang 1–2), phần II luôn sang trang 3 (anh 02/11).
    Ngày họp / ngày UBND mặc định chấm (anh chốt). Ô "Mẫu số" của gốc nằm trên lề trên (hộp chữ) → app đặt góc phải đầu trang. Bỏ file này → app dùng lại hsoLap10a cũ. */
 (function(){
   var MK = '10a';
@@ -36,17 +36,16 @@
     V:function(t){
       var T = hsoTo(t), tv = hsoTVTo(t).filter(function(k){ return HSO.tv[k.kh]!==false; }), N = hsoNguoiHoi(t), h = T.hoi || '', L = hsoLuu();
       return {T:T, tv:tv, ngay:HSO.o.ngay, ap:T.ap, xa:T.xa, tinh:T.tinh, truongAp:T.truongAp, cb:N.cb, cv:N.cv, hoiLa:/^Hội\s/i.test(h) || !h, hoiTen:/^Hội\s/i.test(h) || !h ? hsoBoHoi(h) : h,
-        thuKy:T.pho, tong:tv.length ? String(tv.length) : '', ngayDK:L.ngayDK, tk:L.tkMin ? tdnTien(hsoSo(L.tkMin)) : '', tt:T.tt, pho:T.pho, ubNgay:HSO.o.ubNgay};
+        thuKy:T.pho, tong:tv.length ? String(Math.min(tv.length, HSO_10A_TV)) : '', ngayDK:L.ngayDK, tk:L.tkMin ? tdnTien(hsoSo(L.tkMin)) : '', tt:T.tt, pho:T.pho, ubNgay:HSO.o.ubNgay};
     },
     lap:function(t){
       var V = this.V(t), G = omG(MK, V, 14), o = G.o, C = function(k){ return omCach(MK, k)!=='cham'; }, g = function(k, v){ return C(k) && v!=null ? String(v) : ''; };
       var ngd = function(k, ds){ var x = hsoNg(G.gt(k)), p = x ? [x.d, x.m, x.y] : ['', '', '']; return ds.map(function(ch, i){ return o(k, ch, {gt:p[i], canh:'c'}); }); };
       var nd = ngd('ngay', ['….', '……', '………']), un = ngd('ubNgay', ['......', '........', '.....']);
-      var tv = C('tv') ? V.tv : [], n = Math.max(20, Math.ceil((tv.length+2)/2)), ds = '', R = 'line-height:1.15;';
-      for(var i=0;i<n;i++){ var a = tv[i], b = tv[n+i], cuoi = i===n-1, keCuoi = i===n-2;
-        ds += '<tr><td style="padding:0 1.9mm">'+P(i+1, J+R)+'</td><td style="padding:0 1.9mm">'+P(o('tv', '...........................................................', {gt:a ? a.ten : ''}), J+R+W)+'</td>'+
-          '<td style="padding:0 1.9mm">'+P(cuoi || keCuoi ? '' : b || i<7 ? n+1+i : i===7 && !tv.length ? '...' : '', J+R)+'</td>'+
-          '<td style="padding:0 1.9mm">'+P(cuoi ? '<b>Tổng số: '+o('tv', '..............', {gt:g('tv', V.tong), canh:'c'})+'tổ viên</b>' : keCuoi ? '&nbsp;' : o('tv', '.........................................................', {gt:b ? b.ten : ''}), J+R+W)+'</td></tr>'; }
+      var tv = (C('tv') ? V.tv : []).slice(0, HSO_10A_TV), ds = '', R = 'line-height:1.15;font-size:12pt;';   /* 3.443 (anh 02/11): khung cố định 100 tổ viên (QĐ 70), 3 cột × 34 dòng đánh số dọc theo cột, nằm trang 1–2 — sửa tên không đẩy trang 3–4 */
+      for(var i=0;i<HSO_10A_DONG;i++){ ds += '<tr style="height:'+HSO_10A_CAO+'mm">';
+        for(var c=0;c<3;c++){ var j = c*HSO_10A_DONG+i, a = tv[j]; ds += '<td style="padding:0 1.2mm;vertical-align:bottom;overflow:hidden;white-space:nowrap">'+(j<HSO_10A_TV ? P((j+1)+'. '+o('tv', '....................................', {gt:a ? a.ten : ''}), R+W) : '')+'</td>'; }
+        ds += '</tr>'; }
       var hoi = V.hoiLa ? 'Hội '+o('chuTri', '..........', {gt:g('chuTri', V.hoiTen)}) : o('chuTri', 'Hội ..........', {gt:g('chuTri', V.hoiTen)});
       var qu = [
         '1. Tổ TK&amp;VV là tập hợp hộ nghèo và các đối tượng chính sách khác theo quy định của pháp luật, có nhu cầu vay vốn, thực hành tiết kiệm và tham gia hoạt động khác do NHCSXH cung cấp.',
@@ -83,8 +82,9 @@
         P('<b>Nội dung cuộc họp</b><b>:</b><b> </b>', F+'margin:6pt 0;line-height:16pt')+
         P('Các đại diện hộ gia đình và cá nhân trực tiếp thuộc đối tượng vay vốn tự nguyện họp để thành lập Tổ Tiết kiệm và vay vốn (TK&amp;VV) theo quy định tại Quyết định số 70/QĐ-HĐQT ngày 27/8/2026 của Hội đồng quản trị Ngân hàng Chính sách xã hội (NHCSXH) về Quy chế hoạt động Tổ TK&amp;VV. Sau khi thảo luận, các thành viên dự họp thống nhất các nội dung sau:', J+F+'margin:6pt 0;line-height:16pt')+
         P('<b>I. DANH SÁCH TỔ VIÊN </b>', J+F+'margin-top:6pt;font-size:13pt;letter-spacing:-0.6pt')+
-        '<table class="khung0" style="width:161.5mm;table-layout:fixed"><colgroup>'+[10.2, 76.9, 9.6, 75.0].map(function(x){ return '<col style="width:'+(x*161.5/171.7).toFixed(2)+'mm">'; }).join('')+'</colgroup>'+ds+'</table>'+
-        P('<b>II. QUY ƯỚC HOẠT ĐỘNG CỦA TỔ TK&amp;VV</b>', J+F+H17+'font-size:13pt')+
+        '<table class="khung0 s12 tv100" data-w="1,1,1" data-cao="'+HSO_10A_CAO+'" style="width:161.5mm;table-layout:fixed"><colgroup><col style="width:33.33%"><col style="width:33.33%"><col style="width:33.34%"></colgroup>'+ds+'</table>'+
+        P('<b>Tổng số: '+o('tv', '..............', {gt:g('tv', V.tong), canh:'c'})+'tổ viên</b>', J+F+'margin-top:3pt')+
+        P('<b>II. QUY ƯỚC HOẠT ĐỘNG CỦA TỔ TK&amp;VV</b>', J+F+H17+'font-size:13pt').replace('<p ', '<p class="tr-sang" ')+
         qu.map(function(x){ var c = Array.isArray(x) ? x[1] : 0, s = Array.isArray(x) ? x[0] : x; return P(s, J+F+(c===1 ? H17 : H17+(c===2 ? 'letter-spacing:-0.3pt' : ''))); }).join('')+
         P('<b>III. BẦU BAN QUẢN LÝ CỦA TỔ TK&amp;VV</b>', J+F+H17+'font-size:13pt')+
         P('1. Các tổ viên dự họp thống nhất bầu Ban quản lý Tổ gồm các Ông (Bà) có tên dưới đây:', J+F+H17)+

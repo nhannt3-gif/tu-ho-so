@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.443 — 02/11/2026 — Mẫu 10A: khung 100 tổ viên cố định (TK 2)
+- **Anh 02/11:** "Mẫu 10A của tổ có tối đa 100 thành viên, dựng sẵn khung tối đa 100 tv, 3 cột, nằm trong trang 1 và trang 2, để khi thay đổi thành viên nếu gõ nhầm không ảnh hưởng trang 3, 4" → chọn 3 cột.
+- `js/mau/10a.js`: danh sách tổ viên = khung cố định **100 ô, 3 cột × 34 dòng, đánh số dọc theo cột** (1–34 │ 35–68 │ 69–100), chữ cỡ 12, ô trống để chấm; "Tổng số" ngay dưới khung; "II. QUY ƯỚC" luôn sang **trang 3** (phần II → phê duyệt UBND vẫn 3 trang như mẫu gốc → cả mẫu 5 trang).
+- Tích > 100 tổ viên → cột trái báo ⚠, chỉ in 100 người đầu, Tổng số 100.
+- Phần chung (chỉ mẫu dùng mới có tác dụng): bộ in `trDan` (js/05) nhận `.tr-sang` = buộc sang trang; Word `hsoDocx` (js/25b): `.tr-sang` → ngắt trang (pageBreakBefore), bảng `data-cao` → dòng cao cố định (sửa tên không đẩy trang). Hằng `HSO_10A_TV / DONG / CAO` (js/25).
+- Phép thử mới `t358` (dữ liệu giả). Hồi quy đủ.
+
 ## 3.442 — 02/11/2026 — Quét CCCD: đối chiếu chủ TK 104 (TK 2)
 - **Anh 02/11:** "em cho quét số TK 104 cho chắc" → chọn **đối chiếu chủ TK 104**.
 - `tk104TimTT` (js/28): File Tổ trưởng không khớp (số CCCD / CMND cũ / tên + ngày sinh) → rà MỌI file Sao kê TK 104 đã nạp — người đứng tên TK 104 là tổ trưởng; Sao kê không có số CCCD nên khớp **họ tên**, chỉ nhận khi **đúng 1 mã KH** mang tên đó (trùng → không đoán); tổ lấy theo File Tổ trưởng (MATT = mã KH) hoặc tổ đang có tổ trưởng mã KH đó (`trTTHienTai`) → lưu như tổ trưởng hiện tại / tổ trưởng cũ. Dòng báo ghi "chủ TK 104 <số TK> (cùng họ tên)".

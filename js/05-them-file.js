@@ -1279,6 +1279,8 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
       while(src.firstChild){
         var c = src.firstChild; xich[k].d.appendChild(c);
         if(rong(c) || dauBang(c)) continue;
+        if(c.nodeType===1 && soMoi && /\btr-sang\b/.test(c.className)){ c.parentNode.removeChild(c); sangTrang(k); xich[k].d.appendChild(c); }   /* 3.443: .tr-sang = buộc sang trang mới (10A: phần II luôn ở trang 3) */
+        else if(c.nodeType===1 && c.querySelector && chiaDuoc(c) && c.querySelector('.tr-sang')){ tach(c, k); continue; }
         if(vuaTrang()){ dem(k); continue; }
         if(c.nodeType===1 && chiaDuoc(c) && !giu(c)){ tach(c, k); continue; }
         if(soMoi){ c.parentNode.removeChild(c); sangTrang(k); xich[k].d.appendChild(c); if(vuaTrang()){ dem(k); continue; } }
