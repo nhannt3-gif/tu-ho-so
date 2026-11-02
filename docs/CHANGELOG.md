@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.453 — 02/11/2026 — Mẫu 10C theo quy chuẩn 10A, kết nạp / cho ra số lượng lớn (TK 2)
+- **Anh 02/11:** "10C cũng tương tự, riêng 10C cho chọn hộ từ danh sách để kết nạp và cho ra khi chia tách số lượng lớn"; Về việc "Kết nạp tổ viên, cho tổ viên ra khỏi Tổ, bình xét cho vay, sửa đổi Quy ước hoạt động của Tổ,… và các nội dung khác"; "bảng kẻ ô tùy biến số dòng kết nạp, cho ra (cùng 1 bảng như nhau), số dòng họp bình xét thêm hoặc bớt"; "chọn KH từ danh sách tổ chọn từ cây địa bàn"; "cho ra là từ tổ đang chọn, kết nạp từ tổ khác và cũng có thể từ tổ của mình (hoàn thiện thủ tục)"; "kết nạp hay cho ra qua lại chỉ trong cùng 1 ấp".
+- `js/mau/10c.js` (dùng chung `HST`): chữ 14, tiêu đề 15 + kẻ; Về việc **chọn nhiều** (tự theo việc đã làm: kết nạp / cho ra / có danh sách vay); chữ liền in thường, chấm giữ form; ấp / khu phố – xã / phường, Trưởng ấp; Chủ trì / Thư ký / cán bộ Hội "Ông (bà): tên ⇥ Chức vụ"; Hội bỏ xã; bảng I / II và bảng 2 có dòng tiêu đề lặp khi sang trang, **số dòng ＋ / −** (không ít hơn số hộ); tên theo Mã KH, hoa đầu từ; tách ô (cán bộ Hội 3, kết nạp / cho ra 2, chữ ký 4); Nhập liệu riêng (Điền hết / Tùy chọn); 2 trang.
+- **Cột trái 10C** (`hso10cTrai`): bảng hộ vay 2 cột **Cho ra · Kết nạp** (loại trừ nhau; mới vào → Kết nạp, tất nợ / đã ra khỏi tổ → Cho ra tích sẵn), hộ khác ấp không cho tích Kết nạp; **➕ Kết nạp từ tổ khác (cùng ấp)**: hộp chỉ hiện tổ cùng xã + cùng mã ấp, tích / tích hết, "Kết nạp n hộ"; app nhớ hộ chuyển sang tổ nào (`chuyen10c`) → lập 10C cho tổ nguồn tự tích Cho ra.
+- Sổ luật: QT-C-10 bổ sung "kết nạp / cho ra chỉ trong cùng 1 ấp".
+- Phép thử mới `t362`; `t163` cập nhật; `t180` / `t181` 10C nhóm đổi bố cục anh duyệt; chuẩn in `t179` 10C. Hồi quy đủ.
+
 ## 3.452 — 02/11/2026 — Mẫu 10B theo quy chuẩn 10A (TK 2)
 - **Anh 02/11:** "làm tiếp mẫu 10B theo đúng quy chuẩn 10A đã làm".
 - **Phần chung mới `js/mau/0hst.js` (`HST`)** cho mẫu Hồ sơ Tổ làm lại (10B, 10C; 10A chuyển sang dùng chung lần sửa tới): `HST.ds` (tổ viên + TT / TP theo File Tổ trưởng, sắp Mã KH), `HST.bo` (chữ liền / chấm, ô 1 giá trị ⌨ đè, "Ông (Bà): tên", địa bàn, tab chức vụ, tiêu đề + Về việc vừa dòng + kẻ), `HST.bang` (bảng hộ vay: cột tích theo mẫu, lọc ấp, tìm, tích / bỏ hết, sắp), `HST.tach`, `HST.noi`, `HST.hoi`.

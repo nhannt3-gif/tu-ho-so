@@ -31,7 +31,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('chip 10C cũ → mẫu cũ (kết nạp bổ sung, Ấp (kp))', /kết nạp bổ sung tổ viên/.test(chu()) && /Ấp \(kp\)/.test(chu()) && HSO.x.ma.indexOf('cũ')>0);
    HSO.o.ngay = '2026-10-05'; hsoChonMau('10c'); await w(300);
    ok('chip 10C mới → mẫu mới QĐ 70 (Hình thức họp, bảng I │ II, đề nghị vay); ngày họp mặc định chấm', /Hình thức họp/.test(chu()) && /Tổ viên được kết nạp/.test(chu()) && /đề nghị vay vốn NHCSXH/.test(chu()) && !/05\/10\/2026/.test(chu()));
-   ok('10C điền tổ trưởng, thôn, xã từ số liệu', (chu().indexOf('Ông (bà) '+t.ten+'. Chức vụ: Tổ trưởng')>=0 || chu().indexOf('Ông(bà)'+t.ten+' Chức vụ: Tổ')>=0) && (chu().indexOf('Thôn '+hsoApTen(t))>=0 || chu().indexOf('Thôn'+hsoApTen(t))>=0), t.ten+' · '+hsoApTen(t));
+   ok('10C điền tổ trưởng, thôn, xã từ số liệu', (chu().indexOf('Ông (bà) '+t.ten+'. Chức vụ: Tổ trưởng')>=0 || chu().indexOf('Ông(bà)'+t.ten+' Chức vụ: Tổ')>=0 || chu().indexOf('Chủ trì: Ông (bà): '+tenHoaDau(t.ten))>=0) && (chu().indexOf('Thôn '+hsoApTen(t))>=0 || chu().indexOf('Thôn'+hsoApTen(t))>=0 || new RegExp('(Ấp|Khu phố|Thôn) '+hsoApTen(t)).test(chu())), t.ten+' · '+hsoApTen(t));
    /* tích kết nạp 1 người, cho ra 1 người → bảng + tổng sau họp */
    HSO.kn = {}; HSO.ra = {}; HSO.kn['KH_GIA_MOI'] = true; HSO.ra[tv[0].kh] = true; hsoXem(); await w(200);
    const L = hsoKNRa(t, tv);

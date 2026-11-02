@@ -48,6 +48,7 @@ function hsoVe(){
     if(cungTo && V0.kh){ HSO.vay.kh = V0.kh; HSO.vay.ku = V0.ku || ''; }   /* 3.206: đổi mẫu cùng tổ → giữ người vay đang chọn (09A ↔ 01/TĐCK) */
     if(t){ var tv = hsoTVTo(t);
       tv.forEach(function(x){ if(x.vao) HSO.kn[x.kh] = true; if(!x.conNo && !x.chuaGN && !(x.t105>0)) HSO.ra[x.kh] = true; });
+      var cv10 = ((hsoLuu().chuyen10c || {})[t.ma]) || {}; Object.keys(cv10).forEach(function(kh){ HSO.ra[kh] = true; HSO.kn[kh] = false; });   /* 3.453: hộ đã kết nạp sang tổ khác (cùng ấp) → 10C tổ nguồn tích sẵn Cho ra */
       if(TO_BD && TO_BD.to===t.ma && TO_BD.co) TO_BD.ra.forEach(function(r){ HSO.ra[r.kh] = true; }); }
   }
   if(HSO_DEN){ HSO.vay.kh = HSO_DEN.kh; HSO.vay.ku = HSO_DEN.ku; HSO_DEN = null; }   /* 3.430: mở từ chỗ khác (KTGS Mẫu 06 → 06A) */
@@ -794,7 +795,8 @@ function hsoTuyHTML(M, t){
     var raBD = TO_BD && t && TO_BD.to===t.ma && TO_BD.co ? TO_BD.ra : [];
     h += hsoNgayTuy('Ngày họp', 'Trống = chấm (Hồ sơ Tổ mặc định để trống ngày).')+hsoHoiTuy(t)+
       hsoTuyO('Tiết kiệm tối thiểu (đ)', hsoIn('hsoDatLuu(\'tkMin\',this.value)', L.tkMin||'', 'trống = chấm'))+
-      (t ? hsoDsTick('kn', tv.filter(function(k){ return k.vao; }).map(function(k){ return {kh:k.kh, ten:k.ten, ghi:k.vao.tu}; }).concat(tv.filter(function(k){ return !k.vao; }).map(function(k){ return {kh:k.kh, ten:k.ten, ghi:'tổ viên hiện có'}; })), '➕ Kết nạp (mới vào tích sẵn)')+
+      (t && M.k==='10c' && hso10cTrai && typeof omCo==='function' && omCo('10c') ? hso10cTrai(t, raBD)+(typeof omNhanhHTML==='function' ? omNhanhHTML('10c') : '') :   /* 3.453 (anh 02/11): bảng hộ vay Cho ra / Kết nạp, kết nạp từ tổ khác cùng ấp, ＋ / − số dòng */
+      t ? hsoDsTick('kn', tv.filter(function(k){ return k.vao; }).map(function(k){ return {kh:k.kh, ten:k.ten, ghi:k.vao.tu}; }).concat(tv.filter(function(k){ return !k.vao; }).map(function(k){ return {kh:k.kh, ten:k.ten, ghi:'tổ viên hiện có'}; })), '➕ Kết nạp (mới vào tích sẵn)')+
         hsoDsTick('ra', raBD.map(function(r){ return {kh:r.kh, ten:r.ten, ghi:'đã ra khỏi tổ — '+r.di}; }).concat(tv.filter(function(k){ return !k.conNo && !k.chuaGN; }).map(function(k){ return {kh:k.kh, ten:k.ten, ghi:k.t105>0 ? 'tất nợ, còn 105' : 'tất nợ, 105 = 0'}; })), '➖ Cho ra (ra khỏi tổ + tất nợ 105 = 0 tích sẵn)', TO_BD ? 'Không có.' : 'Đang so Mẫu 31 tháng trước…') : '');
   }
   else if(M.k==='10a'){
