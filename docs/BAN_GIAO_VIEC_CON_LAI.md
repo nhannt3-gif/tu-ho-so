@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.444)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ Tổ › 10A › xem trước / In | 4 trang, khung 1–100 trang 1–2, chỗ ký rộng | |
+| 2 | Word: sửa tên trong khung, gõ tên dài | Không xô trang, vẫn 4 trang | |
+
 ### Danh sách thử trên máy thật (3.443)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

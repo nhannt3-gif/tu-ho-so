@@ -13,7 +13,8 @@
     else if(/justify/.test(s) && !/word-spacing/.test(s)) s += 'word-spacing:-0.25mm;';
     if(/text-align-last:justify/.test(s)) noi = noi.replace(/display:inline-block;/g, 'display:inline-block;text-align-last:auto;word-spacing:normal;');
     return '<p style="margin:0;'+s+'">'+noi+'</p>'; }
-  var J = 'text-align:justify;', W = 'white-space:nowrap;', TL = 'text-align-last:justify;', F = 'text-indent:12.7mm;', H15 = 'margin:6pt 0;line-height:15pt;', H17 = 'margin:0 0 6pt;line-height:17pt;'   /* cách 6 pt dồn về sau đoạn: đầu trang không thêm khoảng (như Word) */;
+  var J = 'text-align:justify;', W = 'white-space:nowrap;', TL = 'text-align-last:justify;', F = 'text-indent:12.7mm;', H15 = 'margin:6pt 0;line-height:15pt;', H17 = 'margin:0 0 5pt;line-height:16pt;'   /* cách 6 pt dồn về sau đoạn: đầu trang không thêm khoảng (như Word) */;
+  function hso10aCo(ten){ var r = 161.5/3 - 2.4 - omRong('100. ', 12), c = [12, 11, 10, 9].find(function(pt){ return omRong(String(ten||''), pt) <= r; }); return c || 9; }   /* 3.443.1: tên dài hơn ô → thu chữ 11 / 10 / 9 (ô cao cố định, không xuống dòng) */
   function P2(a, b, st, st2){ return P(a, st+W+TL+'margin-bottom:0;')+P(b, (st2||'')+W+';margin-top:0;'); }
   omDangKy({k:MK, ma:'10A/TD', phan:['to', 'hoi', 'ub', 'ky'], co:14,
     o:[{k:'gio', n:'Thời gian bắt đầu: … giờ …', p:'to', l:'go', md:'cham'},
@@ -44,7 +45,8 @@
       var nd = ngd('ngay', ['….', '……', '………']), un = ngd('ubNgay', ['......', '........', '.....']);
       var tv = (C('tv') ? V.tv : []).slice(0, HSO_10A_TV), ds = '', R = 'line-height:1.15;font-size:12pt;';   /* 3.443 (anh 02/11): khung cố định 100 tổ viên (QĐ 70), 3 cột × 34 dòng đánh số dọc theo cột, nằm trang 1–2 — sửa tên không đẩy trang 3–4 */
       for(var i=0;i<HSO_10A_DONG;i++){ ds += '<tr style="height:'+HSO_10A_CAO+'mm">';
-        for(var c=0;c<3;c++){ var j = c*HSO_10A_DONG+i, a = tv[j]; ds += '<td style="padding:0 1.2mm;vertical-align:bottom;overflow:hidden;white-space:nowrap">'+(j<HSO_10A_TV ? P((j+1)+'. '+o('tv', '....................................', {gt:a ? a.ten : ''}), R+W) : '')+'</td>'; }
+        for(var c=0;c<3;c++){ var j = c*HSO_10A_DONG+i, a = tv[j]; var cx = a ? hso10aCo(a.ten) : 12, nd = (j+1)+'. '+o('tv', '....................................', {gt:a ? a.ten : ''});
+          ds += '<td style="padding:0 1.2mm;vertical-align:bottom;overflow:hidden;white-space:nowrap">'+(j<HSO_10A_TV ? P(cx<12 ? '<span class="s'+cx+'">'+nd+'</span>' : nd, R+W) : '')+'</td>'; }
         ds += '</tr>'; }
       var hoi = V.hoiLa ? 'Hội '+o('chuTri', '..........', {gt:g('chuTri', V.hoiTen)}) : o('chuTri', 'Hội ..........', {gt:g('chuTri', V.hoiTen)});
       var qu = [
@@ -70,7 +72,7 @@
       var h = '<div style="position:relative;height:0"><div style="position:absolute;right:0;top:0;line-height:1.15">'+P('<b><i>Mẫu số: 10A/TD</i></b>', 'text-align:right;font-size:11pt')+P('<i>Lập 02 liên:</i>', 'text-align:right;font-size:11pt')+
           P('<i>- 01 liên lưu NH </i>', 'text-align:right;font-size:11pt')+P('<i> - 01 liên lưu Tổ</i>', 'text-align:right;font-size:11pt')+'</div></div>'+   /* gốc: hộp chữ nằm trên lề trên */
         P('<b>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</b>', 'text-align:center;font-size:13pt;padding-right:6mm')+P('<b>Độc lập - Tự do - Hạnh phúc</b>', 'text-align:center')+
-        '<p class="ke" data-ke="60" style="width:60mm;margin:0.5pt auto 0"></p>'+P('&nbsp;', 'line-height:1.15;height:11mm')+
+        '<p class="ke" data-ke="60" style="width:60mm;margin:0.5pt auto 0"></p>'+P('&nbsp;', 'line-height:1.15;height:6mm')+
         P('<b>BIÊN BẢN HỌP </b>', 'text-align:center')+P('<b>Về việc thành lập Tổ Tiết kiệm và vay vốn </b>', 'text-align:center')+P('&nbsp;', 'line-height:18pt')+
         P('<b>Thời gian bắt đầu: '+o('gio', '…….', {canh:'c'})+' giờ'+o('gio', '……', {gt:''})+', ngày'+nd[0]+'/'+nd[1]+'/'+nd[2]+'</b>', J+F+H15+W)+
         P('<b>Địa điểm: Thôn'+o('diaDiem', '………….……', {gt:g('diaDiem', V.ap)})+', xã'+o('diaDiem', '……….………', {gt:g('diaDiem', V.xa)})+', tỉnh'+o('diaDiem', '…………...……', {gt:g('diaDiem', V.tinh)})+'</b>', J+F+H15+W)+
@@ -84,26 +86,26 @@
         P('<b>I. DANH SÁCH TỔ VIÊN </b>', J+F+'margin-top:6pt;font-size:13pt;letter-spacing:-0.6pt')+
         '<table class="khung0 s12 tv100" data-w="1,1,1" data-cao="'+HSO_10A_CAO+'" style="width:161.5mm;table-layout:fixed"><colgroup><col style="width:33.33%"><col style="width:33.33%"><col style="width:33.34%"></colgroup>'+ds+'</table>'+
         P('<b>Tổng số: '+o('tv', '..............', {gt:g('tv', V.tong), canh:'c'})+'tổ viên</b>', J+F+'margin-top:3pt')+
-        P('<b>II. QUY ƯỚC HOẠT ĐỘNG CỦA TỔ TK&amp;VV</b>', J+F+H17+'font-size:13pt').replace('<p ', '<p class="tr-sang" ')+
+        P('<b>II. QUY ƯỚC HOẠT ĐỘNG CỦA TỔ TK&amp;VV</b>', J+F+H17+'font-size:13pt').replace('<p ', '<p class="kt-b" ')+
         qu.map(function(x){ var c = Array.isArray(x) ? x[1] : 0, s = Array.isArray(x) ? x[0] : x; return P(s, J+F+(c===1 ? H17 : H17+(c===2 ? 'letter-spacing:-0.3pt' : ''))); }).join('')+
-        P('<b>III. BẦU BAN QUẢN LÝ CỦA TỔ TK&amp;VV</b>', J+F+H17+'font-size:13pt')+
+        P('<b>III. BẦU BAN QUẢN LÝ CỦA TỔ TK&amp;VV</b>', J+F+H17+'font-size:13pt').replace('<p ', '<p class="kt-b" ')+
         P('1. Các tổ viên dự họp thống nhất bầu Ban quản lý Tổ gồm các Ông (Bà) có tên dưới đây:', J+F+H17)+
         P('a) Ông (Bà)'+o('bql', '..................................................................', {gt:g('bql', V.tt)})+' Chức vụ: Tổ trưởng;', J+F+H17+W)+
         P('b) Ông (Bà)'+o('bql', '..................................................................', {gt:g('bql', V.pho)})+' Chức vụ: Tổ phó.', J+F+H17+W)+
         P('2. Ban quản lý Tổ thực hiện nhiệm vụ, quyền hạn của mình theo quy định tại Quyết định số 70/QĐ-HĐQT và các quy định liên quan của NHCSXH.', J+F+H17+'letter-spacing:0.1pt')+
-        P('<b>IV. KẾT QUẢ BIỂU QUYẾT</b>', J+F+H17+'font-size:13pt')+
+        P('<b>IV. KẾT QUẢ BIỂU QUYẾT</b>', J+F+H17+'font-size:13pt').replace('<p ', '<p class="kt-b" ')+
         P(o('bq', '......', {canh:'c'})+'/'+o('bq', '......', {gt:''})+' tổ viên của Tổ tham dự họp biểu quyết tán thành các nội dung: Danh sách tổ viên, Quy ước hoạt động của Tổ TK&amp;VV và Bầu Ban quản lý Tổ TK&amp;VV. ', J+F+H17)+
         P('Biên bản này được lập thành 02 bản, được các tổ viên trong Tổ hoàn toàn nhất trí thông qua. Đề nghị UBND cấp xã chấp thuận hoạt động của Tổ TK&amp;VV tại địa phương.', J+F+H17)+
         P('Cuộc họp kết thúc vào'+o('ketThuc', '........', {canh:'c'})+'giờ'+o('ketThuc', '......', {gt:''})+', ngày'+o('ketThuc', '.....', {gt:''})+'/'+o('ketThuc', '.......', {gt:''})+'/'+o('ketThuc', '...........', {gt:''})+'/.', J+F+H17+W)+
         '<table class="khung0" style="width:160mm;table-layout:fixed"><colgroup><col style="width:50.6mm"><col style="width:52.8mm"><col style="width:56.6mm"></colgroup><tr style="height:11.2mm">'+
           [['THƯ KÝ', '(Ký, ghi rõ họ tên)', ''], ['TRƯỞNG THÔN', '(Ký, ghi rõ họ tên)', V.truongAp], ['CHỦ TRÌ', '(Ký tên, đóng dấu)', V.cb]].map(function(x){ return '<td style="padding:0 1.9mm;vertical-align:top">'+P('<b>'+x[0]+'</b>', 'text-align:center;font-size:12pt')+P('<i>'+x[1]+'</i>', 'text-align:center;font-size:12pt')+'</td>'; }).join('')+'</tr></table>'+
-        [1, 2, 3, 4, 5, 6].map(function(i){ return i===4 ? '<table class="khung0" style="width:160mm;table-layout:fixed"><colgroup><col style="width:50.6mm"><col style="width:52.8mm"><col style="width:56.6mm"></colgroup><tr><td></td><td>'+P('<b>'+o('ky', '&nbsp;', {gt:g('ky', V.truongAp), rong:48, canh:'c'})+'</b>', 'text-align:center;line-height:18pt')+'</td><td>'+P('<b>'+o('ky', '&nbsp;', {gt:g('ky', V.cb), rong:52, canh:'c'})+'</b>', 'text-align:center;line-height:18pt')+'</td></tr></table>' : P('&nbsp;', 'line-height:18pt'); }).join('')+
+        [1, 2, 3, 4, 5, 6, 7].map(function(i){ return i===5 ? '<table class="khung0" style="width:160mm;table-layout:fixed"><colgroup><col style="width:50.6mm"><col style="width:52.8mm"><col style="width:56.6mm"></colgroup><tr><td></td><td>'+P('<b>'+o('ky', '&nbsp;', {gt:g('ky', V.truongAp), rong:48, canh:'c'})+'</b>', 'text-align:center;line-height:18pt')+'</td><td>'+P('<b>'+o('ky', '&nbsp;', {gt:g('ky', V.cb), rong:52, canh:'c'})+'</b>', 'text-align:center;line-height:18pt')+'</td></tr></table>' : P('&nbsp;', 'line-height:18pt'); }).join('')+
         P('PHÊ DUYỆT CỦA ỦY BAN NHÂN DÂN CẤP XÃ', 'text-align:center;font-size:13pt;line-height:18pt')+
         P('Chấp thuận cho Tổ TK&amp;VV tại thôn '+o('ub', '…....................................', {gt:g('ub', V.ap)})+', xã'+o('ub', '…..........................................', {gt:g('ub', V.xa)})+', tỉnh '+o('ub', '..........................................', {gt:g('ub', V.tinh)})+' do Ông (Bà) '+o('ub', '....................................................................…….', {gt:g('ub', V.tt)})+' làm Tổ trưởng và Ông (Bà) '+o('ub', '.............................................................................', {gt:g('ub', V.pho)})+' làm Tổ phó được thành lập, hoạt động theo Quy ước của Tổ đề ra và chịu trách nhiệm trước pháp luật về hoạt động của Tổ TK&amp;VV.', J+F+'margin:6pt 0;line-height:16pt')+
         '<table class="khung0" style="width:160mm;table-layout:fixed"><colgroup><col style="width:45.7%"><col style="width:54.3%"></colgroup><tr><td></td><td style="padding:0 1.9mm">'+
-          P('<i>Ngày'+un[0]+'tháng'+un[1]+'năm '+un[2]+'</i>', 'text-align:center')+P('<b>UBND CẤP XÃ</b>', 'text-align:center;font-size:13pt')+P('<i>(Ký tên, đóng dấu)</i>', 'text-align:center;font-size:12pt')+'</td></tr></table>';
+          P('<i>Ngày'+un[0]+'tháng'+un[1]+'năm '+un[2]+'</i>', 'text-align:center')+P('<b>UBND CẤP XÃ</b>', 'text-align:center;font-size:13pt')+P('<i>(Ký tên, đóng dấu)</i>', 'text-align:center;font-size:12pt')+'</td></tr></table>'+'';   /* 3.443.1: chừa chỗ UBND ký, đóng dấu (cả mẫu vẫn 4 trang) */
       return {ma:'10A/TD', h:'<div class="om-goc" style="font-size:14pt;line-height:1.15">'+h+'</div>'};
     }});
   hsoLap10a = function(t){ return omLap(MK, t); };
-  var M = hsoMauK(MK); if(M) M.mg = omMg([20, 20, 20, 30]);
+  var M = hsoMauK(MK); if(M) M.mg = omMg([15, 20, 15, 30]);   /* 3.443.1: tiêu đề mục II–IV class kt-b → bộ chia trang kéo theo đoạn sau (không treo cuối trang) · (anh 02/11 "giảm lề, giãn dòng dư" → 4 trang): lề trên / dưới 20 → 15 mm */
 })();

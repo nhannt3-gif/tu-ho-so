@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.443', ds:[
+var CO_GI_MOI = {ban:'3.444', ds:[
+  ["📝 Mẫu 10A gọn 4 trang: khung 100 tổ viên trang 1–2, chừa chỗ ký rộng; tên dài tự thu chữ", ""],
   ["📝 Mẫu 10A: khung cố định 100 tổ viên (3 cột) ở trang 1–2, phần II luôn sang trang 3", ""],
   ["🪪 Quét CCCD: không khớp File Tổ trưởng → đối chiếu chủ TK 104 (Sao kê TK 104) cùng họ tên", ""],
   ["🪪 Quét CCCD: rà mọi File Tổ trưởng (CCCD · CMND cũ · tên + ngày sinh) — tổ trưởng không vay vẫn nhận ra, lưu luôn", ""],
@@ -1070,9 +1071,9 @@ var CO_GI_MOI = {ban:'3.443', ds:[
   ["🏷 Sửa: tên xã không còn hiện \"Vay trực tiếp\" (Tra cứu khách, danh sách, địa chỉ trên mẫu hồ sơ)", ""],
   ["✨ Có gì mới: thêm hướng dẫn thử (nút mới ở đâu) và mục Đã bỏ / thay thế", "moHuongDan('moi')"],
   ["📅 Mẫu 06A: số liệu mặc định cuối tháng trước (hoặc gần nhất có được)", ""],
-  ["📄 Mẫu 06A/TD (727) — kiểm tra từng hộ, mỗi món 1 phiếu; nút 06A ở Mẫu 06 KTGS", ""],
-  ["🧾 Mẫu 06 kiểm tra sau giải ngân: chọn Tất cả / Lần 1 (727)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📄 Mẫu 06A/TD (727) — kiểm tra từng hộ, mỗi món 1 phiếu; nút 06A ở Mẫu 06 KTGS", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.444 · Số liệu › 📝 Hồ sơ Tổ › chọn tổ › chip 10A/TD → xem trước đúng 4 trang; khung 1–100 ở trang 1–2, phần II nối ngay sau Tổng số; trang 4 dưới UBND CẤP XÃ còn chỗ ký, đóng dấu. Bấm Word → cũng 4 trang, sửa tên trong khung không xô trang",
     "3.443 · Số liệu › 📝 Hồ sơ Tổ › chọn tổ › chip 10A/TD → xem trước: danh sách 1–100 (3 cột) nằm trang 1–2, \"II. QUY ƯỚC\" mở đầu trang 3; bấm Word → sửa tên trong khung, trang 3 trở đi không xê dịch",
     "3.442 · Scan › quét CCCD tổ trưởng không vay, File Tổ trưởng không có số → nếu Sao kê TK 104 có đúng 1 chủ TK cùng họ tên → ✓ tổ trưởng, lưu theo mã KH của TK 104",
     "3.441 · Scan › quét CCCD của 1 tổ trưởng không vay (File Tổ trưởng còn ghi CMND cũ hoặc không có số) → app báo ✓ Tổ trưởng (hiện tại / cũ) và lưu tên chuẩn CIF - Họ tên - CCCD",
@@ -1091,9 +1092,9 @@ var CO_GI_MOI = {ban:'3.443', ds:[
     "3.432 · ⚙ Cài đặt › ✨ Có gì mới (hoặc ❓ › Có gì mới): xem 2 mục \"Thử trên máy — nút mới ở đâu\" và \"Đã bỏ / thay thế\"",
     "3.431 · Hồ sơ vay › bấm 06A/TD: kỳ số liệu tự về Mẫu 31 cuối tháng trước, báo \"📅 06A: số liệu đến …\"",
     "3.430 · Hồ sơ vay › 06A/TD: chọn tổ → người vay → món → phiếu 2 trang mẫu 727, ô tự điền",
-    "3.430 · KTGS › Mẫu 06 sau giải ngân › chọn đến 1 tổ → nút 📄 06A ở từng món → sang Hồ sơ vay đúng người vay, món",
-    "3.429 · KTGS › Mẫu 06 sau giải ngân: chip Tất cả (n) / Lần 1 (m)"],
+    "3.430 · KTGS › Mẫu 06 sau giải ngân › chọn đến 1 tổ → nút 📄 06A ở từng món → sang Hồ sơ vay đúng người vay, món"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.444 · Ngắt trang cứng trước phần II của 10A (3.443) — bỏ vì khung dòng cao cố định đã giữ bố cục",
     "3.439 · Phân bổ KH: bỏ nút 📥 Nhập từ bản WPF (file sao lưu json app cũ) → thay bằng 📥 Nạp QĐ (Excel mẫu); QĐ đã nhập trước đây giữ nguyên",
     "3.435 · Tra cứu: bỏ luật \"luôn lấy số liệu mới nhất\" (3.347) → theo ô kỳ góc phải, chưa chọn thì vẫn mới nhất",
     "3.434 · Thẻ tổ (Tra cứu): bỏ nút 👪 Lập hồ sơ hộ mới vào tổ (anh đã bỏ 29/10, 3.410 trả lại nhầm) — vẫn lập được ở 🏘 Tổ của điểm GD",
