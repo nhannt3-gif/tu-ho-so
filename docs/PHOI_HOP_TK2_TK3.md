@@ -168,6 +168,7 @@
 | 01/11 | TK 2 | 3.437 | `js/06-hop-thoai.js` (**mới** `chuDoi`, `chuDoiNut` — ô s-ty), `css/app.css`, **mới** `tests/t353.js` |
 | 01/11 | TK 2 | 3.438 | **mới** `js/91-nguon-vb.js` (cắm rút), `js/04c` (nút đầu tab Văn bản), `js/17b` (khóa loaiVB3438), `index.html`, **mới** `tests/t354.js` |
 | 01/11 | TK 2 | 3.439 | `js/47-phan-bo.js` (**mới** `pbTuXls`, bỏ `pbTuWPF`), `js/48-phan-bo-gd.js` (nạp Excel, tải mẫu, bỏ nhập WPF), `t250`, `t252`–`t256`, **mới** `tests/pb_gia.js`, `tests/t355.js` |
+| 02/11 | TK 2 | 3.440 | `js/58-tc-to.js` (cột CCCD bảng Tổ trưởng), `t246`, **mới** `tests/t356.js` |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

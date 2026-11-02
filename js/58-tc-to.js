@@ -112,15 +112,22 @@ function tcToTim(q, e){   /* q: chữ → tên tổ trưởng (đầu từ); s�
   if(!ds){ e.innerHTML = '<div class="rong">Gõ ít nhất 3 chữ số.</div>'; return; }
   var tong = ds.length;   /* 3.351 (anh): hiện đủ mọi tổ (bỏ giới hạn 300) */
   if(!tong){ e.innerHTML = '<div class="rong">'+(q ? 'Không thấy tổ có tổ trưởng / mã khớp “'+coChuHTML(q)+'”' : 'Không có tổ')+(S.xa ? ' trong phạm vi '+coChuHTML(pvChu(S, TC_K)) : '')+'.</div>'; return; }
-  var xa = function(t){ return String(t.tenXa||'').replace(/^(Xã|Phường|Thị trấn)\s+/i, ''); }, cg = {tv:0, no:0};
+  var xa = function(t){ return String(t.tenXa||'').replace(/^(Xã|Phường|Thị trấn)\s+/i, ''); }, cg = {tv:0, no:0, cc:0};
+  var coCC = typeof ttkCo==='function' ? ttkCo() : null, dsK = coCC ? (KHO.dsKhach() || {}) : {};   /* 3.440 (anh 02/11 "truy vấn được CCCD tổ trưởng từ đây, dùng cây lọc địa bàn"): cột CCCD đã lưu — cùng luật 👑 Kiểm CCCD tổ trưởng (js/84) */
+  var ccTo = function(t){ if(!coCC) return null; var d = t.ds || {}, t0 = t.tt || {}, cif = String(d.ttKH || t0.ttKH || t.cif || ''),
+      so = String(d.cccd || t0.cccd || (dsK[cif] || {}).cccd || '').replace(/\D/g, '');
+    var k = (cif && coCC.ma[cif]) || (so && coCC.so[so]) || null; return {da:!!k, ngay:k ? k.ngay || '' : '', so:so}; };
   e.innerHTML = '<div class="tc-kq-dau"><div class="ghi tc-to-dau">'+coChuHTML(tcToDauChu(S))+(q ? ' · tìm thấy '+tong+' tổ' : '')+'</div></div>'+   /* 3.416.1 (anh 31/10): bỏ cột Xã — đầu khung "Xã Truông Mít (48 tổ) - Ấp 1 (3 tổ)" theo cây lọc */
-    '<div class="tc-kq-cuon"><table class="tc-kq-bang tc-to-ds"><thead><tr><th>Tổ trưởng</th><th>Mã tổ</th><th title="Thành viên">TV</th><th title="Có dư nợ">Có DN</th><th>Ấp</th><th>Hội</th></tr></thead><tbody>'+   /* 3.368 (anh 25/10 "ds tổ có cột bị khuất"): tiêu đề + Hội viết tắt (đủ ở title) → vừa khung không cuộn ngang */
+    '<div class="tc-kq-cuon"><table class="tc-kq-bang tc-to-ds"><thead><tr><th>Tổ trưởng</th><th>Mã tổ</th><th title="Thành viên">TV</th><th title="Có dư nợ">Có DN</th><th>Ấp</th><th>Hội</th>'+
+      (coCC ? '<th title="CCCD tổ trưởng đã lưu ở Tủ hồ sơ (scan) — lọc Đã lưu / Thiếu">CCCD</th>' : '')+'</tr></thead><tbody>'+   /* 3.368 (anh 25/10 "ds tổ có cột bị khuất"): tiêu đề + Hội viết tắt (đủ ở title) → vừa khung không cuộn ngang */
     ds.map(function(t){ var r = KHO.tvChuan(t, TC_K) || {tong:0, coNo:0}; cg.tv += r.tong||0; cg.no += r.coNo||0;
       return '<tr class="sl-kq-dong" data-lenh="tc.to" data-to="'+coChuHTML(t.ma)+'"><td title="'+coChuHTML(t.ten||'')+'"><b>'+coChuHTML(t.ten||'')+'</b></td><td>'+coChuHTML(t.ma)+'</td><td class="so">'+tcNguongSo(r.tong)+'</td><td class="so">'+r.coNo+'</td>'+
-        '<td title="'+coChuHTML((t.tenThon||'')+' · '+xa(t))+'">'+coChuHTML(pvApNgan(t.tenThon||''))+'</td><td title="'+coChuHTML(tdnHoi(t.dv)||'')+'">'+coChuHTML(TC_HOI_VT[String(t.dv||'').trim()] || tdnHoi(t.dv) || '')+'</td></tr>'; }).join('')+'</tbody>'+
-    '<tfoot><tr class="tc-to-cong"><td data-bl-dem="Cộng {n} tổ">Cộng '+tong+' tổ</td><td></td><td class="so" data-bl-cong="2">'+cg.tv+'</td><td class="so" data-bl-cong="3">'+cg.no+'</td><td colspan="2" title="'+coChuHTML(pvChu(S, TC_K))+'">'+coChuHTML(pvChu(S, TC_K).split(' · ').pop())+'</td></tr></tfoot></table></div>';   /* 3.383.5 (anh 26/10 "có cột tổng, theo lọc") · 3.383.7: chỉ ghi cấp lọc cuối, rê chuột đủ phạm vi */
+        '<td title="'+coChuHTML((t.tenThon||'')+' · '+xa(t))+'">'+coChuHTML(pvApNgan(t.tenThon||''))+'</td><td title="'+coChuHTML(tdnHoi(t.dv)||'')+'">'+coChuHTML(TC_HOI_VT[String(t.dv||'').trim()] || tdnHoi(t.dv) || '')+'</td>'+
+        (coCC ? (function(c){ if(c.da) cg.cc++; return '<td class="c" title="'+coChuHTML((c.so ? 'Số CCCD '+c.so : 'Chưa có số CCCD trong Danh sách tổ / Mẫu 31')+(c.da && c.ngay ? ' · lưu '+ngayVNsl(c.ngay) : ''))+'">'+(c.da ? '<span class="xanh">Đã lưu</span>' : '<b class="do">Thiếu</b>')+'</td>'; })(ccTo(t)) : '')+'</tr>'; }).join('')+'</tbody>'+
+    '<tfoot><tr class="tc-to-cong"><td data-bl-dem="Cộng {n} tổ">Cộng '+tong+' tổ</td><td></td><td class="so" data-bl-cong="2">'+cg.tv+'</td><td class="so" data-bl-cong="3">'+cg.no+'</td><td colspan="2" title="'+coChuHTML(pvChu(S, TC_K))+'">'+coChuHTML(pvChu(S, TC_K).split(' · ').pop())+'</td>'+
+      (coCC ? '<td class="c" title="Số tổ trưởng đã lưu CCCD / tổng (theo lọc)">'+cg.cc+'/'+tong+'</td>' : '')+'</tr></tfoot></table></div>';   /* 3.383.5 (anh 26/10 "có cột tổng, theo lọc") · 3.383.7: chỉ ghi cấp lọc cuối, rê chuột đủ phạm vi */
   if(typeof blGan==='function'){ var N = tcNguong();   /* 3.396 (anh 28/10): lọc + sắp xếp từng cột (js/77, cắm rút) */
-    blGan(e.querySelector('.tc-to-ds'), 'tcto', [{loai:'chu'}, {loai:'chu'}, {loai:'so', muc:[['duoi', '< '+N.min+' (dưới ngưỡng)', function(n){ return n<N.min; }], ['tren', '> '+N.max+' (vượt ngưỡng)', function(n){ return n>N.max; }]]}, {loai:'so'}, {loai:'chon'}, {loai:'chon'}]); }
+    blGan(e.querySelector('.tc-to-ds'), 'tcto', [{loai:'chu'}, {loai:'chu'}, {loai:'so', muc:[['duoi', '< '+N.min+' (dưới ngưỡng)', function(n){ return n<N.min; }], ['tren', '> '+N.max+' (vượt ngưỡng)', function(n){ return n>N.max; }]]}, {loai:'so'}, {loai:'chon'}, {loai:'chon'}].concat(coCC ? [{loai:'chon'}] : [])); }
   if(q && tong===1 && tcHaiCot()){ var d1 = e.querySelector('.sl-kq-dong'); tcChonDong(d1); tcTheTo(ds[0].ma); }
 }
 function tcTheTo(ma){   /* 3.342 (anh chốt): đầu thẻ 3 hàng (Tổ · Địa bàn · Số liệu) có tên cột + kẻ dọc; bảng thành viên STT · mã KH (sắp theo mã) · dư nợ · ngày vay · hạn · lãi tồn · TK 105 */
