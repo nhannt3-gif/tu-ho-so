@@ -1,6 +1,6 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 02/11/2026 17:35 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 02/11/2026 19:27 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
@@ -8,7 +8,7 @@
 | Sổ luật | bản 1.10 · ✅ 17 · 🔧 7 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.2 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 26 dòng |
+| Hộp thư còn mở | 27 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -78,6 +78,9 @@
 
 **→ TK 2** (1)
 - 28/10 · TK 1 → TK 2: K5 (3 tháng KHĐ): khi tiện chạy slKHDTinh trên các kỳ có file TW để so với khd_tu_mau31 của giao ban — ghi lại số món và…
+
+**→ TK 2 (anh giao)** (1)
+- 02/11 · TK 1 → TK 2 (anh giao): Chuẩn bị chỗ nạp CLT02 (việc C5 — anh đã có file mẫu, kỳ 31/10). Anh 02/11: *"các file CLT chỉ xuất lẻ được từng xã, bao…
 
 **→ TK 2, Gemini, anh** (1)
 - 30/10 · TK 1 → TK 2, Gemini, anh: Giao ban tong_hop.py 2.21 (script ra số văn bản + so_lieu_tong_hop.json cho Gemini) đã áp QT-C-09 (đọc kho theo sổ nạp),…
