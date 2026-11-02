@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.447 — 02/11/2026 — Mẫu 10A: rà bố cục tổng thể (TK 2)
+- **Anh 02/11:** "rà xem lại khung Mẫu 10A, đảm bảo bố cục tổng thể".
+- **Sửa lỗi (từ 3.443):** biến dòng tổ viên trùng tên biến ngày họp → dòng "Thời gian bắt đầu" in sai "ngày 1/0/2"; nay in đúng ngày đã chọn (hoặc chấm).
+- Chữ liền: thêm khoảng trắng sau ", xã", ", tỉnh" (thành phần tham dự, phê duyệt UBND), "kể từ tháng" — trước dính "xãGia Lộc", "tỉnhTây Ninh".
+- Dòng "Thư ký" để chấm vừa 1 dòng (rút dòng chấm).
+- Rà 4 trang (dữ liệu giả, bản in): trang 1 đầu mẫu + tổ viên 1–22 · trang 2 tổ viên 23–34 / 57–68 / 91–100, Tổng số, II.1–4 · trang 3 II.4a–5g · trang 4 hết II, III, IV, chữ ký (~4 cm), phê duyệt UBND (~3 cm dưới chỗ ký). Word 4 trang.
+- `t358` thêm ý ngày họp.
+
 ## 3.446 — 02/11/2026 — Mẫu 10A: chữ đều, khai báo riêng (TK 2)
 - **Anh 02/11:** "chữ cả file không đều, lúc to lúc nhỏ, đậm lợt không khớp mẫu — font 13, tiêu đề Biên bản họp lớn hơn; điền tự động theo dạng gõ tự nhiên, để chấm mới giữ form ghi tay; tên qua bước hoa đầu từ; làm khai báo riêng mẫu từ trên xuống: Về việc có 2 loại (thành lập / củng cố — tạm chỉ đổi tiêu đề), số người, trưởng thôn, chủ trì…; họp định kỳ chọn quý hoặc tháng rồi ngày; nút chọn 1–2 hoặc danh sách sổ xuống, thêm được trong khai báo riêng; Thời gian / Địa điểm chỉ đậm phần có sẵn; vừa đủ 4 trang".
 - `js/mau/10a.js`: cả mẫu cỡ 13 (ô "Mẫu số" góc phải giữ 11 như gốc), "BIÊN BẢN HỌP" cỡ 15; chữ điền **liền như gõ tay, in thường** (`lien`), ô trống giữ chấm; đậm đúng gốc (nhãn "Thời gian bắt đầu:", "Địa điểm:", "Tổng số:"…; "PHÊ DUYỆT…" thường); tên tổ viên, tổ trưởng, tổ phó, trưởng thôn, chủ trì, thư ký **hoa đầu từ** (`tenHoaDau`, không thêm dấu); khung tổ viên cỡ 13, tên dài thu 12 / 11 / 10; 4 trang (in + Word).
