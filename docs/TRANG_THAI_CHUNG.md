@@ -1,6 +1,6 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 02/11/2026 17:35 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 02/11/2026 19:28 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
@@ -8,7 +8,7 @@
 | Sổ luật | bản 1.10 · ✅ 17 · 🔧 7 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.2 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 26 dòng |
+| Hộp thư còn mở | 28 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -32,7 +32,7 @@
 - **C1** Chốt K1–K9 (luật số liệu lệch giữa app ↔ giao ban) — K2, K3, K6 đã chốt 28/10 (TK 1 ghi); K7 chốt 30/10 (QT-C-17); K8 ch… _(cần: TK 1, TK 2)_
 - **C2** Cách tính: chat linh hoạt ↔ app ghi cứng — duyệt "chat là phòng thử luật, app là nơi luật đã chốt; số đi văn bản phải đố… _(cần: TK 1, TK 2)_
 - **C3** Ngày giao dịch Phước Thạnh sau khi gộp Phước Trạch _(cần: TK 1, TK 2)_
-- **C4** Ngoại lệ ngưỡng ≤ 30 tổ / điểm sau gộp (Gia Lộc ≈ 46, Phước Thạnh ≈ 54) _(cần: TK 1)_
+- **C4** Ngoại lệ ngưỡng ≤ 30 tổ / điểm sau gộp (Gia Lộc ≈ 46 ✓ 02/11: Gia Lộc sau gộp 30 tổ — không cần ngoại lệ; Phước Thạnh ≈ … _(cần: TK 1)_
 - **C5** File mẫu CLT02, LEN18 (anh gửi sau) — để app nhận dạng + MÃ _(cần: TK 2)_
 - **C6** Sao kê nợ đến hạn mẫu cột mới: file Excel hệ thống + công thức số tháng còn gia hạn / ngày gia hạn cuối _(cần: TK 2)_
 - **C7** Vai trò + quyền GitHub của Gemini — ✓ 01/11 anh chốt: Gemini tham gia khi cần, không quyền repo cố định; 23:07 chốt thêm… _(cần: tất cả)_
@@ -78,6 +78,12 @@
 
 **→ TK 2** (1)
 - 28/10 · TK 1 → TK 2: K5 (3 tháng KHĐ): khi tiện chạy slKHDTinh trên các kỳ có file TW để so với khd_tu_mau31 của giao ban — ghi lại số món và…
+
+**→ TK 2 (anh chốt)** (1)
+- 02/11 · TK 1 → TK 2 (anh chốt): Anh xác nhận 02/11: tháng 11/2026 Phường Gia Lộc gộp 2 điểm còn 1 điểm Gia Lộc, giao dịch ngày 23 (mục 5; File Tổ trưởng…
+
+**→ TK 2 (anh giao)** (1)
+- 02/11 · TK 1 → TK 2 (anh giao): Chuẩn bị chỗ nạp CLT02 (việc C5 — anh đã có file mẫu, kỳ 31/10). Anh 02/11: *"các file CLT chỉ xuất lẻ được từng xã, bao…
 
 **→ TK 2, Gemini, anh** (1)
 - 30/10 · TK 1 → TK 2, Gemini, anh: Giao ban tong_hop.py 2.21 (script ra số văn bản + so_lieu_tong_hop.json cho Gemini) đã áp QT-C-09 (đọc kho theo sổ nạp),…
