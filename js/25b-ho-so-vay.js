@@ -524,7 +524,7 @@ function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, 
       if(n.nodeType!==1 || /^(COLGROUP|COL|TABLE|P)$/.test(n.tagName)) return;
       if(n.tagName==='BR'){ r.push('<w:r><w:br/></w:r>'); return; }
       if(n.tagName==='IMG'){ r.push(hinh(n)); return; }
-      var g = Object.assign({}, f); if(/^(B|STRONG)$/.test(n.tagName) || lop(n, 'b')) g.b = 1; if(/^(I|EM)$/.test(n.tagName) || lop(n, 'i')) g.i = 1; if(n.tagName==='U' || lop(n, 'u')) g.u = 1; if(n.tagName==='SUP') g.sup = 1; g.sz = co(n, g.sz);
+      var g = Object.assign({}, f); if(/^(B|STRONG)$/.test(n.tagName) || lop(n, 'b')) g.b = 1; if(/^(I|EM)$/.test(n.tagName) || lop(n, 'i')) g.i = 1; if(n.tagName==='U' || lop(n, 'u')) g.u = 1; if(n.tagName==='SUP') g.sup = 1; if(n.style && n.style.fontWeight==='normal') g.b = 0; g.sz = co(n, g.sz);   /* 3.446: chữ điền trong dòng đậm in thường (10A) */
       r = r.concat(chu(n, g)); });
     return r; };
   var doan = function(el, f){

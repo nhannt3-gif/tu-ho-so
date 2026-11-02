@@ -174,6 +174,7 @@
 | 02/11 | TK 2 | 3.443 | `js/mau/10a.js` (khung 100 tổ viên 3 cột, II `.tr-sang`), `js/05-them-file.js` (`trDan` nhận `.tr-sang`), `js/25b-ho-so-vay.js` (`hsoDocx`: pageBreakBefore, `data-cao`), `js/25-ho-so.js` (hằng `HSO_10A_*`), `js/25c` (báo > 100), `t358` |
 | 02/11 | TK 2 | 3.444 | `js/mau/10a.js` (4 trang: bỏ `.tr-sang`, lề 15, giãn 16pt, chỗ ký, `hso10aCo`), `js/25-ho-so.js` (`HSO_10A_CAO` 5,8), `t358`, `t179` chuẩn 10A, `t180` + `khop.json` `doiChuY.boLe` |
 | 02/11 | TK 2 | 3.445 | `js/84-cccd-to-truong.js` (**mới** `ttApBu`, `ttTenAp`, `ttApCan`, `ttApBuHet`, lệnh `ttap.bu`, nút trên thanh Scan), `js/41-scan-sap-xep.js` (`scanLuuTu` giữ `maTo` + gọi `ttApBu`), `t359` |
+| 02/11 | TK 2 | 3.446 | `js/mau/10a.js` (cỡ 13, lien, tên hoa đầu từ, ô `vv` / `dkKy`), `js/31-o-mau.js` (**ô chọn** `l:'chon'`: `omChonDs`, `omChonHTML`, `omChonDat`, lệnh `omc.*`), `js/25b-ho-so-vay.js` (`hsoDocx` font-weight normal), `js/25c` (⚙ Khai báo riêng 10A, bỏ 2 ô cũ khi có mô-đun), `t358`, `t179` chuẩn 10A |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
