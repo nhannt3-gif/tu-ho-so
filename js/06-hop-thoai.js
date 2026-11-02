@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.452', ds:[
+var CO_GI_MOI = {ban:'3.453', ds:[
+  ["📝 Mẫu 10C theo quy chuẩn 10A: Về việc chọn nhiều, bảng Cho ra / Kết nạp, kết nạp từ tổ khác cùng ấp, ＋ / − số dòng bảng", ""],
   ["📝 Mẫu 10B theo quy chuẩn 10A: Về việc chọn nhiều, bảng hộ vay (cột Kết nạp, TT / TP), bầu thay chọn tên trong tổ, nút ⚙ Khai báo riêng", ""],
   ["🎯 Phân bổ KH › Thông báo giao / điều chỉnh KH dư nợ: giãn dòng tiêu đề, thu gọn chỗ trống \"Số: …/TB-UBND\"", ""],
   ["📝 Mẫu 10A: dòng Chủ trì / III a-b không còn thụt gấp đôi, vừa 1 dòng; họ tên tự gõ in đúng", ""],
@@ -1070,9 +1071,12 @@ var CO_GI_MOI = {ban:'3.452', ds:[
   ["📝 Mẫu 10A: khung cố định 100 tổ viên (3 cột) ở trang 1–2, phần II luôn sang trang 3", ""],
   ["🪪 Quét CCCD: không khớp File Tổ trưởng → đối chiếu chủ TK 104 (Sao kê TK 104) cùng họ tên", ""],
   ["🪪 Quét CCCD: rà mọi File Tổ trưởng (CCCD · CMND cũ · tên + ngày sinh) — tổ trưởng không vay vẫn nhận ra, lưu luôn", ""],
-  ["👑 Tra cứu › Tổ trưởng: cột CCCD tổ trưởng Đã lưu / Thiếu, lọc theo cây địa bàn", ""],
-  ["🎯 Phân bổ KH: 📥 Nạp QĐ từ Excel mẫu (Gemini điền từ QĐ scan) — xem trước, soát rồi Lưu", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["👑 Tra cứu › Tổ trưởng: cột CCCD tổ trưởng Đã lưu / Thiếu, lọc theo cây địa bàn", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.453 · Hồ sơ Tổ › chọn tổ › chip 10C mới → cột trái bảng hộ vay 2 cột Cho ra · Kết nạp (tích bên này bỏ bên kia); lọc ấp, tìm, Tích hết / Bỏ hết",
+    "3.453 · 10C › ➕ Kết nạp từ tổ khác (cùng ấp) → chọn tổ nguồn → Tích hết → Kết nạp n hộ; sau đó chọn tổ nguồn lập 10C → các hộ đó tự tích Cho ra",
+    "3.453 · 10C › Bảng I / II, Bảng 2 bình xét: ＋ / − số dòng",
+    "3.453 · 10C › Chọn nhanh: Về việc bật / tắt 4 nội dung (kết nạp, cho ra, bình xét, sửa Quy ước) + ➕ thêm ở ⚙ Khai báo riêng",
     "3.452 · Hồ sơ Tổ › chọn tổ › chip 10B/TD → cột trái bảng hộ vay có cột Kết nạp (hộ mới vào tích sẵn); ô bầu thay gõ hoặc chọn tên trong tổ",
     "3.452 · 10B › nút ⚙ Khai báo riêng (cạnh ⚙ Khai báo đơn vị); Chọn nhanh: Về việc bấm bật / tắt từng nội dung",
     "3.452 · 10B xem trước / Word: chữ 14, tiêu đề 15 + kẻ, \"Ông (bà): tên ⇥ Chức vụ\", Hội bỏ xã, 2 trang, chú thích đáy trang 1",
@@ -1088,12 +1092,9 @@ var CO_GI_MOI = {ban:'3.452', ds:[
     "3.448 · Cây lọc địa bàn (mọi tab) kỳ T10 → tên xã thật",
     "3.447 · Hồ sơ Tổ › 10A › chọn Ngày họp → dòng \"Thời gian bắt đầu: … ngày dd/mm/yyyy\" đúng ngày; dòng \"cùng cư trú tại địa bàn thôn …, xã …, tỉnh …\" có khoảng trắng",
     "3.446 · Số liệu › 📝 Hồ sơ Tổ › chọn tổ › chip 10A/TD → cột trái cuối có ⚙ Khai báo riêng — Mẫu 10A/TD: Chọn nhanh có nút Thành lập / Củng cố (đổi dòng \"Về việc\"), Tháng / Quý (họp định kỳ), ô ngày, tiết kiệm",
-    "3.446 · Cùng chỗ › 🖼 Khai báo trực quan → bấm ô trên mẫu; ô chọn có ➕ Thêm lựa chọn khác",
-    "3.445 · Scan › quét CCCD tổ trưởng (nhất là tổ trưởng nhận qua TK 104 / File Tổ trưởng cũ) → bản lưu có Ấp",
-    "3.445 · Scan › thanh Chờ sắp xếp › nút 🔧 Bổ sung ấp (n) → bấm Bổ sung: bản tìm ra ấp hết ⚠ Thiếu ấp; bản không ra vẫn ⚠ (✎ khai tay)",
-    "3.444 · Số liệu › 📝 Hồ sơ Tổ › chọn tổ › chip 10A/TD → xem trước đúng 4 trang; khung 1–100 ở trang 1–2, phần II nối ngay sau Tổng số; trang 4 dưới UBND CẤP XÃ còn chỗ ký, đóng dấu. Bấm Word → cũng 4 trang, sửa tên trong khung không xô trang",
-    "3.443 · Số liệu › 📝 Hồ sơ Tổ › chọn tổ › chip 10A/TD → xem trước: danh sách 1–100 (3 cột) nằm trang 1–2, \"II. QUY ƯỚC\" mở đầu trang 3; bấm Word → sửa tên trong khung, trang 3 trở đi không xê dịch"],
+    "3.446 · Cùng chỗ › 🖼 Khai báo trực quan → bấm ô trên mẫu; ô chọn có ➕ Thêm lựa chọn khác"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.453 · 10C: 2 danh sách tích Kết nạp / Cho ra cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun)",
     "3.452 · 10B: danh sách tích Kết nạp cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun)",
     "3.449 · 10A: danh sách tích tổ viên cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun 10A)",
     "3.448 · 10A: lựa chọn \"Củng cố\" (3.446) → \"Kiện toàn\" theo VB 4336 (giá trị cũ tự đọc như Kiện toàn)",

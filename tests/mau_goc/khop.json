@@ -33,6 +33,10 @@
   "10b": {
    "trangThem": 0,
    "ly": "3.452 (anh 02/11 \"10B theo đúng quy chuẩn 10A\"): chữ liền khi có số liệu, tiêu đề 15 + kẻ, họ tên ⇥ chức vụ → vị trí dòng khác gốc chủ ý; vẫn so chữ, số trang, khổ, lề"
+  },
+  "10c_moi": {
+   "trangThem": 0,
+   "ly": "3.453 (anh 02/11 \"10C tương tự 10A\"): chữ liền, tiêu đề 15 + kẻ, họ tên ⇥ chức vụ, số dòng bảng tùy biến → vị trí dòng khác gốc chủ ý; vẫn so chữ, số trang, khổ, lề"
   }
  }
 }

@@ -181,6 +181,7 @@
 | 02/11 | TK 2 | 3.450 | `js/mau/10a.js` (khung tên text-indent:0, `tabVi` / `tabP`, điểm tab chung III a / b, `DON` ô 1 giá trị ⌨), `t358`, `t179` chuẩn 10A |
 | 02/11 | TK 2 | 3.451 | `js/mau/07pb.js` (giãn tiêu đề Thông báo, gọn chỗ trống số TB) |
 | 02/11 | TK 2 | 3.452 | **mới** `js/mau/0hst.js` (`HST`), `js/mau/10b.js` (quy chuẩn 10A), `js/31-o-mau.js` (ô chọn nhiều `nhieu`, lệnh `omc.bat`), `js/25c` (bảng hộ vay 10B, datalist bầu thay, nút Khai báo riêng chung), `index.html` (0hst), `t361`, `t180` / `t181` / `khop.json` 10B, `t179` chuẩn 10B |
+| 02/11 | TK 2 | 3.453 | `js/mau/10c.js` (quy chuẩn 10A, **mới** `hso10cTrai`, `hso10cNguon`, `hso10cNguonVe`, lệnh `h10c.*`), `js/25-ho-so.js` (biến), `js/25c` (cột trái 10C, tổ nguồn tích sẵn Cho ra), `QUY_TAC_SO_LIEU.md` QT-C-10 bổ sung cùng ấp, `t362`, `t163`, `t181` / `khop.json` 10C, `t179` chuẩn 10C |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.453)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 10C chọn tổ: tích Cho ra / Kết nạp | Loại trừ nhau, in bảng I / II theo Mã KH | |
+| 2 | ➕ Kết nạp từ tổ khác | Chỉ tổ cùng ấp; kết nạp hàng loạt; tổ nguồn tự tích Cho ra | |
+| 3 | ＋ / − số dòng | Bảng dài / ngắn theo ý, không mất tên | |
+
 ### Danh sách thử trên máy thật (3.452)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
