@@ -268,6 +268,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t355.js` | 3.439: Phân bổ KH — tải mẫu Excel nhập QĐ, nạp (lỗi / cảnh báo / trùng ghi đè). Tiện ích `tests/pb_gia.js` cho t252–t256. |
 | `node tests/t356.js` | 3.440: Tra cứu › Tổ trưởng — cột CCCD tổ trưởng Đã lưu / Thiếu. |
 | `node tests/t357.js` | 3.441: rà mọi File Tổ trưởng theo CCCD / CMND cũ / tên + ngày sinh. |
+| `node tests/t358.js` | 3.443: Mẫu 10A khung 100 tổ viên 3 cột, phần II sang trang 3 (bản in + Word). |
 | (3.442) | `t357` + đối chiếu chủ TK 104. |
 | (3.434) | `t244` khối tổ: mã tổ ở dòng tiêu đề. |
 | (3.432) | `t192` kiểm mục hướng dẫn thử + đã bỏ trong Có gì mới. |
