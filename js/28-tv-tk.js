@@ -190,8 +190,22 @@ function dsTimTT(o){
       if(!theo && ten && ns && r.ns && String(r.ns).slice(0, 10)===ns && (typeof sxChuan==='function' ? sxChuan(r.toTen||'') : String(r.toTen||'').toLowerCase())===ten){ tenKhop[(r.ttKH||'')+'|'+c] = {r:r, ky:b.ky}; return false; }
       if(theo){ kq = {r:r, ky:b.ky, theo:theo}; return true; } return false; }); });
     if(!kq){ var k = Object.keys(tenKhop); if(k.length===1) kq = {r:tenKhop[k[0]].r, ky:tenKhop[k[0]].ky, theo:'họ tên + ngày sinh'}; }
-    if(!kq) return null; var r = kq.r;
+    if(!kq) return ten ? tk104TimTT(o.ten, B) : null; var r = kq.r;
     return {cif:r.ttKH||'', ten:r.toTen||'', to:r.to||'', tenXa:r.tenXa||'', tenThon:r.tenThon||'', thon:r.thon||'', ky:kq.ky, theo:kq.theo}; });
+}
+/* 3.442 (anh 02/11 "quét số TK 104 cho chắc" → chọn đối chiếu chủ TK 104): File Tổ trưởng không khớp → rà MỌI file Sao kê TK 104 đã nạp — người đứng tên TK 104 là tổ trưởng;
+   Sao kê không có số CCCD nên khớp theo HỌ TÊN, chỉ nhận khi đúng 1 mã KH mang tên đó (trùng → không đoán); tổ lấy theo File Tổ trưởng (MATT = mã KH) nếu có. */
+var DS_TK104 = {};
+function tk104TimTT(ten, B){
+  var t = typeof sxChuan==='function' ? sxChuan(ten||'') : String(ten||'').toLowerCase(); if(!t) return Promise.resolve(null);
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='tk104'; }).sort(function(a, b){ return a.ky<b.ky ? 1 : -1; });
+  return Promise.all(ds.map(function(e){ var khoa = e.ky+'|'+(e.luc||'');
+    return (DS_TK104[khoa] ? Promise.resolve(DS_TK104[khoa]) : slDocBang('tk104', e.ky).then(function(b){ return DS_TK104[khoa] = b ? slMoBang(b) : []; }).catch(function(){ return []; }))
+      .then(function(rows){ return {ky:e.ky, rows:rows}; }); })).then(function(S){ var kh = {};
+    S.forEach(function(b){ (b.rows||[]).forEach(function(o){ if(!o.kh || (typeof sxChuan==='function' ? sxChuan(o.ten||'') : String(o.ten||'').toLowerCase())!==t) return; if(!kh[o.kh]) kh[o.kh] = {o:o, ky:b.ky}; }); });
+    var k = Object.keys(kh); if(k.length!==1) return null; var x = kh[k[0]].o, r = null;
+    (B||[]).some(function(b){ return (b.rows||[]).some(function(z){ if(String(z.ttKH||'')===String(x.kh)){ r = z; return true; } return false; }); });
+    return {cif:String(x.kh), ten:x.ten||'', to:r ? r.to||'' : '', tenXa:r ? r.tenXa||'' : '', tenThon:r ? r.tenThon||'' : '', thon:(r && r.thon) || x.thon || '', ky:kh[k[0]].ky, theo:'chủ TK 104 '+(x.stk||'')+' (cùng họ tên)'}; });
 }
 function dsTimCCCD(cccd){
   var so = String(cccd||'').replace(/\D/g, ''); if(so.length!==12 && so.length!==9) return Promise.resolve(null);

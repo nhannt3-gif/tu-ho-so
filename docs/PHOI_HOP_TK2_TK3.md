@@ -170,6 +170,7 @@
 | 01/11 | TK 2 | 3.439 | `js/47-phan-bo.js` (**mới** `pbTuXls`, bỏ `pbTuWPF`), `js/48-phan-bo-gd.js` (nạp Excel, tải mẫu, bỏ nhập WPF), `t250`, `t252`–`t256`, **mới** `tests/pb_gia.js`, `tests/t355.js` |
 | 02/11 | TK 2 | 3.440 | `js/58-tc-to.js` (cột CCCD bảng Tổ trưởng), `t246`, **mới** `tests/t356.js` |
 | 02/11 | TK 2 | 3.441 | `js/28-tv-tk.js` (**mới** `dsTimTT`), `js/45-tra-mau31.js` (`trTimTT` + CMND, **mới** `trTTHienTai`), `js/41-scan-sap-xep.js` (tra tổ trưởng cả khi có gợi ý trùng tên), **mới** `tests/t357.js` |
+| 02/11 | TK 2 | 3.442 | `js/28-tv-tk.js` (**mới** `tk104TimTT`), `js/45-tra-mau31.js` (`trTTHienTai` tìm tổ theo mã KH), `t357` |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

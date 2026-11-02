@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.442 — 02/11/2026 — Quét CCCD: đối chiếu chủ TK 104 (TK 2)
+- **Anh 02/11:** "em cho quét số TK 104 cho chắc" → chọn **đối chiếu chủ TK 104**.
+- `tk104TimTT` (js/28): File Tổ trưởng không khớp (số CCCD / CMND cũ / tên + ngày sinh) → rà MỌI file Sao kê TK 104 đã nạp — người đứng tên TK 104 là tổ trưởng; Sao kê không có số CCCD nên khớp **họ tên**, chỉ nhận khi **đúng 1 mã KH** mang tên đó (trùng → không đoán); tổ lấy theo File Tổ trưởng (MATT = mã KH) hoặc tổ đang có tổ trưởng mã KH đó (`trTTHienTai`) → lưu như tổ trưởng hiện tại / tổ trưởng cũ. Dòng báo ghi "chủ TK 104 <số TK> (cùng họ tên)".
+- `t357` thêm 2 ý (9/9); Scan `t336`, `t337` đạt.
+
 ## 3.441 — 02/11/2026 — Quét CCCD: nhận tổ trưởng không vay qua mọi File Tổ trưởng (TK 2)
 - **Anh 02/11:** "khi gặp CCCD em cũng cho rà ds các tổ trưởng cũ nếu đúng thì lưu luôn, hiện tại có 1 số tổ trưởng nhưng không có vay không nhận ra".
 - **Nguyên nhân có thể (chưa có file thật để xác minh):** ① File Tổ trưởng / Danh sách tổ còn ghi **số CMND cũ 9 số** trong khi thẻ là CCCD 12 số → không khớp số; ② Mẫu 31 có **người trùng tên** (gợi ý) → app bỏ qua bước tra tổ trưởng (3.415 chỉ tra khi Mẫu 31 không có gợi ý nào).

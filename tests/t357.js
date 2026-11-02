@@ -1,4 +1,4 @@
-// 3.441 (anh 02/11): gặp CCCD → rà MỌI File Tổ trưởng (số CCCD · số CMND cũ 9 số · họ tên + ngày sinh) — tổ trưởng không vay vẫn nhận ra; hiện tại hay cũ theo CIF tổ.
+// 3.441 / 3.442 (anh 02/11): gặp CCCD → rà MỌI File Tổ trưởng (số CCCD · số CMND cũ 9 số · họ tên + ngày sinh) → Sao kê TK 104 (chủ TK cùng họ tên) — tổ trưởng không vay vẫn nhận ra; hiện tại hay cũ theo CIF tổ.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
@@ -17,6 +17,10 @@ const path=require('path');
    const d = await dsTimTT({cccd:'079065000999', ten:'Lê Văn Cũ', ns:'1965-03-04'}); ok('File không có số → khớp họ tên + ngày sinh (tổ trưởng cũ kỳ 08)', d && d.cif==='4800000777' && d.theo==='họ tên + ngày sinh' && d.ky==='2026-08-31', JSON.stringify(d));
    const e = await dsTimTT({cccd:'079075000111', ten:'Phạm Văn Trùng', ns:'1975-07-07'}); ok('2 người trùng họ tên + ngày sinh → không đoán', e===null, JSON.stringify(e));
    const f = await dsTimTT({cccd:'079099000000', ten:'Lê Văn Cũ', ns:'1966-01-01'}); ok('trùng tên khác ngày sinh → không khớp', f===null);
+   SLM.bang['__tk104_gia'] = {loai:'tk104', ky:'2026-10-30', luc:'gia'}; DS_TK104['2026-10-30|gia'] = [{kh:'4800000555', ten:'VÕ VĂN KHÔNG VAY', stk:'7060000001', thon:'111'}, {kh:'4800000661', ten:'PHẠM VĂN TRÙNG', stk:'7060000002'}, {kh:'4800000662', ten:'PHẠM VĂN TRÙNG', stk:'7060000003'}];
+   const g = await dsTimTT({cccd:'079080000555', ten:'Võ Văn Không Vay', ns:'1980-08-08'}); ok('File Tổ trưởng không có → chủ TK 104 cùng họ tên (duy nhất) → nhận tổ trưởng', g && g.cif==='4800000555' && /chủ TK 104 7060000001/.test(g.theo), JSON.stringify(g));
+   const g2 = await dsTimTT({cccd:'079075000222', ten:'Phạm Văn Trùng', ns:'1975-07-08'}); ok('2 chủ TK 104 trùng họ tên → không đoán', g2===null, JSON.stringify(g2));
+   delete SLM.bang['__tk104_gia']; delete DS_TK104['2026-10-30|gia'];
    const old = await dsTimCCCD('072000000002'); ok('dsTimCCCD (cũ) vẫn chạy', old!==undefined);
    window.dsTTDs = g0;
    const kt = KHO.to, kb = KHO.bangTo; KHO.to = m => m==='9990001' ? {ma:m, ten:'Tổ giả', tenXa:'Xã Giả'} : null; KHO.bangTo = m => m==='9990001' ? {kh:'4800000999'} : null;

@@ -81,7 +81,9 @@ function trTimTT(q, cmnd){   /* 3.441: + số CMND cũ 9 số đọc từ thẻ 
 /* 3.415 (anh 31/10: "sau khi đọc được CCCD và xác định được thì phải lưu theo tên kiểu đã xác nhận nhưng app chỉ lưu theo tên"): tổ trưởng khớp bảng tổ → thông tin "khách" để lưu như khách Mẫu 31
    mã = CIF tổ trưởng (mã KH hệ thống, cột CIF Danh sách tổ); chưa có CIF → khóa số CCCD (như hộ mới) */
 /* 3.441: tổ trưởng tìm qua File Tổ trưởng (dsTimTT) mà là tổ trưởng HIỆN TẠI của tổ (cùng CIF) → lưu như tổ trưởng hiện tại; không → tổ trưởng cũ */
-function trTTHienTai(c){ if(!c || !c.to) return null; var t = KHO.to(c.to), b = t ? KHO.bangTo(c.to) || {} : null; if(!t || toLaTT(t)) return null;
+function trTTHienTai(c){ if(!c) return null;
+  if(!c.to && c.cif && KHO.coKy()) KHO.maTo().some(function(m){ var b = KHO.bangTo(m) || {}; if(String(b.kh||'')===String(c.cif)){ c = Object.assign({}, c, {to:m}); return true; } return false; });   /* 3.442: chủ TK 104 chưa rõ tổ → tổ đang có tổ trưởng mã KH đó */
+  if(!c.to) return null; var t = KHO.to(c.to), b = t ? KHO.bangTo(c.to) || {} : null; if(!t || toLaTT(t)) return null;
   var cif = String(b.kh || (KHO.toTruong(t) || {}).kh || ''); return cif && c.cif && cif===String(c.cif) ? {ma:c.to, t:t, b:b, tt:trTenTT(c.to, t), theo:'File Tổ trưởng ('+c.theo+')'} : null; }
 function sxKhachTT(x, cccd){ var t = x.t || {}, d = KHO.toDanhBa(x.ma) || {}, so = String(cccd || (x.b && x.b.cccd) || '').replace(/\D/g, ''), cif = String((x.b && x.b.kh) || '').trim();
   var ten = t.ds && t.ds.toTen ? tenHoaDau(t.ds.toTen) : x.tt;   /* họ tên tổ trưởng theo Danh sách tổ (TENTT) trước, rồi danh bạ tổ */
