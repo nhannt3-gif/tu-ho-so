@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.446 — 02/11/2026 — Mẫu 10A: chữ đều, khai báo riêng (TK 2)
+- **Anh 02/11:** "chữ cả file không đều, lúc to lúc nhỏ, đậm lợt không khớp mẫu — font 13, tiêu đề Biên bản họp lớn hơn; điền tự động theo dạng gõ tự nhiên, để chấm mới giữ form ghi tay; tên qua bước hoa đầu từ; làm khai báo riêng mẫu từ trên xuống: Về việc có 2 loại (thành lập / củng cố — tạm chỉ đổi tiêu đề), số người, trưởng thôn, chủ trì…; họp định kỳ chọn quý hoặc tháng rồi ngày; nút chọn 1–2 hoặc danh sách sổ xuống, thêm được trong khai báo riêng; Thời gian / Địa điểm chỉ đậm phần có sẵn; vừa đủ 4 trang".
+- `js/mau/10a.js`: cả mẫu cỡ 13 (ô "Mẫu số" góc phải giữ 11 như gốc), "BIÊN BẢN HỌP" cỡ 15; chữ điền **liền như gõ tay, in thường** (`lien`), ô trống giữ chấm; đậm đúng gốc (nhãn "Thời gian bắt đầu:", "Địa điểm:", "Tổng số:"…; "PHÊ DUYỆT…" thường); tên tổ viên, tổ trưởng, tổ phó, trưởng thôn, chủ trì, thư ký **hoa đầu từ** (`tenHoaDau`, không thêm dấu); khung tổ viên cỡ 13, tên dài thu 12 / 11 / 10; 4 trang (in + Word).
+- Ô mới: **Về việc** (Thành lập / Củng cố — chỉ đổi dòng tiêu đề, nội dung + phê duyệt giữ "thành lập" chờ anh), **Họp định kỳ hằng tháng / quý** (chưa chọn → giữ "tháng (quý)"), ngày họp định kỳ + tiết kiệm lấy số đã gõ ở ô cũ.
+- **⚙ Khai báo riêng 10A** ở cuối cột trái (mẫu Hồ sơ Tổ trước chưa có): đủ ô từ trên xuống, 🖼 Khai báo trực quan, Chọn nhanh mặc định Về việc · ngày họp · họp định kỳ · ngày · tiết kiệm. Bỏ 2 ô cũ cột trái (vẫn hiện nếu rút mô-đun 10A).
+- Phần chung: khung mẫu nền ô (js/31) thêm **ô chọn** `l:'chon'` — ≤ 3 lựa chọn nút bấm, nhiều hơn danh sách sổ xuống, ➕ thêm lựa chọn riêng (`hsoLuu().omChon`), lệnh GD `omc.*`; Word (`hsoDocx`) giữ in thường cho chữ điền trong dòng đậm. Mẫu khác không dùng nên không đổi.
+- Phép thử `t358` thêm ý; chuẩn in `t179` 10A ghi lại. Hồi quy đủ.
+
 ## 3.445 — 02/11/2026 — Scan: bổ sung ấp cho bản tổ trưởng thiếu ấp (TK 2)
 - **Anh 02/11** (ảnh tab Scan): "t/h là tổ trưởng nhưng không nhận ấp" → duyệt: sửa lúc lưu + nút bổ sung cho bản cũ.
 - Nguyên nhân (suy từ code): tổ trưởng nhận qua **chủ TK 104** (3.442) không có dòng File Tổ trưởng → ấp, tổ trống; tổ trưởng cũ từ File Tổ trưởng thiếu cột tên thôn; bản lưu từ bản app trước.

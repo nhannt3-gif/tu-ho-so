@@ -27,7 +27,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('đánh số dọc theo cột: dòng 1 = 1 · 35 · 69; dòng 34 = 34 · 68 · (trống)', tb && /^1\./.test(tb.rows[0].cells[0].textContent) && /^35\./.test(tb.rows[0].cells[1].textContent) && /^69\./.test(tb.rows[0].cells[2].textContent) && /^68\./.test(tb.rows[33].cells[1].textContent) && !tb.rows[33].cells[2].textContent.trim() && /^100\./.test(tb.rows[31].cells[2].textContent));
    const daTich = tv.filter(k=>HSO.tv[k.kh]!==false);
    ok('tổ viên tích điền theo thứ tự, ô sau trống chấm; Tổng số đúng', daTich.length>0 && tb.rows[0].cells[0].textContent.indexOf(daTich[0].ten)>=0 && /\.{10}/.test(tb.rows[33].cells[1].textContent) && new RegExp('Tổng số: '+daTich.length+' ?tổ viên').test(d.body.textContent), daTich.length+' tổ viên');
-   ok('khung chữ cỡ 12, dòng cao cố định (data-cao)', /\bs12\b/.test(tb.className) && +tb.getAttribute('data-cao')>0);
+   ok('3.446: khung chữ cỡ 13 (không lớp s12), dòng cao cố định (data-cao)', !/\bs12\b/.test(tb.className) && +tb.getAttribute('data-cao')>0);
    const pII = [...d.querySelectorAll('p')].find(x=>/II\. QUY ƯỚC/.test(x.textContent));
    ok('3.443.1: không ngắt trang cứng (khung cao cố định giữ bố cục)', pII && !pII.classList.contains('tr-sang') && !/tr-sang/.test(HSO.x.h));
    ok('3.443.1: lề trên / dưới 15 mm', hsoMauK('10a').mg[0]===15 && hsoMauK('10a').mg[2]===15, JSON.stringify(hsoMauK('10a').mg));
@@ -54,6 +54,27 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    hsoVe(); await w(600); ({d, tb} = dem()); window.__TUY = document.getElementById('hso-tuy').textContent;
    ok('tích 105 → khung vẫn 100 ô, Tổng số 100, có cảnh báo', tb.querySelectorAll('td').length===102 && /Tổng số: 100 ?tổ viên/.test(d.body.textContent) && /tối đa 100/.test(window.__TUY), [tb.querySelectorAll('td').length, (d.body.textContent.match(/Tổng số: [^t]*/)||[''])[0], (window.__TUY.match(/⚠ Đang tích[^.]*/)||['không có cảnh báo'])[0]].join(' | '));
    window.hsoTVTo = goc; hsoVe(); await w(300);
+   /* 3.446 (anh 02/11): cỡ 13 đều, tiêu đề 15; chữ điền liền + in thường; tên hoa đầu từ; ô chọn Về việc / họp tháng-quý; Chọn nhanh */
+   { const h = HSO.x.h, d2 = new DOMParser().parseFromString(h, 'text/html');
+     const co = [...d2.querySelectorAll('[style*="font-size"]')].map(e=>(e.getAttribute('style').match(/font-size:([\d.]+)pt/)||[])[1]).filter(Boolean);
+     ok('cỡ chữ: thân 13, tiêu đề BIÊN BẢN HỌP 15 (ngoài ô Mẫu số 11, tên dài thu chữ)', /om-goc" style="font-size:13pt/.test(h) && co.every(c=>['13','15','11'].indexOf(c)>=0) && /class="s15"[^>]*><b>BIÊN BẢN HỌP/.test(h), [...new Set(co)].join(','));
+     const vals = [...d2.querySelectorAll('span.om')].filter(e=>!/om-cham/.test(e.className) && e.getAttribute('data-o')!=='vv');
+     ok('chữ điền: liền (không khung inline-block), in thường', vals.length>0 && vals.every(e=>!/inline-block/.test(e.getAttribute('style')||'') && /font-weight:normal/.test(e.getAttribute('style')||'')), vals.length+' ô');
+     const b = [...d2.querySelectorAll('b')].map(e=>e.textContent.trim());
+     ok('đậm đúng gốc: nhãn "Thời gian bắt đầu:", "Địa điểm:" đậm; phần sau thường', b.indexOf('Thời gian bắt đầu:')>=0 && b.indexOf('Địa điểm:')>=0 && !b.some(x=>/^Thời gian bắt đầu:.+/.test(x))); }
+   { const g0 = window.hsoTVTo; window.hsoTVTo = tt => [{kh:'GH1', ten:'LE VAN BINH', mon:[]}]; hsoVe(); await w(400); window.hsoTVTo = g0;
+     ok('tên viết hoa đầu từ (LE VAN BINH → Le Van Binh)', /Le Van Binh/.test(HSO.x.h) && !/LE VAN BINH/.test(HSO.x.h)); hsoVe(); await w(300); }
+   ok('Chọn nhanh có Về việc, họp định kỳ, ngày, tiết kiệm', ['vv','dkKy','ngayDK','tk'].every(k=>omNhanh('10a').indexOf(k)>=0), omNhanh('10a').join(','));
+   ok('cột trái không còn 2 ô cũ (Ngày họp định kỳ, Tiết kiệm tối thiểu) — thay bằng khai báo', !/hsoDatLuu\('ngayDK'/.test(document.getElementById('hso-tuy').innerHTML) && document.querySelectorAll('#hso-tuy [data-lenh="omc.chon"][data-k="vv"]').length===2);
+   ok('mặc định Về việc = thành lập', /Về việc <span[^>]*>thành lập Tổ Tiết kiệm và vay vốn/.test(HSO.x.h));
+   (document.querySelectorAll('#hso-tuy [data-lenh="omc.chon"][data-k="vv"]')[1]||{click(){}}).click(); await w(400);
+   ok('bấm "Củng cố" → tiêu đề "Về việc củng cố Tổ…", nội dung giữ "thành lập" (anh: tạm chỉ đổi tiêu đề)', /Về việc <span[^>]*>củng cố Tổ Tiết kiệm và vay vốn/.test(HSO.x.h) && /tự nguyện họp để thành lập Tổ/.test(HSO.x.h));
+   ok('họp định kỳ chưa chọn → giữ "hằng tháng (quý)"', /hằng tháng \(quý\) vào ngày/.test(HSO.x.h));
+   (document.querySelectorAll('#hso-tuy [data-lenh="omc.chon"][data-k="dkKy"]')[1]||{click(){}}).click(); await w(400);
+   ok('chọn "quý" → "Tổ họp định kỳ hằng quý vào ngày"', /hằng <span[^>]*>quý<\/span> vào ngày/.test(HSO.x.h));
+   omDatKB('10a', 'vv', ''); omDatKB('10a', 'dkKy', ''); hsoVe(); await w(300);
+   { const x = {k:'gia', chon:['a','b','c','d'], chonMD:0}; OM_MAU['10a'].oK.gia = x; const h = omChonHTML('10a', x, 1); delete OM_MAU['10a'].oK.gia;
+     ok('ô chọn > 3 lựa chọn → danh sách sổ xuống; có ô ➕ thêm lựa chọn', /<select data-lenh="omc.chonDs"/.test(h) && /data-lenh="omc.them"/.test(h)); }
    /* mẫu khác không bị ảnh hưởng: 10B không có tr-sang / data-cao */
    hsoChonMau('10b'); await w(300);
    ok('10B không đổi (không dòng cố định)', !/data-cao/.test(HSO.x.h));

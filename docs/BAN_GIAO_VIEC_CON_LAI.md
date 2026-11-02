@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.446)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 10A xem trước / Word | Chữ 13 đều, tiêu đề 15, chữ điền liền in thường, 4 trang | |
+| 2 | ⚙ Khai báo riêng › Củng cố | Dòng "Về việc củng cố Tổ…" | |
+| 3 | Họp định kỳ › Quý + ngày | "hằng quý vào ngày …" | |
+
 ### Danh sách thử trên máy thật (3.445)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

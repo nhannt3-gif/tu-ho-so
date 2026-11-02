@@ -797,9 +797,10 @@ function hsoTuyHTML(M, t){
         hsoDsTick('ra', raBD.map(function(r){ return {kh:r.kh, ten:r.ten, ghi:'đã ra khỏi tổ — '+r.di}; }).concat(tv.filter(function(k){ return !k.conNo && !k.chuaGN; }).map(function(k){ return {kh:k.kh, ten:k.ten, ghi:k.t105>0 ? 'tất nợ, còn 105' : 'tất nợ, 105 = 0'}; })), '➖ Cho ra (ra khỏi tổ + tất nợ 105 = 0 tích sẵn)', TO_BD ? 'Không có.' : 'Đang so Mẫu 31 tháng trước…') : '');
   }
   else if(M.k==='10a'){
-    h += hsoNgayTuy()+hsoHoiTuy(t)+hsoTuyO('Ngày họp định kỳ', hsoIn('hsoDatLuu(\'ngayDK\',this.value)', L.ngayDK||'', 'vd 15 hằng tháng'))+hsoTuyO('Tiết kiệm tối thiểu (đ)', hsoIn('hsoDatLuu(\'tkMin\',this.value)', L.tkMin||'', 'trống = chấm'));
+    h += hsoNgayTuy()+hsoHoiTuy(t)+(typeof omCo==='function' && omCo('10a') ? '' : hsoTuyO('Ngày họp định kỳ', hsoIn('hsoDatLuu(\'ngayDK\',this.value)', L.ngayDK||'', 'vd 15 hằng tháng'))+hsoTuyO('Tiết kiệm tối thiểu (đ)', hsoIn('hsoDatLuu(\'tkMin\',this.value)', L.tkMin||'', 'trống = chấm')));   /* 3.446: có mô-đun 10A → 2 ô này ở ⚙ Khai báo riêng (Chọn nhanh) */
     if(t){ tv.forEach(function(k){ if(HSO.tv[k.kh]===undefined) HSO.tv[k.kh] = true; }); h += hsoDsTick('tv', tv.map(function(k){ return {kh:k.kh, ten:k.ten}; }), '👥 Danh sách tổ viên in vào biên bản');
       var nTV = tv.filter(function(k){ return HSO.tv[k.kh]!==false; }).length; if(nTV>HSO_10A_TV) h += '<div class="sl-phu hso-canh">⚠ Đang tích '+nTV+' tổ viên — khung 10A tối đa '+HSO_10A_TV+' (QĐ 70), chỉ in '+HSO_10A_TV+' người đầu. Bỏ tích bớt hoặc tách tổ.</div>'; }
+    if(typeof omCo==='function' && omCo('10a')) h += hsoKBRieng('10a');   /* 3.446 (anh 02/11): ⚙ Khai báo riêng 10A — đủ ô từ trên xuống, Chọn nhanh ra cột trái */
   }
   else if(M.k==='10b'){
     var B = t ? hsoBau(t) : {tt:'', ttCu:'', pho:'', phoCu:''};
