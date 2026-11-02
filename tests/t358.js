@@ -66,6 +66,8 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
      ok('tên viết hoa đầu từ (LE VAN BINH → Le Van Binh)', /Le Van Binh/.test(HSO.x.h) && !/LE VAN BINH/.test(HSO.x.h)); hsoVe(); await w(300); }
    ok('Chọn nhanh có Về việc, họp định kỳ, ngày, tiết kiệm', ['vv','dkKy','ngayDK','tk'].every(k=>omNhanh('10a').indexOf(k)>=0), omNhanh('10a').join(','));
    ok('cột trái không còn 2 ô cũ (Ngày họp định kỳ, Tiết kiệm tối thiểu) — thay bằng khai báo', !/hsoDatLuu\('ngayDK'/.test(document.getElementById('hso-tuy').innerHTML) && document.querySelectorAll('#hso-tuy [data-lenh="omc.chon"][data-k="vv"]').length===2);
+   { const n0 = HSO.o.ngay; HSO.o.ngay = '2026-10-15'; omDatCach('10a', 'ngay', 'go'); hsoVe(); await w(300); const tx = HSO.x.h.replace(/<[^>]+>/g, '');
+     ok('3.446.1: ngày họp in đúng 15/10/2026 (trước bị đè thành "1/0/2")', /ngày 15\/10\/2026/.test(tx), (tx.match(/Thời gian bắt đầu:.{0,60}/)||[''])[0]); HSO.o.ngay = n0; omDatCach('10a', 'ngay', 'cham'); omDatCach('10a', 'ngay', ''); hsoVe(); await w(300); }
    ok('mặc định Về việc = thành lập', /Về việc <span[^>]*>thành lập Tổ Tiết kiệm và vay vốn/.test(HSO.x.h));
    (document.querySelectorAll('#hso-tuy [data-lenh="omc.chon"][data-k="vv"]')[1]||{click(){}}).click(); await w(400);
    ok('bấm "Củng cố" → tiêu đề "Về việc củng cố Tổ…", nội dung giữ "thành lập" (anh: tạm chỉ đổi tiêu đề)', /Về việc <span[^>]*>củng cố Tổ Tiết kiệm và vay vốn/.test(HSO.x.h) && /tự nguyện họp để thành lập Tổ/.test(HSO.x.h));
