@@ -28,7 +28,7 @@
 }
 },
 "hoiquy2": {
-"ban": "3.450",
+"ban": "3.451",
 "ngay": "2026-11-02",
 "kq": "✓ [iPhone] không lỗi đỏ trong Console",
 "dau": {
@@ -52,7 +52,7 @@
 "js/36-dong-bo-khoi.js": "3a8c80a25db3",
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
-"tests/hoiquy2.js": "b892cfcef94c",
+"tests/hoiquy2.js": "29476d215f60",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
