@@ -12,6 +12,13 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 02/11/2026 17:50 — TK 2 · PHIÊN
+- Đã làm: 3.443–3.450 Mẫu 10A (khung 100 tổ viên 3 cột, 4 trang, chữ 14, VB 4336 Thành lập / Kiện toàn, xã–ấp theo địa bàn, họ tên ⇥ chức vụ, tách ô tự động / ghi tay, nút ⚙ Khai báo riêng + Nhập liệu riêng mẫu, bảng hộ vay của tổ có TT / TP theo Mã KH); ô chọn chung `l:'chon'` (js/31); 3.445 Scan bổ sung ấp bản tổ trưởng; 3.448 cây lọc tên xã theo File Tổ trưởng; 3.451 Thông báo KH dư nợ giãn tiêu đề. Hồi quy đủ 240/240 (3.449). Quy chuẩn mẫu ghi `QUY_CHUAN_KIEN_TRUC.md` 9.8.
+- Đang dở: không.
+- Bước tiếp: anh thử 10A trên máy thật, góp ý tiếp; các mẫu Hồ sơ Tổ khác (10B, 10C…) làm lại theo quy chuẩn 9.8 khi anh giao.
+- Chờ ai: anh — **phối hợp App ↔ Giao ban tạm dừng** (anh 02/11: việc khác quan trọng hơn): GB-5, APP-1, kỳ đối chiếu tháng 10 chờ anh mở lại; GB-4 anh chạy bản vá khi làm văn bản giao ban; dòng CCCD không nhận ở Scan chờ anh cho biết người đó.
+- Lưu ý / bẫy: `hoiquy.sh` lấy worktree theo HEAD — commit trước khi chạy; `pgrep -f <tên>` cũng khớp chính lệnh shell (đừng kill theo tên). 10A chữ liền → `t181` chỉ giữ số trang (nhóm DUNG).
+
 ### 01/11/2026 — TK 2 · PHIÊN (3.430)
 - Đã làm: Mẫu 06A/TD (727) vào kho mẫu — tab Hồ sơ vay, mỗi món 1 phiếu, lãi = lãi tồn tất cả (TH + QH); nút 📄 06A ở KTGS Mẫu 06 (chọn đến tổ); `hso06aMo` để chỗ khác gọi. Biên bản tự soạn (nháp 1) bỏ — anh chọn dùng 06A chuẩn 727.
 - Đang dở: không.
