@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.455 — 02/11/2026 — Khai báo riêng thống nhất mọi mẫu, trực quan liên kết 2 chiều (TK 2)
+- **Anh 02/11:** "chỗ khai báo riêng trực quan rất hay, nên bố trí cho mọi mẫu, và có ký hiệu tương đồng — ví dụ chọn bên trong mẫu thì chỗ khai bên ngoài nổi bật lên để biết, còn khai báo thường bị dồn chữ rất xấu"; "càng trực quan càng dễ dùng" → làm cả bấm chữ trên bản xem trước.
+- `js/31-o-mau.js`: phần dòng dùng chung `omO1Phan` / `omDsDong` (tên + nguồn · nút ✍ / 🤖 / ⌨ · giá trị · Chọn nhanh, vạch màu trái = nguồn, cùng màu nền ô trên mẫu); ⚙ Khai báo riêng hết dồn chữ (trước tên rơi vào cột 170 px), tiêu đề có tóm tắt số ô theo nguồn (`omDemNguon`), chọn cỡ chữ; bấm tên dòng → mở 🖼 trực quan đúng dòng.
+- 🖼 Trực quan: khung phải = cả danh sách, dòng đang chọn mở rộng chi tiết cũ (`omKBChiTiet`: nguồn, tự gõ, chép tự động, chữ mẫu, mặc định ô, cả phần); bấm trên mẫu ↔ dòng sáng, `omKBDanh` viền đỏ + cuộn; gõ không mất con trỏ.
+- Bản xem trước (`omXemGan` / `omXemBam`): chữ app điền rê chuột có viền màu nguồn (chỉ màn hình); bấm → dòng Chọn nhanh cột trái sáng + con trỏ vào ô, không có → mở trực quan đúng dòng.
+- Mọi mẫu nền ô: nút ⚙ Khai báo riêng cạnh ⚙ Khai báo đơn vị; cột trái chỉ Chọn nhanh (có vạch màu); mẫu in kèm (01/TĐCK theo 09A) có nút ⚙ ngay ở Chọn nhanh.
+- Phép thử mới `t363`; `t176`, `t184`, `t191`, `t201` cập nhật theo bố cục mới.
+
 ## 3.454 — 02/11/2026 — Mẫu 10A khóa trang 3–4, tự bù khi phần đầu dài (TK 2)
 - **Anh 02/11:** "Mẫu 10A anh muốn khóa cứng trang cuối như vậy" (trang 3 bắt đầu "b) Tổ phó", trang 4 bắt đầu "III."); "trang 1-2 nếu có dài ra 1 dòng thì giảm…"; "có thể giảm dòng số hộ vay, vì ít khi tổ đủ 100".
 - `js/mau/10a.js`: ngắt trang cứng bản in trước "b) Tổ phó" và "III. BẦU BAN QUẢN LÝ" (lớp `tr-sang-in`); app ước số dòng phần đầu trang 1 (`hso10aDong`, mốc `HSO_10A_DAU` = 15 ở js/25) — dư bao nhiêu dòng bớt bấy nhiêu hàng khung tổ viên (còn đủ ô cho tổ); tổ gần đủ 100 / khung để chấm → giữ 34 hàng, thu chiều cao hàng.

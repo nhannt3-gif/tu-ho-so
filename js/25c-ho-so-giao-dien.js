@@ -26,7 +26,7 @@ function hsoDsHTML(){   /* 3.206 (anh chốt): mẫu chọn ở thanh tab con (h
   return '<div class="th-nhom-ten hso-dau-ds"><span class="hso-tieu" title="'+coChuHTML(M.ma+' — '+M.ten)+'">'+tieu+(M.ngang ? ' <span class="th-cap">[A4 ngang]</span>' : '')+'</span>'+
     '<span class="hso-chu"><span class="hso-chu-sl">số liệu</span><span class="hso-chu-kb">khai báo</span><span class="hso-chu-tay">…… ghi tay</span></span>'+   /* 3.317 (anh): chú thích màu cùng dòng tên mẫu */
     '<span class="hso-ky" title="Số liệu lấy theo kỳ / ngày đang chọn ở dải lịch">📅 <b>'+(KHO.coKy() ? slKyChu(KHO.ky().ky) : 'chưa có số liệu')+'</b></span>'+   /* 3.334: dời từ dải chip mẫu xuống dòng tên mẫu → dải chip không bị đè */
-    ((M.k==='10a' || M.k==='10b' || M.k==='10c') && typeof omCo==='function' && omCo(M.k) && OM_MAU[M.k].dien ? '<button class="nho" data-lenh="omkb.ds" data-mk="'+M.k+'" title="Mọi dòng của mẫu '+M.ma+' theo thứ tự trên mẫu — tích Chọn nhanh để đưa ra cột trái">⚙ Khai báo riêng</button>' : '')+   /* 3.448 (anh 02/11): nút riêng như Giao dịch xã */
+    (typeof omCo==='function' && omCo(M.k) ? '<button class="nho" data-lenh="omkb.ds" data-mk="'+M.k+'" title="Mọi dòng của mẫu '+M.ma+' theo thứ tự trên mẫu — tích Chọn nhanh để đưa ra cột trái">⚙ Khai báo riêng</button>' : '')+   /* 3.448 (anh 02/11): nút riêng như Giao dịch xã · 3.455: mọi mẫu nền ô */
     '<button class="nho" onclick="hsoKBHop()" title="PGD, logo, trưởng ấp, tổ phó thực tế, chương trình vay — dùng chung mọi mẫu">⚙ Khai báo đơn vị</button></div>'+(M.ghi ? '<div class="sl-phu">'+coChuHTML(M.ghi)+'</div>' : '');
 }
 function hsoTabMauHTML(){   /* 3.206 (anh chốt 14/10): mỗi biểu mẫu = 1 tab con, bố trí như tab Giao dịch xã · số liệu theo kỳ / ngày đã chọn */
@@ -68,7 +68,8 @@ function hsoXem(){
   var khV = hsoTab()==='hsv' && HSO.vay.kh && HSO.vay.kh!=='moi' ? [HSO.vay.kh] : [], Kd = KHO.kyDung();   /* 3.348: 📜 nhật ký đã lập / in */
   if(n) n.innerHTML = xuatHang({ten:x.ten, nk:{mau:(hsoMau().ten || x.ten), to:[hsoCH().to], kh:khV, ky:Kd ? Kd.ky : ''}, html:function(){ return HSO.x.trang; }, word:'hsoWord()', dong:'thXemRong(\'hso-xem-khung\')', dongChu:'⤢ Phóng to',
     'in':kem ? 'hsoIn09Kem()' : kem6 ? 'xuatIn();setTimeout(hsoIn06HS,1500)' : '', truoc:kem ? '<button class="nho" onclick="hsoIn06()" title="In riêng Mẫu 06/TD (phiếu kiểm tra) của món đang gia hạn">🖨 06/TD</button>' : kem6 ? '<button class="nho" onclick="hsoIn06HS()" title="In riêng Mẫu 06/TD (khổ ngang) của hộ này / danh sách 03/TD">🖨 06/TD</button>' : ''});
-  if(typeof tgTayGan==='function') tgTayGan(f); else f.onload = null;   /* 3.315: 01/TGTV tự khai — bấm ô trên bản xem */
+  if(typeof tgTayGan==='function') tgTayGan(f); else f.onload = null;
+  if(!f.onload && typeof omXemGan==='function') omXemGan(f);   /* 3.455: bấm chữ trên bản xem trước → dòng khai báo */   /* 3.315: 01/TGTV tự khai — bấm ô trên bản xem */
   xemChuan(f, x.trang); thVuaKhung();
 }
 function hsoHen(){ clearTimeout(HSO_HEN); HSO_HEN = setTimeout(hsoXem, 250); }
