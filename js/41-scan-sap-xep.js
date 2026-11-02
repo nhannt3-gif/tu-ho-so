@@ -304,6 +304,7 @@ scanLuuTu = function(tach){   /* 3.416.1 (anh 31/10 "quét 1 lần nhiều CCCD 
     if(r.cccd){ k.cccdDoc = sxGhiDoc(r); if(r.cmnd) k.cmnd = r.cmnd; }   /* 3.271: lưu đủ thông tin đọc được (bảng đối chiếu) + CMND 9 số */
     if(!c.ma && c.khoa) k.khoaCCCD = c.khoa;   /* 3.297: hộ mới (chưa có mã KH) — khóa bằng số CCCD */
     if(c.vaiTro) k.vaiTro = c.vaiTro;   /* 3.416: tt = tổ trưởng · ttCu = tổ trưởng cũ (lọc riêng ở 👑 Kiểm CCCD tổ trưởng) */
+    if(c.maTo) k.maTo = String(c.maTo); if(!k.ap && k.maKH && typeof ttApBu==='function') (function(k){ ch = ch.then(function(){ return ttApBu(k); }); })(k);   /* 3.445: tổ trưởng (TK 104 / File Tổ trưởng cũ) trống ấp → bổ sung ấp lúc lưu (js/84) */
     if(k.che==='the'){ k.matTruoc = !!g[0]; k.matSau = !!g[1];
       (function(k, a, b){ ch = ch.then(function(){ return a ? doiTenAnh(a.id, k.id+'_matTruoc') : null; }).then(function(){ return b ? doiTenAnh(b.id, k.id+'_matSau') : null; }); })(k, g[0], g[1]); }
     else k.trang = g.map(hangRaTrang);

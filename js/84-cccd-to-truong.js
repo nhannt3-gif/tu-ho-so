@@ -80,3 +80,38 @@ GD.dangKy('ttk', {mo:function(){ ttkMo(); }, loc:function(el){ TTK.loc = el.getA
 /* nút 👑 ở màn 📊 Kiểm tra hồ sơ scan (bọc sxKiemVe — rút file là mất nút) */
 (function(){ if(typeof sxKiemVe!=='function') return; var cu = sxKiemVe;
   sxKiemVe = function(){ var r = cu.apply(this, arguments); var h = document.querySelector('#hop-in .gd-hang.gd-phai'); if(h && !h.querySelector('[data-lenh="ttk.mo"]')) h.insertAdjacentHTML('afterbegin', GD.nut({chu:'👑 CCCD tổ trưởng', lenh:'ttk.mo', tit:'Kiểm tổ trưởng, tổ phó hiện tại đã lưu CCCD chưa + tổ trưởng cũ đã lưu'})); return r; }; })();
+/* ③ 3.445 (anh 02/11 "t/h là tổ trưởng nhưng không nhận ấp" → duyệt): bản CCCD đã gắn mã KH mà trống ẤP → bổ sung ấp (chỉ điền ô trống, không đoán):
+   ① tổ của người đó (bảng tổ kỳ đang mở / danh bạ tổ) · ② File Tổ trưởng mọi kỳ (mã KH = MATT hoặc mã tổ) · ③ Mẫu 31: chính khách đó, rồi ấp đa số món vay của tổ
+   · ④ mã thôn đã có (Sao kê TK 104 / File Tổ trưởng) → tên ấp theo tổ / khách cùng mã thôn, cuối cùng danh mục địa bàn Cài đặt. Lúc lưu: tự gọi (scanLuuTu, js/41); bản đã lưu: nút 🔧 ở tab Scan. */
+function ttTenAp(ma){ ma = String(ma||''); if(!ma) return ''; var ten = '';
+  if(KHO.coKy()) KHO.dsTo().some(function(t){ if(String(t.thon||'')===ma && t.tenThon){ ten = t.tenThon; return true; } return false; });
+  if(!ten){ var dk = KHO.dsKhach(); Object.keys(dk).some(function(m){ var c = dk[m]; if(String(c.thon||'')===ma && c.tenThon){ ten = c.tenThon; return true; } return false; }); }
+  if(!ten) (D.cauHinh.diaBan||[]).some(function(x){ return (x.diem||[]).some(function(z){ return (z.ap||[]).some(function(a){ if(String(a.ma)===ma && a.ten){ ten = a.ten; return true; } return false; }); }); });   /* số liệu hệ thống trước, danh mục Cài đặt sau (QT-C-10) */
+  return ten; }
+function ttApBu(k){   /* → Promise<true khi đã điền> */
+  if(!k || k.ap || !k.maKH) return Promise.resolve(false);
+  var cif = String(k.maKH), mt = String(k.maTo||'');
+  var dat = function(o, tu){ if(!o || !o.tenThon) return false; k.ap = o.tenThon; if(!k.maAp && o.thon) k.maAp = String(o.thon); if(!k.xa && o.tenXa) k.xa = o.tenXa; if(!k.maXa && o.xa) k.maXa = String(o.xa); k.apTu = tu; return true; };
+  if(!mt && KHO.coKy()) KHO.maTo().some(function(m){ if(String((KHO.bangTo(m)||{}).kh||'')===cif){ mt = m; return true; } return false; });
+  if(mt){ var t = KHO.coKy() ? KHO.to(mt) : null; if(t && !toLaTT(t) && dat(t, 'tổ '+mt)) return Promise.resolve(true); if(dat(KHO.toDanhBa(mt), 'danh bạ tổ '+mt)) return Promise.resolve(true); }
+  return (typeof dsTTDs==='function' ? dsTTDs() : Promise.resolve([])).then(function(B){
+    var o = null; (B||[]).some(function(b){ return (b.rows||[]).some(function(z){ if(z.tenThon && (String(z.ttKH||'')===cif || (mt && String(z.to||'')===mt))){ o = z; return true; } return false; }); });
+    if(o){ if(!mt && o.to) mt = String(o.to); if(dat(o, 'File Tổ trưởng')) return true; }
+    var dk = KHO.dsKhach(); if(dat(dk[cif], 'Mẫu 31 (khách)')) return true;
+    if(mt){ var dem = {}, mau = {}; Object.keys(dk).forEach(function(m){ var c = dk[m]; if(String(c.to||'')===mt && c.tenThon){ dem[c.tenThon] = (dem[c.tenThon]||0)+1; mau[c.tenThon] = c; } });
+      var tot = Object.keys(dem).sort(function(a, b){ return dem[b]-dem[a]; })[0]; if(tot && dat(mau[tot], 'Mẫu 31 (ấp đa số của tổ '+mt+')')) return true; }
+    var ten = ttTenAp(k.maAp); if(ten){ k.ap = ten; k.apTu = 'mã thôn '+k.maAp; return true; }
+    return false; }).catch(function(){ return false; });
+}
+function ttApCan(){ return (D.scan||[]).filter(function(k){ return k.maKH && !k.ap; }); }
+function ttApBuHet(){
+  var ds = ttApCan(); if(!ds.length) return bao('Mọi bản đã gắn khách đều có ấp.', 3);
+  hoi('🔧 Bổ sung ấp cho '+ds.length+' bản thiếu ấp?', 'Chỉ điền ô Ấp đang trống, theo: tổ của người đó → File Tổ trưởng các kỳ → Mẫu 31 → mã thôn. Không tìm ra thì để nguyên (vẫn ⚠).', 'Bổ sung', function(){
+    var n = 0; ds.reduce(function(p, k){ return p.then(function(){ return ttApBu(k).then(function(ok){ if(ok){ n++; k.suaLuc = new Date().toISOString(); k.canDay = true; } }); }); }, Promise.resolve())
+      .then(function(){ if(n) luu(); bao('Đã bổ sung ấp cho '+n+' / '+ds.length+' bản'+(n<ds.length ? ' — '+(ds.length-n)+' bản chưa tìm ra ấp (✎ khai tay)' : '')+'.', 5); if(typeof veScan==='function') veScan(); }); });
+}
+GD.dangKy('ttap', {bu:function(){ ttApBuHet(); }});
+(function(){ if(typeof veScan!=='function') return; var cu = veScan;   /* nút 🔧 trên thanh Chờ sắp xếp (rút file là mất nút) */
+  veScan = function(){ var r = cu.apply(this, arguments); var n = ttApCan().length, h = document.querySelector('#tr4 .sx-thanh');
+    if(n && h && !h.querySelector('[data-lenh="ttap.bu"]')) h.insertAdjacentHTML('beforeend', '<button data-lenh="ttap.bu" title="Bản đã gắn mã KH (tổ trưởng…) mà trống ấp → tìm ấp theo tổ / File Tổ trưởng / Mẫu 31 / mã thôn">🔧 Bổ sung ấp ('+n+')</button>');
+    return r; }; })();

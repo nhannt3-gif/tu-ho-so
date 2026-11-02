@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.444 · 02/11/2026 12:13 · 137 file · 43724 dòng · 3578 hàm cấp ngoài · 597 biến toàn cục.
+Bản 3.445 · 02/11/2026 13:16 · 137 file · 43760 dòng · 3582 hàm cấp ngoài · 597 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -80,7 +80,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/38-goi-xem.js` | 71 | 11 | /*   3.231 (anh duyệt 17/10/2026 — KE_HOACH_CHUAN_HOA mục 8–9): 📱 GÓI SỐ LIỆU XEM cho bản điện thoại   Máy tín |
 | `js/39-gd.js` | 92 | 0 | /*   3.234 (R2 — KE_HOACH_CHUAN_HOA mục 2, 4, 5, 6): GIAO DIỆN CHUNG "GD" + ĐIỀU HƯỚNG "DH"   - Bộ nhận lệnh:  |
 | `js/40-lap-01td.js` | 113 | 0 | /*   3.242 (anh 17/10 — KE_HOACH_CHUAN_HOA mục Hồ sơ vay hướng B, ý 1–19): FORM LẬP 01/TD   Cột trái tab 01/TD |
-| `js/41-scan-sap-xep.js` | 611 | 57 | /*   3.264 (anh chốt 20/10/2026) — 🗂 LƯU SCAN TẬP TRUNG · 🧹 SẮP XẾP · 📊 KIỂM TRA · 📇 ĐỌC CCCD (QR / 3 dòng mã  |
+| `js/41-scan-sap-xep.js` | 612 | 57 | /*   3.264 (anh chốt 20/10/2026) — 🗂 LƯU SCAN TẬP TRUNG · 🧹 SẮP XẾP · 📊 KIỂM TRA · 📇 ĐỌC CCCD (QR / 3 dòng mã  |
 | `js/42-scan-ra-soat.js` | 323 | 31 | /*   3.268 (anh chốt 20/10/2026) — 🔎 RÀ CCCD ĐÃ LƯU · BẢN TRÙNG - Anh: "có nên có bước chạy kiểm tra các CCCD  |
 | `js/43-scan-anh-drive.js` | 357 | 30 | /*   3.271 (anh chốt 20/10/2026) — 🖼 ẢNH 2 MẶT CCCD LÊN DRIVE · CẮT ẢNH TỪ PDF CŨ · BẢNG ĐỐI CHIẾU · CMND 9 SỐ |
 | `js/44-quet-cccd-form.js` | 144 | 19 | /*   3.273 (anh duyệt 20/10/2026: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCC |
@@ -131,7 +131,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/81-scan-pdf-the.js` | 120 | 7 | /*   3.403 (anh 29/10/2026, ảnh CCCD lưu dạng PDF — thẻ nhỏ giữa trang trắng: "khi cccd đã lưu dưới dạng pdf a |
 | `js/82-dia-ban-so-lieu.js` | 160 | 23 | /*   3.406 (anh 29/10/2026): 🗺 ĐỊA BÀN (Hôm nay › 🧰) THEO SỐ LIỆU MỚI NHẤT — cắm rút (bỏ dòng nạp file này là  |
 | `js/83-ap-cu.js` | 35 | 3 | /*   3.407 (anh 30/10 qua TK 1 — docs/AP_KP_CU.md 1.0): GHI CHÚ ẤP / KHU PHỐ CŨ — chỉ để tham khảo, nhớ dần; K |
-| `js/84-cccd-to-truong.js` | 82 | 7 | /*   3.416 (anh 31/10: "gặp CCCD tổ trưởng dù cũ hay mới cũng lưu trữ, sau này có 1 chỗ lọc ra CCCD của tổ trư |
+| `js/84-cccd-to-truong.js` | 117 | 11 | /*   3.416 (anh 31/10: "gặp CCCD tổ trưởng dù cũ hay mới cũng lưu trữ, sau này có 1 chỗ lọc ra CCCD của tổ trư |
 | `js/85-khong-mang.js` | 7 | 0 | /*   3.419 P1 (docs/KE_HOACH_NANG_CAP_0111.md — anh 31/10 "làm theo thứ tự em thấy ổn nhất"): BẢN MÁY TÍNH CHẠ |
 | `js/86-o-lenh.js` | 51 | 6 | /*   3.420 P2 (docs/KE_HOACH_NANG_CAP_0111.md): ⌨ Ô LỆNH Ctrl+K   Ctrl+K (Mac: ⌘K) ở bất kỳ đâu → hộp gõ: tìm  |
 | `js/87-bo-chuan.js` | 133 | 10 | /*   3.424 (docs/GIAO_BAN_KY_NANG.md — TK 1 bàn giao 31/10; anh 31/10 "em chờ TK 1 bàn giao skill rồi đọc và l |
@@ -377,10 +377,10 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/41-scan-sap-xep.js:70` · 2. tra khách trên Mẫu 31 (danh bạ)
 - `js/41-scan-sap-xep.js:147` · 3. đọc CCCD: QR → 3 dòng mã máy đọc → dòng "Số"
 - `js/41-scan-sap-xep.js:240` · 4. quét CCCD: đọc số → tra khách → lưu thẳng đúng chỗ
-- `js/41-scan-sap-xep.js:344` · 5. bản photo 2 mặt trên 1 tờ → chia đôi tờ
-- `js/41-scan-sap-xep.js:389` · 6. 🧹 SẮP XẾP
-- `js/41-scan-sap-xep.js:547` · 7. 📊 KIỂM TRA theo cây địa bàn
-- `js/41-scan-sap-xep.js:600` · 8. tab Scan: dòng 🧹 Sắp xếp · 📊 Kiểm tra
+- `js/41-scan-sap-xep.js:345` · 5. bản photo 2 mặt trên 1 tờ → chia đôi tờ
+- `js/41-scan-sap-xep.js:390` · 6. 🧹 SẮP XẾP
+- `js/41-scan-sap-xep.js:548` · 7. 📊 KIỂM TRA theo cây địa bàn
+- `js/41-scan-sap-xep.js:601` · 8. tab Scan: dòng 🧹 Sắp xếp · 📊 Kiểm tra
 - `js/42-scan-ra-soat.js:1` · 3.268 (anh chốt 20/10/2026) — 🔎 RÀ CCCD ĐÃ LƯU · BẢN TRÙNG
 - `js/42-scan-ra-soat.js:48` · B. bản trùng: dấu vân tay nội dung
 - `js/42-scan-ra-soat.js:97` · C. Drive: thư mục CCCD
