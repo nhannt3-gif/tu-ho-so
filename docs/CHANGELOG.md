@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.454 — 02/11/2026 — Mẫu 10A khóa trang 3–4, tự bù khi phần đầu dài (TK 2)
+- **Anh 02/11:** "Mẫu 10A anh muốn khóa cứng trang cuối như vậy" (trang 3 bắt đầu "b) Tổ phó", trang 4 bắt đầu "III."); "trang 1-2 nếu có dài ra 1 dòng thì giảm…"; "có thể giảm dòng số hộ vay, vì ít khi tổ đủ 100".
+- `js/mau/10a.js`: ngắt trang cứng bản in trước "b) Tổ phó" và "III. BẦU BAN QUẢN LÝ" (lớp `tr-sang-in`); app ước số dòng phần đầu trang 1 (`hso10aDong`, mốc `HSO_10A_DAU` = 15 ở js/25) — dư bao nhiêu dòng bớt bấy nhiêu hàng khung tổ viên (còn đủ ô cho tổ); tổ gần đủ 100 / khung để chấm → giữ 34 hàng, thu chiều cao hàng.
+- **Word:** chưa khóa ngắt — Word các mẫu nền ô chưa theo canh / cỡ chữ của bản in (đoạn canh trái, chữ 13), khóa ngắt trong Word thành 5 trang; Word giữ như cũ (4 trang). Việc làm Word giống bản in để sau, chờ anh duyệt.
+- Phép thử `t358` thêm 4 trường hợp (thường, Trưởng ấp tên dài, + Thư ký tên dài, khung để chấm + tên dài); chuẩn in `t179` 10A ghi lại.
+
 ## 3.453 — 02/11/2026 — Mẫu 10C theo quy chuẩn 10A, kết nạp / cho ra số lượng lớn (TK 2)
 - **Anh 02/11:** "10C cũng tương tự, riêng 10C cho chọn hộ từ danh sách để kết nạp và cho ra khi chia tách số lượng lớn"; Về việc "Kết nạp tổ viên, cho tổ viên ra khỏi Tổ, bình xét cho vay, sửa đổi Quy ước hoạt động của Tổ,… và các nội dung khác"; "bảng kẻ ô tùy biến số dòng kết nạp, cho ra (cùng 1 bảng như nhau), số dòng họp bình xét thêm hoặc bớt"; "chọn KH từ danh sách tổ chọn từ cây địa bàn"; "cho ra là từ tổ đang chọn, kết nạp từ tổ khác và cũng có thể từ tổ của mình (hoàn thiện thủ tục)"; "kết nạp hay cho ra qua lại chỉ trong cùng 1 ấp".
 - `js/mau/10c.js` (dùng chung `HST`): chữ 14, tiêu đề 15 + kẻ; Về việc **chọn nhiều** (tự theo việc đã làm: kết nạp / cho ra / có danh sách vay); chữ liền in thường, chấm giữ form; ấp / khu phố – xã / phường, Trưởng ấp; Chủ trì / Thư ký / cán bộ Hội "Ông (bà): tên ⇥ Chức vụ"; Hội bỏ xã; bảng I / II và bảng 2 có dòng tiêu đề lặp khi sang trang, **số dòng ＋ / −** (không ít hơn số hộ); tên theo Mã KH, hoa đầu từ; tách ô (cán bộ Hội 3, kết nạp / cho ra 2, chữ ký 4); Nhập liệu riêng (Điền hết / Tùy chọn); 2 trang.
