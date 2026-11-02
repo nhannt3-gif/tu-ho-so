@@ -12,7 +12,7 @@ const fs=require('fs'), path=require('path');
  for(const W of [1280, 1366, 1920]){ await p.setViewportSize({width:W, height:800}); await p.waitForTimeout(400);
    const r = await p.evaluate(()=>{ const t=document.querySelector('table.tc-to-ds'); if(!t) return {}; const k=t.closest('.tc-kq-cuon'), td=t.querySelector('tbody tr td:nth-child(2)'), h=t.querySelector('tbody tr td:nth-child(6)'), th=t.querySelectorAll('thead tr:first-child th');   /* 3.396: thead có thêm hàng lọc (js/77) */
      return {cot:th.length, du:k.scrollWidth-k.clientWidth, ma:td.scrollWidth-td.clientWidth, hoi:h.textContent, hoiT:h.title}; });
-   ok('3.368 khổ '+W+': danh sách tổ đủ 6 cột (3.416.1 bỏ cột Xã), không cuộn ngang, mã tổ đủ', r.cot===6 && r.du<=1 && r.ma<=1, JSON.stringify(r)); }
+   ok('3.368 khổ '+W+': danh sách tổ đủ 7 cột (3.416.1 bỏ cột Xã, 3.440 thêm cột CCCD), không cuộn ngang, mã tổ đủ', r.cot===7 && r.du<=1 && r.ma<=1, JSON.stringify(r)); }
  const r = await p.evaluate(()=>{ const h=document.querySelector('table.tc-to-ds tbody tr td:nth-child(6)'); return {hoi:h.textContent, t:h.title}; });
  ok('3.368 cột Hội viết tắt (HND/HPN/CCB/ĐTN), rê chuột thấy tên đủ', /^(HND|HPN|CCB|ĐTN)$/.test(r.hoi) && /^(Hội|Đoàn)/.test(r.t), JSON.stringify(r));
  o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));

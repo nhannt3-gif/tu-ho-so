@@ -1,1 +1,33 @@
-{"mau": ["01td", "01uq", "03td", "09a", "01tdck", "01gqvl", "07b", "10c_moi", "10c_cu", "10a", "10b", "11_moi", "11_cu", "10d"], "trangTrang": ["01tgtv", "10d"], "ghi": "mẫu đã làm lại theo file gốc, anh duyệt → t180 bắt buộc đạt; trangTrang: gốc có thêm 1 trang trắng (để in 2 mặt; 10d: đoạn rỗng sau bảng UBND rơi sang trang 3)", "giuWord": ["01tgtv"], "ghiWord": "giữ bố cục đo theo Word (anh duyệt 3.219) — LibreOffice dàn file gốc thành 4 trang nên t180 chỉ báo, không so vị trí dòng; chữ thiếu chỉ do thứ tự đọc lưới ô ☐"}
+{
+ "mau": [
+  "01td",
+  "01uq",
+  "03td",
+  "09a",
+  "01tdck",
+  "01gqvl",
+  "07b",
+  "10c_moi",
+  "10c_cu",
+  "10a",
+  "10b",
+  "11_moi",
+  "11_cu",
+  "10d"
+ ],
+ "trangTrang": [
+  "01tgtv",
+  "10d"
+ ],
+ "ghi": "mẫu đã làm lại theo file gốc, anh duyệt → t180 bắt buộc đạt; trangTrang: gốc có thêm 1 trang trắng (để in 2 mặt; 10d: đoạn rỗng sau bảng UBND rơi sang trang 3)",
+ "giuWord": [
+  "01tgtv"
+ ],
+ "ghiWord": "giữ bố cục đo theo Word (anh duyệt 3.219) — LibreOffice dàn file gốc thành 4 trang nên t180 chỉ báo, không so vị trí dòng; chữ thiếu chỉ do thứ tự đọc lưới ô ☐",
+ "doiChuY": {
+  "10a": {
+   "trangThem": 1,
+   "ly": "3.443 (anh 02/11): khung cố định 100 tổ viên 3 cột ở trang 1–2, phần II sang trang 3 → app 5 trang / gốc 4, vị trí dòng khác gốc chủ ý; vẫn so chữ, khổ, lề"
+  }
+ }
+}
