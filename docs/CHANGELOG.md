@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.456 — 02/11/2026 — 10A số tham dự, biểu quyết theo tỷ lệ; III, IV, phê duyệt linh hoạt (TK 2)
+- **Anh 02/11:** "số tv tham dự tối thiểu 50% số thành viên tổ, chọn theo số tv tổ, tỷ lệ điều chỉnh được nhưng > 50% <= 100%"; "để sẵn 100% cho chọn được tăng giảm %, mục III, IV và phần phê duyệt cũng cho chọn linh hoạt".
+- `js/mau/10a.js`: số tham dự = số tổ viên (ô Tổng số) × tỷ lệ, làm tròn lên, luôn > 1/2 (`hso10aThamDu`); tỷ lệ mặc định 100%, − / + 5%, gõ 51–100 (`hso10aTlHTML`, nhớ `hsoLuu().tl10a`). IV "tán thành / tham dự" theo số tham dự in ở trên (tự tính / tự gõ; để chấm → IV chấm), tán thành > 2/3 (QĐ 70), tỷ lệ riêng mặc định 100% (`tl10aBq`). III a / b: ⌨ gõ hoặc chọn tên trong tổ (gợi ý `goiY`); Phê duyệt UBND lấy tên theo III. Cuối Chọn nhanh: Phê duyệt UBND cả phần ✍ chấm / 🤖 tự điền. Số tham dự, III a / b, IV ra Chọn nhanh.
+- Khung mẫu chung (js/31): ô tự động có thể kèm nút riêng (`tuUi`), ô tự gõ có danh sách gợi ý (`goiY`).
+- Phép thử mới `t364`; chuẩn in `t179` 10A ghi lại.
+
 ## 3.455 — 02/11/2026 — Khai báo riêng thống nhất mọi mẫu, trực quan liên kết 2 chiều (TK 2)
 - **Anh 02/11:** "chỗ khai báo riêng trực quan rất hay, nên bố trí cho mọi mẫu, và có ký hiệu tương đồng — ví dụ chọn bên trong mẫu thì chỗ khai bên ngoài nổi bật lên để biết, còn khai báo thường bị dồn chữ rất xấu"; "càng trực quan càng dễ dùng" → làm cả bấm chữ trên bản xem trước.
 - `js/31-o-mau.js`: phần dòng dùng chung `omO1Phan` / `omDsDong` (tên + nguồn · nút ✍ / 🤖 / ⌨ · giá trị · Chọn nhanh, vạch màu trái = nguồn, cùng màu nền ô trên mẫu); ⚙ Khai báo riêng hết dồn chữ (trước tên rơi vào cột 170 px), tiêu đề có tóm tắt số ô theo nguồn (`omDemNguon`), chọn cỡ chữ; bấm tên dòng → mở 🖼 trực quan đúng dòng.

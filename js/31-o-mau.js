@@ -129,9 +129,10 @@ function omCachNut(mk, x, nho){ var ds = OM_LOAI[x.l] || ['cham'], c = omCachLuu
 function omO1Phan(mk, x, V){   /* 3.455: tách phần 1 dòng ô — tên + nguồn, nút ✍ / 🤖 / ⌨, ô giá trị (dùng chung Chọn nhanh · ⚙ Khai báo riêng · 🖼 trực quan) */
   var c = omCachLuu(mk, x.k), inp = '';
   if(c==='kb' && x.chon) inp = omChonHTML(mk, x);
-  else if(c==='kb') inp = hsoIn('omDatKB(\''+mk+'\',\''+x.k+'\',this.value)', omKB(mk, x.k), V && V[x.k] && !omKB(mk, x.k) ? String(V[x.k]) : (x.ct ? 'gõ theo chương trình đang chọn' : 'tự gõ, app nhớ riêng mẫu'));
+  else if(c==='kb'){ inp = hsoIn('omDatKB(\''+mk+'\',\''+x.k+'\',this.value)', omKB(mk, x.k), V && V[x.k] && !omKB(mk, x.k) ? String(V[x.k]) : (x.ct ? 'gõ theo chương trình đang chọn' : 'tự gõ, app nhớ riêng mẫu'));
+    var gy = x.goiY ? x.goiY() : []; if(gy.length) inp = inp.replace('<input ', '<input list="om-gy-'+mk+'-'+x.k+'" ')+'<datalist id="om-gy-'+mk+'-'+x.k+'">'+gy.map(function(z){ return '<option value="'+coChuHTML(z)+'">'; }).join('')+'</datalist>'; }   /* 3.456: gõ hoặc chọn trong danh sách gợi ý (10A III: tên trong tổ) */
   else if(c==='go') inp = x.ui ? x.ui() : hsoIn('HSO.vay[\''+x.k+'\']=this.value;hsoHen()', HSO.vay[x.k] || '', x.ng || '', x.ngay ? 'date' : '');
-  else if(c==='tu') inp = '<small class="hso-cham-tu">'+(V && Array.isArray(V[x.k]) ? 'tự lấy: '+V[x.k].length+' mục' : V && V[x.k] ? 'tự lấy: '+coChuHTML(V[x.k]) : 'tự lấy khi có số liệu')+'</small>';   /* 3.455: ô danh sách (tổ viên) → số mục */
+  else if(c==='tu') inp = (x.tuUi ? x.tuUi() : '')+'<small class="hso-cham-tu">'+(V && Array.isArray(V[x.k]) ? 'tự lấy: '+V[x.k].length+' mục' : V && V[x.k] ? 'tự lấy: '+coChuHTML(V[x.k]) : 'tự lấy khi có số liệu')+'</small>';   /* 3.455: ô danh sách (tổ viên) → số mục */
   else inp = '<i class="hso-cham-tay">…… chấm, ghi tay</i>';
   return {c:c, ten:coChuHTML(x.n), ng:c!=='cham' ? coChuHTML(omNguon(mk, x)) : '', nut:omCachNut(mk, x, 1), inp:inp}; }
 function omO1HTML(mk, x, V){   /* 1 dòng ô (Chọn nhanh ở cột trái) */

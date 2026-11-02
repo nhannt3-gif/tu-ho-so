@@ -219,6 +219,7 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
    - Mẫu chữ liền không bắt chồng khít từng dòng — chỉ giữ cùng số trang (`t181` nhóm DUNG).
    - **Phần chung `js/mau/0hst.js` (`HST`, 3.452):** mẫu Hồ sơ Tổ làm lại dùng chung bộ hàm (bảng hộ vay, chữ liền / chấm, tab chức vụ, tiêu đề, tách ô) — không chép lại trong từng mẫu. Ô chọn nhiều `nhieu:1` (Về việc 10B, 10C).
    - **Kết nạp / cho ra chỉ qua lại trong cùng 1 ấp** (anh 02/11) — áp ở 10C.
+   - **Biên bản họp tổ — số người (anh 02/11, 10A 3.456):** số tham dự = số tổ viên × tỷ lệ (mặc định 100%, chỉnh được, luôn > 1/2); biểu quyết tán thành > 2/3 số tham dự (QĐ 70); số liệu tự tính vẫn cho ⌨ tự gõ / ✍ chấm.
    - **Khóa trang mẫu nhiều trang (anh 02/11, 10A 3.454):** chỗ anh chỉ định luôn đầu trang (10A: trang 3 "b) Tổ phó", trang 4 "III.") — lớp `tr-sang-in` (bản in). Phần trước dư dòng (tên dài) → **bớt dòng trống của khung danh sách** (ít khi đủ tối đa), không được thì thu chiều cao dòng khung; không đổi cỡ chữ, không bỏ chữ. Phép thử kiểm cả trường hợp tên dài.
 
 ## 10. Chuẩn hóa code, giao diện, thư viện (anh duyệt 17/10/2026 — chi tiết `KE_HOACH_CHUAN_HOA.md`)

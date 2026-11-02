@@ -274,6 +274,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t361.js` | 3.452: Mẫu 10B theo quy chuẩn 10A (chọn nhiều Về việc, bảng hộ vay Kết nạp, bầu thay tab, tách ô). |
 | `node tests/t362.js` | 3.453: Mẫu 10C — Cho ra / Kết nạp, kết nạp từ tổ khác cùng ấp, nhớ chuyển, ＋ / − số dòng, Về việc chọn nhiều. |
 | `node tests/t363.js` | 3.455: Khai báo riêng dùng chung (không dồn chữ, vạch màu nguồn), trực quan liên kết 2 chiều, bấm chữ bản xem trước, nút ⚙ mọi mẫu nền ô. |
+| `node tests/t364.js` | 3.456: 10A số tham dự theo tỷ lệ (> 50%), IV tán thành (> 2/3), III gõ / chọn tên, UBND theo III, phê duyệt cả phần. |
 | (3.454) | `t358` + khóa trang 3 ("b) Tổ phó") / trang 4 ("III."), tên dài → bớt hàng khung / thu chiều cao hàng, vẫn 4 trang. |
 | (3.451) | `t253`, `t256` — Thông báo KH dư nợ giãn tiêu đề, gọn số. |
 | (3.450) | `t358` + khung tên không thụt gấp đôi, III a / b cùng tab, ⌨ họ tên. |
