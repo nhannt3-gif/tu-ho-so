@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.445)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan › 🔧 Bổ sung ấp (n) | Lê Thu Thủy, Lê Xuân Thưởng, Nguyễn Văn Huyện, Trần Văn Triều có ấp, hết ⚠ (nếu số liệu có) | |
+| 2 | Quét lại CCCD tổ trưởng | Bản mới có ấp ngay khi lưu | |
+
 ### Danh sách thử trên máy thật (3.444)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

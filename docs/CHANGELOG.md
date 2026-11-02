@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.445 — 02/11/2026 — Scan: bổ sung ấp cho bản tổ trưởng thiếu ấp (TK 2)
+- **Anh 02/11** (ảnh tab Scan): "t/h là tổ trưởng nhưng không nhận ấp" → duyệt: sửa lúc lưu + nút bổ sung cho bản cũ.
+- Nguyên nhân (suy từ code): tổ trưởng nhận qua **chủ TK 104** (3.442) không có dòng File Tổ trưởng → ấp, tổ trống; tổ trưởng cũ từ File Tổ trưởng thiếu cột tên thôn; bản lưu từ bản app trước.
+- `ttApBu(k)` (js/84): bản đã gắn mã KH mà trống ấp → ấp theo ① tổ (bảng tổ kỳ đang mở / danh bạ tổ) ② File Tổ trưởng mọi kỳ (mã KH = MATT hoặc mã tổ) ③ Mẫu 31 (chính khách đó, rồi ấp đa số món vay của tổ) ④ mã thôn đã có (TK 104) → tên ấp theo tổ / khách cùng mã thôn, cuối cùng danh mục Cài đặt. Không ra → để trống, vẫn ⚠ (không đoán). Ghi nguồn `k.apTu`.
+- Lúc lưu (`scanLuuTu`, js/41): giữ `k.maTo`, tự gọi `ttApBu`. Bản đã lưu: nút **🔧 Bổ sung ấp (n)** trên thanh Chờ sắp xếp (lệnh `ttap.bu`) — anh bấm mới điền, chỉ điền ô trống.
+- Dòng CCCD không nhận (QR không đọc ra tên, số không có trong Mẫu 31 / File Tổ trưởng): chờ anh cho biết người đó — chưa sửa.
+- Phép thử mới `t359` (dữ liệu giả).
+
 ## 3.444 — 02/11/2026 — Mẫu 10A gọn 4 trang, chừa chỗ ký (TK 2)
 - **Anh 02/11:** "bố cục lại còn 4 trang" → chọn cách A; "chừa chỗ ký tên cho thoải mái, có thể giảm lề và các giãn dòng dư".
 - `js/mau/10a.js`: bỏ ngắt trang cứng trước phần II (khung 100 dòng cao cố định + Tổng số đã giữ bố cục — sửa tên không xô trang); lề trên / dưới 20 → 15 mm; thân bài giãn dòng 17 → 16 pt (chữ vẫn 14); khoảng trống dưới tiêu đề 11 → 6 mm; dòng khung 6,2 → 5,8 mm (`HSO_10A_CAO`); chỗ ký Thư ký / Trưởng thôn / Chủ trì 3 → 4 dòng trống; tiêu đề mục II–IV không treo cuối trang (class `kt-b`).
