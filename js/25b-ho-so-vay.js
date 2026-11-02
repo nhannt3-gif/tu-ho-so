@@ -524,6 +524,7 @@ function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, 
       if(n.nodeType!==1 || /^(COLGROUP|COL|TABLE|P)$/.test(n.tagName)) return;
       if(n.tagName==='BR'){ r.push('<w:r><w:br/></w:r>'); return; }
       if(n.tagName==='IMG'){ r.push(hinh(n)); return; }
+      if(lop(n, 'tab')){ r.push('<w:r><w:tab/></w:r>'); return; }   /* 3.449: khoảng tab (10A: họ tên ⇥ Chức vụ) */
       var g = Object.assign({}, f); if(/^(B|STRONG)$/.test(n.tagName) || lop(n, 'b')) g.b = 1; if(/^(I|EM)$/.test(n.tagName) || lop(n, 'i')) g.i = 1; if(n.tagName==='U' || lop(n, 'u')) g.u = 1; if(n.tagName==='SUP') g.sup = 1; if(n.style && n.style.fontWeight==='normal') g.b = 0; g.sz = co(n, g.sz);   /* 3.446: chữ điền trong dòng đậm in thường (10A) */
       r = r.concat(chu(n, g)); });
     return r; };
@@ -533,7 +534,9 @@ function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, 
     var jc = lop(el, 'c') ? 'center' : lop(el, 'r') ? 'right' : lop(el, 'j') ? 'both' : 'left', g = Object.assign({}, f);
     if(lop(el, 'b')) g.b = 1; if(lop(el, 'i')) g.i = 1; if(lop(el, 'u')) g.u = 1; g.sz = co(el, g.sz);
     var trai = lop(el, 'l1') ? 454 : lop(el, 'l2') ? 794 : lop(el, 'l4') ? 1247 : 0;
-    return '<w:p><w:pPr>'+(lop(el, 'tr-sang') ? '<w:pageBreakBefore/>' : '')+'<w:spacing w:before="'+(lop(el, 'tr') ? 120 : lop(el, 'tr2') ? 50 : 0)+'" w:after="'+(lop(el, 'sau') ? 120 : 20)+'" w:line="'+(f.bang ? 240 : 276)+'" w:lineRule="auto"/>'+(lop(el, 'thut') || trai ? '<w:ind'+(trai ? ' w:left="'+trai+'"' : '')+(lop(el, 'thut') ? ' w:firstLine="567"' : '')+'/>' : '')+'<w:jc w:val="'+jc+'"/></w:pPr>'+chu(el, g).join('')+'</w:p>';
+    var tb = +el.getAttribute('data-tab') || 0;   /* 3.449: điểm dừng tab (mm từ lề trái) */
+    return '<w:p><w:pPr>'+(lop(el, 'tr-sang') ? '<w:pageBreakBefore/>' : '')+(tb ? '<w:tabs><w:tab w:val="left" w:pos="'+tw(tb)+'"/></w:tabs>' : '')+
+      '<w:spacing w:before="'+(lop(el, 'tr') ? 120 : lop(el, 'tr2') ? 50 : 0)+'" w:after="'+(lop(el, 'sau') ? 120 : 20)+'" w:line="'+(f.bang ? 240 : 276)+'" w:lineRule="auto"/>'+(lop(el, 'thut') || trai ? '<w:ind'+(trai ? ' w:left="'+trai+'"' : '')+(lop(el, 'thut') ? ' w:firstLine="567"' : '')+'/>' : '')+'<w:jc w:val="'+jc+'"/></w:pPr>'+chu(el, g).join('')+'</w:p>';
   };
   var vien = function(v, cham){ return '<w:tblBorders>'+['top','left','bottom','right','insideH','insideV'].map(function(b){ return '<w:'+b+' w:val="'+(!v ? 'nil' : (cham && b==='insideH') ? 'dotted' : 'single')+'" w:sz="4" w:space="0" w:color="'+(cham && b==='insideH' ? '777777' : '000000')+'"/>'; }).join('')+'</w:tblBorders>'; };
   var bang = function(tb, f){

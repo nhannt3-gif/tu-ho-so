@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.448', ds:[
+var CO_GI_MOI = {ban:'3.449', ds:[
+  ["📝 Mẫu 10A: bảng hộ vay của tổ (Mã KH, dư nợ, TT / TP), họ tên ⇥ Chức vụ, mỗi dòng chọn tự động / ghi tay", ""],
   ["📝 Mẫu 10A: Thành lập / Kiện toàn (VB 4336), chữ 14, Tổng số ở cột cuối, xã–ấp theo địa bàn, nút ⚙ Khai báo riêng", ""],
   ["🌳 Cây lọc: tên xã không còn hiện \"Vay trực tiếp\"", ""],
   ["📝 Mẫu 10A rà bố cục: ngày họp in đúng, thêm khoảng trắng sau xã / tỉnh / tháng, dòng Thư ký vừa 1 dòng", ""],
@@ -1070,9 +1071,11 @@ var CO_GI_MOI = {ban:'3.448', ds:[
   ["🎯 Phân bổ KH: 📥 Nạp QĐ từ Excel mẫu (Gemini điền từ QĐ scan) — xem trước, soát rồi Lưu", ""],
   ["🏷 Văn bản: tự gắn tag nguồn theo số hiệu — VB Trung ương · NHCSXH Trung ương · Chỉ đạo của Tỉnh", ""],
   ["🔤 Khai văn bản: nút đổi chữ ô Tên — thường · Hoa đầu câu · HOA · Hoa Đầu Từ", ""],
-  ["💰 Lãi tồn số liệu theo ngày: món đã trả lãi ở phiên gần nhất không còn lãi tồn (QT-C-03)", ""],
-  ["📅 Tra cứu theo ô kỳ góc phải (mặc định mới nhất), thẻ khách ghi rõ kỳ số liệu", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["💰 Lãi tồn số liệu theo ngày: món đã trả lãi ở phiên gần nhất không còn lãi tồn (QT-C-03)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.449 · Hồ sơ Tổ › chọn tổ › 10A → cột trái bảng \"👥 Hộ vay của tổ — số liệu …\": ☑ in · Mã KH · họ tên (TT / TP) · dư nợ · ghi chú; bấm tiêu đề Mã KH / Dư nợ để sắp; nút \"Bỏ tích hộ dư nợ = 0\"",
+    "3.449 · 10A xem trước: III a) / b) \"Ông (Bà): tên ⇥ Chức vụ: …\"; kẻ dưới tiêu đề; Hội không ghi xã / phường",
+    "3.449 · ⚙ Khai báo riêng 10A: mỗi dòng (III a / b, phê duyệt UBND, địa bàn, chủ trì, chữ ký) chọn 🤖 / ✍ riêng",
     "3.448 · Hồ sơ Tổ › 10A › nút ⚙ Khai báo riêng (cạnh ⚙ Khai báo đơn vị) → mọi dòng theo thứ tự mẫu, tích Chọn nhanh",
     "3.448 · Cột trái 10A › Chọn nhanh › Thành lập / Kiện toàn → tiêu đề + câu nội dung đổi theo VB 4336",
     "3.448 · Bản mẫu 10A › Điền: Điền hết / Chừa phê duyệt UBND / Tùy chọn",
@@ -1089,11 +1092,9 @@ var CO_GI_MOI = {ban:'3.448', ds:[
     "3.440 · Tra cứu › Tìm theo Tổ trưởng → chọn Xã / Điểm / Hội / Ấp ở LỌC ĐỊA BÀN → cột CCCD ghi Đã lưu / Thiếu (rê chuột: số CCCD, ngày lưu), lọc cột chọn Thiếu, dòng Cộng ghi đã lưu / tổng",
     "3.439 · Số liệu › 🎯 Phân bổ KH › ⬇ Tải mẫu Excel → đưa Gemini kèm ảnh QĐ → 📥 Nạp QĐ (Excel mẫu) → xem trước (dòng vàng cần soát) → 💾 Lưu",
     "3.438 · Văn bản › ＋ Thêm file PDF Nghị định (Số: 54/2026/NĐ-CP) hoặc tên file 54_2026_NĐ-CP → app tự nhận số hiệu đủ, loại Nghị định, tag VB Trung ương",
-    "3.438 · Văn bản › khai văn bản số 54/2026/NĐ-CP → Loại tự chọn Nghị định, tự thêm chip tag \"VB Trung ương\"; số …/NHCS-KHTD → tag \"Chỉ đạo của Tỉnh\"; …/NHCS-TDNN, …/QĐ-HĐQT → \"NHCSXH Trung ương\"",
-    "3.438 · Văn bản › đầu tab nút 🏷 Gắn tag nguồn (n) → gắn tag cho văn bản cũ (hỏi trước, chỉ thêm tag)",
-    "3.438 · Văn bản › bộ lọc tag: chọn \"Chỉ đạo của Tỉnh\" / \"VB Trung ương\" để xem riêng",
-    "3.437 · Văn bản › khai / sửa 1 văn bản → ô Tên văn bản, góc phải có 4 nút aa · Aa. · AA · Aa Aa → bấm thử, ký hiệu (NHCSXH, 54/QĐ-HĐQT) giữ nguyên, xem trước tên file đổi theo"],
+    "3.438 · Văn bản › khai văn bản số 54/2026/NĐ-CP → Loại tự chọn Nghị định, tự thêm chip tag \"VB Trung ương\"; số …/NHCS-KHTD → tag \"Chỉ đạo của Tỉnh\"; …/NHCS-TDNN, …/QĐ-HĐQT → \"NHCSXH Trung ương\""],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.449 · 10A: danh sách tích tổ viên cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun 10A)",
     "3.448 · 10A: lựa chọn \"Củng cố\" (3.446) → \"Kiện toàn\" theo VB 4336 (giá trị cũ tự đọc như Kiện toàn)",
     "3.448 · 10A: khối thu gọn ⚙ Khai báo riêng cuối cột trái (3.446) → nút riêng; cột trái chỉ còn Chọn nhanh",
     "3.448 · 10A: dòng \"Tổng số\" dưới khung → dòng cuối cột 3 như gốc",
