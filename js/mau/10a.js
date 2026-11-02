@@ -19,6 +19,8 @@
     return m ? (/^(kp|khu)/i.test(m[1]) ? 'khu phố' : /^ap$/i.test(m[1]) ? 'ấp' : m[1].toLowerCase()) : (T.capAp || 'thôn'); }   /* 3.448 (anh 02/11 "xã ấp tự đổi theo đơn vị hành chính"): ấp / khu phố / thôn theo tên ấp, không có tiền tố → theo xã / phường */
   function P2(a, b, st, st2){ return P(a, st+W+TL+'margin-bottom:0;')+P(b, (st2||'')+W+';margin-top:0;'); }
   /* 3.449 (anh 02/11): Hội ở dòng Chủ trì chỉ ghi tên Hội, bỏ xã / phường */
+  function hso10aDong(dau, vvCo){ var n = 0; dau.forEach(function(h){ var tx = String(h).replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/[.…]{6,}/g, function(m){ return m.slice(0, Math.ceil(m.length*0.85)); });   /* 3.454: ước số dòng phần đầu trang 1 (chữ 14, rộng 160 mm, thụt 12,7; chuỗi chấm tính 85 % vì chấm co giãn) */
+    n += /data-tab=/.test(h) && !/text-align:left/.test(h) ? 1 : Math.max(1, Math.ceil((12.7+omRong(tx, 14))/157)); }); return n+(vvCo ? 0 : 1); }
   function hso10aHoi(h){ return String(h||'').replace(/\s+(xã|phường|thị trấn|đặc khu)\s+.*$/i, '').trim(); }
   /* 3.449 (anh 02/11 "mỗi dòng cho chọn tự động hay chấm ghi tay"): tách ô gộp — cách đã chọn ở ô cũ chuyển sang ô con (1 lần) */
   function hso10aTach(){ var L = hsoLuu(); if(L.tach10a3449) return; L.tach10a3449 = 1; var c = (L.cham||{})[MK] || {}, nh = (L.nhanh||{})[MK];
@@ -115,12 +117,30 @@
       var vIII = Math.max(tabVi('a) '+ong('bqlTT', '', V.tt), 'Chức vụ: Tổ trưởng;'), tabVi('b) '+ong('bqlPho', '', V.pho), 'Chức vụ: Tổ phó.'));   /* III a / b cùng 1 điểm tab → thẳng hàng */
       var ngd = function(k, ds){ var x = hsoNg(G.gt(k)), p = x ? [x.d, x.m, x.y] : ['', '', '']; return ds.map(function(ch, i){ return o(k, ch, {gt:p[i], canh:'c'}); }); };
       var nd = ngd('ngay', ['….', '……', '………']), un = ngd('ubNgay', ['......', '........', '.....']);
-      var tv = (C('tv') ? V.tv : []).slice(0, HSO_10A_TV), ds = '', R = 'line-height:1.15;';   /* 3.443 (anh 02/11): khung cố định 100 tổ viên (QĐ 70), 3 cột × 34 dòng đánh số dọc theo cột, nằm trang 1–2 — sửa tên không đẩy trang 3–4 */
-      for(var i=0;i<HSO_10A_DONG;i++){ ds += '<tr style="height:'+HSO_10A_CAO+'mm">';
-        for(var c=0;c<3;c++){ var j = c*HSO_10A_DONG+i, a = tv[j]; var cx = a ? hso10aCo(a.ten) : 14, ndo = (j+1)+'. '+o('tv', '....................................', {gt:a ? a.ten : ''});
-          ds += '<td style="padding:0 1.2mm;vertical-align:bottom;overflow:hidden;white-space:nowrap">'+(c===2 && i===HSO_10A_DONG-1 ? P('<b>Tổng số:</b> '+o('tv', '..............', {gt:g('tv', V.tong), canh:'c'})+' <b>tổ viên</b>', R+W) : j<HSO_10A_TV ? P(cx<14 ? '<span class="s'+cx+'">'+ndo+'</span>' : ndo, R+W) : '')+'</td>'; }
-        ds += '</tr>'; }
+      var tv = (C('tv') ? V.tv : []).slice(0, HSO_10A_TV), R = 'line-height:1.15;';   /* 3.443 (anh 02/11): khung cố định 100 tổ viên (QĐ 70), 3 cột × 34 dòng đánh số dọc theo cột, nằm trang 1–2 — sửa tên không đẩy trang 3–4 */
       var hoi = V.hoiLa ? 'Hội '+o('chuTriHoi', '..........', {gt:g('chuTriHoi', V.hoiTen)}) : o('chuTriHoi', 'Hội ..........', {gt:g('chuTriHoi', V.hoiTen)});
+      var dau = [
+        P('<b>Thời gian bắt đầu:</b> '+o('gio', '…….', {canh:'c'})+' giờ '+o('gio', '……', {gt:''})+', ngày '+nd[0]+'/'+nd[1]+'/'+nd[2], J+F+H15),
+        P('<b>Địa điểm:</b> '+dvA('diaDiem', '………….……', '……….………', 1)+', tỉnh '+o('diaDiem', '…………...……', {gt:g('diaDiem', V.tinh)}), J+F+H15),
+        P('<b>Thành phần tham dự: </b>', J+F+H15),
+        P('- '+o('soNguoi', '………', {canh:'c'})+' người là đại diện hộ gia đình cùng cư trú tại địa bàn '+dvA('diaBan2', '…………...………...', '…………………….')+', tỉnh '+o('diaBan2', '………………………………', {gt:g('diaBan2', V.tinh)}), J+F+H15),
+        P('- '+ong('truongAp', '....................................', V.truongAp)+' là Trưởng '+apL+', chứng kiến cuộc họp', J+F+H15),
+        (coTen('chuTri', V.cb) ? tabP('<b>Chủ trì</b>: '+ong('chuTri', '...................................', V.cb), 'Chức vụ: '+o('chuTriCv', '..............................', {gt:g('chuTriCv', V.cv)})+' '+hoi+'.', H15)
+          : P('<b>Chủ trì</b>: Ông (Bà) '+o('chuTri', '...................................', {gt:''})+' Chức vụ '+o('chuTriCv', '..............................', {gt:g('chuTriCv', V.cv)})+' '+hoi+'.', J+F+H15)),
+        P('<b>Thư ký:</b> '+ong('thuKy', '............................................', V.thuKy)+' là đại diện hộ gia đình.', J+F+H15),
+        P('<b>Nội dung cuộc họp:</b>', F+H15),
+        P('Các đại diện hộ gia đình và cá nhân trực tiếp thuộc đối tượng vay vốn tự nguyện họp để '+
+          (vvKT(G.gt('vv')) ? 'kiện toàn hoạt động của' : 'thành lập')+' Tổ Tiết kiệm và vay vốn (TK&amp;VV) theo quy định tại Quyết định số 70/QĐ-HĐQT ngày 27/8/2026 của Hội đồng quản trị Ngân hàng Chính sách xã hội (NHCSXH) về Quy chế hoạt động Tổ TK&amp;VV. Sau khi thảo luận, các thành viên dự họp thống nhất các nội dung sau:', J+F+H15)];
+      /* 3.454 (anh 02/11 "khóa cứng trang 3–4; trang 1–2 dài ra thì bù, ít khi tổ đủ 100"): phần đầu trang 1 dư dòng (tên dài, địa bàn dài, Về việc 2 dòng) → bớt hàng khung tổ viên (còn đủ ô cho tổ);
+         tổ gần đủ 100 / khung để chấm không bớt được → thu chiều cao hàng. Trang 3 luôn bắt đầu "b) Tổ phó", trang 4 luôn "III." — lớp tr-sang-in: khung chia trang bản in nhận (\btr-sang\b), Word bỏ qua
+         (Word mẫu nền ô chưa theo canh / cỡ chữ của bản in → khóa ngắt trong Word thành 5 trang; giữ Word như cũ) */
+      var DU = Math.max(0, hso10aDong(dau, vvCo)-HSO_10A_DAU), DONG = HSO_10A_DONG, CAO = HSO_10A_CAO, bot = C('tv') ? Math.max(0, Math.min(DU, HSO_10A_DONG-Math.ceil((tv.length+1)/3))) : 0;
+      DONG -= bot; if(DU>bot){ CAO = Math.max(4.9, +(HSO_10A_CAO-(DU-bot)*6.1/DONG).toFixed(2)); if(CAO<5.7) R = 'line-height:1;'; }
+      var ds = '';
+      for(var i=0;i<DONG;i++){ ds += '<tr style="height:'+CAO+'mm">';
+        for(var c=0;c<3;c++){ var j = c*DONG+i, a = tv[j]; var cx = a ? hso10aCo(a.ten) : 14, ndo = (j+1)+'. '+o('tv', '....................................', {gt:a ? a.ten : ''});
+          ds += '<td style="padding:0 1.2mm;height:'+CAO+'mm;vertical-align:bottom;overflow:hidden;white-space:nowrap">'+(c===2 && i===DONG-1 ? P('<b>Tổng số:</b> '+o('tv', '..............', {gt:g('tv', V.tong), canh:'c'})+' <b>tổ viên</b>', R+W) : j<HSO_10A_TV ? P(cx<14 ? '<span class="s'+cx+'">'+ndo+'</span>' : ndo, R+W) : '')+'</td>'; }
+        ds += '</tr>'; }
       var qu = [
         '1. Tổ TK&amp;VV là tập hợp hộ nghèo và các đối tượng chính sách khác theo quy định của pháp luật, có nhu cầu vay vốn, thực hành tiết kiệm và tham gia hoạt động khác do NHCSXH cung cấp.',
         '2. Tổ TK&amp;VV hoạt động theo nguyên tắc tập thể, biểu quyết theo đa số dưới sự điều hành của Ban quản lý Tổ. Tổ họp định kỳ hằng '+(G.gt('dkKy') ? o('dkKy', '', {}) : 'tháng (quý)')+' vào ngày '+o('ngayDK', '.......', {canh:'c'})+' hoặc đột xuất để giải quyết công việc phát sinh (nếu có). Nội dung họp Tổ do Tổ trưởng chuẩn bị và thống nhất trong Ban quản lý Tổ.',
@@ -129,7 +149,7 @@
         '4. Điều hành hoạt động của Tổ là Ban quản lý Tổ do các tổ viên trong Tổ bầu chọn. Ban quản lý Tổ gồm Tổ trưởng và Tổ phó, đáp ứng các tiêu chuẩn quy định tại khoản 2 Điều 8 Quyết định số 70/QĐ-HĐQT.',
         'Ban quản lý Tổ phối hợp, giám sát lẫn nhau để điều hành hoạt động của Tổ thực hiện nhiệm vụ quy định tại Quy chế hoạt động Tổ và Quy ước hoạt động được Tổ thông qua, thực hiện các nội dung công việc theo hợp đồng ủy nhiệm ký với NHCSXH. Trong đó, nhiệm vụ cụ thể như sau: ',
         'a) Tổ trưởng chịu trách nhiệm điều hành hoạt động của Tổ theo Quy ước hoạt động của Tổ và thực hiện nhiệm vụ, trách nhiệm của Ban quản lý Tổ; triệu tập và chủ trì các cuộc họp; ký hợp đồng ủy nhiệm với NHCSXH; giao dịch với NHCSXH và tham gia họp giao ban tại điểm giao dịch; có trách nhiệm thanh toán số tiền hoa hồng được NHCSXH chi trả cho thành viên Ban quản lý Tổ theo thống nhất trong Ban quản lý Tổ.',
-        'b) Tổ phó ghi chép biên bản các cuộc họp; giúp việc cho Tổ trưởng, điều hành và giải quyết các công việc của Tổ khi được Tổ trưởng phân công; thay mặt Tổ trưởng giao dịch với NHCSXH và tham gia họp giao ban tại điểm giao dịch khi Tổ trưởng vắng mặt. ',
+        ['b) Tổ phó ghi chép biên bản các cuộc họp; giúp việc cho Tổ trưởng, điều hành và giải quyết các công việc của Tổ khi được Tổ trưởng phân công; thay mặt Tổ trưởng giao dịch với NHCSXH và tham gia họp giao ban tại điểm giao dịch khi Tổ trưởng vắng mặt. ', 'sang'],
         ['5. Các tổ viên trong Tổ cam kết thực hiện tốt các nội dung sau:', 1],
         ['a) Tham gia đầy đủ và biểu quyết tại các cuộc họp Tổ; tham dự các lớp tập huấn chuyển giao công nghệ, khuyến nông, khuyến lâm, khuyến ngư, tiêu thụ sản phẩm,... để nâng cao trình độ sản xuất kinh doanh.', 1],
         ['b) Sử dụng vốn vay đúng mục đích đề nghị vay, có hiệu quả. Có nghĩa vụ trả nợ (gốc, lãi) đầy đủ, đúng kỳ hạn đã thoả thuận với NHCSXH. ', 1],
@@ -147,22 +167,12 @@
         P('<b>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</b>', 'text-align:center;font-size:13pt;padding-right:6mm')+P('<b>Độc lập - Tự do - Hạnh phúc</b>', 'text-align:center')+
         '<p class="ke" data-ke="60" style="width:60mm;margin:0.5pt auto 0"></p>'+P('&nbsp;', 'line-height:1.15;height:6mm')+
         P('<b>BIÊN BẢN HỌP</b>', 'text-align:center;font-size:15pt').replace('<p ', '<p class="s15" ')+P(vvHTML(), 'text-align:center'+(vvCo===13 ? ';font-size:13pt' : '')).replace('<p ', vvCo===13 ? '<p class="s13" ' : '<p ')+'<p class="ke" data-ke="'+keW+'" style="width:'+keW+'mm;margin:4pt auto 0"></p>'+P('&nbsp;', 'line-height:10pt')+
-        P('<b>Thời gian bắt đầu:</b> '+o('gio', '…….', {canh:'c'})+' giờ '+o('gio', '……', {gt:''})+', ngày '+nd[0]+'/'+nd[1]+'/'+nd[2], J+F+H15)+
-        P('<b>Địa điểm:</b> '+dvA('diaDiem', '………….……', '……….………', 1)+', tỉnh '+o('diaDiem', '…………...……', {gt:g('diaDiem', V.tinh)}), J+F+H15)+
-        P('<b>Thành phần tham dự: </b>', J+F+H15)+
-        P('- '+o('soNguoi', '………', {canh:'c'})+' người là đại diện hộ gia đình cùng cư trú tại địa bàn '+dvA('diaBan2', '…………...………...', '…………………….')+', tỉnh '+o('diaBan2', '………………………………', {gt:g('diaBan2', V.tinh)}), J+F+H15)+
-        P('- '+ong('truongAp', '....................................', V.truongAp)+' là Trưởng '+apL+', chứng kiến cuộc họp', J+F+H15)+
-        (coTen('chuTri', V.cb) ? tabP('<b>Chủ trì</b>: '+ong('chuTri', '...................................', V.cb), 'Chức vụ: '+o('chuTriCv', '..............................', {gt:g('chuTriCv', V.cv)})+' '+hoi+'.', H15)
-          : P('<b>Chủ trì</b>: Ông (Bà) '+o('chuTri', '...................................', {gt:''})+' Chức vụ '+o('chuTriCv', '..............................', {gt:g('chuTriCv', V.cv)})+' '+hoi+'.', J+F+H15))+
-        P('<b>Thư ký:</b> '+ong('thuKy', '............................................', V.thuKy)+' là đại diện hộ gia đình.', J+F+H15)+
-        P('<b>Nội dung cuộc họp:</b>', F+H15)+
-        P('Các đại diện hộ gia đình và cá nhân trực tiếp thuộc đối tượng vay vốn tự nguyện họp để '+
-          (vvKT(G.gt('vv')) ? 'kiện toàn hoạt động của' : 'thành lập')+' Tổ Tiết kiệm và vay vốn (TK&amp;VV) theo quy định tại Quyết định số 70/QĐ-HĐQT ngày 27/8/2026 của Hội đồng quản trị Ngân hàng Chính sách xã hội (NHCSXH) về Quy chế hoạt động Tổ TK&amp;VV. Sau khi thảo luận, các thành viên dự họp thống nhất các nội dung sau:', J+F+H15)+
+        dau.join('')+
         P('<b>I. DANH SÁCH TỔ VIÊN</b>', J+F+'margin-top:4pt')+
-        '<table class="khung0 tv100" data-w="1,1,1" data-cao="'+HSO_10A_CAO+'" style="width:161.5mm;table-layout:fixed"><colgroup><col style="width:33.33%"><col style="width:33.33%"><col style="width:33.34%"></colgroup>'+ds+'</table>'+
+        '<table class="khung0 tv100" data-w="1,1,1" data-cao="'+CAO+'" style="width:161.5mm;table-layout:fixed"><colgroup><col style="width:33.33%"><col style="width:33.33%"><col style="width:33.34%"></colgroup>'+ds+'</table>'+
         P('<b>II. QUY ƯỚC HOẠT ĐỘNG CỦA TỔ TK&amp;VV</b>', J+F+H17).replace('<p ', '<p class="kt-b" ')+
-        qu.map(function(x){ var c = Array.isArray(x) ? x[1] : 0, s = Array.isArray(x) ? x[0] : x; return P(s, J+F+H17); }).join('')+
-        P('<b>III. BẦU BAN QUẢN LÝ CỦA TỔ TK&amp;VV</b>', J+F+H17).replace('<p ', '<p class="kt-b" ')+
+        qu.map(function(x){ var c = Array.isArray(x) ? x[1] : 0, s = Array.isArray(x) ? x[0] : x, r = P(s, J+F+H17); return c==='sang' ? r.replace('<p ', '<p class="tr-sang-in" ') : r; }).join('')+
+        P('<b>III. BẦU BAN QUẢN LÝ CỦA TỔ TK&amp;VV</b>', J+F+H17).replace('<p ', '<p class="kt-b tr-sang-in" ')+
         P('1. Các tổ viên dự họp thống nhất bầu Ban quản lý Tổ gồm các Ông (Bà) có tên dưới đây:', J+F+H17)+
         (coTen('bqlTT', V.tt) ? tabP('a) '+ong('bqlTT', '', V.tt), 'Chức vụ: Tổ trưởng;', H17, vIII) : P('a) Ông (Bà) '+o('bqlTT', '..................................................................', {gt:''})+' Chức vụ: Tổ trưởng;', J+F+H17))+
         (coTen('bqlPho', V.pho) ? tabP('b) '+ong('bqlPho', '', V.pho), 'Chức vụ: Tổ phó.', H17, vIII) : P('b) Ông (Bà) '+o('bqlPho', '..................................................................', {gt:''})+' Chức vụ: Tổ phó.', J+F+H17))+
@@ -179,7 +189,7 @@
           ' do Ông (Bà) '+o('ubTT', '....................................................................…….', {gt:g('ubTT', V.tt)})+' làm Tổ trưởng và Ông (Bà) '+o('ubPho', '.............................................................................', {gt:g('ubPho', V.pho)})+' làm Tổ phó được thành lập, hoạt động theo Quy ước của Tổ đề ra và chịu trách nhiệm trước pháp luật về hoạt động của Tổ TK&amp;VV.', J+F+H15)+
         '<table class="khung0" style="width:160mm;table-layout:fixed"><colgroup><col style="width:45.7%"><col style="width:54.3%"></colgroup><tr><td></td><td style="padding:0 1.9mm">'+
           P('<i>Ngày'+un[0]+'tháng'+un[1]+'năm '+un[2]+'</i>', 'text-align:center')+P('<b>UBND CẤP XÃ</b>', 'text-align:center')+P('<i>(Ký tên, đóng dấu)</i>', 'text-align:center')+'</td></tr></table>'+'';   /* 3.443.1: chừa chỗ UBND ký, đóng dấu (cả mẫu vẫn 4 trang) */
-      return {ma:'10A/TD', h:'<div class="om-goc" style="font-size:14pt;line-height:1.15">'+h+'</div>'};
+      return {ma:'10A/TD', du:DU, dong:DONG, cao:CAO, h:'<div class="om-goc" style="font-size:14pt;line-height:1.15">'+h+'</div>'};
     }});
   hsoLap10a = function(t){ return omLap(MK, t); };
   var M = hsoMauK(MK); if(M) M.mg = omMg([15, 20, 15, 30]);   /* 3.443.1: tiêu đề mục II–IV class kt-b → bộ chia trang kéo theo đoạn sau (không treo cuối trang) · (anh 02/11 "giảm lề, giãn dòng dư" → 4 trang): lề trên / dưới 20 → 15 mm */

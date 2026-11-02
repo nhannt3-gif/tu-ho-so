@@ -219,6 +219,7 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
    - Mẫu chữ liền không bắt chồng khít từng dòng — chỉ giữ cùng số trang (`t181` nhóm DUNG).
    - **Phần chung `js/mau/0hst.js` (`HST`, 3.452):** mẫu Hồ sơ Tổ làm lại dùng chung bộ hàm (bảng hộ vay, chữ liền / chấm, tab chức vụ, tiêu đề, tách ô) — không chép lại trong từng mẫu. Ô chọn nhiều `nhieu:1` (Về việc 10B, 10C).
    - **Kết nạp / cho ra chỉ qua lại trong cùng 1 ấp** (anh 02/11) — áp ở 10C.
+   - **Khóa trang mẫu nhiều trang (anh 02/11, 10A 3.454):** chỗ anh chỉ định luôn đầu trang (10A: trang 3 "b) Tổ phó", trang 4 "III.") — lớp `tr-sang-in` (bản in). Phần trước dư dòng (tên dài) → **bớt dòng trống của khung danh sách** (ít khi đủ tối đa), không được thì thu chiều cao dòng khung; không đổi cỡ chữ, không bỏ chữ. Phép thử kiểm cả trường hợp tên dài.
 
 ## 10. Chuẩn hóa code, giao diện, thư viện (anh duyệt 17/10/2026 — chi tiết `KE_HOACH_CHUAN_HOA.md`)
 - **Code mới:** hộp riêng mỗi khối, `data-lenh` thay `onclick` trong chuỗi, file ≤ ~150 KB; mỗi bản dọn rác trong phạm vi + kiểm toàn vẹn; thước đo `tests/kiem.py` không được vượt mốc `tests/do_moc.json` (hạ mốc khi dọn bớt: `python3 tests/kiem.py --moc`).

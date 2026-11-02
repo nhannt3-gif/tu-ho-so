@@ -29,7 +29,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('tổ viên tích điền theo thứ tự, ô sau trống chấm; Tổng số đúng', daTich.length>0 && tb.rows[0].cells[0].textContent.indexOf(daTich[0].ten)>=0 && /\.{10}/.test(tb.rows[33].cells[1].textContent) && new RegExp('Tổng số: '+daTich.length+' ?tổ viên').test(d.body.textContent), daTich.length+' tổ viên');
    ok('3.446: khung chữ cỡ 13 (không lớp s12), dòng cao cố định (data-cao)', !/\bs12\b/.test(tb.className) && +tb.getAttribute('data-cao')>0);
    const pII = [...d.querySelectorAll('p')].find(x=>/II\. QUY ƯỚC/.test(x.textContent));
-   ok('3.443.1: không ngắt trang cứng (khung cao cố định giữ bố cục)', pII && !pII.classList.contains('tr-sang') && !/tr-sang/.test(HSO.x.h));
+   ok('3.454: khóa ngắt bản in trước "b) Tổ phó" và "III." (tr-sang-in), phần II không ngắt', pII && !/tr-sang/.test(pII.className) && (HSO.x.h.match(/class="(kt-b )?tr-sang-in"/g)||[]).length===2 && /class="tr-sang-in"[^>]*>b\) Tổ phó/.test(HSO.x.h) && /class="kt-b tr-sang-in"[^>]*><b>III\./.test(HSO.x.h));
    ok('3.443.1: lề trên / dưới 15 mm', hsoMauK('10a').mg[0]===15 && hsoMauK('10a').mg[2]===15, JSON.stringify(hsoMauK('10a').mg));
    /* xem trước = bản in: khung trang 1–2, cả mẫu 4 trang, chừa chỗ UBND ký */
    hsoXem(); await w(2500);
@@ -41,6 +41,15 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('trang 4: dưới chỗ UBND ký còn ≥ 25 mm', trong>=25, trong.toFixed(1)+' mm');
    const tieu = [...kd.querySelectorAll('.tr-tg')].map(x=>{ const ps = [...x.querySelectorAll('.tr-nd p')].filter(p=>p.textContent.trim()); return ps.length ? ps[ps.length-1].textContent.trim() : ''; });
    ok('tiêu đề mục II–IV không treo cuối trang', !tieu.some(t=>/^(II|III|IV)\. /.test(t)), tieu.map(t=>t.slice(0, 20)).join(' | '));
+   /* 3.454 (anh 02/11 "khóa cứng trang 3–4; trang 1–2 dài ra thì bớt dòng khung") — tên dài làm phần đầu dư dòng → vẫn 4 trang, trang 3 = "b) Tổ phó", trang 4 = "III." */
+   { const kt = async(ten, dk)=>{ hsoXem(); await w(2500); const kd2 = document.getElementById('hso-xem-khung').contentDocument, tr = [...kd2.querySelectorAll('.tr-nd')].map(x=>x.innerText.replace(/\s+/g, ' ').trim()), x = omLap('10a', TO_K.to[hsoCH().to]);
+       ok('3.454 '+ten+': 4 trang, trang 3 "b) Tổ phó", trang 4 "III."'+(dk ? ', '+dk[0] : ''), tr.length===4 && /^b\) Tổ phó/.test(tr[2]||'') && /^III\. BẦU/.test(tr[3]||'') && (!dk || dk[1](x)), tr.length+' trang · khung '+x.dong+' hàng × '+x.cao+' mm · dư '+x.du); try{ dongHop(); }catch(e){} };
+     const dai = 'Nguyễn Thị Hoàng Phương Thảo Nguyên Giả';
+     await kt('như thường', ['đủ 34 hàng', x=>x.dong===34 && x.du===0]);
+     omDatCach('10a', 'truongAp', 'kb'); omDatKB('10a', 'truongAp', dai); await kt('Trưởng ấp tên dài', ['bớt hàng khung', x=>x.du>=1 && x.dong===34-x.du && x.cao===HSO_10A_CAO]);
+     omDatCach('10a', 'thuKy', 'kb'); omDatKB('10a', 'thuKy', dai); await kt('+ Thư ký tên dài', ['bớt hàng khung', x=>x.du>=2 && x.dong===34-x.du]);
+     omDatCach('10a', 'tv', 'cham'); await kt('khung để chấm + tên dài', ['giữ 34 hàng (100 ô), thu chiều cao hàng', x=>x.dong===34 && x.cao<HSO_10A_CAO]);
+     ['truongAp', 'thuKy'].forEach(k=>{ omDatKB('10a', k, ''); omDatCach('10a', k, 'tu'); }); omDatCach('10a', 'tv', 'tu'); hsoVe(); await w(300); }
    /* Word */
    const x = hsoLap(); let b64 = '';
    try { const bl = await hsoDocx(x); b64 = await new Promise(r=>{ const fr=new FileReader(); fr.onload=()=>r(fr.result.split(',')[1]); fr.readAsDataURL(bl); }); } catch(e){ b64 = ''; }
@@ -133,7 +142,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
  const b64 = await p.evaluate(()=>window.__W||''); let xml = '';
  if(b64){ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 't358-')), f = path.join(tmp, '10a.docx'); fs.writeFileSync(f, Buffer.from(b64, 'base64')); xml = cp.execSync('unzip -p '+f+' word/document.xml').toString(); }
  const okN = (ten, dk, chi) => R.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
- okN('Word: không ngắt trang cứng', !/<w:pageBreakBefore\/>/.test(xml));
+ okN('Word: không ngắt trang cứng (3.454: Word mẫu nền ô chưa theo canh / cỡ chữ bản in → giữ như cũ)', !/<w:pageBreakBefore\/>/.test(xml));
  okN('Word: 34 dòng khung cao cố định (trHeight exact)', (xml.match(/w:hRule="exact"/g)||[]).length===34, (xml.match(/w:hRule="exact"/g)||[]).length);
  okN('3.449 Word: dòng họ tên có tab thật + điểm dừng tab', /<w:tabs><w:tab w:val="left" w:pos="\d+"\/><\/w:tabs>/.test(xml) && /<w:r><w:tab\/><\/w:r>/.test(xml));
  okN('Word: khung 3 cột chia đều', /<w:tblGrid>(<w:gridCol w:w="(\d+)"\/>){3}<\/w:tblGrid>/.test(xml));

@@ -50,7 +50,7 @@ const fs=require('fs'), path=require('path');
    ok('ô khung cố định (vd 09A Họ tên) chữ dài quá khung: thu nhỏ chữ (font-size) + ⚠ ghi vào danh sách báo trước khi in', /font-size:[\d.]+pt/.test(h9) && OM_DAI.some(d=>d.k==='ten'));
    hmDongBo(hmTim(ho.id), B); hsoBoLuu(); hsoVe(); await w(300);
    /* 6. Chọn nhanh + khai báo trực quan */
-   ok('cột trái: ⚙ Khai báo riêng — tóm tắt số ô theo nguồn (3.229: 📊 / ⚙ / 🤖 / ⌨ / ✏ / ✍) + nút 🖼 Khai báo trực quan + 9 ô Chọn nhanh', /ô: \d+ (📊|⚙|🤖)/.test(document.getElementById('hso-tuy').textContent) && /Khai báo trực quan/.test(document.getElementById('hso-tuy').textContent) && omNhanh('01td').length===9);
+   ok('⚙ Khai báo riêng (3.455: hộp riêng) — tóm tắt số ô theo nguồn (3.229: 📊 / ⚙ / 🤖 / ⌨ / ✏ / ✍) + nút 🖼 Khai báo trực quan; cột trái 9 ô Chọn nhanh', (()=>{ omKBDsHop('01td'); const t = document.getElementById('hop-in').textContent; dongHop(); return /ô: \d+ (📊|⚙|🤖)/.test(t) && /Khai báo trực quan/.test(t); })() && document.querySelectorAll('#hso-tuy .hso-cham-o').length===9 && omNhanh('01td').length===9);
    omKBHop('01td'); await w(800); const f = document.getElementById('om-kbt-khung'), d = f.contentDocument;
    ok('🖼 cửa sổ rộng: mẫu như giấy (mọi ô có data-o) + khung phải', document.getElementById('hop-in').classList.contains('xem-rong') && d.querySelectorAll('[data-o]').length>=40 && !!document.getElementById('om-kbt-phai'));
    d.querySelector('[data-o="nhNgayLai"]').click(); await w(200);

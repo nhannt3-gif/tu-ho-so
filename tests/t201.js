@@ -40,7 +40,7 @@ const fs=require('fs'), path=require('path');
    ok('mẫu khác (09A): đóng chưa lưu → trả lại', !((hsoLuu().cham||{})['09a']||{})[o9.k]);
    /* 6. cỡ chữ 13 / 13,5 / 14 (3.254) */
    ok('01/TD mặc định cỡ chữ thân 14 (anh 17/10); mẫu khác giữ như cũ (03/TD không bọc)', /class="om-co" style="font-size:14pt"/.test(omLap('01td', null, hsoBo()).h) && !/class="om-co"/.test(omLap('03td', null, hsoBo(), [], 'HSSV').h));
-   hsoChonMau('01td'); await w(400); ok('khai báo riêng (cột trái) có chọn Cỡ chữ 13 · 13,5 · 14', /Cỡ chữ:\s*13\s*13,5\s*14/.test(document.getElementById('hso-tuy').textContent.replace(/\s+/g, ' ')));
+   hsoChonMau('01td'); await w(400); ok('⚙ Khai báo riêng (3.455: hộp riêng) có chọn Cỡ chữ 13 · 13,5 · 14', (()=>{ omKBDsHop('01td'); const t = document.getElementById('hop-in').textContent.replace(/\s+/g, ' '); dongHop(); return /Cỡ chữ:\s*13\s*13,5\s*14/.test(t); })());
    omCoDat('09a', 13.5); ok('chọn 13,5 cho 09A → bản in bọc cỡ 13,5; quốc hiệu giữ cỡ mẫu', /class="om-co" style="font-size:13.5pt"/.test(omLap('09a', KHO.to(hsoCH().to), hsoBo()).h) && /style="font-size:13pt">CỘNG HÒA/.test(omLap('09a', KHO.to(hsoCH().to), hsoBo()).h));
    omKBHop('09a'); await w(300); omCoDat('09a', 14); dongHop(); await w(200); ok('đổi cỡ chữ trong khung rồi đóng chưa lưu → trả lại 13,5', omCoChu('09a')===13.5);
    omCoDat('09a', 0); ok('bỏ chọn → về mặc định mẫu', omCoChu('09a')===0);

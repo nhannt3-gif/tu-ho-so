@@ -3492,6 +3492,18 @@ table.hm-so{min-width:1476px}
 .om-o-ten{padding:6px 8px;border-left:3px solid var(--xanh);background:rgba(26,95,180,.06);margin-bottom:6px}.om-phan{display:flex;align-items:center;gap:6px;margin:3px 0}.om-phan span{flex:1}
 .om-chu{padding:0 4px;border-radius:3px}.om-chu.om-tu{background:#d9f0d3}.om-chu.om-kb{background:#fff0b3}.om-chu.om-go{background:#dbeafe}.om-chu.om-cham{background:#eef0f3}
 @media(max-width:899px){ .om-kbt{grid-template-columns:1fr} }
+/* 3.455 (anh 02/11): danh sách khai báo dùng chung (⚙ Khai báo riêng · 🖼 trực quan) — tên / nút nguồn / giá trị / Chọn nhanh; vạch trái = màu nguồn như trên mẫu */
+.om-ds-dong{display:grid;grid-template-columns:minmax(140px,230px) auto minmax(0,1fr) auto;grid-template-areas:"ten nut gt nhanh";gap:4px 8px;align-items:center;padding:6px 6px 6px 8px;border-left:4px solid var(--vien);border-bottom:1px solid var(--vien);text-align:left}
+.om-ds-ten{grid-area:ten;font-weight:600;cursor:pointer;min-width:0}.om-ds-ten:hover{text-decoration:underline}.om-ds-ten small{display:block;font-weight:400;opacity:.75}
+.om-ds-nut{grid-area:nut}.om-ds-gt{grid-area:gt;min-width:0;display:flex;flex-wrap:wrap;gap:4px;align-items:center}.om-ds-gt>input,.om-ds-gt>select{flex:1 1 180px;min-width:0}
+.om-ds-nhanh{grid-area:nhanh;white-space:nowrap;font-size:calc(12px*var(--co))}#hop-in .om-ds-nhanh input{width:auto;display:inline-block;margin:0 3px 0 0}
+.om-ds-ct{grid-column:1/-1;padding:4px 0 2px}.om-ds-dong.chon{background:var(--xanh-nhat);box-shadow:inset 0 0 0 2px #e01b24}
+.om-ds-dong.nhay,.hso-cham-o.nhay{background:var(--vang-nen)}
+.om-kbt-phai .om-ds-dong{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"ten nhanh" "nut nut" "gt gt"}
+@media(max-width:700px){ .om-ds-dong{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"ten nhanh" "nut nut" "gt gt"} }
+.hso-cham-o[data-ok]{border-left:3px solid var(--vien);padding-left:6px}
+.om-ds-tu{border-left-color:#4caf50!important}.om-ds-kb{border-left-color:#e0b100!important}.om-ds-go{border-left-color:#3b82f6!important}.om-ds-mau{border-left-color:#9b59b6!important}.om-ds-cham{border-left-color:#9aa0a6!important}
+.om-ds-chu>span{display:inline-block;padding:0 6px;margin:0 3px;border-left:4px solid;font-size:calc(12px*var(--co))}
 
 /* 3.224 scan: ① chọn loại */
 .sc-loai{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.sc-loai button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 12px;border:1px solid var(--vien);border-radius:10px;background:var(--the);text-align:left;cursor:pointer}.sc-loai button b{font-size:calc(15px*var(--co))}.sc-loai button small{color:var(--chu-phu);font-size:calc(12px*var(--co))}.sc-loai button.bat{border-color:var(--xanh);box-shadow:0 0 0 2px var(--xanh) inset}

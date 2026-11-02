@@ -49,15 +49,13 @@ const fs=require('fs'), path=require('path');
  r = await ev(()=>{ omKieuDat('trang'); const d = document.createElement('div'); d.innerHTML = hsoLap().h; omKieuDat('that'); const bang = [...d.querySelectorAll('table')].find(t=>/Mục đích sử dụng vốn/.test(t.textContent)); return [...bang.querySelectorAll('tr')].filter(t=>t.querySelectorAll('td').length===8 && !/Mục đích|Số tiền|Cộng/.test(t.textContent) && !/^\s*1\s*2/.test(t.textContent)).length; });
  ok('03/TD bản trắng: 5 dòng', r===5, r);
  await ev(()=>{ hsoChonMau('01td'); }); await w(800);
- /* 4. khai báo riêng: nút mở / tắt, mặc định tắt */
+ /* 4. khai báo riêng — 3.455 (anh 02/11 "bố trí cho mọi mẫu"): khối thu gọn cột trái → nút ⚙ Khai báo riêng cạnh ⚙ Khai báo đơn vị (hộp riêng) */
  await w(500);
- r = await ev(()=>{ const d = document.querySelector('#hso-tuy details.hso-kbr-d'); return d ? {mo:d.open, nut:getComputedStyle(d.querySelector('summary'), '::after').content} : null; });
- ok('⚙ Khai báo riêng mặc định TẮT, có nút "▸ Mở"', r && !r.mo && /Mở/.test(r.nut), JSON.stringify(r));
- await p.click('#hso-tuy details.hso-kbr-d > summary'); await w(400);
- r = await ev(()=>{ hsoVe(); const d = document.querySelector('#hso-tuy details.hso-kbr-d'); return {mo:d.open, nho:hsoKBRDangMo('01td'), nut:getComputedStyle(d.querySelector('summary'), '::after').content}; });
- ok('bấm → mở, nhớ khi vẽ lại, nút đổi "▾ Tắt"', r.mo && r.nho && /Tắt/.test(r.nut), JSON.stringify(r));
- await p.click('#hso-tuy details.hso-kbr-d > summary'); await w(400);
- ok('bấm lần nữa → tắt', await ev(()=>!hsoKBRDangMo('01td')));
+ r = await ev(()=>({cu:!!document.querySelector('#hso-tuy details.hso-kbr-d'), nut:!!document.querySelector('[data-lenh="omkb.ds"][data-mk="01td"]')}));
+ ok('⚙ Khai báo riêng là nút riêng (không còn khối thu gọn ở cột trái)', !r.cu && r.nut, JSON.stringify(r));
+ await p.click('[data-lenh="omkb.ds"][data-mk="01td"]'); await w(400);
+ ok('bấm nút → mở hộp Khai báo riêng 01/TD', await ev(()=>!!document.getElementById('om-kbds') && /01\/TD/.test(document.getElementById('om-kbds').textContent)));
+ await ev(()=>dongHop()); await w(200);
  /* 5. phiếu chưa gắn sổ tự gắn */
  r = await ev(async()=>{ const B = hsoBoMoi(); B.nv = {ten:'Người Phiếu Cũ', cccd:'079099009999', ns:'1990-01-01'}; B.hoId = ''; hsoCH().boId = B.id; luu(); hsoVe(); await new Promise(r=>setTimeout(r, 800));
    const o = hmDs().find(x=>(x.tv[0]||{}).cccd==='079099009999'); return {hoId:B.hoId, coSo:!!o, khop:!!o && o.id===B.hoId, trang:/Chưa chọn hộ/.test(document.getElementById('hso-tuy').textContent)}; });

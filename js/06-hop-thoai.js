@@ -1056,7 +1056,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.453', ds:[
+var CO_GI_MOI = {ban:'3.455', ds:[
+  ["🖼 Khai báo riêng mọi mẫu: danh sách gọn (không dồn chữ), vạch màu theo nguồn; trực quan liên kết 2 chiều; bấm chữ trên bản xem trước → tới đúng dòng khai báo", ""],
+  ["📝 Mẫu 10A: khóa trang 3 bắt đầu \"b) Tổ phó\", trang 4 bắt đầu \"III.\"; tên dài → tự bớt hàng khung tổ viên để vẫn 4 trang", ""],
   ["📝 Mẫu 10C theo quy chuẩn 10A: Về việc chọn nhiều, bảng Cho ra / Kết nạp, kết nạp từ tổ khác cùng ấp, ＋ / − số dòng bảng", ""],
   ["📝 Mẫu 10B theo quy chuẩn 10A: Về việc chọn nhiều, bảng hộ vay (cột Kết nạp, TT / TP), bầu thay chọn tên trong tổ, nút ⚙ Khai báo riêng", ""],
   ["🎯 Phân bổ KH › Thông báo giao / điều chỉnh KH dư nợ: giãn dòng tiêu đề, thu gọn chỗ trống \"Số: …/TB-UBND\"", ""],
@@ -1069,10 +1071,13 @@ var CO_GI_MOI = {ban:'3.453', ds:[
   ["🔧 Scan: tổ trưởng nhận đúng người mà trống ấp → tự bổ sung ấp lúc lưu; bản cũ có nút Bổ sung ấp", ""],
   ["📝 Mẫu 10A gọn 4 trang: khung 100 tổ viên trang 1–2, chừa chỗ ký rộng; tên dài tự thu chữ", ""],
   ["📝 Mẫu 10A: khung cố định 100 tổ viên (3 cột) ở trang 1–2, phần II luôn sang trang 3", ""],
-  ["🪪 Quét CCCD: không khớp File Tổ trưởng → đối chiếu chủ TK 104 (Sao kê TK 104) cùng họ tên", ""],
-  ["🪪 Quét CCCD: rà mọi File Tổ trưởng (CCCD · CMND cũ · tên + ngày sinh) — tổ trưởng không vay vẫn nhận ra, lưu luôn", ""],
-  ["👑 Tra cứu › Tổ trưởng: cột CCCD tổ trưởng Đã lưu / Thiếu, lọc theo cây địa bàn", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🪪 Quét CCCD: không khớp File Tổ trưởng → đối chiếu chủ TK 104 (Sao kê TK 104) cùng họ tên", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.455 · Hồ sơ › mọi mẫu nền ô (10A, 01/TD, 03/TD, 11…) › nút ⚙ Khai báo riêng cạnh ⚙ Khai báo đơn vị → danh sách: tên · nút nguồn · giá trị · Chọn nhanh; bấm tên dòng → 🖼 trực quan đúng chỗ đó",
+    "3.455 · 🖼 Khai báo trực quan: bấm chỗ trên mẫu → dòng bên phải sáng + mở chi tiết; bấm tên dòng → viền đỏ trên mẫu",
+    "3.455 · Bản xem trước: rê chuột lên chữ app điền (viền màu nguồn), bấm → dòng Chọn nhanh cột trái sáng lên; dòng không có ở Chọn nhanh → mở trực quan",
+    "3.454 · Hồ sơ Tổ › 10A › Xem / In: trang 3 bắt đầu \"b) Tổ phó…\", trang 4 bắt đầu \"III. BẦU BAN QUẢN LÝ…\"",
+    "3.454 · 10A › ⚙ Khai báo riêng › Trưởng ấp / Thư ký ⌨ gõ tên rất dài → vẫn 4 trang, khung tổ viên bớt 1–2 hàng (còn đủ ô cho tổ)",
     "3.453 · Hồ sơ Tổ › chọn tổ › chip 10C mới → cột trái bảng hộ vay 2 cột Cho ra · Kết nạp (tích bên này bỏ bên kia); lọc ấp, tìm, Tích hết / Bỏ hết",
     "3.453 · 10C › ➕ Kết nạp từ tổ khác (cùng ấp) → chọn tổ nguồn → Tích hết → Kết nạp n hộ; sau đó chọn tổ nguồn lập 10C → các hộ đó tự tích Cho ra",
     "3.453 · 10C › Bảng I / II, Bảng 2 bình xét: ＋ / − số dòng",
@@ -1087,13 +1092,10 @@ var CO_GI_MOI = {ban:'3.453', ds:[
     "3.449 · 10A xem trước: III a) / b) \"Ông (Bà): tên ⇥ Chức vụ: …\"; kẻ dưới tiêu đề; Hội không ghi xã / phường",
     "3.449 · ⚙ Khai báo riêng 10A: mỗi dòng (III a / b, phê duyệt UBND, địa bàn, chủ trì, chữ ký) chọn 🤖 / ✍ riêng",
     "3.448 · Hồ sơ Tổ › 10A › nút ⚙ Khai báo riêng (cạnh ⚙ Khai báo đơn vị) → mọi dòng theo thứ tự mẫu, tích Chọn nhanh",
-    "3.448 · Cột trái 10A › Chọn nhanh › Thành lập / Kiện toàn → tiêu đề + câu nội dung đổi theo VB 4336",
-    "3.448 · Bản mẫu 10A › Điền: Điền hết / Chừa phê duyệt UBND / Tùy chọn",
-    "3.448 · Cây lọc địa bàn (mọi tab) kỳ T10 → tên xã thật",
-    "3.447 · Hồ sơ Tổ › 10A › chọn Ngày họp → dòng \"Thời gian bắt đầu: … ngày dd/mm/yyyy\" đúng ngày; dòng \"cùng cư trú tại địa bàn thôn …, xã …, tỉnh …\" có khoảng trắng",
-    "3.446 · Số liệu › 📝 Hồ sơ Tổ › chọn tổ › chip 10A/TD → cột trái cuối có ⚙ Khai báo riêng — Mẫu 10A/TD: Chọn nhanh có nút Thành lập / Củng cố (đổi dòng \"Về việc\"), Tháng / Quý (họp định kỳ), ô ngày, tiết kiệm",
-    "3.446 · Cùng chỗ › 🖼 Khai báo trực quan → bấm ô trên mẫu; ô chọn có ➕ Thêm lựa chọn khác"],
+    "3.448 · Cột trái 10A › Chọn nhanh › Thành lập / Kiện toàn → tiêu đề + câu nội dung đổi theo VB 4336"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.455 · Mẫu nền ô (01/TD, 03/TD, 11, 09A…): khối thu gọn \"⚙ Khai báo riêng\" ở cột trái → nút ⚙ Khai báo riêng cạnh ⚙ Khai báo đơn vị (tóm tắt số ô, cỡ chữ, ↺ Về mặc định, 🖼 trực quan nằm trong hộp); cột trái chỉ còn Chọn nhanh",
+    "3.455 · 🖼 Trực quan: khung phải chỉ 1 ô → cả danh sách, ô đang chọn mở rộng (đủ chức năng cũ)",
     "3.453 · 10C: 2 danh sách tích Kết nạp / Cho ra cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun)",
     "3.452 · 10B: danh sách tích Kết nạp cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun)",
     "3.449 · 10A: danh sách tích tổ viên cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun 10A)",

@@ -266,6 +266,20 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.455)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ⚙ Khai báo riêng (10A, 01/TD) | Tên không bị dồn; vạch màu theo nguồn | |
+| 2 | Trực quan: bấm trên mẫu / bấm tên dòng | Dòng sáng ↔ viền đỏ trên mẫu | |
+| 3 | Bản xem trước: bấm chữ app điền | Dòng Chọn nhanh sáng / mở trực quan | |
+| 4 | Điện thoại | Dòng xếp chồng, không tràn | |
+
+### Danh sách thử trên máy thật (3.454)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 10A in | Trang 3 "b) Tổ phó", trang 4 "III." | |
+| 2 | Gõ tên Trưởng ấp / Thư ký rất dài | Vẫn 4 trang, khung bớt hàng | |
+
 ### Danh sách thử trên máy thật (3.453)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
