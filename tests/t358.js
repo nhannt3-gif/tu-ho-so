@@ -120,6 +120,12 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
      omDatKB('10a', 'vv', 'kiện toàn hoạt động của Tổ TK&VV theo Quyết định số 70/QĐ-HĐQT'); hsoVe(); await w(300);
      const vv = HSO.x.h.match(/<p[^>]*>(?:(?!<\/p>).)*data-o="vv"/)[0];
      ok('3.449: Về việc dài → cỡ 13 vừa 1 dòng hoặc 2 dòng cân (không tràn)', /class="s13"/.test(vv) || /data-o="vv">[^<]*<br>/.test(HSO.x.h), vv.slice(0, 60)); omDatKB('10a', 'vv', ''); hsoVe(); await w(300); }
+   { omDatKB('10a', 'chuTri', 'Trần Văn Giả'); omDatKB('10a', 'chuTriCv', 'Phó Chủ tịch'); omDatKB('10a', 'bqlTT', 'Nguyễn Thị Ngọc Phương Thảo Giả'); hsoVe(); await w(400); const h = HSO.x.h;
+     ok('3.449.1: ⌨ tự gõ họ tên chủ trì / tổ trưởng → in đúng chữ gõ', /Ông \(Bà\): <span[^>]*>Trần Văn Giả/.test(h) && /Nguyễn Thị Ngọc Phương Thảo Giả/.test(h));
+     ok('3.449.1: khung tên không thụt gấp đôi (text-indent:0)', (h.match(/display:inline-block;text-indent:0;min-width/g)||[]).length>=3);
+     const ta = (h.match(/<p data-tab="(\d+)"[^>]*>(?:(?!<\/p>).)*a\) Ông/)||[])[1], tb = (h.match(/<p data-tab="(\d+)"[^>]*>(?:(?!<\/p>).)*b\) Ông/)||[])[1];
+     ok('3.449.1: III a / b cùng điểm tab (thẳng hàng) dù tên dài', ta && ta===tb, ta+' / '+tb);
+     ['chuTri','chuTriCv','bqlTT'].forEach(k=>{ omDatKB('10a', k, ''); omDatCach('10a', k, 'tu'); }); hsoVe(); await w(300); }
    /* mẫu khác không bị ảnh hưởng: 10B không có tr-sang / data-cao */
    hsoChonMau('10b'); await w(300);
    ok('10B không đổi (không dòng cố định)', !/data-cao/.test(HSO.x.h));
