@@ -178,6 +178,7 @@
 | 02/11 | TK 2 | 3.447 | `js/mau/10a.js` (sửa trùng biến `nd` → ngày họp; khoảng trắng xã / tỉnh / tháng; dòng Thư ký), `t358`, `t179` chuẩn 10A |
 | 02/11 | TK 2 | 3.448 | `js/22g-to.js` (`toTenXa` + File Tổ trưởng / danh bạ / Mã xã), `js/mau/10a.js` (Thành lập / Kiện toàn VB 4336, cỡ 14, Tổng số cột cuối, `dvAp` / `dvA`, `dien` / `phanTen`), `js/31-o-mau.js` (`dien` / `phanTen`, `chuaUB`; **mới** `omNhanhHTML`, `omKBDsHop`, `omKBDsVe`, lệnh `omkb.*`), `js/25c` (nút ⚙ Khai báo riêng 10A), `QUY_CHUAN_KIEN_TRUC.md` 9.8, `t358`, **`t360`**, `t179` chuẩn 10A |
 | 02/11 | TK 2 | 3.449 | `js/mau/10a.js` (**mới** `hso10aDs`, `hso10aBang`, `hso10aHoi`, `hso10aTach`, lệnh `h10a.*`; tab chức vụ, tách ô, kẻ tiêu đề), `js/25-ho-so.js` (biến `hso10aDs`, `hso10aBang`), `js/25b` (`hsoDocx` tab), `js/25c` (bảng hộ vay 10A), `t358`, `t163`, `t179` chuẩn 10A |
+| 02/11 | TK 2 | 3.450 | `js/mau/10a.js` (khung tên text-indent:0, `tabVi` / `tabP`, điểm tab chung III a / b, `DON` ô 1 giá trị ⌨), `t358`, `t179` chuẩn 10A |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

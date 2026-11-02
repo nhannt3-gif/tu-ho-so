@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.450 — 02/11/2026 — Mẫu 10A: sửa thụt dòng Chủ trì (TK 2)
+- **Anh 02/11** (ảnh): "chủ trì bị thụt vào".
+- Nguyên nhân: khung tên trước tab thừa hưởng thụt đầu dòng 12,7 mm → thụt gấp đôi (cả III a / b). Sửa: khung tên `text-indent:0`.
+- Dòng dài (Chủ trì có chức vụ + Hội): điểm tab lùi về sát tên để vừa 1 dòng; vẫn dài thì canh trái (không giãn chữ). III a / b dùng chung 1 điểm tab → thẳng hàng cả khi tên dài. Word theo cùng điểm tab.
+- Ô 1 giá trị (họ tên trưởng thôn, chủ trì, chức vụ, Hội, thư ký, III a / b, UBND tổ trưởng / tổ phó, chữ ký): ⌨ tự gõ / 📝 chữ mẫu nay đè số liệu tự động (trước in số liệu tự động).
+- `t358` thêm 3 ý; chuẩn in `t179` 10A.
+
 ## 3.449 — 02/11/2026 — Mẫu 10A: bảng hộ vay của tổ, họ tên ⇥ chức vụ, tách ô (TK 2)
 - **Anh 02/11:** "app điền thì cách 1 tab và có 2 chấm, để chấm thì giữ form"; "Về việc dài thu nhỏ 1 cấp cho vừa 1 dòng hoặc cân 2 dòng"; "có dòng gạch dưới tiêu đề, dài bằng chữ Biên bản họp"; "Hội Nông dân, Hội Phụ nữ không cần ghi tên xã phường"; "mỗi dòng cho chọn tự động hay chấm ghi tay — phần III bầu, phần UB phê duyệt cũng vậy"; "chọn tổ hiện bảng danh sách hộ vay theo mã KH, dư nợ để loại hộ dư nợ = 0 — in theo mã KH, mặc định tích hết — phải có tổ trưởng, tổ phó".
 - `js/mau/10a.js`: **bảng hộ vay của tổ** ở cột trái (`hso10aDs`, `hso10aBang`, lệnh `h10a.*`): tổ viên + **tổ trưởng / tổ phó theo File Tổ trưởng (MATT / MATP) dù không vay**, nhãn TT / TP, sắp Mã KH (bấm Dư nợ để sắp theo dư nợ), hộ dư nợ 0 tô vàng, nút bỏ tích hộ dư nợ = 0 (giữ TT / TP), mặc định tích hết, ghi kỳ số liệu; **in vào khung theo Mã KH**. Họ tên app điền: "Ông (Bà): tên" (trưởng thôn, chủ trì, thư ký, III a / b), III a / b và Chủ trì có **tab** trước "Chức vụ:" (Word: tab thật + điểm dừng 95 mm); để chấm giữ form gốc. Dòng Về việc dài → cỡ 13 vừa 1 dòng, không vừa → 2 dòng cân; **kẻ dưới tiêu đề dài bằng "BIÊN BẢN HỌP"**. Hội ở dòng Chủ trì bỏ xã / phường. **Tách ô**: III a / b · phê duyệt UBND (địa bàn / tổ trưởng / tổ phó) · địa bàn 2 dòng · chủ trì (họ tên / chức vụ / Hội) · chữ ký (trưởng thôn / chủ trì) — cách đã chọn ở ô cũ chuyển sang ô con.
