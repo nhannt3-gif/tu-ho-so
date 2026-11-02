@@ -210,6 +210,14 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
    Trống → luôn in đúng chuỗi chấm gốc. Mẫu phải giữ số trang như mẫu gốc (có phép thử số trang). Nền ô: `G.o(k, chấm, {lien:1})` = gõ liền; mặc định = giữ khung.
    **Chữ dài hơn ô — KHÔNG tự thu nhỏ chữ** (anh 23/10: "khi lập form đã tính đủ chữ, khi cần viết kiểu ngắn lại"): ① viết tắt chuẩn (`omTat`: Cục CS QLHC về TTXH, TP., P., TT., KP., H., T., NHCSXH, UBND) → ② vẫn dài: ô giãn, nhãn sau dịch phải, cỡ chữ giữ nguyên → ③ ⚠ báo trước khi in "dài hơn ô — xem rớt dòng, cần thì gõ ngắn lại". Canh dòng và lề: nhãn đầu dòng thẳng cột như form gốc, không để chữ tràn lề phải. Nền ô bật theo từng mẫu (`giuCo:1`) khi anh duyệt chuẩn khóa — đang bật: 01/TGTV; các mẫu khác chuyển dần (còn thu nhỏ / nén dòng kiểu cũ).
 
+8. **Mẫu Hồ sơ Tổ làm lại (anh 02/11/2026, áp đầu tiên 10A — bản 3.446–3.448):**
+   - **Điền tự động → chữ liền như gõ tay, in thường; chọn ✍ để chấm → giữ đúng form chấm gốc** (`lien:1` cho mọi ô có chữ). Chỉ chữ in sẵn của mẫu đậm như gốc.
+   - **Đơn vị hành chính theo địa bàn thật:** có số liệu → "Ấp / Khu phố / Thôn …, xã / phường …", "Trưởng ấp / khu phố / thôn" (theo tiền tố tên ấp; không có tiền tố → phường = khu phố, xã = ấp); để chấm → giữ chữ gốc. "UBND cấp xã" giữ nguyên (tên cấp theo luật).
+   - **Tên người viết hoa đầu từ** (`tenHoaDau`), không tự thêm dấu.
+   - **Mỗi mẫu tự khai khối Nhập liệu:** `omDangKy({dien:[[mã, nhãn]…], phanTen:{phần: tên}})` — mẫu không có phần Ngân hàng thì không hiện nút "Chừa phê duyệt NH"; mẫu chưa khai giữ như cũ.
+   - **⚙ Khai báo riêng = nút riêng** cạnh "⚙ Khai báo đơn vị" (hộp liệt kê mọi ô theo thứ tự trên mẫu, Chọn nhanh), cột trái chỉ còn dòng Chọn nhanh — như Giao dịch xã. Ô chọn `l:'chon'` (≤ 3 lựa chọn: nút; nhiều hơn: danh sách sổ xuống; ➕ thêm lựa chọn).
+   - Mẫu chữ liền không bắt chồng khít từng dòng — chỉ giữ cùng số trang (`t181` nhóm DUNG).
+
 ## 10. Chuẩn hóa code, giao diện, thư viện (anh duyệt 17/10/2026 — chi tiết `KE_HOACH_CHUAN_HOA.md`)
 - **Code mới:** hộp riêng mỗi khối, `data-lenh` thay `onclick` trong chuỗi, file ≤ ~150 KB; mỗi bản dọn rác trong phạm vi + kiểm toàn vẹn; thước đo `tests/kiem.py` không được vượt mốc `tests/do_moc.json` (hạ mốc khi dọn bớt: `python3 tests/kiem.py --moc`).
 - **Giao diện mới:** chỉ dùng khung bố cục + mảnh giao diện chung (khi có ở R2); không gắn độ rộng / cỡ chữ cứng trong chuỗi HTML; xuất / in chỉ dùng bộ nút chuẩn; màn / hộp mới đi qua bộ điều hướng chung, 4 nút ⬅ Lùi · ✕ Đóng · Bỏ · Thoát nghĩa cố định.

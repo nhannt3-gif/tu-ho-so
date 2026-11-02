@@ -27,10 +27,10 @@ function omRong(s, pt, dam){   /* bề rộng chữ (mm) theo phông in — canv
   if(!OM_CV) return String(s).length*pt*0.5*0.3528;
   OM_CV.font = (dam ? 'bold ' : '')+pt+'pt "Times New Roman", Times, serif'; return OM_CV.measureText(String(s)).width*25.4/96; }
 function omNHS(){ return hsoLuu().omNHS!==false; }
-function omMuc(mk){ var M = omL('omMuc')[mk] || {}; return {kieu:M.kieu || 'het', phan:M.phan || {}}; }
+function omMuc(mk){ var M = omL('omMuc')[mk] || {}, m = OM_MAU[mk] || {}, k = M.kieu || 'het'; if(m.dien && !m.dien.some(function(x){ return x[0]===k; })) k = 'het'; return {kieu:k, phan:M.phan || {}}; }   /* 3.448: mẫu tự khai nút Điền (m.dien) — kiểu cũ không có trong danh sách → Điền hết */
 function omPhanDien(mk, p){   /* 📝 bản mẫu: phần p có điền không */
   if(p==='nhs') return true; var M = omMuc(mk);
-  if(M.kieu==='het') return true; if(M.kieu==='chuaNH') return p!=='nh'; if(M.kieu==='chuaUBNH') return p!=='nh' && p!=='ub';
+  if(M.kieu==='het') return true; if(M.kieu==='chuaUB') return p!=='ub'; if(M.kieu==='chuaNH') return p!=='nh'; if(M.kieu==='chuaUBNH') return p!=='nh' && p!=='ub';
   return M.phan[p]!==0 && M.phan[p]!==false; }
 function omCachLuu(mk, k){   /* cách anh chọn cho ô (bản thật) — đọc cả giá trị cũ 'in' (3.206–3.222) */
   var x = (OM_MAU[mk] || {}).oK[k] || {}, ds = OM_LOAI[x.l] || ['cham'], c = ((hsoLuu().cham||{})[mk]||{})[k];
@@ -101,21 +101,22 @@ function omTen(){ return OM_KIEU==='trang' ? ' - Trang' : OM_KIEU==='mau' ? ' - 
 
 /* ---------- giao diện cột trái: kiểu in · khai báo riêng (tóm tắt + Chọn nhanh) ---------- */
 function omKieuDat(k){ OM_KIEU = k; hsoVe(); }
+/* 3.448 (anh 02/11 "phần này thiết kế cho đơn vay, các mẫu khác chưa hợp lý — mỗi mẫu thiết kế riêng"): mẫu khai m.dien = [[mã, nhãn]…] (nút Điền) và m.phanTen = {phần: tên} — không khai → như cũ */
 function omKieuHTML(mk){
   var m = OM_MAU[mk], M = omMuc(mk), ph = (m.phan || []).filter(function(p){ return p!=='nhs'; });
   return '<div class="om-kieu'+(OM_KIEU!=='that' ? ' om-kieu-'+OM_KIEU : '')+'">'+gdxChip('📄 Bản trắng', OM_KIEU==='trang', 'omKieuDat(\'trang\')', 'hso-ct', 'Mọi ô để chấm — in phát cho khách viết tay')+
     gdxChip('🖨 Bản thật', OM_KIEU==='that', 'omKieuDat(\'that\')', 'hso-ct', 'In theo cách từng ô anh đã khai (✍ / 🤖 / ✎)')+
     gdxChip('📝 Bản mẫu', OM_KIEU==='mau', 'omKieuDat(\'mau\')', 'hso-ct', 'Điền sẵn để khách chép lại — chọn mức điền')+
-    (OM_KIEU==='trang' ? '<label class="hso-o2"><input type="checkbox"'+(omNHS() ? ' checked' : '')+' onchange="hsoLuu().omNHS=this.checked;luu();hsoVe()"> In sẵn phần Ngân hàng (đầu trang, tên PGD, kính gửi)</label>' : '')+
-    (OM_KIEU==='mau' ? '<div class="om-muc">Điền: '+[['het', 'Điền hết'], ['chuaNH', 'Chừa phê duyệt NH'], ['chuaUBNH', 'Chừa UBND + NH'], ['tuy', 'Tùy chọn']].map(function(x){ return gdxChip(x[1], M.kieu===x[0], 'omMucDat(\''+mk+'\',\''+x[0]+'\')', 'hso-ct', ''); }).join('')+
-      (M.kieu==='tuy' ? '<div class="om-muc-ph">'+ph.map(function(p){ return '<label class="hso-o2"><input type="checkbox"'+(omPhanDien(mk, p) ? ' checked' : '')+' onchange="omMucPhan(\''+mk+'\',\''+p+'\',this.checked)"> '+coChuHTML(OM_PHAN[p] || p)+'</label>'; }).join('')+'</div>' : '')+
+    (OM_KIEU==='trang' && (!m.dien || (m.phan || []).indexOf('nhs')>=0) ? '<label class="hso-o2"><input type="checkbox"'+(omNHS() ? ' checked' : '')+' onchange="hsoLuu().omNHS=this.checked;luu();hsoVe()"> In sẵn phần Ngân hàng (đầu trang, tên PGD, kính gửi)</label>' : '')+
+    (OM_KIEU==='mau' ? '<div class="om-muc">Điền: '+(m.dien || [['het', 'Điền hết'], ['chuaNH', 'Chừa phê duyệt NH'], ['chuaUBNH', 'Chừa UBND + NH'], ['tuy', 'Tùy chọn']]).map(function(x){ return gdxChip(x[1], M.kieu===x[0], 'omMucDat(\''+mk+'\',\''+x[0]+'\')', 'hso-ct', ''); }).join('')+
+      (M.kieu==='tuy' ? '<div class="om-muc-ph">'+ph.map(function(p){ return '<label class="hso-o2"><input type="checkbox"'+(omPhanDien(mk, p) ? ' checked' : '')+' onchange="omMucPhan(\''+mk+'\',\''+p+'\',this.checked)"> '+coChuHTML((m.phanTen || {})[p] || OM_PHAN[p] || p)+'</label>'; }).join('')+'</div>' : '')+
       '<div class="sl-phu">Phần được điền: ô có số liệu in số liệu thật; ô không có số liệu in <b>chữ mẫu</b> anh khai (⚙ khai báo trực quan). Phần không điền vẫn chấm.</div></div>' : '')+
     (OM_KIEU==='trang' ? '<div class="sl-phu">📄 Bản trắng: mọi ô chấm như giấy gốc — chỉ cho lần in này.</div>' : '')+'</div>';
 }
 function omMucDat(mk, k){ var L = omL('omMuc'), M = L[mk] = L[mk] || {}; M.kieu = k; if(k==='tuy' && !M.phan) M.phan = {}; luu(); hsoVe(); }
 function omMucPhan(mk, p, v){ var L = omL('omMuc'), M = L[mk] = L[mk] || {kieu:'tuy'}; M.phan = M.phan || {}; M.phan[p] = v ? 1 : 0; luu(); hsoVe(); }
 function omNhanh(mk){ var L = omL('nhanh'); if(!Array.isArray(L[mk])) L[mk] = (OM_MAU[mk].o || []).filter(function(x){ return x.nhanh; }).map(function(x){ return x.k; }); return L[mk]; }
-function omDatCach(mk, k, c){ var L = hsoLuu(); L.cham = L.cham || {}; (L.cham[mk] = L.cham[mk] || {})[k] = c; luu(); hsoVe(); if(document.getElementById('om-kbt')) omKBVe(); }
+function omDatCach(mk, k, c){ var L = hsoLuu(); L.cham = L.cham || {}; (L.cham[mk] = L.cham[mk] || {})[k] = c; luu(); hsoVe(); if(document.getElementById('om-kbt')) omKBVe(); if(typeof omKBDsVe==='function') omKBDsVe(mk); }
 function omDatKB(mk, k, v){ var L = hsoLuu(); L.chamGT = L.chamGT || {}; (L.chamGT[mk] = L.chamGT[mk] || {})[omKBKhoa(mk, k)] = String(v||'').trim();
   if(String(v||'').trim() && omCachLuu(mk, k)!=='kb'){ L.cham = L.cham || {}; (L.cham[mk] = L.cham[mk] || {})[k] = 'kb'; if(document.getElementById('om-kbt')) omKBVePhai(); }   /* 3.229: gõ riêng = dùng riêng */
   luu(); hsoHen(); if(document.getElementById('om-kbt')) omKBVeTrang(); }
@@ -210,9 +211,25 @@ function omChonHTML(mk, x, rong){ if(!omChonHTML.dk && typeof GD!=='undefined'){
   var chon = ds.length<=3 ? '<span class="hso-sw">'+ds.map(function(z, i){ return '<button class="'+(z===v ? 'bat' : '')+'" data-lenh="omc.chon"'+a+' data-i="'+i+'" title="'+coChuHTML(z)+'">'+coChuHTML(x.chonNgan ? x.chonNgan(z) : z)+'</button>'; }).join('')+'</span>'
     : '<select data-lenh="omc.chonDs" data-su="change"'+a+'>'+(x.chonMD ? '' : '<option value="">— để chấm —</option>')+ds.map(function(z, i){ return '<option value="'+i+'"'+(z===v ? ' selected' : '')+'>'+coChuHTML(z)+'</option>'; }).join('')+'</select>';
   return chon+(rong ? '<div class="hang-nut"><input id="omc-moi-'+x.k+'" placeholder="thêm lựa chọn khác…"><button class="nho" data-lenh="omc.them"'+a+'>➕ Thêm</button></div>' : ''); }
-function omChonDat(mk, k, v){ omDatKB(mk, k, v); hsoVe(); if(document.getElementById('om-kbt')) omKBVe(); }
+function omChonDat(mk, k, v){ omDatKB(mk, k, v); hsoVe(); if(document.getElementById('om-kbt')) omKBVe(); if(typeof omKBDsVe==='function') omKBDsVe(mk); }
 var OMC_LENH = {chon:function(el){ var mk = el.getAttribute('data-mk'), k = el.getAttribute('data-k'), x = OM_MAU[mk].oK[k], ds = omChonDs(mk, x), z = ds[+el.getAttribute('data-i')];
     omChonDat(mk, k, !x.chonMD && omKB(mk, k)===z ? '' : z); },   /* bấm lại lựa chọn đang chọn → bỏ chọn (về chấm) khi ô không có mặc định */
   chonDs:function(el){ var mk = el.getAttribute('data-mk'), k = el.getAttribute('data-k'), x = OM_MAU[mk].oK[k]; omChonDat(mk, k, el.value==='' ? '' : omChonDs(mk, x)[+el.value]); },
   them:function(el){ var mk = el.getAttribute('data-mk'), k = el.getAttribute('data-k'), e = document.getElementById('omc-moi-'+k), v = e ? String(e.value||'').trim() : ''; if(!v) return bao('Gõ lựa chọn mới trước.', 3);
     var L = hsoLuu(); L.omChon = L.omChon || {}; var m = L.omChon[mk] = L.omChon[mk] || {}, a = m[k] = m[k] || []; if(a.indexOf(v)<0) a.push(v); omChonDat(mk, k, v); bao('Đã thêm lựa chọn "'+v+'".', 3); }};   /* GD (js/39) nạp sau → đăng ký lần đầu vẽ ô chọn */
+
+/* 3.448 (anh 02/11 "khai báo riêng em làm 1 nút riêng như bên các mẫu Giao dịch xã"): ⚙ KHAI BÁO RIÊNG dạng danh sách — mọi ô theo thứ tự trên mẫu
+   (nguồn ✍ / 🤖 / ⌨ · giá trị / nút chọn · Chọn nhanh); cột trái chỉ còn các ô Chọn nhanh (omNhanhHTML). Có nút sang 🖼 Khai báo trực quan. */
+function omKBDk(){ if(omKBDk.dk || typeof GD==='undefined') return; omKBDk.dk = 1; GD.dangKy('omkb', {ds:function(el){ omKBDsHop(el.getAttribute('data-mk')); },
+    nhanh:function(el){ omDatNhanh(el.getAttribute('data-mk'), el.getAttribute('data-k'), el.checked); omKBDsVe(el.getAttribute('data-mk')); },
+    truc:function(el){ var mk = el.getAttribute('data-mk'); dongHop(); omKBHop(mk); }, xong:function(){ dongHop(); hsoVe(); },
+    md:function(el){ hsoChamVeMD(el.getAttribute('data-mk')); omKBDsVe(el.getAttribute('data-mk')); }}); }
+function omNhanhHTML(mk){ omKBDk(); var m = OM_MAU[mk], nh = omNhanh(mk), V = omVTam(mk);
+  return '<div class="hso-cham-dau">Chọn nhanh <small>(thêm / bớt ở ⚙ Khai báo riêng — nút cạnh "⚙ Khai báo đơn vị")</small></div>'+(nh.length ? nh.map(function(k){ return m.oK[k] ? omO1HTML(mk, m.oK[k], V) : ''; }).join('') : '<div class="sl-phu">Chưa có dòng Chọn nhanh.</div>'); }
+function omKBDsHop(mk){ omKBDk();
+  var m = OM_MAU[mk]; moHop('<div class="hop-tit" id="om-kbds">⚙ Khai báo riêng — Mẫu '+coChuHTML(m.ma)+'</div><div class="hop-phu">Các dòng xếp theo thứ tự trên mẫu (trên → dưới). Mỗi dòng chọn nguồn ✍ Ghi tay (để chấm) · 🤖 Tự động · ⌨ Tự gõ. Tích <b>Chọn nhanh</b> để đưa dòng ra cột trái. Tự lưu.</div>'+
+    '<div id="om-kbds-ds" class="gdx-kbr"></div><div class="hang-nut"><button class="nho" data-lenh="omkb.truc" data-mk="'+mk+'">🖼 Khai báo trực quan</button><button class="nho" data-lenh="omkb.md" data-mk="'+mk+'">↺ Về mặc định</button><button class="nho chinh" data-lenh="omkb.xong">Xong</button></div>', true);
+  omKBDsVe(mk); }
+function omKBDsVe(mk){ var e = document.getElementById('om-kbds-ds'); if(!e) return; var m = OM_MAU[mk], nh = omNhanh(mk), V = omVTam(mk), ph = '';
+  e.innerHTML = m.o.map(function(x){ var tp = (m.phanTen || {})[x.p] || OM_PHAN[x.p] || '', dau = tp!==ph ? '<div class="gdx-kbr-nhom">'+coChuHTML(ph = tp)+'</div>' : '';
+    return dau+'<div class="gdx-kbr-dong"><div class="gdx-kbr-gt">'+omO1HTML(mk, x, V)+'</div><label class="gdx-kbr-nhanh"><input type="checkbox" data-lenh="omkb.nhanh" data-su="change" data-mk="'+mk+'" data-k="'+x.k+'"'+(nh.indexOf(x.k)>=0 ? ' checked' : '')+'> Chọn nhanh</label></div>'; }).join(''); }

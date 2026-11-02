@@ -266,6 +266,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.448)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Cây lọc kỳ T10 | Tên xã thật (không "Vay trực tiếp") | |
+| 2 | 10A › Kiện toàn | Tiêu đề + nội dung theo VB 4336 | |
+| 3 | 10A › nút ⚙ Khai báo riêng | Hộp đủ dòng, Chọn nhanh ra cột trái | |
+| 4 | 10A xem trước / Word | Chữ 14, Tổng số cột cuối, ấp / phường đúng, 4 trang | |
+
 ### Danh sách thử trên máy thật (3.447)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

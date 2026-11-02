@@ -26,6 +26,7 @@ function hsoDsHTML(){   /* 3.206 (anh chốt): mẫu chọn ở thanh tab con (h
   return '<div class="th-nhom-ten hso-dau-ds"><span class="hso-tieu" title="'+coChuHTML(M.ma+' — '+M.ten)+'">'+tieu+(M.ngang ? ' <span class="th-cap">[A4 ngang]</span>' : '')+'</span>'+
     '<span class="hso-chu"><span class="hso-chu-sl">số liệu</span><span class="hso-chu-kb">khai báo</span><span class="hso-chu-tay">…… ghi tay</span></span>'+   /* 3.317 (anh): chú thích màu cùng dòng tên mẫu */
     '<span class="hso-ky" title="Số liệu lấy theo kỳ / ngày đang chọn ở dải lịch">📅 <b>'+(KHO.coKy() ? slKyChu(KHO.ky().ky) : 'chưa có số liệu')+'</b></span>'+   /* 3.334: dời từ dải chip mẫu xuống dòng tên mẫu → dải chip không bị đè */
+    (M.k==='10a' && typeof omCo==='function' && omCo('10a') ? '<button class="nho" data-lenh="omkb.ds" data-mk="10a" title="Mọi dòng của mẫu 10A theo thứ tự trên mẫu — tích Chọn nhanh để đưa ra cột trái">⚙ Khai báo riêng</button>' : '')+   /* 3.448 (anh 02/11): nút riêng như Giao dịch xã */
     '<button class="nho" onclick="hsoKBHop()" title="PGD, logo, trưởng ấp, tổ phó thực tế, chương trình vay — dùng chung mọi mẫu">⚙ Khai báo đơn vị</button></div>'+(M.ghi ? '<div class="sl-phu">'+coChuHTML(M.ghi)+'</div>' : '');
 }
 function hsoTabMauHTML(){   /* 3.206 (anh chốt 14/10): mỗi biểu mẫu = 1 tab con, bố trí như tab Giao dịch xã · số liệu theo kỳ / ngày đã chọn */
@@ -800,7 +801,7 @@ function hsoTuyHTML(M, t){
     h += hsoNgayTuy()+hsoHoiTuy(t)+(typeof omCo==='function' && omCo('10a') ? '' : hsoTuyO('Ngày họp định kỳ', hsoIn('hsoDatLuu(\'ngayDK\',this.value)', L.ngayDK||'', 'vd 15 hằng tháng'))+hsoTuyO('Tiết kiệm tối thiểu (đ)', hsoIn('hsoDatLuu(\'tkMin\',this.value)', L.tkMin||'', 'trống = chấm')));   /* 3.446: có mô-đun 10A → 2 ô này ở ⚙ Khai báo riêng (Chọn nhanh) */
     if(t){ tv.forEach(function(k){ if(HSO.tv[k.kh]===undefined) HSO.tv[k.kh] = true; }); h += hsoDsTick('tv', tv.map(function(k){ return {kh:k.kh, ten:k.ten}; }), '👥 Danh sách tổ viên in vào biên bản');
       var nTV = tv.filter(function(k){ return HSO.tv[k.kh]!==false; }).length; if(nTV>HSO_10A_TV) h += '<div class="sl-phu hso-canh">⚠ Đang tích '+nTV+' tổ viên — khung 10A tối đa '+HSO_10A_TV+' (QĐ 70), chỉ in '+HSO_10A_TV+' người đầu. Bỏ tích bớt hoặc tách tổ.</div>'; }
-    if(typeof omCo==='function' && omCo('10a')) h += hsoKBRieng('10a');   /* 3.446 (anh 02/11): ⚙ Khai báo riêng 10A — đủ ô từ trên xuống, Chọn nhanh ra cột trái */
+    if(typeof omCo==='function' && omCo('10a')) h += omNhanhHTML('10a');   /* 3.448 (anh 02/11 "khai báo riêng làm 1 nút riêng như các mẫu Giao dịch xã"): cột trái chỉ còn dòng Chọn nhanh; đủ dòng ở nút ⚙ Khai báo riêng */
   }
   else if(M.k==='10b'){
     var B = t ? hsoBau(t) : {tt:'', ttCu:'', pho:'', phoCu:''};

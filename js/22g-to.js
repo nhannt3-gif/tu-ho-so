@@ -279,10 +279,14 @@ function xaTenSach(ma, ten){   /* 3.433 (anh 01/11: Tra cứu khách "Ấp · x�
   return v; }
 function toTenXa(K){
   var dem = {}, T = K.to, laTT = function(s){ return /tr[ựu]c ti[ếe]p/i.test(String(s||'')); };
-  (K.hs||[]).forEach(function(o){ if(!o.xa || !o.tenXa || laTT(o.tenXa)) return; var d = dem[o.xa] = dem[o.xa] || {}; d[o.tenXa] = (d[o.tenXa]||0)+1; });
+  var cong = function(xa, tx, n){ if(!xa || !tx || laTT(tx)) return; var d = dem[xa] = dem[xa] || {}; d[tx] = (d[tx]||0)+(n||1); };
+  (K.hs||[]).forEach(function(o){ cong(o.xa, o.tenXa); });
+  /* 3.448 (anh 02/11 ảnh cây lọc: cả 5 xã hiện "Vay trực tiếp", kỳ T10): Mẫu 31 không ra tên thật → thêm File Tổ trưởng (TENXA, theo mã tổ) và danh bạ khách */
+  (K.dsDung||[]).forEach(function(o){ var t = o.to && T[o.to]; if(t) cong(t.xa, o.tenXa, 3); });
+  if(typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh) Object.keys(SL_DB.kh).forEach(function(m){ var c = SL_DB.kh[m]; cong(c.xa, c.tenXa); });
   var dm = {}; (D.cauHinh.diaBan||[]).forEach(function(x){ if(x.ma && x.xa) dm[String(x.ma)] = x.xa; });
   var ten = {}; Object.keys(dem).forEach(function(m){ var d = dem[m], tot = ''; Object.keys(d).forEach(function(k){ if(!tot || d[k]>d[tot]) tot = k; }); ten[m] = tot; });
-  Object.keys(T).forEach(function(m){ var t = T[m], v = ten[t.xa] || (laTT(t.tenXa) || !t.tenXa ? dm[String(t.xa)] : ''); if(v && v!==t.tenXa) t.tenXa = v; });
+  Object.keys(T).forEach(function(m){ var t = T[m], tt = laTT(t.tenXa) || !t.tenXa, v = ten[t.xa] || (tt ? dm[String(t.xa)] : ''); if(!v && tt && t.xa) v = 'Mã xã '+t.xa; if(v && v!==t.tenXa) t.tenXa = v; });   /* không bao giờ để tên xã dạng "… trực tiếp" */
 }
 function toGanTrucTiep(K, Bm){
   /* 3.107: điểm GD của món vay trực tiếp: ① ấp của món (danh mục địa bàn / tổ cùng ấp) → ② ngày GDXA trùng tổ cùng xã → ③ xã chỉ có 1 điểm GD */
