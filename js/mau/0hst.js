@@ -82,5 +82,22 @@ var HST = (function(){
         return '<tr class="'+(!(x.dn>0) && x.vay ? 'vang' : '')+'">'+cot.map(function(c){ var kh = c.khoa && c.khoa(x); return '<td>'+(kh ? '<span title="'+e(kh)+'">⚠</span>' : '<input type="checkbox" data-lenh="hst.tich" data-su="change" data-c="'+c.ma+'" data-k="'+e(k)+'"'+(c.bang[k] ? ' checked' : '')+'>')+'</td>'; }).join('')+
           '<td>'+(i+1)+'</td><td>'+e(x.kh || '—')+'</td><td>'+e(tenHoaDau(x.ten||''))+(x.vai ? ' <span class="tc-vt'+(x.vai==='TP' ? ' tp' : '')+'">'+x.vai+'</span>' : '')+'</td><td class="s">'+(x.vay ? tdnTien(x.dn||0) : '—')+'</td><td><small>'+e(ghi(x))+'</small></td></tr>'; }).join('')+
       '</tbody></table></div>'+(op.cuoi || ''); };
+  /* 3.456 / 3.457 (anh 02/11 "số tv tham dự tối thiểu 50%, tỷ lệ chỉnh được > 50% <= 100%, để sẵn 100%, tăng giảm được"; 10B / 10C "làm luôn"):
+     số tham dự = số tổ viên × tỷ lệ (làm tròn lên, luôn > 1/2); tán thành = số tham dự × tỷ lệ (luôn > 2/3, QĐ 70). Tỷ lệ nhớ riêng từng mẫu: hsoLuu().tlHop[mẫu][du | bq]. */
+  X.TL = {du:[51, 'tham dự', 1/2], bq:[67, 'tán thành', 2/3]};
+  X.tl = function(mk, k){ var v = +(((hsoLuu().tlHop || {})[mk] || {})[k]); return v>=X.TL[k][0] && v<=100 ? v : 100; };
+  X.so = function(n, r, phan){ n = +n || 0; if(!n) return 0; var lo = Math.floor(n*phan)+1; return Math.min(n, Math.max(lo, Math.ceil(n*r/100-1e-9))); };
+  X.thamDu = function(mk, n){ n = +n || 0; return n ? X.so(n, X.tl(mk, 'du'), 1/2)+'/'+n : ''; };   /* "tham dự/tổng" */
+  X.bq = function(mk, kDu, duTu){ var c = omCach(mk, kDu), v = c==='cham' ? '' : c==='kb' && omKB(mk, kDu) ? omKB(mk, kDu) : duTu, y = parseInt(String(v || ''), 10);   /* theo số tham dự in ở trên */
+    return y>0 ? X.so(y, X.tl(mk, 'bq'), 2/3)+'/'+y : ''; };
+  X.tlHTML = function(mk, k){ if(!X.tlHTML.dk && typeof GD!=='undefined'){ X.tlHTML.dk = 1;
+      GD.dangKy('hstl', {cong:function(el){ var m = el.getAttribute('data-mk'), q = el.getAttribute('data-k'); X.tlDat(m, q, X.tl(m, q)+(+el.getAttribute('data-d'))); }, go:function(el){ X.tlDat(el.getAttribute('data-mk'), el.getAttribute('data-k'), +el.value); }}); }
+    var v = X.tl(mk, k), lo = X.TL[k][0], a = ' data-mk="'+mk+'" data-k="'+k+'"';
+    return '<span class="hso-sw om-tl" title="Tỷ lệ '+X.TL[k][1]+' ('+lo+'–100%)"><button data-lenh="hstl.cong"'+a+' data-d="-5"'+(v<=lo ? ' disabled' : '')+'>−</button>'+
+      '<input type="number" min="'+lo+'" max="100" value="'+v+'" data-lenh="hstl.go" data-su="change"'+a+'><b>%</b><button data-lenh="hstl.cong"'+a+' data-d="5"'+(v>=100 ? ' disabled' : '')+'>+</button></span>'; };
+  X.tlDat = function(mk, k, v){ var lo = X.TL[k][0]; v = Math.round(+v || 0);
+    if(v<lo){ bao('Tỷ lệ '+X.TL[k][1]+' phải '+(k==='du' ? 'trên 50%' : 'trên 2/3')+' — đặt '+lo+'%.', 4); v = lo; } if(v>100) v = 100;
+    var L = hsoLuu(); L.tlHop = L.tlHop || {}; (L.tlHop[mk] = L.tlHop[mk] || {})[k] = v; luu(); hsoVe(); if(typeof omKBDsVe==='function') omKBDsVe(mk); if(document.getElementById('om-kbt')) omKBVe(); };
+  X.nhanhThem = function(mk, co, ds){ var L = hsoLuu(); if(L[co]) return; var nh = omNhanh(mk); ds.forEach(function(k){ if(nh.indexOf(k)<0) nh.push(k); }); L[co] = 1; };   /* ô mới vào Chọn nhanh 1 lần */
   return X;
 })();

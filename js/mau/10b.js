@@ -17,7 +17,7 @@
   function sup(x){ return '<span style="font-size:58%;vertical-align:33%;line-height:0">'+x+'</span>'; }
   function P2(a, b, st, st2){ return P(a, st+W+TL+'margin-bottom:0;')+P(b, (st2||'')+W+';margin-top:0;'); }
   var VV = ['kết nạp tổ viên', 'bầu thay đổi thành viên Ban quản lý Tổ'];   /* 3.452: Về việc chọn nhiều (anh 02/11) */
-  var DON = {truongAp:1, chuTri:1, chuTriCv:1, chuTriHoi:1, thuKy:1, toHoi:1, bauTT:1, bauTTCu:1, bauPho:1, bauPhoCu:1, ubHoi:1, ubTT:1, ubPho:1, kyTA:1, kyCT:1};
+  var DON = {du:1, bq:1, truongAp:1, chuTri:1, chuTriCv:1, chuTriHoi:1, thuKy:1, toHoi:1, bauTT:1, bauTTCu:1, bauPho:1, bauPhoCu:1, ubHoi:1, ubTT:1, ubPho:1, kyTA:1, kyCT:1};
   omDangKy({k:MK, ma:'10B/TD', phan:['to', 'hoi', 'ub', 'ky'], co:14,
     dien:[['het', 'Điền hết'], ['chuaUB', 'Chừa phê duyệt UBND'], ['tuy', 'Tùy chọn']],   /* 3.452: khối Nhập liệu riêng (quy chuẩn 9.8) */
     phanTen:{to:'Thông tin cuộc họp, kết nạp, bầu thay', hoi:'Chủ trì (Hội)', ub:'Phê duyệt UBND', ky:'Ngày, họ tên dưới chữ ký'},
@@ -25,7 +25,7 @@
       {k:'gio', n:'Thời gian bắt đầu: … giờ …', p:'to', l:'go', md:'cham'},
       {k:'ngay', n:'Ngày họp', p:'to', l:'go', md:'cham', ngay:1, nhanh:1, ui:function(){ return hsoIn('HSO.o.ngay=this.value;hsoHen()', HSO.o.ngay || '', '', 'date'); }},
       {k:'diaDiem', n:'Địa điểm: thôn · xã · tỉnh', p:'to', l:'tu', md:'tu', ng:'tổ — Mẫu 31 / ⚙ PGD › tỉnh'},
-      {k:'du', n:'- …/… tổ viên dự họp (số tổ viên trước họp)', p:'to', l:'tu', md:'tu', ng:'số tổ viên trước họp'},
+      {k:'du', n:'- …/… tổ viên dự họp (số tổ viên trước họp)', p:'to', l:'tu', md:'tu', ng:'tham dự = số tổ viên trước họp × tỷ lệ (> 50%, mặc định 100%) / số tổ viên', nhanh:1, tuUi:function(){ return HST.tlHTML(MK, 'du'); }},
       {k:'toAp', n:'… Tổ TK&VV tại thôn …', p:'to', l:'tu', md:'tu', ng:'ấp của tổ'},
       {k:'toHoi', n:'… thuộc Hội … (không ghi xã / phường)', p:'to', l:'tu', md:'tu', ng:'Hội nhận ủy thác của tổ'},
       {k:'truongAp', n:'- Ông (bà) … là Trưởng thôn', p:'to', l:'tu', md:'tu', ng:'⚙ khai báo ấp / tổ'},
@@ -40,7 +40,7 @@
       {k:'bauTTCu', n:'2b. … thay Ông (Bà) (tổ trưởng cũ)', p:'to', l:'tu', md:'tu', ng:'bầu thay ở cột trái'},
       {k:'bauPho', n:'2b. Ông (Bà) … Chức vụ: Tổ phó (người mới)', p:'to', l:'tu', md:'tu', ng:'bầu thay ở cột trái'},
       {k:'bauPhoCu', n:'2b. … thay Ông (Bà) (tổ phó cũ)', p:'to', l:'tu', md:'tu', ng:'bầu thay ở cột trái'},
-      {k:'bq', n:'3. …/… tổ viên biểu quyết tán thành', p:'to', l:'go', md:'cham'},
+      {k:'bq', n:'3. …/… tổ viên biểu quyết tán thành', p:'to', l:'tu', md:'tu', ng:'số tán thành / số tham dự (tán thành > 2/3, mặc định 100%)', nhanh:1, tuUi:function(){ return HST.tlHTML(MK, 'bq'); }},
       {k:'ketThuc', n:'Kết thúc vào … giờ … ngày …', p:'to', l:'go', md:'cham'},
       {k:'ubAp', n:'Phê duyệt UBND: tại thôn …', p:'ub', l:'tu', md:'tu', ng:'ấp của tổ'},
       {k:'ubHoi', n:'Phê duyệt UBND: do Hội … quản lý', p:'ub', l:'tu', md:'tu', ng:'Hội của tổ'},
@@ -51,14 +51,16 @@
       {k:'kyCT', n:'Họ tên dưới chữ ký Chủ trì', p:'ky', l:'tu', md:'tu', ng:'⚙ khai báo Hội'}],
     V:function(t){
       HST.tach(MK, {bau:['bauTT', 'bauTTCu', 'bauPho', 'bauPhoCu'], ub:['ubAp', 'ubHoi', 'ubTT', 'ubPho'], ky:['kyTA', 'kyCT'], chuTri:['chuTriCv', 'chuTriHoi'], hoiTo:['toAp', 'toHoi'], kn:['knSau']});
+      HST.nhanhThem(MK, 'nhanh'+MK+'3457', ['du', 'bq']);   /* 3.457: số tham dự, biểu quyết ra Chọn nhanh */
       var T = hsoTo(t), tv = hsoTVTo(t), L = t ? hsoKNRa(t, tv) : {kn:[], ra:[], truoc:0, sau:0}, N = hsoNguoiHoi(t), Bt = hsoBau(t), h = T.hoi || '', hd = function(x){ return x ? tenHoaDau(x) : x; };
       L.kn = L.kn.slice().sort(function(a, b){ return String(a.kh).localeCompare(String(b.kh), 'vi', {numeric:true}); });   /* in theo Mã KH */
       return {L:L, Bt:{tt:hd(Bt.tt), ttCu:hd(Bt.ttCu), pho:hd(Bt.pho), phoCu:hd(Bt.phoCu)}, ngay:HSO.o.ngay, ap:T.ap, xa:T.xa, tinh:T.tinh, capAp:HST.capAp(t, T), capXa:HST.capXa(T),
-        du:t ? String(L.truoc) : '', truongAp:hd(T.truongAp), cb:hd(N.cb), cv:N.cv, hoiLa:/^Hội\s/i.test(h) || !h, hoiTen:HST.hoi(/^Hội\s/i.test(h) || !h ? hsoBoHoi(h) : h), thuKy:hd(T.pho), sau:t ? String(L.sau) : '', ubNgay:HSO.o.ubNgay,
-        gio:HSO.vay.gio, bq:HSO.vay.bq, ketThuc:HSO.vay.ketThuc};
+        du:t ? HST.thamDu(MK, L.truoc) : '', truongAp:hd(T.truongAp), cb:hd(N.cb), cv:N.cv, hoiLa:/^Hội\s/i.test(h) || !h, hoiTen:HST.hoi(/^Hội\s/i.test(h) || !h ? hsoBoHoi(h) : h), thuKy:hd(T.pho), sau:t ? String(L.sau) : '', ubNgay:HSO.o.ubNgay,
+        gio:HSO.vay.gio, bq:HST.bq(MK, 'du', t ? HST.thamDu(MK, L.truoc) : ''), ketThuc:HSO.vay.ketThuc};
     },
     lap:function(t){
-      var V = this.V(t), G = omG(MK, V, 14), S = HST.bo(MK, V, G, P, {don:DON}), o = S.o, C = S.C, g = S.g, ong = S.ong;   /* 3.452: quy chuẩn 9.8 — chữ liền in thường, chấm giữ form */
+      var V = this.V(t), G = omG(MK, V, 14), S = HST.bo(MK, V, G, P, {don:DON}), o = S.o, C = S.C, g = S.g, ong = S.ong, duP = String(g('du', V.du) || '').split('/'), bqP = String(g('bq', V.bq) || '').split('/');   /* 3.452: quy chuẩn 9.8 — chữ liền in thường, chấm giữ form */
+      if(duP[0] && !duP[1]) duP[1] = String(V.du || '').split('/')[1] || '';   /* ⌨ gõ 1 số = số tham dự, tổng vẫn tự lấy */
       var ngd = function(k, ds){ var x = hsoNg(G.gt(k)), p = x ? [x.d, x.m, x.y] : ['', '', '']; return ds.map(function(ch, i){ return o(k, ch, {gt:p[i], canh:'c'}); }); };
       var nd = ngd('ngay', ['…...', '……', '………']), un = ngd('ubNgay', ['......', '........', '…']), Bt = V.Bt, kn = C('kn') ? V.L.kn : [];
       var hoiX = function(k, ch){ var v = g(k, V.hoiTen); return v ? (V.hoiLa ? 'Hội ' : '')+o(k, ch, {gt:v}) : 'Hội '+o(k, ch, {gt:''}); };
@@ -83,7 +85,7 @@
         P('<b>Thời gian bắt đầu</b>: '+o('gio', '…….', {canh:'c'})+' giờ '+o('gio', '……', {gt:''})+', ngày '+nd[0]+'/'+nd[1]+'/'+nd[2], J+F+'margin:10pt 0 6pt;line-height:16pt;'+(G.gt('gio') || G.gt('ngay') ? '' : W))+
         P('<b>Địa điểm:</b> '+S.dvA('diaDiem', '………………', '……………………', 1)+', tỉnh '+o('diaDiem', '……………….', {gt:g('diaDiem', V.tinh)}), J+F+B)+
         P('<b>Thành phần tham dự: </b>', J+F+B)+
-        P('- '+o('du', '……', {gt:''})+'/'+o('du', '……', {canh:'c'})+' tổ viên Tổ Tiết kiệm và vay vốn (TK&amp;VV) tại '+
+        P('- '+o('du', '……', {gt:duP[0] || ''})+'/'+o('du', '……', {gt:duP[1] || '', canh:'c'})+' tổ viên Tổ Tiết kiệm và vay vốn (TK&amp;VV) tại '+
           (g('toAp', V.ap) ? V.capAp+' '+o('toAp', '', {gt:g('toAp', V.ap)}) : 'thôn '+o('toAp', '................. ...................................', {gt:''}))+' thuộc '+hoiX('toHoi', '.....................................................................................'), J+F+B+(g('toAp', V.ap) ? '' : W))+
         P('- '+ong('truongAp', '.......................................', V.truongAp, 1)+' là Trưởng '+S.apL+', chứng kiến cuộc họp.', J+F+B+(S.coTen('truongAp', V.truongAp) ? '' : W))+
         (S.coTen('chuTri', V.cb) ? S.tabP('<b>Chủ trì</b>: '+ong('chuTri', '', V.cb, 1), 'Chức vụ: '+o('chuTriCv', '...........................', {gt:g('chuTriCv', V.cv)})+' '+hoiX('chuTriHoi', '………..'), B)
@@ -93,7 +95,7 @@
         P('2. Sau khi thảo luận, các tổ viên trong Tổ TK&amp;VV thống nhất:', J+F+B)+P('a) Kết nạp các Ông (Bà) có tên sau là tổ viên của Tổ TK&amp;VV:'+sup('2'), J+F+B)+knD+
         P('- Tổng số tổ viên của tổ sau kỳ họp là: '+o('knSau', '...........', {gt:g('knSau', V.sau), canh:'c'})+' tổ viên.', J+F+B)+
         P('b) Bầu thành viên mới tham gia Ban quản lý Tổ', J+F+B)+bau('bauTT', 'bauTTCu', Bt.tt, 'Tổ trưởng', Bt.ttCu)+bau('bauPho', 'bauPhoCu', Bt.pho, 'Tổ phó', Bt.phoCu)+
-        P('3. Kết quả biểu quyết:&nbsp; '+o('bq', '......', {canh:'c'})+'/'+o('bq', '......', {gt:''})+' tổ viên của Tổ tham dự họp biểu quyết tán', J+F+'line-height:16pt;letter-spacing:-0.1pt;margin-bottom:0;'+W+TL)+
+        P('3. Kết quả biểu quyết:&nbsp; '+o('bq', '......', {gt:bqP[0] || '', canh:'c'})+'/'+o('bq', '......', {gt:bqP[1] || ''})+' tổ viên của Tổ tham dự họp biểu quyết tán', J+F+'line-height:16pt;letter-spacing:-0.1pt;margin-bottom:0;'+W+TL)+
         chan+   /* gốc ngắt trang giữa đoạn 3 → dòng đầu đoạn 3 ở trang 1, chú thích ở đáy trang 1 */
         P('thành các nội dung kết nạp tổ viên'+sup('3')+'; bầu tham gia Ban quản lý Tổ và giữ chức vụ Tổ trưởng đối với Ông (Bà) '+o('bauTT', '................……….........., ', {gt:ttB})+(ttB ? ', ' : '')+'giữ chức vụ Tổ phó đối với Ông (Bà) '+o('bauPho', '................………..........', {gt:phoB})+'.', J+B)+
         P('Ban quản lý Tổ TK&amp;VV thực hiện nhiệm vụ, quyền hạn của mình theo quy định tại Quyết định số 70/QĐ-HĐQT ngày 27/8/2026 của Hội đồng quản trị NHCSXH về Quy chế hoạt động của Tổ TK&amp;VV và các quy định liên quan của NHCSXH.', J+F+B)+

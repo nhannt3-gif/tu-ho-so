@@ -20,7 +20,7 @@
   function chanTrang(cao, so, chu){ return '<div class="kt-giu" style="height:'+cao+'mm"><div style="position:absolute;left:1.5px;right:1.5px;bottom:0;font-size:10pt;line-height:1.15;text-align:justify">'+
     '<p style="margin:0 0 1mm;width:50mm;height:0;border-top:.5pt solid #000"></p><p style="margin:0">'+sup(so)+' '+chu+'</p></div></div>'; }
   var VV = ['kết nạp tổ viên', 'cho tổ viên ra khỏi Tổ', 'bình xét cho vay', 'sửa đổi Quy ước hoạt động của Tổ'];   /* 3.453 (anh 02/11): Về việc chọn nhiều theo chú thích (1) của mẫu */
-  var DON = {tt:1, pho:1, truongAp:1, hoiCB:1, hoiCv:1, hoiTen:1, kyTK:1, kyHoi:1, kyCT:1, kyTA:1};
+  var DON = {du:1, bq:1, tt:1, pho:1, truongAp:1, hoiCB:1, hoiCv:1, hoiTen:1, kyTK:1, kyHoi:1, kyCT:1, kyTA:1};
   omDangKy({k:MK, ma:'10C/TD', phan:['to', 'hoi', 'ky'], co:14,
     dien:[['het', 'Điền hết'], ['tuy', 'Tùy chọn']],   /* 3.453: khối Nhập liệu riêng (10C không có phần UBND / NH) */
     phanTen:{to:'Thông tin cuộc họp, kết nạp / cho ra, bình xét', hoi:'Cán bộ Hội chứng kiến', ky:'Ngày, họ tên dưới chữ ký'},
@@ -32,7 +32,7 @@
       {k:'ungDung', n:'Thông qua ứng dụng (họp trực tuyến)', p:'to', l:'kb', md:'cham'},
       {k:'tt', n:'- Chủ trì: Ông (bà) … Chức vụ: Tổ trưởng', p:'to', l:'tu', md:'tu', ng:'tổ — Mẫu 31 / File Tổ trưởng'},
       {k:'pho', n:'- Thư ký: Ông (bà) … Chức vụ: Tổ phó', p:'to', l:'tu', md:'tu', ng:'File Tổ trưởng / ⚙ khai báo tổ phó'},
-      {k:'du', n:'…/… tổ viên dự họp (số tổ viên trước họp)', p:'to', l:'tu', md:'tu', ng:'số tổ viên trước họp'},
+      {k:'du', n:'…/… tổ viên dự họp (số tổ viên trước họp)', p:'to', l:'tu', md:'tu', ng:'tham dự = số tổ viên trước họp × tỷ lệ (> 50%, mặc định 100%) / số tổ viên', nhanh:1, tuUi:function(){ return HST.tlHTML(MK, 'du'); }},
       {k:'truongAp', n:'- Ông (bà) … là Trưởng thôn chứng kiến', p:'to', l:'tu', md:'tu', ng:'⚙ khai báo ấp / tổ'},
       {k:'hoiCB', n:'- Ông (bà) … (cán bộ Hội chứng kiến) — họ tên', p:'hoi', l:'tu', md:'tu', ng:'⚙ khai báo Hội (người dự họp)'},
       {k:'hoiCv', n:'Cán bộ Hội: chức vụ', p:'hoi', l:'tu', md:'tu', ng:'⚙ khai báo Hội'},
@@ -42,7 +42,7 @@
       {k:'sau', n:'Tổng số tổ viên sau họp', p:'to', l:'tu', md:'tu', ng:'tự tính'},
       {k:'vay', n:'Bảng 2: danh sách đề nghị vay vốn', p:'to', l:'tu', md:'tu', ng:'bộ hồ sơ vay (in kèm 01/TD)'},
       {k:'khac', n:'3. Nội dung khác', p:'to', l:'kb', md:'cham'},
-      {k:'bq', n:'4. …/… tổ viên biểu quyết tán thành', p:'to', l:'go', md:'cham'},
+      {k:'bq', n:'4. …/… tổ viên biểu quyết tán thành', p:'to', l:'tu', md:'tu', ng:'số tán thành / số tham dự (tán thành > 2/3, mặc định 100%)', nhanh:1, tuUi:function(){ return HST.tlHTML(MK, 'bq'); }},
       {k:'ketThuc', n:'Kết thúc lúc … giờ … ngày …', p:'to', l:'go', md:'cham'},
       {k:'kyTK', n:'Họ tên dưới chữ ký Thư ký', p:'ky', l:'tu', md:'tu', ng:'tổ phó'},
       {k:'kyHoi', n:'Họ tên dưới chữ ký Tổ chức CT-XH', p:'ky', l:'tu', md:'tu', ng:'⚙ khai báo Hội'},
@@ -50,15 +50,18 @@
       {k:'kyTA', n:'Họ tên dưới chữ ký Trưởng thôn', p:'ky', l:'tu', md:'tu', ng:'⚙ khai báo ấp'}],
     V:function(t, X){
       HST.tach(MK, {hoi:['hoiCB', 'hoiCv', 'hoiTen'], kn:['ra'], ky:['kyTK', 'kyHoi', 'kyCT', 'kyTA']});
+      HST.nhanhThem(MK, 'nhanh'+MK+'3457', ['du', 'bq']);   /* 3.457: số tham dự, biểu quyết ra Chọn nhanh */
       var T = hsoTo(t), tv = hsoTVTo(t), L = t ? hsoKNRa(t, tv) : {kn:[], ra:[], truoc:0, sau:0}, N = hsoNguoiHoi(t), h = T.hoi || '', hd = function(x){ return x ? tenHoaDau(x) : x; };
       if(X && X.kn){ var moiVao = X.kn.filter(function(x){ return !tv.some(function(k){ return k.kh && k.kh===x.kh; }); }).length; L = {kn:X.kn, ra:[], truoc:tv.length, sau:tv.length+moiVao}; }
       var sx = function(a){ return a.slice().sort(function(x, y){ return String(x.kh).localeCompare(String(y.kh), 'vi', {numeric:true}); }); };   /* in theo Mã KH */
       L = {kn:sx(L.kn), ra:sx(L.ra), truoc:L.truoc, sau:L.sau};
-      return {L:L, T:T, X:X, ngay:HSO.o.ngay, ap:T.ap, xa:T.xa, tinh:T.tinh, capAp:HST.capAp(t, T), capXa:HST.capXa(T), tt:hd(T.tt), pho:hd(T.pho), du:t ? String(L.truoc) : '', truongAp:hd(T.truongAp),
-        cb:hd(N.cb), cv:N.cv, hoiLa:/^Hội\s/i.test(h) || !h, hoiTen:HST.hoi(/^Hội\s/i.test(h) || !h ? hsoBoHoi(h) : h), sau:t ? String(L.sau) : '', vay:(X && X.vay) || [], gio:HSO.vay.gio, bq:HSO.vay.bq, ketThuc:HSO.vay.ketThuc};
+      return {L:L, T:T, X:X, ngay:HSO.o.ngay, ap:T.ap, xa:T.xa, tinh:T.tinh, capAp:HST.capAp(t, T), capXa:HST.capXa(T), tt:hd(T.tt), pho:hd(T.pho), du:t ? HST.thamDu(MK, L.truoc) : '', truongAp:hd(T.truongAp),
+        cb:hd(N.cb), cv:N.cv, hoiLa:/^Hội\s/i.test(h) || !h, hoiTen:HST.hoi(/^Hội\s/i.test(h) || !h ? hsoBoHoi(h) : h), sau:t ? String(L.sau) : '', vay:(X && X.vay) || [], gio:HSO.vay.gio, bq:HST.bq(MK, 'du', t ? HST.thamDu(MK, L.truoc) : ''), ketThuc:HSO.vay.ketThuc};
     },
     lap:function(t, X){
-      var V = this.V(t, X), G = omG(MK, V, 14), S = HST.bo(MK, V, G, P, {don:DON}), o = S.o, C = S.C, g = S.g, ong = S.ong, Lu = hsoLuu();   /* 3.453: quy chuẩn 9.8 */
+      var V = this.V(t, X), G = omG(MK, V, 14), S = HST.bo(MK, V, G, P, {don:DON}), o = S.o, C = S.C, g = S.g, ong = S.ong, duP = String(g('du', V.du) || '').split('/'), bqP = String(g('bq', V.bq) || '').split('/');
+      if(duP[0] && !duP[1]) duP[1] = String(V.du || '').split('/')[1] || '';   /* ⌨ gõ 1 số = số tham dự, tổng vẫn tự lấy */
+      var Lu = hsoLuu();   /* 3.453: quy chuẩn 9.8 */
       var x = hsoNg(G.gt('ngay')), nd = x ? [x.d, x.m, x.y] : ['', '', ''];
       var ck = function(k, on){ return '<span class="om om-'+(C(k) ? (OM_KIEU==='mau' ? 'mau' : 'kb') : 'cham')+'" data-o="'+k+'">'+(C(k) && on ? '☒' : '☐')+'</span>'; }, ht = G.gt('hinhThuc');
       var bd = 'border:.5pt solid #000;padding:0 1.9mm;', td = function(noi, st){ return '<td style="'+bd+(st||'')+'">'+noi+'</td>'; }, pc = 'margin:4.8pt 0;line-height:16pt;';
@@ -89,7 +92,7 @@
         P2('Thông qua ứng dụng:'+o('ungDung', '………………………………..'), '……………………', J+'text-indent:37.9mm;'+H15, H15)+
         P('<b>Thành phần tham dự:</b>', J+F+H15)+
         vaiP('Chủ trì', 'tt', V.tt, 'Tổ trưởng')+vaiP('Thư ký', 'pho', V.pho, 'Tổ phó')+
-        P('- '+o('du', '…......', {gt:''})+'/'+o('du', '.........', {canh:'c'})+' tổ viên thuộc Tổ TK&amp;VV.', J+F+H15)+
+        P('- '+o('du', '…......', {gt:duP[0] || ''})+'/'+o('du', '.........', {gt:duP[1] || '', canh:'c'})+' tổ viên thuộc Tổ TK&amp;VV.', J+F+H15)+
         (S.coTen('truongAp', V.truongAp) ? P('- '+ong('truongAp', '', V.truongAp, 1)+' là Trưởng '+S.apL+' chứng kiến cuộc họp.', J+F+H15)
           : P2('- Ông (bà)'+o('truongAp', '………………………………', {gt:''})+' là Trưởng thôn chứng kiến', 'cuộc họp.', J+F+H15+'letter-spacing:-0.3pt;', H15))+
         (S.coTen('hoiCB', V.cb) ? S.tabP('- '+ong('hoiCB', '', V.cb, 1), 'Chức vụ: '+o('hoiCv', '……………….', {gt:g('hoiCv', V.cv)})+' '+hoiX('hoiTen', '………………………..………')+' chứng kiến cuộc họp.', H15)
@@ -107,7 +110,7 @@
           var noi = ds.map(function(z){ return '<span class="om om-cham" data-o="khac"'+(v ? ' style="visibility:hidden"' : '')+'>'+z+'</span>'; }).join('<br>');
           return '<div style="position:relative">'+P(noi, 'text-indent:10mm;margin:6pt 0 3pt;line-height:19pt;'+W)+(v ? '<div class="om om-'+(OM_KIEU==='mau' ? 'mau' : 'kb')+'" data-o="khac" style="position:absolute;left:0;right:0;top:6pt;bottom:3pt;overflow:hidden;line-height:19pt;text-indent:10mm;text-align:justify;font-weight:normal">'+coChuHTML(v)+'</div>' : '')+'</div>'; })()+
         P('<b>4.</b><b> Kết quả biểu quyết</b>', 'text-indent:10mm;margin:3pt 0;line-height:18pt')+
-        P2(o('bq', '......', {canh:'c'})+'/'+o('bq', '......', {gt:''})+' tổ viên của Tổ tham dự họp biểu quyết tán thành', 'thông qua các nội dung nêu trên.', J+'text-indent:10mm;margin:3pt 0;line-height:18pt;', 'line-height:18pt;margin-bottom:3pt')+
+        P2(o('bq', '......', {gt:bqP[0] || '', canh:'c'})+'/'+o('bq', '......', {gt:bqP[1] || ''})+' tổ viên của Tổ tham dự họp biểu quyết tán thành', 'thông qua các nội dung nêu trên.', J+'text-indent:10mm;margin:3pt 0;line-height:18pt;', 'line-height:18pt;margin-bottom:3pt')+
         P2('Nội dung biên bản được các tổ viên và thành phần tham dự', 'cuộc họp hoàn toàn nhất trí thông qua.', J+'text-indent:10mm;margin:3pt 0;line-height:18pt;', 'line-height:18pt;margin-bottom:3pt')+
         P2('Cuộc họp kết thúc vào lúc '+o('ketThuc', '……', {canh:'c'})+' giờ '+o('ketThuc', '……', {gt:''})+' ngày '+o('ketThuc', '.….', {gt:''}), '/…../…..........', J+'text-indent:10mm;margin:3pt 0;line-height:18pt;', 'line-height:18pt;margin-bottom:3pt')+
         P('&nbsp;', 'margin:0;line-height:10pt')+

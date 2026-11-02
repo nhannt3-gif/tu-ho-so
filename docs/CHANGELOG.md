@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.457 — 02/11/2026 — 10B, 10C số tham dự / biểu quyết theo tỷ lệ (TK 2)
+- **Anh 02/11:** "làm luôn" (10B, 10C như 10A 3.456).
+- Phần chung `js/mau/0hst.js`: `HST.tl` / `HST.so` / `HST.thamDu` / `HST.bq` / `HST.tlHTML` / `HST.tlDat` / `HST.nhanhThem` — tỷ lệ nhớ riêng từng mẫu `hsoLuu().tlHop[mẫu]`.
+- `js/mau/10b.js`, `js/mau/10c.js`: "…/… tổ viên dự họp" = số tham dự (tổ viên trước họp × tỷ lệ, làm tròn lên, > 1/2) / số tổ viên; ⌨ gõ 1 số = số tham dự, tổng tự lấy. Biểu quyết "tán thành / tham dự" theo số dự họp in ở trên (> 2/3, QĐ 70); dự họp để chấm → biểu quyết chấm. 2 ô ra Chọn nhanh, có − / + tỷ lệ.
+- Phép thử mới `t365`; chuẩn in `t179` 10B, 10C ghi lại. (10A giữ hàm riêng 3.456 — chuyển sang `HST` cùng lần đưa 10A về phần chung.)
+
 ## 3.456 — 02/11/2026 — 10A số tham dự, biểu quyết theo tỷ lệ; III, IV, phê duyệt linh hoạt (TK 2)
 - **Anh 02/11:** "số tv tham dự tối thiểu 50% số thành viên tổ, chọn theo số tv tổ, tỷ lệ điều chỉnh được nhưng > 50% <= 100%"; "để sẵn 100% cho chọn được tăng giảm %, mục III, IV và phần phê duyệt cũng cho chọn linh hoạt".
 - `js/mau/10a.js`: số tham dự = số tổ viên (ô Tổng số) × tỷ lệ, làm tròn lên, luôn > 1/2 (`hso10aThamDu`); tỷ lệ mặc định 100%, − / + 5%, gõ 51–100 (`hso10aTlHTML`, nhớ `hsoLuu().tl10a`). IV "tán thành / tham dự" theo số tham dự in ở trên (tự tính / tự gõ; để chấm → IV chấm), tán thành > 2/3 (QĐ 70), tỷ lệ riêng mặc định 100% (`tl10aBq`). III a / b: ⌨ gõ hoặc chọn tên trong tổ (gợi ý `goiY`); Phê duyệt UBND lấy tên theo III. Cuối Chọn nhanh: Phê duyệt UBND cả phần ✍ chấm / 🤖 tự điền. Số tham dự, III a / b, IV ra Chọn nhanh.
