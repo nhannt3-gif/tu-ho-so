@@ -34,15 +34,15 @@ function lcs(a, b){ const n = a.length, m = b.length; let pr = new Uint16Array(m
   const R = [], ok = (ten, dk, chi) => R.push((dk ? '✓ ' : '✗ ')+ten+(chi ? ' — '+chi : '')), bao = s => R.push('  · '+s), chiTiet = process.argv.indexOf('--chi-tiet')>=0;
   Object.keys(A).forEach(k=>{ const a = A[k], g = GOC[a.goc]; if(!g){ ok(k, false, 'không có số đo gốc '+a.goc); return; }
     const tg = tu(g.doan.join(' ')), ta = tu(a.h), L = lcs(tg, ta), tl = Math.round(L.n*1000/Math.max(1, tg.length))/10;
-    const leL = a.le.map((x, i)=>Math.abs(x-g.le[i])), leOk = leL.every(x=>x<=({'01td':3.5}[a.goc] || 2))   /* 3.249 (anh 18/10): 01/TD lề trên 10 → 7 mm */, trOk = a.trang===g.trang || (a.trang===g.trang-1 && KHOP.trangTrang && KHOP.trangTrang.indexOf(a.goc)>=0), ngOk = a.ngang===g.ngang;
+    const leL = a.le.map((x, i)=>Math.abs(x-g.le[i])), leOk = leL.every(x=>x<=({'01td':3.5}[a.goc] || 2))   /* 3.249 (anh 18/10): 01/TD lề trên 10 → 7 mm */, dcy = (KHOP.doiChuY||{})[a.goc], trOk = a.trang===g.trang || (a.trang===g.trang-1 && KHOP.trangTrang && KHOP.trangTrang.indexOf(a.goc)>=0) || (dcy && a.trang===g.trang+(dcy.trangThem||0)), ngOk = a.ngang===g.ngang;   /* 3.443: doiChuY = anh duyệt đổi bố cục khác gốc (10A khung 100 tổ viên) */
     /* vị trí dòng: ghép dòng gốc ↔ dòng app theo chữ đầu dòng (cùng trang, theo thứ tự) → độ lệch dọc mm */
     const khoa = s => (tu(s)[0]||'')+' '+(tu(s)[1]||''), sx = a => a.slice().sort((p, q)=>p[0]-q[0] || p[1]-q[1] || p[2]-q[2]);
     const gd = sx(g.dong||[]).filter(x=>tu(x[3]).length), ad = sx(a.dong||[]).filter(x=>tu(x[3]).length); let j = 0; const lech = [];
     gd.forEach(x=>{ const kx = khoa(x[3]); for(let q=j;q<Math.min(ad.length, j+14);q++){ if(ad[q][0]===x[0] && khoa(ad[q][3])===kx && Math.abs(ad[q][1]-x[1])<20){ lech.push(Math.abs(ad[q][1]-x[1])); j = q+1; break; } } });
     lech.sort((p, q)=>p-q); const ghep = Math.round(lech.length*100/Math.max(1, gd.length)), p90 = lech.length ? lech[Math.floor(lech.length*0.9)].toFixed(1) : '?';
-    const vtOk = ghep>=70 && lech.length && +p90<=({'03td':12, '01td':16}[a.goc] || 3);   /* 3.249: + lề trên 7 mm */   /* 3.247 (anh 18/10): 01/TD chữ 14 (gốc 13), bảng chỉ dòng số liệu → dòng xê ≤ 12 mm */   /* 3.240 (anh 17/10): 03/TD bản trắng 5 dòng (gốc 4) → khối dưới bảng xuống 1 dòng */
+    const vtOk = dcy ? true : ghep>=70 && lech.length && +p90<=({'03td':12, '01td':16}[a.goc] || 3);   /* 3.249: + lề trên 7 mm */   /* 3.247 (anh 18/10): 01/TD chữ 14 (gốc 13), bảng chỉ dòng số liệu → dòng xê ≤ 12 mm */   /* 3.240 (anh 17/10): 03/TD bản trắng 5 dòng (gốc 4) → khối dưới bảng xuống 1 dòng */
     const tom = 'vị trí dòng: ghép '+ghep+' %, lệch 90 % ≤ '+p90+' mm · chữ '+tl+' % · trang app '+a.trang+' / gốc '+g.trang+' · '+(a.ngang ? 'ngang' : 'dọc')+(ngOk ? '' : ' ≠ gốc')+' · lề app '+a.le.join('/')+' / gốc '+g.le.join('/');
-    if((KHOP.mau||[]).indexOf(a.goc)>=0) ok(k+' ↔ '+a.goc+' (đã khớp)', tl>=98 && trOk && ngOk && leOk && vtOk, tom);
+    if((KHOP.mau||[]).indexOf(a.goc)>=0) ok(k+' ↔ '+a.goc+(dcy ? ' (đổi bố cục anh duyệt — không so vị trí dòng)' : ' (đã khớp)'), tl>=98 && trOk && ngOk && leOk && vtOk, tom);
     else bao(k+' ↔ '+a.goc+' (chưa làm lại): '+tom);
     if(chiTiet){ let run = []; const thieu = []; tg.forEach((x, i)=>{ if(!L.keo[i]) run.push(x); else { if(run.length>=3) thieu.push(run.join(' ')); run = []; } }); if(run.length>=3) thieu.push(run.join(' '));
       thieu.slice(0, 12).forEach(s=>bao('   thiếu: '+s.slice(0, 140))); }

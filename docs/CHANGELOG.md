@@ -9,7 +9,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - `js/mau/10a.js`: danh sách tổ viên = khung cố định **100 ô, 3 cột × 34 dòng, đánh số dọc theo cột** (1–34 │ 35–68 │ 69–100), chữ cỡ 12, ô trống để chấm; "Tổng số" ngay dưới khung; "II. QUY ƯỚC" luôn sang **trang 3** (phần II → phê duyệt UBND vẫn 3 trang như mẫu gốc → cả mẫu 5 trang).
 - Tích > 100 tổ viên → cột trái báo ⚠, chỉ in 100 người đầu, Tổng số 100.
 - Phần chung (chỉ mẫu dùng mới có tác dụng): bộ in `trDan` (js/05) nhận `.tr-sang` = buộc sang trang; Word `hsoDocx` (js/25b): `.tr-sang` → ngắt trang (pageBreakBefore), bảng `data-cao` → dòng cao cố định (sửa tên không đẩy trang). Hằng `HSO_10A_TV / DONG / CAO` (js/25).
-- Phép thử mới `t358` (dữ liệu giả). Hồi quy đủ.
+- Phép thử mới `t358` (dữ liệu giả). Hồi quy đủ 235/238 → sửa 3 phép (gộp sau): chuẩn in `t179` 10A ghi lại (anh duyệt đổi mẫu); `t180` 10A đổi bố cục chủ ý (`khop.json` `doiChuY`: 5 trang / gốc 4, không so vị trí dòng); `t309` bảng Tổ trưởng 7 cột (3.440 thêm CCCD — phép thử cũ chưa cập nhật).
 
 ## 3.442 — 02/11/2026 — Quét CCCD: đối chiếu chủ TK 104 (TK 2)
 - **Anh 02/11:** "em cho quét số TK 104 cho chắc" → chọn **đối chiếu chủ TK 104**.
