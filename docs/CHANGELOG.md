@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.440 — 02/11/2026 — Tra cứu: cột CCCD tổ trưởng trong bảng Tổ trưởng (TK 2)
+- **Anh 02/11** (ảnh Tra cứu › Tìm theo Tổ trưởng): "anh muốn truy vấn được CCCD tổ trưởng từ đây, dùng cây lọc địa bàn".
+- Bảng Tổ trưởng (js/58 `tcToTim`) thêm cột **CCCD**: **Đã lưu** / **Thiếu** — cùng luật 👑 Kiểm CCCD tổ trưởng (`ttkCo`, js/84: khớp mã KH tổ trưởng CIF hoặc số CCCD Danh sách tổ / Mẫu 31 với bản scan đã lưu); rê chuột thấy số CCCD + ngày lưu; lọc cột Đã lưu / Thiếu (js/77); dòng Cộng ghi đã lưu / tổng theo lọc địa bàn. Rút js/84 → không có cột (cắm rút).
+- Phép thử mới `t356` (4 ý); `t246` sửa theo cột mới; Tra cứu `t107`, `t244`, `t247`, `t351` đạt.
+
 ## 3.439 — 01/11/2026 — Phân bổ KH: nạp QĐ từ mẫu Excel chuẩn, bỏ nhập file app cũ (TK 2)
 - **Anh 01/11:** chọn "bỏ app cũ, nạp QĐ mới" + "file scan và chụp không chuẩn để đọc 100%, nên anh cần em đưa ra bố cục Xls chuẩn để anh cho Gemini tạo" → duyệt mẫu → "code rồi gộp".
 - **Mẫu Excel** (⬇ Tải mẫu trong tab): HUONG_DAN (luật + lời nhắc cho Gemini) · QD (mỗi QĐ 1 dòng) · CHI_TIET (1 QĐ × 1 xã × 1 CT, triệu đồng, giảm ghi âm) · TONG (dòng tổng trên QĐ) · DM_CT (mã chương trình app).
