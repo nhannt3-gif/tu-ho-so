@@ -1056,7 +1056,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.447', ds:[
+var CO_GI_MOI = {ban:'3.448', ds:[
+  ["📝 Mẫu 10A: Thành lập / Kiện toàn (VB 4336), chữ 14, Tổng số ở cột cuối, xã–ấp theo địa bàn, nút ⚙ Khai báo riêng", ""],
+  ["🌳 Cây lọc: tên xã không còn hiện \"Vay trực tiếp\"", ""],
   ["📝 Mẫu 10A rà bố cục: ngày họp in đúng, thêm khoảng trắng sau xã / tỉnh / tháng, dòng Thư ký vừa 1 dòng", ""],
   ["📝 Mẫu 10A: chữ 13 đều, tiêu đề 15; chữ điền liền như gõ tay; tên hoa đầu từ; ⚙ Khai báo riêng 10A (Về việc, họp tháng / quý…)", ""],
   ["🔧 Scan: tổ trưởng nhận đúng người mà trống ấp → tự bổ sung ấp lúc lưu; bản cũ có nút Bổ sung ấp", ""],
@@ -1069,10 +1071,12 @@ var CO_GI_MOI = {ban:'3.447', ds:[
   ["🏷 Văn bản: tự gắn tag nguồn theo số hiệu — VB Trung ương · NHCSXH Trung ương · Chỉ đạo của Tỉnh", ""],
   ["🔤 Khai văn bản: nút đổi chữ ô Tên — thường · Hoa đầu câu · HOA · Hoa Đầu Từ", ""],
   ["💰 Lãi tồn số liệu theo ngày: món đã trả lãi ở phiên gần nhất không còn lãi tồn (QT-C-03)", ""],
-  ["📅 Tra cứu theo ô kỳ góc phải (mặc định mới nhất), thẻ khách ghi rõ kỳ số liệu", ""],
-  ["🔍 Tra cứu khách: khối Tổ & địa bàn trọn trong ô, không phải cuộn", ""],
-  ["🏷 Sửa: tên xã không còn hiện \"Vay trực tiếp\" (Tra cứu khách, danh sách, địa chỉ trên mẫu hồ sơ)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📅 Tra cứu theo ô kỳ góc phải (mặc định mới nhất), thẻ khách ghi rõ kỳ số liệu", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.448 · Hồ sơ Tổ › 10A › nút ⚙ Khai báo riêng (cạnh ⚙ Khai báo đơn vị) → mọi dòng theo thứ tự mẫu, tích Chọn nhanh",
+    "3.448 · Cột trái 10A › Chọn nhanh › Thành lập / Kiện toàn → tiêu đề + câu nội dung đổi theo VB 4336",
+    "3.448 · Bản mẫu 10A › Điền: Điền hết / Chừa phê duyệt UBND / Tùy chọn",
+    "3.448 · Cây lọc địa bàn (mọi tab) kỳ T10 → tên xã thật",
     "3.447 · Hồ sơ Tổ › 10A › chọn Ngày họp → dòng \"Thời gian bắt đầu: … ngày dd/mm/yyyy\" đúng ngày; dòng \"cùng cư trú tại địa bàn thôn …, xã …, tỉnh …\" có khoảng trắng",
     "3.446 · Số liệu › 📝 Hồ sơ Tổ › chọn tổ › chip 10A/TD → cột trái cuối có ⚙ Khai báo riêng — Mẫu 10A/TD: Chọn nhanh có nút Thành lập / Củng cố (đổi dòng \"Về việc\"), Tháng / Quý (họp định kỳ), ô ngày, tiết kiệm",
     "3.446 · Cùng chỗ › 🖼 Khai báo trực quan → bấm ô trên mẫu; ô chọn có ➕ Thêm lựa chọn khác",
@@ -1088,12 +1092,11 @@ var CO_GI_MOI = {ban:'3.447', ds:[
     "3.438 · Văn bản › khai văn bản số 54/2026/NĐ-CP → Loại tự chọn Nghị định, tự thêm chip tag \"VB Trung ương\"; số …/NHCS-KHTD → tag \"Chỉ đạo của Tỉnh\"; …/NHCS-TDNN, …/QĐ-HĐQT → \"NHCSXH Trung ương\"",
     "3.438 · Văn bản › đầu tab nút 🏷 Gắn tag nguồn (n) → gắn tag cho văn bản cũ (hỏi trước, chỉ thêm tag)",
     "3.438 · Văn bản › bộ lọc tag: chọn \"Chỉ đạo của Tỉnh\" / \"VB Trung ương\" để xem riêng",
-    "3.437 · Văn bản › khai / sửa 1 văn bản → ô Tên văn bản, góc phải có 4 nút aa · Aa. · AA · Aa Aa → bấm thử, ký hiệu (NHCSXH, 54/QĐ-HĐQT) giữ nguyên, xem trước tên file đổi theo",
-    "3.436 · Góc phải chọn ngày 30/10 → Tra cứu › thẻ tổ: cột Lãi tồn chỉ còn người chưa trả lãi phiên gần nhất / có lãi quá hạn; chọn T9 → như tab Tổ (chốt tháng)",
-    "3.435 · Góc phải chọn T9/2026 → Tra cứu › mở 1 khách: đầu thẻ ghi 📅 T9/2026, \"Món vay — T9/2026\", dư nợ / lãi tồn / số dư 105 theo T9; đổi lại kỳ mới nhất → số đổi theo",
-    "3.435 · Tra cứu › thẻ tổ (Tổ trưởng): \"Số liệu …\" theo kỳ đang chọn",
-    "3.434 · Tra cứu › mở 1 khách → khối Tổ & địa bàn: mã tổ + nút 🏘 Tổ của điểm GD ở dòng tiêu đề, ghi chú số liệu ở ⓘ cuối dòng Thành viên, không thanh cuộn"],
+    "3.437 · Văn bản › khai / sửa 1 văn bản → ô Tên văn bản, góc phải có 4 nút aa · Aa. · AA · Aa Aa → bấm thử, ký hiệu (NHCSXH, 54/QĐ-HĐQT) giữ nguyên, xem trước tên file đổi theo"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.448 · 10A: lựa chọn \"Củng cố\" (3.446) → \"Kiện toàn\" theo VB 4336 (giá trị cũ tự đọc như Kiện toàn)",
+    "3.448 · 10A: khối thu gọn ⚙ Khai báo riêng cuối cột trái (3.446) → nút riêng; cột trái chỉ còn Chọn nhanh",
+    "3.448 · 10A: dòng \"Tổng số\" dưới khung → dòng cuối cột 3 như gốc",
     "3.446 · 10A: 2 ô cũ ở cột trái \"Ngày họp định kỳ\", \"Tiết kiệm tối thiểu\" — thay bằng dòng trong ⚙ Khai báo riêng (để sẵn ở Chọn nhanh, số đã gõ vẫn dùng)",
     "3.444 · Ngắt trang cứng trước phần II của 10A (3.443) — bỏ vì khung dòng cao cố định đã giữ bố cục",
     "3.439 · Phân bổ KH: bỏ nút 📥 Nhập từ bản WPF (file sao lưu json app cũ) → thay bằng 📥 Nạp QĐ (Excel mẫu); QĐ đã nhập trước đây giữ nguyên",

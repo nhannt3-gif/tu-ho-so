@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.448 — 02/11/2026 — Mẫu 10A theo VB 4336, khai báo riêng dạng nút; cây lọc tên xã (TK 2)
+- **Anh 02/11:** "cây lọc địa bàn bị lỗi ra vay trực tiếp" (ảnh: kỳ T10 cả 5 xã hiện "Vay trực tiếp"); "khai báo riêng làm 1 nút riêng như các mẫu Giao dịch xã"; "tổng số tổ viên để bên cột cuối, chữ 14 vẫn vừa"; "dòng phê duyệt UBND in đậm"; "họ tên — chức vụ ghi liền"; "phần Nhập liệu thiết kế cho đơn vay, mỗi mẫu thiết kế riêng"; "xã ấp tự đổi theo đơn vị hành chính"; VB 4336/HD-NHCS: tiêu đề "Biên bản họp về việc kiện toàn hoạt động của Tổ TK&VV theo Quyết định số 70/QĐ-HĐQT", nội dung "…tự nguyện họp để kiện toàn hoạt động của Tổ Tiết kiệm và vay vốn…".
+- **Cây lọc (js/22g `toTenXa`):** tên xã của tổ lấy Mẫu 31 → File Tổ trưởng (TENXA theo mã tổ, ưu tiên) → danh bạ khách → danh mục; không bao giờ để tên dạng "… trực tiếp"; không ra tên → "Mã xã …". Nguyên nhân (suy từ code): file T10 cột Tên xã không cho ra tên thật, bước sửa 3.409 chỉ dựa Mẫu 31 + danh mục.
+- **10A (`js/mau/10a.js`):** ô Về việc **Thành lập / Kiện toàn** — Kiện toàn đổi tiêu đề và câu nội dung theo VB 4336 (phê duyệt UBND giữ); chữ 14, tiêu đề 15; "Tổng số … tổ viên" ở dòng cuối cột 3; dòng PHÊ DUYỆT UBND in đậm; địa bàn "Ấp / Khu phố / Thôn …, xã / phường …", "Trưởng ấp / khu phố / thôn" theo tên ấp (để chấm giữ gốc); dòng chấm Trưởng thôn / Thư ký vừa 1 dòng; ô ✏ gõ trong lần làm (giờ, số người, biểu quyết, kết thúc) nay in đúng; 4 trang (in + Word).
+- **Khối Nhập liệu riêng 10A:** Điền hết / Chừa phê duyệt UBND / Tùy chọn (tên phần theo 10A) — khung chung cho mẫu tự khai `dien` / `phanTen`, mẫu chưa khai như cũ.
+- **Nút ⚙ Khai báo riêng** cạnh ⚙ Khai báo đơn vị: hộp mọi dòng theo thứ tự mẫu (nguồn, giá trị / nút chọn, Chọn nhanh, sang 🖼 trực quan, ↺ mặc định); cột trái chỉ còn dòng Chọn nhanh.
+- Quy chuẩn mẫu ghi `QUY_CHUAN_KIEN_TRUC.md` mục 9.8. Phép thử `t358` cập nhật, mới `t360`; chuẩn in `t179` 10A. Hồi quy đủ.
+
 ## 3.447 — 02/11/2026 — Mẫu 10A: rà bố cục tổng thể (TK 2)
 - **Anh 02/11:** "rà xem lại khung Mẫu 10A, đảm bảo bố cục tổng thể".
 - **Sửa lỗi (từ 3.443):** biến dòng tổ viên trùng tên biến ngày họp → dòng "Thời gian bắt đầu" in sai "ngày 1/0/2"; nay in đúng ngày đã chọn (hoặc chấm).

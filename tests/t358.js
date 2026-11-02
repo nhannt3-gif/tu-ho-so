@@ -22,9 +22,9 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    hsoChonMau('10a'); await w(400);
    const dem = () => { const d = new DOMParser().parseFromString(HSO.x.h, 'text/html'), tb = d.querySelector('table.tv100'); return {d, tb}; };
    let {d, tb} = dem();
-   const o100 = tb ? [...tb.querySelectorAll('td')].map(x=>x.textContent.trim()).filter(Boolean) : [];
+   const o100 = tb ? [...tb.querySelectorAll('td')].map(x=>x.textContent.trim()).filter(x=>/^\d+\./.test(x)) : [];
    ok('khung 3 cột × 34 dòng, đủ 100 ô đánh số', tb && tb.rows.length===34 && tb.rows[0].cells.length===3 && o100.length===100, tb && (tb.rows.length+' dòng · '+o100.length+' ô'));
-   ok('đánh số dọc theo cột: dòng 1 = 1 · 35 · 69; dòng 34 = 34 · 68 · (trống)', tb && /^1\./.test(tb.rows[0].cells[0].textContent) && /^35\./.test(tb.rows[0].cells[1].textContent) && /^69\./.test(tb.rows[0].cells[2].textContent) && /^68\./.test(tb.rows[33].cells[1].textContent) && !tb.rows[33].cells[2].textContent.trim() && /^100\./.test(tb.rows[31].cells[2].textContent));
+   ok('đánh số dọc theo cột: dòng 1 = 1 · 35 · 69; dòng 34 = 34 · 68 · Tổng số (3.448: cột cuối như gốc)', tb && /^1\./.test(tb.rows[0].cells[0].textContent) && /^35\./.test(tb.rows[0].cells[1].textContent) && /^69\./.test(tb.rows[0].cells[2].textContent) && /^68\./.test(tb.rows[33].cells[1].textContent) && /^Tổng số:/.test(tb.rows[33].cells[2].textContent.trim()) && !tb.rows[32].cells[2].textContent.trim() && /^100\./.test(tb.rows[31].cells[2].textContent));
    const daTich = tv.filter(k=>HSO.tv[k.kh]!==false);
    ok('tổ viên tích điền theo thứ tự, ô sau trống chấm; Tổng số đúng', daTich.length>0 && tb.rows[0].cells[0].textContent.indexOf(daTich[0].ten)>=0 && /\.{10}/.test(tb.rows[33].cells[1].textContent) && new RegExp('Tổng số: '+daTich.length+' ?tổ viên').test(d.body.textContent), daTich.length+' tổ viên');
    ok('3.446: khung chữ cỡ 13 (không lớp s12), dòng cao cố định (data-cao)', !/\bs12\b/.test(tb.className) && +tb.getAttribute('data-cao')>0);
@@ -57,20 +57,35 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    /* 3.446 (anh 02/11): cỡ 13 đều, tiêu đề 15; chữ điền liền + in thường; tên hoa đầu từ; ô chọn Về việc / họp tháng-quý; Chọn nhanh */
    { const h = HSO.x.h, d2 = new DOMParser().parseFromString(h, 'text/html');
      const co = [...d2.querySelectorAll('[style*="font-size"]')].map(e=>(e.getAttribute('style').match(/font-size:([\d.]+)pt/)||[])[1]).filter(Boolean);
-     ok('cỡ chữ: thân 13, tiêu đề BIÊN BẢN HỌP 15 (ngoài ô Mẫu số 11, tên dài thu chữ)', /om-goc" style="font-size:13pt/.test(h) && co.every(c=>['13','15','11'].indexOf(c)>=0) && /class="s15"[^>]*><b>BIÊN BẢN HỌP/.test(h), [...new Set(co)].join(','));
+     ok('3.448: cỡ chữ thân 14 (anh: chữ 14 vẫn vừa), tiêu đề BIÊN BẢN HỌP 15 (Quốc hiệu 13, ô Mẫu số 11 như gốc)', /om-goc" style="font-size:14pt/.test(h) && co.every(c=>['14','13','15','11'].indexOf(c)>=0) && /class="s15"[^>]*><b>BIÊN BẢN HỌP/.test(h), [...new Set(co)].join(','));
      const vals = [...d2.querySelectorAll('span.om')].filter(e=>!/om-cham/.test(e.className) && e.getAttribute('data-o')!=='vv');
      ok('chữ điền: liền (không khung inline-block), in thường', vals.length>0 && vals.every(e=>!/inline-block/.test(e.getAttribute('style')||'') && /font-weight:normal/.test(e.getAttribute('style')||'')), vals.length+' ô');
      const b = [...d2.querySelectorAll('b')].map(e=>e.textContent.trim());
      ok('đậm đúng gốc: nhãn "Thời gian bắt đầu:", "Địa điểm:" đậm; phần sau thường', b.indexOf('Thời gian bắt đầu:')>=0 && b.indexOf('Địa điểm:')>=0 && !b.some(x=>/^Thời gian bắt đầu:.+/.test(x))); }
-   { const g0 = window.hsoTVTo; window.hsoTVTo = tt => [{kh:'GH1', ten:'LE VAN BINH', mon:[]}]; hsoVe(); await w(400); window.hsoTVTo = g0;
-     ok('tên viết hoa đầu từ (LE VAN BINH → Le Van Binh)', /Le Van Binh/.test(HSO.x.h) && !/LE VAN BINH/.test(HSO.x.h)); hsoVe(); await w(300); }
+   { const g0 = window.hsoTVTo; window.hsoTVTo = tt => [{kh:'GH1', ten:'LE VAN BINH', mon:[]}]; await w(400); const hTen = hsoLap().h; window.hsoTVTo = g0;
+     { const h = HSO.x.h; ok('3.448: dòng PHÊ DUYỆT CỦA UBND in đậm', /<b>PHÊ DUYỆT CỦA ỦY BAN NHÂN DÂN CẤP XÃ<\/b>/.test(h));
+     const t0 = TO_K.to[hsoCH().to], cap = /^thôn/i.test(t0.tenThon||'') ? 'thôn' : /^(kp|khu)/i.test(t0.tenThon||'') ? 'khu phố' : /^ấp/i.test(t0.tenThon||'') ? 'ấp' : hsoTo(t0).capAp, xaDu = hsoTo(t0).xaDu;
+     const tx = h.replace(/<[^>]+>/g, '');
+     ok('3.448: địa bàn theo đơn vị hành chính ('+cap+', '+xaDu+'); Trưởng '+cap, tx.indexOf(xaDu)>=0 && new RegExp('là Trưởng '+cap+', chứng kiến').test(tx) && new RegExp('TRƯỞNG '+cap.toUpperCase()).test(tx), (tx.match(/Địa điểm:.{0,70}/)||[''])[0]); }
+   { const C0 = hsoCH(), giu = C0.to; C0.to = ''; hsoVe(); await w(300); const tx = HSO.x.h.replace(/<[^>]+>/g, '');
+     ok('3.448: chưa chọn tổ (để chấm) → giữ gốc "Thôn…, xã…", "Trưởng thôn"', /Địa điểm: Thôn [.…]+, xã [.…]+/.test(tx) && /là Trưởng thôn/.test(tx)); C0.to = giu; hsoVe(); await w(400); }
+   ok('3.448: khối Nhập liệu riêng 10A — Bản mẫu chỉ có Điền hết / Chừa phê duyệt UBND / Tùy chọn', (()=>{ OM_KIEU = 'mau'; const k = omKieuHTML('10a'); OM_KIEU = 'that'; return /Chừa phê duyệt UBND/.test(k) && !/Chừa phê duyệt NH/.test(k) && !/Chừa UBND \+ NH/.test(k); })());
+   ok('3.448: chừa phê duyệt UBND → phần UBND để chấm, phần tổ vẫn điền', (()=>{ omMucDat('10a', 'chuaUB'); const r = !omPhanDien('10a', 'ub') && omPhanDien('10a', 'to'); omMucDat('10a', 'het'); return r; })());
+   { const nut = [...document.querySelectorAll('[data-lenh="omkb.ds"]')]; ok('3.448: nút ⚙ Khai báo riêng cạnh ⚙ Khai báo đơn vị', nut.length===1 && /Khai báo riêng/.test(nut[0].textContent));
+     nut[0] && nut[0].click(); await w(400); const ds = document.getElementById('om-kbds-ds');
+     ok('3.448: hộp Khai báo riêng liệt kê đủ ô theo thứ tự mẫu, có Chọn nhanh', !!ds && ds.querySelectorAll('[data-lenh="omkb.nhanh"]').length===OM_MAU['10a'].o.length && /Về việc/.test(ds.textContent.slice(0, 200)));
+     const cb = ds && ds.querySelector('[data-lenh="omkb.nhanh"][data-k="soNguoi"]'); if(cb){ cb.checked = true; cb.dispatchEvent(new Event('change', {bubbles:true})); } await w(300);
+     ok('3.448: tích Chọn nhanh ở hộp → ra cột trái', omNhanh('10a').indexOf('soNguoi')>=0); omDatNhanh('10a', 'soNguoi', false); dongHop(); await w(300);
+     ok('3.448: cột trái không còn khối thu gọn ⚙ Khai báo riêng, chỉ dòng Chọn nhanh', !document.querySelector('#hso-tuy details.hso-kbr-d') && /Chọn nhanh/.test(document.getElementById('hso-tuy').textContent)); }
+   ok('tên viết hoa đầu từ (LE VAN BINH → Le Van Binh)', /Le Van Binh/.test(hTen) && !/LE VAN BINH/.test(hTen)); hsoVe(); await w(300); }
    ok('Chọn nhanh có Về việc, họp định kỳ, ngày, tiết kiệm', ['vv','dkKy','ngayDK','tk'].every(k=>omNhanh('10a').indexOf(k)>=0), omNhanh('10a').join(','));
    ok('cột trái không còn 2 ô cũ (Ngày họp định kỳ, Tiết kiệm tối thiểu) — thay bằng khai báo', !/hsoDatLuu\('ngayDK'/.test(document.getElementById('hso-tuy').innerHTML) && document.querySelectorAll('#hso-tuy [data-lenh="omc.chon"][data-k="vv"]').length===2);
    { const n0 = HSO.o.ngay; HSO.o.ngay = '2026-10-15'; omDatCach('10a', 'ngay', 'go'); hsoVe(); await w(300); const tx = HSO.x.h.replace(/<[^>]+>/g, '');
      ok('3.446.1: ngày họp in đúng 15/10/2026 (trước bị đè thành "1/0/2")', /ngày 15\/10\/2026/.test(tx), (tx.match(/Thời gian bắt đầu:.{0,60}/)||[''])[0]); HSO.o.ngay = n0; omDatCach('10a', 'ngay', 'cham'); omDatCach('10a', 'ngay', ''); hsoVe(); await w(300); }
    ok('mặc định Về việc = thành lập', /Về việc <span[^>]*>thành lập Tổ Tiết kiệm và vay vốn/.test(HSO.x.h));
    (document.querySelectorAll('#hso-tuy [data-lenh="omc.chon"][data-k="vv"]')[1]||{click(){}}).click(); await w(400);
-   ok('bấm "Củng cố" → tiêu đề "Về việc củng cố Tổ…", nội dung giữ "thành lập" (anh: tạm chỉ đổi tiêu đề)', /Về việc <span[^>]*>củng cố Tổ Tiết kiệm và vay vốn/.test(HSO.x.h) && /tự nguyện họp để thành lập Tổ/.test(HSO.x.h));
+   ok('3.448 (VB 4336/HD-NHCS): bấm "Kiện toàn" → tiêu đề "Về việc kiện toàn hoạt động của Tổ TK&VV theo Quyết định số 70/QĐ-HĐQT" + nội dung "tự nguyện họp để kiện toàn hoạt động của Tổ Tiết kiệm và vay vốn"', /Về việc <span[^>]*>kiện toàn hoạt động của Tổ TK&amp;VV theo Quyết định số 70\/QĐ-HĐQT/.test(HSO.x.h) && /tự nguyện họp để kiện toàn hoạt động của Tổ Tiết kiệm và vay vốn/.test(HSO.x.h) && /Kiện toàn/.test(document.getElementById('hso-tuy').textContent));
+   { omDatKB('10a', 'vv', 'củng cố Tổ Tiết kiệm và vay vốn'); hsoVe(); await w(300); ok('giá trị cũ "củng cố" (3.446) → in như Kiện toàn', /Về việc <span[^>]*>kiện toàn hoạt động/.test(HSO.x.h)); }
    ok('họp định kỳ chưa chọn → giữ "hằng tháng (quý)"', /hằng tháng \(quý\) vào ngày/.test(HSO.x.h));
    (document.querySelectorAll('#hso-tuy [data-lenh="omc.chon"][data-k="dkKy"]')[1]||{click(){}}).click(); await w(400);
    ok('chọn "quý" → "Tổ họp định kỳ hằng quý vào ngày"', /hằng <span[^>]*>quý<\/span> vào ngày/.test(HSO.x.h));
