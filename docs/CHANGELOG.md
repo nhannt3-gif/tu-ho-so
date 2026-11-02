@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.452 — 02/11/2026 — Mẫu 10B theo quy chuẩn 10A (TK 2)
+- **Anh 02/11:** "làm tiếp mẫu 10B theo đúng quy chuẩn 10A đã làm".
+- **Phần chung mới `js/mau/0hst.js` (`HST`)** cho mẫu Hồ sơ Tổ làm lại (10B, 10C; 10A chuyển sang dùng chung lần sửa tới): `HST.ds` (tổ viên + TT / TP theo File Tổ trưởng, sắp Mã KH), `HST.bo` (chữ liền / chấm, ô 1 giá trị ⌨ đè, "Ông (Bà): tên", địa bàn, tab chức vụ, tiêu đề + Về việc vừa dòng + kẻ), `HST.bang` (bảng hộ vay: cột tích theo mẫu, lọc ấp, tìm, tích / bỏ hết, sắp), `HST.tach`, `HST.noi`, `HST.hoi`.
+- Khung mẫu chung (js/31): **ô chọn nhiều** `nhieu:1` (nút bật / tắt theo thứ tự chọn, `chonTu` = theo việc đã làm, ➕ thêm nội dung).
+- `js/mau/10b.js`: Về việc chọn nhiều (kết nạp tổ viên · bầu thay đổi thành viên BQL — tự theo việc tích); chữ 14, tiêu đề 15 + kẻ; chữ liền in thường, chấm giữ form (dòng chấm không xuống dòng); ấp / khu phố / thôn – xã / phường, Trưởng ấp / khu phố; "Ông (bà): tên" ⇥ "Chức vụ" (chủ trì, bầu thay); Hội bỏ xã; kết nạp in theo Mã KH, hoa đầu từ; PHÊ DUYỆT đậm; tách ô (bầu thay 4, UBND 4, chủ trì 3, chữ ký 2, tổ tại thôn / Hội, tổng số sau họp); Nhập liệu riêng (Điền hết / Chừa phê duyệt UBND / Tùy chọn); 2 trang, 3 chú thích giữ đáy trang 1.
+- `js/25c`: 10B bảng hộ vay (cột Kết nạp, mới vào tích sẵn), ô bầu thay có danh sách tên trong tổ, Chọn nhanh; nút ⚙ Khai báo riêng chung cho mẫu có khối Nhập liệu riêng.
+- Phép thử mới `t361`; `t180` / `t181` 10B vào nhóm đổi bố cục anh duyệt; chuẩn in `t179` 10B. Hồi quy đủ.
+
 ## 3.451 — 02/11/2026 — Thông báo kế hoạch dư nợ: giãn tiêu đề, gọn số (TK 2)
 - **Anh 02/11** (ảnh Thông báo điều chỉnh KH dư nợ, tab Phân bổ KH): "giãn thêm dòng tiêu đề như hình, thu gọn khoảng trống số QĐ".
 - `js/mau/07pb.js`: 2 dòng tiêu đề "THÔNG BÁO … KẾ HOẠCH DƯ NỢ" / "NĂM …" cách 6 pt giữa và sau (lớp `sau` — Word cùng thông số); chỗ trống số thông báo khi chưa có số 10 → 5 khoảng trắng.

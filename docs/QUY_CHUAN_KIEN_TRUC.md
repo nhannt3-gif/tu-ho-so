@@ -217,6 +217,8 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
    - **Mỗi mẫu tự khai khối Nhập liệu:** `omDangKy({dien:[[mã, nhãn]…], phanTen:{phần: tên}})` — mẫu không có phần Ngân hàng thì không hiện nút "Chừa phê duyệt NH"; mẫu chưa khai giữ như cũ.
    - **⚙ Khai báo riêng = nút riêng** cạnh "⚙ Khai báo đơn vị" (hộp liệt kê mọi ô theo thứ tự trên mẫu, Chọn nhanh), cột trái chỉ còn dòng Chọn nhanh — như Giao dịch xã. Ô chọn `l:'chon'` (≤ 3 lựa chọn: nút; nhiều hơn: danh sách sổ xuống; ➕ thêm lựa chọn).
    - Mẫu chữ liền không bắt chồng khít từng dòng — chỉ giữ cùng số trang (`t181` nhóm DUNG).
+   - **Phần chung `js/mau/0hst.js` (`HST`, 3.452):** mẫu Hồ sơ Tổ làm lại dùng chung bộ hàm (bảng hộ vay, chữ liền / chấm, tab chức vụ, tiêu đề, tách ô) — không chép lại trong từng mẫu. Ô chọn nhiều `nhieu:1` (Về việc 10B, 10C).
+   - **Kết nạp / cho ra chỉ qua lại trong cùng 1 ấp** (anh 02/11) — áp ở 10C.
 
 ## 10. Chuẩn hóa code, giao diện, thư viện (anh duyệt 17/10/2026 — chi tiết `KE_HOACH_CHUAN_HOA.md`)
 - **Code mới:** hộp riêng mỗi khối, `data-lenh` thay `onclick` trong chuỗi, file ≤ ~150 KB; mỗi bản dọn rác trong phạm vi + kiểm toàn vẹn; thước đo `tests/kiem.py` không được vượt mốc `tests/do_moc.json` (hạ mốc khi dọn bớt: `python3 tests/kiem.py --moc`).

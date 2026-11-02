@@ -59,7 +59,8 @@ function omG(mk, V, pt){
     var x = m.oK[k], c = omCach(mk, k), v = '';
     if(!x) return G.V[k]==null ? '' : String(G.V[k]);
     if(c==='tu' || c==='go') v = G.V[k];
-    else if(c==='kb'){ v = omKB(mk, k); if(!v && (OM_LOAI[x.l]||[]).indexOf('tu')>=0) v = G.V[k]; if(!v && x.chon && x.chonMD) v = omChonDs(mk, x)[0]; }   /* 3.446: ô chọn — chưa chọn → lựa chọn đầu (khi mẫu khai chonMD) */   /* 3.229: chưa gõ riêng → in như nguồn tự động */
+    else if(c==='kb'){ v = omKB(mk, k); if(!v && (OM_LOAI[x.l]||[]).indexOf('tu')>=0) v = G.V[k];
+      if(!v && x.chon && x.chonMD && !x.nhieu) v = omChonDs(mk, x)[0]; if(x.nhieu){ if(!v && x.chonTu) v = (x.chonTu(G.V) || []).join('|'); if(v==='∅') v = ''; } }   /* 3.452: ô chọn NHIỀU — giá trị 'a|b' theo thứ tự chọn; chưa chọn → theo việc đã làm (chonTu); '∅' = bỏ hết (chấm) */   /* 3.446: ô chọn — chưa chọn → lựa chọn đầu (khi mẫu khai chonMD) */   /* 3.229: chưa gõ riêng → in như nguồn tự động */
     else if(c==='mau'){ var cl = omCachLuu(mk, k); v = cl==='kb' ? omKB(mk, k) : G.V[k]; if(v==null || v==='') v = omKB(mk, k) || G.V[k]; if(v==null || v==='') v = omChuMau(mk, k) || ''; }
     return v==null ? '' : String(v); };
   G.o = function(k, cham, o){ o = o || {}; var v = o.gt!==undefined ? o.gt : G.gt(k), c = omCach(mk, k), pt = o.pt || G.pt;
@@ -207,16 +208,24 @@ function omDatNhanh(mk, k, v){ var a = omNhanh(mk), i = a.indexOf(k); if(v && i<
 /* 3.446 (anh 02/11 "các nút chọn có thể cho chọn 1 hoặc 2 hoặc dạng danh sách sổ xuống, có thể thêm trong khai báo riêng"): Ô CHỌN — o {l:'chon', chon:[lựa chọn…], chonMD:1 (chưa chọn → lựa chọn đầu; không có → để chấm)}.
    ≤ 3 lựa chọn → nút bấm; nhiều hơn → danh sách sổ xuống. Thêm lựa chọn riêng: hsoLuu().omChon[mẫu][ô] (nhớ cho lần sau). Giá trị chọn lưu như ⌨ tự gõ (chamGT) → in đúng chữ lựa chọn. */
 function omChonDs(mk, x){ var r = (x.chon||[]).slice(), them = ((hsoLuu().omChon||{})[mk]||{})[x.k] || []; them.forEach(function(v){ if(r.indexOf(v)<0) r.push(v); }); return r; }
-function omChonHTML(mk, x, rong){ if(!omChonHTML.dk && typeof GD!=='undefined'){ omChonHTML.dk = 1; GD.dangKy('omc', OMC_LENH); } var ds = omChonDs(mk, x), v = omKB(mk, x.k) || (x.chonMD ? ds[0] : ''), a = ' data-mk="'+mk+'" data-k="'+x.k+'"';
+function omChonNhieu(mk, x){ var v = omKB(mk, x.k); if(v==='∅') return []; if(!v && x.chonTu){ try { v = (x.chonTu(omVTam(mk)) || []).join('|'); } catch(e){ v = ''; } } return v ? v.split('|') : []; }
+function omChonHTML(mk, x, rong){ if(!omChonHTML.dk && typeof GD!=='undefined'){ omChonHTML.dk = 1; GD.dangKy('omc', OMC_LENH); }
+  if(x.nhieu){ var dsN = omChonDs(mk, x), coN = omChonNhieu(mk, x), aN = ' data-mk="'+mk+'" data-k="'+x.k+'"';   /* 3.452: ô chọn nhiều — mỗi lựa chọn 1 nút bật / tắt */
+    return '<span class="hso-sw om-nhieu">'+dsN.map(function(z, i){ var j = coN.indexOf(z); return '<button class="'+(j>=0 ? 'bat' : '')+'" data-lenh="omc.bat"'+aN+' data-i="'+i+'" title="'+coChuHTML(z)+'">'+(j>=0 ? (j+1)+'. ' : '')+coChuHTML(x.chonNgan ? x.chonNgan(z) : z)+'</button>'; }).join('')+'</span>'+
+      (rong ? '<div class="hang-nut"><input id="omc-moi-'+x.k+'" placeholder="thêm nội dung khác…"><button class="nho" data-lenh="omc.them"'+aN+'>➕ Thêm</button></div>' : ''); }
+  var ds = omChonDs(mk, x), v = omKB(mk, x.k) || (x.chonMD ? ds[0] : ''), a = ' data-mk="'+mk+'" data-k="'+x.k+'"';
   var chon = ds.length<=3 ? '<span class="hso-sw">'+ds.map(function(z, i){ return '<button class="'+(z===v ? 'bat' : '')+'" data-lenh="omc.chon"'+a+' data-i="'+i+'" title="'+coChuHTML(z)+'">'+coChuHTML(x.chonNgan ? x.chonNgan(z) : z)+'</button>'; }).join('')+'</span>'
     : '<select data-lenh="omc.chonDs" data-su="change"'+a+'>'+(x.chonMD ? '' : '<option value="">— để chấm —</option>')+ds.map(function(z, i){ return '<option value="'+i+'"'+(z===v ? ' selected' : '')+'>'+coChuHTML(z)+'</option>'; }).join('')+'</select>';
   return chon+(rong ? '<div class="hang-nut"><input id="omc-moi-'+x.k+'" placeholder="thêm lựa chọn khác…"><button class="nho" data-lenh="omc.them"'+a+'>➕ Thêm</button></div>' : ''); }
 function omChonDat(mk, k, v){ omDatKB(mk, k, v); hsoVe(); if(document.getElementById('om-kbt')) omKBVe(); if(typeof omKBDsVe==='function') omKBDsVe(mk); }
-var OMC_LENH = {chon:function(el){ var mk = el.getAttribute('data-mk'), k = el.getAttribute('data-k'), x = OM_MAU[mk].oK[k], ds = omChonDs(mk, x), z = ds[+el.getAttribute('data-i')];
+var OMC_LENH = {bat:function(el){ var mk = el.getAttribute('data-mk'), k = el.getAttribute('data-k'), x = OM_MAU[mk].oK[k], z = omChonDs(mk, x)[+el.getAttribute('data-i')], a = omChonNhieu(mk, x), i = a.indexOf(z);
+    if(i>=0) a.splice(i, 1); else a.push(z); omChonDat(mk, k, a.length ? a.join('|') : '∅'); },
+  chon:function(el){ var mk = el.getAttribute('data-mk'), k = el.getAttribute('data-k'), x = OM_MAU[mk].oK[k], ds = omChonDs(mk, x), z = ds[+el.getAttribute('data-i')];
     omChonDat(mk, k, !x.chonMD && omKB(mk, k)===z ? '' : z); },   /* bấm lại lựa chọn đang chọn → bỏ chọn (về chấm) khi ô không có mặc định */
   chonDs:function(el){ var mk = el.getAttribute('data-mk'), k = el.getAttribute('data-k'), x = OM_MAU[mk].oK[k]; omChonDat(mk, k, el.value==='' ? '' : omChonDs(mk, x)[+el.value]); },
   them:function(el){ var mk = el.getAttribute('data-mk'), k = el.getAttribute('data-k'), e = document.getElementById('omc-moi-'+k), v = e ? String(e.value||'').trim() : ''; if(!v) return bao('Gõ lựa chọn mới trước.', 3);
-    var L = hsoLuu(); L.omChon = L.omChon || {}; var m = L.omChon[mk] = L.omChon[mk] || {}, a = m[k] = m[k] || []; if(a.indexOf(v)<0) a.push(v); omChonDat(mk, k, v); bao('Đã thêm lựa chọn "'+v+'".', 3); }};   /* GD (js/39) nạp sau → đăng ký lần đầu vẽ ô chọn */
+    var L = hsoLuu(); L.omChon = L.omChon || {}; var m = L.omChon[mk] = L.omChon[mk] || {}, a = m[k] = m[k] || []; if(a.indexOf(v)<0) a.push(v); if(x0nhieu(mk, k)){ var cur = omChonNhieu(mk, OM_MAU[mk].oK[k]); if(cur.indexOf(v)<0) cur.push(v); omChonDat(mk, k, cur.join('|')); } else omChonDat(mk, k, v); bao('Đã thêm lựa chọn "'+v+'".', 3); }};
+function x0nhieu(mk, k){ var x = (OM_MAU[mk] || {oK:{}}).oK[k]; return !!(x && x.nhieu); }   /* GD (js/39) nạp sau → đăng ký lần đầu vẽ ô chọn */
 
 /* 3.448 (anh 02/11 "khai báo riêng em làm 1 nút riêng như bên các mẫu Giao dịch xã"): ⚙ KHAI BÁO RIÊNG dạng danh sách — mọi ô theo thứ tự trên mẫu
    (nguồn ✍ / 🤖 / ⌨ · giá trị / nút chọn · Chọn nhanh); cột trái chỉ còn các ô Chọn nhanh (omNhanhHTML). Có nút sang 🖼 Khai báo trực quan. */
