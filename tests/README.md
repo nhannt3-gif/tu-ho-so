@@ -271,6 +271,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t358.js` | 3.443: Mẫu 10A khung 100 tổ viên 3 cột, phần II sang trang 3 (bản in + Word). |
 | `node tests/t359.js` | 3.445: Scan bổ sung ấp cho bản đã gắn mã KH mà trống ấp (tổ → File Tổ trưởng → Mẫu 31 → mã thôn). |
 | `node tests/t360.js` | 3.448: tên xã của tổ không hiện "Vay trực tiếp" (File Tổ trưởng → danh bạ → danh mục → Mã xã). |
+| `node tests/t361.js` | 3.452: Mẫu 10B theo quy chuẩn 10A (chọn nhiều Về việc, bảng hộ vay Kết nạp, bầu thay tab, tách ô). |
 | (3.451) | `t253`, `t256` — Thông báo KH dư nợ giãn tiêu đề, gọn số. |
 | (3.450) | `t358` + khung tên không thụt gấp đôi, III a / b cùng tab, ⌨ họ tên. |
 | (3.449) | `t358` + bảng hộ vay TT / TP, tab chức vụ, tách ô, kẻ tiêu đề; `t163` Tổng số + TT / TP. |

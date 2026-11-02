@@ -29,6 +29,10 @@
    "trangThem": 0,
    "boLe": 1,
    "ly": "3.443 (anh 02/11): khung cố định 100 tổ viên 3 cột ở trang 1–2; 3.443.1 cả mẫu 4 trang, lề trên/dưới 15 mm, giãn dòng 16pt, chừa chỗ ký → vị trí dòng và lề khác gốc chủ ý; vẫn so chữ, số trang, khổ"
+  },
+  "10b": {
+   "trangThem": 0,
+   "ly": "3.452 (anh 02/11 \"10B theo đúng quy chuẩn 10A\"): chữ liền khi có số liệu, tiêu đề 15 + kẻ, họ tên ⇥ chức vụ → vị trí dòng khác gốc chủ ý; vẫn so chữ, số trang, khổ, lề"
   }
  }
 }

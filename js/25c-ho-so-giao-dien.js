@@ -26,7 +26,7 @@ function hsoDsHTML(){   /* 3.206 (anh chốt): mẫu chọn ở thanh tab con (h
   return '<div class="th-nhom-ten hso-dau-ds"><span class="hso-tieu" title="'+coChuHTML(M.ma+' — '+M.ten)+'">'+tieu+(M.ngang ? ' <span class="th-cap">[A4 ngang]</span>' : '')+'</span>'+
     '<span class="hso-chu"><span class="hso-chu-sl">số liệu</span><span class="hso-chu-kb">khai báo</span><span class="hso-chu-tay">…… ghi tay</span></span>'+   /* 3.317 (anh): chú thích màu cùng dòng tên mẫu */
     '<span class="hso-ky" title="Số liệu lấy theo kỳ / ngày đang chọn ở dải lịch">📅 <b>'+(KHO.coKy() ? slKyChu(KHO.ky().ky) : 'chưa có số liệu')+'</b></span>'+   /* 3.334: dời từ dải chip mẫu xuống dòng tên mẫu → dải chip không bị đè */
-    (M.k==='10a' && typeof omCo==='function' && omCo('10a') ? '<button class="nho" data-lenh="omkb.ds" data-mk="10a" title="Mọi dòng của mẫu 10A theo thứ tự trên mẫu — tích Chọn nhanh để đưa ra cột trái">⚙ Khai báo riêng</button>' : '')+   /* 3.448 (anh 02/11): nút riêng như Giao dịch xã */
+    ((M.k==='10a' || M.k==='10b' || M.k==='10c') && typeof omCo==='function' && omCo(M.k) && OM_MAU[M.k].dien ? '<button class="nho" data-lenh="omkb.ds" data-mk="'+M.k+'" title="Mọi dòng của mẫu '+M.ma+' theo thứ tự trên mẫu — tích Chọn nhanh để đưa ra cột trái">⚙ Khai báo riêng</button>' : '')+   /* 3.448 (anh 02/11): nút riêng như Giao dịch xã */
     '<button class="nho" onclick="hsoKBHop()" title="PGD, logo, trưởng ấp, tổ phó thực tế, chương trình vay — dùng chung mọi mẫu">⚙ Khai báo đơn vị</button></div>'+(M.ghi ? '<div class="sl-phu">'+coChuHTML(M.ghi)+'</div>' : '');
 }
 function hsoTabMauHTML(){   /* 3.206 (anh chốt 14/10): mỗi biểu mẫu = 1 tab con, bố trí như tab Giao dịch xã · số liệu theo kỳ / ngày đã chọn */
@@ -808,10 +808,13 @@ function hsoTuyHTML(M, t){
   else if(M.k==='10b'){
     var B = t ? hsoBau(t) : {tt:'', ttCu:'', pho:'', phoCu:''};
     h += hsoNgayTuy()+hsoHoiTuy(t)+
-      (t ? hsoDsTick('kn', tv.filter(function(k){ return k.vao; }).map(function(k){ return {kh:k.kh, ten:k.ten, ghi:k.vao.tu}; }).concat(tv.filter(function(k){ return !k.vao; }).map(function(k){ return {kh:k.kh, ten:k.ten}; })), '➕ Kết nạp (mới vào tích sẵn)') : '')+
-      '<div class="nhan-nhom">Bầu thay Ban quản lý'+(t && hsoTruoc(t) ? ' <small>(gợi ý so Mẫu 31 tháng trước)</small>' : '')+'</div>'+
-      hsoTuyO('Tổ trưởng mới', hsoIn('hsoDocO()', B.tt, 'trống = chấm', '', 'hso-o-ttMoi'))+hsoTuyO('thay Ông (Bà)', hsoIn('hsoDocO()', B.ttCu, '', '', 'hso-o-ttCu'))+
-      hsoTuyO('Tổ phó mới', hsoIn('hsoDocO()', B.pho, 'trống = chấm', '', 'hso-o-phoMoi'))+hsoTuyO('thay Ông (Bà)', hsoIn('hsoDocO()', B.phoCu, '', '', 'hso-o-phoCu'));
+      (t ? (typeof HST!=='undefined' && typeof omCo==='function' && omCo('10b') ? (function(){ var ds = HST.ds(t);   /* 3.452 (anh 02/11): bảng hộ vay của tổ — cột Kết nạp (mới vào tích sẵn), TT / TP, Mã KH */
+          return HST.bang(t, ds, [{ma:'kn', ten:'Kết nạp', bang:HSO.kn, loai:1}], {ghiChu:function(x){ return x.vao ? 'mới vào tổ'+(x.vao.tu ? ' ('+x.vao.tu+')' : '') : ''; }})+
+            '<datalist id="hso-dl-tv">'+ds.map(function(x){ return '<option value="'+coChuHTML(tenHoaDau(x.ten||''))+'">'; }).join('')+'</datalist>'; })()
+        : hsoDsTick('kn', tv.filter(function(k){ return k.vao; }).map(function(k){ return {kh:k.kh, ten:k.ten, ghi:k.vao.tu}; }).concat(tv.filter(function(k){ return !k.vao; }).map(function(k){ return {kh:k.kh, ten:k.ten}; })), '➕ Kết nạp (mới vào tích sẵn)')) : '')+
+      '<div class="nhan-nhom">Bầu thay Ban quản lý'+(t && hsoTruoc(t) ? ' <small>(gợi ý so Mẫu 31 tháng trước · gõ hoặc chọn tên trong tổ)</small>' : '')+'</div>'+
+      [['Tổ trưởng mới', B.tt, 'hso-o-ttMoi', 'trống = chấm'], ['thay Ông (Bà)', B.ttCu, 'hso-o-ttCu', ''], ['Tổ phó mới', B.pho, 'hso-o-phoMoi', 'trống = chấm'], ['thay Ông (Bà)', B.phoCu, 'hso-o-phoCu', '']].map(function(z){ return hsoTuyO(z[0], hsoIn('hsoDocO()', z[1], z[3], '', z[2]).replace('<input', '<input list="hso-dl-tv"')); }).join('');
+    if(typeof omCo==='function' && omCo('10b') && typeof omNhanhHTML==='function') h += omNhanhHTML('10b');   /* 3.452: Chọn nhanh (đủ dòng ở nút ⚙ Khai báo riêng) */
   }
   else if(M.k==='10d') h += hsoNgayTuy()+hsoHoiTuy(t);
   else if(M.k==='11' || M.k==='11cu'){

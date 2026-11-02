@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.452)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 10B chọn tổ, tích Kết nạp | In "- Ông (Bà): tên", Về việc tự có "kết nạp tổ viên" | |
+| 2 | Gõ / chọn tổ trưởng mới + thay | "- Ông (Bà): … ⇥ Chức vụ: Tổ trưởng", "thay Ông (Bà): …" | |
+| 3 | Word 10B | 2 trang, chú thích đáy trang 1 | |
+
 ### Danh sách thử trên máy thật (3.451)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
