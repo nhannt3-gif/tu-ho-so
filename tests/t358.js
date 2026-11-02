@@ -25,7 +25,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    const o100 = tb ? [...tb.querySelectorAll('td')].map(x=>x.textContent.trim()).filter(x=>/^\d+\./.test(x)) : [];
    ok('khung 3 cột × 34 dòng, đủ 100 ô đánh số', tb && tb.rows.length===34 && tb.rows[0].cells.length===3 && o100.length===100, tb && (tb.rows.length+' dòng · '+o100.length+' ô'));
    ok('đánh số dọc theo cột: dòng 1 = 1 · 35 · 69; dòng 34 = 34 · 68 · Tổng số (3.448: cột cuối như gốc)', tb && /^1\./.test(tb.rows[0].cells[0].textContent) && /^35\./.test(tb.rows[0].cells[1].textContent) && /^69\./.test(tb.rows[0].cells[2].textContent) && /^68\./.test(tb.rows[33].cells[1].textContent) && /^Tổng số:/.test(tb.rows[33].cells[2].textContent.trim()) && !tb.rows[32].cells[2].textContent.trim() && /^100\./.test(tb.rows[31].cells[2].textContent));
-   const daTich = tv.filter(k=>HSO.tv[k.kh]!==false);
+   const daTich = hso10aDs(t).filter(k=>HSO.tv[k.kh || k.khoa]!==false);   /* 3.449: danh sách theo Mã KH + TT / TP */
    ok('tổ viên tích điền theo thứ tự, ô sau trống chấm; Tổng số đúng', daTich.length>0 && tb.rows[0].cells[0].textContent.indexOf(daTich[0].ten)>=0 && /\.{10}/.test(tb.rows[33].cells[1].textContent) && new RegExp('Tổng số: '+daTich.length+' ?tổ viên').test(d.body.textContent), daTich.length+' tổ viên');
    ok('3.446: khung chữ cỡ 13 (không lớp s12), dòng cao cố định (data-cao)', !/\bs12\b/.test(tb.className) && +tb.getAttribute('data-cao')>0);
    const pII = [...d.querySelectorAll('p')].find(x=>/II\. QUY ƯỚC/.test(x.textContent));
@@ -82,16 +82,44 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('cột trái không còn 2 ô cũ (Ngày họp định kỳ, Tiết kiệm tối thiểu) — thay bằng khai báo', !/hsoDatLuu\('ngayDK'/.test(document.getElementById('hso-tuy').innerHTML) && document.querySelectorAll('#hso-tuy [data-lenh="omc.chon"][data-k="vv"]').length===2);
    { const n0 = HSO.o.ngay; HSO.o.ngay = '2026-10-15'; omDatCach('10a', 'ngay', 'go'); hsoVe(); await w(300); const tx = HSO.x.h.replace(/<[^>]+>/g, '');
      ok('3.446.1: ngày họp in đúng 15/10/2026 (trước bị đè thành "1/0/2")', /ngày 15\/10\/2026/.test(tx), (tx.match(/Thời gian bắt đầu:.{0,60}/)||[''])[0]); HSO.o.ngay = n0; omDatCach('10a', 'ngay', 'cham'); omDatCach('10a', 'ngay', ''); hsoVe(); await w(300); }
-   ok('mặc định Về việc = thành lập', /Về việc <span[^>]*>thành lập Tổ Tiết kiệm và vay vốn/.test(HSO.x.h));
+   ok('mặc định Về việc = thành lập', /data-o="vv">Về việc thành lập Tổ Tiết kiệm và vay vốn/.test(HSO.x.h));
    (document.querySelectorAll('#hso-tuy [data-lenh="omc.chon"][data-k="vv"]')[1]||{click(){}}).click(); await w(400);
-   ok('3.448 (VB 4336/HD-NHCS): bấm "Kiện toàn" → tiêu đề "Về việc kiện toàn hoạt động của Tổ TK&VV theo Quyết định số 70/QĐ-HĐQT" + nội dung "tự nguyện họp để kiện toàn hoạt động của Tổ Tiết kiệm và vay vốn"', /Về việc <span[^>]*>kiện toàn hoạt động của Tổ TK&amp;VV theo Quyết định số 70\/QĐ-HĐQT/.test(HSO.x.h) && /tự nguyện họp để kiện toàn hoạt động của Tổ Tiết kiệm và vay vốn/.test(HSO.x.h) && /Kiện toàn/.test(document.getElementById('hso-tuy').textContent));
-   { omDatKB('10a', 'vv', 'củng cố Tổ Tiết kiệm và vay vốn'); hsoVe(); await w(300); ok('giá trị cũ "củng cố" (3.446) → in như Kiện toàn', /Về việc <span[^>]*>kiện toàn hoạt động/.test(HSO.x.h)); }
+   ok('3.448 (VB 4336/HD-NHCS): bấm "Kiện toàn" → tiêu đề "Về việc kiện toàn hoạt động của Tổ TK&VV theo Quyết định số 70/QĐ-HĐQT" + nội dung "tự nguyện họp để kiện toàn hoạt động của Tổ Tiết kiệm và vay vốn"', /data-o="vv">Về việc kiện toàn hoạt động của Tổ TK&amp;VV[ <br>]+theo Quyết định số 70\/QĐ-HĐQT/.test(HSO.x.h) && /tự nguyện họp để kiện toàn hoạt động của Tổ Tiết kiệm và vay vốn/.test(HSO.x.h) && /Kiện toàn/.test(document.getElementById('hso-tuy').textContent));
+   { omDatKB('10a', 'vv', 'củng cố Tổ Tiết kiệm và vay vốn'); hsoVe(); await w(300); ok('giá trị cũ "củng cố" (3.446) → in như Kiện toàn', /data-o="vv">Về việc kiện toàn hoạt động/.test(HSO.x.h)); }
    ok('họp định kỳ chưa chọn → giữ "hằng tháng (quý)"', /hằng tháng \(quý\) vào ngày/.test(HSO.x.h));
    (document.querySelectorAll('#hso-tuy [data-lenh="omc.chon"][data-k="dkKy"]')[1]||{click(){}}).click(); await w(400);
    ok('chọn "quý" → "Tổ họp định kỳ hằng quý vào ngày"', /hằng <span[^>]*>quý<\/span> vào ngày/.test(HSO.x.h));
    omDatKB('10a', 'vv', ''); omDatKB('10a', 'dkKy', ''); hsoVe(); await w(300);
    { const x = {k:'gia', chon:['a','b','c','d'], chonMD:0}; OM_MAU['10a'].oK.gia = x; const h = omChonHTML('10a', x, 1); delete OM_MAU['10a'].oK.gia;
      ok('ô chọn > 3 lựa chọn → danh sách sổ xuống; có ô ➕ thêm lựa chọn', /<select data-lenh="omc.chonDs"/.test(h) && /data-lenh="omc.them"/.test(h)); }
+   /* 3.449 (anh 02/11): bảng hộ vay của tổ · TT / TP · họ tên ⇥ Chức vụ · Hội bỏ xã · tách ô · Về việc vừa dòng · kẻ dưới tiêu đề */
+   { const t1 = TO_K.to[hsoCH().to], ds = hso10aDs(t1), tt0 = window.hsoTo;
+     ok('3.449: danh sách sắp theo Mã KH', ds.filter(x=>x.kh).every((x, i, a)=>!i || String(a[i-1].kh).localeCompare(String(x.kh), 'vi', {numeric:true})<=0));
+     ok('3.449: luôn có tổ trưởng (TT) trong danh sách', ds.some(x=>x.vai==='TT'), ds.filter(x=>x.vai).map(x=>x.vai+':'+x.ten).join(', '));
+     /* tổ phó không vay (File Tổ trưởng MATP / TENTP) → thêm dòng, có nhãn TP */
+     t1.ds = {ttKH:'', toTen:'', phoKH:'9990001234', phoTen:'NGUYEN VAN PHO GIA'}; const ds2 = hso10aDs(t1), tp = ds2.find(x=>x.vai==='TP');
+     ok('3.449: tổ phó không vay vẫn có trong danh sách (mã KH File Tổ trưởng, không vay)', !!tp && tp.kh==='9990001234' && !tp.vay);
+     hsoVe(); await w(500); const bg = document.querySelector('#hso-tuy table.hso-tv10a');
+     ok('3.449: cột trái có bảng hộ vay (In · # · Mã KH · Họ tên · Dư nợ · Ghi chú), ghi kỳ số liệu, nhãn TT / TP', !!bg && /Mã KH/.test(bg.textContent) && /Dư nợ/.test(bg.textContent) && /Hộ vay của tổ — số liệu/.test(document.getElementById('hso-tuy').textContent) && /\bTP\b/.test(bg.textContent));
+     ok('3.449: mặc định tích hết', [...bg.querySelectorAll('input[data-lenh="h10a.tich"]')].every(x=>x.checked));
+     const gk = ds2.filter(x=>x.vay).slice(0, 1)[0]; if(gk) gk.k.dn = 0;   /* giả 1 hộ dư nợ 0 */
+     const goc = window.hso10aDs; window.hso10aDs = tt => ds2.map(x=>x===gk ? Object.assign({}, x, {dn:0}) : x);
+     hsoVe(); await w(400); const b0 = document.querySelector('[data-lenh="h10a.bo0"]');
+     ok('3.449: có nút "Bỏ tích hộ dư nợ = 0"', !!b0); b0 && b0.click(); await w(400);
+     ok('3.449: bỏ tích hộ dư nợ 0, giữ tổ phó (không vay)', HSO.tv[gk.kh]===false && HSO.tv['9990001234']!==false);
+     const hIn = hsoLap().h; ok('3.449: hộ bỏ tích không in, tổ phó in', hIn.indexOf(tenHoaDau(gk.ten))<0 && /Nguyen Van Pho Gia/.test(hIn));
+     window.hso10aDs = goc; HSO.tv = {}; delete t1.ds; hsoVe(); await w(400); }
+   { const h = HSO.x.h, tx = h.replace(/<[^>]+>/g, '');
+     ok('3.449: III a) "Ông (Bà): tên" ⇥ "Chức vụ: Tổ trưởng;" (có tab)', /a\) Ông \(Bà\): [^<]*<\/span>|a\) Ông \(Bà\): /.test(tx) && /<span class="tab"[^>]*><\/span>Chức vụ: Tổ trưởng;/.test(h));
+     ok('3.449: dòng có tab mang điểm dừng (data-tab) cho Word', /<p data-tab="95"/.test(h));
+     ok('3.449: kẻ dưới tiêu đề dài bằng "BIÊN BẢN HỌP"', new RegExp('<p class="ke" data-ke="'+omRong('BIÊN BẢN HỌP', 15, true).toFixed(1)+'"').test(h));
+     ok('3.449: Hội bỏ xã / phường', (()=>{ return !/Hội [^<.]* (xã|phường) [^<.]*\./i.test(tx.match(/Chủ trì.{0,200}/)[0]); })(), (tx.match(/Chủ trì.{0,120}/)||[''])[0]);
+     ok('3.449: tách ô — III a / b, UBND, địa bàn, chủ trì, chữ ký mỗi dòng 1 ô', ['bqlTT','bqlPho','ubDiaBan','ubTT','ubPho','diaBan2','chuTriCv','chuTriHoi','kyTA','kyCT'].every(k=>OM_MAU['10a'].oK[k]) && !['bql','ub','ky'].some(k=>OM_MAU['10a'].oK[k]));
+     omDatCach('10a', 'bqlPho', 'cham'); hsoVe(); await w(300); const t2 = HSO.x.h.replace(/<[^>]+>/g, '');
+     ok('3.449: chọn ✍ riêng dòng Tổ phó → dòng b) giữ form chấm, dòng a) vẫn điền', /b\) Ông \(Bà\) [.…]+ Chức vụ: Tổ phó\./.test(t2) && /a\) Ông \(Bà\): /.test(t2)); omDatCach('10a', 'bqlPho', 'tu'); hsoVe(); await w(300);
+     omDatKB('10a', 'vv', 'kiện toàn hoạt động của Tổ TK&VV theo Quyết định số 70/QĐ-HĐQT'); hsoVe(); await w(300);
+     const vv = HSO.x.h.match(/<p[^>]*>(?:(?!<\/p>).)*data-o="vv"/)[0];
+     ok('3.449: Về việc dài → cỡ 13 vừa 1 dòng hoặc 2 dòng cân (không tràn)', /class="s13"/.test(vv) || /data-o="vv">[^<]*<br>/.test(HSO.x.h), vv.slice(0, 60)); omDatKB('10a', 'vv', ''); hsoVe(); await w(300); }
    /* mẫu khác không bị ảnh hưởng: 10B không có tr-sang / data-cao */
    hsoChonMau('10b'); await w(300);
    ok('10B không đổi (không dòng cố định)', !/data-cao/.test(HSO.x.h));
@@ -101,6 +129,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
  const okN = (ten, dk, chi) => R.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
  okN('Word: không ngắt trang cứng', !/<w:pageBreakBefore\/>/.test(xml));
  okN('Word: 34 dòng khung cao cố định (trHeight exact)', (xml.match(/w:hRule="exact"/g)||[]).length===34, (xml.match(/w:hRule="exact"/g)||[]).length);
+ okN('3.449 Word: dòng họ tên có tab thật + điểm dừng tab', /<w:tabs><w:tab w:val="left" w:pos="\d+"\/><\/w:tabs>/.test(xml) && /<w:r><w:tab\/><\/w:r>/.test(xml));
  okN('Word: khung 3 cột chia đều', /<w:tblGrid>(<w:gridCol w:w="(\d+)"\/>){3}<\/w:tblGrid>/.test(xml));
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t358 đạt'); await b.close(); process.exit(sai?1:0);
