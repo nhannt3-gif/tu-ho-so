@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.444 — 02/11/2026 — Mẫu 10A gọn 4 trang, chừa chỗ ký (TK 2)
+- **Anh 02/11:** "bố cục lại còn 4 trang" → chọn cách A; "chừa chỗ ký tên cho thoải mái, có thể giảm lề và các giãn dòng dư".
+- `js/mau/10a.js`: bỏ ngắt trang cứng trước phần II (khung 100 dòng cao cố định + Tổng số đã giữ bố cục — sửa tên không xô trang); lề trên / dưới 20 → 15 mm; thân bài giãn dòng 17 → 16 pt (chữ vẫn 14); khoảng trống dưới tiêu đề 11 → 6 mm; dòng khung 6,2 → 5,8 mm (`HSO_10A_CAO`); chỗ ký Thư ký / Trưởng thôn / Chủ trì 3 → 4 dòng trống; tiêu đề mục II–IV không treo cuối trang (class `kt-b`).
+- Tên dài hơn ô → tự thu chữ 11 / 10 / 9 (`hso10aCo`), ô không xuống dòng.
+- Kết quả (dữ liệu giả): bản in **4 trang**, trang 4 dưới "UBND CẤP XÃ (Ký tên, đóng dấu)" còn ~31 mm; Word (mở bằng LibreOffice) 4 trang, 100 tên dài vẫn 4 trang.
+- Phép thử `t358` cập nhật; chuẩn in `t179` 10A ghi lại; `t180` `doiChuY` 10A thêm bỏ so lề (lề 15 mm anh duyệt).
+
 ## 3.443 — 02/11/2026 — Mẫu 10A: khung 100 tổ viên cố định (TK 2)
 - **Anh 02/11:** "Mẫu 10A của tổ có tối đa 100 thành viên, dựng sẵn khung tối đa 100 tv, 3 cột, nằm trong trang 1 và trang 2, để khi thay đổi thành viên nếu gõ nhầm không ảnh hưởng trang 3, 4" → chọn 3 cột.
 - `js/mau/10a.js`: danh sách tổ viên = khung cố định **100 ô, 3 cột × 34 dòng, đánh số dọc theo cột** (1–34 │ 35–68 │ 69–100), chữ cỡ 12, ô trống để chấm; "Tổng số" ngay dưới khung; "II. QUY ƯỚC" luôn sang **trang 3** (phần II → phê duyệt UBND vẫn 3 trang như mẫu gốc → cả mẫu 5 trang).

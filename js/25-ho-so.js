@@ -303,7 +303,7 @@ function hsoLap10cCu(t){ return hsoLap10c(t, {cu:1}); }
 function hsoLap10d(t){ return {ma:'10D/TD', h:'<p class="c">Mẫu 10D/TD dựng trên nền ô (js/mau/10d.js) — chưa nạp được mô-đun.</p>'}; }   /* 3.223: chip 10D (mô-đun riêng) */
 function hsoLap11Cu(t){ return {ma:'11/TD cũ', h:'<p class="c">Mẫu 11/TD cũ dựng trên nền ô (js/mau/11cu.js) — chưa nạp được mô-đun.</p>'}; }   /* 3.223: chip 11 cũ (mô-đun riêng) */   /* 3.223: chip 10C cũ */
 /* ---------- 10A/TD ---------- */
-var HSO_10A_TV = 100, HSO_10A_DONG = 34, HSO_10A_CAO = 6.2;   /* 3.443: số ô tổ viên · số dòng / cột · chiều cao dòng (mm, Word cố định) */
+var HSO_10A_TV = 100, HSO_10A_DONG = 34, HSO_10A_CAO = 5.8;   /* 3.443: số ô tổ viên · số dòng / cột · chiều cao dòng (mm, Word cố định) */
 function hsoLap10a(t){
   var T = hsoTo(t), tv = hsoTVTo(t).filter(function(k){ return HSO.tv[k.kh]!==false; }), N = hsoNguoiHoi(t), ng = HSO.o.ngay || '', L = hsoLuu(), n = Math.max(20, Math.ceil(tv.length/2)), ds = '';
   for(var i=0;i<n;i++){ var a = tv[i], b = tv[i+n]; ds += '<tr><td>'+(i+1)+'. '+(a ? hsoO(a.ten) : hsoCham(45))+'</td><td>'+(i+n+1)+'. '+(b ? hsoO(b.ten) : hsoCham(45))+'</td></tr>'; }

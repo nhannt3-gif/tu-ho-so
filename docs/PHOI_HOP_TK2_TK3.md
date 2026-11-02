@@ -172,6 +172,7 @@
 | 02/11 | TK 2 | 3.441 | `js/28-tv-tk.js` (**mới** `dsTimTT`), `js/45-tra-mau31.js` (`trTimTT` + CMND, **mới** `trTTHienTai`), `js/41-scan-sap-xep.js` (tra tổ trưởng cả khi có gợi ý trùng tên), **mới** `tests/t357.js` |
 | 02/11 | TK 2 | 3.442 | `js/28-tv-tk.js` (**mới** `tk104TimTT`), `js/45-tra-mau31.js` (`trTTHienTai` tìm tổ theo mã KH), `t357` |
 | 02/11 | TK 2 | 3.443 | `js/mau/10a.js` (khung 100 tổ viên 3 cột, II `.tr-sang`), `js/05-them-file.js` (`trDan` nhận `.tr-sang`), `js/25b-ho-so-vay.js` (`hsoDocx`: pageBreakBefore, `data-cao`), `js/25-ho-so.js` (hằng `HSO_10A_*`), `js/25c` (báo > 100), `t358` |
+| 02/11 | TK 2 | 3.444 | `js/mau/10a.js` (4 trang: bỏ `.tr-sang`, lề 15, giãn 16pt, chỗ ký, `hso10aCo`), `js/25-ho-so.js` (`HSO_10A_CAO` 5,8), `t358`, `t179` chuẩn 10A, `t180` + `khop.json` `doiChuY.boLe` |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
