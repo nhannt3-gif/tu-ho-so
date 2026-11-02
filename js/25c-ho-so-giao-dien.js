@@ -806,7 +806,7 @@ function hsoTuyHTML(M, t){
       var nTV = d10.filter(function(k){ return HSO.tv[k.kh || k.khoa]!==false; }).length; if(nTV>HSO_10A_TV) h += '<div class="sl-phu hso-canh">⚠ Đang tích '+nTV+' tổ viên — khung 10A tối đa '+HSO_10A_TV+' (QĐ 70), chỉ in '+HSO_10A_TV+' người đầu. Bỏ tích bớt hoặc tách tổ.</div>'; }
     else if(t){ tv.forEach(function(k){ if(HSO.tv[k.kh]===undefined) HSO.tv[k.kh] = true; }); h += hsoDsTick('tv', tv.map(function(k){ return {kh:k.kh, ten:k.ten}; }), '👥 Danh sách tổ viên in vào biên bản');
       var nTV = tv.filter(function(k){ return HSO.tv[k.kh]!==false; }).length; if(nTV>HSO_10A_TV) h += '<div class="sl-phu hso-canh">⚠ Đang tích '+nTV+' tổ viên — khung 10A tối đa '+HSO_10A_TV+' (QĐ 70), chỉ in '+HSO_10A_TV+' người đầu. Bỏ tích bớt hoặc tách tổ.</div>'; }
-    if(typeof omCo==='function' && omCo('10a')) h += omNhanhHTML('10a');   /* 3.448 (anh 02/11 "khai báo riêng làm 1 nút riêng như các mẫu Giao dịch xã"): cột trái chỉ còn dòng Chọn nhanh; đủ dòng ở nút ⚙ Khai báo riêng */
+    if(typeof omCo==='function' && omCo('10a')) h += omNhanhHTML('10a')+(typeof hso10aUbNut==='function' ? hso10aUbNut() : '');   /* 3.448 (anh 02/11 "khai báo riêng làm 1 nút riêng như các mẫu Giao dịch xã"): cột trái chỉ còn dòng Chọn nhanh; đủ dòng ở nút ⚙ Khai báo riêng */
   }
   else if(M.k==='10b'){
     var B = t ? hsoBau(t) : {tt:'', ttCu:'', pho:'', phoCu:''};

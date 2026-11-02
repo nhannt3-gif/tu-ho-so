@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.455', ds:[
+var CO_GI_MOI = {ban:'3.456', ds:[
+  ["📝 Mẫu 10A: số tham dự tự tính theo tỷ lệ (mặc định 100%, − / +, > 50%); IV tán thành / tham dự (> 2/3); III gõ / chọn tên trong tổ, UBND theo III; phê duyệt cả phần ✍ / 🤖", ""],
   ["🖼 Khai báo riêng mọi mẫu: danh sách gọn (không dồn chữ), vạch màu theo nguồn; trực quan liên kết 2 chiều; bấm chữ trên bản xem trước → tới đúng dòng khai báo", ""],
   ["📝 Mẫu 10A: khóa trang 3 bắt đầu \"b) Tổ phó\", trang 4 bắt đầu \"III.\"; tên dài → tự bớt hàng khung tổ viên để vẫn 4 trang", ""],
   ["📝 Mẫu 10C theo quy chuẩn 10A: Về việc chọn nhiều, bảng Cho ra / Kết nạp, kết nạp từ tổ khác cùng ấp, ＋ / − số dòng bảng", ""],
@@ -1070,9 +1071,12 @@ var CO_GI_MOI = {ban:'3.455', ds:[
   ["📝 Mẫu 10A: chữ 13 đều, tiêu đề 15; chữ điền liền như gõ tay; tên hoa đầu từ; ⚙ Khai báo riêng 10A (Về việc, họp tháng / quý…)", ""],
   ["🔧 Scan: tổ trưởng nhận đúng người mà trống ấp → tự bổ sung ấp lúc lưu; bản cũ có nút Bổ sung ấp", ""],
   ["📝 Mẫu 10A gọn 4 trang: khung 100 tổ viên trang 1–2, chừa chỗ ký rộng; tên dài tự thu chữ", ""],
-  ["📝 Mẫu 10A: khung cố định 100 tổ viên (3 cột) ở trang 1–2, phần II luôn sang trang 3", ""],
-  ["🪪 Quét CCCD: không khớp File Tổ trưởng → đối chiếu chủ TK 104 (Sao kê TK 104) cùng họ tên", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📝 Mẫu 10A: khung cố định 100 tổ viên (3 cột) ở trang 1–2, phần II luôn sang trang 3", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.456 · Hồ sơ Tổ › 10A › Chọn nhanh: dòng \"số tham dự\" có − 100 % + (gõ ≤ 50% → app đặt 51%)",
+    "3.456 · 10A › Chọn nhanh: IV tỷ lệ tán thành (− / +, tối thiểu 67%)",
+    "3.456 · 10A › III a / b bấm ⌨ → gõ hoặc chọn tên trong tổ; phần Phê duyệt UBND đổi theo",
+    "3.456 · 10A › cuối Chọn nhanh: Phê duyệt UBND — cả phần ✍ chấm / 🤖 tự điền",
     "3.455 · Hồ sơ › mọi mẫu nền ô (10A, 01/TD, 03/TD, 11…) › nút ⚙ Khai báo riêng cạnh ⚙ Khai báo đơn vị → danh sách: tên · nút nguồn · giá trị · Chọn nhanh; bấm tên dòng → 🖼 trực quan đúng chỗ đó",
     "3.455 · 🖼 Khai báo trực quan: bấm chỗ trên mẫu → dòng bên phải sáng + mở chi tiết; bấm tên dòng → viền đỏ trên mẫu",
     "3.455 · Bản xem trước: rê chuột lên chữ app điền (viền màu nguồn), bấm → dòng Chọn nhanh cột trái sáng lên; dòng không có ở Chọn nhanh → mở trực quan",
@@ -1088,12 +1092,9 @@ var CO_GI_MOI = {ban:'3.455', ds:[
     "3.451 · Phân bổ KH › Biểu 07 / Thông báo → xem trước: \"THÔNG BÁO … KẾ HOẠCH DƯ NỢ\" và \"NĂM …\" cách nhau rõ hơn, cách thêm trước Kính gửi; \"Số:   /TB-UBND\" gọn",
     "3.450 · 10A xem trước: dòng \"Chủ trì: Ông (Bà): … ⇥ Chức vụ: …\" thụt đầu dòng như các dòng khác, nằm 1 dòng; III a) / b) thẳng hàng cả khi tên dài",
     "3.450 · ⚙ Khai báo riêng › ⌨ gõ họ tên chủ trì / tổ trưởng → mẫu in đúng chữ gõ",
-    "3.449 · Hồ sơ Tổ › chọn tổ › 10A → cột trái bảng \"👥 Hộ vay của tổ — số liệu …\": ☑ in · Mã KH · họ tên (TT / TP) · dư nợ · ghi chú; bấm tiêu đề Mã KH / Dư nợ để sắp; nút \"Bỏ tích hộ dư nợ = 0\"",
-    "3.449 · 10A xem trước: III a) / b) \"Ông (Bà): tên ⇥ Chức vụ: …\"; kẻ dưới tiêu đề; Hội không ghi xã / phường",
-    "3.449 · ⚙ Khai báo riêng 10A: mỗi dòng (III a / b, phê duyệt UBND, địa bàn, chủ trì, chữ ký) chọn 🤖 / ✍ riêng",
-    "3.448 · Hồ sơ Tổ › 10A › nút ⚙ Khai báo riêng (cạnh ⚙ Khai báo đơn vị) → mọi dòng theo thứ tự mẫu, tích Chọn nhanh",
-    "3.448 · Cột trái 10A › Chọn nhanh › Thành lập / Kiện toàn → tiêu đề + câu nội dung đổi theo VB 4336"],
+    "3.449 · Hồ sơ Tổ › chọn tổ › 10A → cột trái bảng \"👥 Hộ vay của tổ — số liệu …\": ☑ in · Mã KH · họ tên (TT / TP) · dư nợ · ghi chú; bấm tiêu đề Mã KH / Dư nợ để sắp; nút \"Bỏ tích hộ dư nợ = 0\""],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.456 · 10A: ô số tham dự và ô IV trước chỉ ✍ chấm / ✏ gõ trong lần làm → nay 🤖 tự tính / ⌨ tự gõ / ✍ chấm",
     "3.455 · Mẫu nền ô (01/TD, 03/TD, 11, 09A…): khối thu gọn \"⚙ Khai báo riêng\" ở cột trái → nút ⚙ Khai báo riêng cạnh ⚙ Khai báo đơn vị (tóm tắt số ô, cỡ chữ, ↺ Về mặc định, 🖼 trực quan nằm trong hộp); cột trái chỉ còn Chọn nhanh",
     "3.455 · 🖼 Trực quan: khung phải chỉ 1 ô → cả danh sách, ô đang chọn mở rộng (đủ chức năng cũ)",
     "3.453 · 10C: 2 danh sách tích Kết nạp / Cho ra cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun)",

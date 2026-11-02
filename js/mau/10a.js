@@ -21,6 +21,27 @@
   /* 3.449 (anh 02/11): Hội ở dòng Chủ trì chỉ ghi tên Hội, bỏ xã / phường */
   function hso10aDong(dau, vvCo){ var n = 0; dau.forEach(function(h){ var tx = String(h).replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/[.…]{6,}/g, function(m){ return m.slice(0, Math.ceil(m.length*0.85)); });   /* 3.454: ước số dòng phần đầu trang 1 (chữ 14, rộng 160 mm, thụt 12,7; chuỗi chấm tính 85 % vì chấm co giãn) */
     n += /data-tab=/.test(h) && !/text-align:left/.test(h) ? 1 : Math.max(1, Math.ceil((12.7+omRong(tx, 14))/157)); }); return n+(vvCo ? 0 : 1); }
+  /* 3.456 (anh 02/11 "số tv tham dự tối thiểu 50% số thành viên tổ, chọn theo số tv tổ, tỷ lệ điều chỉnh được nhưng > 50% <= 100%; để sẵn 100%, tăng giảm được"):
+     số tham dự = số tổ viên × tỷ lệ (làm tròn lên, luôn > 1/2); IV tán thành = số tham dự × tỷ lệ (luôn > 2/3, QĐ 70). Tỷ lệ nhớ ở hsoLuu().tl10a / tl10aBq. */
+  var TL10A = {tl10a:[51, 'tham dự'], tl10aBq:[67, 'tán thành']};
+  function hso10aTl(k){ var v = +hsoLuu()[k]; return v>=TL10A[k][0] && v<=100 ? v : 100; }
+  function hso10aSo(n, r, phan){ n = +n || 0; if(!n) return 0; var lo = Math.floor(n*phan)+1; return Math.min(n, Math.max(lo, Math.ceil(n*r/100-1e-9))); }
+  hso10aThamDu = function(n){ return n ? String(hso10aSo(n, hso10aTl('tl10a'), 1/2)) : ''; };
+  hso10aBq = function(yTu){ var c = omCach(MK, 'soNguoi'), y = c==='cham' ? '' : c==='kb' && omKB(MK, 'soNguoi') ? omKB(MK, 'soNguoi') : yTu; y = parseInt(y, 10);   /* theo số tham dự in ở trên (tự tính / tự gõ) */
+    return y>0 ? hso10aSo(y, hso10aTl('tl10aBq'), 2/3)+'/'+y : ''; };
+  hso10aTlHTML = function(k){ if(!hso10aTlHTML.dk && typeof GD!=='undefined'){ hso10aTlHTML.dk = 1;
+      GD.dangKy('h10t', {cong:function(el){ var k = el.getAttribute('data-k'); hso10aTlDat(k, hso10aTl(k)+(+el.getAttribute('data-d'))); }, go:function(el){ hso10aTlDat(el.getAttribute('data-k'), +el.value); }, ub:function(el){ omDatPhan(MK, 'ub', el.getAttribute('data-c')); }}); }
+    var v = hso10aTl(k), lo = TL10A[k][0];
+    return '<span class="hso-sw om-tl" title="Tỷ lệ '+TL10A[k][1]+' ('+lo+'–100%)"><button data-lenh="h10t.cong" data-k="'+k+'" data-d="-5"'+(v<=lo ? ' disabled' : '')+'>−</button>'+
+      '<input type="number" min="'+lo+'" max="100" value="'+v+'" data-lenh="h10t.go" data-su="change" data-k="'+k+'"><b>%</b>'+
+      '<button data-lenh="h10t.cong" data-k="'+k+'" data-d="5"'+(v>=100 ? ' disabled' : '')+'>+</button></span>'; };
+  function hso10aTlDat(k, v){ var lo = TL10A[k][0]; v = Math.round(+v || 0);
+    if(v<lo){ bao('Tỷ lệ '+TL10A[k][1]+' phải '+(k==='tl10a' ? 'trên 50%' : 'trên 2/3')+' — đặt '+lo+'%.', 4); v = lo; } if(v>100) v = 100;
+    hsoLuu()[k] = v; luu(); hsoVe(); if(typeof omKBDsVe==='function') omKBDsVe(MK); if(document.getElementById('om-kbt')) omKBVe(); }
+  hso10aTen = function(){ try { var t = KHO.to(hsoCH().to); return t ? hso10aDs(t).map(function(x){ return tenHoaDau(x.ten); }).filter(Boolean) : []; } catch(e){ return []; } };   /* III: chọn người được bầu trong tổ */
+  hso10aUbNut = function(){ hso10aTlHTML.dk || hso10aTlHTML('tl10a'); var ds = OM_MAU[MK].o.filter(function(x){ return x.p==='ub'; }), cham = ds.every(function(x){ return omCachLuu(MK, x.k)==='cham'; });   /* 3.456: Phê duyệt UBND cả phần ✍ / 🤖 */
+    return '<div class="hso-cham-o"><span class="hso-cham-nhan">Phê duyệt UBND — cả phần</span><span class="hso-sw"><button class="'+(cham ? 'bat' : '')+'" data-lenh="h10t.ub" data-c="cham" title="Để chấm cả phần phê duyệt (UBND ghi tay)">✍ chấm</button>'+
+      '<button class="'+(cham ? '' : 'bat')+'" data-lenh="h10t.ub" data-c="in" title="App điền cả phần (tên Tổ trưởng / Tổ phó theo III)">🤖 tự điền</button></span></div>'; };
   function hso10aHoi(h){ return String(h||'').replace(/\s+(xã|phường|thị trấn|đặc khu)\s+.*$/i, '').trim(); }
   /* 3.449 (anh 02/11 "mỗi dòng cho chọn tự động hay chấm ghi tay"): tách ô gộp — cách đã chọn ở ô cũ chuyển sang ô con (1 lần) */
   function hso10aTach(){ var L = hsoLuu(); if(L.tach10a3449) return; L.tach10a3449 = 1; var c = (L.cham||{})[MK] || {}, nh = (L.nhanh||{})[MK];
@@ -57,7 +78,7 @@
         return '<tr class="'+(!(x.dn>0) && x.vay ? 'vang' : '')+(co ? '' : ' mo')+'">'+
           '<td><input type="checkbox" data-lenh="h10a.tich" data-su="change" data-k="'+e(k)+'"'+(co ? ' checked' : '')+'></td><td>'+(i+1)+'</td><td>'+e(x.kh || '—')+'</td><td>'+e(tenHoaDau(x.ten||''))+(x.vai ? ' <span class="tc-vt'+(x.vai==='TP' ? ' tp' : '')+'">'+x.vai+'</span>' : '')+'</td><td class="s">'+(x.vay ? tdnTien(x.dn||0) : '—')+'</td><td><small>'+e(ghi(x))+'</small></td></tr>'; }).join('')+
       '</tbody><tfoot><tr><td colspan="3"><b>'+chon.length+'</b>/'+ds.length+' hộ</td><td>tích in vào 10A</td><td class="s"><b>'+tdnTien(tong)+'</b></td><td></td></tr></tfoot></table></div>'; };
-  var DON = {truongAp:1, chuTri:1, chuTriCv:1, chuTriHoi:1, thuKy:1, bqlTT:1, bqlPho:1, ubTT:1, ubPho:1, kyTA:1, kyCT:1};   /* ô chỉ 1 giá trị (tự gõ được) */
+  var DON = {truongAp:1, chuTri:1, chuTriCv:1, chuTriHoi:1, thuKy:1, bqlTT:1, bqlPho:1, ubTT:1, ubPho:1, kyTA:1, kyCT:1, soNguoi:1, bq:1};   /* ô chỉ 1 giá trị (tự gõ được) */
   var VV = ['thành lập Tổ Tiết kiệm và vay vốn', 'kiện toàn hoạt động của Tổ TK&VV theo Quyết định số 70/QĐ-HĐQT'];   /* 3.446 (anh 02/11): Về việc · 3.448 (anh 02/11, VB 4336/HD-NHCS): "Củng cố" → "Kiện toàn": tiêu đề + câu nội dung cuộc họp */
   function vvKT(v){ return /^(kiện toàn|củng cố)/i.test(String(v||'')); }   /* giá trị cũ "củng cố …" (3.446–3.447) đọc như kiện toàn */
   omDangKy({k:MK, ma:'10A/TD', phan:['to', 'hoi', 'ub', 'ky'], co:14,
@@ -67,7 +88,7 @@
       {k:'gio', n:'Thời gian bắt đầu: … giờ …', p:'to', l:'go', md:'cham'},
       {k:'ngay', n:'Ngày họp', p:'to', l:'go', md:'cham', ngay:1, nhanh:1, ui:function(){ return hsoIn('HSO.o.ngay=this.value;hsoHen()', HSO.o.ngay || '', '', 'date'); }},
       {k:'diaDiem', n:'Địa điểm: thôn · xã · tỉnh', p:'to', l:'tu', md:'tu', ng:'tổ — Mẫu 31 / ⚙ PGD › tỉnh'},
-      {k:'soNguoi', n:'- … người là đại diện hộ gia đình', p:'to', l:'go', md:'cham'},
+      {k:'soNguoi', n:'- … người là đại diện hộ gia đình (số tham dự)', p:'to', l:'tu', md:'tu', ng:'số tổ viên × tỷ lệ tham dự (> 50%, mặc định 100%)', nhanh:1, tuUi:function(){ return hso10aTlHTML('tl10a'); }},
       {k:'diaBan2', n:'… cùng cư trú tại địa bàn thôn · xã · tỉnh', p:'to', l:'tu', md:'tu', ng:'tổ — Mẫu 31 / ⚙ PGD › tỉnh'},
       {k:'truongAp', n:'Trưởng thôn chứng kiến', p:'to', l:'tu', md:'tu', ng:'⚙ khai báo ấp / tổ'},
       {k:'chuTri', n:'Chủ trì: Ông (Bà) — họ tên', p:'hoi', l:'tu', md:'tu', ng:'⚙ khai báo Hội (người dự họp)'},
@@ -79,13 +100,13 @@
       {k:'ngayDK', n:'II.2 … vào ngày', p:'to', l:'tukb', md:'tu', ng:'ô cũ "Ngày họp định kỳ" (đã gõ trước 3.446)', nhanh:1},
       {k:'tk', n:'II.5c Tiết kiệm tối thiểu (đồng/tổ viên)', p:'to', l:'tukb', md:'tu', ng:'ô cũ "Tiết kiệm tối thiểu" (đã gõ trước 3.446)', nhanh:1},
       {k:'tuThang', n:'II.5c … kể từ tháng …/…', p:'to', l:'go', md:'cham'},
-      {k:'bqlTT', n:'III.a) Ông (Bà) … Chức vụ: Tổ trưởng', p:'to', l:'tu', md:'tu', ng:'tổ — Mẫu 31 / File Tổ trưởng'},
-      {k:'bqlPho', n:'III.b) Ông (Bà) … Chức vụ: Tổ phó', p:'to', l:'tu', md:'tu', ng:'File Tổ trưởng / ⚙ khai báo tổ phó'},
-      {k:'bq', n:'IV. …/… tổ viên biểu quyết tán thành', p:'to', l:'go', md:'cham'},
+      {k:'bqlTT', n:'III.a) Ông (Bà) … Chức vụ: Tổ trưởng', p:'to', l:'tu', md:'tu', goiY:function(){ return hso10aTen(); }, ng:'tổ — Mẫu 31 / File Tổ trưởng'},
+      {k:'bqlPho', n:'III.b) Ông (Bà) … Chức vụ: Tổ phó', p:'to', l:'tu', md:'tu', goiY:function(){ return hso10aTen(); }, ng:'File Tổ trưởng / ⚙ khai báo tổ phó'},
+      {k:'bq', n:'IV. …/… tổ viên biểu quyết tán thành', p:'to', l:'tu', md:'tu', ng:'số tán thành / số tham dự (tán thành > 2/3, mặc định 100%)', nhanh:1, tuUi:function(){ return hso10aTlHTML('tl10aBq'); }},
       {k:'ketThuc', n:'Kết thúc vào … giờ … ngày …', p:'to', l:'go', md:'cham'},
       {k:'ubDiaBan', n:'Phê duyệt UBND: thôn · xã · tỉnh', p:'ub', l:'tu', md:'tu', ng:'tổ — Mẫu 31'},
-      {k:'ubTT', n:'Phê duyệt UBND: Ông (Bà) … làm Tổ trưởng', p:'ub', l:'tu', md:'tu', ng:'tổ — Mẫu 31'},
-      {k:'ubPho', n:'Phê duyệt UBND: Ông (Bà) … làm Tổ phó', p:'ub', l:'tu', md:'tu', ng:'tổ — Mẫu 31'},
+      {k:'ubTT', n:'Phê duyệt UBND: Ông (Bà) … làm Tổ trưởng', p:'ub', l:'tu', md:'tu', ng:'theo III.a (người được bầu)'},
+      {k:'ubPho', n:'Phê duyệt UBND: Ông (Bà) … làm Tổ phó', p:'ub', l:'tu', md:'tu', ng:'theo III.b (người được bầu)'},
       {k:'ubNgay', n:'Phê duyệt UBND: ngày … tháng … năm', p:'ub', l:'go', md:'cham', ngay:1, ui:function(){ return hsoIn('HSO.o.ubNgay=this.value;hsoHen()', HSO.o.ubNgay || '', '', 'date'); }},
       {k:'kyTA', n:'Họ tên dưới chữ ký Trưởng thôn', p:'ky', l:'tu', md:'tu', ng:'⚙ khai báo ấp'},
       {k:'kyCT', n:'Họ tên dưới chữ ký Chủ trì', p:'ky', l:'tu', md:'tu', ng:'⚙ khai báo Hội'}],
@@ -93,9 +114,10 @@
       hso10aTach();
       var T = hsoTo(t), tv = hso10aDs(t).filter(function(k){ return HSO.tv[k.kh || k.khoa]!==false; }).map(function(k){ return Object.assign({}, k, {ten:tenHoaDau(k.ten)}); }),   /* 3.449: danh sách theo Mã KH, có tổ trưởng / tổ phó */
         N = hsoNguoiHoi(t), h = T.hoi || '', L = hsoLuu(), hd = function(x){ return x ? tenHoaDau(x) : x; };   /* 3.446 (anh 02/11): tên người viết hoa đầu từ */
-      if(!L.nhanh10a3446){ var nh = omNhanh(MK); ['vv', 'dkKy', 'ngayDK', 'tk'].forEach(function(k){ if(nh.indexOf(k)<0) nh.push(k); }); L.nhanh10a3446 = 1; }   /* 3.446: ô mới vào Chọn nhanh (thay 2 ô cũ cột trái) */
+      if(!L.nhanh10a3446){ var nh = omNhanh(MK); ['vv', 'dkKy', 'ngayDK', 'tk'].forEach(function(k){ if(nh.indexOf(k)<0) nh.push(k); }); L.nhanh10a3446 = 1; }
+      if(!L.nhanh10a3456){ var nh2 = omNhanh(MK); ['soNguoi', 'bqlTT', 'bqlPho', 'bq'].forEach(function(k){ if(nh2.indexOf(k)<0) nh2.push(k); }); L.nhanh10a3456 = 1; }   /* 3.456: số tham dự, III, IV ra Chọn nhanh */   /* 3.446: ô mới vào Chọn nhanh (thay 2 ô cũ cột trái) */
       return {T:T, tv:tv, ngay:HSO.o.ngay, ap:T.ap, xa:T.xa, tinh:T.tinh, truongAp:hd(T.truongAp), cb:hd(N.cb), cv:N.cv, hoiLa:/^Hội\s/i.test(h) || !h, hoiTen:hso10aHoi(/^Hội\s/i.test(h) || !h ? hsoBoHoi(h) : h),
-        thuKy:hd(T.pho), tong:tv.length ? String(Math.min(tv.length, HSO_10A_TV)) : '', ngayDK:L.ngayDK, tk:L.tkMin ? tdnTien(hsoSo(L.tkMin)) : '', tt:hd(T.tt), pho:hd(T.pho), ubNgay:HSO.o.ubNgay, capAp:dvAp(t, T), gio:HSO.vay.gio, soNguoi:HSO.vay.soNguoi, tuThang:HSO.vay.tuThang, bq:HSO.vay.bq, ketThuc:HSO.vay.ketThuc,   /* 3.448: ô ✏ gõ trong lần làm (trước gõ ở khai báo không in) */
+        thuKy:hd(T.pho), tong:tv.length ? String(Math.min(tv.length, HSO_10A_TV)) : '', ngayDK:L.ngayDK, tk:L.tkMin ? tdnTien(hsoSo(L.tkMin)) : '', tt:hd(T.tt), pho:hd(T.pho), bqlTT:hd(T.tt), bqlPho:hd(T.pho), ubNgay:HSO.o.ubNgay, capAp:dvAp(t, T), gio:HSO.vay.gio, soNguoi:hso10aThamDu(Math.min(tv.length, HSO_10A_TV)), tuThang:HSO.vay.tuThang, bq:hso10aBq(hso10aThamDu(Math.min(tv.length, HSO_10A_TV))), ketThuc:HSO.vay.ketThuc,   /* 3.448: ô ✏ gõ trong lần làm (trước gõ ở khai báo không in) */
          capXa:T.xaDu && T.xa ? T.xaDu.slice(0, T.xaDu.length-T.xa.length).trim() || 'xã' : 'xã'};
     },
     lap:function(t){
@@ -116,6 +138,7 @@
       var keW = omRong('BIÊN BẢN HỌP', 15, true).toFixed(1);
       var vIII = Math.max(tabVi('a) '+ong('bqlTT', '', V.tt), 'Chức vụ: Tổ trưởng;'), tabVi('b) '+ong('bqlPho', '', V.pho), 'Chức vụ: Tổ phó.'));   /* III a / b cùng 1 điểm tab → thẳng hàng */
       var ngd = function(k, ds){ var x = hsoNg(G.gt(k)), p = x ? [x.d, x.m, x.y] : ['', '', '']; return ds.map(function(ch, i){ return o(k, ch, {gt:p[i], canh:'c'}); }); };
+      var bqP = String(g('bq', V.bq) || '').split('/');   /* 3.456: IV "tán thành / tham dự" */
       var nd = ngd('ngay', ['….', '……', '………']), un = ngd('ubNgay', ['......', '........', '.....']);
       var tv = (C('tv') ? V.tv : []).slice(0, HSO_10A_TV), R = 'line-height:1.15;';   /* 3.443 (anh 02/11): khung cố định 100 tổ viên (QĐ 70), 3 cột × 34 dòng đánh số dọc theo cột, nằm trang 1–2 — sửa tên không đẩy trang 3–4 */
       var hoi = V.hoiLa ? 'Hội '+o('chuTriHoi', '..........', {gt:g('chuTriHoi', V.hoiTen)}) : o('chuTriHoi', 'Hội ..........', {gt:g('chuTriHoi', V.hoiTen)});
@@ -178,7 +201,7 @@
         (coTen('bqlPho', V.pho) ? tabP('b) '+ong('bqlPho', '', V.pho), 'Chức vụ: Tổ phó.', H17, vIII) : P('b) Ông (Bà) '+o('bqlPho', '..................................................................', {gt:''})+' Chức vụ: Tổ phó.', J+F+H17))+
         P('2. Ban quản lý Tổ thực hiện nhiệm vụ, quyền hạn của mình theo quy định tại Quyết định số 70/QĐ-HĐQT và các quy định liên quan của NHCSXH.', J+F+H17)+
         P('<b>IV. KẾT QUẢ BIỂU QUYẾT</b>', J+F+H17).replace('<p ', '<p class="kt-b" ')+
-        P(o('bq', '......', {canh:'c'})+'/'+o('bq', '......', {gt:''})+' tổ viên của Tổ tham dự họp biểu quyết tán thành các nội dung: Danh sách tổ viên, Quy ước hoạt động của Tổ TK&amp;VV và Bầu Ban quản lý Tổ TK&amp;VV. ', J+F+H17)+
+        P(o('bq', '......', {gt:bqP[0], canh:'c'})+'/'+o('bq', '......', {gt:bqP[1] || ''})+' tổ viên của Tổ tham dự họp biểu quyết tán thành các nội dung: Danh sách tổ viên, Quy ước hoạt động của Tổ TK&amp;VV và Bầu Ban quản lý Tổ TK&amp;VV. ', J+F+H17)+
         P('Biên bản này được lập thành 02 bản, được các tổ viên trong Tổ hoàn toàn nhất trí thông qua. Đề nghị UBND cấp xã chấp thuận hoạt động của Tổ TK&amp;VV tại địa phương.', J+F+H17)+
         P('Cuộc họp kết thúc vào '+o('ketThuc', '........', {canh:'c'})+' giờ '+o('ketThuc', '......', {gt:''})+', ngày '+o('ketThuc', '.....', {gt:''})+'/'+o('ketThuc', '.......', {gt:''})+'/'+o('ketThuc', '...........', {gt:''})+'/.', J+F+H17)+
         '<table class="khung0" style="width:160mm;table-layout:fixed"><colgroup><col style="width:50.6mm"><col style="width:52.8mm"><col style="width:56.6mm"></colgroup><tr style="height:11.2mm">'+
@@ -186,7 +209,7 @@
         [1, 2, 3, 4, 5, 6].map(function(i){ return i===5 ? '<table class="khung0" style="width:160mm;table-layout:fixed"><colgroup><col style="width:50.6mm"><col style="width:52.8mm"><col style="width:56.6mm"></colgroup><tr><td></td><td>'+P('<b>'+o('kyTA', '&nbsp;', {gt:g('kyTA', V.truongAp), rong:48, canh:'c'})+'</b>', 'text-align:center;line-height:18pt')+'</td><td>'+P('<b>'+o('kyCT', '&nbsp;', {gt:g('kyCT', V.cb), rong:52, canh:'c'})+'</b>', 'text-align:center;line-height:18pt')+'</td></tr></table>' : P('&nbsp;', 'line-height:18pt'); }).join('')+
         P('<b>PHÊ DUYỆT CỦA ỦY BAN NHÂN DÂN CẤP XÃ</b>', 'text-align:center;line-height:18pt')+
         P('Chấp thuận cho Tổ TK&amp;VV tại '+dvA('ubDiaBan', '…....................................', '…..........................................')+', tỉnh '+o('ubDiaBan', '..........................................', {gt:g('ubDiaBan', V.tinh)})+
-          ' do Ông (Bà) '+o('ubTT', '....................................................................…….', {gt:g('ubTT', V.tt)})+' làm Tổ trưởng và Ông (Bà) '+o('ubPho', '.............................................................................', {gt:g('ubPho', V.pho)})+' làm Tổ phó được thành lập, hoạt động theo Quy ước của Tổ đề ra và chịu trách nhiệm trước pháp luật về hoạt động của Tổ TK&amp;VV.', J+F+H15)+
+          ' do Ông (Bà) '+o('ubTT', '....................................................................…….', {gt:g('ubTT', g('bqlTT', V.tt) || V.tt)})+' làm Tổ trưởng và Ông (Bà) '+o('ubPho', '.............................................................................', {gt:g('ubPho', g('bqlPho', V.pho) || V.pho)})+' làm Tổ phó được thành lập, hoạt động theo Quy ước của Tổ đề ra và chịu trách nhiệm trước pháp luật về hoạt động của Tổ TK&amp;VV.', J+F+H15)+
         '<table class="khung0" style="width:160mm;table-layout:fixed"><colgroup><col style="width:45.7%"><col style="width:54.3%"></colgroup><tr><td></td><td style="padding:0 1.9mm">'+
           P('<i>Ngày'+un[0]+'tháng'+un[1]+'năm '+un[2]+'</i>', 'text-align:center')+P('<b>UBND CẤP XÃ</b>', 'text-align:center')+P('<i>(Ký tên, đóng dấu)</i>', 'text-align:center')+'</td></tr></table>'+'';   /* 3.443.1: chừa chỗ UBND ký, đóng dấu (cả mẫu vẫn 4 trang) */
       return {ma:'10A/TD', du:DU, dong:DONG, cao:CAO, h:'<div class="om-goc" style="font-size:14pt;line-height:1.15">'+h+'</div>'};

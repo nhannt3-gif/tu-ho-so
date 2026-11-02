@@ -3503,6 +3503,7 @@ table.hm-so{min-width:1476px}
 @media(max-width:700px){ .om-ds-dong{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"ten nhanh" "nut nut" "gt gt"} }
 .hso-cham-o[data-ok]{border-left:3px solid var(--vien);padding-left:6px}
 .om-ds-tu{border-left-color:#4caf50!important}.om-ds-kb{border-left-color:#e0b100!important}.om-ds-go{border-left-color:#3b82f6!important}.om-ds-mau{border-left-color:#9b59b6!important}.om-ds-cham{border-left-color:#9aa0a6!important}
+.om-tl{display:inline-flex!important;align-items:center;gap:4px;width:auto!important;flex:none!important}.om-tl input{width:4.2em!important;min-width:0;flex:none!important;text-align:center;padding:2px 4px}.om-tl b{font-weight:600;margin-right:2px}   /* 3.456: tỷ lệ − 100 % + (10A) */
 .om-ds-chu>span{display:inline-block;padding:0 6px;margin:0 3px;border-left:4px solid;font-size:calc(12px*var(--co))}
 
 /* 3.224 scan: ① chọn loại */
