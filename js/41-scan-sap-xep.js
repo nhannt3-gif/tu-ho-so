@@ -253,9 +253,10 @@ scanXongHop = function(bl){
       return Promise.all([g[0] ? docAnhHS(g[0].id) : null, g[1] ? docAnhHS(g[1].id) : null]).then(function(b){ return docCCCD(b[0], b[1]); })
         .then(function(r){ var x = SX_DOC[i] = r || {}; x.dang = false;
           if(r){ var t = sxXacDinh({cccd:r.cccd, ten:r.ten, ns:r.ns, cmnd:r.cmnd}); x.tim = t; if(t.ma){ var c = sxKhach(t.ma); if(c){ c.cccd = c.cccd || r.cccd; SXK[i] = c; } } }
-          var timTT = function(){ var tt = trTimTT(r.cccd); if(tt){ x.tim.tt = tt; SXK[i] = sxKhachTT(tt, r.cccd); return; }   /* 3.415: không có trong Mẫu 31 → tổ trưởng (bảng tổ, CCCD tổ trưởng) = đã xác định người */
-            if(typeof dsTimCCCD==='function' && typeof sxKhachTTCu==='function') return dsTimCCCD(r.cccd).then(function(c){ if(c){ x.tim.ttCu = c; SXK[i] = sxKhachTTCu(c, r.cccd); } });   /* 3.416: tổ trưởng CŨ — File Tổ trưởng các kỳ trước (js/84) */ };
-          if(r && r.cccd && x.tim && !x.tim.ma && !x.tim.goiY && !(x.tim.ds||[]).length && typeof trTimTT==='function'){
+          var timTT = function(){ var tt = trTimTT(r.cccd, r.cmnd); if(tt){ x.tim = {tt:tt}; SXK[i] = sxKhachTT(tt, r.cccd); return; }   /* 3.415: không có trong Mẫu 31 → tổ trưởng (bảng tổ, CCCD tổ trưởng) = đã xác định người · 3.441: + CMND cũ */
+            if(typeof dsTimTT==='function' && typeof sxKhachTTCu==='function') return dsTimTT({cccd:r.cccd, cmnd:r.cmnd, ten:r.ten, ns:r.ns}).then(function(c){ if(!c) return; var h = trTTHienTai(c);   /* 3.416 / 3.441: rà MỌI File Tổ trưởng — số CCCD, CMND cũ, họ tên + ngày sinh */
+              if(h){ x.tim = {tt:h}; SXK[i] = sxKhachTT(h, r.cccd); } else { x.tim = {ttCu:c}; SXK[i] = sxKhachTTCu(c, r.cccd); } }); };
+          if(r && r.cccd && x.tim && !x.tim.ma && typeof trTimTT==='function'){   /* 3.441: cả khi Mẫu 31 chỉ có gợi ý trùng tên (không khớp số) — tổ trưởng không vay hay bị lấn bởi người trùng tên */
             var xong = function(){ return Promise.resolve(timTT()).then(function(){ sxVeDoc(); }); };
             if(KHO.coKy() || typeof kyChungLay!=='function' || !kyChungLay()) return xong();
             return KHO.nap(kyChungLay()).then(function(K){ if(typeof toGanNeuTrong==='function') toGanNeuTrong(K); }).catch(function(){}).then(xong); }   /* tab Scan chưa dựng kỳ → dựng bảng tổ như 🔎 Tra Mẫu 31 */

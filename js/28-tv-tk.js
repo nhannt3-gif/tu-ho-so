@@ -178,6 +178,35 @@ function tkChonBan(loai, ngay){
 /* 3.416 (anh 31/10 "gặp CCCD tổ trưởng dù cũ hay mới cũng lưu trữ"): tìm số CCCD trong MỌI File Tổ trưởng đã nạp (mới nhất trước) → tổ trưởng cũ / hiện tại
    → Promise {cif, ten, to, tenXa, tenThon, thon, ky} | null. Đọc bảng gốc ở đây (js/28 — chỗ được phép), nơi khác gọi hàm này. */
 var DS_CCCD = {};
+/* 3.441 (anh 02/11 "khi gặp CCCD em cũng cho rà ds các tổ trưởng cũ, nếu đúng thì lưu luôn — hiện có 1 số tổ trưởng không có vay không nhận ra"):
+   rà MỌI File Tổ trưởng / Danh sách tổ đã nạp (mới nhất trước) theo ① số CCCD ② số CMND cũ 9 số đọc từ thẻ (file còn ghi CMND) ③ họ tên + ngày sinh (file ghi số cũ / sai số).
+   → {cif, ten, to, tenXa, tenThon, thon, ky, theo} | null. Khớp tên + ngày sinh mà có từ 2 người khác nhau → null (không đoán). */
+function dsTimTT(o){
+  o = o || {}; var so = String(o.cccd||'').replace(/\D/g, ''), cm = String(o.cmnd||'').replace(/\D/g, ''), ns = String(o.ns||'').slice(0, 10), ten = typeof sxChuan==='function' ? sxChuan(o.ten||'') : String(o.ten||'').toLowerCase();
+  if(!(so.length===12 || so.length===9) && !(cm.length===9 || cm.length===12) && !(ten && ns)) return Promise.resolve(null);
+  return dsTTDs().then(function(B){ var tenKhop = {}, kq = null;
+    B.some(function(b){ return (b.rows||[]).some(function(r){ var c = String(r.cccd||'').replace(/\D/g, '');
+      var theo = c && so && c===so ? 'số CCCD' : c && cm && c===cm ? 'số CMND cũ' : '';
+      if(!theo && ten && ns && r.ns && String(r.ns).slice(0, 10)===ns && (typeof sxChuan==='function' ? sxChuan(r.toTen||'') : String(r.toTen||'').toLowerCase())===ten){ tenKhop[(r.ttKH||'')+'|'+c] = {r:r, ky:b.ky}; return false; }
+      if(theo){ kq = {r:r, ky:b.ky, theo:theo}; return true; } return false; }); });
+    if(!kq){ var k = Object.keys(tenKhop); if(k.length===1) kq = {r:tenKhop[k[0]].r, ky:tenKhop[k[0]].ky, theo:'họ tên + ngày sinh'}; }
+    if(!kq) return ten ? tk104TimTT(o.ten, B) : null; var r = kq.r;
+    return {cif:r.ttKH||'', ten:r.toTen||'', to:r.to||'', tenXa:r.tenXa||'', tenThon:r.tenThon||'', thon:r.thon||'', ky:kq.ky, theo:kq.theo}; });
+}
+/* 3.442 (anh 02/11 "quét số TK 104 cho chắc" → chọn đối chiếu chủ TK 104): File Tổ trưởng không khớp → rà MỌI file Sao kê TK 104 đã nạp — người đứng tên TK 104 là tổ trưởng;
+   Sao kê không có số CCCD nên khớp theo HỌ TÊN, chỉ nhận khi đúng 1 mã KH mang tên đó (trùng → không đoán); tổ lấy theo File Tổ trưởng (MATT = mã KH) nếu có. */
+var DS_TK104 = {};
+function tk104TimTT(ten, B){
+  var t = typeof sxChuan==='function' ? sxChuan(ten||'') : String(ten||'').toLowerCase(); if(!t) return Promise.resolve(null);
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='tk104'; }).sort(function(a, b){ return a.ky<b.ky ? 1 : -1; });
+  return Promise.all(ds.map(function(e){ var khoa = e.ky+'|'+(e.luc||'');
+    return (DS_TK104[khoa] ? Promise.resolve(DS_TK104[khoa]) : slDocBang('tk104', e.ky).then(function(b){ return DS_TK104[khoa] = b ? slMoBang(b) : []; }).catch(function(){ return []; }))
+      .then(function(rows){ return {ky:e.ky, rows:rows}; }); })).then(function(S){ var kh = {};
+    S.forEach(function(b){ (b.rows||[]).forEach(function(o){ if(!o.kh || (typeof sxChuan==='function' ? sxChuan(o.ten||'') : String(o.ten||'').toLowerCase())!==t) return; if(!kh[o.kh]) kh[o.kh] = {o:o, ky:b.ky}; }); });
+    var k = Object.keys(kh); if(k.length!==1) return null; var x = kh[k[0]].o, r = null;
+    (B||[]).some(function(b){ return (b.rows||[]).some(function(z){ if(String(z.ttKH||'')===String(x.kh)){ r = z; return true; } return false; }); });
+    return {cif:String(x.kh), ten:x.ten||'', to:r ? r.to||'' : '', tenXa:r ? r.tenXa||'' : '', tenThon:r ? r.tenThon||'' : '', thon:(r && r.thon) || x.thon || '', ky:kh[k[0]].ky, theo:'chủ TK 104 '+(x.stk||'')+' (cùng họ tên)'}; });
+}
 function dsTimCCCD(cccd){
   var so = String(cccd||'').replace(/\D/g, ''); if(so.length!==12 && so.length!==9) return Promise.resolve(null);
   var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto'; }).sort(function(a, b){ return a.ky<b.ky ? 1 : -1; });

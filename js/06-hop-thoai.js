@@ -1056,7 +1056,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.440', ds:[
+var CO_GI_MOI = {ban:'3.442', ds:[
+  ["🪪 Quét CCCD: không khớp File Tổ trưởng → đối chiếu chủ TK 104 (Sao kê TK 104) cùng họ tên", ""],
+  ["🪪 Quét CCCD: rà mọi File Tổ trưởng (CCCD · CMND cũ · tên + ngày sinh) — tổ trưởng không vay vẫn nhận ra, lưu luôn", ""],
   ["👑 Tra cứu › Tổ trưởng: cột CCCD tổ trưởng Đã lưu / Thiếu, lọc theo cây địa bàn", ""],
   ["🎯 Phân bổ KH: 📥 Nạp QĐ từ Excel mẫu (Gemini điền từ QĐ scan) — xem trước, soát rồi Lưu", ""],
   ["🏷 Văn bản: tự gắn tag nguồn theo số hiệu — VB Trung ương · NHCSXH Trung ương · Chỉ đạo của Tỉnh", ""],
@@ -1069,10 +1071,10 @@ var CO_GI_MOI = {ban:'3.440', ds:[
   ["📅 Mẫu 06A: số liệu mặc định cuối tháng trước (hoặc gần nhất có được)", ""],
   ["📄 Mẫu 06A/TD (727) — kiểm tra từng hộ, mỗi món 1 phiếu; nút 06A ở Mẫu 06 KTGS", ""],
   ["🧾 Mẫu 06 kiểm tra sau giải ngân: chọn Tất cả / Lần 1 (727)", ""],
-  ["🏷 Bỏ tên \"Tèo\": gọi App · Giao ban · TK 1, 2, 3 · Gemini; nút \"📤 File đối chiếu giao ban\"", ""],
-  ["🔎 So file giao ban: app tự so DOI_CHIEU_GB với số app, tự phân loại lệch A–D (⋯ Nạp & KT)", ""],
-  ["📋 Bảng trạng thái chung tự sinh mỗi bản (docs/TRANG_THAI_CHUNG.md) · luật chỉ chốt khi có phép thử chung", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🏷 Bỏ tên \"Tèo\": gọi App · Giao ban · TK 1, 2, 3 · Gemini; nút \"📤 File đối chiếu giao ban\"", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.442 · Scan › quét CCCD tổ trưởng không vay, File Tổ trưởng không có số → nếu Sao kê TK 104 có đúng 1 chủ TK cùng họ tên → ✓ tổ trưởng, lưu theo mã KH của TK 104",
+    "3.441 · Scan › quét CCCD của 1 tổ trưởng không vay (File Tổ trưởng còn ghi CMND cũ hoặc không có số) → app báo ✓ Tổ trưởng (hiện tại / cũ) và lưu tên chuẩn CIF - Họ tên - CCCD",
     "3.440 · Tra cứu › Tìm theo Tổ trưởng → chọn Xã / Điểm / Hội / Ấp ở LỌC ĐỊA BÀN → cột CCCD ghi Đã lưu / Thiếu (rê chuột: số CCCD, ngày lưu), lọc cột chọn Thiếu, dòng Cộng ghi đã lưu / tổng",
     "3.439 · Số liệu › 🎯 Phân bổ KH › ⬇ Tải mẫu Excel → đưa Gemini kèm ảnh QĐ → 📥 Nạp QĐ (Excel mẫu) → xem trước (dòng vàng cần soát) → 💾 Lưu",
     "3.438 · Văn bản › ＋ Thêm file PDF Nghị định (Số: 54/2026/NĐ-CP) hoặc tên file 54_2026_NĐ-CP → app tự nhận số hiệu đủ, loại Nghị định, tag VB Trung ương",
@@ -1090,9 +1092,7 @@ var CO_GI_MOI = {ban:'3.440', ds:[
     "3.430 · Hồ sơ vay › 06A/TD: chọn tổ → người vay → món → phiếu 2 trang mẫu 727, ô tự điền",
     "3.430 · KTGS › Mẫu 06 sau giải ngân › chọn đến 1 tổ → nút 📄 06A ở từng món → sang Hồ sơ vay đúng người vay, món",
     "3.429 · KTGS › Mẫu 06 sau giải ngân: chip Tất cả (n) / Lần 1 (m)",
-    "3.427 · ⋯ Nạp & KT › 🔎 So file giao ban: nạp DOI_CHIEU_GB_<ngày>.csv → bảng lệch A–D, 📥 CSV lệch",
-    "3.426 · ⋯ Nạp & KT › 📐 Bộ số chuẩn › 📄 Nháp TB kết luận (Word)",
-    "3.425 · ⋯ Nạp & KT › 📐 Bộ số chuẩn › 📝 Nháp Nội dung họp mẫu 08 (Word)"],
+    "3.427 · ⋯ Nạp & KT › 🔎 So file giao ban: nạp DOI_CHIEU_GB_<ngày>.csv → bảng lệch A–D, 📥 CSV lệch"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.439 · Phân bổ KH: bỏ nút 📥 Nhập từ bản WPF (file sao lưu json app cũ) → thay bằng 📥 Nạp QĐ (Excel mẫu); QĐ đã nhập trước đây giữ nguyên",
     "3.435 · Tra cứu: bỏ luật \"luôn lấy số liệu mới nhất\" (3.347) → theo ô kỳ góc phải, chưa chọn thì vẫn mới nhất",
