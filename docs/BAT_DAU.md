@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.450** — TK 2: Mẫu 10A sửa thụt dòng Chủ trì, tab III a / b, ⌨ họ tên. Trước: 3.449 bảng hộ vay của tổ.
+- **`main` = 3.451** — TK 2: Thông báo KH dư nợ giãn tiêu đề, gọn số. Trước: 3.450 Mẫu 10A sửa thụt dòng Chủ trì.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
