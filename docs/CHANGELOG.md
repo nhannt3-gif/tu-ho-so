@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.441 — 02/11/2026 — Quét CCCD: nhận tổ trưởng không vay qua mọi File Tổ trưởng (TK 2)
+- **Anh 02/11:** "khi gặp CCCD em cũng cho rà ds các tổ trưởng cũ nếu đúng thì lưu luôn, hiện tại có 1 số tổ trưởng nhưng không có vay không nhận ra".
+- **Nguyên nhân có thể (chưa có file thật để xác minh):** ① File Tổ trưởng / Danh sách tổ còn ghi **số CMND cũ 9 số** trong khi thẻ là CCCD 12 số → không khớp số; ② Mẫu 31 có **người trùng tên** (gợi ý) → app bỏ qua bước tra tổ trưởng (3.415 chỉ tra khi Mẫu 31 không có gợi ý nào).
+- **Sửa:** `dsTimTT` (js/28) rà MỌI File Tổ trưởng đã nạp (mới nhất trước) theo số CCCD → số CMND cũ đọc từ thẻ (QR) → **họ tên + ngày sinh** (2 người trùng → không đoán); `trTimTT` (js/45) bảng tổ kỳ đang dựng khớp cả CMND cũ; `trTTHienTai`: cùng CIF tổ trưởng hiện tại của tổ → lưu như tổ trưởng hiện tại, không → tổ trưởng cũ. Quét CCCD (js/41) tra tổ trưởng cả khi Mẫu 31 chỉ có gợi ý trùng tên (không khớp số); 🔎 Tra Mẫu 31 hộp Lưu dùng CMND cũ + ngày sinh đọc từ thẻ.
+- Phép thử mới `t357` (7 ý); Scan `t235`, `t336`, `t337`, `t338`, `t339` đạt.
+
 ## 3.440 — 02/11/2026 — Tra cứu: cột CCCD tổ trưởng trong bảng Tổ trưởng (TK 2)
 - **Anh 02/11** (ảnh Tra cứu › Tìm theo Tổ trưởng): "anh muốn truy vấn được CCCD tổ trưởng từ đây, dùng cây lọc địa bàn".
 - Bảng Tổ trưởng (js/58 `tcToTim`) thêm cột **CCCD**: **Đã lưu** / **Thiếu** — cùng luật 👑 Kiểm CCCD tổ trưởng (`ttkCo`, js/84: khớp mã KH tổ trưởng CIF hoặc số CCCD Danh sách tổ / Mẫu 31 với bản scan đã lưu); rê chuột thấy số CCCD + ngày lưu; lọc cột Đã lưu / Thiếu (js/77); dòng Cộng ghi đã lưu / tổng theo lọc địa bàn. Rút js/84 → không có cột (cắm rút).

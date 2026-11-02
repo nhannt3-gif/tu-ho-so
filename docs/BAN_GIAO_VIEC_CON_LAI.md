@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.441)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Quét CCCD tổ trưởng không vay mà trước đây app không nhận | ✓ Tổ trưởng / Tổ trưởng cũ, lưu tên CIF - Họ tên - CCCD | |
+| 2 | 👑 Kiểm CCCD tổ trưởng / Tra cứu › Tổ trưởng cột CCCD | Tổ đó chuyển Đã lưu | |
+
 ### Danh sách thử trên máy thật (3.440)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

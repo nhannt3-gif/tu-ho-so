@@ -178,6 +178,21 @@ function tkChonBan(loai, ngay){
 /* 3.416 (anh 31/10 "gặp CCCD tổ trưởng dù cũ hay mới cũng lưu trữ"): tìm số CCCD trong MỌI File Tổ trưởng đã nạp (mới nhất trước) → tổ trưởng cũ / hiện tại
    → Promise {cif, ten, to, tenXa, tenThon, thon, ky} | null. Đọc bảng gốc ở đây (js/28 — chỗ được phép), nơi khác gọi hàm này. */
 var DS_CCCD = {};
+/* 3.441 (anh 02/11 "khi gặp CCCD em cũng cho rà ds các tổ trưởng cũ, nếu đúng thì lưu luôn — hiện có 1 số tổ trưởng không có vay không nhận ra"):
+   rà MỌI File Tổ trưởng / Danh sách tổ đã nạp (mới nhất trước) theo ① số CCCD ② số CMND cũ 9 số đọc từ thẻ (file còn ghi CMND) ③ họ tên + ngày sinh (file ghi số cũ / sai số).
+   → {cif, ten, to, tenXa, tenThon, thon, ky, theo} | null. Khớp tên + ngày sinh mà có từ 2 người khác nhau → null (không đoán). */
+function dsTimTT(o){
+  o = o || {}; var so = String(o.cccd||'').replace(/\D/g, ''), cm = String(o.cmnd||'').replace(/\D/g, ''), ns = String(o.ns||'').slice(0, 10), ten = typeof sxChuan==='function' ? sxChuan(o.ten||'') : String(o.ten||'').toLowerCase();
+  if(!(so.length===12 || so.length===9) && !(cm.length===9 || cm.length===12) && !(ten && ns)) return Promise.resolve(null);
+  return dsTTDs().then(function(B){ var tenKhop = {}, kq = null;
+    B.some(function(b){ return (b.rows||[]).some(function(r){ var c = String(r.cccd||'').replace(/\D/g, '');
+      var theo = c && so && c===so ? 'số CCCD' : c && cm && c===cm ? 'số CMND cũ' : '';
+      if(!theo && ten && ns && r.ns && String(r.ns).slice(0, 10)===ns && (typeof sxChuan==='function' ? sxChuan(r.toTen||'') : String(r.toTen||'').toLowerCase())===ten){ tenKhop[(r.ttKH||'')+'|'+c] = {r:r, ky:b.ky}; return false; }
+      if(theo){ kq = {r:r, ky:b.ky, theo:theo}; return true; } return false; }); });
+    if(!kq){ var k = Object.keys(tenKhop); if(k.length===1) kq = {r:tenKhop[k[0]].r, ky:tenKhop[k[0]].ky, theo:'họ tên + ngày sinh'}; }
+    if(!kq) return null; var r = kq.r;
+    return {cif:r.ttKH||'', ten:r.toTen||'', to:r.to||'', tenXa:r.tenXa||'', tenThon:r.tenThon||'', thon:r.thon||'', ky:kq.ky, theo:kq.theo}; });
+}
 function dsTimCCCD(cccd){
   var so = String(cccd||'').replace(/\D/g, ''); if(so.length!==12 && so.length!==9) return Promise.resolve(null);
   var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto'; }).sort(function(a, b){ return a.ky<b.ky ? 1 : -1; });
