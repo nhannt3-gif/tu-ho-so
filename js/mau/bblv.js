@@ -24,7 +24,7 @@
   var TRANG = ['Dạng dòng (1 món)', 'Bảng 3 dòng', 'Bảng 4 dòng', 'Bảng 5 dòng', 'Bảng 6 dòng'];
   /* 3.461.5 (anh 03/11 "khi chọn bản mẫu anh muốn các gợi ý này hiện ra tương ứng từng mục 2-3-4-5"; "cho chọn tình huống mẫu: KH bỏ địa phương hay còn gọi đi làm ăn xa,
      khách hàng còn địa phương nhưng khó khăn, nhóm KH có điều kiện nhưng chây ỳ") — 📝 Bản mẫu in bộ câu của tình huống chọn; các câu cũng vào gợi ý của bản thật */
-  var CA3 = 'Cả 3 tình huống', BBLV_MAU = null;   /* 3.461.6 (anh 03/11 "cho chọn 3 tình huống ngay chỗ này luôn, hiện cả 3 t/h luôn để in ra làm mẫu") */
+  var CA3 = 'Tất cả tình huống (tờ hướng dẫn)', BBLV_MAU = null;   /* 3.461.6 (anh 03/11 "cho chọn 3 tình huống ngay chỗ này luôn, hiện cả 3 t/h luôn để in ra làm mẫu") */
   var MAU = [   /* 3.461.8 (anh 04/11 "đây là hướng dẫn nên em hướng dẫn kỹ các tình huống, câu văn sát thực tế nhất") — câu do TK 3 soạn theo cách ghi thường gặp, anh sửa thì báo */
     {ten:'① Bỏ địa phương / đi làm ăn xa',
       dau:'món vay không có giao dịch từ 3 tháng, lãi tồn tăng dần; Tổ trưởng đến nhà nhiều lần không gặp khách hàng.',
@@ -46,7 +46,43 @@
       ngNhan:'Khách hàng có điều kiện trả nợ (… kinh doanh / nhà / phương tiện …) nhưng chưa chấp hành nghĩa vụ trả nợ; Tổ TK&VV đã nhắc … lần (ngày …/…, ngày …/…), khách hàng hẹn trả nhưng không thực hiện',
       thucTrang:'Kinh tế gia đình ổn định, thu nhập từ … khoảng … đồng/tháng; tài sản gồm …; khách hàng có đủ khả năng trả nợ',
       camKet:'Khách hàng cam kết trả toàn bộ lãi tồn … đồng và nợ gốc quá hạn … đồng trước ngày …/…/…; nếu không thực hiện đúng cam kết, khách hàng chịu trách nhiệm và đồng ý để Ngân hàng phối hợp chính quyền địa phương xử lý theo quy định',
-      kienNghi:'Đề nghị UBND cấp xã, Hội … cấp xã phối hợp Tổ TK&VV đôn đốc khách hàng trả nợ theo cam kết; quá thời hạn cam kết không trả, Ngân hàng báo cáo UBND cấp xã và áp dụng các biện pháp thu hồi nợ theo quy định'}];
+      kienNghi:'Đề nghị UBND cấp xã, Hội … cấp xã phối hợp Tổ TK&VV đôn đốc khách hàng trả nợ theo cam kết; quá thời hạn cam kết không trả, Ngân hàng báo cáo UBND cấp xã và áp dụng các biện pháp thu hồi nợ theo quy định'},
+    /* 3.461.9 (anh 04/11 "nghĩ thêm có tình huống nào nữa ngoài 3 t/h trên"; "em soạn tiếp các tình huống còn lại luôn") */
+    {ten:'④ Khách chết / mất tích / mất năng lực hành vi',
+      dau:'Tổ trưởng hoặc gia đình báo khách hàng đã chết (mất tích, mất năng lực hành vi dân sự); món vay còn dư nợ, lãi tồn.',
+      moi:'người thừa kế (vợ / chồng / con) hoặc người giám hộ; Trưởng ấp; đại diện UBND cấp xã.',
+      ngNhan:'Khách hàng ông (bà) … đã chết ngày …/…/… (theo Giấy chứng tử số … do UBND … cấp ngày …/…/…) / mất tích từ tháng …/… / mất năng lực hành vi dân sự; từ đó gia đình không tiếp tục trả nợ, lãi',
+      thucTrang:'Gia đình hiện còn … người; người thừa kế là ông (bà) … (quan hệ: …), làm nghề …, thu nhập khoảng … đồng/tháng; tài sản khách hàng để lại gồm …; vốn vay đã sử dụng vào … (còn / không còn)',
+      camKet:'Người thừa kế ông (bà) … cam kết nhận trả nợ thay số tiền … đồng, trả dần mỗi tháng … đồng, dứt điểm trước ngày …/…/… (trường hợp không có khả năng trả nợ thay thì ghi rõ lý do)',
+      kienNghi:'Tổ TK&VV, Hội … hướng dẫn gia đình bổ sung giấy tờ (giấy chứng tử / quyết định tuyên bố mất tích / xác nhận của UBND cấp xã); trường hợp người thừa kế không có khả năng trả nợ thay thì lập hồ sơ đề nghị xử lý nợ bị rủi ro theo quy định'},
+    {ten:'⑤ Rủi ro khách quan (thiên tai, dịch bệnh)',
+      dau:'nhiều hộ trong ấp, xã cùng bị thiệt hại; địa phương có công bố thiên tai, dịch bệnh; vốn vay mất một phần hoặc toàn bộ.',
+      moi:'khách hàng; Tổ trưởng; đại diện Hội; đại diện UBND cấp xã (xác nhận thiệt hại).',
+      ngNhan:'Ngày …/…/…, … (bão / lũ / hạn mặn / dịch … trên vật nuôi, cây trồng) làm thiệt hại … (… con … chết / … m² … mất trắng / chuồng trại, nhà cửa hư hỏng), ước thiệt hại khoảng … đồng, tương đương …% vốn vay',
+      thucTrang:'Sau thiệt hại, gia đình còn … (… con … / … m² …); thu nhập hiện nay từ … khoảng … đồng/tháng; khách hàng có / không có khả năng trả nợ đúng hạn',
+      camKet:'Khách hàng cam kết khôi phục sản xuất, nộp lãi hằng tháng qua Tổ TK&VV trong khả năng; trả nợ gốc khi có thu nhập trở lại (dự kiến tháng …/…)',
+      kienNghi:'Đề nghị UBND cấp xã xác nhận thiệt hại; Tổ TK&VV, Hội hướng dẫn khách hàng lập hồ sơ đề nghị gia hạn nợ / khoanh nợ / xử lý nợ bị rủi ro do nguyên nhân khách quan theo quy định'},
+    {ten:'⑥ Sử dụng vốn sai mục đích / vay hộ',
+      dau:'kiểm tra sử dụng vốn (Mẫu 06A) phát hiện không đầu tư như phương án; người thực sử dụng vốn không phải người đứng tên vay.',
+      moi:'khách hàng đứng tên vay; người thực sử dụng vốn (nếu có); Tổ trưởng; đại diện Hội.',
+      ngNhan:'Khách hàng sử dụng vốn vay sai mục đích: số tiền … đồng dùng vào … (thay vì … theo phương án) / cho ông (bà) … mượn sử dụng (vay hộ) từ ngày …/…/…; người sử dụng vốn không trả nợ, lãi đúng hạn',
+      thucTrang:'Số vốn sử dụng đúng mục đích: … đồng; sai mục đích: … đồng; người thực sử dụng vốn là ông (bà) …, địa chỉ …, khả năng trả nợ: …',
+      camKet:'Khách hàng (và người sử dụng vốn ông (bà) …) cam kết trả số tiền sử dụng sai mục đích … đồng trước ngày …/…/…; số còn lại sử dụng đúng mục đích theo phương án',
+      kienNghi:'Đề nghị thu hồi nợ trước hạn số tiền sử dụng sai mục đích theo quy định; Tổ TK&VV, Hội tăng cường kiểm tra, không để tái diễn tình trạng vay hộ, cho mượn tên'},
+    {ten:'⑦ Đã nộp cho Tổ trưởng nhưng Ngân hàng chưa nhận',
+      dau:'khách hàng xuất trình sổ vay vốn / biên lai đã nộp tiền cho Tổ trưởng, nhưng số liệu Ngân hàng vẫn còn lãi tồn, nợ chưa giảm.',
+      moi:'khách hàng; Tổ trưởng (người nhận tiền); đại diện Hội; cán bộ Ngân hàng.',
+      ngNhan:'Khách hàng cho biết đã nộp cho ông (bà) … (Tổ trưởng) số tiền … đồng (lãi … đồng, gốc … đồng) vào ngày …/…/… (có / không có biên lai; sổ vay vốn ghi …); số tiền này chưa được nộp vào Ngân hàng',
+      thucTrang:'Chứng từ khách hàng xuất trình: … (biên lai số …, ngày …/…/…; sổ vay vốn trang …); Tổ trưởng ông (bà) … xác nhận đã nhận / không thừa nhận số tiền trên',
+      camKet:'Tổ trưởng ông (bà) … cam kết nộp đủ số tiền … đồng đã thu của khách hàng vào Ngân hàng trước ngày …/…/…; khách hàng cam kết tiếp tục trả nợ, lãi theo quy định',
+      kienNghi:'Đề nghị Ngân hàng, Hội … xác minh số tiền Tổ trưởng đã thu chưa nộp của các tổ viên khác; yêu cầu Tổ trưởng nộp trả đủ; xử lý Tổ trưởng theo quy định và kiện toàn Ban quản lý Tổ nếu cần'},
+    {ten:'⑧ Đang chấp hành án / tạm giam',
+      dau:'gia đình hoặc Công an xã báo khách hàng đang chấp hành án phạt tù / bị tạm giam.',
+      moi:'người thân (vợ / chồng / con); Trưởng ấp hoặc Công an viên.',
+      ngNhan:'Khách hàng ông (bà) … đang chấp hành án phạt tù (bị tạm giam) tại … từ ngày …/…/…, thời hạn … năm; trong thời gian này không có thu nhập, gia đình chưa thu xếp trả nợ, lãi',
+      thucTrang:'Tại địa phương còn ông (bà) … (quan hệ: …) đang sinh sống, làm nghề …, thu nhập khoảng … đồng/tháng; vốn vay đã sử dụng vào …; tài sản hiện có: …',
+      camKet:'Ông (bà) … (người thân) cam kết nộp lãi hằng tháng qua Tổ TK&VV mỗi tháng … đồng / trả nợ thay số tiền … đồng trước ngày …/…/…',
+      kienNghi:'Tổ TK&VV, Hội theo dõi, đôn đốc người thân trả nợ, lãi; khi khách hàng chấp hành xong án phạt tù, làm việc lại để xác định kế hoạch trả nợ; trường hợp đủ điều kiện thì lập hồ sơ xử lý theo quy định'}];
   var HD_CHUNG = ['Lập tại nhà khách hàng (hoặc trụ sở UBND cấp xã / điểm giao dịch xã); ghi đúng ngày, nơi làm việc.',
     'Thành phần tối thiểu: cán bộ Ngân hàng hoặc cán bộ Hội nhận ủy thác, Tổ trưởng Tổ TK&VV, khách hàng (hoặc người thân). Nợ khó thu nên mời thêm Trưởng ấp / đại diện UBND cấp xã.',
     'Mục 1 app in sẵn theo sổ sách Ngân hàng đến ngày số liệu — đối chiếu với sổ vay vốn, biên lai của khách hàng; có chênh lệch thì ghi rõ ở mục 3.',
@@ -101,7 +137,7 @@
         if(OM_KIEU==='mau' && BBLV_MAU==null && bblvMauI()<0){   /* 3.461.7 (anh 04/11 "in 3 tình huống trong 1 bản, cho gọn; bỏ bớt các phần không cần, thêm dòng hướng dẫn ghi mẫu"): tờ mẫu chỉ còn tiêu đề + hướng dẫn + mục 2–5 (① ② ③) */
           var muc = function(k){ return (ND.filter(function(d){ return d[0]===k; })[0] || [k, k])[1]; };
           return '<div class="om-goc" style="font-size:'+CO+'pt">'+P('<b>HƯỚNG DẪN GHI BIÊN BẢN LÀM VIỆC</b>', 'text-align:center;font-size:15pt;margin:0 0 2pt')+
-            P('<i>(xác minh, đánh giá khoản nợ của hộ vay — mẫu câu ghi mục 2 – 5 theo 3 tình huống thường gặp)</i>', 'text-align:center;margin:0 0 6pt')+
+            P('<i>(xác minh, đánh giá khoản nợ của hộ vay — mẫu câu ghi mục 2 – 5 theo '+MAU.length+' tình huống thường gặp)</i>', 'text-align:center;margin:0 0 6pt')+
             '<div style="border:1px solid #000;padding:4pt 6pt;margin:0 0 6pt">'+P('<b>Lưu ý chung</b>', '')+HD_CHUNG.map(function(x){ return P('- '+e(x), J+'margin-top:1pt'); }).join('')+'</div>'+
             MAU.map(function(x){ return '<div style="break-inside:avoid;page-break-inside:avoid;margin-top:6pt">'+P('<b>'+e(x.ten)+'</b>', 'margin:0 0 2pt;border-bottom:1px solid #000')+
               P('<i>Dấu hiệu:</i> '+e(x.dau), T+J)+P('<i>Nên mời:</i> '+e(x.moi), T+J)+
@@ -179,9 +215,9 @@
   var BBLV_HO = null;
   /* lập: mỗi hộ đang chọn 1 biên bản (1 trang) — chưa chọn hộ → 1 biên bản (người vay đang xem / bản trắng) */
   function bblvMauI(){ var tm = omKB(MK, 'tinhMau'); for(var i=0;i<MAU.length;i++) if(MAU[i].ten===tm) return i; return -1; }   /* -1 = Cả 3 (mặc định) */
-  OM_MAU[MK].mauThem = function(){ var i0 = bblvMauI();
-    return '<div class="om-muc">Tình huống mẫu (mục 2–5): '+[CA3].concat(MAU.map(function(x){ return x.ten; })).map(function(ten, j){ var bat = j ? i0===j-1 : i0<0;
-      return gdxChip(ten, bat, 'omChonDat(\''+MK+'\',\'tinhMau\',\''+ten+'\')', 'hso-ct', j ? 'In 1 biên bản mẫu theo tình huống này' : 'Tờ hướng dẫn ghi: lưu ý chung + từng tình huống (dấu hiệu, nên mời, câu mẫu mục 2–5)'); }).join('')+'</div>'; };
+  OM_MAU[MK].mauThem = function(){ var i0 = bblvMauI();   /* 3.461.9 (anh 04/11 "khi in bản mẫu sẽ sổ ra các tùy chọn tình huống"): danh sách sổ xuống */
+    return '<div class="om-muc">Tình huống mẫu (mục 2–5): <select onchange="omChonDat(\''+MK+'\',\'tinhMau\',this.value)" title="Tất cả = tờ hướng dẫn ghi (lưu ý chung + từng tình huống); chọn 1 tình huống = biên bản mẫu đầy đủ">'+
+      [CA3].concat(MAU.map(function(x){ return x.ten; })).map(function(ten, j){ return '<option'+((j ? i0===j-1 : i0<0) ? ' selected' : '')+'>'+coChuHTML(ten)+'</option>'; }).join('')+'</select></div>'; };
   hsoLapBblv = function(t){ if(OM_KIEU==='mau') return omLap(MK, t); var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [];
     if(d.length<2){ var r = omLap(MK, t); return r; }
     var ds = d.map(function(ho){ BBLV_HO = ho; try { return {M:hsoMauK(MK), h:omLap(MK, t).h, ten:ho.k.ten}; } finally { BBLV_HO = null; } });
