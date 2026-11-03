@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.461.4', ds:[
+var CO_GI_MOI = {ban:'3.461.5', ds:[
+  ["Biên bản làm việc: Bản mẫu chọn tình huống mẫu (bỏ địa phương / khó khăn / chây ỳ), mục 2–5 in câu mẫu tương ứng; câu cũng có trong gợi ý bản thật", "hsoChonMau('bblv')"],
   ["Biên bản làm việc: không còn cắt chữ tỉnh; tên chương trình dài thì Số tiền vay xuống dòng; thêm câu Là thành viên Tổ như 06A; số thứ tự thành phần in thường", "hsoChonMau('bblv')"],
   ["Bảng chọn món: cột ô tích gọn, thêm cột STT theo hộ", "hsoChonMau('bblv')"],
   ["Bảng chọn món (BBLV, 06A): khung cuộn cố định, mỗi món 1 dòng, có cột Lãi tồn, CT; Số KU tự ẩn khi hẹp; bấm cả dòng để tích; lọc Chỉ món có vấn đề, tìm tên / mã KH / số KU", "hsoChonMau('bblv')"],
@@ -1070,9 +1071,9 @@ var CO_GI_MOI = {ban:'3.461.4', ds:[
   ["📝 Mẫu 10A: địa chỉ phê duyệt UBND 3 dòng riêng; nút \"Tên Tổ trưởng, Tổ phó, ngày\"; dòng chấm gọn (III thẳng cột, Trưởng ấp / Thư ký kín dòng); tiền có dấu chấm; tên dưới chữ ký theo dòng trên", ""],
   ["📝 Mẫu 10A: chọn \"Kiện toàn\" → Phê duyệt UBND ghi \"được kiện toàn\"; có nút giữ \"thành lập\"", ""],
   ["📝 Mẫu 10B, 10C: số tổ viên dự họp theo tỷ lệ (mặc định 100%, − / +, > 50%), biểu quyết tán thành / tham dự (> 2/3) — như 10A", ""],
-  ["📝 Mẫu 10A: số tham dự tự tính theo tỷ lệ (mặc định 100%, − / +, > 50%); IV tán thành / tham dự (> 2/3); III gõ / chọn tên trong tổ, UBND theo III; phê duyệt cả phần ✍ / 🤖", ""],
-  ["🖼 Khai báo riêng mọi mẫu: danh sách gọn (không dồn chữ), vạch màu theo nguồn; trực quan liên kết 2 chiều; bấm chữ trên bản xem trước → tới đúng dòng khai báo", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📝 Mẫu 10A: số tham dự tự tính theo tỷ lệ (mặc định 100%, − / +, > 50%); IV tán thành / tham dự (> 2/3); III gõ / chọn tên trong tổ, UBND theo III; phê duyệt cả phần ✍ / 🤖", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.461.5 · Hồ sơ vay › BBLV › 📝 Bản mẫu › cột trái ô Tình huống mẫu: ① Bỏ địa phương / đi làm ăn xa · ② Còn ở địa phương nhưng khó khăn · ③ Có điều kiện nhưng chây ỳ",
     "3.461.3 · Hồ sơ vay › BBLV / 06A › chọn tổ: bảng cuộn trong khung; bấm dòng để tích; nút Chỉ món có vấn đề (mặc định bật); ô 🔎 tìm",
     "3.461.1 · Hồ sơ vay › BBLV hoặc 06A › cột trái dưới nút Tích hết: ô ☑ In 2 mặt (bỏ tích khi máy in 1 mặt)",
     "3.461 · Hồ sơ › Hồ sơ vay › chip BBLV (cạnh 06A/TD) › chọn tổ → bảng hộ còn nợ: bấm [Nợ quá hạn] [Nợ khoanh] [3 tháng KHĐ] [Lãi tồn > 3/6/12 tháng] [⭐ Nợ cần quan tâm] hoặc tích tay → In (mỗi hộ 1 trang); bấm tên hộ để xem trước",
@@ -1091,8 +1092,7 @@ var CO_GI_MOI = {ban:'3.461.4', ds:[
     "3.456 · 10A › III a / b bấm ⌨ → gõ hoặc chọn tên trong tổ; phần Phê duyệt UBND đổi theo",
     "3.456 · 10A › cuối Chọn nhanh: Phê duyệt UBND — cả phần ✍ chấm / 🤖 tự điền",
     "3.455 · Hồ sơ › mọi mẫu nền ô (10A, 01/TD, 03/TD, 11…) › nút ⚙ Khai báo riêng cạnh ⚙ Khai báo đơn vị → danh sách: tên · nút nguồn · giá trị · Chọn nhanh; bấm tên dòng → 🖼 trực quan đúng chỗ đó",
-    "3.455 · 🖼 Khai báo trực quan: bấm chỗ trên mẫu → dòng bên phải sáng + mở chi tiết; bấm tên dòng → viền đỏ trên mẫu",
-    "3.455 · Bản xem trước: rê chuột lên chữ app điền (viền màu nguồn), bấm → dòng Chọn nhanh cột trái sáng lên; dòng không có ở Chọn nhanh → mở trực quan"],
+    "3.455 · 🖼 Khai báo trực quan: bấm chỗ trên mẫu → dòng bên phải sáng + mở chi tiết; bấm tên dòng → viền đỏ trên mẫu"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",
     "3.459 · 10A: ô \"Phê duyệt UBND: thôn · xã · tỉnh\" (1 ô) → 3 ô riêng (cách đã chọn giữ cho cả 3)",
