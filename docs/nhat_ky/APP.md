@@ -12,6 +12,12 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 03/11/2026 23:55 — TK 3 · PHIÊN
+- Đã làm: **3.461.1** ô In 2 mặt (dùng chung `D.cauHinh.ktHaiMat`) · **3.461.2** bộ in chung thêm lớp `tr-day` (đẩy khối xuống sát đáy trang — 06A chỗ ký + chú thích), tên chương trình theo cột Mẫu 31 `ctTen` (`HSN.ctTen`), mã món vay không bẻ dòng, tên hoa đầu từ, BBLV giao dịch lần cuối · **3.461.3** bảng chọn món `HSN.bang` viết lại (khung cuộn `calc(100vh − 330px)`, 1 món 1 dòng, cột Lãi tồn / CT, Số KU ẩn khi < 600 px, bấm dòng để tích, lọc "Chỉ món có vấn đề" mặc định bật, tìm), cờ ô `khongBao`. PR #488 (anh "gộp trước" — gộp trước khi hồi quy xong; hồi quy sau đó đạt 108/108, tổng chốt 246).
+- Đang dở: không.
+- Chờ anh: thử máy thật BBLV / 06A / bảng chọn (laptop 125%, 17 inch).
+- Lưu ý / bẫy: phép thử bấm phần tử sau `hsoVe()` phải lấy lại phần tử (DOM vẽ lại). `tr-day` chỉ có hiệu lực ở bộ in app (trDan), không ở Word.
+
 ### 03/11/2026 22:30 — TK 3 · PHIÊN
 - Đã làm: **3.461** — mới `js/mau/0hsn.js` (`HSN`: bảng chọn món nợ của tổ, nhóm QH / khoanh / KHĐ / lãi tồn > 3·6·12 tháng / ⭐ cần quan tâm) + `js/mau/bblv.js` (**Biên bản làm việc**, mỗi hộ 1 biên bản trọn 1 trang, 1 món dạng dòng / nhiều món bảng, đo chiều cao trong khung in thật `hsoTrang`); 06A sửa trình bày (Ông (bà):, Hội không trùng, tại = địa chỉ, ngày / đồng liền), khai báo đủ 39 ô, in nhiều phiếu, 📄 06A từ KTGS tích sẵn món. Luật **QT-C-23** lãi tồn cao (sổ luật 1.11, 🔧 giao ban chưa áp — hộp thư cho TK 1). Mẫu trắng `tests/mau_goc/bblv.doc` (anh cho phép).
 - Phép thử: mới `t366`; t163 / t170 / t204 (14 chip); t181 thêm 06a, bblv nhóm DUNG; hồi quy đủ `tat 3` 246/246.
