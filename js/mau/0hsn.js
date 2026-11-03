@@ -65,9 +65,9 @@ var HSN = (function(){
     var nhom = X.NHOM.map(function(n){ var c = 0; ds.forEach(function(h){ h.mon.forEach(function(x){ if(X.vao(x.f, n[0])) c++; }); });
       return '<button class="nho" data-lenh="hsn.nhom"'+a+' data-n="'+n[0]+'"'+(c ? '' : ' disabled')+' title="Tích thêm các món: '+e(n[1])+'">'+e(NGAN[n[0]] || n[1])+' ('+c+')</button>'; }).join('');
     var tong = ds.reduce(function(a2, h){ return a2+h.mon.length; }, 0), soHien = hien.reduce(function(a2, h){ return a2+h.mon.length; }, 0);
-    var dong = hien.map(function(h){ return h.mon.map(function(x, i){ var m = x.m, ct = typeof ctNgan==='function' ? ctNgan(m.ct, m) : (m.ct||''), co = !!s[m.ku];
+    var dong = hien.map(function(h, sh){ return h.mon.map(function(x, i){ var m = x.m, ct = typeof ctNgan==='function' ? ctNgan(m.ct, m) : (m.ct||''), co = !!s[m.ku];
       return '<tr class="hsn-dong'+(i ? ' hsn-tiep' : ' hsn-dau')+(co ? ' bat' : '')+(X.vao(x.f, 'qt') ? '' : ' mo')+'" data-lenh="hsn.dong"'+a+' data-ku="'+e(m.ku)+'" title="Bấm để tích / bỏ tích">'+
-        '<td><input type="checkbox" tabindex="-1"'+(co ? ' checked' : '')+'></td>'+
+        '<td class="hsn-o"><input type="checkbox" tabindex="-1"'+(co ? ' checked' : '')+'></td><td class="hsn-stt">'+(i ? '' : sh+1)+'</td>'+   /* 3.461.4: STT theo hộ */
         '<td class="hsn-ten">'+(i ? '<span class="hsn-lap">〃</span>' : '<a href="#" data-lenh="hsn.xem" data-kh="'+e(h.k.kh)+'" data-ku="'+e(m.ku)+'" title="Xem trước hộ này">'+e(tenHoaDau(h.k.ten||''))+'</a>')+'</td>'+
         '<td class="hsn-kh">'+(i ? '' : e(h.k.kh))+'</td><td class="hsn-ku">'+e(m.ku)+'</td><td title="'+e(X.ctTen(m))+'">'+e(ct)+'</td>'+
         '<td class="s">'+tdnTien(m.dn||0)+'</td><td class="s">'+tdnTien(typeof laiTon==='function' ? laiTon(m) : 0)+'</td><td>'+CHIP(m, x.f)+'</td></tr>'; }).join(''); }).join('');
@@ -79,8 +79,8 @@ var HSN = (function(){
         '<button class="nho" data-lenh="hsn.het"'+a+' data-v="1" title="Tích các món đang hiện">Tích hết</button><button class="nho" data-lenh="hsn.het"'+a+' data-v="0">Bỏ hết</button>'+
         '<span class="hsn-gian"></span><span class="hsn-dem">Đã chọn <b>'+d.mon+'</b> món · <b>'+d.ho+'</b> hộ</span>'+
         '<label class="hsn-hai"><input type="checkbox" data-lenh="hsn.hai" data-su="change"'+(typeof ktHaiMat!=='function' || ktHaiMat() ? ' checked' : '')+'> In 2 mặt</label></div>'+
-      (ds.length ? '<div class="hsn-hop"><table class="hsn-bang"><thead><tr><th>☑</th><th>Hộ</th><th>Mã KH</th><th class="hsn-ku">Số KU</th><th>CT</th><th class="s">Dư nợ</th><th class="s">Lãi tồn</th><th>Tình trạng</th></tr></thead><tbody>'+
-          (dong || '<tr><td colspan="8" class="hsn-rong">Không có món nào khớp lọc'+(L.vd ? ' — bấm "Chỉ món có vấn đề" để hiện hết' : '')+'.</td></tr>')+'</tbody></table></div>'+
+      (ds.length ? '<div class="hsn-hop"><table class="hsn-bang"><thead><tr><th class="hsn-o">☑</th><th class="hsn-stt">STT</th><th>Hộ</th><th>Mã KH</th><th class="hsn-ku">Số KU</th><th>CT</th><th class="s">Dư nợ</th><th class="s">Lãi tồn</th><th>Tình trạng</th></tr></thead><tbody>'+
+          (dong || '<tr><td colspan="9" class="hsn-rong">Không có món nào khớp lọc'+(L.vd ? ' — bấm "Chỉ món có vấn đề" để hiện hết' : '')+'.</td></tr>')+'</tbody></table></div>'+
           '<div class="hsn-chan">Hiện <b>'+soHien+'</b>/'+tong+' món · máy in 1 mặt: bỏ tích "In 2 mặt" (không chèn trang trắng)</div>'
         : '<div class="sl-phu">Tổ không có hộ còn nợ ở kỳ số liệu đang mở.</div>')+'</div>'; };
   return X;

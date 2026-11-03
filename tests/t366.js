@@ -30,6 +30,8 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    /* 3.461.3: bảng 1 món 1 dòng trong khung cuộn cố định */
    const hop = document.querySelector('.hsn-hop'), th = [...document.querySelectorAll('.hsn-bang thead th')].map(x=>x.textContent);
    ok('bảng: khung cuộn cố định (≥ 260 px, cuộn trong khung), cột Hộ · Mã KH · Số KU · CT · Dư nợ · Lãi tồn · Tình trạng', !!hop && getComputedStyle(hop).overflowY==='auto' && hop.clientHeight>=260 && ['Hộ','Mã KH','Số KU','CT','Dư nợ','Lãi tồn','Tình trạng'].every(x=>th.includes(x)), hop && hop.clientHeight+' px · '+th.join('|'));
+   const stt = [...document.querySelectorAll('.hsn-bang tbody td.hsn-stt')].map(x=>x.textContent).filter(Boolean);
+   ok('3.461.4: cột STT theo hộ (món sau của cùng hộ để trống)', stt.length===HSN.dsHien(t).length && stt.every((x, i)=>x===String(i+1)), stt.join(','));
    const r1 = document.querySelector('.hsn-bang tbody tr.hsn-dong'); ok('mỗi món 1 dòng (không xuống dòng)', !!r1 && r1.getBoundingClientRect().height<=30, r1 && r1.getBoundingClientRect().height);
    const vdDem = document.querySelectorAll('.hsn-bang tr.hsn-dong').length; document.querySelector('[data-lenh="hsn.vd"]').click(); await w(300); const hetDem = document.querySelectorAll('.hsn-bang tr.hsn-dong').length;
    ok('"Chỉ món có vấn đề" mặc định bật; tắt → hiện hết món', HSN.loc().vd===false && hetDem===ds.reduce((a, h)=>a+h.mon.length, 0) && vdDem<=hetDem, vdDem+' → '+hetDem);
@@ -41,10 +43,11 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    const xem = async()=>{ hsoXem(); await w(2500); const f = document.getElementById('hso-xem-khung'), d = f && f.contentDocument; const tr = d ? [...d.querySelectorAll('.tr-tg')] : []; try{ dongHop(); }catch(e){} await w(300);
      return tr.map(x=>/BIÊN BẢN LÀM VIỆC/.test(x.textContent) ? 'B' : /Trang trắng/.test(x.textContent) ? '_' : '-').join(''); };
    OM_KIEU = 'trang'; let r = hsoLapBblv(t), tg = await xem(); OM_KIEU = 'that';
-   ok('bản trắng: 1 trang, mục 1 dạng dòng chấm, 4 dòng thành phần chấm, tỉnh in sẵn', tg==='B' && /Tên chương trình vay: …/.test(r.h) && (r.h.match(/Ông \(bà\) <span class="om om-cham"/g)||[]).length===4 && /tỉnh /.test(r.h), tg);
+   ok('bản trắng: 1 trang, mục 1 dạng dòng chấm, 4 dòng thành phần + câu thành viên Tổ để chấm, tỉnh in sẵn', tg==='B' && /Tên chương trình vay: …/.test(r.h) && (r.h.match(/Ông \(bà\) <span class="om om-cham"/g)||[]).length===5 && /tỉnh /.test(r.h), tg);
    HSN.datMot('bblv', ds[0].mon[0].m.ku); HSO.vay.kh = ds[0].k.kh; r = hsoLapBblv(t); tg = await xem();
    ok('1 món: dạng dòng có số liệu, "Dư nợ đến ngày …: gốc … đồng; lãi … đồng.", 1 trang', tg==='B' && /Dư nợ đến ngày <span[^>]*>\d\d\/\d\d\/\d{4}<\/span>: gốc <span[^>]*>[\d.]+<\/span> đồng; lãi/.test(r.h) && !/CT · Số KU/.test(r.h), tg);
-   ok('thành phần + chỗ ký mặc định để trống (không tự điền tổ trưởng / khách)', !new RegExp('Ông \\(bà\\): '+tenHoaDau(ds[0].k.ten)).test(r.h) && (r.h.match(/Ông \(bà\) <span class="om om-cham"/g)||[]).length===4);
+   ok('thành phần + chỗ ký mặc định để trống (không tự điền tổ trưởng / khách)', !new RegExp('Ông \\(bà\\): '+tenHoaDau(ds[0].k.ten)).test(r.h) && (r.h.split('Đã tiến hành')[0].match(/Ông \(bà\) <span class="om om-cham"/g)||[]).length===4);
+   ok('3.461.4: câu "Là thành viên Tổ … quản lý" như 06A; số thứ tự thành phần in thường; dòng "tại" có địa chỉ không khóa 1 dòng (không cắt chữ tỉnh)', /Là thành viên Tổ TK&amp;VV do Ông \(bà\)/.test(r.h) && /làm Tổ trưởng, thuộc tổ chức/.test(r.h) && !/<b>1\.<\/b>/.test(r.h) && !/white-space:nowrap[^>]*>Hôm nay/.test(r.h));
    ok('tại = địa chỉ khách (ấp, xã, tỉnh), ngày số liệu dd/mm/yyyy liền', /, tại <span[^>]*>[^<]+tỉnh [^<]+<\/span>\./.test(r.h));
    const h2 = ds.find(h=>h.mon.length>=2);
    if(h2){ HSN.datMot('bblv', ''); h2.mon.forEach(x=>HSN.sel('bblv')[x.m.ku] = true); HSO.vay.kh = h2.k.kh; r = hsoLapBblv(t); tg = await xem();

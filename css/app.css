@@ -4171,3 +4171,6 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 .hsn-rong{text-align:center;opacity:.7;padding:10px}
 .hsn-chan{font-size:11.5px;opacity:.75;margin-top:3px}
 @container (max-width:600px){.hsn-ku{display:none}}
+/* 3.461.4 (anh 03/11 "cột tích còn lớn, nên có cột STT"): cột ô tích vừa ô, STT theo hộ */
+.hsn-bang .hsn-o{width:22px;padding:1px 2px 1px 6px}
+.hsn-bang .hsn-stt{width:28px;text-align:right;padding-right:6px;opacity:.8}

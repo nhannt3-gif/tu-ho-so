@@ -36,6 +36,8 @@
       {k:'ten', n:'Của ông (bà) — họ tên khách hàng', p:'kh', l:'tu', md:'tu', ng:'người vay — M31'},
       {k:'maKH', n:'Mã khách hàng', p:'kh', l:'tu', md:'tu', ng:'người vay — M31'},
       {k:'diaChi', n:'Địa chỉ', p:'kh', l:'tu', md:'tu', ng:'người vay — M31'},
+      {k:'tt', n:'Là thành viên Tổ do Ông (bà) … làm Tổ trưởng', p:'kh', l:'tu', md:'tu', ng:'tổ — File Tổ trưởng / M31 (QT-C-18)'},
+      {k:'hoi', n:'Thuộc tổ chức Hội … quản lý', p:'kh', l:'tu', md:'tu', ng:'tổ — Hội nhận ủy thác'},
       {k:'ngaySL', n:'Dư nợ đến ngày (ngày số liệu)', p:'kh', l:'tu', md:'tu', ng:'ngày số liệu Mẫu 31 đang mở'},
       {k:'mon', n:'1. Thông tin về món vay (1 món: dòng · nhiều món: bảng)', p:'kh', l:'tu', md:'tu', ng:'các món đã chọn — M31'},
       {k:'monTrang', n:'Bản trắng — mục 1', p:'kh', l:'chon', md:'kb', chon:TRANG, chonMD:1, khongBao:1},   /* ô cài đặt — không báo "chưa có số liệu" */
@@ -51,7 +53,7 @@
       var c = k && t && typeof hsoKhach==='function' ? hsoKhach(k.kh, t) : null;
       var dc = k && typeof hsoDiaChi==='function' ? hsoDiaChi(c && c.ten ? c : {ap:k.ap}, t) : '';
       return {ngay:HSO.o && HSO.o.ngay || '', noi:dc, tp3Ten:T.tt ? tenHoaDau(T.tt) : '', tp4Ten:k ? tenHoaDau(k.ten||'') : '', tinhHuong:ho ? HSN.tinhHuong(ho.mon) : '',
-        ten:k ? tenHoaDau(k.ten||'') : '', maKH:k ? k.kh : '', diaChi:dc, ngaySL:ns, mon:ho ? ho.mon : [], kyKH:k ? tenHoaDau(k.ten||'') : '', kyTo:T.tt ? tenHoaDau(T.tt) : ''};
+        ten:k ? tenHoaDau(k.ten||'') : '', maKH:k ? k.kh : '', diaChi:dc, tt:T.tt ? tenHoaDau(T.tt) : '', hoi:T.hoi || '', ngaySL:ns, mon:ho ? ho.mon : [], kyKH:k ? tenHoaDau(k.ten||'') : '', kyTo:T.tt ? tenHoaDau(T.tt) : ''};
     },
     lap:function(t){
       var V = this.V(t), G = omG(MK, V, CO), o = function(k, ch){ return G.o(k, ch, {lien:1}); }, e = coChuHTML;
@@ -65,13 +67,15 @@
         var noi = G.gt('noi'), ten = G.gt('ten'), th = G.gt('tinhHuong');
         var h = P('<b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</b>', 'text-align:center')+P('<b>Độc lập – Tự do – Hạnh phúc</b>', 'text-align:center')+P('--------------------------------', 'text-align:center;line-height:1')+
           P('<b>BIÊN BẢN LÀM VIỆC</b>', 'text-align:center;font-size:15pt;margin:6pt 0 4pt')+
-          P('Hôm nay, ngày '+ngay('ngay')+', tại '+(noi ? o('noi', '')+'.' : G.o('noi', '…………………………………')+' tỉnh '+e(hsoPGD('tinh') || 'Tây Ninh')+'.'), T+W)+
+          P('Hôm nay, ngày '+ngay('ngay')+', tại '+(noi ? o('noi', '')+'.' : G.o('noi', '…………………………………')+' tỉnh '+e(hsoPGD('tinh') || 'Tây Ninh')+'.'), T+(noi ? J : W))+   /* 3.461.4 (anh 03/11 "mất chữ Tây Ninh"): có địa chỉ → tự xuống dòng; trống → giữ 1 dòng chấm */
           P('Chúng tôi gồm:', T)+
-          P('<b>1.</b> '+ong('tp1Ten', 'tp1Dd'), T+W)+P('<b>2.</b> '+ong('tp2Ten', 'tp2Dd'), T+W)+
-          P('<b>3.</b> '+ong('tp3Ten', '', 'Tổ TK&amp;VV'), T+W)+P('<b>4.</b> '+ong('tp4Ten', '', 'Khách hàng vay vốn'), T+W)+
+          P('1. '+ong('tp1Ten', 'tp1Dd'), T+W)+P('2. '+ong('tp2Ten', 'tp2Dd'), T+W)+
+          P('3. '+ong('tp3Ten', '', 'Tổ TK&amp;VV'), T+W)+P('4. '+ong('tp4Ten', '', 'Khách hàng vay vốn'), T+W)+
           (ten ? P('Đã tiến hành xác minh và đánh giá khoản '+(th ? o('tinhHuong', '') : 'nợ')+' của ông (bà): '+o('ten', '')+' – Mã khách hàng: '+o('maKH', '')+'.', T+J)
                : P('Đã tiến hành xác minh và đánh giá khoản nợ của ông (bà): '+G.o('ten', '………………………………………'), T+W)+P('Mã khách hàng: '+G.o('maKH', '…………………………'), T+W))+
-          P('Địa chỉ: '+(G.gt('diaChi') ? o('diaChi', '')+'.' : G.o('diaChi', '……………………………………………………………………………………………………')), T+(G.gt('diaChi') ? J : W));
+          P('Địa chỉ: '+(G.gt('diaChi') ? o('diaChi', '')+'.' : G.o('diaChi', '……………………………………………………………………………………………………')), T+(G.gt('diaChi') ? J : W))+
+          (G.gt('tt') || G.gt('hoi') ? P('Là thành viên Tổ TK&amp;VV do '+(G.gt('tt') ? 'Ông (bà): '+o('tt', '') : 'Ông (bà) '+G.o('tt', '…………………………………'))+' làm Tổ trưởng, thuộc tổ chức '+(/^Hội\b/i.test(G.gt('hoi')) ? o('hoi', '') : 'Hội '+(G.gt('hoi') ? o('hoi', '') : G.o('hoi', '…………………………')))+' quản lý.', T+J)
+            : P('Là thành viên Tổ TK&amp;VV do Ông (bà) '+G.o('tt', '…………………………………')+' làm Tổ trưởng, thuộc tổ chức Hội '+G.o('hoi', '…………………………')+' quản lý.', T+W));   /* 3.461.4 (anh 03/11 "ghi thêm là thành viên tổ … cho đồng nhất với 06A") */
         h += bblvMon(G, V, P, T, W, lh);
         ND.forEach(function(d){ var v = nd(d), n = Math.max(0, v ? L-1 : L);
           h += P('<b>'+d[1]+':</b> '+(v ? '<span class="om om-kb" data-o="'+d[0]+'">'+e(v)+'</span>' : G.o(d[0], '……………………………')), T+(v ? J : W))+Ch(n); });
@@ -107,7 +111,9 @@
     var x = ds[0], m = x ? x.m : null, sp = function(v){ return '<span class="om om-tu" data-o="mon">'+e(v)+'</span>'; }, f = x ? x.f : {};
     var hop = function(co, chu){ return (co ? '☒' : '☐')+' '+chu; };
     return P('<b>1. Thông tin về món vay</b>', T)+
-      (m ? P('- Tên chương trình vay: '+sp(HSN.ctTen(m))+' – Số tiền vay: '+sp(m.gn ? tdnTien(m.gn) : '')+' đồng;', T)+P('- Mục đích sử dụng vốn vay: '+(md(m) ? sp(md(m))+'.' : '…………………………………………………………………………'), md(m) ? T : T+W)+
+      (m ? (omRong('- Tên chương trình vay: '+HSN.ctTen(m)+' – Số tiền vay: '+(m.gn ? tdnTien(m.gn) : '')+' đồng;', 13) > 150   /* 3.461.4: tên dài → Số tiền vay xuống dòng */
+          ? P('- Tên chương trình vay: '+sp(HSN.ctTen(m))+';', T)+P('- Số tiền vay: '+sp(m.gn ? tdnTien(m.gn) : '')+' đồng;', T+W)
+          : P('- Tên chương trình vay: '+sp(HSN.ctTen(m))+' – Số tiền vay: '+sp(m.gn ? tdnTien(m.gn) : '')+' đồng;', T+W))+P('- Mục đích sử dụng vốn vay: '+(md(m) ? sp(md(m))+'.' : '…………………………………………………………………………'), md(m) ? T : T+W)+
           P('- Ngày vay '+sp(nt(m.nv) || '……/……/………')+' – Ngày đến hạn '+sp(nt(skHL(m)) || '……/……/………'), T+W)+
           P('- Giao dịch lần cuối: '+(m.ngdg ? sp(nt(m.ngdg))+'.' : '……/……/………'), T+W)+   /* 3.461.2 (anh 03/11 "ghi thêm giao dịch lần cuối") — Ngày GDXA gần nhất của món (Mẫu 31) */
           P('- Dư nợ đến ngày '+sp(nsC || '……/……/………')+': gốc '+sp(tdnTien(m.dn||0))+' đồng; lãi '+sp(tdnTien(laiTon(m)))+' đồng.', T+W)+

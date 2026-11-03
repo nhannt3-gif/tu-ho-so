@@ -1056,7 +1056,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.461.3', ds:[
+var CO_GI_MOI = {ban:'3.461.4', ds:[
+  ["Biên bản làm việc: không còn cắt chữ tỉnh; tên chương trình dài thì Số tiền vay xuống dòng; thêm câu Là thành viên Tổ như 06A; số thứ tự thành phần in thường", "hsoChonMau('bblv')"],
+  ["Bảng chọn món: cột ô tích gọn, thêm cột STT theo hộ", "hsoChonMau('bblv')"],
   ["Bảng chọn món (BBLV, 06A): khung cuộn cố định, mỗi món 1 dòng, có cột Lãi tồn, CT; Số KU tự ẩn khi hẹp; bấm cả dòng để tích; lọc Chỉ món có vấn đề, tìm tên / mã KH / số KU", "hsoChonMau('bblv')"],
   ["06A: chỗ ký rộng hơn, dòng hướng dẫn cuối mẫu sát đáy trang; tên chương trình theo Mẫu 31, mã món vay không bị bẻ dòng", "hsoChonMau('06a')"],
   ["Biên bản làm việc: thêm ngày giao dịch lần cuối của món; tên hộ vay viết hoa đầu từ", "hsoChonMau('bblv')"],
@@ -1069,9 +1071,7 @@ var CO_GI_MOI = {ban:'3.461.3', ds:[
   ["📝 Mẫu 10A: chọn \"Kiện toàn\" → Phê duyệt UBND ghi \"được kiện toàn\"; có nút giữ \"thành lập\"", ""],
   ["📝 Mẫu 10B, 10C: số tổ viên dự họp theo tỷ lệ (mặc định 100%, − / +, > 50%), biểu quyết tán thành / tham dự (> 2/3) — như 10A", ""],
   ["📝 Mẫu 10A: số tham dự tự tính theo tỷ lệ (mặc định 100%, − / +, > 50%); IV tán thành / tham dự (> 2/3); III gõ / chọn tên trong tổ, UBND theo III; phê duyệt cả phần ✍ / 🤖", ""],
-  ["🖼 Khai báo riêng mọi mẫu: danh sách gọn (không dồn chữ), vạch màu theo nguồn; trực quan liên kết 2 chiều; bấm chữ trên bản xem trước → tới đúng dòng khai báo", ""],
-  ["📝 Mẫu 10A: khóa trang 3 bắt đầu \"b) Tổ phó\", trang 4 bắt đầu \"III.\"; tên dài → tự bớt hàng khung tổ viên để vẫn 4 trang", ""],
-  ["📝 Mẫu 10C theo quy chuẩn 10A: Về việc chọn nhiều, bảng Cho ra / Kết nạp, kết nạp từ tổ khác cùng ấp, ＋ / − số dòng bảng", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🖼 Khai báo riêng mọi mẫu: danh sách gọn (không dồn chữ), vạch màu theo nguồn; trực quan liên kết 2 chiều; bấm chữ trên bản xem trước → tới đúng dòng khai báo", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
     "3.461.3 · Hồ sơ vay › BBLV / 06A › chọn tổ: bảng cuộn trong khung; bấm dòng để tích; nút Chỉ món có vấn đề (mặc định bật); ô 🔎 tìm",
     "3.461.1 · Hồ sơ vay › BBLV hoặc 06A › cột trái dưới nút Tích hết: ô ☑ In 2 mặt (bỏ tích khi máy in 1 mặt)",
