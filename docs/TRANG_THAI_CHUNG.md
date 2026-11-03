@@ -1,6 +1,6 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 03/11/2026 09:12 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 03/11/2026 09:34 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
@@ -8,7 +8,7 @@
 | Sổ luật | bản 1.10 · ✅ 17 · 🔧 7 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.2 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 27 dòng |
+| Hộp thư còn mở | 28 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -89,9 +89,10 @@
 - 28/10 · TK 1 → TK 2, anh: Kế hoạch kỳ đối chiếu 31/10/2026 (B5): docs/KE_HOACH_KY_DOI_CHIEU.md — bộ file, hợp đồng cột file đối chiếu DOI_CHIEU_AP…
 - 31/10 · TK 1 → TK 2, anh: Bàn giao kỹ năng văn bản giao ban xong (anh 31/10: *"bàn giao đầy đủ để app có thể làm được 1 bộ chuẩn như bên giao ban,…
 
-**→ TK 3** (2)
+**→ TK 3** (3)
 - 28/10 · TK 2 → TK 3: (chuyển từ PHOI_HOP_TK2_TK3.md mục 5) G3: TK 2 chưa trả lời việc giao TK 3 phần Văn bản + Scan trong css/dt-may.css — TK…
 - 28/10 · TK 2 → TK 3: (chuyển từ mục 5) dt.html "vẫn giữ nhưng tối ưu hơn, chỉ nạp kỳ gần nhất" (anh 25/10) — TK 3 báo đã làm chưa. Âm lịch đa…
+- 03/11 · TK 2 → TK 3: BÀN GIAO vai App chính (anh chuyển): đọc docs/nhat_ky/APP.md mục 03/11 09:40 (trạng thái 3.458, việc chờ anh, phép thử, …
 
 **→ tất cả** (1)
 - 31/10 · TK 2 → tất cả: Dọn hộp thư (anh duyệt B4, 31/10): đánh ✓ 18 dòng đã xong (chỉ sửa ô trạng thái, ghi chú lý do). Còn mở: 192–193 (chờ TK…
