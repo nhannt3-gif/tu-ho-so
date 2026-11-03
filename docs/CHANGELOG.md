@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.461.8 — 04/11/2026 — Tờ Hướng dẫn ghi biên bản làm việc (TK 3)
+- **Anh 04/11**: "đây là hướng dẫn nên em hướng dẫn kỹ các tình huống, câu văn sát thực tế nhất" → 📝 Bản mẫu **Cả 3 tình huống** thành tờ **HƯỚNG DẪN GHI BIÊN BẢN LÀM VIỆC** (≈ 2 trang): khung **Lưu ý chung** (nơi lập, thành phần tối thiểu, đối chiếu mục 1 với sổ vay vốn / biên lai, ghi cụ thể không chung chung, cam kết có số tiền + ngày, đọc lại và ký đủ); mỗi tình huống ① ② ③ có **Dấu hiệu**, **Nên mời**, câu mẫu mục 2 – 5 (viết lại sát thực tế, chỗ "…" để ghi thời gian, số tiền, tên người). Câu mới cũng thay vào gợi ý bản thật. Câu do TK 3 soạn — anh sửa thì báo.
+- t366 sửa theo câu mới.
+
+## 3.461.7 — 04/11/2026 — Tờ mẫu gọn 3 tình huống (TK 3)
+- **Anh 04/11**: "anh định in 3 tình huống trong 1 bản, cho gọn"; "có thể bỏ bớt các phần không cần, thêm dòng hướng dẫn ghi mẫu" → 📝 Bản mẫu **Cả 3 tình huống** = 1 tờ: tiêu đề, khung **Hướng dẫn ghi** (chọn tình huống đúng với hộ, chép câu vào từng mục, ghi tiếp chỗ "…", ghép câu nếu nhiều nguyên nhân; thành phần / món vay / chữ ký ghi như biên bản thật), rồi mục 2–5 mỗi mục liệt kê câu ① ② ③. Bỏ thành phần, thông tin món vay, chữ ký ở tờ mẫu này. Chọn ① / ② / ③ vẫn in biên bản mẫu đầy đủ theo 1 tình huống.
+- t366 sửa ý 3.461.6 → 3.461.7.
+
+## 3.461.6 — 04/11/2026 — Bản mẫu BBLV: chọn tình huống ngay ở khung Bản mẫu, in cả 3 (TK 3)
+- **Anh 03/11**: "cho chọn 3 tình huống ngay chỗ này luôn, hiện cả 3 t/h luôn để in ra làm mẫu" → khung 📝 Bản mẫu (dưới dòng Điền) có dòng **Tình huống mẫu: Cả 3 tình huống · ① · ② · ③**; mặc định **Cả 3** → 3 biên bản mẫu liền nhau, mỗi tình huống 1 trang.
+- Lớp nền ô (`js/31-o-mau.js` `omKieuHTML`): mẫu tự thêm lựa chọn riêng cho Bản mẫu qua `OM_MAU[mk].mauThem()`. Ô `tinhMau` thôi ở Chọn nhanh cột trái.
+- t366 thêm 1 ý.
+
 ## 3.461.5 — 04/11/2026 — Biên bản làm việc: tình huống mẫu cho mục 2–5 (TK 3)
 - **Anh 03/11**: "khi chọn bản mẫu anh muốn các gợi ý này hiện ra tương ứng từng mục 2-3-4-5"; "cho chọn tình huống mẫu: KH bỏ địa phương hay còn gọi đi làm ăn xa, khách hàng còn địa phương nhưng khó khăn, nhóm KH có điều kiện nhưng chây ỳ"; "em code và gộp lên".
 - `js/mau/bblv.js`: 3 bộ câu `MAU` (mục 2 Nguyên nhân · 3 Thực trạng · 4 Cam kết · 5 Kiến nghị); ô chọn **📝 Bản mẫu — tình huống mẫu** (`tinhMau`, Chọn nhanh, không báo thiếu số liệu); 📝 Bản mẫu in bộ câu của tình huống chọn; 12 câu thêm vào gợi ý chọn nhanh của bản thật (mặc định vẫn ✍ chấm). Câu do TK 3 soạn theo cách ghi thường gặp — anh sửa chữ thì báo.

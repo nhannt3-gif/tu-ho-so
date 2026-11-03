@@ -24,22 +24,35 @@
   var TRANG = ['Dạng dòng (1 món)', 'Bảng 3 dòng', 'Bảng 4 dòng', 'Bảng 5 dòng', 'Bảng 6 dòng'];
   /* 3.461.5 (anh 03/11 "khi chọn bản mẫu anh muốn các gợi ý này hiện ra tương ứng từng mục 2-3-4-5"; "cho chọn tình huống mẫu: KH bỏ địa phương hay còn gọi đi làm ăn xa,
      khách hàng còn địa phương nhưng khó khăn, nhóm KH có điều kiện nhưng chây ỳ") — 📝 Bản mẫu in bộ câu của tình huống chọn; các câu cũng vào gợi ý của bản thật */
-  var MAU = [
+  var CA3 = 'Cả 3 tình huống', BBLV_MAU = null;   /* 3.461.6 (anh 03/11 "cho chọn 3 tình huống ngay chỗ này luôn, hiện cả 3 t/h luôn để in ra làm mẫu") */
+  var MAU = [   /* 3.461.8 (anh 04/11 "đây là hướng dẫn nên em hướng dẫn kỹ các tình huống, câu văn sát thực tế nhất") — câu do TK 3 soạn theo cách ghi thường gặp, anh sửa thì báo */
     {ten:'① Bỏ địa phương / đi làm ăn xa',
-      ngNhan:'Khách hàng đã đi khỏi địa phương (đi làm ăn xa tại …) từ khoảng tháng …/…, không thường xuyên về địa phương, không liên lạc được; không giao dịch với Tổ TK&VV',
-      thucTrang:'Tại địa phương còn ông (bà) … (quan hệ: …) đang sinh sống; tài sản còn lại: …; khả năng trả nợ thay: …',
-      camKet:'Người thân cam kết liên lạc, báo khách hàng về làm việc với Tổ TK&VV và Ngân hàng; trả nợ thay số tiền … đồng trước ngày …/…/…',
-      kienNghi:'Phối hợp UBND cấp xã, Tổ TK&VV, Hội tiếp tục xác minh nơi ở của khách hàng; đôn đốc người thân trả nợ thay; đề nghị xem xét xử lý nợ theo quy định nếu đủ điều kiện'},
+      dau:'món vay không có giao dịch từ 3 tháng, lãi tồn tăng dần; Tổ trưởng đến nhà nhiều lần không gặp khách hàng.',
+      moi:'người thân đang ở nhà (vợ / chồng / cha / mẹ / con); Trưởng ấp hoặc Công an viên để xác nhận khách hàng vắng mặt tại địa phương.',
+      ngNhan:'Ông (bà) … đã đi làm ăn xa tại … từ khoảng tháng …/…, đến nay không về địa phương; số điện thoại … không liên lạc được; từ tháng …/… không nộp lãi, không giao dịch với Tổ TK&VV',
+      thucTrang:'Tại địa phương còn ông (bà) … là … của khách hàng, làm nghề …, thu nhập khoảng … đồng/tháng; nhà, đất tại … do ông (bà) … đang quản lý, sử dụng. Người thân cho biết khách hàng đang làm … tại …, thu nhập không ổn định',
+      camKet:'Ông (bà) … (người thân) cam kết liên lạc, đề nghị khách hàng về làm việc với Tổ TK&VV và Ngân hàng trước ngày …/…/…; trong thời gian chờ, nộp lãi hằng tháng qua Tổ TK&VV mỗi tháng … đồng; trả nợ thay số tiền … đồng trước ngày …/…/…',
+      kienNghi:'Tổ TK&VV, Hội … tiếp tục liên lạc với người thân, theo dõi việc nộp lãi hằng tháng; đề nghị UBND cấp xã, Trưởng ấp xác nhận tình trạng vắng mặt của khách hàng; đến ngày …/…/… khách hàng không về làm việc và gia đình không trả nợ thay thì lập hồ sơ đề nghị xử lý nợ theo quy định'},
     {ten:'② Còn ở địa phương nhưng khó khăn',
-      ngNhan:'Gia đình gặp khó khăn (ốm đau / mất mùa / dịch bệnh / thu nhập không ổn định: …), thu nhập không đủ trả nợ, lãi đúng hạn',
-      thucTrang:'Kinh tế gia đình khó khăn, thu nhập chính từ …; còn khả năng trả nợ một phần, cần thêm thời gian',
-      camKet:'Khách hàng cam kết trả lãi hằng tháng qua Tổ TK&VV; trả dần nợ gốc mỗi tháng … đồng, dứt điểm trước ngày …/…/…',
-      kienNghi:'Tổ TK&VV, Hội theo dõi, đôn đốc trả lãi hằng tháng; xem xét lập hồ sơ gia hạn nợ / điều chỉnh kỳ hạn nợ theo quy định nếu đủ điều kiện'},
+      dau:'có lãi tồn hoặc nợ quá hạn nhưng khách hàng vẫn ở nhà, hợp tác, có nộp một phần khi có tiền.',
+      moi:'khách hàng (hoặc người cùng vay); Tổ trưởng; đại diện Hội nhận ủy thác.',
+      ngNhan:'Năm …, gia đình gặp khó khăn: … (chồng / vợ bệnh … phải điều trị dài ngày; vật nuôi bị dịch … chết … con; cây trồng mất mùa; mất việc làm…), chi phí lớn, thu nhập giảm nên không đủ tiền trả nợ, lãi đúng hạn',
+      thucTrang:'Hiện gia đình có … nhân khẩu, … lao động; thu nhập chính từ … khoảng … đồng/tháng; vốn vay đang sử dụng vào … (còn … con bò / … sào mì / …); có khả năng nộp lãi hằng tháng và trả dần nợ gốc',
+      camKet:'Khách hàng cam kết nộp lãi hằng tháng đầy đủ qua Tổ TK&VV từ tháng …/…; trả dần nợ gốc mỗi tháng (mỗi quý) … đồng; trả dứt điểm số nợ quá hạn … đồng trước ngày …/…/…',
+      kienNghi:'Tổ TK&VV, Hội … theo dõi, đôn đốc khách hàng thực hiện đúng cam kết; hướng dẫn khách hàng lập hồ sơ đề nghị gia hạn nợ / điều chỉnh kỳ hạn trả nợ nếu đủ điều kiện; trường hợp gặp rủi ro do nguyên nhân khách quan thì lập hồ sơ đề nghị xử lý rủi ro theo quy định'},
     {ten:'③ Có điều kiện nhưng chây ỳ',
-      ngNhan:'Khách hàng có điều kiện kinh tế (có nguồn thu từ …) nhưng ý thức trả nợ chưa cao, chây ỳ, không chủ động trả nợ, lãi đúng hạn',
-      thucTrang:'Kinh tế gia đình ổn định, có tài sản / nguồn thu: …; có khả năng trả nợ',
-      camKet:'Khách hàng cam kết trả hết số lãi tồn và nợ gốc quá hạn … đồng trước ngày …/…/…; nếu không thực hiện, đồng ý để Ngân hàng phối hợp chính quyền địa phương xử lý theo quy định',
-      kienNghi:'Đề nghị UBND cấp xã, Hội, Tổ TK&VV phối hợp đôn đốc quyết liệt; quá hạn cam kết mà không trả, Ngân hàng xem xét các biện pháp thu hồi nợ theo quy định'}];
+      dau:'kinh tế gia đình khá (buôn bán, nhà cửa, phương tiện), đã được nhắc nhiều lần, hẹn trả nhưng không thực hiện.',
+      moi:'Trưởng ấp; đại diện UBND cấp xã hoặc Hội cấp xã; Tổ trưởng.',
+      ngNhan:'Khách hàng có điều kiện trả nợ (… kinh doanh / nhà / phương tiện …) nhưng chưa chấp hành nghĩa vụ trả nợ; Tổ TK&VV đã nhắc … lần (ngày …/…, ngày …/…), khách hàng hẹn trả nhưng không thực hiện',
+      thucTrang:'Kinh tế gia đình ổn định, thu nhập từ … khoảng … đồng/tháng; tài sản gồm …; khách hàng có đủ khả năng trả nợ',
+      camKet:'Khách hàng cam kết trả toàn bộ lãi tồn … đồng và nợ gốc quá hạn … đồng trước ngày …/…/…; nếu không thực hiện đúng cam kết, khách hàng chịu trách nhiệm và đồng ý để Ngân hàng phối hợp chính quyền địa phương xử lý theo quy định',
+      kienNghi:'Đề nghị UBND cấp xã, Hội … cấp xã phối hợp Tổ TK&VV đôn đốc khách hàng trả nợ theo cam kết; quá thời hạn cam kết không trả, Ngân hàng báo cáo UBND cấp xã và áp dụng các biện pháp thu hồi nợ theo quy định'}];
+  var HD_CHUNG = ['Lập tại nhà khách hàng (hoặc trụ sở UBND cấp xã / điểm giao dịch xã); ghi đúng ngày, nơi làm việc.',
+    'Thành phần tối thiểu: cán bộ Ngân hàng hoặc cán bộ Hội nhận ủy thác, Tổ trưởng Tổ TK&VV, khách hàng (hoặc người thân). Nợ khó thu nên mời thêm Trưởng ấp / đại diện UBND cấp xã.',
+    'Mục 1 app in sẵn theo sổ sách Ngân hàng đến ngày số liệu — đối chiếu với sổ vay vốn, biên lai của khách hàng; có chênh lệch thì ghi rõ ở mục 3.',
+    'Mục 2 – 5 ghi cụ thể: thời gian, số tiền, tên người, việc làm; không ghi chung chung "khó khăn", "chưa có tiền". Hộ có nhiều nguyên nhân thì ghép câu của nhiều tình huống.',
+    'Cam kết (mục 4) phải có số tiền và ngày cụ thể; do khách hàng hoặc người trả nợ thay tự nói, cán bộ ghi lại.',
+    'Đọc lại cho các bên nghe, ký đủ; ai không ký thì ghi rõ lý do.'];
   ['ngNhan', 'thucTrang', 'camKet', 'kienNghi'].forEach(function(k){ MAU.forEach(function(t){ if(GOI[k].indexOf(t[k])<0) GOI[k].push(t[k]); }); });   /* câu tình huống vào gợi ý bản thật */
   var ND = [['ngNhan', '2. Nguyên nhân không trả được nợ'], ['thucTrang', '3. Thực trạng tình hình kinh tế và khả năng trả nợ của khách hàng'], ['camKet', '4. Cam kết của khách hàng (hoặc người trả nợ thay)'], ['kienNghi', '5. Kiến nghị biện pháp xử lý nợ']];
   omDangKy({k:MK, ma:'BBLV', phan:['ky', 'tp', 'kh', 'nd', 'kyt'], co:CO,
@@ -59,7 +72,7 @@
       {k:'hoi', n:'Thuộc tổ chức Hội … quản lý', p:'kh', l:'tu', md:'tu', ng:'tổ — Hội nhận ủy thác'},
       {k:'ngaySL', n:'Dư nợ đến ngày (ngày số liệu)', p:'kh', l:'tu', md:'tu', ng:'ngày số liệu Mẫu 31 đang mở'},
       {k:'mon', n:'1. Thông tin về món vay (1 món: dòng · nhiều món: bảng)', p:'kh', l:'tu', md:'tu', ng:'các món đã chọn — M31'},
-      {k:'tinhMau', n:'📝 Bản mẫu — tình huống mẫu (mục 2–5)', p:'nd', l:'chon', md:'kb', chon:MAU.map(function(t){ return t.ten; }), chonMD:1, khongBao:1, nhanh:1},
+      {k:'tinhMau', n:'📝 Bản mẫu — tình huống mẫu (mục 2–5)', p:'nd', l:'chon', md:'kb', chon:[CA3].concat(MAU.map(function(t){ return t.ten; })), chonMD:1, khongBao:1},   /* 3.461.6: chọn ngay ở khung Bản mẫu (mauThem) */
       {k:'monTrang', n:'Bản trắng — mục 1', p:'kh', l:'chon', md:'kb', chon:TRANG, chonMD:1, khongBao:1},   /* ô cài đặt — không báo "chưa có số liệu" */
       {k:'ngNhan', n:'2. Nguyên nhân không trả được nợ', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.ngNhan},
       {k:'thucTrang', n:'3. Thực trạng kinh tế, khả năng trả nợ', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.thucTrang},
@@ -77,7 +90,7 @@
     },
     lap:function(t){
       var V = this.V(t), G = omG(MK, V, CO), o = function(k, ch){ return G.o(k, ch, {lien:1}); }, e = coChuHTML;
-      var nd = function(d){ if(OM_KIEU==='mau'){ var tm = omKB(MK, 'tinhMau'), t = MAU.find(function(x){ return x.ten===tm; }) || MAU[0]; return t[d[0]]+'.'; }   /* 📝 Bản mẫu: bộ câu của tình huống chọn */
+      var nd = function(d){ if(OM_KIEU==='mau'){ var t = MAU[BBLV_MAU!=null ? BBLV_MAU : bblvMauI()] || MAU[0]; return t[d[0]]+'.'; }   /* 📝 Bản mẫu: bộ câu của tình huống chọn */
         var v = G.gt(d[0]); return v ? v.split('|').filter(Boolean).join('; ')+'.' : ''; };
       var ngay = function(k){ var g = hsoNg(G.gt(k)); return g ? G.o(k, '', {gt:g.d+'/'+g.m+'/'+g.y, lien:1}) : G.o(k, '……/……/………'); };   /* có ngày → dd/mm/yyyy liền (QUY_CHUAN 9.7) */
       var dong = function(L, lh){
@@ -85,6 +98,14 @@
         var CH = '………………………………………………………………………………………………………………………………………………………………';
         var Ch = function(n){ var h = ''; for(var i=0;i<n;i++) h += P(CH, W); return h; };
         var ong = function(kT, kD, dd){ var v = G.gt(kT); return 'Ông (bà)'+(v ? ': '+o(kT, '')+'&nbsp;&nbsp; ' : ' '+G.o(kT, '…………………………………………')+' ')+'Đại diện: '+(dd || (G.gt(kD) ? o(kD, '') : G.o(kD, '……………………………'))); };
+        if(OM_KIEU==='mau' && BBLV_MAU==null && bblvMauI()<0){   /* 3.461.7 (anh 04/11 "in 3 tình huống trong 1 bản, cho gọn; bỏ bớt các phần không cần, thêm dòng hướng dẫn ghi mẫu"): tờ mẫu chỉ còn tiêu đề + hướng dẫn + mục 2–5 (① ② ③) */
+          var muc = function(k){ return (ND.filter(function(d){ return d[0]===k; })[0] || [k, k])[1]; };
+          return '<div class="om-goc" style="font-size:'+CO+'pt">'+P('<b>HƯỚNG DẪN GHI BIÊN BẢN LÀM VIỆC</b>', 'text-align:center;font-size:15pt;margin:0 0 2pt')+
+            P('<i>(xác minh, đánh giá khoản nợ của hộ vay — mẫu câu ghi mục 2 – 5 theo 3 tình huống thường gặp)</i>', 'text-align:center;margin:0 0 6pt')+
+            '<div style="border:1px solid #000;padding:4pt 6pt;margin:0 0 6pt">'+P('<b>Lưu ý chung</b>', '')+HD_CHUNG.map(function(x){ return P('- '+e(x), J+'margin-top:1pt'); }).join('')+'</div>'+
+            MAU.map(function(x){ return '<div style="break-inside:avoid;page-break-inside:avoid;margin-top:6pt">'+P('<b>'+e(x.ten)+'</b>', 'margin:0 0 2pt;border-bottom:1px solid #000')+
+              P('<i>Dấu hiệu:</i> '+e(x.dau), T+J)+P('<i>Nên mời:</i> '+e(x.moi), T+J)+
+              ['ngNhan', 'thucTrang', 'camKet', 'kienNghi'].map(function(k){ return P('<b>'+e(muc(k))+':</b> <span class="om om-mau" data-o="'+k+'">'+e(x[k])+'.</span>', T+J+'margin-top:2pt'); }).join('')+'</div>'; }).join('')+'</div>'; }
         var noi = G.gt('noi'), ten = G.gt('ten'), th = G.gt('tinhHuong');
         var h = P('<b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</b>', 'text-align:center')+P('<b>Độc lập – Tự do – Hạnh phúc</b>', 'text-align:center')+P('--------------------------------', 'text-align:center;line-height:1')+
           P('<b>BIÊN BẢN LÀM VIỆC</b>', 'text-align:center;font-size:15pt;margin:6pt 0 4pt')+
@@ -98,7 +119,8 @@
           (G.gt('tt') || G.gt('hoi') ? P('Là thành viên Tổ TK&amp;VV do '+(G.gt('tt') ? 'Ông (bà): '+o('tt', '') : 'Ông (bà) '+G.o('tt', '…………………………………'))+' làm Tổ trưởng, thuộc tổ chức '+(/^Hội\b/i.test(G.gt('hoi')) ? o('hoi', '') : 'Hội '+(G.gt('hoi') ? o('hoi', '') : G.o('hoi', '…………………………')))+' quản lý.', T+J)
             : P('Là thành viên Tổ TK&amp;VV do Ông (bà) '+G.o('tt', '…………………………………')+' làm Tổ trưởng, thuộc tổ chức Hội '+G.o('hoi', '…………………………')+' quản lý.', T+W));   /* 3.461.4 (anh 03/11 "ghi thêm là thành viên tổ … cho đồng nhất với 06A") */
         h += bblvMon(G, V, P, T, W, lh);
-        ND.forEach(function(d){ var v = nd(d), n = Math.max(0, v ? L-1 : L);
+        ND.forEach(function(d){
+          var v = nd(d), n = Math.max(0, v ? L-1 : L);
           h += P('<b>'+d[1]+':</b> '+(v ? '<span class="om om-kb" data-o="'+d[0]+'">'+e(v)+'</span>' : G.o(d[0], '……………………………')), T+(v ? J : W))+Ch(n); });
         h += P('Buổi làm việc kết thúc cùng ngày, đã được đọc lại cho những người có tên nghe, thống nhất với các nội dung trong Biên bản và cùng ký tên dưới đây.', T+J+'margin-top:2pt');
         var ky = function(k){ var v = G.gt(k); return v ? o(k, '') : ''; };
@@ -156,7 +178,11 @@
     return {k:h.k, mon:vd.length ? vd : h.mon}; }
   var BBLV_HO = null;
   /* lập: mỗi hộ đang chọn 1 biên bản (1 trang) — chưa chọn hộ → 1 biên bản (người vay đang xem / bản trắng) */
-  hsoLapBblv = function(t){ var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [];
+  function bblvMauI(){ var tm = omKB(MK, 'tinhMau'); for(var i=0;i<MAU.length;i++) if(MAU[i].ten===tm) return i; return -1; }   /* -1 = Cả 3 (mặc định) */
+  OM_MAU[MK].mauThem = function(){ var i0 = bblvMauI();
+    return '<div class="om-muc">Tình huống mẫu (mục 2–5): '+[CA3].concat(MAU.map(function(x){ return x.ten; })).map(function(ten, j){ var bat = j ? i0===j-1 : i0<0;
+      return gdxChip(ten, bat, 'omChonDat(\''+MK+'\',\'tinhMau\',\''+ten+'\')', 'hso-ct', j ? 'In 1 biên bản mẫu theo tình huống này' : 'Tờ hướng dẫn ghi: lưu ý chung + từng tình huống (dấu hiệu, nên mời, câu mẫu mục 2–5)'); }).join('')+'</div>'; };
+  hsoLapBblv = function(t){ if(OM_KIEU==='mau') return omLap(MK, t); var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [];
     if(d.length<2){ var r = omLap(MK, t); return r; }
     var ds = d.map(function(ho){ BBLV_HO = ho; try { return {M:hsoMauK(MK), h:omLap(MK, t).h, ten:ho.k.ten}; } finally { BBLV_HO = null; } });
     return {ma:'BBLV', h:ds[0].h, ds:ds}; };

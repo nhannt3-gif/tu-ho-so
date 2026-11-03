@@ -266,6 +266,22 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.461.8)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | BBLV › 📝 Bản mẫu › Cả 3 › In | Tờ hướng dẫn ≈ 2 trang, mỗi tình huống không bị cắt giữa trang | |
+
+### Danh sách thử trên máy thật (3.461.7)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | BBLV › 📝 Bản mẫu › Cả 3 tình huống › In | 1 trang: hướng dẫn + mục 2–5 câu ① ② ③ | |
+
+### Danh sách thử trên máy thật (3.461.6)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | BBLV › 📝 Bản mẫu (mặc định Cả 3) › In | 3 trang, mỗi trang 1 tình huống | |
+| 2 | Bấm ① / ② / ③ | 1 biên bản mẫu theo tình huống | |
+
 ### Danh sách thử trên máy thật (3.461.5)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
