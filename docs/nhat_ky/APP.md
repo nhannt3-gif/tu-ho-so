@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 03/11/2026 17:00 — TK 2 · PHIÊN (bổ sung sau bàn giao)
+- Đã làm: **3.459** (PR #482) 10A — địa chỉ phê duyệt UBND 3 ô `ubAp` / `ubXa` / `ubTinh`; nút "Phê duyệt UBND — Tên Tổ trưởng, Tổ phó, ngày" (`hso10aUbDat`, không đụng địa chỉ); III để chấm thẳng cột tab (`chamMM`); Trưởng ấp / Thư ký để chấm kín dòng (`chamDay`); tiền tiết kiệm dấu ngăn nhóm số; ô `kyTK`, tên dưới chữ ký theo dòng trên.
+- Trạng thái: `main` = **3.459**; mục BÀN GIAO 09:40 bên dưới vẫn đúng (đọc "3.458" là 3.459).
+- Lưu ý: `hoiquy2` mục "scan thẻ 2 mặt" thỉnh thoảng trượt do chờ lưu ảnh — chạy lại riêng 1 lần để xác nhận.
+
 ### 03/11/2026 09:40 — TK 2 · BÀN GIAO (anh chuyển vai App chính sang TK 3)
 - **Trạng thái:** `main` = **3.458** (PR #476–#480 đã gộp). Hồi quy: 245 phép đã chốt, đạt hết (`tests/hoiquy_moc.json`). `python3 tests/kiem.py` sạch, trong mốc (dòng > 400 ký tự = 163, onclick 1265).
 - **Đã làm phiên này (02–03/11):**
