@@ -111,6 +111,7 @@ function omKieuHTML(mk){
     (OM_KIEU==='trang' && (!m.dien || (m.phan || []).indexOf('nhs')>=0) ? '<label class="hso-o2"><input type="checkbox"'+(omNHS() ? ' checked' : '')+' onchange="hsoLuu().omNHS=this.checked;luu();hsoVe()"> In sẵn phần Ngân hàng (đầu trang, tên PGD, kính gửi)</label>' : '')+
     (OM_KIEU==='mau' ? '<div class="om-muc">Điền: '+(m.dien || [['het', 'Điền hết'], ['chuaNH', 'Chừa phê duyệt NH'], ['chuaUBNH', 'Chừa UBND + NH'], ['tuy', 'Tùy chọn']]).map(function(x){ return gdxChip(x[1], M.kieu===x[0], 'omMucDat(\''+mk+'\',\''+x[0]+'\')', 'hso-ct', ''); }).join('')+
       (M.kieu==='tuy' ? '<div class="om-muc-ph">'+ph.map(function(p){ return '<label class="hso-o2"><input type="checkbox"'+(omPhanDien(mk, p) ? ' checked' : '')+' onchange="omMucPhan(\''+mk+'\',\''+p+'\',this.checked)"> '+coChuHTML((m.phanTen || {})[p] || OM_PHAN[p] || p)+'</label>'; }).join('')+'</div>' : '')+
+      (m.mauThem ? m.mauThem() : '')+   /* 3.461.6: mẫu tự thêm lựa chọn riêng cho Bản mẫu (vd BBLV: tình huống mẫu) */
       '<div class="sl-phu">Phần được điền: ô có số liệu in số liệu thật; ô không có số liệu in <b>chữ mẫu</b> anh khai (⚙ khai báo trực quan). Phần không điền vẫn chấm.</div></div>' : '')+
     (OM_KIEU==='trang' ? '<div class="sl-phu">📄 Bản trắng: mọi ô chấm như giấy gốc — chỉ cho lần in này.</div>' : '')+'</div>';
 }

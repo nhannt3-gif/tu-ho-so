@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.461.6 — 04/11/2026 — Bản mẫu BBLV: chọn tình huống ngay ở khung Bản mẫu, in cả 3 (TK 3)
+- **Anh 03/11**: "cho chọn 3 tình huống ngay chỗ này luôn, hiện cả 3 t/h luôn để in ra làm mẫu" → khung 📝 Bản mẫu (dưới dòng Điền) có dòng **Tình huống mẫu: Cả 3 tình huống · ① · ② · ③**; mặc định **Cả 3** → 3 biên bản mẫu liền nhau, mỗi tình huống 1 trang.
+- Lớp nền ô (`js/31-o-mau.js` `omKieuHTML`): mẫu tự thêm lựa chọn riêng cho Bản mẫu qua `OM_MAU[mk].mauThem()`. Ô `tinhMau` thôi ở Chọn nhanh cột trái.
+- t366 thêm 1 ý.
+
 ## 3.461.5 — 04/11/2026 — Biên bản làm việc: tình huống mẫu cho mục 2–5 (TK 3)
 - **Anh 03/11**: "khi chọn bản mẫu anh muốn các gợi ý này hiện ra tương ứng từng mục 2-3-4-5"; "cho chọn tình huống mẫu: KH bỏ địa phương hay còn gọi đi làm ăn xa, khách hàng còn địa phương nhưng khó khăn, nhóm KH có điều kiện nhưng chây ỳ"; "em code và gộp lên".
 - `js/mau/bblv.js`: 3 bộ câu `MAU` (mục 2 Nguyên nhân · 3 Thực trạng · 4 Cam kết · 5 Kiến nghị); ô chọn **📝 Bản mẫu — tình huống mẫu** (`tinhMau`, Chọn nhanh, không báo thiếu số liệu); 📝 Bản mẫu in bộ câu của tình huống chọn; 12 câu thêm vào gợi ý chọn nhanh của bản thật (mặc định vẫn ✍ chấm). Câu do TK 3 soạn theo cách ghi thường gặp — anh sửa chữ thì báo.

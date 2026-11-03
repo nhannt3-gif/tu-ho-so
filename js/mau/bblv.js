@@ -24,6 +24,7 @@
   var TRANG = ['Dạng dòng (1 món)', 'Bảng 3 dòng', 'Bảng 4 dòng', 'Bảng 5 dòng', 'Bảng 6 dòng'];
   /* 3.461.5 (anh 03/11 "khi chọn bản mẫu anh muốn các gợi ý này hiện ra tương ứng từng mục 2-3-4-5"; "cho chọn tình huống mẫu: KH bỏ địa phương hay còn gọi đi làm ăn xa,
      khách hàng còn địa phương nhưng khó khăn, nhóm KH có điều kiện nhưng chây ỳ") — 📝 Bản mẫu in bộ câu của tình huống chọn; các câu cũng vào gợi ý của bản thật */
+  var CA3 = 'Cả 3 tình huống', BBLV_MAU = null;   /* 3.461.6 (anh 03/11 "cho chọn 3 tình huống ngay chỗ này luôn, hiện cả 3 t/h luôn để in ra làm mẫu") */
   var MAU = [
     {ten:'① Bỏ địa phương / đi làm ăn xa',
       ngNhan:'Khách hàng đã đi khỏi địa phương (đi làm ăn xa tại …) từ khoảng tháng …/…, không thường xuyên về địa phương, không liên lạc được; không giao dịch với Tổ TK&VV',
@@ -59,7 +60,7 @@
       {k:'hoi', n:'Thuộc tổ chức Hội … quản lý', p:'kh', l:'tu', md:'tu', ng:'tổ — Hội nhận ủy thác'},
       {k:'ngaySL', n:'Dư nợ đến ngày (ngày số liệu)', p:'kh', l:'tu', md:'tu', ng:'ngày số liệu Mẫu 31 đang mở'},
       {k:'mon', n:'1. Thông tin về món vay (1 món: dòng · nhiều món: bảng)', p:'kh', l:'tu', md:'tu', ng:'các món đã chọn — M31'},
-      {k:'tinhMau', n:'📝 Bản mẫu — tình huống mẫu (mục 2–5)', p:'nd', l:'chon', md:'kb', chon:MAU.map(function(t){ return t.ten; }), chonMD:1, khongBao:1, nhanh:1},
+      {k:'tinhMau', n:'📝 Bản mẫu — tình huống mẫu (mục 2–5)', p:'nd', l:'chon', md:'kb', chon:[CA3].concat(MAU.map(function(t){ return t.ten; })), chonMD:1, khongBao:1},   /* 3.461.6: chọn ngay ở khung Bản mẫu (mauThem) */
       {k:'monTrang', n:'Bản trắng — mục 1', p:'kh', l:'chon', md:'kb', chon:TRANG, chonMD:1, khongBao:1},   /* ô cài đặt — không báo "chưa có số liệu" */
       {k:'ngNhan', n:'2. Nguyên nhân không trả được nợ', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.ngNhan},
       {k:'thucTrang', n:'3. Thực trạng kinh tế, khả năng trả nợ', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.thucTrang},
@@ -77,7 +78,7 @@
     },
     lap:function(t){
       var V = this.V(t), G = omG(MK, V, CO), o = function(k, ch){ return G.o(k, ch, {lien:1}); }, e = coChuHTML;
-      var nd = function(d){ if(OM_KIEU==='mau'){ var tm = omKB(MK, 'tinhMau'), t = MAU.find(function(x){ return x.ten===tm; }) || MAU[0]; return t[d[0]]+'.'; }   /* 📝 Bản mẫu: bộ câu của tình huống chọn */
+      var nd = function(d){ if(OM_KIEU==='mau'){ var t = MAU[BBLV_MAU!=null ? BBLV_MAU : bblvMauI()] || MAU[0]; return t[d[0]]+'.'; }   /* 📝 Bản mẫu: bộ câu của tình huống chọn */
         var v = G.gt(d[0]); return v ? v.split('|').filter(Boolean).join('; ')+'.' : ''; };
       var ngay = function(k){ var g = hsoNg(G.gt(k)); return g ? G.o(k, '', {gt:g.d+'/'+g.m+'/'+g.y, lien:1}) : G.o(k, '……/……/………'); };   /* có ngày → dd/mm/yyyy liền (QUY_CHUAN 9.7) */
       var dong = function(L, lh){
@@ -156,7 +157,13 @@
     return {k:h.k, mon:vd.length ? vd : h.mon}; }
   var BBLV_HO = null;
   /* lập: mỗi hộ đang chọn 1 biên bản (1 trang) — chưa chọn hộ → 1 biên bản (người vay đang xem / bản trắng) */
-  hsoLapBblv = function(t){ var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [];
+  function bblvMauI(){ var tm = omKB(MK, 'tinhMau'); for(var i=0;i<MAU.length;i++) if(MAU[i].ten===tm) return i; return -1; }   /* -1 = Cả 3 (mặc định) */
+  OM_MAU[MK].mauThem = function(){ var i0 = bblvMauI();
+    return '<div class="om-muc">Tình huống mẫu (mục 2–5): '+[CA3].concat(MAU.map(function(x){ return x.ten; })).map(function(ten, j){ var bat = j ? i0===j-1 : i0<0;
+      return gdxChip(ten, bat, 'omChonDat(\''+MK+'\',\'tinhMau\',\''+ten+'\')', 'hso-ct', j ? 'In 1 biên bản mẫu theo tình huống này' : 'In 3 biên bản mẫu liền nhau, mỗi tình huống 1 trang'); }).join('')+'</div>'; };
+  /* 📝 Bản mẫu "Cả 3 tình huống" → 3 biên bản mẫu (mỗi tình huống 1 trang) */
+  function bblvMau3(t){ var ds = MAU.map(function(x, i){ BBLV_MAU = i; try { return {M:hsoMauK(MK), h:omLap(MK, t).h, ten:x.ten}; } finally { BBLV_MAU = null; } }); return {ma:'BBLV', h:ds[0].h, ds:ds}; }
+  hsoLapBblv = function(t){ if(OM_KIEU==='mau' && bblvMauI()<0) return bblvMau3(t); var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [];
     if(d.length<2){ var r = omLap(MK, t); return r; }
     var ds = d.map(function(ho){ BBLV_HO = ho; try { return {M:hsoMauK(MK), h:omLap(MK, t).h, ten:ho.k.ten}; } finally { BBLV_HO = null; } });
     return {ma:'BBLV', h:ds[0].h, ds:ds}; };
