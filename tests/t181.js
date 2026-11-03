@@ -25,10 +25,11 @@ const fs=require('fs'), path=require('path');
        const B = hsoBo(); B.ct = 'HSSV'; B.pa = Object.assign(B.pa||{}, {sv:'Nguyễn Văn Con Giả Có Tên Rất Dài', soThang:'12'}); B.tien = '40000000'; B.th = '60'; B.hanCuoi = '2031-10-15'; hsoBoLuu(); HSO.vay.kh = tv[0].kh; }
      /* bản thật: bật hết ô sang in (🤖 / ✎ / ⌨) + khai giá trị → nhiều chữ nhất */
      const m = OM_MAU[mk]; m.phan.forEach(q=>omDatPhan(mk, q, 'in')); m.o.forEach(x=>{ if(x.l==='kb' || x.l==='tukb'){ omDatKB(mk, x.k, 'Giá trị khai báo giả '+x.k); }   /* 3.229: ô 🤖 cũng có ⌨ — chỉ gõ giả ô khai báo như trước */ omDatChuMau(mk, x.k, m.giuCo ? 'Mẫu' : DUNG[mk] ? 'Mẫu '+x.k : 'Chữ mẫu giả cho ô '+x.n);   /* 3.453: mẫu chữ liền (DUNG) — chữ mẫu ngắn như thực tế (chữ dài làm mẫu dài thêm trang là đúng luật chữ liền) */   /* 3.319: mẫu giuCo không thu nhỏ — chữ mẫu độ dài thường phải chồng khít; chữ quá dài thử riêng dưới (⚠ báo) */ if(x.l==='go') HSO.vay[x.k] = x.ngay ? '2026-10-20' : '123.456.789'; });
+     if(mk==='bblv') omDatKB('bblv', 'tinhMau', '① Bỏ địa phương / đi làm ăn xa');   /* 3.461.8: bản mẫu mặc định là tờ hướng dẫn nhiều trang — đo chồng khít theo 1 tình huống */
      dongHop(); const lay = async k => { OM_KIEU = k; hsoChonMau(mk); hsoVe(); await w(1600); return doViTri(); };
      const a = await lay('trang'), t = await lay('that'), u = await lay('mau'), hMau = HSO.x.h; OM_KIEU = 'that';
      ok(mk+': bản trắng có '+a.trang+' trang, '+a.vt.length+' đoạn / dòng bảng', a.trang>0 && a.vt.length>5);
-     const e1 = so(a, t, DUNG[mk]), e2 = so(a, u, DUNG[mk]);
+     const e1 = so(a, t, DUNG[mk]), e2 = mk==='bblv' ? '' : so(a, u, DUNG[mk]);   /* 3.461.9: bản mẫu BBLV = tờ hướng dẫn / biên bản mẫu tham khảo (câu mẫu dài) — không so chồng khít */
      ok(mk+': bản thật (bật hết ô, có số liệu) chồng khít bản trắng', !e1, e1 || undefined);
      ok(mk+': bản mẫu (điền hết, chữ mẫu) chồng khít bản trắng', !e2, e2 || undefined);
      if(m.giuCo){ const k0 = (hMau.match(/data-o="([^"]+)"[^>]*>Mẫu</)||[])[1], x0 = m.oK[k0] || m.o[0];   /* ô bản mẫu đang in chữ mẫu */ omDatChuMau(mk, x0.k, 'Chữ mẫu giả rất dài cho ô '+x0.n+' — dài hơn hẳn chỗ chấm trên mẫu gốc để thử'); OM_KIEU = 'mau'; hsoXem(); await w(300);

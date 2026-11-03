@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.461.9 — 04/11/2026 — 8 tình huống mẫu biên bản làm việc (TK 3)
+- **Anh 04/11**: "nghĩ thêm có tình huống nào nữa ngoài 3 t/h trên"; "3 t/h đã 2 mặt hướng dẫn, em soạn tiếp các tình huống còn lại luôn"; "khi in bản mẫu sẽ sổ ra các tùy chọn tình huống".
+- `js/mau/bblv.js`: thêm ④ Khách chết / mất tích / mất năng lực hành vi · ⑤ Rủi ro khách quan (thiên tai, dịch bệnh) · ⑥ Sử dụng vốn sai mục đích / vay hộ · ⑦ Đã nộp cho Tổ trưởng nhưng Ngân hàng chưa nhận · ⑧ Đang chấp hành án / tạm giam — mỗi tình huống có Dấu hiệu, Nên mời, câu mẫu mục 2–5 (cũng vào gợi ý bản thật). Ô chọn ở khung 📝 Bản mẫu thành **danh sách sổ xuống**: Tất cả tình huống (tờ hướng dẫn ≈ 5 trang) · ① … ⑧ (biên bản mẫu đầy đủ 1 tình huống). Câu do TK 3 soạn theo nghiệp vụ thường gặp, chưa đối chiếu văn bản — anh sửa thì báo.
+- t181: bản mẫu BBLV là tờ hướng dẫn / mẫu tham khảo → không so chồng khít (chỉ bản thật). t366 theo 8 tình huống.
+
 ## 3.461.8 — 04/11/2026 — Tờ Hướng dẫn ghi biên bản làm việc (TK 3)
 - **Anh 04/11**: "đây là hướng dẫn nên em hướng dẫn kỹ các tình huống, câu văn sát thực tế nhất" → 📝 Bản mẫu **Cả 3 tình huống** thành tờ **HƯỚNG DẪN GHI BIÊN BẢN LÀM VIỆC** (≈ 2 trang): khung **Lưu ý chung** (nơi lập, thành phần tối thiểu, đối chiếu mục 1 với sổ vay vốn / biên lai, ghi cụ thể không chung chung, cam kết có số tiền + ngày, đọc lại và ký đủ); mỗi tình huống ① ② ③ có **Dấu hiệu**, **Nên mời**, câu mẫu mục 2 – 5 (viết lại sát thực tế, chỗ "…" để ghi thời gian, số tiền, tên người). Câu mới cũng thay vào gợi ý bản thật. Câu do TK 3 soạn — anh sửa thì báo.
 - t366 sửa theo câu mới.
