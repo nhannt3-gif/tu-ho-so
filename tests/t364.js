@@ -48,7 +48,7 @@ const fs=require('fs'), path=require('path');
    omDatKB('10a', 'bqlTT', ''); omDatCach('10a', 'bqlTT', 'tu');
    /* phê duyệt cả phần */
    document.querySelector('#hso-tuy [data-lenh="h10t.ub"][data-c="cham"]').click(); await w(400);
-   ok('Phê duyệt UBND ✍ cả phần → để chấm (giữ form)', /Chấp thuận cho Tổ TK(&amp;|&)VV tại [Tt]hôn [.…]+/.test(tx()) && /do Ông \(Bà\) [.…]+ làm Tổ trưởng/.test(tx()) && document.querySelector('#hso-tuy [data-lenh="h10t.ub"][data-c="cham"]').classList.contains('bat'));
+   ok('3.459: nút "Phê duyệt UBND — Tên Tổ trưởng, Tổ phó, ngày" ✍ → chấm tên + ngày, địa chỉ KHÔNG đổi', /do Ông \(Bà\) [.…]+ làm Tổ trưởng/.test(tx()) && !/Chấp thuận cho Tổ TK(&amp;|&)VV tại [Tt]hôn [.…]+/.test(tx()) && /Tên Tổ trưởng, Tổ phó, ngày/.test(document.getElementById('hso-tuy').textContent) && document.querySelector('#hso-tuy [data-lenh="h10t.ub"][data-c="cham"]').classList.contains('bat'));
    document.querySelector('#hso-tuy [data-lenh="h10t.ub"][data-c="in"]').click(); await w(400);
    ok('🤖 tự điền cả phần → điền lại', !/do Ông \(Bà\) [.…]+ làm Tổ trưởng/.test(tx()));
    /* 3.458: Kiện toàn → phê duyệt "được kiện toàn"; nút giữ "thành lập" */
@@ -58,6 +58,24 @@ const fs=require('fs'), path=require('path');
    omDatKB('10a', 'ubVv', 'Luôn "thành lập"'); hsoVe(); await w(300);
    ok('3.458: chọn Luôn "thành lập" → giữ "được thành lập" dù Kiện toàn', /làm Tổ phó được thành lập, hoạt động/.test(tx()));
    omDatKB('10a', 'ubVv', ''); omDatKB('10a', 'vv', ''); hsoVe(); await w(300);
+   /* 3.459 */
+   omDatCach('10a', 'ubAp', 'cham'); hsoVe(); await w(300);
+   ok('3.459: địa chỉ phê duyệt 3 dòng riêng — chấm thôn, xã / tỉnh vẫn điền; có ở Chọn nhanh', /Chấp thuận cho Tổ TK(&amp;|&)VV tại thôn [.…]+, (xã|phường) \S/.test(tx()) && !/, tỉnh \.{5,}/.test(tx().slice(tx().indexOf('Chấp thuận'))) && ['ubAp', 'ubXa', 'ubTinh'].every(k=>omNhanh('10a').indexOf(k)>=0));
+   omDatCach('10a', 'ubAp', 'tu');
+   omDatCach('10a', 'bqlTT', 'tu'); omDatCach('10a', 'bqlPho', 'cham'); hsoVe(); await w(300);
+   const pa = (HSO.x.h.match(/<p data-tab="(\d+)"[^>]*>(?:(?!<\/p>).)*a\) Ông/)||[])[1], pb = (HSO.x.h.match(/<p data-tab="(\d+)"[^>]*>(?:(?!<\/p>).)*b\) Ông/)||[])[1];
+   ok('3.459: III a) có tên, b) để chấm → cùng điểm tab, "Chức vụ" thẳng cột', pa && pa===pb && /b\) Ông \(Bà\) [.…]+Chức vụ: Tổ phó\./.test(tx()), pa+' / '+pb);
+   omDatCach('10a', 'bqlPho', 'tu');
+   omDatCach('10a', 'tk', 'kb'); omDatKB('10a', 'tk', '200000'); hsoVe(); await w(300);
+   ok('3.459: tiết kiệm tối thiểu gõ 200000 → in "200.000 đồng/tổ viên"', /mức tối thiểu là 200\.000 đồng\/tổ viên/.test(tx()));
+   omDatKB('10a', 'tk', ''); omDatCach('10a', 'tk', 'cham');
+   omDatCach('10a', 'truongAp', 'cham'); omDatCach('10a', 'thuKy', 'cham'); hsoVe(); await w(300);
+   ok('3.459: Trưởng ấp / Thư ký để chấm → 1 dòng kín (nowrap + canh đều cuối dòng)', /white-space:nowrap;text-align-last:justify;[^>]*>- Ông \(Bà\) <span[^>]*om-cham[^>]*data-o="truongAp"/.test(HSO.x.h) && /white-space:nowrap;text-align-last:justify;[^>]*><b>Thư ký:<\/b> Ông \(Bà\) <span[^>]*om-cham[^>]*data-o="thuKy"/.test(HSO.x.h));
+   const ky = () => [...new DOMParser().parseFromString(HSO.x.h, 'text/html').querySelectorAll('[data-o="kyTK"],[data-o="kyTA"]')].map(e=>e.textContent.replace(/\u00a0/g, '').trim());
+   ok('3.459: dòng trên để chấm → tên dưới chữ ký Thư ký / Trưởng ấp trống', ky().every(x=>!x), ky().join('|'));
+   omDatCach('10a', 'thuKy', 'kb'); omDatKB('10a', 'thuKy', 'Lê Thư Ký Giả'); hsoVe(); await w(300);
+   ok('3.459: Thư ký gõ tên → dưới chữ ký Thư ký in đúng tên', ky()[0]==='Lê Thư Ký Giả', ky().join('|'));
+   omDatKB('10a', 'thuKy', ''); omDatCach('10a', 'thuKy', 'cham'); omDatCach('10a', 'truongAp', 'tu'); hsoVe(); await w(300);
    hsoXem(); await w(2500); ok('vẫn 4 trang', document.getElementById('hso-xem-khung').contentDocument.querySelectorAll('.tr-tg').length===4);
    return o; }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
