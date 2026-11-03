@@ -12,6 +12,16 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 03/11/2026 18:40 — TK 2 · BÀN GIAO (cập nhật — đọc mục này trước, rồi mục 17:00 và 09:40)
+- **Trạng thái:** `main` sau khi gộp = **3.461**. Hồi quy đủ 3.461: **247/247 đạt** (mốc `tests/hoiquy_moc.json`).
+- **Đã làm thêm (3.460–3.461):**
+  - 3.460 **Mẫu 06A theo chuẩn 10A** (`js/mau/06a.js`): chữ điền liền in thường, chấm giữ form; tên hoa đầu từ; "Ông (bà): tên ⇥ Mã khách hàng / Chức vụ" (tab, `tabP` riêng của 06A: lề trái thụt 10 mm, rộng 162,5 mm, chữ 13,5); Hội bỏ xã; 23 ô mới (đoàn kiểm tra `d1Ten/d1Cv/d2Ten/d2Cv` — Chọn nhanh; 1b thực tế `tt*`; 2b `dungTien/dungViec/hd/hdNgay/hdThem/saiTien/saiViec`; `hq`, `kn`, `ykCB`, `ykKH`); đoạn nhiều dòng `khoi()` — có chữ thì dòng dư giữ chấm. Loại ô mới `gokb` (js/31 `OM_LOAI`: ✍ / ✏ / ⌨). Lãi giữ lãi tồn TH + QH (anh 03/11 "lấy như hiện nay, mọi chỗ"). Vẫn 2 trang.
+  - 3.461 **06A lập nhiều phiếu** — mẫu chính ở bộ mẫu, chỗ khác gọi: `hso06aLo(ds)` (ds = [{maTo, kh, ku, ten}]), `hso06aXuat(ds, 'in' | 'word')`, `hso06aHop(ds, tiêu đề)` (hộp tích món). KTGS chọn hộ có nút "📄 06A món 3 tháng KHĐ (n)" (lệnh `ktk.m06aKhd` ở js/56).
+- **Đang dở:** không.
+- **Chờ anh:** thử 06A trên máy thật (in 1 phiếu, gõ đoàn kiểm tra, gõ ý kiến; KTGS tổ có món KHĐ → Word n phiếu); các việc chờ ở mục 09:40 (Word giống bản in, 10A về `HST`, Scan CCCD, 5 mẫu chưa nền ô, phối hợp Giao ban tạm dừng).
+- **Phép thử mới:** `t366` (06A chuẩn 10A), `t367` (06A nhiều phiếu); `t349` (06A cũ) cập nhật; `t181` thêm 06A vào nhóm DUNG (chữ liền → chỉ giữ số trang).
+- **Bẫy:** dòng chỉ có chấm dùng chuỗi `CH` thường (không bọc `G.o`) — span chấm bị `omChamMin` thu 65 % + line-height 0, dòng trống chỉ có chấm sẽ mất khi in thiếu DOCTYPE. Script tự dựng PDF để soát phải thêm `<!DOCTYPE html>`.
+
 ### 03/11/2026 17:00 — TK 2 · PHIÊN (bổ sung sau bàn giao)
 - Đã làm: **3.459** (PR #482) 10A — địa chỉ phê duyệt UBND 3 ô `ubAp` / `ubXa` / `ubTinh`; nút "Phê duyệt UBND — Tên Tổ trưởng, Tổ phó, ngày" (`hso10aUbDat`, không đụng địa chỉ); III để chấm thẳng cột tab (`chamMM`); Trưởng ấp / Thư ký để chấm kín dòng (`chamDay`); tiền tiết kiệm dấu ngăn nhóm số; ô `kyTK`, tên dưới chữ ký theo dòng trên.
 - Trạng thái: `main` = **3.459**; mục BÀN GIAO 09:40 bên dưới vẫn đúng (đọc "3.458" là 3.459).
