@@ -12,6 +12,31 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 03/11/2026 09:40 — TK 2 · BÀN GIAO (anh chuyển vai App chính sang TK 3)
+- **Trạng thái:** `main` = **3.458** (PR #476–#480 đã gộp). Hồi quy: 245 phép đã chốt, đạt hết (`tests/hoiquy_moc.json`). `python3 tests/kiem.py` sạch, trong mốc (dòng > 400 ký tự = 163, onclick 1265).
+- **Đã làm phiên này (02–03/11):**
+  - 3.451 Thông báo KH dư nợ (giãn tiêu đề, gọn số TB) · 3.452 **10B** theo quy chuẩn 10A + phần chung mới `js/mau/0hst.js` (`HST`) + ô chọn nhiều (js/31 `nhieu:1`) · 3.453 **10C** (Cho ra / Kết nạp loại trừ nhau, kết nạp từ tổ khác **cùng ấp**, `chuyen10c`, ＋ / − số dòng bảng).
+  - 3.454 **10A khóa trang** bản in: trang 3 bắt đầu "b) Tổ phó", trang 4 "III." (lớp `tr-sang-in` — Word bỏ qua); phần đầu dư dòng → bớt hàng khung tổ viên (`hso10aDong`, mốc `HSO_10A_DAU` = 15 ở js/25), khung để chấm → thu chiều cao hàng.
+  - 3.455 **Khai báo riêng thống nhất mọi mẫu nền ô** (16 mẫu): dòng dùng chung `omO1Phan` / `omDsDong` (vạch màu nguồn `.om-ds-*`), hộp ⚙ Khai báo riêng (nút cạnh ⚙ Khai báo đơn vị; tóm tắt `omDemNguon`, cỡ chữ, ↺ `omMDChu`), 🖼 trực quan liên kết 2 chiều (`omKBChiTiet`, `omKBDanh`), bấm chữ bản xem trước (`omXemGan` / `omXemBam`). Cột trái mẫu nền ô chỉ còn Chọn nhanh (mẫu in kèm có nút ⚙ riêng).
+  - 3.456 **10A** số tham dự = tổ viên × tỷ lệ (mặc định 100%, − / +, > 1/2), IV tán thành / tham dự (> 2/3, QĐ 70), III gõ / chọn tên trong tổ (`goiY`), UBND theo III, phê duyệt cả phần ✍ / 🤖 (`hso10aUbNut`); khung chung: `tuUi`, `goiY` trong `omO1Phan`.
+  - 3.457 **10B, 10C** số tham dự / biểu quyết như 10A — phần chung `HST.tl / so / thamDu / bq / tlHTML / tlDat / nhanhThem`, tỷ lệ nhớ `hsoLuu().tlHop[mẫu]`.
+  - 3.458 **10A** Kiện toàn → phê duyệt "được kiện toàn", ô `ubVv` (Theo Về việc · Luôn "thành lập").
+- **Đang dở:** không có code dở. Nhánh làm việc `claude/html-app-review-ck346k` đã gộp hết vào `main`.
+- **Chờ anh:**
+  1. Thử máy thật 10A / 10B / 10C (bảng thử 3.452–3.458 ở `docs/BAN_GIAO_VIEC_CON_LAI.md`).
+  2. **Word giống bản in** cho mẫu nền ô — `hsoDocx` (js/25b) chỉ đọc lớp (c / j / thut / s14…), **bỏ qua style trong dòng** (canh đều, thụt 12,7, cỡ 14, line-height) → Word 10A canh trái, chữ 13; vì vậy khóa trang 10A chưa áp Word. Việc lớn (đụng phần chung xuất Word) — chờ anh duyệt.
+  3. **Đưa 10A về `HST`** (dùng chung với 10B / 10C; 10A còn bản riêng `hso10aDs`, `hso10aBang`, `hso10aTl*`, tab / dvA…) — anh đã đồng ý "chuẩn cho 3 mẫu", chờ lúc gom góp ý.
+  4. Scan: 1 dòng không nhận CCCD (người nào / thêm bước quét lại QR?).
+  5. 5 mẫu chưa nền ô (01/BG, 02/BG, Sổ hộ vay, 06/TD, Phê duyệt NH) chưa có khai báo trực quan — làm dần khi anh giao.
+  6. Phối hợp App ↔ Giao ban (GB-5, APP-1, kỳ đối chiếu T10) **vẫn tạm dừng** theo anh 02/11.
+- **Cách làm / phép thử:** quy trình mỗi bản như `CLAUDE.md` (spec `tools/bump.py` có `thu`, `bo` khi bỏ / thay; `tests/bando.py`; dòng `docs/PHOI_HOP_TK2_TK3.md`). Phép thử mẫu Hồ sơ Tổ: `t358` (10A), `t361` (10B), `t362` (10C), `t363` (khai báo riêng / trực quan), `t364` (10A tham dự, III, IV, phê duyệt), `t365` (10B / 10C tham dự); chuẩn in `t179` (đổi bố cục anh duyệt → `node tests/chuan_tao.js <tên>`); `t181` nhóm DUNG chỉ giữ số trang. Đụng js/31 / js/25c / css → hồi quy `tat 3`, còn lại `doi 3`.
+- **Lưu ý / bẫy:**
+  - `hoiquy.sh` dựng worktree theo HEAD → **commit trước khi chạy**; `pgrep / pkill -f <tên>` khớp luôn shell gọi (đừng kill theo tên).
+  - Loại ô `tukb` md `tu` bị `omDangKy` đổi thành `kb` — ô tự tính cần nút riêng dùng `l:'tu'`.
+  - Ô 1 giá trị cần ⌨ gõ đè (và đọc giá trị gõ trong `lap`) phải có trong `DON` của mẫu.
+  - Script chụp màn hình chạy từ thư mục repo sẽ ghi PNG vào repo — chạy ở scratchpad.
+  - 10A mốc `HSO_10A_DAU` ước theo `omRong` (chuỗi chấm tính 85%) — đổi chữ phần đầu trang 1 thì chạy lại 4 trường hợp tên dài trong `t358`.
+
 ### 02/11/2026 17:50 — TK 2 · PHIÊN
 - Đã làm: 3.443–3.450 Mẫu 10A (khung 100 tổ viên 3 cột, 4 trang, chữ 14, VB 4336 Thành lập / Kiện toàn, xã–ấp theo địa bàn, họ tên ⇥ chức vụ, tách ô tự động / ghi tay, nút ⚙ Khai báo riêng + Nhập liệu riêng mẫu, bảng hộ vay của tổ có TT / TP theo Mã KH); ô chọn chung `l:'chon'` (js/31); 3.445 Scan bổ sung ấp bản tổ trưởng; 3.448 cây lọc tên xã theo File Tổ trưởng; 3.451 Thông báo KH dư nợ giãn tiêu đề. Hồi quy đủ 240/240 (3.449). Quy chuẩn mẫu ghi `QUY_CHUAN_KIEN_TRUC.md` 9.8.
 - Đang dở: không.
