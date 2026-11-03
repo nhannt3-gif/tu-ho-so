@@ -1,6 +1,6 @@
 # Nhật ký vai: App chính
 
-> Hiện do: **TK 2** · Làm ở: repo · `index.html`, `js/`, kho số liệu, bộ số / nháp văn bản đối chiếu. Bảng vai: `docs/PHOI_HOP_CHUNG.md` mục 1; cách ghi / đổi vai: mục 1a.
+> Hiện do: **TK 3** (nhận 03/11 từ TK 2) · Làm ở: repo · `index.html`, `js/`, kho số liệu, bộ số / nháp văn bản đối chiếu. Bảng vai: `docs/PHOI_HOP_CHUNG.md` mục 1; cách ghi / đổi vai: mục 1a.
 > **Mẫu mục** (thêm ở ĐẦU danh sách, mới nhất trên cùng; không dữ liệu khách / tên tổ trưởng / mã tổ):
 >
 > ```
@@ -11,6 +11,13 @@
 > - Chờ ai: anh / TK … (việc gì)
 > - Lưu ý / bẫy: …
 > ```
+
+### 03/11/2026 — TK 3 · NHẬN VAI (anh: "bàn giao từ TK 2, em làm app chính")
+- Đã đọc: `AGENTS.md` → `docs/TRANG_THAI_CHUNG.md` → mục BÀN GIAO 09:40 + PHIÊN 17:00 của TK 2. Trạng thái nhận: `main` = **3.459**, không code dở, hồi quy 245 phép đã chốt.
+- Nhận nguyên danh sách "Chờ anh" của TK 2 (thử máy thật 10A/10B/10C · Word giống bản in mẫu nền ô · 10A về `HST` · 5 mẫu chưa nền ô · phối hợp App ↔ Giao ban tạm dừng). **Bỏ hẳn việc "Scan 1 dòng không nhận CCCD"** (anh 03/11: "việc này bỏ qua đi, không ghi nhớ") — không theo dõi nữa.
+- Vai **App phụ** (`dt.html`, Văn bản + Scan) TK 3 kiêm luôn đến khi anh giao lại. Hộp thư: G3 (`css/dt-may-vbsc.css`) TK 3 xác nhận; `dt.html` "chỉ nạp kỳ gần nhất" còn mở — rà khi anh giao.
+- Bước tiếp: chờ anh giao việc; mỗi bản theo `CLAUDE.md` (bump · kiem · hồi quy `doi` / `tat` · bando · nhật ký vai).
+- Lưu ý / bẫy: giữ đủ mục "Lưu ý / bẫy" của TK 2 bên dưới.
 
 ### 03/11/2026 17:00 — TK 2 · PHIÊN (bổ sung sau bàn giao)
 - Đã làm: **3.459** (PR #482) 10A — địa chỉ phê duyệt UBND 3 ô `ubAp` / `ubXa` / `ubTinh`; nút "Phê duyệt UBND — Tên Tổ trưởng, Tổ phó, ngày" (`hso10aUbDat`, không đụng địa chỉ); III để chấm thẳng cột tab (`chamMM`); Trưởng ấp / Thư ký để chấm kín dòng (`chamDay`); tiền tiết kiệm dấu ngăn nhóm số; ô `kyTK`, tên dưới chữ ký theo dòng trên.
