@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.460', ds:[
+var CO_GI_MOI = {ban:'3.461', ds:[
+  ["📄 06A lập nhiều phiếu 1 lần (mỗi món 1 phiếu, 1 file In / Word) — KTGS chọn hộ có nút \"06A món 3 tháng KHĐ\"", ""],
   ["📝 Mẫu 06A theo chuẩn 10A: chữ điền liền in thường, tên hoa đầu từ, \"Ông (bà): tên\" ⇥ tab; mọi chỗ chấm là ô khai báo (đoàn kiểm tra, thực tế, sử dụng vốn, ý kiến)", ""],
   ["📝 Mẫu 10A: địa chỉ phê duyệt UBND 3 dòng riêng; nút \"Tên Tổ trưởng, Tổ phó, ngày\"; dòng chấm gọn (III thẳng cột, Trưởng ấp / Thư ký kín dòng); tiền có dấu chấm; tên dưới chữ ký theo dòng trên", ""],
   ["📝 Mẫu 10A: chọn \"Kiện toàn\" → Phê duyệt UBND ghi \"được kiện toàn\"; có nút giữ \"thành lập\"", ""],
@@ -1070,9 +1071,9 @@ var CO_GI_MOI = {ban:'3.460', ds:[
   ["📝 Mẫu 10A: dòng Chủ trì / III a-b không còn thụt gấp đôi, vừa 1 dòng; họ tên tự gõ in đúng", ""],
   ["📝 Mẫu 10A: bảng hộ vay của tổ (Mã KH, dư nợ, TT / TP), họ tên ⇥ Chức vụ, mỗi dòng chọn tự động / ghi tay", ""],
   ["📝 Mẫu 10A: Thành lập / Kiện toàn (VB 4336), chữ 14, Tổng số ở cột cuối, xã–ấp theo địa bàn, nút ⚙ Khai báo riêng", ""],
-  ["🌳 Cây lọc: tên xã không còn hiện \"Vay trực tiếp\"", ""],
-  ["📝 Mẫu 10A rà bố cục: ngày họp in đúng, thêm khoảng trắng sau xã / tỉnh / tháng, dòng Thư ký vừa 1 dòng", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🌳 Cây lọc: tên xã không còn hiện \"Vay trực tiếp\"", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.461 · KTGS › Đột xuất › chọn tổ › hàng nút in: \"📄 06A món 3 tháng KHĐ (n)\" → hộp tích món → 🖨 In / 📄 Word n phiếu",
     "3.460 · Hồ sơ vay › 06A › ⚙ Khai báo riêng: đủ mọi dòng (đoàn kiểm tra, 1b thực tế, 2b sử dụng vốn, 2c, 2d, ý kiến) — chọn ✍ chấm / ✏ gõ khi làm / ⌨ tự gõ",
     "3.460 · 06A › Chọn nhanh: đoàn kiểm tra (tên, chức vụ 2 người) — gõ 1 lần app nhớ",
     "3.460 · 06A › ✏ gõ số tiền thực tế (vd 30000000) → in 30.000.000",
@@ -1091,8 +1092,7 @@ var CO_GI_MOI = {ban:'3.460', ds:[
     "3.455 · Hồ sơ › mọi mẫu nền ô (10A, 01/TD, 03/TD, 11…) › nút ⚙ Khai báo riêng cạnh ⚙ Khai báo đơn vị → danh sách: tên · nút nguồn · giá trị · Chọn nhanh; bấm tên dòng → 🖼 trực quan đúng chỗ đó",
     "3.455 · 🖼 Khai báo trực quan: bấm chỗ trên mẫu → dòng bên phải sáng + mở chi tiết; bấm tên dòng → viền đỏ trên mẫu",
     "3.455 · Bản xem trước: rê chuột lên chữ app điền (viền màu nguồn), bấm → dòng Chọn nhanh cột trái sáng lên; dòng không có ở Chọn nhanh → mở trực quan",
-    "3.454 · Hồ sơ Tổ › 10A › Xem / In: trang 3 bắt đầu \"b) Tổ phó…\", trang 4 bắt đầu \"III. BẦU BAN QUẢN LÝ…\"",
-    "3.454 · 10A › ⚙ Khai báo riêng › Trưởng ấp / Thư ký ⌨ gõ tên rất dài → vẫn 4 trang, khung tổ viên bớt 1–2 hàng (còn đủ ô cho tổ)"],
+    "3.454 · Hồ sơ Tổ › 10A › Xem / In: trang 3 bắt đầu \"b) Tổ phó…\", trang 4 bắt đầu \"III. BẦU BAN QUẢN LÝ…\""],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.460 · 06A: chữ tự điền trong khung cố định (co / giãn) → chữ liền như gõ tay (chuẩn 10A)",
     "3.459 · 10A: ô \"Phê duyệt UBND: thôn · xã · tỉnh\" (1 ô) → 3 ô riêng (cách đã chọn giữ cho cả 3)",

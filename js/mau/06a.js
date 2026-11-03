@@ -130,6 +130,27 @@
   /* gọi từ chỗ khác (KTGS Mẫu 06 · sau này danh sách 3 tháng KHĐ): mở tab Hồ sơ vay, mẫu 06A, chọn sẵn người vay + món — tổ theo phạm vi đang chọn */
   hso06aMo = function(maTo, kh, ku, kyCo){ var S = hsoCH(), t = maTo ? KHO.to(maTo) : null; if(t && S.to!==maTo){ S.xa = t.xa || ''; S.diem = t.khoaDiem || ''; S.hoi = String(t.dv||''); S.ap = ''; S.to = maTo; }   /* phạm vi chung đặt đúng tổ (như pvChonTo) */
     S.hsv = MK; HSO_DEN = {kh:kh, ku:ku || ''}; luu(); datKy(kyCo); dhSL('hsv'); };
+  /* 3.461 (anh 03/11 "mẫu tạo chính ở bộ mẫu, các nơi khác cần sẽ gọi, ví dụ tạo phiếu ktra 3 tháng KHĐ của tổ nào đó"):
+     LẬP NHIỀU PHIẾU 1 LẦN — ds = [{maTo, kh, ku, ten}] → mỗi món 1 phiếu (mỗi phiếu sang trang mới), 1 file In / Word. Số liệu: kỳ mặc định 06A (cuối tháng trước). */
+  hso06aLo = function(ds){ var M = hsoMauK(MK), giu = {kh:HSO.vay.kh, ku:HSO.vay.ku}, out = [];
+    try { (ds || []).forEach(function(x){ var t = KHO.to(x.maTo); if(!t) return; HSO.vay.kh = x.kh; HSO.vay.ku = x.ku || ''; out.push({M:M, h:omLap(MK, t).h}); }); }
+    finally { HSO.vay.kh = giu.kh; HSO.vay.ku = giu.ku; }
+    var ten = 'Mau 06A_'+out.length+' phieu'; return {ds:out, ten:ten, trang:out.length ? hsoTrang(out, null, ten) : ''}; };
+  hso06aXuat = function(ds, cach){ datKy(); var x = hso06aLo(ds); if(!x.ds.length) return bao('Không có món nào để lập 06A.', 4);
+    if(cach==='word') return hsoDocx({ds:x.ds}).then(function(bl){ giaoFile(bl, x.ten+'.docx'); bao('Đã tạo '+x.ten+'.docx ('+x.ds.length+' phiếu).', 5); }).catch(function(er){ baoLoi('Chưa tạo được Word 06A: '+(er && er.message || er)); });
+    inBlob(new Blob([x.trang], {type:'text/html'}), x.ten+'.html'); };
+  /* hộp chọn món (tích sẵn hết) → 🖨 In / 📄 Word — chỗ nào cần chỉ gọi hso06aHop(ds, tiêu đề) */
+  var H06 = {ds:[], bo:{}};
+  hso06aHop = function(ds, tieuDe){ H06 = {ds:ds || [], bo:{}};
+    if(!hso06aHop.dk && typeof GD!=='undefined'){ hso06aHop.dk = 1; GD.dangKy('h06a', {tich:function(el){ H06.bo[el.getAttribute('data-i')] = !el.checked; hso06aHopVe(); }, het:function(el){ var v = el.getAttribute('data-v')==='1'; H06.ds.forEach(function(x, i){ H06.bo[i] = !v; }); hso06aHopVe(); },
+      xuat:function(el){ var c = el.getAttribute('data-c'), ds = H06.ds.filter(function(x, i){ return !H06.bo[i]; }); dongHop(); hso06aXuat(ds, c); }}); }
+    moHop('<div class="hop-tit">📄 Mẫu 06A/TD — '+coChuHTML(tieuDe || 'Phiếu kiểm tra sử dụng vốn vay')+'</div><div class="hop-phu">Mỗi món 1 phiếu (sang trang mới), 1 file. Số liệu đến cuối tháng trước (mặc định 06A). Phần kiểm tra thực tế để chấm ghi tay — muốn gõ sẵn, mở từng phiếu ở Hồ sơ vay.</div><div id="h06a-ds"></div>', true);
+    hso06aHopVe(); };
+  function hso06aHopVe(){ var e = document.getElementById('h06a-ds'); if(!e) return; var n = H06.ds.filter(function(x, i){ return !H06.bo[i]; }).length;
+    e.innerHTML = '<div class="hang-nut"><button class="nho" data-lenh="h06a.het" data-v="1">Tích hết</button><button class="nho" data-lenh="h06a.het" data-v="0">Bỏ hết</button><span class="sl-phu">Đã chọn <b>'+n+'</b> / '+H06.ds.length+' món</span></div>'+
+      '<div class="to-bang-cuon"><table class="to-bang"><thead><tr><th>In</th><th>#</th><th>Mã KH</th><th>Họ tên</th><th>Số khế ước</th></tr></thead><tbody>'+
+      H06.ds.map(function(x, i){ return '<tr><td><input type="checkbox" data-lenh="h06a.tich" data-su="change" data-i="'+i+'"'+(H06.bo[i] ? '' : ' checked')+'></td><td>'+(i+1)+'</td><td>'+coChuHTML(x.kh||'')+'</td><td>'+coChuHTML(tenHoaDau(x.ten||''))+'</td><td>'+coChuHTML(x.ku||'')+'</td></tr>'; }).join('')+'</tbody></table></div>'+
+      '<div class="hang-nut"><button class="nho" data-lenh="h06a.xuat" data-c="in"'+(n ? '' : ' disabled')+'>🖨 In '+n+' phiếu</button><button class="nho chinh" data-lenh="h06a.xuat" data-c="word"'+(n ? '' : ' disabled')+'>📄 Word '+n+' phiếu</button><button class="nho" data-lenh="hop.dong">Đóng</button></div>'; }
   if(typeof hsoChonMau==='function'){ var cu = hsoChonMau; hsoChonMau = function(k){ if(k===MK && hsoTab()==='hsv' && hsoCH().hsv!==MK){ hsoCH().hsv = MK; luu(); if(datKy()) return; } return cu.apply(this, arguments); }; }
   var M = hsoMauK(MK); if(M) M.mg = omMg([20, 20, 18, 27.5]);   /* lề theo file gốc */
 })();

@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.461 — 03/11/2026 — 06A lập nhiều phiếu, gọi từ KTGS (TK 2)
+- **Anh 03/11:** "mẫu tạo chính ở bộ mẫu, các nơi khác cần sẽ gọi, ví dụ tạo phiếu ktra 3 tháng KHĐ của tổ nào đó".
+- `js/mau/06a.js`: `hso06aLo(ds)` (ds = [{maTo, kh, ku, ten}] → mỗi món 1 phiếu, không đổi người vay / món đang chọn ở Hồ sơ vay), `hso06aXuat(ds, 'in' | 'word')` (kỳ mặc định 06A, 1 file), `hso06aHop(ds, tiêu đề)` (hộp tích món, Tích hết / Bỏ hết, 🖨 In / 📄 Word n phiếu) — chỗ nào cần chỉ gọi, không dựng lại mẫu. `js/25b` hàm thay khi thiếu mô-đun.
+- KTGS chọn hộ (js/22b, lệnh `ktk.m06aKhd` js/56): nút "📄 06A món 3 tháng KHĐ (n)" — mọi món KHĐ ≥ 3 tháng của tổ, theo Mã KH.
+- Phép thử mới `t367`.
+
 ## 3.460 — 03/11/2026 — Mẫu 06A theo chuẩn 10A (TK 2)
 - **Anh 03/11:** "làm mẫu 06A theo chuẩn 10A, mẫu tạo chính ở bộ mẫu, các nơi khác cần sẽ gọi"; "lãi lấy như hiện nay, mọi chỗ đều có khai báo được".
 - `js/mau/06a.js`: chữ điền liền, in thường; để chấm giữ form gốc; tên khách / tổ trưởng / đoàn kiểm tra hoa đầu từ; "Ông (bà): tên ⇥ Mã khách hàng" và "- Ông (bà): tên ⇥ Chức vụ" (tab, Word có điểm dừng); Hội bỏ xã / phường ("thuộc tổ chức Đoàn Thanh niên"); ngày liền dd/mm/yyyy. Ô mới (23): đoàn kiểm tra 2 người (tên, chức vụ — Chọn nhanh), 1b thực tế 8 ô (số tiền + chênh lệch), 2b đúng / sai mục đích (số tiền, vào việc), hóa đơn (số, ngày, dòng tiếp), 2c, 2d, ý kiến cán bộ / khách hàng; đoạn nhiều dòng có chữ → chữ liền, dòng còn dư giữ chấm (form không xô). Số tiền gõ tay tự thêm dấu ngăn nhóm số. Lãi giữ lãi tồn TH + QH. Vẫn 2 trang.

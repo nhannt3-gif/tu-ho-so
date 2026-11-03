@@ -277,6 +277,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t364.js` | 3.456: 10A số tham dự theo tỷ lệ (> 50%), IV tán thành (> 2/3), III gõ / chọn tên, UBND theo III, phê duyệt cả phần. |
 | `node tests/t365.js` | 3.457: 10B, 10C số tham dự / biểu quyết theo tỷ lệ (> 50%, > 2/3), nhớ riêng từng mẫu, vẫn 2 trang. |
 | `node tests/t366.js` | 3.460: Mẫu 06A theo chuẩn 10A (chữ liền, tên hoa đầu từ, tab, mọi chỗ chấm là ô, số tiền dấu chấm, 2 trang). |
+| `node tests/t367.js` | 3.461: 06A lập nhiều phiếu (hso06aLo / Xuat / Hop), nút KTGS món 3 tháng KHĐ. |
 | (3.459) | `t364` + địa chỉ phê duyệt 3 dòng, nút tên + ngày, III chấm thẳng cột, tiền dấu chấm, chấm kín dòng, tên dưới chữ ký theo dòng trên; `t358` ô tách mới. |
 | (3.458) | `t364` + Kiện toàn → phê duyệt "được kiện toàn", nút giữ "thành lập". |
 | (3.454) | `t358` + khóa trang 3 ("b) Tổ phó") / trang 4 ("III."), tên dài → bớt hàng khung / thu chiều cao hàng, vẫn 4 trang. |
