@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.461.5 — 04/11/2026 — Biên bản làm việc: tình huống mẫu cho mục 2–5 (TK 3)
+- **Anh 03/11**: "khi chọn bản mẫu anh muốn các gợi ý này hiện ra tương ứng từng mục 2-3-4-5"; "cho chọn tình huống mẫu: KH bỏ địa phương hay còn gọi đi làm ăn xa, khách hàng còn địa phương nhưng khó khăn, nhóm KH có điều kiện nhưng chây ỳ"; "em code và gộp lên".
+- `js/mau/bblv.js`: 3 bộ câu `MAU` (mục 2 Nguyên nhân · 3 Thực trạng · 4 Cam kết · 5 Kiến nghị); ô chọn **📝 Bản mẫu — tình huống mẫu** (`tinhMau`, Chọn nhanh, không báo thiếu số liệu); 📝 Bản mẫu in bộ câu của tình huống chọn; 12 câu thêm vào gợi ý chọn nhanh của bản thật (mặc định vẫn ✍ chấm). Câu do TK 3 soạn theo cách ghi thường gặp — anh sửa chữ thì báo.
+- t366 thêm 2 ý.
+
 ## 3.461.4 — 03/11/2026 — Biên bản làm việc chỉnh theo góp ý; bảng chọn có STT (TK 3)
 - **Anh 03/11**: "mất chữ Tây Ninh" → dòng "Hôm nay, ngày …, tại …" có địa chỉ thì tự xuống dòng (trước khóa 1 dòng nên cắt chữ); bản trắng vẫn giữ 1 dòng chấm.
 - "số tiền vay nếu chương trình vay dài thì cho xuống dòng" → đo độ dài (> 150 mm) thì "- Số tiền vay: … đồng;" thành dòng riêng.

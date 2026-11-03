@@ -22,6 +22,25 @@
     kienNghi:['Đôn đốc khách hàng trả lãi hằng tháng qua Tổ TK&VV', 'Đôn đốc khách hàng trả nợ gốc quá hạn theo cam kết', 'Lập hồ sơ gia hạn nợ / điều chỉnh kỳ hạn nợ theo quy định',
       'Tổ TK&VV, Hội đoàn thể phối hợp theo dõi, đôn đốc thu hồi nợ', 'Đề nghị UBND cấp xã hỗ trợ đôn đốc thu hồi nợ', 'Lập hồ sơ đề nghị xử lý nợ bị rủi ro theo quy định']};
   var TRANG = ['Dạng dòng (1 món)', 'Bảng 3 dòng', 'Bảng 4 dòng', 'Bảng 5 dòng', 'Bảng 6 dòng'];
+  /* 3.461.5 (anh 03/11 "khi chọn bản mẫu anh muốn các gợi ý này hiện ra tương ứng từng mục 2-3-4-5"; "cho chọn tình huống mẫu: KH bỏ địa phương hay còn gọi đi làm ăn xa,
+     khách hàng còn địa phương nhưng khó khăn, nhóm KH có điều kiện nhưng chây ỳ") — 📝 Bản mẫu in bộ câu của tình huống chọn; các câu cũng vào gợi ý của bản thật */
+  var MAU = [
+    {ten:'① Bỏ địa phương / đi làm ăn xa',
+      ngNhan:'Khách hàng đã đi khỏi địa phương (đi làm ăn xa tại …) từ khoảng tháng …/…, không thường xuyên về địa phương, không liên lạc được; không giao dịch với Tổ TK&VV',
+      thucTrang:'Tại địa phương còn ông (bà) … (quan hệ: …) đang sinh sống; tài sản còn lại: …; khả năng trả nợ thay: …',
+      camKet:'Người thân cam kết liên lạc, báo khách hàng về làm việc với Tổ TK&VV và Ngân hàng; trả nợ thay số tiền … đồng trước ngày …/…/…',
+      kienNghi:'Phối hợp UBND cấp xã, Tổ TK&VV, Hội tiếp tục xác minh nơi ở của khách hàng; đôn đốc người thân trả nợ thay; đề nghị xem xét xử lý nợ theo quy định nếu đủ điều kiện'},
+    {ten:'② Còn ở địa phương nhưng khó khăn',
+      ngNhan:'Gia đình gặp khó khăn (ốm đau / mất mùa / dịch bệnh / thu nhập không ổn định: …), thu nhập không đủ trả nợ, lãi đúng hạn',
+      thucTrang:'Kinh tế gia đình khó khăn, thu nhập chính từ …; còn khả năng trả nợ một phần, cần thêm thời gian',
+      camKet:'Khách hàng cam kết trả lãi hằng tháng qua Tổ TK&VV; trả dần nợ gốc mỗi tháng … đồng, dứt điểm trước ngày …/…/…',
+      kienNghi:'Tổ TK&VV, Hội theo dõi, đôn đốc trả lãi hằng tháng; xem xét lập hồ sơ gia hạn nợ / điều chỉnh kỳ hạn nợ theo quy định nếu đủ điều kiện'},
+    {ten:'③ Có điều kiện nhưng chây ỳ',
+      ngNhan:'Khách hàng có điều kiện kinh tế (có nguồn thu từ …) nhưng ý thức trả nợ chưa cao, chây ỳ, không chủ động trả nợ, lãi đúng hạn',
+      thucTrang:'Kinh tế gia đình ổn định, có tài sản / nguồn thu: …; có khả năng trả nợ',
+      camKet:'Khách hàng cam kết trả hết số lãi tồn và nợ gốc quá hạn … đồng trước ngày …/…/…; nếu không thực hiện, đồng ý để Ngân hàng phối hợp chính quyền địa phương xử lý theo quy định',
+      kienNghi:'Đề nghị UBND cấp xã, Hội, Tổ TK&VV phối hợp đôn đốc quyết liệt; quá hạn cam kết mà không trả, Ngân hàng xem xét các biện pháp thu hồi nợ theo quy định'}];
+  ['ngNhan', 'thucTrang', 'camKet', 'kienNghi'].forEach(function(k){ MAU.forEach(function(t){ if(GOI[k].indexOf(t[k])<0) GOI[k].push(t[k]); }); });   /* câu tình huống vào gợi ý bản thật */
   var ND = [['ngNhan', '2. Nguyên nhân không trả được nợ'], ['thucTrang', '3. Thực trạng tình hình kinh tế và khả năng trả nợ của khách hàng'], ['camKet', '4. Cam kết của khách hàng (hoặc người trả nợ thay)'], ['kienNghi', '5. Kiến nghị biện pháp xử lý nợ']];
   omDangKy({k:MK, ma:'BBLV', phan:['ky', 'tp', 'kh', 'nd', 'kyt'], co:CO,
     dien:[['het', 'Điền hết'], ['tuy', 'Tùy chọn']],
@@ -40,6 +59,7 @@
       {k:'hoi', n:'Thuộc tổ chức Hội … quản lý', p:'kh', l:'tu', md:'tu', ng:'tổ — Hội nhận ủy thác'},
       {k:'ngaySL', n:'Dư nợ đến ngày (ngày số liệu)', p:'kh', l:'tu', md:'tu', ng:'ngày số liệu Mẫu 31 đang mở'},
       {k:'mon', n:'1. Thông tin về món vay (1 món: dòng · nhiều món: bảng)', p:'kh', l:'tu', md:'tu', ng:'các món đã chọn — M31'},
+      {k:'tinhMau', n:'📝 Bản mẫu — tình huống mẫu (mục 2–5)', p:'nd', l:'chon', md:'kb', chon:MAU.map(function(t){ return t.ten; }), chonMD:1, khongBao:1, nhanh:1},
       {k:'monTrang', n:'Bản trắng — mục 1', p:'kh', l:'chon', md:'kb', chon:TRANG, chonMD:1, khongBao:1},   /* ô cài đặt — không báo "chưa có số liệu" */
       {k:'ngNhan', n:'2. Nguyên nhân không trả được nợ', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.ngNhan},
       {k:'thucTrang', n:'3. Thực trạng kinh tế, khả năng trả nợ', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.thucTrang},
@@ -57,7 +77,8 @@
     },
     lap:function(t){
       var V = this.V(t), G = omG(MK, V, CO), o = function(k, ch){ return G.o(k, ch, {lien:1}); }, e = coChuHTML;
-      var nd = function(d){ var v = G.gt(d[0]); return v ? v.split('|').filter(Boolean).join('; ')+'.' : ''; };
+      var nd = function(d){ if(OM_KIEU==='mau'){ var tm = omKB(MK, 'tinhMau'), t = MAU.find(function(x){ return x.ten===tm; }) || MAU[0]; return t[d[0]]+'.'; }   /* 📝 Bản mẫu: bộ câu của tình huống chọn */
+        var v = G.gt(d[0]); return v ? v.split('|').filter(Boolean).join('; ')+'.' : ''; };
       var ngay = function(k){ var g = hsoNg(G.gt(k)); return g ? G.o(k, '', {gt:g.d+'/'+g.m+'/'+g.y, lien:1}) : G.o(k, '……/……/………'); };   /* có ngày → dd/mm/yyyy liền (QUY_CHUAN 9.7) */
       var dong = function(L, lh){
         var P = function(noi, s){ return '<p style="margin:0;line-height:'+lh+';'+(s||'')+'">'+noi+'</p>'; }, T = 'text-indent:10mm;', J = 'text-align:justify;', W = 'white-space:nowrap;overflow:hidden;';
