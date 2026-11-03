@@ -126,7 +126,7 @@ function hsoThieu(M, t){
   if(typeof omCo==='function' && omCo(mk)){   /* 3.223: mẫu trên nền ô — ô dài quá khung (đã thu nhỏ hết mức), ô bật in mà chưa có số liệu */
     try { if(mk==='01tgtv' && typeof tgNguon==='function' && tgNguon(B)==='tay') hsoLap01tgtv(t, tgTayP()); else omLap(mk, t, B || hsoBo()); } catch(e){}   /* 3.319: In nhanh dựng thử theo người đang khai */   /* dựng thử để biết ô dài (cột trái vẽ trước khung xem) */
     OM_DAI.filter(function(x){ return x.mk===mk; }).forEach(function(x){ r.push('Ô <b>'+coChuHTML(x.n)+'</b> '+(x.gian ? 'dài hơn ô (đã viết tắt, nhãn sau dịch phải — xem có rớt dòng không, cần thì gõ ngắn lại)' : 'dài quá khung (đã thu nhỏ chữ hết mức)')+': "'+coChuHTML(x.v.slice(0, 60))+'"'); });
-    if(OM_KIEU==='that'){ var Vo = OM_MAU[mk].V(t, B); OM_MAU[mk].o.forEach(function(x){ var c = omCachLuu(mk, x.k); if(c==='kb' && !omKB(mk, x.k) && !((OM_LOAI[x.l]||[]).indexOf('tu')>=0 && (Vo[x.k]||'')) || c==='go' && !(Vo[x.k]||'')) r.push('Ô '+OM_CACH[c][0]+' <b>'+coChuHTML(x.n)+'</b> chưa có số liệu → in chấm'); }); }
+    if(OM_KIEU==='that'){ var Vo = OM_MAU[mk].V(t, B); OM_MAU[mk].o.forEach(function(x){ var c = omCachLuu(mk, x.k); if(x.khongBao) return; if(c==='kb' && !omKB(mk, x.k) && !((OM_LOAI[x.l]||[]).indexOf('tu')>=0 && (Vo[x.k]||'')) || c==='go' && !(Vo[x.k]||'')) r.push('Ô '+OM_CACH[c][0]+' <b>'+coChuHTML(x.n)+'</b> chưa có số liệu → in chấm'); }); }
     return r; }
   if(!HSO_GM) (mk==='09a' && hsoLuu().kemTDCK ? ['09a', '01tdck'] : [mk]).forEach(function(m){ (HSO_CHAM[m]||[]).forEach(function(x){
     if(x[2]==='nhom' || hsoChamKieu(m, x[0])!=='in') return;

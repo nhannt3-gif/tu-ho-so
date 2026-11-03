@@ -190,6 +190,9 @@
 | 03/11 | TK 2 | 3.459 | `js/mau/10a.js` (ô `ubAp` / `ubXa` / `ubTinh` / `kyTK`, **mới** `hso10aUbDat`, `chamMM` / `chamDay` trong lap), tests t358 / t364, chuẩn in t179 10A | — |
 | 03/11 | TK 3 (App chính) | **3.460** | `js/mau/10a.js` (10A → HST); `tests/t358.js`, `tests/t364.js` | t358 t364 t365 t163 t363 t179 t181 |
 | 03/11 | TK 3 (App chính) | **3.461** | mới `js/mau/0hsn.js`, `js/mau/bblv.js`; `js/mau/06a.js`, `js/25-ho-so.js`, `js/25b-ho-so-vay.js`, `js/25c-ho-so-giao-dien.js`, `index.html`; tests t366 (mới), t163, t170, t204, t181; `tests/mau_goc/bblv.doc` | t366 t181 t179 t163 t170 t204 t349 t350 t363 |
+| 03/11 | TK 3 (App chính) | **3.461.1** | `js/mau/0hsn.js` (ô In 2 mặt); `tests/t366.js` | t366 |
+| 03/11 | TK 3 (App chính) | **3.461.2** | `js/05-them-file.js` (lớp tr-day — bộ in chung), `js/mau/06a.js`, `js/mau/bblv.js`, `js/mau/0hsn.js` (ctTen) | t366 t181 t179 + hồi quy đủ |
+| 03/11 | TK 3 (App chính) | **3.461.3** | `js/mau/0hsn.js` (bảng chọn), `css/app.css` cuối, `js/25b-ho-so-vay.js` (khongBao), `js/mau/bblv.js`; `tests/t366.js` | t366 t181 + hồi quy |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

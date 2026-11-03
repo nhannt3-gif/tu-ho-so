@@ -4,6 +4,21 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.461.3 — 03/11/2026 — Bảng chọn món gọn, cuộn trong khung (TK 3)
+- **Anh 03/11**: "bố trí cuộn trong 1 cửa sổ cố định, tính cho laptop 125% và màn hình 17 inch, nếu đủ chỗ thì bố trí 1 dòng 1 món vay, 1 hộ vay"; "các cột còn rộng thì bố trí đủ, nếu không đủ thì bỏ số KU, ghi chương trình vay, thêm cột lãi tồn"; "theo cho là tốt nhất, đầy đủ nhất, em code".
+- `HSN.bang` (js/mau/0hsn.js) viết lại: khung cuộn cao = phần màn hình còn lại (`calc(100vh − 330px)`, tối thiểu 260 px), tiêu đề cột đứng yên; mỗi món 1 dòng 22 px; hộ nhiều món: tên + mã KH ở dòng đầu, dòng sau 〃; cột ☑ · Hộ · Mã KH · Số KU (ẩn khi khung < 600 px — container query) · CT (viết tắt, rê chuột ra tên Mẫu 31) · Dư nợ · Lãi tồn · Tình trạng (chip màu Quá hạn / Khoanh / 3T KHĐ / Lãi ≈ nT).
+- **Bấm cả dòng để tích / bỏ tích**, bấm tên hộ để xem trước; **"Chỉ món có vấn đề" mặc định bật**; ô 🔎 tìm tên / mã KH / số KU; Tích hết = các món đang hiện. CSS cuối `css/app.css`.
+- Cảnh báo "Trước khi in" bỏ qua ô cài đặt (`khongBao` — BBLV "Bản trắng — mục 1").
+
+## 3.461.2 — 03/11/2026 — 06A chỗ ký / chú thích sát đáy, tên chương trình chuẩn; BBLV giao dịch lần cuối (TK 3)
+- **Anh 03/11**: "chỗ ký cho rộng ra, hàng hướng dẫn cho sát đáy" → bộ in chung (`js/05-them-file.js`) thêm lớp **`tr-day`**: khối mang lớp được đẩy xuống sát đáy trang chứa nó (sau khi chia trang). 06A: họ tên dưới chữ ký + chú thích (1), (2) là khối `tr-day` → khoảng ký giãn theo chỗ trống của trang.
+- **Anh 03/11**: "chương trình vay lấy từ dữ liệu nào cho chuẩn, mã món vay bị xuống dòng" → tên chương trình theo cột **"Tên chương trình" Mẫu 31** (`ctTen`, bỏ chữ "Cho vay" đầu — `HSN.ctTen`), trước là tên rút gọn của app; tên dài thì "- Mã món vay" xuống dòng riêng (không bẻ số KU). Áp 06A + Biên bản làm việc.
+- **Anh 03/11**: "tên hộ vay chuyển hoa đầu từ" → 06A tên khách, tổ trưởng `tenHoaDau`.
+- **Anh 03/11**: "trong biên bản ghi thêm giao dịch lần cuối" → BBLV dạng dòng thêm "- Giao dịch lần cuối: dd/mm/yyyy" (Ngày GDXA gần nhất của món, Mẫu 31); dạng bảng cột ngày thêm dòng *GD cuối*.
+
+## 3.461.1 — 03/11/2026 — Ô In 2 mặt ở BBLV / 06A (TK 3)
+- **Anh 03/11**: "em nên để chế độ chọn nếu máy in 1 mặt" → ô ☑ **In 2 mặt** ở bảng chọn món (`HSN.bang`, js/mau/0hsn.js), dùng chung công tắc của bộ in (`D.cauHinh.ktHaiMat`, như KTGS — mặc định bật). Bỏ tích → in nhiều bản không chèn trang trắng. t366 thêm ý.
+
 ## 3.461 — 03/11/2026 — Biên bản làm việc + 06A chọn nhiều phiếu, khai báo đủ (TK 3, vai App chính)
 - **Anh 03/11**: "tạo 1 biên bản đơn giản để kiểm tra hộ vay linh hoạt nhiều tình huống, từ nợ lãi, 3 tháng KHĐ, nợ quá hạn, nợ khoanh"; "làm chung 1 hộ nhiều món… liệt kê ra"; "lãi tồn chỉ lấy các món lãi tồn cao, cụ thể trên 3 tháng lãi, 6 tháng lãi, 12 tháng lãi"; "mặc định để chấm ghi tay là tốt nhất"; "4 dòng đại diện để trống"; "nếu chọn nhiều món của 1 hộ thì kẻ dạng bảng"; "BB sẽ trọn 1 trang A4 nên em cứ giãn dòng"; 06A: "sau ông bà có :, tên Hội bị trùng, chỗ tại ghi địa chỉ, đến ngày gõ liền, chữ đồng ghi liền, cho chọn được 1 lần nhiều hộ", "rà soát lại các dòng đều cho khai báo riêng theo quy chuẩn".
 - **Mới `js/mau/0hsn.js` (`HSN`)**: bảng chọn món nợ của tổ (nhóm Nợ quá hạn · khoanh · 3 tháng KHĐ · lãi tồn > 3/6/12 tháng · ⭐ Nợ cần quan tâm, tích tay), chọn nhớ theo mẫu trong phiên. Luật **QT-C-23** lãi tồn cao (sổ luật 1.11): lãi tồn > N × (dư nợ × lãi suất ÷ 100 ÷ 12) — lãi suất Mẫu 31 là %/năm (kiểm file thật 25/10).

@@ -38,7 +38,7 @@
       {k:'diaChi', n:'Địa chỉ', p:'kh', l:'tu', md:'tu', ng:'người vay — M31'},
       {k:'ngaySL', n:'Dư nợ đến ngày (ngày số liệu)', p:'kh', l:'tu', md:'tu', ng:'ngày số liệu Mẫu 31 đang mở'},
       {k:'mon', n:'1. Thông tin về món vay (1 món: dòng · nhiều món: bảng)', p:'kh', l:'tu', md:'tu', ng:'các món đã chọn — M31'},
-      {k:'monTrang', n:'Bản trắng — mục 1', p:'kh', l:'chon', md:'kb', chon:TRANG, chonMD:1},
+      {k:'monTrang', n:'Bản trắng — mục 1', p:'kh', l:'chon', md:'kb', chon:TRANG, chonMD:1, khongBao:1},   /* ô cài đặt — không báo "chưa có số liệu" */
       {k:'ngNhan', n:'2. Nguyên nhân không trả được nợ', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.ngNhan},
       {k:'thucTrang', n:'3. Thực trạng kinh tế, khả năng trả nợ', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.thucTrang},
       {k:'camKet', n:'4. Cam kết của khách hàng', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.camKet},
@@ -96,23 +96,24 @@
       var th = 'border:1px solid #000;padding:1.5pt 3pt;vertical-align:top;', tdS = th+'text-align:right;white-space:nowrap;';
       var hang = ds.length>1 ? ds.map(function(x, i){ var m = x.m;
         return '<tr><td style="'+th+'text-align:center">'+(i+1)+'</td><td style="'+th+'">'+e(ctNgan(m.ct, m))+' · '+e(m.ku)+'</td><td style="'+th+'">'+e(md(m))+'</td><td style="'+tdS+'">'+(m.gn ? tdnTien(m.gn) : '')+'</td>'+
-          '<td style="'+th+'">'+nt(m.nv)+'<br>'+nt(skHL(m))+'</td><td style="'+tdS+'">'+tdnTien(m.dn||0)+'</td><td style="'+tdS+'">'+tdnTien(laiTon(m))+'</td><td style="'+th+'">'+e(HSN.nhan(m, x.f))+'</td></tr>'; }).join('')
+          '<td style="'+th+'">'+nt(m.nv)+'<br>'+nt(skHL(m))+'<br><i>'+(nt(m.ngdg) || '—')+'</i></td><td style="'+tdS+'">'+tdnTien(m.dn||0)+'</td><td style="'+tdS+'">'+tdnTien(laiTon(m))+'</td><td style="'+th+'">'+e(HSN.nhan(m, x.f))+'</td></tr>'; }).join('')
         : Array.apply(null, {length:nB}).map(function(_, i){ var r = '<td style="'+th+'text-align:center;height:9mm">'+(i+1)+'</td>'; for(var j=0;j<7;j++) r += '<td style="'+th+'"></td>'; return '<tr>'+r+'</tr>'; }).join('');
       var cg = ds.reduce(function(a, x){ return a+(x.m.dn||0); }, 0), cl = ds.reduce(function(a, x){ return a+laiTon(x.m); }, 0);
       return P('<b>1. Thông tin về món vay</b> (số liệu đến ngày '+(nsC && ds.length ? '<span class="om om-tu" data-o="ngaySL">'+nsC+'</span>' : '……/……/………')+')', T)+
         '<table data-o="mon" style="border-collapse:collapse;width:100%;table-layout:fixed;font-size:10.5pt;line-height:1.15;margin:2pt 0"><colgroup><col style="width:6mm"><col style="width:31mm"><col style="width:21mm"><col style="width:21mm"><col style="width:19mm"><col style="width:21mm"><col style="width:17mm"><col></colgroup>'+
-        '<tr>'+['TT', 'CT · Số KU', 'Mục đích', 'Số tiền vay', 'Ngày vay<br>Đến hạn', 'Nợ gốc', 'Nợ lãi', 'Tình trạng'].map(function(x){ return '<th style="'+th+'text-align:center">'+x+'</th>'; }).join('')+'</tr>'+hang+
+        '<tr>'+['TT', 'CT · Số KU', 'Mục đích', 'Số tiền vay', 'Ngày vay<br>Đến hạn<br><i>GD cuối</i>', 'Nợ gốc', 'Nợ lãi', 'Tình trạng'].map(function(x){ return '<th style="'+th+'text-align:center">'+x+'</th>'; }).join('')+'</tr>'+hang+
         '<tr><td style="'+th+'"></td><td colspan="4" style="'+th+'font-weight:bold">Cộng</td><td style="'+tdS+'font-weight:bold">'+(ds.length ? tdnTien(cg) : '')+'</td><td style="'+tdS+'font-weight:bold">'+(ds.length ? tdnTien(cl) : '')+'</td><td style="'+th+'"></td></tr></table>';
     }
     var x = ds[0], m = x ? x.m : null, sp = function(v){ return '<span class="om om-tu" data-o="mon">'+e(v)+'</span>'; }, f = x ? x.f : {};
     var hop = function(co, chu){ return (co ? '☒' : '☐')+' '+chu; };
     return P('<b>1. Thông tin về món vay</b>', T)+
-      (m ? P('- Tên chương trình vay: '+sp(hsoCTMon(m))+' – Số tiền vay: '+sp(m.gn ? tdnTien(m.gn) : '')+' đồng;', T)+P('- Mục đích sử dụng vốn vay: '+(md(m) ? sp(md(m))+'.' : '…………………………………………………………………………'), md(m) ? T : T+W)+
+      (m ? P('- Tên chương trình vay: '+sp(HSN.ctTen(m))+' – Số tiền vay: '+sp(m.gn ? tdnTien(m.gn) : '')+' đồng;', T)+P('- Mục đích sử dụng vốn vay: '+(md(m) ? sp(md(m))+'.' : '…………………………………………………………………………'), md(m) ? T : T+W)+
           P('- Ngày vay '+sp(nt(m.nv) || '……/……/………')+' – Ngày đến hạn '+sp(nt(skHL(m)) || '……/……/………'), T+W)+
+          P('- Giao dịch lần cuối: '+(m.ngdg ? sp(nt(m.ngdg))+'.' : '……/……/………'), T+W)+   /* 3.461.2 (anh 03/11 "ghi thêm giao dịch lần cuối") — Ngày GDXA gần nhất của món (Mẫu 31) */
           P('- Dư nợ đến ngày '+sp(nsC || '……/……/………')+': gốc '+sp(tdnTien(m.dn||0))+' đồng; lãi '+sp(tdnTien(laiTon(m)))+' đồng.', T+W)+
           P('- Tình trạng: '+hop(f.qh, 'Quá hạn')+' &nbsp;'+hop(f.kn, 'Khoanh')+' &nbsp;'+hop(f.lai>3, 'Lãi tồn cao'+(f.lai>3 ? ' (≈ '+Math.floor(f.lai)+' tháng)' : ''))+' &nbsp;'+hop(f.khd, '3 tháng KHĐ'), T+W)
         : P('- Tên chương trình vay: ……………………… – Số tiền vay: ………………… đồng;', T+W)+P('- Mục đích sử dụng vốn vay: ……………………………………………………………………', T+W)+
-          P('- Ngày vay ……/……/……… &nbsp;&nbsp;&nbsp;&nbsp; – Ngày đến hạn ……/……/………', T+W)+P('- Dư nợ đến ngày ……/……/………: gốc ……………… đồng; lãi …………… đồng.', T+W)+
+          P('- Ngày vay ……/……/……… &nbsp;&nbsp;&nbsp;&nbsp; – Ngày đến hạn ……/……/………', T+W)+P('- Giao dịch lần cuối: ……/……/………', T+W)+P('- Dư nợ đến ngày ……/……/………: gốc ……………… đồng; lãi …………… đồng.', T+W)+
           P('- Tình trạng: ☐ Quá hạn &nbsp;☐ Khoanh &nbsp;☐ Lãi tồn cao &nbsp;☐ 3 tháng KHĐ', T+W)); }
   /* chiều cao (mm) khi in — dựng đúng trang in (hsoTrang: cùng CSS, phông) trong khung ẩn rộng bằng vùng in, ghi đồng bộ (about:blank) rồi đo; không có DOM → ước 6 mm / đoạn */
   function bblvCao(h, Wm){ if(typeof document==='undefined' || !document.body) return (h.match(/<p /g) || []).length*6;

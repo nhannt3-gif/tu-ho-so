@@ -9,6 +9,8 @@
 var HSN = (function(){
   var X = {};
   X.NHOM = [['qh', 'Nợ quá hạn'], ['kn', 'Nợ khoanh'], ['khd', '3 tháng KHĐ'], ['l3', 'Lãi tồn > 3 tháng'], ['l6', '> 6 tháng'], ['l12', '> 12 tháng'], ['qt', '⭐ Nợ cần quan tâm']];
+  /* 3.461.1 (anh 03/11 "chương trình vay lấy từ dữ liệu nào cho chuẩn"): tên chương trình theo cột "Tên chương trình" Mẫu 31 (ctTen — hệ thống xuất), bỏ chữ "Cho vay" đầu; không có → tên app (hsoCTMon) */
+  X.ctTen = function(m){ var v = String((m && m.ctTen) || '').trim().replace(/^cho vay\s+/i, ''); return v ? v.charAt(0).toUpperCase()+v.slice(1) : (typeof hsoCTMon==='function' && m ? hsoCTMon(m) : ''); };
   X.khd = function(){ var o = {}; try { var K = typeof KHO!=='undefined' && KHO.kyDung ? KHO.kyDung() : null; if(typeof slKHD==='function' && K && K.B) slKHD(K.B).forEach(function(r){ if(r && r.ku) o[r.ku] = 1; }); } catch(e){} return o; };
   X.thangLai = function(m){ var lt = typeof laiTon==='function' ? laiTon(m) : 0, dn = +m.dn || 0, ls = +m.ls || 0;
     return lt>0 && dn>0 && ls>0 ? lt/(dn*ls/100/12) : 0; };
@@ -33,27 +35,53 @@ var HSN = (function(){
   /* các hộ có món đang chọn: [{k, mon:[{m, f}]}] — giữ thứ tự Mã KH */
   X.dsChon = function(mk, t){ var s = X.sel(mk); return X.ds(t).map(function(h){ return {k:h.k, mon:h.mon.filter(function(x){ return s[x.m.ku]; })}; }).filter(function(h){ return h.mon.length; }); };
   X.dem = function(mk, t){ var d = X.dsChon(mk, t); return {ho:d.length, mon:d.reduce(function(a, h){ return a+h.mon.length; }, 0)}; };
+  /* 3.461.3 (anh 03/11 "bố trí cuộn trong 1 cửa sổ cố định, tính cho laptop 125% và màn hình 17 inch … 1 dòng 1 món vay"; "các cột còn rộng thì bố trí đủ, không đủ thì bỏ số KU, ghi chương trình vay, thêm cột lãi tồn"; "theo cho là tốt nhất"):
+     khung cuộn cố định (cao = phần màn hình còn lại, tối thiểu 260 px), tiêu đề cột đứng yên; mỗi món 1 dòng; hộ nhiều món: tên ở dòng đầu, dòng sau 〃;
+     cột ☑ · Hộ · Mã KH · Số KU (tự ẩn khi khung hẹp) · CT · Dư nợ · Lãi tồn · Tình trạng (chip màu); bấm cả dòng để tích, bấm tên hộ để xem trước;
+     lọc "Chỉ món có vấn đề" mặc định bật, ô tìm tên / mã KH / số KU. Trạng thái lọc nhớ trong phiên: HSO.hsnLoc = {q, vd}. */
+  X.loc = function(){ HSO.hsnLoc = HSO.hsnLoc || {q:'', vd:true}; return HSO.hsnLoc; };
+  X.dsHien = function(t){ var L = X.loc(), q = typeof sxChuan==='function' ? sxChuan(L.q||'') : String(L.q||'').toLowerCase();
+    var tim = function(h, m){ var s = (h.k.ten||'')+' '+h.k.kh+' '+m.ku; return !q || (typeof sxChuan==='function' ? sxChuan(s) : s.toLowerCase()).indexOf(q)>=0; };
+    return X.ds(t).map(function(h){ return {k:h.k, mon:h.mon.filter(function(x){ return (!L.vd || X.vao(x.f, 'qt')) && tim(h, x.m); })}; }).filter(function(h){ return h.mon.length; }); };
   var LENH = {
+    dong:function(el){ var s = X.sel(el.getAttribute('data-mk')), ku = el.getAttribute('data-ku'); s[ku] = !s[ku]; hsoVe(); },
     tich:function(el){ X.sel(el.getAttribute('data-mk'))[el.getAttribute('data-ku')] = el.checked; hsoVe(); },
     nhom:function(el){ var mk = el.getAttribute('data-mk'), n = el.getAttribute('data-n'), s = X.sel(mk), t = KHO.to(hsoCH().to);
       X.ds(t).forEach(function(h){ h.mon.forEach(function(x){ if(X.vao(x.f, n)) s[x.m.ku] = true; }); }); hsoVe(); },
     het:function(el){ var mk = el.getAttribute('data-mk'), v = el.getAttribute('data-v')==='1', s = X.sel(mk), t = KHO.to(hsoCH().to);
-      if(!v){ HSO.nchon[mk] = {}; hsoVe(); return; } X.ds(t).forEach(function(h){ h.mon.forEach(function(x){ s[x.m.ku] = true; }); }); hsoVe(); },
-    xem:function(el){ HSO.vay.kh = el.getAttribute('data-kh'); HSO.vay.ku = el.getAttribute('data-ku') || ''; hsoVe(); }};
+      if(!v){ HSO.nchon[mk] = {}; hsoVe(); return; } X.dsHien(t).forEach(function(h){ h.mon.forEach(function(x){ s[x.m.ku] = true; }); }); hsoVe(); },   /* Tích hết = các món đang hiện (theo lọc) */
+    vd:function(){ var L = X.loc(); L.vd = !L.vd; hsoVe(); },
+    tim:function(el){ X.loc().q = el.value; clearTimeout(X.bang.hen); X.bang.hen = setTimeout(function(){ hsoVe(); var o = document.querySelector('.hsn-tim'); if(o){ o.focus(); o.setSelectionRange(o.value.length, o.value.length); } }, 400); },
+    xem:function(el){ HSO.vay.kh = el.getAttribute('data-kh'); HSO.vay.ku = el.getAttribute('data-ku') || ''; hsoVe(); },
+    hai:function(el){ D.cauHinh.ktHaiMat = el.checked ? 1 : 0; luu(); }};   /* 3.461.1: dùng chung công tắc In 2 mặt của bộ in (KTGS) */
+  var CHIP = function(m, f){ var a = [];
+    if(f.qh) a.push(['qh', 'Quá hạn']); if(f.kn) a.push(['kn', 'Khoanh']); if(f.khd) a.push(['khd', '3T KHĐ'+(m.ngdg ? '' : '')]); if(f.lai>3) a.push(['lai', 'Lãi ≈ '+Math.floor(f.lai)+'T']);
+    return a.length ? a.map(function(x){ return '<span class="hsn-chip hsn-'+x[0]+'">'+x[1]+'</span>'; }).join(' ') : '<span class="hsn-gach">—</span>'; };
+  var NGAN = {qh:'Nợ quá hạn', kn:'Khoanh', khd:'3T KHĐ', l3:'Lãi > 3T', l6:'> 6T', l12:'> 12T', qt:'⭐ Cần quan tâm'};
   /* bảng chọn ở cột trái — op = {tieu, ghi} */
   X.bang = function(t, mk, op){ op = op || {}; if(!X.bang.dk && typeof GD!=='undefined'){ X.bang.dk = 1; GD.dangKy('hsn', LENH); }
     var e = coChuHTML; if(!t) return '<div class="sl-phu">Chọn tổ ở bộ lọc địa bàn để hiện các hộ còn nợ.</div>';
-    var ds = X.ds(t), s = X.sel(mk), d = X.dem(mk, t), a = ' data-mk="'+mk+'"';
-    var nut = X.NHOM.map(function(n){ var c = 0; ds.forEach(function(h){ h.mon.forEach(function(x){ if(X.vao(x.f, n[0])) c++; }); });
-      return '<button class="nho" data-lenh="hsn.nhom"'+a+' data-n="'+n[0]+'"'+(c ? '' : ' disabled')+' title="Tích thêm các món '+e(n[1])+'">'+e(n[1])+' ('+c+')</button>'; }).join('');
-    return '<div class="nhan-nhom">👥 '+e(op.tieu || 'Hộ còn nợ của tổ')+' — chọn món <small>'+e(op.ghi || '')+'</small></div>'+
-      '<div class="hang-nut">'+nut+'</div><div class="hang-nut"><span class="th-cap">Đã chọn: <b>'+d.mon+'</b> món · <b>'+d.ho+'</b> hộ</span>'+
-        '<button class="nho" data-lenh="hsn.het"'+a+' data-v="1">Tích hết</button><button class="nho" data-lenh="hsn.het"'+a+' data-v="0">Bỏ hết</button></div>'+
-      (ds.length ? '<div class="bang-cuon"><table class="bang hso-tv10a hsn-bang"><thead><tr><th>☑</th><th>Hộ</th><th>Số KU · CT</th><th>Dư nợ</th><th>Tình trạng</th></tr></thead><tbody>'+
-        ds.map(function(h){ return h.mon.map(function(x, i){ var m = x.m, nh = X.nhan(m, x.f);
-          return '<tr class="'+(nh ? '' : 'mo')+'"><td><input type="checkbox" data-lenh="hsn.tich" data-su="change"'+a+' data-ku="'+e(m.ku)+'"'+(s[m.ku] ? ' checked' : '')+'></td>'+
-            '<td>'+(i ? '' : '<a href="#" data-lenh="hsn.xem" data-kh="'+e(h.k.kh)+'" data-ku="'+e(m.ku)+'" title="Xem trước hộ này">'+e(tenHoaDau(h.k.ten||''))+'</a><br><small>'+e(h.k.kh)+'</small>')+'</td>'+
-            '<td>'+e(m.ku)+'<br><small>'+e(typeof ctNgan==='function' ? ctNgan(m.ct, m) : (m.ct||''))+'</small></td><td class="s">'+tdnTien(m.dn||0)+'</td><td><small>'+e(nh || '—')+'</small></td></tr>'; }).join(''); }).join('')+
-        '</tbody></table></div>' : '<div class="sl-phu">Tổ không có hộ còn nợ ở kỳ số liệu đang mở.</div>'); };
+    var ds = X.ds(t), hien = X.dsHien(t), s = X.sel(mk), d = X.dem(mk, t), L = X.loc(), a = ' data-mk="'+mk+'"';
+    var nhom = X.NHOM.map(function(n){ var c = 0; ds.forEach(function(h){ h.mon.forEach(function(x){ if(X.vao(x.f, n[0])) c++; }); });
+      return '<button class="nho" data-lenh="hsn.nhom"'+a+' data-n="'+n[0]+'"'+(c ? '' : ' disabled')+' title="Tích thêm các món: '+e(n[1])+'">'+e(NGAN[n[0]] || n[1])+' ('+c+')</button>'; }).join('');
+    var tong = ds.reduce(function(a2, h){ return a2+h.mon.length; }, 0), soHien = hien.reduce(function(a2, h){ return a2+h.mon.length; }, 0);
+    var dong = hien.map(function(h){ return h.mon.map(function(x, i){ var m = x.m, ct = typeof ctNgan==='function' ? ctNgan(m.ct, m) : (m.ct||''), co = !!s[m.ku];
+      return '<tr class="hsn-dong'+(i ? ' hsn-tiep' : ' hsn-dau')+(co ? ' bat' : '')+(X.vao(x.f, 'qt') ? '' : ' mo')+'" data-lenh="hsn.dong"'+a+' data-ku="'+e(m.ku)+'" title="Bấm để tích / bỏ tích">'+
+        '<td><input type="checkbox" tabindex="-1"'+(co ? ' checked' : '')+'></td>'+
+        '<td class="hsn-ten">'+(i ? '<span class="hsn-lap">〃</span>' : '<a href="#" data-lenh="hsn.xem" data-kh="'+e(h.k.kh)+'" data-ku="'+e(m.ku)+'" title="Xem trước hộ này">'+e(tenHoaDau(h.k.ten||''))+'</a>')+'</td>'+
+        '<td class="hsn-kh">'+(i ? '' : e(h.k.kh))+'</td><td class="hsn-ku">'+e(m.ku)+'</td><td title="'+e(X.ctTen(m))+'">'+e(ct)+'</td>'+
+        '<td class="s">'+tdnTien(m.dn||0)+'</td><td class="s">'+tdnTien(typeof laiTon==='function' ? laiTon(m) : 0)+'</td><td>'+CHIP(m, x.f)+'</td></tr>'; }).join(''); }).join('');
+    return '<div class="hsn">'+
+      '<div class="nhan-nhom">👥 '+e(op.tieu || 'Hộ còn nợ của tổ')+' — chọn món <small>'+e(op.ghi || '')+'</small></div>'+
+      '<div class="hsn-thanh">'+nhom+'</div>'+
+      '<div class="hsn-thanh"><input class="hsn-tim" data-lenh="hsn.tim" data-su="input" placeholder="🔎 tên / mã KH / số KU" value="'+e(L.q||'')+'">'+
+        '<button class="nho'+(L.vd ? ' bat' : '')+'" data-lenh="hsn.vd" title="Chỉ hiện món quá hạn, khoanh, 3 tháng KHĐ, lãi tồn > 3 tháng">Chỉ món có vấn đề</button>'+
+        '<button class="nho" data-lenh="hsn.het"'+a+' data-v="1" title="Tích các món đang hiện">Tích hết</button><button class="nho" data-lenh="hsn.het"'+a+' data-v="0">Bỏ hết</button>'+
+        '<span class="hsn-gian"></span><span class="hsn-dem">Đã chọn <b>'+d.mon+'</b> món · <b>'+d.ho+'</b> hộ</span>'+
+        '<label class="hsn-hai"><input type="checkbox" data-lenh="hsn.hai" data-su="change"'+(typeof ktHaiMat!=='function' || ktHaiMat() ? ' checked' : '')+'> In 2 mặt</label></div>'+
+      (ds.length ? '<div class="hsn-hop"><table class="hsn-bang"><thead><tr><th>☑</th><th>Hộ</th><th>Mã KH</th><th class="hsn-ku">Số KU</th><th>CT</th><th class="s">Dư nợ</th><th class="s">Lãi tồn</th><th>Tình trạng</th></tr></thead><tbody>'+
+          (dong || '<tr><td colspan="8" class="hsn-rong">Không có món nào khớp lọc'+(L.vd ? ' — bấm "Chỉ món có vấn đề" để hiện hết' : '')+'.</td></tr>')+'</tbody></table></div>'+
+          '<div class="hsn-chan">Hiện <b>'+soHien+'</b>/'+tong+' món · máy in 1 mặt: bỏ tích "In 2 mặt" (không chèn trang trắng)</div>'
+        : '<div class="sl-phu">Tổ không có hộ còn nợ ở kỳ số liệu đang mở.</div>')+'</div>'; };
   return X;
 })();

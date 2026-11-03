@@ -26,7 +26,18 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('lãi suất 0 → không tính số tháng (không vào nhóm lãi tồn cao)', HSN.thangLai({dn:1e7, ls:0, ltTH:5e5})===0);
    /* BBLV */
    hsoChonMau('bblv'); await w(600);
-   ok('chip BBLV ở Hồ sơ vay + bảng chọn món + nút nhóm nợ', !!document.querySelector('.hsn-bang') && /Nợ quá hạn/.test(document.getElementById('hso-tuy').textContent) && /⭐ Nợ cần quan tâm/.test(document.getElementById('hso-tuy').textContent), ds.length+' hộ');
+   ok('chip BBLV ở Hồ sơ vay + bảng chọn món + nút nhóm nợ', !!document.querySelector('.hsn-bang') && /Nợ quá hạn/.test(document.getElementById('hso-tuy').textContent) && /⭐ Cần quan tâm/.test(document.getElementById('hso-tuy').textContent), ds.length+' hộ');
+   /* 3.461.3: bảng 1 món 1 dòng trong khung cuộn cố định */
+   const hop = document.querySelector('.hsn-hop'), th = [...document.querySelectorAll('.hsn-bang thead th')].map(x=>x.textContent);
+   ok('bảng: khung cuộn cố định (≥ 260 px, cuộn trong khung), cột Hộ · Mã KH · Số KU · CT · Dư nợ · Lãi tồn · Tình trạng', !!hop && getComputedStyle(hop).overflowY==='auto' && hop.clientHeight>=260 && ['Hộ','Mã KH','Số KU','CT','Dư nợ','Lãi tồn','Tình trạng'].every(x=>th.includes(x)), hop && hop.clientHeight+' px · '+th.join('|'));
+   const r1 = document.querySelector('.hsn-bang tbody tr.hsn-dong'); ok('mỗi món 1 dòng (không xuống dòng)', !!r1 && r1.getBoundingClientRect().height<=30, r1 && r1.getBoundingClientRect().height);
+   const vdDem = document.querySelectorAll('.hsn-bang tr.hsn-dong').length; document.querySelector('[data-lenh="hsn.vd"]').click(); await w(300); const hetDem = document.querySelectorAll('.hsn-bang tr.hsn-dong').length;
+   ok('"Chỉ món có vấn đề" mặc định bật; tắt → hiện hết món', HSN.loc().vd===false && hetDem===ds.reduce((a, h)=>a+h.mon.length, 0) && vdDem<=hetDem, vdDem+' → '+hetDem);
+   const dd = document.querySelector('.hsn-bang tr.hsn-dong'), kuD = dd.getAttribute('data-ku'); dd.querySelector('td.s').click(); await w(300);
+   ok('bấm cả dòng → tích món đó; bấm lại → bỏ', !!HSN.sel('bblv')[kuD] && (document.querySelector('.hsn-bang tr.hsn-dong[data-ku="'+kuD+'"] td.s').click(), await w(300), !HSN.sel('bblv')[kuD]));
+   const hop2 = document.querySelector('.hsn-hop'); hop2.style.width = '500px'; await w(100); const anKU = getComputedStyle(document.querySelector('.hsn-bang td.hsn-ku')).display==='none'; hop2.style.width = ''; await w(100);
+   ok('khung hẹp → tự ẩn cột Số KU', anKU);
+   document.querySelector('[data-lenh="hsn.vd"]').click(); await w(300);
    const xem = async()=>{ hsoXem(); await w(2500); const f = document.getElementById('hso-xem-khung'), d = f && f.contentDocument; const tr = d ? [...d.querySelectorAll('.tr-tg')] : []; try{ dongHop(); }catch(e){} await w(300);
      return tr.map(x=>/BIÊN BẢN LÀM VIỆC/.test(x.textContent) ? 'B' : /Trang trắng/.test(x.textContent) ? '_' : '-').join(''); };
    OM_KIEU = 'trang'; let r = hsoLapBblv(t), tg = await xem(); OM_KIEU = 'that';
@@ -40,6 +51,9 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
      ok('nhiều món 1 hộ: bảng (CT · Số KU, Mục đích, Cộng), ngày ở tiêu đề mục 1, vẫn 1 trang', tg==='B' && /CT · Số KU/.test(r.h) && /Mục đích/.test(r.h) && />Cộng</.test(r.h) && /số liệu đến ngày <span/.test(r.h), h2.mon.length+' món · '+tg+' · L '+r.L+' lh '+r.lh); }
    HSN.datMot('bblv', ''); ds.forEach(h=>h.mon.forEach(x=>HSN.sel('bblv')[x.m.ku] = true)); r = hsoLapBblv(t); tg = await xem();
    ok('nhiều hộ: mỗi hộ 1 biên bản (1 trang, trang trắng chèn để in 2 mặt)', (r.ds||[]).length===ds.length && tg.replace(/_/g, '')===('B').repeat(ds.length), tg);
+   const cbHai = document.querySelector('#hso-tuy input[data-lenh="hsn.hai"]'); cbHai.checked = false; cbHai.dispatchEvent(new Event('change', {bubbles:true})); await w(200); tg = await xem();
+   ok('bỏ tích "In 2 mặt" (máy in 1 mặt) → không chèn trang trắng giữa các biên bản', D.cauHinh.ktHaiMat===0 && tg===('B').repeat(ds.length), tg);
+   delete D.cauHinh.ktHaiMat; hsoVe(); await w(300);
    omDatCach('bblv', 'kienNghi', 'kb'); omChonDat('bblv', 'kienNghi', 'Đôn đốc khách hàng trả lãi hằng tháng qua Tổ TK&VV'); HSN.datMot('bblv', ds[0].mon[0].m.ku); r = hsoLapBblv(t);
    ok('mục 5 chọn câu gợi ý → in câu + vẫn còn dòng chấm ghi thêm; mặc định mục 2–4 chấm', /5\. Kiến nghị biện pháp xử lý nợ:<\/b> <span class="om om-kb" data-o="kienNghi">Đôn đốc khách hàng trả lãi hằng tháng qua Tổ TK&amp;VV\.<\/span>/.test(r.h) && /2\. Nguyên nhân không trả được nợ:<\/b> <span class="om om-cham"/.test(r.h));
    omDatCach('bblv', 'kienNghi', 'cham');
