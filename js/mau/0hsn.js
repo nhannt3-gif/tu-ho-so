@@ -39,7 +39,8 @@ var HSN = (function(){
       X.ds(t).forEach(function(h){ h.mon.forEach(function(x){ if(X.vao(x.f, n)) s[x.m.ku] = true; }); }); hsoVe(); },
     het:function(el){ var mk = el.getAttribute('data-mk'), v = el.getAttribute('data-v')==='1', s = X.sel(mk), t = KHO.to(hsoCH().to);
       if(!v){ HSO.nchon[mk] = {}; hsoVe(); return; } X.ds(t).forEach(function(h){ h.mon.forEach(function(x){ s[x.m.ku] = true; }); }); hsoVe(); },
-    xem:function(el){ HSO.vay.kh = el.getAttribute('data-kh'); HSO.vay.ku = el.getAttribute('data-ku') || ''; hsoVe(); }};
+    xem:function(el){ HSO.vay.kh = el.getAttribute('data-kh'); HSO.vay.ku = el.getAttribute('data-ku') || ''; hsoVe(); },
+    hai:function(el){ D.cauHinh.ktHaiMat = el.checked ? 1 : 0; luu(); }};   /* 3.461.1 (anh 03/11 "nên để chế độ chọn nếu máy in 1 mặt"): dùng chung công tắc In 2 mặt của bộ in (KTGS) */
   /* bảng chọn ở cột trái — op = {tieu, ghi} */
   X.bang = function(t, mk, op){ op = op || {}; if(!X.bang.dk && typeof GD!=='undefined'){ X.bang.dk = 1; GD.dangKy('hsn', LENH); }
     var e = coChuHTML; if(!t) return '<div class="sl-phu">Chọn tổ ở bộ lọc địa bàn để hiện các hộ còn nợ.</div>';
@@ -49,6 +50,7 @@ var HSN = (function(){
     return '<div class="nhan-nhom">👥 '+e(op.tieu || 'Hộ còn nợ của tổ')+' — chọn món <small>'+e(op.ghi || '')+'</small></div>'+
       '<div class="hang-nut">'+nut+'</div><div class="hang-nut"><span class="th-cap">Đã chọn: <b>'+d.mon+'</b> món · <b>'+d.ho+'</b> hộ</span>'+
         '<button class="nho" data-lenh="hsn.het"'+a+' data-v="1">Tích hết</button><button class="nho" data-lenh="hsn.het"'+a+' data-v="0">Bỏ hết</button></div>'+
+      '<label class="hso-o2"><input type="checkbox" data-lenh="hsn.hai" data-su="change"'+(typeof ktHaiMat!=='function' || ktHaiMat() ? ' checked' : '')+'> <b>In 2 mặt</b> — in nhiều bản thì chèn trang trắng để bản sau bắt đầu mặt trước; máy in 1 mặt thì bỏ tích (không chèn)</label>'+
       (ds.length ? '<div class="bang-cuon"><table class="bang hso-tv10a hsn-bang"><thead><tr><th>☑</th><th>Hộ</th><th>Số KU · CT</th><th>Dư nợ</th><th>Tình trạng</th></tr></thead><tbody>'+
         ds.map(function(h){ return h.mon.map(function(x, i){ var m = x.m, nh = X.nhan(m, x.f);
           return '<tr class="'+(nh ? '' : 'mo')+'"><td><input type="checkbox" data-lenh="hsn.tich" data-su="change"'+a+' data-ku="'+e(m.ku)+'"'+(s[m.ku] ? ' checked' : '')+'></td>'+

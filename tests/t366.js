@@ -40,6 +40,9 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
      ok('nhiều món 1 hộ: bảng (CT · Số KU, Mục đích, Cộng), ngày ở tiêu đề mục 1, vẫn 1 trang', tg==='B' && /CT · Số KU/.test(r.h) && /Mục đích/.test(r.h) && />Cộng</.test(r.h) && /số liệu đến ngày <span/.test(r.h), h2.mon.length+' món · '+tg+' · L '+r.L+' lh '+r.lh); }
    HSN.datMot('bblv', ''); ds.forEach(h=>h.mon.forEach(x=>HSN.sel('bblv')[x.m.ku] = true)); r = hsoLapBblv(t); tg = await xem();
    ok('nhiều hộ: mỗi hộ 1 biên bản (1 trang, trang trắng chèn để in 2 mặt)', (r.ds||[]).length===ds.length && tg.replace(/_/g, '')===('B').repeat(ds.length), tg);
+   const cbHai = document.querySelector('#hso-tuy input[data-lenh="hsn.hai"]'); cbHai.checked = false; cbHai.dispatchEvent(new Event('change', {bubbles:true})); await w(200); tg = await xem();
+   ok('bỏ tích "In 2 mặt" (máy in 1 mặt) → không chèn trang trắng giữa các biên bản', D.cauHinh.ktHaiMat===0 && tg===('B').repeat(ds.length), tg);
+   delete D.cauHinh.ktHaiMat; hsoVe(); await w(300);
    omDatCach('bblv', 'kienNghi', 'kb'); omChonDat('bblv', 'kienNghi', 'Đôn đốc khách hàng trả lãi hằng tháng qua Tổ TK&VV'); HSN.datMot('bblv', ds[0].mon[0].m.ku); r = hsoLapBblv(t);
    ok('mục 5 chọn câu gợi ý → in câu + vẫn còn dòng chấm ghi thêm; mặc định mục 2–4 chấm', /5\. Kiến nghị biện pháp xử lý nợ:<\/b> <span class="om om-kb" data-o="kienNghi">Đôn đốc khách hàng trả lãi hằng tháng qua Tổ TK&amp;VV\.<\/span>/.test(r.h) && /2\. Nguyên nhân không trả được nợ:<\/b> <span class="om om-cham"/.test(r.h));
    omDatCach('bblv', 'kienNghi', 'cham');
