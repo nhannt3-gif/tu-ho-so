@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.461.4 — 03/11/2026 — Biên bản làm việc chỉnh theo góp ý; bảng chọn có STT (TK 3)
+- **Anh 03/11**: "mất chữ Tây Ninh" → dòng "Hôm nay, ngày …, tại …" có địa chỉ thì tự xuống dòng (trước khóa 1 dòng nên cắt chữ); bản trắng vẫn giữ 1 dòng chấm.
+- "số tiền vay nếu chương trình vay dài thì cho xuống dòng" → đo độ dài (> 150 mm) thì "- Số tiền vay: … đồng;" thành dòng riêng.
+- "ghi thêm là thành viên tổ … cho đồng nhất với bên 06A" → câu "Là thành viên Tổ TK&VV do Ông (bà): … làm Tổ trưởng, thuộc tổ chức Hội … quản lý." sau Địa chỉ (ô `tt`, `hoi` có khai báo riêng; Hội không lặp chữ).
+- "số thứ tự của các thành phần in thường, không đậm".
+- "cột tích còn lớn, nên có cột STT" (STT theo hộ — anh chốt) → `HSN.bang`: cột ô tích 22 px, cột STT đánh theo hộ (món sau của cùng hộ để trống).
+- t366 thêm 2 ý.
+
 ## 3.461.3 — 03/11/2026 — Bảng chọn món gọn, cuộn trong khung (TK 3)
 - **Anh 03/11**: "bố trí cuộn trong 1 cửa sổ cố định, tính cho laptop 125% và màn hình 17 inch, nếu đủ chỗ thì bố trí 1 dòng 1 món vay, 1 hộ vay"; "các cột còn rộng thì bố trí đủ, nếu không đủ thì bỏ số KU, ghi chương trình vay, thêm cột lãi tồn"; "theo cho là tốt nhất, đầy đủ nhất, em code".
 - `HSN.bang` (js/mau/0hsn.js) viết lại: khung cuộn cao = phần màn hình còn lại (`calc(100vh − 330px)`, tối thiểu 260 px), tiêu đề cột đứng yên; mỗi món 1 dòng 22 px; hộ nhiều món: tên + mã KH ở dòng đầu, dòng sau 〃; cột ☑ · Hộ · Mã KH · Số KU (ẩn khi khung < 600 px — container query) · CT (viết tắt, rê chuột ra tên Mẫu 31) · Dư nợ · Lãi tồn · Tình trạng (chip màu Quá hạn / Khoanh / 3T KHĐ / Lãi ≈ nT).
