@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.459 — 03/11/2026 — 10A: địa chỉ phê duyệt tách dòng, dòng chấm gọn, tên dưới chữ ký theo dòng trên (TK 2)
+- **Anh 03/11:** "phê duyệt UB, địa chỉ cho chọn tự điền và chấm — chia ra, không làm chung cả cụm"; "đổi tên cả phần dễ hiểu nhầm"; "form chức vụ khi chấm phần III làm ngắn lại cỡ như khi có chữ"; "số tiền làm dấu ngăn nhóm số"; "dòng trưởng ấp khi chọn chấm thì canh phải cho khoảng ghi rộng ra"; "tổ trưởng in sẵn, thư ký, tổ phó ghi tay"; "tên thư ký, trưởng ấp và Hội chỗ ký".
+- `js/mau/10a.js`: phê duyệt UBND địa chỉ = 3 ô `ubAp` / `ubXa` / `ubTinh` (Chọn nhanh; ô cũ `ubDiaBan` chuyển cách sang cả 3); nút "Phê duyệt UBND — Tên Tổ trưởng, Tổ phó, ngày" (`hso10aUbDat`, chỉ `ubTT` / `ubPho` / `ubNgay`); III để chấm → chấm đến điểm tab chung, "Chức vụ" thẳng cột (`chamMM`); Trưởng ấp / Thư ký để chấm → chấm kín dòng (`chamDay`, nowrap + canh đều cuối); tiết kiệm tối thiểu có dấu ngăn nhóm số (cả số tự gõ); ô mới `kyTK` (tên dưới chữ ký Thư ký); `kyTK` / `kyTA` / `kyCT` mặc định theo dòng Thư ký / Trưởng ấp / Chủ trì (trên chấm → trống, trên gõ → đúng chữ gõ).
+- `t358`, `t364` cập nhật + 7 kiểm tra mới; chuẩn in `t179` 10A ghi lại.
+
 ## 3.458 — 03/11/2026 — 10A phê duyệt UBND theo Về việc (TK 2)
 - **Anh 03/11:** "đổi luôn (hay cho nút bật đổi hay không)" — chọn Kiện toàn thì phần Phê duyệt UBND đổi theo.
 - `js/mau/10a.js`: Kiện toàn → "… làm Tổ phó được kiện toàn, hoạt động theo Quy ước…" (Thành lập giữ "được thành lập"); ô chọn mới `ubVv` (Theo Về việc · Luôn "thành lập"), có ở Chọn nhanh.

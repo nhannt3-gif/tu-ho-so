@@ -187,6 +187,7 @@
 | 02/11 | TK 2 | 3.456 | `js/mau/10a.js` (**mới** `hso10aThamDu`, `hso10aBq`, `hso10aTlHTML`, `hso10aTen`, `hso10aUbNut`, lệnh `h10t.*`), `js/25-ho-so.js` (biến), `js/31-o-mau.js` (`tuUi`, `goiY` trong `omO1Phan`), `js/25c` (nút phê duyệt cả phần), `css/app.css` (`.om-tl`), tests t364, chuẩn in t179 10A | — |
 | 02/11 | TK 2 | 3.457 | `js/mau/0hst.js` (**mới** `HST.tl`, `HST.so`, `HST.thamDu`, `HST.bq`, `HST.tlHTML`, `HST.tlDat`, `HST.nhanhThem`, lệnh `hstl.*`), `js/mau/10b.js`, `js/mau/10c.js`, tests t365, chuẩn in t179 10B / 10C | — |
 | 03/11 | TK 2 | 3.458 | `js/mau/10a.js` (ô `ubVv`, câu phê duyệt theo Về việc), tests t364 | — |
+| 03/11 | TK 2 | 3.459 | `js/mau/10a.js` (ô `ubAp` / `ubXa` / `ubTinh` / `kyTK`, **mới** `hso10aUbDat`, `chamMM` / `chamDay` trong lap), tests t358 / t364, chuẩn in t179 10A | — |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

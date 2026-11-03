@@ -266,6 +266,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.459)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Địa chỉ phê duyệt: chấm riêng thôn | Xã / tỉnh vẫn điền | |
+| 2 | Nút Tên TT, TP, ngày ✍ | Chỉ tên + ngày chấm | |
+| 3 | III b) chấm | "Chức vụ" thẳng cột | |
+| 4 | Trưởng ấp / Thư ký chấm | Chấm kín dòng, dưới chữ ký trống | |
+| 5 | Tiết kiệm 200000 | In 200.000 | |
+
 ### Danh sách thử trên máy thật (3.458)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

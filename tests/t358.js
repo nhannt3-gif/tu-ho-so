@@ -123,9 +123,9 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
      ok('3.449: dòng có tab mang điểm dừng (data-tab) cho Word', /<p data-tab="95"/.test(h));
      ok('3.449: kẻ dưới tiêu đề dài bằng "BIÊN BẢN HỌP"', new RegExp('<p class="ke" data-ke="'+omRong('BIÊN BẢN HỌP', 15, true).toFixed(1)+'"').test(h));
      ok('3.449: Hội bỏ xã / phường', (()=>{ return !/Hội [^<.]* (xã|phường) [^<.]*\./i.test(tx.match(/Chủ trì.{0,200}/)[0]); })(), (tx.match(/Chủ trì.{0,120}/)||[''])[0]);
-     ok('3.449: tách ô — III a / b, UBND, địa bàn, chủ trì, chữ ký mỗi dòng 1 ô', ['bqlTT','bqlPho','ubDiaBan','ubTT','ubPho','diaBan2','chuTriCv','chuTriHoi','kyTA','kyCT'].every(k=>OM_MAU['10a'].oK[k]) && !['bql','ub','ky'].some(k=>OM_MAU['10a'].oK[k]));
+     ok('3.449 / 3.459: tách ô — III a / b, UBND (địa chỉ 3 dòng), địa bàn, chủ trì, chữ ký mỗi dòng 1 ô', ['bqlTT','bqlPho','ubAp','ubXa','ubTinh','ubTT','ubPho','diaBan2','chuTriCv','chuTriHoi','kyTK','kyTA','kyCT'].every(k=>OM_MAU['10a'].oK[k]) && !['bql','ub','ky'].some(k=>OM_MAU['10a'].oK[k]));
      omDatCach('10a', 'bqlPho', 'cham'); hsoVe(); await w(300); const t2 = HSO.x.h.replace(/<[^>]+>/g, '');
-     ok('3.449: chọn ✍ riêng dòng Tổ phó → dòng b) giữ form chấm, dòng a) vẫn điền', /b\) Ông \(Bà\) [.…]+ Chức vụ: Tổ phó\./.test(t2) && /a\) Ông \(Bà\): /.test(t2)); omDatCach('10a', 'bqlPho', 'tu'); hsoVe(); await w(300);
+     ok('3.449: chọn ✍ riêng dòng Tổ phó → dòng b) giữ form chấm, dòng a) vẫn điền', /b\) Ông \(Bà\) [.…]+ ?Chức vụ: Tổ phó\./.test(t2) && /a\) Ông \(Bà\): /.test(t2)); omDatCach('10a', 'bqlPho', 'tu'); hsoVe(); await w(300);
      omDatKB('10a', 'vv', 'kiện toàn hoạt động của Tổ TK&VV theo Quyết định số 70/QĐ-HĐQT'); hsoVe(); await w(300);
      const vv = HSO.x.h.match(/<p[^>]*>(?:(?!<\/p>).)*data-o="vv"/)[0];
      ok('3.449: Về việc dài → cỡ 13 vừa 1 dòng hoặc 2 dòng cân (không tràn)', /class="s13"/.test(vv) || /data-o="vv">[^<]*<br>/.test(HSO.x.h), vv.slice(0, 60)); omDatKB('10a', 'vv', ''); hsoVe(); await w(300); }
