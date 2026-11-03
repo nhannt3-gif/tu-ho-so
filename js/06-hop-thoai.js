@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.457', ds:[
+var CO_GI_MOI = {ban:'3.458', ds:[
+  ["📝 Mẫu 10A: chọn \"Kiện toàn\" → Phê duyệt UBND ghi \"được kiện toàn\"; có nút giữ \"thành lập\"", ""],
   ["📝 Mẫu 10B, 10C: số tổ viên dự họp theo tỷ lệ (mặc định 100%, − / +, > 50%), biểu quyết tán thành / tham dự (> 2/3) — như 10A", ""],
   ["📝 Mẫu 10A: số tham dự tự tính theo tỷ lệ (mặc định 100%, − / +, > 50%); IV tán thành / tham dự (> 2/3); III gõ / chọn tên trong tổ, UBND theo III; phê duyệt cả phần ✍ / 🤖", ""],
   ["🖼 Khai báo riêng mọi mẫu: danh sách gọn (không dồn chữ), vạch màu theo nguồn; trực quan liên kết 2 chiều; bấm chữ trên bản xem trước → tới đúng dòng khai báo", ""],
@@ -1070,9 +1071,10 @@ var CO_GI_MOI = {ban:'3.457', ds:[
   ["🌳 Cây lọc: tên xã không còn hiện \"Vay trực tiếp\"", ""],
   ["📝 Mẫu 10A rà bố cục: ngày họp in đúng, thêm khoảng trắng sau xã / tỉnh / tháng, dòng Thư ký vừa 1 dòng", ""],
   ["📝 Mẫu 10A: chữ 13 đều, tiêu đề 15; chữ điền liền như gõ tay; tên hoa đầu từ; ⚙ Khai báo riêng 10A (Về việc, họp tháng / quý…)", ""],
-  ["🔧 Scan: tổ trưởng nhận đúng người mà trống ấp → tự bổ sung ấp lúc lưu; bản cũ có nút Bổ sung ấp", ""],
-  ["📝 Mẫu 10A gọn 4 trang: khung 100 tổ viên trang 1–2, chừa chỗ ký rộng; tên dài tự thu chữ", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🔧 Scan: tổ trưởng nhận đúng người mà trống ấp → tự bổ sung ấp lúc lưu; bản cũ có nút Bổ sung ấp", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.458 · Hồ sơ Tổ › 10A › Về việc: Kiện toàn → phần Phê duyệt UBND \"… làm Tổ phó được kiện toàn, hoạt động theo Quy ước…\"",
+    "3.458 · 10A › Chọn nhanh: dòng \"Phê duyệt UBND\" chọn Theo Về việc / Luôn \"thành lập\"",
     "3.457 · Hồ sơ Tổ › 10B / 10C › Chọn nhanh: \"…/… tổ viên dự họp\" có − 100 % + (gõ ≤ 50% → app đặt 51%)",
     "3.457 · 10B / 10C › Chọn nhanh: biểu quyết tỷ lệ tán thành (− / +, tối thiểu 67%)",
     "3.456 · Hồ sơ Tổ › 10A › Chọn nhanh: dòng \"số tham dự\" có − 100 % + (gõ ≤ 50% → app đặt 51%)",
@@ -1090,9 +1092,7 @@ var CO_GI_MOI = {ban:'3.457', ds:[
     "3.453 · 10C › Chọn nhanh: Về việc bật / tắt 4 nội dung (kết nạp, cho ra, bình xét, sửa Quy ước) + ➕ thêm ở ⚙ Khai báo riêng",
     "3.452 · Hồ sơ Tổ › chọn tổ › chip 10B/TD → cột trái bảng hộ vay có cột Kết nạp (hộ mới vào tích sẵn); ô bầu thay gõ hoặc chọn tên trong tổ",
     "3.452 · 10B › nút ⚙ Khai báo riêng (cạnh ⚙ Khai báo đơn vị); Chọn nhanh: Về việc bấm bật / tắt từng nội dung",
-    "3.452 · 10B xem trước / Word: chữ 14, tiêu đề 15 + kẻ, \"Ông (bà): tên ⇥ Chức vụ\", Hội bỏ xã, 2 trang, chú thích đáy trang 1",
-    "3.451 · Phân bổ KH › Biểu 07 / Thông báo → xem trước: \"THÔNG BÁO … KẾ HOẠCH DƯ NỢ\" và \"NĂM …\" cách nhau rõ hơn, cách thêm trước Kính gửi; \"Số:   /TB-UBND\" gọn",
-    "3.450 · 10A xem trước: dòng \"Chủ trì: Ông (Bà): … ⇥ Chức vụ: …\" thụt đầu dòng như các dòng khác, nằm 1 dòng; III a) / b) thẳng hàng cả khi tên dài"],
+    "3.452 · 10B xem trước / Word: chữ 14, tiêu đề 15 + kẻ, \"Ông (bà): tên ⇥ Chức vụ\", Hội bỏ xã, 2 trang, chú thích đáy trang 1"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.457 · 10B, 10C: ô số tổ viên dự họp trước chỉ tự lấy số tổng (số dự họp để chấm) → nay tự tính \"tham dự/tổng\"; ô biểu quyết trước ✍ / ✏ gõ trong lần làm → 🤖 tự tính / ⌨ tự gõ / ✍ chấm",
     "3.456 · 10A: ô số tham dự và ô IV trước chỉ ✍ chấm / ✏ gõ trong lần làm → nay 🤖 tự tính / ⌨ tự gõ / ✍ chấm",
