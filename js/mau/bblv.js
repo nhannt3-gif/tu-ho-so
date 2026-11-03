@@ -84,7 +84,7 @@
         return '<div class="om-goc" style="font-size:'+CO+'pt">'+h+'</div>'; };
       /* trọn 1 trang A4: nhiều dòng chấm nhất, rồi giãn dòng nhiều nhất còn vừa */
       var H = 297-MG[0]-MG[2]-5, Wm = 210-MG[1]-MG[3], chon = null;
-      for(var L=4; L>=1 && !chon; L--){ if(bblvCao(dong(L, 1.15), Wm) <= H){ var lh = 1.15; while(lh < 1.5 && bblvCao(dong(L, lh+0.05), Wm) <= H) lh += 0.05; chon = [L, Math.round(lh*100)/100]; } }
+      for(var L=4; L>=1 && !chon; L--){ if(bblvCao(dong(L, 1.15), Wm) <= H){ var lh = 1.15; while(lh < 1.5 && bblvCao(dong(L, lh+0.02), Wm) <= H) lh += 0.02; chon = [L, Math.round(lh*100)/100]; } }
       if(!chon){ chon = [1, 1.15]; OM_DAI.push({mk:MK, k:'mon', n:'Biên bản dài hơn 1 trang', v:'bớt món đã chọn hoặc in 2 trang', gian:1}); }
       return {ma:'BBLV', h:dong(chon[0], chon[1]), L:chon[0], lh:chon[1]};
     }});
@@ -107,17 +107,19 @@
     var x = ds[0], m = x ? x.m : null, sp = function(v){ return '<span class="om om-tu" data-o="mon">'+e(v)+'</span>'; }, f = x ? x.f : {};
     var hop = function(co, chu){ return (co ? '☒' : '☐')+' '+chu; };
     return P('<b>1. Thông tin về món vay</b>', T)+
-      (m ? P('- Tên chương trình vay: '+sp(hsoCTMon(m))+' – Số tiền vay: '+sp(m.gn ? tdnTien(m.gn) : '')+' đồng;', T+W)+P('- Mục đích sử dụng vốn vay: '+(md(m) ? sp(md(m))+'.' : '…………………………………………………………………………'), T+W)+
+      (m ? P('- Tên chương trình vay: '+sp(hsoCTMon(m))+' – Số tiền vay: '+sp(m.gn ? tdnTien(m.gn) : '')+' đồng;', T)+P('- Mục đích sử dụng vốn vay: '+(md(m) ? sp(md(m))+'.' : '…………………………………………………………………………'), md(m) ? T : T+W)+
           P('- Ngày vay '+sp(nt(m.nv) || '……/……/………')+' – Ngày đến hạn '+sp(nt(skHL(m)) || '……/……/………'), T+W)+
           P('- Dư nợ đến ngày '+sp(nsC || '……/……/………')+': gốc '+sp(tdnTien(m.dn||0))+' đồng; lãi '+sp(tdnTien(laiTon(m)))+' đồng.', T+W)+
           P('- Tình trạng: '+hop(f.qh, 'Quá hạn')+' &nbsp;'+hop(f.kn, 'Khoanh')+' &nbsp;'+hop(f.lai>3, 'Lãi tồn cao'+(f.lai>3 ? ' (≈ '+Math.floor(f.lai)+' tháng)' : ''))+' &nbsp;'+hop(f.khd, '3 tháng KHĐ'), T+W)
         : P('- Tên chương trình vay: ……………………… – Số tiền vay: ………………… đồng;', T+W)+P('- Mục đích sử dụng vốn vay: ……………………………………………………………………', T+W)+
           P('- Ngày vay ……/……/……… &nbsp;&nbsp;&nbsp;&nbsp; – Ngày đến hạn ……/……/………', T+W)+P('- Dư nợ đến ngày ……/……/………: gốc ……………… đồng; lãi …………… đồng.', T+W)+
           P('- Tình trạng: ☐ Quá hạn &nbsp;☐ Khoanh &nbsp;☐ Lãi tồn cao &nbsp;☐ 3 tháng KHĐ', T+W)); }
-  /* chiều cao (mm) khi in — đo trong khối ẩn cùng phông, cùng bề rộng vùng in; không có DOM (node) → ước 6 mm / dòng */
+  /* chiều cao (mm) khi in — dựng đúng trang in (hsoTrang: cùng CSS, phông) trong khung ẩn rộng bằng vùng in, ghi đồng bộ (about:blank) rồi đo; không có DOM → ước 6 mm / đoạn */
   function bblvCao(h, Wm){ if(typeof document==='undefined' || !document.body) return (h.match(/<p /g) || []).length*6;
-    var d = bblvCao.d; if(!d){ d = bblvCao.d = document.createElement('div'); d.style.cssText = 'position:absolute;left:-10000px;top:0;visibility:hidden;font-family:"Times New Roman",Times,serif;color:#000'; document.body.appendChild(d); }
-    d.style.width = Wm+'mm'; d.innerHTML = h; var px = d.getBoundingClientRect().height; d.innerHTML = ''; return px*25.4/96; }
+    var f = bblvCao.f; if(!f){ f = bblvCao.f = document.createElement('iframe'); f.setAttribute('aria-hidden', 'true'); f.style.cssText = 'position:absolute;left:-10000px;top:0;height:400mm;border:0;visibility:hidden'; document.body.appendChild(f); }
+    f.style.width = Wm+'mm'; var d = f.contentDocument, M = hsoMauK(MK) || {mg:MG};
+    d.open(); d.write(typeof hsoTrang==='function' ? hsoTrang([{M:M, h:h}]) : '<body style="margin:0;font-family:Times New Roman">'+h+'</body>'); d.close();
+    var e = d.querySelector('.kt-to') || d.body; return e.getBoundingClientRect().height*25.4/96; }
   /* hộ đang lập: trong vòng in nhiều hộ → BBLV_HO; không thì hộ đầu tiên đang chọn; chưa chọn → người vay đang xem (HSO.vay) với các món có vấn đề (không có thì mọi món còn nợ) */
   function bblvHo(t){ if(BBLV_HO) return BBLV_HO; if(!t || typeof HSN==='undefined') return null;
     var d = HSN.dsChon(MK, t), kh = HSO.vay && HSO.vay.kh; if(kh){ var c = d.find(function(h){ return h.k.kh===kh; }); if(c) return c; }
