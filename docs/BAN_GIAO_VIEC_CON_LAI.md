@@ -266,6 +266,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.461)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › BBLV › chọn tổ › ⭐ Nợ cần quan tâm › In | Mỗi hộ 1 biên bản, đúng 1 trang | |
+| 2 | BBLV 1 hộ 1 món / nhiều món | 1 món dạng dòng; nhiều món dạng bảng có Cộng | |
+| 3 | BBLV Bản trắng | 1 trang, mọi ô chấm, mục 1 dạng dòng | |
+| 4 | 06A › tích 3 món › In | 3 phiếu, mỗi phiếu 2 trang; Ông (bà): tên, Hội không trùng, ngày liền, đồng liền | |
+| 5 | KTGS Mẫu 06 › 📄 06A | Mở 06A, tích sẵn đúng món | |
+
 ### Danh sách thử trên máy thật (3.460)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

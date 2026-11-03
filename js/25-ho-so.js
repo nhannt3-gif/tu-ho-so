@@ -26,6 +26,7 @@ var HSO_MAU = {
     {k:'01td', ma:'01/TD',  ten:'Giấy đề nghị vay vốn kiêm phương án sử dụng vốn vay', mg:[12, 18, 10, 22]},
     {k:'03td', ma:'03/TD',  ten:'Danh sách tổ viên đề nghị vay vốn', ngang:true, mg:[10, 12, 10, 9]},
     {k:'06a',  ma:'06A/TD', ten:'Phiếu kiểm tra sử dụng vốn vay — từng hộ, mỗi món 1 phiếu (khi phát hiện sai: sai mục đích, 3 tháng KHĐ…) — 727', mg:[20, 20, 18, 27.5]},   /* 3.430 (anh chốt 01/11) */
+    {k:'bblv', ma:'BBLV',   ten:'Biên bản làm việc — xác minh, đánh giá khoản nợ của hộ (nợ quá hạn, khoanh, lãi tồn cao, 3 tháng KHĐ); mỗi hộ 1 biên bản, trọn 1 trang A4', mg:[15, 15, 15, 25]},   /* 3.461 (anh 03/11) */
     {k:'06td', ma:'06/TD',  ten:'Phiếu kiểm tra sử dụng vốn vay — dùng Mẫu 06 KTGS (khóa mẫu), nhiều hộ / phiếu', ngang:true, mg:[10, 10, 10, 10]},   /* 3.253 (anh chốt 17–18/10, ý 12–14) */
     {k:'01gqvl', ma:'01/GQVL', ten:'Phương án sử dụng vốn vay GQVL (người lao động) — mẫu từ 01/10/2026 (VB 4039)', mg:[15, 20, 15, 25]},   /* 3.211 */
     {k:'07b',  ma:'07b/GQVL', ten:'Hợp đồng tín dụng GQVL (người lao động) — mẫu từ 01/10/2026 (VB 4039)', mg:[15, 20, 15, 25]},   /* 3.211 */

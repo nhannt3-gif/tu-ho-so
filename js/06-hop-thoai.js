@@ -1056,7 +1056,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.460', ds:[
+var CO_GI_MOI = {ban:'3.461', ds:[
+  ["Biên bản làm việc (BBLV) mới: xác minh khoản nợ của hộ — mỗi hộ 1 biên bản trọn 1 trang A4", "hsoChonMau('bblv')"],
+  ["Chọn nhiều hộ / món của tổ theo nhóm: nợ quá hạn, khoanh, 3 tháng KHĐ, lãi tồn > 3 / 6 / 12 tháng", "hsoChonMau('bblv')"],
+  ["Mẫu 06A: Ông (bà): tên, bỏ chữ Hội trùng, nơi kiểm tra = địa chỉ khách, ngày và đồng in liền, khai báo đủ mọi dòng, in nhiều phiếu", "hsoChonMau('06a')"],
   ["Mẫu 10A dùng khuôn chung với 10B / 10C: bảng hộ vay có tìm tên / mã KH, lọc ấp, Tích hết / Bỏ hết", "hsoChonMau('10a')"],
   ["📝 Mẫu 10A: địa chỉ phê duyệt UBND 3 dòng riêng; nút \"Tên Tổ trưởng, Tổ phó, ngày\"; dòng chấm gọn (III thẳng cột, Trưởng ấp / Thư ký kín dòng); tiền có dấu chấm; tên dưới chữ ký theo dòng trên", ""],
   ["📝 Mẫu 10A: chọn \"Kiện toàn\" → Phê duyệt UBND ghi \"được kiện toàn\"; có nút giữ \"thành lập\"", ""],
@@ -1068,11 +1071,10 @@ var CO_GI_MOI = {ban:'3.460', ds:[
   ["📝 Mẫu 10B theo quy chuẩn 10A: Về việc chọn nhiều, bảng hộ vay (cột Kết nạp, TT / TP), bầu thay chọn tên trong tổ, nút ⚙ Khai báo riêng", ""],
   ["🎯 Phân bổ KH › Thông báo giao / điều chỉnh KH dư nợ: giãn dòng tiêu đề, thu gọn chỗ trống \"Số: …/TB-UBND\"", ""],
   ["📝 Mẫu 10A: dòng Chủ trì / III a-b không còn thụt gấp đôi, vừa 1 dòng; họ tên tự gõ in đúng", ""],
-  ["📝 Mẫu 10A: bảng hộ vay của tổ (Mã KH, dư nợ, TT / TP), họ tên ⇥ Chức vụ, mỗi dòng chọn tự động / ghi tay", ""],
-  ["📝 Mẫu 10A: Thành lập / Kiện toàn (VB 4336), chữ 14, Tổng số ở cột cuối, xã–ấp theo địa bàn, nút ⚙ Khai báo riêng", ""],
-  ["🌳 Cây lọc: tên xã không còn hiện \"Vay trực tiếp\"", ""],
-  ["📝 Mẫu 10A rà bố cục: ngày họp in đúng, thêm khoảng trắng sau xã / tỉnh / tháng, dòng Thư ký vừa 1 dòng", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📝 Mẫu 10A: bảng hộ vay của tổ (Mã KH, dư nợ, TT / TP), họ tên ⇥ Chức vụ, mỗi dòng chọn tự động / ghi tay", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.461 · Hồ sơ › Hồ sơ vay › chip BBLV (cạnh 06A/TD) › chọn tổ → bảng hộ còn nợ: bấm [Nợ quá hạn] [Nợ khoanh] [3 tháng KHĐ] [Lãi tồn > 3/6/12 tháng] [⭐ Nợ cần quan tâm] hoặc tích tay → In (mỗi hộ 1 trang); bấm tên hộ để xem trước",
+    "3.461 · Hồ sơ vay › 06A/TD: cùng bảng chọn — tích nhiều món → mỗi món 1 phiếu; ⚙ Khai báo riêng có đủ dòng (đoàn kiểm tra, thực tế, sử dụng vốn, ý kiến, ký tên)",
     "3.460 · Hồ sơ Tổ › 10A › chọn tổ: bảng hộ vay cột trái có ô 🔎 tìm, Tích hết / Bỏ hết / Bỏ tích hộ dư nợ = 0 (như 10B, 10C); tỷ lệ tham dự / tán thành giữ như anh đã đặt",
     "3.459 · Hồ sơ Tổ › 10A › Chọn nhanh: 3 dòng \"Phê duyệt UBND — Địa chỉ: thôn / xã / tỉnh\" chọn riêng 🤖 / ✍ / ⌨",
     "3.459 · 10A › cuối Chọn nhanh: nút \"Phê duyệt UBND — Tên Tổ trưởng, Tổ phó, ngày: ✍ chấm · 🤖 tự điền\" (không đụng địa chỉ)",
@@ -1090,10 +1092,9 @@ var CO_GI_MOI = {ban:'3.460', ds:[
     "3.455 · 🖼 Khai báo trực quan: bấm chỗ trên mẫu → dòng bên phải sáng + mở chi tiết; bấm tên dòng → viền đỏ trên mẫu",
     "3.455 · Bản xem trước: rê chuột lên chữ app điền (viền màu nguồn), bấm → dòng Chọn nhanh cột trái sáng lên; dòng không có ở Chọn nhanh → mở trực quan",
     "3.454 · Hồ sơ Tổ › 10A › Xem / In: trang 3 bắt đầu \"b) Tổ phó…\", trang 4 bắt đầu \"III. BẦU BAN QUẢN LÝ…\"",
-    "3.454 · 10A › ⚙ Khai báo riêng › Trưởng ấp / Thư ký ⌨ gõ tên rất dài → vẫn 4 trang, khung tổ viên bớt 1–2 hàng (còn đủ ô cho tổ)",
-    "3.453 · Hồ sơ Tổ › chọn tổ › chip 10C mới → cột trái bảng hộ vay 2 cột Cho ra · Kết nạp (tích bên này bỏ bên kia); lọc ấp, tìm, Tích hết / Bỏ hết",
-    "3.453 · 10C › ➕ Kết nạp từ tổ khác (cùng ấp) → chọn tổ nguồn → Tích hết → Kết nạp n hộ; sau đó chọn tổ nguồn lập 10C → các hộ đó tự tích Cho ra"],
+    "3.454 · 10A › ⚙ Khai báo riêng › Trưởng ấp / Thư ký ⌨ gõ tên rất dài → vẫn 4 trang, khung tổ viên bớt 1–2 hàng (còn đủ ô cho tổ)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",
     "3.459 · 10A: ô \"Phê duyệt UBND: thôn · xã · tỉnh\" (1 ô) → 3 ô riêng (cách đã chọn giữ cho cả 3)",
     "3.459 · 10A: nút \"Phê duyệt UBND — cả phần\" → \"Tên Tổ trưởng, Tổ phó, ngày\" (không còn đổi địa chỉ)",
     "3.459 · 10A: tên dưới chữ ký Trưởng thôn / Chủ trì trước luôn tự lấy → nay theo dòng tương ứng ở trên",
@@ -1112,8 +1113,7 @@ var CO_GI_MOI = {ban:'3.460', ds:[
     "3.439 · Phân bổ KH: bỏ nút 📥 Nhập từ bản WPF (file sao lưu json app cũ) → thay bằng 📥 Nạp QĐ (Excel mẫu); QĐ đã nhập trước đây giữ nguyên",
     "3.435 · Tra cứu: bỏ luật \"luôn lấy số liệu mới nhất\" (3.347) → theo ô kỳ góc phải, chưa chọn thì vẫn mới nhất",
     "3.434 · Thẻ tổ (Tra cứu): bỏ nút 👪 Lập hồ sơ hộ mới vào tổ (anh đã bỏ 29/10, 3.410 trả lại nhầm) — vẫn lập được ở 🏘 Tổ của điểm GD",
-    "3.434 · Khối Tổ & địa bàn: bỏ dòng \"Mã tổ\" riêng (lên dòng tiêu đề) và dòng ghi chú số liệu dài (thành ⓘ rê chuột)",
-    "3.416.4 · Thẻ tổ: bỏ chip \"n còn lãi tồn\" dưới bảng → ô Lưu ý ghi \"n không dư nợ · m hết gốc còn lãi\""]};
+    "3.434 · Khối Tổ & địa bàn: bỏ dòng \"Mã tổ\" riêng (lên dòng tiêu đề) và dòng ghi chú số liệu dài (thành ⓘ rê chuột)"]};
 function noiDungCoGiMoi(){
   return '<h3>Bản '+CO_GI_MOI.ban+' có gì mới</h3><div class="hd-moi">'+CO_GI_MOI.ds.map(function(x){
       return '<button class="hd-moi-dong" onclick="'+x[1]+'">'+coChuHTML(x[0])+' <span>›</span></button>'; }).join('')+'</div>'+

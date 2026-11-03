@@ -240,6 +240,7 @@ function hsoWord06HS(){ var g = hso06GtHS(); if(!g.length) return bao('Chưa có
 function hsoKem06(){ var B = hsoBo(), M = hsoMau(); return M.k==='01td' && !!(B && B.kem && B.kem.k06); }
 function hsoLap06a(){ return {ma:'06A/TD', h:'<p>Thiếu mô-đun mẫu 06A (js/mau/06a.js).</p>'}; }   /* 3.430: js/mau/06a.js gán lại */
 function hso06aMo(){ baoLoi('Thiếu mô-đun mẫu 06A (js/mau/06a.js).'); }
+function hsoLapBblv(){ return {ma:'BBLV', h:'<p>Thiếu mô-đun Biên bản làm việc (js/mau/bblv.js).</p>'}; }   /* 3.461: js/mau/bblv.js gán lại */
 function hso06aKyMD(){ return ''; }   /* 3.431: js/mau/06a.js gán lại — kỳ mặc định cuối tháng trước */
 function hsoLap09a(t){
   var T = hsoTo(t), c = hsoKhachChon(t), V = HSO.vay, mon = hsoMonGH(t), m = mon.find(function(x){ return x.ku===V.ku; }) || mon[0] || null, han = m ? skHL(m) : '', tien = hsoSo(hsoChamGT('09a', 'tienGH', m ? m.dn : 0));
@@ -489,6 +490,7 @@ function hsoLap(){
   else if(M.k==='01tgtv'){ var P = hsoTGTVDs(t, B); x = {ma:'01/TGTV', ds:(P.length ? P : [null]).map(function(y){ return {M:M, h:hsoLap01tgtv(t, y).h}; })}; ai = P.length===1 ? P[0].ten : ''; }
   else if(M.k==='03td' && (hsoD03().ds.length || (B && B.hoId)) && (!B || B.hoId)){ var D3 = hsoD03(), t3 = hsoD03To(D3); hsoD03TuBo(D3); x = hsoLap03td(t3, null, hsoD03Hang(D3), D3.ct); }   /* 3.209: 03/TD nhiều hộ cùng chương trình */
   else if(M.k==='03td' && !B && t){ var ch = HSO.vay.chon || {}; x = hsoLap03td(t, null, hsoTVTo(t).filter(function(k){ return ch[k.kh]; }).map(function(k){ return {ten:k.ten}; })); }
+  else if(M.k==='bblv'){ x = hsoLapBblv(t); ai = x.ds && x.ds.length>1 ? '' : ((x.ds && x.ds[0] && x.ds[0].ten) || (hsoKhachChon(t)||{}).ten || ''); }   /* 3.461: mỗi hộ 1 biên bản */
   else { var f = {'10c':function(t){ return hsoLap10c(t, {moiChon:1}); }, '10ccu':hsoLap10cCu, '10a':hsoLap10a, '10b':hsoLap10b, '10d':function(t){ return hsoLap10d(t); }, '11':hsoLap11, '11cu':hsoLap11Cu, '01bg':hsoLap01bg, '02bg':hsoLap02bg, '01uq':hsoLap01uq, '01td':hsoLap01td, '03td':hsoLap03td, '09a':hsoLap09a, '06a':hsoLap06a, '01tdck':hsoLap01tdck, '01gqvl':hsoLap01gqvl, '07b':hsoLap07b, 'pdnh':hsoLapPdnh}[M.k];
     x = f(t, p==='hsv' && /^(01uq|01td|03td|01gqvl|07b|pdnh)$/.test(M.k) ? B : undefined);
     ai = /^(01uq|01td|01gqvl|07b|pdnh)$/.test(M.k) ? hsoBoNV(B).ten || '' : /^(09a|01tdck|06a)$/.test(M.k) ? ((hsoKhachChon(t)||{}).ten || '') : ''; }

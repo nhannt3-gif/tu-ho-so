@@ -12,6 +12,13 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 03/11/2026 22:30 — TK 3 · PHIÊN
+- Đã làm: **3.461** — mới `js/mau/0hsn.js` (`HSN`: bảng chọn món nợ của tổ, nhóm QH / khoanh / KHĐ / lãi tồn > 3·6·12 tháng / ⭐ cần quan tâm) + `js/mau/bblv.js` (**Biên bản làm việc**, mỗi hộ 1 biên bản trọn 1 trang, 1 món dạng dòng / nhiều món bảng, đo chiều cao trong khung in thật `hsoTrang`); 06A sửa trình bày (Ông (bà):, Hội không trùng, tại = địa chỉ, ngày / đồng liền), khai báo đủ 39 ô, in nhiều phiếu, 📄 06A từ KTGS tích sẵn món. Luật **QT-C-23** lãi tồn cao (sổ luật 1.11, 🔧 giao ban chưa áp — hộp thư cho TK 1). Mẫu trắng `tests/mau_goc/bblv.doc` (anh cho phép).
+- Phép thử: mới `t366`; t163 / t170 / t204 (14 chip); t181 thêm 06a, bblv nhóm DUNG; hồi quy đủ `tat 3` 246/246.
+- Đang dở: không.
+- Chờ anh: thử máy thật BBLV + 06A (bảng thử 3.461); các việc chờ cũ (Word giống bản in, 5 mẫu chưa nền ô).
+- Lưu ý / bẫy: in nhiều bản → bộ in chèn **trang trắng** giữa các bản (in 2 mặt) — không phải tràn trang. `bblvCao` ghi đồng bộ vào iframe ẩn `about:blank` (dùng `hsoTrang`), khung đo dùng chung giữa các lần. Ô giữa dòng kiểu cột của 06A (thực tế, chức vụ, số tiền đúng / sai) giữ bề rộng chấm (QUY_CHUAN 9.7).
+
 ### 03/11/2026 20:15 — TK 3 · PHIÊN
 - Đã làm: **3.460** 10A về khuôn chung `HST` (js/mau/0hst.js) như 10B / 10C — `HST.ds`, `HST.bang` (cột In, mặc định tích hết, dòng tổng dưới bảng), `HST.tl / so / bq / tlHTML`, `HST.capAp`, `HST.hoi`; bỏ bản riêng `hso10aTl / So / TlDat`, `TL10A`, `dvAp`, `hso10aHoi`, bảng `h10a.*`. Tỷ lệ cũ `tl10a / tl10aBq` chuyển 1 lần sang `tlHop['10a']` (cờ `tl10aHST`). Giữ riêng: phê duyệt UBND, khóa trang, Thành lập / Kiện toàn, tách ô 3.449.
 - Phép thử: t179 45/45 (chuẩn khóa 10A không đổi), t181 49/49, t358, t364 (+ ý chuyển tỷ lệ cũ), t365, t163, t363 đạt; hồi quy `doi 3` đạt, đã chốt 245.
