@@ -14,7 +14,7 @@
 
 ### 03/11/2026 — TK 3 · NHẬN VAI (anh: "bàn giao từ TK 2, em làm app chính")
 - Đã đọc: `AGENTS.md` → `docs/TRANG_THAI_CHUNG.md` → mục BÀN GIAO 09:40 + PHIÊN 17:00 của TK 2. Trạng thái nhận: `main` = **3.459**, không code dở, hồi quy 245 phép đã chốt.
-- Nhận nguyên danh sách "Chờ anh" của TK 2 (thử máy thật 10A/10B/10C · Word giống bản in mẫu nền ô · 10A về `HST` · CCCD Scan 1 dòng · 5 mẫu chưa nền ô · phối hợp App ↔ Giao ban tạm dừng).
+- Nhận nguyên danh sách "Chờ anh" của TK 2 (thử máy thật 10A/10B/10C · Word giống bản in mẫu nền ô · 10A về `HST` · 5 mẫu chưa nền ô · phối hợp App ↔ Giao ban tạm dừng). **Bỏ hẳn việc "Scan 1 dòng không nhận CCCD"** (anh 03/11: "việc này bỏ qua đi, không ghi nhớ") — không theo dõi nữa.
 - Vai **App phụ** (`dt.html`, Văn bản + Scan) TK 3 kiêm luôn đến khi anh giao lại. Hộp thư: G3 (`css/dt-may-vbsc.css`) TK 3 xác nhận; `dt.html` "chỉ nạp kỳ gần nhất" còn mở — rà khi anh giao.
 - Bước tiếp: chờ anh giao việc; mỗi bản theo `CLAUDE.md` (bump · kiem · hồi quy `doi` / `tat` · bando · nhật ký vai).
 - Lưu ý / bẫy: giữ đủ mục "Lưu ý / bẫy" của TK 2 bên dưới.
