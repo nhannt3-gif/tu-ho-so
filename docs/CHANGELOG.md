@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.461.2 — 03/11/2026 — 06A chỗ ký / chú thích sát đáy, tên chương trình chuẩn; BBLV giao dịch lần cuối (TK 3)
+- **Anh 03/11**: "chỗ ký cho rộng ra, hàng hướng dẫn cho sát đáy" → bộ in chung (`js/05-them-file.js`) thêm lớp **`tr-day`**: khối mang lớp được đẩy xuống sát đáy trang chứa nó (sau khi chia trang). 06A: họ tên dưới chữ ký + chú thích (1), (2) là khối `tr-day` → khoảng ký giãn theo chỗ trống của trang.
+- **Anh 03/11**: "chương trình vay lấy từ dữ liệu nào cho chuẩn, mã món vay bị xuống dòng" → tên chương trình theo cột **"Tên chương trình" Mẫu 31** (`ctTen`, bỏ chữ "Cho vay" đầu — `HSN.ctTen`), trước là tên rút gọn của app; tên dài thì "- Mã món vay" xuống dòng riêng (không bẻ số KU). Áp 06A + Biên bản làm việc.
+- **Anh 03/11**: "tên hộ vay chuyển hoa đầu từ" → 06A tên khách, tổ trưởng `tenHoaDau`.
+- **Anh 03/11**: "trong biên bản ghi thêm giao dịch lần cuối" → BBLV dạng dòng thêm "- Giao dịch lần cuối: dd/mm/yyyy" (Ngày GDXA gần nhất của món, Mẫu 31); dạng bảng cột ngày thêm dòng *GD cuối*.
+
 ## 3.461.1 — 03/11/2026 — Ô In 2 mặt ở BBLV / 06A (TK 3)
 - **Anh 03/11**: "em nên để chế độ chọn nếu máy in 1 mặt" → ô ☑ **In 2 mặt** ở bảng chọn món (`HSN.bang`, js/mau/0hsn.js), dùng chung công tắc của bộ in (`D.cauHinh.ktHaiMat`, như KTGS — mặc định bật). Bỏ tích → in nhiều bản không chèn trang trắng. t366 thêm ý.
 

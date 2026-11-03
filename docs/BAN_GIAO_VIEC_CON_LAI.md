@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.461.2)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 06A 1 món › Xem / In | Trang 2: chỗ ký rộng, chú thích (1)(2) sát đáy; tên chương trình theo Mẫu 31, mã món vay nguyên dòng | |
+| 2 | BBLV 1 món / nhiều món | Có Giao dịch lần cuối; tên hộ hoa đầu từ | |
+
 ### Danh sách thử trên máy thật (3.461.1)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

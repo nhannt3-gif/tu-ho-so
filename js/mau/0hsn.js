@@ -9,6 +9,8 @@
 var HSN = (function(){
   var X = {};
   X.NHOM = [['qh', 'Nợ quá hạn'], ['kn', 'Nợ khoanh'], ['khd', '3 tháng KHĐ'], ['l3', 'Lãi tồn > 3 tháng'], ['l6', '> 6 tháng'], ['l12', '> 12 tháng'], ['qt', '⭐ Nợ cần quan tâm']];
+  /* 3.461.1 (anh 03/11 "chương trình vay lấy từ dữ liệu nào cho chuẩn"): tên chương trình theo cột "Tên chương trình" Mẫu 31 (ctTen — hệ thống xuất), bỏ chữ "Cho vay" đầu; không có → tên app (hsoCTMon) */
+  X.ctTen = function(m){ var v = String((m && m.ctTen) || '').trim().replace(/^cho vay\s+/i, ''); return v ? v.charAt(0).toUpperCase()+v.slice(1) : (typeof hsoCTMon==='function' && m ? hsoCTMon(m) : ''); };
   X.khd = function(){ var o = {}; try { var K = typeof KHO!=='undefined' && KHO.kyDung ? KHO.kyDung() : null; if(typeof slKHD==='function' && K && K.B) slKHD(K.B).forEach(function(r){ if(r && r.ku) o[r.ku] = 1; }); } catch(e){} return o; };
   X.thangLai = function(m){ var lt = typeof laiTon==='function' ? laiTon(m) : 0, dn = +m.dn || 0, ls = +m.ls || 0;
     return lt>0 && dn>0 && ls>0 ? lt/(dn*ls/100/12) : 0; };

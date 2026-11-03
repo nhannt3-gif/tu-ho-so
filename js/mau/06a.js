@@ -44,8 +44,8 @@
       var k = c && t ? hsoTVTo(t).find(function(x){ return x.kh===c.kh || x.kh===V.kh; }) : null, ns = KHO.coKy() ? (KHO.ky().ngay || '') : '';
       var md = m && typeof ktCoNganh==='function' && ktCoNganh(m) ? ktNganh(m) : '';
       var dc = c && typeof hsoDiaChi==='function' ? hsoDiaChi(c, t) : '';   /* 3.461 (anh 03/11 "chỗ tại … ghi địa chỉ ấp xã, tỉnh") */
-      return {donVi:'', ngay:V.ngay || '', noi:V.noi || dc, kyKH:c && c.ten ? tenHoaDau(c.ten) : '', ten:c && c.ten, maKH:c ? (c.kh || V.kh) : '', tt:T.tt, hoi:T.hoi || '',
-        ngaySL:ns, ct:m ? hsoCTMon(m) : '', ku:m && m.ku, gn:m && m.gn ? tdnTien(m.gn) : '', goc:m ? tdnTien(m.dn||0) : '', lai:m ? tdnTien(laiTon(m)) : '',
+      return {donVi:'', ngay:V.ngay || '', noi:V.noi || dc, kyKH:c && c.ten ? tenHoaDau(c.ten) : '', ten:c && c.ten ? tenHoaDau(c.ten) : '',   /* 3.461.2 (anh 03/11 "tên hộ vay chuyển hoa đầu từ") */ maKH:c ? (c.kh || V.kh) : '', tt:T.tt ? tenHoaDau(T.tt) : '', hoi:T.hoi || '',
+        ngaySL:ns, ct:m ? (typeof HSN!=='undefined' ? HSN.ctTen(m) : hsoCTMon(m)) : '', ku:m && m.ku, gn:m && m.gn ? tdnTien(m.gn) : '', goc:m ? tdnTien(m.dn||0) : '', lai:m ? tdnTien(laiTon(m)) : '',
         t105:k && k.t105 ? tdnTien(k.t105) : (k ? '0' : ''), md:md};
     },
     lap:function(t){
@@ -81,7 +81,8 @@
         P('Cùng thống nhất nội dung kiểm tra như sau:', T)+
         P('<b>1. Đối chiếu số tiền vay, tiền gửi tổ viên đến ngày</b> '+ngay('ngaySL', ['……', '…..', '…….'])+':', T)+
         P('a) Theo hồ sơ cho vay', T)+
-        P('- Chương trình: '+o('ct', '……………….……….….')+(co('ct') ? ';&nbsp;&nbsp; ' : ' ')+'Mã món vay: '+o('ku', '…….………………'), T)+
+        (co('ct') && omRong('- Chương trình: '+G.gt('ct')+'; Mã món vay: '+G.gt('ku'), 13.5) > 150 ? P('- Chương trình: '+o('ct', '')+';', T)+P('- Mã món vay: '+o('ku', '…….………………'), T)   /* tên dài → mã món vay xuống dòng riêng (không bẻ số KU) */
+          : P('- Chương trình: '+o('ct', '……………….……….….')+(co('ct') ? ';&nbsp;&nbsp; ' : ' ')+'Mã món vay: '+o('ku', '…….………………'), T+'white-space:nowrap;'))+
         P('- Số tiền giải ngân: '+tien('gn', '………………….……....……….….………….…….', '.'), T)+
         P('- Số dư nợ gốc: '+tien('goc', '……..….....................….…....………………...……..….', '.'), T)+
         P('- Số tiền nợ lãi: '+tien('lai', '……………….', '.'), T)+
@@ -102,10 +103,10 @@
         P('<b>3. Ý kiến của cán bộ kiểm tra</b>', T)+khoi('ykCB', 4)+
         P('<b>4. Ý kiến của khách hàng</b>', T)+khoi('ykKH', 3)+
         '<div style="height:4mm"></div>'+hsoBang('khung0', [87.4, 75.1], '<tr><td class="c"><p class="c b">KHÁCH HÀNG VAY VỐN</p><p class="c i">(Ký, ghi rõ họ tên)</p></td><td class="c"><p class="c b">CÁN BỘ KIỂM TRA</p><p class="c i">(Ký, ghi rõ họ tên)</p></td></tr>')+
-        '<div style="height:18mm"></div>'+hsoBang('khung0', [87.4, 75.1], '<tr><td class="c">'+(co('kyKH') ? o('kyKH', '') : '')+'</td><td class="c">'+(co('kyCB') ? o('kyCB', '') : '')+'</td></tr>')+
-        '<div style="height:2mm"></div><div style="border-top:1px solid #000;width:60mm"></div>'+
+        '<div style="height:12mm"></div>'+'<div class="tr-day">'+hsoBang('khung0', [87.4, 75.1], '<tr><td class="c">'+(co('kyKH') ? o('kyKH', '') : '')+'</td><td class="c">'+(co('kyCB') ? o('kyCB', '') : '')+'</td></tr>')+   /* 3.461.2: họ tên dưới chữ ký + chú thích sát đáy trang — khoảng ký giãn theo chỗ trống của trang (anh "chỗ ký cho rộng ra") */
+'<div style="height:2mm"></div><div style="border-top:1px solid #000;width:60mm"></div>'+
         '<p style="margin:0;font-size:10pt;line-height:1.25;text-align:justify"><i><sup>(1)</sup> Cán bộ kiểm tra lựa chọn lập Phiếu kiểm tra sử dụng vốn vay theo mẫu 06/TD hoặc mẫu 06A/TD để đảm bảo phản ánh đầy đủ thực tế sử dụng vốn vay, hóa đơn chứng từ (nếu có).</i></p>'+
-        '<p style="margin:0;font-size:10pt;line-height:1.25;text-align:justify"><i><sup>(2)</sup> Số lao động được tạo việc làm, duy trì và mở rộng việc làm; số công trình nước sạch, công trình vệ sinh môi trường; số học sinh sinh viên đi học; số ngôi nhà ở được xây dựng mới, cải tạo, sửa chữa;....</i></p>';
+        '<p style="margin:0;font-size:10pt;line-height:1.25;text-align:justify"><i><sup>(2)</sup> Số lao động được tạo việc làm, duy trì và mở rộng việc làm; số công trình nước sạch, công trình vệ sinh môi trường; số học sinh sinh viên đi học; số ngôi nhà ở được xây dựng mới, cải tạo, sửa chữa;....</i></p></div>';
       return {ma:'06A/TD', h:'<div class="om-goc" style="font-size:13.5pt;line-height:1.15">'+h+'</div>'};
     }});
   /* 3.461 (anh 03/11 "cho chọn được 1 lần nhiều hộ của tổ"): tích nhiều món ở bảng HSN → mỗi món 1 phiếu, in liền; chưa tích → người vay / món đang xem như cũ */

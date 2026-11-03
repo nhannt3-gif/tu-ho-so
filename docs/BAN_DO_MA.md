@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.461.1 · 03/11/2026 22:36 · 140 file · 44387 dòng · 3600 hàm cấp ngoài · 603 biến toàn cục.
+Bản 3.461.2 · 03/11/2026 23:19 · 140 file · 44393 dòng · 3600 hàm cấp ngoài · 603 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -23,7 +23,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/04c-van-ban-thang.js` | 963 | 81 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 2634–3608 của bản 3.3 |
 | `js/04d-bo-ho-so.js` | 263 | 23 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 3609–3880 của bản 3.3 |
 | `js/04e-chung.js` | 277 | 25 | /*   3.399 (anh 28/10: "theo dõi nợ tạm thời bỏ, xóa code rác, sẽ phát triển sau cho gọn" · "gỡ luôn cho gọn c |
-| `js/05-them-file.js` | 1378 | 72 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
+| `js/05-them-file.js` | 1380 | 72 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
 | `js/06-hop-thoai.js` | 1332 | 106 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
 | `js/06a-dong-bo-cai-dat.js` | 924 | 53 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): đồng bộ mục lên file thật trên Drive · xóa / thùng rác |
 | `js/06b-xoa-nhieu.js` | 211 | 25 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2218–2421 của bản 3.3 |
@@ -97,9 +97,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/mau/01uq.js` | 66 | 0 | /*   3.223 M4 — MẪU 01/UQ Giấy ủy quyền trên nền ô — dựng theo file gốc tests/mau_goc/01uq.docx (VB 10493, áp  |
 | `js/mau/03td.js` | 54 | 0 | /*   3.223 M5 — MẪU 03/TD Danh sách tổ viên đề nghị vay vốn trên nền ô — dựng theo file gốc tests/mau_goc/03td |
 | `js/mau/09a.js` | 84 | 0 | /*   3.223 M5 — MẪU 09A/TD Giấy đề nghị gia hạn nợ trên nền ô — dựng theo file gốc tests/mau_goc/09a.docx (QĐ  |
-| `js/mau/0hsn.js` | 61 | 0 | /*   3.461 (anh 03/11/2026) — PHẦN CHUNG chọn món nợ của tổ cho mẫu kiểm tra hộ vay (06A/TD, Biên bản làm việc |
-| `js/mau/06a.js` | 135 | 0 | /*   3.430 (anh chốt 01/11/2026) — MẪU 06A/TD Phiếu kiểm tra sử dụng vốn vay (727) trên nền ô — dựng theo file |
-| `js/mau/bblv.js` | 136 | 0 | /*   3.461 (anh 03/11/2026) — BIÊN BẢN LÀM VIỆC: xác minh, đánh giá khoản nợ của hộ vay (nợ quá hạn, nợ khoanh |
+| `js/mau/0hsn.js` | 63 | 0 | /*   3.461 (anh 03/11/2026) — PHẦN CHUNG chọn món nợ của tổ cho mẫu kiểm tra hộ vay (06A/TD, Biên bản làm việc |
+| `js/mau/06a.js` | 136 | 0 | /*   3.430 (anh chốt 01/11/2026) — MẪU 06A/TD Phiếu kiểm tra sử dụng vốn vay (727) trên nền ô — dựng theo file |
+| `js/mau/bblv.js` | 137 | 0 | /*   3.461 (anh 03/11/2026) — BIÊN BẢN LÀM VIỆC: xác minh, đánh giá khoản nợ của hộ vay (nợ quá hạn, nợ khoanh |
 | `js/mau/01tdck.js` | 53 | 0 | /*   3.223 M5 — MẪU 01/TĐCK Giấy đề nghị thay đổi mẫu chữ ký giao dịch trên nền ô — dựng theo file gốc tests/m |
 | `js/mau/01tgtv.js` | 123 | 0 | /*   3.223 M5 — MẪU 01/TGTV Giấy đăng ký mở tài khoản tổ viên trên nền ô   BỐ CỤC GIỮ NGUYÊN 3.218–3.219 (anh  |
 | `js/mau/01gqvl.js` | 160 | 0 | /*   3.223 M5 — MẪU 01/GQVL Phương án sử dụng vốn vay (người lao động) trên nền ô — dựng theo file gốc tests/m |
@@ -502,9 +502,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `veKTGS` `js/22b-ktgs.js:112`
 - `veSaoKe` `js/22h-cap-hoi-sao-ke.js:400`
 - `veTongHop` `js/22i-tong-hop.js:333`
-- `inChuan` `js/05-them-file.js:1358`
+- `inChuan` `js/05-them-file.js:1360`
 - `inBlob` `js/05-them-file.js:1155`
-- `xemChuan` `js/05-them-file.js:1366`
+- `xemChuan` `js/05-them-file.js:1368`
 - `pvLuaChon` `js/22ga-pham-vi.js:10`
 - `chTheoDoi` `js/17-dong-bo-cai-dat.js:49`
 - `slDay` `js/22-so-lieu.js:790`

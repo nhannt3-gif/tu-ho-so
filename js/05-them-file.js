@@ -1299,6 +1299,8 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
       for(var j=0;j<B.length;j++){ t = trang(B[j]); apBac(u, B[j]); t.nd.appendChild(u); var tran = u.scrollWidth>u.clientWidth+2 || (u.hasAttribute('data-tr-1trang') && u.offsetHeight>t.nd.clientHeight+1); t.nd.removeChild(u); ds.removeChild(t.tg); if(!tran){ b = B[j]; break; } }
       t = trang(b); apBac(u, b); t.nd.appendChild(u); coDinhCot(u); t.nd.removeChild(u); ds.removeChild(t.tg);
       var P = chia(u, b), N = P.length, so = u.getAttribute('data-tr-so') || C.so;   /* 3.171: số trang riêng từng bản (xy · so · khong) */
+      P.forEach(function(p){ var e = p.nd.querySelector('.tr-day'); if(!e) return;   /* 3.461.1 (anh 03/11 "hàng hướng dẫn cho sát đáy"): khối .tr-day (chú thích cuối mẫu) đẩy xuống sát đáy trang chứa nó */
+        var r = p.nd.getBoundingClientRect(), y = e.getBoundingClientRect().bottom, du = r.top+p.nd.clientHeight-y-2; if(du>0) e.style.marginTop = ((parseFloat(e.style.marginTop) || 0)+du)+'px'; });
       P.forEach(function(p, k){ if(so==='khong' || (so!=='xy' && !k)) return; var s = d.createElement('div'); s.className = 'tr-so'; s.textContent = so==='xy' ? 'Trang '+(k+1)+'/'+N : String(k+1);
         s.style.cssText = 'right:'+b[1][1]+'mm;bottom:'+Math.max(3, b[1][2]*0.4)+'mm;font-size:'+(so==='xy' ? '8pt;font-style:italic' : '9pt'); p.tg.appendChild(s); });
       var chan = u.getAttribute('data-tr-chan'); if(chan) P.forEach(function(p, k){ var c = chan.split('|'), e = d.createElement('div'); e.className = 'tr-so';   /* 3.171: chân trang mẫu ngành (01/TGTV): trái · phải + Trang x / N */

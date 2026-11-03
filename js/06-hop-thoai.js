@@ -1056,7 +1056,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.461.1', ds:[
+var CO_GI_MOI = {ban:'3.461.2', ds:[
+  ["06A: chỗ ký rộng hơn, dòng hướng dẫn cuối mẫu sát đáy trang; tên chương trình theo Mẫu 31, mã món vay không bị bẻ dòng", "hsoChonMau('06a')"],
+  ["Biên bản làm việc: thêm ngày giao dịch lần cuối của món; tên hộ vay viết hoa đầu từ", "hsoChonMau('bblv')"],
   ["BBLV / 06A: ô In 2 mặt ở cột trái — máy in 1 mặt bỏ tích để không chèn trang trắng giữa các bản", "hsoChonMau('bblv')"],
   ["Biên bản làm việc (BBLV) mới: xác minh khoản nợ của hộ — mỗi hộ 1 biên bản trọn 1 trang A4", "hsoChonMau('bblv')"],
   ["Chọn nhiều hộ / món của tổ theo nhóm: nợ quá hạn, khoanh, 3 tháng KHĐ, lãi tồn > 3 / 6 / 12 tháng", "hsoChonMau('bblv')"],
@@ -1069,9 +1071,7 @@ var CO_GI_MOI = {ban:'3.461.1', ds:[
   ["🖼 Khai báo riêng mọi mẫu: danh sách gọn (không dồn chữ), vạch màu theo nguồn; trực quan liên kết 2 chiều; bấm chữ trên bản xem trước → tới đúng dòng khai báo", ""],
   ["📝 Mẫu 10A: khóa trang 3 bắt đầu \"b) Tổ phó\", trang 4 bắt đầu \"III.\"; tên dài → tự bớt hàng khung tổ viên để vẫn 4 trang", ""],
   ["📝 Mẫu 10C theo quy chuẩn 10A: Về việc chọn nhiều, bảng Cho ra / Kết nạp, kết nạp từ tổ khác cùng ấp, ＋ / − số dòng bảng", ""],
-  ["📝 Mẫu 10B theo quy chuẩn 10A: Về việc chọn nhiều, bảng hộ vay (cột Kết nạp, TT / TP), bầu thay chọn tên trong tổ, nút ⚙ Khai báo riêng", ""],
-  ["🎯 Phân bổ KH › Thông báo giao / điều chỉnh KH dư nợ: giãn dòng tiêu đề, thu gọn chỗ trống \"Số: …/TB-UBND\"", ""],
-  ["📝 Mẫu 10A: dòng Chủ trì / III a-b không còn thụt gấp đôi, vừa 1 dòng; họ tên tự gõ in đúng", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📝 Mẫu 10B theo quy chuẩn 10A: Về việc chọn nhiều, bảng hộ vay (cột Kết nạp, TT / TP), bầu thay chọn tên trong tổ, nút ⚙ Khai báo riêng", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
     "3.461.1 · Hồ sơ vay › BBLV hoặc 06A › cột trái dưới nút Tích hết: ô ☑ In 2 mặt (bỏ tích khi máy in 1 mặt)",
     "3.461 · Hồ sơ › Hồ sơ vay › chip BBLV (cạnh 06A/TD) › chọn tổ → bảng hộ còn nợ: bấm [Nợ quá hạn] [Nợ khoanh] [3 tháng KHĐ] [Lãi tồn > 3/6/12 tháng] [⭐ Nợ cần quan tâm] hoặc tích tay → In (mỗi hộ 1 trang); bấm tên hộ để xem trước",
