@@ -26,7 +26,18 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('lãi suất 0 → không tính số tháng (không vào nhóm lãi tồn cao)', HSN.thangLai({dn:1e7, ls:0, ltTH:5e5})===0);
    /* BBLV */
    hsoChonMau('bblv'); await w(600);
-   ok('chip BBLV ở Hồ sơ vay + bảng chọn món + nút nhóm nợ', !!document.querySelector('.hsn-bang') && /Nợ quá hạn/.test(document.getElementById('hso-tuy').textContent) && /⭐ Nợ cần quan tâm/.test(document.getElementById('hso-tuy').textContent), ds.length+' hộ');
+   ok('chip BBLV ở Hồ sơ vay + bảng chọn món + nút nhóm nợ', !!document.querySelector('.hsn-bang') && /Nợ quá hạn/.test(document.getElementById('hso-tuy').textContent) && /⭐ Cần quan tâm/.test(document.getElementById('hso-tuy').textContent), ds.length+' hộ');
+   /* 3.461.3: bảng 1 món 1 dòng trong khung cuộn cố định */
+   const hop = document.querySelector('.hsn-hop'), th = [...document.querySelectorAll('.hsn-bang thead th')].map(x=>x.textContent);
+   ok('bảng: khung cuộn cố định (≥ 260 px, cuộn trong khung), cột Hộ · Mã KH · Số KU · CT · Dư nợ · Lãi tồn · Tình trạng', !!hop && getComputedStyle(hop).overflowY==='auto' && hop.clientHeight>=260 && ['Hộ','Mã KH','Số KU','CT','Dư nợ','Lãi tồn','Tình trạng'].every(x=>th.includes(x)), hop && hop.clientHeight+' px · '+th.join('|'));
+   const r1 = document.querySelector('.hsn-bang tbody tr.hsn-dong'); ok('mỗi món 1 dòng (không xuống dòng)', !!r1 && r1.getBoundingClientRect().height<=30, r1 && r1.getBoundingClientRect().height);
+   const vdDem = document.querySelectorAll('.hsn-bang tr.hsn-dong').length; document.querySelector('[data-lenh="hsn.vd"]').click(); await w(300); const hetDem = document.querySelectorAll('.hsn-bang tr.hsn-dong').length;
+   ok('"Chỉ món có vấn đề" mặc định bật; tắt → hiện hết món', HSN.loc().vd===false && hetDem===ds.reduce((a, h)=>a+h.mon.length, 0) && vdDem<=hetDem, vdDem+' → '+hetDem);
+   const dd = document.querySelector('.hsn-bang tr.hsn-dong'), kuD = dd.getAttribute('data-ku'); dd.querySelector('td.s').click(); await w(300);
+   ok('bấm cả dòng → tích món đó; bấm lại → bỏ', !!HSN.sel('bblv')[kuD] && (document.querySelector('.hsn-bang tr.hsn-dong[data-ku="'+kuD+'"] td.s').click(), await w(300), !HSN.sel('bblv')[kuD]));
+   const hop2 = document.querySelector('.hsn-hop'); hop2.style.width = '500px'; await w(100); const anKU = getComputedStyle(document.querySelector('.hsn-bang td.hsn-ku')).display==='none'; hop2.style.width = ''; await w(100);
+   ok('khung hẹp → tự ẩn cột Số KU', anKU);
+   document.querySelector('[data-lenh="hsn.vd"]').click(); await w(300);
    const xem = async()=>{ hsoXem(); await w(2500); const f = document.getElementById('hso-xem-khung'), d = f && f.contentDocument; const tr = d ? [...d.querySelectorAll('.tr-tg')] : []; try{ dongHop(); }catch(e){} await w(300);
      return tr.map(x=>/BIÊN BẢN LÀM VIỆC/.test(x.textContent) ? 'B' : /Trang trắng/.test(x.textContent) ? '_' : '-').join(''); };
    OM_KIEU = 'trang'; let r = hsoLapBblv(t), tg = await xem(); OM_KIEU = 'that';

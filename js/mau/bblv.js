@@ -38,7 +38,7 @@
       {k:'diaChi', n:'Địa chỉ', p:'kh', l:'tu', md:'tu', ng:'người vay — M31'},
       {k:'ngaySL', n:'Dư nợ đến ngày (ngày số liệu)', p:'kh', l:'tu', md:'tu', ng:'ngày số liệu Mẫu 31 đang mở'},
       {k:'mon', n:'1. Thông tin về món vay (1 món: dòng · nhiều món: bảng)', p:'kh', l:'tu', md:'tu', ng:'các món đã chọn — M31'},
-      {k:'monTrang', n:'Bản trắng — mục 1', p:'kh', l:'chon', md:'kb', chon:TRANG, chonMD:1},
+      {k:'monTrang', n:'Bản trắng — mục 1', p:'kh', l:'chon', md:'kb', chon:TRANG, chonMD:1, khongBao:1},   /* ô cài đặt — không báo "chưa có số liệu" */
       {k:'ngNhan', n:'2. Nguyên nhân không trả được nợ', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.ngNhan},
       {k:'thucTrang', n:'3. Thực trạng kinh tế, khả năng trả nợ', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.thucTrang},
       {k:'camKet', n:'4. Cam kết của khách hàng', p:'nd', l:'chon', md:'cham', nhieu:1, chon:GOI.camKet},
