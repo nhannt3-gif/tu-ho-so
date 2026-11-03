@@ -28,7 +28,7 @@
 }
 },
 "hoiquy2": {
-"ban": "3.461.4",
+"ban": "3.461.5",
 "ngay": "2026-11-03",
 "kq": "✓ [iPhone] không lỗi đỏ trong Console",
 "dau": {
@@ -52,7 +52,7 @@
 "js/36-dong-bo-khoi.js": "3a8c80a25db3",
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
-"tests/hoiquy2.js": "03e76c23168a",
+"tests/hoiquy2.js": "5e8995a59566",
 "tests/tv.js": "f4af9b5eed49"
 }
 },
@@ -7982,7 +7982,7 @@
 }
 },
 "t366": {
-"ban": "3.461.4",
+"ban": "3.461.5",
 "ngay": "2026-11-03",
 "kq": "✓ t366 đạt",
 "dau": {
@@ -8012,7 +8012,7 @@
 "js/39-gd.js": "c680e2d4d162",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t366.js": "19ef4e407a5d",
+"tests/t366.js": "9168bee78407",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
