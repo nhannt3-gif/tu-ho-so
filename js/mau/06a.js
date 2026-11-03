@@ -9,67 +9,105 @@
   function P(noi, s){ return '<p style="margin:0;'+L+(s||'')+'">'+noi+'</p>'; }
   var CH = '........................................................................................................................................';
   function Ch(n){ var h = ''; for(var i=0;i<n;i++) h += P(CH, 'white-space:nowrap;overflow:hidden'); return h; }
-  omDangKy({k:MK, ma:'06A/TD', phan:['nhs', 'kh', 'ky'], co:13.5,
+  /* 3.460 (anh 03/11 "làm mẫu 06A theo chuẩn 10A; mọi chỗ đều có khai báo được"): chữ điền liền như gõ tay (in thường), để chấm giữ form gốc;
+     tên hoa đầu từ, "Ông (bà): tên" ⇥ cột tab; Hội bỏ xã; số tiền gõ tay tự thêm dấu ngăn nhóm số; mọi chỗ chấm là 1 ô (✍ chấm / ✏ gõ khi làm / ⌨ tự gõ app nhớ). */
+  var TW = 162.5, IND = 10, TAB = 100;
+  function rong(h){ return omRong(String(h).replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&'), 13.5); }
+  function tien(v){ v = String(v || '').trim(); return /^[\d.,\s]+$/.test(v) && hsoSo(v) ? tdnTien(hsoSo(v)) : v; }
+  function o2(k, n, p, l, op){ return Object.assign({k:k, n:n, p:p, l:l || 'go', md:'cham'}, op || {}); }
+  omDangKy({k:MK, ma:'06A/TD', phan:['nhs', 'ky', 'doan', 'kh', 'tt', 'sd'], co:13.5,
+    phanTen:{nhs:'Đơn vị kiểm tra', ky:'Ngày, nơi kiểm tra', doan:'Thành phần đoàn kiểm tra', kh:'Khách hàng · 1a) theo hồ sơ cho vay', tt:'1b) Thực tế tại khách hàng', sd:'2. Sử dụng vốn · 3–4. Ý kiến'},
     o:[{k:'donVi', n:'Đơn vị kiểm tra', p:'nhs', l:'kb', md:'cham'},
       {k:'ngay', n:'Ngày kiểm tra', p:'ky', l:'go', md:'cham', ngay:1, nhanh:1},
       {k:'noi', n:'Tại (nơi kiểm tra)', p:'ky', l:'go', md:'cham', nhanh:1},
+      o2('d1Ten', 'Đoàn kiểm tra 1: Ông (bà)', 'doan', 'gokb', {nhanh:1}), o2('d1Cv', 'Đoàn kiểm tra 1: Chức vụ', 'doan', 'gokb', {nhanh:1}),
+      o2('d2Ten', 'Đoàn kiểm tra 2: Ông (bà)', 'doan', 'gokb', {nhanh:1}), o2('d2Cv', 'Đoàn kiểm tra 2: Chức vụ', 'doan', 'gokb', {nhanh:1}),
       {k:'ten', n:'Họ tên khách hàng', p:'kh', l:'tu', md:'tu', ng:'người vay đang chọn — M31'},
       {k:'maKH', n:'Mã khách hàng', p:'kh', l:'tu', md:'tu', ng:'người vay đang chọn — M31'},
       {k:'tt', n:'Tổ trưởng', p:'kh', l:'tu', md:'tu', ng:'tổ — File Tổ trưởng / M31 (QT-C-18)'},
-      {k:'hoi', n:'Tổ chức Hội quản lý', p:'kh', l:'tu', md:'tu', ng:'tổ — Hội nhận ủy thác'},
-      {k:'ngaySL', n:'Đối chiếu đến ngày (ngày số liệu)', p:'kh', l:'tu', md:'tu', ng:'ngày số liệu Mẫu 31 đang mở'},
+      {k:'hoi', n:'Tổ chức Hội quản lý (không ghi xã / phường)', p:'kh', l:'tu', md:'tu', ng:'tổ — Hội nhận ủy thác'},
+      {k:'ngaySL', n:'Đối chiếu đến ngày (ngày số liệu)', p:'kh', l:'tu', md:'tu', ng:'ngày số liệu Mẫu 31 đang mở (mặc định cuối tháng trước)'},
       {k:'ct', n:'Chương trình', p:'kh', l:'tu', md:'tu', ng:'món đang chọn — M31'},
       {k:'ku', n:'Mã món vay (số khế ước)', p:'kh', l:'tu', md:'tu', ng:'món đang chọn — M31'},
       {k:'gn', n:'Số tiền giải ngân', p:'kh', l:'tu', md:'tu', ng:'món đang chọn — M31 (Tổng giải ngân)'},
       {k:'goc', n:'Số dư nợ gốc', p:'kh', l:'tu', md:'tu', ng:'món đang chọn — M31'},
       {k:'lai', n:'Số tiền nợ lãi (lãi tồn tất cả)', p:'kh', l:'tu', md:'tu', ng:'món đang chọn — M31 (Lãi tồn TH + QH)'},
-      {k:'t105', n:'Số dư tiền gửi tổ viên (TK 105)', p:'kh', l:'tu', md:'tu', ng:'người vay đang chọn — M31 / Sao kê TK 105 (QT-C-22)'},
-      {k:'md', n:'Mục đích vay vốn', p:'kh', l:'tu', md:'tu', ng:'món đang chọn — M31 (ngành nghề)'}],
+      {k:'t105', n:'Số dư tiền gửi tổ viên (TK 105)', p:'kh', l:'tu', md:'tu', ng:'người vay đang chọn — M31 / Sao kê TK 105'},
+      o2('ttNhan', '1b) Tổng số tiền thực nhận', 'tt'), o2('ttNhanCl', '1b) … chênh lệch (tiền thực nhận)', 'tt'),
+      o2('ttGoc', '1b) Số dư nợ gốc (thực tế)', 'tt'), o2('ttGocCl', '1b) … chênh lệch (dư nợ gốc)', 'tt'),
+      o2('ttLai', '1b) Số tiền nợ lãi (thực tế)', 'tt'), o2('ttLaiCl', '1b) … chênh lệch (nợ lãi)', 'tt'),
+      o2('ttGui', '1b) Số dư tiền gửi tổ viên (thực tế)', 'tt'), o2('ttGuiCl', '1b) … chênh lệch (tiền gửi)', 'tt'),
+      {k:'md', n:'2a) Mục đích vay vốn', p:'sd', l:'tu', md:'tu', ng:'món đang chọn — M31 (ngành nghề)'},
+      o2('dungTien', '2b) Sử dụng đúng mục đích — số tiền', 'sd'), o2('dungViec', '2b) … đúng mục đích vào việc (4 dòng)', 'sd', 'gokb'),
+      o2('hd', '2b) Số hóa đơn, chứng từ', 'sd'), o2('hdNgay', '2b) … ngày hóa đơn', 'sd', 'go', {ngay:1}), o2('hdThem', '2b) … dòng hóa đơn tiếp', 'sd'),
+      o2('saiTien', '2b) Sử dụng sai mục đích — số tiền', 'sd'), o2('saiViec', '2b) … sai mục đích vào việc (4 dòng)', 'sd', 'gokb'),
+      o2('hq', '2c) Hiệu quả đầu tư', 'sd', 'gokb'), o2('kn', '2d) Khả năng trả nợ', 'sd', 'gokb'),
+      o2('ykCB', '3. Ý kiến của cán bộ kiểm tra (4 dòng)', 'sd', 'gokb'), o2('ykKH', '4. Ý kiến của khách hàng (3 dòng)', 'sd', 'gokb')],
     V:function(t){
       var T = hsoTo(t), c = hsoKhachChon(t), V = HSO.vay, mon = hsoMonGH(t), m = V.ku ? mon.find(function(x){ return x.ku===V.ku; }) || null : mon[0] || null;   /* món đã chọn mà kỳ đang mở không còn dư nợ → để chấm, không lấy nhầm món khác */
       var k = c && t ? hsoTVTo(t).find(function(x){ return x.kh===c.kh || x.kh===V.kh; }) : null, ns = KHO.coKy() ? (KHO.ky().ngay || '') : '';
-      var md = m && typeof ktCoNganh==='function' && ktCoNganh(m) ? ktNganh(m) : '';
-      return {donVi:'', ngay:V.ngay || '', noi:V.noi || '', ten:c && c.ten, maKH:c ? (c.kh || V.kh) : '', tt:T.tt, hoi:T.hoi || '',
+      var md = m && typeof ktCoNganh==='function' && ktCoNganh(m) ? ktNganh(m) : '', L = hsoLuu(), r;
+      if(!L.nhanh06a3460){ var nh = omNhanh(MK); ['d1Ten', 'd1Cv', 'd2Ten', 'd2Cv'].forEach(function(z){ if(nh.indexOf(z)<0) nh.push(z); }); L.nhanh06a3460 = 1; }   /* 3.460: đoàn kiểm tra ra Chọn nhanh */
+      var h = T.hoi || '';
+      r = {donVi:'', ngay:V.ngay || '', noi:V.noi || '', ten:c && c.ten ? tenHoaDau(c.ten) : '', maKH:c ? (c.kh || V.kh) : '', tt:T.tt ? tenHoaDau(T.tt) : '', hoi:h ? HST.hoi(/^Hội\s/i.test(h) ? hsoBoHoi(h) : h) : '',
         ngaySL:ns, ct:m ? hsoCTMon(m) : '', ku:m && m.ku, gn:m && m.gn ? tdnTien(m.gn) : '', goc:m ? tdnTien(m.dn||0) : '', lai:m ? tdnTien(laiTon(m)) : '',
         t105:k && k.t105 ? tdnTien(k.t105) : (k ? '0' : ''), md:md};
+      this.o.forEach(function(x){ if(x.l==='go' || x.l==='gokb'){ if(r[x.k]===undefined) r[x.k] = V[x.k] || ''; } });   /* ô ✏ gõ khi làm */
+      return r;
     },
     lap:function(t){
-      var V = this.V(t), G = omG(MK, V, 13.5), o = G.o, ng = G.ngay('ngay', ['….', '…', '….']), sl = G.ngay('ngaySL', ['……', '…..', '…….']);
+      var V = this.V(t), G = omG(MK, V, 13.5), ng = G.ngay('ngay', ['….', '…', '….']);
+      var o = function(k, ch, op){ var r = G.o(k, ch, Object.assign({lien:1}, op || {})); return /om-cham/.test(r) ? r : r.replace('<span ', '<span style="font-weight:normal" '); };   /* chữ liền, in thường; trống → chấm */
+      var gt = function(k){ return G.gt(k); }, ot = function(k, ch){ var v = gt(k); return v ? o(k, ch, {gt:tien(v)}) : o(k, ch, {gt:''}); };   /* ô số tiền */
+      var nLien = function(k, ds){ var x = hsoNg(gt(k)); return x ? o(k, '', {gt:x.d+'/'+x.m+'/'+x.y}) : G.ngay(k, ds).join('/'); };
+      /* tab: "trước ⇥ sau" (họ tên ⇥ chức vụ / mã khách hàng) */
+      var tabVi = function(truoc, sau){ var w1 = IND+rong(truoc), w2 = rong(sau); if(Math.max(w1+4, TAB)+w2<=TW-1) return Math.max(w1+4, TAB); return w1+4+w2<=TW-1 ? Math.ceil(w1+4) : TAB; };
+      var tabP = function(truoc, sau, st){ var v = tabVi(truoc, sau), dai = Math.max(v, IND+rong(truoc)+4)+rong(sau) > TW-1;
+        return P('<span style="display:inline-block;text-indent:0;min-width:'+(v-IND).toFixed(1)+'mm">'+truoc+'</span><span class="tab" style="display:inline-block;width:3mm"></span>'+sau, T+(st||'')+(dai ? 'text-align:left;' : '')).replace('<p ', '<p data-tab="'+Math.round(v)+'" '); };
+      /* đoạn nhiều dòng: chấm → nhãn + chấm + n dòng chấm (form gốc); có chữ → chữ liền sau nhãn, dòng còn dư giữ chấm */
+      var khoi = function(k, nhan, n, chNhan){ var v = gt(k);
+        if(!v) return (nhan ? P(nhan+o(k, chNhan || CH.slice(0, 50), {gt:''}), T+'white-space:nowrap;overflow:hidden') : '')+chK(k, n);
+        var dung = Math.max(1, Math.ceil(((nhan ? IND : 0)+rong((nhan || '')+' '+v)+3)/TW)), con = Math.max(0, n+(nhan ? 1 : 0)-dung);
+        return P((nhan ? nhan+' ' : '')+o(k, '', {gt:v}), (nhan ? T : '')+J)+chK(k, con); };
+      var chK = function(k, n){ var h = ''; for(var i=0;i<n;i++) h += P(CH, 'white-space:nowrap;overflow:hidden').replace('<p ', '<p data-o="'+k+'" '); return h; };   /* dòng chấm thuộc ô k (bấm được ở trực quan) */
+      var doan = function(i){ var kt = 'd'+i+'Ten', kc = 'd'+i+'Cv', a = gt(kt) ? tenHoaDau(gt(kt)) : '', b = gt(kc);   /* tên hoa đầu từ */
+        if(a) return tabP('- Ông (bà): '+o(kt, '', {gt:a}), 'Chức vụ: '+(b ? o(kc, '', {gt:b}) : o(kc, '…….……..….……..………', {gt:''})));
+        return P('- Ông (bà) '+o(kt, '………….…………………', {gt:''})+' Chức vụ '+(b ? o(kc, '', {gt:b}) : o(kc, '…….……..….……..………', {gt:''})), T); };
+      var dong2 = function(nhan, k1, ch1, k2, ch2, cuoi){ return P(nhan+(gt(k1) ? ' '+ot(k1, ch1)+' ' : ot(k1, ch1))+'đồng; chênh lệch:'+(gt(k2) ? ' '+ot(k2, ch2)+' ' : ot(k2, ch2))+'đồng'+(cuoi || '.'), T); };
+      var hoiTx = gt('hoi') ? ', thuộc tổ chức '+o('hoi', '', {gt:gt('hoi')})+' quản lý.' : ', thuộc tổ chức Hội'+o('hoi', '………………….. ………….…....', {gt:''})+' quản lý.';
       var h = '<p style="margin:0;text-align:right;font-size:10pt;line-height:1.2"><b><i>Mẫu số: 06A/TD</i></b></p>'+
         '<p style="margin:0;text-align:right;font-size:9.5pt;line-height:1.2"><i>- 01 liên lưu NH nơi cho vay;</i></p><p style="margin:0;text-align:right;font-size:9.5pt;line-height:1.2"><i>- 01 liên phô tô lưu đ.vị k.tra.</i></p>'+
         hsoBang('khung0', [64.8, 101.4], '<tr><td class="c" style="vertical-align:top"><p class="c b" style="font-size:13pt">ĐƠN VỊ KIỂM TRA</p><p class="c">'+o('donVi', '........................................')+'</p></td>'+
           '<td class="c" style="vertical-align:top">'+hsoQH('-', 13)+'</td></tr>')+
         P('<b>PHIẾU KIỂM TRA SỬ DỤNG VỐN VAY</b> <sup style="font-size:8pt">(1)</sup>', 'text-align:center;font-size:14pt;margin-top:12pt')+
-        P('Hôm nay, ngày '+ng.join('/')+', tại '+o('noi', '…………….……………………')+', chúng tôi gồm:', T+J+'margin-top:9pt')+
-        P('<b>THÀNH PHẦN ĐOÀN KIỂM TRA</b>', T)+
-        P('- Ông (bà) ………….………………… Chức vụ …….……..….……..………', T)+
-        P('- Ông (bà) ………….………………… Chức vụ …….……..….……..………', T)+
+        P('Hôm nay, ngày '+(hsoNg(gt('ngay')) ? nLien('ngay') : ng.join('/'))+', tại '+(gt('noi') ? o('noi', '') : o('noi', '…………….……………………'))+', chúng tôi gồm:', T+J+'margin-top:9pt')+
+        P('<b>THÀNH PHẦN ĐOÀN KIỂM TRA</b>', T)+doan(1)+doan(2)+
         P('<b>KHÁCH HÀNG VAY VỐN</b>', T)+
-        P('Ông (bà) '+o('ten', '……………………..……….…..…')+' Mã khách hàng: '+o('maKH', '…..………......'), T)+
-        P('Là thành viên Tổ TK&amp;VV do Ông (bà)'+o('tt', '…………………………………')+'làm Tổ trưởng, thuộc tổ chức Hội'+o('hoi', '………………….. ………….…....')+' quản lý.', T+J)+
+        (gt('ten') ? tabP('Ông (bà): '+o('ten', ''), 'Mã khách hàng: '+(gt('maKH') ? o('maKH', '') : o('maKH', '…..………......'))) : P('Ông (bà) '+o('ten', '……………………..……….…..…')+' Mã khách hàng: '+o('maKH', '…..………......'), T))+
+        P('Là thành viên Tổ TK&amp;VV do Ông (bà)'+(gt('tt') ? ' '+o('tt', '')+' ' : o('tt', '…………………………………'))+'làm Tổ trưởng'+hoiTx, T+J)+
         P('Cùng thống nhất nội dung kiểm tra như sau:', T)+
-        P('<b>1. Đối chiếu số tiền vay, tiền gửi tổ viên đến ngày</b> '+sl.join('/')+':', T)+
+        P('<b>1. Đối chiếu số tiền vay, tiền gửi tổ viên đến ngày</b> '+nLien('ngaySL', ['……', '…..', '…….'])+':', T)+
         P('a) Theo hồ sơ cho vay', T)+
         P('- Chương trình: '+o('ct', '……………….……….….')+' Mã món vay: '+o('ku', '…….………………'), T)+
-        P('- Số tiền giải ngân:'+o('gn', '………………….……....……….….………….…….')+'đồng.', T)+
-        P('- Số dư nợ gốc:'+o('goc', '……..….....................….…....………………...……..….')+' đồng.', T)+
+        P('- Số tiền giải ngân:'+(gt('gn') ? ' '+o('gn', '')+' ' : o('gn', '………………….……....……….….………….…….'))+'đồng.', T)+
+        P('- Số dư nợ gốc:'+(gt('goc') ? ' '+o('goc', '') : o('goc', '……..….....................….…....………………...……..….'))+' đồng.', T)+
         P('- Số tiền nợ lãi: '+o('lai', '……………….')+' đồng.', T)+
         P('- Số dư tiền gửi tổ viên: '+o('t105', '……………..…...………………….………….')+' đồng.', T)+
         P('b) Thực tế tại khách hàng', T)+
-        P('- Tổng số tiền thực nhận: …………..…… đồng; chênh lệch:……....……..đồng.', T)+
-        P('- Số dư nợ gốc:………..………….…….đồng; chênh lệch:……....………đồng.', T)+
-        P('- Số tiền nợ lãi:………………….…...…đồng; chênh lệch:………....…....đồng', T)+
-        P('- Số dư tiền gửi tổ viên:…………..….… đồng; chênh lệch: …...………...đồng.', T)+
+        dong2('- Tổng số tiền thực nhận:', 'ttNhan', ' …………..…… ', 'ttNhanCl', '……....……..')+
+        dong2('- Số dư nợ gốc:', 'ttGoc', '………..………….…….', 'ttGocCl', '……....………')+
+        dong2('- Số tiền nợ lãi:', 'ttLai', '………………….…...…', 'ttLaiCl', '………....…....', '')+
+        dong2('- Số dư tiền gửi tổ viên:', 'ttGui', '…………..….… ', 'ttGuiCl', ' …...………...')+
         P('<b>2. Tình hình thực hiện phương án/dự án:</b>', T)+
-        P('a) Mục đích vay vốn:'+o('md', '…...……..…………..………………..……………..……'), T)+Ch(3)+
+        khoi('md', 'a) Mục đích vay vốn:', 3, '…...……..…………..………………..……………..……')+
         P('b) Thực tế sử dụng vốn vay:', T)+
-        P('- Sử dụng đúng mục đích số tiền …...……………..………… đồng, vào việc:', T)+Ch(4)+
-        P('Số hóa đơn, chứng từ (nếu có): ………....…………..…(ngày ……/……/…..)', T)+P('…………………………………………………………………………………………', 'white-space:nowrap;overflow:hidden')+
-        P('- Sử dụng sai mục đích số tiền …...……………..………… đồng, vào việc:', T)+Ch(4)+
-        P('c) Hiệu quả đầu tư <sup style="font-size:8pt">(2)</sup>: ...……………………..……………..…..………………..', T)+Ch(1)+
-        P('d) Khả năng trả nợ: ……….………….….………….………….………………', T)+Ch(1)+
-        P('<b>3. Ý kiến của cán bộ kiểm tra</b>', T)+Ch(4)+
-        P('<b>4. Ý kiến của khách hàng</b>', T)+Ch(3)+
+        P('- Sử dụng đúng mục đích số tiền '+(gt('dungTien') ? ot('dungTien', '')+' ' : ot('dungTien', '…...……………..………… '))+'đồng, vào việc:', T)+khoi('dungViec', '', 4)+
+        P('Số hóa đơn, chứng từ (nếu có): '+(gt('hd') ? o('hd', '')+' ' : o('hd', '………....…………..…'))+'(ngày '+nLien('hdNgay', ['……', '……', '…..'])+')', T)+(gt('hdThem') ? P(o('hdThem', ''), J) : P(o('hdThem', '…………………………………………………………………………………………', {gt:''}), 'white-space:nowrap;overflow:hidden'))+
+        P('- Sử dụng sai mục đích số tiền '+(gt('saiTien') ? ot('saiTien', '')+' ' : ot('saiTien', '…...……………..………… '))+'đồng, vào việc:', T)+khoi('saiViec', '', 4)+
+        khoi('hq', 'c) Hiệu quả đầu tư <sup style="font-size:8pt">(2)</sup>:', 1, ' ...……………………..……………..…..………………..')+
+        khoi('kn', 'd) Khả năng trả nợ:', 1, ' ……….………….….………….………….………………')+
+        P('<b>3. Ý kiến của cán bộ kiểm tra</b>', T)+khoi('ykCB', '', 4)+
+        P('<b>4. Ý kiến của khách hàng</b>', T)+khoi('ykKH', '', 3)+
         '<div style="height:4mm"></div>'+hsoBang('khung0', [87.4, 75.1], '<tr><td class="c"><p class="c b">KHÁCH HÀNG VAY VỐN</p><p class="c i">(Ký, ghi rõ họ tên)</p></td><td class="c"><p class="c b">CÁN BỘ KIỂM TRA</p><p class="c i">(Ký, ghi rõ họ tên)</p></td></tr>')+
         '<div style="height:22mm"></div><div style="border-top:1px solid #000;width:60mm"></div>'+
         '<p style="margin:0;font-size:10pt;line-height:1.25;text-align:justify"><i><sup>(1)</sup> Cán bộ kiểm tra lựa chọn lập Phiếu kiểm tra sử dụng vốn vay theo mẫu 06/TD hoặc mẫu 06A/TD để đảm bảo phản ánh đầy đủ thực tế sử dụng vốn vay, hóa đơn chứng từ (nếu có).</i></p>'+

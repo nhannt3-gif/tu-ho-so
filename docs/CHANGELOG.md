@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.460 — 03/11/2026 — Mẫu 06A theo chuẩn 10A (TK 2)
+- **Anh 03/11:** "làm mẫu 06A theo chuẩn 10A, mẫu tạo chính ở bộ mẫu, các nơi khác cần sẽ gọi"; "lãi lấy như hiện nay, mọi chỗ đều có khai báo được".
+- `js/mau/06a.js`: chữ điền liền, in thường; để chấm giữ form gốc; tên khách / tổ trưởng / đoàn kiểm tra hoa đầu từ; "Ông (bà): tên ⇥ Mã khách hàng" và "- Ông (bà): tên ⇥ Chức vụ" (tab, Word có điểm dừng); Hội bỏ xã / phường ("thuộc tổ chức Đoàn Thanh niên"); ngày liền dd/mm/yyyy. Ô mới (23): đoàn kiểm tra 2 người (tên, chức vụ — Chọn nhanh), 1b thực tế 8 ô (số tiền + chênh lệch), 2b đúng / sai mục đích (số tiền, vào việc), hóa đơn (số, ngày, dòng tiếp), 2c, 2d, ý kiến cán bộ / khách hàng; đoạn nhiều dòng có chữ → chữ liền, dòng còn dư giữ chấm (form không xô). Số tiền gõ tay tự thêm dấu ngăn nhóm số. Lãi giữ lãi tồn TH + QH. Vẫn 2 trang.
+- Khung chung (js/31): loại ô `gokb` (✍ chấm · ✏ gõ khi làm · ⌨ tự gõ app nhớ).
+- Phép thử mới `t366`; `t349` (tên hoa đầu từ, "thuộc tổ chức …"), `t181` (06A nhóm DUNG — chỉ giữ số trang).
+
 ## 3.459 — 03/11/2026 — 10A: địa chỉ phê duyệt tách dòng, dòng chấm gọn, tên dưới chữ ký theo dòng trên (TK 2)
 - **Anh 03/11:** "phê duyệt UB, địa chỉ cho chọn tự điền và chấm — chia ra, không làm chung cả cụm"; "đổi tên cả phần dễ hiểu nhầm"; "form chức vụ khi chấm phần III làm ngắn lại cỡ như khi có chữ"; "số tiền làm dấu ngăn nhóm số"; "dòng trưởng ấp khi chọn chấm thì canh phải cho khoảng ghi rộng ra"; "tổ trưởng in sẵn, thư ký, tổ phó ghi tay"; "tên thư ký, trưởng ấp và Hội chỗ ký".
 - `js/mau/10a.js`: phê duyệt UBND địa chỉ = 3 ô `ubAp` / `ubXa` / `ubTinh` (Chọn nhanh; ô cũ `ubDiaBan` chuyển cách sang cả 3); nút "Phê duyệt UBND — Tên Tổ trưởng, Tổ phó, ngày" (`hso10aUbDat`, chỉ `ubTT` / `ubPho` / `ubNgay`); III để chấm → chấm đến điểm tab chung, "Chức vụ" thẳng cột (`chamMM`); Trưởng ấp / Thư ký để chấm → chấm kín dòng (`chamDay`, nowrap + canh đều cuối); tiết kiệm tối thiểu có dấu ngăn nhóm số (cả số tự gõ); ô mới `kyTK` (tên dưới chữ ký Thư ký); `kyTK` / `kyTA` / `kyCT` mặc định theo dòng Thư ký / Trưởng ấp / Chủ trì (trên chấm → trống, trên gõ → đúng chữ gõ).

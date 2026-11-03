@@ -24,11 +24,11 @@ const fs=require('fs'), path=require('path');
    ok('hso06aMo → tab Hồ sơ vay, mẫu 06A, chọn sẵn người vay + món', nganHienTai===7 && D.cauHinh.slTab==='hsv' && hsoMau().k==='06a' && HSO.vay.kh===k.kh && HSO.vay.ku===m.ku, [nganHienTai, D.cauHinh.slTab, hsoMau().k, HSO.vay.kh===k.kh, HSO.vay.ku===m.ku].join(' '));
    const x = hsoLap(), chu = x.h.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
    ok('phiếu: tên mẫu + tiêu đề', /Mẫu số: 06A\/TD/.test(chu) && /PHIẾU KIỂM TRA SỬ DỤNG VỐN VAY/.test(chu));
-   ok('tự điền: tên, mã KH, số khế ước (món đã chọn, không phải món đầu)', chu.indexOf(k.ten)>=0 && chu.indexOf(k.kh)>=0 && chu.indexOf(m.ku)>=0 && (mon.length<2 || chu.indexOf(mon[0].ku)<0), mon.length+' món');
+   ok('tự điền: tên, mã KH, số khế ước (món đã chọn, không phải món đầu)', chu.indexOf(tenHoaDau(k.ten))>=0 && chu.indexOf(k.kh)>=0 && chu.indexOf(m.ku)>=0 && (mon.length<2 || chu.indexOf(mon[0].ku)<0), mon.length+' món');
    ok('tự điền: dư nợ gốc, giải ngân, lãi tồn tất cả (TH+QH), TK 105', chu.indexOf(tdnTien(m.dn))>=0 && (!m.gn || chu.indexOf(tdnTien(m.gn))>=0) && chu.indexOf(tdnTien(laiTon(m)))>=0 && chu.indexOf(k.t105 ? tdnTien(k.t105) : '0')>=0,
      [tdnTien(m.dn), m.gn, tdnTien(laiTon(m)), k.t105].join(' · '));
    ok('mỗi món 1 phiếu: chỉ 1 dòng "Mã món vay"', (chu.match(/Mã món vay/g)||[]).length===1 && x.ds.length===1);
-   const nhan = s => s.replace(/[.…]+/g, '·').replace(/\s+/g, ' ').replace(/ ?([:;,)]) ?/g, '$1').trim(), cn = nhan(chu);
+   const nhan = s => s.replace(/[.…]+/g, '·').replace(/\s+/g, ' ').replace(/ ?([:;,)]) ?/g, '$1').trim(), cn = nhan(chu).replace(/thuộc tổ chức (?!Hội)/, 'thuộc tổ chức Hội ');   /* 3.460: có tên tổ chức → "thuộc tổ chức Đoàn Thanh niên" (chuẩn 10A), so chữ mẫu như có "Hội" */
    const thieu = doan.filter(d=>{ const a = nhan(d).split('·').map(s=>s.trim()).filter(s=>s.length>3); return a.some(s=>cn.indexOf(s)<0); });
    ok('chữ mẫu đúng file gốc (so_do.json 06a — mọi đoạn)', thieu.length===0, thieu.slice(0, 3).join(' | '));
    ok('lề theo file gốc 20/20/18/27,5', JSON.stringify(hsoMauK('06a').mg)===JSON.stringify(omMg([20, 20, 18, 27.5])));

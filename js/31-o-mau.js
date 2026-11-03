@@ -10,7 +10,7 @@
 var OM_MAU = {}, OM_KIEU = 'that', OM_DAI = [], OM_NHO = 0.72, OM_CV = null, OM_TAY = null;   /* OM_TAY = {mk, co} khi dựng bản tự khai (3.315, 01/TGTV) */
 var OM_PHAN = {kh:'Người vay / khách hàng', to:'Tổ / Hội', hoi:'Hội đoàn thể', ub:'UBND xã', nh:'Ngân hàng phê duyệt', nhs:'Ngân hàng in sẵn (đầu trang, tên PGD)', ky:'Ngày, chữ ký'};
 var OM_CACH = {cham:['✍', 'Ghi tay — để chấm'], tu:['🤖', 'Tự động — app lấy số liệu'], kb:['⌨', 'Tự gõ — nhớ riêng mẫu này'], go:['✏', 'Gõ trong lần làm (không nhớ)']};
-var OM_LOAI = {tu:['cham', 'tu', 'kb'], kb:['cham', 'kb'], go:['cham', 'go'], tukb:['cham', 'tu', 'kb'], chon:['cham', 'kb']};   /* 3.229: mọi ô tự động đều cho ⌨ Tự gõ riêng mẫu (cùng nội dung nhưng mỗi mẫu khác vài chữ) */
+var OM_LOAI = {tu:['cham', 'tu', 'kb'], kb:['cham', 'kb'], go:['cham', 'go'], tukb:['cham', 'tu', 'kb'], chon:['cham', 'kb'], gokb:['cham', 'go', 'kb']};   /* gokb (3.460): ✍ chấm · ✏ gõ khi làm · ⌨ tự gõ app nhớ (06A ý kiến, đoàn kiểm tra) */   /* 3.229: mọi ô tự động đều cho ⌨ Tự gõ riêng mẫu (cùng nội dung nhưng mỗi mẫu khác vài chữ) */
 /* 3.229 (anh chốt 17/10): mỗi ô 4 nguồn — ✍ Ghi tay · 📊 Mẫu 31 · ⚙ Khai báo chung · ⌨ Tự gõ (riêng mẫu). Ô "tự động" ghi rõ nguồn theo x.ng.
    KHAI BÁO RIÊNG TRƯỚC: ô đã gõ riêng (chamGT) mà anh chưa chọn cách → dùng giá trị riêng; ⌨ chọn mà chưa gõ → in như nguồn tự động (không mất chữ). */
 function omNguonLoai(x){ var g = String((x && x.ng) || ''); return /⚙|Khai báo đơn vị/.test(g) ? 'chung' : /Mẫu 31|M31|tổ trưởng|^tổ\b|sổ hộ vay|danh bạ/i.test(g) ? 'm31' : 'tu'; }

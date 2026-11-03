@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.460)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 06A in | Chữ liền, tên hoa đầu từ, 2 trang | |
+| 2 | Đoàn kiểm tra gõ tên | "Ông (bà): Tên ⇥ Chức vụ" thẳng cột | |
+| 3 | Gõ ý kiến cán bộ | Chữ liền, dòng dư giữ chấm | |
+
 ### Danh sách thử trên máy thật (3.459)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
