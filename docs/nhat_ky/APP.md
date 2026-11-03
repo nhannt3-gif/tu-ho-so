@@ -12,6 +12,13 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 03/11/2026 20:15 — TK 3 · PHIÊN
+- Đã làm: **3.460** 10A về khuôn chung `HST` (js/mau/0hst.js) như 10B / 10C — `HST.ds`, `HST.bang` (cột In, mặc định tích hết, dòng tổng dưới bảng), `HST.tl / so / bq / tlHTML`, `HST.capAp`, `HST.hoi`; bỏ bản riêng `hso10aTl / So / TlDat`, `TL10A`, `dvAp`, `hso10aHoi`, bảng `h10a.*`. Tỷ lệ cũ `tl10a / tl10aBq` chuyển 1 lần sang `tlHop['10a']` (cờ `tl10aHST`). Giữ riêng: phê duyệt UBND, khóa trang, Thành lập / Kiện toàn, tách ô 3.449.
+- Phép thử: t179 45/45 (chuẩn khóa 10A không đổi), t181 49/49, t358, t364 (+ ý chuyển tỷ lệ cũ), t365, t163, t363 đạt; hồi quy `doi 3` đạt, đã chốt 245.
+- Đang dở: không. PR chờ anh "gộp".
+- Bước tiếp: còn "Chờ anh" như mục NHẬN VAI (thử máy thật 10A/10B/10C · Word giống bản in mẫu nền ô · 5 mẫu chưa nền ô).
+- Lưu ý: nút trong bảng 10A nay là `hst.tich` / `hst.bo0` (data-c="in"), tỷ lệ `hstl.cong` / `hstl.go` (data-mk="10a", data-k du | bq); `hso10aDs` / `hso10aThamDu` / `hso10aBq` / `hso10aTlHTML` còn là tên gọi mỏng sang HST cho chỗ gọi cũ.
+
 ### 03/11/2026 — TK 3 · NHẬN VAI (anh: "bàn giao từ TK 2, em làm app chính")
 - Đã đọc: `AGENTS.md` → `docs/TRANG_THAI_CHUNG.md` → mục BÀN GIAO 09:40 + PHIÊN 17:00 của TK 2. Trạng thái nhận: `main` = **3.459**, không code dở, hồi quy 245 phép đã chốt.
 - Nhận nguyên danh sách "Chờ anh" của TK 2 (thử máy thật 10A/10B/10C · Word giống bản in mẫu nền ô · 10A về `HST` · 5 mẫu chưa nền ô · phối hợp App ↔ Giao ban tạm dừng). **Bỏ hẳn việc "Scan 1 dòng không nhận CCCD"** (anh 03/11: "việc này bỏ qua đi, không ghi nhớ") — không theo dõi nữa.
