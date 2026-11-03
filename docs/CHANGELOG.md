@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.461.7 — 04/11/2026 — Tờ mẫu gọn 3 tình huống (TK 3)
+- **Anh 04/11**: "anh định in 3 tình huống trong 1 bản, cho gọn"; "có thể bỏ bớt các phần không cần, thêm dòng hướng dẫn ghi mẫu" → 📝 Bản mẫu **Cả 3 tình huống** = 1 tờ: tiêu đề, khung **Hướng dẫn ghi** (chọn tình huống đúng với hộ, chép câu vào từng mục, ghi tiếp chỗ "…", ghép câu nếu nhiều nguyên nhân; thành phần / món vay / chữ ký ghi như biên bản thật), rồi mục 2–5 mỗi mục liệt kê câu ① ② ③. Bỏ thành phần, thông tin món vay, chữ ký ở tờ mẫu này. Chọn ① / ② / ③ vẫn in biên bản mẫu đầy đủ theo 1 tình huống.
+- t366 sửa ý 3.461.6 → 3.461.7.
+
 ## 3.461.6 — 04/11/2026 — Bản mẫu BBLV: chọn tình huống ngay ở khung Bản mẫu, in cả 3 (TK 3)
 - **Anh 03/11**: "cho chọn 3 tình huống ngay chỗ này luôn, hiện cả 3 t/h luôn để in ra làm mẫu" → khung 📝 Bản mẫu (dưới dòng Điền) có dòng **Tình huống mẫu: Cả 3 tình huống · ① · ② · ③**; mặc định **Cả 3** → 3 biên bản mẫu liền nhau, mỗi tình huống 1 trang.
 - Lớp nền ô (`js/31-o-mau.js` `omKieuHTML`): mẫu tự thêm lựa chọn riêng cho Bản mẫu qua `OM_MAU[mk].mauThem()`. Ô `tinhMau` thôi ở Chọn nhanh cột trái.

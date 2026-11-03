@@ -67,7 +67,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
      kqMau.push(c2.test(m2) && c5.test(m5)); }
    tg = await xem(); omDatKB('bblv', 'tinhMau', ''); hsoVe(); await w(300);
    const rm3 = hsoLapBblv(t), chipMau = [...document.querySelectorAll('.om-kieu .om-muc')].map(x=>x.textContent).join(' '), tg3 = await xem();
-   ok('3.461.6: khung 📝 Bản mẫu có chọn tình huống (Cả 3 · ① ② ③); mặc định Cả 3 → 3 biên bản mẫu, mỗi tình huống 1 trang', /Tình huống mẫu/.test(chipMau) && /Cả 3 tình huống/.test(chipMau) && (rm3.ds||[]).length===3 && /đã đi khỏi địa phương/.test(rm3.ds[0].h) && /Gia đình gặp khó khăn/.test(rm3.ds[1].h) && /chây ỳ/.test(rm3.ds[2].h) && tg3.replace(/_/g, '')==='BBB', tg3);
+   ok('3.461.7: khung 📝 Bản mẫu có chọn tình huống (Cả 3 · ① ② ③); mặc định Cả 3 → 1 tờ mẫu gọn (hướng dẫn ghi + mục 2–5 liệt kê ① ② ③, bỏ thành phần / món vay / ký)', /Hướng dẫn ghi/.test(rm3.h) && !/Chúng tôi gồm/.test(rm3.h) && !/Thông tin về món vay/.test(rm3.h) && /Tình huống mẫu/.test(chipMau) && /Cả 3 tình huống/.test(chipMau) && !(rm3.ds && rm3.ds.length>1) && /đã đi khỏi địa phương/.test(rm3.h) && /Gia đình gặp khó khăn/.test(rm3.h) && /chây ỳ/.test(rm3.h) && tg3.replace(/_/g, '')==='B', tg3);
    OM_KIEU = 'that';
    ok('📝 Bản mẫu: chọn 3 tình huống mẫu → mục 2 và 5 in đúng câu của tình huống; vẫn 1 trang', kqMau.every(Boolean) && tg.replace(/_/g, '').split('').every(x=>x==='B'), kqMau.join(',')+' · '+tg);
    r = hsoLapBblv(t); ok('bản thật sau đó: mục 2–5 vẫn để chấm; câu tình huống có trong gợi ý', /2\. Nguyên nhân không trả được nợ:<\/b> <span class="om om-cham"/.test(r.h) && omChonDs('bblv', OM_MAU['bblv'].oK.ngNhan).some(x=>/đã đi khỏi địa phương/.test(x)));

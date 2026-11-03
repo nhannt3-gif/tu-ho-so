@@ -86,6 +86,12 @@
         var CH = '………………………………………………………………………………………………………………………………………………………………';
         var Ch = function(n){ var h = ''; for(var i=0;i<n;i++) h += P(CH, W); return h; };
         var ong = function(kT, kD, dd){ var v = G.gt(kT); return 'Ông (bà)'+(v ? ': '+o(kT, '')+'&nbsp;&nbsp; ' : ' '+G.o(kT, '…………………………………………')+' ')+'Đại diện: '+(dd || (G.gt(kD) ? o(kD, '') : G.o(kD, '……………………………'))); };
+        if(OM_KIEU==='mau' && BBLV_MAU==null && bblvMauI()<0){   /* 3.461.7 (anh 04/11 "in 3 tình huống trong 1 bản, cho gọn; bỏ bớt các phần không cần, thêm dòng hướng dẫn ghi mẫu"): tờ mẫu chỉ còn tiêu đề + hướng dẫn + mục 2–5 (① ② ③) */
+          return '<div class="om-goc" style="font-size:'+CO+'pt">'+P('<b>BIÊN BẢN LÀM VIỆC</b>', 'text-align:center;font-size:15pt;margin:0 0 2pt')+
+            P('<i>(Mẫu ghi mục 2 – 5 theo 3 tình huống thường gặp)</i>', 'text-align:center;margin:0 0 6pt')+
+            '<div style="border:1px solid #000;padding:4pt 6pt;margin:0 0 8pt">'+P('<b>Hướng dẫn ghi:</b> chọn tình huống đúng với hộ; chép câu tương ứng vào từng mục của biên bản, ghi tiếp vào chỗ "…" (tháng, số tiền, ngày, tên người thân…); có thể ghép câu của nhiều tình huống nếu hộ có nhiều nguyên nhân. Phần thành phần, thông tin món vay, chữ ký ghi như biên bản thật.', J)+
+              P(MAU.map(function(x){ return e(x.ten); }).join(' &nbsp;·&nbsp; '), 'margin-top:3pt')+'</div>'+
+            ND.map(function(d){ return P('<b>'+d[1]+':</b>', T+'margin-top:6pt')+MAU.map(function(x){ return P('<i>'+e(x.ten.slice(0, 1))+'</i> <span class="om om-mau" data-o="'+d[0]+'">'+e(x[d[0]])+'.</span>', T+J+'margin-top:2pt'); }).join(''); }).join('')+'</div>'; }
         var noi = G.gt('noi'), ten = G.gt('ten'), th = G.gt('tinhHuong');
         var h = P('<b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</b>', 'text-align:center')+P('<b>Độc lập – Tự do – Hạnh phúc</b>', 'text-align:center')+P('--------------------------------', 'text-align:center;line-height:1')+
           P('<b>BIÊN BẢN LÀM VIỆC</b>', 'text-align:center;font-size:15pt;margin:6pt 0 4pt')+
@@ -99,7 +105,8 @@
           (G.gt('tt') || G.gt('hoi') ? P('Là thành viên Tổ TK&amp;VV do '+(G.gt('tt') ? 'Ông (bà): '+o('tt', '') : 'Ông (bà) '+G.o('tt', '…………………………………'))+' làm Tổ trưởng, thuộc tổ chức '+(/^Hội\b/i.test(G.gt('hoi')) ? o('hoi', '') : 'Hội '+(G.gt('hoi') ? o('hoi', '') : G.o('hoi', '…………………………')))+' quản lý.', T+J)
             : P('Là thành viên Tổ TK&amp;VV do Ông (bà) '+G.o('tt', '…………………………………')+' làm Tổ trưởng, thuộc tổ chức Hội '+G.o('hoi', '…………………………')+' quản lý.', T+W));   /* 3.461.4 (anh 03/11 "ghi thêm là thành viên tổ … cho đồng nhất với 06A") */
         h += bblvMon(G, V, P, T, W, lh);
-        ND.forEach(function(d){ var v = nd(d), n = Math.max(0, v ? L-1 : L);
+        ND.forEach(function(d){
+          var v = nd(d), n = Math.max(0, v ? L-1 : L);
           h += P('<b>'+d[1]+':</b> '+(v ? '<span class="om om-kb" data-o="'+d[0]+'">'+e(v)+'</span>' : G.o(d[0], '……………………………')), T+(v ? J : W))+Ch(n); });
         h += P('Buổi làm việc kết thúc cùng ngày, đã được đọc lại cho những người có tên nghe, thống nhất với các nội dung trong Biên bản và cùng ký tên dưới đây.', T+J+'margin-top:2pt');
         var ky = function(k){ var v = G.gt(k); return v ? o(k, '') : ''; };
@@ -160,10 +167,8 @@
   function bblvMauI(){ var tm = omKB(MK, 'tinhMau'); for(var i=0;i<MAU.length;i++) if(MAU[i].ten===tm) return i; return -1; }   /* -1 = Cả 3 (mặc định) */
   OM_MAU[MK].mauThem = function(){ var i0 = bblvMauI();
     return '<div class="om-muc">Tình huống mẫu (mục 2–5): '+[CA3].concat(MAU.map(function(x){ return x.ten; })).map(function(ten, j){ var bat = j ? i0===j-1 : i0<0;
-      return gdxChip(ten, bat, 'omChonDat(\''+MK+'\',\'tinhMau\',\''+ten+'\')', 'hso-ct', j ? 'In 1 biên bản mẫu theo tình huống này' : 'In 3 biên bản mẫu liền nhau, mỗi tình huống 1 trang'); }).join('')+'</div>'; };
-  /* 📝 Bản mẫu "Cả 3 tình huống" → 3 biên bản mẫu (mỗi tình huống 1 trang) */
-  function bblvMau3(t){ var ds = MAU.map(function(x, i){ BBLV_MAU = i; try { return {M:hsoMauK(MK), h:omLap(MK, t).h, ten:x.ten}; } finally { BBLV_MAU = null; } }); return {ma:'BBLV', h:ds[0].h, ds:ds}; }
-  hsoLapBblv = function(t){ if(OM_KIEU==='mau' && bblvMauI()<0) return bblvMau3(t); var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [];
+      return gdxChip(ten, bat, 'omChonDat(\''+MK+'\',\'tinhMau\',\''+ten+'\')', 'hso-ct', j ? 'In 1 biên bản mẫu theo tình huống này' : '1 tờ mẫu gọn: hướng dẫn + mục 2–5 liệt kê câu ① ② ③'); }).join('')+'</div>'; };
+  hsoLapBblv = function(t){ if(OM_KIEU==='mau') return omLap(MK, t); var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [];
     if(d.length<2){ var r = omLap(MK, t); return r; }
     var ds = d.map(function(ho){ BBLV_HO = ho; try { return {M:hsoMauK(MK), h:omLap(MK, t).h, ten:ho.k.ten}; } finally { BBLV_HO = null; } });
     return {ma:'BBLV', h:ds[0].h, ds:ds}; };
