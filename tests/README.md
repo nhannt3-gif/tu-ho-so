@@ -276,6 +276,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t363.js` | 3.455: Khai báo riêng dùng chung (không dồn chữ, vạch màu nguồn), trực quan liên kết 2 chiều, bấm chữ bản xem trước, nút ⚙ mọi mẫu nền ô. |
 | `node tests/t364.js` | 3.456: 10A số tham dự theo tỷ lệ (> 50%), IV tán thành (> 2/3), III gõ / chọn tên, UBND theo III, phê duyệt cả phần. |
 | `node tests/t365.js` | 3.457: 10B, 10C số tham dự / biểu quyết theo tỷ lệ (> 50%, > 2/3), nhớ riêng từng mẫu, vẫn 2 trang. |
+| (3.460) | t358 / t364 tên nút `hst.*` / `hstl.*`; t364 thêm ý chuyển tỷ lệ cũ. |
 | (3.459) | `t364` + địa chỉ phê duyệt 3 dòng, nút tên + ngày, III chấm thẳng cột, tiền dấu chấm, chấm kín dòng, tên dưới chữ ký theo dòng trên; `t358` ô tách mới. |
 | (3.458) | `t364` + Kiện toàn → phê duyệt "được kiện toàn", nút giữ "thành lập". |
 | (3.454) | `t358` + khóa trang 3 ("b) Tổ phó") / trang 4 ("III."), tên dài → bớt hàng khung / thu chiều cao hàng, vẫn 4 trang. |
