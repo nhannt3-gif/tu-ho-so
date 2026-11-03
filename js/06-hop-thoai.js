@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.461.7', ds:[
+var CO_GI_MOI = {ban:'3.461.8', ds:[
+  ["Biên bản làm việc — Bản mẫu Cả 3: tờ Hướng dẫn ghi biên bản (lưu ý chung, dấu hiệu nhận biết, thành phần nên mời, câu mẫu mục 2–5 sát thực tế cho từng tình huống)", "hsoChonMau('bblv')"],
   ["Biên bản làm việc — Bản mẫu Cả 3 tình huống: 1 tờ gọn gồm hướng dẫn ghi và mục 2–5 liệt kê câu ① ② ③", "hsoChonMau('bblv')"],
   ["Biên bản làm việc — Bản mẫu: chọn tình huống ngay trong khung Bản mẫu; Cả 3 tình huống (mặc định) in 3 biên bản mẫu liền nhau", "hsoChonMau('bblv')"],
   ["Biên bản làm việc: Bản mẫu chọn tình huống mẫu (bỏ địa phương / khó khăn / chây ỳ), mục 2–5 in câu mẫu tương ứng; câu cũng có trong gợi ý bản thật", "hsoChonMau('bblv')"],
@@ -1070,8 +1071,7 @@ var CO_GI_MOI = {ban:'3.461.7', ds:[
   ["Chọn nhiều hộ / món của tổ theo nhóm: nợ quá hạn, khoanh, 3 tháng KHĐ, lãi tồn > 3 / 6 / 12 tháng", "hsoChonMau('bblv')"],
   ["Mẫu 06A: Ông (bà): tên, bỏ chữ Hội trùng, nơi kiểm tra = địa chỉ khách, ngày và đồng in liền, khai báo đủ mọi dòng, in nhiều phiếu", "hsoChonMau('06a')"],
   ["Mẫu 10A dùng khuôn chung với 10B / 10C: bảng hộ vay có tìm tên / mã KH, lọc ấp, Tích hết / Bỏ hết", "hsoChonMau('10a')"],
-  ["📝 Mẫu 10A: địa chỉ phê duyệt UBND 3 dòng riêng; nút \"Tên Tổ trưởng, Tổ phó, ngày\"; dòng chấm gọn (III thẳng cột, Trưởng ấp / Thư ký kín dòng); tiền có dấu chấm; tên dưới chữ ký theo dòng trên", ""],
-  ["📝 Mẫu 10A: chọn \"Kiện toàn\" → Phê duyệt UBND ghi \"được kiện toàn\"; có nút giữ \"thành lập\"", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📝 Mẫu 10A: địa chỉ phê duyệt UBND 3 dòng riêng; nút \"Tên Tổ trưởng, Tổ phó, ngày\"; dòng chấm gọn (III thẳng cột, Trưởng ấp / Thư ký kín dòng); tiền có dấu chấm; tên dưới chữ ký theo dòng trên", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
     "3.461.6 · Hồ sơ vay › BBLV › 📝 Bản mẫu › dòng Tình huống mẫu: Cả 3 tình huống · ① · ② · ③",
     "3.461.5 · Hồ sơ vay › BBLV › 📝 Bản mẫu › cột trái ô Tình huống mẫu: ① Bỏ địa phương / đi làm ăn xa · ② Còn ở địa phương nhưng khó khăn · ③ Có điều kiện nhưng chây ỳ",
