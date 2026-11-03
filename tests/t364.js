@@ -51,6 +51,13 @@ const fs=require('fs'), path=require('path');
    ok('Phê duyệt UBND ✍ cả phần → để chấm (giữ form)', /Chấp thuận cho Tổ TK(&amp;|&)VV tại [Tt]hôn [.…]+/.test(tx()) && /do Ông \(Bà\) [.…]+ làm Tổ trưởng/.test(tx()) && document.querySelector('#hso-tuy [data-lenh="h10t.ub"][data-c="cham"]').classList.contains('bat'));
    document.querySelector('#hso-tuy [data-lenh="h10t.ub"][data-c="in"]').click(); await w(400);
    ok('🤖 tự điền cả phần → điền lại', !/do Ông \(Bà\) [.…]+ làm Tổ trưởng/.test(tx()));
+   /* 3.458: Kiện toàn → phê duyệt "được kiện toàn"; nút giữ "thành lập" */
+   ok('3.458: Thành lập → phê duyệt "được thành lập"', /làm Tổ phó được thành lập, hoạt động/.test(tx()));
+   omDatKB('10a', 'vv', 'kiện toàn hoạt động của Tổ TK&VV theo Quyết định số 70/QĐ-HĐQT'); hsoVe(); await w(300);
+   ok('3.458: Kiện toàn → phê duyệt "được kiện toàn"; Chọn nhanh có nút', /làm Tổ phó được kiện toàn, hoạt động/.test(tx()) && omNhanh('10a').indexOf('ubVv')>=0 && !!document.querySelector('#hso-tuy .hso-cham-o[data-ok="ubVv"] [data-lenh="omc.chon"]'));
+   omDatKB('10a', 'ubVv', 'Luôn "thành lập"'); hsoVe(); await w(300);
+   ok('3.458: chọn Luôn "thành lập" → giữ "được thành lập" dù Kiện toàn', /làm Tổ phó được thành lập, hoạt động/.test(tx()));
+   omDatKB('10a', 'ubVv', ''); omDatKB('10a', 'vv', ''); hsoVe(); await w(300);
    hsoXem(); await w(2500); ok('vẫn 4 trang', document.getElementById('hso-xem-khung').contentDocument.querySelectorAll('.tr-tg').length===4);
    return o; }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));

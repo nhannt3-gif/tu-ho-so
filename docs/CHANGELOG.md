@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.458 — 03/11/2026 — 10A phê duyệt UBND theo Về việc (TK 2)
+- **Anh 03/11:** "đổi luôn (hay cho nút bật đổi hay không)" — chọn Kiện toàn thì phần Phê duyệt UBND đổi theo.
+- `js/mau/10a.js`: Kiện toàn → "… làm Tổ phó được kiện toàn, hoạt động theo Quy ước…" (Thành lập giữ "được thành lập"); ô chọn mới `ubVv` (Theo Về việc · Luôn "thành lập"), có ở Chọn nhanh.
+- `t364` thêm 3 kiểm tra.
+
 ## 3.457 — 02/11/2026 — 10B, 10C số tham dự / biểu quyết theo tỷ lệ (TK 2)
 - **Anh 02/11:** "làm luôn" (10B, 10C như 10A 3.456).
 - Phần chung `js/mau/0hst.js`: `HST.tl` / `HST.so` / `HST.thamDu` / `HST.bq` / `HST.tlHTML` / `HST.tlDat` / `HST.nhanhThem` — tỷ lệ nhớ riêng từng mẫu `hsoLuu().tlHop[mẫu]`.
