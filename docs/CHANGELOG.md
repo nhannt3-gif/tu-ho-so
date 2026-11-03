@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.460 — 03/11/2026 — 10A về khuôn chung HST (TK 3, vai App chính)
+- **Anh 03/11**: "10A em chưa đưa kiểu HST à" → "gộp rồi code" (anh đã đồng ý "chuẩn cho 3 mẫu").
+- `js/mau/10a.js` dùng chung `HST` (js/mau/0hst.js) như 10B / 10C: danh sách tổ viên `HST.ds`, bảng hộ vay `HST.bang` (cột In, giữ mặc định tích hết + dòng tổng hộ / dư nợ), tỷ lệ tham dự / tán thành `HST.tl / so / bq / tlHTML`, cấp ấp `HST.capAp`, tên Hội `HST.hoi`. Bỏ bản riêng `hso10aTl / So / TlDat / TL10A / dvAp / hso10aHoi` và bảng riêng `h10a.*`.
+- **Dữ liệu cũ:** tỷ lệ đã lưu `hsoLuu().tl10a / tl10aBq` chuyển 1 lần sang `tlHop['10a'].du / bq` (cờ `tl10aHST`).
+- Giữ riêng 10A: phê duyệt UBND (`hso10aUbNut / UbDat`), khóa trang in (`hso10aDong`, `HSO_10A_DAU`), Thành lập / Kiện toàn, tách ô 3.449.
+- **Bản in 10A không đổi:** t179 (chuẩn khóa `hst_10a_*`) 45/45, t181 49/49. t358 / t364 sửa theo tên nút mới (`hst.*`, `hstl.*`), t364 thêm ý chuyển tỷ lệ cũ.
+
 ## 3.459 — 03/11/2026 — 10A: địa chỉ phê duyệt tách dòng, dòng chấm gọn, tên dưới chữ ký theo dòng trên (TK 2)
 - **Anh 03/11:** "phê duyệt UB, địa chỉ cho chọn tự điền và chấm — chia ra, không làm chung cả cụm"; "đổi tên cả phần dễ hiểu nhầm"; "form chức vụ khi chấm phần III làm ngắn lại cỡ như khi có chữ"; "số tiền làm dấu ngăn nhóm số"; "dòng trưởng ấp khi chọn chấm thì canh phải cho khoảng ghi rộng ra"; "tổ trưởng in sẵn, thư ký, tổ phó ghi tay"; "tên thư ký, trưởng ấp và Hội chỗ ký".
 - `js/mau/10a.js`: phê duyệt UBND địa chỉ = 3 ô `ubAp` / `ubXa` / `ubTinh` (Chọn nhanh; ô cũ `ubDiaBan` chuyển cách sang cả 3); nút "Phê duyệt UBND — Tên Tổ trưởng, Tổ phó, ngày" (`hso10aUbDat`, chỉ `ubTT` / `ubPho` / `ubNgay`); III để chấm → chấm đến điểm tab chung, "Chức vụ" thẳng cột (`chamMM`); Trưởng ấp / Thư ký để chấm → chấm kín dòng (`chamDay`, nowrap + canh đều cuối); tiết kiệm tối thiểu có dấu ngăn nhóm số (cả số tự gõ); ô mới `kyTK` (tên dưới chữ ký Thư ký); `kyTK` / `kyTA` / `kyCT` mặc định theo dòng Thư ký / Trưởng ấp / Chủ trì (trên chấm → trống, trên gõ → đúng chữ gõ).
