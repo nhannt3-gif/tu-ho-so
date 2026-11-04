@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.472 — 05/11/2026 — Dọn: một lõi tên xã chung (TK 3, Đ2 kế hoạch dọn)
+- Trước có **3 cách tính tên xã** song song: `toTenXa` (3.409/3.448, cây tổ: đếm đa số Mẫu 31 + File Tổ trưởng + danh bạ), `xaTenSach` (3.433, danh bạ / Tra cứu / hồ sơ: dò tổ cùng mã xã) và `slXaTenChuan` (3.470, chỗ đọc bộ số liệu).
+- Nay **một lõi** `slXaTenTu(hs, dsto, phu)` (js/22): File Tổ trưởng / Thông tin tổ trưởng (TENXA) → Mẫu 31 tên sạch (đa số) → nguồn phụ (danh bạ khách) → danh mục ⚙ Cài đặt → "Mã xã …". `slXaTenChuan` (bộ số liệu) và `toTenXa` (cây tổ) cùng gọi lõi này; `xaTenSach` (danh bạ đã lưu) tra bảng `SL_XA_TEN` (gộp từ các bộ đã dựng) rồi danh mục. Hàm `slLaTT` dùng chung thay 4 chỗ viết lại biểu thức "trực tiếp".
+- Không đổi kết quả: t330, t350, t360, t373, t321, t112, t113, t128, t167, t205 đạt nguyên.
+
 ## 3.471 — 05/11/2026 — Phân bổ KH › Diễn biến: bảng cơ bản (TK 3, Đ1 kế hoạch dọn)
 - **Anh 04/11** (ảnh Diễn biến): "tab nhìn còn rối rắm quá, biểu đồ này nọ khó hiểu, anh cần bảng biểu cơ bản trước, theo đúng phong cách giao vốn đầu năm, giao tăng giảm, KH cuối năm, dư nợ hiện tại, còn thực hiện, kẻ bảng, chọn đa chiều, chia nguồn"; anh duyệt kế hoạch (em chọn sẵn: Xem thêm ẩn biểu đồ, có cột dư nợ 31/12 năm trước, mặc định chương trình › xã).
 - **Bảng cơ bản** (`pbDBHang` / `pbDBBang`, js/48b): STT · Đơn vị · Dư nợ 31/12 năm trước · Giao đầu năm · Tăng / giảm (hoặc **Tách từng QĐ** = mỗi QĐ 1 cột) · KH cuối năm · Dư nợ kỳ chọn · Còn phải thực hiện (âm = vượt, đỏ) · % thực hiện. Khối **A. Nguồn TW / B. Nguồn ĐP / TỔNG CỘNG**; cấp 1 in đậm = tổng, bấm gập / mở; chương trình không giao ghi "không giao" (KH = dư nợ đầu năm, luật 3.305); có dư nợ mà chưa có KH (chưa nạp Mẫu 31 kỳ 12 năm trước) → ô Còn phải TH "—" + cảnh báo trên bảng (không báo vượt sai).

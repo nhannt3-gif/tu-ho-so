@@ -549,7 +549,7 @@ function slVaoDanhBa(loai, ky, rows, lap){
       if(slLaHS(loai)){ c.ku = c.ku||[]; ds.forEach(function(x){ if(x.ku && c.ku.indexOf(x.ku)<0) c.ku.push(x.ku); }); }
       return;
     }
-    var oX = ds.find(function(x){ return x.tenXa && !/tr[ựu]c ti[ếe]p/i.test(x.tenXa); }), tenXa = oX ? oX.tenXa : (c && c.tenXa && !/tr[ựu]c ti[ếe]p/i.test(c.tenXa) ? c.tenXa : '');   /* 3.433: dòng vay trực tiếp Mẫu 31 ghi Tên xã "… Vay trực tiếp" → không lấy làm tên xã */
+    var oX = ds.find(function(x){ return x.tenXa && !slLaTT(x.tenXa); }), tenXa = oX ? oX.tenXa : (c && c.tenXa && !slLaTT(c.tenXa) ? c.tenXa : '');   /* 3.433: dòng vay trực tiếp Mẫu 31 ghi Tên xã "… Vay trực tiếp" → không lấy làm tên xã */
     var moi = {ten:o.ten, ns:o.ns, cccd:o.cccd, ncap:o.ncap, noiCap:o.noiCap, dc:o.dc, xa:o.xa, tenXa:tenXa, thon:o.thon, tenThon:o.tenThon, to:o.to, toTen:o.toTen, dv:o.dv,
                sdt:o.sdt||'', gt:o.gt||'', voChong:o.voChong||'', danToc:o.danToc||'', ky:ky};
     var tat = ds.concat(theoLap[ma]||[]), stk = [];   /* 3.87: mọi sổ 105 kể cả ở dòng lặp; số dư 105 = tổng của khách → lấy 1 lần (số lớn nhất) */
@@ -934,19 +934,24 @@ var SL_BO_DANG = {};   /* 3.422 (đo mở lại app): 2 nơi cùng gọi dựng 
 /* 3.470 (anh 04/11 "đang gộp các điểm giao dịch, Gia Lộc gộp làm 1"): trong lúc hệ thống gộp điểm GD, cột Tên xã Mẫu 31 ghi "… Vay trực tiếp" (mỗi kỳ sai một kiểu)
    → TÊN XÃ LẤY THEO MÃ XÃ ngay khi đọc bộ số liệu, mọi tab dùng chung: File Tổ trưởng (TENXA, theo mã tổ) → Mẫu 31 tên sạch (đa số) → danh mục ⚙ Cài đặt → "Mã xã …".
    Tên gốc khác tên chuẩn giữ ở o.tenXaGoc (soát ở Kiểm tra kỳ). Mã xã không đổi khi gộp điểm. B.xaTen = {mã xã: tên chuẩn}. */
+var SL_XA_TEN = {};   /* 3.472: mã xã → tên chuẩn, gộp từ các bộ đã dựng (xaTenSach dùng cho danh bạ đã lưu) */
 function slLaTT(s){ return /tr[ựu]c ti[ếe]p/i.test(String(s || '')); }
-function slXaTenChuan(B){
-  var co = B.co || {}, hs = co.hstd || [], toXa = {}, dem = {}, ten = {};
+function slXaTenTu(hs, dsto, phu){   /* LÕI CHUNG (3.472): mã xã → tên chuẩn — File Tổ trưởng / Thông tin tổ trưởng (TENXA, theo mã xã hoặc mã tổ) → Mẫu 31 tên sạch (đa số) → nguồn phụ (danh bạ) → danh mục ⚙ Cài đặt → "Mã xã …" */
+  var toXa = {}, dem = {}, ten = {};
   var cong = function(xa, tx, n){ xa = String(xa || ''); tx = String(tx || '').trim(); if(!xa || !tx || slLaTT(tx)) return; var d = dem[xa] = dem[xa] || {}; d[tx] = (d[tx] || 0)+n; };
-  hs.forEach(function(o){ if(o.to && o.xa && !toXa[o.to]) toXa[o.to] = String(o.xa); });
-  (co.dsto || []).forEach(function(r){ cong(toXa[r.to], r.tenXa, 1000); });   /* File Tổ trưởng ưu tiên */
-  (co.tt || []).forEach(function(r){ cong(r.xa || toXa[r.to], r.tenXa, 1000); });   /* Thông tin tổ trưởng (cũ) */
-  hs.forEach(function(o){ cong(o.xa, o.tenXa, 1); });
+  (hs || []).forEach(function(o){ if(o.to && o.xa && !toXa[o.to]) toXa[o.to] = String(o.xa); dem[String(o.xa || '')] = dem[String(o.xa || '')] || {}; });
+  (dsto || []).forEach(function(r){ cong(r.xa || toXa[r.to], r.tenXa, 1000); });
+  (hs || []).forEach(function(o){ cong(o.xa, o.tenXa, 3); });
+  (phu || []).forEach(function(o){ cong(o.xa, o.tenXa, 1); });
   var dm = {}; (((typeof D!=='undefined' && D.cauHinh) || {}).diaBan || []).forEach(function(x){ if(x.ma && x.xa) dm[String(x.ma)] = x.xa; });
-  Object.keys(dem).forEach(function(m){ var d = dem[m], tot = ''; Object.keys(d).forEach(function(k){ if(!tot || d[k]>d[tot]) tot = k; }); ten[m] = tot; });
-  var lay = function(m){ m = String(m || ''); if(!m) return ''; if(!ten[m]) ten[m] = dm[m] || 'Mã xã '+m; return ten[m]; };
-  Object.keys(co).forEach(function(k){ if(k==='dsto') return; (co[k] || []).forEach(function(o){ if(!o || !o.xa || o.tenXa===undefined) return; var v = lay(o.xa);
-    if(v && v!==o.tenXa){ if(o.tenXaGoc===undefined) o.tenXaGoc = o.tenXa; o.tenXa = v; } }); });
+  Object.keys(dem).forEach(function(m){ if(!m) return; var d = dem[m], tot = ''; Object.keys(d).forEach(function(k){ if(!tot || d[k]>d[tot]) tot = k; }); ten[m] = tot || dm[m] || 'Mã xã '+m; });
+  return ten;
+}
+function slXaTenChuan(B){
+  var co = B.co || {}, ten = slXaTenTu(co.hstd, (co.dsto || []).concat(co.tt || []));
+  Object.keys(co).forEach(function(k){ if(k==='dsto') return; (co[k] || []).forEach(function(o){ if(!o || !o.xa || o.tenXa===undefined) return; var m = String(o.xa), v = ten[m] || (ten[m] = xaTenSach(m, '') || 'Mã xã '+m);
+    if(v!==o.tenXa){ if(o.tenXaGoc===undefined) o.tenXaGoc = o.tenXa; o.tenXa = v; } }); });
+  Object.keys(ten).forEach(function(m){ if(!/^Mã xã /.test(ten[m]) || !SL_XA_TEN[m]) SL_XA_TEN[m] = ten[m]; });
   B.xaTen = ten; return ten;
 }
 function slBo(ky){

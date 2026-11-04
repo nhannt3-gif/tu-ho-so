@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.471', ds:[
+var CO_GI_MOI = {ban:'3.472', ds:[
+  ["Dọn: tên xã cả app tính bằng một lõi chung (File Tổ trưởng → Mẫu 31 → danh bạ → danh mục), bỏ các bản vá riêng", ""],
   ["Phân bổ KH › Diễn biến: bảng cơ bản — giao đầu năm, tăng / giảm, KH cuối năm, dư nợ, còn phải thực hiện, %; chia khối nguồn, xếp chương trình › xã hoặc xã › chương trình, chọn nhiều xã / chương trình", "slDoiTab('pb')"],
   ["Tên xã lấy theo mã xã ngay khi đọc số liệu — hết chữ \"Vay trực tiếp\" ở mọi tab trong lúc hệ thống gộp điểm GD; Kiểm tra kỳ báo xã nào Mẫu 31 ghi tên khác chuẩn", "slDoiTab('pb')"],
   ["Phân bổ KH: QĐ không giao cho PGD nhập ở ＋ QĐ mới — không tích xã, Lưu = QĐ 0 xã; hiện chung danh sách QĐ, ✎ Sửa tích thêm xã là thành QĐ có số liệu", "slDoiTab('pb')"],
@@ -1070,8 +1071,7 @@ var CO_GI_MOI = {ban:'3.471', ds:[
   ["Biên bản làm việc — thêm 5 tình huống mẫu: khách chết / mất tích, rủi ro thiên tai dịch bệnh, sai mục đích / vay hộ, đã nộp cho Tổ trưởng nhưng NH chưa nhận, đang chấp hành án; Bản mẫu chọn tình huống bằng danh sách sổ xuống", "hsoChonMau('bblv')"],
   ["Biên bản làm việc — Bản mẫu Cả 3: tờ Hướng dẫn ghi biên bản (lưu ý chung, dấu hiệu nhận biết, thành phần nên mời, câu mẫu mục 2–5 sát thực tế cho từng tình huống)", "hsoChonMau('bblv')"],
   ["Biên bản làm việc — Bản mẫu Cả 3 tình huống: 1 tờ gọn gồm hướng dẫn ghi và mục 2–5 liệt kê câu ① ② ③", "hsoChonMau('bblv')"],
-  ["Biên bản làm việc — Bản mẫu: chọn tình huống ngay trong khung Bản mẫu; Cả 3 tình huống (mặc định) in 3 biên bản mẫu liền nhau", "hsoChonMau('bblv')"],
-  ["Biên bản làm việc: Bản mẫu chọn tình huống mẫu (bỏ địa phương / khó khăn / chây ỳ), mục 2–5 in câu mẫu tương ứng; câu cũng có trong gợi ý bản thật", "hsoChonMau('bblv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Biên bản làm việc — Bản mẫu: chọn tình huống ngay trong khung Bản mẫu; Cả 3 tình huống (mặc định) in 3 biên bản mẫu liền nhau", "hsoChonMau('bblv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
     "3.471 · Phân bổ KH › 📈 Diễn biến: bảng cơ bản + nút Xếp · Tách từng QĐ · chip Xã / Chương trình · ▸ Xem thêm",
     "3.470 · 📥 Nạp & KT › Kiểm tra kỳ: dòng \"Tên xã trên Mẫu 31 = tên chuẩn\"",
