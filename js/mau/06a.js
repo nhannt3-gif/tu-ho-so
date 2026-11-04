@@ -2,9 +2,10 @@
    Nghiệp vụ (anh 01/11): Mẫu 06 kiểm tra nhiều hộ (hộ vay đúng); phát hiện SAI (sai mục đích, 3 tháng KHĐ…) → kiểm tra, đánh giá TỪNG HỘ bằng 06A.
    MỖI MÓN 1 PHIẾU (anh chốt). Khách = người vay đang chọn, món = món đang chọn (như 09A). Số tiền nợ lãi = lãi tồn tất cả (Mẫu 31 chỉ có Lãi tồn TH + QH — laiTon).
    Lề 20 / 20 / 18 / 27,5 mm · Times New Roman 13,5 · dòng cố định 18 pt, cách trước 3 pt, thụt đầu dòng 10 mm. Chú thích (1), (2) in cuối trang (Word gốc là footnote).
-   Mẫu chỉ trình bày — chỗ khác gọi qua hso06aMo(mã tổ, mã KH, số khế ước). Bỏ file này → mất mẫu 06A (js/25 có hàm thay báo thiếu). */
+   Mẫu chỉ trình bày — chỗ khác gọi qua hso06aMo(mã tổ, mã KH, số khế ước). Bỏ file này → mất chip 06A (gắn qua hsoMauGan — 3.462); KTGS mở 06A → báo thiếu (hàm thay ở js/25b). */
 (function(){
   var MK = '06a';
+  hsoMauGan('hsv', {k:'06a',  ma:'06A/TD', ten:'Phiếu kiểm tra sử dụng vốn vay — từng hộ, mỗi món 1 phiếu (khi phát hiện sai: sai mục đích, 3 tháng KHĐ…) — 727', mg:[20, 20, 18, 27.5], sau:'03td'});   /* 3.462: tự gắn chip (cổng js/25) */
   var L = 'line-height:18pt;margin:3pt 0 0;', T = 'text-indent:10mm;', J = 'text-align:justify;';
   function P(noi, s){ return '<p style="margin:0;'+L+(s||'')+'">'+noi+'</p>'; }
   var CH = '........................................................................................................................................';
@@ -110,7 +111,7 @@
       return {ma:'06A/TD', h:'<div class="om-goc" style="font-size:13.5pt;line-height:1.15">'+h+'</div>'};
     }});
   /* 3.461 (anh 03/11 "cho chọn được 1 lần nhiều hộ của tổ"): tích nhiều món ở bảng HSN → mỗi món 1 phiếu, in liền; chưa tích → người vay / món đang xem như cũ */
-  hsoLap06a = function(t){ var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [], mon = [];
+  window.hsoLap06a = function(t){ var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [], mon = [];
     d.forEach(function(ho){ ho.mon.forEach(function(x){ mon.push({kh:ho.k.kh, ku:x.m.ku, ten:ho.k.ten}); }); });
     if(mon.length<2){ if(mon.length===1){ HSO.vay.kh = mon[0].kh; HSO.vay.ku = mon[0].ku; } return omLap(MK, t); }
     var cu = {kh:HSO.vay.kh, ku:HSO.vay.ku}, ds = [];
@@ -120,7 +121,7 @@
      Mẫu 31 chốt tháng trước; chưa có → số liệu gần nhất trước cuối tháng trước; món chỉ có từ kỳ sau (giải ngân trong tháng này) → kỳ có món (kyCo).
      Chỉ đặt khi VÀO 06A (bấm chip / mở từ chỗ khác); sau đó anh đổi ô kỳ đầu trang tự do. */
   function ngayCua(ky){ ky = String(ky||''); return ky.length===7 ? tdnCuoiKy(ky) : ky; }
-  hso06aKyMD = function(kyCo){
+  window.hso06aKyMD = function(kyCo){
     var ds = typeof toDsKy==='function' ? toDsKy() : []; if(!ds.length) return '';
     var tr = kyLui(slThang(ngayISO(nay())), -1), cuoi = tdnCuoiKy(tr), chon = '';
     ds.forEach(function(x){ var n = ngayCua(x.ky); if(n<=cuoi && (!chon || n>ngayCua(chon) || n===ngayCua(chon) && x.ky.length===7)) chon = x.ky; });
@@ -129,8 +130,11 @@
     return chon; };
   function datKy(kyCo){ var v = hso06aKyMD(kyCo); if(!v || v===kyChungLay()) return 0; kyChungDoi(v); bao('📅 06A: số liệu đến '+slKyChu(v)+' (mặc định cuối tháng trước) — đổi ở ô kỳ đầu trang nếu cần.', 4); return 1; }   /* kyChungDoi tự vẽ lại tab */
   /* gọi từ chỗ khác (KTGS Mẫu 06 · sau này danh sách 3 tháng KHĐ): mở tab Hồ sơ vay, mẫu 06A, chọn sẵn người vay + món — tổ theo phạm vi đang chọn */
-  hso06aMo = function(maTo, kh, ku, kyCo){ var S = hsoCH(), t = maTo ? KHO.to(maTo) : null; if(t && S.to!==maTo){ S.xa = t.xa || ''; S.diem = t.khoaDiem || ''; S.hoi = String(t.dv||''); S.ap = ''; S.to = maTo; }   /* phạm vi chung đặt đúng tổ (như pvChonTo) */
+  window.hso06aMo = function(maTo, kh, ku, kyCo){ var S = hsoCH(), t = maTo ? KHO.to(maTo) : null; if(t && S.to!==maTo){ S.xa = t.xa || ''; S.diem = t.khoaDiem || ''; S.hoi = String(t.dv||''); S.ap = ''; S.to = maTo; }   /* phạm vi chung đặt đúng tổ (như pvChonTo) */
     S.hsv = MK; HSO_DEN = {kh:kh, ku:ku || ''}; if(typeof HSN!=='undefined') HSN.datMot(MK, ku); luu(); datKy(kyCo); dhSL('hsv'); };   /* 3.461: tích sẵn đúng món */
   if(typeof hsoChonMau==='function'){ var cu = hsoChonMau; hsoChonMau = function(k){ if(k===MK && hsoTab()==='hsv' && hsoCH().hsv!==MK){ hsoCH().hsv = MK; luu(); if(datKy()) return; } return cu.apply(this, arguments); }; }
-  var M = hsoMauK(MK); if(M) M.mg = omMg([20, 20, 18, 27.5]);   /* lề theo file gốc */
+  hsoMauGan('hsv', {k:MK, mg:omMg([20, 20, 18, 27.5]),   /* lề theo file gốc */
+    lap:function(t){ return hsoLap06a(t); }, ai:function(x, t){ return (hsoKhachChon(t)||{}).ten || ''; },
+    trai:function(t){ return typeof HSN==='undefined' ? '' : HSN.trai(t, MK, {tieu:'Món cần kiểm tra', ghi:'mỗi món 1 phiếu, in liền'},
+      'Số tiền nợ lãi = lãi tồn tất cả (Lãi tồn TH + QH). Phần thực tế, sử dụng vốn, ý kiến ghi tay tại nhà khách. Chưa tích món nào → in theo người vay đang xem (bấm tên hộ trong bảng), hoặc bản trắng.'); }});
 })();

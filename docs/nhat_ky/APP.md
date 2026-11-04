@@ -12,6 +12,16 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 04/11/2026 18:40 — TK 3 · PHIÊN (3.463)
+- Anh 04/11: bản dọn — "hạn chế code rác, tối ưu chương trình, không gò ép trong khoảng nào", giữ mẫu cũ 10C / 11 cũ → KE_HOACH_DON_NEN mục 7.2–7.3 (bản dọn 3.464 chờ "code").
+- 3.463 (anh "code xong gộp lên anh thử"): Mẫu 11/TD mới + cũ chuẩn 10A trên HST, đúng mẫu gốc từng chữ (sửa "để trình", "đóng dấu)", khoảng trắng tên PGD), tổ trưởng theo Danh sách tổ mới nhất / chọn bản cũ / Mẫu 31; gắn qua `hsoMauGan`, bỏ `hsoLap11` cũ.
+- **Chờ anh:** thử máy thật 11 mới / cũ + BBLV / 06A; "code" bản dọn 3.464.
+
+### 04/11/2026 17:10 — TK 3 · PHIÊN (3.461.4 → 3.462)
+- 3.461.4–3.461.9 (đã gộp #489–#493): BBLV / 06A sửa theo ảnh anh (Tây Ninh, STT theo hộ, cột Lãi tồn, In 2 mặt), tình huống mẫu ①–⑧ + tờ hướng dẫn, ô sổ xuống; hồi quy theo đổi 5/5, mốc tổng 246.
+- 3.462 (anh 04/11 "làm tất cả, dọn nền tương ứng với phát triển thêm"): `docs/KE_HOACH_DON_NEN.md` — cổng gắn mẫu `hsoMauGan` (06A, BBLV), ngân sách tăng + thước đo nhánh mẫu trong `kiem.py`, đo nạp khi dùng (không làm), sửa bản rà 04/11 (nhiều việc nền đã có).
+- **Chờ anh:** thử máy thật BBLV / 06A; gộp 3.462. Anh 04/11: "Việc cần xử lý" ở Hôm nay bỏ khỏi việc chờ (cần thì anh yêu cầu), danh mục lý do lệch không cần. **Bản kế phải là bản dọn** (⚠ JS +180 KB so mốc 3.429).
+
 ### 03/11/2026 23:55 — TK 3 · PHIÊN
 - Đã làm: **3.461.1** ô In 2 mặt (dùng chung `D.cauHinh.ktHaiMat`) · **3.461.2** bộ in chung thêm lớp `tr-day` (đẩy khối xuống sát đáy trang — 06A chỗ ký + chú thích), tên chương trình theo cột Mẫu 31 `ctTen` (`HSN.ctTen`), mã món vay không bẻ dòng, tên hoa đầu từ, BBLV giao dịch lần cuối · **3.461.3** bảng chọn món `HSN.bang` viết lại (khung cuộn `calc(100vh − 330px)`, 1 món 1 dòng, cột Lãi tồn / CT, Số KU ẩn khi < 600 px, bấm dòng để tích, lọc "Chỉ món có vấn đề" mặc định bật, tìm), cờ ô `khongBao`. PR #488 (anh "gộp trước" — gộp trước khi hồi quy xong; hồi quy sau đó đạt 108/108, tổng chốt 246).
 - Đang dở: không.

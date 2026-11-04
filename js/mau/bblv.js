@@ -6,9 +6,10 @@
    - Mục 2–5 mặc định ✍ chấm ghi tay; câu gợi ý chỉ là tùy chọn (chọn nhiều, ➕ thêm).
    - TRỌN 1 TRANG A4: giãn dòng + thêm dòng chấm khi ngắn; dài thì bớt dòng chấm (tối thiểu 1 / mục) rồi thu giãn dòng; vẫn không vừa → ⚠ báo, không thu chữ.
    - Bản trắng: dạng dòng 1 món (⚙ chọn được bảng 3–6 dòng trống).
-   Chọn hộ / món: HSN (js/mau/0hsn.js). Bỏ file → mất mẫu (js/25b có hàm thay báo thiếu). ES5. */
+   Chọn hộ / món: HSN (js/mau/0hsn.js). Bỏ file → mất chip BBLV (gắn qua hsoMauGan — 3.462), app chạy như trước. ES5. */
 (function(){
   var MK = 'bblv', CO = 13, MG = [15, 15, 15, 25];
+  hsoMauGan('hsv', {k:'bblv', ma:'BBLV',   ten:'Biên bản làm việc — xác minh, đánh giá khoản nợ của hộ (nợ quá hạn, khoanh, lãi tồn cao, 3 tháng KHĐ); mỗi hộ 1 biên bản, trọn 1 trang A4', mg:[15, 15, 15, 25], sau:'06a'});   /* 3.462: tự gắn chip (cổng js/25) */
   var GOI = {
     ngNhan:['Thiên tai, hạn hán, lũ lụt làm thiệt hại sản xuất', 'Dịch bệnh trên vật nuôi, cây trồng làm thiệt hại vốn đầu tư', 'Giá sản phẩm giảm, tiêu thụ khó khăn, thu nhập không đủ trả nợ',
       'Bản thân / người trong gia đình ốm đau, bệnh nặng phải điều trị dài ngày', 'Lao động chính trong gia đình chết / mất sức lao động', 'Mất việc làm, thu nhập không ổn định',
@@ -218,9 +219,12 @@
   OM_MAU[MK].mauThem = function(){ var i0 = bblvMauI();   /* 3.461.9 (anh 04/11 "khi in bản mẫu sẽ sổ ra các tùy chọn tình huống"): danh sách sổ xuống */
     return '<div class="om-muc">Tình huống mẫu (mục 2–5): <select onchange="omChonDat(\''+MK+'\',\'tinhMau\',this.value)" title="Tất cả = tờ hướng dẫn ghi (lưu ý chung + từng tình huống); chọn 1 tình huống = biên bản mẫu đầy đủ">'+
       [CA3].concat(MAU.map(function(x){ return x.ten; })).map(function(ten, j){ return '<option'+((j ? i0===j-1 : i0<0) ? ' selected' : '')+'>'+coChuHTML(ten)+'</option>'; }).join('')+'</select></div>'; };
-  hsoLapBblv = function(t){ if(OM_KIEU==='mau') return omLap(MK, t); var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [];
+  window.hsoLapBblv = function(t){ if(OM_KIEU==='mau') return omLap(MK, t); var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [];
     if(d.length<2){ var r = omLap(MK, t); return r; }
     var ds = d.map(function(ho){ BBLV_HO = ho; try { return {M:hsoMauK(MK), h:omLap(MK, t).h, ten:ho.k.ten}; } finally { BBLV_HO = null; } });
     return {ma:'BBLV', h:ds[0].h, ds:ds}; };
-  var M = hsoMauK(MK); if(M) M.mg = omMg(MG);
+  hsoMauGan('hsv', {k:MK, mg:omMg(MG), lap:function(t){ return hsoLapBblv(t); },
+    ai:function(x, t){ return x.ds && x.ds.length>1 ? '' : ((x.ds && x.ds[0] && x.ds[0].ten) || (hsoKhachChon(t)||{}).ten || ''); },   /* nhiều hộ → tên file theo tổ */
+    trai:function(t){ return typeof HSN==='undefined' ? '' : HSN.trai(t, MK, {tieu:'Hộ cần làm việc', ghi:'mỗi hộ 1 biên bản (1 trang); 1 món → dạng dòng, nhiều món → bảng'},
+      'Lãi tồn cao = lãi tồn > 3 / 6 / 12 tháng lãi (dư nợ × lãi suất năm ÷ 12). Thành phần, chỗ ký, mục 2–5 mặc định để chấm ghi tay. Chưa tích món nào → in theo hộ đang xem (bấm tên hộ), hoặc bản trắng.'); }});
 })();

@@ -14,7 +14,7 @@
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.461.9', APP_LUC = '04/11/2026 01:11';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.463', APP_LUC = '04/11/2026 18:38';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {

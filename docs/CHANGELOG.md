@@ -4,6 +4,24 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.463 — 04/11/2026 — Mẫu 11/TD mới + cũ theo chuẩn 10A, đúng mẫu gốc từng chữ, tổ trưởng theo Danh sách tổ mới nhất (TK 3)
+- **Anh 04/11**: "em tiếp tục làm Mẫu 11 mới theo chuẩn 10A"; "đúng mẫu từng chữ, ko được bỏ hay sửa"; "tổ trưởng lấy theo danh sách tổ mới nhất"; "khi cần in bổ sung lại tổ cũ thì chọn dữ liệu cũ"; "làm luôn mẫu 11 cũ song song với mẫu mới"; "nhớ chuyển qua mẫu chung".
+- **Đúng chữ mẫu gốc** (so từng chữ với `tests/mau_goc/11_moi.docx`, `11_cu.docx`): 11 mới sửa 3 chỗ lệch có từ trước — "…nợ bị rủi ro **để trình** cấp có thẩm quyền" (app in nhầm "gửi"), "(Ký tên, đóng dấu)" (thừa khoảng trắng), tên PGD dính chữ "xã hội". 11 cũ khớp sẵn. Chữ in sẵn không đổi; không đổi "Thôn" / "xã" của mẫu.
+- **Tổ trưởng ký hợp đồng** (cột trái, chung 2 mẫu — `HST.tt`, `HST.ttHTML`): mặc định **Danh sách tổ mới nhất** đã nạp (tên, mã KH, CCCD, ngày cấp; nơi cấp từ danh bạ cùng số thẻ); **in bổ sung tổ cũ** → ô "Lấy theo" chọn bản Danh sách tổ cũ hoặc Mẫu 31 kỳ đang chọn, nhớ theo tổ, nút ↺ Về mới nhất; bản chọn không có tổ → báo, lấy bản gần nhất có tổ (QT-C-18 / QT-C-22).
+- **Chuẩn 10A trên phần chung HST** (`js/mau/0hst.js`): chữ điền liền, in thường; tên hoa đầu từ; "Đại diện Ông (Bà): tên ⇥ Chức vụ"; Hội bỏ xã; tách ô (Bên A chức vụ · ngày cấp · nơi cấp · xã · tỉnh · chữ ký Bên A — cách đã chọn ở ô cũ tự chuyển); khối Nhập liệu riêng Điền hết / Tùy chọn. Đoạn văn chung `HST.P` (thay bản `P` riêng của 2 mẫu).
+- **Gắn qua cổng `hsoMauGan`**: bỏ 2 dòng danh sách (js/25), hàm thay `hsoLap11Cu`, **hàm lập 11 kiểu cũ `hsoLap11` (72 dòng, không còn dùng)**, 2 mục trong bảng lập (js/25b), nhánh cột trái (js/25c → `M.trai`). Rút file mẫu → mất chip, app chạy như trước.
+- **Dọn kèm:** bỏ `hsoLap11` cũ; `kiem.py` bỏ ⚠ ngân sách KB (anh 04/11 "không gò ép trong khoảng nào" — KB chỉ theo dõi); phép thử nhanh node nạp cả dòng `<script>` có chú thích (trước bỏ sót `0hst`, `0hsn`, `bblv`).
+- **Phép thử**: t368 mới (chữ in sẵn = file gốc 2 mẫu, chuẩn 10A, nguồn tổ trưởng: mới nhất / bản cũ / không có tổ / Mẫu 31 / về mới nhất — Danh sách tổ GIẢ); t181 11 / 11cu vào nhóm chữ liền; chuẩn in t179 ghi lại 4 bản 11 (anh duyệt đổi).
+
+## 3.462 — 04/11/2026 — Dọn nền theo nhịp phát triển: cổng gắn mẫu, ngân sách tăng (TK 3)
+- **Anh 04/11**: "em so với định hướng bố cục có đi lệch khi app phình to quá nhanh ko" → "em làm tất cả luôn, theo kế hoạch dọn nền tương ứng với phát triển thêm". Kế hoạch: `docs/KE_HOACH_DON_NEN.md`.
+- **Cổng gắn mẫu `hsoMauGan`** (`js/25-ho-so.js`): file `js/mau/*.js` tự gắn chip + `lap` + `ai` (tên file) + `trai` (cột trái) vào `HSO_MAU`. 06A, Biên bản làm việc chuyển sang cổng — bỏ nhánh riêng ở `js/25` (2 dòng danh sách), `js/25b` (nhánh BBLV, 3 hàm thay, 06A trong bảng lập), `js/25c` (cột trái); `HSN.trai` dùng chung. Rút 3 file `0hsn` / `06a` / `bblv` → app chạy như trước (KTGS mở 06A chỉ báo thiếu).
+- **`tests/kiem.py`**: ngân sách tăng (JS +100 KB · CSS +15 · hàm +60 · biến +15 so mốc → dòng ⚠ NGÂN SÁCH TĂNG riêng, t192 vẫn đạt); thước đo mới "nhánh mẫu riêng (js/25*)" (54, chỉ được giảm); bớt báo nhầm "thiếu hàm" (10 → 0). Hiện ⚠ JS +180 KB so mốc 3.429 → **bản kế là bản dọn** (KE_HOACH_DON_NEN mục 5 N3) rồi mới đặt mốc mới.
+- **Đo, không làm**: nạp khi dùng `js/mau/*` — lợi ~30 ms, rủi ro gọi chéo; đo lại khi JS > 5 MB / nạp > 1 giây.
+- **Sửa bản rà 04/11**: lưu theo ngăn, dòng thời gian, nhật ký lỗi, sức khỏe sao lưu **đã có** (bản rà ghi nhầm "chưa thấy"); còn thiếu thật: "Việc cần xử lý" ở Hôm nay, danh mục lý do lệch anh khai được — chờ anh (KE_HOACH_DON_NEN mục 6).
+- **Dọn kèm:** chính bản này (cổng mẫu, −8 nhánh / hàm thay ở khung Hồ sơ).
+- **Phép thử**: t367 mới (cổng + rút file); t366, t349 đạt.
+
 ## 3.461.9 — 04/11/2026 — 8 tình huống mẫu biên bản làm việc (TK 3)
 - **Anh 04/11**: "nghĩ thêm có tình huống nào nữa ngoài 3 t/h trên"; "3 t/h đã 2 mặt hướng dẫn, em soạn tiếp các tình huống còn lại luôn"; "khi in bản mẫu sẽ sổ ra các tùy chọn tình huống".
 - `js/mau/bblv.js`: thêm ④ Khách chết / mất tích / mất năng lực hành vi · ⑤ Rủi ro khách quan (thiên tai, dịch bệnh) · ⑥ Sử dụng vốn sai mục đích / vay hộ · ⑦ Đã nộp cho Tổ trưởng nhưng Ngân hàng chưa nhận · ⑧ Đang chấp hành án / tạm giam — mỗi tình huống có Dấu hiệu, Nên mời, câu mẫu mục 2–5 (cũng vào gợi ý bản thật). Ô chọn ở khung 📝 Bản mẫu thành **danh sách sổ xuống**: Tất cả tình huống (tờ hướng dẫn ≈ 5 trang) · ① … ⑧ (biên bản mẫu đầy đủ 1 tình huống). Câu do TK 3 soạn theo nghiệp vụ thường gặp, chưa đối chiếu văn bản — anh sửa thì báo.
