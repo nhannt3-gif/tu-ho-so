@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.477 — 05/11/2026 — Tab Tổ mở nhanh hơn (TK 3, Đ5 + Đ6 kế hoạch dọn)
+- **Đ6 — đo lại** (máy ảo, bộ giả 25.000 khách `tests/taogia.py`, Mẫu 31 hai kỳ): mở tab Tổ lần đầu **470 ms**, các lần sau ~160 ms. Đo từng hàm: `toTV` (danh sách tổ viên mỗi tổ, gọi 60 lần) chiếm phần lớn lần đầu — với mỗi khách lại lọc **toàn bộ** dòng Mẫu 31 của tổ để tìm dòng của khách đó (tăng theo bình phương số khách / tổ) và tính lại danh sách KHĐ cho từng tổ.
+- **Sửa** (js/22g `toTV`): gom dòng theo khách 1 lần / tổ; danh sách KHĐ tính 1 lần / kỳ (`K._khd`). Kết quả không đổi (cùng thứ tự dòng). Sau sửa: lần đầu **~350 ms**, các lần sau **~150 ms** (dưới ngưỡng 300). Không ghi nhớ `toKhach` (nhiều tab dùng chung, ghi nhớ dễ lệch số khi dữ liệu đổi).
+- **Đ5 — rà lại:** đã xong từ trước — Theo dõi nợ đã gỡ (3.399), mini Giao dịch xã đọc qua `KHO`, thước đo `kiem.py` "đọc thẳng biến kho" = 0, "đọc thẳng bảng gốc" = 0. Phần đọc sâu kỳ riêng của tab (KTGS, Sao kê, Tổng hợp) là thiết kế "kỳ là của tab" (RA_SOAT_KHO_2410 mục 4) — làm khi sửa tab đó.
+
 ## 3.476 — 05/11/2026 — Dọn: bỏ onclick viết thẳng đồng loạt (TK 3, Đ4 kế hoạch dọn — phần 3)
 - **Công cụ `tools/doi_onclick.py`**: chuyển dạng chuẩn `on<sự kiện>="[dongHop();]HÀM(tham số…)"` (tham số: chuỗi từ biểu thức, chữ, số, true / false / null, this.value / this.checked / this / event) → `data-lenh="<khối>.<lệnh>"` + `data-a1…`, sinh khối `gdDangKy('<khối>', gdLenh({…}))` cuối file — mỗi lệnh gọi **đúng hàm cũ**, đúng kiểu tham số. `dongHop()` trơn → lệnh chung `hop.dong`. Bỏ qua (giữ nguyên): `event.stopPropagation()`, chuỗi có `.replace(/'/g…)`, tham số ghép thô, câu lệnh gán / nhiều lệnh, chú thích, và **hàm mà chỗ khác tra theo chữ onclick** (chonDong, doiNgan, doiCD, ktKHXepLai…, boChonHS, quetThemHang, ccMo).
 - **Chạy cho 70 file** (trừ js/04b — cửa sổ nổi HSSV vẽ vào cửa sổ PiP riêng, không có bộ nghe chung): **onclick 1.174 → 467**. Hàm chung mới (js/02): `gdA(el, i)` tham số, `gdLenh(ds)` (data-dong="1" = đóng hộp trước). `GD.coLenh(k)` (js/39) cho phép thử.
