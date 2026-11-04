@@ -199,6 +199,7 @@
 | 04/11 | TK 3 (App chính) | **3.461.7** | `js/mau/bblv.js` (tờ mẫu gọn); `tests/t366.js` | t366 |
 | 04/11 | TK 3 (App chính) | **3.461.8** | `js/mau/bblv.js` (tờ hướng dẫn ghi); `tests/t366.js` | t366 |
 | 04/11 | TK 3 (App chính) | **3.461.9** | `js/mau/bblv.js` (8 tình huống, ô sổ xuống); `tests/t366.js`, `tests/t181.js` | t366 t181 |
+| 04/11 | TK 3 (App chính) | **3.462** | `js/25-ho-so.js` (cổng `hsoMauGan`), `js/25b`, `js/25c` (bỏ nhánh 06A / BBLV), `js/mau/06a.js`, `bblv.js`, `0hsn.js`; `tests/kiem.py`, `tests/t367.js`; `docs/KE_HOACH_DON_NEN.md` | t367 t366 t349 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

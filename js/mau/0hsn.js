@@ -83,5 +83,7 @@ var HSN = (function(){
           (dong || '<tr><td colspan="9" class="hsn-rong">Không có món nào khớp lọc'+(L.vd ? ' — bấm "Chỉ món có vấn đề" để hiện hết' : '')+'.</td></tr>')+'</tbody></table></div>'+
           '<div class="hsn-chan">Hiện <b>'+soHien+'</b>/'+tong+' món · máy in 1 mặt: bỏ tích "In 2 mặt" (không chèn trang trắng)</div>'
         : '<div class="sl-phu">Tổ không có hộ còn nợ ở kỳ số liệu đang mở.</div>')+'</div>'; };
+  /* 3.462: cột trái chung của mẫu dùng bảng chọn món (06A, BBLV) — gọi từ hsoMauGan(…trai) */
+  X.trai = function(t, mk, op, ghi){ return X.bang(t, mk, op)+'<div class="hso-cham"><small>'+ghi+'</small></div>'+(typeof omCo==='function' && omCo(mk) ? omNhanhHTML(mk) : ''); };
   return X;
 })();

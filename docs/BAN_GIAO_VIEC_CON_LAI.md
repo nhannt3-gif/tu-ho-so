@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.462)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › chip 06A, BBLV (thứ tự chip như cũ) | Bảng chọn món, in, Bản mẫu như 3.461.9 | |
+| 2 | KTGS Mẫu 06 › nút 📄 06A | Mở đúng hộ / món | |
+
 ### Danh sách thử trên máy thật (3.461.9)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

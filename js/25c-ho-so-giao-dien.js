@@ -868,12 +868,7 @@ function hsoTuyVay(M, t, tv){
     h += hsoTuyO('Người đề nghị', hsoChon('HSO.vay.kh=this.value;HSO.vay.ku=\'\';hsoVe()', HSO.vay.kh||'', [['', t ? '— chọn tổ viên ('+tv.length+') —' : '— chọn tổ trước —']].concat(tv.map(function(k){ return [k.kh, k.ten+' · '+k.kh]; }))))+
       hsoKBRieng('01tdck', {});   /* 3.222: cùng khung với các mẫu */
   }
-  if(M.k==='06a' || M.k==='bblv'){   /* 3.430: 06A mỗi món 1 phiếu · 3.461 (anh 03/11 "cho chọn được 1 lần nhiều hộ của tổ … nợ cần quan tâm"): bảng chọn món chung HSN (js/mau/0hsn.js) — 06A mỗi món 1 phiếu, BBLV mỗi hộ 1 biên bản */
-    if(typeof HSN!=='undefined') h += HSN.bang(t, M.k, M.k==='06a' ? {tieu:'Món cần kiểm tra', ghi:'mỗi món 1 phiếu, in liền'} : {tieu:'Hộ cần làm việc', ghi:'mỗi hộ 1 biên bản (1 trang); 1 món → dạng dòng, nhiều món → bảng'});
-    h += '<div class="hso-cham"><small>'+(M.k==='06a' ? 'Số tiền nợ lãi = lãi tồn tất cả (Lãi tồn TH + QH). Phần thực tế, sử dụng vốn, ý kiến ghi tay tại nhà khách. Chưa tích món nào → in theo người vay đang xem (bấm tên hộ trong bảng), hoặc bản trắng.'
-      : 'Lãi tồn cao = lãi tồn > 3 / 6 / 12 tháng lãi (dư nợ × lãi suất năm ÷ 12). Thành phần, chỗ ký, mục 2–5 mặc định để chấm ghi tay. Chưa tích món nào → in theo hộ đang xem (bấm tên hộ), hoặc bản trắng.')+'</small></div>'+
-      (typeof omCo==='function' && omCo(M.k) ? omNhanhHTML(M.k) : '');
-  }
+  if(M.trai) h += M.trai(t, M, B);   /* 3.462: cột trái của mẫu gắn qua cổng hsoMauGan (06A, BBLV — js/mau) */
   if(M.k==='09a'){
     var mon = hsoMonGH(t), ds9 = tv.filter(function(k){ return k.mon.some(function(m){ return (m.dn||0)>0; }); });
     h += hsoTuyO('Người vay', hsoChon('HSO.vay.kh=this.value;HSO.vay.ku=\'\';delete HSO.vay.tienGH;hsoVe()', V.kh||'', [['', t ? '— chọn tổ viên ('+ds9.length+') —' : '— chọn tổ trước —']].concat(ds9.map(function(k){ return [k.kh, k.ten+' · '+k.kh]; }))))+

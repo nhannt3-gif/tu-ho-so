@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.461.9', ds:[
+var CO_GI_MOI = {ban:'3.462', ds:[
+  ["Nền mẫu: 06A và Biên bản làm việc gắn qua cổng chung — dùng như cũ; bỏ file mẫu không làm hỏng app", "hsoChonMau('bblv')"],
   ["Biên bản làm việc — thêm 5 tình huống mẫu: khách chết / mất tích, rủi ro thiên tai dịch bệnh, sai mục đích / vay hộ, đã nộp cho Tổ trưởng nhưng NH chưa nhận, đang chấp hành án; Bản mẫu chọn tình huống bằng danh sách sổ xuống", "hsoChonMau('bblv')"],
   ["Biên bản làm việc — Bản mẫu Cả 3: tờ Hướng dẫn ghi biên bản (lưu ý chung, dấu hiệu nhận biết, thành phần nên mời, câu mẫu mục 2–5 sát thực tế cho từng tình huống)", "hsoChonMau('bblv')"],
   ["Biên bản làm việc — Bản mẫu Cả 3 tình huống: 1 tờ gọn gồm hướng dẫn ghi và mục 2–5 liệt kê câu ① ② ③", "hsoChonMau('bblv')"],
@@ -1070,9 +1071,9 @@ var CO_GI_MOI = {ban:'3.461.9', ds:[
   ["BBLV / 06A: ô In 2 mặt ở cột trái — máy in 1 mặt bỏ tích để không chèn trang trắng giữa các bản", "hsoChonMau('bblv')"],
   ["Biên bản làm việc (BBLV) mới: xác minh khoản nợ của hộ — mỗi hộ 1 biên bản trọn 1 trang A4", "hsoChonMau('bblv')"],
   ["Chọn nhiều hộ / món của tổ theo nhóm: nợ quá hạn, khoanh, 3 tháng KHĐ, lãi tồn > 3 / 6 / 12 tháng", "hsoChonMau('bblv')"],
-  ["Mẫu 06A: Ông (bà): tên, bỏ chữ Hội trùng, nơi kiểm tra = địa chỉ khách, ngày và đồng in liền, khai báo đủ mọi dòng, in nhiều phiếu", "hsoChonMau('06a')"],
-  ["Mẫu 10A dùng khuôn chung với 10B / 10C: bảng hộ vay có tìm tên / mã KH, lọc ấp, Tích hết / Bỏ hết", "hsoChonMau('10a')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Mẫu 06A: Ông (bà): tên, bỏ chữ Hội trùng, nơi kiểm tra = địa chỉ khách, ngày và đồng in liền, khai báo đủ mọi dòng, in nhiều phiếu", "hsoChonMau('06a')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.462 · Hồ sơ vay › 06A, BBLV: chọn món, in, Bản mẫu — như 3.461.9",
     "3.461.9 · Hồ sơ vay › BBLV › 📝 Bản mẫu › ô sổ xuống Tình huống mẫu: Tất cả (tờ hướng dẫn) · ① … ⑧",
     "3.461.6 · Hồ sơ vay › BBLV › 📝 Bản mẫu › dòng Tình huống mẫu: Cả 3 tình huống · ① · ② · ③",
     "3.461.5 · Hồ sơ vay › BBLV › 📝 Bản mẫu › cột trái ô Tình huống mẫu: ① Bỏ địa phương / đi làm ăn xa · ② Còn ở địa phương nhưng khó khăn · ③ Có điều kiện nhưng chây ỳ",
@@ -1091,8 +1092,7 @@ var CO_GI_MOI = {ban:'3.461.9', ds:[
     "3.457 · 10B / 10C › Chọn nhanh: biểu quyết tỷ lệ tán thành (− / +, tối thiểu 67%)",
     "3.456 · Hồ sơ Tổ › 10A › Chọn nhanh: dòng \"số tham dự\" có − 100 % + (gõ ≤ 50% → app đặt 51%)",
     "3.456 · 10A › Chọn nhanh: IV tỷ lệ tán thành (− / +, tối thiểu 67%)",
-    "3.456 · 10A › III a / b bấm ⌨ → gõ hoặc chọn tên trong tổ; phần Phê duyệt UBND đổi theo",
-    "3.456 · 10A › cuối Chọn nhanh: Phê duyệt UBND — cả phần ✍ chấm / 🤖 tự điền"],
+    "3.456 · 10A › III a / b bấm ⌨ → gõ hoặc chọn tên trong tổ; phần Phê duyệt UBND đổi theo"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",
     "3.459 · 10A: ô \"Phê duyệt UBND: thôn · xã · tỉnh\" (1 ô) → 3 ô riêng (cách đã chọn giữ cho cả 3)",

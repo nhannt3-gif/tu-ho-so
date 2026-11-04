@@ -22,9 +22,11 @@ top=re.findall(r'^function\s+([\w$]+)',js,re.M)
 dup=sorted({x for x in top if top.count(x)>1})
 defs=set(re.findall(r'function\s+([\w$]+)',js))|set(re.findall(r'(?:var|let|const)\s+([\w$]+)',js))|set(re.findall(r'\bwindow\.([\w$]+)\s*=',js))
 defs|=set(re.findall(r'(?:var|let|const)\s+[^;]*?,\s*([\w$]+)\s*=',js))
+# 3.462 (KE_HOACH_DON_NEN D1): bớt báo nhầm "thiếu hàm" — hàm gán biến (x = function…), tên trong danh sách var a = …, b = null (gán lại ở js/mau)
+defs|=set(re.findall(r'([\w$]+)\s*=\s*function\b',js))|set(re.findall(r',\s*([\w$]+)\s*=\s*(?:null|function)\b',js))
 # tham số hàm
 for ps in re.findall(r'function\s*[\w$]*\s*\(([^)]*)\)',js): defs|=set(x.strip() for x in ps.split(',') if x.strip())
-toan_cuc=set('''_ThungRac chimuc lý alert prompt confirm setTimeout clearTimeout setInterval clearInterval parseInt parseFloat isNaN isFinite String Number Array Object JSON Math Date Promise Blob File FileReader URL Uint8Array Float32Array Float64Array Int32Array Uint32Array TextEncoder Error RegExp encodeURIComponent decodeURIComponent unescape escape fetch getComputedStyle requestAnimationFrame Boolean Symbol Map Set structuredClone indexedDB atob btoa Image DataTransfer event IntersectionObserver MutationObserver ClipboardItem createImageBitmap TextDecoder Worker ArrayBuffer DataView DOMParser XMLSerializer Event matchMedia'''.split())
+toan_cuc=set('''CompressionStream DecompressionStream Response _ThungRac chimuc lý alert prompt confirm setTimeout clearTimeout setInterval clearInterval parseInt parseFloat isNaN isFinite String Number Array Object JSON Math Date Promise Blob File FileReader URL Uint8Array Float32Array Float64Array Int32Array Uint32Array TextEncoder Error RegExp encodeURIComponent decodeURIComponent unescape escape fetch getComputedStyle requestAnimationFrame Boolean Symbol Map Set structuredClone indexedDB atob btoa Image DataTransfer event IntersectionObserver MutationObserver ClipboardItem createImageBitmap TextDecoder Worker ArrayBuffer DataView DOMParser XMLSerializer Event matchMedia'''.split())
 kw=set('if for while switch catch function return typeof new delete in of do else case void throw'.split())
 def boChuoi(t):
     out=[];i=0;n=len(t)
@@ -100,10 +102,15 @@ if len(sys.argv)<2:
     bang=sum(len(re.findall(r'\.co\.(?:hstd|tv01|dsto|tt|nqh|nk|khd|lt|dnct)\b|\.theoKH\b|\bB\.mon\b', re.sub(r'/\*.*?\*/', '', boChuoi(t), flags=re.S))) for p,t in nd.items() if not re.search(r'js/(22-so-lieu|22g-to|22k-nap-kt|29-kho|73-kho-chuan)\.js$', p))
     do={'js_kb':sum(len(t.encode()) for t in nd.values())//1024, 'css_kb':css//1024, 'ham':len(top), 'bien':len(set(re.findall(r'^var\s+([\w$]+)',js,re.M))),
         'mo_coi':len(mo_coi), 'dong_dai':sum(1 for t in nd.values() for l in t.split('\n') if len(l)>400), 'onclick':len(re.findall(r'on(?:click|change|input)=\\?"',js)),
-        'file_lon':sum(1 for t in nd.values() if len(t.encode())>150*1024), 'kho_thang':kho, 'bang_goc':bang}
-    ten={'js_kb':'JS KB','css_kb':'CSS KB','ham':'hàm chung','bien':'biến chung','mo_coi':'mồ côi','dong_dai':'dòng >400','onclick':'onclick','file_lon':'file >150 KB','kho_thang':'đọc thẳng biến kho','bang_goc':'đọc thẳng bảng gốc'}
+        'file_lon':sum(1 for t in nd.values() if len(t.encode())>150*1024), 'kho_thang':kho, 'bang_goc':bang,
+        # 3.462 (KE_HOACH_DON_NEN D2): nhánh riêng theo mẫu ở khung Hồ sơ (js/25, 25b, 25c) — mẫu mới gắn qua hsoMauGan, con số này chỉ được giảm
+        'nhanh_mau':sum(len(re.findall(r"\bM\.k\s*[!=]==|\.test\(M\.k\)", boChuoi(t))) for p,t in nd.items() if re.search(r'js/25[bc]?-', p))}
+    ten={'js_kb':'JS KB','css_kb':'CSS KB','ham':'hàm chung','bien':'biến chung','mo_coi':'mồ côi','dong_dai':'dòng >400','onclick':'onclick','file_lon':'file >150 KB','kho_thang':'đọc thẳng biến kho','bang_goc':'đọc thẳng bảng gốc','nhanh_mau':'nhánh mẫu riêng (js/25*)'}
     pm=os.path.join(G,'tests','do_moc.json'); moc=json.load(open(pm,encoding='utf-8')) if os.path.exists(pm) else {}
     if MOC or not moc: json.dump(do,open(pm,'w',encoding='utf-8'),ensure_ascii=False,indent=1); moc=do
     vuot=[k for k in do if k in moc and do[k]>moc[k] and k not in ('js_kb','css_kb','ham','bien')]
+    # 3.462 (anh 04/11 "dọn nền tương ứng với phát triển thêm" — KE_HOACH_DON_NEN mục 2): NGÂN SÁCH TĂNG — vượt mốc quá mức này → ⚠ phải có bản dọn (giảm lại) rồi mới hạ / đặt mốc mới (--moc, ghi CHANGELOG)
+    NGAN={'js_kb':100, 'css_kb':15, 'ham':60, 'bien':15}
+    vuot+=[k for k in NGAN if k in moc and do[k]-moc[k]>NGAN[k]]
     print('Thước đo:', ' · '.join('%s %d%s'%(ten[k],do[k],('' if k not in moc or do[k]==moc[k] else ' (%+d)'%(do[k]-moc[k]))) for k in do), ('— ⚠ VƯỢT MỐC: '+', '.join(ten[k] for k in vuot)) if vuot else '— trong mốc')
 
