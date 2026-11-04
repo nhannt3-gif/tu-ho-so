@@ -90,11 +90,7 @@ function ktTomTat(loai, t){
 /* ---------- trạng thái + nạp dữ liệu cho tab ---------- */
 var KT_K = null, KT_BC = null, KT_TRUOC = null, KT_Q = '', KT_CHON = null, KT_KB = {}, KT_LOC = 'goi';
 function ktCH(){ return pvGan(D.cauHinh.ktgs = D.cauHinh.ktgs || {ky:'', xa:'', diem:'', hoi:'', to:'', kieu:'trung'}); }
-function ktDsBC(loai){ return KHO.dsBang(loai).sort(function(a, b){ return slThuTu(a.ky)<slThuTu(b.ky) ? 1 : -1; }); }
-function ktChonBC(loai, ky){   /* cùng tháng với số liệu món vay thì lấy, không thì bản mới nhất */
-  var ds = ktDsBC(loai); return ds.find(function(e){ return e.ky===ky; }) || ds.find(function(e){ return slThang(e.ky)===slThang(ky); }) || ds[0] || null;
-}
-function ktNapBC(ky){ return Promise.all([KHO.bc37(ky), KHO.bc38(ky)]).then(function(r){ return {k37:r[0], k38:r[1]}; }); }   /* 3.333: qua cửa KHO (cùng luật ktChonBC: cùng kỳ → cùng tháng → mới nhất) */
+function ktNapBC(ky){ return Promise.all([KHO.bc37(ky), KHO.bc38(ky)]).then(function(r){ return {k37:r[0], k38:r[1]}; }); }   /* 3.333: qua cửa KHO (cùng kỳ / cùng tháng với số liệu món vay, không thì bản mới nhất — luật cũ ktChonBC: cùng kỳ → cùng tháng → mới nhất) */
 /* số dư 105 từng khách tháng trước (để biết 105 tăng = gửi tiết kiệm đều) */
 function ktTruocNap(K){   /* 3.333: qua cửa KHO.t105Truoc — giữ bộ nhớ đệm KT_TRUOC */
   var tr = kyLui(K.thang, -1);

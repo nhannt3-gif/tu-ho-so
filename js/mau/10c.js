@@ -4,21 +4,10 @@
    Trong bộ hồ sơ vay (hsoLapBo) vẫn gọi hsoLap10c(t, {moi, kn, vay}) như cũ. Bỏ file này → app dùng lại hsoLap10c cũ. */
 (function(){
   var MK = '10c';
-  function mm(s, k){ var m = new RegExp(k+':(-?[\\d.]+)mm').exec(s); return m ? +m[1] : 0; }
-  function P(noi, s){ s = s || ''; if(s && !/;$/.test(s)) s += ';';
-    if(/nowrap/.test(s) && noi.indexOf('<br>')<0){   /* dòng ép 1 dòng: co khoảng trắng / nén chấm cho vừa khổ (như 01/GQVL) */
-      var w = 0, h = noi.replace(/<span[^>]*display:inline-block;width:([\d.]+)mm[^>]*>[\s\S]*?<\/span>/g, function(_, x){ w += +x; return ''; }), tx = h.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
-      var R = 159.5 - mm(s, 'text-indent') - mm(s, 'margin-left'), n = (tx.match(/ /g) || []).length; w += omRong(tx, 14, /^<b>/.test(noi));
-      if(w > R){ if(n && (w-R)/n <= 0.8) s += 'word-spacing:'+(-(w-R)/n).toFixed(2)+'mm;';
-        else { s += 'letter-spacing:'+(-(w-R)/tx.length).toFixed(3)+'mm;'; noi = noi.replace(/display:inline-block;/g, 'display:inline-block;letter-spacing:normal;'); } } }
-    else if(/justify/.test(s) && !/word-spacing/.test(s)) s += 'word-spacing:-0.25mm;';
-    if(/text-align-last:justify/.test(s)) noi = noi.replace(/display:inline-block;/g, 'display:inline-block;text-align-last:auto;word-spacing:normal;');   /* chữ trong ô không bị giãn theo dòng */   /* phông máy rộng hơn Word ~2 % → ngắt dòng như gốc */
-    return '<p style="margin:0;'+s+'">'+noi+'</p>'; }
+  function P(noi, s){ return HST.P(noi, s); }   /* 3.464: đoạn văn chung Hồ sơ Tổ (js/mau/0hst.js — trước mỗi mẫu 1 bản giống hệt) */
   var J = 'text-align:justify;', W = 'white-space:nowrap;', TL = 'text-align-last:justify;', F = 'text-indent:12.7mm;', H15 = 'margin:3pt 0;line-height:15pt;';
   function sup(x){ return '<span style="font-size:58%;vertical-align:33%;line-height:0">'+x+'</span>'; }
   function P2(a, b, st, st2){ return P(a, st+W+TL+'margin-bottom:0;')+P(b, (st2||'')+W+';margin-top:0;'); }   /* đoạn 2 dòng ngắt đúng chỗ gốc: 2 nửa liền nhau như 1 đoạn */
-  function chanTrang(cao, so, chu){ return '<div class="kt-giu" style="height:'+cao+'mm"><div style="position:absolute;left:1.5px;right:1.5px;bottom:0;font-size:10pt;line-height:1.15;text-align:justify">'+
-    '<p style="margin:0 0 1mm;width:50mm;height:0;border-top:.5pt solid #000"></p><p style="margin:0">'+sup(so)+' '+chu+'</p></div></div>'; }
   var VV = ['kết nạp tổ viên', 'cho tổ viên ra khỏi Tổ', 'bình xét cho vay', 'sửa đổi Quy ước hoạt động của Tổ'];   /* 3.453 (anh 02/11): Về việc chọn nhiều theo chú thích (1) của mẫu */
   var DON = {du:1, bq:1, tt:1, pho:1, truongAp:1, hoiCB:1, hoiCv:1, hoiTen:1, kyTK:1, kyHoi:1, kyCT:1, kyTA:1};
   omDangKy({k:MK, ma:'10C/TD', phan:['to', 'hoi', 'ky'], co:14,
@@ -103,7 +92,7 @@
         P('Tổng số tổ viên sau khi kết nạp, cho ra khỏi Tổ: '+o('sau', '………………..', {gt:g('sau', V.sau), canh:'c'})+' tổ viên.', J+F+'margin:6pt 0;line-height:18pt;'+(g('sau', V.sau) ? '' : W))+
         P('<b>2. Thống nhất danh sách tổ viên đề nghị vay vốn NHCSXH</b>', F+'margin:6pt 0;line-height:18pt')+
         P('<i>Đơn vị tính: triệu đồng</i>', 'text-align:right;font-size:13pt;margin:3pt 0;line-height:18pt')+
-        chanTrang(9, '1', 'Kết nạp tổ viên, cho tổ viên ra khỏi Tổ, bình xét cho vay, sửa đổi Quy ước hoạt động của Tổ,…và các nội dung khác (căn cứ theo nội dung cuộc họp đã được Tổ trưởng chuẩn bị).')+
+        omChanTrang(9, '1', 'Kết nạp tổ viên, cho tổ viên ra khỏi Tổ, bình xét cho vay, sửa đổi Quy ước hoạt động của Tổ,…và các nội dung khác (căn cứ theo nội dung cuộc họp đã được Tổ trưởng chuẩn bị).')+
         bang([11.6, 37.5, 25.9, 30.9, 31.6, 27.5].map(function(z){ return z*160/165; }), b2)+
         P('<b>3. Nội dung khác </b><b><i>(nếu có)</i></b>', J+'text-indent:10mm;margin:6pt 0 3pt;line-height:18pt')+
         (function(){ var v = G.gt('khac'), ds = ['…………………………………………………………………………………', '……………………………………………………………………………………', '……………………………………………………………………………………', '……………………………………………………………………………………', '……………………………………………………………………………………', '……………………………………………………………………………………'];
