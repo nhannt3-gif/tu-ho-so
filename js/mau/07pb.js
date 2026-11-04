@@ -50,7 +50,8 @@ function pb07Lap(d, K){
   var t1 = hsoBang('khung0', [62, 98],
       '<tr><td class="c">'+donViKhoi+'</td><td class="c">'+hsoQH('-', 13).replace(/class="c b"/g, 'class="c b s13"')+'</td></tr>'+
       '<tr><td class="c"><p class="c s13">Số:'+(soTB ? ' ' : '&nbsp;&nbsp;&nbsp;')+soT1+'/TB-UBND</p></td><td class="c"><p class="c i">'+pb07O(gt('noi'), '..............')+', ngày '+ngTB+'</p></td></tr>')+
-    '<p class="c b tr sau" style="margin-top:18pt">THÔNG BÁO '+loai+' KẾ HOẠCH DƯ NỢ</p><p class="c b sau">NĂM '+pb07O(nam, '.......')+'</p>'+   /* 3.451 (anh 02/11 "giãn thêm dòng tiêu đề"): cách 6 pt giữa 2 dòng tiêu đề và trước Kính gửi (Word cùng thông số) */   /* tên loại + trích yếu: 14 đậm (NĐ 30) */
+    '<p class="c b tr3 sau">THÔNG BÁO '+loai+' KẾ HOẠCH DƯ NỢ</p><p class="c b sau2">NĂM '+pb07O(nam, '.......')+'</p>'+   /* 3.470 (anh 04/11 "bản Word dòng tiêu đề sát các dòng trên dưới"): tr3 = 18 pt trước, sau2 = 12 pt sau — màn hình + Word cùng thông số */
+       /* 3.451 (anh 02/11 "giãn thêm dòng tiêu đề"): cách 6 pt giữa 2 dòng tiêu đề và trước Kính gửi (Word cùng thông số) */   /* tên loại + trích yếu: 14 đậm (NĐ 30) */
     P('Kính gửi: Trưởng các '+ap+' trên địa bàn '+dv.cap+'.', 'c tr')+
     P('Căn cứ Quyết định số '+pb07O(pb07SoQD(d), '..........')+' ngày '+pb07O(pbNgayVN(d.ngayQD), '...../...../........')+' của Trưởng Ban đại diện HĐQT NHCSXH tỉnh '+pb07O(gt('tinh'), '..........')+' về việc '+loaiT+' chỉ tiêu kế hoạch tín dụng năm '+nam+' cho các '+dv.cap+';')+
     P('Căn cứ tổng hợp nhu cầu vốn tín dụng chính sách tại các '+ap+'.')+

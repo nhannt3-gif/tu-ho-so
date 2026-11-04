@@ -156,6 +156,8 @@ const chuan = s => String(s).normalize('NFC').replace(/[\s ]+/g, ' ').replace(/
  ok('📝 Word: file .docx, 2 phần A4 dọc, lề trái ~30 mm, đủ chữ cố định của mẫu gốc', /\.docx$/.test(r.tenWord) && (wx.match(/<w:pgSz w:w="11906" w:h="16838"\/>/g) || []).length===2 && /w:left="16[6-9]\d"/.test(wx) && !wThieu.length && /21 tháng 09 năm 2026/.test(wChu), r.tenWord+' · thiếu: '+wThieu.slice(0, 3).join(' | '));
  const szDem = (wx.match(/<w:sz w:val="\d+"/g) || []).reduce((a, x) => { const k = x.replace(/\D/g, ''); a[k] = (a[k] || 0) + 1; return a; }, {});
  ok('📝 Word cỡ chữ thân 14 (sz 28), tên loại 14 đậm (không còn 16 — NĐ 30)', szDem[28] > 10 && !szDem[32] && /Times New Roman/.test(ws), JSON.stringify(szDem));
+ const tdW = (wx.match(/<w:p>(?:(?!<\/w:p>).)*?THÔNG BÁO (?:(?!<\/w:p>).)*?<\/w:p>/) || [''])[0], namW = (wx.match(/<w:p>(?:(?!<\/w:p>).)*?>NĂM <(?:(?!<\/w:p>).)*?<\/w:p>/) || [''])[0];
+ ok('3.470 📝 Word dòng tiêu đề giãn: trước "THÔNG BÁO" 18 pt, sau "NĂM …" 12 pt (anh 04/11 "sát các dòng trên dưới")', /w:before="360"/.test(tdW) && /w:after="240"/.test(namW), tdW.slice(0, 80)+" · "+namW.slice(0, 200)+" · "+(wx.match(/NĂM[^<]{0,20}/g)||[]).slice(0,3).join("|"));
  ok('📦 mọi xã của QĐ: 2 xã, mỗi xã 2 trang, 1 file', /phường Gò Dầu:\d+ \| xã Truông Mít:\d+ · ds 4 · Bieu07Pb_Qd/.test(r.het) && r.hetChu, r.het);
  ok('sửa tay lệch QĐ → nút Biểu 07 khóa, gọi thẳng cũng bị chặn', r.khoa && r.chan, r.khoa+' · '+r.chanChu);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));

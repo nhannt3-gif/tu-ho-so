@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.470 — 04/11/2026 — Tên xã theo mã xã ở chỗ đọc chung (gộp điểm GD) (TK 3)
+- **Anh 04/11** (ảnh Diễn biến: chọn Tất cả xã lại ra "Vay trực tiếp"): "lỗi này đã phát hiện nhưng em chưa sửa hết các tab" · "có thể do đang chuyển đổi dữ liệu nên Mẫu 31 chưa chuẩn" · "đang gộp các điểm giao dịch, Gia Lộc gộp làm 1".
+- **Nguyên nhân (suy từ các lần anh báo):** lúc hệ thống gộp điểm GD, cột Tên xã Mẫu 31 ghi "… Vay trực tiếp", mỗi kỳ sai một kiểu (29/10: 3 xã; T10: cả 5 xã). Mã xã không đổi. 3.409 / 3.433 / 3.448 chỉ vá từng chỗ (cây địa bàn, danh bạ, Tra cứu); Phân bổ › Diễn biến lấy tên thẳng từ dòng dư nợ nên vẫn dính.
+- **Sửa ở gốc** (`slXaTenChuan`, js/22, gọi trong `slBo`): tên xã mọi dòng mọi bảng của bộ số liệu = tên chuẩn theo mã xã — File Tổ trưởng / Thông tin tổ trưởng (TENXA) → Mẫu 31 tên sạch (đa số) → danh mục ⚙ Cài đặt → "Mã xã …". Tên gốc giữ ở `tenXaGoc`; `B.xaTen` = bảng mã → tên. Món vay trực tiếp vẫn nhận theo tổ / ấp như cũ. Các lớp đỡ cũ (`toTenXa`, `xaTenSach`) giữ cho dữ liệu đã lưu.
+- **Kiểm tra kỳ** (nhóm 6): dòng "Tên xã trên Mẫu 31 = tên chuẩn theo mã xã" — liệt kê mã xã · tên chuẩn · tên trên Mẫu 31 · số dòng; hết chênh = Mẫu 31 đã chuẩn lại.
+- **Phân bổ › Diễn biến:** ô chọn xã ghi tên theo cây địa bàn; dòng không có mã xã không còn thành mục trùng "Tất cả xã".
+- **Biểu 07 (Thông báo giao / điều chỉnh KH dư nợ) bản Word** (anh 04/11 ảnh: "dòng tiêu đề sát các dòng trên dưới, nên giãn dòng thêm"): bộ chuyển Word (`hsoDocx`) chỉ hiểu lớp `tr` / `sau` (6 pt), bỏ qua `margin-top:18pt` ghi thẳng → thêm lớp chung `tr3` (trước 18 pt) / `sau2` (sau 12 pt) cho màn hình + Word; Biểu 07: trước "THÔNG BÁO …" 18 pt, sau "NĂM …" 12 pt.
+- **Phép thử** mới `t373` (Mẫu 31 giả: cả 1 xã ghi "… Vay trực tiếp"). t253 thêm kiểm khoảng cách tiêu đề Word. Hồi quy đủ.
+
 ## 3.469 — 04/11/2026 — Phân bổ KH: QĐ không giao cho PGD gom vào ＋ QĐ mới (QĐ 0 xã) (TK 3)
 - **Anh 04/11**: "QĐ không giao cho PGD cũng gom 1 chỗ nhập QĐ mới nhưng không add xã nào, chỉ nhập thông tin và lưu, báo 0 xã" · "anh đã nhập 1 QĐ không giao cho PGD em gom lại luôn" · "nếu nhìn nhầm thì sửa thêm xã là xong".
 - Bỏ nút / hộp riêng "＋ QĐ không giao cho PGD". ＋ QĐ mới không tích xã → Lưu hỏi xác nhận → ghi QĐ 0 xã (vẫn lưu ở `qdKhong`, dữ liệu cũ tự hiện chung).

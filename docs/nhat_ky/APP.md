@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 05/11/2026 03:30 — TK 3 · PHIÊN (3.470 tên xã theo mã xã)
+- Anh: hệ thống đang gộp điểm GD (Gia Lộc gộp 1) → Mẫu 31 cột Tên xã ghi "… Vay trực tiếp". 3.470 sửa ở gốc `slXaTenChuan` (js/22, trong `slBo`): tên xã theo mã xã cho mọi tab; Kiểm tra kỳ báo chênh; Diễn biến ô xã.
+- **Anh 04/11 duyệt chạy tuần tự không hỏi lại mỗi phiên** theo kế hoạch dọn / chuyển chuẩn sẽ báo — xem `docs/KE_HOACH_DON_NEN.md`.
+
 ### 05/11/2026 02:30 — TK 3 · PHIÊN (3.468–3.469 QĐ 0 xã)
 - 3.468 đã gộp (#499): đối chiếu dòng PGD chỉ cột điều chỉnh. 3.469 (anh "gom 1 chỗ nhập QĐ mới, không add xã, báo 0 xã"): bỏ nút / hộp QĐ không giao riêng; ＋ QĐ mới không tích xã = QĐ 0 xã (vẫn `qdKhong`), hiện chung danh sách, ✎ Sửa tích thêm xã → QĐ có số liệu.
 - **Chờ anh:** thử máy thật 3.463–3.469; bàn tiếp a (cảnh báo Biểu 07 đã xuất), b (nhật ký sửa QĐ).

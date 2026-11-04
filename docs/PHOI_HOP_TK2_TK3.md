@@ -207,6 +207,7 @@
 | 04/11 | TK 3 (App chính) | **3.467** | `js/47-phan-bo.js` (`pbDongThoiGian`), `js/48-phan-bo-gd.js` (dòng thời gian, `qdKhong`, PDF không có khối PGD), `css/app.css`; `tests/t372.js` | t250–t256 t355 t369–t372 |
 | 04/11 | TK 3 (App chính) | **3.468** | `js/48-phan-bo-gd.js` (đối chiếu dòng PGD chỉ cột điều chỉnh); `tests/t370.js` | t252 t256 t370–t372 |
 | 04/11 | TK 3 (App chính) | **3.469** | `js/48-phan-bo-gd.js` (QĐ không giao cho PGD gom vào ＋ QĐ mới = QĐ 0 xã, hiện chung danh sách); `tests/t372.js` | t252 t256 t369–t372 |
+| 04/11 | TK 3 (App chính) | **3.470** | `js/22-so-lieu.js` (`slXaTenChuan` trong `slBo`), `js/22k-nap-kt.js` (dòng soát tên xã), `js/48-phan-bo-gd.js` (ô xã Diễn biến); `tests/t373.js` | hồi quy đủ |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
