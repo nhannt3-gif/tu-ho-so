@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.473 — 05/11/2026 — Dọn: mẫu Hồ sơ gắn qua cổng chung, bỏ 52 nhánh rẽ theo mã mẫu (TK 3, Đ3 kế hoạch dọn)
+- Trước: `hsoLap` (25b) và `hsoTuyHTML` / `hsoTuyVay` / `hsoTuyHo` (25c) rẽ nhánh theo mã từng mẫu (`M.k==='10c'`, `/^(01uq|01td…)$/.test(M.k)`…) — **52 chỗ**, thêm mẫu là phải sửa nhiều nơi.
+- Nay mỗi mẫu tự mang **cách lập** (`lap`, `ai`, `kem`, `lapRieng` — khối cuối js/25b) và **cột nhập liệu** (`trai` — khối cuối js/25c) qua cổng `hsoMauGan` (đã dùng cho 06A, BBLV, 11/TD từ 3.462–3.463); chỗ khác so **đặc tính mẫu** (khối cờ ở js/25: `canBD`, `canTruongAp`, `rong`, `khongCanTo`, `logoSan`, `kbRieng`, `gq`, `coKem`, `kem06`…). Thân từng nhánh giữ nguyên. Bỏ 3 nhánh không bao giờ tới (01/UQ, 01/TGTV trong `hsoTuyHo`; 01/GQVL không GQVL sau khi đã trả về).
+- **Kiểm giống hệt:** công cụ chụp 172 trạng thái (mọi mẫu Hồ sơ Tổ + Hồ sơ vay × mẫu trắng / có số liệu / bản ghi mẫu: bản in + cột nhập liệu + tên file) trước và sau — **khác 0**; t179 (bản in chuẩn từng ký tự) 45/45.
+- Thước đo `kiem.py`: **nhánh mẫu riêng 52 → 0**.
+
 ## 3.472 — 05/11/2026 — Dọn: một lõi tên xã chung (TK 3, Đ2 kế hoạch dọn)
 - Trước có **3 cách tính tên xã** song song: `toTenXa` (3.409/3.448, cây tổ: đếm đa số Mẫu 31 + File Tổ trưởng + danh bạ), `xaTenSach` (3.433, danh bạ / Tra cứu / hồ sơ: dò tổ cùng mã xã) và `slXaTenChuan` (3.470, chỗ đọc bộ số liệu).
 - Nay **một lõi** `slXaTenTu(hs, dsto, phu)` (js/22): File Tổ trưởng / Thông tin tổ trưởng (TENXA) → Mẫu 31 tên sạch (đa số) → nguồn phụ (danh bạ khách) → danh mục ⚙ Cài đặt → "Mã xã …". `slXaTenChuan` (bộ số liệu) và `toTenXa` (cây tổ) cùng gọi lõi này; `xaTenSach` (danh bạ đã lưu) tra bảng `SL_XA_TEN` (gộp từ các bộ đã dựng) rồi danh mục. Hàm `slLaTT` dùng chung thay 4 chỗ viết lại biểu thức "trực tiếp".

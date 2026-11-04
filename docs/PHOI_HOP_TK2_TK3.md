@@ -210,6 +210,7 @@
 | 04/11 | TK 3 (App chính) | **3.470** | `js/22-so-lieu.js` (`slXaTenChuan` trong `slBo`), `js/22k-nap-kt.js` (dòng soát tên xã), `js/48-phan-bo-gd.js` (ô xã Diễn biến); `tests/t373.js` | hồi quy đủ |
 | 05/11 | TK 3 (App chính) | **3.471** | `js/47-phan-bo.js` (`pbLocCo`), `js/48-phan-bo-gd.js` (lệnh pb.db*), **mới** `js/48b-phan-bo-db.js` (Diễn biến tách khỏi js/48 + bảng cơ bản), `js/25b-ho-so-vay.js` (khTr / khSau), `css/app.css` (.pb-b); `tests/t255.js t256.js t373.js` | t253 t255 t256 t373 + theo đổi |
 | 05/11 | TK 3 (App chính) | **3.472** | `js/22-so-lieu.js` (lõi `slXaTenTu`, `SL_XA_TEN`), `js/22g-to.js` (`toTenXa`, `xaTenSach` gọi lõi) | t330 t350 t360 t373 + theo đổi |
+| 05/11 | TK 3 (App chính) | **3.473** | `js/25-ho-so.js` (cờ đặc tính mẫu), `js/25b-ho-so-vay.js` (hsoLap + khối lap), `js/25c-ho-so-giao-dien.js` (hsoTuyHTML / Vay / Ho + khối trai) | t179 t164 t170 t173 t175 t224 t358 + chụp 172 trạng thái |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
