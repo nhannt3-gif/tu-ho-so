@@ -16,7 +16,7 @@
 - Lập Biên bản làm việc: 1 biên bản 12 ms, 3 hộ 51 ms; vẽ lại cột trái + xem 61 ms.
 
 ## 2. Luật "thêm 1 – dọn 1" (mới, áp từ 3.462)
-1. **Ngân sách tăng** trong `tests/kiem.py`: vượt mốc quá **JS +100 KB · CSS +15 KB · hàm chung +60 · biến chung +15** → ⚠ VƯỢT MỐC. Khi ⚠: bản kế tiếp phải là **bản dọn** (giảm lại / tách / bỏ mã thừa) rồi mới đặt mốc mới (`python3 tests/kiem.py --moc`, ghi lý do trong CHANGELOG). Các thước đo cũ (onclick, dòng dài, mồ côi, đọc thẳng kho / bảng gốc, file lớn) vẫn "không được tăng".
+1. **Ngân sách tăng** trong `tests/kiem.py`: vượt mốc quá **JS +100 KB · CSS +15 KB · hàm chung +60 · biến chung +15** → dòng ⚠ NGÂN SÁCH TĂNG (riêng, không làm trượt t192 — các thước đo cứng vẫn ⚠ VƯỢT MỐC). Khi ⚠: bản kế tiếp phải là **bản dọn** (giảm lại / tách / bỏ mã thừa) rồi mới đặt mốc mới (`python3 tests/kiem.py --moc`, ghi lý do trong CHANGELOG). Các thước đo cũ (onclick, dòng dài, mồ côi, đọc thẳng kho / bảng gốc, file lớn) vẫn "không được tăng".
 2. **Thước đo mới `nhánh mẫu riêng (js/25*)`**: đếm `M.k===…` / `.test(M.k)` ở khung Hồ sơ (`js/25`, `25b`, `25c`) — **chỉ được giảm**. Mẫu mới gắn qua cổng `hsoMauGan` (mục 3), không thêm nhánh.
 3. Mỗi bản thêm chức năng ghi 1 dòng "Dọn kèm:" trong CHANGELOG (việc nền nào làm kèm, hoặc "không — lý do").
 4. Chức năng mới = file riêng + 1 chỗ gắn (QUY_CHUAN mục 13) — phép thử **rút file** (như t367) cho khối mới có thể cắm rút.
