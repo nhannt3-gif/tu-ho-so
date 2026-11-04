@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.468 — 04/11/2026 — Phân bổ KH: đối chiếu dòng PGD chỉ theo cột điều chỉnh (TK 3)
+- **Anh 04/11** (ảnh hộp sửa QĐ): "trên QĐ chỉ có cột chỉ tiêu đợt này mới có tổng, còn cột đầu, cuối có hiện thêm các xã có tên mà không có giao chỉ tiêu, nên chỉ đối chiếu được tổng chỉ tiêu đợt này thôi, em sửa lại cho đơn giản".
+- Hộp nhập / sửa: dòng **"Tổng điều chỉnh PGD trên QĐ"** chỉ còn 1 ô ở cột Điều chỉnh đợt này; đã giao / đến 31/12 chỉ hiện Σ các xã. Báo lệch chỉ khi Σ điều chỉnh các xã ≠ dòng PGD.
+- Bảng xem QĐ: dòng chương trình = Σ các xã; chip "✓ khớp điều chỉnh PGD" / "✗ Σ điều chỉnh n xã ≠ PGD +…". Xuất Excel THEO_QD / DM_<số> theo cùng cách.
+- Đọc PDF / Excel vẫn kiểm đủ 3 cột dòng PGD với các xã **trên chính bảng QĐ** (kiểm việc đọc đúng). Dữ liệu cũ đọc được (dòng tổng lưu cũ vẫn giữ, chỉ so cột điều chỉnh).
+- **Phép thử**: t370 cập nhật.
+
 ## 3.467 — 04/11/2026 — Phân bổ KH: dòng thời gian QĐ, ghi số QĐ không giao cho PGD (TK 3)
 - **Anh 04/11**: "thêm 1 nút thống kê QĐ theo ngày, dòng thời gian, có số thứ tự để kiểm tra xem có đợt nào bỏ sót; có trường hợp tỉnh có đợt giao QĐ nhưng không giao cho Gò Dầu anh cũng muốn nhập số QĐ … để theo dõi đợt"; "số đợt lưu theo QĐ anh nhập nếu QĐ có ghi, còn em cứ ghi stt từ QĐ đầu tiên"; "code và gộp lên".
 - **📅 Dòng thời gian QĐ** (mục 📋 Quyết định, cột phải): mỗi năm × nguồn TW / ĐP 1 bảng, xếp theo ngày, **STT 1, 2, 3… từ QĐ đầu tiên**; cột Đợt (như QĐ ghi) · Số QĐ · Ngày · Loại · Giao cho PGD (số xã / không giao) · Σ điều chỉnh PGD · Ghi chú. Soát đợt trên QĐ có ghi đợt: **dòng đỏ "⚠ Thiếu đợt N — chưa nhập"** + nút ＋ ghi số QĐ (điền sẵn đợt, nguồn); đợt trùng / đợt nhỏ hơn QĐ trước tô vàng; QĐ không ghi đợt không nhắc. Bấm dòng → xem QĐ. In / PDF / Word / Excel.

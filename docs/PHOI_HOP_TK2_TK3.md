@@ -205,6 +205,7 @@
 | 04/11 | TK 3 (App chính) | **3.465** | `js/47-phan-bo.js` (đọc danh mục QĐ), `js/48-phan-bo-gd.js` (Đọc QĐ PDF, xem trước, nhập tay theo CT, xem 2 kiểu, mẫu Excel DANH_MUC), `js/17b` (`pbKieuQD`), `css/app.css`; `tests/t369.js`, `t370.js`, `t252`, `t256` | t250–t256 t369 t370 |
 | 04/11 | TK 3 (App chính) | **3.466** | `js/48-phan-bo-gd.js` (sửa nhanh tại bảng, xếp 2 kiểu, đổi mã / ＋ / 🗑 khối, ghép xã `ch.xaQD`, QĐ kế tiếp, so sánh đọc lại), `css/app.css`; `tests/t371.js`, `t370.js` | t250–t256 t355 t369–t371 |
 | 04/11 | TK 3 (App chính) | **3.467** | `js/47-phan-bo.js` (`pbDongThoiGian`), `js/48-phan-bo-gd.js` (dòng thời gian, `qdKhong`, PDF không có khối PGD), `css/app.css`; `tests/t372.js` | t250–t256 t355 t369–t372 |
+| 04/11 | TK 3 (App chính) | **3.468** | `js/48-phan-bo-gd.js` (đối chiếu dòng PGD chỉ cột điều chỉnh); `tests/t370.js` | t252 t256 t370–t372 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
