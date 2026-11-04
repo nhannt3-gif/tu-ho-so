@@ -32,7 +32,7 @@ function ktKBNKHop(loc){
   var gio = function(iso){ var d = new Date(iso); return hai(d.getDate())+'/'+hai(d.getMonth()+1)+'/'+d.getFullYear()+' '+hai(d.getHours())+':'+hai(d.getMinutes()); }, khoa = ktKBKhoaCo();
   moHop('<div class="hop-tit">📜 Nhật ký khai báo Hội ('+nk.length+' lần sửa)</div>'+
     '<div class="hop-phu">Mỗi lần đổi 1 ô (gõ, dán, ↺, sửa theo gợi ý) đều ghi lại. Bấm ↶ để đưa ô đó về chữ cũ'+(khoa ? ' — <b>đang khóa: mở khóa trước khi khôi phục</b>' : '')+'.</div>'+
-    '<label>Lọc: <select onchange="ktKBNKHop(this.value)"><option value="">Tất cả</option>'+Object.keys(ten).sort(function(a, b){ return ten[a].localeCompare(ten[b], 'vi'); }).map(function(k){ return '<option value="'+coChuHTML(k)+'"'+(k===loc ? ' selected' : '')+'>'+coChuHTML(ten[k])+'</option>'; }).join('')+'</select></label>'+
+    '<label>Lọc: <select data-lenh="f79.ktKBNKHop" data-su="change"><option value="">Tất cả</option>'+Object.keys(ten).sort(function(a, b){ return ten[a].localeCompare(ten[b], 'vi'); }).map(function(k){ return '<option value="'+coChuHTML(k)+'"'+(k===loc ? ' selected' : '')+'>'+coChuHTML(ten[k])+'</option>'; }).join('')+'</select></label>'+
     (ds.length ? '<div class="to-bang-cuon" style="max-height:60vh"><table class="kt-nk-bang"><thead><tr><th>Lúc</th><th>Hội – xã</th><th>Ô</th><th>Cũ → Mới</th><th></th></tr></thead><tbody>'+ds.slice(0, 300).map(function(i){ var x = nk[i];
       return '<tr><td>'+gio(x.l)+'</td><td>'+coChuHTML(ten[x.k])+'</td><td>'+coChuHTML(ktKBTenO(x.t, x.o))+'</td><td><span class="cu">'+(x.cu ? coChuHTML(x.cu) : '<i>(trống)</i>')+'</span> → <span class="moi">'+(x.moi ? coChuHTML(x.moi) : '<i>(trống)</i>')+'</span></td>'+
         '<td><button class="nho" onclick="ktKBKhoiPhuc('+i+')"'+(khoa ? ' disabled' : '')+' title="Đưa ô này về chữ cũ">↶ Khôi phục</button></td></tr>'; }).join('')+'</tbody></table></div>' : '<div class="rong">Chưa có lần sửa nào được ghi.</div>')+
@@ -47,10 +47,17 @@ function ktKBKhoiPhuc(i){ var x = ktKBNK()[i]; if(!x) return; if(ktKBKhoaCo()) r
   if(typeof ktHDTVe!=='function') return; var cu = ktHDTVe;
   ktHDTVe = function(o){ var r = cu(o), tab = ktCH().hdtTab; if(!o || tab==='bo') return r;
     var khoa = ktKBKhoaCo(), n = ktKBNK().length, bar = document.createElement('div'); bar.className = 'kt-kb-khoa'+(khoa ? ' khoa' : '');
-    bar.innerHTML = (khoa ? '🔒 <b>Đã khóa khai báo</b> — chỉ xem, không sửa nhầm được <button class="nho" onclick="ktKBDoiKhoa()">🔓 Mở khóa để sửa</button>' : '🔓 Đang mở — sửa xong nên khóa lại <button class="nho chinh" onclick="ktKBDoiKhoa()">🔒 Khóa khai báo</button>')+
-      '<button class="nho" onclick="ktKBNKHop()">📜 Nhật ký ('+n+')</button>';
+    bar.innerHTML = (khoa ? '🔒 <b>Đã khóa khai báo</b> — chỉ xem, không sửa nhầm được <button class="nho" data-lenh="f79.ktKBDoiKhoa">🔓 Mở khóa để sửa</button>' : '🔓 Đang mở — sửa xong nên khóa lại <button class="nho chinh" data-lenh="f79.ktKBDoiKhoa">🔒 Khóa khai báo</button>')+
+      '<button class="nho" data-lenh="f79.ktKBNKHop_">📜 Nhật ký ('+n+')</button>';
     var che = o.querySelector(':scope > .kt-che'); if(che) che.insertAdjacentElement('afterend', bar); else o.insertBefore(bar, o.firstChild);
     o.classList.toggle('kt-kb-dong-khoa', khoa);
     if(khoa) [].forEach.call(o.querySelectorAll('input, textarea'), function(e){ if(!e.closest('.kt-khoi, .kt-che, .kt-kb-khoa')){ e.readOnly = true; e.title = '🔒 Đang khóa — bấm 🔓 Mở khóa để sửa'; } });
     return r; };
 })();
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f79.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f79', gdLenh({
+  ktKBDoiKhoa:function(el, ev){ ktKBDoiKhoa(); },
+  ktKBNKHop:function(el, ev){ ktKBNKHop(el.value); },
+  ktKBNKHop_:function(el, ev){ ktKBNKHop(); }
+}));

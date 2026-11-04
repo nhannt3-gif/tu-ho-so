@@ -99,7 +99,7 @@ Luật: mỗi bản `kiem.py` sạch + trong mốc · phép thử phần sửa �
 | Đ1 | 3.471 | Phân bổ › Diễn biến bảng cơ bản (a Xem thêm ẩn biểu đồ · b cột dư nợ 31/12 · c CT › Xã) | anh dùng được | ✅ 3.471 (+ tách js/48b) |
 | Đ2 | 3.472 | Gom lớp vá tên xã cũ (`toTenXa`, `xaTenSach`) về bảng tên chuẩn 3.470 | ít hàm trùng | ✅ 3.472 (lõi `slXaTenTu`) |
 | Đ3 | 3.473–3.476 | Mẫu Hồ sơ còn lại → `hsoMauGan`: ① 01/TD · 03/TD · 01/UQ · 01/GQVL · 07B · PDNH ② Sổ hộ vay ③ 09A · 01/TĐCK · 06/TD · 01/BG · 02/BG · 01/TGTV ④ 10A–10D · 10C cũ | nhánh mẫu riêng 52 → 0 || ✅ **gộp 1 bản 3.473** (cả 4 nhóm: nhánh 52 → 0; chụp 172 trạng thái giống hệt) |
-| Đ4 | 3.477–3.480 | `onclick` → `data-lenh` (2–3 file lớn / bản: 22k, 04c, 10, 22e, 12, 12b, 06a, 11, 04b3…) | onclick 1.266 → ~700 || 🟡 3.474 Nạp & KT (66) + hàng chờ `gdDangKy` · 3.475 menu chuột phải + dải tháng · 1.266 → 1.174 |
+| Đ4 | 3.477–3.480 | `onclick` → `data-lenh` (2–3 file lớn / bản: 22k, 04c, 10, 22e, 12, 12b, 06a, 11, 04b3…) | onclick 1.266 → ~700 || 🟡 3.474 Nạp & KT (66) + hàng chờ `gdDangKy` · 3.475 menu chuột phải + dải tháng · 3.476 công cụ `tools/doi_onclick.py` cho 70 file · 1.266 → 467 (còn: dạng phức tạp + js/04b cửa sổ nổi) |
 | Đ5 | 3.481–3.482 | Phần còn đọc số liệu riêng → `KHO` (Theo dõi nợ, mini GDX, đọc sâu kỳ riêng) | chỗ đọc riêng 0 | |
 | Đ6 | 3.483 | Tối ưu tab Tổ (461 ms) | < 300 ms | |
 | Đ7 | xen kẽ | File đang sửa: tách dòng > 400 ký tự, báo cáo bảng qua `DANG_KY` | dòng dài 159 → giảm | |

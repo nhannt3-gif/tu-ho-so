@@ -73,7 +73,7 @@ var GD = (function(){
     var b = hang.querySelector(k==='p' ? '.xuat-in:not([disabled])' : '.xuat-app:not([disabled])'); if(!b) return;
     ev.preventDefault(); b.click(); });
   dangKy('dh', {lui:function(){ history.back(); }, tien:function(){ history.forward(); }});
-  return {dangKy:dangKy, nut:nut, hang:hang, o:o, chip:chip, kv:kv, moCon:moCon, boc:boc, chup:chup, so:function(){ return CHONG.length; }};
+  return {dangKy:dangKy, coLenh:function(k){ return !!LENH[k]; }, nut:nut, hang:hang, o:o, chip:chip, kv:kv, moCon:moCon, boc:boc, chup:chup, so:function(){ return CHONG.length; }};
 })();
 GD.boc();
 /* 3.239: nút khung app trong index.html (thanh bên, ô tìm, khung xem file, nền hộp) theo data-lenh — trước là onclick */

@@ -311,7 +311,7 @@ function tkCanDongHop(loai){
     
     '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>STT</th><th>Mã KH</th><th>Họ tên</th><th>Số TK</th><th>Số dư</th><th>Ngày đăng ký</th>'+(loai==='tk104' ? '<th>Lý do</th>' : '')+'</tr></thead><tbody>'+
     ds.slice(0, 2000).map(function(o, i){ return '<tr><td class="c">'+(i+1)+'</td><td>'+o.kh+'</td><td>'+coChuHTML(o.ten)+'</td><td>'+o.stk+'</td><td class="s">'+tdnTien(o.t105||0)+'</td><td>'+(o.ndk ? ngayVNsl(o.ndk) : '')+'</td>'+(loai==='tk104' ? '<td>'+(o.ly||'')+'</td>' : '')+'</tr>'; }).join('')+
-    '</tbody></table></div><div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ds.length ? '<button class="nho chinh" onclick="tkCanDongXuat(\''+loai+'\')">📊 Xuất Excel</button>' : '')+'</div>', true);
+    '</tbody></table></div><div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ds.length ? '<button class="nho chinh" data-lenh="f28.tkCanDongXuat" data-a1="'+loai+'">📊 Xuất Excel</button>' : '')+'</div>', true);
 }
 function tkCanDongXuat(loai){
   var r = tkCanDong()[loai==='tk104' ? 'k104' : 'k105']; if(!r) return; if(!window.XLSX) return baoLoi('Chưa tải được bộ Excel.');
@@ -344,14 +344,14 @@ function tkKhoiHTML(){   /* ⚙ Khai báo chung (Giao dịch xã) · 📥 Nạp 
     (function(){ var x = tkBangTom(); if(!x) return '<div><small class="gdx-ghi">Bảng tổ: dựng khi mở tab Giao dịch xã / Tổ (cần Mẫu 31).</small></div>';
       var ly = {}; x.thieu.forEach(function(o){ o.thieu.forEach(function(k){ ly[k] = (ly[k]||0)+1; }); });
       return '<div>📒 <b>Bảng tổ dựng sẵn</b> ('+slKyChu(TO_K.ky)+'): <b>'+x.n+'</b> tổ · đủ <b>'+x.du+'</b>'+(x.thieu.length ? ' · <span class="gdx-vang">chưa đủ <b>'+x.thieu.length+'</b></span> <small>(thiếu '+Object.keys(ly).map(function(k){ return k+' '+ly[k]; }).join(' · ')+')</small>' : ' ✓')+(x.ngung ? ' · <small>'+x.ngung+' tổ không còn thành viên (bỏ qua)</small>' : '')+'</div>'; })()+
-    '<div class="hang-nut"><button class="nho chinh" onclick="tkThieuHop()">📒 Tổ chưa đủ · bổ sung</button><button class="nho" onclick="tkTrungHop()">⚠ TK trùng</button>'+
-    '<button class="nho" onclick="tkCanDongHop(\'tk104\')">📋 TK 104 chưa đóng</button><button class="nho" onclick="tkCanDongHop(\'tk105\')">📋 TK 105 cần đóng</button></div></div>';
+    '<div class="hang-nut"><button class="nho chinh" data-lenh="f28.tkThieuHop">📒 Tổ chưa đủ · bổ sung</button><button class="nho" data-lenh="f28.tkTrungHop">⚠ TK trùng</button>'+
+    '<button class="nho" data-lenh="f28.tkCanDongHop" data-a1="tk104">📋 TK 104 chưa đóng</button><button class="nho" data-lenh="f28.tkCanDongHop" data-a1="tk105">📋 TK 105 cần đóng</button></div></div>';
 }
 /* 3.202: hộp "Tổ thiếu dữ liệu" — gõ bổ sung 1 lần (nhớ theo mã KH tổ trưởng; nạp file mới không đè) */
 function tkThieuHop(){
   if(tkDamBao(tkThieuHop)) return;
   var x = tkBangTom(); if(!x){ bao('Chưa có số liệu Mẫu 31 — mở tab Giao dịch xã / Tổ sau khi nạp.'); return; }
-  var o = function(t, k, v, ph, w){ return '<input class="gdx-i" style="width:'+w+'" value="'+gdxE(v||'')+'" placeholder="'+ph+'" onchange="tkBoSung(\''+t.ma+'\', \''+k+'\', this.value)">'; };
+  var o = function(t, k, v, ph, w){ return '<input class="gdx-i" style="width:'+w+'" value="'+gdxE(v||'')+'" placeholder="'+ph+'" data-lenh="f28.tkBoSung" data-su="change" data-a1="'+t.ma+'" data-a2="'+k+'">'; };
   moHop('<div class="hop-tit">📒 Bảng tổ — chưa đủ dữ liệu ('+x.thieu.length+' / '+x.n+' tổ)</div><div class="hop-phu">Kỳ '+slKyChu(TO_K.ky)+' · tổ trưởng = Mã CIF TT (Mẫu 31) · CCCD: Mẫu 31 → Mẫu 01/TV → Thông tin tổ trưởng / DSTO → anh gõ · TK 104: Sao kê TK 104. Gõ 1 lần, app nhớ theo mã KH tổ trưởng.</div>'+
     (x.thieu.length ? '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Mã tổ</th><th>Tổ trưởng</th><th>Mã KH</th><th>Thiếu</th><th>CCCD</th><th>Ngày cấp</th><th>TK 104</th></tr></thead><tbody>'+
       x.thieu.map(function(t){ var ly = [t.ccLy, t.tkLy].filter(Boolean).join(' · ');
@@ -381,8 +381,18 @@ function tkTrungHop(){
   moHop('<div class="hop-tit">⚠ TK trùng — xác định TK đang dùng, đóng TK thừa ('+ds.length+')</div><div class="hop-phu">TK 104: tổ trưởng có ≥ 2 TK trong Sao kê TK 104 · TK 105: khách có ≥ 2 TK trong Sao kê TK 105. Chọn TK đang dùng ở Giấy lĩnh / bảng tổ thiếu — app nhớ.</div>'+
     '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Loại</th><th>Mã KH</th><th>Họ tên</th><th>Tổ</th><th>Các TK (số dư)</th><th>Đang dùng</th></tr></thead><tbody>'+
     (ds.map(function(o){ return '<tr><td>'+o.loai+'</td><td>'+o.kh+'</td><td>'+coChuHTML(o.ten)+'</td><td>'+o.to+'</td><td>'+coChuHTML(o.ds)+'</td><td>'+(o.chon || '<span class="gdx-vang">chưa chọn</span>')+'</td></tr>'; }).join('') || '<tr><td colspan="6" class="rong">Không có TK trùng.</td></tr>')+
-    '</tbody></table></div><div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ds.length ? '<button class="nho chinh" onclick="tkTrungXuat()">📊 Xuất Excel</button>' : '')+'</div>', true);
+    '</tbody></table></div><div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ds.length ? '<button class="nho chinh" data-lenh="f28.tkTrungXuat">📊 Xuất Excel</button>' : '')+'</div>', true);
 }
 function tkTrungXuat(){ var ds = tkTrungDs(); if(!window.XLSX) return baoLoi('Chưa tải được bộ Excel.');
   var ws = XLSX.utils.aoa_to_sheet([['Loại', 'Mã KH', 'Họ tên', 'Tổ', 'Các TK (số dư)', 'Đang dùng']].concat(ds.map(function(o){ return [o.loai, o.kh, o.ten, o.to, o.ds, o.chon]; })));
   var wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'TK trung'); XLSX.writeFile(wb, 'TK_trung_'+gdxHom()+'.xlsx'); }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f28.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f28', gdLenh({
+  tkBoSung:function(el, ev){ tkBoSung(gdA(el, 1), gdA(el, 2), el.value); },
+  tkCanDongHop:function(el, ev){ tkCanDongHop(gdA(el, 1)); },
+  tkCanDongXuat:function(el, ev){ tkCanDongXuat(gdA(el, 1)); },
+  tkThieuHop:function(el, ev){ tkThieuHop(); },
+  tkTrungHop:function(el, ev){ tkTrungHop(); },
+  tkTrungXuat:function(el, ev){ tkTrungXuat(); }
+}));

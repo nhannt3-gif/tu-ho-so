@@ -420,10 +420,10 @@ function cnSoatHet(){ [].forEach.call(document.querySelectorAll('.cn-khung'), fu
 window.addEventListener('resize', function(){ clearTimeout(cnSoatHet.h); cnSoatHet.h = setTimeout(cnSoatHet, 150); });
 function gdxJS(v){ return JSON.stringify(v).replace(/"/g, '&quot;'); }
 function gdxRadio(k, ds){ var C = gdxC(); return '<span class="gdx-ra">'+ds.map(function(o){ return '<label><input type="radio" name="gdx-r-'+k+'"'+(C[k]===o[0] ? ' checked' : '')+' onchange="gdxDat(\''+k+'\', '+gdxJS(o[0])+', 1)"> '+o[1]+'</label>'; }).join('')+'</span>'; }
-function gdxIn1(k, ph, kieu){ var C = gdxC(); return '<input class="gdx-i"'+(kieu ? ' type="'+kieu+'"' : '')+' value="'+gdxE(C[k])+'" placeholder="'+gdxE(ph||'')+'" oninput="gdxDat(\''+k+'\', this.value)">'; }
+function gdxIn1(k, ph, kieu){ var C = gdxC(); return '<input class="gdx-i"'+(kieu ? ' type="'+kieu+'"' : '')+' value="'+gdxE(C[k])+'" placeholder="'+gdxE(ph||'')+'" data-lenh="f26.gdxDat" data-su="input" data-a1="'+k+'">'; }
 function gdxCB(k, trong, bo){
   var C = gdxC(), v = C[k] || '';
-  return '<select class="gdx-i" onchange="gdxDat(\''+k+'\', this.value, 1)"><option value="">— '+trong+' —</option>'+
+  return '<select class="gdx-i" data-lenh="f26.gdxDat_svn" data-su="change" data-a1="'+k+'" data-a2="1"><option value="">— '+trong+' —</option>'+
     C.danhSachCanBo.filter(function(n){ return n===v || (bo||[]).indexOf(n)<0; }).map(function(n){ return '<option value="'+gdxE(n)+'"'+(n===v ? ' selected' : '')+'>'+gdxE(n)+'</option>'; }).join('')+'</select>';
 }
 /* 3.175 (anh chốt): ô ngày gõ nhanh không cần / hay - : "1410" = 14/10 năm nay · "141026" / "14102026" = 14/10/2026 (gõ 14/10/26 cũng được); 📅 chọn trên lịch */
@@ -471,15 +471,15 @@ function gdxMucHTML(m, k, kb){
           return '<span class="gdx-mh">'+gdxChip(gdxSoNguoi(x.h)+' hộ · '+gdxTien(x.t), bat, 'gdxMauHay('+i+')', '', 'Điền số hộ + số tiền')+(kb ? '<button class="gdx-x" onclick="gdxBoMauHay('+i+')" title="Bỏ">×</button>' : '')+'</span>'; }).join('')+
         gdxChip('⭐ lưu thành chip', false, 'gdxLuuMauHay()', 'khac', 'Lưu số hộ + số tiền đang nhập thành chip chọn nhanh')+'</div>'+
         ((C.quickAmounts||[]).length ? '<div class="gdx-chips gdx-phu"><span class="gdx-nho2">Mức tiền:</span>'+C.quickAmounts.map(function(a, i){ return '<span class="gdx-mh">'+gdxChip(gdxChipTien(a), false, 'gdxChonTien('+a+')')+(kb ? '<button class="gdx-x" onclick="gdxBoMuc('+i+')" title="Xóa">×</button>' : '')+'</span>'; }).join('')+'</div>' : '')+
-        (kb ? '<div class="gdx-hang"><input id="gdx-mucmoi" class="gdx-i" placeholder="Thêm mức tiền (vd 60.000.000)" oninput="this.value=gdxTien(this.value)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();gdxThemMucO();}"><button class="nho" onclick="gdxThemMucO()">+ Thêm mức</button></div>' : '');
+        (kb ? '<div class="gdx-hang"><input id="gdx-mucmoi" class="gdx-i" placeholder="Thêm mức tiền (vd 60.000.000)" oninput="this.value=gdxTien(this.value)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();gdxThemMucO();}"><button class="nho" data-lenh="f26.gdxThemMucO">+ Thêm mức</button></div>' : '');
     }
-    else if(k==='gio') h = (C.noiGN==='pgd' ? 'Tại PGD: ' : 'Tại điểm GD: ')+'<input class="gdx-i gdx-ngan" value="'+gdxE(C.gioPhatTien)+'" placeholder="9 giờ 30 phút" oninput="gdxDat(\'gioPhatTien\', this.value)"><small class="gdx-ghi">Cố định, giống nhau các điểm — khai 1 lần.</small>';
+    else if(k==='gio') h = (C.noiGN==='pgd' ? 'Tại PGD: ' : 'Tại điểm GD: ')+'<input class="gdx-i gdx-ngan" value="'+gdxE(C.gioPhatTien)+'" placeholder="9 giờ 30 phút" data-lenh="f26.gdxDat" data-su="input" data-a1="gioPhatTien"><small class="gdx-ghi">Cố định, giống nhau các điểm — khai 1 lần.</small>';
     else if(k==='ngayphat'){ var md = gdxNgayPhatMD(C), np = gdxNgayPhat04(C);
       h = gdxChip((C.noiGN==='pgd' ? 'Ngày mai' : 'Ngày GD gần nhất')+': '+(md ? gdxDMY(md) : '—')+' ★', !C.ngayPhatTay, 'gdxDat(\'ngayPhatTay\', false, 1)')+
         gdxNgayChon('gdxC().ngayPhatISO=this.value;gdxDat(\'ngayPhatTay\', !!this.value, 1)', C.ngayPhatTay ? C.ngayPhatISO : '')+
         (C.ngayPhatTay ? gdxChip('↺ Mặc định', false, 'gdxDat(\'ngayPhatTay\', false, 1)') : '')+
         '<b class="gdx-hien">→ '+gdxE(C.gioPhatTien||'')+', '+(np ? gdxDMY(np) : 'để chấm')+'</b>'; }
-    else if(k==='noi') h = '<span class="gdx-ra"><label><input type="radio" name="gdx-r-noi"'+(C.noiGN!=='pgd' ? ' checked' : '')+' onchange="gdxNoi(\'diem\')"> Tại điểm GD</label><label><input type="radio" name="gdx-r-noi"'+(C.noiGN==='pgd' ? ' checked' : '')+' onchange="gdxNoi(\'pgd\')"> Tại PGD</label></span>';
+    else if(k==='noi') h = '<span class="gdx-ra"><label><input type="radio" name="gdx-r-noi"'+(C.noiGN!=='pgd' ? ' checked' : '')+' data-lenh="f26.gdxNoi" data-su="change" data-a1="diem"> Tại điểm GD</label><label><input type="radio" name="gdx-r-noi"'+(C.noiGN==='pgd' ? ' checked' : '')+' data-lenh="f26.gdxNoi" data-su="change" data-a1="pgd"> Tại PGD</label></span>';
     else if(k==='diadiem') h = '<div class="gdx-luoi"><label><span>Dòng in (theo điểm đang chọn)</span>'+gdxIn1('diaDiemPhatTien')+'</label><label><span>Khi giải ngân tại PGD</span>'+gdxIn1('diaDiemPGD', 'Phòng giao dịch NHCSXH Gò Dầu')+'</label></div>';
     else if(k==='denghi') h = gdxIn1('tenUBNDVietTat', 'Ủy ban nhân dân … (ghi đầy đủ)');
     else if(k==='nguoilap') h = gdxCB('nguoiLap', 'để trống');
@@ -498,7 +498,7 @@ function gdxMucHTML(m, k, kb){
         var khac = ['m12GDV','m12KSV','m12ToTruong'].filter(function(x){ return x!==r[0]; }).map(function(x){ return C[x]; }).filter(Boolean);
         return '<label><span>'+r[1]+'</span>'+gdxCB(r[0], r[2], khac)+'</label>'; }).join('')+'</div><small class="gdx-ghi">Mỗi người 1 vai — đã chọn ở 1 ô thì không còn ở 2 ô kia.</small>';
     else if(k==='sodong') h = [{v:d && d.to.length ? d.to.length : 0, c:'Theo số tổ'+(d ? ' ('+d.to.length+')' : '')}].concat([10, 12, 15, 20, 36].map(function(r){ return {v:r, c:String(r)}; })).filter(function(o){ return o.v; })
-        .map(function(o, i){ return gdxChip(o.c, nr===o.v && (i===0 || !(d && d.to.length===o.v)), 'gdxDat(\'m12NumRows\', '+o.v+', 1)'); }).join('')+'<input class="gdx-i gdx-so" type="number" min="5" max="45" value="'+nr+'" onchange="gdxDat(\'m12NumRows\', this.value, 1)"> dòng';
+        .map(function(o, i){ return gdxChip(o.c, nr===o.v && (i===0 || !(d && d.to.length===o.v)), 'gdxDat(\'m12NumRows\', '+o.v+', 1)'); }).join('')+'<input class="gdx-i gdx-so" type="number" min="5" max="45" value="'+nr+'" data-lenh="f26.gdxDat_svn" data-su="change" data-a1="m12NumRows" data-a2="1"> dòng';
     else if(k==='tento') h = gdxRadio('m12TenToOption', [['blank','Để trống ghi tay'],['fill','In sẵn tên tổ trưởng']])+(C.m12TenToOption==='fill' && d && !d.to.length ? '<small class="gdx-ghi">Điểm này chưa có danh sách tổ.</small>' : '');
     else if(k==='hinhthuc') h = gdxIn1('m12HinhThucTieuHuy', 'cắt nhỏ');
     else if(k==='soluong') h = gdxIn1('m12SoLuongTieuHuy', 'để trống = chấm ghi tay');
@@ -586,18 +586,18 @@ function gdxDauHTML(){
   var C = gdxC(), M = gdxMauHT(), ds = [['⚙ Khai báo riêng mẫu', 'gdxKBRieng()', 'Mọi mục của mẫu — tích Chọn nhanh để đưa ra khung'], ['⚙ Khai báo đơn vị', 'gdxKBChung()', 'Danh sách cán bộ · danh mục tham chiếu · TK 104'],
     ['📜 Nhật ký in', 'gdxNKMo()', 'Các lần in trong 1 tháng — in lại khi khách ký sai'], ['📦 Mini app', 'gdxMiniHop()', 'Xuất 1 file HTML gọn gửi đồng nghiệp — có thời hạn 30 / 60 / 90 ngày']];
   return '<div class="gdx2-dau">'+cnHang(GDX_MAU.map(function(m){ return gdxChip(m.bt+' '+m.ma, m.k===M.k, 'gdxDoiMau(\''+m.k+'\')', '', m.nhom+' — '+m.ten); }).join(''))+
-    '<div class="gdx2-nut">'+(M.k==='gl' || M.k==='gn' ? '<button class="nho'+(GDX.glDaIn ? ' gdx-moi' : '')+'" onclick="gdxGLMoi()" title="'+(GDX.glDaIn ? 'Phiếu mới — in người khác: bỏ người lĩnh, tổ, số tiền; giữ ngày, khổ giấy, loại TK' : 'Phiếu mới: xóa các ô để chọn / gõ người khác (giữ ngày, khổ giấy, loại TK)')+'">↺ Phiếu mới</button>' : '')+'<button class="nho gdx-tc" onclick="dhBam(\'gd\',\'tra\')" title="Tra cứu khách hàng (khối Tra cứu KH có sẵn) — cùng địa bàn đang chọn">👤 Tra cứu KH</button>'+   /* 3.328 (anh chốt 23/10): GDX = bàn thao tác, chỉ gọi chức năng có sẵn */
-      '<button class="nho'+(C.xem!==false ? ' chinh' : '')+'" onclick="gdxBatXem()" title="Bật / tắt khung xem trước">👁 Xem: '+(C.xem!==false ? 'Bật' : 'Tắt')+'</button>'+gdxMenu(ds)+'</div></div>';
+    '<div class="gdx2-nut">'+(M.k==='gl' || M.k==='gn' ? '<button class="nho'+(GDX.glDaIn ? ' gdx-moi' : '')+'" data-lenh="f26.gdxGLMoi" title="'+(GDX.glDaIn ? 'Phiếu mới — in người khác: bỏ người lĩnh, tổ, số tiền; giữ ngày, khổ giấy, loại TK' : 'Phiếu mới: xóa các ô để chọn / gõ người khác (giữ ngày, khổ giấy, loại TK)')+'">↺ Phiếu mới</button>' : '')+'<button class="nho gdx-tc" data-lenh="f26.dhBam" data-a1="gd" data-a2="tra" title="Tra cứu khách hàng (khối Tra cứu KH có sẵn) — cùng địa bàn đang chọn">👤 Tra cứu KH</button>'+   /* 3.328 (anh chốt 23/10): GDX = bàn thao tác, chỉ gọi chức năng có sẵn */
+      '<button class="nho'+(C.xem!==false ? ' chinh' : '')+'" data-lenh="f26.gdxBatXem" title="Bật / tắt khung xem trước">👁 Xem: '+(C.xem!==false ? 'Bật' : 'Tắt')+'</button>'+gdxMenu(ds)+'</div></div>';
 }
 function gdxRuotHTML(){
   var C = gdxC(), M = gdxMauHT(), S = gdxCH(), canh = '';
   if(M.cap==='diem' && !(C.noiGN==='pgd' && M.k==='m04')){ var d = gdxDiem(M.k==='m12' ? C.m12SelectedDiem : C.ma04);
     canh = d ? '<div class="gdx2-diem">📍 <b>'+gdxE(d.tenDiem)+'</b>'+(d.maDiem ? ' · mã '+gdxE(d.maDiem) : '')+' · '+gdxE(d.tenXa)+(d.ngayGD ? ' · GD ngày '+gdxE(d.ngayGD)+' hằng tháng' : ' · <span class="gdx-vang">chưa có ngày GD</span>')+'</div>'
       : '<div class="sl-bao vang">Chọn <b>Điểm GD</b>'+(KHO.coKy() ? ' ở khối LỌC ĐỊA BÀN' : '')+'.</div>';
-    if(!KHO.coKy()) canh += '<label class="gdx-l1">Điểm GD <select class="gdx-i" onchange="gdxChonDiemTay(this.value)"><option value="">— chọn —</option>'+gdxDsDiem().map(function(x){ var cur = M.k==='m12' ? C.m12SelectedDiem : C.ma04; return '<option value="'+gdxE(x.k)+'"'+(x.k===cur ? ' selected' : '')+'>'+gdxE(x.tenDiem+' · '+x.tenXa)+'</option>'; }).join('')+'</select></label>';
+    if(!KHO.coKy()) canh += '<label class="gdx-l1">Điểm GD <select class="gdx-i" data-lenh="f26.gdxChonDiemTay" data-su="change"><option value="">— chọn —</option>'+gdxDsDiem().map(function(x){ var cur = M.k==='m12' ? C.m12SelectedDiem : C.ma04; return '<option value="'+gdxE(x.k)+'"'+(x.k===cur ? ' selected' : '')+'>'+gdxE(x.tenDiem+' · '+x.tenXa)+'</option>'; }).join('')+'</select></label>';
   }
   if(M.k==='m04' && C.noiGN==='pgd' && !KHO.coKy()) canh += '<label class="gdx-l1">Xã / phường (kính gửi) <select class="gdx-i" onchange="gdxDat04(\'pgd\', this.value, true);gdxVe()"><option value="">— chọn —</option>'+gdxDsXa().map(function(x){ return '<option'+(x===C.xa04 ? ' selected' : '')+'>'+gdxE(x)+'</option>'; }).join('')+'</select></label>';
-  if(!gdxDsDiem().length) canh += '<div class="sl-bao vang">Chưa có điểm giao dịch — nạp Mẫu 31 (📥 Nạp &amp; KT) hoặc khai ở <a class="lk" onclick="moCaiDat(\'diaban\')">Cài đặt › Địa bàn</a>. Vẫn in được, ô điểm để trống.</div>';
+  if(!gdxDsDiem().length) canh += '<div class="sl-bao vang">Chưa có điểm giao dịch — nạp Mẫu 31 (📥 Nạp &amp; KT) hoặc khai ở <a class="lk" data-lenh="f26.moCaiDat" data-a1="diaban">Cài đặt › Địa bàn</a>. Vẫn in được, ô điểm để trống.</div>';
   var ds = GDX_MUC[M.k].filter(function(o){ return gdxNhanh(M.k, o.k); });
   return canh+
     (ds.length ? ds.map(function(o){ return '<div class="gdx2-hang" id="gdx-m-'+o.k+'"><div class="gdx2-nh">'+gdxE(o.ten)+'</div><div class="gdx2-gt">'+gdxMucHTML(M.k, o.k)+'</div></div>'; }).join('')
@@ -628,7 +628,7 @@ function gdxZoom(k){ var f = document.getElementById('gdx-khung'), z0 = GDX.zoom
 function gdxThanhHTML(){
   var M = gdxMauHT(), C = gdxC();
   var nhan = M.k==='m04' ? '04/TD · A4 dọc · '+(+C.soBan===1 ? '1 bản' : '2 bản (1 lưu tổ, 1 lưu NH)') : M.k==='m12' ? '12/GDX · A4 dọc · trọn 1 trang' : M.k==='bk' ? '🧾 Bảng kê '+(C.bkLoai==='thu' ? 'thu (nộp vào)' : 'chi (chi ra)')+' · A4 ngang · 2 tờ 118 × 210 sát 2 mép (cắt theo nét đứt)' : M.k==='gn' ? (C.gnIn==='bk' ? '🧾 Bảng kê nộp · A4 ngang · 1 tờ' : C.gnIn==='kh' ? '🏦+🧾 Giấy nộp + Bảng kê nộp · 1 tờ A4 dọc' : '🏦 Giấy nộp · '+(C.gnKho==='a4' ? 'A4 dọc · nửa trên' : 'A5 ngang')) : C.glIn==='bk' ? '🧾 Bảng kê · A4 ngang, 1 tờ 118 × 210 sát mép trái (tự chia mệnh giá)' : C.glIn==='kh' ? '💵+🧾 Giấy lĩnh + Bảng kê · 1 tờ A4 dọc (tự chia mệnh giá)' : 'Giấy lĩnh · '+(C.glKho==='a4' ? 'A4 dọc, in nửa trên' : 'A5 ngang');
-  return '<span class="gdx-nhan">'+nhan+'</span><span class="gdx-zoom"><button class="nho" onclick="gdxZoom(-1)" title="Thu nhỏ khung xem">🔍−</button><button class="nho" id="gdx-zoom" onclick="gdxZoom(0)" title="Về 100%">100%</button><button class="nho" onclick="gdxZoom(1)" title="Phóng to khung xem">🔍+</button></span>';
+  return '<span class="gdx-nhan">'+nhan+'</span><span class="gdx-zoom"><button class="nho" data-lenh="f26.gdxZoom" data-a1="-1" title="Thu nhỏ khung xem">🔍−</button><button class="nho" id="gdx-zoom" data-lenh="f26.gdxZoom" data-a1="0" title="Về 100%">100%</button><button class="nho" data-lenh="f26.gdxZoom" data-a1="1" title="Phóng to khung xem">🔍+</button></span>';
 }
 function gdxDat(k, v, ve){ var C = gdxC(); C[k] = v;
   if(k==='diaDiemPGD' && C.noiGN==='pgd') C.diaDiemPhatTien = v;
@@ -695,9 +695,9 @@ function gdxTom(){
 function gdxTomHTML(){   /* 3.245 (anh 18/10): bỏ dòng chip tóm tắt 📋 — còn cảnh báo + nút In (chip vẫn ghi vào 📜 nhật ký in) */
   var T = gdxTom(), C = gdxC(), X = {mau:gdxMauHT().k}, so = X.mau==='m04' && +gdxC().soBan!==1 ? 2 : 1;
   var c0 = T.canh[0], coDo = T.canh.some(function(x){ return x.muc==='do'; });
-  var canh = c0 ? '<span class="gdx2-canh1 '+(coDo ? 'do' : 'vang')+'" onclick="gdxToi(\''+c0.k+'\')" title="'+gdxE(T.canh.map(function(x){ return (x.muc==='do' ? '⛔ ' : '⚠ ')+x.chu; }).join('\n'))+'">'+(coDo ? '⛔ ' : '⚠ ')+gdxE(c0.chu)+(T.canh.length>1 ? ' <b>+'+(T.canh.length-1)+'</b>' : '')+'</span>' : '';
+  var canh = c0 ? '<span class="gdx2-canh1 '+(coDo ? 'do' : 'vang')+'" data-lenh="f26.gdxToi" data-a1="'+c0.k+'" title="'+gdxE(T.canh.map(function(x){ return (x.muc==='do' ? '⛔ ' : '⚠ ')+x.chu; }).join('\n'))+'">'+(coDo ? '⛔ ' : '⚠ ')+gdxE(c0.chu)+(T.canh.length>1 ? ' <b>+'+(T.canh.length-1)+'</b>' : '')+'</span>' : '';
   return canh+
-    '<div class="gdx2-in">'+(X.mau==='gn' ? gdxGNNutIn() : '')+(X.mau==='gl' ? '<span class="gdx-seg">'+gdxChip('💵 Lĩnh', C.glIn!=='bk' && C.glIn!=='kh', 'gdxDat(\'glIn\', \'gl\', 1)', '', 'Chỉ in Giấy lĩnh (khổ theo ⚙ Giấy lĩnh)')+gdxChip('🧾 Bảng kê', C.glIn==='bk', 'gdxDat(\'glIn\', \'bk\', 1)', '', 'Chỉ in Bảng kê — A4 ngang, 1 tờ sát mép trái, tự chia mệnh giá')+gdxChip('💵+🧾', C.glIn==='kh', 'gdxDat(\'glIn\', \'kh\', 1)', '', 'Giấy lĩnh + Bảng kê chung 1 tờ A4 dọc — cùng số tiền')+'</span>'+gdxMenu((function(d){ d.nhan = '📄 Mẫu trắng'; return d; })([['💵 Giấy lĩnh · 1 mẫu / A4 (nửa trên)', 'gdxGLTrangIn(1)', 'Giấy lĩnh trắng đúng form'], ['💵 Giấy lĩnh · 2 mẫu / A4 (cắt đôi)', 'gdxGLTrangIn(2)', 'Cắt đôi theo vạch giữa'], ['🧾 Bảng kê · 2 tờ / A4 ngang', 'gdxBKTrangIn()', 'Theo khai báo tab 🧾 Bảng kê'], ['💵+🧾 Kết hợp · 1 tờ A4 dọc', 'gdxGLTrangIn(3)', 'Giấy lĩnh nửa trên + Bảng kê dưới — giấy trắng']]), 'len') : '')+'<button class="nho" onclick="gdxPDF()">PDF</button><button class="nho chinh gdx-in" onclick="gdxIn()">🖨 IN '+so+' bản</button></div>';
+    '<div class="gdx2-in">'+(X.mau==='gn' ? gdxGNNutIn() : '')+(X.mau==='gl' ? '<span class="gdx-seg">'+gdxChip('💵 Lĩnh', C.glIn!=='bk' && C.glIn!=='kh', 'gdxDat(\'glIn\', \'gl\', 1)', '', 'Chỉ in Giấy lĩnh (khổ theo ⚙ Giấy lĩnh)')+gdxChip('🧾 Bảng kê', C.glIn==='bk', 'gdxDat(\'glIn\', \'bk\', 1)', '', 'Chỉ in Bảng kê — A4 ngang, 1 tờ sát mép trái, tự chia mệnh giá')+gdxChip('💵+🧾', C.glIn==='kh', 'gdxDat(\'glIn\', \'kh\', 1)', '', 'Giấy lĩnh + Bảng kê chung 1 tờ A4 dọc — cùng số tiền')+'</span>'+gdxMenu((function(d){ d.nhan = '📄 Mẫu trắng'; return d; })([['💵 Giấy lĩnh · 1 mẫu / A4 (nửa trên)', 'gdxGLTrangIn(1)', 'Giấy lĩnh trắng đúng form'], ['💵 Giấy lĩnh · 2 mẫu / A4 (cắt đôi)', 'gdxGLTrangIn(2)', 'Cắt đôi theo vạch giữa'], ['🧾 Bảng kê · 2 tờ / A4 ngang', 'gdxBKTrangIn()', 'Theo khai báo tab 🧾 Bảng kê'], ['💵+🧾 Kết hợp · 1 tờ A4 dọc', 'gdxGLTrangIn(3)', 'Giấy lĩnh nửa trên + Bảng kê dưới — giấy trắng']]), 'len') : '')+'<button class="nho" data-lenh="f26.gdxPDF">PDF</button><button class="nho chinh gdx-in" data-lenh="f26.gdxIn">🖨 IN '+so+' bản</button></div>';
 }
 function gdxKhoaIn(X){ return JSON.stringify([X.mau, X.C, X.d ? X.d.k : '', X.gl ? [X.gl.kh, X.gl.tien] : '', !!X.bk, !!X.kh]); }
 function gdxIn(pdf){
@@ -730,9 +730,9 @@ function gdxKBRieng(sang){
   moHop('<div class="hop-tit" id="gdx-kbr">⚙ Khai báo riêng — '+M.bt+' '+gdxE(gdxTenMau(M))+'</div><div class="hop-phu">Các mục xếp theo thứ tự trên mẫu (trên → dưới, trái → phải). Tích <b>Chọn nhanh</b> để đưa mục ra khung bên trái; bỏ tích thì mục nằm ở đây, dùng giá trị khai báo. Tự lưu, đồng bộ Drive cùng cài đặt.</div>'+
     '<div class="gdx-kbr">'+GDX_MUC[M.k].map(function(o){ var n = gdxNhanh(M.k, o.k);
       return (o.nhom ? '<div class="gdx-kbr-nhom">'+gdxE(o.nhom)+'</div>' : '')+'<div class="gdx-kbr-dong'+(o.k===sang ? ' nhay' : '')+'" id="gdx-kbr-'+o.k+'"><div class="gdx-kbr-ten">'+gdxE(o.ten)+'</div><div class="gdx-kbr-gt">'+gdxMucHTML(M.k, o.k, true)+'</div>'+
-        '<label class="gdx-kbr-nhanh"><input type="checkbox"'+(n ? ' checked' : '')+' onchange="gdxDatNhanh(\''+M.k+'\', \''+o.k+'\', this.checked)"> Chọn nhanh</label></div>'; }).join('')+'</div>'+
-    (M.k==='m04' ? '<div class="hang-nut"><button class="nho" onclick="gdxMacDinh()">↺ Khôi phục thông tin mẫu ban đầu</button></div>' : '')+
-    '<div class="hang-nut"><button class="nho chinh" onclick="dongHop();gdxVeTrai()">Xong</button></div>', true);
+        '<label class="gdx-kbr-nhanh"><input type="checkbox"'+(n ? ' checked' : '')+' data-lenh="f26.gdxDatNhanh" data-su="change" data-a1="'+M.k+'" data-a2="'+o.k+'"> Chọn nhanh</label></div>'; }).join('')+'</div>'+
+    (M.k==='m04' ? '<div class="hang-nut"><button class="nho" data-lenh="f26.gdxMacDinh">↺ Khôi phục thông tin mẫu ban đầu</button></div>' : '')+
+    '<div class="hang-nut"><button class="nho chinh" data-lenh="f26.gdxVeTrai" data-dong="1">Xong</button></div>', true);
   if(sang) setTimeout(function(){ var e = document.getElementById('gdx-kbr-'+sang); if(e) e.scrollIntoView({block:'center'}); }, 50);
 }
 
@@ -791,7 +791,7 @@ function gdxGLMuc(k, kb){
   else if(k==='glchim') h = gdxRadio('glChim', [['tat','Tắt'],['nhat','Nhạt'],['vua','Vừa'],['dam','Đậm']])+'<small class="gdx-ghi">Phiếu đã điền in theo mức chọn; phiếu trắng in mức Vừa (chọn Tắt thì cũng tắt).</small>';
   else if(k==='gltai') h = gdxIn1('glTaiNH', 'trống = chấm (vd: NHCSXH PGD Gò Dầu)');
   else if(k==='glnd') h = '<span class="gdx-1dong">'+gdxIn1('glND', 'Rút tiền')+gdxChip('<i>Nghiêng</i>', C.glNDNghieng!=='thuong', 'gdxDat(\'glNDNghieng\', \'nghieng\', 1)')+gdxChip('Thường', C.glNDNghieng==='thuong', 'gdxDat(\'glNDNghieng\', \'thuong\', 1)')+'</span>';
-  else if(k==='glnh') h = '<div class="gdx-luoi"><label><span>Tài khoản ghi Nợ</span><select class="gdx-i" onchange="gdxDat(\'glTKNo\', this.value, 1)"><option value="cham"'+(C.glTKNo!=='tk' ? ' selected' : '')+'>Để chấm (ngân hàng ghi)</option><option value="tk"'+(C.glTKNo==='tk' ? ' selected' : '')+'>= Tài khoản số của khách</option></select></label>'+
+  else if(k==='glnh') h = '<div class="gdx-luoi"><label><span>Tài khoản ghi Nợ</span><select class="gdx-i" data-lenh="f26.gdxDat_svn" data-su="change" data-a1="glTKNo" data-a2="1"><option value="cham"'+(C.glTKNo!=='tk' ? ' selected' : '')+'>Để chấm (ngân hàng ghi)</option><option value="tk"'+(C.glTKNo==='tk' ? ' selected' : '')+'>= Tài khoản số của khách</option></select></label>'+
     '<label><span>Mã - Ngân hàng</span>'+gdxIn1('glMaNH', 'trống = chấm')+'</label></div>';
   else if(k==='glkho') h = gdxRadio('glKho', [['a5','A5 ngang'],['a4','A4 dọc · in nửa trên']]);
   return h;
@@ -816,9 +816,9 @@ function gdxGLPhieuHTML(kb){
       if(o[0]==='ncap' && /^\d{4}-\d{2}-\d{2}/.test(v)) v = gdxDMY(String(v).slice(0, 10));
       if(GDX.glSua && GDX.glSua[o[0]]!==undefined && o[0]==='ncap') v = GDX.glSua.ncap;
       var nhan = o[0]==='diaChi' ? '<span class="gl-nhan2"><span>'+o[1]+'</span><i id="gdx-gl-noicap" class="gl-noicap" onclick="event.preventDefault();gdxGLNoiCapTay()" title="Nơi cấp — tự tính theo ngày cấp (từ 01/07/2024: Bộ Công an; trước đó: Cục Cảnh sát quản lý hành chính về trật tự xã hội). Bấm để gõ tay.">'+gdxGLNoiCapChu(g)+'</i></span>' : '<span>'+o[1]+'</span>';
-      return '<label class="gl-c'+o[2]+'">'+nhan+'<input class="gdx-i" data-k="'+o[0]+'" value="'+gdxE(v)+'" placeholder="'+ph+'" oninput="gdxGLSua(this)"'+(o[0]==='ncap' ? ' onblur="var v=gdxDocNgay(this.value);if(v&&this.value!==gdxDMY(v)){this.value=gdxDMY(v);gdxGLSua(this);}"' : '')+'></label>'; }).join('')+'</div>';
+      return '<label class="gl-c'+o[2]+'">'+nhan+'<input class="gdx-i" data-k="'+o[0]+'" value="'+gdxE(v)+'" placeholder="'+ph+'" data-lenh="f26.gdxGLSua" data-su="input"'+(o[0]==='ncap' ? ' onblur="var v=gdxDocNgay(this.value);if(v&&this.value!==gdxDMY(v)){this.value=gdxDMY(v);gdxGLSua(this);}"' : '')+'></label>'; }).join('')+'</div>';
   h += '<div class="gl-tien"><label>Số tiền <input id="gdx-gl-tien" class="gdx-i gdx-tien gdx-tien-to" inputmode="numeric" value="'+gdxE(g.tien ? gdxTien(g.tien) : '')+'" placeholder="trống = chấm" oninput="this.value=gdxTien(this.value);GDX.glTien=this.value;GDX.glHet=0;gdxXem();gdxTomVe()" onkeydown="if(event.key===\'ArrowUp\'||event.key===\'ArrowDown\'){event.preventDefault();gdxGLBuoc(event.key===\'ArrowUp\'?100000:-100000);}"></label>'+
-    '<span class="gdx-buoc"><button onclick="gdxGLBuoc(100000)" title="Tăng 100 nghìn">▲</button><button onclick="gdxGLBuoc(-100000)" title="Giảm 100 nghìn">▼</button></span>'+
+    '<span class="gdx-buoc"><button data-lenh="f26.gdxGLBuoc" data-a1="100000" title="Tăng 100 nghìn">▲</button><button data-lenh="f26.gdxGLBuoc" data-a1="-100000" title="Giảm 100 nghìn">▼</button></span>'+
     (C.glLoai!=='104' && g.du && C.form!=='gn' ? gdxChip('Rút hết: '+gdxTien(Math.round(g.du)), !!GDX.glHet, 'GDX.glHet=1;GDX.glTien=\'\';gdxVe()') : '')+
     (C.glMuc||[]).map(function(a, i){ return '<span class="gdx-mh">'+gdxChip(gdxChipTien(a), !GDX.glHet && String(g.tien)===String(a), 'GDX.glHet=0;GDX.glTien=\''+a+'\';gdxVe()')+(kb ? '<button class="gdx-x" onclick="gdxC().glMuc.splice('+i+', 1);gdxLuu();gdxVe()" title="Xóa">×</button>' : '')+'</span>'; }).join('')+
     gdxChip('⭐', false, 'gdxGLLuuMuc()', 'khac', 'Lưu số tiền đang nhập thành chip')+'</div>'+
@@ -828,7 +828,7 @@ function gdxGLPhieuHTML(kb){
 }
 function gdxGLChonTK(loai, g){   /* 3.202: khách / tổ trưởng có ≥ 2 TK → chọn TK đang dùng (nhớ theo mã KH), báo đóng TK thừa */
   if(!g.kh || !g.tkDs || g.tkDs.length<2) return '';
-  return ' <select class="gdx-i gdx-tk-chon" title="Có '+g.tkDs.length+' TK — chọn TK đang dùng" onchange="tkChonDat(\''+loai+'\', \''+g.kh+'\', this.value)">'+g.tkDs.map(function(x){ return '<option value="'+gdxE(x)+'"'+(x===g.tk ? ' selected' : '')+'>'+gdxE(x)+'</option>'; }).join('')+'</select>';
+  return ' <select class="gdx-i gdx-tk-chon" title="Có '+g.tkDs.length+' TK — chọn TK đang dùng" data-lenh="f26.tkChonDat" data-su="change" data-a1="'+loai+'" data-a2="'+g.kh+'">'+g.tkDs.map(function(x){ return '<option value="'+gdxE(x)+'"'+(x===g.tk ? ' selected' : '')+'>'+gdxE(x)+'</option>'; }).join('')+'</select>';
 }
 function gdxGLBuoc(b){ var g = gdxGLDuLieu(), v = +String(g.tien||'').replace(/\D/g, '') || 0, bb = Math.abs(b);
   v = v % bb ? (b > 0 ? Math.ceil(v/bb)*bb : Math.floor(v/bb)*bb) : v + b; v = Math.max(0, v);
@@ -876,7 +876,7 @@ function gdxGLTim(){
       var cc = theoCC(o.kh, t);
       if(cc || (!so && khop(o.ten+' '+o.kh))) kq.push({to:m, kh:o.kh, ten:o.ten, phu:'Khách · tổ '+(t.ten||m)+(t.tenThon ? ' · '+pvApNgan(t.tenThon) : '')+(cc ? ' · CCCD '+cc : '')}); }); });
   kq = kq.slice(0, 10); GDX.glI = 0;
-  g.innerHTML = kq.length ? kq.map(function(x, i){ return '<button'+(i===0 ? ' class="bat"' : '')+' onclick="gdxGLChon(\''+x.to+'\', \''+x.kh+'\')"><b>'+gdxE(x.ten)+'</b> <small>'+gdxE(x.phu)+'</small></button>'; }).join('')
+  g.innerHTML = kq.length ? kq.map(function(x, i){ return '<button'+(i===0 ? ' class="bat"' : '')+' data-lenh="f26.gdxGLChon" data-a1="'+x.to+'" data-a2="'+x.kh+'"><b>'+gdxE(x.ten)+'</b> <small>'+gdxE(x.phu)+'</small></button>'; }).join('')
     : '<div class="rong">Không thấy “'+gdxE(GDX.glQ)+'”'+(pham ? ' trong '+gdxE(pham.chu) : '')+'.</div>';
   if(pham) g.innerHTML = '<div class="gdx-gy-pham">🔎 Đang tìm trong <b>'+gdxE(pham.chu)+'</b> <a class="lk" onclick="GDX.glTatCa=1;gdxGLTim();var q=document.getElementById(\'gdx-gl-q\');if(q)q.focus()">Tìm cả PGD</a></div>'+g.innerHTML;
   else if(GDX.glTatCa && (S.diem || S.xa)) g.innerHTML = '<div class="gdx-gy-pham">🔎 Đang tìm cả PGD <a class="lk" onclick="GDX.glTatCa=0;gdxGLTim();var q=document.getElementById(\'gdx-gl-q\');if(q)q.focus()">Chỉ trong xã / điểm đang chọn</a></div>'+g.innerHTML;
@@ -1083,9 +1083,9 @@ function gdxNKMo(){
   moHop('<div class="hop-tit" id="gdx-nk">📜 Nhật ký in — 1 tháng gần nhất ('+a.length+')</div><div class="hop-phu">Mỗi lần in app lưu lại lựa chọn (không lưu file PDF) trên máy này; quá 1 tháng tự xóa. Bấm 🖨 In lại → đúng bản đã in (kể cả ngày ký cũ).</div>'+
     (a.length ? '<div class="gdx-bang"><table><tr><th>Lúc in</th><th>Mẫu</th><th>Nội dung</th><th></th></tr>'+a.map(function(x){ var d = new Date(x.luc);
       return '<tr><td>'+ngayVN(ngayISO(d))+' '+String(d.getHours()).padStart(2, '0')+':'+String(d.getMinutes()).padStart(2, '0')+'</td><td>'+(ten[x.mau]||x.mau)+'</td><td>'+gdxE(x.tom)+'</td>'+
-        '<td class="gdx-nk-nut"><button class="nho chinh" onclick="gdxNKIn(\''+x.id+'\')">🖨 In lại</button><button class="nho" onclick="gdxNKIn(\''+x.id+'\', 1)">📄 PDF</button><button class="nho" onclick="gdxNKXoa(\''+x.id+'\')" title="Xóa dòng này">×</button></td></tr>'; }).join('')+'</table></div>'
+        '<td class="gdx-nk-nut"><button class="nho chinh" data-lenh="f26.gdxNKIn" data-a1="'+x.id+'">🖨 In lại</button><button class="nho" data-lenh="f26.gdxNKIn_sn" data-a1="'+x.id+'" data-a2="1">📄 PDF</button><button class="nho" data-lenh="f26.gdxNKXoa" data-a1="'+x.id+'" title="Xóa dòng này">×</button></td></tr>'; }).join('')+'</table></div>'
       : '<div class="sl-phu">Chưa có lần in nào.</div>')+
-    '<div class="hang-nut">'+(a.length ? '<button class="nho" onclick="gdxNKXoa(\'*\')">🗑 Xóa hết</button>' : '')+'<button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>', true);
+    '<div class="hang-nut">'+(a.length ? '<button class="nho" data-lenh="f26.gdxNKXoa" data-a1="*">🗑 Xóa hết</button>' : '')+'<button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>', true);
 }
 function gdxNKIn(id, pdf){ var x = gdxNKDs().find(function(o){ return o.id===id; }); if(!x) return bao('Không còn bản này.'); gdxInBan(x.X, pdf); }
 function gdxNKXoa(id){ gdxNKGhi(id==='*' ? [] : gdxNKDs().filter(function(o){ return o.id!==id; })); gdxNKMo(); }
@@ -1111,7 +1111,7 @@ function gdxCanBoHTML(){
   var C = gdxC();
   return '<div class="gdx-khoi"><div class="gdx-nh">👥 Danh sách cán bộ ngân hàng <small>(chọn ở ô sổ xuống của các mẫu)</small></div><div class="gdx-chips">'+
     (C.danhSachCanBo.length ? C.danhSachCanBo.map(function(n, i){ return '<span class="gdx-the">'+gdxE(n)+' <a onclick="gdxBoCanBo('+i+')" title="Xóa cán bộ này">×</a></span>'; }).join('') : '<i class="gdx-trong">Chưa có cán bộ nào</i>')+'</div>'+
-    '<span class="gdx-hang"><input id="gdx-cbmoi" class="gdx-i" placeholder="Họ và tên cán bộ" onkeydown="if(event.key===\'Enter\'){event.preventDefault();gdxThemCanBo();}"><button class="nho chinh" onclick="gdxThemCanBo()">+ Thêm</button></span></div>';
+    '<span class="gdx-hang"><input id="gdx-cbmoi" class="gdx-i" placeholder="Họ và tên cán bộ" onkeydown="if(event.key===\'Enter\'){event.preventDefault();gdxThemCanBo();}"><button class="nho chinh" data-lenh="f26.gdxThemCanBo">+ Thêm</button></span></div>';
 }
 function gdxThemCanBo(){ var o = document.getElementById('gdx-cbmoi'), v = o ? o.value.trim() : '', C = gdxC(); if(!v) return;
   if(C.danhSachCanBo.indexOf(v)>=0) return bao('Cán bộ này đã có trong danh sách!');
@@ -1124,3 +1124,31 @@ function gdxMacDinh(){
   });
 }
 function gdxDat12Diem(ma, im){ var C = gdxC(), d = gdxDiem(ma); C.m12SelectedDiem = ma || ''; if(d){ var n = gdxNgayToi(d.ngayGD, 1)[0]; if(n) C.m12NgayGD = n; } gdxLuu(); if(!im) gdxVeTrai(); }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f26.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f26', gdLenh({
+  dhBam:function(el, ev){ dhBam(gdA(el, 1), gdA(el, 2)); },
+  gdxBatXem:function(el, ev){ gdxBatXem(); },
+  gdxChonDiemTay:function(el, ev){ gdxChonDiemTay(el.value); },
+  gdxDat:function(el, ev){ gdxDat(gdA(el, 1), el.value); },
+  gdxDat_svn:function(el, ev){ gdxDat(gdA(el, 1), el.value, +gdA(el, 2)); },
+  gdxDatNhanh:function(el, ev){ gdxDatNhanh(gdA(el, 1), gdA(el, 2), el.checked); },
+  gdxGLBuoc:function(el, ev){ gdxGLBuoc(+gdA(el, 1)); },
+  gdxGLChon:function(el, ev){ gdxGLChon(gdA(el, 1), gdA(el, 2)); },
+  gdxGLMoi:function(el, ev){ gdxGLMoi(); },
+  gdxGLSua:function(el, ev){ gdxGLSua(el); },
+  gdxIn:function(el, ev){ gdxIn(); },
+  gdxMacDinh:function(el, ev){ gdxMacDinh(); },
+  gdxNKIn:function(el, ev){ gdxNKIn(gdA(el, 1)); },
+  gdxNKIn_sn:function(el, ev){ gdxNKIn(gdA(el, 1), +gdA(el, 2)); },
+  gdxNKXoa:function(el, ev){ gdxNKXoa(gdA(el, 1)); },
+  gdxNoi:function(el, ev){ gdxNoi(gdA(el, 1)); },
+  gdxPDF:function(el, ev){ gdxPDF(); },
+  gdxThemCanBo:function(el, ev){ gdxThemCanBo(); },
+  gdxThemMucO:function(el, ev){ gdxThemMucO(); },
+  gdxToi:function(el, ev){ gdxToi(gdA(el, 1)); },
+  gdxVeTrai:function(el, ev){ gdxVeTrai(); },
+  gdxZoom:function(el, ev){ gdxZoom(+gdA(el, 1)); },
+  moCaiDat:function(el, ev){ moCaiDat(gdA(el, 1)); },
+  tkChonDat:function(el, ev){ tkChonDat(gdA(el, 1), gdA(el, 2), el.value); }
+}));

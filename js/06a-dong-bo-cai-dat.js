@@ -444,14 +444,14 @@ function chipChoKhai(tab){
   var g = dsChoKhai(), n = tab==='vanBan' ? Object.keys(g).reduce(function(a,k){ return a+g[k].length; }, 0) : (g[tab]||[]).length;
   if(!n) return '';
   var ct = Object.keys(g).filter(function(k){ return g[k].length; }).map(function(k){ return CK_TEN[k].split(' — ')[0]+' '+g[k].length; }).join(' · ');
-  return '<button class="chip-ck" onclick="moChoKhai()" title="File chờ khai thông tin: '+coChuHTML(ct)+' — bấm mở danh sách">📥 '+n+'<span class="ck-chu"> chờ khai ›</span></button>';
+  return '<button class="chip-ck" data-lenh="f06a.moChoKhai" title="File chờ khai thông tin: '+coChuHTML(ct)+' — bấm mở danh sách">📥 '+n+'<span class="ck-chu"> chờ khai ›</span></button>';
 }
 function tenKho(nhom){
   return {vanBan:'Văn bản', duLieu:'Dữ liệu tháng', ghiChu:'Ghi chú', bieuMau:'Biểu mẫu', scan:'Scan'}[nhom] || 'Văn bản';
 }
 function veChoKhai(){
   var g = dsChoKhai(), n = Object.keys(g).reduce(function(a,k){ return a+g[k].length; }, 0);
-  var h = '<div class="ck-dau"><button class="nho" onclick="dongChoKhai()">‹ Danh sách văn bản</button>'+
+  var h = '<div class="ck-dau"><button class="nho" data-lenh="f06a.dongChoKhai">‹ Danh sách văn bản</button>'+
     '<b>📥 Chờ khai thông tin ('+n+')</b></div>'+
     '<div class="huong-dan" style="margin:0 0 10px">File chưa đủ thông tin (số hiệu, ngày, tên, mảng, chương trình vay…) hoặc mới quét từ Drive. '+
     'Bấm <b>Khai</b> → điền → <b>Lưu</b> là rời danh sách; file ở khay thì Lưu là vào tủ luôn.</div>';
@@ -464,13 +464,13 @@ function veChoKhai(){
         var dich = (k==='khay') ? tenKho(m.nhom) : CK_TEN[k].split(' — ')[0];
         /* 3.50: bấm tên là xem thử (khung phải / khung lớn) + luôn hiện đường dẫn thật */
         var loaiX = k==='scan' ? 'scan' : (k==='khay' ? 'cho' : 'muc');
-        return '<div class="ck-dong"><div class="ck-ten dk-ten" onclick="xemThu(\''+loaiX+'\',\''+m.id+'\')" title="Bấm để xem thử"><b>'+coChuHTML(m.tenMoi||m.ten||m.tenCu||'(chưa đặt tên)')+'</b>'+
+        return '<div class="ck-dong"><div class="ck-ten dk-ten" data-lenh="f06a.xemThu" data-a1="'+loaiX+'" data-a2="'+m.id+'" title="Bấm để xem thử"><b>'+coChuHTML(m.tenMoi||m.ten||m.tenCu||'(chưa đặt tên)')+'</b>'+
           '<small><span class="ck-dich">→ '+coChuHTML(dich)+'</span> · '+coChuHTML(x.nguon)+
           (x.thieu.length?' · <span class="ck-thieu">thiếu '+coChuHTML(x.thieu.join(', '))+'</span>':' · cần xác nhận lại')+
           ' · <span class="ck-duong" title="'+coChuHTML(duongThat(m, k==='khay'?'cho':''))+'">'+coChuHTML(duongThat(m, k==='khay'?'cho':''))+'</span></small></div>'+
           '<span class="ck-nut"><button class="nho chinh" onclick="'+fn+'(\''+m.id+'\')">Khai</button>'+
           /* 3.56 (anh chốt): không cần thì bỏ luôn — theo quy tắc chung: vào thùng rác, có ↩ Hoàn tác */
-          '<button class="nho xau" onclick="xoaChoKhai(\''+m.id+'\')" title="Không cần — bỏ vào thùng rác (có ↩ Hoàn tác)">🗑 Xóa</button></span></div>';
+          '<button class="nho xau" data-lenh="f06a.xoaChoKhai" data-a1="'+m.id+'" title="Không cần — bỏ vào thùng rác (có ↩ Hoàn tác)">🗑 Xóa</button></span></div>';
       }).join('')+'</div>';
   });
   return h;
@@ -482,8 +482,8 @@ function chonAnh(){
   moHop('<div class="hop-tit">Thêm ghi chú</div>'+
     '<div class="hop-phu">Chụp thẳng để lưu lại lưu ý ngay tại chỗ, hoặc lấy ảnh đã có trong máy.</div>'+
     '<div class="hang-nut">'+
-      '<button class="nho chinh" onclick="dongHop();layAnh(1)">Chụp ảnh</button>'+
-      '<button class="nho" onclick="dongHop();layAnh(0)">Chọn từ máy</button>'+
+      '<button class="nho chinh" data-lenh="f06a.layAnh" data-dong="1" data-a1="1">Chụp ảnh</button>'+
+      '<button class="nho" data-lenh="f06a.layAnh" data-dong="1" data-a1="0">Chọn từ máy</button>'+
     '</div>');
 }
 function layAnh(chup){
@@ -511,7 +511,7 @@ function moCaiDat(mucMo){
   document.getElementById('hop').classList.add('trang');
   /* 3.40: tự lưu — bỏ nút Lưu, chỉ còn Đóng */
   var h = '<div class="cd-dau"><span class="t">Cài đặt</span><span class="cd-tuluu">Tự lưu mỗi thay đổi</span>'+
-    '<button onclick="dongCaiDat()">Đóng (Esc)</button></div>'+
+    '<button data-lenh="f06a.dongCaiDat">Đóng (Esc)</button></div>'+
     '<div class="cd-khung">'+
       '<nav class="cd-ben">'+ veMenuCD() +'</nav>'+
       '<div class="cd-than" id="cd-noi">'+ veNoiCD(CD_MO) +'</div>'+
@@ -562,12 +562,12 @@ function veNoiCD(k){
       '<div class="o"><label>Giao diện</label><div class="co-chu" id="cd-gd">'+
       [['Theo máy','auto'],['Sáng','light'],['Tối','dark']].map(function(x){
         return '<button'+(c.giaoDien===x[1]?' class="bat"':'')+
-          ' onclick="datGiaoDien(\''+x[1]+'\',this)">'+x[0]+'</button>';
+          ' data-lenh="f06a.datGiaoDien" data-a1="'+x[1]+'">'+x[0]+'</button>';
       }).join('')+'</div></div>'+
       /* 3.39: dời từ trang Google Drive sang đây cho đúng chỗ */
       '<h3>Bố cục</h3><div class="hang-nut">'+
-      '<button class="nho chinh" onclick="kiemTraKhungXem()">Kiểm tra &amp; sửa khung xem</button>'+
-      '<button class="nho" onclick="datLaiBoCuc()">Đặt lại bố cục 2 cột</button></div>'+
+      '<button class="nho chinh" data-lenh="f06a.kiemTraKhungXem">Kiểm tra &amp; sửa khung xem</button>'+
+      '<button class="nho" data-lenh="f06a.datLaiBoCuc">Đặt lại bố cục 2 cột</button></div>'+
       '<div class="huong-dan">Đưa độ rộng 2 cột và khung xem nhanh của mọi tab về mặc định (danh sách 60% · khung xem 40%, tab Tháng 65/35). Kéo vạch ⠿ giữa 2 cột để chỉnh, app nhớ riêng từng tab; bấm đúp vạch để trả về mặc định.<br>'+chanDoanBoCuc()+'</div>'+
       '<h3>Đơn vị</h3>'+
       o('Tên đơn vị','cd-donvi',c.donvi,'Hiện trên thanh tiêu đề')+
@@ -576,7 +576,7 @@ function veNoiCD(k){
       '<div class="o"><div class="co-chu" id="cd-kt">'+
       [['Có dấu, dễ đọc','codau'],['Không dấu','khongdau']].map(function(x){
         return '<button'+((c.kieuTen||'codau')===x[1]?' class="bat"':'')+
-          ' onclick="datKieuTen(\''+x[1]+'\',this)">'+x[0]+'</button>';
+          ' data-lenh="f06a.datKieuTen" data-a1="'+x[1]+'">'+x[0]+'</button>';
       }).join('')+'</div>'+
       '<div class="huong-dan">Có dấu: <b>2026-09-07 4079-NHCS-TDNN Hướng dẫn rà soát.pdf</b>'+
       '<br>Không dấu: <b>2026-09-07_CV-4079_Huong-dan-ra-soat.pdf</b></div></div>'+
@@ -609,22 +609,22 @@ function veNoiCD(k){
       '<div class="huong-dan" style="margin-bottom:9px">Trạng thái: '+tt+
       '<br>Địa chỉ app: <b>'+coChuHTML(location.origin+location.pathname)+'</b></div>'+
       o('Google Client ID','cd-cid',c.clientId||'','Để trống = dùng Client ID gắn sẵn của anh. Chỉ điền khi đổi sang Client ID khác.')+
-      '<div class="hang-nut" style="margin:-4px 0 10px"><button class="nho" onclick="chepClientId()">Chép Client ID đang dùng</button></div>'+
+      '<div class="hang-nut" style="margin:-4px 0 10px"><button class="nho" data-lenh="f06a.chepClientId">Chép Client ID đang dùng</button></div>'+
       o('Thư mục Drive trên máy (ổ G)','cd-gocmay',c.gocMay||'G:\\My Drive',
         'Dùng cho nút 📂 chép đường dẫn. Máy cài tiếng Việt có thể là G:\\Drive của tôi')+
       '<div class="hang-nut">'+
-        '<button class="nho chinh" onclick="luuCaiDat(1)">Lưu rồi nối Drive</button>'+
-        '<button class="nho" onclick="taoBoThuMuc()">Tạo bộ thư mục</button>'+
-        '<button class="nho" onclick="xemCay()">Xem cây</button></div>'+
+        '<button class="nho chinh" data-lenh="f06a.luuCaiDat" data-a1="1">Lưu rồi nối Drive</button>'+
+        '<button class="nho" data-lenh="f06a.taoBoThuMuc">Tạo bộ thư mục</button>'+
+        '<button class="nho" data-lenh="f06a.xemCay">Xem cây</button></div>'+
       '<h3>Cầu nối máy tính (Windows)</h3>'+
       '<div class="huong-dan" style="margin-bottom:6px">Cài một lần trên mỗi máy tính để bấm là <b>mở thẳng file trên ổ Google Drive</b> (Word, Excel, PDF), '+
         '<b>📋 chép file</b> rồi Ctrl+V vào Zalo, <b>👁 xem nhanh</b> bằng bản tạm (tự xóa), <b>📂 mở thư mục</b>. App tự dò ổ Drive (My Drive / Drive của tôi).<br>'+
         '1) Bấm <b>Tải bộ cài</b> · 2) mở thư mục Tải về, bấm đúp file <b>cai-cau-noi-tu-ho-so.reg</b> → Yes → OK · 3) bấm <b>Mở thử</b> — trình duyệt hỏi "Mở Tủ hồ sơ?" thì tích <i>Luôn cho phép</i> → Mở. '+
         'Hiện hộp "Cầu nối đã chạy" là xong.</div>'+
-      '<label class="tl-chon"><input type="checkbox"'+(coCauNoi()?' checked':'')+' onchange="datCauNoi(this.checked)"'+(laDT()?' disabled':'')+'> Máy này đã cài cầu nối</label>'+
-      '<div class="hang-nut" style="margin:6px 0 10px"><button class="nho chinh" onclick="taiBoCaiCauNoi()">⬇ Tải bộ cài</button>'+
-        '<button class="nho" onclick="moThuCauNoi()">Mở thử</button>'+
-        '<button class="nho" onclick="taiBoCaiCauNoi(true)">Gỡ cầu nối</button></div>'+
+      '<label class="tl-chon"><input type="checkbox"'+(coCauNoi()?' checked':'')+' data-lenh="f06a.datCauNoi" data-su="change"'+(laDT()?' disabled':'')+'> Máy này đã cài cầu nối</label>'+
+      '<div class="hang-nut" style="margin:6px 0 10px"><button class="nho chinh" data-lenh="f06a.taiBoCaiCauNoi">⬇ Tải bộ cài</button>'+
+        '<button class="nho" data-lenh="f06a.moThuCauNoi">Mở thử</button>'+
+        '<button class="nho" data-lenh="f06a.taiBoCaiCauNoi_b" data-a1="1">Gỡ cầu nối</button></div>'+
       '<h3>Tự đồng bộ</h3>'+
       '<div class="huong-dan" style="margin-bottom:6px">Đẩy bản scan, chữ ký, CCCD và chỉ mục lên Drive để không mất dữ liệu. Lúc nào cũng bấm được <b>☁ Đồng bộ ngay</b> (hoặc bấm chấm Drive ở chân màn hình).</div>'+
       [['dbMoApp','Khi mở app',true],['dbRoiApp','Khi rời app (chuyển app khác, khóa máy, đóng)',true],
@@ -632,7 +632,7 @@ function veNoiCD(k){
         var bat = x[2] ? c[x[0]]!==false : c[x[0]]===true;
         return '<label class="tl-chon"><input type="checkbox"'+(bat?' checked':'')+' onchange="D.cauHinh.'+x[0]+'=this.checked;luu()"> '+x[1]+'</label>';
       }).join('')+
-      '<div class="hang-nut" style="margin:6px 0 10px"><button class="nho chinh" onclick="dongBoNgay()">☁ Đồng bộ ngay</button></div>'+
+      '<div class="hang-nut" style="margin:6px 0 10px"><button class="nho chinh" data-lenh="f06a.dongBoNgay">☁ Đồng bộ ngay</button></div>'+
       /* 3.31 (mục 10 bàn giao): Google Picker — quét kho Drive cũ (quyền drive.file chỉ thấy file app tạo) */
       '<h3>Quét kho Drive cũ (Google Picker)</h3>'+
       o('API key của Google Picker','cd-apikey',c.apiKey||'','Tạo trong Google Cloud (cùng dự án với Client ID), bật Google Picker API, giới hạn key cho trang app. Chỉ lưu trong máy này.')+
@@ -648,8 +648,8 @@ function veNoiCD(k){
       }).join('')+'</div></div>'+
       '<h3>Cài đặt trên Drive</h3>'+
       '<div class="hang-nut">'+
-        '<button class="nho" onclick="dayCauHinh()">Lưu lên Drive</button>'+
-        '<button class="nho" onclick="keoCauHinh()">Lấy từ Drive</button></div>'+
+        '<button class="nho" data-lenh="f06a.dayCauHinh">Lưu lên Drive</button>'+
+        '<button class="nho" data-lenh="f06a.keoCauHinh">Lấy từ Drive</button></div>'+
       '<div class="huong-dan">Cất ở <b>_Hệ thống/cauhinh.json</b> — toàn bộ cài đặt (danh mục, khai báo Hội, chuẩn hóa, lịch kế hoạch, lựa chọn in…), trừ phần riêng từng máy (độ rộng khung, đang xem). '+
       'Tự đồng bộ khi mở app, khi quay lại app và vài giây sau mỗi lần sửa; 2 máy cùng sửa thì gộp. Nút trên dùng khi cần làm ngay.'+
       (c.chGhiLuc?('<br>Lần lưu gần nhất: '+ngayVN(c.chGhiLuc.slice(0,10))+
@@ -661,21 +661,21 @@ function veNoiCD(k){
     return '<h3>Danh mục địa bàn</h3>'+
       '<div class="huong-dan" style="margin-bottom:9px">Đang có <b>'+dm.xa+'</b> xã/phường · <b>'+
       dm.diem+'</b> điểm giao dịch · <b>'+dm.ap+'</b> ấp/khu phố · <b>'+dm.to+'</b> tổ.</div>'+
-      '<div class="hang-nut"><button class="nho chinh" onclick="moCayDB()">Mở cây địa bàn</button></div>'+
+      '<div class="hang-nut"><button class="nho chinh" data-lenh="f06a.moCayDB">Mở cây địa bàn</button></div>'+
       /* 3.31: địa bàn quản lý — ma trận tab Tháng mặc định chỉ hiện và chỉ báo thiếu cho các xã này */
       '<h3>Địa bàn quản lý</h3>'+
       '<div class="o">'+dsDonVi('xa').map(function(x){
         return '<label class="dt-dong xql-dong"><input type="checkbox" value="'+coChuHTML(x)+'"'+
-          ((D.cauHinh.xaQuanLy||[]).indexOf(x)>=0?' checked':'')+' onchange="datXaQuanLy(this.value, this.checked)"> '+
+          ((D.cauHinh.xaQuanLy||[]).indexOf(x)>=0?' checked':'')+' data-lenh="f06a.datXaQuanLy" data-su="change"> '+
           coChuHTML(x)+' <small>'+diemCuaXa(x).length+' điểm giao dịch</small></label>';
       }).join('')+
       '<div class="huong-dan">Tick xã, phường anh phụ trách. Ma trận tab Tháng mặc định chỉ hiện các xã này và <b>chỉ báo thiếu</b> '+
       'cho PGD và các xã này; xã khác có file vẫn hiện, không có thì bỏ qua. Nút 👁 trên ma trận vẫn bật thêm xã khác được.</div></div>'+
       '<div class="hang-nut" style="margin-top:7px">'+
-        '<button class="nho" onclick="xuatExcel()">Xuất Excel</button>'+
-        '<button class="nho" onclick="napExcel()">Nạp Excel</button>'+
-        '<button class="nho" onclick="xuatDB()">Xuất JSON</button>'+
-        '<button class="nho" onclick="napDB()">Nạp JSON</button></div>'+
+        '<button class="nho" data-lenh="f06a.xuatExcel">Xuất Excel</button>'+
+        '<button class="nho" data-lenh="f06a.napExcel">Nạp Excel</button>'+
+        '<button class="nho" data-lenh="f06a.xuatDB">Xuất JSON</button>'+
+        '<button class="nho" data-lenh="f06a.napDB">Nạp JSON</button></div>'+
       '<div class="huong-dan">Xuất Excel để sửa hàng loạt hoặc nhờ AI chuẩn lại, xong nạp lại.</div>';
   }
 
@@ -692,7 +692,7 @@ function veNoiCD(k){
       '<h3>Cuốn sổ ghi chép</h3>'+
       '<div class="o"><label>Kiểu chữ</label><div class="co-chu">'+
         Object.keys(PHONG_SO).map(function(k){
-          return '<button'+((D.cauHinh.phongSo||'codien')===k?' class="bat"':'')+' onclick="datPhongSo(\''+k+'\')">'+PHONG_SO[k].ten+'</button>';
+          return '<button'+((D.cauHinh.phongSo||'codien')===k?' class="bat"':'')+' data-lenh="f06a.datPhongSo" data-a1="'+k+'">'+PHONG_SO[k].ten+'</button>';
         }).join('')+'</div>'+
       '<div class="huong-dan">Cả ba kiểu đều dùng phông có sẵn trong máy và đủ dấu tiếng Việt.</div></div>'+
       '<h3>Câu chữ trên cuốn sổ</h3>'+
@@ -734,8 +734,8 @@ function veNoiCD(k){
   if(k==='dulieu'){
     return '<h3>Sao lưu chỉ mục</h3>'+
       '<div class="hang-nut">'+
-        '<button class="nho" onclick="xuatDL()">Xuất ra file</button>'+
-        '<button class="nho" onclick="napDL()">Nạp từ file</button></div>'+
+        '<button class="nho" data-lenh="f06a.xuatDL">Xuất ra file</button>'+
+        '<button class="nho" data-lenh="f06a.napDL">Nạp từ file</button></div>'+
       '<div class="huong-dan">Đang lưu <b>'+
       (D.vanBan.length+D.duLieu.length+D.ghiChu.length+(D.scan||[]).length+
        (D.bieuMau||[]).length)+'</b> mục. Nạp sẽ gộp thêm, không xóa cái đang có.</div>'+
@@ -746,12 +746,12 @@ function veNoiCD(k){
       '<h3>🔄 Reset dữ liệu thử (giữ cài đặt)</h3>'+
       '<div class="huong-dan">Xóa hàng loạt dữ liệu nhập thử để bắt đầu dùng chính thức. <b>Giữ nguyên toàn bộ cài đặt</b>: địa bàn, danh mục, tag, mẫu báo cáo, Client ID, cách đặt tên, giao diện. '+
         'Máy kia xóa theo khi đồng bộ. Xóa vài file thì dùng <b>🗑 Xóa file</b> ở đầu mỗi tab.</div>'+
-      '<div class="hang-nut"><button class="nho xau" onclick="moDonThu()">🔄 Reset dữ liệu thử…</button></div>'+
+      '<div class="hang-nut"><button class="nho xau" data-lenh="f06a.moDonThu">🔄 Reset dữ liệu thử…</button></div>'+
       '<details class="vung-nguy"><summary>⚠ Vùng nguy hiểm</summary>'+
       '<div class="huong-dan">Xóa sạch <b>mọi thứ của app trên máy này</b> — cả dữ liệu lẫn cài đặt, cả ảnh CCCD. '+
       '<b>Không đụng gì trên Drive</b>: nối Drive lại là lấy về chỉ mục (chimuc.json) và cài đặt (Cài đặt → Google Drive → Lấy từ Drive). '+
       'Dùng khi cho mượn máy, đổi máy hoặc app lỗi nặng.</div>'+
-      '<div class="hang-nut"><button class="nho xau" onclick="moXoaSachMay()">Xóa sạch cả cài đặt trên máy này…</button></div>'+
+      '<div class="hang-nut"><button class="nho xau" data-lenh="f06a.moXoaSachMay">Xóa sạch cả cài đặt trên máy này…</button></div>'+
       '</details>';
   }
 
@@ -768,7 +768,7 @@ function veCDTab(t){
              scan:(D.scan||[]), bieuMau:(D.bieuMau||[])}[k] || [];
   var nut = function(id, ds, dang){
     return '<div class="o"><div class="co-chu" id="'+id+'">'+ds.map(function(x){
-      return '<button'+(dang===x[1]?' class="bat"':'')+' onclick="chonMotNut(this)" data-v="'+x[1]+'">'+x[0]+'</button>';
+      return '<button'+(dang===x[1]?' class="bat"':'')+' data-lenh="f06a.chonMotNut" data-v="'+x[1]+'">'+x[0]+'</button>';
     }).join('')+'</div></div>';
   };
   var h = '<h3>'+t.ico+' Tab '+t.ten+'</h3>'+
@@ -922,3 +922,40 @@ function soDoLuuTru(){
       nut('<b>Xóa</b>: 🗑 Xóa file ở đầu tab → bấm file để tích → xóa → vào Thùng rác (lấy lại ở 🗑 Thùng rác → Khôi phục). <b>Cài đặt → Dữ liệu</b>: 🔄 Reset dữ liệu thử · Xóa sạch máy','nhat')
     ])+'</div></div>';
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f06a.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f06a', gdLenh({
+  chepClientId:function(el, ev){ chepClientId(); },
+  chonMotNut:function(el, ev){ chonMotNut(el); },
+  datCauNoi:function(el, ev){ datCauNoi(el.checked); },
+  datGiaoDien:function(el, ev){ datGiaoDien(gdA(el, 1), el); },
+  datKieuTen:function(el, ev){ datKieuTen(gdA(el, 1), el); },
+  datLaiBoCuc:function(el, ev){ datLaiBoCuc(); },
+  datPhongSo:function(el, ev){ datPhongSo(gdA(el, 1)); },
+  datXaQuanLy:function(el, ev){ datXaQuanLy(el.value, el.checked); },
+  dayCauHinh:function(el, ev){ dayCauHinh(); },
+  dongBoNgay:function(el, ev){ dongBoNgay(); },
+  dongCaiDat:function(el, ev){ dongCaiDat(); },
+  dongChoKhai:function(el, ev){ dongChoKhai(); },
+  keoCauHinh:function(el, ev){ keoCauHinh(); },
+  kiemTraKhungXem:function(el, ev){ kiemTraKhungXem(); },
+  layAnh:function(el, ev){ layAnh(+gdA(el, 1)); },
+  luuCaiDat:function(el, ev){ luuCaiDat(+gdA(el, 1)); },
+  moCayDB:function(el, ev){ moCayDB(); },
+  moChoKhai:function(el, ev){ moChoKhai(); },
+  moDonThu:function(el, ev){ moDonThu(); },
+  moThuCauNoi:function(el, ev){ moThuCauNoi(); },
+  moXoaSachMay:function(el, ev){ moXoaSachMay(); },
+  napDB:function(el, ev){ napDB(); },
+  napDL:function(el, ev){ napDL(); },
+  napExcel:function(el, ev){ napExcel(); },
+  taiBoCaiCauNoi:function(el, ev){ taiBoCaiCauNoi(); },
+  taiBoCaiCauNoi_b:function(el, ev){ taiBoCaiCauNoi(!!gdA(el, 1)); },
+  taoBoThuMuc:function(el, ev){ taoBoThuMuc(); },
+  xemCay:function(el, ev){ xemCay(); },
+  xemThu:function(el, ev){ xemThu(gdA(el, 1), gdA(el, 2)); },
+  xoaChoKhai:function(el, ev){ xoaChoKhai(gdA(el, 1)); },
+  xuatDB:function(el, ev){ xuatDB(); },
+  xuatDL:function(el, ev){ xuatDL(); },
+  xuatExcel:function(el, ev){ xuatExcel(); }
+}));

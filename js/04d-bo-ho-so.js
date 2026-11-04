@@ -25,7 +25,7 @@ function taoBoHS(){
     '<div class="hop-phu">Ví dụ: loại <b>Rủi ro</b>, khách <b>Võ Văn Cường</b>. Tạo xong gắn địa bàn, ghi chú và thêm file.</div>'+
     '<div class="o"><label>Loại</label><select id="bhs-loai">'+dsLoaiBo().map(function(x){ return '<option>'+coChuHTML(x)+'</option>'; }).join('')+'</select></div>'+
     '<div class="o"><label>Tên khách / vụ việc</label><input id="bhs-khach" placeholder="Võ Văn Cường" onkeydown="if(event.key===\'Enter\')xongTaoBo()"></div>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="xongTaoBo()">Tạo</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="f04d.xongTaoBo">Tạo</button></div>');
   setTimeout(function(){ var e = document.getElementById('bhs-khach'); if(e) e.focus(); }, 50);
 }
 function xongTaoBo(){
@@ -86,7 +86,7 @@ function veBoHS(){
   if(!(D.cauHinh.diaBan||[]).length) cay += '<div class="huong-dan">Chưa có danh mục địa bàn — khai ở ⚙ Cài đặt › Địa bàn.</div>';
   var hoi = dsHoiDoanThe();
   cay += '<div class="bhs-cay-dau" style="margin-top:8px">Hội</div>'+hoi.map(function(h){ return nut(h, {hoi:h}, ds.filter(function(b){ return b.hoi===h; }).length); }).join('')+'</div>';
-  var h = '<div class="dau-tab"><button class="nut-them" onclick="taoBoHS()"><span class="cong">+</span> Tạo bộ hồ sơ</button></div>'+
+  var h = '<div class="dau-tab"><button class="nut-them" data-lenh="f04d.taoBoHS"><span class="cong">+</span> Tạo bộ hồ sơ</button></div>'+
     '<div class="bhs-khung">'+cay+'<div class="bhs-ds">'+
     '<div class="nhan-nhom">'+loc.length+' bộ'+(L.xa||L.hoi||L.chua?' · '+coChuHTML(L.chua?'chưa gắn địa bàn':[L.xa,L.diem,L.ap,L.to?'Tổ '+L.to:'',L.hoi].filter(Boolean).join(' › '))+' <span class="xoa-loc" onclick="BO.loc={};veGhiChu()">bỏ lọc</span>':'')+'</div>'+
     (loc.length ? loc.map(function(b){
@@ -112,25 +112,25 @@ function fileBoMuc(f){
 }
 function veMotBo(b){
   var chon = function(id, ds, gtri, k){
-    return '<select onchange="suaBoHS(\''+b.id+'\',\''+k+'\',this.value)"><option value="">— chọn —</option>'+
+    return '<select data-lenh="f04d.suaBoHS" data-su="change" data-a1="'+b.id+'" data-a2="'+k+'"><option value="">— chọn —</option>'+
       ds.map(function(x){ return '<option'+(x===gtri?' selected':'')+'>'+coChuHTML(x)+'</option>'; }).join('')+'</select>';
   };
   var h = '<div class="dk-dau"><button class="nho" onclick="BO.mo=\'\';veGhiChu()">‹ Danh sách bộ</button><b>📁 '+coChuHTML(b.ten)+'</b>'+
-      '<button class="nho" onclick="moHuongDan(\'ghiChu\')">❓</button></div>'+
+      '<button class="nho" data-lenh="f04d.moHuongDan" data-a1="ghiChu">❓</button></div>'+
     '<div class="bhs-o">'+
       '<label>Loại '+chon('', dsLoaiBo(), b.loai, 'loai')+'</label>'+
       '<label>Khách / vụ việc <input value="'+coChuHTML(b.khach||'')+'" onchange="suaBoHS(\''+b.id+'\',\'khach\',this.value.trim())"></label>'+
-      '<label>Trạng thái <select onchange="suaBoHS(\''+b.id+'\',\'trangThai\',this.value)"><option value="dang"'+(b.trangThai!=='xong'?' selected':'')+'>Đang xử lý</option><option value="xong"'+(b.trangThai==='xong'?' selected':'')+'>Xong</option></select></label></div>'+
+      '<label>Trạng thái <select data-lenh="f04d.suaBoHS" data-su="change" data-a1="'+b.id+'" data-a2="trangThai"><option value="dang"'+(b.trangThai!=='xong'?' selected':'')+'>Đang xử lý</option><option value="xong"'+(b.trangThai==='xong'?' selected':'')+'>Xong</option></select></label></div>'+
     '<div class="bhs-o"><label>Xã '+chon('', dsXa(), b.xa, 'xa')+'</label>'+
       '<label>Điểm GD '+chon('', b.xa?dsDiem(b.xa):[], b.diem, 'diem')+'</label>'+
       '<label>Ấp / KP '+chon('', b.xa?dsAp(b.xa, b.diem):[], b.ap, 'ap')+'</label>'+
       '<label>Tổ '+chon('', b.xa?dsTo(b.xa, b.diem, b.ap):[], b.to, 'to')+'</label>'+
       '<label>Hội '+chon('', dsHoiDoanThe(), b.hoi, 'hoi')+'</label></div>'+
     '<div class="bhs-duong">📍 '+coChuHTML(duongBo(b)||'Chưa gắn địa bàn')+(b.hoi?' · Hội '+coChuHTML(b.hoi):'')+'</div>'+
-    '<div class="o"><label>Ghi chú tự do (tự lưu)</label><textarea class="bhs-ghi" rows="7" placeholder="Diễn biến, việc cần làm, số liệu, người liên hệ…" oninput="suaBoHS(\''+b.id+'\',\'ghiChu\',this.value)">'+coChuHTML(b.ghiChu||'')+'</textarea></div>'+
+    '<div class="o"><label>Ghi chú tự do (tự lưu)</label><textarea class="bhs-ghi" rows="7" placeholder="Diễn biến, việc cần làm, số liệu, người liên hệ…" data-lenh="f04d.suaBoHS" data-su="input" data-a1="'+b.id+'" data-a2="ghiChu">'+coChuHTML(b.ghiChu||'')+'</textarea></div>'+
     '<div class="nhan-nhom">File trong bộ ('+(b.file||[]).length+') — bấm tên để xem thử</div>'+
-    '<div class="hang-nut" style="margin:0 0 8px"><button class="nho chinh" onclick="moGanFileBo(\''+b.id+'\')">🔗 Gắn file có sẵn</button>'+
-      '<button class="nho" onclick="themFileBo(\''+b.id+'\')">📎 Thêm file mới</button></div>'+
+    '<div class="hang-nut" style="margin:0 0 8px"><button class="nho chinh" data-lenh="f04d.moGanFileBo" data-a1="'+b.id+'">🔗 Gắn file có sẵn</button>'+
+      '<button class="nho" data-lenh="f04d.themFileBo" data-a1="'+b.id+'">📎 Thêm file mới</button></div>'+
     ((b.file||[]).length ? (b.file||[]).map(function(f, i){
       var m = fileBoMuc(f), con = f.k==='rieng' || !!m;
       var ic = f.k==='scan' ? '🪪' : f.k==='ka' ? '✍' : f.k==='rieng' ? '📎' : '📄';
@@ -139,7 +139,7 @@ function veMotBo(b){
       return '<div class="dk-dong"><span>'+ic+'</span><div class="dk-ten" onclick="xemFileBo(\''+b.id+'\','+i+')"><b>'+coChuHTML(tenFileBo(f))+'</b><small>'+coChuHTML(duong)+'</small></div>'+
         '<button class="nho" onclick="goFileBo(\''+b.id+'\','+i+')" title="'+(f.k==='rieng'?'Bỏ file riêng này (vào thùng rác)':'Gỡ khỏi bộ — file gốc giữ nguyên')+'">✕</button></div>';
     }).join('') : '<div class="huong-dan">Chưa có file. Gắn file có sẵn (biên bản, bản scan HĐ lưu…) hoặc thêm file mới.</div>')+
-    '<div class="hang-nut" style="margin-top:12px"><button class="nho xau" onclick="xoaBoHS(\''+b.id+'\')">🗑 Xóa bộ</button></div>';
+    '<div class="hang-nut" style="margin-top:12px"><button class="nho xau" data-lenh="f04d.xoaBoHS" data-a1="'+b.id+'">🗑 Xóa bộ</button></div>';
   return h;
 }
 function xemFileBo(bid, i){
@@ -182,7 +182,7 @@ function moGanFileBo(bid){
     '<div class="hop-phu">Chỉ liên kết — file vẫn nằm ở tab của nó, không chép, không dời. Tìm theo tên khách, số hiệu, tên file.</div>'+
     '<div class="o"><input id="gan-tim" value="'+coChuHTML(GAN.tim)+'" placeholder="Gõ để tìm…" oninput="GAN.tim=this.value;veGanDS()"></div>'+
     '<div id="gan-ds" class="gan-ds"></div>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="xongGanFile()">Gắn các file đã tích</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="f04d.xongGanFile">Gắn các file đã tích</button></div>', true);
   veGanDS();
 }
 function dsGanDuoc(){
@@ -261,3 +261,15 @@ function boCuaFileHTML(id){
   if(!ds.length) return '';
   return '<div class="lien-quan">📁 Thuộc bộ: '+ds.map(function(b){ return '<a class="lk" onclick="doiNgan(3);D.cauHinh.tvPhan=\'bo\';BO.mo=\''+b.id+'\';veGhiChu()">'+coChuHTML(b.ten)+'</a>'; }).join(', ')+'</div>';
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f04d.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f04d', gdLenh({
+  moGanFileBo:function(el, ev){ moGanFileBo(gdA(el, 1)); },
+  moHuongDan:function(el, ev){ moHuongDan(gdA(el, 1)); },
+  suaBoHS:function(el, ev){ suaBoHS(gdA(el, 1), gdA(el, 2), el.value); },
+  taoBoHS:function(el, ev){ taoBoHS(); },
+  themFileBo:function(el, ev){ themFileBo(gdA(el, 1)); },
+  xoaBoHS:function(el, ev){ xoaBoHS(gdA(el, 1)); },
+  xongGanFile:function(el, ev){ xongGanFile(); },
+  xongTaoBo:function(el, ev){ xongTaoBo(); }
+}));

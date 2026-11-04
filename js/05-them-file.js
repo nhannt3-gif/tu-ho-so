@@ -31,12 +31,12 @@ function veThem(){
       '<div class="can-cu">'+coChuHTML(c.canCu)+'</div>'+
       (c.canhBao ? '<div class="cb-lech">'+c.canhBao+'</div>' : '')+
       '<div class="hang-nut">'+
-        '<button class="nho" onclick="deKhaiSau(\''+c.id+'\')" title="Chưa quyết xếp vào đâu — để lại khay chờ">⏳ Để khai sau</button>'+
-        '<button class="nho chinh" onclick="duyet(\''+c.id+'\')">Duyệt</button>'+
-        '<button class="nho" onclick="suaCho(\''+c.id+'\')">Chi tiết / Sửa</button>'+
-        '<button class="nho" onclick="xemCho(\''+c.id+'\')">Xem</button>'+
-        (coTheDocLai(c) ? '<button class="nho" onclick="docLaiGoiY(\''+c.id+'\')" title="Đọc số hiệu, ngày, trích yếu và so sánh với tên hiện tại">🔍 Đọc lại &amp; gợi ý tên</button>' : '')+
-        '<button class="nho xau" onclick="boCho(\''+c.id+'\')">Bỏ</button>'+
+        '<button class="nho" data-lenh="f05.deKhaiSau" data-a1="'+c.id+'" title="Chưa quyết xếp vào đâu — để lại khay chờ">⏳ Để khai sau</button>'+
+        '<button class="nho chinh" data-lenh="f05.duyet" data-a1="'+c.id+'">Duyệt</button>'+
+        '<button class="nho" data-lenh="f05.suaCho" data-a1="'+c.id+'">Chi tiết / Sửa</button>'+
+        '<button class="nho" data-lenh="f05.xemCho" data-a1="'+c.id+'">Xem</button>'+
+        (coTheDocLai(c) ? '<button class="nho" data-lenh="f05.docLaiGoiY" data-a1="'+c.id+'" title="Đọc số hiệu, ngày, trích yếu và so sánh với tên hiện tại">🔍 Đọc lại &amp; gợi ý tên</button>' : '')+
+        '<button class="nho xau" data-lenh="f05.boCho" data-a1="'+c.id+'">Bỏ</button>'+
       '</div></div>';
   }).join('');
 }
@@ -142,7 +142,7 @@ function baoTrung(ds){
       (x.o && !dungO ? '<button class="nho chinh" onclick="chuyenVaoO('+i+')">Chuyển vào ô '+kyVN(x.o.ky)+' · '+
         coChuHTML(x.o.ten)+' · '+coChuHTML(x.o.pham)+'</button>' : '')+
       (D.cho.indexOf(m)>=0 ? '<button class="nho" onclick="dongHop();doiNgan(6)">Mở khay chờ</button>'
-                           : '<button class="nho" onclick="dongHop();moXem(\''+m.id+'\')">Mở</button>')+
+                           : '<button class="nho" data-lenh="f05.moXem" data-dong="1" data-a1="'+m.id+'">Mở</button>')+
       '</div></div>';
   });
   moHop(h+'<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button></div>', true);
@@ -386,8 +386,8 @@ function hoiTrungBanCuoi(m, tiep){
     '<br>Bản đang có: <b>'+coChuHTML(cu[0].tenMoi||cu[0].tenCu||'')+'</b></div>'+
     '<div class="hang-nut">'+
       '<button class="nho" data-lenh="hop.dong">Thôi</button>'+
-      '<button class="nho" onclick="dongHop();thucHienDuyet(\''+m.id+'\',false)">Giữ cả hai</button>'+
-      '<button class="nho chinh" onclick="dongHop();thucHienDuyet(\''+m.id+'\',true)">Thay bản cũ</button>'+
+      '<button class="nho" data-lenh="f05.thucHienDuyet" data-dong="1" data-a1="'+m.id+'" data-a2="">Giữ cả hai</button>'+
+      '<button class="nho chinh" data-lenh="f05.thucHienDuyet" data-dong="1" data-a1="'+m.id+'" data-a2="1">Thay bản cũ</button>'+
     '</div>');
 }
 function thucHienDuyet(id, thay){
@@ -983,7 +983,7 @@ function veDieuKhien(n){
       ' onclick="datChe2(\'' +n+ '\',\'trang\')" title="Vừa trang">⊡</button>'+
     '<span class="ngan-cach"></span>'+
     '<button onclick="chepChuTrang(\'' +n+ '\')" title="Chép chữ cả trang đang xem (bôi đen từng đoạn rồi Ctrl+C cũng được). Trang ảnh thì đọc chữ (OCR)">📋</button>'+
-    '<button onclick="moBangMay()" title="Mở bằng trình xem của máy">↗</button>';
+    '<button data-lenh="f05.moBangMay" title="Mở bằng trình xem của máy">↗</button>';
 }
 function diTrang(n, h){
   var S = XEM[n];
@@ -1378,3 +1378,16 @@ function inTrangChon(ds){
     console.warn(e); baoLoi('Không tách được trang để in.');
   });
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f05.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f05', gdLenh({
+  boCho:function(el, ev){ boCho(gdA(el, 1)); },
+  deKhaiSau:function(el, ev){ deKhaiSau(gdA(el, 1)); },
+  docLaiGoiY:function(el, ev){ docLaiGoiY(gdA(el, 1)); },
+  duyet:function(el, ev){ duyet(gdA(el, 1)); },
+  moBangMay:function(el, ev){ moBangMay(); },
+  moXem:function(el, ev){ moXem(gdA(el, 1)); },
+  suaCho:function(el, ev){ suaCho(gdA(el, 1)); },
+  thucHienDuyet:function(el, ev){ thucHienDuyet(gdA(el, 1), !!gdA(el, 2)); },
+  xemCho:function(el, ev){ xemCho(gdA(el, 1)); }
+}));

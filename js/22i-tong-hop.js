@@ -343,7 +343,7 @@ function veTongHop(){
     var B = TK.B, ct = {};
     (TK.K.hs||[]).forEach(function(o){ if(o.ku && o.ct) ct[o.ct] = 1; });
     e.innerHTML = slTabConHTML()+kyGhiHTML({ky:C.ky})+
-      (TK.K.thieuBang ? '<div class="sl-bao vang">⚠ Bảng số liệu chưa có trên máy này (lưu trên Drive, chưa tải về).<div class="hang-nut"><button class="nho chinh" onclick="toNoiDrive()">☁ Nối Drive và tải</button><button class="nho" onclick="toThuLai()">⟳ Thử lại</button></div></div>' : '')+
+      (TK.K.thieuBang ? '<div class="sl-bao vang">⚠ Bảng số liệu chưa có trên máy này (lưu trên Drive, chưa tải về).<div class="hang-nut"><button class="nho chinh" data-lenh="f22i.toNoiDrive">☁ Nối Drive và tải</button><button class="nho" data-lenh="f22i.toThuLai">⟳ Thử lại</button></div></div>' : '')+
       /* 3.157 (anh chốt — kiểu lọc SỐ LIỆU): ① Nguồn vốn (chip, lọc lớn nhất) → ② địa bàn (cây chung, hàng chip Điểm GD · Hội · Tổ) → ③ Chương trình; danh sách báo cáo 1 dòng / báo cáo */
       '<div class="th-loc-hang"><div class="th-loc-1"><div class="th-loc th-nguon"><span class="pv-nhan">Nguồn vốn</span>'+[['', 'Tất cả'], ['1', 'Trung ương'], ['2', 'Địa phương']].map(function(x){ return '<button class="to-chip'+((C.nguon||'')===x[0] ? ' bat' : '')+'" onclick="thCH().nguon=\''+x[0]+'\';luu();veTongHop()">'+x[1]+'</button>'; }).join('')+'</div>'+
       '<div class="th-loc th-ct"><span class="pv-nhan">Chương trình</span><select onchange="thCH().ct=this.value;luu();veTongHop()"><option value="">Tất cả chương trình</option>'+Object.keys(ct).sort().map(function(k){ return '<option value="'+k+'"'+(C.ct===k ? ' selected' : '')+'>'+coChuHTML(ctNgan(k))+'</option>'; }).join('')+'</select>'+
@@ -352,23 +352,23 @@ function veTongHop(){
 
       /* 3.164 (anh chốt): danh sách 3 nhóm (Chuẩn TW / LEN_31 / Tính từ Mẫu 31), nhãn cấp, chọn 1 báo cáo (◉) → xem ngay ở khung phải; bỏ nút Xem + hộp xem, bỏ in nhiều báo cáo 1 lần */
       /* 3.393 (BAN_GIAO_TK3_2710 mục 3.3 — khuôn Sao kê 2 màn): màn 1 chọn báo cáo (lưới nhóm) · màn 2 xem (hàng thao tác + khung trải ngang, đổi lọc tự vẽ lại) */
-      (thCH().man==='xem' ? '<div class="sk-thao th-thao"><button class="nho" onclick="thVeDS()" title="Về danh sách báo cáo">← Danh sách</button>'+thChonHTML()+'<span class="sk-gian"></span><span id="th-xem-nut"></span></div>'+
+      (thCH().man==='xem' ? '<div class="sk-thao th-thao"><button class="nho" data-lenh="f22i.thVeDS" title="Về danh sách báo cáo">← Danh sách</button>'+thChonHTML()+'<span class="sk-gian"></span><span id="th-xem-nut"></span></div>'+
         '<iframe id="th-xem-khung" class="sk-xem-khung th-khung" title="Xem trước"></iframe>'
       : '<div class="sk-luoi sk-luoi2 th-luoi" id="th-ds">'+thDsHTML(B, C)+'</div>');
     pvVeCay('th');
-  }).catch(function(er){ e.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" onclick="toThuLai()">⟳ Thử lại</button></div>'; });
+  }).catch(function(er){ e.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" data-lenh="f22i.toThuLai">⟳ Thử lại</button></div>'; });
 }
 function thDsHTML(B, C){   /* 3.393: lưới nhóm như Sao kê — tên ngắn + nhãn cấp, chưa nạp ⚠ mờ, biểu không chia được phạm vi đang chọn mờ (rê chuột xem lý do) */
   var chon = thChon();
   return TH_NHOM.map(function(n){ return '<div class="sk-nhom"><div class="sk-nhom-ten th-nhom-ten">'+n[1]+'</div>'+TH_BC.filter(function(b){ return b.nhom===n[0]; }).map(function(b){
     var co = b.can.some(function(L){ return kcBang(B, L); }), sau = thSau(b, C);
     var tit = [b.ten, co ? '' : 'Chưa nạp '+b.can.map(function(L){ return slLoai(L).ten; }).join(' / '), !sau.length ? '' : b.toi && sau.some(function(v){ return ['xa','diem','hoi','to'].indexOf(v)>=0; }) ? 'Biểu này chỉ chia tới '+b.toi+' — phạm vi đang chọn sâu hơn' : 'Biểu này không lọc được '+sau.map(function(v){ return v==='ct' ? 'chương trình' : 'nguồn vốn'; }).join(', ')].filter(Boolean).join(' · ');
-    return '<button class="sk-bc2 th-bc2'+(co ? '' : ' th-mo')+(sau.length ? ' th-mo2' : '')+(b.k===chon ? ' chon' : '')+'" onclick="thChonBC(\''+b.k+'\')" title="'+coChuHTML(tit)+'"><span>'+coChuHTML(b.ten.split(' — ')[0])+(co ? '' : ' <span class="th-thieu">⚠</span>')+'</span><small class="th-cap">'+coChuHTML(b.cap)+'</small></button>'; }).join('')+'</div>'; }).join('')+
+    return '<button class="sk-bc2 th-bc2'+(co ? '' : ' th-mo')+(sau.length ? ' th-mo2' : '')+(b.k===chon ? ' chon' : '')+'" data-lenh="f22i.thChonBC" data-a1="'+b.k+'" title="'+coChuHTML(tit)+'"><span>'+coChuHTML(b.ten.split(' — ')[0])+(co ? '' : ' <span class="th-thieu">⚠</span>')+'</span><small class="th-cap">'+coChuHTML(b.cap)+'</small></button>'; }).join('')+'</div>'; }).join('')+
     (typeof btNutHTML==='function' ? '<div class="sk-nhom bt-khoi">'+btNutHTML()+'</div>' : '');
 }
 function thChonHTML(){   /* màn xem: ô sổ đổi báo cáo (nhóm theo Chuẩn TW · LEN_31 · Tính từ Mẫu 31) */
   var chon = thChon(), B = TH_K && TH_K.B;
-  return '<select class="sk-chon" title="Đổi báo cáo" onchange="thChonBC(this.value)">'+TH_NHOM.map(function(n){ return '<optgroup label="'+coChuHTML(n[1])+'">'+TH_BC.filter(function(b){ return b.nhom===n[0]; }).map(function(b){
+  return '<select class="sk-chon" title="Đổi báo cáo" data-lenh="f22i.thChonBC_v" data-su="change">'+TH_NHOM.map(function(n){ return '<optgroup label="'+coChuHTML(n[1])+'">'+TH_BC.filter(function(b){ return b.nhom===n[0]; }).map(function(b){
     var co = !B || b.can.some(function(L){ return kcBang(B, L); });
     return '<option value="'+b.k+'"'+(b.k===chon ? ' selected' : '')+'>'+coChuHTML(b.ten.split(' — ')[0])+' · '+coChuHTML(b.cap)+(co ? '' : ' ⚠')+'</option>'; }).join('')+'</optgroup>'; }).join('')+'</select>';
 }
@@ -593,3 +593,12 @@ function thExcel(){
    tổng hợp A4 ngang, danh sách A4 dọc; cuối báo cáo ghi "PGD NHCSXH GÒ DẦU", không ký; xuất PDF = In → Lưu PDF ---------- */
 function bcCSS(ngang){ return TO_IN_CSS.replace('A4 portrait', ngang ? 'A4 landscape' : 'A4 portrait')+(ngang ? 'body{font-size:8.5pt}.th-bang th,.th-bang td{padding:1px 2px}' : ''); }
 function bcKy(){ return ''; }   /* 3.140.3 (anh chốt): bỏ dòng "PGD NHCSXH GÒ DẦU" cuối báo cáo in (đã có góc trên trái, 3.139); Excel vẫn giữ dòng cuối (Excel không có đầu trang) */
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22i.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f22i', gdLenh({
+  thChonBC:function(el, ev){ thChonBC(gdA(el, 1)); },
+  thChonBC_v:function(el, ev){ thChonBC(el.value); },
+  thVeDS:function(el, ev){ thVeDS(); },
+  toNoiDrive:function(el, ev){ toNoiDrive(); },
+  toThuLai:function(el, ev){ toThuLai(); }
+}));

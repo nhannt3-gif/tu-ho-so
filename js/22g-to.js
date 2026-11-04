@@ -84,7 +84,7 @@ function kyChungVe(){
   var ds = kyChungDs(); if(!ds.length){ o.innerHTML = ''; return; }
   var cur = kyChungLay() || toCH().ky || ds[0].ky, kc = cur; if(!ds.some(function(x){ return x.ky===cur; })) cur = ds[0].ky;
   var canh = kc!==cur ? slKyChu(kc)+' chưa có số liệu' : SL_CHIP.lech && slChipHTML() ? slKyChu(cur)+' chưa có số liệu cho tab này' : '';   /* 3.163: ⚠ khi tháng chọn chưa có số liệu */
-  o.innerHTML = (canh ? '<span class="ky-canh" title="'+coChuHTML(canh)+'">⚠</span>' : '')+'<label title="Kỳ số liệu dùng chung cho mọi tab">📅 <select id="ky-chung-o" onchange="kyChungDoi(this.value)">'+toKyOpt(ds, cur)+'</select></label>'+
+  o.innerHTML = (canh ? '<span class="ky-canh" title="'+coChuHTML(canh)+'">⚠</span>' : '')+'<label title="Kỳ số liệu dùng chung cho mọi tab">📅 <select id="ky-chung-o" data-lenh="f22g.kyChungDoi" data-su="change">'+toKyOpt(ds, cur)+'</select></label>'+
     '<button class="ky-chung-lm" onclick="kyChungDoi(document.getElementById(\'ky-chung-o\').value, 1)" title="⟳ Đọc lại số liệu kỳ này (khi Drive vừa đổi ở máy khác)">⟳</button>';
 }
 function kyChungDoi(v, lamMoi){
@@ -99,7 +99,7 @@ function kyGhiHTML(K){   /* tab đang dùng kỳ khác kỳ chung (kỳ chung ch
   SL_CHIP = {tab:D.cauHinh.slTab, h:'', lech:false};
   var kc = kyChungLay(); if(!K || !K.ky || !kc || K.ky===kc){ slChipVe(); return ''; }
   SL_CHIP.lech = true;
-  slChipThem('<button class="sl-chip vang" onclick="slMoNapKy(\''+kc+'\')" title="'+coChuHTML(slKyChu(kc)+' chưa có số liệu cho tab này — đang dùng '+slKyChu(K.ky)+'. Bấm để mở 📥 Nạp & KT tháng '+kyVN(slThang(kc)))+'">⚠ Dùng '+coChuHTML(String(K.ky).length>7 ? ngayVNsl(K.ky).slice(0, 5) : kyVN(K.ky))+'</button>');
+  slChipThem('<button class="sl-chip vang" data-lenh="f22g.slMoNapKy" data-a1="'+kc+'" title="'+coChuHTML(slKyChu(kc)+' chưa có số liệu cho tab này — đang dùng '+slKyChu(K.ky)+'. Bấm để mở 📥 Nạp & KT tháng '+kyVN(slThang(kc)))+'">⚠ Dùng '+coChuHTML(String(K.ky).length>7 ? ngayVNsl(K.ky).slice(0, 5) : kyVN(K.ky))+'</button>');
   return '';
 }
 /* 3.163: chip báo trạng thái số liệu (thay các hàng vàng riêng) — gom theo tab, vẽ vào chỗ .pv-chip-o của cây địa bàn */
@@ -480,3 +480,9 @@ function soTr(n, giu0){ var v = Math.round((n||0)/1e4)/100; if(!v) return giu0 ?
 function soTrDau(n){ var v = Math.round((n||0)/1e4)/100; return v ? (v>0 ? '+' : '−')+Math.abs(v).toLocaleString('vi-VN', {minimumFractionDigits:2, maximumFractionDigits:2}) : '0'; }
 function toNgay31(ky){ var e = SLM.bang[slKhoa('hstd', ky)]; return e && e.ngay ? e.ngay : (String(ky).length>7 ? ky : tdnCuoiKy(String(ky).slice(0, 7))); }   /* ngày số liệu thật của Mẫu 31 kỳ đó */
 function toNgayDu(ky){ return ngayVNsl(toNgay31(ky)); }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22g.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f22g', gdLenh({
+  kyChungDoi:function(el, ev){ kyChungDoi(el.value); },
+  slMoNapKy:function(el, ev){ slMoNapKy(gdA(el, 1)); }
+}));

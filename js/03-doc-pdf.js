@@ -532,9 +532,9 @@ function veTenCauTruc(){
     return '<div class="hang-nut" data-k="'+k+'" style="margin-bottom:6px;align-items:center">'+
       '<label style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">'+
         '<input type="checkbox" data-chk'+(bat?' checked':'')+'/> '+TEN_CT_NHAN[k]+'</label>'+
-      '<button class="nho" style="flex:0 0 auto" onclick="doiThuTuTen(this,-1)"'+
+      '<button class="nho" style="flex:0 0 auto" data-lenh="f03.doiThuTuTen" data-a1="-1"'+
         (i===0?' disabled':'')+'>↑</button>'+
-      '<button class="nho" style="flex:0 0 auto" onclick="doiThuTuTen(this,1)"'+
+      '<button class="nho" style="flex:0 0 auto" data-lenh="f03.doiThuTuTen" data-a1="1"'+
         (i===ds.length-1?' disabled':'')+'>↓</button></div>';
   }).join('');
 }
@@ -631,3 +631,8 @@ function thuMucCua(m){
   if(m.ten && m.huongDan!==undefined) return g+' / Biểu mẫu / '+(m.nhom||'Dùng chung');
   return g+' / Văn bản / '+(m.ngay||'').slice(0,4);
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f03.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f03', gdLenh({
+  doiThuTuTen:function(el, ev){ doiThuTuTen(el, +gdA(el, 1)); }
+}));

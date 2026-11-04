@@ -54,7 +54,7 @@ const fs=require('fs'), path=require('path');
    const C = ktCH(); C.ky='2026-08'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    await w(300); const bcChip = () => [...document.querySelectorAll('.pv-chip-o .sl-chip, #tr7 .kt-khoi-bc .sl-chip')].filter(x=>/BC043[78]/.test(x.textContent));
    ok('3.163: chip BC0437 ✓ / BC0438 ✓ cuối hàng Xã (3.334: cuối thanh khối KTGS)', bcChip().length===2 && bcChip().every(x=>/✓/.test(x.textContent) && x.classList.contains('xanh')), bcChip().map(x=>x.textContent).join(' | '));
-   ok('3.144 / 3.149: tab KTGS không còn khối nạp BC; chip BC bấm → tab Nạp & KT', !document.querySelector('#tr7 .kt-nap') && bcChip().every(x=>/moNapSL/.test(x.getAttribute('onclick'))));
+   ok('3.144 / 3.149: tab KTGS không còn khối nạp BC; chip BC bấm → tab Nạp & KT', !document.querySelector('#tr7 .kt-nap') && bcChip().every(x=>/moNapSL/.test(((x.getAttribute('onclick')||'')+' '+(x.getAttribute('data-lenh')||'')+' '+[1,2,3,4].map(i=>x.getAttribute('data-a'+i)||'').join(' ')))));
    (D.cauHinh.slMo = D.cauHinh.slMo || {}).K = true; SL_KY = '2026-08'; slDoiTab('nap'); await w(600);   /* 3.156: nhóm Ⓚ KTGS trong ma trận chính */
    const mt = [...document.querySelectorAll('#tr7 .sl-bang tbody tr')].filter(r=>/BC043[78]/.test(r.textContent));
    ok('ma trận nhóm Ⓚ: 2 dòng BC0437 / BC0438, ô có file T7, T8', mt.length===2 && mt.reduce((n, r)=>n+r.querySelectorAll('.sl-o.du').length, 0)>=3, mt.length+' dòng · '+mt.reduce((n, r)=>n+r.querySelectorAll('.sl-o.du').length, 0)+' ô có file');

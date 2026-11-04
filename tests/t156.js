@@ -30,7 +30,7 @@ const fs=require('fs'), path=require('path');
    const toHD = pvLuaChon(T, C, 'to', true);
    ok('rồi chọn Điểm GD: giữ Hội; Tổ chỉ của điểm + Hội; 📍 Xã › Điểm · Hội', C.hoi===hoi && toHD.every(x=>T[x.k].khoaDiem===diem && String(T[x.k].dv)===hoi) && /›.*·/.test(dan().textContent), dan().textContent);
    /* quay lại PGD bằng hàng Xã */
-   const sel = document.querySelector('#to-cay .pv-to-ds'); sel.value = toHD[0].k; sel.dispatchEvent(new Event('change')); await w(200);
+   const sel = document.querySelector('#to-cay .pv-to-ds'); sel.value = toHD[0].k; sel.dispatchEvent(new Event('change', {bubbles:true})); await w(200);
    ok('chọn tổ ở ô sổ xuống → 📍 thêm "Tổ …", chip tổ xanh', C.to===toHD[0].k && /Tổ /.test(dan().textContent) && !!document.querySelector('#to-cay [data-cap="to"] .to-chip.bat'));
    [...document.querySelectorAll('#to-cay .pv-hang1 .to-chip')].find(x=>x.textContent==='PGD').click(); await w(200);
    ok('bấm PGD ở hàng Xã → quay về Toàn PGD (bỏ điểm / tổ), PGD xanh', !C.xa && !C.diem && !C.to && /Toàn PGD/.test(dan().textContent) && document.querySelector('#to-cay .pv-hang1 .to-chip.bat').textContent==='PGD');

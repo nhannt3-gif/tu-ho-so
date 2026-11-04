@@ -4,7 +4,7 @@ function veVanBan(){
   tinhTrungSH();   /* 3.77 */
   document.getElementById('nam-vb').innerHTML =
     veDauTab('vanBan', {kho:D.vanBan, 
-      themPhu:'<button onclick="lapChiMuc()" title="Lập chỉ mục: đi hết thư mục Tủ hồ sơ, file nào chưa có trong app thì xếp vào đúng tab">🗂 Lập chỉ mục</button>'+(typeof vbnNut==='function' ? vbnNut() : ''),   /* 3.438: 🏷 gắn tag nguồn văn bản cũ (js/91) */
+      themPhu:'<button data-lenh="f04c.lapChiMuc" title="Lập chỉ mục: đi hết thư mục Tủ hồ sơ, file nào chưa có trong app thì xếp vào đúng tab">🗂 Lập chỉ mục</button>'+(typeof vbnNut==='function' ? vbnNut() : ''),   /* 3.438: 🏷 gắn tag nguồn văn bản cũ (js/91) */
                         hamThem:"TAB_TRUOC=1;doiNgan(6);THEM_TU=1;document.getElementById('chon-file').click()"});   /* 3.40: nhớ đúng tab Văn bản — trước sang khay chờ trước nên giữ tab cũ (vd Tháng) → file vào Dữ liệu tháng */
   document.getElementById('loc-vb').innerHTML = '';
 
@@ -85,13 +85,13 @@ function veCay(them){
       return (b.tenMoi||'').localeCompare(a.tenMoi||''); });
     var mo = moThuMuc[id] || !!tuKhoa;
     h += '<div class="tm'+(mo?' mo':'')+'" id="tm-'+id+'">'+
-      '<div class="tm-dau" onclick="moTM(\''+id+'\')">'+
+      '<div class="tm-dau" data-lenh="f04c.moTM" data-a1="'+id+'">'+
         '<span class="mui">›</span>'+
         '<span class="ten">'+coChuHTML(d)+'</span>'+
         '<span class="dem">'+ds.length+'</span>'+
       '</div><div class="tm-than">'+
       ds.map(function(m){
-        return '<div class="tm-file" onclick="moXem(\''+m.id+'\')">'+
+        return '<div class="tm-file" data-lenh="f04c.moXem" data-a1="'+m.id+'">'+
           '<span class="ico">'+(m.nhom==='ghiChu'?'🖼':'📄')+'</span>'+
           '<span>'+toSang(m.tenMoi||m.tenCu||'', tuKhoa)+'</span></div>';
       }).join('')+'</div></div>';
@@ -198,11 +198,11 @@ function moChonXa(){
     '<div class="hop-phu">Bỏ tick xã anh không quản lý cho bảng gọn. Bấm tên xã trên bảng vẫn sổ ra điểm giao dịch như thường.</div>'+
     '<div class="chon-xa">'+xas.map(function(x){
       return '<label class="dt-dong"><input type="checkbox" class="cx-o" value="'+coChuHTML(x)+'"'+(xaHien(x)?' checked':'')+
-        ' onchange="batXa(this.value, this.checked)"> '+coChuHTML(x)+
+        ' data-lenh="f04c.batXa" data-su="change"> '+coChuHTML(x)+
         '<small>'+diemCuaXa(x).length+' điểm giao dịch</small></label>';
     }).join('')+'</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="hetXa(true)">Hiện hết</button>'+
-    '<button class="nho" onclick="hetXa(false)">Ẩn hết</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="f04c.hetXa" data-a1="1">Hiện hết</button>'+
+    '<button class="nho" data-lenh="f04c.hetXa" data-a1="">Ẩn hết</button>'+
     '<button class="nho chinh" data-lenh="hop.dong">Xong</button></div>');
 }
 function hetXa(hien){
@@ -254,7 +254,7 @@ function moThietLapBC(ma){
   };
   var nut = function(id, ds, dang){
     return '<div class="co-chu" id="'+id+'">'+ds.map(function(x){
-      return '<button'+(dang===x[0]?' class="bat"':'')+' data-v="'+x[0]+'" onclick="chonMotNut(this)">'+x[1]+'</button>';
+      return '<button'+(dang===x[0]?' class="bat"':'')+' data-v="'+x[0]+'" data-lenh="f04c.chonMotNut">'+x[1]+'</button>';
     }).join('')+'</div>';
   };
   var so = D.duLieu.filter(function(x){ return (x.maLoai||'')===ma; }).length;
@@ -272,8 +272,8 @@ function moThietLapBC(ma){
     '<div class="o"><label>Chu kỳ</label>'+
       nut('tl-ky', [['thang','Hằng tháng'],['ngay','Theo ngày giao dịch'],['quy','Quý'],['sau','6 tháng'],['nam','Năm']], ck)+'</div>'+
     '<label class="tl-chon"><input type="checkbox" id="tl-xls"'+(m.coExcel?' checked':'')+'> Có thêm dòng bản Excel cấp PGD</label>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop();veLaiCDNeuCan()">Thôi</button>'+
-    '<button class="nho chinh" onclick="luuThietLapBC(\''+ma+'\')">Lưu</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="f04c.veLaiCDNeuCan" data-dong="1">Thôi</button>'+
+    '<button class="nho chinh" data-lenh="f04c.luuThietLapBC" data-a1="'+ma+'">Lưu</button></div>', true);
 }
 function luuThietLapBC(ma){
   var m = (D.cauHinh.mauBaoCao||[]).find(function(x){ return x.ma===ma; }); if(!m) return;
@@ -305,15 +305,15 @@ function moQuetDoiTen(ma){
   moHop('<div class="hop-tit">Quét đổi tên file</div>'+
     '<div class="hop-phu">'+ds.length+' file có tên khác chuẩn hiện tại. Tích file muốn đổi. '+
     'Đổi cả tên thật trên Drive, xong vẫn hoàn tác được.</div>'+
-    '<div class="qdt-nut"><button class="nho" onclick="tickDoiTen(true)">Chọn tất cả</button>'+
-    '<button class="nho" onclick="tickDoiTen(false)">Bỏ chọn</button>'+
+    '<div class="qdt-nut"><button class="nho" data-lenh="f04c.tickDoiTen" data-a1="1">Chọn tất cả</button>'+
+    '<button class="nho" data-lenh="f04c.tickDoiTen" data-a1="">Bỏ chọn</button>'+
     '<span id="qdt-dem" class="bdc-chu"></span></div>'+
     '<div class="qdt-ds" id="qdt-ds">'+ds.map(function(x,i){
-      return '<label class="rac-dong"><input type="checkbox" class="qdt-o" value="'+x.m.id+'" onchange="demDoiTen()">'+
+      return '<label class="rac-dong"><input type="checkbox" class="qdt-o" value="'+x.m.id+'" data-lenh="f04c.demDoiTen" data-su="change">'+
         '<span class="rac-ten"><s>'+coChuHTML(x.cu)+'</s><small>→ <b>'+coChuHTML(x.moi)+'</b></small></span></label>';
     }).join('')+'</div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-    '<button class="nho chinh" onclick="chayDoiTen()">Đổi tên file đã tích</button></div>', true);
+    '<button class="nho chinh" data-lenh="f04c.chayDoiTen">Đổi tên file đã tích</button></div>', true);
   demDoiTen();
 }
 function tickDoiTen(b){
@@ -372,10 +372,10 @@ function chuyenBaoCao(ma, huong){
 function bangDoiChieuHTML(){
   if(D.cauHinh.anBangDC)
     return '<div class="bdc-gon"><b>📊 Bảng đối chiếu</b> đang thu gọn '+
-      '<button class="nho" onclick="gonBang()">Mở ra</button></div>';
+      '<button class="nho" data-lenh="f04c.gonBang">Mở ra</button></div>';
   var mau = D.cauHinh.mauBaoCao || [];
   if(!mau.length) return '<div class="bdc-gon">Chưa khai danh mục báo cáo — bấm '+
-    '<button class="nho" onclick="suaDanhMuc()">Sửa danh mục</button> để thêm.</div>';
+    '<button class="nho" data-lenh="f04c.suaDanhMuc">Sửa danh mục</button> để thêm.</div>';
   var ky = kyBang(), xas = dsDonVi('xa').filter(xaHien), tatXa = dsDonVi('xa'), sua = !!D.cauHinh.suaDM;
 
   /* ---- cột ---- 3.31: nút cấp Toàn PGD / Xã, phường / Điểm giao dịch */
@@ -392,30 +392,30 @@ function bangDoiChieuHTML(){
   var h = '<div class="bdc"><div class="bdc-dau"><div class="bdc-hang">'+
     '<b>📊 Bộ dữ liệu</b>'+
     '<span class="bdc-ky-chon">'+
-      '<button class="nho" onclick="doiKyBang(-1)" title="Kỳ trước">‹</button>'+
+      '<button class="nho" data-lenh="f04c.doiKyBang" data-a1="-1" title="Kỳ trước">‹</button>'+
       '<b class="bdc-ky-ten">'+kyVN(ky)+'</b>'+
-      '<button class="nho" onclick="doiKyBang(1)" title="Kỳ sau">›</button>'+
+      '<button class="nho" data-lenh="f04c.doiKyBang" data-a1="1" title="Kỳ sau">›</button>'+
     '</span>'+
     /* 3.31 (mục 11a, 11b) */
-    '<button class="nho'+(laKyChot(ky)?' bat':'')+'" onclick="batChotKy(\''+ky+'\')" title="'+
+    '<button class="nho'+(laKyChot(ky)?' bat':'')+'" data-lenh="f04c.batChotKy" data-a1="'+ky+'" title="'+
       (laKyChot(ky)?'Kỳ đã chốt — bấm để mở chốt':'Chốt kỳ khi đã đủ bộ — thêm file sau đó phải xác nhận')+'">'+
       (laKyChot(ky)?'🔒 Đã chốt':'Chốt kỳ '+kyVN(ky))+'</button>'+
-    '<button class="nho" onclick="moSoSanhKy(\''+ky+'\')" title="Chép 2 kỳ sang AI để so sánh">⇄ So 2 kỳ</button>'+
-    '<button class="nho bdc-gon-nut" onclick="gonBang()" title="Thu gọn bảng">▴</button></div><div class="bdc-hang">'+
-    '<button class="nho" onclick="moChonXa()" title="Chọn xã, phường hiện trên bảng">👁 Xã ('+xas.length+'/'+tatXa.length+')</button>'+
+    '<button class="nho" data-lenh="f04c.moSoSanhKy" data-a1="'+ky+'" title="Chép 2 kỳ sang AI để so sánh">⇄ So 2 kỳ</button>'+
+    '<button class="nho bdc-gon-nut" data-lenh="f04c.gonBang" title="Thu gọn bảng">▴</button></div><div class="bdc-hang">'+
+    '<button class="nho" data-lenh="f04c.moChonXa" title="Chọn xã, phường hiện trên bảng">👁 Xã ('+xas.length+'/'+tatXa.length+')</button>'+
     /* 3.31: bỏ 3 nút Theo kỳ/Theo đơn vị/Dạng cây (trùng thanh kiểu xem bên dưới) → 3 nút chọn cấp */
     '<span class="bdc-kieu bdc-cap">'+dsCap().map(function(x){
-      return '<button class="nho'+(capMT===x[0]?' bat':'')+'" onclick="datCap(\''+x[0]+'\')">'+x[1]+'</button>';
+      return '<button class="nho'+(capMT===x[0]?' bat':'')+'" data-lenh="f04c.datCap" data-a1="'+x[0]+'">'+x[1]+'</button>';
     }).join('')+'</span>'+
-    '<button class="nho'+(sua?' bat':'')+'" onclick="suaDanhMuc()" title="Thêm, bớt, đổi thứ tự, sửa tên báo cáo">✎ Danh mục</button>'+
-    (sua?'<button class="nho" onclick="moQuetDoiTen()" title="Đổi tên các file đã lưu cho khớp chuẩn hiện tại">🔤 Quét đổi tên</button>':'')+
+    '<button class="nho'+(sua?' bat':'')+'" data-lenh="f04c.suaDanhMuc" title="Thêm, bớt, đổi thứ tự, sửa tên báo cáo">✎ Danh mục</button>'+
+    (sua?'<button class="nho" data-lenh="f04c.moQuetDoiTen" title="Đổi tên các file đã lưu cho khớp chuẩn hiện tại">🔤 Quét đổi tên</button>':'')+
     '</div></div>';
 
   h += '<div class="bdc-cuon"><table class="bdc-bang"><thead><tr>'+
     '<th class="bdc-goc">Báo cáo</th>'+
     cot.map(function(c){
       if(c.lop.indexOf('xa')===0)
-        return '<th class="'+c.lop+(laXaQuanLy(c.xa)?'':' ngoai-db')+'" onclick="moXa(\''+c.xa+'\')" title="'+coChuHTML(c.xa)+
+        return '<th class="'+c.lop+(laXaQuanLy(c.xa)?'':' ngoai-db')+'" data-lenh="f04c.moXa" data-a1="'+c.xa+'" title="'+coChuHTML(c.xa)+
           (laXaQuanLy(c.xa)?'':' — ngoài địa bàn quản lý, không tính thiếu')+' — bấm để '+
           (c.lop.indexOf(' mo')>0?'gộp lại':'tách '+c.co+' điểm giao dịch')+'">'+
           (c.lop.indexOf(' mo')>0?'▾ ':'▸ ')+coChuHTML(c.ten)+'</th>';
@@ -430,7 +430,7 @@ function bangDoiChieuHTML(){
       var o = oDoiChieu(ky, m.ma, c.ma, false, true);
       hh += (o.tt==='du')
         ? '<td class="bdc-o xls du" title="'+coChuHTML(o.ds[0].tenMoi||'')+'">'+
-            '<span onclick="moXem(\''+o.ds[0].id+'\')">✓</span>'+
+            '<span data-lenh="f04c.moXem" data-a1="'+o.ds[0].id+'">✓</span>'+
             '<i class="xls-ai" title="Chép sang AI" onclick="event.stopPropagation();moChepAI(\''+o.ds[0].id+'\')">📋</i></td>'
         : '<td class="bdc-o xls trong" title="Chưa có bản Excel — không bắt buộc, không tính thiếu" onclick="themChoO(\''+ky+'\',\''+m.ma+'\',\''+String(c.ma).replace(/'/g,'')+'\')">+</td>';
     });
@@ -439,7 +439,7 @@ function bangDoiChieuHTML(){
   };
   var veHang = function(m, i, mangMau){
     var h = '<tr><td class="bdc-ten" title="'+coChuHTML(m.ma)+'">'+
-      (sua ? '<input class="bdc-ten-o" value="'+coChuHTML(m.ten)+'" onchange="doiTenBaoCao(\''+m.ma+'\',this.value)" '+
+      (sua ? '<input class="bdc-ten-o" value="'+coChuHTML(m.ten)+'" data-lenh="f04c.doiTenBaoCao" data-su="change" data-a1="'+m.ma+'" '+
              'onkeydown="if(event.key===\'Enter\')this.blur()" title="Sửa tên rồi bấm Enter">'
            : coChuHTML(m.ten))+(toiKy(m, ky)?'':' <small class="bdc-chuaky">chưa tới kỳ</small>')+'</td>';
     /* 3.43: mọi báo cáo hiện ĐỦ các cột, cùng một kiểu ô (anh Nhân chốt) — bỏ ô gộp ngang của sao kê và của "chưa tới kỳ".
@@ -458,12 +458,12 @@ function bangDoiChieuHTML(){
       h += oHTML(o, ky, m, c.ma, c.lop);
     });
     if(sua) h += '<td class="bdc-sua">'+
-      '<button onclick="moThietLapBC(\''+m.ma+'\')" title="Thiết lập: cấp tính thiếu, dạng hiển thị, chu kỳ, từ khóa">⚙</button>'+
-      '<button onclick="chuyenBaoCao(\''+m.ma+'\',-1)" title="Lên trên"'+(i===0?' disabled':'')+'>↑</button>'+
-      '<button onclick="chuyenBaoCao(\''+m.ma+'\',1)" title="Xuống dưới"'+(i===mau.length-1?' disabled':'')+'>↓</button>'+
-      '<button class="'+(m.coExcel?'bat':'')+'" onclick="batExcel(\''+m.ma+'\')" title="Có thêm bản Excel cấp PGD (dòng riêng)">XLS</button>'+
-      '<button onclick="moQuetDoiTen(\''+m.ma+'\')" title="Chuẩn lại tên các file đã lưu của dòng này">🔤</button>'+
-      '<button onclick="anBaoCao(\''+m.ma+'\')" title="Ẩn dòng này cho gọn — không xóa, bật lại lúc nào cũng được">'+
+      '<button data-lenh="f04c.moThietLapBC" data-a1="'+m.ma+'" title="Thiết lập: cấp tính thiếu, dạng hiển thị, chu kỳ, từ khóa">⚙</button>'+
+      '<button data-lenh="f04c.chuyenBaoCao" data-a1="'+m.ma+'" data-a2="-1" title="Lên trên"'+(i===0?' disabled':'')+'>↑</button>'+
+      '<button data-lenh="f04c.chuyenBaoCao" data-a1="'+m.ma+'" data-a2="1" title="Xuống dưới"'+(i===mau.length-1?' disabled':'')+'>↓</button>'+
+      '<button class="'+(m.coExcel?'bat':'')+'" data-lenh="f04c.batExcel" data-a1="'+m.ma+'" title="Có thêm bản Excel cấp PGD (dòng riêng)">XLS</button>'+
+      '<button data-lenh="f04c.moQuetDoiTen_s" data-a1="'+m.ma+'" title="Chuẩn lại tên các file đã lưu của dòng này">🔤</button>'+
+      '<button data-lenh="f04c.anBaoCao" data-a1="'+m.ma+'" title="Ẩn dòng này cho gọn — không xóa, bật lại lúc nào cũng được">'+
         (m.an?'👁':'🙈')+'</button></td>';
     h += '</tr>';
     if(m.coExcel) h += hangExcel(m);
@@ -474,7 +474,7 @@ function bangDoiChieuHTML(){
   var chuan = hien.filter(function(m){ return !laThuanXLS(m); });
   var xls   = hien.filter(laThuanXLS);
   var hangKhoi = function(k, ten, so){
-    return '<tr class="bdc-khoi"><td colspan="'+(cot.length+2)+'" onclick="batKhoi(\''+k+'\')">'+
+    return '<tr class="bdc-khoi"><td colspan="'+(cot.length+2)+'" data-lenh="f04c.batKhoi" data-a1="'+k+'">'+
       (khoiMo(k)?'▾ ':'▸ ')+ten+' <small>'+so+' báo cáo</small></td></tr>';
   };
   h += hangKhoi('chuan','Báo cáo chuẩn', chuan.length);
@@ -485,19 +485,19 @@ function bangDoiChieuHTML(){
   }
   if(sua) h += '<tr class="bdc-them-hang"><td colspan="'+(cot.length+2)+'">'+
     '<input id="bdc-them" placeholder="Tên báo cáo mới…" onkeydown="if(event.key===\'Enter\')themBaoCao()">'+
-    '<button class="nho chinh" onclick="themBaoCao()">+ Thêm báo cáo</button>'+
+    '<button class="nho chinh" data-lenh="f04c.themBaoCao">+ Thêm báo cáo</button>'+
     '<span class="bdc-chu">Bấm ⚙ ở cột Sửa để chọn cấp tính thiếu, dạng hiển thị, chu kỳ, từ khóa</span></td></tr>';
   h += '</tbody></table></div>';
 
   h += '<div class="bdc-chan">'+kyVN(ky)+' · <b class="bdc-du">'+du+' đủ</b>'+
-    (soAn()?' · <a class="bdc-an" onclick="hienHetAn()">Hiện lại '+soAn()+' báo cáo đã ẩn</a>':'')+
+    (soAn()?' · <a class="bdc-an" data-lenh="f04c.hienHetAn">Hiện lại '+soAn()+' báo cáo đã ẩn</a>':'')+
     (phu?' · <b class="bdc-phu">'+phu+' mới có dữ liệu phụ</b>':'')+
     (thieu?' · <b class="bdc-thieu">'+thieu+' thiếu</b>':' · <b class="bdc-du">không thiếu gì</b>')+
     (thieu ? (function(){
       /* 3.31: ghi rõ đơn vị nào thiếu gì — dài quá thì rút gọn, bấm xem đủ */
       var ct = chuoiThieu(dsThieu), gon = ct.length>150 ? ct.slice(0,150).replace(/[,·]?\s*\S*$/,'')+'…' : ct;
       return ' <span class="bdc-thieu-ct">— '+coChuHTML(gon)+
-        (gon!==ct?' <a class="bdc-an" onclick="moThieuChiTiet(\''+ky+'\')">xem đủ</a>':'')+'</span>';
+        (gon!==ct?' <a class="bdc-an" data-lenh="f04c.moThieuChiTiet" data-a1="'+ky+'">xem đủ</a>':'')+'</span>';
     })() : '')+
     '<span class="bdc-chu">Bấm ô thiếu để thêm file · ô xanh để mở file · bấm tên xã để tách điểm giao dịch'+
       (dsXaQuanLy().length?' · chỉ tính thiếu cho PGD và '+coChuHTML(dsXaQuanLy().map(vietTatDV).join(', ')):'')+'</span></div></div>';
@@ -536,9 +536,9 @@ function moSoSanhKy(ky){
     '<div class="hai"><div class="o"><label>Kỳ gốc</label>'+chonKy('ss-ky1', ky)+'</div>'+
     '<div class="o"><label>Kỳ so</label>'+chonKy('ss-ky2', kyLui(ky,-1))+'</div></div>'+
     '<div class="hang-nut">'+
-      '<button class="nho" onclick="datSSKy(\''+kyLui(ky,-1)+'\')">So tháng trước</button>'+
-      '<button class="nho" onclick="datSSKy(\''+dauQuy+'\')">So đầu quý ('+kyVN(dauQuy)+')</button>'+
-      '<button class="nho" onclick="datSSKy(\''+dauNam+'\')">So đầu năm ('+kyVN(dauNam)+')</button></div>'+
+      '<button class="nho" data-lenh="f04c.datSSKy" data-a1="'+kyLui(ky,-1)+'">So tháng trước</button>'+
+      '<button class="nho" data-lenh="f04c.datSSKy" data-a1="'+dauQuy+'">So đầu quý ('+kyVN(dauQuy)+')</button>'+
+      '<button class="nho" data-lenh="f04c.datSSKy" data-a1="'+dauNam+'">So đầu năm ('+kyVN(dauNam)+')</button></div>'+
     '<div class="o"><label>Báo cáo (bản Excel)</label><select id="ss-mau">'+
       (mauX.length ? mauX.map(function(m){ return '<option value="'+m.ma+'">'+coChuHTML(m.ten)+'</option>'; }).join('')
                    : '<option value="">— chưa có báo cáo nào lưu bản Excel —</option>')+'</select></div>'+
@@ -546,7 +546,7 @@ function moSoSanhKy(ky){
       return '<option>'+coChuHTML(x)+'</option>'; }).join('')+'</select></div>'+
     '<div class="huong-dan">Báo cáo sao kê có tên, số CCCD khách hàng — cân nhắc trước khi dán sang AI bên ngoài.</div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-      '<button class="nho chinh" onclick="chepSoSanh()">Chép sang AI</button></div>');
+      '<button class="nho chinh" data-lenh="f04c.chepSoSanh">Chép sang AI</button></div>');
 }
 function datSSKy(k){
   var e = document.getElementById('ss-ky2'); if(!e) return;
@@ -626,12 +626,12 @@ function cayDuLieu(ds){
   Object.keys(cay).sort().reverse().forEach(function(nam){
     var kN = 'n'+nam, moN = dangMo(kN, true), soN = 0;
     Object.keys(cay[nam]).forEach(function(t){ Object.keys(cay[nam][t]).forEach(function(d){ soN += cay[nam][t][d].length; }); });
-    h += '<div class="cay-nhanh"><div class="cay-dau" onclick="moGap(\''+kN+'\')">'+
+    h += '<div class="cay-nhanh"><div class="cay-dau" data-lenh="f04c.moGap" data-a1="'+kN+'">'+
       '<span class="cay-mui">'+(moN?'▾':'▸')+'</span>📅 Năm '+nam+'<small>'+soN+' file</small></div>';
     if(moN) Object.keys(cay[nam]).sort().reverse().forEach(function(thang){
       var kT = 't'+thang, moT = dangMo(kT, true), soT = 0;
       Object.keys(cay[nam][thang]).forEach(function(d){ soT += cay[nam][thang][d].length; });
-      h += '<div class="cay-nhanh c2"><div class="cay-dau" onclick="moGap(\''+kT+'\')">'+
+      h += '<div class="cay-nhanh c2"><div class="cay-dau" data-lenh="f04c.moGap" data-a1="'+kT+'">'+
         '<span class="cay-mui">'+(moT?'▾':'▸')+'</span>'+kyVN(thang)+'<small>'+soT+' file</small></div>';
       if(moT) Object.keys(cay[nam][thang]).sort().forEach(function(dv){
         var kD = 'd'+thang+dv, moD = dangMo(kD, true), ml = cay[nam][thang][dv];
@@ -677,7 +677,7 @@ function oHTML(o, ky, mau, dv, lop, nhat){
         ' điểm giao dịch đã có file — bấm để tách cột điểm" onclick="event.stopPropagation();moXa(\''+dv.replace(/'/g,"")+'\')">'+
         dm.co+'/'+dm.tong+'</i>';
       if(coXa) return '<td class="'+l+' du co-diem" title="File riêng của xã: '+coChuHTML(o.ds[0].tenMoi||'')+
-        '" onclick="moXem(\''+o.ds[0].id+'\')">✓'+pDiem+'</td>';
+        '" data-lenh="f04c.moXem" data-a1="'+o.ds[0].id+'">✓'+pDiem+'</td>';
       if(o.tt==='du') return '<td class="'+l+' du co-diem" title="Đủ file của các điểm giao dịch" onclick="moXa(\''+dv.replace(/'/g,"")+'\')">✓'+pDiem+'</td>';
       return oCong(pDiem).replace('class="'+l, 'class="'+l+' co-diem');
     }
@@ -689,7 +689,7 @@ function oHTML(o, ky, mau, dv, lop, nhat){
     var nhieuPhien = mau && mauTheoNgay(mau.ma) && o.ds.length>1;
     return '<td class="'+l+' du'+(nhieuPhien?' phien':'')+'" title="'+
       (nhieuPhien ? o.ds.length+' phiên giao dịch trong kỳ' : coChuHTML(o.ds[0].tenMoi||''))+
-      '" onclick="moXem(\''+o.ds[0].id+'\')">'+(nhieuPhien ? o.ds.length+' phiên' : '✓')+
+      '" data-lenh="f04c.moXem" data-a1="'+o.ds[0].id+'">'+(nhieuPhien ? o.ds.length+' phiên' : '✓')+
       (!nhieuPhien && o.ds.length>1?'<i>'+o.ds.length+'</i>':'')+'</td>';
   }
   if(o.tt==='phu')
@@ -856,13 +856,13 @@ function veChepAI(m, b, soSheet){
                : 'Không thấy dòng Tổng cộng để cộng thử — số liệu chép nguyên, không sửa gì')+'</div>'+
     (kh.co ? '<div class="ca-kiem canh ca-khach">⚠ Bảng có <b>dữ liệu khách</b> ('+kh.ten+(kh.soO?' · '+kh.soO+' ô có số CCCD / điện thoại':'')+'). '+
       'Chỉ dán vào công cụ AI được phép dùng dữ liệu khách hàng. '+
-      '<label class="ca-che"><input type="checkbox" id="ca-che" checked onchange="xemChepAI()"> Che dữ liệu khách khi chép (họ tên → KH1, KH2…; CCCD, điện thoại → ***; số liệu tiền giữ nguyên)</label></div>' : '')+
+      '<label class="ca-che"><input type="checkbox" id="ca-che" checked data-lenh="f04c.xemChepAI" data-su="change"> Che dữ liệu khách khi chép (họ tên → KH1, KH2…; CCCD, điện thoại → ***; số liệu tiền giữ nguyên)</label></div>' : '')+
     '<div class="o"><label>Xem trước (Markdown) · ước '+uocToken(md)+' token</label>'+
       '<textarea id="ca-xem" rows="9" readonly>'+coChuHTML(md)+'</textarea></div>'+
     '<div class="huong-dan">Số giữ nguyên như trong file, chỉ bỏ dòng và cột trống. Hai dòng đầu ghi bối cảnh để AI hiểu đang đọc gì.</div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-    '<button class="nho" onclick="chepAI(\'thuong\')">Chép nguyên bản</button>'+
-    '<button class="nho chinh" onclick="chepAI(\'md\')">Chép Markdown</button></div>', true);
+    '<button class="nho" data-lenh="f04c.chepAI" data-a1="thuong">Chép nguyên bản</button>'+
+    '<button class="nho chinh" data-lenh="f04c.chepAI" data-a1="md">Chép Markdown</button></div>', true);
 }
 var CHEP = null;
 function boiCanh(m){
@@ -890,7 +890,7 @@ function veThang(){
   if(dt) dt.innerHTML = veDauTab('duLieu', {kho:D.duLieu, 
     hamThem:"CHO_O=null;nutChinh()",   /* 3.34: qua nutChinh để nhớ TAB_TRUOC=2 → Excel vào Dữ liệu tháng */
     xem:[['ky','Theo kỳ'],['donvi','Theo đơn vị'],['cay','Dạng cây']], hamXem:'datKieuTh',   /* 3.151: kiểu xem vào ☰ ▾ */
-    themPhu: D.duLieu.length?'<button onclick="ghepKy()">Ghép để xem</button>':''});
+    themPhu: D.duLieu.length?'<button data-lenh="f04c.ghepKy">Ghép để xem</button>':''});
   var ds = locTheoThe('duLieu', locChuan('duLieu', loc(D.duLieu, tuKhoa))); BOT_DS.duLieu = ds;
   /* 3.27: hàng 2 của tab Tháng gộp đủ như các tab khác — kiểu xem + sắp xếp + khung xem + ổ G */
   var thanhXem = veThanhSap('duLieu', [['ky','Theo kỳ'],['donvi','Theo đơn vị'],['cay','Dạng cây']], kieuTh, 'datKieuTh', '<b>'+ds.length+'</b> file'+chuDemLoc('duLieu'));
@@ -923,8 +923,8 @@ function veThang(){
     hienKy.forEach(function(k){
       var c = ds.filter(function(x){ return x.ky===k && x.maLoai===l.ma; });
       if(c.length===0) h += '<td class="trong">—</td>';
-      else if(c.length===1) h += '<td class="co" onclick="moXem(\''+c[0].id+'\')">✓</td>';
-      else h += '<td class="co" onclick="moXem(\''+c[0].id+'\')">'+c.length+'</td>';
+      else if(c.length===1) h += '<td class="co" data-lenh="f04c.moXem" data-a1="'+c[0].id+'">✓</td>';
+      else h += '<td class="co" data-lenh="f04c.moXem" data-a1="'+c[0].id+'">'+c.length+'</td>';
     });
     h += '</tr>';
   });
@@ -957,7 +957,49 @@ function datTvPhan(k){ D.cauHinh.tvPhan = k; BO.mo = ''; luu(); veGhiChu(); }
 function thanhTV(){
   var p = tvPhan();
   return '<div class="tv-chon">'+
-    '<button class="'+(p==='bo'?'bat':'')+'" onclick="datTvPhan(\'bo\')">📁 Bộ hồ sơ <small>'+(D.boHS||[]).length+'</small></button>'+
-    '<button class="'+(p==='gc'?'bat':'')+'" onclick="datTvPhan(\'gc\')">🖼 Ghi chú ảnh <small>'+D.ghiChu.length+'</small></button>'+
-    '<button class="nho nut-hd" onclick="moHuongDan(\'ghiChu\')" title="Hướng dẫn">❓</button></div>';
+    '<button class="'+(p==='bo'?'bat':'')+'" data-lenh="f04c.datTvPhan" data-a1="bo">📁 Bộ hồ sơ <small>'+(D.boHS||[]).length+'</small></button>'+
+    '<button class="'+(p==='gc'?'bat':'')+'" data-lenh="f04c.datTvPhan" data-a1="gc">🖼 Ghi chú ảnh <small>'+D.ghiChu.length+'</small></button>'+
+    '<button class="nho nut-hd" data-lenh="f04c.moHuongDan" data-a1="ghiChu" title="Hướng dẫn">❓</button></div>';
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f04c.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f04c', gdLenh({
+  anBaoCao:function(el, ev){ anBaoCao(gdA(el, 1)); },
+  batChotKy:function(el, ev){ batChotKy(gdA(el, 1)); },
+  batExcel:function(el, ev){ batExcel(gdA(el, 1)); },
+  batKhoi:function(el, ev){ batKhoi(gdA(el, 1)); },
+  batXa:function(el, ev){ batXa(el.value, el.checked); },
+  chayDoiTen:function(el, ev){ chayDoiTen(); },
+  chepAI:function(el, ev){ chepAI(gdA(el, 1)); },
+  chepSoSanh:function(el, ev){ chepSoSanh(); },
+  chonMotNut:function(el, ev){ chonMotNut(el); },
+  chuyenBaoCao:function(el, ev){ chuyenBaoCao(gdA(el, 1), +gdA(el, 2)); },
+  datCap:function(el, ev){ datCap(gdA(el, 1)); },
+  datSSKy:function(el, ev){ datSSKy(gdA(el, 1)); },
+  datTvPhan:function(el, ev){ datTvPhan(gdA(el, 1)); },
+  demDoiTen:function(el, ev){ demDoiTen(); },
+  doiKyBang:function(el, ev){ doiKyBang(+gdA(el, 1)); },
+  doiTenBaoCao:function(el, ev){ doiTenBaoCao(gdA(el, 1), el.value); },
+  ghepKy:function(el, ev){ ghepKy(); },
+  gonBang:function(el, ev){ gonBang(); },
+  hetXa:function(el, ev){ hetXa(!!gdA(el, 1)); },
+  hienHetAn:function(el, ev){ hienHetAn(); },
+  lapChiMuc:function(el, ev){ lapChiMuc(); },
+  luuThietLapBC:function(el, ev){ luuThietLapBC(gdA(el, 1)); },
+  moChonXa:function(el, ev){ moChonXa(); },
+  moGap:function(el, ev){ moGap(gdA(el, 1)); },
+  moHuongDan:function(el, ev){ moHuongDan(gdA(el, 1)); },
+  moQuetDoiTen:function(el, ev){ moQuetDoiTen(); },
+  moQuetDoiTen_s:function(el, ev){ moQuetDoiTen(gdA(el, 1)); },
+  moSoSanhKy:function(el, ev){ moSoSanhKy(gdA(el, 1)); },
+  moThietLapBC:function(el, ev){ moThietLapBC(gdA(el, 1)); },
+  moThieuChiTiet:function(el, ev){ moThieuChiTiet(gdA(el, 1)); },
+  moTM:function(el, ev){ moTM(gdA(el, 1)); },
+  moXa:function(el, ev){ moXa(gdA(el, 1)); },
+  moXem:function(el, ev){ moXem(gdA(el, 1)); },
+  suaDanhMuc:function(el, ev){ suaDanhMuc(); },
+  themBaoCao:function(el, ev){ themBaoCao(); },
+  tickDoiTen:function(el, ev){ tickDoiTen(!!gdA(el, 1)); },
+  veLaiCDNeuCan:function(el, ev){ veLaiCDNeuCan(); },
+  xemChepAI:function(el, ev){ xemChepAI(); }
+}));

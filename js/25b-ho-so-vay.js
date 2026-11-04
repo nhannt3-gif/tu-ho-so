@@ -99,7 +99,7 @@ function hsoKBRieng(mk, md){   /* 3.215: khối ⚙ Khai báo riêng ở cột t
   if(typeof omCo==='function' && omCo(mk)){ var S0 = hsoCH(), t0 = KHO.to(S0.to); if(t0 && toLaTT(t0)) t0 = null; return omKBRieng(mk, OM_MAU[mk].V(t0, hsoBo())); }   /* 3.223: mẫu đã lên nền ô */
   var M = (HSO_MAU.hsv.concat(HSO_MAU.hst)).find(function(m){ return m.k===mk; }) || {ma:mk}, dong = !hsoKBRDangMo(mk), doi = Object.keys(((hsoLuu().cham||{})[mk])||{}).length;
   return '<details class="hso-kbr-d"'+(dong ? '' : ' open')+' ontoggle="hsoKBRMo(\''+mk+'\',this.open)"><summary class="nhan-nhom hso-kbr-o">⚙ Khai báo riêng — Mẫu '+coChuHTML(M.ma)+' <small>(ô ✍ / 🖨 từ trên xuống)</small></summary>'+
-    (doi ? '<div class="hang-nut"><button class="nho" onclick="hsoChamVeMD(\''+mk+'\')" title="Đưa mọi ô của mẫu về mặc định (✍ chấm) — giá trị đã khai vẫn giữ">↺ Về mặc định ('+doi+' ô đã đổi)</button></div>' : '')+hsoChamTuy(mk, md)+'</details>'; }
+    (doi ? '<div class="hang-nut"><button class="nho" data-lenh="f25b.hsoChamVeMD" data-a1="'+mk+'" title="Đưa mọi ô của mẫu về mặc định (✍ chấm) — giá trị đã khai vẫn giữ">↺ Về mặc định ('+doi+' ô đã đổi)</button></div>' : '')+hsoChamTuy(mk, md)+'</details>'; }
 function hsoKBRDangMo(mk){ return !!((hsoLuu().kbrMo||{})[mk]); }   /* 3.240 (anh 17/10): khai báo riêng có nút mở / tắt, mặc định TẮT — tránh nhầm với form lập mẫu */
 function hsoKBRMo(mk, mo){ var L = hsoLuu(); L.kbrMo = L.kbrMo || {}; if(hsoKBRDangMo(mk)===!!mo) return; if(mo) L.kbrMo[mk] = 1; else delete L.kbrMo[mk]; delete (L.kbrDong||{})[mk]; luu(); }
 function hsoChamVeMD(mk, khongHoi){   /* 3.222 (bổ sung 2): bỏ ✍ / 🖨 anh đã đổi của mẫu → về mặc định; giá trị khai 1 lần (chamGT) giữ nguyên để bật lại không phải gõ */
@@ -140,11 +140,11 @@ function hsoChamTuy(mk, md){   /* md = {khóa: giá trị mặc định khi In s
     '<div class="hso-cham-dau">Ô chấm: <b>✍ viết tay</b> hay <b>🖨 in sẵn</b> <small>(app nhớ theo mẫu)</small></div>'+(HSO_CHAM[mk]||[]).map(function(x){
     if(x[2]==='nhom') return '<div class="hso-cham-nhom">'+coChuHTML(x[1])+'</div>';
     var k = x[0], kieu = hsoChamKieu(mk, k), inS = kieu==='in', v = HSO.vay[k]!==undefined ? HSO.vay[k] : (md && md[k]!==undefined ? md[k] : ''), o = '';
-    var sw = '<span class="hso-sw"><button class="'+(inS ? '' : 'bat')+'" onclick="hsoChamDat(\''+mk+'\',\''+k+'\',\'cham\')" title="Để chấm — ghi tay">✍</button><button class="'+(inS ? 'bat' : '')+'" onclick="hsoChamDat(\''+mk+'\',\''+k+'\',\'in\')" title="In sẵn">🖨</button></span>';
+    var sw = '<span class="hso-sw"><button class="'+(inS ? '' : 'bat')+'" data-lenh="f25b.hsoChamDat" data-a1="'+mk+'" data-a2="'+k+'" data-a3="cham" title="Để chấm — ghi tay">✍</button><button class="'+(inS ? 'bat' : '')+'" data-lenh="f25b.hsoChamDat" data-a1="'+mk+'" data-a2="'+k+'" data-a3="in" title="In sẵn">🖨</button></span>';
     if(inS){
       if(x[2]==='lyDo'){ var ds = hsoLyDoDs(); if(HSO.vay.lyDo===undefined) HSO.vay.lyDo = ds[0];
         o = '<select onchange="if(this.value){HSO.vay.lyDo=this.value;hsoVe();}"><option value="">— chọn lý do có sẵn —</option>'+ds.map(function(l, i){ return '<option value="'+coChuHTML(l)+'"'+(l===HSO.vay.lyDo ? ' selected' : '')+'>'+coChuHTML(l)+'</option>'; }).join('')+'</select>'+
-          '<span class="hso-cham-ly">'+hsoIn('HSO.vay.lyDo=this.value;hsoHen()', HSO.vay.lyDo, 'gõ lý do khác')+'<button class="nho" onclick="hsoLyDoThem()" title="Thêm lý do đang gõ vào danh sách">＋</button>'+
+          '<span class="hso-cham-ly">'+hsoIn('HSO.vay.lyDo=this.value;hsoHen()', HSO.vay.lyDo, 'gõ lý do khác')+'<button class="nho" data-lenh="f25b.hsoLyDoThem" title="Thêm lý do đang gõ vào danh sách">＋</button>'+
           (ds.indexOf(HSO.vay.lyDo)>=0 && ds.length>1 ? '<button class="nho" onclick="hsoLyDoBo('+ds.indexOf(HSO.vay.lyDo)+')" title="Bỏ lý do này khỏi danh sách">✕</button>' : '')+'</span>'; }
       else if(x[2]==='kb'){ var kv = hsoChamKBLay(mk, k); o = hsoIn('hsoChamKBDat(\''+mk+'\',\''+k+'\',this.value)', kv==null ? '' : kv, (md && md[k] ? 'trống = '+md[k] : 'khai 1 lần, app nhớ')+(x[4]==='ct' ? ' (theo chương trình đang chọn)' : '')); }
       else if(x[2]==='tu') o = '<small class="hso-cham-tu">'+(md && md[k] ? 'tự lấy: '+coChuHTML(md[k]) : 'tự lấy khi có số liệu')+'</small>';
@@ -223,7 +223,7 @@ function hso06V(){ var L = hso06L(); return {ngay:L.ngay || '', ng1:L.ng1!==unde
 function hso06Dat(k, v){ var L = hso06L(); if(v==null || v==='') delete L[k]; else L[k] = v; luu(); hsoVe(); }
 function hso06MD(){ hsoLuu().k06 = {}; luu(); hsoVe(); bao('Khai báo riêng 06/TD về mặc định.'); }
 function hso06KBHTML(){ var L = hso06L(), mo = hsoKBRDangMo('06td'), dvc = L.dvc || 'tu', ng1 = L.ng1!==undefined ? L.ng1 : 'pct';
-  var sel = function(k, gt, ds){ return '<select onchange="hso06Dat(\''+k+'\',this.value)">'+ds.map(function(x){ return '<option value="'+x[0]+'"'+(x[0]===gt ? ' selected' : '')+'>'+coChuHTML(x[1])+'</option>'; }).join('')+'</select>'; };
+  var sel = function(k, gt, ds){ return '<select data-lenh="f25b.hso06Dat" data-su="change" data-a1="'+k+'">'+ds.map(function(x){ return '<option value="'+x[0]+'"'+(x[0]===gt ? ' selected' : '')+'>'+coChuHTML(x[1])+'</option>'; }).join('')+'</select>'; };
   var inp = function(k, ph, kieu){ return '<input'+(kieu ? ' type="'+kieu+'"' : '')+' value="'+coChuHTML(L[k]||'')+'" placeholder="'+coChuHTML(ph)+'" onchange="hso06Dat(\''+k+'\',this.value.trim())">'; };
   return '<details class="hso-kbr-d"'+(mo ? ' open' : '')+' ontoggle="hsoKBRMo(\'06td\',this.open)"><summary class="nhan-nhom hso-kbr-o">⚙ Khai báo riêng — Mẫu 06/TD</summary>'+
     hsoTuyO('Đơn vị kiểm tra', sel('dvc', dvc, [['tu', 'Tự lấy — Hội của tổ (🏛 Khai báo Hội)'], ['cham', 'Để chấm (ghi tay)'], ['go', 'Gõ riêng']])+(dvc==='go' ? inp('dv', 'vd: Hội Nông dân xã …') : ''))+
@@ -231,7 +231,7 @@ function hso06KBHTML(){ var L = hso06L(), mo = hsoKBRDangMo('06td'), dvc = L.dvc
     hsoTuyO('Cán bộ kiểm tra 2', inp('cb2', 'họ tên — trống = chấm'))+hsoTuyO('Chức vụ cán bộ 2', inp('cv2', 'trống = chấm'))+
     hsoTuyO('Thời điểm kiểm tra', inp('ngay', '', 'date'))+'<div class="sl-phu">Trống = chấm; ngày ký cuối phiếu theo ngày này.</div>'+
     hsoTuyO('Mục đích sử dụng vốn', sel('md', L.md || 'hs', [['hs', 'Theo hồ sơ (01/TD)'], ['trong', 'Để trống (ghi tay)']]))+
-    '<div class="hang-nut"><button class="nho" onclick="hso06MD()">↺ Về mặc định</button></div>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="f25b.hso06MD">↺ Về mặc định</button></div>'+
     '<div class="sl-phu">Khuôn phiếu theo Mẫu 06 KTGS (khóa) — chỉ các chỗ chấm khai được.</div></details>'; }
 function hso06TenHS(){ var ds = hso06Ho(); return 'Mau 06-TD Phieu KT su dung von - '+(ds.length===1 ? boDauTen(hmTen(ds[0].o)) : ds.length+' ho'); }
 function hsoLap06td(){ var g = hso06GtHS(); return {ma:'06/TD', k06:g, trang:g.length ? ktHTML06(g.length===1 ? g[0] : g) : '<p style="font-family:sans-serif;padding:20px">Chưa có hộ — chọn hộ ở 📒 Sổ hộ vay (📄 Lập HS) hoặc ＋ Thêm hộ.</p>'}; }
@@ -618,3 +618,12 @@ function hsoWord(){ if(hsoMau().lapRieng) return hsoWord06HS(); var x = hsoLap()
   g('hsv', '09a', {lap:function(t){ return hsoLap09a(t); }, ai:aiKhach, kem:function(x, t){ if(hsoLuu().kemTDCK) x.ds.push({M:hsoMauK('01tdck'), h:hsoLap01tdck(t).h}); }});   /* 3.206: 09A in kèm 01/TĐCK (cùng khổ dọc → 1 lần in, 1 file Word) */
   g('hsv', '01tdck', {lap:function(t){ return hsoLap01tdck(t); }, ai:aiKhach});
 })();
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f25b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f25b', gdLenh({
+  hso06Dat:function(el, ev){ hso06Dat(gdA(el, 1), el.value); },
+  hso06MD:function(el, ev){ hso06MD(); },
+  hsoChamDat:function(el, ev){ hsoChamDat(gdA(el, 1), gdA(el, 2), gdA(el, 3)); },
+  hsoChamVeMD:function(el, ev){ hsoChamVeMD(gdA(el, 1)); },
+  hsoLyDoThem:function(el, ev){ hsoLyDoThem(); }
+}));

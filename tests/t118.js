@@ -34,7 +34,7 @@ const fs=require('fs'), path=require('path');
    if(tD){ const kD = ktHoiKhoa(tD).replace(/[^0-9a-z]/gi,'_'); ok('Đoàn: ô ghi Bí thư / Phó Bí thư', /Bí thư/.test(document.getElementById('hkb-'+kD+'-ct').placeholder) && /Phó Bí thư/.test(document.getElementById('hkb-'+kD+'-pct').placeholder)); }
    ok('3.154: không còn chữ diễn giải / dòng In ra trong bảng', !the.querySelector('.hkb-in') && !/In ra:/.test(the.textContent));
    /* 3. sửa ô → lưu, In ra đổi */
-   const iP = document.getElementById('hkb-'+kA.replace(/[^0-9a-z]/gi,'_')+'-pct'); iP.value = '  Trần  Văn Giả '; iP.dispatchEvent(new Event('input')); iP.dispatchEvent(new Event('change'));
+   const iP = document.getElementById('hkb-'+kA.replace(/[^0-9a-z]/gi,'_')+'-pct'); iP.value = '  Trần  Văn Giả '; iP.dispatchEvent(new Event('input', {bubbles:true})); iP.dispatchEvent(new Event('change', {bubbles:true}));
    ok('sửa Phó CT: lưu gọn khoảng trắng, ô hiện chữ đã gọn', D.cauHinh.ktHoiKB[kA].pct==='Trần Văn Giả' && iP.value==='Trần Văn Giả');
    /* 4. dùng khi in */
    const g6 = ktGiaTri06(tA, [], {}), g16 = ktGiaTri16(tA, [], {nx:''});

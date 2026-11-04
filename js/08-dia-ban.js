@@ -99,7 +99,7 @@ function xemScanCP(id){
   var t = ttScan(k), e = document.getElementById('cp-phu');
   if(e) e.innerHTML = (t.dat ? '<b class="tt-dat">✓ Đạt</b>' : '<b class="tt-thieu">⚠ '+coChuHTML(t.thieu.join(' · '))+'</b>')+' · '+e.innerHTML;
   Array.prototype.forEach.call(document.querySelectorAll('#tr4 .sc-d.dang-xem'), function(x){ x.classList.remove('dang-xem'); });
-  var d = document.querySelector('#tr4 .sc-d[onclick="xemScanCP(\''+id+'\')"]'); if(d) d.classList.add('dang-xem');
+  var d = document.querySelector('#tr4 .sc-d[data-lenh="f08.xemScanCP"][data-a1="'+id+'"]'); if(d) d.classList.add('dang-xem');
 }
 function laScanMuc(m){ return !!(m && (m.che || (D.scan||[]).indexOf(m)>=0)); }
 function laKAMuc(m){ return !!(m && (D.kyAnh||[]).indexOf(m)>=0); }
@@ -153,7 +153,7 @@ function dongScanHTML(k){
   var nhan = (k.tag||[]).filter(function(x){ return !(x==='CCCD' && k.che!=='tailieu'); }).slice(0,2).map(function(x){ return '<span class="tg">'+coChuHTML(x)+'</span>'; }).join('')+
     (k.ctrinh||[]).slice(0,1).map(function(x){ return '<span class="tg ct">'+coChuHTML(x)+'</span>'; }).join('')+
     (k.che==='tailieu' ? '<span class="tg xam">'+((k.trang||[]).length || !k.driveId ? (k.trang||[]).length+' trang' : '☁ PDF trên Drive')+'</span>' : '');
-  return '<div class="d2 sc-d'+(chon?' chon':'')+(mucDangXem&&mucDangXem.id===k.id?' dang-xem':'')+'"'+botAt(k.id)+' onclick="xemScanCP(\''+k.id+'\')"'+(k.ghi ? ' title="'+coChuHTML(k.ghi)+'"' : '')+'>'+
+  return '<div class="d2 sc-d'+(chon?' chon':'')+(mucDangXem&&mucDangXem.id===k.id?' dang-xem':'')+'"'+botAt(k.id)+' data-lenh="f08.xemScanCP" data-a1="'+k.id+'"'+(k.ghi ? ' title="'+coChuHTML(k.ghi)+'"' : '')+'>'+
     '<div class="h1">'+
       '<span class="o-chon'+(chon?' bat':'')+'" onclick="event.stopPropagation();doiChonHS(\''+k.id+'\')" title="Tích để in chung nhiều người">'+(chon?'✓':'')+'</span>'+
       '<span class="ico">'+(k.che==='tailieu'?'📑':'🪪')+'</span>'+
@@ -198,13 +198,13 @@ function themKhach(id){
     '</div>'+
     '<div class="sg-khoi q-chup">'+
       '<div><span class="q-mat" id="nn-truoc">Mặt trước'+(k.matTruoc?' — đã có':'')+'</span>'+
-        '<button class="nho sg-ico" onclick="chupThe(1,1)" title="Chụp mặt trước">📷 Chụp</button><button class="nho sg-ico" onclick="chupThe(1,0)" title="Chọn ảnh có sẵn (chọn 2 ảnh một lần: app tự nhận mặt trước, mặt sau)">🖼 Ảnh</button></div>'+
+        '<button class="nho sg-ico" data-lenh="f08.chupThe" data-a1="1" data-a2="1" title="Chụp mặt trước">📷 Chụp</button><button class="nho sg-ico" data-lenh="f08.chupThe" data-a1="1" data-a2="0" title="Chọn ảnh có sẵn (chọn 2 ảnh một lần: app tự nhận mặt trước, mặt sau)">🖼 Ảnh</button></div>'+
       '<div><span class="q-mat" id="nn-sau">Mặt sau'+(k.matSau?' — đã có':'')+'</span>'+
-        '<button class="nho sg-ico" onclick="chupThe(0,1)" title="Chụp mặt sau">📷 Chụp</button><button class="nho sg-ico" onclick="chupThe(0,0)" title="Chọn ảnh có sẵn">🖼 Ảnh</button></div>'+
+        '<button class="nho sg-ico" data-lenh="f08.chupThe" data-a1="0" data-a2="1" title="Chụp mặt sau">📷 Chụp</button><button class="nho sg-ico" data-lenh="f08.chupThe" data-a1="0" data-a2="0" title="Chọn ảnh có sẵn">🖼 Ảnh</button></div>'+
     '</div>'+
-    '<div class="day-form">'+(id?'<span class="xoa-nho" onclick="xoaKhach(\''+id+'\')">🗑 Xóa hồ sơ</span>':'')+
+    '<div class="day-form">'+(id?'<span class="xoa-nho" data-lenh="f08.xoaKhach" data-a1="'+id+'">🗑 Xóa hồ sơ</span>':'')+
       '<button class="nho" data-lenh="hop.dong">Đóng (Esc)</button>'+
-      '<button class="nho chinh" onclick="luuKhach()">Lưu hồ sơ <small>Ctrl+Enter</small></button></div>'+
+      '<button class="nho chinh" data-lenh="f08.luuKhach">Lưu hồ sơ <small>Ctrl+Enter</small></button></div>'+
     '</div>'+
     '<div class="sua-xem q-xem"><div class="q-xem-tit">🪪 Bản quét · 2 mặt thẻ</div><div id="k-xem"></div></div>');
   quetGon('the');
@@ -592,3 +592,11 @@ function dayScanNhieu(ids){
     bao('Đã lưu lên Drive '+xong+' hồ sơ'+(loi?' · lỗi '+loi:'')+(boQua?' · bỏ qua '+boQua+' bản chưa đủ':'')+'.', 6);
   });
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f08.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f08', gdLenh({
+  chupThe:function(el, ev){ chupThe(+gdA(el, 1), +gdA(el, 2)); },
+  luuKhach:function(el, ev){ luuKhach(); },
+  xemScanCP:function(el, ev){ xemScanCP(gdA(el, 1)); },
+  xoaKhach:function(el, ev){ xoaKhach(gdA(el, 1)); }
+}));

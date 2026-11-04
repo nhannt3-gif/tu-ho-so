@@ -217,7 +217,7 @@
   /* lập: mỗi hộ đang chọn 1 biên bản (1 trang) — chưa chọn hộ → 1 biên bản (người vay đang xem / bản trắng) */
   function bblvMauI(){ var tm = omKB(MK, 'tinhMau'); for(var i=0;i<MAU.length;i++) if(MAU[i].ten===tm) return i; return -1; }   /* -1 = Cả 3 (mặc định) */
   OM_MAU[MK].mauThem = function(){ var i0 = bblvMauI();   /* 3.461.9 (anh 04/11 "khi in bản mẫu sẽ sổ ra các tùy chọn tình huống"): danh sách sổ xuống */
-    return '<div class="om-muc">Tình huống mẫu (mục 2–5): <select onchange="omChonDat(\''+MK+'\',\'tinhMau\',this.value)" title="Tất cả = tờ hướng dẫn ghi (lưu ý chung + từng tình huống); chọn 1 tình huống = biên bản mẫu đầy đủ">'+
+    return '<div class="om-muc">Tình huống mẫu (mục 2–5): <select data-lenh="mbblv.omChonDat" data-su="change" data-a1="'+MK+'" data-a2="tinhMau" title="Tất cả = tờ hướng dẫn ghi (lưu ý chung + từng tình huống); chọn 1 tình huống = biên bản mẫu đầy đủ">'+
       [CA3].concat(MAU.map(function(x){ return x.ten; })).map(function(ten, j){ return '<option'+((j ? i0===j-1 : i0<0) ? ' selected' : '')+'>'+coChuHTML(ten)+'</option>'; }).join('')+'</select></div>'; };
   window.hsoLapBblv = function(t){ if(OM_KIEU==='mau') return omLap(MK, t); var d = t && typeof HSN!=='undefined' ? HSN.dsChon(MK, t) : [];
     if(d.length<2){ var r = omLap(MK, t); return r; }
@@ -228,3 +228,8 @@
     trai:function(t){ return typeof HSN==='undefined' ? '' : HSN.trai(t, MK, {tieu:'Hộ cần làm việc', ghi:'mỗi hộ 1 biên bản (1 trang); 1 món → dạng dòng, nhiều món → bảng'},
       'Lãi tồn cao = lãi tồn > 3 / 6 / 12 tháng lãi (dư nợ × lãi suất năm ÷ 12). Thành phần, chỗ ký, mục 2–5 mặc định để chấm ghi tay. Chưa tích món nào → in theo hộ đang xem (bấm tên hộ), hoặc bản trắng.'); }});
 })();
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="mbblv.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('mbblv', gdLenh({
+  omChonDat:function(el, ev){ omChonDat(gdA(el, 1), gdA(el, 2), el.value); }
+}));
