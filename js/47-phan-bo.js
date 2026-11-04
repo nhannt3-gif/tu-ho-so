@@ -336,6 +336,31 @@ function pbXlsDM(rows){ if(!rows || !rows.length) return [];
     if(!stt && /^(KẾ HOẠCH|KE HOACH)\s/i.test(ten)) return {cap:'muc', ten:ten};
     return stt ? {stt:stt, ten:ten, so:v.map(function(x){ return typeof x==='number' && isNaN(x) ? null : x; })} : null; }).filter(Boolean); }
 
+/* ---------- 3.467 (anh 04/11 "thêm 1 nút thống kê QĐ theo ngày, dòng thời gian, có số thứ tự để kiểm tra xem có đợt nào bỏ sót; tỉnh có đợt giao QĐ nhưng không giao cho Gò Dầu
+   anh cũng muốn nhập số QĐ"; "số đợt lưu theo QĐ, anh nhập nếu QĐ có ghi, còn em cứ ghi stt từ QĐ đầu tiên"): DÒNG THỜI GIAN QĐ
+   pbDongThoiGian(nhóm QĐ [{k, ds:[QĐ mỗi xã]}], QĐ không giao cho PGD [{id, so, kyHieu, ngay, nguon, loai, dot, ghi}])
+   → [{nam, nguon, ds:[dòng]}] — mỗi năm × nguồn 1 bảng, xếp theo ngày (rồi số QĐ), STT 1, 2, 3… từ QĐ đầu tiên;
+   dòng = {stt, k | id, so, kyHieu, ngay, loai, dot, soXa, tg (Σ điều chỉnh các xã · chương trình), khong, ghi, trung (đợt trùng), nguoc (đợt nhỏ hơn QĐ trước ngày)} | {thieu: số đợt}
+   Soát đợt chỉ trên QĐ có ghi đợt (số): thiếu số giữa đợt nhỏ nhất và lớn nhất → chèn dòng thiếu sau QĐ có đợt liền trước; QĐ không ghi đợt không nhắc. ---------- */
+function pbDongThoiGian(nhom, khong){
+  var g = {}, thu = [], them = function(x){ var nam = String(x.ngay || '').slice(0, 4) || '?', k = nam+'|'+(+x.nguon || 0); if(!g[k]){ g[k] = {nam:nam, nguon:+x.nguon || 0, ds:[]}; thu.push(k); } g[k].ds.push(x); };
+  (nhom || []).forEach(function(n){ var q = n.ds[0] || {}, tg = 0;
+    n.ds.forEach(function(x){ (x.ct || []).forEach(function(c){ tg = pbR(tg + (pbSo(c.tangGiam) || 0)); }); });
+    them({k:n.k, so:q.so, kyHieu:q.kyHieu, ngay:q.ngay, nguon:q.nguon, loai:q.loai, dot:String(q.dot==null ? '' : q.dot).trim(), soXa:n.ds.length, tg:tg, khong:false, ghi:q.ghi || ''}); });
+  (khong || []).forEach(function(q){ them({id:q.id, so:q.so, kyHieu:q.kyHieu, ngay:q.ngay, nguon:q.nguon, loai:q.loai, dot:String(q.dot==null ? '' : q.dot).trim(), soXa:0, tg:0, khong:true, ghi:q.ghi || ''}); });
+  return thu.sort().map(function(k){ var b = g[k];
+    b.ds.sort(function(x, y){ return x.ngay < y.ngay ? -1 : x.ngay > y.ngay ? 1 : String(x.so).localeCompare(String(y.so), 'vi', {numeric:true}); });
+    var so = b.ds.filter(function(x){ return /^\d+$/.test(x.dot); }).map(function(x){ return +x.dot; }), dem = {}, truoc = null;
+    so.forEach(function(d){ dem[d] = (dem[d] || 0)+1; });
+    b.ds.forEach(function(x, i){ x.stt = i+1; if(/^\d+$/.test(x.dot)){ x.trung = dem[+x.dot]>1; if(truoc!=null && +x.dot < truoc) x.nguoc = true; truoc = +x.dot; } });
+    var thieu = []; if(so.length){ var lo = Math.min.apply(null, so), hi = Math.max.apply(null, so); for(var d = lo+1; d < hi; d++) if(!dem[d]) thieu.push(d); }
+    var ra = []; b.ds.forEach(function(x){ ra.push(x); });
+    thieu.forEach(function(d){ var vt = -1; ra.forEach(function(x, i){ if(x.dot!=null && /^\d+$/.test(x.dot) && +x.dot < d && (vt<0 || +x.dot >= +ra[vt].dot)) vt = i; });   /* sau QĐ có đợt liền trước (lớn nhất < d) */
+      while(vt>=0 && ra[vt+1] && ra[vt+1].thieu!=null && ra[vt+1].thieu < d) vt++;
+      ra.splice(vt+1, 0, {thieu:d}); });
+    b.ds = ra; return b; });
+}
+
 /* ---------- 3.289 P3: dữ liệu Biểu 07 Phân bổ KH (QT-16) — thuần, mẫu in ở js/mau/07pb.js ---------- */
 /* ngày thông báo = ngày QĐ + ch.ngayTB (mặc định 1), né thứ 7 / CN (ch.neCuoiTuan !== false) — như bản WPF */
 function pbNgayTB(ngayQD, ch){

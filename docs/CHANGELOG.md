@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.467 — 04/11/2026 — Phân bổ KH: dòng thời gian QĐ, ghi số QĐ không giao cho PGD (TK 3)
+- **Anh 04/11**: "thêm 1 nút thống kê QĐ theo ngày, dòng thời gian, có số thứ tự để kiểm tra xem có đợt nào bỏ sót; có trường hợp tỉnh có đợt giao QĐ nhưng không giao cho Gò Dầu anh cũng muốn nhập số QĐ … để theo dõi đợt"; "số đợt lưu theo QĐ anh nhập nếu QĐ có ghi, còn em cứ ghi stt từ QĐ đầu tiên"; "code và gộp lên".
+- **📅 Dòng thời gian QĐ** (mục 📋 Quyết định, cột phải): mỗi năm × nguồn TW / ĐP 1 bảng, xếp theo ngày, **STT 1, 2, 3… từ QĐ đầu tiên**; cột Đợt (như QĐ ghi) · Số QĐ · Ngày · Loại · Giao cho PGD (số xã / không giao) · Σ điều chỉnh PGD · Ghi chú. Soát đợt trên QĐ có ghi đợt: **dòng đỏ "⚠ Thiếu đợt N — chưa nhập"** + nút ＋ ghi số QĐ (điền sẵn đợt, nguồn); đợt trùng / đợt nhỏ hơn QĐ trước tô vàng; QĐ không ghi đợt không nhắc. Bấm dòng → xem QĐ. In / PDF / Word / Excel.
+- **QĐ không giao cho PGD**: nút ＋ — chỉ số QĐ, ký hiệu, ngày, nguồn, loại, đợt, ghi chú; lưu riêng (`qdKhong`) — phân bổ, Biểu 07, Diễn biến, Đối chiếu không đụng; có STT trong dòng thời gian, nhóm riêng ở cột trái (bấm sửa / xóa). Đọc PDF / Excel mà QĐ **không có khối PGD mình** → báo + nút "📄 Lưu số QĐ (không giao cho PGD)" điền sẵn từ QĐ.
+- Lõi `pbDongThoiGian` (js/47, chạy được trong node).
+- **Anh 04/11 (ảnh tab Phân bổ):** "có nút chuyển xem gọn, 1 QĐ 1 dòng, khi nhấp vào sẽ hiện bảng bên phải, bảng bên phải dòng tổng thì in đậm, dòng con in thường" → nút **☰ Xem gọn / ▤ Xem chi tiết** (nhớ lựa chọn `pbGonQD`): mỗi QĐ 1 dòng (số · ngày · nguồn · đợt · GM/ĐC · số xã · Σ điều chỉnh, ✎); bảng bên phải: dòng tổng (chương trình / xã) đậm cả 3 cột số, dòng con in thường.
+- **Anh 04/11:** "em cũng nên xuất số liệu đã lưu để kiểm tra đối chiếu xem số liệu đã nhập có đúng không"; "em xuất ra 1 file đầy đủ như file đã nhập để cho các AI khác rà soát lại" → bảng xem 1 QĐ có thanh xuất (In / PDF / Word / Excel — đúng bảng đang xem); nút **⬇ Xuất số liệu đã lưu** = 1 file Excel: DANH_SACH (dòng thời gian, STT, đợt sót) · THEO_QD (từng QĐ như danh mục) · CHI_TIET (xã × chương trình, kiểm 3 + 4 = 5) · **QD + DM_<số QĐ> đúng cột mẫu nhập** · HUONG_DAN_AI (lời nhắc rà soát với QĐ gốc, liệt kê chỗ khác). Chỉ có số của PGD mình — dòng chương trình toàn tỉnh để trống, ghi rõ.
+- **Phép thử**: t372 mới (21).
+
 ## 3.466 — 04/11/2026 — Phân bổ KH: sửa QĐ linh động (TK 3)
 - **Anh 04/11**: "khi sửa các QĐ, sao cho linh động được" → "làm hết, em code".
 - **① ✎ Sửa nhanh ngay tại bảng xem** (cột phải mục 📋 Quyết định): cùng bộ sửa với hộp QĐ — Lưu / Bỏ ở cuối bảng, Enter xuống cùng cột, Ctrl+Enter = Lưu; Bỏ → về bảng xem, không ghi.
