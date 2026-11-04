@@ -10,7 +10,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Sửa ở gốc** (`slXaTenChuan`, js/22, gọi trong `slBo`): tên xã mọi dòng mọi bảng của bộ số liệu = tên chuẩn theo mã xã — File Tổ trưởng / Thông tin tổ trưởng (TENXA) → Mẫu 31 tên sạch (đa số) → danh mục ⚙ Cài đặt → "Mã xã …". Tên gốc giữ ở `tenXaGoc`; `B.xaTen` = bảng mã → tên. Món vay trực tiếp vẫn nhận theo tổ / ấp như cũ. Các lớp đỡ cũ (`toTenXa`, `xaTenSach`) giữ cho dữ liệu đã lưu.
 - **Kiểm tra kỳ** (nhóm 6): dòng "Tên xã trên Mẫu 31 = tên chuẩn theo mã xã" — liệt kê mã xã · tên chuẩn · tên trên Mẫu 31 · số dòng; hết chênh = Mẫu 31 đã chuẩn lại.
 - **Phân bổ › Diễn biến:** ô chọn xã ghi tên theo cây địa bàn; dòng không có mã xã không còn thành mục trùng "Tất cả xã".
-- **Phép thử** mới `t373` (Mẫu 31 giả: cả 1 xã ghi "… Vay trực tiếp"). Hồi quy đủ.
+- **Biểu 07 (Thông báo giao / điều chỉnh KH dư nợ) bản Word** (anh 04/11 ảnh: "dòng tiêu đề sát các dòng trên dưới, nên giãn dòng thêm"): bộ chuyển Word (`hsoDocx`) chỉ hiểu lớp `tr` / `sau` (6 pt), bỏ qua `margin-top:18pt` ghi thẳng → thêm lớp chung `tr3` (trước 18 pt) / `sau2` (sau 12 pt) cho màn hình + Word; Biểu 07: trước "THÔNG BÁO …" 18 pt, sau "NĂM …" 12 pt.
+- **Phép thử** mới `t373` (Mẫu 31 giả: cả 1 xã ghi "… Vay trực tiếp"). t253 thêm kiểm khoảng cách tiêu đề Word. Hồi quy đủ.
 
 ## 3.469 — 04/11/2026 — Phân bổ KH: QĐ không giao cho PGD gom vào ＋ QĐ mới (QĐ 0 xã) (TK 3)
 - **Anh 04/11**: "QĐ không giao cho PGD cũng gom 1 chỗ nhập QĐ mới nhưng không add xã nào, chỉ nhập thông tin và lưu, báo 0 xã" · "anh đã nhập 1 QĐ không giao cho PGD em gom lại luôn" · "nếu nhìn nhầm thì sửa thêm xã là xong".
