@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.462** — TK 3 (vai App chính): dọn nền — cổng gắn mẫu `hsoMauGan`, ngân sách tăng trong `kiem.py` (`docs/KE_HOACH_DON_NEN.md`). Trạng thái: `docs/nhat_ky/APP.md`.
+- **`main` = 3.463** — TK 3 (vai App chính): Mẫu 11/TD mới + cũ chuẩn 10A trên HST, đúng gốc từng chữ, tổ trưởng theo Danh sách tổ mới nhất (chọn bản cũ khi in bổ sung). Trạng thái: `docs/nhat_ky/APP.md`.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

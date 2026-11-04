@@ -820,11 +820,7 @@ function hsoTuyHTML(M, t){
     if(typeof omCo==='function' && omCo('10b') && typeof omNhanhHTML==='function') h += omNhanhHTML('10b');   /* 3.452: Chọn nhanh (đủ dòng ở nút ⚙ Khai báo riêng) */
   }
   else if(M.k==='10d') h += hsoNgayTuy()+hsoHoiTuy(t);
-  else if(M.k==='11' || M.k==='11cu'){
-    var K = t ? hsoTTKH(t) : {kh:''}, c = K.kh ? hsoKhach(K.kh, t) : {};
-    h += hsoNgayTuy('Ngày ký', 'Trống = chấm.')+'<div class="sl-phu">Bên A (PGD) lấy ở <a href="#" onclick="event.preventDefault();hsoKBHop(\'pgd\')">⚙ Khai báo chung</a>'+(hsoPGD('daiDien') ? '' : ' — <b>chưa khai người đại diện</b>')+'.</div>'+
-      (t ? '<div class="sl-phu">'+(c.cccd ? 'CCCD tổ trưởng: '+coChuHTML(c.cccd)+' — căn cứ: '+coChuHTML(K.cc) : '⚠ Chưa khớp được tổ trưởng với khách trong Mẫu 31 → số căn cước để chấm.')+'</div>' : '');
-  }
+  else if(M.trai) h += M.trai(t, M);   /* 3.463: mẫu gắn qua cổng hsoMauGan (11/TD mới, cũ — cột trái chung HST.hdTrai) */
   else if(M.k==='01bg' || M.k==='02bg'){
     var G = t ? hsoGiaoNhan(t) : {giao:'', nhan:''};
     h += hsoNgayTuy('Ngày lập')+hsoHoiTuy(t)+hsoTuyO('Bên giao (tổ trưởng cũ)', hsoIn('hsoDocO()', G.giao, 'trống = chấm', '', 'hso-o-giao'))+

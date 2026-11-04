@@ -109,9 +109,6 @@ if len(sys.argv)<2:
     pm=os.path.join(G,'tests','do_moc.json'); moc=json.load(open(pm,encoding='utf-8')) if os.path.exists(pm) else {}
     if MOC or not moc: json.dump(do,open(pm,'w',encoding='utf-8'),ensure_ascii=False,indent=1); moc=do
     vuot=[k for k in do if k in moc and do[k]>moc[k] and k not in ('js_kb','css_kb','ham','bien')]
-    # 3.462 (anh 04/11 "dọn nền tương ứng với phát triển thêm" — KE_HOACH_DON_NEN mục 2): NGÂN SÁCH TĂNG — vượt mốc quá mức này → ⚠ phải có bản dọn (giảm lại) rồi mới hạ / đặt mốc mới (--moc, ghi CHANGELOG)
-    NGAN={'js_kb':100, 'css_kb':15, 'ham':60, 'bien':15}
-    ngan=[k for k in NGAN if k in moc and do[k]-moc[k]>NGAN[k]]   # báo riêng (dòng ⚠ NGÂN SÁCH) — không gộp với VƯỢT MỐC của thước đo cứng
+    # 3.463 (anh 04/11 "hạn chế code rác, tối ưu chương trình, ko phải gò ép trong khoảng nào"): bỏ ngân sách KB (3.462) — số KB chỉ in để theo dõi; chống rác bằng các thước đo không được tăng
     print('Thước đo:', ' · '.join('%s %d%s'%(ten[k],do[k],('' if k not in moc or do[k]==moc[k] else ' (%+d)'%(do[k]-moc[k]))) for k in do), ('— ⚠ VƯỢT MỐC: '+', '.join(ten[k] for k in vuot)) if vuot else '— trong mốc')
-    if ngan: print('⚠ NGÂN SÁCH TĂNG vượt (%s) — bản kế là bản dọn rồi mới đặt mốc mới (docs/KE_HOACH_DON_NEN.md mục 2)' % ', '.join('%s %+d > %d'%(ten[k], do[k]-moc[k], NGAN[k]) for k in ngan))
 

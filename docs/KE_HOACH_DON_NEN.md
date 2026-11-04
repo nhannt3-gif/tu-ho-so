@@ -43,7 +43,7 @@ Bản rà kiểm thử 04/11 ghi "chưa thấy" một số việc nền — **sa
 ## 5. Lộ trình dọn nền xen phát triển (mỗi bản: kế hoạch → anh duyệt → "code")
 | Thứ tự | Việc nền | Đi kèm khi | Thước đo |
 |---|---|---|---|
-| N1 | Chuyển dần mẫu Hồ sơ sang `hsoMauGan` (09A, 01/TĐCK, 10A–10D, 11, 01/TGTV…) — **mẫu nào đụng thì chuyển mẫu đó** | mọi bản sửa mẫu | nhánh mẫu riêng 54 → giảm |
+| N1 | Chuyển dần mẫu Hồ sơ sang `hsoMauGan` (09A, 01/TĐCK, 10A–10D, 01/TGTV…) — **mẫu nào đụng thì chuyển mẫu đó**. ✅ 3.462 06A, BBLV · ✅ 3.463 11 mới, 11 cũ (+ bỏ `hsoLap11` cũ 72 dòng) | mọi bản sửa mẫu | nhánh mẫu riêng 54 → 52 |
 | N2 | `onclick` → `data-lenh` (`GD.dangKy`) ở file đang sửa | mọi bản | onclick 1.266 → giảm |
 | N3 | Bản dọn khi ⚠ ngân sách: bỏ mã chết, mẫu cũ không còn dùng (anh duyệt từng mẫu), gộp CSS trùng | khi ⚠ | JS / CSS về dưới ngân sách |
 | N6 | Báo cáo bảng còn lại qua `DANG_KY` khi sửa báo cáo đó | khi đụng | số khối DANG_KY tăng |
@@ -52,7 +52,7 @@ Bản rà kiểm thử 04/11 ghi "chưa thấy" một số việc nền — **sa
 - **"Việc cần xử lý" ở Hôm nay** (QUY_CHUAN mục 8 bước 8): **bỏ khỏi việc chờ** — anh: "nào cần anh sẽ yêu cầu làm". Không làm khi anh chưa yêu cầu.
 - **Danh mục lý do lệch anh khai được** (bước 6): **không cần** — giữ "lưu ý đã biết" trong bảng đối chiếu (js/22k) như hiện nay.
 
-## 7. BẢN DỌN 3.463 — kế hoạch (04/11, chờ anh duyệt + "code")
+## 7. BẢN DỌN (3.464) — kế hoạch (04/11, chờ anh "code"; 3.463 dành cho Mẫu 11 anh yêu cầu trước)
 ### 7.1 Đo trước khi dọn (bản 3.462, 137 file JS nạp lúc mở app = 3.903 KB)
 | Thành phần | KB | Cách đo |
 |---|---|---|
@@ -73,7 +73,7 @@ Bản rà kiểm thử 04/11 ghi "chưa thấy" một số việc nền — **sa
 - **Thước đo đổi sang "mã rác" — không được tăng, mốc 0 khi dọn xong:** hàm không tới được (dò từ index.html, acorn) · hàm trùng y hệt · lớp CSS không còn dùng · mồ côi · onclick (giảm dần) · nhánh mẫu riêng (giảm dần).
 - **Tối ưu chương trình = đo tốc độ thật** (nạp app, mở tab nặng, lập mẫu) — chỉ sửa chỗ đo thấy chậm.
 
-### 7.3 Việc làm bản 3.463 (chờ "code")
+### 7.3 Việc làm bản dọn 3.464 (chờ "code") — 3.463 đã làm trước: bỏ ⚠ ngân sách KB trong `kiem.py`
 | # | Việc | Chứng minh không đổi chức năng |
 |---|---|---|
 | C1 | Bỏ 2 hàm không ai gọi (`ktDsBC`, `ktChonBC`); 5 hàm chỉ phép thử gọi — xem từng hàm, thừa thì bỏ cùng phép thử | `kiem.py`; phép thử liên quan |

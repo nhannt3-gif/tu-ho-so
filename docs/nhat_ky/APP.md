@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 04/11/2026 18:40 — TK 3 · PHIÊN (3.463)
+- Anh 04/11: bản dọn — "hạn chế code rác, tối ưu chương trình, không gò ép trong khoảng nào", giữ mẫu cũ 10C / 11 cũ → KE_HOACH_DON_NEN mục 7.2–7.3 (bản dọn 3.464 chờ "code").
+- 3.463 (anh "code xong gộp lên anh thử"): Mẫu 11/TD mới + cũ chuẩn 10A trên HST, đúng mẫu gốc từng chữ (sửa "để trình", "đóng dấu)", khoảng trắng tên PGD), tổ trưởng theo Danh sách tổ mới nhất / chọn bản cũ / Mẫu 31; gắn qua `hsoMauGan`, bỏ `hsoLap11` cũ.
+- **Chờ anh:** thử máy thật 11 mới / cũ + BBLV / 06A; "code" bản dọn 3.464.
+
 ### 04/11/2026 17:10 — TK 3 · PHIÊN (3.461.4 → 3.462)
 - 3.461.4–3.461.9 (đã gộp #489–#493): BBLV / 06A sửa theo ảnh anh (Tây Ninh, STT theo hộ, cột Lãi tồn, In 2 mặt), tình huống mẫu ①–⑧ + tờ hướng dẫn, ô sổ xuống; hồi quy theo đổi 5/5, mốc tổng 246.
 - 3.462 (anh 04/11 "làm tất cả, dọn nền tương ứng với phát triển thêm"): `docs/KE_HOACH_DON_NEN.md` — cổng gắn mẫu `hsoMauGan` (06A, BBLV), ngân sách tăng + thước đo nhánh mẫu trong `kiem.py`, đo nạp khi dùng (không làm), sửa bản rà 04/11 (nhiều việc nền đã có).
