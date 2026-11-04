@@ -254,18 +254,18 @@ function pbFBangHTML(){
     var ds = F.dong.map(function(d, i){ return i; }).filter(function(i){ return F.dong[i].ma===ma; }).sort(function(a, b){ return xaThu.indexOf(F.dong[a].xa)-xaThu.indexOf(F.dong[b].xa); });
     var co = ds.map(function(i){ return F.dong[i].xa; });
     var cong = K.map(function(f){ return pbSum(ds, function(i){ return F.dong[i][f] || 0; }); }), t = (F.tong || {})[ma] || [null, null, null];
-    var lechT = [0, 1, 2].filter(function(j){ return t[j]!=null && Math.abs(t[j]-cong[j])>0.0005; }); if(lechT.length) loi++;
+    var lechT = t[1]!=null && Math.abs(t[1]-cong[1])>0.0005; if(lechT) loi++;   /* 3.468 (anh 04/11): QĐ chỉ đối chiếu được TỔNG ĐIỀU CHỈNH đợt này — cột đã giao / đến 31/12 của dòng PGD còn gồm xã có tên mà không giao */
     /* 3.466: đầu khối chương trình — đổi mã · ＋ xã · 🗑 bỏ chương trình */
     h += '<tr class="pb-f-ct"><td colspan="6"><b>'+(PB_LA[ci] || ci+1)+'.</b> <select data-lenh="pb.fDoiMa" data-su="change" data-ma="'+ma+'" title="Đổi mã chương trình (ghép nhầm lúc đọc QĐ)">'+
       ctDs.map(function(m){ return '<option value="'+m+'"'+(m===ma ? ' selected' : '')+(m!==ma && maThu.indexOf(m)>=0 ? ' disabled' : '')+'>'+m+' '+e(pbVT(m))+' — '+e(pbTenCT(m))+'</option>'; }).join('')+'</select> '+
       '<select data-lenh="pb.fThemXaCT" data-su="change" data-ma="'+ma+'"><option value="">＋ xã…</option>'+xaThu.filter(function(x){ return co.indexOf(x)<0; }).map(function(x){ return '<option value="'+e(x)+'">'+e(F.xa[x] || x)+'</option>'; }).join('')+
       PB.dsXa.filter(function(z){ return !F.xa[z.ma]; }).map(function(z){ return '<option value="'+e(z.ma)+'">'+e(z.ten)+' (chưa có trong QĐ)</option>'; }).join('')+'</select> '+
       GD.nut({chu:'🗑 bỏ chương trình', lenh:'pb.fBoCT', du:{ma:ma}, tit:'Bỏ cả khối chương trình này', lop:'pb-nho'})+'</td></tr>'+
-      '<tr class="pb-f-pgd"><td>Tổng PGD trên QĐ <small>(gõ để đối chiếu)</small></td>'+[0, 1, 2].map(function(j){ return '<td class="so">'+GD.o({loai:'so', gt:pbSo3(j, t[j]), lenh:'pb.fTong', du:{ma:ma, j:j}})+'<br><small>Σ xã '+pbSo3(j, cong[j])+'</small></td>'; }).join('')+
-      '<td><small class="'+(lechT.length ? 'do' : 'xanh')+'">'+(lechT.length ? '✗ tổng các xã ≠ dòng PGD ('+lechT.map(function(j){ return ['đã giao', 'điều chỉnh', 'đến 31/12'][j]; }).join(', ')+')' : t.some(function(x){ return x!=null; }) ? '✓ khớp dòng PGD' : '')+'</small></td><td></td></tr>';
+      '<tr class="pb-f-pgd"><td>Tổng điều chỉnh PGD trên QĐ <small>(gõ để đối chiếu)</small></td>'+[0, 1, 2].map(function(j){ return '<td class="so">'+(j===1 ? GD.o({loai:'so', gt:pbSo3(j, t[j]), lenh:'pb.fTong', du:{ma:ma, j:j}})+'<br>' : '')+'<small>Σ xã '+pbSo3(j, cong[j])+'</small></td>'; }).join('')+
+      '<td><small class="'+(lechT ? 'do' : 'xanh')+'">'+(lechT ? '✗ Σ điều chỉnh các xã ≠ dòng PGD ('+pbSoDau(t[1])+')' : t[1]!=null ? '✓ khớp điều chỉnh PGD' : '')+'</small></td><td></td></tr>';
     ds.forEach(function(i){ var x = F.dong[i].xa; h += dongXa(i, e(F.xa[x] || x)+ghep(x)); }); });
   return '<div class="to-bang-cuon"><table class="to-bang luoi pb-f-bang"><thead><tr><th>'+(F.kieu==='xa' ? 'Xã / chương trình' : 'Chương trình / xã')+'</th><th>Chỉ tiêu KH đã giao (3)</th><th>Điều chỉnh đợt này (4)</th><th>Đến 31/12 (5 = 3 + 4)</th><th>Kiểm tra</th><th></th></tr></thead><tbody>'+h+'</tbody></table></div>'+
-    '<div class="sl-phu '+(loi ? 'do' : nhac ? 'vang' : 'xanh')+'">'+(loi ? '✗ '+loi+' chỗ lệch (dòng 3 + 4 ≠ 5 hoặc tổng các xã ≠ dòng PGD)' : nhac ? '⚠ '+nhac+' dòng cần xem lại' : '✓ '+F.dong.length+' dòng khớp')+' · <small>Enter = xuống dòng dưới cùng cột · Ctrl+Enter = Lưu</small></div>';
+    '<div class="sl-phu '+(loi ? 'do' : nhac ? 'vang' : 'xanh')+'">'+(loi ? '✗ '+loi+' chỗ lệch (dòng 3 + 4 ≠ 5 hoặc Σ điều chỉnh các xã ≠ dòng PGD)' : nhac ? '⚠ '+nhac+' dòng cần xem lại' : '✓ '+F.dong.length+' dòng khớp')+' · <small>Enter = xuống dòng dưới cùng cột · Ctrl+Enter = Lưu</small></div>';
 }
 function pbFBangVe(){ var o = document.getElementById('pb-f-bang'); if(o) o.innerHTML = pbFBangHTML(); }
 function pbFThemCT(){
@@ -844,8 +844,8 @@ function pbQDXem(){
     return '<tr class="'+lop+'"><td>'+ten+'</td>'+[0, 1, 2].map(function(j){ var v = pbSo3(j, x[j]); return '<td class="s">'+(dam ? '<b>'+v+'</b>' : v)+'</td>'; }).join('')+'<td>'+(ghi || '')+'</td></tr>'; };
   var maThu = []; g.ds.forEach(function(q){ (q.ct || []).forEach(function(c){ if(maThu.indexOf(c.ma)<0) maThu.push(c.ma); }); });   /* thứ tự như QĐ */
   if(kieu==='ct') maThu.forEach(function(ma, i){ var xs = g.ds.map(function(q){ return {q:q, c:(q.ct || []).filter(function(c){ return c.ma===ma; })[0]}; }).filter(function(x){ return x.c; });
-      var sum = cong(xs.map(function(x){ return cs(x.c); })), t = (q0.tong || {})[ma], lech = t && [0, 1, 2].some(function(j){ return t[j]!=null && Math.abs(t[j]-sum[j])>0.0005; });
-      h += dong('<b>'+(PB_LA[i] || i+1)+'. '+ma+' '+e(pbVT(ma))+' — '+e(pbTenCT(ma))+'</b>', t || sum, 'pb-x-ct', t ? (lech ? pbChip('✗ Σ '+xs.length+' xã ≠ dòng PGD', 'lech') : pbChip('✓ khớp dòng PGD', 'khop')) : '<small>Σ '+xs.length+' xã</small>');
+      var sum = cong(xs.map(function(x){ return cs(x.c); })), t = ((q0.tong || {})[ma] || [])[1], lech = t!=null && Math.abs(t-sum[1])>0.0005;   /* 3.468: chỉ so cột điều chỉnh */
+      h += dong('<b>'+(PB_LA[i] || i+1)+'. '+ma+' '+e(pbVT(ma))+' — '+e(pbTenCT(ma))+'</b>', sum, 'pb-x-ct', (t!=null ? (lech ? pbChip('✗ Σ điều chỉnh '+xs.length+' xã ≠ PGD '+pbSoDau(t), 'lech') : pbChip('✓ khớp điều chỉnh PGD', 'khop'))+' ' : '')+'<small>Σ '+xs.length+' xã</small>');
       xs.forEach(function(x){ h += dong('&nbsp;&nbsp;&nbsp;'+e(x.q.tenXa || x.q.xa), cs(x.c), '', kiem(cs(x.c))); }); });
   else g.ds.forEach(function(q){ var cc = (q.ct || []).slice().sort(function(a, b){ return maThu.indexOf(a.ma)-maThu.indexOf(b.ma); });
       h += dong('<b>📍 '+e(q.tenXa || q.xa)+'</b>', cong(cc.map(cs)), 'pb-x-ct', '<small>'+cc.length+' chương trình</small>');
@@ -893,8 +893,8 @@ function pbXuatTat(){
     qd.push([]); qd.push(['QĐ '+q0.so+(q0.kyHieu || '')+' ngày '+pbNgay(q0.ngay)+' · '+pbNguonChu(q0.nguon)+' · '+(q0.loai || '')+(q0.dot ? ' · đợt '+q0.dot : '')+' · '+g.ds.length+' xã']);
     ma.forEach(function(m, i){ var xs = g.ds.map(function(q){ return {q:q, c:(q.ct || []).filter(function(c){ return c.ma===m; })[0]}; }).filter(function(x){ return x.c; });
       var sum = [0, 1, 2].map(function(j){ return pbSum(xs, function(x){ return ba(x.c)[j] || 0; }); }), t = (q0.tong || {})[m];
-      var lech = t && [0, 1, 2].some(function(j){ return t[j]!=null && Math.abs(t[j]-sum[j])>0.0005; });
-      qd.push([(PB_LA[i] || i+1)+'. '+m+' '+pbVT(m)+' — '+pbTenCT(m)+(t ? ' (dòng PGD trên QĐ)' : ' (Σ các xã)')].concat((t || sum).map(so)).concat([t ? (lech ? 'Σ xã ≠ dòng PGD' : 'khớp dòng PGD') : '']));
+      var t1 = t ? t[1] : null, lech = t1!=null && Math.abs(t1-sum[1])>0.0005;   /* 3.468: chỉ so cột điều chỉnh */
+      qd.push([(PB_LA[i] || i+1)+'. '+m+' '+pbVT(m)+' — '+pbTenCT(m)+' (Σ các xã)'].concat(sum.map(so)).concat([t1!=null ? (lech ? 'Σ điều chỉnh xã ≠ dòng PGD ('+t1+')' : 'khớp điều chỉnh PGD') : '']));
       xs.forEach(function(x){ var v = ba(x.c), l = v[0]!=null && v[1]!=null && v[2]!=null && Math.abs(pbR(v[0]+v[1])-v[2])>0.0005;
         qd.push(['   '+(x.q.tenXa || x.q.xa)].concat(v.map(so)).concat([l ? '3 + 4 ≠ 5' : '']));
         ct.push([q0.so+(q0.kyHieu || ''), pbNgay(q0.ngay), pbNguonChu(q0.nguon), q0.loai || '', q0.dot || '', x.q.tenXa || x.q.xa, m, pbTenCT(m)].concat(v.map(so)).concat([l ? 'LỆCH' : 'khớp'])); }); }); });
@@ -906,7 +906,8 @@ function pbXuatTat(){
     ma.forEach(function(m, i){ var xs = g.ds.map(function(q){ return {q:q, c:(q.ct || []).filter(function(c){ return c.ma===m; })[0]}; }).filter(function(x){ return x.c; }), t = (q0.tong || {})[m];
       var sum = [0, 1, 2].map(function(j){ return pbSum(xs, function(x){ return ba(x.c)[j] || 0; }); }), ten = ((xs[0] || {}).c || {}).ten || pbTenCT(m);
       a.push([PB_LA[i] || String(i+1), ten, '', '', '', 'mã '+m+' — dòng toàn tỉnh: app không lưu (chỉ lưu PGD mình)']);
-      a.push(['1', q0.pgd || 'Phòng giao dịch (PGD đang dùng app)'].concat((t || sum).map(so)).concat([t ? 'dòng PGD trên QĐ' : 'Σ các xã (QĐ nhập tay không ghi dòng PGD)']));
+      var tP = [0, 1, 2].map(function(j){ return t && t[j]!=null ? t[j] : sum[j]; });   /* dòng PGD: số trên QĐ (đọc PDF / Excel đủ 3 cột; nhập tay chỉ điều chỉnh) — thiếu thì Σ các xã */
+      a.push(['1', q0.pgd || 'Phòng giao dịch (PGD đang dùng app)'].concat(tP.map(so)).concat([t && t[0]!=null ? 'dòng PGD trên QĐ' : t && t[1]!=null ? 'điều chỉnh: dòng PGD trên QĐ · đã giao, đến 31/12: Σ các xã' : 'Σ các xã']));
       xs.forEach(function(x, k){ a.push(['1.'+(k+1), x.q.tenXa || x.q.xa].concat(ba(x.c).map(so)).concat([''])); }); });
     dm.push(['DM_'+String(q0.so).replace(/[^\w]/g, '').slice(0, 25), a]); });
   dl.qdKhong.forEach(function(q){ qdM.push([q.so, q.kyHieu || '', pbNgay(q.ngay), pbNguonChu(q.nguon), q.loai || '', q.dot || '', '', '', 0, 'KHÔNG GIAO CHO PGD'+(q.ghi ? ' — '+q.ghi : '')]); });

@@ -37,8 +37,8 @@ const fs=require('fs'), path=require('path'), os=require('os');
   /* ② xem QĐ 2 kiểu */
   await p.evaluate(async()=>{ pbDoiMuc('qd'); await new Promise(r=>setTimeout(r,500)); document.querySelector('.pb-nhom-dau[data-lenh="pb.xem"]').click(); await new Promise(r=>setTimeout(r,500)); });
   r=await p.evaluate(()=>{ const t=document.querySelector('#pb-phai .pb-x-bang'); return {co:!!t, th:t ? [...t.querySelectorAll('th')].map(x=>x.textContent).join('|') : '', chu:t ? t.innerText : ''}; });
-  ok('📋 Quyết định: cột phải xem QĐ THEO CHƯƠNG TRÌNH — 3 cột như QĐ, dòng chương trình = dòng PGD trên QĐ, các xã có giao', r.co && /đã giao\|Điều chỉnh đợt này\|Đến 31\/12\/2026/.test(r.th) && /I\. 01 HN/.test(r.chu) && /II\. 19 HCN/.test(r.chu) && /330/.test(r.chu) && /Phường Gò Dầu/.test(r.chu), r.th);
-  ok('theo chương trình: bỏ bớt xã → báo Σ xã ≠ dòng PGD (đối chiếu QĐ)', /Σ 2 xã ≠ dòng PGD/.test(r.chu));
+  ok('📋 Quyết định: cột phải xem QĐ THEO CHƯƠNG TRÌNH — 3 cột như QĐ, dòng chương trình = dòng PGD trên QĐ, các xã có giao', r.co && /đã giao\|Điều chỉnh đợt này\|Đến 31\/12\/2026/.test(r.th) && /I\. 01 HN/.test(r.chu) && /II\. 19 HCN/.test(r.chu) && /\+40/.test(r.chu) && /Phường Gò Dầu/.test(r.chu), r.th);
+  ok('theo chương trình: bỏ bớt xã → báo Σ điều chỉnh xã ≠ dòng PGD (chỉ so cột điều chỉnh — 3.468)', /Σ điều chỉnh 2 xã ≠ PGD \+30/.test(r.chu));
   await p.evaluate(async()=>{ document.querySelector('[data-lenh="pb.kieuQD"][data-v="xa"]').click(); await new Promise(r=>setTimeout(r,500)); });
   r=await p.evaluate(()=>({chu:(document.querySelector('#pb-phai .pb-x-bang')||{}).innerText||'', nho:D.cauHinh.pbKieuQD}));
   ok('chuyển THEO XÃ: mỗi xã + các chương trình của xã, nhớ lựa chọn', /📍 Phường Gia Lộc/.test(r.chu) && /2 chương trình/.test(r.chu) && r.nho==='xa');
@@ -46,9 +46,9 @@ const fs=require('fs'), path=require('path'), os=require('os');
   await p.evaluate(async()=>{ document.querySelector('#pb-phai [data-lenh="pb.sua"]').click(); await new Promise(r=>setTimeout(r,800));
     document.querySelector('[data-lenh="pb.fKieu"][data-v="ct"]').click(); await new Promise(r=>setTimeout(r,300)); });   /* 3.466: hộp sửa mở theo kiểu đang xem (vừa chọn Theo xã) → chọn lại theo chương trình */
   r=await p.evaluate(()=>{ const t=document.querySelector('#pb-f-bang'); const ct=[...t.querySelectorAll('.pb-f-ct')].map(x=>{ const m=x.querySelector('[data-lenh="pb.fDoiMa"]'); return x.querySelector('b').textContent.trim()+' '+(m ? m.value : ''); });   /* 3.466: đầu khối có ô đổi mã */ const tg=[...t.querySelectorAll('[data-lenh="pb.fTong"]')].map(x=>x.value);
-    return {ct, tg, th:[...t.querySelectorAll('th')].map(x=>x.textContent).join('|'), canh:t.innerText.match(/✗ tổng các xã[^\n]*/)}; });
-  ok('hộp sửa xếp THEO CHƯƠNG TRÌNH (I. 01 · II. 19 như QĐ), cột như QĐ, ô Tổng PGD điền sẵn từ QĐ', r.ct.length===2 && /^I\. 01/.test(r.ct[0]) && /^II\. 19/.test(r.ct[1]) && r.tg.slice(0,3).join(',')==='300,+30,330' && /Điều chỉnh đợt này \(4\)/.test(r.th), r.ct.join(' | ')+' · '+r.tg.join(','));
-  ok('hộp sửa: tổng các xã ≠ dòng PGD (đã bỏ 1 xã) → báo đỏ', !!r.canh);
+    return {ct, tg, th:[...t.querySelectorAll('th')].map(x=>x.textContent).join('|'), canh:t.innerText.match(/✗ Σ điều chỉnh các xã[^\n]*/)}; });
+  ok('hộp sửa xếp THEO CHƯƠNG TRÌNH (I. 01 · II. 19 như QĐ), cột như QĐ, ô Tổng điều chỉnh PGD điền sẵn từ QĐ (chỉ cột điều chỉnh — 3.468)', r.ct.length===2 && /^I\. 01/.test(r.ct[0]) && /^II\. 19/.test(r.ct[1]) && r.tg.join(',')==='+30,−5' && /Điều chỉnh đợt này \(4\)/.test(r.th), r.ct.join(' | ')+' · '+r.tg.join(','));
+  ok('hộp sửa: Σ điều chỉnh các xã ≠ dòng PGD (đã bỏ 1 xã) → báo đỏ', !!r.canh);
   await p.focus('#pb-f-bang [data-lenh="pb.fSo"][data-f="daGiao"][data-i="0"]'); await p.keyboard.press('Enter'); await p.waitForTimeout(200);
   r=await p.evaluate(()=>{ const a=document.activeElement; return {f:a && a.getAttribute('data-f'), i:a && a.getAttribute('data-i'), xa:a && a.closest('tr').cells[0].textContent.trim()}; });
   ok('Enter = xuống xã dưới CÙNG CỘT (Đã giao)', r.f==='daGiao' && /Gò Dầu/.test(r.xa), JSON.stringify(r));
