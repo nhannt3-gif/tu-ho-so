@@ -277,3 +277,7 @@ function omKBDsHop(mk){ omKBDk();
 function omKBDsVe(mk){ var e = document.getElementById('om-kbds-ds'); if(!e) return; var md = document.getElementById('om-kbds-md'); if(md) md.textContent = omMDChu(mk); var dm = document.getElementById('om-kbds-dem'); if(dm) dm.textContent = '('+omDemNguon(mk)+')'; var m = OM_MAU[mk], nh = omNhanh(mk), V = omVTam(mk), ph = '';
   e.innerHTML = m.o.map(function(x){ var tp = (m.phanTen || {})[x.p] || OM_PHAN[x.p] || '', dau = tp!==ph ? '<div class="gdx-kbr-nhom">'+coChuHTML(ph = tp)+'</div>' : '';
     return dau+omDsDong(mk, x, V, nh); }).join(''); }
+
+/* 3.464 (KE_HOACH_DON_NEN C2): chú thích chân trang của mẫu gốc — giữ chỗ cao `cao` mm cuối trang, chữ ghim đáy trang (trước 07b, 10C mỗi mẫu 1 bản giống hệt) */
+function omChanTrang(cao, so, chu){ return '<div class="kt-giu" style="height:'+cao+'mm"><div style="position:absolute;left:1.5px;right:1.5px;bottom:0;font-size:10pt;line-height:1.15;text-align:justify">'+
+  '<p style="margin:0 0 1mm;width:50mm;height:0;border-top:.5pt solid #000"></p><p style="margin:0"><span style="font-size:58%;vertical-align:33%;line-height:0">'+so+'</span> '+chu+'</p></div></div>'; }

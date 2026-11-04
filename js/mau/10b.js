@@ -3,16 +3,7 @@
    Ngày họp / ngày UBND mặc định chấm (anh chốt). Bỏ file này → app dùng lại hsoLap10b cũ. */
 (function(){
   var MK = '10b';
-  function mm(s, k){ var m = new RegExp(k+':(-?[\\d.]+)mm').exec(s); return m ? +m[1] : 0; }
-  function P(noi, s){ s = s || ''; if(s && !/;$/.test(s)) s += ';';
-    if(/nowrap/.test(s) && noi.indexOf('<br>')<0){
-      var w = 0, h = noi.replace(/<span[^>]*display:inline-block;width:([\d.]+)mm[^>]*>[\s\S]*?<\/span>/g, function(_, x){ w += +x; return ''; }), tx = h.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
-      var R = 159.5 - mm(s, 'text-indent') - mm(s, 'margin-left'), n = (tx.match(/ /g) || []).length; w += omRong(tx, 14, /^<b>/.test(noi));
-      if(w > R){ if(n && (w-R)/n <= 0.8) s += 'word-spacing:'+(-(w-R)/n).toFixed(2)+'mm;';
-        else { s += 'letter-spacing:'+(-(w-R)/tx.length).toFixed(3)+'mm;'; noi = noi.replace(/display:inline-block;/g, 'display:inline-block;letter-spacing:normal;'); } } }
-    else if(/justify/.test(s) && !/word-spacing/.test(s)) s += 'word-spacing:-0.25mm;';
-    if(/text-align-last:justify/.test(s)) noi = noi.replace(/display:inline-block;/g, 'display:inline-block;text-align-last:auto;word-spacing:normal;');
-    return '<p style="margin:0;'+s+'">'+noi+'</p>'; }
+  function P(noi, s){ return HST.P(noi, s); }   /* 3.464: đoạn văn chung Hồ sơ Tổ (js/mau/0hst.js — trước mỗi mẫu 1 bản giống hệt) */
   var J = 'text-align:justify;', W = 'white-space:nowrap;', TL = 'text-align-last:justify;', F = 'text-indent:12.7mm;', B = 'margin:0 0 6pt;line-height:16pt;';   /* cách 6 pt dồn sau đoạn: đầu trang không thêm khoảng */
   function sup(x){ return '<span style="font-size:58%;vertical-align:33%;line-height:0">'+x+'</span>'; }
   function P2(a, b, st, st2){ return P(a, st+W+TL+'margin-bottom:0;')+P(b, (st2||'')+W+';margin-top:0;'); }

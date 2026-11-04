@@ -201,6 +201,7 @@
 | 04/11 | TK 3 (App chính) | **3.461.9** | `js/mau/bblv.js` (8 tình huống, ô sổ xuống); `tests/t366.js`, `tests/t181.js` | t366 t181 |
 | 04/11 | TK 3 (App chính) | **3.462** | `js/25-ho-so.js` (cổng `hsoMauGan`), `js/25b`, `js/25c` (bỏ nhánh 06A / BBLV), `js/mau/06a.js`, `bblv.js`, `0hsn.js`; `tests/kiem.py`, `tests/t367.js`; `docs/KE_HOACH_DON_NEN.md` | t367 t366 t349 |
 | 04/11 | TK 3 (App chính) | **3.463** | `js/mau/0hst.js` (`HST.P`, `HST.sp`, `HST.tt`, `HST.ttHTML`, `HST.hdTrai`), `js/mau/11.js`, `js/mau/11cu.js`, `js/25-ho-so.js` (bỏ `hsoLap11` cũ, 2 dòng danh sách), `js/25b`, `js/25c`; `tests/kiem.py`, `tests/nhanh/nen.js`, `tests/t368.js`, `tests/t181.js`, `tests/chuan/hst_11*` | t368 t181 t179 t163 t180 t367 |
+| 04/11 | TK 3 (App chính) | **3.464** | bản dọn: `js/22b` (bỏ 2 hàm), `js/31` (`omChanTrang`), `js/mau/07b`, `10a`–`10d` (`HST.P`), `css/app.css` (bỏ 82 quy tắc chết); `tests/kiem.py`, `tests/rac.js` | t179 t181 t192 t368 + hồi quy đủ |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

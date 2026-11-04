@@ -276,6 +276,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t363.js` | 3.455: Khai báo riêng dùng chung (không dồn chữ, vạch màu nguồn), trực quan liên kết 2 chiều, bấm chữ bản xem trước, nút ⚙ mọi mẫu nền ô. |
 | `node tests/t364.js` | 3.456: 10A số tham dự theo tỷ lệ (> 50%), IV tán thành (> 2/3), III gõ / chọn tên, UBND theo III, phê duyệt cả phần. |
 | `node tests/t365.js` | 3.457: 10B, 10C số tham dự / biểu quyết theo tỷ lệ (> 50%, > 2/3), nhớ riêng từng mẫu, vẫn 2 trang. |
+| (3.464) | `tests/rac.js` đo hàm không tới được / trùng (acorn) — `kiem.py` thước đo mã rác. |
 | (3.463) | t368 Mẫu 11 mới / cũ: chữ in sẵn = file gốc, chuẩn 10A, nguồn tổ trưởng; t181 11 / 11cu nhóm chữ liền; t179 ghi lại chuẩn 11. |
 | (3.462) | t367 cổng gắn mẫu hsoMauGan + rút file mẫu. |
 | (3.461.9) | t366 8 tình huống; t181 bỏ so bản mẫu BBLV. |

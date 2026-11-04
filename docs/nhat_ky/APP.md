@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 04/11/2026 21:00 — TK 3 · PHIÊN (3.464 bản dọn)
+- 3.463 đã gộp (#494). 3.464 (anh "code tiếp cho bản dọn"): bỏ hàm / CSS chết, gộp `P` 10A–10D → `HST.P`, `omChanTrang`; thước đo mã rác (hàm chết 0, trùng 2, CSS chết 0); đo tốc độ — chỉ tab Tổ > 300 ms.
+- **Việc kế (anh 04/11):** "xong phần này anh muốn kiểm tra làm thêm phần nhập QĐ của Phân bổ kế hoạch" — rà `js/47`, `js/48`, `docs/KE_HOACH_PHAN_BO_KH.md` rồi báo anh.
+
 ### 04/11/2026 18:40 — TK 3 · PHIÊN (3.463)
 - Anh 04/11: bản dọn — "hạn chế code rác, tối ưu chương trình, không gò ép trong khoảng nào", giữ mẫu cũ 10C / 11 cũ → KE_HOACH_DON_NEN mục 7.2–7.3 (bản dọn 3.464 chờ "code").
 - 3.463 (anh "code xong gộp lên anh thử"): Mẫu 11/TD mới + cũ chuẩn 10A trên HST, đúng mẫu gốc từng chữ (sửa "để trình", "đóng dấu)", khoảng trắng tên PGD), tổ trưởng theo Danh sách tổ mới nhất / chọn bản cũ / Mẫu 31; gắn qua `hsoMauGan`, bỏ `hsoLap11` cũ.

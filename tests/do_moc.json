@@ -1,12 +1,16 @@
 {
- "js_kb": 3722,
- "css_kb": 353,
- "ham": 3550,
- "bien": 589,
+ "js_kb": 3889,
+ "css_kb": 350,
+ "ham": 3595,
+ "bien": 602,
  "mo_coi": 0,
- "dong_dai": 163,
- "onclick": 1268,
+ "dong_dai": 159,
+ "onclick": 1266,
  "file_lon": 0,
  "kho_thang": 0,
- "bang_goc": 0
+ "bang_goc": 0,
+ "nhanh_mau": 52,
+ "ham_chet": 0,
+ "ham_trung": 2,
+ "css_chet": 0
 }

@@ -81,3 +81,12 @@ Bản rà kiểm thử 04/11 ghi "chưa thấy" một số việc nền — **sa
 | C3 | Bỏ CSS của lớp đã gỡ (~223 quy tắc, soát từng lớp — bỏ lớp ghép tên động) | ảnh bố cục t260 + hồi quy đủ |
 | C4 | `kiem.py`: thêm thước đo hàm không tới được · hàm trùng · lớp CSS chết (mốc 0 sau C1–C3); bỏ ⚠ ngân sách KB | t192 |
 | C5 | Đo tốc độ: nạp app, mở Tổng hợp / Sao kê / Tổ / Hồ sơ vay với bộ giả lớn (`js/68-do-toc-do.js` có sẵn) → ghi bảng; chỗ > 300 ms mới đề xuất tối ưu | số đo |
+
+### 7.5 Kết quả bản dọn 3.464 (04/11, anh "code tiếp cho bản dọn")
+| # | Việc | Kết quả |
+|---|---|---|
+| C1 | Hàm thừa | bỏ `ktDsBC`, `ktChonBC` (không ai gọi). Giữ 5 hàm chỉ phép thử gọi — lõi nghiệp vụ có phép thử: `pbTongHopCT` (t250), `dsTimCCCD` (t337, t357), `kcNguon` (t275), `soTrDau` (t158), `ktttHTML` (t273) |
+| C2 | Hàm trùng | `P()` của 10A / 10B / 10C / 10D → `HST.P` (cùng 11 mới, 11 cũ từ 3.463); `chanTrang` 07b / 10C → `omChanTrang` (js/31). **Giữ có lý do:** `nguon` (js/29 lớp kho) ↔ `pbNguon` (js/47 chạy độc lập trong phép thử node — không gọi chéo tầng); đoạn gộp trang PDF trong 04e / 09 (hàm lồng dùng biến tại chỗ) |
+| C3 | CSS chết | bỏ 82 quy tắc / 50 lớp (~8 KB). Giữ: `gl-c3…12` (ghép tên `'gl-c'+o[2]`, Giấy lĩnh), lớp pdf.js tự sinh (`markedContent`, `endOfContent`, `active`) |
+| C4 | Thước đo | `kiem.py` + `tests/rac.js` (acorn): **hàm không tới được 0 · hàm trùng 2 · lớp CSS chết 0** — không được tăng; bỏ ⚠ ngân sách KB (3.463) |
+| C5 | Tốc độ (máy ảo, bộ giả 25.000 khách, 2 kỳ Mẫu 31) | mở app 475 ms · nạp 7 file 13 giây (1 lần / kỳ) · dựng kỳ 686 ms · mở tab Tổng hợp 39 · **Tổ 461 (lại 174)** · Tra cứu 149 · Sao kê 19 · Hồ sơ vay 31 · Hồ sơ Tổ 27 · KTGS 71 · Nạp & KT 8 ms. **Chỉ tab Tổ > 300 ms** → đề xuất tối ưu riêng (chờ anh) |

@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.464 — 04/11/2026 — Bản dọn: bỏ mã rác, thước đo mã rác, đo tốc độ (TK 3)
+- **Anh 04/11**: "ý anh là hạn chế code rác, tối ưu chương trình, ko phải gò ép trong khoảng nào" → "code tiếp cho bản dọn". Kế hoạch / kết quả: `docs/KE_HOACH_DON_NEN.md` mục 7.
+- **Hàm thừa**: bỏ `ktDsBC`, `ktChonBC` (js/22b — không ai gọi từ 3.333). 5 hàm chỉ phép thử gọi giữ (lõi nghiệp vụ có phép thử).
+- **Hàm trùng**: `P()` của mẫu 10A / 10B / 10C / 10D → phần chung `HST.P` (js/mau/0hst.js); `chanTrang` 07b / 10C → `omChanTrang` (js/31). Bản in mọi mẫu khớp chuẩn từng ký tự (t179 45/45).
+- **CSS**: bỏ 82 quy tắc của 50 lớp không còn dùng (~8 KB) — soát từng lớp; giữ lớp ghép tên động (`gl-c`+số) và lớp pdf.js tự sinh.
+- **Thước đo mã rác** (`tests/kiem.py` + `tests/rac.js` phân tích cú pháp bằng acorn): hàm không tới được **0** · hàm trùng **2** (có lý do) · lớp CSS chết **0** — không được tăng. Đặt mốc mới.
+- **Đo tốc độ** (bộ giả 25.000 khách): chỉ tab Tổ mở lần đầu > 300 ms (461 ms) → ghi đề xuất, chưa sửa.
+- **Dọn kèm:** chính bản này.
+
 ## 3.463 — 04/11/2026 — Mẫu 11/TD mới + cũ theo chuẩn 10A, đúng mẫu gốc từng chữ, tổ trưởng theo Danh sách tổ mới nhất (TK 3)
 - **Anh 04/11**: "em tiếp tục làm Mẫu 11 mới theo chuẩn 10A"; "đúng mẫu từng chữ, ko được bỏ hay sửa"; "tổ trưởng lấy theo danh sách tổ mới nhất"; "khi cần in bổ sung lại tổ cũ thì chọn dữ liệu cũ"; "làm luôn mẫu 11 cũ song song với mẫu mới"; "nhớ chuyển qua mẫu chung".
 - **Đúng chữ mẫu gốc** (so từng chữ với `tests/mau_goc/11_moi.docx`, `11_cu.docx`): 11 mới sửa 3 chỗ lệch có từ trước — "…nợ bị rủi ro **để trình** cấp có thẩm quyền" (app in nhầm "gửi"), "(Ký tên, đóng dấu)" (thừa khoảng trắng), tên PGD dính chữ "xã hội". 11 cũ khớp sẵn. Chữ in sẵn không đổi; không đổi "Thôn" / "xã" của mẫu.
