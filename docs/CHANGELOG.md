@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.471 — 05/11/2026 — Phân bổ KH › Diễn biến: bảng cơ bản (TK 3, Đ1 kế hoạch dọn)
+- **Anh 04/11** (ảnh Diễn biến): "tab nhìn còn rối rắm quá, biểu đồ này nọ khó hiểu, anh cần bảng biểu cơ bản trước, theo đúng phong cách giao vốn đầu năm, giao tăng giảm, KH cuối năm, dư nợ hiện tại, còn thực hiện, kẻ bảng, chọn đa chiều, chia nguồn"; anh duyệt kế hoạch (em chọn sẵn: Xem thêm ẩn biểu đồ, có cột dư nợ 31/12 năm trước, mặc định chương trình › xã).
+- **Bảng cơ bản** (`pbDBHang` / `pbDBBang`, js/48b): STT · Đơn vị · Dư nợ 31/12 năm trước · Giao đầu năm · Tăng / giảm (hoặc **Tách từng QĐ** = mỗi QĐ 1 cột) · KH cuối năm · Dư nợ kỳ chọn · Còn phải thực hiện (âm = vượt, đỏ) · % thực hiện. Khối **A. Nguồn TW / B. Nguồn ĐP / TỔNG CỘNG**; cấp 1 in đậm = tổng, bấm gập / mở; chương trình không giao ghi "không giao" (KH = dư nợ đầu năm, luật 3.305); có dư nợ mà chưa có KH (chưa nạp Mẫu 31 kỳ 12 năm trước) → ô Còn phải TH "—" + cảnh báo trên bảng (không báo vượt sai).
+- **Chọn đa chiều**: năm · kỳ dư nợ (Mẫu 31 kỳ nào) · nguồn (cả 2 chia khối / TW / ĐP) · xếp chương trình › xã / xã › chương trình · chip chọn nhiều xã, nhiều chương trình (lõi `pbDienBien` nhận mảng — `pbLocCo`).
+- Thẻ số, biểu đồ, ma trận xã × chương trình, bảng theo mốc tháng: giữ nguyên, vào **▸ Xem thêm** (mặc định ẩn). In / Excel: bảng cơ bản trước (sheet `Bang KH`), phần Xem thêm khi đang mở.
+- **Dọn:** tách phần Diễn biến khỏi js/48 sang `js/48b-phan-bo-db.js` (js/48 159 KB → 119 KB, không còn file > 150 KB); đoạn cách dòng Word (`hsoDocx`) gom thành `khTr` / `khSau` (bớt dòng dài).
+- **Phép thử:** t255 thêm 6 ý bảng cơ bản; t256, t373 theo bố cục mới.
+
 ## 3.470 — 04/11/2026 — Tên xã theo mã xã ở chỗ đọc chung (gộp điểm GD) (TK 3)
 - **Anh 04/11** (ảnh Diễn biến: chọn Tất cả xã lại ra "Vay trực tiếp"): "lỗi này đã phát hiện nhưng em chưa sửa hết các tab" · "có thể do đang chuyển đổi dữ liệu nên Mẫu 31 chưa chuẩn" · "đang gộp các điểm giao dịch, Gia Lộc gộp làm 1".
 - **Nguyên nhân (suy từ các lần anh báo):** lúc hệ thống gộp điểm GD, cột Tên xã Mẫu 31 ghi "… Vay trực tiếp", mỗi kỳ sai một kiểu (29/10: 3 xã; T10: cả 5 xã). Mã xã không đổi. 3.409 / 3.433 / 3.448 chỉ vá từng chỗ (cây địa bàn, danh bạ, Tra cứu); Phân bổ › Diễn biến lấy tên thẳng từ dòng dư nợ nên vẫn dính.

@@ -435,11 +435,12 @@ function pbDoiChieu(dsQD, nam, tinhKQ, dnDau, nguong){
    — 3.305: tổng dư nợ thực tế cộng MỌI CT để so KH · 3.305: KH của CT không giao = dư nợ 31/12 năm trước (3.308: chưa nạp Mẫu 31 kỳ 12 năm trước → KH trống + báo nạp, không lấy số thay) — cộng vào KH tổng, đường KH; dòng từng CT so riêng CT đó
    KH hiệu lực tại ngày d (1 nhóm xã · CT · nguồn) = Đến 31/12 của QĐ gần nhất có ngày ≤ d; trước QĐ đầu năm = Đã giao của QĐ đầu năm.
    → {nam, nhom:[{xa, tenXa, ma, ten, nguon, ds:[{q, c, daGiao, tangGiam, den}], dgDau, khCuoi, tongTG, dauNam, hienTai, conTH, pct}], theoXa:[…], thang:[{ky, kh, dn}], moc:[{so, ngay, loai, tg, kh, xa}], tong:{…}} */
+function pbLocCo(L, v){ return !L || (Array.isArray(L) ? !L.length || L.indexOf(v)>=0 : v===L); }   /* 3.471: lọc 1 giá trị hoặc nhiều (mảng rỗng = tất cả) */
 function pbDienBien(dsQD, nam, loc, dn){
   loc = loc || {}; dn = dn || {}; var g = {}, thu = [], soQD = {}, chuaGhep = 0;
-  (dsQD || []).filter(function(q){ var ok = String(q.ngay).slice(0, 4)===String(nam) && (!loc.xa || q.xa===loc.xa) && (!+loc.nguon || +q.nguon===+loc.nguon); if(ok && !q.xa){ chuaGhep++; return false; } return ok; })   /* 3.308 L3: QĐ chưa ghép xã không cộng (báo) */
+  (dsQD || []).filter(function(q){ var ok = String(q.ngay).slice(0, 4)===String(nam) && pbLocCo(loc.xa, q.xa) && (!+loc.nguon || +q.nguon===+loc.nguon); if(ok && !q.xa){ chuaGhep++; return false; } return ok; })   /* 3.308 L3: QĐ chưa ghép xã không cộng (báo) */
     .sort(function(a, b){ return a.ngay < b.ngay ? -1 : a.ngay > b.ngay ? 1 : String(a.luc || '') < String(b.luc || '') ? -1 : 1; })
-    .forEach(function(q){ (q.ct || []).forEach(function(c){ if(loc.ct && c.ma!==loc.ct) return; var k = q.xa+'|'+c.ma+'|'+q.nguon; if(!g[k]){ g[k] = []; thu.push(k); }
+    .forEach(function(q){ (q.ct || []).forEach(function(c){ if(!pbLocCo(loc.ct, c.ma)) return; var k = q.xa+'|'+c.ma+'|'+q.nguon; if(!g[k]){ g[k] = []; thu.push(k); }
       var tg = pbSo(c.tangGiam) || 0, dg = pbSo(c.daGiao), den = pbSo(c.den3112);
       g[k].push({q:q, c:c, daGiao:dg, tangGiam:tg, den:den!=null ? pbR(den) : null}); soQD[String(q.so).trim()+'|'+String(q.ngay).slice(0, 10)+'|'+String(q.kyHieu || '').trim()] = q; }); });
   var kyCuoi = (dn.thang || []).length ? dn.thang[dn.thang.length-1] : null;
@@ -483,7 +484,7 @@ function pbDBKhongGiao(ds, loc, coQD, fDau, kyCuoi, dn){
   /* 3.305 (anh 21/10 "KH không giao có nghĩa là lấy dư nợ đầu năm, dư nợ đợt giao mới nhất"): KH của CT không có QĐ giao = dư nợ 31/12 năm trước;
      3.308 (anh 21/10 b): chưa nạp Mẫu 31 kỳ 12 năm trước → KH trống, màn hình báo anh nạp (không lấy số kỳ khác thay) */
   var co = {}, kq = []; loc = loc || {}; dn = dn || {};
-  (ds || []).forEach(function(x){ var k = x.xa+'|'+x.ct+'|'+x.nguon; if(co[k] || coQD[k] || (loc.xa && x.xa!==loc.xa) || (+loc.nguon && +x.nguon!==+loc.nguon) || (loc.ct && x.ct!==loc.ct)) return; co[k] = 1;
+  (ds || []).forEach(function(x){ var k = x.xa+'|'+x.ct+'|'+x.nguon; if(co[k] || coQD[k] || !pbLocCo(loc.xa, x.xa) || (+loc.nguon && +x.nguon!==+loc.nguon) || !pbLocCo(loc.ct, x.ct)) return; co[k] = 1;
     var dau = fDau ? fDau(x.xa, x.ct, x.nguon) : null, ht = kyCuoi ? kyCuoi.f(x.xa, x.ct, x.nguon) : null;
     /* 3.308 L5 (anh: CT mới phát sinh trong năm tránh bỏ sót): giữ nếu có dư nợ ở BẤT KỲ kỳ nào (đầu năm, giữa năm, cuối) */
     if(!dau && !ht && !(dn.thang || []).some(function(t){ return (t.f(x.xa, x.ct, x.nguon) || 0) > 0; })) return;

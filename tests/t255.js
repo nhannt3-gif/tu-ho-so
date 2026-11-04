@@ -46,7 +46,24 @@ const fs = require('fs'), path = require('path');
    doiNgan(7); slDoiTab('pb'); for(let i=0;i<80 && !(PB.K && document.getElementById('pb-trai'));i++) await w(250);
    await pbNhapGia(wpf, 'de');   /* 3.439: nạp QĐ giả qua mẫu Excel (bỏ nhập file WPF) */
    for(let i=0;i<40 && pbDL().qd.length<4;i++) await w(100); dongHop(); await w(100);
-   document.querySelector('[data-lenh="pb.db"]').click(); for(let i=0;i<40 && !document.querySelector('#pb-phai table.pb-mt');i++) await w(150);
+   document.querySelector('[data-lenh="pb.db"]').click(); for(let i=0;i<40 && !document.querySelector('#pb-phai table.pb-b');i++) await w(150);
+   /* 3.471 (anh 04/11 "bảng biểu cơ bản trước"): bảng cơ bản mặc định — Xem thêm ẩn biểu đồ / thẻ / ma trận */
+   const B = () => document.querySelector('#pb-phai table.pb-b'), dongT = re => Array.from(B().querySelectorAll('tbody tr')).find(t => re.test(t.cells[1].textContent)), oS = (t, i) => t ? t.cells[i].textContent.trim() : '';
+   o.b0 = !!B() && /Dư nợ 31\/12\/2025.*Giao đầu năm.*Tăng \/ giảm.*KH cuối năm.*Dư nợ.*Còn phải thực hiện.*% thực hiện/.test(B().querySelector('thead').textContent.replace(/\s+/g, ' ')) &&
+     !document.querySelector('#pb-phai svg.pb-db-svg') && !document.querySelector('#pb-phai table.pb-mt') && !!document.querySelector('[data-lenh="pb.dbThem"]');
+   const c03 = dongT(/\(03\)/); o.b1 = !!dongT(/Nguồn Trung ương/) && !!dongT(/Nguồn Địa phương/) && !!dongT(/TỔNG CỘNG/) && c03 && c03.classList.contains('pb-b-c1') && oS(c03, 3)==='1.500' && oS(c03, 4)==='+700' && oS(c03, 5)==='2.200';
+   o.b1c = [oS(c03, 3), oS(c03, 4), oS(c03, 5)].join('/');
+   const conCT = () => { const ds = Array.from(B().querySelectorAll('tbody tr')), i = ds.indexOf(dongT(/\(03\)/)); const r = []; for(let j=i+1;j<ds.length && ds[j].classList.contains('pb-b-c2');j++) r.push(ds[j].cells[1].textContent); return r; };
+   o.b2 = conCT().some(t => /Gò Dầu/.test(t)) && conCT().some(t => /Truông Mít/.test(t));
+   dongT(/\(03\)/).click(); await w(300); o.b3 = conCT().length===0; dongT(/\(03\)/).click(); await w(300); o.b3 = o.b3 && conCT().length>0;
+   document.querySelector('[data-lenh="pb.dbTachQD"]').click(); await w(300); o.b4 = /QĐ G100.*QĐ G101.*QĐ G102/.test(B().querySelector('thead').textContent.replace(/\s+/g, ' ')) && oS(dongT(/\(03\)/), 4)==='+500' && oS(dongT(/\(03\)/), 5)==='+200';
+   document.querySelector('[data-lenh="pb.dbTachQD"]').click(); await w(300);
+   document.querySelector('[data-lenh="pb.dbXep"][data-v="xa"]').click(); await w(300); const gd = dongT(/Gò Dầu/); o.b5 = !!gd && gd.classList.contains('pb-b-c1');
+   document.querySelector('[data-lenh="pb.dbXep"][data-v="ct"]').click(); await w(300);
+   const chipX = Array.from(document.querySelectorAll('[data-lenh="pb.dbChon"][data-f="xaDs"]')).find(x => /Gò Dầu/.test(x.textContent)); chipX.click(); await w(400);
+   o.b6 = PB.db.xaDs.length===1 && !Array.from(B().querySelectorAll('tr.pb-b-c2')).some(t => /Truông Mít/.test(t.textContent)) && oS(dongT(/\(03\)/), 3)==='1.000';
+   document.querySelector('[data-lenh="pb.dbChon"][data-f="xaDs"][data-v=""]').click(); await w(400);
+   document.querySelector('[data-lenh="pb.dbThem"]').click(); for(let i=0;i<40 && !document.querySelector('#pb-phai table.pb-mt');i++) await w(150);
    const ph = document.getElementById('pb-phai'), tx = ph.textContent;
    o.the = Array.from(ph.querySelectorAll('.pb-kpi .pb-the')).map(e => e.querySelector('span').textContent+'='+e.querySelector('b').textContent).join(' | ');
    const svg = ph.querySelector('svg.pb-db-svg'); o.svg = !!svg && !!svg.querySelector('path.pb-db-kh') && !!svg.querySelector('path.pb-db-dn') && svg.querySelectorAll('circle.pb-db-diem').length>=2 && /dư nợ/.test(svg.querySelector('circle title').textContent);
@@ -69,7 +86,7 @@ const fs = require('fs'), path = require('path');
    o.nut = Array.from(document.querySelectorAll('#pb-phai .xuat-hang button')).map(x => x.textContent.trim()+(x.disabled ? '(mờ)' : '')).join(' ');
    const h = pbDBIn(); o.in = /DIỄN BIẾN PHÂN VỐN THEO KẾ HOẠCH NĂM 2026/.test(h) && /<svg/.test(h) && /table class="to-bang luoi pb-db-ct"/.test(h) && !/data-lenh/.test(h) && /A4 landscape/.test(h);
    let bl = null, ten = ''; const gf = window.giaoFile; window.giaoFile = (x, t) => { bl = x; ten = t; }; pbDBExcel(); for(let i=0;i<60 && !bl;i++) await w(100); window.giaoFile = gf;
-   if(bl){ const wb = XLSX.read(new Uint8Array(await bl.arrayBuffer()), {type:'array'}); o.excel = ten+' · '+wb.SheetNames.join(',')+' · '+XLSX.utils.sheet_to_json(wb.Sheets['Theo xa'], {header:1}).length+' dòng xã'; }
+   if(bl){ const wb = XLSX.read(new Uint8Array(await bl.arrayBuffer()), {type:'array'}); o.excelB = wb.SheetNames[0]==='Bang KH' && XLSX.utils.sheet_to_json(wb.Sheets['Bang KH'], {header:1}).some(r => /TỔNG CỘNG/.test(r[1] || '')); o.excel = ten+' · '+wb.SheetNames.join(',')+' · '+XLSX.utils.sheet_to_json(wb.Sheets['Theo xa'], {header:1}).length+' dòng xã'; }
    /* thẻ số ở màn phân bổ + đối chiếu */
    document.querySelector('[data-lenh="pb.db"]').click(); await w(200);
    Array.from(document.querySelectorAll('.pb-dong')).find(x => /Gò Dầu/.test(x.textContent)).click(); await w(100); document.querySelector('[data-lenh="pb.chay"]').click(); await w(400);
@@ -96,7 +113,13 @@ const fs = require('fs'), path = require('path');
  ok('3.308 chưa nạp Mẫu 31 kỳ 12 năm trước → báo anh nạp', r.baoNap);
  ok('bộ nút xuất: In · PDF · Excel bật', /🖨 In/.test(r.nut) && !/In\(mờ\)/.test(r.nut) && /Excel/.test(r.nut) && !/Excel\(mờ\)/.test(r.nut), r.nut);
  ok('bản in A4 ngang: biểu đồ + bảng chi tiết mọi xã, không dòng bấm', r.in);
- ok('Excel: 6 sheet (Theo xa, Theo nguon, Chi tiet, Theo thang, Thang x xa x CT, QD)', /\.xlsx · Theo xa,Theo nguon,Chi tiet,Theo thang,Thang x xa x CT,QD · 5 dòng xã/.test(r.excel || ''), r.excel);
+ ok('3.471 bảng cơ bản mặc định: cột Dư nợ 31/12 · Giao đầu năm · Tăng / giảm · KH cuối năm · Dư nợ · Còn phải TH · %; biểu đồ / ma trận ẩn trong Xem thêm', r.b0);
+ ok('3.471 chia khối nguồn TW / ĐP + TỔNG CỘNG; dòng chương trình 03 in đậm = Σ xã: giao 1.500, +700, KH 2.200', r.b1, r.b1c);
+ ok('3.471 chương trình › xã: dưới CT 03 có Gò Dầu, Truông Mít; bấm dòng đậm gập / mở', r.b2 && r.b3);
+ ok('3.471 Tách từng QĐ: cột QĐ G100 / G101 / G102 (CT 03: +500 · +200)', r.b4);
+ ok('3.471 xếp Xã › Chương trình; chọn nhiều xã (chỉ Gò Dầu → CT 03 giao 1.000)', r.b5 && r.b6);
+ ok('3.471 Excel sheet đầu "Bang KH" như màn hình (có TỔNG CỘNG)', r.excelB);
+ ok('Excel: 7 sheet (Bang KH, Theo xa, Theo nguon, Chi tiet, Theo thang, Thang x xa x CT, QD)', /\.xlsx · Bang KH,Theo xa,Theo nguon,Chi tiet,Theo thang,Thang x xa x CT,QD · 5 dòng xã/.test(r.excel || ''), r.excel);
  ok('màn phân bổ có thẻ số (Số giao QĐ, Khớp QĐ…)', /Số giao QĐ/.test(r.thePB) && /Khớp QĐ/.test(r.thePB), r.thePB);
  ok('màn đối chiếu có thẻ số (Khớp, Lệch…)', /Khớp/.test(r.theDC) && /Lệch/.test(r.theDC), r.theDC);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));

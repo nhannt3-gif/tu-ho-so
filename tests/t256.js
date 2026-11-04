@@ -55,7 +55,9 @@ const fs = require('fs'), path = require('path');
    /* đối chiếu: số đỏ + ghi nhận; diễn biến: tô vượt */
    document.querySelector('[data-lenh="pb.dc"]').click(); for(let i=0;i<40 && !document.querySelector('.pb-dc-tom');i++) await w(150);
    o.dc = /muc-dc/.test(lop()) && !!document.querySelector('.pb-dc-tom');
-   document.querySelector('[data-lenh="pb.db"]').click(); for(let i=0;i<40 && !document.querySelector('#pb-phai table.pb-mt');i++) await w(150);
+   document.querySelector('[data-lenh="pb.db"]').click(); for(let i=0;i<40 && !document.querySelector('#pb-phai table.pb-b');i++) await w(150);
+   o.bangGon = (() => { const t = document.querySelector('#pb-phai table.pb-b'); return !!t && t.getBoundingClientRect().width <= 1121; })();   /* 3.471: bảng cơ bản mặc định */
+   if(!PB.db.them) document.querySelector('[data-lenh="pb.dbThem"]').click(); for(let i=0;i<40 && !document.querySelector('#pb-phai table.pb-mt');i++) await w(150);
    o.vuot = !!document.querySelector('#pb-phai td.pb-mt-o.vuot') && /vượt/.test(document.getElementById('pb-phai').textContent);
    o.gon = (() => { const t = document.querySelector('#pb-phai .pb-mt-cuon'); return t && t.getBoundingClientRect().width <= 1121; })();
    return o; }, [files, wpf]);
@@ -73,8 +75,8 @@ const fs = require('fs'), path = require('path');
  ok('xuất Word → lưu bản chụp nhẹ (số từng ấp, cách xuất) vào KHO1 pb.b07', r.chup);
  ok('màn phân bổ hiện "📜 Biểu 07 đã xuất …"', r.daXuat);
  ok('mục Đối chiếu mở đúng', r.dc);
- ok('mục Diễn biến: ma trận có ô vượt KH tô đỏ', r.vuot);
- ok('bảng gọn: ma trận không kéo quá 1.120 px', r.gon);
+ ok('mục Diễn biến › Xem thêm: ma trận có ô vượt KH tô đỏ', r.vuot);
+ ok('bảng gọn: bảng cơ bản + ma trận (Xem thêm) không kéo quá 1.120 px', r.gon && r.bangGon);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));
  R.forEach(x => console.log(x)); const dat = R.filter(x => x[0]==='✓').length; console.log(dat+'/'+R.length+' đạt');
  await b.close(); process.exit(dat===R.length ? 0 : 1);

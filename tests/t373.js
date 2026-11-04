@@ -31,8 +31,8 @@ const fs=require('fs'), path=require('path');
    /* Phân bổ › Diễn biến: ô chọn xã */
    const xa = B.xaTen, dl = pbDL(); dl.qd=[{id:'t373', so:'73000', kyHieu:'/QĐ-BĐDHĐQT', ngay:ky.slice(0,4)+'-02-01', nguon:1, loai:'Giao mới', dot:'1', xa:maXa, tenXa:'Vay trực tiếp', ct:[{ma:'01', daGiao:100, tangGiam:0, den3112:100}]}]; pbGhi(dl);
    slDoiTab('pb'); for(let i=0;i<40 && !(PB.dsXa||[]).length;i++) await w(200); pbDoiMuc('db'); await w(1500);
-   const op = [...document.querySelectorAll('#pb-phai [data-lenh="pb.dbLoc"][data-f="xa"] option')];
-   ok('Diễn biến: ô chọn xã chỉ 1 mục giá trị trống ("Tất cả xã"), không mục "trực tiếp"', op.length>1 && op.filter(x=>x.value==='').length===1 && !op.some(x=>TT.test(x.textContent)), op.map(x=>x.value+':'+x.textContent).join(' | ').slice(0,200));
+   const op = [...document.querySelectorAll('#pb-phai [data-lenh="pb.dbChon"][data-f="xaDs"]')];   /* 3.471: chọn xã = chip (chọn nhiều) */
+   ok('Diễn biến: chọn xã chỉ 1 mục "Tất cả", không mục "trực tiếp", tên theo cây', op.length>1 && op.filter(x=>x.getAttribute('data-v')==='').length===1 && !op.some(x=>TT.test(x.textContent)) && op.some(x=>x.textContent.trim()===B.xaTen[maXa]), op.map(x=>x.getAttribute('data-v')+':'+x.textContent.trim()).join(' | ').slice(0,200));
    return o; }, files);
  o.push((loi.length?'✗ ':'✓ ')+'không lỗi trang'+(loi.length?' — '+loi.join(' | '):''));
  console.log(o.join('\n')); const sai=o.filter(x=>x.startsWith('✗')).length; console.log(sai?'✗ t373 SAI '+sai:'✓ t373 đạt '+o.length); await b.close(); process.exit(sai?1:0); })();
