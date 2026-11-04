@@ -256,7 +256,7 @@ function toCotHop(kho){
     '<div class="to-cot-ds">'+ds.filter(function(c){ return !c[5] && ['stt','ma','ten','kh'].indexOf(c[0])<0; }).map(function(c){ var m = toCotChe(c, kho), dk = '\''+kho+'\',\''+c[0]+'\'';
       return '<label class="to-cot-dong"><span>'+coChuHTML(c[1])+(m==='tu' ? ' <small>'+(hien.indexOf(c[0])>=0 ? '· đang hiện' : '· đang ẩn (hết chỗ)')+'</small>' : '')+'</span><select onchange="toCotDat('+dk+',this.value)">'+
         [['tu','Tự động'], ['hien','Luôn hiện'], ['an','Ẩn']].map(function(x){ return '<option value="'+x[0]+'"'+(x[0]===m ? ' selected' : '')+'>'+x[1]+'</option>'; }).join('')+'</select></label>'; }).join('')+'</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="delete D.cauHinh.'+kho+';luu();dongHop();toVeThe()">↺ Mặc định</button><button class="nho chinh" onclick="dongHop();toVeThe()">Xong</button></div>', true);
+    '<div class="hang-nut"><button class="nho" onclick="delete D.cauHinh.'+kho+';luu();dongHop();toVeThe()">↺ Mặc định</button><button class="nho chinh" data-lenh="f22gb.toVeThe" data-dong="1">Xong</button></div>', true);
 }
 function toBangDau(tieu, nut){ return '<div class="to-bang-dau"><div class="to-bang-tieu">'+tieu+'</div><div class="to-bang-nut">'+toNutBC()+nut+'</div></div>'; }
 /* 3.394 (BAN_GIAO_TK3_2710 mục 3.3 "chip DS · Nợ · TK · Chia tách lên hàng thao tác"): báo cáo của tab trên hàng thao tác của bảng —
@@ -319,3 +319,8 @@ function toBangToHTML(C){
     toBangHTML(X)+
     '<p class="ghi" title="Vay trực tiếp không phải tổ: STT 0, không tính vào số tổ; khách và số tiền vẫn cộng. Tổ viên = khách trong tổ theo Mẫu 31 (kể cả khách chỉ gửi 105). Có dư nợ = còn món chưa tất toán (còn gốc hoặc còn lãi). Đề xuất cho ra = không còn món vay và 105 = 0. Mới vào = khách có trong tổ kỳ này mà kỳ so sánh chưa ở tổ này.">ⓘ Rê chuột để xem cách tính các cột.</p>';
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22gb.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f22gb', gdLenh({
+  toVeThe:function(el, ev){ toVeThe(); }
+}));

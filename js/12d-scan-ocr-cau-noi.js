@@ -202,17 +202,17 @@ function moSoSanhGoiY(m, kq, cheSua){
       var hien = h[0]==='ngay' ? ngayVN(h[2]||'') : (h[2]||'');
       return '<tr class="'+(khac?'ss-khac':'ss-giong')+'"><th>'+h[1]+(kq.tu[h[0]]?'<small>'+coChuHTML(kq.tu[h[0]])+'</small>':'')+'</th>'+
         '<td class="ss-cu">'+(hien ? coChuHTML(hien) : '<i>trống</i>')+'</td>'+
-        '<td>'+(h[0]==='ngay' ? '<input type="date" id="ss-'+h[0]+'" value="'+coChuHTML(h[3]||'')+'" oninput="tinhTenSS()">'
-              : h[0]==='ty' ? '<textarea id="ss-'+h[0]+'" rows="2" oninput="tinhTenSS()">'+coChuHTML(h[3]||'')+'</textarea>'
-              : '<input id="ss-'+h[0]+'" value="'+coChuHTML(h[3]||'')+'" oninput="tinhTenSS()">')+'</td>'+
-        '<td class="ss-chon"><input type="checkbox" id="ssc-'+h[0]+'"'+(khac && h[4] ? ' checked' : '')+(h[3]?'':' disabled')+' onchange="tinhTenSS()">'+
+        '<td>'+(h[0]==='ngay' ? '<input type="date" id="ss-'+h[0]+'" value="'+coChuHTML(h[3]||'')+'" data-lenh="f12d.tinhTenSS" data-su="input">'
+              : h[0]==='ty' ? '<textarea id="ss-'+h[0]+'" rows="2" data-lenh="f12d.tinhTenSS" data-su="input">'+coChuHTML(h[3]||'')+'</textarea>'
+              : '<input id="ss-'+h[0]+'" value="'+coChuHTML(h[3]||'')+'" data-lenh="f12d.tinhTenSS" data-su="input">')+'</td>'+
+        '<td class="ss-chon"><input type="checkbox" id="ssc-'+h[0]+'"'+(khac && h[4] ? ' checked' : '')+(h[3]?'':' disabled')+' data-lenh="f12d.tinhTenSS" data-su="change">'+
           '<small>'+(khac ? (h[4] ? 'đổi' : 'khác') : (h[3] ? 'giống' : '—'))+'</small></td></tr>';
     }).join('')+
     '<tr class="ss-ten"><th>Tên file</th><td class="ss-cu">'+coChuHTML(m.tenMoi||m.tenCu||'')+'</td><td colspan="2"><b id="ss-tenmoi"></b></td></tr>'+
     '</tbody></table>'+
     '<details class="ss-chu"><summary>Xem chữ đọc được</summary><textarea readonly rows="10">'+coChuHTML(kq.chu||'')+'</textarea></details>'+
     '<div class="hang-nut"><button class="nho" onclick="'+(cheSua ? 'GOI_Y_SUA=null;suaCho(\''+m.id+'\')' : 'dongHop()')+'">Giữ nguyên</button>'+
-      '<button class="nho chinh" onclick="apDungSS()">Áp dụng mục đã chọn</button></div>', true);
+      '<button class="nho chinh" data-lenh="f12d.apDungSS">Áp dụng mục đã chọn</button></div>', true);
   ganXemBen(m);   /* 3.61 */
   tinhTenSS();
 }
@@ -360,8 +360,8 @@ function hoiCauNoiBan2(sau){
   window.__cnSau = sau;
   moHop('<h3>📋 Chép nhiều file cần cầu nối bản mới</h3>'+
     '<div class="huong-dan">Cầu nối đang cài trên máy chỉ chép được <b>1 file</b>. Cài lại <b>1 lần</b> để chép nhiều file: bấm <b>⬇ Tải bộ cài mới</b> → mở file .reg → Yes → OK, rồi bấm <b>Mở thử</b> — hộp hiện chữ <b>“bản 2”</b> là xong.</div>'+
-    '<div class="hang-nut" style="margin-top:12px"><button class="nho chinh" onclick="taiBoCaiCauNoi()">⬇ Tải bộ cài mới</button>'+
-    '<button class="nho" onclick="dongHop();moThuCauNoi()">Mở thử</button>'+
+    '<div class="hang-nut" style="margin-top:12px"><button class="nho chinh" data-lenh="f12d.taiBoCaiCauNoi">⬇ Tải bộ cài mới</button>'+
+    '<button class="nho" data-lenh="f12d.moThuCauNoi" data-dong="1">Mở thử</button>'+
     '<button class="nho" onclick="try{localStorage.setItem(\'tuhoso_cn_ban\',\'2\')}catch(e){};dongHop();(window.__cnSau||function(){})()">Đã cài bản mới — chép luôn</button>'+
     '<button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>');
 }
@@ -421,8 +421,8 @@ function hoiCaiCauNoi(duPhong){
     '<div class="huong-dan">Cầu nối giúp <b>mở thẳng file trên máy</b> (Word / Excel / PDF), <b>chép đúng file</b> để Ctrl+V vào Zalo và <b>mở thư mục</b> chứa file. Chỉ cài <b>1 lần</b> cho mỗi máy tính.</div>'+
     '<ol class="huong-dan" style="margin:6px 0 0 18px;padding:0"><li>Bấm <b>⬇ Tải bộ cài</b> → mở file .reg vừa tải → Yes → OK.</li><li>Bấm <b>Mở thử</b> — thấy hộp "Cầu nối đã chạy" là xong, app nhớ cho máy này.</li></ol>'+
     '<div class="hang-nut" style="margin-top:12px">'+
-      '<button class="nho chinh" onclick="taiBoCaiCauNoi()">⬇ Tải bộ cài</button>'+
-      '<button class="nho" onclick="dongHop();moThuCauNoi()">Mở thử</button>'+
+      '<button class="nho chinh" data-lenh="f12d.taiBoCaiCauNoi">⬇ Tải bộ cài</button>'+
+      '<button class="nho" data-lenh="f12d.moThuCauNoi" data-dong="1">Mở thử</button>'+
       '<button class="nho" onclick="try{localStorage.setItem(\'tuhoso_cn_an\',\'1\')}catch(e){};dongHop();if(mucDangXem)veNutCN(mucDangXem);(window.__cnDuPhong||function(){})()">Để sau (không nhắc nữa)</button>'+
       '<button class="nho" data-lenh="hop.dong">Đóng (Esc)</button>'+
     '</div>');
@@ -524,14 +524,14 @@ function scanTaiLieu(id){
     '</div>'+
     '<div class="sg-khoi q-chip">'+oChonCT(k.ctrinh||[], 'k-ct')+
       oChonTag('scan', k.tag||[], 'k-tag').replace('<label>Tag thuộc tính — chọn được nhiều</label>',
-        '<label>Tag <small>(chọn được nhiều)</small> <a class="lk" onclick="suaTagTab(\'scan\')">✎ sửa danh sách</a></label>')+'</div>'+
+        '<label>Tag <small>(chọn được nhiều)</small> <a class="lk" data-lenh="f12d.suaTagTab" data-a1="scan">✎ sửa danh sách</a></label>')+'</div>'+
     '<div class="sg-khoi q-chup"><div>'+
-      '<button class="nho sg-ico" onclick="themTrang(1)">📷 Chụp trang</button>'+
-      '<button class="nho sg-ico" onclick="themTrang(0)">🖼 Chọn ảnh</button>'+
-      '<button class="nho sg-ico" onclick="themTrangPDF()">＋ Chọn PDF</button></div></div>'+
-    '<div class="day-form">'+(id?'<span class="xoa-nho" onclick="xoaKhach(\''+id+'\')">🗑 Xóa</span>':'')+
+      '<button class="nho sg-ico" data-lenh="f12d.themTrang" data-a1="1">📷 Chụp trang</button>'+
+      '<button class="nho sg-ico" data-lenh="f12d.themTrang" data-a1="0">🖼 Chọn ảnh</button>'+
+      '<button class="nho sg-ico" data-lenh="f12d.themTrangPDF">＋ Chọn PDF</button></div></div>'+
+    '<div class="day-form">'+(id?'<span class="xoa-nho" data-lenh="f12d.xoaKhach" data-a1="'+id+'">🗑 Xóa</span>':'')+
       '<button class="nho" data-lenh="hop.dong">Đóng (Esc)</button>'+
-      '<button class="nho chinh" onclick="luuScanTL()">Lưu bản quét <small>Ctrl+Enter</small></button></div>'+
+      '<button class="nho chinh" data-lenh="f12d.luuScanTL">Lưu bản quét <small>Ctrl+Enter</small></button></div>'+
     '</div>'+
     '<div class="sua-xem q-xem"><div class="q-xem-tit" id="nn-trang">Các trang ('+(k.trang||[]).length+')</div><div id="k-xem"></div></div>',
     true);
@@ -685,3 +685,16 @@ function xoayAnh(blob){
     img.src = u;
   });
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f12d.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f12d', gdLenh({
+  apDungSS:function(el, ev){ apDungSS(); },
+  luuScanTL:function(el, ev){ luuScanTL(); },
+  moThuCauNoi:function(el, ev){ moThuCauNoi(); },
+  suaTagTab:function(el, ev){ suaTagTab(gdA(el, 1)); },
+  taiBoCaiCauNoi:function(el, ev){ taiBoCaiCauNoi(); },
+  themTrang:function(el, ev){ themTrang(+gdA(el, 1)); },
+  themTrangPDF:function(el, ev){ themTrangPDF(); },
+  tinhTenSS:function(el, ev){ tinhTenSS(); },
+  xoaKhach:function(el, ev){ xoaKhach(gdA(el, 1)); }
+}));

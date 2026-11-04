@@ -93,7 +93,7 @@ function anhHTML(m, q){
     var g = timMuc(m.gocVB);
     if(g) gan = ' <span class="mini ct">gắn vào '+coChuHTML(g.soHieu||'văn bản')+'</span>';
   }
-  return '<div class="anh"'+botAt(m.id)+' onclick="moXem(\''+m.id+'\')">'+
+  return '<div class="anh"'+botAt(m.id)+' data-lenh="f04e.moXem" data-a1="'+m.id+'">'+
     '<img id="anh-'+m.id+'" alt="">'+
     '<div class="duoi"><div class="mo-ta">'+toSang(m.moTa||'(chưa ghi chú)', q)+'</div>'+
     (m.the||[]).map(function(t){ return '<span class="mini">'+coChuHTML(t)+'</span>'; }).join(' ')+
@@ -156,10 +156,10 @@ function veDay(){
   var cpx = document.getElementById('cotphai'); if(cpx) cpx.classList.toggle('pv-trong', !mucDangXem);
   var s = document.getElementById('so-lieu');
   /* 3.53 (anh chốt): thanh đáy chỉ còn thông báo HỆ THỐNG, một dòng: Drive · chưa lên Drive · lỗi đẩy · bộ nhớ máy */
-  var chip = '<span class="chip" id="chip-drive" onclick="bamChip()">● Trong máy</span>'+
-    '<span class="chip vang an" id="chip-chua" onclick="bamChipChua()"></span>'+
-    '<span class="chip do an" id="chip-loi" onclick="moHangDoiDrive()"></span>'+
-    '<span class="chip" id="chip-bn" onclick="moBoNho()">💾 …</span>';
+  var chip = '<span class="chip" id="chip-drive" data-lenh="f04e.bamChip">● Trong máy</span>'+
+    '<span class="chip vang an" id="chip-chua" data-lenh="f04e.bamChipChua"></span>'+
+    '<span class="chip do an" id="chip-loi" data-lenh="f04e.moHangDoiDrive"></span>'+
+    '<span class="chip" id="chip-bn" data-lenh="f04e.moBoNho">💾 …</span>';
   var btnPV = document.getElementById('btn-mo-preview');
   if(btnPV) btnPV.style.display = (anPV && nganHienTai!==0) ? '' : 'none';
   if(typeof dhDay==='function') dhDay();
@@ -182,11 +182,11 @@ function veDay(){
   nc.style.display = (nganHienTai===6) ? '' : 'none';
   var ph = document.getElementById('nut-phu-cho');
   if(nganHienTai===6 && D.cho.length)
-    ph.innerHTML = '<button class="nut-phu" onclick="moDanAI()">Dán từ AI</button>'+
-                   '<button class="nut-phu" onclick="duyetTatCa()">Duyệt tất cả</button>'+
-                   '<button class="nut-phu" onclick="dongKhai()" title="Về tab trước (phím Esc)">✕ Đóng</button>';
+    ph.innerHTML = '<button class="nut-phu" data-lenh="f04e.moDanAI">Dán từ AI</button>'+
+                   '<button class="nut-phu" data-lenh="f04e.duyetTatCa">Duyệt tất cả</button>'+
+                   '<button class="nut-phu" data-lenh="f04e.dongKhai" title="Về tab trước (phím Esc)">✕ Đóng</button>';
   else if(nganHienTai===6 && coTheNoiDrive())
-    ph.innerHTML = '<button class="nut-phu" onclick="napKhayCho()">Nạp khay chờ</button>';
+    ph.innerHTML = '<button class="nut-phu" data-lenh="f04e.napKhayCho">Nạp khay chờ</button>';
   else ph.innerHTML = '';
 }
 /* ghép toàn bộ PDF của một kỳ thành 1 bản tạm để đọc liền mạch */
@@ -204,7 +204,7 @@ function ghepKy(){
         return '<option value="'+k+'">'+kyVN(k)+' — '+n+' file</option>';
       }).join('')+'</select></div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-    '<button class="nho chinh" onclick="lamGhep()">Ghép</button></div>');
+    '<button class="nho chinh" data-lenh="f04e.lamGhep">Ghép</button></div>');
 }
 function lamGhep(){
   var ky = gt('gk-ky'); dongHop();
@@ -275,3 +275,17 @@ function nutChinh(){
   THEM_TU = tu;   /* 3.40: nhớ tab vừa bấm Thêm file (sau doiNgan vì doiNgan xóa cờ) */
   document.getElementById('chon-file').click();
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f04e.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f04e', gdLenh({
+  bamChip:function(el, ev){ bamChip(); },
+  bamChipChua:function(el, ev){ bamChipChua(); },
+  dongKhai:function(el, ev){ dongKhai(); },
+  duyetTatCa:function(el, ev){ duyetTatCa(); },
+  lamGhep:function(el, ev){ lamGhep(); },
+  moBoNho:function(el, ev){ moBoNho(); },
+  moDanAI:function(el, ev){ moDanAI(); },
+  moHangDoiDrive:function(el, ev){ moHangDoiDrive(); },
+  moXem:function(el, ev){ moXem(gdA(el, 1)); },
+  napKhayCho:function(el, ev){ napKhayCho(); }
+}));

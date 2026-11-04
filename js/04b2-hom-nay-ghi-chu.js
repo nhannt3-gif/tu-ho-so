@@ -156,12 +156,12 @@ function dongLenLich(id){
   moHop('<div class="hop-tit">Đưa lên SCHEDULE</div>'+
     '<div class="hop-phu">'+coChuHTML(m.nd||'')+'</div>'+
     '<div class="hai"><div class="o"><label>Ngày</label><input id="dl-ngay" inputmode="numeric" '+
-      'value="'+ngayVN(m.ngay)+'" oninput="gonNgay(this)"></div>'+
+      'value="'+ngayVN(m.ngay)+'" data-lenh="f04b2.gonNgay" data-su="input"></div>'+
     '<div class="o"><label>Lặp lại</label><select id="dl-lap">'+
       Object.keys(LC_LAP).map(function(k){ return '<option value="'+k+'">'+LC_LAP[k]+'</option>'; }).join('')+
       '</select></div></div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-      '<button class="nho chinh" onclick="dongLenLichOK(\''+id+'\')">Đưa lên</button></div>');
+      '<button class="nho chinh" data-lenh="f04b2.dongLenLichOK" data-a1="'+id+'">Đưa lên</button></div>');
 }
 function dongLenLichOK(id){
   var m = ntTim(id); if(!m) return;
@@ -401,7 +401,7 @@ function nkMenuDinh(id){
     '<div class="nk-chon3">'+
       '<button class="nho chinh" onclick="dongHop();nkChonFile(true,function(d){nkThemVao(\''+id+'\',d,true)})">📷 Chụp ảnh</button>'+
       '<button class="nho" onclick="dongHop();nkChonFile(false,function(d){nkThemVao(\''+id+'\',d,false)})">📁 Chọn file trong máy</button>'+
-      '<button class="nho" onclick="moGanFileNK(\''+id+'\')">🔗 File có sẵn trong tủ</button></div>'+
+      '<button class="nho" data-lenh="f04b2.moGanFileNK" data-a1="'+id+'">🔗 File có sẵn trong tủ</button></div>'+
     '<div class="hop-phu">Ảnh tự thu nhỏ (cạnh dài 1600 px, khoảng 200–400 KB) — vẫn đọc rõ giấy tờ. PDF, Word giữ nguyên. '+
       'Có nối Drive thì file lên <i>'+coChuHTML(D.cauHinh.thumuc||'Tủ hồ sơ')+' / Nhật ký / tháng</i>.</div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button></div>');
@@ -412,7 +412,7 @@ function moGanFileNK(id){
     '<div class="hop-phu">Chỉ liên kết — file vẫn nằm ở tab của nó. Tìm theo tên khách, số hiệu, tên file.</div>'+
     '<div class="o"><input id="gan-tim" placeholder="Gõ để tìm…" oninput="GAN.tim=this.value;veGanDS()"></div>'+
     '<div id="gan-ds" class="gan-ds"></div>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="xongGanFile()">Gắn các file đã tích</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="f04b2.xongGanFile">Gắn các file đã tích</button></div>', true);
   veGanDS();
   setTimeout(function(){ var o = document.getElementById('gan-tim'); if(o) o.focus(); }, 30);
 }
@@ -480,10 +480,10 @@ function nkXem(nid, i){
   var ds = []; (m.dinh||[]).forEach(function(x){ if(x.k==='rieng' && x.anh) ds.push(x); });
   NK_XEM = {nid:nid, ds:ds, i:Math.max(0, ds.indexOf(f)), x0:null};
   moHop('<div class="nk-lb" ontouchstart="NK_XEM.x0=event.touches[0].clientX" ontouchend="nkVuot(event)">'+
-      '<button class="nk-lb-nut trai" onclick="nkLat(-1)">‹</button><img id="nk-lb-anh" alt="">'+
-      '<button class="nk-lb-nut phai" onclick="nkLat(1)">›</button></div>'+
+      '<button class="nk-lb-nut trai" data-lenh="f04b2.nkLat" data-a1="-1">‹</button><img id="nk-lb-anh" alt="">'+
+      '<button class="nk-lb-nut phai" data-lenh="f04b2.nkLat" data-a1="1">›</button></div>'+
     '<div class="hop-phu" id="nk-lb-ten"></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="nkTaiVe()">⬇ Tải về</button><button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="f04b2.nkTaiVe">⬇ Tải về</button><button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button></div>', true);
   nkVeLB();
 }
 function nkDuong(m, f){
@@ -612,11 +612,11 @@ function lcSua(){
   if(nhapMo('lc:'+v.id)) return;
   moHop('<div class="hop-tit">✎ Sửa việc</div>'+
     '<div class="o"><label>Việc</label><textarea id="lc-s-ten" rows="2">'+coChuHTML(v.ten||'')+'</textarea></div>'+
-    '<div class="o"><label>Ngày'+(v.lap && v.lap!=='mot' ? ' bắt đầu' : '')+'</label><input id="lc-s-ngay" inputmode="numeric" placeholder="dd/mm/yyyy" value="'+lcDMY(v.ngay)+'" oninput="gonNgay(this)"></div>'+
+    '<div class="o"><label>Ngày'+(v.lap && v.lap!=='mot' ? ' bắt đầu' : '')+'</label><input id="lc-s-ngay" inputmode="numeric" placeholder="dd/mm/yyyy" value="'+lcDMY(v.ngay)+'" data-lenh="f04b2.gonNgay" data-su="input"></div>'+
     '<div class="o"><label>Lặp lại</label><select id="lc-s-lap">'+Object.keys(LC_LAP).map(function(k){
       return '<option value="'+k+'"'+((v.lap||'mot')===k ? ' selected' : '')+'>'+LC_LAP[k]+'</option>'; }).join('')+'</select></div>'+
     '<label class="nk-tich"><input type="checkbox" id="lc-s-luuy"'+(v.luuY ? ' checked' : '')+'> ⚑ Lưu ý (đưa lên đầu, tô đậm)</label>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="lcSuaXong()">Lưu</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="f04b2.lcSuaXong">Lưu</button></div>');
   nhapDat('lc:'+v.id);  document.getElementById('hop-in').classList.add('phim-chung');   /* 3.84: phím chung Enter / Tab / Shift / ↑ ↓ */
   setTimeout(function(){ var o = document.getElementById('lc-s-ten'); if(o){ o.focus(); o.selectionStart = o.value.length; } }, 30);
 }
@@ -710,14 +710,14 @@ function moBoNho(){
       '<table class="bn-bang">'+hang.filter(function(x){ return x[1]>0; }).map(function(x){
         return '<tr><td>'+x[0]+'</td><td>'+kichCoNgan(x[1])+'</td></tr>'; }).join('')+'</table>'+
       (chuaLen ? '<div class="bn-canh">⚠ <b>'+chuaLen+' file chưa lên Drive</b> — nếu máy tự dọn bộ nhớ thì các file này mất thật. '+
-          '<button class="nho chinh" onclick="dongHop();dongBoNgay()">☁ Đồng bộ ngay</button></div>'
+          '<button class="nho chinh" data-lenh="f04b2.dongBoNgay" data-dong="1">☁ Đồng bộ ngay</button></div>'
         : '<div class="hop-phu">✓ Mọi file đã có trên Drive — máy có tự dọn thì app tải lại được.</div>')+
       '<div class="hop-phu">'+(BN.giu===true ? '🔒 Máy này <b>đã được giữ dữ liệu lâu dài</b> — trình duyệt không tự xóa khi thiếu chỗ.'
         : '🔓 Chưa được giữ lâu dài — khi máy thiếu chỗ hoặc lâu không mở app, trình duyệt có thể tự xóa bản trong máy.'+
           (iOS && !cai ? ' iPhone: bấm Chia sẻ › <b>Thêm vào MH chính</b>, mở app từ biểu tượng đó rồi bấm nút dưới.' : ''))+'</div>'+
-      '<div class="hang-nut">'+(BN.giu===true ? '' : '<button class="nho" onclick="xinGiuDuLieu()">🔒 Xin giữ dữ liệu lâu dài</button>')+
-        (nhom.rac ? '<button class="nho" onclick="dongHop();moDonKho(\'rac\')">🗑 Thùng rác ('+kichCoNgan(nhom.rac)+')</button>' : '')+
-        '<button class="nho" onclick="dongHop();moDonKho()">🧰 Dọn kho</button>'+
+      '<div class="hang-nut">'+(BN.giu===true ? '' : '<button class="nho" data-lenh="f04b2.xinGiuDuLieu">🔒 Xin giữ dữ liệu lâu dài</button>')+
+        (nhom.rac ? '<button class="nho" data-lenh="f04b2.moDonKho" data-dong="1" data-a1="rac">🗑 Thùng rác ('+kichCoNgan(nhom.rac)+')</button>' : '')+
+        '<button class="nho" data-lenh="f04b2.moDonKho_" data-dong="1">🧰 Dọn kho</button>'+
         '<button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>';
   });
 }
@@ -732,7 +732,7 @@ function xinGiuDuLieu(){
 }
 function ntOHTML(m, ghimRieng){
   var mau = Object.keys(NT_MAU).map(function(k){
-    return '<span class="nt-cham nt-'+k+(m.mau===k?' chon':'')+'" title="'+NT_MAU[k]+'" onclick="ntDoiMau(\''+m.id+'\',\''+k+'\')"></span>';
+    return '<span class="nt-cham nt-'+k+(m.mau===k?' chon':'')+'" title="'+NT_MAU[k]+'" data-lenh="f04b2.ntDoiMau" data-a1="'+m.id+'" data-a2="'+k+'"></span>';
   }).join('');
   return '<div class="nt-o nt-'+(m.mau||'vang')+(m.ghim?' ghim':'')+'" draggable="true" '+
     'ondragstart="ntKeoBatDau(\''+m.id+'\')" ondragover="event.preventDefault()" ondrop="ntKeoTha(\''+m.id+'\')">'+
@@ -740,11 +740,32 @@ function ntOHTML(m, ghimRieng){
       (ghimRieng?'<span class="nt-ngay">'+lcDM(m.ngay)+'</span>':'')+
       '<span class="nt-mau">'+mau+'</span>'+
       '<span class="nt-luu" id="nt-luu-'+m.id+'"></span>'+
-      '<button class="nt-nut'+(m.ghim?' bat':'')+'" onclick="ntDoiGhim(\''+m.id+'\')" title="Ghim — luôn hiện dù đổi ngày">📌</button>'+
-      (ghimRieng?'':'<button class="nt-nut chi-may" onclick="ntChuyen(\''+m.id+'\',-1)" title="Lên trước">↑</button>'+
-      '<button class="nt-nut chi-may" onclick="ntChuyen(\''+m.id+'\',1)" title="Xuống sau">↓</button>')+
-      '<button class="nt-nut" onclick="nkMenuDinh(\''+m.id+'\')" title="Gắn ảnh / file">📎</button>'+
-      '<button class="nt-nut xau" onclick="ntXoa(\''+m.id+'\')" title="Xóa mẩu">✕</button>'+
+      '<button class="nt-nut'+(m.ghim?' bat':'')+'" data-lenh="f04b2.ntDoiGhim" data-a1="'+m.id+'" title="Ghim — luôn hiện dù đổi ngày">📌</button>'+
+      (ghimRieng?'':'<button class="nt-nut chi-may" data-lenh="f04b2.ntChuyen" data-a1="'+m.id+'" data-a2="-1" title="Lên trước">↑</button>'+
+      '<button class="nt-nut chi-may" data-lenh="f04b2.ntChuyen" data-a1="'+m.id+'" data-a2="1" title="Xuống sau">↓</button>')+
+      '<button class="nt-nut" data-lenh="f04b2.nkMenuDinh" data-a1="'+m.id+'" title="Gắn ảnh / file">📎</button>'+
+      '<button class="nt-nut xau" data-lenh="f04b2.ntXoa" data-a1="'+m.id+'" title="Xóa mẩu">✕</button>'+
     '</div>'+
-    '<textarea placeholder="Ghi ở đây…" oninput="ntGo(\''+m.id+'\',this)" onblur="ntRoiO(\''+m.id+'\')">'+coChuHTML(m.nd||'')+'</textarea>'+nkDinhHTML(m)+'</div>';
+    '<textarea placeholder="Ghi ở đây…" data-lenh="f04b2.ntGo" data-su="input" data-a1="'+m.id+'" onblur="ntRoiO(\''+m.id+'\')">'+coChuHTML(m.nd||'')+'</textarea>'+nkDinhHTML(m)+'</div>';
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f04b2.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f04b2', gdLenh({
+  dongBoNgay:function(el, ev){ dongBoNgay(); },
+  dongLenLichOK:function(el, ev){ dongLenLichOK(gdA(el, 1)); },
+  gonNgay:function(el, ev){ gonNgay(el); },
+  lcSuaXong:function(el, ev){ lcSuaXong(); },
+  moDonKho:function(el, ev){ moDonKho(gdA(el, 1)); },
+  moDonKho_:function(el, ev){ moDonKho(); },
+  moGanFileNK:function(el, ev){ moGanFileNK(gdA(el, 1)); },
+  nkLat:function(el, ev){ nkLat(+gdA(el, 1)); },
+  nkMenuDinh:function(el, ev){ nkMenuDinh(gdA(el, 1)); },
+  nkTaiVe:function(el, ev){ nkTaiVe(); },
+  ntChuyen:function(el, ev){ ntChuyen(gdA(el, 1), +gdA(el, 2)); },
+  ntDoiGhim:function(el, ev){ ntDoiGhim(gdA(el, 1)); },
+  ntDoiMau:function(el, ev){ ntDoiMau(gdA(el, 1), gdA(el, 2)); },
+  ntGo:function(el, ev){ ntGo(gdA(el, 1), el); },
+  ntXoa:function(el, ev){ ntXoa(gdA(el, 1)); },
+  xinGiuDuLieu:function(el, ev){ xinGiuDuLieu(); },
+  xongGanFile:function(el, ev){ xongGanFile(); }
+}));

@@ -413,8 +413,8 @@ function veKhacDKHTML(){
 function veQuetRacHTML(){
   var h = '<div class="dk-mo-ta"><b>Quét rác</b> tìm file <b>hỏng, rỗng, trùng, thiếu thông tin</b> và thư mục trống. App <b>chỉ liệt kê</b> — anh bấm tên để xem thử, '+
     'tích mục muốn dọn rồi bấm nút cuối trang: file vào <b>Thùng rác</b> (khôi phục được), thư mục trống xóa luôn. Chưa nối Drive vẫn quét được phần trong app.</div>'+
-    '<div class="dk-hang"><button class="nho chinh" onclick="moQuetDon()"'+(QD.dang?' disabled':'')+'>🧹 '+(QD.kq?'Quét lại':'Bắt đầu quét')+'</button>'+
-    (QD.kq && QD.coDrive && !QD.daKiem ? '<button class="nho" onclick="kiemNoiDungQD()" title="Tải từng file PDF / Excel / ảnh về xem có mở được, có số liệu không">🔎 Kiểm tra nội dung file (chậm hơn)</button>' : '')+'</div>';
+    '<div class="dk-hang"><button class="nho chinh" data-lenh="f10.moQuetDon"'+(QD.dang?' disabled':'')+'>🧹 '+(QD.kq?'Quét lại':'Bắt đầu quét')+'</button>'+
+    (QD.kq && QD.coDrive && !QD.daKiem ? '<button class="nho" data-lenh="f10.kiemNoiDungQD" title="Tải từng file PDF / Excel / ảnh về xem có mở được, có số liệu không">🔎 Kiểm tra nội dung file (chậm hơn)</button>' : '')+'</div>';
   if(QD.dang) return h+'<div class="huong-dan" id="qd-dang">Đang quét…</div>';
   var k = QD.kq; if(!k) return h;
   var g = QD.g || {files:[], thuMuc:[]};
@@ -423,7 +423,7 @@ function veQuetRacHTML(){
   function nhom(ma, tieu, giai, ds, dong, dau){
     if(!ds.length) return '';
     return '<details class="dk-ngan" open><summary><b>'+tieu+'</b> <span>'+ds.length+' · '+giai+'</span></summary>'+
-      '<div class="dk-chan-ngan" style="justify-content:flex-start;border-top:0"><label class="dk-bat"><input type="checkbox" onchange="chonNhomQD(this,\''+ma+'\')"> Chọn cả nhóm</label>'+(dau||'')+'</div>'+
+      '<div class="dk-chan-ngan" style="justify-content:flex-start;border-top:0"><label class="dk-bat"><input type="checkbox" data-lenh="f10.chonNhomQD" data-su="change" data-a1="'+ma+'"> Chọn cả nhóm</label>'+(dau||'')+'</div>'+
       ds.map(function(x,i){ return '<div class="dk-dong"><input type="checkbox" class="qd-'+ma+'" value="'+i+'">'+dong(x, i)+'</div>'; }).join('')+'</details>';
   }
   function dongF(ma){ return function(x, i){
@@ -447,8 +447,8 @@ function veQuetRacHTML(){
   h += nhom('thieu','Không đủ thông tin','bấm tên để xem · Sửa để khai thêm', k.thieu, function(x, i){
     var id = x.m.id, sua = x.loai==='scan' ? (x.m.che==='tailieu'?'scanTaiLieu':'themKhach') : (laBieuMau(x.m)?'suaBieuMau':'suaCho');
     return dongF('thieu')(x, i)+'<span class="qd-sua"><button class="nho" onclick="'+sua+'(\''+id+'\')">Sửa</button>'+
-      (x.loai==='tu' && coTheDocLai(x.m) ? '<button class="nho" onclick="docLaiGoiY(\''+id+'\')">🔍 Đọc lại</button>' : '')+'</span>';
-  }, mucThieu().length ? '<button class="nho" onclick="docLai()">🔍 Đọc lại tất cả mục thiếu ('+mucThieu().length+')</button>' : '');
+      (x.loai==='tu' && coTheDocLai(x.m) ? '<button class="nho" data-lenh="f10.docLaiGoiY" data-a1="'+id+'">🔍 Đọc lại</button>' : '')+'</span>';
+  }, mucThieu().length ? '<button class="nho" data-lenh="f10.docLai">🔍 Đọc lại tất cả mục thiếu ('+mucThieu().length+')</button>' : '');
   if(k.trung.length){
     h += '<div class="nhan-nhom">D. Trùng nội dung — chọn bản giữ, bản còn lại vào thùng rác</div>';
     h += k.trung.map(function(n, gi){
@@ -456,7 +456,7 @@ function veQuetRacHTML(){
         '<div class="dk-chan-ngan" style="justify-content:flex-start;border-top:0"><label class="dk-bat"><input type="checkbox" class="qd-trung" value="'+gi+'"> Dọn nhóm này</label></div>'+
         n.ds.map(function(m, j){
           return '<div class="dk-dong"><label class="dk-bat" title="Giữ bản này"><input type="radio" name="qdg-'+gi+'" value="'+m.id+'"'+(j===0?' checked':'')+'> Giữ</label>'+
-            '<div class="dk-ten" onclick="xemThu(\'muc\',\''+m.id+'\')"><b>'+ten(m)+'</b><small>'+coChuHTML(duongThat(m))+
+            '<div class="dk-ten" data-lenh="f10.xemThu" data-a1="muc" data-a2="'+m.id+'"><b>'+ten(m)+'</b><small>'+coChuHTML(duongThat(m))+
             (tenDungChuan(m)?' · tên đúng chuẩn':'')+'</small></div></div>';
         }).join('')+'</details>';
     }).join('');
@@ -466,7 +466,7 @@ function veQuetRacHTML(){
     h += nhom('trong','Thư mục trống','không chứa gì — xóa luôn', k.trong, function(t){ return '<div class="dk-ten"><b>📁 '+coChuHTML(t.ten)+'</b><small>☁ '+coChuHTML(D.cauHinh.thumuc+' / '+t.duong)+'</small></div>'; });
   }
   if(tong) h += '<div class="rac-chan"><span>Mục đã tích → Thùng rác (khôi phục được) · thư mục trống → xóa</span>'+
-    '<button class="nho xau" onclick="xuLyQuetDon()">Dọn mục đã tích</button></div>';
+    '<button class="nho xau" data-lenh="f10.xuLyQuetDon">Dọn mục đã tích</button></div>';
   return h;
 }
 function chonNhomQD(el, ma){
@@ -561,9 +561,9 @@ function doiPhanDK(p){ DK.phan = p; ve(); if(p==='rac') setTimeout(tuDonRac, 200
 function veDonKho(){
   var nRac = (D.rac||[]).length;
   var nav = [['rac','🗑 Thùng rác'+(nRac?' ('+nRac+')':'')],['lcm','🗂 Lập chỉ mục'],['quet','🧹 Quét rác'],['saoluu','🛟 Sao lưu'],['khac','⋯ Khác']];
-  var h = '<div class="dk-dau"><button class="nho" onclick="dongDonKho()">‹ Về danh sách</button><b>🧰 Dọn kho</b>'+
-    '<button class="nho" onclick="moHuongDan(\'donkho\')" title="Hướng dẫn phần này">❓</button></div>'+
-    '<div class="dk-nav">'+nav.map(function(x){ return '<button class="'+(DK.phan===x[0]?'bat':'')+'" onclick="doiPhanDK(\''+x[0]+'\')">'+x[1]+'</button>'; }).join('')+'</div>';
+  var h = '<div class="dk-dau"><button class="nho" data-lenh="f10.dongDonKho">‹ Về danh sách</button><b>🧰 Dọn kho</b>'+
+    '<button class="nho" data-lenh="f10.moHuongDan" data-a1="donkho" title="Hướng dẫn phần này">❓</button></div>'+
+    '<div class="dk-nav">'+nav.map(function(x){ return '<button class="'+(DK.phan===x[0]?'bat':'')+'" data-lenh="f10.doiPhanDK" data-a1="'+x[0]+'">'+x[1]+'</button>'; }).join('')+'</div>';
   var tong = D.vanBan.length+D.duLieu.length+D.ghiChu.length+(D.scan||[]).length+(D.bieuMau||[]).length+(D.kyAnh||[]).length;
   var chuaLen = [].concat(D.vanBan, D.duLieu, D.ghiChu, D.bieuMau||[], D.scan||[], D.kyAnh||[]).filter(function(m){ return m && !m.driveId; }).length;
   var khac = D.duLieu.filter(function(x){ return x.maLoai==='KHAC'; }).length;
@@ -635,9 +635,9 @@ function veRacHTML(){
   var h = '<div class="dk-mo-ta">Mọi file anh xóa nằm ở đây, <b>lấy lại được</b> — khôi phục là về đúng tab, đúng thư mục cũ. '+
     'Muốn mất hẳn thì <b>Xóa hẳn</b>: file trên Drive vào thùng rác Google Drive (Google giữ thêm 30 ngày).</div>';
   h += '<div class="dk-tong">'+(D.rac.length ? '<b>'+D.rac.length+' file'+(tongCo?' · '+kichCo(tongCo):'')+'</b> — '+coChuHTML(tomTat.join(' · ')) : '<b>Thùng rác đang trống.</b>')+'</div>';
-  h += '<div class="dk-hang"><label class="dk-bat"><input type="checkbox"'+(D.cauHinh.racTuXoa!==false?' checked':'')+' onchange="datTuXoaRac(this.checked)"> '+
+  h += '<div class="dk-hang"><label class="dk-bat"><input type="checkbox"'+(D.cauHinh.racTuXoa!==false?' checked':'')+' data-lenh="f10.datTuXoaRac" data-su="change"> '+
     'Tự xóa hẳn rác cũ hơn 30 ngày</label>'+
-    (D.rac.length ? '<button class="nho xau" onclick="lamTrongRac()">Làm trống cả thùng</button>' : '')+'</div>';
+    (D.rac.length ? '<button class="nho xau" data-lenh="f10.lamTrongRac">Làm trống cả thùng</button>' : '')+'</div>';
   if(!D.rac.length) return h;
   h += '<div id="rac-ds" class="rac-ds">';
   NGAN_RAC.forEach(function(n){
@@ -647,14 +647,14 @@ function veRacHTML(){
     h += '<details class="dk-ngan"'+(DK.dong[n[0]]?'':' open')+' ontoggle="DK.dong[\''+n[0]+'\']=!this.open">'+
       '<summary><b>'+n[1]+'</b> <span>'+ds.length+' file'+(co?' · '+kichCo(co):'')+'</span></summary>'+
       ds.map(function(m){
-        return '<div class="dk-dong"><input type="checkbox" class="rac-o" value="'+m.id+'" data-ngan="'+n[0]+'" data-luc="'+(m.xoaLuc||'')+'" onchange="demChonRac()">'+
-          '<div class="dk-ten"'+(m.khoCu==='soLieu' || m.khoCu==='mucNho' ? '' : ' onclick="xemThu(\'rac\',\''+m.id+'\')" title="Bấm để xem thử"')+'><b>'+coChuHTML(m.tenMoi||m.ten||m.tenCu||'(chưa đặt tên)')+'</b>'+
+        return '<div class="dk-dong"><input type="checkbox" class="rac-o" value="'+m.id+'" data-ngan="'+n[0]+'" data-luc="'+(m.xoaLuc||'')+'" data-lenh="f10.demChonRac" data-su="change">'+
+          '<div class="dk-ten"'+(m.khoCu==='soLieu' || m.khoCu==='mucNho' ? '' : ' data-lenh="f10.xemThu" data-a1="rac" data-a2="'+m.id+'" title="Bấm để xem thử"')+'><b>'+coChuHTML(m.tenMoi||m.ten||m.tenCu||'(chưa đặt tên)')+'</b>'+
           '<small>'+coChuHTML(duongThat(m))+'</small>'+
           '<small>Xóa '+ngayVN((m.xoaLuc||'').slice(0,10))+(m.co?' · '+kichCo(m.co):'')+(m.lyDoXoa?' · '+coChuHTML(m.lyDoXoa):'')+'</small></div>'+
           '<button class="nho" onclick="khoiPhucRac([\''+m.id+'\']);ve();capNhatDemRac();bao(\'Đã khôi phục về '+coChuHTML(n[1].replace(/^\S+ /,''))+'.\',3)">Khôi phục</button></div>';
       }).join('')+
-      '<div class="dk-chan-ngan"><button class="nho" onclick="chonNganRac(\''+n[0]+'\')">Chọn cả ngăn</button>'+
-        '<button class="nho xau" onclick="lamTrongNgan(\''+n[0]+'\')">Làm trống ngăn này</button></div></details>';
+      '<div class="dk-chan-ngan"><button class="nho" data-lenh="f10.chonNganRac" data-a1="'+n[0]+'">Chọn cả ngăn</button>'+
+        '<button class="nho xau" data-lenh="f10.lamTrongNgan" data-a1="'+n[0]+'">Làm trống ngăn này</button></div></details>';
   });
   h += '</div><div class="rac-chan"><span id="rac-chon">Chưa chọn mục nào</span>'+
     '<button class="nho" onclick="var i=idChonRac();if(!i.length)return bao(\'Chưa chọn mục nào.\',3);khoiPhucRac(i);ve();capNhatDemRac();bao(\'Đã khôi phục \'+i.length+\' mục về đúng chỗ cũ.\',4)">Khôi phục đã chọn</button>'+
@@ -724,7 +724,7 @@ function moGopTrung(id){
         '<button type="button" class="nho sg-ico" onclick="event.preventDefault();xemBanTrung(\''+m.id+'\')" title="Xem bản này ở khung bên phải">↗ Xem</button></label>';
     }).join('')+'</div>'+
     '<div class="day-form"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button>'+
-    '<button class="nho chinh" onclick="gopTrung()">Gộp, giữ bản đã chọn</button></div>');
+    '<button class="nho chinh" data-lenh="f10.gopTrung">Gộp, giữ bản đã chọn</button></div>');
 }
 function xemBanTrung(id){ dongHop(); chonDong(id); baoNut('Đang xem 1 bản trùng.', 'Mở lại hộp gộp', function(){ moGopTrung(id); }); }
 function gopTrung(){
@@ -756,9 +756,9 @@ function hoiTrungVB(m0, tr){
     '<div class="gop-ds">'+tr.map(function(v){ return '<div class="gop-dong"><span class="gop-nd"><b>'+coChuHTML(v.tenMoi||v.tenCu||'')+'</b><small>'+
       coChuHTML([v.driveId?'☁ có trên Drive':'💻 chỉ trong máy', lqCua(v).length ? '🔗 '+lqCua(v).length+' văn bản liên quan' : ''].filter(Boolean).join(' · '))+'</small></span></div>'; }).join('')+'</div>'+
     '<div class="day-form">'+
-      '<button class="nho" onclick="dongHop();boCho(\''+m0.id+'\')" title="Không đưa file mới vào tủ">Bỏ file mới</button>'+
+      '<button class="nho" data-lenh="f10.boCho" data-dong="1" data-a1="'+m0.id+'" title="Không đưa file mới vào tủ">Bỏ file mới</button>'+
       '<button class="nho" onclick="dongHop();var c=(D.cho||[]).find(function(x){return x.id===\''+m0.id+'\'});if(c){c.xacNhanTrung=true;duyet(c.id);}" title="Lưu cả 2 bản (ví dụ 2 bản khác nhau thật)">Giữ cả 2</button>'+
-      '<button class="nho chinh" onclick="dongHop();luuRoiGop(\''+m0.id+'\')" title="Lưu file mới rồi mở hộp gộp để chọn bản giữ lại">Lưu rồi gộp</button></div>');
+      '<button class="nho chinh" data-lenh="f10.luuRoiGop" data-dong="1" data-a1="'+m0.id+'" title="Lưu file mới rồi mở hộp gộp để chọn bản giữ lại">Lưu rồi gộp</button></div>');
 }
 function luuRoiGop(id){
   var c = (D.cho||[]).find(function(x){ return x.id===id; }); if(!c) return;
@@ -1243,3 +1243,25 @@ gdDangKy('menu', (function(){
   Object.keys(ds).forEach(function(k){ L[k] = function(el){ var m = document.getElementById('menu'), id = m ? m.getAttribute('data-id') : ''; dongMenu(); ds[k](id, el, m); }; });
   return L;
 })());
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f10.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f10', gdLenh({
+  boCho:function(el, ev){ boCho(gdA(el, 1)); },
+  chonNganRac:function(el, ev){ chonNganRac(gdA(el, 1)); },
+  chonNhomQD:function(el, ev){ chonNhomQD(el, gdA(el, 1)); },
+  datTuXoaRac:function(el, ev){ datTuXoaRac(el.checked); },
+  demChonRac:function(el, ev){ demChonRac(); },
+  docLai:function(el, ev){ docLai(); },
+  docLaiGoiY:function(el, ev){ docLaiGoiY(gdA(el, 1)); },
+  doiPhanDK:function(el, ev){ doiPhanDK(gdA(el, 1)); },
+  dongDonKho:function(el, ev){ dongDonKho(); },
+  gopTrung:function(el, ev){ gopTrung(); },
+  kiemNoiDungQD:function(el, ev){ kiemNoiDungQD(); },
+  lamTrongNgan:function(el, ev){ lamTrongNgan(gdA(el, 1)); },
+  lamTrongRac:function(el, ev){ lamTrongRac(); },
+  luuRoiGop:function(el, ev){ luuRoiGop(gdA(el, 1)); },
+  moHuongDan:function(el, ev){ moHuongDan(gdA(el, 1)); },
+  moQuetDon:function(el, ev){ moQuetDon(); },
+  xemThu:function(el, ev){ xemThu(gdA(el, 1), gdA(el, 2)); },
+  xuLyQuetDon:function(el, ev){ xuLyQuetDon(); }
+}));

@@ -75,7 +75,7 @@ function ktChuanRiengHTML(){
       if(x.t.xa!==xa0){ xa0 = x.t.xa; h = '<tr class="hkb-nhom"><td colspan="4">'+coChuHTML(x.t.tenXa || x.t.xa)+' <small>· '+dem[xa0].h+' Hội · '+dem[xa0].to+' tổ</small></td></tr>'; }
       var ph = {ten:ktHoiTenTD(x.t), kh:c.kh || 'chung của Hội (chưa khai)', khNgay:c.khNgay || 'dd/mm/yyyy'}, r = n++;
       return h+'<tr data-k="'+coChuHTML(x.k)+'"><td class="hkb-hoi">'+coChuHTML(c.ten)+' <small>('+x.n+')</small></td>'+KT_RIENG_COT.map(function(o, cI){ var v = kb[o] || '';
-        return '<td><input id="hkr-'+id+'-'+o+'" class="hkb-o hkr-o'+(ktHkbNgaySai(o, v) ? ' sai' : '')+'" data-r="'+r+'" data-c="'+cI+'" value="'+coChuHTML(v)+'" placeholder="'+coChuHTML(ph[o])+'" aria-label="'+coChuHTML(o)+'" onchange="ktHkbDoi(this,\''+x.k+'\',\''+o+'\')"></td>'; }).join('')+'</tr>';
+        return '<td><input id="hkr-'+id+'-'+o+'" class="hkb-o hkr-o'+(ktHkbNgaySai(o, v) ? ' sai' : '')+'" data-r="'+r+'" data-c="'+cI+'" value="'+coChuHTML(v)+'" placeholder="'+coChuHTML(ph[o])+'" aria-label="'+coChuHTML(o)+'" data-lenh="f22d.ktHkbDoi" data-su="change" data-a1="'+x.k+'" data-a2="'+o+'"></td>'; }).join('')+'</tr>';
     }).join('')+'</tbody></table></div>';
 }
 function ktChuanSua(dv, k, v){ var S = D.cauHinh.ktChuan = D.cauHinh.ktChuan || {}, x = S[dv] = S[dv] || {}; v = String(v||'').replace(/\s+/g, ' ').trim(); if(v) x[k] = v; else delete x[k]; if(!Object.keys(x).length) delete S[dv]; if(!Object.keys(S).length) delete D.cauHinh.ktChuan; luu(); }
@@ -105,12 +105,12 @@ function ktBCVeG(o, th){   /* 3.98 ①: chọn xã / hội ở cây → tổ chi
   ds.forEach(function(r){ var t = r.t, m = t.ma, ap = ktKHAp(t);
     if(ap!==apTruoc){ apTruoc = ap; KT_BC_AP.push(ap); var cua = ds.filter(function(x){ return ktKHAp(x.t)===ap; }), nc = cua.filter(function(x){ return x.chon; }).length;
       h += '<tr class="kt-kh-ap"><td class="c"><input type="checkbox"'+(nc===cua.length ? ' checked' : '')+' onchange="ktBCTichAp('+(KT_BC_AP.length-1)+',this.checked)" aria-label="Chọn cả ấp"></td><td colspan="4"><b>'+coChuHTML(ap)+'</b> <small>('+nc+'/'+cua.length+' tổ)</small></td></tr>'; }
-    h += '<tr class="'+(r.chon ? 'kt-co' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(r.chon ? ' checked' : '')+' onchange="ktBCTich(\''+m+'\',this.checked)" aria-label="Chọn tổ"></td>'+
+    h += '<tr class="'+(r.chon ? 'kt-co' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(r.chon ? ' checked' : '')+' data-lenh="f22d.ktBCTich" data-su="change" data-a1="'+m+'" aria-label="Chọn tổ"></td>'+
       '<td class="to-ten">&nbsp;&nbsp;<b>'+coChuHTML(t.ten||'Tổ '+m)+'</b> ('+m+')</td><td>'+coChuHTML(t.tenXa||'')+'</td><td>'+coChuHTML(tdnHoi(t.dv))+'</td>'+
-      '<td><input type="date" value="'+coChuHTML(r.ngay)+'" onchange="ktBCNgay(\''+m+'\',this.value)" aria-label="Ngày kiểm tra"></td></tr>'; });
+      '<td><input type="date" value="'+coChuHTML(r.ngay)+'" data-lenh="f22d.ktBCNgay" data-su="change" data-a1="'+m+'" aria-label="Ngày kiểm tra"></td></tr>'; });
   h += '</tbody></table></div>';
   h += ktHdtNhac(ktHoiDs(), ['pct'])+   /* 3.113: khai ở 🏛 Khai báo Hội đoàn thể */   /* 3.106: Đoàn kiểm tra Mẫu 04 = cán bộ kiểm tra 06 / 16 */
-    '<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktBCXem()"'+(nh.length ? '' : ' disabled')+'>👁 Xem '+nh.length+' báo cáo Mẫu 04</button></div>'+ktBCGhi();
+    '<div class="hang-nut kt-in"><button class="nho chinh" data-lenh="f22d.ktBCXem"'+(nh.length ? '' : ' disabled')+'>👁 Xem '+nh.length+' báo cáo Mẫu 04</button></div>'+ktBCGhi();
   o.innerHTML = h;
 }
 function ktBCKH(){   /* 3.123: kế hoạch đã lưu của xã đang chọn (năm kế hoạch) → [{k, dv, to:{mã: tháng}}]; chọn hội ở cây → chỉ hội đó */
@@ -250,8 +250,8 @@ function ktKNIn04(){ var S = D.cauHinh.ktKN04 || {}, r = {}; KT_KN04.forEach(fun
 function ktKN04HTML(){
   var S = D.cauHinh.ktKN04 || {};
   return '<details class="kt-in-khac" open><summary>Mẫu 04 · Kiến nghị 2d, 2đ, 3a, 3b — không tích = 1 dòng chấm (gọn báo cáo)</summary>'+KT_KN04.map(function(x){ var v = S[x[0]] || {};
-    return '<div class="kt-kn04"><label><input type="checkbox"'+(v.bat ? ' checked' : '')+' onchange="ktKN04Doi(\''+x[0]+'\',this.checked)"> In kiến nghị '+coChuHTML(x[1])+'</label>'+
-      (v.bat ? '<textarea rows="2" style="width:100%" onchange="ktKN04Chu(\''+x[0]+'\',this.value)">'+coChuHTML(String(v.chu||'').trim() || x[2])+'</textarea>'+(v.chu && String(v.chu).trim()!==x[2] ? '<button class="nho" onclick="ktKN04Chu(\''+x[0]+'\',\'\',1)">↺ Về câu gợi ý</button>' : '') : '')+'</div>'; }).join('')+'</details>';
+    return '<div class="kt-kn04"><label><input type="checkbox"'+(v.bat ? ' checked' : '')+' data-lenh="f22d.ktKN04Doi" data-su="change" data-a1="'+x[0]+'"> In kiến nghị '+coChuHTML(x[1])+'</label>'+
+      (v.bat ? '<textarea rows="2" style="width:100%" data-lenh="f22d.ktKN04Chu" data-su="change" data-a1="'+x[0]+'">'+coChuHTML(String(v.chu||'').trim() || x[2])+'</textarea>'+(v.chu && String(v.chu).trim()!==x[2] ? '<button class="nho" data-lenh="f22d.ktKN04Chu_ssn" data-a1="'+x[0]+'" data-a2="" data-a3="1">↺ Về câu gợi ý</button>' : '') : '')+'</div>'; }).join('')+'</details>';
 }
 function ktKN04Doi(k, bat){ var S = D.cauHinh.ktKN04 = D.cauHinh.ktKN04 || {}; S[k] = S[k] || {}; S[k].bat = bat ? 1 : 0; luu(); if(KT_IN_X){ if(KT_IN_X.tab) ktVeThe(); else ktInHop(KT_IN_X.ds, KT_IN_X.nut, KT_IN_X.hoi, 0, 1); } }   /* 3.329: + màn Bộ khai báo */
 function ktKN04Chu(k, v, ve){ var S = D.cauHinh.ktKN04 = D.cauHinh.ktKN04 || {}; S[k] = S[k] || {}; var g = (KT_KN04.find(function(x){ return x[0]===k; }) || [])[2]; v = String(v||'').replace(/\s+/g, ' ').trim();
@@ -358,7 +358,7 @@ function ktHkbIn(t, kb, o, id){
   else if(o==='ky' || o==='ct'){ chu = 'Ký Kế hoạch: TM. '+c.tm.replace('{xa}', c.xa).toUpperCase()+' / '+c.ky.toUpperCase()+' / '+(v || '(để trống, ký tay)'); }
   else if(o==='pct'){ chu = 'Người kiểm tra Mẫu 06 / 16 / 04: Ông (bà) '+(v || cham)+' — Chức vụ: '+c.pho; }
   else if(/^uv\d$/.test(o)){ chu = v ? v+' — '+c.uv : c.uv+' (nếu có)'; }
-  var ve = v ? '<button class="hkb-ve" onclick="ktHkbVe(\''+ktHoiKhoa(t)+'\',\''+o+'\',\''+id+'\')" title="Xóa chữ đã gõ, về giá trị chuẩn / dòng chấm">↺</button>' : '';
+  var ve = v ? '<button class="hkb-ve" data-lenh="f22d.ktHkbVe" data-a1="'+ktHoiKhoa(t)+'" data-a2="'+o+'" data-a3="'+id+'" title="Xóa chữ đã gõ, về giá trị chuẩn / dòng chấm">↺</button>' : '';
   return '<span class="'+(canh ? 'cam' : (v ? 'da' : 'tu'))+'" title="'+coChuHTML('In ra: '+chu+(canh ? ' — ⚠ '+canh : ''))+'">In ra: '+(v ? '' : '<i>(tự lấy)</i> ')+coChuHTML(chu)+(canh ? ' — ⚠ '+coChuHTML(canh) : '')+'</span>'+ve;
 }
 function ktHkbXem(k, id){   /* gõ tới đâu cập nhật dòng "In ra" của cả dòng Hội – xã tới đó (chưa lưu — lưu khi rời ô như cũ) */
@@ -527,13 +527,14 @@ function ktPCHop(k){
   var x = ktPCLay(k), ng = ktPCNguoi(k, g.t), tc = ktPCNguoi(k, g.t, 1), ap = ktPCAp(k), id = k.replace(/[^0-9a-z]/gi, '_'), c = g.c;
   var dauNg = ng[0] && (ng[0].loai==='ct' || ng[0].loai==='pt') ? ng[0] : null, pho = ng.filter(function(n){ return n.loai==='pho' || n.loai==='pt'; });
   var dong = tc.map(function(n){ var q = x.p[n.vt] || {}, co = q.ap || [], tat = n.chon ? '' : ' disabled', cv = dauNg && dauNg.vt===n.vt ? dauNg.cv : n.cv;   /* 3.123: cột tích "Phân công" — bỏ tích = không phân công (bỏ Chủ tịch = khuyết) */
-    return '<tr class="'+(n.chon ? '' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(n.chon ? ' checked' : '')+' onchange="ktPCChon(\''+k+'\',\''+n.vt+'\',this.checked)" aria-label="Phân công '+coChuHTML(n.ten)+'"></td><td><b>'+coChuHTML(n.ten)+'</b><div><small>'+coChuHTML(cv)+'</small></div></td><td class="kt-pc-ap">'+ap.map(function(a){ return '<label class="kt-pc-chip"><input type="checkbox"'+(co.indexOf(a)>=0 ? ' checked' : '')+tat+' onchange="ktPCDoi(\''+k+'\',\''+n.vt+'\',\'ap\','+JSON.stringify(a).replace(/"/g, '&quot;')+',this.checked)"> '+coChuHTML(a)+'</label>'; }).join('')+'</td>'+
-      '<td class="c"><input type="checkbox"'+(q.kt ? ' checked' : '')+tat+' onchange="ktPCDoi(\''+k+'\',\''+n.vt+'\',\'kt\',0,this.checked)" aria-label="Kế toán"></td><td class="c"><input type="checkbox"'+(q.tq ? ' checked' : '')+tat+' onchange="ktPCDoi(\''+k+'\',\''+n.vt+'\',\'tq\',0,this.checked)" aria-label="Thủ quỹ"></td></tr>'; }).join('');
+    return '<tr class="'+(n.chon ? '' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(n.chon ? ' checked' : '')+' data-lenh="f22d.ktPCChon" data-su="change" data-a1="'+k+'" data-a2="'+n.vt+'" aria-label="Phân công '+coChuHTML(n.ten)+'"></td><td><b>'+coChuHTML(n.ten)+'</b><div><small>'+coChuHTML(cv)+'</small></div></td><td class="kt-pc-ap">'+ap.map(function(a){ return '<label class="kt-pc-chip"><input type="checkbox"'+(co.indexOf(a)>=0 ? ' checked' : '')+tat+' onchange="ktPCDoi(\''+k+'\',\''+n.vt+'\',\'ap\','+JSON.stringify(a).replace(/"/g, '&quot;')+',this.checked)"> '+coChuHTML(a)+'</label>'; }).join('')+'</td>'+
+      '<td class="c"><input type="checkbox"'+(q.kt ? ' checked' : '')+tat+' data-lenh="f22d.ktPCDoi" data-su="change" data-a1="'+k+'" data-a2="'+n.vt+'" data-a3="kt" data-a4="0" aria-label="Kế toán"></td>'+
+        '<td class="c"><input type="checkbox"'+(q.tq ? ' checked' : '')+tat+' data-lenh="f22d.ktPCDoi" data-su="change" data-a1="'+k+'" data-a2="'+n.vt+'" data-a3="tq" data-a4="0" aria-label="Thủ quỹ"></td></tr>'; }).join('');
   var ctCo = ng.some(function(n){ return n.loai==='ct'; }), vt = '';
-  if(tc.length && !ctCo) vt += '<div class="kt-pc-vt">Khuyết <b>'+coChuHTML(c.ky)+'</b> → '+(pho.length ? '<label>Đôn lên phụ trách: <select onchange="ktPCDoiPT(\''+k+'\',this.value)">'+pho.map(function(n){ return '<option value="'+n.vt+'"'+(dauNg && dauNg.vt===n.vt ? ' selected' : '')+'>'+coChuHTML(n.ten)+'</option>'; }).join('')+'</select></label> <small>(nhận đủ nhiệm vụ '+coChuHTML(c.ky)+')</small>' : '<b class="do-chu">chưa tích '+coChuHTML(c.pho)+' nào để đôn lên</b>')+'</div>';
+  if(tc.length && !ctCo) vt += '<div class="kt-pc-vt">Khuyết <b>'+coChuHTML(c.ky)+'</b> → '+(pho.length ? '<label>Đôn lên phụ trách: <select data-lenh="f22d.ktPCDoiPT" data-su="change" data-a1="'+k+'">'+pho.map(function(n){ return '<option value="'+n.vt+'"'+(dauNg && dauNg.vt===n.vt ? ' selected' : '')+'>'+coChuHTML(n.ten)+'</option>'; }).join('')+'</select></label> <small>(nhận đủ nhiệm vụ '+coChuHTML(c.ky)+')</small>' : '<b class="do-chu">chưa tích '+coChuHTML(c.pho)+' nào để đôn lên</b>')+'</div>';
   if(tc.length && dauNg && !ng.some(function(n){ return n.loai==='pho'; })) vt += '<div class="kt-pc-vt">Không có '+coChuHTML(c.pho)+' phân công → <b>'+coChuHTML(dauNg.ten)+'</b> kiêm nhiệm vụ riêng của '+coChuHTML(c.pho)+'</div>';
   var kyCo = ng.filter(function(n){ return n.loai!=='uv'; });
-  if(tc.length) vt += '<div class="kt-pc-vt"><label>Người ký: <select onchange="ktPCDoiKy(\''+k+'\',this.value)"><option value="">Để trống — ghi chung "'+coChuHTML(c.ky.toUpperCase())+'"</option>'+kyCo.map(function(n){ return '<option value="'+n.vt+'"'+(x.ky===n.vt ? ' selected' : '')+'>'+coChuHTML((n.vt==='ct' ? c.ky : c.pho)+' — '+n.ten)+'</option>'; }).join('')+'</select></label> <small>để trống: ai ký đóng dấu, '+coChuHTML(c.pho)+' ký ghi thêm "P"</small></div>';
+  if(tc.length) vt += '<div class="kt-pc-vt"><label>Người ký: <select data-lenh="f22d.ktPCDoiKy" data-su="change" data-a1="'+k+'"><option value="">Để trống — ghi chung "'+coChuHTML(c.ky.toUpperCase())+'"</option>'+kyCo.map(function(n){ return '<option value="'+n.vt+'"'+(x.ky===n.vt ? ' selected' : '')+'>'+coChuHTML((n.vt==='ct' ? c.ky : c.pho)+' — '+n.ten)+'</option>'; }).join('')+'</select></label> <small>để trống: ai ký đóng dấu, '+coChuHTML(c.pho)+' ký ghi thêm "P"</small></div>';
   moHop('<div class="hop-tit">📄 Phân công nhiệm vụ Ban Thường vụ — '+coChuHTML(g.ten)+'</div>'+
     '<div class="hop-phu">Người lấy theo 🏛 Khai báo Hội đoàn thể (Chủ tịch, tối đa 3 Phó, 5 ủy viên). Ấp đã chia sẵn theo thứ tự cây ('+coChuHTML(g.c.ky)+' ít hơn) — tích để chỉnh; Phó / ủy viên để trống = "các '+coChuHTML(g.c.ap)+' do Hội quản lý". Nhiệm vụ ghi sẵn theo mẫu tham khảo; xuất Word để sửa thêm.</div>'+
     '<div class="kt-pc-kb">'+[['nk', 'Nhiệm kỳ Ban Chấp hành', 'vd: 2025 – 2030'], ['hd', 'Số HĐ ủy thác', '…/HĐUT'], ['hdNgay', 'Ngày ký HĐ', 'dd/mm/yyyy']].map(function(o){ var hid = 'hkb-'+k.replace(/[^0-9a-z]/gi, '_')+'-'+o[0];
@@ -541,8 +542,8 @@ function ktPCHop(k){
     (tc.length ? vt+'<div class="to-bang-cuon"><table class="to-bang kt-pc-bang"><thead><tr><th>Phân công</th><th>Người</th><th>'+coChuHTML(g.c.ap.charAt(0).toUpperCase()+g.c.ap.slice(1))+' phụ trách kiểm tra</th><th>Kế toán</th><th>Thủ quỹ</th></tr></thead><tbody>'+dong+'</tbody></table></div>'+
         (x.tay ? '<div class="sl-phu">Ấp đang theo lần anh chỉnh tay — đổi người phân công thì bấm ⇄ Chia lại đều nếu muốn chia lại.</div>' : '')+'<div id="kt-pc-kiem">'+ktPCKiemHTML(k)+'</div>'
       : '<div class="sl-bao vang">Chưa khai tên Ban Thường vụ — khai ở thẻ Hội – xã trước.</div>')+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ng.length ? '<button class="nho" onclick="ktPCChiaDeu(\''+k+'\')" title="Chia lại từ đầu theo thứ tự cây: Chủ tịch ít hơn, rồi Phó, ủy viên — mỗi người 1 đoạn liền nhau">⇄ Chia lại đều</button>' : '')+
-    '<button class="nho" onclick="ktPCXuat(\''+k+'\',\'xem\')">👁 Xem trước</button><button class="nho" onclick="ktPCXuat(\''+k+'\',\'in\')">🖨 In / PDF</button><button class="nho chinh" onclick="ktPCXuat(\''+k+'\',\'word\')">📄 Word</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ng.length ? '<button class="nho" data-lenh="f22d.ktPCChiaDeu" data-a1="'+k+'" title="Chia lại từ đầu theo thứ tự cây: Chủ tịch ít hơn, rồi Phó, ủy viên — mỗi người 1 đoạn liền nhau">⇄ Chia lại đều</button>' : '')+
+    '<button class="nho" data-lenh="f22d.ktPCXuat" data-a1="'+k+'" data-a2="xem">👁 Xem trước</button><button class="nho" data-lenh="f22d.ktPCXuat" data-a1="'+k+'" data-a2="in">🖨 In / PDF</button><button class="nho chinh" data-lenh="f22d.ktPCXuat" data-a1="'+k+'" data-a2="word">📄 Word</button></div>', true);
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
 }
 function ktPCXuat(k, cach, ok){
@@ -550,7 +551,7 @@ function ktPCXuat(k, cach, ok){
   if(cach!=='xem' && !ok){ var sai = ktPCKiem(k).filter(function(r){ return !r.ok; });   /* 3.123: còn mục ⚠ → nhắc trước khi xuất, vẫn cho xuất */
     if(sai.length) return hoi('Còn '+sai.length+' mục chưa đủ', sai.map(function(r){ return '⚠ '+r.chu; }).join(' · '), cach==='word' ? 'Vẫn xuất Word' : 'Vẫn in', function(){ ktPCXuat(k, cach, 1); }); }
   var ten = 'Thong bao phan cong nhiem vu BTV - '+boDauTen(g.ten).slice(0, 60);
-  if(cach==='xem'){ moHop('<div class="hop-tit">👁 Thông báo phân công — '+coChuHTML(g.ten)+'</div><iframe id="kt-pc-khung" class="to-khung" title="Xem trước"></iframe>'+xuatHang({truoc:'<button class="nho" onclick="ktPCHop(\''+k+'\')">‹ Sửa phân công</button>', html:function(){ return ktHTMLPC(g); }, in:'ktPCXuat(\''+k+'\',\'in\')', pdf:'ktPCXuat(\''+k+'\',\'pdf\')', word:'ktPCXuat(\''+k+'\',\'word\')'}), true);   /* 3.152 */
+  if(cach==='xem'){ moHop('<div class="hop-tit">👁 Thông báo phân công — '+coChuHTML(g.ten)+'</div><iframe id="kt-pc-khung" class="to-khung" title="Xem trước"></iframe>'+xuatHang({truoc:'<button class="nho" data-lenh="f22d.ktPCHop" data-a1="'+k+'">‹ Sửa phân công</button>', html:function(){ return ktHTMLPC(g); }, in:'ktPCXuat(\''+k+'\',\'in\')', pdf:'ktPCXuat(\''+k+'\',\'pdf\')', word:'ktPCXuat(\''+k+'\',\'word\')'}), true);   /* 3.152 */
     var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong'); var f = document.getElementById('kt-pc-khung'); xemChuan(f, ktHTMLPC(g)); return; }
   if(cach==='word') return ktDocx('pc', g).then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+ten+'.docx — chỉ lưu trên máy / Drive của anh.', 6); }).catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); });
   if(cach==='pdf') return inPDF(ktHTMLPC(g), ten);   /* 3.152 */
@@ -607,7 +608,7 @@ function ktHdtNhac(ds, can){   /* dòng nhắc trong tab mẫu: Hội – xã c�
   var thieu = ds.map(function(x){ var kb = ktHoiKB(x.k), c = ktChuan(x.t);
     var m = can.filter(function(k){ return !(k==='pct' ? (kb.pct || kb.cb) : k==='ct' ? (kb.ct || kb.ky) : kb[k]); }).map(function(k){ return k==='ct' ? c.ky : k==='pct' ? c.pho : nhan[k]; });
     return m.length ? (kb.ten || ktHoiTenTD(x.t))+' ('+m.join(', ')+')' : ''; }).filter(Boolean);
-  var nut = ' <button class="nho" onclick="ktHoiKBHop()">🏛 Khai báo Hội đoàn thể</button>';
+  var nut = ' <button class="nho" data-lenh="f22d.ktHoiKBHop">🏛 Khai báo Hội đoàn thể</button>';
   return thieu.length ? '<div class="sl-bao vang kt-hdt-nhac">⚠ Chưa khai: '+coChuHTML(thieu.slice(0, 4).join('; ')+(thieu.length>4 ? ' và '+(thieu.length-4)+' Hội – xã khác' : ''))+' — in ra dòng chấm.'+nut+'</div>'
     : '<div class="sl-phu kt-hdt-nhac">✓ Đã khai báo đủ cho '+ds.length+' Hội – xã.'+nut+'</div>';
 }
@@ -635,11 +636,11 @@ function ktHdtBang(ds){
     var kb = ktHoiKB(x.k), c = ktChuan(x.t), id = x.k.replace(/[^0-9a-z]/gi, '_');
     var ph = {ct:c.ky, pct:c.pho, uv1:c.uv+' 1', uv2:c.uv+' 2', uv3:c.uv+' 3', nk:'2025 – 2030', hd:'…/HĐUT', hdNgay:'dd/mm/yyyy', kh:'06-KH/…', khNgay:'dd/mm/yyyy'};
     var du = (kb.du || []).map(function(d){ return ktTenNhan(d.vt, c)+': '+d.ten; });
-    return nhom+'<tr data-k="'+coChuHTML(x.k)+'"><td class="hkb-hoi"><button class="nho hkb-pc" onclick="ktPCHop(\''+x.k+'\')" title="Thông báo phân công nhiệm vụ Ban Thường vụ (Word / In)">📋 Phân công</button> '+coChuHTML(ktChuan(x.t).ten)+' <small>('+x.n+')</small>'+(du.length ? ' <span class="hkb-du" title="'+coChuHTML('Còn giữ (bản cũ có nhiều hơn 1 PCT / 3 BTV):\n'+du.join('\n'))+'">ⓘ</span>' : '')+'</td>'+
+    return nhom+'<tr data-k="'+coChuHTML(x.k)+'"><td class="hkb-hoi"><button class="nho hkb-pc" data-lenh="f22d.ktPCHop" data-a1="'+x.k+'" title="Thông báo phân công nhiệm vụ Ban Thường vụ (Word / In)">📋 Phân công</button> '+coChuHTML(ktChuan(x.t).ten)+' <small>('+x.n+')</small>'+(du.length ? ' <span class="hkb-du" title="'+coChuHTML('Còn giữ (bản cũ có nhiều hơn 1 PCT / 3 BTV):\n'+du.join('\n'))+'">ⓘ</span>' : '')+'</td>'+
       KT_HKB_COT.map(function(o, cI){ var v = kb[o] || '', loi = KT_PC_VT.indexOf(o)>=0 && v ? ktTenLoiO(kb, o, c) : {loi:[]};
         return '<td><input id="hkb-'+id+'-'+o+'" class="hkb-o'+(ktHkbNgaySai(o, v) ? ' sai' : '')+(loi.loi.length ? ' canh' : '')+'" data-r="'+r+'" data-c="'+cI+'" value="'+coChuHTML(v)+'" placeholder="'+coChuHTML(ph[o]||'')+'" aria-label="'+coChuHTML(ph[o]||o)+'"'+
           (loi.loi.length ? ' title="'+coChuHTML('⚠ '+loi.loi.join('; ')+(loi.goiY ? ' → '+loi.goiY+' (bấm đúp để sửa theo gợi ý)' : ''))+'" ondblclick="ktTenSua(\''+x.k+'\',\''+o+'\',\''+id+'\')"' : '')+
-          ' onchange="ktHkbDoi(this,\''+x.k+'\',\''+o+'\')" onkeydown="ktHkbPhim(event,this)" onpaste="ktHkbDan(event,this)"></td>'; }).join('')+'</tr>';
+          ' data-lenh="f22d.ktHkbDoi" data-su="change" data-a1="'+x.k+'" data-a2="'+o+'" onkeydown="ktHkbPhim(event,this)" onpaste="ktHkbDan(event,this)"></td>'; }).join('')+'</tr>';
   }).join('')+'</tbody></table></div>';
 }
 function ktHkbDoi(el, k, o){ ktHoiKBSua(k, o, el.value); var v = ktHoiKBGoc(k)[o] || ''; if(el.value!==v) el.value = v; el.classList.toggle('sai', ktHkbNgaySai(o, v)); }
@@ -681,7 +682,7 @@ function ktTenLoiO(kb, v, c){   /* lỗi tên của 1 ô (kèm trùng với ô �
 }
 function ktTenLoiDs(kb, c){ return KT_PC_VT.filter(function(v){ return kb[v]; }).map(function(v){ var r = ktTenLoiO(kb, v, c); return r.loi.length ? 'Tên "'+kb[v]+'" ('+ktTenNhan(v, c)+'): '+r.loi.join(', ') : ''; }).filter(Boolean); }
 function ktTenCanhHTML(k, v, id){ var kb = ktHoiKB(k), r = kb[v] ? ktTenLoiO(kb, v) : {loi:[]}; if(!r.loi.length) return '';
-  return '⚠ '+coChuHTML(r.loi.join('; '))+(r.goiY ? ' → <b>'+coChuHTML(r.goiY)+'</b><button class="nho" onclick="ktTenSua(\''+k+'\',\''+v+'\',\''+id+'\')">Sửa theo gợi ý</button>' : ''); }
+  return '⚠ '+coChuHTML(r.loi.join('; '))+(r.goiY ? ' → <b>'+coChuHTML(r.goiY)+'</b><button class="nho" data-lenh="f22d.ktTenSua" data-a1="'+k+'" data-a2="'+v+'" data-a3="'+id+'">Sửa theo gợi ý</button>' : ''); }
 function ktTenVe(k, id){ KT_PC_VT.forEach(function(v){ var e = document.getElementById('hkbt-'+id+'-'+v); if(e) e.innerHTML = ktTenCanhHTML(k, v, id); }); }
 function ktTenSua(k, v, id){ var r = ktTenKiem(ktHoiKB(k)[v]); if(!r.goiY) return; ktHoiKBSua(k, v, r.goiY);
   var e = document.getElementById('hkb-'+id+'-'+v); if(e) e.value = ktHoiKB(k)[v] || ''; ktTenVe(k, id); try { ktHkbXem(k, id); } catch(er){} bao('Đã sửa tên: '+(ktHoiKB(k)[v]||''), 3); }
@@ -694,3 +695,23 @@ function ktHoiKBSua(k, o, v){
   luu();
 }
 
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22d.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f22d', gdLenh({
+  ktBCNgay:function(el, ev){ ktBCNgay(gdA(el, 1), el.value); },
+  ktBCTich:function(el, ev){ ktBCTich(gdA(el, 1), el.checked); },
+  ktBCXem:function(el, ev){ ktBCXem(); },
+  ktHkbDoi:function(el, ev){ ktHkbDoi(el, gdA(el, 1), gdA(el, 2)); },
+  ktHkbVe:function(el, ev){ ktHkbVe(gdA(el, 1), gdA(el, 2), gdA(el, 3)); },
+  ktHoiKBHop:function(el, ev){ ktHoiKBHop(); },
+  ktKN04Chu:function(el, ev){ ktKN04Chu(gdA(el, 1), el.value); },
+  ktKN04Chu_ssn:function(el, ev){ ktKN04Chu(gdA(el, 1), gdA(el, 2), +gdA(el, 3)); },
+  ktKN04Doi:function(el, ev){ ktKN04Doi(gdA(el, 1), el.checked); },
+  ktPCChiaDeu:function(el, ev){ ktPCChiaDeu(gdA(el, 1)); },
+  ktPCChon:function(el, ev){ ktPCChon(gdA(el, 1), gdA(el, 2), el.checked); },
+  ktPCDoi:function(el, ev){ ktPCDoi(gdA(el, 1), gdA(el, 2), gdA(el, 3), +gdA(el, 4), el.checked); },
+  ktPCDoiKy:function(el, ev){ ktPCDoiKy(gdA(el, 1), el.value); },
+  ktPCDoiPT:function(el, ev){ ktPCDoiPT(gdA(el, 1), el.value); },
+  ktPCHop:function(el, ev){ ktPCHop(gdA(el, 1)); },
+  ktPCXuat:function(el, ev){ ktPCXuat(gdA(el, 1), gdA(el, 2)); },
+  ktTenSua:function(el, ev){ ktTenSua(gdA(el, 1), gdA(el, 2), gdA(el, 3)); }
+}));

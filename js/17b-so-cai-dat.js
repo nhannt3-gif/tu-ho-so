@@ -75,7 +75,7 @@ function chSoTomHTML(){
   var R = chSoKiem();
   return '<div class="hso-kb-nhom"><b>🧾 Sổ cài đặt</b> — máy này có <b>'+R.tong+'</b> khóa cài đặt ('+R.kb+' KB), '+Object.keys(R.khoi).length+' khối'+
     (R.la.length ? ' · <b class="do">'+R.la.length+' khóa lạ</b> (không có trong sổ)' : ' · không có khóa lạ')+
-    ' <button class="nho" onclick="chSoHop()">Xem</button></div>';
+    ' <button class="nho" data-lenh="f17b.chSoHop">Xem</button></div>';
 }
 function chSoHop(){
   var R = chSoKiem(), bang = function(ds, laLa){ return '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Khóa</th><th>Mô tả</th><th>KB</th></tr></thead><tbody>'+
@@ -88,3 +88,8 @@ function chSoHop(){
       return '<details class="ch-so-nhom"><summary><b>'+coChuHTML(CH_SO_KHOI_TEN[k] || k)+'</b> — '+ds.length+' khóa · '+kb+' KB</summary>'+bang(ds)+'</details>'; }).join('')+
     '<div class="hang-nut"><button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>', true);
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f17b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f17b', gdLenh({
+  chSoHop:function(el, ev){ chSoHop(); }
+}));

@@ -22,7 +22,7 @@ const fs=require('fs'), path=require('path');
    gdxBoCanBo(gdxC().danhSachCanBo.length-1);
    hsoKBTab('pgd'); const inGL = [...hop.querySelectorAll('.kb-tenm input')];
    ok('tab PGD có tên đơn vị từng mẫu Giao dịch xã (04/TD, 12/GDX, Giấy lĩnh, Bảng kê) — 10 ô', inGL.length===10 && /04\/TD/.test(hop.textContent) && /Giấy lĩnh/.test(hop.textContent) && /Bảng kê/.test(hop.textContent));
-   const cu = gdxC().glPGD; const iGL = hop.querySelector('.kb-tenm input[oninput*="glPGD"]'); iGL.value = 'PGD Giả'; iGL.dispatchEvent(new Event('input'));
+   const cu = gdxC().glPGD; const iGL = hop.querySelector('.kb-tenm input[oninput*="glPGD"]'); iGL.value = 'PGD Giả'; iGL.dispatchEvent(new Event('input', {bubbles:true}));
    ok('sửa tên PGD Giấy lĩnh ở đây → cùng chỗ lưu gdxC().glPGD', gdxC().glPGD==='PGD Giả'); gdxC().glPGD = cu;
    hsoKBTab('hoi'); ok('tab 🤝 Hội: liệt kê Hội đã khai ở KTGS + nút sang KTGS (không chép dữ liệu)', /Hội Phụ nữ xã Giả/.test(hop.textContent) && /Trần Thị Giả/.test(hop.textContent) && /Sửa ở KTGS/.test(hop.textContent) && Object.keys(D.cauHinh.ktHoiKB).length===1);
    hsoKBTab('tk'); ok('tab TK 104 / 105 = khối cũ của Giao dịch xã', hop.querySelector('.hso-kbp[data-kb="tk"]').textContent.length>50);

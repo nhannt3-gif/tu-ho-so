@@ -411,22 +411,23 @@ function veSaoKe(){
     var man = C.man==='xem' ? 'xem' : 'ds';   /* 3.386 (anh 27/10 "demo 2 là phần xem của chọn báo cáo"): màn 1 chọn báo cáo · màn 2 xem (khung trải ngang, đổi lọc tự vẽ lại) */
     var ngan = function(b){ return b.ten.split(' — ')[0].split(' (')[0]; }, khoChu = function(b){ return skKhoCua(b.k)==='ngang' ? 'ngang' : 'dọc'; };
     var dau = slTabConHTML()+kyGhiHTML(K)+
-      (K.thieuBang ? '<div class="sl-bao vang">⚠ Bảng số liệu chưa có trên máy này (lưu trên Drive, chưa tải về).<div class="hang-nut"><button class="nho chinh" onclick="toNoiDrive()">☁ Nối Drive và tải</button><button class="nho" onclick="toThuLai()">⟳ Thử lại</button></div></div>' : '')+
+      (K.thieuBang ? '<div class="sl-bao vang">⚠ Bảng số liệu chưa có trên máy này (lưu trên Drive, chưa tải về).<div class="hang-nut"><button class="nho chinh" data-lenh="f22h.toNoiDrive">☁ Nối Drive và tải</button><button class="nho" data-lenh="f22h.toThuLai">⟳ Thử lại</button></div></div>' : '')+
       slNguonHTML(K.B)+'<div id="sk-cay" class="to-cay pv-cay"></div>';
     if(man==='ds') e.innerHTML = dau+'<div class="sk-luoi sk-luoi2">'+SK_NHOM.map(function(n){ return '<div class="sk-nhom"><div class="sk-nhom-ten">'+n.ten+'</div>'+SK_BC.filter(function(b){ return b.nhom===n.k; }).map(function(b){
-        return '<button class="sk-bc2'+(b.k===k ? ' chon' : '')+'" onclick="skChonBC(\''+b.k+'\')" title="'+coChuHTML(b.ten)+'"><span>'+coChuHTML(ngan(b))+'</span><small>'+khoChu(b)+'</small></button>'; }).join('')+'</div>'; }).join('')+(typeof dkNutHTML==='function' ? dkNutHTML('sk') : '')+'</div>'+
+        return '<button class="sk-bc2'+(b.k===k ? ' chon' : '')+'" data-lenh="f22h.skChonBC" data-a1="'+b.k+'" title="'+coChuHTML(b.ten)+'"><span>'+coChuHTML(ngan(b))+'</span><small>'+khoChu(b)+'</small></button>'; }).join('')+'</div>'; }).join('')+(typeof dkNutHTML==='function' ? dkNutHTML('sk') : '')+'</div>'+
       '<p class="ghi">Nợ quá hạn, khoanh, KHĐ lấy từ 3 file tháng '+kyVN(th)+'; các sao kê còn lại cần <b>Mẫu 31 tháng '+kyVN(th)+'</b>. In: mỗi món 1 dòng; khổ dọc bỏ Số KU (đã có cột CT), tràn thì bỏ SĐT rồi co chữ; Excel luôn đủ cột.</p>';
-    else e.innerHTML = dau+'<div class="sk-thao"><button class="nho" onclick="skVeDS()" title="Về danh sách báo cáo">← Danh sách</button>'+
-      '<select class="sk-chon" title="Đổi báo cáo" onchange="skChonBC(this.value)">'+SK_NHOM.map(function(n){ return '<optgroup label="'+coChuHTML(n.ten)+'">'+SK_BC.filter(function(b){ return b.nhom===n.k; }).map(function(b){
+    else e.innerHTML = dau+'<div class="sk-thao"><button class="nho" data-lenh="f22h.skVeDS" title="Về danh sách báo cáo">← Danh sách</button>'+
+      '<select class="sk-chon" title="Đổi báo cáo" data-lenh="f22h.skChonBC_v" data-su="change">'+SK_NHOM.map(function(n){ return '<optgroup label="'+coChuHTML(n.ten)+'">'+SK_BC.filter(function(b){ return b.nhom===n.k; }).map(function(b){
         return '<option value="'+b.k+'"'+(b.k===k ? ' selected' : '')+'>'+coChuHTML(ngan(b))+' · '+khoChu(b)+'</option>'; }).join('')+'</optgroup>'; }).join('')+'</select>'+
-      '<span class="sk-kho" role="group" aria-label="Khổ in">Khổ <button id="sk-kho-ngang" class="nho'+(kho==='ngang' ? ' bat' : '')+'" onclick="skDoiKho(\'ngang\')" title="A4 ngang — đủ cột">Ngang</button><button id="sk-kho-doc" class="nho'+(kho==='doc' ? ' bat' : '')+'" onclick="skDoiKho(\'doc\')" title="A4 dọc — gọn cột (bỏ Số KU khi có cột CT; tràn thì bỏ SĐT, co chữ)">Dọc</button></span>'+
+      '<span class="sk-kho" role="group" aria-label="Khổ in">Khổ <button id="sk-kho-ngang" class="nho'+(kho==='ngang' ? ' bat' : '')+'" data-lenh="f22h.skDoiKho" data-a1="ngang" title="A4 ngang — đủ cột">Ngang</button>'+
+        '<button id="sk-kho-doc" class="nho'+(kho==='doc' ? ' bat' : '')+'" data-lenh="f22h.skDoiKho" data-a1="doc" title="A4 dọc — gọn cột (bỏ Số KU khi có cột CT; tràn thì bỏ SĐT, co chữ)">Dọc</button></span>'+
       (bc && bc.tuyChon ? bc.tuyChon() : '')+'<span class="sk-gian"></span>'+
-      '<button class="nho" onclick="if(SK_XEM.length) skExcel()" title="Xuất Excel báo cáo đang xem">📊 Excel</button><button class="nho" onclick="skPhongTo()" title="Mở hộp xem lớn">⤢ Phóng to</button></div>'+
+      '<button class="nho" onclick="if(SK_XEM.length) skExcel()" title="Xuất Excel báo cáo đang xem">📊 Excel</button><button class="nho" data-lenh="f22h.skPhongTo" title="Mở hộp xem lớn">⤢ Phóng to</button></div>'+
       (bc && bc.ngay ? '<div class="sk-ngay sk-ngay1">Khoảng ngày: từ <input type="date" value="'+C.tu+'" onchange="skCH().tu=this.value;luu();skXemHen()"> đến <input type="date" value="'+C.den+'" onchange="skCH().den=this.value;luu();skXemHen()">'+
-        ' <button class="nho" onclick="skDatNgay(\'thang\')">Tháng sau</button><button class="nho" onclick="skDatNgay(\'quy\')">Đến cuối quý</button><button class="nho" onclick="skDatNgay(\'nam\')">Đến hết năm</button></div>' : '')+
+        ' <button class="nho" data-lenh="f22h.skDatNgay" data-a1="thang">Tháng sau</button><button class="nho" data-lenh="f22h.skDatNgay" data-a1="quy">Đến cuối quý</button><button class="nho" data-lenh="f22h.skDatNgay" data-a1="nam">Đến hết năm</button></div>' : '')+
       '<iframe id="sk-xem-khung" class="sk-xem-khung" title="Xem báo cáo"></iframe>';
     pvVeCay('sk'); if(man==='xem') skXemHen();
-  }).catch(function(er){ e.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" onclick="toThuLai()">⟳ Thử lại</button></div>'; });
+  }).catch(function(er){ e.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" data-lenh="f22h.toThuLai">⟳ Thử lại</button></div>'; });
 }
 /* bảng có chia theo tổ: cot = tên cột, ds = dòng (có .to), dong(x, stt) → mảng ô, so = chỉ số cột cộng tiền, lop(x) = lớp dòng (vd nổi bật) */
 /* 3.92: in 2 khổ (anh chốt) — SK_KHO 'ngang' đủ cột · 'doc' gọn: bảng có cột CT thì bỏ cột Số KU (khách 2 món cùng CT ghi thêm 6 số cuối KU);
@@ -655,3 +656,14 @@ function skExcel(){
   });
 }
 
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22h.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f22h', gdLenh({
+  skChonBC:function(el, ev){ skChonBC(gdA(el, 1)); },
+  skChonBC_v:function(el, ev){ skChonBC(el.value); },
+  skDatNgay:function(el, ev){ skDatNgay(gdA(el, 1)); },
+  skDoiKho:function(el, ev){ skDoiKho(gdA(el, 1)); },
+  skPhongTo:function(el, ev){ skPhongTo(); },
+  skVeDS:function(el, ev){ skVeDS(); },
+  toNoiDrive:function(el, ev){ toNoiDrive(); },
+  toThuLai:function(el, ev){ toThuLai(); }
+}));

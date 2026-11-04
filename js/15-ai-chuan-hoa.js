@@ -14,19 +14,19 @@ function moNhoAI(){
       '<option value="vanban">Toàn bộ văn bản ('+D.vanBan.length+' mục)</option>'+
     '</select></div>'+
     '<div class="hang-nut">'+
-      '<button class="nho chinh" onclick="xuatChoAI()">Xuất file cho AI</button>'+
-      '<button class="nho" onclick="chepNhac()">Sao chép câu nhắc</button></div>'+
+      '<button class="nho chinh" data-lenh="f15.xuatChoAI">Xuất file cho AI</button>'+
+      '<button class="nho" data-lenh="f15.chepNhac">Sao chép câu nhắc</button></div>'+
     '<div class="hang-nut" style="margin-top:7px">'+
-      '<button class="nho" onclick="moDanAI()">Hoặc dán thẳng kết quả AI</button></div>'+
+      '<button class="nho" data-lenh="f15.moDanAI">Hoặc dán thẳng kết quả AI</button></div>'+
     '<div class="nhan-nhom">Câu nhắc gửi AI</div>'+
     '<div class="cay" id="ai-nhac" style="white-space:pre-wrap">'+coChuHTML(cauNhacAI())+'</div>'+
     '<div class="nhan-nhom">Nạp kết quả</div>'+
     '<div class="hang-nut">'+
-      '<button class="nho chinh" onclick="napTuAI()">Nạp file AI trả về</button></div>'+
+      '<button class="nho chinh" data-lenh="f15.napTuAI">Nạp file AI trả về</button></div>'+
     '<div class="huong-dan">Nhận cả file .csv, .txt hoặc .json. App ghép theo cột <b>ma</b>, '+
     'chỉ đổi số hiệu, ngày, trích yếu và thẻ; không đụng tới nội dung file.</div>'+
     '<div class="hang-nut" style="margin-top:14px">'+
-      '<button class="nho" onclick="dongHop();moCaiDat(\'chimuc\')">Đóng</button></div>', true);
+      '<button class="nho" data-lenh="f15.moCaiDat" data-dong="1" data-a1="chimuc">Đóng</button></div>', true);
 }
 
 function cauNhacAI(){
@@ -151,3 +151,11 @@ function napTuAI(){
   i.click();
 }
 
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f15.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f15', gdLenh({
+  chepNhac:function(el, ev){ chepNhac(); },
+  moCaiDat:function(el, ev){ moCaiDat(gdA(el, 1)); },
+  moDanAI:function(el, ev){ moDanAI(); },
+  napTuAI:function(el, ev){ napTuAI(); },
+  xuatChoAI:function(el, ev){ xuatChoAI(); }
+}));

@@ -8,12 +8,12 @@ const kq=[]; function ok(t,d,g){ kq.push((d?'✓ ':'✗ ')+t+(g?' — '+g:'')); 
     const loi=[]; p.on('pageerror',e=>loi.push(e.message)); p.on('console',m=>{ if(m.type()==='error' && !/ERR_FAILED|net::/.test(m.text())) loi.push('console: '+m.text()); });
     await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
     await p.goto('file://'+require('path').resolve(__dirname,'..','index.html')+'?may=1'); await p.waitForTimeout(2500);
-    ok(`[${may.ten}] bản 3.33, thư viện nạp đủ`, await p.evaluate(()=>APP_BAN==='3.475' && !!window.pdfjsLib && !!window.PDFLib && !!window.XLSX));
+    ok(`[${may.ten}] bản 3.33, thư viện nạp đủ`, await p.evaluate(()=>APP_BAN==='3.476' && !!window.pdfjsLib && !!window.PDFLib && !!window.XLSX));
     let tabs=''; for(const i of [0,1,2,5,4,3]){ tabs += await p.evaluate(async i=>{ doiNgan(i); await new Promise(r=>setTimeout(r,300)); var t=document.getElementById('tr'+i); return i+':'+(t&&t.innerHTML.length>50?'ok':'TRỐNG')+' '; }, i); }
     ok(`[${may.ten}] đi hết 6 tab`, !/TRỐNG/.test(tabs), tabs);
     const r = await p.evaluate(async()=>{
       var out={}, cho = ms=>new Promise(r=>setTimeout(r,ms));
-      HTMLInputElement.prototype.click = function(){ var el=this; if(window.__fileThu){ Object.defineProperty(el,'files',{value:window.__fileThu, configurable:true}); window.__fileThu=null; setTimeout(function(){ el.onchange&&el.onchange(); },0); } };
+      HTMLInputElement.prototype.click = function(){ var el=this; if(window.__fileThu){ Object.defineProperty(el,'files',{value:window.__fileThu, configurable:true}); window.__fileThu=null; setTimeout(function(){ (el.onchange ? el.onchange() : el.dispatchEvent(new Event('change', {bubbles:true}))); },0); } };
       // 1. PDF văn bản thật (pdf-lib) → đọc số hiệu, ngày
       var pdf = await PDFLib.PDFDocument.create(); var f = await pdf.embedFont(PDFLib.StandardFonts.Helvetica); var pg = pdf.addPage([595,842]);
       pg.drawText('So: 958/KH-NHCS', {x:50,y:780,size:12,font:f}); pg.drawText('KE HOACH', {x:50,y:740,size:14,font:f});

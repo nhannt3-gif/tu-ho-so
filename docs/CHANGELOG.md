@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.476 — 05/11/2026 — Dọn: bỏ onclick viết thẳng đồng loạt (TK 3, Đ4 kế hoạch dọn — phần 3)
+- **Công cụ `tools/doi_onclick.py`**: chuyển dạng chuẩn `on<sự kiện>="[dongHop();]HÀM(tham số…)"` (tham số: chuỗi từ biểu thức, chữ, số, true / false / null, this.value / this.checked / this / event) → `data-lenh="<khối>.<lệnh>"` + `data-a1…`, sinh khối `gdDangKy('<khối>', gdLenh({…}))` cuối file — mỗi lệnh gọi **đúng hàm cũ**, đúng kiểu tham số. `dongHop()` trơn → lệnh chung `hop.dong`. Bỏ qua (giữ nguyên): `event.stopPropagation()`, chuỗi có `.replace(/'/g…)`, tham số ghép thô, câu lệnh gán / nhiều lệnh, chú thích, và **hàm mà chỗ khác tra theo chữ onclick** (chonDong, doiNgan, doiCD, ktKHXepLai…, boChonHS, quetThemHang, ccMo).
+- **Chạy cho 70 file** (trừ js/04b — cửa sổ nổi HSSV vẽ vào cửa sổ PiP riêng, không có bộ nghe chung): **onclick 1.174 → 467**. Hàm chung mới (js/02): `gdA(el, i)` tham số, `gdLenh(ds)` (data-dong="1" = đóng hộp trước). `GD.coLenh(k)` (js/39) cho phép thử.
+- **Sửa lỗi có sẵn:** nút **⚙ Khai báo riêng** ở đầu Hồ sơ Tổ có lúc bấm không ăn (lệnh `omkb.*` chỉ đăng ký khi cột trái vẽ Chọn nhanh) → đăng ký lúc nạp. Esc trong hộp: nút `hop.dong` (Đóng / Thôi) nay cũng được nhận là nút Esc (js/06 `ganNutEsc` nhận cả data-lenh). Bộ chọn dòng scan đang xem (js/08) theo data-lenh.
+- **Phép thử:** mới **t375** — lưới an toàn: đi 16 tab / tab con, mọi phần tử data-lenh đang hiện (~1.000) phải có lệnh đăng ký; các phép thử chọn nút theo onclick đổi sang data-lenh; mọi phép thử phát `change` / `input` nay lan lên (`bubbles:true`, như trình duyệt thật).
+
 ## 3.475 — 05/11/2026 — Dọn: menu chuột phải + dải tháng bỏ onclick (TK 3, Đ4 kế hoạch dọn — phần 2)
 - **Menu chuột phải danh sách file** (js/10): 21 mục `onclick="dongMenu();…('id')"` → `data-lenh="menu.*"`; mục đang mở ghi ở `#menu[data-id]` (biểu mẫu: `data-bm`), một khối lệnh đóng menu rồi gọi đúng hàm cũ (xem, đọc lại & gợi ý tên, gửi, in, sửa, Drive, mở trên máy tính 4 kiểu, đường dẫn ổ G, khung xem nhanh, tên file, ghi chú / gắn VB / bản mới biểu mẫu, chép AI, Excel / Word, xóa vào thùng rác).
 - **Dải tháng Nạp & KT** (js/22): nút tháng, ‹ › số tháng hiện, ▾ chọn tháng, ⦿ Gần nhất → `nkt.*`.
