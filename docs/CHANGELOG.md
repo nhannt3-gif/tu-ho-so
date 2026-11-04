@@ -8,7 +8,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Menu chuột phải danh sách file** (js/10): 21 mục `onclick="dongMenu();…('id')"` → `data-lenh="menu.*"`; mục đang mở ghi ở `#menu[data-id]` (biểu mẫu: `data-bm`), một khối lệnh đóng menu rồi gọi đúng hàm cũ (xem, đọc lại & gợi ý tên, gửi, in, sửa, Drive, mở trên máy tính 4 kiểu, đường dẫn ổ G, khung xem nhanh, tên file, ghi chú / gắn VB / bản mới biểu mẫu, chép AI, Excel / Word, xóa vào thùng rác).
 - **Dải tháng Nạp & KT** (js/22): nút tháng, ‹ › số tháng hiện, ▾ chọn tháng, ⦿ Gần nhất → `nkt.*`.
 - Phép thử mới **t374**: bấm từng mục menu (hàm đích thay bằng bộ ghi) → đúng hàm, đúng mã mục, menu đóng; Nạp & KT không còn `onclick` viết thẳng; hộp chọn tháng, Kiểm tra kỳ, ô ma trận; không nút nào "Chưa có lệnh".
-- Thước đo: onclick 1.200 → 1.171.
+- Thước đo: onclick 1.200 → 1.174.
 
 ## 3.474 — 05/11/2026 — Dọn: Nạp & KT bỏ onclick viết thẳng (TK 3, Đ4 kế hoạch dọn — phần 1)
 - **Nền:** hàng chờ `gdDangKy(khối, lệnh)` (js/02) — file nạp **trước** bộ lệnh chung `GD` (js/39) vẫn đăng ký `data-lenh` được; js/39 nhận hàng chờ khi nạp. Bỏ cách đăng ký "lười lúc vẽ lần đầu" của dải chip mẫu (`cnHang`, js/26).
