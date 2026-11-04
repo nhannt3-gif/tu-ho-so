@@ -13,7 +13,7 @@ const kq=[]; function ok(t,d,g){ kq.push((d?'✓ ':'✗ ')+t+(g?' — '+g:'')); 
     ok(`[${may.ten}] đi hết 6 tab`, !/TRỐNG/.test(tabs), tabs);
     const r = await p.evaluate(async()=>{
       var out={}, cho = ms=>new Promise(r=>setTimeout(r,ms));
-      HTMLInputElement.prototype.click = function(){ var el=this; if(window.__fileThu){ Object.defineProperty(el,'files',{value:window.__fileThu, configurable:true}); window.__fileThu=null; setTimeout(function(){ el.onchange&&el.onchange(); },0); } };
+      HTMLInputElement.prototype.click = function(){ var el=this; if(window.__fileThu){ Object.defineProperty(el,'files',{value:window.__fileThu, configurable:true}); window.__fileThu=null; setTimeout(function(){ (el.onchange ? el.onchange() : el.dispatchEvent(new Event('change', {bubbles:true}))); },0); } };
       // 1. PDF văn bản thật (pdf-lib) → đọc số hiệu, ngày
       var pdf = await PDFLib.PDFDocument.create(); var f = await pdf.embedFont(PDFLib.StandardFonts.Helvetica); var pg = pdf.addPage([595,842]);
       pg.drawText('So: 958/KH-NHCS', {x:50,y:780,size:12,font:f}); pg.drawText('KE HOACH', {x:50,y:740,size:14,font:f});

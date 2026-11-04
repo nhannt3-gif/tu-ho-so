@@ -134,7 +134,7 @@ const fs=require('fs'), path=require('path');
    ok('chọn đến xã + 2 tháng: 1 tổ × 1 tháng = 1 phiếu (3.328)', ktGNChon().length===kv && kv>0, ktGNChon().length+' phiếu / tính tay '+kv);
    ok('món = mọi lần giải ngân trong tháng (gồm cả món vay trước tháng)', ktGNChon().every(p=>p.mon.every(o=>(o.gnT||0)>0)) && KT_GN.thang.join()==='2026-07,2026-08');
    const p0 = ktGNChon().find(p=>p.mon.length>=2) || ktGNChon()[0]; C2.to = p0.x.t.ma; ktVeThe(); await w(300);
-   const truoc = ktGNChon().reduce((a,p)=>a+p.mon.length,0); const cb = document.querySelector('#kt-gn input[type=checkbox]'); cb.checked = false; cb.onchange(); await w(100);
+   const truoc = ktGNChon().reduce((a,p)=>a+p.mon.length,0); const cb = document.querySelector('#kt-gn input[type=checkbox]'); cb.checked = false; cb.dispatchEvent(new Event('change', {bubbles:true})); await w(100);
    ok('chọn đến tổ: tích / bỏ tích từng món', document.querySelectorAll('#kt-gn input[type=checkbox]').length>=1 && ktGNChon().reduce((a,p)=>a+p.mon.length,0)===truoc-1, truoc+' → '+ktGNChon().reduce((a,p)=>a+p.mon.length,0));
    KT_GN_BO = {}; C2.to = ''; ktVeThe(); await w(200);
    KT_KB = {}; ktInHop(['m06'], '', ktHoiDs()); await w(100); ok('khai báo (3.114 hộp chọn khi in): chữ “In sẵn mục đích”', /In sẵn mục đích/.test(document.getElementById('ki-m06-md').innerHTML)); dongHop(); ktGNXem(1); await w(400);
