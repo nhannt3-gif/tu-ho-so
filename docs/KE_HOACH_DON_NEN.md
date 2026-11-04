@@ -73,11 +73,11 @@ Bản rà kiểm thử 04/11 ghi "chưa thấy" một số việc nền — **sa
 | C2 | Gộp `P()` / `chanTrang` trùng vào phần chung Hồ sơ Tổ (`js/mau/0hst.js`) | ~6 KB | so HTML bản in 10A–10D, 11, 07b trước / sau giống hệt (t181) |
 | C3 | Bỏ quy tắc CSS của lớp đã gỡ — soát từng lớp, bỏ lớp ghép động | ~10–16 KB | ảnh bố cục t260 + hồi quy đủ |
 | C4 | **Rút gọn chú thích lịch sử**: chú thích mở đầu bằng số bản → giữ **luật / vì sao / lời anh chốt** (1–2 dòng + số bản để tra CHANGELOG), bỏ phần kể diễn biến sửa | ~120–180 KB | **so cây cú pháp trước / sau (bỏ chú thích) giống hệt từng file** → chắc chắn 0 thay đổi mã; hồi quy đủ |
-| C5 | (chờ anh) Bỏ mẫu cũ `10C/TD cũ`, `11/TD cũ` nếu không còn lập hồ sơ theo mẫu trước 01/10/2026 | ~37 KB + nhánh | rút file → app chạy (như t367) |
+| C5 | ~~Bỏ mẫu cũ `10C/TD cũ`, `11/TD cũ`~~ — **anh 04/11: GIỮ mẫu cũ** | 0 | — |
 | C6 | Thước đo: tách "JS mã" (không tính chú thích) và "chú thích" trong `kiem.py` — ngân sách áp cho **mã**; chú thích có trần riêng (≤ 15 % JS) | — | `kiem.py` |
 Sau dọn: đặt mốc mới (`kiem.py --moc`), ghi CHANGELOG.
 
 ### 7.3 Câu hỏi chờ anh
 1. **C4 rút gọn chú thích lịch sử** — đồng ý? (không đổi mã; lịch sử đầy đủ vẫn ở CHANGELOG + git)
-2. **C5 mẫu cũ 10C/TD cũ, 11/TD cũ** — còn dùng (giữ) hay bỏ?
+2. ~~C5 mẫu cũ~~ — **anh 04/11: giữ mẫu cũ.**
 3. **C6 đổi thước đo** sang tính mã không kèm chú thích — đồng ý?
