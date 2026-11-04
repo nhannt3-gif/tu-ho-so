@@ -13,7 +13,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Xem QĐ 2 kiểu** (mục 📋 Quyết định, cột phải — bấm đầu QĐ): **Theo chương trình** (dòng PGD trên QĐ + các xã có giao, chip ✓ khớp / ✗ Σ xã ≠ dòng PGD) ↔ **Theo xã** (các chương trình của xã); đủ 3 cột như QĐ; nhớ lựa chọn.
 - Dữ liệu cũ đọc được (bản ghi QĐ thêm `pgd`, `tong` — không có thì như cũ). File QĐ thật chỉ dùng thử trong vùng tạm, không vào repo.
 - **Dọn kèm:** bỏ CSS `pb-f-xa-dong` (bảng nhập cũ theo xã).
-- **Phép thử**: t369 mới (lõi, node, QĐ giả — 15) · t370 mới (giao diện, PDF QĐ giả dựng bằng trình duyệt — 13) · t252, t256 cập nhật theo bố cục mới.
+- **Phép thử**: t369 mới (lõi, node, QĐ giả — 15) · t370 mới (giao diện, PDF QĐ giả dựng bằng trình duyệt — 13) · t252, t256, t355 (mẫu Excel mới DANH_MUC; mẫu cũ CHI_TIET vẫn nạp được) cập nhật.
 
 ## 3.464 — 04/11/2026 — Bản dọn: bỏ mã rác, thước đo mã rác, đo tốc độ (TK 3)
 - **Anh 04/11**: "ý anh là hạn chế code rác, tối ưu chương trình, ko phải gò ép trong khoảng nào" → "code tiếp cho bản dọn". Kế hoạch / kết quả: `docs/KE_HOACH_DON_NEN.md` mục 7.
