@@ -53,6 +53,11 @@ ok('QĐ không ghi đợt → không nhắc thiếu', dp26.ds.length===1 && !dp2
    dg[0].click(); await w(400);
    const tr=document.querySelector('#pb-phai .pb-x-bang tr.pb-x-ct'), con=document.querySelector('#pb-phai .pb-x-bang tbody tr:not(.pb-x-ct)');
    ok('bấm dòng gọn → bảng bên phải; dòng tổng đậm cả 3 cột số, dòng con in thường', !!tr && tr.querySelectorAll('td.s b').length===3 && !!con && con.querySelectorAll('td.s b').length===0);
+   /* xuất số liệu đã lưu để đối chiếu */
+   ok('bảng xem QĐ có thanh xuất (In / Excel); bản in có tiêu đề QĐ + bảng 3 cột', !!document.querySelector('#pb-phai .xuat-hang, #pb-phai [onclick*="xuat"], #pb-phai .xh') && /SỐ LIỆU QĐ ĐÃ NHẬP/.test(pbQDIn()) && /70003/.test(pbQDIn()) && /Chỉ tiêu KH đã giao/.test(pbQDIn()));
+   let fx=null; const g0=window.giaoFile; window.giaoFile=(bl,ten)=>{ fx={bl,ten}; }; document.querySelector('[data-lenh="pb.xuatTat"]').click(); await w(900); window.giaoFile=g0;
+   const wx = fx ? XLSX.read(await fx.bl.arrayBuffer(),{type:'array'}) : null, aj=n=>XLSX.utils.sheet_to_json(wx.Sheets[n],{header:1});
+   ok('⬇ Xuất số liệu đã lưu: 1 file đầy đủ — DANH_SACH · THEO_QD · CHI_TIET (kiểm 3 + 4 = 5) · QD + DM_<số QĐ> đúng cột mẫu nhập · HUONG_DAN_AI', wx && /^DANH_SACH,THEO_QD,CHI_TIET,QD,DM_70001,DM_70003,HUONG_DAN_AI$/.test(wx.SheetNames.join(',')) && aj('DM_70003')[0].join(',').indexOf('stt,don_vi_chi_tieu,da_giao,dieu_chinh,den_31_12')===0 && aj('DM_70003').some(r=>r[0]==='1.1') && aj('QD').some(r=>/KHÔNG GIAO/.test(r[9]||'')) && aj('CHI_TIET').length===3 && aj('CHI_TIET')[1][11]==='khớp' && aj('THEO_QD').some(r=>/^I\. 01/.test(r[0]||'')) && aj('DANH_SACH').some(r=>r[7]==='không giao cho PGD'), wx && wx.SheetNames.join(','));
    let f=null; const g=window.giaoFile; window.giaoFile=(bl,ten)=>{ f={bl,ten}; }; pbDTGExcel(); await w(800); window.giaoFile=g;
    const sh = f ? XLSX.read(await f.bl.arrayBuffer(),{type:'array'}) : null, a = sh ? XLSX.utils.sheet_to_json(sh.Sheets.DONG_THOI_GIAN,{header:1}) : [];
    ok('Excel dòng thời gian: 4 QĐ, có cột STT / Đợt / Giao cho PGD', a.length===5 && a[0].join('|').indexOf('STT|Đợt|Số QĐ')>=0 && a.some(r=>r[7]==='không giao cho PGD'), a.length);

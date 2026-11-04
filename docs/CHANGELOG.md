@@ -10,7 +10,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **QĐ không giao cho PGD**: nút ＋ — chỉ số QĐ, ký hiệu, ngày, nguồn, loại, đợt, ghi chú; lưu riêng (`qdKhong`) — phân bổ, Biểu 07, Diễn biến, Đối chiếu không đụng; có STT trong dòng thời gian, nhóm riêng ở cột trái (bấm sửa / xóa). Đọc PDF / Excel mà QĐ **không có khối PGD mình** → báo + nút "📄 Lưu số QĐ (không giao cho PGD)" điền sẵn từ QĐ.
 - Lõi `pbDongThoiGian` (js/47, chạy được trong node).
 - **Anh 04/11 (ảnh tab Phân bổ):** "có nút chuyển xem gọn, 1 QĐ 1 dòng, khi nhấp vào sẽ hiện bảng bên phải, bảng bên phải dòng tổng thì in đậm, dòng con in thường" → nút **☰ Xem gọn / ▤ Xem chi tiết** (nhớ lựa chọn `pbGonQD`): mỗi QĐ 1 dòng (số · ngày · nguồn · đợt · GM/ĐC · số xã · Σ điều chỉnh, ✎); bảng bên phải: dòng tổng (chương trình / xã) đậm cả 3 cột số, dòng con in thường.
-- **Phép thử**: t372 mới (19).
+- **Anh 04/11:** "em cũng nên xuất số liệu đã lưu để kiểm tra đối chiếu xem số liệu đã nhập có đúng không"; "em xuất ra 1 file đầy đủ như file đã nhập để cho các AI khác rà soát lại" → bảng xem 1 QĐ có thanh xuất (In / PDF / Word / Excel — đúng bảng đang xem); nút **⬇ Xuất số liệu đã lưu** = 1 file Excel: DANH_SACH (dòng thời gian, STT, đợt sót) · THEO_QD (từng QĐ như danh mục) · CHI_TIET (xã × chương trình, kiểm 3 + 4 = 5) · **QD + DM_<số QĐ> đúng cột mẫu nhập** · HUONG_DAN_AI (lời nhắc rà soát với QĐ gốc, liệt kê chỗ khác). Chỉ có số của PGD mình — dòng chương trình toàn tỉnh để trống, ghi rõ.
+- **Phép thử**: t372 mới (21).
 
 ## 3.466 — 04/11/2026 — Phân bổ KH: sửa QĐ linh động (TK 3)
 - **Anh 04/11**: "khi sửa các QĐ, sao cho linh động được" → "làm hết, em code".

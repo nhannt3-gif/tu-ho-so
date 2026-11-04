@@ -77,7 +77,8 @@ function pbVeTrai(){
         '<input type="file" accept=".pdf,application/pdf" style="display:none" data-lenh="pb.nhapPdf" data-su="change"></label>',
       '<label class="nut-tep nho" title="File Excel theo mẫu chuẩn (Gemini điền từ QĐ scan / chụp) — xem trước, soát rồi mới lưu">📥 Nạp QĐ (Excel mẫu)<input type="file" accept=".xlsx,.xls" style="display:none" data-lenh="pb.nhapXls" data-su="change"></label>',
       GD.nut({chu:'⬇ Tải mẫu Excel', lenh:'pb.xlsMau', tit:'Mẫu trống + hướng dẫn + lời nhắc cho Gemini'})])+
-    GD.hang([GD.nut({chu:'📅 Dòng thời gian QĐ', lenh:'pb.dtg', chinh:PB.xem==='__dtg', tit:'Thống kê QĐ theo ngày, STT, soát đợt bỏ sót'}), GD.nut({chu:'＋ QĐ không giao cho PGD', lenh:'pb.khongMoi', tit:'Tỉnh có đợt QĐ nhưng không giao cho PGD — chỉ ghi số QĐ để theo dõi đợt'})])+   /* 3.467 */
+    GD.hang([GD.nut({chu:'⬇ Xuất số liệu đã lưu', lenh:'pb.xuatTat', tit:'Excel toàn bộ QĐ đã nhập — danh sách, từng QĐ như danh mục trên giấy, chi tiết xã × chương trình — để đối chiếu với QĐ'}),
+      GD.nut({chu:'📅 Dòng thời gian QĐ', lenh:'pb.dtg', chinh:PB.xem==='__dtg', tit:'Thống kê QĐ theo ngày, STT, soát đợt bỏ sót'}), GD.nut({chu:'＋ QĐ không giao cho PGD', lenh:'pb.khongMoi', tit:'Tỉnh có đợt QĐ nhưng không giao cho PGD — chỉ ghi số QĐ để theo dõi đợt'})])+   /* 3.467 */
     (nh.length && gon ? pbGonHTML(nh) : nh.length ? '<div class="pb-ds">'+nh.map(function(g){
       var q0 = g.ds[0], giao = /giao mới/i.test(q0.loai), dangChon = PB.chon.khoa===g.k;
       if(PB.che==='qd') dangChon = (PB.xem || (nh[0] || {}).k)===g.k;   /* 3.465: mục 📋 Quyết định — QĐ đang xem ở cột phải */
@@ -838,7 +839,8 @@ function pbQDXem(){
     o.innerHTML = '<div class="th-nhom-ten"><b>✎ Sửa nhanh QĐ '+e(q0.so+(q0.kyHieu || ''))+' · '+pbNgay(q0.ngay)+'</b> <small>triệu đồng · Lưu / Bỏ ở cuối bảng</small></div><div id="pb-f" class="pb-f-phai"></div>'; pbFVe(); return; }
   var cs = function(c){ return [pbSo(c.daGiao), pbSo(c.tangGiam), pbSo(c.den3112)]; }, cong = function(ds){ return [0, 1, 2].map(function(j){ return pbSum(ds, function(x){ return x[j] || 0; }); }); };
   var kiem = function(x){ return x[0]!=null && x[1]!=null && x[2]!=null && Math.abs(pbR(x[0]+x[1])-x[2])>0.0005 ? pbChip('✗ 3 + 4 ≠ 5', 'lech') : ''; };
-  var dong = function(ten, x, lop, ghi){ var dam = lop==='pb-x-ct';   /* 3.467 (anh 04/11): dòng tổng in đậm cả 3 cột, dòng con in thường */
+  var rows = [];   /* 3.467: dòng cho Excel bảng đang xem */
+  var dong = function(ten, x, lop, ghi){ var dam = lop==='pb-x-ct'; rows.push([String(ten).replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&'), x[0], x[1], x[2], String(ghi || '').replace(/<[^>]+>/g, '')]);   /* 3.467 (anh 04/11): dòng tổng in đậm cả 3 cột, dòng con in thường */
     return '<tr class="'+lop+'"><td>'+ten+'</td>'+[0, 1, 2].map(function(j){ var v = pbSo3(j, x[j]); return '<td class="s">'+(dam ? '<b>'+v+'</b>' : v)+'</td>'; }).join('')+'<td>'+(ghi || '')+'</td></tr>'; };
   var maThu = []; g.ds.forEach(function(q){ (q.ct || []).forEach(function(c){ if(maThu.indexOf(c.ma)<0) maThu.push(c.ma); }); });   /* thứ tự như QĐ */
   if(kieu==='ct') maThu.forEach(function(ma, i){ var xs = g.ds.map(function(q){ return {q:q, c:(q.ct || []).filter(function(c){ return c.ma===ma; })[0]}; }).filter(function(x){ return x.c; });
@@ -853,7 +855,10 @@ function pbQDXem(){
     GD.hang([GD.chip('Theo chương trình', kieu==='ct', 'pb.kieuQD', {v:'ct'}, 'Mỗi chương trình: dòng PGD trên QĐ + các xã có giao (như danh mục QĐ)'), GD.chip('Theo xã', kieu==='xa', 'pb.kieuQD', {v:'xa'}, 'Mỗi xã: các chương trình của xã'),
       GD.nut({chu:'✎ Sửa nhanh', lenh:'pb.suaNhanh', du:{k:g.k}, chinh:1, tit:'Sửa số ngay tại bảng này'}), GD.nut({chu:'✎ Sửa (hộp)', lenh:'pb.sua', du:{k:g.k}, tit:'Mở hộp sửa QĐ'}),
       GD.nut({chu:'⧉ QĐ kế tiếp', lenh:'pb.ke', du:{k:g.k}, tit:'QĐ đợt sau: chép xã + chương trình, Đã giao = Đến 31/12 của QĐ này'})])+
-    '<div class="to-bang-cuon"><table class="to-bang luoi pb-x-bang"><thead><tr><th>Đơn vị / chỉ tiêu</th><th>Chỉ tiêu KH đã giao</th><th>Điều chỉnh đợt này</th><th>Đến 31/12'+(nam ? '/'+nam : '')+'</th><th>Kiểm tra</th></tr></thead><tbody>'+h+'</tbody></table></div>';
+    '<div class="to-bang-cuon"><table class="to-bang luoi pb-x-bang"><thead><tr><th>Đơn vị / chỉ tiêu</th><th>Chỉ tiêu KH đã giao</th><th>Điều chỉnh đợt này</th><th>Đến 31/12'+(nam ? '/'+nam : '')+'</th><th>Kiểm tra</th></tr></thead><tbody>'+h+'</tbody></table></div>'+
+    xuatHang({ten:xuatTen('QD '+q0.so+' phan bo KH', kieu==='xa' ? 'Theo xa' : 'Theo chuong trinh', ''), html:pbQDIn, excel:'pbQDExcel()'});
+  var tieu = 'QĐ '+q0.so+(q0.kyHieu || '')+' ngày '+pbNgay(q0.ngay)+' · nguồn '+pbNguonChu(q0.nguon)+' · '+(q0.loai || '')+(q0.dot ? ' · đợt '+q0.dot : '')+(q0.pgd ? ' · '+q0.pgd : '')+' · đơn vị: triệu đồng';
+  PB.qdIn = {tieu:tieu, bang:'<table class="to-bang luoi pb-x-bang">'+o.querySelector('.pb-x-bang').innerHTML+'</table>', rows:rows, nam:nam, so:q0.so};   /* 3.467 (anh 04/11 "xuất số liệu đã lưu để kiểm tra đối chiếu") */
 }
 /* Enter trong bảng nhập QĐ = xuống ô dòng dưới CÙNG CỘT (bỏ qua dòng không có ô) — bắt trước bộ chuyển ô chung (js/06) */
 window.addEventListener('keydown', function(ev){ if(ev.key!=='Enter' || ev.shiftKey || ev.ctrlKey || ev.metaKey || ev.altKey) return; var t = ev.target;
@@ -867,6 +872,52 @@ function pbGonHTML(nh){ var e = coChuHTML, xem = PB.xem || (nh[0] || {}).k;
       return '<div class="pb-gon-dong '+(giao ? 'pb-gm' : 'pb-dc')+(PB.che==='qd' && xem===g.k ? ' bat' : '')+'" data-lenh="pb.xem" data-k="'+e(g.k)+'" title="Bấm để xem bảng bên phải">'+
         '<b>QĐ '+e(q0.so)+'</b><span>'+pbNgay(q0.ngay)+'</span><span>'+pbNguonChu(q0.nguon)+'</span>'+(q0.dot ? '<span title="đợt '+e(q0.dot)+'">đ'+e(q0.dot)+'</span>' : '')+
         '<span title="'+(giao ? 'Giao mới' : 'Điều chỉnh')+'">'+(giao ? 'GM' : 'ĐC')+'</span><span>'+g.ds.length+' xã</span>'+pbChipTG(tg)+(loi ? pbChip('✗', 'lech') : '')+GD.nut({chu:'✎', lenh:'pb.sua', du:{k:g.k}, tit:'Sửa QĐ', lop:'pb-nho'})+'</div>'; }).join('')+'</div>'; }
+/* 3.467 (anh 04/11 "em cũng nên xuất số liệu đã lưu để kiểm tra đối chiếu xem số liệu đã nhập có đúng không"): xuất bảng QĐ đang xem + xuất toàn bộ QĐ đã lưu */
+function pbQDIn(){ var x = PB.qdIn; if(!x) return ''; return PB_DC_CSS+'<style>.pb-x-ct td{font-weight:bold;background:#eef4fa}td.s{text-align:right}</style><h3 style="text-align:center;margin:0 0 4px">SỐ LIỆU QĐ ĐÃ NHẬP — ĐỐI CHIẾU</h3><p style="text-align:center;margin:0 0 8px">'+coChuHTML(x.tieu)+'</p>'+x.bang; }
+function pbXlsXong(ten, sheets){ Promise.resolve(window.XLSX || napMotTV(THU_VIEN.find(function(x){ return x.ten==='xlsx'; }))).then(function(){
+    if(!window.XLSX) throw new Error('Chưa tải được bộ Excel — có mạng một lần rồi thử lại.');
+    var wb = XLSX.utils.book_new(); sheets.forEach(function(sh){ XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sh[1]), sh[0]); });
+    giaoFile(new Blob([XLSX.write(wb, {type:'array', bookType:'xlsx'})], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), ten+'.xlsx');
+  }).catch(function(er){ baoLoi(er && er.message || String(er)); }); }
+function pbQDExcel(){ var x = PB.qdIn; if(!x) return;
+  pbXlsXong(xuatTen('QD '+x.so+' phan bo KH', '', ''), [['QD', [[x.tieu], [], ['Đơn vị / chỉ tiêu', 'Chỉ tiêu KH đã giao', 'Điều chỉnh đợt này', 'Đến 31/12/'+x.nam, 'Kiểm tra']].concat(x.rows)]]); }
+function pbXuatTat(){
+  var dl = pbDL(), nh = pbNhom(), so = function(v){ return v==null ? '' : v; }, ba = function(c){ return [pbSo(c.daGiao), pbSo(c.tangGiam), pbSo(c.den3112)]; };
+  if(!nh.length && !dl.qdKhong.length) return baoLoi('Chưa có QĐ nào để xuất.');
+  var ds = [['STT', 'Năm', 'Nguồn', 'Số QĐ', 'Ngày', 'Loại', 'Đợt', 'Giao cho PGD', 'Σ điều chỉnh PGD (triệu)', 'Ghi chú']];
+  pbDongThoiGian(nh, dl.qdKhong).forEach(function(b){ b.ds.forEach(function(x){ if(x.thieu!=null) ds.push(['', b.nam, pbNguonChu(b.nguon), '', '', '', x.thieu, '', '', 'THIẾU ĐỢT '+x.thieu+' — chưa nhập']);
+    else ds.push([x.stt, b.nam, pbNguonChu(b.nguon), x.so+(x.kyHieu || ''), pbNgay(x.ngay), x.loai || '', x.dot || '', x.khong ? 'không giao cho PGD' : x.soXa+' xã', x.khong ? '' : x.tg, x.ghi || '']); }); });
+  var qd = [['Đơn vị / chỉ tiêu', 'Chỉ tiêu KH đã giao', 'Điều chỉnh đợt này', 'Đến 31/12', 'Kiểm tra']], ct = [['Số QĐ', 'Ngày', 'Nguồn', 'Loại', 'Đợt', 'Xã', 'Mã CT', 'Chương trình', 'Đã giao', 'Điều chỉnh', 'Đến 31/12', 'Kiểm 3 + 4 = 5']];
+  nh.slice().reverse().forEach(function(g){ var q0 = g.ds[0], ma = [];
+    g.ds.forEach(function(q){ (q.ct || []).forEach(function(c){ if(ma.indexOf(c.ma)<0) ma.push(c.ma); }); });
+    qd.push([]); qd.push(['QĐ '+q0.so+(q0.kyHieu || '')+' ngày '+pbNgay(q0.ngay)+' · '+pbNguonChu(q0.nguon)+' · '+(q0.loai || '')+(q0.dot ? ' · đợt '+q0.dot : '')+' · '+g.ds.length+' xã']);
+    ma.forEach(function(m, i){ var xs = g.ds.map(function(q){ return {q:q, c:(q.ct || []).filter(function(c){ return c.ma===m; })[0]}; }).filter(function(x){ return x.c; });
+      var sum = [0, 1, 2].map(function(j){ return pbSum(xs, function(x){ return ba(x.c)[j] || 0; }); }), t = (q0.tong || {})[m];
+      var lech = t && [0, 1, 2].some(function(j){ return t[j]!=null && Math.abs(t[j]-sum[j])>0.0005; });
+      qd.push([(PB_LA[i] || i+1)+'. '+m+' '+pbVT(m)+' — '+pbTenCT(m)+(t ? ' (dòng PGD trên QĐ)' : ' (Σ các xã)')].concat((t || sum).map(so)).concat([t ? (lech ? 'Σ xã ≠ dòng PGD' : 'khớp dòng PGD') : '']));
+      xs.forEach(function(x){ var v = ba(x.c), l = v[0]!=null && v[1]!=null && v[2]!=null && Math.abs(pbR(v[0]+v[1])-v[2])>0.0005;
+        qd.push(['   '+(x.q.tenXa || x.q.xa)].concat(v.map(so)).concat([l ? '3 + 4 ≠ 5' : '']));
+        ct.push([q0.so+(q0.kyHieu || ''), pbNgay(q0.ngay), pbNguonChu(q0.nguon), q0.loai || '', q0.dot || '', x.q.tenXa || x.q.xa, m, pbTenCT(m)].concat(v.map(so)).concat([l ? 'LỆCH' : 'khớp'])); }); }); });
+  /* anh 04/11 "xuất ra 1 file đầy đủ như file đã nhập để cho các AI khác rà soát lại": sheet QD + mỗi QĐ 1 sheet DM_<số> đúng cột DANH_MUC của mẫu nhập + lời nhắc rà soát */
+  var qdM = [PB_XLS_COT.QD.concat(['so_xa', 'ghi_chu'])], dm = [];
+  nh.slice().reverse().forEach(function(g){ var q0 = g.ds[0], ma = [], a = [['stt', 'don_vi_chi_tieu', 'da_giao', 'dieu_chinh', 'den_31_12', 'ghi_chu'], ['', 'KẾ HOẠCH DƯ NỢ', '', '', '', '']];
+    qdM.push([q0.so, q0.kyHieu || '', pbNgay(q0.ngay), pbNguonChu(q0.nguon), q0.loai || '', q0.dot || '', '', '', g.ds.length, '']);
+    g.ds.forEach(function(q){ (q.ct || []).forEach(function(c){ if(ma.indexOf(c.ma)<0) ma.push(c.ma); }); });
+    ma.forEach(function(m, i){ var xs = g.ds.map(function(q){ return {q:q, c:(q.ct || []).filter(function(c){ return c.ma===m; })[0]}; }).filter(function(x){ return x.c; }), t = (q0.tong || {})[m];
+      var sum = [0, 1, 2].map(function(j){ return pbSum(xs, function(x){ return ba(x.c)[j] || 0; }); }), ten = ((xs[0] || {}).c || {}).ten || pbTenCT(m);
+      a.push([PB_LA[i] || String(i+1), ten, '', '', '', 'mã '+m+' — dòng toàn tỉnh: app không lưu (chỉ lưu PGD mình)']);
+      a.push(['1', q0.pgd || 'Phòng giao dịch (PGD đang dùng app)'].concat((t || sum).map(so)).concat([t ? 'dòng PGD trên QĐ' : 'Σ các xã (QĐ nhập tay không ghi dòng PGD)']));
+      xs.forEach(function(x, k){ a.push(['1.'+(k+1), x.q.tenXa || x.q.xa].concat(ba(x.c).map(so)).concat([''])); }); });
+    dm.push(['DM_'+String(q0.so).replace(/[^\w]/g, '').slice(0, 25), a]); });
+  dl.qdKhong.forEach(function(q){ qdM.push([q.so, q.kyHieu || '', pbNgay(q.ngay), pbNguonChu(q.nguon), q.loai || '', q.dot || '', '', '', 0, 'KHÔNG GIAO CHO PGD'+(q.ghi ? ' — '+q.ghi : '')]); });
+  var hd = [['SỐ LIỆU QĐ GIAO / ĐIỀU CHỈNH KẾ HOẠCH ĐÃ NHẬP VÀO TỦ HỒ SƠ — để rà soát với QĐ gốc'], ['Đơn vị: triệu đồng. Chỉ có số của phòng giao dịch đang dùng app (các xã của PGD) — dòng chương trình toàn tỉnh để trống.'],
+    ['QD: danh sách QĐ (cột như mẫu nhập + số xã). DM_<số QĐ>: mỗi QĐ 1 sheet, đúng cột DANH_MUC của mẫu nhập (stt, don_vi_chi_tieu, da_giao, dieu_chinh, den_31_12).'],
+    ['DANH_SACH: dòng thời gian (STT theo ngày, đợt sót). THEO_QD: từng QĐ như danh mục. CHI_TIET: xã × chương trình, kiểm 3 + 4 = 5.'], [''],
+    ['Lời nhắc cho AI rà soát: "Đính kèm file PDF / ảnh các quyết định giao / điều chỉnh kế hoạch tín dụng và file Excel này. Với từng QĐ ở sheet QD: kiểm số, ký hiệu, ngày, nguồn (TW / ĐP), loại, đợt; '+
+      'mở sheet DM_<số QĐ> tương ứng, so từng dòng phòng giao dịch và từng xã với bảng danh mục trên QĐ gốc (3 cột: chỉ tiêu đã giao, điều chỉnh đợt này, đến 31/12). '+
+      'Liệt kê MỌI chỗ khác nhau theo dạng: số QĐ · chương trình · xã · cột · số trong Excel · số trên QĐ. Báo thêm QĐ có trên giấy mà thiếu trong Excel, xã / chương trình bị thiếu hoặc thừa. Không tự sửa file."']];
+  pbXlsXong(xuatTen('So lieu QD da luu phan bo KH', '', ''), [['DANH_SACH', ds], ['THEO_QD', qd], ['CHI_TIET', ct], ['QD', qdM]].concat(dm).concat([['HUONG_DAN_AI', hd]]));
+}
 /* ---------- 3.467 (anh 04/11): 📅 DÒNG THỜI GIAN QĐ (STT từ QĐ đầu tiên, soát đợt sót) · QĐ KHÔNG GIAO CHO PGD (chỉ số QĐ) ---------- */
 function pbKhongDsHTML(){ var ds = pbDL().qdKhong; if(!ds.length) return ''; var e = coChuHTML;
   return '<div class="pb-nhom pb-khong"><div class="pb-nhom-dau">📄 <b>QĐ không giao cho PGD</b> · '+ds.length+' QĐ <small>(chỉ ghi số QĐ để theo dõi đợt)</small></div>'+
@@ -945,6 +996,7 @@ GD.dangKy('pb', {
     if(v==null && String(el.value).trim()) return baoLoi('"'+el.value+'" không phải số — gõ ví dụ 300 hoặc -200 (triệu đồng).');
     pbSuaTay(k, +el.getAttribute('data-i'), v || 0); (PB.kqNho = PB.kqNho || {})[PB.kqLuc] = {kq:PB.kq, moTa:PB.kqMoTa}; pbGiuO(function(){ var o = document.getElementById('pb-kq'), q = pbQDChon(); if(o && q) o.innerHTML = pbKQHTML(q, pbCheDo()); }); },
   nhapXls:function(el){ pbNhapXls(el); }, nhapPdf:function(el){ pbNhapPdf(el); },
+  xuatTat:function(){ pbXuatTat(); },
   gon:function(){ D.cauHinh.pbGonQD = !D.cauHinh.pbGonQD; if(typeof luu==='function') luu(); pbVeTrai(); },
   dtg:function(){ PB.xem = '__dtg'; if(PB.che!=='qd') return pbDoiMuc('qd'); pbVeTrai(); pbVePhai(); },   /* 3.467 */
   khongMoi:function(el){ pbKhongMo('', {dot:el.getAttribute('data-dot') || '', nguon:+el.getAttribute('data-nguon') || 1}); },
