@@ -715,12 +715,12 @@ function pbDBVe(){
   if(thieu.length){ o.innerHTML = dau+'<div class="sl-phu">Đang đọc dư nợ Mẫu 31 ('+thieu.map(slKyChu).join(', ')+')…</div>'; thieu.forEach(function(k){ PB.dc.daDoc[k] = 1; });
     Promise.all(thieu.map(function(k){ return pbDuNo(k).catch(function(){ return null; }); })).then(function(){ if(PB.che==='db') pbDBVe(); }); return; }
   var qN = pbDL().qd.filter(function(q){ return String(q.ngay).slice(0, 4)===D.nam; }), xaL = {}, ctL = {};
-  qN.forEach(function(q){ xaL[q.xa] = q.tenXa || q.xa; (q.ct || []).forEach(function(c){ ctL[c.ma] = 1; }); });
+  qN.forEach(function(q){ xaL[q.xa] = (PB.xa[q.xa] || {}).ten || q.tenXa || q.xa; (q.ct || []).forEach(function(c){ ctL[c.ma] = 1; }); });
   var ksDB = pbDBKyNam(D.nam).filter(function(k){ return PB.dn[k]; }); pbDBNhomDN([kyDau].concat(ksDB)).forEach(function(x){ if(!xaL[x.xa]) xaL[x.xa] = x.tenXa || x.xa; ctL[x.ct] = 1; });   /* 3.302: xã / CT có dư nợ mà không có QĐ */
   var r = pbDBTinh(); PB.db.r = r;
   var sel = function(f, ds, v){ return '<select data-lenh="pb.dbLoc" data-su="change" data-f="'+f+'">'+ds.map(function(x){ return '<option value="'+coChuHTML(x[0])+'"'+(String(x[0])===String(v) ? ' selected' : '')+'>'+coChuHTML(x[1])+'</option>'; }).join('')+'</select>'; };
   o.innerHTML = dau+'<div class="gd-hang pb-db-loc">'+sel('nam', dsN.map(function(n){ return [n, 'Năm '+n]; }), D.nam)+
-      sel('xa', [['', 'Tất cả xã']].concat(Object.keys(xaL).sort(function(a, b){ return String(xaL[a]).localeCompare(String(xaL[b]), 'vi'); }).map(function(k){ return [k, xaL[k]]; })), D.xa)+
+      sel('xa', [['', 'Tất cả xã']].concat(Object.keys(xaL).filter(function(k){ return k; }).sort(function(a, b){ return String(xaL[a]).localeCompare(String(xaL[b]), 'vi'); }).map(function(k){ return [k, xaL[k]]; })), D.xa)+
       sel('nguon', [[0, 'Cả 2 nguồn'], [1, 'Nguồn TW'], [2, 'Nguồn ĐP']], D.nguon)+
       sel('ct', [['', 'Tất cả chương trình']].concat(Object.keys(ctL).sort().map(function(m){ return [m, pbVT(m)+' ('+m+')']; })), D.ct)+'</div>'+
     (r.nhom.length ? pbDBNoi(r)+xuatHang({ten:xuatTen('Dien bien phan von KH', 'Nam '+D.nam+(D.xa ? ' '+xaL[D.xa] : ''), ''), html:pbDBIn, excel:'pbDBExcel()', dong:'pbDCDong()', dongChu:'‹ Về phân bổ'})+'<div id="pb-db-xa">'+pbDBXa(r)+'</div>'

@@ -562,6 +562,10 @@ function slKiemTra(ky, im){   /* im = tự kiểm ngầm (3.156): không khung c
           ds6.length || lch.length ? 'Số liệu chính là Mẫu 31; Dư nợ chi tiết chỉ tham chiếu số TK 105 + điểm GD — lệch thì xem lại 2 file có cùng ngày số liệu không.' : '', ['Số KU', 'Mã KH', 'Họ tên', 'Mẫu 31', 'Dư nợ CT', 'Chênh'], ds6);
       }
     }
+  var xg = {}, xd = []; (co.hstd || []).forEach(function(o){ if(o.tenXaGoc===undefined) return; var k = o.xa+'|'+o.tenXaGoc; if(!xg[k]){ xg[k] = [o.xa, o.tenXa, o.tenXaGoc || '(trống)', 0]; xd.push(xg[k]); } xg[k][3]++; });
+  them(6, 'Tên xã trên Mẫu 31 = tên chuẩn theo mã xã', !xd.length, xd.length ? xd.length+' cặp mã xã · tên khác chuẩn ('+xd.reduce(function(a, x){ return a+x[3]; }, 0)+' dòng) — app đã dùng tên chuẩn' : 'khớp',
+    xd.length ? 'Trong lúc hệ thống gộp điểm GD, cột Tên xã có thể ghi "… Vay trực tiếp". App lấy tên theo mã xã: File Tổ trưởng → Mẫu 31 (đa số) → danh mục ⚙ Cài đặt. Hết chênh = Mẫu 31 đã chuẩn lại.' : '',
+    ['Mã xã', 'Tên chuẩn (app dùng)', 'Tên trên Mẫu 31', 'Số dòng'], xd, xd.length ? 'canh' : '');   /* 3.470 */
     return (co.hstd && co.dsto ? toNap(ky).then(function(K){ slKTAp(K, them); }).catch(function(er){ console.warn('Chưa kiểm được ấp / điểm GD', er); }) : null);   /* 3.401 QT-C-10 / 11 */
   }).then(function(){
     var dem = {ok:0, lech:0, canh:0};

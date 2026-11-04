@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.470)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Phân bổ › Diễn biến › ô xã | Tên xã thật, Tất cả xã giữ đúng | |
+| 2 | Kiểm tra kỳ T10 | Dòng "Tên xã trên Mẫu 31" liệt kê xã đang ghi "Vay trực tiếp" | |
+| 3 | Cây địa bàn, Tra cứu, Tổng hợp, Sao kê | Không còn tên xã "Vay trực tiếp" | |
+
 ### Danh sách thử trên máy thật (3.469)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

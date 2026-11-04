@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.469', ds:[
+var CO_GI_MOI = {ban:'3.470', ds:[
+  ["Tên xã lấy theo mã xã ngay khi đọc số liệu — hết chữ \"Vay trực tiếp\" ở mọi tab trong lúc hệ thống gộp điểm GD; Kiểm tra kỳ báo xã nào Mẫu 31 ghi tên khác chuẩn", "slDoiTab('pb')"],
   ["Phân bổ KH: QĐ không giao cho PGD nhập ở ＋ QĐ mới — không tích xã, Lưu = QĐ 0 xã; hiện chung danh sách QĐ, ✎ Sửa tích thêm xã là thành QĐ có số liệu", "slDoiTab('pb')"],
   ["Phân bổ KH: đối chiếu dòng PGD trên QĐ chỉ theo cột điều chỉnh đợt này (bỏ so đã giao / đến 31/12)", "slDoiTab('pb')"],
   ["Phân bổ KH: 📅 Dòng thời gian QĐ — STT theo ngày, báo đợt bị sót; ghi số QĐ tỉnh không giao cho PGD để đủ đợt", "slDoiTab('pb')"],
@@ -1070,9 +1071,10 @@ var CO_GI_MOI = {ban:'3.469', ds:[
   ["Biên bản làm việc — Bản mẫu Cả 3 tình huống: 1 tờ gọn gồm hướng dẫn ghi và mục 2–5 liệt kê câu ① ② ③", "hsoChonMau('bblv')"],
   ["Biên bản làm việc — Bản mẫu: chọn tình huống ngay trong khung Bản mẫu; Cả 3 tình huống (mặc định) in 3 biên bản mẫu liền nhau", "hsoChonMau('bblv')"],
   ["Biên bản làm việc: Bản mẫu chọn tình huống mẫu (bỏ địa phương / khó khăn / chây ỳ), mục 2–5 in câu mẫu tương ứng; câu cũng có trong gợi ý bản thật", "hsoChonMau('bblv')"],
-  ["Biên bản làm việc: không còn cắt chữ tỉnh; tên chương trình dài thì Số tiền vay xuống dòng; thêm câu Là thành viên Tổ như 06A; số thứ tự thành phần in thường", "hsoChonMau('bblv')"],
-  ["Bảng chọn món: cột ô tích gọn, thêm cột STT theo hộ", "hsoChonMau('bblv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Biên bản làm việc: không còn cắt chữ tỉnh; tên chương trình dài thì Số tiền vay xuống dòng; thêm câu Là thành viên Tổ như 06A; số thứ tự thành phần in thường", "hsoChonMau('bblv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.470 · 📥 Nạp & KT › Kiểm tra kỳ: dòng \"Tên xã trên Mẫu 31 = tên chuẩn\"",
+    "3.470 · Phân bổ KH › 📈 Diễn biến: ô chọn xã",
     "3.469 · Phân bổ KH › ＋ QĐ mới không tích xã → Lưu (QĐ 0 xã)",
     "3.468 · Phân bổ KH › ✎ Sửa QĐ: ô Tổng điều chỉnh PGD",
     "3.467 · Phân bổ KH › 📋 Quyết định › 📅 Dòng thời gian QĐ / ＋ QĐ không giao cho PGD",
@@ -1090,9 +1092,7 @@ var CO_GI_MOI = {ban:'3.469', ds:[
     "3.461 · Hồ sơ vay › 06A/TD: cùng bảng chọn — tích nhiều món → mỗi món 1 phiếu; ⚙ Khai báo riêng có đủ dòng (đoàn kiểm tra, thực tế, sử dụng vốn, ý kiến, ký tên)",
     "3.460 · Hồ sơ Tổ › 10A › chọn tổ: bảng hộ vay cột trái có ô 🔎 tìm, Tích hết / Bỏ hết / Bỏ tích hộ dư nợ = 0 (như 10B, 10C); tỷ lệ tham dự / tán thành giữ như anh đã đặt",
     "3.459 · Hồ sơ Tổ › 10A › Chọn nhanh: 3 dòng \"Phê duyệt UBND — Địa chỉ: thôn / xã / tỉnh\" chọn riêng 🤖 / ✍ / ⌨",
-    "3.459 · 10A › cuối Chọn nhanh: nút \"Phê duyệt UBND — Tên Tổ trưởng, Tổ phó, ngày: ✍ chấm · 🤖 tự điền\" (không đụng địa chỉ)",
-    "3.459 · 10A › III b) ✍ → \"Chức vụ\" thẳng cột dòng a); Trưởng ấp / Thư ký ✍ → chấm kín dòng",
-    "3.459 · 10A › Thư ký ⌨ gõ tên → dưới chữ ký Thư ký in tên; để chấm → trống"],
+    "3.459 · 10A › cuối Chọn nhanh: nút \"Phê duyệt UBND — Tên Tổ trưởng, Tổ phó, ngày: ✍ chấm · 🤖 tự điền\" (không đụng địa chỉ)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",
     "3.459 · 10A: ô \"Phê duyệt UBND: thôn · xã · tỉnh\" (1 ô) → 3 ô riêng (cách đã chọn giữ cho cả 3)",
