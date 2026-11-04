@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.466 — 04/11/2026 — Phân bổ KH: sửa QĐ linh động (TK 3)
+- **Anh 04/11**: "khi sửa các QĐ, sao cho linh động được" → "làm hết, em code".
+- **① ✎ Sửa nhanh ngay tại bảng xem** (cột phải mục 📋 Quyết định): cùng bộ sửa với hộp QĐ — Lưu / Bỏ ở cuối bảng, Enter xuống cùng cột, Ctrl+Enter = Lưu; Bỏ → về bảng xem, không ghi.
+- **② Hộp sửa xếp theo chương trình ↔ theo xã** (mở theo kiểu đang xem, chuyển qua lại không mất số đang gõ).
+- **③ Thao tác theo khối**: đầu khối chương trình — đổi mã (cả khối, giữ số, không trùng mã), ＋ xã (xã trong QĐ hoặc xã cây chưa có trong QĐ), 🗑 bỏ chương trình; kiểu theo xã — ＋ chương trình cho riêng xã, 🗑 bỏ xã.
+- **④ Ghép xã chưa khớp cây địa bàn**: ô "⚠ ghép xã…" — lưu thì nhớ tên trên QĐ → mã xã (`ch.xaQD`), lần đọc PDF / Excel sau tự ghép.
+- **⑤ ⧉ QĐ kế tiếp**: chép xã + chương trình, Đã giao = Đến 31/12 của QĐ này, đợt + 1, loại Điều chỉnh — chỉ gõ số, ngày, cột điều chỉnh.
+- **⑥ Đọc lại PDF / Excel của QĐ đã có**: màn xem trước so sánh cũ ↔ mới từng xã · chương trình (chỉ dòng đổi, số dòng giữ nguyên) trước khi ghi đè.
+- Sửa thêm: dòng QĐ đã lưu đang khớp 3 + 4 = 5 → sửa cột điều chỉnh thì Đến 31/12 tự tính lại (dòng gõ tay lệch giữ nguyên).
+- **Phép thử**: t371 mới (15); t370 cập nhật (hộp sửa mở theo kiểu đang xem, đầu khối có ô đổi mã).
+
 ## 3.465 — 04/11/2026 — Phân bổ KH: nhập QĐ theo chương trình — đọc thẳng PDF QĐ, Excel chép nguyên bảng, xem 2 kiểu (TK 3)
 - **Anh 04/11** (gửi QĐ mẫu 13821/QĐ-BĐDHĐQT điều chỉnh đợt 7): "QĐ của tỉnh sẽ có cấu trúc theo từng chương trình vay, nên khi nhập liệu em cũng cho nhập như vậy"; "code cả a, b, c, khi nhập thì theo chương trình, nhưng khi hiện thì cho chọn qua lại cả 2 kiểu theo xã (các chương trình của xã) hoặc chương trình (các xã có giao), và hiện đủ 3 cột như trên QĐ để đối chiếu".
 - **Lõi đọc danh mục QĐ** (`js/47`, chạy được trong node): `pbDauQD` (số / ký hiệu / ngày / nguồn TW-ĐP / loại / đợt — kể cả số + ngày đóng thêm ở lớp riêng, không lấy số của Căn cứ), `pbChuDM` (chữ PDF — font dùng ký tự rỗng làm dấu cách), `pbXlsDM` (Excel DANH_MUC), `pbDanhMuc` (chương trình → PGD → xã, 3 cột; kiểm từng dòng 5 = 3 + 4, tổng các xã = dòng PGD, tổng các PGD = dòng chương trình), `pbCTMa` (tên CT trên QĐ → mã; dân tộc thiểu số hỏi anh; nhớ lựa chọn), `pbQDTuDM` (bản ghi mỗi xã của PGD đang dùng, giữ dòng tổng PGD). QĐ mẫu của anh: 3 chương trình · 24 PGD · 96 xã, mọi phép kiểm khớp.

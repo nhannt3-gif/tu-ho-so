@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 05/11/2026 00:30 — TK 3 · PHIÊN (3.466 sửa QĐ linh động)
+- 3.465 đã gộp (#496). 3.466 (anh "làm hết, em code"): 6 ý sửa QĐ linh động — `KE_HOACH_PHAN_BO_KH.md` mục 9.
+- **Chờ anh:** chọn thêm (a) cảnh báo sửa QĐ đã xuất Biểu 07 · (b) nhật ký sửa QĐ · (c) ghi chú QĐ; thử máy thật; "gộp".
+
 ### 04/11/2026 23:00 — TK 3 · PHIÊN (3.465 nhập QĐ Phân bổ KH)
 - 3.464 đã gộp (#495). 3.465 (anh "gộp rồi code cả a, b, c…"): đọc thẳng PDF QĐ, Excel DANH_MUC, nhập tay theo chương trình, xem QĐ 2 kiểu — `KE_HOACH_PHAN_BO_KH.md` mục 9. QĐ mẫu anh gửi (thật) chỉ thử trong vùng tạm: 3 CT · 24 PGD · 96 xã khớp.
 - **Chờ anh:** thử máy thật với QĐ thật (PDF điện tử + 1 QĐ scan qua Gemini); "gộp".

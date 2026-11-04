@@ -203,6 +203,7 @@
 | 04/11 | TK 3 (App chính) | **3.463** | `js/mau/0hst.js` (`HST.P`, `HST.sp`, `HST.tt`, `HST.ttHTML`, `HST.hdTrai`), `js/mau/11.js`, `js/mau/11cu.js`, `js/25-ho-so.js` (bỏ `hsoLap11` cũ, 2 dòng danh sách), `js/25b`, `js/25c`; `tests/kiem.py`, `tests/nhanh/nen.js`, `tests/t368.js`, `tests/t181.js`, `tests/chuan/hst_11*` | t368 t181 t179 t163 t180 t367 |
 | 04/11 | TK 3 (App chính) | **3.464** | bản dọn: `js/22b` (bỏ 2 hàm), `js/31` (`omChanTrang`), `js/mau/07b`, `10a`–`10d` (`HST.P`), `css/app.css` (bỏ 82 quy tắc chết); `tests/kiem.py`, `tests/rac.js` | t179 t181 t192 t368 + hồi quy đủ |
 | 04/11 | TK 3 (App chính) | **3.465** | `js/47-phan-bo.js` (đọc danh mục QĐ), `js/48-phan-bo-gd.js` (Đọc QĐ PDF, xem trước, nhập tay theo CT, xem 2 kiểu, mẫu Excel DANH_MUC), `js/17b` (`pbKieuQD`), `css/app.css`; `tests/t369.js`, `t370.js`, `t252`, `t256` | t250–t256 t369 t370 |
+| 04/11 | TK 3 (App chính) | **3.466** | `js/48-phan-bo-gd.js` (sửa nhanh tại bảng, xếp 2 kiểu, đổi mã / ＋ / 🗑 khối, ghép xã `ch.xaQD`, QĐ kế tiếp, so sánh đọc lại), `css/app.css`; `tests/t371.js`, `t370.js` | t250–t256 t355 t369–t371 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
