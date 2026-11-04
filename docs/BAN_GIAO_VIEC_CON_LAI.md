@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.467)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📅 Dòng thời gian QĐ | STT theo ngày; đợt sót có dòng đỏ | |
+| 2 | ＋ ghi số QĐ ở dòng thiếu / ＋ QĐ không giao cho PGD | Lưu được, dòng thời gian đủ đợt | |
+| 3 | Đọc PDF QĐ không giao cho Gò Dầu | Nút Lưu số QĐ | |
+
 ### Danh sách thử trên máy thật (3.466)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.467 — 04/11/2026 — Phân bổ KH: dòng thời gian QĐ, ghi số QĐ không giao cho PGD (TK 3)
+- **Anh 04/11**: "thêm 1 nút thống kê QĐ theo ngày, dòng thời gian, có số thứ tự để kiểm tra xem có đợt nào bỏ sót; có trường hợp tỉnh có đợt giao QĐ nhưng không giao cho Gò Dầu anh cũng muốn nhập số QĐ … để theo dõi đợt"; "số đợt lưu theo QĐ anh nhập nếu QĐ có ghi, còn em cứ ghi stt từ QĐ đầu tiên"; "code và gộp lên".
+- **📅 Dòng thời gian QĐ** (mục 📋 Quyết định, cột phải): mỗi năm × nguồn TW / ĐP 1 bảng, xếp theo ngày, **STT 1, 2, 3… từ QĐ đầu tiên**; cột Đợt (như QĐ ghi) · Số QĐ · Ngày · Loại · Giao cho PGD (số xã / không giao) · Σ điều chỉnh PGD · Ghi chú. Soát đợt trên QĐ có ghi đợt: **dòng đỏ "⚠ Thiếu đợt N — chưa nhập"** + nút ＋ ghi số QĐ (điền sẵn đợt, nguồn); đợt trùng / đợt nhỏ hơn QĐ trước tô vàng; QĐ không ghi đợt không nhắc. Bấm dòng → xem QĐ. In / PDF / Word / Excel.
+- **QĐ không giao cho PGD**: nút ＋ — chỉ số QĐ, ký hiệu, ngày, nguồn, loại, đợt, ghi chú; lưu riêng (`qdKhong`) — phân bổ, Biểu 07, Diễn biến, Đối chiếu không đụng; có STT trong dòng thời gian, nhóm riêng ở cột trái (bấm sửa / xóa). Đọc PDF / Excel mà QĐ **không có khối PGD mình** → báo + nút "📄 Lưu số QĐ (không giao cho PGD)" điền sẵn từ QĐ.
+- Lõi `pbDongThoiGian` (js/47, chạy được trong node).
+- **Phép thử**: t372 mới (17).
+
 ## 3.466 — 04/11/2026 — Phân bổ KH: sửa QĐ linh động (TK 3)
 - **Anh 04/11**: "khi sửa các QĐ, sao cho linh động được" → "làm hết, em code".
 - **① ✎ Sửa nhanh ngay tại bảng xem** (cột phải mục 📋 Quyết định): cùng bộ sửa với hộp QĐ — Lưu / Bỏ ở cuối bảng, Enter xuống cùng cột, Ctrl+Enter = Lưu; Bỏ → về bảng xem, không ghi.

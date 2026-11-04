@@ -4072,3 +4072,7 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 .pb-f-ct td{white-space:normal}
 .pb-f-ct select{max-width:300px;width:auto;display:inline-block;margin:1px 2px}
 .pb-f-ct select[data-lenh="pb.fThemXaCT"],.pb-f-ct select[data-lenh="pb.fThemCTXa"]{max-width:200px}
+/* 3.467: dòng thời gian QĐ — dòng thiếu đợt, dòng bấm được, nhóm QĐ không giao cho PGD */
+.pb-dtg-thieu td{background:var(--do-nen,#fdecea);color:var(--do,#b42318)}
+.pb-dtg tr[data-lenh]{cursor:pointer}.pb-dtg tr[data-lenh]:hover td{background:var(--xanh-nhat)}
+.pb-khong .pb-nhom-dau{background:var(--nen)}
