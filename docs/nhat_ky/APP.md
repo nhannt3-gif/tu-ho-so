@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 05/11/2026 02:30 — TK 3 · PHIÊN (3.468–3.469 QĐ 0 xã)
+- 3.468 đã gộp (#499): đối chiếu dòng PGD chỉ cột điều chỉnh. 3.469 (anh "gom 1 chỗ nhập QĐ mới, không add xã, báo 0 xã"): bỏ nút / hộp QĐ không giao riêng; ＋ QĐ mới không tích xã = QĐ 0 xã (vẫn `qdKhong`), hiện chung danh sách, ✎ Sửa tích thêm xã → QĐ có số liệu.
+- **Chờ anh:** thử máy thật 3.463–3.469; bàn tiếp a (cảnh báo Biểu 07 đã xuất), b (nhật ký sửa QĐ).
+
 ### 05/11/2026 01:30 — TK 3 · PHIÊN (3.467 dòng thời gian QĐ)
 - 3.466 đã gộp (#497). Anh: ý Nháp / Đã chốt không đúng ý (bỏ); a, b, c bàn sau. 3.467 (anh "code và gộp lên"): dòng thời gian QĐ + QĐ không giao cho PGD.
 - **Chờ anh:** thử máy thật; bàn tiếp ý "phần KH chưa chuẩn, chưa chốt" (a, b, c).

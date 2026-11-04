@@ -15,7 +15,7 @@ ok('soát đợt: thiếu đợt 4 (có 1, 2, 3, 5) chèn sau đợt 3', tw26.ds
 ok('đợt trùng (5, 5) được đánh dấu', tw26.ds.filter(x=>x.trung).length===2);
 ok('Σ điều chỉnh PGD cộng các xã (QĐ 11: 2 xã × 10 = 20); số xã', tw26.ds.find(x=>x.so==='11').tg===20 && tw26.ds.find(x=>x.so==='11').soXa===2);
 ok('QĐ không ghi đợt → không nhắc thiếu', dp26.ds.length===1 && !dp26.ds.some(x=>x.thieu!=null));
-(async()=>{ const b=await chromium.launch(); const loi=[]; const p=await b.newPage({viewport:{width:1536,height:900}}); p.on('pageerror',e=>loi.push(e.message));
+(async()=>{ const b=await chromium.launch(); const loi=[]; const p=await b.newPage({viewport:{width:1536,height:900}}); p.on('pageerror',e=>loi.push(e.message+' @ '+(e.stack||'').split('\n').slice(1,4).join(' ')));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
  await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
  const dir=path.join(__dirname,'gianho31'); const files=fs.readdirSync(dir).map(n=>({n,b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
@@ -29,13 +29,16 @@ ok('QĐ không ghi đợt → không nhắc thiếu', dp26.ds.length===1 && !dp2
    let t=(document.querySelector('#pb-phai .pb-dtg')||{}).innerText||'';
    ok('📅 Dòng thời gian: bảng STT · Đợt · Số QĐ · Ngày …; báo "Thiếu đợt 2"', /STT\s+Đợt\s+Số QĐ\s+Ngày/.test(t) && /Thiếu đợt 2/.test(t) && !!document.querySelector('#pb-phai .pb-dtg-thieu [data-lenh="pb.khongMoi"]'), t.slice(0,160));
    document.querySelector('#pb-phai .pb-dtg-thieu [data-lenh="pb.khongMoi"]').click(); await w(300);
-   ok('＋ ghi số QĐ ở dòng thiếu: hộp điền sẵn đợt 2, nguồn TW', PB.K0 && PB.K0.dot==='2' && PB.K0.nguon===1);
-   const set=(f,v)=>{ const e=document.querySelector('[data-lenh="pb.k0"][data-f="'+f+'"]'); e.value=v; e.dispatchEvent(new Event('change',{bubbles:true})); };
-   set('so','70002'); set('ngay','1542026'); set('ghi','tỉnh giao xã khác'); document.querySelector('[data-lenh="pb.k0Luu"]').click(); await w(500);
-   const k=pbDL().qdKhong; ok('lưu QĐ không giao cho PGD (riêng, không vào danh sách QĐ có số liệu)', k.length===1 && k[0].so==='70002' && k[0].ngay==='2026-04-15' && !pbDL().qd.some(x=>x.so==='70002'));
+   ok('＋ ghi số QĐ ở dòng thiếu: mở hộp ＋ QĐ mới điền sẵn đợt 2, nguồn TW', PB.F && PB.F.dot==='2' && +PB.F.nguon===1 && !PB.F.dong.length && /QĐ mới/.test(document.querySelector('#hop .hop-tit').textContent));
+   const set=(f,v)=>{ const e=document.querySelector('#pb-f [data-lenh="pb.fo"][data-f="'+f+'"]'); e.value=v; e.dispatchEvent(new Event('change',{bubbles:true})); };
+   set('so','70002'); set('ngay','1542026'); set('ghi','tỉnh giao xã khác'); document.querySelector('[data-lenh="pb.fLuu"]').click(); await w(500);
+   const k=pbDL().qdKhong; ok('không tích xã → Lưu = QĐ 0 xã (không vào danh sách QĐ có số liệu), giữ ghi chú', k.length===1 && k[0].so==='70002' && k[0].ngay==='2026-04-15' && k[0].ghi==='tỉnh giao xã khác' && !pbDL().qd.some(x=>x.so==='70002'));
    document.querySelector('[data-lenh="pb.dtg"]').click(); await w(400); t=(document.querySelector('#pb-phai .pb-dtg')||{}).innerText||'';
-   ok('dòng thời gian đủ đợt 1–2–3, STT 1–3, dòng 2 "không giao cho PGD"', !/Thiếu đợt/.test(t) && /2\s+2\s+70002/.test(t) && /không giao cho PGD/.test(t), t.replace(/\s+/g,' ').slice(0,220));
-   ok('cột trái có nhóm "QĐ không giao cho PGD"', /QĐ không giao cho PGD/.test(document.getElementById('pb-trai').innerText));
+   ok('dòng thời gian đủ đợt 1–2–3, STT 1–3, dòng 2 "không giao cho PGD"', !/Thiếu đợt/.test(t) && /2\s+2\s+70002/.test(t) && /0 xã/.test(t) && /không giao cho PGD/.test(t), t.replace(/\s+/g,' ').slice(0,220));
+   const tt=document.getElementById('pb-trai').innerText; ok('QĐ 0 xã hiện CHUNG danh sách QĐ (không còn nút / nhóm riêng)', /QĐ 70002[\s\S]{0,160}0 xã/.test(tt) && !/＋ QĐ không giao/.test(document.getElementById('pb-trai').innerText));
+   document.querySelector('#pb-trai [data-lenh="pb.xem"][data-k^="k:"]').click(); await w(300);
+   ok('bấm QĐ 0 xã → cột phải báo "0 xã" + ✎ Sửa QĐ', /0 xã/.test(document.getElementById('pb-phai').innerText) && !!document.querySelector('#pb-phai [data-lenh="pb.khongSua"]'));
+   document.querySelector('[data-lenh="pb.dtg"]').click(); await w(300);
    document.querySelector('#pb-phai .pb-dtg tr[data-lenh="pb.xem"]').click(); await w(400);
    ok('bấm dòng QĐ có số liệu → mở bảng xem QĐ đó', !!document.querySelector('#pb-phai .pb-x-bang') && !document.querySelector('#pb-phai .pb-dtg'));
    /* QĐ đọc vào không có khối PGD mình → lưu số QĐ */
@@ -43,13 +46,19 @@ ok('QĐ không ghi đợt → không nhắc thiếu', dp26.ds.length===1 && !dp2
      [{cap:'muc', ten:'KẾ HOẠCH DƯ NỢ'}, {stt:'I', ten:'Chương trình Hộ nghèo', so:[10,0,10]}, {stt:'1', ten:'Phòng giao dịch NHCSXH Huyện Giả Khác', so:[10,0,10]}, {stt:'1.1', ten:'Xã Giả Xa', so:[10,0,10]}], 'pdf'); await w(400);
    ok('đọc QĐ không có khối PGD mình → báo + nút "Lưu số QĐ (không giao cho PGD)"', /không có khối của PGD/.test((document.getElementById('hop-in')||{}).innerText||'') && !!document.querySelector('[data-lenh="pb.pKhong"]'));
    document.querySelector('[data-lenh="pb.pKhong"]').click(); await w(300);
-   ok('hộp ghi số QĐ điền sẵn từ QĐ đọc được (số, ngày, đợt)', PB.K0 && PB.K0.so==='70004' && PB.K0.ngay==='2026-07-01' && PB.K0.dot==='4');
-   document.querySelector('[data-lenh="pb.k0Luu"]').click(); await w(400);
+   ok('hộp ＋ QĐ mới điền sẵn từ QĐ đọc được (số, ngày, đợt)', PB.F && PB.F.so==='70004' && PB.F.ngay==='2026-07-01' && PB.F.dot==='4' && !PB.F.dong.length);
+   document.querySelector('[data-lenh="pb.fLuu"]').click(); await w(400);
    ok('đã ghi QĐ 70004 (không giao)', pbDL().qdKhong.some(x=>x.so==='70004'));
+   /* nhìn nhầm: ✎ Sửa QĐ 0 xã, tích thêm xã → thành QĐ có số liệu */
+   pbMoQD('', {khong:pbDL().qdKhong.find(x=>x.so==='70004').id}); await w(300);
+   ok('✎ Sửa QĐ 0 xã: cùng hộp QĐ, tiêu đề "0 xã", có nút Xóa', PB.F && PB.F.so==='70004' && /0 xã/.test(document.querySelector('#hop .hop-tit').textContent) && !!document.querySelector('#pb-f [data-lenh="pb.fXoa"]'));
+   PB.F.xa[xa.ma]=xa.ten; PB.F.xaThu.push(xa.ma); PB.F.dong.push({xa:xa.ma, ma:'01', ten:'Hộ nghèo', daGiao:5, tangGiam:1, den3112:6, dgTu:false, denTu:true}); pbFLuu(); await w(400);
+   ok('tích thêm xã + Lưu → QĐ 70004 thành QĐ có số liệu, bỏ khỏi QĐ 0 xã', pbDL().qd.some(x=>x.so==='70004') && !pbDL().qdKhong.some(x=>x.so==='70004'));
+   const dq=pbDL(); dq.qd=dq.qd.filter(x=>x.so!=='70004'); dq.qdKhong.push({id:'pk70004', so:'70004', kyHieu:'/QĐ-BĐDHĐQT', ngay:'2026-07-01', nguon:1, loai:'Điều chỉnh', dot:'4', ghi:''}); pbGhi(dq); pbVeTrai();
    /* xem gọn + bảng phải: dòng tổng đậm, dòng con thường */
    D.cauHinh.pbGonQD=false; pbVeTrai(); document.querySelector('[data-lenh="pb.gon"]').click(); await w(300);
-   const dg=[...document.querySelectorAll('#pb-trai .pb-gon-dong')];
-   ok('☰ Xem gọn: mỗi QĐ 1 dòng (2 QĐ có số liệu), nhớ lựa chọn', dg.length===2 && D.cauHinh.pbGonQD===true && /QĐ 70003/.test(dg[0].textContent));
+   const dg=[...document.querySelectorAll('#pb-trai .pb-gon-dong:not(.pb-khong)')];
+   ok('☰ Xem gọn: mỗi QĐ 1 dòng (2 QĐ có số liệu + 2 QĐ 0 xã), nhớ lựa chọn', dg.length===2 && document.querySelectorAll('#pb-trai .pb-gon-dong.pb-khong').length===2 && D.cauHinh.pbGonQD===true && /QĐ 70003/.test(dg[0].textContent));
    dg[0].click(); await w(400);
    const tr=document.querySelector('#pb-phai .pb-x-bang tr.pb-x-ct'), con=document.querySelector('#pb-phai .pb-x-bang tbody tr:not(.pb-x-ct)');
    ok('bấm dòng gọn → bảng bên phải; dòng tổng đậm cả 3 cột số, dòng con in thường', !!tr && tr.querySelectorAll('td.s b').length===3 && !!con && con.querySelectorAll('td.s b').length===0);
