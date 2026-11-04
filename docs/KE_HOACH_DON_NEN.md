@@ -15,7 +15,7 @@
 - Nạp app (đo 04/11, file máy, trung vị 5 lần): 231 ms; bỏ hết 20 mẫu `js/mau` 201 ms; CPU chậm ×4: 714 / 739 ms (không phân biệt được).
 - Lập Biên bản làm việc: 1 biên bản 12 ms, 3 hộ 51 ms; vẽ lại cột trái + xem 61 ms.
 
-## 2. Luật "thêm 1 – dọn 1" (mới, áp từ 3.462)
+## 2. Luật "thêm 1 – dọn 1" (mới, áp từ 3.462) — ⚠ ý 1 (ngân sách KB) THAY bằng mục 7.2: anh không ép dung lượng, chỉ chống mã rác
 1. **Ngân sách tăng** trong `tests/kiem.py`: vượt mốc quá **JS +100 KB · CSS +15 KB · hàm chung +60 · biến chung +15** → dòng ⚠ NGÂN SÁCH TĂNG (riêng, không làm trượt t192 — các thước đo cứng vẫn ⚠ VƯỢT MỐC). Khi ⚠: bản kế tiếp phải là **bản dọn** (giảm lại / tách / bỏ mã thừa) rồi mới đặt mốc mới (`python3 tests/kiem.py --moc`, ghi lý do trong CHANGELOG). Các thước đo cũ (onclick, dòng dài, mồ côi, đọc thẳng kho / bảng gốc, file lớn) vẫn "không được tăng".
 2. **Thước đo mới `nhánh mẫu riêng (js/25*)`**: đếm `M.k===…` / `.test(M.k)` ở khung Hồ sơ (`js/25`, `25b`, `25c`) — **chỉ được giảm**. Mẫu mới gắn qua cổng `hsoMauGan` (mục 3), không thêm nhánh.
 3. Mỗi bản thêm chức năng ghi 1 dòng "Dọn kèm:" trong CHANGELOG (việc nền nào làm kèm, hoặc "không — lý do").
@@ -66,18 +66,18 @@ Bản rà kiểm thử 04/11 ghi "chưa thấy" một số việc nền — **sa
 | Mẫu cũ còn giữ | 37 | `10ccu` (12) · `11cu` (25) — hồ sơ trước 01/10/2026 |
 **Kết luận:** app lớn lên do **chức năng thật + chú thích lịch sử**, không phải do mã thừa (mã chết chỉ 3 KB). Muốn giảm đáng kể chỉ có 2 đường: rút gọn chú thích lịch sử, hoặc bỏ mẫu cũ.
 
-### 7.2 Việc làm (mỗi việc có cách chứng minh không đổi chức năng)
-| # | Việc | Ước giảm | Chứng minh |
-|---|---|---|---|
-| C1 | Bỏ 2 hàm không ai gọi; 5 hàm chỉ phép thử gọi: giữ nếu phép thử kiểm lõi nghiệp vụ, còn lại bỏ cùng phép thử | ~3 KB | `kiem.py` thiếu hàm = 0; phép thử liên quan |
-| C2 | Gộp `P()` / `chanTrang` trùng vào phần chung Hồ sơ Tổ (`js/mau/0hst.js`) | ~6 KB | so HTML bản in 10A–10D, 11, 07b trước / sau giống hệt (t181) |
-| C3 | Bỏ quy tắc CSS của lớp đã gỡ — soát từng lớp, bỏ lớp ghép động | ~10–16 KB | ảnh bố cục t260 + hồi quy đủ |
-| C4 | **Rút gọn chú thích lịch sử**: chú thích mở đầu bằng số bản → giữ **luật / vì sao / lời anh chốt** (1–2 dòng + số bản để tra CHANGELOG), bỏ phần kể diễn biến sửa | ~120–180 KB | **so cây cú pháp trước / sau (bỏ chú thích) giống hệt từng file** → chắc chắn 0 thay đổi mã; hồi quy đủ |
-| C5 | ~~Bỏ mẫu cũ `10C/TD cũ`, `11/TD cũ`~~ — **anh 04/11: GIỮ mẫu cũ** | 0 | — |
-| C6 | Thước đo: tách "JS mã" (không tính chú thích) và "chú thích" trong `kiem.py` — ngân sách áp cho **mã**; chú thích có trần riêng (≤ 15 % JS) | — | `kiem.py` |
-Sau dọn: đặt mốc mới (`kiem.py --moc`), ghi CHANGELOG.
+### 7.2 Anh chốt hướng 04/11
+> Anh: "ý anh là hạn chế code rác, tối ưu chương trình, ko phải gò ép trong khoảng nào"; "giữ mẫu cũ".
+- **Bỏ ngân sách KB** (không ép dung lượng): app lớn vì chức năng thật là bình thường. `kiem.py` chỉ **in số KB để theo dõi**, không ⚠.
+- **Không rút chú thích** (C4 bỏ): chú thích không chạy, không phải mã rác — giữ để người / AI sau hiểu luật anh chốt.
+- **Thước đo đổi sang "mã rác" — không được tăng, mốc 0 khi dọn xong:** hàm không tới được (dò từ index.html, acorn) · hàm trùng y hệt · lớp CSS không còn dùng · mồ côi · onclick (giảm dần) · nhánh mẫu riêng (giảm dần).
+- **Tối ưu chương trình = đo tốc độ thật** (nạp app, mở tab nặng, lập mẫu) — chỉ sửa chỗ đo thấy chậm.
 
-### 7.3 Câu hỏi chờ anh
-1. **C4 rút gọn chú thích lịch sử** — đồng ý? (không đổi mã; lịch sử đầy đủ vẫn ở CHANGELOG + git)
-2. ~~C5 mẫu cũ~~ — **anh 04/11: giữ mẫu cũ.**
-3. **C6 đổi thước đo** sang tính mã không kèm chú thích — đồng ý?
+### 7.3 Việc làm bản 3.463 (chờ "code")
+| # | Việc | Chứng minh không đổi chức năng |
+|---|---|---|
+| C1 | Bỏ 2 hàm không ai gọi (`ktDsBC`, `ktChonBC`); 5 hàm chỉ phép thử gọi — xem từng hàm, thừa thì bỏ cùng phép thử | `kiem.py`; phép thử liên quan |
+| C2 | Gộp hàm trùng: `P()` (10A–10D, 11), `chanTrang` (07b, 10C) vào phần chung `js/mau/0hst.js`; 2 hàm ẩn trùng 04e / 09; `nguon` js/29 ↔ `pbNguon` js/47 | bản in trước / sau giống hệt (t181 + so HTML) |
+| C3 | Bỏ CSS của lớp đã gỡ (~223 quy tắc, soát từng lớp — bỏ lớp ghép tên động) | ảnh bố cục t260 + hồi quy đủ |
+| C4 | `kiem.py`: thêm thước đo hàm không tới được · hàm trùng · lớp CSS chết (mốc 0 sau C1–C3); bỏ ⚠ ngân sách KB | t192 |
+| C5 | Đo tốc độ: nạp app, mở Tổng hợp / Sao kê / Tổ / Hồ sơ vay với bộ giả lớn (`js/68-do-toc-do.js` có sẵn) → ghi bảng; chỗ > 300 ms mới đề xuất tối ưu | số đo |
