@@ -3491,7 +3491,6 @@ table.hm-so{min-width:1476px}
 .pb-goi{padding:14px 6px;line-height:1.6}
 .pb-f-xa{margin:6px 0;line-height:2;text-align:left;display:flex;flex-wrap:wrap;align-items:center;gap:2px 16px}
 .pb-f-xa .hso-o2{display:inline-flex;align-items:center;gap:4px;margin:0}
-.pb-f-xa-dong td{background:var(--xanh-nhat);font-weight:600}
 /* 3.301 🎯 Biểu 07 — khai báo riêng · 🔎 đối chiếu chéo */
 .pb07-kb{border:1px solid var(--vien,#ddd);border-radius:8px;padding:6px 8px;margin:6px 0}
 .pb07-kb.pb07-gon{border-style:dashed}
@@ -3577,9 +3576,12 @@ table.pb-db-thang td small{color:var(--chu-phu);font-weight:400}
 .pb-thanh-nut small{opacity:.8;font-weight:400}
 .pb-thanh-so{display:inline-block;min-width:18px;padding:0 5px;border-radius:999px;background:var(--do);color:#fff;font-size:calc(11px*var(--co));font-weight:700;text-align:center}
 .th-bo.th-bo2.pb-bo{display:block}.th-bo2.pb-bo>.th-cot{position:static;overflow:visible}
-.pb-bo.muc-qd #pb-phai,.pb-bo:not(.muc-qd) #pb-trai{display:none}
+.pb-bo:not(.muc-qd) #pb-trai{display:none}
 .pb-bo #pb-trai,.pb-bo #pb-phai{width:100%;max-width:1180px;margin:0}
-.pb-bo.muc-qd .pb-ds{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px;align-items:start}
+/* 3.465: mục 📋 Quyết định 2 cột — danh sách QĐ · xem QĐ (theo chương trình / theo xã, 3 cột như QĐ); màn hẹp xếp chồng */
+.th-bo.th-bo2.pb-bo.muc-qd{display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);gap:14px;align-items:start}
+@media(max-width:900px){.th-bo.th-bo2.pb-bo.muc-qd{display:block}}
+.pb-bo.muc-qd .pb-ds{display:grid;grid-template-columns:1fr;gap:10px;align-items:start}
 .pb-bo.muc-qd .pb-nhom{margin:0}
 .pb-chon-qd select{max-width:440px}
 /* bảng cân đối: co theo nội dung, không kéo hết màn hình; cột số đều */
@@ -4059,3 +4061,10 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 /* 3.461.4 (anh 03/11 "cột tích còn lớn, nên có cột STT"): cột ô tích vừa ô, STT theo hộ */
 .hsn-bang .hsn-o{width:22px;padding:1px 2px 1px 6px}
 .hsn-bang .hsn-stt{width:28px;text-align:right;padding-right:6px;opacity:.8}
+/* 3.465: nhập / xem QĐ theo chương trình (Phân bổ KH) — dòng chương trình · dòng PGD · xã bỏ tích */
+.pb-f-ct td,.pb-p-ct td,.pb-x-ct td{background:var(--xanh-nhat);color:var(--chu)}
+.pb-f-pgd td,.pb-p-pgd td{background:var(--nen);font-size:12.5px}
+.pb-p-bo td{opacity:.45;text-decoration:line-through}
+.pb-p-bang td.s,.pb-x-bang td.s{text-align:right;white-space:nowrap}
+.pb-p-bang select.pb-chua{border:1.5px solid var(--do,#b42318)}
+.pb-nhom-dau[data-lenh]{cursor:pointer}

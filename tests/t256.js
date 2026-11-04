@@ -29,7 +29,7 @@ const fs = require('fs'), path = require('path');
    for(let i=0;i<40 && pbDL().qd.length<2;i++) await w(100); dongHop(); await w(300);
    const thanh = () => Array.from(document.querySelectorAll('.pb-thanh .pb-thanh-nut')), lop = () => (document.querySelector('.pb-bo') || {}).className || '';
    o.thanh = thanh().map(x => x.textContent.replace(/\s+/g, ' ').trim()).join(' | ');
-   o.macDinh = /muc-qd/.test(lop()) && getComputedStyle(document.getElementById('pb-phai')).display==='none' && getComputedStyle(document.getElementById('pb-trai')).display!=='none';
+   o.macDinh = /muc-qd/.test(lop()) && !document.querySelector('#pb-phai #pb-kq') && getComputedStyle(document.getElementById('pb-trai')).display!=='none';   /* 3.465: cột phải mục Quyết định = xem QĐ (không phải màn phân bổ) */
    o.so = (document.querySelector('.pb-thanh-so') || {}).textContent || '';
    document.dispatchEvent(new KeyboardEvent('keydown', {key:'3', bubbles:true})); await w(300);
    o.phim = /muc-db/.test(lop()) && D.cauHinh.pbMuc==='db' && thanh()[2].classList.contains('bat');
@@ -63,7 +63,7 @@ const fs = require('fs'), path = require('path');
  ok('L3 QĐ chưa ghép xã không cộng vào diễn biến / đối chiếu, có đếm để báo', r.l3);
  ok('L5 CT phát sinh dư nợ giữa năm (đầu năm, cuối kỳ = 0) vẫn cộng, gắn "mới"', r.l5);
  ok('thanh tab 4 mục: Quyết định (số QĐ) · Phân bổ · Biểu 07 · Diễn biến · Đối chiếu', /Quyết định 1/.test(r.thanh) && /Phân bổ · Biểu 07/.test(r.thanh) && /Diễn biến/.test(r.thanh) && /Đối chiếu/.test(r.thanh), r.thanh);
- ok('mặc định mục Quyết định: danh sách QĐ hiện, màn phân bổ ẩn', r.macDinh);
+ ok('mặc định mục Quyết định: danh sách QĐ hiện, màn phân bổ ẩn (cột phải = xem QĐ — 3.465)', r.macDinh);
  ok('nút Đối chiếu có số đỏ = số nhóm lệch', /^\d+$/.test(r.so) && +r.so>=1, r.so);
  ok('phím 3 → Diễn biến, nhớ mục (D.cauHinh.pbMuc)', r.phim);
  ok('bấm xã ở mục Quyết định → sang Phân bổ, ô chọn nhanh QĐ · xã đúng dòng', r.sangPB);

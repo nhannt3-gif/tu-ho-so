@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.465 — 04/11/2026 — Phân bổ KH: nhập QĐ theo chương trình — đọc thẳng PDF QĐ, Excel chép nguyên bảng, xem 2 kiểu (TK 3)
+- **Anh 04/11** (gửi QĐ mẫu 13821/QĐ-BĐDHĐQT điều chỉnh đợt 7): "QĐ của tỉnh sẽ có cấu trúc theo từng chương trình vay, nên khi nhập liệu em cũng cho nhập như vậy"; "code cả a, b, c, khi nhập thì theo chương trình, nhưng khi hiện thì cho chọn qua lại cả 2 kiểu theo xã (các chương trình của xã) hoặc chương trình (các xã có giao), và hiện đủ 3 cột như trên QĐ để đối chiếu".
+- **Lõi đọc danh mục QĐ** (`js/47`, chạy được trong node): `pbDauQD` (số / ký hiệu / ngày / nguồn TW-ĐP / loại / đợt — kể cả số + ngày đóng thêm ở lớp riêng, không lấy số của Căn cứ), `pbChuDM` (chữ PDF — font dùng ký tự rỗng làm dấu cách), `pbXlsDM` (Excel DANH_MUC), `pbDanhMuc` (chương trình → PGD → xã, 3 cột; kiểm từng dòng 5 = 3 + 4, tổng các xã = dòng PGD, tổng các PGD = dòng chương trình), `pbCTMa` (tên CT trên QĐ → mã; dân tộc thiểu số hỏi anh; nhớ lựa chọn), `pbQDTuDM` (bản ghi mỗi xã của PGD đang dùng, giữ dòng tổng PGD). QĐ mẫu của anh: 3 chương trình · 24 PGD · 96 xã, mọi phép kiểm khớp.
+- **A · 📄 Đọc QĐ (PDF)**: chọn file → xem trước theo chương trình (dòng chương trình toàn tỉnh · dòng PGD · các xã), tự chọn PGD khai báo (Gò Dầu), bỏ tích xã, chọn mã CT chưa ghép, sửa phần đầu → Lưu (trùng → ghi đè / bỏ qua). PDF dạng ảnh scan → báo dùng cách khác.
+- **B · Nhập tay theo chương trình**: hộp QĐ xếp I, II, III… như QĐ → dòng **Tổng PGD trên QĐ** (gõ để đối chiếu, báo tổng các xã ≠ dòng PGD) → các xã theo thứ tự QĐ; cột "Chỉ tiêu KH đã giao (3) · Điều chỉnh đợt này (4) · Đến 31/12 (5 = 3 + 4)"; gõ "-" = 0; **Enter xuống dòng dưới cùng cột**.
+- **C · Mẫu Excel mới**: sheet DANH_MUC chép nguyên bảng QĐ (Gemini chép đúng thứ tự) → cùng màn xem trước. Mẫu cũ CHI_TIET vẫn nạp được.
+- **Xem QĐ 2 kiểu** (mục 📋 Quyết định, cột phải — bấm đầu QĐ): **Theo chương trình** (dòng PGD trên QĐ + các xã có giao, chip ✓ khớp / ✗ Σ xã ≠ dòng PGD) ↔ **Theo xã** (các chương trình của xã); đủ 3 cột như QĐ; nhớ lựa chọn.
+- Dữ liệu cũ đọc được (bản ghi QĐ thêm `pgd`, `tong` — không có thì như cũ). File QĐ thật chỉ dùng thử trong vùng tạm, không vào repo.
+- **Dọn kèm:** bỏ CSS `pb-f-xa-dong` (bảng nhập cũ theo xã).
+- **Phép thử**: t369 mới (lõi, node, QĐ giả — 15) · t370 mới (giao diện, PDF QĐ giả dựng bằng trình duyệt — 13) · t252, t256, t355 (mẫu Excel mới DANH_MUC; mẫu cũ CHI_TIET vẫn nạp được) cập nhật.
+
 ## 3.464 — 04/11/2026 — Bản dọn: bỏ mã rác, thước đo mã rác, đo tốc độ (TK 3)
 - **Anh 04/11**: "ý anh là hạn chế code rác, tối ưu chương trình, ko phải gò ép trong khoảng nào" → "code tiếp cho bản dọn". Kế hoạch / kết quả: `docs/KE_HOACH_DON_NEN.md` mục 7.
 - **Hàm thừa**: bỏ `ktDsBC`, `ktChonBC` (js/22b — không ai gọi từ 3.333). 5 hàm chỉ phép thử gọi giữ (lõi nghiệp vụ có phép thử).

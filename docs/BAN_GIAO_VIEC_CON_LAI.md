@@ -266,6 +266,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.465)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📋 Quyết định › 📄 Đọc QĐ (PDF) › QĐ 13821 | Đầu QĐ tự điền; PGD Gò Dầu 5 xã; 3 chương trình mã 01 / 19 / 09; ✓ Khớp | |
+| 2 | Lưu → bấm đầu QĐ | Cột phải: Theo chương trình ↔ Theo xã, 3 cột như QĐ | |
+| 3 | ✎ Sửa QĐ | Bảng theo chương trình, Tổng PGD, Enter xuống cùng cột | |
+| 4 | ⬇ Tải mẫu Excel → Gemini chép QĐ scan → 📥 Nạp | Cùng màn xem trước | |
+
 ### Danh sách thử trên máy thật (3.464)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 04/11/2026 23:00 — TK 3 · PHIÊN (3.465 nhập QĐ Phân bổ KH)
+- 3.464 đã gộp (#495). 3.465 (anh "gộp rồi code cả a, b, c…"): đọc thẳng PDF QĐ, Excel DANH_MUC, nhập tay theo chương trình, xem QĐ 2 kiểu — `KE_HOACH_PHAN_BO_KH.md` mục 9. QĐ mẫu anh gửi (thật) chỉ thử trong vùng tạm: 3 CT · 24 PGD · 96 xã khớp.
+- **Chờ anh:** thử máy thật với QĐ thật (PDF điện tử + 1 QĐ scan qua Gemini); "gộp".
+
 ### 04/11/2026 21:00 — TK 3 · PHIÊN (3.464 bản dọn)
 - 3.463 đã gộp (#494). 3.464 (anh "code tiếp cho bản dọn"): bỏ hàm / CSS chết, gộp `P` 10A–10D → `HST.P`, `omChanTrang`; thước đo mã rác (hàm chết 0, trùng 2, CSS chết 0); đo tốc độ — chỉ tab Tổ > 300 ms.
 - **Việc kế (anh 04/11):** "xong phần này anh muốn kiểm tra làm thêm phần nhập QĐ của Phân bổ kế hoạch" — rà `js/47`, `js/48`, `docs/KE_HOACH_PHAN_BO_KH.md` rồi báo anh.
