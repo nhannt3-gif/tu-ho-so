@@ -1149,11 +1149,11 @@ function slTTChu(ky){
 function slDaiLich(kyXem){
   var moi = slKyMoi() || ngayISO(nay()).slice(0, 7), cuoi = kyLui(kyXem > moi ? kyXem : moi, -SL_DAI), nam = String(nay().getFullYear()), h = '';
   for(var i = 5; i>=0; i--){ var k = kyLui(cuoi, -i), t = slTTChu(k);
-    h += '<button class="sl-dl'+(k===kyXem ? ' bat' : '')+'" onclick="slChonThang(0,\''+k+'\')" title="'+coChuHTML(t.tit)+'">T'+(+k.slice(5))+(k.slice(0, 4)!==nam ? '<small>/'+k.slice(2, 4)+'</small>' : '')+'<i class="sl-dl-dau '+t.dau+'">'+(t.dau==='dat' ? '●' : t.dau==='thieu' ? '◐' : '○')+'</i></button>'; }
-  return '<span class="sl-dai"><button class="nho sl-dai-lui" onclick="SL_DAI++;veSoLieu()" title="Các tháng trước">‹</button>'+h+
-    '<button class="nho sl-dai-toi" onclick="SL_DAI=Math.max(0,SL_DAI-1);veSoLieu()" title="Các tháng sau"'+(SL_DAI ? '' : ' disabled')+'>›</button>'+
-    '<button class="nho sl-dai-chon" onclick="slChonThangHop()" title="Chọn tháng bất kỳ">▾</button>'+
-    '<button class="nho sl-gan-nhat" onclick="slGanNhat()" title="Về tháng có số liệu mới nhất ('+coChuHTML(kyVN(moi))+')">⦿ Gần nhất</button></span>';
+    h += '<button class="sl-dl'+(k===kyXem ? ' bat' : '')+'" data-lenh="nkt.chonThang" data-a="'+k+'" title="'+coChuHTML(t.tit)+'">T'+(+k.slice(5))+(k.slice(0, 4)!==nam ? '<small>/'+k.slice(2, 4)+'</small>' : '')+'<i class="sl-dl-dau '+t.dau+'">'+(t.dau==='dat' ? '●' : t.dau==='thieu' ? '◐' : '○')+'</i></button>'; }
+  return '<span class="sl-dai"><button class="nho sl-dai-lui" data-lenh="nkt.dai" data-a="1" title="Các tháng trước">‹</button>'+h+
+    '<button class="nho sl-dai-toi" data-lenh="nkt.dai" data-a="-1" title="Các tháng sau"'+(SL_DAI ? '' : ' disabled')+'>›</button>'+
+    '<button class="nho sl-dai-chon" data-lenh="nkt.thangHop" title="Chọn tháng bất kỳ">▾</button>'+
+    '<button class="nho sl-gan-nhat" data-lenh="nkt.ganNhat" title="Về tháng có số liệu mới nhất ('+coChuHTML(kyVN(moi))+')">⦿ Gần nhất</button></span>';
 }
 function slCoDL(loai){ return Object.keys(SLM.bang).some(function(k){ return SLM.bang[k].loai===loai; }); }   /* 3.90 */
 function slMucCu(loai, ky){

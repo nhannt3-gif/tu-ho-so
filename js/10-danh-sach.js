@@ -72,32 +72,33 @@ function moMenu(ev, id){
   var e = document.getElementById('menu');
   var laBM = m.huongDan!==undefined;
   e.innerHTML =
-    '<button onclick="dongMenu();moXem(\'' +id+ '\')">Xem lớn</button>'+
-    (coTheDocLai(m) ? '<button onclick="dongMenu();suaCho(\'' +id+ '\');setTimeout(function(){ docLaiGoiY(\'' +id+ '\', true); }, 50)">🔍 Đọc lại &amp; gợi ý tên</button>' : '')+
-    '<button onclick="dongMenu();guiNhanh(\'' +id+ '\')">Gửi cả file</button>'+
-    '<button onclick="dongMenu();inTheoId(\'' +id+ '\')">In</button>'+
+    '<button data-lenh="menu.xem">Xem lớn</button>'+
+    (coTheDocLai(m) ? '<button data-lenh="menu.docLai">🔍 Đọc lại &amp; gợi ý tên</button>' : '')+
+    '<button data-lenh="menu.gui">Gửi cả file</button>'+
+    '<button data-lenh="menu.in">In</button>'+
     '<div class="vach"></div>'+
-    '<button onclick="dongMenu();'+(laBM?'suaBieuMau':'suaCho')+'(\'' +id+ '\')">Sửa thông tin</button>'+
-    (m.driveId ? '<button onclick="dongMenu();moTrenDrive(\''+id+'\')">Mở file trên Drive</button>' : '')+
-    '<button onclick="dongMenu();moThuMucMuc(\''+id+'\')">Mở thư mục trên Drive</button>'+
-    (coCauNoi() && m.driveId ? '<button onclick="dongMenu();cnHanh(\'mo\',\'muc\',\''+id+'\')">🖥 Mở trên máy tính</button>'+
-      '<button onclick="dongMenu();cnHanh(\'xem\',\'muc\',\''+id+'\')">👁 Xem nhanh (bản tạm)</button>'+
-      '<button onclick="dongMenu();cnHanh(\'chep\',\'muc\',\''+id+'\')">📋 Chép file — dán vào Zalo</button>'+
-      '<button onclick="dongMenu();cnHanh(\'thumuc\',\'muc\',\''+id+'\')">📂 Mở thư mục chứa file</button>' : '')+
-    '<button onclick="dongMenu();chepDuongMay(thuMucCua(timMuc(\''+id+'\')))">Chép đường dẫn ổ G</button>'+
-    '<button onclick="dongMenu();batTatPV()">'+(anPVCua(tenTabPV())?'Bật':'Tắt')+' khung xem nhanh</button>'+
-    '<button onclick="dongMenu();chepTen(\'' +id+ '\')">Sao chép tên file</button>'+
+    '<button data-lenh="menu.sua">Sửa thông tin</button>'+
+    (m.driveId ? '<button data-lenh="menu.moDrive">Mở file trên Drive</button>' : '')+
+    '<button data-lenh="menu.moThuMuc">Mở thư mục trên Drive</button>'+
+    (coCauNoi() && m.driveId ? '<button data-lenh="menu.cn" data-v="mo">🖥 Mở trên máy tính</button>'+
+      '<button data-lenh="menu.cn" data-v="xem">👁 Xem nhanh (bản tạm)</button>'+
+      '<button data-lenh="menu.cn" data-v="chep">📋 Chép file — dán vào Zalo</button>'+
+      '<button data-lenh="menu.cn" data-v="thumuc">📂 Mở thư mục chứa file</button>' : '')+
+    '<button data-lenh="menu.chepDuong">Chép đường dẫn ổ G</button>'+
+    '<button data-lenh="menu.batTatPV">'+(anPVCua(tenTabPV())?'Bật':'Tắt')+' khung xem nhanh</button>'+
+    '<button data-lenh="menu.chepTen">Sao chép tên file</button>'+
     '<div class="vach"></div>'+
     (laBieuMau(timMuc(id)||bmTim(id)) ?
-      '<button onclick="dongMenu();bmGhiChu(\''+id+'\')">Ghi chú cách dùng</button>'+
-      '<button onclick="dongMenu();bmGanVB(\''+id+'\')">Gắn văn bản ban hành</button>'+
-      '<button onclick="dongMenu();bmThayBan(\''+id+'\')">Đánh dấu đã có bản mới</button>' : '')+
+      '<button data-lenh="menu.bmGhiChu">Ghi chú cách dùng</button>'+
+      '<button data-lenh="menu.bmGanVB">Gắn văn bản ban hành</button>'+
+      '<button data-lenh="menu.bmThayBan">Đánh dấu đã có bản mới</button>' : '')+
     (/\.(xlsx|xls|csv)$/i.test((timMuc(id)||{}).tenMoi||'') ?
-      '<button onclick="dongMenu();moChepAI(\''+id+'\')">📋 Chép sang AI</button>'+
-      '<button onclick="dongMenu();moBangOffice(\''+id+'\',\'excel\')">Mở bằng Excel trên máy</button>' : '')+
+      '<button data-lenh="menu.chepAI">📋 Chép sang AI</button>'+
+      '<button data-lenh="menu.office" data-v="excel">Mở bằng Excel trên máy</button>' : '')+
     (/\.(docx|doc|rtf)$/i.test((timMuc(id)||{}).tenMoi||'') ?
-      '<button onclick="dongMenu();moBangOffice(\''+id+'\',\'word\')">Mở bằng Word trên máy</button>' : '')+
-    '<button class="xau" onclick="dongMenu();xoaVaoRac(\'' +id+ '\')">Xóa vào thùng rác</button>';
+      '<button data-lenh="menu.office" data-v="word">Mở bằng Word trên máy</button>' : '')+
+    '<button class="xau" data-lenh="menu.xoa">Xóa vào thùng rác</button>';
+  e.setAttribute('data-id', id); e.setAttribute('data-bm', laBM ? '1' : '');   /* 3.475 (Đ4): lệnh menu.* đọc mục đang mở ở đây */
   e.classList.add('hien');
   var x = Math.min(ev.clientX, window.innerWidth-200);
   var y = Math.min(ev.clientY, window.innerHeight-300);
@@ -1232,3 +1233,13 @@ bao = function(t, giay, loi){
   if(DONGHO.ket && typeof t==='string' && Date.now()-DONGHO.ket.luc<2500 && DONGHO.ket.s>=1.5 && t.indexOf('⏱')<0){ t += ' · ⏱ '+dongHoGiay(DONGHO.ket.s); DONGHO.ket = null; }
   return DONGHO_BAO(t, giay, loi);
 };
+/* ---------- 3.475 (Đ4 kế hoạch dọn — bỏ onclick viết thẳng): LỆNH MENU CHUỘT PHẢI của danh sách file — data-lenh="menu.*", mục đang mở ở #menu[data-id] ---------- */
+gdDangKy('menu', (function(){
+  var ds = {xem:function(id){ moXem(id); }, docLai:function(id){ suaCho(id); setTimeout(function(){ docLaiGoiY(id, true); }, 50); }, gui:function(id){ guiNhanh(id); }, 'in':function(id){ inTheoId(id); },
+    sua:function(id, el, m){ if(m.getAttribute('data-bm')) suaBieuMau(id); else suaCho(id); }, moDrive:function(id){ moTrenDrive(id); }, moThuMuc:function(id){ moThuMucMuc(id); },
+    cn:function(id, el){ cnHanh(el.getAttribute('data-v'), 'muc', id); }, chepDuong:function(id){ chepDuongMay(thuMucCua(timMuc(id))); }, batTatPV:function(){ batTatPV(); }, chepTen:function(id){ chepTen(id); },
+    bmGhiChu:function(id){ bmGhiChu(id); }, bmGanVB:function(id){ bmGanVB(id); }, bmThayBan:function(id){ bmThayBan(id); }, chepAI:function(id){ moChepAI(id); },
+    office:function(id, el){ moBangOffice(id, el.getAttribute('data-v')); }, xoa:function(id){ xoaVaoRac(id); }}, L = {};
+  Object.keys(ds).forEach(function(k){ L[k] = function(el){ var m = document.getElementById('menu'), id = m ? m.getAttribute('data-id') : ''; dongMenu(); ds[k](id, el, m); }; });
+  return L;
+})());

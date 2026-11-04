@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.474', ds:[
+var CO_GI_MOI = {ban:'3.475', ds:[
+  ["Dọn: menu chuột phải danh sách file + dải tháng Nạp & KT bỏ onclick viết thẳng", ""],
   ["Dọn: tab Nạp & KT bỏ hết onclick viết thẳng (66 chỗ) — nút / ô dùng bảng lệnh chung", ""],
   ["Dọn: mọi mẫu Hồ sơ Tổ / Hồ sơ vay gắn qua một cổng chung (bỏ 52 nhánh rẽ theo mã mẫu) — bản in, cột nhập liệu không đổi", ""],
   ["Dọn: tên xã cả app tính bằng một lõi chung (File Tổ trưởng → Mẫu 31 → danh bạ → danh mục), bỏ các bản vá riêng", ""],
@@ -1070,8 +1071,7 @@ var CO_GI_MOI = {ban:'3.474', ds:[
   ["Bản dọn: bỏ mã và CSS không còn dùng, gộp phần trùng của các mẫu Hồ sơ Tổ — dùng như cũ", "slDoiTab('hst')"],
   ["Mẫu 11/TD mới + cũ: đúng mẫu gốc từng chữ, chữ điền liền như 10A; tổ trưởng theo Danh sách tổ mới nhất — in bổ sung tổ cũ thì chọn bản cũ ở cột trái", "hsoChonMau('11')"],
   ["Nền mẫu: 06A và Biên bản làm việc gắn qua cổng chung — dùng như cũ; bỏ file mẫu không làm hỏng app", "hsoChonMau('bblv')"],
-  ["Biên bản làm việc — thêm 5 tình huống mẫu: khách chết / mất tích, rủi ro thiên tai dịch bệnh, sai mục đích / vay hộ, đã nộp cho Tổ trưởng nhưng NH chưa nhận, đang chấp hành án; Bản mẫu chọn tình huống bằng danh sách sổ xuống", "hsoChonMau('bblv')"],
-  ["Biên bản làm việc — Bản mẫu Cả 3: tờ Hướng dẫn ghi biên bản (lưu ý chung, dấu hiệu nhận biết, thành phần nên mời, câu mẫu mục 2–5 sát thực tế cho từng tình huống)", "hsoChonMau('bblv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Biên bản làm việc — thêm 5 tình huống mẫu: khách chết / mất tích, rủi ro thiên tai dịch bệnh, sai mục đích / vay hộ, đã nộp cho Tổ trưởng nhưng NH chưa nhận, đang chấp hành án; Bản mẫu chọn tình huống bằng danh sách sổ xuống", "hsoChonMau('bblv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
     "3.471 · Phân bổ KH › 📈 Diễn biến: bảng cơ bản + nút Xếp · Tách từng QĐ · chip Xã / Chương trình · ▸ Xem thêm",
     "3.470 · 📥 Nạp & KT › Kiểm tra kỳ: dòng \"Tên xã trên Mẫu 31 = tên chuẩn\"",

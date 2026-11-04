@@ -1095,7 +1095,8 @@ function slDCXuat(ky){
 /* ---------- 3.474 (Đ4 kế hoạch dọn — bỏ onclick viết thẳng): LỆNH NẠP & KT — data-lenh="nkt.*", tham số ở data-a / data-b / data-c, data-dong="1" = đóng hộp trước ---------- */
 gdDangKy('nkt', (function(){
   var a = function(el, k){ return el.getAttribute('data-'+(k || 'a')) || ''; }, lenh = function(f){ return function(el, ev){ if(el.hasAttribute('data-dong')) dongHop(); f(el, ev); }; }, L = {};
-  var ds = {thangHop:function(el){ slChonThangHop(+a(el)); }, chonThang:function(el){ slChonThang(0, a(el)); }, moNhom:function(el){ slMoNhom(a(el)); }, datMt:function(el){ slDatMt(a(el)); },
+  var ds = {thangHop:function(el){ var n = a(el); slChonThangHop(n ? +n : undefined); }, dai:function(el){ SL_DAI = Math.max(0, SL_DAI+(+a(el))); veSoLieu(); }, ganNhat:function(){ slGanNhat(); },   /* dải tháng (js/22) */
+    chonThang:function(el){ slChonThang(0, a(el)); }, moNhom:function(el){ slMoNhom(a(el)); }, datMt:function(el){ slDatMt(a(el)); },
     napBo:function(){ slNapBo(); }, kiem:function(el){ slKiemTra(a(el)); }, fileXuat:function(el){ slFileXuat(a(el)); }, tongQuan:function(){ slTongQuan(); }, thuGon:function(){ slThuGon(); },
     napThem:function(el){ slNapThem(a(el)); }, napHoi:function(){ slNapHoi(); }, ktToi:function(el){ slKTToi(a(el)); },
     taiGocThang:function(el){ slTaiGocThang(a(el)); }, xoaThang:function(el){ slXoaThang(a(el)); }, xoaNgayCu:function(){ slXoaNgayCu(); }, tomTat:function(el){ slTomTatXem(a(el)); },

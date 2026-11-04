@@ -212,6 +212,7 @@
 | 05/11 | TK 3 (App chính) | **3.472** | `js/22-so-lieu.js` (lõi `slXaTenTu`, `SL_XA_TEN`), `js/22g-to.js` (`toTenXa`, `xaTenSach` gọi lõi) | t330 t350 t360 t373 + theo đổi |
 | 05/11 | TK 3 (App chính) | **3.473** | `js/25-ho-so.js` (cờ đặc tính mẫu), `js/25b-ho-so-vay.js` (hsoLap + khối lap), `js/25c-ho-so-giao-dien.js` (hsoTuyHTML / Vay / Ho + khối trai) | t179 t164 t170 t173 t175 t224 t358 + chụp 172 trạng thái |
 | 05/11 | TK 3 (App chính) | **3.474** | `js/02-nen.js` (`gdDangKy`, `GD_CHO`), `js/39-gd.js` (nhận hàng chờ), `js/22k-nap-kt.js` (66 onclick → nkt.*), `js/26-giao-dich-xa.js` (cnHang); `tests/t127.js t129.js` | t100–t146 Nạp & KT + t176 |
+| 05/11 | TK 3 (App chính) | **3.475** | `js/10-danh-sach.js` (menu.*), `js/22-so-lieu.js` (dải tháng → nkt.*), `js/22k-nap-kt.js`; **mới** `tests/t374.js` | t374 t147 t148 t141 t142 t127 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
