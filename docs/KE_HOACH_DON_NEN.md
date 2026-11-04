@@ -51,3 +51,33 @@ Bản rà kiểm thử 04/11 ghi "chưa thấy" một số việc nền — **sa
 ## 6. Anh chốt 04/11
 - **"Việc cần xử lý" ở Hôm nay** (QUY_CHUAN mục 8 bước 8): **bỏ khỏi việc chờ** — anh: "nào cần anh sẽ yêu cầu làm". Không làm khi anh chưa yêu cầu.
 - **Danh mục lý do lệch anh khai được** (bước 6): **không cần** — giữ "lưu ý đã biết" trong bảng đối chiếu (js/22k) như hiện nay.
+
+## 7. BẢN DỌN 3.463 — kế hoạch (04/11, chờ anh duyệt + "code")
+### 7.1 Đo trước khi dọn (bản 3.462, 137 file JS nạp lúc mở app = 3.903 KB)
+| Thành phần | KB | Cách đo |
+|---|---|---|
+| Mã chạy | 1.864 | phân tích cú pháp (acorn) |
+| Chuỗi chữ / HTML trong mã | 1.331 | rải đều; chuỗi đơn > 1,5 KB chỉ 3 cái (logo, CSS mini GDX) |
+| **Chú thích** | **594** | trong đó **278 KB mở đầu bằng số bản** ("3.214: …" — kể lại diễn biến sửa, đã có trong CHANGELOG); 225 KB có trích lời anh / luật |
+| Thụt đầu dòng | 113 | |
+| Hàm không tới được (dò từ index.html + mã chạy lúc nạp) | 3 (7 hàm) | 2 không ai gọi (`ktDsBC`, `ktChonBC`), 5 chỉ phép thử gọi |
+| Hàm trùng y hệt | 6 | `P()` lặp ở 10A / 10B / 10C / 10D / 11; `chanTrang` 07b ↔ 10C |
+| CSS lớp không còn trong js / html | ~16 (223 quy tắc) | cần soát từng lớp (tên ghép động) |
+| Mẫu cũ còn giữ | 37 | `10ccu` (12) · `11cu` (25) — hồ sơ trước 01/10/2026 |
+**Kết luận:** app lớn lên do **chức năng thật + chú thích lịch sử**, không phải do mã thừa (mã chết chỉ 3 KB). Muốn giảm đáng kể chỉ có 2 đường: rút gọn chú thích lịch sử, hoặc bỏ mẫu cũ.
+
+### 7.2 Việc làm (mỗi việc có cách chứng minh không đổi chức năng)
+| # | Việc | Ước giảm | Chứng minh |
+|---|---|---|---|
+| C1 | Bỏ 2 hàm không ai gọi; 5 hàm chỉ phép thử gọi: giữ nếu phép thử kiểm lõi nghiệp vụ, còn lại bỏ cùng phép thử | ~3 KB | `kiem.py` thiếu hàm = 0; phép thử liên quan |
+| C2 | Gộp `P()` / `chanTrang` trùng vào phần chung Hồ sơ Tổ (`js/mau/0hst.js`) | ~6 KB | so HTML bản in 10A–10D, 11, 07b trước / sau giống hệt (t181) |
+| C3 | Bỏ quy tắc CSS của lớp đã gỡ — soát từng lớp, bỏ lớp ghép động | ~10–16 KB | ảnh bố cục t260 + hồi quy đủ |
+| C4 | **Rút gọn chú thích lịch sử**: chú thích mở đầu bằng số bản → giữ **luật / vì sao / lời anh chốt** (1–2 dòng + số bản để tra CHANGELOG), bỏ phần kể diễn biến sửa | ~120–180 KB | **so cây cú pháp trước / sau (bỏ chú thích) giống hệt từng file** → chắc chắn 0 thay đổi mã; hồi quy đủ |
+| C5 | (chờ anh) Bỏ mẫu cũ `10C/TD cũ`, `11/TD cũ` nếu không còn lập hồ sơ theo mẫu trước 01/10/2026 | ~37 KB + nhánh | rút file → app chạy (như t367) |
+| C6 | Thước đo: tách "JS mã" (không tính chú thích) và "chú thích" trong `kiem.py` — ngân sách áp cho **mã**; chú thích có trần riêng (≤ 15 % JS) | — | `kiem.py` |
+Sau dọn: đặt mốc mới (`kiem.py --moc`), ghi CHANGELOG.
+
+### 7.3 Câu hỏi chờ anh
+1. **C4 rút gọn chú thích lịch sử** — đồng ý? (không đổi mã; lịch sử đầy đủ vẫn ở CHANGELOG + git)
+2. **C5 mẫu cũ 10C/TD cũ, 11/TD cũ** — còn dùng (giữ) hay bỏ?
+3. **C6 đổi thước đo** sang tính mã không kèm chú thích — đồng ý?
