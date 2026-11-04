@@ -63,7 +63,7 @@ const fs = require('fs'), path = require('path');
    dat('select[data-f="ctChon"]', '03'); document.querySelector('#pb-f [data-lenh="pb.fThemCT"]').click(); await w(150);
    o.goiY = PB.F.dong[0] && PB.F.dong[0].daGiao;   // = Đến 31/12 QĐ G100 (1300)
    const tg = document.querySelector('#pb-f input[data-lenh="pb.fSo"][data-f="tangGiam"]'); tg.value = '+200'; tg.dispatchEvent(new Event('change', {bubbles:true})); await w(150);
-   o.den = PB.F.dong[0].den3112; o.kiemTra = (document.querySelector('#pb-f-bang tbody tr:nth-child(2) td:nth-child(5)') || {}).textContent || '';
+   o.den = PB.F.dong[0].den3112; o.kiemTra = (document.querySelector('#pb-f-bang [data-lenh="pb.fSo"][data-i="0"]').closest('tr').cells[4] || {}).textContent || '';   /* 3.465: bảng theo chương trình (dòng CT + dòng Tổng PGD) — lấy đúng dòng của ô */
    const dg = document.querySelector('#pb-f input[data-lenh="pb.fSo"][data-f="daGiao"]'); dg.value = '1250'; dg.dispatchEvent(new Event('change', {bubbles:true})); await w(150);
    o.dutChuoi = /khác QĐ G100/.test(document.getElementById('pb-f-bang').textContent) && PB.F.dong[0].den3112===1450;
    dg.value = ''; document.querySelector('#pb-f input[data-lenh="pb.fSo"][data-f="daGiao"]').value = ''; document.querySelector('#pb-f input[data-lenh="pb.fSo"][data-f="daGiao"]').dispatchEvent(new Event('change', {bubbles:true})); await w(150);
