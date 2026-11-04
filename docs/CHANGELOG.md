@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.474 — 05/11/2026 — Dọn: Nạp & KT bỏ onclick viết thẳng (TK 3, Đ4 kế hoạch dọn — phần 1)
+- **Nền:** hàng chờ `gdDangKy(khối, lệnh)` (js/02) — file nạp **trước** bộ lệnh chung `GD` (js/39) vẫn đăng ký `data-lenh` được; js/39 nhận hàng chờ khi nạp. Bỏ cách đăng ký "lười lúc vẽ lần đầu" của dải chip mẫu (`cnHang`, js/26).
+- **js/22k (Nạp & KT):** 66 `onclick` / `onchange` / `oninput` → `data-lenh="nkt.*"` (tham số ở `data-a` / `data-b` / `data-c`, `data-dong="1"` = đóng hộp trước), một khối lệnh cuối file. Bấm như cũ: chọn tháng, ô ma trận, nạp / thay / xóa / tải file gốc, Kiểm tra kỳ (lọc, mở hết, tìm, bấm ⚠ tới mục), đối chiếu chéo, hộp nạp nhiều file / 1 file.
+- Thước đo: onclick 1.266 → 1.200.
+- Phép thử t127, t129 đổi chọn nút theo `data-lenh`.
+
 ## 3.473 — 05/11/2026 — Dọn: mẫu Hồ sơ gắn qua cổng chung, bỏ 52 nhánh rẽ theo mã mẫu (TK 3, Đ3 kế hoạch dọn)
 - Trước: `hsoLap` (25b) và `hsoTuyHTML` / `hsoTuyVay` / `hsoTuyHo` (25c) rẽ nhánh theo mã từng mẫu (`M.k==='10c'`, `/^(01uq|01td…)$/.test(M.k)`…) — **52 chỗ**, thêm mẫu là phải sửa nhiều nơi.
 - Nay mỗi mẫu tự mang **cách lập** (`lap`, `ai`, `kem`, `lapRieng` — khối cuối js/25b) và **cột nhập liệu** (`trai` — khối cuối js/25c) qua cổng `hsoMauGan` (đã dùng cho 06A, BBLV, 11/TD từ 3.462–3.463); chỗ khác so **đặc tính mẫu** (khối cờ ở js/25: `canBD`, `canTruongAp`, `rong`, `khongCanTo`, `logoSan`, `kbRieng`, `gq`, `coKem`, `kem06`…). Thân từng nhánh giữ nguyên. Bỏ 3 nhánh không bao giờ tới (01/UQ, 01/TGTV trong `hsoTuyHo`; 01/GQVL không GQVL sau khi đã trả về).

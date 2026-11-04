@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.473** — TK 3 (vai App chính): Đ3 kế hoạch dọn — mẫu Hồ sơ gắn qua cổng chung (nhánh mẫu riêng 0). Trạng thái: `docs/nhat_ky/APP.md`.
+- **`main` = 3.474** — TK 3 (vai App chính): Đ4 kế hoạch dọn phần 1 — Nạp & KT bỏ onclick (hàng chờ `gdDangKy`). Trạng thái: `docs/nhat_ky/APP.md`.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
