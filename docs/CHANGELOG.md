@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.469 — 04/11/2026 — Phân bổ KH: QĐ không giao cho PGD gom vào ＋ QĐ mới (QĐ 0 xã) (TK 3)
+- **Anh 04/11**: "QĐ không giao cho PGD cũng gom 1 chỗ nhập QĐ mới nhưng không add xã nào, chỉ nhập thông tin và lưu, báo 0 xã" · "anh đã nhập 1 QĐ không giao cho PGD em gom lại luôn" · "nếu nhìn nhầm thì sửa thêm xã là xong".
+- Bỏ nút / hộp riêng "＋ QĐ không giao cho PGD". ＋ QĐ mới không tích xã → Lưu hỏi xác nhận → ghi QĐ 0 xã (vẫn lưu ở `qdKhong`, dữ liệu cũ tự hiện chung).
+- Danh sách QĐ (chi tiết + xem gọn) xếp chung theo ngày, QĐ 0 xã có nhãn **0 xã — không giao cho PGD**; bấm → cột phải báo 0 xã + ✎ Sửa QĐ. Dòng thời gian: bấm dòng 0 xã cũng mở như vậy.
+- ✎ Sửa QĐ 0 xã dùng cùng hộp QĐ: tích thêm xã + Lưu → thành QĐ có số liệu (bỏ khỏi 0 xã); QĐ có xã bỏ hết xã → thành QĐ 0 xã. Hộp QĐ có thêm ô Ghi chú. Dòng thiếu đợt (＋ ghi số QĐ) và QĐ đọc vào không có khối PGD mình đều mở ＋ QĐ mới điền sẵn.
+- Sửa lỗi nhỏ: vẽ lại bảng hộp sau khi đã Lưu không còn báo lỗi.
+- **Phép thử**: t372 cập nhật (thêm sửa 0 xã → có số liệu).
+
 ## 3.468 — 04/11/2026 — Phân bổ KH: đối chiếu dòng PGD chỉ theo cột điều chỉnh (TK 3)
 - **Anh 04/11** (ảnh hộp sửa QĐ): "trên QĐ chỉ có cột chỉ tiêu đợt này mới có tổng, còn cột đầu, cuối có hiện thêm các xã có tên mà không có giao chỉ tiêu, nên chỉ đối chiếu được tổng chỉ tiêu đợt này thôi, em sửa lại cho đơn giản".
 - Hộp nhập / sửa: dòng **"Tổng điều chỉnh PGD trên QĐ"** chỉ còn 1 ô ở cột Điều chỉnh đợt này; đã giao / đến 31/12 chỉ hiện Σ các xã. Báo lệch chỉ khi Σ điều chỉnh các xã ≠ dòng PGD.

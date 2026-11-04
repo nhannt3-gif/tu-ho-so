@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.469)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ＋ QĐ mới, không tích xã, Lưu | Hỏi xác nhận, danh sách hiện QĐ "0 xã" | |
+| 2 | QĐ không giao anh đã nhập trước | Tự hiện chung danh sách với nhãn 0 xã | |
+| 3 | ✎ Sửa QĐ 0 xã, tích thêm xã, Lưu | Thành QĐ có số liệu | |
+
 ### Danh sách thử trên máy thật (3.468)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
