@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 05/11/2026 04:30 — TK 3 · PHIÊN (kế hoạch dọn tuần tự — Đ1 = 3.471)
+- 3.470 gộp (#501), hồi quy đủ 253 phép đạt (chạy sau gộp — anh "gộp rồi chạy sau"). Anh duyệt kế hoạch dọn `KE_HOACH_DON_NEN.md` mục 8, làm tuần tự không hỏi lại. **Đ1 = 3.471** Diễn biến bảng cơ bản + tách js/48b. Tiếp: Đ2 (3.472).
+
 ### 05/11/2026 03:30 — TK 3 · PHIÊN (3.470 tên xã theo mã xã)
 - Anh: hệ thống đang gộp điểm GD (Gia Lộc gộp 1) → Mẫu 31 cột Tên xã ghi "… Vay trực tiếp". 3.470 sửa ở gốc `slXaTenChuan` (js/22, trong `slBo`): tên xã theo mã xã cho mọi tab; Kiểm tra kỳ báo chênh; Diễn biến ô xã.
 - **Anh 04/11 duyệt chạy tuần tự không hỏi lại mỗi phiên** theo kế hoạch dọn / chuyển chuẩn sẽ báo — xem `docs/KE_HOACH_DON_NEN.md`.

@@ -90,3 +90,17 @@ Bản rà kiểm thử 04/11 ghi "chưa thấy" một số việc nền — **sa
 | C3 | CSS chết | bỏ 82 quy tắc / 50 lớp (~8 KB). Giữ: `gl-c3…12` (ghép tên `'gl-c'+o[2]`, Giấy lĩnh), lớp pdf.js tự sinh (`markedContent`, `endOfContent`, `active`) |
 | C4 | Thước đo | `kiem.py` + `tests/rac.js` (acorn): **hàm không tới được 0 · hàm trùng 2 · lớp CSS chết 0** — không được tăng; bỏ ⚠ ngân sách KB (3.463) |
 | C5 | Tốc độ (máy ảo, bộ giả 25.000 khách, 2 kỳ Mẫu 31) | mở app 475 ms · nạp 7 file 13 giây (1 lần / kỳ) · dựng kỳ 686 ms · mở tab Tổng hợp 39 · **Tổ 461 (lại 174)** · Tra cứu 149 · Sao kê 19 · Hồ sơ vay 31 · Hồ sơ Tổ 27 · KTGS 71 · Nạp & KT 8 ms. **Chỉ tab Tổ > 300 ms** → đề xuất tối ưu riêng (chờ anh) |
+
+## 8. KẾ HOẠCH DỌN + CHUYỂN CHUẨN TUẦN TỰ — anh duyệt 04/11 ("duyệt, em làm tuần tự không cần hỏi lại, đảm bảo code sạch, tối ưu")
+Luật: mỗi bản `kiem.py` sạch + trong mốc · phép thử phần sửa · hồi quy theo đổi (đủ mỗi 3–4 bản / khi đụng phần chung) · tự PR + gộp, báo anh vài dòng. **Chỉ dừng hỏi** khi phải đổi / bỏ chức năng hoặc đụng chữ mẫu biểu. Chuyển mẫu Hồ sơ: bản in trước / sau **giống hệt từng chữ** (phép thử so tự động), lệch → dừng.
+
+| # | Bản | Việc | Thước đo | Tiến độ |
+|---|---|---|---|---|
+| Đ1 | 3.471 | Phân bổ › Diễn biến bảng cơ bản (a Xem thêm ẩn biểu đồ · b cột dư nợ 31/12 · c CT › Xã) | anh dùng được | ✅ 3.471 (+ tách js/48b) |
+| Đ2 | 3.472 | Gom lớp vá tên xã cũ (`toTenXa`, `xaTenSach`) về bảng tên chuẩn 3.470 | ít hàm trùng | ✅ 3.472 (lõi `slXaTenTu`) |
+| Đ3 | 3.473–3.476 | Mẫu Hồ sơ còn lại → `hsoMauGan`: ① 01/TD · 03/TD · 01/UQ · 01/GQVL · 07B · PDNH ② Sổ hộ vay ③ 09A · 01/TĐCK · 06/TD · 01/BG · 02/BG · 01/TGTV ④ 10A–10D · 10C cũ | nhánh mẫu riêng 52 → 0 || ✅ **gộp 1 bản 3.473** (cả 4 nhóm: nhánh 52 → 0; chụp 172 trạng thái giống hệt) |
+| Đ4 | 3.477–3.480 | `onclick` → `data-lenh` (2–3 file lớn / bản: 22k, 04c, 10, 22e, 12, 12b, 06a, 11, 04b3…) | onclick 1.266 → ~700 || 🟡 3.474 Nạp & KT (66) + hàng chờ `gdDangKy` · 3.475 menu chuột phải + dải tháng · 1.266 → 1.174 |
+| Đ5 | 3.481–3.482 | Phần còn đọc số liệu riêng → `KHO` (Theo dõi nợ, mini GDX, đọc sâu kỳ riêng) | chỗ đọc riêng 0 | |
+| Đ6 | 3.483 | Tối ưu tab Tổ (461 ms) | < 300 ms | |
+| Đ7 | xen kẽ | File đang sửa: tách dòng > 400 ký tự, báo cáo bảng qua `DANG_KY` | dòng dài 159 → giảm | |
+Không trong kế hoạch (chờ anh): "Việc cần xử lý" Hôm nay; ý a / b QĐ (cảnh báo Biểu 07 đã xuất, nhật ký sửa QĐ); máy chủ nội bộ.

@@ -408,8 +408,8 @@ function gdxDatNhanh(m, k, v){ var C = gdxC(); C.nhanh = C.nhanh || {}; C.nhanh[
 /* ---------- ô điều khiển dùng chung ---------- */
 function gdxChip(chu, bat, js, lop, tit){ return '<button class="gdx-c'+(bat ? ' bat' : '')+(lop ? ' '+lop : '')+'" onclick="'+js+'"'+(tit ? ' title="'+gdxE(tit)+'"' : '')+'>'+chu+'</button>'; }
 /* 3.334 (RA_SOAT_BO_CUC_2410 #1): dải chip mẫu 1 hàng cuộn ngang + nút ‹ › (hiện khi còn mẫu bị khuất) — dùng chung Giao dịch xã / Hồ sơ Tổ / Hồ sơ vay */
+gdDangKy('cn', {cuon:function(el){ cnCuon(el, +el.getAttribute('data-h')); }});   /* 3.474: hàng chờ gdDangKy (GD — js/39 nạp sau file này) */
 function cnHang(ruot, lop){
-  if(!cnHang.dk && typeof GD!=='undefined'){ cnHang.dk = 1; GD.dangKy('cn', {cuon:function(el){ cnCuon(el, +el.getAttribute('data-h')); }}); }   /* GD (js/39) nạp sau file này → đăng ký lệnh lúc vẽ lần đầu */
   return '<div class="cn-khung"><button type="button" class="cn-nut cn-trai" tabindex="-1" data-lenh="cn.cuon" data-h="-1" title="Mẫu phía trước">‹</button><div class="gdx2-mau'+(lop ? ' '+lop : '')+'" onscroll="cnSoat(this.parentNode)">'+ruot+'</div>'+
     '<button type="button" class="cn-nut cn-phai" tabindex="-1" data-lenh="cn.cuon" data-h="1" title="Còn mẫu phía sau">›</button></div>'; }
 function cnCuon(b, h){ var r = b.parentNode.querySelector('.gdx2-mau'); if(r) r.scrollLeft += h*Math.max(160, Math.round(r.clientWidth*0.7)); }

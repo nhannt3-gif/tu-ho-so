@@ -88,5 +88,6 @@ GD.boc();
   ['xoaTim', 'moHuongDan', 'moDonKho', 'moRac', 'moNapSL', 'moBCSL', 'moLonCP', 'anPreview', 'inFile', 'guiTrangChon', 'suaMuc', 'hienPreview', 'nutChinh', 'toanManHinh', 'dongXem']
     .forEach(function(t){ k[t] = function(){ return window[t](); }; });
   GD.dangKy('khung', k); })();
-GD.dangKy('hop', {dong:function(){ dongHop(); }});   /* 3.349 (mục 8 việc 7 — bớt onclick): nút Đóng / Thôi của hộp — data-lenh="hop.dong" thay onclick="dongHop()" */
+GD.dangKy('hop', {dong:function(){ dongHop(); }});
+GD_CHO.forEach(function(x){ GD.dangKy(x[0], x[1]); }); GD_CHO = [];   /* 3.474: nhận lệnh các file nạp trước (gdDangKy — js/02) */   /* 3.349 (mục 8 việc 7 — bớt onclick): nút Đóng / Thôi của hộp — data-lenh="hop.dong" thay onclick="dongHop()" */
 setTimeout(function(){ try { history.replaceState({th:1, s:GD.chup()}, ''); } catch(e){} }, 0);

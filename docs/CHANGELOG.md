@@ -4,6 +4,37 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.475 — 05/11/2026 — Dọn: menu chuột phải + dải tháng bỏ onclick (TK 3, Đ4 kế hoạch dọn — phần 2)
+- **Menu chuột phải danh sách file** (js/10): 21 mục `onclick="dongMenu();…('id')"` → `data-lenh="menu.*"`; mục đang mở ghi ở `#menu[data-id]` (biểu mẫu: `data-bm`), một khối lệnh đóng menu rồi gọi đúng hàm cũ (xem, đọc lại & gợi ý tên, gửi, in, sửa, Drive, mở trên máy tính 4 kiểu, đường dẫn ổ G, khung xem nhanh, tên file, ghi chú / gắn VB / bản mới biểu mẫu, chép AI, Excel / Word, xóa vào thùng rác).
+- **Dải tháng Nạp & KT** (js/22): nút tháng, ‹ › số tháng hiện, ▾ chọn tháng, ⦿ Gần nhất → `nkt.*`.
+- Phép thử mới **t374**: bấm từng mục menu (hàm đích thay bằng bộ ghi) → đúng hàm, đúng mã mục, menu đóng; Nạp & KT không còn `onclick` viết thẳng; hộp chọn tháng, Kiểm tra kỳ, ô ma trận; không nút nào "Chưa có lệnh".
+- Thước đo: onclick 1.200 → 1.174.
+
+## 3.474 — 05/11/2026 — Dọn: Nạp & KT bỏ onclick viết thẳng (TK 3, Đ4 kế hoạch dọn — phần 1)
+- **Nền:** hàng chờ `gdDangKy(khối, lệnh)` (js/02) — file nạp **trước** bộ lệnh chung `GD` (js/39) vẫn đăng ký `data-lenh` được; js/39 nhận hàng chờ khi nạp. Bỏ cách đăng ký "lười lúc vẽ lần đầu" của dải chip mẫu (`cnHang`, js/26).
+- **js/22k (Nạp & KT):** 66 `onclick` / `onchange` / `oninput` → `data-lenh="nkt.*"` (tham số ở `data-a` / `data-b` / `data-c`, `data-dong="1"` = đóng hộp trước), một khối lệnh cuối file. Bấm như cũ: chọn tháng, ô ma trận, nạp / thay / xóa / tải file gốc, Kiểm tra kỳ (lọc, mở hết, tìm, bấm ⚠ tới mục), đối chiếu chéo, hộp nạp nhiều file / 1 file.
+- Thước đo: onclick 1.266 → 1.200.
+- Phép thử t127, t129 đổi chọn nút theo `data-lenh`.
+
+## 3.473 — 05/11/2026 — Dọn: mẫu Hồ sơ gắn qua cổng chung, bỏ 52 nhánh rẽ theo mã mẫu (TK 3, Đ3 kế hoạch dọn)
+- Trước: `hsoLap` (25b) và `hsoTuyHTML` / `hsoTuyVay` / `hsoTuyHo` (25c) rẽ nhánh theo mã từng mẫu (`M.k==='10c'`, `/^(01uq|01td…)$/.test(M.k)`…) — **52 chỗ**, thêm mẫu là phải sửa nhiều nơi.
+- Nay mỗi mẫu tự mang **cách lập** (`lap`, `ai`, `kem`, `lapRieng` — khối cuối js/25b) và **cột nhập liệu** (`trai` — khối cuối js/25c) qua cổng `hsoMauGan` (đã dùng cho 06A, BBLV, 11/TD từ 3.462–3.463); chỗ khác so **đặc tính mẫu** (khối cờ ở js/25: `canBD`, `canTruongAp`, `rong`, `khongCanTo`, `logoSan`, `kbRieng`, `gq`, `coKem`, `kem06`…). Thân từng nhánh giữ nguyên. Bỏ 3 nhánh không bao giờ tới (01/UQ, 01/TGTV trong `hsoTuyHo`; 01/GQVL không GQVL sau khi đã trả về).
+- **Kiểm giống hệt:** công cụ chụp 172 trạng thái (mọi mẫu Hồ sơ Tổ + Hồ sơ vay × mẫu trắng / có số liệu / bản ghi mẫu: bản in + cột nhập liệu + tên file) trước và sau — **khác 0**; t179 (bản in chuẩn từng ký tự) 45/45.
+- Thước đo `kiem.py`: **nhánh mẫu riêng 52 → 0**.
+
+## 3.472 — 05/11/2026 — Dọn: một lõi tên xã chung (TK 3, Đ2 kế hoạch dọn)
+- Trước có **3 cách tính tên xã** song song: `toTenXa` (3.409/3.448, cây tổ: đếm đa số Mẫu 31 + File Tổ trưởng + danh bạ), `xaTenSach` (3.433, danh bạ / Tra cứu / hồ sơ: dò tổ cùng mã xã) và `slXaTenChuan` (3.470, chỗ đọc bộ số liệu).
+- Nay **một lõi** `slXaTenTu(hs, dsto, phu)` (js/22): File Tổ trưởng / Thông tin tổ trưởng (TENXA) → Mẫu 31 tên sạch (đa số) → nguồn phụ (danh bạ khách) → danh mục ⚙ Cài đặt → "Mã xã …". `slXaTenChuan` (bộ số liệu) và `toTenXa` (cây tổ) cùng gọi lõi này; `xaTenSach` (danh bạ đã lưu) tra bảng `SL_XA_TEN` (gộp từ các bộ đã dựng) rồi danh mục. Hàm `slLaTT` dùng chung thay 4 chỗ viết lại biểu thức "trực tiếp".
+- Không đổi kết quả: t330, t350, t360, t373, t321, t112, t113, t128, t167, t205 đạt nguyên.
+
+## 3.471 — 05/11/2026 — Phân bổ KH › Diễn biến: bảng cơ bản (TK 3, Đ1 kế hoạch dọn)
+- **Anh 04/11** (ảnh Diễn biến): "tab nhìn còn rối rắm quá, biểu đồ này nọ khó hiểu, anh cần bảng biểu cơ bản trước, theo đúng phong cách giao vốn đầu năm, giao tăng giảm, KH cuối năm, dư nợ hiện tại, còn thực hiện, kẻ bảng, chọn đa chiều, chia nguồn"; anh duyệt kế hoạch (em chọn sẵn: Xem thêm ẩn biểu đồ, có cột dư nợ 31/12 năm trước, mặc định chương trình › xã).
+- **Bảng cơ bản** (`pbDBHang` / `pbDBBang`, js/48b): STT · Đơn vị · Dư nợ 31/12 năm trước · Giao đầu năm · Tăng / giảm (hoặc **Tách từng QĐ** = mỗi QĐ 1 cột) · KH cuối năm · Dư nợ kỳ chọn · Còn phải thực hiện (âm = vượt, đỏ) · % thực hiện. Khối **A. Nguồn TW / B. Nguồn ĐP / TỔNG CỘNG**; cấp 1 in đậm = tổng, bấm gập / mở; chương trình không giao ghi "không giao" (KH = dư nợ đầu năm, luật 3.305); có dư nợ mà chưa có KH (chưa nạp Mẫu 31 kỳ 12 năm trước) → ô Còn phải TH "—" + cảnh báo trên bảng (không báo vượt sai).
+- **Chọn đa chiều**: năm · kỳ dư nợ (Mẫu 31 kỳ nào) · nguồn (cả 2 chia khối / TW / ĐP) · xếp chương trình › xã / xã › chương trình · chip chọn nhiều xã, nhiều chương trình (lõi `pbDienBien` nhận mảng — `pbLocCo`).
+- Thẻ số, biểu đồ, ma trận xã × chương trình, bảng theo mốc tháng: giữ nguyên, vào **▸ Xem thêm** (mặc định ẩn). In / Excel: bảng cơ bản trước (sheet `Bang KH`), phần Xem thêm khi đang mở.
+- **Dọn:** tách phần Diễn biến khỏi js/48 sang `js/48b-phan-bo-db.js` (js/48 159 KB → 119 KB, không còn file > 150 KB); đoạn cách dòng Word (`hsoDocx`) gom thành `khTr` / `khSau` (bớt dòng dài).
+- **Phép thử:** t255 thêm 6 ý bảng cơ bản; t256, t373 theo bố cục mới.
+
 ## 3.470 — 04/11/2026 — Tên xã theo mã xã ở chỗ đọc chung (gộp điểm GD) (TK 3)
 - **Anh 04/11** (ảnh Diễn biến: chọn Tất cả xã lại ra "Vay trực tiếp"): "lỗi này đã phát hiện nhưng em chưa sửa hết các tab" · "có thể do đang chuyển đổi dữ liệu nên Mẫu 31 chưa chuẩn" · "đang gộp các điểm giao dịch, Gia Lộc gộp làm 1".
 - **Nguyên nhân (suy từ các lần anh báo):** lúc hệ thống gộp điểm GD, cột Tên xã Mẫu 31 ghi "… Vay trực tiếp", mỗi kỳ sai một kiểu (29/10: 3 xã; T10: cả 5 xã). Mã xã không đổi. 3.409 / 3.433 / 3.448 chỉ vá từng chỗ (cây địa bàn, danh bạ, Tra cứu); Phân bổ › Diễn biến lấy tên thẳng từ dòng dư nợ nên vẫn dính.

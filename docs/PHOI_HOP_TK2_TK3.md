@@ -208,6 +208,11 @@
 | 04/11 | TK 3 (App chính) | **3.468** | `js/48-phan-bo-gd.js` (đối chiếu dòng PGD chỉ cột điều chỉnh); `tests/t370.js` | t252 t256 t370–t372 |
 | 04/11 | TK 3 (App chính) | **3.469** | `js/48-phan-bo-gd.js` (QĐ không giao cho PGD gom vào ＋ QĐ mới = QĐ 0 xã, hiện chung danh sách); `tests/t372.js` | t252 t256 t369–t372 |
 | 04/11 | TK 3 (App chính) | **3.470** | `js/22-so-lieu.js` (`slXaTenChuan` trong `slBo`), `js/22k-nap-kt.js` (dòng soát tên xã), `js/48-phan-bo-gd.js` (ô xã Diễn biến); `tests/t373.js` | hồi quy đủ |
+| 05/11 | TK 3 (App chính) | **3.471** | `js/47-phan-bo.js` (`pbLocCo`), `js/48-phan-bo-gd.js` (lệnh pb.db*), **mới** `js/48b-phan-bo-db.js` (Diễn biến tách khỏi js/48 + bảng cơ bản), `js/25b-ho-so-vay.js` (khTr / khSau), `css/app.css` (.pb-b); `tests/t255.js t256.js t373.js` | t253 t255 t256 t373 + theo đổi |
+| 05/11 | TK 3 (App chính) | **3.472** | `js/22-so-lieu.js` (lõi `slXaTenTu`, `SL_XA_TEN`), `js/22g-to.js` (`toTenXa`, `xaTenSach` gọi lõi) | t330 t350 t360 t373 + theo đổi |
+| 05/11 | TK 3 (App chính) | **3.473** | `js/25-ho-so.js` (cờ đặc tính mẫu), `js/25b-ho-so-vay.js` (hsoLap + khối lap), `js/25c-ho-so-giao-dien.js` (hsoTuyHTML / Vay / Ho + khối trai) | t179 t164 t170 t173 t175 t224 t358 + chụp 172 trạng thái |
+| 05/11 | TK 3 (App chính) | **3.474** | `js/02-nen.js` (`gdDangKy`, `GD_CHO`), `js/39-gd.js` (nhận hàng chờ), `js/22k-nap-kt.js` (66 onclick → nkt.*), `js/26-giao-dich-xa.js` (cnHang); `tests/t127.js t129.js` | t100–t146 Nạp & KT + t176 |
+| 05/11 | TK 3 (App chính) | **3.475** | `js/10-danh-sach.js` (menu.*), `js/22-so-lieu.js` (dải tháng → nkt.*), `js/22k-nap-kt.js`; **mới** `tests/t374.js` | t374 t147 t148 t141 t142 t127 |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

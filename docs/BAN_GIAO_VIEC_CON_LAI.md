@@ -266,6 +266,34 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.475)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Chuột phải 1 file ở tab Văn bản / Biểu mẫu | Mọi mục menu làm như trước | |
+| 2 | Nạp & KT: dải tháng ‹ › ▾ ⦿ | Như trước | |
+
+### Danh sách thử trên máy thật (3.474)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📥 Nạp & KT: chọn tháng, bấm ô ma trận, Kiểm tra kỳ, nạp file | Mọi nút bấm như trước | |
+
+### Danh sách thử trên máy thật (3.473)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ Tổ / Hồ sơ vay: bấm lần lượt các mẫu | Cột nhập liệu + bản in như trước | |
+
+### Danh sách thử trên máy thật (3.472)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Cây địa bàn, Tra cứu (Ấp · xã), hồ sơ 09A | Tên xã thật như 3.470 | |
+
+### Danh sách thử trên máy thật (3.471)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Phân bổ › 📈 Diễn biến | Bảng kẻ ô: khối TW / ĐP, chương trình in đậm, xã thường; số khớp QĐ | |
+| 2 | Bấm Xã › Chương trình, Tách từng QĐ, chip xã | Bảng đổi theo, tổng đúng | |
+| 3 | In / Excel | Bảng cơ bản đúng như màn hình | |
+
 ### Danh sách thử trên máy thật (3.470)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

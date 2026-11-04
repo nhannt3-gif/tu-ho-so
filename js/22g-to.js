@@ -272,21 +272,15 @@ function toMaCua(o){ return (o && o.to && o.to!==TO_GIA) ? o.to : ((o && o._tt) 
 function toLaTT(t){ return !!(t && t.trucTiep); }
 /* 3.409 (anh 30/10: cây địa bàn 3 xã hiện tên "Vay trực tiếp"): tên xã của tổ = tên chiếm đa số trong Mẫu 31 của mã xã đó (Mẫu 31 là chính),
    bỏ tên dạng "… trực tiếp"; Mẫu 31 không có → danh mục ⚙ Cài đặt. Trước: lấy tên ở dòng đầu tiên gặp của tổ. */
-function xaTenSach(ma, ten){   /* 3.433 (anh 01/11: Tra cứu khách "Ấp · xã: Thuận Tân, Vay trực tiếp"): tên xã bỏ dạng "… trực tiếp" — lấy tên xã của tổ cùng mã xã ở kỳ đang dựng, không có → danh mục ⚙ Cài đặt */
-  if(ten && !/tr[ựu]c ti[ếe]p/i.test(String(ten))) return ten; ma = String(ma||''); if(!ma) return '';
-  var T = (TO_K && TO_K.to) || {}, v = ''; Object.keys(T).some(function(m){ var t = T[m]; if(String(t.xa)===ma && t.tenXa && !/tr[ựu]c ti[ếe]p/i.test(t.tenXa)){ v = t.tenXa; return true; } return false; });
-  if(!v){ var x = (D.cauHinh.diaBan||[]).find(function(z){ return String(z.ma)===ma; }); v = x && x.xa ? x.xa : ''; }
-  return v; }
-function toTenXa(K){
-  var dem = {}, T = K.to, laTT = function(s){ return /tr[ựu]c ti[ếe]p/i.test(String(s||'')); };
-  var cong = function(xa, tx, n){ if(!xa || !tx || laTT(tx)) return; var d = dem[xa] = dem[xa] || {}; d[tx] = (d[tx]||0)+(n||1); };
-  (K.hs||[]).forEach(function(o){ cong(o.xa, o.tenXa); });
-  /* 3.448 (anh 02/11 ảnh cây lọc: cả 5 xã hiện "Vay trực tiếp", kỳ T10): Mẫu 31 không ra tên thật → thêm File Tổ trưởng (TENXA, theo mã tổ) và danh bạ khách */
-  (K.dsDung||[]).forEach(function(o){ var t = o.to && T[o.to]; if(t) cong(t.xa, o.tenXa, 3); });
-  if(typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh) Object.keys(SL_DB.kh).forEach(function(m){ var c = SL_DB.kh[m]; cong(c.xa, c.tenXa); });
-  var dm = {}; (D.cauHinh.diaBan||[]).forEach(function(x){ if(x.ma && x.xa) dm[String(x.ma)] = x.xa; });
-  var ten = {}; Object.keys(dem).forEach(function(m){ var d = dem[m], tot = ''; Object.keys(d).forEach(function(k){ if(!tot || d[k]>d[tot]) tot = k; }); ten[m] = tot; });
-  Object.keys(T).forEach(function(m){ var t = T[m], tt = laTT(t.tenXa) || !t.tenXa, v = ten[t.xa] || (tt ? dm[String(t.xa)] : ''); if(!v && tt && t.xa) v = 'Mã xã '+t.xa; if(v && v!==t.tenXa) t.tenXa = v; });   /* không bao giờ để tên xã dạng "… trực tiếp" */
+function xaTenSach(ma, ten){   /* 3.433 · 3.472: tên xã bỏ dạng "… trực tiếp" (Mẫu 31 lúc gộp điểm GD) — bảng tên chuẩn theo mã xã (SL_XA_TEN, dựng ở slXaTenChuan) → danh mục ⚙ Cài đặt; dùng cho danh bạ đã lưu */
+  if(ten && !slLaTT(ten)) return ten; ma = String(ma||''); if(!ma) return '';
+  var v = SL_XA_TEN[ma]; if(v && !/^Mã xã /.test(v)) return v;
+  var x = (D.cauHinh.diaBan||[]).find(function(z){ return String(z.ma)===ma; }); return x && x.xa ? x.xa : '';
+}
+function toTenXa(K){   /* 3.409 · 3.448 · 3.472: tên xã của tổ — cùng lõi slXaTenTu với bộ số liệu (File Tổ trưởng → Mẫu 31 → danh bạ khách → danh mục); không bao giờ để dạng "… trực tiếp" */
+  var T = K.to, db = typeof SL_DB!=='undefined' && SL_DB && SL_DB.kh ? Object.keys(SL_DB.kh).map(function(m){ return SL_DB.kh[m]; }) : [];
+  var ten = slXaTenTu(K.hs, (K.dsDung || []).filter(function(o){ return o.to && T[o.to]; }).map(function(o){ return {xa:T[o.to].xa, tenXa:o.tenXa}; }), db);
+  Object.keys(T).forEach(function(m){ var t = T[m], v = ten[t.xa] || (slLaTT(t.tenXa) || !t.tenXa ? xaTenSach(t.xa, '') || (t.xa ? 'Mã xã '+t.xa : '') : ''); if(v && v!==t.tenXa) t.tenXa = v; });
 }
 function toGanTrucTiep(K, Bm){
   /* 3.107: điểm GD của món vay trực tiếp: ① ấp của món (danh mục địa bàn / tổ cùng ấp) → ② ngày GDXA trùng tổ cùng xã → ③ xã chỉ có 1 điểm GD */
