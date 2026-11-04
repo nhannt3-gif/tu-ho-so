@@ -34,11 +34,11 @@ Bản rà kiểm thử 04/11 ghi "chưa thấy" một số việc nền — **sa
 |---|---|
 | Lưu theo ngăn | ✅ 3.223 IndexedDB chỉ ghi ngăn đổi (`js/34`); `luuNgan()` ở nơi gọi **đo 3.339: lợi ít, dễ sót ngăn → không dùng** (đúng, không phải nợ) |
 | Dòng thời gian khách / tổ + chốt sổ tổ viên 31/12 | ✅ 3.359 `js/65-dong-thoi-gian.js`; cảnh báo tháng 12 khi nạp / xóa (3.357) |
-| Danh mục lý do lệch | 🟡 bảng đối chiếu có "lưu ý đã biết" (js/22k); chưa có danh mục riêng anh khai được |
+| Danh mục lý do lệch | ✅ đủ — "lưu ý đã biết" trong bảng đối chiếu (js/22k); anh 04/11: không cần danh mục khai thêm |
 | Nhật ký lỗi tự động | ✅ 3.363 `js/67` (thay đề xuất "sổ lỗi" của bản rà) |
 | Sức khỏe sao lưu | ✅ 3.338 `js/59` |
 | `DANG_KY` (báo cáo bảng) | 🟡 có nền (js/62); dùng: Báo cáo của tôi, Sổ tổ viên |
-| "Việc cần xử lý" ở Hôm nay (CCCD hết hạn, chưa TK 105, tổ lệch đối chiếu, khách không còn trong số liệu, nợ cần xử lý) | ❌ Hôm nay mới có file chờ khai + ghi chú cần xử lý |
+| "Việc cần xử lý" ở Hôm nay | ⏸ anh 04/11: bỏ khỏi việc chờ, cần thì anh yêu cầu (mục 6) |
 
 ## 5. Lộ trình dọn nền xen phát triển (mỗi bản: kế hoạch → anh duyệt → "code")
 | Thứ tự | Việc nền | Đi kèm khi | Thước đo |
@@ -46,10 +46,8 @@ Bản rà kiểm thử 04/11 ghi "chưa thấy" một số việc nền — **sa
 | N1 | Chuyển dần mẫu Hồ sơ sang `hsoMauGan` (09A, 01/TĐCK, 10A–10D, 11, 01/TGTV…) — **mẫu nào đụng thì chuyển mẫu đó** | mọi bản sửa mẫu | nhánh mẫu riêng 54 → giảm |
 | N2 | `onclick` → `data-lenh` (`GD.dangKy`) ở file đang sửa | mọi bản | onclick 1.266 → giảm |
 | N3 | Bản dọn khi ⚠ ngân sách: bỏ mã chết, mẫu cũ không còn dùng (anh duyệt từng mẫu), gộp CSS trùng | khi ⚠ | JS / CSS về dưới ngân sách |
-| N4 | **"Việc cần xử lý" ở Hôm nay** (bước 8) — chờ anh chọn danh sách (mục 6) | bản riêng | — |
-| N5 | Danh mục lý do lệch anh khai được (bước 6) — chờ anh (mục 6) | sau N4 | — |
 | N6 | Báo cáo bảng còn lại qua `DANG_KY` khi sửa báo cáo đó | khi đụng | số khối DANG_KY tăng |
 
-## 6. Câu hỏi chờ anh (đụng quy tắc số liệu — chưa code)
-1. **Việc cần xử lý ở Hôm nay** — gom những loại nào, theo địa bàn đang lọc? Đề xuất: ① CCCD hết hạn / sắp hết hạn 30 ngày · ② tổ viên chưa có TK 105 · ③ tổ lệch đối chiếu (Mẫu 31 ↔ DSTO) · ④ khách "không còn trong số liệu" · ⑤ nợ cần quan tâm (QH, khoanh, 3 tháng KHĐ, lãi tồn > 3 tháng — như HSN). Mỗi loại có "đã xử lý" (tích, nhớ theo khách / tổ).
-2. **Danh mục lý do lệch**: anh muốn tự khai thêm lý do (ô chữ + loại lệch) hay chỉ dùng danh sách app có sẵn?
+## 6. Anh chốt 04/11
+- **"Việc cần xử lý" ở Hôm nay** (QUY_CHUAN mục 8 bước 8): **bỏ khỏi việc chờ** — anh: "nào cần anh sẽ yêu cầu làm". Không làm khi anh chưa yêu cầu.
+- **Danh mục lý do lệch anh khai được** (bước 6): **không cần** — giữ "lưu ý đã biết" trong bảng đối chiếu (js/22k) như hiện nay.
