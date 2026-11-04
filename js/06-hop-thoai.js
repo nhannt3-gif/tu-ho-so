@@ -1056,7 +1056,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.465', ds:[
+var CO_GI_MOI = {ban:'3.466', ds:[
+  ["Phân bổ KH: sửa QĐ linh động — ✎ Sửa nhanh ngay tại bảng, xếp theo chương trình ↔ theo xã, đổi mã / thêm / bỏ khối, ghép xã, ⧉ QĐ kế tiếp, so sánh khi đọc lại QĐ", "slDoiTab('pb')"],
   ["Phân bổ KH: 📄 Đọc QĐ (PDF) — app đọc bảng QĐ theo chương trình, lấy các xã của PGD mình; nhập tay theo chương trình; xem QĐ theo chương trình ↔ theo xã, đủ 3 cột như QĐ", "slDoiTab('pb')"],
   ["Bản dọn: bỏ mã và CSS không còn dùng, gộp phần trùng của các mẫu Hồ sơ Tổ — dùng như cũ", "slDoiTab('hst')"],
   ["Mẫu 11/TD mới + cũ: đúng mẫu gốc từng chữ, chữ điền liền như 10A; tổ trưởng theo Danh sách tổ mới nhất — in bổ sung tổ cũ thì chọn bản cũ ở cột trái", "hsoChonMau('11')"],
@@ -1070,9 +1071,9 @@ var CO_GI_MOI = {ban:'3.465', ds:[
   ["Bảng chọn món: cột ô tích gọn, thêm cột STT theo hộ", "hsoChonMau('bblv')"],
   ["Bảng chọn món (BBLV, 06A): khung cuộn cố định, mỗi món 1 dòng, có cột Lãi tồn, CT; Số KU tự ẩn khi hẹp; bấm cả dòng để tích; lọc Chỉ món có vấn đề, tìm tên / mã KH / số KU", "hsoChonMau('bblv')"],
   ["06A: chỗ ký rộng hơn, dòng hướng dẫn cuối mẫu sát đáy trang; tên chương trình theo Mẫu 31, mã món vay không bị bẻ dòng", "hsoChonMau('06a')"],
-  ["Biên bản làm việc: thêm ngày giao dịch lần cuối của món; tên hộ vay viết hoa đầu từ", "hsoChonMau('bblv')"],
-  ["BBLV / 06A: ô In 2 mặt ở cột trái — máy in 1 mặt bỏ tích để không chèn trang trắng giữa các bản", "hsoChonMau('bblv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Biên bản làm việc: thêm ngày giao dịch lần cuối của món; tên hộ vay viết hoa đầu từ", "hsoChonMau('bblv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.466 · Phân bổ KH › 📋 Quyết định › bấm đầu QĐ › ✎ Sửa nhanh / ⧉ QĐ kế tiếp",
     "3.465 · Số liệu › 🎯 Phân bổ KH › 📋 Quyết định › 📄 Đọc QĐ (PDF) — chọn file QĐ điện tử",
     "3.464 · Mở các tab, in thử 10A–10D, 07b — như 3.463",
     "3.463 · Hồ sơ Tổ › 11/TD mới, 11/TD cũ: cột trái 👑 Tổ trưởng ký hợp đồng › Lấy theo (mới nhất / bản cũ / Mẫu 31)",
@@ -1091,8 +1092,7 @@ var CO_GI_MOI = {ban:'3.465', ds:[
     "3.459 · 10A › Thư ký ⌨ gõ tên → dưới chữ ký Thư ký in tên; để chấm → trống",
     "3.458 · Hồ sơ Tổ › 10A › Về việc: Kiện toàn → phần Phê duyệt UBND \"… làm Tổ phó được kiện toàn, hoạt động theo Quy ước…\"",
     "3.458 · 10A › Chọn nhanh: dòng \"Phê duyệt UBND\" chọn Theo Về việc / Luôn \"thành lập\"",
-    "3.457 · Hồ sơ Tổ › 10B / 10C › Chọn nhanh: \"…/… tổ viên dự họp\" có − 100 % + (gõ ≤ 50% → app đặt 51%)",
-    "3.457 · 10B / 10C › Chọn nhanh: biểu quyết tỷ lệ tán thành (− / +, tối thiểu 67%)"],
+    "3.457 · Hồ sơ Tổ › 10B / 10C › Chọn nhanh: \"…/… tổ viên dự họp\" có − 100 % + (gõ ≤ 50% → app đặt 51%)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",
     "3.459 · 10A: ô \"Phê duyệt UBND: thôn · xã · tỉnh\" (1 ô) → 3 ô riêng (cách đã chọn giữ cho cả 3)",

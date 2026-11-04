@@ -4068,3 +4068,7 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 .pb-p-bang td.s,.pb-x-bang td.s{text-align:right;white-space:nowrap}
 .pb-p-bang select.pb-chua{border:1.5px solid var(--do,#b42318)}
 .pb-nhom-dau[data-lenh]{cursor:pointer}
+/* 3.466: đầu khối chương trình / xã trong bảng sửa QĐ — ô chọn gọn, nút không tràn */
+.pb-f-ct td{white-space:normal}
+.pb-f-ct select{max-width:300px;width:auto;display:inline-block;margin:1px 2px}
+.pb-f-ct select[data-lenh="pb.fThemXaCT"],.pb-f-ct select[data-lenh="pb.fThemCTXa"]{max-width:200px}
