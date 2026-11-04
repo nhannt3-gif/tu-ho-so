@@ -46,6 +46,13 @@ ok('QĐ không ghi đợt → không nhắc thiếu', dp26.ds.length===1 && !dp2
    ok('hộp ghi số QĐ điền sẵn từ QĐ đọc được (số, ngày, đợt)', PB.K0 && PB.K0.so==='70004' && PB.K0.ngay==='2026-07-01' && PB.K0.dot==='4');
    document.querySelector('[data-lenh="pb.k0Luu"]').click(); await w(400);
    ok('đã ghi QĐ 70004 (không giao)', pbDL().qdKhong.some(x=>x.so==='70004'));
+   /* xem gọn + bảng phải: dòng tổng đậm, dòng con thường */
+   D.cauHinh.pbGonQD=false; pbVeTrai(); document.querySelector('[data-lenh="pb.gon"]').click(); await w(300);
+   const dg=[...document.querySelectorAll('#pb-trai .pb-gon-dong')];
+   ok('☰ Xem gọn: mỗi QĐ 1 dòng (2 QĐ có số liệu), nhớ lựa chọn', dg.length===2 && D.cauHinh.pbGonQD===true && /QĐ 70003/.test(dg[0].textContent));
+   dg[0].click(); await w(400);
+   const tr=document.querySelector('#pb-phai .pb-x-bang tr.pb-x-ct'), con=document.querySelector('#pb-phai .pb-x-bang tbody tr:not(.pb-x-ct)');
+   ok('bấm dòng gọn → bảng bên phải; dòng tổng đậm cả 3 cột số, dòng con in thường', !!tr && tr.querySelectorAll('td.s b').length===3 && !!con && con.querySelectorAll('td.s b').length===0);
    let f=null; const g=window.giaoFile; window.giaoFile=(bl,ten)=>{ f={bl,ten}; }; pbDTGExcel(); await w(800); window.giaoFile=g;
    const sh = f ? XLSX.read(await f.bl.arrayBuffer(),{type:'array'}) : null, a = sh ? XLSX.utils.sheet_to_json(sh.Sheets.DONG_THOI_GIAN,{header:1}) : [];
    ok('Excel dòng thời gian: 4 QĐ, có cột STT / Đợt / Giao cho PGD', a.length===5 && a[0].join('|').indexOf('STT|Đợt|Số QĐ')>=0 && a.some(r=>r[7]==='không giao cho PGD'), a.length);

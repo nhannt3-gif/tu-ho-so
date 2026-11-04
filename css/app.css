@@ -4076,3 +4076,10 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 .pb-dtg-thieu td{background:var(--do-nen,#fdecea);color:var(--do,#b42318)}
 .pb-dtg tr[data-lenh]{cursor:pointer}.pb-dtg tr[data-lenh]:hover td{background:var(--xanh-nhat)}
 .pb-khong .pb-nhom-dau{background:var(--nen)}
+/* 3.467: danh sách QĐ gọn — 1 QĐ 1 dòng */
+.pb-gon{display:flex;flex-direction:column;gap:4px}
+.pb-gon-dong{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;overflow:hidden;padding:5px 8px;border:1px solid var(--vien);border-left:4px solid #d9822b;border-radius:8px;cursor:pointer;font-size:calc(13px*var(--co));background:var(--nen-o,var(--nen))}
+.pb-gon-dong.pb-gm{border-left-color:var(--luc,#2e8b57)}
+.pb-gon-dong:hover{background:var(--xanh-nhat)}
+.pb-gon-dong.bat{outline:2px solid var(--xanh);background:var(--xanh-nhat)}
+.pb-gon-dong .pb-nho{margin-left:auto;padding:1px 8px}
