@@ -200,10 +200,10 @@
           P('- Ngày vay '+sp(nt(m.nv) || '……/……/………')+' – Ngày đến hạn '+sp(nt(skHL(m)) || '……/……/………'), T+W)+
           P('- Giao dịch lần cuối: '+(m.ngdg ? sp(nt(m.ngdg))+'.' : '……/……/………'), T+W)+   /* 3.461.2 (anh 03/11 "ghi thêm giao dịch lần cuối") — Ngày GDXA gần nhất của món (Mẫu 31) */
           P('- Dư nợ đến ngày '+sp(nsC || '……/……/………')+': gốc '+sp(tdnTien(m.dn||0))+' đồng; lãi '+sp(tdnTien(laiTon(m)))+' đồng.', T+W)+
-          P('- Tình trạng: '+hop(f.qh, 'Quá hạn')+' &nbsp;'+hop(f.kn, 'Khoanh')+' &nbsp;'+hop(f.lai>3, 'Lãi tồn cao'+(f.lai>3 ? ' (≈ '+Math.floor(f.lai)+' tháng)' : ''))+' &nbsp;'+hop(f.khd, '3 tháng KHĐ'), T+W)
+          P('- Tình trạng: '+hop(f.qh, 'Nợ quá hạn')+' &nbsp;'+hop(f.kn, 'Nợ khoanh')+' &nbsp;'+hop(f.khd, '3 tháng KHĐ')+' &nbsp;'+hop(f.lai>3, 'Lãi tồn'), T+W)   /* 3.480 (anh 05/11 "bỏ số tháng nợ trên các biên bản, quá cụ thể"): nhãn như bảng nhiều món */
         : P('- Tên chương trình vay: ……………………… – Số tiền vay: ………………… đồng;', T+W)+P('- Mục đích sử dụng vốn vay: ……………………………………………………………………', T+W)+
           P('- Ngày vay ……/……/……… &nbsp;&nbsp;&nbsp;&nbsp; – Ngày đến hạn ……/……/………', T+W)+P('- Giao dịch lần cuối: ……/……/………', T+W)+P('- Dư nợ đến ngày ……/……/………: gốc ……………… đồng; lãi …………… đồng.', T+W)+
-          P('- Tình trạng: ☐ Quá hạn &nbsp;☐ Khoanh &nbsp;☐ Lãi tồn cao &nbsp;☐ 3 tháng KHĐ', T+W)); }
+          P('- Tình trạng: ☐ Nợ quá hạn &nbsp;☐ Nợ khoanh &nbsp;☐ 3 tháng KHĐ &nbsp;☐ Lãi tồn', T+W)); }
   /* chiều cao (mm) khi in — dựng đúng trang in (hsoTrang: cùng CSS, phông) trong khung ẩn rộng bằng vùng in, ghi đồng bộ (about:blank) rồi đo; không có DOM → ước 6 mm / đoạn */
   function bblvCao(h, Wm){ if(typeof document==='undefined' || !document.body) return (h.match(/<p /g) || []).length*6;
     var f = bblvCao.f; if(!f){ f = bblvCao.f = document.createElement('iframe'); f.setAttribute('aria-hidden', 'true'); f.style.cssText = 'position:absolute;left:-10000px;top:0;height:400mm;border:0;visibility:hidden'; document.body.appendChild(f); }
