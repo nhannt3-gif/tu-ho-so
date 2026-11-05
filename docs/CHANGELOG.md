@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.478 — 05/11/2026 — Phân bổ KH: báo đứt chuỗi QĐ (TK 3)
+- **Anh 05/11:** "khi nhập KH cơ bản sẽ liền mạch nhưng đôi khi có vài chương trình bị đứt quãng, không khớp — nguyên tắc luôn theo QĐ mới nhất, và báo bị đứt chênh ở QĐ nào, chương trình nào".
+- **Lõi** `pbDutChuoi(dsQD, năm, ngưỡng)` (js/47, chạy được trong node): theo (xã, chương trình, nguồn) trong năm, QĐ theo ngày rồi lúc ghi — Đã giao của QĐ sau khác Đến 31/12 của QĐ trước (QĐ trước không ghi Đến 31/12 → Đã giao + Tăng/giảm) quá ngưỡng lệch (⚙ ngưỡng đối chiếu, mặc định 1 triệu) → 1 dòng: QĐ bị đứt · QĐ trước · chương trình · xã · nguồn · Đã giao · Đến 31/12 trước · chênh. **Chỉ báo — KH vẫn theo QĐ mới nhất** (không đổi cách tính Diễn biến).
+- **Bảng ⚠ Đứt chuỗi QĐ** (js/48b `pbDutHTML`): cuối danh sách 📋 Quyết định (mọi năm) và đầu 📈 Diễn biến (theo năm + bộ chọn xã / chương trình / nguồn); bấm dòng = ✎ sửa QĐ đó. Bảng cơ bản: dòng có đứt ghi **⚠ đứt ±x** (dòng tổng cộng dồn); **Tách từng QĐ**: ô QĐ bị đứt tô màu, rê chuột thấy chênh. In có bảng; Excel thêm sheet `Dut chuoi`.
+- **Lưu QĐ:** câu hỏi "n dòng đứt chuỗi" nay liệt kê từng dòng: chương trình · xã · Đã giao khác Đến 31/12 QĐ trước bao nhiêu.
+- **Phép thử** mới `t376` (6 ý lõi + 8 ý màn); t255 thêm sheet Excel.
+
 ## 3.477 — 05/11/2026 — Tab Tổ mở nhanh hơn (TK 3, Đ5 + Đ6 kế hoạch dọn)
 - **Đ6 — đo lại** (máy ảo, bộ giả 25.000 khách `tests/taogia.py`, Mẫu 31 hai kỳ): mở tab Tổ lần đầu **470 ms**, các lần sau ~160 ms. Đo từng hàm: `toTV` (danh sách tổ viên mỗi tổ, gọi 60 lần) chiếm phần lớn lần đầu — với mỗi khách lại lọc **toàn bộ** dòng Mẫu 31 của tổ để tìm dòng của khách đó (tăng theo bình phương số khách / tổ) và tính lại danh sách KHĐ cho từng tổ.
 - **Sửa** (js/22g `toTV`): gom dòng theo khách 1 lần / tổ; danh sách KHĐ tính 1 lần / kỳ (`K._khd`). Kết quả không đổi (cùng thứ tự dòng). Sau sửa: lần đầu **~350 ms**, các lần sau **~150 ms** (dưới ngưỡng 300). Không ghi nhớ `toKhach` (nhiều tab dùng chung, ghi nhớ dễ lệch số khi dữ liệu đổi).

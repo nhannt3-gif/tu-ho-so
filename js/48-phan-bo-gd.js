@@ -90,7 +90,7 @@ function pbVeTrai(){
             '<b>'+coChuHTML(q.tenXa || q.xa)+'</b>'+(q.xa ? '' : ' <span class="vang" title="Chưa ghép được xã trong cây địa bàn">⚠ chưa ghép xã</span>')+' — '+
             (loi ? pbChip('✗ lệch số', 'lech')+' ' : '')+(q.ct || []).map(function(c){ var tg = pbSo(c.tangGiam);
               return '<span class="pb-c-ct">'+coChuHTML(pbVT(c.ma))+' '+(tg!=null && tg!==0 ? pbChipTG(tg) : pbChip(pbSoVN(pbSo(c.den3112) || 0), 'mo'))+'</span>'; }).join(' ')+'</div>'; }).join('')+'</div>'; }).join('')+'</div>'
-      )+(nh.length || pbDL().qdKhong.length ? '' : '<div class="sl-phu">Chưa có QĐ. Bấm <b>📄 Đọc QĐ (PDF)</b> (file QĐ điện tử), <b>＋ QĐ mới</b> (nhập tay theo chương trình) hoặc <b>📥 Nạp QĐ (Excel mẫu)</b> — <b>⬇ Tải mẫu Excel</b> cho Gemini chép bảng QĐ scan.</div>');
+      )+pbDutTatHTML()+(nh.length || pbDL().qdKhong.length ? '' : '<div class="sl-phu">Chưa có QĐ. Bấm <b>📄 Đọc QĐ (PDF)</b> (file QĐ điện tử), <b>＋ QĐ mới</b> (nhập tay theo chương trình) hoặc <b>📥 Nạp QĐ (Excel mẫu)</b> — <b>⬇ Tải mẫu Excel</b> cho Gemini chép bảng QĐ scan.</div>');
 }
 
 /* ---------- cột phải: phân bổ 1 xã của QĐ ---------- */
@@ -291,7 +291,8 @@ function pbFLuu(){
   F.dong.forEach(pbFTinhDong);
   var lech = F.dong.filter(function(d){ return pbFKiem(d)[0]===2; }), dut = F.dong.filter(function(d){ var k = pbFKiem(d); return k[0]===1 && /khác QĐ/.test(k[1]); });
   if((lech.length || dut.length) && !confirm((lech.length ? lech.length+' dòng SỐ LỆCH (Đã giao + Tăng/giảm ≠ Đến 31/12) — Biểu 07 của các dòng này sẽ bị chặn.\n' : '')+
-    (dut.length ? dut.length+' dòng Đã giao khác Đến 31/12 của QĐ trước (đứt chuỗi).\n' : '')+'Vẫn lưu?')) return;
+    (dut.length ? dut.length+' dòng ĐỨT CHUỖI — Đã giao khác Đến 31/12 của QĐ trước (KH vẫn theo QĐ mới nhất):\n'+dut.slice(0, 8).map(function(d){ return '  · CT '+d.ma+' · '+(F.xa[d.xa] || d.xa)+': '+pbFKiem(d)[1].replace(/^⚠ /, ''); }).join('\n')+
+      (dut.length>8 ? '\n  … và '+(dut.length-8)+' dòng nữa' : '')+'\n' : '')+'Vẫn lưu?')) return;   /* 3.478: nêu cụ thể chương trình · xã · chênh */
   var dl = pbDL(), cu = dl.qd.filter(function(q){ return F.ids.indexOf(q.id)>=0; }), xaMoi = Object.keys(F.xa).filter(function(x){ return F.dong.some(function(d){ return d.xa===x; }); });
   var bo = cu.filter(function(q){ return xaMoi.indexOf(q.xa || ('?'+q.tenXa))<0; });
   if(bo.length && !confirm('Xóa khỏi QĐ các xã đã bỏ tích: '+bo.map(function(q){ return q.tenXa; }).join(', ')+'?')) return;
@@ -810,6 +811,7 @@ GD.dangKy('pb', {
   nhapXls:function(el){ pbNhapXls(el); }, nhapPdf:function(el){ pbNhapPdf(el); },
   xuatTat:function(){ pbXuatTat(); },
   gon:function(){ D.cauHinh.pbGonQD = !D.cauHinh.pbGonQD; if(typeof luu==='function') luu(); pbVeTrai(); },
+  dutMo:function(el){ pbMoQD(el.getAttribute('data-k')); },   /* 3.478: bảng ⚠ Đứt chuỗi → ✎ sửa QĐ */
   dtg:function(){ PB.xem = '__dtg'; if(PB.che!=='qd') return pbDoiMuc('qd'); pbVeTrai(); pbVePhai(); },   /* 3.467 */
   khongMoi:function(el){ pbMoQD('', {mac:{dot:el.getAttribute('data-dot') || '', nguon:+el.getAttribute('data-nguon') || 1, loai:'Điều chỉnh'}}); },   /* 3.469: ＋ QĐ mới, không tích xã = QĐ 0 xã */
   khongSua:function(el){ pbMoQD('', {khong:el.getAttribute('data-id')}); },
