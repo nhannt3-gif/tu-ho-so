@@ -30,6 +30,12 @@ var HSN = (function(){
   X.ds = function(t){ if(!t || typeof hsoTVTo!=='function') return []; var K = X.khd();
     return hsoTVTo(t).map(function(k){ return {k:k, mon:(k.mon || []).filter(function(m){ return (m.dn||0)>0 || (m.qh||0)>0 || (m.kn||0)>0; }).map(function(m){ return {m:m, f:X.co(m, K)}; })}; })
       .filter(function(h){ return h.mon.length; }).sort(function(a, b){ return String(a.k.kh).localeCompare(String(b.k.kh), 'vi', {numeric:true}); }); };
+  /* 3.483 (anh 05/11 "liên kết 2 biên bản qua bên tab Tổ"): mở Hồ sơ vay — tổ maTo, mẫu mk, tích sẵn mọi món có cờ loai (qh · kn · khd); giữ kỳ đang xem. → số món tích */
+  X.tuTo = function(mk, maTo, loai){ var t = KHO.to(maTo), S = hsoCH(); if(!t || !loai) return 0;
+    if(S.to!==maTo){ S.xa = t.xa || ''; S.diem = t.khoaDiem || ''; S.hoi = String(t.dv||''); S.ap = ''; S.to = maTo; }   /* phạm vi chung đặt đúng tổ (như hso06aMo) */
+    var n = X.ds(t).reduce(function(a, h){ return a+h.mon.filter(function(x){ return x.f[loai]; }).length; }, 0); if(!n) return 0;
+    HSO_DEN = {ap:function(t2){ var s = {}; X.ds(t2 || t).forEach(function(h){ h.mon.forEach(function(x){ if(x.f[loai]) s[x.m.ku] = true; }); }); HSO.nchon = HSO.nchon || {}; HSO.nchon[mk] = s; X.loc().q = ''; }};   /* hsoVe đổi tổ / mẫu tạo HSO mới → tích sau đó */
+    S.hsv = mk; luu(); dhSL('hsv'); return n; };
   X.sel = function(mk){ HSO.nchon = HSO.nchon || {}; return HSO.nchon[mk] = HSO.nchon[mk] || {}; };
   X.datMot = function(mk, ku){ HSO.nchon = HSO.nchon || {}; HSO.nchon[mk] = {}; if(ku) HSO.nchon[mk][ku] = true; };
   /* các hộ có món đang chọn: [{k, mon:[{m, f}]}] — giữ thứ tự Mã KH */

@@ -25,6 +25,25 @@ const fs = require('fs'), path = require('path');
    const t = TO_K.to[C.to], tvT = toTV(t), nT = tvT.filter(k=>k.kn>0).length;
    ok('1 tổ: có 3 chip, chip Nợ khoanh = '+nT, !!chip('qh') && !!chip('khd') && so('kn')===nT && nT>0, so('kn'));
    chip('kn').click(); await w(600); ok('1 tổ: bấm Nợ khoanh → lọc đúng', TO_LOC_MO==='kn' && document.querySelectorAll('#to-the .to-bang tbody tr').length>=nT);
+   /* 3.483: liên kết BBLV / 06A — danh sách nhiều tổ → hộp chọn tổ; 1 tổ → mở thẳng; tích sẵn đúng món */
+   C.to = ''; TO_LOC_PV = 'kn'; toVeThe(); await w(1200);
+   const nB = document.querySelector('#to-the .to-bang-dau [data-lenh^="to.hsn"][data-mk="bblv"]'), n6 = document.querySelector('#to-the .to-bang-dau [data-lenh^="to.hsn"][data-mk="06a"]');
+   ok('3.483 chip Nợ khoanh (nhiều tổ): đầu danh sách có 📄 BBLV · 📄 06A', !!nB && !!n6 && nB.getAttribute('data-l')==='kn', nB && nB.outerHTML);
+   const soTo = new Set(tv.filter(k=>k.kn>0).map(k=>k.to.ma)).size; nB.click(); await w(400);
+   const nutTo = [...document.querySelectorAll('#hop-in [data-lenh="to.hsn"]')];
+   if(soTo>1) ok('nhiều tổ → hộp chọn tổ ('+soTo+' tổ, có số hộ)', nutTo.length===soTo && nutTo.every(x=>/\d+ hộ/.test(x.textContent)), nutTo.length);
+   const maTo = soTo>1 ? nutTo[0].getAttribute('data-to') : nB.getAttribute('data-to'); (soTo>1 ? nutTo[0] : nB).click && soTo>1 && nutTo[0].click(); await w(1500);
+   const tT = KHO.to(maTo), monKN = HSN.ds(tT).flatMap(h=>h.mon).filter(x=>x.m.kn>0).map(x=>x.m.ku).sort(), selB = Object.keys(HSN.sel('bblv')).filter(k=>HSN.sel('bblv')[k]).sort();
+   ok('→ Hồ sơ vay · BBLV · đúng tổ, tích sẵn đúng các món nợ khoanh ('+monKN.length+')', hsoTab()==='hsv' && hsoCH().hsv==='bblv' && hsoCH().to===maTo && monKN.length>0 && selB.join()===monKN.join(), hsoTab()+' '+hsoCH().hsv+' '+selB.join());
+   /* 1 tổ, chip 3 tháng KHĐ → 06A */
+   const kH = tv.find(k=>k.khd); slDoiTab('to'); await w(800); C.to = kH.to.ma; TO_LOC_MO = 'khd'; toVeThe(); await w(1200);
+   const n6b = document.querySelector('#to-the .to-bang-dau [data-lenh="to.hsn"][data-mk="06a"]');
+   ok('1 tổ, chip 3 tháng KHĐ: nút 📄 06A mở thẳng (không hộp)', !!n6b && n6b.getAttribute('data-to')===kH.to.ma);
+   n6b.click(); await w(1500);
+   const monH = HSN.ds(KHO.to(kH.to.ma)).flatMap(h=>h.mon).filter(x=>x.f.khd).map(x=>x.m.ku).sort(), sel6 = Object.keys(HSN.sel('06a')).filter(k=>HSN.sel('06a')[k]).sort();
+   ok('→ Hồ sơ vay · 06A · tích sẵn đúng các món 3 tháng KHĐ ('+monH.length+')', hsoTab()==='hsv' && hsoCH().hsv==='06a' && monH.length>0 && sel6.join()===monH.join(), sel6.join());
+   slDoiTab('to'); await w(800); TO_LOC_MO = 'tat'; TO_LOC_PV = 'tat'; toVeThe(); await w(800);
+   { const c = document.querySelector('#to-the [data-lenh^="to.hsn"]'); ok('chip khác (Tất cả): không hiện nút 📄 BBLV / 06A', !c, c && (c.outerHTML+' MO='+TO_LOC_MO+' PV='+TO_LOC_PV+' to='+toCH().to)); }
    return o; }, files);
  o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
  console.log(o.join('\n')); const sai = o.filter(x=>x.startsWith('✗')).length; console.log(sai ? '✗ t377 SAI '+sai : '✓ t377 đạt '+o.length); await b.close(); process.exit(sai ? 1 : 0); })();

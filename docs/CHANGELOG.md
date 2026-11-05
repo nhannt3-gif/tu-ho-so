@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.483 — 05/11/2026 — Tab Tổ → BBLV / 06A tích sẵn theo loại nợ (TK 3)
+- **Anh 05/11:** "em liên kết 2 biên bản qua bên tab Tổ luôn" (bước 2, sau 3 chip riêng 3.482).
+- **Nút 📄 BBLV · 📄 06A** ở đầu danh sách tab Tổ khi đang chọn chip Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ (cả danh sách 1 tổ lẫn phạm vi xã / Hội / toàn PGD).
+  - Danh sách 1 tổ → mở thẳng Hồ sơ vay: đúng tổ, đúng mẫu, **tích sẵn mọi món đúng loại nợ đang lọc** (cờ `f.qh` / `f.kn` / `f.khd` của bộ chọn món HSN — cùng nguồn với bảng chọn món), giữ kỳ đang xem.
+  - Danh sách nhiều tổ → hộp chọn tổ (tên tổ · số hộ); Hồ sơ vay lập theo từng tổ, in xong quay lại chọn tổ tiếp.
+- **Kỹ thuật:** `HSN.tuTo(mẫu, tổ, loại)` (js/mau/0hsn.js, dùng chung 2 mẫu); tích sau khi Hồ sơ vay đổi tổ / mẫu qua `HSO_DEN.ap` (js/25c — `hsoVe` đổi tổ tạo `HSO` mới nên tích trước bị mất). Nút + hộp ở js/22gb (`toHsnNut` / `toHsnMo` / `toHsnChon`), danh sách phạm vi js/22h (`toHsnDsTo`). Lệnh `to.hsn` · `to.hsnChon` (data-lenh).
+- Chỗ dùng `HSO_DEN` (KTGS Mẫu 06 → 06A, `hso06aMo`) giữ nguyên: vẫn đặt người vay + món như cũ (t366 đạt). Phép thử t377 thêm 6 ý.
+
 ## 3.482 — 05/11/2026 — Tab Tổ: chip lọc Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ riêng (TK 3)
 - **Anh 05/11:** "làm từng bước, trước tiên em làm chip lọc các loại Nợ quá hạn, Nợ khoanh, 3 tháng KHĐ riêng, hiện tại chung 1 chip" (bước 1 của việc lọc + in theo Xã · Hội · Tổ, rồi lập BBLV / 06A hàng loạt).
 - **Tách** chip "Có nợ cần xử lý (QH · khoanh · KHĐ)" (nhóm Cần xử lý, `TO_LOC` js/22g) thành 3 chip: **Nợ quá hạn** (dư nợ quá hạn > 0) · **Nợ khoanh** (nợ khoanh > 0) · **3 tháng KHĐ** (món không giao dịch 3 tháng — `slKHD`, như cũ). Số trên chip = số khách.

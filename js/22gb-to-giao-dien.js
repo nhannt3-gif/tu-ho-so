@@ -142,7 +142,7 @@ function toDsTVHTML(t, tv){
   TO_TV_MA = toLaTT(t) ? '' : t.ma;
   var nut = toChipKhung('', tv, TO_LOC_MO, 'TO_LOC_MO', TO_BD && TO_BD.to===t.ma ? TO_BD : null);
   setTimeout(toChipGon, 0);
-  var dauDS = function(n){ return toBangDau('<b>'+n+'</b> '+(toLaTT(t) ? 'khách' : 'tổ viên')+' · '+coChuHTML(toLocNhan(TO_LOC.find(function(l){ return l[0]===TO_LOC_MO; }) || TO_LOC[0])), toNutXuat('')+'<button class="nho" data-lenh="to.nguong" title="Ngưỡng số tổ viên">⚙ Ngưỡng</button>'); };
+  var dauDS = function(n){ return toBangDau('<b>'+n+'</b> '+(toLaTT(t) ? 'khách' : 'tổ viên')+' · '+coChuHTML(toLocNhan(TO_LOC.find(function(l){ return l[0]===TO_LOC_MO; }) || TO_LOC[0])), toNutXuat('')+'<button class="nho" data-lenh="to.nguong" title="Ngưỡng số tổ viên">⚙ Ngưỡng</button>'+toHsnNut(ds.length ? [t.ma] : [], TO_LOC_MO)); };
   if(TO_LOC_MO==='rk') return nut+dauDS(TO_BD && TO_BD.co ? TO_BD.ra.length : 0)+toRaHTML();
   if(TO_LOC_MO==='tvra') return nut+dauDS((tvRaCuaTo(t.ma)||[]).length)+tvRaHTML(t.ma);   /* 3.201 */
   return nut+dauDS(ds.length)+toDsBangHTML(ds, toCotDS(false, false, nc, TO_LOC_MO), null, 'Không có tổ viên nào trong bộ lọc này.');
@@ -244,7 +244,8 @@ function toDK(){ if(toDK.xong || typeof GD==='undefined') return; toDK.xong = 1;
     loc:function(el){ var b = el.getAttribute('data-bien'), k = el.getAttribute('data-k'); if(b==='TO_LOC_PV') TO_LOC_PV = k; else TO_LOC_MO = k; toVeThe(); },
     nguong:function(){ toDatNguong(); }, xem:function(){ toXem(); }, cot:function(el){ toCotHop(el.getAttribute('data-kho') || undefined); },
     inDS:function(el){ el.getAttribute('data-ds')==='PV' ? toInDSPV() : toInDS(); }, inDuDS:function(el){ toInDuDS(+el.getAttribute('data-ds')); },
-    excelDS:function(el){ el.getAttribute('data-ds')==='PV' ? toExcelDSPV() : toExcelDS(); }, bangXuat:function(el){ toBangXuat(el.getAttribute('data-cach')); }}); }   /* gọi lúc vẽ (js/39 GD nạp sau file này) */
+    excelDS:function(el){ el.getAttribute('data-ds')==='PV' ? toExcelDSPV() : toExcelDS(); },
+    hsn:function(el){ toHsnMo(el.getAttribute('data-mk'), el.getAttribute('data-to'), el.getAttribute('data-l')); }, hsnChon:function(el){ toHsnChon(el.getAttribute('data-mk'), el.getAttribute('data-l')); }, bangXuat:function(el){ toBangXuat(el.getAttribute('data-cach')); }}); }   /* gọi lúc vẽ (js/39 GD nạp sau file này) */
 var TO_VUA_HEN = null;
 window.addEventListener('resize', function(){ clearTimeout(TO_VUA_HEN); TO_VUA_HEN = setTimeout(toCotVua, 250); });
 function toCotDat(kho, ma, v){ var o = D.cauHinh[kho] = D.cauHinh[kho] || {}; o[ma] = v; luu(); }
@@ -269,6 +270,19 @@ function toNutBC(){
       return '<label class="to-chip'+(bat ? ' bat' : '')+'" title="'+coChuHTML(b.ten)+'"><input type="checkbox"'+(bat ? ' checked' : '')+' onchange="toCH().bc[\''+b.k+'\']=this.checked;luu();this.parentNode.classList.toggle(\'bat\',this.checked)">'+coChuHTML(TO_BC_NGAN[b.k]||b.ten)+'</label>'; }).join('')+
     '<button class="nho chinh" data-lenh="to.xem" title="Xem các báo cáo tổ đang bật">👁 Xem</button></span>'+h;
 }
+/* 3.483 (anh 05/11 "liên kết 2 biên bản qua bên tab Tổ luôn"): chip Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ → nút 📄 BBLV · 📄 06A ở đầu danh sách:
+   mở Hồ sơ vay đúng tổ, mẫu đó, tích sẵn các món đúng loại nợ đang lọc (HSN.tuTo). Hồ sơ vay lập theo 1 tổ → danh sách nhiều tổ: bấm nút → hộp chọn tổ (số hộ từng tổ). */
+var TO_HSN_LOAI = {qh:'Nợ quá hạn', kn:'Nợ khoanh', khd:'3 tháng KHĐ'};
+function toHsnNut(dsTo, l){ if(!TO_HSN_LOAI[l] || !dsTo.length || typeof HSN==='undefined' || !HSN.tuTo) return ''; var mot = dsTo.length===1;
+  return ['bblv', '06a'].map(function(mk){ return '<button class="nho" data-lenh="to.'+(mot ? 'hsn' : 'hsnChon')+'" data-mk="'+mk+'" data-l="'+l+'"'+(mot ? ' data-to="'+dsTo[0]+'"' : '')+
+    ' title="Mở Hồ sơ vay, tích sẵn các món '+TO_HSN_LOAI[l]+(mot ? '' : ' — chọn tổ ('+dsTo.length+' tổ)')+'">📄 '+(mk==='bblv' ? 'BBLV' : '06A')+'</button>'; }).join(''); }
+function toHsnMo(mk, maTo, l){ dongHop(); if(!HSN.tuTo(mk, maTo, l)) bao('Tổ này không có món '+TO_HSN_LOAI[l]+' — chọn tay trong Hồ sơ vay.', 4); }
+function toHsnChon(mk, l){ var X = TO_PVC, dem = {}; if(!X) return;
+  X.tv.filter(toLocHam(l)).forEach(function(k){ var m = k.to && k.to.ma; if(m) dem[m] = (dem[m]||0)+1; });
+  var ten = function(m){ var t = TO_K && TO_K.to[m]; return t && t.ten ? t.ten : m; }, ds = Object.keys(dem).sort(function(a, b){ return String(ten(a)).localeCompare(String(ten(b)), 'vi', {numeric:true}); });
+  moHop('<h3>📄 '+(mk==='bblv' ? 'Biên bản làm việc' : 'Mẫu 06A')+' — '+TO_HSN_LOAI[l]+'</h3><p class="sl-phu">Hồ sơ vay lập theo từng tổ: chọn tổ → mở Hồ sơ vay, tích sẵn các món '+TO_HSN_LOAI[l]+' của tổ. In xong quay lại tab Tổ chọn tổ tiếp.</p>'+
+    '<div class="to-hsn-ds">'+ds.map(function(m){ return '<button class="nho" data-lenh="to.hsn" data-mk="'+mk+'" data-l="'+l+'" data-to="'+m+'">'+coChuHTML(ten(m))+' · <b>'+dem[m]+'</b> hộ</button>'; }).join(' ')+'</div>'+
+    '<div class="hop-nut"><button data-lenh="hop.dong">Đóng</button></div>'); }
 function toNutXuat(ds){ toDK(); return (ds!==undefined ? '<button class="nho" data-lenh="to.inDS" data-ds="'+ds+'" title="A4 ngang — các cột chính">🖨 In danh sách</button><button class="nho" data-lenh="to.inDuDS" data-ds="'+(ds ? 1 : 0)+
   '" title="A4 ngang — mọi cột đang hiện, tự co chữ">🖨 In đầy đủ</button><button class="nho" data-lenh="to.excelDS" data-ds="'+ds+'">📊 Excel</button><button class="nho" data-lenh="to.cot" data-kho="toCotKH" title="Chọn cột: Tự động / Luôn hiện / Ẩn">⚙ Cột</button>'
   : '<button class="nho" data-lenh="to.bangXuat" data-cach="in" title="A4 dọc — các cột chính">🖨 In</button><button class="nho" data-lenh="to.bangXuat" data-cach="inDu" title="A4 ngang — mọi cột đang xem">🖨 In đầy đủ</button><button class="nho" data-lenh="to.bangXuat" data-cach="excel">📊 Excel</button><button class="nho" data-lenh="to.cot" title="Chọn cột: Tự động / Luôn hiện / Ẩn">⚙ Cột</button>'); }
