@@ -938,13 +938,19 @@ var SL_XA_TEN = {};   /* 3.472: mã xã → tên chuẩn, gộp từ các bộ �
 function slLaTT(s){ return /tr[ựu]c ti[ếe]p/i.test(String(s || '')); }
 function slXaTenTu(hs, dsto, phu){   /* LÕI CHUNG (3.472): mã xã → tên chuẩn — File Tổ trưởng / Thông tin tổ trưởng (TENXA, theo mã xã hoặc mã tổ) → Mẫu 31 tên sạch (đa số) → nguồn phụ (danh bạ) → danh mục ⚙ Cài đặt → "Mã xã …" */
   var toXa = {}, dem = {}, ten = {};
-  var cong = function(xa, tx, n){ xa = String(xa || ''); tx = String(tx || '').trim(); if(!xa || !tx || slLaTT(tx)) return; var d = dem[xa] = dem[xa] || {}; d[tx] = (d[tx] || 0)+n; };
+  /* 3.479 (anh 05/11 "tên xã lại viết hoa hết, phải viết hoa đầu từ như trước"): File Tổ trưởng ghi TENXA TOÀN CHỮ HOA → đếm phiếu không phân biệt hoa thường,
+     hiển thị cách viết có chữ thường (Mẫu 31 / danh bạ — viết hoa đầu từ); chỉ có bản toàn chữ hoa → tự viết hoa đầu từ */
+  var hoa = function(x){ return x===x.toLocaleUpperCase('vi') && x!==x.toLocaleLowerCase('vi'); };
+  var cong = function(xa, tx, n){ xa = String(xa || ''); tx = String(tx || '').replace(/\s+/g, ' ').trim(); if(!xa || !tx || slLaTT(tx)) return;
+    var d = dem[xa] = dem[xa] || {}, k = tx.toLocaleLowerCase('vi'), o = d[k] = d[k] || {n:0, viet:{}}; o.n += n; if(!hoa(tx)) o.viet[tx] = (o.viet[tx] || 0)+n; };
+  var hien = function(k, o){ var v = Object.keys(o.viet).sort(function(a, b){ return o.viet[b]-o.viet[a]; })[0];
+    return v || k.replace(/(^| )(\S)/g, function(m, a, b){ return a+b.toLocaleUpperCase('vi'); }); };
   (hs || []).forEach(function(o){ if(o.to && o.xa && !toXa[o.to]) toXa[o.to] = String(o.xa); dem[String(o.xa || '')] = dem[String(o.xa || '')] || {}; });
   (dsto || []).forEach(function(r){ cong(r.xa || toXa[r.to], r.tenXa, 1000); });
   (hs || []).forEach(function(o){ cong(o.xa, o.tenXa, 3); });
   (phu || []).forEach(function(o){ cong(o.xa, o.tenXa, 1); });
   var dm = {}; (((typeof D!=='undefined' && D.cauHinh) || {}).diaBan || []).forEach(function(x){ if(x.ma && x.xa) dm[String(x.ma)] = x.xa; });
-  Object.keys(dem).forEach(function(m){ if(!m) return; var d = dem[m], tot = ''; Object.keys(d).forEach(function(k){ if(!tot || d[k]>d[tot]) tot = k; }); ten[m] = tot || dm[m] || 'Mã xã '+m; });
+  Object.keys(dem).forEach(function(m){ if(!m) return; var d = dem[m], tot = ''; Object.keys(d).forEach(function(k){ if(!tot || d[k].n>d[tot].n) tot = k; }); ten[m] = tot ? hien(tot, d[tot]) : dm[m] || 'Mã xã '+m; });
   return ten;
 }
 function slXaTenChuan(B){

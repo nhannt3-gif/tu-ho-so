@@ -14,7 +14,7 @@
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.478', APP_LUC = '05/11/2026 08:44';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.479', APP_LUC = '05/11/2026 10:15';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var GD_CHO = [];   /* 3.474 (Đ4): lệnh data-lenh của file nạp TRƯỚC js/39-gd.js — gdDangKy xếp hàng, GD tự nhận khi nạp */
 function gdDangKy(khoi, ds){ if(typeof GD!=='undefined') GD.dangKy(khoi, ds); else GD_CHO.push([khoi, ds]); }
