@@ -44,7 +44,7 @@ function hsoMauGan(p, o){ var ds = HSO_MAU[p], M = ds.find(function(m){ return m
   var i = o.sau ? ds.findIndex(function(m){ return m.k===o.sau; }) : -1; ds.splice(i<0 ? ds.length : i+1, 0, o); return o; }
 /* 3.473 (Đ3): ĐẶC TÍNH MẪU thay cho so mã mẫu ở 25b / 25c — canBD: so Mẫu 31 tháng trước (ra khỏi tổ) · canTruongAp: nhắc khai trưởng ấp · omBang: 10C mới có bảng hộ vay ·
    bgCa: tích "gồm tổ viên hết số dư" · rong: Sổ hộ vay (rộng hết khung) · khongCanTo: không cần chọn tổ · logoSan: mẫu gốc có logo đặt sẵn · kbRieng: ⚙ Khai báo riêng theo hộ ·
-   gq: mẫu riêng GQVL · coKem: khối "In kèm" · moiGQ: nhắc chuyển sang mẫu GQVL · hanCuoi: ô hạn trả nợ cuối · dsVay: danh sách vay 03/TD · kem06: in kèm 06/TD ('bo' theo bộ · 'luu' theo lựa chọn) */
+   gq: mẫu riêng GQVL · coKem: khối "In kèm" · moiGQ: nhắc chuyển sang mẫu GQVL · hanCuoi: ô hạn trả nợ cuối · dsVay: danh sách vay 03/TD · kem06: in kèm 06/TD ('bo' theo bộ · 'luu' theo lựa chọn) · nhieuTo: in 1 lần nhiều tổ (HSO.nhieu — 3.484, BBLV · 06A) */
 [['hst', '10c', {canBD:1, canTruongAp:1, omBang:1}], ['hst', '10ccu', {canBD:1, canTruongAp:1}], ['hst', '10a', {canTruongAp:1}], ['hst', '10b', {canBD:1, canTruongAp:1}], ['hst', '10d', {canTruongAp:1}], ['hst', '02bg', {bgCa:1}],
  ['hsv', 'sohv', {rong:1, khongCanTo:1}], ['hsv', '01uq', {khongCanTo:1}], ['hsv', '01td', {khongCanTo:1, logoSan:1, kbRieng:1, moiGQ:1, coKem:1, hanCuoi:1, kem06:'bo'}], ['hsv', '03td', {khongCanTo:1, dsVay:1}],
  ['hsv', '01gqvl', {khongCanTo:1, kbRieng:1, gq:1, coKem:1}], ['hsv', '07b', {khongCanTo:1, kbRieng:1, gq:1}], ['hsv', 'pdnh', {gq:1}], ['hsv', '01tgtv', {khongCanTo:1, logoSan:1}], ['hsv', '09a', {kem06:'luu'}]]

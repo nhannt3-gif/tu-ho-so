@@ -266,6 +266,26 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.484)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ, chọn 1 Hội, chip Nợ khoanh → 📄 BBLV → 🖨 In 1 lần | Hồ sơ vay khung tóm tắt các tổ; bản in đủ biên bản các hộ | |
+| 2 | ↩ Về từng tổ | Về bảng chọn món 1 tổ | |
+| 3 | 06A in 1 lần cả Hội | Mỗi món 1 phiếu, đủ các tổ | |
+
+### Danh sách thử trên máy thật (3.483)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ, chọn 1 xã, chip Nợ khoanh → 📄 BBLV | Hộp chọn tổ (số hộ) → Hồ sơ vay BBLV đúng tổ, tích sẵn món nợ khoanh | |
+| 2 | Chọn 1 tổ, chip 3 tháng KHĐ → 📄 06A | Mở thẳng 06A, tích sẵn món KHĐ, mỗi món 1 phiếu | |
+| 3 | KTGS Mẫu 06 → 📄 06A | Như cũ (đúng người vay + món) | |
+
+### Danh sách thử trên máy thật (3.482)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu › Tổ, chọn 1 xã, bấm Nợ khoanh | Danh sách khách có nợ khoanh của xã; In / Excel đúng | |
+| 2 | Chọn 1 Hội / 1 tổ, bấm 3 tháng KHĐ, Nợ quá hạn | Lọc đúng, số trên chip khớp | |
+
 ### Danh sách thử trên máy thật (3.481)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

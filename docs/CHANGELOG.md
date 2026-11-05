@@ -4,6 +4,26 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.484 — 05/11/2026 — BBLV / 06A: in 1 lần theo Hội đoàn thể (nhiều tổ) (TK 3)
+- **Anh 05/11:** "anh cần in 1 theo Hội đoàn thể hoặc từng tổ".
+- **Tab Tổ:** danh sách nhiều tổ (chọn Hội / xã / toàn PGD + chip Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ) → 📄 BBLV / 📄 06A → hộp có nút **🖨 In 1 lần cả danh sách: <phạm vi> — n tổ · m hộ**; vẫn chọn được từng tổ như 3.483. Tổ xếp Xã › Hội › tên tổ.
+- **Hồ sơ vay chế độ nhiều tổ** (`HSO.nhieu`): cột trái thay bảng chọn 1 tổ bằng khung tóm tắt (từng tổ: số hộ · số món), ô In 2 mặt, nút **↩ Về từng tổ**; bản xem / In / PDF / Word gộp đủ biên bản (mỗi hộ 1 BBLV; 06A mỗi món 1 phiếu) của mọi tổ, tên file theo phạm vi. Đổi tổ ở bộ lọc → tự về chế độ 1 tổ.
+- **Kỹ thuật:** `hsoLap` (js/25b) — mẫu có đặc tính `nhieuTo` (BBLV, 06A) + `HSO.nhieu` → lập `M.lap` từng tổ rồi nối `x.ds`; `HSN.tuTo` nhận mảng tổ; `HSN.nhieuHTML` khung tóm tắt; lệnh `hsn.boNhieu`, `to.hsnCa`. Mẫu khác không đổi (không có `nhieuTo`). t377 thêm 5 ý.
+
+## 3.483 — 05/11/2026 — Tab Tổ → BBLV / 06A tích sẵn theo loại nợ (TK 3)
+- **Anh 05/11:** "em liên kết 2 biên bản qua bên tab Tổ luôn" (bước 2, sau 3 chip riêng 3.482).
+- **Nút 📄 BBLV · 📄 06A** ở đầu danh sách tab Tổ khi đang chọn chip Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ (cả danh sách 1 tổ lẫn phạm vi xã / Hội / toàn PGD).
+  - Danh sách 1 tổ → mở thẳng Hồ sơ vay: đúng tổ, đúng mẫu, **tích sẵn mọi món đúng loại nợ đang lọc** (cờ `f.qh` / `f.kn` / `f.khd` của bộ chọn món HSN — cùng nguồn với bảng chọn món), giữ kỳ đang xem.
+  - Danh sách nhiều tổ → hộp chọn tổ (tên tổ · số hộ); Hồ sơ vay lập theo từng tổ, in xong quay lại chọn tổ tiếp.
+- **Kỹ thuật:** `HSN.tuTo(mẫu, tổ, loại)` (js/mau/0hsn.js, dùng chung 2 mẫu); tích sau khi Hồ sơ vay đổi tổ / mẫu qua `HSO_DEN.ap` (js/25c — `hsoVe` đổi tổ tạo `HSO` mới nên tích trước bị mất). Nút + hộp ở js/22gb (`toHsnNut` / `toHsnMo` / `toHsnChon`), danh sách phạm vi js/22h (`toHsnDsTo`). Lệnh `to.hsn` · `to.hsnChon` (data-lenh).
+- Chỗ dùng `HSO_DEN` (KTGS Mẫu 06 → 06A, `hso06aMo`) giữ nguyên: vẫn đặt người vay + món như cũ (t366 đạt). Phép thử t377 thêm 6 ý.
+
+## 3.482 — 05/11/2026 — Tab Tổ: chip lọc Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ riêng (TK 3)
+- **Anh 05/11:** "làm từng bước, trước tiên em làm chip lọc các loại Nợ quá hạn, Nợ khoanh, 3 tháng KHĐ riêng, hiện tại chung 1 chip" (bước 1 của việc lọc + in theo Xã · Hội · Tổ, rồi lập BBLV / 06A hàng loạt).
+- **Tách** chip "Có nợ cần xử lý (QH · khoanh · KHĐ)" (nhóm Cần xử lý, `TO_LOC` js/22g) thành 3 chip: **Nợ quá hạn** (dư nợ quá hạn > 0) · **Nợ khoanh** (nợ khoanh > 0) · **3 tháng KHĐ** (món không giao dịch 3 tháng — `slKHD`, như cũ). Số trên chip = số khách.
+- Dùng ở mọi phạm vi bộ lọc (toàn PGD / xã / điểm GD · Hội / 1 tổ) — danh sách, In, Excel theo chip đang chọn như các chip khác.
+- Chỗ dùng chip cũ `xl`: chỉ danh sách `TO_LOC` + nhóm `TO_LOC_NHOM` (đã kê, không phép thử / báo cáo nào gọi theo mã). Phép thử mới t377.
+
 ## 3.481 — 05/11/2026 — Bản in: bỏ tô nền dòng tiêu đề bảng (TK 3)
 - **Anh 05/11:** "dòng tiêu đề không cần fill màu, in ra hơi rối, các mẫu khác cũng vậy nên bỏ".
 - **Bỏ nền `th`** ở mọi mẫu in có tô: BBLV bảng nhiều món (js/mau/bblv.js, nền xám 3.480), Mẫu 12 / Mẫu 04 GDX (`.m12-table th`, js/26), sao kê cấp Hội (js/22h), tóm tắt KTGS (js/71), nội dung họp giao ban (js/88, 3 bảng), thông báo kết luận (js/89, 2 bảng). Tiêu đề vẫn đậm, canh giữa.

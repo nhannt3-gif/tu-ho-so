@@ -51,7 +51,7 @@ function hsoVe(){
       var cv10 = ((hsoLuu().chuyen10c || {})[t.ma]) || {}; Object.keys(cv10).forEach(function(kh){ HSO.ra[kh] = true; HSO.kn[kh] = false; });   /* 3.453: hộ đã kết nạp sang tổ khác (cùng ấp) → 10C tổ nguồn tích sẵn Cho ra */
       if(TO_BD && TO_BD.to===t.ma && TO_BD.co) TO_BD.ra.forEach(function(r){ HSO.ra[r.kh] = true; }); }
   }
-  if(HSO_DEN){ HSO.vay.kh = HSO_DEN.kh; HSO.vay.ku = HSO_DEN.ku; HSO_DEN = null; }   /* 3.430: mở từ chỗ khác (KTGS Mẫu 06 → 06A) */
+  if(HSO_DEN){ if(HSO_DEN.kh!==undefined){ HSO.vay.kh = HSO_DEN.kh; HSO.vay.ku = HSO_DEN.ku; } if(HSO_DEN.ap) HSO_DEN.ap(t); HSO_DEN = null; }   /* 3.430: mở từ chỗ khác (KTGS Mẫu 06 → 06A) · 3.483: ap(t) = tích sẵn sau khi đổi tổ / mẫu (tab Tổ → BBLV / 06A) */
   if(t && M.canBD && !(TO_BD && TO_BD.to===t.ma && TO_BD.ky===KHO.ky().ky)){ TO_BD = null; toBDNap(t).then(function(){ HSO.khoa = ''; if(document.getElementById('hso-ds')) hsoVe(); }); }
   ds.innerHTML = hsoDsHTML();
   var tm = document.getElementById('hso-tabm'); if(tm){ tm.innerHTML = hsoTabMauHTML(); cnSoatHet(); }

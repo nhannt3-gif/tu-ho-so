@@ -219,6 +219,9 @@
 | 05/11 | TK 3 (App chính) | **3.479** | `js/22-so-lieu.js` (`slXaTenTu` không phân biệt hoa thường, hiển thị hoa đầu từ); `tests/t373.js` | hồi quy đủ |
 | 05/11 | TK 3 (App chính) | **3.480** | `js/mau/0hsn.js` (công tắc theo mẫu + vẽ lại xem trước), `js/mau/bblv.js` (haiMat), `js/25b-ho-so-vay.js` (cờ 1 / 2 mặt), `js/17b-so-cai-dat.js`; `tests/t366.js` | t366 t367 t179 t170 t163 t181 t204 |
 | **3.481** | TK 3 | Bản in bỏ tô nền tiêu đề bảng (bblv, 22h, 26, 71, 88, 89) | gộp |
+| **3.482** | TK 3 | Tab Tổ: 3 chip Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ riêng (js/22g) | gộp |
+| **3.483** | TK 3 | Tab Tổ → 📄 BBLV · 06A tích sẵn món theo loại nợ (js/22gb, 22h, 25c, mau/0hsn) | gộp |
+| **3.484** | TK 3 | BBLV / 06A in 1 lần nhiều tổ (HSO.nhieu, js/25b, 22gb, mau/0hsn, bblv, 06a) | gộp |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
