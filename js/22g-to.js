@@ -356,12 +356,14 @@ var TO_LOC = [
   ['cccd', 'CCCD hết hạn', function(k){ return k.cc.kq==='het'; }, 'do'],
   ['cccd30', 'CCCD sắp hết hạn', function(k){ return k.cc.kq==='sap'; }, 'vang'],   /* 3.161: còn dưới 30 ngày (ngày hiện tại) */
   ['sdt', 'Thiếu / sai SĐT', function(k){ return !k.sdtDat; }, 'vang'],
-  ['xl', 'Có nợ cần xử lý (QH · khoanh · KHĐ)', function(k){ return k.qh>0 || k.kn>0 || k.khd; }, 'do'],
+  ['qh', 'Nợ quá hạn', function(k){ return k.qh>0; }, 'do'],   /* 3.482 (anh 05/11 "chip lọc Nợ quá hạn, Nợ khoanh, 3 tháng KHĐ riêng, hiện chung 1 chip"): tách chip "Có nợ cần xử lý" */
+  ['kn', 'Nợ khoanh', function(k){ return k.kn>0; }, 'do'],
+  ['khd', '3 tháng KHĐ', function(k){ return !!k.khd; }, 'do'],
   ['dh', 'Đến hạn tháng sau', function(k){ return k.dhSau; }, 'vang'],
   ['rk', 'Ra khỏi tổ', function(){ return false; }, 'do'],   /* 3.128: danh sách lấy từ tháng trước (không còn trong tổ tháng này) */
   ['tvra', 'Cần cho ra khỏi tổ (TƯ)', function(){ return false; }, 'do']   /* 3.201: theo Mẫu 01/TV — TƯ còn giữ, dư nợ 0 + tiền gửi 0, không còn lãi tồn */
 ];
-var TO_LOC_NHOM = {tat:'kh', co:'kh', ko:'kh', rk:'kh', dh:'kh', tvra:'xl', ctk:'xl', cccd:'xl', cccd30:'xl', sdt:'xl', xl:'xl'};   /* 3.161 (anh chốt): chip gom nhóm Khách / Cần xử lý */
+var TO_LOC_NHOM = {tat:'kh', co:'kh', ko:'kh', rk:'kh', dh:'kh', tvra:'xl', ctk:'xl', cccd:'xl', cccd30:'xl', sdt:'xl', qh:'xl', kn:'xl', khd:'xl'};   /* 3.161 (anh chốt): chip gom nhóm Khách / Cần xử lý */
 var TO_TV_MA = '', TO_LOC_MO = 'tat', TO_MAP = {}, TO_BD = null;
 function toLocHam(ma){ var l = TO_LOC.find(function(x){ return x[0]===ma; }); return l ? l[2] : function(){ return false; }; }   /* 3.128.1: lấy chip theo mã, không theo vị trí (thêm chip không làm lệch số) */
 /* 3.128 (anh chốt): biến động tổ viên — so Mẫu 31 hai tháng liền nhau; khách → tổ của từng tháng (TO_MAP[kỳ] = {mã KH: {to, ten, dn, t105, nv}});

@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.482)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu › Tổ, chọn 1 xã, bấm Nợ khoanh | Danh sách khách có nợ khoanh của xã; In / Excel đúng | |
+| 2 | Chọn 1 Hội / 1 tổ, bấm 3 tháng KHĐ, Nợ quá hạn | Lọc đúng, số trên chip khớp | |
+
 ### Danh sách thử trên máy thật (3.481)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

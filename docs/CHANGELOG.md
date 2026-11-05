@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.482 — 05/11/2026 — Tab Tổ: chip lọc Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ riêng (TK 3)
+- **Anh 05/11:** "làm từng bước, trước tiên em làm chip lọc các loại Nợ quá hạn, Nợ khoanh, 3 tháng KHĐ riêng, hiện tại chung 1 chip" (bước 1 của việc lọc + in theo Xã · Hội · Tổ, rồi lập BBLV / 06A hàng loạt).
+- **Tách** chip "Có nợ cần xử lý (QH · khoanh · KHĐ)" (nhóm Cần xử lý, `TO_LOC` js/22g) thành 3 chip: **Nợ quá hạn** (dư nợ quá hạn > 0) · **Nợ khoanh** (nợ khoanh > 0) · **3 tháng KHĐ** (món không giao dịch 3 tháng — `slKHD`, như cũ). Số trên chip = số khách.
+- Dùng ở mọi phạm vi bộ lọc (toàn PGD / xã / điểm GD · Hội / 1 tổ) — danh sách, In, Excel theo chip đang chọn như các chip khác.
+- Chỗ dùng chip cũ `xl`: chỉ danh sách `TO_LOC` + nhóm `TO_LOC_NHOM` (đã kê, không phép thử / báo cáo nào gọi theo mã). Phép thử mới t377.
+
 ## 3.481 — 05/11/2026 — Bản in: bỏ tô nền dòng tiêu đề bảng (TK 3)
 - **Anh 05/11:** "dòng tiêu đề không cần fill màu, in ra hơi rối, các mẫu khác cũng vậy nên bỏ".
 - **Bỏ nền `th`** ở mọi mẫu in có tô: BBLV bảng nhiều món (js/mau/bblv.js, nền xám 3.480), Mẫu 12 / Mẫu 04 GDX (`.m12-table th`, js/26), sao kê cấp Hội (js/22h), tóm tắt KTGS (js/71), nội dung họp giao ban (js/88, 3 bảng), thông báo kết luận (js/89, 2 bảng). Tiêu đề vẫn đậm, canh giữa.
