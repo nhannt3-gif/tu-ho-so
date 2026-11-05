@@ -279,7 +279,7 @@ function toHsnNut(dsTo, l){ if(!TO_HSN_LOAI[l] || !dsTo.length || typeof HSN==='
 function toHsnMo(mk, maTo, l){ dongHop(); if(!HSN.tuTo(mk, maTo, l)) bao('Tổ này không có món '+TO_HSN_LOAI[l]+' — chọn tay trong Hồ sơ vay.', 4); }
 function toHsnChon(mk, l){ var X = TO_PVC, dem = {}; if(!X) return;
   X.tv.filter(toLocHam(l)).forEach(function(k){ var m = k.to && k.to.ma; if(m) dem[m] = (dem[m]||0)+1; });
-  var ten = function(m){ var t = TO_K && TO_K.to[m]; return t && t.ten ? t.ten : m; }, ds = Object.keys(dem).sort(function(a, b){ return String(ten(a)).localeCompare(String(ten(b)), 'vi', {numeric:true}); });
+  var ten = function(m){ var t = KHO.to(m); return t && t.ten ? t.ten : m; }, ds = Object.keys(dem).sort(function(a, b){ return String(ten(a)).localeCompare(String(ten(b)), 'vi', {numeric:true}); });
   moHop('<h3>📄 '+(mk==='bblv' ? 'Biên bản làm việc' : 'Mẫu 06A')+' — '+TO_HSN_LOAI[l]+'</h3><p class="sl-phu">Hồ sơ vay lập theo từng tổ: chọn tổ → mở Hồ sơ vay, tích sẵn các món '+TO_HSN_LOAI[l]+' của tổ. In xong quay lại tab Tổ chọn tổ tiếp.</p>'+
     '<div class="to-hsn-ds">'+ds.map(function(m){ return '<button class="nho" data-lenh="to.hsn" data-mk="'+mk+'" data-l="'+l+'" data-to="'+m+'">'+coChuHTML(ten(m))+' · <b>'+dem[m]+'</b> hộ</button>'; }).join(' ')+'</div>'+
     '<div class="hop-nut"><button data-lenh="hop.dong">Đóng</button></div>'); }
