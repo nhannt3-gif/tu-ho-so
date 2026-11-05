@@ -216,6 +216,7 @@
 | 05/11 | TK 3 (App chính) | **3.476** | **mới** `tools/doi_onclick.py`; 70 file `js/*` (khối `gdDangKy` cuối file), `js/02-nen.js` (gdA, gdLenh), `js/39-gd.js` (coLenh), `js/06-hop-thoai.js` (Esc), `js/31-o-mau.js` (omkb lúc nạp), `js/08-dia-ban.js`; **mới** `tests/t375.js`, các phép thử bubbles | hồi quy đủ |
 | 05/11 | TK 3 (App chính) | **3.477** | `js/22g-to.js` (`toTV` gom dòng theo khách, KHĐ 1 lần / kỳ) | tab Tổ + theo đổi |
 | 05/11 | TK 3 (App chính) | **3.478** | `js/47-phan-bo.js` (`pbDutChuoi`), `js/48b-phan-bo-db.js` (bảng đứt chuỗi, ⚠ bảng cơ bản, Excel), `js/48-phan-bo-gd.js` (tab QĐ, lệnh dutMo, câu hỏi lưu), `css/app.css`; **mới** `tests/t376.js` | t255 t256 t370–t373 t376 |
+| 05/11 | TK 3 (App chính) | **3.479** | `js/22-so-lieu.js` (`slXaTenTu` không phân biệt hoa thường, hiển thị hoa đầu từ); `tests/t373.js` | hồi quy đủ |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

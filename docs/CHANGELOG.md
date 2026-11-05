@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.479 — 05/11/2026 — Sửa: tên xã viết hoa đầu từ (TK 3)
+- **Anh 05/11:** "sao tên xã lại viết hoa hết, phải viết hoa đầu từ như trước".
+- **Nguyên nhân** (lỗi của 3.470 / 3.472): tên xã lấy ưu tiên File Tổ trưởng — cột TENXA của file này ghi **toàn chữ hoa** ("PHƯỜNG GIA LỘC") → mọi tab hiện tên xã chữ hoa.
+- **Sửa** (lõi `slXaTenTu`, js/22): đếm phiếu tên **không phân biệt hoa thường** (thứ tự ưu tiên giữ nguyên: File Tổ trưởng → Mẫu 31 → danh bạ → danh mục); hiển thị cách viết có chữ thường (Mẫu 31 — viết hoa đầu từ); chỉ có bản toàn chữ hoa → tự viết hoa đầu từ.
+- **Phép thử:** t373 thêm 2 ý (File Tổ trưởng chữ hoa → hoa đầu từ; bộ số liệu không còn tên xã toàn chữ hoa).
+
 ## 3.478 — 05/11/2026 — Phân bổ KH: báo đứt chuỗi QĐ (TK 3)
 - **Anh 05/11:** "khi nhập KH cơ bản sẽ liền mạch nhưng đôi khi có vài chương trình bị đứt quãng, không khớp — nguyên tắc luôn theo QĐ mới nhất, và báo bị đứt chênh ở QĐ nào, chương trình nào".
 - **Lõi** `pbDutChuoi(dsQD, năm, ngưỡng)` (js/47, chạy được trong node): theo (xã, chương trình, nguồn) trong năm, QĐ theo ngày rồi lúc ghi — Đã giao của QĐ sau khác Đến 31/12 của QĐ trước (QĐ trước không ghi Đến 31/12 → Đã giao + Tăng/giảm) quá ngưỡng lệch (⚙ ngưỡng đối chiếu, mặc định 1 triệu) → 1 dòng: QĐ bị đứt · QĐ trước · chương trình · xã · nguồn · Đã giao · Đến 31/12 trước · chênh. **Chỉ báo — KH vẫn theo QĐ mới nhất** (không đổi cách tính Diễn biến).

@@ -276,6 +276,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t363.js` | 3.455: Khai báo riêng dùng chung (không dồn chữ, vạch màu nguồn), trực quan liên kết 2 chiều, bấm chữ bản xem trước, nút ⚙ mọi mẫu nền ô. |
 | `node tests/t364.js` | 3.456: 10A số tham dự theo tỷ lệ (> 50%), IV tán thành (> 2/3), III gõ / chọn tên, UBND theo III, phê duyệt cả phần. |
 | `node tests/t365.js` | 3.457: 10B, 10C số tham dự / biểu quyết theo tỷ lệ (> 50%, > 2/3), nhớ riêng từng mẫu, vẫn 2 trang. |
+| (3.479) | t373 thêm tên xã hoa đầu từ khi File Tổ trưởng ghi chữ hoa. |
 | (3.478) | t376 đứt chuỗi QĐ (lõi + màn). |
 | (3.477) | không thêm phép — tab Tổ (t207, t335 …) giữ kết quả. |
 | (3.476) | t375 lưới an toàn data-lenh (16 tab); phép thử phát change / input lan lên. |

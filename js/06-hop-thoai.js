@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.478', ds:[
+var CO_GI_MOI = {ban:'3.479', ds:[
+  ["Sửa: tên xã viết hoa đầu từ như trước (không còn TOÀN CHỮ HOA)", ""],
   ["Phân bổ KH: báo ⚠ đứt chuỗi QĐ — QĐ nào, chương trình nào, xã nào, chênh bao nhiêu so với QĐ trước (KH vẫn theo QĐ mới nhất)", "slDoiTab('pb')"],
   ["Tab Tổ mở nhanh hơn (bộ 25.000 khách: lần đầu 470 → ~350 ms)", ""],
   ["Dọn: bỏ onclick viết thẳng ở hầu hết các tab (1.266 → 467) — nút bấm qua bảng lệnh chung; sửa nút ⚙ Khai báo riêng Hồ sơ Tổ có lúc bấm không ăn", ""],
@@ -1071,8 +1072,7 @@ var CO_GI_MOI = {ban:'3.478', ds:[
   ["Phân bổ KH: đối chiếu dòng PGD trên QĐ chỉ theo cột điều chỉnh đợt này (bỏ so đã giao / đến 31/12)", "slDoiTab('pb')"],
   ["Phân bổ KH: 📅 Dòng thời gian QĐ — STT theo ngày, báo đợt bị sót; ghi số QĐ tỉnh không giao cho PGD để đủ đợt", "slDoiTab('pb')"],
   ["Phân bổ KH: sửa QĐ linh động — ✎ Sửa nhanh ngay tại bảng, xếp theo chương trình ↔ theo xã, đổi mã / thêm / bỏ khối, ghép xã, ⧉ QĐ kế tiếp, so sánh khi đọc lại QĐ", "slDoiTab('pb')"],
-  ["Phân bổ KH: 📄 Đọc QĐ (PDF) — app đọc bảng QĐ theo chương trình, lấy các xã của PGD mình; nhập tay theo chương trình; xem QĐ theo chương trình ↔ theo xã, đủ 3 cột như QĐ", "slDoiTab('pb')"],
-  ["Bản dọn: bỏ mã và CSS không còn dùng, gộp phần trùng của các mẫu Hồ sơ Tổ — dùng như cũ", "slDoiTab('hst')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Phân bổ KH: 📄 Đọc QĐ (PDF) — app đọc bảng QĐ theo chương trình, lấy các xã của PGD mình; nhập tay theo chương trình; xem QĐ theo chương trình ↔ theo xã, đủ 3 cột như QĐ", "slDoiTab('pb')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
     "3.478 · Phân bổ KH › 📋 Quyết định / 📈 Diễn biến: bảng ⚠ Đứt chuỗi QĐ (bấm dòng = ✎ sửa QĐ)",
     "3.471 · Phân bổ KH › 📈 Diễn biến: bảng cơ bản + nút Xếp · Tách từng QĐ · chip Xã / Chương trình · ▸ Xem thêm",
