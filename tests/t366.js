@@ -51,7 +51,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('tại = địa chỉ khách (ấp, xã, tỉnh), ngày số liệu dd/mm/yyyy liền', /, tại <span[^>]*>[^<]+tỉnh [^<]+<\/span>\./.test(r.h));
    const h2 = ds.find(h=>h.mon.length>=2);
    if(h2){ HSN.datMot('bblv', ''); h2.mon.forEach(x=>HSN.sel('bblv')[x.m.ku] = true); HSO.vay.kh = h2.k.kh; r = hsoLapBblv(t); tg = await xem();
-     ok('nhiều món 1 hộ: bảng (CT · Số KU, Mục đích, Cộng), ngày ở tiêu đề mục 1, vẫn 1 trang', tg==='B' && /CT · Số KU/.test(r.h) && /Mục đích/.test(r.h) && />Cộng</.test(r.h) && /số liệu đến ngày <span/.test(r.h), h2.mon.length+' món · '+tg+' · L '+r.L+' lh '+r.lh); }
+     ok('nhiều món 1 hộ: bảng (CT · Số KU, Mục đích, Cộng), ngày + "đơn vị: đồng" ở tiêu đề mục 1, vẫn 1 trang', tg==='B' && /CT · Số KU/.test(r.h) && /Mục đích/.test(r.h) && />Cộng</.test(r.h) && /số liệu đến ngày <span[^>]*>[^<]+<\/span>; đơn vị: đồng\)/.test(r.h), h2.mon.length+' món · '+tg+' · L '+r.L+' lh '+r.lh); }
    HSN.datMot('bblv', ''); ds.forEach(h=>h.mon.forEach(x=>HSN.sel('bblv')[x.m.ku] = true)); r = hsoLapBblv(t); tg = await xem();
    ok('3.480 nhiều hộ: mỗi hộ 1 biên bản, MẶC ĐỊNH IN 1 MẶT — không chèn trang trắng (anh 05/11 "in 1 mặt mặc định cho an toàn")', (r.ds||[]).length===ds.length && tg===('B').repeat(ds.length) && D.cauHinh.bblvHaiMat===undefined, tg);
    const cbHai = document.querySelector('#hso-tuy input[data-lenh="hsn.hai"]'); ok('ô "In 2 mặt" của BBLV mặc định bỏ tích', !!cbHai && !cbHai.checked && cbHai.getAttribute('data-mk')==='bblv');

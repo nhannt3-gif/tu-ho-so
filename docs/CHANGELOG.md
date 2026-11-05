@@ -8,6 +8,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Anh 05/11:** "mẫu BBLV in 1 mặt mặc định cho an toàn" · "do hiện tại bị lỗi có 1 số trường hợp tắt in 2 mặt vẫn ra 2 mặt".
 - **Nguyên nhân lỗi:** bấm ô ☐ In 2 mặt (06A, BBLV — bộ chọn hộ HSN js/mau/0hsn.js) chỉ ghi lựa chọn, **không vẽ lại khung xem trước** → 🖨 In in đúng khung đang hiện (bản cũ 2 mặt, có trang trắng chèn).
 - **Sửa:** bấm ô → vẽ lại khung xem trước ngay (06A cũng hết lỗi này). **BBLV có công tắc riêng** `bblvHaiMat` — **chưa khai = 1 mặt**; bản in BBLV gắn cờ 1 / 2 mặt cho bộ in chuẩn (đặc tính mẫu `haiMat`, `hsoLap` đọc chung). 06A và KTGS vẫn dùng công tắc In 2 mặt cũ (không đổi). Sổ cài đặt: thêm khóa `bblvHaiMat`.
+- **Đơn vị tiền** (anh 05/11 "số tiền vay hiện đơn vị đồng"): BBLV dạng bảng (nhiều món) ghi "; đơn vị: đồng" ở tiêu đề mục 1 (cột Số tiền vay, Nợ gốc, Nợ lãi); dạng 1 món vẫn ghi "… đồng" sau từng số. Vẫn 1 trang.
 - **Phép thử** t366: mặc định 1 mặt (không trang trắng), ô bỏ tích sẵn; tích → chèn trang trắng, công tắc KTGS không đổi; bấm ô → khung xem trước đổi ngay.
 
 ## 3.479 — 05/11/2026 — Sửa: tên xã viết hoa đầu từ (TK 3)
