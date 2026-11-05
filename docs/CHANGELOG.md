@@ -11,6 +11,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Đơn vị tiền** (anh 05/11 "số tiền vay hiện đơn vị đồng"): BBLV dạng bảng (nhiều món) ghi "; đơn vị: đồng" ở tiêu đề mục 1 (cột Số tiền vay, Nợ gốc, Nợ lãi); dạng 1 món vẫn ghi "… đồng" sau từng số. Vẫn 1 trang.
 - **Bảng nhiều món gọn hơn** (anh 05/11 "bảng tốn nhiều dòng quá"): số KU 9pt không bẻ dòng, mục đích + 3 ngày 9pt, lề ô nhỏ, cột chia lại → mỗi món còn 3 dòng (đúng 3 ngày).
 - **Tình trạng ghi ngắn** (anh 05/11 "không cần diễn giải số tháng"): Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ · Lãi tồn — hàm riêng `bblvTT` (js/mau/bblv.js, anh "dùng hàm riêng cho các loại đặc thù"); `HSN.nhan` dùng chung (bộ chọn món 06A / BBLV) giữ nguyên.
+- **Bảng chuẩn trình bày** (anh 05/11 "tiêu đề canh giữa đều đẹp… theo quy chuẩn ngân hàng"): tiêu đề in đậm, canh giữa cả ngang lẫn dọc, nền xám nhạt; ô canh giữa theo chiều dọc; tiền canh phải, ngày canh giữa, "Cộng" canh giữa; cột chia lại (TT 7 · CT·KU 28 · Mục đích 24 · Số tiền vay 22 · Ngày 18 · Nợ gốc 22 · Nợ lãi 17 mm · Tình trạng phần còn lại) → số trăm triệu không tràn cột.
 - **Phép thử** t366: mặc định 1 mặt (không trang trắng), ô bỏ tích sẵn; tích → chèn trang trắng, công tắc KTGS không đổi; bấm ô → khung xem trước đổi ngay.
 
 ## 3.479 — 05/11/2026 — Sửa: tên xã viết hoa đầu từ (TK 3)

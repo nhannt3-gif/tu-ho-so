@@ -179,17 +179,17 @@
     var tr = omKB(MK, 'monTrang') || TRANG[0], nB = ds.length>1 ? 0 : (parseInt((/(\d) dòng/.exec(tr) || [])[1], 10) || 0);
     var nt = function(v){ return v ? ngayVNsl(v) : ''; }, md = function(m){ return typeof ktCoNganh==='function' && ktCoNganh(m) ? ktNganh(m) : ''; };
     if(ds.length>1 || nB){
-      var th = 'border:1px solid #000;padding:1pt 2.5pt;vertical-align:top;', tdS = th+'text-align:right;white-space:nowrap;', nho = 'font-size:9pt;';
+      var th = 'border:1px solid #000;padding:1pt 2.5pt;vertical-align:middle;', tdS = th+'text-align:right;white-space:nowrap;', nho = 'font-size:9pt;', thD = 'text-align:center;font-weight:bold;background:#f2f2f2;-webkit-print-color-adjust:exact;print-color-adjust:exact;';   /* 3.480 (anh 05/11 "tiêu đề canh giữa đều"): tiêu đề giữa cả 2 chiều, nền xám nhạt; ô giữa theo chiều dọc */
       var hang = ds.length>1 ? ds.map(function(x, i){ var m = x.m;
         return '<tr><td style="'+th+'text-align:center">'+(i+1)+'</td><td style="'+th+'">'+e(ctNgan(m.ct, m))+'<br><span style="'+nho+'white-space:nowrap">'+e(m.ku)+'</span></td>'+   /* 3.480: gọn — KU chữ nhỏ không bẻ dòng */
           '<td style="'+th+nho+'">'+e(md(m))+'</td><td style="'+tdS+'">'+(m.gn ? tdnTien(m.gn) : '')+'</td>'+
-          '<td style="'+th+nho+'white-space:nowrap">'+nt(m.nv)+'<br>'+nt(skHL(m))+'<br><i>'+(nt(m.ngdg) || '—')+'</i></td><td style="'+tdS+'">'+tdnTien(m.dn||0)+'</td><td style="'+tdS+'">'+tdnTien(laiTon(m))+'</td><td style="'+th+'">'+e(bblvTT(x.f))+'</td></tr>'; }).join('')
+          '<td style="'+th+nho+'white-space:nowrap;text-align:center">'+nt(m.nv)+'<br>'+nt(skHL(m))+'<br><i>'+(nt(m.ngdg) || '—')+'</i></td><td style="'+tdS+'">'+tdnTien(m.dn||0)+'</td><td style="'+tdS+'">'+tdnTien(laiTon(m))+'</td><td style="'+th+'">'+e(bblvTT(x.f))+'</td></tr>'; }).join('')
         : Array.apply(null, {length:nB}).map(function(_, i){ var r = '<td style="'+th+'text-align:center;height:9mm">'+(i+1)+'</td>'; for(var j=0;j<7;j++) r += '<td style="'+th+'"></td>'; return '<tr>'+r+'</tr>'; }).join('');
       var cg = ds.reduce(function(a, x){ return a+(x.m.dn||0); }, 0), cl = ds.reduce(function(a, x){ return a+laiTon(x.m); }, 0);
       return P('<b>1. Thông tin về món vay</b> (số liệu đến ngày '+(nsC && ds.length ? '<span class="om om-tu" data-o="ngaySL">'+nsC+'</span>' : '……/……/………')+'; đơn vị: đồng)', T)+   /* 3.480 (anh 05/11 "số tiền vay hiện đơn vị đồng") */
-        '<table data-o="mon" style="border-collapse:collapse;width:100%;table-layout:fixed;font-size:10.5pt;line-height:1.15;margin:2pt 0"><colgroup><col style="width:5mm"><col style="width:27mm"><col style="width:29mm"><col style="width:19mm"><col style="width:17mm"><col style="width:20mm"><col style="width:16mm"><col></colgroup>'+
-        '<tr>'+['TT', 'CT · Số KU', 'Mục đích', 'Số tiền vay', 'Ngày vay<br>Đến hạn<br><i>GD cuối</i>', 'Nợ gốc', 'Nợ lãi', 'Tình trạng'].map(function(x){ return '<th style="'+th+'text-align:center">'+x+'</th>'; }).join('')+'</tr>'+hang+
-        '<tr><td style="'+th+'"></td><td colspan="4" style="'+th+'font-weight:bold">Cộng</td><td style="'+tdS+'font-weight:bold">'+(ds.length ? tdnTien(cg) : '')+'</td><td style="'+tdS+'font-weight:bold">'+(ds.length ? tdnTien(cl) : '')+'</td><td style="'+th+'"></td></tr></table>';
+        '<table data-o="mon" style="border-collapse:collapse;width:100%;table-layout:fixed;font-size:10.5pt;line-height:1.15;margin:2pt 0"><colgroup><col style="width:7mm"><col style="width:28mm"><col style="width:24mm"><col style="width:22mm"><col style="width:18mm"><col style="width:22mm"><col style="width:17mm"><col></colgroup>'+
+        '<tr>'+['TT', 'CT · Số KU', 'Mục đích', 'Số tiền vay', 'Ngày vay<br>Đến hạn<br><i>GD cuối</i>', 'Nợ gốc', 'Nợ lãi', 'Tình trạng'].map(function(x){ return '<th style="'+th+thD+'">'+x+'</th>'; }).join('')+'</tr>'+hang+
+        '<tr><td style="'+th+'"></td><td colspan="4" style="'+th+'font-weight:bold;text-align:center">Cộng</td><td style="'+tdS+'font-weight:bold">'+(ds.length ? tdnTien(cg) : '')+'</td><td style="'+tdS+'font-weight:bold">'+(ds.length ? tdnTien(cl) : '')+'</td><td style="'+th+'"></td></tr></table>';
     }
     var x = ds[0], m = x ? x.m : null, sp = function(v){ return '<span class="om om-tu" data-o="mon">'+e(v)+'</span>'; }, f = x ? x.f : {};
     var hop = function(co, chu){ return (co ? '☒' : '☐')+' '+chu; };
