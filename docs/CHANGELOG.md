@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.480 — 05/11/2026 — Hồ sơ vay › BBLV: mặc định in 1 mặt; sửa tắt 2 mặt vẫn in 2 mặt (TK 3)
+- **Anh 05/11:** "mẫu BBLV in 1 mặt mặc định cho an toàn" · "do hiện tại bị lỗi có 1 số trường hợp tắt in 2 mặt vẫn ra 2 mặt".
+- **Nguyên nhân lỗi:** bấm ô ☐ In 2 mặt (06A, BBLV — bộ chọn hộ HSN js/mau/0hsn.js) chỉ ghi lựa chọn, **không vẽ lại khung xem trước** → 🖨 In in đúng khung đang hiện (bản cũ 2 mặt, có trang trắng chèn).
+- **Sửa:** bấm ô → vẽ lại khung xem trước ngay (06A cũng hết lỗi này). **BBLV có công tắc riêng** `bblvHaiMat` — **chưa khai = 1 mặt**; bản in BBLV gắn cờ 1 / 2 mặt cho bộ in chuẩn (đặc tính mẫu `haiMat`, `hsoLap` đọc chung). 06A và KTGS vẫn dùng công tắc In 2 mặt cũ (không đổi). Sổ cài đặt: thêm khóa `bblvHaiMat`.
+- **Đơn vị tiền** (anh 05/11 "số tiền vay hiện đơn vị đồng"): BBLV dạng bảng (nhiều món) ghi "; đơn vị: đồng" ở tiêu đề mục 1 (cột Số tiền vay, Nợ gốc, Nợ lãi); dạng 1 món vẫn ghi "… đồng" sau từng số. Vẫn 1 trang.
+- **Bảng nhiều món gọn hơn** (anh 05/11 "bảng tốn nhiều dòng quá"): số KU 9pt không bẻ dòng, mục đích + 3 ngày 9pt, lề ô nhỏ, cột chia lại → mỗi món còn 3 dòng (đúng 3 ngày).
+- **Tình trạng ghi ngắn** (anh 05/11 "không cần diễn giải số tháng"): Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ · Lãi tồn — hàm riêng `bblvTT` (js/mau/bblv.js, anh "dùng hàm riêng cho các loại đặc thù"); `HSN.nhan` dùng chung (bộ chọn món 06A / BBLV) giữ nguyên.
+- **Bảng chuẩn trình bày** (anh 05/11 "tiêu đề canh giữa đều đẹp… theo quy chuẩn ngân hàng"): tiêu đề in đậm, canh giữa cả ngang lẫn dọc, nền xám nhạt; ô canh giữa theo chiều dọc; tiền canh phải, ngày canh giữa, "Cộng" canh giữa; cột chia lại (TT 7 · CT·KU 28 · Mục đích 24 · Số tiền vay 22 · Ngày 18 · Nợ gốc 22 · Nợ lãi 17 mm · Tình trạng phần còn lại) → số trăm triệu không tràn cột.
+- **Bỏ số tháng nợ trên biên bản** (anh 05/11 "quá cụ thể"): dạng 1 món dòng "- Tình trạng:" bỏ "(≈ N tháng)", nhãn thống nhất với bảng: ☐ Nợ quá hạn ☐ Nợ khoanh ☐ 3 tháng KHĐ ☐ Lãi tồn (cả bản trắng). Nút lọc trên màn hình (Lãi > 3T · 6T · 12T) giữ nguyên để CB chọn món — không in ra biên bản.
+- **Phép thử** t366: mặc định 1 mặt (không trang trắng), ô bỏ tích sẵn; tích → chèn trang trắng, công tắc KTGS không đổi; bấm ô → khung xem trước đổi ngay.
+
 ## 3.479 — 05/11/2026 — Sửa: tên xã viết hoa đầu từ (TK 3)
 - **Anh 05/11:** "sao tên xã lại viết hoa hết, phải viết hoa đầu từ như trước".
 - **Nguyên nhân** (lỗi của 3.470 / 3.472): tên xã lấy ưu tiên File Tổ trưởng — cột TENXA của file này ghi **toàn chữ hoa** ("PHƯỜNG GIA LỘC") → mọi tab hiện tên xã chữ hoa.

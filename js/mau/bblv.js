@@ -173,20 +173,23 @@
       return {ma:'BBLV', h:dong(chon[0], chon[1]), L:chon[0], lh:chon[1]};
     }});
   /* mục 1 — dạng dòng (1 món / bản trắng) hoặc bảng (nhiều món / bản trắng chọn bảng) */
+  /* 3.480 (anh 05/11 "tình trạng không cần diễn giải số tháng"): nhãn ngắn RIÊNG cho bảng BBLV — HSN.nhan (dùng chung) giữ nguyên */
+  function bblvTT(f){ return [f.qh && 'Nợ quá hạn', f.kn && 'Nợ khoanh', f.khd && '3 tháng KHĐ', f.lai>3 && 'Lãi tồn'].filter(Boolean).join(' · '); }
   function bblvMon(G, V, P, T, W, lh){ var e = coChuHTML, c = omCach(MK, 'mon'), ds = c==='cham' ? [] : (V.mon || []), ns = G.gt('ngaySL'), g = hsoNg(ns), nsC = g ? g.d+'/'+g.m+'/'+g.y : '';
     var tr = omKB(MK, 'monTrang') || TRANG[0], nB = ds.length>1 ? 0 : (parseInt((/(\d) dòng/.exec(tr) || [])[1], 10) || 0);
     var nt = function(v){ return v ? ngayVNsl(v) : ''; }, md = function(m){ return typeof ktCoNganh==='function' && ktCoNganh(m) ? ktNganh(m) : ''; };
     if(ds.length>1 || nB){
-      var th = 'border:1px solid #000;padding:1.5pt 3pt;vertical-align:top;', tdS = th+'text-align:right;white-space:nowrap;';
+      var th = 'border:1px solid #000;padding:1pt 2.5pt;vertical-align:middle;', tdS = th+'text-align:right;white-space:nowrap;', nho = 'font-size:9pt;', thD = 'text-align:center;font-weight:bold;background:#f2f2f2;-webkit-print-color-adjust:exact;print-color-adjust:exact;';   /* 3.480 (anh 05/11 "tiêu đề canh giữa đều"): tiêu đề giữa cả 2 chiều, nền xám nhạt; ô giữa theo chiều dọc */
       var hang = ds.length>1 ? ds.map(function(x, i){ var m = x.m;
-        return '<tr><td style="'+th+'text-align:center">'+(i+1)+'</td><td style="'+th+'">'+e(ctNgan(m.ct, m))+' · '+e(m.ku)+'</td><td style="'+th+'">'+e(md(m))+'</td><td style="'+tdS+'">'+(m.gn ? tdnTien(m.gn) : '')+'</td>'+
-          '<td style="'+th+'">'+nt(m.nv)+'<br>'+nt(skHL(m))+'<br><i>'+(nt(m.ngdg) || '—')+'</i></td><td style="'+tdS+'">'+tdnTien(m.dn||0)+'</td><td style="'+tdS+'">'+tdnTien(laiTon(m))+'</td><td style="'+th+'">'+e(HSN.nhan(m, x.f))+'</td></tr>'; }).join('')
+        return '<tr><td style="'+th+'text-align:center">'+(i+1)+'</td><td style="'+th+'">'+e(ctNgan(m.ct, m))+'<br><span style="'+nho+'white-space:nowrap">'+e(m.ku)+'</span></td>'+   /* 3.480: gọn — KU chữ nhỏ không bẻ dòng */
+          '<td style="'+th+nho+'">'+e(md(m))+'</td><td style="'+tdS+'">'+(m.gn ? tdnTien(m.gn) : '')+'</td>'+
+          '<td style="'+th+nho+'white-space:nowrap;text-align:center">'+nt(m.nv)+'<br>'+nt(skHL(m))+'<br><i>'+(nt(m.ngdg) || '—')+'</i></td><td style="'+tdS+'">'+tdnTien(m.dn||0)+'</td><td style="'+tdS+'">'+tdnTien(laiTon(m))+'</td><td style="'+th+'">'+e(bblvTT(x.f))+'</td></tr>'; }).join('')
         : Array.apply(null, {length:nB}).map(function(_, i){ var r = '<td style="'+th+'text-align:center;height:9mm">'+(i+1)+'</td>'; for(var j=0;j<7;j++) r += '<td style="'+th+'"></td>'; return '<tr>'+r+'</tr>'; }).join('');
       var cg = ds.reduce(function(a, x){ return a+(x.m.dn||0); }, 0), cl = ds.reduce(function(a, x){ return a+laiTon(x.m); }, 0);
-      return P('<b>1. Thông tin về món vay</b> (số liệu đến ngày '+(nsC && ds.length ? '<span class="om om-tu" data-o="ngaySL">'+nsC+'</span>' : '……/……/………')+')', T)+
-        '<table data-o="mon" style="border-collapse:collapse;width:100%;table-layout:fixed;font-size:10.5pt;line-height:1.15;margin:2pt 0"><colgroup><col style="width:6mm"><col style="width:31mm"><col style="width:21mm"><col style="width:21mm"><col style="width:19mm"><col style="width:21mm"><col style="width:17mm"><col></colgroup>'+
-        '<tr>'+['TT', 'CT · Số KU', 'Mục đích', 'Số tiền vay', 'Ngày vay<br>Đến hạn<br><i>GD cuối</i>', 'Nợ gốc', 'Nợ lãi', 'Tình trạng'].map(function(x){ return '<th style="'+th+'text-align:center">'+x+'</th>'; }).join('')+'</tr>'+hang+
-        '<tr><td style="'+th+'"></td><td colspan="4" style="'+th+'font-weight:bold">Cộng</td><td style="'+tdS+'font-weight:bold">'+(ds.length ? tdnTien(cg) : '')+'</td><td style="'+tdS+'font-weight:bold">'+(ds.length ? tdnTien(cl) : '')+'</td><td style="'+th+'"></td></tr></table>';
+      return P('<b>1. Thông tin về món vay</b> (số liệu đến ngày '+(nsC && ds.length ? '<span class="om om-tu" data-o="ngaySL">'+nsC+'</span>' : '……/……/………')+'; đơn vị: đồng)', T)+   /* 3.480 (anh 05/11 "số tiền vay hiện đơn vị đồng") */
+        '<table data-o="mon" style="border-collapse:collapse;width:100%;table-layout:fixed;font-size:10.5pt;line-height:1.15;margin:2pt 0"><colgroup><col style="width:7mm"><col style="width:28mm"><col style="width:24mm"><col style="width:22mm"><col style="width:18mm"><col style="width:22mm"><col style="width:17mm"><col></colgroup>'+
+        '<tr>'+['TT', 'CT · Số KU', 'Mục đích', 'Số tiền vay', 'Ngày vay<br>Đến hạn<br><i>GD cuối</i>', 'Nợ gốc', 'Nợ lãi', 'Tình trạng'].map(function(x){ return '<th style="'+th+thD+'">'+x+'</th>'; }).join('')+'</tr>'+hang+
+        '<tr><td style="'+th+'"></td><td colspan="4" style="'+th+'font-weight:bold;text-align:center">Cộng</td><td style="'+tdS+'font-weight:bold">'+(ds.length ? tdnTien(cg) : '')+'</td><td style="'+tdS+'font-weight:bold">'+(ds.length ? tdnTien(cl) : '')+'</td><td style="'+th+'"></td></tr></table>';
     }
     var x = ds[0], m = x ? x.m : null, sp = function(v){ return '<span class="om om-tu" data-o="mon">'+e(v)+'</span>'; }, f = x ? x.f : {};
     var hop = function(co, chu){ return (co ? '☒' : '☐')+' '+chu; };
@@ -197,10 +200,10 @@
           P('- Ngày vay '+sp(nt(m.nv) || '……/……/………')+' – Ngày đến hạn '+sp(nt(skHL(m)) || '……/……/………'), T+W)+
           P('- Giao dịch lần cuối: '+(m.ngdg ? sp(nt(m.ngdg))+'.' : '……/……/………'), T+W)+   /* 3.461.2 (anh 03/11 "ghi thêm giao dịch lần cuối") — Ngày GDXA gần nhất của món (Mẫu 31) */
           P('- Dư nợ đến ngày '+sp(nsC || '……/……/………')+': gốc '+sp(tdnTien(m.dn||0))+' đồng; lãi '+sp(tdnTien(laiTon(m)))+' đồng.', T+W)+
-          P('- Tình trạng: '+hop(f.qh, 'Quá hạn')+' &nbsp;'+hop(f.kn, 'Khoanh')+' &nbsp;'+hop(f.lai>3, 'Lãi tồn cao'+(f.lai>3 ? ' (≈ '+Math.floor(f.lai)+' tháng)' : ''))+' &nbsp;'+hop(f.khd, '3 tháng KHĐ'), T+W)
+          P('- Tình trạng: '+hop(f.qh, 'Nợ quá hạn')+' &nbsp;'+hop(f.kn, 'Nợ khoanh')+' &nbsp;'+hop(f.khd, '3 tháng KHĐ')+' &nbsp;'+hop(f.lai>3, 'Lãi tồn'), T+W)   /* 3.480 (anh 05/11 "bỏ số tháng nợ trên các biên bản, quá cụ thể"): nhãn như bảng nhiều món */
         : P('- Tên chương trình vay: ……………………… – Số tiền vay: ………………… đồng;', T+W)+P('- Mục đích sử dụng vốn vay: ……………………………………………………………………', T+W)+
           P('- Ngày vay ……/……/……… &nbsp;&nbsp;&nbsp;&nbsp; – Ngày đến hạn ……/……/………', T+W)+P('- Giao dịch lần cuối: ……/……/………', T+W)+P('- Dư nợ đến ngày ……/……/………: gốc ……………… đồng; lãi …………… đồng.', T+W)+
-          P('- Tình trạng: ☐ Quá hạn &nbsp;☐ Khoanh &nbsp;☐ Lãi tồn cao &nbsp;☐ 3 tháng KHĐ', T+W)); }
+          P('- Tình trạng: ☐ Nợ quá hạn &nbsp;☐ Nợ khoanh &nbsp;☐ 3 tháng KHĐ &nbsp;☐ Lãi tồn', T+W)); }
   /* chiều cao (mm) khi in — dựng đúng trang in (hsoTrang: cùng CSS, phông) trong khung ẩn rộng bằng vùng in, ghi đồng bộ (about:blank) rồi đo; không có DOM → ước 6 mm / đoạn */
   function bblvCao(h, Wm){ if(typeof document==='undefined' || !document.body) return (h.match(/<p /g) || []).length*6;
     var f = bblvCao.f; if(!f){ f = bblvCao.f = document.createElement('iframe'); f.setAttribute('aria-hidden', 'true'); f.style.cssText = 'position:absolute;left:-10000px;top:0;height:400mm;border:0;visibility:hidden'; document.body.appendChild(f); }
@@ -223,7 +226,7 @@
     if(d.length<2){ var r = omLap(MK, t); return r; }
     var ds = d.map(function(ho){ BBLV_HO = ho; try { return {M:hsoMauK(MK), h:omLap(MK, t).h, ten:ho.k.ten}; } finally { BBLV_HO = null; } });
     return {ma:'BBLV', h:ds[0].h, ds:ds}; };
-  hsoMauGan('hsv', {k:MK, mg:omMg(MG), lap:function(t){ return hsoLapBblv(t); },
+  hsoMauGan('hsv', {k:MK, mg:omMg(MG), lap:function(t){ return hsoLapBblv(t); }, haiMat:function(){ return HSN.haiMat(MK); },   /* 3.480: mặc định in 1 mặt */
     ai:function(x, t){ return x.ds && x.ds.length>1 ? '' : ((x.ds && x.ds[0] && x.ds[0].ten) || (hsoKhachChon(t)||{}).ten || ''); },   /* nhiều hộ → tên file theo tổ */
     trai:function(t){ return typeof HSN==='undefined' ? '' : HSN.trai(t, MK, {tieu:'Hộ cần làm việc', ghi:'mỗi hộ 1 biên bản (1 trang); 1 món → dạng dòng, nhiều món → bảng'},
       'Lãi tồn cao = lãi tồn > 3 / 6 / 12 tháng lãi (dư nợ × lãi suất năm ÷ 12). Thành phần, chỗ ký, mục 2–5 mặc định để chấm ghi tay. Chưa tích món nào → in theo hộ đang xem (bấm tên hộ), hoặc bản trắng.'); }});

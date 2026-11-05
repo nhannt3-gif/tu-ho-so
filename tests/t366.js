@@ -45,17 +45,22 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    OM_KIEU = 'trang'; let r = hsoLapBblv(t), tg = await xem(); OM_KIEU = 'that';
    ok('bản trắng: 1 trang, mục 1 dạng dòng chấm, 4 dòng thành phần + câu thành viên Tổ để chấm, tỉnh in sẵn', tg==='B' && /Tên chương trình vay: …/.test(r.h) && (r.h.match(/Ông \(bà\) <span class="om om-cham"/g)||[]).length===5 && /tỉnh /.test(r.h), tg);
    HSN.datMot('bblv', ds[0].mon[0].m.ku); HSO.vay.kh = ds[0].k.kh; r = hsoLapBblv(t); tg = await xem();
-   ok('1 món: dạng dòng có số liệu, "Dư nợ đến ngày …: gốc … đồng; lãi … đồng.", 1 trang', tg==='B' && /Dư nợ đến ngày <span[^>]*>\d\d\/\d\d\/\d{4}<\/span>: gốc <span[^>]*>[\d.]+<\/span> đồng; lãi/.test(r.h) && !/CT · Số KU/.test(r.h), tg);
+   ok('1 món: dạng dòng có số liệu, tình trạng không ghi số tháng (3.480), "Dư nợ đến ngày …: gốc … đồng; lãi … đồng.", 1 trang', tg==='B' && /Dư nợ đến ngày <span[^>]*>\d\d\/\d\d\/\d{4}<\/span>: gốc <span[^>]*>[\d.]+<\/span> đồng; lãi/.test(r.h) && !/CT · Số KU/.test(r.h) && /- Tình trạng: .*Nợ quá hạn.*Lãi tồn/.test(r.h) && !/≈ \d+ tháng|Lãi tồn cao/.test(r.h), tg);   /* 3.480: không ghi số tháng nợ */
    ok('thành phần + chỗ ký mặc định để trống (không tự điền tổ trưởng / khách)', !new RegExp('Ông \\(bà\\): '+tenHoaDau(ds[0].k.ten)).test(r.h) && (r.h.split('Đã tiến hành')[0].match(/Ông \(bà\) <span class="om om-cham"/g)||[]).length===4);
    ok('3.461.4: câu "Là thành viên Tổ … quản lý" như 06A; số thứ tự thành phần in thường; dòng "tại" có địa chỉ không khóa 1 dòng (không cắt chữ tỉnh)', /Là thành viên Tổ TK&amp;VV do Ông \(bà\)/.test(r.h) && /làm Tổ trưởng, thuộc tổ chức/.test(r.h) && !/<b>1\.<\/b>/.test(r.h) && !/white-space:nowrap[^>]*>Hôm nay/.test(r.h));
    ok('tại = địa chỉ khách (ấp, xã, tỉnh), ngày số liệu dd/mm/yyyy liền', /, tại <span[^>]*>[^<]+tỉnh [^<]+<\/span>\./.test(r.h));
    const h2 = ds.find(h=>h.mon.length>=2);
    if(h2){ HSN.datMot('bblv', ''); h2.mon.forEach(x=>HSN.sel('bblv')[x.m.ku] = true); HSO.vay.kh = h2.k.kh; r = hsoLapBblv(t); tg = await xem();
-     ok('nhiều món 1 hộ: bảng (CT · Số KU, Mục đích, Cộng), ngày ở tiêu đề mục 1, vẫn 1 trang', tg==='B' && /CT · Số KU/.test(r.h) && /Mục đích/.test(r.h) && />Cộng</.test(r.h) && /số liệu đến ngày <span/.test(r.h), h2.mon.length+' món · '+tg+' · L '+r.L+' lh '+r.lh); }
+     ok('nhiều món 1 hộ: bảng (CT · Số KU, Mục đích, Cộng), ngày + "đơn vị: đồng" ở tiêu đề mục 1, vẫn 1 trang', tg==='B' && /CT · Số KU/.test(r.h) && /Mục đích/.test(r.h) && />Cộng</.test(r.h) && /số liệu đến ngày <span[^>]*>[^<]+<\/span>; đơn vị: đồng\)/.test(r.h), h2.mon.length+' món · '+tg+' · L '+r.L+' lh '+r.lh); }
    HSN.datMot('bblv', ''); ds.forEach(h=>h.mon.forEach(x=>HSN.sel('bblv')[x.m.ku] = true)); r = hsoLapBblv(t); tg = await xem();
-   ok('nhiều hộ: mỗi hộ 1 biên bản (1 trang, trang trắng chèn để in 2 mặt)', (r.ds||[]).length===ds.length && tg.replace(/_/g, '')===('B').repeat(ds.length), tg);
-   const cbHai = document.querySelector('#hso-tuy input[data-lenh="hsn.hai"]'); cbHai.checked = false; cbHai.dispatchEvent(new Event('change', {bubbles:true})); await w(200); tg = await xem();
-   ok('bỏ tích "In 2 mặt" (máy in 1 mặt) → không chèn trang trắng giữa các biên bản', D.cauHinh.ktHaiMat===0 && tg===('B').repeat(ds.length), tg);
+   ok('3.480 nhiều hộ: mỗi hộ 1 biên bản, MẶC ĐỊNH IN 1 MẶT — không chèn trang trắng (anh 05/11 "in 1 mặt mặc định cho an toàn")', (r.ds||[]).length===ds.length && tg===('B').repeat(ds.length) && D.cauHinh.bblvHaiMat===undefined, tg);
+   const cbHai = document.querySelector('#hso-tuy input[data-lenh="hsn.hai"]'); ok('ô "In 2 mặt" của BBLV mặc định bỏ tích', !!cbHai && !cbHai.checked && cbHai.getAttribute('data-mk')==='bblv');
+   cbHai.checked = true; cbHai.dispatchEvent(new Event('change', {bubbles:true})); await w(200); tg = await xem();
+   ok('tích "In 2 mặt" → BBLV chèn trang trắng giữa các biên bản; công tắc KTGS / 06A không đổi', D.cauHinh.bblvHaiMat===1 && tg.replace(/_/g, '')===('B').repeat(ds.length) && /_/.test(tg) && D.cauHinh.ktHaiMat===undefined && ktHaiMat()===true, tg);
+   const kh = () => { const f = document.getElementById('hso-xem-khung'); return f ? (f.srcdoc.match(/name="kt-hai-mat" content="(\d)"/) || [])[1] : null; };
+   await w(400); const c1 = kh(); cbHai.checked = false; cbHai.dispatchEvent(new Event('change', {bubbles:true})); await w(600); const c0 = kh();
+   ok('bấm ô "In 2 mặt" → khung xem trước (bản sẽ in) đổi NGAY theo: tích = 2 mặt, bỏ tích = 1 mặt (trước đây khung không vẽ lại → tắt vẫn in 2 mặt)', c1==='1' && c0==='0' && D.cauHinh.bblvHaiMat===0, c1+' → '+c0);
+   delete D.cauHinh.bblvHaiMat; hsoVe(); await w(300);
    delete D.cauHinh.ktHaiMat; hsoVe(); await w(300);
    omDatCach('bblv', 'kienNghi', 'kb'); omChonDat('bblv', 'kienNghi', 'Đôn đốc khách hàng trả lãi hằng tháng qua Tổ TK&VV'); HSN.datMot('bblv', ds[0].mon[0].m.ku); r = hsoLapBblv(t);
    ok('mục 5 chọn câu gợi ý → in câu + vẫn còn dòng chấm ghi thêm; mặc định mục 2–4 chấm', /5\. Kiến nghị biện pháp xử lý nợ:<\/b> <span class="om om-kb" data-o="kienNghi">Đôn đốc khách hàng trả lãi hằng tháng qua Tổ TK&amp;VV\.<\/span>/.test(r.h) && /2\. Nguyên nhân không trả được nợ:<\/b> <span class="om om-cham"/.test(r.h));
