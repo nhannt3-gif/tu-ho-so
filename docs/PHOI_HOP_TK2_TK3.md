@@ -218,6 +218,7 @@
 | 05/11 | TK 3 (App chính) | **3.478** | `js/47-phan-bo.js` (`pbDutChuoi`), `js/48b-phan-bo-db.js` (bảng đứt chuỗi, ⚠ bảng cơ bản, Excel), `js/48-phan-bo-gd.js` (tab QĐ, lệnh dutMo, câu hỏi lưu), `css/app.css`; **mới** `tests/t376.js` | t255 t256 t370–t373 t376 |
 | 05/11 | TK 3 (App chính) | **3.479** | `js/22-so-lieu.js` (`slXaTenTu` không phân biệt hoa thường, hiển thị hoa đầu từ); `tests/t373.js` | hồi quy đủ |
 | 05/11 | TK 3 (App chính) | **3.480** | `js/mau/0hsn.js` (công tắc theo mẫu + vẽ lại xem trước), `js/mau/bblv.js` (haiMat), `js/25b-ho-so-vay.js` (cờ 1 / 2 mặt), `js/17b-so-cai-dat.js`; `tests/t366.js` | t366 t367 t179 t170 t163 t181 t204 |
+| **3.481** | TK 3 | Bản in bỏ tô nền tiêu đề bảng (bblv, 22h, 26, 71, 88, 89) | gộp |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
