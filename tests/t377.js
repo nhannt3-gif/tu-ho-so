@@ -48,6 +48,15 @@ const fs = require('fs'), path = require('path');
    ok('tên file theo phạm vi (không theo 1 hộ)', /Toan PGD|PGD|to/i.test(xN.ten), xN.ten);
    document.querySelector('[data-lenh="hsn.boNhieu"]').click(); await w(800);
    ok('↩ Về từng tổ → bảng chọn món 1 tổ như cũ', !HSO.nhieu && !!document.querySelector('#hso-tuy .hsn-bang thead') && !document.querySelector('#hso-tuy .hsn-nhieu'));
+   /* 3.486: Hồ sơ vay › BBLV lọc tới Hội (chưa chọn tổ) → bảng chọn món cả Hội (dòng nhóm tổ), Tích hết → in 1 lần đủ hộ các tổ */
+   { const S = hsoCH(), t0 = KHO.dsTo().find(t=>t.dv && HSN.ds(t).length); S.xa = t0.xa || ''; S.diem = t0.khoaDiem || ''; S.hoi = String(t0.dv); S.ap = ''; S.to = ''; S.hsv = 'bblv'; HSO.nhieu = null; luu(); dhSL('hsv'); await w(1500);
+     const pv = HSN.pvTo(), soTo = pv.filter(t=>HSN.ds(t).length).length, nhomTo = document.querySelectorAll('#hso-tuy .hsn-bang tr.hsn-nhom-to').length;
+     ok('3.486 lọc tới Hội, chưa chọn tổ: bảng chọn món hiện hộ cả Hội, dòng nhóm theo tổ ('+soTo+' tổ có hộ còn nợ), không nhắc "Chọn 1 tổ"', pv.length>1 && pv.every(t=>String(t.dv)===S.hoi) && nhomTo>=1 && !/Chọn <b>1 tổ<\/b>/.test(document.getElementById('hso-tuy').innerHTML), pv.length+' tổ · '+nhomTo+' nhóm');
+     document.querySelector('#hso-tuy [data-lenh="hsn.vd"]').classList.contains('bat') && document.querySelector('#hso-tuy [data-lenh="hsn.vd"]').click(); await w(400);
+     document.querySelector('#hso-tuy [data-lenh="hsn.het"][data-v="1"]').click(); await w(600);
+     const hoCa = pv.reduce((a, t)=>a+HSN.ds(t).length, 0), xP = hsoLap();
+     ok('Tích hết (cả Hội) → bản in gộp '+hoCa+' biên bản (mỗi hộ 1 tờ, đủ các tổ)', (xP.ds||[]).length===hoCa && xP.ds.every(u=>/BIÊN BẢN LÀM VIỆC/.test(u.h)), (xP.ds||[]).length+' / '+hoCa);
+     HSN.sel('bblv'); HSO.nchon.bblv = {}; }
    /* 1 tổ, chip 3 tháng KHĐ → 06A */
    const kH = tv.find(k=>k.khd); slDoiTab('to'); await w(800); C.to = kH.to.ma; TO_LOC_MO = 'khd'; toVeThe(); await w(1200);
    const n6b = document.querySelector('#to-the .to-bang-dau [data-lenh="to.hsn"][data-mk="06a"]');

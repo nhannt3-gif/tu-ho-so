@@ -783,7 +783,7 @@ function hsoNgayTuy(nhan, ghi){ return hsoTuyO(nhan || 'Ngày họp', hsoIn('HSO
 function hsoHoiTuy(t){ var vt = hsoLuu().hoiVT; if(vt===undefined) vt = 'pct';
   return hsoTuyO('Đại diện Hội', hsoChon('hsoDatLuu(\'hoiVT\',this.value)', vt, ktInVTTen(KT_IN_VT, t ? [{t:t}] : [], vt))); }
 function hsoTuyHTML(M, t){
-  var S = hsoCH(), T = hsoTo(t), L = hsoLuu(), h = '<div class="nhan-nhom hso-kbr">✎ Nhập liệu — '+(M.rong ? '' : 'Mẫu ')+coChuHTML(M.ma)+'</div>'+(typeof omCo==='function' && omCo(M.k) ? omKieuHTML(M.k) : '')+hsoThieuHTML(M, t), can = !t && !M.khongCanTo;
+  var S = hsoCH(), T = hsoTo(t), L = hsoLuu(), h = '<div class="nhan-nhom hso-kbr">✎ Nhập liệu — '+(M.rong ? '' : 'Mẫu ')+coChuHTML(M.ma)+'</div>'+(typeof omCo==='function' && omCo(M.k) ? omKieuHTML(M.k) : '')+hsoThieuHTML(M, t), can = !t && !M.khongCanTo && !(M.nhieuTo && typeof HSN!=='undefined' && (HSN.pvTo() || []).length);   /* 3.486: BBLV / 06A lập theo cả Hội khi chưa chọn tổ */
   if(can) h += '<div class="sl-bao vang hso-nhac">Chọn <b>1 tổ</b> ở khối LỌC ĐỊA BÀN để app điền sẵn — chưa chọn thì khung phải là mẫu trắng (in được ngay).</div>';
   if(t && T.phoKB && T.phoMay && slChuan(T.phoMay)!==slChuan(T.pho)) h += '<div class="sl-phu hso-canh">⚠ Tổ phó theo khai báo: <b>'+coChuHTML(T.pho)+'</b> (trên máy: '+coChuHTML(T.phoMay)+')</div>';
   else if(t && !T.pho) h += '<div class="sl-phu hso-canh">Tổ chưa có tổ phó trên máy — <a href="#" onclick="event.preventDefault();hsoKBHop(\'pho\')">⚙ khai tổ phó thực tế</a>.</div>';

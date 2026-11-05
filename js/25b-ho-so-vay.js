@@ -482,7 +482,7 @@ function hsoLap(){
   var p = hsoTab(), M = hsoMau(p), S = hsoCH(), t = KHO.to(S.to); if(t && toLaTT(t)) t = null;
   var B = p==='hsv' ? hsoBo() : null;
   if(M.lapRieng) return M.lapRieng(t, M);   /* 06/TD: trang in riêng (khổ ngang, CSS KTGS) */
-  var N = M.nhieuTo && HSO.nhieu && HSO.nhieu.ds.length>1 ? HSO.nhieu : null, x, ai;   /* 3.484: in 1 lần nhiều tổ (BBLV, 06A) — lập từng tổ, gộp trang */
+  var N = !M.nhieuTo ? null : HSO.nhieu && HSO.nhieu.ds.length>1 ? HSO.nhieu : !t && typeof HSN!=='undefined' ? HSN.pvNhieu(M.k) : null, x, ai;   /* 3.484: in 1 lần nhiều tổ (BBLV, 06A) — lập từng tổ, gộp trang · 3.486: chưa chọn tổ → tổ trong phạm vi có món đã tích */
   if(N){ x = {ds:[]}; N.ds.forEach(function(m){ var tt = KHO.to(m); if(!tt) return; var y = M.lap(tt, B); (y.ds || [{M:M, h:y.h}]).forEach(function(u){ if(!u.M) u.M = M; x.ds.push(u); }); }); ai = N.ten; }
   else { x = M.lap(t, B); ai = M.ai ? M.ai(x, t, B) || '' : ''; }   /* 3.462 · 3.473 (Đ3): mọi mẫu gắn cách lập qua cổng hsoMauGan (mục cuối file + js/mau/*.js) */
   if(!x.ds) x.ds = [{M:M, h:x.h}];

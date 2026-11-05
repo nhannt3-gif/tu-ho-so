@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.486 — 05/11/2026 — Hồ sơ vay › BBLV / 06A: chọn món theo cả Hội; bảng chọn món hiện đủ cột (TK 3)
+- **Anh 05/11** (ảnh Hồ sơ vay › BBLV): "chỗ này khi lọc Hội nên cho hiện cả Hội ra luôn" · "có chỗ chọn" · "cột STT nhỏ lại, cho hiện đủ cột".
+- **Lọc tới Hội / điểm GD / xã, ô tổ để "— Tất cả tổ —"** → bảng chọn món hiện hộ còn nợ của **mọi tổ trong phạm vi** (dòng nhóm "Tổ · ấp — n hộ", xếp xã › Hội › tổ); nút nhóm (Nợ quá hạn, Khoanh, 3T KHĐ…), Tích hết, tìm, đếm chạy trên cả Hội; bản xem / In / PDF / Word gộp biên bản các tổ có món đã tích (mỗi hộ 1 BBLV; 06A mỗi món 1 phiếu), tên file theo phạm vi. Chọn 1 tổ ở ô tổ → như cũ (chỗ chọn: ô tổ của bộ lọc). Không còn nhắc "Chọn 1 tổ" cho 2 mẫu này khi đã chọn tới Hội.
+- **Bảng chọn món đủ cột:** luật CSS chung "cột đầu bảng dính, rộng tối thiểu 150px" (css/app.css dòng ~1175, cho bảng thường) làm cột ô tích rộng 150px → bảng tràn, mất cột Lãi tồn / Tình trạng. Bỏ luật đó riêng cho `.hsn-bang`; cột STT hẹp lại, lề ô 4px, Tình trạng nhiều chip tự xuống dòng; ẩn Số KU khi khung < 680px.
+- **Kỹ thuật:** `HSN.pvTo` (tổ trong phạm vi qua `KHO.dsTo` + `pvLoc`), `HSN.ds` nhận mảng tổ, `HSN.tHien`, `HSN.pvNhieu` → `hsoLap` (js/25b) gộp như 3.484; js/25c bỏ nhắc chọn tổ khi mẫu `nhieuTo` có phạm vi. t377 thêm 2 ý.
+
+## 3.485 — 05/11/2026 — Sổ quy tắc tên: thêm BBLV, 06A (TK 3)
+- **Anh 05/11:** "ok theo em" (đề xuất thêm 2 mẫu vào sổ quy tắc tên).
+- `TC.loaiMau` (js/49) thêm `06a → 06A`, `06atd → 06ATD`, `bblv → BBLV`: **chữ trong tên file giữ như cũ** (trước đây tự suy ra đúng chữ này), nay được nhận là **mẫu hồ sơ vay** → bản scan BBLV / 06A đã ký gắn khách lưu vào thư mục **Hồ sơ vay** (trước: Hồ sơ scan).
+- Chỗ dùng sổ: tên file Scan / Hồ sơ vay (`tcLoaiMau`), nơi lưu Scan (`sxLaHSV` js/41). Mẫu khác không đổi. Phép thử: tests/nhanh (tcLoaiMau), t207 thêm ca scan BBLV / 06A.
+
 ## 3.484 — 05/11/2026 — BBLV / 06A: in 1 lần theo Hội đoàn thể (nhiều tổ) (TK 3)
 - **Anh 05/11:** "anh cần in 1 theo Hội đoàn thể hoặc từng tổ".
 - **Tab Tổ:** danh sách nhiều tổ (chọn Hội / xã / toàn PGD + chip Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ) → 📄 BBLV / 📄 06A → hộp có nút **🖨 In 1 lần cả danh sách: <phạm vi> — n tổ · m hộ**; vẫn chọn được từng tổ như 3.483. Tổ xếp Xã › Hội › tên tổ.

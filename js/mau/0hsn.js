@@ -27,7 +27,18 @@ var HSN = (function(){
   X.tinhHuong = function(ds){ var c = {qh:0, kn:0, lai:0, khd:0}; ds.forEach(function(x){ if(x.f.qh) c.qh = 1; if(x.f.kn) c.kn = 1; if(x.f.lai>3) c.lai = 1; if(x.f.khd) c.khd = 1; });
     return [c.qh ? 'nợ quá hạn' : '', c.kn ? 'nợ khoanh' : '', c.lai ? 'nợ lãi tồn cao' : '', c.khd ? 'món vay không có giao dịch từ 3 tháng' : ''].filter(Boolean).join(', '); };
   /* hộ của tổ có món còn nợ: [{k, mon:[{m, f}]}] theo Mã KH */
-  X.ds = function(t){ if(!t || typeof hsoTVTo!=='function') return []; var K = X.khd();
+  /* 3.486 (anh 05/11 ảnh Hồ sơ vay › BBLV "khi lọc Hội nên cho hiện cả Hội ra luôn"): bộ lọc chọn tới Hội / điểm GD / xã, CHƯA chọn tổ → các tổ trong phạm vi
+     (xếp xã › Hội › tên tổ); bảng chọn món hiện hộ của cả phạm vi (dòng nhóm theo tổ), in 1 lần (hsoLap · pvNhieu) */
+  X.pvTo = function(){ var S = hsoCH(); if(S.to || !(S.xa || S.diem || S.hoi) || typeof pvLoc!=='function') return null;
+    var k = function(t){ return [t.xa || '', t.dv || '', t.ten || t.ma].join('|'); };
+    return KHO.dsTo().filter(function(t){ return pvLoc(S, t); }).sort(function(a, b){ return k(a).localeCompare(k(b), 'vi', {numeric:true}); }); };
+  X.tHien = function(){ return KHO.to(hsoCH().to) || X.pvTo(); };   /* tổ đang chọn, hoặc mảng tổ của phạm vi */
+  X.pvNhieu = function(mk){ var dsT = X.pvTo(); if(!dsT || !dsT.length) return null; var s = X.sel(mk), kh = HSO.vay && HSO.vay.kh;
+    var ds = dsT.filter(function(t){ return X.ds(t).some(function(h){ return h.mon.some(function(x){ return s[x.m.ku]; }); }); }).map(function(t){ return t.ma; });
+    if(!ds.length && kh){ var c = dsT.find(function(t){ return X.ds(t).some(function(h){ return h.k.kh===kh; }); }); if(c) ds = [c.ma]; }   /* chưa tích → hộ đang xem */
+    return ds.length ? {ds:ds, ten:typeof pvChu==='function' ? pvChu(hsoCH(), KHO.kyDung()) : ''} : null; };
+  X.ds = function(t){ if(Array.isArray(t)) return [].concat.apply([], t.map(function(tt){ return X.ds(tt).map(function(h){ h.to = tt; return h; }); }));
+    if(!t || typeof hsoTVTo!=='function') return []; var K = X.khd();
     return hsoTVTo(t).map(function(k){ return {k:k, mon:(k.mon || []).filter(function(m){ return (m.dn||0)>0 || (m.qh||0)>0 || (m.kn||0)>0; }).map(function(m){ return {m:m, f:X.co(m, K)}; })}; })
       .filter(function(h){ return h.mon.length; }).sort(function(a, b){ return String(a.k.kh).localeCompare(String(b.k.kh), 'vi', {numeric:true}); }); };
   /* 3.483 (anh 05/11 "liên kết 2 biên bản qua bên tab Tổ"): mở Hồ sơ vay — tổ maTo, mẫu mk, tích sẵn mọi món có cờ loai (qh · kn · khd); giữ kỳ đang xem. → số món tích
@@ -43,7 +54,7 @@ var HSN = (function(){
   X.sel = function(mk){ HSO.nchon = HSO.nchon || {}; return HSO.nchon[mk] = HSO.nchon[mk] || {}; };
   X.datMot = function(mk, ku){ HSO.nchon = HSO.nchon || {}; HSO.nchon[mk] = {}; if(ku) HSO.nchon[mk][ku] = true; };
   /* các hộ có món đang chọn: [{k, mon:[{m, f}]}] — giữ thứ tự Mã KH */
-  X.dsChon = function(mk, t){ var s = X.sel(mk); return X.ds(t).map(function(h){ return {k:h.k, mon:h.mon.filter(function(x){ return s[x.m.ku]; })}; }).filter(function(h){ return h.mon.length; }); };
+  X.dsChon = function(mk, t){ var s = X.sel(mk); return X.ds(t).map(function(h){ return {k:h.k, to:h.to, mon:h.mon.filter(function(x){ return s[x.m.ku]; })}; }).filter(function(h){ return h.mon.length; }); };
   X.dem = function(mk, t){ var d = X.dsChon(mk, t); return {ho:d.length, mon:d.reduce(function(a, h){ return a+h.mon.length; }, 0)}; };
   /* 3.461.3 (anh 03/11 "bố trí cuộn trong 1 cửa sổ cố định, tính cho laptop 125% và màn hình 17 inch … 1 dòng 1 món vay"; "các cột còn rộng thì bố trí đủ, không đủ thì bỏ số KU, ghi chương trình vay, thêm cột lãi tồn"; "theo cho là tốt nhất"):
      khung cuộn cố định (cao = phần màn hình còn lại, tối thiểu 260 px), tiêu đề cột đứng yên; mỗi món 1 dòng; hộ nhiều món: tên ở dòng đầu, dòng sau 〃;
@@ -54,13 +65,13 @@ var HSN = (function(){
   X.loc = function(){ HSO.hsnLoc = HSO.hsnLoc || {q:'', vd:true}; return HSO.hsnLoc; };
   X.dsHien = function(t){ var L = X.loc(), q = typeof sxChuan==='function' ? sxChuan(L.q||'') : String(L.q||'').toLowerCase();
     var tim = function(h, m){ var s = (h.k.ten||'')+' '+h.k.kh+' '+m.ku; return !q || (typeof sxChuan==='function' ? sxChuan(s) : s.toLowerCase()).indexOf(q)>=0; };
-    return X.ds(t).map(function(h){ return {k:h.k, mon:h.mon.filter(function(x){ return (!L.vd || X.vao(x.f, 'qt')) && tim(h, x.m); })}; }).filter(function(h){ return h.mon.length; }); };
+    return X.ds(t).map(function(h){ return {k:h.k, to:h.to, mon:h.mon.filter(function(x){ return (!L.vd || X.vao(x.f, 'qt')) && tim(h, x.m); })}; }).filter(function(h){ return h.mon.length; }); };
   var LENH = {
     dong:function(el){ var s = X.sel(el.getAttribute('data-mk')), ku = el.getAttribute('data-ku'); s[ku] = !s[ku]; hsoVe(); },
     tich:function(el){ X.sel(el.getAttribute('data-mk'))[el.getAttribute('data-ku')] = el.checked; hsoVe(); },
-    nhom:function(el){ var mk = el.getAttribute('data-mk'), n = el.getAttribute('data-n'), s = X.sel(mk), t = KHO.to(hsoCH().to);
+    nhom:function(el){ var mk = el.getAttribute('data-mk'), n = el.getAttribute('data-n'), s = X.sel(mk), t = X.tHien();
       X.ds(t).forEach(function(h){ h.mon.forEach(function(x){ if(X.vao(x.f, n)) s[x.m.ku] = true; }); }); hsoVe(); },
-    het:function(el){ var mk = el.getAttribute('data-mk'), v = el.getAttribute('data-v')==='1', s = X.sel(mk), t = KHO.to(hsoCH().to);
+    het:function(el){ var mk = el.getAttribute('data-mk'), v = el.getAttribute('data-v')==='1', s = X.sel(mk), t = X.tHien();
       if(!v){ HSO.nchon[mk] = {}; hsoVe(); return; } X.dsHien(t).forEach(function(h){ h.mon.forEach(function(x){ s[x.m.ku] = true; }); }); hsoVe(); },   /* Tích hết = các món đang hiện (theo lọc) */
     vd:function(){ var L = X.loc(); L.vd = !L.vd; hsoVe(); },
     boNhieu:function(){ HSO.nhieu = null; hsoVe(); },   /* 3.484 */
@@ -78,7 +89,9 @@ var HSN = (function(){
     var nhom = X.NHOM.map(function(n){ var c = 0; ds.forEach(function(h){ h.mon.forEach(function(x){ if(X.vao(x.f, n[0])) c++; }); });
       return '<button class="nho" data-lenh="hsn.nhom"'+a+' data-n="'+n[0]+'"'+(c ? '' : ' disabled')+' title="Tích thêm các món: '+e(n[1])+'">'+e(NGAN[n[0]] || n[1])+' ('+c+')</button>'; }).join('');
     var tong = ds.reduce(function(a2, h){ return a2+h.mon.length; }, 0), soHien = hien.reduce(function(a2, h){ return a2+h.mon.length; }, 0);
-    var dong = hien.map(function(h, sh){ return h.mon.map(function(x, i){ var m = x.m, ct = typeof ctNgan==='function' ? ctNgan(m.ct, m) : (m.ct||''), co = !!s[m.ku];
+    var toTr = null, nhomTo = function(h){ if(!h.to || h.to===toTr) return ''; toTr = h.to; var n = hien.filter(function(z){ return z.to===h.to; }).length;   /* 3.486: dòng nhóm theo tổ (phạm vi nhiều tổ) */
+      return '<tr class="hsn-nhom-to"><td colspan="9">'+e(h.to.ten || h.to.ma)+(h.to.tenThon ? ' · '+e(h.to.tenThon) : '')+' — '+n+' hộ</td></tr>'; };
+    var dong = hien.map(function(h, sh){ return nhomTo(h)+h.mon.map(function(x, i){ var m = x.m, ct = typeof ctNgan==='function' ? ctNgan(m.ct, m) : (m.ct||''), co = !!s[m.ku];
       return '<tr class="hsn-dong'+(i ? ' hsn-tiep' : ' hsn-dau')+(co ? ' bat' : '')+(X.vao(x.f, 'qt') ? '' : ' mo')+'" data-lenh="hsn.dong"'+a+' data-ku="'+e(m.ku)+'" title="Bấm để tích / bỏ tích">'+
         '<td class="hsn-o"><input type="checkbox" tabindex="-1"'+(co ? ' checked' : '')+'></td><td class="hsn-stt">'+(i ? '' : sh+1)+'</td>'+   /* 3.461.4: STT theo hộ */
         '<td class="hsn-ten">'+(i ? '<span class="hsn-lap">〃</span>' : '<a href="#" data-lenh="hsn.xem" data-kh="'+e(h.k.kh)+'" data-ku="'+e(m.ku)+'" title="Xem trước hộ này">'+e(tenHoaDau(h.k.ten||''))+'</a>')+'</td>'+
@@ -104,7 +117,8 @@ var HSN = (function(){
     return '<div class="hsn-nhieu"><div><b>🖨 In 1 lần: '+e(N.ten)+'</b> — '+N.ds.length+' tổ · <b>'+tong.ho+'</b> hộ · '+tong.mon+' món '+
       '<button class="nho" data-lenh="hsn.boNhieu">↩ Về từng tổ</button></div><div class="hsn-hop"><table class="hsn-bang"><thead><tr><th>Tổ</th><th>Hộ</th><th>Món</th></tr></thead><tbody>'+dong+'</tbody></table></div>'+
       '<label class="hsn-hai"><input type="checkbox" data-lenh="hsn.hai" data-su="change" data-mk="'+mk+'"'+(X.haiMat(mk) ? ' checked' : '')+'> In 2 mặt</label></div>'; };
-  X.trai = function(t, mk, op, ghi){ if(HSO.nhieu && HSO.nhieu.ds.length>1){ if(!X.bang.dk && typeof GD!=='undefined'){ X.bang.dk = 1; GD.dangKy('hsn', LENH); } return X.nhieuHTML(mk); }
+  X.trai = function(t, mk, op, ghi){ if(!t){ var pv = X.pvTo(); if(pv && pv.length) t = pv; }   /* 3.486: chưa chọn tổ → cả phạm vi (Hội…) */
+    if(HSO.nhieu && HSO.nhieu.ds.length>1){ if(!X.bang.dk && typeof GD!=='undefined'){ X.bang.dk = 1; GD.dangKy('hsn', LENH); } return X.nhieuHTML(mk); }
     return X.bang(t, mk, op)+'<div class="hso-cham"><small>'+ghi+'</small></div>'+(typeof omCo==='function' && omCo(mk) ? omNhanhHTML(mk) : ''); };
   return X;
 })();
