@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 05/11/2026 11:00 — TK 3 · PHIÊN (3.476–3.479 · bài học "sửa cái này không lỗi cái kia")
+- Gộp 3.476 (bỏ onclick 1.174 → 467), 3.477 (tab Tổ nhanh hơn, Đ5 rà xong), 3.478 (báo đứt chuỗi QĐ), 3.479 (tên xã hoa đầu từ — lỗi do 3.470 lấy TENXA File Tổ trưởng chữ hoa). Hồi quy đủ 256 đạt.
+- **Bẫy / bài học (anh 05/11 "ghi nhận lại tránh sửa cái này lỗi cái đã chạy ổn"):** luật mới `AGENTS.md` mục 3 + `QUY_CHUAN_KIEN_TRUC.md` mục 18 — sửa phần dùng chung phải kê chỗ dùng, so đầu ra cũ ↔ mới cả cách viết, dữ liệu giả đúng kiểu nguồn mới; t373 giữ ca File Tổ trưởng chữ hoa → KTGS.
+- **Chờ anh:** thử máy thật 3.471–3.479 (Diễn biến, đứt chuỗi QĐ, mẫu Hồ sơ, bấm nút các tab, tên xã khi in).
+
 ### 05/11/2026 04:30 — TK 3 · PHIÊN (kế hoạch dọn tuần tự — Đ1 = 3.471)
 - 3.470 gộp (#501), hồi quy đủ 253 phép đạt (chạy sau gộp — anh "gộp rồi chạy sau"). Anh duyệt kế hoạch dọn `KE_HOACH_DON_NEN.md` mục 8, làm tuần tự không hỏi lại. **Đ1 = 3.471** Diễn biến bảng cơ bản + tách js/48b. Tiếp: Đ2 (3.472).
 
