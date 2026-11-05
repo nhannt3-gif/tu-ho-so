@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.485 — 05/11/2026 — Sổ quy tắc tên: thêm BBLV, 06A (TK 3)
+- **Anh 05/11:** "ok theo em" (đề xuất thêm 2 mẫu vào sổ quy tắc tên).
+- `TC.loaiMau` (js/49) thêm `06a → 06A`, `06atd → 06ATD`, `bblv → BBLV`: **chữ trong tên file giữ như cũ** (trước đây tự suy ra đúng chữ này), nay được nhận là **mẫu hồ sơ vay** → bản scan BBLV / 06A đã ký gắn khách lưu vào thư mục **Hồ sơ vay** (trước: Hồ sơ scan).
+- Chỗ dùng sổ: tên file Scan / Hồ sơ vay (`tcLoaiMau`), nơi lưu Scan (`sxLaHSV` js/41). Mẫu khác không đổi. Phép thử: tests/nhanh (tcLoaiMau), t207 thêm ca scan BBLV / 06A.
+
 ## 3.484 — 05/11/2026 — BBLV / 06A: in 1 lần theo Hội đoàn thể (nhiều tổ) (TK 3)
 - **Anh 05/11:** "anh cần in 1 theo Hội đoàn thể hoặc từng tổ".
 - **Tab Tổ:** danh sách nhiều tổ (chọn Hội / xã / toàn PGD + chip Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ) → 📄 BBLV / 📄 06A → hộp có nút **🖨 In 1 lần cả danh sách: <phạm vi> — n tổ · m hộ**; vẫn chọn được từng tổ như 3.483. Tổ xếp Xã › Hội › tên tổ.

@@ -222,6 +222,7 @@
 | **3.482** | TK 3 | Tab Tổ: 3 chip Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ riêng (js/22g) | gộp |
 | **3.483** | TK 3 | Tab Tổ → 📄 BBLV · 06A tích sẵn món theo loại nợ (js/22gb, 22h, 25c, mau/0hsn) | gộp |
 | **3.484** | TK 3 | BBLV / 06A in 1 lần nhiều tổ (HSO.nhieu, js/25b, 22gb, mau/0hsn, bblv, 06a) | gộp |
+| **3.485** | TK 3 | Sổ quy tắc tên thêm BBLV, 06A (js/49) | gộp |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |
