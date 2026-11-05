@@ -387,6 +387,22 @@ function pbBieu07DL(q, kq, tenCT){
   return {loi:[], coAm:am, dv:dv, laDC:/điều chỉnh/i.test(String(q.loai || '')), nam:String(q.ngay || '').slice(0, 4), so:String(q.so || '').trim(), kyHieu:String(q.kyHieu || '').trim(), ngayQD:String(q.ngay || '').slice(0, 10),
     nguon:+q.nguon===2 ? 2 : 1, ap:thu.map(function(kk){ return theo[kk]; })}; }
 
+/* ---------- 3.478 (anh 05/11 "khi nhập KH cơ bản sẽ liền mạch nhưng đôi khi có vài chương trình bị đứt quãng, không khớp — nguyên tắc luôn theo QĐ mới nhất,
+   và báo bị đứt chênh ở QĐ nào, chương trình nào"): ĐỨT CHUỖI QĐ — theo (xã, CT, nguồn) trong năm, các QĐ theo ngày (rồi lúc ghi) như pbDoiChieu:
+   Đã giao của QĐ sau ≠ Đến 31/12 (QĐ trước; QĐ trước không ghi Đến 31/12 → Đã giao + Tăng/giảm) quá ngưỡng (mặc định 1 triệu) → 1 dòng báo.
+   Chỉ báo — KH vẫn theo QĐ mới nhất (pbDienBien). → [{q, qTruoc, xa, tenXa, ma, ten, nguon, daGiao, denTruoc, chenh}] theo ngày QĐ. ---------- */
+function pbDutChuoi(dsQD, nam, nguong){
+  nguong = nguong==null ? 1 : +nguong; var g = {}, thu = [], ra = [];
+  (dsQD || []).filter(function(q){ return String(q.ngay).slice(0, 4)===String(nam) && q.xa; })
+    .sort(function(a, b){ return a.ngay < b.ngay ? -1 : a.ngay > b.ngay ? 1 : String(a.luc || '') < String(b.luc || '') ? -1 : String(a.luc || '') > String(b.luc || '') ? 1 : 0; })
+    .forEach(function(q){ (q.ct || []).forEach(function(c){ var k = q.xa+'|'+c.ma+'|'+q.nguon; if(!g[k]){ g[k] = []; thu.push(k); } g[k].push({q:q, c:c}); }); });
+  thu.forEach(function(k){ var truoc = null, qTr = null;
+    g[k].forEach(function(x){ var c = x.c, dg = pbSo(c.daGiao), den = pbSo(c.den3112), denT = den!=null ? pbR(den) : pbR((dg || 0)+(pbSo(c.tangGiam) || 0));
+      if(qTr && dg!=null && truoc!=null && Math.abs(pbR(dg - truoc)) > nguong)
+        ra.push({q:x.q, qTruoc:qTr, xa:x.q.xa, tenXa:x.q.tenXa || x.q.xa, ma:c.ma, ten:c.ten || '', nguon:+x.q.nguon, daGiao:pbR(dg), denTruoc:truoc, chenh:pbR(dg - truoc)});
+      truoc = denT; qTr = x.q; }); });
+  return ra.sort(function(a, b){ return a.q.ngay < b.q.ngay ? -1 : a.q.ngay > b.q.ngay ? 1 : String(a.ma) < String(b.ma) ? -1 : String(a.ma) > String(b.ma) ? 1 : String(a.tenXa).localeCompare(String(b.tenXa), 'vi'); });
+}
 /* ---------- 3.301: ĐỐI CHIẾU CHÉO (anh 21/10: "tại mỗi QĐ tổng giao của Biểu 07 phải khớp số giao của QĐ và dư nợ đến cuối năm cũng khớp theo QĐ") ----------
    Theo (xã, CT, nguồn) trong năm, các QĐ theo ngày (rồi lúc ghi):
    ① từng QĐ: Đã giao + Tăng/giảm = Đến 31/12 (nhập QĐ) · Biểu 07 (phân bổ lại theo cách chia đang chọn): Σ tăng/giảm các ấp = số giao QĐ, Σ chỉ tiêu năm = Đến 31/12, Σ chỉ tiêu trước = Đã giao

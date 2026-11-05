@@ -119,7 +119,7 @@ const fs = require('fs'), path = require('path');
  ok('3.471 Tách từng QĐ: cột QĐ G100 / G101 / G102 (CT 03: +500 · +200)', r.b4);
  ok('3.471 xếp Xã › Chương trình; chọn nhiều xã (chỉ Gò Dầu → CT 03 giao 1.000)', r.b5 && r.b6);
  ok('3.471 Excel sheet đầu "Bang KH" như màn hình (có TỔNG CỘNG)', r.excelB);
- ok('Excel: 7 sheet (Bang KH, Theo xa, Theo nguon, Chi tiet, Theo thang, Thang x xa x CT, QD)', /\.xlsx · Bang KH,Theo xa,Theo nguon,Chi tiet,Theo thang,Thang x xa x CT,QD · 5 dòng xã/.test(r.excel || ''), r.excel);
+ ok('Excel: 8 sheet (Bang KH, Dut chuoi, Theo xa, Theo nguon, Chi tiet, Theo thang, Thang x xa x CT, QD)', /\.xlsx · Bang KH,Dut chuoi,Theo xa,Theo nguon,Chi tiet,Theo thang,Thang x xa x CT,QD · 5 dòng xã/.test(r.excel || ''), r.excel);
  ok('màn phân bổ có thẻ số (Số giao QĐ, Khớp QĐ…)', /Số giao QĐ/.test(r.thePB) && /Khớp QĐ/.test(r.thePB), r.thePB);
  ok('màn đối chiếu có thẻ số (Khớp, Lệch…)', /Khớp/.test(r.theDC) && /Lệch/.test(r.theDC), r.theDC);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));
