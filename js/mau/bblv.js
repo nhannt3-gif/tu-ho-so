@@ -179,7 +179,7 @@
     var tr = omKB(MK, 'monTrang') || TRANG[0], nB = ds.length>1 ? 0 : (parseInt((/(\d) dòng/.exec(tr) || [])[1], 10) || 0);
     var nt = function(v){ return v ? ngayVNsl(v) : ''; }, md = function(m){ return typeof ktCoNganh==='function' && ktCoNganh(m) ? ktNganh(m) : ''; };
     if(ds.length>1 || nB){
-      var th = 'border:1px solid #000;padding:1pt 2.5pt;vertical-align:middle;', tdS = th+'text-align:right;white-space:nowrap;', nho = 'font-size:9pt;', thD = 'text-align:center;font-weight:bold;background:#f2f2f2;-webkit-print-color-adjust:exact;print-color-adjust:exact;';   /* 3.480 (anh 05/11 "tiêu đề canh giữa đều"): tiêu đề giữa cả 2 chiều, nền xám nhạt; ô giữa theo chiều dọc */
+      var th = 'border:1px solid #000;padding:1pt 2.5pt;vertical-align:middle;', tdS = th+'text-align:right;white-space:nowrap;', nho = 'font-size:9pt;', thD = 'text-align:center;font-weight:bold;';   /* 3.480 (anh 05/11 "tiêu đề canh giữa đều"): tiêu đề giữa cả 2 chiều, KHÔNG tô nền (anh 05/11 "in ra hơi rối"); ô giữa theo chiều dọc */
       var hang = ds.length>1 ? ds.map(function(x, i){ var m = x.m;
         return '<tr><td style="'+th+'text-align:center">'+(i+1)+'</td><td style="'+th+'">'+e(ctNgan(m.ct, m))+'<br><span style="'+nho+'white-space:nowrap">'+e(m.ku)+'</span></td>'+   /* 3.480: gọn — KU chữ nhỏ không bẻ dòng */
           '<td style="'+th+nho+'">'+e(md(m))+'</td><td style="'+tdS+'">'+(m.gn ? tdnTien(m.gn) : '')+'</td>'+

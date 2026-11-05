@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.481 — 05/11/2026 — Bản in: bỏ tô nền dòng tiêu đề bảng (TK 3)
+- **Anh 05/11:** "dòng tiêu đề không cần fill màu, in ra hơi rối, các mẫu khác cũng vậy nên bỏ".
+- **Bỏ nền `th`** ở mọi mẫu in có tô: BBLV bảng nhiều món (js/mau/bblv.js, nền xám 3.480), Mẫu 12 / Mẫu 04 GDX (`.m12-table th`, js/26), sao kê cấp Hội (js/22h), tóm tắt KTGS (js/71), nội dung họp giao ban (js/88, 3 bảng), thông báo kết luận (js/89, 2 bảng). Tiêu đề vẫn đậm, canh giữa.
+- **Giữ nguyên:** thanh xanh A- / B- / C- của 01/TGTV (đúng mẫu NHCSXH); màu dòng nhóm / tổng trong sao kê, thông tin tổ (không phải dòng tiêu đề); màu trên màn hình app.
+- **Chuẩn khóa:** ghi lại `tests/chuan/gdx_m04.html`, `gdx_m12.html` (anh duyệt đổi) — t179 45/45.
+
 ## 3.480 — 05/11/2026 — Hồ sơ vay › BBLV: mặc định in 1 mặt; sửa tắt 2 mặt vẫn in 2 mặt (TK 3)
 - **Anh 05/11:** "mẫu BBLV in 1 mặt mặc định cho an toàn" · "do hiện tại bị lỗi có 1 số trường hợp tắt in 2 mặt vẫn ra 2 mặt".
 - **Nguyên nhân lỗi:** bấm ô ☐ In 2 mặt (06A, BBLV — bộ chọn hộ HSN js/mau/0hsn.js) chỉ ghi lựa chọn, **không vẽ lại khung xem trước** → 🖨 In in đúng khung đang hiện (bản cũ 2 mặt, có trang trắng chèn).

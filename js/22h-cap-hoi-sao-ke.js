@@ -308,7 +308,7 @@ var TO_IN_CSS = '.bc-bang tr.canh td{font-weight:700}.bc-canh-tong{margin:4px 0;
   '.trang{page-break-after:always}.trang:last-child{page-break-after:auto}'+
   '.bc-dau{display:flex;justify-content:space-between;font-size:9.5pt}.bc-ngay{text-align:right;font-style:italic}'+
   'h1{font-size:13.5pt;text-align:center;margin:6px 0 2px}.bc-to{text-align:center;font-size:9.5pt;margin-bottom:6px}'+
-  'table{width:100%;border-collapse:collapse}th,td{border:1px solid #555;padding:1.5px 3px;vertical-align:top}th{background:#e9eef4;font-size:.92em}thead{display:table-header-group}tr{page-break-inside:avoid}'+
+  'table{width:100%;border-collapse:collapse}th,td{border:1px solid #555;padding:1.5px 3px;vertical-align:top}th{font-size:.92em}thead{display:table-header-group}tr{page-break-inside:avoid}'+
   'td.s{text-align:right;white-space:nowrap}td.c{text-align:center}tr.cong td{background:#f4f6f9;font-style:italic}tr.tong td{background:#e9eef4;font-weight:bold}'+
   '.bc-kpi td{text-align:center;border:1px solid #555;background:#f7f9fb}.bc-kpi small{font-size:.85em}'+
   '.bc-khung{margin-top:7px}.bc-khung-ten{font-weight:bold;margin:2px 0;border-bottom:.9px solid #000}.bc-rong{font-style:italic;padding:2px 4px}'+

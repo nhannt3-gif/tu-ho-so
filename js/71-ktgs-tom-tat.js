@@ -10,7 +10,7 @@ var KTTT_ND = [['1. Tổ chức, hoạt động của Tổ', ['Thành lập theo
 
 var KTTT_CSS = '@page{size:A4;margin:10mm 12mm 10mm 15mm}'+'body{margin:0;font-family:"Times New Roman",Times,serif;color:#000;font-size:11.5pt;line-height:1.3}h1{font-size:14pt;text-align:center;margin:0 0 2pt}.phu{text-align:center;font-style:italic;font-size:10.5pt;margin-bottom:6pt}'+
     '.dau{display:flex;justify-content:space-between;gap:8mm;font-size:10.5pt;border-bottom:1px solid #000;padding-bottom:3pt;margin-bottom:5pt}h2{font-size:11.5pt;margin:7pt 0 3pt;text-transform:uppercase;break-after:avoid}'+
-    'table{width:100%;border-collapse:collapse;font-size:10.5pt}th,td{border:.5pt solid #000;padding:1.5pt 4pt;vertical-align:top}th{background:#eee}tr{break-inside:avoid}.nho td{font-size:9.5pt;padding:1pt 3pt}'+
+    'table{width:100%;border-collapse:collapse;font-size:10.5pt}th,td{border:.5pt solid #000;padding:1.5pt 4pt;vertical-align:top}tr{break-inside:avoid}.nho td{font-size:9.5pt;padding:1pt 3pt}'+
     '.so{text-align:right;white-space:nowrap}.c{text-align:center}.do{color:#b00000;font-weight:bold}'+
     '.o4{display:grid;grid-template-columns:repeat(4,1fr);border-top:.5pt solid #000;border-left:.5pt solid #000;font-size:10pt}.o4 div{border-right:.5pt solid #000;border-bottom:.5pt solid #000;padding:1.5pt 4pt;line-height:1.25}.o4 b{font-size:10.5pt}.o4 small{display:block;font-size:9pt;color:#333}'+
   '.nhom{display:grid;grid-template-columns:1fr 1fr;gap:2pt 8mm;font-size:10.5pt}.nhom div{break-inside:avoid}.nhom p{margin:0}.nhom .t{font-weight:bold}.dong{border-bottom:.5pt dotted #555;height:15pt}.kttt+.kttt{break-before:page}';

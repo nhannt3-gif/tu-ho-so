@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.481)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In BBLV nhiều món | Tiêu đề bảng nền trắng, chữ đậm, canh giữa | |
+| 2 | In Mẫu 12 GDX, sao kê cấp Hội, tóm tắt KTGS | Tiêu đề bảng không tô nền | |
+
 ### Danh sách thử trên máy thật (3.480)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
