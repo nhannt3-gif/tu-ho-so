@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.476', ds:[
+var CO_GI_MOI = {ban:'3.477', ds:[
+  ["Tab Tổ mở nhanh hơn (bộ 25.000 khách: lần đầu 470 → ~350 ms)", ""],
   ["Dọn: bỏ onclick viết thẳng ở hầu hết các tab (1.266 → 467) — nút bấm qua bảng lệnh chung; sửa nút ⚙ Khai báo riêng Hồ sơ Tổ có lúc bấm không ăn", ""],
   ["Dọn: menu chuột phải danh sách file + dải tháng Nạp & KT bỏ onclick viết thẳng", ""],
   ["Dọn: tab Nạp & KT bỏ hết onclick viết thẳng (66 chỗ) — nút / ô dùng bảng lệnh chung", ""],
@@ -1071,8 +1072,7 @@ var CO_GI_MOI = {ban:'3.476', ds:[
   ["Phân bổ KH: sửa QĐ linh động — ✎ Sửa nhanh ngay tại bảng, xếp theo chương trình ↔ theo xã, đổi mã / thêm / bỏ khối, ghép xã, ⧉ QĐ kế tiếp, so sánh khi đọc lại QĐ", "slDoiTab('pb')"],
   ["Phân bổ KH: 📄 Đọc QĐ (PDF) — app đọc bảng QĐ theo chương trình, lấy các xã của PGD mình; nhập tay theo chương trình; xem QĐ theo chương trình ↔ theo xã, đủ 3 cột như QĐ", "slDoiTab('pb')"],
   ["Bản dọn: bỏ mã và CSS không còn dùng, gộp phần trùng của các mẫu Hồ sơ Tổ — dùng như cũ", "slDoiTab('hst')"],
-  ["Mẫu 11/TD mới + cũ: đúng mẫu gốc từng chữ, chữ điền liền như 10A; tổ trưởng theo Danh sách tổ mới nhất — in bổ sung tổ cũ thì chọn bản cũ ở cột trái", "hsoChonMau('11')"],
-  ["Nền mẫu: 06A và Biên bản làm việc gắn qua cổng chung — dùng như cũ; bỏ file mẫu không làm hỏng app", "hsoChonMau('bblv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Mẫu 11/TD mới + cũ: đúng mẫu gốc từng chữ, chữ điền liền như 10A; tổ trưởng theo Danh sách tổ mới nhất — in bổ sung tổ cũ thì chọn bản cũ ở cột trái", "hsoChonMau('11')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
     "3.471 · Phân bổ KH › 📈 Diễn biến: bảng cơ bản + nút Xếp · Tách từng QĐ · chip Xã / Chương trình · ▸ Xem thêm",
     "3.470 · 📥 Nạp & KT › Kiểm tra kỳ: dòng \"Tên xã trên Mẫu 31 = tên chuẩn\"",

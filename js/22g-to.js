@@ -418,10 +418,11 @@ function toCCCDHan(so, ns, ncap){
 /* tổ viên của tổ: gom theo khách + món còn nợ (gốc hoặc lãi) + cờ để lọc */
 function toTV(t){
   var K = TO_K, ns = K.ngay, sau = kyLui(K.thang, 1), tu = sau+'-01', den = tdnCuoiKy(sau);
-  var khd = {}; slKHD(K.B).forEach(function(o){ khd[o.ku] = 1; });
+  var khd = K._khd || (K._khd = (function(){ var m = {}; slKHD(K.B).forEach(function(o){ m[o.ku] = 1; }); return m; })());   /* 3.477 (Đ6): tính 1 lần / kỳ (trước: lại cho từng tổ) */
+  var theoKH = {}; (K.kh[t.ma]||[]).forEach(function(o){ (theoKH[o.kh] = theoKH[o.kh] || []).push(o); });   /* 3.477 (Đ6): gom dòng theo khách 1 lần (trước: lọc lại cả tổ cho từng khách) */
   var dat = function(s){ return /^0\d{9}$/.test(String(s||'').replace(/[\s.\-]/g, '')); };
   return toKhach(t).map(function(k){
-    var rows = (K.kh[t.ma]||[]).filter(function(o){ return o.kh===k.kh; }), r0 = rows.find(function(o){ return o.cccd; }) || rows[0] || {};
+    var rows = theoKH[k.kh] || [], r0 = rows.find(function(o){ return o.cccd; }) || rows[0] || {};
     var mon = k.mon.filter(function(m){ return (m.dn||0)>0 || (m.qh||0)>0 || (m.kn||0)>0 || laiTon(m)>0; });
     var ct = []; mon.forEach(function(m){ var c = ctNgan(m.ct, m); if(ct.indexOf(c)<0) ct.push(c); });
     var sdt = (rows.find(function(o){ return o.sdt; })||{}).sdt || '';
