@@ -276,6 +276,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t363.js` | 3.455: Khai báo riêng dùng chung (không dồn chữ, vạch màu nguồn), trực quan liên kết 2 chiều, bấm chữ bản xem trước, nút ⚙ mọi mẫu nền ô. |
 | `node tests/t364.js` | 3.456: 10A số tham dự theo tỷ lệ (> 50%), IV tán thành (> 2/3), III gõ / chọn tên, UBND theo III, phê duyệt cả phần. |
 | `node tests/t365.js` | 3.457: 10B, 10C số tham dự / biểu quyết theo tỷ lệ (> 50%, > 2/3), nhớ riêng từng mẫu, vẫn 2 trang. |
+| t377 (3.486) | + Hồ sơ vay lọc tới Hội (chưa chọn tổ): bảng chọn món cả Hội, Tích hết → in gộp đủ hộ. |
 | t207 (3.485) | + scan BBLV / 06A → thư mục Hồ sơ vay, tên giữ chữ cũ. |
 | t377 (3.484) | + in 1 lần cả danh sách nhiều tổ: Hồ sơ vay chế độ nhiều tổ, bản in gộp đủ biên bản, Về từng tổ. |
 | t377 (3.483) | + nút 📄 BBLV / 06A ở tab Tổ: nhiều tổ → hộp chọn tổ; 1 tổ → mở thẳng; Hồ sơ vay tích sẵn đúng món theo loại nợ. |

@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.485', ds:[
+var CO_GI_MOI = {ban:'3.486', ds:[
+  ["Hồ sơ vay › BBLV / 06A: lọc tới Hội (chọn \"Tất cả tổ\") → chọn món cả Hội, in 1 lần; bảng chọn món hiện đủ cột", "slDoiTab('hsv')"],
   ["Sổ quy tắc tên: thêm BBLV, 06A — scan đã ký vào thư mục Hồ sơ vay", "slDoiTab('to')"],
   ["BBLV / 06A: in 1 lần cả danh sách nhiều tổ (theo Hội đoàn thể, xã…) từ tab Tổ", "slDoiTab('to')"],
   ["Tab Tổ: chip Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ → nút 📄 BBLV · 📄 06A mở Hồ sơ vay tích sẵn đúng món", "slDoiTab('to')"],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.485', ds:[
   ["Dọn: menu chuột phải danh sách file + dải tháng Nạp & KT bỏ onclick viết thẳng", ""],
   ["Dọn: tab Nạp & KT bỏ hết onclick viết thẳng (66 chỗ) — nút / ô dùng bảng lệnh chung", ""],
   ["Dọn: mọi mẫu Hồ sơ Tổ / Hồ sơ vay gắn qua một cổng chung (bỏ 52 nhánh rẽ theo mã mẫu) — bản in, cột nhập liệu không đổi", ""],
-  ["Dọn: tên xã cả app tính bằng một lõi chung (File Tổ trưởng → Mẫu 31 → danh bạ → danh mục), bỏ các bản vá riêng", ""],
-  ["Phân bổ KH › Diễn biến: bảng cơ bản — giao đầu năm, tăng / giảm, KH cuối năm, dư nợ, còn phải thực hiện, %; chia khối nguồn, xếp chương trình › xã hoặc xã › chương trình, chọn nhiều xã / chương trình", "slDoiTab('pb')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Dọn: tên xã cả app tính bằng một lõi chung (File Tổ trưởng → Mẫu 31 → danh bạ → danh mục), bỏ các bản vá riêng", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.486 · Hồ sơ vay › BBLV: bộ lọc chọn Hội, ô tổ để — Tất cả tổ — → bảng hộ cả Hội (nhóm theo tổ)",
     "3.485 · Scan BBLV / 06A đã ký, gắn khách → lưu vào Hồ sơ vay, tên … - BBLV / … - 06A",
     "3.484 · Số liệu › Tổ › chọn Hội, chip Nợ khoanh / 3 tháng KHĐ → 📄 BBLV → 🖨 In 1 lần cả danh sách",
     "3.483 · Số liệu › Tổ › bấm chip Nợ khoanh / 3 tháng KHĐ → 📄 BBLV hoặc 📄 06A ở đầu danh sách",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.485', ds:[
     "3.464 · Mở các tab, in thử 10A–10D, 07b — như 3.463",
     "3.463 · Hồ sơ Tổ › 11/TD mới, 11/TD cũ: cột trái 👑 Tổ trưởng ký hợp đồng › Lấy theo (mới nhất / bản cũ / Mẫu 31)",
     "3.462 · Hồ sơ vay › 06A, BBLV: chọn món, in, Bản mẫu — như 3.461.9",
-    "3.461.9 · Hồ sơ vay › BBLV › 📝 Bản mẫu › ô sổ xuống Tình huống mẫu: Tất cả (tờ hướng dẫn) · ① … ⑧",
-    "3.461.6 · Hồ sơ vay › BBLV › 📝 Bản mẫu › dòng Tình huống mẫu: Cả 3 tình huống · ① · ② · ③"],
+    "3.461.9 · Hồ sơ vay › BBLV › 📝 Bản mẫu › ô sổ xuống Tình huống mẫu: Tất cả (tờ hướng dẫn) · ① … ⑧"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",
     "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",

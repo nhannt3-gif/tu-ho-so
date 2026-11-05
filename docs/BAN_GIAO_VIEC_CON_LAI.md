@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.486)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › BBLV, chọn Hội, ô tổ — Tất cả tổ — | Bảng hộ cả Hội nhóm theo tổ, đủ cột Lãi tồn · Tình trạng | |
+| 2 | Bấm Khoanh / 3T KHĐ rồi In | 1 bản in đủ biên bản các tổ | |
+| 3 | Chọn 1 tổ | Như cũ | |
+
 ### Danh sách thử trên máy thật (3.485)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
