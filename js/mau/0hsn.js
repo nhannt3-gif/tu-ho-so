@@ -39,6 +39,8 @@ var HSN = (function(){
      khung cuộn cố định (cao = phần màn hình còn lại, tối thiểu 260 px), tiêu đề cột đứng yên; mỗi món 1 dòng; hộ nhiều món: tên ở dòng đầu, dòng sau 〃;
      cột ☑ · Hộ · Mã KH · Số KU (tự ẩn khi khung hẹp) · CT · Dư nợ · Lãi tồn · Tình trạng (chip màu); bấm cả dòng để tích, bấm tên hộ để xem trước;
      lọc "Chỉ món có vấn đề" mặc định bật, ô tìm tên / mã KH / số KU. Trạng thái lọc nhớ trong phiên: HSO.hsnLoc = {q, vd}. */
+  /* 3.480 (anh 05/11 "mẫu BBLV in 1 mặt mặc định cho an toàn"): công tắc In 2 mặt theo mẫu — BBLV riêng (chưa khai = 1 mặt); mẫu khác (06A) dùng chung công tắc KTGS như cũ */
+  X.haiMat = function(mk){ return mk==='bblv' ? D.cauHinh.bblvHaiMat===1 : (typeof ktHaiMat!=='function' || ktHaiMat()); };
   X.loc = function(){ HSO.hsnLoc = HSO.hsnLoc || {q:'', vd:true}; return HSO.hsnLoc; };
   X.dsHien = function(t){ var L = X.loc(), q = typeof sxChuan==='function' ? sxChuan(L.q||'') : String(L.q||'').toLowerCase();
     var tim = function(h, m){ var s = (h.k.ten||'')+' '+h.k.kh+' '+m.ku; return !q || (typeof sxChuan==='function' ? sxChuan(s) : s.toLowerCase()).indexOf(q)>=0; };
@@ -53,7 +55,7 @@ var HSN = (function(){
     vd:function(){ var L = X.loc(); L.vd = !L.vd; hsoVe(); },
     tim:function(el){ X.loc().q = el.value; clearTimeout(X.bang.hen); X.bang.hen = setTimeout(function(){ hsoVe(); var o = document.querySelector('.hsn-tim'); if(o){ o.focus(); o.setSelectionRange(o.value.length, o.value.length); } }, 400); },
     xem:function(el){ HSO.vay.kh = el.getAttribute('data-kh'); HSO.vay.ku = el.getAttribute('data-ku') || ''; hsoVe(); },
-    hai:function(el){ D.cauHinh.ktHaiMat = el.checked ? 1 : 0; luu(); }};   /* 3.461.1: dùng chung công tắc In 2 mặt của bộ in (KTGS) */
+    hai:function(el){ if(el.getAttribute('data-mk')==='bblv') D.cauHinh.bblvHaiMat = el.checked ? 1 : 0; else D.cauHinh.ktHaiMat = el.checked ? 1 : 0; luu(); if(typeof hsoHen==='function') hsoHen(); }};   /* 3.480: BBLV công tắc riêng */   /* 3.461.1: dùng chung công tắc In 2 mặt của bộ in (KTGS) */
   var CHIP = function(m, f){ var a = [];
     if(f.qh) a.push(['qh', 'Quá hạn']); if(f.kn) a.push(['kn', 'Khoanh']); if(f.khd) a.push(['khd', '3T KHĐ'+(m.ngdg ? '' : '')]); if(f.lai>3) a.push(['lai', 'Lãi ≈ '+Math.floor(f.lai)+'T']);
     return a.length ? a.map(function(x){ return '<span class="hsn-chip hsn-'+x[0]+'">'+x[1]+'</span>'; }).join(' ') : '<span class="hsn-gach">—</span>'; };
@@ -78,7 +80,7 @@ var HSN = (function(){
         '<button class="nho'+(L.vd ? ' bat' : '')+'" data-lenh="hsn.vd" title="Chỉ hiện món quá hạn, khoanh, 3 tháng KHĐ, lãi tồn > 3 tháng">Chỉ món có vấn đề</button>'+
         '<button class="nho" data-lenh="hsn.het"'+a+' data-v="1" title="Tích các món đang hiện">Tích hết</button><button class="nho" data-lenh="hsn.het"'+a+' data-v="0">Bỏ hết</button>'+
         '<span class="hsn-gian"></span><span class="hsn-dem">Đã chọn <b>'+d.mon+'</b> món · <b>'+d.ho+'</b> hộ</span>'+
-        '<label class="hsn-hai"><input type="checkbox" data-lenh="hsn.hai" data-su="change"'+(typeof ktHaiMat!=='function' || ktHaiMat() ? ' checked' : '')+'> In 2 mặt</label></div>'+
+        '<label class="hsn-hai"><input type="checkbox" data-lenh="hsn.hai" data-su="change"'+a+(X.haiMat(mk) ? ' checked' : '')+'> In 2 mặt</label></div>'+
       (ds.length ? '<div class="hsn-hop"><table class="hsn-bang"><thead><tr><th class="hsn-o">☑</th><th class="hsn-stt">STT</th><th>Hộ</th><th>Mã KH</th><th class="hsn-ku">Số KU</th><th>CT</th><th class="s">Dư nợ</th><th class="s">Lãi tồn</th><th>Tình trạng</th></tr></thead><tbody>'+
           (dong || '<tr><td colspan="9" class="hsn-rong">Không có món nào khớp lọc'+(L.vd ? ' — bấm "Chỉ món có vấn đề" để hiện hết' : '')+'.</td></tr>')+'</tbody></table></div>'+
           '<div class="hsn-chan">Hiện <b>'+soHien+'</b>/'+tong+' món · máy in 1 mặt: bỏ tích "In 2 mặt" (không chèn trang trắng)</div>'

@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.479', ds:[
+var CO_GI_MOI = {ban:'3.480', ds:[
+  ["Hồ sơ vay › BBLV: mặc định in 1 mặt; sửa lỗi tắt \"In 2 mặt\" mà vẫn in 2 mặt", "slDoiTab('hsv')"],
   ["Sửa: tên xã viết hoa đầu từ như trước (không còn TOÀN CHỮ HOA)", ""],
   ["Phân bổ KH: báo ⚠ đứt chuỗi QĐ — QĐ nào, chương trình nào, xã nào, chênh bao nhiêu so với QĐ trước (KH vẫn theo QĐ mới nhất)", "slDoiTab('pb')"],
   ["Tab Tổ mở nhanh hơn (bộ 25.000 khách: lần đầu 470 → ~350 ms)", ""],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.479', ds:[
   ["Phân bổ KH: QĐ không giao cho PGD nhập ở ＋ QĐ mới — không tích xã, Lưu = QĐ 0 xã; hiện chung danh sách QĐ, ✎ Sửa tích thêm xã là thành QĐ có số liệu", "slDoiTab('pb')"],
   ["Phân bổ KH: đối chiếu dòng PGD trên QĐ chỉ theo cột điều chỉnh đợt này (bỏ so đã giao / đến 31/12)", "slDoiTab('pb')"],
   ["Phân bổ KH: 📅 Dòng thời gian QĐ — STT theo ngày, báo đợt bị sót; ghi số QĐ tỉnh không giao cho PGD để đủ đợt", "slDoiTab('pb')"],
-  ["Phân bổ KH: sửa QĐ linh động — ✎ Sửa nhanh ngay tại bảng, xếp theo chương trình ↔ theo xã, đổi mã / thêm / bỏ khối, ghép xã, ⧉ QĐ kế tiếp, so sánh khi đọc lại QĐ", "slDoiTab('pb')"],
-  ["Phân bổ KH: 📄 Đọc QĐ (PDF) — app đọc bảng QĐ theo chương trình, lấy các xã của PGD mình; nhập tay theo chương trình; xem QĐ theo chương trình ↔ theo xã, đủ 3 cột như QĐ", "slDoiTab('pb')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Phân bổ KH: sửa QĐ linh động — ✎ Sửa nhanh ngay tại bảng, xếp theo chương trình ↔ theo xã, đổi mã / thêm / bỏ khối, ghép xã, ⧉ QĐ kế tiếp, so sánh khi đọc lại QĐ", "slDoiTab('pb')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.480 · Hồ sơ vay › BBLV › ô ☐ In 2 mặt (cột trái, dưới Tích hết): mặc định bỏ tích",
     "3.478 · Phân bổ KH › 📋 Quyết định / 📈 Diễn biến: bảng ⚠ Đứt chuỗi QĐ (bấm dòng = ✎ sửa QĐ)",
     "3.471 · Phân bổ KH › 📈 Diễn biến: bảng cơ bản + nút Xếp · Tách từng QĐ · chip Xã / Chương trình · ▸ Xem thêm",
     "3.470 · 📥 Nạp & KT › Kiểm tra kỳ: dòng \"Tên xã trên Mẫu 31 = tên chuẩn\"",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.479', ds:[
     "3.461.3 · Hồ sơ vay › BBLV / 06A › chọn tổ: bảng cuộn trong khung; bấm dòng để tích; nút Chỉ món có vấn đề (mặc định bật); ô 🔎 tìm",
     "3.461.1 · Hồ sơ vay › BBLV hoặc 06A › cột trái dưới nút Tích hết: ô ☑ In 2 mặt (bỏ tích khi máy in 1 mặt)",
     "3.461 · Hồ sơ › Hồ sơ vay › chip BBLV (cạnh 06A/TD) › chọn tổ → bảng hộ còn nợ: bấm [Nợ quá hạn] [Nợ khoanh] [3 tháng KHĐ] [Lãi tồn > 3/6/12 tháng] [⭐ Nợ cần quan tâm] hoặc tích tay → In (mỗi hộ 1 trang); bấm tên hộ để xem trước",
-    "3.461 · Hồ sơ vay › 06A/TD: cùng bảng chọn — tích nhiều món → mỗi món 1 phiếu; ⚙ Khai báo riêng có đủ dòng (đoàn kiểm tra, thực tế, sử dụng vốn, ý kiến, ký tên)",
-    "3.460 · Hồ sơ Tổ › 10A › chọn tổ: bảng hộ vay cột trái có ô 🔎 tìm, Tích hết / Bỏ hết / Bỏ tích hộ dư nợ = 0 (như 10B, 10C); tỷ lệ tham dự / tán thành giữ như anh đã đặt"],
+    "3.461 · Hồ sơ vay › 06A/TD: cùng bảng chọn — tích nhiều món → mỗi món 1 phiếu; ⚙ Khai báo riêng có đủ dòng (đoàn kiểm tra, thực tế, sử dụng vốn, ý kiến, ký tên)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",
     "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",

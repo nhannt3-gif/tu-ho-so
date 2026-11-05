@@ -491,6 +491,7 @@ function hsoLap(){
   x.ten = xuatTen('Mau '+M.ma.replace(/\//g, ' ')+(HSO_GM ? ' - Ghi mau' : '')+(typeof omCo==='function' && omCo(M.k) ? omTen() : ''), pv, HSO.o.ngay || ngayISO(nay()));   /* 3.221: bản ghi mẫu ghi rõ trong tên file */
   if(typeof omChamMin==='function') x.ds.forEach(function(u){ if(OM_MAU[u.M.k]) u.h = omChamMin(u.h); });   /* 3.248: chấm mảnh lúc dựng bản in / xem / Word (HTML mẫu giữ chuỗi chấm gốc) */
   x.trang = hsoTrang(x.ds, null, x.ten);
+  if(M.haiMat) x.trang = x.trang.replace('<head>', '<head><meta name="kt-hai-mat" content="'+(M.haiMat() ? 1 : 0)+'">');   /* 3.480: mẫu tự chọn in 1 / 2 mặt (BBLV) — bộ in chuẩn đọc cờ này */
   return x;
 }
 /* sửa 1 trường của bộ đang chọn: đường dẫn "nv.ten", "pa.sv", "ho.0.ten" … */

@@ -223,7 +223,7 @@
     if(d.length<2){ var r = omLap(MK, t); return r; }
     var ds = d.map(function(ho){ BBLV_HO = ho; try { return {M:hsoMauK(MK), h:omLap(MK, t).h, ten:ho.k.ten}; } finally { BBLV_HO = null; } });
     return {ma:'BBLV', h:ds[0].h, ds:ds}; };
-  hsoMauGan('hsv', {k:MK, mg:omMg(MG), lap:function(t){ return hsoLapBblv(t); },
+  hsoMauGan('hsv', {k:MK, mg:omMg(MG), lap:function(t){ return hsoLapBblv(t); }, haiMat:function(){ return HSN.haiMat(MK); },   /* 3.480: mặc định in 1 mặt */
     ai:function(x, t){ return x.ds && x.ds.length>1 ? '' : ((x.ds && x.ds[0] && x.ds[0].ten) || (hsoKhachChon(t)||{}).ten || ''); },   /* nhiều hộ → tên file theo tổ */
     trai:function(t){ return typeof HSN==='undefined' ? '' : HSN.trai(t, MK, {tieu:'Hộ cần làm việc', ghi:'mỗi hộ 1 biên bản (1 trang); 1 món → dạng dòng, nhiều món → bảng'},
       'Lãi tồn cao = lãi tồn > 3 / 6 / 12 tháng lãi (dư nợ × lãi suất năm ÷ 12). Thành phần, chỗ ký, mục 2–5 mặc định để chấm ghi tay. Chưa tích món nào → in theo hộ đang xem (bấm tên hộ), hoặc bản trắng.'); }});

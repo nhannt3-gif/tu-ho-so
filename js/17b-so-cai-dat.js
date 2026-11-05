@@ -50,7 +50,7 @@ var CH_SO = {
   /* KTGS */
   ktgs:'Tab KTGS: kỳ + phạm vi + kiểu', ktIn:'KTGS: lựa chọn khi in từng mẫu', ktKBLuu:'KTGS: khai báo lưu lâu dài', ktHoiKB:'KTGS: khai báo Hội (xã | hội)', ktChuan:'KTGS: bảng chuẩn hóa Hội – Đoàn',
   ktPC:'KTGS: phân công Ban thường vụ', ktKBKhoa:'KTGS: khóa khai báo Hội (3.398)', ktKBNK:'KTGS: nhật ký sửa khai báo Hội (3.398)', ktKH:'KTGS: Kế hoạch 01/KH', ktKHChuan:'KTGS: mốc chuẩn hóa kế hoạch (1 lần)', ktApThu:'KTGS: thứ tự ấp kế hoạch', ktKN04:'KTGS: kết luận Mẫu 04',
-  ktMucDich:'KTGS: cột mục đích Mẫu 06', ktNhanXet:'KTGS: gợi ý nhận xét', ktBang16:'KTGS: Bảng II Mẫu 16', ktHaiMat:'KTGS: in 2 mặt', ktPnkt:'KTGS: bảng ngành kinh tế', ktHdt5:'KTGS: mốc chuyển khai báo Hội (1 lần)', ktHdtDoi:'KTGS: mốc đổi tên Hội (1 lần)', ktKBMo:'KTGS: khung khai báo đang mở', ktNapMo:'KTGS: khung nạp đang mở',
+  ktMucDich:'KTGS: cột mục đích Mẫu 06', ktNhanXet:'KTGS: gợi ý nhận xét', ktBang16:'KTGS: Bảng II Mẫu 16', ktHaiMat:'KTGS: in 2 mặt', bblvHaiMat:'Hồ sơ vay: BBLV in 2 mặt (mặc định 1 mặt)', ktPnkt:'KTGS: bảng ngành kinh tế', ktHdt5:'KTGS: mốc chuyển khai báo Hội (1 lần)', ktHdtDoi:'KTGS: mốc đổi tên Hội (1 lần)', ktKBMo:'KTGS: khung khai báo đang mở', ktNapMo:'KTGS: khung nạp đang mở',
   /* hồ sơ vay, giao dịch xã */
   hsoKB:'Hồ sơ: khai báo PGD, ấp, tổ phó, mục đích…', hsoO:'Hồ sơ: lựa chọn nhớ từng mẫu (ô, chấm, cỡ chữ…)', hsoTK:'Tab Hồ sơ: kỳ + mẫu đang mở', hsoBo:'Bộ hồ sơ vay lưu tạm (đời cũ)', hoMoi:'Sổ hộ vay (hộ mới khai báo)',
   gdx:'Giao dịch xã: khai báo cán bộ, đơn vị, từng mẫu', gdxTK:'Tab Giao dịch xã: kỳ + phạm vi', dmTo:'Danh mục tổ tự lập (đời cũ, bỏ)'
