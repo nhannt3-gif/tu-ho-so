@@ -22,6 +22,12 @@ const fs=require('fs'), path=require('path');
    ok('đọc bộ: cả xã '+maXa+' ghi "… Vay trực tiếp" → tên chuẩn theo mã xã (File Tổ trưởng / danh mục), không còn "trực tiếp"', cua.length>0 && !hs.some(x=>TT.test(x.tenXa||'')) && cua.every(x=>x.tenXa===B.xaTen[maXa]) && !TT.test(B.xaTen[maXa]), B.xaTen[maXa]+' · '+cua.length+' dòng');
    const t1 = slXaTenTu([{xa:'1', to:'T', tenXa:'Phường Gia Lộc'}, {xa:'1', to:'T', tenXa:'Phường Gia Lộc'}], [{to:'T', tenXa:'PHƯỜNG GIA LỘC'}]), t2 = slXaTenTu([{xa:'2', to:'U', tenXa:'Vay trực tiếp'}], [{to:'U', tenXa:'XÃ TRUÔNG MÍT'}]);
    ok('3.479: File Tổ trưởng ghi TOÀN CHỮ HOA → tên hiển thị hoa đầu từ (theo Mẫu 31); chỉ có chữ hoa → tự viết hoa đầu từ', t1['1']==='Phường Gia Lộc' && t2['2']==='Xã Truông Mít', t1['1']+' · '+t2['2']);
+   /* 3.479 (anh 05/11 ảnh KTGS "TRUÔNG MÍT, ngày…", "xã TRUÔNG MÍT"): File Tổ trưởng ghi TENXA chữ hoa → bộ số liệu, cây tổ, mẫu KTGS vẫn hoa đầu từ */
+   const B2 = await slBo(ky), h0 = B2.co.hstd.find(o=>o.to && o.xa), B2ds = B2.co.dsto; B2.co.dsto = [{to:h0.to, tenXa:String(B2.xaTen[h0.xa]).toUpperCase()}]; const tn = slXaTenChuan(B2); B2.co.dsto = B2ds;
+   const K2 = await toNap(ky), dsCu = K2.dsDung; K2.dsDung = Object.keys(K2.to).map(m=>({to:m, tenXa:String(K2.to[m].tenXa || '').toUpperCase()})); toTenXa(K2); const tk = K2.to[h0.to]; K2.dsDung = dsCu;
+   const thuong = x=>!!x && x!==x.toUpperCase();
+   ok('3.479: File Tổ trưởng ghi TENXA chữ hoa → bộ số liệu, cây tổ, địa danh / địa chỉ mẫu KTGS hoa đầu từ; dòng tên cơ quan in hoa theo mẫu',
+     thuong(tn[h0.xa]) && thuong(tk.tenXa) && thuong(ktXaChu(tk.tenXa)) && thuong(ktXaTen(tk.tenXa)) && ktChuanDauXa(tk)===ktChuanDauXa(tk).toUpperCase(), [tn[h0.xa], tk.tenXa, ktXaChu(tk.tenXa), ktXaTen(tk.tenXa), ktChuanDauXa(tk)].join(' | '));
    ok('không tên xã nào toàn chữ hoa trong bộ số liệu', !hs.some(x=>x.tenXa && x.tenXa===x.tenXa.toUpperCase() && /[a-zà-ỹ]/i.test(x.tenXa)), [...new Set(hs.map(x=>x.tenXa))].join(','));
    ok('giữ tên gốc để soát (tenXaGoc)', cua.every(x=>TT.test(x.tenXaGoc||'')));
    const Dn = await KHO.duNoAp(ky); ok('KHO.duNoAp (Phân bổ, Tổng hợp…): tên xã sạch', Dn && Dn.ds.length && !Dn.ds.some(x=>TT.test(x.tenXa)));

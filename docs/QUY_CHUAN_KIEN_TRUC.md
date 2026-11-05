@@ -315,3 +315,14 @@ Một chỗ quyết định: `toDong0` (`js/22g-to.js`) lúc dựng cây tổ c�
 - **Đổi cấp** (`pvDatCap`): đổi Xã → Điểm GD · Hội · Ấp · Tổ về Tất cả; đổi Điểm GD / Hội / Ấp (ngang cấp, lọc đa chiều — giữ nhau) → Tổ về Tất cả. Ô cấp dưới đang ghim giữ nguyên.
 - **Dải tiêu đề** "LỌC ĐỊA BÀN": dòng số liệu (n tổ · khách · số liệu ngày) + ▦ Chip · ⬆ · 📌 Về ghim nằm trên đường viền khung; hàng lọc chỉ còn ô chọn.
 - Dữ liệu cũ: `pvGhimBat` (ghim chung 3.328) tự chuyển thành ghim các ô đang có giá trị. Phép thử: t241 (mở lại app), t278, t189.
+
+## 18. Sửa phần dùng chung — không làm lỗi cái đã chạy ổn (anh 05/11/2026)
+**Bài học 3.470 → 3.479:** 3.470 đổi tên xã sang "lấy theo mã xã, ưu tiên File Tổ trưởng" để hết chữ "Vay trực tiếp" — đúng ý, nhưng cột TENXA của File Tổ trưởng ghi **TOÀN CHỮ HOA** → mọi tab / mẫu in (KTGS báo cáo tổng hợp: "TRUÔNG MÍT, ngày…", "xã TRUÔNG MÍT") ra chữ hoa; phép thử không bắt vì bộ giả `tests/gianho31` chỉ có Thông tin tổ trưởng kiểu cũ (không có cột TENXA). Sửa ở 3.479.
+**Luật — khi sửa phần dùng chung** (nguồn dữ liệu / thứ tự ưu tiên nguồn, hàm tên / định dạng / chữ, khuôn in, bộ nghe lệnh chung…):
+1. **Kê chỗ dùng** (grep hàm / trường) — ghi vào CHANGELOG bản đó những tab / mẫu bị ảnh hưởng.
+2. **So đầu ra cũ ↔ mới** trên dữ liệu giả, **cả cách viết**: hoa thường, dấu, khoảng trắng, định dạng số / ngày, thứ tự dòng — không chỉ "số đúng". Công cụ: t179 (bản in chuẩn từng ký tự), chụp trạng thái trước / sau (cách làm ở 3.473: 172 trạng thái mẫu Hồ sơ giống hệt).
+3. **Thêm nguồn mới thì thêm dữ liệu giả đúng kiểu file thật của nguồn đó** (chữ hoa, khoảng trắng thừa, ô trống, mã khác độ dài…) vào phép thử — không chỉ dùng bộ giả cũ.
+4. **Giữ cách hiển thị cũ** trừ khi anh yêu cầu đổi; tên cơ quan / dòng in hoa theo quy chuẩn từng mẫu (mẫu tự `toUpperCase` lúc in), còn trong câu / địa danh / địa chỉ: hoa đầu từ.
+5. Có hồi quy đủ trước khi gộp; anh cần gấp thì gộp trước nhưng **báo rõ hồi quy chưa xong** và báo lại khi xong.
+Phép thử giữ bài học này: t373 (File Tổ trưởng chữ hoa → bộ số liệu, cây tổ, mẫu KTGS ra hoa đầu từ).
+
