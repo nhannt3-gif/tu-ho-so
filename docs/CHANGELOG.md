@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.484 — 05/11/2026 — BBLV / 06A: in 1 lần theo Hội đoàn thể (nhiều tổ) (TK 3)
+- **Anh 05/11:** "anh cần in 1 theo Hội đoàn thể hoặc từng tổ".
+- **Tab Tổ:** danh sách nhiều tổ (chọn Hội / xã / toàn PGD + chip Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ) → 📄 BBLV / 📄 06A → hộp có nút **🖨 In 1 lần cả danh sách: <phạm vi> — n tổ · m hộ**; vẫn chọn được từng tổ như 3.483. Tổ xếp Xã › Hội › tên tổ.
+- **Hồ sơ vay chế độ nhiều tổ** (`HSO.nhieu`): cột trái thay bảng chọn 1 tổ bằng khung tóm tắt (từng tổ: số hộ · số món), ô In 2 mặt, nút **↩ Về từng tổ**; bản xem / In / PDF / Word gộp đủ biên bản (mỗi hộ 1 BBLV; 06A mỗi món 1 phiếu) của mọi tổ, tên file theo phạm vi. Đổi tổ ở bộ lọc → tự về chế độ 1 tổ.
+- **Kỹ thuật:** `hsoLap` (js/25b) — mẫu có đặc tính `nhieuTo` (BBLV, 06A) + `HSO.nhieu` → lập `M.lap` từng tổ rồi nối `x.ds`; `HSN.tuTo` nhận mảng tổ; `HSN.nhieuHTML` khung tóm tắt; lệnh `hsn.boNhieu`, `to.hsnCa`. Mẫu khác không đổi (không có `nhieuTo`). t377 thêm 5 ý.
+
 ## 3.483 — 05/11/2026 — Tab Tổ → BBLV / 06A tích sẵn theo loại nợ (TK 3)
 - **Anh 05/11:** "em liên kết 2 biên bản qua bên tab Tổ luôn" (bước 2, sau 3 chip riêng 3.482).
 - **Nút 📄 BBLV · 📄 06A** ở đầu danh sách tab Tổ khi đang chọn chip Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ (cả danh sách 1 tổ lẫn phạm vi xã / Hội / toàn PGD).

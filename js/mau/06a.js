@@ -133,7 +133,7 @@
   window.hso06aMo = function(maTo, kh, ku, kyCo){ var S = hsoCH(), t = maTo ? KHO.to(maTo) : null; if(t && S.to!==maTo){ S.xa = t.xa || ''; S.diem = t.khoaDiem || ''; S.hoi = String(t.dv||''); S.ap = ''; S.to = maTo; }   /* phạm vi chung đặt đúng tổ (như pvChonTo) */
     S.hsv = MK; HSO_DEN = {kh:kh, ku:ku || ''}; if(typeof HSN!=='undefined') HSN.datMot(MK, ku); luu(); datKy(kyCo); dhSL('hsv'); };   /* 3.461: tích sẵn đúng món */
   if(typeof hsoChonMau==='function'){ var cu = hsoChonMau; hsoChonMau = function(k){ if(k===MK && hsoTab()==='hsv' && hsoCH().hsv!==MK){ hsoCH().hsv = MK; luu(); if(datKy()) return; } return cu.apply(this, arguments); }; }
-  hsoMauGan('hsv', {k:MK, mg:omMg([20, 20, 18, 27.5]),   /* lề theo file gốc */
+  hsoMauGan('hsv', {k:MK, nhieuTo:1, mg:omMg([20, 20, 18, 27.5]),   /* lề theo file gốc */
     lap:function(t){ return hsoLap06a(t); }, ai:function(x, t){ return (hsoKhachChon(t)||{}).ten || ''; },
     trai:function(t){ return typeof HSN==='undefined' ? '' : HSN.trai(t, MK, {tieu:'Món cần kiểm tra', ghi:'mỗi món 1 phiếu, in liền'},
       'Số tiền nợ lãi = lãi tồn tất cả (Lãi tồn TH + QH). Phần thực tế, sử dụng vốn, ý kiến ghi tay tại nhà khách. Chưa tích món nào → in theo người vay đang xem (bấm tên hộ trong bảng), hoặc bản trắng.'); }});

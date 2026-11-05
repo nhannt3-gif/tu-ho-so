@@ -35,6 +35,19 @@ const fs = require('fs'), path = require('path');
    const maTo = soTo>1 ? nutTo[0].getAttribute('data-to') : nB.getAttribute('data-to'); (soTo>1 ? nutTo[0] : nB).click && soTo>1 && nutTo[0].click(); await w(1500);
    const tT = KHO.to(maTo), monKN = HSN.ds(tT).flatMap(h=>h.mon).filter(x=>x.m.kn>0).map(x=>x.m.ku).sort(), selB = Object.keys(HSN.sel('bblv')).filter(k=>HSN.sel('bblv')[k]).sort();
    ok('→ Hồ sơ vay · BBLV · đúng tổ, tích sẵn đúng các món nợ khoanh ('+monKN.length+')', hsoTab()==='hsv' && hsoCH().hsv==='bblv' && hsoCH().to===maTo && monKN.length>0 && selB.join()===monKN.join(), hsoTab()+' '+hsoCH().hsv+' '+selB.join());
+   /* 3.484: in 1 lần cả danh sách (Hội / xã…) — chip 3 tháng KHĐ toàn PGD (nhiều tổ) → 1 bản in BBLV đủ hộ của mọi tổ */
+   slDoiTab('to'); await w(800); { const C2 = toCH(); C2.xa = ''; C2.diem = ''; C2.hoi = ''; C2.to = ''; } TO_LOC_PV = 'khd'; toVeThe(); await w(1200);
+   document.querySelector('#to-the .to-bang-dau [data-mk="bblv"]').click(); await w(400);
+   const ca = document.querySelector('#hop-in [data-lenh="to.hsnCa"]'), toKHD = [...new Set(tv.filter(k=>k.khd).map(k=>k.to.ma))], hoKHD = tv.filter(k=>k.khd).length;
+   ok('3.484 hộp có nút "🖨 In 1 lần cả danh sách" ('+toKHD.length+' tổ · '+hoKHD+' hộ)', !!ca && new RegExp(toKHD.length+' tổ · '+hoKHD+' hộ').test(ca.textContent), ca && ca.textContent);
+   ca.click(); await w(1800);
+   const N = HSO.nhieu, tr = document.getElementById('hso-tuy');
+   ok('→ Hồ sơ vay BBLV chế độ nhiều tổ: khung tóm tắt từng tổ + "Về từng tổ"', hsoTab()==='hsv' && hsoCH().hsv==='bblv' && !!N && N.ds.length===toKHD.length && !!tr.querySelector('.hsn-nhieu') && !!tr.querySelector('[data-lenh="hsn.boNhieu"]'), N && N.ds.join());
+   const xN = hsoLap(), soBB = (xN.ds||[]).length;
+   ok('bản in gộp: mỗi hộ 1 biên bản — '+hoKHD+' biên bản từ '+toKHD.length+' tổ (thứ tự xã › Hội › tổ)', soBB===hoKHD && xN.ds.every(u=>/BIÊN BẢN LÀM VIỆC/.test(u.h)), soBB);
+   ok('tên file theo phạm vi (không theo 1 hộ)', /Toan PGD|PGD|to/i.test(xN.ten), xN.ten);
+   document.querySelector('[data-lenh="hsn.boNhieu"]').click(); await w(800);
+   ok('↩ Về từng tổ → bảng chọn món 1 tổ như cũ', !HSO.nhieu && !!document.querySelector('#hso-tuy .hsn-bang thead') && !document.querySelector('#hso-tuy .hsn-nhieu'));
    /* 1 tổ, chip 3 tháng KHĐ → 06A */
    const kH = tv.find(k=>k.khd); slDoiTab('to'); await w(800); C.to = kH.to.ma; TO_LOC_MO = 'khd'; toVeThe(); await w(1200);
    const n6b = document.querySelector('#to-the .to-bang-dau [data-lenh="to.hsn"][data-mk="06a"]');

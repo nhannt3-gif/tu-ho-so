@@ -30,11 +30,15 @@ var HSN = (function(){
   X.ds = function(t){ if(!t || typeof hsoTVTo!=='function') return []; var K = X.khd();
     return hsoTVTo(t).map(function(k){ return {k:k, mon:(k.mon || []).filter(function(m){ return (m.dn||0)>0 || (m.qh||0)>0 || (m.kn||0)>0; }).map(function(m){ return {m:m, f:X.co(m, K)}; })}; })
       .filter(function(h){ return h.mon.length; }).sort(function(a, b){ return String(a.k.kh).localeCompare(String(b.k.kh), 'vi', {numeric:true}); }); };
-  /* 3.483 (anh 05/11 "liên kết 2 biên bản qua bên tab Tổ"): mở Hồ sơ vay — tổ maTo, mẫu mk, tích sẵn mọi món có cờ loai (qh · kn · khd); giữ kỳ đang xem. → số món tích */
-  X.tuTo = function(mk, maTo, loai){ var t = KHO.to(maTo), S = hsoCH(); if(!t || !loai) return 0;
-    if(S.to!==maTo){ S.xa = t.xa || ''; S.diem = t.khoaDiem || ''; S.hoi = String(t.dv||''); S.ap = ''; S.to = maTo; }   /* phạm vi chung đặt đúng tổ (như hso06aMo) */
-    var n = X.ds(t).reduce(function(a, h){ return a+h.mon.filter(function(x){ return x.f[loai]; }).length; }, 0); if(!n) return 0;
-    HSO_DEN = {ap:function(t2){ var s = {}; X.ds(t2 || t).forEach(function(h){ h.mon.forEach(function(x){ if(x.f[loai]) s[x.m.ku] = true; }); }); HSO.nchon = HSO.nchon || {}; HSO.nchon[mk] = s; X.loc().q = ''; }};   /* hsoVe đổi tổ / mẫu tạo HSO mới → tích sau đó */
+  /* 3.483 (anh 05/11 "liên kết 2 biên bản qua bên tab Tổ"): mở Hồ sơ vay — tổ maTo, mẫu mk, tích sẵn mọi món có cờ loai (qh · kn · khd); giữ kỳ đang xem. → số món tích
+     3.484 (anh 05/11 "in 1 lần theo Hội đoàn thể hoặc từng tổ"): maTo là MẢNG nhiều tổ → HSO.nhieu = {ds:[mã tổ], ten} — hsoLap (js/25b) lập lần lượt từng tổ, gộp 1 bản in / PDF / Word */
+  X.dem1 = function(t, loai){ return X.ds(t).reduce(function(a, h){ return a+h.mon.filter(function(x){ return x.f[loai]; }).length; }, 0); };
+  X.tuTo = function(mk, maTo, loai, ten){ var dsTo = (Array.isArray(maTo) ? maTo : [maTo]).filter(function(m){ var t = KHO.to(m); return t && loai && X.dem1(t, loai); });
+    if(!dsTo.length) return 0; var t = KHO.to(dsTo[0]), S = hsoCH(), n = 0;
+    if(S.to!==dsTo[0]){ S.xa = t.xa || ''; S.diem = t.khoaDiem || ''; S.hoi = String(t.dv||''); S.ap = ''; S.to = dsTo[0]; }   /* phạm vi chung đặt đúng tổ (như hso06aMo) */
+    dsTo.forEach(function(m){ n += X.dem1(KHO.to(m), loai); });
+    HSO_DEN = {ap:function(){ var s = {}; dsTo.forEach(function(m){ X.ds(KHO.to(m)).forEach(function(h){ h.mon.forEach(function(x){ if(x.f[loai]) s[x.m.ku] = true; }); }); });
+      HSO.nchon = HSO.nchon || {}; HSO.nchon[mk] = s; X.loc().q = ''; HSO.nhieu = dsTo.length>1 ? {ds:dsTo, ten:ten || dsTo.length+' tổ'} : null; }};   /* hsoVe đổi tổ / mẫu tạo HSO mới → tích sau đó */
     S.hsv = mk; luu(); dhSL('hsv'); return n; };
   X.sel = function(mk){ HSO.nchon = HSO.nchon || {}; return HSO.nchon[mk] = HSO.nchon[mk] || {}; };
   X.datMot = function(mk, ku){ HSO.nchon = HSO.nchon || {}; HSO.nchon[mk] = {}; if(ku) HSO.nchon[mk][ku] = true; };
@@ -59,6 +63,7 @@ var HSN = (function(){
     het:function(el){ var mk = el.getAttribute('data-mk'), v = el.getAttribute('data-v')==='1', s = X.sel(mk), t = KHO.to(hsoCH().to);
       if(!v){ HSO.nchon[mk] = {}; hsoVe(); return; } X.dsHien(t).forEach(function(h){ h.mon.forEach(function(x){ s[x.m.ku] = true; }); }); hsoVe(); },   /* Tích hết = các món đang hiện (theo lọc) */
     vd:function(){ var L = X.loc(); L.vd = !L.vd; hsoVe(); },
+    boNhieu:function(){ HSO.nhieu = null; hsoVe(); },   /* 3.484 */
     tim:function(el){ X.loc().q = el.value; clearTimeout(X.bang.hen); X.bang.hen = setTimeout(function(){ hsoVe(); var o = document.querySelector('.hsn-tim'); if(o){ o.focus(); o.setSelectionRange(o.value.length, o.value.length); } }, 400); },
     xem:function(el){ HSO.vay.kh = el.getAttribute('data-kh'); HSO.vay.ku = el.getAttribute('data-ku') || ''; hsoVe(); },
     hai:function(el){ if(el.getAttribute('data-mk')==='bblv') D.cauHinh.bblvHaiMat = el.checked ? 1 : 0; else D.cauHinh.ktHaiMat = el.checked ? 1 : 0; luu(); if(typeof hsoHen==='function') hsoHen(); }};   /* 3.480: BBLV công tắc riêng */   /* 3.461.1: dùng chung công tắc In 2 mặt của bộ in (KTGS) */
@@ -92,6 +97,14 @@ var HSN = (function(){
           '<div class="hsn-chan">Hiện <b>'+soHien+'</b>/'+tong+' món · máy in 1 mặt: bỏ tích "In 2 mặt" (không chèn trang trắng)</div>'
         : '<div class="sl-phu">Tổ không có hộ còn nợ ở kỳ số liệu đang mở.</div>')+'</div>'; };
   /* 3.462: cột trái chung của mẫu dùng bảng chọn món (06A, BBLV) — gọi từ hsoMauGan(…trai) */
-  X.trai = function(t, mk, op, ghi){ return X.bang(t, mk, op)+'<div class="hso-cham"><small>'+ghi+'</small></div>'+(typeof omCo==='function' && omCo(mk) ? omNhanhHTML(mk) : ''); };
+  /* 3.484: đang in nhiều tổ → khung tóm tắt từng tổ (hộ · món đã tích) thay bảng chọn 1 tổ; "Về từng tổ" bỏ chế độ này */
+  X.nhieuHTML = function(mk){ var N = HSO.nhieu, e = coChuHTML, tong = {ho:0, mon:0};
+    var dong = N.ds.map(function(m){ var t = KHO.to(m), d = t ? X.dem(mk, t) : {ho:0, mon:0}; tong.ho += d.ho; tong.mon += d.mon;
+      return '<tr><td>'+e(t ? t.ten : m)+'</td><td class="s">'+d.ho+'</td><td class="s">'+d.mon+'</td></tr>'; }).join('');
+    return '<div class="hsn-nhieu"><div><b>🖨 In 1 lần: '+e(N.ten)+'</b> — '+N.ds.length+' tổ · <b>'+tong.ho+'</b> hộ · '+tong.mon+' món '+
+      '<button class="nho" data-lenh="hsn.boNhieu">↩ Về từng tổ</button></div><div class="hsn-hop"><table class="hsn-bang"><thead><tr><th>Tổ</th><th>Hộ</th><th>Món</th></tr></thead><tbody>'+dong+'</tbody></table></div>'+
+      '<label class="hsn-hai"><input type="checkbox" data-lenh="hsn.hai" data-su="change" data-mk="'+mk+'"'+(X.haiMat(mk) ? ' checked' : '')+'> In 2 mặt</label></div>'; };
+  X.trai = function(t, mk, op, ghi){ if(HSO.nhieu && HSO.nhieu.ds.length>1){ if(!X.bang.dk && typeof GD!=='undefined'){ X.bang.dk = 1; GD.dangKy('hsn', LENH); } return X.nhieuHTML(mk); }
+    return X.bang(t, mk, op)+'<div class="hso-cham"><small>'+ghi+'</small></div>'+(typeof omCo==='function' && omCo(mk) ? omNhanhHTML(mk) : ''); };
   return X;
 })();
