@@ -57,6 +57,11 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    const cbHai = document.querySelector('#hso-tuy input[data-lenh="hsn.hai"]'); ok('ô "In 2 mặt" của BBLV mặc định bỏ tích', !!cbHai && !cbHai.checked && cbHai.getAttribute('data-mk')==='bblv');
    cbHai.checked = true; cbHai.dispatchEvent(new Event('change', {bubbles:true})); await w(200); tg = await xem();
    ok('tích "In 2 mặt" → BBLV chèn trang trắng giữa các biên bản; công tắc KTGS / 06A không đổi', D.cauHinh.bblvHaiMat===1 && tg.replace(/_/g, '')===('B').repeat(ds.length) && /_/.test(tg) && D.cauHinh.ktHaiMat===undefined && ktHaiMat()===true, tg);
+   /* 3.488 (anh 06/11 "in ra có dấu đầy đủ, xem lại bản view"): vùng nội dung trang (.tr-nd, bộ in chuẩn js/05) không cắt mép trên — dấu chữ HOA dòng đầu nhô lên vẫn hiện; trái · phải · dưới vẫn cắt */
+   { hsoXem(); await w(2000); const f = document.getElementById('hso-xem-khung'), d = f && f.contentDocument, nd = d && d.querySelector('.tr-nd');
+     const thu = (top)=>{ const x = d.createElement('div'); x.style.cssText = 'position:absolute;left:0;width:20mm;height:1mm;background:red;top:'+top; nd.appendChild(x); const r = x.getBoundingClientRect(), e = d.elementFromPoint(r.left+5, r.top+r.height/2); x.remove(); return e===x; };
+     ok('3.488 khung xem: mép trên vùng nội dung không cắt (dấu chữ hoa dòng đầu hiện đủ), mép dưới vẫn cắt', !!nd && thu('-2mm') && !thu('calc(100% + 1mm)'), nd ? getComputedStyle(nd).clipPath : 'không thấy .tr-nd');
+     try{ dongHop(); }catch(e){} await w(300); }
    const kh = () => { const f = document.getElementById('hso-xem-khung'); return f ? (f.srcdoc.match(/name="kt-hai-mat" content="(\d)"/) || [])[1] : null; };
    await w(400); const c1 = kh(); cbHai.checked = false; cbHai.dispatchEvent(new Event('change', {bubbles:true})); await w(600); const c0 = kh();
    ok('bấm ô "In 2 mặt" → khung xem trước (bản sẽ in) đổi NGAY theo: tích = 2 mặt, bỏ tích = 1 mặt (trước đây khung không vẽ lại → tắt vẫn in 2 mặt)', c1==='1' && c0==='0' && D.cauHinh.bblvHaiMat===0, c1+' → '+c0);
