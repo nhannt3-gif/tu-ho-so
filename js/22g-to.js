@@ -28,7 +28,7 @@ function ctChuThich(){ var ds = Object.keys(CT_DUNG||{}).sort(); return ds.lengt
 function bcCT(x){ return x && x.ctChu ? '<div class="bc-ghi">'+coChuHTML(x.ctChu)+'</div>' : ''; }
 function laiTon(o){ return (typeof o.lt==='number') ? o.lt : (o.ltTH||0)+(o.ltQH||0); }   /* Mẫu 10 có cột Lãi tồn; Mẫu 31 = lãi tồn TH + QH */
 var TO_BC = [{k:'ds', ten:'Danh sách hộ vay'}, {k:'no', ten:'Nợ cần xử lý (quá hạn · khoanh · KHĐ)'}, {k:'tk', ten:'TK 105 của tổ'}, {k:'ct', ten:'Dự kiến chia tách tổ'}];   /* 3.139 */
-var TO_K = null, TO_Q = '';
+var TO_K = null, TO_Q = '', TO_KH_TAM = null;   /* TO_KH_TAM (3.489): ghi nhớ toKhach trong 1 lần vẽ thẻ tổ */
 function toCH(){ return pvGan(D.cauHinh.toTK = D.cauHinh.toTK || {ky:'', xa:'', diem:'', hoi:'', to:'', bc:{ds:true}}); }
 /* 3.149 (anh chốt "dùng chung hết"): phạm vi xã › điểm › hội › tổ DÙNG CHUNG cho Tổ, Sao kê, Tổng hợp, KTGS, Tra cứu —
    các ô xa / diem / hoi / to của từng tab trỏ vào 1 chỗ D.cauHinh.pvChung (getter / setter); lần đầu lấy theo tab Tổ */
@@ -404,7 +404,9 @@ function toBDNap(t){   /* biến động tháng đang xem của tổ t → TO_BD
 }
 /* hạn CCCD (Luật Căn cước 2023): đổi khi đủ 14, 25, 40, 60 tuổi; cấp trong 2 năm trước mốc thì dùng đến mốc kế; từ 60 tuổi không hết hạn.
    CMND 9 số hết hiệu lực từ 01/01/2025. Thiếu ngày sinh / ngày cấp → chưa rõ. */
-function toCCCDHan(so, ns, ncap){
+function toCCCDHan(so, ns, ncap){ var T = TO_KH_TAM ? (TO_KH_TAM.cc = TO_KH_TAM.cc || {}) : null, k = T ? so+'|'+ns+'|'+ncap : '';   /* 3.489 (Đ6): 1 lần vẽ thẻ tổ — mỗi khách tính 1 lần */
+  if(T && T[k]) return T[k]; var r = toCCCDHan0(so, ns, ncap); if(T) T[k] = r; return r; }
+function toCCCDHan0(so, ns, ncap){
   so = String(so||'').replace(/\D/g, ''); var hn = ngayISO(nay());
   if(!so) return {kq:'?', chu:'chưa có số'};
   if(so.length===9) return {kq:hn>='2025-01-01' ? 'het' : 'ok', den:'2025-01-01', chu:'CMND 9 số — hết hiệu lực từ 01/01/2025'};

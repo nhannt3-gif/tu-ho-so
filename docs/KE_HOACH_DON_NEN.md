@@ -101,6 +101,6 @@ Luật: mỗi bản `kiem.py` sạch + trong mốc · phép thử phần sửa �
 | Đ3 | 3.473–3.476 | Mẫu Hồ sơ còn lại → `hsoMauGan`: ① 01/TD · 03/TD · 01/UQ · 01/GQVL · 07B · PDNH ② Sổ hộ vay ③ 09A · 01/TĐCK · 06/TD · 01/BG · 02/BG · 01/TGTV ④ 10A–10D · 10C cũ | nhánh mẫu riêng 52 → 0 || ✅ **gộp 1 bản 3.473** (cả 4 nhóm: nhánh 52 → 0; chụp 172 trạng thái giống hệt) |
 | Đ4 | 3.477–3.480 | `onclick` → `data-lenh` (2–3 file lớn / bản: 22k, 04c, 10, 22e, 12, 12b, 06a, 11, 04b3…) | onclick 1.266 → ~700 || 🟡 3.474 Nạp & KT (66) + hàng chờ `gdDangKy` · 3.475 menu chuột phải + dải tháng · 3.476 công cụ `tools/doi_onclick.py` cho 70 file · 1.266 → 467 (còn: dạng phức tạp + js/04b cửa sổ nổi) |
 | Đ5 | 3.481–3.482 | Phần còn đọc số liệu riêng → `KHO` (Theo dõi nợ, mini GDX, đọc sâu kỳ riêng) | chỗ đọc riêng 0 || ✅ rà 3.477: đã xong từ trước (Theo dõi nợ gỡ 3.399, mini GDX qua KHO, thước đo đọc thẳng = 0) |
-| Đ6 | 3.483 | Tối ưu tab Tổ (461 ms) | < 300 ms || 🟡 3.477 `toTV` bỏ lọc lặp: lần đầu 470 → ~350 ms, lần sau ~150 ms |
+| Đ6 | 3.483 | Tối ưu tab Tổ (461 ms) | < 300 ms || ✅ 3.489: lần đầu 312–333 → 173–273 ms (cùng máy, bộ giả 25.000 khách) — `toKhach` / hạn CCCD 1 lần trong 1 lần vẽ thẻ tổ, `skNhomDH` bỏ tính ngày chuyển QH khi không cần; bản in / bảng giống hệt từng ký tự (so cũ ↔ mới) |
 | Đ7 | xen kẽ | File đang sửa: tách dòng > 400 ký tự, báo cáo bảng qua `DANG_KY` | dòng dài 159 → giảm | |
 Không trong kế hoạch (chờ anh): "Việc cần xử lý" Hôm nay; ý a / b QĐ (cảnh báo Biểu 07 đã xuất, nhật ký sửa QĐ); máy chủ nội bộ.
