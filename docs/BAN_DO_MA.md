@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.487 · 06/11/2026 11:07 · 141 file · 45804 dòng · 3655 hàm cấp ngoài · 609 biến toàn cục.
+Bản 3.488 · 06/11/2026 11:21 · 141 file · 45805 dòng · 3655 hàm cấp ngoài · 609 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -23,7 +23,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/04c-van-ban-thang.js` | 1005 | 81 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 2634–3608 của bản 3.3 |
 | `js/04d-bo-ho-so.js` | 275 | 23 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 3609–3880 của bản 3.3 |
 | `js/04e-chung.js` | 291 | 25 | /*   3.399 (anh 28/10: "theo dõi nợ tạm thời bỏ, xóa code rác, sẽ phát triển sau cho gọn" · "gỡ luôn cho gọn c |
-| `js/05-them-file.js` | 1393 | 72 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
+| `js/05-them-file.js` | 1394 | 72 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
 | `js/06-hop-thoai.js` | 1357 | 106 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
 | `js/06a-dong-bo-cai-dat.js` | 961 | 53 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): đồng bộ mục lên file thật trên Drive · xóa / thùng rác |
 | `js/06b-xoa-nhieu.js` | 226 | 25 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2218–2421 của bản 3.3 |
@@ -199,7 +199,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/05-them-file.js:546` · 8. XEM TRƯỚC / IN / GỬI
 - `js/05-them-file.js:632` · TRÌNH XEM DÙNG CHUNG cho khung lớn (#x-than) và cột phải (#cp-than)
 - `js/05-them-file.js:1184` · 3.128 — BỘ IN CHUẨN (anh chốt): app tự chia trang A4 → xem trước = bản in
-- `js/05-them-file.js:1382` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f05.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
+- `js/05-them-file.js:1383` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f05.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
 - `js/06-hop-thoai.js:1` · HỘP THOẠI CHUNG
 - `js/06-hop-thoai.js:105` · SỬA MỘT MỤC
 - `js/06-hop-thoai.js:121` · PHÂN LOẠI 3 CẤP (bản 3.4): Mảng (1) · CT vay (1 hoặc Dùng chung) · Tag (nhiều)
@@ -567,9 +567,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `veKTGS` `js/22b-ktgs.js:108`
 - `veSaoKe` `js/22h-cap-hoi-sao-ke.js:401`
 - `veTongHop` `js/22i-tong-hop.js:333`
-- `inChuan` `js/05-them-file.js:1360`
+- `inChuan` `js/05-them-file.js:1361`
 - `inBlob` `js/05-them-file.js:1155`
-- `xemChuan` `js/05-them-file.js:1368`
+- `xemChuan` `js/05-them-file.js:1369`
 - `pvLuaChon` `js/22ga-pham-vi.js:10`
 - `chTheoDoi` `js/17-dong-bo-cai-dat.js:49`
 - `slDay` `js/22-so-lieu.js:790`

@@ -225,6 +225,7 @@
 | **3.485** | TK 3 | Sổ quy tắc tên thêm BBLV, 06A (js/49) | gộp |
 | **3.486** | TK 3 | Hồ sơ vay BBLV / 06A chọn món cả Hội (mau/0hsn, 25b, 25c, css hsn) | gộp |
 | **3.487** | TK 3 | BBLV gạch tiêu ngữ chuẩn (js/mau/bblv.js) | gộp |
+| **3.488** | TK 3 | Bộ in chuẩn: .tr-nd không cắt mép trên (js/05) — phần chung, hồi quy đủ | gộp |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

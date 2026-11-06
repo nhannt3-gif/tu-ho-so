@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.488 — 06/11/2026 — Khung xem trước: mất dấu chữ HOA dòng đầu trang (TK 3)
+- **Anh 06/11** (ảnh khung xem BBLV: "CONG HOA XA HOI CHU NGHIA VIET NAM"): "in ra có dấu đầy đủ, em xem lại bản view, nêu lõi sửa cho chuẩn".
+- **Lõi:** bộ in chuẩn (js/05, `TR_CSS`) đặt vùng nội dung mỗi trang `.tr-nd` là `overflow:hidden`, mép trên đúng bằng đầu dòng thứ nhất. Dấu trên chữ HOA (Ộ, Ò, Ã, Ủ, Ĩ, Ệ) nhô cao hơn khoảng dòng (dòng 1,15) → phần nhô bị cắt. Trên máy Windows (phông Times New Roman, chỉ số ascent thấp hơn phông Linux) dấu mất hẳn ở khung xem; bản in không cắt nên vẫn đủ dấu. Dòng chữ thường (Độc lập…) và tiêu đề có lề trên không bị.
+- **Sửa chung (mọi mẫu dùng bộ in chuẩn):** `.tr-nd` bỏ `overflow:hidden`, thay `clip-path:inset(-3mm 0 0 0)` — trái · phải · dưới vẫn cắt như cũ (bảng rộng, chống tràn trang), riêng mép trên chừa 3 mm (nằm trong lề trang ≥ 15 mm, trống); `display:flow-root` giữ khối riêng như cũ (lề không gộp). Chia trang, số trang, bản in không đổi (t179 chuẩn khóa 45/45).
+- Phép thử t366 thêm ý: mép trên không cắt, mép dưới vẫn cắt.
+
 ## 3.487 — 06/11/2026 — BBLV: gạch dưới tiêu ngữ chuẩn (TK 3)
 - **Anh 06/11** (ảnh đầu BBLV có dòng "--------"): "em gạch chuẩn dưới tiêu ngữ".
 - Dòng gạch "--------------------------------" dưới tiêu ngữ thay bằng **kẻ liền mảnh 0,5 pt, dài đúng bằng dòng "Độc lập – Tự do – Hạnh phúc"** (theo thể thức văn bản — Nghị định 30/2020), cùng cách các mẫu khác đang dùng (`hsoKe` + `omRong` đo bề rộng chữ 13 pt đậm — như 01/TĐCK, quốc hiệu `hsoQH`). In / PDF / Word cùng 1 đường kẻ. 06A không có quốc hiệu nên không đổi.

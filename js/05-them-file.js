@@ -1190,11 +1190,12 @@ function inBlob(b, ten, tb){   /* tb: lời nhắc thay "Đã mở hộp thoại
    - in 2 mặt (nhiều bản): bản lẻ trang thêm đúng 1 trang trắng (thay cách ước lượng 3.124)
    - khung xem: ⏮ ‹ n/N › ⏭ · − % + · ↔ · ⊡ · Khổ · In · PDF · Word · toàn màn hình
    ========================================================== */
+/* 3.488 (anh 06/11 "in ra có dấu đầy đủ, xem lại bản view"): overflow:hidden cắt đúng mép trên dòng đầu → dấu chữ HOA (Ộ, Ò, Ã, Ủ, Ĩ, Ệ) nhô lên khỏi dòng bị mất trên khung xem (phông Times New Roman Windows); nay chỉ cắt trái · phải · dưới như cũ, mép trên chừa 3 mm (vẫn trong lề trang) — flow-root giữ khối riêng như cũ */
 var TR_CSS = '@page{size:A4 portrait;margin:0}@page tr-ngang{size:A4 landscape;margin:0}'+
   'html,body{background:#8d939b!important}body{margin:0!important;padding:0!important}'+
   '#tr-ds{padding:12px 0 24px}.tr-xem #tr-ds{padding-top:52px}'+
   '.tr-tg{position:relative;width:210mm;height:297mm;background:#fff;margin:0 auto 12px;box-shadow:0 2px 6px rgba(0,0,0,.45);overflow:hidden;box-sizing:border-box}'+
-  '.tr-tg.ngang{width:297mm;height:210mm;page:tr-ngang}.tr-nd{position:absolute;overflow:hidden;display:flow-root;box-sizing:border-box;padding:0 1.5px}'+
+  '.tr-tg.ngang{width:297mm;height:210mm;page:tr-ngang}.tr-nd{position:absolute;overflow:visible;clip-path:inset(-3mm 0 0 0);display:flow-root;box-sizing:border-box;padding:0 1.5px}'+
   '.tr-tg *{page:auto!important;break-before:auto!important;break-after:auto!important;page-break-before:auto!important;page-break-after:auto!important}'+
   '.tr-tg .kt-to,.tr-tg .trang,.tr-tg .phieu{padding:0!important;margin:0!important;box-shadow:none!important;max-width:none!important;width:auto!important;background:none!important}'+
   '.tr-gon .c-sdt{display:none}.tr-so{position:absolute;font-family:"Times New Roman",Times,serif;color:#000;text-align:right;white-space:nowrap}'+
