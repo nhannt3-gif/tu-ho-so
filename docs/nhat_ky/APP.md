@@ -1,6 +1,6 @@
 # Nhật ký vai: App chính
 
-> Hiện do: **TK 3** (nhận 03/11 từ TK 2) · Làm ở: repo · `index.html`, `js/`, kho số liệu, bộ số / nháp văn bản đối chiếu. Bảng vai: `docs/PHOI_HOP_CHUNG.md` mục 1; cách ghi / đổi vai: mục 1a.
+> Hiện do: **TK 2** (nhận lại 06/11 từ TK 3) · Làm ở: repo · `index.html`, `js/`, kho số liệu, bộ số / nháp văn bản đối chiếu. Bảng vai: `docs/PHOI_HOP_CHUNG.md` mục 1; cách ghi / đổi vai: mục 1a.
 > **Mẫu mục** (thêm ở ĐẦU danh sách, mới nhất trên cùng; không dữ liệu khách / tên tổ trưởng / mã tổ):
 >
 > ```
@@ -11,6 +11,13 @@
 > - Chờ ai: anh / TK … (việc gì)
 > - Lưu ý / bẫy: …
 > ```
+
+### 06/11/2026 — TK 2 · NHẬN VAI App chính (từ TK 3, anh 06/11 đồng ý)
+- Đã đọc: mục BÀN GIAO 06/11 14:00 dưới đây; hộp thư `PHOI_HOP_CHUNG.md` mục 14 (dòng 06/11 TK 3 → TK 2 — đã đánh ✓).
+- Trạng thái nhận: `main` = **3.488**, hồi quy đủ 257/257 (theo TK 3). Nhánh làm việc TK 2 `claude/html-app-review-ck346k` đưa về đúng cây `main` (merge giữ cây main, không ép đè).
+- **PR #484 (TK 2, 06A chuẩn 10A + nhiều phiếu, số bản 3.460–3.461) ĐÃ ĐÓNG, không gộp** — anh 06/11 đồng ý: TK 3 đã làm cùng việc ở 3.461.x (06A khai báo đủ, in nhiều phiếu, HSN, nút tab Tổ) và dùng số bản 3.460 / 3.461. Việc 06A còn thiếu so với bản TK 2 (nếu có) làm bổ sung trên nền 3.488 khi anh giao.
+- Bước tiếp: chờ anh thử máy thật 3.471–3.488; kế hoạch dọn Đ4 (onclick) / Đ7 (dòng >400) làm dần khi đụng file (`docs/KE_HOACH_DON_NEN.md` mục 8).
+- Lưu ý: số bản tiếp theo = 3.489.
 
 ### 06/11/2026 14:00 — TK 3 · BÀN GIAO vai App chính cho TK 2 (anh 06/11 "em bàn giao cho TK 2 làm tiếp")
 - **Trạng thái:** `main` = **3.488** (PR #508–#513 đã gộp). Hồi quy đủ 3.488: **257/257 đạt** (mốc `tests/hoiquy_moc.json` đã cập nhật). `kiem.py` trong mốc (dòng >400 = 159, onclick 467).

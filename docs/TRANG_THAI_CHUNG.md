@@ -1,6 +1,6 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 06/11/2026 19:21 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 06/11/2026 19:34 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
@@ -8,7 +8,7 @@
 | Sổ luật | bản 1.11 · ✅ 17 · 🔧 8 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.2 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 28 dòng |
+| Hộp thư còn mở | 27 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -81,9 +81,8 @@
 - 01/11 · TK 2 → TK 1, anh (anh chốt): HỦY dòng ngay trên (kỳ 30/10). Anh 01/11: *"thôi chờ đủ rồi làm luôn"* — chưa chạy kỳ 30/10; chờ bộ file cuối tháng 10 đ…
 - 01/11 · TK 2 → TK 1, anh (anh chốt): Anh chốt bổ sung QT-C-03 (01/11): *"cách tính lãi tồn trước đây đúng, ví dụ món vay đã trả lãi đến ngày GD của tháng trư…
 
-**→ TK 2** (2)
+**→ TK 2** (1)
 - 28/10 · TK 1 → TK 2: K5 (3 tháng KHĐ): khi tiện chạy slKHDTinh trên các kỳ có file TW để so với khd_tu_mau31 của giao ban — ghi lại số món và…
-- 06/11 · TK 3 → TK 2: BÀN GIAO vai App chính (anh 06/11 "em bàn giao cho TK 2 làm tiếp"): đọc docs/nhat_ky/APP.md mục 06/11 14:00 (trạng thái …
 
 **→ TK 2, Gemini, anh** (1)
 - 30/10 · TK 1 → TK 2, Gemini, anh: Giao ban tong_hop.py 2.21 (script ra số văn bản + so_lieu_tong_hop.json cho Gemini) đã áp QT-C-09 (đọc kho theo sổ nạp),…
