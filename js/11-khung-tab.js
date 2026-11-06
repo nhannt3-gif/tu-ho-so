@@ -192,7 +192,7 @@ function moMenuTL(ev, html){
   var e = document.getElementById('menu'); if(!e) return;
   e.innerHTML = html; e.classList.add('hien');
   e.onclick = function(x){ if(x.target && x.target.closest && x.target.closest('button') && !x.target.closest('[data-giu]')) dongMenu(); };
-  var r = (ev.currentTarget || ev.target).getBoundingClientRect();
+  var ct = ev.currentTarget, nut = ct && ct.getBoundingClientRect ? ct : (ev.target && ev.target.closest ? ev.target.closest('[data-lenh],button') : null) || ev.target, r = nut && nut.getBoundingClientRect ? nut.getBoundingClientRect() : {left:8, bottom:8};   /* 3.489: gọi qua data-lenh (bắt ở document) → currentTarget là document — lấy nút được bấm */
   e.style.left = Math.max(8, Math.min(r.left, window.innerWidth-e.offsetWidth-8))+'px';
   e.style.top = Math.max(8, Math.min(r.bottom+4, window.innerHeight-e.offsetHeight-8))+'px';
 }
