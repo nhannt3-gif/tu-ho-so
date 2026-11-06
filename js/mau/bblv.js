@@ -144,7 +144,8 @@
               P('<i>Dấu hiệu:</i> '+e(x.dau), T+J)+P('<i>Nên mời:</i> '+e(x.moi), T+J)+
               ['ngNhan', 'thucTrang', 'camKet', 'kienNghi'].map(function(k){ return P('<b>'+e(muc(k))+':</b> <span class="om om-mau" data-o="'+k+'">'+e(x[k])+'.</span>', T+J+'margin-top:2pt'); }).join('')+'</div>'; }).join('')+'</div>'; }
         var noi = G.gt('noi'), ten = G.gt('ten'), th = G.gt('tinhHuong');
-        var h = P('<b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</b>', 'text-align:center')+P('<b>Độc lập – Tự do – Hạnh phúc</b>', 'text-align:center')+P('--------------------------------', 'text-align:center;line-height:1')+
+        /* 3.487 (anh 06/11 "gạch chuẩn dưới tiêu ngữ"): kẻ liền mảnh 0,5 pt dài đúng dòng tiêu ngữ (hsoKe — như 01/TĐCK, mẫu Hồ sơ Tổ), thay dòng gạch "-----" */
+        var h = P('<b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</b>', 'text-align:center')+P('<b>Độc lập – Tự do – Hạnh phúc</b>', 'text-align:center')+hsoKe(Math.round(omRong('Độc lập – Tự do – Hạnh phúc', CO, true)*10)/10)+
           P('<b>BIÊN BẢN LÀM VIỆC</b>', 'text-align:center;font-size:15pt;margin:6pt 0 4pt')+
           P('Hôm nay, ngày '+ngay('ngay')+', tại '+(noi ? o('noi', '')+'.' : G.o('noi', '…………………………………')+' tỉnh '+e(hsoPGD('tinh') || 'Tây Ninh')+'.'), T+(noi ? J : W))+   /* 3.461.4 (anh 03/11 "mất chữ Tây Ninh"): có địa chỉ → tự xuống dòng; trống → giữ 1 dòng chấm */
           P('Chúng tôi gồm:', T)+
