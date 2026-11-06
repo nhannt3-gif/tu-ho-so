@@ -12,6 +12,28 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 06/11/2026 14:00 — TK 3 · BÀN GIAO vai App chính cho TK 2 (anh 06/11 "em bàn giao cho TK 2 làm tiếp")
+- **Trạng thái:** `main` = **3.488** (PR #508–#513 đã gộp). Hồi quy đủ 3.488: **257/257 đạt** (mốc `tests/hoiquy_moc.json` đã cập nhật). `kiem.py` trong mốc (dòng >400 = 159, onclick 467).
+- **Đã làm 05–06/11 (3.480–3.488)** — chi tiết `docs/CHANGELOG.md`:
+  - 3.480 BBLV: mặc định in 1 mặt (công tắc riêng `D.cauHinh.bblvHaiMat`, KTGS / 06A giữ `ktHaiMat`); sửa "tắt 2 mặt vẫn in 2 mặt" (bấm ô → `hsoHen()` vẽ lại khung xem; bản in mang meta `kt-hai-mat`); bảng nhiều món gọn (3 dòng / món), "đơn vị: đồng", tiêu đề canh giữa; tình trạng ghi ngắn bằng hàm riêng `bblvTT` (anh "dùng hàm riêng cho các loại đặc thù" — `HSN.nhan` dùng chung giữ nguyên); bỏ số tháng nợ trên biên bản.
+  - 3.481 bản in bỏ tô nền dòng tiêu đề bảng (BBLV, Mẫu 12/04 GDX, sao kê cấp Hội, tóm tắt KTGS, nội dung họp, TB kết luận). **Giữ** thanh xanh A-/B-/C- của 01/TGTV (anh "01TGTV giữ").
+  - 3.482 tab Tổ: chip "Có nợ cần xử lý" tách 3 chip **Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ** (`TO_LOC` js/22g).
+  - 3.483–3.484 tab Tổ → nút **📄 BBLV · 📄 06A** (chip QH / khoanh / KHĐ): mở Hồ sơ vay tích sẵn đúng món (`HSN.tuTo`); nhiều tổ → hộp chọn tổ + **🖨 In 1 lần cả danh sách** (Hồ sơ vay chế độ nhiều tổ `HSO.nhieu`, đặc tính mẫu `nhieuTo`, `hsoLap` js/25b gộp `x.ds` từng tổ).
+  - 3.485 sổ quy tắc tên (js/49 `TC.loaiMau`) thêm 06A / 06ATD / BBLV — tên file giữ chữ cũ, scan đã ký vào thư mục Hồ sơ vay.
+  - 3.486 Hồ sơ vay › BBLV / 06A: bộ lọc tới Hội (ô tổ "— Tất cả tổ —") → bảng chọn món cả Hội nhóm theo tổ (`HSN.pvTo`, `HSN.ds` nhận mảng tổ, `HSN.pvNhieu`), in 1 lần; bảng chọn món hiện đủ cột.
+  - 3.487 BBLV gạch dưới tiêu ngữ = kẻ liền `hsoKe` dài đúng dòng tiêu ngữ. 3.488 **bộ in chuẩn** (js/05 `TR_CSS`): `.tr-nd` bỏ `overflow:hidden` → `clip-path:inset(-3mm 0 0 0)` (dấu chữ HOA dòng đầu trang bị cắt ở khung xem trên Windows).
+- **Đang dở:** không có code dở. Nhánh `claude/busy-curie-2qescm` = `main`.
+- **Chờ anh:** thử máy thật 3.471–3.488 (danh sách từng bản ở `docs/BAN_GIAO_VIEC_CON_LAI.md`); quan trọng: in BBLV / 06A theo Hội, khung xem đủ dấu quốc hiệu trên Windows (em không có máy Windows để thấy tận mắt — kiểm bằng phép thử t366 ý 3.488).
+- **Bước tiếp (kế hoạch dọn `docs/KE_HOACH_DON_NEN.md` mục 8, anh duyệt làm tuần tự không hỏi lại):** Đ4 còn 467 onclick dạng phức tạp (làm dần khi đụng file; `tools/doi_onclick.py`, lưới an toàn t374 / t375); Đ7 tách dòng >400 ký tự khi đụng file (đang 159, `kiem.py` chặn tăng).
+- **Lưu ý / bẫy:**
+  - Luật 05/11 (AGENTS.md mục 3, QUY_CHUAN mục 18): sửa phần dùng chung phải kê chỗ dùng, so đầu ra cũ ↔ mới cả cách viết, hồi quy đủ trước gộp.
+  - `hsoVe` (js/25c) đổi tổ / mẫu / kỳ là **tạo `HSO` mới** → muốn tích sẵn sau khi mở Hồ sơ vay từ chỗ khác phải qua `HSO_DEN.ap(t)` (không đặt `HSO.nchon` trước).
+  - CSS chung `td:first-child,th:first-child{min-width:150px;position:sticky}` (css/app.css ~1175) áp mọi bảng — bảng mới cần cột đầu hẹp thì bỏ riêng (như `.hsn-bang`).
+  - Hồ sơ vay lập theo tổ; chế độ nhiều tổ chỉ cho mẫu có `nhieuTo` (BBLV, 06A).
+  - t179 chuẩn khóa so từng ký tự bản in: đổi mẫu đã duyệt thì ghi lại `node tests/chuan_tao.js <tên>` (3.481 ghi lại gdx_m04 / gdx_m12).
+  - Force push bị chặn — nhánh đã gộp thì đưa lên bằng `git merge --ff-only origin/main` rồi commit nối tiếp.
+  - Phép thử mới: t377 (tab Tổ chip + BBLV / 06A + in theo Hội, 21 ý), t366 thêm ý 1 mặt / 2 mặt / không số tháng / khung xem không cắt dấu.
+
 ### 05/11/2026 11:00 — TK 3 · PHIÊN (3.476–3.479 · bài học "sửa cái này không lỗi cái kia")
 - Gộp 3.476 (bỏ onclick 1.174 → 467), 3.477 (tab Tổ nhanh hơn, Đ5 rà xong), 3.478 (báo đứt chuỗi QĐ), 3.479 (tên xã hoa đầu từ — lỗi do 3.470 lấy TENXA File Tổ trưởng chữ hoa). Hồi quy đủ 256 đạt.
 - **Bẫy / bài học (anh 05/11 "ghi nhận lại tránh sửa cái này lỗi cái đã chạy ổn"):** luật mới `AGENTS.md` mục 3 + `QUY_CHUAN_KIEN_TRUC.md` mục 18 — sửa phần dùng chung phải kê chỗ dùng, so đầu ra cũ ↔ mới cả cách viết, dữ liệu giả đúng kiểu nguồn mới; t373 giữ ca File Tổ trưởng chữ hoa → KTGS.
