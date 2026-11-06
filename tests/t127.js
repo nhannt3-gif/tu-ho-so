@@ -40,7 +40,7 @@ const fs=require('fs'), path=require('path');
    ok('⋯ tab Nạp & KT (máy tính) có ô "⚡ Giữ sẵn 12 tháng / Tất cả"', !!document.querySelector('#hop-in .sl-giu select'));
    TO_KS = {}; SL_BO = {}; SL_SAN_NAP.chay = false; await slNapSan(); slNapThem(SL_KY); await w(150);
    ok('3.126 / 3.136: ⋯ báo kỳ đang dựng sẵn', /Sẵn dùng: T8, T7, T6, T5/.test((document.getElementById('sl-giu-ds')||{}).textContent||''), (document.getElementById('sl-giu-ds')||{}).textContent);
-   const coNut = !!document.querySelector('#hop-in button[onclick="dongHop();slNapLai()"]'); dongHop();
+   const coNut = !!document.querySelector('#hop-in button[data-lenh="nkt.napLai"]'); dongHop();
    slNapLai(); ok('3.126: 🧹 Làm sạch & nạp lại (⋯) → bỏ bản đang giữ rồi nạp lại ngầm', SL_SAN_NAP.chay && !TO_KS[thang[0]] && coNut);
    for(let i=0;i<120 && SL_SAN_NAP.chay;i++) await w(250); ok('3.126: nạp lại xong đủ 4 tháng', thang.every(k=>!!TO_KS[k]));
    return o;

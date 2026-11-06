@@ -50,17 +50,17 @@ function kbSaoLuuHTML(){
   return (typeof skSaoLuuHTML==='function' ? skSaoLuuHTML() : '')+   /* 3.338: 🩺 Sức khỏe sao lưu (js/59) */
     '<div class="hso-kb-nhom"><b>📸 Tự lưu trên máy này — '+a.length+' / 10 bản gần nhất</b> <small>(tự chụp mỗi ngày, trước khi nhận cài đặt từ Drive, trước khi khôi phục / nạp file)</small>'+
     (a.length ? '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Lúc</th><th>Lý do</th><th>Số mục</th><th></th></tr></thead><tbody>'+a.map(function(x){
-      return '<tr><td>'+kbGioVN(x.luc)+'</td><td>'+coChuHTML(x.ly)+'</td><td class="so">'+x.khoa+' · '+x.kb+' KB</td><td><button class="nho" onclick="kbKhoiPhuc(\''+x.id+'\')">↩ Khôi phục</button></td></tr>'; }).join('')+'</tbody></table></div>' : '<div class="sl-phu">Chưa có bản chụp.</div>')+
+      return '<tr><td>'+kbGioVN(x.luc)+'</td><td>'+coChuHTML(x.ly)+'</td><td class="so">'+x.khoa+' · '+x.kb+' KB</td><td><button class="nho" data-lenh="f32.kbKhoiPhuc" data-a1="'+x.id+'">↩ Khôi phục</button></td></tr>'; }).join('')+'</tbody></table></div>' : '<div class="sl-phu">Chưa có bản chụp.</div>')+
     '<div class="hang-nut"><button class="nho" onclick="KHO1.chup(\'chụp tay\').then(function(r){ bao(r ? \'Đã chụp.\' : \'Không đổi so với bản mới nhất.\'); hsoKBHop(\'sl\'); })">📸 Chụp ngay</button></div></div>'+
     (typeof chSoTomHTML==='function' ? chSoTomHTML() : '')+   /* 3.260: sổ cài đặt (js/17b) */
     '<div class="hso-kb-nhom"><b>⬆ Xuất khai báo ra file</b> <small>(chuyển sang máy khác, gửi đồng nghiệp — chỉ khai báo, không có file Mẫu 31)</small>'+
     KB_NHOM.map(function(g){ return '<label class="hso-o2"><input type="checkbox" class="kb-xuat" value="'+g[0]+'"'+(g[3] ? ' checked' : '')+(dem(g) ? '' : ' disabled')+'> '+coChuHTML(g[1])+(dem(g) ? '' : ' <small>(chưa có)</small>')+'</label>'; }).join('')+
-    '<div class="hang-nut"><button class="nho chinh" onclick="kbXuat()">⬆ Xuất file khai báo</button></div></div>'+
+    '<div class="hang-nut"><button class="nho chinh" data-lenh="f32.kbXuat">⬆ Xuất file khai báo</button></div></div>'+
     '<div class="hso-kb-nhom"><b>⬇ Nạp khai báo từ file</b> <small>(ghi đè nhóm đã tích; app tự chụp bản hiện tại trước khi nạp)</small>'+
-    '<div class="hang-nut"><label class="nut-tep nho">📂 Chọn file khai báo (.json)<input type="file" accept=".json,application/json" style="display:none" onchange="kbChonFile(this)"></label></div>'+
+    '<div class="hang-nut"><label class="nut-tep nho">📂 Chọn file khai báo (.json)<input type="file" accept=".json,application/json" style="display:none" data-lenh="f32.kbChonFile" data-su="change"></label></div>'+
     (KB_NAP ? '<div class="sl-phu">File: <b>'+coChuHTML(KB_NAP.ten)+'</b> · xuất từ bản '+coChuHTML(KB_NAP.d.ban || '?')+(KB_NAP.d.luc ? ' lúc '+kbGioVN(KB_NAP.d.luc) : '')+'</div>'+
       KB_NHOM.filter(function(g){ return KB_NAP.d.nhom[g[0]]; }).map(function(g){ return '<label class="hso-o2"><input type="checkbox" class="kb-nap" value="'+g[0]+'"'+(g[3] ? ' checked' : '')+'> '+coChuHTML(g[1])+'</label>'; }).join('')+
-      '<div class="hang-nut"><button class="nho" onclick="KB_NAP=null;hsoKBHop(\'sl\')">Bỏ</button><button class="nho chinh" onclick="kbNap()">⬇ Nạp các nhóm đã tích</button></div>' : '')+'</div>';
+      '<div class="hang-nut"><button class="nho" onclick="KB_NAP=null;hsoKBHop(\'sl\')">Bỏ</button><button class="nho chinh" data-lenh="f32.kbNap">⬇ Nạp các nhóm đã tích</button></div>' : '')+'</div>';
 }
 function kbKhoiPhuc(id, khongHoi){
   var lam = function(){ return KHO1.khoiPhuc(id).then(function(n){ bao('Đã khôi phục '+n+' mục cài đặt. Bản trước khi khôi phục đã được chụp lại.'); try{ capNhatDau(); }catch(e){} hsoKBHop('sl'); return n; }, function(e){ baoLoi(e.message || String(e)); }); };
@@ -97,3 +97,11 @@ function kbNap(ds, khongHoi){
   if(khongHoi) return ghi();
   hoi('Nạp '+ds.length+' nhóm khai báo từ file?', 'Khai báo hiện tại của các nhóm này trên máy sẽ được thay bằng nội dung file (app chụp bản hiện tại trước).', 'Nạp', ghi);
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f32.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f32', gdLenh({
+  kbChonFile:function(el, ev){ kbChonFile(el); },
+  kbKhoiPhuc:function(el, ev){ kbKhoiPhuc(gdA(el, 1)); },
+  kbNap:function(el, ev){ kbNap(); },
+  kbXuat:function(el, ev){ kbXuat(); }
+}));

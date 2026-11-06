@@ -96,8 +96,6 @@ function ktDX04(ok){   /* Mẫu 04 cho tổ đang chọn — kiểm tra đột x
   KT_BC_XEM = {tu:'dx', gts:gts, tenFile:ktFTen(t, {to:1, mau:'M04'})}; ktBCHop('kiểm tra đột xuất');
 }
 GD.dangKy('ktk', {
-  m06aKhd:function(){ var C = ktCH(), t = KT_K.to[C.to]; if(!t) return; var ds = []; ktHo(t).forEach(function(h){ h.khd.forEach(function(m){ ds.push({maTo:t.ma, kh:h.kh, ku:m.ku, ten:h.ten}); }); });   /* 3.461: 06A từng món KHĐ ≥ 3 tháng của tổ */
-    ds.sort(function(a, b){ return String(a.kh)<String(b.kh) ? -1 : String(a.kh)>String(b.kh) ? 1 : String(a.ku)<String(b.ku) ? -1 : 1; }); hso06aHop(ds, 'món 3 tháng KHĐ · '+(t.ten || t.ma)); },
   khoi:function(el){ var k = el.getAttribute('data-k'), C = ktCH(); ktDoiCheDo(k==='B' ? 'dx' : k==='C' ? 'hdt' : (C.aThe || 'dk')); },
   che:function(el){ var c = el.getAttribute('data-c'); ktCH().aThe = c; ktDoiCheDo(c); },
   hdt:function(el){ ktCH().hdtTab = el.getAttribute('data-t'); luu(); ktVeThe(); },

@@ -56,7 +56,7 @@ const fs=require('fs'), path=require('path');
    ok('mở lần đầu → chia sẵn theo thứ tự: Chủ tịch ít hơn, đoạn liền nhau', x.chia===1 && ['ct','pct','uv1','uv2'].map(v=>(x.p[v].ap||[]).length).join()===sl.join() && [].concat(x.p.ct.ap, x.p.pct.ap, x.p.uv1.ap, x.p.uv2.ap).join('|')===ap.join('|'), sl.join('/'));
    const hop = document.getElementById('hop-in');
    ok('hộp có ô Nhiệm kỳ, Số HĐ ủy thác, Ngày ký HĐ + nút Chia lại đều', hop.querySelectorAll('.kt-pc-kb input').length===3 && /Chia lại đều/.test(hop.textContent));
-   const ink = hop.querySelector('.kt-pc-kb input'); ink.value = '2022 – 2027'; ink.dispatchEvent(new Event('change')); await w(50);
+   const ink = hop.querySelector('.kt-pc-kb input'); ink.value = '2022 – 2027'; ink.dispatchEvent(new Event('change', {bubbles:true})); await w(50);
    ok('sửa nhiệm kỳ trong hộp → lưu khai báo Hội, văn bản ghi theo', ktHoiKB(k).nk==='2022 – 2027' && ktPCNoiDung(k).khoi.some(y=>/nhiệm kỳ 2022 – 2027/.test(y.s)));
    const g = ktPCNoiDung(k), noi = g.khoi.map(y=>y.s).join('\n');
    ok('Chủ tịch có ấp → câu "Trực tiếp thực hiện kiểm tra tại …"', !x.p.ct.ap.length || noi.indexOf('Trực tiếp thực hiện kiểm tra tại '+x.p.ct.ap.join(', '))>=0);

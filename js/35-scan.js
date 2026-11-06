@@ -11,9 +11,9 @@ function scLoaiNho(){ var l = D.cauHinh.scanLoai; return SC_LOAI[l] ? l : (SC.ch
 batDauScan = function(loai){
   if(!HS.mo) return moHoSo();
   loai = SC_LOAI[loai] ? loai : scLoaiNho(); SC.loai = loai;
-  var n = D.cauHinh.scanNguon || 'camera', nut = function(k, ic, tn, mt){ return '<button class="'+(n===k ? 'bat' : '')+'" onclick="scChonNguon(\''+k+'\')"><span class="ic">'+ic+'</span><span class="tn">'+tn+'</span><span class="mo-ta">'+mt+'</span></button>'; };
+  var n = D.cauHinh.scanNguon || 'camera', nut = function(k, ic, tn, mt){ return '<button class="'+(n===k ? 'bat' : '')+'" data-lenh="f35.scChonNguon" data-a1="'+k+'"><span class="ic">'+ic+'</span><span class="tn">'+tn+'</span><span class="mo-ta">'+mt+'</span></button>'; };
   moHop('<div class="hop-tit">Quét gì?</div><div class="sc-loai">'+Object.keys(SC_LOAI).map(function(k){ var x = SC_LOAI[k];
-      return '<button class="'+(k===loai ? 'bat' : '')+'" onclick="batDauScan(\''+k+'\')"><b>'+x.ic+' '+x.ten+'</b><small>'+x.mo+'</small></button>'; }).join('')+'</div>'+
+      return '<button class="'+(k===loai ? 'bat' : '')+'" data-lenh="f35.batDauScan" data-a1="'+k+'"><b>'+x.ic+' '+x.ten+'</b><small>'+x.mo+'</small></button>'; }).join('')+'</div>'+
     '<div class="hop-tit" style="margin-top:10px">Lấy từ đâu?</div><div class="nguon">'+nut('camera', '📷', 'Camera / máy quét', 'Chụp trực tiếp')+nut('photo', '🖼', 'Ảnh có sẵn', 'Ảnh trong máy')+
       (loai==='tailieu' ? nut('file', '📄', 'File', 'PDF hoặc Word') : '')+'</div>'+
     '<div class="hang-nut" style="margin-top:12px"><button class="nho" data-lenh="hop.dong">Thôi</button></div>');
@@ -40,7 +40,7 @@ scanXongHop = function(bl){
       o('gui', '📤', 'Gửi Zalo', laMayBan() ? 'tải file, kéo vào Zalo' : 'bảng chia sẻ', 'scanGui()')+
     '</div>'+
     '<div class="hop-phu">Chưa lưu gì cho tới khi anh bấm Lưu. Rõ khách → tên chuẩn <i>MãKH - Họ tên - Loại</i>, đúng thư mục; chưa rõ → <i>Scan chờ sắp xếp</i>. <a href="#" data-lenh="ql.chonKH">Chọn khách từng người…</a></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="xemTruocHang()">‹ Xem lại</button><button class="nho xau" onclick="scanXongBo()">✕ Bỏ</button><button class="nho chinh" onclick="scanXongBo()">✓ Xong</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="f35.xemTruocHang">‹ Xem lại</button><button class="nho xau" data-lenh="f35.scanXongBo">✕ Bỏ</button><button class="nho chinh" data-lenh="f35.scanXongBo">✓ Xong</button></div>', true);
 };
 function scanTenFile(){ var e = document.getElementById('sx-ten'); if(e && e.value.trim()) SX.ten = e.value.trim(); return sachTen(SX.ten)+'.pdf'; }
 function scanIn(){ if(!SX) return; inBlob(SX.bl, scanTenFile()); scanDa('in'); }
@@ -112,10 +112,10 @@ xemKA2 = function(){
         '<span id="ka-tf">→ '+coChuHTML(tenFileKA(KA.loai, ten))+'</span></div>'+
       '<div class="xp-nut"><div class="hang-nut">'+
         '<button class="nho xau" data-lenh="hop.dong">✕ Bỏ</button>'+   /* 3.234: Bỏ trái … Lưu vào app · Lưu vào máy · Gửi */
-        '<button class="nho" onclick="veCatKA()">‹ Cắt lại</button>'+
-        '<button class="nho chinh sc-xong" onclick="luuKA()">🗂 Lưu vào app</button>'+
-        '<button class="nho" onclick="kaLuuMay()">💾 Lưu vào máy</button>'+
-        '<button class="nho" onclick="kaGuiMoi()">📤 Gửi Zalo</button></div></div>', true);
+        '<button class="nho" data-lenh="f35.veCatKA">‹ Cắt lại</button>'+
+        '<button class="nho chinh sc-xong" data-lenh="f35.luuKA">🗂 Lưu vào app</button>'+
+        '<button class="nho" data-lenh="f35.kaLuuMay">💾 Lưu vào máy</button>'+
+        '<button class="nho" data-lenh="f35.kaGuiMoi">📤 Gửi Zalo</button></div></div>', true);
     var e = document.getElementById('ka-ten2'); if(e && !e.value) e.focus();
   }).catch(function(e){ tatChay(); baoLoi('Không nén được ảnh: '+(e&&e.message||e)); });
 };
@@ -133,3 +133,15 @@ function kaGuiMoi(){ if(!KA.bl) return; var ten = kaTenMoi(), f = new File([KA.b
       c.toBlob(function(p){ navigator.clipboard.write([new ClipboardItem({'image/png':p})]).then(function(){ bao('📋 Đã chép ảnh — Ctrl+V vào Zalo.', 5); }, function(){ taiXuongBlob(KA.bl, ten); }); }, 'image/png'); };
     im.src = u; return; }
   taiXuongBlob(KA.bl, ten); bao('Đã tải về: '+ten+' — kéo vào Zalo.', 5); }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f35.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f35', gdLenh({
+  batDauScan:function(el, ev){ batDauScan(gdA(el, 1)); },
+  kaGuiMoi:function(el, ev){ kaGuiMoi(); },
+  kaLuuMay:function(el, ev){ kaLuuMay(); },
+  luuKA:function(el, ev){ luuKA(); },
+  scanXongBo:function(el, ev){ scanXongBo(); },
+  scChonNguon:function(el, ev){ scChonNguon(gdA(el, 1)); },
+  veCatKA:function(el, ev){ veCatKA(); },
+  xemTruocHang:function(el, ev){ xemTruocHang(); }
+}));

@@ -279,6 +279,8 @@ Mỗi quy tắc anh chốt: **số · nội dung · bản / ngày chốt · căn
 - **Tốc độ:** việc nặng (đọc nhiều tháng, dựng kỳ khác) chỉ chạy **khi bấm / khi cần**, kết quả giữ trong phiên; không làm chậm lúc mở tab / mở thẻ.
 - **Điện thoại (25/10):** bản máy tính chạy trên điện thoại bằng `css/dt-may.css` (nạp với `media="(max-width:600px)"`); bảng sao kê / báo cáo **giữ cột như máy tính**, dùng **vuốt trượt + chụm phóng to / thu nhỏ của iOS** (khung cuộn ngang, cột đầu đứng yên; xem trước bản in vừa bề ngang, chụm để phóng) — không xếp lại cột.
 - **Phép thử:** theo mức thay đổi (CLAUDE.md); chức năng mới phải kèm phép thử cũ của vùng bị đụng.
+- **Chống mã rác (anh 04/11/2026 — `KE_HOACH_DON_NEN.md` mục 7.2):** "hạn chế code rác, tối ưu chương trình, ko phải gò ép trong khoảng nào" → không ép dung lượng (KB chỉ theo dõi); thước đo **nhánh mẫu riêng (js/25*)** chỉ được giảm — mẫu Hồ sơ gắn qua **`hsoMauGan`** (js/25: chip + `lap` + `ai` + `trai`), không thêm `if(M.k===…)` ở khung; mẫu Hồ sơ Tổ dùng phần chung **`HST`** (`js/mau/0hst.js`: `HST.P`, `HST.bo`, `HST.tt` tổ trưởng theo Danh sách tổ).
+- **Mẫu in đúng gốc TỪNG CHỮ (anh 04/11/2026, Mẫu 11):** chữ in sẵn của mẫu không được bỏ / sửa — chỉ phần chữ điền thay đổi; phép thử so chữ với file gốc `tests/mau_goc/*.docx` (t368).
 
 ## 15. KHO CHUẨN — một kho dữ liệu gốc, mọi tab chỉ truy vấn (anh chốt 26/10/2026, bản 3.381)
 - **Anh 26/10**: "khi nạp dữ liệu, dùng khóa liên kết với nhau thành 1 data hoàn chỉnh, mọi truy vấn lấy qua kho; data chuẩn lấy nguyên bản từ Mẫu 31, bổ sung số TK 105, 104, không đổi bất cứ gì; các nơi khác chỉ truy vấn, khi cần chỉnh nhẹ (vd tên tổ trưởng không dấu → bổ sung dấu)"; "không đổi bản chất số liệu là được".
@@ -313,3 +315,14 @@ Một chỗ quyết định: `toDong0` (`js/22g-to.js`) lúc dựng cây tổ c�
 - **Đổi cấp** (`pvDatCap`): đổi Xã → Điểm GD · Hội · Ấp · Tổ về Tất cả; đổi Điểm GD / Hội / Ấp (ngang cấp, lọc đa chiều — giữ nhau) → Tổ về Tất cả. Ô cấp dưới đang ghim giữ nguyên.
 - **Dải tiêu đề** "LỌC ĐỊA BÀN": dòng số liệu (n tổ · khách · số liệu ngày) + ▦ Chip · ⬆ · 📌 Về ghim nằm trên đường viền khung; hàng lọc chỉ còn ô chọn.
 - Dữ liệu cũ: `pvGhimBat` (ghim chung 3.328) tự chuyển thành ghim các ô đang có giá trị. Phép thử: t241 (mở lại app), t278, t189.
+
+## 18. Sửa phần dùng chung — không làm lỗi cái đã chạy ổn (anh 05/11/2026)
+**Bài học 3.470 → 3.479:** 3.470 đổi tên xã sang "lấy theo mã xã, ưu tiên File Tổ trưởng" để hết chữ "Vay trực tiếp" — đúng ý, nhưng cột TENXA của File Tổ trưởng ghi **TOÀN CHỮ HOA** → mọi tab / mẫu in (KTGS báo cáo tổng hợp: "TRUÔNG MÍT, ngày…", "xã TRUÔNG MÍT") ra chữ hoa; phép thử không bắt vì bộ giả `tests/gianho31` chỉ có Thông tin tổ trưởng kiểu cũ (không có cột TENXA). Sửa ở 3.479.
+**Luật — khi sửa phần dùng chung** (nguồn dữ liệu / thứ tự ưu tiên nguồn, hàm tên / định dạng / chữ, khuôn in, bộ nghe lệnh chung…):
+1. **Kê chỗ dùng** (grep hàm / trường) — ghi vào CHANGELOG bản đó những tab / mẫu bị ảnh hưởng.
+2. **So đầu ra cũ ↔ mới** trên dữ liệu giả, **cả cách viết**: hoa thường, dấu, khoảng trắng, định dạng số / ngày, thứ tự dòng — không chỉ "số đúng". Công cụ: t179 (bản in chuẩn từng ký tự), chụp trạng thái trước / sau (cách làm ở 3.473: 172 trạng thái mẫu Hồ sơ giống hệt).
+3. **Thêm nguồn mới thì thêm dữ liệu giả đúng kiểu file thật của nguồn đó** (chữ hoa, khoảng trắng thừa, ô trống, mã khác độ dài…) vào phép thử — không chỉ dùng bộ giả cũ.
+4. **Giữ cách hiển thị cũ** trừ khi anh yêu cầu đổi; tên cơ quan / dòng in hoa theo quy chuẩn từng mẫu (mẫu tự `toUpperCase` lúc in), còn trong câu / địa danh / địa chỉ: hoa đầu từ.
+5. Có hồi quy đủ trước khi gộp; anh cần gấp thì gộp trước nhưng **báo rõ hồi quy chưa xong** và báo lại khi xong.
+Phép thử giữ bài học này: t373 (File Tổ trưởng chữ hoa → bộ số liệu, cây tổ, mẫu KTGS ra hoa đầu từ).
+

@@ -34,7 +34,7 @@ const fs=require('fs'), path=require('path');
    ok('Giấy lĩnh: nút "↺ Phiếu mới" (không còn "Làm trống")', [...document.querySelectorAll('.gdx2-nut button')].some(x=>/↺ Phiếu mới/.test(x.textContent)) && ![...document.querySelectorAll('.gdx2-nut button')].some(x=>/Làm trống/.test(x.textContent)));
    /* 3. Hồ sơ vay */
    slDoiTab('hsv'); doiNgan(7); await w(1200); hsoChonMau('09a'); await w(500);
-   ok('Hồ sơ vay: mỗi mẫu 1 tab con (13 — 3.430 + 06A/TD, 3.310 + Phê duyệt NH, 3.258 01/TD tách theo chương trình, 3.253 + 06/TD, 3.209 Bộ HS ẩn, 3.211 thêm 01/GQVL, 07b, 3.214 📒 Sổ hộ vay, 3.227 gộp 👪 Hộ vay), 09A đang chọn, dòng "Số liệu: T8/2026"', document.querySelectorAll('#hso-tabm .hso-tm').length===13 && /09A\/TD/.test((document.querySelector('#hso-tabm .hso-tm.bat')||{}).textContent||'') && /T8\/2026/.test((document.querySelector('#hso-ds .hso-ky')||{}).textContent||''));   /* 3.334: 📅 kỳ số liệu ở dòng tên mẫu */
+   ok('Hồ sơ vay: mỗi mẫu 1 tab con (14 — 3.461 + BBLV, 3.430 + 06A/TD, 3.310 + Phê duyệt NH, 3.258 01/TD tách theo chương trình, 3.253 + 06/TD, 3.209 Bộ HS ẩn, 3.211 thêm 01/GQVL, 07b, 3.214 📒 Sổ hộ vay, 3.227 gộp 👪 Hộ vay), 09A đang chọn, dòng "Số liệu: T8/2026"', document.querySelectorAll('#hso-tabm .hso-tm').length===14 && /09A\/TD/.test((document.querySelector('#hso-tabm .hso-tm.bat')||{}).textContent||'') && /T8\/2026/.test((document.querySelector('#hso-ds .hso-ky')||{}).textContent||''));   /* 3.334: 📅 kỳ số liệu ở dòng tên mẫu */
    pvChonTo('hsv', t.ma); await w(600); const k = hsoTVTo(t).find(k=>k.mon.some(m=>m.dn>0)); HSO.vay.kh = k.kh; hsoVe(); await w(400); hsoXem(); await w(500);
    const doc = () => document.getElementById('hso-xem-khung').contentDocument.body.textContent;
    ok('09A mặc định: lý do / thời gian / ngày ký để chấm; số tiền gia hạn in sẵn = dư nợ', !/Đang gặp khó khăn/.test(doc()) && /Đề nghị Ngân hàng xem xét cho gia hạn khoản nợ gốc\s*[\d.]+\s*đồng/.test(doc()) && /ngày[.…]+tháng/.test(doc()));
@@ -46,7 +46,7 @@ const fs=require('fs'), path=require('path');
    ok('phần ý kiến Hội / UBND / phê duyệt NH vẫn chấm', /PHÊ DUYỆT CỦA NGÂN HÀNG CHÍNH SÁCH XÃ HỘI- Số tiền được gia hạn nợ là \.+đồng/.test(doc().replace(/\s+/g, ' ').replace('HỘI -', 'HỘI-')));
    /* 4b. Mẫu 06/TD kèm */
    hsoLuu().kem06 = true; hsoVe(); await w(400);
-   ok('tích In kèm Mẫu 06/TD → nút 🖨 06/TD + In gọi in kèm', !!document.querySelector('#hso-xem-nut button[onclick="hsoIn06()"]') && !!document.querySelector('#hso-xem-nut button[onclick$="hsoIn09Kem()"]'));
+   ok('tích In kèm Mẫu 06/TD → nút 🖨 06/TD + In gọi in kèm', !!document.querySelector('#hso-xem-nut button[data-lenh$=".hsoIn06"]') && !!document.querySelector('#hso-xem-nut button[onclick$="hsoIn09Kem()"]'));
    let g = hso06Gt();
    ok('Mẫu 06/TD: 1 hộ = người vay, 1 món đang gia hạn; Hội quản lý điền sẵn; cán bộ kiểm tra trống; mục đích trống (mặc định)', !!g && g.rows.length===1 && g.rows[0].R2 && g.f.DV && !g.f.CB1 && !g.f.CV1 && !g.rows[0].R7, g && JSON.stringify({dv:g.f.DV, cb:g.f.CB1, md:g.rows[0].R7}));
    hsoLuu().md06 = 'in'; g = hso06Gt();

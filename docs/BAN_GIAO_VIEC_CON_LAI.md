@@ -266,18 +266,244 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.488)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › BBLV / 01/TD… khung xem | Dòng CỘNG HÒA XÃ HỘI… đủ dấu như bản in | |
+| 2 | KTGS, Hồ sơ Tổ, báo cáo khác: xem trước | Không đổi bố cục, không tràn trang | |
+
+### Danh sách thử trên máy thật (3.487)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In BBLV | Dưới tiêu ngữ: kẻ liền mảnh dài bằng dòng chữ | |
+| 2 | Word BBLV | Như bản in | |
+
+### Danh sách thử trên máy thật (3.486)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › BBLV, chọn Hội, ô tổ — Tất cả tổ — | Bảng hộ cả Hội nhóm theo tổ, đủ cột Lãi tồn · Tình trạng | |
+| 2 | Bấm Khoanh / 3T KHĐ rồi In | 1 bản in đủ biên bản các tổ | |
+| 3 | Chọn 1 tổ | Như cũ | |
+
+### Danh sách thử trên máy thật (3.485)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Scan BBLV đã ký, gắn khách, tag BBLV → Lưu | Drive: Hồ sơ vay / Mã KH - Họ tên - BBLV.pdf | |
+
+### Danh sách thử trên máy thật (3.484)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ, chọn 1 Hội, chip Nợ khoanh → 📄 BBLV → 🖨 In 1 lần | Hồ sơ vay khung tóm tắt các tổ; bản in đủ biên bản các hộ | |
+| 2 | ↩ Về từng tổ | Về bảng chọn món 1 tổ | |
+| 3 | 06A in 1 lần cả Hội | Mỗi món 1 phiếu, đủ các tổ | |
+
+### Danh sách thử trên máy thật (3.483)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Tổ, chọn 1 xã, chip Nợ khoanh → 📄 BBLV | Hộp chọn tổ (số hộ) → Hồ sơ vay BBLV đúng tổ, tích sẵn món nợ khoanh | |
+| 2 | Chọn 1 tổ, chip 3 tháng KHĐ → 📄 06A | Mở thẳng 06A, tích sẵn món KHĐ, mỗi món 1 phiếu | |
+| 3 | KTGS Mẫu 06 → 📄 06A | Như cũ (đúng người vay + món) | |
+
+### Danh sách thử trên máy thật (3.482)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu › Tổ, chọn 1 xã, bấm Nợ khoanh | Danh sách khách có nợ khoanh của xã; In / Excel đúng | |
+| 2 | Chọn 1 Hội / 1 tổ, bấm 3 tháng KHĐ, Nợ quá hạn | Lọc đúng, số trên chip khớp | |
+
+### Danh sách thử trên máy thật (3.481)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | In BBLV nhiều món | Tiêu đề bảng nền trắng, chữ đậm, canh giữa | |
+| 2 | In Mẫu 12 GDX, sao kê cấp Hội, tóm tắt KTGS | Tiêu đề bảng không tô nền | |
+
+### Danh sách thử trên máy thật (3.480)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › BBLV nhiều hộ › 🖨 In | Mặc định 1 mặt, không trang trắng | |
+| 2 | Tích / bỏ tích In 2 mặt rồi In | Khung xem trước đổi ngay; in đúng theo ô | |
+| 3 | 06A · KTGS | In 2 mặt như cũ | |
+
+### Danh sách thử trên máy thật (3.479)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Cây địa bàn, Tổ, Tra cứu, Phân bổ, mẫu in | Tên xã viết hoa đầu từ (Phường Gia Lộc) | |
+
+### Danh sách thử trên máy thật (3.478)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Phân bổ › Quyết định / Diễn biến | Có bảng ⚠ Đứt chuỗi nếu có chương trình đứt; đúng QĐ, chương trình, xã, chênh | |
+| 2 | Bấm 1 dòng đứt | Mở ✎ sửa đúng QĐ | |
+| 3 | Sửa QĐ có đứt rồi Lưu | Câu hỏi nêu cụ thể chương trình · xã · chênh | |
+
+### Danh sách thử trên máy thật (3.477)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Số liệu › Tổ (kỳ mới nạp) | Mở nhanh hơn, số như cũ | |
+
+### Danh sách thử trên máy thật (3.476)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Bấm thử các nút ở Văn bản, Biểu mẫu, Scan, KTGS, Hồ sơ, Giao dịch xã, Cài đặt | Làm như trước | |
+| 2 | Hồ sơ Tổ › ⚙ Khai báo riêng (đầu trang) | Mở hộp khai báo | |
+| 3 | Hộp bất kỳ → Esc | Đóng như bấm Đóng / Thôi | |
+
+### Danh sách thử trên máy thật (3.475)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Chuột phải 1 file ở tab Văn bản / Biểu mẫu | Mọi mục menu làm như trước | |
+| 2 | Nạp & KT: dải tháng ‹ › ▾ ⦿ | Như trước | |
+
+### Danh sách thử trên máy thật (3.474)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📥 Nạp & KT: chọn tháng, bấm ô ma trận, Kiểm tra kỳ, nạp file | Mọi nút bấm như trước | |
+
+### Danh sách thử trên máy thật (3.473)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ Tổ / Hồ sơ vay: bấm lần lượt các mẫu | Cột nhập liệu + bản in như trước | |
+
+### Danh sách thử trên máy thật (3.472)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Cây địa bàn, Tra cứu (Ấp · xã), hồ sơ 09A | Tên xã thật như 3.470 | |
+
+### Danh sách thử trên máy thật (3.471)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Phân bổ › 📈 Diễn biến | Bảng kẻ ô: khối TW / ĐP, chương trình in đậm, xã thường; số khớp QĐ | |
+| 2 | Bấm Xã › Chương trình, Tách từng QĐ, chip xã | Bảng đổi theo, tổng đúng | |
+| 3 | In / Excel | Bảng cơ bản đúng như màn hình | |
+
+### Danh sách thử trên máy thật (3.470)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Phân bổ › Diễn biến › ô xã | Tên xã thật, Tất cả xã giữ đúng | |
+| 2 | Kiểm tra kỳ T10 | Dòng "Tên xã trên Mẫu 31" liệt kê xã đang ghi "Vay trực tiếp" | |
+| 3 | Cây địa bàn, Tra cứu, Tổng hợp, Sao kê | Không còn tên xã "Vay trực tiếp" | |
+| 4 | Phân bổ › Biểu 07 › 📝 Word | Dòng THÔNG BÁO / NĂM giãn rõ với dòng trên, dưới | |
+
+### Danh sách thử trên máy thật (3.469)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ＋ QĐ mới, không tích xã, Lưu | Hỏi xác nhận, danh sách hiện QĐ "0 xã" | |
+| 2 | QĐ không giao anh đã nhập trước | Tự hiện chung danh sách với nhãn 0 xã | |
+| 3 | ✎ Sửa QĐ 0 xã, tích thêm xã, Lưu | Thành QĐ có số liệu | |
+
+### Danh sách thử trên máy thật (3.468)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ✎ Sửa QĐ › Tổng điều chỉnh PGD | Chỉ 1 ô (cột điều chỉnh); không báo lệch đã giao / đến 31/12 | |
+
+### Danh sách thử trên máy thật (3.467)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📅 Dòng thời gian QĐ | STT theo ngày; đợt sót có dòng đỏ | |
+| 2 | ＋ ghi số QĐ ở dòng thiếu / ＋ QĐ không giao cho PGD | Lưu được, dòng thời gian đủ đợt | |
+| 3 | Đọc PDF QĐ không giao cho Gò Dầu | Nút Lưu số QĐ | |
+
+### Danh sách thử trên máy thật (3.466)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Bấm đầu QĐ › ✎ Sửa nhanh | Sửa ngay tại bảng; Lưu / Bỏ | |
+| 2 | Đổi mã · ＋ xã · 🗑 bỏ chương trình; Xếp theo xã · ＋ chương trình | Đúng khối | |
+| 3 | Xã "⚠ ghép xã" → chọn xã | Lưu nhớ; lần đọc sau tự ghép | |
+| 4 | ⧉ QĐ kế tiếp | Đã giao = Đến 31/12 QĐ này, đợt + 1 | |
+| 5 | Đọc lại PDF QĐ đã lưu | Bảng so sánh cũ ↔ mới | |
+
+### Danh sách thử trên máy thật (3.465)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📋 Quyết định › 📄 Đọc QĐ (PDF) › QĐ 13821 | Đầu QĐ tự điền; PGD Gò Dầu 5 xã; 3 chương trình mã 01 / 19 / 09; ✓ Khớp | |
+| 2 | Lưu → bấm đầu QĐ | Cột phải: Theo chương trình ↔ Theo xã, 3 cột như QĐ | |
+| 3 | ✎ Sửa QĐ | Bảng theo chương trình, Tổng PGD, Enter xuống cùng cột | |
+| 4 | ⬇ Tải mẫu Excel → Gemini chép QĐ scan → 📥 Nạp | Cùng màn xem trước | |
+
+### Danh sách thử trên máy thật (3.464)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở lần lượt các tab (Hôm nay, Giao dịch xã, Số liệu, Hồ sơ, KTGS) | Giao diện như cũ, không mất định dạng | |
+| 2 | In 10A–10D, 07b/GQVL | Như 3.463 | |
+
+### Danh sách thử trên máy thật (3.463)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ Tổ › chọn tổ › 11/TD mới | Tổ trưởng theo Danh sách tổ mới nhất (tên, CCCD, ngày cấp); chữ liền; chữ mẫu đúng gốc | |
+| 2 | Cột trái › Lấy theo › bản Danh sách tổ cũ | Tổ trưởng cũ; mở lại tổ vẫn nhớ; ↺ Về mới nhất | |
+| 3 | 11/TD cũ — như trên | | |
+| 4 | In / Word 2 mẫu | Trang như trước, chữ mẫu không đổi | |
+
+### Danh sách thử trên máy thật (3.462)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Hồ sơ vay › chip 06A, BBLV (thứ tự chip như cũ) | Bảng chọn món, in, Bản mẫu như 3.461.9 | |
+| 2 | KTGS Mẫu 06 › nút 📄 06A | Mở đúng hộ / món | |
+
+### Danh sách thử trên máy thật (3.461.9)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | BBLV › 📝 Bản mẫu › ô sổ xuống › Tất cả › In | Tờ hướng dẫn 8 tình huống ≈ 5 trang | |
+| 2 | Chọn ④ … ⑧ | Biên bản mẫu đúng tình huống | |
+
+### Danh sách thử trên máy thật (3.461.8)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | BBLV › 📝 Bản mẫu › Cả 3 › In | Tờ hướng dẫn ≈ 2 trang, mỗi tình huống không bị cắt giữa trang | |
+
+### Danh sách thử trên máy thật (3.461.7)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | BBLV › 📝 Bản mẫu › Cả 3 tình huống › In | 1 trang: hướng dẫn + mục 2–5 câu ① ② ③ | |
+
+### Danh sách thử trên máy thật (3.461.6)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | BBLV › 📝 Bản mẫu (mặc định Cả 3) › In | 3 trang, mỗi trang 1 tình huống | |
+| 2 | Bấm ① / ② / ③ | 1 biên bản mẫu theo tình huống | |
+
+### Danh sách thử trên máy thật (3.461.5)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | BBLV › 📝 Bản mẫu › đổi tình huống ① / ② / ③ | Mục 2–5 đổi câu theo tình huống, 1 trang | |
+| 2 | BBLV › Bản thật | Mục 2–5 vẫn chấm; ⚙ Khai báo riêng có câu tình huống để chọn | |
+
+### Danh sách thử trên máy thật (3.461.4)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | BBLV hộ có địa chỉ dài, chương trình dài | Đủ chữ tỉnh; Số tiền vay dòng riêng; có câu Là thành viên Tổ | |
+| 2 | Bảng chọn | Cột tích gọn, STT theo hộ | |
+
+### Danh sách thử trên máy thật (3.461.3)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | BBLV / 06A trên laptop 125% và màn 17 inch | Bảng cuộn trong khung, mỗi món 1 dòng; khung hẹp tự ẩn Số KU | |
+| 2 | Bấm 1 dòng | Tích / bỏ tích món đó | |
+
+### Danh sách thử trên máy thật (3.461.2)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 06A 1 món › Xem / In | Trang 2: chỗ ký rộng, chú thích (1)(2) sát đáy; tên chương trình theo Mẫu 31, mã món vay nguyên dòng | |
+| 2 | BBLV 1 món / nhiều món | Có Giao dịch lần cuối; tên hộ hoa đầu từ | |
+
+### Danh sách thử trên máy thật (3.461.1)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | BBLV › chọn 3 hộ › bỏ tích In 2 mặt › In | 3 trang liền, không trang trắng | |
+
 ### Danh sách thử trên máy thật (3.461)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
-| 1 | KTGS tổ có món KHĐ → 📄 06A | Hộp liệt kê đúng món | |
-| 2 | Word / In n phiếu | Mỗi món 1 phiếu, sang trang mới | |
+| 1 | Hồ sơ vay › BBLV › chọn tổ › ⭐ Nợ cần quan tâm › In | Mỗi hộ 1 biên bản, đúng 1 trang | |
+| 2 | BBLV 1 hộ 1 món / nhiều món | 1 món dạng dòng; nhiều món dạng bảng có Cộng | |
+| 3 | BBLV Bản trắng | 1 trang, mọi ô chấm, mục 1 dạng dòng | |
+| 4 | 06A › tích 3 món › In | 3 phiếu, mỗi phiếu 2 trang; Ông (bà): tên, Hội không trùng, ngày liền, đồng liền | |
+| 5 | KTGS Mẫu 06 › 📄 06A | Mở 06A, tích sẵn đúng món | |
 
 ### Danh sách thử trên máy thật (3.460)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
-| 1 | 06A in | Chữ liền, tên hoa đầu từ, 2 trang | |
-| 2 | Đoàn kiểm tra gõ tên | "Ông (bà): Tên ⇥ Chức vụ" thẳng cột | |
-| 3 | Gõ ý kiến cán bộ | Chữ liền, dòng dư giữ chấm | |
+| 1 | Hồ sơ Tổ › 10A › chọn tổ | Bảng hộ vay như 10B / 10C (tìm, Tích hết / Bỏ hết), mặc định tích hết | |
+| 2 | 10A › số tham dự − / + | Tỷ lệ anh đặt trước vẫn giữ; bản in như cũ | |
 
 ### Danh sách thử trên máy thật (3.459)
 | # | Việc thử | Kết quả mong đợi | Đạt? |

@@ -4,17 +4,261 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
-## 3.461 — 03/11/2026 — 06A lập nhiều phiếu, gọi từ KTGS (TK 2)
-- **Anh 03/11:** "mẫu tạo chính ở bộ mẫu, các nơi khác cần sẽ gọi, ví dụ tạo phiếu ktra 3 tháng KHĐ của tổ nào đó".
-- `js/mau/06a.js`: `hso06aLo(ds)` (ds = [{maTo, kh, ku, ten}] → mỗi món 1 phiếu, không đổi người vay / món đang chọn ở Hồ sơ vay), `hso06aXuat(ds, 'in' | 'word')` (kỳ mặc định 06A, 1 file), `hso06aHop(ds, tiêu đề)` (hộp tích món, Tích hết / Bỏ hết, 🖨 In / 📄 Word n phiếu) — chỗ nào cần chỉ gọi, không dựng lại mẫu. `js/25b` hàm thay khi thiếu mô-đun.
-- KTGS chọn hộ (js/22b, lệnh `ktk.m06aKhd` js/56): nút "📄 06A món 3 tháng KHĐ (n)" — mọi món KHĐ ≥ 3 tháng của tổ, theo Mã KH.
-- Phép thử mới `t367`.
+## 3.488 — 06/11/2026 — Khung xem trước: mất dấu chữ HOA dòng đầu trang (TK 3)
+- **Anh 06/11** (ảnh khung xem BBLV: "CONG HOA XA HOI CHU NGHIA VIET NAM"): "in ra có dấu đầy đủ, em xem lại bản view, nêu lõi sửa cho chuẩn".
+- **Lõi:** bộ in chuẩn (js/05, `TR_CSS`) đặt vùng nội dung mỗi trang `.tr-nd` là `overflow:hidden`, mép trên đúng bằng đầu dòng thứ nhất. Dấu trên chữ HOA (Ộ, Ò, Ã, Ủ, Ĩ, Ệ) nhô cao hơn khoảng dòng (dòng 1,15) → phần nhô bị cắt. Trên máy Windows (phông Times New Roman, chỉ số ascent thấp hơn phông Linux) dấu mất hẳn ở khung xem; bản in không cắt nên vẫn đủ dấu. Dòng chữ thường (Độc lập…) và tiêu đề có lề trên không bị.
+- **Sửa chung (mọi mẫu dùng bộ in chuẩn):** `.tr-nd` bỏ `overflow:hidden`, thay `clip-path:inset(-3mm 0 0 0)` — trái · phải · dưới vẫn cắt như cũ (bảng rộng, chống tràn trang), riêng mép trên chừa 3 mm (nằm trong lề trang ≥ 15 mm, trống); `display:flow-root` giữ khối riêng như cũ (lề không gộp). Chia trang, số trang, bản in không đổi (t179 chuẩn khóa 45/45).
+- Phép thử t366 thêm ý: mép trên không cắt, mép dưới vẫn cắt.
 
-## 3.460 — 03/11/2026 — Mẫu 06A theo chuẩn 10A (TK 2)
-- **Anh 03/11:** "làm mẫu 06A theo chuẩn 10A, mẫu tạo chính ở bộ mẫu, các nơi khác cần sẽ gọi"; "lãi lấy như hiện nay, mọi chỗ đều có khai báo được".
-- `js/mau/06a.js`: chữ điền liền, in thường; để chấm giữ form gốc; tên khách / tổ trưởng / đoàn kiểm tra hoa đầu từ; "Ông (bà): tên ⇥ Mã khách hàng" và "- Ông (bà): tên ⇥ Chức vụ" (tab, Word có điểm dừng); Hội bỏ xã / phường ("thuộc tổ chức Đoàn Thanh niên"); ngày liền dd/mm/yyyy. Ô mới (23): đoàn kiểm tra 2 người (tên, chức vụ — Chọn nhanh), 1b thực tế 8 ô (số tiền + chênh lệch), 2b đúng / sai mục đích (số tiền, vào việc), hóa đơn (số, ngày, dòng tiếp), 2c, 2d, ý kiến cán bộ / khách hàng; đoạn nhiều dòng có chữ → chữ liền, dòng còn dư giữ chấm (form không xô). Số tiền gõ tay tự thêm dấu ngăn nhóm số. Lãi giữ lãi tồn TH + QH. Vẫn 2 trang.
-- Khung chung (js/31): loại ô `gokb` (✍ chấm · ✏ gõ khi làm · ⌨ tự gõ app nhớ).
-- Phép thử mới `t366`; `t349` (tên hoa đầu từ, "thuộc tổ chức …"), `t181` (06A nhóm DUNG — chỉ giữ số trang).
+## 3.487 — 06/11/2026 — BBLV: gạch dưới tiêu ngữ chuẩn (TK 3)
+- **Anh 06/11** (ảnh đầu BBLV có dòng "--------"): "em gạch chuẩn dưới tiêu ngữ".
+- Dòng gạch "--------------------------------" dưới tiêu ngữ thay bằng **kẻ liền mảnh 0,5 pt, dài đúng bằng dòng "Độc lập – Tự do – Hạnh phúc"** (theo thể thức văn bản — Nghị định 30/2020), cùng cách các mẫu khác đang dùng (`hsoKe` + `omRong` đo bề rộng chữ 13 pt đậm — như 01/TĐCK, quốc hiệu `hsoQH`). In / PDF / Word cùng 1 đường kẻ. 06A không có quốc hiệu nên không đổi.
+- Vẫn 1 trang / biên bản (t366 đạt).
+
+## 3.486 — 05/11/2026 — Hồ sơ vay › BBLV / 06A: chọn món theo cả Hội; bảng chọn món hiện đủ cột (TK 3)
+- **Anh 05/11** (ảnh Hồ sơ vay › BBLV): "chỗ này khi lọc Hội nên cho hiện cả Hội ra luôn" · "có chỗ chọn" · "cột STT nhỏ lại, cho hiện đủ cột".
+- **Lọc tới Hội / điểm GD / xã, ô tổ để "— Tất cả tổ —"** → bảng chọn món hiện hộ còn nợ của **mọi tổ trong phạm vi** (dòng nhóm "Tổ · ấp — n hộ", xếp xã › Hội › tổ); nút nhóm (Nợ quá hạn, Khoanh, 3T KHĐ…), Tích hết, tìm, đếm chạy trên cả Hội; bản xem / In / PDF / Word gộp biên bản các tổ có món đã tích (mỗi hộ 1 BBLV; 06A mỗi món 1 phiếu), tên file theo phạm vi. Chọn 1 tổ ở ô tổ → như cũ (chỗ chọn: ô tổ của bộ lọc). Không còn nhắc "Chọn 1 tổ" cho 2 mẫu này khi đã chọn tới Hội.
+- **Bảng chọn món đủ cột:** luật CSS chung "cột đầu bảng dính, rộng tối thiểu 150px" (css/app.css dòng ~1175, cho bảng thường) làm cột ô tích rộng 150px → bảng tràn, mất cột Lãi tồn / Tình trạng. Bỏ luật đó riêng cho `.hsn-bang`; cột STT hẹp lại, lề ô 4px, Tình trạng nhiều chip tự xuống dòng; ẩn Số KU khi khung < 680px.
+- **Kỹ thuật:** `HSN.pvTo` (tổ trong phạm vi qua `KHO.dsTo` + `pvLoc`), `HSN.ds` nhận mảng tổ, `HSN.tHien`, `HSN.pvNhieu` → `hsoLap` (js/25b) gộp như 3.484; js/25c bỏ nhắc chọn tổ khi mẫu `nhieuTo` có phạm vi. t377 thêm 2 ý.
+
+## 3.485 — 05/11/2026 — Sổ quy tắc tên: thêm BBLV, 06A (TK 3)
+- **Anh 05/11:** "ok theo em" (đề xuất thêm 2 mẫu vào sổ quy tắc tên).
+- `TC.loaiMau` (js/49) thêm `06a → 06A`, `06atd → 06ATD`, `bblv → BBLV`: **chữ trong tên file giữ như cũ** (trước đây tự suy ra đúng chữ này), nay được nhận là **mẫu hồ sơ vay** → bản scan BBLV / 06A đã ký gắn khách lưu vào thư mục **Hồ sơ vay** (trước: Hồ sơ scan).
+- Chỗ dùng sổ: tên file Scan / Hồ sơ vay (`tcLoaiMau`), nơi lưu Scan (`sxLaHSV` js/41). Mẫu khác không đổi. Phép thử: tests/nhanh (tcLoaiMau), t207 thêm ca scan BBLV / 06A.
+
+## 3.484 — 05/11/2026 — BBLV / 06A: in 1 lần theo Hội đoàn thể (nhiều tổ) (TK 3)
+- **Anh 05/11:** "anh cần in 1 theo Hội đoàn thể hoặc từng tổ".
+- **Tab Tổ:** danh sách nhiều tổ (chọn Hội / xã / toàn PGD + chip Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ) → 📄 BBLV / 📄 06A → hộp có nút **🖨 In 1 lần cả danh sách: <phạm vi> — n tổ · m hộ**; vẫn chọn được từng tổ như 3.483. Tổ xếp Xã › Hội › tên tổ.
+- **Hồ sơ vay chế độ nhiều tổ** (`HSO.nhieu`): cột trái thay bảng chọn 1 tổ bằng khung tóm tắt (từng tổ: số hộ · số món), ô In 2 mặt, nút **↩ Về từng tổ**; bản xem / In / PDF / Word gộp đủ biên bản (mỗi hộ 1 BBLV; 06A mỗi món 1 phiếu) của mọi tổ, tên file theo phạm vi. Đổi tổ ở bộ lọc → tự về chế độ 1 tổ.
+- **Kỹ thuật:** `hsoLap` (js/25b) — mẫu có đặc tính `nhieuTo` (BBLV, 06A) + `HSO.nhieu` → lập `M.lap` từng tổ rồi nối `x.ds`; `HSN.tuTo` nhận mảng tổ; `HSN.nhieuHTML` khung tóm tắt; lệnh `hsn.boNhieu`, `to.hsnCa`. Mẫu khác không đổi (không có `nhieuTo`). t377 thêm 5 ý.
+
+## 3.483 — 05/11/2026 — Tab Tổ → BBLV / 06A tích sẵn theo loại nợ (TK 3)
+- **Anh 05/11:** "em liên kết 2 biên bản qua bên tab Tổ luôn" (bước 2, sau 3 chip riêng 3.482).
+- **Nút 📄 BBLV · 📄 06A** ở đầu danh sách tab Tổ khi đang chọn chip Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ (cả danh sách 1 tổ lẫn phạm vi xã / Hội / toàn PGD).
+  - Danh sách 1 tổ → mở thẳng Hồ sơ vay: đúng tổ, đúng mẫu, **tích sẵn mọi món đúng loại nợ đang lọc** (cờ `f.qh` / `f.kn` / `f.khd` của bộ chọn món HSN — cùng nguồn với bảng chọn món), giữ kỳ đang xem.
+  - Danh sách nhiều tổ → hộp chọn tổ (tên tổ · số hộ); Hồ sơ vay lập theo từng tổ, in xong quay lại chọn tổ tiếp.
+- **Kỹ thuật:** `HSN.tuTo(mẫu, tổ, loại)` (js/mau/0hsn.js, dùng chung 2 mẫu); tích sau khi Hồ sơ vay đổi tổ / mẫu qua `HSO_DEN.ap` (js/25c — `hsoVe` đổi tổ tạo `HSO` mới nên tích trước bị mất). Nút + hộp ở js/22gb (`toHsnNut` / `toHsnMo` / `toHsnChon`), danh sách phạm vi js/22h (`toHsnDsTo`). Lệnh `to.hsn` · `to.hsnChon` (data-lenh).
+- Chỗ dùng `HSO_DEN` (KTGS Mẫu 06 → 06A, `hso06aMo`) giữ nguyên: vẫn đặt người vay + món như cũ (t366 đạt). Phép thử t377 thêm 6 ý.
+
+## 3.482 — 05/11/2026 — Tab Tổ: chip lọc Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ riêng (TK 3)
+- **Anh 05/11:** "làm từng bước, trước tiên em làm chip lọc các loại Nợ quá hạn, Nợ khoanh, 3 tháng KHĐ riêng, hiện tại chung 1 chip" (bước 1 của việc lọc + in theo Xã · Hội · Tổ, rồi lập BBLV / 06A hàng loạt).
+- **Tách** chip "Có nợ cần xử lý (QH · khoanh · KHĐ)" (nhóm Cần xử lý, `TO_LOC` js/22g) thành 3 chip: **Nợ quá hạn** (dư nợ quá hạn > 0) · **Nợ khoanh** (nợ khoanh > 0) · **3 tháng KHĐ** (món không giao dịch 3 tháng — `slKHD`, như cũ). Số trên chip = số khách.
+- Dùng ở mọi phạm vi bộ lọc (toàn PGD / xã / điểm GD · Hội / 1 tổ) — danh sách, In, Excel theo chip đang chọn như các chip khác.
+- Chỗ dùng chip cũ `xl`: chỉ danh sách `TO_LOC` + nhóm `TO_LOC_NHOM` (đã kê, không phép thử / báo cáo nào gọi theo mã). Phép thử mới t377.
+
+## 3.481 — 05/11/2026 — Bản in: bỏ tô nền dòng tiêu đề bảng (TK 3)
+- **Anh 05/11:** "dòng tiêu đề không cần fill màu, in ra hơi rối, các mẫu khác cũng vậy nên bỏ".
+- **Bỏ nền `th`** ở mọi mẫu in có tô: BBLV bảng nhiều món (js/mau/bblv.js, nền xám 3.480), Mẫu 12 / Mẫu 04 GDX (`.m12-table th`, js/26), sao kê cấp Hội (js/22h), tóm tắt KTGS (js/71), nội dung họp giao ban (js/88, 3 bảng), thông báo kết luận (js/89, 2 bảng). Tiêu đề vẫn đậm, canh giữa.
+- **Giữ nguyên:** thanh xanh A- / B- / C- của 01/TGTV (đúng mẫu NHCSXH); màu dòng nhóm / tổng trong sao kê, thông tin tổ (không phải dòng tiêu đề); màu trên màn hình app.
+- **Chuẩn khóa:** ghi lại `tests/chuan/gdx_m04.html`, `gdx_m12.html` (anh duyệt đổi) — t179 45/45.
+
+## 3.480 — 05/11/2026 — Hồ sơ vay › BBLV: mặc định in 1 mặt; sửa tắt 2 mặt vẫn in 2 mặt (TK 3)
+- **Anh 05/11:** "mẫu BBLV in 1 mặt mặc định cho an toàn" · "do hiện tại bị lỗi có 1 số trường hợp tắt in 2 mặt vẫn ra 2 mặt".
+- **Nguyên nhân lỗi:** bấm ô ☐ In 2 mặt (06A, BBLV — bộ chọn hộ HSN js/mau/0hsn.js) chỉ ghi lựa chọn, **không vẽ lại khung xem trước** → 🖨 In in đúng khung đang hiện (bản cũ 2 mặt, có trang trắng chèn).
+- **Sửa:** bấm ô → vẽ lại khung xem trước ngay (06A cũng hết lỗi này). **BBLV có công tắc riêng** `bblvHaiMat` — **chưa khai = 1 mặt**; bản in BBLV gắn cờ 1 / 2 mặt cho bộ in chuẩn (đặc tính mẫu `haiMat`, `hsoLap` đọc chung). 06A và KTGS vẫn dùng công tắc In 2 mặt cũ (không đổi). Sổ cài đặt: thêm khóa `bblvHaiMat`.
+- **Đơn vị tiền** (anh 05/11 "số tiền vay hiện đơn vị đồng"): BBLV dạng bảng (nhiều món) ghi "; đơn vị: đồng" ở tiêu đề mục 1 (cột Số tiền vay, Nợ gốc, Nợ lãi); dạng 1 món vẫn ghi "… đồng" sau từng số. Vẫn 1 trang.
+- **Bảng nhiều món gọn hơn** (anh 05/11 "bảng tốn nhiều dòng quá"): số KU 9pt không bẻ dòng, mục đích + 3 ngày 9pt, lề ô nhỏ, cột chia lại → mỗi món còn 3 dòng (đúng 3 ngày).
+- **Tình trạng ghi ngắn** (anh 05/11 "không cần diễn giải số tháng"): Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ · Lãi tồn — hàm riêng `bblvTT` (js/mau/bblv.js, anh "dùng hàm riêng cho các loại đặc thù"); `HSN.nhan` dùng chung (bộ chọn món 06A / BBLV) giữ nguyên.
+- **Bảng chuẩn trình bày** (anh 05/11 "tiêu đề canh giữa đều đẹp… theo quy chuẩn ngân hàng"): tiêu đề in đậm, canh giữa cả ngang lẫn dọc, nền xám nhạt; ô canh giữa theo chiều dọc; tiền canh phải, ngày canh giữa, "Cộng" canh giữa; cột chia lại (TT 7 · CT·KU 28 · Mục đích 24 · Số tiền vay 22 · Ngày 18 · Nợ gốc 22 · Nợ lãi 17 mm · Tình trạng phần còn lại) → số trăm triệu không tràn cột.
+- **Bỏ số tháng nợ trên biên bản** (anh 05/11 "quá cụ thể"): dạng 1 món dòng "- Tình trạng:" bỏ "(≈ N tháng)", nhãn thống nhất với bảng: ☐ Nợ quá hạn ☐ Nợ khoanh ☐ 3 tháng KHĐ ☐ Lãi tồn (cả bản trắng). Nút lọc trên màn hình (Lãi > 3T · 6T · 12T) giữ nguyên để CB chọn món — không in ra biên bản.
+- **Phép thử** t366: mặc định 1 mặt (không trang trắng), ô bỏ tích sẵn; tích → chèn trang trắng, công tắc KTGS không đổi; bấm ô → khung xem trước đổi ngay.
+
+## 3.479 — 05/11/2026 — Sửa: tên xã viết hoa đầu từ (TK 3)
+- **Anh 05/11:** "sao tên xã lại viết hoa hết, phải viết hoa đầu từ như trước".
+- **Nguyên nhân** (lỗi của 3.470 / 3.472): tên xã lấy ưu tiên File Tổ trưởng — cột TENXA của file này ghi **toàn chữ hoa** ("PHƯỜNG GIA LỘC") → mọi tab hiện tên xã chữ hoa.
+- **Sửa** (lõi `slXaTenTu`, js/22): đếm phiếu tên **không phân biệt hoa thường** (thứ tự ưu tiên giữ nguyên: File Tổ trưởng → Mẫu 31 → danh bạ → danh mục); hiển thị cách viết có chữ thường (Mẫu 31 — viết hoa đầu từ); chỉ có bản toàn chữ hoa → tự viết hoa đầu từ.
+- **Phép thử:** t373 thêm 2 ý (File Tổ trưởng chữ hoa → hoa đầu từ; bộ số liệu không còn tên xã toàn chữ hoa).
+
+## 3.478 — 05/11/2026 — Phân bổ KH: báo đứt chuỗi QĐ (TK 3)
+- **Anh 05/11:** "khi nhập KH cơ bản sẽ liền mạch nhưng đôi khi có vài chương trình bị đứt quãng, không khớp — nguyên tắc luôn theo QĐ mới nhất, và báo bị đứt chênh ở QĐ nào, chương trình nào".
+- **Lõi** `pbDutChuoi(dsQD, năm, ngưỡng)` (js/47, chạy được trong node): theo (xã, chương trình, nguồn) trong năm, QĐ theo ngày rồi lúc ghi — Đã giao của QĐ sau khác Đến 31/12 của QĐ trước (QĐ trước không ghi Đến 31/12 → Đã giao + Tăng/giảm) quá ngưỡng lệch (⚙ ngưỡng đối chiếu, mặc định 1 triệu) → 1 dòng: QĐ bị đứt · QĐ trước · chương trình · xã · nguồn · Đã giao · Đến 31/12 trước · chênh. **Chỉ báo — KH vẫn theo QĐ mới nhất** (không đổi cách tính Diễn biến).
+- **Bảng ⚠ Đứt chuỗi QĐ** (js/48b `pbDutHTML`): cuối danh sách 📋 Quyết định (mọi năm) và đầu 📈 Diễn biến (theo năm + bộ chọn xã / chương trình / nguồn); bấm dòng = ✎ sửa QĐ đó. Bảng cơ bản: dòng có đứt ghi **⚠ đứt ±x** (dòng tổng cộng dồn); **Tách từng QĐ**: ô QĐ bị đứt tô màu, rê chuột thấy chênh. In có bảng; Excel thêm sheet `Dut chuoi`.
+- **Lưu QĐ:** câu hỏi "n dòng đứt chuỗi" nay liệt kê từng dòng: chương trình · xã · Đã giao khác Đến 31/12 QĐ trước bao nhiêu.
+- **Phép thử** mới `t376` (6 ý lõi + 8 ý màn); t255 thêm sheet Excel.
+
+## 3.477 — 05/11/2026 — Tab Tổ mở nhanh hơn (TK 3, Đ5 + Đ6 kế hoạch dọn)
+- **Đ6 — đo lại** (máy ảo, bộ giả 25.000 khách `tests/taogia.py`, Mẫu 31 hai kỳ): mở tab Tổ lần đầu **470 ms**, các lần sau ~160 ms. Đo từng hàm: `toTV` (danh sách tổ viên mỗi tổ, gọi 60 lần) chiếm phần lớn lần đầu — với mỗi khách lại lọc **toàn bộ** dòng Mẫu 31 của tổ để tìm dòng của khách đó (tăng theo bình phương số khách / tổ) và tính lại danh sách KHĐ cho từng tổ.
+- **Sửa** (js/22g `toTV`): gom dòng theo khách 1 lần / tổ; danh sách KHĐ tính 1 lần / kỳ (`K._khd`). Kết quả không đổi (cùng thứ tự dòng). Sau sửa: lần đầu **~350 ms**, các lần sau **~150 ms** (dưới ngưỡng 300). Không ghi nhớ `toKhach` (nhiều tab dùng chung, ghi nhớ dễ lệch số khi dữ liệu đổi).
+- **Đ5 — rà lại:** đã xong từ trước — Theo dõi nợ đã gỡ (3.399), mini Giao dịch xã đọc qua `KHO`, thước đo `kiem.py` "đọc thẳng biến kho" = 0, "đọc thẳng bảng gốc" = 0. Phần đọc sâu kỳ riêng của tab (KTGS, Sao kê, Tổng hợp) là thiết kế "kỳ là của tab" (RA_SOAT_KHO_2410 mục 4) — làm khi sửa tab đó.
+
+## 3.476 — 05/11/2026 — Dọn: bỏ onclick viết thẳng đồng loạt (TK 3, Đ4 kế hoạch dọn — phần 3)
+- **Công cụ `tools/doi_onclick.py`**: chuyển dạng chuẩn `on<sự kiện>="[dongHop();]HÀM(tham số…)"` (tham số: chuỗi từ biểu thức, chữ, số, true / false / null, this.value / this.checked / this / event) → `data-lenh="<khối>.<lệnh>"` + `data-a1…`, sinh khối `gdDangKy('<khối>', gdLenh({…}))` cuối file — mỗi lệnh gọi **đúng hàm cũ**, đúng kiểu tham số. `dongHop()` trơn → lệnh chung `hop.dong`. Bỏ qua (giữ nguyên): `event.stopPropagation()`, chuỗi có `.replace(/'/g…)`, tham số ghép thô, câu lệnh gán / nhiều lệnh, chú thích, và **hàm mà chỗ khác tra theo chữ onclick** (chonDong, doiNgan, doiCD, ktKHXepLai…, boChonHS, quetThemHang, ccMo).
+- **Chạy cho 70 file** (trừ js/04b — cửa sổ nổi HSSV vẽ vào cửa sổ PiP riêng, không có bộ nghe chung): **onclick 1.174 → 467**. Hàm chung mới (js/02): `gdA(el, i)` tham số, `gdLenh(ds)` (data-dong="1" = đóng hộp trước). `GD.coLenh(k)` (js/39) cho phép thử.
+- **Sửa lỗi có sẵn:** nút **⚙ Khai báo riêng** ở đầu Hồ sơ Tổ có lúc bấm không ăn (lệnh `omkb.*` chỉ đăng ký khi cột trái vẽ Chọn nhanh) → đăng ký lúc nạp. Esc trong hộp: nút `hop.dong` (Đóng / Thôi) nay cũng được nhận là nút Esc (js/06 `ganNutEsc` nhận cả data-lenh). Bộ chọn dòng scan đang xem (js/08) theo data-lenh.
+- **Phép thử:** mới **t375** — lưới an toàn: đi 16 tab / tab con, mọi phần tử data-lenh đang hiện (~1.000) phải có lệnh đăng ký; các phép thử chọn nút theo onclick đổi sang data-lenh; mọi phép thử phát `change` / `input` nay lan lên (`bubbles:true`, như trình duyệt thật).
+
+## 3.475 — 05/11/2026 — Dọn: menu chuột phải + dải tháng bỏ onclick (TK 3, Đ4 kế hoạch dọn — phần 2)
+- **Menu chuột phải danh sách file** (js/10): 21 mục `onclick="dongMenu();…('id')"` → `data-lenh="menu.*"`; mục đang mở ghi ở `#menu[data-id]` (biểu mẫu: `data-bm`), một khối lệnh đóng menu rồi gọi đúng hàm cũ (xem, đọc lại & gợi ý tên, gửi, in, sửa, Drive, mở trên máy tính 4 kiểu, đường dẫn ổ G, khung xem nhanh, tên file, ghi chú / gắn VB / bản mới biểu mẫu, chép AI, Excel / Word, xóa vào thùng rác).
+- **Dải tháng Nạp & KT** (js/22): nút tháng, ‹ › số tháng hiện, ▾ chọn tháng, ⦿ Gần nhất → `nkt.*`.
+- Phép thử mới **t374**: bấm từng mục menu (hàm đích thay bằng bộ ghi) → đúng hàm, đúng mã mục, menu đóng; Nạp & KT không còn `onclick` viết thẳng; hộp chọn tháng, Kiểm tra kỳ, ô ma trận; không nút nào "Chưa có lệnh".
+- Thước đo: onclick 1.200 → 1.174.
+
+## 3.474 — 05/11/2026 — Dọn: Nạp & KT bỏ onclick viết thẳng (TK 3, Đ4 kế hoạch dọn — phần 1)
+- **Nền:** hàng chờ `gdDangKy(khối, lệnh)` (js/02) — file nạp **trước** bộ lệnh chung `GD` (js/39) vẫn đăng ký `data-lenh` được; js/39 nhận hàng chờ khi nạp. Bỏ cách đăng ký "lười lúc vẽ lần đầu" của dải chip mẫu (`cnHang`, js/26).
+- **js/22k (Nạp & KT):** 66 `onclick` / `onchange` / `oninput` → `data-lenh="nkt.*"` (tham số ở `data-a` / `data-b` / `data-c`, `data-dong="1"` = đóng hộp trước), một khối lệnh cuối file. Bấm như cũ: chọn tháng, ô ma trận, nạp / thay / xóa / tải file gốc, Kiểm tra kỳ (lọc, mở hết, tìm, bấm ⚠ tới mục), đối chiếu chéo, hộp nạp nhiều file / 1 file.
+- Thước đo: onclick 1.266 → 1.200.
+- Phép thử t127, t129 đổi chọn nút theo `data-lenh`.
+
+## 3.473 — 05/11/2026 — Dọn: mẫu Hồ sơ gắn qua cổng chung, bỏ 52 nhánh rẽ theo mã mẫu (TK 3, Đ3 kế hoạch dọn)
+- Trước: `hsoLap` (25b) và `hsoTuyHTML` / `hsoTuyVay` / `hsoTuyHo` (25c) rẽ nhánh theo mã từng mẫu (`M.k==='10c'`, `/^(01uq|01td…)$/.test(M.k)`…) — **52 chỗ**, thêm mẫu là phải sửa nhiều nơi.
+- Nay mỗi mẫu tự mang **cách lập** (`lap`, `ai`, `kem`, `lapRieng` — khối cuối js/25b) và **cột nhập liệu** (`trai` — khối cuối js/25c) qua cổng `hsoMauGan` (đã dùng cho 06A, BBLV, 11/TD từ 3.462–3.463); chỗ khác so **đặc tính mẫu** (khối cờ ở js/25: `canBD`, `canTruongAp`, `rong`, `khongCanTo`, `logoSan`, `kbRieng`, `gq`, `coKem`, `kem06`…). Thân từng nhánh giữ nguyên. Bỏ 3 nhánh không bao giờ tới (01/UQ, 01/TGTV trong `hsoTuyHo`; 01/GQVL không GQVL sau khi đã trả về).
+- **Kiểm giống hệt:** công cụ chụp 172 trạng thái (mọi mẫu Hồ sơ Tổ + Hồ sơ vay × mẫu trắng / có số liệu / bản ghi mẫu: bản in + cột nhập liệu + tên file) trước và sau — **khác 0**; t179 (bản in chuẩn từng ký tự) 45/45.
+- Thước đo `kiem.py`: **nhánh mẫu riêng 52 → 0**.
+
+## 3.472 — 05/11/2026 — Dọn: một lõi tên xã chung (TK 3, Đ2 kế hoạch dọn)
+- Trước có **3 cách tính tên xã** song song: `toTenXa` (3.409/3.448, cây tổ: đếm đa số Mẫu 31 + File Tổ trưởng + danh bạ), `xaTenSach` (3.433, danh bạ / Tra cứu / hồ sơ: dò tổ cùng mã xã) và `slXaTenChuan` (3.470, chỗ đọc bộ số liệu).
+- Nay **một lõi** `slXaTenTu(hs, dsto, phu)` (js/22): File Tổ trưởng / Thông tin tổ trưởng (TENXA) → Mẫu 31 tên sạch (đa số) → nguồn phụ (danh bạ khách) → danh mục ⚙ Cài đặt → "Mã xã …". `slXaTenChuan` (bộ số liệu) và `toTenXa` (cây tổ) cùng gọi lõi này; `xaTenSach` (danh bạ đã lưu) tra bảng `SL_XA_TEN` (gộp từ các bộ đã dựng) rồi danh mục. Hàm `slLaTT` dùng chung thay 4 chỗ viết lại biểu thức "trực tiếp".
+- Không đổi kết quả: t330, t350, t360, t373, t321, t112, t113, t128, t167, t205 đạt nguyên.
+
+## 3.471 — 05/11/2026 — Phân bổ KH › Diễn biến: bảng cơ bản (TK 3, Đ1 kế hoạch dọn)
+- **Anh 04/11** (ảnh Diễn biến): "tab nhìn còn rối rắm quá, biểu đồ này nọ khó hiểu, anh cần bảng biểu cơ bản trước, theo đúng phong cách giao vốn đầu năm, giao tăng giảm, KH cuối năm, dư nợ hiện tại, còn thực hiện, kẻ bảng, chọn đa chiều, chia nguồn"; anh duyệt kế hoạch (em chọn sẵn: Xem thêm ẩn biểu đồ, có cột dư nợ 31/12 năm trước, mặc định chương trình › xã).
+- **Bảng cơ bản** (`pbDBHang` / `pbDBBang`, js/48b): STT · Đơn vị · Dư nợ 31/12 năm trước · Giao đầu năm · Tăng / giảm (hoặc **Tách từng QĐ** = mỗi QĐ 1 cột) · KH cuối năm · Dư nợ kỳ chọn · Còn phải thực hiện (âm = vượt, đỏ) · % thực hiện. Khối **A. Nguồn TW / B. Nguồn ĐP / TỔNG CỘNG**; cấp 1 in đậm = tổng, bấm gập / mở; chương trình không giao ghi "không giao" (KH = dư nợ đầu năm, luật 3.305); có dư nợ mà chưa có KH (chưa nạp Mẫu 31 kỳ 12 năm trước) → ô Còn phải TH "—" + cảnh báo trên bảng (không báo vượt sai).
+- **Chọn đa chiều**: năm · kỳ dư nợ (Mẫu 31 kỳ nào) · nguồn (cả 2 chia khối / TW / ĐP) · xếp chương trình › xã / xã › chương trình · chip chọn nhiều xã, nhiều chương trình (lõi `pbDienBien` nhận mảng — `pbLocCo`).
+- Thẻ số, biểu đồ, ma trận xã × chương trình, bảng theo mốc tháng: giữ nguyên, vào **▸ Xem thêm** (mặc định ẩn). In / Excel: bảng cơ bản trước (sheet `Bang KH`), phần Xem thêm khi đang mở.
+- **Dọn:** tách phần Diễn biến khỏi js/48 sang `js/48b-phan-bo-db.js` (js/48 159 KB → 119 KB, không còn file > 150 KB); đoạn cách dòng Word (`hsoDocx`) gom thành `khTr` / `khSau` (bớt dòng dài).
+- **Phép thử:** t255 thêm 6 ý bảng cơ bản; t256, t373 theo bố cục mới.
+
+## 3.470 — 04/11/2026 — Tên xã theo mã xã ở chỗ đọc chung (gộp điểm GD) (TK 3)
+- **Anh 04/11** (ảnh Diễn biến: chọn Tất cả xã lại ra "Vay trực tiếp"): "lỗi này đã phát hiện nhưng em chưa sửa hết các tab" · "có thể do đang chuyển đổi dữ liệu nên Mẫu 31 chưa chuẩn" · "đang gộp các điểm giao dịch, Gia Lộc gộp làm 1".
+- **Nguyên nhân (suy từ các lần anh báo):** lúc hệ thống gộp điểm GD, cột Tên xã Mẫu 31 ghi "… Vay trực tiếp", mỗi kỳ sai một kiểu (29/10: 3 xã; T10: cả 5 xã). Mã xã không đổi. 3.409 / 3.433 / 3.448 chỉ vá từng chỗ (cây địa bàn, danh bạ, Tra cứu); Phân bổ › Diễn biến lấy tên thẳng từ dòng dư nợ nên vẫn dính.
+- **Sửa ở gốc** (`slXaTenChuan`, js/22, gọi trong `slBo`): tên xã mọi dòng mọi bảng của bộ số liệu = tên chuẩn theo mã xã — File Tổ trưởng / Thông tin tổ trưởng (TENXA) → Mẫu 31 tên sạch (đa số) → danh mục ⚙ Cài đặt → "Mã xã …". Tên gốc giữ ở `tenXaGoc`; `B.xaTen` = bảng mã → tên. Món vay trực tiếp vẫn nhận theo tổ / ấp như cũ. Các lớp đỡ cũ (`toTenXa`, `xaTenSach`) giữ cho dữ liệu đã lưu.
+- **Kiểm tra kỳ** (nhóm 6): dòng "Tên xã trên Mẫu 31 = tên chuẩn theo mã xã" — liệt kê mã xã · tên chuẩn · tên trên Mẫu 31 · số dòng; hết chênh = Mẫu 31 đã chuẩn lại.
+- **Phân bổ › Diễn biến:** ô chọn xã ghi tên theo cây địa bàn; dòng không có mã xã không còn thành mục trùng "Tất cả xã".
+- **Biểu 07 (Thông báo giao / điều chỉnh KH dư nợ) bản Word** (anh 04/11 ảnh: "dòng tiêu đề sát các dòng trên dưới, nên giãn dòng thêm"): bộ chuyển Word (`hsoDocx`) chỉ hiểu lớp `tr` / `sau` (6 pt), bỏ qua `margin-top:18pt` ghi thẳng → thêm lớp chung `tr3` (trước 18 pt) / `sau2` (sau 12 pt) cho màn hình + Word; Biểu 07: trước "THÔNG BÁO …" 18 pt, sau "NĂM …" 12 pt.
+- **Phép thử** mới `t373` (Mẫu 31 giả: cả 1 xã ghi "… Vay trực tiếp"). t253 thêm kiểm khoảng cách tiêu đề Word. Hồi quy đủ.
+
+## 3.469 — 04/11/2026 — Phân bổ KH: QĐ không giao cho PGD gom vào ＋ QĐ mới (QĐ 0 xã) (TK 3)
+- **Anh 04/11**: "QĐ không giao cho PGD cũng gom 1 chỗ nhập QĐ mới nhưng không add xã nào, chỉ nhập thông tin và lưu, báo 0 xã" · "anh đã nhập 1 QĐ không giao cho PGD em gom lại luôn" · "nếu nhìn nhầm thì sửa thêm xã là xong".
+- Bỏ nút / hộp riêng "＋ QĐ không giao cho PGD". ＋ QĐ mới không tích xã → Lưu hỏi xác nhận → ghi QĐ 0 xã (vẫn lưu ở `qdKhong`, dữ liệu cũ tự hiện chung).
+- Danh sách QĐ (chi tiết + xem gọn) xếp chung theo ngày, QĐ 0 xã có nhãn **0 xã — không giao cho PGD**; bấm → cột phải báo 0 xã + ✎ Sửa QĐ. Dòng thời gian: bấm dòng 0 xã cũng mở như vậy.
+- ✎ Sửa QĐ 0 xã dùng cùng hộp QĐ: tích thêm xã + Lưu → thành QĐ có số liệu (bỏ khỏi 0 xã); QĐ có xã bỏ hết xã → thành QĐ 0 xã. Hộp QĐ có thêm ô Ghi chú. Dòng thiếu đợt (＋ ghi số QĐ) và QĐ đọc vào không có khối PGD mình đều mở ＋ QĐ mới điền sẵn.
+- Sửa lỗi nhỏ: vẽ lại bảng hộp sau khi đã Lưu không còn báo lỗi.
+- **Phép thử**: t372 cập nhật (thêm sửa 0 xã → có số liệu).
+
+## 3.468 — 04/11/2026 — Phân bổ KH: đối chiếu dòng PGD chỉ theo cột điều chỉnh (TK 3)
+- **Anh 04/11** (ảnh hộp sửa QĐ): "trên QĐ chỉ có cột chỉ tiêu đợt này mới có tổng, còn cột đầu, cuối có hiện thêm các xã có tên mà không có giao chỉ tiêu, nên chỉ đối chiếu được tổng chỉ tiêu đợt này thôi, em sửa lại cho đơn giản".
+- Hộp nhập / sửa: dòng **"Tổng điều chỉnh PGD trên QĐ"** chỉ còn 1 ô ở cột Điều chỉnh đợt này; đã giao / đến 31/12 chỉ hiện Σ các xã. Báo lệch chỉ khi Σ điều chỉnh các xã ≠ dòng PGD.
+- Bảng xem QĐ: dòng chương trình = Σ các xã; chip "✓ khớp điều chỉnh PGD" / "✗ Σ điều chỉnh n xã ≠ PGD +…". Xuất Excel THEO_QD / DM_<số> theo cùng cách.
+- Đọc PDF / Excel vẫn kiểm đủ 3 cột dòng PGD với các xã **trên chính bảng QĐ** (kiểm việc đọc đúng). Dữ liệu cũ đọc được (dòng tổng lưu cũ vẫn giữ, chỉ so cột điều chỉnh).
+- **Phép thử**: t370 cập nhật.
+
+## 3.467 — 04/11/2026 — Phân bổ KH: dòng thời gian QĐ, ghi số QĐ không giao cho PGD (TK 3)
+- **Anh 04/11**: "thêm 1 nút thống kê QĐ theo ngày, dòng thời gian, có số thứ tự để kiểm tra xem có đợt nào bỏ sót; có trường hợp tỉnh có đợt giao QĐ nhưng không giao cho Gò Dầu anh cũng muốn nhập số QĐ … để theo dõi đợt"; "số đợt lưu theo QĐ anh nhập nếu QĐ có ghi, còn em cứ ghi stt từ QĐ đầu tiên"; "code và gộp lên".
+- **📅 Dòng thời gian QĐ** (mục 📋 Quyết định, cột phải): mỗi năm × nguồn TW / ĐP 1 bảng, xếp theo ngày, **STT 1, 2, 3… từ QĐ đầu tiên**; cột Đợt (như QĐ ghi) · Số QĐ · Ngày · Loại · Giao cho PGD (số xã / không giao) · Σ điều chỉnh PGD · Ghi chú. Soát đợt trên QĐ có ghi đợt: **dòng đỏ "⚠ Thiếu đợt N — chưa nhập"** + nút ＋ ghi số QĐ (điền sẵn đợt, nguồn); đợt trùng / đợt nhỏ hơn QĐ trước tô vàng; QĐ không ghi đợt không nhắc. Bấm dòng → xem QĐ. In / PDF / Word / Excel.
+- **QĐ không giao cho PGD**: nút ＋ — chỉ số QĐ, ký hiệu, ngày, nguồn, loại, đợt, ghi chú; lưu riêng (`qdKhong`) — phân bổ, Biểu 07, Diễn biến, Đối chiếu không đụng; có STT trong dòng thời gian, nhóm riêng ở cột trái (bấm sửa / xóa). Đọc PDF / Excel mà QĐ **không có khối PGD mình** → báo + nút "📄 Lưu số QĐ (không giao cho PGD)" điền sẵn từ QĐ.
+- Lõi `pbDongThoiGian` (js/47, chạy được trong node).
+- **Anh 04/11 (ảnh tab Phân bổ):** "có nút chuyển xem gọn, 1 QĐ 1 dòng, khi nhấp vào sẽ hiện bảng bên phải, bảng bên phải dòng tổng thì in đậm, dòng con in thường" → nút **☰ Xem gọn / ▤ Xem chi tiết** (nhớ lựa chọn `pbGonQD`): mỗi QĐ 1 dòng (số · ngày · nguồn · đợt · GM/ĐC · số xã · Σ điều chỉnh, ✎); bảng bên phải: dòng tổng (chương trình / xã) đậm cả 3 cột số, dòng con in thường.
+- **Anh 04/11:** "em cũng nên xuất số liệu đã lưu để kiểm tra đối chiếu xem số liệu đã nhập có đúng không"; "em xuất ra 1 file đầy đủ như file đã nhập để cho các AI khác rà soát lại" → bảng xem 1 QĐ có thanh xuất (In / PDF / Word / Excel — đúng bảng đang xem); nút **⬇ Xuất số liệu đã lưu** = 1 file Excel: DANH_SACH (dòng thời gian, STT, đợt sót) · THEO_QD (từng QĐ như danh mục) · CHI_TIET (xã × chương trình, kiểm 3 + 4 = 5) · **QD + DM_<số QĐ> đúng cột mẫu nhập** · HUONG_DAN_AI (lời nhắc rà soát với QĐ gốc, liệt kê chỗ khác). Chỉ có số của PGD mình — dòng chương trình toàn tỉnh để trống, ghi rõ.
+- **Phép thử**: t372 mới (21).
+
+## 3.466 — 04/11/2026 — Phân bổ KH: sửa QĐ linh động (TK 3)
+- **Anh 04/11**: "khi sửa các QĐ, sao cho linh động được" → "làm hết, em code".
+- **① ✎ Sửa nhanh ngay tại bảng xem** (cột phải mục 📋 Quyết định): cùng bộ sửa với hộp QĐ — Lưu / Bỏ ở cuối bảng, Enter xuống cùng cột, Ctrl+Enter = Lưu; Bỏ → về bảng xem, không ghi.
+- **② Hộp sửa xếp theo chương trình ↔ theo xã** (mở theo kiểu đang xem, chuyển qua lại không mất số đang gõ).
+- **③ Thao tác theo khối**: đầu khối chương trình — đổi mã (cả khối, giữ số, không trùng mã), ＋ xã (xã trong QĐ hoặc xã cây chưa có trong QĐ), 🗑 bỏ chương trình; kiểu theo xã — ＋ chương trình cho riêng xã, 🗑 bỏ xã.
+- **④ Ghép xã chưa khớp cây địa bàn**: ô "⚠ ghép xã…" — lưu thì nhớ tên trên QĐ → mã xã (`ch.xaQD`), lần đọc PDF / Excel sau tự ghép.
+- **⑤ ⧉ QĐ kế tiếp**: chép xã + chương trình, Đã giao = Đến 31/12 của QĐ này, đợt + 1, loại Điều chỉnh — chỉ gõ số, ngày, cột điều chỉnh.
+- **⑥ Đọc lại PDF / Excel của QĐ đã có**: màn xem trước so sánh cũ ↔ mới từng xã · chương trình (chỉ dòng đổi, số dòng giữ nguyên) trước khi ghi đè.
+- Sửa thêm: dòng QĐ đã lưu đang khớp 3 + 4 = 5 → sửa cột điều chỉnh thì Đến 31/12 tự tính lại (dòng gõ tay lệch giữ nguyên).
+- **Phép thử**: t371 mới (15); t370 cập nhật (hộp sửa mở theo kiểu đang xem, đầu khối có ô đổi mã).
+
+## 3.465 — 04/11/2026 — Phân bổ KH: nhập QĐ theo chương trình — đọc thẳng PDF QĐ, Excel chép nguyên bảng, xem 2 kiểu (TK 3)
+- **Anh 04/11** (gửi QĐ mẫu 13821/QĐ-BĐDHĐQT điều chỉnh đợt 7): "QĐ của tỉnh sẽ có cấu trúc theo từng chương trình vay, nên khi nhập liệu em cũng cho nhập như vậy"; "code cả a, b, c, khi nhập thì theo chương trình, nhưng khi hiện thì cho chọn qua lại cả 2 kiểu theo xã (các chương trình của xã) hoặc chương trình (các xã có giao), và hiện đủ 3 cột như trên QĐ để đối chiếu".
+- **Lõi đọc danh mục QĐ** (`js/47`, chạy được trong node): `pbDauQD` (số / ký hiệu / ngày / nguồn TW-ĐP / loại / đợt — kể cả số + ngày đóng thêm ở lớp riêng, không lấy số của Căn cứ), `pbChuDM` (chữ PDF — font dùng ký tự rỗng làm dấu cách), `pbXlsDM` (Excel DANH_MUC), `pbDanhMuc` (chương trình → PGD → xã, 3 cột; kiểm từng dòng 5 = 3 + 4, tổng các xã = dòng PGD, tổng các PGD = dòng chương trình), `pbCTMa` (tên CT trên QĐ → mã; dân tộc thiểu số hỏi anh; nhớ lựa chọn), `pbQDTuDM` (bản ghi mỗi xã của PGD đang dùng, giữ dòng tổng PGD). QĐ mẫu của anh: 3 chương trình · 24 PGD · 96 xã, mọi phép kiểm khớp.
+- **A · 📄 Đọc QĐ (PDF)**: chọn file → xem trước theo chương trình (dòng chương trình toàn tỉnh · dòng PGD · các xã), tự chọn PGD khai báo (Gò Dầu), bỏ tích xã, chọn mã CT chưa ghép, sửa phần đầu → Lưu (trùng → ghi đè / bỏ qua). PDF dạng ảnh scan → báo dùng cách khác.
+- **B · Nhập tay theo chương trình**: hộp QĐ xếp I, II, III… như QĐ → dòng **Tổng PGD trên QĐ** (gõ để đối chiếu, báo tổng các xã ≠ dòng PGD) → các xã theo thứ tự QĐ; cột "Chỉ tiêu KH đã giao (3) · Điều chỉnh đợt này (4) · Đến 31/12 (5 = 3 + 4)"; gõ "-" = 0; **Enter xuống dòng dưới cùng cột**.
+- **C · Mẫu Excel mới**: sheet DANH_MUC chép nguyên bảng QĐ (Gemini chép đúng thứ tự) → cùng màn xem trước. Mẫu cũ CHI_TIET vẫn nạp được.
+- **Xem QĐ 2 kiểu** (mục 📋 Quyết định, cột phải — bấm đầu QĐ): **Theo chương trình** (dòng PGD trên QĐ + các xã có giao, chip ✓ khớp / ✗ Σ xã ≠ dòng PGD) ↔ **Theo xã** (các chương trình của xã); đủ 3 cột như QĐ; nhớ lựa chọn.
+- Dữ liệu cũ đọc được (bản ghi QĐ thêm `pgd`, `tong` — không có thì như cũ). File QĐ thật chỉ dùng thử trong vùng tạm, không vào repo.
+- **Dọn kèm:** bỏ CSS `pb-f-xa-dong` (bảng nhập cũ theo xã).
+- **Phép thử**: t369 mới (lõi, node, QĐ giả — 15) · t370 mới (giao diện, PDF QĐ giả dựng bằng trình duyệt — 13) · t252, t256, t355 (mẫu Excel mới DANH_MUC; mẫu cũ CHI_TIET vẫn nạp được) cập nhật.
+
+## 3.464 — 04/11/2026 — Bản dọn: bỏ mã rác, thước đo mã rác, đo tốc độ (TK 3)
+- **Anh 04/11**: "ý anh là hạn chế code rác, tối ưu chương trình, ko phải gò ép trong khoảng nào" → "code tiếp cho bản dọn". Kế hoạch / kết quả: `docs/KE_HOACH_DON_NEN.md` mục 7.
+- **Hàm thừa**: bỏ `ktDsBC`, `ktChonBC` (js/22b — không ai gọi từ 3.333). 5 hàm chỉ phép thử gọi giữ (lõi nghiệp vụ có phép thử).
+- **Hàm trùng**: `P()` của mẫu 10A / 10B / 10C / 10D → phần chung `HST.P` (js/mau/0hst.js); `chanTrang` 07b / 10C → `omChanTrang` (js/31). Bản in mọi mẫu khớp chuẩn từng ký tự (t179 45/45).
+- **CSS**: bỏ 82 quy tắc của 50 lớp không còn dùng (~8 KB) — soát từng lớp; giữ lớp ghép tên động (`gl-c`+số) và lớp pdf.js tự sinh.
+- **Thước đo mã rác** (`tests/kiem.py` + `tests/rac.js` phân tích cú pháp bằng acorn): hàm không tới được **0** · hàm trùng **2** (có lý do) · lớp CSS chết **0** — không được tăng. Đặt mốc mới.
+- **Đo tốc độ** (bộ giả 25.000 khách): chỉ tab Tổ mở lần đầu > 300 ms (461 ms) → ghi đề xuất, chưa sửa.
+- **Dọn kèm:** chính bản này.
+
+## 3.463 — 04/11/2026 — Mẫu 11/TD mới + cũ theo chuẩn 10A, đúng mẫu gốc từng chữ, tổ trưởng theo Danh sách tổ mới nhất (TK 3)
+- **Anh 04/11**: "em tiếp tục làm Mẫu 11 mới theo chuẩn 10A"; "đúng mẫu từng chữ, ko được bỏ hay sửa"; "tổ trưởng lấy theo danh sách tổ mới nhất"; "khi cần in bổ sung lại tổ cũ thì chọn dữ liệu cũ"; "làm luôn mẫu 11 cũ song song với mẫu mới"; "nhớ chuyển qua mẫu chung".
+- **Đúng chữ mẫu gốc** (so từng chữ với `tests/mau_goc/11_moi.docx`, `11_cu.docx`): 11 mới sửa 3 chỗ lệch có từ trước — "…nợ bị rủi ro **để trình** cấp có thẩm quyền" (app in nhầm "gửi"), "(Ký tên, đóng dấu)" (thừa khoảng trắng), tên PGD dính chữ "xã hội". 11 cũ khớp sẵn. Chữ in sẵn không đổi; không đổi "Thôn" / "xã" của mẫu.
+- **Tổ trưởng ký hợp đồng** (cột trái, chung 2 mẫu — `HST.tt`, `HST.ttHTML`): mặc định **Danh sách tổ mới nhất** đã nạp (tên, mã KH, CCCD, ngày cấp; nơi cấp từ danh bạ cùng số thẻ); **in bổ sung tổ cũ** → ô "Lấy theo" chọn bản Danh sách tổ cũ hoặc Mẫu 31 kỳ đang chọn, nhớ theo tổ, nút ↺ Về mới nhất; bản chọn không có tổ → báo, lấy bản gần nhất có tổ (QT-C-18 / QT-C-22).
+- **Chuẩn 10A trên phần chung HST** (`js/mau/0hst.js`): chữ điền liền, in thường; tên hoa đầu từ; "Đại diện Ông (Bà): tên ⇥ Chức vụ"; Hội bỏ xã; tách ô (Bên A chức vụ · ngày cấp · nơi cấp · xã · tỉnh · chữ ký Bên A — cách đã chọn ở ô cũ tự chuyển); khối Nhập liệu riêng Điền hết / Tùy chọn. Đoạn văn chung `HST.P` (thay bản `P` riêng của 2 mẫu).
+- **Gắn qua cổng `hsoMauGan`**: bỏ 2 dòng danh sách (js/25), hàm thay `hsoLap11Cu`, **hàm lập 11 kiểu cũ `hsoLap11` (72 dòng, không còn dùng)**, 2 mục trong bảng lập (js/25b), nhánh cột trái (js/25c → `M.trai`). Rút file mẫu → mất chip, app chạy như trước.
+- **Dọn kèm:** bỏ `hsoLap11` cũ; `kiem.py` bỏ ⚠ ngân sách KB (anh 04/11 "không gò ép trong khoảng nào" — KB chỉ theo dõi); phép thử nhanh node nạp cả dòng `<script>` có chú thích (trước bỏ sót `0hst`, `0hsn`, `bblv`).
+- **Phép thử**: t368 mới (chữ in sẵn = file gốc 2 mẫu, chuẩn 10A, nguồn tổ trưởng: mới nhất / bản cũ / không có tổ / Mẫu 31 / về mới nhất — Danh sách tổ GIẢ); t181 11 / 11cu vào nhóm chữ liền; chuẩn in t179 ghi lại 4 bản 11 (anh duyệt đổi).
+
+## 3.462 — 04/11/2026 — Dọn nền theo nhịp phát triển: cổng gắn mẫu, ngân sách tăng (TK 3)
+- **Anh 04/11**: "em so với định hướng bố cục có đi lệch khi app phình to quá nhanh ko" → "em làm tất cả luôn, theo kế hoạch dọn nền tương ứng với phát triển thêm". Kế hoạch: `docs/KE_HOACH_DON_NEN.md`.
+- **Cổng gắn mẫu `hsoMauGan`** (`js/25-ho-so.js`): file `js/mau/*.js` tự gắn chip + `lap` + `ai` (tên file) + `trai` (cột trái) vào `HSO_MAU`. 06A, Biên bản làm việc chuyển sang cổng — bỏ nhánh riêng ở `js/25` (2 dòng danh sách), `js/25b` (nhánh BBLV, 3 hàm thay, 06A trong bảng lập), `js/25c` (cột trái); `HSN.trai` dùng chung. Rút 3 file `0hsn` / `06a` / `bblv` → app chạy như trước (KTGS mở 06A chỉ báo thiếu).
+- **`tests/kiem.py`**: ngân sách tăng (JS +100 KB · CSS +15 · hàm +60 · biến +15 so mốc → dòng ⚠ NGÂN SÁCH TĂNG riêng, t192 vẫn đạt); thước đo mới "nhánh mẫu riêng (js/25*)" (54, chỉ được giảm); bớt báo nhầm "thiếu hàm" (10 → 0). Hiện ⚠ JS +180 KB so mốc 3.429 → **bản kế là bản dọn** (KE_HOACH_DON_NEN mục 5 N3) rồi mới đặt mốc mới.
+- **Đo, không làm**: nạp khi dùng `js/mau/*` — lợi ~30 ms, rủi ro gọi chéo; đo lại khi JS > 5 MB / nạp > 1 giây.
+- **Sửa bản rà 04/11**: lưu theo ngăn, dòng thời gian, nhật ký lỗi, sức khỏe sao lưu **đã có** (bản rà ghi nhầm "chưa thấy"); còn thiếu thật: "Việc cần xử lý" ở Hôm nay, danh mục lý do lệch anh khai được — chờ anh (KE_HOACH_DON_NEN mục 6).
+- **Dọn kèm:** chính bản này (cổng mẫu, −8 nhánh / hàm thay ở khung Hồ sơ).
+- **Phép thử**: t367 mới (cổng + rút file); t366, t349 đạt.
+
+## 3.461.9 — 04/11/2026 — 8 tình huống mẫu biên bản làm việc (TK 3)
+- **Anh 04/11**: "nghĩ thêm có tình huống nào nữa ngoài 3 t/h trên"; "3 t/h đã 2 mặt hướng dẫn, em soạn tiếp các tình huống còn lại luôn"; "khi in bản mẫu sẽ sổ ra các tùy chọn tình huống".
+- `js/mau/bblv.js`: thêm ④ Khách chết / mất tích / mất năng lực hành vi · ⑤ Rủi ro khách quan (thiên tai, dịch bệnh) · ⑥ Sử dụng vốn sai mục đích / vay hộ · ⑦ Đã nộp cho Tổ trưởng nhưng Ngân hàng chưa nhận · ⑧ Đang chấp hành án / tạm giam — mỗi tình huống có Dấu hiệu, Nên mời, câu mẫu mục 2–5 (cũng vào gợi ý bản thật). Ô chọn ở khung 📝 Bản mẫu thành **danh sách sổ xuống**: Tất cả tình huống (tờ hướng dẫn ≈ 5 trang) · ① … ⑧ (biên bản mẫu đầy đủ 1 tình huống). Câu do TK 3 soạn theo nghiệp vụ thường gặp, chưa đối chiếu văn bản — anh sửa thì báo.
+- t181: bản mẫu BBLV là tờ hướng dẫn / mẫu tham khảo → không so chồng khít (chỉ bản thật). t366 theo 8 tình huống.
+
+## 3.461.8 — 04/11/2026 — Tờ Hướng dẫn ghi biên bản làm việc (TK 3)
+- **Anh 04/11**: "đây là hướng dẫn nên em hướng dẫn kỹ các tình huống, câu văn sát thực tế nhất" → 📝 Bản mẫu **Cả 3 tình huống** thành tờ **HƯỚNG DẪN GHI BIÊN BẢN LÀM VIỆC** (≈ 2 trang): khung **Lưu ý chung** (nơi lập, thành phần tối thiểu, đối chiếu mục 1 với sổ vay vốn / biên lai, ghi cụ thể không chung chung, cam kết có số tiền + ngày, đọc lại và ký đủ); mỗi tình huống ① ② ③ có **Dấu hiệu**, **Nên mời**, câu mẫu mục 2 – 5 (viết lại sát thực tế, chỗ "…" để ghi thời gian, số tiền, tên người). Câu mới cũng thay vào gợi ý bản thật. Câu do TK 3 soạn — anh sửa thì báo.
+- t366 sửa theo câu mới.
+
+## 3.461.7 — 04/11/2026 — Tờ mẫu gọn 3 tình huống (TK 3)
+- **Anh 04/11**: "anh định in 3 tình huống trong 1 bản, cho gọn"; "có thể bỏ bớt các phần không cần, thêm dòng hướng dẫn ghi mẫu" → 📝 Bản mẫu **Cả 3 tình huống** = 1 tờ: tiêu đề, khung **Hướng dẫn ghi** (chọn tình huống đúng với hộ, chép câu vào từng mục, ghi tiếp chỗ "…", ghép câu nếu nhiều nguyên nhân; thành phần / món vay / chữ ký ghi như biên bản thật), rồi mục 2–5 mỗi mục liệt kê câu ① ② ③. Bỏ thành phần, thông tin món vay, chữ ký ở tờ mẫu này. Chọn ① / ② / ③ vẫn in biên bản mẫu đầy đủ theo 1 tình huống.
+- t366 sửa ý 3.461.6 → 3.461.7.
+
+## 3.461.6 — 04/11/2026 — Bản mẫu BBLV: chọn tình huống ngay ở khung Bản mẫu, in cả 3 (TK 3)
+- **Anh 03/11**: "cho chọn 3 tình huống ngay chỗ này luôn, hiện cả 3 t/h luôn để in ra làm mẫu" → khung 📝 Bản mẫu (dưới dòng Điền) có dòng **Tình huống mẫu: Cả 3 tình huống · ① · ② · ③**; mặc định **Cả 3** → 3 biên bản mẫu liền nhau, mỗi tình huống 1 trang.
+- Lớp nền ô (`js/31-o-mau.js` `omKieuHTML`): mẫu tự thêm lựa chọn riêng cho Bản mẫu qua `OM_MAU[mk].mauThem()`. Ô `tinhMau` thôi ở Chọn nhanh cột trái.
+- t366 thêm 1 ý.
+
+## 3.461.5 — 04/11/2026 — Biên bản làm việc: tình huống mẫu cho mục 2–5 (TK 3)
+- **Anh 03/11**: "khi chọn bản mẫu anh muốn các gợi ý này hiện ra tương ứng từng mục 2-3-4-5"; "cho chọn tình huống mẫu: KH bỏ địa phương hay còn gọi đi làm ăn xa, khách hàng còn địa phương nhưng khó khăn, nhóm KH có điều kiện nhưng chây ỳ"; "em code và gộp lên".
+- `js/mau/bblv.js`: 3 bộ câu `MAU` (mục 2 Nguyên nhân · 3 Thực trạng · 4 Cam kết · 5 Kiến nghị); ô chọn **📝 Bản mẫu — tình huống mẫu** (`tinhMau`, Chọn nhanh, không báo thiếu số liệu); 📝 Bản mẫu in bộ câu của tình huống chọn; 12 câu thêm vào gợi ý chọn nhanh của bản thật (mặc định vẫn ✍ chấm). Câu do TK 3 soạn theo cách ghi thường gặp — anh sửa chữ thì báo.
+- t366 thêm 2 ý.
+
+## 3.461.4 — 03/11/2026 — Biên bản làm việc chỉnh theo góp ý; bảng chọn có STT (TK 3)
+- **Anh 03/11**: "mất chữ Tây Ninh" → dòng "Hôm nay, ngày …, tại …" có địa chỉ thì tự xuống dòng (trước khóa 1 dòng nên cắt chữ); bản trắng vẫn giữ 1 dòng chấm.
+- "số tiền vay nếu chương trình vay dài thì cho xuống dòng" → đo độ dài (> 150 mm) thì "- Số tiền vay: … đồng;" thành dòng riêng.
+- "ghi thêm là thành viên tổ … cho đồng nhất với bên 06A" → câu "Là thành viên Tổ TK&VV do Ông (bà): … làm Tổ trưởng, thuộc tổ chức Hội … quản lý." sau Địa chỉ (ô `tt`, `hoi` có khai báo riêng; Hội không lặp chữ).
+- "số thứ tự của các thành phần in thường, không đậm".
+- "cột tích còn lớn, nên có cột STT" (STT theo hộ — anh chốt) → `HSN.bang`: cột ô tích 22 px, cột STT đánh theo hộ (món sau của cùng hộ để trống).
+- t366 thêm 2 ý.
+
+## 3.461.3 — 03/11/2026 — Bảng chọn món gọn, cuộn trong khung (TK 3)
+- **Anh 03/11**: "bố trí cuộn trong 1 cửa sổ cố định, tính cho laptop 125% và màn hình 17 inch, nếu đủ chỗ thì bố trí 1 dòng 1 món vay, 1 hộ vay"; "các cột còn rộng thì bố trí đủ, nếu không đủ thì bỏ số KU, ghi chương trình vay, thêm cột lãi tồn"; "theo cho là tốt nhất, đầy đủ nhất, em code".
+- `HSN.bang` (js/mau/0hsn.js) viết lại: khung cuộn cao = phần màn hình còn lại (`calc(100vh − 330px)`, tối thiểu 260 px), tiêu đề cột đứng yên; mỗi món 1 dòng 22 px; hộ nhiều món: tên + mã KH ở dòng đầu, dòng sau 〃; cột ☑ · Hộ · Mã KH · Số KU (ẩn khi khung < 600 px — container query) · CT (viết tắt, rê chuột ra tên Mẫu 31) · Dư nợ · Lãi tồn · Tình trạng (chip màu Quá hạn / Khoanh / 3T KHĐ / Lãi ≈ nT).
+- **Bấm cả dòng để tích / bỏ tích**, bấm tên hộ để xem trước; **"Chỉ món có vấn đề" mặc định bật**; ô 🔎 tìm tên / mã KH / số KU; Tích hết = các món đang hiện. CSS cuối `css/app.css`.
+- Cảnh báo "Trước khi in" bỏ qua ô cài đặt (`khongBao` — BBLV "Bản trắng — mục 1").
+
+## 3.461.2 — 03/11/2026 — 06A chỗ ký / chú thích sát đáy, tên chương trình chuẩn; BBLV giao dịch lần cuối (TK 3)
+- **Anh 03/11**: "chỗ ký cho rộng ra, hàng hướng dẫn cho sát đáy" → bộ in chung (`js/05-them-file.js`) thêm lớp **`tr-day`**: khối mang lớp được đẩy xuống sát đáy trang chứa nó (sau khi chia trang). 06A: họ tên dưới chữ ký + chú thích (1), (2) là khối `tr-day` → khoảng ký giãn theo chỗ trống của trang.
+- **Anh 03/11**: "chương trình vay lấy từ dữ liệu nào cho chuẩn, mã món vay bị xuống dòng" → tên chương trình theo cột **"Tên chương trình" Mẫu 31** (`ctTen`, bỏ chữ "Cho vay" đầu — `HSN.ctTen`), trước là tên rút gọn của app; tên dài thì "- Mã món vay" xuống dòng riêng (không bẻ số KU). Áp 06A + Biên bản làm việc.
+- **Anh 03/11**: "tên hộ vay chuyển hoa đầu từ" → 06A tên khách, tổ trưởng `tenHoaDau`.
+- **Anh 03/11**: "trong biên bản ghi thêm giao dịch lần cuối" → BBLV dạng dòng thêm "- Giao dịch lần cuối: dd/mm/yyyy" (Ngày GDXA gần nhất của món, Mẫu 31); dạng bảng cột ngày thêm dòng *GD cuối*.
+
+## 3.461.1 — 03/11/2026 — Ô In 2 mặt ở BBLV / 06A (TK 3)
+- **Anh 03/11**: "em nên để chế độ chọn nếu máy in 1 mặt" → ô ☑ **In 2 mặt** ở bảng chọn món (`HSN.bang`, js/mau/0hsn.js), dùng chung công tắc của bộ in (`D.cauHinh.ktHaiMat`, như KTGS — mặc định bật). Bỏ tích → in nhiều bản không chèn trang trắng. t366 thêm ý.
+
+## 3.461 — 03/11/2026 — Biên bản làm việc + 06A chọn nhiều phiếu, khai báo đủ (TK 3, vai App chính)
+- **Anh 03/11**: "tạo 1 biên bản đơn giản để kiểm tra hộ vay linh hoạt nhiều tình huống, từ nợ lãi, 3 tháng KHĐ, nợ quá hạn, nợ khoanh"; "làm chung 1 hộ nhiều món… liệt kê ra"; "lãi tồn chỉ lấy các món lãi tồn cao, cụ thể trên 3 tháng lãi, 6 tháng lãi, 12 tháng lãi"; "mặc định để chấm ghi tay là tốt nhất"; "4 dòng đại diện để trống"; "nếu chọn nhiều món của 1 hộ thì kẻ dạng bảng"; "BB sẽ trọn 1 trang A4 nên em cứ giãn dòng"; 06A: "sau ông bà có :, tên Hội bị trùng, chỗ tại ghi địa chỉ, đến ngày gõ liền, chữ đồng ghi liền, cho chọn được 1 lần nhiều hộ", "rà soát lại các dòng đều cho khai báo riêng theo quy chuẩn".
+- **Mới `js/mau/0hsn.js` (`HSN`)**: bảng chọn món nợ của tổ (nhóm Nợ quá hạn · khoanh · 3 tháng KHĐ · lãi tồn > 3/6/12 tháng · ⭐ Nợ cần quan tâm, tích tay), chọn nhớ theo mẫu trong phiên. Luật **QT-C-23** lãi tồn cao (sổ luật 1.11): lãi tồn > N × (dư nợ × lãi suất ÷ 100 ÷ 12) — lãi suất Mẫu 31 là %/năm (kiểm file thật 25/10).
+- **Mới `js/mau/bblv.js` — Biên bản làm việc** (mẫu gốc `tests/mau_goc/bblv.doc`, anh cho phép lưu): mỗi hộ 1 biên bản; 1 món → dạng dòng như mẫu gốc ("Dư nợ đến ngày …: gốc … đồng; lãi … đồng.", tình trạng ☒/☐), nhiều món → bảng (CT · Số KU, Mục đích, Số tiền vay, Ngày vay / đến hạn, Nợ gốc, Nợ lãi, Tình trạng, Cộng); câu "khoản nợ quá hạn, nợ khoanh…" theo tình huống; tại / địa chỉ = địa chỉ khách; 4 dòng thành phần + chỗ ký để chấm (bật 🤖 được); mục 2–5 chấm, câu gợi ý tùy chọn (chọn nhiều); **trọn 1 trang**: đo chiều cao, nhiều dòng chấm nhất (4 → 1 / mục) rồi giãn dòng (1,15 → 1,5); không vừa → ⚠. Bản trắng dạng dòng (⚙ chọn bảng 3–6 dòng trống).
+- **06A** (`js/mau/06a.js`): khai báo đủ 39 ô (đoàn kiểm tra, thực tế + chênh lệch, sử dụng đúng / sai mục đích, hóa đơn, hiệu quả, khả năng trả nợ, ý kiến, ký tên); có chữ in liền, ô giữa dòng kiểu cột giữ bề rộng chấm (QUY_CHUAN 9.7); "Ông (bà): Tên"; Hội không lặp chữ; tại = địa chỉ khách; ngày dd/mm/yyyy liền; "đồng" liền; ô nhiều dòng chữ phủ lên dòng chấm (không chen dòng). Chọn nhiều món → mỗi món 1 phiếu (2 trang); 📄 06A từ KTGS tích sẵn đúng món.
+- Phép thử mới `t366`; t163 / t170 / t204 (14 chip, thứ tự + BBLV); t181 06A, BBLV nhóm DUNG (chỉ giữ số trang).
+
+## 3.460 — 03/11/2026 — 10A về khuôn chung HST (TK 3, vai App chính)
+- **Anh 03/11**: "10A em chưa đưa kiểu HST à" → "gộp rồi code" (anh đã đồng ý "chuẩn cho 3 mẫu").
+- `js/mau/10a.js` dùng chung `HST` (js/mau/0hst.js) như 10B / 10C: danh sách tổ viên `HST.ds`, bảng hộ vay `HST.bang` (cột In, giữ mặc định tích hết + dòng tổng hộ / dư nợ), tỷ lệ tham dự / tán thành `HST.tl / so / bq / tlHTML`, cấp ấp `HST.capAp`, tên Hội `HST.hoi`. Bỏ bản riêng `hso10aTl / So / TlDat / TL10A / dvAp / hso10aHoi` và bảng riêng `h10a.*`.
+- **Dữ liệu cũ:** tỷ lệ đã lưu `hsoLuu().tl10a / tl10aBq` chuyển 1 lần sang `tlHop['10a'].du / bq` (cờ `tl10aHST`).
+- Giữ riêng 10A: phê duyệt UBND (`hso10aUbNut / UbDat`), khóa trang in (`hso10aDong`, `HSO_10A_DAU`), Thành lập / Kiện toàn, tách ô 3.449.
+- **Bản in 10A không đổi:** t179 (chuẩn khóa `hst_10a_*`) 45/45, t181 49/49. t358 / t364 sửa theo tên nút mới (`hst.*`, `hstl.*`), t364 thêm ý chuyển tỷ lệ cũ.
 
 ## 3.459 — 03/11/2026 — 10A: địa chỉ phê duyệt tách dòng, dòng chấm gọn, tên dưới chữ ký theo dòng trên (TK 2)
 - **Anh 03/11:** "phê duyệt UB, địa chỉ cho chọn tự điền và chấm — chia ra, không làm chung cả cụm"; "đổi tên cả phần dễ hiểu nhầm"; "form chức vụ khi chấm phần III làm ngắn lại cỡ như khi có chữ"; "số tiền làm dấu ngăn nhóm số"; "dòng trưởng ấp khi chọn chấm thì canh phải cho khoảng ghi rộng ra"; "tổ trưởng in sẵn, thư ký, tổ phó ghi tay"; "tên thư ký, trưởng ấp và Hội chỗ ký".

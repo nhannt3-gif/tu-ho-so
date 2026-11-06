@@ -111,7 +111,7 @@ function veTheLoc(){
       return '<span class="the-chip">'+coChuHTML(t.nhan)+
         '<b onclick="boThe('+i+')">✕</b></span>';
     }).join('')+
-    (THE_LOC.length>1?'<span class="the-chip xoa" onclick="boHetThe()">Bỏ hết</span>':'')+
+    (THE_LOC.length>1?'<span class="the-chip xoa" data-lenh="f14.boHetThe">Bỏ hết</span>':'')+
     '</div>';
 }
 
@@ -171,3 +171,8 @@ function sapXep(ds, tab){
     return 0;
   });
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f14.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f14', gdLenh({
+  boHetThe:function(el, ev){ boHetThe(); }
+}));

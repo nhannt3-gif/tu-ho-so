@@ -188,8 +188,44 @@
 | 02/11 | TK 2 | 3.457 | `js/mau/0hst.js` (**mới** `HST.tl`, `HST.so`, `HST.thamDu`, `HST.bq`, `HST.tlHTML`, `HST.tlDat`, `HST.nhanhThem`, lệnh `hstl.*`), `js/mau/10b.js`, `js/mau/10c.js`, tests t365, chuẩn in t179 10B / 10C | — |
 | 03/11 | TK 2 | 3.458 | `js/mau/10a.js` (ô `ubVv`, câu phê duyệt theo Về việc), tests t364 | — |
 | 03/11 | TK 2 | 3.459 | `js/mau/10a.js` (ô `ubAp` / `ubXa` / `ubTinh` / `kyTK`, **mới** `hso10aUbDat`, `chamMM` / `chamDay` trong lap), tests t358 / t364, chuẩn in t179 10A | — |
-| 03/11 | TK 2 | 3.460 | `js/mau/06a.js` (chuẩn 10A, 23 ô mới), `js/31-o-mau.js` (loại ô `gokb`), tests t366 / t349 / t181 | — |
-| 03/11 | TK 2 | 3.461 | `js/mau/06a.js` (**mới** `hso06aLo`, `hso06aXuat`, `hso06aHop`, lệnh `h06a.*`), `js/25b` (hàm thay), `js/22b-ktgs.js` (nút), `js/56-ktgs-bo.js` (`ktk.m06aKhd`), tests t367 | — |
+| 03/11 | TK 3 (App chính) | **3.460** | `js/mau/10a.js` (10A → HST); `tests/t358.js`, `tests/t364.js` | t358 t364 t365 t163 t363 t179 t181 |
+| 03/11 | TK 3 (App chính) | **3.461** | mới `js/mau/0hsn.js`, `js/mau/bblv.js`; `js/mau/06a.js`, `js/25-ho-so.js`, `js/25b-ho-so-vay.js`, `js/25c-ho-so-giao-dien.js`, `index.html`; tests t366 (mới), t163, t170, t204, t181; `tests/mau_goc/bblv.doc` | t366 t181 t179 t163 t170 t204 t349 t350 t363 |
+| 03/11 | TK 3 (App chính) | **3.461.1** | `js/mau/0hsn.js` (ô In 2 mặt); `tests/t366.js` | t366 |
+| 03/11 | TK 3 (App chính) | **3.461.2** | `js/05-them-file.js` (lớp tr-day — bộ in chung), `js/mau/06a.js`, `js/mau/bblv.js`, `js/mau/0hsn.js` (ctTen) | t366 t181 t179 + hồi quy đủ |
+| 03/11 | TK 3 (App chính) | **3.461.3** | `js/mau/0hsn.js` (bảng chọn), `css/app.css` cuối, `js/25b-ho-so-vay.js` (khongBao), `js/mau/bblv.js`; `tests/t366.js` | t366 t181 + hồi quy |
+| 03/11 | TK 3 (App chính) | **3.461.4** | `js/mau/bblv.js`, `js/mau/0hsn.js`, `css/app.css` cuối; `tests/t366.js` | t366 t181 |
+| 04/11 | TK 3 (App chính) | **3.461.5** | `js/mau/bblv.js` (tình huống mẫu); `tests/t366.js` | t366 t181 |
+| 04/11 | TK 3 (App chính) | **3.461.6** | `js/31-o-mau.js` (mauThem), `js/mau/bblv.js`; `tests/t366.js` | t366 + hồi quy đủ |
+| 04/11 | TK 3 (App chính) | **3.461.7** | `js/mau/bblv.js` (tờ mẫu gọn); `tests/t366.js` | t366 |
+| 04/11 | TK 3 (App chính) | **3.461.8** | `js/mau/bblv.js` (tờ hướng dẫn ghi); `tests/t366.js` | t366 |
+| 04/11 | TK 3 (App chính) | **3.461.9** | `js/mau/bblv.js` (8 tình huống, ô sổ xuống); `tests/t366.js`, `tests/t181.js` | t366 t181 |
+| 04/11 | TK 3 (App chính) | **3.462** | `js/25-ho-so.js` (cổng `hsoMauGan`), `js/25b`, `js/25c` (bỏ nhánh 06A / BBLV), `js/mau/06a.js`, `bblv.js`, `0hsn.js`; `tests/kiem.py`, `tests/t367.js`; `docs/KE_HOACH_DON_NEN.md` | t367 t366 t349 |
+| 04/11 | TK 3 (App chính) | **3.463** | `js/mau/0hst.js` (`HST.P`, `HST.sp`, `HST.tt`, `HST.ttHTML`, `HST.hdTrai`), `js/mau/11.js`, `js/mau/11cu.js`, `js/25-ho-so.js` (bỏ `hsoLap11` cũ, 2 dòng danh sách), `js/25b`, `js/25c`; `tests/kiem.py`, `tests/nhanh/nen.js`, `tests/t368.js`, `tests/t181.js`, `tests/chuan/hst_11*` | t368 t181 t179 t163 t180 t367 |
+| 04/11 | TK 3 (App chính) | **3.464** | bản dọn: `js/22b` (bỏ 2 hàm), `js/31` (`omChanTrang`), `js/mau/07b`, `10a`–`10d` (`HST.P`), `css/app.css` (bỏ 82 quy tắc chết); `tests/kiem.py`, `tests/rac.js` | t179 t181 t192 t368 + hồi quy đủ |
+| 04/11 | TK 3 (App chính) | **3.465** | `js/47-phan-bo.js` (đọc danh mục QĐ), `js/48-phan-bo-gd.js` (Đọc QĐ PDF, xem trước, nhập tay theo CT, xem 2 kiểu, mẫu Excel DANH_MUC), `js/17b` (`pbKieuQD`), `css/app.css`; `tests/t369.js`, `t370.js`, `t252`, `t256` | t250–t256 t369 t370 |
+| 04/11 | TK 3 (App chính) | **3.466** | `js/48-phan-bo-gd.js` (sửa nhanh tại bảng, xếp 2 kiểu, đổi mã / ＋ / 🗑 khối, ghép xã `ch.xaQD`, QĐ kế tiếp, so sánh đọc lại), `css/app.css`; `tests/t371.js`, `t370.js` | t250–t256 t355 t369–t371 |
+| 04/11 | TK 3 (App chính) | **3.467** | `js/47-phan-bo.js` (`pbDongThoiGian`), `js/48-phan-bo-gd.js` (dòng thời gian, `qdKhong`, PDF không có khối PGD), `css/app.css`; `tests/t372.js` | t250–t256 t355 t369–t372 |
+| 04/11 | TK 3 (App chính) | **3.468** | `js/48-phan-bo-gd.js` (đối chiếu dòng PGD chỉ cột điều chỉnh); `tests/t370.js` | t252 t256 t370–t372 |
+| 04/11 | TK 3 (App chính) | **3.469** | `js/48-phan-bo-gd.js` (QĐ không giao cho PGD gom vào ＋ QĐ mới = QĐ 0 xã, hiện chung danh sách); `tests/t372.js` | t252 t256 t369–t372 |
+| 04/11 | TK 3 (App chính) | **3.470** | `js/22-so-lieu.js` (`slXaTenChuan` trong `slBo`), `js/22k-nap-kt.js` (dòng soát tên xã), `js/48-phan-bo-gd.js` (ô xã Diễn biến); `tests/t373.js` | hồi quy đủ |
+| 05/11 | TK 3 (App chính) | **3.471** | `js/47-phan-bo.js` (`pbLocCo`), `js/48-phan-bo-gd.js` (lệnh pb.db*), **mới** `js/48b-phan-bo-db.js` (Diễn biến tách khỏi js/48 + bảng cơ bản), `js/25b-ho-so-vay.js` (khTr / khSau), `css/app.css` (.pb-b); `tests/t255.js t256.js t373.js` | t253 t255 t256 t373 + theo đổi |
+| 05/11 | TK 3 (App chính) | **3.472** | `js/22-so-lieu.js` (lõi `slXaTenTu`, `SL_XA_TEN`), `js/22g-to.js` (`toTenXa`, `xaTenSach` gọi lõi) | t330 t350 t360 t373 + theo đổi |
+| 05/11 | TK 3 (App chính) | **3.473** | `js/25-ho-so.js` (cờ đặc tính mẫu), `js/25b-ho-so-vay.js` (hsoLap + khối lap), `js/25c-ho-so-giao-dien.js` (hsoTuyHTML / Vay / Ho + khối trai) | t179 t164 t170 t173 t175 t224 t358 + chụp 172 trạng thái |
+| 05/11 | TK 3 (App chính) | **3.474** | `js/02-nen.js` (`gdDangKy`, `GD_CHO`), `js/39-gd.js` (nhận hàng chờ), `js/22k-nap-kt.js` (66 onclick → nkt.*), `js/26-giao-dich-xa.js` (cnHang); `tests/t127.js t129.js` | t100–t146 Nạp & KT + t176 |
+| 05/11 | TK 3 (App chính) | **3.475** | `js/10-danh-sach.js` (menu.*), `js/22-so-lieu.js` (dải tháng → nkt.*), `js/22k-nap-kt.js`; **mới** `tests/t374.js` | t374 t147 t148 t141 t142 t127 |
+| 05/11 | TK 3 (App chính) | **3.476** | **mới** `tools/doi_onclick.py`; 70 file `js/*` (khối `gdDangKy` cuối file), `js/02-nen.js` (gdA, gdLenh), `js/39-gd.js` (coLenh), `js/06-hop-thoai.js` (Esc), `js/31-o-mau.js` (omkb lúc nạp), `js/08-dia-ban.js`; **mới** `tests/t375.js`, các phép thử bubbles | hồi quy đủ |
+| 05/11 | TK 3 (App chính) | **3.477** | `js/22g-to.js` (`toTV` gom dòng theo khách, KHĐ 1 lần / kỳ) | tab Tổ + theo đổi |
+| 05/11 | TK 3 (App chính) | **3.478** | `js/47-phan-bo.js` (`pbDutChuoi`), `js/48b-phan-bo-db.js` (bảng đứt chuỗi, ⚠ bảng cơ bản, Excel), `js/48-phan-bo-gd.js` (tab QĐ, lệnh dutMo, câu hỏi lưu), `css/app.css`; **mới** `tests/t376.js` | t255 t256 t370–t373 t376 |
+| 05/11 | TK 3 (App chính) | **3.479** | `js/22-so-lieu.js` (`slXaTenTu` không phân biệt hoa thường, hiển thị hoa đầu từ); `tests/t373.js` | hồi quy đủ |
+| 05/11 | TK 3 (App chính) | **3.480** | `js/mau/0hsn.js` (công tắc theo mẫu + vẽ lại xem trước), `js/mau/bblv.js` (haiMat), `js/25b-ho-so-vay.js` (cờ 1 / 2 mặt), `js/17b-so-cai-dat.js`; `tests/t366.js` | t366 t367 t179 t170 t163 t181 t204 |
+| **3.481** | TK 3 | Bản in bỏ tô nền tiêu đề bảng (bblv, 22h, 26, 71, 88, 89) | gộp |
+| **3.482** | TK 3 | Tab Tổ: 3 chip Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ riêng (js/22g) | gộp |
+| **3.483** | TK 3 | Tab Tổ → 📄 BBLV · 06A tích sẵn món theo loại nợ (js/22gb, 22h, 25c, mau/0hsn) | gộp |
+| **3.484** | TK 3 | BBLV / 06A in 1 lần nhiều tổ (HSO.nhieu, js/25b, 22gb, mau/0hsn, bblv, 06a) | gộp |
+| **3.485** | TK 3 | Sổ quy tắc tên thêm BBLV, 06A (js/49) | gộp |
+| **3.486** | TK 3 | Hồ sơ vay BBLV / 06A chọn món cả Hội (mau/0hsn, 25b, 25c, css hsn) | gộp |
+| **3.487** | TK 3 | BBLV gạch tiêu ngữ chuẩn (js/mau/bblv.js) | gộp |
+| **3.488** | TK 3 | Bộ in chuẩn: .tr-nd không cắt mép trên (js/05) — phần chung, hồi quy đủ | gộp |
 
 ## 5. Báo cho bên kia (mở — bên được báo xử lý xong thì gạch)
 | Ngày | Từ → tới | Việc |

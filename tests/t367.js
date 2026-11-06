@@ -1,45 +1,32 @@
-// 3.461 (anh 03/11 "mẫu tạo chính ở bộ mẫu, các nơi khác cần sẽ gọi, ví dụ tạo phiếu ktra 3 tháng KHĐ của tổ nào đó") — 06A lập nhiều phiếu 1 lần:
-//   hso06aLo / hso06aXuat / hso06aHop (tích món → In / Word), nút KTGS "06A món 3 tháng KHĐ". Dữ liệu GIẢ.
+// t367 (3.462, KE_HOACH_DON_NEN D2 — QUY_CHUAN mục 13 "cắm rút"): CỔNG GẮN MẪU hsoMauGan (js/25).
+//   06A, BBLV tự gắn chip + cách lập + cột trái từ js/mau/*.js; rút 3 file (0hsn, 06a, bblv) → app chạy như trước, không lỗi.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const fs=require('fs'), path=require('path');
-(async()=>{ const b=await chromium.launch(); const loi=[];
- const p=await b.newPage({viewport:{width:1440,height:900}}); p.on('pageerror',e=>loi.push(e.message));
- await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
- await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
- const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
- const doan = JSON.parse(fs.readFileSync(path.join(__dirname,'mau_goc','so_do.json'),'utf8'))['06a'].doan;
- const R = await p.evaluate(async([files, doan])=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
-   const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
-   window.SL_KHONG_TU_KIEM = 1;
-   for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
-   const thang = Object.keys(SLM.bang).map(k=>SLM.bang[k]).filter(e=>e.loai==='hstd' && e.ky.length===7).map(e=>e.ky).sort();
-   kyChungDoi(thang[thang.length-1]); slDoiTab('hsv'); doiNgan(7); await w(1500);
-   /* tổ có ≥ 2 món còn dư nợ */
-   let t = null, ds = [];
-   for(const ma of Object.keys(TO_K.to)){ const tt = KHO.to(ma); if(!tt || toLaTT(tt)) continue; const d = []; hsoTVTo(tt).forEach(k=>k.mon.filter(m=>(m.dn||0)>0).forEach(m=>d.push({maTo:tt.ma, kh:k.kh, ku:m.ku, ten:k.ten}))); if(d.length>=2){ t = tt; ds = d.slice(0, 3); break; } }
-   ok('bộ giả có tổ ≥ 2 món còn dư nợ', !!t && ds.length>=2, ds.length+' món');
-   HSO.vay.kh = 'GIU'; HSO.vay.ku = 'GIU';
-   const x = hso06aLo(ds);
-   ok('lập n phiếu 1 lần, mỗi món 1 phiếu đúng khách + số khế ước', x.ds.length===ds.length && x.ds.every((p, i)=>p.h.indexOf(ds[i].ku)>=0 && p.h.replace(/<[^>]+>/g, '').indexOf(tenHoaDau(ds[i].ten))>=0), x.ds.length+' phiếu');
-   ok('không đổi người vay / món đang chọn ở Hồ sơ vay', HSO.vay.kh==='GIU' && HSO.vay.ku==='GIU');
-   ok('1 file in: mỗi phiếu 1 khối riêng (sang trang mới)', (x.trang.match(/class="kt-to"/g)||[]).length===ds.length);
-   { let bl = null; try { bl = await hsoDocx({ds:x.ds}); } catch(e){ bl = e.message; } ok('Word nhiều phiếu: mỗi phiếu 1 mục (section)', bl && bl.size>3000, bl && (bl.size || bl)); }
-   /* hộp chọn món */
-   delete HSO.vay.kh; delete HSO.vay.ku;
-   let ra = null; const gf = window.giaoFile; window.giaoFile = (b, ten) => { ra = ten; };
-   hso06aHop(ds, 'thử'); await w(300);
-   ok('hộp 06A: liệt kê đủ món, tích sẵn hết', document.querySelectorAll('#h06a-ds input[data-lenh="h06a.tich"]:checked').length===ds.length);
-   const cb = document.querySelector('#h06a-ds input[data-lenh="h06a.tich"][data-i="0"]'); cb.checked = false; cb.dispatchEvent(new Event('change', {bubbles:true})); await w(200);
-   ok('bỏ tích 1 món → nút "Word '+(ds.length-1)+' phiếu"', new RegExp('Word '+(ds.length-1)+' phiếu').test(document.getElementById('h06a-ds').textContent));
-   document.querySelector('#h06a-ds [data-lenh="h06a.xuat"][data-c="word"]').click(); for(let i=0;i<30 && !ra;i++) await w(200);
-   ok('bấm Word → tải 1 file .docx ('+(ds.length-1)+' phiếu)', ra && new RegExp('06A_'+(ds.length-1)+' phieu\\.docx$').test(ra), ra);
-   window.giaoFile = gf;
-   /* nút KTGS: tổ có món KHĐ → nút "06A món 3 tháng KHĐ (n)" */
-   const hoGoc = window.ktHo; window.ktHo = () => [{kh:ds[0].kh, ten:ds[0].ten, khd:[{ku:ds[0].ku}], mon:[]}];
-   const chGoc = window.KT_CHON; window.KT_CHON = {ds:[], chon:{}, so:6}; let hk = ''; try { hk = ktChonHTML(t); } catch(e){ hk = 'LỖI '+e.message; }
-   ok('KTGS chọn hộ: tổ có món KHĐ → nút "📄 06A món 3 tháng KHĐ (1)"', /data-lenh="ktk\.m06aKhd"/.test(hk) && /06A món 3 tháng KHĐ \(1\)/.test(hk), hk.slice(0, 80));
-   window.ktHo = hoGoc; window.KT_CHON = chGoc;
-   return o; }, [files, doan]);
- R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
- const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t367 đạt'); await b.close(); process.exit(sai?1:0);
-})();
+(async()=>{ const b=await chromium.launch(); const o=[]; const ok=(ten, dk, chi)=>o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
+ const goc=path.resolve(__dirname,'..'), rut=path.join(goc,'_t367_rut.html');
+ async function mo(f){ const p=await b.newPage({viewport:{width:1536,height:860}}), loi=[]; p.on('pageerror',e=>loi.push(e.message));
+   await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+   await p.goto('file://'+f); await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){} }); return {p, loi}; }
+ try {
+  /* 1. đủ file: chip đúng thứ tự cũ, lập qua cổng */
+  let {p, loi} = await mo(path.join(goc,'index.html'));
+  let r = await p.evaluate(async()=>{ const w=t=>new Promise(r=>setTimeout(r,t)); const ks = HSO_MAU.hsv.map(m=>m.k), M6 = hsoMauK('06a'), MB = hsoMauK('bblv');
+    slDoiTab('hsv'); doiNgan(7); await w(500); hsoChonMau('bblv'); await w(500);
+    const x = hsoLap(); hsoChonMau('06a'); await w(500); const x6 = hsoLap();
+    return {ks:ks.join(','), cong:!!(M6 && M6.lap && M6.trai && MB && MB.lap && MB.trai), mg:MB && MB.mg.join('/')===omMg([15,15,15,25]).join('/'), trai:/Chọn tổ ở bộ lọc địa bàn để hiện các hộ còn nợ/.test((document.getElementById('hso-tuy')||document.body).textContent), ma:x.ma+'|'+x6.ma, ten:/^MauBblv_/.test(x.ten), tenF:x.ten}; });
+  ok('thứ tự chip Hồ sơ vay như cũ (… 03/TD · 06A · BBLV · 06/TD …)', /03td,06a,bblv,06td/.test(r.ks), r.ks);
+  ok('06A, BBLV gắn qua cổng (lap + trai), lề BBLV theo file gốc', r.cong && r.mg);
+  ok('hsoLap đi qua cổng: BBLV + 06A lập đúng mã, tên file, cột trái từ cổng (bảng chọn món — chưa chọn tổ thì nhắc chọn tổ)', r.ma==='BBLV|06A/TD' && r.ten && r.trai, r.ma+' · '+r.tenF);
+  ok('không lỗi trang (đủ file)', !loi.length, loi.join(' | ')); await p.close();
+  /* 2. rút 3 file mẫu → app chạy như trước */
+  fs.writeFileSync(rut, fs.readFileSync(path.join(goc,'index.html'),'utf8').split('\n').filter(l=>!/js\/mau\/(0hsn|06a|bblv)\.js/.test(l)).join('\n'));
+  ({p, loi} = await mo(rut));
+  r = await p.evaluate(async()=>{ const w=t=>new Promise(r=>setTimeout(r,t)); const ks = HSO_MAU.hsv.map(m=>m.k).join(',');
+    slDoiTab('hsv'); doiNgan(7); await w(500); hsoChonMau('01uq'); await w(500); const x = hsoLap();
+    let mo = 'ok'; try { hso06aMo('', '', ''); } catch(e){ mo = e.message; }
+    return {ks, ma:x.ma, mo, chip:document.querySelectorAll('.hso-dau button, .hso-dau .chip').length}; });
+  ok('rút file: không còn chip 06A / BBLV, các mẫu khác còn đủ', !/06a|bblv/.test(r.ks) && /03td,06td/.test(r.ks), r.ks);
+  ok('rút file: lập mẫu khác bình thường; KTGS mở 06A chỉ báo thiếu, không vỡ', r.ma==='01/UQ' && r.mo==='ok', r.ma+' · '+r.mo);
+  ok('không lỗi trang (rút file)', !loi.length, loi.join(' | ')); await p.close();
+ } finally { try{ fs.unlinkSync(rut); }catch(e){} }
+ console.log(o.join('\n')); const sai=o.filter(x=>x.startsWith('✗')).length; console.log(sai ? '✗ t367 SAI '+sai : '✓ t367 đạt'); await b.close(); process.exit(sai?1:0); })();

@@ -15,7 +15,7 @@ const fs=require('fs'), path=require('path');
    const chu = x => x.replace(/<w:tab\/>/g, '⇥').replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
    const hopLe = x => !new DOMParser().parseFromString(x, 'application/xml').getElementsByTagName('parsererror').length;
    const docx = async bl => { const z = XLSX.CFB.read(new Uint8Array(await bl.arrayBuffer()), {type:'array'}); return new TextDecoder().decode((XLSX.CFB.find(z, 'word/document.xml') || XLSX.CFB.find(z, '/word/document.xml')).content); };
-   const chon = (id, v) => { const e = document.getElementById(id); e.value = v; e.dispatchEvent(new Event('change')); };
+   const chon = (id, v) => { const e = document.getElementById(id); e.value = v; e.dispatchEvent(new Event('change', {bubbles:true})); };
    doiNgan(7); const C = ktCH(); C.ky='2026-08'; C.xa=''; C.diem=''; C.hoi=''; C.to=''; C.che='dx'; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    delete D.cauHinh.ktIn;
    const ds = Object.values(KT_K.to).filter(t=>!toLaTT(t) && t.dv && String(t.dv)!=='99' && t.xa); let t = ds[0]; ds.forEach(x=>{ if(toKhach(x).length>toKhach(t).length) t = x; });
@@ -40,7 +40,7 @@ const fs=require('fs'), path=require('path');
    [...document.querySelectorAll('#hop-in button')].find(x=>/Word/.test(x.textContent)).click(); await w(800);
    const c16 = chu(await docx(F[Object.keys(F).find(x=>/Mau 16/.test(x))]));
    ok('Word Mẫu 16: người 1 PCT, người 2 ủy viên BTV, Bảng II trống', c16.indexOf('Trần Thị Phó')>=0 && c16.indexOf('Lê Văn Ủy')>=0 && (c16.indexOf(c.uv)>=0 || c16.indexOf(ktCVGon(c.uv, 1, 27))>=0) && !/định kỳ theo quý/.test(c16));
-   ktXuat('m16', 'in'); await w(50); document.querySelector('#hop-in button[onclick^="ktInDayDu"]').click(); await w(50);
+   ktXuat('m16', 'in'); await w(50); document.querySelector('#hop-in button[data-lenh$=".ktInDayDu"]').click(); await w(50);
    ok('✚ Điền đầy đủ: Bảng II theo 727 + gợi ý nhận xét', D.cauHinh.ktIn[ktInKhoa('m16')].b2==='dien' && D.cauHinh.ktIn[ktInKhoa('m16')].nx==='so' && document.getElementById('ki-m16-b2').value==='dien');
    ok('Mẫu 16 điền đầy đủ → Bảng II ghi như mẫu (định kỳ theo quý…)', /định kỳ theo quý/.test(ktGiaTri16(t, [], ktInV('m16')).b2.join('|'))); dongHop();
    /* 4. Mẫu 04: 2 người, tên Trưởng đoàn, nhận xét để trống */

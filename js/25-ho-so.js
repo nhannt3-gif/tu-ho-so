@@ -15,8 +15,6 @@ var HSO_MAU = {
     {k:'10a',  ma:'10A/TD', ten:'Biên bản họp thành lập Tổ', mg:[20, 20, 20, 30]},
     {k:'10b',  ma:'10B/TD', ten:'Biên bản họp kết nạp, thay đổi Ban quản lý Tổ', mg:[20, 20, 20, 30]},
     {k:'10d',  ma:'10D/TD', ten:'Biên bản họp giải thể Tổ', mg:[20, 20, 20, 30]},   /* 3.223 (anh 16/10, phương án a) */
-    {k:'11',   ma:'11/TD mới',  ten:'Hợp đồng ủy nhiệm — mẫu mới QĐ 70 (từ 01/10/2026)', mg:[20, 20, 20, 30]},   /* 3.223 (anh 16/10): 11 cũ / 11 mới là 2 mẫu độc lập */
-    {k:'11cu', ma:'11/TD cũ',  ten:'Hợp đồng ủy nhiệm — mẫu cũ (trước 01/10/2026)', mg:[20, 20, 17, 30]},
     {k:'01bg', ma:'01/BG',  ten:'Biên bản bàn giao hồ sơ Tổ', mg:[20, 20, 20, 30]},
     {k:'02bg', ma:'02/BG',  ten:'Bàn giao kiêm đối chiếu số dư tiền vay, tiền gửi', ngang:true, mg:[15, 10, 15, 12], so:'xy'}
   ],
@@ -25,7 +23,6 @@ var HSO_MAU = {
     {k:'01uq', ma:'01/UQ',  ten:'Giấy ủy quyền', mg:[18, 18, 18, 30]},
     {k:'01td', ma:'01/TD',  ten:'Giấy đề nghị vay vốn kiêm phương án sử dụng vốn vay', mg:[12, 18, 10, 22]},
     {k:'03td', ma:'03/TD',  ten:'Danh sách tổ viên đề nghị vay vốn', ngang:true, mg:[10, 12, 10, 9]},
-    {k:'06a',  ma:'06A/TD', ten:'Phiếu kiểm tra sử dụng vốn vay — từng hộ, mỗi món 1 phiếu (khi phát hiện sai: sai mục đích, 3 tháng KHĐ…) — 727', mg:[20, 20, 18, 27.5]},   /* 3.430 (anh chốt 01/11) */
     {k:'06td', ma:'06/TD',  ten:'Phiếu kiểm tra sử dụng vốn vay — dùng Mẫu 06 KTGS (khóa mẫu), nhiều hộ / phiếu', ngang:true, mg:[10, 10, 10, 10]},   /* 3.253 (anh chốt 17–18/10, ý 12–14) */
     {k:'01gqvl', ma:'01/GQVL', ten:'Phương án sử dụng vốn vay GQVL (người lao động) — mẫu từ 01/10/2026 (VB 4039)', mg:[15, 20, 15, 25]},   /* 3.211 */
     {k:'07b',  ma:'07b/GQVL', ten:'Hợp đồng tín dụng GQVL (người lao động) — mẫu từ 01/10/2026 (VB 4039)', mg:[15, 20, 15, 25]},   /* 3.211 */
@@ -39,6 +36,19 @@ var HSO = {khoa:'', kn:{}, ra:{}, tv:{}, vay:{}, o:{}};   /* lựa chọn trong 
 var HSO_TR = {};   /* tổ trưởng / tổ phó kỳ trước theo mã tổ (gợi ý bàn giao, bầu thay) */
 var HSO_HEN = null;
 var HSO_DEN = null;   /* 3.430: {kh, ku} — chỗ khác mở tab Hồ sơ vay chọn sẵn người vay + món (hso06aMo) */
+/* 3.462 (KE_HOACH_DON_NEN D2 — QUY_CHUAN mục 13 "cắm rút"): CỔNG GẮN MẪU — file js/mau/*.js tự gắn chip + cách lập + cột trái vào HSO_MAU,
+   không thêm nhánh riêng ở 25 / 25b / 25c. o = {k, ma, ten, mg, sau:'k mẫu đứng trước', lap(t, B) → {ma, h, ds?}, ai(x, t, B) → tên người cho tên file, trai(t, M, B) → HTML cột trái}.
+   Bỏ file mẫu → chip không còn, app chạy như trước. */
+function hsoMauGan(p, o){ var ds = HSO_MAU[p], M = ds.find(function(m){ return m.k===o.k; });
+  if(M){ Object.assign(M, o); return M; }
+  var i = o.sau ? ds.findIndex(function(m){ return m.k===o.sau; }) : -1; ds.splice(i<0 ? ds.length : i+1, 0, o); return o; }
+/* 3.473 (Đ3): ĐẶC TÍNH MẪU thay cho so mã mẫu ở 25b / 25c — canBD: so Mẫu 31 tháng trước (ra khỏi tổ) · canTruongAp: nhắc khai trưởng ấp · omBang: 10C mới có bảng hộ vay ·
+   bgCa: tích "gồm tổ viên hết số dư" · rong: Sổ hộ vay (rộng hết khung) · khongCanTo: không cần chọn tổ · logoSan: mẫu gốc có logo đặt sẵn · kbRieng: ⚙ Khai báo riêng theo hộ ·
+   gq: mẫu riêng GQVL · coKem: khối "In kèm" · moiGQ: nhắc chuyển sang mẫu GQVL · hanCuoi: ô hạn trả nợ cuối · dsVay: danh sách vay 03/TD · kem06: in kèm 06/TD ('bo' theo bộ · 'luu' theo lựa chọn) · nhieuTo: in 1 lần nhiều tổ (HSO.nhieu — 3.484, BBLV · 06A) */
+[['hst', '10c', {canBD:1, canTruongAp:1, omBang:1}], ['hst', '10ccu', {canBD:1, canTruongAp:1}], ['hst', '10a', {canTruongAp:1}], ['hst', '10b', {canBD:1, canTruongAp:1}], ['hst', '10d', {canTruongAp:1}], ['hst', '02bg', {bgCa:1}],
+ ['hsv', 'sohv', {rong:1, khongCanTo:1}], ['hsv', '01uq', {khongCanTo:1}], ['hsv', '01td', {khongCanTo:1, logoSan:1, kbRieng:1, moiGQ:1, coKem:1, hanCuoi:1, kem06:'bo'}], ['hsv', '03td', {khongCanTo:1, dsVay:1}],
+ ['hsv', '01gqvl', {khongCanTo:1, kbRieng:1, gq:1, coKem:1}], ['hsv', '07b', {khongCanTo:1, kbRieng:1, gq:1}], ['hsv', 'pdnh', {gq:1}], ['hsv', '01tgtv', {khongCanTo:1, logoSan:1}], ['hsv', '09a', {kem06:'luu'}]]
+  .forEach(function(x){ x[2].k = x[1]; hsoMauGan(x[0], x[2]); });
 function hsoCH(){ var C = D.cauHinh.hsoTK = D.cauHinh.hsoTK || {ky:'', hst:'10c', hsv:'sohv', v209:1}; if(!C.v209){ if(C.hsv==='bo') C.hsv = 'sohv'; C.v209 = 1; } if(C.hsv==='homoi') C.hsv = 'sohv'; return pvGan(C); }   /* 3.211: mở tab Hồ sơ vay vào 👪 Hộ vay (Bộ HS đã ẩn ở 3.209) */
 function hsoTab(){ return D.cauHinh.slTab==='hsv' ? 'hsv' : 'hst'; }
 function hsoMau(p){ p = p || hsoTab(); var k = hsoCH()[p], ds = HSO_MAU[p]; return ds.find(function(m){ return m.k===k; }) || ds[0]; }
@@ -74,10 +84,10 @@ function hsoKBHop(tab){   /* 3.208 (anh chốt 14/10): ⚙ Khai báo chung — c
   var pane = function(k, h){ return '<div class="hso-kbp" data-kb="'+k+'"'+(T.tab===k ? '' : ' style="display:none"')+'>'+h+'</div>'; };
   moHop('<div class="hop-tit" id="gdx-kbc">⚙ Khai báo đơn vị — dùng chung mọi tab</div><div class="hop-phu">Khai 1 lần, mọi mẫu (Hồ sơ Tổ, Hồ sơ vay, Giao dịch xã) cùng dùng. Lưu cùng cài đặt (đồng bộ Drive). Khai báo riêng từng mẫu (ô ✍ / 🖨, lý do gia hạn…) ở cuối cột trái mỗi mẫu. Người của Hội cấp xã lấy ở '+
       '<a href="#" onclick="event.preventDefault();dongHop();ktCH().che=\'hdt\';ktCH().hdtTab=\'hoi\';slDoiTab(\'kt\')">🏛 Khai báo Hội đoàn thể</a>.</div>'+
-    '<div class="hang-nut hso-kb-tab">'+tabs.map(function(x){ return '<button class="nho hso-kbt'+(T.tab===x[0] ? ' bat' : '')+'" data-kb="'+x[0]+'" onclick="hsoKBTab(\''+x[0]+'\')">'+x[1]+'</button>'; }).join('')+'</div>'+
+    '<div class="hang-nut hso-kb-tab">'+tabs.map(function(x){ return '<button class="nho hso-kbt'+(T.tab===x[0] ? ' bat' : '')+'" data-kb="'+x[0]+'" data-lenh="f25.hsoKBTab" data-a1="'+x[0]+'">'+x[1]+'</button>'; }).join('')+'</div>'+
     pane('pgd', '<div class="hso-kb-nhom"><b>🏦 Phòng giao dịch</b><div class="hso-kb-luoi">'+HSO_PGD_O.map(function(x){ return o('hso-kb-'+x[0], x[1], kb.pgd[x[0]], x[2] || 'chưa khai → chấm', 'hsoKB().pgd[\''+x[0]+'\']=this.value.trim();luu()'); }).join('')+'</div></div>'+kbTenGDXHTML()+
       '<div class="hso-kb-nhom"><b>🖼 Logo (in ở mẫu được tích) — '+(kb.logo ? 'logo đã nạp' : 'logo NHCSXH có sẵn')+'</b><div class="hang-nut"><img src="'+hsoLogoSrc()+'" alt="logo" style="height:48px;border:1px solid var(--vien);background:#fff">'+
-      '<button class="nho" onclick="hsoLogoTai()" title="Lưu file PNG nền trong suốt">⬇ Tải logo</button>'+
+      '<button class="nho" data-lenh="f25.hsoLogoTai" title="Lưu file PNG nền trong suốt">⬇ Tải logo</button>'+
       '<label class="nut-tep nho">📂 Nạp logo khác<input type="file" accept="image/*" style="display:none" onchange="hsoLogoNap(this)"></label>'+(kb.logo ? '<button class="nho" onclick="hsoKB().logo=\'\';luu();hsoKBHop()">↺ Về logo NHCSXH</button>' : '')+'</div>'+
       '<div class="hso-kb-luoi">'+HSO_MAU.hst.concat(HSO_MAU.hsv).filter(function(m){ return m.k!=='bo'; }).map(function(m){ var lm = kb.logoMau || HSO_LOGO_MD;
         return '<label class="hso-o2"><input type="checkbox"'+(lm[m.k] ? ' checked' : '')+' onchange="var k=hsoKB();k.logoMau=k.logoMau||Object.assign({},HSO_LOGO_MD);k.logoMau[\''+m.k+'\']=this.checked;luu()"> '+m.ma+' '+coChuHTML(m.ten)+'</label>'; }).join('')+'</div></div>')+
@@ -154,7 +164,7 @@ function hsoCTVHTML(){   /* tab 📋 Chương trình vay trong ⚙ Khai báo chu
         '<div class="hso-cham-o"><span class="hso-cham-nhan">Kỳ hạn trả nợ (phân kỳ)</span>'+hsoCTSw(i, 'kyIn')+' <input class="hso-so" value="'+coChuHTML(c.ky||'')+'" placeholder="số tháng" onchange="hsoCTDat('+i+',\'ky\',this.value,\'so\')"> tháng/lần</div>'+
         '<div class="hang-nut">'+tick(i, 'Đơn 01/TD có khối <b>Xác nhận của UBND xã</b>', 'ubnd', c.ubnd)+tick(i, 'Hiện ở Bộ HS', 'bat', c.bat!==false)+'</div>'+
         '<div class="hang-nut"><button class="nho" onclick="hsoCTXoa('+i+')">🗑 Xóa thẻ</button></div></details>'; }).join('')+
-    '<div class="hang-nut"><button class="nho chinh" onclick="hsoCTThem()">＋ Chương trình</button></div>';
+    '<div class="hang-nut"><button class="nho chinh" data-lenh="f25.hsoCTThem">＋ Chương trình</button></div>';
 }
 function hsoApTen(t){ return String((t && t.tenThon) || '').replace(/^(ấp|ap|thôn|khu phố|kp)\.?\s+/i, '').trim(); }
 function hsoApKhoa(t){ return (t.xa||'')+'|'+(t.thon || hsoApTen(t)); }
@@ -226,7 +236,7 @@ function hsoTrang(M, than, ten){   /* 1 mẫu, hoặc nhiều mẫu (M = [{M, h}
   var ds = Array.isArray(M) ? M : [{M:M, h:than}], M0 = ds[0].M, mg0 = M0.mg || [20, 20, 20, 30];
   return '<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+coChuHTML(ten||M0.ma)+'</title><style>@page{size:A4 '+(M0.ngang ? 'landscape' : 'portrait')+';margin:'+mg0.map(function(x){ return x+'mm'; }).join(' ')+'}'+
     'body{font-family:"Times New Roman",Times,serif;font-size:13pt;color:#000;line-height:1.22;margin:0}p{margin:0 0 1.5pt}'+
-    '.c{text-align:center}.r{text-align:right}.j{text-align:justify}.b{font-weight:bold}.i{font-style:italic}.u{text-decoration:underline}.thut{text-indent:10mm}.tr{margin-top:6pt}.tr2{margin-top:2.5pt}.sau{margin-bottom:6pt}.l1{margin-left:8mm}.l2{margin-left:14mm}.l4{margin-left:22mm}'+
+    '.c{text-align:center}.r{text-align:right}.j{text-align:justify}.b{font-weight:bold}.i{font-style:italic}.u{text-decoration:underline}.thut{text-indent:10mm}.tr{margin-top:6pt}.tr3{margin-top:18pt}.sau2{margin-bottom:12pt}.tr2{margin-top:2.5pt}.sau{margin-bottom:6pt}.l1{margin-left:8mm}.l2{margin-left:14mm}.l4{margin-left:22mm}'+
     '.s9{font-size:9pt}.s10{font-size:10pt}.s11{font-size:11pt}.s12{font-size:12pt}.s13{font-size:13pt}.s14{font-size:14pt}.s15{font-size:15pt}'+
     'p.ke{height:1px;margin:-1pt auto 4pt;padding:0;border:0;background:#000;transform:scaleY(.55);-webkit-print-color-adjust:exact;print-color-adjust:exact}td>p.ke{margin-left:auto;margin-right:auto}'+
     'table{border-collapse:collapse;width:100%;table-layout:fixed}table.luoi td{border:.5pt solid #000;padding:1pt 3pt;vertical-align:middle}table.luoi.s11 td,table.luoi.s10 td{padding:0 2pt}'+
@@ -301,7 +311,6 @@ function hsoLap10c(t, X){
 
 function hsoLap10cCu(t){ return hsoLap10c(t, {cu:1}); }
 function hsoLap10d(t){ return {ma:'10D/TD', h:'<p class="c">Mẫu 10D/TD dựng trên nền ô (js/mau/10d.js) — chưa nạp được mô-đun.</p>'}; }   /* 3.223: chip 10D (mô-đun riêng) */
-function hsoLap11Cu(t){ return {ma:'11/TD cũ', h:'<p class="c">Mẫu 11/TD cũ dựng trên nền ô (js/mau/11cu.js) — chưa nạp được mô-đun.</p>'}; }   /* 3.223: chip 11 cũ (mô-đun riêng) */   /* 3.223: chip 10C cũ */
 /* ---------- 10A/TD ---------- */
 var HSO_10A_TV = 100, HSO_10A_DONG = 34, HSO_10A_CAO = 5.8, HSO_10A_DAU = 15;   /* 3.443 / 3.454 (mốc số dòng phần đầu trang 1 vừa khung đủ 34 hàng): số ô tổ viên · số dòng / cột · chiều cao dòng (mm, Word cố định) */
 var hso10aDs = null, hso10aBang = null, hso10cTrai = null, hso10cNguon = null, hso10cNguonVe = null;
@@ -384,77 +393,6 @@ function hsoLap10b(t){
 }
 
 /* ---------- 11/TD ---------- */
-function hsoLap11(t){
-  var T = hsoTo(t), K = t ? hsoTTKH(t) : {kh:''}, c = K.kh ? hsoKhach(K.kh, t) : {}, ng = HSO.o.ngay || '';
-  var dieu = [
-    ['b', 'Điều 1. Bên A ủy nhiệm cho Bên B thực hiện các công việc sau'],
-    ['', '1. Quản lý toàn bộ hoạt động của Tổ TK&amp;VV (sau đây viết tắt là Tổ) theo Quy chế hoạt động của Tổ được Hội đồng quản trị NHCSXH ban hành và triển khai thực hiện Quy ước hoạt động của Tổ.'],
-    ['', '2. Thực hiện tiếp nhận đề nghị vay vốn của tổ viên, tổ chức họp Tổ để bình xét cho vay, hoàn thiện và chuyển hồ sơ đề nghị vay vốn cho Bên A; phối hợp với Bên A thông báo kết quả phê duyệt cho vay và phối hợp giải ngân cho vay đến tổ viên vay vốn.'],
-    ['', '3. Giám sát, đôn đốc tổ viên sử dụng vốn vay đúng mục đích; trả nợ đầy đủ, đúng hạn theo thoả thuận; tham gia, chứng kiến việc kiểm tra sử dụng vốn vay, đối chiếu nợ vay đến các tổ viên của cơ quan, tổ chức có thẩm quyền khi được yêu cầu.'],
-    ['', '4. Bên A uỷ nhiệm cho Bên B thu tiền lãi, tiền gửi của các tổ viên trong Tổ theo quy định của NHCSXH. Bên B phải nộp số tiền đã thu của các tổ viên trong tháng cho NHCSXH vào ngày giao dịch tại xã.'],
-    ['i', '(Bên A không uỷ nhiệm cho Bên B thu tiền lãi, tiền gửi của tổ viên trong Tổ. Bên B có trách nhiệm đôn đốc các tổ viên trả nợ gốc, nợ lãi đầy đủ, đúng hạn cho NHCSXH theo thỏa thuận.)'],
-    ['', '5. Phối hợp quản lý và xử lý các vấn đề phát sinh trong hoạt động của Tổ, bao gồm: đôn đốc, xử lý các trường hợp gia hạn nợ, điều chỉnh kỳ hạn trả nợ, nợ quá hạn, nợ bị rủi ro; người vay sử dụng vốn vay sai mục đích, chết, mất tích, đi khỏi nơi cư trú và các trường hợp khác ảnh hưởng đến hoạt động của Tổ.'],
-    ['', '6. Quản lý, cung cấp, lưu trữ hồ sơ liên quan đến hoạt động của Tổ theo quy định của NHCSXH; lưu giữ, bảo mật thông tin, dữ liệu của tổ viên theo quy định của pháp luật về bảo vệ dữ liệu cá nhân.'],
-    ['', '7. Phối hợp với Bên A thực hiện các công việc khác liên quan đến hoạt động tín dụng chính sách xã hội theo nội dung được hai bên thống nhất.'],
-    ['b', 'Điều 2. Trách nhiệm và quyền hạn của Bên A'],
-    ['', '1. Phối hợp với UBND và tổ chức chính trị - xã hội nhận ủy thác cấp xã để tổ chức tập huấn nghiệp vụ có liên quan đến hoạt động của Tổ, thủ tục, quy trình cho vay cho Bên B.'],
-    ['', '2. Thanh toán tiền hoa hồng đầy đủ cho Bên B theo quy định của NHCSXH, cụ thể:'],
-    ['', 'a) Chi trả hoa hồng theo dư nợ có thu được lãi khi phát sinh lãi thực thu của các tổ viên thuộc Tổ.'],
-    ['c', 'Tiền hoa hồng = Mức hoa hồng được hưởng × Dư nợ có thu được lãi'],
-    ['', 'Trong đó:'], ['', '- Mức hoa hồng theo thông báo của NHCSXH từng thời kỳ'],
-    ['i', '(Hiện nay, tại địa bàn cấp xã thuộc vùng có điều kiện khó khăn mức hoa hồng đối với Tổ TK&amp;VV được ủy nhiệm thu tiền là 0,085%, đối với Tổ TK&amp;VV không được ủy nhiệm thu tiền là 0,075%; tại địa bàn cấp xã không thuộc vùng có điều kiện khó khăn mức hoa hồng đối với Tổ TK&amp;VV được ủy nhiệm thu tiền là 0,071%, đối với Tổ TK&amp;VV không được ủy nhiệm thu tiền là 0,062%).'],
-    ['', '- Dư nợ có thu được lãi xác định bằng công thức:'], ['c', 'Dư nợ có thu được lãi = Số tiền lãi thực thu / Lãi suất cho vay'],
-    ['', '+ Số tiền lãi thực thu là số tiền lãi NHCSXH nhận được trong tháng của các tổ viên thuộc Tổ TK&amp;VV.'],
-    ['', '+ Lãi suất cho vay là lãi suất theo thông báo của NHCSXH trong từng thời kỳ và theo từng chương trình tín dụng.'],
-    ['', 'b) Chi trả hoa hồng theo dư nợ bình quân vào ngày cuối cùng của tháng.'], ['c', 'Tiền hoa hồng = Dư nợ trong hạn bình quân tháng × Mức hoa hồng'],
-    ['', 'Trong đó:'], ['c', '- Dư nợ trong hạn bình quân tháng = (Dư nợ trong hạn đầu ngày 01 của tháng + Dư nợ trong hạn cuối ngày cuối cùng của tháng) / 2'],
-    ['', '- Mức hoa hồng: Theo thông báo của NHCSXH theo từng thời kỳ.'],
-    ['i', '(Hiện nay, mức hoa hồng trả theo dư nợ trong hạn bình quân là 0,05%/tháng/dư nợ trong hạn bình quân tháng. Riêng chương trình cho vay nhà ở xã hội, mức hoa hồng chi trả cho Ban quản lý Tổ là 0,005%/tháng/dư nợ trong hạn bình quân tháng).'],
-    ['', 'c) Chi trả tiền hoa hồng vào tài khoản thanh toán của Tổ trưởng Tổ TK&amp;VV mở tại NHCSXH '+hsoO(hsoPGD('ngan'), 'kb', 25)+', số tài khoản: '+hsoCham(30)],
-    ['', '3. Theo dõi, giám sát, đôn đốc Bên B trong việc thực hiện Hợp đồng ủy nhiệm. Thực hiện kiểm tra định kỳ hoặc đột xuất về các nội dung công việc mà Bên B được ủy nhiệm. Trường hợp, phát hiện Bên B vi phạm các điều khoản đã thỏa thuận thì Bên A có quyền đơn phương chấm dứt Hợp đồng và đề nghị xử lý theo quy định của pháp luật.'],
-    ['b', 'Điều 3. Nhiệm vụ, quyền hạn và quyền lợi của Bên B'], ['', '1. Nhiệm vụ, quyền hạn'],
-    ['', 'a) Triển khai thực hiện Quy ước hoạt động của Tổ; tuyên truyền, hướng dẫn tổ viên về chủ trương, chính sách của Đảng, Nhà nước về tín dụng chính sách xã hội, các chương trình tín dụng và thủ tục vay vốn tại NHCSXH. Tuyên truyền, vận động tổ viên thực hành tiết kiệm, nâng cao ý thức trong việc vay vốn và trả nợ ngân hàng.'],
-    ['', 'b) Tiếp nhận đề nghị vay vốn của tổ viên và tổ chức họp Tổ để bình xét cho vay bảo đảm công khai, minh bạch, dân chủ với sự giám sát, chứng kiến của Trưởng thôn, Tổ trưởng tổ dân phố và đại diện tổ chức chính trị - xã hội nhận ủy thác cấp xã; đồng thời, quán triệt cho tổ viên về ý thức vay vốn, sử dụng vốn vay đúng mục đích, trả nợ gốc, lãi đầy đủ, đúng hạn.'],
-    ['', 'Nội dung bình xét cho vay công khai bao gồm: (i) Tổ viên thuộc đối tượng, đáp ứng điều kiện vay vốn theo quy định của cấp có thẩm quyền; (ii) Thảo luận, thống nhất đề nghị mức vay phù hợp với nhu cầu sử dụng vốn để thực hiện phương án vay vốn của tổ viên và không vượt quá mức cho vay tối đa; (iii) Thảo luận, thống nhất đề nghị thời hạn vay phù hợp với khả năng trả nợ của tổ viên và không vượt quá thời hạn cho vay tối đa theo quy định của từng chương trình tín dụng.'],
-    ['', 'Sau khi Tổ họp thống nhất và biểu quyết thông qua danh sách Tổ viên đề nghị vay vốn với mức vay, thời hạn vay cụ thể, hướng dẫn tổ viên hoàn thiện hồ sơ vay vốn theo quy định của từng chương trình tín dụng gửi Bên A xem xét, quyết định mức cho vay, thời hạn cho vay.'],
-    ['', 'c) Nhận kết quả phê duyệt cho vay của Bên A, thông báo cho tổ viên biết lịch giải ngân và chứng kiến việc Bên A giải ngân trực tiếp đến người vay.'],
-    ['', 'd) Đôn đốc, giám sát tổ viên trong Tổ thực hiện Quy ước hoạt động của Tổ; sử dụng vốn vay đúng mục đích; trả nợ gốc, lãi đầy đủ, đúng hạn. Tham gia và chứng kiến việc kiểm tra sử dụng vốn vay, đối chiếu nợ vay của tổ viên của các tổ chức, cơ quan có thẩm quyền khi được yêu cầu.'],
-    ['', 'đ) Trường hợp được ủy nhiệm thu tiền, hằng tháng, Bên B thực hiện thu tiền lãi, tiền gửi của tổ viên và nộp đầy đủ cho NHCSXH theo quy định.'],
-    ['', 'e) Hướng dẫn tổ viên đối chiếu kết quả giao dịch, nợ đến hạn kỳ tiếp theo với thông báo do NHCSXH gửi đến thông qua Ban quản lý Tổ hoặc thông qua ứng dụng do NHCSXH cung cấp.'],
-    ['', 'g) Không được thu phí, thu nợ gốc của tổ viên.'],
-    ['', 'h) Thông báo kịp thời và phối hợp với tổ chức chính trị - xã hội nhận ủy thác, chính quyền địa phương, NHCSXH để xử lý nợ đối với các trường hợp sử dụng vốn vay sai mục đích, nợ bị rủi ro và các trường hợp khác ảnh hưởng đến hoạt động của Tổ và chất lượng tín dụng. Phối hợp với Trưởng thôn, Tổ trưởng tổ dân phố, tổ chức CT-XH nhận ủy thác thực hiện kiểm tra, xác minh và có ý kiến về việc tổ viên đề nghị gia hạn nợ, điều chỉnh kỳ hạn nợ, xử lý nợ bị rủi ro để trình cấp có thẩm quyền xem xét, quyết định; thu thập thông tin của tổ viên đi khỏi nơi cư trú.'],
-    ['', 'i) Chịu sự kiểm tra, giám sát của Trưởng thôn, Tổ trưởng tổ dân phố, tổ chức chính trị - xã hội nhận uỷ thác, UBND cấp xã và Bên A.'],
-    ['', 'k) Lưu giữ đầy đủ hồ sơ của Tổ và các giấy tờ khác liên quan đến hoạt động của Tổ do Bên A quy định. Tham gia đầy đủ các phiên giao dịch, các buổi họp giao ban với Bên A, các lớp tập huấn nghiệp vụ, lĩnh hội và phổ biến đầy đủ các thông tin đến tổ viên. Sử dụng các ứng dụng của NHCSXH để nâng cao hiệu quả thực hiện các nội dung công việc được ủy nhiệm.'],
-    ['', 'l) Vận động tổ viên tham dự các lớp tập huấn chuyển giao công nghệ, khuyến nông, khuyến lâm, khuyến ngư, tiêu thụ sản phẩm… để nâng cao trình độ sản xuất, kinh doanh, sử dụng vốn vay đúng mục đích, có hiệu quả.'],
-    ['', 'm) Đề xuất, kiến nghị và khiếu nại với chính quyền địa phương, NHCSXH và các cơ quan liên quan về việc triển khai thực hiện tín dụng chính sách xã hội trên địa bàn.'],
-    ['', 'n) Tổ trưởng Tổ TK&amp;VV có trách nhiệm thanh toán số tiền hoa hồng được Bên A chi trả cho thành viên Ban quản lý Tổ theo thống nhất trong Ban quản lý Tổ.'],
-    ['', 'o) Sử dụng đúng mục đích, bảo mật thông tin, dữ liệu do Bên A cung cấp hoặc do Ban quản lý Tổ thu thập, tiếp nhận, lưu giữ trong quá trình hoạt động; không cung cấp cho bên thứ ba trái quy định và thực hiện bàn giao đầy đủ khi chấm dứt hoặc thay thế Hợp đồng.'],
-    ['', '2. Quyền lợi'], ['', 'a) Được NHCSXH đào tạo, tập huấn nghiệp vụ quản lý, điều hành hoạt động của Tổ.'],
-    ['', 'b) Được Bên A chi trả hoa hồng cho việc thực hiện các công việc được ủy nhiệm trên cơ sở quy định của cấp có thẩm quyền từng thời kỳ.'], ['', 'c) Được NHCSXH xem xét khen thưởng theo định kỳ hoặc đột xuất.'],
-    ['b', 'Điều 4. Điều khoản thi hành'],
-    ['', '1. Các bên có trách nhiệm thực hiện đúng nội dung đã thỏa thuận trong Hợp đồng này. Mọi sửa đổi, bổ sung nội dung của Hợp đồng phải được sự thỏa thuận của hai bên bằng văn bản.'],
-    ['', '2. Khi thay đổi Tổ trưởng, Tổ trưởng cũ có trách nhiệm bàn giao hồ sơ của Tổ và việc quản lý điều hành hoạt động của Tổ cho Tổ trưởng mới. Tổ trưởng mới có trách nhiệm tiếp tục chỉ đạo thực hiện hoạt động của Tổ theo Quy chế hoạt động của Tổ và các quy định hiện hành của NHCSXH.'],
-    ['', '3. Trong quá trình thực hiện, nếu có tranh chấp xảy ra thì hai bên thống nhất giải quyết trên tinh thần hợp tác. Trường hợp không hoà giải được thì yêu cầu cơ quan có thẩm quyền giải quyết hoặc khởi kiện ra tòa án.'],
-    ['', '4. Hợp đồng này hết hiệu lực kể từ ngày Bên A ký Hợp đồng uỷ nhiệm với đại diện Ban quản lý Tổ là Tổ trưởng mới được Tổ bầu ra.'],
-    ['', 'Hợp đồng này có hiệu lực kể từ ngày ký, thay thế các Hợp đồng, Phụ lục Hợp đồng đã ký trước đây (nếu có); được lập thành 02 bản có giá trị pháp lý như nhau, mỗi bên giữ 01 bản để tổ chức thực hiện./.']];
-  var h = hsoMauSo('11/TD', ['Lập 02 liên:', '- 01 liên lưu NH;', '- 01 liên lưu Tổ TK&amp;VV.'])+hsoQH()+'<p class="c b s14 tr">HỢP ĐỒNG ỦY NHIỆM</p><p class="c b">Về việc thực hiện một số nội dung công việc trong quy trình cho vay của Ngân hàng Chính sách xã hội</p>'+
-    '<p class="j thut i tr">Căn cứ Nghị định số 06/2026/NĐ-CP ngày 10/01/2026 của Chính phủ quy định về tổ chức và hoạt động của Ngân hàng Chính sách xã hội (NHCSXH);</p>'+
-    '<p class="j thut i">Căn cứ Quyết định số 70/QĐ-HĐQT ngày 27/8/2026 của Hội đồng quản trị NHCSXH về quy chế hoạt động của Tổ Tiết kiệm và vay vốn (TK&amp;VV);</p>'+
-    '<p class="j thut i">Căn cứ Biên bản họp Tổ TK&amp;VV ngày '+hsoCham(4)+'/'+hsoCham(4)+'/'+hsoCham(6)+' về việc thành lập Tổ TK&amp;VV đã được UBND xã '+hsoO(T.xa)+' chấp thuận cho phép hoạt động;</p>'+
-    '<p class="j thut i">Căn cứ Biên bản họp Tổ TK&amp;VV ngày '+hsoCham(4)+'/'+hsoCham(4)+'/'+hsoCham(6)+' về việc thay đổi Ban quản lý Tổ TK&amp;VV đã được UBND xã '+hsoO(T.xa)+' chấp thuận (nếu có).</p>'+
-    '<p class="thut">Hôm nay, ngày '+(ng ? hsoNgayO(ng) : hsoCham(4)+'/'+hsoCham(5)+'/'+hsoCham(6))+', tại '+hsoCham(45)+'</p><p class="thut">Chúng tôi gồm có:</p>'+
-    '<p class="b">I. BÊN ỦY NHIỆM (Bên A)</p><p class="thut">- Chi nhánh/Phòng giao dịch Ngân hàng Chính sách xã hội '+hsoO(hsoPGD('ngan'), 'kb')+'</p>'+
-    '<p class="thut">- Đại diện Ông (Bà): '+hsoO(hsoPGD('daiDien'), 'kb', 25)+' Chức vụ: '+hsoO(hsoPGD('daiDien') ? hsoPGD('chucVu') : '', 'kb', 18)+'</p>'+
-    '<p class="thut">- Địa chỉ: '+hsoO(hsoPGD('diaChi'), 'kb', 60)+'</p><p class="thut">- Số điện thoại: '+hsoO(hsoPGD('dt'), 'kb', 50)+'</p>'+
-    '<p class="b">II. BÊN NHẬN ỦY NHIỆM (Bên B)</p><p class="thut">- Ban quản lý Tổ TK&amp;VV: '+hsoO(T.tt, 'sl', 30)+' thuộc Hội: '+hsoO(T.hoi)+'</p>'+
-    '<p class="thut">- Đại diện Ông (Bà): '+hsoO(T.tt, 'sl', 30)+' Chức vụ: Tổ trưởng</p>'+
-    '<p class="thut">- Số Thẻ căn cước: '+hsoO(c.cccd, 'sl', 16)+'; Ngày cấp '+(c.ncap ? hsoO(ngayVNsl(c.ncap)) : hsoCham(4)+'/'+hsoCham(4)+'/'+hsoCham(5))+'; Nơi cấp: '+hsoO(c.noiCap, 'sl', 12)+'</p>'+
-    '<p class="thut">- Địa chỉ: Thôn '+hsoO(T.ap)+', xã '+hsoO(T.xa)+', tỉnh '+coChuHTML(T.tinh)+'.</p><p class="thut">Hai bên nhất trí thỏa thuận các nội dung sau:</p>'+
-    dieu.map(function(d){ return '<p class="j thut'+(d[0]==='b' ? ' b tr' : d[0]==='i' ? ' i' : d[0]==='c' ? ' c i' : '')+'">'+d[1]+'</p>'; }).join('')+
-    hsoKy([['ĐẠI DIỆN BÊN B', '', T.tt], ['ĐẠI DIỆN BÊN A', '(Ký tên, đóng dấu)', hsoPGD('daiDien'), 'kb']]);
-  return {ma:'11/TD', h:h, cc:K.cc};
-}
-
 /* ---------- 01/BG · 02/BG ---------- */
 function hsoGiaoNhan(t){   /* Bên giao / Bên nhận: anh sửa ở tùy chọn; chưa sửa → so tổ trưởng kỳ trước */
   var T = hsoTo(t), tr = hsoTruoc(t), o = HSO.o, g = o.giao, n = o.nhan;
@@ -513,3 +451,10 @@ function hsoLap02bg(t){
         return '<td class="c"><p class="c b">'+x[0]+'</p><p class="c i s12">(Ký, ghi rõ họ tên)</p><p class="c">&nbsp;</p><p class="c">&nbsp;</p><p class="c">&nbsp;</p><p class="c b">'+(x[1] ? hsoO(x[1], x[2]) : '&nbsp;')+'</p></td>'; }).join('')+'</tr>');
   return {ma:'02/BG', h:h};
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f25.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f25', gdLenh({
+  hsoCTThem:function(el, ev){ hsoCTThem(); },
+  hsoKBTab:function(el, ev){ hsoKBTab(gdA(el, 1)); },
+  hsoLogoTai:function(el, ev){ hsoLogoTai(); }
+}));

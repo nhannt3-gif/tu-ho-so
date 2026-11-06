@@ -137,7 +137,7 @@ var KHO = (function(){
       Object.keys(SLM.bang).forEach(function(k){ var e = SLM.bang[k]; if(e.loai!=='hstd') return; var ky = String(e.ky), ng = ky.length>7 ? ky : tdnCuoiKy(ky);
         if(ng<=iso && (!tot || ng>tot.ngay || (ng===tot.ngay && ky.length===7))) tot = {ky:ky, ngay:ng}; });
       return tot ? {ky:tot.ky, ngay:tot.ngay, lui:tot.ngay!==iso} : null; },
-    /* BC0437 / BC0438 cùng kỳ (hoặc cùng tháng, không thì bản mới nhất — như ktChonBC) → Promise {e, rows, theoTo} / {e, rows} | null */
+    /* BC0437 / BC0438 cùng kỳ (hoặc cùng tháng, không thì bản mới nhất — luật KTGS 3.333) → Promise {e, rows, theoTo} / {e, rows} | null */
     bc37: function(ky){ return this._bc('k37', ky); },
     bc38: function(ky){ return this._bc('k38', ky); },
     _bc: function(L, ky){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===L; }).sort(function(a, b){ return slThuTu(a.ky)<slThuTu(b.ky) ? 1 : -1; });

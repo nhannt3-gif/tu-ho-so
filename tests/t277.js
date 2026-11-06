@@ -56,7 +56,7 @@ const fs=require('fs'), path=require('path');
    ok('3.383.5 danh sách tổ: dòng cộng số tổ + tổng TV theo lọc', !!cL && cL.cells[0].textContent==='Cộng '+dsL.length+' tổ' && +cL.cells[2].textContent===tvL && dsL.length>0, cL && cL.textContent);
    eD.remove();
    /* 3.383.5: nút ✕ xóa chữ ô tìm */
-   const iT = document.getElementById('sl-tim'), xT = document.querySelector('.tc-xoa-tim'); iT.value = 'abc'; iT.dispatchEvent(new Event('input')); const hien = xT && !xT.hidden; xT.click(); await w(200);
+   const iT = document.getElementById('sl-tim'), xT = document.querySelector('.tc-xoa-tim'); iT.value = 'abc'; iT.dispatchEvent(new Event('input', {bubbles:true})); const hien = xT && !xT.hidden; xT.click(); await w(200);
    ok('3.383.5 ô tìm: gõ chữ → hiện nút ✕; bấm ✕ → ô trống, nút ẩn', hien && iT.value==='' && SL_TRA_Q==='' && xT.hidden);
    C.xa = ''; C.hoi = ''; C.ap = ''; C.to = '';
    return o; }, files);

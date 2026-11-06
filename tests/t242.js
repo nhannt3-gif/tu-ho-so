@@ -28,17 +28,17 @@ const fs=require('fs'), path=require('path');
    if(typeof hmMo==='function') hmMo(); await w(500);
    const dc = document.querySelector('.hm-dc');
    ok('👪 Hộ vay: ô Xã › Điểm › Ấp › Tổ là cây nhúng chung', !!dc && !!dc.querySelector('.cay-nhung select.cay-o[data-hm="xa"]'), dc ? '' : 'không mở được form');
-   if(dc){ const sx = dc.querySelector('select[data-hm="xa"]'); sx.value = xa; sx.dispatchEvent(new Event('change')); await w(300);
+   if(dc){ const sx = dc.querySelector('select[data-hm="xa"]'); sx.value = xa; sx.dispatchEvent(new Event('change', {bubbles:true})); await w(300);
      const sa = document.querySelector('.hm-dc select[data-hm="ap"]'), st = document.querySelector('.hm-dc select[data-hm="to"]');
      ok('👪 Hộ vay: chọn xã → có ô Ấp, Tổ (đủ danh sách)', !!sa && !!st && sa.options.length-1===aps.length && st.options.length-1===tos.length);
-     sa.value = aps[0][0]; sa.dispatchEvent(new Event('change')); await w(300);
+     sa.value = aps[0][0]; sa.dispatchEvent(new Event('change', {bubbles:true})); await w(300);
      ok('👪 Hộ vay: chọn ấp → ghi thôn / tên thôn vào hộ (như cũ)', HM.xa===xa && (HM.thon===aps[0][2].thon) && HM.tenThon===aps[0][2].tenThon);
      dongHop(); await w(200); }
    /* 3. ⚙ Khai báo chung › Trưởng ấp */
    hsoKBHop('ap'); await w(400);
    const kb = document.querySelector('.hso-kb-loc .cay-nhung select.cay-o.pv-xa');
    ok('⚙ Khai báo chung: lọc Xã / Điểm GD là cây nhúng chung', !!kb);
-   if(kb){ kb.value = xa; kb.dispatchEvent(new Event('change')); await w(300); ok('⚙ Khai báo chung: chọn xã → lọc ấp + hiện ô Điểm GD', HSO_KBT.xa===xa && (!CAY.dsDiem(xa).length || !!document.querySelector('.hso-kb-loc select.pv-diem'))); }
+   if(kb){ kb.value = xa; kb.dispatchEvent(new Event('change', {bubbles:true})); await w(300); ok('⚙ Khai báo chung: chọn xã → lọc ấp + hiện ô Điểm GD', HSO_KBT.xa===xa && (!CAY.dsDiem(xa).length || !!document.querySelector('.hso-kb-loc select.pv-diem'))); }
    dongHop(); await w(200);
    /* 4. 01/TGTV */
    return o; }, files);

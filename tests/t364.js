@@ -16,29 +16,29 @@ const fs=require('fs'), path=require('path');
    pvChon('hst','xa', pvLuaChon(TO_K.to, C, 'xa', true)[0].k); await w(300); pvChon('hst','diem', pvLuaChon(TO_K.to, C, 'diem', true)[0].k); await w(300); pvChon('hst','to', pvLuaChon(TO_K.to, C, 'to', true)[0].k); await w(1200);
    hsoChonMau('10a'); await w(600);
    const tx = () => HSO.x.h.replace(/<[^>]+>/g, ''), n = Math.min(OM_MAU['10a'].V(KHO.to(hsoCH().to)).tv.length, 100), L = hsoLuu();
-   delete L.tl10a; delete L.tl10aBq; hsoVe(); await w(300);
+   delete L.tl10a; delete L.tl10aBq; if(L.tlHop) delete L.tlHop['10a']; hsoVe(); await w(300);
    ok('mặc định 100%: số tham dự = số tổ viên', new RegExp('- '+n+' người là đại diện').test(tx()), n+' tổ viên');
    ok('IV mặc định: '+n+'/'+n+' tổ viên … tán thành', new RegExp(n+'/'+n+' tổ viên của Tổ tham dự họp biểu quyết').test(tx()));
-   ok('Chọn nhanh có số tham dự (− / + tỷ lệ), III a / b, IV', ['soNguoi', 'bqlTT', 'bqlPho', 'bq'].every(k=>omNhanh('10a').indexOf(k)>=0) && !!document.querySelector('#hso-tuy [data-lenh="h10t.cong"][data-k="tl10a"]'));
+   ok('Chọn nhanh có số tham dự (− / + tỷ lệ), III a / b, IV', ['soNguoi', 'bqlTT', 'bqlPho', 'bq'].every(k=>omNhanh('10a').indexOf(k)>=0) && !!document.querySelector('#hso-tuy [data-lenh="hstl.cong"][data-mk="10a"][data-k="du"]'));
    /* giảm 5% */
-   const bt = document.querySelector('#hso-tuy [data-lenh="h10t.cong"][data-k="tl10a"][data-d="-5"]'); if(!bt) return o; bt.click(); await w(400);
+   const bt = document.querySelector('#hso-tuy [data-lenh="hstl.cong"][data-mk="10a"][data-k="du"][data-d="-5"]'); if(!bt) return o; bt.click(); await w(400);
    const y95 = Math.max(Math.floor(n/2)+1, Math.ceil(n*0.95-1e-9));
-   ok('bấm − → 95%: số tham dự = làm tròn lên', L.tl10a===95 && new RegExp('- '+y95+' người là đại diện').test(tx()), y95);
+   ok('bấm − → 95%: số tham dự = làm tròn lên', L.tlHop['10a'].du===95 && new RegExp('- '+y95+' người là đại diện').test(tx()), y95);
    ok('IV theo số tham dự mới', new RegExp(y95+'/'+y95+' tổ viên của Tổ').test(tx()));
    /* gõ 40% → chặn về 51% */
-   const ip = document.querySelector('#hso-tuy input[data-lenh="h10t.go"][data-k="tl10a"]'); ip.value = '40'; ip.dispatchEvent(new Event('change', {bubbles:true})); await w(400);
+   const ip = document.querySelector('#hso-tuy input[data-lenh="hstl.go"][data-mk="10a"][data-k="du"]'); ip.value = '40'; ip.dispatchEvent(new Event('change', {bubbles:true})); await w(400);
    const y51 = Math.max(Math.floor(n/2)+1, Math.ceil(n*0.51-1e-9));
-   ok('gõ 40% → không nhận, đặt 51%; số tham dự > 1/2 số tổ viên', L.tl10a===51 && new RegExp('- '+y51+' người là đại diện').test(tx()) && y51>n/2, y51+' / '+n);
+   ok('gõ 40% → không nhận, đặt 51%; số tham dự > 1/2 số tổ viên', L.tlHop['10a'].du===51 && new RegExp('- '+y51+' người là đại diện').test(tx()) && y51>n/2, y51+' / '+n);
    /* IV tỷ lệ tán thành: chặn ≤ 2/3 */
-   const ib = document.querySelector('#hso-tuy input[data-lenh="h10t.go"][data-k="tl10aBq"]'); ib.value = '60'; ib.dispatchEvent(new Event('change', {bubbles:true})); await w(400);
+   const ib = document.querySelector('#hso-tuy input[data-lenh="hstl.go"][data-mk="10a"][data-k="bq"]'); ib.value = '60'; ib.dispatchEvent(new Event('change', {bubbles:true})); await w(400);
    const x67 = Math.max(Math.floor(y51*2/3)+1, Math.ceil(y51*0.67-1e-9));
-   ok('IV gõ 60% → đặt 67%; tán thành > 2/3 số tham dự', L.tl10aBq===67 && new RegExp(x67+'/'+y51+' tổ viên của Tổ').test(tx()) && x67>y51*2/3, x67+'/'+y51);
+   ok('IV gõ 60% → đặt 67%; tán thành > 2/3 số tham dự', L.tlHop['10a'].bq===67 && new RegExp(x67+'/'+y51+' tổ viên của Tổ').test(tx()) && x67>y51*2/3, x67+'/'+y51);
    /* tự gõ số tham dự → IV theo số gõ */
    omDatCach('10a', 'soNguoi', 'kb'); omDatKB('10a', 'soNguoi', '9'); await w(300); hsoVe(); await w(300);
    ok('⌨ gõ số tham dự 9 → in 9, IV tán thành / 9', /- 9 người là đại diện/.test(tx()) && new RegExp(Math.max(Math.floor(18/3)+1, Math.ceil(9*0.67-1e-9))+'/9 tổ viên').test(tx()));
    omDatCach('10a', 'soNguoi', 'cham'); hsoVe(); await w(300);
    ok('✍ số tham dự để chấm → IV cũng để chấm', !/\d+\/\d+ tổ viên của Tổ/.test(tx()));
-   omDatKB('10a', 'soNguoi', ''); omDatCach('10a', 'soNguoi', 'tu'); delete L.tl10a; delete L.tl10aBq;
+   omDatKB('10a', 'soNguoi', ''); omDatCach('10a', 'soNguoi', 'tu'); delete L.tl10a; delete L.tl10aBq; if(L.tlHop) delete L.tlHop['10a'];
    /* III chọn tên trong tổ → UBND theo */
    omDatCach('10a', 'bqlTT', 'kb'); hsoVe(); await w(400);
    const iTT = document.querySelector('#hso-tuy .hso-cham-o[data-ok="bqlTT"] input'), dl = iTT && document.getElementById(iTT.getAttribute('list'));
@@ -77,6 +77,10 @@ const fs=require('fs'), path=require('path');
    ok('3.459: Thư ký gõ tên → dưới chữ ký Thư ký in đúng tên', ky()[0]==='Lê Thư Ký Giả', ky().join('|'));
    omDatKB('10a', 'thuKy', ''); omDatCach('10a', 'thuKy', 'cham'); omDatCach('10a', 'truongAp', 'tu'); hsoVe(); await w(300);
    hsoXem(); await w(2500); ok('vẫn 4 trang', document.getElementById('hso-xem-khung').contentDocument.querySelectorAll('.tr-tg').length===4);
+   /* 3.460: 10A về HST — tỷ lệ đã lưu ở chỗ cũ (tl10a / tl10aBq) chuyển sang tlHop['10a'] 1 lần */
+   delete L.tl10aHST; if(L.tlHop) delete L.tlHop['10a']; L.tl10a = 80; L.tl10aBq = 90; hsoVe(); await w(400);
+   ok('3.460: tỷ lệ cũ 80% / 90% chuyển sang chỗ chung, chỗ cũ xóa', L.tlHop['10a'].du===80 && L.tlHop['10a'].bq===90 && L.tl10a===undefined && L.tl10aBq===undefined, JSON.stringify(L.tlHop['10a']));
+   delete L.tlHop['10a']; hsoVe(); await w(300);
    return o; }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t364 đạt'); await b.close(); process.exit(sai?1:0);

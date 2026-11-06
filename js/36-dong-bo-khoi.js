@@ -99,7 +99,7 @@ kbSaoLuuHTML = function(){
   return '<div class="hso-kb-nhom"><b>☁ Đồng bộ Drive theo khối</b> <small>(3.225: văn bản theo năm, scan theo tháng, cài đặt theo khối — chỉ gửi / tải phần đổi)</small>'+
     '<div class="sl-phu">'+(bat ? 'Đang bật'+(n ? ' · '+n+' file khối đã đồng bộ' : '') : 'Đã tắt trên máy này (chỉ dùng chimuc.json / cauhinh.json như cũ)')+
       ' · Máy cũ (chưa cập nhật): '+(D.cauHinh.kdBoCu ? '<b>đã cập nhật hết</b> — thôi ghi chimuc.json' : 'vẫn ghi chimuc.json mỗi giờ để máy cũ đọc')+'</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="kdDoi()">'+(bat ? 'Tắt trên máy này' : 'Bật trên máy này')+'</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="f36.kdDoi">'+(bat ? 'Tắt trên máy này' : 'Bật trên máy này')+'</button>'+
       '<button class="nho" onclick="D.cauHinh.kdBoCu=!D.cauHinh.kdBoCu;luu();hsoKBHop(\'sl\')">'+(D.cauHinh.kdBoCu ? 'Ghi lại chimuc.json cho máy cũ' : 'Máy cũ đã cập nhật hết')+'</button>'+
       (bat && coTheNoiDrive() ? '<button class="nho" onclick="batChay(true);kdDay().then(kdKeoVe).then(function(){tatChay();bao(\'Đã đồng bộ khối.\',3);hsoKBHop(\'sl\')},function(e){tatChay();baoLoi(String(e))})">☁ Đồng bộ ngay</button>' : '')+'</div></div>'+KD_SL();
 };
@@ -181,3 +181,8 @@ function chKhoiDongBo(cheDo){
 }
 var CH_DB_CU = dongBoCauHinh;
 dongBoCauHinh = function(cheDo){ return kdBat() ? chKhoiDongBo(cheDo) : CH_DB_CU(cheDo); };
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f36.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f36', gdLenh({
+  kdDoi:function(el, ev){ kdDoi(); }
+}));

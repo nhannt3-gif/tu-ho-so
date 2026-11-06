@@ -1,6 +1,7 @@
 # Tủ hồ sơ — hướng dẫn cho Claude
 **Trạng thái hiện nay (01/11/2026): `docs/nhat_ky/APP.md` (mục đầu) + `docs/TRANG_THAI_CHUNG.md`. Bàn giao cũ đã chuyển `docs/luu_tru/` — chỉ đọc khi cần lịch sử.**
-**03/11/2026 — TK 2 BÀN GIAO vai App chính cho TK 3: đọc `docs/nhat_ky/APP.md` mục 03/11 18:40, 17:00, 09:40 trước (trạng thái 3.461, việc chờ anh, phép thử, bẫy).**
+**06/11/2026 — TK 3 BÀN GIAO vai App chính cho TK 2: đọc `docs/nhat_ky/APP.md` mục 06/11 14:00 trước (trạng thái 3.488, việc chờ anh, bước tiếp, bẫy).**
+**03/11/2026 — TK 2 BÀN GIAO vai App chính cho TK 3: đọc `docs/nhat_ky/APP.md` mục 03/11 17:00 + 09:40 trước (trạng thái 3.459, việc chờ anh, phép thử, bẫy).**
 **28/10/2026 — Luật chung cho mọi AI (Claude TK 1/2/3, Gemini…): `AGENTS.md`; phối hợp giữa các tài khoản CHỈ ở `docs/PHOI_HOP_CHUNG.md` mục 12–14 (thành viên · chờ anh · hộp thư).**
 **01/11/2026 — Sổ chung App ↔ Giao ban (bỏ tên "Tèo"; vai + nhật ký vai `docs/nhat_ky/` — `PHOI_HOP_CHUNG.md` mục 1, 1a; trạng thái `docs/TRANG_THAI_CHUNG.md`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng tới nạp file / kho số liệu gốc, luật số liệu chung (tổ viên, điểm GD, 3 tháng KHĐ…), cây điểm GD từ 11/2026, báo cáo chuyển giữa app và giao ban.**
 **27/10/2026 — TK 3 BÀN GIAO cho TK 2: đọc `docs/BAN_GIAO_TK3_2710.md` trước (trạng thái 3.385.x, việc anh đã duyệt: khuôn Tra cứu cho các tab Số liệu, Sao kê 2 màn, KTGS sau cùng).**

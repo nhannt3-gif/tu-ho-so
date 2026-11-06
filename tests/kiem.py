@@ -22,9 +22,11 @@ top=re.findall(r'^function\s+([\w$]+)',js,re.M)
 dup=sorted({x for x in top if top.count(x)>1})
 defs=set(re.findall(r'function\s+([\w$]+)',js))|set(re.findall(r'(?:var|let|const)\s+([\w$]+)',js))|set(re.findall(r'\bwindow\.([\w$]+)\s*=',js))
 defs|=set(re.findall(r'(?:var|let|const)\s+[^;]*?,\s*([\w$]+)\s*=',js))
+# 3.462 (KE_HOACH_DON_NEN D1): bớt báo nhầm "thiếu hàm" — hàm gán biến (x = function…), tên trong danh sách var a = …, b = null (gán lại ở js/mau)
+defs|=set(re.findall(r'([\w$]+)\s*=\s*function\b',js))|set(re.findall(r',\s*([\w$]+)\s*=\s*(?:null|function)\b',js))
 # tham số hàm
 for ps in re.findall(r'function\s*[\w$]*\s*\(([^)]*)\)',js): defs|=set(x.strip() for x in ps.split(',') if x.strip())
-toan_cuc=set('''_ThungRac chimuc lý alert prompt confirm setTimeout clearTimeout setInterval clearInterval parseInt parseFloat isNaN isFinite String Number Array Object JSON Math Date Promise Blob File FileReader URL Uint8Array Float32Array Float64Array Int32Array Uint32Array TextEncoder Error RegExp encodeURIComponent decodeURIComponent unescape escape fetch getComputedStyle requestAnimationFrame Boolean Symbol Map Set structuredClone indexedDB atob btoa Image DataTransfer event IntersectionObserver MutationObserver ClipboardItem createImageBitmap TextDecoder Worker ArrayBuffer DataView DOMParser XMLSerializer Event matchMedia'''.split())
+toan_cuc=set('''CompressionStream DecompressionStream Response _ThungRac chimuc lý alert prompt confirm setTimeout clearTimeout setInterval clearInterval parseInt parseFloat isNaN isFinite String Number Array Object JSON Math Date Promise Blob File FileReader URL Uint8Array Float32Array Float64Array Int32Array Uint32Array TextEncoder Error RegExp encodeURIComponent decodeURIComponent unescape escape fetch getComputedStyle requestAnimationFrame Boolean Symbol Map Set structuredClone indexedDB atob btoa Image DataTransfer event IntersectionObserver MutationObserver ClipboardItem createImageBitmap TextDecoder Worker ArrayBuffer DataView DOMParser XMLSerializer Event matchMedia'''.split())
 kw=set('if for while switch catch function return typeof new delete in of do else case void throw'.split())
 def boChuoi(t):
     out=[];i=0;n=len(t)
@@ -98,12 +100,35 @@ if len(sys.argv)<2:
     kho=sum(len(re.findall(r'\b(?:TO_K|SL_DB|SL_KHMON|SL_PHU|SL_TIM)\b|\bSLM\.bang\b|\b(?:slBo|slDocBang|toNap|tkBang)\(', boChuoi(t))) for p,t in nd.items() if not re.search(r'js/(22-so-lieu|22g-to|22k-nap-kt|28-tv-tk|29-kho)\.js$', p))
     # 3.384 (anh 26/10 "tất cả đều đọc từ kho chung" — QUY_CHUAN mục 15): đọc thẳng BẢNG GỐC (B.co.hstd / tv01 / nqh…, B.theoKH, B.mon) ngoài lõi nạp + kho → phải qua kcGoc / kcBang / kcKH / kcTK (js/73)
     bang=sum(len(re.findall(r'\.co\.(?:hstd|tv01|dsto|tt|nqh|nk|khd|lt|dnct)\b|\.theoKH\b|\bB\.mon\b', re.sub(r'/\*.*?\*/', '', boChuoi(t), flags=re.S))) for p,t in nd.items() if not re.search(r'js/(22-so-lieu|22g-to|22k-nap-kt|29-kho|73-kho-chuan)\.js$', p))
+    # 3.464: hàm không tới được / trùng (tests/rac.js — acorn; không có acorn thì bỏ qua) · lớp CSS chết (tên lớp / id trong css/app.css không còn ở js / html / phép thử; trừ lớp thư viện tự sinh, lớp ghép tên động 'tiền-tố-'+…)
+    try: RAC=json.loads(subprocess.run(['node',os.path.join(G,'tests','rac.js'),G],capture_output=True,text=True,timeout=120).stdout or '{}')
+    except Exception: RAC={}
+    if RAC.get('bo'): RAC={}
+    def css_chet():
+        c=re.sub(r'/\*.*?\*/','',open(os.path.join(G,'css','app.css'),encoding='utf-8').read(),flags=re.S)
+        src=''.join(open(q,encoding='utf-8').read() for q in glob.glob(os.path.join(G,'js','**','*.js'),recursive=True)+glob.glob(os.path.join(G,'*.html'))+glob.glob(os.path.join(G,'tests','*.js')))
+        tk=set(re.findall(r'[\w-]+',src)); pre=set(re.findall(r'''['"\s]([a-z][\w]*(?:-[\w]+)*-)['"]\s*\+''',src))|{x for x in re.findall(r'''([a-z][\w]*(?:-[\w]+)*-)['"]?\s*\+\s*\w''',src) if len(x)>2}
+        TV={'markedContent','endOfContent','active','textLayer','highlight','selected'}   # lớp do pdf.js / thư viện tự sinh
+        song=lambda n: n in tk or n in TV or bool(re.match(r'gl-c\d+$',n)) or any(n.startswith(x) for x in pre)   # gl-c+số: ghép tên (Giấy lĩnh, js/26)
+        bad=set()
+        for sel in re.findall(r'([^{}]+)\{[^{}]*\}',c):
+            if sel.strip().startswith('@'): continue
+            ps=[x.strip() for x in sel.split(',') if x.strip()]
+            xau=[x for x in ps if [n for n in re.findall(r'[.#]([A-Za-z][\w-]*)',re.sub(r':not\([^)]*\)','',x)) if not song(n)]]
+            if ps and len(xau)==len(ps):
+                for x in xau: bad|={n for n in re.findall(r'[.#]([A-Za-z][\w-]*)',x) if not song(n)}
+        return sorted(bad)
     do={'js_kb':sum(len(t.encode()) for t in nd.values())//1024, 'css_kb':css//1024, 'ham':len(top), 'bien':len(set(re.findall(r'^var\s+([\w$]+)',js,re.M))),
         'mo_coi':len(mo_coi), 'dong_dai':sum(1 for t in nd.values() for l in t.split('\n') if len(l)>400), 'onclick':len(re.findall(r'on(?:click|change|input)=\\?"',js)),
-        'file_lon':sum(1 for t in nd.values() if len(t.encode())>150*1024), 'kho_thang':kho, 'bang_goc':bang}
-    ten={'js_kb':'JS KB','css_kb':'CSS KB','ham':'hàm chung','bien':'biến chung','mo_coi':'mồ côi','dong_dai':'dòng >400','onclick':'onclick','file_lon':'file >150 KB','kho_thang':'đọc thẳng biến kho','bang_goc':'đọc thẳng bảng gốc'}
+        'file_lon':sum(1 for t in nd.values() if len(t.encode())>150*1024), 'kho_thang':kho, 'bang_goc':bang,
+        # 3.462 (KE_HOACH_DON_NEN D2): nhánh riêng theo mẫu ở khung Hồ sơ (js/25, 25b, 25c) — mẫu mới gắn qua hsoMauGan, con số này chỉ được giảm
+        'nhanh_mau':sum(len(re.findall(r"\bM\.k\s*[!=]==|\.test\(M\.k\)", boChuoi(t))) for p,t in nd.items() if re.search(r'js/25[bc]?-', p)),
+        # 3.464 (anh 04/11 "hạn chế code rác" — KE_HOACH_DON_NEN 7.2): mã rác — không được tăng (mốc sau bản dọn: hàm chết 0 · lớp CSS chết 0; hàm trùng 2 = có lý do, xem KE_HOACH_DON_NEN 7.5)
+        'ham_chet':RAC.get('ham_chet', 0), 'ham_trung':RAC.get('ham_trung', 0), 'css_chet':len(css_chet())}
+    ten={'js_kb':'JS KB','css_kb':'CSS KB','ham':'hàm chung','bien':'biến chung','mo_coi':'mồ côi','dong_dai':'dòng >400','onclick':'onclick','file_lon':'file >150 KB','kho_thang':'đọc thẳng biến kho','bang_goc':'đọc thẳng bảng gốc','nhanh_mau':'nhánh mẫu riêng (js/25*)','ham_chet':'hàm không tới được','ham_trung':'hàm trùng','css_chet':'lớp CSS chết'}
     pm=os.path.join(G,'tests','do_moc.json'); moc=json.load(open(pm,encoding='utf-8')) if os.path.exists(pm) else {}
     if MOC or not moc: json.dump(do,open(pm,'w',encoding='utf-8'),ensure_ascii=False,indent=1); moc=do
     vuot=[k for k in do if k in moc and do[k]>moc[k] and k not in ('js_kb','css_kb','ham','bien')]
+    # 3.463 (anh 04/11 "hạn chế code rác, tối ưu chương trình, ko phải gò ép trong khoảng nào"): bỏ ngân sách KB (3.462) — số KB chỉ in để theo dõi; chống rác bằng các thước đo không được tăng
     print('Thước đo:', ' · '.join('%s %d%s'%(ten[k],do[k],('' if k not in moc or do[k]==moc[k] else ' (%+d)'%(do[k]-moc[k]))) for k in do), ('— ⚠ VƯỢT MỐC: '+', '.join(ten[k] for k in vuot)) if vuot else '— trong mốc')
 

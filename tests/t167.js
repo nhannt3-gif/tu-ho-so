@@ -69,7 +69,7 @@ const fs=require('fs'), path=require('path');
    ok('chữ VBSP chìm + chữ 13 pt', !!fd().querySelector('.gl-chim') && /\.gl-trang\{[^}]*font-size:13pt/.test(fd().head.innerHTML));
    const ip = k => document.querySelector('.gl-form-luoi input[data-k="'+k+'"]');
    ok('3.175: form gõ tay dưới ô tìm, app điền sẵn theo người đã chọn', !!ip('ten') && ip('ten').value===kA.ten && ip('tk').value===kA.stk[0]);
-   ip('ten').value = 'Người Giả Sửa Tay'; ip('ten').oninput(); ip('ncap').value = '230421'; ip('ncap').oninput(); await w(200);
+   ip('ten').value = 'Người Giả Sửa Tay'; ip('ten').dispatchEvent(new Event('input', {bubbles:true})); ip('ncap').value = '230421'; ip('ncap').dispatchEvent(new Event('input', {bubbles:true})); await w(200);
    g = gdxGLDuLieu(); t = chu(fd().body.innerHTML);
    ok('sửa tay trên form → in theo form (chỉ lần in này), ngày cấp gõ nhanh 230421 → 23/04/2021', g.ten==='Người Giả Sửa Tay' && g.ncap==='2021-04-23' && t.indexOf('Người Giả Sửa Tay')>=0 && (SL_DB.kh[kA.kh]||{}).ten!=='Người Giả Sửa Tay');
    gdxGLMoi(); await w(200); g = gdxGLDuLieu();

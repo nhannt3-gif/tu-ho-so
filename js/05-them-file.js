@@ -31,12 +31,12 @@ function veThem(){
       '<div class="can-cu">'+coChuHTML(c.canCu)+'</div>'+
       (c.canhBao ? '<div class="cb-lech">'+c.canhBao+'</div>' : '')+
       '<div class="hang-nut">'+
-        '<button class="nho" onclick="deKhaiSau(\''+c.id+'\')" title="Chưa quyết xếp vào đâu — để lại khay chờ">⏳ Để khai sau</button>'+
-        '<button class="nho chinh" onclick="duyet(\''+c.id+'\')">Duyệt</button>'+
-        '<button class="nho" onclick="suaCho(\''+c.id+'\')">Chi tiết / Sửa</button>'+
-        '<button class="nho" onclick="xemCho(\''+c.id+'\')">Xem</button>'+
-        (coTheDocLai(c) ? '<button class="nho" onclick="docLaiGoiY(\''+c.id+'\')" title="Đọc số hiệu, ngày, trích yếu và so sánh với tên hiện tại">🔍 Đọc lại &amp; gợi ý tên</button>' : '')+
-        '<button class="nho xau" onclick="boCho(\''+c.id+'\')">Bỏ</button>'+
+        '<button class="nho" data-lenh="f05.deKhaiSau" data-a1="'+c.id+'" title="Chưa quyết xếp vào đâu — để lại khay chờ">⏳ Để khai sau</button>'+
+        '<button class="nho chinh" data-lenh="f05.duyet" data-a1="'+c.id+'">Duyệt</button>'+
+        '<button class="nho" data-lenh="f05.suaCho" data-a1="'+c.id+'">Chi tiết / Sửa</button>'+
+        '<button class="nho" data-lenh="f05.xemCho" data-a1="'+c.id+'">Xem</button>'+
+        (coTheDocLai(c) ? '<button class="nho" data-lenh="f05.docLaiGoiY" data-a1="'+c.id+'" title="Đọc số hiệu, ngày, trích yếu và so sánh với tên hiện tại">🔍 Đọc lại &amp; gợi ý tên</button>' : '')+
+        '<button class="nho xau" data-lenh="f05.boCho" data-a1="'+c.id+'">Bỏ</button>'+
       '</div></div>';
   }).join('');
 }
@@ -142,7 +142,7 @@ function baoTrung(ds){
       (x.o && !dungO ? '<button class="nho chinh" onclick="chuyenVaoO('+i+')">Chuyển vào ô '+kyVN(x.o.ky)+' · '+
         coChuHTML(x.o.ten)+' · '+coChuHTML(x.o.pham)+'</button>' : '')+
       (D.cho.indexOf(m)>=0 ? '<button class="nho" onclick="dongHop();doiNgan(6)">Mở khay chờ</button>'
-                           : '<button class="nho" onclick="dongHop();moXem(\''+m.id+'\')">Mở</button>')+
+                           : '<button class="nho" data-lenh="f05.moXem" data-dong="1" data-a1="'+m.id+'">Mở</button>')+
       '</div></div>';
   });
   moHop(h+'<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button></div>', true);
@@ -386,8 +386,8 @@ function hoiTrungBanCuoi(m, tiep){
     '<br>Bản đang có: <b>'+coChuHTML(cu[0].tenMoi||cu[0].tenCu||'')+'</b></div>'+
     '<div class="hang-nut">'+
       '<button class="nho" data-lenh="hop.dong">Thôi</button>'+
-      '<button class="nho" onclick="dongHop();thucHienDuyet(\''+m.id+'\',false)">Giữ cả hai</button>'+
-      '<button class="nho chinh" onclick="dongHop();thucHienDuyet(\''+m.id+'\',true)">Thay bản cũ</button>'+
+      '<button class="nho" data-lenh="f05.thucHienDuyet" data-dong="1" data-a1="'+m.id+'" data-a2="">Giữ cả hai</button>'+
+      '<button class="nho chinh" data-lenh="f05.thucHienDuyet" data-dong="1" data-a1="'+m.id+'" data-a2="1">Thay bản cũ</button>'+
     '</div>');
 }
 function thucHienDuyet(id, thay){
@@ -983,7 +983,7 @@ function veDieuKhien(n){
       ' onclick="datChe2(\'' +n+ '\',\'trang\')" title="Vừa trang">⊡</button>'+
     '<span class="ngan-cach"></span>'+
     '<button onclick="chepChuTrang(\'' +n+ '\')" title="Chép chữ cả trang đang xem (bôi đen từng đoạn rồi Ctrl+C cũng được). Trang ảnh thì đọc chữ (OCR)">📋</button>'+
-    '<button onclick="moBangMay()" title="Mở bằng trình xem của máy">↗</button>';
+    '<button data-lenh="f05.moBangMay" title="Mở bằng trình xem của máy">↗</button>';
 }
 function diTrang(n, h){
   var S = XEM[n];
@@ -1190,11 +1190,12 @@ function inBlob(b, ten, tb){   /* tb: lời nhắc thay "Đã mở hộp thoại
    - in 2 mặt (nhiều bản): bản lẻ trang thêm đúng 1 trang trắng (thay cách ước lượng 3.124)
    - khung xem: ⏮ ‹ n/N › ⏭ · − % + · ↔ · ⊡ · Khổ · In · PDF · Word · toàn màn hình
    ========================================================== */
+/* 3.488 (anh 06/11 "in ra có dấu đầy đủ, xem lại bản view"): overflow:hidden cắt đúng mép trên dòng đầu → dấu chữ HOA (Ộ, Ò, Ã, Ủ, Ĩ, Ệ) nhô lên khỏi dòng bị mất trên khung xem (phông Times New Roman Windows); nay chỉ cắt trái · phải · dưới như cũ, mép trên chừa 3 mm (vẫn trong lề trang) — flow-root giữ khối riêng như cũ */
 var TR_CSS = '@page{size:A4 portrait;margin:0}@page tr-ngang{size:A4 landscape;margin:0}'+
   'html,body{background:#8d939b!important}body{margin:0!important;padding:0!important}'+
   '#tr-ds{padding:12px 0 24px}.tr-xem #tr-ds{padding-top:52px}'+
   '.tr-tg{position:relative;width:210mm;height:297mm;background:#fff;margin:0 auto 12px;box-shadow:0 2px 6px rgba(0,0,0,.45);overflow:hidden;box-sizing:border-box}'+
-  '.tr-tg.ngang{width:297mm;height:210mm;page:tr-ngang}.tr-nd{position:absolute;overflow:hidden;display:flow-root;box-sizing:border-box;padding:0 1.5px}'+
+  '.tr-tg.ngang{width:297mm;height:210mm;page:tr-ngang}.tr-nd{position:absolute;overflow:visible;clip-path:inset(-3mm 0 0 0);display:flow-root;box-sizing:border-box;padding:0 1.5px}'+
   '.tr-tg *{page:auto!important;break-before:auto!important;break-after:auto!important;page-break-before:auto!important;page-break-after:auto!important}'+
   '.tr-tg .kt-to,.tr-tg .trang,.tr-tg .phieu{padding:0!important;margin:0!important;box-shadow:none!important;max-width:none!important;width:auto!important;background:none!important}'+
   '.tr-gon .c-sdt{display:none}.tr-so{position:absolute;font-family:"Times New Roman",Times,serif;color:#000;text-align:right;white-space:nowrap}'+
@@ -1299,6 +1300,8 @@ var trDan = function(C){   /* chạy TRONG trang in (khung xem / khung in ẩn) 
       for(var j=0;j<B.length;j++){ t = trang(B[j]); apBac(u, B[j]); t.nd.appendChild(u); var tran = u.scrollWidth>u.clientWidth+2 || (u.hasAttribute('data-tr-1trang') && u.offsetHeight>t.nd.clientHeight+1); t.nd.removeChild(u); ds.removeChild(t.tg); if(!tran){ b = B[j]; break; } }
       t = trang(b); apBac(u, b); t.nd.appendChild(u); coDinhCot(u); t.nd.removeChild(u); ds.removeChild(t.tg);
       var P = chia(u, b), N = P.length, so = u.getAttribute('data-tr-so') || C.so;   /* 3.171: số trang riêng từng bản (xy · so · khong) */
+      P.forEach(function(p){ var e = p.nd.querySelector('.tr-day'); if(!e) return;   /* 3.461.1 (anh 03/11 "hàng hướng dẫn cho sát đáy"): khối .tr-day (chú thích cuối mẫu) đẩy xuống sát đáy trang chứa nó */
+        var r = p.nd.getBoundingClientRect(), y = e.getBoundingClientRect().bottom, du = r.top+p.nd.clientHeight-y-2; if(du>0) e.style.marginTop = ((parseFloat(e.style.marginTop) || 0)+du)+'px'; });
       P.forEach(function(p, k){ if(so==='khong' || (so!=='xy' && !k)) return; var s = d.createElement('div'); s.className = 'tr-so'; s.textContent = so==='xy' ? 'Trang '+(k+1)+'/'+N : String(k+1);
         s.style.cssText = 'right:'+b[1][1]+'mm;bottom:'+Math.max(3, b[1][2]*0.4)+'mm;font-size:'+(so==='xy' ? '8pt;font-style:italic' : '9pt'); p.tg.appendChild(s); });
       var chan = u.getAttribute('data-tr-chan'); if(chan) P.forEach(function(p, k){ var c = chan.split('|'), e = d.createElement('div'); e.className = 'tr-so';   /* 3.171: chân trang mẫu ngành (01/TGTV): trái · phải + Trang x / N */
@@ -1376,3 +1379,16 @@ function inTrangChon(ds){
     console.warn(e); baoLoi('Không tách được trang để in.');
   });
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f05.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f05', gdLenh({
+  boCho:function(el, ev){ boCho(gdA(el, 1)); },
+  deKhaiSau:function(el, ev){ deKhaiSau(gdA(el, 1)); },
+  docLaiGoiY:function(el, ev){ docLaiGoiY(gdA(el, 1)); },
+  duyet:function(el, ev){ duyet(gdA(el, 1)); },
+  moBangMay:function(el, ev){ moBangMay(); },
+  moXem:function(el, ev){ moXem(gdA(el, 1)); },
+  suaCho:function(el, ev){ suaCho(gdA(el, 1)); },
+  thucHienDuyet:function(el, ev){ thucHienDuyet(gdA(el, 1), !!gdA(el, 2)); },
+  xemCho:function(el, ev){ xemCho(gdA(el, 1)); }
+}));

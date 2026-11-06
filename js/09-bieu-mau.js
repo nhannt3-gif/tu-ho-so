@@ -21,7 +21,7 @@ function veBieuMau(){
   ds = locTheoThe('bieuMau', locChuan('bieuMau', ds)); BOT_DS.bieuMau = ds;
 
   var h = veDauTab('bieuMau', {kho:D.bieuMau, hamThem:'themBieuMau()',
-    nutThem:'<button onclick="moDsBo()">📚 Bộ biểu mẫu'+(dsBo().length?' · '+dsBo().length:'')+'</button>'});
+    nutThem:'<button data-lenh="f09.moDsBo">📚 Bộ biểu mẫu'+(dsBo().length?' · '+dsBo().length:'')+'</button>'});
   h += veThanhSap('bieuMau', null, null, null, '<b>'+ds.length+'</b> biểu mẫu'+chuDemLoc('bieuMau'));
 
   var soChon = Object.keys(BM.chon).length;
@@ -29,9 +29,9 @@ function veBieuMau(){
   if(soChon){
     var coChon = Object.keys(BM.chon).reduce(function(a, id){ var m = bmTim(id); return a+(m && +m.co || 0); }, 0);
     h += '<div class="thanh-chon thanh-in"><span>Đã chọn <b>'+soChon+'</b> mẫu'+(BM.boTen ? ' · bộ “'+coChuHTML(BM.boTen)+'”' : '')+(coChon ? ' ('+kichCo(coChon)+')' : '')+'</span>'+
-      (coChiaSeNhieu() ? '<button class="in-chinh" onclick="guiNhieuBM()">📤 Gửi '+soChon+' file</button>' : '')+
-      '<button class="'+(coChiaSeNhieu()?'':'in-chinh')+'" onclick="nenZipBM()">🗜 Nén .zip</button>'+
-      '<button onclick="inBoMau()">🖨 In cả bộ</button>'+
+      (coChiaSeNhieu() ? '<button class="in-chinh" data-lenh="f09.guiNhieuBM">📤 Gửi '+soChon+' file</button>' : '')+
+      '<button class="'+(coChiaSeNhieu()?'':'in-chinh')+'" data-lenh="f09.nenZipBM">🗜 Nén .zip</button>'+
+      '<button data-lenh="f09.inBoMau">🖨 In cả bộ</button>'+
       '<button onclick="BM.chon={};BM.boTen=\'\';veBieuMau()">Bỏ chọn</button></div>';
   }
 
@@ -73,7 +73,7 @@ function veBieuMau(){
           '<button onclick="event.stopPropagation();moBangOffice(\''+m.id+'\')" title="Mở thẳng bằng Word hoặc Excel trên máy tính">W</button>'+
           '<button onclick="event.stopPropagation();bmMoDocs(\''+m.id+'\')" title="Mở trên Google Docs">G</button>'+
           '<button onclick="event.stopPropagation();inMotMau(\''+m.id+'\')" title="In">🖨</button>'+
-          '<button onclick="moMenu(event,\''+m.id+'\')" title="Thêm lệnh">⋯</button>'+
+          '<button data-lenh="f09.moMenu" data-a1="'+m.id+'" title="Thêm lệnh">⋯</button>'+
         '</div></div>'+
         (m.cachDung?'<div class="bm-cach">💡 '+coChuHTML(m.cachDung)+'</div>':'')+
         (m.thayBoi && bmTim(m.thayBoi) ? '<div class="bm-cu">Đã thay bằng <b>'+coChuHTML(bmTim(m.thayBoi).ten)+'</b>'+
@@ -107,7 +107,7 @@ function moDsBo(){
         '<button class="nho xau" onclick="xoaBo('+i+')">Xóa bộ</button></div></div>';
     }).join('')+'</div>' : '<div class="rong">Chưa có bộ nào.</div>')+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+
-    '<button class="nho chinh" onclick="suaBo(-1)">+ Tạo bộ mới</button></div>', true);
+    '<button class="nho chinh" data-lenh="f09.suaBo" data-a1="-1">+ Tạo bộ mới</button></div>', true);
 }
 function suaBo(i){
   var bo = dsBo(), b = (i>=0) ? bo[i] : {ten:'', mau:[]};
@@ -119,7 +119,7 @@ function suaBo(i){
           ((b.mau||[]).indexOf(m.id)>=0?' checked':'')+'> '+coChuHTML(m.ten)+
           '<small>'+coChuHTML(m.nhom||'')+'</small></label>';
       }).join('')+'</div></div>'+
-    '<div class="hang-nut"><button class="nho" onclick="moDsBo()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="f09.moDsBo">Thôi</button>'+
     '<button class="nho chinh" onclick="luuBo('+i+')">Lưu bộ</button></div>', true);
 }
 function luuBo(i){
@@ -183,7 +183,7 @@ function bmGhiChu(id){
     '<div class="o"><textarea id="bm-gc" rows="3" placeholder="Ví dụ: điền phần II, tổ trưởng ký trước khi nộp">'+
       coChuHTML(m.cachDung||'')+'</textarea></div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-    '<button class="nho chinh" onclick="bmLuuGhiChu(\''+id+'\')">Lưu</button></div>');
+    '<button class="nho chinh" data-lenh="f09.bmLuuGhiChu" data-a1="'+id+'">Lưu</button></div>');
 }
 function bmLuuGhiChu(id){
   var m = bmTim(id); if(!m) return;
@@ -201,10 +201,10 @@ function bmThayBan(id){
       khac.map(function(x){ return '<option value="'+x.id+'"'+(m.thayBoi===x.id?' selected':'')+'>'+coChuHTML(x.ten)+'</option>'; }).join('')+
     '</select></div>'+
     '<div class="o"><label>Bản mới có hiệu lực từ ngày</label>'+
-      '<input id="bm-hl" inputmode="numeric" placeholder="dd/mm/yyyy" value="'+(m.hieuLucTu?ngayVN(m.hieuLucTu):'')+'" oninput="gonNgay(this)"></div>'+
+      '<input id="bm-hl" inputmode="numeric" placeholder="dd/mm/yyyy" value="'+(m.hieuLucTu?ngayVN(m.hieuLucTu):'')+'" data-lenh="f09.gonNgay" data-su="input"></div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-    (m.thayBoi?'<button class="nho" onclick="bmBoThay(\''+id+'\')">Bỏ đánh dấu</button>':'')+
-    '<button class="nho chinh" onclick="bmLuuThay(\''+id+'\')">Lưu</button></div>');
+    (m.thayBoi?'<button class="nho" data-lenh="f09.bmBoThay" data-a1="'+id+'">Bỏ đánh dấu</button>':'')+
+    '<button class="nho chinh" data-lenh="f09.bmLuuThay" data-a1="'+id+'">Lưu</button></div>');
 }
 function bmLuuThay(id){
   var m = bmTim(id); if(!m) return;
@@ -251,11 +251,11 @@ function moBangOffice(id, ung){
   moHop('<div class="hop-tit">Mở bằng '+tenUD+'</div>'+
     '<div class="hop-phu">'+coChuHTML(m.tenMoi||m.tenCu||'')+'</div>'+
     '<div class="hang-nut" style="flex-direction:column;align-items:stretch">'+
-      (coCauNoi() ? '<button class="nho chinh" onclick="dongHop();moOfficeCN(\''+id+'\',\'mo\')">📝 Mở bằng '+tenUD+' trên máy — file thật, sửa xong tự lên Drive</button>'+
-        '<button class="nho" onclick="dongHop();moOfficeCN(\''+id+'\',\'xem\')">👁 Xem nhanh — bản tạm, không đụng file gốc</button>' : '')+
-      '<button class="nho'+(coCauNoi()?'':' chinh')+'" onclick="dongHop();bmMoDocs(\''+id+'\')">☁ Mở trên Google '+(ud==='excel'?'Sheets':'Docs')+' — không tải về</button>'+
-      '<button class="nho" onclick="dongHop();moOfficeHop(\''+id+'\',\'may\')">📂 Mở bằng '+tenUD+' trên máy tính (ổ G) — chép đường dẫn</button>'+
-      '<button class="nho" onclick="dongHop();moOfficeHop(\''+id+'\',\'tai\')">⬇ Tải về máy (tạo file trong Tải xuống)</button>'+
+      (coCauNoi() ? '<button class="nho chinh" data-lenh="f09.moOfficeCN" data-dong="1" data-a1="'+id+'" data-a2="mo">📝 Mở bằng '+tenUD+' trên máy — file thật, sửa xong tự lên Drive</button>'+
+        '<button class="nho" data-lenh="f09.moOfficeCN" data-dong="1" data-a1="'+id+'" data-a2="xem">👁 Xem nhanh — bản tạm, không đụng file gốc</button>' : '')+
+      '<button class="nho'+(coCauNoi()?'':' chinh')+'" data-lenh="f09.bmMoDocs" data-dong="1" data-a1="'+id+'">☁ Mở trên Google '+(ud==='excel'?'Sheets':'Docs')+' — không tải về</button>'+
+      '<button class="nho" data-lenh="f09.moOfficeHop" data-dong="1" data-a1="'+id+'" data-a2="may">📂 Mở bằng '+tenUD+' trên máy tính (ổ G) — chép đường dẫn</button>'+
+      '<button class="nho" data-lenh="f09.moOfficeHop" data-dong="1" data-a1="'+id+'" data-a2="tai">⬇ Tải về máy (tạo file trong Tải xuống)</button>'+
     '</div>'+
     '<div class="huong-dan">Google Docs mở và in được ngay; file .docx gốc trên Drive giữ nguyên định dạng. '+
     'Ổ G: dán đường dẫn vào thanh địa chỉ Explorer rồi Enter — '+tenUD+' mở thẳng file đang đồng bộ, sửa xong lưu là cập nhật lên Drive.</div>'+
@@ -313,7 +313,7 @@ function bmGanVB(id){
         coChuHTML((x.soHieu?x.soHieu+' · ':'')+(x.tenVB||x.tenMoi||''))+'</option>'; }).join('')+
     '</select></div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-    '<button class="nho chinh" onclick="bmLuuVB(\''+id+'\')">Lưu</button></div>');
+    '<button class="nho chinh" data-lenh="f09.bmLuuVB" data-a1="'+id+'">Lưu</button></div>');
 }
 function bmLuuVB(id){
   var m = bmTim(id); if(!m) return;
@@ -450,7 +450,7 @@ function suaBieuMau(id){
     '<div class="hop-phu">Đặt tên gọn cho dễ tìm, xếp vào chương trình vay hoặc nhóm nghiệp vụ.</div>'+
     o('Tên biểu mẫu','bm-ten',m.ten,'Ví dụ: Giấy đề nghị vay vốn kiêm phương án sử dụng vốn')+
     o('Số hiệu mẫu','bm-so',m.soHieu||'','Ví dụ: 01/TD, 01/UQ, 02/CLT')+
-    '<div class="o"><label>Ban hành kèm văn bản</label><select id="bm-vb" onchange="chonVBKemBM()">'+
+    '<div class="o"><label>Ban hành kèm văn bản</label><select id="bm-vb" data-lenh="f09.chonVBKemBM" data-su="change">'+
       '<option value="">— chưa gắn —</option>'+
       D.vanBan.map(function(v){
         return '<option value="'+v.id+'"'+(m.vbKem===v.id?' selected':'')+'>'+coChuHTML(tenNganVB(v))+'</option>';
@@ -471,8 +471,8 @@ function suaBieuMau(id){
       '<div class="huong-dan">Bản đã điền dùng để đưa khách xem cách ghi, không in cho khách điền.</div></div>'+
     '<div class="hang-nut" style="margin-top:14px">'+
       '<button class="nho" data-lenh="hop.dong">Thôi</button>'+
-      '<button class="nho chinh" onclick="luuBieuMau(\''+id+'\')">Lưu</button></div>'+
-    '<div class="hang-nut"><button class="nho xau" onclick="xoaBieuMau(\''+id+'\')">Xóa mẫu</button></div>');
+      '<button class="nho chinh" data-lenh="f09.luuBieuMau" data-a1="'+id+'">Lưu</button></div>'+
+    '<div class="hang-nut"><button class="nho xau" data-lenh="f09.xoaBieuMau" data-a1="'+id+'">Xóa mẫu</button></div>');
   setTimeout(thuGonTatCa, 0);
 }
 function chonVBKemBM(){
@@ -550,3 +550,24 @@ function inBoMau(){
     console.warn(e); baoLoi('Không ghép được: '+(e&&e.message||e));
   });
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f09.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f09', gdLenh({
+  bmBoThay:function(el, ev){ bmBoThay(gdA(el, 1)); },
+  bmLuuGhiChu:function(el, ev){ bmLuuGhiChu(gdA(el, 1)); },
+  bmLuuThay:function(el, ev){ bmLuuThay(gdA(el, 1)); },
+  bmLuuVB:function(el, ev){ bmLuuVB(gdA(el, 1)); },
+  bmMoDocs:function(el, ev){ bmMoDocs(gdA(el, 1)); },
+  chonVBKemBM:function(el, ev){ chonVBKemBM(); },
+  gonNgay:function(el, ev){ gonNgay(el); },
+  guiNhieuBM:function(el, ev){ guiNhieuBM(); },
+  inBoMau:function(el, ev){ inBoMau(); },
+  luuBieuMau:function(el, ev){ luuBieuMau(gdA(el, 1)); },
+  moDsBo:function(el, ev){ moDsBo(); },
+  moMenu:function(el, ev){ moMenu(ev, gdA(el, 1)); },
+  moOfficeCN:function(el, ev){ moOfficeCN(gdA(el, 1), gdA(el, 2)); },
+  moOfficeHop:function(el, ev){ moOfficeHop(gdA(el, 1), gdA(el, 2)); },
+  nenZipBM:function(el, ev){ nenZipBM(); },
+  suaBo:function(el, ev){ suaBo(+gdA(el, 1)); },
+  xoaBieuMau:function(el, ev){ xoaBieuMau(gdA(el, 1)); }
+}));

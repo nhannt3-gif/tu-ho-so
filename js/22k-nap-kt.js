@@ -15,9 +15,9 @@ function slChonThang(d, v){
 /* 3.91: hộp chọn tháng bằng chữ Việt (ô tháng của trình duyệt hiện tiếng Anh) — ✓ có file */
 function slChonThangHop(nam){
   var cur = SL_KY || slKyMoi() || ngayISO(nay()).slice(0,7); nam = nam || +cur.slice(0,4);
-  var h = '<div class="hop-tit">Chọn tháng số liệu</div><div class="sl-nam"><button class="nho" onclick="slChonThangHop('+(nam-1)+')" title="Năm trước">‹</button><b>Năm '+nam+'</b><button class="nho" onclick="slChonThangHop('+(nam+1)+')" title="Năm sau">›</button></div><div class="sl-luoi-thang">';
+  var h = '<div class="hop-tit">Chọn tháng số liệu</div><div class="sl-nam"><button class="nho" data-lenh="nkt.thangHop" data-a="'+(nam-1)+'" title="Năm trước">‹</button><b>Năm '+nam+'</b><button class="nho" data-lenh="nkt.thangHop" data-a="'+(nam+1)+'" title="Năm sau">›</button></div><div class="sl-luoi-thang">';
   for(var m=1;m<=12;m++){ var k = nam+'-'+hai(m), co = Object.keys(SLM.bang).some(function(x){ return slThang(SLM.bang[x].ky)===k; });
-    h += '<button class="'+(k===cur ? 'bat' : (co ? 'co' : ''))+'" onclick="dongHop();slChonThang(0,\''+k+'\')">Tháng '+m+(co ? ' ✓' : '')+'</button>'; }
+    h += '<button class="'+(k===cur ? 'bat' : (co ? 'co' : ''))+'" data-lenh="nkt.chonThang" data-dong="1" data-a="'+k+'">Tháng '+m+(co ? ' ✓' : '')+'</button>'; }
   moHop(h+'</div><div class="hang-nut"><button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>');
 }
 function slMoNhom(n){ var mo = D.cauHinh.slMo = D.cauHinh.slMo || {}; mo[n] = !slNhomMo(n); luu(); veSoLieu(); }
@@ -61,11 +61,11 @@ function veSoLieu(){
       cots.map(function(c){
         if(!c.chot) return '<th class="'+lop(c)+'" title="Số liệu ngày '+ngayVNsl(c.ky)+'">'+ngayVNsl(c.ky)+'</th>';
         var g = slDanhGia(c.ky);
-        return '<th class="'+lop(c)+(c.ky===kyXem ? ' sl-chon' : '')+(g.dat ? ' dat' : '')+'" onclick="slChonThang(0,\''+c.ky+'\')" title="Chốt tháng '+kyVN(c.ky)+' — bấm để chọn tháng"><b>'+ngayVNsl(tdnCuoiKy(c.ky))+
+        return '<th class="'+lop(c)+(c.ky===kyXem ? ' sl-chon' : '')+(g.dat ? ' dat' : '')+'" data-lenh="nkt.chonThang" data-a="'+c.ky+'" title="Chốt tháng '+kyVN(c.ky)+' — bấm để chọn tháng"><b>'+ngayVNsl(tdnCuoiKy(c.ky))+
           '</b><small>T'+(+c.ky.slice(5))+(c.ky.slice(0, 4)!==String(nay().getFullYear()) ? '/'+c.ky.slice(2, 4) : '')+' · chốt'+(SLM.kt[c.ky] ? (slKTCu(c.ky) ? ' ⟳' : (g.dat ? ' ✓' : '')) : '')+'</small></th>'; }).join('')+'</tr></thead><tbody>';
     SL_NHOM.forEach(function(N){   /* 3.91: mỗi nhóm 1 dòng đầu bấm sổ / gọn; thu gọn thì ô là chip tóm tắt; loại đã bỏ chỉ hiện khi còn dữ liệu */
       var dsL = SL_LOAI.filter(function(L){ return L.nhom===N.k && !L.an && (!L.bo || slCoDL(L.k)); }), mo = slNhomMo(N.k);   /* 3.202: ma trận chỉ còn 1 dòng về tổ (Danh sách tổ) */ if(!dsL.length) return;
-      h += '<tr class="sl-nh-dong'+(mo ? ' mo' : '')+'" onclick="slMoNhom(\''+N.k+'\')" title="Bấm để '+(mo ? 'thu gọn' : 'sổ ra')+'"><td class="bdc-ten"><span class="sl-nh '+N.k+'">'+(N.k==='X' ? '×' : N.k)+'</span>'+coChuHTML(N.ten.split(' · ')[0].replace(/^[ⒶⒷⒸⒹⓀ] /, ''))+'</td>'+
+      h += '<tr class="sl-nh-dong'+(mo ? ' mo' : '')+'" data-lenh="nkt.moNhom" data-a="'+N.k+'" title="Bấm để '+(mo ? 'thu gọn' : 'sổ ra')+'"><td class="bdc-ten"><span class="sl-nh '+N.k+'">'+(N.k==='X' ? '×' : N.k)+'</span>'+coChuHTML(N.ten.split(' · ')[0].replace(/^[ⒶⒷⒸⒹⓀ] /, ''))+'</td>'+
         cots.map(function(c){ return oCot(c, '<td class="sl-nh-o">'+(mo ? '' : c.chot ? slChipNhom(N.k, dsL, c.ky) : slChipNgayO(dsL, c.ky))+'</td>'); }).join('')+'</tr>';
       if(mo) dsL.forEach(function(L){ var ten = slTenNgan(L);
         h += '<tr><td class="bdc-ten sl-con-ten'+(ten.length>22 ? ' dai' : '')+'" title="'+coChuHTML(L.ten+' — '+N.ten)+'">'+coChuHTML(ten)+'</td>'+cots.map(function(c){ return oCot(c, c.chot ? slOMT(L, c.ky) : slONgayO(L, c.ky)); }).join('')+'</tr>'; });
@@ -88,22 +88,22 @@ function veSoLieu(){
 /* ---------- 3.150: tab Nạp & KT gọn ---------- */
 function slNapThanhHTML(kyXem){   /* 3.156: ‹ T7 · T8/2026 ▾ · T9 › · 📥 Nạp file · 🔍 Kiểm tra lại · 📋 File cần xuất · [▾ Thu gọn][2 tháng][⇔ Tổng quan] · ☁ · ⋯ · ❓ */
   var cho = Object.keys(SLM.bang).filter(function(k){ return SLM.bang[k].choDay; }).length, tr = kyLui(kyXem, -1), sau = kyLui(kyXem, 1), mt = slMtKieu();
-  var ngan = function(k){ return 'T'+(+k.slice(5, 7)); }, kieu = function(v, chu, tit){ return '<button class="sl-mt-k'+(mt===v ? ' bat' : '')+'" onclick="slDatMt(\''+v+'\')" title="'+tit+'">'+chu+'</button>'; };
+  var ngan = function(k){ return 'T'+(+k.slice(5, 7)); }, kieu = function(v, chu, tit){ return '<button class="sl-mt-k'+(mt===v ? ' bat' : '')+'" data-lenh="nkt.datMt" data-a="'+v+'" title="'+tit+'">'+chu+'</button>'; };
   return '<div class="sl-con-nap sl-thanh-nap">'+
     slDaiLich(kyXem)+
-    '<button class="nho chinh" onclick="slNapBo()" title="Chọn nhiều file Excel một lần (Mẫu 31, Danh sách tổ, file TW, KHĐ… và BC0437 / BC0438 của KTGS; 1 hay nhiều tháng) — app tự nhận loại và kỳ, xem trước rồi mới ghi nhận">📥 Nạp file</button>'+
-    (slCoFileChinh(kyXem) ? '<button class="nho sl-kt-nut" onclick="slKiemTra(\''+kyXem+'\')" title="App tự kiểm sau mỗi lần nạp / xóa / thay file — bấm để kiểm lại cho chắc">🔍 Kiểm tra lại</button>' : '')+
-    '<button class="nho" onclick="slFileXuat(\''+kyXem+'\')" title="Danh sách file cần xuất hằng tháng, mẫu cần chọn khi xuất, ✓ file tháng đang xem đã có">📋 File cần xuất</button>'+
-    '<span class="sl-mt-nhom"><button class="sl-mt-k'+(mt==='tq' ? ' bat' : '')+'" onclick="slTongQuan()" title="'+(mt==='tq' ? 'Bấm để về kiểu xem theo ngày' : 'Chỉ cột chốt tháng của mọi tháng có số liệu')+'">⇔ Tổng quan</button>'+
-      '<button class="sl-mt-k'+(mt==='thu' ? ' bat' : '')+'" onclick="slThuGon()" title="'+(mt==='thu' ? 'Mở lại ma trận' : 'Thu ma trận còn 1 dòng tóm tắt')+'">'+(mt==='thu' ? '▴ Bung ra' : '▾ Thu gọn')+'</button></span>'+
+    '<button class="nho chinh" data-lenh="nkt.napBo" title="Chọn nhiều file Excel một lần (Mẫu 31, Danh sách tổ, file TW, KHĐ… và BC0437 / BC0438 của KTGS; 1 hay nhiều tháng) — app tự nhận loại và kỳ, xem trước rồi mới ghi nhận">📥 Nạp file</button>'+
+    (slCoFileChinh(kyXem) ? '<button class="nho sl-kt-nut" data-lenh="nkt.kiem" data-a="'+kyXem+'" title="App tự kiểm sau mỗi lần nạp / xóa / thay file — bấm để kiểm lại cho chắc">🔍 Kiểm tra lại</button>' : '')+
+    '<button class="nho" data-lenh="nkt.fileXuat" data-a="'+kyXem+'" title="Danh sách file cần xuất hằng tháng, mẫu cần chọn khi xuất, ✓ file tháng đang xem đã có">📋 File cần xuất</button>'+
+    '<span class="sl-mt-nhom"><button class="sl-mt-k'+(mt==='tq' ? ' bat' : '')+'" data-lenh="nkt.tongQuan" title="'+(mt==='tq' ? 'Bấm để về kiểu xem theo ngày' : 'Chỉ cột chốt tháng của mọi tháng có số liệu')+'">⇔ Tổng quan</button>'+
+      '<button class="sl-mt-k'+(mt==='thu' ? ' bat' : '')+'" data-lenh="nkt.thuGon" title="'+(mt==='thu' ? 'Mở lại ma trận' : 'Thu ma trận còn 1 dòng tóm tắt')+'">'+(mt==='thu' ? '▴ Bung ra' : '▾ Thu gọn')+'</button></span>'+
     '<span class="sl-gian"></span>'+(cho ? '<span class="sl-db" title="Ô số liệu chưa lên Drive">☁ '+cho+' chờ</span>' : '')+
-    '<button class="nho" onclick="slNapThem(\''+kyXem+'\')" title="Tải file gốc cả tháng · Xóa cả bộ tháng · Xóa ngày cũ · Làm sạch & nạp lại · Giữ sẵn · Tóm tắt file · Tìm rác">⋯</button>'+
-    '<button class="nho" onclick="slNapHoi()" title="Giải thích tab Nạp & KT">❓</button></div>';
+    '<button class="nho" data-lenh="nkt.napThem" data-a="'+kyXem+'" title="Tải file gốc cả tháng · Xóa cả bộ tháng · Xóa ngày cũ · Làm sạch & nạp lại · Giữ sẵn · Tóm tắt file · Tìm rác">⋯</button>'+
+    '<button class="nho" data-lenh="nkt.napHoi" title="Giải thích tab Nạp & KT">❓</button></div>';
 }
 /* ma trận thu gọn: 1 dòng tóm tắt tháng đang chọn — bấm để mở */
 function slMtThuHTML(k){
   var dsN = SL_NHOM.filter(function(N){ return N.k!=='X'; }).map(function(N){ var dsL = SL_LOAI.filter(function(L){ return L.nhom===N.k && !L.bo && !L.an; }); return dsL.length ? '<span class="sl-nh '+N.k+'">'+N.k+'</span>'+slChipNhom(N.k, dsL, k) : ''; }).filter(Boolean);
-  return '<div class="sl-mt-thu" onclick="slThuGon()" title="Bấm để mở ma trận"><b>'+kyVN(k)+'</b> '+dsN.join(' ')+' <span class="sl-phu">▸ mở ma trận</span></div>';
+  return '<div class="sl-mt-thu" data-lenh="nkt.thuGon" title="Bấm để mở ma trận"><b>'+kyVN(k)+'</b> '+dsN.join(' ')+' <span class="sl-phu">▸ mở ma trận</span></div>';
 }
 /* 3.156: dấu trên ô sau kiểm tra — mỗi mục kiểm tra gắn với file có tên trong mục; mọi mục liên quan khớp → ✓, có chênh → ⚠ */
 var SL_KT_O = {};
@@ -120,7 +120,7 @@ function slKTO(ky){
 }
 function slDauO(l, ky){
   var o = (SL_KT_O[ky]||{})[l]; if(!o || (!o.ok && !o.lech.length)) return '';
-  return o.lech.length ? '<i class="sl-dau lech" onclick="event.stopPropagation();slKTToi(\''+l+'\')" title="'+coChuHTML('⚠ Chênh lệch (chỉ ghi nhận):\n'+o.lech.slice(0, 6).join('\n')+'\n— bấm để xem ở Kết quả kiểm tra')+'">⚠</i>' : '<i class="sl-dau ok" title="✓ Khớp với các file khác ('+o.ok+' mục)">✓</i>';   /* 3.165: bấm ⚠ → nhảy tới dòng file */
+  return o.lech.length ? '<i class="sl-dau lech" data-lenh="nkt.ktToi" data-a="'+l+'" title="'+coChuHTML('⚠ Chênh lệch (chỉ ghi nhận):\n'+o.lech.slice(0, 6).join('\n')+'\n— bấm để xem ở Kết quả kiểm tra')+'">⚠</i>' : '<i class="sl-dau ok" title="✓ Khớp với các file khác ('+o.ok+' mục)">✓</i>';   /* 3.165: bấm ⚠ → nhảy tới dòng file */
 }
 /* 3.156 (anh chốt): tự kiểm ngầm — tháng vừa đổi số liệu (nạp / xóa / thay / khôi phục / kéo từ Drive) + tháng đang xem chưa kiểm hoặc đã đổi */
 var SL_KT_CHO = {}, SL_KT_HEN = null, SL_KT_DANG = false;
@@ -143,15 +143,15 @@ function slKqMo(){ var d = document.getElementById('sl-kq'); if(d){ d.open = tru
 function slNapThem(ky){   /* ⋯ việc phụ của tab Nạp & KT */
   var coFile = Object.keys(SLM.bang).some(function(k){ return slThang(SLM.bang[k].ky)===ky; }), soBang = Object.keys(SLM.bang).length;
   moHop('<div class="hop-tit">⋯ Nạp &amp; KT · '+kyVN(ky)+'</div><div class="sl-them-ds">'+
-    (coFile ? '<button class="nho" onclick="dongHop();slTaiGocThang(\''+ky+'\')">⬇ Tải file gốc cả tháng</button><button class="nho" onclick="dongHop();slXoaThang(\''+ky+'\')">🗑 Xóa cả bộ tháng '+kyVN(ky)+'</button>' : '')+
-    (slDsNgay().length>1 ? '<button class="nho" onclick="dongHop();slXoaNgayCu()">🗑 Xóa bản theo ngày cũ (giữ ngày mới nhất)</button>' : '')+
-    (soBang ? '<button class="nho" onclick="dongHop();slTomTatXem(\''+ky+'\')">📄 Tóm tắt chi tiết các file '+kyVN(ky)+'</button>' : '')+
-    '<button class="nho" onclick="dongHop();slNapLai()">🧹 Làm sạch &amp; nạp lại (dựng lại từ file đã lưu)</button>'+
-    (laDT() ? '' : '<label class="sl-giu">⚡ Giữ sẵn <select onchange="D.cauHinh.slGiu=this.value;luu();slNapSan()"><option value="12"'+(D.cauHinh.slGiu==='all' ? '' : ' selected')+'>12 tháng</option><option value="all"'+(D.cauHinh.slGiu==='all' ? ' selected' : '')+'>tất cả</option></select> <small id="sl-giu-ds">'+coChuHTML(slGiuChu())+'</small></label>')+
-    '<button class="nho" onclick="dongHop();slTimRac()">🧹 Tìm file rác của Số liệu</button>'+
+    (coFile ? '<button class="nho" data-lenh="nkt.taiGocThang" data-dong="1" data-a="'+ky+'">⬇ Tải file gốc cả tháng</button><button class="nho" data-lenh="nkt.xoaThang" data-dong="1" data-a="'+ky+'">🗑 Xóa cả bộ tháng '+kyVN(ky)+'</button>' : '')+
+    (slDsNgay().length>1 ? '<button class="nho" data-lenh="nkt.xoaNgayCu" data-dong="1">🗑 Xóa bản theo ngày cũ (giữ ngày mới nhất)</button>' : '')+
+    (soBang ? '<button class="nho" data-lenh="nkt.tomTat" data-dong="1" data-a="'+ky+'">📄 Tóm tắt chi tiết các file '+kyVN(ky)+'</button>' : '')+
+    '<button class="nho" data-lenh="nkt.napLai" data-dong="1">🧹 Làm sạch &amp; nạp lại (dựng lại từ file đã lưu)</button>'+
+    (laDT() ? '' : '<label class="sl-giu">⚡ Giữ sẵn <select data-lenh="nkt.giu" data-su="change"><option value="12"'+(D.cauHinh.slGiu==='all' ? '' : ' selected')+'>12 tháng</option><option value="all"'+(D.cauHinh.slGiu==='all' ? ' selected' : '')+'>tất cả</option></select> <small id="sl-giu-ds">'+coChuHTML(slGiuChu())+'</small></label>')+
+    '<button class="nho" data-lenh="nkt.timRac" data-dong="1">🧹 Tìm file rác của Số liệu</button>'+
     (soBang ? slTenNut() : '')+
     (coFile ? slDCNut(ky) : '')+
-    (soBang ? '<button class="nho xau" onclick="dongHop();slLamMoi()">♻ Làm mới toàn bộ số liệu</button>' : '')+
+    (soBang ? '<button class="nho xau" data-lenh="nkt.lamMoi" data-dong="1">♻ Làm mới toàn bộ số liệu</button>' : '')+
     '</div><div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>');
 }
 function slTomTatXem(ky){ batChay(true, 'Đang mở tóm tắt '+kyVN(ky)+'…'); slBo(ky).then(function(B){ tatChay(); moHop('<div class="hop-tit">📄 Tóm tắt các file '+kyVN(ky)+'</div><div class="sl-ky">'+slKyHTML(B)+
@@ -189,8 +189,8 @@ function slSauNap(ds){   /* sau khi ghi nhận: nạp ngày mới mà còn ngày
 /* 3.163: ô / chip của cột ngày */
 function slONgayO(L, d){
   var x = SLM.bang[slKhoa(L.k, d)];
-  if(!x) return L.bo ? '<td class="bdc-o sl-o"></td>' : '<td class="bdc-o sl-o sl-o-nt" onclick="slNapMot(\''+L.k+'\',\''+d+'\')" title="Nạp '+coChuHTML(L.ten)+' ngày '+ngayVNsl(d)+'">+</td>';
-  if(L.ngay) return '<td class="bdc-o sl-o du" onclick="slMoO(\''+L.k+'\',\''+d+'\')" title="'+coChuHTML(L.ten+' · ngày '+ngayVNsl(d)+' · '+slTenGoc(x))+'">✓</td>';
+  if(!x) return L.bo ? '<td class="bdc-o sl-o"></td>' : '<td class="bdc-o sl-o sl-o-nt" data-lenh="nkt.napMot" data-a="'+L.k+'" data-b="'+d+'" title="Nạp '+coChuHTML(L.ten)+' ngày '+ngayVNsl(d)+'">+</td>';
+  if(L.ngay) return '<td class="bdc-o sl-o du" data-lenh="nkt.moO" data-a="'+L.k+'" data-b="'+d+'" title="'+coChuHTML(L.ten+' · ngày '+ngayVNsl(d)+' · '+slTenGoc(x))+'">✓</td>';
   return slOMT(L, d);
 }
 function slChipNgayO(dsL, d){ var co = dsL.filter(function(L){ return SLM.bang[slKhoa(L.k, d)]; }).length; return co ? '<span class="sl-chipn du">'+co+' file</span>' : '<span class="sl-chipn">—</span>'; }
@@ -198,19 +198,19 @@ function slChipNgayO(dsL, d){ var co = dsL.filter(function(L){ return SLM.bang[s
 function slOMT(L, k){
   if(L.ngay){   /* 3.87: loại theo ngày — ô tháng gom các ngày đã nạp */
     var ngs = slCacNgay(L.k, k), m = ngs[ngs.length-1];
-    if(m) return '<td class="bdc-o sl-o du'+(ngs.some(function(e){ return e.choDay; })?' cho':'')+'" onclick="slMoNgay(\''+L.k+'\',\''+k+'\')" title="'+ngs.length+' ngày đã nạp · mới nhất '+ngayVNsl(m.ky)+'">'+(ngs.some(function(e){ return e.kiemNgay; }) ? '⚠' : '✓')+
+    if(m) return '<td class="bdc-o sl-o du'+(ngs.some(function(e){ return e.choDay; })?' cho':'')+'" data-lenh="nkt.moNgay" data-a="'+L.k+'" data-b="'+k+'" title="'+ngs.length+' ngày đã nạp · mới nhất '+ngayVNsl(m.ky)+'">'+(ngs.some(function(e){ return e.kiemNgay; }) ? '⚠' : '✓')+
       '<small>'+ngs.length+' ngày · '+m.ky.slice(8)+'/'+m.ky.slice(5,7)+'</small></td>';
   } else {
     var x = SLM.bang[slKhoa(L.k, k)], nd = [], them = '';   /* 3.136: bản theo ngày → cột 📅 Theo ngày */
     if(x){ var c = slChinh(L, x.tong), mt = slMuiTen(L, k, c);   /* 3.145 (anh chốt): ô = số chính + mũi tên so kỳ trước; bấm ô = nạp / hỏi thay */
-      return '<td class="bdc-o sl-o du'+(x.choDay?' cho':'')+'" onclick="slOBam(\''+L.k+'\',\''+k+'\')" title="'+coChuHTML(slTomTat(L.k, x.tong)+(mt.chu ? ' · '+mt.chu : '')+' · '+slTenGoc(x)+' · kỳ theo '+(x.nguonKy||'')+(x.choDay?' · chờ lên Drive':'')+' — bấm để thay file / xem')+'">'+
+      return '<td class="bdc-o sl-o du'+(x.choDay?' cho':'')+'" data-lenh="nkt.oBam" data-a="'+L.k+'" data-b="'+k+'" title="'+coChuHTML(slTomTat(L.k, x.tong)+(mt.chu ? ' · '+mt.chu : '')+' · '+slTenGoc(x)+' · kỳ theo '+(x.nguonKy||'')+(x.choDay?' · chờ lên Drive':'')+' — bấm để thay file / xem')+'">'+
         slDauO(L.k, k)+(k.length===7 && x.ngay && x.ngay!==tdnCuoiKy(k) ? '<i class="sl-dau lech" title="Ngày số liệu trong file '+ngayVNsl(x.ngay)+' — không phải cuối tháng">⚠</i>' : '')+'<span class="sl-o-so">'+coChuHTML(c.chu)+'</span>'+(mt.html ? '<small>'+mt.html+'</small>' : '')+'</td>'; }
-    if(nd.length) return '<td class="bdc-o sl-o du" onclick="slMoNgay(\''+L.k+'\',\''+k+'\')" title="Chưa có bản cuối tháng · '+nd.length+' bản theo ngày">◐<small>'+nd.length+' ngày</small></td>';
+    if(nd.length) return '<td class="bdc-o sl-o du" data-lenh="nkt.moNgay" data-a="'+L.k+'" data-b="'+k+'" title="Chưa có bản cuối tháng · '+nd.length+' bản theo ngày">◐<small>'+nd.length+' ngày</small></td>';
   }
   if(L.bo) return '<td class="bdc-o sl-o"></td>';
   var cu = slMucCu(L.k, k);
-  return cu ? '<td class="bdc-o sl-o cu" onclick="slDocMucCu(\''+cu.id+'\',\''+L.k+'\',\''+k+'\')" title="Có file nạp ở tab Tháng trước đây — bấm để đọc vào Số liệu">📄<small>đọc file cũ</small></td>'
-            : '<td class="bdc-o sl-o" onclick="slNapMot(\''+L.k+'\',\''+k+'\')" title="Nạp '+coChuHTML(L.ten)+' '+kyVN(k)+'">+</td>';
+  return cu ? '<td class="bdc-o sl-o cu" data-lenh="nkt.docMucCu" data-a="'+cu.id+'" data-b="'+L.k+'" data-c="'+k+'" title="Có file nạp ở tab Tháng trước đây — bấm để đọc vào Số liệu">📄<small>đọc file cũ</small></td>'
+            : '<td class="bdc-o sl-o" data-lenh="nkt.napMot" data-a="'+L.k+'" data-b="'+k+'" title="Nạp '+coChuHTML(L.ten)+' '+kyVN(k)+'">+</td>';
 }
 function slKyHTML(B){
   var ky = B.ky, h = '<div class="nhan-nhom">Tóm tắt các file tháng '+kyVN(ky)+'</div><div class="sl-tom">';
@@ -307,8 +307,8 @@ function slOBam(loai, ky){
   moHop('<div class="hop-tit">'+coChuHTML(L.ten)+' · '+slKyChu(ky)+'</div>'+
     '<div class="hop-phu">Ô này đã có file '+slTenHTML(e)+' · '+coChuHTML(slTomTat(loai, e.tong))+' · nạp '+ngayVNsl(String(e.luc||'').slice(0, 10))+(e.khoiPhuc ? ' (khôi phục từ Thùng rác)' : '')+'</div>'+
     '<div class="sl-bao vang"><b>Thay bằng file mới?</b> File cũ vào 🗑 Thùng rác (ngăn Số liệu) — cần thì khôi phục ở đó.</div>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="dongHop();slThayO('+a+')">🔁 Thay bằng file mới</button></div>'+
-    '<div class="hang-nut sl-o-phu"><button class="nho" onclick="dongHop();slMoO('+a+')">👁 Xem chi tiết</button><button class="nho" onclick="slTaiGoc('+a+')">⬇ Tải file gốc</button><button class="nho" onclick="dongHop();slXoa('+a+')">🗑 Xóa</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="nkt.thayO" data-dong="1" data-a="'+loai+'" data-b="'+ky+'">🔁 Thay bằng file mới</button></div>'+
+    '<div class="hang-nut sl-o-phu"><button class="nho" data-lenh="nkt.moO" data-dong="1" data-a="'+loai+'" data-b="'+ky+'">👁 Xem chi tiết</button><button class="nho" data-lenh="nkt.taiGoc" data-a="'+loai+'" data-b="'+ky+'">⬇ Tải file gốc</button><button class="nho" data-lenh="nkt.xoa" data-dong="1" data-a="'+loai+'" data-b="'+ky+'">🗑 Xóa</button></div>', true);
 }
 function slNgan(L, t){ t = t||{}; if(L.k==='lt' || L.k==='tt' || L.k==='dsto') return (t.dong!==undefined ? t.dong : t.n||0)+' tổ'; if(t.dn!==undefined) return tdnTr(t.dn); if(t.qh!==undefined) return tdnTr(t.qh); if(t.kn!==undefined) return tdnTr(t.kn); return (t.n||0)+' dòng'; }
 /* dấu vân tay dữ liệu dùng để kiểm 1 tháng: đổi file (nạp / thay / xóa) → khác dấu → kết quả cũ cần kiểm lại */
@@ -328,19 +328,20 @@ function slKTHTML(ky){
   var k = SLM.kt[ky];
   if(!slCoFileChinh(ky)) return '<div class="sl-kt-dau"><span class="sl-phu">Tháng '+kyVN(ky)+' chưa có file Ⓐ chuẩn TW / Ⓑ chi tiết nào — chưa kiểm. Nạp file rồi bấm Kiểm tra.</span></div>'+
     (k ? '<div class="sl-bao vang">Kết quả kiểm cũ ('+ngayVNsl(k.luc.slice(0,10))+' '+k.luc.slice(11,16)+') không còn file tương ứng — đã ẩn.</div>' : '');   /* 3.91: không hiện kết quả cũ của tháng trống */
-  if(!k) return '<div class="sl-kt-dau"><button class="nho chinh" onclick="slKiemTra(\''+ky+'\')">🔍 Kiểm tra kỳ '+kyVN(ky)+'</button><span class="sl-phu">Chưa kiểm. App đánh giá Đạt (đủ file · đúng kỳ · đúng cấu trúc) và ghi nhận chênh lệch: so các file chuẩn TW với nhau, Mẫu 31 với số chuẩn TW (từng xã, nguồn vốn, từng tổ), KHĐ, tổ trưởng, DSTO, tháng trước — chỉ báo, không sửa số.</span></div>';
+  if(!k) return '<div class="sl-kt-dau"><button class="nho chinh" data-lenh="nkt.kiem" data-a="'+ky+'">🔍 Kiểm tra kỳ '+kyVN(ky)+'</button>'+
+    '<span class="sl-phu">Chưa kiểm. App đánh giá Đạt (đủ file · đúng kỳ · đúng cấu trúc) và ghi nhận chênh lệch: so các file chuẩn TW với nhau, Mẫu 31 với số chuẩn TW (từng xã, nguồn vốn, từng tổ), KHĐ, tổ trưởng, DSTO, tháng trước — chỉ báo, không sửa số.</span></div>';
   var cu = slKTCu(ky), h = '<div class="sl-kt-dau"><span>Đã kiểm '+ngayVNsl(k.luc.slice(0,10))+' '+k.luc.slice(11,16)+' · ✅ '+k.dem.ok+' khớp · ⚠ '+k.dem.lech+' chênh lệch (ghi nhận) · ⓘ '+k.dem.canh+' lưu ý</span>'+
-    '<button class="nho'+(cu ? ' chinh' : '')+'" onclick="slKiemTra(\''+ky+'\')">🔍 Kiểm lại</button></div>';
+    '<button class="nho'+(cu ? ' chinh' : '')+'" data-lenh="nkt.kiem" data-a="'+ky+'">🔍 Kiểm lại</button></div>';
   if(cu) h += '<div class="sl-bao vang">⟳ Dữ liệu tháng đã đổi sau lần kiểm (nạp / thay / xóa file) — kết quả dưới là của lần kiểm trước, bấm <b>Kiểm lại</b>.</div>';
   h += slDCHTML(ky);   /* 3.90.1: bảng đối chiếu chéo */
   /* 3.165 (anh chốt, BAN_GIAO_3161.md §2.4): kết quả gom theo từng file — cùng thứ tự dòng với ma trận (Ⓑ Ⓐ Ⓓ); mỗi file 1 dòng "✓ n · ⚠ n · ⓘ n", bấm mở các mục;
      mục so 2 file hiện ở file đứng trước, file kia ghi "↗ xem ở …"; chip lọc (mặc định ⚠ + ⓘ), ⊞ Mở hết / ⊟ Gập hết, 🔎 tìm mục */
   var kq = k.kq.filter(function(x){ return x.kq!=='bo'; }), dem = {ok:0, lech:0, canh:0}; kq.forEach(function(x){ if(dem[x.kq]!==undefined) dem[x.kq]++; });
   var loc = slKTLoc(dem), hop = function(x){ return loc==='all' || (loc==='lc' ? x.kq==='lech' || x.kq==='canh' : x.kq===loc); };
-  var chip = function(v, chu, n){ return '<button class="to-chip'+(loc===v ? ' bat' : '')+'" onclick="D.cauHinh.slKtLoc=\''+v+'\';luu();slKTVe(\''+ky+'\')">'+chu+(n!==undefined ? ' <small>'+n+'</small>' : '')+'</button>'; };
+  var chip = function(v, chu, n){ return '<button class="to-chip'+(loc===v ? ' bat' : '')+'" data-lenh="nkt.ktLoc" data-a="'+v+'" data-b="'+ky+'">'+chu+(n!==undefined ? ' <small>'+n+'</small>' : '')+'</button>'; };
   h += '<div class="sl-kt-loc">'+chip('lc', '⚠ + ⓘ', dem.lech+dem.canh)+chip('all', 'Tất cả', kq.length)+chip('ok', '✓ Khớp', dem.ok)+chip('lech', '⚠ Chênh lệch', dem.lech)+chip('canh', 'ⓘ Lưu ý', dem.canh)+
-    '<button class="nho" onclick="slKTMo(1)" title="Mở hết các file">⊞ Mở hết</button><button class="nho" onclick="slKTMo(0)" title="Gập hết">⊟ Gập hết</button>'+
-    '<span class="sl-kt-tim">🔎 <input id="sl-kt-tim" placeholder="Tìm mục kiểm tra…" oninput="slKTTim(this.value)"></span></div>';
+    '<button class="nho" data-lenh="nkt.ktMo" data-a="1" title="Mở hết các file">⊞ Mở hết</button><button class="nho" data-lenh="nkt.ktMo" data-a="0" title="Gập hết">⊟ Gập hết</button>'+
+    '<span class="sl-kt-tim">🔎 <input id="sl-kt-tim" placeholder="Tìm mục kiểm tra…" data-lenh="nkt.ktTim" data-su="input"></span></div>';
   if(dem.lech || dem.canh) h += '<div class="sl-kt-ghi">Ghi nhận chênh lệch — chỉ để biết, không ảnh hưởng Đạt, không sửa số</div>';   /* 3.146 */
   var nhom = {}, thu = ['_'], tenF = function(l){ var L = l==='_' ? null : slLoai(l); return l==='_' ? 'Chung — đủ file, toàn vẹn từng file' : L ? slTenNgan(L) : l; };
   var thuL = []; SL_NHOM.forEach(function(n){ SL_LOAI.forEach(function(L){ if(L.nhom===n.k) thuL.push(L.k); }); });   /* thứ tự dòng ma trận: nhóm Ⓑ Ⓐ Ⓓ Ⓚ */
@@ -351,7 +352,7 @@ function slKTHTML(ky){
   thu.forEach(function(l){ var ds = nhom[l]; if(!ds) return; var d = {ok:0, lech:0, canh:0}; ds.forEach(function(r){ if(!r.o && d[r.x.kq]!==undefined) d[r.x.kq]++; });
     var hien = ds.filter(function(r){ return hop(r.x); }); if(!hien.length) return; coDong++;
     h += '<details class="sl-kt-file" id="sl-kt-f-'+l+'"'+(d.lech && loc!=='ok' ? ' open' : '')+'><summary><b>'+coChuHTML(tenF(l))+'</b> <span class="sl-kt-dem">'+(d.ok ? '<span class="ok">✓ '+d.ok+'</span>' : '')+(d.lech ? '<span class="lech">⚠ '+d.lech+'</span>' : '')+(d.canh ? '<span class="canh">ⓘ '+d.canh+'</span>' : '')+'</span></summary>'+
-      hien.map(function(r){ return r.o ? '<div class="sl-kt-muc '+r.x.kq+' sl-kt-ref"><span class="ic">↗</span>'+coChuHTML(r.x.ten)+' — <a href="#" onclick="slKTToi(\''+r.o+'\');return false">xem ở '+coChuHTML(tenF(r.o))+'</a></div>' : slKTMuc(r.x); }).join('')+'</details>'; });
+      hien.map(function(r){ return r.o ? '<div class="sl-kt-muc '+r.x.kq+' sl-kt-ref"><span class="ic">↗</span>'+coChuHTML(r.x.ten)+' — <a href="#" data-lenh="nkt.ktToi" data-a="'+r.o+'">xem ở '+coChuHTML(tenF(r.o))+'</a></div>' : slKTMuc(r.x); }).join('')+'</details>'; });
   if(!coDong) h += '<div class="rong">Không có mục nào trong bộ lọc này'+(loc==='lc' ? ' — các file khớp nhau ✓' : '')+'.</div>';
   return h;
 }
@@ -440,14 +441,14 @@ function slDCHTML(ky){
   if(d.thu.indexOf(SL_DC_PV)<0) SL_DC_PV = '';
   var pv = SL_DC_PV, V = d.v[pv] || {}, T = d.tt[pv] || {};
   var ng = DC_NG.filter(function(n){ return DC_CT.some(function(c){ return V[c[0]] && V[c[0]][n[0]]!==undefined; }); });
-  var h = '<div class="sl-dc"><div class="sl-dc-pv">'+d.thu.map(function(x){ return '<button class="to-chip'+(x===pv ? ' bat' : '')+'" onclick="SL_DC_PV=\''+x.replace(/'/g, "\\'")+'\';var o=document.getElementById(\'sl-kt\');if(o)o.innerHTML=slKTHTML(\''+ky+'\')">'+coChuHTML(d.nhan[x]||x)+'</button>'; }).join('')+'</div>';
+  var h = '<div class="sl-dc"><div class="sl-dc-pv">'+d.thu.map(function(x){ return '<button class="to-chip'+(x===pv ? ' bat' : '')+'" data-lenh="nkt.dcPV" data-a="'+coChuHTML(x).replace(/"/g, '&quot;')+'" data-b="'+ky+'">'+coChuHTML(d.nhan[x]||x)+'</button>'; }).join('')+'</div>';
   h += '<div class="bdc-cuon"><table class="sl-dc-bang"><thead><tr><th>Chỉ tiêu</th>'+ng.map(function(n){ return '<th>'+n[1]+(n[2] ? '<small>'+n[2]+'</small>' : '')+'</th>'; }).join('')+'</tr></thead><tbody>';
   DC_CT.forEach(function(c){
     var x = V[c[0]]; if(!x) return;
     h += '<tr><td class="ct">'+c[1]+'</td>'+ng.map(function(n){
       var v = x[n[0]]; if(v===undefined) return '<td class="x">—</td>';
       var t = (T[c[0]]||{})[n[0]] || ['', ''], so = c[0]==='khDn' ? tdnTien(v) : thTr(v, 3);
-      var bam = t[0]==='l' || t[0]==='v' ? ' tabindex="0" onclick="slDCChi(\''+ky+'\',\''+c[0]+'\',\''+n[0]+'\')" onkeydown="if(event.key===\'Enter\')this.click()" title="Bấm xem chi tiết"' : '';
+      var bam = t[0]==='l' || t[0]==='v' ? ' tabindex="0" data-lenh="nkt.dcChi" data-a="'+ky+'" data-b="'+c[0]+'" data-c="'+n[0]+'" onkeydown="if(event.key===\'Enter\')this.click()" title="Bấm xem chi tiết"' : '';
       return '<td class="o '+t[0]+'"'+bam+'>'+so+'<em>'+(t[0]==='k' ? '✓'+(t[1] ? ' '+coChuHTML(t[1]) : '') : t[0]==='c' ? 'chuẩn' : coChuHTML(t[1]))+'</em></td>'; }).join('')+'</tr>';
   });
   h += '</tbody></table></div><div class="sl-dc-chu"><span class="k">khớp số chuẩn</span><span class="l">lệch — bấm xem</span><span class="v">lưu ý đã biết — bấm xem</span><span>Đơn vị: triệu đồng (số KH: khách). Chuẩn: BCDHTD; tiền gửi: LEN_31.</span></div><div id="sl-dc-chi"></div></div>';
@@ -562,6 +563,10 @@ function slKiemTra(ky, im){   /* im = tự kiểm ngầm (3.156): không khung c
           ds6.length || lch.length ? 'Số liệu chính là Mẫu 31; Dư nợ chi tiết chỉ tham chiếu số TK 105 + điểm GD — lệch thì xem lại 2 file có cùng ngày số liệu không.' : '', ['Số KU', 'Mã KH', 'Họ tên', 'Mẫu 31', 'Dư nợ CT', 'Chênh'], ds6);
       }
     }
+  var xg = {}, xd = []; (co.hstd || []).forEach(function(o){ if(o.tenXaGoc===undefined) return; var k = o.xa+'|'+o.tenXaGoc; if(!xg[k]){ xg[k] = [o.xa, o.tenXa, o.tenXaGoc || '(trống)', 0]; xd.push(xg[k]); } xg[k][3]++; });
+  them(6, 'Tên xã trên Mẫu 31 = tên chuẩn theo mã xã', !xd.length, xd.length ? xd.length+' cặp mã xã · tên khác chuẩn ('+xd.reduce(function(a, x){ return a+x[3]; }, 0)+' dòng) — app đã dùng tên chuẩn' : 'khớp',
+    xd.length ? 'Trong lúc hệ thống gộp điểm GD, cột Tên xã có thể ghi "… Vay trực tiếp". App lấy tên theo mã xã: File Tổ trưởng → Mẫu 31 (đa số) → danh mục ⚙ Cài đặt. Hết chênh = Mẫu 31 đã chuẩn lại.' : '',
+    ['Mã xã', 'Tên chuẩn (app dùng)', 'Tên trên Mẫu 31', 'Số dòng'], xd, xd.length ? 'canh' : '');   /* 3.470 */
     return (co.hstd && co.dsto ? toNap(ky).then(function(K){ slKTAp(K, them); }).catch(function(er){ console.warn('Chưa kiểm được ấp / điểm GD', er); }) : null);   /* 3.401 QT-C-10 / 11 */
   }).then(function(){
     var dem = {ok:0, lech:0, canh:0};
@@ -585,7 +590,7 @@ function slDanhMucHTML(B){
   var h = '<details class="sl-dm"><summary>Danh mục mã của kỳ (nguồn vốn, chương trình, hội, điểm giao dịch)</summary>';
   h += '<div class="sl-dm-khoi"><b>Nguồn vốn → Mã NĐT</b>'+Object.keys(nguon).map(function(n){
     return '<div>'+coChuHTML(n)+': '+Object.keys(nguon[n]).map(function(d){
-      return (d ? '<span class="sl-ndt">'+coChuHTML(d)+' <input value="'+coChuHTML(SLM.ndt[d]||'')+'" placeholder="tên gọi…" onchange="SLM.ndt[\''+d+'\']=this.value.trim();slLuuMeta()"></span>' : 'không mã')+' '+tdnTr(nguon[n][d]); }).join(' · ')+'</div>'; }).join('')+'</div>';
+      return (d ? '<span class="sl-ndt">'+coChuHTML(d)+' <input value="'+coChuHTML(SLM.ndt[d]||'')+'" placeholder="tên gọi…" data-lenh="nkt.ndt" data-su="change" data-a="'+d+'"></span>' : 'không mã')+' '+tdnTr(nguon[n][d]); }).join(' · ')+'</div>'; }).join('')+'</div>';
   h += '<div class="sl-dm-khoi"><b>Chương trình</b>'+Object.keys(ct).sort().map(function(k){ return '<span class="sl-chip">'+k+' '+coChuHTML(ct[k].ten.trim())+' · '+tdnTr(ct[k].dn)+'</span>'; }).join('')+'</div>';
   if(Object.keys(dv).length) h += '<div class="sl-dm-khoi"><b>Tổ theo hội</b>'+Object.keys(dv).sort().map(function(k){ return '<span class="sl-chip">'+coChuHTML(tdnHoi(k))+' '+dv[k]+' tổ</span>'; }).join('')+'</div>';
   if(Object.keys(diem).length) h += '<div class="sl-dm-khoi"><b>Điểm giao dịch</b>'+Object.keys(diem).sort().map(function(k){ return '<span class="sl-chip">'+coChuHTML(k)+' · '+diem[k]+' tổ</span>'; }).join('')+'</div>';
@@ -601,12 +606,12 @@ function slMoO(loai, ky){
     (e.kiemNgay ? '<div class="sl-bao vang">⚠ Bản này chuyển từ bản cũ, ngày số liệu tạm lấy cuối tháng — anh kiểm, sai thì bấm 📅 Đổi ngày.</div>' : '')+
     '<div class="sl-tom">'+slTomDong(L, e)+'</div>'+
     (function(){ if(!L.tuy || String(ky).length!==7) return ''; var nd = slCacNgay(loai, ky); if(!nd.length) return '';   /* 3.135: ô tháng còn bản theo ngày → mở / xóa từng bản riêng, không đụng bản cuối tháng */
-      return '<div class="nhan-nhom">Bản theo ngày trong tháng ('+nd.length+') — bấm để xem / xóa riêng</div><div class="sl-tom">'+nd.map(function(x){ return '<div class="sl-ngay-dong" onclick="dongHop();slMoO(\''+loai+'\',\''+x.ky+'\')">'+slTomDong(L, x)+'</div>'; }).join('')+'</div>'; })()+
-    '<div class="hang-nut">'+(e.goc ? '<button class="nho" onclick="slMoGoc(\''+e.goc+'\')">☁ Mở file gốc trên Drive</button>' : '')+
-    '<button class="nho" onclick="slTaiGoc(\''+loai+'\',\''+ky+'\')" title="Tải về máy bản sao file Excel gốc (để dùng việc khác)">⬇ Tải file gốc</button>'+   /* 3.90.1 */
-    (L.ngay ? '<button class="nho" onclick="dongHop();slDoiNgay(\''+loai+'\',\''+ky+'\')">📅 Đổi ngày</button>' : '')+
-    (L.bo ? '' : '<button class="nho" onclick="dongHop();slThayO(\''+loai+'\',\''+ky+'\')" title="Chọn file mới — phải đúng loại, đúng kỳ của ô này">🔁 Thay file</button>')+   /* 3.90 · 3.91: tháng chốt thì ẩn */
-    '<button class="nho" onclick="dongHop();slXoa(\''+loai+'\',\''+ky+'\')">🗑 Xóa '+(String(ky).length>7 ? 'bản ngày '+ngayVNsl(ky) : 'ô này')+'</button>'+
+      return '<div class="nhan-nhom">Bản theo ngày trong tháng ('+nd.length+') — bấm để xem / xóa riêng</div><div class="sl-tom">'+nd.map(function(x){ return '<div class="sl-ngay-dong" data-lenh="nkt.moO" data-dong="1" data-a="'+loai+'" data-b="'+x.ky+'">'+slTomDong(L, x)+'</div>'; }).join('')+'</div>'; })()+
+    '<div class="hang-nut">'+(e.goc ? '<button class="nho" data-lenh="nkt.moGoc" data-a="'+e.goc+'">☁ Mở file gốc trên Drive</button>' : '')+
+    '<button class="nho" data-lenh="nkt.taiGoc" data-a="'+loai+'" data-b="'+ky+'" title="Tải về máy bản sao file Excel gốc (để dùng việc khác)">⬇ Tải file gốc</button>'+   /* 3.90.1 */
+    (L.ngay ? '<button class="nho" data-lenh="nkt.doiNgay" data-dong="1" data-a="'+loai+'" data-b="'+ky+'">📅 Đổi ngày</button>' : '')+
+    (L.bo ? '' : '<button class="nho" data-lenh="nkt.thayO" data-dong="1" data-a="'+loai+'" data-b="'+ky+'" title="Chọn file mới — phải đúng loại, đúng kỳ của ô này">🔁 Thay file</button>')+   /* 3.90 · 3.91: tháng chốt thì ẩn */
+    '<button class="nho" data-lenh="nkt.xoa" data-dong="1" data-a="'+loai+'" data-b="'+ky+'">🗑 Xóa '+(String(ky).length>7 ? 'bản ngày '+ngayVNsl(ky) : 'ô này')+'</button>'+
     '<button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button></div>', true);
 }
 function slMoGoc(id){ window.open('https://drive.google.com/file/d/'+id+'/view', '_blank'); }
@@ -615,14 +620,14 @@ function slMoNgay(loai, thang){
   var L = slLoai(loai), ds = slCacNgay(loai, thang).reverse();
   moHop('<div class="hop-tit">'+coChuHTML(L.ten)+' · '+kyVN(thang)+'</div>'+
     '<div class="hop-phu">Mỗi ngày nạp là một bản riêng, giữ nguyên như file. Muốn biết số hiện tại thì xem ngày mới nhất; số chốt tháng xem Mẫu 31.</div>'+
-    '<div class="sl-tom">'+ds.map(function(e){ return '<div class="sl-ngay-dong" onclick="dongHop();slMoO(\''+loai+'\',\''+e.ky+'\')">'+slTomDong(L, e)+'</div>'; }).join('')+'</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop();slNapMot(\''+loai+'\',\''+thang+'\')">+ Nạp ngày khác</button><button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button></div>', true);
+    '<div class="sl-tom">'+ds.map(function(e){ return '<div class="sl-ngay-dong" data-lenh="nkt.moO" data-dong="1" data-a="'+loai+'" data-b="'+e.ky+'">'+slTomDong(L, e)+'</div>'; }).join('')+'</div>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="nkt.napMot" data-dong="1" data-a="'+loai+'" data-b="'+thang+'">+ Nạp ngày khác</button><button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button></div>', true);
 }
 function slDoiNgay(loai, ky){
   var e = SLM.bang[slKhoa(loai, ky)]; if(!e) return;
   moHop('<div class="hop-tit">📅 Đổi ngày số liệu</div><div class="hop-phu">'+coChuHTML(slLoai(loai).ten)+' · file '+slTenHTML(e)+'. Chỉ đổi ngày ghi nhận, dữ liệu giữ nguyên.</div>'+
     '<div class="o"><label>Ngày số liệu</label><input id="sl-dn" type="date" value="'+ky+'"></div>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="slDoiNgayGhi(\''+loai+'\',\''+ky+'\')">✓ Ghi</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="nkt.doiNgayGhi" data-a="'+loai+'" data-b="'+ky+'">✓ Ghi</button></div>');
 }
 function slDoiNgayGhi(loai, ky){
   var moi = (document.getElementById('sl-dn')||{}).value || '', e = SLM.bang[slKhoa(loai, ky)];
@@ -677,9 +682,9 @@ function slXemTruoc(){
     var lap = kq.bo && kq.bo.trung ? '+ '+kq.bo.trung+' dòng lặp giữ riêng' : '';
     return '<tr class="sl-xt-'+tt.lop+'"><td><input type="checkbox" class="sl-tich" data-i="'+i+'"'+(tt.ghi?' checked':'')+(coDL && kq.ky ? '' : ' disabled')+'></td>'+
       '<td class="sl-xt-ten" title="'+coChuHTML(kq.ten)+'">'+coChuHTML(kq.ten)+'<small>'+(kq.kich ? kichCo(kq.kich) : '')+(kq.sheet ? ' · sheet '+coChuHTML(kq.sheet)+', cột ở dòng '+kq.hang : '')+'</small>'+(coDL && kq.loai && kq.ky ? '<small class="sl-ten-moi">→ lưu tên '+coChuHTML(slTenGoc({loai:kq.loai, ky:kq.ky, ngay:kq.ngay, tenFile:kq.ten}))+'</small>' : '')+'</td>'+
-      '<td><select onchange="slDoiLoai('+i+',this.value)"><option value="">— chọn —</option>'+SL_LOAI.filter(function(L){ return !L.bo && !L.an; }).map(function(L){ return '<option value="'+L.k+'"'+(kq.loai===L.k?' selected':'')+'>'+coChuHTML(L.ten)+'</option>'; }).join('')+'</select></td>'+
-      '<td><input type="'+(slChonNgay(kq.loai) ? 'date' : 'month')+'" value="'+((slTuy(kq.loai) ? kq.ngay : kq.ky)||'')+'" onchange="slDoiKy('+i+',this.value)"><small>'+(kq.nguonKy ? 'theo '+coChuHTML(kq.nguonKy==='anh chọn' && kq.canKhai ? 'anh khai' : kq.nguonKy) : '')+'</small>'+
-        (kq.canKhai && !kq.ky && kq.goiYTen ? '<button class="sl-goi-y" onclick="slDoiKy('+i+',\''+slGoiYKy(kq)+'\')" title="Ngày trên tên file (thường là ngày xuất) — chỉ dùng khi anh chắc đúng là ngày số liệu">Tên file: '+ngayVNsl(kq.goiYTen)+' — dùng</button>' : '')+'</td>'+
+      '<td><select data-lenh="nkt.doiLoai" data-su="change" data-a="'+i+'"><option value="">— chọn —</option>'+SL_LOAI.filter(function(L){ return !L.bo && !L.an; }).map(function(L){ return '<option value="'+L.k+'"'+(kq.loai===L.k?' selected':'')+'>'+coChuHTML(L.ten)+'</option>'; }).join('')+'</select></td>'+
+      '<td><input type="'+(slChonNgay(kq.loai) ? 'date' : 'month')+'" value="'+((slTuy(kq.loai) ? kq.ngay : kq.ky)||'')+'" data-lenh="nkt.doiKy" data-su="change" data-a="'+i+'"><small>'+(kq.nguonKy ? 'theo '+coChuHTML(kq.nguonKy==='anh chọn' && kq.canKhai ? 'anh khai' : kq.nguonKy) : '')+'</small>'+
+        (kq.canKhai && !kq.ky && kq.goiYTen ? '<button class="sl-goi-y" data-lenh="nkt.goiYKy" data-a="'+i+'" data-b="'+slGoiYKy(kq)+'" title="Ngày trên tên file (thường là ngày xuất) — chỉ dùng khi anh chắc đúng là ngày số liệu">Tên file: '+ngayVNsl(kq.goiYTen)+' — dùng</button>' : '')+'</td>'+
       '<td>'+(coDL ? kq.rows.length+' dòng'+(bo ? '<small>bỏ '+bo+'</small>' : '')+(lap ? '<small>'+lap+'</small>' : '') : '')+'</td>'+
       '<td>'+(coDL ? coChuHTML(slTomTat(kq.loai, kq.tong)) : '')+'</td>'+
       '<td class="sl-xt-tt">'+coChuHTML(tt.chu)+'</td></tr>';
@@ -687,7 +692,7 @@ function slXemTruoc(){
   moHop('<div class="hop-tit">📥 Nạp cả bộ — xem trước</div>'+
     '<div class="hop-phu">App đọc từng file: nhận loại theo nội dung (biểu TW theo tiêu đề + hàng mốc cột, file khác theo các cột), kỳ theo ngày <b>trong file</b>; file không ghi ngày → anh khai ở ô Kỳ (tên file chỉ gợi ý). Ngày cuối tháng vào ô tháng; Mẫu 31 / file TW xuất giữa tháng vào ô theo ngày; Mẫu 10 luôn theo ngày. Nạp 1 bộ của 1 tháng hay 1 loại nhiều tháng đều được. Anh sửa loại / kỳ nếu cần, tích file muốn ghi nhận.</div>'+
     '<div class="sl-xt-cuon"><table class="sl-xt"><thead><tr><th></th><th>File</th><th>Loại</th><th>Kỳ</th><th>Dòng lấy</th><th>Tổng</th><th>Kiểm tra</th></tr></thead><tbody>'+dong+'</tbody></table></div>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="slGhiDaTich()">✓ Ghi nhận các file đã tích</button></div>', true);
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="nkt.ghiDaTich">✓ Ghi nhận các file đã tích</button></div>', true);
 }
 function slDoiLoai(i, k){ var kq = SL_NAP[i]; if(!kq || !kq.sheets) return; slPhanTich(kq, k||''); slXemTruoc(); }
 function slDoiKy(i, v){
@@ -720,9 +725,9 @@ function slNapMot(loai, ky){
   kyMd = laNgay ? (slTuy(loai || SL_LOAI[0].k) && kyMd.length===7 ? tdnCuoiKy(kyMd) : slNgayMacDinh(kyMd)) : slThang(kyMd);   /* 3.90: file TW / Mẫu 31 mặc định ngày cuối tháng */
   moHop('<div class="hop-tit">📄 Nạp từng file</div>'+
     '<div class="hop-phu">Anh chọn loại và ngày số liệu (file TW / Mẫu 31: ngày cuối tháng = số chốt tháng; Mẫu 10: ngày nạp), rồi chọn file. App vẫn đọc nội dung để kiểm: sai loại thì chặn, ngày trong file khác thì báo.</div>'+
-    '<div class="o"><label>Loại file</label><select id="sl-m-loai" onchange="slNapMotLoai(this.value)">'+SL_LOAI.filter(function(L){ return !L.bo && !L.an; }).map(function(L){ return '<option value="'+L.k+'"'+(L.k===loai?' selected':'')+'>'+coChuHTML(L.ten)+'</option>'; }).join('')+'</select></div>'+
+    '<div class="o"><label>Loại file</label><select id="sl-m-loai" data-lenh="nkt.napMotLoai" data-su="change">'+SL_LOAI.filter(function(L){ return !L.bo && !L.an; }).map(function(L){ return '<option value="'+L.k+'"'+(L.k===loai?' selected':'')+'>'+coChuHTML(L.ten)+'</option>'; }).join('')+'</select></div>'+
     '<div class="o"><label id="sl-m-ky-nhan">'+(laNgay ? 'Ngày số liệu' : 'Kỳ')+'</label><input id="sl-m-ky" type="'+(laNgay ? 'date' : 'month')+'" value="'+kyMd+'"></div>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="slNapMotChon()">Chọn file…</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="nkt.napMotChon">Chọn file…</button></div>');
 }
 function slNapMotLoai(loai){   /* 3.87: đổi loại → ô kỳ đổi tháng ↔ ngày */
   var i = document.getElementById('sl-m-ky'), n = document.getElementById('sl-m-ky-nhan'); if(!i) return;
@@ -746,7 +751,7 @@ function slKiemMot(kq, loai, ky){
   var L = slLoai(loai), h = '<div class="hop-tit">📄 '+coChuHTML(L.ten)+' · '+slKyChu(ky)+' — kiểm lần cuối</div><div class="hop-phu">'+coChuHTML(kq.ten)+'</div>';
   if(kq.loi){
     h += '<div class="sl-bao do">✕ '+coChuHTML(kq.loi)+'</div>'+
-      '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(kq.goiY ? '<button class="nho" onclick="slPhanTich(SL_NAP[0],\''+kq.goiY+'\');slKiemMot(SL_NAP[0],\''+kq.goiY+'\',\''+ky+'\')">Đổi sang “'+coChuHTML(slLoai(kq.goiY).ten)+'”</button>' : '')+'</div>';
+      '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(kq.goiY ? '<button class="nho" data-lenh="nkt.docLai" data-a="'+kq.goiY+'" data-b="'+ky+'">Đổi sang “'+coChuHTML(slLoai(kq.goiY).ten)+'”</button>' : '')+'</div>';
     return moHop(h, true);
   }
   var trongFile = kq.trongFile ? kq.trongFile.slice(0,7) : '';
@@ -770,7 +775,7 @@ function slKiemMot(kq, loai, ky){
     (kq.sheet ? ' · sheet '+coChuHTML(kq.sheet)+', tên cột ở dòng '+kq.hang : '')+'</small></div></div>'+
     (kq.canhBao.length ? '<div class="sl-bao vang">'+coChuHTML(kq.canhBao.join(' '))+'</div>' : '')+
     (cu ? '<div class="sl-bao vang">Ô này đã có (nạp '+ngayVNsl((cu.luc||'').slice(0,10))+', '+cu.soDong+' dòng) — ghi nhận sẽ THAY, bản cũ vào thùng rác Drive.</div>' : '')+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="slGhiMot()">✓ Ghi nhận</button></div>';
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="nkt.ghiMot">✓ Ghi nhận</button></div>';
   moHop(h, true);
 }
 function slGhiMot(){
@@ -823,7 +828,7 @@ function slLamMoi(){
   moHop('<div class="hop-tit">♻ Làm mới toàn bộ số liệu</div>'+
     '<div class="sl-bao do">Xóa <b>toàn bộ '+n+' ô số liệu</b> (mọi loại file, mọi kỳ), danh bạ khách hàng của Số liệu và kết quả kiểm tra — trên máy này, trên Drive và các máy khác nối Drive. File trên Drive vào Thùng rác (lấy lại được 30 ngày).<br><b>Không đụng</b> hồ sơ, tủ, văn bản, theo dõi nợ và các phần khác của app.</div>'+
     '<div class="o"><label>Gõ chữ <b>XOA</b> để xác nhận</label><input id="sl-lm" autocomplete="off" placeholder="XOA"></div>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="slLamMoiGhi()">♻ Xóa và làm mới</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="nkt.lamMoiGhi">♻ Xóa và làm mới</button></div>');
   setTimeout(function(){ var i = document.getElementById('sl-lm'); if(i) i.focus(); }, 30);
 }
 function slLamMoiGhi(){
@@ -853,7 +858,7 @@ function slThayO(loai, ky){
       moHop(h+'<div class="sl-tom"><div class="sl-tom-dong"><b>'+kq.rows.length+' dòng dữ liệu</b><small>'+coChuHTML(slTomTat(loai, kq.tong))+'</small></div></div>'+
         (kq.canhBao.length ? '<div class="sl-bao vang">'+coChuHTML(kq.canhBao.join(' '))+'</div>' : '')+
         '<div class="sl-bao vang">Thay bản đang có của ô này; bản cũ vào Thùng rác Drive. Kết quả kiểm tra tháng sẽ báo cần kiểm lại.</div>'+
-        '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="slGhiMot()">✓ Thay file</button></div>', true);
+        '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="nkt.ghiMot">✓ Thay file</button></div>', true);
     });
   });
 }
@@ -921,7 +926,7 @@ function slTimRac(){
     moHop('<div class="hop-tit">🧹 File rác của Số liệu</div><div class="hop-phu">Chỉ quét phần Số liệu (trong máy và Drive: Số liệu/, _Hệ thống/so_lieu/) — không đụng văn bản, hồ sơ, scan. App chỉ liệt kê; anh tích mục muốn xóa. File trên Drive vào Thùng rác (lấy lại được 30 ngày).'+(x==='khongDrive' ? ' <b>Chưa nối Drive — mới quét trong máy.</b>' : '')+'</div>'+
       (ra.length ? '<div class="sl-rac">'+ra.map(function(r, i){ return '<label><input type="checkbox" class="sl-rac-tich" data-i="'+i+'"><span>'+coChuHTML(r.ten)+'<small>'+coChuHTML(r.noi)+'</small></span><span class="sl-phu">'+(r.kich ? kichCo(r.kich) : '')+'</span></label>'; }).join('')+'</div>'+
         '<div class="sl-phu">'+ra.length+' mục'+(tong ? ' · '+kichCo(tong) : '')+'</div>' : '<div class="sl-bao xanh">✅ Không có file rác.</div>')+
-      '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ra.length ? '<button class="nho" onclick="Array.prototype.forEach.call(document.querySelectorAll(\'.sl-rac-tich\'),function(c){c.checked=true})">Tích hết</button><button class="nho chinh" onclick="slXoaRac()">🗑 Xóa mục đã tích</button>' : '')+'</div>', true);
+      '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ra.length ? '<button class="nho" data-lenh="nkt.racTichHet">Tích hết</button><button class="nho chinh" data-lenh="nkt.xoaRac">🗑 Xóa mục đã tích</button>' : '')+'</div>', true);
   }).catch(function(er){ tatChay(); baoLoi('Tìm file rác lỗi: '+(er && er.message || er)); });
 }
 function slXoaRac(){
@@ -1086,3 +1091,23 @@ function slDCXuat(ky){
   }).then(function(noi){ tatChay(); if(/^lech:/.test(noi)) return bao('Chưa lập file đối chiếu: File Tổ trưởng '+noi.slice(5)+' — chốt / so sánh phải cùng ngày (QT-C-09). Nạp File Tổ trưởng cùng ngày Mẫu 31 rồi xuất lại.', 8); bao(noi==='drive' ? 'Đã lưu '+ten+' vào Số liệu/'+slThang(ky)+'/ trên Drive — giao ban đọc file này để so.' : 'Chưa nối Drive — đã tải '+ten+' về máy.', 6); })
     .catch(function(er){ tatChay(); baoLoi('Lập file đối chiếu lỗi: '+(er && er.message || er)); });
 }
+
+/* ---------- 3.474 (Đ4 kế hoạch dọn — bỏ onclick viết thẳng): LỆNH NẠP & KT — data-lenh="nkt.*", tham số ở data-a / data-b / data-c, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('nkt', (function(){
+  var a = function(el, k){ return el.getAttribute('data-'+(k || 'a')) || ''; }, lenh = function(f){ return function(el, ev){ if(el.hasAttribute('data-dong')) dongHop(); f(el, ev); }; }, L = {};
+  var ds = {thangHop:function(el){ var n = a(el); slChonThangHop(n ? +n : undefined); }, dai:function(el){ SL_DAI = Math.max(0, SL_DAI+(+a(el))); veSoLieu(); }, ganNhat:function(){ slGanNhat(); },   /* dải tháng (js/22) */
+    chonThang:function(el){ slChonThang(0, a(el)); }, moNhom:function(el){ slMoNhom(a(el)); }, datMt:function(el){ slDatMt(a(el)); },
+    napBo:function(){ slNapBo(); }, kiem:function(el){ slKiemTra(a(el)); }, fileXuat:function(el){ slFileXuat(a(el)); }, tongQuan:function(){ slTongQuan(); }, thuGon:function(){ slThuGon(); },
+    napThem:function(el){ slNapThem(a(el)); }, napHoi:function(){ slNapHoi(); }, ktToi:function(el){ slKTToi(a(el)); },
+    taiGocThang:function(el){ slTaiGocThang(a(el)); }, xoaThang:function(el){ slXoaThang(a(el)); }, xoaNgayCu:function(){ slXoaNgayCu(); }, tomTat:function(el){ slTomTatXem(a(el)); },
+    napLai:function(){ slNapLai(); }, giu:function(el){ D.cauHinh.slGiu = el.value; luu(); slNapSan(); }, timRac:function(){ slTimRac(); }, lamMoi:function(){ slLamMoi(); },
+    napMot:function(el){ slNapMot(a(el), a(el, 'b')); }, moO:function(el){ slMoO(a(el), a(el, 'b')); }, moNgay:function(el){ slMoNgay(a(el), a(el, 'b')); }, oBam:function(el){ slOBam(a(el), a(el, 'b')); },
+    docMucCu:function(el){ slDocMucCu(a(el), a(el, 'b'), a(el, 'c')); }, thayO:function(el){ slThayO(a(el), a(el, 'b')); }, taiGoc:function(el){ slTaiGoc(a(el), a(el, 'b')); }, xoa:function(el){ slXoa(a(el), a(el, 'b')); },
+    ktLoc:function(el){ D.cauHinh.slKtLoc = a(el); luu(); slKTVe(a(el, 'b')); }, ktMo:function(el){ slKTMo(+a(el)); }, ktTim:function(el){ slKTTim(el.value); },
+    dcPV:function(el){ SL_DC_PV = a(el); var o = document.getElementById('sl-kt'); if(o) o.innerHTML = slKTHTML(a(el, 'b')); }, dcChi:function(el){ slDCChi(a(el), a(el, 'b'), a(el, 'c')); },
+    ndt:function(el){ SLM.ndt[a(el)] = el.value.trim(); slLuuMeta(); }, moGoc:function(el){ slMoGoc(a(el)); }, doiNgay:function(el){ slDoiNgay(a(el), a(el, 'b')); }, doiNgayGhi:function(el){ slDoiNgayGhi(a(el), a(el, 'b')); },
+    doiLoai:function(el){ slDoiLoai(+a(el), el.value); }, doiKy:function(el){ slDoiKy(+a(el), el.value); }, goiYKy:function(el){ slDoiKy(+a(el), a(el, 'b')); }, ghiDaTich:function(){ slGhiDaTich(); },
+    napMotLoai:function(el){ slNapMotLoai(el.value); }, napMotChon:function(){ slNapMotChon(); }, docLai:function(el){ slPhanTich(SL_NAP[0], a(el)); slKiemMot(SL_NAP[0], a(el), a(el, 'b')); },
+    ghiMot:function(){ slGhiMot(); }, lamMoiGhi:function(){ slLamMoiGhi(); }, racTichHet:function(){ Array.prototype.forEach.call(document.querySelectorAll('.sl-rac-tich'), function(c){ c.checked = true; }); }, xoaRac:function(){ slXoaRac(); }};
+  Object.keys(ds).forEach(function(k){ L[k] = lenh(ds[k]); }); return L;
+})());

@@ -25,9 +25,6 @@
     if(!v) return P(ch.map(function(x){ return '<span class="om om-cham" data-o="'+k+'">'+x+'</span>'; }).join('<br>'), st);
     return '<div style="position:relative">'+P(ch.map(function(x){ return '<span style="visibility:hidden">'+x+'</span>'; }).join('<br>'), st)+
       '<div class="om om-'+(c==='mau' ? 'mau' : c)+'" data-o="'+k+'" style="position:absolute;left:0;right:0;top:3pt;bottom:3pt;overflow:hidden;line-height:'+(cao||'1.15')+';text-align:justify">'+coChuHTML(v)+'</div></div>'; }
-  function chanTrang(cao, so, chu){   /* chú thích chân trang của gốc: giữ chỗ cao `cao` mm cuối trang, chữ ghim đáy trang */
-    return '<div class="kt-giu" style="height:'+cao+'mm"><div style="position:absolute;left:1.5px;right:1.5px;bottom:0;font-size:10pt;line-height:1.15;text-align:justify">'+
-      '<p style="margin:0 0 1mm;width:50mm;height:0;border-top:.5pt solid #000"></p><p style="margin:0">'+sup(so)+' '+chu+'</p></div></div>'; }
   omDangKy({k:MK, ma:'07b/GQVL', phan:['nhs', 'kh', 'nh', 'ky'], co:14,
     o:[{k:'soHD', n:'Số hợp đồng (…/20../HĐ-TD) — đầu HĐ và phụ lục', p:'nh', l:'go', md:'cham'},
       {k:'ngayHD', n:'"Hôm nay, ngày … tháng … năm …" (ngày ký HĐ)', p:'kh', l:'tu', md:'tu', ng:'ô "Ngày ký HĐ" của phiếu hồ sơ'},
@@ -105,7 +102,7 @@
         P('Giấy chứng nhận đăng ký hộ kinh doanh số (nếu có): '+o('dkkd', '…………….............'), J+I(10)+S6+W)+
         P('<i>Đăng ký lần đầu ngày '+d1[0]+'tháng'+d1[1]+'năm'+d1[2]+'</i>', J+I(10)+S6)+
         P('<i>Đăng ký thay đổi lần thứ:'+o('dkkd', '………', {gt:g('dkkd', 'dkkdLan'), canh:'c'})+'ngày'+d2[0]+'tháng'+d2[1]+'năm'+d2[2]+'</i>', J+I(10)+S6)+
-        chanTrang(16, '1', 'Hợp đồng tín dụng được đánh máy và đóng dấu giáp lai, Bên cho vay và Bên vay cùng ký nháy vào từng trang (việc ký nháy kiểm soát nội dung trên các trang Hợp đồng của Bên cho vay do Giám đốc NHCSXH nơi cho vay phân công).')+
+        omChanTrang(16, '1', 'Hợp đồng tín dụng được đánh máy và đóng dấu giáp lai, Bên cho vay và Bên vay cùng ký nháy vào từng trang (việc ký nháy kiểm soát nội dung trên các trang Hợp đồng của Bên cho vay do Giám đốc NHCSXH nơi cho vay phân công).')+
         P2('Giấy phép kinh doanh có điều kiện/Giấy chứng nhận đủ điều kiện kinh doanh', '(nếu có)'+sup(' 2')+':'+o('gpkd', '………………')+' thời hạn còn hiệu lực '+o('gpkd', '.........................................', {gt:g('gpkd', 'gpkdHan')}), J+I(10)+S6, 'line-height:1.15')+
         P('Mã số thuế kinh doanh đã đăng ký (nếu có):'+o('mstKD', '..............................................'), J+I(10)+X6+W)+
         P('Hai Bên cùng thống nhất ký kết Hợp đồng này theo các nội dung thỏa thuận sau đây:', I(9.6)+S33)+
@@ -127,7 +124,7 @@
         P('- Thứ tự thu nợ gốc, lãi của khoản vay thực hiện theo quy định của Bên cho vay.', J+I(12.7)+S33)+
         P('<b>Điều 2. Giải ngân</b>', J+I(12.7)+S33)+
         P('Hình thức giải ngân:&nbsp; Tiền mặt &nbsp; '+ck(V.gn==='tm'), J+I(12.7)+S33)+
-        chanTrang(6.2, '2', 'Đối với các ngành nghề kinh doanh có điều kiện.')+
+        omChanTrang(6.2, '2', 'Đối với các ngành nghề kinh doanh có điều kiện.')+
         P('Chuyển khoản:&nbsp; '+ck(V.gn==='ck'), J+I(55.6)+S33)+
         P('Tên người thụ hưởng.'+o('gn', p12('...........................................................................................................'), {gt:g('gn', 'thuHuong')}), J+S33+W)+
         P('Số tài khoản'+o('gn', p12('…..............................'), {gt:g('gn', 'stk')})+'tại.'+o('gn', p12('.................................................................................'), {gt:g('gn', 'nhGN')}), J+S33+W)+

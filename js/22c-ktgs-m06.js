@@ -228,12 +228,12 @@ function ktGNDsHTML(){
       '<div class="to-bang-cuon"><table class="to-bang kt-bang">'+KT_HO_TH+'<tbody>'+ktGNHo(p).map(function(y, i){
         var bo = y.mon.filter(function(o){ return KT_GN_BO[o._th+'|'+o.ku]; }).length, het = bo===y.mon.length, nhieu = y.mon.length>1;
         return ktHoDongHTML({stt:i+1, h:y, lop:het ? 'kt-loai' : 'kt-co',
-          chon:'<input type="checkbox"'+(het ? '' : ' checked')+' onchange="ktGNTichHo(\''+p.x.t.ma+'\',\''+y.kh+'\',this.checked,\''+p.th+'\')" aria-label="Chọn hộ">',
-          mon:y.mon.map(function(o){ var k = o._th+'|'+o.ku; return ktMonDong(o, nhieu ? '<input type="checkbox"'+(KT_GN_BO[k] ? '' : ' checked')+' onchange="ktGNTich(\''+k+'\',this.checked)" aria-label="Chọn món"> ' : '',
+          chon:'<input type="checkbox"'+(het ? '' : ' checked')+' data-lenh="f22c.ktGNTichHo" data-su="change" data-a1="'+p.x.t.ma+'" data-a2="'+y.kh+'" data-a3="'+p.th+'" aria-label="Chọn hộ">',
+          mon:y.mon.map(function(o){ var k = o._th+'|'+o.ku; return ktMonDong(o, nhieu ? '<input type="checkbox"'+(KT_GN_BO[k] ? '' : ' checked')+' data-lenh="f22c.ktGNTich" data-su="change" data-a1="'+k+'" aria-label="Chọn món"> ' : '',
             ' · GN '+ngayVNsl(ktGNNgay(o))+' ('+ktTr(o.gnT)+' tr) '+ktGN06aNut(p.x.t.ma, o)); }).join(''),
           ghi:ktGhiHo(y, 'Giải ngân '+p.thang.map(kyVN).join(', ')+' — 727: kiểm tra sử dụng vốn trong 30 ngày')}); }).join('')+'</tbody></table></div>'; });
   var xaGN = {}; chon.forEach(function(p){ var t = (KT_K && KT_K.to[p.x.t.ma]) || p.x.t; if(t.xa) xaGN[t.xa] = 1; });
-  h += ktKBKhung('gn', ktHoiDsXa(xaGN))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktGNXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' phiếu Mẫu 06</button><button class="nho" onclick="ktTrang06()" title="Phiếu trống để ghi tay — 1 mặt hoặc 1 tờ 2 mặt">📄 Mẫu 06 trắng</button></div>'+
+  h += ktKBKhung('gn', ktHoiDsXa(xaGN))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktGNXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' phiếu Mẫu 06</button><button class="nho" data-lenh="f22c.ktTrang06" title="Phiếu trống để ghi tay — 1 mặt hoặc 1 tờ 2 mặt">📄 Mẫu 06 trắng</button></div>'+
     '<p class="ghi">Món = '+
       (C.gnLan==='1' ? 'giải ngân LẦN 1 (Ngày GN đầu tiên trong tháng — mức 727)' : 'mọi lần giải ngân (kể cả HSSV nhận tiền lần 2 trở đi)')+' trong các tháng đã chọn theo Mẫu 31 tháng đó, chỉ món qua tổ. Mỗi tổ mỗi tháng giải ngân 1 phiếu; lãi tồn, số dư 105 theo Mẫu 31 tháng giải ngân. Cột Dư nợ trên phiếu = tổng dư nợ của món cuối tháng; Tổng số tiền giải ngân = tổng đã giải ngân của món. '+
       (C.to ? 'Bỏ tích hộ / món không cần lập phiếu.' : 'Chọn đến 1 tổ để tích / bỏ tích từng hộ, từng món.')+'</p>';
@@ -278,7 +278,7 @@ function ktGNXem(ok){   /* 3.114: hỏi lựa chọn in trước */
   var html = ktHTML06(gts);
   moHop('<div class="hop-tit">👁 Xem '+gts.length+' phiếu Mẫu 06 — kiểm tra sau giải ngân</div>'+
     '<iframe id="kt-gn-khung" class="to-khung" title="Xem trước"></iframe>'+
-    xuatHang({nk:ktGNNk(), truoc:'<button class="nho" onclick="dongHop();ktGNXem()">‹ Đổi lựa chọn in</button>', html:function(){ return ktHTML06(KT_GN_XEM.gts); }, in:'ktGNIn(\'in\')', pdf:'ktGNIn(\'pdf\')', word:'ktGNIn(\'word\')'}), true);   /* 3.152 */
+    xuatHang({nk:ktGNNk(), truoc:'<button class="nho" data-lenh="f22c.ktGNXem" data-dong="1">‹ Đổi lựa chọn in</button>', html:function(){ return ktHTML06(KT_GN_XEM.gts); }, in:'ktGNIn(\'in\')', pdf:'ktGNIn(\'pdf\')', word:'ktGNIn(\'word\')'}), true);   /* 3.152 */
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
   var f = document.getElementById('kt-gn-khung'); xemChuan(f, html);
 }
@@ -360,7 +360,7 @@ function ktTrang06GT(kieu){ return {f:{}, trang:1, rows:Array.apply(null, Array(
 var KT_TRANG06_KIEU = 'mot';
 function ktTrang06(kieu){
   KT_TRANG06_KIEU = kieu || (ktHaiMat() ? 'hai' : 'mot');
-  var nut = function(k, chu){ return '<button class="nho'+(KT_TRANG06_KIEU===k ? ' chinh' : '')+'" onclick="ktTrang06(\''+k+'\')">'+chu+'</button>'; };
+  var nut = function(k, chu){ return '<button class="nho'+(KT_TRANG06_KIEU===k ? ' chinh' : '')+'" data-lenh="f22c.ktTrang06_s" data-a1="'+k+'">'+chu+'</button>'; };
   moHop('<div class="hop-tit">📄 Mẫu 06 trắng — ghi tay</div><div class="hang-nut">'+nut('mot', 'In 1 mặt ('+KT_TRANG06.mot+' dòng hộ)')+nut('hai', 'In 2 mặt — 1 tờ ('+KT_TRANG06.hai+' dòng hộ)')+'</div>'+
     '<div class="hop-phu">Dòng hộ cao 0,8 cm — hộ nhiều món hoặc ghi dài thì dùng 2 dòng. Đầu phiếu để chấm ghi tay.</div><iframe id="kt-trang-khung" class="to-khung" title="Xem trước"></iframe>'+
     xuatHang({html:function(){ return ktHTML06(ktTrang06GT(KT_TRANG06_KIEU)); }, in:'ktTrang06Xuat(\'in\')', pdf:'ktTrang06Xuat(\'pdf\')', word:'ktTrang06Xuat(\'word\')'}), true);
@@ -436,3 +436,11 @@ function ktHTML16Goc(gt){
     '</body></html>';
 }
 
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22c.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f22c', gdLenh({
+  ktGNTich:function(el, ev){ ktGNTich(gdA(el, 1), el.checked); },
+  ktGNTichHo:function(el, ev){ ktGNTichHo(gdA(el, 1), gdA(el, 2), el.checked, gdA(el, 3)); },
+  ktGNXem:function(el, ev){ ktGNXem(); },
+  ktTrang06:function(el, ev){ ktTrang06(); },
+  ktTrang06_s:function(el, ev){ ktTrang06(gdA(el, 1)); }
+}));

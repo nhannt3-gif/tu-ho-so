@@ -141,15 +141,15 @@ const fs=require('fs'), path=require('path');
    const gyc = [['01/09/2026','01/09/2030',8,40,160],['01/09/2026','01/02/2030',7,35,140],['01/09/2026','01/03/2030',7,35,140],['01/09/2026','01/04/2030',7,35,140],['07/10/2026','30/12/2028',4,20,80],['01/09/2026','01/12/2029',6,30,120],['15/09/2026','15/09/2030',8,40,160],['15/09/2026','15/02/2030',7,35,140],['15/09/2026','15/12/2028',4,20,80],['15/09/2026','15/05/2030',7,35,140],['15/09/2026','15/06/2030',8,40,160],['15/02/2027','15/06/2030',7,35,140],['15/07/2027','15/06/2030',6,30,120],['15/02/2027','15/06/2027',1,5,20],['15/09/2026','15/01/2030',6,30,120],['15/09/2026','15/02/2030',7,35,140],['07/10/2026','30/08/2030',8,40,160],['01/09/2026','01/11/2026',1,5,20]];
    const gys = gyc.map(c=>{ const g = hsGoiY({vay:c[0], rt:c[1]}); return g && g.nua===c[2] && g.thang===c[3] && g.trieu===c[4]; });
    ok('HSSV: gợi ý tiền vay theo năm học (ra 9→0, 12→0, 1→0, 2/5→½, 6→1; vay 2→½, 7→năm sau; cùng năm học)', gys.every(Boolean), gys.join(','));
-   gd.value = '7'; gd.dispatchEvent(new Event('input'));
-   const vy = document.getElementById('hs-vay'); vy.value = '01/09/2026'; vy.dispatchEvent(new Event('input'));
-   rt.value = '01/02/2030'; rt.dispatchEvent(new Event('input'));
+   gd.value = '7'; gd.dispatchEvent(new Event('input', {bubbles:true}));
+   const vy = document.getElementById('hs-vay'); vy.value = '01/09/2026'; vy.dispatchEvent(new Event('input', {bubbles:true}));
+   rt.value = '01/02/2030'; rt.dispatchEvent(new Event('input', {bubbles:true}));
    ok('HSSV: gõ ngày ra trường → ô tiền tự điền 140, nhãn gợi ý 35 th', ti.value==='140' && /gợi ý 35 th = 140/.test(document.getElementById('hs-goiy').textContent), ti.value);
    let kq = document.getElementById('hs-kq'), ks = kq.querySelectorAll('.hs-k');
    ok('HSSV: 5 khối — 3 lớn (tiền vay, thời hạn, hạn cuối) + 2 phụ (trả mỗi lần, lần đầu)', ks.length===5 && kq.querySelectorAll('.hs-k.phu').length===2 && /Số tiền vay/.test(ks[0].textContent) && /140\.000\.000/.test(ks[0].textContent) && /35 tháng vay \(3 năm rưỡi\)/.test(ks[0].textContent) && /Trả mỗi lần/.test(ks[3].className+ks[3].textContent) && ks[3].classList.contains('phu'), ks[0].textContent);
-   ti.value = '100'; ti.dispatchEvent(new Event('input')); ks = document.querySelectorAll('#hs-kq .hs-k');
+   ti.value = '100'; ti.dispatchEvent(new Event('input', {bubbles:true})); ks = document.querySelectorAll('#hs-kq .hs-k');
    ok('HSSV: gõ đè tiền → dùng số anh gõ, ghi "Gợi ý: 35 tháng = 140 tr"', /100\.000\.000/.test(ks[0].textContent) && /Gợi ý: 35 tháng = 140 tr/.test(ks[0].textContent) && /Số tiền vay 100\.000\.000/.test(hsTinh(hsGT()).cau));
-   rt.value = '01/09/2030'; rt.dispatchEvent(new Event('input'));
+   rt.value = '01/09/2030'; rt.dispatchEvent(new Event('input', {bubbles:true}));
    ok('HSSV: Cách tính liệt kê năm học (ra 01/09/2030 → năm 2030-2031 không tính)', /2026-2027 \(tròn năm\).*2029-2030 \(tròn năm\) · 2030-2031 \(không tính\) = <b>40 tháng vay × 4 tr = 160 triệu/.test(hsKetQuaHTML()), (hsKetQuaHTML().match(/Tiền vay gợi ý theo năm học[^<]*/)||[''])[0]);
    ok('HSSV: món kế (đổi ngày ra trường) → tiền tự điền lại 160', ti.value==='160' && hsGT().tien==='160');
    /* 3.100: ngày vay gợi ý = GDX gần nhất kể từ hôm nay */
@@ -160,9 +160,9 @@ const fs=require('fs'), path=require('path');
    nay = () => new Date(2026, 9, 4, 9);
    CC.hs = null; dv.innerHTML = hsChonLoaiHTML()+ccHSSVHTML();
    const g2 = document.getElementById('hs-gdx'), v2 = document.getElementById('hs-vay');
-   g2.value = '15'; g2.dispatchEvent(new Event('input'));
+   g2.value = '15'; g2.dispatchEvent(new Event('input', {bubbles:true}));
    const t1 = v2.value==='15/10/2026' && /GDX gần nhất/.test(document.getElementById('hs-vgy').textContent);
-   v2.value = '20/10/2026'; v2.dispatchEvent(new Event('input')); g2.value = '07'; g2.dispatchEvent(new Event('input'));
+   v2.value = '20/10/2026'; v2.dispatchEvent(new Event('input', {bubbles:true})); g2.value = '07'; g2.dispatchEvent(new Event('input', {bubbles:true}));
    const t2 = v2.value==='20/10/2026' && hsGT().vay==='20/10/2026' && !/GDX gần nhất/.test(document.getElementById('hs-vgy').textContent);
    ok('HSSV: đổi GDX → ngày vay gợi ý lại; đã gõ tay thì giữ nguyên', t1 && t2, [t1,t2].join(','));
    /* 3.102: 📌 cửa sổ nổi — giả Document PiP bằng window.open */
@@ -217,9 +217,9 @@ const fs=require('fs'), path=require('path');
    C.xa = best.xa; ktHoiKBHop(); await w(150);
    ok('3.106 / 3.154 bảng khai báo: không còn cột Đoàn kiểm tra, không còn dòng "In ra" (anh chốt: không diễn giải)', !document.querySelector('#kt-the .kt-hkb-doan') && !document.querySelector('#kt-the .hkb-in'));
    const kB = ktHoiKhoa(best), idB = kB.replace(/[^0-9a-z]/gi, '_'), oKH = document.getElementById('hkb-'+idB+'-hdNgay');
-   if(oKH){ oKH.value = '2026-03-05'; oKH.dispatchEvent(new Event('change')); }
+   if(oKH){ oKH.value = '2026-03-05'; oKH.dispatchEvent(new Event('change', {bubbles:true})); }
    ok('3.154 ngày sai dạng → ô tô đỏ', oKH && oKH.classList.contains('sai'));
-   if(oKH){ oKH.value = ''; oKH.dispatchEvent(new Event('change')); } ktCH().che = 'dx';
+   if(oKH){ oKH.value = ''; oKH.dispatchEvent(new Event('change', {bubbles:true})); } ktCH().che = 'dx';
    D.cauHinh.ktgsLS = {x:1}; D.cauHinh.ktgsNK = [1]; ktHoiKBSua(kB, 'doan', 'Rác'); ktHoiKBSua(kB, 'cb', 'Giả Cán Bộ');
    ok('3.106 Mẫu 04: Đoàn kiểm tra lấy cán bộ Mẫu 06 / 16, nhận xét từng tổ có dư nợ', (()=>{ const g = ktBC04([{t:best}])[0]; return g.doan.length>=1 && g.doan[0].cb==='Giả Cán Bộ' && /^- Tổ TK&VV .+: dư nợ [\d.,]+ triệu đồng/.test(g.nx[0]); })());
    ktHoiKBSua(kB, 'cb', '');

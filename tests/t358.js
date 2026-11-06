@@ -110,10 +110,10 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
      ok('3.449: tổ phó không vay vẫn có trong danh sách (mã KH File Tổ trưởng, không vay)', !!tp && tp.kh==='9990001234' && !tp.vay);
      hsoVe(); await w(500); const bg = document.querySelector('#hso-tuy table.hso-tv10a');
      ok('3.449: cột trái có bảng hộ vay (In · # · Mã KH · Họ tên · Dư nợ · Ghi chú), ghi kỳ số liệu, nhãn TT / TP', !!bg && /Mã KH/.test(bg.textContent) && /Dư nợ/.test(bg.textContent) && /Hộ vay của tổ — số liệu/.test(document.getElementById('hso-tuy').textContent) && /\bTP\b/.test(bg.textContent));
-     ok('3.449: mặc định tích hết', [...bg.querySelectorAll('input[data-lenh="h10a.tich"]')].every(x=>x.checked));
+     ok('3.449: mặc định tích hết', [...bg.querySelectorAll('input[data-lenh="hst.tich"][data-c="in"]')].every(x=>x.checked));
      const gk = ds2.filter(x=>x.vay).slice(0, 1)[0]; if(gk) gk.k.dn = 0;   /* giả 1 hộ dư nợ 0 */
      const goc = window.hso10aDs; window.hso10aDs = tt => ds2.map(x=>x===gk ? Object.assign({}, x, {dn:0}) : x);
-     hsoVe(); await w(400); const b0 = document.querySelector('[data-lenh="h10a.bo0"]');
+     hsoVe(); await w(400); const b0 = document.querySelector('[data-lenh="hst.bo0"][data-c="in"]');
      ok('3.449: có nút "Bỏ tích hộ dư nợ = 0"', !!b0); b0 && b0.click(); await w(400);
      ok('3.449: bỏ tích hộ dư nợ 0, giữ tổ phó (không vay)', HSO.tv[gk.kh]===false && HSO.tv['9990001234']!==false);
      const hIn = hsoLap().h; ok('3.449: hộ bỏ tích không in, tổ phó in', hIn.indexOf(tenHoaDau(gk.ten))<0 && /Nguyen Van Pho Gia/.test(hIn));

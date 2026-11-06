@@ -20,6 +20,8 @@ var CH_SO = {
   gxBat:'Bật gói số liệu xem cho điện thoại', gxCho:'Gói xem chờ đẩy', gxKy:'Kỳ gói xem đã đẩy', gxLuc:'Lúc đẩy gói xem', gxSo:'Số khách trong gói xem',
   /* bố cục, khung, tab */
   rongTrai:'Độ rộng cột trái (đời cũ, tự bỏ)', rongPhai:'Độ rộng cột phải (đời cũ, tự bỏ)', rongPV:'Độ rộng khung xem phải', rongTab:'Độ rộng khung xem theo tab', rong339:'Mốc bỏ độ rộng chung (3.39)', rong3304:'Mốc khung xem Scan gọn (3.304)', kyRa:'Mốc đã rà chữ ký quét nhầm (3.306; 3.309 rà lại)', pbMuc:'🎯 Phân bổ KH — mục đang mở (3.308)',
+  pbKieuQD:'Phân bổ KH › kiểu xem QĐ (theo chương trình / theo xã) — 3.465',
+  pbGonQD:'Phân bổ KH › danh sách QĐ xem gọn (1 QĐ 1 dòng) — 3.467',
   anPV:'Cờ ẩn khung xem đời cũ (tự bỏ)', anPVTab:'Ẩn khung xem theo tab', anLocNhanh:'Ẩn thanh lọc nhanh theo tab', moLocDT:'Mở thanh lọc trên điện thoại', bangTab:'Kiểu xem bảng theo tab',
   xemChe:'Chế độ khung xem lần trước', dongGon:'Dòng danh sách gọn', tabCD:'Tab con Cài đặt đang mở', khoiMo:'Khối Hôm nay mở / gập', cayMo:'Nhánh cây đang mở', suaDM:'Đang sửa danh mục tab Tháng',
   anBangDC:'Ẩn bảng đối chiếu tab Tháng', moCXL:'Mở khối Cần xử lý', moGanDay:'Mở khối Gần đây', tvPhan:'Việc Hôm nay theo phần', taNhacKhac:'Đã nhắc tạo nhãn khác',
@@ -48,7 +50,7 @@ var CH_SO = {
   /* KTGS */
   ktgs:'Tab KTGS: kỳ + phạm vi + kiểu', ktIn:'KTGS: lựa chọn khi in từng mẫu', ktKBLuu:'KTGS: khai báo lưu lâu dài', ktHoiKB:'KTGS: khai báo Hội (xã | hội)', ktChuan:'KTGS: bảng chuẩn hóa Hội – Đoàn',
   ktPC:'KTGS: phân công Ban thường vụ', ktKBKhoa:'KTGS: khóa khai báo Hội (3.398)', ktKBNK:'KTGS: nhật ký sửa khai báo Hội (3.398)', ktKH:'KTGS: Kế hoạch 01/KH', ktKHChuan:'KTGS: mốc chuẩn hóa kế hoạch (1 lần)', ktApThu:'KTGS: thứ tự ấp kế hoạch', ktKN04:'KTGS: kết luận Mẫu 04',
-  ktMucDich:'KTGS: cột mục đích Mẫu 06', ktNhanXet:'KTGS: gợi ý nhận xét', ktBang16:'KTGS: Bảng II Mẫu 16', ktHaiMat:'KTGS: in 2 mặt', ktPnkt:'KTGS: bảng ngành kinh tế', ktHdt5:'KTGS: mốc chuyển khai báo Hội (1 lần)', ktHdtDoi:'KTGS: mốc đổi tên Hội (1 lần)', ktKBMo:'KTGS: khung khai báo đang mở', ktNapMo:'KTGS: khung nạp đang mở',
+  ktMucDich:'KTGS: cột mục đích Mẫu 06', ktNhanXet:'KTGS: gợi ý nhận xét', ktBang16:'KTGS: Bảng II Mẫu 16', ktHaiMat:'KTGS: in 2 mặt', bblvHaiMat:'Hồ sơ vay: BBLV in 2 mặt (mặc định 1 mặt)', ktPnkt:'KTGS: bảng ngành kinh tế', ktHdt5:'KTGS: mốc chuyển khai báo Hội (1 lần)', ktHdtDoi:'KTGS: mốc đổi tên Hội (1 lần)', ktKBMo:'KTGS: khung khai báo đang mở', ktNapMo:'KTGS: khung nạp đang mở',
   /* hồ sơ vay, giao dịch xã */
   hsoKB:'Hồ sơ: khai báo PGD, ấp, tổ phó, mục đích…', hsoO:'Hồ sơ: lựa chọn nhớ từng mẫu (ô, chấm, cỡ chữ…)', hsoTK:'Tab Hồ sơ: kỳ + mẫu đang mở', hsoBo:'Bộ hồ sơ vay lưu tạm (đời cũ)', hoMoi:'Sổ hộ vay (hộ mới khai báo)',
   gdx:'Giao dịch xã: khai báo cán bộ, đơn vị, từng mẫu', gdxTK:'Tab Giao dịch xã: kỳ + phạm vi', dmTo:'Danh mục tổ tự lập (đời cũ, bỏ)'
@@ -73,7 +75,7 @@ function chSoTomHTML(){
   var R = chSoKiem();
   return '<div class="hso-kb-nhom"><b>🧾 Sổ cài đặt</b> — máy này có <b>'+R.tong+'</b> khóa cài đặt ('+R.kb+' KB), '+Object.keys(R.khoi).length+' khối'+
     (R.la.length ? ' · <b class="do">'+R.la.length+' khóa lạ</b> (không có trong sổ)' : ' · không có khóa lạ')+
-    ' <button class="nho" onclick="chSoHop()">Xem</button></div>';
+    ' <button class="nho" data-lenh="f17b.chSoHop">Xem</button></div>';
 }
 function chSoHop(){
   var R = chSoKiem(), bang = function(ds, laLa){ return '<div class="to-bang-cuon"><table class="to-bang luoi"><thead><tr><th>Khóa</th><th>Mô tả</th><th>KB</th></tr></thead><tbody>'+
@@ -86,3 +88,8 @@ function chSoHop(){
       return '<details class="ch-so-nhom"><summary><b>'+coChuHTML(CH_SO_KHOI_TEN[k] || k)+'</b> — '+ds.length+' khóa · '+kb+' KB</summary>'+bang(ds)+'</details>'; }).join('')+
     '<div class="hang-nut"><button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>', true);
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f17b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f17b', gdLenh({
+  chSoHop:function(el, ev){ chSoHop(); }
+}));

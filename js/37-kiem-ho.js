@@ -53,9 +53,9 @@ function khKBHTML(){   /* ⚙ Khai báo đơn vị › 🔎 Kiểm tra hộ vay 
   return '<div class="hso-kb-nhom"><b>🔎 Kiểm tra hộ vay — luật app tự rà khi nhập hộ, xem ở 📒 Sổ hộ vay</b><div class="sl-phu">Bỏ tích = tắt luật. Mức: 🔴 chặn lưu (không cho lưu hộ) · 🔴 · 🟠 · 🟡 (có nút "Đã kiểm tra") · ℹ thông tin. Số có chữ "(tạm)" em đặt tạm — anh sửa theo quy định.</div>'+
     KH_LUAT.map(function(g){ return '<div class="nhan-nhom">'+coChuHTML(g[0])+'</div>'+g[1].map(function(d){ var L = khLuat(d.ma);
       return '<div class="kh-kb-dong'+(L.tat ? ' tat' : '')+'"><label class="hso-o2"><input type="checkbox"'+(L.tat ? '' : ' checked')+' onchange="khLuatDat(\''+d.ma+'\',\'tat\',!this.checked);hsoKBHop(\'kiem\')"> '+coChuHTML(d.ten)+'</label>'+
-        (d.ng!=null ? '<input class="kh-ng" value="'+coChuHTML(String(L.ng))+'" onchange="khLuatDat(\''+d.ma+'\',\'ng\',this.value)"> '+coChuHTML(d.dv||'')+(d.tam ? ' <small>(tạm)</small>' : '') : '')+
-        '<select onchange="khLuatDat(\''+d.ma+'\',\'muc\',this.value)">'+Object.keys(KH_MUC).map(function(m){ return '<option value="'+m+'"'+(L.muc===m ? ' selected' : '')+'>'+KH_MUC[m][0]+' '+KH_MUC[m][1]+'</option>'; }).join('')+'</select></div>'; }).join(''); }).join('')+
-    '<div class="hang-nut"><button class="nho" onclick="khLuatMD()">↺ Về mặc định</button></div></div>';
+        (d.ng!=null ? '<input class="kh-ng" value="'+coChuHTML(String(L.ng))+'" data-lenh="f37.khLuatDat" data-su="change" data-a1="'+d.ma+'" data-a2="ng"> '+coChuHTML(d.dv||'')+(d.tam ? ' <small>(tạm)</small>' : '') : '')+
+        '<select data-lenh="f37.khLuatDat" data-su="change" data-a1="'+d.ma+'" data-a2="muc">'+Object.keys(KH_MUC).map(function(m){ return '<option value="'+m+'"'+(L.muc===m ? ' selected' : '')+'>'+KH_MUC[m][0]+' '+KH_MUC[m][1]+'</option>'; }).join('')+'</select></div>'; }).join(''); }).join('')+
+    '<div class="hang-nut"><button class="nho" data-lenh="f37.khLuatMD">↺ Về mặc định</button></div></div>';
 }
 /* ---------- dữ liệu phụ ---------- */
 var KH_CM = {db:null};
@@ -186,8 +186,15 @@ function khDaKiemForm(k){ var x = khKiem(HM).find(function(y){ return y.k===k; }
 function khSoHTML(o, ds){   /* ô lưới sổ: đếm theo mức + chi tiết khi rê chuột */
   var con = khCon(o, ds); if(!con.length) return '';
   var dem = {}; con.forEach(function(x){ var m = KH_MUC[x.muc][0]; dem[m] = (dem[m]||0)+1; });
-  return '<div class="kh-so" title="'+coChuHTML(con.map(function(x){ return KH_MUC[x.muc][0]+' '+x.chu; }).join('\n'))+'" onclick="hmMo(\''+o.id+'\')">🔎 '+Object.keys(dem).map(function(m){ return m+dem[m]; }).join(' ')+'</div>';
+  return '<div class="kh-so" title="'+coChuHTML(con.map(function(x){ return KH_MUC[x.muc][0]+' '+x.chu; }).join('\n'))+'" data-lenh="f37.hmMo" data-a1="'+o.id+'">🔎 '+Object.keys(dem).map(function(m){ return m+dem[m]; }).join(' ')+'</div>';
 }
 var KH_NAP = null;
 function khNap(sau){ if(KHO.coMonMoi()) return; if(KH_NAP) return; KH_NAP = slKhMonNap().then(function(){ KH_NAP = null; if(sau) sau(); }, function(){ KH_NAP = null; }); }   /* nạp món Mẫu 31 mới nhất 1 lần rồi vẽ lại */
 function khDangKy(){ if(khDangKy.xong || typeof GD==='undefined') return; khDangKy.xong = 1; GD.dangKy('kh', {luat:function(){ GD.moCon(function(){ hsoKBHop('kiem'); }); }}); }   /* 3.234: form hộ → ⚙ luật kiểm tra (hộp con) */
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f37.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f37', gdLenh({
+  hmMo:function(el, ev){ hmMo(gdA(el, 1)); },
+  khLuatDat:function(el, ev){ khLuatDat(gdA(el, 1), gdA(el, 2), el.value); },
+  khLuatMD:function(el, ev){ khLuatMD(); }
+}));

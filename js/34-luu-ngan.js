@@ -158,8 +158,8 @@ function lnHTML(){
       ' · localStorage '+Math.round(ls/1024)+' KB'+(t.cho ? ' (đã đầy — dữ liệu đọc từ IndexedDB)' : '')+
       (m ? ' · IndexedDB ghi lần cuối '+kbGioVN(new Date(m.luc).toISOString())+' ('+m.ngan.length+' ngăn)' : '')+'</div>'+
     (b ? '<div class="sl-phu">Bản cũ lúc chuyển: '+kbGioVN(b.luc)+' · '+b.kb+' KB — giữ đến '+kbGioVN(new Date(new Date(b.luc).getTime()+30*864e5).toISOString()).slice(6)+'.</div>' : '')+
-    '<div class="hang-nut">'+(t.bat ? '<button class="nho" onclick="lnDoiCach(\'cu\')">↩ Quay lại cách lưu cũ</button>' : t.hong ? '' : '<button class="nho chinh" onclick="lnDoiCach(\'ngan\')">🗄 Bật lưu theo ngăn</button>')+
-      (b ? '<button class="nho" onclick="lnDungBanCu()">↩ Dùng lại dữ liệu lúc chuyển</button>' : '')+'</div></div>';
+    '<div class="hang-nut">'+(t.bat ? '<button class="nho" data-lenh="f34.lnDoiCach" data-a1="cu">↩ Quay lại cách lưu cũ</button>' : t.hong ? '' : '<button class="nho chinh" data-lenh="f34.lnDoiCach" data-a1="ngan">🗄 Bật lưu theo ngăn</button>')+
+      (b ? '<button class="nho" data-lenh="f34.lnDungBanCu">↩ Dùng lại dữ liệu lúc chuyển</button>' : '')+'</div></div>';
 }
 function lnDoiCach(c, khongHoi){
   var lam = function(){ var e = LN.datCach(c); if(e) return baoLoi(e); bao(c==='cu' ? 'Đã quay lại cách lưu cũ (localStorage) trên máy này.' : 'Đã bật lưu theo ngăn (IndexedDB).'); try { hsoKBHop('sl'); } catch(x){} };
@@ -173,3 +173,9 @@ function lnDungBanCu(khongHoi){
 }
 var LN_SL = kbSaoLuuHTML;
 kbSaoLuuHTML = function(){ return lnHTML()+LN_SL(); };
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f34.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f34', gdLenh({
+  lnDoiCach:function(el, ev){ lnDoiCach(gdA(el, 1)); },
+  lnDungBanCu:function(el, ev){ lnDungBanCu(); }
+}));

@@ -20,7 +20,7 @@ const path=require('path');
      {id:'kat229c', loai:'anh', khach:'Nguyễn Văn Giả', maKH:ma, ten:'a.jpg', ngay:bay.slice(0,10), luc:bay}];
    D.cauHinh.kyRa = '3.309'; HS.ds = D.scan; doiNgan(4); await w(300);
    /* menu ⋯ */
-   document.querySelector('#tr4 button[onclick^="moThemTab"]').click(); await w(150);
+   document.querySelector('#tr4 button[data-lenh$=".moThemTab"]').click(); await w(150);
    const mn = Array.prototype.map.call(document.querySelectorAll('[class*=menu] button'), x=>x.textContent.trim()).join(' / ');
    ok('menu ⋯ tab Scan: bỏ Chế độ quét, Webcam, 📁 Chữ ký · CCCD', !/Chế độ quét|Webcam|Chữ ký · CCCD/.test(mn), mn);
    try{ dongMenu(); }catch(e){}
