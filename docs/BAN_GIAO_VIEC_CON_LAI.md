@@ -266,6 +266,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.494) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Phân bổ 1 QĐ → 👁 Biểu 07 · 07/KH · 08/KH | Hộp mở Biểu 07 cũ như trước; chip Mẫu đổi sang 07/KH / 08/KH | |
+| 2 | 07/KH → In / Word | 2 trang: QĐ (căn cứ, Điều 1–3, Trưởng ban) + Danh mục thôn → CT; số khớp QĐ | |
+| 3 | ⚙ Khai báo riêng 07/KH → Nghị quyết xã, Trưởng ban → 💾 Lưu | In đúng; Biểu 07 cũ không đổi | |
+| 4 | 📤 Tờ trình 09/KH → chọn xã → gõ +200 ở 1 CT → 👁 Xem | Tờ trình căn cứ QĐ gần nhất; danh mục 1 dòng CT có đề nghị, số dư nợ = KH + 200 | |
+
+**Ghi chú kỹ thuật 3.494:** 01, 02, 03/KH để sau (anh 07/11). 10/KH, 15/KH chưa có mẫu. Nước sạch giữ 1 chương trình (mã 06).
+
 ### Danh sách thử trên máy thật (3.493) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.493 · 07/11/2026 11:47 · 142 file · 46107 dòng · 3689 hàm cấp ngoài · 615 biến toàn cục.
+Bản 3.494 · 07/11/2026 18:01 · 144 file · 46345 dòng · 3718 hàm cấp ngoài · 620 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,8 +9,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 326 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 4094 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `index.html` | 328 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `css/app.css` | 4096 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 127 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
@@ -87,9 +87,10 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/44-quet-cccd-form.js` | 144 | 19 | /*   3.273 (anh duyệt 20/10/2026: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCC |
 | `js/45-tra-mau31.js` | 223 | 20 | /*   3.275 (anh 20/10/2026: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã K |
 | `js/46-quan-ly-scan.js` | 140 | 9 | /*   3.278 (rà soát tab Scan 20/10 — anh: "em cứ code theo ý em và gộp lên"): BỐ CỤC GỌN - Thanh tab Scan: 1 n |
-| `js/47-phan-bo.js` | 512 | 54 | /*   P1 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md): 🎯 PHÂN BỔ KẾ HOẠCH — LÕI NGHIỆP VỤ (tiền tố pb)   |
-| `js/48-phan-bo-gd.js` | 886 | 91 | /*   P2 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 5): 🎯 PHÂN BỔ KH — GIAO DIỆN tab con trong 📈 Số |
+| `js/47-phan-bo.js` | 515 | 54 | /*   P1 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md): 🎯 PHÂN BỔ KẾ HOẠCH — LÕI NGHIỆP VỤ (tiền tố pb)   |
+| `js/48-phan-bo-gd.js` | 897 | 93 | /*   P2 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 5): 🎯 PHÂN BỔ KH — GIAO DIỆN tab con trong 📈 Số |
 | `js/48b-phan-bo-db.js` | 282 | 29 | /*   js/48b-phan-bo-db.js — 📈 DIỄN BIẾN PHÂN VỐN THEO KH (tách khỏi js/48 ở 3.471 cho file < 150 KB; lệnh pb.d |
+| `js/48c-pb-to-trinh.js` | 86 | 13 | /*   js/48c-pb-to-trinh.js — 3.494 (anh 07/11/2026, QĐ 4686): 📤 TỜ TRÌNH ĐIỀU CHỈNH KH — Biểu 09/KH (QUY TRÌNH |
 | `js/49-ten-chuan.js` | 34 | 5 | /*   3.295 — SỔ QUY TẮC TÊN + NƠI LƯU HỒ SƠ THEO KHÁCH (lớp Nghiệp vụ, dùng chung) — bước 1 `docs/KE_HOACH_TEN |
 | `js/50-xuat-khach.js` | 117 | 13 | /*   3.304 — CHỮ KÝ GẮN CÙNG CCCD + XUẤT FILE THEO KHÁCH (lớp Nghiệp vụ + Giao diện tab Scan) Anh 21/10/2026:  |
 | `js/51-chu-ky.js` | 194 | 8 | /*   3.306 — CHỮ KÝ / LĂN TAY: NHẬN DẠNG, DỌN BẢN QUÉT NHẦM, BỎ ẢNH KHÁCH LƯU SẴN, NÚT BẢN PHOTO 2 MẶT (lớp Ng |
@@ -106,7 +107,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/mau/01tgtv.js` | 123 | 0 | /*   3.223 M5 — MẪU 01/TGTV Giấy đăng ký mở tài khoản tổ viên trên nền ô   BỐ CỤC GIỮ NGUYÊN 3.218–3.219 (anh  |
 | `js/mau/01gqvl.js` | 160 | 0 | /*   3.223 M5 — MẪU 01/GQVL Phương án sử dụng vốn vay (người lao động) trên nền ô — dựng theo file gốc tests/m |
 | `js/mau/07b.js` | 183 | 0 | /*   3.223 M5 — MẪU 07b/GQVL Hợp đồng tín dụng (người lao động) trên nền ô — dựng theo file gốc tests/mau_goc/ |
-| `js/mau/07pb.js` | 87 | 12 | /*   3.289 P3 (anh Nhân 21/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 6): BIỂU 07 PHÂN BỔ KH — mẫu in dựng theo |
+| `js/mau/07pb.js` | 88 | 14 | /*   3.289 P3 (anh Nhân 21/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 6): BIỂU 07 PHÂN BỔ KH — mẫu in dựng theo |
+| `js/mau/07kh.js` | 133 | 12 | /*   3.494 (anh 07/11/2026 — QĐ 4686/QĐ-NHCS ngày 21/10/2026 "Quy định về xây dựng và tổ chức thực hiện kế hoạ |
 | `js/54-tgtv-khai.js` | 163 | 15 | /*   3.315 (anh 22/10 "làm hoàn chỉnh 01TGTV in bằng 2 cách: lấy từ Mẫu 31 hoặc in nhanh tự khai, khai nhanh t |
 | `js/56-ktgs-bo.js` | 109 | 20 | /*   3.327 — KTGS bước 1 (docs/KE_HOACH_KTGS_GON.md mục 2.4, 3): 2 BỘ KHAI BÁO CỐ ĐỊNH (anh chốt 23/10)   ① Hộ |
 | `js/57-cay.js` | 34 | 0 | /*   3.328 (anh chốt 23/10): CÂY ĐỊA BÀN NHÚNG — 1 chỗ lấy danh sách Xã › Điểm GD › Ấp › Hội › Tổ và vẽ ô chọn |
@@ -480,22 +482,22 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/47-phan-bo.js:268` · 3.465 (anh 04/11 "QĐ của tỉnh có cấu trúc theo từng chương trình vay, khi nhập liệu cũng cho nhập như vậy"; gửi QĐ mẫu 1
 - `js/47-phan-bo.js:339` · 3.467 (anh 04/11 "thêm 1 nút thống kê QĐ theo ngày, dòng thời gian, có số thứ tự để kiểm tra xem có đợt nào bỏ sót; tỉnh
 - `js/47-phan-bo.js:364` · 3.289 P3: dữ liệu Biểu 07 Phân bổ KH (QT-16) — thuần, mẫu in ở js/mau/07pb.js
-- `js/47-phan-bo.js:390` · 3.478 (anh 05/11 "khi nhập KH cơ bản sẽ liền mạch nhưng đôi khi có vài chương trình bị đứt quãng, không khớp — nguyên tắ
-- `js/47-phan-bo.js:406` · 3.301: ĐỐI CHIẾU CHÉO (anh 21/10: "tại mỗi QĐ tổng giao của Biểu 07 phải khớp số giao của QĐ và dư nợ đến cuối năm cũng 
-- `js/47-phan-bo.js:448` · DIỄN BIẾN PHÂN VỐN THEO KH (anh 21/10: "làm thêm diễn biến phân vốn … theo KH", giao diện web hiện đại)
+- `js/47-phan-bo.js:393` · 3.478 (anh 05/11 "khi nhập KH cơ bản sẽ liền mạch nhưng đôi khi có vài chương trình bị đứt quãng, không khớp — nguyên tắ
+- `js/47-phan-bo.js:409` · 3.301: ĐỐI CHIẾU CHÉO (anh 21/10: "tại mỗi QĐ tổng giao của Biểu 07 phải khớp số giao của QĐ và dư nợ đến cuối năm cũng 
+- `js/47-phan-bo.js:451` · DIỄN BIẾN PHÂN VỐN THEO KH (anh 21/10: "làm thêm diễn biến phân vốn … theo KH", giao diện web hiện đại)
 - `js/48-phan-bo-gd.js:22` · dựng: kỳ chung → cây địa bàn (xã → ấp)
 - `js/48-phan-bo-gd.js:53` · 3.308 (anh 21/10 "tab phân bổ còn hiện chung các chức năng hơi rối … thanh tab ngang"): THANH TAB NGANG 4 MỤC — 📋 Quyết 
 - `js/48-phan-bo-gd.js:68` · 📋 Quyết định: danh sách QĐ (thẻ)
 - `js/48-phan-bo-gd.js:96` · cột phải: phân bổ 1 xã của QĐ
-- `js/48-phan-bo-gd.js:162` · hộp nhập / sửa QĐ (QT-17)
-- `js/48-phan-bo-gd.js:327` · 3.439 (anh 01/11 "bỏ app cũ, nạp QĐ mới" + mẫu Excel chuẩn cho Gemini điền): 📥 Nạp QĐ (Excel mẫu) · ⬇ Tải mẫu
-- `js/48-phan-bo-gd.js:400` · 3.289 P3: BIỂU 07 (QT-16 — chỉ xuất khi khớp QĐ) · xem trước / In / PDF / Word · 1 xã hoặc mọi xã của QĐ
-- `js/48-phan-bo-gd.js:439` · 3.301: ⚙ KHAI BÁO RIÊNG Biểu 07 (ô kiểu nền ô — js/mau/07pb.js PB07_O) · lưu KHO1 'pb' → ch.b07 = {cach, gt, co}; ✏ gõ t
-- `js/48-phan-bo-gd.js:486` · 3.301: 🔎 ĐỐI CHIẾU CHÉO (pbDoiChieu ở js/47) — cột phải; cấp xã (cấp ấp chờ cách chia 3)
-- `js/48-phan-bo-gd.js:568` · lệnh
-- `js/48-phan-bo-gd.js:569` · 3.465 (anh 04/11, QĐ mẫu 13821 đợt 7): 📄 ĐỌC QĐ (PDF có chữ) · Excel sheet DANH_MUC — cùng 1 đường: đầu QĐ + danh mục (p
-- `js/48-phan-bo-gd.js:649` · 3.465 (anh 04/11 "khi hiện thì cho chọn qua lại cả 2 kiểu: theo xã (các chương trình của xã) hoặc theo chương trình (các
-- `js/48-phan-bo-gd.js:739` · 3.467 (anh 04/11): 📅 DÒNG THỜI GIAN QĐ (STT từ QĐ đầu tiên, soát đợt sót) · QĐ KHÔNG GIAO CHO PGD (chỉ số QĐ)
+- `js/48-phan-bo-gd.js:163` · hộp nhập / sửa QĐ (QT-17)
+- `js/48-phan-bo-gd.js:328` · 3.439 (anh 01/11 "bỏ app cũ, nạp QĐ mới" + mẫu Excel chuẩn cho Gemini điền): 📥 Nạp QĐ (Excel mẫu) · ⬇ Tải mẫu
+- `js/48-phan-bo-gd.js:401` · 3.289 P3: BIỂU 07 (QT-16 — chỉ xuất khi khớp QĐ) · xem trước / In / PDF / Word · 1 xã hoặc mọi xã của QĐ
+- `js/48-phan-bo-gd.js:445` · 3.301: ⚙ KHAI BÁO RIÊNG Biểu 07 (ô kiểu nền ô — js/mau/07pb.js PB07_O) · lưu KHO1 'pb' → ch.b07 = {cach, gt, co}; ✏ gõ t
+- `js/48-phan-bo-gd.js:495` · 3.301: 🔎 ĐỐI CHIẾU CHÉO (pbDoiChieu ở js/47) — cột phải; cấp xã (cấp ấp chờ cách chia 3)
+- `js/48-phan-bo-gd.js:577` · lệnh
+- `js/48-phan-bo-gd.js:578` · 3.465 (anh 04/11, QĐ mẫu 13821 đợt 7): 📄 ĐỌC QĐ (PDF có chữ) · Excel sheet DANH_MUC — cùng 1 đường: đầu QĐ + danh mục (p
+- `js/48-phan-bo-gd.js:658` · 3.465 (anh 04/11 "khi hiện thì cho chọn qua lại cả 2 kiểu: theo xã (các chương trình của xã) hoặc theo chương trình (các
+- `js/48-phan-bo-gd.js:748` · 3.467 (anh 04/11): 📅 DÒNG THỜI GIAN QĐ (STT từ QĐ đầu tiên, soát đợt sót) · QĐ KHÔNG GIAO CHO PGD (chỉ số QĐ)
 - `js/48b-phan-bo-db.js:3` · 3.301: 📈 DIỄN BIẾN PHÂN VỐN THEO KH (pbDienBien ở js/47) — thẻ số · biểu đồ SVG (KH hiệu lực bậc thang ↔ dư nợ Mẫu 31) ·
 - `js/48b-phan-bo-db.js:174` · 3.471 (anh 04/11 "anh cần bảng biểu cơ bản trước, theo đúng phong cách giao vốn đầu năm, giao tăng giảm, KH cuối năm, dư
 - `js/48b-phan-bo-db.js:267` · 3.478 (anh 05/11 "báo bị đứt chênh ở QĐ nào, chương trình nào"): ⚠ ĐỨT CHUỖI QĐ — bảng dùng chung (Diễn biến · Quyết địn
@@ -512,6 +514,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/53-giay-nop.js:1` · 3.312 (anh 22/10/2026 gửi bản scan Giấy nộp tiền NHCSXH — "tạo mẫu tương tự Giấy lĩnh tiền kèm bảng kê nộp"):
 - `js/mau/09a.js:86` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="m09a.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
 - `js/mau/bblv.js:236` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="mbblv.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng
+- `js/mau/07kh.js:32` · dùng chung 3 mẫu
+- `js/mau/07kh.js:53` · 07/KH · 08/KH: d = pbBieu07DL(...) (1 xã) · K = khai báo · du = liệt kê đủ các thôn
+- `js/mau/07kh.js:100` · 09/KH Tờ trình: d = {dv, nam, nguon, qd:{so, kyHieu, ngay, laDC} (QĐ gần nhất của tỉnh), ct:[{ma, ten, dg, dn, nam}]}
 - `js/54-tgtv-khai.js:64` · 3.316 (anh 23/10 "form cứng, chuẩn: họ tên, ngày sinh, CCCD, ngày cấp, SĐT, chọn xã, ấp — còn lại tự tính: giới tính, ng
 - `js/54-tgtv-khai.js:90` · bấm trên bản xem
 - `js/54-tgtv-khai.js:156` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f54.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h

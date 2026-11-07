@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.494 — 07/11/2026 — Phân bổ KH: 07/KH · 08/KH · 09/KH theo QĐ 4686
+- **Anh 07/11:** QĐ 4686/QĐ-NHCS ngày 21/10/2026 (thay QĐ 86/2014) + mẫu trắng Biểu 05, 07, 08, 09/KH. Anh chốt: "Biểu 07 cũ vẫn giữ, không được bỏ, tạo thêm mẫu mới — để in lại cái cũ khi cần"; "mẫu 09 khi trình sẽ lấy số dư của chương trình, QĐ trước đó, là 1 quy trình ngược của phân bổ"; 01/02/03 làm sau; "em làm 1 lần tất cả".
+- **07/KH** (QĐ Ban Đại diện HĐQT xã …/QĐ-BĐD, căn cứ QĐ 56/QĐ-HĐQT · QĐ 4686 · QĐ tỉnh · Nghị quyết xã, Điều 1–3, TM. Ban Đại diện – Trưởng ban) và **08/KH** (QĐ Giám đốc PGD …/QĐ-NHCS khi được Nghị quyết xã giao): `js/mau/07kh.js`, dùng chung số liệu phân bổ + chặn khớp QĐ (QT-16) + hộp xem / In / PDF / Word của Biểu 07; chọn mẫu ở đầu hộp (nhớ lần chọn, mặc định Biểu 07 cũ). Bảng thôn → CT: Số tăng trưởng (tăng/giảm) · Số dư nợ năm; chip "đủ các thôn" (mặc định chỉ thôn có tăng / giảm như Biểu 07 cũ — `pbBieu07DL` thêm `apDu`). Cỡ chữ mặc định 13,5 (vừa 1 trang QĐ).
+- **Khai báo riêng** 3 mẫu mới lưu `ch.bKH` (tách `ch.b07` của Biểu 07 cũ); số / ngày QĐ 56 và QĐ 4686 điền sẵn (⌨ sửa được); Nghị quyết xã, số văn bản, Trưởng ban, Giám đốc: để chấm hoặc khai.
+- **📤 Tờ trình 09/KH** (`js/48c-pb-to-trinh.js`, mục thứ 5 tab Phân bổ): chọn năm · xã · nguồn; mỗi CT có QĐ: Số tăng trưởng đã giao = cộng dồn tăng / giảm các QĐ trong năm (sửa tay được, ↺ bỏ), KH hiện tại = Đến 31/12 QĐ gần nhất, dư nợ thực tế Mẫu 31 kỳ mới nhất + KH còn trống (tham khảo), Đề nghị điều chỉnh anh gõ, Số dư nợ năm = KH + đề nghị; lưu `KHO1 'pb'.tt`; in tờ trình căn cứ QĐ gần nhất của tỉnh, danh mục chỉ CT có đề nghị (hoặc đủ CT); bản chụp đã in `pb.b09`.
+- **Không đổi:** Biểu 07 cũ (bản in y hệt — t253 · t256 đạt); `pb07Lap` chỉ tách hàm bọc cỡ chữ `pb07Boc` (dùng chung), `pb07OK` đọc danh sách ô theo mẫu đang chọn.
+- **Phép thử:** `tests/t381.js` (mới, 22).
+
 ## 3.493 — 07/11/2026 — Giao dịch xã: 8 mẫu GDX theo VB 4368
 - **Anh 07/11:** "các mẫu nào dựng nhanh đơn giản em cứ dựng theo đúng chuẩn gắn mẫu đã làm, mẫu 12 đã làm ổn rồi". VB 4368/HD-NHCS hiệu lực 01/10/2026 (Phụ lục II, 15 mẫu 01–15/GDX).
 - **Mẫu mới** (`js/26b-gdx-4368.js`, cắm vào js/26 qua `GDX_THEM`): 03/GDX Bảng kê theo dõi GDX (A4 ngang, 2 tờ — Phần II tờ 1 · tờ 2 chọn số dòng) · 06/GDX Giấy đề nghị tiếp quỹ kiêm tạm ứng tiền và thẻ TK · 07/GDX Nội dung phổ biến cho KH vay vốn (chữ cố định, SĐT PGD khai 1 lần) · 09/GDX Báo cáo thẻ TK tại điểm (A4 ngang) · 10/GDX Bảng kê kiểm quỹ cuối phiên · 11/GDX Biên bản thẻ TK hỏng, mất · 14/GDX Phiếu xuất kho · 15/GDX Phiếu nhập kho. Bố cục / chữ / cột theo mẫu trong VB; ô không có thông tin để chấm (dòng chấm tự lấp đủ chỗ, không tràn), không tự tạo số.

@@ -279,6 +279,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t378.js` | 3.489: Đ6 tab Tổ — ghi nhớ trong 1 lần vẽ (TO_KH_TAM) cho kết quả như không ghi nhớ; skNhomDH = công thức cũ. |
 | `node tests/t379.js` | 3.490: Word mẫu nền ô theo style bản in (canh, thụt, cỡ, giãn dòng cố định, khung Mẫu số, bảng không data-w); mẫu khác không đổi. |
 | `node tests/t380.js` | 3.493 Mẫu GDX theo VB 4368 (03, 06, 07, 09, 10, 11, 14, 15/GDX): chip mẫu, xem trước đúng Mẫu số + tiêu đề, dùng chung điểm / ngày GD / GDV · KSV · TT tổ GD với 12/GDX, ô trống để chấm, cảnh báo, nhật ký in, đếm trang khi in; mẫu cũ 04/TD · 12/GDX vẫn chạy. |
+| `node tests/t381.js` | 3.494 Phân bổ KH: 07/KH · 08/KH (QĐ 4686) cạnh Biểu 07 cũ — chọn mẫu, chữ mẫu, khớp QĐ, đủ các thôn, khai báo riêng tách Biểu 07, Word; 📤 Tờ trình 09/KH — cộng dồn QĐ, KH QĐ gần nhất, đề nghị lưu, số dư = KH + đề nghị, in 2 trang. |
 | (3.492) | `t358` Word 10A khóa trang (2 ngắt cứng, hàng Word − 0,5 mm). |
 | (3.491) | `t379` + 07b bảng theo cỡ chữ trên bảng, BBLV khối giữ liền. |
 | t366 (3.488) | + khung xem: .tr-nd không cắt mép trên (dấu chữ hoa dòng đầu), vẫn cắt mép dưới. |

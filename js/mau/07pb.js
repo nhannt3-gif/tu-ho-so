@@ -17,7 +17,8 @@ var PB07_O = [
   {k:'nguoiKy', n:'Người ký (dưới chữ ký)', ds:['cham', 'kb'], md:'cham'},
   {k:'noiNhan', n:'Nơi nhận', ds:['kb'], md:'kb', mau:'- Như trên;\n- Lưu VT, VP.', nhieu:1}];
 var PB07_CO = [13, 13.5, 14];
-function pb07OK(k){ for(var i=0;i<PB07_O.length;i++) if(PB07_O[i].k===k) return PB07_O[i]; return null; }
+function pb07DsO(){ var m = typeof PB07!=='undefined' && PB07.mau; return m && m!=='07pb' && typeof pbKHDsO==='function' ? pbKHDsO(m) : PB07_O; }   /* 3.494: hộp Biểu 07 đang ở mẫu 07/KH · 08/KH · 09/KH → ô khai báo của mẫu đó (js/mau/07kh.js) */
+function pb07OK(k){ var L = pb07DsO(); for(var i=0;i<L.length;i++) if(L[i].k===k) return L[i]; return null; }
 /* K = {cach, gt, go, co} (khai báo đang dùng — bản nháp của hộp Biểu 07) → cách hiệu lực của ô */
 function pb07Cach(K, k){ var x = pb07OK(k), c = ((K || {}).cach || {})[k]; return x && x.ds.indexOf(c)>=0 ? c : x ? x.md : 'cham'; }
 function pb07Ten0(dv){ return String((dv || {}).thuong || '').replace(/^(xã|phường|thị trấn)\s+/i, ''); }
@@ -25,7 +26,7 @@ function pb07Ten0(dv){ return String((dv || {}).thuong || '').replace(/^(xã|ph�
 function pb07GT(K, k, d){
   K = K || {}; var x = pb07OK(k), c = pb07Cach(K, k); if(!x) return '';
   var chung = function(){ return x.chung && typeof hsoPGD==='function' ? String(hsoPGD(x.chung) || '') : ''; };
-  var tu = function(){ return k==='noi' ? pb07Ten0(d && d.dv) : k==='ngayTB' ? pbNgayTB(d && d.ngayQD, (typeof pbDL==='function' ? pbDL().ch : {})) : ''; };
+  var tu = function(){ if(x.tuFn) return x.tuFn(d) || ''; return k==='noi' ? pb07Ten0(d && d.dv) : k==='ngayTB' ? pbNgayTB(d && d.ngayQD, (typeof pbDL==='function' ? pbDL().ch : {})) : ''; };
   if(c==='cham') return '';
   if(c==='tu') return tu();
   if(c==='chung') return chung();
@@ -70,15 +71,15 @@ function pb07Lap(d, K){
     '<p class="c b tr" style="margin-top:12pt">DANH MỤC '+loai+'</p><p class="c b">CHỈ TIÊU KẾ HOẠCH DƯ NỢ NGUỒN VỐN '+(d.nguon===2 ? 'ĐỊA PHƯƠNG' : 'TRUNG ƯƠNG')+'</p><p class="c b">NĂM '+nam+'</p>'+
     P('(Kèm theo Thông báo số '+soT2+'/TB-UBND ngày '+ngTB+' của Chủ tịch UBND '+dvT+')', 'c i s13 tr')+P('Đơn vị: triệu đồng', 'r i tr')+
     hsoBang('luoi pb07-bang', [13, 83, 32, 32], hang+'</tbody>');
-  var co = pb07CoChu(K);
-  var boc = function(h){   /* cỡ chữ thân: gắn cho từng đoạn / bảng chưa có cỡ riêng (lớp om-co + font-size) — bộ xuất Word chung (hsoDocx) đọc cỡ theo đoạn / bảng, không theo khung bọc */
+  return [{M:PB07_M, h:pb07Boc(t1, K)}, {M:PB07_M, h:pb07Boc(t2, K)}];
+}
+function pb07Boc(h, K){ var co = pb07CoChu(K);   /* 3.494: tách từ pb07Lap (dùng chung 07/KH · 08/KH · 09/KH) — không đổi kết quả */   /* cỡ chữ thân: gắn cho từng đoạn / bảng chưa có cỡ riêng (lớp om-co + font-size) — bộ xuất Word chung (hsoDocx) đọc cỡ theo đoạn / bảng, không theo khung bọc */
     h = h.replace(/<(p|table)(\s[^>]*)?>/g, function(m, the, at){ at = at || ''; var lop = (at.match(/class="([^"]*)"/) || [])[1] || '';
       if(/(^| )s\d+( |$)/.test(lop)) return m;
       var st = (at.match(/style="([^"]*)"/) || [])[1] || ''; at = at.replace(/\s*class="[^"]*"/, '').replace(/\s*style="[^"]*"/, '');
       return '<'+the+' class="'+(lop ? lop+' ' : '')+'om-co" style="font-size:'+co+'pt;'+st+'"'+at+'>'; });
     if(typeof omChamMin==='function') h = omChamMin(h);   /* 3.303: dòng chấm nhỏ mịn như các mẫu đã chốt (Word cỡ nhỏ theo tỉ lệ) */
-    return '<div class="om-co pb07" style="font-size:'+co+'pt">'+h+'</div>'; };
-  return [{M:PB07_M, h:boc(t1)}, {M:PB07_M, h:boc(t2)}];
+    return '<div class="om-co pb07" style="font-size:'+co+'pt">'+h+'</div>'; 
 }
 function pbNgayVN(iso){ var m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})/); return m ? m[3]+'/'+m[2]+'/'+m[1] : ''; }
 /* nhiều xã → 1 bản in / 1 file Word (mỗi xã 2 trang) */

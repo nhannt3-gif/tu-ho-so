@@ -3494,6 +3494,8 @@ table.hm-so{min-width:1476px}
 /* 3.301 🎯 Biểu 07 — khai báo riêng · 🔎 đối chiếu chéo */
 .pb07-kb{border:1px solid var(--vien,#ddd);border-radius:8px;padding:6px 8px;margin:6px 0}
 .pb07-kb.pb07-gon{border-style:dashed}
+/* 3.494: 📤 Tờ trình 09/KH */
+.pb-tt td.so,.pb-tt th{text-align:right;white-space:nowrap}.pb-tt th:first-child,.pb-tt td:first-child{text-align:left;white-space:normal}.pb-tt .gd-o{width:7.5em;text-align:right}.pb-tt td.do{color:var(--do,#c62828)}
 .pb07-dong{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;padding:3px 0;border-bottom:1px dotted var(--vien,#e3e3e3)}
 .pb07-dong:last-child{border-bottom:0}
 .pb07-ten{min-width:190px;font-weight:600}

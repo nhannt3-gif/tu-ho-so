@@ -52,7 +52,7 @@ function pbKhung(loi){
 
 /* ---------- 3.308 (anh 21/10 "tab phân bổ còn hiện chung các chức năng hơi rối … thanh tab ngang"): THANH TAB NGANG 4 MỤC — 📋 Quyết định · ⚙ Phân bổ · Biểu 07 · 📈 Diễn biến · 🔎 Đối chiếu
    mỗi mục 1 màn dùng hết vùng làm việc (CSS .pb-bo.muc-…); nhớ mục (D.cauHinh.pbMuc); phím 1 – 4; số đỏ trên Đối chiếu = số nhóm lệch (tính nhanh theo cách chia tương đối) */
-var PB_MUC = [['qd', '📋 Quyết định'], ['', '⚙ Phân bổ · Biểu 07'], ['db', '📈 Diễn biến'], ['dc', '🔎 Đối chiếu']];
+var PB_MUC = [['qd', '📋 Quyết định'], ['', '⚙ Phân bổ · Biểu 07'], ['db', '📈 Diễn biến'], ['dc', '🔎 Đối chiếu'], ['tt', '📤 Tờ trình 09/KH']];   /* 3.494: + Tờ trình điều chỉnh (js/48c) */
 function pbDCLechNhanh(){ try { var nam = pbDCNam()[0], ch = pbDL().ch; if(!nam) return 0;
     return pbDoiChieu(pbDL().qd, nam, function(q){ var xaO = PB.xa[q.xa]; return xaO && xaO.ap.length ? pbPhanBo(q, {cheDo:'td', ap:xaO.ap, ch:ch}) : null; }, null, ch.nguongLech).tong.loi; } catch(e){ return 0; } }
 function pbThanhHTML(){ var soQD = pbNhom().length, lech = pbDCLechNhanh();
@@ -61,7 +61,7 @@ function pbThanhHTML(){ var soQD = pbNhom().length, lech = pbDCLechNhanh();
       (m[0]==='qd' ? ' <small>'+soQD+'</small>' : m[0]==='dc' && lech ? ' <span class="pb-thanh-so" title="Số nhóm xã · CT · nguồn đang lệch">'+lech+'</span>' : '')+'</button>'; }).join('')+'</div>'; }
 function pbDoiMuc(v){ PB.che = v || ''; D.cauHinh.pbMuc = PB.che; if(typeof luu==='function') luu(); pbKhung(); }
 document.addEventListener('keydown', function(ev){   /* phím 1 – 4 chuyển mục (không khi đang gõ / mở hộp) */
-  if(typeof nganHienTai==='undefined' || nganHienTai!==7 || D.cauHinh.slTab!=='pb' || ev.ctrlKey || ev.altKey || ev.metaKey || !/^[1-4]$/.test(ev.key)) return;
+  if(typeof nganHienTai==='undefined' || nganHienTai!==7 || D.cauHinh.slTab!=='pb' || ev.ctrlKey || ev.altKey || ev.metaKey || !/^[1-5]$/.test(ev.key)) return;
   var a = document.activeElement, hop = document.getElementById('hop'); if(a && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName) || hop && hop.classList.contains('hien')) return;
   if(!document.querySelector('.pb-thanh')) return; ev.preventDefault(); pbDoiMuc(PB_MUC[+ev.key-1][0]); });
 
@@ -99,6 +99,7 @@ function pbCheDo(){ return PB.cheDo || (pbDL().ch.cheDo==='cx' ? 'cx' : 'td'); }
 function pbVePhai(){
   if(PB.che==='dc') return pbDCVe();
   if(PB.che==='db') return pbDBVe();
+  if(PB.che==='tt') return pbTTVe();   /* 3.494 — js/48c */
   var o = document.getElementById('pb-phai'); if(!o) return;
   if(PB.che==='qd') return pbQDXem();   /* 3.465: xem QĐ 2 kiểu */
   var q = pbQDChon(), chonQD = '<div class="gd-hang pb-chon-qd"><label class="gd-kv"><span>QĐ · xã</span><select data-lenh="pb.chonSel" data-su="change"><option value="">— chọn —</option>'+pbNhom().map(function(g){ return g.ds.map(function(x){
@@ -398,10 +399,14 @@ function pbGiuO(ve){
 }
 
 /* ---------- 3.289 P3: BIỂU 07 (QT-16 — chỉ xuất khi khớp QĐ) · xem trước / In / PDF / Word · 1 xã hoặc mọi xã của QĐ ---------- */
-var PB07 = {dl:[], bo:[], canh:[], K:null, kbMo:false, x:null};
+var PB07 = {dl:[], bo:[], canh:[], K:null, kbMo:false, x:null, mau:'07pb', du:false};   /* 3.494: mau = '07pb' Biểu 07 cũ · '07kh' · '08kh' (js/mau/07kh.js) · '09kh' Tờ trình (js/48c); du = đủ các thôn / đủ CT */
+var PB07_MAU = [['07pb', 'Biểu 07 (TB UBND — mẫu cũ)', 'Thông báo của UBND xã gửi Trưởng các ấp — giữ để in lại QĐ trước QĐ 4686'], ['07kh', '07/KH QĐ Ban Đại diện xã', 'QĐ 4686: Ban Đại diện HĐQT xã giao (điều chỉnh) chỉ tiêu cho các thôn'],
+  ['08kh', '08/KH QĐ Giám đốc PGD', 'QĐ 4686: Giám đốc PGD điều chỉnh giữa các thôn khi Ban Đại diện xã có Nghị quyết giao']];
+function pb07KBKhoa(){ return PB07.mau && PB07.mau!=='07pb' ? 'bKH' : 'b07'; }   /* 3.494: khai báo riêng Biểu 07 cũ (ch.b07) tách khỏi 3 mẫu mới (ch.bKH) */
+function pb07TenMau(){ return PB07.mau==='07pb' ? 'Biểu 07' : PBKH_M[PB07.mau].ma; }
 function pb07NutHTML(q, chan){
   var g = pbNhom().filter(function(x){ return x.k===PB.chon.khoa; })[0], n = g ? g.ds.length : 1;
-  return GD.hang([GD.nut({chu:'👁 Biểu 07 — '+coChuHTML(q.tenXa || q.xa), lenh:'pb.b07', chinh:1, tat:chan, tit:chan ? 'Chưa khớp QĐ — sửa các dòng đỏ trước' : 'Xem trước, In / PDF / Word Biểu 07 của xã này'})]
+  return GD.hang([GD.nut({chu:'👁 Biểu 07 · 07/KH · 08/KH — '+coChuHTML(q.tenXa || q.xa), lenh:'pb.b07', chinh:1, tat:chan, tit:chan ? 'Chưa khớp QĐ — sửa các dòng đỏ trước' : 'Xem trước, In / PDF / Word của xã này — chọn mẫu ở đầu hộp: Biểu 07 cũ · 07/KH · 08/KH (QĐ 4686)'})]
     .concat(n>1 ? [GD.nut({chu:'📦 Biểu 07 mọi xã của QĐ ('+n+')', lenh:'pb.b07Het', tit:'1 bản in / 1 file Word cho mọi xã của QĐ (cùng cách chia) — xã chưa khớp QĐ bỏ qua + báo'})] : []));
 }
 /* kết quả phân bổ từng xã: xã đang xem dùng bảng trên màn hình (giữ sửa tay); xã khác chia lại theo cách chia đang chọn */
@@ -429,6 +434,7 @@ function pb07Mo(tatCa){
     if(!r.dl.length) return baoLoi('Chưa xuất được Biểu 07 — chưa khớp QĐ (QT-16):\n'+r.bo.join('\n'));
     var am = r.dl.filter(function(d){ return d.coAm.length; });
     if(am.length && !confirm('Có ấp chỉ tiêu năm ÂM ('+am.map(function(d){ return d.dv.thuong+' — CT '+d.coAm.join(', '); }).join('; ')+'). Vẫn xuất Biểu 07?')) return;
+    var ch0 = pbDL().ch; PB07.mau = ['07pb', '07kh', '08kh'].indexOf(ch0.b07Mau)>=0 ? ch0.b07Mau : '07pb'; PB07.du = !!ch0.b07Du;   /* 3.494: nhớ mẫu chọn lần trước */
     PB07.dl = r.dl; PB07.bo = r.bo; PB07.canh = r.canh; PB07.K = pb07KBMoi(); PB07.kbMo = false;   /* khai báo riêng: bản nháp từ bản đã lưu — đóng hộp mà chưa 💾 Lưu = bỏ */
     var d0 = r.dl[0];
     moHop('<div class="hop-tit">📄 Biểu 07 — QĐ '+coChuHTML(d0.so)+' · '+pbNgay(d0.ngayQD)+' · '+(d0.nguon===2 ? 'ĐP' : 'TW')+' · '+r.dl.length+' xã</div><div id="pb07-dau"></div>'+
@@ -437,11 +443,11 @@ function pb07Mo(tatCa){
   }, function(er){ tatChay(); baoLoi(er && er.message || String(er)); });
 }
 /* ---------- 3.301: ⚙ KHAI BÁO RIÊNG Biểu 07 (ô kiểu nền ô — js/mau/07pb.js PB07_O) · lưu KHO1 'pb' → ch.b07 = {cach, gt, co}; ✏ gõ trong lần làm (K.go) không lưu ---------- */
-function pb07KBLuu0(){ var b = pbDL().ch.b07 || {}; return {cach:Object.assign({}, b.cach || {}), gt:Object.assign({}, b.gt || {}), co:pb07CoChu(b)}; }
+function pb07KBLuu0(){ var b = pbDL().ch[pb07KBKhoa()] || {}; return {cach:Object.assign({}, b.cach || {}), gt:Object.assign({}, b.gt || {}), co:b.co || pb07KBKhoa()==='b07' ? pb07CoChu(b) : 13.5}; }   /* 3.494: mẫu QĐ 07/KH dài hơn Thông báo cũ → mặc định 13,5 cho vừa 1 trang */
 function pb07KBMoi(){ var K = pb07KBLuu0(); K.go = {}; return K; }
 function pb07KBChuan(K){ var t = function(o){ o = o || {}; return Object.keys(o).sort().filter(function(k){ return o[k]!=='' && o[k]!=null; }).map(function(k){ return k+'='+o[k]; }).join('|'); }; return t(K.cach)+'#'+t(K.gt)+'#'+pb07CoChu(K); }
 function pb07KBDoi(){ return !!PB07.K && pb07KBChuan(PB07.K)!==pb07KBChuan(pb07KBLuu0()); }
-function pb07KBLuu(){ var d = pbDL(), K = PB07.K; if(!K) return; d.ch.b07 = {cach:Object.assign({}, K.cach), gt:Object.assign({}, K.gt), co:pb07CoChu(K)}; pbGhi(d); bao('Đã lưu khai báo riêng Biểu 07.', 3); pb07Ve(); }
+function pb07KBLuu(){ var d = pbDL(), K = PB07.K; if(!K) return; d.ch[pb07KBKhoa()] = {cach:Object.assign({}, K.cach), gt:Object.assign({}, K.gt), co:pb07CoChu(K)}; pbGhi(d); bao('Đã lưu khai báo riêng '+pb07TenMau()+'.', 3); pb07Ve(); }
 function pb07KBHuy(){ var go = (PB07.K || {}).go || {}; PB07.K = pb07KBLuu0(); PB07.K.go = go; pb07Ve(); }
 function pb07ORow(x){   /* 1 dòng ô: tên · các cách · ô gõ (⌨ / ✏) · đang in · ↺ */
   var K = PB07.K, d0 = PB07.dl[0], c = pb07Cach(K, x.k), v = pb07GT(K, x.k, d0), o = '';
@@ -456,26 +462,29 @@ function pb07ORow(x){   /* 1 dòng ô: tên · các cách · ô gõ (⌨ / ✏) 
     GD.nut({chu:'↺', lenh:'pb.b07KM', du:{k:x.k}, tit:'Ô này về mặc định ('+PB07_CACH[x.md][1]+')', lop:'pb-nho'})+'</div>';
 }
 function pb07KBHTML(){ var K = PB07.K, doi = pb07KBDoi();
-  return '<div class="pb07-kb"><div class="th-nhom-ten"><b>⚙ Khai báo riêng — Biểu 07</b> <small>chỉ mẫu này dùng; ⚙ chung = ⚙ Khai báo đơn vị › PGD</small></div>'+
-    PB07_O.map(pb07ORow).join('')+
+  return '<div class="pb07-kb"><div class="th-nhom-ten"><b>⚙ Khai báo riêng — '+pb07TenMau()+'</b> <small>'+(PB07.mau==='07pb' ? 'chỉ mẫu này dùng' : 'dùng chung 07/KH · 08/KH · 09/KH')+'; ⚙ chung = ⚙ Khai báo đơn vị › PGD</small></div>'+
+    pb07DsO().map(pb07ORow).join('')+
     '<div class="pb07-dong"><span class="pb07-ten">Cỡ chữ thân</span>'+PB07_CO.map(function(v){ return GD.chip(String(v).replace('.', ','), pb07CoChu(K)===v, 'pb.b07Co', {v:v}); }).join('')+'</div>'+
     GD.hang([GD.nut({chu:'💾 Lưu', lenh:'pb.b07KLuu', chinh:1, tat:!doi, tit:'Lưu khai báo riêng (đồng bộ Drive)'}), GD.nut({chu:'✕ Hủy', lenh:'pb.b07KHuy', tat:!doi, tit:'Trả lại như lần lưu trước'}),
       doi ? '<span class="vang">● chưa lưu — đóng hộp là bỏ</span>' : '<span class="sl-phu">đã lưu</span>'])+'</div>'; }
 function pb07Ve(){
   var dau = document.getElementById('pb07-dau'); if(!dau || !PB07.dl.length) return;
-  var K = PB07.K || (PB07.K = pb07KBMoi()), ten = pb07Ten(PB07.dl);
-  dau.innerHTML = GD.hang([GD.nut({chu:'⚙ Khai báo riêng'+(pb07KBDoi() ? ' ●' : ''), lenh:'pb.b07KB', lop:PB07.kbMo ? 'bat' : '', tit:'Nơi lập, tỉnh, số / ngày thông báo, chức danh ký, người ký, nơi nhận, cỡ chữ — riêng Biểu 07'})])+
-    (PB07.kbMo ? pb07KBHTML() : '<div class="pb07-kb pb07-gon">'+pb07ORow(pb07OK('ngayTB'))+'</div>')+
-    '<div class="sl-phu">'+PB07.dl.map(function(d){ return coChuHTML(d.dv.thuong)+' ('+d.ap.length+' '+d.dv.apKp+')'; }).join(' · ')+'</div>'+
+  var K = PB07.K || (PB07.K = pb07KBMoi()), m = PB07.mau, cu = m==='07pb', ten = cu ? pb07Ten(PB07.dl) : pbKHTen(PB07.dl, m);
+  dau.innerHTML = (m==='09kh' ? '' : GD.hang(['<span class="sl-phu">Mẫu:</span>'].concat(PB07_MAU.map(function(x){ return GD.chip(x[1], m===x[0], 'pb.b07Mau', {v:x[0]}, x[2]); }))))+   /* 3.494 */
+    (cu ? '' : GD.hang(['<span class="sl-phu">'+(m==='09kh' ? 'Chương trình:' : 'Thôn:')+'</span>', GD.chip(m==='09kh' ? 'có đề nghị điều chỉnh' : 'có tăng / giảm', !PB07.du, 'pb.b07Du', {v:''}),
+      GD.chip(m==='09kh' ? 'đủ chương trình' : 'đủ các thôn', PB07.du, 'pb.b07Du', {v:'1'})]))+
+    GD.hang([GD.nut({chu:'⚙ Khai báo riêng'+(pb07KBDoi() ? ' ●' : ''), lenh:'pb.b07KB', lop:PB07.kbMo ? 'bat' : '', tit:'Nơi lập, số / ngày, người ký, nơi nhận, cỡ chữ — riêng '+pb07TenMau()})])+
+    (PB07.kbMo ? pb07KBHTML() : '<div class="pb07-kb pb07-gon">'+pb07ORow(pb07OK(cu ? 'ngayTB' : m==='09kh' ? 'khNgayTT' : 'khNgay'))+'</div>')+
+    '<div class="sl-phu">'+PB07.dl.map(function(d){ return coChuHTML(d.dv.thuong)+(m==='09kh' ? ' ('+d.ct.length+' CT)' : ' ('+(PB07.du && !cu ? d.apDu : d.ap).length+' '+d.dv.apKp+')'); }).join(' · ')+'</div>'+
     (PB07.bo.length ? '<div class="sl-bao do">✗ Bỏ qua (chưa khớp QĐ):<br>'+PB07.bo.map(coChuHTML).join('<br>')+'</div>' : '')+
     (PB07.canh.length ? '<div class="sl-bao vang">⚠ '+PB07.canh.map(coChuHTML).join('<br>⚠ ')+'</div>' : '');
-  PB07.x = pb07Trang(PB07.dl, K, ten); PB07.x.ten = ten;
+  PB07.x = cu ? pb07Trang(PB07.dl, K, ten) : pbKHTrang(PB07.dl, K, ten, m, PB07.du); PB07.x.ten = ten;
   var n = document.getElementById('pb07-nut'); if(n) n.innerHTML = xuatHang({ten:ten, html:function(){ return PB07.x.trang; }, 'in':'pb07Xuat(\'in\')', pdf:'pb07Xuat(\'pdf\')', word:'pb07Word()'});
   xemChuan(document.getElementById('pb07-khung'), PB07.x.trang);
 }
 /* 3.308 (phản biện 1, anh "theo em"): lưu BẢN CHỤP NHẸ Biểu 07 đã xuất (số từng ấp, lúc xuất, cách) — tra lại khi cần; KHO1 'pb'.b07, tối đa 300 bản */
-function pb07Luu(kieu){ var d = pbDL(); d.b07 = Array.isArray(d.b07) ? d.b07 : [];
-  PB07.dl.forEach(function(x){ d.b07.unshift({luc:new Date().toISOString(), kieu:kieu, so:x.so, kyHieu:x.kyHieu, ngayQD:x.ngayQD, nguon:x.nguon, xa:x.dv.thuong, ap:x.ap.map(function(a){ return {ten:a.ten, ds:a.ds.map(function(c){ return [c.ma, c.dc, c.nam]; })}; })}); });
+function pb07Luu(kieu){ if(PB07.mau==='09kh') return pb09Luu(kieu); var d = pbDL(); d.b07 = Array.isArray(d.b07) ? d.b07 : [];
+  PB07.dl.forEach(function(x){ d.b07.unshift({luc:new Date().toISOString(), kieu:kieu, mau:PB07.mau, so:x.so, kyHieu:x.kyHieu, ngayQD:x.ngayQD, nguon:x.nguon, xa:x.dv.thuong, ap:x.ap.map(function(a){ return {ten:a.ten, ds:a.ds.map(function(c){ return [c.ma, c.dc, c.nam]; })}; })}); });
   d.b07 = d.b07.slice(0, 300); pbGhi(d); }
 function pb07DaXuat(q){ var tx = pbDonVi(q.tenXa || q.xa).thuong, b = (pbDL().b07 || []).filter(function(x){ return x.so===String(q.so || '').trim() && x.ngayQD===String(q.ngay).slice(0, 10) && x.xa===tx; })[0];
   return b ? pbNgay(b.luc.slice(0, 10)).slice(0, 5)+' '+b.luc.slice(11, 16)+' ('+({word:'Word', 'in':'In', pdf:'PDF'}[b.kieu] || b.kieu)+')' : ''; }
@@ -850,6 +859,8 @@ GD.dangKy('pb', {
   b07:function(){ pb07Mo(false); },
   b07Het:function(){ pb07Mo(true); },
   b07KB:function(){ PB07.kbMo = !PB07.kbMo; pb07Ve(); },
+  b07Mau:function(el){ var v = el.getAttribute('data-v'), d = pbDL(); if(PB07.mau===v) return; PB07.mau = v; d.ch.b07Mau = v; pbGhi(d); var go = (PB07.K || {}).go; PB07.K = pb07KBMoi(); if(go && v!=='07pb') PB07.K.go = go; pb07Ve(); },   /* 3.494 */
+  b07Du:function(el){ var v = el.getAttribute('data-v')==='1', d = pbDL(); PB07.du = v; if(PB07.mau!=='09kh'){ d.ch.b07Du = v; pbGhi(d); } pb07Ve(); },
   b07KC:function(el){ var K = PB07.K, k = el.getAttribute('data-k'); if(!K) return; K.cach[k] = el.getAttribute('data-v'); pb07Ve(); },
   b07KG:function(el){ var K = PB07.K, k = el.getAttribute('data-k'), x = pb07OK(k); if(!K || !x) return;
     if(pb07Cach(K, k)==='go'){ var v = el.value;
