@@ -8456,6 +8456,37 @@
 "tests/tv.js": "f4af9b5eed49"
 }
 },
+"t380": {
+"ban": "3.496",
+"ngay": "2026-11-07",
+"kq": "✓ in trọn trang: 03/GDX 2 tờ, các mẫu khác 1 trang",
+"dau": {
+"index.html": "73028c0d62b2",
+"js/01-thu-vien.js": "abded1d0bd36",
+"js/02-nen.js": "9315af859cc5",
+"js/04-giao-dien.js": "9e14a7455042",
+"js/06-hop-thoai.js": "493081e36695",
+"js/06a-dong-bo-cai-dat.js": "da86ae4c3fa9",
+"js/11-khung-tab.js": "792402c16094",
+"js/17-dong-bo-cai-dat.js": "58164457cbbe",
+"js/20-khoi-dong.js": "a2b783e74d8a",
+"js/22-so-lieu.js": "fb0147f4c0ec",
+"js/22f-tra-cuu.js": "3338948f4ccb",
+"js/22g-to.js": "89203fa9b4d2",
+"js/22ga-pham-vi.js": "f4b3a20f7b45",
+"js/23-dieu-huong.js": "cd3896629e17",
+"js/26-giao-dich-xa.js": "051d10577eb8",
+"js/29-kho.js": "e83c37d061fb",
+"js/34-luu-ngan.js": "f89bc1a098e1",
+"js/36-dong-bo-khoi.js": "8d85249fa8aa",
+"js/39-gd.js": "89398f5cf42b",
+"js/69-bo-cuc-a.js": "c908dabd7872",
+"js/73-kho-chuan.js": "8e0c13f7f303",
+"tests/t380.js": "b0fbec206d7c",
+"tests/taogia.py": "fa24b10b1352",
+"tests/tv.js": "f4af9b5eed49"
+}
+},
 "t381": {
 "ban": "3.495",
 "ngay": "2026-11-07",
