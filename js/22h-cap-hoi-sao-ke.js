@@ -111,6 +111,9 @@ function toDiaChi(t){
 }
 /* gom số theo khách của tổ (món theo dòng chính, 105 = số lớn nhất mỗi khách kể cả dòng lặp) */
 function toKhach(t){   /* 3.381: đọc qua KHO CHUẨN (js/73 kcTo) — kết quả như cũ */
+  var T = TO_KH_TAM && TO_KH_TAM.K===KHO.kyDung() ? TO_KH_TAM.m : null; if(T && T[t.ma]) return T[t.ma];   /* 3.489: trong 1 lần vẽ thẻ tổ (toVeThe) — không tính lại */
+  var r = toKhach0(t); if(T) T[t.ma] = r; return r; }
+function toKhach0(t){
   var x = typeof kcTo==='function' ? kcTo(KHO.kyDung(), t.ma) : {dong:KHO.kyDung().kh[t.ma] || [], lap:(KHO.kyDung().lap || []).filter(function(o){ return o.to===t.ma; })};
   var ds = x.dong, lap = {}, kh = {};
   x.lap.forEach(function(o){ (lap[o.kh] = lap[o.kh]||[]).push(o); });
@@ -510,8 +513,10 @@ function skCQH(o){
 function skCQHChu(o){ var c = skCQH(o); if(!c.d) return '(chưa có)';
   return ngayVNsl(c.d)+(c.cach==='tinh' ? ' (tính)' : c.cach==='tt' ? ' (trực tiếp)' : '')+(c.lech ? ' ⚠ điểm hiện tại: '+ngayVNsl(c.tinh) : ''); }
 function skNhomDH(o, tu, den, ns){
-  var hl = skHL(o), gd = skCQH(o).d;
+  var hl = skHL(o);
   if(!hl) return 0;
+  if(hl>ns && !(hl>=tu && hl<=den)) return 0;   /* 3.489 (Đ6): đến hạn ngoài 2 nhánh dưới → 0 ngay, khỏi tính ngày chuyển QH (kết quả như cũ) */
+  var gd = skCQH(o).d;
   if(hl<=ns && gd>ns && gd>=tu) return 1;
   if(hl>=tu && hl<=den) return (!gd || gd<=den) ? 2 : 3;   /* chưa có ngày GDXA → tính trong kỳ (ô Chuyển QH ghi “chưa có”) */
   return 0;

@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.489 — 06/11/2026 — Tab Tổ mở lần đầu dưới 300 ms (TK 2, Đ6 kế hoạch dọn)
+- **Kế hoạch dọn** (`docs/KE_HOACH_DON_NEN.md` mục 8, anh duyệt 04/11 làm tuần tự; anh 06/11 "gộp rồi làm tiếp"): Đ6 còn thiếu — tab Tổ lần đầu ~350 ms (3.477), mục tiêu < 300 ms.
+- **Đo** (máy ảo, bộ giả 25.000 khách `tests/gia31`, mở tab Tổ cấp PGD): lần đầu `toKhach` mỗi tổ bị tính **2 lần** (danh sách tổ viên phạm vi `toTVPV` + bảng số PGD `toSoTo`); `skNhomDH` luôn tính ngày chuyển QH (phiên điểm GD) kể cả món đến hạn còn xa; hạn CCCD mỗi khách tính 2 lần.
+- **Sửa:** ghi nhớ CHỈ trong 1 lần vẽ thẻ tổ (`TO_KH_TAM`, js/22gb `toVeThe` → `toVeThe0`; js/22h `toKhach` → `toKhach0`; js/22g `toCCCDHan` → `toCCCDHan0`) — xong lần vẽ là bỏ, không giữ số sang lần sau (lý do TK 3 không ghi nhớ lâu dài vẫn giữ). `skNhomDH` (js/22h): đến hạn ngoài 2 nhánh → 0 ngay (đổi thứ tự xét, kết quả như cũ).
+- **Kết quả** (cùng máy, 3 lượt): lần đầu **312–333 → 173–273 ms**; các lần sau ~120–140 ms như cũ. **So cũ ↔ mới:** HTML tab Tổ cấp PGD, cấp xã, 4 tổ giống hệt từng ký tự.
+- **Sửa lỗi có từ 3.474–3.476** (hồi quy đủ phát hiện ở `t147`, `t229` — có cả trên 3.488): menu nhỏ `moMenuTL` (js/11) gọi qua `data-lenh` → `ev.currentTarget` là cả trang → "getBoundingClientRect is not a function", menu không định vị được; nay lấy đúng nút được bấm.
+- Phép thử mới `t378` (có / không ghi nhớ bằng nhau 60 tổ; `skNhomDH` = công thức cũ 301 món × 3 mốc kỳ). Hồi quy đủ.
+
 ## 3.488 — 06/11/2026 — Khung xem trước: mất dấu chữ HOA dòng đầu trang (TK 3)
 - **Anh 06/11** (ảnh khung xem BBLV: "CONG HOA XA HOI CHU NGHIA VIET NAM"): "in ra có dấu đầy đủ, em xem lại bản view, nêu lõi sửa cho chuẩn".
 - **Lõi:** bộ in chuẩn (js/05, `TR_CSS`) đặt vùng nội dung mỗi trang `.tr-nd` là `overflow:hidden`, mép trên đúng bằng đầu dòng thứ nhất. Dấu trên chữ HOA (Ộ, Ò, Ã, Ủ, Ĩ, Ệ) nhô cao hơn khoảng dòng (dòng 1,15) → phần nhô bị cắt. Trên máy Windows (phông Times New Roman, chỉ số ascent thấp hơn phông Linux) dấu mất hẳn ở khung xem; bản in không cắt nên vẫn đủ dấu. Dòng chữ thường (Độc lập…) và tiêu đề có lề trên không bị.

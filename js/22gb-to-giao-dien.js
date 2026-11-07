@@ -40,7 +40,9 @@ function toTim(){
     : '<div class="rong">Không thấy tổ khớp “'+coChuHTML(TO_Q)+'”.</div>';
 }
 /* 3.92: tổ đang chọn → thẻ gọn + danh sách tổ viên có lọc + báo cáo; chưa chọn tổ (đã chọn xã) → bảng các tổ trong phạm vi */
-function toVeThe(){
+/* 3.489 (Đ6 kế hoạch dọn): 1 lần vẽ thẻ tổ — toKhach mỗi tổ tính 1 lần (danh sách tổ viên phạm vi + bảng số PGD dùng chung), xong lần vẽ là bỏ (không giữ số sang lần sau) */
+function toVeThe(){ TO_KH_TAM = {K:KHO.kyDung(), m:{}}; try { return toVeThe0(); } finally { TO_KH_TAM = null; } }
+function toVeThe0(){
   toDK();
   var o = document.getElementById('to-the'); if(!o) return;
   var C = toCH(), t = KHO.kyDung() && KHO.kyDung().to[C.to];

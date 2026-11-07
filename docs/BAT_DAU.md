@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.488** — TK 3 (vai App chính): khung xem trước không mất dấu chữ HOA dòng đầu (bộ in chuẩn js/05). Trạng thái: `docs/nhat_ky/APP.md`.
+- **`main` = 3.489** — TK 2: Đ6 tab Tổ mở lần đầu < 300 ms (ghi nhớ trong 1 lần vẽ). Trước: 3.488 TK 3 khung xem không cắt dấu chữ HOA.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
