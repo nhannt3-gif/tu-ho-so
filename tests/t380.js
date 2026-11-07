@@ -21,7 +21,7 @@ const fs=require('fs'), path=require('path');
    const MOI = {g03:['03/GDX', 'BẢNG KÊ THEO DÕI GIAO DỊCH XÃ'], g06:['06/GDX', 'GIẤY ĐỀ NGHỊ TIẾP QUỸ'], g07:['07/GDX', 'Phổ biến cho khách hàng vay vốn'], g09:['09/GDX', 'BÁO CÁO THẺ TIẾT KIỆM TẠI ĐIỂM GIAO DỊCH'],
      g10:['10/GDX', 'BẢNG KÊ KIỂM QUỸ CUỐI PHIÊN GIAO DỊCH'], g11:['11/GDX', 'BIÊN BẢN XÁC ĐỊNH THẺ TIẾT KIỆM HỎNG, MẤT'], g14:['14/GDX', 'PHIẾU XUẤT KHO'], g15:['15/GDX', 'PHIẾU NHẬP KHO']};
    const chip = [...document.querySelectorAll('.gdx2-mau .gdx-c')].map(e=>e.textContent);
-   ok('8 chip mẫu mới ở dải mẫu (sau 5 mẫu cũ)', Object.keys(MOI).every(k=>chip.some(t=>t.indexOf(MOI[k][0])>=0)) && chip.length===13, chip.length);
+   ok('8 chip mẫu mới ở dải mẫu (sau 5 mẫu cũ)', Object.keys(MOI).every(k=>chip.some(t=>t.indexOf(MOI[k][0])>=0)) && chip.length===14, chip.length);   /* 3.496: + 📘 Nhiệm vụ Tổ giao dịch */
    const kq = {};
    for(const k of Object.keys(MOI)){ gdxDoiMau(k); await w(350);
      const t = chu(fd().body.innerHTML).toUpperCase();
