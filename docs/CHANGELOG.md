@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.501 — 08/11/2026 — Rà tổng thể 3.480–3.500 theo QUY_CHUAN + hồi quy định kỳ (TK 2)
+- **Anh 08/11** chọn "Rà tổng thể + hồi quy định kỳ".
+- **Lỗi thật (sửa):** hộp 15/TD · 03/BB-CX (js/56b) đóng rồi mở lại không hiện — `dongHop` chỉ ẩn hộp, khung cũ còn trong trang nên `kt7Hop` tưởng hộp đang mở. Nay mở lại khi hộp đã đóng hoặc đổi mẫu. Đã tìm cùng kiểu ở chỗ khác: không có.
+- **§11 bàn phím:** khai báo cán bộ hộp 03 dùng bộ phím chung (`phim-chung`: Enter / Tab sang ô kế); đổi ô chỉ dựng lại bản xem, không vẽ lại khung khai báo (giữ con trỏ).
+- **Rà, không phải sửa:** onclick mới 0 (dòng 22e là dòng cũ tách ra); style trong chuỗi chỉ ở khuôn in (mm — như các mẫu cũ); mẫu không gọi mẫu khác; số liệu qua KHO (đọc thẳng biến kho 0, bảng gốc 0); gói mới cắm rút (`typeof`). §18: 3.498 đổi 02/BG sang `KHO.doiChieu` — `hsoTVTo` vốn = `KHO.toVien` nên kết quả không đổi; `hsoCTMon` → `ctTenMon` cùng thân (dùng ở 25, 25b, mẫu 06a, 09a, 0hsn).
+- Phép thử t383: + bàn phím hộp 03 + mở lại sau khi đóng (20/20).
+
 ## 3.500 — 08/11/2026 — KTGS: khối riêng 🏛 Hội cấp xã cho 03/BB-CX (TK 2)
 - **Anh 08/11** "mẫu 03 là kiểm tra Hội nên phải trên cấp tổ, em riêng ra cho dễ kiếm" — anh chọn: khối riêng thứ 4, bỏ nút 03 ở cấp tổ.
 - Thanh khối KTGS: 📅 Bắt buộc · 🎯 Đột xuất · **🏛 Hội cấp xã** · ⚙ Khai báo (`che = 'hx'`; `ktCheDo`, `ktKhoi`, `ktKhoiHTML`, `ktVeThe` thêm 1 nhánh, gói 56b cắm rút — kiểm `typeof kt7HXVe`).

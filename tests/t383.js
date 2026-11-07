@@ -85,6 +85,11 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
  ok('Mẫu 04 (Bắt buộc): không còn nút 03/BB-CX (đã dời lên khối Hội cấp xã)', r.bc03);
  ok('mẫu KTGS cũ (Mẫu 16) vẫn dựng', r.m16);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));
+ /* §11 bàn phím: hộp 03 — gõ tên cán bộ, Enter → sang ô Chức vụ 1, giá trị lưu, khung khai báo không vẽ lại */
+ await p.evaluate(async() => { ktDoiCheDo('hx'); await new Promise(r => setTimeout(r, 300)); kt7Mo03(''); await new Promise(r => setTimeout(r, 400)); });
+ await p.focus('#kt7-dau [data-lenh="kt7.kb"][data-k="cb2"]'); await p.keyboard.press('Control+A'); await p.keyboard.type('Người Thử Hai'); await p.keyboard.press('Enter'); await p.waitForTimeout(500);
+ const ph = await p.evaluate(() => ({k:document.activeElement && document.activeElement.getAttribute('data-k'), v:(D.cauHinh.ktIn.kt03||{}).cb2, xem:/Người Thử Hai/.test(KT7.x.trang)}));
+ ok('03/BB-CX bàn phím (§11): Enter sang ô kế (Chức vụ 2), giữ con trỏ, lưu + hiện trên bản xem', ph.k==='cv2' && ph.v==='Người Thử Hai' && ph.xem, JSON.stringify(ph));
  R.forEach(x => console.log(x)); console.log((R.length-R.filter(x => x[0]==='✗').length)+'/'+R.length+' đạt');
  if(process.env.T383_ANH){ fs.writeFileSync(path.join(process.env.T383_ANH, 'm15.docx'), Buffer.from(r.w15 || [])); fs.writeFileSync(path.join(process.env.T383_ANH, 'm03.docx'), Buffer.from(r.w03 || [])); }
  await b.close(); })();
