@@ -504,8 +504,19 @@ function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, 
   /* 3.254: cỡ chữ mẫu theo khai báo riêng */   /* 3.248: chấm mảnh (font-size %) → Word cỡ nhỏ theo tỉ lệ */
   var co = function(el, f){ var m = (' '+(el.className||'')+' ').match(/ s(\d+) /); if(m) return +m[1]*2; var fs = el.style && el.style.fontSize; return fs && /%$/.test(fs) ? Math.max(14, Math.round(f*parseFloat(fs)/100)) : fs && /pt$/.test(fs) && / om-co /.test(' '+(el.className||'')+' ') ? Math.round(parseFloat(fs)*2) : f; };
   var lop = function(el, k){ return (' '+(el.className||'')+' ').indexOf(' '+k+' ')>=0; };
+  /* 3.490 (anh 07/11 "Word giống bản in"): mẫu NỀN Ô (khối .om-goc / .om-co) dựng bằng style viết thẳng → đọc style: canh, thụt, lề trái, giãn dòng, cách đoạn, cỡ chữ, nén chữ.
+     Chỉ trong khối nền ô (f.om) — mẫu khác (KTGS, Phân bổ, GDX…) xuất như cũ. */
+  var pt = function(v){ v = String(v||''); var n = parseFloat(v); if(isNaN(n)) return null; return /mm$/.test(v) ? n*72/25.4 : /cm$/.test(v) ? n*720/25.4 : /px$/.test(v) ? n*0.75 : /pt$/.test(v) ? n : null; };   /* → pt */
+  var omPP = function(el, f){ var st = el.style || {}, r = {}, x;
+    r.jc = /^(center|right|justify|left)$/.test(st.textAlign) ? {center:'center', right:'right', justify:'both', left:'left'}[st.textAlign] : '';
+    x = pt(st.textIndent); r.ind = x==null ? null : Math.round(x*20); x = pt(st.marginLeft); r.trai = x ? Math.round(x*20) : 0;
+    var lopTr = /(^| )tr[23]?( |$)/.test(el.className||''), lopSau = /(^| )sau2?( |$)/.test(el.className||'');   /* lớp cách đoạn có sẵn (tr / tr2 / tr3 · sau / sau2) ưu tiên như hàm cũ */
+    x = pt(st.marginTop); r.tr = lopTr ? khTr(el) : x==null ? (f.omMt || 0) : Math.max(0, Math.round(x*20)); x = pt(st.marginBottom); r.sau = lopSau ? khSau(el) : x==null ? 0 : Math.max(0, Math.round(x*20));   /* Word không nhận cách âm */
+    var lh = st.lineHeight, so = lh && !isNaN(+lh) ? +lh : f.omLh || 1.15, coPt = (f.szDoan || f.sz)/2; x = pt(lh); r.line = Math.round((x || so*coPt)*20)+'" w:lineRule="exact';   /* CSS line-height 1,15 = 1,15 × cỡ chữ (Word "1,15" = 1,15 × dòng đơn ≈ cao hơn 15 %) → cố định pt */
+    return r; };
+  var omChu = function(n, g){ var st = n.style || {}, x = pt(st.fontSize); if(x) g.sz = Math.round(x*2); x = pt(st.letterSpacing); if(x!=null) g.ls = Math.round(x*20); return g; };
   var khTr = function(el){ return lop(el, 'tr3') ? 360 : lop(el, 'tr') ? 120 : lop(el, 'tr2') ? 50 : 0; }, khSau = function(el){ return lop(el, 'sau2') ? 240 : lop(el, 'sau') ? 120 : 20; };   /* cách trước / sau (twip): tr 6 pt · tr2 2,5 pt · tr3 18 pt · sau 6 pt · sau2 12 pt (3.470) */
-  var chay = function(t, f){ return '<w:r><w:rPr>'+(f.b ? '<w:b/>' : '')+(f.i ? '<w:i/>' : '')+(f.mau ? '<w:color w:val="'+f.mau+'"/>' : '')+'<w:sz w:val="'+f.sz+'"/><w:szCs w:val="'+f.sz+'"/>'+(f.u ? '<w:u w:val="single"/>' : '')+(f.sup ? '<w:vertAlign w:val="superscript"/>' : '')+'</w:rPr><w:t xml:space="preserve">'+xmlEsc(t)+'</w:t></w:r>'; };
+  var chay = function(t, f){ return '<w:r><w:rPr>'+(f.b ? '<w:b/>' : '')+(f.i ? '<w:i/>' : '')+(f.mau ? '<w:color w:val="'+f.mau+'"/>' : '')+'<w:sz w:val="'+f.sz+'"/><w:szCs w:val="'+f.sz+'"/>'+(f.u ? '<w:u w:val="single"/>' : '')+(f.ls ? '<w:spacing w:val="'+f.ls+'"/>' : '')+(f.sup ? '<w:vertAlign w:val="superscript"/>' : '')+'</w:rPr><w:t xml:space="preserve">'+xmlEsc(t)+'</w:t></w:r>'; };
   var hinh = function(img){ var src = img.getAttribute('src')||'', m = src.match(/^data:image\/(png|jpe?g);base64,(.+)$/); if(!m) return '';
     var mm = +img.getAttribute('data-mm') || 20, ty = +img.getAttribute('data-ty') || 1, cx = Math.round(mm*36000), cy = Math.round(mm*ty*36000), id = 'rIdAnh'+(++soAnh);
     anh.push({id:id, ten:'anh'+soAnh+'.'+(m[1]==='png' ? 'png' : 'jpeg'), b64:m[2]});
@@ -520,12 +531,13 @@ function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, 
       if(n.tagName==='BR'){ r.push('<w:r><w:br/></w:r>'); return; }
       if(n.tagName==='IMG'){ r.push(hinh(n)); return; }
       if(lop(n, 'tab')){ r.push('<w:r><w:tab/></w:r>'); return; }   /* 3.449: khoảng tab (10A: họ tên ⇥ Chức vụ) */
-      var g = Object.assign({}, f); if(/^(B|STRONG)$/.test(n.tagName) || lop(n, 'b')) g.b = 1; if(/^(I|EM)$/.test(n.tagName) || lop(n, 'i')) g.i = 1; if(n.tagName==='U' || lop(n, 'u')) g.u = 1; if(n.tagName==='SUP') g.sup = 1; if(n.style && n.style.fontWeight==='normal') g.b = 0; g.sz = co(n, g.sz);   /* 3.446: chữ điền trong dòng đậm in thường (10A) */
+      var g = Object.assign({}, f); if(/^(B|STRONG)$/.test(n.tagName) || lop(n, 'b')) g.b = 1; if(/^(I|EM)$/.test(n.tagName) || lop(n, 'i')) g.i = 1; if(n.tagName==='U' || lop(n, 'u')) g.u = 1; if(n.tagName==='SUP') g.sup = 1; if(n.style && n.style.fontWeight==='normal') g.b = 0; g.sz = co(n, g.sz); if(f.om) omChu(n, g);   /* 3.446: chữ điền trong dòng đậm in thường (10A) */
       r = r.concat(chu(n, g)); });
     return r; };
   var doan = function(el, f){
     if(lop(el, 'ke')){ var dai = Math.min(f.w, tw(+el.getAttribute('data-ke') || 60)), le = Math.max(0, Math.round((f.w-dai)/2)), ph = le; if(lop(el, 'trai')){ le = 0; ph = f.w-dai; }   /* kẻ mảnh: đoạn trống viền trên, thụt 2 bên = độ dài */
       return '<w:p><w:pPr><w:pBdr><w:top w:val="single" w:sz="4" w:space="1" w:color="000000"/></w:pBdr><w:spacing w:before="0" w:after="60" w:line="120" w:lineRule="exact"/><w:ind w:left="'+le+'" w:right="'+ph+'"/><w:rPr><w:sz w:val="8"/></w:rPr></w:pPr></w:p>'; }
+    if(f.om) return omDoan(el, f);
     var jc = lop(el, 'c') ? 'center' : lop(el, 'r') ? 'right' : lop(el, 'j') ? 'both' : 'left', g = Object.assign({}, f);
     if(lop(el, 'b')) g.b = 1; if(lop(el, 'i')) g.i = 1; if(lop(el, 'u')) g.u = 1; g.sz = co(el, g.sz);
     var trai = lop(el, 'l1') ? 454 : lop(el, 'l2') ? 794 : lop(el, 'l4') ? 1247 : 0;
@@ -533,9 +545,42 @@ function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, 
     return '<w:p><w:pPr>'+(lop(el, 'tr-sang') ? '<w:pageBreakBefore/>' : '')+(tb ? '<w:tabs><w:tab w:val="left" w:pos="'+tw(tb)+'"/></w:tabs>' : '')+
       '<w:spacing w:before="'+khTr(el)+'" w:after="'+khSau(el)+'" w:line="'+(f.bang ? 240 : 276)+'" w:lineRule="auto"/>'+(lop(el, 'thut') || trai ? '<w:ind'+(trai ? ' w:left="'+trai+'"' : '')+(lop(el, 'thut') ? ' w:firstLine="567"' : '')+'/>' : '')+'<w:jc w:val="'+jc+'"/></w:pPr>'+chu(el, g).join('')+'</w:p>';
   };
+  /* 3.490: Word không nén chữ / chặn xuống dòng như bản in → đoạn 1 dòng (nowrap, hoặc dài hơn bề rộng chút ít) có dãy chấm: bớt dấu chấm cho vừa 1 dòng (đo bằng omRong theo cỡ chữ từng đoạn chữ) */
+  var OM_SAU = 0;   /* cách sau của đoạn nền ô liền trước (twip) */
+  var omVua = function(el, f, q){ if(typeof omRong!=='function') return; var cham = [], tong = 0, base = f.sz/2;
+    var di = function(n, p){ Array.prototype.forEach.call(n.childNodes, function(c){
+      if(c.nodeType===3){ var w = omRong(c.nodeValue.replace(/\s+/g, ' '), p); tong += w; if(/[.…]{4,}/.test(c.nodeValue)) cham.push({n:c, p:p}); return; }
+      if(c.nodeType!==1 || lop(c, 'tab')) return; var st = c.style || {}, x = pt(st.fontSize), p2 = x || (/%$/.test(st.fontSize||'') ? p*parseFloat(st.fontSize)/100 : p); di(c, p2); }); };
+    var x0 = pt((el.style||{}).fontSize); di(el, x0 || base);
+    var rongMM = f.w/56.7 - Math.max(0, (q.ind||0)/56.7) - (q.trai||0)/56.7 - 4;   /* chừa 4 mm: phông Word / LibreOffice rộng hơn canvas chút ít */
+    var mot = /nowrap/.test((el.style||{}).whiteSpace||'') || lop(el, 'om-dong') || (tong > rongMM && tong <= rongMM*1.08);   /* om-dong: dòng chấm của ô nhiều dòng */
+    if(!mot || tong <= rongMM || !cham.length) return;
+    var du = tong-rongMM; cham.sort(function(a, b){ return b.n.nodeValue.length-a.n.nodeValue.length; });
+    cham.forEach(function(c){ if(du<=0) return; var w1 = omRong('.', c.p) || 0.5, bot = Math.min(Math.ceil(du/w1)+1, c.n.nodeValue.replace(/[^.…]/g, '').length-3);
+      if(bot<=0) return; var v = c.n.nodeValue, k = 0; c.n.nodeValue = v.replace(/[.…]/g, function(m){ return k++ < bot ? '' : m; }); du -= bot*w1; }); };
+  var omKhoi = function(n, f){   /* ô nhiều dòng G.khoi: bản in = n dòng chấm ẩn + chữ phủ → Word: 1 đoạn chữ + dòng trống cho đủ n dòng (form không xô) */
+    var dong = [].filter.call(n.children, function(c){ return c.tagName==='P'; }), ph = [].filter.call(n.children, function(c){ return c.tagName==='DIV'; })[0], tx = ph ? ph.textContent.replace(/\s+/g, ' ').trim() : '';
+    var st = ph ? ph.style : {}, q0 = dong[0] ? omPP(dong[0], f) : {line:'276" w:lineRule="auto'}, lh = pt(st.lineHeight), line = lh ? Math.round(lh*20)+'" w:lineRule="exact' : q0.line;
+    var ind = pt(st.textIndent), le = pt(st.left), coPt = f.sz/2, rongMM = f.w/56.7-(le ? le*25.4/72 : 0);
+    var dung = tx ? Math.max(1, Math.ceil(((ind || 0)*25.4/72+(typeof omRong==='function' ? omRong(tx, coPt) : tx.length*coPt*0.18))/(rongMM-2))) : 0, r = [];
+    if(tx) r.push('<w:p><w:pPr><w:spacing w:before="'+Math.round((pt(st.paddingTop) || pt(st.top) || 0)*20)+'" w:after="0" w:line="'+line+'"/>'+(ind || le ? '<w:ind'+(le ? ' w:left="'+Math.round(le*20)+'"' : '')+(ind ? ' w:firstLine="'+Math.round(ind*20)+'"' : '')+'/>' : '')+
+      '<w:jc w:val="'+({center:'center', right:'right', left:'left'}[st.textAlign] || 'both')+'"/></w:pPr>'+chu(ph, Object.assign({}, f, (ph.className && / om-(tu|kb|go|mau) /.test(' '+ph.className+' ')) ? {} : {})).join('')+'</w:p>');
+    for(var i=dung;i<dong.length;i++) r.push('<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="'+line+'"/></w:pPr></w:p>');
+    OM_SAU = 0; return r; };
+  var omDoan = function(el, f){ var g = Object.assign({}, f); if(lop(el, 'b')) g.b = 1; if(lop(el, 'i')) g.i = 1; g.sz = co(el, g.sz); omChu(el, g); var q = omPP(el, Object.assign({}, f, {szDoan:g.sz})); omVua(el, g, q);
+    var jc = lop(el, 'c') ? 'center' : lop(el, 'r') ? 'right' : lop(el, 'j') ? 'both' : q.jc || f.omJc || 'left', tb = +el.getAttribute('data-tab') || 0;
+    var ind = (q.ind!=null && q.ind!==0) || q.trai ? '<w:ind'+(q.trai ? ' w:left="'+q.trai+'"' : '')+(q.ind>0 ? ' w:firstLine="'+q.ind+'"' : q.ind<0 ? ' w:hanging="'+(-q.ind)+'"' : '')+'/>' : '';
+    var trc = f.khung ? q.tr : Math.max(0, q.tr-OM_SAU); if(!f.khung) OM_SAU = q.sau;   /* bản in gộp lề dọc 2 đoạn liền nhau (lấy số lớn) — Word cộng cả 2 → bớt phần trùng */
+    return '<w:p><w:pPr>'+(lop(el, 'tr-sang') ? '<w:pageBreakBefore/>' : '')+(f.khung ? f.khung : '')+(tb ? '<w:tabs><w:tab w:val="left" w:pos="'+tw(tb)+'"/></w:tabs>' : '')+
+      '<w:spacing w:before="'+trc+'" w:after="'+q.sau+'" w:line="'+q.line+'"/>'+ind+'<w:jc w:val="'+jc+'"/></w:pPr>'+chu(el, g).join('')+'</w:p>'; };   /* 3.490: đoạn mẫu nền ô theo style bản in */
   var vien = function(v, cham){ return '<w:tblBorders>'+['top','left','bottom','right','insideH','insideV'].map(function(b){ return '<w:'+b+' w:val="'+(!v ? 'nil' : (cham && b==='insideH') ? 'dotted' : 'single')+'" w:sz="4" w:space="0" w:color="'+(cham && b==='insideH' ? '777777' : '000000')+'"/>'; }).join('')+'</w:tblBorders>'; };
   var bang = function(tb, f){
-    var W = f.w, w = String(tb.getAttribute('data-w')||'1').split(',').map(Number), tong = w.reduce(function(a, b){ return a+b; }, 0) || 1, cw = w.map(function(v){ return Math.round(W*v/tong); });
+    OM_SAU = 0;
+    var dw = tb.getAttribute('data-w');
+    if(!dw && f.om){ var cols = [].map.call(tb.querySelectorAll('colgroup col'), function(c){ var v = (c.style && c.style.width) || c.getAttribute('width') || ''; return parseFloat(v) || 0; });   /* 3.490: bảng nền ô không khai data-w → lấy cột theo bản in (colgroup), không có thì chia đều */
+      var nc = 0; [].forEach.call(tb.rows, function(r){ var k = 0; [].forEach.call(r.cells, function(c){ k += c.colSpan || 1; }); if(k>nc) nc = k; });
+      dw = cols.length===nc && cols.every(function(x){ return x>0; }) ? cols.join(',') : nc>1 ? new Array(nc+1).join('1,').slice(0, -1) : '1'; }
+    var W = f.w, w = String(dw||'1').split(',').map(Number), tong = w.reduce(function(a, b){ return a+b; }, 0) || 1, cw = w.map(function(v){ return Math.round(W*v/tong); });
     var rong = function(i, n){ var s = 0; for(var j=i;j<i+n && j<cw.length;j++) s += cw[j]; return s; }, g = Object.assign({}, f, {sz:co(tb, f.sz), bang:1}), luoi = lop(tb, 'luoi'), keo = [], cao = +tb.getAttribute('data-cao') || 0;   /* 3.443: data-cao (mm) → dòng cao cố định (sửa chữ không đẩy trang) */
     var x = '<w:tbl><w:tblPr><w:tblW w:w="'+W+'" w:type="dxa"/>'+(lop(tb, 'giua') ? '<w:jc w:val="center"/>' : '')+(lop(tb, 'ngoai') ? '<w:tblBorders><w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:insideH w:val="nil"/><w:insideV w:val="nil"/></w:tblBorders>' : vien(luoi, lop(tb, 'cham')))+'<w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="57" w:type="dxa"/><w:right w:w="57" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>'+cw.map(function(v){ return '<w:gridCol w:w="'+v+'"/>'; }).join('')+'</w:tblGrid>';
     Array.prototype.forEach.call(tb.rows, function(row){
@@ -559,7 +604,15 @@ function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, 
       if(n.tagName==='P'){ r.push(doan(n, f)); truoc = 'p'; }
       else if(n.tagName==='TABLE'){ if(truoc==='t') r.push('<w:p><w:pPr><w:spacing w:after="0"/></w:pPr></w:p>'); r.push(bang(n, f)); truoc = 't'; }
       else if(n.tagName==='IMG'){ r.push('<w:p>'+hinh(n)+'</w:p>'); truoc = 'p'; }
-      else if(n.tagName==='DIV'){ r = r.concat(khoi(n, f)); } });
+      else if(n.tagName==='DIV'){ var st = n.style || {}, g2 = f;
+        if(lop(n, 'om-goc') || lop(n, 'om-co')){ g2 = Object.assign({}, f, {om:1}); var x = pt(st.fontSize); if(x) g2.sz = Math.round(x*2); if(st.lineHeight && !isNaN(+st.lineHeight)) g2.omLh = +st.lineHeight; }   /* 3.490 */
+        else if(f.om && lop(n, 'om-khoi')){ r = r.concat(omKhoi(n, f)); return; }   /* 3.490: ô nhiều dòng (chữ phủ lên dòng chấm ẩn) */
+        else if(f.om && /(^| )t(1|3|6)( |$)/.test(n.className||'')){ g2 = Object.assign({}, f, {omMt:+String(n.className).match(/(?:^| )t(1|3|6)(?: |$)/)[1]*20}); }   /* .om-goc .t3 p{margin-top:3pt} … */
+        else if(f.om && st.position==='absolute' && st.right!=='' && st.left==='' && st.top!==''){ var yT = pt(st.top) || 0, wK = pt(st.width);   /* hộp "Mẫu số…" neo TRÊN–PHẢI: khung nổi, không đẩy nội dung (khối nổi khác giữ như cũ) */
+          g2 = Object.assign({}, f, {khung:'<w:framePr w:w="'+(wK ? Math.round(wK*20) : tw(55))+'" w:wrap="none" w:hAnchor="margin" w:vAnchor="margin" w:xAlign="right" w:y="'+Math.round(yT*20)+'"/>'}); }
+        else if(f.om && st.position==='absolute' && st.bottom!=='' && st.top===''){   /* khối chú thích neo ĐÁY trang (11/TD, 07b, 10B…): khung nổi đáy lề, chữ thân mẫu chảy phía trên */
+          g2 = Object.assign({}, f, {khung:'<w:framePr w:w="'+f.w+'" w:wrap="around" w:hAnchor="margin" w:vAnchor="margin" w:xAlign="left" w:yAlign="bottom"/>'}); }
+        r = r.concat(khoi(n, g2)); } });
     if(truoc==='t') r.push('<w:p><w:pPr><w:spacing w:after="0" w:line="120" w:lineRule="exact"/></w:pPr></w:p>');
     return r; };
   var chan = [], sect = function(M, i){ var mg = M.mg || [20, 20, 20, 30], ft = '';

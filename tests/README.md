@@ -277,6 +277,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t364.js` | 3.456: 10A số tham dự theo tỷ lệ (> 50%), IV tán thành (> 2/3), III gõ / chọn tên, UBND theo III, phê duyệt cả phần. |
 | `node tests/t365.js` | 3.457: 10B, 10C số tham dự / biểu quyết theo tỷ lệ (> 50%, > 2/3), nhớ riêng từng mẫu, vẫn 2 trang. |
 | `node tests/t378.js` | 3.489: Đ6 tab Tổ — ghi nhớ trong 1 lần vẽ (TO_KH_TAM) cho kết quả như không ghi nhớ; skNhomDH = công thức cũ. |
+| `node tests/t379.js` | 3.490: Word mẫu nền ô theo style bản in (canh, thụt, cỡ, giãn dòng cố định, khung Mẫu số, bảng không data-w); mẫu khác không đổi. |
 | t366 (3.488) | + khung xem: .tr-nd không cắt mép trên (dấu chữ hoa dòng đầu), vẫn cắt mép dưới. |
 | t366 (3.487) | BBLV gạch tiêu ngữ = kẻ liền (hsoKe), vẫn 1 trang. |
 | t377 (3.486) | + Hồ sơ vay lọc tới Hội (chưa chọn tổ): bảng chọn món cả Hội, Tích hết → in gộp đủ hộ. |
