@@ -266,6 +266,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.493) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🏢 Giao dịch xã › chip 💰 10/GDX | Tên điểm, mã điểm, ngày GD, GDV / KSV / Tổ trưởng tổ GD giống 12/GDX | |
+| 2 | 🖨 In 10/GDX, 07/GDX, 06/GDX, 11/GDX, 14/15/GDX | Trọn 1 trang A4 dọc, dòng chấm không tràn | |
+| 3 | 🖨 In 03/GDX, 09/GDX | A4 ngang; 03 = 2 tờ (tờ 2 có ô ký) | |
+| 4 | 07/GDX › ⚙ khai SĐT PGD | In ở mục III.5 | |
+
+**Ghi chú kỹ thuật 3.493:** mẫu GDX mới chỉ ở bản máy tính (không có trong 📦 Mini app). Còn để sau: 01, 02, 04, 05, 13/GDX; 08/GDX lấy từ Giao ban.
+
 ### Danh sách thử trên máy thật (3.492)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

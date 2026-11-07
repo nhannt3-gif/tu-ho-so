@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.493 — 07/11/2026 — Giao dịch xã: 8 mẫu GDX theo VB 4368
+- **Anh 07/11:** "các mẫu nào dựng nhanh đơn giản em cứ dựng theo đúng chuẩn gắn mẫu đã làm, mẫu 12 đã làm ổn rồi". VB 4368/HD-NHCS hiệu lực 01/10/2026 (Phụ lục II, 15 mẫu 01–15/GDX).
+- **Mẫu mới** (`js/26b-gdx-4368.js`, cắm vào js/26 qua `GDX_THEM`): 03/GDX Bảng kê theo dõi GDX (A4 ngang, 2 tờ — Phần II tờ 1 · tờ 2 chọn số dòng) · 06/GDX Giấy đề nghị tiếp quỹ kiêm tạm ứng tiền và thẻ TK · 07/GDX Nội dung phổ biến cho KH vay vốn (chữ cố định, SĐT PGD khai 1 lần) · 09/GDX Báo cáo thẻ TK tại điểm (A4 ngang) · 10/GDX Bảng kê kiểm quỹ cuối phiên · 11/GDX Biên bản thẻ TK hỏng, mất · 14/GDX Phiếu xuất kho · 15/GDX Phiếu nhập kho. Bố cục / chữ / cột theo mẫu trong VB; ô không có thông tin để chấm (dòng chấm tự lấp đủ chỗ, không tràn), không tự tạo số.
+- **Dùng chung với 12/GDX** (cùng phiên): 2 dòng tên cơ quan đầu mẫu, điểm GD (khối LỌC ĐỊA BÀN), ngày GD, GDV · KSV · Tổ trưởng tổ GD — đổi ở mẫu nào cũng áp cho các mẫu kia.
+- **js/26 (móc chung):** `GDX_THEM` + 7 chỗ gọi (gdxChup / gdxDung / gdxMucHTML / gdxTom / gdxThanhHTML / gdxXem / gdxTenFile); `gdxRuotHTML` lấy điểm theo `m04 ? ma04 : m12SelectedDiem`; `gdxDoiMau` tự chọn điểm theo `cap==='diem'` (như cũ với 04/TD, 12/GDX, Bảng kê). Mẫu cũ không đổi.
+- **Chưa làm (để sau, anh 07/11):** 01, 02, 04, 05, 13/GDX; 08/GDX lấy bản chuẩn bên Giao ban.
+- **Phép thử:** `tests/t380.js` (mới, 19 — gồm đếm trang khi in: 03 = 2 tờ, còn lại 1 trang).
+
 ## 3.492 — 07/11/2026 — Word 10A khóa trang như bản in (TK 2)
 - **Anh 07/11:** "làm tiếp đi" (phương án 1 — khóa trang 10A cho cả Word; 3.454 khóa chỉ áp bản in vì Word khi đó chưa theo bản in).
 - `hsoDocx` (js/25b, khối nền ô): lớp `tr-sang-in` → ngắt trang cứng cả Word; bảng có `data-cao-w` → chiều cao hàng riêng cho Word. `js/mau/10a.js`: khung tổ viên Word thấp hơn bản in **0,5 mm / hàng** (`HSO_10A_CAO_W`, js/25) — bù phông Word / LibreOffice rộng hơn trình duyệt (~2 dòng ở trang 2); chữ trong ô không bị cắt.
