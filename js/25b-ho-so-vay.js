@@ -581,7 +581,7 @@ function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, 
       var nc = 0; [].forEach.call(tb.rows, function(r){ var k = 0; [].forEach.call(r.cells, function(c){ k += c.colSpan || 1; }); if(k>nc) nc = k; });
       dw = cols.length===nc && cols.every(function(x){ return x>0; }) ? cols.join(',') : nc>1 ? new Array(nc+1).join('1,').slice(0, -1) : '1'; }
     var W = f.w, w = String(dw||'1').split(',').map(Number), tong = w.reduce(function(a, b){ return a+b; }, 0) || 1, cw = w.map(function(v){ return Math.round(W*v/tong); });
-    var rong = function(i, n){ var s = 0; for(var j=i;j<i+n && j<cw.length;j++) s += cw[j]; return s; }, g = Object.assign({}, f, {sz:co(tb, f.sz), bang:1}), luoi = lop(tb, 'luoi'), keo = [], cao = +tb.getAttribute('data-cao') || 0;   /* 3.443: data-cao (mm) → dòng cao cố định (sửa chữ không đẩy trang) */
+    var rong = function(i, n){ var s = 0; for(var j=i;j<i+n && j<cw.length;j++) s += cw[j]; return s; }, g = Object.assign({}, f, {sz:co(tb, f.sz), bang:1}, f.om ? (function(){ var st = tb.style || {}, x = pt(st.fontSize), o = {}; if(x) o.sz = Math.round(x*2); if(st.lineHeight && !isNaN(+st.lineHeight)) o.omLh = +st.lineHeight; return o; })() : {}),   /* 3.490: bảng nền ô — cỡ chữ / giãn dòng ghi trên bảng (07b: 12 pt) */ luoi = lop(tb, 'luoi'), keo = [], cao = +tb.getAttribute('data-cao') || 0;   /* 3.443: data-cao (mm) → dòng cao cố định (sửa chữ không đẩy trang) */
     var x = '<w:tbl><w:tblPr><w:tblW w:w="'+W+'" w:type="dxa"/>'+(lop(tb, 'giua') ? '<w:jc w:val="center"/>' : '')+(lop(tb, 'ngoai') ? '<w:tblBorders><w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:insideH w:val="nil"/><w:insideV w:val="nil"/></w:tblBorders>' : vien(luoi, lop(tb, 'cham')))+'<w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="57" w:type="dxa"/><w:right w:w="57" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>'+cw.map(function(v){ return '<w:gridCol w:w="'+v+'"/>'; }).join('')+'</w:tblGrid>';
     Array.prototype.forEach.call(tb.rows, function(row){
       var cot = 0, dau = row.parentNode.tagName==='THEAD', h = '<w:tr><w:trPr><w:cantSplit/>'+(cao ? '<w:trHeight w:val="'+tw(cao)+'" w:hRule="exact"/>' : '')+(dau ? '<w:tblHeader/>' : '')+'</w:trPr>';
@@ -612,7 +612,9 @@ function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, 
           g2 = Object.assign({}, f, {khung:'<w:framePr w:w="'+(wK ? Math.round(wK*20) : tw(55))+'" w:wrap="none" w:hAnchor="margin" w:vAnchor="margin" w:xAlign="right" w:y="'+Math.round(yT*20)+'"/>'}); }
         else if(f.om && st.position==='absolute' && st.bottom!=='' && st.top===''){   /* khối chú thích neo ĐÁY trang (11/TD, 07b, 10B…): khung nổi đáy lề, chữ thân mẫu chảy phía trên */
           g2 = Object.assign({}, f, {khung:'<w:framePr w:w="'+f.w+'" w:wrap="around" w:hAnchor="margin" w:vAnchor="margin" w:xAlign="left" w:yAlign="bottom"/>'}); }
-        r = r.concat(khoi(n, g2)); } });
+        var con = khoi(n, g2);
+        if(f.om && /avoid/.test((st.breakInside||'')+(st.pageBreakInside||''))) con = con.map(function(x, i){ return i<con.length-1 && x.indexOf('<w:p><w:pPr>')===0 ? x.replace('<w:p><w:pPr>', '<w:p><w:pPr><w:keepNext/><w:keepLines/>') : x; });   /* 3.490: khối "không cắt giữa trang" (BBLV tình huống) → Word giữ liền */
+        r = r.concat(con); } });
     if(truoc==='t') r.push('<w:p><w:pPr><w:spacing w:after="0" w:line="120" w:lineRule="exact"/></w:pPr></w:p>');
     return r; };
   var chan = [], sect = function(M, i){ var mg = M.mg || [20, 20, 20, 30], ft = '';
