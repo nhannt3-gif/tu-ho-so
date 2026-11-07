@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.490)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Word 10A / 06A / 01/TD / 10B mở bằng MS Word | Canh đều, thụt dòng, cỡ chữ, số trang như bản In | |
+| 2 | Word 07b | Có thể dư 1 trang trống cuối (đã biết) | |
+
 ### Danh sách thử trên máy thật (3.489)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

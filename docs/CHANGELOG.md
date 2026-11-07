@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.490 — 07/11/2026 — Word các mẫu nền ô giống bản in (TK 2)
+- **Anh 07/11:** "gộp và code tiếp" (kế hoạch Word giống bản in).
+- **Hiện trạng đo:** hàm xuất Word `hsoDocx` (js/25b) chỉ đọc lớp (`c`, `j`, `thut`, `s14`…), bỏ qua style viết thẳng mà mẫu nền ô dùng → Word canh trái hết, không thụt dòng, chữ 13, giãn dòng tự động; 3/17 mẫu lệch số trang.
+- **Sửa (chỉ trong khối nền ô `.om-goc` / `.om-co`; mẫu khác xuất như cũ — so Word Sổ hộ vay, Phê duyệt NH, 01/BG, 02/BG cũ ↔ mới giống hệt từng byte):** đọc canh lề, thụt đầu dòng, lề trái, cỡ chữ thân mẫu / từng đoạn / từng chữ, nén chữ; giãn dòng → **cố định đúng pt** (CSS 1,15 = 1,15 × cỡ chữ; Word "1,15" cao hơn ~15 %); cách đoạn gộp như bản in (lấy số lớn, không cộng), không nhận cách âm; dòng 1 dòng có dãy chấm → bớt chấm cho vừa (Word không nén chữ); hộp "Mẫu số…" neo trên–phải → khung nổi; khối chú thích neo đáy → khung đáy trang; ô nhiều dòng (chữ phủ dòng chấm ẩn) → đoạn chữ + dòng trống cho đủ; bảng không khai `data-w` → lấy cột theo bản in (trước: cột rộng 0, bảng phình nhiều trang).
+- **Kết quả (LibreOffice đếm trang, Bản mẫu):** 15/17 mẫu Word = bản in (trước 14/17 nhưng chữ 13, canh trái). Còn lệch: **07b** Word +1 trang (dòng trống cuối bảng lịch trả nợ tràn), **BBLV** bản mẫu (tờ hướng dẫn) Word −1 trang (lệch từ trước). Khóa trang 10A vẫn chỉ áp bản in (Word dài hơn ~2 dòng ở LibreOffice → khóa sẽ thành 5 trang).
+- Phép thử mới `t379`. Hồi quy đủ.
+
 ## 3.489 — 06/11/2026 — Tab Tổ mở lần đầu dưới 300 ms (TK 2, Đ6 kế hoạch dọn)
 - **Kế hoạch dọn** (`docs/KE_HOACH_DON_NEN.md` mục 8, anh duyệt 04/11 làm tuần tự; anh 06/11 "gộp rồi làm tiếp"): Đ6 còn thiếu — tab Tổ lần đầu ~350 ms (3.477), mục tiêu < 300 ms.
 - **Đo** (máy ảo, bộ giả 25.000 khách `tests/gia31`, mở tab Tổ cấp PGD): lần đầu `toKhach` mỗi tổ bị tính **2 lần** (danh sách tổ viên phạm vi `toTVPV` + bảng số PGD `toSoTo`); `skNhomDH` luôn tính ngày chuyển QH (phiên điểm GD) kể cả món đến hạn còn xa; hạn CCCD mỗi khách tính 2 lần.
