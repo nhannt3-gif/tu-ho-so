@@ -3,7 +3,7 @@
    - 08/KH  QĐ của Giám đốc PGD điều chỉnh chỉ tiêu KH tín dụng cho các thôn (khi Ban Đại diện HĐQT xã có Nghị quyết giao GĐ PGD quyết định)
    - 09/KH  Tờ trình của Ban Đại diện HĐQT xã đề nghị tỉnh điều chỉnh chỉ tiêu KH tín dụng (quy trình ngược — số đã giao theo QĐ trước, js/48c)
    Bố cục, chữ theo file mẫu trắng anh gửi 07/11 (Biểu số 07, 08, 09/KH kèm QĐ 4686 — file không đưa vào repo). BIỂU 07 CŨ (Thông báo UBND, js/mau/07pb.js) GIỮ NGUYÊN — anh 07/11
-   "để in lại cái cũ khi cần". 07/KH · 08/KH dùng CHUNG dữ liệu phân bổ của Biểu 07 (pbBieu07DL — khớp QĐ QT-16) và hộp xem / In / PDF / Word của Biểu 07 (chọn mẫu ở đầu hộp).
+   "để in lại cái cũ khi cần". 07/KH · 08/KH dùng CHUNG dữ liệu phân bổ của Biểu 07 (QT-21: pbBieu07DL — khớp QĐ QT-16) và hộp xem / In / PDF / Word của Biểu 07 (chọn mẫu ở đầu hộp). 3.497: hàm khai báo / chữ dùng chung ở js/mau/0pb.js (không gọi mẫu 07pb).
    Khai báo riêng kiểu nền ô (PB07_CACH) — lưu chung 1 chỗ cho 3 mẫu mới: KHO1 'pb' → ch.bKH = {cach, gt, co} (ô trùng tên dùng chung: Trưởng ban, tỉnh, PGD…). */
 var PBKH_M = {
   '07kh':{k:'07kh', ma:'07/KH', ten:'07/KH — QĐ Ban Đại diện HĐQT xã', mg:typeof omMg==='function' ? omMg([20, 20, 20, 30]) : [20, 19.6, 20, 29.6], ngang:false},
@@ -11,11 +11,11 @@ var PBKH_M = {
   '09kh':{k:'09kh', ma:'09/KH', ten:'09/KH — Tờ trình điều chỉnh', mg:typeof omMg==='function' ? omMg([20, 20, 20, 30]) : [20, 19.6, 20, 29.6], ngang:false}};
 var PBKH_BX = ' Việc bình xét cho vay phải đảm bảo nguyên tắc công khai, dân chủ, đúng đối tượng và có sự tham gia, giám sát của Trưởng thôn và tổ chức chính trị - xã hội nhận ủy thác.';   /* câu chung Điều 2 (07/KH · 08/KH) */
 var PBKH_QD4686 = '4686/QĐ-NHCS ngày 21/10/2026', PBKH_QC = '56/QĐ-HĐQT ngày 27/8/2026';   /* văn bản công khai — chữ sẵn, anh sửa được (⌨) */
-/* ô khai báo: chi = mẫu dùng ô (không ghi = cả 3) · tuFn / chungFn: nguồn 🤖 / ⚙ riêng (pb07GT ở js/mau/07pb.js gọi) */
+/* ô khai báo: chi = mẫu dùng ô (không ghi = cả 3) · tuFn: nguồn 🤖 riêng (pb07GT ở js/mau/0pb.js gọi) */
 var PBKH_O = [
   {k:'khNoi', n:'Nơi lập ("…, ngày")', ds:['cham', 'tu', 'chung', 'kb'], md:'tu', tu:'tên xã / phường (bỏ chữ "xã", "phường")', chung:'noi', tuFn:function(d){ return pb07Ten0(d && d.dv); }},
   {k:'khSo', n:'Số văn bản', ds:['cham', 'go'], md:'cham'},
-  {k:'khNgay', n:'Ngày văn bản', ds:['cham', 'tu', 'go'], md:'tu', ngay:1, chi:['07kh', '08kh'], tu:'ngày QĐ của tỉnh + 1, né thứ 7 / CN', tuFn:function(d){ return pbNgayTB(d && d.ngayQD, (typeof pbDL==='function' ? pbDL().ch : {})); }},
+  {k:'khNgay', n:'Ngày văn bản', ds:['cham', 'tu', 'go'], md:'tu', ngay:1, chi:['07kh', '08kh'], tu:'ngày QĐ của tỉnh + 1, né thứ 7 / CN', tuFn:function(d){ return pbNgayTB(d && d.ngayQD, ((typeof KHO1!=='undefined' && KHO1.doc('pb')) || {}).ch || {}); }},
   {k:'khNgayTT', n:'Ngày tờ trình', ds:['cham', 'tu', 'go'], md:'tu', ngay:1, chi:['09kh'], tu:'hôm nay', tuFn:function(){ return ngayISO(nay()); }},
   {k:'khTinh', n:'Tỉnh', ds:['cham', 'chung', 'kb'], md:'chung', chung:'tinh'},
   {k:'khPGD', n:'Tên PGD (sau chữ "NHCSXH")', ds:['cham', 'chung', 'kb'], md:'chung', chung:'ngan'},
@@ -52,7 +52,7 @@ function pbKHKy(noiNhan, chuc, ten){
 
 /* ---------- 07/KH · 08/KH: d = pbBieu07DL(...) (1 xã) · K = khai báo · du = liệt kê đủ các thôn ---------- */
 function pbKHLap(d, K, mau, du){
-  K = K || {}; var gt = function(k){ return pb07GT(K, k, d); }, dv = d.dv, nam = pbKHO(d.nam, '.......'), laDC = mau==='08kh' || d.laDC, loai = laDC ? 'điều chỉnh' : 'giao', LOAI = laDC ? 'ĐIỀU CHỈNH' : 'GIAO';
+  K = K || {}; K = {cach:K.cach, gt:K.gt, go:K.go, co:K.co, ds:K.ds || pbKHDsO(mau)}; var gt = function(k){ return pb07GT(K, k, d); }, dv = d.dv, nam = pbKHO(d.nam, '.......'), laDC = mau==='08kh' || d.laDC, loai = laDC ? 'điều chỉnh' : 'giao', LOAI = laDC ? 'ĐIỀU CHỈNH' : 'GIAO';
   var so = gt('khSo'), soT = so ? pbKHO(so, '') : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', ng = gt('khNgay'), ngD = pbKHNgay(ng), ngS = pbKHO(pbNgayVN(ng), '...../...../........');
   var tinh = pbKHO(gt('khTinh'), '..........'), pgd = pbKHO(gt('khPGD'), '..........'), xaH = pbKHO(dv.hoa, '..................'), xaT = pbKHO(dv.thuong, '..................');
   var nq = gt('khNQ'), nqT = nq ? pbKHO(nq, '') : '…/NQ-BĐD ngày …/…/…', qdT = pbKHSoQD(d)+' ngày '+pbKHO(pbNgayVN(d.ngayQD), '...../...../........');
@@ -99,7 +99,7 @@ function pbKHLap(d, K, mau, du){
 
 /* ---------- 09/KH Tờ trình: d = {dv, nam, nguon, qd:{so, kyHieu, ngay, laDC} (QĐ gần nhất của tỉnh), ct:[{ma, ten, dg, dn, nam}]} ---------- */
 function pb09Lap(d, K, du){
-  K = K || {}; var gt = function(k){ return pb07GT(K, k, d); }, dv = d.dv, nam = pbKHO(d.nam, '.......');
+  K = K || {}; K = {cach:K.cach, gt:K.gt, go:K.go, co:K.co, ds:K.ds || pbKHDsO('09kh')}; var gt = function(k){ return pb07GT(K, k, d); }, dv = d.dv, nam = pbKHO(d.nam, '.......');
   var so = gt('khSo'), soT = so ? pbKHO(so, '') : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', ng = gt('khNgayTT'), ngD = pbKHNgay(ng), ngS = pbKHO(pbNgayVN(ng), '…/…/…');
   var tinh = pbKHO(gt('khTinh'), '..........'), pgd = pbKHO(gt('khPGD'), '..........'), xaH = pbKHO(dv.hoa, '..................'), xaT = pbKHO(dv.thuong, '..................'), q = d.qd || {};
   var qdT = q.so ? pbKHO(pb07SoQD({so:q.so, kyHieu:q.kyHieu}), '')+' ngày '+pbKHO(pbNgayVN(q.ngay), '') : '..../QĐ-BĐD ngày …/…/…';

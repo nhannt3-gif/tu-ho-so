@@ -4,6 +4,7 @@
      - Số tăng trưởng đã giao = cộng dồn tăng / giảm các QĐ trong năm (pbDienBien .tongTG) — anh sửa tay được (ô ✎, ↺ bỏ sửa)
      - KH hiện tại = Đến 31/12 của QĐ gần nhất (.khCuoi) · dư nợ thực tế Mẫu 31 kỳ mới nhất trong năm (chỉ tham khảo) · KH còn trống = KH − dư nợ
      - Đề nghị điều chỉnh (+/−) anh nhập · Số dư nợ năm = KH hiện tại + đề nghị
+   3.497: phép tính ở js/47 pbToTrinh (QT-20) — file này chỉ vẽ + nhận lệnh.
    Lưu KHO1 'pb'.tt['năm|xã|nguồn'] = {dn:{CT: số}, dg:{CT: số sửa tay}, sua} (đồng bộ Drive như QĐ). In: hộp Biểu 07 (PB07.mau = '09kh', mẫu js/mau/07kh.js pb09Lap).
    Khi tỉnh ra QĐ mới → anh nhập QĐ như thường rồi phân bổ xuống thôn (07/KH) — khép vòng. Cắm rút: bỏ dòng <script> là mất mục 📤 (js/48 chỉ gọi khi có hàm). ===== */
 PB.tt = PB.tt || {nam:'', xa:'', nguon:1, daDoc:{}};
@@ -13,18 +14,13 @@ function pbTTBan(T){ var x = (pbDL().tt || {})[pbTTKhoa(T)] || {}; return {dn:x.
 function pbTTKyTT(nam){ return pbDsKyCX().filter(function(k){ return String(k).slice(0, 4)===String(nam); }).sort().pop() || ''; }
 function pbTTXa(nam){ var g = {}, r = []; pbDL().qd.forEach(function(q){ if(String(q.ngay).slice(0, 4)!==nam || !q.xa || g[q.xa]) return; g[q.xa] = 1; r.push({xa:q.xa, ten:q.tenXa || q.xa}); });
   return r.sort(function(a, b){ return String(a.ten).localeCompare(String(b.ten), 'vi'); }); }
-/* QĐ gần nhất của tỉnh cho xã · nguồn trong năm (căn cứ trên tờ trình) */
-function pbTTQDCuoi(T){ var ds = pbDL().qd.filter(function(q){ return String(q.ngay).slice(0, 4)===T.nam && q.xa===T.xa && +q.nguon===+T.nguon; })
-  .sort(function(a, b){ return a.ngay < b.ngay ? -1 : a.ngay > b.ngay ? 1 : String(a.luc || '') < String(b.luc || '') ? -1 : 1; }); return ds[ds.length-1] || null; }
-/* → {dong:[{ma, ten, tg (cộng dồn), dg (in), suaDg, kh, ht, con, dn, nam}], q, ky, tenXa} */
+/* → {dong:[{ma, ten, vt, tg (cộng dồn), dg (in), suaDg, kh, ht, con, dn, nam}], q, ky, tenXa} — số tính ở js/47 pbToTrinh (QT-20), ở đây chỉ thêm tên để vẽ */
 function pbTTTinh(T){
-  var ky = pbTTKyTT(T.nam), Dn = ky ? PB.dn[ky] : null, B = pbTTBan(T);
-  var r = pbDienBien(pbDL().qd, T.nam, {xa:T.xa, nguon:+T.nguon}, {ds:[], thang:Dn ? [{ky:ky, f:function(xa, ma, nv){ return pbDCTong(Dn, xa, ma, nv); }}] : []});
-  var dong = r.nhom.filter(function(n){ return !n.khongGiao && n.xa===T.xa && n.nguon===+T.nguon; }).sort(function(a, b){ return a.ma < b.ma ? -1 : a.ma > b.ma ? 1 : 0; }).map(function(n){
-    var sua = B.dg[n.ma]!=null && B.dg[n.ma]!=='', dg = sua ? +B.dg[n.ma] : pbR(n.tongTG), kh = pbR(n.khCuoi), dn = pbSo(B.dn[n.ma]) || 0;
-    return {ma:n.ma, ten:pbTenCT(n.ma), vt:pbVT(n.ma), tg:pbR(n.tongTG), dg:dg, suaDg:sua, kh:kh, ht:n.hienTai, con:n.hienTai==null ? null : pbR(kh - n.hienTai), dn:dn, nam:pbR(kh + dn)}; });
-  var q = pbTTQDCuoi(T), x = pbTTXa(T.nam).filter(function(o){ return o.xa===T.xa; })[0];
-  return {dong:dong, q:q, ky:Dn ? ky : '', tenXa:x ? x.ten : T.xa};
+  var ky = pbTTKyTT(T.nam), Dn = ky ? PB.dn[ky] : null;
+  var R = pbToTrinh(pbDL().qd, T.nam, T.xa, +T.nguon, pbTTBan(T), Dn ? function(xa, ma, nv){ return pbDCTong(Dn, xa, ma, nv); } : null);
+  R.dong.forEach(function(d){ d.ten = pbTenCT(d.ma); d.vt = pbVT(d.ma); });
+  var x = pbTTXa(T.nam).filter(function(o){ return o.xa===T.xa; })[0];
+  return {dong:R.dong, q:R.q, ky:Dn ? ky : '', tenXa:x ? x.ten : T.xa};
 }
 function pbTTVe(){
   var o = document.getElementById('pb-phai'); if(!o) return;
@@ -84,3 +80,9 @@ GD.dangKy('pb', gdLenh({
   ttXoa:function(){ if(!confirm('Xóa hết số đề nghị điều chỉnh của xã · nguồn · năm này?')) return; pbTTGhi(function(x){ x.dn = {}; }); pbTTVe(); },
   ttXem:function(){ pbTTXem(); }
 }));
+/* 3.497 — QUY_CHUAN 11: ô Đề nghị / Đã giao — Enter, Tab → ô cùng cột dòng kế; Shift → dòng trước (số đã gõ lưu khi rời ô, pbGiuO giữ chỗ con trỏ sau khi vẽ lại) */
+document.addEventListener('keydown', function(ev){ var e = ev.target, l = e && e.getAttribute && e.getAttribute('data-lenh');
+  if((l!=='pb.ttDn' && l!=='pb.ttDg') || (ev.key!=='Enter' && ev.key!=='Tab')) return;
+  var ds = document.querySelectorAll('.pb-tt [data-lenh="'+l+'"]'), i = Array.prototype.indexOf.call(ds, e), j = ev.shiftKey ? i-1 : i+1;
+  if(j<0 || j>=ds.length){ if(ev.key==='Enter'){ ev.preventDefault(); e.blur(); } return; }
+  ev.preventDefault(); ds[j].focus(); try { ds[j].select(); } catch(er){} });

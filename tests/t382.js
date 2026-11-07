@@ -57,6 +57,20 @@ const fs = require('fs'), path = require('path');
    o.noi = t3.indexOf('Nơi đi: Trụ sở Phòng giao dịch NHCSXH Gò Dầu')>=0 && t3.indexOf('Nơi đến: Điểm giao dịch '+d.tenDiem)>=0;
    o.p2 = /1 Cán Bộ Giả A Tổ trưởng Thiết bị kết nối mạng/.test(t3) && /2 Kiểm Soát Giả C Kiểm soát viên/.test(t3) && /3 Cán Bộ Giả B Giao dịch viên chính Thùng đựng tiền/.test(t3) && /4 Giao Dịch Giả D Giao dịch viên/.test(t3) && /5 Bảo Vệ Thuê Giả E Bảo vệ Dùi cui điện/.test(t3);
    o.to2 = document.getElementById('gdx-khung').contentDocument.querySelectorAll('.sheet-a4').length;
+   /* 3.497 — bàn phím (QUY_CHUAN 11): Enter ở ô tên → ô kế; ở ô cuối → thêm người; Shift+Enter → ô trước */
+   { const phim = (e, k, sh) => e.dispatchEvent(new KeyboardEvent('keydown', {key:k, shiftKey:!!sh, bubbles:true}));
+     let e0 = document.querySelectorAll('.g4-to-ten')[0]; e0.focus(); phim(e0, 'Enter'); await w(150);
+     o.phimKe = document.activeElement===document.querySelectorAll('.g4-to-ten')[1];
+     phim(document.activeElement, 'Enter', 1); await w(150); o.phimLui = document.activeElement===document.querySelectorAll('.g4-to-ten')[0];
+     const n0 = to().length, ds = document.querySelectorAll('.g4-to-ten'), cuoi = ds[ds.length-1]; cuoi.focus(); phim(cuoi, 'Enter'); await w(300);
+     o.phimThem = to().length===n0+1 && document.activeElement===document.querySelectorAll('.g4-to-ten')[n0];
+     const e2 = document.querySelectorAll('.g4-to-ten')[n0]; e2.value = 'Gõ Phím Giả'; e2.dispatchEvent(new Event('change', {bubbles:true})); await w(300);
+     o.phimGiu = to()[n0].ten==='Gõ Phím Giả' && document.activeElement && document.activeElement.classList.contains('g4-to-ten');
+     to().splice(n0, 1); gdxVe(); await w(200); }
+   /* thuần (QT-19): g4KiemTo · g4PaGan không cần màn hình */
+   { const ds = [{ten:'A', vai:['tt', 'ksv', 'bvt']}, {ten:'B', vai:['gdvc', 'lx']}];
+     const k = g4KiemTo({g4To:ds}).map(x => x.muc+':'+x.chu).join('|'); const loi = g4PaGan([{ten:'X', vai:['gdv']}], '1');
+     o.thuan = /do:Tổ trưởng làm bảo vệ/.test(k) && /do:GDV chính là người áp tải/.test(k) && /tối thiểu 03/.test(k) && /Tổ trưởng trước/.test(loi); }
    /* ⭐ tổ hay dùng */
    const pr = window.prompt; window.prompt = () => 'Tổ Giả'; await bam('[data-lenh="g4.hayLuu"]'); window.prompt = pr;
    gdxC().g4To = []; gdxVe(); await w(200); gdxC().g4To = [{ten:'X', vai:[]}]; gdxVe(); await w(200);
@@ -90,6 +104,9 @@ const fs = require('fs'), path = require('path');
  ok('03/GDX Phần I: nơi đi / nơi đến tự ghi (trụ sở PGD ↔ điểm GD)', r.noi);
  ok('03/GDX Phần II: mỗi vai 1 dòng + CCDC theo vai', r.p2);
  ok('03/GDX vẫn 2 tờ (xem trước) · in 2 trang', r.to2===2 && n03===2, r.to2+'/'+n03);
+ ok('bàn phím: Enter ô tên → ô kế, Shift+Enter → ô trước', r.phimKe && r.phimLui);
+ ok('bàn phím: Enter ở ô cuối → thêm người, con trỏ vào ô mới; gõ xong vẫn đứng ở ô tên', r.phimThem && r.phimGiu);
+ ok('QT-19 thuần: g4KiemTo · g4PaGan chạy không cần màn hình', r.thuan);
  ok('⭐ lưu tổ hay dùng → chọn lại đủ người', r.hay);
  ok('nhật ký in: chụp tổ đang khai, không chụp tổ hay dùng', r.nk);
  ok('12/GDX: tên khai tay hiện ở ô chọn KSV + bản in', r.m12);
@@ -100,5 +117,6 @@ const fs = require('fs'), path = require('path');
  ok('tên file NhiemVuToGD_…', /^NhiemVuToGD_/.test(r.file), r.file);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));
  R.forEach(x => console.log(x)); console.log((R.length-R.filter(x => x[0]==='✗').length)+'/'+R.length+' đạt');
+ if(process.env.T382_SNAP){ fs.writeFileSync(path.join(process.env.T382_SNAP, 'nv.html'), r.ban); fs.writeFileSync(path.join(process.env.T382_SNAP, 'g03to.html'), r.ban03); }
  if(process.env.T382_ANH){ fs.writeFileSync(path.join(process.env.T382_ANH, 'nv.html'), r.ban); fs.writeFileSync(path.join(process.env.T382_ANH, 'g03.html'), r.ban03); }
  await b.close(); })();

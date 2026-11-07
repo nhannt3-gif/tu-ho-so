@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.497 — 07/11/2026 — Dọn cấu trúc theo QUY_CHUAN (soát 07/11), không đổi chức năng
+- **Anh 07/11:** "em soát lại các mẫu mới … ý anh là cấu trúc code" → em soát 6 chỗ lệch; "em làm tuần tự và gộp lên rồi tiếp không cần hỏi lại".
+- **① Mục 9.4 — mẫu không gọi mẫu khác:** phần dùng chung các mẫu Phân bổ (khai báo nền ô `pb07Cach / pb07GT / pb07OK`, chữ `pb07O / pb07SoQD / pb07NgayDai / pb07Ten0`, bọc cỡ chữ `pb07Boc`, `pbNgayVN`) tách sang **`js/mau/0pb.js`**; Biểu 07 cũ (07pb) và 07/KH · 08/KH · 09/KH (07kh) cùng gọi phần chung.
+- **② Mục 1 — mẫu không đọc biến giao diện:** danh sách ô khai báo truyền qua `K.ds` (js/48 `pb07DsO`), bỏ đọc `PB07.mau` trong mẫu; ô 🤖 khai `tuFn` ở mẫu; ngày đọc cấu hình qua `KHO1.doc('pb')` thay `pbDL()`.
+- **③ Mục 1.2 — giao diện không tự tính:** phép tính Tờ trình 09/KH chuyển sang **js/47 `pbToTrinh` + `pbQDCuoi`** (thuần, QT-20); js/48c chỉ vẽ.
+- **④ Mục 1.3 — tách lớp:** 👥 Tổ giao dịch tách khỏi js/26b sang **`js/26c-gdx-to.js`** (dữ liệu · nghiệp vụ thuần `g4KiemTo / g4Dong03II / g4PaGan / g4VaiDoi` (QT-19) · giao diện); js/26b chỉ còn mẫu in (gọi 26c có kiểm `typeof` — cắm rút).
+- **⑤ Mục 4 — sổ QT:** thêm **QT-19** thành phần Tổ giao dịch, **QT-20** Tờ trình 09/KH, **QT-21** 07/KH · 08/KH dùng chung phân bổ, Biểu 07 cũ giữ.
+- **⑥ Mục 11 — bàn phím:** khung Tổ giao dịch: Enter / Tab ô tên kế, Shift lùi, ô cuối Enter thêm người, vẽ lại vẫn giữ con trỏ; Tờ trình 09/KH: Enter / Tab ô đề nghị dòng kế.
+- **Kiểm:** 14 bản in (Biểu 07 cũ, 07/08/09KH, 03/06/07/09/10/11/14/15/GDX, 03/GDX có tổ, Nhiệm vụ) **trùng từng ký tự** trước / sau dọn; t381 +2 (bàn phím, `pbToTrinh` thuần), t382 +3 (bàn phím ×2, QT-19 thuần).
+
 ## 3.496 — 07/11/2026 — Giao dịch xã: Tổ giao dịch trực quan (03/GDX) + 📘 Nhiệm vụ Tổ giao dịch
 - **Anh 07/11:** "mẫu 03 cho chọn trực quan, 1 số quy tắc em đọc kỹ VB — ví dụ tổ trưởng tổ GD kiêm bảo vệ"; "tạm cứ cho khai thủ công tất cả các thành viên"; "thêm 1 phần in nhiệm vụ … các thành viên tổ giao dịch tóm gọn để thực hiện"; "1 tờ chung bố trí gọn, đủ nhiệm vụ, chữ nhỏ" → "Được code".
 - **👥 Tổ giao dịch** (js/26b, mục `g4to` của 03/GDX và Nhiệm vụ): mỗi người 1 dòng gõ tên (gợi ý từ danh sách cán bộ) + chip vai Tổ trưởng · KSV · GDV chính · GDV · Lái xe · BV đường · BV tại điểm; 1 Tổ trưởng, 1 GDV chính (bấm ở người khác tự chuyển); PA 1/2/3 theo 04/GDX gán lái xe, bảo vệ đường; ⭐ lưu / chọn lại tổ hay dùng (không chụp vào nhật ký in); tổ trống lấy sẵn Tổ trưởng · KSV · GDV của 12/GDX, khai xong đồng bộ ngược 12/GDX (ô chọn 12/GDX hiện cả tên khai tay — `gdxCB` js/26).

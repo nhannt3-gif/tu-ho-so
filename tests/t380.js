@@ -75,6 +75,7 @@ const fs=require('fs'), path=require('path');
  for(const k of Object.keys(R.ban)){ const q = await b.newPage(); await q.setContent(R.ban[k].h); await q.emulateMedia({media:'print'});
    const pdf = await q.pdf({preferCSSPageSize:true}); dem[k] = (pdf.toString('latin1').match(/\/Type\s*\/Page[^s]/g)||[]).length; await q.close(); }
  console.log((Object.keys(can).every(k=>dem[k]===can[k]) ? '✓ ' : '✗ ')+'in trọn trang: 03/GDX 2 tờ, các mẫu khác 1 trang — '+JSON.stringify(dem));
+ if(process.env.T380_SNAP) for(const k of Object.keys(R.ban)) fs.writeFileSync(path.join(process.env.T380_SNAP, k+'.html'), R.ban[k].h);
  if(process.env.T380_ANH){ for(const k of Object.keys(R.ban)){ const q = await b.newPage({viewport:{width:1250, height:900}}); await q.setContent(R.ban[k].h); await q.emulateMedia({media:'print'});
    fs.writeFileSync(path.join(process.env.T380_ANH, k+'.pdf'), await q.pdf({preferCSSPageSize:true})); await q.close(); } }
  if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
